@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { CalendarDays, Save, Check, X, Clock3, AlertCircle, QrCode, ClipboardList, Search } from 'lucide-react';
 import { fetchWithAuth } from '../../../services/apiClient';
+import QRScanner from '../../../components/QRScanner';
 
 type AttendanceStatus = 'Present' | 'Absent' | 'Late' | 'Excused';
 const statusPalette: Record<string, string> = {
@@ -69,8 +70,13 @@ export default function ParentAttendance() {
 
   const stats = calculateStats();
 
+  const getParentName = (parent: any) => {
+    const joined = `${parent.first_name || ''} ${parent.last_name || ''}`.trim();
+    return joined || parent.name || 'Unnamed Parent';
+  };
+
   const filteredParents = parentList.filter(p => 
-    `${p.first_name} ${p.last_name}`.toLowerCase().includes(searchQuery.toLowerCase())
+    getParentName(p).toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
@@ -131,7 +137,7 @@ export default function ParentAttendance() {
         <div className="w-full flex flex-col items-center justify-center p-6 bg-white dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-700/50">
           <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">Automated Attendance Scanner</h3>
           <p className="text-slate-500 dark:text-slate-400 mb-6 text-center">Scan QR code using device camera.</p>
-          <QRScanner roleScanned="student" onScanSuccess={(m) => console.log(m)} />
+          <QRScanner roleScanned="staff" onScanSuccess={(message: string) => console.log(message)} />
         </div>
       ) : (
       <div className="bg-white dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-700/50 overflow-hidden">
@@ -168,7 +174,7 @@ export default function ParentAttendance() {
               return (
               <tr key={s.id} className="border-b border-slate-200 dark:border-slate-700/50 last:border-0 hover:bg-slate-800/80">
                 <td className="px-6 py-4">
-                  <div className="font-medium text-slate-900 dark:text-slate-900 dark:text-white">{s.first_name} {s.last_name}</div>
+                  <div className="font-medium text-slate-900 dark:text-slate-900 dark:text-white">{getParentName(s)}</div>
                 </td>
                 <td className="px-6 py-4">
                   <span className="text-xs px-2 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">{s.role}</span>

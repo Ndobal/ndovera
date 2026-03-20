@@ -74,6 +74,7 @@ const NAV_ITEMS: NavItem[] = [
   { id: 'management', label: 'Staff/Students', icon: <Users size={20} />, roles: ['Super Admin', 'School Admin', 'HOS', 'Owner', 'Tenant School Owner'] },
   { id: 'reports', label: 'Reports', icon: <BarChart3 size={20} />, roles: ['Super Admin', 'School Admin', 'HOS', 'Finance Officer', 'Owner', 'Tenant School Owner'] },
     { id: 'duty-report', label: 'Duty Reports', icon: <FileText size={20} />, roles: ['Teacher', 'HOS', 'HoS', 'Owner', 'School Admin', 'ICT Manager'] },
+  { id: 'profile-manager', label: 'Profile Manager', icon: <UserCircle size={20} />, roles: ROLES },
   { id: 'notifications', label: 'Notifications', icon: <Bell size={20} />, roles: ROLES },
   { id: 'settings', label: 'Settings', icon: <Settings size={20} />, roles: ['Super Admin', 'HOS', 'Owner', 'Tenant School Owner'] },
   { id: 'ads-management', label: 'Ads Management', icon: <Megaphone size={20} />, roles: ['Super Admin'] },

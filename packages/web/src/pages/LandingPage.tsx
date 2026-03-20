@@ -31,11 +31,21 @@ export const LandingPage = ({ onLogin }: { onLogin: () => void }) => {
   const API_BASE = (import.meta.env.VITE_API_BASE as string) ?? '';
 
   const [showRegister, setShowRegister] = useState(false);
+  const [registerStep, setRegisterStep] = useState<'details' | 'payment' | 'waiting' | 'approved'>('details');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [success, setSuccess] = useState(false);
   const [schoolName, setSchoolName] = useState('');
+  const [ownerName, setOwnerName] = useState('');
   const [adminEmail, setAdminEmail] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [schoolSubdomain, setSchoolSubdomain] = useState('');
+  const [ownerPassword, setOwnerPassword] = useState('');
+  const [paymentReference, setPaymentReference] = useState('');
+  const [paymentProofFile, setPaymentProofFile] = useState<File | null>(null);
+  const [paymentProofUrl, setPaymentProofUrl] = useState('');
+  const [waitToken, setWaitToken] = useState('');
+  const [ownerNdoveraEmail, setOwnerNdoveraEmail] = useState('');
+  const [onboardingStatus, setOnboardingStatus] = useState<string>('Awaiting Payment');
+  const [registerError, setRegisterError] = useState<string | null>(null);
   const [contactOpen, setContactOpen] = useState(false);
   const [contactName, setContactName] = useState('');
   const [contactEmail, setContactEmail] = useState('');
@@ -61,29 +71,88 @@ export const LandingPage = ({ onLogin }: { onLogin: () => void }) => {
     const [growthSuccess, setGrowthSuccess] = useState(false);
     const [growthForm, setGrowthForm] = useState({ name: '', email: '', phone: '', city: '', notes: '' });
   
+    const resetRegisterFlow = () => {
+      setRegisterStep('details');
+      setIsSubmitting(false);
+      setRegisterError(null);
+      setSchoolName('');
+      setOwnerName('');
+      setAdminEmail('');
+      setPhoneNumber('');
+      setSchoolSubdomain('');
+      setOwnerPassword('');
+      setPaymentReference('');
+      setPaymentProofFile(null);
+      setPaymentProofUrl('');
+      setWaitToken('');
+      setOwnerNdoveraEmail('');
+      setOnboardingStatus('Awaiting Payment');
+    };
+
     const handleRegister = async (e: React.FormEvent) => {
       e.preventDefault();
       setIsSubmitting(true);
+      setRegisterError(null);
       try {
-        const payload = {
-          name: schoolName || 'Unnamed School',
-          email: adminEmail,
-          message: `Registration request. Phone: ${phoneNumber || 'N/A'}`,
-          school_id: null
-        } as any;
-        const resp = await fetch(`${API_BASE}/api/contact`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
-        const d = await resp.json();
-        if (!resp.ok) throw new Error(d?.error || 'send failed');
-        setSuccess(true);
-        setTimeout(() => {
-          setSuccess(false);
-          setShowRegister(false);
-        }, 2500);
-        // clear form
-        setSchoolName(''); setAdminEmail(''); setPhoneNumber('');
+        const resp = await fetch(`${API_BASE}/api/onboarding/register-school`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            schoolName,
+            ownerName,
+            alternateEmail: adminEmail,
+            phone: phoneNumber,
+            password: ownerPassword,
+            subdomain: schoolSubdomain,
+          }),
+        });
+        const d = await resp.json().catch(() => ({}));
+        if (!resp.ok) throw new Error(d?.error || 'Registration failed');
+        setWaitToken(d.waitToken || '');
+        setOwnerNdoveraEmail(d.ownerNdoveraEmail || '');
+        setOnboardingStatus('Awaiting Payment');
+        setRegisterStep('payment');
       } catch (err) {
         console.error('Registration failed', err);
-        alert('Registration failed: ' + String(err));
+        setRegisterError(err instanceof Error ? err.message : String(err));
+      } finally {
+        setIsSubmitting(false);
+      }
+    };
+
+    const handlePaymentConfirmation = async (event: React.FormEvent) => {
+      event.preventDefault();
+      if (!waitToken) return;
+      setIsSubmitting(true);
+      setRegisterError(null);
+      try {
+        let uploadedProofUrl = paymentProofUrl;
+        if (paymentProofFile) {
+          const formData = new FormData();
+          formData.append('proof', paymentProofFile);
+          formData.append('waitToken', waitToken);
+          const uploadResp = await fetch(`${API_BASE}/api/uploads/payment-proof`, {
+            method: 'POST',
+            body: formData,
+          });
+          const uploadPayload = await uploadResp.json().catch(() => ({}));
+          if (!uploadResp.ok) throw new Error(uploadPayload?.error || 'Payment proof upload failed');
+          uploadedProofUrl = uploadPayload.url || '';
+          setPaymentProofUrl(uploadedProofUrl);
+        }
+
+        const resp = await fetch(`${API_BASE}/api/onboarding/${waitToken}/payment`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ paymentReference, paymentProofUrl: uploadedProofUrl }),
+        });
+        const payload = await resp.json().catch(() => ({}));
+        if (!resp.ok) throw new Error(payload?.error || 'Payment acknowledgement failed');
+        setOnboardingStatus(payload.status || 'Awaiting Approval');
+        setRegisterStep('waiting');
+      } catch (err) {
+        console.error('Payment confirmation failed', err);
+        setRegisterError(err instanceof Error ? err.message : String(err));
       } finally {
         setIsSubmitting(false);
       }
@@ -112,6 +181,33 @@ export const LandingPage = ({ onLogin }: { onLogin: () => void }) => {
       const t = setTimeout(() => setToast(null), 3000);
       return () => clearTimeout(t);
     }, [toast]);
+
+    React.useEffect(() => {
+      if (!showRegister || registerStep !== 'waiting' || !waitToken) return;
+
+      let cancelled = false;
+      const poll = async () => {
+        try {
+          const response = await fetch(`${API_BASE}/api/onboarding/${waitToken}/status`);
+          const payload = await response.json().catch(() => ({}));
+          if (!response.ok || cancelled) return;
+          const status = payload?.request?.status || 'Awaiting Approval';
+          setOnboardingStatus(status);
+          if (status === 'Approved') {
+            setRegisterStep('approved');
+          }
+        } catch (err) {
+          console.error('Onboarding status polling failed', err);
+        }
+      };
+
+      poll();
+      const timer = window.setInterval(poll, 8000);
+      return () => {
+        cancelled = true;
+        window.clearInterval(timer);
+      };
+    }, [API_BASE, registerStep, showRegister, waitToken]);
 
     React.useEffect(() => {
       const fetchLandingData = async () => {
@@ -270,25 +366,73 @@ export const LandingPage = ({ onLogin }: { onLogin: () => void }) => {
         <div className="fixed inset-0 z-100 flex items-center justify-center p-6 bg-black/80 backdrop-blur-sm animate-in fade-in duration-300">
           <div className="bg-[#151619] border border-white/10 rounded-4xl w-full max-w-lg p-8 relative shadow-2xl">
             <button 
-              onClick={() => setShowRegister(false)}
+              onClick={() => {
+                setShowRegister(false);
+                resetRegisterFlow();
+              }}
               className="absolute top-6 right-6 text-zinc-500 hover:text-white transition-colors"
             >
               <X size={24} />
             </button>
             
-            {success ? (
+            {registerStep === 'approved' ? (
               <div className="text-center py-12 space-y-4">
                 <div className="w-20 h-20 bg-emerald-500/20 rounded-full flex items-center justify-center text-emerald-500 mx-auto">
                   <ShieldCheck size={40} />
                 </div>
-                <h3 className="text-2xl font-bold text-white">Registration Successful!</h3>
-                <p className="text-zinc-500">Our team will contact you within 24 hours to set up your school environment.</p>
+                <h3 className="text-2xl font-bold text-white">School Approved</h3>
+                <p className="text-zinc-400">Your owner identity is ready. Sign in with <span className="text-white font-bold">{ownerNdoveraEmail}</span> after closing this dialog.</p>
+                <button onClick={() => { setShowRegister(false); resetRegisterFlow(); }} className="mx-auto rounded-2xl bg-[#066a3e] px-6 py-3 font-bold text-white">Close</button>
+              </div>
+            ) : registerStep === 'payment' ? (
+              <div className="space-y-6">
+                <div>
+                  <h3 className="text-2xl font-bold text-white">Make payment and upload proof</h3>
+                  <p className="text-zinc-500 text-sm mt-1">Transfer to the account below, then click <span className="text-white font-semibold">I have paid</span>.</p>
+                </div>
+
+                <div className="rounded-3xl border border-emerald-500/20 bg-emerald-500/10 p-5 text-sm text-zinc-200 space-y-2">
+                  <div><span className="text-zinc-400">Account number:</span> <span className="font-bold text-white">8064252542</span></div>
+                  <div><span className="text-zinc-400">Account name:</span> <span className="font-bold text-white">Williams James</span></div>
+                  <div><span className="text-zinc-400">Bank:</span> <span className="font-bold text-white">Opay Bank</span></div>
+                  <div><span className="text-zinc-400">Reserved owner sign-in:</span> <span className="font-bold text-white">{ownerNdoveraEmail}</span></div>
+                </div>
+
+                <form onSubmit={handlePaymentConfirmation} className="space-y-4">
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Payment reference</label>
+                    <input value={paymentReference} onChange={(e) => setPaymentReference(e.target.value)} className="w-full bg-white/5 border border-white/10 rounded-xl p-4 text-white outline-none focus:border-emerald-500 transition-all" placeholder="Transaction ID / transfer note" />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Payment proof</label>
+                    <input type="file" accept="image/*,.pdf" onChange={(e) => setPaymentProofFile(e.target.files?.[0] || null)} className="w-full bg-white/5 border border-white/10 rounded-xl p-4 text-white outline-none" />
+                  </div>
+                  {registerError ? <div className="rounded-2xl border border-rose-500/30 bg-rose-500/10 px-4 py-3 text-sm text-rose-200">{registerError}</div> : null}
+                  <button disabled={isSubmitting} className="w-full bg-[#066a3e] hover:bg-[#085f39] text-white py-4 rounded-2xl font-bold transition-all disabled:opacity-50">
+                    {isSubmitting ? 'Submitting payment...' : 'I have paid'}
+                  </button>
+                </form>
+              </div>
+            ) : registerStep === 'waiting' ? (
+              <div className="space-y-6 text-center py-8">
+                <div className="w-20 h-20 bg-emerald-500/20 rounded-full flex items-center justify-center text-emerald-500 mx-auto animate-pulse">
+                  <ShieldCheck size={40} />
+                </div>
+                <div>
+                  <h3 className="text-2xl font-bold text-white">Waiting for approval</h3>
+                  <p className="text-zinc-400 mt-2">Keep this screen open. It refreshes automatically while super admin reviews your payment.</p>
+                </div>
+                <div className="rounded-3xl border border-white/10 bg-white/5 p-5 text-left text-sm text-zinc-300 space-y-2">
+                  <div><span className="text-zinc-500">Status:</span> <span className="font-bold text-white">{onboardingStatus}</span></div>
+                  <div><span className="text-zinc-500">Owner Ndovera email:</span> <span className="font-bold text-white">{ownerNdoveraEmail}</span></div>
+                  <div><span className="text-zinc-500">Alternate email:</span> <span className="font-bold text-white">{adminEmail}</span></div>
+                </div>
               </div>
             ) : (
               <div className="space-y-6">
                 <div>
                   <h3 className="text-2xl font-bold text-white">Register Your School</h3>
-                  <p className="text-zinc-500 text-sm mt-1">Start your 14-day free trial today.</p>
+                  <p className="text-zinc-500 text-sm mt-1">Create the owner identity, pay, then wait for approval.</p>
                 </div>
                 <form onSubmit={handleRegister} className="space-y-4">
                   <div className="space-y-2">
@@ -296,18 +440,33 @@ export const LandingPage = ({ onLogin }: { onLogin: () => void }) => {
                     <input required value={schoolName} onChange={(e) => setSchoolName(e.target.value)} aria-label="School name" type="text" className="w-full bg-white/5 border border-white/10 rounded-xl p-4 text-white outline-none focus:border-emerald-500 transition-all" />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Administrator Email</label>
-                    <input required value={adminEmail} onChange={(e) => setAdminEmail(e.target.value)} aria-label="Administrator email" type="email" className="w-full bg-white/5 border border-white/10 rounded-xl p-4 text-white outline-none focus:border-emerald-500 transition-all" />
+                    <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Owner Name</label>
+                    <input required value={ownerName} onChange={(e) => setOwnerName(e.target.value)} aria-label="Owner name" type="text" className="w-full bg-white/5 border border-white/10 rounded-xl p-4 text-white outline-none focus:border-emerald-500 transition-all" />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Phone Number</label>
-                    <input required value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} aria-label="Phone number" type="tel" className="w-full bg-white/5 border border-white/10 rounded-xl p-4 text-white outline-none focus:border-emerald-500 transition-all" />
+                    <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Alternate / Google Email</label>
+                    <input required value={adminEmail} onChange={(e) => setAdminEmail(e.target.value)} aria-label="Administrator email" type="email" className="w-full bg-white/5 border border-white/10 rounded-xl p-4 text-white outline-none focus:border-emerald-500 transition-all" />
                   </div>
+                  <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Phone Number</label>
+                      <input required value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} aria-label="Phone number" type="tel" className="w-full bg-white/5 border border-white/10 rounded-xl p-4 text-white outline-none focus:border-emerald-500 transition-all" />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Preferred subdomain</label>
+                      <input value={schoolSubdomain} onChange={(e) => setSchoolSubdomain(e.target.value)} aria-label="Subdomain" type="text" className="w-full bg-white/5 border border-white/10 rounded-xl p-4 text-white outline-none focus:border-emerald-500 transition-all" placeholder="brightstarscollege" />
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Secure Password</label>
+                    <input required minLength={12} value={ownerPassword} onChange={(e) => setOwnerPassword(e.target.value)} aria-label="Owner password" type="password" className="w-full bg-white/5 border border-white/10 rounded-xl p-4 text-white outline-none focus:border-emerald-500 transition-all" placeholder="Minimum 12 characters" />
+                  </div>
+                  {registerError ? <div className="rounded-2xl border border-rose-500/30 bg-rose-500/10 px-4 py-3 text-sm text-rose-200">{registerError}</div> : null}
                   <button 
                     disabled={isSubmitting}
                     className="w-full bg-[#066a3e] hover:bg-[#085f39] text-white py-4 rounded-2xl font-bold transition-all disabled:opacity-50"
                   >
-                    {isSubmitting ? 'Processing...' : 'Complete Registration'}
+                    {isSubmitting ? 'Creating request...' : 'Continue to payment'}
                   </button>
                 </form>
               </div>

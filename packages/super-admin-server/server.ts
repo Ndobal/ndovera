@@ -133,6 +133,27 @@ db.exec(`
     notes TEXT
   );
 
+  CREATE TABLE IF NOT EXISTS school_onboarding_requests (
+    id TEXT PRIMARY KEY,
+    school_name TEXT NOT NULL,
+    subdomain TEXT NOT NULL,
+    owner_name TEXT NOT NULL,
+    owner_ndovera_email TEXT NOT NULL,
+    owner_alternate_email TEXT,
+    owner_phone TEXT,
+    desired_password_hash TEXT NOT NULL,
+    payment_reference TEXT,
+    payment_proof_url TEXT,
+    status TEXT DEFAULT 'Awaiting Payment',
+    payment_status TEXT DEFAULT 'Pending',
+    wait_token TEXT NOT NULL UNIQUE,
+    notes TEXT,
+    approved_school_id TEXT,
+    approved_user_id TEXT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+  );
+
   CREATE TABLE IF NOT EXISTS super_audit_logs (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     admin_id TEXT,
@@ -197,6 +218,19 @@ db.exec(`
 `);
 
 import crypto from 'crypto';
+
+function slugifySchoolName(value: string) {
+  return String(value || '')
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .slice(0, 32) || `school-${Date.now().toString().slice(-6)}`
+}
+
+function hashPassword(password: string) {
+  return crypto.createHash('sha256').update(password).digest('hex')
+}
 
 // Simple seed for super admin user (if none exists)
 function seed() {
@@ -338,6 +372,73 @@ app.put('/api/super/schools/:id/website', requireSuperRole('Super Admin', 'Publi
   const result = db.prepare('UPDATE schools SET website_config = ?, primary_color = COALESCE(?, primary_color), logo_url = COALESCE(?, logo_url) WHERE id = ?').run(payload, primaryColor || null, logoUrl || null, req.params.id)
   if (!result.changes) return res.status(404).json({ error: 'School not found' })
   res.json({ ok: true })
+})
+
+app.get('/api/super/onboarding/requests', requireSuperRole('Super Admin', 'School Onboarding Verifier'), (req, res) => {
+  const requests = db.prepare(`
+    SELECT *
+    FROM school_onboarding_requests
+    ORDER BY CASE status WHEN 'Awaiting Approval' THEN 0 WHEN 'Awaiting Payment' THEN 1 WHEN 'Approved' THEN 2 ELSE 3 END,
+             datetime(updated_at) DESC,
+             datetime(created_at) DESC
+  `).all() as any[]
+  res.json({ ok: true, requests })
+})
+
+app.post('/api/super/onboarding/requests/:id/approve', requireSuperRole('Super Admin', 'School Onboarding Verifier'), (req, res) => {
+  try {
+    const requestRow = db.prepare('SELECT * FROM school_onboarding_requests WHERE id = ?').get(req.params.id) as any
+    if (!requestRow) return res.status(404).json({ error: 'Onboarding request not found' })
+    if (requestRow.status === 'Approved') return res.json({ ok: true, alreadyApproved: true, schoolId: requestRow.approved_school_id, userId: requestRow.approved_user_id })
+
+    const schoolId = requestRow.approved_school_id || `school_${crypto.randomBytes(4).toString('hex')}`
+    const userId = requestRow.approved_user_id || `owner_${crypto.randomBytes(4).toString('hex')}`
+    const subdomain = slugifySchoolName(requestRow.subdomain || requestRow.school_name)
+
+    db.prepare('INSERT OR IGNORE INTO schools (id, name, subdomain, primary_color, live_class_quota) VALUES (?, ?, ?, ?, ?)')
+      .run(schoolId, requestRow.school_name, subdomain, '#10b981', 5)
+
+    db.prepare(`
+      INSERT OR IGNORE INTO users (id, school_id, name, email, password_hash, role, alternate_email, phone)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    `).run(
+      userId,
+      schoolId,
+      requestRow.owner_name,
+      requestRow.owner_ndovera_email,
+      requestRow.desired_password_hash,
+      'Owner',
+      requestRow.owner_alternate_email || null,
+      requestRow.owner_phone || null,
+    )
+
+    db.prepare(`
+      INSERT OR IGNORE INTO user_profiles (
+        user_id, school_id, ndovera_email, alternate_email, phone, occupation, preferences_json, skills_json, social_links_json
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `).run(
+      userId,
+      schoolId,
+      requestRow.owner_ndovera_email,
+      requestRow.owner_alternate_email || null,
+      requestRow.owner_phone || null,
+      'School Owner',
+      JSON.stringify({ googleSigninEnabled: Boolean(requestRow.owner_alternate_email), approvedAt: new Date().toISOString() }),
+      JSON.stringify([]),
+      JSON.stringify({}),
+    )
+
+    db.prepare(`
+      UPDATE school_onboarding_requests
+      SET status = 'Approved', payment_status = 'Confirmed', approved_school_id = ?, approved_user_id = ?, notes = ?, updated_at = CURRENT_TIMESTAMP
+      WHERE id = ?
+    `).run(schoolId, userId, typeof req.body?.notes === 'string' ? req.body.notes : 'Approved by super admin.', req.params.id)
+
+    res.json({ ok: true, schoolId, userId, loginEmail: requestRow.owner_ndovera_email })
+  } catch (err) {
+    console.error('Onboarding approval error', err)
+    res.status(500).json({ error: 'Unable to approve onboarding request' })
+  }
 })
 
 app.get('/api/super/pricing-plans', requireSuperRole('Super Admin', 'Global Finance Controller'), (req, res) => {

@@ -3,6 +3,9 @@ export type StoredUser = {
   schoolId?: string;
   roles: string[];
   activeRole?: string;
+  name?: string;
+  email?: string;
+  alternateEmail?: string | null;
 }
 
 const KEY = 'ndovera_user'
@@ -25,6 +28,9 @@ export function loadUser(): StoredUser | null {
       schoolId: parsed.schoolId,
       roles: parsed.roles,
       activeRole: parsed.activeRole,
+      name: typeof parsed.name === 'string' ? parsed.name : undefined,
+      email: typeof parsed.email === 'string' ? parsed.email : undefined,
+      alternateEmail: typeof parsed.alternateEmail === 'string' ? parsed.alternateEmail : null,
     }
   } catch (e) { return null }
 }

@@ -46,6 +46,22 @@ type PricingPlan = {
   features: string[]
 }
 
+type OnboardingRequest = {
+  id: string
+  school_name: string
+  subdomain: string
+  owner_name: string
+  owner_ndovera_email: string
+  owner_alternate_email?: string | null
+  owner_phone?: string | null
+  payment_reference?: string | null
+  payment_proof_url?: string | null
+  status: string
+  payment_status: string
+  created_at: string
+  updated_at: string
+}
+
 const API_BASE = (import.meta as any)?.env?.VITE_SUPER_ADMIN_API_URL || 'http://localhost:5001'
 
 const makeId = (prefix: string) => `${prefix}_${Math.random().toString(36).slice(2, 9)}`
@@ -105,13 +121,14 @@ async function api<T>(path: string, options: RequestInit = {}): Promise<T> {
 }
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState<'schools' | 'website' | 'plans'>('schools')
+  const [activeTab, setActiveTab] = useState<'schools' | 'website' | 'plans' | 'onboarding'>('schools')
   const [schools, setSchools] = useState<SchoolRecord[]>([])
   const [selectedSchoolId, setSelectedSchoolId] = useState<string>('')
   const [quotaDraft, setQuotaDraft] = useState<number>(5)
   const [websiteDraft, setWebsiteDraft] = useState<SchoolWebsite | null>(null)
   const [selectedPageId, setSelectedPageId] = useState<string>('')
   const [plans, setPlans] = useState<PricingPlan[]>([])
+  const [onboardingRequests, setOnboardingRequests] = useState<OnboardingRequest[]>([])
   const [planForm, setPlanForm] = useState({ name: '', description: '', priceCents: '0', billingInterval: 'monthly', features: '5 live classrooms\nWebsite builder\nCore operations' })
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState<string | null>(null)
@@ -125,12 +142,14 @@ export default function App() {
     setLoading(true)
     setError('')
     try {
-      const [schoolsResp, plansResp] = await Promise.all([
+      const [schoolsResp, plansResp, onboardingResp] = await Promise.all([
         api<{ schools: SchoolRecord[] }>('/api/super/schools'),
         api<{ plans: PricingPlan[] }>('/api/super/pricing-plans'),
+        api<{ requests: OnboardingRequest[] }>('/api/super/onboarding/requests'),
       ])
       setSchools(schoolsResp.schools)
       setPlans(plansResp.plans)
+      setOnboardingRequests(onboardingResp.requests || [])
       const firstSchoolId = schoolsResp.schools[0]?.id || ''
       setSelectedSchoolId((current) => current || firstSchoolId)
     } catch (err) {
@@ -266,6 +285,23 @@ export default function App() {
     }
   }
 
+  const approveOnboarding = async (requestId: string) => {
+    setSaving(`approve:${requestId}`)
+    setError('')
+    try {
+      await api(`/api/super/onboarding/requests/${requestId}/approve`, {
+        method: 'POST',
+        body: JSON.stringify({ notes: 'Approved from super-admin workspace.' }),
+      })
+      await loadData()
+      setMessage('Onboarding request approved and owner account created.')
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Unable to approve onboarding request.')
+    } finally {
+      setSaving(null)
+    }
+  }
+
   return (
     <div style={{ minHeight: '100vh', background: '#081018', color: '#e5eef6', fontFamily: 'Inter, Segoe UI, sans-serif' }}>
       <style>{`
@@ -312,10 +348,11 @@ export default function App() {
         <div style={{ display: 'flex', gap: 10, marginBottom: 18, flexWrap: 'wrap' }}>
           {[
             ['schools', 'School controls'],
+            ['onboarding', 'Onboarding approvals'],
             ['website', 'Website builder'],
             ['plans', 'Pricing plans'],
           ].map(([key, label]) => (
-            <button key={key} className="btn" style={{ background: activeTab === key ? '#10b981' : 'rgba(255,255,255,0.06)', color: 'white' }} onClick={() => setActiveTab(key as 'schools' | 'website' | 'plans')}>
+            <button key={key} className="btn" style={{ background: activeTab === key ? '#10b981' : 'rgba(255,255,255,0.06)', color: 'white' }} onClick={() => setActiveTab(key as 'schools' | 'website' | 'plans' | 'onboarding')}>
               {label}
             </button>
           ))}
@@ -328,8 +365,8 @@ export default function App() {
         {loading ? <div className="panel" style={{ padding: 24 }}>Loading super-admin workspace…</div> : null}
 
         {!loading && (
-          <div style={{ display: 'grid', gap: 18, gridTemplateColumns: activeTab === 'plans' ? '1fr' : '320px 1fr' }}>
-            {activeTab !== 'plans' && (
+          <div style={{ display: 'grid', gap: 18, gridTemplateColumns: activeTab === 'plans' || activeTab === 'onboarding' ? '1fr' : '320px 1fr' }}>
+            {activeTab !== 'plans' && activeTab !== 'onboarding' && (
               <div className="panel" style={{ padding: 18, alignSelf: 'start' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
                   <h2 style={{ margin: 0, fontSize: 18 }}>Tenant Schools</h2>
@@ -463,6 +500,52 @@ export default function App() {
                       ))}
                     </div>
                   </div>
+                </div>
+              </div>
+            )}
+
+            {activeTab === 'onboarding' && (
+              <div className="panel" style={{ padding: 22 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', gap: 14, flexWrap: 'wrap', marginBottom: 18 }}>
+                  <div>
+                    <h2 style={{ marginTop: 0, marginBottom: 8 }}>School onboarding approvals</h2>
+                    <p className="muted" style={{ margin: 0 }}>Review payment confirmations, approve schools, and activate owner dashboards.</p>
+                  </div>
+                  <span className="pill">{onboardingRequests.length} requests</span>
+                </div>
+
+                <div style={{ display: 'grid', gap: 12 }}>
+                  {onboardingRequests.map((request) => (
+                    <div key={request.id} className="panel" style={{ padding: 18 }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', gap: 18, alignItems: 'start', flexWrap: 'wrap' }}>
+                        <div style={{ maxWidth: 760 }}>
+                          <div style={{ fontSize: 20, fontWeight: 900 }}>{request.school_name}</div>
+                          <div className="muted" style={{ marginTop: 6 }}>{request.subdomain}.ndovera.app • {request.owner_name}</div>
+                          <div style={{ display: 'grid', gap: 6, marginTop: 12, fontSize: 14 }}>
+                            <div><strong>Ndovera email:</strong> {request.owner_ndovera_email}</div>
+                            <div><strong>Alternate email:</strong> {request.owner_alternate_email || '—'}</div>
+                            <div><strong>Phone:</strong> {request.owner_phone || '—'}</div>
+                            <div><strong>Payment ref:</strong> {request.payment_reference || '—'}</div>
+                            <div><strong>Proof:</strong> {request.payment_proof_url ? <a href={`${API_BASE.replace(':5001', ':3003')}${request.payment_proof_url}`} target="_blank" rel="noreferrer" style={{ color: '#67e8f9' }}>Open payment proof</a> : 'No proof uploaded yet'}</div>
+                          </div>
+                        </div>
+
+                        <div style={{ minWidth: 240, display: 'grid', gap: 10 }}>
+                          <span className="pill">Status: {request.status}</span>
+                          <span className="pill">Payment: {request.payment_status}</span>
+                          <div className="muted" style={{ fontSize: 13 }}>Updated {new Date(request.updated_at || request.created_at).toLocaleString()}</div>
+                          <button
+                            className="btn btn-primary"
+                            disabled={request.status === 'Approved' || saving === `approve:${request.id}` || request.payment_status !== 'Submitted'}
+                            onClick={() => approveOnboarding(request.id)}
+                          >
+                            {saving === `approve:${request.id}` ? 'Approving…' : request.status === 'Approved' ? 'Approved' : 'Approve school'}
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                  {!onboardingRequests.length ? <div className="panel" style={{ padding: 18 }}>No onboarding requests yet.</div> : null}
                 </div>
               </div>
             )}

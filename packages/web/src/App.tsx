@@ -7,6 +7,7 @@ import { LandingPage } from './pages/LandingPage';
 import { AuthView } from './pages/Auth';
 import { Role } from './types';
 import { ToastContainer, useToast } from './components/Toast';
+import { StoredUser } from './services/authLocal';
 
 const DashboardHome = lazy(() => import('./pages/Dashboard').then((module) => ({ default: module.DashboardHome })));
 const FarmingView = lazy(() => import('./pages/Farming').then((module) => ({ default: module.FarmingView })));
@@ -38,6 +39,7 @@ const AdsManagement = lazy(() => import('./pages/AdsManagement').then((module) =
 const ScoreSheetView = lazy(() => import('./pages/ScoreSheet').then((module) => ({ default: module.ScoreSheetView })));
 const StaffTrainingView = lazy(() => import('./pages/StaffTraining').then((module) => ({ default: module.StaffTrainingView })));
 const SchoolFileSharingView = lazy(() => import('./pages/SchoolFileSharing').then((module) => ({ default: module.SchoolFileSharingView })));
+const ProfileManagerView = lazy(() => import('./pages/ProfileManager').then((module) => ({ default: module.default })));
 
 const DutyReport = lazy(() => import('./features/reports/components/DutyReport').then((module) => ({ default: module.default })));
 function PageLoader() {
@@ -109,18 +111,9 @@ export default function App() {
     };
   }, [SIDEBAR_OPEN_BREAKPOINT]);
 
-  const handleLogin = () => {
-    // Simulate login user and persist to localStorage so API client can inject headers
-    const user = {
-      id: 'user_admin',
-      schoolId: 'school_1',
-      roles: ['HoS', 'Owner'],
-      activeRole: 'HoS',
-      name: 'Admin User'
-    }
-    // persist
+  const handleLogin = (user: StoredUser) => {
     try { localStorage.setItem('ndovera_user', JSON.stringify(user)) } catch (e) {}
-    setCurrentRole(user.activeRole as Role)
+    setCurrentRole((user.activeRole || user.roles[0] || 'HoS') as Role)
     setCurrentUser(user);
     setIsLoggedIn(true);
     showToast('Successfully signed in.', 'success');
@@ -228,6 +221,7 @@ export default function App() {
         <Route path="/staff-training" element={<StaffTrainingView role={currentRole} />} />
         <Route path="/reports" element={<ReportsView />} />
         <Route path="/duty-report" element={<DutyReport />} />
+        <Route path="/profile-manager" element={<ProfileManagerView />} />
         <Route path="/evaluations" element={<ReportsView />} />
         <Route path="/settings" element={<SettingsView role={currentRole} />} />
         <Route path="/notifications" element={<NotificationsPage />} />
@@ -280,7 +274,7 @@ export default function App() {
           }}
           className="fixed bottom-6 right-6 z-50 bg-emerald-600 text-white rounded-full p-4 shadow-xl flex items-center justify-center hover:bg-emerald-500 transition-all"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinelinejoin="round"> <path d="m12 19-7-7 7-7"/> <path d="M19 12H5"/> </svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"> <path d="m12 19-7-7 7-7"/> <path d="M19 12H5"/> </svg>
           <span className="ml-2 font-bold whitespace-nowrap">Back to Wards</span>
         </button>
       )}

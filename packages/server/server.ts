@@ -57,14 +57,22 @@ app.post('/api/attendance/staff/mark', requireRoles('HoS', 'Admin', 'Super Admin
 app.get('/api/attendance/staff', requireRoles('HoS', 'Admin', 'Super Admin'), (req, res) => {
   const { date } = req.query;
   try {
-    let records = [];
+    let records: any[] = [];
     if (date) {
-      records = db.prepare('SELECT a.*, u.first_name, u.last_name FROM staff_attendance a JOIN users u ON a.staff_id = u.id WHERE a.date = ?').all(date);
+      records = db.prepare('SELECT a.*, u.name, u.role FROM staff_attendance a JOIN users u ON a.staff_id = u.id WHERE a.date = ?').all(date) as any[];
     } else {
-      records = db.prepare('SELECT a.*, u.first_name, u.last_name FROM staff_attendance a JOIN users u ON a.staff_id = u.id').all();
+      records = db.prepare('SELECT a.*, u.name, u.role FROM staff_attendance a JOIN users u ON a.staff_id = u.id').all() as any[];
     }
-    const staff = db.prepare('SELECT id, first_name, last_name, role FROM users WHERE role IN ("Teacher", "Class Teacher", "HoS", "Admin", "Super Admin")').all();
-    res.json({ records, staff });
+    const staff = db.prepare('SELECT id, name, role FROM users WHERE role IN ("Teacher", "Class Teacher", "HoS", "Admin", "Super Admin", "Owner", "ICT Manager") ORDER BY name ASC').all() as any[];
+    const withParts = (row: any) => {
+      const segments = String(row?.name || '').trim().split(/\s+/).filter(Boolean);
+      return {
+        ...row,
+        first_name: segments[0] || '',
+        last_name: segments.slice(1).join(' ') || '',
+      };
+    };
+    res.json({ records: records.map(withParts), staff: staff.map(withParts) });
   } catch (err: any) {
     res.status(500).json({ error: (err as Error).message });
   }
@@ -94,14 +102,22 @@ app.post('/api/attendance/parent/mark', requireRoles('HoS', 'Admin', 'Teacher', 
 app.get('/api/attendance/parent', requireRoles('HoS', 'Admin', 'Teacher', 'Class Teacher', 'Super Admin'), (req, res) => {
   const { date } = req.query;
   try {
-    let records = [];
+    let records: any[] = [];
     if (date) {
-      records = db.prepare('SELECT a.*, u.first_name, u.last_name FROM parent_attendance a JOIN users u ON a.parent_id = u.id WHERE a.date = ?').all(date);
+      records = db.prepare('SELECT a.*, u.name, u.role FROM parent_attendance a JOIN users u ON a.parent_id = u.id WHERE a.date = ?').all(date) as any[];
     } else {
-      records = db.prepare('SELECT a.*, u.first_name, u.last_name FROM parent_attendance a JOIN users u ON a.parent_id = u.id').all();
+      records = db.prepare('SELECT a.*, u.name, u.role FROM parent_attendance a JOIN users u ON a.parent_id = u.id').all() as any[];
     }
-    const parents = db.prepare('SELECT id, first_name, last_name, role FROM users WHERE role = "Parent"').all();
-    res.json({ records, parents });
+    const parents = db.prepare('SELECT id, name, role FROM users WHERE role = "Parent" ORDER BY name ASC').all() as any[];
+    const withParts = (row: any) => {
+      const segments = String(row?.name || '').trim().split(/\s+/).filter(Boolean);
+      return {
+        ...row,
+        first_name: segments[0] || '',
+        last_name: segments.slice(1).join(' ') || '',
+      };
+    };
+    res.json({ records: records.map(withParts), parents: parents.map(withParts) });
   } catch (err: any) {
     res.status(500).json({ error: (err as Error).message });
   }
@@ -1264,6 +1280,20 @@ const userColumns = db.prepare("PRAGMA table_info(users)").all() as Array<{ name
 if (!userColumns.some((column) => column.name === 'auras')) {
   db.exec('ALTER TABLE users ADD COLUMN auras INTEGER DEFAULT 500');
 }
+if (!userColumns.some((column) => column.name === 'alternate_email')) {
+  db.exec('ALTER TABLE users ADD COLUMN alternate_email TEXT');
+}
+if (!userColumns.some((column) => column.name === 'phone')) {
+  db.exec('ALTER TABLE users ADD COLUMN phone TEXT');
+}
+
+const onboardingRequestColumns = db.prepare("PRAGMA table_info(school_onboarding_requests)").all() as Array<{ name: string }>;
+if (onboardingRequestColumns.length && !onboardingRequestColumns.some((column) => column.name === 'payment_status')) {
+  db.exec("ALTER TABLE school_onboarding_requests ADD COLUMN payment_status TEXT DEFAULT 'Pending'");
+}
+if (onboardingRequestColumns.length && !onboardingRequestColumns.some((column) => column.name === 'wait_token')) {
+  db.exec("ALTER TABLE school_onboarding_requests ADD COLUMN wait_token TEXT DEFAULT ''");
+}
 
 db.exec(`
   CREATE TABLE IF NOT EXISTS duty_reports (
@@ -1303,6 +1333,75 @@ db.exec(`
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     UNIQUE (school_id, roster_type, roster_date, section)
+  );
+
+  CREATE TABLE IF NOT EXISTS user_profiles (
+    user_id TEXT PRIMARY KEY,
+    school_id TEXT,
+    ndovera_email TEXT,
+    alternate_email TEXT,
+    phone TEXT,
+    gender TEXT,
+    date_of_birth TEXT,
+    address TEXT,
+    city TEXT,
+    state TEXT,
+    country TEXT,
+    nationality TEXT,
+    bio TEXT,
+    emergency_contact_name TEXT,
+    emergency_contact_phone TEXT,
+    occupation TEXT,
+    department TEXT,
+    employee_id TEXT,
+    admission_number TEXT,
+    class_name TEXT,
+    guardian_name TEXT,
+    guardian_phone TEXT,
+    skills_json TEXT,
+    social_links_json TEXT,
+    preferences_json TEXT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY(user_id) REFERENCES users(id)
+  );
+
+  CREATE TABLE IF NOT EXISTS result_uploads (
+    id TEXT PRIMARY KEY,
+    school_id TEXT NOT NULL,
+    uploader_user_id TEXT NOT NULL,
+    uploader_role TEXT NOT NULL,
+    title TEXT NOT NULL,
+    session TEXT,
+    term TEXT,
+    class_name TEXT,
+    result_type TEXT DEFAULT 'Result Sheet',
+    file_name TEXT,
+    file_url TEXT,
+    notes TEXT,
+    status TEXT DEFAULT 'uploaded',
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+  );
+
+  CREATE TABLE IF NOT EXISTS school_onboarding_requests (
+    id TEXT PRIMARY KEY,
+    school_name TEXT NOT NULL,
+    subdomain TEXT NOT NULL,
+    owner_name TEXT NOT NULL,
+    owner_ndovera_email TEXT NOT NULL,
+    owner_alternate_email TEXT,
+    owner_phone TEXT,
+    desired_password_hash TEXT NOT NULL,
+    payment_reference TEXT,
+    payment_proof_url TEXT,
+    status TEXT DEFAULT 'Awaiting Payment',
+    payment_status TEXT DEFAULT 'Pending',
+    wait_token TEXT NOT NULL UNIQUE,
+    notes TEXT,
+    approved_school_id TEXT,
+    approved_user_id TEXT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
   );
 `);
 
@@ -1479,7 +1578,7 @@ function seedDatabase() {
     db.prepare(`
       INSERT INTO users (id, school_id, name, email, password_hash, role)
       VALUES (?, ?, ?, ?, ?, ?)
-    `).run("user_admin", schoolId, "Ndovera Admin", "admin@school.com", "hashed_password", "School Admin");
+    `).run("user_admin", schoolId, "Ndovera Admin", "admin@school.com", hashPassword('NdoveraAdmin!2026'), "School Admin");
 
     // Teachers
     const teachers = [
@@ -1488,7 +1587,7 @@ function seedDatabase() {
       ["t3", "Samuel Okoro", "samuel@school.com", "Agricultural Science"]
     ];
     teachers.forEach(([id, name, email, spec]) => {
-      db.prepare("INSERT INTO users (id, school_id, name, email, password_hash, role) VALUES (?, ?, ?, ?, ?, ?)").run(id, schoolId, name, email, "pass", "Teacher");
+      db.prepare("INSERT INTO users (id, school_id, name, email, password_hash, role) VALUES (?, ?, ?, ?, ?, ?)").run(id, schoolId, name, email, hashPassword('TeacherPass!2026'), "Teacher");
       db.prepare("INSERT INTO teachers (id, school_id, user_id, staff_id, specialization) VALUES (?, ?, ?, ?, ?)").run(`teacher_${id}`, schoolId, id, `STF${id.toUpperCase()}`, spec);
     });
 
@@ -1503,7 +1602,7 @@ function seedDatabase() {
       ["s3", "Charlie Brown", "charlie@student.com", "ADM003", "class_2"]
     ];
     students.forEach(([id, name, email, adm, classId]) => {
-      db.prepare("INSERT INTO users (id, school_id, name, email, password_hash, role) VALUES (?, ?, ?, ?, ?, ?)").run(id, schoolId, name, email, "pass", "Student");
+      db.prepare("INSERT INTO users (id, school_id, name, email, password_hash, role) VALUES (?, ?, ?, ?, ?, ?)").run(id, schoolId, name, email, hashPassword('StudentPass!2026'), "Student");
       db.prepare("INSERT INTO students (id, school_id, user_id, admission_number, class_id) VALUES (?, ?, ?, ?, ?)").run(`student_${id}`, schoolId, id, adm, classId);
     });
 
@@ -1519,6 +1618,10 @@ function seedDatabase() {
 }
 
 seedDatabase();
+
+db.prepare("UPDATE users SET password_hash = ? WHERE id = 'user_admin' AND password_hash IN ('hashed_password', 'pass')").run(hashPassword('NdoveraAdmin!2026'));
+db.prepare("UPDATE users SET password_hash = ? WHERE role = 'Teacher' AND password_hash = 'pass'").run(hashPassword('TeacherPass!2026'));
+db.prepare("UPDATE users SET password_hash = ? WHERE role = 'Student' AND password_hash = 'pass'").run(hashPassword('StudentPass!2026'));
 
 function safeParseJson<T>(value: string | null | undefined, fallback: T): T {
   if (!value) return fallback;
@@ -2071,6 +2174,92 @@ function resolveTenantWebsiteUrl(school: { subdomain?: string | null; website_co
     }
   }
   return null;
+}
+
+function hashPassword(password: string) {
+  return crypto.createHash('sha256').update(password).digest('hex');
+}
+
+function splitDisplayName(name: string | null | undefined) {
+  const segments = String(name || '').trim().split(/\s+/).filter(Boolean);
+  return {
+    firstName: segments[0] || '',
+    lastName: segments.slice(1).join(' ') || '',
+  };
+}
+
+function slugifySchoolName(value: string) {
+  return String(value || '')
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .slice(0, 32) || `school-${Date.now().toString().slice(-6)}`;
+}
+
+function buildNdoveraEmail(subdomain: string) {
+  return `${slugifySchoolName(subdomain)}.owner@ndovera.app`;
+}
+
+function ensureUserProfile(userId: string) {
+  const user = db.prepare('SELECT id, school_id, email, alternate_email, phone, name, role FROM users WHERE id = ?').get(userId) as any;
+  if (!user) return null;
+  db.prepare(`
+    INSERT OR IGNORE INTO user_profiles (
+      user_id, school_id, ndovera_email, alternate_email, phone, occupation, preferences_json, skills_json, social_links_json
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+  `).run(
+    user.id,
+    user.school_id || null,
+    user.email,
+    user.alternate_email || null,
+    user.phone || null,
+    user.role || '',
+    JSON.stringify({ googleSigninEnabled: Boolean(user.alternate_email), preferredContact: user.alternate_email ? 'alternate-email' : 'ndovera-email' }),
+    JSON.stringify([]),
+    JSON.stringify({}),
+  );
+  return db.prepare('SELECT * FROM user_profiles WHERE user_id = ?').get(userId) as any;
+}
+
+function buildProfileTemplate(role: string, userRow?: any) {
+  return {
+    core: [
+      'Full name',
+      'Ndovera sign-in email',
+      'Alternate email for Google sign-in and mail delivery',
+      'Phone number',
+      'Gender',
+      'Date of birth',
+      'Home address',
+      'City / State / Country',
+      'Short biography',
+      'Emergency contact name',
+      'Emergency contact phone',
+    ],
+    teacher: [
+      'Employee ID',
+      'Department',
+      'Subjects / specialisation',
+      'Professional skills',
+      'Years of experience',
+    ],
+    student: [
+      'Admission number',
+      'Class / arm',
+      'Parent / guardian name',
+      'Parent / guardian phone',
+      'Learning support notes',
+    ],
+    parent: [
+      'Occupation',
+      'Preferred contact channel',
+      'Residential address',
+      'Emergency alternate contact',
+    ],
+    recommended: userRow?.role === 'Student' ? 'student' : userRow?.role === 'Parent' ? 'parent' : 'teacher',
+    activeRole: role,
+  };
 }
 
 function resolveMessagingContact(schoolId: string, peerId: string) {
@@ -3976,6 +4165,142 @@ app.post('/api/evaluation/seed', requireRoles('Super Admin', 'HOS', 'School Admi
   }
 });
 
+app.post('/api/auth/login', (req, res) => {
+  try {
+    const email = typeof req.body?.email === 'string' ? req.body.email.trim().toLowerCase() : '';
+    const password = typeof req.body?.password === 'string' ? req.body.password : '';
+    if (!email || !password) {
+      return res.status(400).json({ error: 'Email and password are required.' });
+    }
+
+    const user = db.prepare('SELECT * FROM users WHERE lower(email) = ?').get(email) as any;
+    if (!user || user.password_hash !== hashPassword(password)) {
+      return res.status(401).json({ error: 'Invalid credentials.' });
+    }
+
+    const profile = ensureUserProfile(user.id);
+    const roles = Array.from(new Set([user.role, user.role === 'School Admin' ? 'HoS' : user.role].filter(Boolean)));
+    res.json({
+      ok: true,
+      user: {
+        id: user.id,
+        schoolId: user.school_id,
+        name: user.name,
+        roles,
+        activeRole: roles[0],
+        email: user.email,
+        alternateEmail: user.alternate_email || profile?.alternate_email || null,
+      },
+    });
+  } catch (err) {
+    console.error('Login error', err);
+    res.status(500).json({ error: 'Unable to sign in right now.' });
+  }
+});
+
+app.post('/api/onboarding/register-school', (req, res) => {
+  try {
+    const schoolName = typeof req.body?.schoolName === 'string' ? req.body.schoolName.trim() : '';
+    const ownerName = typeof req.body?.ownerName === 'string' ? req.body.ownerName.trim() : '';
+    const alternateEmail = typeof req.body?.alternateEmail === 'string' ? req.body.alternateEmail.trim().toLowerCase() : '';
+    const phone = typeof req.body?.phone === 'string' ? req.body.phone.trim() : '';
+    const password = typeof req.body?.password === 'string' ? req.body.password : '';
+    const requestedSubdomain = typeof req.body?.subdomain === 'string' ? req.body.subdomain.trim() : '';
+
+    if (!schoolName || !ownerName || !alternateEmail || !phone || !password) {
+      return res.status(400).json({ error: 'School name, owner name, alternate email, phone, and password are required.' });
+    }
+
+    if (password.length < 12) {
+      return res.status(400).json({ error: 'Password must be at least 12 characters long.' });
+    }
+
+    const subdomain = slugifySchoolName(requestedSubdomain || schoolName);
+    const ownerNdoveraEmail = buildNdoveraEmail(subdomain);
+    const existing = db.prepare('SELECT id FROM school_onboarding_requests WHERE owner_alternate_email = ? AND status != ?').get(alternateEmail, 'Rejected') as { id?: string } | undefined;
+    if (existing?.id) {
+      return res.status(409).json({ error: 'An onboarding request already exists for this alternate email.' });
+    }
+
+    const waitToken = crypto.randomUUID();
+    const requestId = makeId('onboard');
+    db.prepare(`
+      INSERT INTO school_onboarding_requests (
+        id, school_name, subdomain, owner_name, owner_ndovera_email, owner_alternate_email, owner_phone,
+        desired_password_hash, payment_reference, status, payment_status, wait_token, updated_at
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
+    `).run(
+      requestId,
+      schoolName,
+      subdomain,
+      ownerName,
+      ownerNdoveraEmail,
+      alternateEmail,
+      phone,
+      hashPassword(password),
+      `PAY-${Date.now()}`,
+      'Awaiting Payment',
+      'Pending',
+      waitToken,
+    );
+
+    res.json({
+      ok: true,
+      requestId,
+      waitToken,
+      ownerNdoveraEmail,
+      paymentAccount: {
+        accountNumber: '8064252542',
+        accountName: 'Williams James',
+        bankName: 'Opay Bank',
+      },
+      instructions: 'Make payment, click I have paid, then remain in the waiting room while super admin reviews your request.',
+    });
+  } catch (err) {
+    console.error('School onboarding registration error', err);
+    res.status(500).json({ error: 'Unable to start registration right now.' });
+  }
+});
+
+app.post('/api/onboarding/:waitToken/payment', (req, res) => {
+  try {
+    const waitToken = req.params.waitToken;
+    const paymentReference = typeof req.body?.paymentReference === 'string' ? req.body.paymentReference.trim() : '';
+    const paymentProofUrl = typeof req.body?.paymentProofUrl === 'string' ? req.body.paymentProofUrl.trim() : '';
+    const existing = db.prepare('SELECT id FROM school_onboarding_requests WHERE wait_token = ?').get(waitToken) as { id?: string } | undefined;
+    if (!existing?.id) {
+      return res.status(404).json({ error: 'Onboarding request not found.' });
+    }
+    db.prepare(`
+      UPDATE school_onboarding_requests
+      SET payment_reference = ?, payment_proof_url = ?, payment_status = 'Submitted', status = 'Awaiting Approval', updated_at = CURRENT_TIMESTAMP
+      WHERE wait_token = ?
+    `).run(paymentReference || null, paymentProofUrl || null, waitToken);
+    res.json({ ok: true, status: 'Awaiting Approval' });
+  } catch (err) {
+    console.error('Onboarding payment acknowledgement error', err);
+    res.status(500).json({ error: 'Unable to update payment status.' });
+  }
+});
+
+app.get('/api/onboarding/:waitToken/status', (req, res) => {
+  try {
+    const row = db.prepare(`
+      SELECT id, school_name, owner_name, owner_ndovera_email, owner_alternate_email, status, payment_status, notes, approved_school_id, approved_user_id, created_at, updated_at
+      FROM school_onboarding_requests
+      WHERE wait_token = ?
+    `).get(req.params.waitToken) as any;
+    if (!row) return res.status(404).json({ error: 'Onboarding request not found.' });
+    res.json({
+      ok: true,
+      request: row,
+    });
+  } catch (err) {
+    console.error('Onboarding status error', err);
+    res.status(500).json({ error: 'Unable to read onboarding status.' });
+  }
+});
+
 
 app.get("/api/users", (req, res) => {
     const users = db.prepare("SELECT * FROM users").all();
@@ -3987,19 +4312,101 @@ app.get("/api/users", (req, res) => {
     if (!user) return res.status(401).json({ error: 'Unauthenticated' });
     const userFromDb = db.prepare("SELECT * FROM users WHERE id = ?").get(user.id) as any;
     if (!userFromDb) return res.status(404).json({ error: 'User not found' });
+    const profile = ensureUserProfile(user.id);
     const school = db.prepare('SELECT id, name, subdomain, logo_url, primary_color, website_config FROM schools WHERE id = ?').get(userFromDb.school_id) as any;
     res.json({
       ...userFromDb,
       activeRole: user.activeRole || user.roles?.[0] || userFromDb.role,
+      profile: profile ? {
+        ...profile,
+        skills: safeParseJson(profile.skills_json, []),
+        socialLinks: safeParseJson(profile.social_links_json, {}),
+        preferences: safeParseJson(profile.preferences_json, {}),
+      } : null,
       school: school ? {
         id: school.id,
         name: school.name,
         subdomain: school.subdomain,
         logoUrl: school.logo_url || null,
         primaryColor: school.primary_color || '#10b981',
-        websiteUrl: resolveTenantWebsiteUrl(school),
+        websiteUrl: resolveTenantWebsiteUrl(school) || `/public/under-construction?school=${encodeURIComponent(school.id)}`,
       } : null,
     });
+  });
+
+  app.get('/api/profile/template', (req, res) => {
+    const user = (req as any).user;
+    if (!user) return res.status(401).json({ error: 'Unauthenticated' });
+    const userRow = db.prepare('SELECT id, role FROM users WHERE id = ?').get(user.id) as any;
+    res.json(buildProfileTemplate(user.activeRole || user.roles?.[0] || userRow?.role, userRow));
+  });
+
+  app.get('/api/profile/me', (req, res) => {
+    const user = (req as any).user;
+    if (!user) return res.status(401).json({ error: 'Unauthenticated' });
+    const profile = ensureUserProfile(user.id);
+    const userRow = db.prepare('SELECT id, name, email, role, alternate_email, phone FROM users WHERE id = ?').get(user.id) as any;
+    res.json({
+      ok: true,
+      profile: profile ? {
+        ...profile,
+        skills: safeParseJson(profile.skills_json, []),
+        socialLinks: safeParseJson(profile.social_links_json, {}),
+        preferences: safeParseJson(profile.preferences_json, {}),
+      } : null,
+      user: userRow,
+      template: buildProfileTemplate(user.activeRole || user.roles?.[0] || userRow?.role, userRow),
+    });
+  });
+
+  app.put('/api/profile/me', (req, res) => {
+    try {
+      const user = (req as any).user;
+      if (!user) return res.status(401).json({ error: 'Unauthenticated' });
+      const payload = req.body || {};
+      const profile = ensureUserProfile(user.id);
+      if (!profile) return res.status(404).json({ error: 'Profile owner not found.' });
+
+      const alternateEmail = typeof payload.alternateEmail === 'string' ? payload.alternateEmail.trim().toLowerCase() : null;
+      const phone = typeof payload.phone === 'string' ? payload.phone.trim() : null;
+      db.prepare('UPDATE users SET alternate_email = ?, phone = ? WHERE id = ?').run(alternateEmail, phone, user.id);
+      db.prepare(`
+        UPDATE user_profiles
+        SET ndovera_email = ?, alternate_email = ?, phone = ?, gender = ?, date_of_birth = ?, address = ?, city = ?, state = ?, country = ?, nationality = ?,
+            bio = ?, emergency_contact_name = ?, emergency_contact_phone = ?, occupation = ?, department = ?, employee_id = ?, admission_number = ?, class_name = ?,
+            guardian_name = ?, guardian_phone = ?, skills_json = ?, social_links_json = ?, preferences_json = ?, updated_at = CURRENT_TIMESTAMP
+        WHERE user_id = ?
+      `).run(
+        typeof payload.ndoveraEmail === 'string' && payload.ndoveraEmail.trim() ? payload.ndoveraEmail.trim().toLowerCase() : profile.ndovera_email,
+        alternateEmail,
+        phone,
+        typeof payload.gender === 'string' ? payload.gender.trim() : null,
+        typeof payload.dateOfBirth === 'string' ? payload.dateOfBirth.trim() : null,
+        typeof payload.address === 'string' ? payload.address.trim() : null,
+        typeof payload.city === 'string' ? payload.city.trim() : null,
+        typeof payload.state === 'string' ? payload.state.trim() : null,
+        typeof payload.country === 'string' ? payload.country.trim() : null,
+        typeof payload.nationality === 'string' ? payload.nationality.trim() : null,
+        typeof payload.bio === 'string' ? payload.bio.trim() : null,
+        typeof payload.emergencyContactName === 'string' ? payload.emergencyContactName.trim() : null,
+        typeof payload.emergencyContactPhone === 'string' ? payload.emergencyContactPhone.trim() : null,
+        typeof payload.occupation === 'string' ? payload.occupation.trim() : null,
+        typeof payload.department === 'string' ? payload.department.trim() : null,
+        typeof payload.employeeId === 'string' ? payload.employeeId.trim() : null,
+        typeof payload.admissionNumber === 'string' ? payload.admissionNumber.trim() : null,
+        typeof payload.className === 'string' ? payload.className.trim() : null,
+        typeof payload.guardianName === 'string' ? payload.guardianName.trim() : null,
+        typeof payload.guardianPhone === 'string' ? payload.guardianPhone.trim() : null,
+        JSON.stringify(Array.isArray(payload.skills) ? payload.skills : []),
+        JSON.stringify(payload.socialLinks && typeof payload.socialLinks === 'object' ? payload.socialLinks : {}),
+        JSON.stringify(payload.preferences && typeof payload.preferences === 'object' ? payload.preferences : {}),
+        user.id,
+      );
+      res.json({ ok: true });
+    } catch (err) {
+      console.error('Profile update error', err);
+      res.status(500).json({ error: 'Unable to update profile.' });
+    }
   });
 
   app.get("/api/parents/me/children", (req, res) => {
@@ -7096,6 +7503,74 @@ app.get("/api/users", (req, res) => {
     } catch (err) {
       console.error('upload error', err);
       return res.status(500).json({ error: String(err) });
+    }
+  });
+
+  app.post('/api/uploads/payment-proof', upload.single('proof'), async (req, res) => {
+    try {
+      const file = req.file as Express.Multer.File | undefined;
+      if (!file) return res.status(400).json({ error: 'no file uploaded' });
+      const waitToken = typeof req.body?.waitToken === 'string' ? req.body.waitToken.trim() : 'general';
+      const folder = path.join(uploadsDir, 'onboarding');
+      await fs.promises.mkdir(folder, { recursive: true });
+      const safeName = `${Date.now()}-${waitToken}-${file.originalname.replace(/[^a-z0-9._-]+/gi, '_')}`;
+      await fs.promises.writeFile(path.join(folder, safeName), file.buffer);
+      return res.json({ ok: true, url: `/uploads/onboarding/${safeName}` });
+    } catch (err) {
+      console.error('payment proof upload error', err);
+      return res.status(500).json({ error: String(err) });
+    }
+  });
+
+  app.get('/api/result-uploads', requireRoles('HoS', 'Owner', 'ICT Manager', 'School Admin'), (req, res) => {
+    try {
+      const schoolId = resolveSchoolId(req);
+      const uploads = db.prepare(`
+        SELECT ru.*, u.name as uploader_name
+        FROM result_uploads ru
+        LEFT JOIN users u ON u.id = ru.uploader_user_id
+        WHERE ru.school_id = ?
+        ORDER BY datetime(ru.created_at) DESC, ru.id DESC
+      `).all(schoolId) as any[];
+      res.json({
+        uploads: uploads.map((item) => ({
+          ...item,
+          uploaderName: item.uploader_name || item.uploader_role,
+        })),
+      });
+    } catch (err) {
+      console.error('result uploads fetch error', err);
+      res.status(500).json({ error: 'Unable to fetch result uploads.' });
+    }
+  });
+
+  app.post('/api/result-uploads', requireRoles('HoS', 'Owner', 'ICT Manager', 'School Admin'), upload.single('file'), async (req, res) => {
+    try {
+      const file = req.file as Express.Multer.File | undefined;
+      if (!file) return res.status(400).json({ error: 'A result file is required.' });
+      const schoolId = resolveSchoolId(req);
+      const actor = resolveActor(req);
+      const folder = path.join(uploadsDir, schoolId, 'results');
+      await fs.promises.mkdir(folder, { recursive: true });
+      const safeName = `${Date.now()}-${file.originalname.replace(/[^a-z0-9._-]+/gi, '_')}`;
+      await fs.promises.writeFile(path.join(folder, safeName), file.buffer);
+      const fileUrl = `/uploads/${schoolId}/results/${safeName}`;
+      const title = typeof req.body?.title === 'string' && req.body.title.trim() ? req.body.title.trim() : file.originalname;
+      const session = typeof req.body?.session === 'string' ? req.body.session.trim() : '';
+      const term = typeof req.body?.term === 'string' ? req.body.term.trim() : '';
+      const className = typeof req.body?.className === 'string' ? req.body.className.trim() : '';
+      const resultType = typeof req.body?.resultType === 'string' ? req.body.resultType.trim() : 'Result Sheet';
+      const notes = typeof req.body?.notes === 'string' ? req.body.notes.trim() : '';
+      const id = makeId('result_upload');
+      db.prepare(`
+        INSERT INTO result_uploads (
+          id, school_id, uploader_user_id, uploader_role, title, session, term, class_name, result_type, file_name, file_url, notes, status
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      `).run(id, schoolId, actor.id, actor.role, title, session || null, term || null, className || null, resultType, file.originalname, fileUrl, notes || null, 'uploaded');
+      res.json({ ok: true, id, fileUrl });
+    } catch (err) {
+      console.error('result upload error', err);
+      res.status(500).json({ error: 'Unable to upload result file.' });
     }
   });
 
