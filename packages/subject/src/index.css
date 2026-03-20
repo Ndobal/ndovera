@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-neon-cyan: #0ff;
+  --color-neon-fuchsia: #f0f;
+  --color-neon-emerald: #0f0;
+  --color-neon-violet: #8a2be2;
+}
+
+body {
+  @apply bg-stone-50 text-stone-900 transition-colors duration-300;
+}
+
+.dark body {
+  @apply bg-[#0a0a0a] text-stone-100;
+}
+
+.glass-panel {
+  @apply bg-white/70 backdrop-blur-md border border-white/20 shadow-sm;
+}
+
+.dark .glass-panel {
+  @apply bg-white/[0.03] backdrop-blur-xl border border-white/10 shadow-lg;
+}
+
+/* Hide scrollbar for tabs */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

@@ -1,0 +1,193 @@
+import React, { useState, useMemo } from 'react';
+import { Users, UserPlus, Search, Filter, MoreVertical, Mail, GraduationCap, Briefcase, QrCode, Lock, Unlock, Shield } from 'lucide-react';
+import { useData } from '../hooks/useData';
+import { SmartIDManager } from '../features/management/components/SmartIDManager';
+import { useToast } from '../components/Toast';
+
+export const ManagementView = ({ searchQuery }: { searchQuery?: string }) => {
+  const [activeTab, setActiveTab] = useState<'students' | 'teachers' | 'parents' | 'id_cards'>('students');
+  const { data: users, refetch: refetchUsers } = useData<any[]>('/api/users');
+  const { addToast } = useToast();
+
+  const [showAddForm, setShowAddForm] = useState(false);
+  const [newUser, setNewUser] = useState({ name: '', email: '', password: '', role: 'Student' });
+
+  // Update status (local optimistic update could be added)
+  const toggleUserStatus = async (id: string, currentStatus: string) => {
+    const newStatus = currentStatus === 'active' ? 'locked' : 'active';
+    if (!confirm(`Are you sure you want to mark this user as ${newStatus}?`)) return;
+
+    try {
+      const res = await fetch(`/api/users/${id}/status`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status: newStatus })
+      });
+      if (!res.ok) throw new Error('Failed to update status');
+      addToast('Status updated successfully', 'success');
+      refetchUsers();
+    } catch(e) {
+      addToast('Failed to update user status', 'error');
+    }
+  };
+
+  const handleAddUser = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+       const res = await fetch('/api/users', {
+         method: 'POST',
+         headers: { 'Content-Type': 'application/json' },
+         body: JSON.stringify({
+           name: newUser.name,
+           email: newUser.email,
+           password: newUser.password,
+           roles: [newUser.role]
+         })
+       });
+       if (res.ok) {
+         addToast(`${newUser.role} added successfully`, 'success');
+         setShowAddForm(false);
+         setNewUser({ name: '', email: '', password: '', role: 'Student' });
+         refetchUsers();
+       } else {
+         addToast('Failed to add user', 'error');
+       }
+    } catch (err) {
+       addToast('Network error', 'error');
+    }
+  };
+
+  const list = useMemo(() => {
+    let data: any[] = [];
+    if (!users) return [];
+    if (activeTab === 'students') {
+      data = users.filter((u: any) => u.roles?.includes('Student'));
+    } else if (activeTab === 'teachers') {
+      data = users.filter((u: any) => u.roles?.includes('Teacher') || u.roles?.includes('Staff'));
+    } else if (activeTab === 'parents') {
+      data = users.filter((u: any) => u.roles?.includes('Parent'));
+    }
+    
+    if (!searchQuery) return data;
+    return data.filter((item: any) => item.name.toLowerCase().includes(searchQuery.toLowerCase()));
+  }, [activeTab, users, searchQuery]);
+
+  return (
+    <div className="space-y-6">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <h2 className="text-xl font-bold text-white">Institutional Management</h2>
+          <p className="text-zinc-500 text-xs">Manage your school's staff, student, and parent population.</p>
+        </div>
+        <button 
+          onClick={() => setShowAddForm(!showAddForm)}
+          className="bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2 rounded-lg text-[11px] font-bold uppercase tracking-wider transition-colors shadow-lg shadow-emerald-900/20 flex items-center gap-2"
+        >
+          <UserPlus size={16} /> Add {activeTab === 'students' ? 'Student' : activeTab === 'parents' ? 'Parent' : 'Staff'}
+        </button>
+      </div>
+
+      {showAddForm && (
+        <div className="card-compact bg-black/50 border border-emerald-500/20 mb-6 relative">
+          <button onClick={() => setShowAddForm(false)} className="absolute top-4 right-4 text-zinc-500 hover:text-white">✕</button>
+          <h3 className="text-sm font-bold text-white mb-4 uppercase tracking-widest text-emerald-500">Register New User</h3>
+          <form onSubmit={handleAddUser} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label className="text-[10px] text-zinc-500 uppercase font-bold mb-1 block">Full Name</label>
+              <input type="text" required value={newUser.name} onChange={(e) => setNewUser({...newUser, name: e.target.value})} className="w-full bg-[#111] border border-white/10 rounded-xl p-3 text-sm text-white focus:border-emerald-500 outline-none" />
+            </div>
+            <div>
+              <label className="text-[10px] text-zinc-500 uppercase font-bold mb-1 block">Email</label>
+              <input type="email" required value={newUser.email} onChange={(e) => setNewUser({...newUser, email: e.target.value})} className="w-full bg-[#111] border border-white/10 rounded-xl p-3 text-sm text-white focus:border-emerald-500 outline-none" />
+            </div>
+            <div>
+              <label className="text-[10px] text-zinc-500 uppercase font-bold mb-1 block">Role</label>
+              <select value={newUser.role} onChange={(e) => setNewUser({...newUser, role: e.target.value})} className="w-full bg-[#111] border border-white/10 rounded-xl p-3 text-sm text-white focus:border-emerald-500 outline-none">
+                <option value="Student">Student</option>
+                <option value="Teacher">Teacher</option>
+                <option value="Staff">General Staff</option>
+                <option value="Parent">Parent</option>
+              </select>
+            </div>
+            <div>
+              <label className="text-[10px] text-zinc-500 uppercase font-bold mb-1 block">Temporary Password</label>
+              <input type="text" required value={newUser.password} onChange={(e) => setNewUser({...newUser, password: e.target.value})} className="w-full bg-[#111] border border-white/10 rounded-xl p-3 text-sm text-white focus:border-emerald-500 outline-none" />
+            </div>
+            <div className="md:col-span-2 pt-2">
+              <button type="submit" className="bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl py-3 px-6 text-xs font-bold transition-all w-full md:w-auto">Create User</button>
+            </div>
+          </form>
+        </div>
+      )}
+
+      {/* Tabs */}
+      <div className="flex flex-wrap items-center gap-4 border-b border-white/5">
+        <button onClick={() => setActiveTab('students')} className={`pb-3 text-xs font-bold uppercase tracking-wider transition-all relative ${activeTab === 'students' ? 'text-emerald-500' : 'text-zinc-500 hover:text-zinc-300'}`}>
+          Students
+          {activeTab === 'students' && <div className="absolute bottom-0 left-0 w-full h-0.5 bg-emerald-500 rounded-full"></div>}
+        </button>
+        <button onClick={() => setActiveTab('teachers')} className={`pb-3 text-xs font-bold uppercase tracking-wider transition-all relative ${activeTab === 'teachers' ? 'text-emerald-500' : 'text-zinc-500 hover:text-zinc-300'}`}>
+          Staff
+          {activeTab === 'teachers' && <div className="absolute bottom-0 left-0 w-full h-0.5 bg-emerald-500 rounded-full"></div>}
+        </button>
+        <button onClick={() => setActiveTab('parents')} className={`pb-3 text-xs font-bold uppercase tracking-wider transition-all relative ${activeTab === 'parents' ? 'text-emerald-500' : 'text-zinc-500 hover:text-zinc-300'}`}>
+          Parents
+          {activeTab === 'parents' && <div className="absolute bottom-0 left-0 w-full h-0.5 bg-emerald-500 rounded-full"></div>}
+        </button>
+        <button onClick={() => setActiveTab('id_cards')} className={`pb-3 text-xs font-bold uppercase tracking-wider transition-all relative ${activeTab === 'id_cards' ? 'text-purple-500' : 'text-zinc-500 hover:text-zinc-300'}`}>
+          <div className="flex items-center gap-2"><QrCode size={14} /> Smart IDs</div>
+          {activeTab === 'id_cards' && <div className="absolute bottom-0 left-0 w-full h-0.5 bg-purple-500 rounded-full"></div>}
+        </button>
+      </div>
+
+      {activeTab === 'id_cards' ? (
+        <SmartIDManager />
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {list?.map((item: any) => (
+            <div key={item.id} className="card-compact group">
+              <div className="flex items-start justify-between mb-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 bg-emerald-600/10 border border-emerald-500/10 rounded-2xl flex items-center justify-center text-emerald-500 font-bold text-lg">
+                    {item.name?.charAt(0) || '?'}
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-bold text-zinc-200">{item.name}</h4>
+                    <p className="text-[10px] text-zinc-500 font-bold uppercase tracking-wider">
+                      {activeTab === 'students' ? (item.admission_number || 'STU-NEW') : activeTab === 'parents' ? 'PARENT' : (item.staff_id || 'STF-NEW')}
+                    </p>
+                  </div>
+                </div>
+                <button className="p-1.5 text-zinc-600 hover:text-white transition-colors"><MoreVertical size={16} /></button>
+              </div>
+
+              <div className="space-y-2 mb-4">
+                <div className="flex items-center gap-2 text-[10px] text-zinc-500"><Mail size={12} /> {item.email || 'No email provided'}</div>
+                <div className="flex items-center justify-between text-[10px] text-zinc-500">
+                  <div className="flex items-center gap-2">
+                    {activeTab === 'students' ? <GraduationCap size={12} /> : activeTab === 'parents' ? <Shield size={12} /> : <Briefcase size={12} />}
+                    {activeTab === 'students' ? (item.class_name || 'Unassigned') : activeTab === 'parents' ? 'Guardian' : (item.specialization || 'General')}
+                  </div>
+                  <button 
+                    onClick={() => toggleUserStatus(item.id, item.status || 'active')}
+                    className={`flex items-center gap-1 px-2 py-0.5 rounded-full border ${
+                      item.status === 'locked' ? 'bg-red-500/10 text-red-500 border-red-500/20 hover:bg-red-500/20' : 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20 hover:bg-emerald-500/20'
+                    }`}
+                  >
+                    {item.status === 'locked' ? <><Lock size={10} /> Locked</> : <><Unlock size={10} /> Active</>}
+                  </button>
+                </div>
+              </div>
+
+              <div className="flex gap-2 pt-4 border-t border-white/5">
+                <button className="flex-1 bg-white/5 hover:bg-white/10 text-zinc-300 py-2 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all">View</button>
+                <button className="flex-1 bg-emerald-600/10 hover:bg-emerald-600/20 text-emerald-500 py-2 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all">Message</button>
+              </div>
+            </div>
+          ))}
+          {(!list || list.length === 0) && <div className="col-span-full text-center py-12 text-zinc-600">No {activeTab} found.</div>}
+        </div>
+      )}
+    </div>
+  );
+};

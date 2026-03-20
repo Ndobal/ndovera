@@ -1,0 +1,132 @@
+{
+  "Teacher": [
+    "assignments.create",
+    "assignments.grade",
+    "attendance.mark",
+    "students.view",
+    "lessons.create"
+  ],
+  "Class Teacher": [
+    "attendance.mark",
+    "attendance.view",
+    "students.view",
+    "class.manage"
+  ],
+  "HOD": [
+    "department.manage",
+    "exams.create",
+    "results.publish",
+    "students.view"
+  ],
+  "Principal": [
+    "discipline.manage",
+    "staff.manage",
+    "reports.view",
+    "school.settings"
+  ],
+  "Head Teacher": [
+    "section.manage",
+    "reports.view"
+  ],
+  "Nursery Head": [
+    "section.manage",
+    "reports.view"
+  ],
+  "Librarian": [
+    "library.manage",
+    "books.borrow",
+    "books.return"
+  ],
+  "Tuckshop Manager": [
+    "tuckshop.manage",
+    "sales.view"
+  ],
+  "Transport Manager": [
+    "transport.manage"
+  ],
+  "Clinic Officer": [
+    "clinic.manage",
+    "students.health.view"
+  ],
+  "Accountant": [
+    "fees.view",
+    "payments.create",
+    "finance.reports"
+  ],
+  "HoS": [
+    "school.manage",
+    "reports.view",
+    "attendance.override"
+  ],
+  "Owner": [
+    "school.manage",
+    "billing.view"
+  ],
+  "Ami": [
+    "*"
+  ],
+  "Student": [
+    "assignments.view",
+    "assignments.submit",
+    "results.view",
+    "attendance.view"
+  ],
+  "Parent": [
+    "students.view",
+    "results.view"
+  ],
+  "System Infrastructure Monitor": [
+    "system.health.view",
+    "server.logs.read"
+  ],
+  "Database Reliability Engineer": [
+    "db.backups.manage",
+    "db.queries.execute"
+  ],
+  "Security & Compliance Auditor": [
+    "audit.logs.view",
+    "security.policies.manage"
+  ],
+  "Global Finance Controller": [
+    "pricing.manage",
+    "billing.global.view",
+    "revenue.reports"
+  ],
+  "Growth & Partnership Director": [
+    "partners.manage",
+    "opportunities.manage"
+  ],
+  "Global Support Escalation Lead": [
+    "tickets.escalated.manage",
+    "user.impersonate"
+  ],
+  "School Onboarding Verifier": [
+    "school.verifications.manage",
+    "school.onboard"
+  ],
+  "Public Relations & Event Broadcaster": [
+    "global.events.manage",
+    "announcements.broadcast"
+  ],
+  "Platform QA Overseer": [
+    "beta.features.manage",
+    "feature.toggles.manage"
+  ],
+  "Data Privacy Officer": [
+    "data.export.approve",
+    "privacy.reports.view"
+  ],
+  "Super Admin": [
+    "*"
+  ],
+  "Scholarship Programme Director": [
+    "scholarships.manage",
+    "awards.manage"
+  ],
+  "Exam Officer": [
+    "exams.create",
+    "results.publish",
+    "students.view",
+    "files.exam.view"
+  ]
+}

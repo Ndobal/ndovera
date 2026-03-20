@@ -1,0 +1,5 @@
+{
+  "name": "GlassStream",
+  "description": "A modern social feed with likes, dislikes, and a comprehensive emoji drawer. Features a clean light mode and a glassmorphic dark mode.",
+  "requestFramePermissions": ["camera", "microphone"]
+}

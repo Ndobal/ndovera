@@ -1,0 +1,22 @@
+{
+  "name": "ndovera-super-admin-server",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node --loader ts-node/esm server.ts",
+    "dev": "tsx --watch server.ts",
+    "lint": "tsc --noEmit"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "dotenv": "^17.2.3",
+    "better-sqlite3": "^12.4.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.14.0",
+    "@types/express": "^4.17.21",
+    "tsx": "^4.21.0",
+    "typescript": "~5.8.2"
+  }
+}

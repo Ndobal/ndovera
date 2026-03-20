@@ -1,0 +1,167 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-serif: "Playfair Display", serif;
+  
+  --color-brand-50: #f0f9ff;
+  --color-brand-100: #e0f2fe;
+  --color-brand-200: #bae6fd;
+  --color-brand-500: #0ea5e9;
+  --color-brand-600: #0284c7;
+  --color-brand-900: #0c4a6e;
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .text-display {
+    @apply font-serif text-4xl md:text-5xl leading-[0.9] tracking-tight;
+  }
+
+  .text-micro {
+    @apply font-mono text-[10px] uppercase tracking-[0.2em] opacity-50;
+  }
+
+  .slam-in {
+    animation: slamIn 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  }
+}
+
+@keyframes slamIn {
+  0% { transform: scale(1.1) translateY(20px); opacity: 0; }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+@layer base {
+  body {
+    @apply bg-[#050505] text-white antialiased selection:bg-brand-500/30 transition-colors duration-500;
+  }
+
+  .light body {
+    @apply bg-[#F1F5F9] text-slate-900;
+  }
+}
+
+.glass {
+  @apply bg-white/5 backdrop-blur-xl border border-white/10 shadow-2xl;
+}
+
+.light .glass {
+  @apply bg-white/70 border-slate-200/60 shadow-xl shadow-slate-200/50;
+}
+
+.glass-dark {
+  @apply bg-black/40 backdrop-blur-2xl border border-white/5 shadow-2xl;
+}
+
+.light .glass-dark {
+  @apply bg-white/90 border-slate-200/80 shadow-2xl shadow-slate-300/40 text-slate-900;
+}
+
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+}
+
+@media (min-width: 768px) {
+  .video-grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+.video-grid.focused {
+  grid-template-columns: 1fr 300px;
+  grid-template-rows: 1fr;
+}
+
+.focused-main {
+  @apply h-full w-full;
+}
+
+.focused-sidebar {
+  @apply flex flex-col gap-4 overflow-y-auto pr-2;
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.8); opacity: 0.5; }
+  100% { transform: scale(1.2); opacity: 0; }
+}
+
+.animate-pulse-ring {
+  animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Light mode overrides */
+.light .bg-zinc-950\/50 {
+  @apply bg-white/95 border-l border-slate-200;
+}
+
+.light .border-white\/5 {
+  @apply border-slate-200;
+}
+
+.light .bg-black\/20 {
+  @apply bg-slate-50;
+}
+
+.light .text-white\/40 {
+  @apply text-slate-500;
+}
+
+.light .text-white\/70 {
+  @apply text-slate-600;
+}
+
+.light .bg-white\/5 {
+  @apply bg-slate-200/40;
+}
+
+.light .bg-zinc-900 {
+  @apply bg-slate-100 border border-slate-200;
+}
+
+.light .bg-zinc-800 {
+  @apply bg-slate-200;
+}
+
+.light .bg-zinc-700 {
+  @apply bg-slate-300;
+}
+
+.light .prose-invert {
+  @apply text-slate-700;
+}
+
+.light .prose-invert h1, 
+.light .prose-invert h2, 
+.light .prose-invert h3, 
+.light .prose-invert strong {
+  @apply text-slate-900;
+}
+
+.light .bg-brand-500\/10 {
+  @apply bg-brand-50;
+}
+
+.light .border-brand-500\/20 {
+  @apply border-brand-200;
+}
+
+.audio-bar {
+  @apply w-1 bg-brand-500 rounded-full transition-all duration-75;
+}
+

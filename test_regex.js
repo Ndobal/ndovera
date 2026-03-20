@@ -1,0 +1,1 @@
+const fs = require('fs'); const code = fs.readFileSync('packages/server/server.ts', 'utf8'); console.log(code.substring(code.indexOf('app.post(\\'/api/admin/parents/link\\')'), code.indexOf('app.post(\\'/api/admin/parents/link\\')') + 2000));

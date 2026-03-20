@@ -1,0 +1,48 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: ndo_postgres
+    restart: always
+    env_file:
+      - ./.env
+    environment:
+      - POSTGRES_USER=${PGUSER}
+      - POSTGRES_PASSWORD=${PGPASSWORD}
+      - POSTGRES_DB=${PGDATABASE}
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    networks:
+      - ndo_network
+
+  backend:
+    build: ./backend
+    container_name: ndo_backend
+    restart: always
+    env_file:
+      - ./.env
+    volumes:
+      - ./backend/local_databases:/app/local_databases
+    ports:
+      - "5000:5000"
+    depends_on:
+      - postgres
+    networks:
+      - ndo_network
+
+  frontend:
+    build: ./nsms-frontend
+    container_name: ndo_frontend
+    restart: always
+    ports:
+      - "3000:80"
+    networks:
+      - ndo_network
+
+volumes:
+  pg_data:
+
+networks:
+  ndo_network:
+    driver: bridge

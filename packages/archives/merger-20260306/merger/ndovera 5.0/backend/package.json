@@ -1,0 +1,26 @@
+{
+  "name": "ndovera-backend",
+  "version": "1.0.0",
+  "description": "Ndovera NSMS backend (Express + PostgreSQL + SQLite)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "pg": "^8.11.0",
+    "sqlite3": "^5.0.2",
+    "dotenv": "^16.4.7",
+    "jsonwebtoken": "^9.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.3"
+  },
+  "overrides": {
+    "tar": "^7.5.7"
+  }
+}

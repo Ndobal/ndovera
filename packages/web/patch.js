@@ -1,0 +1,1 @@
+const fs = require('fs'); let c = fs.readFileSync('src/features/classroom/components/PracticeArena.tsx', 'utf8'); c = c.replace('      <div className=\"space-y-6">', '      <div className=\"space-y-6 relative\">\n        <FeatureSuggestionFAB role={role} />'); fs.writeFileSync('src/features/classroom/components/PracticeArena.tsx', c);

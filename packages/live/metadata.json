@@ -1,0 +1,9 @@
+{
+  "name": "Auralis",
+  "description": "A premium AI-powered virtual classroom and video conferencing platform with real-time transcription, AI tutoring, and seamless collaboration.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone",
+    "display-capture"
+  ]
+}

@@ -1,0 +1,81 @@
+/* Loader styles based on user's design */
+body{
+    margin:0;
+    background:#0a0f24;
+    font-family:Arial,Helvetica,sans-serif;
+    overflow:hidden;
+}
+
+#ndovera-loader{
+    position:fixed;
+    width:100%;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    background:#0a0f24;
+    z-index:9999;
+}
+
+#particleCanvas{
+    position:absolute;
+    width:300px;
+    height:300px;
+}
+
+#logo{
+    width:120px;
+    opacity:0;
+    z-index:2;
+}
+
+.logo-glow{
+    animation:logoGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes logoGlow{
+    from{ filter:drop-shadow(0 0 5px #4f7cff); }
+    to{ filter:drop-shadow(0 0 30px #00e1ff); }
+}
+
+.energy-ring{
+    position:absolute;
+    width:200px;
+    height:200px;
+    border-radius:50%;
+    border:3px solid transparent;
+    border-top:3px solid #00e1ff;
+    border-bottom:3px solid #4f7cff;
+    opacity:0;
+    z-index:1;
+}
+
+.ring-spin{ animation:ringSpin 2s linear infinite; }
+@keyframes ringSpin{ from{ transform:rotate(0deg);} to{ transform:rotate(360deg);} }
+
+.loading-text{
+    margin-top:160px;
+    color:white;
+    letter-spacing:2px;
+    font-size:14px;
+    opacity:0.7;
+    z-index:2;
+}
+
+#dashboard{ opacity:0; display:flex; justify-content:center; align-items:center; height:100vh; background:white; transition:opacity 1.5s; }
+
+/* Ensure app root is hidden until loader finishes for smooth reveal */
+#root { visibility:visible; }
+ 
+/* Fade-out helper used when app has mounted */
+#ndovera-loader.fade-out{
+    opacity:0;
+    transition: opacity 600ms ease;
+    pointer-events:none;
+}
+
+/* when loader removed, restore scrolling */
+body.loader-locked{ overflow:hidden; }
+
+#logo{ transition: opacity 500ms ease; opacity:1; }

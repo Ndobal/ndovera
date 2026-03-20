@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "Node16",
+    "lib": ["ES2022"],
+    "strict": true,
+    "moduleResolution": "node16",
+    "ignoreDeprecations": "5.0",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "composite": true
+  },
+  "include": ["server.ts", "rbac.ts", "global.d.ts"]
+}

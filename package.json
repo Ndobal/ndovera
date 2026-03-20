@@ -1,0 +1,22 @@
+{
+  "name": "ndovera-monorepo",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:web": "npm --workspace=packages/web run dev",
+    "dev:server": "npm --workspace=packages/server run dev",
+    "dev:superadmin": "npm --workspace=packages/super-admin run dev",
+    "dev:superadmin-server": "npm --workspace=packages/super-admin-server run dev",
+    "dev": "npm run dev:server & npm run dev:superadmin-server & npm run dev:web & npm run dev:superadmin",
+    "build:web": "npm --workspace=packages/web run build",
+    "build:superadmin": "npm --workspace=packages/super-admin run build",
+    "lint": "npm run lint --workspaces"
+  },
+  "dependencies": {
+    "html5-qrcode": "^2.3.8",
+    "lucide-react": "^0.577.0",
+    "qrcode.react": "^4.2.0"
+  }
+}

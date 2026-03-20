@@ -1,0 +1,8 @@
+{
+  "name": "Ndovera",
+  "description": "Africa's smartest school ecosystem. Simple English, AI tutoring, and secure institucional governance.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
