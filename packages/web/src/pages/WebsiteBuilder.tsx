@@ -15,12 +15,16 @@ import {
   ArrowLeft,
   ExternalLink,
   MessageSquare,
-  Calendar
+  Calendar,
+  ShieldCheck
 } from 'lucide-react';
 import { WebsitePage, WebsiteSection, SchoolWebsite } from '../types';
 import { fetchWithAuth, resolveApiUrl } from '../services/apiClient';
+import { PUBLIC_NAV_PAGE_ORDER, createCorePublicPages, ensureCorePublicPages, isCorePublicPageId } from './publicSiteDefaults';
+import { PAGE_IMPORT_EXAMPLE_JSON, SUPPORTED_PAGE_SECTION_TYPES, SupportedPageImportPage, buildReplacementPage, validatePageImportText } from './pageImport';
 
 const isVacancyPageSlug = (value?: string) => ['opportunities', 'opportunity', 'vacancies', 'vacancy', 'careers', 'jobs'].includes(String(value || '').trim().toLowerCase());
+const normalizePageSlug = (value: string) => value.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
 const hexToRgba = (value: string | undefined, alpha: number) => {
   const hex = String(value || '#10b981').replace('#', '').trim();
   const normalized = hex.length === 3 ? hex.split('').map((part) => part + part).join('') : hex.padEnd(6, '0').slice(0, 6);
@@ -82,40 +86,14 @@ const DEFAULT_WEBSITE: SchoolWebsite = {
     },
   },
   pages: [
-    {
-      id: 'p1',
-      title: 'Home',
-      slug: 'home',
-      sections: [
-        { id: 's1', type: 'hero', content: { title: 'Welcome to Ndovera Academy', subtitle: 'Excellence in Education and Character' } },
-        { id: 's2', type: 'about', content: { text: 'We provide a world-class education for the next generation of leaders.' } }
-      ]
-    },
-    {
-      id: 'p2',
-      title: 'Admissions',
-      slug: 'admissions',
-      sections: [
-        { id: 's3', type: 'hero', content: { title: 'Join Our Community', subtitle: 'Admissions for 2026/2027 are now open.' } }
-      ]
-    },
-    {
-      id: 'p3',
-      title: 'Privacy Policy',
-      slug: 'privacy-policy',
-      sections: [
-        { id: 's4', type: 'about', content: { text: 'This privacy policy can be updated from the website builder so the school can keep its public legal notice current.' } }
-      ]
-    },
-    {
-      id: 'p4',
-      title: 'Terms of Service',
-      slug: 'terms-of-service',
-      sections: [
-        { id: 's5', type: 'about', content: { text: 'These terms can be edited from the website builder to reflect the latest operational, legal, and commercial conditions.' } }
-      ]
-    }
+    ...createCorePublicPages(),
   ]
+};
+
+type PageImportDraft = {
+  fileName: string;
+  sourcePage: SupportedPageImportPage;
+  replacementPage: WebsitePage;
 };
 
 export const WebsiteBuilder = () => {
@@ -133,8 +111,23 @@ export const WebsiteBuilder = () => {
   const [isDirty, setIsDirty] = useState(false);
   const initialSnapshotRef = useRef<string>(JSON.stringify(website));
   const [toast, setToast] = useState<{ message: string; type?: 'success' | 'error' } | null>(null);
+  const [pageImportTargetId, setPageImportTargetId] = useState<string>(DEFAULT_WEBSITE.pages[0].id);
+  const [pageImportFile, setPageImportFile] = useState<File | null>(null);
+  const [pageImportErrors, setPageImportErrors] = useState<string[]>([]);
+  const [pageImportDraft, setPageImportDraft] = useState<PageImportDraft | null>(null);
+  const [pageImportPreviewing, setPageImportPreviewing] = useState(false);
 
-  const activePage = website.pages.find(p => p.id === activePageId) || website.pages[0];
+  const websitePages = ensureCorePublicPages(website.pages);
+  const orderedWebsitePages = PUBLIC_NAV_PAGE_ORDER
+    .map((pageId) => websitePages.find((page) => page.id === pageId))
+    .filter((page): page is WebsitePage => Boolean(page))
+    .concat(websitePages.filter((page) => !PUBLIC_NAV_PAGE_ORDER.includes(page.id as (typeof PUBLIC_NAV_PAGE_ORDER)[number])));
+  const targetPageForImport = orderedWebsitePages.find((page) => page.id === pageImportTargetId) || orderedWebsitePages[0];
+  const effectiveWebsitePages = pageImportPreviewing && pageImportDraft
+    ? orderedWebsitePages.map((page) => page.id === pageImportTargetId ? pageImportDraft.replacementPage : page)
+    : orderedWebsitePages;
+  const visibleWebsitePages = effectiveWebsitePages.filter((page) => !page.isHidden);
+  const activePage = effectiveWebsitePages.find((page) => page.id === activePageId) || effectiveWebsitePages[0];
   const [events, setEvents] = useState<any[]>([]);
   const [eventForm, setEventForm] = useState<{ title: string; date: string; description: string; image?: File | null }>({ title: '', date: '', description: '', image: null });
   const [faqs, setFaqs] = useState<any[]>([]);
@@ -147,21 +140,63 @@ export const WebsiteBuilder = () => {
     privacyPolicy: website.legal?.privacyPolicy || DEFAULT_WEBSITE.legal!.privacyPolicy!,
     termsOfService: website.legal?.termsOfService || DEFAULT_WEBSITE.legal!.termsOfService!,
   }));
+  const [pageVersionHistory, setPageVersionHistory] = useState<Record<string, WebsitePage[]>>({});
+
+  const updateWebsitePages = (updater: (pages: WebsitePage[]) => WebsitePage[]) => {
+    setWebsite((current) => ({
+      ...current,
+      pages: updater(ensureCorePublicPages(current.pages)),
+    }));
+  };
+
+  const updatePage = (pageId: string, updater: (page: WebsitePage) => WebsitePage) => {
+    updateWebsitePages((pages) => pages.map((page) => page.id === pageId ? updater(page) : page));
+  };
+
+  const updatePageField = (pageId: string, field: 'title' | 'slug' | 'isHidden', value: string | boolean) => {
+    updatePage(pageId, (page) => ({ ...page, [field]: value }));
+  };
+
+  const updateSectionContentField = (pageId: string, sectionId: string, field: string, value: unknown) => {
+    updatePage(pageId, (page) => ({
+      ...page,
+      sections: page.sections.map((section) => section.id === sectionId
+        ? { ...section, content: { ...(section.content || {}), [field]: value } }
+        : section),
+    }));
+  };
+
+  const replaceSectionContent = (pageId: string, sectionId: string, nextContent: Record<string, unknown>) => {
+    updatePage(pageId, (page) => ({
+      ...page,
+      sections: page.sections.map((section) => section.id === sectionId
+        ? { ...section, content: nextContent }
+        : section),
+    }));
+  };
+
+  const deleteSection = (pageId: string, sectionId: string) => {
+    updatePage(pageId, (page) => ({
+      ...page,
+      sections: page.sections.filter((section) => section.id !== sectionId),
+    }));
+  };
 
   const addPage = () => {
     const newPage: WebsitePage = {
       id: Math.random().toString(36).substr(2, 9),
       title: 'New Page',
       slug: 'new-page',
+      isHidden: false,
       sections: []
     };
-    setWebsite({ ...website, pages: [...website.pages, newPage] });
+    updateWebsitePages((pages) => [...pages, newPage]);
     setActivePageId(newPage.id);
   };
 
   const deletePage = (id: string) => {
-    if (website.pages.length <= 1) return;
-    const newPages = website.pages.filter(p => p.id !== id);
+    if (isCorePublicPageId(id) || orderedWebsitePages.length <= 1) return;
+    const newPages = orderedWebsitePages.filter(p => p.id !== id);
     setWebsite({ ...website, pages: newPages });
     if (activePageId === id) setActivePageId(newPages[0].id);
   };
@@ -172,7 +207,7 @@ export const WebsiteBuilder = () => {
       type,
       content: { title: 'New Section', subtitle: 'Edit this content' }
     };
-    const newPages = website.pages.map(p => {
+    const newPages = orderedWebsitePages.map(p => {
       if (p.id === activePageId) {
         return { ...p, sections: [...p.sections, newSection] };
       }
@@ -198,7 +233,7 @@ export const WebsiteBuilder = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           school_id: website.schoolId,
-          website_config: website,
+          website_config: { ...website, pages: orderedWebsitePages },
           primary_color: website.theme.primaryColor,
           logo_url: website.theme.logoUrl || null
         })
@@ -258,6 +293,14 @@ export const WebsiteBuilder = () => {
   }, [website]);
 
   useEffect(() => {
+    setWebsite((current) => {
+      const nextPages = ensureCorePublicPages(current.pages);
+      const pagesChanged = nextPages.length !== current.pages.length || nextPages.some((page, index) => page.id !== current.pages[index]?.id);
+      return pagesChanged ? { ...current, pages: nextPages } : current;
+    });
+  }, []);
+
+  useEffect(() => {
     setLegalDraft({
       privacyPolicy: website.legal?.privacyPolicy || DEFAULT_WEBSITE.legal!.privacyPolicy!,
       termsOfService: website.legal?.termsOfService || DEFAULT_WEBSITE.legal!.termsOfService!,
@@ -271,8 +314,8 @@ export const WebsiteBuilder = () => {
   }, [toast]);
 
   const previewPages = [
-    ...website.pages,
-    ...(!website.pages.some((page) => isVacancyPageSlug(page.slug) || isVacancyPageSlug(page.title)) && vacancies.length ? [{ id: 'vacancies_public', title: 'Opportunities', slug: 'opportunities', sections: [] }] : []),
+    ...visibleWebsitePages,
+    ...(!visibleWebsitePages.some((page) => isVacancyPageSlug(page.slug) || isVacancyPageSlug(page.title)) && vacancies.length ? [{ id: 'vacancies_public', title: 'Opportunities', slug: 'opportunities', sections: [] }] : []),
   ];
   const previewPage = previewPages.find((page: any) => page.id === previewPageId) || previewPages[0];
   const previewIsVacancies = isVacancyPageSlug(previewPage?.slug) || isVacancyPageSlug(previewPage?.title) || previewPage?.id === 'vacancies_public';
@@ -380,13 +423,13 @@ export const WebsiteBuilder = () => {
               )}
               {section.type === 'features' && (
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                  {[1, 2, 3].map(i => (
-                    <div key={i} className="p-8 bg-zinc-50 rounded-3xl space-y-4">
+                  {(Array.isArray(section.content?.cards) && section.content.cards.length ? section.content.cards : [{ title: 'Feature 1', body: 'Add feature details here.' }, { title: 'Feature 2', body: 'Add feature details here.' }, { title: 'Feature 3', body: 'Add feature details here.' }]).map((card: any, index: number) => (
+                    <div key={index} className="p-8 bg-zinc-50 rounded-3xl space-y-4">
                       <div className="w-12 h-12 rounded-2xl flex items-center justify-center" style={{ background: brandSoft, color: brandColor }}>
                         <LayoutIcon size={24} />
                       </div>
-                      <h3 className="font-bold text-lg">Feature {i}</h3>
-                      <p className="text-sm text-zinc-500">High-quality educational programs designed for modern learning.</p>
+                      <h3 className="font-bold text-lg">{card.title || `Feature ${index + 1}`}</h3>
+                      <p className="text-sm text-zinc-500">{card.body || 'High-quality educational programs designed for modern learning.'}</p>
                     </div>
                   ))}
                 </div>
@@ -577,7 +620,7 @@ export const WebsiteBuilder = () => {
                 </button>
               </div>
               <div className="space-y-2">
-                {website.pages.map(p => (
+                {orderedWebsitePages.map(p => (
                   <div 
                     key={p.id}
                     onClick={() => setActivePageId(p.id)}
@@ -585,13 +628,27 @@ export const WebsiteBuilder = () => {
                       activePageId === p.id ? 'bg-white/5 border border-white/5' : 'hover:bg-white/5'
                     }`}
                   >
-                    <span className="text-xs text-zinc-300">{p.title}</span>
-                    <button 
-                      onClick={(e) => { e.stopPropagation(); deletePage(p.id); }}
-                      className="text-zinc-600 hover:text-red-500 p-1"
-                    >
-                      <Trash2 size={12} />
-                    </button>
+                    <div>
+                      <div className="text-xs text-zinc-300">{p.title}</div>
+                      <div className="text-[10px] text-zinc-500">/{p.slug}{p.isHidden ? ' • hidden' : ''}</div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <label className="flex items-center gap-1 text-[10px] uppercase tracking-wider text-zinc-500" onClick={(e) => e.stopPropagation()}>
+                        <input
+                          type="checkbox"
+                          checked={!p.isHidden}
+                          onChange={(e) => updatePageField(p.id, 'isHidden', !e.target.checked)}
+                        />
+                        Show
+                      </label>
+                      <button 
+                        onClick={(e) => { e.stopPropagation(); deletePage(p.id); }}
+                        disabled={isCorePublicPageId(p.id)}
+                        className="text-zinc-600 hover:text-red-500 disabled:cursor-not-allowed disabled:opacity-30 p-1"
+                      >
+                        <Trash2 size={12} />
+                      </button>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -944,6 +1001,39 @@ export const WebsiteBuilder = () => {
               </div>
             </div>
 
+            <div className="mb-6 grid gap-4 rounded-2xl border border-white/5 bg-black/10 p-4 md:grid-cols-[1fr_1fr_auto]">
+              <div className="space-y-2">
+                <label className="text-[10px] font-bold uppercase tracking-widest text-zinc-500">Page Title</label>
+                <input
+                  value={activePage.title}
+                  onChange={(e) => {
+                    const nextTitle = e.target.value;
+                    updatePageField(activePage.id, 'title', nextTitle);
+                    if (activePage.slug === normalizePageSlug(activePage.title)) {
+                      updatePageField(activePage.id, 'slug', normalizePageSlug(nextTitle));
+                    }
+                  }}
+                  className="w-full rounded-xl border border-white/10 bg-black/20 px-3 py-2 text-sm text-white outline-none"
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="text-[10px] font-bold uppercase tracking-widest text-zinc-500">Page Slug</label>
+                <input
+                  value={activePage.slug}
+                  onChange={(e) => updatePageField(activePage.id, 'slug', normalizePageSlug(e.target.value))}
+                  className="w-full rounded-xl border border-white/10 bg-black/20 px-3 py-2 text-sm text-white outline-none"
+                />
+              </div>
+              <label className="flex items-center gap-2 self-end rounded-xl border border-white/10 bg-black/20 px-3 py-2 text-xs font-bold uppercase tracking-widest text-zinc-400">
+                <input
+                  type="checkbox"
+                  checked={!activePage.isHidden}
+                  onChange={(e) => updatePageField(activePage.id, 'isHidden', !e.target.checked)}
+                />
+                Show on website
+              </label>
+            </div>
+
             <div className="space-y-4">
               {activePage.sections.length > 0 ? (
                 activePage.sections.map((section, idx) => (
@@ -960,7 +1050,7 @@ export const WebsiteBuilder = () => {
                           {section.type}
                         </span>
                       </div>
-                      <button className="text-zinc-600 hover:text-red-500 transition-colors">
+                      <button onClick={() => deleteSection(activePage.id, section.id)} className="text-zinc-600 hover:text-red-500 transition-colors">
                         <Trash2 size={14} />
                       </button>
                     </div>
@@ -969,11 +1059,13 @@ export const WebsiteBuilder = () => {
                       <div className="space-y-4">
                         <input 
                           type="text" 
-                          value={section.content.title}
+                          value={String(section.content?.title || '')}
+                          onChange={(e) => updateSectionContentField(activePage.id, section.id, 'title', e.target.value)}
                           className="w-full bg-transparent text-xl font-bold text-white outline-none border-b border-transparent focus:border-emerald-500/30 pb-1"
                         />
                         <textarea 
-                          value={section.content.subtitle}
+                          value={String(section.content?.subtitle || '')}
+                          onChange={(e) => updateSectionContentField(activePage.id, section.id, 'subtitle', e.target.value)}
                           className="w-full bg-transparent text-sm text-zinc-500 outline-none border-b border-transparent focus:border-emerald-500/30 resize-none h-12"
                         />
                       </div>
@@ -982,9 +1074,78 @@ export const WebsiteBuilder = () => {
                     {section.type === 'about' && (
                       <div className="space-y-4">
                         <textarea 
-                          value={section.content.text}
+                          value={String(section.content?.text || '')}
+                          onChange={(e) => updateSectionContentField(activePage.id, section.id, 'text', e.target.value)}
                           className="w-full bg-transparent text-sm text-zinc-500 outline-none border-b border-transparent focus:border-emerald-500/30 resize-none h-24"
                         />
+                      </div>
+                    )}
+
+                    {(section.type === 'features' || section.type === 'news' || section.type === 'admissions' || section.type === 'contact') && (
+                      <div className="space-y-4">
+                        {'title' in (section.content || {}) ? (
+                          <input
+                            type="text"
+                            value={String(section.content?.title || '')}
+                            onChange={(e) => updateSectionContentField(activePage.id, section.id, 'title', e.target.value)}
+                            className="w-full rounded-xl border border-white/10 bg-black/20 px-3 py-2 text-sm text-white outline-none"
+                            placeholder="Section title"
+                          />
+                        ) : null}
+                        {'subtitle' in (section.content || {}) ? (
+                          <textarea
+                            value={String(section.content?.subtitle || '')}
+                            onChange={(e) => updateSectionContentField(activePage.id, section.id, 'subtitle', e.target.value)}
+                            className="w-full rounded-xl border border-white/10 bg-black/20 px-3 py-2 text-sm text-zinc-300 outline-none"
+                            placeholder="Section subtitle"
+                          />
+                        ) : null}
+                        {'text' in (section.content || {}) ? (
+                          <textarea
+                            value={String(section.content?.text || '')}
+                            onChange={(e) => updateSectionContentField(activePage.id, section.id, 'text', e.target.value)}
+                            className="min-h-32 w-full rounded-xl border border-white/10 bg-black/20 px-3 py-2 text-sm text-zinc-300 outline-none"
+                            placeholder="Section text"
+                          />
+                        ) : null}
+                        {Array.isArray(section.content?.cards) ? (
+                          <div className="space-y-2">
+                            <label className="text-[10px] font-bold uppercase tracking-widest text-zinc-500">Feature Cards JSON</label>
+                            <textarea
+                              defaultValue={JSON.stringify(section.content.cards, null, 2)}
+                              onBlur={(e) => {
+                                try {
+                                  const parsed = JSON.parse(e.target.value);
+                                  updateSectionContentField(activePage.id, section.id, 'cards', parsed);
+                                  setToast({ message: 'Feature cards updated', type: 'success' });
+                                } catch {
+                                  setToast({ message: 'Cards JSON is invalid', type: 'error' });
+                                  e.target.value = JSON.stringify(section.content.cards, null, 2);
+                                }
+                              }}
+                              className="min-h-40 w-full rounded-xl border border-white/10 bg-black/20 px-3 py-2 font-mono text-xs text-zinc-300 outline-none"
+                            />
+                          </div>
+                        ) : null}
+                        {!('title' in (section.content || {})) && !('subtitle' in (section.content || {})) && !('text' in (section.content || {})) && !Array.isArray(section.content?.cards) ? (
+                          <div className="space-y-2">
+                            <label className="text-[10px] font-bold uppercase tracking-widest text-zinc-500">Section Content JSON</label>
+                            <textarea
+                              defaultValue={JSON.stringify(section.content || {}, null, 2)}
+                              onBlur={(e) => {
+                                try {
+                                  const parsed = JSON.parse(e.target.value);
+                                  replaceSectionContent(activePage.id, section.id, parsed);
+                                  setToast({ message: 'Section content updated', type: 'success' });
+                                } catch {
+                                  setToast({ message: 'Section JSON is invalid', type: 'error' });
+                                  e.target.value = JSON.stringify(section.content || {}, null, 2);
+                                }
+                              }}
+                              className="min-h-40 w-full rounded-xl border border-white/10 bg-black/20 px-3 py-2 font-mono text-xs text-zinc-300 outline-none"
+                            />
+                          </div>
+                        ) : null}
                       </div>
                     )}
                   </div>

@@ -56,3 +56,14 @@ Set these variables before deploying the frontends:
 - `VITE_SUPER_ADMIN_API_URL` - base URL of the super-admin API
 - `VITE_SIGNALING_WS_URL` - optional WebSocket signaling endpoint for WebRTC features
 - `VITE_PUBLIC_ASSET_BASE_URL` - optional asset host for uploaded proofs and public files
+
+## Cloudflare Pages
+
+For the main web frontend, use the repository root in Cloudflare Pages and configure:
+
+- Framework preset: `Vite`
+- Root directory: leave blank
+- Build command: `npm run build:cloudflare`
+- Build output directory: `packages/web/dist`
+
+This avoids monorepo root-directory mismatches and builds the public frontend directly from the repo root.

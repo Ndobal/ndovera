@@ -10,6 +10,7 @@
     "dev:superadmin": "npm --workspace=packages/super-admin run dev",
     "dev:superadmin-server": "npm --workspace=packages/super-admin-server run dev",
     "dev": "npm run dev:server & npm run dev:superadmin-server & npm run dev:web & npm run dev:superadmin",
+    "build:cloudflare": "npm --workspace=packages/web run build",
     "build:web": "npm --workspace=packages/web run build",
     "build:superadmin": "npm --workspace=packages/super-admin run build",
     "verify:superadmin-live": "npm --workspace=packages/super-admin-server run verify:live",

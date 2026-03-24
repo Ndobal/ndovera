@@ -21,6 +21,11 @@ export type FaqAnswerContext = {
 	verifiedUser?: FaqVerifiedUser;
 };
 
+export type FaqAnswerResult = {
+	answer: string;
+	matched: boolean;
+};
+
 export type EnquiryPathKey =
 	| 'school-onboarding'
 	| 'growth-and-opportunities'
@@ -367,7 +372,7 @@ function buildFallback(context: FaqAnswerContext) {
 	if (context.mode === 'verified') {
 		return `I can explain what Ndovera does, how it works, how sign-up works, and what each role can do. If you need help with your own account, please contact ${SUPPORT_EMAIL}.`;
 	}
-	return `I am staying in public help mode. I can explain what Ndovera does, how sign-up works, and what each role can do. To get started, register your school or contact ${SUPPORT_EMAIL}.`;
+	return `I can explain what Ndovera does, how sign-up works, and what each role can do. To get started, register your school or contact ${SUPPORT_EMAIL}.`;
 }
 
 export function classifyEnquiryPath(message: string): EnquiryRouting {
@@ -442,13 +447,14 @@ export function classifyEnquiryPath(message: string): EnquiryRouting {
 	};
 }
 
-export function buildFaqAnswer(question: string, context: FaqAnswerContext) {
+export function buildFaqAnswer(question: string, context: FaqAnswerContext): FaqAnswerResult {
 	const normalizedQuestion = compactWhitespace(question);
 	const intro = context.mode === 'verified'
-		? `Verified help${context.verifiedUser?.name ? ` for ${context.verifiedUser.name}` : ''}${context.verifiedUser?.schoolName ? ` at ${context.verifiedUser.schoolName}` : ''}.`
-		: `Public help mode. For sign-up or access help, register or contact ${SUPPORT_EMAIL}.`;
+		? `Hi${context.verifiedUser?.name ? ` ${context.verifiedUser.name}` : ''}, welcome to Ndovera${context.verifiedUser?.schoolName ? ` at ${context.verifiedUser.schoolName}` : ''}.`
+		: 'Hi, welcome to Ndovera.';
 
 	let body = '';
+	let matched = true;
 	if (hasAny(normalizedQuestion, ['what can ndovera do', 'features', 'modules', 'capabilities', 'all that ndovera can do'])) {
 		body = buildFeatureAnswer();
 	} else if (hasAny(normalizedQuestion, ['how it works', 'how ndovera works', 'workflow', 'how to use ndovera', 'use ndovera'])) {
@@ -465,10 +471,16 @@ export function buildFaqAnswer(question: string, context: FaqAnswerContext) {
 			body = buildRoleGuideAnswer(roleLabel);
 		}
 	}
-	if (!body) body = buildFallback(context);
+	if (!body) {
+		body = buildFallback(context);
+		matched = false;
+	}
 	const outro = context.mode === 'verified'
 		? `If you need help with your own account, contact ${SUPPORT_EMAIL}.`
 		: `If you want a school account or I cannot verify you here, use Register School or contact ${SUPPORT_EMAIL}.`;
 
-	return `${intro}\n\n${body}\n\n${outro}`;
+	return {
+		answer: `${intro}\n\n${body}\n\n${outro}`,
+		matched,
+	};
 }

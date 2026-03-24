@@ -10,6 +10,7 @@ export interface WebsitePage {
   id: string;
   title: string;
   slug: string;
+  isHidden?: boolean;
   sections: WebsiteSection[];
 }
 

@@ -80,7 +80,7 @@ faqRouter.post('/verify', async (req, res) => {
 		return res.json({
 			matched: false,
 			mode: 'public' as const,
-			message: `I could not confirm that detail. I will stay in public help mode. You can still ask about Ndovera, register your school, or contact ${SUPPORT_EMAIL}.`,
+			message: `I could not find a matching Ndovera account yet, but I can still help with general questions. You can also register your school or contact ${SUPPORT_EMAIL}.`,
 		});
 	}
 
@@ -88,7 +88,7 @@ faqRouter.post('/verify', async (req, res) => {
 		matched: true,
 		mode: 'verified' as const,
 		user: toVerifiedUser(user),
-		message: `I found ${user.name} (${user.activeRole}) from ${user.schoolName}. You can now ask how Ndovera works, what your role can do, how sign-up works for others, or what makes Ndovera different.`,
+		message: `Welcome back ${user.name}. Please continue.`,
 	});
 });
 
@@ -104,5 +104,5 @@ faqRouter.post('/chat', async (req, res) => {
 		verifiedUser: parsed.data.verifiedUser || null,
 	});
 
-	return res.json({ answer });
+	return res.json(answer);
 });

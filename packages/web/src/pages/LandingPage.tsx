@@ -2,12 +2,15 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Briefcase, ChevronDown, ChevronRight, Facebook, Globe, Instagram, Linkedin, MessageCircle, ShieldCheck, Sprout, X, Youtube, Zap } from 'lucide-react';
 import { fetchWithAuth, resolveApiUrl } from '../services/apiClient';
 import { LandingHomeSections } from '../components/landing/LandingHomeSections';
+import type { WebsitePage } from '../types';
+import { ABOUT_US_CONTENT, CORE_PUBLIC_PAGE_ORDER, LEGAL_PUBLIC_PAGE_ORDER, MISSION_CONTENT, VISION_CONTENT, ensureCorePublicPages } from './publicSiteDefaults';
 
-type PublicPage = { id: string; title: string; slug: string; sections: Array<{ id: string; type: string; content: Record<string, any> }> };
+type PublicPage = WebsitePage;
 type PricingTier = { key: string; label: string; minStudents: number; maxStudents: number | null; oneTimeSetupNaira: number; perStudentPerTermNaira: number; oneTimeSetupDiscountNaira?: number; perStudentPerTermDiscountNaira?: number; pricing?: { oneTimeSetupNaira: number; perStudentPerTermNaira: number; discountPercent: number } };
 type SchoolWebsite = { schoolId: string; theme?: { primaryColor?: string; fontFamily?: string; logoUrl?: string }; pages?: PublicPage[]; publicUrl?: string; contactInfo?: { email?: string; phone?: string; address?: string; city?: string; state?: string; country?: string }; socialLinks?: { facebook?: string; instagram?: string; linkedin?: string; youtube?: string; whatsapp?: string }; marketing?: { heroCarouselImages?: string[]; eventGalleryItems?: Array<{ id: string; title?: string; caption?: string; mediaType?: string; url: string }> }; legal?: { privacyPolicy?: { title?: string; body?: string; lastUpdated?: string }, termsOfService?: { title?: string; body?: string; lastUpdated?: string } } };
-type ChatMessage = { from: 'user' | 'bot'; text: string };
-type ChatMode = 'pending' | 'verified' | 'public';
+type ChatMessage = { from: 'user' | 'bot'; text: string; contactPageLink?: boolean };
+type ChatMode = 'verified' | 'public';
+type ChatStage = 'welcome' | 'awaiting-identifier' | 'awaiting-description' | 'ready';
 type VerifiedChatUser = { id?: string; name?: string; schoolName?: string; activeRole?: string; roles?: string[] } | null;
 type ShowcaseSchool = { id: string; name: string; subdomain?: string; logoUrl?: string | null; primaryColor?: string | null; location?: string | null };
 type OpportunityApplicationRecord = { id: string; applicationCode: string; vacancyId: string; vacancyTitle: string; name: string; email: string; phone: string; status: string; assessment?: { required: boolean; status: string; score: number | null } };
@@ -16,67 +19,26 @@ type TutorDashboardRecord = { id: string; displayName: string; email: string; sp
 const NDOVERA_ADMIN_EMAIL = 'admin@ndovera.com';
 const NDOVERA_SUPPORT_EMAIL = 'support@ndovera.com';
 const NDOVERA_PUBLIC_URL = 'https://www.ndovera.com';
+const NDOVERA_LOGO_PATH = '/ndovera.png';
 const PUBLIC_SCHOOL_ID = 'school-1';
-const FAQ_INTRO_MESSAGE = `Before I answer in full, please enter your Ndovera name, ID, email, or phone number. If I cannot find a match, I will stay in public help mode and point you to sign up or contact ${NDOVERA_SUPPORT_EMAIL}.`;
-const ABOUT_US_CONTENT = `At Ndovera, we believe every student deserves a fair chance to succeed.
-
-We know that learning is not always easy. Some students feel left behind. Some try their best but still struggle. Others simply need a little more time, support, or encouragement.
-
-Ndovera was created for them and for everyone who believes education should work for all.
-
-Ndovera is more than just a platform. It is a helping hand. We built Ndovera to support students, teachers, and schools in a simple and meaningful way. It helps teachers track progress, guide their students better, and stay organised. It helps students stay focused, practise more, and grow with confidence.
-
-But beyond the technology, Ndovera is about people. It is about the student who stays up late trying to understand a topic. It is about the teacher who wants to do more but has limited tools. It is about the quiet effort, the small improvements, and the big dreams.
-
-We understand that behind every result is a story of effort, hope, and determination. That is why Ndovera is designed to be simple, fair, and supportive. No confusion. No pressure. Just clear tools to help learning happen better.
-
-We are building a future where:
-Every student feels seen.
-Every teacher feels supported.
-Every school can do more with less.
-
-Ndovera is not perfect. But it is honest. And it is built with care.
-
-Because in the end, education is not just about scores. It is about growth, confidence, and believing in what is possible.
-
-That is what Ndovera stands for.`;
-const VISION_VALUES_CONTENT = `Vision Statement
-To create a world where every student, no matter their background, has the support, confidence, and opportunity to succeed in learning and in life.
-
-Mission Statement
-Our mission is to make learning simpler, fairer, and more supportive by providing tools that help students grow with confidence and help teachers guide with clarity and care.
-
-We aim to remove barriers in education, encourage steady progress, and make every learner feel seen, supported, and capable.
-
-Core Values
-1. Care
-We believe learning should feel human. Every student and teacher matters, and we design with empathy and understanding.
-
-2. Simplicity
-We keep things clear and easy to use, so no one feels confused or overwhelmed.
-
-3. Fairness
-Every student deserves a fair chance to succeed, regardless of their starting point.
-
-4. Growth
-We value progress over perfection. Small steps forward matter.
-
-5. Support
-We stand by both students and teachers, giving them the tools and confidence to do their best.
-
-6. Integrity
-We are honest, transparent, and committed to doing what is right.
-
-Tagline
-Helping every learner grow
-
-Motto
-Learn better. Grow stronger.
-
-Our Promise
-We promise to always build with students and teachers in mind.
-We promise to keep things simple, honest, and helpful.
-And we promise to never forget that behind every screen is a real person trying to learn, improve, and succeed.`;
+const ABOUT_MENU_PAGE_IDS = ['about-us', 'vision-values', 'mission', 'contact-us'] as const;
+const RETAINED_PUBLIC_PAGE_IDS = new Set<string>([
+  ...CORE_PUBLIC_PAGE_ORDER.slice(0, 10),
+  'growth-partners',
+  'mission',
+  'contact-us',
+  'pricing',
+  ...LEGAL_PUBLIC_PAGE_ORDER,
+]);
+const FAQ_WELCOME_MESSAGES: ChatMessage[] = [
+  { from: 'bot', text: 'Hi! welcome to Ndovera! How may I be of help?' },
+];
+const FAQ_IDENTIFIER_PROMPT = 'What is your name, or please enter your name, email, phone number, or user ID.';
+const FAQ_CONTACT_PROMPT: ChatMessage = {
+  from: 'bot',
+  text: 'I could not find a direct answer for that here. Please contact the support team through the Contact Us page.',
+  contactPageLink: true,
+};
 function createHeroBackdrop(title: string, accent: string, shade: string) {
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900"><defs><linearGradient id="g" x1="0" x2="1" y1="0" y2="1"><stop offset="0%" stop-color="#07120d"/><stop offset="50%" stop-color="${accent}"/><stop offset="100%" stop-color="#0c1712"/></linearGradient></defs><rect width="1600" height="900" fill="url(#g)"/><circle cx="1320" cy="170" r="150" fill="rgba(255,255,255,0.18)"/><path d="M0 720 C260 610 460 770 700 690 C930 620 1180 520 1600 740 L1600 900 L0 900 Z" fill="${shade}"/><rect x="240" y="330" width="210" height="220" rx="18" fill="rgba(255,255,255,0.16)"/><rect x="500" y="265" width="300" height="285" rx="24" fill="rgba(255,255,255,0.18)"/><rect x="870" y="340" width="230" height="210" rx="20" fill="rgba(255,255,255,0.14)"/><rect x="1150" y="285" width="220" height="265" rx="20" fill="rgba(255,255,255,0.17)"/><text x="120" y="160" fill="rgba(255,255,255,0.92)" font-size="50" font-family="Verdana, Arial, sans-serif" font-weight="700">${title}</text><text x="120" y="220" fill="rgba(255,255,255,0.7)" font-size="24" font-family="Verdana, Arial, sans-serif">A calm school scene for the Ndovera homepage</text></svg>`;
   return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
@@ -127,9 +89,22 @@ function formatDateLabel(value?: string) {
   return new Intl.DateTimeFormat('en-NG', { dateStyle: 'medium', timeStyle: 'short' }).format(parsed);
 }
 
+function deriveChatVisitorName(value: string) {
+  const trimmed = value.trim();
+  if (!trimmed) return 'there';
+  const emailMatch = trimmed.match(/^([^@\s]+)@/);
+  if (emailMatch?.[1]) return emailMatch[1];
+  const normalized = trimmed.replace(/[^a-zA-Z0-9\s'-]/g, ' ').replace(/\s+/g, ' ').trim();
+  if (!normalized) return 'there';
+  const looksLikePhone = normalized.replace(/\D+/g, '').length >= 7 && !/[a-zA-Z]/.test(normalized);
+  if (looksLikePhone) return 'there';
+  return normalized.split(' ').slice(0, 2).join(' ');
+}
+
 const isVacancySlug = (value?: string) => ['opportunities', 'opportunity', 'vacancies', 'vacancy', 'careers', 'jobs'].includes(String(value || '').trim().toLowerCase());
 const isAboutSlug = (value?: string) => ['about', 'about-us', 'about us', 'who-we-are'].includes(String(value || '').trim().toLowerCase());
-const isVisionSlug = (value?: string) => ['vision-values', 'vision', 'values', 'mission', 'our-vision'].includes(String(value || '').trim().toLowerCase());
+const isVisionSlug = (value?: string) => ['vision-values', 'vision', 'values', 'our-vision'].includes(String(value || '').trim().toLowerCase());
+const isMissionSlug = (value?: string) => ['mission', 'our-mission'].includes(String(value || '').trim().toLowerCase());
 const isContactSlug = (value?: string) => ['contact', 'contact-us', 'contact us', 'get-in-touch'].includes(String(value || '').trim().toLowerCase());
 const isEventsSlug = (value?: string) => ['events', 'event', 'gallery', 'events-gallery', 'gallery-events'].includes(String(value || '').trim().toLowerCase());
 const isGrowthSlug = (value?: string) => ['growth', 'growth-partners', 'growth partners', 'partners'].includes(String(value || '').trim().toLowerCase());
@@ -145,6 +120,7 @@ const sampleTestimonials = () => ([
 export const LandingPage = ({ onLogin, initialPublicPageId }: { onLogin: () => void; initialPublicPageId?: string }) => {
   const [showRegister, setShowRegister] = useState(false);
   const [contactOpen, setContactOpen] = useState(false);
+  const [infoMenuOpen, setInfoMenuOpen] = useState(false);
   const [chatOpen, setChatOpen] = useState(false);
   const [showGrowthSignup, setShowGrowthSignup] = useState(false);
   const [toast, setToast] = useState<{ message: string; type?: 'success' | 'error' } | null>(null);
@@ -154,11 +130,12 @@ export const LandingPage = ({ onLogin, initialPublicPageId }: { onLogin: () => v
   const [showcaseSchools, setShowcaseSchools] = useState<ShowcaseSchool[]>([]);
   const [pricingTiers, setPricingTiers] = useState<PricingTier[]>([]);
   const [selectedPublicPageId, setSelectedPublicPageId] = useState(initialPublicPageId || 'home');
-  const [navMenuOpen, setNavMenuOpen] = useState<'about' | 'careers' | null>(null);
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
   const [chatInput, setChatInput] = useState('');
-  const [chatMode, setChatMode] = useState<ChatMode>('pending');
+  const [chatMode, setChatMode] = useState<ChatMode>('public');
+  const [chatStage, setChatStage] = useState<ChatStage>('welcome');
   const [verifiedChatUser, setVerifiedChatUser] = useState<VerifiedChatUser>(null);
+  const [chatVisitorName, setChatVisitorName] = useState('');
   const [chatLoading, setChatLoading] = useState(false);
   const [contactName, setContactName] = useState('');
   const [contactEmail, setContactEmail] = useState('');
@@ -209,42 +186,53 @@ export const LandingPage = ({ onLogin, initialPublicPageId }: { onLogin: () => v
   }), [website]);
 
   const publicPages = useMemo(() => {
-    const pages = website?.pages || [];
-    const customPages = pages.filter((page) => page.id !== 'home');
-    const hasAboutPage = customPages.some((page) => isAboutSlug(page.slug) || isAboutSlug(page.title));
-    const hasVisionPage = customPages.some((page) => isVisionSlug(page.slug) || isVisionSlug(page.title));
-    const hasContactPage = customPages.some((page) => isContactSlug(page.slug) || isContactSlug(page.title));
-    const hasEventsPage = customPages.some((page) => isEventsSlug(page.slug) || isEventsSlug(page.title));
-    const hasGrowthPage = customPages.some((page) => isGrowthSlug(page.slug) || isGrowthSlug(page.title));
-    const hasVacancyPage = customPages.some((page) => isVacancySlug(page.slug) || isVacancySlug(page.title));
-    const hasPricingPage = customPages.some((page) => isPricingSlug(page.slug) || isPricingSlug(page.title));
-    const hasTutorPage = customPages.some((page) => isTutorSlug(page.slug) || isTutorSlug(page.title));
+    const basePages = ensureCorePublicPages(website?.pages || []).map((page) => {
+      if (page.id === 'privacy-policy') return { ...page, title: legalContent.privacyPolicy.title };
+      if (page.id === 'terms-of-service') return { ...page, title: legalContent.termsOfService.title };
+      return page;
+    });
+    const pagesById = new Map(basePages.map((page) => [page.id, page]));
+    const orderedCorePages = CORE_PUBLIC_PAGE_ORDER
+      .map((pageId) => pagesById.get(pageId))
+      .filter((page): page is PublicPage => Boolean(page));
+    const orderedLegalPages = LEGAL_PUBLIC_PAGE_ORDER
+      .map((pageId) => pagesById.get(pageId))
+      .filter((page): page is PublicPage => Boolean(page));
+    const customPages = basePages.filter((page) => !CORE_PUBLIC_PAGE_ORDER.includes(page.id as (typeof CORE_PUBLIC_PAGE_ORDER)[number]) && !LEGAL_PUBLIC_PAGE_ORDER.includes(page.id as (typeof LEGAL_PUBLIC_PAGE_ORDER)[number]));
 
     return [
-      { id: 'home', title: 'Home', slug: 'home', sections: [] },
-      ...(hasPricingPage ? [] : [{ id: 'pricing', title: 'Pricing', slug: 'pricing', sections: [] }]),
-      ...(hasAboutPage ? [] : [{ id: 'about-us', title: 'About Us', slug: 'about-us', sections: [] }]),
-      ...(hasVisionPage ? [] : [{ id: 'vision-values', title: 'Vision & Values', slug: 'vision-values', sections: [] }]),
-      ...(hasVacancyPage ? [] : [{ id: 'vacancies', title: 'Opportunities', slug: 'opportunities', sections: [] }]),
-      ...(hasEventsPage ? [] : [{ id: 'events-gallery', title: 'Events Gallery', slug: 'events-gallery', sections: [] }]),
-      ...(hasGrowthPage ? [] : [{ id: 'growth-partners', title: 'Growth Partners', slug: 'growth-partners', sections: [] }]),
-      ...(hasContactPage ? [] : [{ id: 'contact-us', title: 'Contact Us', slug: 'contact-us', sections: [] }]),
-      ...(hasTutorPage ? [] : [{ id: 'become-a-tutor', title: 'Become a Tutor', slug: 'become-a-tutor', sections: [] }]),
+      ...orderedCorePages,
       ...customPages,
-      { id: 'privacy-policy', title: legalContent.privacyPolicy.title, slug: 'privacy-policy', sections: [] },
-      { id: 'terms-of-service', title: legalContent.termsOfService.title, slug: 'terms-of-service', sections: [] },
+      ...orderedLegalPages,
     ];
   }, [legalContent.privacyPolicy.title, legalContent.termsOfService.title, website]);
-  const navPages = useMemo(() => publicPages.filter((page) => !['privacy-policy', 'terms-of-service', 'vision-values', 'contact-us', 'growth-partners', 'vacancies'].includes(page.id)), [publicPages]);
-  const aboutMenuPages = useMemo(() => publicPages.filter((page) => ['about-us', 'vision-values', 'contact-us'].includes(page.id)), [publicPages]);
-  const careersMenuPages = useMemo(() => publicPages.filter((page) => ['vacancies', 'growth-partners'].includes(page.id)), [publicPages]);
-  const selectedPublicPage = publicPages.find((page) => page.id === selectedPublicPageId) || publicPages[0];
+  const visiblePublicPages = useMemo(() => publicPages.filter((page) => RETAINED_PUBLIC_PAGE_IDS.has(page.id) && !page.isHidden), [publicPages]);
+  const visiblePublicPageIds = useMemo(() => new Set(visiblePublicPages.map((page) => page.id)), [visiblePublicPages]);
+  const fallbackPublicPageId = visiblePublicPages[0]?.id || publicPages[0]?.id || 'home';
+  const navPages = useMemo(() => {
+    const pagesById = new Map(visiblePublicPages.map((page) => [page.id, page]));
+    return [...CORE_PUBLIC_PAGE_ORDER.slice(0, 10), 'growth-partners']
+      .filter((pageId) => !ABOUT_MENU_PAGE_IDS.includes(pageId as (typeof ABOUT_MENU_PAGE_IDS)[number]))
+      .map((pageId) => pagesById.get(pageId))
+      .filter((page): page is PublicPage => Boolean(page));
+  }, [visiblePublicPages]);
+  const infoMenuPages = useMemo(() => {
+    const pagesById = new Map(visiblePublicPages.map((page) => [page.id, page]));
+    return ABOUT_MENU_PAGE_IDS.map((pageId) => pagesById.get(pageId)).filter((page): page is PublicPage => Boolean(page));
+  }, [visiblePublicPages]);
+  const selectedPublicPage = visiblePublicPages.find((page) => page.id === selectedPublicPageId) || visiblePublicPages[0] || publicPages[0];
+  const openPublicPage = (pageId: string) => {
+    setInfoMenuOpen(false);
+    setSelectedPublicPageId(visiblePublicPageIds.has(pageId) ? pageId : fallbackPublicPageId);
+  };
   const activeLegal = selectedPublicPageId === 'privacy-policy' ? legalContent.privacyPolicy : selectedPublicPageId === 'terms-of-service' ? legalContent.termsOfService : null;
+  const infoMenuActive = ABOUT_MENU_PAGE_IDS.includes(selectedPublicPageId as (typeof ABOUT_MENU_PAGE_IDS)[number]);
   const pageIsHome = selectedPublicPageId === 'home';
   const pageIsLegal = Boolean(activeLegal);
   const pageIsVacancy = isVacancySlug(selectedPublicPage?.slug) || isVacancySlug(selectedPublicPage?.title) || selectedPublicPage?.id === 'vacancies';
   const pageIsAbout = isAboutSlug(selectedPublicPage?.slug) || isAboutSlug(selectedPublicPage?.title) || selectedPublicPage?.id === 'about-us';
   const pageIsVision = isVisionSlug(selectedPublicPage?.slug) || isVisionSlug(selectedPublicPage?.title) || selectedPublicPage?.id === 'vision-values';
+  const pageIsMission = isMissionSlug(selectedPublicPage?.slug) || isMissionSlug(selectedPublicPage?.title) || selectedPublicPage?.id === 'mission';
   const pageIsContact = isContactSlug(selectedPublicPage?.slug) || isContactSlug(selectedPublicPage?.title) || selectedPublicPage?.id === 'contact-us';
   const pageIsEvents = isEventsSlug(selectedPublicPage?.slug) || isEventsSlug(selectedPublicPage?.title) || selectedPublicPage?.id === 'events-gallery';
   const pageIsGrowth = isGrowthSlug(selectedPublicPage?.slug) || isGrowthSlug(selectedPublicPage?.title) || selectedPublicPage?.id === 'growth-partners';
@@ -294,7 +282,7 @@ export const LandingPage = ({ onLogin, initialPublicPageId }: { onLogin: () => v
 	const shouldOpen = sessionStorage.getItem('ndovera_open_register_school');
 	if (shouldOpen !== '1') return;
 	sessionStorage.removeItem('ndovera_open_register_school');
-	setSelectedPublicPageId('pricing');
+  openPublicPage('pricing');
 	setShowRegister(true);
   }, []);
 
@@ -320,12 +308,16 @@ export const LandingPage = ({ onLogin, initialPublicPageId }: { onLogin: () => v
   }, [toast]);
 
   useEffect(() => {
-    if (!publicPages.some((page) => page.id === selectedPublicPageId)) setSelectedPublicPageId('home');
-  }, [publicPages, selectedPublicPageId]);
+    if (!visiblePublicPageIds.has(selectedPublicPageId)) setSelectedPublicPageId(fallbackPublicPageId);
+  }, [fallbackPublicPageId, selectedPublicPageId, visiblePublicPageIds]);
+
+  useEffect(() => {
+    setInfoMenuOpen(false);
+  }, [selectedPublicPageId]);
 
   useEffect(() => {
 	if (!chatOpen) return;
-	setChatMessages((current) => current.length ? current : [{ from: 'bot', text: FAQ_INTRO_MESSAGE }]);
+  setChatMessages((current) => current.length ? current : FAQ_WELCOME_MESSAGES);
   }, [chatOpen]);
 
   const submitContact = async () => {
@@ -540,36 +532,73 @@ export const LandingPage = ({ onLogin, initialPublicPageId }: { onLogin: () => v
   };
 
   const resetChatVerification = () => {
-  setChatMode('pending');
+  setChatMode('public');
+  setChatStage('welcome');
   setVerifiedChatUser(null);
-  setChatMessages([{ from: 'bot', text: FAQ_INTRO_MESSAGE }]);
+  setChatVisitorName('');
+  setChatMessages(FAQ_WELCOME_MESSAGES);
   setChatInput('');
   };
 
   const sendChat = async (q: string) => {
-    if (!q) return;
-    setChatMessages((m) => [...m, { from: 'user', text: q }]);
+    const question = q.trim();
+    if (!question) return;
+    setChatMessages((m) => [...m, { from: 'user', text: question }]);
     setChatInput('');
+
+    if (chatStage === 'welcome') {
+      setChatStage('awaiting-identifier');
+      setChatMessages((m) => [...m, { from: 'bot', text: FAQ_IDENTIFIER_PROMPT }]);
+      return;
+    }
+
     setChatLoading(true);
     try {
-    if (chatMode === 'pending') {
-    const verifyResponse = await fetchWithAuth('/api/faq/verify', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ identifier: q }) });
-    if (verifyResponse.matched) {
-      setChatMode('verified');
-      setVerifiedChatUser(verifyResponse.user || null);
-    } else {
+    let nextMode: ChatMode = chatMode;
+    let nextVerifiedUser = verifiedChatUser;
+
+    if (chatStage === 'awaiting-identifier') {
+      const verifyResponse = await fetchWithAuth('/api/faq/verify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ identifier: question }),
+      });
+
+      if (verifyResponse.matched) {
+        nextMode = 'verified';
+        nextVerifiedUser = verifyResponse.user || null;
+        setChatMode('verified');
+        setChatStage('ready');
+        setVerifiedChatUser(nextVerifiedUser);
+        setChatMessages((m) => [...m, { from: 'bot', text: verifyResponse.message || `Welcome back ${nextVerifiedUser?.name || ''}. Please continue.`.trim() }]);
+        return;
+      }
+
+      nextMode = 'public';
+      nextVerifiedUser = null;
       setChatMode('public');
+      setChatStage('awaiting-description');
       setVerifiedChatUser(null);
+      setChatVisitorName(deriveChatVisitorName(question));
+      setChatMessages((m) => [...m, { from: 'bot', text: `Hello ${deriveChatVisitorName(question)}, kindly describe what you want.` }]);
+      return;
     }
-    setChatMessages((m) => [...m, { from: 'bot', text: verifyResponse.message || `I could not verify that identifier. Contact ${NDOVERA_SUPPORT_EMAIL}.` }]);
-    return;
-    }
+
     const d = await fetchWithAuth('/api/faq/chat', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ question: q, mode: chatMode === 'verified' ? 'verified' : 'public', verifiedUser: verifiedChatUser }),
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        question,
+        mode: nextMode === 'verified' ? 'verified' : 'public',
+        verifiedUser: nextVerifiedUser,
+      }),
     });
-    setChatMessages((m) => [...m, { from: 'bot', text: d.answer || `I could not answer that here. Contact ${NDOVERA_SUPPORT_EMAIL}.` }]);
+    setChatStage('ready');
+    if (d.matched) {
+      setChatMessages((m) => [...m, { from: 'bot', text: d.answer || `I could not answer that here. Contact ${NDOVERA_SUPPORT_EMAIL}.` }]);
+      return;
+    }
+    setChatMessages((m) => [...m, FAQ_CONTACT_PROMPT]);
     } catch {
     setChatMessages((m) => [...m, { from: 'bot', text: `I could not complete that request here. Contact ${NDOVERA_SUPPORT_EMAIL}.` }]);
     } finally {
@@ -579,12 +608,24 @@ export const LandingPage = ({ onLogin, initialPublicPageId }: { onLogin: () => v
 
   const renderSection = (section: any) => {
     if (section.type === 'hero') return <div className="text-center space-y-6"><h1 className="text-5xl font-black tracking-tight text-white lg:text-6xl">{section.content.title}</h1><p className="mx-auto max-w-3xl text-lg text-zinc-400">{section.content.subtitle}</p></div>;
-    if (section.type === 'about') return <div className="mx-auto max-w-4xl rounded-4xl border border-white/5 bg-white/3 p-8"><h2 className="mb-4 text-3xl font-bold text-white">About</h2><p className="leading-8 text-zinc-300">{section.content.text}</p></div>;
+      if (section.type === 'about') return <div className="mx-auto max-w-4xl rounded-4xl border border-white/5 bg-white/3 p-8"><h2 className="mb-4 text-3xl font-bold text-white">About</h2><p className="leading-8 text-zinc-300">{section.content.text}</p></div>;
     if (section.type === 'legal' && activeLegal) return <div className="mx-auto max-w-4xl rounded-4xl border border-white/5 bg-white/3 p-8 text-left"><h2 className="mb-4 text-3xl font-bold text-white">{activeLegal.title}</h2><p className="mb-6 text-sm font-semibold uppercase tracking-[0.22em] text-zinc-500">Updated {activeLegal.lastUpdated || 'recently'}</p><div className="space-y-5 whitespace-pre-line leading-8 text-zinc-300">{String(activeLegal.body || '').trim()}</div></div>;
     if (section.type === 'contact') return <div className="mx-auto max-w-3xl rounded-4xl border border-white/5 bg-[#151619] p-8 text-left"><h2 className="text-3xl font-bold text-white">Contact this school</h2><p className="mt-2 text-sm text-zinc-400">Send a direct public enquiry to the school team.</p>{website?.contactInfo ? <div className="mt-6 grid grid-cols-1 gap-3 text-sm text-zinc-300 md:grid-cols-2">{website.contactInfo.email ? <a href={`mailto:${website.contactInfo.email}`} className="rounded-2xl border border-white/10 bg-white/5 p-4"><div className="text-[10px] font-bold uppercase tracking-[0.22em] text-zinc-500">Email</div><div className="mt-2 font-semibold text-white">{website.contactInfo.email}</div></a> : null}{website.contactInfo.phone ? <a href={`tel:${website.contactInfo.phone}`} className="rounded-2xl border border-white/10 bg-white/5 p-4"><div className="text-[10px] font-bold uppercase tracking-[0.22em] text-zinc-500">Phone</div><div className="mt-2 font-semibold text-white">{website.contactInfo.phone}</div></a> : null}{website.contactInfo.address ? <div className="rounded-2xl border border-white/10 bg-white/5 p-4 md:col-span-2"><div className="text-[10px] font-bold uppercase tracking-[0.22em] text-zinc-500">Address</div><div className="mt-2 text-white">{website.contactInfo.address}</div>{tenantLocation ? <div className="mt-2 text-xs text-zinc-400">{tenantLocation}</div> : null}</div> : null}</div> : null}<div className="mt-6 grid gap-4 md:grid-cols-2"><input value={contactName} onChange={(e) => setContactName(e.target.value)} placeholder="Your name" className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white" /><input value={contactEmail} onChange={(e) => setContactEmail(e.target.value)} placeholder="Email" className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white" /><textarea value={contactMessage} onChange={(e) => setContactMessage(e.target.value)} placeholder="Message" className="md:col-span-2 h-36 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white" /><button onClick={submitContact} className="md:col-span-2 rounded-2xl bg-[#066a3e] px-6 py-4 text-sm font-bold text-white">Send Message</button></div></div>;
     if (section.type === 'features') return <div className="grid grid-cols-1 gap-6 md:grid-cols-3">{[1, 2, 3].map((item) => <div key={item} className="rounded-4xl border border-white/5 bg-white/3 p-8"><div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-500/10 text-emerald-400"><Globe size={22} /></div><h3 className="text-xl font-bold text-white">{section.content.title || `Highlight ${item}`}</h3><p className="mt-3 text-sm leading-7 text-zinc-400">{section.content.subtitle || 'Published from the school website builder.'}</p></div>)}</div>;
     return null;
   };
+
+  const renderPageIdentity = (label: string) => (
+    <div className="mb-8 flex items-center gap-4 rounded-3xl border border-white/10 bg-black/20 p-4">
+      <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white shadow-lg shadow-black/20">
+        <img src={NDOVERA_LOGO_PATH} alt="Ndovera" className="h-12 w-12 object-contain" />
+      </div>
+      <div>
+        <p className="text-[11px] font-bold uppercase tracking-[0.22em]" style={{ color: brandText }}>{label}</p>
+        <p className="mt-2 text-sm text-zinc-400">Ndovera Website</p>
+      </div>
+    </div>
+  );
 
   const submitGrowth = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -619,11 +660,11 @@ export const LandingPage = ({ onLogin, initialPublicPageId }: { onLogin: () => v
       {showGrowthSignup ? <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-6"><div className="w-full max-w-xl rounded-4xl border border-white/10 bg-[#151619] p-8">{growthSuccess ? <div className="py-10 text-center text-white"><div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-500"><ShieldCheck /></div><h3 className="text-2xl font-bold">Application Received</h3></div> : <form onSubmit={submitGrowth} className="space-y-4"><div className="flex items-center justify-between"><h3 className="text-2xl font-bold text-white">Join the Growth Team</h3><button type="button" onClick={() => setShowGrowthSignup(false)}><X /></button></div><div className="grid gap-3 md:grid-cols-2"><input required value={growthForm.name} onChange={(e) => setGrowthForm((c) => ({ ...c, name: e.target.value }))} placeholder="Full name" className="rounded-xl border border-white/10 bg-white/5 p-4 text-white" /><input required value={growthForm.email} onChange={(e) => setGrowthForm((c) => ({ ...c, email: e.target.value }))} placeholder="Email" className="rounded-xl border border-white/10 bg-white/5 p-4 text-white" /><input required value={growthForm.phone} onChange={(e) => setGrowthForm((c) => ({ ...c, phone: e.target.value }))} placeholder="Phone" className="rounded-xl border border-white/10 bg-white/5 p-4 text-white" /><input value={growthForm.city} onChange={(e) => setGrowthForm((c) => ({ ...c, city: e.target.value }))} placeholder="City" className="rounded-xl border border-white/10 bg-white/5 p-4 text-white" /><textarea value={growthForm.notes} onChange={(e) => setGrowthForm((c) => ({ ...c, notes: e.target.value }))} placeholder="Why join?" className="h-28 rounded-xl border border-white/10 bg-white/5 p-4 text-white md:col-span-2" /></div><div className="flex gap-3"><button type="submit" disabled={growthSubmitting} className="rounded-2xl px-5 py-3 font-bold text-white" style={{ background: brandColor }}>Submit</button><button type="button" onClick={() => setShowGrowthSignup(false)} className="rounded-2xl bg-white/5 px-5 py-3 font-bold text-white">Cancel</button></div></form>}</div></div> : null}
 
       <nav className="sticky top-0 z-40 flex h-24 items-center justify-between px-6 lg:px-20" style={{ background: '#40a829' }}>
-        <div className="flex items-center gap-4"><div className="flex h-16 w-16 items-center justify-center overflow-hidden rounded-xl bg-white"><img src="/logo.png" alt="Ndovera" className="h-full w-full object-contain" /></div><span className="text-3xl font-extrabold text-white">Ndovera School</span></div>
-        <div className="hidden flex-1 justify-center px-8 md:flex"><div className="flex max-w-5xl items-center gap-3 overflow-x-auto text-sm font-medium text-black">{navPages.map((p) => <button key={p.id} onClick={() => setSelectedPublicPageId(p.id)} className="shrink-0 rounded-full px-4 py-2 transition-all duration-300 hover:opacity-90" style={selectedPublicPageId === p.id ? { background: 'rgba(255,255,255,0.2)', color: '#ffffff', textDecoration: 'underline', textUnderlineOffset: '0.55rem', boxShadow: '0 0 24px rgba(255,255,255,0.24)' } : { background: 'transparent', color: '#06260e' }}>{p.title}</button>)}</div></div>
+        <div className="flex items-center gap-4"><div className="flex h-16 w-16 items-center justify-center overflow-hidden rounded-xl bg-white"><img src={NDOVERA_LOGO_PATH} alt="Ndovera" className="h-12 w-12 object-contain" /></div><span className="text-3xl font-extrabold text-white">Ndovera School</span></div>
+        <div className="hidden flex-1 justify-center px-8 md:flex"><div className="flex max-w-6xl flex-wrap items-center justify-center gap-2 text-sm font-semibold text-black"><div className="relative"><button onClick={() => setInfoMenuOpen((current) => !current)} className="shrink-0 rounded-full border px-4 py-2.5 transition-all duration-300 hover:opacity-95" style={infoMenuActive || infoMenuOpen ? { background: 'rgba(255,255,255,0.22)', color: '#ffffff', borderColor: 'rgba(255,255,255,0.28)', boxShadow: '0 0 24px rgba(255,255,255,0.18)' } : { background: 'rgba(6,38,14,0.08)', color: '#06260e', borderColor: 'rgba(6,38,14,0.08)' }}>About Ndovera <ChevronDown className="ml-2 inline-block" size={16} /></button>{infoMenuOpen ? <div className="absolute left-1/2 top-full z-30 mt-3 w-64 -translate-x-1/2 rounded-3xl border border-white/10 bg-[#111315] p-3 shadow-2xl">{infoMenuPages.map((page) => <button key={page.id} onClick={() => openPublicPage(page.id)} className="flex w-full items-center justify-between rounded-2xl px-4 py-3 text-left text-sm font-semibold text-zinc-200 transition hover:bg-white/5"><span>{page.title}</span><ChevronRight size={16} className="text-zinc-500" /></button>)}</div> : null}</div>{navPages.map((p) => <button key={p.id} onClick={() => openPublicPage(p.id)} className="shrink-0 rounded-full border px-4 py-2.5 transition-all duration-300 hover:opacity-95" style={selectedPublicPageId === p.id ? { background: 'rgba(255,255,255,0.22)', color: '#ffffff', borderColor: 'rgba(255,255,255,0.28)', boxShadow: '0 0 24px rgba(255,255,255,0.18)' } : { background: 'rgba(6,38,14,0.08)', color: '#06260e', borderColor: 'rgba(6,38,14,0.08)' }}>{p.title}</button>)}</div></div>
         <div className="flex items-center gap-4"><button onClick={onLogin} className="text-sm font-bold text-black">Sign In</button><button onClick={() => setShowRegister(true)} className="rounded-xl bg-[#066a3e] px-5 py-2.5 font-bold text-white">Register School</button></div>
       </nav>
-      <div className="border-b border-white/5 bg-[#0A0B0D] md:hidden"><div className="flex gap-3 overflow-x-auto px-4 py-3 text-sm font-medium text-zinc-300">{navPages.map((p) => <button key={`mobile_${p.id}`} onClick={() => setSelectedPublicPageId(p.id)} className="shrink-0 rounded-full px-4 py-2" style={selectedPublicPageId === p.id ? { color: '#ffffff', textDecoration: 'underline', textUnderlineOffset: '0.45rem', background: 'rgba(64,168,41,0.18)', boxShadow: '0 0 18px rgba(64,168,41,0.3)' } : { color: '#a1a1aa' }}>{p.title}</button>)}</div></div>
+      <div className="border-b border-white/5 bg-[#0A0B0D] md:hidden"><div className="flex gap-3 overflow-x-auto px-4 py-3 text-sm font-medium text-zinc-300"><button onClick={() => setInfoMenuOpen((current) => !current)} className="shrink-0 rounded-full px-4 py-2" style={infoMenuActive || infoMenuOpen ? { color: '#ffffff', textDecoration: 'underline', textUnderlineOffset: '0.45rem', background: 'rgba(64,168,41,0.18)', boxShadow: '0 0 18px rgba(64,168,41,0.3)' } : { color: '#a1a1aa' }}>About Ndovera <ChevronDown className="ml-2 inline-block" size={16} /></button>{navPages.map((p) => <button key={`mobile_${p.id}`} onClick={() => openPublicPage(p.id)} className="shrink-0 rounded-full px-4 py-2" style={selectedPublicPageId === p.id ? { color: '#ffffff', textDecoration: 'underline', textUnderlineOffset: '0.45rem', background: 'rgba(64,168,41,0.18)', boxShadow: '0 0 18px rgba(64,168,41,0.3)' } : { color: '#a1a1aa' }}>{p.title}</button>)}</div>{infoMenuOpen ? <div className="grid gap-2 px-4 pb-4 pt-1">{infoMenuPages.map((page) => <button key={`mobile_info_${page.id}`} onClick={() => openPublicPage(page.id)} className="flex items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-left text-sm font-semibold text-zinc-200"><span>{page.title}</span><ChevronRight size={16} className="text-zinc-500" /></button>)}</div> : null}</div>
 
       {pageIsHome ? (
         <LandingHomeSections
@@ -644,6 +685,7 @@ export const LandingPage = ({ onLogin, initialPublicPageId }: { onLogin: () => v
       ) : pageIsPricing ? (
         <section className="px-6 py-16 lg:px-20">
           <div className="mx-auto max-w-7xl rounded-[2.5rem] border border-white/5 bg-[#111315] p-8 lg:p-12">
+            {renderPageIdentity('Pricing Page')}
             <div className="max-w-4xl space-y-4">
               <div className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-bold uppercase tracking-[0.25em]" style={{ borderColor: brandBorder, background: brandSoft, color: brandText }}><Zap size={14} /> Pricing</div>
               <h1 className="text-4xl font-black text-white lg:text-5xl">Transparent school pricing with launch discounts</h1>
@@ -667,6 +709,7 @@ export const LandingPage = ({ onLogin, initialPublicPageId }: { onLogin: () => v
       ) : pageIsTutor ? (
         <section className="px-6 py-16 lg:px-20">
           <div className="mx-auto max-w-7xl rounded-[2.5rem] border border-white/5 bg-[#111315] p-8 lg:p-12">
+            {renderPageIdentity('Tutor Page')}
             <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr]">
               <div className="space-y-5">
                 <div className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-bold uppercase tracking-[0.25em]" style={{ borderColor: brandBorder, background: brandSoft, color: brandText }}><Sprout size={14} /> Become a Tutor</div>
@@ -700,55 +743,67 @@ export const LandingPage = ({ onLogin, initialPublicPageId }: { onLogin: () => v
         <section className="px-6 py-16 lg:px-20">
           <div className="mx-auto max-w-6xl rounded-[2.5rem] border border-white/5 bg-[#111315] p-8 lg:p-12">
             <div className="space-y-10">
-              {selectedPublicPage?.sections?.length ? (
-                <div className="space-y-8">{selectedPublicPage.sections.map((section) => <div key={section.id}>{renderSection(section)}</div>)}</div>
-              ) : (
-                <>
-                  <div className="max-w-4xl space-y-4">
-                    <div className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-bold uppercase tracking-[0.25em]" style={{ borderColor: brandBorder, background: brandSoft, color: brandText }}><Globe size={14} /> About Ndovera</div>
-                    <h1 className="text-4xl font-black text-white lg:text-5xl">Built with care for students, teachers, and schools</h1>
-                    <div className="whitespace-pre-line text-lg leading-8 text-zinc-400">{ABOUT_US_CONTENT}</div>
-                    <div className="pt-2">
-                      <button onClick={() => setSelectedPublicPageId('vision-values')} className="rounded-2xl px-5 py-3 text-sm font-bold text-white" style={{ background: brandColor }}>Read our vision and values</button>
-                    </div>
+              {renderPageIdentity('About Us')}
+              <div className="max-w-4xl space-y-4">
+                <div className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-bold uppercase tracking-[0.25em]" style={{ borderColor: brandBorder, background: brandSoft, color: brandText }}><Globe size={14} /> About Ndovera</div>
+                <h1 className="text-4xl font-black text-white lg:text-5xl">Built with care for students, teachers, and schools</h1>
+                <div className="whitespace-pre-line text-lg leading-8 text-zinc-400">{ABOUT_US_CONTENT}</div>
+                <div className="flex flex-wrap gap-3 pt-2">
+                  <button onClick={() => openPublicPage('vision-values')} className="rounded-2xl px-5 py-3 text-sm font-bold text-white" style={{ background: brandColor }}>Open Vision</button>
+                  <button onClick={() => openPublicPage('mission')} className="rounded-2xl border border-white/10 bg-white/5 px-5 py-3 text-sm font-bold text-white">Open Mission</button>
+                </div>
+              </div>
+              <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+                {[
+                  { title: 'For teaching', body: 'Share class work, track progress, and help every learner move forward.' },
+                  { title: 'For operations', body: 'Handle attendance, records, and updates without confusion.' },
+                  { title: 'For finance', body: 'Keep fees, payment records, and follow-up work neat and easy to check.' },
+                  { title: 'For families', body: 'Give parents and students clear updates, notices, and public school information.' },
+                ].map((item) => (
+                  <div key={item.title} className="rounded-3xl border border-white/5 bg-white/3 p-6">
+                    <p className="text-sm font-bold uppercase tracking-[0.22em] text-zinc-500">Ndovera</p>
+                    <h3 className="mt-3 text-xl font-bold text-white">{item.title}</h3>
+                    <p className="mt-3 text-sm leading-7 text-zinc-400">{item.body}</p>
                   </div>
-                  <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-                    {[
-                      { title: 'For teaching', body: 'Share class work, track progress, and help every learner move forward.' },
-                      { title: 'For operations', body: 'Handle attendance, records, and updates without confusion.' },
-                      { title: 'For finance', body: 'Keep fees, payment records, and follow-up work neat and easy to check.' },
-                      { title: 'For families', body: 'Give parents and students clear updates, notices, and public school information.' },
-                    ].map((item) => (
-                      <div key={item.title} className="rounded-3xl border border-white/5 bg-white/3 p-6">
-                        <p className="text-sm font-bold uppercase tracking-[0.22em] text-zinc-500">Ndovera</p>
-                        <h3 className="mt-3 text-xl font-bold text-white">{item.title}</h3>
-                        <p className="mt-3 text-sm leading-7 text-zinc-400">{item.body}</p>
-                      </div>
-                    ))}
-                  </div>
-                </>
-              )}
+                ))}
+              </div>
             </div>
           </div>
         </section>
       ) : pageIsVision ? (
         <section className="px-6 py-16 lg:px-20">
           <div className="mx-auto max-w-5xl rounded-[2.5rem] border border-white/5 bg-[#111315] p-8 lg:p-12">
-            {selectedPublicPage?.sections?.length ? (
-              <div className="space-y-8">{selectedPublicPage.sections.map((section) => <div key={section.id}>{renderSection(section)}</div>)}</div>
-            ) : (
-              <div className="space-y-6">
-                <div className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-bold uppercase tracking-[0.25em]" style={{ borderColor: brandBorder, background: brandSoft, color: brandText }}><ShieldCheck size={14} /> Vision & Values</div>
-                <h1 className="text-4xl font-black text-white lg:text-5xl">What guides Ndovera</h1>
-                <div className="whitespace-pre-line text-lg leading-8 text-zinc-300">{VISION_VALUES_CONTENT}</div>
-                <button onClick={() => setSelectedPublicPageId('about-us')} className="rounded-2xl bg-white/5 px-5 py-3 text-sm font-bold text-white">Back to About Us</button>
+            {renderPageIdentity('Vision Page')}
+            <div className="space-y-6">
+              <div className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-bold uppercase tracking-[0.25em]" style={{ borderColor: brandBorder, background: brandSoft, color: brandText }}><ShieldCheck size={14} /> Vision</div>
+              <h1 className="text-4xl font-black text-white lg:text-5xl">The vision guiding Ndovera</h1>
+              <div className="whitespace-pre-line text-lg leading-8 text-zinc-300">{VISION_CONTENT}</div>
+              <div className="flex flex-wrap gap-3">
+                <button onClick={() => openPublicPage('mission')} className="rounded-2xl px-5 py-3 text-sm font-bold text-white" style={{ background: brandColor }}>Open Mission</button>
+                <button onClick={() => openPublicPage('about-us')} className="rounded-2xl bg-white/5 px-5 py-3 text-sm font-bold text-white">Back to About Us</button>
               </div>
-            )}
+            </div>
+          </div>
+        </section>
+      ) : pageIsMission ? (
+        <section className="px-6 py-16 lg:px-20">
+          <div className="mx-auto max-w-5xl rounded-[2.5rem] border border-white/5 bg-[#111315] p-8 lg:p-12">
+            {renderPageIdentity('Mission Page')}
+            <div className="space-y-6">
+              <div className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-bold uppercase tracking-[0.25em]" style={{ borderColor: brandBorder, background: brandSoft, color: brandText }}><ShieldCheck size={14} /> Mission</div>
+              <h1 className="text-4xl font-black text-white lg:text-5xl">The mission behind everyday work</h1>
+              <div className="whitespace-pre-line text-lg leading-8 text-zinc-300">{MISSION_CONTENT}</div>
+              <div className="flex flex-wrap gap-3">
+                <button onClick={() => openPublicPage('vision-values')} className="rounded-2xl px-5 py-3 text-sm font-bold text-white" style={{ background: brandColor }}>Open Vision</button>
+                <button onClick={() => openPublicPage('about-us')} className="rounded-2xl bg-white/5 px-5 py-3 text-sm font-bold text-white">Back to About Us</button>
+              </div>
+            </div>
           </div>
         </section>
       ) : pageIsGrowth ? (
         <section className="px-6 py-16 lg:px-20">
           <div className="mx-auto max-w-6xl rounded-[2.5rem] border border-white/5 bg-[#111315] p-8 lg:p-12">
+            {renderPageIdentity('Growth Partners Page')}
             <div className="grid gap-8 lg:grid-cols-[1.25fr_0.9fr]">
               <div className="space-y-5">
                 <div className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-bold uppercase tracking-[0.25em]" style={{ borderColor: brandBorder, background: brandSoft, color: brandText }}><Sprout size={14} /> Growth Partners</div>
@@ -774,6 +829,7 @@ export const LandingPage = ({ onLogin, initialPublicPageId }: { onLogin: () => v
       ) : pageIsContact ? (
         <section className="px-6 py-16 lg:px-20">
           <div className="mx-auto max-w-5xl rounded-[2.5rem] border border-white/5 bg-[#111315] p-8 lg:p-12">
+            {renderPageIdentity('Contact Page')}
             <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
               <div className="space-y-4">
                 <div className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-bold uppercase tracking-[0.25em]" style={{ borderColor: brandBorder, background: brandSoft, color: brandText }}><ShieldCheck size={14} /> Contact Us</div>
@@ -791,6 +847,7 @@ export const LandingPage = ({ onLogin, initialPublicPageId }: { onLogin: () => v
       ) : pageIsEvents ? (
         <section className="px-6 py-16 lg:px-20">
           <div className="mx-auto max-w-6xl rounded-[2.5rem] border border-white/5 bg-[#111315] p-8 lg:p-12">
+            {renderPageIdentity('Events Page')}
             <div className="max-w-4xl space-y-4">
               <div className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-bold uppercase tracking-[0.25em]" style={{ borderColor: brandBorder, background: brandSoft, color: brandText }}><Zap size={14} /> Events Gallery</div>
               <h1 className="text-4xl font-black text-white lg:text-5xl">Events that show school life and support in action</h1>
@@ -810,8 +867,9 @@ export const LandingPage = ({ onLogin, initialPublicPageId }: { onLogin: () => v
       ) : pageIsLegal ? (
         <section className="px-6 py-16 lg:px-20">
           <div className="mx-auto max-w-4xl rounded-[2.5rem] border border-white/5 bg-[#111315] p-8 lg:p-12">
+            {renderPageIdentity('Legal Page')}
             <div className="mb-8 flex flex-wrap items-center gap-3 text-sm text-zinc-400">
-              <button onClick={() => setSelectedPublicPageId('home')} className="rounded-full bg-white/5 px-4 py-2">Home</button>
+              <button onClick={() => openPublicPage('home')} className="rounded-full bg-white/5 px-4 py-2">Home</button>
               <ChevronRight size={16} />
               <span className="rounded-full px-4 py-2" style={{ background: brandSoft, color: brandText }}>{activeLegal?.title}</span>
             </div>
@@ -825,6 +883,7 @@ export const LandingPage = ({ onLogin, initialPublicPageId }: { onLogin: () => v
       ) : pageIsVacancy ? (
         <section className="px-6 py-16 lg:px-20">
           <div className="mx-auto max-w-7xl rounded-[2.5rem] border border-white/5 bg-[#111315] p-8 lg:p-12">
+            {renderPageIdentity('Opportunities Page')}
             <div className="max-w-3xl space-y-4">
               <div className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-bold uppercase tracking-[0.25em]" style={{ borderColor: brandBorder, background: brandSoft, color: brandText }}><Briefcase size={14} /> Careers & Opportunities</div>
               <h1 className="text-4xl font-black text-white lg:text-5xl">Opportunities to work with Ndovera</h1>
@@ -855,6 +914,7 @@ export const LandingPage = ({ onLogin, initialPublicPageId }: { onLogin: () => v
       ) : (
         <section className="px-6 py-16 lg:px-20">
           <div className="mx-auto max-w-4xl rounded-[2.5rem] border border-white/5 bg-[#111315] p-8 lg:p-12">
+            {renderPageIdentity(selectedPublicPage?.title || 'Website Page')}
             <div className="space-y-8">{(selectedPublicPage?.sections || []).map((section) => <div key={section.id}>{renderSection(section)}</div>)}</div>
           </div>
         </section>
@@ -867,7 +927,7 @@ export const LandingPage = ({ onLogin, initialPublicPageId }: { onLogin: () => v
         { id: 'youtube', icon: <Youtube size={18} />, href: website?.socialLinks?.youtube || '' },
       ].map((item) => item.href ? <a key={item.id} href={item.href} target="_blank" rel="noreferrer" className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-zinc-200 transition hover:border-white/20 hover:text-white">{item.icon}</a> : <button key={item.id} onClick={() => setSelectedPublicPageId('contact-us')} className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-zinc-200 transition hover:border-white/20 hover:text-white">{item.icon}</button>)}</div><div className="flex flex-wrap items-center justify-center gap-4 text-sm font-medium text-zinc-500"><button onClick={() => setSelectedPublicPageId('privacy-policy')}>Privacy Policy</button><button onClick={() => setSelectedPublicPageId('terms-of-service')}>Terms of Service</button></div></div></footer>
 
-  	  {chatOpen ? <div className="fixed bottom-6 right-6 z-50 w-80 rounded-2xl border border-white/5 bg-[#07100a] p-3 shadow-xl"><div className="mb-2 flex items-center justify-between"><div><div className="font-bold text-white">Ndovera Assistant</div><div className="mt-1 text-[10px] font-bold uppercase tracking-[0.22em] text-zinc-400">{chatMode === 'verified' ? `Verified${verifiedChatUser?.activeRole ? ` • ${verifiedChatUser.activeRole}` : ''}` : chatMode === 'public' ? 'Public guidance' : 'Verification required'}</div></div><button onClick={() => setChatOpen(false)} className="text-zinc-400">✕</button></div><div className="mb-2 flex gap-2">{chatMode !== 'pending' ? <button onClick={resetChatVerification} className="rounded-lg border border-white/10 bg-white/5 px-2 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-zinc-300">Verify again</button> : null}{chatMode === 'public' ? <button onClick={() => setShowRegister(true)} className="rounded-lg bg-[#066a3e] px-2 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-white">Register school</button> : null}</div><div className="h-56 space-y-2 overflow-y-auto p-2">{chatMessages.map((m, i) => <div key={i} className={`rounded p-2 whitespace-pre-line ${m.from === 'user' ? 'bg-white/5 text-white' : 'bg-white/10 text-zinc-100'}`}>{m.text}</div>)}</div><div className="mt-2 flex gap-2"><input value={chatInput} onChange={(e) => setChatInput(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter' && !chatLoading) sendChat(chatInput); }} placeholder={chatMode === 'pending' ? 'Name, ID, email, or phone' : 'Ask about Ndovera'} className="flex-1 rounded bg-white/5 px-3 py-2 text-white outline-none" /><button onClick={() => sendChat(chatInput)} disabled={chatLoading} className="rounded bg-[#40a829] px-3 py-2 text-white disabled:opacity-60">{chatLoading ? '...' : 'Send'}</button></div></div> : <button onClick={() => setChatOpen(true)} className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#40a829] text-white shadow-lg">💬</button>}
+      {chatOpen ? <div className="fixed bottom-6 right-6 z-50 w-80 rounded-2xl border border-white/5 bg-[#07100a] p-3 shadow-xl"><div className="mb-2 flex items-center justify-between"><div><div className="font-bold text-white">Ndovera Assistant</div><div className="mt-1 text-[10px] font-bold uppercase tracking-[0.22em] text-zinc-400">Ready to help</div></div><button onClick={() => setChatOpen(false)} className="text-zinc-400">✕</button></div><div className="mb-2 flex gap-2"><button onClick={resetChatVerification} className="rounded-lg border border-white/10 bg-white/5 px-2 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-zinc-300">Start new chat</button>{chatMode === 'public' ? <button onClick={() => setShowRegister(true)} className="rounded-lg bg-[#066a3e] px-2 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-white">Register school</button> : null}</div><div className="h-56 space-y-2 overflow-y-auto p-2">{chatMessages.map((m, i) => <div key={i} className={`rounded p-2 whitespace-pre-line ${m.from === 'user' ? 'bg-white/5 text-white' : 'bg-white/10 text-zinc-100'}`}>{m.text}{m.contactPageLink ? <div className="mt-2"><a href="/contact-us" onClick={(event) => { event.preventDefault(); setSelectedPublicPageId('contact-us'); setChatOpen(false); }} className="text-sm font-semibold text-emerald-300 underline underline-offset-2">Open Contact Us</a></div> : null}</div>)}</div><div className="mt-2 flex gap-2"><input value={chatInput} onChange={(e) => setChatInput(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter' && !chatLoading) sendChat(chatInput); }} placeholder={chatStage === 'awaiting-identifier' ? 'Name, email, phone number, or user ID' : chatStage === 'awaiting-description' ? `Describe what you want${chatVisitorName ? `, ${chatVisitorName}` : ''}` : 'Ask about Ndovera'} className="flex-1 rounded bg-white/5 px-3 py-2 text-white outline-none" /><button onClick={() => sendChat(chatInput)} disabled={chatLoading} className="rounded bg-[#40a829] px-3 py-2 text-white disabled:opacity-60">{chatLoading ? '...' : 'Send'}</button></div></div> : <button onClick={() => setChatOpen(true)} className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#40a829] text-white shadow-lg">💬</button>}
     </div>
   );
 };
