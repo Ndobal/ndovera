@@ -7,20 +7,28 @@ import {
   type ClassroomCreatedDocument,
   type ClassroomCreatedDocumentBlock,
   type ClassroomMaterialAsset,
+  type ClassroomNote,
   type ClassroomMaterialViewerType,
 } from '../services/classroomApi';
 
 type ClassroomMaterialComposerProps = {
   defaultSubject?: string;
+  defaultClassName?: string;
+  defaultClassSection?: string;
+  classId?: string;
   lockSubject?: boolean;
   onSaved?: () => Promise<void> | void;
+  onCreated?: (note: ClassroomNote) => Promise<void> | void;
   submitLabel?: string;
   className?: string;
+  currentUserName?: string;
+  currentRole?: string;
 };
 
 type DraftState = {
   title: string;
   subject: string;
+  className: string;
   topic: string;
   week: string;
   visibility: string;
@@ -131,7 +139,7 @@ function deriveFormat(assets: ClassroomMaterialAsset[], document: ClassroomCreat
 
 function deriveDuration(viewerType: ClassroomMaterialViewerType, assetCount: number, document: ClassroomCreatedDocument | null) {
   if (viewerType === 'audio') return 'In-app listen';
-  if (viewerType === 'video') return 'In-app watch';
+  if (viewerType === 'video') return 'YouTube watch';
   if (viewerType === 'image') return 'In-app view';
   if (viewerType === 'pdf' || viewerType === 'document' || viewerType === 'slides') return 'In-app read';
   if (viewerType === 'mixed') return `${assetCount + (document ? 1 : 0)} in-app items`;
@@ -140,15 +148,22 @@ function deriveDuration(viewerType: ClassroomMaterialViewerType, assetCount: num
 
 export function ClassroomMaterialComposer({
   defaultSubject = '',
+  defaultClassName = '',
+  defaultClassSection = '',
+  classId,
   lockSubject = false,
   onSaved,
+  onCreated,
   submitLabel = 'Create material',
   className = '',
+  currentUserName = '',
+  currentRole = 'Teacher',
 }: ClassroomMaterialComposerProps) {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [draft, setDraft] = useState<DraftState>({
     title: '',
     subject: defaultSubject,
+    className: defaultClassName,
     topic: '',
     week: '1',
     visibility: 'Student-only',
@@ -213,20 +228,26 @@ export function ClassroomMaterialComposer({
 
       for (let index = 0; index < queuedFiles.length; index += 1) {
         const queued = queuedFiles[index];
-        setStatus(`Uploading ${index + 1} of ${queuedFiles.length}…`);
+        setStatus(queued.viewerType === 'video' ? `Publishing video ${index + 1} of ${queuedFiles.length} to YouTube…` : `Uploading ${index + 1} of ${queuedFiles.length}…`);
         const formData = new FormData();
         formData.append('asset', queued.file);
+        if (classId) {
+          formData.append('class_id', classId);
+        }
         const uploaded = await uploadClassroomAsset(formData);
         uploadedAssets.push({
           id: `asset_${Date.now()}_${index}`,
           name: uploaded.name,
           url: uploaded.url,
+          embedUrl: uploaded.embedUrl,
+          externalProvider: uploaded.externalProvider,
           storageKey: uploaded.storageKey,
           mimeType: uploaded.mimeType,
           size: uploaded.size,
           extension: queued.file.name.includes('.') ? queued.file.name.split('.').pop()?.toLowerCase() : undefined,
           assetType: uploaded.assetType,
           viewerType: uploaded.viewerType,
+          youtubeVideoId: uploaded.youtubeVideoId,
         });
       }
 
@@ -243,12 +264,13 @@ export function ClassroomMaterialComposer({
       const summary = draft.summary.trim()
         || createdDocument?.blocks.find((block) => block.type !== 'bullet-list')?.text
         || `Teacher shared ${format.toLowerCase()} material in Ndovera.`;
-
-      setStatus('Saving material…');
-      await createClassroomNote({
+      const classLabel = draft.className.trim() || defaultClassName.trim() || 'Unassigned class';
+      const notePayload = {
         title: draft.title.trim(),
         subject: (lockSubject ? defaultSubject : draft.subject).trim() || 'General Studies',
         topic: draft.topic.trim() || draft.title.trim(),
+        className: classLabel,
+        classSection: defaultClassSection.trim() || undefined,
         week: Number(draft.week) || 1,
         summary,
         visibility: draft.visibility,
@@ -258,11 +280,18 @@ export function ClassroomMaterialComposer({
         viewerType,
         materials: uploadedAssets,
         ndoveraDocument: createdDocument,
-      });
+      };
+
+      setStatus('Saving material…');
+      const savedNote = await createClassroomNote(notePayload);
+      setStatus('Material saved to lesson note vault.');
+
+      await onCreated?.(savedNote);
 
       setDraft({
         title: '',
         subject: defaultSubject,
+        className: defaultClassName,
         topic: '',
         week: '1',
         visibility: 'Student-only',
@@ -270,7 +299,6 @@ export function ClassroomMaterialComposer({
         creatorBody: '',
       });
       setQueuedFiles([]);
-      setStatus(null);
       await onSaved?.();
     } catch (saveError) {
       setError(saveError instanceof Error ? saveError.message : 'Unable to save material right now.');
@@ -281,11 +309,11 @@ export function ClassroomMaterialComposer({
   };
 
   return (
-    <section className={`rounded-[2rem] border border-slate-200/80 bg-white/90 p-5 shadow-sm backdrop-blur-sm ${className}`.trim()}>
+    <section className={`rounded-4xl border border-slate-200/80 bg-white/90 p-5 shadow-sm backdrop-blur-sm ${className}`.trim()}>
       <div className="flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between">
         <div>
           <p className="text-sm font-bold text-slate-950">Teacher upload + create studio</p>
-          <p className="mt-1 text-sm text-slate-500">Upload video, audio, images, PDF, DOC, DOCX, and slides, or create a Ndovera document that stays in-app.</p>
+          <p className="mt-1 text-sm text-slate-500">Choose files from your device: upload video, audio, images, PDF, DOC, DOCX, and slides, or create a Ndovera document that stays in-app. Images are compressed for materials, PDFs stay up to 5 MB, and video files are published through YouTube before embedding back into Ndovera.</p>
         </div>
         <button type="button" onClick={() => inputRef.current?.click()} className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-700">
           <UploadCloud className="h-4 w-4" />
@@ -295,9 +323,10 @@ export function ClassroomMaterialComposer({
 
       <input ref={inputRef} type="file" multiple accept={MATERIAL_ACCEPT} className="hidden" onChange={(event) => pickFiles(event.target.files)} />
 
-      <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-5">
+      <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-6">
         <input value={draft.title} onChange={(event) => setDraft((current) => ({ ...current, title: event.target.value }))} placeholder="Material title" className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700 outline-none focus:border-sky-400" />
         <input value={lockSubject ? defaultSubject : draft.subject} onChange={(event) => setDraft((current) => ({ ...current, subject: event.target.value }))} placeholder="Subject" disabled={lockSubject} className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700 outline-none focus:border-sky-400 disabled:cursor-not-allowed disabled:opacity-70" />
+        <input value={draft.className} onChange={(event) => setDraft((current) => ({ ...current, className: event.target.value }))} placeholder="Class" className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700 outline-none focus:border-sky-400" />
         <input value={draft.topic} onChange={(event) => setDraft((current) => ({ ...current, topic: event.target.value }))} placeholder="Topic" className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700 outline-none focus:border-sky-400" />
         <input value={draft.week} onChange={(event) => setDraft((current) => ({ ...current, week: event.target.value }))} placeholder="Week" className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700 outline-none focus:border-sky-400" />
         <select value={draft.visibility} onChange={(event) => setDraft((current) => ({ ...current, visibility: event.target.value }))} className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700 outline-none focus:border-sky-400">
@@ -310,7 +339,7 @@ export function ClassroomMaterialComposer({
       {queuedFiles.length ? (
         <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
           {queuedFiles.map((queued) => (
-            <div key={queued.id} className="rounded-[1.5rem] border border-slate-200 bg-slate-50 px-4 py-4">
+            <div key={queued.id} className="rounded-3xl border border-slate-200 bg-slate-50 px-4 py-4">
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0">
                   <p className="truncate text-sm font-semibold text-slate-900">{queued.file.name}</p>
@@ -324,12 +353,12 @@ export function ClassroomMaterialComposer({
           ))}
         </div>
       ) : (
-        <div className="mt-4 rounded-[1.5rem] border border-dashed border-slate-200 bg-slate-50/80 px-4 py-5 text-sm text-slate-500">
+        <div className="mt-4 rounded-3xl border border-dashed border-slate-200 bg-slate-50/80 px-4 py-5 text-sm text-slate-500">
           <div className="flex items-center gap-2 font-semibold text-slate-700">
             <Paperclip className="h-4 w-4" />
             No files queued yet
           </div>
-          <p className="mt-2">Supported: video, audio, images, PDF, DOC, DOCX, PPT, PPTX.</p>
+          <p className="mt-2">Supported: video, audio, images, PDF, DOC, DOCX, PPT, PPTX. Images are optimized for upload, PDFs must be 5 MB or smaller, and video uploads are hosted on YouTube.</p>
         </div>
       )}
 

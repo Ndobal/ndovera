@@ -1,31 +1,27 @@
 import { useMemo, useState } from 'react';
-import { Plus, School2, Users } from 'lucide-react';
+import { Pencil, Plus, School2, Trash2, Users, X } from 'lucide-react';
 
 import { useData } from '../../../hooks/useData';
 import { buildClassDisplayName, classCatalogBySection, classCatalogSections, getClassSectionLabel } from '../data/classCatalog';
-import { createSchoolClass, type SchoolClass } from '../services/classroomApi';
+import { createSchoolClass, deleteSchoolClass, type SchoolClass, updateSchoolClass } from '../services/classroomApi';
 
 type ClassRegistryProps = {
   role: string;
   onOpenClass?: (schoolClass: SchoolClass) => void;
 };
 
-const fallbackClasses: SchoolClass[] = [
-  { id: 'fallback_jhs1', section: 'junior-secondary', level: 'JHS 1', name: 'Thinkers', teacherName: 'Mrs. Jane Smith' },
-  { id: 'fallback_jhs2', section: 'junior-secondary', level: 'JHS 2', name: 'Strategists', teacherName: 'Mr. John Doe' },
-  { id: 'fallback_shs1', section: 'senior-secondary', level: 'SHS 1', name: 'Visionaries', teacherName: 'Mr. Samuel Okoro' },
-];
-
 export function ClassRegistry({ role, onOpenClass }: ClassRegistryProps) {
-  const managerView = role === 'Teacher' || role === 'School Admin' || role === 'HOS';
+  const managerView = role === 'Teacher' || role === 'School Admin' || role === 'HOS' || role === 'HoS' || role === 'Super Admin' || role === 'Owner' || role === 'ICT' || role === 'ICT Manager';
   const { data, loading, refetch } = useData<SchoolClass[]>('/api/classes');
-  const classes = useMemo(() => (data && data.length ? data : fallbackClasses), [data]);
+  const classes = useMemo(() => data || [], [data]);
   const [draft, setDraft] = useState({
     level: '',
     name: '',
     section: classCatalogSections[0]?.id || 'primary',
   });
   const [saving, setSaving] = useState(false);
+  const [editingClassId, setEditingClassId] = useState<string | null>(null);
+  const [deletingClassId, setDeletingClassId] = useState<string | null>(null);
   const [formError, setFormError] = useState<string | null>(null);
 
   const existingKeys = useMemo(
@@ -44,22 +40,66 @@ export function ClassRegistry({ role, onOpenClass }: ClassRegistryProps) {
     setFormError(null);
   };
 
-  const createClass = async () => {
+  const resetDraft = () => {
+    setDraft({
+      level: '',
+      name: '',
+      section: classCatalogSections[0]?.id || 'primary',
+    });
+    setEditingClassId(null);
+    setFormError(null);
+  };
+
+  const submitClass = async () => {
     if (!draft.name.trim()) return;
     setSaving(true);
     setFormError(null);
     try {
-      await createSchoolClass({
-        level: draft.level.trim() || undefined,
-        name: draft.name.trim(),
-        section: draft.section,
-      });
-      setDraft((current) => ({ ...current, level: '', name: '' }));
+      if (editingClassId) {
+        await updateSchoolClass(editingClassId, {
+          level: draft.level.trim() || undefined,
+          name: draft.name.trim(),
+          section: draft.section,
+        });
+      } else {
+        await createSchoolClass({
+          level: draft.level.trim() || undefined,
+          name: draft.name.trim(),
+          section: draft.section,
+        });
+      }
+      resetDraft();
       await refetch();
     } catch (error) {
       setFormError(error instanceof Error ? error.message : 'Unable to create class right now.');
     } finally {
       setSaving(false);
+    }
+  };
+
+  const beginEdit = (schoolClass: SchoolClass) => {
+    setEditingClassId(schoolClass.id);
+    setDraft({
+      level: schoolClass.level || '',
+      name: schoolClass.name || '',
+      section: schoolClass.section || classCatalogSections[0]?.id || 'primary',
+    });
+    setFormError(null);
+  };
+
+  const removeClass = async (classId: string) => {
+    const confirmed = window.confirm('Delete this class? Any subjects attached to it will also be removed.');
+    if (!confirmed) return;
+    setDeletingClassId(classId);
+    setFormError(null);
+    try {
+      await deleteSchoolClass(classId);
+      if (editingClassId === classId) resetDraft();
+      await refetch();
+    } catch (error) {
+      setFormError(error instanceof Error ? error.message : 'Unable to delete class right now.');
+    } finally {
+      setDeletingClassId(null);
     }
   };
 
@@ -85,9 +125,15 @@ export function ClassRegistry({ role, onOpenClass }: ClassRegistryProps) {
           </div>
           <div className="mt-3 flex items-center justify-end gap-3">
             {formError ? <p className="text-sm text-rose-500">{formError}</p> : null}
-            <button type="button" onClick={createClass} className="inline-flex items-center justify-center gap-2 rounded-2xl bg-slate-900 px-4 py-3 text-sm font-semibold text-white">
+            {editingClassId ? (
+              <button type="button" onClick={resetDraft} className="inline-flex items-center justify-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-700">
+                <X className="h-4 w-4" />
+                Cancel
+              </button>
+            ) : null}
+            <button type="button" onClick={submitClass} className="inline-flex items-center justify-center gap-2 rounded-2xl bg-slate-900 px-4 py-3 text-sm font-semibold text-white">
               <Plus className="h-4 w-4" />
-              {saving ? 'Saving…' : 'Create class'}
+              {saving ? 'Saving…' : editingClassId ? 'Save class' : 'Create class'}
             </button>
           </div>
         </section>
@@ -102,17 +148,61 @@ export function ClassRegistry({ role, onOpenClass }: ClassRegistryProps) {
               <div className="inline-flex rounded-2xl bg-sky-50 p-3 text-sky-700">
                 <School2 className="h-5 w-5" />
               </div>
-              <span className="rounded-full bg-sky-50 px-3 py-1 text-[10px] font-semibold text-sky-700">{getClassSectionLabel(cls.section)}</span>
+              <div className="flex items-center gap-2">
+                <span className="rounded-full bg-sky-50 px-3 py-1 text-[10px] font-semibold text-sky-700">{getClassSectionLabel(cls.section)}</span>
+                {managerView ? (
+                  <>
+                    <span
+                      role="button"
+                      tabIndex={0}
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        beginEdit(cls);
+                      }}
+                      onKeyDown={(event) => {
+                        if (event.key === 'Enter' || event.key === ' ') {
+                          event.preventDefault();
+                          event.stopPropagation();
+                          beginEdit(cls);
+                        }
+                      }}
+                      className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-200 text-slate-500 hover:border-sky-300 hover:text-sky-700"
+                    >
+                      <Pencil className="h-3.5 w-3.5" />
+                    </span>
+                    <span
+                      role="button"
+                      tabIndex={0}
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        void removeClass(cls.id);
+                      }}
+                      onKeyDown={(event) => {
+                        if (event.key === 'Enter' || event.key === ' ') {
+                          event.preventDefault();
+                          event.stopPropagation();
+                          void removeClass(cls.id);
+                        }
+                      }}
+                      className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-rose-200 text-rose-500 hover:border-rose-300 hover:text-rose-700"
+                    >
+                      <Trash2 className="h-3.5 w-3.5" />
+                    </span>
+                  </>
+                ) : null}
+              </div>
             </div>
             <h3 className="mt-4 text-lg font-semibold text-slate-900">{buildClassDisplayName(cls.level, cls.name) || cls.name}</h3>
             <p className="mt-2 text-sm text-slate-600">{cls.teacherName || 'Class teacher not assigned yet'}</p>
             <div className="mt-4 flex items-center gap-2 text-xs text-slate-500">
               <Users className="h-4 w-4 text-sky-600" />
-              <span>{cls.level || 'Open level'}</span>
+              <span>{deletingClassId === cls.id ? 'Deleting…' : cls.level || 'Open level'}</span>
             </div>
           </button>
         ))}
       </div>
+
+      {!loading && classes.length === 0 ? <div className="rounded-2xl border border-dashed border-slate-300 bg-white p-6 text-sm text-slate-500 shadow-sm">No saved classes yet. Create the live class structure here instead of relying on demo data.</div> : null}
     </div>
   );
 }

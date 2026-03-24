@@ -404,7 +404,7 @@ export default function AttendanceModule({ role }: { role?: string }) {
       </div>
 
       {activeTab === 'student' && <StudentAttendance role={role} />}
-      {activeTab === 'staff' && <StaffAttendance role={role} />}
+      {activeTab === 'staff' && <StaffAttendance />}
       {activeTab === 'parent' && <ParentAttendance />}
     </div>
   );

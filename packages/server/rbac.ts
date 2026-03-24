@@ -1,13 +1,19 @@
 import { Request, Response, NextFunction } from 'express'
+import crypto from 'crypto'
 import fs from 'fs'
 import path from 'path'
 
 export type User = {
   id: string
+  name?: string
+  email?: string
   school_id?: string
   roles: string[]
   activeRole?: string
 }
+
+const SESSION_COOKIE = process.env.SESSION_COOKIE_NAME?.trim() || 'ndovera_session'
+const SESSION_TTL_MS = 1000 * 60 * 60 * 8
 
 const normalizeRole = (role?: string) => {
   if (!role) return role
@@ -26,20 +32,103 @@ try {
   rolesMap = {}
 }
 
-// For this scaffold we trust headers (in production use JWT)
-export function attachUserFromHeaders(req: Request, res: Response, next: NextFunction) {
-  const id = req.header('x-user-id')
-  const rolesHeader = req.header('x-user-roles')
-  const active = req.header('x-active-role')
-  const schoolId = req.header('x-school-id')
+function getAuthSecret() {
+  return process.env.NDOVERA_AUTH_SECRET?.trim() || null
+}
 
-  if (!id) {
-    // unauthenticated — proceed as guest
-    return next()
+function base64UrlEncode(value: string) {
+  return Buffer.from(value).toString('base64url')
+}
+
+function base64UrlDecode(value: string) {
+  return Buffer.from(value, 'base64url').toString('utf8')
+}
+
+function signSession(payload: string, secret: string) {
+  return crypto.createHmac('sha256', secret).update(payload).digest('base64url')
+}
+
+function parseCookies(cookieHeader?: string | null) {
+  const cookies: Record<string, string> = {}
+  if (!cookieHeader) return cookies
+  for (const part of cookieHeader.split(';')) {
+    const [name, ...rest] = part.trim().split('=')
+    if (!name) continue
+    cookies[name] = rest.join('=')
   }
+  return cookies
+}
 
-  const roles = rolesHeader ? rolesHeader.split(',').map(s => normalizeRole(s.trim()) || s.trim()) : []
-  ;(req as any).user = { id, school_id: schoolId || undefined, roles, activeRole: normalizeRole(active) || active } as User
+function readSessionUser(req: Request): User | undefined {
+  const secret = getAuthSecret()
+  if (!secret) return undefined
+  const cookies = parseCookies(req.header('cookie'))
+  const rawSession = cookies[SESSION_COOKIE]
+  if (!rawSession) return undefined
+  const [encodedPayload, signature] = rawSession.split('.')
+  if (!encodedPayload || !signature) return undefined
+  const expectedSignature = signSession(encodedPayload, secret)
+  if (signature.length !== expectedSignature.length) return undefined
+  if (!crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(expectedSignature))) return undefined
+  try {
+    const payload = JSON.parse(base64UrlDecode(encodedPayload)) as { id?: string; name?: string; email?: string; school_id?: string; roles?: string[]; activeRole?: string; exp?: number }
+    if (!payload.id || !Array.isArray(payload.roles) || payload.roles.length === 0) return undefined
+    if (typeof payload.exp === 'number' && payload.exp < Date.now()) return undefined
+    const roles = payload.roles.map((role) => normalizeRole(role) || role)
+    const activeRole = normalizeRole(payload.activeRole) || payload.activeRole || roles[0]
+    return {
+      id: payload.id,
+      name: payload.name,
+      email: payload.email,
+      school_id: payload.school_id,
+      roles,
+      activeRole,
+    }
+  } catch {
+    return undefined
+  }
+}
+
+export function createSessionCookie(user: User, rememberMe = false) {
+  const secret = getAuthSecret()
+  if (!secret) {
+    throw new Error('NDOVERA_AUTH_SECRET is not configured.')
+  }
+  const ttl = rememberMe ? SESSION_TTL_MS * 7 : SESSION_TTL_MS
+  const payload = base64UrlEncode(JSON.stringify({
+    id: user.id,
+    name: user.name,
+    email: user.email,
+    school_id: user.school_id,
+    roles: user.roles,
+    activeRole: user.activeRole,
+    exp: Date.now() + ttl,
+  }))
+  const signature = signSession(payload, secret)
+  const cookieParts = [
+    `${SESSION_COOKIE}=${payload}.${signature}`,
+    process.env.SESSION_COOKIE_HTTPONLY === 'false' ? '' : 'HttpOnly',
+    'Path=/',
+    `SameSite=${(process.env.SESSION_COOKIE_SAMESITE || 'strict').trim()}`,
+    `Max-Age=${Math.floor(ttl / 1000)}`,
+  ]
+  const secureFlag = process.env.SESSION_COOKIE_SECURE
+  if (secureFlag === 'true' || (secureFlag !== 'false' && process.env.NODE_ENV === 'production')) cookieParts.splice(2, 0, 'Secure')
+  return cookieParts.filter(Boolean).join('; ')
+}
+
+export function clearSessionCookie() {
+  const cookieParts = [`${SESSION_COOKIE}=`, process.env.SESSION_COOKIE_HTTPONLY === 'false' ? '' : 'HttpOnly', 'Path=/', `SameSite=${(process.env.SESSION_COOKIE_SAMESITE || 'strict').trim()}`, 'Max-Age=0']
+  const secureFlag = process.env.SESSION_COOKIE_SECURE
+  if (secureFlag === 'true' || (secureFlag !== 'false' && process.env.NODE_ENV === 'production')) cookieParts.splice(2, 0, 'Secure')
+  return cookieParts.filter(Boolean).join('; ')
+}
+
+export function attachUserFromHeaders(req: Request, res: Response, next: NextFunction) {
+  const user = readSessionUser(req)
+  if (user) {
+    ;(req as any).user = user
+  }
   next()
 }
 

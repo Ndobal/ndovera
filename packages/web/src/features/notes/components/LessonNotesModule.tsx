@@ -1,5 +1,7 @@
 import React from 'react';
 import { Plus, Upload, Search, Eye, Download, MoreVertical } from 'lucide-react';
+import { buildAppUrl, WEB_API_BASE_URL } from '../../../services/runtimeConfig';
+import { fetchWithAuth } from '../../../services/apiClient';
 
 const mockLessonNotes = [
   { id: 'note_01', title: 'Introduction to Algebra', subject: 'Mathematics', week: 1, visibility: 'Student + Parent', views: 120, downloads: 85 },
@@ -92,7 +94,16 @@ export default function LessonNotesModule() {
         </table>
         <div className="p-4">
           <button onClick={async ()=>{
-            try{ const r = await (await fetch(((import.meta.env.VITE_API_URL as string) || 'http://localhost:3005') + '/api/notes',{ method:'POST', headers:{'content-type':'application/json'}, body: JSON.stringify({ title: 'UI Test Note', subject:'UI', content:'Created from UI test'}) })).json(); setResp(r);}catch(e){ setResp(String(e)) }
+            try {
+              const payload = await fetchWithAuth(buildAppUrl('/api/notes', WEB_API_BASE_URL), {
+                method:'POST',
+                headers:{'content-type':'application/json'},
+                body: JSON.stringify({ title: 'UI Test Note', subject:'UI', content:'Created from UI test'})
+              });
+              setResp(payload);
+            } catch (e) {
+              setResp(String(e));
+            }
           }} className="mt-3 px-3 py-2 bg-emerald-600 rounded">Create Note via API</button>
           <pre className="mt-2 text-xs">{resp ? JSON.stringify(resp,null,2) : 'No response yet'}</pre>
         </div>

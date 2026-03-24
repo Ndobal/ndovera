@@ -4,12 +4,11 @@
     "module": "ESNext",
     "lib": ["ES2022"],
     "strict": true,
-    "moduleResolution": "node",
-    "ignoreDeprecations": "6.0",
+    "moduleResolution": "bundler",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
     "composite": true
   },
-  "include": ["server.ts", "rbac.ts", "global.d.ts"]
+  "include": ["server.ts", "rbac.ts", "global.d.ts", "src/**/*.ts", "../../identity-state.ts", "../../championship-state.ts", "../server/rbac.ts", "../server/src/common/runtimeDocumentStore.ts", "../server/src/common/runtimeSqlStore.ts", "../server/src/modules/platform/platformSettings.store.ts", "../server/src/modules/operations/schoolOps.store.ts", "../server/src/modules/finance/**/*.ts"]
 }

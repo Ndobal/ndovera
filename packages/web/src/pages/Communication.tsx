@@ -11,6 +11,8 @@ import {
   Edit2
 } from 'lucide-react';
 import { useData } from '../hooks/useData';
+import { BillingLockBanner } from '../components/BillingLockBanner';
+import { useBillingLock } from '../hooks/useBillingLock';
 
 import { Role } from '../types';
 
@@ -22,6 +24,7 @@ export const CommunicationHub = ({ role, searchQuery }: { role: Role, searchQuer
   const [commentsByAnnouncement, setCommentsByAnnouncement] = useState<Record<string, Array<{ id: string; author: string; text: string; createdAt: string }>>>({});
   const [reactionsByAnnouncement, setReactionsByAnnouncement] = useState<Record<string, { emoji: string; count: number; active: boolean }[]>>({});
   const isAdmin = role === 'Super Admin' || role === 'School Admin' || role === 'HOS';
+  const { softLockActive, overdueInvoice } = useBillingLock(role);
 
   const filteredAnnouncements = useMemo(() => {
     if (!searchQuery) return announcements;
@@ -60,6 +63,7 @@ export const CommunicationHub = ({ role, searchQuery }: { role: Role, searchQuer
 
   return (
     <div className="space-y-6">
+      {softLockActive && isAdmin ? <BillingLockBanner invoiceId={overdueInvoice?.id} dismissible={false} compact /> : null}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h2 className="text-xl font-bold text-white">Communication Hub</h2>
@@ -69,8 +73,9 @@ export const CommunicationHub = ({ role, searchQuery }: { role: Role, searchQuer
         </div>
         {isAdmin && (
           <button 
+            disabled={softLockActive}
             onClick={() => setIsCreating(true)}
-            className="bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2 rounded-lg text-[11px] font-bold uppercase tracking-wider transition-colors shadow-lg shadow-emerald-900/20 flex items-center gap-2"
+            className="bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2 rounded-lg text-[11px] font-bold uppercase tracking-wider transition-colors shadow-lg shadow-emerald-900/20 flex items-center gap-2 disabled:cursor-not-allowed disabled:opacity-50"
           >
             <Plus size={16} /> New Announcement
           </button>

@@ -20,9 +20,11 @@ interface Props {
 type TabType = 'stream' | 'curriculum' | 'classwork' | 'assignment' | 'live';
 
 export function SubjectDetail({ subject, role, onBack, onUpdate, isDarkMode }: Props) {
-  const [activeTab, setActiveTab] = useState<TabType>(role === 'parent' || role === 'Parent' ? 'curriculum' : 'stream');
+  const normalizedRole = String(role).toLowerCase();
+  const isParent = normalizedRole === 'parent';
+  const [activeTab, setActiveTab] = useState<TabType>(isParent ? 'curriculum' : 'stream');
   const [liveRoomOpen, setLiveRoomOpen] = useState(false);
-  const canSeeLive = role === 'teacher';
+  const canSeeLive = normalizedRole === 'teacher';
 
   const allTabs: { id: TabType; label: string; icon: React.ReactNode; count?: number }[] = [
     { id: 'stream', label: 'Stream', icon: <MessageSquare className="w-3 h-3" />, count: subject.unreadCounts?.stream },
@@ -32,7 +34,6 @@ export function SubjectDetail({ subject, role, onBack, onUpdate, isDarkMode }: P
     ...(canSeeLive ? [{ id: 'live' as TabType, label: 'Live', icon: <Video className="w-3 h-3" />, count: subject.unreadCounts?.live }] : []),
   ];
 
-  const isParent = role === 'parent' || role === 'Parent';
   const tabs = isParent ? allTabs.filter(t => t.id !== 'stream') : allTabs;
 
   return (

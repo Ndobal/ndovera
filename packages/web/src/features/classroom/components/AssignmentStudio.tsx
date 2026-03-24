@@ -15,11 +15,13 @@ import {
 export function ExplanationLoader({ question }: { question: any }) {
   const [explanation, setExplanation] = useState(question.explanation);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     let active = true;
     if (!explanation && question.options) {
       setLoading(true);
+      setError(null);
       explainQuestion(
         question.id,
         question.stem,
@@ -31,7 +33,12 @@ export function ExplanationLoader({ question }: { question: any }) {
           question.explanation = res;
           setLoading(false);
         }
-      });
+      }).catch((err) => {
+		if (active) {
+			setError(err instanceof Error ? err.message : 'AI explanation failed');
+			setLoading(false);
+		}
+	  });
     }
     return () => { active = false; };
   }, [question, explanation]);
@@ -46,7 +53,7 @@ export function ExplanationLoader({ question }: { question: any }) {
         <div className="text-sm text-slate-400 italic">Generating explanation...</div>
       ) : (
         <div className="text-sm text-slate-300">
-          {explanation}
+          {error || explanation}
         </div>
       )}
     </div>

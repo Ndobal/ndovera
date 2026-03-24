@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
+import { SIGNALING_WS_URL } from '../services/runtimeConfig';
 
 // Replace with your actual userId logic
 const userId = 'user_' + Math.floor(Math.random() * 10000);
@@ -11,7 +12,8 @@ export function SimpleWebRTC({ targetUserId, onClose }: { targetUserId: string, 
   const [peer, setPeer] = useState<RTCPeerConnection | null>(null);
 
   useEffect(() => {
-    const socket = new window.WebSocket('ws://localhost:8080');
+    if (!SIGNALING_WS_URL) return;
+    const socket = new window.WebSocket(SIGNALING_WS_URL);
     socket.onopen = () => {
       socket.send(JSON.stringify({ type: 'register', userId }));
     };

@@ -12,6 +12,9 @@
     "dev": "npm run dev:server & npm run dev:superadmin-server & npm run dev:web & npm run dev:superadmin",
     "build:web": "npm --workspace=packages/web run build",
     "build:superadmin": "npm --workspace=packages/super-admin run build",
+    "verify:superadmin-live": "npm --workspace=packages/super-admin-server run verify:live",
+    "verify:inactive-login": "npm --workspace=packages/server run verify:inactive-login",
+    "check:lines": "node scripts/check-file-lines.cjs",
     "lint": "npm run lint --workspaces",
     "git:hooks": "git config core.hooksPath .githooks",
     "git:push": "git push",
@@ -21,5 +24,8 @@
     "html5-qrcode": "^2.3.8",
     "lucide-react": "^0.577.0",
     "qrcode.react": "^4.2.0"
+  },
+  "overrides": {
+    "cookie": "^0.7.2"
   }
 }

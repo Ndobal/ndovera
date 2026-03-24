@@ -9,14 +9,11 @@ export default defineConfig(({mode}) => {
   const env = loadEnv(mode, '.', '');
   const boundPortPath = path.resolve(__dirname, '../server/BOUND_PORT.txt');
   const fallbackPort = env.NDOVERA_SERVER_PORT || '3001';
-  const detectedPort = fs.existsSync(boundPortPath)
-    ? fs.readFileSync(boundPortPath, 'utf8').trim() || fallbackPort
-    : fallbackPort;
 
   return {
     // Plugins (single plugins array; legacy included below)
     define: {
-      'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY || 'dummy_api_key_to_prevent_crash'),
+      'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY || ''),
     },
     resolve: {
       alias: {

@@ -1,0 +1,14 @@
+{
+  "schools": [
+    {
+      "id": "school-1",
+      "name": "Ndovera Academy",
+      "subdomain": "ndovera",
+      "createdAt": "2026-03-21T00:00:00.000Z"
+    }
+  ],
+  "users": [],
+  "students": [],
+  "transfers": [],
+  "counters": {}
+}

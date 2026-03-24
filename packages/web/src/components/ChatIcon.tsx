@@ -85,7 +85,7 @@ export const ChatIcon = ({ setActiveTab }: { setActiveTab: (tab: string) => void
             <span className="text-xs text-indigo-400">{unreadCount} unread</span>
           </div>
           
-          <div className="max-h-[350px] overflow-y-auto w-full">
+          <div className="max-h-87.5 overflow-y-auto w-full">
             {chats.map(chat => (
               <div key={chat.id} className={`border-b border-white/10 last:border-0 transition-colors ${chat.is_read ? 'bg-transparent' : 'bg-indigo-500/5'}`}>
                 <div 

@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
+import { SIGNALING_WS_URL } from '../services/runtimeConfig';
 
 const userId = 'user_' + Math.floor(Math.random() * 10000);
 
@@ -10,14 +11,17 @@ export function GroupWebRTC({ roomId, users, onClose }: { roomId: string, users:
   const [invites, setInvites] = useState<{ from: string, roomId: string }[]>([]);
 
   useEffect(() => {
-    const socket = new window.WebSocket('ws://localhost:8080');
+    if (!SIGNALING_WS_URL) return;
+    const socket = new window.WebSocket(SIGNALING_WS_URL);
     socket.onopen = () => {
       socket.send(JSON.stringify({ type: 'register', userId }));
       socket.send(JSON.stringify({ type: 'join-room', roomId }));
     };
     setWs(socket);
     return () => {
-      socket.send(JSON.stringify({ type: 'leave-room', roomId }));
+      if (socket.readyState === WebSocket.OPEN) {
+        socket.send(JSON.stringify({ type: 'leave-room', roomId }));
+      }
       socket.close();
     };
   }, [roomId]);

@@ -8,6 +8,7 @@ import AttendanceModule from '../../attendance/components/AttendanceModule';
 import SubjectScoresModule from '../../scores/components/SubjectScoresModule';
 import LessonNotesModule from '../../notes/components/LessonNotesModule';
 import LessonPlanModule from '../../plans/components/LessonPlanModule';
+import TeacherAiLessonAssistant from './TeacherAiLessonAssistant';
 import CBTModule from '../../cbt/components/CBTModule';
 import MessagingModule from '../../messaging/components/MessagingModule';
 import FarmingModeModule from '../../farming/components/FarmingModeModule';
@@ -22,7 +23,7 @@ const navItems = [
   { name: 'Lesson Plan', icon: FileText, component: LessonPlanModule },
   { name: 'CBT Exams', icon: Presentation, component: CBTModule },
   { name: 'Assignments & Scores', icon: ClipboardList, component: () => <div className="text-zinc-500">Assignments & Scores integration</div> },
-  { name: 'AI Lesson Assistant', icon: Bot, component: () => <div className="text-zinc-500">AI Teaching Assistant</div> },
+  { name: 'Ndovera AI Lesson Assistant', icon: Bot, component: TeacherAiLessonAssistant },
   { name: 'Messaging', icon: MessageSquare, component: MessagingModule },
   { name: 'Farming Mode', icon: Tractor, component: FarmingModeModule },
   { name: 'Reports & Analytics', icon: BarChart2, component: ResultEngineModule },

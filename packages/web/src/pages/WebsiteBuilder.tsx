@@ -18,6 +18,7 @@ import {
   Calendar
 } from 'lucide-react';
 import { WebsitePage, WebsiteSection, SchoolWebsite } from '../types';
+import { fetchWithAuth, resolveApiUrl } from '../services/apiClient';
 
 const isVacancyPageSlug = (value?: string) => ['opportunities', 'opportunity', 'vacancies', 'vacancy', 'careers', 'jobs'].includes(String(value || '').trim().toLowerCase());
 const hexToRgba = (value: string | undefined, alpha: number) => {
@@ -32,9 +33,53 @@ const hexToRgba = (value: string | undefined, alpha: number) => {
 
 const DEFAULT_WEBSITE: SchoolWebsite = {
   schoolId: '1',
+  contactInfo: {
+    email: 'info@ndovera-academy.edu',
+    phone: '+234 800 000 0000',
+    address: 'School campus address goes here',
+    city: 'Lagos',
+    state: 'Lagos',
+    country: 'Nigeria',
+  },
   theme: {
     primaryColor: '#10b981',
     fontFamily: 'Inter',
+  },
+  legal: {
+    privacyPolicy: {
+      title: 'Privacy Policy',
+      lastUpdated: 'March 22, 2026',
+      body: [
+        'Ndovera collects and uses personal information only to operate the school platform, deliver services, support users, and meet legal or regulatory obligations.',
+        'We may process student, parent, staff, and school administrator data that is provided directly by the school, entered by an authorized user, or generated through normal platform activity such as attendance, academic records, billing, communications, and file sharing.',
+        'We use administrative, technical, and organizational safeguards designed to protect personal data against unauthorized access, alteration, disclosure, or loss. Access is limited by role, school boundary, and business need.',
+        'We do not sell personal information. We may share data with service providers, infrastructure vendors, and authorized school stakeholders only to the extent required to operate the platform or fulfill a legitimate school request.',
+        'Schools can start from Ndovera\'s default class hierarchy and then customize display names, aliases, or class arms while keeping the underlying promotion order intact for academic progression and graduation checks.',
+        'When a learner is graduated to Alumni, the account may continue to access result records and approved school-wide live engagements, but classroom study spaces remain restricted unless a school-wide event explicitly requires otherwise.',
+        'Uploaded media, classroom files, and communication records may be stored, processed, or published using third-party services when the school enables those features. Where a service such as YouTube is used for video publishing, the file may become subject to that provider\'s own policies and terms after upload.',
+        'Live meeting capacity, commercial expansion tiers, and internal digital-value settings may be configured by platform administrators. Educational ad rewards and AI usage credits may therefore vary over time based on active system or school settings.',
+        'Schools remain responsible for ensuring they have a valid legal basis and the appropriate notices or consents for the personal data they upload or manage through Ndovera. Users should not upload sensitive data unless the school has approved its use.',
+        'You may request correction, deletion, export, or restriction of personal data where applicable law and school policy allow it. Requests can be sent to the school administrator or Ndovera support.',
+      ].join('\n\n'),
+    },
+    termsOfService: {
+      title: 'Terms of Service',
+      lastUpdated: 'March 22, 2026',
+      body: [
+        'These Terms of Service govern access to and use of the Ndovera platform, including public website pages, school dashboards, classroom tools, media publishing, messaging, and related services.',
+        'By using Ndovera, you agree to comply with these Terms, the policies of your school or organization, and all applicable laws. If you use the platform on behalf of a school, you confirm that you are authorized to do so.',
+        'Accounts, roles, and permissions are role-based. Users must keep login credentials secure and must not attempt to bypass access controls, impersonate another user, or interfere with platform integrity.',
+        'Schools may adopt the default class ladder supplied by Ndovera, including optional stages such as Grade 6 where applicable, and may customize class aliases or arms without changing the underlying promotion hierarchy used by the platform.',
+        'Alumni access is intentionally narrower than active student access. Unless a school-wide or alumni-approved live event is opened for them, alumni accounts are limited to result visibility and other alumni-specific functions rather than the full classroom workspace.',
+        'Schools are responsible for the accuracy, lawfulness, and appropriateness of the content they upload, publish, or distribute through the platform, including lesson materials, files, announcements, media, and website content.',
+        'Video uploads and live class recordings may be published through YouTube when those features are enabled. Once content is uploaded to a third-party provider, that provider may apply its own processing rules, privacy settings, and terms.',
+        'Live meeting participant limits, upgrade pricing bands, and internal Keyu conversion rules are set administratively and may be revised without code deployment. Host access to expanded live capacity may depend on an active platform-approved upgrade tier.',
+        'Keyu is Ndovera\'s internal digital-value unit for selected AI and reward flows. Exchange settings, AI consumption rates, ad-impression rewards, and settlement rules are determined by platform administration and are not guaranteed to remain fixed.',
+        'Ndovera may suspend or restrict access where misuse, security risk, abuse, or policy violations are detected. The platform may also make reasonable changes to improve stability, security, or compliance.',
+        'The platform is provided on an "as available" and "as is" basis to the extent permitted by law. Except where prohibited, Ndovera disclaims warranties and limits liability for indirect or consequential damages arising from use of the service.',
+        'These Terms can be updated from time to time. The most recent version posted on the website or website builder will govern continued use of the platform.',
+      ].join('\n\n'),
+    },
   },
   pages: [
     {
@@ -53,6 +98,22 @@ const DEFAULT_WEBSITE: SchoolWebsite = {
       sections: [
         { id: 's3', type: 'hero', content: { title: 'Join Our Community', subtitle: 'Admissions for 2026/2027 are now open.' } }
       ]
+    },
+    {
+      id: 'p3',
+      title: 'Privacy Policy',
+      slug: 'privacy-policy',
+      sections: [
+        { id: 's4', type: 'about', content: { text: 'This privacy policy can be updated from the website builder so the school can keep its public legal notice current.' } }
+      ]
+    },
+    {
+      id: 'p4',
+      title: 'Terms of Service',
+      slug: 'terms-of-service',
+      sections: [
+        { id: 's5', type: 'about', content: { text: 'These terms can be edited from the website builder to reflect the latest operational, legal, and commercial conditions.' } }
+      ]
     }
   ]
 };
@@ -60,7 +121,7 @@ const DEFAULT_WEBSITE: SchoolWebsite = {
 export const WebsiteBuilder = () => {
   const [website, setWebsite] = useState<SchoolWebsite>(DEFAULT_WEBSITE);
   const [activePageId, setActivePageId] = useState<string>(DEFAULT_WEBSITE.pages[0].id);
-  const [activeTab, setActiveTab] = useState<'content' | 'layout' | 'theme' | 'pages' | 'events' | 'faq' | 'carousel' | 'testimonials' | 'vacancies'>('content');
+  const [activeTab, setActiveTab] = useState<'content' | 'layout' | 'theme' | 'pages' | 'events' | 'faq' | 'carousel' | 'testimonials' | 'vacancies' | 'legal'>('content');
   const [isPreview, setIsPreview] = useState(false);
   const [previewPageId, setPreviewPageId] = useState<string>(DEFAULT_WEBSITE.pages[0].id);
 
@@ -82,6 +143,10 @@ export const WebsiteBuilder = () => {
   const [carouselItems, setCarouselItems] = useState<string[]>((website as any)?.carousel || [] as string[]);
   const [testimonialsList, setTestimonialsList] = useState<any[]>([]);
   const [vacancies, setVacancies] = useState<any[]>([]);
+  const [legalDraft, setLegalDraft] = useState(() => ({
+    privacyPolicy: website.legal?.privacyPolicy || DEFAULT_WEBSITE.legal!.privacyPolicy!,
+    termsOfService: website.legal?.termsOfService || DEFAULT_WEBSITE.legal!.termsOfService!,
+  }));
 
   const addPage = () => {
     const newPage: WebsitePage = {
@@ -128,7 +193,7 @@ export const WebsiteBuilder = () => {
   const saveWebsite = async () => {
     setIsPublishing(true);
     try {
-      const resp = await fetch('/api/schools/website', {
+      await fetchWithAuth('/api/schools/website', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -138,8 +203,6 @@ export const WebsiteBuilder = () => {
           logo_url: website.theme.logoUrl || null
         })
       });
-      const data = await resp.json();
-      if (!resp.ok) throw new Error(data?.error || 'save failed');
       setToast({ message: 'Site saved', type: 'success' });
       initialSnapshotRef.current = JSON.stringify(website);
       setIsDirty(false);
@@ -156,8 +219,8 @@ export const WebsiteBuilder = () => {
     (async () => {
       try {
         const [eventsResp, vacanciesResp] = await Promise.all([
-          fetch(`/api/schools/${website.schoolId}/events`),
-          fetch(`/api/schools/${website.schoolId}/vacancies`),
+          fetch(resolveApiUrl(`/api/schools/${website.schoolId}/events`)),
+          fetch(resolveApiUrl(`/api/schools/${website.schoolId}/vacancies`)),
         ]);
         if (eventsResp.ok) {
           const data = await eventsResp.json();
@@ -178,9 +241,9 @@ export const WebsiteBuilder = () => {
     (async () => {
       try {
         const fid = website.schoolId;
-        const fresp = await fetch(`/api/schools/${fid}/faqs`);
+        const fresp = await fetch(resolveApiUrl(`/api/schools/${fid}/faqs`));
         if (fresp.ok) { const fd = await fresp.json(); setFaqs(fd.faqs || []); }
-        const tresp = await fetch(`/api/schools/${fid}/testimonials`);
+        const tresp = await fetch(resolveApiUrl(`/api/schools/${fid}/testimonials`));
         if (tresp.ok) { const td = await tresp.json(); setTestimonialsList(td.testimonials || []); }
       } catch (e) { console.warn('failed to load faq/testimonials', e); }
     })();
@@ -193,6 +256,13 @@ export const WebsiteBuilder = () => {
       setIsDirty(false);
     }
   }, [website]);
+
+  useEffect(() => {
+    setLegalDraft({
+      privacyPolicy: website.legal?.privacyPolicy || DEFAULT_WEBSITE.legal!.privacyPolicy!,
+      termsOfService: website.legal?.termsOfService || DEFAULT_WEBSITE.legal!.termsOfService!,
+    });
+  }, [website.legal]);
 
   useEffect(() => {
     if (!toast) return;
@@ -327,6 +397,29 @@ export const WebsiteBuilder = () => {
                     <h2 className="text-3xl font-bold">Contact Us</h2>
                     <p className="text-zinc-400 mt-2">Have questions? We're here to help.</p>
                   </div>
+                    {(website.contactInfo?.email || website.contactInfo?.phone || website.contactInfo?.address) ? (
+                      <div className="grid grid-cols-1 gap-3 text-sm text-zinc-300 md:grid-cols-2">
+                        {website.contactInfo?.email ? (
+                          <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                            <div className="text-[10px] font-bold uppercase tracking-[0.22em] text-zinc-500">Email</div>
+                            <div className="mt-2 break-all font-semibold text-white">{website.contactInfo.email}</div>
+                          </div>
+                        ) : null}
+                        {website.contactInfo?.phone ? (
+                          <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                            <div className="text-[10px] font-bold uppercase tracking-[0.22em] text-zinc-500">Phone</div>
+                            <div className="mt-2 break-all font-semibold text-white">{website.contactInfo.phone}</div>
+                          </div>
+                        ) : null}
+                        {website.contactInfo?.address ? (
+                          <div className="rounded-2xl border border-white/10 bg-white/5 p-4 md:col-span-2">
+                            <div className="text-[10px] font-bold uppercase tracking-[0.22em] text-zinc-500">Address</div>
+                            <div className="mt-2 text-white">{website.contactInfo.address}</div>
+                            <div className="mt-2 text-xs text-zinc-400">{[website.contactInfo?.city, website.contactInfo?.state, website.contactInfo?.country].filter(Boolean).join(', ')}</div>
+                          </div>
+                        ) : null}
+                      </div>
+                    ) : null}
                     <div className="space-y-4">
                       <div>
                         <label className="sr-only">Your Name</label>
@@ -343,8 +436,7 @@ export const WebsiteBuilder = () => {
                       <button onClick={async () => {
                         if (!contactForm.email || !contactForm.message) return alert('Email and message are required');
                         try {
-                          const resp = await fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: contactForm.name, email: contactForm.email, message: contactForm.message, school_id: website.schoolId }) });
-                          const d = await resp.json(); if (!resp.ok) throw new Error(d?.error || 'send failed');
+                          await fetchWithAuth('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: contactForm.name, email: contactForm.email, message: contactForm.message, school_id: website.schoolId }) });
                           setToast({ message: 'Message sent', type: 'success' });
                           setContactForm({ name: '', email: '', message: '' });
                         } catch (err) { console.error(err); alert('Send failed'); }
@@ -400,6 +492,7 @@ export const WebsiteBuilder = () => {
                 { id: 'faq', label: 'FAQ', icon: <MessageSquare size={16} /> },
                 { id: 'carousel', label: 'Carousel', icon: <ImageIcon size={16} /> },
                 { id: 'testimonials', label: 'Testimonials', icon: <MessageSquare size={16} /> },
+                { id: 'legal', label: 'Legal Pages', icon: <ShieldCheck size={16} /> },
               ].map((tool) => (
                 <button
                   key={tool.id}
@@ -449,9 +542,7 @@ export const WebsiteBuilder = () => {
                             const fd = new FormData();
                             fd.append('logo', selectedFile);
                             fd.append('school_id', website.schoolId);
-                            const resp = await fetch('/api/uploads/logo', { method: 'POST', body: fd });
-                            const data = await resp.json();
-                            if (!resp.ok) throw new Error(data?.error || 'upload failed');
+                            const data = await fetchWithAuth('/api/uploads/logo', { method: 'POST', body: fd });
                             const large = data.urls?.large;
                             if (large) {
                               // update local state preview and website theme
@@ -523,9 +614,7 @@ export const WebsiteBuilder = () => {
                   <button onClick={async () => {
                     if (!faqForm.question || !faqForm.answer) return alert('question and answer required');
                     try {
-                      const resp = await fetch(`/api/schools/${website.schoolId}/faqs`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ question: faqForm.question, answer: faqForm.answer }) });
-                      const data = await resp.json();
-                      if (!resp.ok) throw new Error(data?.error || 'save failed');
+                      const data = await fetchWithAuth(`/api/schools/${website.schoolId}/faqs`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ question: faqForm.question, answer: faqForm.answer }) });
                       setFaqs(prev => [data.faq, ...prev]);
                       setFaqForm({ question: '', answer: '' });
                       setToast({ message: 'FAQ added', type: 'success' });
@@ -573,9 +662,7 @@ export const WebsiteBuilder = () => {
                     fd.append('school_id', website.schoolId);
                     if (eventForm.image) fd.append('image', eventForm.image);
                     try {
-                      const resp = await fetch(`/api/schools/${website.schoolId}/events`, { method: 'POST', body: fd });
-                      const data = await resp.json();
-                      if (!resp.ok) throw new Error(data?.error || 'create event failed');
+                      const data = await fetchWithAuth(`/api/schools/${website.schoolId}/events`, { method: 'POST', body: fd });
                       setEvents(prev => [data.event, ...prev]);
                       setEventForm({ title: '', date: '', description: '', image: null });
                       setToast({ message: 'Event created', type: 'success' });
@@ -637,8 +724,7 @@ export const WebsiteBuilder = () => {
                     if (!f) return;
                     (async () => {
                       const fd = new FormData(); fd.append('image', f); fd.append('school_id', website.schoolId);
-                      const r = await fetch('/api/uploads/media', { method: 'POST', body: fd }); const d = await r.json();
-                      if (!r.ok) throw new Error(d?.error || 'upload failed');
+                      const d = await fetchWithAuth('/api/uploads/media', { method: 'POST', body: fd });
                       // add to carouselItems and update website state
                       setCarouselItems(prev => { const next = [d.url, ...prev]; setWebsite(w => ({ ...w, pages: w.pages || [], carousel: next } as any)); return next; });
                       setToast({ message: 'Carousel image uploaded', type: 'success' });
@@ -678,22 +764,27 @@ export const WebsiteBuilder = () => {
                   </div>
                   <div>
                     <label className="sr-only" htmlFor="t-quote">Quote</label>
-                    <textarea id="t-quote" aria-label="Testimonial quote" className="w-full bg-transparent border border-white/5 rounded px-3 py-2 text-sm mb-2" />
+                    <textarea id="t-quote" aria-label="Testimonial quote" className="w-full bg-transparent border border-white/5 rounded px-3 py-2 text-sm mb-2" placeholder="Original user remark or the excerpt you want featured" />
+                  </div>
+                  <div>
+                    <label className="sr-only" htmlFor="t-photo">Profile photo URL</label>
+                    <input id="t-photo" aria-label="Profile photo URL" className="w-full bg-transparent border border-white/5 rounded px-3 py-2 text-sm mb-2" placeholder="User profile photo URL" />
                   </div>
                   <div className="flex gap-2">
                     <button onClick={async () => {
                       const author = (document.getElementById('t-author') as HTMLInputElement).value;
                       const role = (document.getElementById('t-role') as HTMLInputElement).value;
                       const quote = (document.getElementById('t-quote') as HTMLTextAreaElement).value;
+                      const profilePhotoUrl = (document.getElementById('t-photo') as HTMLInputElement).value;
                       if (!quote) return alert('quote required');
                       try {
-                        const resp = await fetch(`/api/schools/${website.schoolId}/testimonials`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ author, role, quote, featured: false }) });
-                        const d = await resp.json(); if (!resp.ok) throw new Error(d?.error || 'failed');
+                        const d = await fetchWithAuth(`/api/schools/${website.schoolId}/testimonials`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ author, role, quote, originalComment: quote, profilePhotoUrl, featured: false, sourceType: 'user-remark' }) });
                         setTestimonialsList(prev => [d.testimonial, ...prev]);
                         setToast({ message: 'Testimonial added', type: 'success' });
                         (document.getElementById('t-author') as HTMLInputElement).value = '';
                         (document.getElementById('t-role') as HTMLInputElement).value = '';
                         (document.getElementById('t-quote') as HTMLTextAreaElement).value = '';
+                        (document.getElementById('t-photo') as HTMLInputElement).value = '';
                       } catch (err) { console.error(err); alert('Failed to add'); }
                     }} className="bg-emerald-600 text-white px-3 py-1 rounded">Add</button>
                   </div>
@@ -704,16 +795,20 @@ export const WebsiteBuilder = () => {
                   <div className="space-y-2">
                     {testimonialsList.map(t => (
                       <div key={t.id} className="flex items-center justify-between rounded bg-white/2 p-2">
-                        <div>
+                        <div className="flex items-center gap-3">
+                          <div className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full bg-emerald-600/15 text-[11px] font-bold text-emerald-200">
+                            {t.profilePhotoUrl ? <img src={t.profilePhotoUrl} alt={t.author || 'User'} className="h-full w-full object-cover" referrerPolicy="no-referrer" /> : String(t.author || 'NU').split(/\s+/).filter(Boolean).slice(0, 2).map((part: string) => part[0]?.toUpperCase() || '').join('')}
+                          </div>
+                          <div>
                           <div className="font-bold text-sm text-white">{t.author} {t.role ? `— ${t.role}` : ''}</div>
-                          <div className="text-xs text-zinc-400">{t.quote}</div>
+                          <div className="text-xs text-zinc-400">{t.originalComment || t.quote}</div>
+                          </div>
                         </div>
                         <div className="flex items-center gap-2">
                           <label className="text-xs text-zinc-400 mr-2">Feature</label>
                           <input type="checkbox" checked={!!t.featured} onChange={async (e) => {
                             try {
-                              const resp = await fetch(`/api/schools/${website.schoolId}/testimonials/${t.id}`, { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ featured: e.target.checked }) });
-                              const d = await resp.json(); if (!resp.ok) throw new Error(d?.error || 'update failed');
+                              const d = await fetchWithAuth(`/api/schools/${website.schoolId}/testimonials/${t.id}`, { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ featured: e.target.checked }) });
                               setTestimonialsList(prev => prev.map(x => x.id === t.id ? d.testimonial : x));
                               setToast({ message: 'Updated', type: 'success' });
                             } catch (err) { console.error(err); alert('update failed'); }
@@ -724,6 +819,85 @@ export const WebsiteBuilder = () => {
                   </div>
                 </div>
               </div>
+            </div>
+          )}
+
+          {activeTab === 'legal' && (
+            <div className="card-compact animate-in fade-in slide-in-from-left-2 duration-300 space-y-6">
+              <div>
+                <h3 className="text-xs font-bold uppercase tracking-widest text-zinc-400 mb-3">Legal Pages</h3>
+                <p className="text-sm text-zinc-500">Edit the public Privacy Policy and Terms of Service here. These are saved with the website config so they can be updated later without touching code.</p>
+              </div>
+
+              <div className="space-y-3 rounded-3xl border border-white/5 bg-white/2 p-4">
+                <div className="flex items-center justify-between gap-3">
+                  <div>
+                    <p className="text-sm font-bold text-white">Privacy Policy</p>
+                    <p className="text-xs text-zinc-500">Last updated and public-facing policy copy.</p>
+                  </div>
+                  <input
+                    value={legalDraft.privacyPolicy.lastUpdated}
+                    onChange={(e) => setLegalDraft((current) => ({ ...current, privacyPolicy: { ...current.privacyPolicy, lastUpdated: e.target.value } }))}
+                    className="rounded-lg border border-white/10 bg-black/20 px-3 py-2 text-xs text-white outline-none"
+                    placeholder="Last updated"
+                  />
+                </div>
+                <input
+                  value={legalDraft.privacyPolicy.title}
+                  onChange={(e) => setLegalDraft((current) => ({ ...current, privacyPolicy: { ...current.privacyPolicy, title: e.target.value } }))}
+                  className="w-full rounded-lg border border-white/10 bg-black/20 px-3 py-2 text-sm text-white outline-none"
+                  placeholder="Policy title"
+                />
+                <textarea
+                  value={legalDraft.privacyPolicy.body}
+                  onChange={(e) => setLegalDraft((current) => ({ ...current, privacyPolicy: { ...current.privacyPolicy, body: e.target.value } }))}
+                  className="min-h-72 w-full rounded-2xl border border-white/10 bg-black/20 p-4 text-sm leading-7 text-white outline-none"
+                  placeholder="Write the privacy policy body here..."
+                />
+              </div>
+
+              <div className="space-y-3 rounded-3xl border border-white/5 bg-white/2 p-4">
+                <div className="flex items-center justify-between gap-3">
+                  <div>
+                    <p className="text-sm font-bold text-white">Terms of Service</p>
+                    <p className="text-xs text-zinc-500">Last updated and public-facing terms copy.</p>
+                  </div>
+                  <input
+                    value={legalDraft.termsOfService.lastUpdated}
+                    onChange={(e) => setLegalDraft((current) => ({ ...current, termsOfService: { ...current.termsOfService, lastUpdated: e.target.value } }))}
+                    className="rounded-lg border border-white/10 bg-black/20 px-3 py-2 text-xs text-white outline-none"
+                    placeholder="Last updated"
+                  />
+                </div>
+                <input
+                  value={legalDraft.termsOfService.title}
+                  onChange={(e) => setLegalDraft((current) => ({ ...current, termsOfService: { ...current.termsOfService, title: e.target.value } }))}
+                  className="w-full rounded-lg border border-white/10 bg-black/20 px-3 py-2 text-sm text-white outline-none"
+                  placeholder="Terms title"
+                />
+                <textarea
+                  value={legalDraft.termsOfService.body}
+                  onChange={(e) => setLegalDraft((current) => ({ ...current, termsOfService: { ...current.termsOfService, body: e.target.value } }))}
+                  className="min-h-72 w-full rounded-2xl border border-white/10 bg-black/20 p-4 text-sm leading-7 text-white outline-none"
+                  placeholder="Write the terms of service body here..."
+                />
+              </div>
+
+              <button
+                onClick={() => {
+                  setWebsite((current) => ({
+                    ...current,
+                    legal: {
+                      privacyPolicy: legalDraft.privacyPolicy,
+                      termsOfService: legalDraft.termsOfService,
+                    },
+                  }));
+                  setToast({ message: 'Legal pages updated locally. Save changes to publish.', type: 'success' });
+                }}
+                className="rounded-xl bg-emerald-600 px-4 py-2 text-sm font-bold text-white hover:bg-emerald-500"
+              >
+                Update Legal Pages
+              </button>
             </div>
           )}
 
@@ -755,8 +929,7 @@ export const WebsiteBuilder = () => {
                   const f = e.target.files?.[0]; if (!f) return;
                   try {
                     const fd = new FormData(); fd.append('image', f);
-                    const resp = await fetch(`/api/schools/${website.schoolId}/website/pages/${activePage.id}/images`, { method: 'POST', body: fd });
-                    const d = await resp.json(); if (!resp.ok) throw new Error(d?.error || 'upload failed');
+                    const d = await fetchWithAuth(`/api/schools/${website.schoolId}/website/pages/${activePage.id}/images`, { method: 'POST', body: fd });
                     // update local website state
                     setWebsite(prev => {
                       const pages = prev.pages.map(p => p.id === activePage.id ? { ...p, images: [...(((p as any).images)||[]), d.url] } : p);

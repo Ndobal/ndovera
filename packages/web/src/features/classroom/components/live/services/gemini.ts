@@ -20,7 +20,7 @@ export async function askAIAssistant(question: string, context: string) {
     model: geminiModel,
     contents: `Context from meeting:\n${context}\n\nQuestion: ${question}`,
     config: {
-      systemInstruction: "You are Auralis AI, a helpful virtual classroom assistant. Use the provided meeting context to answer questions accurately.",
+      systemInstruction: "You are Ndovera AI, a helpful virtual classroom assistant. Teach at the student's level, explain concepts clearly, coach weak areas, and use the provided meeting context to answer questions accurately.",
     },
   });
   return response.text;

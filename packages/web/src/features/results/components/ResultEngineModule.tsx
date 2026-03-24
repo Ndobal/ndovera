@@ -99,7 +99,7 @@ export default function ResultEngineModule({ role }: { role?: string }) {
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-2xl font-bold text-white">Result Engine</h2>
-          <p className="text-sm text-slate-400">Source-of-truth academic computation & reporting.</p>
+          <p className="text-sm text-slate-400">Preview module only. Go-live approvals now belong to the real score-sheet and persisted result workflow.</p>
         </div>
         <div>
           <button onClick={()=>setView('scoresheet')} className={`px-4 py-2 rounded ${view==='scoresheet'? 'bg-emerald-600 text-white':''}`}>CA Scoresheet</button>
@@ -109,6 +109,9 @@ export default function ResultEngineModule({ role }: { role?: string }) {
 
       {view === 'scoresheet' ? (
         <div className="bg-slate-900 p-6 rounded-2xl">
+          <div className="mb-4 rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-100">
+            Local CA approval inside this module is disabled. Use the production score-sheet flow to save scores, capture structured page-two entries, and apply sectional or HoS approval on persisted records.
+          </div>
           <table className="w-full text-left">
             <thead>
               <tr className="text-slate-400 text-xs">
@@ -139,11 +142,8 @@ export default function ResultEngineModule({ role }: { role?: string }) {
           </table>
 
           <div className="mt-4 flex items-center justify-between">
-            <div className="text-sm text-slate-400">Approval chain: Teacher → Sectional → HoS</div>
-            <div>
-              {!scoresheet.sectionalHeadApproved && <button onClick={()=>{ setScoresheet({...scoresheet, sectionalHeadApproved:true}); saveToLocal(scoresheet); }} className="px-4 py-2 bg-emerald-600 text-white rounded">Approve CA Scores</button>}
-              {scoresheet.sectionalHeadApproved && <button onClick={handleCompute} className="px-4 py-2 bg-emerald-600 text-white rounded ml-2">Compute Results</button>}
-            </div>
+            <div className="text-sm text-slate-400">Approval chain enforced on the persisted result API: Teacher → Sectional → HoS.</div>
+            <div className="rounded-lg border border-slate-700 px-4 py-2 text-sm text-slate-300">Legacy local approval disabled</div>
           </div>
         </div>
       ) : (

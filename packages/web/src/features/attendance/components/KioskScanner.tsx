@@ -46,7 +46,7 @@ export default function KioskScanner() {
             <Signal size={20} /> Online
           </span>
         )}
-        <button onClick={logout} className="text-slate-400 hover:text-white p-2">
+        <button onClick={() => logout()} className="text-slate-400 hover:text-white p-2">
           <LogOut size={24} />
         </button>
       </div>

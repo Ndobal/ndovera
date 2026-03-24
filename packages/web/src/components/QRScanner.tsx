@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Html5QrcodeScanner, Html5QrcodeSupportedFormats } from 'html5-qrcode';
-import { fetchWithAuth } from '../../services/apiClient';
+import { fetchWithAuth } from '../services/apiClient';
 
 interface Props {
   roleScanned: 'staff' | 'student';

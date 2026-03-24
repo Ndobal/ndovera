@@ -3,13 +3,15 @@
     "target": "ES2022",
     "module": "Node16",
     "lib": ["ES2022"],
+    "noEmit": true,
     "strict": true,
     "moduleResolution": "node16",
+    "allowImportingTsExtensions": true,
     "ignoreDeprecations": "5.0",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
     "composite": true
   },
-  "include": ["server.ts", "rbac.ts", "global.d.ts"]
+  "include": ["server.ts", "rbac.ts", "global.d.ts", "src/**/*.ts", "src/**/*.d.ts", "../../identity-state.ts", "../../championship-state.ts"]
 }

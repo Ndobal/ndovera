@@ -1,0 +1,38 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "build web prod",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"--workspace=packages/web",
+				"run",
+				"build"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "build super-admin prod",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"--workspace=packages/super-admin",
+				"run",
+				"build"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "build web prod final",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"--workspace=packages/web",
+				"run",
+				"build"
+			],
+			"isBackground": false
+		}
+	]
+}

@@ -1,0 +1,9 @@
+{
+  "ok": false,
+  "baseUrl": "http://127.0.0.1:3299",
+  "error": {
+    "name": "TypeError",
+    "message": "fetch failed",
+    "stack": "TypeError: fetch failed\n    at node:internal/deps/undici/undici:14902:13\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async request (C:\\Users\\HP\\Desktop\\Projects\\ndovera\\packages\\server\\verify-inactive-login.ts:16:20)\n    at async main (C:\\Users\\HP\\Desktop\\Projects\\ndovera\\packages\\server\\verify-inactive-login.ts:60:23)"
+  }
+}

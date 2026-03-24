@@ -31,7 +31,6 @@
       "src/**/*"
     ],
   "exclude": [
-    "src/legacy_archive/**",
     "dist/**",
     "dist-practice/**",
     "dist-validation/**"

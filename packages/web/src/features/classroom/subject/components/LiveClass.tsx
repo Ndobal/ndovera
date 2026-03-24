@@ -606,7 +606,7 @@ export default function LiveClass() {
         const aiMsg: Message = {
           id: (Date.now() + 1).toString(),
           senderId: 'ai',
-          senderName: 'Auralis AI',
+          senderName: 'Ndovera AI',
           text: aiResponse || "I'm sorry, I couldn't process that.",
           timestamp: Date.now(),
           isAI: true

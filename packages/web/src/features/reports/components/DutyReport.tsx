@@ -545,7 +545,7 @@ export default function DutyReport() {
                                 <textarea
                                   value={editorState.note}
                                   onChange={(event) => setEditorState((prev) => ({ ...prev, note: event.target.value }))}
-                                  className="min-h-[82px] w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm outline-none focus:border-indigo-500 dark:border-slate-600 dark:bg-slate-950 dark:text-slate-200"
+                                  className="min-h-20.5 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm outline-none focus:border-indigo-500 dark:border-slate-600 dark:bg-slate-950 dark:text-slate-200"
                                 />
                               </td>
                               <td className="px-4 py-4 text-right">
@@ -715,7 +715,7 @@ export default function DutyReport() {
                     value={formData[section.id] || ''}
                     onChange={(event) => handleTextChange(section.id, event.target.value)}
                     placeholder="Write the duty observations for this section..."
-                    className="min-h-[90px] w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm outline-none focus:border-indigo-500 dark:border-slate-600 dark:bg-slate-950 dark:text-slate-200"
+                    className="min-h-22.5 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm outline-none focus:border-indigo-500 dark:border-slate-600 dark:bg-slate-950 dark:text-slate-200"
                   />
                 </div>
               ))}

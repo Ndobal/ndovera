@@ -36,5 +36,12 @@ export function useData<T>(url: string, options?: { enabled?: boolean }) {
     fetchData();
   }, [fetchData]);
 
-  return { data, loading, error, refetch: fetchData };
+  return {
+    data,
+    loading,
+    isLoading: loading,
+    error,
+    refetch: fetchData,
+    mutate: fetchData,
+  };
 }

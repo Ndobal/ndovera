@@ -23,6 +23,8 @@ import {
 import { useData } from '../../../hooks/useData';
 import { practicePrograms } from '../data/classroomExperience';
 import { createSchoolQuestionBank, explainQuestion, type PracticeQuestion, type PracticeSet } from '../services/classroomApi';
+import { buildAppUrl, SUPER_ADMIN_API_BASE_URL } from '../../../services/runtimeConfig';
+import { fetchWithAuth } from '../../../services/apiClient';
 
 type PracticeArenaProps = {
   role: string;
@@ -30,24 +32,30 @@ type PracticeArenaProps = {
 
 type ScopeFilter = 'all' | 'practice' | 'exam' | 'cbt' | 'mid-term';
 type PracticeFocusMode = 'all' | 'practice' | 'weak-area' | 'exam-review';
+type RunnerMode = 'guided' | 'instant-feedback' | 'review' | 'mock';
+type StrictnessMode = 'relaxed' | 'standard' | 'strict';
 
 function FeatureSuggestionFAB({ role }: { role: string }) {
   const [show, setShow] = useState(false);
   const [enabled, setEnabled] = useState(false);
   const [suggestion, setSuggestion] = useState('');
   const [sent, setSent] = useState(false);
+  const settingsUrl = buildAppUrl('/api/super/settings/feature-suggestions', SUPER_ADMIN_API_BASE_URL);
+  const submitUrl = buildAppUrl('/api/public/feature-suggestions', SUPER_ADMIN_API_BASE_URL);
 
   useEffect(() => {
-    fetch('http://localhost:5001/api/super/settings/feature-suggestions')
+    if (!settingsUrl) return;
+    fetch(settingsUrl)
       .then(r => r.json())
       .then(d => { if (d.ok) setEnabled(d.enabled); })
       .catch(() => {});
-  }, []);
+  }, [settingsUrl]);
 
   if (!enabled) return null;
 
   const submit = () => {
-    fetch('http://localhost:5001/api/public/feature-suggestions', {
+    if (!submitUrl) return;
+    fetchWithAuth(submitUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -121,16 +129,19 @@ function FeatureSuggestionFAB({ role }: { role: string }) {
 export function ExplanationLoader({ question }: { question: PracticeQuestion }) {
   const [explanation, setExplanation] = useState<string | null>(question.explanation || null);
   const [loading, setLoading] = useState(!question.explanation);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (question.explanation) {
       setExplanation(question.explanation);
       setLoading(false);
+      setError(null);
       return;
     }
 
     let mounted = true;
     setLoading(true);
+    setError(null);
     explainQuestion(question.id, question.stem, question.options, question.answer)
       .then((res) => {
         if (mounted) {
@@ -139,9 +150,9 @@ export function ExplanationLoader({ question }: { question: PracticeQuestion }) 
           setLoading(false);
         }
       })
-      .catch(() => {
+      .catch((err) => {
         if (mounted) {
-          setExplanation('Explanation could not be generated.');
+          setError(err instanceof Error ? err.message : 'Explanation could not be generated.');
           setLoading(false);
         }
       });
@@ -160,7 +171,7 @@ export function ExplanationLoader({ question }: { question: PracticeQuestion }) 
   return (
     <div className="rounded-lg bg-sky-900/30 p-3 border border-sky-500/20">
       <p className="font-bold text-sky-200 text-xs uppercase tracking-wider mb-1">AI Explanation ✓</p>
-      <p className="text-sky-100">{explanation}</p>
+      <p className="text-sky-100">{error || explanation}</p>
     </div>
   );
 }
@@ -177,6 +188,11 @@ type SessionState = {
   questionOrder: string[];
   answers: Record<string, string>;
   submitted: boolean;
+  runnerMode: RunnerMode;
+  strictness: StrictnessMode;
+  timeLimitMinutes: number;
+  startedAt: string;
+  hintedQuestionIds: string[];
 };
 
 type PracticeProgramSeed = Partial<PracticeSet> & Pick<PracticeSet, 'id' | 'title' | 'subject' | 'questions' | 'note'>;
@@ -204,6 +220,24 @@ const referenceModes = [
     tone: 'bg-violet-50 dark:bg-transparent dark:from-violet-500/20 dark:to-fuchsia-500/10 border-violet-200 dark:border-violet-300/20 text-violet-900 dark:text-violet-100',
   },
 ];
+
+const runnerModes: Array<{ id: RunnerMode; label: string; detail: string }> = [
+  { id: 'guided', label: 'Practice with hints', detail: 'Hints are available before submission and review opens after you finish.' },
+  { id: 'instant-feedback', label: 'Practice with answers', detail: 'Every answer gives immediate correction while you move through the set.' },
+  { id: 'review', label: 'Practice without answers', detail: 'No feedback until submission, then review every question and explanation.' },
+  { id: 'mock', label: 'Mock exam', detail: 'Strict exam mode with timer-first behavior and delayed review.' },
+];
+
+function formatTimeRemaining(totalSeconds: number) {
+  const safe = Math.max(0, totalSeconds);
+  const minutes = Math.floor(safe / 60);
+  const seconds = safe % 60;
+  return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+}
+
+function buildHint(question: PracticeQuestion) {
+  return question.hint || question.explanation?.split(/[.!?]/).map((part) => part.trim()).find(Boolean) || 'Focus on the main concept tested by this question and eliminate the weakest option first.';
+}
 
 function matchesPracticeMode(program: PracticeSet, focusMode: PracticeFocusMode) {
   if (focusMode === 'all') return true;
@@ -292,6 +326,9 @@ function normalizeQuestion(question: Partial<PracticeQuestion>, index: number, p
     stem: question.stem || fallback.stem,
     options: safeOptions,
     answer,
+    explanation: question.explanation,
+    hint: question.hint,
+    answerSource: question.answerSource,
   };
 }
 
@@ -315,6 +352,11 @@ function normalizePracticeSet(program: PracticeProgramSeed, index: number): Prac
     reward: program.reward,
     questions: Number(program.questions || questionItems.length) || questionItems.length,
     note: program.note || 'Practice questions ready for guided revision.',
+    visibility: program.visibility,
+    examFamily: program.examFamily,
+    classBand: program.classBand,
+    tags: program.tags,
+    updatedAt: program.updatedAt,
     questionItems,
   };
 }
@@ -334,15 +376,25 @@ export function PracticeArena({ role }: PracticeArenaProps) {
   const [scopeFilter, setScopeFilter] = useState<ScopeFilter>('all');
   const [focusMode, setFocusMode] = useState<PracticeFocusMode>('all');
   const [subjectFilter, setSubjectFilter] = useState('all');
+  const [familyFilter, setFamilyFilter] = useState('all');
+  const [classBandFilter, setClassBandFilter] = useState('all');
   const [selectedSetId, setSelectedSetId] = useState<string | null>(null);
   const [viewState, setViewState] = useState<'list' | 'detail' | 'practice'>('list');
   const [session, setSession] = useState<SessionState | null>(null);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [timerTick, setTimerTick] = useState(0);
+  const [runnerMode, setRunnerMode] = useState<RunnerMode>('guided');
+  const [strictness, setStrictness] = useState<StrictnessMode>('standard');
+  const [timeLimitMinutes, setTimeLimitMinutes] = useState(30);
   const [saving, setSaving] = useState(false);
   const [draftTitle, setDraftTitle] = useState('');
   const [draftSubject, setDraftSubject] = useState('');
   const [draftLevel, setDraftLevel] = useState('JSS 1');
   const [draftMode, setDraftMode] = useState('Teacher Curated');
+  const [draftScope, setDraftScope] = useState<'practice' | 'exam' | 'cbt' | 'mid-term'>('practice');
+  const [draftVisibility, setDraftVisibility] = useState<'global' | 'school'>('school');
+  const [draftExamFamily, setDraftExamFamily] = useState('School Practice');
+  const [draftClassBand, setDraftClassBand] = useState('JSS 1-3');
   const [draftNote, setDraftNote] = useState('Teacher-authored school question bank set.');
   const [draftQuestions, setDraftQuestions] = useState<DraftQuestion[]>([makeDraftQuestion(1), makeDraftQuestion(2)]);
   const [saveError, setSaveError] = useState<string | null>(null);
@@ -357,6 +409,14 @@ export function PracticeArena({ role }: PracticeArenaProps) {
     () => ['all', ...Array.from(new Set(programs.map((program) => program.subject))).sort((left, right) => left.localeCompare(right))],
     [programs],
   );
+  const familyOptions = useMemo(
+    () => ['all', ...Array.from(new Set(programs.map((program) => program.examFamily).filter(Boolean) as string[])).sort((left, right) => left.localeCompare(right))],
+    [programs],
+  );
+  const classBandOptions = useMemo(
+    () => ['all', ...Array.from(new Set(programs.map((program) => program.classBand).filter(Boolean) as string[])).sort((left, right) => left.localeCompare(right))],
+    [programs],
+  );
 
   const filteredPrograms = useMemo(() => {
     const query = search.trim().toLowerCase();
@@ -364,11 +424,13 @@ export function PracticeArena({ role }: PracticeArenaProps) {
       const matchesScope = scopeFilter === 'all' ? true : program.scope === scopeFilter;
       const matchesFocus = matchesPracticeMode(program, focusMode);
       const matchesSubject = subjectFilter === 'all' ? true : program.subject === subjectFilter;
+      const matchesFamily = familyFilter === 'all' ? true : program.examFamily === familyFilter;
+      const matchesClassBand = classBandFilter === 'all' ? true : program.classBand === classBandFilter;
       const haystack = `${program.subject} ${program.title} ${program.note} ${program.mode} ${program.source}`.toLowerCase();
       const matchesSearch = query ? haystack.includes(query) : true;
-      return matchesScope && matchesFocus && matchesSubject && matchesSearch;
+      return matchesScope && matchesFocus && matchesSubject && matchesFamily && matchesClassBand && matchesSearch;
     });
-  }, [focusMode, programs, scopeFilter, search, subjectFilter]);
+  }, [classBandFilter, familyFilter, focusMode, programs, scopeFilter, search, subjectFilter]);
 
   const selectedSet = useMemo(
     () => filteredPrograms.find((program) => program.id === selectedSetId) || programs.find((program) => program.id === selectedSetId) || filteredPrograms[0] || programs[0] || null,
@@ -417,22 +479,46 @@ export function PracticeArena({ role }: PracticeArenaProps) {
     [selectedSet, session],
   );
 
+  const remainingSeconds = useMemo(() => {
+    if (!session || session.submitted || !session.timeLimitMinutes) return null;
+    const elapsedSeconds = Math.max(0, Math.floor((Date.now() - new Date(session.startedAt).getTime()) / 1000));
+    return Math.max(0, session.timeLimitMinutes * 60 - elapsedSeconds);
+  }, [session, timerTick]);
+
   const activeQuestion = selectedQuestions[Math.min(currentQuestionIndex, Math.max(selectedQuestions.length - 1, 0))] || null;
 
   useEffect(() => {
     setCurrentQuestionIndex(0);
   }, [selectedSetId]);
 
+  useEffect(() => {
+    if (!session || session.submitted || !session.timeLimitMinutes) return;
+    const timer = window.setInterval(() => {
+      setTimerTick((current) => current + 1);
+      const elapsedSeconds = Math.max(0, Math.floor((Date.now() - new Date(session.startedAt).getTime()) / 1000));
+      if (elapsedSeconds >= session.timeLimitMinutes * 60) {
+        setSession((current) => current ? { ...current, submitted: true } : current);
+      }
+    }, 1000);
+    return () => window.clearInterval(timer);
+  }, [session]);
+
   const startPractice = (set: PracticeSet) => {
     const questionItems = Array.isArray(set.questionItems) ? set.questionItems : [];
     setSelectedSetId(set.id);
     setCurrentQuestionIndex(0);
+    setTimerTick(0);
     setViewState('practice');
     setSession({
       setId: set.id,
       questionOrder: shuffle(questionItems.map((question) => question.id)),
       answers: {},
       submitted: false,
+      runnerMode,
+      strictness: runnerMode === 'mock' ? 'strict' : strictness,
+      timeLimitMinutes: runnerMode === 'mock' ? Math.max(5, timeLimitMinutes) : Math.max(0, timeLimitMinutes),
+      startedAt: new Date().toISOString(),
+      hintedQuestionIds: [],
     });
   };
 
@@ -448,6 +534,13 @@ export function PracticeArena({ role }: PracticeArenaProps) {
 
   const submitSession = () => {
     setSession((current) => current ? { ...current, submitted: true } : current);
+  };
+
+  const revealHint = (questionId: string) => {
+    setSession((current) => {
+      if (!current || current.hintedQuestionIds.includes(questionId)) return current;
+      return { ...current, hintedQuestionIds: [...current.hintedQuestionIds, questionId] };
+    });
   };
 
   const resetSession = () => {
@@ -499,6 +592,10 @@ export function PracticeArena({ role }: PracticeArenaProps) {
         level: draftLevel.trim() || undefined,
         mode: draftMode.trim() || undefined,
         note: draftNote.trim() || undefined,
+        scope: draftScope,
+        visibility: draftVisibility,
+        examFamily: draftExamFamily,
+        classBand: draftClassBand,
         questions: cleanedQuestions.map((question) => ({
           id: question.id,
           stem: question.stem,
@@ -510,6 +607,10 @@ export function PracticeArena({ role }: PracticeArenaProps) {
       setDraftSubject('');
       setDraftLevel('JSS 1');
       setDraftMode('Teacher Curated');
+      setDraftScope('practice');
+      setDraftVisibility('school');
+      setDraftExamFamily('School Practice');
+      setDraftClassBand('JSS 1-3');
       setDraftNote('Teacher-authored school question bank set.');
       setDraftQuestions([makeDraftQuestion(1), makeDraftQuestion(2)]);
       await refetch();
@@ -601,6 +702,18 @@ export function PracticeArena({ role }: PracticeArenaProps) {
                 ))}
               </select>
             </div>
+            <div className="grid gap-3 sm:grid-cols-2 md:col-span-2 xl:col-span-1">
+              <select value={familyFilter} onChange={(event) => setFamilyFilter(event.target.value)} className="rounded-2xl border border-slate-200 dark:border-white/12 bg-slate-50 dark:bg-white/8 px-4 py-3 text-sm text-slate-900 dark:text-white outline-none focus:border-sky-400">
+                {familyOptions.map((option) => (
+                  <option key={option} value={option}>{option === 'all' ? 'All exam families' : option}</option>
+                ))}
+              </select>
+              <select value={classBandFilter} onChange={(event) => setClassBandFilter(event.target.value)} className="rounded-2xl border border-slate-200 dark:border-white/12 bg-slate-50 dark:bg-white/8 px-4 py-3 text-sm text-slate-900 dark:text-white outline-none focus:border-sky-400">
+                {classBandOptions.map((option) => (
+                  <option key={option} value={option}>{option === 'all' ? 'All class bands' : option}</option>
+                ))}
+              </select>
+            </div>
             <div className="flex flex-wrap gap-2 md:col-span-2 xl:col-span-1">
               <button type="button" onClick={() => setFocusMode('all')} className={`rounded-full px-3 py-1.5 text-xs font-semibold ${focusMode === 'all' ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-950' : 'bg-slate-100 text-slate-700 dark:bg-white/8 dark:text-slate-200'}`}>
                 All focus modes
@@ -636,6 +749,8 @@ export function PracticeArena({ role }: PracticeArenaProps) {
                       <div className="flex flex-wrap gap-2">
                         <span className="rounded-full bg-slate-200/50 dark:bg-white/10 px-3 py-1 text-[11px] font-semibold text-slate-700 dark:text-slate-100">{program.subject}</span>
                         <span className={`rounded-full border px-3 py-1 text-[11px] font-semibold ${getSetTone(program.scope)}`}>{getScopeLabel(program.scope)}</span>
+                        {program.examFamily ? <span className="rounded-full bg-violet-100 dark:bg-violet-500/10 px-3 py-1 text-[11px] font-semibold text-violet-700 dark:text-violet-100">{program.examFamily}</span> : null}
+                        {program.classBand ? <span className="rounded-full bg-emerald-100 dark:bg-emerald-500/10 px-3 py-1 text-[11px] font-semibold text-emerald-700 dark:text-emerald-100">{program.classBand}</span> : null}
                       </div>
                       <h3 className="mt-3 text-base font-bold text-slate-900 dark:text-white">{program.title}</h3>
                       <p className="mt-2 line-clamp-2 text-sm leading-6 text-slate-600 dark:text-slate-300">{program.note}</p>
@@ -692,6 +807,8 @@ export function PracticeArena({ role }: PracticeArenaProps) {
                     <span className="rounded-full bg-sky-50 px-3 py-1 text-xs font-semibold text-sky-700 dark:bg-sky-500/10 dark:text-sky-300">{selectedSet.subject}</span>
                     <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700 dark:bg-white/10 dark:text-slate-300">{selectedSet.mode}</span>
                     <span className="rounded-full bg-violet-50 px-3 py-1 text-xs font-semibold text-violet-700 dark:bg-violet-500/10 dark:text-violet-300">{getScopeLabel(selectedSet.scope)}</span>
+                    {selectedSet.examFamily ? <span className="rounded-full bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-700 dark:bg-amber-500/10 dark:text-amber-300">{selectedSet.examFamily}</span> : null}
+                    {selectedSet.classBand ? <span className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-300">{selectedSet.classBand}</span> : null}
                   </div>
                   <h3 className="mt-3 text-2xl font-extrabold text-orange-600 dark:text-orange-400">{selectedSet.title}</h3>
                   <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-400">{selectedSet.note}</p>
@@ -730,6 +847,27 @@ export function PracticeArena({ role }: PracticeArenaProps) {
                     ) : null}
                   </div>
                 </div>
+                <div className="mt-4 grid gap-3 lg:grid-cols-3">
+                  <label className="flex flex-col gap-2 text-sm font-medium text-slate-700 dark:text-slate-200">
+                    Session mode
+                    <select value={runnerMode} onChange={(event) => setRunnerMode(event.target.value as RunnerMode)} className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-700 outline-none focus:border-sky-400 dark:border-white/10 dark:bg-slate-800 dark:text-white">
+                      {runnerModes.map((mode) => <option key={mode.id} value={mode.id}>{mode.label}</option>)}
+                    </select>
+                  </label>
+                  <label className="flex flex-col gap-2 text-sm font-medium text-slate-700 dark:text-slate-200">
+                    Strictness
+                    <select value={runnerMode === 'mock' ? 'strict' : strictness} onChange={(event) => setStrictness(event.target.value as StrictnessMode)} disabled={runnerMode === 'mock'} className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-700 outline-none focus:border-sky-400 disabled:opacity-70 dark:border-white/10 dark:bg-slate-800 dark:text-white">
+                      <option value="relaxed">Relaxed</option>
+                      <option value="standard">Standard</option>
+                      <option value="strict">Strict</option>
+                    </select>
+                  </label>
+                  <label className="flex flex-col gap-2 text-sm font-medium text-slate-700 dark:text-slate-200">
+                    Time limit (minutes)
+                    <input type="number" min="0" value={timeLimitMinutes} onChange={(event) => setTimeLimitMinutes(Number(event.target.value) || 0)} className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-700 outline-none focus:border-sky-400 dark:border-white/10 dark:bg-slate-800 dark:text-white" />
+                  </label>
+                </div>
+                <p className="mt-3 text-xs leading-6 text-slate-500 dark:text-slate-400">{runnerModes.find((entry) => entry.id === runnerMode)?.detail}</p>
               </div>
         </section>
       ) : null}
@@ -756,8 +894,13 @@ export function PracticeArena({ role }: PracticeArenaProps) {
                           <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#fef08a]">Progress</p>
                           <p className="mt-2 text-sm font-bold text-[#fef08a]">{answeredCount} of {selectedQuestions.length} answered</p>
                         </div>
-                        <div className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700 dark:bg-slate-700 dark:text-slate-300">
-                          Question {Math.min(currentQuestionIndex + 1, selectedQuestions.length || 1)} of {selectedQuestions.length}
+                        <div className="flex flex-wrap items-center gap-2">
+                          <div className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700 dark:bg-slate-700 dark:text-slate-300">
+                            Question {Math.min(currentQuestionIndex + 1, selectedQuestions.length || 1)} of {selectedQuestions.length}
+                          </div>
+                          <div className="rounded-full bg-sky-100 px-3 py-1 text-xs font-semibold text-sky-700 dark:bg-sky-500/15 dark:text-sky-200">{session.runnerMode === 'mock' ? 'Mock mode' : session.runnerMode.replace('-', ' ')}</div>
+                          <div className="rounded-full bg-violet-100 px-3 py-1 text-xs font-semibold text-violet-700 dark:bg-violet-500/15 dark:text-violet-200">{session.strictness}</div>
+                          {remainingSeconds !== null ? <div className={`rounded-full px-3 py-1 text-xs font-semibold ${remainingSeconds < 300 ? 'bg-rose-100 text-rose-700 dark:bg-rose-500/15 dark:text-rose-200' : 'bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-200'}`}>Time left {formatTimeRemaining(remainingSeconds)}</div> : null}
                         </div>
                       </div>
                       <div className="mt-3 h-2 overflow-hidden rounded-full bg-slate-200 dark:bg-slate-700">
@@ -785,8 +928,11 @@ export function PracticeArena({ role }: PracticeArenaProps) {
                     {activeQuestion ? (() => {
                       const picked = session.answers[activeQuestion.id] || '';
                       const submitted = session.submitted;
-                      const isCorrect = submitted && picked === activeQuestion.answer;
-                      const isWrong = submitted && Boolean(picked) && picked !== activeQuestion.answer;
+                      const revealDuringPractice = session.runnerMode === 'instant-feedback' && Boolean(picked) && !submitted;
+                      const shouldReveal = submitted || revealDuringPractice;
+                      const isCorrect = shouldReveal && picked === activeQuestion.answer;
+                      const isWrong = shouldReveal && Boolean(picked) && picked !== activeQuestion.answer;
+                      const hintVisible = session.hintedQuestionIds.includes(activeQuestion.id) && !submitted;
                       return (
                         <article key={activeQuestion.id} className={`rounded-3xl border p-4 shadow-sm transition-colors ${submitted ? (isCorrect ? 'border-emerald-200 bg-emerald-50 text-emerald-900 dark:border-emerald-500 dark:bg-emerald-900/60' : isWrong ? 'border-rose-200 bg-rose-50 text-rose-900 dark:border-rose-500 dark:bg-rose-900/60' : 'border-slate-200 bg-white text-slate-900 dark:border-slate-700 dark:bg-slate-900') : 'border-slate-200 bg-white text-slate-900 dark:border-slate-700 dark:bg-slate-900'}`}>
                           <div className="flex flex-wrap items-start justify-between gap-3">
@@ -794,7 +940,7 @@ export function PracticeArena({ role }: PracticeArenaProps) {
                               <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-500 dark:text-slate-400">Question {currentQuestionIndex + 1}</p>
                               <p className="mt-2 text-base font-bold text-slate-900 dark:text-white">{activeQuestion.stem}</p>
                             </div>
-                            {submitted ? (
+                            {shouldReveal ? (
                               <span className={`rounded-full px-3 py-1 text-xs font-semibold ${isCorrect ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300' : isWrong ? 'bg-rose-100 text-rose-700 dark:bg-rose-500/20 dark:text-rose-300' : 'bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-300'}`}>
                                 {isCorrect ? 'Correct' : isWrong ? 'Review this' : 'Unanswered'}
                               </span>
@@ -804,8 +950,8 @@ export function PracticeArena({ role }: PracticeArenaProps) {
                           <div className="mt-4 grid gap-3 sm:grid-cols-2">
                             {activeQuestion.options.map((option) => {
                               const active = picked === option;
-                              const revealCorrect = submitted && option === activeQuestion.answer;
-                              const revealWrong = submitted && active && option !== activeQuestion.answer;
+                              const revealCorrect = shouldReveal && option === activeQuestion.answer;
+                              const revealWrong = shouldReveal && active && option !== activeQuestion.answer;
                               return (
                                 <button
                                   key={option}
@@ -820,7 +966,16 @@ export function PracticeArena({ role }: PracticeArenaProps) {
                             })}
                           </div>
 
-                          {submitted ? (
+                          {!submitted && session.runnerMode === 'guided' ? (
+                            <div className="mt-4 flex flex-wrap items-center gap-3">
+                              <button type="button" onClick={() => revealHint(activeQuestion.id)} className="rounded-full border border-amber-200 bg-amber-50 px-4 py-2 text-sm font-semibold text-amber-700 dark:border-amber-500/25 dark:bg-amber-500/10 dark:text-amber-200">
+                                Reveal hint
+                              </button>
+                              {hintVisible ? <p className="text-sm leading-6 text-amber-700 dark:text-amber-200">{buildHint(activeQuestion)}</p> : <p className="text-sm text-slate-500 dark:text-slate-400">Hints stay optional in guided mode.</p>}
+                            </div>
+                          ) : null}
+
+                          {shouldReveal ? (
                             <div className="mt-4 rounded-[1.2rem] bg-slate-100 px-4 py-4 text-sm leading-7 text-slate-700 dark:bg-slate-800/80 dark:text-slate-200">
                               <p className="font-semibold text-slate-900 dark:text-white">Review note</p>
                               <p className="mt-2">Correct answer: <span className="font-bold text-slate-900 dark:text-white">{activeQuestion.answer}</span></p>
@@ -919,6 +1074,30 @@ export function PracticeArena({ role }: PracticeArenaProps) {
                             </ul>
                           </div>
                         </div>
+
+                        <div className="mt-5 rounded-3xl bg-white/8 p-4">
+                          <div className="flex items-center gap-2 text-sky-200">
+                            <Layers3 className="h-4 w-4" />
+                            <p className="text-sm font-bold">Full review</p>
+                          </div>
+                          <div className="mt-4 space-y-3">
+                            {selectedQuestions.map((question, index) => {
+                              const picked = session.answers[question.id] || 'No answer';
+                              const correct = picked === question.answer;
+                              return (
+                                <div key={question.id} className="rounded-2xl bg-white/10 px-4 py-4 text-sm text-white">
+                                  <div className="flex flex-wrap items-center justify-between gap-2">
+                                    <p className="font-bold text-white">{index + 1}. {question.stem}</p>
+                                    <span className={`rounded-full px-3 py-1 text-xs font-semibold ${correct ? 'bg-emerald-500/20 text-emerald-200' : 'bg-amber-500/20 text-amber-200'}`}>{correct ? 'Correct' : 'Review'}</span>
+                                  </div>
+                                  <p className="mt-2 text-slate-200">Your answer: {picked}</p>
+                                  <p className="mt-1 text-slate-100">Correct answer: {question.answer}</p>
+                                  {question.explanation ? <p className="mt-2 text-slate-200">{question.explanation}</p> : <div className="mt-2"><ExplanationLoader question={question} /></div>}
+                                </div>
+                              )
+                            })}
+                          </div>
+                        </div>
                       </div>
                     ) : null}
             </div>
@@ -944,6 +1123,37 @@ export function PracticeArena({ role }: PracticeArenaProps) {
                 <input value={draftTitle} onChange={(event) => setDraftTitle(event.target.value)} placeholder="Question bank title" className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-700 outline-none focus:border-sky-400" />
                 <input value={draftLevel} onChange={(event) => setDraftLevel(event.target.value)} placeholder="Level / class" className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-700 outline-none focus:border-sky-400" />
                 <input value={draftMode} onChange={(event) => setDraftMode(event.target.value)} placeholder="Mode" className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-700 outline-none focus:border-sky-400" />
+              </div>
+              <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+                <select value={draftScope} onChange={(event) => setDraftScope(event.target.value as 'practice' | 'exam' | 'cbt' | 'mid-term')} className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-700 outline-none focus:border-sky-400">
+                  <option value="practice">Practice</option>
+                  <option value="exam">Exam review</option>
+                  <option value="cbt">CBT</option>
+                  <option value="mid-term">Mid-term</option>
+                </select>
+                <select value={draftVisibility} onChange={(event) => setDraftVisibility(event.target.value as 'global' | 'school')} className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-700 outline-none focus:border-sky-400">
+                  <option value="school">School only</option>
+                  <option value="global">Global</option>
+                </select>
+                <select value={draftExamFamily} onChange={(event) => setDraftExamFamily(event.target.value)} className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-700 outline-none focus:border-sky-400">
+                  <option value="School Practice">School Practice</option>
+                  <option value="WAEC">WAEC</option>
+                  <option value="NECO">NECO</option>
+                  <option value="JAMB">JAMB</option>
+                  <option value="IGCSE">IGCSE</option>
+                  <option value="GCE">GCE</option>
+                  <option value="NABTEB">NABTEB</option>
+                  <option value="NECO BECE">NECO BECE</option>
+                  <option value="Junior WAEC">Junior WAEC</option>
+                  <option value="NCEE">NCEE</option>
+                  <option value="Scholarship">Scholarship</option>
+                </select>
+                <select value={draftClassBand} onChange={(event) => setDraftClassBand(event.target.value)} className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-700 outline-none focus:border-sky-400">
+                  <option value="Grade 3-6">Grade 3-6</option>
+                  <option value="JSS 1-3">JSS 1-3</option>
+                  <option value="SS 1-3">SS 1-3</option>
+                  <option value="Mixed">Mixed</option>
+                </select>
               </div>
 
               {/* Generation and formatting settings */}

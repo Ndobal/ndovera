@@ -13,6 +13,7 @@ import { ResultsCenter } from '../features/classroom/components/ResultsCenter';
 import { useData } from '../hooks/useData';
 import type { ClassroomSubject, SchoolClass } from '../features/classroom/services/classroomApi';
 import LessonPlanModule from '../features/plans/components/LessonPlanModule';
+import { StoredUser } from '../services/authLocal';
 import { Role } from '../types';
 
 type ClassroomTab =
@@ -29,6 +30,7 @@ type ClassroomTab =
 
 const getDefaultTab = (role: Role): ClassroomTab => {
   if (role === 'Parent' || role === 'parent') return 'subjects';
+  if (role === 'Alumni') return 'results';
   if (role === 'Teacher' || role === 'School Admin' || role === 'HOS' || role === 'Super Admin') {
     return 'subjects';
   }
@@ -36,8 +38,8 @@ const getDefaultTab = (role: Role): ClassroomTab => {
   return 'stream';
 };
 
-export const ClassroomView = ({ role, setActiveSubView, currentUser }: { role: Role; setActiveSubView: (view: string | null) => void; currentUser?: { id?: string; name?: string } }) => {
-  if (role && ['Ami', 'Super Admin', 'Owner'].includes(role)) return <SchoolGuard role={role} />;
+export const ClassroomView = ({ role, setActiveSubView, currentUser }: { role: Role; setActiveSubView: (view: string | null) => void; currentUser?: StoredUser }) => {
+  if (role && ['Ami', 'Super Admin'].includes(role)) return <SchoolGuard role={role} />;
   const isTeacher = role === 'Teacher' || role === 'School Admin' || role === 'Super Admin' || role === 'HOS';
   const isHOS = role === 'HOS' || role === 'School Admin' || role === 'Super Admin';
   const isParent = role === 'Parent';
@@ -73,7 +75,11 @@ export const ClassroomView = ({ role, setActiveSubView, currentUser }: { role: R
     { id: 'practice', label: 'Practice', icon: <Sparkles size={14} /> },
     { id: 'results', label: 'Results', icon: <Trophy size={14} /> },
   ] as const;
-  const studentTabs = isParent ? allStudentTabs.filter(t => t.id !== 'stream' && t.id !== 'practice') : allStudentTabs;
+  const studentTabs = role === 'Alumni'
+    ? allStudentTabs.filter((tab) => tab.id === 'results')
+    : isParent
+      ? allStudentTabs.filter(t => t.id !== 'stream' && t.id !== 'practice')
+      : allStudentTabs;
 
   const teacherTabs = [
     { id: 'stream', label: 'Stream', icon: <Sparkles size={14} /> },
@@ -81,6 +87,7 @@ export const ClassroomView = ({ role, setActiveSubView, currentUser }: { role: R
     { id: 'classes', label: isHOS ? 'All Classes' : 'My Classes', icon: <Users size={14} /> },
     { id: 'curriculum', label: isTeacher ? 'Curriculum' : 'Courses', icon: <BookOpen size={14} /> },
     { id: 'assignments', label: 'Assignments', icon: <FileText size={14} /> },
+    { id: 'lesson-notes', label: 'Lesson Notes', icon: <BookOpen size={14} /> },
     { id: 'results', label: isTeacher ? 'Gradebook' : 'Results', icon: <Trophy size={14} /> },
     { id: 'lesson-plans', label: 'Lesson Plans', icon: <BookOpen size={14} /> },
     { id: 'live-class', label: 'Live Class', icon: <Video size={14} /> },
@@ -177,10 +184,10 @@ export const ClassroomView = ({ role, setActiveSubView, currentUser }: { role: R
         )}
 
         {activeTab === 'lesson-notes' && !isTeacher && (
-          <LessonNotesWorkspace role={role} />
+          <LessonNotesWorkspace role={role} currentUserName={currentUser?.name} selectedClassName={[selectedClass?.level, selectedClass?.name].filter(Boolean).join(' ')} selectedClassSection={selectedClass?.section} schoolName={currentUser?.school?.name} schoolLogoUrl={currentUser?.school?.logoUrl} schoolPrimaryColor={currentUser?.school?.primaryColor} />
         )}
 
-        {activeTab === 'lesson-notes' && isTeacher && <LessonNotesWorkspace role={role} />}
+        {activeTab === 'lesson-notes' && isTeacher && <LessonNotesWorkspace role={role} currentUserName={currentUser?.name} selectedClassName={[selectedClass?.level, selectedClass?.name].filter(Boolean).join(' ')} selectedClassSection={selectedClass?.section} schoolName={currentUser?.school?.name} schoolLogoUrl={currentUser?.school?.logoUrl} schoolPrimaryColor={currentUser?.school?.primaryColor} />}
 
         {activeTab === 'practice' && !isTeacher && (
           <PracticeArena role={role} />
@@ -199,7 +206,7 @@ export const ClassroomView = ({ role, setActiveSubView, currentUser }: { role: R
         {/* Subject tab removed */}
 
         {activeTab === 'results' && (
-          <ResultsCenter role={role} />
+          <ResultsCenter role={role} selectedClassName={[selectedClass?.level, selectedClass?.name].filter(Boolean).join(' ')} selectedClassSection={selectedClass?.section} schoolName={currentUser?.school?.name} schoolLogoUrl={currentUser?.school?.logoUrl} schoolPrimaryColor={currentUser?.school?.primaryColor} />
         )}
 
         {activeTab === 'live-class' && isTeacher && <LiveClassStudio role={role} />}

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useData } from '../hooks/useData';
-import { loadUser } from '../services/authLocal';
+import { fetchWithAuth } from '../services/apiClient';
 
 export const NotificationsPage = () => {
-  const user = loadUser();
+  const { data: user } = useData<any>('/api/users/me');
   const canFetchNotifications = Boolean(user?.id && Array.isArray(user.roles) && user.roles.length > 0);
   const { data: notifications, mutate } = useData<any[]>('/api/notifications', { enabled: canFetchNotifications });
 
@@ -18,12 +18,12 @@ export const NotificationsPage = () => {
     if (!message) return;
     setIsSending(true);
     try {
-      const res = await fetch('/api/notifications', {
+      const res = await fetchWithAuth('/api/notifications', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'x-user-id': user?.id || '' },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message, targetRole })
       });
-      if (res.ok) {
+      if (res) {
         setMessage('');
         mutate();
       }
@@ -37,9 +37,8 @@ export const NotificationsPage = () => {
   const markAsRead = async (id: string, currentRead: boolean) => {
     if (currentRead) return;
     try {
-      await fetch('/api/notifications/' + id + '/read', {
+      await fetchWithAuth('/api/notifications/' + id + '/read', {
         method: 'PUT',
-        headers: { 'x-user-id': user?.id || '' }
       });
       mutate();
     } catch (e) {

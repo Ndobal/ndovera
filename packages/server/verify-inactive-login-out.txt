@@ -1,0 +1,5 @@
+
+> ndovera-server@0.0.0 verify:inactive-login
+> node verify-inactive-login.mjs
+
+Wrote inactive login verification result to C:\Users\HP\Desktop\Projects\ndovera\packages\server\verify-inactive-login-output.json

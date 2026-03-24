@@ -1,0 +1,62 @@
+{
+  "ok": true,
+  "seededUsers": {
+    "finance": {
+      "id": "NONY-NDO-NA-671217",
+      "email": "finance-officer@ndovera.local",
+      "role": "Finance Officer",
+      "password": "Pass123456!"
+    },
+    "staff": {
+      "id": "NT-NA-884348",
+      "email": "teacher-one@ndovera.local",
+      "role": "Teacher",
+      "password": "Pass123456!"
+    }
+  },
+  "preparedMonth": "2026-03",
+  "updatedSlip": {
+    "id": "payroll_slip_a3c626a2-f0f9-4d70-a540-310887bafefe",
+    "grossNaira": 212000,
+    "netNaira": 196000,
+    "status": "draft",
+    "metadata": {
+      "payroll": {
+        "bonusNaira": 12000,
+        "taxNaira": 8000,
+        "loanNaira": 5000,
+        "note": "Verified end-to-end payroll check row."
+      },
+      "monthKey": "2026-03",
+      "generatedFromConfig": true,
+      "monthNote": null,
+      "directorNote": null
+    }
+  },
+  "noteSaved": {
+    "notes": "March payroll note generated during automated end-to-end verification.",
+    "directorNote": "Director sheet reviewed for automated payroll verification."
+  },
+  "directorSheet": {
+    "available": true,
+    "rowCount": 2
+  },
+  "publishResult": {
+    "monthStatus": "published",
+    "publishedCount": 1,
+    "pendingKycCount": 1
+  },
+  "selfService": {
+    "slipCount": 1,
+    "selectedSlip": {
+      "id": "payroll_slip_a3c626a2-f0f9-4d70-a540-310887bafefe",
+      "monthKey": "2026-03",
+      "status": "published",
+      "grossNaira": 212000,
+      "netNaira": 196000,
+      "monthNote": "March payroll note generated during automated end-to-end verification.",
+      "directorNote": "Director sheet reviewed for automated payroll verification."
+    },
+    "kycStatus": "verified"
+  }
+}

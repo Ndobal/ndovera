@@ -6,6 +6,16 @@ import LiveApp from './live/App';
 import { liveClasses } from '../data/classroomExperience';
 import { closeLiveClass, createLiveClass, joinLiveClass, type LiveClassSession } from '../services/classroomApi';
 
+const MAX_LIVE_DURATION_MINUTES = 120;
+
+function normalizeDurationLabel(value: string) {
+  const trimmed = value.trim();
+  if (!trimmed) return '60 mins';
+  const numeric = Number.parseInt(trimmed.replace(/[^0-9]/g, ''), 10);
+  if (Number.isNaN(numeric) || numeric <= 0) return '60 mins';
+  return `${Math.min(MAX_LIVE_DURATION_MINUTES, numeric)} mins`;
+}
+
 type LiveClassStudioProps = {
   role: string;
 };
@@ -28,7 +38,7 @@ export function LiveClassStudio({ role }: LiveClassStudioProps) {
         title: draft.title.trim() || 'Instant live class',
         mode: draft.mode,
         schedule: 'Now',
-        duration: draft.duration.trim() || '60 mins',
+        duration: normalizeDurationLabel(draft.duration),
       });
       await refetch();
       setActiveRoom({ id: created.id, title: draft.title.trim() || 'Instant live class', meetingUrl: `/live/${created.id}` });
@@ -49,7 +59,7 @@ export function LiveClassStudio({ role }: LiveClassStudioProps) {
         title: draft.title.trim(),
         mode: draft.mode,
         schedule: draft.schedule.trim() || 'TBD',
-        duration: draft.duration.trim() || '60 mins',
+        duration: normalizeDurationLabel(draft.duration),
       });
       setDraft({ title: '', mode: 'Student Lesson', schedule: '', duration: '60 mins' });
       await refetch();
@@ -133,7 +143,7 @@ export function LiveClassStudio({ role }: LiveClassStudioProps) {
             </select>
             <input value={draft.schedule} onChange={(event) => setDraft((current) => ({ ...current, schedule: event.target.value }))} placeholder="Schedule" className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700 outline-none focus:border-sky-400" />
             <div className="flex gap-3">
-              <input value={draft.duration} onChange={(event) => setDraft((current) => ({ ...current, duration: event.target.value }))} placeholder="Duration" className="flex-1 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700 outline-none focus:border-sky-400" />
+              <input value={draft.duration} onChange={(event) => setDraft((current) => ({ ...current, duration: normalizeDurationLabel(event.target.value) }))} placeholder="Duration" className="flex-1 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700 outline-none focus:border-sky-400" />
               <button type="button" onClick={saveSession} className="rounded-2xl bg-slate-900 px-4 py-3 text-sm font-semibold text-white">
                 {busyKey === 'create_live' ? 'Saving…' : 'Schedule'}
               </button>

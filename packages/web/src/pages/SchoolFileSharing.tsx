@@ -74,26 +74,37 @@ export function SchoolFileSharingView({ role }: { role: Role }) {
 
     setSubmitting(true);
     try {
-      let finalUrl = draft.resourceUrl;
       if (uploadFile) {
-        finalUrl = URL.createObjectURL(uploadFile);
-      }
-      
-      const payload: Partial<SharedFileRecord> = {
+        const formData = new FormData();
+        formData.append('file', uploadFile, uploadFile.name);
+        formData.append('title', draft.title);
+        formData.append('description', draft.description);
+        formData.append('scope', draft.scope);
+        formData.append('tags', draft.tags);
+        formData.append('classGroup', draft.classGroup);
+        formData.append('subject', draft.subject);
+        await fetchWithAuth('/api/shared-files/upload', {
+          method: 'POST',
+          body: formData,
+        });
+      } else {
+        const payload: Partial<SharedFileRecord> = {
           title: draft.title,
           description: draft.description,
-          resourceUrl: finalUrl,
+          resourceUrl: draft.resourceUrl,
           scope: draft.scope as any,
-          fileType: uploadFile ? 'Document' : draft.fileType,
+          fileType: draft.fileType,
           tags: draft.tags,
           classGroup: draft.classGroup,
-          subject: draft.subject
-      };
+          subject: draft.subject,
+        };
 
-      await fetchWithAuth('/api/shared-files', {
-        method: 'POST',
-        body: JSON.stringify(payload),
-      });
+        await fetchWithAuth('/api/shared-files', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+      }
 
       setShowForm(false);
       setDraft({ title: '', description: '', resourceUrl: '', scope: 'school', fileType: 'Link', tags: 'General', classGroup: '', subject: '' });
@@ -139,7 +150,7 @@ export function SchoolFileSharingView({ role }: { role: Role }) {
             <FolderOpen className="text-emerald-500" />
             School File Sharing
           </h1>
-          <p className="mt-1 text-sm text-slate-400">Share resources, documents, and exam queries securely.</p>
+          <p className="mt-1 text-sm text-slate-400">Share resources, documents, exam queries, and videos securely. Uploaded videos publish to YouTube automatically.</p>
         </div>
         <button
           onClick={() => setShowForm(!showForm)}
@@ -180,7 +191,7 @@ export function SchoolFileSharingView({ role }: { role: Role }) {
           <div className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="mb-1 block text-xs font-bold uppercase text-slate-400 flex items-center gap-1"><Tag size={12}/> Tag / Category</label>
+                <label className="mb-1 flex items-center gap-1 text-xs font-bold uppercase text-slate-400"><Tag size={12}/> Tag / Category</label>
                 <select
                   className="w-full rounded-lg border border-white/10 bg-black/20 p-3 text-white"
                   value={draft.tags}
@@ -223,6 +234,7 @@ export function SchoolFileSharingView({ role }: { role: Role }) {
                 <div className="flex items-center gap-3">
                   <input
                     type="file"
+                    accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.webp,.mp4,.mov,.m4v,.avi,.webm,.mkv"
                     className="w-full block text-sm text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-emerald-500/20 file:text-emerald-400 hover:file:bg-emerald-500/30"
                     onChange={(e) => setUploadFile(e.target.files?.[0] || null)}
                   />
@@ -300,7 +312,7 @@ export function SchoolFileSharingView({ role }: { role: Role }) {
           )}
 
           {viewData.length === 0 ? (
-            <div className="rounded-2xl border border-white/5 bg-white/[0.02] p-12 text-center">
+            <div className="rounded-2xl border border-white/5 bg-white/2 p-12 text-center">
               <FolderOpen className="mx-auto h-12 w-12 text-slate-600 mb-3" />
               <h3 className="text-lg font-medium text-slate-400">No matching files found</h3>
               <p className="text-sm text-slate-500">Check back later or upload a new resource.</p>
@@ -355,7 +367,7 @@ export function SchoolFileSharingView({ role }: { role: Role }) {
                       rel="noreferrer"
                       className={`flex items-center gap-1 rounded-lg px-3 py-1.5 text-xs font-bold transition-all ${f.tags === 'Exam Question' ? 'bg-purple-500 hover:bg-purple-400 text-white' : 'bg-white/5 text-slate-300 hover:bg-white/10 hover:text-white'}`}
                     >
-                      Open <ExternalLink size={12} />
+                      {String(f.fileType || '').toLowerCase().includes('youtube') ? 'Watch' : 'Open'} <ExternalLink size={12} />
                     </a>
                   </div>
                 </div>

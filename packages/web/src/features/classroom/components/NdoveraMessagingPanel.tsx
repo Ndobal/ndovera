@@ -1,15 +1,20 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Headset, LoaderCircle, MessageSquareMore, Paperclip, Search, Send, Smile, Video } from 'lucide-react';
 
 import { loadUser } from '../../../services/authLocal';
 import { socialFeedEmojiGuide } from '../data/classroomExperience';
 import { ClassroomMediaRecorder, type ClassroomMediaCapture } from './ClassroomMediaRecorder';
+import { MessagingContactLookup } from './MessagingContactLookup';
 import {
+  createMessagingEventSource,
   getMessagingContacts,
   getMessagingThread,
+  publishTypingStatus,
+  searchMessagingContacts,
   sendMessagingThreadMessage,
   type NdoveraChatMessage,
   type NdoveraMessagingContact,
+  type NdoveraMessagingStreamEvent,
 } from '../services/ndoveraMessagingApi';
 import { listLocalChatMediaMessages, saveLocalChatMediaMessage, type LocalChatMediaKind } from '../services/localMessagingMedia';
 import { SimpleWebRTC } from '../../../components/SimpleWebRTC';
@@ -43,6 +48,15 @@ export function NdoveraMessagingPanel({ role }: NdoveraMessagingPanelProps) {
   const [sending, setSending] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showWebRTC, setShowWebRTC] = useState(false);
+  const [lookupValue, setLookupValue] = useState('');
+  const [lookupMessage, setLookupMessage] = useState<string | null>(null);
+  const [lookupLoading, setLookupLoading] = useState(false);
+  const [searchResults, setSearchResults] = useState<NdoveraMessagingContact[]>([]);
+  const [isPeerTyping, setIsPeerTyping] = useState(false);
+  const [typingPublished, setTypingPublished] = useState(false);
+  const selectedContactIdRef = useRef<string | null>(null);
+  const showWebRTCRef = useRef(false);
+  const lookupRequestIdRef = useRef(0);
 
   const selectedContact = useMemo(
     () => contacts.find((contact) => contact.id === selectedContactId) || null,
@@ -77,12 +91,51 @@ export function NdoveraMessagingPanel({ role }: NdoveraMessagingPanelProps) {
     return parsed.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
   };
 
+  const formatStatusTime = (time?: string | null) => {
+    if (!time) return '';
+    const parsed = new Date(time);
+    if (Number.isNaN(parsed.getTime())) return '';
+    return parsed.toLocaleString([], { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
+  };
+
+  const formatPresenceTime = (time?: string | null) => {
+    if (!time) return '';
+    const parsed = new Date(time);
+    if (Number.isNaN(parsed.getTime())) return '';
+    return parsed.toLocaleString([], { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
+  };
+
+  const getAvailabilityTone = (availability?: 'available' | 'busy' | 'away' | 'offline') => {
+    switch (availability) {
+      case 'busy':
+        return 'bg-rose-400';
+      case 'away':
+        return 'bg-amber-400';
+      case 'offline':
+        return 'bg-slate-500';
+      default:
+        return 'bg-emerald-400';
+    }
+  };
+
+  const formatConversationTime = (time?: string | null) => {
+    if (!time) return '';
+    const parsed = new Date(time);
+    if (Number.isNaN(parsed.getTime())) return '';
+    const today = new Date();
+    const sameDay = parsed.toDateString() === today.toDateString();
+    return sameDay
+      ? parsed.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })
+      : parsed.toLocaleDateString([], { month: 'short', day: 'numeric' });
+  };
+
   const getContactTone = (contact: NdoveraMessagingContact) => {
     if (contact.kind === 'helpdesk') return 'is-helpdesk';
     if (contact.role === 'Teacher') return 'is-teacher';
     if (contact.role === 'Student') return 'is-student';
     return 'is-default';
   };
+  const getInitials = (name: string) => name.split(/\s+/).filter(Boolean).slice(0, 2).map((part) => part[0]?.toUpperCase() || '').join('') || 'NU';
 
   const createMediaObjectUrl = (blob: Blob) => URL.createObjectURL(blob);
 
@@ -90,6 +143,13 @@ export function NdoveraMessagingPanel({ role }: NdoveraMessagingPanelProps) {
     return [
       ...serverMessages.map((message) => ({ ...message, kind: 'text' as const })),
       ...localMessages,
+    ].sort((left, right) => left.time.localeCompare(right.time));
+  };
+
+  const mergeServerMessagesWithCurrentLocal = (serverMessages: NdoveraChatMessage[], currentMessages: DeviceChatMessage[]) => {
+    return [
+      ...serverMessages.map((message) => ({ ...message, kind: 'text' as const })),
+      ...currentMessages.filter((message) => message.localOnly),
     ].sort((left, right) => left.time.localeCompare(right.time));
   };
 
@@ -157,45 +217,185 @@ export function NdoveraMessagingPanel({ role }: NdoveraMessagingPanelProps) {
     await appendLocalMediaMessage(capture.file, capture.type);
   };
 
-  useEffect(() => {
-    // Pull policy + contacts from the main Ndovera messaging backend so classroom users can chat in context.
-    const loadMessagingContext = async () => {
-      setLoadingContacts(true);
-      setError(null);
-      try {
-        const nextContacts = await getMessagingContacts();
-        setContacts(nextContacts);
-        setSelectedContactId((current) => current || nextContacts[0]?.id || null);
-      } catch (nextError) {
-        setError(nextError instanceof Error ? nextError.message : 'Unable to load Ndovera chat.');
-      } finally {
-        setLoadingContacts(false);
-      }
-    };
+  const upsertContact = (contact: NdoveraMessagingContact) => {
+    setContacts((current) => {
+      const index = current.findIndex((entry) => entry.id === contact.id);
+      const next = index < 0 ? [contact, ...current] : current.map((entry) => entry.id === contact.id ? { ...entry, ...contact } : entry);
+      return [...next].sort((left, right) => {
+        const leftTime = left.lastMessageTime || '';
+        const rightTime = right.lastMessageTime || '';
+        if (left.id === 'helpdesk') return -1;
+        if (right.id === 'helpdesk') return 1;
+        if (leftTime && rightTime && leftTime !== rightTime) return rightTime.localeCompare(leftTime);
+        if (leftTime || rightTime) return rightTime.localeCompare(leftTime);
+        return left.name.localeCompare(right.name);
+      });
+    });
+    setSelectedContactId(contact.id);
+    setShowWebRTC(false);
+    setSearchResults([]);
+    setLookupMessage(`${contact.name} is ready for direct chat.`);
+    setLookupValue('');
+  };
 
-    void loadMessagingContext();
+  const refreshContacts = async (showLoadingState = false) => {
+    if (showLoadingState) setLoadingContacts(true);
+    try {
+      const nextContacts = await getMessagingContacts();
+      setContacts(nextContacts);
+      setSelectedContactId((current) => current || nextContacts[0]?.id || null);
+    } catch (nextError) {
+      setError(nextError instanceof Error ? nextError.message : 'Unable to load Ndovera chat.');
+    } finally {
+      if (showLoadingState) setLoadingContacts(false);
+    }
+  };
+
+  const refreshThread = async (peerId: string, showLoadingState = false) => {
+    if (!currentUser?.id) return;
+    if (showLoadingState) setLoadingThread(true);
+    try {
+      const [nextThread, localMedia] = await Promise.all([
+        getMessagingThread(peerId),
+        listLocalChatMediaMessages(currentUser.id, peerId),
+      ]);
+      setMessages(mergeMessages(nextThread, localMedia.map(mapLocalMediaToMessage)));
+      setContacts((current) => current.map((contact) => contact.id === peerId ? { ...contact, unreadCount: 0 } : contact));
+    } catch (nextError) {
+      setError(nextError instanceof Error ? nextError.message : 'Unable to load this chat thread.');
+    } finally {
+      if (showLoadingState) setLoadingThread(false);
+    }
+  };
+
+  useEffect(() => {
+    setError(null);
+    void refreshContacts(true);
   }, []);
 
   useEffect(() => {
     if (!selectedContactId) return;
-    const loadThread = async () => {
-      setLoadingThread(true);
-      setError(null);
+    setError(null);
+    void refreshThread(selectedContactId, true);
+  }, [currentUser?.id, selectedContactId]);
+
+  useEffect(() => {
+    selectedContactIdRef.current = selectedContactId;
+  }, [selectedContactId]);
+
+  useEffect(() => {
+    showWebRTCRef.current = showWebRTC;
+  }, [showWebRTC]);
+
+  useEffect(() => {
+    const eventSource = createMessagingEventSource();
+    const handleStreamEvent = (event: MessageEvent<string>) => {
       try {
-        const [nextThread, localMedia] = await Promise.all([
-          getMessagingThread(selectedContactId),
-          currentUser?.id ? listLocalChatMediaMessages(currentUser.id, selectedContactId) : Promise.resolve([]),
-        ]);
-        setMessages(mergeMessages(nextThread, localMedia.map(mapLocalMediaToMessage)));
-      } catch (nextError) {
-        setError(nextError instanceof Error ? nextError.message : 'Unable to load this chat thread.');
-      } finally {
-        setLoadingThread(false);
+        const payload = JSON.parse(event.data) as NdoveraMessagingStreamEvent;
+        if (payload.type === 'contacts_changed') {
+          void refreshContacts(false);
+          return;
+        }
+        if (payload.type === 'thread_changed') {
+          void refreshContacts(false);
+          if (!showWebRTCRef.current && payload.peerId === selectedContactIdRef.current) {
+            void refreshThread(payload.peerId, false);
+          }
+          return;
+        }
+        if (payload.type === 'typing_changed' && payload.peerId === selectedContactIdRef.current) {
+          setIsPeerTyping(payload.isTyping);
+        }
+      } catch {
+        // Ignore malformed stream events and keep the connection alive.
       }
     };
 
-    void loadThread();
-  }, [currentUser?.id, selectedContactId]);
+    eventSource.addEventListener('contacts_changed', handleStreamEvent as EventListener);
+    eventSource.addEventListener('thread_changed', handleStreamEvent as EventListener);
+    eventSource.addEventListener('typing_changed', handleStreamEvent as EventListener);
+
+    return () => {
+      eventSource.removeEventListener('contacts_changed', handleStreamEvent as EventListener);
+      eventSource.removeEventListener('thread_changed', handleStreamEvent as EventListener);
+      eventSource.removeEventListener('typing_changed', handleStreamEvent as EventListener);
+      eventSource.close();
+    };
+  }, [currentUser?.id]);
+
+  useEffect(() => {
+  if (!selectedContactId || showWebRTC) return;
+  const shouldPublishTyping = Boolean(draft.trim()) && !sending;
+  if (typingPublished === shouldPublishTyping) return;
+  void publishTypingStatus({ peerId: selectedContactId, isTyping: shouldPublishTyping }).then(() => {
+    setTypingPublished(shouldPublishTyping);
+  }).catch(() => undefined);
+  }, [draft, selectedContactId, showWebRTC, sending, typingPublished]);
+
+  useEffect(() => {
+  return () => {
+    if (selectedContactId && typingPublished) {
+      void publishTypingStatus({ peerId: selectedContactId, isTyping: false });
+    }
+  };
+  }, [selectedContactId, typingPublished]);
+
+  const runLookupSearch = async (query: string) => {
+    const trimmedQuery = query.trim();
+    if (!trimmedQuery) {
+      setLookupLoading(false);
+      setLookupMessage(null);
+      setSearchResults([]);
+      return;
+    }
+
+    const requestId = lookupRequestIdRef.current + 1;
+    lookupRequestIdRef.current = requestId;
+    setLookupLoading(true);
+    setLookupMessage(null);
+    setError(null);
+    setSearchResults([]);
+    try {
+      const results = await searchMessagingContacts(trimmedQuery);
+      if (lookupRequestIdRef.current !== requestId) return;
+      setSearchResults(results);
+      setLookupMessage(results.length ? 'Choose a contact to open the chat.' : 'No Ndovera users matched that search.');
+    } catch (lookupError) {
+      if (lookupRequestIdRef.current !== requestId) return;
+      setLookupMessage(lookupError instanceof Error ? lookupError.message : 'Unable to find that Ndovera user.');
+    } finally {
+      if (lookupRequestIdRef.current === requestId) {
+        setLookupLoading(false);
+      }
+    }
+  };
+
+  const handleLookupSubmit = async () => {
+    await runLookupSearch(lookupValue);
+  };
+
+  const handleLookupValueChange = (value: string) => {
+    setLookupValue(value);
+    if (!value.trim()) {
+      lookupRequestIdRef.current += 1;
+      setLookupLoading(false);
+      setLookupMessage(null);
+      setSearchResults([]);
+    }
+  };
+
+  useEffect(() => {
+    const trimmedQuery = lookupValue.trim();
+    if (!trimmedQuery) return;
+    const timeoutId = window.setTimeout(() => {
+      void runLookupSearch(trimmedQuery);
+    }, 280);
+    return () => window.clearTimeout(timeoutId);
+  }, [lookupValue]);
+
+  const openFoundContact = (contact: NdoveraMessagingContact) => {
+    upsertContact(contact);
+  };
 
   useEffect(() => () => {
     messages.forEach((message) => {
@@ -207,12 +407,17 @@ export function NdoveraMessagingPanel({ role }: NdoveraMessagingPanelProps) {
 
   const sendMessage = async () => {
     if (!selectedContactId || !draft.trim()) return;
+    const nextText = draft.trim();
     setSending(true);
     setError(null);
     try {
-      const response = await sendMessagingThreadMessage({ peerId: selectedContactId, text: draft.trim() });
-      setMessages((current) => [...current, ...response.messages.map((message) => ({ ...message, kind: 'text' as const }))]);
+      const response = await sendMessagingThreadMessage({ peerId: selectedContactId, text: nextText });
+      setMessages((current) => mergeServerMessagesWithCurrentLocal(response.messages, current));
+      setContacts((current) => current.map((contact) => contact.id === selectedContactId ? { ...contact, lastMessageText: nextText, lastMessageTime: new Date().toISOString(), unreadCount: 0 } : contact));
       setDraft('');
+      setTypingPublished(false);
+      setIsPeerTyping(false);
+      void publishTypingStatus({ peerId: selectedContactId, isTyping: false }).catch(() => undefined);
       setEmojiTarget(false);
     } catch (nextError) {
       setError(nextError instanceof Error ? nextError.message : 'Unable to send message.');
@@ -249,6 +454,7 @@ export function NdoveraMessagingPanel({ role }: NdoveraMessagingPanelProps) {
               className="w-full bg-transparent text-sm text-white outline-none placeholder:text-slate-500"
             />
           </label>
+          <MessagingContactLookup value={lookupValue} onChange={handleLookupValueChange} onSubmit={handleLookupSubmit} loading={lookupLoading} message={lookupMessage} results={searchResults} onOpenContact={openFoundContact} onClearResults={() => setSearchResults([])} />
         </div>
 
         <div className="ndovera-chat-sidebar-scroll flex-1 min-h-0 space-y-2 overflow-y-auto p-3">
@@ -285,16 +491,25 @@ export function NdoveraMessagingPanel({ role }: NdoveraMessagingPanelProps) {
                   <div className="flex items-start justify-between gap-3">
                     <div className="flex min-w-0 gap-3">
                       <div className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl text-sm font-bold ${isSelected ? 'bg-white/15 text-white' : 'bg-white/5 text-slate-300'}`}>
-                        {contact.name.slice(0, 2).toUpperCase()}
+                        {contact.avatarUrl ? <img src={contact.avatarUrl} alt={contact.name} className="h-full w-full rounded-2xl object-cover" referrerPolicy="no-referrer" /> : getInitials(contact.name)}
                       </div>
                       <div className="min-w-0">
-                        <div className="truncate text-sm font-semibold text-white">{contact.name}</div>
-                        <div className="mt-1 text-xs text-slate-400">{contact.role}</div>
-                        {contact.subtitle ? <div className="mt-2 truncate text-xs text-slate-500">{contact.subtitle}</div> : null}
+                        <div className="flex items-center gap-2">
+                          <div className="truncate text-sm font-semibold text-white">{contact.name}</div>
+                          <span className={`h-2.5 w-2.5 shrink-0 rounded-full ${getAvailabilityTone(contact.statusAvailability)}`} />
+                        </div>
+                        <div className="mt-1 flex items-center justify-between gap-2 text-xs text-slate-400">
+                          <span className="truncate">{contact.role}</span>
+                          {contact.lastMessageTime ? <span className="shrink-0 text-[11px] text-slate-500">{formatConversationTime(contact.lastMessageTime)}</span> : null}
+                        </div>
+                        {contact.lastMessageText ? <div className="mt-2 truncate text-xs text-slate-300">{contact.lastMessageText}</div> : contact.statusText ? <div className="mt-2 truncate text-xs text-emerald-200/80">{contact.statusText}</div> : contact.isOnline ? <div className="mt-2 truncate text-xs text-emerald-300">Online now</div> : contact.lastSeenAt ? <div className="mt-2 truncate text-xs text-slate-500">Last seen {formatConversationTime(contact.lastSeenAt)}</div> : contact.subtitle ? <div className="mt-2 truncate text-xs text-slate-500">{contact.subtitle}</div> : null}
                       </div>
                     </div>
-                    <div className="rounded-full bg-white/5 px-2 py-1 text-[10px] uppercase tracking-[0.2em] text-slate-400">
-                      {contact.kind}
+                    <div className="flex flex-col items-end gap-2">
+                      <div className="rounded-full bg-white/5 px-2 py-1 text-[10px] uppercase tracking-[0.2em] text-slate-400">
+                        {contact.kind}
+                      </div>
+                      {contact.unreadCount ? <div className="flex h-5 min-w-5 items-center justify-center rounded-full bg-emerald-500 px-1.5 text-[10px] font-bold text-white">{contact.unreadCount}</div> : null}
                     </div>
                   </div>
                   {(contact.contextLabel || contact.identifier) ? (
@@ -316,12 +531,18 @@ export function NdoveraMessagingPanel({ role }: NdoveraMessagingPanelProps) {
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
               <div className="min-w-0">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-500/10 font-semibold text-emerald-200">
-                    {selectedContact.name.slice(0, 2).toUpperCase()}
+                  <div className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-2xl bg-emerald-500/10 font-semibold text-emerald-200">
+                    {selectedContact.avatarUrl ? <img src={selectedContact.avatarUrl} alt={selectedContact.name} className="h-full w-full object-cover" referrerPolicy="no-referrer" /> : getInitials(selectedContact.name)}
                   </div>
                   <div className="min-w-0">
-                    <div className="truncate text-lg font-semibold text-white">{selectedContact.name}</div>
+                    <div className="flex items-center gap-2">
+                      <div className="truncate text-lg font-semibold text-white">{selectedContact.name}</div>
+                      <span className={`h-2.5 w-2.5 shrink-0 rounded-full ${getAvailabilityTone(selectedContact.statusAvailability)}`} />
+                    </div>
                     <div className="text-sm text-slate-400">{selectedContact.role}{selectedContact.contextLabel ? ` • ${selectedContact.contextLabel}` : ''}</div>
+                    {isPeerTyping ? <div className="mt-1 text-xs italic text-emerald-300">typing...</div> : selectedContact.isOnline ? <div className="mt-1 text-xs text-emerald-300">Online now</div> : selectedContact.lastSeenAt ? <div className="mt-1 text-xs text-slate-400">Last seen {formatPresenceTime(selectedContact.lastSeenAt)}</div> : <div className="mt-1 text-xs text-slate-500">Offline</div>}
+                    {selectedContact.statusText ? <div className="mt-1 truncate text-xs text-emerald-200/80">{selectedContact.statusText}</div> : null}
+                    {selectedContact.statusUpdatedAt ? <div className="mt-1 text-[11px] text-slate-500">Updated {formatStatusTime(selectedContact.statusUpdatedAt)}</div> : null}
                   </div>
                 </div>
               </div>
@@ -378,6 +599,8 @@ export function NdoveraMessagingPanel({ role }: NdoveraMessagingPanelProps) {
               ) : (
                 messages.map((message) => {
                   const isMine = message.from === currentUser?.id;
+                  const peerReadId = selectedContactId === 'helpdesk' ? 'helpdesk' : selectedContactId;
+                  const isRead = Boolean(isMine && peerReadId && message.readBy?.includes(peerReadId));
                   return (
                     <div key={message.id} className={`flex ${isMine ? 'justify-end' : 'justify-start'}`}>
                       <div className={`max-w-[78%] rounded-3xl border px-4 py-3 shadow-sm ${isMine ? 'border-emerald-500/20 bg-emerald-500/15 text-emerald-50' : 'border-white/8 bg-white/4 text-slate-100'}`}>
@@ -414,6 +637,9 @@ export function NdoveraMessagingPanel({ role }: NdoveraMessagingPanelProps) {
                         ) : (
                           <p className="whitespace-pre-wrap text-sm leading-6">{message.text}</p>
                         )}
+                        <div className={`mt-2 text-[11px] ${isMine ? 'text-emerald-100/75' : 'text-slate-500'}`}>
+                          {message.localOnly ? 'Saved locally' : isMine ? (isRead ? 'Read' : 'Sent') : ''}
+                        </div>
                       </div>
                     </div>
                   );

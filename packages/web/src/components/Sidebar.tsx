@@ -29,9 +29,10 @@ import {
   ClipboardCheck,
   Video,
   FolderOpen
-, FileText } from 'lucide-react';
+, FileText,
+  History } from 'lucide-react';
 import { Role } from '../types';
-import { Cake, Server } from 'lucide-react';
+import { Cake } from 'lucide-react';
 
 interface NavItem {
   id: string;
@@ -42,31 +43,35 @@ interface NavItem {
 
 // Roles that are allowed to use the school dashboard UI (exclude global/super roles)
 const ROLES: Role[] = ['Tenant School Owner', 'Revoked', 
-  'School Admin', 'HOS', 'Teacher', 'Student', 'Parent', 'Finance Officer', 
+  'School Admin', 'HOS', 'Teacher', 'Student', 'Parent', 'Alumni', 'Finance Officer', 'Scholarships Admin',
   'Librarian', 'Clinic Manager', 'Hostel Manager', 'ICT Manager', 'Tuckshop Manager', 'Growth Partner'
 ];
 
 const NAV_ITEMS: NavItem[] = [
   { id: 'dashboard', label: 'Dashboard', icon: <LayoutDashboard size={20} />, roles: ROLES },
   { id: 'birthdays', label: 'Birthdays', icon: <Cake size={20} />, roles: ROLES },
-  { id: 'classroom', label: 'Classroom', icon: <BookOpen size={20} />, roles: ['Super Admin', 'HOS', 'Teacher', 'Student', 'Parent', 'Owner', 'Tenant School Owner'] },
+  { id: 'classroom', label: 'Classroom', icon: <BookOpen size={20} />, roles: ['Super Admin', 'HOS', 'Teacher', 'Student', 'Parent', 'Alumni', 'Owner', 'Tenant School Owner'] },
   { id: 'timetable', label: 'Timetable', icon: <Calendar size={20} />, roles: ['Super Admin', 'School Admin', 'HOS', 'Teacher', 'Student', 'Parent', 'Owner', 'Tenant School Owner'] },
   { id: 'attendance', label: 'Attendance', icon: <Calendar size={20} />, roles: ['Super Admin', 'School Admin', 'HOS', 'Teacher', 'Student', 'Parent', 'Owner', 'Tenant School Owner'] },
   { id: 'scoresheet', label: 'Score Sheet', icon: <ClipboardCheck size={20} />, roles: ['HOS', 'Teacher', 'Owner', 'Tenant School Owner'] },
   { id: 'finance', label: 'Finance', icon: <Wallet size={20} />, roles: ['Super Admin', 'HOS', 'Finance Officer', 'Parent', 'Owner', 'Tenant School Owner'] },
+  { id: 'marketplace', label: 'Marketplace', icon: <ShoppingBag size={20} />, roles: ROLES.filter((role) => role !== 'Revoked') },
   { id: 'communication', label: 'Updates', icon: <Megaphone size={20} />, roles: ROLES },
-  { id: 'chat', label: 'Chat', icon: <MessageSquareMore size={20} />, roles: ['School Admin', 'HOS', 'Teacher', 'Student', 'Parent', 'Owner', 'Tenant School Owner'] },
+  { id: 'chat', label: 'Chat', icon: <MessageSquareMore size={20} />, roles: ['School Admin', 'HOS', 'Teacher', 'Student', 'Parent', 'Alumni', 'Owner', 'Tenant School Owner'] },
   { id: 'file-sharing', label: 'File Sharing', icon: <FolderOpen size={20} />, roles: ['School Admin', 'HOS', 'Teacher', 'ICT Manager', 'Finance Officer', 'Librarian', 'Clinic Manager', 'Hostel Manager', 'Tuckshop Manager', 'Owner', 'Tenant School Owner'] },
   { id: 'aptitude', label: 'Aptitude Tests', icon: <ClipboardList size={20} />, roles: ['Super Admin', 'School Admin', 'HOS', 'Teacher', 'ICT Manager', 'Owner', 'Tenant School Owner'] },
   { id: 'staff-training', label: 'Staff Training', icon: <Video size={20} />, roles: ['School Admin', 'HOS', 'Teacher', 'ICT Manager', 'Finance Officer', 'Librarian', 'Clinic Manager', 'Hostel Manager', 'Tuckshop Manager', 'Owner', 'Tenant School Owner'] },
-  { id: 'library', label: 'Library', icon: <Library size={20} />, roles: ['Super Admin', 'School Admin', 'HOS', 'Librarian', 'Teacher', 'Student', 'Owner', 'Tenant School Owner'] },
+  { id: 'library', label: 'Library', icon: <Library size={20} />, roles: ['Super Admin', 'School Admin', 'HOS', 'Librarian', 'Teacher', 'Student', 'Alumni', 'Owner', 'Tenant School Owner'] },
   { id: 'clinic', label: 'Clinic', icon: <Stethoscope size={20} />, roles: ['Super Admin', 'School Admin', 'HOS', 'Clinic Manager', 'Teacher', 'Student', 'Parent', 'Owner', 'Tenant School Owner'] },
   { id: 'hostel', label: 'Hostel', icon: <Home size={20} />, roles: ['Super Admin', 'School Admin', 'HOS', 'Hostel Manager', 'Student', 'Parent', 'Owner', 'Tenant School Owner'] },
   { id: 'ict', label: 'ICT Management', icon: <Cpu size={20} />, roles: ['Super Admin', 'HOS', 'ICT Manager', 'Tenant School Owner', 'Owner'] },
   { id: 'tuckshop', label: 'Tuckshop', icon: <ShoppingBag size={20} />, roles: ['Super Admin', 'School Admin', 'HOS', 'Tuckshop Manager', 'Student', 'Parent', 'Owner', 'Tenant School Owner'] },
   { id: 'aurabooster', label: 'Aura Booster', icon: <Zap size={20} />, roles: ['Super Admin', 'School Admin', 'HOS', 'Teacher', 'Student', 'Owner', 'Tenant School Owner'] },
-  { id: 'farming', label: 'Farming', icon: <Sprout size={20} />, roles: ['Super Admin', 'School Admin', 'HOS', 'Teacher', 'Student', 'Owner', 'Tenant School Owner'] },
+  { id: 'farming', label: 'Farming', icon: <Sprout size={20} />, roles: ['Super Admin', 'School Admin', 'HOS', 'Teacher', 'Student', 'Alumni', 'Owner', 'Tenant School Owner'] },
+  { id: 'school-history', label: 'School History', icon: <History size={20} />, roles: ['HOS', 'Owner', 'Tenant School Owner'] },
+  { id: 'payslips', label: 'Payslips', icon: <FileText size={20} />, roles: ['Teacher', 'HOS', 'School Admin', 'Finance Officer', 'Librarian', 'Clinic Manager', 'Hostel Manager', 'ICT Manager', 'Tuckshop Manager', 'Tenant School Owner'] },
   { id: 'tutorials', label: 'Tutorials', icon: <GraduationCap size={20} />, roles: ROLES },
+  { id: 'championships', label: 'Championships', icon: <Trophy size={20} />, roles: ['Student', 'Scholarships Admin', 'Super Admin'] },
   { id: 'website', label: 'Web Builder', icon: <Globe size={20} />, roles: ['Super Admin'] },
   { id: 'opportunities', label: 'Opportunities', icon: <Briefcase size={20} />, roles: ROLES.filter(r => r !== 'Student') },
   // Growth Partners is a global/super-admin feature — hide from regular school users
@@ -80,13 +85,12 @@ const NAV_ITEMS: NavItem[] = [
   { id: 'ads-management', label: 'Ads Management', icon: <Megaphone size={20} />, roles: ['Super Admin'] },
 ];
 
-export const Sidebar = ({ currentRole, activeTab, setActiveTab, isOpen, setIsOpen, onRoleChange, tenantBrand }: { 
+export const Sidebar = ({ currentRole, activeTab, setActiveTab, isOpen, setIsOpen, tenantBrand }: { 
   currentRole: Role, 
   activeTab: string, 
   setActiveTab: (id: string) => void,
   isOpen: boolean,
   setIsOpen: (val: boolean) => void,
-  onRoleChange?: (role: Role) => void,
   tenantBrand?: {
     name: string;
     logoUrl?: string | null;
@@ -196,25 +200,6 @@ export const Sidebar = ({ currentRole, activeTab, setActiveTab, isOpen, setIsOpe
           <button onClick={() => setIsOpen(false)} className="lg:hidden opacity-70 hover:opacity-100">
             <X size={20} />
           </button>
-        </div>
-
-        {/* Role Switcher for Testing */}
-        <div className="px-3 mb-3">
-          <div className="rounded-2xl border border-white/10 bg-white/10 p-3 backdrop-blur-xl">
-            <div className="flex items-center gap-2 mb-2">
-              <UserCircle size={14} className="text-emerald-500" />
-              <span className="text-[10px] font-bold uppercase tracking-wider opacity-70">Test Role Switcher</span>
-            </div>
-            <select 
-              value={currentRole}
-              onChange={(e) => onRoleChange?.(e.target.value as Role)}
-              className="w-full rounded-xl border border-white/10 bg-black/20 px-2 py-1.5 text-[11px] outline-none transition-all focus:border-emerald-500/50"
-            >
-              {ROLES.map(role => (
-                <option key={role} value={role}>{role}</option>
-              ))}
-            </select>
-          </div>
         </div>
 
         <nav className="flex-1 px-3 py-3 space-y-1 overflow-y-auto">

@@ -8,12 +8,15 @@ import { AuthView } from './pages/Auth';
 import { Role } from './types';
 import { ToastContainer, useToast } from './components/Toast';
 import { StoredUser } from './services/authLocal';
+import { SUPER_ADMIN_URL } from './services/runtimeConfig';
+import { fetchWithAuth } from './services/apiClient';
 
 const DashboardHome = lazy(() => import('./pages/Dashboard').then((module) => ({ default: module.DashboardHome })));
 const FarmingView = lazy(() => import('./pages/Farming').then((module) => ({ default: module.FarmingView })));
 const AuraBoosterView = lazy(() => import('./pages/AuraBooster').then((module) => ({ default: module.AuraBoosterView })));
 const WebsiteBuilder = lazy(() => import('./pages/WebsiteBuilder').then((module) => ({ default: module.WebsiteBuilder })));
 const TutorialsView = lazy(() => import('./pages/Tutorials').then((module) => ({ default: module.TutorialsView })));
+const ChampionshipsView = lazy(() => import('./pages/Championships').then((module) => ({ default: module.ChampionshipsView })));
 const CommunicationHub = lazy(() => import('./pages/Communication').then((module) => ({ default: module.CommunicationHub })));
 const AptitudeTests = lazy(() => import('./pages/AptitudeTests.tsx'));
 const ManagementView = lazy(() => import('./pages/Management').then((module) => ({ default: module.ManagementView })));
@@ -40,6 +43,9 @@ const ScoreSheetView = lazy(() => import('./pages/ScoreSheet').then((module) => 
 const StaffTrainingView = lazy(() => import('./pages/StaffTraining').then((module) => ({ default: module.StaffTrainingView })));
 const SchoolFileSharingView = lazy(() => import('./pages/SchoolFileSharing').then((module) => ({ default: module.SchoolFileSharingView })));
 const ProfileManagerView = lazy(() => import('./pages/ProfileManager').then((module) => ({ default: module.default })));
+const SchoolHistoryView = lazy(() => import('./pages/SchoolHistory').then((module) => ({ default: module.SchoolHistoryView })));
+const MarketplaceView = lazy(() => import('./pages/Marketplace').then((module) => ({ default: module.MarketplaceView })));
+const PayslipsView = lazy(() => import('./pages/Payslips').then((module) => ({ default: module.PayslipsView })));
 
 const DutyReport = lazy(() => import('./features/reports/components/DutyReport').then((module) => ({ default: module.default })));
 function PageLoader() {
@@ -67,13 +73,14 @@ export default function App() {
   const location = useLocation();
   const navigate = useNavigate();
   const isPublicTutorialsRoute = location.pathname === '/tutorials';
+  const isPublicLegalRoute = location.pathname === '/privacy-policy' || location.pathname === '/terms-of-service';
   const isRootRoute = location.pathname === '/' || location.pathname === '';
 
-  const getDefaultTabForRole = (role: Role) => role === 'Student' ? 'classroom' : role === 'Parent' ? 'dashboard' : role === 'Growth Partner' ? 'growth' : 'dashboard';
+  const getDefaultTabForRole = (role: Role) => role === 'Student' ? 'classroom' : role === 'Alumni' ? 'classroom' : role === 'Parent' ? 'dashboard' : role === 'Growth Partner' ? 'growth' : 'dashboard';
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showAuth, setShowAuth] = useState(false);
   const [currentRole, setCurrentRole] = useState<Role>('HoS');
-  const [currentUser, setCurrentUser] = useState<{ id?: string; name?: string; activeRole?: Role } | undefined>(undefined);
+  const [currentUser, setCurrentUser] = useState<StoredUser | undefined>(undefined);
   // activeTab derived from route
   const activeTab = location.pathname.split('/')[1] || getDefaultTabForRole(currentRole);
   const setActiveTab = (tab: string) => navigate(`/${tab}`);
@@ -119,20 +126,33 @@ export default function App() {
     showToast('Successfully signed in.', 'success');
   };
 
-  // load saved user/role on mount
-  useEffect(() => {
+  const openSchoolRegistration = () => {
     try {
-      const raw = localStorage.getItem('ndovera_user')
-      if (raw) {
-        const u = JSON.parse(raw)
-        if (u) setCurrentUser(u)
-        if (u?.activeRole) setCurrentRole(u.activeRole)
+      sessionStorage.setItem('ndovera_open_register_school', '1');
+    } catch {}
+    setShowAuth(false);
+    navigate('/', { replace: false });
+  };
+
+  useEffect(() => {
+    let mounted = true
+    ;(async () => {
+      try {
+        const user = await fetchWithAuth('/api/users/me') as StoredUser
+        if (!mounted) return
+        setCurrentUser(user)
+        setCurrentRole((user.activeRole || user.roles[0] || 'HoS') as Role)
         setIsLoggedIn(true)
-        if (u?.activeRole && isRootRoute) {
-          navigate(`/${getDefaultTabForRole(u.activeRole)}`, { replace: true })
+        try { localStorage.setItem('ndovera_user', JSON.stringify(user)) } catch (e) {}
+        if (user?.activeRole && isRootRoute) {
+          navigate(`/${getDefaultTabForRole(user.activeRole)}`, { replace: true })
         }
+      } catch {
+        if (!mounted) return
+        setIsLoggedIn(false)
       }
-    } catch (e) {}
+    })()
+    return () => { mounted = false }
   }, [isRootRoute, navigate])
 
   useEffect(() => {
@@ -143,7 +163,7 @@ export default function App() {
       return;
     }
     
-    if (currentRole === 'Student') {
+    if (currentRole === 'Student' || currentRole === 'Alumni') {
       const pathSegment = currentPath.split('/')[1] || '';
       if (pathSegment === 'dashboard' || pathSegment === 'academics') {
         navigate('/classroom', { replace: true });
@@ -159,11 +179,14 @@ export default function App() {
     } catch {}
   }, [themeMode]);
 
-  const SUPER_ROLES: Role[] = ['Ami', 'Owner']
+  const SUPER_ROLES: Role[] = ['Ami']
+
+  if (isPublicLegalRoute) {
+    return <LandingPage onLogin={() => setShowAuth(true)} initialPublicPageId={location.pathname === '/terms-of-service' ? 'terms-of-service' : 'privacy-policy'} />;
+  }
 
   // If user switched to a global/super role, block school UI and point them to the super-admin app
   if (isLoggedIn && SUPER_ROLES.includes(currentRole)) {
-    const SUPER_ADMIN_URL = (import.meta as any)?.env?.VITE_SUPER_ADMIN_URL || 'http://localhost:5173'
     return (
       <div className="h-screen flex items-center justify-center bg-[#0A0B0D]">
         <div className="max-w-lg p-8 bg-[#151619] rounded-2xl border border-white/5 text-center">
@@ -174,14 +197,6 @@ export default function App() {
               onClick={() => window.open(SUPER_ADMIN_URL, '_blank')}
               className="px-4 py-2 bg-emerald-600 text-white rounded-lg font-bold"
             >Open Super Admin App</button>
-            <button
-              onClick={() => {
-                const fallback: Role = 'HoS'
-                setCurrentRole(fallback)
-                try { const raw = localStorage.getItem('ndovera_user'); if (raw) { const u = JSON.parse(raw); u.activeRole = fallback; localStorage.setItem('ndovera_user', JSON.stringify(u)); } } catch(e){}
-              }}
-              className="px-4 py-2 bg-white/5 text-zinc-200 rounded-lg"
-            >Switch to School Head</button>
           </div>
         </div>
       </div>
@@ -201,6 +216,7 @@ export default function App() {
         <Route path="/website" element={<WebsiteBuilder />} />
         <Route path="/management" element={<ManagementView />} />
         <Route path="/tutorials" element={<TutorialsView />} />
+        <Route path="/championships" element={<ChampionshipsView role={currentRole} />} />
         <Route path="/academics" element={<ClassroomView role={currentRole} setActiveSubView={setActiveSubView} currentUser={currentUser} />} />
         <Route path="/classroom" element={<ClassroomView role={currentRole} setActiveSubView={setActiveSubView} currentUser={currentUser} />} />
         <Route path="/attendance" element={<AttendanceModule role={currentRole} />} />
@@ -218,6 +234,9 @@ export default function App() {
         <Route path="/communication" element={<CommunicationHub role={currentRole} />} />
         <Route path="/chat" element={<MessagingModule role={currentRole} />} />
         <Route path="/file-sharing" element={<SchoolFileSharingView role={currentRole} />} />
+        <Route path="/school-history" element={<SchoolHistoryView role={currentRole} />} />
+        <Route path="/marketplace" element={<MarketplaceView />} />
+        <Route path="/payslips" element={<PayslipsView />} />
         <Route path="/staff-training" element={<StaffTrainingView role={currentRole} />} />
         <Route path="/reports" element={<ReportsView />} />
         <Route path="/duty-report" element={<DutyReport />} />
@@ -252,10 +271,13 @@ export default function App() {
         </>
       );
     }
+    if (isPublicLegalRoute) {
+      return <LandingPage onLogin={() => setShowAuth(true)} initialPublicPageId={location.pathname === '/terms-of-service' ? 'terms-of-service' : 'privacy-policy'} />;
+    }
     if (showAuth) {
       return (
         <>
-          <AuthView onLogin={handleLogin} />
+          <AuthView onLogin={handleLogin} onBack={() => setShowAuth(false)} onRegisterSchool={openSchoolRegistration} />
           <ToastContainer toasts={toasts} removeToast={removeToast} />
         </>
       );
@@ -280,12 +302,11 @@ export default function App() {
       )}
       <Layout
         currentRole={currentRole}
-        setCurrentRole={(r) => { setCurrentRole(r); try { const raw = localStorage.getItem('ndovera_user'); if (raw) { const u = JSON.parse(raw); u.activeRole = r; localStorage.setItem('ndovera_user', JSON.stringify(u)); } } catch(e){} }}
         activeTab={activeTab}
+        activeSubView={activeSubView}
         setActiveTab={setActiveTab}
         isSidebarOpen={isSidebarOpen}
         setIsSidebarOpen={setIsSidebarOpen}
-        onRoleChange={setCurrentRole}
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
         themeMode={themeMode}

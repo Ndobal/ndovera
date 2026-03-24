@@ -6,16 +6,16 @@ import { Role } from '../types';
 import { AdBanner } from './AdBanner';
 import { useData } from '../hooks/useData';
 import { EvaluationModal } from '../features/evaluation/components/EvaluationModal';
+import { AdPlacement } from '../services/adsApi';
 
 interface LayoutProps {
   children: React.ReactNode;
   currentRole: Role;
-  setCurrentRole: (role: Role) => void;
   activeTab: string;
+  activeSubView?: string | null;
   setActiveTab: (tab: string) => void;
   isSidebarOpen: boolean;
   setIsSidebarOpen: (open: boolean) => void;
-  onRoleChange?: (role: Role) => void;
   searchQuery: string;
   setSearchQuery: (query: string) => void;
   themeMode: 'light' | 'dark';
@@ -25,8 +25,8 @@ interface LayoutProps {
 export const Layout: React.FC<LayoutProps> = ({
   children,
   currentRole,
-  setCurrentRole,
   activeTab,
+  activeSubView,
   setActiveTab,
   isSidebarOpen,
   setIsSidebarOpen,
@@ -42,23 +42,30 @@ export const Layout: React.FC<LayoutProps> = ({
     websiteUrl: currentUser.school.websiteUrl || null,
     primaryColor: currentUser.school.primaryColor || '#10b981',
   } : undefined;
-  // Ad config from localStorage (simulate API)
-  const [adsEnabled, setAdsEnabled] = useState(false);
-  const [pageAds, setPageAds] = useState<{ [key: string]: boolean }>({});
-
-  useEffect(() => {
+  const [adSessionKey] = useState(() => {
     try {
-      const raw = localStorage.getItem('ndovera_ads_config');
-      if (raw) {
-        const cfg = JSON.parse(raw);
-        setAdsEnabled(cfg.enabled);
-        setPageAds(cfg.pages || {});
-      }
-    } catch {}
-  }, [activeTab]);
+      const existing = localStorage.getItem('ndovera_ad_session_key');
+      if (existing) return existing;
+      const next = `ad_${crypto.randomUUID?.() || `${Date.now()}_${Math.random().toString(36).slice(2, 8)}`}`;
+      localStorage.setItem('ndovera_ad_session_key', next);
+      return next;
+    } catch {
+      return `ad_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
+    }
+  });
 
-  // Shrink content if ads are visible
-  const showAd = adsEnabled && pageAds[activeTab];
+  const adPageKey = (() => {
+    const normalized = (activeSubView || '').toLowerCase();
+    if (normalized === 'create-lesson-plan' || normalized === 'upload-lesson-plan') return 'classwork';
+    if (activeTab === 'aptitude') return 'exams';
+    if (activeTab === 'scoresheet' || activeTab === 'evaluations') return 'results';
+    return activeTab;
+  })();
+
+  const { data: adSettings } = useData<any>('/api/ads/settings');
+  const shouldFetchAd = Boolean(adSettings?.enabled) && !['exams', 'classwork', 'results'].includes(adPageKey);
+  const adPlacementUrl = shouldFetchAd ? `/api/ads/serve?page=${encodeURIComponent(adPageKey)}&placement=layout&sessionKey=${encodeURIComponent(adSessionKey)}` : '';
+  const { data: adPlacement } = useData<AdPlacement>(adPlacementUrl, { enabled: shouldFetchAd });
 
     const { data: evalStatus } = useData<{ active: boolean; completed: boolean; evaluation_id: string }>('/api/evaluation/status');
   const [hideEval, setHideEval] = useState(false);
@@ -71,13 +78,11 @@ export const Layout: React.FC<LayoutProps> = ({
         setActiveTab={setActiveTab} 
         isOpen={isSidebarOpen}
         setIsOpen={setIsSidebarOpen}
-        onRoleChange={setCurrentRole}
         tenantBrand={tenantBrand}
       />
       <div className="flex-1 flex flex-col min-w-0 h-full">
         <TopBar 
           currentRole={currentRole} 
-          setRole={setCurrentRole} 
           toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
@@ -87,11 +92,17 @@ export const Layout: React.FC<LayoutProps> = ({
           tenantBrand={tenantBrand}
         />
         {/* Ad Banner */}
-        <div className={showAd ? 'transition-all duration-300' : ''}>
-          <AdBanner visible={showAd} />
+        <div className={shouldFetchAd ? 'transition-all duration-300' : ''}>
+          <AdBanner
+            visible={shouldFetchAd}
+            pageKey={adPageKey}
+            placementKey="layout"
+            sessionKey={adSessionKey}
+            placement={adPlacement}
+          />
         </div>
         {/* Scrollable Content Area */}
-        <main className={`flex-1 overflow-y-auto p-3 lg:p-4 scroll-area app-content ${showAd ? 'max-w-5xl mx-auto' : 'max-w-7xl mx-auto'}`}> 
+        <main className={`flex-1 overflow-y-auto p-3 lg:p-4 scroll-area app-content ${shouldFetchAd ? 'max-w-5xl mx-auto' : 'max-w-7xl mx-auto'}`}> 
           <motion.div
             key={activeTab + currentRole}
             initial={{ opacity: 0.92, y: 3 }}

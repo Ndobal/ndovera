@@ -141,6 +141,34 @@ function renderDocumentBlocks(document: ClassroomCreatedDocument) {
   );
 }
 
+function resolveYouTubeEmbedUrl(asset?: ClassroomMaterialAsset) {
+  if (!asset) return null;
+  if (asset.embedUrl?.trim()) return asset.embedUrl.trim();
+  const raw = asset.url?.trim() || '';
+  if (!raw) return null;
+
+  try {
+    const url = new URL(raw);
+    if (url.hostname.includes('youtu.be')) {
+      const videoId = url.pathname.replace(/^\/+/, '').split('/')[0] || '';
+      return videoId ? `https://www.youtube.com/embed/${videoId}` : null;
+    }
+    if (url.hostname.includes('youtube.com')) {
+      const videoId = url.searchParams.get('v');
+      if (videoId) return `https://www.youtube.com/embed/${videoId}`;
+      const parts = url.pathname.split('/').filter(Boolean);
+      const embedIndex = parts.findIndex((part) => part === 'embed' || part === 'shorts' || part === 'live');
+      if (embedIndex >= 0 && parts[embedIndex + 1]) {
+        return `https://www.youtube.com/embed/${parts[embedIndex + 1]}`;
+      }
+    }
+  } catch {
+    return null;
+  }
+
+  return null;
+}
+
 export function ClassroomMaterialViewer({ note, compact = false }: ClassroomMaterialViewerProps) {
   const viewerItems = useMemo(() => buildViewerItems(note), [note]);
   const [activeViewerId, setActiveViewerId] = useState<string>(viewerItems[0]?.id || '');
@@ -152,6 +180,7 @@ export function ClassroomMaterialViewer({ note, compact = false }: ClassroomMate
   const activeViewer = viewerItems.find((item) => item.id === activeViewerId) || viewerItems[0] || null;
   const ActiveIcon = getViewerIcon(activeViewer?.viewerType || note.viewerType);
   const frameHeightClass = compact ? 'h-[360px]' : 'h-[480px]';
+  const youtubeEmbedUrl = activeViewer?.asset ? resolveYouTubeEmbedUrl(activeViewer.asset) : null;
 
   if (!activeViewer) return null;
 
@@ -213,9 +242,26 @@ export function ClassroomMaterialViewer({ note, compact = false }: ClassroomMate
         ) : null}
 
         {activeViewer.viewerType === 'video' && activeViewer.asset?.url ? (
-          <div className="bg-slate-950 p-3">
-            <video controls preload="metadata" src={activeViewer.asset.url} className="max-h-[72vh] w-full rounded-[1.5rem] bg-black object-contain" />
-          </div>
+          youtubeEmbedUrl ? (
+            <div className="space-y-4 bg-slate-950 p-3">
+              <div className="aspect-video overflow-hidden rounded-[1.5rem] bg-black">
+                <iframe
+                  title={activeViewer.asset.name}
+                  src={`${youtubeEmbedUrl}?rel=0&modestbranding=1`}
+                  className="h-full w-full"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                />
+              </div>
+              <div className="rounded-[1.25rem] border border-red-200/20 bg-red-950/40 px-4 py-3 text-xs font-medium text-red-100/90">
+                Video delivery now uses YouTube while staying embedded inside Ndovera.
+              </div>
+            </div>
+          ) : (
+            <div className="bg-slate-950 p-3">
+              <video controls preload="metadata" src={activeViewer.asset.url} className="max-h-[72vh] w-full rounded-[1.5rem] bg-black object-contain" />
+            </div>
+          )
         ) : null}
 
         {activeViewer.viewerType === 'pdf' && activeViewer.asset?.url ? (

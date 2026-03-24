@@ -11,25 +11,8 @@ import { Role } from '../types';
 import { NotificationBell } from './NotificationBell';
 import { ChatIcon } from './ChatIcon';
 
-const ROLES: Role[] = [
-  'Super Admin', 
-  'School Admin', 
-  'Ami',
-  'HOS',
-  'Teacher', 
-  'Student', 
-  'Parent', 
-  'Finance Officer', 
-  'Librarian',
-  'Clinic Manager',
-  'Hostel Manager',
-  'ICT Manager',
-  'Tuckshop Manager'
-];
-
-export const TopBar = ({ currentRole, setRole, toggleSidebar, searchQuery, setSearchQuery, setActiveTab, themeMode, setThemeMode, tenantBrand }: { 
+export const TopBar = ({ currentRole, toggleSidebar, searchQuery, setSearchQuery, setActiveTab, themeMode, setThemeMode, tenantBrand }: { 
   currentRole: Role, 
-  setRole: (role: Role) => void,
   toggleSidebar: () => void,
   searchQuery: string,
   setSearchQuery: (query: string) => void,
@@ -90,17 +73,6 @@ export const TopBar = ({ currentRole, setRole, toggleSidebar, searchQuery, setSe
           {themeMode === 'dark' ? <SunMedium size={14} /> : <Moon size={14} />}
           <span>{themeMode === 'dark' ? 'Light mode' : 'Night mode'}</span>
         </button>
-
-        <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-white/10 border border-white/10 rounded-2xl backdrop-blur-xl">
-          <span className="text-[10px] font-bold uppercase">Role:</span>
-          <select 
-            value={currentRole}
-            onChange={(e) => setRole(e.target.value as Role)}
-            className="bg-transparent text-[11px] font-bold outline-none cursor-pointer"
-          >
-            {ROLES.map(r => <option key={r} value={r} className="bg-[#151619] text-white">{r}</option>)}
-          </select>
-        </div>
 
         <ChatIcon setActiveTab={setActiveTab} />
         <NotificationBell setActiveTab={setActiveTab} />

@@ -10,7 +10,7 @@ interface Toast {
 
 export const ToastContainer = ({ toasts, removeToast }: { toasts: Toast[], removeToast: (id: string) => void }) => {
   return (
-    <div className="fixed bottom-6 right-6 z-[100] space-y-3 pointer-events-none">
+    <div className="fixed bottom-6 right-6 z-100 space-y-3 pointer-events-none">
       <AnimatePresence>
         {toasts.map((toast) => (
           <motion.div
@@ -22,7 +22,7 @@ export const ToastContainer = ({ toasts, removeToast }: { toasts: Toast[], remov
               toast.type === 'success' 
                 ? 'bg-emerald-950/90 border-emerald-500/30 text-emerald-400' 
                 : 'bg-red-950/90 border-red-500/30 text-red-400'
-            } backdrop-blur-md min-w-[280px]`}
+            } min-w-70 backdrop-blur-md`}
           >
             {toast.type === 'success' ? <CheckCircle size={18} /> : <AlertCircle size={18} />}
             <p className="text-xs font-bold flex-1">{toast.message}</p>
@@ -51,5 +51,5 @@ export const useToast = () => {
     setToasts((prev) => prev.filter((t) => t.id !== id));
   };
 
-  return { toasts, showToast, removeToast };
+  return { toasts, showToast, addToast: showToast, removeToast };
 };

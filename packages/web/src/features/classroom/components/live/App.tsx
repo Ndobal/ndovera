@@ -13,6 +13,7 @@ import { askAIAssistant, getTranscriptionSummary } from './services/gemini';
 import { VideoGrid } from './components/Meeting/VideoGrid';
 import { MeetingControls, IconButton } from './components/Meeting/Controls';
 import { Sidebar } from './components/Meeting/Sidebar';
+import { uploadLiveClassRecording } from '../../services/classroomApi';
 
 export default function App() {
   const [isMuted, setIsMuted] = useState(false);
@@ -20,6 +21,7 @@ export default function App() {
   const [isSharing, setIsSharing] = useState(false);
   const [isHandRaised, setIsHandRaised] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
+  const [isUploadingRecording, setIsUploadingRecording] = useState(false);
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
   const [activeSidebar, setActiveSidebar] = useState<'chat' | 'participants' | 'ai' | 'summary' | 'settings' | 'notes' | 'polls' | 'whiteboard' | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
@@ -111,7 +113,8 @@ export default function App() {
   const [screenStream, setScreenStream] = useState<MediaStream | null>(null);
   const [focusedId, setFocusedId] = useState<string | null>(null);
   const [layout, setLayout] = useState<'grid' | 'list' | 'stacked'>('grid');
-  const [sessionTime, setSessionTime] = useState(3780); // 1 hour 3 minutes
+    const maxSessionTime = 7200;
+    const [sessionTime, setSessionTime] = useState(3600);
   const [showExtendModal, setShowExtendModal] = useState(false);
   const [userName, setUserName] = useState('Will Ndobal');
   const localVideoRef = useRef<HTMLVideoElement>(null);
@@ -122,8 +125,7 @@ export default function App() {
     if (!isJoined) return;
     const interval = setInterval(() => {
       setSessionTime(prev => {
-        // Auto-show modal when exactly 1 hour (3600s) or 5 mins (300s) remains
-        if (prev === 3600 || prev === 300) {
+        if (prev === 900 || prev === 300) {
           setShowExtendModal(true);
         }
         return Math.max(0, prev - 1);
@@ -289,6 +291,11 @@ export default function App() {
   const toggleTheme = () => setTheme(prev => prev === 'dark' ? 'light' : 'dark');
 
   const handleToggleRecording = () => {
+    if (isUploadingRecording) {
+      setToast('Please wait for the current recording to finish uploading to YouTube.');
+      return;
+    }
+
     if (!isRecording) {
       if (!localStream) {
         setToast("No media stream available to record");
@@ -309,18 +316,26 @@ export default function App() {
           }
         };
         
-        recorder.onstop = () => {
+        recorder.onstop = async () => {
           const blob = new Blob(recordedChunksRef.current, { type: 'video/webm' });
-          const url = URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          document.body.appendChild(a);
-          a.style.display = 'none';
-          a.href = url;
-          a.download = `auralis-recording-${new Date().toISOString().slice(0,10)}.webm`;
-          a.click();
-          window.URL.revokeObjectURL(url);
-          document.body.removeChild(a);
-          setToast("Recording saved");
+          const file = new File([blob], `ndovera-live-recording-${new Date().toISOString().slice(0, 10)}.webm`, { type: blob.type || 'video/webm' });
+          setIsUploadingRecording(true);
+          setToast('Uploading recording to YouTube…');
+          try {
+            const uploaded = await uploadLiveClassRecording(file, {
+              title: `Ndovera live class recording ${new Date().toISOString().slice(0, 10)}`,
+              description: 'Uploaded from the Ndovera live classroom workspace.',
+            });
+            const copied = typeof navigator !== 'undefined' && navigator.clipboard
+              ? await navigator.clipboard.writeText(uploaded.url).then(() => true).catch(() => false)
+              : false;
+            setToast(copied ? 'Recording uploaded to YouTube. Link copied.' : 'Recording uploaded to YouTube.');
+          } catch (error) {
+            setToast(error instanceof Error ? error.message : 'Unable to upload recording to YouTube.');
+          } finally {
+            recordedChunksRef.current = [];
+            setIsUploadingRecording(false);
+          }
         };
         
         recorder.start();
@@ -602,7 +617,7 @@ export default function App() {
         const aiMsg: Message = {
           id: (Date.now() + 1).toString(),
           senderId: 'ai',
-          senderName: 'Auralis AI',
+          senderName: 'Ndovera AI',
           text: aiResponse || "I'm sorry, I couldn't process that.",
           timestamp: Date.now(),
           isAI: true
@@ -1198,31 +1213,33 @@ export default function App() {
                 </button>
               </div>
               <p className="text-white/60 text-sm mb-6">
-                Your meeting time is running out. Extend your session to keep the conversation going.
+                Your meeting time is running out. You can extend the session, but total live time cannot exceed 2 hours.
               </p>
               
               <div className="space-y-3 mb-6">
                 <button 
                   onClick={() => {
-                    setSessionTime(prev => prev + 3600);
+                    setSessionTime(prev => Math.min(maxSessionTime, prev + 1800));
                     setShowExtendModal(false);
-                    setToast("Session extended by 1 hour");
+                    setToast("Session extended by 30 minutes");
                   }} 
+                  disabled={sessionTime >= maxSessionTime}
+                  className="w-full flex items-center justify-between p-4 rounded-xl border border-white/10 hover:border-brand-500 hover:bg-brand-500/10 transition-all group"
+                >
+                  <span className="text-white font-medium group-hover:text-brand-500 transition-colors">+30 Minutes</span>
+                  <span className="text-brand-500 font-bold bg-brand-500/10 px-3 py-1 rounded-lg">6,000</span>
+                </button>
+                <button 
+                  onClick={() => {
+                    setSessionTime(prev => Math.min(maxSessionTime, prev + 3600));
+                    setShowExtendModal(false);
+                    setToast("Session extended up to the 2-hour session cap");
+                  }} 
+                  disabled={sessionTime >= maxSessionTime}
                   className="w-full flex items-center justify-between p-4 rounded-xl border border-white/10 hover:border-brand-500 hover:bg-brand-500/10 transition-all group"
                 >
                   <span className="text-white font-medium group-hover:text-brand-500 transition-colors">+1 Hour</span>
                   <span className="text-brand-500 font-bold bg-brand-500/10 px-3 py-1 rounded-lg">12,000</span>
-                </button>
-                <button 
-                  onClick={() => {
-                    setSessionTime(prev => prev + 7200);
-                    setShowExtendModal(false);
-                    setToast("Session extended by 2 hours");
-                  }} 
-                  className="w-full flex items-center justify-between p-4 rounded-xl border border-white/10 hover:border-brand-500 hover:bg-brand-500/10 transition-all group"
-                >
-                  <span className="text-white font-medium group-hover:text-brand-500 transition-colors">+2 Hours</span>
-                  <span className="text-brand-500 font-bold bg-brand-500/10 px-3 py-1 rounded-lg">24,000</span>
                 </button>
               </div>
               

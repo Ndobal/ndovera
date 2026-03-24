@@ -9,6 +9,7 @@ export default function MyQRCard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const user = loadUser();
+  const displayRole = user?.activeRole || user?.roles?.[0] || 'User';
 
   useEffect(() => {
     const fetchToken = async () => {
@@ -88,7 +89,7 @@ export default function MyQRCard() {
           
           <div className="text-center mb-6">
             <p className="text-lg font-bold text-white">{user?.name}</p>
-            <p className="text-sm font-mono text-emerald-400 mt-1">{user?.role}</p>
+            <p className="text-sm font-mono text-emerald-400 mt-1">{displayRole}</p>
           </div>
 
           <button 

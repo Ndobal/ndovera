@@ -15,6 +15,27 @@ export interface WebsitePage {
 
 export interface SchoolWebsite {
   schoolId: string;
+  publicUrl?: string | null;
+  legal?: {
+    privacyPolicy?: {
+      title: string;
+      lastUpdated: string;
+      body: string;
+    };
+    termsOfService?: {
+      title: string;
+      lastUpdated: string;
+      body: string;
+    };
+  };
+  contactInfo?: {
+    email?: string | null;
+    phone?: string | null;
+    address?: string | null;
+    city?: string | null;
+    state?: string | null;
+    country?: string | null;
+  };
   theme: {
     primaryColor: string;
     fontFamily: string;

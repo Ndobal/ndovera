@@ -1,42 +1,30 @@
 import React, { useState, useEffect } from "react";
 import { EvaluationForm } from "./EvaluationForm";
 import { ProgressBar } from "./ProgressBar";
-import { loadUser } from "../../../services/authLocal";
 import { useToast } from "../../../components/Toast";
+import { fetchWithAuth } from "../../../services/apiClient";
 
 export const EvaluationModal = ({ evaluationId, onClose }: { evaluationId: string, onClose: () => void }) => {
   const [targets, setTargets] = useState<any[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [loading, setLoading] = useState(true);
-  const user = loadUser();
-  const { addToast } = useToast();
+  const { showToast } = useToast();
 
   useEffect(() => {
-    fetch("/api/evaluation/targets", {
-      headers: {
-        'x-user-id': user?.id || '',
-        'x-user-roles': user?.roles?.join(',') || '',
-        'x-school-id': user?.schoolId || 'school_1'
-      }
-    })
-      .then(res => res.json())
-      .then(data => {
+    fetchWithAuth("/api/evaluation/targets")
+      .then((data) => {
         setTargets(data || []);
         setLoading(false);
       })
-      .catch(err => setLoading(false));
+      .catch(() => setLoading(false));
   }, []);
 
   const handleSubmit = async (rating: number, comment: string) => {
     const target = targets[currentIndex];
     try {
-      await fetch("/api/evaluation/submit", {
+      await fetchWithAuth("/api/evaluation/submit", {
         method: "POST",
-        headers: {
-          'Content-Type': 'application/json',
-          'x-user-id': user?.id || '',
-          'x-user-roles': user?.roles?.join(',') || ''
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           evaluation_id: evaluationId,
           target_id: target.id,
@@ -45,24 +33,21 @@ export const EvaluationModal = ({ evaluationId, onClose }: { evaluationId: strin
         })
       });
 
-      addToast('Feedback saved anonymously', 'success');
+      showToast('Feedback saved anonymously', 'success');
 
       if (currentIndex < targets.length - 1) {
         setCurrentIndex(currentIndex + 1);
       } else {
-        await fetch("/api/evaluation/finish", {
+          await fetchWithAuth("/api/evaluation/finish", {
           method: "POST",
-          headers: {
-            'Content-Type': 'application/json',
-            'x-user-id': user?.id || ''
-          },
+            headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ evaluation_id: evaluationId })
         });
-        addToast('Evaluation completed! Thank you.', 'success');
+        showToast('Evaluation completed! Thank you.', 'success');
         onClose();
       }
     } catch (e) {
-      addToast('Error saving feedback', 'error');
+      showToast('Error saving feedback', 'error');
     }
   };
 

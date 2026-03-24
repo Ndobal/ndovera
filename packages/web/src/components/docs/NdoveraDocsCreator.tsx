@@ -179,12 +179,14 @@ export interface NdoveraDocsCreatorProps {
   onClose: () => void;
   initialTitle?: string;
   initialContent?: string;
+  onSave?: (payload: { title: string; content: string }) => void | Promise<void>;
 }
 
 export const NdoveraDocsCreator: React.FC<NdoveraDocsCreatorProps> = ({
   onClose,
   initialTitle = 'Untitled Document',
   initialContent = '',
+  onSave,
 }) => {
   const [title, setTitle] = useState(initialTitle);
   const [content, setContent] = useState(initialContent);
@@ -389,10 +391,14 @@ export const NdoveraDocsCreator: React.FC<NdoveraDocsCreatorProps> = ({
 
   const handleSave = async () => {
     setIsSaving(true);
-    window.setTimeout(() => {
-      setIsSaving(false);
-      setLastSaved(new Date());
-    }, 700);
+    try {
+      await Promise.resolve(onSave?.({ title, content: editor?.getHTML() || content }));
+    } finally {
+      window.setTimeout(() => {
+        setIsSaving(false);
+        setLastSaved(new Date());
+      }, 700);
+    }
   };
 
   const exportDOCX = () => {

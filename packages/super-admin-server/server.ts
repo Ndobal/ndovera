@@ -1,551 +1,723 @@
-import express from 'express'
-import fs from 'fs'
-import path from 'path'
-import Database from 'better-sqlite3'
-import dotenv from 'dotenv'
-import { fileURLToPath } from 'url'
-
-dotenv.config()
-
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
-
-function databaseHasSchoolsTable(candidatePath: string) {
-  if (!fs.existsSync(candidatePath)) return false
-  try {
-    const probe = new Database(candidatePath, { readonly: true })
-    const table = probe.prepare("SELECT name FROM sqlite_master WHERE type = 'table' AND name = 'schools'").get() as { name?: string } | undefined
-    probe.close()
-    return Boolean(table?.name)
-  } catch {
-    return false
-  }
-}
-
-function resolveDatabasePath() {
-  const workspaceDbPath = path.resolve(__dirname, '..', '..', 'ndovera.db')
-  const localDbPath = path.resolve(process.cwd(), 'ndovera.db')
-  const envDbPath = process.env.DB_PATH
-    ? path.isAbsolute(process.env.DB_PATH)
-      ? process.env.DB_PATH
-      : path.resolve(process.cwd(), process.env.DB_PATH)
-    : null
-
-  const preferredPaths = [envDbPath, workspaceDbPath, localDbPath].filter((value): value is string => Boolean(value))
-  const validPath = preferredPaths.find(databaseHasSchoolsTable)
-
-  if (validPath) return validPath
-  return preferredPaths.find((candidatePath) => fs.existsSync(candidatePath)) || workspaceDbPath
-}
-
-const app = express()
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*')
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, x-super-user-id, x-super-user-roles, x-super-active-role')
-  res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE,OPTIONS')
-  if (req.method === 'OPTIONS') return res.sendStatus(204)
-  next()
-})
-app.use(express.json())
-
-import { attachSuperUserFromHeaders, requireSuperRole } from './rbac'
-app.use(attachSuperUserFromHeaders)
-
-// Example protected super-admin route
-app.post('/super/events', requireSuperRole('super_admin', 'sub_admin'), (req, res) => {
-  const { title, body } = req.body
-  if (!title) return res.status(400).json({ error: 'title required' })
-  // In real code persist to global_events table
-  return res.json({ ok: true, title })
-})
-
-const dbPath = resolveDatabasePath()
-const db = new Database(dbPath)
-
-function parseJson<T>(value: string | null | undefined, fallback: T): T {
-  if (!value) return fallback
-  try {
-    return JSON.parse(value) as T
-  } catch {
-    return fallback
-  }
-}
-
-// Create super-admin-specific tables (separate from school tables)
-db.exec(`
-  CREATE TABLE IF NOT EXISTS super_admins (
-    id TEXT PRIMARY KEY,
-    email TEXT NOT NULL UNIQUE,
-    name TEXT,
-    password_hash TEXT NOT NULL,
-    needs_password_change BOOLEAN DEFAULT 1,
-    secret_login_path TEXT UNIQUE,
-    role TEXT DEFAULT 'super_admin',
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-  );
-
-  CREATE TABLE IF NOT EXISTS global_events (
-    id TEXT PRIMARY KEY,
-    title TEXT NOT NULL,
-    body TEXT,
-    created_by TEXT,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-  );
-
-  CREATE TABLE IF NOT EXISTS system_roles (
-    id TEXT PRIMARY KEY,
-    name TEXT NOT NULL UNIQUE,
-    permissions TEXT,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-  );
-
-  CREATE TABLE IF NOT EXISTS pricing_plans (
-    id TEXT PRIMARY KEY,
-    name TEXT NOT NULL,
-    description TEXT,
-    price_cents INTEGER NOT NULL,
-    billing_interval TEXT,
-    features_json TEXT,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-  );
-
-  CREATE TABLE IF NOT EXISTS opportunities_global (
-    id TEXT PRIMARY KEY,
-    title TEXT NOT NULL,
-    description TEXT,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-  );
-
-  CREATE TABLE IF NOT EXISTS growth_partners (
-    id TEXT PRIMARY KEY,
-    name TEXT NOT NULL,
-    contact_info TEXT,
-    notes TEXT,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-  );
-
-  CREATE TABLE IF NOT EXISTS school_verifications (
-    id TEXT PRIMARY KEY,
-    school_id TEXT NOT NULL,
-    status TEXT NOT NULL,
-    verified_by TEXT,
-    verified_at DATETIME,
-    notes TEXT
-  );
-
-  CREATE TABLE IF NOT EXISTS school_onboarding_requests (
-    id TEXT PRIMARY KEY,
-    school_name TEXT NOT NULL,
-    subdomain TEXT NOT NULL,
-    owner_name TEXT NOT NULL,
-    owner_ndovera_email TEXT NOT NULL,
-    owner_alternate_email TEXT,
-    owner_phone TEXT,
-    desired_password_hash TEXT NOT NULL,
-    payment_reference TEXT,
-    payment_proof_url TEXT,
-    status TEXT DEFAULT 'Awaiting Payment',
-    payment_status TEXT DEFAULT 'Pending',
-    wait_token TEXT NOT NULL UNIQUE,
-    notes TEXT,
-    approved_school_id TEXT,
-    approved_user_id TEXT,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
-  );
-
-  CREATE TABLE IF NOT EXISTS super_audit_logs (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    admin_id TEXT,
-    action TEXT NOT NULL,
-    details TEXT,
-    ip_address TEXT,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-  );
-`)
-
-// Ensure schema changes are applied even if table existed previously
-try {
-  db.exec("ALTER TABLE super_admins ADD COLUMN role TEXT DEFAULT 'super_admin';")
-} catch (err) {
-  // ignore if column already exists or ALTER not supported for other reasons
-}
-
-// Ensure new columns exist
-try {
-  db.exec("ALTER TABLE super_admins ADD COLUMN needs_password_change BOOLEAN DEFAULT 1;");
-  db.exec("ALTER TABLE super_admins ADD COLUMN secret_login_path TEXT;");
-} catch (err) {}
-
-try {
-  db.exec("ALTER TABLE pricing_plans ADD COLUMN features_json TEXT;")
-} catch (err) {}
-
-try {
-  db.exec('ALTER TABLE schools ADD COLUMN live_class_quota INTEGER DEFAULT 5;')
-} catch (err) {}
-db.exec('UPDATE schools SET live_class_quota = 5 WHERE live_class_quota IS NULL OR live_class_quota < 1')
-
-// Insert Scholarship and Feature Suggestion tables
-db.exec(`
-  CREATE TABLE IF NOT EXISTS scholarship_awards (
-    id TEXT PRIMARY KEY,
-    student_id TEXT NOT NULL,
-    school_id TEXT NOT NULL,
-    category TEXT NOT NULL,
-    reward_type TEXT NOT NULL,
-    description TEXT,
-    published_to_global BOOLEAN DEFAULT 0,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-  );
-
-  CREATE TABLE IF NOT EXISTS feature_suggestions (
-    id TEXT PRIMARY KEY,
-    school_id TEXT,
-    user_id TEXT,
-    user_type TEXT,
-    suggestion TEXT NOT NULL,
-    status TEXT DEFAULT 'pending',
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-  );
-
-  CREATE TABLE IF NOT EXISTS global_settings (
-    key TEXT PRIMARY KEY,
-    value TEXT NOT NULL
-  );
-  
-  INSERT OR IGNORE INTO global_settings (key, value) VALUES ('feature_suggestions_enabled', 'false');
-`);
-
 import crypto from 'crypto';
+import express from 'express';
+import cookieParser from 'cookie-parser';
+import csurf from 'csurf';
+import helmet from 'helmet';
+import rateLimit from 'express-rate-limit';
+import Database from 'better-sqlite3';
+import { Pool } from 'pg';
+import { attachSuperUserFromHeaders, clearSuperSessionCookie, createSuperSessionCookie, requireSuperRole } from './rbac.js';
+import bcrypt from 'bcryptjs';
+import { z } from 'zod';
+import { buildMetrics, createSchoolWithOwner, isIdentityUserActive, listIdentityLifecycleEvents, listIdentityUsers, loadIdentityState, provisionUser, transferStudent, updateIdentityUser } from '../../identity-state.js';
+import { adComplianceSuperRouter } from './src/adCompliance.routes.js';
+import { billingSuperRouter, billingWebhookRouter } from './src/billing.routes.js';
+import { championshipSuperRouter } from './src/championship.routes.js';
+import { creditsSuperRouter } from './src/credits.routes.js';
+import { monetizationSuperRouter } from './src/monetization.routes.js';
 
-function slugifySchoolName(value: string) {
-  return String(value || '')
-    .trim()
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '')
-    .slice(0, 32) || `school-${Date.now().toString().slice(-6)}`
+type PricingPlan = { id: string; name: string; description: string; priceCents: number; billingInterval: string; features: string[] };
+type LiveCapacityOption = { participantLimit: number; priceNaira: number; label: string };
+type PlatformSettings = {
+	liveMeetings: {
+		defaultParticipantLimit: number;
+		schoolConcurrentLimit: number;
+		upgradeOptions: LiveCapacityOption[];
+	};
+	economy: {
+		currencyName: string;
+		currencyPlural: string;
+		currencySymbol: string;
+		aiUnitsPerNaira: number;
+		cashoutNairaPerUnit: number;
+		adRewardPerImpression: number;
+	};
+};
+type AiFeature = { featureKey: string; label: string; category: 'student' | 'teacher' | 'staff'; audience: string; description: string; enabled: boolean; keyuCost: number; freeTierLimit: number; requiresSuperApproval: boolean; usageCount: number; totalKeyuSpent: number };
+type PublicInboxStatus = 'new' | 'reviewing' | 'resolved';
+type PublicContactInquiry = {
+	id: string;
+	schoolId: string | null;
+	name: string | null;
+	email: string;
+	message: string;
+	enquiryPath: string;
+	enquiryLabel: string;
+	primaryResponsibleRole: string;
+	responsibleRoles: string[];
+	routingNote: string;
+	status: PublicInboxStatus;
+	createdAt: string;
+	updatedAt?: string;
+	reviewedAt?: string | null;
+	reviewedBy?: string | null;
+};
+type GrowthPartnerApplication = {
+	id: string;
+	schoolId: string | null;
+	name: string;
+	email: string;
+	phone: string;
+	city: string | null;
+	notes: string | null;
+	source: string | null;
+	primaryResponsibleRole: string;
+	responsibleRoles: string[];
+	status: PublicInboxStatus;
+	createdAt: string;
+	updatedAt?: string;
+	reviewedAt?: string | null;
+	reviewedBy?: string | null;
+};
+type PublicContactState = { messages: PublicContactInquiry[] };
+type GrowthPartnerApplicationState = { applications: GrowthPartnerApplication[] };
+type SchoolProfileRecord = {
+	schoolId: string;
+	logoUrl: string | null;
+	websiteUrl: string | null;
+	primaryColor: string | null;
+	websiteConfig: Record<string, unknown> | null;
+	updatedAt: string;
+};
+type SchoolProfilesState = { profiles: SchoolProfileRecord[] };
+
+const app = express();
+const port = Number(process.env.PORT || 3001);
+const isProduction = process.env.NODE_ENV === 'production';
+const corsOrigins = (process.env.CORS_ORIGIN || process.env.NDOVERA_CORS_ORIGIN || '')
+	.split(',')
+	.map((value) => value.trim())
+	.filter(Boolean);
+const csrfProtection = csurf({
+	cookie: {
+		httpOnly: true,
+		secure: isProduction,
+		sameSite: 'strict',
+		path: '/',
+	},
+});
+
+function resolveTrustProxy(value: string | undefined) {
+	const normalized = String(value || '1').trim().toLowerCase();
+	if (normalized === 'false' || normalized === '0') return false;
+	if (normalized === 'true') return 1;
+	const asNumber = Number(normalized);
+	return Number.isNaN(asNumber) ? normalized : asNumber;
 }
 
-function hashPassword(password: string) {
-  return crypto.createHash('sha256').update(password).digest('hex')
+app.set('trust proxy', resolveTrustProxy(process.env.TRUST_PROXY));
+
+app.use(helmet({
+	contentSecurityPolicy: {
+		directives: {
+			defaultSrc: ["'self'"],
+			scriptSrc: ["'self'"],
+			frameSrc: ["'self'"],
+			imgSrc: ["'self'", 'data:'],
+		},
+	},
+}));
+app.use(rateLimit({ windowMs: 15 * 60 * 1000, max: 100, standardHeaders: true, legacyHeaders: false }));
+app.use(express.json({
+	limit: '1mb',
+	verify: (req, _res, buf) => {
+		(req as any).rawBody = buf.toString('utf8');
+	},
+}));
+app.use(cookieParser());
+app.use((req, res, next) => {
+	const origin = String(req.headers.origin || '').trim();
+	if (origin && corsOrigins.includes(origin)) {
+		res.setHeader('Access-Control-Allow-Origin', origin);
+		res.setHeader('Vary', 'Origin');
+		res.setHeader('Access-Control-Allow-Credentials', 'true');
+		res.setHeader('Access-Control-Allow-Headers', 'Content-Type, X-CSRF-Token');
+		res.setHeader('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS');
+	}
+	if (req.method === 'OPTIONS') return res.status(204).end();
+	return next();
+});
+app.use(attachSuperUserFromHeaders);
+app.use((req, res, next) => {
+	const startedAt = Date.now();
+	res.on('finish', () => {
+		const user = (req as any).superUser;
+		console.log(JSON.stringify({
+			userId: user?.id || null,
+			method: req.method,
+			path: req.originalUrl,
+			status: res.statusCode,
+			durationMs: Date.now() - startedAt,
+			ip: req.ip,
+			userAgent: req.headers['user-agent'] || null,
+		}));
+	});
+	next();
+});
+
+const schools = [{ id: 'school-1', name: 'Ndovera Academy', subdomain: 'ndovera', liveClassQuota: 5, pageCount: 1, website: null, createdAt: new Date().toISOString() }];
+const aiFeatures: AiFeature[] = [{ featureKey: 'ai-tutor', label: 'AI Tutor', category: 'student', audience: 'Students', description: 'Student tutor', enabled: true, keyuCost: 5, freeTierLimit: 10, requiresSuperApproval: false, usageCount: 0, totalKeyuSpent: 0 }];
+const provisionSchema = z.object({
+	category: z.enum(['student', 'staff', 'parent', 'admin', 'alumni']),
+	schoolId: z.string().trim().min(1),
+	schoolName: z.string().trim().min(2),
+	name: z.string().trim().min(2),
+	email: z.string().trim().email().optional().or(z.literal('')),
+	phone: z.string().trim().optional().or(z.literal('')),
+	password: z.string().min(6).optional(),
+	roles: z.array(z.string().trim().min(1)).optional(),
+});
+const createSchoolSchema = z.object({
+	schoolName: z.string().trim().min(2),
+	subdomain: z.string().trim().min(2).regex(/^[a-z0-9-]+$/i),
+	schoolId: z.string().trim().optional().or(z.literal('')),
+	ownerName: z.string().trim().min(2),
+	ownerEmail: z.string().trim().email().optional().or(z.literal('')),
+	ownerPhone: z.string().trim().optional().or(z.literal('')),
+	ownerPassword: z.string().min(6).optional().or(z.literal('')),
+	ownerRoles: z.array(z.string().trim().min(1)).optional(),
+});
+const updateUserSchema = z.object({
+	name: z.string().trim().min(2).optional(),
+	email: z.string().trim().email().optional().or(z.literal('')).nullable(),
+	phone: z.string().trim().optional().or(z.literal('')).nullable(),
+	password: z.string().min(6).optional().or(z.literal('')),
+	roles: z.array(z.string().trim().min(1)).optional(),
+	activeRole: z.string().trim().min(1).optional(),
+	category: z.enum(['student', 'staff', 'parent', 'admin', 'alumni']).optional(),
+	status: z.enum(['active', 'inactive']).optional(),
+	schoolId: z.string().trim().optional(),
+});
+const transferSchema = z.object({
+	targetSchoolId: z.string().trim().min(1),
+	reason: z.string().trim().optional(),
+});
+const loginSchema = z.object({
+	email: z.string().trim().min(3),
+	password: z.string().min(1),
+});
+const pricingPlanSchema = z.object({
+	id: z.string().trim().min(1),
+	name: z.string().trim().min(1),
+	description: z.string().trim().min(1),
+	priceCents: z.number().int().min(0),
+	billingInterval: z.string().trim().min(1),
+	features: z.array(z.string().trim().min(1)).min(1),
+});
+const platformSettingsSchema = z.object({
+	liveMeetings: z.object({
+		defaultParticipantLimit: z.number().int().min(1),
+		schoolConcurrentLimit: z.number().int().min(1),
+		upgradeOptions: z.array(z.object({
+			participantLimit: z.number().int().min(1),
+			priceNaira: z.number().int().min(0),
+			label: z.string().trim().min(1),
+		})).min(1),
+	}),
+	economy: z.object({
+		currencyName: z.string().trim().min(1),
+		currencyPlural: z.string().trim().min(1),
+		currencySymbol: z.string().trim().min(1),
+		aiUnitsPerNaira: z.number().positive(),
+		cashoutNairaPerUnit: z.number().nonnegative(),
+		adRewardPerImpression: z.number().nonnegative(),
+	}),
+});
+const publicInboxStatusSchema = z.enum(['new', 'reviewing', 'resolved']);
+const saveWebsiteSchema = z.object({
+	website_config: z.record(z.unknown()),
+	primary_color: z.string().trim().min(4).max(32).optional().nullable(),
+	logo_url: z.string().trim().min(1).optional().nullable(),
+	website_url: z.string().trim().min(1).optional().nullable(),
+});
+
+function normalizeEnv(name: string, fallback: string) {
+	return (process.env[name] || process.env[fallback] || '').trim();
 }
 
-// Simple seed for super admin user (if none exists)
-function seed() {
-  const count = db.prepare('SELECT COUNT(*) as c FROM super_admins').get().c as number
-  if (count === 0) {
-    const roles = [
-      'System Infrastructure Monitor',
-      'Database Reliability Engineer',
-      'Security & Compliance Auditor',
-      'Global Finance Controller',
-      'Growth & Partnership Director',
-      'Global Support Escalation Lead',
-      'School Onboarding Verifier',
-      'Public Relations & Event Broadcaster',
-      'Platform QA Overseer',
-      'Data Privacy Officer',
-      'Scholarship Programme Director',
-      'Super Admin'
-    ];
-
-    const insert = db.prepare('INSERT INTO super_admins (id,email,name,password_hash,role,secret_login_path,needs_password_change) VALUES (?,?,?,?,?,?,1)');
-    roles.forEach((r, i) => {
-      const secretUrl = 'sa-portal-' + crypto.randomBytes(4).toString('hex');
-      insert.run(
-        'sa_' + (i+1),
-        'admin' + (i+1) + '@ndovera.com',
-        r,
-        crypto.createHash('sha256').update('tempPass123!').digest('hex'),
-        r,
-        secretUrl
-      );
-      console.log(`Created ${r}\n  Email: admin${i+1}@ndovera.com\n  Login URL: /${secretUrl}/login\n`);
-    });
-  }
+function passwordMatches(password: string, stored: string) {
+	if (!stored) return false;
+	if (stored.startsWith('$2')) return bcrypt.compareSync(password, stored);
+	return password === stored;
 }
 
-seed()
+const DOCUMENT_DATABASE_URL = (process.env.DATABASE_URL || process.env.POSTGRES_URL || '').trim();
+const DOCUMENT_SQLITE_PATH = (process.env.NDOVERA_APP_DB_PATH || '').trim() || 'C:/app/storage/ndovera-app.db';
+const documentSqlite = DOCUMENT_DATABASE_URL ? null : new Database(DOCUMENT_SQLITE_PATH);
+const documentPgPool = DOCUMENT_DATABASE_URL
+	? new Pool({
+		connectionString: DOCUMENT_DATABASE_URL,
+		ssl: process.env.PGSSLMODE === 'require' || process.env.POSTGRES_SSL === 'true' ? { rejectUnauthorized: false } : undefined,
+	})
+	: null;
+let documentSchemaPromise: Promise<void> | null = null;
 
-const pricingPlanCount = db.prepare('SELECT COUNT(*) as c FROM pricing_plans').get() as { c: number }
-if (pricingPlanCount.c === 0) {
-  const insertPlan = db.prepare('INSERT INTO pricing_plans (id, name, description, price_cents, billing_interval, features_json) VALUES (?, ?, ?, ?, ?, ?)')
-  insertPlan.run('plan_foundation', 'Foundation', 'Starter plan for small schools onboarding onto Ndovera.', 990000, 'monthly', JSON.stringify(['5 live classrooms per school', 'Website builder access', 'Core school operations']))
-  insertPlan.run('plan_growth', 'Growth', 'Scaling plan for multi-campus or rapidly growing schools.', 2490000, 'monthly', JSON.stringify(['10 live classrooms per school', 'Priority support', 'Expanded website assets']))
+function defaultPricingPlans(): PricingPlan[] {
+	return [
+		{ id: 'plan-1', name: 'Starter', description: 'Starter plan', priceCents: 0, billingInterval: 'monthly', features: ['5 live classrooms', '50 live participants', 'Website builder', 'Core operations'] },
+		{ id: 'plan-2', name: 'Growth', description: 'Growth plan', priceCents: 250000, billingInterval: 'monthly', features: ['10 live classrooms', '100 live participants', 'Advanced management', 'Priority support'] },
+	];
 }
+
+function defaultPlatformSettings(): PlatformSettings {
+	return {
+		liveMeetings: {
+			defaultParticipantLimit: 50,
+			schoolConcurrentLimit: 5,
+			upgradeOptions: [
+				{ participantLimit: 100, priceNaira: 15000, label: 'Starter expansion' },
+				{ participantLimit: 150, priceNaira: 22500, label: 'Growth expansion' },
+				{ participantLimit: 200, priceNaira: 30000, label: 'Scale expansion' },
+				{ participantLimit: 300, priceNaira: 45000, label: 'Summit expansion' },
+			],
+		},
+		economy: {
+			currencyName: 'Keyu',
+			currencyPlural: 'Keyu',
+			currencySymbol: 'K',
+			aiUnitsPerNaira: 3,
+			cashoutNairaPerUnit: 1,
+			adRewardPerImpression: 1,
+		},
+	};
+}
+
+async function ensureDocumentSchema() {
+	if (documentSchemaPromise) return documentSchemaPromise;
+	documentSchemaPromise = (async () => {
+		if (documentPgPool) {
+			await documentPgPool.query('CREATE TABLE IF NOT EXISTS ndovera_documents (namespace TEXT NOT NULL, school_scope TEXT NOT NULL, payload_json TEXT NOT NULL, updated_at TEXT NOT NULL, PRIMARY KEY (namespace, school_scope))');
+			return;
+		}
+		if (documentSqlite) {
+			documentSqlite.pragma('journal_mode = WAL');
+			documentSqlite.exec('CREATE TABLE IF NOT EXISTS ndovera_documents (namespace TEXT NOT NULL, school_scope TEXT NOT NULL, payload_json TEXT NOT NULL, updated_at TEXT NOT NULL, PRIMARY KEY (namespace, school_scope))');
+		}
+	})();
+	return documentSchemaPromise;
+}
+
+async function listPersistedOnboardingRequests() {
+	await ensureDocumentSchema();
+	const namespace = 'school-onboarding';
+	const scope = '__global__';
+	if (documentPgPool) {
+		const result = await documentPgPool.query('SELECT payload_json FROM ndovera_documents WHERE namespace = $1 AND school_scope = $2', [namespace, scope]);
+		const requests = result.rows[0]?.payload_json ? JSON.parse(String(result.rows[0].payload_json)).requests : [];
+		return Array.isArray(requests) ? requests : [];
+	}
+	if (!documentSqlite) return [];
+	const row = documentSqlite.prepare('SELECT payload_json FROM ndovera_documents WHERE namespace = ? AND school_scope = ?').get(namespace, scope) as { payload_json?: string } | undefined;
+	const requests = row?.payload_json ? JSON.parse(String(row.payload_json)).requests : [];
+	return Array.isArray(requests) ? requests : [];
+}
+
+async function readGlobalDocument<T>(namespace: string, fallbackFactory: () => T): Promise<T> {
+	await ensureDocumentSchema();
+	const scope = '__global__';
+	if (documentPgPool) {
+		const result = await documentPgPool.query('SELECT payload_json FROM ndovera_documents WHERE namespace = $1 AND school_scope = $2', [namespace, scope]);
+		const payload = result.rows[0]?.payload_json;
+		if (!payload) return fallbackFactory();
+		try {
+			return JSON.parse(String(payload)) as T;
+		} catch {
+			return fallbackFactory();
+		}
+	}
+	if (!documentSqlite) return fallbackFactory();
+	const row = documentSqlite.prepare('SELECT payload_json FROM ndovera_documents WHERE namespace = ? AND school_scope = ?').get(namespace, scope) as { payload_json?: string } | undefined;
+	if (!row?.payload_json) return fallbackFactory();
+	try {
+		return JSON.parse(String(row.payload_json)) as T;
+	} catch {
+		return fallbackFactory();
+	}
+}
+
+async function writeGlobalDocument<T>(namespace: string, value: T) {
+	await ensureDocumentSchema();
+	const scope = '__global__';
+	const payloadJson = JSON.stringify(value);
+	const updatedAt = new Date().toISOString();
+	if (documentPgPool) {
+		await documentPgPool.query(
+			'INSERT INTO ndovera_documents (namespace, school_scope, payload_json, updated_at) VALUES ($1, $2, $3, $4) ON CONFLICT (namespace, school_scope) DO UPDATE SET payload_json = EXCLUDED.payload_json, updated_at = EXCLUDED.updated_at',
+			[namespace, scope, payloadJson, updatedAt],
+		);
+		return value;
+	}
+	if (documentSqlite) {
+		documentSqlite.prepare('INSERT INTO ndovera_documents (namespace, school_scope, payload_json, updated_at) VALUES (?, ?, ?, ?) ON CONFLICT(namespace, school_scope) DO UPDATE SET payload_json = excluded.payload_json, updated_at = excluded.updated_at').run(namespace, scope, payloadJson, updatedAt);
+	}
+	return value;
+}
+
+async function readPricingPlans() {
+	return readGlobalDocument<PricingPlan[]>('super-pricing-plans', defaultPricingPlans);
+}
+
+async function writePricingPlans(plans: PricingPlan[]) {
+	return writeGlobalDocument('super-pricing-plans', plans);
+}
+
+async function readPlatformSettings() {
+	return readGlobalDocument<PlatformSettings>('platform-settings', defaultPlatformSettings);
+}
+
+async function writePlatformSettings(settings: PlatformSettings) {
+	return writeGlobalDocument('platform-settings', settings);
+}
+
+async function readPublicContactState() {
+	return readGlobalDocument<PublicContactState>('public-contact-inquiries', () => ({ messages: [] }));
+}
+
+async function writePublicContactState(state: PublicContactState) {
+	return writeGlobalDocument('public-contact-inquiries', state);
+}
+
+async function readGrowthPartnerApplications() {
+	return readGlobalDocument<GrowthPartnerApplicationState>('growth-partner-applications', () => ({ applications: [] }));
+}
+
+async function writeGrowthPartnerApplications(state: GrowthPartnerApplicationState) {
+	return writeGlobalDocument('growth-partner-applications', state);
+}
+
+function normalizeOptionalString(value: unknown) {
+	if (typeof value !== 'string') return null;
+	const normalized = value.trim();
+	return normalized ? normalized : null;
+}
+
+function nowIso() {
+	return new Date().toISOString();
+}
+
+async function readSchoolProfilesState() {
+	return readGlobalDocument<SchoolProfilesState>('school-profiles', () => ({ profiles: [] }));
+}
+
+async function getStoredSchoolProfile(schoolId: string) {
+	const normalizedSchoolId = schoolId.trim();
+	if (!normalizedSchoolId) return null;
+	const state = await readSchoolProfilesState();
+	return state.profiles.find((profile) => profile.schoolId === normalizedSchoolId) || null;
+}
+
+async function upsertStoredSchoolProfile(input: {
+	schoolId: string;
+	logoUrl?: string | null;
+	websiteUrl?: string | null;
+	primaryColor?: string | null;
+	websiteConfig?: Record<string, unknown> | null;
+}) {
+	const schoolId = input.schoolId.trim();
+	if (!schoolId) throw new Error('schoolId is required');
+	const state = await readSchoolProfilesState();
+	const profileIndex = state.profiles.findIndex((profile) => profile.schoolId === schoolId);
+	const current = profileIndex >= 0 ? state.profiles[profileIndex] : null;
+	const nextProfile: SchoolProfileRecord = {
+		schoolId,
+		logoUrl: input.logoUrl !== undefined ? normalizeOptionalString(input.logoUrl) : current?.logoUrl || null,
+		websiteUrl: input.websiteUrl !== undefined ? normalizeOptionalString(input.websiteUrl) : current?.websiteUrl || null,
+		primaryColor: input.primaryColor !== undefined ? normalizeOptionalString(input.primaryColor) : current?.primaryColor || null,
+		websiteConfig: input.websiteConfig !== undefined ? input.websiteConfig : current?.websiteConfig || null,
+		updatedAt: nowIso(),
+	};
+	if (profileIndex >= 0) {
+		state.profiles[profileIndex] = nextProfile;
+	} else {
+		state.profiles.push(nextProfile);
+	}
+	await writeGlobalDocument('school-profiles', state);
+	return nextProfile;
+}
+
+function updatePublicInboxItem<T extends { id: string; status: PublicInboxStatus; updatedAt?: string; reviewedAt?: string | null; reviewedBy?: string | null }>(
+	items: T[],
+	itemId: string,
+	status: PublicInboxStatus,
+	reviewedBy: string,
+) {
+	const updatedAt = new Date().toISOString();
+	let found = false;
+	const nextItems = items.map((item) => {
+		if (item.id !== itemId) return item;
+		found = true;
+		return {
+			...item,
+			status,
+			updatedAt,
+			reviewedAt: status === 'new' ? null : updatedAt,
+			reviewedBy: status === 'new' ? null : reviewedBy,
+		};
+	});
+	return { found, items: nextItems };
+}
+
+app.get('/health', async (_req, res) => {
+	try {
+		await loadIdentityState();
+		return res.json({ ok: true, service: 'ndovera-super-admin-server', storage: (process.env.DATABASE_URL || process.env.POSTGRES_URL) ? 'postgres' : 'sqlite' });
+	} catch {
+		return res.status(503).json({ ok: false, service: 'ndovera-super-admin-server', error: 'Storage unavailable' });
+	}
+});
+app.use('/api/super/auth', (req, res, next) => next());
 
 app.post('/api/super/auth/login', (req, res) => {
-  const { __hiddenPath, email, password } = req.body;
-  if (!__hiddenPath || !email || !password) return res.status(400).json({ error: 'Missing fields' });
-  
-  const admin = db.prepare('SELECT * FROM super_admins WHERE email = ? AND secret_login_path = ?').get(email, __hiddenPath) as any;
-  if (!admin) return res.status(401).json({ error: 'Invalid credentials or wrong portal URL' });
-  
-  const passHash = crypto.createHash('sha256').update(password).digest('hex');
-  if (admin.password_hash !== passHash) return res.status(401).json({ error: 'Invalid credentials' });
-  
-  if (admin.needs_password_change) {
-    return res.json({ requirePasswordChange: true, adminId: admin.id });
-  }
-  
-  res.json({ ok: true, adminId: admin.id, role: admin.role, token: 'dummy_token_' + admin.id });
+	const parsed = loginSchema.safeParse(req.body || {});
+	if (!parsed.success) return res.status(400).json({ error: 'Invalid login payload.' });
+	const email = parsed.data.email.trim().toLowerCase();
+	const password = parsed.data.password;
+	const bootstrapEmail = normalizeEnv('SUPER_ADMIN_EMAIL', 'NDOVERA_SUPER_ADMIN_EMAIL').toLowerCase();
+	const passwordHash = normalizeEnv('SUPER_ADMIN_PASSWORD_HASH', 'NDOVERA_SUPER_ADMIN_PASSWORD_HASH');
+	const authSecret = process.env.NDOVERA_SUPER_ADMIN_AUTH_SECRET?.trim() || process.env.NDOVERA_AUTH_SECRET?.trim();
+	const role = (process.env.NDOVERA_SUPER_ADMIN_ROLE || 'Super Admin').trim();
+
+	if (!bootstrapEmail || !passwordHash || !authSecret) {
+		return res.status(503).json({ error: 'Super-admin authentication is not configured.' });
+	}
+
+	if (email !== bootstrapEmail || !passwordMatches(password, passwordHash)) {
+		return res.status(401).json({ error: 'Invalid credentials.' });
+	}
+
+	const user = {
+		id: process.env.NDOVERA_SUPER_ADMIN_ID || 'super-admin',
+		name: process.env.NDOVERA_SUPER_ADMIN_NAME || 'Super Admin',
+		email: bootstrapEmail,
+		roles: [role],
+		activeRole: role,
+	};
+
+	res.setHeader('Set-Cookie', createSuperSessionCookie(user));
+	res.json({ user });
 });
 
-app.post('/api/super/auth/change-password', (req, res) => {
-  const { adminId, oldPassword, newPassword } = req.body;
-  
-  // Validate password policy: at least 12 chars, capital, small, number, symbol
-  const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,}$/;
-  if (!strongPasswordRegex.test(newPassword)) {
-    return res.status(400).json({ 
-      error: 'Password must have at least 12 characters, including Capital, small, number and symbol.' 
-    });
-  }
-
-  const admin = db.prepare('SELECT * FROM super_admins WHERE id = ?').get(adminId) as any;
-  if (!admin) return res.status(404).json({ error: 'Admin not found' });
-  
-  const oldHash = crypto.createHash('sha256').update(oldPassword).digest('hex');
-  if (admin.password_hash !== oldHash) return res.status(401).json({ error: 'Invalid old password' });
-  
-  const newHash = crypto.createHash('sha256').update(newPassword).digest('hex');
-  db.prepare('UPDATE super_admins SET password_hash = ?, needs_password_change = 0 WHERE id = ?').run(newHash, adminId);
-  
-  res.json({ ok: true, message: 'Password updated successfully' });
+app.get('/api/super/auth/me', (req, res) => {
+	const user = (req as any).superUser;
+	if (!user) return res.status(401).json({ error: 'Unauthenticated' });
+	return res.json({ user });
 });
 
-app.get('/api/super/schools', requireSuperRole('Super Admin', 'School Onboarding Verifier', 'Growth & Partnership Director', 'Public Relations & Event Broadcaster'), (req, res) => {
-  const schools = db.prepare('SELECT id, name, subdomain, logo_url, primary_color, live_class_quota, website_config, created_at FROM schools ORDER BY created_at DESC').all() as any[]
-  res.json({
-    ok: true,
-    schools: schools.map((school) => {
-      const website = parseJson<any>(school.website_config, null)
-      return {
-        id: school.id,
-        name: school.name,
-        subdomain: school.subdomain,
-        logoUrl: school.logo_url,
-        primaryColor: school.primary_color,
-        liveClassQuota: school.live_class_quota || 5,
-        pageCount: Array.isArray(website?.pages) ? website.pages.length : 0,
-        website,
-        createdAt: school.created_at,
-      }
-    })
-  })
-})
-
-app.get('/api/super/schools/:id', requireSuperRole('Super Admin', 'School Onboarding Verifier', 'Growth & Partnership Director', 'Public Relations & Event Broadcaster'), (req, res) => {
-  const row = db.prepare('SELECT id, name, subdomain, logo_url, primary_color, live_class_quota, website_config, created_at FROM schools WHERE id = ?').get(req.params.id) as any
-  if (!row) return res.status(404).json({ error: 'School not found' })
-  res.json({
-    ok: true,
-    school: {
-      id: row.id,
-      name: row.name,
-      subdomain: row.subdomain,
-      logoUrl: row.logo_url,
-      primaryColor: row.primary_color,
-      liveClassQuota: row.live_class_quota || 5,
-      website: parseJson<any>(row.website_config, null),
-      createdAt: row.created_at,
-    }
-  })
-})
-
-app.patch('/api/super/schools/:id/live-settings', requireSuperRole('Super Admin', 'School Onboarding Verifier', 'Growth & Partnership Director'), (req, res) => {
-  const liveClassQuota = Number(req.body?.liveClassQuota)
-  if (!Number.isInteger(liveClassQuota) || liveClassQuota < 1 || liveClassQuota > 100) {
-    return res.status(400).json({ error: 'liveClassQuota must be an integer between 1 and 100' })
-  }
-  const result = db.prepare('UPDATE schools SET live_class_quota = ? WHERE id = ?').run(liveClassQuota, req.params.id)
-  if (!result.changes) return res.status(404).json({ error: 'School not found' })
-  res.json({ ok: true, liveClassQuota })
-})
-
-app.put('/api/super/schools/:id/website', requireSuperRole('Super Admin', 'Public Relations & Event Broadcaster', 'Growth & Partnership Director'), (req, res) => {
-  const { website, primaryColor, logoUrl } = req.body || {}
-  if (!website || typeof website !== 'object') return res.status(400).json({ error: 'website object required' })
-  const payload = JSON.stringify(website)
-  const result = db.prepare('UPDATE schools SET website_config = ?, primary_color = COALESCE(?, primary_color), logo_url = COALESCE(?, logo_url) WHERE id = ?').run(payload, primaryColor || null, logoUrl || null, req.params.id)
-  if (!result.changes) return res.status(404).json({ error: 'School not found' })
-  res.json({ ok: true })
-})
-
-app.get('/api/super/onboarding/requests', requireSuperRole('Super Admin', 'School Onboarding Verifier'), (req, res) => {
-  const requests = db.prepare(`
-    SELECT *
-    FROM school_onboarding_requests
-    ORDER BY CASE status WHEN 'Awaiting Approval' THEN 0 WHEN 'Awaiting Payment' THEN 1 WHEN 'Approved' THEN 2 ELSE 3 END,
-             datetime(updated_at) DESC,
-             datetime(created_at) DESC
-  `).all() as any[]
-  res.json({ ok: true, requests })
-})
-
-app.post('/api/super/onboarding/requests/:id/approve', requireSuperRole('Super Admin', 'School Onboarding Verifier'), (req, res) => {
-  try {
-    const requestRow = db.prepare('SELECT * FROM school_onboarding_requests WHERE id = ?').get(req.params.id) as any
-    if (!requestRow) return res.status(404).json({ error: 'Onboarding request not found' })
-    if (requestRow.status === 'Approved') return res.json({ ok: true, alreadyApproved: true, schoolId: requestRow.approved_school_id, userId: requestRow.approved_user_id })
-
-    const schoolId = requestRow.approved_school_id || `school_${crypto.randomBytes(4).toString('hex')}`
-    const userId = requestRow.approved_user_id || `owner_${crypto.randomBytes(4).toString('hex')}`
-    const subdomain = slugifySchoolName(requestRow.subdomain || requestRow.school_name)
-
-    db.prepare('INSERT OR IGNORE INTO schools (id, name, subdomain, primary_color, live_class_quota) VALUES (?, ?, ?, ?, ?)')
-      .run(schoolId, requestRow.school_name, subdomain, '#10b981', 5)
-
-    db.prepare(`
-      INSERT OR IGNORE INTO users (id, school_id, name, email, password_hash, role, alternate_email, phone)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-    `).run(
-      userId,
-      schoolId,
-      requestRow.owner_name,
-      requestRow.owner_ndovera_email,
-      requestRow.desired_password_hash,
-      'Owner',
-      requestRow.owner_alternate_email || null,
-      requestRow.owner_phone || null,
-    )
-
-    db.prepare(`
-      INSERT OR IGNORE INTO user_profiles (
-        user_id, school_id, ndovera_email, alternate_email, phone, occupation, preferences_json, skills_json, social_links_json
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-    `).run(
-      userId,
-      schoolId,
-      requestRow.owner_ndovera_email,
-      requestRow.owner_alternate_email || null,
-      requestRow.owner_phone || null,
-      'School Owner',
-      JSON.stringify({ googleSigninEnabled: Boolean(requestRow.owner_alternate_email), approvedAt: new Date().toISOString() }),
-      JSON.stringify([]),
-      JSON.stringify({}),
-    )
-
-    db.prepare(`
-      UPDATE school_onboarding_requests
-      SET status = 'Approved', payment_status = 'Confirmed', approved_school_id = ?, approved_user_id = ?, notes = ?, updated_at = CURRENT_TIMESTAMP
-      WHERE id = ?
-    `).run(schoolId, userId, typeof req.body?.notes === 'string' ? req.body.notes : 'Approved by super admin.', req.params.id)
-
-    res.json({ ok: true, schoolId, userId, loginEmail: requestRow.owner_ndovera_email })
-  } catch (err) {
-    console.error('Onboarding approval error', err)
-    res.status(500).json({ error: 'Unable to approve onboarding request' })
-  }
-})
-
-app.get('/api/super/pricing-plans', requireSuperRole('Super Admin', 'Global Finance Controller'), (req, res) => {
-  const plans = db.prepare('SELECT * FROM pricing_plans ORDER BY created_at DESC').all() as any[]
-  res.json({
-    ok: true,
-    plans: plans.map((plan) => ({
-      id: plan.id,
-      name: plan.name,
-      description: plan.description,
-      priceCents: plan.price_cents,
-      billingInterval: plan.billing_interval,
-      features: parseJson<string[]>(plan.features_json, []),
-      createdAt: plan.created_at,
-    }))
-  })
-})
-
-app.post('/api/super/pricing-plans', requireSuperRole('Super Admin', 'Global Finance Controller'), (req, res) => {
-  const { name, description, priceCents, billingInterval, features } = req.body || {}
-  const numericPrice = Number(priceCents)
-  if (!name || !Number.isFinite(numericPrice) || numericPrice < 0) {
-    return res.status(400).json({ error: 'name and valid priceCents are required' })
-  }
-  const id = crypto.randomUUID()
-  db.prepare('INSERT INTO pricing_plans (id, name, description, price_cents, billing_interval, features_json) VALUES (?, ?, ?, ?, ?, ?)')
-    .run(id, String(name), description || '', Math.round(numericPrice), billingInterval || 'monthly', JSON.stringify(Array.isArray(features) ? features : []))
-  res.json({ ok: true, id })
-})
-
-app.patch('/api/super/pricing-plans/:id', requireSuperRole('Super Admin', 'Global Finance Controller'), (req, res) => {
-  const existing = db.prepare('SELECT id FROM pricing_plans WHERE id = ?').get(req.params.id) as { id?: string } | undefined
-  if (!existing) return res.status(404).json({ error: 'Pricing plan not found' })
-  const { name, description, priceCents, billingInterval, features } = req.body || {}
-  db.prepare('UPDATE pricing_plans SET name = COALESCE(?, name), description = COALESCE(?, description), price_cents = COALESCE(?, price_cents), billing_interval = COALESCE(?, billing_interval), features_json = COALESCE(?, features_json) WHERE id = ?')
-    .run(name || null, description || null, Number.isFinite(Number(priceCents)) ? Math.round(Number(priceCents)) : null, billingInterval || null, Array.isArray(features) ? JSON.stringify(features) : null, req.params.id)
-  res.json({ ok: true })
-})
-
-app.get('/health', (req, res) => res.json({ok:true, db: dbPath}))
-
-// Feature suggestions
-app.post('/api/super/settings/feature-suggestions', requireSuperRole('Super Admin', 'Platform QA Overseer'), (req, res) => {
-   const { enabled } = req.body;
-   db.prepare('INSERT INTO global_settings (key, value) VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value = ?').run('feature_suggestions_enabled', enabled ? 'true' : 'false', enabled ? 'true' : 'false');
-   res.json({ ok: true, enabled });
+app.post('/api/super/auth/logout', (_req, res) => {
+	res.setHeader('Set-Cookie', clearSuperSessionCookie());
+	res.json({ ok: true });
 });
 
-app.get('/api/super/settings/feature-suggestions', (req, res) => {
-   const row = db.prepare('SELECT value FROM global_settings WHERE key = ?').get('feature_suggestions_enabled') as any;
-   res.json({ ok: true, enabled: row ? row.value === 'true' : false });
+app.use('/api/super/monetization', billingWebhookRouter);
+app.use(csrfProtection);
+app.get('/csrf-token', (req, res) => res.json({ csrfToken: (req as any).csrfToken() }));
+app.use('/api/super', requireSuperRole('Super Admin'));
+app.use('/api/super/championships', championshipSuperRouter);
+app.use('/api/super/monetization', billingSuperRouter);
+app.use('/api/super/monetization', creditsSuperRouter);
+app.use('/api/super/monetization', adComplianceSuperRouter);
+app.use('/api/super/monetization', monetizationSuperRouter);
+
+app.get('/api/super/schools', async (_req, res) => {
+	const state = await loadIdentityState();
+	const metrics = buildMetrics(state);
+	const platformSettings = await readPlatformSettings();
+	const schoolProfiles = await readSchoolProfilesState();
+	return res.json({
+		schools: state.schools.map((school) => {
+			const profile = schoolProfiles.profiles.find((entry) => entry.schoolId === school.id) || null;
+			const pageCount = Array.isArray((profile?.websiteConfig as { pages?: unknown[] } | null | undefined)?.pages)
+				? (((profile?.websiteConfig as { pages?: unknown[] }).pages) || []).length
+				: 0;
+			return {
+				...school,
+				logoUrl: profile?.logoUrl || undefined,
+				primaryColor: profile?.primaryColor || undefined,
+				liveClassQuota: platformSettings.liveMeetings.schoolConcurrentLimit,
+				pageCount,
+				website: profile?.websiteConfig || null,
+				counts: metrics.schools.find((entry) => entry.id === school.id)?.counts || { students: 0, staff: 0, parents: 0, admins: 0, total: 0 },
+			};
+		}),
+	});
+});
+app.post('/api/super/schools', requireSuperRole('Super Admin'), async (req, res) => {
+	const parsed = createSchoolSchema.safeParse(req.body || {});
+	if (!parsed.success) return res.status(400).json({ error: 'Invalid school payload.' });
+	const state = await loadIdentityState();
+	try {
+		const result = await createSchoolWithOwner(state, {
+			schoolName: parsed.data.schoolName,
+			subdomain: parsed.data.subdomain,
+			schoolId: parsed.data.schoolId || undefined,
+			ownerName: parsed.data.ownerName,
+			ownerEmail: parsed.data.ownerEmail || undefined,
+			ownerPhone: parsed.data.ownerPhone || undefined,
+			ownerPassword: parsed.data.ownerPassword || undefined,
+			ownerRoles: parsed.data.ownerRoles,
+		});
+		return res.status(201).json(result);
+	} catch (error) {
+		return res.status(400).json({ error: error instanceof Error ? error.message : 'Unable to create school.' });
+	}
+});
+app.get('/api/super/schools/:schoolId/website', async (req, res) => {
+	const schoolId = String(req.params.schoolId || '').trim();
+	if (!schoolId) return res.status(400).json({ error: 'schoolId is required.' });
+	const profile = await getStoredSchoolProfile(schoolId);
+	return res.json({ schoolId, profile, website: profile?.websiteConfig || null });
+});
+app.put('/api/super/schools/:schoolId/website', async (req, res) => {
+	const schoolId = String(req.params.schoolId || '').trim();
+	if (!schoolId) return res.status(400).json({ error: 'schoolId is required.' });
+	const parsed = saveWebsiteSchema.safeParse(req.body || {});
+	if (!parsed.success) return res.status(400).json({ error: 'Invalid website payload.' });
+	const profile = await upsertStoredSchoolProfile({
+		schoolId,
+		websiteConfig: parsed.data.website_config,
+		primaryColor: parsed.data.primary_color,
+		logoUrl: parsed.data.logo_url,
+		websiteUrl: parsed.data.website_url,
+	});
+	return res.json({ ok: true, schoolId, profile, website: profile.websiteConfig });
+});
+app.get('/api/super/pricing-plans', async (_req, res) => res.json({ plans: await readPricingPlans() }));
+app.put('/api/super/pricing-plans', async (req, res) => {
+	const parsed = z.array(pricingPlanSchema).safeParse(req.body?.plans || req.body || []);
+	if (!parsed.success) return res.status(400).json({ error: 'Invalid pricing plan payload.' });
+	return res.json({ plans: await writePricingPlans(parsed.data) });
+});
+app.get('/api/super/onboarding/requests', async (_req, res) => res.json({ requests: await listPersistedOnboardingRequests() }));
+app.get('/api/super/public-inbox', async (_req, res) => {
+	const [contactState, growthState] = await Promise.all([readPublicContactState(), readGrowthPartnerApplications()]);
+	return res.json({
+		contactInquiries: contactState.messages || [],
+		growthApplications: growthState.applications || [],
+	});
+});
+app.patch('/api/super/public-inbox/:kind/:itemId', async (req, res) => {
+	const kind = String(req.params.kind || '').trim().toLowerCase();
+	const itemId = String(req.params.itemId || '').trim();
+	const parsed = publicInboxStatusSchema.safeParse(req.body?.status);
+	if (!itemId) return res.status(400).json({ error: 'Item id is required.' });
+	if (!parsed.success) return res.status(400).json({ error: 'Valid status is required.' });
+	const reviewedBy = String((req as any).superUser?.email || (req as any).superUser?.id || 'super-admin');
+
+	if (kind === 'contact') {
+		const state = await readPublicContactState();
+		const result = updatePublicInboxItem(state.messages || [], itemId, parsed.data, reviewedBy);
+		if (!result.found) return res.status(404).json({ error: 'Contact inquiry not found.' });
+		const nextState = { ...state, messages: result.items };
+		await writePublicContactState(nextState);
+		return res.json({ ok: true, inquiry: result.items.find((item) => item.id === itemId) });
+	}
+
+	if (kind === 'growth') {
+		const state = await readGrowthPartnerApplications();
+		const result = updatePublicInboxItem(state.applications || [], itemId, parsed.data, reviewedBy);
+		if (!result.found) return res.status(404).json({ error: 'Growth application not found.' });
+		const nextState = { ...state, applications: result.items };
+		await writeGrowthPartnerApplications(nextState);
+		return res.json({ ok: true, application: result.items.find((item) => item.id === itemId) });
+	}
+
+	return res.status(400).json({ error: 'Unsupported inbox type.' });
+});
+app.get('/api/super/ai/features', (_req, res) => res.json({ features: aiFeatures }));
+app.get('/api/super/ai/usage', (_req, res) => res.json({ usage: [] }));
+app.get('/api/super/ai/summary', (_req, res) => res.json({ features: aiFeatures.length, enabledFeatures: aiFeatures.length, usageCount: 0, keyuSpent: aiFeatures.reduce((sum, feature) => sum + feature.totalKeyuSpent, 0) }));
+app.get('/api/super/platform-settings', async (_req, res) => res.json({ settings: await readPlatformSettings() }));
+app.put('/api/super/platform-settings', async (req, res) => {
+	const parsed = platformSettingsSchema.safeParse(req.body?.settings || req.body || {});
+	if (!parsed.success) return res.status(400).json({ error: 'Invalid platform settings payload.' });
+	return res.json({ settings: await writePlatformSettings(parsed.data) });
+});
+app.get('/api/super/metrics', async (_req, res) => {
+	const state = await loadIdentityState();
+	return res.json(buildMetrics(state));
 });
 
-app.post('/api/public/feature-suggestions', (req, res) => {
-   const row = db.prepare('SELECT value FROM global_settings WHERE key = ?').get('feature_suggestions_enabled') as any;
-   if (!row || row.value !== 'true') return res.status(403).json({ error: 'Feature suggestions are currently disabled.' });
-   
-   const { school_id, user_id, user_type, suggestion } = req.body;
-   db.prepare('INSERT INTO feature_suggestions (id, school_id, user_id, user_type, suggestion) VALUES (?, ?, ?, ?, ?)').run(crypto.randomUUID(), school_id, user_id, user_type, suggestion);
-   res.json({ ok: true });
+app.get('/api/super/users/directory', async (req, res) => {
+	const user = (req as any).superUser;
+	if (!user) return res.status(401).json({ error: 'Unauthenticated' });
+	const state = await loadIdentityState();
+	const schoolId = String(req.query.schoolId || user.schoolId || '').trim();
+	const includeInactive = String(req.query.includeInactive || '').trim() === '1';
+	const users = listIdentityUsers(state, schoolId, includeInactive);
+	const students = schoolId ? state.students.filter((item) => item.schoolId === schoolId) : state.students;
+	return res.json({ schoolId, includeInactive, users, students, lifecycleEvents: listIdentityLifecycleEvents(state, { schoolId, limit: 160 }) });
 });
 
-// Scholarship logic
-app.get('/api/super/scholarships/candidates', requireSuperRole('Super Admin', 'Scholarship Programme Director'), (req, res) => {
-  // Mock AI check logic that checks class, question_difficulty, and class average for all tenants
-  const candidates = {
-    primary: [
-      { student_id: 'stu_p1', school_id: 'sch_1', name: 'Aliko Dangote', rank: 1, type: 'primary', average: 98.4 },
-      { student_id: 'stu_p2', school_id: 'sch_1', name: 'Ngozi Okonjo-Iweala', rank: 2, type: 'primary', average: 97.1 },
-      { student_id: 'stu_p3', school_id: 'sch_2', name: 'Wole Soyinka', rank: 3, type: 'primary', average: 96.8 }
-    ],
-    jss: [
-      { student_id: 'stu_j1', school_id: 'sch_3', name: 'Chinua Achebe', rank: 1, type: 'jss', average: 94.2 },
-      { student_id: 'stu_j2', school_id: 'sch_1', name: 'Funmilayo Ransome-Kuti', rank: 2, type: 'jss', average: 93.9 },
-      { student_id: 'stu_j3', school_id: 'sch_2', name: 'Fela Kuti', rank: 3, type: 'jss', average: 91.5 }
-    ],
-    sss: [
-      { student_id: 'stu_s1', school_id: 'sch_1', name: 'John Boyega', rank: 1, type: 'sss', average: 99.1 },
-      { student_id: 'stu_s2', school_id: 'sch_2', name: 'Burna Boy', rank: 2, type: 'sss', average: 96.4 },
-      { student_id: 'stu_s3', school_id: 'sch_3', name: 'King Sunny Ade', rank: 3, type: 'sss', average: 95.2 }
-    ],
-    most_active: [
-      { student_id: 'stu_a1', school_id: 'sch_1', name: 'Davido', score: 1540 },
-      { student_id: 'stu_a2', school_id: 'sch_2', name: 'Wizkid', score: 1420 },
-      { student_id: 'stu_a3', school_id: 'sch_3', name: 'Tiwa Savage', score: 1390 }
-    ]
-  };
-  res.json({ ok: true, candidates });
+app.post('/api/super/users/provision', requireSuperRole('Super Admin'), async (req, res) => {
+	const parsed = provisionSchema.safeParse(req.body || {});
+	if (!parsed.success) return res.status(400).json({ error: 'Invalid user payload.' });
+	const state = await loadIdentityState();
+	try {
+		const result = await provisionUser(state, parsed.data);
+		return res.status(201).json(result);
+	} catch (error) {
+		return res.status(400).json({ error: error instanceof Error ? error.message : 'Provisioning failed.' });
+	}
 });
 
-app.post('/api/super/scholarships/award', requireSuperRole('Super Admin', 'Scholarship Programme Director'), (req, res) => {
-  const { student_id, school_id, category, reward_type, description, picture_url } = req.body;
-  if (!['physical_visit', 'aura', 'cash'].includes(reward_type)) {
-     return res.status(400).json({ error: 'Invalid reward type' });
-  }
-  
-  db.prepare('INSERT INTO scholarship_awards (id, student_id, school_id, category, reward_type, description, published_to_global) VALUES (?, ?, ?, ?, ?, ?, 1)').run(crypto.randomUUID(), student_id, school_id, category, reward_type, description);
-  
-  // also push event globally, with picture
-  const eventId = crypto.randomUUID();
-  const eventBody = `A student from school \${school_id} was awarded \${reward_type} in category \${category}!\n\n` + (picture_url ? `![Award](\${picture_url})` : '');
-  db.prepare('INSERT INTO global_events (id, title, body, created_by) VALUES (?, ?, ?, ?)').run(eventId, 'Ndovera Scholarship Awarded!', eventBody, 'Scholarship Programme Director');
-  
-  res.json({ ok: true, eventId });
+app.patch('/api/super/users/:userId', requireSuperRole('Super Admin'), async (req, res) => {
+	const userId = String(req.params.userId || '').trim();
+	if (!userId) return res.status(400).json({ error: 'userId is required.' });
+	const parsed = updateUserSchema.safeParse(req.body || {});
+	if (!parsed.success) return res.status(400).json({ error: 'Invalid user update payload.' });
+	const state = await loadIdentityState();
+	try {
+		const result = await updateIdentityUser(state, {
+			userId,
+			name: parsed.data.name,
+			email: parsed.data.email === '' ? null : parsed.data.email,
+			phone: parsed.data.phone === '' ? null : parsed.data.phone,
+			password: parsed.data.password || undefined,
+			roles: parsed.data.roles,
+			activeRole: parsed.data.activeRole,
+			category: parsed.data.category,
+			status: parsed.data.status,
+			schoolId: parsed.data.schoolId,
+			auditActorId: (req as any).superUser?.id,
+			auditActorName: (req as any).superUser?.name || (req as any).superUser?.email || (req as any).superUser?.id,
+			auditActorRole: (req as any).superUser?.role || 'Super Admin',
+		});
+		return res.json(result);
+	} catch (error) {
+		return res.status(400).json({ error: error instanceof Error ? error.message : 'User update failed.' });
+	}
 });
 
-const port = process.env.SUPER_ADMIN_PORT ? Number(process.env.SUPER_ADMIN_PORT) : 5001
-app.listen(port, () => {
-  console.log(`Super-admin server running on http://localhost:${port}`)
-})
+app.post('/api/super/students/:studentId/transfer', requireSuperRole('Super Admin'), async (req, res) => {
+	const parsed = transferSchema.safeParse(req.body || {});
+	if (!parsed.success) return res.status(400).json({ error: 'Invalid transfer payload.' });
+	const studentId = String(req.params.studentId || '').trim();
+	try {
+		const state = await loadIdentityState();
+		const result = await transferStudent(state, studentId, parsed.data.targetSchoolId, parsed.data.reason, (req as any).superUser?.id);
+		return res.json(result);
+	} catch (error) {
+		return res.status(400).json({ error: error instanceof Error ? error.message : 'Transfer failed.' });
+	}
+});
+
+app.use((err: any, _req: express.Request, res: express.Response, next: express.NextFunction) => {
+	if (err?.code === 'EBADCSRFTOKEN') {
+		return res.status(403).json({ error: 'Invalid CSRF token' });
+	}
+	return next(err);
+});
+
+const server = app.listen(port, () => console.log(`Ndovera super-admin server running on port ${port}`));
+
+for (const signal of ['SIGINT', 'SIGTERM']) {
+	process.on(signal, () => {
+		console.log(`Received ${signal}, shutting down ndovera-super-admin-server`);
+		Promise.resolve(documentPgPool?.end())
+			.finally(() => {
+				if (documentSqlite) documentSqlite.close();
+				server.close(() => process.exit(0));
+			});
+		setTimeout(() => process.exit(1), 10000).unref();
+	});
+}

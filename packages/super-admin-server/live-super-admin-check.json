@@ -1,0 +1,81 @@
+{
+  "generatedAt": "2026-03-24T11:23:01.411Z",
+  "baseUrl": "http://127.0.0.1:3101",
+  "health": {
+    "ok": true,
+    "service": "ndovera-super-admin-server",
+    "storage": "sqlite"
+  },
+  "loginUser": {
+    "id": "super-admin",
+    "name": "Super Admin",
+    "email": "superadmin.local@ndovera.test",
+    "roles": [
+      "Super Admin"
+    ],
+    "activeRole": "Super Admin"
+  },
+  "createdSchool": {
+    "id": "livecheck20260324112300",
+    "name": "Live Check 20260324112300",
+    "subdomain": "livecheck20260324112300",
+    "ownerId": "NONY-NDO-LC2-744112",
+    "ownerEmail": "owner.20260324112300@ndovera.test"
+  },
+  "initialCounts": {
+    "users": 1,
+    "students": 0
+  },
+  "provisionedStaff": {
+    "id": "NT-LC2-462011",
+    "email": "staff.20260324112300@ndovera.test",
+    "phone": "+250700111001",
+    "roles": [
+      "Teacher"
+    ]
+  },
+  "updatedStaff": {
+    "id": "NT-LC2-462011",
+    "name": "Live Staff Updated",
+    "email": "staff.updated.20260324112300@ndovera.test",
+    "phone": "+250700111099",
+    "roles": [
+      "Teacher",
+      "Department Lead"
+    ],
+    "activeRole": "Department Lead"
+  },
+  "createdSchoolAfterUpdate": {
+    "users": 3,
+    "students": 1
+  },
+  "deactivation": {
+    "deactivatedUserId": "NT-LC2-462011",
+    "deactivatedStatus": "inactive",
+    "hiddenFromDefaultDirectory": true,
+    "visibleWhenIncludingInactive": true,
+    "reactivatedStatus": "active",
+    "visibleAfterReactivate": true
+  },
+  "provisionedStudent": {
+    "id": "NS-LC2-234631",
+    "email": "student.20260324112300@ndovera.test",
+    "phone": "+250700111002"
+  },
+  "transfer": {
+    "fromUserId": "NS-LC2-234631",
+    "toUserId": "NS-NA-230923",
+    "fromSchoolId": "livecheck20260324112300",
+    "toSchoolId": "school-1",
+    "studentStatus": "active"
+  },
+  "createdSchoolAfterTransfer": {
+    "users": 2,
+    "students": 0
+  },
+  "targetSchoolAfterTransfer": {
+    "users": 6,
+    "students": 4,
+    "transferredStudentFound": true
+  }
+}

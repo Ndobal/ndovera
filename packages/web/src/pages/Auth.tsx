@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { LockKeyhole, Mail, ShieldCheck, Sprout } from 'lucide-react';
+import { ArrowLeft, LockKeyhole, Mail, ShieldCheck, Sprout } from 'lucide-react';
+import { fetchWithAuth } from '../services/apiClient';
 import { saveUser, StoredUser } from '../services/authLocal';
 
-export const AuthView = ({ onLogin }: { onLogin: (user: StoredUser) => void }) => {
-  const [email, setEmail] = useState('admin@school.com');
-  const [password, setPassword] = useState('NdoveraAdmin!2026');
+export const AuthView = ({ onLogin, onBack, onRegisterSchool }: { onLogin: (user: StoredUser) => void; onBack: () => void; onRegisterSchool: () => void }) => {
+  const [identifier, setIdentifier] = useState('');
+  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -13,14 +14,13 @@ export const AuthView = ({ onLogin }: { onLogin: (user: StoredUser) => void }) =
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch('/api/auth/login', {
+      const payload = await fetchWithAuth('/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-      });
-      const payload = await response.json().catch(() => ({}));
-      if (!response.ok) throw new Error(payload?.error || 'Unable to sign in.');
+        body: JSON.stringify({ identifier, password }),
+      }) as { user?: StoredUser; error?: string };
       const user = payload?.user as StoredUser;
+      if (!user) throw new Error(payload?.error || 'Unable to sign in.');
       saveUser(user);
       onLogin(user);
     } catch (err) {
@@ -33,6 +33,14 @@ export const AuthView = ({ onLogin }: { onLogin: (user: StoredUser) => void }) =
   return (
     <div className="min-h-screen bg-[#0A0B0D] flex items-center justify-center p-6">
       <div className="w-full max-w-md rounded-3xl border border-white/10 bg-[#151619] p-8 shadow-2xl shadow-black/40">
+        <div className="mb-6 flex items-center justify-between gap-3">
+          <button type="button" onClick={onBack} className="inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-3 py-2 text-xs font-bold uppercase tracking-[0.18em] text-zinc-300 transition hover:bg-white/10 hover:text-white">
+            <ArrowLeft size={14} /> Back
+          </button>
+          <button type="button" onClick={onRegisterSchool} className="rounded-2xl bg-emerald-600 px-3 py-2 text-xs font-bold uppercase tracking-[0.18em] text-white transition hover:bg-emerald-500">
+            Register your school
+          </button>
+        </div>
         <div className="text-center space-y-4">
           <div className="mx-auto inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-emerald-600 shadow-xl shadow-emerald-900/20">
             <Sprout className="text-white" size={32} />
@@ -46,14 +54,14 @@ export const AuthView = ({ onLogin }: { onLogin: (user: StoredUser) => void }) =
         <form onSubmit={handleSubmit} className="mt-8 space-y-4">
           <label className="block">
             <span className="mb-2 flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-zinc-500">
-              <Mail size={14} /> Ndovera email
+              <Mail size={14} /> Ndovera ID or email
             </span>
             <input
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-              type="email"
+              value={identifier}
+              onChange={(event) => setIdentifier(event.target.value)}
+              type="text"
               className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none transition focus:border-emerald-500"
-              placeholder="owner@ndovera.app"
+              placeholder="Student ID, staff ID, parent ID, or email"
             />
           </label>
 
@@ -66,7 +74,7 @@ export const AuthView = ({ onLogin }: { onLogin: (user: StoredUser) => void }) =
               onChange={(event) => setPassword(event.target.value)}
               type="password"
               className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none transition focus:border-emerald-500"
-              placeholder="Your secure password"
+              placeholder="Administrator password"
             />
           </label>
 
@@ -81,7 +89,7 @@ export const AuthView = ({ onLogin }: { onLogin: (user: StoredUser) => void }) =
           <div className="flex items-center gap-2 font-bold uppercase tracking-[0.18em] text-emerald-400">
             <ShieldCheck size={14} /> Default workspace access
           </div>
-          <p className="mt-2">Use the seeded admin identity while onboarding the production flow.</p>
+          <p className="mt-2">Use your school-issued ID or email with your password.</p>
         </div>
       </div>
     </div>

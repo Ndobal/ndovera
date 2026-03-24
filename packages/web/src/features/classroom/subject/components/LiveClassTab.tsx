@@ -14,6 +14,7 @@ import { VideoGrid } from './Meeting/VideoGrid';
 import { MeetingControls, IconButton } from './Meeting/Controls';
 import { Sidebar } from './Meeting/Sidebar';
 import { Subject, Role } from '../types';
+import { uploadLiveClassRecording } from '../../services/classroomApi';
 
 interface Props {
   subject: Subject;
@@ -28,6 +29,7 @@ export function LiveClassTab({ subject, role, onUpdate, isDarkMode }: Props) {
   const [isSharing, setIsSharing] = useState(false);
   const [isHandRaised, setIsHandRaised] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
+  const [isUploadingRecording, setIsUploadingRecording] = useState(false);
   const [theme, setTheme] = useState<'dark' | 'light'>(isDarkMode ? 'dark' : 'light');
   const [activeSidebar, setActiveSidebar] = useState<'chat' | 'participants' | 'ai' | 'summary' | 'settings' | 'notes' | 'polls' | 'whiteboard' | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
@@ -247,6 +249,11 @@ export function LiveClassTab({ subject, role, onUpdate, isDarkMode }: Props) {
   const toggleTheme = () => setTheme(prev => prev === 'dark' ? 'light' : 'dark');
 
   const handleToggleRecording = () => {
+    if (isUploadingRecording) {
+      setToast('Please wait for the current recording to finish uploading to YouTube.');
+      return;
+    }
+
     if (!isRecording) {
       if (!localStream) {
         setToast("No media stream available to record");
@@ -267,18 +274,27 @@ export function LiveClassTab({ subject, role, onUpdate, isDarkMode }: Props) {
           }
         };
         
-        recorder.onstop = () => {
+        recorder.onstop = async () => {
           const blob = new Blob(recordedChunksRef.current, { type: 'video/webm' });
-          const url = URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          document.body.appendChild(a);
-          a.style.display = 'none';
-          a.href = url;
-          a.download = `auralis-recording-${new Date().toISOString().slice(0,10)}.webm`;
-          a.click();
-          window.URL.revokeObjectURL(url);
-          document.body.removeChild(a);
-          setToast("Recording saved");
+          const file = new File([blob], `${subject.name.replace(/\s+/g, '-').toLowerCase()}-live-recording-${new Date().toISOString().slice(0, 10)}.webm`, { type: blob.type || 'video/webm' });
+          setIsUploadingRecording(true);
+          setToast('Uploading recording to YouTube…');
+          try {
+            const uploaded = await uploadLiveClassRecording(file, {
+              classId: (subject as { classId?: string }).classId,
+              title: `${subject.name} live class recording ${new Date().toISOString().slice(0, 10)}`,
+              description: `Uploaded from the ${subject.name} live classroom experience in Ndovera.`,
+            });
+            const copied = typeof navigator !== 'undefined' && navigator.clipboard
+              ? await navigator.clipboard.writeText(uploaded.url).then(() => true).catch(() => false)
+              : false;
+            setToast(copied ? 'Recording uploaded to YouTube. Link copied.' : 'Recording uploaded to YouTube.');
+          } catch (error) {
+            setToast(error instanceof Error ? error.message : 'Unable to upload recording to YouTube.');
+          } finally {
+            recordedChunksRef.current = [];
+            setIsUploadingRecording(false);
+          }
         };
         
         recorder.start();
@@ -439,7 +455,7 @@ export function LiveClassTab({ subject, role, onUpdate, isDarkMode }: Props) {
         const aiMsg: Message = {
           id: (Date.now() + 1).toString(),
           senderId: 'ai',
-          senderName: 'Auralis AI',
+          senderName: 'Ndovera AI',
           text: aiResponse || "I'm sorry, I couldn't process that.",
           timestamp: Date.now(),
           isAI: true

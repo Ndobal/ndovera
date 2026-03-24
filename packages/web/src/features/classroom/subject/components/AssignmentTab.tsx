@@ -4,6 +4,7 @@ import { ClipboardList, Plus, Trash2, Clock, ArrowLeft, Send, CheckCircle2, User
 import { motion, AnimatePresence } from 'motion/react';
 import { AssessmentBuilder } from './AssessmentBuilder';
 import { AssessmentViewer } from './AssessmentViewer';
+import { fetchWithAuth } from '../../../../services/apiClient';
 
 interface Props {
   subject: Subject;
@@ -47,15 +48,11 @@ export function AssignmentTab({ subject, role, onUpdate, isDarkMode }: Props) {
         questions
       };
 
-      const response = await fetch('/api/classroom/assignments', {
+      await fetchWithAuth('/api/classroom/assignments', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       });
-
-      if (!response.ok) {
-        throw new Error('Failed to save assignment');
-      }
 
       // Trigger refresh in parent
       onUpdate(subject);

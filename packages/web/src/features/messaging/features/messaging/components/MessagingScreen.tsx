@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { UserRole, User, Message, Conversation } from '../../../shared/types/index';
 import { Search, Send, Paperclip, ChevronLeft, Plus, CheckCircle2 } from 'lucide-react';
+import { fetchWithAuth, resolveApiUrl } from '../../../../../services/apiClient';
 
 import NewConversationModal from './NewConversationModal';
 
@@ -81,13 +82,13 @@ export default function MessagingScreen({ onBack }) {
     // Fetch initial data
     async function fetchData() {
       try {
-        const usersRes = await fetch('/api/users');
+        const usersRes = await fetch(resolveApiUrl('/api/users'));
         if (!usersRes.ok) throw new Error('Failed to fetch users');
         const usersData = await usersRes.json();
         const usersMap = usersData.reduce((acc, user) => ({ ...acc, [user.id]: user }), {});
         setUsers(usersMap);
 
-        const convRes = await fetch('/api/conversations');
+        const convRes = await fetch(resolveApiUrl('/api/conversations'));
         if (!convRes.ok) throw new Error('Failed to fetch conversations');
         const convData = await convRes.json();
         setConversations(convData);
@@ -143,7 +144,7 @@ export default function MessagingScreen({ onBack }) {
             })
             .then(subscription => {
               // Send the subscription to the server
-              fetch('/api/subscribe', {
+              fetchWithAuth('/api/subscribe', {
                 method: 'POST',
                 body: JSON.stringify({ subscription, userId: currentUser.id }),
                 headers: {
@@ -163,7 +164,7 @@ export default function MessagingScreen({ onBack }) {
   useEffect(() => {
     if (activeConversation) {
       async function fetchMessages() {
-        const res = await fetch(`/api/messages/${activeConversation.conversation_id}`);
+        const res = await fetch(resolveApiUrl(`/api/messages/${activeConversation.conversation_id}`));
         const data = await res.json();
         setMessages(data);
 
@@ -225,12 +226,10 @@ export default function MessagingScreen({ onBack }) {
     const formData = new FormData();
     formData.append('file', file);
 
-    const res = await fetch('/api/upload', {
+    const data = await fetchWithAuth('/api/upload', {
       method: 'POST',
       body: formData,
     });
-
-    const data = await res.json();
 
     // Create a new message with the attachment
     const message = {
@@ -253,12 +252,11 @@ export default function MessagingScreen({ onBack }) {
 
   const handleSelectUser = async (users, groupName) => {
     const userIds = users.map(u => u.id);
-    const res = await fetch('/api/conversations', {
+    const data = await fetchWithAuth('/api/conversations', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ userIds, name: groupName }),
     });
-    const data = await res.json();
 
     if (data.isNew) {
       // In a real app, you'd probably want to refetch conversations here
@@ -287,7 +285,7 @@ export default function MessagingScreen({ onBack }) {
   const handleSearch = async (query) => {
     setSearchQuery(query);
     if (query.length > 2) {
-      const res = await fetch(`/api/search/messages?query=${query}&userId=${currentUser.id}`);
+      const res = await fetch(resolveApiUrl(`/api/search/messages?query=${query}&userId=${currentUser.id}`));
       const data = await res.json();
       setSearchResults(data);
     } else {

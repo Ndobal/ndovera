@@ -7,6 +7,7 @@ import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import 'katex/dist/katex.min.css';
 import { MathEditorModal } from './MathEditorModal';
+import { fetchWithAuth } from '../../../../services/apiClient';
 
 interface Props {
   questions: Question[];
@@ -55,17 +56,10 @@ export function AssessmentBuilder({ questions, onChange, isDarkMode }: Props) {
       formData.append('image', file);
 
       try {
-        const response = await fetch('/api/uploads/media', {
+        const data = await fetchWithAuth('/api/uploads/media', {
           method: 'POST',
           body: formData,
         });
-
-        if (!response.ok) {
-          const text = await response.text();
-          throw new Error(`Upload failed: ${response.status} ${text}`);
-        }
-
-        const data = await response.json();
         updateQuestion(qId, { imageUrl: data.url });
       } catch (error) {
         console.error('Error uploading image:', error);

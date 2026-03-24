@@ -35,12 +35,15 @@ export type ClassroomMaterialAsset = {
   id: string;
   name: string;
   url?: string;
+  embedUrl?: string;
+  externalProvider?: 'youtube';
   storageKey?: string;
   mimeType: string;
   size: number;
   extension?: string;
   assetType: Exclude<ClassroomMaterialAssetType, 'ndovera-document'>;
   viewerType: Exclude<ClassroomMaterialViewerType, 'mixed' | 'ndovera-document'>;
+  youtubeVideoId?: string;
 };
 
 export type ClassroomCreatedDocumentBlock = {
@@ -54,6 +57,32 @@ export type ClassroomCreatedDocument = {
   title?: string;
   subtitle?: string;
   blocks: ClassroomCreatedDocumentBlock[];
+};
+
+export type LessonNoteApprovalStatus = 'Draft' | 'Submitted' | 'Head of Section signed' | 'HOS signed' | 'Approved';
+
+export type LessonNoteSignature = {
+  signedBy: string;
+  signedAt: string;
+  roleLabel: string;
+};
+
+export type LessonNoteSignatureTarget = 'headOfSection' | 'hos';
+
+export type LessonNoteSignatureResult = {
+  note: ClassroomNote;
+  appliedSignature: LessonNoteSignatureTarget;
+  signerRoleLabel: LessonNoteSignature['roleLabel'];
+};
+
+export type LessonNoteApproval = {
+  status: LessonNoteApprovalStatus;
+  submittedAt?: string;
+  submittedBy?: string;
+  className?: string;
+  classSection?: string;
+  headOfSection?: LessonNoteSignature | null;
+  hos?: LessonNoteSignature | null;
 };
 
 export type ClassroomChunkUploadPayload = {
@@ -149,6 +178,8 @@ export type ClassroomNote = {
   title: string;
   subject: string;
   topic: string;
+  className?: string;
+  classSection?: string;
   week: number;
   format: string;
   visibility: string;
@@ -164,10 +195,9 @@ export type ClassroomNote = {
   viewerType?: ClassroomMaterialViewerType;
   mimeType?: string | null;
   fileName?: string | null;
-  fileSize?: number | null;
-  storageKey?: string | null;
   materials?: ClassroomMaterialAsset[];
   ndoveraDocument?: ClassroomCreatedDocument | null;
+  approval?: LessonNoteApproval;
 };
 
 export type ClassroomSubject = {
@@ -197,8 +227,22 @@ export type SchoolClass = {
   name: string;
   level?: string;
   section?: string;
+  hierarchyTag?: string;
+  hierarchyIndex?: number;
+  nextHierarchyTag?: string;
+  aliasNames?: string[];
+  isDefault?: boolean;
+  isOptional?: boolean;
+  graduatesToAlumniWhenFinal?: boolean;
   teacherId?: string;
   teacherName?: string;
+  teacher_name?: string;
+  youtube_playlist_id?: string;
+  youtube_playlist_url?: string;
+  youtube_playlist_synced_at?: string;
+  youtubePlaylistId?: string;
+  youtubePlaylistUrl?: string;
+  youtubePlaylistSyncedAt?: string;
 };
 
 // Fetch the full class stream so new users can still see older posts.
@@ -212,12 +256,15 @@ export type PracticeQuestion = {
   options: string[];
   answer: string;
   explanation?: string;
+  hint?: string;
+  answerSource?: 'provided' | 'assisted';
 };
 
 export type PracticeSet = {
   id: string;
   source: string;
   scope: string;
+  visibility?: 'global' | 'school';
   subject: string;
   title: string;
   level?: string;
@@ -225,6 +272,10 @@ export type PracticeSet = {
   reward?: string;
   questions: number;
   note: string;
+  examFamily?: string;
+  classBand?: string;
+  tags?: string[];
+  updatedAt?: string;
   questionItems: PracticeQuestion[];
 };
 
@@ -239,8 +290,32 @@ export type ResultTerm = {
     teacherRemark: string;
     principalRemark: string;
     promotion: string;
+    teacherSignature?: string;
+    sectionalRemark?: string;
+    sectionalSignature?: string;
+    principalSignature?: string;
   };
   subjects: Array<{ subject: string; ca: number; exam: number; total: number; grade: string; remark: string }>;
+  trend?: string[];
+  pageTwo?: {
+    variant: 'none' | 'nursery-progress' | 'grade-cognitive';
+    affectiveTraits: string[];
+    physical?: {
+      height?: number | null;
+      weight?: number | null;
+    };
+    nurseryProgressSections?: Array<{
+      id: string;
+      title: string;
+      items: Array<{ no: string; text: string; status: 'not_yet' | 'progressing' | 'yes' }>;
+    }>;
+    gradeCognitiveSections?: Array<{
+      id: string;
+      title: string;
+      items?: Array<{ label: string; rating: number }>;
+      content?: Array<{ sub: string; items: Array<{ label: string; rating: number }> }>;
+    }>;
+  };
 };
 
 export type ResultSession = {
@@ -249,6 +324,62 @@ export type ResultSession = {
   outstanding: string;
   terms: ResultTerm[];
 };
+
+export type StudentResultRecord = {
+  id: string;
+  studentId: string;
+  studentName: string;
+  className: string;
+  classSection?: string;
+  sessions: ResultSession[];
+  updatedAt: string;
+};
+
+export type ResultDocumentRecord = {
+  id: string;
+  schoolId: string;
+  studentId: string;
+  studentName: string;
+  sourceName: string;
+  session?: string;
+  term?: string;
+  mimeType: string;
+  url: string;
+  uploadedBy: string;
+  uploadedByName: string;
+  createdAt: string;
+  matchedBy: 'student-id' | 'email' | 'ndovera-id' | 'filename' | 'name';
+};
+
+export type HistoryMappedUser = {
+  ref: string;
+  matchedUserId?: string;
+  matchedStudentId?: string;
+  matchedBy?: 'student-id' | 'user-id' | 'email' | 'alias' | 'name';
+  targetCategory?: 'student' | 'staff' | 'parent' | 'admin' | 'alumni' | 'unknown';
+  status: 'mapped' | 'unmatched';
+  rowNumber?: number;
+  payload?: Record<string, string>;
+};
+
+export type HistoryAssetRecord = {
+  id: string;
+  schoolId: string;
+  uploadedBy: string;
+  uploadedByName: string;
+  fileName: string;
+  mimeType: string;
+  fileSize: number;
+  url: string;
+  sourceType: 'csv' | 'xlsx' | 'pdf' | 'doc' | 'docx';
+  historyKind: 'old-results' | 'alumni' | 'admission-register' | 'legacy-directory' | 'staff-history' | 'parent-history' | 'general-history';
+  status: 'processed' | 'manual-review';
+  mappedUsers: HistoryMappedUser[];
+  createdAt: string;
+};
+
+export type MigrationMappedUser = HistoryMappedUser;
+export type MigrationAssetRecord = HistoryAssetRecord;
 
 export type LiveClassSession = {
   id: string;
@@ -262,6 +393,46 @@ export type LiveClassSession = {
   tools: string[];
   note: string;
   meetingUrl?: string;
+};
+
+export type LiveClassRecordingUploadResponse = {
+  ok: boolean;
+  url: string;
+  embedUrl?: string;
+  externalProvider?: 'youtube';
+  youtubeVideoId?: string;
+};
+
+export type SchoolYoutubeStatus = {
+  connected: boolean;
+  configured: boolean;
+  school?: {
+    id: string;
+    name: string;
+    refreshToken?: string | null;
+    channelId?: string | null;
+    connectedAt?: string | null;
+    connectedBy?: string | null;
+  } | null;
+};
+
+export type YoutubeVideoRecord = {
+  id: string;
+  school_id: string;
+  class_id?: string | null;
+  source_type: string;
+  source_record_id?: string | null;
+  title: string;
+  description?: string | null;
+  youtube_video_id: string;
+  youtube_url: string;
+  youtube_embed_url: string;
+  playlist_id?: string | null;
+  playlist_item_id?: string | null;
+  asset_type?: string | null;
+  created_by?: string | null;
+  created_at?: string;
+  deleted_at?: string | null;
 };
 
 export async function createClassroomPost(body: { body: string; attachments?: ClassroomFeedAttachment[] }) {
@@ -288,7 +459,7 @@ export async function uploadClassroomAsset(formData: FormData) {
   return fetchWithAuth('/api/uploads/classroom-asset', {
     method: 'POST',
     body: formData,
-  }) as Promise<{ ok: boolean; url: string; storageKey: string; name: string; mimeType: string; size: number; assetType: Exclude<ClassroomMaterialAssetType, 'ndovera-document'>; viewerType: Exclude<ClassroomMaterialViewerType, 'mixed' | 'ndovera-document'> }>;
+  }) as Promise<{ ok: boolean; url: string; storageKey?: string; embedUrl?: string; externalProvider?: 'youtube'; youtubeVideoId?: string; name: string; mimeType: string; size: number; assetType: Exclude<ClassroomMaterialAssetType, 'ndovera-document'>; viewerType: Exclude<ClassroomMaterialViewerType, 'mixed' | 'ndovera-document'> }>;
 }
 
 export async function uploadClassroomAssetChunk(payload: ClassroomChunkUploadPayload) {
@@ -310,7 +481,54 @@ export async function finalizeClassroomChunkUpload(payload: ClassroomChunkComple
     method: 'POST',
     headers: { 'content-type': 'application/json' },
     body: JSON.stringify(payload),
-  }) as Promise<{ ok: boolean; url: string; storageKey: string; name: string; mimeType: string; size: number }>;
+  }) as Promise<{ ok: boolean; url: string; storageKey?: string; embedUrl?: string; externalProvider?: 'youtube'; youtubeVideoId?: string; name: string; mimeType: string; size: number }>;
+}
+
+export async function uploadLiveClassRecording(recording: File, metadata?: { title?: string; description?: string; classId?: string }) {
+  const formData = new FormData();
+  formData.append('recording', recording, recording.name);
+  if (metadata?.title) formData.append('title', metadata.title);
+  if (metadata?.description) formData.append('description', metadata.description);
+  if (metadata?.classId) formData.append('class_id', metadata.classId);
+  return fetchWithAuth('/api/uploads/live-class-recording', {
+    method: 'POST',
+    body: formData,
+  }) as Promise<LiveClassRecordingUploadResponse>;
+}
+
+export async function getSchoolYoutubeStatus() {
+  return fetchWithAuth('/api/youtube/status') as Promise<SchoolYoutubeStatus>;
+}
+
+export async function getSchoolYoutubeAuthUrl(redirect?: string) {
+  const query = redirect ? `?redirect=${encodeURIComponent(redirect)}` : '';
+  return fetchWithAuth(`/api/youtube/oauth-url${query}`) as Promise<{ url: string }>;
+}
+
+export async function disconnectSchoolYoutube() {
+  return fetchWithAuth('/api/youtube/disconnect', {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+  }) as Promise<{ ok: boolean }>;
+}
+
+export async function listSchoolYoutubeVideos(classId?: string) {
+  const query = classId ? `?classId=${encodeURIComponent(classId)}` : '';
+  return fetchWithAuth(`/api/youtube/videos${query}`) as Promise<{ videos: YoutubeVideoRecord[] }>;
+}
+
+export async function deleteSchoolYoutubeVideo(videoRecordId: string) {
+  return fetchWithAuth(`/api/youtube/videos/${encodeURIComponent(videoRecordId)}`, {
+    method: 'DELETE',
+    headers: { 'content-type': 'application/json' },
+  }) as Promise<{ ok: boolean }>;
+}
+
+export async function ensureClassYoutubePlaylist(classId: string) {
+  return fetchWithAuth(`/api/classes/${encodeURIComponent(classId)}/youtube-playlist`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+  }) as Promise<{ ok: boolean; playlistId: string; playlistUrl: string }>;
 }
 
 export async function addClassroomComment(postId: string, body: { text: string; parentCommentId?: string }) {
@@ -389,6 +607,20 @@ export async function createSchoolClass(body: { name: string; level?: string; se
   });
 }
 
+export async function updateSchoolClass(classId: string, body: { name?: string; level?: string; section?: string; teacher_id?: string }) {
+  return fetchWithAuth(`/api/classes/${encodeURIComponent(classId)}`, {
+    method: 'PATCH',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify(body),
+  });
+}
+
+export async function deleteSchoolClass(classId: string) {
+  return fetchWithAuth(`/api/classes/${encodeURIComponent(classId)}`, {
+    method: 'DELETE',
+  });
+}
+
 export async function getClassroomSubjects() {
   return fetchWithAuth('/api/classroom/subjects') as Promise<ClassroomSubject[]>;
 }
@@ -401,11 +633,25 @@ export async function createClassroomSubject(body: { name: string; code?: string
   });
 }
 
+export async function updateClassroomSubject(subjectId: string, body: { name?: string; code?: string; section?: string; classId?: string; className?: string; accent?: string; summary?: string; room?: string; curriculum?: ClassroomSubject['curriculum'] }) {
+  return fetchWithAuth(`/api/classroom/subjects/${encodeURIComponent(subjectId)}`, {
+    method: 'PATCH',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify(body),
+  });
+}
+
+export async function deleteClassroomSubject(subjectId: string) {
+  return fetchWithAuth(`/api/classroom/subjects/${encodeURIComponent(subjectId)}`, {
+    method: 'DELETE',
+  });
+}
+
 export async function getPracticeSets() {
   return fetchWithAuth('/api/classroom/practice') as Promise<PracticeSet[]>;
 }
 
-export async function createSchoolQuestionBank(body: { subject: string; title: string; level?: string; mode?: string; note?: string; questions: PracticeQuestion[] }) {
+export async function createSchoolQuestionBank(body: { subject: string; title: string; level?: string; mode?: string; note?: string; scope?: 'practice' | 'exam' | 'cbt' | 'mid-term'; visibility?: 'global' | 'school'; examFamily?: string; classBand?: string; tags?: string[]; questions: PracticeQuestion[] }) {
   return fetchWithAuth('/api/classroom/question-bank', {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
@@ -422,26 +668,73 @@ export async function explainQuestion(questionId: string, stem: string, options:
     });
     return result?.explanation || "The system generated an explanation.";
   } catch (err) {
-    // Simulated AI response for frontend presentation without real backend support
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    return `The correct answer is "${answer}" because it logically completes the premise: "${stem}".`;
+    throw err instanceof Error ? err : new Error('AI explanation failed');
   }
 }
 
 export async function getClassroomResults() {
-  return fetchWithAuth('/api/classroom/results') as Promise<{ sessions: ResultSession[] }>;
+  return fetchWithAuth('/api/classroom/results') as Promise<{ sessions: ResultSession[]; studentResults?: StudentResultRecord[] }>;
+}
+
+export async function getResultDocuments(studentId?: string) {
+  const query = studentId ? `?studentId=${encodeURIComponent(studentId)}` : '';
+  return fetchWithAuth(`/api/classroom/results/documents${query}`) as Promise<{ documents: ResultDocumentRecord[] }>;
+}
+
+export async function getOldResultAssets(studentId?: string) {
+  const query = studentId ? `?studentId=${encodeURIComponent(studentId)}` : '';
+  return fetchWithAuth(`/api/classroom/results/old-documents${query}`) as Promise<{ assets: HistoryAssetRecord[] }>;
+}
+
+export async function uploadResultDocument(payload: { file: File; studentRef?: string; session?: string; term?: string; schoolId?: string }) {
+  const formData = new FormData();
+  formData.append('file', payload.file, payload.file.name);
+  if (payload.studentRef) formData.append('studentRef', payload.studentRef);
+  if (payload.session) formData.append('session', payload.session);
+  if (payload.term) formData.append('term', payload.term);
+  if (payload.schoolId) formData.append('school_id', payload.schoolId);
+  return fetchWithAuth('/api/uploads/result-document', {
+    method: 'POST',
+    body: formData,
+  }) as Promise<{ ok: boolean; document: ResultDocumentRecord }>;
+}
+
+export async function getHistoryAssets() {
+  return fetchWithAuth('/api/classroom/history') as Promise<{ assets: HistoryAssetRecord[] }>;
+}
+
+export async function uploadHistoryAsset(payload: { file: File; schoolId?: string; historyKind?: HistoryAssetRecord['historyKind'] }) {
+  const formData = new FormData();
+  formData.append('file', payload.file, payload.file.name);
+  if (payload.schoolId) formData.append('school_id', payload.schoolId);
+  if (payload.historyKind) formData.append('historyKind', payload.historyKind);
+  return fetchWithAuth('/api/uploads/history-asset', {
+    method: 'POST',
+    body: formData,
+  }) as Promise<{ ok: boolean; asset: HistoryAssetRecord; mappedCount: number; unmatchedCount: number }>;
+}
+
+export async function getMigrationAssets() {
+  return getHistoryAssets();
+}
+
+export async function uploadMigrationAsset(payload: { file: File; schoolId?: string; historyKind?: HistoryAssetRecord['historyKind'] }) {
+  return uploadHistoryAsset(payload);
 }
 
 export async function createClassroomNote(body: {
   title: string;
   subject: string;
   topic: string;
+  className?: string;
+  classSection?: string;
   week: number;
   summary: string;
   visibility: string;
   format?: string;
   duration?: string;
   access?: string;
+  submittedBy?: string;
   viewerType?: ClassroomMaterialViewerType;
   materials?: ClassroomMaterialAsset[];
   ndoveraDocument?: ClassroomCreatedDocument | null;
@@ -450,7 +743,14 @@ export async function createClassroomNote(body: {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
     body: JSON.stringify(body),
-  });
+  }) as Promise<ClassroomNote>;
+}
+
+export async function applyLessonNoteSignature(noteId: string) {
+  return fetchWithAuth(`/api/classroom/notes/${encodeURIComponent(noteId)}/signature`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+  }) as Promise<LessonNoteSignatureResult>;
 }
 
 export async function getLiveClasses() {

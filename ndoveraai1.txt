@@ -1,0 +1,265 @@
+🧠 NDOVERA UNIFIED ARCHITECTURE
+
+You will have:
+
+1 Frontend App (App Shell)
+
+1 Backend API
+
+Modular domain system (your list)
+
+Shared layer for reuse
+
+📁 ROOT STRUCTURE
+ndovera/
+  apps/
+  services/
+  packages/
+  infrastructure/
+  docs/
+  ndovera.txt
+🎨 FRONTEND (APP SHELL)
+
+👉 One app, all modules plugged into it
+
+apps/web/
+  src/
+    app/                    # routing (Next.js or React Router)
+    layout/
+    components/
+      ui/
+      layout/
+      shared/
+    
+    modules/                # ALL FEATURES LIVE HERE
+📦 FRONTEND MODULES
+modules/
+
+  # 🎓 CORE SCHOOL SYSTEM
+  attendance/
+  exams/
+  grading/
+  timetable/
+  library/
+  hostel/
+  transport/
+
+  # 🏢 ADMIN & BUSINESS
+  hr/
+  payroll/
+  finance-billing/
+  reports/
+  analytics/
+
+  # 💬 INTERACTION
+  messaging/
+  forums/
+  notifications/
+
+  # 📚 LEARNING SYSTEM
+  assignments/
+  courses/
+  live-classes/
+  youtube-integration/
+
+  # 🤖 AI SYSTEM
+  ai-tutor/
+  ai-teacher-assistant/
+  ai-school-health/
+
+  # 🧑‍💻 PLATFORM CORE
+  auth/
+  users/
+  roles-rbac/
+  schools-tenancy/
+  dashboard/
+  settings/
+  onboarding/
+  audit-logs/
+
+  # 🌐 PLATFORM EXTENSIONS
+  ads/
+  rewards-auras/
+  website-builder/
+  integrations/
+  files-storage/
+🧩 FRONTEND MODULE STRUCTURE (STANDARD)
+
+Every module MUST follow this:
+
+attendance/
+  components/
+  pages/
+  hooks/
+  services/      # API calls
+  store/         # state (zustand/redux)
+  types/
+  utils/
+🔁 SHARED FRONTEND PACKAGES
+packages/
+  shared-ui/
+  shared-hooks/
+  shared-services/
+  shared-types/
+⚙️ BACKEND (SINGLE API)
+services/api/
+  src/
+    modules/
+    common/
+    config/
+    database/
+    app.ts
+📦 BACKEND MODULES (MATCH FRONTEND)
+
+👉 EXACT SAME DOMAIN NAMES
+
+modules/
+
+  attendance/
+  exams/
+  grading/
+  timetable/
+  library/
+  hostel/
+  transport/
+
+  hr/
+  payroll/
+  finance-billing/
+  reports/
+  analytics/
+
+  messaging/
+  forums/
+  notifications/
+
+  assignments/
+  courses/
+  live-classes/
+  youtube-integration/
+
+  ai-tutor/
+  ai-teacher-assistant/
+  ai-school-health/
+
+  auth/
+  users/
+  roles-rbac/
+  schools-tenancy/
+  dashboard/
+  settings/
+  onboarding/
+  audit-logs/
+
+  ads/
+  rewards-auras/
+  website-builder/
+  integrations/
+  files-storage/
+🧱 BACKEND MODULE STRUCTURE (STRICT)
+attendance/
+  attendance.controller.ts
+  attendance.service.ts
+  attendance.routes.ts
+  attendance.model.ts
+  attendance.repository.ts
+  attendance.validator.ts
+  attendance.types.ts
+🧠 BACKEND COMMON LAYER
+common/
+  middleware/
+  guards/
+  interceptors/
+  errors/
+  utils/
+🗄️ DATABASE LAYER
+database/
+  schemas/
+  migrations/
+  seeders/
+🔗 MODULE COMMUNICATION RULES
+
+VERY IMPORTANT:
+
+Modules talk via:
+
+services (backend)
+
+API (frontend)
+
+❌ No direct cross-imports between unrelated modules
+
+✅ Shared logic goes into packages/
+
+🧾 ndovera.txt (AUTO DOCUMENT STRUCTURE)
+
+This file should contain:
+
+1. FULL FILE TREE
+2. MODULE DESCRIPTIONS
+3. FRONTEND ↔ BACKEND MAPPING
+4. DATA FLOW
+5. AUTH FLOW
+6. MULTI-TENANCY DESIGN
+🔥 HOW THIS SCALES
+
+This architecture supports:
+
+✅ 1 school → 100,000 schools
+✅ Multi-tenant SaaS
+✅ AI integration
+✅ Video (YouTube-based)
+✅ Monetization (ads + rewards)
+
+⚡ KEY POWER MOVES
+1. Mirror Modules
+
+Frontend = Backend names match
+👉 Makes debugging EASY
+
+2. Domain Ownership
+
+Each module:
+
+owns its UI
+
+owns its API
+
+owns its logic
+
+3. Shared Layer Discipline
+
+Only reusable code goes into:
+
+shared-ui
+
+shared-hooks
+
+shared-services
+
+🚀 WHAT YOU SHOULD DO NEXT
+
+You’re at the architect level now, so next steps:
+
+OPTION 1 (Recommended)
+
+👉 Say:
+“Generate starter code for all modules”
+
+I’ll give you:
+
+working backend
+
+working frontend
+
+auth + tenancy wired
+
+OPTION 2
+
+👉 Say:
+“Refactor my current server.tsx into this structure”
+
+OPTION 3
+
+👉 Say:
+“Generate ndovera.txt full documentation”

@@ -121,7 +121,7 @@ export const Sidebar = ({
             <h2 className="text-sm font-bold uppercase tracking-widest text-white/60 light:text-slate-500">
               {activeSidebar === 'chat' && 'Group Chat'}
               {activeSidebar === 'participants' && 'Participants'}
-              {activeSidebar === 'ai' && 'Auralis AI Tutor'}
+              {activeSidebar === 'ai' && 'Ndovera AI Tutor'}
               {activeSidebar === 'summary' && 'Meeting Summary'}
               {activeSidebar === 'settings' && 'Settings'}
               {activeSidebar === 'notes' && 'Shared Notes'}
@@ -172,7 +172,7 @@ export const Sidebar = ({
                       <div className="w-1 h-1 bg-brand-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
                       <div className="w-1 h-1 bg-brand-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
                     </div>
-                    <span className="text-micro text-brand-500 opacity-100">Auralis is thinking</span>
+                    <span className="text-micro text-brand-500 opacity-100">Ndovera AI is thinking</span>
                   </div>
                 )}
               </div>
@@ -537,7 +537,7 @@ export const Sidebar = ({
                   type="text"
                   value={inputText}
                   onChange={(e) => setInputText(e.target.value)}
-                  placeholder={activeSidebar === 'ai' ? "Ask Auralis AI..." : "Type a message..."}
+                  placeholder={activeSidebar === 'ai' ? "Ask Ndovera AI..." : "Type a message..."}
                   className="w-full bg-white/5 light:bg-slate-100 border border-white/10 light:border-slate-200 rounded-2xl py-4 pl-6 pr-14 text-sm focus:outline-none focus:border-brand-500/50 transition-all"
                 />
                 <button 

@@ -16,3 +16,4 @@ temp_*.js
 crash.log
 .env*
 !.env.example
+!.env.docker.example

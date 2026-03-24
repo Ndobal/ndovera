@@ -4,19 +4,35 @@ const path = require('path');
 
 const ROOT = path.resolve(__dirname, '..');
 const OUT = path.join(ROOT, 'placeholder_report.json');
-const EXCLUDE = ['node_modules', '.git', 'packages/archives'];
+const EXCLUDE_NAMES = new Set(['node_modules', '.git']);
+const EXCLUDE_PATHS = [
+  'packages/archives',
+  'packages/web/src/legacy_archive',
+];
 const RE = /TODO|FIXME|PLACEHOLDER|placeholder|href=\"#\"/g;
+
+function normalizeRelative(target) {
+  return path.relative(ROOT, target).replace(/\\/g, '/');
+}
+
+function shouldExclude(fullPath, entryName) {
+  if (EXCLUDE_NAMES.has(entryName)) return true;
+
+  const rel = normalizeRelative(fullPath);
+  return EXCLUDE_PATHS.some((excludedPath) => rel === excludedPath || rel.startsWith(`${excludedPath}/`));
+}
 
 async function scanDir(dir) {
   let results = [];
   const entries = await fs.readdir(dir, { withFileTypes: true });
   for (const ent of entries) {
-    if (EXCLUDE.includes(ent.name)) continue;
     const full = path.join(dir, ent.name);
+    if (shouldExclude(full, ent.name)) continue;
     if (ent.isDirectory()) {
       results = results.concat(await scanDir(full));
       continue;
     }
+    if (full === OUT) continue;
     const ext = path.extname(ent.name).toLowerCase();
     if (!['.ts', '.tsx', '.js', '.jsx', '.json', '.md', '.txt', '.html', '.css'].includes(ext)) continue;
     try {

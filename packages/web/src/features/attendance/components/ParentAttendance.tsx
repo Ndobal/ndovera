@@ -83,20 +83,20 @@ export default function ParentAttendance() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-900 dark:text-white">Parent Attendance</h2>
-          <p className="text-slate-600 dark:text-slate-500 dark:text-slate-400">Manage and track parent meeting attendance</p>
+          <h2 className="text-xl font-semibold text-slate-900 dark:text-white">Parent Attendance</h2>
+          <p className="text-slate-600 dark:text-slate-400">Manage and track parent meeting attendance</p>
         </div>
         <div className="flex items-center gap-4">
           <div className="flex bg-white dark:bg-slate-800/50 rounded-lg p-1 border border-slate-200 dark:border-slate-700/50">
             <button
               onClick={() => setMode('scanner')}
-              className={`flex items-center gap-2 px-4 py-2 rounded-md transition-colors text-sm font-medium ${mode === 'scanner' ? 'bg-indigo-500 text-slate-900 dark:text-slate-900 dark:text-white' : 'text-slate-600 dark:text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-900 dark:text-white'}`}
+              className={`flex items-center gap-2 px-4 py-2 rounded-md transition-colors text-sm font-medium ${mode === 'scanner' ? 'bg-indigo-500 text-slate-900 dark:text-white' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'}`}
             >
               <QrCode size={16} /> QR / Scanner
             </button>
             <button
               onClick={() => setMode('manual')}
-              className={`flex items-center gap-2 px-4 py-2 rounded-md transition-colors text-sm font-medium ${mode === 'manual' ? 'bg-indigo-500 text-slate-900 dark:text-slate-900 dark:text-white' : 'text-slate-600 dark:text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-slate-900 dark:text-white'}`}
+              className={`flex items-center gap-2 px-4 py-2 rounded-md transition-colors text-sm font-medium ${mode === 'manual' ? 'bg-indigo-500 text-slate-900 dark:text-white' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'}`}
             >
               <ClipboardList size={16} /> ICT Manual Marking
             </button>
@@ -105,15 +105,15 @@ export default function ParentAttendance() {
             type="date"
             value={date}
             onChange={(e) => setDate(e.target.value)}
-            className="px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-900 dark:text-slate-900 dark:text-white"
+            className="px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-900 dark:text-white"
           />
         </div>
       </div>
 
       <div className="grid grid-cols-5 gap-4">
         <div className="p-4 rounded-xl bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50">
-          <p className="text-slate-600 dark:text-slate-500 dark:text-slate-400 text-sm">Total Parents</p>
-          <p className="text-2xl font-semibold text-slate-900 dark:text-slate-900 dark:text-white mt-1">{stats.Total}</p>
+          <p className="text-slate-600 dark:text-slate-400 text-sm">Total Parents</p>
+          <p className="text-2xl font-semibold text-slate-900 dark:text-white mt-1">{stats.Total}</p>
         </div>
         <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20">
           <p className="text-emerald-400 text-sm">Present</p>
@@ -142,30 +142,30 @@ export default function ParentAttendance() {
       ) : (
       <div className="bg-white dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-700/50 overflow-hidden">
         <div className="p-4 border-b border-slate-200 dark:border-slate-700/50 flex items-center justify-between">
-          <h3 className="font-semibold text-slate-900 dark:text-slate-900 dark:text-white flex items-center gap-2">
+          <h3 className="font-semibold text-slate-900 dark:text-white flex items-center gap-2">
             <ClipboardList className="text-black" size={18} /> Complete Parent List
           </h3>
           <div className="relative w-64">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-600 dark:text-slate-500 dark:text-slate-400 h-4 w-4" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-600 dark:text-slate-400 h-4 w-4" />
             <input
               type="text"
               placeholder="Search parents..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-lg pl-10 pr-4 py-2 text-sm text-slate-900 dark:text-slate-900 dark:text-white focus:outline-none focus:border-indigo-500"
+              className="w-full bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-lg pl-10 pr-4 py-2 text-sm text-slate-900 dark:text-white focus:outline-none focus:border-indigo-500"
             />
           </div>
         </div>
         {loading ? (
-            <div className="p-8 text-center text-slate-600 dark:text-slate-500 dark:text-slate-400">Loading...</div>
+            <div className="p-8 text-center text-slate-600 dark:text-slate-400">Loading...</div>
         ) : (
         <table className="w-full text-left">
           <thead>
             <tr className="border-b border-slate-200 dark:border-slate-700/50">
-              <th className="px-6 py-4 text-sm font-medium text-slate-600 dark:text-slate-500 dark:text-slate-400">Parent Name</th>
-              <th className="px-6 py-4 text-sm font-medium text-slate-600 dark:text-slate-500 dark:text-slate-400">Role</th>
-              <th className="px-6 py-4 text-sm font-medium text-slate-600 dark:text-slate-500 dark:text-slate-400">Status</th>
-              <th className="px-6 py-4 text-sm font-medium text-slate-600 dark:text-slate-500 dark:text-slate-400 text-right">Actions</th>
+              <th className="px-6 py-4 text-sm font-medium text-slate-600 dark:text-slate-400">Parent Name</th>
+              <th className="px-6 py-4 text-sm font-medium text-slate-600 dark:text-slate-400">Role</th>
+              <th className="px-6 py-4 text-sm font-medium text-slate-600 dark:text-slate-400">Status</th>
+              <th className="px-6 py-4 text-sm font-medium text-slate-600 dark:text-slate-400 text-right">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -174,7 +174,7 @@ export default function ParentAttendance() {
               return (
               <tr key={s.id} className="border-b border-slate-200 dark:border-slate-700/50 last:border-0 hover:bg-slate-800/80">
                 <td className="px-6 py-4">
-                  <div className="font-medium text-slate-900 dark:text-slate-900 dark:text-white">{getParentName(s)}</div>
+                  <div className="font-medium text-slate-900 dark:text-white">{getParentName(s)}</div>
                 </td>
                 <td className="px-6 py-4">
                   <span className="text-xs px-2 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">{s.role}</span>
@@ -209,7 +209,7 @@ export default function ParentAttendance() {
               </tr>
             )})}
             {filteredParents.length === 0 && (
-              <tr><td colSpan={4} className="px-6 py-8 text-center text-slate-600 dark:text-slate-500 dark:text-slate-400">No parents found.</td></tr>
+              <tr><td colSpan={4} className="px-6 py-8 text-center text-slate-600 dark:text-slate-400">No parents found.</td></tr>
             )}
           </tbody>
         </table>
