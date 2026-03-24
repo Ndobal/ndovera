@@ -21,13 +21,11 @@ const NDOVERA_SUPPORT_EMAIL = 'support@ndovera.com';
 const NDOVERA_PUBLIC_URL = 'https://www.ndovera.com';
 const NDOVERA_LOGO_PATH = '/ndovera.png';
 const PUBLIC_SCHOOL_ID = 'school-1';
-const ABOUT_MENU_PAGE_IDS = ['about-us', 'vision-values', 'mission', 'contact-us'] as const;
+const ABOUT_MENU_PAGE_IDS = ['about-us', 'vision-values', 'mission'] as const;
+const PRIMARY_PUBLIC_NAV_IDS = ['home', 'pricing', 'vacancies', 'growth-partners', 'contact-us'] as const;
 const RETAINED_PUBLIC_PAGE_IDS = new Set<string>([
-  ...CORE_PUBLIC_PAGE_ORDER.slice(0, 10),
-  'growth-partners',
-  'mission',
-  'contact-us',
-  'pricing',
+  ...PRIMARY_PUBLIC_NAV_IDS,
+  ...ABOUT_MENU_PAGE_IDS,
   ...LEGAL_PUBLIC_PAGE_ORDER,
 ]);
 const FAQ_WELCOME_MESSAGES: ChatMessage[] = [
@@ -211,11 +209,12 @@ export const LandingPage = ({ onLogin, initialPublicPageId }: { onLogin: () => v
   const fallbackPublicPageId = visiblePublicPages[0]?.id || publicPages[0]?.id || 'home';
   const navPages = useMemo(() => {
     const pagesById = new Map(visiblePublicPages.map((page) => [page.id, page]));
-    return [...CORE_PUBLIC_PAGE_ORDER.slice(0, 10), 'growth-partners']
-      .filter((pageId) => !ABOUT_MENU_PAGE_IDS.includes(pageId as (typeof ABOUT_MENU_PAGE_IDS)[number]))
+    return PRIMARY_PUBLIC_NAV_IDS
       .map((pageId) => pagesById.get(pageId))
       .filter((page): page is PublicPage => Boolean(page));
   }, [visiblePublicPages]);
+  const homeNavPage = navPages.find((page) => page.id === 'home') || null;
+  const secondaryNavPages = navPages.filter((page) => page.id !== 'home');
   const infoMenuPages = useMemo(() => {
     const pagesById = new Map(visiblePublicPages.map((page) => [page.id, page]));
     return ABOUT_MENU_PAGE_IDS.map((pageId) => pagesById.get(pageId)).filter((page): page is PublicPage => Boolean(page));
@@ -617,8 +616,8 @@ export const LandingPage = ({ onLogin, initialPublicPageId }: { onLogin: () => v
 
   const renderPageIdentity = (label: string) => (
     <div className="mb-8 flex items-center gap-4 rounded-3xl border border-white/10 bg-black/20 p-4">
-      <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white shadow-lg shadow-black/20">
-        <img src={NDOVERA_LOGO_PATH} alt="Ndovera" className="h-12 w-12 object-contain" />
+      <div className="logo-white flex h-16 w-16 items-center justify-center rounded-2xl shadow-lg shadow-black/20">
+        <img src={NDOVERA_LOGO_PATH} alt="Ndovera" className="logo-rotate h-12 w-12 object-contain" />
       </div>
       <div>
         <p className="text-[11px] font-bold uppercase tracking-[0.22em]" style={{ color: brandText }}>{label}</p>
@@ -660,11 +659,11 @@ export const LandingPage = ({ onLogin, initialPublicPageId }: { onLogin: () => v
       {showGrowthSignup ? <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-6"><div className="w-full max-w-xl rounded-4xl border border-white/10 bg-[#151619] p-8">{growthSuccess ? <div className="py-10 text-center text-white"><div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-500"><ShieldCheck /></div><h3 className="text-2xl font-bold">Application Received</h3></div> : <form onSubmit={submitGrowth} className="space-y-4"><div className="flex items-center justify-between"><h3 className="text-2xl font-bold text-white">Join the Growth Team</h3><button type="button" onClick={() => setShowGrowthSignup(false)}><X /></button></div><div className="grid gap-3 md:grid-cols-2"><input required value={growthForm.name} onChange={(e) => setGrowthForm((c) => ({ ...c, name: e.target.value }))} placeholder="Full name" className="rounded-xl border border-white/10 bg-white/5 p-4 text-white" /><input required value={growthForm.email} onChange={(e) => setGrowthForm((c) => ({ ...c, email: e.target.value }))} placeholder="Email" className="rounded-xl border border-white/10 bg-white/5 p-4 text-white" /><input required value={growthForm.phone} onChange={(e) => setGrowthForm((c) => ({ ...c, phone: e.target.value }))} placeholder="Phone" className="rounded-xl border border-white/10 bg-white/5 p-4 text-white" /><input value={growthForm.city} onChange={(e) => setGrowthForm((c) => ({ ...c, city: e.target.value }))} placeholder="City" className="rounded-xl border border-white/10 bg-white/5 p-4 text-white" /><textarea value={growthForm.notes} onChange={(e) => setGrowthForm((c) => ({ ...c, notes: e.target.value }))} placeholder="Why join?" className="h-28 rounded-xl border border-white/10 bg-white/5 p-4 text-white md:col-span-2" /></div><div className="flex gap-3"><button type="submit" disabled={growthSubmitting} className="rounded-2xl px-5 py-3 font-bold text-white" style={{ background: brandColor }}>Submit</button><button type="button" onClick={() => setShowGrowthSignup(false)} className="rounded-2xl bg-white/5 px-5 py-3 font-bold text-white">Cancel</button></div></form>}</div></div> : null}
 
       <nav className="sticky top-0 z-40 flex h-24 items-center justify-between px-6 lg:px-20" style={{ background: '#40a829' }}>
-        <div className="flex items-center gap-4"><div className="flex h-16 w-16 items-center justify-center overflow-hidden rounded-xl bg-white"><img src={NDOVERA_LOGO_PATH} alt="Ndovera" className="h-12 w-12 object-contain" /></div><span className="text-3xl font-extrabold text-white">Ndovera School</span></div>
-        <div className="hidden flex-1 justify-center px-8 md:flex"><div className="flex max-w-6xl flex-wrap items-center justify-center gap-2 text-sm font-semibold text-black"><div className="relative"><button onClick={() => setInfoMenuOpen((current) => !current)} className="shrink-0 rounded-full border px-4 py-2.5 transition-all duration-300 hover:opacity-95" style={infoMenuActive || infoMenuOpen ? { background: 'rgba(255,255,255,0.22)', color: '#ffffff', borderColor: 'rgba(255,255,255,0.28)', boxShadow: '0 0 24px rgba(255,255,255,0.18)' } : { background: 'rgba(6,38,14,0.08)', color: '#06260e', borderColor: 'rgba(6,38,14,0.08)' }}>About Ndovera <ChevronDown className="ml-2 inline-block" size={16} /></button>{infoMenuOpen ? <div className="absolute left-1/2 top-full z-30 mt-3 w-64 -translate-x-1/2 rounded-3xl border border-white/10 bg-[#111315] p-3 shadow-2xl">{infoMenuPages.map((page) => <button key={page.id} onClick={() => openPublicPage(page.id)} className="flex w-full items-center justify-between rounded-2xl px-4 py-3 text-left text-sm font-semibold text-zinc-200 transition hover:bg-white/5"><span>{page.title}</span><ChevronRight size={16} className="text-zinc-500" /></button>)}</div> : null}</div>{navPages.map((p) => <button key={p.id} onClick={() => openPublicPage(p.id)} className="shrink-0 rounded-full border px-4 py-2.5 transition-all duration-300 hover:opacity-95" style={selectedPublicPageId === p.id ? { background: 'rgba(255,255,255,0.22)', color: '#ffffff', borderColor: 'rgba(255,255,255,0.28)', boxShadow: '0 0 24px rgba(255,255,255,0.18)' } : { background: 'rgba(6,38,14,0.08)', color: '#06260e', borderColor: 'rgba(6,38,14,0.08)' }}>{p.title}</button>)}</div></div>
+        <div className="flex items-center gap-4"><div className="logo-white flex h-16 w-16 items-center justify-center overflow-hidden rounded-xl"><img src={NDOVERA_LOGO_PATH} alt="Ndovera" className="logo-rotate h-12 w-12 object-contain" /></div><span className="text-3xl font-extrabold text-white">Ndovera School</span></div>
+        <div className="hidden flex-1 justify-center px-8 md:flex"><div className="flex max-w-6xl flex-wrap items-center justify-center gap-2 text-sm font-semibold text-black">{homeNavPage ? <button key={homeNavPage.id} onClick={() => openPublicPage(homeNavPage.id)} className="shrink-0 rounded-full border px-4 py-2.5 transition-all duration-300 hover:opacity-95" style={selectedPublicPageId === homeNavPage.id ? { background: 'rgba(255,255,255,0.22)', color: '#ffffff', borderColor: 'rgba(255,255,255,0.28)', boxShadow: '0 0 24px rgba(255,255,255,0.18)' } : { background: 'rgba(6,38,14,0.08)', color: '#06260e', borderColor: 'rgba(6,38,14,0.08)' }}>{homeNavPage.title}</button> : null}<div className="relative"><button onClick={() => setInfoMenuOpen((current) => !current)} className="shrink-0 rounded-full border px-4 py-2.5 transition-all duration-300 hover:opacity-95" style={infoMenuActive || infoMenuOpen ? { background: 'rgba(255,255,255,0.22)', color: '#ffffff', borderColor: 'rgba(255,255,255,0.28)', boxShadow: '0 0 24px rgba(255,255,255,0.18)' } : { background: 'rgba(6,38,14,0.08)', color: '#06260e', borderColor: 'rgba(6,38,14,0.08)' }}>About Us <ChevronDown className="ml-2 inline-block" size={16} /></button>{infoMenuOpen ? <div className="absolute left-1/2 top-full z-30 mt-3 w-64 -translate-x-1/2 rounded-3xl border border-white/10 bg-[#111315] p-3 shadow-2xl">{infoMenuPages.map((page) => <button key={page.id} onClick={() => openPublicPage(page.id)} className="flex w-full items-center justify-between rounded-2xl px-4 py-3 text-left text-sm font-semibold text-zinc-200 transition hover:bg-white/5"><span>{page.title}</span><ChevronRight size={16} className="text-zinc-500" /></button>)}</div> : null}</div>{secondaryNavPages.map((p) => <button key={p.id} onClick={() => openPublicPage(p.id)} className="shrink-0 rounded-full border px-4 py-2.5 transition-all duration-300 hover:opacity-95" style={selectedPublicPageId === p.id ? { background: 'rgba(255,255,255,0.22)', color: '#ffffff', borderColor: 'rgba(255,255,255,0.28)', boxShadow: '0 0 24px rgba(255,255,255,0.18)' } : { background: 'rgba(6,38,14,0.08)', color: '#06260e', borderColor: 'rgba(6,38,14,0.08)' }}>{p.title}</button>)}</div></div>
         <div className="flex items-center gap-4"><button onClick={onLogin} className="text-sm font-bold text-black">Sign In</button><button onClick={() => setShowRegister(true)} className="rounded-xl bg-[#066a3e] px-5 py-2.5 font-bold text-white">Register School</button></div>
       </nav>
-      <div className="border-b border-white/5 bg-[#0A0B0D] md:hidden"><div className="flex gap-3 overflow-x-auto px-4 py-3 text-sm font-medium text-zinc-300"><button onClick={() => setInfoMenuOpen((current) => !current)} className="shrink-0 rounded-full px-4 py-2" style={infoMenuActive || infoMenuOpen ? { color: '#ffffff', textDecoration: 'underline', textUnderlineOffset: '0.45rem', background: 'rgba(64,168,41,0.18)', boxShadow: '0 0 18px rgba(64,168,41,0.3)' } : { color: '#a1a1aa' }}>About Ndovera <ChevronDown className="ml-2 inline-block" size={16} /></button>{navPages.map((p) => <button key={`mobile_${p.id}`} onClick={() => openPublicPage(p.id)} className="shrink-0 rounded-full px-4 py-2" style={selectedPublicPageId === p.id ? { color: '#ffffff', textDecoration: 'underline', textUnderlineOffset: '0.45rem', background: 'rgba(64,168,41,0.18)', boxShadow: '0 0 18px rgba(64,168,41,0.3)' } : { color: '#a1a1aa' }}>{p.title}</button>)}</div>{infoMenuOpen ? <div className="grid gap-2 px-4 pb-4 pt-1">{infoMenuPages.map((page) => <button key={`mobile_info_${page.id}`} onClick={() => openPublicPage(page.id)} className="flex items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-left text-sm font-semibold text-zinc-200"><span>{page.title}</span><ChevronRight size={16} className="text-zinc-500" /></button>)}</div> : null}</div>
+      <div className="border-b border-white/5 bg-[#0A0B0D] md:hidden"><div className="flex gap-3 overflow-x-auto px-4 py-3 text-sm font-medium text-zinc-300">{homeNavPage ? <button key={`mobile_${homeNavPage.id}`} onClick={() => openPublicPage(homeNavPage.id)} className="shrink-0 rounded-full px-4 py-2" style={selectedPublicPageId === homeNavPage.id ? { color: '#ffffff', textDecoration: 'underline', textUnderlineOffset: '0.45rem', background: 'rgba(64,168,41,0.18)', boxShadow: '0 0 18px rgba(64,168,41,0.3)' } : { color: '#a1a1aa' }}>{homeNavPage.title}</button> : null}<button onClick={() => setInfoMenuOpen((current) => !current)} className="shrink-0 rounded-full px-4 py-2" style={infoMenuActive || infoMenuOpen ? { color: '#ffffff', textDecoration: 'underline', textUnderlineOffset: '0.45rem', background: 'rgba(64,168,41,0.18)', boxShadow: '0 0 18px rgba(64,168,41,0.3)' } : { color: '#a1a1aa' }}>About Us <ChevronDown className="ml-2 inline-block" size={16} /></button>{secondaryNavPages.map((p) => <button key={`mobile_${p.id}`} onClick={() => openPublicPage(p.id)} className="shrink-0 rounded-full px-4 py-2" style={selectedPublicPageId === p.id ? { color: '#ffffff', textDecoration: 'underline', textUnderlineOffset: '0.45rem', background: 'rgba(64,168,41,0.18)', boxShadow: '0 0 18px rgba(64,168,41,0.3)' } : { color: '#a1a1aa' }}>{p.title}</button>)}</div>{infoMenuOpen ? <div className="grid gap-2 px-4 pb-4 pt-1">{infoMenuPages.map((page) => <button key={`mobile_info_${page.id}`} onClick={() => openPublicPage(page.id)} className="flex items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-left text-sm font-semibold text-zinc-200"><span>{page.title}</span><ChevronRight size={16} className="text-zinc-500" /></button>)}</div> : null}</div>
 
       {pageIsHome ? (
         <LandingHomeSections
@@ -686,10 +685,47 @@ export const LandingPage = ({ onLogin, initialPublicPageId }: { onLogin: () => v
         <section className="px-6 py-16 lg:px-20">
           <div className="mx-auto max-w-7xl rounded-[2.5rem] border border-white/5 bg-[#111315] p-8 lg:p-12">
             {renderPageIdentity('Pricing Page')}
-            <div className="max-w-4xl space-y-4">
-              <div className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-bold uppercase tracking-[0.25em]" style={{ borderColor: brandBorder, background: brandSoft, color: brandText }}><Zap size={14} /> Pricing</div>
-              <h1 className="text-4xl font-black text-white lg:text-5xl">Transparent school pricing with launch discounts</h1>
-              <p className="text-lg leading-8 text-zinc-400">Every published discount shows the original amount, the current amount, and the percentage saved. Additional discount codes can be applied during payment if they are active.</p>
+            <div className="grid gap-8 xl:grid-cols-[1.05fr_0.95fr]">
+              <div className="space-y-5">
+                <div className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-bold uppercase tracking-[0.25em]" style={{ borderColor: brandBorder, background: brandSoft, color: brandText }}><Zap size={14} /> Pricing</div>
+                <h1 className="text-4xl font-black text-white lg:text-6xl">Clear school pricing that scales with your learners</h1>
+                <p className="text-lg leading-8 text-zinc-400">Choose the learner range that fits your school now. Every card shows the current launch price, the original price where a discount exists, and the amount saved. Valid discount codes can still be applied during the payment step.</p>
+                <div className="grid gap-4 md:grid-cols-3">
+                  <div className="rounded-3xl border border-white/10 bg-white/5 p-5">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-zinc-500">What you see</p>
+                    <p className="mt-3 text-sm leading-7 text-zinc-300">Setup cost, per-learner term cost, and any launch discount already worked into the displayed amount.</p>
+                  </div>
+                  <div className="rounded-3xl border border-white/10 bg-white/5 p-5">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-zinc-500">What happens next</p>
+                    <p className="mt-3 text-sm leading-7 text-zinc-300">Pick a tier, register your school, receive a wait token, and then submit your payment reference for review.</p>
+                  </div>
+                  <div className="rounded-3xl border border-white/10 bg-white/5 p-5">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-zinc-500">Need more space later?</p>
+                    <p className="mt-3 text-sm leading-7 text-zinc-300">If your learner count grows above your current tier, the platform can price the difference instead of forcing a restart.</p>
+                  </div>
+                </div>
+              </div>
+              <div className="rounded-4xl border p-6" style={{ borderColor: brandBorder, background: `linear-gradient(160deg, ${brandSoft}, rgba(17,19,21,0.94))` }}>
+                <p className="text-[11px] font-bold uppercase tracking-[0.24em]" style={{ color: brandText }}>How pricing works</p>
+                <div className="mt-5 space-y-4 text-sm text-zinc-200">
+                  <div className="rounded-2xl bg-black/20 px-4 py-4">
+                    <div className="text-[10px] font-bold uppercase tracking-[0.22em] text-zinc-500">1. Choose a learner range</div>
+                    <div className="mt-2 leading-7">Select the range that best fits the number of learners you expect in the first term.</div>
+                  </div>
+                  <div className="rounded-2xl bg-black/20 px-4 py-4">
+                    <div className="text-[10px] font-bold uppercase tracking-[0.22em] text-zinc-500">2. Review launch savings</div>
+                    <div className="mt-2 leading-7">Where a launch discount exists, the card shows the current price, the former price, and the saving percentage.</div>
+                  </div>
+                  <div className="rounded-2xl bg-black/20 px-4 py-4">
+                    <div className="text-[10px] font-bold uppercase tracking-[0.22em] text-zinc-500">3. Apply valid codes at payment</div>
+                    <div className="mt-2 leading-7">Temporary discount codes are checked separately during checkout, so they can stack with the published launch pricing if allowed.</div>
+                  </div>
+                </div>
+                <div className="mt-6 flex flex-wrap gap-3">
+                  <button onClick={() => setShowRegister(true)} className="rounded-2xl px-5 py-3 text-sm font-bold text-white" style={{ background: brandColor }}>Register your school</button>
+                  <button onClick={() => openPublicPage('contact-us')} className="rounded-2xl border border-white/10 bg-white/5 px-5 py-3 text-sm font-bold text-white">Ask about pricing</button>
+                </div>
+              </div>
             </div>
             <div className="mt-10 grid gap-6 xl:grid-cols-3">
               {pricingTiers.map((tier) => {
@@ -698,11 +734,17 @@ export const LandingPage = ({ onLogin, initialPublicPageId }: { onLogin: () => v
                 const tierSetupCurrent = Number(tier.pricing?.oneTimeSetupNaira ?? tierSetupOriginal);
                 const tierStudentCurrent = Number(tier.pricing?.perStudentPerTermNaira ?? tierStudentOriginal);
                 const tierDiscount = Number(tier.pricing?.discountPercent || 0);
-                return <div key={tier.key} className="rounded-4xl border border-white/10 bg-[#0d0f10] p-7"><div className="flex items-start justify-between gap-3"><div><p className="text-[11px] font-bold uppercase tracking-[0.22em]" style={{ color: brandText }}>{tier.label}</p><h2 className="mt-3 text-2xl font-black text-white">{formatPricingRange(tier)}</h2></div>{tierDiscount > 0 ? <div className="rounded-full bg-emerald-500/15 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.22em] text-emerald-200">-{tierDiscount}%</div> : null}</div><div className="mt-8 space-y-4"><div className="rounded-2xl border border-white/5 bg-white/5 p-4"><div className="text-[10px] font-bold uppercase tracking-[0.18em] text-zinc-500">Setup fee</div><div className="mt-2 flex items-end gap-3"><span className="text-2xl font-bold text-white">{formatNaira(tierSetupCurrent)}</span>{tierDiscount > 0 ? <span className="text-sm text-zinc-500 line-through">{formatNaira(tierSetupOriginal)}</span> : null}</div></div><div className="rounded-2xl border border-white/5 bg-white/5 p-4"><div className="text-[10px] font-bold uppercase tracking-[0.18em] text-zinc-500">Per learner / term</div><div className="mt-2 flex items-end gap-3"><span className="text-2xl font-bold text-white">{formatNaira(tierStudentCurrent)}</span>{tierDiscount > 0 ? <span className="text-sm text-zinc-500 line-through">{formatNaira(tierStudentOriginal)}</span> : null}</div></div></div><button onClick={() => { setSelectedPricingTierKey(tier.key); setShowRegister(true); setRegisterStep('details'); }} className="mt-8 w-full rounded-2xl bg-[#066a3e] px-5 py-3 text-sm font-bold text-white">Choose {tier.label}</button></div>;
+                return <div key={tier.key} className="rounded-4xl border border-white/10 bg-[#0d0f10] p-7 shadow-[0_24px_60px_rgba(0,0,0,0.22)]"><div className="flex items-start justify-between gap-3"><div><p className="text-[11px] font-bold uppercase tracking-[0.22em]" style={{ color: brandText }}>{tier.label}</p><h2 className="mt-3 text-2xl font-black text-white">{formatPricingRange(tier)}</h2><p className="mt-2 text-sm leading-7 text-zinc-400">Ideal for schools in this current learner band with room for an organised first-term launch.</p></div>{tierDiscount > 0 ? <div className="rounded-full bg-emerald-500/15 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.22em] text-emerald-200">Save {tierDiscount}%</div> : null}</div><div className="mt-8 space-y-4"><div className="rounded-2xl border border-white/5 bg-white/5 p-4"><div className="text-[10px] font-bold uppercase tracking-[0.18em] text-zinc-500">Setup fee</div><div className="mt-2 flex items-end gap-3"><span className="text-2xl font-bold text-white">{formatNaira(tierSetupCurrent)}</span>{tierDiscount > 0 ? <span className="text-sm text-zinc-500 line-through">{formatNaira(tierSetupOriginal)}</span> : null}</div></div><div className="rounded-2xl border border-white/5 bg-white/5 p-4"><div className="text-[10px] font-bold uppercase tracking-[0.18em] text-zinc-500">Per learner / term</div><div className="mt-2 flex items-end gap-3"><span className="text-2xl font-bold text-white">{formatNaira(tierStudentCurrent)}</span>{tierDiscount > 0 ? <span className="text-sm text-zinc-500 line-through">{formatNaira(tierStudentOriginal)}</span> : null}</div></div><div className="rounded-2xl border border-white/5 bg-black/20 p-4 text-sm text-zinc-300"><div className="text-[10px] font-bold uppercase tracking-[0.18em] text-zinc-500">Includes</div><ul className="mt-3 space-y-2 leading-7"><li>Clean onboarding flow for the school owner</li><li>Published launch pricing with visible savings</li><li>Optional discount code support during payment</li></ul></div></div><button onClick={() => { setSelectedPricingTierKey(tier.key); setShowRegister(true); setRegisterStep('details'); }} className="mt-8 w-full rounded-2xl bg-[#066a3e] px-5 py-3 text-sm font-bold text-white">Choose {tier.label}</button></div>;
               })}
             </div>
-            <div className="mt-8 rounded-3xl border border-white/10 bg-white/5 p-6 text-sm leading-7 text-zinc-300">
-              Payment-page discount codes are validated separately from displayed pricing discounts. That means a tier can have a published launch reduction, and eligible schools can still use a valid temporary code during checkout.
+            <div className="mt-8 grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+              <div className="rounded-3xl border border-white/10 bg-white/5 p-6 text-sm leading-7 text-zinc-300">
+                Payment-page discount codes are validated separately from displayed pricing discounts. That means a tier can have a published launch reduction, and eligible schools can still use a valid temporary code during checkout.
+              </div>
+              <div className="rounded-3xl border border-white/10 bg-black/20 p-6 text-sm text-zinc-300">
+                <div className="text-[10px] font-bold uppercase tracking-[0.22em] text-zinc-500">Need a guided estimate?</div>
+                <p className="mt-3 leading-7">Open school registration from any pricing card and Ndovera will calculate the live estimate from your learner count, selected tier, and any approved discount code.</p>
+              </div>
             </div>
           </div>
         </section>
@@ -745,7 +787,7 @@ export const LandingPage = ({ onLogin, initialPublicPageId }: { onLogin: () => v
             <div className="space-y-10">
               {renderPageIdentity('About Us')}
               <div className="max-w-4xl space-y-4">
-                <div className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-bold uppercase tracking-[0.25em]" style={{ borderColor: brandBorder, background: brandSoft, color: brandText }}><Globe size={14} /> About Ndovera</div>
+                <div className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-bold uppercase tracking-[0.25em]" style={{ borderColor: brandBorder, background: brandSoft, color: brandText }}><Globe size={14} /> About Us</div>
                 <h1 className="text-4xl font-black text-white lg:text-5xl">Built with care for students, teachers, and schools</h1>
                 <div className="whitespace-pre-line text-lg leading-8 text-zinc-400">{ABOUT_US_CONTENT}</div>
                 <div className="flex flex-wrap gap-3 pt-2">

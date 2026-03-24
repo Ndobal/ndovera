@@ -4,29 +4,18 @@ export const CORE_PUBLIC_PAGE_ORDER = [
   'home',
   'about-us',
   'vision-values',
-  'admissions',
-  'academics',
-  'curriculum',
-  'student-life',
-  'boarding-life',
-  'leadership-team',
-  'parents-corner',
-  'growth-partners',
   'mission',
-  'school-calendar',
-  'announcements',
-  'faq',
   'pricing',
   'vacancies',
-  'events-gallery',
+  'growth-partners',
   'contact-us',
-  'become-a-tutor',
 ] as const;
 
 export const LEGAL_PUBLIC_PAGE_ORDER = ['privacy-policy', 'terms-of-service'] as const;
 export const PUBLIC_NAV_PAGE_ORDER = [...CORE_PUBLIC_PAGE_ORDER, ...LEGAL_PUBLIC_PAGE_ORDER] as const;
 
 export const CORE_PUBLIC_PAGE_SET = new Set<string>(CORE_PUBLIC_PAGE_ORDER);
+const MANAGED_PUBLIC_PAGE_SET = new Set<string>(PUBLIC_NAV_PAGE_ORDER);
 
 export const ABOUT_US_CONTENT = `At Ndovera, we believe every student deserves a fair chance to succeed.
 
@@ -127,7 +116,7 @@ const CORE_PUBLIC_PAGE_TEMPLATES: WebsitePage[] = [
   },
   {
     id: 'vision-values',
-    title: 'Vision',
+    title: 'Vision Statement',
     slug: 'vision-values',
     sections: [
       createSection('vision_hero', 'hero', { title: 'The vision guiding Ndovera', subtitle: 'The long view, values, and learner-centered direction behind the work.' }),
@@ -136,7 +125,7 @@ const CORE_PUBLIC_PAGE_TEMPLATES: WebsitePage[] = [
   },
   {
     id: 'mission',
-    title: 'Mission',
+    title: 'Mission Statement',
     slug: 'mission',
     sections: [
       createSection('mission_hero', 'hero', { title: 'The mission behind everyday work', subtitle: 'The practical promise Ndovera makes to schools, teachers, and learners.' }),
@@ -402,7 +391,9 @@ function clonePage(page: WebsitePage): WebsitePage {
 }
 
 export function createCorePublicPages(): WebsitePage[] {
-  return CORE_PUBLIC_PAGE_TEMPLATES.map(clonePage);
+  return CORE_PUBLIC_PAGE_TEMPLATES
+    .filter((page) => MANAGED_PUBLIC_PAGE_SET.has(page.id))
+    .map(clonePage);
 }
 
 export function ensureCorePublicPages<T extends WebsitePage>(pages: T[] | null | undefined): T[] {
@@ -410,7 +401,7 @@ export function ensureCorePublicPages<T extends WebsitePage>(pages: T[] | null |
   const byId = new Map(currentPages.map((page) => [page.id, page]));
   const merged: T[] = [];
 
-  for (const template of CORE_PUBLIC_PAGE_TEMPLATES) {
+  for (const template of CORE_PUBLIC_PAGE_TEMPLATES.filter((page) => MANAGED_PUBLIC_PAGE_SET.has(page.id))) {
     const existing = byId.get(template.id);
     if (existing) {
       const nextSections = Array.isArray(existing.sections) && existing.sections.length > 0
@@ -430,7 +421,7 @@ export function ensureCorePublicPages<T extends WebsitePage>(pages: T[] | null |
   }
 
   for (const page of currentPages) {
-    if (!CORE_PUBLIC_PAGE_SET.has(page.id)) {
+    if (!MANAGED_PUBLIC_PAGE_SET.has(page.id)) {
       merged.push(page);
     }
   }
@@ -439,5 +430,5 @@ export function ensureCorePublicPages<T extends WebsitePage>(pages: T[] | null |
 }
 
 export function isCorePublicPageId(pageId: string) {
-  return CORE_PUBLIC_PAGE_SET.has(pageId);
+  return MANAGED_PUBLIC_PAGE_SET.has(pageId);
 }
