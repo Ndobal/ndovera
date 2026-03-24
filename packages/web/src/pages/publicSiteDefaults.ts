@@ -6,6 +6,7 @@ export const CORE_PUBLIC_PAGE_ORDER = [
   'vision-values',
   'mission',
   'pricing',
+  'events-gallery',
   'vacancies',
   'growth-partners',
   'contact-us',
