@@ -5,6 +5,7 @@
     "packages/*"
   ],
   "scripts": {
+    "build": "npm run build:cloudflare",
     "dev:web": "npm --workspace=packages/web run dev",
     "dev:server": "npm --workspace=packages/server run dev",
     "dev:superadmin": "npm --workspace=packages/super-admin run dev",
