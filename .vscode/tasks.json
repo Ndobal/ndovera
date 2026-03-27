@@ -33,6 +33,17 @@
 				"build"
 			],
 			"isBackground": false
+		},
+		{
+			"label": "run web dev",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"--workspace=packages/web",
+				"run",
+				"dev"
+			],
+			"isBackground": true
 		}
 	]
 }

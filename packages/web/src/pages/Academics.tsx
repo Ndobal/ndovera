@@ -1,20 +1,21 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { Suspense, lazy, useEffect, useMemo, useState } from 'react';
 import { BookOpen, FileText, Plus, Sparkles, Trophy, Users, Video, X } from 'lucide-react';
 
 import { SchoolGuard } from '../components/SchoolGuard';
-import { SubjectHub } from '../features/classroom/components/SubjectHub';
-import { AssignmentStudio } from '../features/classroom/components/AssignmentStudio';
-import { ClassRegistry } from '../features/classroom/components/ClassRegistry';
-import StreamApp from '../features/classroom/components/subjectStream/App';
-import { LessonNotesWorkspace } from '../features/classroom/components/LessonNotesWorkspace';
-import { LiveClassStudio } from '../features/classroom/components/LiveClassStudio';
-import { PracticeArena } from '../features/classroom/components/PracticeArena';
-import { ResultsCenter } from '../features/classroom/components/ResultsCenter';
 import { useData } from '../hooks/useData';
 import type { ClassroomSubject, SchoolClass } from '../features/classroom/services/classroomApi';
-import LessonPlanModule from '../features/plans/components/LessonPlanModule';
 import { StoredUser } from '../services/authLocal';
 import { Role } from '../types';
+
+const SubjectHub = lazy(() => import('../features/classroom/components/SubjectHub').then((module) => ({ default: module.SubjectHub })));
+const AssignmentStudio = lazy(() => import('../features/classroom/components/AssignmentStudio').then((module) => ({ default: module.AssignmentStudio })));
+const ClassRegistry = lazy(() => import('../features/classroom/components/ClassRegistry').then((module) => ({ default: module.ClassRegistry })));
+const StreamApp = lazy(() => import('../features/classroom/components/subjectStream/App'));
+const LessonNotesWorkspace = lazy(() => import('../features/classroom/components/LessonNotesWorkspace').then((module) => ({ default: module.LessonNotesWorkspace })));
+const LiveClassStudio = lazy(() => import('../features/classroom/components/LiveClassStudio').then((module) => ({ default: module.LiveClassStudio })));
+const PracticeArena = lazy(() => import('../features/classroom/components/PracticeArena').then((module) => ({ default: module.PracticeArena })));
+const ResultsCenter = lazy(() => import('../features/classroom/components/ResultsCenter').then((module) => ({ default: module.ResultsCenter })));
+const LessonPlanModule = lazy(() => import('../features/plans/components/LessonPlanModule'));
 
 type ClassroomTab =
   | 'stream'
@@ -37,6 +38,10 @@ const getDefaultTab = (role: Role): ClassroomTab => {
 
   return 'stream';
 };
+
+function ClassroomPanelLoader() {
+  return <div className="card-compact text-sm text-zinc-400">Loading classroom workspace...</div>;
+}
 
 export const ClassroomView = ({ role, setActiveSubView, currentUser }: { role: Role; setActiveSubView: (view: string | null) => void; currentUser?: StoredUser }) => {
   if (role && ['Ami', 'Super Admin'].includes(role)) return <SchoolGuard role={role} />;
@@ -138,18 +143,24 @@ export const ClassroomView = ({ role, setActiveSubView, currentUser }: { role: R
       {/* Content Area */}
       <div className="animate-in fade-in slide-in-from-bottom-2 duration-300 space-y-6 max-h-[calc(100vh-220px)] overflow-y-auto pr-1 custom-scrollbar">
         {activeTab === 'stream' && (
-          <StreamApp />
+          <Suspense fallback={<ClassroomPanelLoader />}>
+            <StreamApp />
+          </Suspense>
         )}
 
         {activeTab === 'classes' && isTeacher && (
-          <ClassRegistry role={role} onOpenClass={(schoolClass) => {
-            setSelectedClass(schoolClass);
-            setActiveTab('subjects');
-          }} />
+          <Suspense fallback={<ClassroomPanelLoader />}>
+            <ClassRegistry role={role} onOpenClass={(schoolClass) => {
+              setSelectedClass(schoolClass);
+              setActiveTab('subjects');
+            }} />
+          </Suspense>
         )}
 
         {activeTab === 'lesson-plans' && isTeacher && (
-          <LessonPlanModule />
+          <Suspense fallback={<ClassroomPanelLoader />}>
+            <LessonPlanModule />
+          </Suspense>
         )}
 
         {activeTab === 'curriculum' && isTeacher && (
@@ -184,32 +195,42 @@ export const ClassroomView = ({ role, setActiveSubView, currentUser }: { role: R
         )}
 
         {activeTab === 'lesson-notes' && !isTeacher && (
-          <LessonNotesWorkspace role={role} currentUserName={currentUser?.name} selectedClassName={[selectedClass?.level, selectedClass?.name].filter(Boolean).join(' ')} selectedClassSection={selectedClass?.section} schoolName={currentUser?.school?.name} schoolLogoUrl={currentUser?.school?.logoUrl} schoolPrimaryColor={currentUser?.school?.primaryColor} />
+          <Suspense fallback={<ClassroomPanelLoader />}>
+            <LessonNotesWorkspace role={role} currentUserName={currentUser?.name} selectedClassName={[selectedClass?.level, selectedClass?.name].filter(Boolean).join(' ')} selectedClassSection={selectedClass?.section} schoolName={currentUser?.school?.name} schoolLogoUrl={currentUser?.school?.logoUrl} schoolPrimaryColor={currentUser?.school?.primaryColor} />
+          </Suspense>
         )}
 
-        {activeTab === 'lesson-notes' && isTeacher && <LessonNotesWorkspace role={role} currentUserName={currentUser?.name} selectedClassName={[selectedClass?.level, selectedClass?.name].filter(Boolean).join(' ')} selectedClassSection={selectedClass?.section} schoolName={currentUser?.school?.name} schoolLogoUrl={currentUser?.school?.logoUrl} schoolPrimaryColor={currentUser?.school?.primaryColor} />}
+        {activeTab === 'lesson-notes' && isTeacher && <Suspense fallback={<ClassroomPanelLoader />}><LessonNotesWorkspace role={role} currentUserName={currentUser?.name} selectedClassName={[selectedClass?.level, selectedClass?.name].filter(Boolean).join(' ')} selectedClassSection={selectedClass?.section} schoolName={currentUser?.school?.name} schoolLogoUrl={currentUser?.school?.logoUrl} schoolPrimaryColor={currentUser?.school?.primaryColor} /></Suspense>}
 
         {activeTab === 'practice' && !isTeacher && (
-          <PracticeArena role={role} />
+          <Suspense fallback={<ClassroomPanelLoader />}>
+            <PracticeArena role={role} />
+          </Suspense>
         )}
 
-        {activeTab === 'practice' && isTeacher && <PracticeArena role={role} />}
+        {activeTab === 'practice' && isTeacher && <Suspense fallback={<ClassroomPanelLoader />}><PracticeArena role={role} /></Suspense>}
 
         {activeTab === 'assignments' && (
-          <AssignmentStudio role={role} />
+          <Suspense fallback={<ClassroomPanelLoader />}>
+            <AssignmentStudio role={role} />
+          </Suspense>
         )}
 
         {activeTab === 'subjects' && (
-          <SubjectHub role={role} currentUser={currentUser} selectedClassId={selectedClass?.id || null} selectedClassName={[selectedClass?.level, selectedClass?.name].filter(Boolean).join(' ')} onClearClassFilter={() => setSelectedClass(null)} />
+          <Suspense fallback={<ClassroomPanelLoader />}>
+            <SubjectHub role={role} currentUser={currentUser} selectedClassId={selectedClass?.id || null} selectedClassName={[selectedClass?.level, selectedClass?.name].filter(Boolean).join(' ')} onClearClassFilter={() => setSelectedClass(null)} />
+          </Suspense>
         )}
 
         {/* Subject tab removed */}
 
         {activeTab === 'results' && (
-          <ResultsCenter role={role} selectedClassName={[selectedClass?.level, selectedClass?.name].filter(Boolean).join(' ')} selectedClassSection={selectedClass?.section} schoolName={currentUser?.school?.name} schoolLogoUrl={currentUser?.school?.logoUrl} schoolPrimaryColor={currentUser?.school?.primaryColor} />
+          <Suspense fallback={<ClassroomPanelLoader />}>
+            <ResultsCenter role={role} selectedClassName={[selectedClass?.level, selectedClass?.name].filter(Boolean).join(' ')} selectedClassSection={selectedClass?.section} schoolName={currentUser?.school?.name} schoolLogoUrl={currentUser?.school?.logoUrl} schoolPrimaryColor={currentUser?.school?.primaryColor} />
+          </Suspense>
         )}
 
-        {activeTab === 'live-class' && isTeacher && <LiveClassStudio role={role} />}
+        {activeTab === 'live-class' && isTeacher && <Suspense fallback={<ClassroomPanelLoader />}><LiveClassStudio role={role} /></Suspense>}
       </div>
     </div>
   );

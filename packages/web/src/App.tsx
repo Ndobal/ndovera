@@ -3,14 +3,14 @@ import { Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-
 import { Settings } from 'lucide-react';
 import { Layout } from './components/Layout';
 import { AppErrorBoundary } from './components/AppErrorBoundary';
-import { LandingPage } from './pages/LandingPage';
-import { AuthView } from './pages/Auth';
 import { Role } from './types';
 import { ToastContainer, useToast } from './components/Toast';
 import { StoredUser } from './services/authLocal';
 import { SUPER_ADMIN_URL } from './services/runtimeConfig';
-import { fetchWithAuth } from './services/apiClient';
+import { ACTIVE_SCHOOL_CHANGED_EVENT, clearStoredActiveSchoolId, fetchWithAuth, getStoredActiveSchoolId, setStoredActiveSchoolId } from './services/apiClient';
 
+const LandingPage = lazy(() => import('./pages/LandingPage').then((module) => ({ default: module.LandingPage })));
+const AuthView = lazy(() => import('./pages/Auth').then((module) => ({ default: module.AuthView })));
 const DashboardHome = lazy(() => import('./pages/Dashboard').then((module) => ({ default: module.DashboardHome })));
 const FarmingView = lazy(() => import('./pages/Farming').then((module) => ({ default: module.FarmingView })));
 const AuraBoosterView = lazy(() => import('./pages/AuraBooster').then((module) => ({ default: module.AuraBoosterView })));
@@ -74,7 +74,13 @@ export default function App() {
   const navigate = useNavigate();
   const isPublicTutorialsRoute = location.pathname === '/tutorials';
   const isPublicLegalRoute = location.pathname === '/privacy-policy' || location.pathname === '/terms-of-service';
+  const isPublicSignInRoute = location.pathname === '/signin';
   const isRootRoute = location.pathname === '/' || location.pathname === '';
+
+  const openPublicSignIn = () => {
+    setShowAuth(false);
+    navigate('/signin');
+  };
 
   const getDefaultTabForRole = (role: Role) => role === 'Student' ? 'classroom' : role === 'Alumni' ? 'classroom' : role === 'Parent' ? 'dashboard' : role === 'Growth Partner' ? 'growth' : 'dashboard';
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -119,12 +125,45 @@ export default function App() {
   }, [SIDEBAR_OPEN_BREAKPOINT]);
 
   const handleLogin = (user: StoredUser) => {
+    setStoredActiveSchoolId(user.activeSchoolId || user.schoolId || null)
     try { localStorage.setItem('ndovera_user', JSON.stringify(user)) } catch (e) {}
     setCurrentRole((user.activeRole || user.roles[0] || 'HoS') as Role)
     setCurrentUser(user);
     setIsLoggedIn(true);
     showToast('Successfully signed in.', 'success');
   };
+
+  const reloadCurrentUser = async () => {
+    try {
+      const user = await fetchWithAuth('/api/users/me') as StoredUser
+      setCurrentUser(user)
+      setCurrentRole((user.activeRole || user.roles[0] || 'HoS') as Role)
+      setIsLoggedIn(true)
+      if (!getStoredActiveSchoolId()) {
+        setStoredActiveSchoolId(user.activeSchoolId || user.schoolId || null)
+      }
+      try { localStorage.setItem('ndovera_user', JSON.stringify(user)) } catch (e) {}
+      if (user?.activeRole && isRootRoute) {
+        navigate(`/${getDefaultTabForRole(user.activeRole)}`, { replace: true })
+      }
+      return user
+    } catch (error) {
+      const status = typeof error === 'object' && error && 'status' in error ? Number((error as any).status) : undefined
+      const message = error instanceof Error ? error.message : ''
+      if (status === 403 && message.toLowerCase().includes('selected school')) {
+        clearStoredActiveSchoolId()
+        const user = await fetchWithAuth('/api/users/me') as StoredUser
+        setCurrentUser(user)
+        setCurrentRole((user.activeRole || user.roles[0] || 'HoS') as Role)
+        setIsLoggedIn(true)
+        setStoredActiveSchoolId(user.activeSchoolId || user.schoolId || null)
+        try { localStorage.setItem('ndovera_user', JSON.stringify(user)) } catch (e) {}
+        return user
+      }
+      setIsLoggedIn(false)
+      throw error
+    }
+  }
 
   const openSchoolRegistration = () => {
     try {
@@ -138,21 +177,22 @@ export default function App() {
     let mounted = true
     ;(async () => {
       try {
-        const user = await fetchWithAuth('/api/users/me') as StoredUser
+        const user = await reloadCurrentUser()
         if (!mounted) return
-        setCurrentUser(user)
-        setCurrentRole((user.activeRole || user.roles[0] || 'HoS') as Role)
-        setIsLoggedIn(true)
-        try { localStorage.setItem('ndovera_user', JSON.stringify(user)) } catch (e) {}
-        if (user?.activeRole && isRootRoute) {
-          navigate(`/${getDefaultTabForRole(user.activeRole)}`, { replace: true })
-        }
       } catch {
         if (!mounted) return
         setIsLoggedIn(false)
       }
     })()
     return () => { mounted = false }
+  }, [isRootRoute, navigate])
+
+  useEffect(() => {
+    const handleSchoolContextRefresh = () => {
+      void reloadCurrentUser().catch(() => undefined)
+    }
+    window.addEventListener(ACTIVE_SCHOOL_CHANGED_EVENT, handleSchoolContextRefresh)
+    return () => window.removeEventListener(ACTIVE_SCHOOL_CHANGED_EVENT, handleSchoolContextRefresh)
   }, [isRootRoute, navigate])
 
   useEffect(() => {
@@ -182,7 +222,11 @@ export default function App() {
   const SUPER_ROLES: Role[] = ['Ami']
 
   if (isPublicLegalRoute) {
-    return <LandingPage onLogin={() => setShowAuth(true)} initialPublicPageId={location.pathname === '/terms-of-service' ? 'terms-of-service' : 'privacy-policy'} />;
+    return (
+      <Suspense fallback={<PageLoader />}>
+        <LandingPage onLogin={openPublicSignIn} initialPublicPageId={location.pathname === '/terms-of-service' ? 'terms-of-service' : 'privacy-policy'} />
+      </Suspense>
+    );
   }
 
   // If user switched to a global/super role, block school UI and point them to the super-admin app
@@ -272,17 +316,37 @@ export default function App() {
       );
     }
     if (isPublicLegalRoute) {
-      return <LandingPage onLogin={() => setShowAuth(true)} initialPublicPageId={location.pathname === '/terms-of-service' ? 'terms-of-service' : 'privacy-policy'} />;
+      return (
+        <Suspense fallback={<PageLoader />}>
+          <LandingPage onLogin={openPublicSignIn} initialPublicPageId={location.pathname === '/terms-of-service' ? 'terms-of-service' : 'privacy-policy'} />
+        </Suspense>
+      );
     }
-    if (showAuth) {
+    if (isPublicSignInRoute) {
       return (
         <>
-          <AuthView onLogin={handleLogin} onBack={() => setShowAuth(false)} onRegisterSchool={openSchoolRegistration} />
+          <Suspense fallback={<PageLoader />}>
+            <AuthView onLogin={handleLogin} onBack={() => navigate('/')} onRegisterSchool={openSchoolRegistration} />
+          </Suspense>
           <ToastContainer toasts={toasts} removeToast={removeToast} />
         </>
       );
     }
-    return <LandingPage onLogin={() => setShowAuth(true)} />;
+    if (showAuth) {
+      return (
+        <>
+          <Suspense fallback={<PageLoader />}>
+            <AuthView onLogin={handleLogin} onBack={() => setShowAuth(false)} onRegisterSchool={openSchoolRegistration} />
+          </Suspense>
+          <ToastContainer toasts={toasts} removeToast={removeToast} />
+        </>
+      );
+    }
+    return (
+      <Suspense fallback={<PageLoader />}>
+        <LandingPage onLogin={openPublicSignIn} />
+      </Suspense>
+    );
   }
 
   return (
@@ -311,6 +375,9 @@ export default function App() {
         setSearchQuery={setSearchQuery}
         themeMode={themeMode}
         setThemeMode={setThemeMode}
+        onSchoolContextRefresh={async () => {
+          await reloadCurrentUser();
+        }}
       >
         <AppErrorBoundary>
           <Suspense fallback={<PageLoader />}>

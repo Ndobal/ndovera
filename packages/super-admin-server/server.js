@@ -77,7 +77,7 @@ app.use((req, res, next) => {
     next();
 });
 const schools = [{ id: 'school-1', name: 'Ndovera Academy', subdomain: 'ndovera', liveClassQuota: 5, pageCount: 1, website: null, createdAt: new Date().toISOString() }];
-const plans = [{ id: 'plan-1', name: 'Starter', description: 'Starter plan', priceCents: 0, billingInterval: 'monthly', features: ['5 live classrooms', 'Website builder', 'Core operations'] }];
+const plans = [{ id: 'plan-1', name: 'Starter', description: 'Starter plan', priceCents: 0, billingInterval: 'monthly', features: ['5 live classrooms', 'Website template', 'Core operations'] }];
 const onboardingRequests = [{ id: 'req-1', school_name: 'Ndovera Academy', subdomain: 'ndovera', owner_name: 'Admin', owner_ndovera_email: 'admin@ndovera.com', status: 'pending', payment_status: 'pending', created_at: new Date().toISOString(), updated_at: new Date().toISOString() }];
 const aiFeatures = [{ featureKey: 'ai-tutor', label: 'AI Tutor', category: 'student', audience: 'Students', description: 'Student tutor', enabled: true, auraCost: 5, freeTierLimit: 10, requiresSuperApproval: false, usageCount: 0, totalAuraSpent: 0 }];
 const provisionSchema = z.object({

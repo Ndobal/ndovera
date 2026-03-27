@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useEffect, useRef } from 'react';
+import React, { Suspense, lazy, useMemo, useState, useEffect, useRef } from 'react';
 import {
   BookOpen,
   BrainCircuit,
@@ -26,9 +26,10 @@ import {
 } from 'lucide-react';
 
 import { Role } from '../types';
-import { NdoveraDocsCreator } from '../components/docs/NdoveraDocsCreator';
 import { useData } from '../hooks/useData';
 import { fetchWithAuth } from '../services/apiClient';
+
+const NdoveraDocsCreator = lazy(() => import('../components/docs/NdoveraDocsCreator').then((module) => ({ default: module.NdoveraDocsCreator })));
 
 type LibraryBook = {
   id: string;
@@ -519,7 +520,7 @@ export const LibraryView = ({ role, searchQuery }: { role: Role; searchQuery?: s
               {earningsCards.map((item, index) => (
                 <div
                   key={item.label}
-                  className={`mx-auto w-full max-w-[12.5rem] rounded-3xl border p-2.5 text-center ${[
+                  className={`mx-auto w-full max-w-50 rounded-3xl border p-2.5 text-center ${[
                     'border-orange-300/70 bg-linear-to-br from-orange-200 via-amber-100 to-rose-100 text-slate-900 dark:border-orange-400/35 dark:bg-linear-to-br dark:from-orange-500/25 dark:via-amber-400/18 dark:to-rose-500/18 dark:text-slate-50',
                     'border-amber-300/70 bg-linear-to-br from-amber-200 via-yellow-100 to-orange-100 text-slate-900 dark:border-amber-400/35 dark:bg-linear-to-br dark:from-amber-500/25 dark:via-yellow-400/18 dark:to-orange-500/18 dark:text-slate-50',
                     'border-rose-300/70 bg-linear-to-br from-rose-200 via-amber-100 to-orange-100 text-slate-900 dark:border-rose-400/35 dark:bg-linear-to-br dark:from-rose-500/25 dark:via-orange-400/18 dark:to-amber-500/18 dark:text-slate-50',
@@ -530,7 +531,7 @@ export const LibraryView = ({ role, searchQuery }: { role: Role; searchQuery?: s
                     <p className="text-[9px] font-bold uppercase tracking-[0.18em] text-black dark:text-black">{item.label}</p>
                   </div>
                   <p className="mt-1.5 text-sm font-bold text-black dark:text-black">{item.value}</p>
-                  <p className="mx-auto mt-1 max-w-[11rem] text-[10px] font-bold leading-4 text-black dark:text-black">{item.note}</p>
+                  <p className="mx-auto mt-1 max-w-44 text-[10px] font-bold leading-4 text-black dark:text-black">{item.note}</p>
                 </div>
               ))}
             </div>
@@ -1035,12 +1036,14 @@ export const LibraryView = ({ role, searchQuery }: { role: Role; searchQuery?: s
       </section>
 
       {isDocsCreatorOpen && (
-        <NdoveraDocsCreator onClose={() => setIsDocsCreatorOpen(false)} />
+        <Suspense fallback={<div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 text-sm text-zinc-200">Loading document studio...</div>}>
+          <NdoveraDocsCreator onClose={() => setIsDocsCreatorOpen(false)} />
+        </Suspense>
       )}
 
       {readingBook ? (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-          <div className="relative w-full max-w-4xl h-[80vh] flex flex-col bg-[#f4e4bc] rounded-r-2xl rounded-l-md shadow-2xl overflow-hidden shadow-[inset_15px_0_20px_rgba(0,0,0,0.2)]">
+          <div className="relative h-[80vh] w-full max-w-4xl overflow-hidden rounded-r-2xl rounded-l-md bg-[#f4e4bc] shadow-[0_25px_50px_-12px_rgba(0,0,0,0.45),inset_15px_0_20px_rgba(0,0,0,0.2)] flex flex-col">
             <div className="flex items-center justify-between bg-[#8b4513] text-white p-3 shadow-md z-10">
               <div className="flex items-center gap-3">
                 <Book className="h-5 w-5" />

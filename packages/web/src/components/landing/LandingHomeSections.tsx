@@ -59,6 +59,20 @@ function formatRange(minStudents: number, maxStudents: number | null) {
 	return maxStudents === null ? `${minStudents}+ learners` : `${minStudents} to ${maxStudents} learners`
 }
 
+function planLabel(tier: PricingTier) {
+  if (tier.key === 'growth') return 'Fast self-serve onboarding'
+  if (tier.key === 'pro') return 'Best for larger school rollouts'
+  if (tier.key === 'custom' || (tier.minStudents === 0 && tier.maxStudents === 0)) return 'Tailored quote with the Ndovera team'
+  return formatRange(tier.minStudents, tier.maxStudents)
+}
+
+function planFeatures(tier: PricingTier) {
+  if (tier.key === 'growth') return ['One-time setup to get live', 'Term billing begins from second term', 'Best fit for schools launching quickly']
+  if (tier.key === 'pro') return ['Higher-touch onboarding for bigger schools', 'Lower per-student term rate from second term', 'Built for larger operations and fuller rollout']
+  if (tier.key === 'custom' || (tier.minStudents === 0 && tier.maxStudents === 0)) return ['Manual scoping with Ndovera', 'Custom rollout and support plan', 'Pricing agreed before billing starts']
+  return ['One-time setup to get live', 'Term billing begins from second term', 'Optional discount codes during checkout']
+}
+
 function initialsForName(value?: string) {
   return String(value || 'Ndovera User')
     .split(/\s+/)
@@ -134,7 +148,7 @@ export function LandingHomeSections({
           <h1 className="mb-8 text-5xl font-bold tracking-tight text-white lg:text-7xl">
             Run your school from one
             <br />
-            <span className="bg-clip-text text-transparent" style={{ backgroundImage: `linear-gradient(90deg, #ffffff, ${brandColor})` }}>
+            <span className="inline-block rounded-2xl px-4 py-2 text-white shadow-[0_10px_30px_rgba(0,0,0,0.28)]" style={{ background: 'rgba(255,255,255,0.14)', border: '1px solid rgba(255,255,255,0.18)' }}>
               simple, trusted place
             </span>
           </h1>
@@ -176,8 +190,8 @@ export function LandingHomeSections({
       <section className="mx-auto max-w-7xl px-6 py-10 lg:px-20">
         <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
           <div>
-            <h3 className="text-2xl font-bold text-white">Simple pricing for different school sizes</h3>
-            <p className="mt-2 max-w-3xl text-sm text-zinc-400">Choose the range that fits your school now. If you need more space later, you can request it and pay the difference.</p>
+            <h3 className="text-2xl font-bold text-white">Simple plans for school launch and term billing</h3>
+            <p className="mt-2 max-w-3xl text-sm text-zinc-400">Pay the setup fee first, then move to per-student billing from the second term. Growth and Pro are self-serve. Custom starts with a guided quote.</p>
           </div>
           <button onClick={onOpenPricing} className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-bold text-white transition hover:bg-white/10">
             View pricing page
@@ -187,7 +201,7 @@ export function LandingHomeSections({
           {pricingTiers.map((tier) => (
             <div key={tier.key} className="rounded-4xl border border-white/10 bg-[#101214] p-6 shadow-xl">
               <p className="text-[11px] font-bold uppercase tracking-[0.22em]" style={{ color: brandText }}>{tier.label}</p>
-              <h4 className="mt-3 text-2xl font-black text-white">{formatRange(tier.minStudents, tier.maxStudents)}</h4>
+              <h4 className="mt-3 text-2xl font-black text-white">{planLabel(tier)}</h4>
               {Number(tier.pricing?.discountPercent || 0) > 0 ? <div className="mt-3 inline-flex rounded-full bg-emerald-500/15 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-emerald-200">Save {tier.pricing?.discountPercent}%</div> : null}
               <div className="mt-5 space-y-3 text-sm text-zinc-300">
                 <div className="rounded-2xl border border-white/5 bg-white/5 p-4">
@@ -195,8 +209,14 @@ export function LandingHomeSections({
                   <div className="mt-2 flex items-end gap-2"><div className="text-lg font-bold text-white">{formatNaira(Number(tier.pricing?.oneTimeSetupNaira ?? tier.oneTimeSetupNaira))}</div>{Number(tier.pricing?.discountPercent || 0) > 0 ? <div className="text-sm text-zinc-500 line-through">{formatNaira(tier.oneTimeSetupNaira)}</div> : null}</div>
                 </div>
                 <div className="rounded-2xl border border-white/5 bg-white/5 p-4">
-                  <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-zinc-500">Per learner, per term</div>
+                  <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-zinc-500">Per learner, from second term</div>
                   <div className="mt-2 flex items-end gap-2"><div className="text-lg font-bold text-white">{formatNaira(Number(tier.pricing?.perStudentPerTermNaira ?? tier.perStudentPerTermNaira))}</div>{Number(tier.pricing?.discountPercent || 0) > 0 ? <div className="text-sm text-zinc-500 line-through">{formatNaira(tier.perStudentPerTermNaira)}</div> : null}</div>
+                </div>
+                <div className="rounded-2xl border border-white/5 bg-black/20 p-4 text-sm text-zinc-300">
+                  <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-zinc-500">Plan highlights</div>
+                  <ul className="mt-3 space-y-2 leading-7">
+                    {planFeatures(tier).map((feature) => <li key={`${tier.key}_${feature}`}>{feature}</li>)}
+                  </ul>
                 </div>
               </div>
             </div>
@@ -251,7 +271,7 @@ export function LandingHomeSections({
       <section className="mx-auto max-w-6xl px-6 py-8 lg:px-20">
         <div className="grid gap-6 rounded-[3rem] border p-8 lg:grid-cols-[1.4fr_0.9fr]" style={{ borderColor: brandBorder, background: `linear-gradient(135deg, ${brandSoft}, rgba(21,22,25,0.96))` }}>
           <div>
-            <div className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-[11px] font-bold uppercase tracking-[0.25em]" style={{ background: brandSoft, color: brandText }}><Sprout size={14} /> Growth Partner Access</div>
+            <div className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-[11px] font-bold uppercase tracking-[0.25em] text-white shadow-[0_10px_30px_rgba(0,0,0,0.18)]" style={{ background: 'rgba(255,255,255,0.16)', borderColor: 'rgba(255,255,255,0.22)' }}><Sprout size={14} /> Growth Partner Access</div>
             <h3 className="mt-5 text-3xl font-black text-white">A safe route for approved growth partners</h3>
             <p className="mt-3 max-w-3xl text-sm leading-7 text-zinc-300">Approved partners can help more schools discover Ndovera and support first steps after sign-up.</p>
           </div>

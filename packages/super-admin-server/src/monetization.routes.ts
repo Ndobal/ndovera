@@ -12,7 +12,7 @@ const settingsSchema = z.object({
 		tiers: z.array(z.object({
 			key: z.string().trim().min(1),
 			label: z.string().trim().min(1),
-			minStudents: z.number().int().min(1),
+			minStudents: z.number().int().min(0),
 			maxStudents: z.number().int().nullable(),
 			oneTimeSetupNaira: z.number().nonnegative(),
 			perStudentPerTermNaira: z.number().nonnegative(),

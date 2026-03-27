@@ -221,6 +221,7 @@ function buildPublicWebsitePayload(schoolId: string, profile: Awaited<ReturnType
       primaryColor: normalizeOptionalText(theme.primaryColor) || profile?.primaryColor || '#10b981',
       fontFamily: normalizeOptionalText(theme.fontFamily) || 'Inter',
       logoUrl: normalizeOptionalText(theme.logoUrl) || profile?.logoUrl || null,
+      templateVariant: normalizeOptionalText(theme.templateVariant) || 'signature',
     },
     publicUrl: normalizeOptionalText(websiteConfig.publicUrl) || profile?.websiteUrl || null,
     pages: normalizeWebsitePages(websiteConfig),
@@ -298,6 +299,25 @@ schoolsRouter.get('/showcase', async (_req, res) => {
     };
   }));
   return res.json({ ok: true, schools });
+});
+
+schoolsRouter.get('/by-subdomain/:subdomain/website', async (req, res) => {
+  const subdomain = String(req.params.subdomain || '').trim().toLowerCase();
+  if (!subdomain) return res.status(400).json({ error: 'subdomain is required' });
+  const state = await loadIdentityState();
+  const school = state.schools.find((entry) => entry.subdomain.trim().toLowerCase() === subdomain) || null;
+  if (!school) return res.status(404).json({ error: 'School not found for subdomain.' });
+  const profile = await getSchoolProfile(school.id);
+  return res.json({
+    ok: true,
+    schoolId: school.id,
+    school: {
+      id: school.id,
+      name: school.name,
+      subdomain: school.subdomain,
+    },
+    website: buildPublicWebsitePayload(school.id, profile),
+  });
 });
 
 schoolsRouter.get('/:schoolId/website', async (req, res) => {

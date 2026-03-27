@@ -217,6 +217,12 @@ function resolvePricingTier(studentCount: number, settings: Awaited<ReturnType<t
 	return tiers.find((tier) => studentCount >= tier.minStudents && (tier.maxStudents === null || studentCount <= tier.maxStudents)) || tiers[tiers.length - 1];
 }
 
+function resolvePricingTierByKey(pricingTierKey: string | null | undefined, settings: Awaited<ReturnType<typeof getMonetizationSettings>>) {
+	const normalizedKey = String(pricingTierKey || '').trim();
+	if (!normalizedKey) return null;
+	return settings.schoolPricing.tiers.find((tier) => tier.key === normalizedKey) || null;
+}
+
 export async function getSchoolPricingCatalog() {
 	const settings = await getMonetizationSettings();
 	const marketplace = await getMarketplaceCatalog();
@@ -238,12 +244,13 @@ export async function createSchoolTermSnapshot(input: {
 	academicYear: string;
 	termKey: string;
 	studentCount: number;
+	pricingTierKey?: string | null;
 	capturedBy?: string | null;
 }) {
 	await ensureBillingSchema();
 	const settings = await getMonetizationSettings();
 	const studentCount = Math.max(0, Math.round(Number(input.studentCount || 0)));
-	const tier = resolvePricingTier(studentCount, settings);
+	const tier = resolvePricingTierByKey(input.pricingTierKey, settings) || resolvePricingTier(studentCount, settings);
 	const snapshotId = `snapshot_${crypto.randomUUID()}`;
 	const capturedAt = nowIso();
 	await executeSql('INSERT INTO school_term_snapshots (id, school_id, academic_year, term_key, student_count, billing_tier_key, captured_at, captured_by) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [snapshotId, input.schoolId, input.academicYear, input.termKey, studentCount, tier.key, capturedAt, trimOrNull(input.capturedBy)]);
@@ -264,6 +271,7 @@ export async function generateSchoolInvoice(input: {
 	academicYear: string;
 	termKey: string;
 	studentCount: number;
+	pricingTierKey?: string | null;
 	includeSetupFee?: boolean;
 	createdBy?: string | null;
 }) {
@@ -274,35 +282,45 @@ export async function generateSchoolInvoice(input: {
 		academicYear: input.academicYear,
 		termKey: input.termKey,
 		studentCount: input.studentCount,
+		pricingTierKey: input.pricingTierKey,
 		capturedBy: input.createdBy,
 	});
-	const tier = resolvePricingTier(snapshot.studentCount, settings);
+	const tier = resolvePricingTierByKey(snapshot.billingTierKey, settings) || resolvePricingTier(snapshot.studentCount, settings);
+	const discountedPricing = getTierDiscountedAmounts(tier);
+	const includeSetupFee = Boolean(input.includeSetupFee);
 	const invoiceId = `inv_${crypto.randomUUID()}`;
 	const createdAt = nowIso();
-	const invoiceItems = [
-		{
+	const invoiceItems = includeSetupFee
+		? [{
+			id: `item_${crypto.randomUUID()}`,
+			itemType: 'setup-fee',
+			label: `${tier.label} onboarding fee`,
+			quantity: 1,
+			unitAmountNaira: discountedPricing.oneTimeSetupNaira,
+			totalAmountNaira: roundMoney(discountedPricing.oneTimeSetupNaira),
+			metadata: {
+				billingTierKey: tier.key,
+				baseUnitAmountNaira: tier.oneTimeSetupNaira,
+				discountAmountNaira: Number(tier.oneTimeSetupDiscountNaira || 0),
+				billingStage: 'onboarding',
+			},
+		}]
+		: [{
 			id: `item_${crypto.randomUUID()}`,
 			itemType: 'per-student-term',
 			label: `${snapshot.termKey} tuition (${snapshot.studentCount} students)`,
 			quantity: snapshot.studentCount,
-			unitAmountNaira: tier.perStudentPerTermNaira,
-			totalAmountNaira: roundMoney(snapshot.studentCount * tier.perStudentPerTermNaira),
-			metadata: { billingTierKey: tier.key },
-		},
-	];
-	if (input.includeSetupFee) {
-		invoiceItems.unshift({
-			id: `item_${crypto.randomUUID()}`,
-			itemType: 'setup-fee',
-			label: `${tier.label} setup fee`,
-			quantity: 1,
-			unitAmountNaira: tier.oneTimeSetupNaira,
-			totalAmountNaira: roundMoney(tier.oneTimeSetupNaira),
-			metadata: { billingTierKey: tier.key },
-		});
-	}
+			unitAmountNaira: discountedPricing.perStudentPerTermNaira,
+			totalAmountNaira: roundMoney(snapshot.studentCount * discountedPricing.perStudentPerTermNaira),
+			metadata: {
+				billingTierKey: tier.key,
+				baseUnitAmountNaira: tier.perStudentPerTermNaira,
+				discountAmountNaira: Number(tier.perStudentPerTermDiscountNaira || 0),
+				billingStage: 'termly',
+			},
+		}];
 	const subtotalNaira = roundMoney(invoiceItems.reduce((sum, item) => sum + item.totalAmountNaira, 0));
-	await executeSql('INSERT INTO school_invoices (id, school_id, invoice_type, academic_year, term_key, status, currency_code, subtotal_naira, total_naira, paid_naira, balance_naira, metadata_json, created_at, updated_at, due_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [invoiceId, input.schoolId, 'term-billing', input.academicYear, input.termKey, 'draft', settings.schoolPricing.currencyCode, subtotalNaira, subtotalNaira, 0, subtotalNaira, JSON.stringify({ snapshotId: snapshot.id, includeSetupFee: Boolean(input.includeSetupFee), generatedBy: trimOrNull(input.createdBy) }), createdAt, createdAt, plusDays(14)]);
+	await executeSql('INSERT INTO school_invoices (id, school_id, invoice_type, academic_year, term_key, status, currency_code, subtotal_naira, total_naira, paid_naira, balance_naira, metadata_json, created_at, updated_at, due_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [invoiceId, input.schoolId, includeSetupFee ? 'onboarding' : 'term-billing', input.academicYear, input.termKey, 'draft', settings.schoolPricing.currencyCode, subtotalNaira, subtotalNaira, 0, subtotalNaira, JSON.stringify({ snapshotId: snapshot.id, includeSetupFee, generatedBy: trimOrNull(input.createdBy), pricingMode: includeSetupFee ? 'onboarding-only' : 'termly-only', appliedDiscountedCatalogPricing: true, pricingTierKey: tier.key }), createdAt, createdAt, plusDays(14)]);
 	for (const item of invoiceItems) {
 		await executeSql('INSERT INTO school_invoice_items (id, invoice_id, item_type, label, quantity, unit_amount_naira, total_amount_naira, metadata_json) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [item.id, invoiceId, item.itemType, item.label, item.quantity, item.unitAmountNaira, item.totalAmountNaira, JSON.stringify(item.metadata)]);
 	}

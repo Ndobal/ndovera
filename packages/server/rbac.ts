@@ -2,15 +2,22 @@ import { Request, Response, NextFunction } from 'express'
 import crypto from 'crypto'
 import fs from 'fs'
 import path from 'path'
+import { getAccessibleSchoolContext } from './src/modules/ownership/ownership.store.js'
 
 export type User = {
   id: string
   name?: string
   email?: string
   school_id?: string
+  base_school_id?: string
+  effective_school_id?: string
+  accessible_school_ids?: string[]
+  owner_account_id?: string | null
   roles: string[]
   activeRole?: string
 }
+
+const ACTIVE_SCHOOL_HEADER = 'x-active-school-id'
 
 const SESSION_COOKIE = process.env.SESSION_COOKIE_NAME?.trim() || 'ndovera_session'
 const SESSION_TTL_MS = 1000 * 60 * 60 * 8
@@ -81,6 +88,8 @@ function readSessionUser(req: Request): User | undefined {
       name: payload.name,
       email: payload.email,
       school_id: payload.school_id,
+      base_school_id: payload.school_id,
+      effective_school_id: payload.school_id,
       roles,
       activeRole,
     }
@@ -130,6 +139,39 @@ export function attachUserFromHeaders(req: Request, res: Response, next: NextFun
     ;(req as any).user = user
   }
   next()
+}
+
+export async function resolveEffectiveSchoolContext(req: Request, res: Response, next: NextFunction) {
+  const user = (req as any).user as User | undefined
+  if (!user) return next()
+  try {
+    const selectedSchoolId = String(req.header(ACTIVE_SCHOOL_HEADER) || '').trim()
+    const baseSchoolId = String(user.base_school_id || user.school_id || '').trim() || undefined
+    const { accessibleSchools, account } = await getAccessibleSchoolContext({
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      school_id: baseSchoolId,
+      roles: user.roles,
+    })
+    const accessibleSchoolIds = accessibleSchools.map((school) => school.id)
+    const fallbackSchoolId = baseSchoolId || accessibleSchoolIds[0] || user.school_id
+    if (selectedSchoolId && !accessibleSchoolIds.includes(selectedSchoolId)) {
+      return res.status(403).json({ error: 'Selected school is not available for this account.' })
+    }
+    const effectiveSchoolId = selectedSchoolId || fallbackSchoolId
+    ;(req as any).user = {
+      ...user,
+      school_id: effectiveSchoolId,
+      base_school_id: fallbackSchoolId,
+      effective_school_id: effectiveSchoolId,
+      accessible_school_ids: accessibleSchoolIds,
+      owner_account_id: account?.id || null,
+    } satisfies User
+    return next()
+  } catch (error) {
+    return res.status(500).json({ error: error instanceof Error ? error.message : 'Unable to resolve school context.' })
+  }
 }
 
 export function requireRoles(...allowed: string[]) {

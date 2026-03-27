@@ -93,7 +93,7 @@ export const AD_PAGE_OPTIONS = [
   { key: 'library', label: 'Library' },
   { key: 'finance', label: 'Finance' },
   { key: 'management', label: 'Management' },
-  { key: 'website', label: 'Website Builder' },
+  { key: 'website', label: 'Website Template' },
   { key: 'reports', label: 'Reports' },
   { key: 'teacher', label: 'Teacher Tools' },
   { key: 'farming', label: 'Farming' },

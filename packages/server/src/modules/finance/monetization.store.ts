@@ -14,6 +14,12 @@ export type SchoolPricingTier = {
 	perStudentPerTermDiscountNaira?: number;
 };
 
+const CURRENT_SCHOOL_PRICING_PLANS: SchoolPricingTier[] = [
+	{ key: 'growth', label: 'Growth', minStudents: 1, maxStudents: 500, oneTimeSetupNaira: 40000, perStudentPerTermNaira: 1000, oneTimeSetupDiscountNaira: 0, perStudentPerTermDiscountNaira: 525 },
+	{ key: 'pro', label: 'Pro', minStudents: 501, maxStudents: null, oneTimeSetupNaira: 90000, perStudentPerTermNaira: 1000, oneTimeSetupDiscountNaira: 0, perStudentPerTermDiscountNaira: 550 },
+	{ key: 'custom', label: 'Custom', minStudents: 0, maxStudents: 0, oneTimeSetupNaira: 0, perStudentPerTermNaira: 0, oneTimeSetupDiscountNaira: 0, perStudentPerTermDiscountNaira: 0 },
+];
+
 export type DiscountCodeScope = 'school-onboarding' | 'marketplace' | 'all';
 
 export type DiscountCode = {
@@ -349,13 +355,58 @@ function normalizePricingTier(tier: Partial<SchoolPricingTier>, fallback: School
 	return {
 		key: String(tier.key || fallback.key).trim() || fallback.key,
 		label: String(tier.label || fallback.label).trim() || fallback.label,
-		minStudents: Math.max(1, Math.round(Number(tier.minStudents ?? fallback.minStudents))),
-		maxStudents: tier.maxStudents === null ? null : (tier.maxStudents === undefined ? fallback.maxStudents : Math.max(1, Math.round(Number(tier.maxStudents)))),
+		minStudents: Math.max(0, Math.round(Number(tier.minStudents ?? fallback.minStudents))),
+		maxStudents: tier.maxStudents === null ? null : (tier.maxStudents === undefined ? fallback.maxStudents : Math.max(0, Math.round(Number(tier.maxStudents)))),
 		oneTimeSetupNaira: Math.max(0, roundMoney(Number(tier.oneTimeSetupNaira ?? fallback.oneTimeSetupNaira))),
 		perStudentPerTermNaira: Math.max(0, roundMoney(Number(tier.perStudentPerTermNaira ?? fallback.perStudentPerTermNaira))),
 		oneTimeSetupDiscountNaira: normalizeDiscountAmount(tier.oneTimeSetupDiscountNaira ?? fallback.oneTimeSetupDiscountNaira),
 		perStudentPerTermDiscountNaira: normalizeDiscountAmount(tier.perStudentPerTermDiscountNaira ?? fallback.perStudentPerTermDiscountNaira),
 	};
+}
+
+function defaultSchoolPricingTiers() {
+	return CURRENT_SCHOOL_PRICING_PLANS.map((tier) => ({ ...tier }));
+}
+
+function usesLegacySchoolPricing(tiers: SchoolPricingTier[]) {
+	const keys = tiers.map((tier) => String(tier.key || '').trim().toLowerCase());
+	const labels = tiers.map((tier) => String(tier.label || '').trim().toLowerCase());
+	return keys.includes('tier-1') || keys.includes('tier-2') || labels.includes('tier 1') || labels.includes('tier 2');
+}
+
+function migrateLegacySchoolPricing(settings: MonetizationSettings) {
+	if (!usesLegacySchoolPricing(settings.schoolPricing.tiers)) {
+		return { changed: false, settings };
+	}
+	const nextSettings: MonetizationSettings = {
+		...settings,
+		schoolPricing: {
+			...settings.schoolPricing,
+			tiers: defaultSchoolPricingTiers(),
+		},
+		priceIncreaseNotices: settings.priceIncreaseNotices.map((notice) => {
+			if (notice.scope === 'school-signup') {
+				return {
+					...notice,
+					title: 'School onboarding setup changes',
+					message: 'Self-serve school setup pricing will change on the effective date shown below.',
+					currentAmountNaira: 40000,
+					newAmountNaira: 90000,
+				};
+			}
+			if (notice.scope === 'termly-billing') {
+				return {
+					...notice,
+					title: 'Term billing changes',
+					message: 'Per-student term billing will change on the effective date shown below.',
+					currentAmountNaira: 475,
+					newAmountNaira: 550,
+				};
+			}
+			return notice;
+		}),
+	};
+	return { changed: true, settings: nextSettings };
 }
 
 function normalizeMarketplaceBundle(bundle: Partial<MarketplaceBundle>, fallback: MarketplaceBundle): MarketplaceBundle {
@@ -416,10 +467,7 @@ function defaultSettings(): MonetizationSettings {
 		schoolPricing: {
 			currencyCode: 'NGN',
 			academicTermsPerYear: 3,
-			tiers: [
-				{ key: 'tier-1', label: 'Tier 1', minStudents: 1, maxStudents: 150, oneTimeSetupNaira: 40000, perStudentPerTermNaira: 500, oneTimeSetupDiscountNaira: 5000, perStudentPerTermDiscountNaira: 50 },
-				{ key: 'tier-2', label: 'Tier 2', minStudents: 151, maxStudents: null, oneTimeSetupNaira: 70000, perStudentPerTermNaira: 500, oneTimeSetupDiscountNaira: 8000, perStudentPerTermDiscountNaira: 75 },
-			],
+			tiers: defaultSchoolPricingTiers(),
 		},
 		aiEconomy: {
 			freeQueriesEveryDays: 3,
@@ -470,10 +518,10 @@ function defaultSettings(): MonetizationSettings {
 			{
 				id: 'notice-school-signup',
 				scope: 'school-signup',
-				title: 'School signup price increase',
-				message: 'School registration fees will increase on the effective date shown below.',
+				title: 'School onboarding setup changes',
+				message: 'Self-serve school setup pricing will change on the effective date shown below.',
 				currentAmountNaira: 40000,
-				newAmountNaira: 50000,
+				newAmountNaira: 90000,
 				effectiveAt: new Date(Date.now() + 1000 * 60 * 60 * 24 * 14).toISOString(),
 				active: false,
 				createdAt,
@@ -482,9 +530,9 @@ function defaultSettings(): MonetizationSettings {
 			{
 				id: 'notice-termly-billing',
 				scope: 'termly-billing',
-				title: 'Termly billing price increase',
-				message: 'Termly billing rates will change on the effective date shown below.',
-				currentAmountNaira: 500,
+				title: 'Term billing changes',
+				message: 'Per-student term billing will change on the effective date shown below.',
+				currentAmountNaira: 475,
 				newAmountNaira: 650,
 				effectiveAt: new Date(Date.now() + 1000 * 60 * 60 * 24 * 14).toISOString(),
 				active: false,
@@ -630,7 +678,12 @@ async function readSettingsRow() {
 	const row = await queryFirstSql<{ settings_json: string }>('SELECT settings_json FROM monetization_settings WHERE scope_key = ?', ['global']);
 	if (!row?.settings_json) return defaultSettings();
 	try {
-		return normalizeSettings(JSON.parse(String(row.settings_json)) as Partial<MonetizationSettings>);
+		const normalized = normalizeSettings(JSON.parse(String(row.settings_json)) as Partial<MonetizationSettings>);
+		const migrated = migrateLegacySchoolPricing(normalized);
+		if (migrated.changed) {
+			await executeSql('UPDATE monetization_settings SET settings_json = ?, updated_at = ?, updated_by = ? WHERE scope_key = ?', [JSON.stringify(migrated.settings), nowIso(), 'system:pricing-override', 'global']);
+		}
+		return migrated.settings;
 	} catch {
 		return defaultSettings();
 	}

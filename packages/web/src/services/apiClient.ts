@@ -1,5 +1,7 @@
 const env = ((import.meta as any)?.env || {}) as Record<string, string | undefined>
 const API_BASE = (env.VITE_API_BASE_URL || '').replace(/\/$/, '')
+const ACTIVE_SCHOOL_STORAGE_KEY = 'ndovera_active_school_id'
+export const ACTIVE_SCHOOL_CHANGED_EVENT = 'ndovera:active-school-changed'
 
 export function resolveApiUrl(url: string) {
   if (!url) return url
@@ -8,11 +10,41 @@ export function resolveApiUrl(url: string) {
   return API_BASE ? `${API_BASE}${url}` : url
 }
 
+export function getStoredActiveSchoolId() {
+  try {
+    return localStorage.getItem(ACTIVE_SCHOOL_STORAGE_KEY)
+  } catch {
+    return null
+  }
+}
+
+export function setStoredActiveSchoolId(schoolId?: string | null) {
+  try {
+    const normalized = String(schoolId || '').trim()
+    if (normalized) {
+      localStorage.setItem(ACTIVE_SCHOOL_STORAGE_KEY, normalized)
+    } else {
+      localStorage.removeItem(ACTIVE_SCHOOL_STORAGE_KEY)
+    }
+    window.dispatchEvent(new CustomEvent(ACTIVE_SCHOOL_CHANGED_EVENT, { detail: normalized || null }))
+  } catch {
+    // Ignore storage failures and continue with the in-memory session.
+  }
+}
+
+export function clearStoredActiveSchoolId() {
+  setStoredActiveSchoolId(null)
+}
+
 export async function fetchWithAuth(url: string, opts: RequestInit = {}) {
   const headers = new Headers(opts.headers as HeadersInit || {})
   const method = (opts.method || 'GET').toUpperCase()
   const isMutating = !['GET', 'HEAD', 'OPTIONS', 'TRACE'].includes(method)
   const requestUrl = resolveApiUrl(url)
+  const activeSchoolId = getStoredActiveSchoolId()
+  if (activeSchoolId && !headers.has('X-Active-School-Id')) {
+    headers.set('X-Active-School-Id', activeSchoolId)
+  }
   if (isMutating && !headers.has('X-CSRF-Token')) {
     try {
       const response = await fetch(resolveApiUrl('/csrf-token'), { credentials: 'include' })

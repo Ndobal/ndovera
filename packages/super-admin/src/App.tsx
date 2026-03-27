@@ -9,6 +9,7 @@ type TabKey = 'schools' | 'website' | 'plans' | 'onboarding' | 'publicInbox' | '
 type SchoolCounts = { students: number; staff: number; parents: number; admins: number; total: number }
 type SchoolRecord = { id: string; name: string; subdomain: string; logoUrl?: string; primaryColor?: string; liveClassQuota: number; pageCount: number; website: Record<string, any> | null; createdAt: string; counts?: SchoolCounts; inactiveUsers?: number }
 type PricingPlan = { id: string; name: string; description: string; priceCents: number; billingInterval: string; features: string[] }
+type SchoolPricingTier = { key: string; label: string; minStudents: number; maxStudents: number | null; oneTimeSetupNaira: number; perStudentPerTermNaira: number; pricing?: { oneTimeSetupNaira: number; perStudentPerTermNaira: number; discountPercent: number } }
 type MonetizationSettings = any
 type LiveCapacityOption = { participantLimit: number; priceNaira: number; label: string }
 type PlatformSettings = {
@@ -32,6 +33,18 @@ type AiSummary = { features: number; enabledFeatures: number; usageCount: number
 type SystemMetrics = { schools: Array<{ id: string; name: string; subdomain: string; counts: SchoolCounts; inactiveUsers: number }>; totals: SchoolCounts; inactiveUsers: number; transfers: number }
 type SuperAdminUser = { id: string; name?: string; email?: string; roles: string[]; activeRole?: string }
 type PublicInboxResponse = { contactInquiries: PublicContactInquiry[]; growthApplications: GrowthPartnerApplication[] }
+type GeneratedInvoice = {
+  id: string
+  invoiceType: string
+  academicYear: string | null
+  termKey: string | null
+  totalNaira: number
+  balanceNaira: number
+  status: string
+  metadata?: Record<string, unknown> | null
+  items?: Array<{ id: string; label: string; quantity: number; unitAmountNaira: number; totalAmountNaira: number; itemType: string }>
+}
+type InvoiceRequestFeedback = { tone: 'success' | 'error'; text: string }
 
 const env = ((import.meta as any)?.env || {}) as Record<string, string | undefined>
 const API_BASE = (env.VITE_SUPER_ADMIN_API_URL || '').replace(/\/$/, '')
@@ -82,6 +95,52 @@ function SidebarLink({ active, label, onClick }: { active: boolean; label: strin
 	return <button className="btn" onClick={onClick} style={{ textAlign: 'left', background: active ? 'linear-gradient(135deg, rgba(16,185,129,0.25), rgba(6,182,212,0.18))' : 'rgba(255,255,255,0.03)', color: 'white', padding: 14, width: '100%' }}>{label}</button>
 }
 
+function formatNaira(value: number) {
+  return new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN', maximumFractionDigits: 0 }).format(Number(value || 0))
+}
+
+function readMetadataText(metadata: Record<string, unknown> | null | undefined, key: string) {
+  const value = metadata?.[key]
+  return typeof value === 'string' ? value.trim() : ''
+}
+
+function formatInvoiceBillingMode(invoice: GeneratedInvoice) {
+  const pricingMode = readMetadataText(invoice.metadata, 'pricingMode')
+  if (pricingMode === 'onboarding-only') return 'Onboarding setup only'
+  if (pricingMode === 'termly-only') return 'Term billing only'
+  if (invoice.invoiceType === 'onboarding') return 'Onboarding setup only'
+  if (invoice.invoiceType === 'term-billing') return 'Term billing only'
+  return 'Not specified'
+}
+
+function formatInvoicePlanLabel(invoice: GeneratedInvoice, tiers: SchoolPricingTier[]) {
+  const pricingTierKey = readMetadataText(invoice.metadata, 'pricingTierKey')
+  if (!pricingTierKey) return 'Not specified'
+  return tiers.find((tier) => tier.key === pricingTierKey)?.label || pricingTierKey
+}
+
+function defaultAcademicYear() {
+  const now = new Date()
+  const year = now.getMonth() >= 7 ? now.getFullYear() : now.getFullYear() - 1
+  return `${year}/${year + 1}`
+}
+
+function defaultTermKey() {
+  const month = new Date().getMonth()
+  if (month <= 3) return 'term-2'
+  if (month <= 7) return 'term-3'
+  return 'term-1'
+}
+
+function formatBillingMode(value: string | null | undefined) {
+  const normalized = String(value || '').trim().toLowerCase()
+  if (normalized === 'onboarding-only') return 'Onboarding only'
+  if (normalized === 'termly-only') return 'Term billing only'
+  if (normalized === 'onboarding') return 'Onboarding only'
+  if (normalized === 'term-billing') return 'Term billing only'
+  return 'Standard billing'
+}
+
 export default function App() {
   const [sessionUser, setSessionUser] = useState<SuperAdminUser | null>(null)
   const [authLoading, setAuthLoading] = useState(true)
@@ -104,6 +163,14 @@ export default function App() {
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(true)
+  const [invoiceAcademicYear, setInvoiceAcademicYear] = useState(defaultAcademicYear())
+  const [invoiceTermKey, setInvoiceTermKey] = useState(defaultTermKey())
+  const [invoiceStudentCount, setInvoiceStudentCount] = useState('0')
+  const [invoiceIncludeSetupFee, setInvoiceIncludeSetupFee] = useState(false)
+  const [invoicePricingTierKey, setInvoicePricingTierKey] = useState('')
+  const [invoiceSubmitting, setInvoiceSubmitting] = useState(false)
+  const [generatedInvoice, setGeneratedInvoice] = useState<GeneratedInvoice | null>(null)
+  const [invoiceFeedback, setInvoiceFeedback] = useState<InvoiceRequestFeedback | null>(null)
 
   const loadWorkspace = async () => {
     const [schoolsResp, plansResp, onboardingResp, publicInboxResp, aiFeaturesResp, aiSummaryResp, platformSettingsResp, systemMetricsResp, monetizationResp] = await Promise.all([
@@ -177,10 +244,24 @@ export default function App() {
   }, [sessionUser])
 
   const selectedSchool = useMemo(() => schools.find((school) => school.id === selectedSchoolId) || null, [schools, selectedSchoolId])
+  const schoolPricingTiers = useMemo<SchoolPricingTier[]>(() => monetizationSettings?.schoolPricing?.tiers || [], [monetizationSettings])
+  const invoicePlanOptions = useMemo(() => schoolPricingTiers.filter((tier) => tier.key !== 'custom'), [schoolPricingTiers])
+  const selectedInvoicePlan = useMemo(() => schoolPricingTiers.find((tier) => tier.key === invoicePricingTierKey) || null, [invoicePricingTierKey, schoolPricingTiers])
+
+  useEffect(() => {
+    setInvoiceStudentCount(String(selectedSchool?.counts?.students || 0))
+    setGeneratedInvoice(null)
+    setInvoiceFeedback(null)
+  }, [selectedSchool?.counts?.students, selectedSchoolId])
+
+  useEffect(() => {
+    if (!invoicePlanOptions.length) return
+    setInvoicePricingTierKey((current) => current || invoicePlanOptions[0].key)
+  }, [invoicePlanOptions])
 
   const tabs: Array<{ key: TabKey; label: string }> = [
     { key: 'schools', label: 'School controls' },
-    { key: 'website', label: 'Website builder' },
+    { key: 'website', label: 'Website template' },
     { key: 'plans', label: 'Pricing plans' },
     { key: 'onboarding', label: 'Onboarding' },
     { key: 'publicInbox', label: 'Public inbox' },
@@ -325,6 +406,42 @@ export default function App() {
     }
   }
 
+  const generateSchoolInvoice = async () => {
+    if (!selectedSchoolId) {
+      setError('Select a school first.')
+      return
+    }
+    setInvoiceSubmitting(true)
+    setInvoiceFeedback(null)
+    try {
+      const response = await api<{ invoice: GeneratedInvoice }>('/api/super/monetization/invoices/generate', {
+        method: 'POST',
+        body: JSON.stringify({
+          schoolId: selectedSchoolId,
+          academicYear: invoiceAcademicYear.trim(),
+          termKey: invoiceTermKey.trim(),
+          studentCount: Math.max(0, Number(invoiceStudentCount || 0)),
+          includeSetupFee: invoiceIncludeSetupFee,
+          pricingTierKey: invoicePricingTierKey || undefined,
+        }),
+      })
+      setGeneratedInvoice(response.invoice || null)
+      const appliedPlan = selectedInvoicePlan?.label || invoicePricingTierKey || 'Auto'
+      const billingMode = formatBillingMode(response.invoice?.invoiceType || (invoiceIncludeSetupFee ? 'onboarding' : 'term-billing'))
+      setInvoiceFeedback({ tone: 'success', text: `Draft created with ${appliedPlan} pricing and ${billingMode.toLowerCase()}.` })
+      setMessage(`Invoice ${response.invoice?.id || ''} generated for ${selectedSchool?.name || 'the selected school'}.`)
+      setError('')
+    } catch (err) {
+      const appliedPlan = selectedInvoicePlan?.label || invoicePricingTierKey || 'the selected plan'
+      const billingMode = formatBillingMode(invoiceIncludeSetupFee ? 'onboarding' : 'term-billing')
+      setGeneratedInvoice(null)
+      setInvoiceFeedback({ tone: 'error', text: `Invoice generation failed while using ${appliedPlan} pricing and ${billingMode.toLowerCase()}.` })
+      setError(err instanceof Error ? err.message : 'Unable to generate invoice.')
+    } finally {
+      setInvoiceSubmitting(false)
+    }
+  }
+
   if (authLoading) {
     return <div className="min-h-screen bg-[#081018] text-white flex items-center justify-center">Checking super-admin session…</div>
   }
@@ -433,6 +550,107 @@ export default function App() {
                     <div style={{ display: 'flex', gap: 8, marginTop: 14, flexWrap: 'wrap' }}>
                       <span className="pill">Active users: {selectedSchool.counts?.total || 0}</span>
                       <span className={(selectedSchool.inactiveUsers || 0) > 0 ? 'pill pill-warn' : 'pill'}>Inactive users: {selectedSchool.inactiveUsers || 0}</span>
+                    </div>
+
+                    <div className="panel" style={{ padding: 18, marginTop: 18 }}>
+                      <SectionTitle title="Generate invoice" subtitle="Create a draft onboarding or term invoice for the selected school with an explicit pricing plan." />
+                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, minmax(0, 1fr))', gap: 12, marginTop: 16 }}>
+                        <label>
+                          <div className="muted" style={{ marginBottom: 6 }}>Academic year</div>
+                          <input className="field" value={invoiceAcademicYear} onChange={(event) => setInvoiceAcademicYear(event.target.value)} />
+                        </label>
+                        <label>
+                          <div className="muted" style={{ marginBottom: 6 }}>Term key</div>
+                          <input className="field" value={invoiceTermKey} onChange={(event) => setInvoiceTermKey(event.target.value)} />
+                        </label>
+                        <label>
+                          <div className="muted" style={{ marginBottom: 6 }}>Student count</div>
+                          <input className="field" type="number" min={0} value={invoiceStudentCount} onChange={(event) => setInvoiceStudentCount(event.target.value)} />
+                        </label>
+                        <label>
+                          <div className="muted" style={{ marginBottom: 6 }}>Pricing plan</div>
+                          <select className="select" value={invoicePricingTierKey} onChange={(event) => setInvoicePricingTierKey(event.target.value)}>
+                            {invoicePlanOptions.map((tier) => <option key={tier.key} value={tier.key}>{tier.label}</option>)}
+                          </select>
+                        </label>
+                        <label style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
+                          <div className="muted" style={{ marginBottom: 6 }}>Billing mode</div>
+                          <label style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}><input type="checkbox" checked={invoiceIncludeSetupFee} onChange={(event) => setInvoiceIncludeSetupFee(event.target.checked)} /> <span>{invoiceIncludeSetupFee ? 'Onboarding setup invoice' : 'Term billing invoice'}</span></label>
+                        </label>
+                      </div>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, alignItems: 'center', marginTop: 14, flexWrap: 'wrap' }}>
+                        <div className="muted">The selected pricing plan is sent as pricingTierKey so the billing engine uses the intended Growth or Pro plan instead of only inferring from headcount.</div>
+                        <button className="btn btn-primary" onClick={generateSchoolInvoice} disabled={invoiceSubmitting || !invoicePricingTierKey}>{invoiceSubmitting ? 'Generating…' : 'Generate draft invoice'}</button>
+                      </div>
+                      {invoiceFeedback ? (
+                        <div
+                          className="panel"
+                          style={{
+                            padding: 12,
+                            marginTop: 14,
+                            borderColor: invoiceFeedback.tone === 'success' ? 'rgba(16,185,129,0.45)' : 'rgba(239,68,68,0.45)',
+                            background: invoiceFeedback.tone === 'success' ? 'rgba(16,185,129,0.08)' : 'rgba(239,68,68,0.08)',
+                            color: invoiceFeedback.tone === 'success' ? '#bbf7d0' : '#fecaca',
+                          }}
+                        >
+                          {invoiceFeedback.text}
+                        </div>
+                      ) : null}
+                      {generatedInvoice ? (
+                        <div className="panel" style={{ padding: 16, marginTop: 16 }}>
+                          {(() => {
+                            const metadata = (generatedInvoice.metadata || {}) as Record<string, unknown>
+                            const appliedTierKey = String(metadata.pricingTierKey || '')
+                            const appliedTierLabel = schoolPricingTiers.find((tier) => tier.key === appliedTierKey)?.label || appliedTierKey || 'Auto'
+                            const pricingMode = formatBillingMode(String(metadata.pricingMode || generatedInvoice.invoiceType || ''))
+                            const includeSetupFee = Boolean(metadata.includeSetupFee)
+                            return (
+                              <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 14 }}>
+                                <span className="pill">Applied plan: {appliedTierLabel}</span>
+                                <span className="pill">Billing mode: {pricingMode}</span>
+                                <span className="pill">Setup fee: {includeSetupFee ? 'included' : 'not included'}</span>
+                              </div>
+                            )
+                          })()}
+                          <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, alignItems: 'start', flexWrap: 'wrap' }}>
+                            <div>
+                              <div style={{ fontSize: 18, fontWeight: 800 }}>Invoice {generatedInvoice.id}</div>
+                              <div className="muted" style={{ marginTop: 4 }}>{generatedInvoice.invoiceType} • {generatedInvoice.academicYear || '—'} • {generatedInvoice.termKey || '—'}</div>
+                            </div>
+                            <div style={{ textAlign: 'right' }}>
+                              <div className="pill">{generatedInvoice.status}</div>
+                              <div style={{ fontSize: 22, fontWeight: 900, marginTop: 10 }}>{formatNaira(generatedInvoice.totalNaira)}</div>
+                            </div>
+                          </div>
+                          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: 10, marginTop: 14 }}>
+                            <div className="panel" style={{ padding: 12 }}>
+                              <div className="muted" style={{ fontSize: 12 }}>Applied plan</div>
+                              <div style={{ fontWeight: 800, marginTop: 6 }}>{formatInvoicePlanLabel(generatedInvoice, schoolPricingTiers)}</div>
+                            </div>
+                            <div className="panel" style={{ padding: 12 }}>
+                              <div className="muted" style={{ fontSize: 12 }}>Billing mode</div>
+                              <div style={{ fontWeight: 800, marginTop: 6 }}>{formatInvoiceBillingMode(generatedInvoice)}</div>
+                            </div>
+                            <div className="panel" style={{ padding: 12 }}>
+                              <div className="muted" style={{ fontSize: 12 }}>Outstanding balance</div>
+                              <div style={{ fontWeight: 800, marginTop: 6 }}>{formatNaira(generatedInvoice.balanceNaira)}</div>
+                            </div>
+                          </div>
+                          <div style={{ display: 'grid', gap: 10, marginTop: 14 }}>
+                            {(generatedInvoice.items || []).map((item) => (
+                              <div key={item.id} className="panel" style={{ padding: 12 }}>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap' }}>
+                                  <div>
+                                    <div style={{ fontWeight: 800 }}>{item.label}</div>
+                                    <div className="muted" style={{ marginTop: 4 }}>{item.quantity} × {formatNaira(item.unitAmountNaira)} • {item.itemType}</div>
+                                  </div>
+                                  <div style={{ fontWeight: 800 }}>{formatNaira(item.totalAmountNaira)}</div>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      ) : null}
                     </div>
                 </div>
               ) : null}

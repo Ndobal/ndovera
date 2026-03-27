@@ -99,6 +99,7 @@ const snapshotSchema = z.object({
 	academicYear: z.string().trim().min(1),
 	termKey: z.string().trim().min(1),
 	studentCount: z.number().int().nonnegative(),
+	pricingTierKey: z.string().trim().optional(),
 });
 
 const invoiceGenerationSchema = snapshotSchema.extend({

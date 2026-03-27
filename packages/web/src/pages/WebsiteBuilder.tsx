@@ -48,6 +48,7 @@ const DEFAULT_WEBSITE: SchoolWebsite = {
   theme: {
     primaryColor: '#10b981',
     fontFamily: 'Inter',
+    templateVariant: 'signature',
   },
   legal: {
     privacyPolicy: {
@@ -81,7 +82,7 @@ const DEFAULT_WEBSITE: SchoolWebsite = {
         'Keyu is Ndovera\'s internal digital-value unit for selected AI and reward flows. Exchange settings, AI consumption rates, ad-impression rewards, and settlement rules are determined by platform administration and are not guaranteed to remain fixed.',
         'Ndovera may suspend or restrict access where misuse, security risk, abuse, or policy violations are detected. The platform may also make reasonable changes to improve stability, security, or compliance.',
         'The platform is provided on an "as available" and "as is" basis to the extent permitted by law. Except where prohibited, Ndovera disclaims warranties and limits liability for indirect or consequential damages arising from use of the service.',
-        'These Terms can be updated from time to time. The most recent version posted on the website or website builder will govern continued use of the platform.',
+        'These Terms can be updated from time to time. The most recent version posted on the website template will govern continued use of the platform.',
       ].join('\n\n'),
     },
   },
@@ -498,8 +499,8 @@ export const WebsiteBuilder = () => {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-xl font-bold text-white">School Website Builder</h2>
-          <p className="text-zinc-500 text-xs">Customize your school's public presence.</p>
+          <h2 className="text-xl font-bold text-white">School Website Template</h2>
+          <p className="text-zinc-500 text-xs">Edit the current public website template without changing its core structure.</p>
         </div>
         <div className="flex gap-2 items-center">
           <button 
@@ -523,12 +524,12 @@ export const WebsiteBuilder = () => {
         {/* Editor Sidebar */}
         <div className="lg:col-span-1 space-y-4">
           <div className="card-compact">
-            <h3 className="text-xs font-bold uppercase tracking-widest text-zinc-400 mb-4">Editor Tools</h3>
+            <h3 className="text-xs font-bold uppercase tracking-widest text-zinc-400 mb-4">Template Tools</h3>
             <div className="space-y-1">
               {[
                 { id: 'pages', label: 'Pages', icon: <Globe size={16} /> },
-                { id: 'content', label: 'Page Content', icon: <Type size={16} /> },
-                { id: 'layout', label: 'Layout Blocks', icon: <LayoutIcon size={16} /> },
+                { id: 'content', label: 'Template Content', icon: <Type size={16} /> },
+                { id: 'layout', label: 'Template Sections', icon: <LayoutIcon size={16} /> },
                 { id: 'theme', label: 'Branding', icon: <Palette size={16} /> },
                   { id: 'vacancies', label: 'Vacancies Page', icon: <Briefcase size={16} /> },
                 { id: 'events', label: 'Events', icon: <Calendar size={16} /> },
@@ -555,6 +556,18 @@ export const WebsiteBuilder = () => {
                 <div className="card-compact animate-in fade-in slide-in-from-left-2 duration-300">
                   <h3 className="text-xs font-bold uppercase tracking-widest text-zinc-400 mb-3">Branding</h3>
                   <div className="space-y-3">
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-bold uppercase tracking-widest text-zinc-500">Website Template</label>
+                      <select
+                        value={website.theme.templateVariant || 'signature'}
+                        onChange={(e) => setWebsite((current) => ({ ...current, theme: { ...current.theme, templateVariant: e.target.value as 'signature' | 'bright-future' } }))}
+                        className="w-full rounded-xl border border-white/10 bg-black/20 px-3 py-2 text-sm text-white outline-none"
+                      >
+                        <option value="signature">Signature Template</option>
+                        <option value="bright-future">Bright Future Template</option>
+                      </select>
+                      <p className="text-[10px] text-zinc-500">`Signature` keeps the existing Ndovera presentation. `Bright Future` uses the new bright multi-page layout.</p>
+                    </div>
                     <div className="flex items-center gap-3">
                       <div className="w-14 h-14 bg-white/5 rounded-lg flex items-center justify-center overflow-hidden">
                         <img src={previewUrl || website.theme.logoUrl || '/logo.png'} alt="logo" className="w-full h-full object-contain" />
@@ -614,10 +627,8 @@ export const WebsiteBuilder = () => {
           {activeTab === 'pages' && (
             <div className="card-compact animate-in fade-in slide-in-from-left-2 duration-300">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-xs font-bold uppercase tracking-widest text-zinc-400">Site Pages</h3>
-                <button onClick={addPage} className="p-1 hover:bg-white/5 rounded text-emerald-500">
-                  <Plus size={16} />
-                </button>
+                <h3 className="text-xs font-bold uppercase tracking-widest text-zinc-400">Template Pages</h3>
+                <span className="text-[10px] font-bold uppercase tracking-widest text-zinc-500">Core structure locked</span>
               </div>
               <div className="space-y-2">
                 {orderedWebsitePages.map(p => (
@@ -641,13 +652,6 @@ export const WebsiteBuilder = () => {
                         />
                         Show
                       </label>
-                      <button 
-                        onClick={(e) => { e.stopPropagation(); deletePage(p.id); }}
-                        disabled={isCorePublicPageId(p.id)}
-                        className="text-zinc-600 hover:text-red-500 disabled:cursor-not-allowed disabled:opacity-30 p-1"
-                      >
-                        <Trash2 size={12} />
-                      </button>
                     </div>
                   </div>
                 ))}
@@ -1038,21 +1042,13 @@ export const WebsiteBuilder = () => {
               {activePage.sections.length > 0 ? (
                 activePage.sections.map((section, idx) => (
                   <div key={section.id} className="group relative rounded-2xl border border-white/5 bg-white/2 p-6 transition-all hover:border-emerald-500/30">
-                    <div className="absolute -left-3 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all flex flex-col gap-1">
-                      <button className="p-1.5 bg-zinc-800 rounded-lg text-zinc-400 hover:text-white border border-white/5 shadow-xl">
-                        <Plus size={12} />
-                      </button>
-                    </div>
-                    
                     <div className="flex items-start justify-between mb-4">
                       <div className="flex items-center gap-2">
                         <span className="text-[9px] font-bold text-zinc-600 uppercase tracking-widest bg-white/5 px-2 py-0.5 rounded">
                           {section.type}
                         </span>
                       </div>
-                      <button onClick={() => deleteSection(activePage.id, section.id)} className="text-zinc-600 hover:text-red-500 transition-colors">
-                        <Trash2 size={14} />
-                      </button>
+                      <span className="text-[10px] font-bold uppercase tracking-widest text-zinc-500">Template section</span>
                     </div>
 
                     {section.type === 'hero' && (
@@ -1155,31 +1151,16 @@ export const WebsiteBuilder = () => {
                   <div className="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center text-zinc-700 mb-4">
                     <Plus size={24} />
                   </div>
-                  <h4 className="text-sm font-bold text-zinc-400">No sections yet</h4>
-                  <p className="text-xs text-zinc-600 mt-1">Add a section from the library below.</p>
+                  <h4 className="text-sm font-bold text-zinc-400">No editable sections on this page</h4>
+                  <p className="text-xs text-zinc-600 mt-1">This template page is published as-is until sections are added centrally.</p>
                 </div>
               )}
             </div>
 
-            {/* Block Library */}
             <div className="mt-12 pt-12 border-t border-white/5">
-              <h4 className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest mb-4">Add New Section</h4>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                {[
-                  { type: 'hero', label: 'Hero Section' },
-                  { type: 'about', label: 'About Us' },
-                  { type: 'features', label: 'Features' },
-                  { type: 'contact', label: 'Contact Form' }
-                ].map((block) => (
-                  <button 
-                    key={block.type}
-                    onClick={() => addSection(block.type as any)}
-                    className="card-mini border-dashed flex flex-col items-center justify-center py-6 hover:bg-white/5 transition-colors group"
-                  >
-                    <LayoutIcon size={20} className="text-zinc-600 group-hover:text-emerald-500 transition-all mb-2" />
-                    <span className="text-[10px] font-bold text-zinc-500 uppercase">{block.label}</span>
-                  </button>
-                ))}
+              <h4 className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest mb-4">Template Structure</h4>
+              <div className="rounded-2xl border border-white/5 bg-black/10 p-4 text-sm text-zinc-400">
+                This website now uses a fixed template. You can update content, branding, legal copy, events, testimonials, and published opportunities without adding or removing pages and sections here.
               </div>
             </div>
           </div>

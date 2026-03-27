@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { z } from 'zod';
 import { assignRoleToUser, buildMetrics, isIdentityUserActive, listIdentityLifecycleEvents, listIdentityUsers, loadIdentityState, provisionUser, updateIdentityUser } from '../../../../../identity-state.js';
 import { requireRoles } from '../../../rbac.js';
+import { applyGlobalPolicyForUser, createOwnedSchoolForUser, getAccessibleSchoolContext, listGlobalPoliciesForUser, rollbackGlobalPolicyForUser, userHasOwnerPrivileges } from '../ownership/ownership.store.js';
 import { getSchoolProfile } from '../schools/schoolProfile.store.js';
 import { getUserProfileById, getUserProfileTemplate, toPublicUserProfile, updateUserProfileForUser } from './userProfile.store.js';
 
@@ -55,6 +56,23 @@ const lifecycleStatusSchema = z.object({
 	reason: z.string().trim().max(280).optional().or(z.literal('')),
 });
 
+const ownedSchoolCreateSchema = z.object({
+	schoolName: z.string().trim().min(2).max(120),
+	subdomain: z.string().trim().min(2).max(40).regex(/^[a-z0-9-]+$/),
+	schoolId: z.string().trim().min(2).max(80).optional(),
+});
+
+const globalPolicySchema = z.object({
+	policyType: z.enum(['attendance', 'grading', 'finance', 'discipline', 'academic calendar']),
+	targetSchoolIds: z.array(z.string().trim().min(1)).max(50).optional(),
+	payload: z.record(z.unknown()),
+	note: z.string().trim().max(280).optional().or(z.literal('')),
+});
+
+const rollbackPolicySchema = z.object({
+	reason: z.string().trim().max(280).optional().or(z.literal('')),
+});
+
 function normalizeRoleName(value?: string) {
 	return String(value || '').trim().toLowerCase();
 }
@@ -68,6 +86,28 @@ function canAssignRole(actorRole: string, targetRole: string) {
 	return ['hos', 'owner', 'tenant school owner', 'admin', 'super admin'].includes(normalizedActor);
 }
 
+function isSchoolAccessible(user: any, schoolId: string) {
+	const accessible = Array.isArray(user?.accessible_school_ids) ? user.accessible_school_ids.map((entry: unknown) => String(entry)) : [];
+	return accessible.includes(schoolId);
+}
+
+async function buildSchoolSwitcherPayload(user: any) {
+	const { accessibleSchools, ownerAccount } = await getAccessibleSchoolContext(user);
+	const schools = await Promise.all(accessibleSchools.map(async (school) => {
+		const profile = await getSchoolProfile(school.id).catch(() => null);
+		return {
+			id: school.id,
+			name: school.name,
+			subdomain: school.subdomain,
+			accessLevel: school.accessLevel,
+			logoUrl: profile?.logoUrl || null,
+			websiteUrl: profile?.websiteUrl || null,
+			primaryColor: profile?.primaryColor || '#0f766e',
+		};
+	}));
+	return { schools, ownerAccount };
+}
+
 usersRouter.get('/me', (req, res) => {
 	const user = (req as any).user;
 	if (!user) return res.status(401).json({ error: 'Unauthenticated' });
@@ -77,13 +117,18 @@ usersRouter.get('/me', (req, res) => {
 	 if (identityUser && !isIdentityUserActive(identityUser)) {
 		 return res.status(403).json({ error: 'This account has been deactivated. Contact your school administrator.' });
 	 }
-	return Promise.resolve(school ? getSchoolProfile(school.id) : null).then((profile) => {
+	return Promise.all([
+		Promise.resolve(school ? getSchoolProfile(school.id) : null),
+		buildSchoolSwitcherPayload(user),
+	]).then(([profile, switcher]) => {
 	 return getUserProfileById(user.id, identityUser).then((userProfile) => {
 		const publicProfile = toPublicUserProfile(userProfile);
 	 return res.json({
 		...user,
 		ndoveraId: user.id,
 		schoolId: user.school_id,
+		baseSchoolId: user.base_school_id || user.school_id,
+		activeSchoolId: user.effective_school_id || user.school_id,
 		schoolName: school?.name || null,
 		alternateEmail: userProfile.alternateEmail || null,
 		avatarUrl: publicProfile.avatarUrl,
@@ -97,6 +142,8 @@ usersRouter.get('/me', (req, res) => {
 	websiteUrl: profile?.websiteUrl || null,
 	primaryColor: profile?.primaryColor || '#0f766e',
 		} : null,
+		accessibleSchools: switcher.schools,
+		ownerAccount: switcher.ownerAccount,
 	 });
 	 });
 	});
@@ -105,6 +152,8 @@ usersRouter.get('/me', (req, res) => {
    ...user,
    ndoveraId: user.id,
    schoolId: user.school_id,
+		baseSchoolId: user.base_school_id || user.school_id,
+		activeSchoolId: user.effective_school_id || user.school_id,
    schoolName: null,
    alternateEmail: null,
    avatarUrl: null,
@@ -112,6 +161,8 @@ usersRouter.get('/me', (req, res) => {
    statusAvailability: 'available',
    statusUpdatedAt: null,
    school: null,
+		accessibleSchools: [],
+		ownerAccount: null,
   });
  });
 });
@@ -126,12 +177,15 @@ usersRouter.get('/me/profile', async (req, res) => {
 	}
 	const school = state.schools.find((entry) => entry.id === user.school_id) || null;
 	const schoolProfile = school ? await getSchoolProfile(school.id) : null;
+	const switcher = await buildSchoolSwitcherPayload(user);
 	const profile = await getUserProfileById(user.id, identityUser);
 	return res.json({
 		user: {
 			...user,
 			ndoveraId: user.id,
 			schoolId: user.school_id,
+			baseSchoolId: user.base_school_id || user.school_id,
+			activeSchoolId: user.effective_school_id || user.school_id,
 			schoolName: school?.name || null,
 			alternateEmail: profile.alternateEmail || null,
 			avatarUrl: profile.avatarUrl || null,
@@ -145,6 +199,8 @@ usersRouter.get('/me/profile', async (req, res) => {
 				websiteUrl: schoolProfile?.websiteUrl || null,
 				primaryColor: schoolProfile?.primaryColor || '#0f766e',
 			} : null,
+				accessibleSchools: switcher.schools,
+				ownerAccount: switcher.ownerAccount,
 		},
 		profile,
 		template: getUserProfileTemplate(),
@@ -188,11 +244,87 @@ usersRouter.get('/metrics', async (req, res) => {
 	});
 });
 
+usersRouter.get('/owner/policies', async (req, res) => {
+	const user = (req as any).user;
+	if (!user) return res.status(401).json({ error: 'Unauthenticated' });
+	if (!userHasOwnerPrivileges(user)) return res.status(403).json({ error: 'Only school owners can access policy controls.' });
+	const payload = await listGlobalPoliciesForUser(user);
+	return res.json(payload);
+});
+
+usersRouter.post('/owner/policies', async (req, res) => {
+	const user = (req as any).user;
+	if (!user) return res.status(401).json({ error: 'Unauthenticated' });
+	if (!userHasOwnerPrivileges(user)) return res.status(403).json({ error: 'Only school owners can apply global policies.' });
+	const parsed = globalPolicySchema.safeParse(req.body || {});
+	if (!parsed.success) return res.status(400).json({ error: 'Invalid global policy payload.' });
+	try {
+		const result = await applyGlobalPolicyForUser(user, {
+			policyType: parsed.data.policyType,
+			targetSchoolIds: parsed.data.targetSchoolIds,
+			payload: parsed.data.payload,
+			note: parsed.data.note || null,
+		});
+		return res.status(201).json(result);
+	} catch (error) {
+		const message = error instanceof Error ? error.message : 'Unable to apply the global policy.';
+		const code = typeof error === 'object' && error && 'code' in error ? String((error as any).code) : '';
+		return res.status(code.includes('UPGRADE') ? 402 : 400).json({ error: message });
+	}
+});
+
+usersRouter.post('/owner/policies/:policyId/rollback', async (req, res) => {
+	const user = (req as any).user;
+	if (!user) return res.status(401).json({ error: 'Unauthenticated' });
+	if (!userHasOwnerPrivileges(user)) return res.status(403).json({ error: 'Only school owners can roll back global policies.' });
+	const policyId = String(req.params.policyId || '').trim();
+	if (!policyId) return res.status(400).json({ error: 'policyId is required.' });
+	const parsed = rollbackPolicySchema.safeParse(req.body || {});
+	if (!parsed.success) return res.status(400).json({ error: 'Invalid rollback payload.' });
+	try {
+		const result = await rollbackGlobalPolicyForUser(user, policyId, parsed.data.reason || null);
+		return res.json(result);
+	} catch (error) {
+		return res.status(400).json({ error: error instanceof Error ? error.message : 'Unable to roll back this policy.' });
+	}
+});
+
+usersRouter.post('/owned-schools', async (req, res) => {
+	const user = (req as any).user;
+	if (!user) return res.status(401).json({ error: 'Unauthenticated' });
+	if (!userHasOwnerPrivileges(user)) return res.status(403).json({ error: 'Only school owners can add another school.' });
+	const parsed = ownedSchoolCreateSchema.safeParse(req.body || {});
+	if (!parsed.success) return res.status(400).json({ error: 'Invalid school creation payload.' });
+	try {
+		const result = await createOwnedSchoolForUser(user, parsed.data);
+		const profile = await getSchoolProfile(result.school.id).catch(() => null);
+		return res.status(201).json({
+			school: {
+				id: result.school.id,
+				name: result.school.name,
+				subdomain: result.school.subdomain,
+				logoUrl: profile?.logoUrl || null,
+				websiteUrl: profile?.websiteUrl || null,
+				primaryColor: profile?.primaryColor || '#0f766e',
+			},
+			ownerAccount: result.ownerAccount,
+			accessibleSchools: result.accessibleSchools,
+		});
+	} catch (error) {
+		const message = error instanceof Error ? error.message : 'Unable to create the school.';
+		const code = typeof error === 'object' && error && 'code' in error ? String((error as any).code) : '';
+		return res.status(code === 'OWNER_TIER_LIMIT_REACHED' ? 402 : 400).json({ error: message });
+	}
+});
+
 usersRouter.get('/directory', requireRoles('HoS', 'Admin', 'Super Admin', 'Owner', 'Tenant School Owner'), async (req, res) => {
 	const user = (req as any).user;
 	if (!user) return res.status(401).json({ error: 'Unauthenticated' });
 	const state = await loadIdentityState();
 	const schoolId = String(req.query.schoolId || user.school_id || '').trim();
+	if (schoolId && !isSchoolAccessible(user, schoolId)) {
+		return res.status(403).json({ error: 'Selected school is not available for this account.' });
+	}
 	const includeInactive = String(req.query.includeInactive || '').trim() === '1';
 	const scopedUsers = listIdentityUsers(state, schoolId, includeInactive);
 	const students = schoolId ? state.students.filter((item) => item.schoolId === schoolId) : state.students;
@@ -251,6 +383,9 @@ usersRouter.post('/assign-head-role', requireRoles('HoS', 'Admin', 'Super Admin'
 	try {
 		const state = await loadIdentityState();
 		const schoolId = String(user.school_id || 'school-1').trim();
+		if (!isSchoolAccessible(user, schoolId)) {
+			return res.status(403).json({ error: 'Selected school is not available for this account.' });
+		}
 		const result = await assignRoleToUser(state, {
 			targetUserId: parsed.data.userId,
 			schoolId,
@@ -274,6 +409,9 @@ usersRouter.post('/provision', requireRoles('HoS', 'Admin', 'Super Admin'), asyn
 	}
 	const state = await loadIdentityState();
 	const schoolId = parsed.data.schoolId || user.school_id || 'school-1';
+	if (schoolId && !isSchoolAccessible(user, schoolId)) {
+		return res.status(403).json({ error: 'Selected school is not available for this account.' });
+	}
 	const schoolName = parsed.data.schoolName || state.schools.find((school) => school.id === schoolId)?.name || 'Ndovera Academy';
 	const result = await provisionUser(state, {
 		category: parsed.data.category,

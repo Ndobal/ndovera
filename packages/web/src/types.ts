@@ -41,6 +41,7 @@ export interface SchoolWebsite {
     primaryColor: string;
     fontFamily: string;
     logoUrl?: string;
+    templateVariant?: 'signature' | 'bright-future';
   };
   pages: WebsitePage[];
 }

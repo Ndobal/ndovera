@@ -7,6 +7,8 @@ import { AdBanner } from './AdBanner';
 import { useData } from '../hooks/useData';
 import { EvaluationModal } from '../features/evaluation/components/EvaluationModal';
 import { AdPlacement } from '../services/adsApi';
+import { fetchWithAuth, setStoredActiveSchoolId } from '../services/apiClient';
+import { StoredUser } from '../services/authLocal';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -20,6 +22,7 @@ interface LayoutProps {
   setSearchQuery: (query: string) => void;
   themeMode: 'light' | 'dark';
   setThemeMode: (mode: 'light' | 'dark') => void;
+  onSchoolContextRefresh?: () => Promise<void> | void;
 }
 
 export const Layout: React.FC<LayoutProps> = ({
@@ -34,8 +37,9 @@ export const Layout: React.FC<LayoutProps> = ({
   setSearchQuery,
   themeMode,
   setThemeMode,
+  onSchoolContextRefresh,
 }) => {
-  const { data: currentUser } = useData<any>('/api/users/me');
+  const { data: currentUser, refetch: refetchCurrentUser } = useData<StoredUser>('/api/users/me');
   const tenantBrand = currentUser?.school ? {
     name: currentUser.school.name || 'School Workspace',
     logoUrl: currentUser.school.logoUrl || null,
@@ -67,8 +71,27 @@ export const Layout: React.FC<LayoutProps> = ({
   const adPlacementUrl = shouldFetchAd ? `/api/ads/serve?page=${encodeURIComponent(adPageKey)}&placement=layout&sessionKey=${encodeURIComponent(adSessionKey)}` : '';
   const { data: adPlacement } = useData<AdPlacement>(adPlacementUrl, { enabled: shouldFetchAd });
 
-    const { data: evalStatus } = useData<{ active: boolean; completed: boolean; evaluation_id: string }>('/api/evaluation/status');
+  const { data: evalStatus } = useData<{ active: boolean; completed: boolean; evaluation_id: string }>('/api/evaluation/status');
   const [hideEval, setHideEval] = useState(false);
+
+  const handleSchoolSwitch = async (schoolId: string) => {
+    setStoredActiveSchoolId(schoolId);
+    await refetchCurrentUser();
+    await onSchoolContextRefresh?.();
+  };
+
+  const handleCreateSchool = async (input: { schoolName: string; subdomain: string }) => {
+    const result = await fetchWithAuth('/api/users/owned-schools', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(input),
+    }) as { school?: { id?: string } };
+    if (result?.school?.id) {
+      setStoredActiveSchoolId(result.school.id);
+    }
+    await refetchCurrentUser();
+    await onSchoolContextRefresh?.();
+  };
   
   return (
     <div className={`app-shell h-screen flex overflow-hidden font-sans selection:bg-emerald-500/30 ${themeMode === 'dark' ? 'theme-dark' : 'theme-light'}`}>
@@ -90,6 +113,11 @@ export const Layout: React.FC<LayoutProps> = ({
           themeMode={themeMode}
           setThemeMode={setThemeMode}
           tenantBrand={tenantBrand}
+          accessibleSchools={currentUser?.accessibleSchools || []}
+          activeSchoolId={currentUser?.activeSchoolId || currentUser?.schoolId || null}
+          ownerAccount={currentUser?.ownerAccount || null}
+          onSwitchSchool={handleSchoolSwitch}
+          onCreateSchool={handleCreateSchool}
         />
         {/* Ad Banner */}
         <div className={shouldFetchAd ? 'transition-all duration-300' : ''}>

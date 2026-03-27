@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { fetchWithAuth } from '../services/apiClient';
+import { ACTIVE_SCHOOL_CHANGED_EVENT, fetchWithAuth } from '../services/apiClient';
 
 export function useData<T>(url: string, options?: { enabled?: boolean }) {
   const [data, setData] = useState<T | null>(null);
@@ -34,6 +34,15 @@ export function useData<T>(url: string, options?: { enabled?: boolean }) {
 
   useEffect(() => {
     fetchData();
+  }, [fetchData]);
+
+  useEffect(() => {
+    const handleSchoolChange = () => {
+      fetchData();
+    };
+
+    window.addEventListener(ACTIVE_SCHOOL_CHANGED_EVENT, handleSchoolChange);
+    return () => window.removeEventListener(ACTIVE_SCHOOL_CHANGED_EVENT, handleSchoolChange);
   }, [fetchData]);
 
   return {

@@ -18,6 +18,7 @@ const registerSchema = z.object({
 });
 
 function formatTierRange(minStudents: number, maxStudents: number | null) {
+	if (minStudents === 0 && maxStudents === 0) return 'Custom pricing';
 	return maxStudents === null ? `${minStudents}+ learners` : `${minStudents} to ${maxStudents} learners`;
 }
 
@@ -27,7 +28,10 @@ const paymentSchema = z.object({
 });
 
 const discountCodeSchema = z.object({
-	code: z.string().trim().min(1),
+	code: z.string().trim().optional(),
+	discountCode: z.string().trim().optional(),
+	pricingTierKey: z.string().trim().optional(),
+	requestedStudentCount: z.number().int().nonnegative().optional(),
 });
 
 function calculateOnboardingAmounts(input: {
@@ -39,11 +43,8 @@ function calculateOnboardingAmounts(input: {
 	if (!input.selectedTier) {
 		return { subtotalNaira: 0, discountNaira: 0, totalNaira: 0 };
 	}
-	const requestedStudentCount = Math.max(0, Number(input.requestedStudentCount || 0));
-	const extraStudentCount = Math.max(0, Number(input.extraStudentCount || 0));
 	const discountedTier = getTierDiscountedAmounts(input.selectedTier);
-	const includedStudents = Math.max(0, requestedStudentCount - extraStudentCount);
-	const subtotalNaira = (discountedTier.oneTimeSetupNaira) + (discountedTier.perStudentPerTermNaira * includedStudents) + (Number(input.selectedTier.perStudentPerTermNaira || 0) * extraStudentCount);
+	const subtotalNaira = discountedTier.oneTimeSetupNaira;
 	const discountNaira = Number(input.discountPercentage || 0) > 0 ? subtotalNaira * (Number(input.discountPercentage || 0) / 100) : 0;
 	const totalNaira = Math.max(0, subtotalNaira - discountNaira);
 	return {
@@ -60,12 +61,8 @@ onboardingRouter.post('/register-school', async (req, res) => {
 	const selectedTier = catalog.schoolPricing.tiers.find((tier) => tier.key === String(parsed.data.pricingTierKey || '').trim()) || null;
 	const requestedStudentCount = Number(parsed.data.requestedStudentCount || 0) || undefined;
 	const includedMaxStudents = selectedTier?.maxStudents ?? requestedStudentCount ?? null;
-	const extraStudentCount = selectedTier && requestedStudentCount && selectedTier.maxStudents !== null && requestedStudentCount > selectedTier.maxStudents
-		? requestedStudentCount - selectedTier.maxStudents
-		: 0;
-	const extraStudentTermDeficitNaira = selectedTier && extraStudentCount > 0
-		? extraStudentCount * Number(selectedTier.perStudentPerTermNaira || 0)
-		: 0;
+	const extraStudentCount = 0;
+	const extraStudentTermDeficitNaira = 0;
 	const pricingSummary = calculateOnboardingAmounts({ selectedTier, requestedStudentCount, extraStudentCount });
 	const request = await registerSchoolOnboardingRequest({
 		...parsed.data,
@@ -85,16 +82,30 @@ onboardingRouter.post('/register-school', async (req, res) => {
 onboardingRouter.post('/discount-code/validate', async (req, res) => {
 	const parsed = discountCodeSchema.safeParse(req.body || {});
 	if (!parsed.success) return res.status(400).json({ error: 'Discount code is required.' });
-	const code = await validateDiscountCode(parsed.data.code, 'school-onboarding');
+	const codeText = String(parsed.data.discountCode || parsed.data.code || '').trim();
+	if (!codeText) return res.status(400).json({ error: 'Discount code is required.' });
+	const catalog = await getSchoolPricingCatalog();
+	const selectedTier = catalog.schoolPricing.tiers.find((tier) => tier.key === String(parsed.data.pricingTierKey || '').trim()) || null;
+	const code = await validateDiscountCode(codeText, 'school-onboarding');
 	if (!code) return res.status(404).json({ error: 'Discount code is invalid, expired, or inactive.' });
+	const pricing = calculateOnboardingAmounts({
+		selectedTier,
+		requestedStudentCount: parsed.data.requestedStudentCount,
+		discountPercentage: code.percentageOff,
+	});
 	return res.json({
-		code: {
+		discountCode: {
 			id: code.id,
 			code: code.code,
 			description: code.description,
 			percentageOff: code.percentageOff,
 			validFrom: code.validFrom,
 			expiresAt: code.expiresAt,
+		},
+		pricing: {
+			subtotalNaira: pricing.subtotalNaira,
+			discountAmountNaira: pricing.discountNaira,
+			finalAmountNaira: pricing.totalNaira,
 		},
 	});
 });

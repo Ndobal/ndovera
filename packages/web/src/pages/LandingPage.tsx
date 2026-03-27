@@ -865,7 +865,7 @@ export const LandingPage = ({ onLogin, initialPublicPageId }: { onLogin: () => v
   return (
     <div className="min-h-screen bg-[#0A0B0D] text-zinc-300 font-sans selection:bg-emerald-500/30">
       {toast ? <div className="fixed right-6 top-6 z-50 rounded-2xl border border-emerald-500/30 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-200">{toast.message}</div> : null}
-      {showRegister ? <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-6"><div className="w-full max-w-4xl rounded-4xl border border-white/10 bg-[#151619] p-8"><div className="mb-6 flex items-start justify-between gap-6"><div><p className="text-[11px] font-bold uppercase tracking-[0.24em] text-emerald-300/70">School onboarding</p><h3 className="mt-2 text-3xl font-bold text-white">Register your school</h3><p className="mt-3 max-w-2xl text-sm leading-7 text-zinc-400">Choose a plan, confirm your school details, then add your payment reference. Your first payment is the setup fee only. Per-student term billing starts from the second term of usage.</p></div><button onClick={resetRegisterFlow} className="rounded-full border border-white/10 p-2 text-zinc-300 transition hover:bg-white/5"><X /></button></div><div className="mb-6 grid gap-3 md:grid-cols-4">{[
+      {showRegister ? <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 sm:p-6"><div className="max-h-[calc(100vh-2rem)] w-full max-w-4xl overflow-y-auto rounded-4xl border border-white/10 bg-[#151619] p-5 sm:p-6 lg:p-8"><div className="mb-6 flex items-start justify-between gap-6"><div><p className="text-[11px] font-bold uppercase tracking-[0.24em] text-emerald-300/70">School onboarding</p><h3 className="mt-2 text-3xl font-bold text-white">Register your school</h3><p className="mt-3 max-w-2xl text-sm leading-7 text-zinc-400">Choose a plan, confirm your school details, then add your payment reference. Your first payment is the setup fee only. Per-student term billing starts from the second term of usage.</p></div><button onClick={resetRegisterFlow} className="rounded-full border border-white/10 p-2 text-zinc-300 transition hover:bg-white/5"><X /></button></div><div className="mb-6 grid gap-3 md:grid-cols-4">{[
         { id: 'details', label: 'School details' },
         { id: 'payment', label: 'Payment' },
         { id: 'waiting', label: 'Review queue' },
@@ -985,7 +985,7 @@ export const LandingPage = ({ onLogin, initialPublicPageId }: { onLogin: () => v
                         </div>
                       </div>
                       <div className="mt-6 flex justify-end">
-                        <span className="rounded-2xl px-4 py-3 text-sm font-bold text-white" style={{ background: isSelected ? brandColor : accentColor }}>{isSelected ? 'Chosen' : 'Choose tier'}</span>
+                        <span className="rounded-2xl px-4 py-3 text-sm font-bold text-white" style={{ background: isSelected ? brandColor : accentColor }}>{isCustom ? 'Request quote' : 'Proceed to pay'}</span>
                       </div>
                     </button>
                   );
@@ -1144,7 +1144,7 @@ export const LandingPage = ({ onLogin, initialPublicPageId }: { onLogin: () => v
                     </div>
 
                     <div className="mt-6 flex justify-end">
-                      <span className="rounded-2xl px-4 py-3 text-sm font-bold text-white" style={{ background: isSelected ? brandColor : '#066a3e' }}>{isSelected ? 'Chosen' : 'Choose tier'}</span>
+                      <span className="rounded-2xl px-4 py-3 text-sm font-bold text-white" style={{ background: isSelected ? brandColor : '#066a3e' }}>{isCustom ? 'Request quote' : 'Proceed to pay'}</span>
                     </div>
                   </button>
                 );

@@ -254,7 +254,7 @@ let documentSchemaPromise: Promise<void> | null = null;
 
 function defaultPricingPlans(): PricingPlan[] {
 	return [
-		{ id: 'plan-1', name: 'Starter', description: 'Starter plan', priceCents: 0, billingInterval: 'monthly', features: ['5 live classrooms', '50 live participants', 'Website builder', 'Core operations'] },
+		{ id: 'plan-1', name: 'Starter', description: 'Starter plan', priceCents: 0, billingInterval: 'monthly', features: ['5 live classrooms', '50 live participants', 'Website template', 'Core operations'] },
 		{ id: 'plan-2', name: 'Growth', description: 'Growth plan', priceCents: 250000, billingInterval: 'monthly', features: ['10 live classrooms', '100 live participants', 'Advanced management', 'Priority support'] },
 	];
 }

@@ -6,6 +6,8 @@ coverage/
 *.log
 *.db
 *.db-journal
+*.db-shm
+*.db-wal
 .scripts/
 packages/server/BOUND_PORT.txt
 my_port_result.txt

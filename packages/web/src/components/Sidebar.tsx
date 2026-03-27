@@ -72,7 +72,7 @@ const NAV_ITEMS: NavItem[] = [
   { id: 'payslips', label: 'Payslips', icon: <FileText size={20} />, roles: ['Teacher', 'HOS', 'School Admin', 'Finance Officer', 'Librarian', 'Clinic Manager', 'Hostel Manager', 'ICT Manager', 'Tuckshop Manager', 'Tenant School Owner'] },
   { id: 'tutorials', label: 'Tutorials', icon: <GraduationCap size={20} />, roles: ROLES },
   { id: 'championships', label: 'Championships', icon: <Trophy size={20} />, roles: ['Student', 'Scholarships Admin', 'Super Admin'] },
-  { id: 'website', label: 'Web Builder', icon: <Globe size={20} />, roles: ['Super Admin'] },
+  { id: 'website', label: 'Website Template', icon: <Globe size={20} />, roles: ['Super Admin'] },
   { id: 'opportunities', label: 'Opportunities', icon: <Briefcase size={20} />, roles: ROLES.filter(r => r !== 'Student') },
   // Growth Partners is a global/super-admin feature — hide from regular school users
   { id: 'growth', label: 'Growth Partners', icon: <TrendingUp size={20} />, roles: ['Ami', 'Super Admin', 'Owner', 'Growth Partner'] as Role[] },

@@ -5,7 +5,7 @@ type WebsiteSection = { id: string; type: WebsiteSectionType; content: Record<st
 type WebsitePage = { id: string; title: string; slug: string; sections: WebsiteSection[] }
 type SchoolWebsite = {
   schoolId: string
-  theme: { primaryColor: string; fontFamily: string; logoUrl?: string }
+  theme: { primaryColor: string; fontFamily: string; logoUrl?: string; templateVariant?: 'signature' | 'bright-future' }
   publicUrl?: string
   contactInfo?: { email?: string; phone?: string; address?: string; city?: string; state?: string; country?: string }
   legal?: {
@@ -158,6 +158,7 @@ function createDefaultWebsite(school: SchoolContext): SchoolWebsite {
       primaryColor: school.primaryColor || '#10b981',
       fontFamily: 'Verdana',
       logoUrl: school.logoUrl,
+      templateVariant: school.subdomain === 'ndovera' ? 'bright-future' : 'signature',
     },
     publicUrl: `https://${school.subdomain}.ndovera.com`,
     contactInfo: {
@@ -311,12 +312,12 @@ export function WebsiteExperiencePanel({ selectedSchool, request, resolveAssetUr
       <div className="panel" style={{ padding: 22 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap' }}>
           <div>
-            <h2 style={{ margin: 0, fontSize: 22 }}>Website experience</h2>
+            <h2 style={{ margin: 0, fontSize: 22 }}>Website template</h2>
             <p className="muted" style={{ marginTop: 8, maxWidth: 860 }}>
-              Update the live public pages, homepage banner images, social links, and clear site wording from one place.
+              Update the live public website template, homepage banner images, social links, and clear site wording from one place.
             </p>
           </div>
-          <button className="btn btn-primary" onClick={saveWebsite} disabled={saving}>{saving ? 'Saving…' : 'Save website'}</button>
+          <button className="btn btn-primary" onClick={saveWebsite} disabled={saving}>{saving ? 'Saving…' : 'Save template'}</button>
         </div>
       </div>
 
@@ -326,6 +327,10 @@ export function WebsiteExperiencePanel({ selectedSchool, request, resolveAssetUr
           <input className="field" value={draft.theme.primaryColor} onChange={(event) => setDraft({ ...draft, theme: { ...draft.theme, primaryColor: event.target.value } })} placeholder="Brand colour" />
           <input className="field" value={draft.theme.fontFamily} onChange={(event) => setDraft({ ...draft, theme: { ...draft.theme, fontFamily: event.target.value } })} placeholder="Font family" />
           <input className="field" value={draft.theme.logoUrl || ''} onChange={(event) => setDraft({ ...draft, theme: { ...draft.theme, logoUrl: event.target.value } })} placeholder="Logo URL" />
+          <select className="field" value={draft.theme.templateVariant || 'signature'} onChange={(event) => setDraft({ ...draft, theme: { ...draft.theme, templateVariant: event.target.value as 'signature' | 'bright-future' } })}>
+            <option value="signature">Signature template</option>
+            <option value="bright-future">Bright Future template</option>
+          </select>
           <input className="field" value={draft.contactInfo?.email || ''} onChange={(event) => setDraft({ ...draft, contactInfo: { ...draft.contactInfo, email: event.target.value } })} placeholder="Public email" />
           <input className="field" value={draft.contactInfo?.phone || ''} onChange={(event) => setDraft({ ...draft, contactInfo: { ...draft.contactInfo, phone: event.target.value } })} placeholder="Public phone" />
           <input className="field" value={draft.publicUrl || ''} onChange={(event) => setDraft({ ...draft, publicUrl: event.target.value })} placeholder="Public website URL" />

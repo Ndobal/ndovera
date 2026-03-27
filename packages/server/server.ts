@@ -5,7 +5,7 @@ import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { attachUserFromHeaders } from './rbac.js';
+import { attachUserFromHeaders, resolveEffectiveSchoolContext } from './rbac.js';
 import { loadIdentityState } from '../../identity-state.js';
 import { authRouter } from './src/modules/auth/auth.routes.js';
 import { usersRouter } from './src/modules/users/users.routes.js';
@@ -73,13 +73,14 @@ app.use((req, res, next) => {
 		res.setHeader('Access-Control-Allow-Origin', origin);
 		res.setHeader('Vary', 'Origin');
 		res.setHeader('Access-Control-Allow-Credentials', 'true');
-		res.setHeader('Access-Control-Allow-Headers', 'Content-Type, X-CSRF-Token');
+		res.setHeader('Access-Control-Allow-Headers', 'Content-Type, X-CSRF-Token, X-Active-School-Id');
 		res.setHeader('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS');
 	}
 	if (req.method === 'OPTIONS') return res.status(204).end();
 	return next();
 });
 app.use(attachUserFromHeaders);
+app.use(resolveEffectiveSchoolContext);
 app.use((req, res, next) => {
 	const startedAt = Date.now();
 	res.on('finish', () => {
@@ -87,6 +88,8 @@ app.use((req, res, next) => {
 		console.log(JSON.stringify({
 			userId: user?.id || null,
 			tenantId: user?.school_id || null,
+			baseTenantId: user?.base_school_id || null,
+			effectiveTenantId: user?.effective_school_id || user?.school_id || null,
 			method: req.method,
 			path: req.originalUrl,
 			status: res.statusCode,

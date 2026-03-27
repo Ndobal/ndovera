@@ -20,6 +20,13 @@ function formatNaira(value: number) {
   return new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN', maximumFractionDigits: 0 }).format(Number(value || 0));
 }
 
+function formatPricingPlanLabel(tier: PricingCatalog['schoolPricing']['tiers'][number]) {
+  if (tier.key === 'custom' || (tier.minStudents === 0 && tier.maxStudents === 0)) return 'Custom quote';
+  if (tier.key === 'growth') return 'Self-serve onboarding';
+  if (tier.key === 'pro') return 'Expanded rollout';
+  return tier.maxStudents === null ? `${tier.minStudents}+ students` : `${tier.minStudents} to ${tier.maxStudents} students`;
+}
+
 function formatDate(value?: string | null) {
   if (!value) return 'Pending';
   const parsed = new Date(value);
@@ -705,8 +712,8 @@ export const FinanceView = ({ role }: { role: Role }) => {
               {pricing?.schoolPricing.tiers.map((tier) => (
                 <div key={tier.key} className="rounded-xl border border-white/5 bg-white/2 px-3 py-3">
                   <p className="text-xs font-bold text-zinc-200">{tier.label}</p>
-                  <p className="mt-1">{tier.minStudents} to {tier.maxStudents ?? 'up'} students</p>
-                  <p>Setup {formatNaira(tier.oneTimeSetupNaira)} • {formatNaira(tier.perStudentPerTermNaira)} / student / term</p>
+                  <p className="mt-1">{formatPricingPlanLabel(tier)}</p>
+                  <p>Setup {formatNaira(tier.oneTimeSetupNaira)} • {formatNaira(tier.perStudentPerTermNaira)} / student / term from second term</p>
                 </div>
               ))}
             </div>
