@@ -14,13 +14,12 @@ export default defineConfig(({mode}) => {
     if (id.includes('react-router') || id.includes('react-dom') || id.includes(`${path.sep}react${path.sep}`)) return 'vendor-react';
     if (id.includes('lucide-react') || id.includes(`${path.sep}motion${path.sep}`) || id.includes('framer-motion')) return 'vendor-ui';
     if (id.includes('@tiptap') || id.includes('prosemirror') || id.includes('yjs') || id.includes('y-websocket') || id.includes('y-protocols')) return 'vendor-editor';
-    if (id.includes('mathlive') || id.includes('katex') || id.includes('remark-math') || id.includes('rehype-katex') || id.includes('react-markdown') || id.includes('unified') || id.includes('mdast') || id.includes('hast') || id.includes('vfile') || id.includes('micromark')) return 'vendor-math';
     if (id.includes('jspdf') || id.includes('html2canvas') || id.includes('html-to-image') || id.includes('docx') || id.includes('jszip') || id.includes('file-saver') || id.includes('xml-js')) return 'vendor-export';
     if (id.includes('fabric') || id.includes('konva') || id.includes('react-konva')) return 'vendor-canvas';
     if (id.includes('html5-qrcode') || id.includes('qrcode.react')) return 'vendor-qr';
     if (id.includes('emoji-mart')) return 'vendor-emoji';
     if (id.includes('@google/genai')) return 'vendor-ai';
-    return 'vendor-misc';
+    return undefined;
   };
 
   return {

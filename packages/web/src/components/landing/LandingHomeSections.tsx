@@ -113,9 +113,13 @@ export function LandingHomeSections({
   return (
     <>
       <style>{`
-        @keyframes ndoveraMarquee {
+        @keyframes ndoveraMarqueeLeft {
           from { transform: translateX(0); }
           to { transform: translateX(-50%); }
+        }
+        @keyframes ndoveraMarqueeRight {
+          from { transform: translateX(-50%); }
+          to { transform: translateX(0); }
         }
         @keyframes ndoveraHeroPan {
           0% { transform: scale(1.03) translate3d(0, 0, 0); }
@@ -171,7 +175,7 @@ export function LandingHomeSections({
           </div>
         </div>
         <div className="overflow-hidden rounded-4xl border border-white/5 bg-[#101214] py-4">
-          <div style={{ display: 'flex', width: 'max-content', animation: 'ndoveraMarquee 120s linear infinite' }}>
+          <div style={{ display: 'flex', width: 'max-content', animation: 'ndoveraMarqueeLeft 120s linear infinite' }}>
             {repeatedSchools.map((school, index) => (
               <div key={`${school.id}_${index}`} className="mx-3 flex items-center gap-4 rounded-3xl border border-white/5 bg-white/5 px-5 py-4" style={{ minWidth: 260 }}>
                 <div className="flex h-14 w-14 items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-white/10 text-sm font-bold text-white">
@@ -249,7 +253,7 @@ export function LandingHomeSections({
           </div>
         </div>
         <div className="overflow-hidden rounded-4xl border border-white/5 bg-[#101214] py-4">
-          <div style={{ display: 'flex', width: 'max-content', animation: 'ndoveraMarquee 140s linear infinite' }}>
+          <div style={{ display: 'flex', width: 'max-content', animation: 'ndoveraMarqueeRight 140s linear infinite' }}>
             {repeatedTestimonials.map((testimonial, index) => (
               <div key={`${testimonial.id || testimonial.author || index}_${index}`} className="mx-3 w-[320px] rounded-[1.9rem] border border-white/5 bg-white/5 p-6 text-left">
                 <div className="text-sm leading-7 text-zinc-200">“{testimonial.originalComment || testimonial.quote}”</div>
