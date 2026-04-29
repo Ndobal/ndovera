@@ -48,12 +48,11 @@ View your app in AI Studio: https://ai.studio/apps/8c11f1f7-5713-43ed-a136-60404
 
 ## Production environment
 
-Set these variables before deploying the frontends:
+Set these variables before deploying the frontend:
 
 - `GEMINI_API_KEY` - Gemini API key for AI features in the web app
 - `VITE_API_URL` - optional base URL for the main web API; leave empty if served from the same origin
-- `VITE_SUPER_ADMIN_URL` - public URL of the super-admin frontend
-- `VITE_SUPER_ADMIN_API_URL` - base URL of the super-admin API
+- `VITE_SUPER_ADMIN_API_URL` - base URL of the AMI/global-role API used by the unified frontend
 - `VITE_SIGNALING_WS_URL` - optional WebSocket signaling endpoint for WebRTC features
 - `VITE_PUBLIC_ASSET_BASE_URL` - optional asset host for uploaded proofs and public files
 

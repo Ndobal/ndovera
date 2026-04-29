@@ -6,7 +6,6 @@ import { AppErrorBoundary } from './components/AppErrorBoundary';
 import { Role } from './types';
 import { ToastContainer, useToast } from './components/Toast';
 import { StoredUser } from './services/authLocal';
-import { SUPER_ADMIN_URL } from './services/runtimeConfig';
 import { ACTIVE_SCHOOL_CHANGED_EVENT, clearStoredActiveSchoolId, fetchWithAuth, getStoredActiveSchoolId, setStoredActiveSchoolId } from './services/apiClient';
 
 const LandingPage = lazy(() => import('./pages/LandingPage').then((module) => ({ default: module.LandingPage })));
@@ -46,6 +45,7 @@ const ProfileManagerView = lazy(() => import('./pages/ProfileManager').then((mod
 const SchoolHistoryView = lazy(() => import('./pages/SchoolHistory').then((module) => ({ default: module.SchoolHistoryView })));
 const MarketplaceView = lazy(() => import('./pages/Marketplace').then((module) => ({ default: module.MarketplaceView })));
 const PayslipsView = lazy(() => import('./pages/Payslips').then((module) => ({ default: module.PayslipsView })));
+const AmiWorkspace = lazy(() => import('../../super-admin/src/App'));
 
 const DutyReport = lazy(() => import('./features/reports/components/DutyReport').then((module) => ({ default: module.default })));
 function PageLoader() {
@@ -74,8 +74,14 @@ export default function App() {
   const navigate = useNavigate();
   const isPublicTutorialsRoute = location.pathname === '/tutorials';
   const isPublicLegalRoute = location.pathname === '/privacy-policy' || location.pathname === '/terms-of-service';
+  const isPublicOnboardingPaymentRoute = location.pathname === '/onboarding-payment-complete';
   const isPublicSignInRoute = location.pathname === '/signin';
   const isRootRoute = location.pathname === '/' || location.pathname === '';
+  const publicLandingPageId = location.pathname === '/terms-of-service'
+    ? 'terms-of-service'
+    : location.pathname === '/privacy-policy'
+      ? 'privacy-policy'
+      : undefined;
 
   const openPublicSignIn = () => {
     setShowAuth(false);
@@ -221,29 +227,20 @@ export default function App() {
 
   const SUPER_ROLES: Role[] = ['Ami']
 
-  if (isPublicLegalRoute) {
+  if (isPublicLegalRoute || isPublicOnboardingPaymentRoute) {
     return (
       <Suspense fallback={<PageLoader />}>
-        <LandingPage onLogin={openPublicSignIn} initialPublicPageId={location.pathname === '/terms-of-service' ? 'terms-of-service' : 'privacy-policy'} />
+        <LandingPage onLogin={openPublicSignIn} initialPublicPageId={publicLandingPageId} />
       </Suspense>
     );
   }
 
-  // If user switched to a global/super role, block school UI and point them to the super-admin app
+  // AMI now lives inside the main web frontend while continuing to use its own backend.
   if (isLoggedIn && SUPER_ROLES.includes(currentRole)) {
     return (
-      <div className="h-screen flex items-center justify-center bg-[#0A0B0D]">
-        <div className="max-w-lg p-8 bg-[#151619] rounded-2xl border border-white/5 text-center">
-          <h2 className="text-2xl font-bold text-white mb-2">Super Admin Mode Detected</h2>
-          <p className="text-zinc-400 mb-4">You are currently acting as a global/system administrator. School dashboards are restricted for this role to prevent accidental access to tenant data.</p>
-          <div className="flex gap-3 justify-center">
-            <button
-              onClick={() => window.open(SUPER_ADMIN_URL, '_blank')}
-              className="px-4 py-2 bg-emerald-600 text-white rounded-lg font-bold"
-            >Open Super Admin App</button>
-          </div>
-        </div>
-      </div>
+      <Suspense fallback={<PageLoader />}>
+        <AmiWorkspace />
+      </Suspense>
     )
   }
 
@@ -315,10 +312,10 @@ export default function App() {
         </>
       );
     }
-    if (isPublicLegalRoute) {
+    if (isPublicLegalRoute || isPublicOnboardingPaymentRoute) {
       return (
         <Suspense fallback={<PageLoader />}>
-          <LandingPage onLogin={openPublicSignIn} initialPublicPageId={location.pathname === '/terms-of-service' ? 'terms-of-service' : 'privacy-policy'} />
+          <LandingPage onLogin={openPublicSignIn} initialPublicPageId={publicLandingPageId} />
         </Suspense>
       );
     }

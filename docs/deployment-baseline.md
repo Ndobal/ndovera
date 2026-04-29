@@ -2,10 +2,9 @@
 
 This baseline assumes:
 
-- `packages/web` is deployed to Cloudflare Pages as the main school app.
-- `packages/super-admin` is deployed to Cloudflare Pages as the super-admin app.
-- `packages/server` is deployed as the school API container.
-- `packages/super-admin-server` is deployed as the super-admin API container.
+- `packages/web` is deployed to Cloudflare Pages as the unified frontend.
+- `packages/server` is deployed as the main school API.
+- `packages/super-admin-server` is deployed as the AMI/global-role API.
 
 ## Backend containers
 
@@ -63,39 +62,32 @@ Required external integration variables when enabling production uploads:
 
 ## Cloudflare Pages
 
-### Main web app
+### Unified web app
 
 - Project root: `packages/web`
 - Build command: `npm --workspace=packages/web run build`
 - Build output directory: `packages/web/dist`
-- Production variable: `VITE_API_BASE_URL=https://api.your-domain.com`
-
-### Super-admin app
-
-- Project root: `packages/super-admin`
-- Build command: `npm --workspace=packages/super-admin run build`
-- Build output directory: `packages/super-admin/dist`
 - Production variables:
-  - `VITE_SUPER_ADMIN_API_URL=https://super-api.your-domain.com`
-  - `VITE_PUBLIC_ASSET_BASE_URL=https://app.your-domain.com`
+  - `VITE_API_URL=https://api.your-domain.com`
+  - `VITE_SUPER_ADMIN_API_URL=https://ami-api.your-domain.com`
+  - `VITE_PUBLIC_ASSET_BASE_URL=https://assets.your-domain.com`
 
 ## Cross-origin requirements
 
-The frontends are now able to target explicit API origins through environment variables, and both backends now honor a comma-separated `CORS_ORIGIN` allowlist with credentials enabled.
+The unified frontend can target both backend origins through environment variables, and both backends should honor the frontend origin in `CORS_ORIGIN` with credentials enabled.
 
-Set `CORS_ORIGIN` to the exact Pages origins you deploy, for example:
+Set `CORS_ORIGIN` to the exact Pages origin you deploy, for example:
 
 ```text
-https://app.your-domain.com,https://super.your-domain.com
+https://www.ndovera.com
 ```
 
 ## Recommended production topology
 
-- `app.your-domain.com` -> Cloudflare Pages for `packages/web`
-- `super.your-domain.com` -> Cloudflare Pages for `packages/super-admin`
-- `api.your-domain.com` -> DigitalOcean container host for `packages/server`
-- `super-api.your-domain.com` -> DigitalOcean container host for `packages/super-admin-server`
-- `db.your-domain.internal` -> DigitalOcean Managed PostgreSQL for both backends where possible
+- `www.ndovera.com` -> Cloudflare Pages for `packages/web`
+- `api.your-domain.com` -> main backend (`packages/server`) or `ndovera-api`
+- `ami-api.your-domain.com` -> AMI/global-role backend (`packages/super-admin-server`) or `ndovera-ami-api`
+- `db.your-domain.internal` -> shared database for both backends where possible
 - `assets.your-domain.com` -> Cloudflare-backed public asset host for uploaded files
 
 ### Target split aligned to current rollout

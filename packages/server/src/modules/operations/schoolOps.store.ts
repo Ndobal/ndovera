@@ -3,6 +3,9 @@ import crypto from 'crypto';
 import type { User } from '../../../rbac.js';
 import { loadIdentityState } from '../../../../../identity-state.js';
 import { readDocument, writeDocument } from '../../common/runtimeDocumentStore.js';
+import { listSchoolClassesForUser } from '../classroom/classes.store.js';
+import { listClassroomSubjectsForUser } from '../classroom/subjects.store.js';
+import { getAssignmentForUser, listAssignmentsForSchool, type UserAssignmentRecord } from '../users/userAssignments.store.js';
 import { getPlatformSettings } from '../platform/platformSettings.store.js';
 
 export type LiveClassSessionRecord = {
@@ -220,33 +223,43 @@ export async function buildDashboardSummaryForUser(user: User) {
 	const state = await readState(ensureSchoolId(user));
 	const identity = await loadIdentityState();
 	const schoolId = ensureSchoolId(user);
+	const role = String(user.activeRole || user.roles?.[0] || '').trim().toLowerCase();
 	const schoolUsers = identity.users.filter((entry) => entry.schoolId === schoolId);
 	const schoolStudents = identity.students.filter((entry) => entry.schoolId === schoolId);
 	const activeLiveClasses = state.liveClasses.filter((entry) => !entry.closedAt);
+	const visibleClasses = await listSchoolClassesForUser(user);
+	const visibleSubjects = await listClassroomSubjectsForUser(user);
+	const assignment = await getAssignmentForUser(String(user.id || '').trim(), schoolId);
+	const schoolAssignments = await listAssignmentsForSchool(schoolId);
+	const teacherAssignments: UserAssignmentRecord[] = schoolAssignments.filter((entry) => entry.userId === user.id);
+	const studentAssignments: UserAssignmentRecord[] = schoolAssignments.filter((entry) => entry.userId === user.id);
+	const pendingAssignments = 0;
+	const submittedAssignments = 0;
 	return {
 		student: {
 			stats: {
 				latestAverage: '0%',
-				subjectCount: 0,
+				subjectCount: role === 'student' ? visibleSubjects.length : 0,
 				liveClassCount: activeLiveClasses.length,
-				pendingAssignments: 0,
-				submittedAssignments: 0,
+				pendingAssignments,
+				submittedAssignments,
 			},
 			liveClasses: activeLiveClasses,
 			announcements: state.notifications.slice(0, 5).map((entry) => ({ id: entry.id, title: entry.message, detail: entry.message })),
+			classroom: assignment?.className || (visibleClasses[0] ? [visibleClasses[0].level, visibleClasses[0].name].filter(Boolean).join(' ') : null),
 		},
 		teacher: {
 			stats: {
-				subjectCount: 0,
-				classCount: 0,
-				assignmentCount: 0,
+				subjectCount: role === 'teacher' || role === 'staff' ? visibleSubjects.length : 0,
+				classCount: role === 'teacher' || role === 'staff' ? visibleClasses.length : 0,
+				assignmentCount: teacherAssignments.length,
 				pendingGrading: 0,
 				lessonPlanCount: 0,
 				liveClassCount: activeLiveClasses.length,
 			},
 			liveClasses: activeLiveClasses,
-			assignments: [],
-			subjects: [],
+			assignments: teacherAssignments,
+			subjects: visibleSubjects,
 		},
 		generic: {
 			stats: {

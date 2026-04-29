@@ -24,6 +24,8 @@ import { uploadsRouter } from './src/modules/uploads/uploads.routes.js';
 import { libraryRouter } from './src/modules/library/library.routes.js';
 import { championshipRouter } from './src/modules/championship/championship.routes.js';
 import { schoolsRouter } from './src/modules/schools/schools.routes.js';
+import { tuckshopRouter } from './src/modules/tuckshop/tuckshop.routes.js';
+import { lessonPlansRouter } from './src/modules/lesson-plans/lessonPlans.routes.js';
 
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
@@ -127,6 +129,8 @@ app.use('/api/uploads', uploadsRouter);
 app.use('/api/schools', schoolsRouter);
 app.use('/api/library', libraryRouter);
 app.use('/api/championships', championshipRouter);
+app.use('/api/tuckshop', tuckshopRouter);
+app.use('/api/lesson-plans', lessonPlansRouter);
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use((err: any, _req: express.Request, res: express.Response, next: express.NextFunction) => {
 	if (err?.code === 'EBADCSRFTOKEN') {

@@ -16,7 +16,6 @@ import {
 import { Role } from '../types';
 import { useData } from '../hooks/useData';
 import { fetchWithAuth } from '../services/apiClient';
-import { tuckshopTransactions } from '../features/student/data/studentPortalFixtures';
 
 type ManagerTab = 'sales' | 'inventory' | 'debtors' | 'reports' | 'audit';
 type UserTab = 'account' | 'history' | 'payments' | 'preorder';
@@ -60,32 +59,6 @@ type TuckshopDashboard = {
   reports?: ReportItem[];
   auditLogs?: string[];
 };
-
-const PRODUCTS: ProductItem[] = [
-  { id: 'ITM-001', name: 'Bottled Water', category: 'Drinks', price: '₦200', stock: '150 Units', status: 'In Stock' },
-  { id: 'ITM-002', name: 'Fruit Juice', category: 'Drinks', price: '₦500', stock: '12 Units', status: 'Low Stock' },
-  { id: 'ITM-003', name: 'Snack Pack', category: 'Food', price: '₦350', stock: '85 Units', status: 'In Stock' },
-  { id: 'ITM-004', name: 'Exercise Book', category: 'Stationery', price: '₦700', stock: '44 Units', status: 'In Stock' },
-];
-
-const DEBTORS: DebtorItem[] = [
-  { id: 'DB-01', userId: 's1', name: 'Precious Johnson', type: 'Student', balance: '₦3,200', plan: '₦1,000 weekly', status: 'Active' },
-  { id: 'DB-02', userId: 't3', name: 'Mr. Samuel Okoro', type: 'Staff', balance: '₦5,500', plan: 'Payroll deduction pending', status: 'Pending' },
-  { id: 'DB-03', userId: 's2', name: 'Daniel Musa', type: 'Student', balance: '₦1,200', plan: 'Paid partially', status: 'Part-paid' },
-];
-
-const REPORTS = [
-  { label: 'Daily sales', value: '₦42,500', note: 'All paid sales captured today.' },
-  { label: 'Credit exposure', value: '₦18,700', note: 'Open student and staff balances.' },
-  { label: 'Top products', value: 'Drinks + Snacks', note: 'Highest movement this week.' },
-  { label: 'Consumption split', value: '68% / 32%', note: 'Students vs staff purchases.' },
-];
-
-const AUDIT_LOGS = [
-  'Sale TS-1024 was marked part-paid by Tuckshop Manager at 09:12 AM.',
-  'Installment updated for Precious Johnson with ₦1,000 received.',
-  'Fruit Juice stock reduced after synced offline sale batch.',
-];
 
 const getCardVisual = (label: string, tone?: string) => {
   const normalized = `${tone || ''} ${label}`.toLowerCase();
@@ -203,66 +176,19 @@ export const TuckshopView = ({ role }: { role: Role }) => {
   }, [data?.installmentOptions, installmentForm.saleId]);
 
   const userTransactions = useMemo(() => {
-    if (data?.transactions?.length) {
-      return data.transactions;
-    }
+    return data?.transactions || [];
+  }, [data?.transactions]);
 
-    if (isParent) {
-      return [
-        { id: 'PT-01', item: 'Fruit Juice', quantity: 1, date: '2026-03-14 10:25 AM', amount: '₦500', method: 'Parent Wallet', child: 'Precious Johnson' },
-        { id: 'PT-02', item: 'Snack Pack', quantity: 2, date: '2026-03-13 01:10 PM', amount: '₦700', method: 'Credit', child: 'Precious Johnson' },
-      ];
-    }
+  const accountCards = (data?.accountCards?.length
+    ? data.accountCards
+    : [
+        { label: 'Wallet Balance', value: `₦${Number(data?.balances?.walletBalanceNaira ?? 0).toLocaleString()}`, tone: 'wallet' },
+        { label: 'Credit Balance', value: `₦${Number(data?.balances?.creditBalanceNaira ?? 0).toLocaleString()}`, tone: 'credit' },
+        { label: 'Transactions', value: String(data?.transactions?.length || 0), tone: 'receipt' },
+        { label: 'Audit Logs', value: String(data?.auditLogs?.length || 0), tone: 'audit' },
+      ]).map((card) => ({ ...card, ...getCardVisual(card.label, card.tone) }));
 
-    if (isStaff) {
-      return [
-        { id: 'ST-01', item: 'Lunch Combo', quantity: 1, date: '2026-03-14 12:30 PM', amount: '₦1,800', method: 'Credit', child: 'Staff purchase' },
-        { id: 'ST-02', item: 'Bottled Water', quantity: 2, date: '2026-03-13 09:05 AM', amount: '₦400', method: 'Wallet', child: 'Staff purchase' },
-      ];
-    }
-
-    return tuckshopTransactions.map((transaction) => ({
-      id: transaction.id,
-      item: transaction.item,
-      quantity: transaction.quantity,
-      date: transaction.date,
-      amount: transaction.amount,
-      method: transaction.method,
-      child: 'Self',
-    }));
-  }, [data?.transactions, isParent, isStaff]);
-
-  const accountCards = data?.accountCards?.length
-    ? data.accountCards.map((card) => ({ ...card, ...getCardVisual(card.label, card.tone) }))
-    : isTuckshopManager
-    ? [
-        { label: "Today's Sales", value: '₦42,500', icon: <TrendingUp size={16} />, color: 'text-emerald-500', bg: 'bg-emerald-500/10' },
-        { label: 'Credit Exposure', value: '₦18,700', icon: <HandCoins size={16} />, color: 'text-orange-500', bg: 'bg-orange-500/10' },
-        { label: 'Wallet Float', value: '₦1.2M', icon: <Wallet size={16} />, color: 'text-purple-500', bg: 'bg-purple-500/10' },
-        { label: 'Immutable Logs', value: 'Active', icon: <ShieldCheck size={16} />, color: 'text-blue-500', bg: 'bg-blue-500/10' },
-      ]
-    : isParent
-      ? [
-          { label: 'Child Balance', value: '₦3,200', icon: <Wallet size={16} />, color: 'text-purple-500', bg: 'bg-purple-500/10' },
-          { label: 'Spending Limit', value: '₦2,500/day', icon: <CreditCard size={16} />, color: 'text-emerald-500', bg: 'bg-emerald-500/10' },
-          { label: 'Recent Purchases', value: '2', icon: <ShoppingBag size={16} />, color: 'text-blue-500', bg: 'bg-blue-500/10' },
-          { label: 'Receipts', value: 'Auto-issued', icon: <Receipt size={16} />, color: 'text-orange-500', bg: 'bg-orange-500/10' },
-        ]
-      : isStaff
-        ? [
-            { label: 'Outstanding Balance', value: '₦5,500', icon: <Wallet size={16} />, color: 'text-purple-500', bg: 'bg-purple-500/10' },
-            { label: 'Credit Status', value: 'Active', icon: <HandCoins size={16} />, color: 'text-emerald-500', bg: 'bg-emerald-500/10' },
-            { label: 'This Week', value: '₦2,200', icon: <TrendingUp size={16} />, color: 'text-blue-500', bg: 'bg-blue-500/10' },
-            { label: 'Payroll Link', value: 'Optional', icon: <CreditCard size={16} />, color: 'text-orange-500', bg: 'bg-orange-500/10' },
-          ]
-        : [
-            { label: 'Wallet Balance', value: '₦8,450', icon: <Wallet size={16} />, color: 'text-purple-500', bg: 'bg-purple-500/10' },
-            { label: 'This Week', value: '₦1,250', icon: <TrendingUp size={16} />, color: 'text-emerald-500', bg: 'bg-emerald-500/10' },
-            { label: 'Transactions', value: String(userTransactions.length), icon: <ShoppingBag size={16} />, color: 'text-blue-500', bg: 'bg-blue-500/10' },
-            { label: 'Payment Mode', value: 'Cashless', icon: <CreditCard size={16} />, color: 'text-orange-500', bg: 'bg-orange-500/10' },
-          ];
-
-  const products: ProductItem[] = data?.products?.length ? data.products : PRODUCTS;
+  const products: ProductItem[] = data?.products || [];
   const paymentAccounts = data?.paymentAccounts || [];
   const buyerOptions = data?.buyerOptions || [];
   const installmentOptions = data?.installmentOptions || [];
@@ -282,19 +208,15 @@ export const TuckshopView = ({ role }: { role: Role }) => {
         amount: transaction.amount,
       }));
   const periodTotals = data?.periodTotals || { daily: [], weekly: [], monthly: [] };
-  const debtors = data?.debtors?.length ? data.debtors : DEBTORS;
-  const reports = data?.reports?.length ? data.reports : REPORTS;
-  const auditLogs = data?.auditLogs?.length ? data.auditLogs : AUDIT_LOGS;
+  const debtors = data?.debtors || [];
+  const reports = data?.reports || [];
+  const auditLogs = data?.auditLogs || [];
   const paymentInstructions = data?.paymentInstructions?.length
     ? data.paymentInstructions
-    : [
-        'Use the student wallet or approved parent funding flow for tuck shop payments.',
-        'Receipts are issued automatically when sales are marked paid.',
-        'Tuck shop records remain separate from school fees.',
-      ];
-  const parentBalance = `₦${Number(data?.balances?.creditBalanceNaira ?? 3200).toLocaleString()}`;
-  const parentLimit = `₦${Number(data?.balances?.spendingLimitNaira ?? 2500).toLocaleString()}/day`;
-  const staffBalance = `₦${Number(data?.balances?.creditBalanceNaira ?? 5500).toLocaleString()}`;
+    : ['Manager has not configured payment instructions yet.'];
+  const parentBalance = `₦${Number(data?.balances?.creditBalanceNaira ?? 0).toLocaleString()}`;
+  const parentLimit = `₦${Number(data?.balances?.spendingLimitNaira ?? 0).toLocaleString()}/day`;
+  const staffBalance = `₦${Number(data?.balances?.creditBalanceNaira ?? 0).toLocaleString()}`;
   const oversightOwnOwe = `₦${Number(data?.debtOverview?.ownOweNaira ?? 0).toLocaleString()}`;
   const oversightOthersOwe = `₦${Number(data?.debtOverview?.othersOweNaira ?? 0).toLocaleString()}`;
   const selectedSaleProduct = products.find((product) => product.id === saleForm.productId) || null;

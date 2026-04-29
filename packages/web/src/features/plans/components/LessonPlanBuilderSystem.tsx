@@ -2,9 +2,9 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { ArrowLeft, Bot, CheckCircle2, Download, FileWarning, Landmark, Plus, ReceiptText, Sparkles } from 'lucide-react';
 
 import { consumeAiCredits, getAiCreditBalance, type AiCreditBalanceResponse } from '../../../services/monetizationApi';
+import { api } from '../../../services/api';
 
 const weeks = Array.from({ length: 10 }, (_, index) => `Week ${index + 1}`);
-const STORAGE_KEY = 'ndovera.lesson-plan-builder.v2';
 const LATE_FINE_NAIRA = 5000;
 
 type RoleMode = 'teacher' | 'sectional' | 'hos';
@@ -176,17 +176,37 @@ function getSubmissionDeadline(dateValue: string) {
 	return deadline;
 }
 
-function safeReadState() {
-	if (typeof window === 'undefined') return { 'Week 1': [createLesson()] } satisfies LessonPlanState;
-	try {
-		const raw = window.localStorage.getItem(STORAGE_KEY);
-		if (!raw) return { 'Week 1': [createLesson()] } satisfies LessonPlanState;
-		const parsed = JSON.parse(raw) as LessonPlanState;
-		if (!parsed || typeof parsed !== 'object') return { 'Week 1': [createLesson()] } satisfies LessonPlanState;
-		return parsed;
-	} catch {
-		return { 'Week 1': [createLesson()] } satisfies LessonPlanState;
+function defaultLessonPlanState() {
+	return { 'Week 1': [createLesson()] } satisfies LessonPlanState;
+}
+
+function toStringValue(value: unknown, fallback = '') {
+	const next = String(value || '').trim();
+	return next || fallback;
+}
+
+function mapApiPlansToState(items: any[]): LessonPlanState {
+	const nextState: LessonPlanState = {};
+	for (const item of items) {
+		const payload = item?.payload && typeof item.payload === 'object' ? item.payload : {};
+		const lesson = {
+			...createLesson(),
+			...payload,
+			id: toStringValue(item?.id, createLesson().id),
+			subject: toStringValue(item?.subject, (payload as any)?.subject || ''),
+			topic: toStringValue(item?.topic, (payload as any)?.topic || ''),
+			class: toStringValue(item?.className, (payload as any)?.class || ''),
+			date: toStringValue(item?.date, (payload as any)?.date || ''),
+			status: toStringValue(item?.status, (payload as any)?.status || 'Draft'),
+			submittedAt: item?.submittedAt ? String(item.submittedAt) : ((payload as any)?.submittedAt || null),
+			steps: Array.isArray((payload as any)?.steps)
+				? (payload as any).steps as LessonStep[]
+				: createLesson().steps,
+		} as LessonPlan;
+		const week = toStringValue(item?.week, 'Week 1');
+		nextState[week] = [...(nextState[week] || []), lesson];
 	}
+	return Object.keys(nextState).length ? nextState : defaultLessonPlanState();
 }
 
 function getAiObjectives(lesson: LessonPlan, count: number) {
@@ -211,14 +231,31 @@ type LessonPlanBuilderSystemProps = {
 export default function LessonPlanBuilderSystem({ goBack, showBackButton = false }: LessonPlanBuilderSystemProps) {
 	const [activeWeek, setActiveWeek] = useState('Week 1');
 	const [role, setRole] = useState<RoleMode>('teacher');
-	const [data, setData] = useState<LessonPlanState>(() => safeReadState());
+	const [data, setData] = useState<LessonPlanState>(() => defaultLessonPlanState());
 	const [creditBalance, setCreditBalance] = useState<AiCreditBalanceResponse | null>(null);
 	const [activeAiLessonId, setActiveAiLessonId] = useState<string | null>(null);
+	const [loadingPlans, setLoadingPlans] = useState(true);
 
 	useEffect(() => {
-		if (typeof window === 'undefined') return;
-		window.localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-	}, [data]);
+		let mounted = true;
+		setLoadingPlans(true);
+		void api
+			.getLessonPlans()
+			.then((items: any) => {
+				if (!mounted) return;
+				const plans = Array.isArray(items) ? items : [];
+				setData(mapApiPlansToState(plans));
+			})
+			.catch(() => {
+				if (mounted) setData(defaultLessonPlanState());
+			})
+			.finally(() => {
+				if (mounted) setLoadingPlans(false);
+			});
+		return () => {
+			mounted = false;
+		};
+	}, []);
 
 	useEffect(() => {
 		void getAiCreditBalance().then(setCreditBalance).catch(() => null);
@@ -248,6 +285,20 @@ export default function LessonPlanBuilderSystem({ goBack, showBackButton = false
 			...current,
 			[activeWeek]: nextLessons,
 		}));
+	};
+
+	const persistLessonPlan = async (week: string, lesson: LessonPlan) => {
+		await api.createLessonPlan({
+			id: lesson.id,
+			week,
+			subject: lesson.subject,
+			topic: lesson.topic,
+			class: lesson.class,
+			date: lesson.date,
+			status: lesson.status,
+			submittedAt: lesson.submittedAt,
+			payload: lesson,
+		});
 	};
 
 	const updateField = (lessonIndex: number, field: keyof LessonPlan, value: string) => {
@@ -281,10 +332,15 @@ export default function LessonPlanBuilderSystem({ goBack, showBackButton = false
 			},
 		};
 		updateWeekLessons(updated);
+		void api.reviewLessonPlan(updated[lessonIndex].id, field === 'sectionalHead'
+			? { sectionalHead: value }
+			: { hos: value });
 	};
 
 	const addLesson = () => {
-		updateWeekLessons([...lessons, createLesson()]);
+		const nextLesson = createLesson();
+		updateWeekLessons([...lessons, nextLesson]);
+		void persistLessonPlan(activeWeek, nextLesson);
 	};
 
 	const submitLesson = (lessonIndex: number) => {
@@ -304,6 +360,7 @@ export default function LessonPlanBuilderSystem({ goBack, showBackButton = false
 		lesson.fineApplied = isLate ? LATE_FINE_NAIRA : 0;
 		updated[lessonIndex] = lesson;
 		updateWeekLessons(updated);
+		void persistLessonPlan(activeWeek, lesson);
 	};
 
 	const generateAI = async (lessonIndex: number) => {
@@ -375,23 +432,56 @@ export default function LessonPlanBuilderSystem({ goBack, showBackButton = false
 		lesson.status = lesson.status === 'Draft' ? `Draft • AI ${lesson.aiTier}` : lesson.status;
 		updated[lessonIndex] = lesson;
 		updateWeekLessons(updated);
+		await persistLessonPlan(activeWeek, lesson);
 		window.alert(`AI usage billed at ₦${aiCost.toLocaleString()} (${lesson.aiTier}) and ${aiCreditCost[lesson.aiTier]} credit(s) debited.`);
 		setActiveAiLessonId(null);
 	};
 
 	const exportWord = (lessonIndex: number) => {
 		const updated = [...lessons];
+		const lesson = updated[lessonIndex];
 		updated[lessonIndex] = {
-			...updated[lessonIndex],
-			exportReadyCount: updated[lessonIndex].exportReadyCount + 1,
+			...lesson,
+			exportReadyCount: lesson.exportReadyCount + 1,
 		};
 		updateWeekLessons(updated);
-		window.alert('Word export hook is ready for backend docx integration.');
+		const lines = [
+			`Lesson Plan`,
+			``,
+			`Week: ${activeWeek}`,
+			`Date: ${lesson.date || 'Not set'}`,
+			`Subject: ${lesson.subject || 'Not set'}`,
+			`Topic: ${lesson.topic || 'Not set'}`,
+			`Class: ${lesson.class || 'Not set'}`,
+			``,
+			`Objectives:`,
+			lesson.objectives || 'None',
+			``,
+			`Assessment:`,
+			lesson.assessment || 'None',
+			``,
+			`Teaching Steps:`,
+			...lesson.steps.map((step, index) => `${index + 1}. ${step.teacher} | ${step.pupils} | ${step.point}`),
+		];
+
+		void persistLessonPlan(activeWeek, updated[lessonIndex]);
+		const blob = new Blob([lines.join('\n')], { type: 'text/plain;charset=utf-8' });
+		const url = URL.createObjectURL(blob);
+		const anchor = document.createElement('a');
+		anchor.href = url;
+		anchor.download = `${(lesson.topic || lesson.subject || 'lesson-plan').replace(/[^a-z0-9-_]+/gi, '_')}.txt`;
+		document.body.appendChild(anchor);
+		anchor.click();
+		document.body.removeChild(anchor);
+		URL.revokeObjectURL(url);
 	};
 
 	return (
 		<div className="min-h-screen bg-linear-to-br from-indigo-50 via-fuchsia-50 to-violet-100 p-4 md:p-6">
 			<div className="mx-auto max-w-7xl space-y-6">
+				{loadingPlans ? (
+					<section className="rounded-3xl border border-violet-200 bg-white px-5 py-4 text-sm font-semibold text-violet-700">Loading lesson plans from server...</section>
+				) : null}
 				{showBackButton && goBack ? (
 					<button onClick={goBack} className="inline-flex items-center gap-2 rounded-full border border-violet-200 bg-white px-4 py-2 text-sm font-semibold text-violet-700 shadow-sm transition hover:border-violet-300 hover:bg-violet-50">
 						<ArrowLeft className="h-4 w-4" />
@@ -658,7 +748,7 @@ export default function LessonPlanBuilderSystem({ goBack, showBackButton = false
 					<div className="mt-4 grid gap-4 lg:grid-cols-3">
 						<div className="rounded-3xl border border-violet-100 bg-violet-50 p-4 text-sm text-slate-700">Late submissions are flagged automatically and fines are aggregated live for school accountability.</div>
 						<div className="rounded-3xl border border-sky-100 bg-sky-50 p-4 text-sm text-slate-700">AI usage is billed per click and the payment rule is ready for Paystack, Stripe, or subscription overrides.</div>
-						<div className="rounded-3xl border border-emerald-100 bg-emerald-50 p-4 text-sm text-slate-700">Word export is intentionally hooked for a future backend `docx` integration without changing the builder UX.</div>
+						<div className="rounded-3xl border border-emerald-100 bg-emerald-50 p-4 text-sm text-slate-700">Published lesson plans are now stored server-side so teachers, sectional heads, and HoS can view the same records.</div>
 					</div>
 				</section>
 			</div>

@@ -16,6 +16,7 @@ export const api = {
   createFarm: (body: any) => request('/api/farms', { method: 'POST', body: JSON.stringify(body) }),
   getLessonPlans: () => request('/api/lesson-plans'),
   createLessonPlan: (body: any) => request('/api/lesson-plans', { method: 'POST', body: JSON.stringify(body) }),
+  reviewLessonPlan: (lessonPlanId: string, body: any) => request(`/api/lesson-plans/${encodeURIComponent(lessonPlanId)}/review`, { method: 'POST', body: JSON.stringify(body) }),
   uploadLessonPlan: (body: any) => request('/api/lesson-plans', { method: 'POST', body: JSON.stringify(body) }),
 }
 

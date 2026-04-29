@@ -10,13 +10,6 @@ import {
 } from 'lucide-react';
 import { Role } from '../../../types';
 import { useData } from '../../../hooks/useData';
-import {
-  classroomAssignments,
-  classroomLessonNotes,
-  classroomLessonPlans,
-  classroomPracticeSets,
-} from '../data/classroomFixtures';
-import { useStreamManager } from '../services/streamManager';
 
 const quickCards = [
   {
@@ -59,7 +52,20 @@ export default function ClassroomStream({
   const isParent = role === 'Parent';
   const { data: announcements } = useData<any[]>('/api/announcements');
   const { data: notes } = useData<any[]>('/api/notes');
-  const streamManager = useStreamManager({ initialPosts: [], currentUser: undefined });
+  const { data: practiceSets } = useData<any[]>('/api/classroom/practice');
+  const { data: lessonPlans } = useData<any[]>('/api/lesson-plans');
+
+  const noteItems = Array.isArray(notes) ? notes : [];
+  const practiceItems = Array.isArray(practiceSets) ? practiceSets : [];
+  const lessonPlanItems = Array.isArray(lessonPlans) ? lessonPlans : [];
+
+  const assignmentHighlights = noteItems.slice(0, 2).map((note) => ({
+    id: note.id,
+    title: note.title || 'Class update',
+    subject: note.subject || 'General',
+    status: note.teacher || 'Published',
+    due: note.createdAt ? new Date(note.createdAt).toLocaleDateString() : 'Recently added',
+  }));
 
   const streamItems = [
     {
@@ -72,18 +78,18 @@ export default function ClassroomStream({
     },
     {
       id: 'stream_note',
-      title: notes?.[0]?.title || classroomLessonNotes[0].title,
+      title: noteItems[0]?.title || 'Lesson note update',
       detail:
-        notes?.[0]?.content ||
-        classroomLessonNotes[0].summary,
+        noteItems[0]?.content ||
+        'No lesson note has been published yet.',
       action: 'Open Materials',
       tab: 'lesson-notes',
       icon: <BookOpen size={16} className="text-blue-400" />,
     },
     {
       id: 'stream_practice',
-      title: classroomPracticeSets[0].title,
-      detail: classroomPracticeSets[0].note,
+      title: practiceItems[0]?.title || 'Practice arena update',
+      detail: practiceItems[0]?.source || 'No practice set has been added yet.',
       action: 'Start Practice',
       tab: 'practice',
       icon: <Sparkles size={16} className="text-emerald-400" />,
@@ -177,7 +183,7 @@ export default function ClassroomStream({
           <div className="card-compact">
             <h3 className="text-xs font-bold uppercase tracking-widest text-zinc-400 mb-4">Assignments closing soon</h3>
             <div className="space-y-3">
-              {classroomAssignments.slice(0, 2).map((assignment) => (
+              {assignmentHighlights.map((assignment) => (
                 <button
                   key={assignment.id}
                   onClick={() => onSelectTab('assignments')}
@@ -188,26 +194,32 @@ export default function ClassroomStream({
                   <p className="text-[10px] text-zinc-400 mt-2">Due {assignment.due}</p>
                 </button>
               ))}
+              {assignmentHighlights.length === 0 ? (
+                <div className="rounded-xl border border-white/10 bg-white/5 px-3 py-3 text-xs text-zinc-400">No assignment deadlines available yet.</div>
+              ) : null}
             </div>
           </div>
 
           <div className="card-compact">
             <h3 className="text-xs font-bold uppercase tracking-widest text-zinc-400 mb-4">Lesson plans this week</h3>
             <div className="space-y-3">
-              {classroomLessonPlans.slice(0, 2).map((plan) => (
+              {lessonPlanItems.slice(0, 2).map((plan) => (
                 <button
                   key={plan.id}
                   onClick={() => onSelectTab('lesson-plans')}
                   className="w-full text-left p-3 rounded-xl bg-white/3 border border-white/5 hover:border-emerald-500/20 transition-all"
                 >
                   <div className="flex items-center justify-between gap-3">
-                    <p className="text-xs font-bold text-white">{plan.topic}</p>
-                    <span className="text-[10px] font-bold text-emerald-500">{plan.completion}%</span>
+                    <p className="text-xs font-bold text-white">{plan.topic || plan.subject || 'Untitled lesson plan'}</p>
+                    <span className="text-[10px] font-bold text-emerald-500">{plan.status || 'Draft'}</span>
                   </div>
-                  <p className="text-[10px] font-bold uppercase text-zinc-500 mt-1">{plan.subject} • Week {plan.week}</p>
-                  <p className="text-[10px] text-zinc-400 mt-2">{plan.materialType}</p>
+                  <p className="text-[10px] font-bold uppercase text-zinc-500 mt-1">{plan.subject || 'General'} • {plan.week || 'Week 1'}</p>
+                  <p className="text-[10px] text-zinc-400 mt-2">{plan.className || plan.class || 'Class not set'}</p>
                 </button>
               ))}
+              {lessonPlanItems.length === 0 ? (
+                <div className="rounded-xl border border-white/10 bg-white/5 px-3 py-3 text-xs text-zinc-400">No lesson plans published yet.</div>
+              ) : null}
             </div>
           </div>
         </div>

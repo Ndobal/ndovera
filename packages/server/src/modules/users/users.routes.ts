@@ -4,6 +4,7 @@ import { assignRoleToUser, buildMetrics, isIdentityUserActive, listIdentityLifec
 import { requireRoles } from '../../../rbac.js';
 import { applyGlobalPolicyForUser, createOwnedSchoolForUser, getAccessibleSchoolContext, listGlobalPoliciesForUser, rollbackGlobalPolicyForUser, userHasOwnerPrivileges } from '../ownership/ownership.store.js';
 import { getSchoolProfile } from '../schools/schoolProfile.store.js';
+import { getAssignmentForUser, upsertAssignmentForUser } from './userAssignments.store.js';
 import { getUserProfileById, getUserProfileTemplate, toPublicUserProfile, updateUserProfileForUser } from './userProfile.store.js';
 
 export const usersRouter = Router();
@@ -16,6 +17,9 @@ const provisionSchema = z.object({
 	email: z.string().trim().email().optional().or(z.literal('')),
 	password: z.string().min(6).optional(),
 	roles: z.array(z.string().trim().min(1)).optional(),
+	classId: z.string().trim().optional(),
+	className: z.string().trim().optional(),
+	subjectIds: z.array(z.string().trim().min(1)).optional(),
 });
 
 const headRoleSchema = z.object({
@@ -54,6 +58,12 @@ const profileSchema = z.object({
 const lifecycleStatusSchema = z.object({
 	status: z.enum(['active', 'inactive']),
 	reason: z.string().trim().max(280).optional().or(z.literal('')),
+});
+
+const assignmentSchema = z.object({
+	classId: z.string().trim().optional().or(z.literal('')),
+	className: z.string().trim().optional().or(z.literal('')),
+	subjectIds: z.array(z.string().trim().min(1)).optional(),
 });
 
 const ownedSchoolCreateSchema = z.object({
@@ -333,6 +343,7 @@ usersRouter.get('/directory', requireRoles('HoS', 'Admin', 'Super Admin', 'Owner
 		includeInactive,
 		users: scopedUsers,
 		students,
+		assignments: await Promise.all(scopedUsers.map(async (entry) => getAssignmentForUser(entry.id, entry.schoolId))),
 		lifecycleEvents: listIdentityLifecycleEvents(state, { schoolId, limit: 120 }),
 	});
 });
@@ -364,6 +375,26 @@ usersRouter.patch('/:userId/status', requireRoles('HoS', 'Admin', 'Super Admin',
 	} catch (error) {
 		return res.status(400).json({ error: error instanceof Error ? error.message : 'Status update failed.' });
 	}
+});
+
+usersRouter.post('/:userId/assignment', requireRoles('HoS', 'Admin', 'Super Admin', 'Owner', 'Tenant School Owner'), async (req, res) => {
+	const actor = (req as any).user;
+	if (!actor) return res.status(401).json({ error: 'Unauthenticated' });
+	const userId = String(req.params.userId || '').trim();
+	if (!userId) return res.status(400).json({ error: 'userId is required.' });
+	const parsed = assignmentSchema.safeParse(req.body || {});
+	if (!parsed.success) return res.status(400).json({ error: 'Invalid assignment payload.' });
+	const state = await loadIdentityState();
+	const targetUser = state.users.find((entry) => entry.id === userId && entry.schoolId === actor.school_id);
+	if (!targetUser) return res.status(404).json({ error: 'Selected user was not found in your school.' });
+	const assignment = await upsertAssignmentForUser({
+		userId,
+		schoolId: String(actor.school_id || '').trim(),
+		classId: parsed.data.classId,
+		className: parsed.data.className,
+		subjectIds: parsed.data.subjectIds,
+	});
+	return res.json({ ok: true, assignment });
 });
 
 usersRouter.post('/assign-head-role', requireRoles('HoS', 'Admin', 'Super Admin', 'Owner', 'Tenant School Owner'), async (req, res) => {
@@ -400,7 +431,7 @@ usersRouter.post('/assign-head-role', requireRoles('HoS', 'Admin', 'Super Admin'
 	}
 });
 
-usersRouter.post('/provision', requireRoles('HoS', 'Admin', 'Super Admin'), async (req, res) => {
+usersRouter.post('/provision', requireRoles('HoS', 'Admin', 'Super Admin', 'Owner', 'Tenant School Owner'), async (req, res) => {
 	const user = (req as any).user;
 	if (!user) return res.status(401).json({ error: 'Unauthenticated' });
 	const parsed = provisionSchema.safeParse(req.body || {});
@@ -421,6 +452,13 @@ usersRouter.post('/provision', requireRoles('HoS', 'Admin', 'Super Admin'), asyn
 		email: parsed.data.email || null,
 		password: parsed.data.password,
 		roles: parsed.data.roles,
+	});
+	await upsertAssignmentForUser({
+		userId: result.user.id,
+		schoolId,
+		classId: parsed.data.classId,
+		className: parsed.data.className,
+		subjectIds: parsed.data.subjectIds,
 	});
 	return res.status(201).json(result);
 });

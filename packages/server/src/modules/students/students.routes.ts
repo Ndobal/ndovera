@@ -103,6 +103,25 @@ studentsRouter.get('/metrics', async (req, res) => {
 	});
 });
 
+studentsRouter.get('/', async (req, res) => {
+	const user = (req as any).user;
+	if (!user) return res.status(401).json({ error: 'Unauthenticated' });
+	const schoolId = String(user.school_id || '').trim();
+	const state = await loadIdentityState();
+	const students = state.students
+		.filter((student) => student.schoolId === schoolId && student.status !== 'transferred')
+		.map((student, index) => ({
+			id: student.userId,
+			student_id: student.id,
+			name: student.name,
+			class_id: null,
+			class_name: null,
+			roll_no: String(index + 1).padStart(3, '0'),
+			status: student.status,
+		}));
+	return res.json(students);
+});
+
 studentsRouter.post('/:studentId/transfer', requireRoles('HoS', 'Admin', 'Super Admin'), async (req, res) => {
 	const user = (req as any).user;
 	if (!user) return res.status(401).json({ error: 'Unauthenticated' });

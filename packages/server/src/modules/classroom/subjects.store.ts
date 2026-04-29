@@ -2,6 +2,7 @@ import crypto from 'crypto';
 
 import type { User } from '../../../rbac.js';
 import { GLOBAL_SCOPE, readDocument, writeDocument } from '../../common/runtimeDocumentStore.js';
+import { getAssignmentForUser, upsertAssignmentForUser } from '../users/userAssignments.store.js';
 
 export type ClassroomSubjectRecord = {
   id: string;
@@ -38,6 +39,8 @@ export type CreateClassroomSubjectInput = {
   section?: string;
   classId?: string;
   className?: string;
+  teacherId?: string;
+  teacherName?: string;
   accent?: string;
   summary?: string;
   room?: string;
@@ -71,11 +74,24 @@ function defaultCurriculum() {
 export async function listClassroomSubjectsForUser(user: User, filters?: { classId?: string }) {
   const schoolId = ensureSchoolId(user);
   const classId = String(filters?.classId || '').trim();
+  const role = String(user.activeRole || user.roles?.[0] || '').trim().toLowerCase();
   const state = await readState();
-  return state.subjects
+  let subjects = state.subjects
     .filter((item) => item.schoolId === schoolId)
     .filter((item) => !classId || item.classId === classId)
     .sort((left, right) => left.name.localeCompare(right.name));
+  if (['owner', 'tenant school owner', 'hos', 'head of school', 'admin', 'super admin', 'ict manager', 'ict'].includes(role)) return subjects;
+  if (role === 'teacher' || role === 'staff') {
+    const assigned = subjects.filter((item) => item.teacherId === user.id);
+    if (assigned.length) return assigned;
+  }
+  const assignment = await getAssignmentForUser(String(user.id || '').trim(), schoolId);
+  if (!assignment) return [];
+  subjects = subjects.filter((item) => !assignment.classId || item.classId === assignment.classId);
+  if (assignment.subjectIds.length) {
+    subjects = subjects.filter((item) => assignment.subjectIds.includes(item.id));
+  }
+  return subjects;
 }
 
 export async function createClassroomSubjectForUser(user: User, input: CreateClassroomSubjectInput) {
@@ -99,6 +115,8 @@ export async function createClassroomSubjectForUser(user: User, input: CreateCla
     section: normalizeSection(input.section),
     classId,
     className: String(input.className || '').trim() || undefined,
+    teacherId: String(input.teacherId || '').trim() || undefined,
+    teacherName: String(input.teacherName || '').trim() || undefined,
     room: String(input.room || '').trim() || undefined,
     accent: String(input.accent || '').trim() || SUBJECT_ACCENTS[subjectCount % SUBJECT_ACCENTS.length],
     summary: String(input.summary || '').trim() || `${name} learning space`,
@@ -111,6 +129,16 @@ export async function createClassroomSubjectForUser(user: User, input: CreateCla
   };
   state.subjects.push(nextSubject);
   await writeState(state);
+  if (nextSubject.teacherId) {
+    const existing = await getAssignmentForUser(nextSubject.teacherId, schoolId);
+    await upsertAssignmentForUser({
+      userId: nextSubject.teacherId,
+      schoolId,
+      classId: nextSubject.classId,
+      className: nextSubject.className,
+      subjectIds: [...new Set([...(existing?.subjectIds || []), nextSubject.id])],
+    });
+  }
   return nextSubject;
 }
 
@@ -139,6 +167,8 @@ export async function updateClassroomSubjectForUser(user: User, subjectId: strin
     section: input.section !== undefined ? normalizeSection(input.section) : current.section,
     classId: nextClassId,
     className: input.className !== undefined ? String(input.className || '').trim() || undefined : current.className,
+    teacherId: input.teacherId !== undefined ? String(input.teacherId || '').trim() || undefined : current.teacherId,
+    teacherName: input.teacherName !== undefined ? String(input.teacherName || '').trim() || undefined : current.teacherName,
     room: input.room !== undefined ? String(input.room || '').trim() || undefined : current.room,
     accent: input.accent !== undefined ? String(input.accent || '').trim() || current.accent : current.accent,
     summary: input.summary !== undefined ? String(input.summary || '').trim() || `${nextName} learning space` : current.summary,
@@ -147,6 +177,16 @@ export async function updateClassroomSubjectForUser(user: User, subjectId: strin
   };
   state.subjects[subjectIndex] = nextSubject;
   await writeState(state);
+  if (nextSubject.teacherId) {
+    const existing = await getAssignmentForUser(nextSubject.teacherId, schoolId);
+    await upsertAssignmentForUser({
+      userId: nextSubject.teacherId,
+      schoolId,
+      classId: nextSubject.classId,
+      className: nextSubject.className,
+      subjectIds: [...new Set([...(existing?.subjectIds || []), nextSubject.id])],
+    });
+  }
   return nextSubject;
 }
 

@@ -171,6 +171,7 @@ export default function App() {
   const [invoiceSubmitting, setInvoiceSubmitting] = useState(false)
   const [generatedInvoice, setGeneratedInvoice] = useState<GeneratedInvoice | null>(null)
   const [invoiceFeedback, setInvoiceFeedback] = useState<InvoiceRequestFeedback | null>(null)
+  const [approvingOnboardingId, setApprovingOnboardingId] = useState('')
 
   const loadWorkspace = async () => {
     const [schoolsResp, plansResp, onboardingResp, publicInboxResp, aiFeaturesResp, aiSummaryResp, platformSettingsResp, systemMetricsResp, monetizationResp] = await Promise.all([
@@ -403,6 +404,22 @@ export default function App() {
       setError('')
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Unable to update inbox item.')
+    }
+  }
+
+  const approveOnboardingRequest = async (requestId: string) => {
+    setApprovingOnboardingId(requestId)
+    try {
+      await api(`/api/super/onboarding/requests/${encodeURIComponent(requestId)}/approve`, {
+        method: 'POST',
+      })
+      await loadWorkspace()
+      setMessage('School approved and owner account provisioned.')
+      setError('')
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Unable to approve onboarding request.')
+    } finally {
+      setApprovingOnboardingId('')
     }
   }
 
@@ -813,7 +830,7 @@ export default function App() {
                         <div style={{ display: 'flex', justifyContent: 'space-between', gap: 18, alignItems: 'start', flexWrap: 'wrap' }}>
                           <div style={{ maxWidth: 760 }}>
                             <div style={{ fontSize: 20, fontWeight: 900 }}>{request.school_name}</div>
-                            <div className="muted" style={{ marginTop: 6 }}>{request.subdomain}.ndovera.app • {request.owner_name}</div>
+                            <div className="muted" style={{ marginTop: 6 }}>{request.subdomain}.ndovera.app | {request.owner_name}</div>
                             <div style={{ display: 'grid', gap: 6, marginTop: 12, fontSize: 14 }}>
                               <div><strong>Ndovera email:</strong> {request.owner_ndovera_email}</div>
                               <div><strong>Status:</strong> {request.status}</div>
@@ -821,7 +838,16 @@ export default function App() {
                               <div><strong>Updated:</strong> {new Date(request.updated_at || request.created_at).toLocaleString()}</div>
                             </div>
                           </div>
-                          <div style={{ minWidth: 220, display: 'grid', gap: 10 }}><span className="pill">Pending review</span></div>
+                          <div style={{ minWidth: 220, display: 'grid', gap: 10 }}>
+                            <span className="pill">{request.payment_status}</span>
+                            <button
+                              className="btn btn-primary"
+                              disabled={approvingOnboardingId === request.id || !['received', 'verified'].includes(String(request.payment_status || '').toLowerCase()) || String(request.status || '').toLowerCase() === 'approved'}
+                              onClick={() => approveOnboardingRequest(request.id)}
+                            >
+                              {approvingOnboardingId === request.id ? 'Approving...' : String(request.status || '').toLowerCase() === 'approved' ? 'Approved' : 'Approve school'}
+                            </button>
+                          </div>
                         </div>
                       </div>
                     ))}

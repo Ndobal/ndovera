@@ -312,6 +312,20 @@ async function listPersistedOnboardingRequests() {
 	return Array.isArray(requests) ? requests : [];
 }
 
+async function updatePersistedOnboardingRequest(requestId: string, updates: Record<string, unknown>) {
+	const namespace = 'school-onboarding';
+	const currentState = await readGlobalDocument<{ requests: Array<Record<string, unknown>> }>(namespace, () => ({ requests: [] }));
+	const requestIndex = (currentState.requests || []).findIndex((entry) => String(entry?.id || '') === requestId);
+	if (requestIndex < 0) throw new Error('Onboarding request not found.');
+	currentState.requests[requestIndex] = {
+		...currentState.requests[requestIndex],
+		...updates,
+		updated_at: new Date().toISOString(),
+	};
+	await writeGlobalDocument(namespace, currentState);
+	return currentState.requests[requestIndex];
+}
+
 async function readGlobalDocument<T>(namespace: string, fallbackFactory: () => T): Promise<T> {
 	await ensureDocumentSchema();
 	const scope = '__global__';
@@ -588,6 +602,41 @@ app.put('/api/super/pricing-plans', async (req, res) => {
 	return res.json({ plans: await writePricingPlans(parsed.data) });
 });
 app.get('/api/super/onboarding/requests', async (_req, res) => res.json({ requests: await listPersistedOnboardingRequests() }));
+app.post('/api/super/onboarding/requests/:requestId/approve', requireSuperRole('Super Admin'), async (req, res) => {
+	const requestId = String(req.params.requestId || '').trim();
+	if (!requestId) return res.status(400).json({ error: 'requestId is required.' });
+	const requests = await listPersistedOnboardingRequests();
+	const request = requests.find((entry: any) => String(entry?.id || '') === requestId) as any;
+	if (!request) return res.status(404).json({ error: 'Onboarding request not found.' });
+	if (!['received', 'verified'].includes(String(request.payment_status || '').trim().toLowerCase())) {
+		return res.status(400).json({ error: 'Payment must be received or verified before approval.' });
+	}
+	const state = await loadIdentityState();
+	const existingSchool = state.schools.find((school) => school.subdomain.toLowerCase() === String(request.subdomain || '').trim().toLowerCase());
+	let school = existingSchool || null;
+	let owner = null;
+	let temporaryPassword: string | null | undefined = null;
+	if (!existingSchool) {
+		const created = await createSchoolWithOwner(state, {
+			schoolName: String(request.school_name || '').trim(),
+			subdomain: String(request.subdomain || '').trim().toLowerCase(),
+			ownerName: String(request.owner_name || '').trim(),
+			ownerEmail: String(request.owner_ndovera_email || '').trim().toLowerCase(),
+			ownerPhone: String(request.phone_number || '').trim() || undefined,
+			ownerRoles: ['School Admin', 'Owner'],
+		});
+		school = created.school;
+		owner = created.owner;
+		temporaryPassword = created.temporaryPassword;
+	}
+	const updatedRequest = await updatePersistedOnboardingRequest(requestId, {
+		status: 'approved',
+		payment_status: String(request.payment_status || '').trim().toLowerCase() === 'verified' ? 'verified' : 'received',
+		approved_at: new Date().toISOString(),
+		approved_by: String((req as any).superUser?.email || (req as any).superUser?.id || 'super-admin'),
+	});
+	return res.json({ ok: true, request: updatedRequest, school, owner, temporaryPassword });
+});
 app.get('/api/super/public-inbox', async (_req, res) => {
 	const [contactState, growthState] = await Promise.all([readPublicContactState(), readGrowthPartnerApplications()]);
 	return res.json({

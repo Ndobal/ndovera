@@ -22,6 +22,10 @@ export type OnboardingRequestRecord = {
 	pricing_total_naira?: number;
 	discount_code?: string;
 	discount_percentage?: number;
+	flutterwave_tx_ref?: string;
+	flutterwave_checkout_url?: string;
+	flutterwave_status?: string;
+	payment_verified_at?: string;
 	status: 'pending' | 'payment-received' | 'approved' | 'rejected';
 	payment_status: 'pending' | 'received' | 'verified' | 'failed';
 	payment_reference?: string;
@@ -111,6 +115,9 @@ export async function recordOnboardingPayment(waitToken: string, paymentReferenc
 	pricingTotalNaira?: number;
 	discountCode?: string;
 	discountPercentage?: number;
+	flutterwaveTxRef?: string;
+	flutterwaveCheckoutUrl?: string;
+	flutterwaveStatus?: string;
 }) {
 	const state = await readState();
 	const index = state.requests.findIndex((entry) => entry.waitToken === waitToken);
@@ -128,6 +135,9 @@ export async function recordOnboardingPayment(waitToken: string, paymentReferenc
 		pricing_total_naira: Number.isFinite(Number(updates?.pricingTotalNaira)) ? Math.max(0, Number(updates?.pricingTotalNaira)) : current.pricing_total_naira,
 		discount_code: String(updates?.discountCode || '').trim().toUpperCase() || current.discount_code,
 		discount_percentage: Number.isFinite(Number(updates?.discountPercentage)) ? Math.max(0, Number(updates?.discountPercentage)) : current.discount_percentage,
+		flutterwave_tx_ref: String(updates?.flutterwaveTxRef || '').trim() || current.flutterwave_tx_ref,
+		flutterwave_checkout_url: String(updates?.flutterwaveCheckoutUrl || '').trim() || current.flutterwave_checkout_url,
+		flutterwave_status: String(updates?.flutterwaveStatus || '').trim() || current.flutterwave_status,
 		payment_status: 'received',
 		status: current.status === 'approved' ? 'approved' : 'payment-received',
 		updated_at: nowIso(),
@@ -145,4 +155,21 @@ export async function getOnboardingRequestByWaitToken(waitToken: string) {
 export async function listOnboardingRequests() {
 	const state = await readState();
 	return [...state.requests].sort((left, right) => right.created_at.localeCompare(left.created_at));
+}
+
+export async function updateOnboardingRequestById(requestId: string, updates: Partial<OnboardingRequestRecord>) {
+	const state = await readState();
+	const index = state.requests.findIndex((entry) => entry.id === requestId);
+	if (index < 0) {
+		const error = new Error('Onboarding request not found.') as Error & { status?: number };
+		error.status = 404;
+		throw error;
+	}
+	state.requests[index] = {
+		...state.requests[index],
+		...updates,
+		updated_at: nowIso(),
+	};
+	await writeState(state);
+	return state.requests[index];
 }

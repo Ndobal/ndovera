@@ -216,7 +216,7 @@ export const LandingPage = ({ onLogin, initialPublicPageId }: { onLogin: () => v
   const [contactName, setContactName] = useState('');
   const [contactEmail, setContactEmail] = useState('');
   const [contactMessage, setContactMessage] = useState('');
-  const [growthSubmitting, setGrowthSubmitting] = useState(false);
+  const [growthSubmitting, setGrowthSubmitting] = useState(true);
   const [growthSuccess, setGrowthSuccess] = useState(false);
   const [growthForm, setGrowthForm] = useState({ name: '', email: '', phone: '', city: '', notes: '' });
   const [schoolName, setSchoolName] = useState('');
@@ -228,6 +228,7 @@ export const LandingPage = ({ onLogin, initialPublicPageId }: { onLogin: () => v
   const [registerError, setRegisterError] = useState<string | null>(null);
   const [paymentReference, setPaymentReference] = useState('');
   const [waitToken, setWaitToken] = useState('');
+  const [checkoutTxRef, setCheckoutTxRef] = useState('');
   const [selectedPricingTierKey, setSelectedPricingTierKey] = useState('');
   const [requestedStudentCount, setRequestedStudentCount] = useState('150');
   const [registerDiscountCode, setRegisterDiscountCode] = useState('');
@@ -374,7 +375,7 @@ export const LandingPage = ({ onLogin, initialPublicPageId }: { onLogin: () => v
           primaryColor: branding.primaryColor,
           templateVariant: branding.templateVariant,
         });
-        if (branding.website) setWebsite(branding.website as SchoolWebsite);
+        if (branding.website) setWebsite(branding.website as unknown as SchoolWebsite);
         const [testimonialsResp, vacanciesResp, showcaseResp] = await Promise.all([
           fetch(resolveApiUrl(`/api/schools/${branding.schoolId}/testimonials`)),
           fetch(resolveApiUrl(`/api/schools/${branding.schoolId}/vacancies`)),
@@ -417,6 +418,43 @@ export const LandingPage = ({ onLogin, initialPublicPageId }: { onLogin: () => v
   openPublicPage('pricing');
   setShowRegister(false);
   setRegisterStep('details');
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const url = new URL(window.location.href);
+    if (url.pathname !== '/onboarding-payment-complete') return;
+    const token = String(url.searchParams.get('waitToken') || '').trim();
+    const transactionId = String(url.searchParams.get('transaction_id') || url.searchParams.get('transactionId') || '').trim();
+    if (!token || !transactionId) return;
+    let active = true;
+    setShowRegister(true);
+    setWaitToken(token);
+    setRegisterStep('waiting');
+    setRegisterSubmitting(true);
+    setRegisterError(null);
+    void (async () => {
+      try {
+        const response = await fetch(resolveApiUrl(`/api/onboarding/${encodeURIComponent(token)}/payment/verify`), {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ transactionId }),
+        });
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok) throw new Error(data?.error || 'Payment verification failed.');
+        if (!active) return;
+        setPaymentReference(String(data?.request?.payment_reference || transactionId));
+        setToast({ message: 'Flutterwave payment verified. AMI can now approve this school.', type: 'success' });
+      } catch (error) {
+        if (!active) return;
+        setRegisterError(error instanceof Error ? error.message : 'Payment verification failed.');
+      } finally {
+        if (!active) return;
+        setRegisterSubmitting(false);
+        window.history.replaceState({}, document.title, '/');
+      }
+    })();
+    return () => { active = false; };
   }, []);
 
   useEffect(() => {
@@ -480,6 +518,7 @@ export const LandingPage = ({ onLogin, initialPublicPageId }: { onLogin: () => v
   setRegisterStep('details');
   setRegisterError(null);
   setPaymentReference('');
+  setCheckoutTxRef('');
   setWaitToken('');
   setRegisterDiscountCode('');
   setValidatedDiscount(null);
@@ -553,7 +592,7 @@ export const LandingPage = ({ onLogin, initialPublicPageId }: { onLogin: () => v
     setValidatedDiscount(null);
     setRegisterDiscountCode('');
     setRegisterStep('payment');
-    setToast({ message: 'School sign-up received. Add your payment reference to continue.', type: 'success' });
+    setToast({ message: 'School sign-up received. Continue to Flutterwave checkout.', type: 'success' });
   } catch (error) {
     setRegisterError(error instanceof Error ? error.message : 'School sign-up failed.');
   } finally {
@@ -566,19 +605,32 @@ export const LandingPage = ({ onLogin, initialPublicPageId }: { onLogin: () => v
   setRegisterSubmitting(true);
   setRegisterError(null);
   try {
+    const checkoutResponse = await fetch(resolveApiUrl(`/api/onboarding/${encodeURIComponent(waitToken)}/checkout`), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ discountCode: registerDiscountCode.trim() || undefined }),
+    });
+    const checkoutData = await checkoutResponse.json().catch(() => ({}));
+    if (!checkoutResponse.ok) throw new Error(checkoutData?.error || 'Checkout could not be started.');
+    setCheckoutTxRef(String(checkoutData?.txRef || ''));
+    const savedReference = String(checkoutData?.txRef || paymentReference || '').trim();
+    setPaymentReference(savedReference);
+    if (checkoutData?.checkoutUrl) {
+      window.open(String(checkoutData.checkoutUrl), '_blank', 'noopener,noreferrer');
+    }
     const response = await fetch(resolveApiUrl(`/api/onboarding/${encodeURIComponent(waitToken)}/payment`), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ paymentReference, discountCode: registerDiscountCode.trim() || undefined }),
+      body: JSON.stringify({ paymentReference: savedReference, discountCode: registerDiscountCode.trim() || undefined }),
     });
     const data = await response.json().catch(() => ({}));
-    if (!response.ok) throw new Error(data?.error || 'Payment reference could not be saved.');
+    if (!response.ok) throw new Error(data?.error || 'Payment record could not be saved.');
     setRegisterStep('waiting');
-    setToast({ message: 'Payment reference saved. Your school request is now waiting for review.', type: 'success' });
+    setToast({ message: 'Flutterwave checkout opened. Complete payment there, then AMI can approve the school after verification.', type: 'success' });
   } catch (error) {
-    setRegisterError(error instanceof Error ? error.message : 'Payment reference could not be saved.');
+    setRegisterError(error instanceof Error ? error.message : 'Checkout could not be started.');
   } finally {
-    setRegisterSubmitting(false);
+  setRegisterSubmitting(false);
   }
   };
 
@@ -864,7 +916,7 @@ export const LandingPage = ({ onLogin, initialPublicPageId }: { onLogin: () => v
   return (
     <div className="min-h-screen bg-[#0A0B0D] text-zinc-300 font-sans selection:bg-emerald-500/30">
       {toast ? <div className="fixed right-6 top-6 z-50 rounded-2xl border border-emerald-500/30 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-200">{toast.message}</div> : null}
-      {showRegister ? <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 sm:p-6"><div className="max-h-[calc(100vh-2rem)] w-full max-w-4xl overflow-y-auto rounded-4xl border border-white/10 bg-[#151619] p-5 sm:p-6 lg:p-8"><div className="mb-6 flex items-start justify-between gap-6"><div><p className="text-[11px] font-bold uppercase tracking-[0.24em] text-emerald-300/70">School onboarding</p><h3 className="mt-2 text-3xl font-bold text-white">Register your school</h3><p className="mt-3 max-w-2xl text-sm leading-7 text-zinc-400">Choose a plan, confirm your school details, then add your payment reference. Your first payment is the setup fee only. Per-student term billing starts from the second term of usage.</p></div><button onClick={resetRegisterFlow} className="rounded-full border border-white/10 p-2 text-zinc-300 transition hover:bg-white/5"><X /></button></div><div className="mb-6 grid gap-3 md:grid-cols-4">{[
+      {showRegister ? <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 sm:p-6"><div className="max-h-[calc(100vh-2rem)] w-full max-w-4xl overflow-y-auto rounded-4xl border border-white/10 bg-[#151619] p-5 sm:p-6 lg:p-8"><div className="mb-6 flex items-start justify-between gap-6"><div><p className="text-[11px] font-bold uppercase tracking-[0.24em] text-emerald-300/70">School onboarding</p><h3 className="mt-2 text-3xl font-bold text-white">Register your school</h3><p className="mt-3 max-w-2xl text-sm leading-7 text-zinc-400">Choose a plan, confirm your school details, then pay with Flutterwave. Your first payment is the setup fee only. Per-student term billing starts from the second term of usage.</p></div><button onClick={resetRegisterFlow} className="rounded-full border border-white/10 p-2 text-zinc-300 transition hover:bg-white/5"><X /></button></div><div className="mb-6 grid gap-3 md:grid-cols-4">{[
         { id: 'details', label: 'School details' },
         { id: 'payment', label: 'Payment' },
         { id: 'waiting', label: 'Review queue' },

@@ -108,6 +108,8 @@ const classroomSubjectSchema = z.object({
 	section: z.string().trim().optional(),
 	classId: z.string().trim().optional(),
 	className: z.string().trim().optional(),
+	teacherId: z.string().trim().optional(),
+	teacherName: z.string().trim().optional(),
 	accent: z.string().trim().optional(),
 	summary: z.string().trim().optional(),
 	room: z.string().trim().optional(),

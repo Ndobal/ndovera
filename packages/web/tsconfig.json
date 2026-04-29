@@ -28,7 +28,8 @@
     "noEmit": true
   },
     "include": [
-      "src/**/*"
+      "src/**/*",
+      "../super-admin/src/**/*"
     ],
   "exclude": [
     "dist/**",

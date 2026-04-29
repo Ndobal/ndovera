@@ -4,13 +4,7 @@ function trimTrailingSlash(value: string) {
   return value.replace(/\/$/, '');
 }
 
-function getBrowserOrigin() {
-  if (typeof window === 'undefined') return '';
-  return window.location.origin;
-}
-
 export const WEB_API_BASE_URL = trimTrailingSlash(env.VITE_API_URL || '');
-export const SUPER_ADMIN_URL = trimTrailingSlash(env.VITE_SUPER_ADMIN_URL || getBrowserOrigin());
 export const SUPER_ADMIN_API_BASE_URL = trimTrailingSlash(env.VITE_SUPER_ADMIN_API_URL || '');
 
 export const SIGNALING_WS_URL = env.VITE_SIGNALING_WS_URL || (() => {

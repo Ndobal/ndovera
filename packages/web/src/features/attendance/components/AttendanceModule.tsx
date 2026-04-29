@@ -3,7 +3,6 @@ import ParentAttendance from './ParentAttendance';
 import React, { useEffect, useMemo, useState } from 'react';
 import { CalendarDays, Check, Clock3, School, ShieldCheck, TriangleAlert, Users, X, AlertCircle } from 'lucide-react';
 
-import { teacherAttendanceRegister, teacherAttendanceSettings } from '../../classroom/data/classroomExperience';
 import { fetchWithAuth } from '../../../services/apiClient';
 
 type AttendanceStatus = 'Present' | 'Absent' | 'Late' | 'Excused';
@@ -16,6 +15,16 @@ type AttendanceStudent = {
   status: AttendanceStatus;
   classId?: string;
   className?: string;
+};
+
+const teacherAttendanceSettings = {
+  policy: 'School-wide attendance policy applies to all classes unless restricted by admin role settings.',
+  schoolChoice: 'Attendance can be captured class-wide or by subject scope based on school policy.',
+  alerts: [
+    'Escalate repeated absenteeism to class leadership and welfare teams.',
+    'Late arrivals can be tracked separately from absences for interventions.',
+    'Only authorized roles can export attendance records.',
+  ],
 };
 
 const statusPalette: Record<string, string> = {
@@ -35,13 +44,9 @@ function StudentAttendance({ role }: { role?: string }) {
   const [mode, setMode] = useState<'Class-wide' | 'Subject-specific'>('Class-wide');
   const [selectedClass, setSelectedClass] = useState('JSS 1 Gold');
   const [selectedSubject, setSelectedSubject] = useState('Integrated Classroom');
-  const [register, setRegister] = useState<AttendanceStudent[]>(teacherAttendanceRegister.map((student) => ({
-    ...student,
-    status: student.status as AttendanceStatus,
-  })));
-  const [attendance, setAttendance] = useState<AttendanceState>(() =>
-    Object.fromEntries(teacherAttendanceRegister.map((student) => [student.id, { morning: student.status as AttendanceStatus, afternoon: student.status as AttendanceStatus }])),
-  );
+  const [register, setRegister] = useState<AttendanceStudent[]>([]);
+  const [attendance, setAttendance] = useState<AttendanceState>({});
+  const [selectedDate] = useState(() => new Date().toISOString().slice(0, 10));
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitMessage, setSubmitMessage] = useState<string | null>(null);
   const [submitError, setSubmitError] = useState<string | null>(null);
@@ -49,41 +54,53 @@ function StudentAttendance({ role }: { role?: string }) {
 
   useEffect(() => {
     let mounted = true;
-    const loadStudents = async () => {
+    const loadData = async () => {
       try {
-        const students = await fetchWithAuth('/api/students');
-        if (!mounted || !Array.isArray(students) || !students.length) return;
-        const mapped = students.map((student: any, index: number) => ({
-          id: student.id,
-          name: student.name,
-          roll: String(index + 1).padStart(3, '0'),
-          risk: teacherAttendanceRegister[index]?.risk || 'Normal',
-          status: (teacherAttendanceRegister[index]?.status as AttendanceStatus) || 'Present',
-          classId: student.class_id,
-          className: student.class_name,
-        }));
+        const [students, attendanceData] = await Promise.all([
+          fetchWithAuth('/api/students'),
+          fetchWithAuth(`/api/attendance?date=${selectedDate}`),
+        ]);
+        if (!mounted) return;
+
+        const mapped = Array.isArray(students)
+          ? students.map((student: any, index: number) => ({
+              id: String(student.id),
+              name: String(student.name || 'Unnamed Student'),
+              roll: String(student.roll_no || index + 1).padStart(3, '0'),
+              risk: 'Normal',
+              status: 'Present' as AttendanceStatus,
+              classId: student.class_id || undefined,
+              className: student.class_name || undefined,
+            }))
+          : [];
+
         setRegister(mapped);
         setSelectedClass((current) => {
           const available = mapped.map((student: AttendanceStudent) => student.className).filter(Boolean);
           return available.includes(current) ? current : available[0] || current;
         });
-        setAttendance((current) => {
-          const next: AttendanceState = {};
-          mapped.forEach((student: AttendanceStudent) => {
-            next[student.id] = current[student.id] || { morning: student.status, afternoon: student.status };
-          });
-          return next;
-        });
-      } catch {
-        // keep fallback register when live students are unavailable
+
+        const records = Array.isArray(attendanceData?.records) ? attendanceData.records : [];
+        const initialState: AttendanceState = {};
+        for (const student of mapped) {
+          const record = records.find((entry: any) => String(entry.student_id) === student.id);
+          initialState[student.id] = {
+            morning: (record?.morning_status as AttendanceStatus) || 'Present',
+            afternoon: (record?.afternoon_status as AttendanceStatus) || 'Present',
+          };
+        }
+        setAttendance(initialState);
+      } catch (error) {
+        if (!mounted) return;
+        setSubmitError(error instanceof Error ? error.message : 'Unable to load attendance data.');
       }
     };
 
-    loadStudents();
+    loadData();
     return () => {
       mounted = false;
     };
-  }, []);
+  }, [selectedDate]);
 
   const visibleRegister = useMemo(() => {
     const filtered = register.filter((student) => !student.className || student.className === selectedClass);
@@ -92,7 +109,7 @@ function StudentAttendance({ role }: { role?: string }) {
 
   const classOptions = useMemo(() => {
     const liveOptions = Array.from(new Set(register.map((student) => student.className).filter(Boolean))) as string[];
-    return liveOptions.length ? liveOptions : ['JSS 1 Gold', 'JSS 2 Blue', 'SS 1 Science'];
+    return liveOptions.length ? liveOptions : [selectedClass];
   }, [register]);
 
   const summary = useMemo(() => {
@@ -125,11 +142,10 @@ function StudentAttendance({ role }: { role?: string }) {
     setSubmitError(null);
     setSubmitMessage(null);
     try {
-      const today = new Date().toISOString().slice(0, 10);
       const records = visibleRegister.map((student) => ({
         student_id: student.id,
         class_id: student.classId || selectedClass,
-        date: today,
+        date: selectedDate,
         morningStatus: attendance[student.id]?.morning || 'Present',
         afternoonStatus: attendance[student.id]?.afternoon || 'Present',
       }));

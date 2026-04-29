@@ -2,6 +2,7 @@ import crypto from 'crypto';
 
 import type { User } from '../../../rbac.js';
 import { GLOBAL_SCOPE, readDocument, writeDocument } from '../../common/runtimeDocumentStore.js';
+import { getAssignmentForUser, syncAssignmentClassName, upsertAssignmentForUser } from '../users/userAssignments.store.js';
 
 export type SchoolClassRecord = {
   id: string;
@@ -178,15 +179,24 @@ function seedDefaultClassesForSchool(state: ClassesState, schoolId: string) {
 
 export async function listSchoolClassesForUser(user: User) {
   const schoolId = ensureSchoolId(user);
+  const role = String(user.activeRole || user.roles?.[0] || '').trim().toLowerCase();
   const state = seedDefaultClassesForSchool(await readState(), schoolId);
   await writeState(state);
-  return state.classes
+  let visibleClasses = state.classes
     .filter((item) => item.schoolId === schoolId)
     .sort((left, right) => {
       const indexDelta = Number(left.hierarchyIndex || 1000) - Number(right.hierarchyIndex || 1000);
       if (indexDelta !== 0) return indexDelta;
       return `${left.level || ''} ${left.name}`.localeCompare(`${right.level || ''} ${right.name}`);
     });
+  if (['owner', 'tenant school owner', 'hos', 'head of school', 'admin', 'super admin', 'ict manager', 'ict'].includes(role)) return visibleClasses;
+  if (role === 'teacher' || role === 'staff') {
+    visibleClasses = visibleClasses.filter((item) => item.teacherId === user.id);
+    if (visibleClasses.length) return visibleClasses;
+  }
+  const assignment = await getAssignmentForUser(String(user.id || '').trim(), schoolId);
+  if (assignment?.classId) return visibleClasses.filter((item) => item.id === assignment.classId);
+  return [];
 }
 
 export async function createSchoolClassForUser(user: User, input: CreateSchoolClassInput) {
@@ -216,6 +226,17 @@ export async function createSchoolClassForUser(user: User, input: CreateSchoolCl
   };
   state.classes.push(nextClass);
   await writeState(state);
+  const className = [nextClass.level, nextClass.name].filter(Boolean).join(' ').trim() || nextClass.name;
+  if (nextClass.teacherId) {
+    const existing = await getAssignmentForUser(nextClass.teacherId, schoolId);
+    await upsertAssignmentForUser({
+      userId: nextClass.teacherId,
+      schoolId,
+      classId: nextClass.id,
+      className,
+      subjectIds: existing?.subjectIds || [],
+    });
+  }
   return nextClass;
 }
 
@@ -255,6 +276,18 @@ export async function updateSchoolClassForUser(user: User, classId: string, inpu
   };
   state.classes[classIndex] = nextClass;
   await writeState(state);
+  const className = [nextClass.level, nextClass.name].filter(Boolean).join(' ').trim() || nextClass.name;
+  await syncAssignmentClassName(schoolId, nextClass.id, className);
+  if (nextClass.teacherId) {
+    const existing = await getAssignmentForUser(nextClass.teacherId, schoolId);
+    await upsertAssignmentForUser({
+      userId: nextClass.teacherId,
+      schoolId,
+      classId: nextClass.id,
+      className,
+      subjectIds: existing?.subjectIds || [],
+    });
+  }
   return nextClass;
 }
 

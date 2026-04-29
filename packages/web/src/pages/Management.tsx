@@ -10,6 +10,7 @@ import {
   Lock,
   Unlock,
   BadgeCheck,
+  X,
 } from 'lucide-react';
 
 import { useData } from '../hooks/useData';
@@ -18,6 +19,7 @@ import { fetchWithAuth } from '../services/apiClient';
 import { loadUser } from '../services/authLocal';
 import { BillingLockBanner } from '../components/BillingLockBanner';
 import { useBillingLock } from '../hooks/useBillingLock';
+import type { ClassroomSubject, SchoolClass } from '../features/classroom/services/classroomApi';
 
 type ActiveTab = 'students' | 'teachers' | 'parents' | 'alumni' | 'id_cards';
 
@@ -65,6 +67,7 @@ type DirectoryResponse = {
   users: DirectoryUser[];
   students: DirectoryStudent[];
   lifecycleEvents?: DirectoryLifecycleEvent[];
+  assignments?: Array<{ userId: string; schoolId: string; classId?: string; className?: string; subjectIds: string[] } | null>;
 };
 
 type ResultSummary = {
@@ -225,14 +228,31 @@ export const ManagementView = ({ searchQuery }: { searchQuery?: string }) => {
   const [activeTab, setActiveTab] = useState<ActiveTab>('students');
   const [showInactive, setShowInactive] = useState(false);
   const [actionState, setActionState] = useState<{ busyId: string | null; message: string | null; error: string | null }>({ busyId: null, message: null, error: null });
+  const [showProvisionModal, setShowProvisionModal] = useState(false);
+  const [provisionSubmitting, setProvisionSubmitting] = useState(false);
+  const [provisionError, setProvisionError] = useState<string | null>(null);
+  const [provisionForm, setProvisionForm] = useState({
+    name: '',
+    email: '',
+    password: '',
+    role: 'Student',
+    classId: '',
+    subjectIds: [] as string[],
+  });
 
   const { data: directory, loading: directoryLoading, error: directoryError, refetch: refetchDirectory } = useData<DirectoryResponse>('/api/users/directory?includeInactive=1');
   const { data: results, refetch: refetchResults } = useData<ClassroomResultsResponse>('/api/classroom/results');
+  const { data: schoolClasses } = useData<SchoolClass[]>('/api/classes');
+  const { data: classroomSubjects } = useData<ClassroomSubject[]>('/api/classroom/subjects');
 
   const users = Array.isArray(directory?.users) ? directory.users : [];
   const studentRecords = Array.isArray(directory?.students) ? directory.students : [];
   const lifecycleEvents = Array.isArray(directory?.lifecycleEvents) ? directory.lifecycleEvents : [];
   const resultRecords = Array.isArray(results?.studentResults) ? results.studentResults : [];
+  const classOptions = Array.isArray(schoolClasses) ? schoolClasses : [];
+  const subjectOptions = Array.isArray(classroomSubjects) ? classroomSubjects : [];
+  const selectedProvisionClass = classOptions.find((item) => item.id === provisionForm.classId) || null;
+  const filteredProvisionSubjects = subjectOptions.filter((item) => !provisionForm.classId || item.classId === provisionForm.classId);
 
   const resultByStudentId = useMemo(() => new Map(resultRecords.map((record) => [record.studentId, record])), [resultRecords]);
   const usersById = useMemo(() => new Map(users.map((user) => [user.id, user])), [users]);
@@ -375,6 +395,69 @@ export const ManagementView = ({ searchQuery }: { searchQuery?: string }) => {
     alumni: alumniCards.length,
   };
   const { softLockActive, overdueInvoice } = useBillingLock('Tenant School Owner');
+  const isStudentTab = activeTab === 'students';
+  const provisionCategory = isStudentTab ? 'student' : 'staff';
+
+  const openProvisionModal = () => {
+    setProvisionError(null);
+    setProvisionForm({
+      name: '',
+      email: '',
+      password: '',
+      role: isStudentTab ? 'Student' : 'Teacher',
+      classId: '',
+      subjectIds: [],
+    });
+    setShowProvisionModal(true);
+  };
+
+  const closeProvisionModal = () => {
+    if (provisionSubmitting) return;
+    setShowProvisionModal(false);
+    setProvisionError(null);
+  };
+
+  const handleProvisionUser = async () => {
+    if (!provisionForm.name.trim()) {
+      setProvisionError('Enter a name first.');
+      return;
+    }
+    if (provisionCategory === 'student' && !selectedProvisionClass) {
+      setProvisionError('Select a class for the student.');
+      return;
+    }
+    setProvisionSubmitting(true);
+    setProvisionError(null);
+    try {
+      const fallbackSubject = subjectOptions.find((item) => provisionForm.subjectIds.includes(item.id)) || null;
+      const assignedClass = selectedProvisionClass || classOptions.find((item) => item.id === fallbackSubject?.classId) || null;
+      await fetchWithAuth('/api/users/provision', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          category: provisionCategory,
+          name: provisionForm.name.trim(),
+          email: provisionForm.email.trim() || undefined,
+          password: provisionForm.password.trim() || undefined,
+          roles: [provisionForm.role],
+          classId: assignedClass?.id || undefined,
+          className: assignedClass ? [assignedClass.level, assignedClass.name].filter(Boolean).join(' ').trim() || assignedClass.name : undefined,
+          subjectIds: provisionForm.role === 'Teacher' ? provisionForm.subjectIds : undefined,
+        }),
+      });
+      await refetchDirectory();
+      setShowProvisionModal(false);
+      setActionState({
+        busyId: null,
+        message: `${provisionForm.role === 'Teacher' ? 'Teacher' : isStudentTab ? 'Student' : 'Staff member'} created successfully.`,
+        error: null,
+      });
+    } catch (error) {
+      setProvisionError(error instanceof Error ? error.message : 'Unable to create this user right now.');
+    } finally {
+      setProvisionSubmitting(false);
+    }
+  };
 
   return (
     <div className="space-y-6">
@@ -394,11 +477,81 @@ export const ManagementView = ({ searchQuery }: { searchQuery?: string }) => {
             <input type="checkbox" checked={showInactive} onChange={(event) => setShowInactive(event.target.checked)} />
             Show inactive
           </label>
-          <button disabled={softLockActive} className="bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2 rounded-lg text-[11px] font-bold uppercase tracking-wider transition-colors shadow-lg shadow-emerald-900/20 flex items-center gap-2 disabled:cursor-not-allowed disabled:opacity-50">
+          <button onClick={openProvisionModal} disabled={softLockActive || (activeTab !== 'students' && activeTab !== 'teachers')} className="bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2 rounded-lg text-[11px] font-bold uppercase tracking-wider transition-colors shadow-lg shadow-emerald-900/20 flex items-center gap-2 disabled:cursor-not-allowed disabled:opacity-50">
             <UserPlus size={16} /> Add {activeTab === 'students' ? 'Student' : activeTab === 'parents' ? 'Parent' : activeTab === 'alumni' ? 'Alumni' : 'Staff'}
           </button>
         </div>
       </div>
+
+      {showProvisionModal ? (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
+          <div className="w-full max-w-2xl rounded-3xl border border-white/10 bg-[#151619] p-6 shadow-2xl">
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <h3 className="text-xl font-bold text-white">Add {isStudentTab ? 'Student' : 'Teacher / Staff'}</h3>
+                <p className="mt-2 text-sm text-zinc-400">Create the account here and attach the right class or teaching scope immediately.</p>
+              </div>
+              <button type="button" onClick={closeProvisionModal} className="rounded-full border border-white/10 p-2 text-zinc-300">
+                <X size={16} />
+              </button>
+            </div>
+
+            <div className="mt-5 grid gap-3 md:grid-cols-2">
+              <input value={provisionForm.name} onChange={(event) => setProvisionForm((current) => ({ ...current, name: event.target.value }))} placeholder="Full name" className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white" />
+              <input value={provisionForm.email} onChange={(event) => setProvisionForm((current) => ({ ...current, email: event.target.value }))} placeholder="Email address" className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white" />
+              <input value={provisionForm.password} onChange={(event) => setProvisionForm((current) => ({ ...current, password: event.target.value }))} placeholder="Password (optional)" className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white" />
+              <select value={provisionForm.role} onChange={(event) => setProvisionForm((current) => ({ ...current, role: event.target.value, subjectIds: event.target.value === 'Teacher' ? current.subjectIds : [] }))} className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white">
+                {isStudentTab ? <option value="Student">Student</option> : <>
+                  <option value="Teacher">Teacher</option>
+                  <option value="Staff">Staff</option>
+                  <option value="School Admin">School Admin</option>
+                </>}
+              </select>
+              <select value={provisionForm.classId} onChange={(event) => setProvisionForm((current) => ({ ...current, classId: event.target.value, subjectIds: current.subjectIds.filter((subjectId) => subjectOptions.some((item) => item.id === subjectId && (!event.target.value || item.classId === event.target.value))) }))} className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white md:col-span-2">
+                <option value="">{isStudentTab ? 'Select assigned class' : 'Select class to attach (optional)'}</option>
+                {classOptions.map((item) => (
+                  <option key={item.id} value={item.id}>{[item.level, item.name].filter(Boolean).join(' ').trim() || item.name}</option>
+                ))}
+              </select>
+              {!isStudentTab && provisionForm.role === 'Teacher' ? (
+                <div className="md:col-span-2 rounded-2xl border border-white/10 bg-white/5 p-4">
+                  <p className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400">Assigned subjects</p>
+                  <div className="mt-3 grid gap-2 md:grid-cols-2">
+                    {filteredProvisionSubjects.map((subject) => {
+                      const checked = provisionForm.subjectIds.includes(subject.id);
+                      return (
+                        <label key={subject.id} className="flex items-start gap-3 rounded-2xl border border-white/10 bg-black/20 px-3 py-3 text-sm text-zinc-200">
+                          <input
+                            type="checkbox"
+                            checked={checked}
+                            onChange={(event) => setProvisionForm((current) => ({
+                              ...current,
+                              subjectIds: event.target.checked
+                                ? [...current.subjectIds, subject.id]
+                                : current.subjectIds.filter((entry) => entry !== subject.id),
+                            }))}
+                          />
+                          <span>{subject.name}{subject.className ? ` (${subject.className})` : ''}</span>
+                        </label>
+                      );
+                    })}
+                    {!filteredProvisionSubjects.length ? <div className="text-sm text-zinc-500">Create subjects first, then you can assign them to the teacher here.</div> : null}
+                  </div>
+                </div>
+              ) : null}
+            </div>
+
+            {provisionError ? <div className="mt-4 rounded-2xl border border-rose-500/20 bg-rose-500/10 px-4 py-3 text-sm text-rose-200">{provisionError}</div> : null}
+
+            <div className="mt-5 flex justify-end gap-3">
+              <button type="button" onClick={closeProvisionModal} className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-semibold text-white">Cancel</button>
+              <button type="button" onClick={() => void handleProvisionUser()} disabled={provisionSubmitting} className="rounded-2xl bg-emerald-600 px-4 py-3 text-sm font-semibold text-white disabled:opacity-60">
+                {provisionSubmitting ? 'Saving...' : 'Create account'}
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
 
       {actionState.message ? <div className="rounded-xl border border-emerald-500/20 bg-emerald-500/10 p-4 text-xs text-emerald-200">{actionState.message}</div> : null}
       {actionState.error ? <div className="rounded-xl border border-rose-500/20 bg-rose-500/10 p-4 text-xs text-rose-200">{actionState.error}</div> : null}
