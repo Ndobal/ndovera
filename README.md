@@ -66,3 +66,40 @@ For the main web frontend, use the repository root in Cloudflare Pages and confi
 - Build output directory: `packages/web/dist`
 
 This avoids monorepo root-directory mismatches and builds the public frontend directly from the repo root.
+
+## Cloudflare Workers backends
+
+This repo now includes two Cloudflare-native backend workers:
+
+- `packages/ndovera-api-worker` (`ndovera-api`) for school APIs
+- `packages/ndovera-ami-api-worker` (`ndovera-ami-api`) for AMI/global-role APIs
+
+### First-time setup
+
+1. Create Cloudflare resources:
+   - D1 database for school API
+   - D1 database for AMI API
+   - KV namespace for each worker session store
+   - R2 bucket for uploads (can be shared)
+   - Optional Hyperdrive config for external Postgres
+2. Paste resource IDs into:
+   - `packages/ndovera-api-worker/wrangler.toml`
+   - `packages/ndovera-ami-api-worker/wrangler.toml`
+3. Set worker secrets:
+   - `wrangler secret put SUPER_ADMIN_EMAIL --config packages/ndovera-ami-api-worker/wrangler.toml`
+   - `wrangler secret put SUPER_ADMIN_PASSWORD_HASH --config packages/ndovera-ami-api-worker/wrangler.toml`
+
+### Deploy
+
+```sh
+npm install
+npm run check:cf-workers
+npm run deploy:cf-backends
+```
+
+### Bind Pages frontend to worker URLs
+
+Set these in Cloudflare Pages production environment variables:
+
+- `VITE_API_URL=https://ndovera-api.<your-subdomain>.workers.dev`
+- `VITE_SUPER_ADMIN_API_URL=https://ndovera-ami-api.<your-subdomain>.workers.dev`

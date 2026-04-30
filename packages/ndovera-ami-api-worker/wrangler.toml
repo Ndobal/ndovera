@@ -1,0 +1,33 @@
+name = "ndovera-ami-api"
+main = "src/index.ts"
+compatibility_date = "2026-04-29"
+compatibility_flags = ["nodejs_compat"]
+
+[observability.logs]
+enabled = true
+
+[[d1_databases]]
+binding = "AMI_DB"
+database_name = "ndovera-ami"
+database_id = "REPLACE_WITH_AMI_D1_DATABASE_ID"
+
+[[kv_namespaces]]
+binding = "SESSIONS"
+id = "REPLACE_WITH_AMI_KV_NAMESPACE_ID"
+
+[[r2_buckets]]
+binding = "UPLOADS"
+bucket_name = "ndovera-uploads"
+
+[vars]
+CORS_ORIGIN = "https://www.ndovera.com"
+SESSION_COOKIE_NAME = "ndovera_ami_session"
+SESSION_TTL_SECONDS = "2592000"
+HYPERDRIVE_CONNECTION_STRING = ""
+SUPER_ADMIN_EMAIL = ""
+SUPER_ADMIN_PASSWORD_HASH = ""
+
+# Optional Hyperdrive binding. Add after creating Hyperdrive in Cloudflare:
+# [[hyperdrive]]
+# binding = "HYPERDRIVE"
+# id = "REPLACE_WITH_HYPERDRIVE_ID"

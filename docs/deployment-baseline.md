@@ -3,8 +3,42 @@
 This baseline assumes:
 
 - `packages/web` is deployed to Cloudflare Pages as the unified frontend.
-- `packages/server` is deployed as the main school API.
-- `packages/super-admin-server` is deployed as the AMI/global-role API.
+- `packages/ndovera-api-worker` is deployed as the main school API on Cloudflare Workers.
+- `packages/ndovera-ami-api-worker` is deployed as the AMI/global-role API on Cloudflare Workers.
+
+## Cloudflare Workers backends
+
+Worker services:
+
+- `packages/ndovera-api-worker` -> `ndovera-api`
+- `packages/ndovera-ami-api-worker` -> `ndovera-ami-api`
+
+Each worker includes:
+
+- Hono runtime (Express replacement)
+- D1 document persistence
+- Optional Hyperdrive/Postgres persistence via `HYPERDRIVE_CONNECTION_STRING` or `HYPERDRIVE` binding
+- KV-backed session store
+- R2-backed multipart upload handlers
+
+Worker deploy configs are in:
+
+- `packages/ndovera-api-worker/wrangler.toml`
+- `packages/ndovera-ami-api-worker/wrangler.toml`
+
+Deploy commands from repo root:
+
+```bash
+npm run check:cf-workers
+npm run deploy:cf-backends
+```
+
+Set AMI bootstrap secrets before deploy:
+
+```bash
+wrangler secret put SUPER_ADMIN_EMAIL --config packages/ndovera-ami-api-worker/wrangler.toml
+wrangler secret put SUPER_ADMIN_PASSWORD_HASH --config packages/ndovera-ami-api-worker/wrangler.toml
+```
 
 ## Backend containers
 
@@ -85,19 +119,19 @@ https://www.ndovera.com
 ## Recommended production topology
 
 - `www.ndovera.com` -> Cloudflare Pages for `packages/web`
-- `api.your-domain.com` -> main backend (`packages/server`) or `ndovera-api`
-- `ami-api.your-domain.com` -> AMI/global-role backend (`packages/super-admin-server`) or `ndovera-ami-api`
-- `db.your-domain.internal` -> shared database for both backends where possible
+- `api.your-domain.com` -> `ndovera-api` Cloudflare Worker
+- `ami-api.your-domain.com` -> `ndovera-ami-api` Cloudflare Worker
+- `db.your-domain.internal` -> optional Hyperdrive target Postgres
 - `assets.your-domain.com` -> Cloudflare-backed public asset host for uploaded files
 
 ### Target split aligned to current rollout
 
 - Frontends: Cloudflare Pages
-- General files and public assets: Cloudflare-backed storage/CDN
+- Backends: Cloudflare Workers (`ndovera-api`, `ndovera-ami-api`)
+- Structured operational data: D1 or Hyperdrive-backed Postgres
+- Session and cache data: KV
+- File uploads: R2
 - Long-form video uploads and recordings: YouTube-hosted workflow
-- Backends and databases: DigitalOcean
-
-The current codebase is closest to production when the backends use `DATABASE_URL` on DigitalOcean. If `DATABASE_URL` is omitted, the fallback SQLite databases will now persist inside `/app/storage`, which is acceptable for a single-node deployment but still not for horizontal scaling.
 
 ## Health and container runtime
 
