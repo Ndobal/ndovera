@@ -34,6 +34,8 @@ import StudentMessaging from './app/roles/student/StudentMessaging';
 import StudentSettings from './app/roles/student/StudentSettings';
 import RoleLibrary from './app/RoleLibrary';
 import TeacherMessaging from './app/roles/teacher/TeacherMessaging';
+import LoginPage from './features/auth/pages/LoginPage';
+import { clearStoredAuth, getStoredAuth } from './features/auth/services/authApi';
 import './App.css';
 
 const VALID_ROLES = [
@@ -63,14 +65,18 @@ const VALID_ROLES = [
   'ami',
 ];
 
-function getSelectedRole() {
+function getSelectedRole(authRole) {
+  if (!authRole) {
+    return null;
+  }
+
   const storedRole = localStorage.getItem('selectedRole');
-  if (storedRole && VALID_ROLES.includes(storedRole)) {
+  if (authRole === 'ami' && storedRole && VALID_ROLES.includes(storedRole)) {
     return storedRole;
   }
 
-  localStorage.setItem('selectedRole', 'student');
-  return 'student';
+  localStorage.setItem('selectedRole', authRole);
+  return authRole;
 }
 
 function RouteTransition({ children }) {
@@ -87,85 +93,103 @@ function RouteTransition({ children }) {
   );
 }
 
-function RoleGuard({ expectedRole, children }) {
-  const activeRole = getSelectedRole();
+function RequireAuth({ auth, children }) {
+  const location = useLocation();
 
-  if (activeRole !== expectedRole) {
+  if (!auth?.token) {
+    return <Navigate to="/login" replace state={{ from: location.pathname }} />;
+  }
+
+  return children;
+}
+
+function RoleGuard({ expectedRole, auth, children }) {
+  const authRole = auth?.user?.role;
+  const activeRole = getSelectedRole(authRole);
+
+  if (!auth?.token) {
+    return <Navigate to="/login" replace />;
+  }
+
+  if (authRole !== 'ami' && activeRole !== expectedRole) {
     return <Navigate to={`/roles/${activeRole}`} replace />;
   }
 
   return children;
 }
 
-function AnimatedRoutes() {
+function AnimatedRoutes({ auth, onLogin }) {
   const location = useLocation();
-  const selectedRole = getSelectedRole();
+  const selectedRole = getSelectedRole(auth?.user?.role) || 'student';
+  const defaultAppRoute = auth?.token ? `/roles/${selectedRole}` : '/login';
 
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<Navigate to={`/roles/${selectedRole}`} replace />} />
-        <Route path="/classroom" element={<RouteTransition><Classroom /></RouteTransition>} />
-        <Route path="/assignments" element={<RouteTransition><Assignments /></RouteTransition>} />
-        <Route path="/exams" element={<RouteTransition><Exams /></RouteTransition>} />
-        <Route path="/exams/create" element={<RouteTransition><ExamCreator /></RouteTransition>} />
-        <Route path="/ai-tutor" element={<RouteTransition><AITutor /></RouteTransition>} />
-        <Route path="/attendance" element={<RouteTransition><Attendance /></RouteTransition>} />
-        <Route path="/rewards" element={<RouteTransition><Rewards /></RouteTransition>} />
-        <Route path="/settings" element={<RouteTransition><Settings /></RouteTransition>} />
-        <Route path="/roles/student" element={<RoleGuard expectedRole="student"><RouteTransition><StudentDashboard /></RouteTransition></RoleGuard>} />
-        <Route path="/roles/student/classroom" element={<RoleGuard expectedRole="student"><RouteTransition><StudentClassroom /></RouteTransition></RoleGuard>} />
-        <Route path="/roles/student/assignments" element={<RoleGuard expectedRole="student"><RouteTransition><StudentAssignments /></RouteTransition></RoleGuard>} />
-        <Route path="/roles/student/assignments/:assignmentId" element={<RoleGuard expectedRole="student"><RouteTransition><StudentAssignments /></RouteTransition></RoleGuard>} />
-        <Route path="/roles/student/materials" element={<RoleGuard expectedRole="student"><RouteTransition><StudentLessonNotes /></RouteTransition></RoleGuard>} />
+        <Route path="/" element={<Navigate to={defaultAppRoute} replace />} />
+        <Route path="/login" element={auth?.token ? <Navigate to={defaultAppRoute} replace /> : <LoginPage onLogin={onLogin} />} />
+        <Route path="/classroom" element={<RequireAuth auth={auth}><RouteTransition><Classroom /></RouteTransition></RequireAuth>} />
+        <Route path="/assignments" element={<RequireAuth auth={auth}><RouteTransition><Assignments /></RouteTransition></RequireAuth>} />
+        <Route path="/exams" element={<RequireAuth auth={auth}><RouteTransition><Exams /></RouteTransition></RequireAuth>} />
+        <Route path="/exams/create" element={<RequireAuth auth={auth}><RouteTransition><ExamCreator /></RouteTransition></RequireAuth>} />
+        <Route path="/ai-tutor" element={<RequireAuth auth={auth}><RouteTransition><AITutor /></RouteTransition></RequireAuth>} />
+        <Route path="/attendance" element={<RequireAuth auth={auth}><RouteTransition><Attendance /></RouteTransition></RequireAuth>} />
+        <Route path="/rewards" element={<RequireAuth auth={auth}><RouteTransition><Rewards /></RouteTransition></RequireAuth>} />
+        <Route path="/settings" element={<RequireAuth auth={auth}><RouteTransition><Settings /></RouteTransition></RequireAuth>} />
+        <Route path="/roles/student" element={<RoleGuard auth={auth} expectedRole="student"><RouteTransition><StudentDashboard /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/student/classroom" element={<RoleGuard auth={auth} expectedRole="student"><RouteTransition><StudentClassroom /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/student/assignments" element={<RoleGuard auth={auth} expectedRole="student"><RouteTransition><StudentAssignments /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/student/assignments/:assignmentId" element={<RoleGuard auth={auth} expectedRole="student"><RouteTransition><StudentAssignments /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/student/materials" element={<RoleGuard auth={auth} expectedRole="student"><RouteTransition><StudentLessonNotes /></RouteTransition></RoleGuard>} />
         <Route path="/roles/student/lesson-notes" element={<Navigate to="/roles/student/materials" replace />} />
-        <Route path="/roles/student/practice" element={<RoleGuard expectedRole="student"><RouteTransition><StudentPractice /></RouteTransition></RoleGuard>} />
-        <Route path="/roles/student/exams" element={<RoleGuard expectedRole="student"><RouteTransition><StudentExams /></RouteTransition></RoleGuard>} />
-        <Route path="/roles/student/results" element={<RoleGuard expectedRole="student"><RouteTransition><StudentResults /></RouteTransition></RoleGuard>} />
-        <Route path="/roles/student/attendance" element={<RoleGuard expectedRole="student"><RouteTransition><StudentAttendance /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/student/practice" element={<RoleGuard auth={auth} expectedRole="student"><RouteTransition><StudentPractice /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/student/exams" element={<RoleGuard auth={auth} expectedRole="student"><RouteTransition><StudentExams /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/student/results" element={<RoleGuard auth={auth} expectedRole="student"><RouteTransition><StudentResults /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/student/attendance" element={<RoleGuard auth={auth} expectedRole="student"><RouteTransition><StudentAttendance /></RouteTransition></RoleGuard>} />
         {/* role-specific library view */}
-        <Route path="/roles/:role/library" element={<RouteTransition><RoleLibrary /></RouteTransition>} />
+        <Route path="/roles/:role/library" element={<RequireAuth auth={auth}><RouteTransition><RoleLibrary /></RouteTransition></RequireAuth>} />
         {/* teacher resource old path -> library redirect to new role path */}
         <Route path="/roles/teacher/resources" element={<Navigate to="/roles/teacher/library" replace />} />
-        <Route path="/roles/student/tuck-shop" element={<RoleGuard expectedRole="student"><RouteTransition><StudentTuckShop /></RouteTransition></RoleGuard>} />
-        <Route path="/roles/teacher/tuck-shop" element={<RoleGuard expectedRole="teacher"><RouteTransition><StaffTuckShop /></RouteTransition></RoleGuard>} />
-        <Route path="/roles/teacher/messaging" element={<RoleGuard expectedRole="teacher"><RouteTransition><TeacherMessaging /></RouteTransition></RoleGuard>} />
-        <Route path="/roles/classteacher/tuck-shop" element={<RoleGuard expectedRole="classteacher"><RouteTransition><StaffTuckShop /></RouteTransition></RoleGuard>} />
-        <Route path="/roles/student/professor-vera" element={<RoleGuard expectedRole="student"><RouteTransition><StudentProfessorAura /></RouteTransition></RoleGuard>} />
-        <Route path="/roles/student/messaging" element={<RoleGuard expectedRole="student"><RouteTransition><StudentMessaging /></RouteTransition></RoleGuard>} />
-        <Route path="/roles/student/settings" element={<RoleGuard expectedRole="student"><RouteTransition><StudentSettings /></RouteTransition></RoleGuard>} />
-        <Route path="/roles/parent/*" element={<RoleGuard expectedRole="parent"><RouteTransition><ParentDashboard /></RouteTransition></RoleGuard>} />
-        <Route path="/roles/teacher/classroom" element={<RoleGuard expectedRole="teacher"><RouteTransition><TeacherClassroom /></RouteTransition></RoleGuard>} />
-        <Route path="/roles/teacher/*" element={<RoleGuard expectedRole="teacher"><RouteTransition><TeacherDashboard /></RouteTransition></RoleGuard>} />
-        <Route path="/roles/hos/*" element={<RoleGuard expectedRole="hos"><RouteTransition><HoSDashboard /></RouteTransition></RoleGuard>} />
-        <Route path="/roles/accountant/*" element={<RoleGuard expectedRole="accountant"><RouteTransition><AccountantDashboard /></RouteTransition></RoleGuard>} />
-        <Route path="/roles/owner/*" element={<RoleGuard expectedRole="owner"><RouteTransition><OwnerDashboard /></RouteTransition></RoleGuard>} />
-        <Route path="/roles/librarian/*" element={<RoleGuard expectedRole="librarian"><RouteTransition><OperationalRoleDashboard roleKey="librarian" /></RouteTransition></RoleGuard>} />
-        <Route path="/roles/sanitation/*" element={<RoleGuard expectedRole="sanitation"><RouteTransition><OperationalRoleDashboard roleKey="sanitation" /></RouteTransition></RoleGuard>} />
-        <Route path="/roles/tuckshopmanager/*" element={<RoleGuard expectedRole="tuckshopmanager"><RouteTransition><OperationalRoleDashboard roleKey="tuckshopmanager" /></RouteTransition></RoleGuard>} />
-        <Route path="/roles/storekeeper/*" element={<RoleGuard expectedRole="storekeeper"><RouteTransition><OperationalRoleDashboard roleKey="storekeeper" /></RouteTransition></RoleGuard>} />
-        <Route path="/roles/transport/*" element={<RoleGuard expectedRole="transport"><RouteTransition><OperationalRoleDashboard roleKey="transport" /></RouteTransition></RoleGuard>} />
-        <Route path="/roles/hostel/*" element={<RoleGuard expectedRole="hostel"><RouteTransition><OperationalRoleDashboard roleKey="hostel" /></RouteTransition></RoleGuard>} />
-        <Route path="/roles/cafeteria/*" element={<RoleGuard expectedRole="cafeteria"><RouteTransition><OperationalRoleDashboard roleKey="cafeteria" /></RouteTransition></RoleGuard>} />
-        <Route path="/roles/clinic/*" element={<RoleGuard expectedRole="clinic"><RouteTransition><OperationalRoleDashboard roleKey="clinic" /></RouteTransition></RoleGuard>} />
-        <Route path="/roles/ict/*" element={<RoleGuard expectedRole="ict"><RouteTransition><OperationalRoleDashboard roleKey="ict" /></RouteTransition></RoleGuard>} />
-        <Route path="/roles/classteacher/*" element={<RoleGuard expectedRole="classteacher"><RouteTransition><OperationalRoleDashboard roleKey="classteacher" /></RouteTransition></RoleGuard>} />
-        <Route path="/roles/hod/*" element={<RoleGuard expectedRole="hod"><RouteTransition><OperationalRoleDashboard roleKey="hod" /></RouteTransition></RoleGuard>} />
-        <Route path="/roles/hodassistant/*" element={<RoleGuard expectedRole="hodassistant"><RouteTransition><OperationalRoleDashboard roleKey="hodassistant" /></RouteTransition></RoleGuard>} />
-        <Route path="/roles/principal/*" element={<RoleGuard expectedRole="principal"><RouteTransition><OperationalRoleDashboard roleKey="principal" /></RouteTransition></RoleGuard>} />
-        <Route path="/roles/headteacher/*" element={<RoleGuard expectedRole="headteacher"><RouteTransition><OperationalRoleDashboard roleKey="headteacher" /></RouteTransition></RoleGuard>} />
-        <Route path="/roles/nurseryhead/*" element={<RoleGuard expectedRole="nurseryhead"><RouteTransition><OperationalRoleDashboard roleKey="nurseryhead" /></RouteTransition></RoleGuard>} />
-        <Route path="/roles/examofficer/*" element={<RoleGuard expectedRole="examofficer"><RouteTransition><OperationalRoleDashboard roleKey="examofficer" /></RouteTransition></RoleGuard>} />
-        <Route path="/roles/sportsmaster/*" element={<RoleGuard expectedRole="sportsmaster"><RouteTransition><OperationalRoleDashboard roleKey="sportsmaster" /></RouteTransition></RoleGuard>} />
-        <Route path="/roles/ami/*" element={<RoleGuard expectedRole="ami"><RouteTransition><OperationalRoleDashboard roleKey="ami" /></RouteTransition></RoleGuard>} />
-        <Route path="*" element={<Navigate to={`/roles/${selectedRole}`} replace />} />
+        <Route path="/roles/student/tuck-shop" element={<RoleGuard auth={auth} expectedRole="student"><RouteTransition><StudentTuckShop /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/teacher/tuck-shop" element={<RoleGuard auth={auth} expectedRole="teacher"><RouteTransition><StaffTuckShop /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/teacher/messaging" element={<RoleGuard auth={auth} expectedRole="teacher"><RouteTransition><TeacherMessaging /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/classteacher/tuck-shop" element={<RoleGuard auth={auth} expectedRole="classteacher"><RouteTransition><StaffTuckShop /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/student/professor-vera" element={<RoleGuard auth={auth} expectedRole="student"><RouteTransition><StudentProfessorAura /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/student/messaging" element={<RoleGuard auth={auth} expectedRole="student"><RouteTransition><StudentMessaging /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/student/settings" element={<RoleGuard auth={auth} expectedRole="student"><RouteTransition><StudentSettings /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/parent/*" element={<RoleGuard auth={auth} expectedRole="parent"><RouteTransition><ParentDashboard /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/teacher/classroom" element={<RoleGuard auth={auth} expectedRole="teacher"><RouteTransition><TeacherClassroom /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/teacher/*" element={<RoleGuard auth={auth} expectedRole="teacher"><RouteTransition><TeacherDashboard /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/hos/*" element={<RoleGuard auth={auth} expectedRole="hos"><RouteTransition><HoSDashboard /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/accountant/*" element={<RoleGuard auth={auth} expectedRole="accountant"><RouteTransition><AccountantDashboard /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/owner/*" element={<RoleGuard auth={auth} expectedRole="owner"><RouteTransition><OwnerDashboard /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/librarian/*" element={<RoleGuard auth={auth} expectedRole="librarian"><RouteTransition><OperationalRoleDashboard roleKey="librarian" /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/sanitation/*" element={<RoleGuard auth={auth} expectedRole="sanitation"><RouteTransition><OperationalRoleDashboard roleKey="sanitation" /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/tuckshopmanager/*" element={<RoleGuard auth={auth} expectedRole="tuckshopmanager"><RouteTransition><OperationalRoleDashboard roleKey="tuckshopmanager" /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/storekeeper/*" element={<RoleGuard auth={auth} expectedRole="storekeeper"><RouteTransition><OperationalRoleDashboard roleKey="storekeeper" /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/transport/*" element={<RoleGuard auth={auth} expectedRole="transport"><RouteTransition><OperationalRoleDashboard roleKey="transport" /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/hostel/*" element={<RoleGuard auth={auth} expectedRole="hostel"><RouteTransition><OperationalRoleDashboard roleKey="hostel" /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/cafeteria/*" element={<RoleGuard auth={auth} expectedRole="cafeteria"><RouteTransition><OperationalRoleDashboard roleKey="cafeteria" /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/clinic/*" element={<RoleGuard auth={auth} expectedRole="clinic"><RouteTransition><OperationalRoleDashboard roleKey="clinic" /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/ict/*" element={<RoleGuard auth={auth} expectedRole="ict"><RouteTransition><OperationalRoleDashboard roleKey="ict" /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/classteacher/*" element={<RoleGuard auth={auth} expectedRole="classteacher"><RouteTransition><OperationalRoleDashboard roleKey="classteacher" /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/hod/*" element={<RoleGuard auth={auth} expectedRole="hod"><RouteTransition><OperationalRoleDashboard roleKey="hod" /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/hodassistant/*" element={<RoleGuard auth={auth} expectedRole="hodassistant"><RouteTransition><OperationalRoleDashboard roleKey="hodassistant" /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/principal/*" element={<RoleGuard auth={auth} expectedRole="principal"><RouteTransition><OperationalRoleDashboard roleKey="principal" /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/headteacher/*" element={<RoleGuard auth={auth} expectedRole="headteacher"><RouteTransition><OperationalRoleDashboard roleKey="headteacher" /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/nurseryhead/*" element={<RoleGuard auth={auth} expectedRole="nurseryhead"><RouteTransition><OperationalRoleDashboard roleKey="nurseryhead" /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/examofficer/*" element={<RoleGuard auth={auth} expectedRole="examofficer"><RouteTransition><OperationalRoleDashboard roleKey="examofficer" /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/sportsmaster/*" element={<RoleGuard auth={auth} expectedRole="sportsmaster"><RouteTransition><OperationalRoleDashboard roleKey="sportsmaster" /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/ami/*" element={<RoleGuard auth={auth} expectedRole="ami"><RouteTransition><OperationalRoleDashboard roleKey="ami" /></RouteTransition></RoleGuard>} />
+        <Route path="*" element={<Navigate to={defaultAppRoute} replace />} />
       </Routes>
     </AnimatePresence>
   );
 }
 
-function AppWorkspace() {
+function AppWorkspace({ auth, onLogin, onLogout }) {
   const location = useLocation();
+  const isLoginRoute = location.pathname === '/login';
   const inDashboardMode = location.pathname.startsWith('/roles/');
   const inStudentClassroom = location.pathname.startsWith('/roles/student/classroom');
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
@@ -178,12 +202,16 @@ function AppWorkspace() {
 
   const mobileClassroomMode = inStudentClassroom && isMobile;
 
+  if (isLoginRoute) {
+    return <AnimatedRoutes auth={auth} onLogin={onLogin} />;
+  }
+
   return (
     <div className="flex h-screen overflow-hidden bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-500">
       {!mobileClassroomMode && <Sidebar />}
       <main className={`flex-1 min-h-0 relative ${inStudentClassroom ? 'overflow-hidden' : 'overflow-y-auto'}`}>
-        {inDashboardMode && !mobileClassroomMode && <DashboardTopBar />}
-        <AnimatedRoutes />
+        {inDashboardMode && !mobileClassroomMode && <DashboardTopBar authUser={auth?.user} onLogout={onLogout} />}
+        <AnimatedRoutes auth={auth} onLogin={onLogin} />
       </main>
     </div>
   );
@@ -191,6 +219,7 @@ function AppWorkspace() {
 
 function App() {
   const [loading, setLoading] = useState(true);
+  const [auth, setAuth] = useState(() => getStoredAuth());
 
   useEffect(() => {
     // Check initial system/localStorage theme
@@ -210,9 +239,18 @@ function App() {
     return <Loader />;
   }
 
+  const handleLogin = nextAuth => {
+    setAuth(nextAuth);
+  };
+
+  const handleLogout = () => {
+    clearStoredAuth();
+    setAuth(null);
+  };
+
   return (
     <Router>
-      <AppWorkspace />
+      <AppWorkspace auth={auth} onLogin={handleLogin} onLogout={handleLogout} />
     </Router>
   );
 }

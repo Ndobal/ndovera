@@ -32,17 +32,30 @@ function getRoleKeyFromPath(path) {
   return path.split('/')[2];
 }
 
-export default function RoleSwitcher() {
+export default function RoleSwitcher({ authUser = null }) {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const selectedRole = localStorage.getItem('selectedRole') || 'student';
+  const currentUserRole = authUser?.role || 'student';
+  const canSwitchAllRoles = currentUserRole === 'ami';
+  const availableOptions = canSwitchAllRoles
+    ? roleOptions
+    : roleOptions.filter(option => getRoleKeyFromPath(option.path) === currentUserRole);
+
+  const selectedRole = canSwitchAllRoles
+    ? (localStorage.getItem('selectedRole') || currentUserRole)
+    : currentUserRole;
   const selectedPath = `/roles/${selectedRole}`;
-  const currentPath = roleOptions.some(option => option.path === location.pathname)
+  const currentPath = availableOptions.some(option => option.path === location.pathname)
     ? location.pathname
     : selectedPath;
 
   const handleSwitchRole = event => {
+    if (!canSwitchAllRoles) {
+      navigate(selectedPath);
+      return;
+    }
+
     const nextPath = event.target.value;
     const nextRole = getRoleKeyFromPath(nextPath);
     localStorage.setItem('selectedRole', nextRole);
@@ -57,8 +70,9 @@ export default function RoleSwitcher() {
         onChange={handleSwitchRole}
         className="glass-chip text-slate-800 dark:text-slate-100 rounded-xl px-3 py-2 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-400"
         aria-label="Switch dashboard role"
+        disabled={!canSwitchAllRoles}
       >
-        {roleOptions.map(option => (
+        {availableOptions.map(option => (
           <option key={option.path} value={option.path}>
             {option.label}
           </option>

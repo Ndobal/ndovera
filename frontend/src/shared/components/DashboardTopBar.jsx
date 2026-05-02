@@ -20,7 +20,7 @@ const roleHeaderStats = {
   owner: { notifications: 9, chats: 4, auras: 5210 },
 };
 
-export default function DashboardTopBar() {
+export default function DashboardTopBar({ authUser = null, onLogout = () => {} }) {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -120,9 +120,9 @@ export default function DashboardTopBar() {
             </span>
           </button>
 
-          <RoleSwitcher />
+          <RoleSwitcher authUser={authUser} />
           <ThemeToggle />
-          <UserProfileDropdown />
+          <UserProfileDropdown user={authUser} onLogout={onLogout} />
         </div>
 
       </div>
