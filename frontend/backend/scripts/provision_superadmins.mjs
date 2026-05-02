@@ -19,7 +19,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const backendDir = path.resolve(__dirname, '..');
 const schemaPath = path.join(backendDir, 'd1', 'schema.sql');
-const npxCommand = process.platform === 'win32' ? 'npx.cmd' : 'npx';
+const useShell = process.platform === 'win32';
+const npxCommand = 'npx';
 
 function escapeSql(value) {
   return String(value).replace(/'/g, "''");
@@ -88,7 +89,7 @@ function runWrangler(args) {
   const result = spawnSync(npxCommand, ['wrangler', ...args], {
     cwd: backendDir,
     stdio: 'inherit',
-    shell: false,
+    shell: useShell,
   });
 
   if (result.status !== 0) {
@@ -111,7 +112,7 @@ async function promptForPassword(account) {
 }
 
 async function main() {
-  runWrangler(['d1', 'execute', 'APP_DB', '--remote', '--file', schemaPath]);
+  runWrangler(['d1', 'execute', 'APP_DB', '--remote', '--yes', '--file', schemaPath]);
 
   const now = new Date().toISOString();
   const statements = [];
@@ -148,7 +149,7 @@ async function main() {
   fs.writeFileSync(sqlFile, `${statements.join('\n')}\n`, 'utf8');
 
   try {
-    runWrangler(['d1', 'execute', 'APP_DB', '--remote', '--file', sqlFile]);
+    runWrangler(['d1', 'execute', 'APP_DB', '--remote', '--yes', '--file', sqlFile]);
   } finally {
     fs.rmSync(tempDir, { recursive: true, force: true });
   }
