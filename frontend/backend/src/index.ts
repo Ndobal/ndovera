@@ -29,6 +29,119 @@ type Bindings = {
 
 const app = new Hono<{ Bindings: Bindings }>()
 
+const headerFallbackByRole: Record<string, any> = {
+  student: {
+    auras: 320,
+    chats: 3,
+    notifications: 4,
+    chatItems: [
+      { id: 'c1', sender: 'Math Teacher', preview: 'Upload your class work by 6:00 PM', time: '2m ago', unread: true },
+      { id: 'c2', sender: 'Class Captain', preview: 'Science live class starts by 3:00 PM', time: '16m ago', unread: true },
+      { id: 'c3', sender: 'School Support', preview: 'Your request has been resolved', time: '1h ago', unread: false },
+    ],
+    notificationItems: [
+      { id: 'n1', title: 'New assignment posted', detail: 'Mathematics CA is now available.', time: 'Just now', unread: true },
+      { id: 'n2', title: 'Attendance update', detail: 'Today attendance marked as present.', time: '35m ago', unread: true },
+      { id: 'n3', title: 'Material uploaded', detail: 'Biology note with diagrams uploaded.', time: '2h ago', unread: false },
+      { id: 'n4', title: 'Auras reward', detail: 'You earned 12 Auras from practice.', time: '5h ago', unread: false },
+    ],
+  },
+}
+
+const studentDashboardFallback = {
+  studentName: 'David',
+  roleWatermark: 'STUDENT',
+  metrics: [
+    { label: 'Tasks To Do', value: '4', accent: 'accent-amber' },
+    { label: 'Attendance', value: '98%', accent: 'accent-emerald' },
+    { label: 'Latest Score', value: 'A-', accent: 'accent-indigo' },
+    { label: 'Auras', value: '320', accent: 'accent-rose' },
+  ],
+  quickLinks: [
+    { name: 'Classroom', path: '/roles/student/classroom' },
+    { name: 'Practice', path: '/roles/student/practice' },
+    { name: 'Assignments', path: '/roles/student/assignments' },
+    { name: 'Materials', path: '/roles/student/materials' },
+    { name: 'Results', path: '/roles/student/results' },
+  ],
+  notices: [
+    { text: 'Math assignment is due today.', time: 'Due Today', accent: 'accent-amber' },
+    { text: 'Biology quiz starts in 2 days.', time: 'Upcoming', accent: 'accent-indigo' },
+    { text: 'Your attendance this week is very good.', time: 'Great Job', accent: 'accent-emerald' },
+  ],
+}
+
+function buildGenericHeader(roleKey: string) {
+  return {
+    auras: roleKey === 'ami' ? 5210 : 450,
+    chats: roleKey === 'ami' ? 4 : 1,
+    notifications: roleKey === 'ami' ? 9 : 2,
+    chatItems: [],
+    notificationItems: [],
+  }
+}
+
+function buildUserProfile(id: string, role: string, name: string, settings: Record<string, any> = {}) {
+  return {
+    id,
+    email: settings.email || id,
+    name,
+    role,
+    schoolId: settings.schoolId || 'school-1',
+    aura: settings.aura || 320,
+    accountType: settings.accountType || (role === 'ami' ? 'superadmin' : 'user'),
+    status: settings.status || 'active',
+  }
+}
+
+async function finishLogin(c: any, payload: Record<string, any>) {
+  const id = payload.id || payload.email || payload.username
+  const password = payload.password
+  const requestedRole = payload.role
+
+  if (!id || !password) {
+    return c.json({ error: 'id and password required' }, 400)
+  }
+
+  const settings = await getSettings(c.env.APP_DB, id)
+  if (!settings) {
+    return c.json({ error: 'invalid credentials' }, 401)
+  }
+
+  const passwordValid = await verifyPasswordCandidate(String(password), settings)
+  if (!passwordValid) {
+    return c.json({ error: 'invalid credentials' }, 401)
+  }
+
+  const migratedSettings = await migrateLegacyPasswordIfNeeded(settings, String(password))
+  if (migratedSettings) {
+    await upsertSettings(c.env.APP_DB, id, migratedSettings).catch(error => {
+      console.error('Legacy password migration failed', error)
+    })
+  }
+
+  const userRole = settings.role || requestedRole || 'student'
+  const name = settings.name || id
+  const token = await sign({ role: userRole, name, id }, c.env.JWT_SECRET, { expiresIn: '8h' })
+  const user = buildUserProfile(id, userRole, name, settings)
+
+  return c.json({ success: true, token, user, id: user.id, role: user.role, name: user.name })
+}
+
+function buildSchoolWebsite(c: any, schoolId: string) {
+  const origin = new URL(c.req.url).origin
+  return {
+    schoolId,
+    name: 'Ndovera',
+    shortName: 'NDOVERA',
+    logoUrl: `${origin}/logo192.png`,
+    domain: 'ndovera.com',
+    supportEmail: 'support@ndovera.com',
+    primaryColor: '#0f172a',
+    secondaryColor: '#10b981',
+  }
+}
+
 app.use('*', cors({
   origin: (origin) => {
     if (!origin) return origin
@@ -61,28 +174,55 @@ async function authenticate(c: any, next: any) {
 
 // Login
 app.post('/api/login', async (c) => {
-  const { id, password, role } = await c.req.json()
-  if (!id || !password) {
-    return c.json({ error: 'id and password required' }, 400)
+  return finishLogin(c, await c.req.json())
+})
+
+app.post('/api/auth/login', async (c) => {
+  return finishLogin(c, await c.req.json())
+})
+
+app.get('/api/users/me', authenticate, async (c) => {
+  const currentUser = c.var.user || {}
+  const id = currentUser.id || currentUser.sub || currentUser.email
+  if (!id) {
+    return c.json({ error: 'invalid token' }, 401)
   }
   const settings = await getSettings(c.env.APP_DB, id)
-  if (!settings) {
-    return c.json({ error: 'invalid credentials' }, 401)
+  const role = settings?.role || currentUser.role || 'student'
+  const name = settings?.name || currentUser.name || id
+  const user = buildUserProfile(id, role, name, settings || {})
+  return c.json({ success: true, user, ...user })
+})
+
+app.get('/api/schools/:schoolId/website', async (c) => {
+  const schoolId = c.req.param('schoolId')
+  const website = buildSchoolWebsite(c, schoolId)
+  return c.json({ success: true, school: website, website, ...website })
+})
+
+app.get('/api/header/:roleKey', async (c) => {
+  const roleKey = c.req.param('roleKey')
+  return c.json(headerFallbackByRole[roleKey] || buildGenericHeader(roleKey))
+})
+
+app.get('/api/dashboards/:roleKey', async (c) => {
+  const roleKey = c.req.param('roleKey')
+  if (roleKey === 'student') {
+    return c.json(studentDashboardFallback)
   }
-  const passwordValid = await verifyPasswordCandidate(String(password), settings)
-  if (!passwordValid) {
-    return c.json({ error: 'invalid credentials' }, 401)
-  }
-  const migratedSettings = await migrateLegacyPasswordIfNeeded(settings, String(password))
-  if (migratedSettings) {
-    await upsertSettings(c.env.APP_DB, id, migratedSettings).catch(error => {
-      console.error('Legacy password migration failed', error)
-    })
-  }
-  const userRole = settings.role || role || 'student'
-  const name = settings.name || id
-  const token = await sign({ role: userRole, name, id }, c.env.JWT_SECRET, { expiresIn: '8h' })
-  return c.json({ token })
+
+  return c.json({
+    role: roleKey.toUpperCase(),
+    roleWatermark: roleKey.toUpperCase(),
+    metrics: [
+      { label: 'Open Items', value: '3', accent: 'accent-amber' },
+      { label: 'Completed', value: '12', accent: 'accent-emerald' },
+      { label: 'Alerts', value: '1', accent: 'accent-rose' },
+      { label: 'Auras', value: '450', accent: 'accent-indigo' },
+    ],
+    quickLinks: [],
+    notices: [],
+  })
 })
 
 // Settings
