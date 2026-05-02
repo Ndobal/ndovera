@@ -1,8 +1,10 @@
 // PTA Attendance Service - handles QR scanning, attendance marking, and reporting
 
+import { getApiBase } from '../../../config/apiBase';
+
 class PTAAttendanceService {
   constructor() {
-    this.apiBase = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+    this.apiBase = getApiBase('/api');
     this.isOnline = navigator.onLine;
   }
 

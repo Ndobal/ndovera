@@ -3,6 +3,12 @@ import { cors } from 'hono/cors'
 import { logger } from 'hono/logger'
 import { sign, verify } from '@tsndr/cloudflare-worker-jwt'
 import {
+  hasRequiredRole,
+  migrateLegacyPasswordIfNeeded,
+  verifyPasswordCandidate,
+  withHashedPassword,
+} from './passwords'
+import {
   getSettings, upsertSettings, addAudit, getAuditForStudent, getAllAudits,
   getAllBooks, getBookById, upsertBook, deleteBook, borrowBook, returnBook,
   getBorrowingsForStudent, getAllBorrowings, getClassById, getPostsForClass,
@@ -24,7 +30,13 @@ type Bindings = {
 const app = new Hono<{ Bindings: Bindings }>()
 
 app.use('*', cors({
-  origin: (origin) => origin === 'https://www.ndovera.com' || origin?.endsWith('.ndovera.com') || false,
+  origin: (origin) => {
+    if (!origin) return origin
+    if (origin === 'https://ndovera.com' || origin === 'https://www.ndovera.com' || origin.endsWith('.ndovera.com')) {
+      return origin
+    }
+    return ''
+  },
   allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowHeaders: ['Content-Type', 'Authorization'],
 }))
@@ -54,11 +66,18 @@ app.post('/api/login', async (c) => {
     return c.json({ error: 'id and password required' }, 400)
   }
   const settings = await getSettings(c.env.APP_DB, id)
-  if (!settings || !settings.password) {
+  if (!settings) {
     return c.json({ error: 'invalid credentials' }, 401)
   }
-  if (String(settings.password) !== String(password)) {
+  const passwordValid = await verifyPasswordCandidate(String(password), settings)
+  if (!passwordValid) {
     return c.json({ error: 'invalid credentials' }, 401)
+  }
+  const migratedSettings = await migrateLegacyPasswordIfNeeded(settings, String(password))
+  if (migratedSettings) {
+    await upsertSettings(c.env.APP_DB, id, migratedSettings).catch(error => {
+      console.error('Legacy password migration failed', error)
+    })
   }
   const userRole = settings.role || role || 'student'
   const name = settings.name || id
@@ -97,14 +116,14 @@ app.post('/api/settings/:id/audit', authenticate, async (c) => {
 
 // Admin audit
 app.get('/api/audit', authenticate, async (c) => {
-  if (!['hos', 'owner'].includes(c.var.user.role)) return c.json({ error: 'forbidden' }, 403)
+  if (!hasRequiredRole(c.var.user.role, ['hos', 'owner'])) return c.json({ error: 'forbidden' }, 403)
   const all = await getAllAudits(c.env.APP_DB)
   return c.json(all || [])
 })
 
 // Admin reset password
 app.post('/api/admin/reset-password', authenticate, async (c) => {
-  if (!['ami', 'owner'].includes(c.var.user.role)) {
+  if (!hasRequiredRole(c.var.user.role, ['owner'])) {
     return c.json({ error: 'forbidden' }, 403)
   }
   const { targetId, newPassword } = await c.req.json()
@@ -113,8 +132,13 @@ app.post('/api/admin/reset-password', authenticate, async (c) => {
   }
   let settings = await getSettings(c.env.APP_DB, targetId)
   if (!settings) settings = {}
-  settings.password = String(newPassword)
-  await upsertSettings(c.env.APP_DB, targetId, settings)
+  const nextSettings = await withHashedPassword({
+    ...settings,
+    email: settings.email || targetId,
+    name: settings.name || targetId,
+    role: settings.role || 'student',
+  }, String(newPassword))
+  await upsertSettings(c.env.APP_DB, targetId, nextSettings)
   await addAudit(c.env.APP_DB, targetId, {
     action: 'resetPassword',
     data: { by: c.var.user.name || c.var.user.role, adminRole: c.var.user.role }
@@ -136,14 +160,14 @@ app.get('/api/library/books/:id', async (c) => {
 })
 
 app.post('/api/library/books', authenticate, async (c) => {
-  if (!['hos', 'owner', 'admin', 'teacher', 'librarian'].includes(c.var.user.role)) return c.json({ error: 'forbidden' }, 403)
+  if (!hasRequiredRole(c.var.user.role, ['hos', 'owner', 'admin', 'teacher', 'librarian'])) return c.json({ error: 'forbidden' }, 403)
   const payload = await c.req.json()
   const result = await upsertBook(c.env.APP_DB, payload)
   return c.json({ success: true, id: result.id })
 })
 
 app.delete('/api/library/books/:id', authenticate, async (c) => {
-  if (!['hos', 'owner', 'admin', 'librarian'].includes(c.var.user.role)) return c.json({ error: 'forbidden' }, 403)
+  if (!hasRequiredRole(c.var.user.role, ['hos', 'owner', 'admin', 'librarian'])) return c.json({ error: 'forbidden' }, 403)
   const { id } = c.req.param()
   await deleteBook(c.env.APP_DB, id)
   return c.json({ success: true })
@@ -174,7 +198,7 @@ app.get('/api/library/borrowings/mine', authenticate, async (c) => {
 })
 
 app.get('/api/library/borrowings', authenticate, async (c) => {
-  if (!['hos', 'owner', 'admin', 'librarian'].includes(c.var.user.role)) return c.json({ error: 'forbidden' }, 403)
+  if (!hasRequiredRole(c.var.user.role, ['hos', 'owner', 'admin', 'librarian'])) return c.json({ error: 'forbidden' }, 403)
   const all = await getAllBorrowings(c.env.APP_DB)
   return c.json({ success: true, borrowings: all })
 })

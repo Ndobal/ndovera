@@ -1,11 +1,12 @@
 // Main attendance service - handles attendance marking, retrieval, and updates
 
 import offlineQueueService from './offlineQueueService';
+import { getApiBase } from '../../../config/apiBase';
 // Attendance calculations imported as needed within methods
 
 class AttendanceService {
   constructor() {
-    this.apiBase = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+    this.apiBase = getApiBase('/api');
     this.isOnline = navigator.onLine;
     this.setupOnlineListener();
   }

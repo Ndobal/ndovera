@@ -1,6 +1,7 @@
 -- Exporting settings
 INSERT INTO settings (studentId, payload) VALUES
-('ndobalamwilliams@ndovera.com', '{"password":"CHANGE_ME_BEFORE_IMPORT","name":"Super Admin","role":"superadmin"}');
+('ndobalamwilliams@ndovera.com', '{"email":"ndobalamwilliams@ndovera.com","name":"Ndobalam Williams","role":"ami","accountType":"superadmin","passwordState":"provision-required"}'),
+('ndobal.will@gmail.com', '{"email":"ndobal.will@gmail.com","name":"Ndobal Will","role":"ami","accountType":"superadmin","passwordState":"provision-required"}');
 
 -- Exporting audit
 -- Exporting books

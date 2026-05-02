@@ -2,13 +2,18 @@ name = "ndovera-api"
 main = "src/index.ts"
 compatibility_date = "2024-09-23"
 compatibility_flags = ["nodejs_compat"]
+routes = [
+	{ pattern = "ndovera.com/api/*", zone_name = "ndovera.com" },
+	{ pattern = "www.ndovera.com/api/*", zone_name = "ndovera.com" }
+]
 
 [[d1_databases]]
 binding = "APP_DB"
 database_id = "77d6f37d-7fc8-4f5d-927c-42f3c6f24538"
+database_name = "ndovera-db"
 
 [vars]
-CORS_ORIGIN = "https://www.ndovera.com"
+CORS_ORIGIN = "https://ndovera.com,https://www.ndovera.com"
 HYPERDRIVE_CONNECTION_STRING = ""
 SESSION_COOKIE_NAME = "ndovera_session"
 SESSION_TTL_SECONDS = "2592000"

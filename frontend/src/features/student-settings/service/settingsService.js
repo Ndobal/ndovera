@@ -1,5 +1,6 @@
+import { getApiUrl } from '../../../config/apiBase';
+
 const STORAGE_KEY = 'ndovera.student.settings.v1';
-const API_BASE = process.env.REACT_APP_API_BASE || '';
 
 const seed = {
   profile: { id: 'stu-001', name: 'David N.', avatar: '', email: 'david@example.com' },
@@ -35,22 +36,27 @@ async function fetchJSON(url, opts) {
   }
 }
 
+function settingsUrl(studentId) {
+  return getApiUrl(`/api/settings/${studentId}`);
+}
+
+function auditUrl(studentId) {
+  return getApiUrl(`/api/settings/${studentId}/audit`);
+}
+
 export async function getSettings(studentId = 'stu-001') {
-  if (API_BASE !== undefined) {
-    try {
-      const data = await fetchJSON(`${API_BASE}/api/settings/${studentId}`);
-      if (data) return data;
-    } catch (e) {
-      // fall through to local
-    }
+  try {
+    const data = await fetchJSON(settingsUrl(studentId));
+    if (data) return data;
+  } catch (e) {
+    // fall through to local
   }
   return localLoad();
 }
 
 async function saveSettingsToBackend(studentId, state) {
-  if (!API_BASE) return null;
   try {
-    const res = await fetchJSON(`${API_BASE}/api/settings/${studentId}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(state) });
+    const res = await fetchJSON(settingsUrl(studentId), { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(state) });
     return res;
   } catch (e) {
     return null;
@@ -150,9 +156,8 @@ export async function unblockUser(id, studentId = 'stu-001') {
 }
 
 export async function addAuditEntry(studentId, payload) {
-  if (!API_BASE) return null;
   try {
-    const res = await fetch(`${API_BASE}/api/settings/${studentId}/audit`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+    const res = await fetch(auditUrl(studentId), { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
     if (!res.ok) throw new Error('audit-fail');
     return await res.json();
   } catch (e) {
@@ -161,9 +166,8 @@ export async function addAuditEntry(studentId, payload) {
 }
 
 export async function getAuditLog(studentId = 'stu-001') {
-  if (!API_BASE) return [];
   try {
-    const res = await fetch(`${API_BASE}/api/settings/${studentId}/audit`, { headers: { Authorization: (window.__dev_token__ || '') } });
+    const res = await fetch(auditUrl(studentId), { headers: { Authorization: (window.__dev_token__ || '') } });
     if (!res.ok) throw new Error('audit-fetch');
     return await res.json();
   } catch (e) {
@@ -172,9 +176,8 @@ export async function getAuditLog(studentId = 'stu-001') {
 }
 
 export async function getAllAudits(token = '') {
-  if (!API_BASE) return [];
   try {
-    const res = await fetch(`${API_BASE}/api/audit`, { headers: { Authorization: token } });
+    const res = await fetch(getApiUrl('/api/audit'), { headers: { Authorization: token } });
     if (!res.ok) throw new Error('audit-fetch-all');
     return await res.json();
   } catch (e) {
