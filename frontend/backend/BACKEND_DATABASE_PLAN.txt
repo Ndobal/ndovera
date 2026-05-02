@@ -1,0 +1,109 @@
+NDOVERA Backend & Database Plan
+
+This document outlines the server-side architecture, database schema, and implementation strategy for the entire NDOVERA system. It will be updated continuously as features are added or modified. The goal is to maintain a single source of truth for backend design decisions, data models, and API contracts.
+
+---
+
+2026-02-28:
+- Finalized architecture rules and folder structure guidelines captured in NDOVERA.txt.
+- Established core features like Classroom, Assignments, Exams, Attendance, Auras.
+
+2026-03-01:
+- Initial plan created alongside front-end implementation of Practice Area and Library features.
+- Added prototype Express server for Library DRM and purchase endpoints:
+  • `/api/purchase` issues payment license JWT
+  • `/api/package` exchanges license for download token
+  • `/api/admin/log` records admin decisions
+  • `/api/ai/review` returns a canned AI review report (for prototyping)
+  Server stores minimal in-memory book list and uses JWT_SECRET for token signing. Requires environment variables; structured as separate `server/` folder with its own package.json.
+
+Sections:
+1. Core architecture overview
+2. Database technology and schema
+3. Authentication & identity (ID Manager)
+4. Feature-specific modules (e.g., Practice, Library, E-books, Offline library)
+5. API style & conventions
+6. Security, DRM, auditing
+7. Operational notes (multi-tenant, offline sync, etc.)
+
+Updates will be appended with date stamps.
+
+=== BACKEND DATABASE PLAN (2026-03-01) ===
+
+Purpose:
+- Provide a concise, implementation-ready plan for migrating from in-memory stores to a production-grade relational database and storage stack that supports exams, library, transactions, licenses, users/roles, and auditability.
+
+Goals:
+- Durable, ACID storage for exam content, results, purchases, and licenses.
+- Role-based access control and multi-tenant isolation (school scope).
+- Scalable read/write model with caching layers.
+- Clear migration path from current in-memory arrays to persistent schema.
+
+Recommended Stack:
+- Primary DB: PostgreSQL (schemas, rich constraints, JSONB for flexible fields).
+- Cache: Redis for short-lived tokens, rate-limiting, and session data.
+- File/Blob storage: S3-compatible (AWS S3 / MinIO) for book packages and large assets.
+- Migrations & ORM: Knex.js or Prisma for migrations + type-safe models.
+
+Core Entities / Tables (short descriptions):
+- users: id (uuid), email, name, role_id, school_id, created_at, updated_at, metadata (jsonb).
+- roles: id, name (student/teacher/parent/hos/owner/operational), permissions (jsonb).
+- schools: id, name, timezone, tenant_config (jsonb).
+- exams: id, school_id, title, window_start, window_end, created_by (user_id), status (draft/published), settings (jsonb), created_at.
+- exam_questions: id, exam_id, position, text, type (mcq/essay), metadata (jsonb).
+- exam_choices: id, question_id, label, is_correct (boolean) — keep correct flag server-side only.
+- exam_submissions: id, exam_id, user_id, started_at, submitted_at, ip_address, device_fingerprint, score_summary (jsonb), graded (boolean).
+- exam_answers: id, submission_id, question_id, choice_id, answer_text, points_awarded.
+- exam_results: materialized view or aggregated table per student per exam for fast read.
+- books: id, isbn, title, price_cents, metadata (jsonb), uploader_id.
+- purchases: id, book_id, user_id, amount_cents, receipt_id, license_token, created_at.
+- licenses: id, purchase_id, user_id, device_fingerprint, token (encrypted), expires_at.
+- packages: id, book_id, license_id, s3_path, created_at.
+- transactions/audit_logs: id, actor_id, action, resource_type, resource_id, details (jsonb), timestamp.
+
+Indexes & Constraints:
+- Primary keys: uuid for all main tables.
+- Foreign keys: enforce referential integrity (exam -> school, question -> exam, choice -> question, submission -> exam/user).
+- Indices: exams(school_id, status), exam_submissions(exam_id, user_id), purchases(user_id, book_id), licenses(expires_at).
+- Partial indexes for active/published exams and recent submissions.
+
+Security & Privacy:
+- Encrypt license tokens and any PII at rest using DB-level encryption or encrypted fields handled by application keys.
+- Rotate secrets (JWT, DB credentials) with a vault (Hashicorp/Cloud KMS).
+- RBAC: enforce at API layer and via row-level security policies in Postgres (optional) per `school_id`.
+- Audit all changes to exams, results and purchase flows in `audit_logs`.
+
+Scaling & Performance:
+- Read replicas for reporting and analytics.
+- Redis cache for exam metadata and ephemeral tokens.
+- Use S3 for large binary payloads; store only S3 path in DB.
+- Use pagination and limit large result sets; avoid SELECT *.
+
+Migration Plan (near-term):
+1. Add Postgres dependency and a migration tool (Knex or Prisma).
+2. Create initial migration with core tables: users, roles, schools, exams, exam_questions, exam_choices, exam_submissions, exam_answers, books, purchases, licenses, packages, audit_logs.
+3. Build seeders for current sample data (two exams) to validate flows.
+4. Update server API layer to write to DB instead of in-memory arrays (start with read endpoints first: GET /api/exams -> DB read).
+5. Migrate write endpoints incrementally: POST /api/exams (teacher create), POST /api/exams/:id/start (create submission row), POST /api/exams/:id/submit (store answers & grading), purchases/licenses.
+6. Run integration tests and a one-time migration script to move any persisted state.
+
+Operational Concerns:
+- Backups: nightly logical backups + point-in-time recovery (PITR) for Postgres.
+- Monitoring: set up DB metrics (PG Exporter, Grafana) and slow-query logging.
+- Retention: purge old submissions after defined retention for compliance, but keep aggregated results.
+
+APIs mapping (quick):
+- GET /api/exams -> read `exams` (published) for tenant school.
+- POST /api/exams -> insert `exams` + `exam_questions` + choices.
+- POST /api/exams/:id/start -> create `exam_submissions` row.
+- POST /api/exams/:id/submit -> insert `exam_answers`, grade, update `exam_submissions` and emit `exam_results` record.
+- POST /api/purchase -> insert `purchases`, create `licenses` (JWT stored encrypted), return receipt.
+- POST /api/package -> validate license, record `packages` entry, create S3 object.
+
+Next Steps (actionable):
+1. Approve stack choice (Postgres + Redis + S3) and pick migration tool (Knex/Prisma).
+2. Implement initial migrations and seeders.
+3. Wire API endpoints to DB reads (GET /api/exams) and verify frontend uses proxy to backend.
+4. Add automated tests for exam lifecycle and purchase flow.
+
+=== END BACKEND DATABASE PLAN ===

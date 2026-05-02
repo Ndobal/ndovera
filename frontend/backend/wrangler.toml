@@ -1,0 +1,22 @@
+name = "ndovera-api"
+main = "src/index.ts"
+compatibility_date = "2024-09-23"
+compatibility_flags = ["nodejs_compat"]
+
+[[d1_databases]]
+binding = "APP_DB"
+database_id = "77d6f37d-7fc8-4f5d-927c-42f3c6f24538"
+
+[vars]
+CORS_ORIGIN = "https://www.ndovera.com"
+HYPERDRIVE_CONNECTION_STRING = ""
+SESSION_COOKIE_NAME = "ndovera_session"
+SESSION_TTL_SECONDS = "2592000"
+
+[[kv_namespaces]]
+binding = "SESSIONS"
+id = "3b679aac9c5a44f8bcc191f1f336d9af"
+
+[[r2_buckets]]
+binding = "UPLOADS"
+bucket_name = "dovera-files"

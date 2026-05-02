@@ -1,0 +1,18 @@
+{
+  "name": "ndovera-api",
+  "version": "0.1.0",
+  "main": "src/index.ts",
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev",
+    "build": "wrangler build"
+  },
+  "dependencies": {
+    "@tsndr/cloudflare-worker-jwt": "^3.2.1",
+    "hono": "^4.0.0"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20231218.0",
+    "wrangler": "^3.0.0"
+  }
+}

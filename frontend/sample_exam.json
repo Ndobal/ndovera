@@ -1,0 +1,63 @@
+﻿{
+    "questions":  [
+                      {
+                          "answer":  "4",
+                          "prompt":  "2 + 2 = ?",
+                          "id":  "q1",
+                          "type":  "mcq",
+                          "options":  [
+                                          "1",
+                                          "2",
+                                          "4"
+                                      ]
+                      },
+                      {
+                          "prompt":  "Name the capital of Italy.",
+                          "id":  "q2",
+                          "type":  "shortanswer"
+                      },
+                      {
+                          "prompt":  "The [cat] sat on the [mat].",
+                          "id":  "q3",
+                          "type":  "fillgaps"
+                      },
+                      {
+                          "prompt":  "The sky is green.",
+                          "id":  "q4",
+                          "type":  "truefalse",
+                          "answer":  false
+                      },
+                      {
+                          "id":  "q5",
+                          "left":  [
+                                       "A",
+                                       "B",
+                                       "C"
+                                   ],
+                          "prompt":  "Match letters to numbers",
+                          "right":  [
+                                        "1",
+                                        "2",
+                                        "3"
+                                    ],
+                          "type":  "crossmatching",
+                          "pairs":  [
+
+                                    ]
+                      },
+                      {
+                          "caption":  "",
+                          "prompt":  "Upload a diagram and caption",
+                          "id":  "q6",
+                          "type":  "picture",
+                          "image":  null
+                      },
+                      {
+                          "prompt":  "Discuss ecosystems.",
+                          "id":  "q7",
+                          "type":  "essay"
+                      }
+                  ],
+    "title":  "Auto Mixed Types Exam",
+    "window":  "2026-03-15 09:00"
+}
