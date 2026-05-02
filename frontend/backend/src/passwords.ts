@@ -1,5 +1,6 @@
 const PASSWORD_HASH_VERSION = 1
-const PASSWORD_HASH_ITERATIONS = 210000
+const PASSWORD_HASH_ITERATIONS = 100000
+const WORKER_PBKDF2_MAX_ITERATIONS = 100000
 const PASSWORD_SALT_BYTES = 16
 const PASSWORD_HASH_BITS = 256
 
@@ -36,6 +37,18 @@ async function deriveHash(password: string, salt: Uint8Array, iterations: number
   }, key, PASSWORD_HASH_BITS)
 
   return new Uint8Array(bits)
+}
+
+function assertSupportedIterations(iterations: number) {
+  if (!Number.isInteger(iterations) || iterations <= 0) {
+    throw new Error('Unsupported password hash iterations.')
+  }
+
+  if (iterations > WORKER_PBKDF2_MAX_ITERATIONS) {
+    throw new Error(
+      `Password hash iterations ${iterations} exceed the Cloudflare Worker PBKDF2 limit of ${WORKER_PBKDF2_MAX_ITERATIONS}.`
+    )
+  }
 }
 
 function timingSafeEqual(left: Uint8Array, right: Uint8Array) {
@@ -77,6 +90,7 @@ export async function verifyPasswordCandidate(password: string, settings: Record
   if (!settings) return false
 
   if (isPasswordHashRecord(settings.passwordHash)) {
+    assertSupportedIterations(settings.passwordHash.iterations)
     const expected = fromBase64(settings.passwordHash.hash)
     const derived = await deriveHash(password, fromBase64(settings.passwordHash.salt), settings.passwordHash.iterations)
     return timingSafeEqual(derived, expected)

@@ -108,7 +108,19 @@ async function finishLogin(c: any, payload: Record<string, any>) {
     return c.json({ error: 'invalid credentials' }, 401)
   }
 
-  const passwordValid = await verifyPasswordCandidate(String(password), settings)
+  let passwordValid = false
+  try {
+    passwordValid = await verifyPasswordCandidate(String(password), settings)
+  } catch (error) {
+    console.error('Password verification failed', { id, error })
+
+    if (error instanceof Error && error.message.includes('Cloudflare Worker PBKDF2 limit')) {
+      return c.json({ error: 'This account password must be reset before it can be used.' }, 503)
+    }
+
+    return c.json({ error: 'Unable to verify credentials right now.' }, 500)
+  }
+
   if (!passwordValid) {
     return c.json({ error: 'invalid credentials' }, 401)
   }
@@ -122,7 +134,7 @@ async function finishLogin(c: any, payload: Record<string, any>) {
 
   const userRole = settings.role || requestedRole || 'student'
   const name = settings.name || id
-  const token = await sign({ role: userRole, name, id }, c.env.JWT_SECRET, { expiresIn: '8h' })
+  const token = await sign({ role: userRole, name, id, exp: Math.floor(Date.now() / 1000) + (8 * 60 * 60) }, c.env.JWT_SECRET)
   const user = buildUserProfile(id, userRole, name, settings)
 
   return c.json({ success: true, token, user, id: user.id, role: user.role, name: user.name })
