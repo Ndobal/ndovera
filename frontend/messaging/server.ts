@@ -34,17 +34,19 @@ async function startServer() {
   const server = http.createServer(app);
   const wss = new WebSocketServer({ server });
 
-  // VAPID keys
-  const vapidKeys = {
-    publicKey: process.env.VAPID_PUBLIC_KEY || 'BBTmUE1gnNecXMvbuR_8-dTfFi2T6NGERAMhTrcB09YRuFLQYXnWPd3petdB1jDsIQ7eP4a-4BeMRyDHzab5r6I',
-    privateKey: process.env.VAPID_PRIVATE_KEY || 'Pohq620M4HEDdd_0e0kWWdhNFkEtwK1jT01M4_5A3yY',
-  };
+  const vapidPublicKey = process.env.VAPID_PUBLIC_KEY;
+  const vapidPrivateKey = process.env.VAPID_PRIVATE_KEY;
+  const pushNotificationsEnabled = Boolean(vapidPublicKey && vapidPrivateKey);
 
-  webpush.setVapidDetails(
-    'mailto:your-email@example.com',
-    vapidKeys.publicKey,
-    vapidKeys.privateKey
-  );
+  if (pushNotificationsEnabled) {
+    webpush.setVapidDetails(
+      'mailto:your-email@example.com',
+      vapidPublicKey,
+      vapidPrivateKey
+    );
+  } else {
+    console.warn('VAPID keys are not configured; web push notifications are disabled.');
+  }
 
   const subscriptions = {};
 
@@ -78,7 +80,7 @@ async function startServer() {
         });
       } else if (parsedMessage.type === 'message_read') {
         // Update the message in the database
-        const updateMessage = db.prepare('UPDATE messages SET read_by = json_insert(read_by, '$[#]', ?) WHERE id = ?');
+        const updateMessage = db.prepare("UPDATE messages SET read_by = json_insert(read_by, '$[#]', ?) WHERE id = ?");
         updateMessage.run(parsedMessage.user_id, parsedMessage.message_id);
 
         // Broadcast the event to the other user in the conversation
@@ -97,7 +99,7 @@ async function startServer() {
         // Send push notification
         const participants = db.prepare('SELECT user_id FROM conversation_participants WHERE conversation_id = ? AND user_id != ?').all(parsedMessage.conversation_id, parsedMessage.sender_id);
         participants.forEach(participant => {
-          if (subscriptions[participant.user_id]) {
+          if (pushNotificationsEnabled && subscriptions[participant.user_id]) {
             const payload = JSON.stringify({ title: 'New Message', body: parsedMessage.text });
             webpush.sendNotification(subscriptions[participant.user_id], payload).catch(error => console.error(error));
           }
