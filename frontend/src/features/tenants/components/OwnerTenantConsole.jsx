@@ -180,7 +180,7 @@ export default function OwnerTenantConsole({ authUser = null, sectionKey = 'over
           <p className="mt-2 text-2xl command-title text-slate-100">{quote ? currencyFormatter.format(quote.setupFee) : '-'}</p>
         </div>
         <div className="glass-surface rounded-3xl p-5">
-          <p className="micro-label neon-subtle">Student Billing / Term</p>
+          <p className="micro-label neon-subtle">Student Billing / Subsequent Term</p>
           <p className="mt-2 text-2xl command-title text-slate-100">{quote ? currencyFormatter.format(quote.studentFeePerTerm) : '-'}</p>
         </div>
         <div className="glass-surface rounded-3xl p-5">
@@ -209,8 +209,13 @@ export default function OwnerTenantConsole({ authUser = null, sectionKey = 'over
               <div className="rounded-2xl border border-emerald-400/20 bg-slate-900/30 p-4">
                 <p className="micro-label neon-subtle">Current Invoice</p>
                 <p className="mt-2 text-2xl command-title text-slate-100">{quote ? currencyFormatter.format(quote.totalDueNow) : '-'}</p>
-                <p className="mt-2">Includes setup plus first-term billing for {quote?.studentCount || tenant?.studentCount || 0} students.</p>
+                <p className="mt-2">Only the onboarding fee is due now. Student billing starts from the subsequent term.</p>
                 {quote?.discountApplied && <p className="mt-2 text-indigo-300">Discount applied: {quote.discountCode}</p>}
+              </div>
+              <div className="rounded-2xl bg-slate-900/30 p-4">
+                <p className="micro-label neon-subtle">Subsequent Term Billing</p>
+                <p className="mt-2 text-slate-100 font-semibold">{quote ? currencyFormatter.format(quote.nextTermStudentBilling) : '-'}</p>
+                <p className="mt-2">{quote?.studentCount || tenant?.studentCount || 0} students x {quote ? currencyFormatter.format(quote.studentFeePerTerm) : '-'} billed from the subsequent term.</p>
               </div>
               {latestPayment && (
                 <div className="rounded-2xl bg-slate-900/30 p-4">

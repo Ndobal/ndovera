@@ -10,6 +10,7 @@ export default function LoginForm({ onSuccess }) {
   const [formState, setFormState] = useState(initialState);
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = event => {
     const { name, value } = event.target;
@@ -36,43 +37,53 @@ export default function LoginForm({ onSuccess }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="glass-surface rounded-3xl p-8 md:p-10 space-y-5 border border-white/10 shadow-2xl">
-      <div>
-        <p className="micro-label neon-subtle mb-2">Secure Sign In</p>
-        <h1 className="text-3xl command-title neon-title">NDOVERA Portal</h1>
-        <p className="text-slate-600 dark:text-slate-300 mt-2">Use your account email and password to access your assigned dashboard.</p>
+    <form onSubmit={handleSubmit} className="rounded-[28px] border border-slate-200 bg-white p-6 shadow-[0_18px_50px_rgba(15,23,42,0.08)] sm:p-7">
+      <div className="space-y-1">
+        <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">Secure Sign In</p>
+        <p className="text-base leading-7 text-slate-600">Use your account email and password to access your assigned dashboard.</p>
       </div>
 
+      <div className="mt-5 space-y-4">
       <label className="block space-y-2">
-        <span className="micro-label">Email</span>
+        <span className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Email</span>
         <input
           name="id"
           type="email"
           autoComplete="username"
           value={formState.id}
           onChange={handleChange}
-          className="w-full rounded-2xl px-4 py-3 bg-slate-900/5 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100"
+          className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
           placeholder="you@ndovera.com"
           required
         />
       </label>
 
       <label className="block space-y-2">
-        <span className="micro-label">Password</span>
-        <input
-          name="password"
-          type="password"
-          autoComplete="current-password"
-          value={formState.password}
-          onChange={handleChange}
-          className="w-full rounded-2xl px-4 py-3 bg-slate-900/5 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100"
-          placeholder="Enter your password"
-          required
-        />
+        <span className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Password</span>
+        <div className="relative">
+          <input
+            name="password"
+            type={showPassword ? 'text' : 'password'}
+            autoComplete="current-password"
+            value={formState.password}
+            onChange={handleChange}
+            className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 pr-20 text-slate-900 outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
+            placeholder="Enter your password"
+            required
+          />
+          <button
+            type="button"
+            onClick={() => setShowPassword(current => !current)}
+            className="absolute inset-y-0 right-3 flex items-center text-xs font-semibold uppercase tracking-[0.14em] text-slate-500 transition hover:text-emerald-700"
+          >
+            {showPassword ? 'Hide' : 'Show'}
+          </button>
+        </div>
       </label>
+      </div>
 
       {error && (
-        <div className="rounded-2xl border border-rose-300/30 bg-rose-500/10 px-4 py-3 text-sm text-rose-200">
+        <div className="mt-4 rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">
           {error}
         </div>
       )}
@@ -80,7 +91,7 @@ export default function LoginForm({ onSuccess }) {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="w-full rounded-2xl px-4 py-3 bg-emerald-500/85 hover:bg-emerald-500 text-slate-950 font-semibold transition-colors disabled:opacity-70 disabled:cursor-not-allowed"
+        className="mt-5 w-full rounded-2xl bg-emerald-600 px-4 py-3 text-white font-semibold transition-colors hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-70"
       >
         {isSubmitting ? 'Signing in...' : 'Sign In'}
       </button>

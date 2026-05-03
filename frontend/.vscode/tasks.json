@@ -10,6 +10,18 @@
 				"$tsc"
 			],
 			"group": "build"
+		},
+		{
+			"label": "frontend-build-direct",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"run",
+				"build"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
 		}
 	]
 }

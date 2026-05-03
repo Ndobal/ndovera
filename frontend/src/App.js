@@ -130,7 +130,7 @@ function AnimatedRoutes({ auth, onLogin }) {
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Navigate to={defaultAppRoute} replace />} />
         <Route path="/login" element={auth?.token ? <Navigate to={defaultAppRoute} replace /> : <LoginPage onLogin={onLogin} />} />
-        <Route path="/register-school" element={auth?.token ? <Navigate to={defaultAppRoute} replace /> : <SchoolRegistrationPage />} />
+        <Route path="/register-school" element={<SchoolRegistrationPage />} />
         <Route path="/classroom" element={<RequireAuth auth={auth}><RouteTransition><Classroom /></RouteTransition></RequireAuth>} />
         <Route path="/assignments" element={<RequireAuth auth={auth}><RouteTransition><Assignments /></RouteTransition></RequireAuth>} />
         <Route path="/exams" element={<RequireAuth auth={auth}><RouteTransition><Exams /></RouteTransition></RequireAuth>} />
@@ -192,7 +192,7 @@ function AnimatedRoutes({ auth, onLogin }) {
 
 function AppWorkspace({ auth, onLogin, onLogout }) {
   const location = useLocation();
-  const isLoginRoute = location.pathname === '/login';
+  const isPublicRoute = location.pathname === '/login' || location.pathname === '/register-school';
   const inDashboardMode = location.pathname.startsWith('/roles/');
   const inStudentClassroom = location.pathname.startsWith('/roles/student/classroom');
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
@@ -205,7 +205,7 @@ function AppWorkspace({ auth, onLogin, onLogout }) {
 
   const mobileClassroomMode = inStudentClassroom && isMobile;
 
-  if (isLoginRoute) {
+  if (isPublicRoute) {
     return <AnimatedRoutes auth={auth} onLogin={onLogin} />;
   }
 

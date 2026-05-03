@@ -52,6 +52,14 @@ export function registerSchool(payload) {
   });
 }
 
+export function registerSchoolAndPay(payload) {
+  return requestJson('/api/tenants/register-and-pay', {
+    method: 'POST',
+    body: payload,
+    auth: false,
+  });
+}
+
 export function getMyTenant() {
   return requestJson('/api/tenants/me');
 }
@@ -70,8 +78,23 @@ export function verifyTenantPayment(txRef) {
   });
 }
 
+export function verifyPublicTenantPayment(txRef) {
+  return requestJson('/api/tenants/payments/verify-public', {
+    method: 'POST',
+    body: { txRef },
+    auth: false,
+  });
+}
+
 export function getAmiTenants() {
   return requestJson('/api/ami/tenants');
+}
+
+export function updateTenantPricing(payload) {
+  return requestJson('/api/ami/tenant-pricing', {
+    method: 'POST',
+    body: payload,
+  });
 }
 
 export function upsertDiscountCode(payload) {

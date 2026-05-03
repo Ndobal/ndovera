@@ -84,6 +84,7 @@ const FLUTTERWAVE_BASE_URL = 'https://api.flutterwave.com/v3'
 const TENANT_BASE_SETUP_FEE_CENTS = 50000 * KOBO_PER_NAIRA
 const TENANT_BASE_STUDENT_FEE_CENTS = 500 * KOBO_PER_NAIRA
 const DEFAULT_TENANT_BASE_DOMAIN = 'ndovera.com'
+const TENANT_PRICING_SETTINGS_KEY = 'system:tenant-pricing'
 
 const TENANT_PLANS: Record<string, any> = {
   growth: {
@@ -97,12 +98,78 @@ const TENANT_PLANS: Record<string, any> = {
   custom: {
     key: 'custom',
     label: 'Custom',
-    description: 'Custom rollout with flexible operational support while keeping the same launch pricing baseline.',
+    description: 'Custom rollout with an Ami-managed onboarding fee that can be adjusted at any time before payment.',
     setupFeeCents: TENANT_BASE_SETUP_FEE_CENTS,
     studentFeeCents: TENANT_BASE_STUDENT_FEE_CENTS,
     features: ['Tailored onboarding', 'Custom rollout notes', 'Ami review required'],
     requiresManualReview: true,
+    manualPricing: true,
   },
+}
+
+async function getTenantPricingConfig(db: D1Database) {
+  const existing = await getSettings(db, TENANT_PRICING_SETTINGS_KEY)
+  const customPlanSetupFeeCents = Number(existing?.customPlanSetupFeeCents || 0)
+
+  return {
+    customPlanSetupFeeCents: Number.isFinite(customPlanSetupFeeCents) && customPlanSetupFeeCents > 0
+      ? Math.round(customPlanSetupFeeCents)
+      : TENANT_BASE_SETUP_FEE_CENTS,
+    customPlanSetupFee: (Number.isFinite(customPlanSetupFeeCents) && customPlanSetupFeeCents > 0
+      ? Math.round(customPlanSetupFeeCents)
+      : TENANT_BASE_SETUP_FEE_CENTS) / KOBO_PER_NAIRA,
+    updatedAt: existing?.updatedAt || null,
+    updatedBy: existing?.updatedBy || null,
+  }
+}
+
+async function saveTenantPricingConfig(db: D1Database, updates: Record<string, any>, updatedBy: string) {
+  const current = await getTenantPricingConfig(db)
+  const next = {
+    customPlanSetupFeeCents: typeof updates.customPlanSetupFeeCents === 'number' && updates.customPlanSetupFeeCents > 0
+      ? Math.round(updates.customPlanSetupFeeCents)
+      : current.customPlanSetupFeeCents,
+    updatedAt: new Date().toISOString(),
+    updatedBy,
+  }
+
+  await upsertSettings(db, TENANT_PRICING_SETTINGS_KEY, next)
+  return getTenantPricingConfig(db)
+}
+
+function buildTenantPlans(pricingConfig: Record<string, any>) {
+  return {
+    growth: {
+      ...TENANT_PLANS.growth,
+      manualPricing: false,
+    },
+    custom: {
+      ...TENANT_PLANS.custom,
+      setupFeeCents: pricingConfig.customPlanSetupFeeCents,
+      manualPricing: true,
+    },
+  }
+}
+
+function serializeTenantPlans(plans: Record<string, any>) {
+  return Object.values(plans).map(plan => ({
+    key: plan.key,
+    label: plan.label,
+    description: plan.description,
+    setupFee: plan.setupFeeCents / KOBO_PER_NAIRA,
+    studentFeePerTerm: plan.studentFeeCents / KOBO_PER_NAIRA,
+    requiresManualReview: Boolean(plan.requiresManualReview),
+    features: plan.features,
+    manualPricing: Boolean(plan.manualPricing),
+  }))
+}
+
+async function getTenantPricingState(db: D1Database) {
+  const pricingConfig = await getTenantPricingConfig(db)
+  return {
+    pricingConfig,
+    plans: buildTenantPlans(pricingConfig),
+  }
 }
 
 function slugifyValue(value: string) {
@@ -142,8 +209,8 @@ function isDiscountActive(discountCode: any, planKey: string) {
     .includes(planKey)
 }
 
-function buildTenantQuote(planKey: string, studentCount: number, discountCode?: any) {
-  const plan = TENANT_PLANS[planKey]
+function buildTenantQuote(planKey: string, studentCount: number, discountCode?: any, plans: Record<string, any> = TENANT_PLANS) {
+  const plan = plans[planKey]
   if (!plan) {
     throw new Error('Unsupported tenant plan.')
   }
@@ -153,7 +220,7 @@ function buildTenantQuote(planKey: string, studentCount: number, discountCode?: 
   const setupFeeCents = activeDiscount?.setupFeeCents ?? plan.setupFeeCents
   const studentFeeCents = activeDiscount?.studentFeeCents ?? plan.studentFeeCents
   const termTotalCents = safeStudentCount * studentFeeCents
-  const totalDueNowCents = setupFeeCents + termTotalCents
+  const totalDueNowCents = setupFeeCents
 
   return {
     planKey,
@@ -169,6 +236,8 @@ function buildTenantQuote(planKey: string, studentCount: number, discountCode?: 
     studentFeePerTerm: studentFeeCents / KOBO_PER_NAIRA,
     termTotalCents,
     termTotal: termTotalCents / KOBO_PER_NAIRA,
+    nextTermStudentBillingCents: termTotalCents,
+    nextTermStudentBilling: termTotalCents / KOBO_PER_NAIRA,
     totalDueNowCents,
     totalDueNow: totalDueNowCents / KOBO_PER_NAIRA,
     discountCode: activeDiscount?.code || null,
@@ -363,11 +432,272 @@ async function verifyFlutterwavePayment(c: any, txRef: string) {
 
 function buildFlutterwaveRedirectUrl(c: any, initiatedRole: string, tenantId: string, txRef: string) {
   const baseUrl = String(c.env.FLUTTERWAVE_REDIRECT_BASE_URL || 'https://ndovera.com').replace(/\/$/, '')
-  const path = initiatedRole === 'ami'
-    ? `/roles/ami/tenants?tenantId=${encodeURIComponent(tenantId)}&payment_ref=${encodeURIComponent(txRef)}`
-    : `/roles/owner/finance?payment_ref=${encodeURIComponent(txRef)}`
+  let path = `/roles/owner/finance?payment_ref=${encodeURIComponent(txRef)}`
+
+  if (initiatedRole === 'ami') {
+    path = `/roles/ami/tenants?tenantId=${encodeURIComponent(tenantId)}&payment_ref=${encodeURIComponent(txRef)}`
+  }
+
+  if (initiatedRole === 'public-registration') {
+    path = `/register-school?payment_ref=${encodeURIComponent(txRef)}`
+  }
 
   return `${baseUrl}${path}`
+}
+
+async function createPendingTenantRegistration(c: any, payload: Record<string, any>) {
+  const schoolName = String(payload.schoolName || '').trim()
+  const ownerName = String(payload.ownerName || '').trim()
+  const ownerEmail = String(payload.ownerEmail || '').trim().toLowerCase()
+  const ownerPhone = String(payload.ownerPhone || '').trim()
+  const password = String(payload.password || '')
+  const planKey = String(payload.planKey || 'growth').toLowerCase()
+  const studentCount = Number(payload.studentCount || 0)
+  const requestedSubdomain = normalizeSubdomain(payload.requestedSubdomain || schoolName)
+  const schoolSlug = slugifyValue(payload.schoolSlug || schoolName)
+  const discountCodeValue = payload.discountCode ? String(payload.discountCode).trim().toUpperCase() : ''
+  const { plans } = await getTenantPricingState(c.env.APP_DB)
+
+  if (!schoolName || !ownerName || !ownerEmail || !password) {
+    const error = new Error('schoolName, ownerName, ownerEmail, and password are required.') as Error & { status?: number }
+    error.status = 400
+    throw error
+  }
+
+  if (!isValidEmail(ownerEmail)) {
+    const error = new Error('Provide a valid owner email address.') as Error & { status?: number }
+    error.status = 400
+    throw error
+  }
+
+  if (!plans[planKey]) {
+    const error = new Error('Unsupported plan selected.') as Error & { status?: number }
+    error.status = 400
+    throw error
+  }
+
+  if (!requestedSubdomain || requestedSubdomain.length < 3) {
+    const error = new Error('Provide a valid school subdomain with at least 3 characters.') as Error & { status?: number }
+    error.status = 400
+    throw error
+  }
+
+  if (studentCount <= 0) {
+    const error = new Error('Student count must be greater than 0.') as Error & { status?: number }
+    error.status = 400
+    throw error
+  }
+
+  const existingOwner = await getSettings(c.env.APP_DB, ownerEmail)
+  if (existingOwner) {
+    const error = new Error('An account already exists for this owner email.') as Error & { status?: number }
+    error.status = 409
+    throw error
+  }
+
+  const existingTenant = await getTenantBySubdomain(c.env.APP_DB, requestedSubdomain)
+  if (existingTenant) {
+    const error = new Error('That school subdomain is already in use.') as Error & { status?: number }
+    error.status = 409
+    throw error
+  }
+
+  const discountCode = await resolveDiscountCode(c.env.APP_DB, discountCodeValue, planKey)
+  if (discountCodeValue && !discountCode) {
+    const error = new Error('The discount code is invalid, inactive, or no longer available.') as Error & { status?: number }
+    error.status = 400
+    throw error
+  }
+
+  const quote = buildTenantQuote(planKey, studentCount, discountCode, plans)
+  const tenantId = `tenant_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`
+  const baseDomain = c.env.TENANT_BASE_DOMAIN || DEFAULT_TENANT_BASE_DOMAIN
+  const lifecycle = deriveTenantLifecycleState('pending', 'pending', null)
+
+  const tenant = await createTenant(c.env.APP_DB, {
+    id: tenantId,
+    schoolName,
+    schoolSlug: schoolSlug || requestedSubdomain,
+    ownerName,
+    ownerEmail,
+    ownerPhone,
+    planKey,
+    studentCount,
+    requestedSubdomain,
+    websiteDomain: `${requestedSubdomain}.${baseDomain}`,
+    status: lifecycle.status,
+    approvalStatus: 'pending',
+    paymentStatus: 'pending',
+    websiteStatus: lifecycle.websiteStatus,
+    setupFeeCents: quote.setupFeeCents,
+    studentFeeCents: quote.studentFeeCents,
+    currency: quote.currency,
+    discountCode: quote.discountCode,
+    discountSnapshot: quote.discountSnapshot,
+    metadata: {
+      registeredFrom: new URL(c.req.url).origin,
+    },
+  })
+
+  const ownerSettings = await withHashedPassword({
+    email: ownerEmail,
+    name: ownerName,
+    role: 'owner',
+    accountType: 'school-owner',
+    status: 'pending_activation',
+    tenantId,
+    schoolId: tenantId,
+    schoolName,
+    planKey,
+    requestedSubdomain,
+    websiteDomain: `${requestedSubdomain}.${baseDomain}`,
+    tenantStatus: tenant?.status || lifecycle.status,
+  }, password)
+
+  await upsertSettings(c.env.APP_DB, ownerEmail, ownerSettings)
+  await addAudit(c.env.APP_DB, tenantId, {
+    action: 'tenantRegistered',
+    data: {
+      ownerEmail,
+      planKey,
+      studentCount,
+      discountCode: quote.discountCode,
+      requestedSubdomain,
+    },
+  })
+
+  return { tenant, quote }
+}
+
+async function initiateTenantCheckout(c: any, options: Record<string, any>) {
+  const tenant = options.tenant
+  const quote = options.quote
+  const actorId = options.actorId || tenant.ownerEmail
+  const initiatedRole = options.initiatedRole || 'owner'
+  const txRef = `tenant_${tenant.id}_${Date.now()}`
+  const paymentRecord = await createTenantPayment(c.env.APP_DB, {
+    id: `payment_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
+    tenantId: tenant.id,
+    initiatedBy: actorId,
+    initiatedRole,
+    txRef,
+    amountCents: quote.totalDueNowCents,
+    currency: quote.currency,
+    status: 'pending',
+    planKey: tenant.planKey,
+    studentCount: tenant.studentCount,
+    discountCode: quote.discountCode,
+  })
+
+  try {
+    const flutterwavePayload = {
+      tx_ref: txRef,
+      amount: quote.totalDueNow.toFixed(2),
+      currency: quote.currency,
+      redirect_url: buildFlutterwaveRedirectUrl(c, initiatedRole, tenant.id, txRef),
+      customer: {
+        email: tenant.ownerEmail,
+        name: tenant.ownerName,
+        phonenumber: tenant.ownerPhone || undefined,
+      },
+      customizations: {
+        title: `${tenant.schoolName} onboarding payment`,
+        description: `${quote.planName} plan: onboarding setup fee only. Student billing starts from the subsequent term.`,
+      },
+      meta: {
+        tenantId: tenant.id,
+        initiatedBy: actorId,
+        initiatedRole,
+        planKey: tenant.planKey,
+        studentCount: tenant.studentCount,
+        discountCode: quote.discountCode,
+      },
+    }
+
+    const providerResponse = await createFlutterwavePayment(c, flutterwavePayload)
+    const updatedPayment = await updateTenantPayment(c.env.APP_DB, txRef, {
+      flutterwaveLink: providerResponse.data.link,
+      providerResponse,
+      status: 'pending',
+    })
+
+    await addAudit(c.env.APP_DB, tenant.id, {
+      action: 'tenantPaymentInitiated',
+      data: { txRef, initiatedBy: actorId, role: initiatedRole, amount: quote.totalDueNow },
+    })
+
+    return {
+      tenant,
+      quote,
+      payment: updatedPayment || paymentRecord,
+      checkoutUrl: providerResponse.data.link,
+    }
+  } catch (error) {
+    await updateTenantPayment(c.env.APP_DB, txRef, {
+      status: 'failed',
+      providerResponse: { message: error instanceof Error ? error.message : String(error) },
+    }).catch(() => {})
+
+    throw error
+  }
+}
+
+async function verifyTenantPaymentForState(c: any, txRef: string, verifiedByRole: string) {
+  const payment = await getTenantPaymentByTxRef(c.env.APP_DB, txRef)
+  if (!payment) {
+    const error = new Error('Payment record not found.') as Error & { status?: number }
+    error.status = 404
+    throw error
+  }
+
+  const tenant = await getTenantById(c.env.APP_DB, payment.tenantId)
+  if (!tenant) {
+    const error = new Error('Tenant not found.') as Error & { status?: number }
+    error.status = 404
+    throw error
+  }
+
+  const providerResponse = await verifyFlutterwavePayment(c, txRef)
+  const transactionStatus = String(providerResponse?.data?.status || '').toLowerCase()
+  const paymentSucceeded = providerResponse?.status === 'success' && transactionStatus === 'successful'
+  const nextPaymentStatus = paymentSucceeded ? 'paid' : transactionStatus || 'pending'
+  const nextLifecycle = deriveTenantLifecycleState(tenant.approvalStatus, paymentSucceeded ? 'paid' : tenant.paymentStatus, tenant.suspendedAt)
+  const now = new Date().toISOString()
+
+  const updatedPayment = await updateTenantPayment(c.env.APP_DB, txRef, {
+    status: nextPaymentStatus,
+    flutterwaveTxId: providerResponse?.data?.id ? String(providerResponse.data.id) : payment.flutterwaveTxId,
+    providerResponse,
+    paidAt: paymentSucceeded ? now : payment.paidAt,
+  })
+
+  const updatedTenant = await updateTenant(c.env.APP_DB, tenant.id, {
+    paymentStatus: paymentSucceeded ? 'paid' : tenant.paymentStatus,
+    status: nextLifecycle.status,
+    websiteStatus: nextLifecycle.websiteStatus,
+    activatedAt: nextLifecycle.dashboardActive ? (tenant.activatedAt || now) : tenant.activatedAt,
+    suspendedAt: nextLifecycle.status === 'suspended' ? tenant.suspendedAt : null,
+  })
+
+  if (paymentSucceeded && payment.discountCode && payment.status !== 'paid') {
+    await incrementTenantDiscountCodeRedemption(c.env.APP_DB, payment.discountCode).catch(() => {})
+  }
+
+  await addAudit(c.env.APP_DB, tenant.id, {
+    action: 'tenantPaymentVerified',
+    data: { txRef, paymentStatus: nextPaymentStatus, verifiedByRole },
+  })
+
+  const { plans } = await getTenantPricingState(c.env.APP_DB)
+  const discountCode = updatedTenant.discountCode ? await resolveDiscountCode(c.env.APP_DB, updatedTenant.discountCode, updatedTenant.planKey) : null
+  const quote = buildTenantQuote(updatedTenant.planKey, updatedTenant.studentCount, discountCode, plans)
+
+  return {
+    payment: updatedPayment,
+    tenant: updatedTenant,
+    verified: paymentSucceeded,
+    quote,
+  }
 }
 
 function buildGenericHeader(roleKey: string) {
@@ -469,137 +799,58 @@ app.get('/api/tenants/pricing', async (c) => {
   const planKey = String(c.req.query('planKey') || '').toLowerCase()
   const studentCount = Number(c.req.query('studentCount') || 0)
   const discountCodeValue = c.req.query('discountCode')
-  const activeDiscountCodes = await listTenantDiscountCodes(c.env.APP_DB)
-  const activePlans = Object.values(TENANT_PLANS).map(plan => ({
-    key: plan.key,
-    label: plan.label,
-    description: plan.description,
-    setupFee: plan.setupFeeCents / KOBO_PER_NAIRA,
-    studentFeePerTerm: plan.studentFeeCents / KOBO_PER_NAIRA,
-    requiresManualReview: Boolean(plan.requiresManualReview),
-    features: plan.features,
-  }))
+  const { pricingConfig, plans } = await getTenantPricingState(c.env.APP_DB)
 
   const activeDiscountCode = await resolveDiscountCode(c.env.APP_DB, discountCodeValue, planKey || 'growth')
   const quote = planKey && studentCount >= 0
-    ? buildTenantQuote(planKey, studentCount, activeDiscountCode)
+    ? buildTenantQuote(planKey, studentCount, activeDiscountCode, plans)
     : null
 
   return c.json({
     success: true,
-    plans: activePlans,
-    discountCodes: activeDiscountCodes,
+    plans: serializeTenantPlans(plans),
+    pricingConfig,
     quote,
   })
 })
 
 app.post('/api/tenants/register', async (c) => {
-  const payload = await c.req.json()
-  const schoolName = String(payload.schoolName || '').trim()
-  const ownerName = String(payload.ownerName || '').trim()
-  const ownerEmail = String(payload.ownerEmail || '').trim().toLowerCase()
-  const ownerPhone = String(payload.ownerPhone || '').trim()
-  const password = String(payload.password || '')
-  const planKey = String(payload.planKey || 'growth').toLowerCase()
-  const studentCount = Number(payload.studentCount || 0)
-  const requestedSubdomain = normalizeSubdomain(payload.requestedSubdomain || schoolName)
-  const schoolSlug = slugifyValue(payload.schoolSlug || schoolName)
-  const discountCodeValue = payload.discountCode ? String(payload.discountCode).trim().toUpperCase() : ''
+  try {
+    const { tenant, quote } = await createPendingTenantRegistration(c, await c.req.json())
 
-  if (!schoolName || !ownerName || !isValidEmail(ownerEmail) || !password) {
-    return c.json({ error: 'schoolName, ownerName, ownerEmail, and password are required.' }, 400)
+    return c.json({
+      success: true,
+      tenant,
+      quote,
+      nextStep: 'Log in as the school owner to complete payment and await Ami approval.',
+    }, 201)
+  } catch (error) {
+    return c.json({ error: error instanceof Error ? error.message : 'Unable to register school.' }, (error as any)?.status || 500)
   }
+})
 
-  if (!TENANT_PLANS[planKey]) {
-    return c.json({ error: 'Unsupported plan selected.' }, 400)
+app.post('/api/tenants/register-and-pay', async (c) => {
+  try {
+    const payload = await c.req.json()
+    const { tenant, quote } = await createPendingTenantRegistration(c, payload)
+    const checkout = await initiateTenantCheckout(c, {
+      tenant,
+      quote,
+      actorId: tenant.ownerEmail,
+      initiatedRole: 'public-registration',
+    })
+
+    return c.json({
+      success: true,
+      tenant,
+      quote,
+      payment: checkout.payment,
+      checkoutUrl: checkout.checkoutUrl,
+      nextStep: 'Flutterwave checkout opened for the onboarding fee.',
+    }, 201)
+  } catch (error) {
+    return c.json({ error: error instanceof Error ? error.message : 'Unable to start registration payment.' }, (error as any)?.status || 503)
   }
-
-  if (!requestedSubdomain || requestedSubdomain.length < 3) {
-    return c.json({ error: 'Provide a valid school subdomain with at least 3 characters.' }, 400)
-  }
-
-  if (studentCount <= 0) {
-    return c.json({ error: 'Student count must be greater than 0.' }, 400)
-  }
-
-  const existingOwner = await getSettings(c.env.APP_DB, ownerEmail)
-  if (existingOwner) {
-    return c.json({ error: 'An account already exists for this owner email.' }, 409)
-  }
-
-  const existingTenant = await getTenantBySubdomain(c.env.APP_DB, requestedSubdomain)
-  if (existingTenant) {
-    return c.json({ error: 'That school subdomain is already in use.' }, 409)
-  }
-
-  const discountCode = await resolveDiscountCode(c.env.APP_DB, discountCodeValue, planKey)
-  if (discountCodeValue && !discountCode) {
-    return c.json({ error: 'The discount code is invalid, inactive, or no longer available.' }, 400)
-  }
-
-  const quote = buildTenantQuote(planKey, studentCount, discountCode)
-  const tenantId = `tenant_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`
-  const baseDomain = c.env.TENANT_BASE_DOMAIN || DEFAULT_TENANT_BASE_DOMAIN
-  const lifecycle = deriveTenantLifecycleState('pending', 'pending', null)
-
-  const tenant = await createTenant(c.env.APP_DB, {
-    id: tenantId,
-    schoolName,
-    schoolSlug: schoolSlug || requestedSubdomain,
-    ownerName,
-    ownerEmail,
-    ownerPhone,
-    planKey,
-    studentCount,
-    requestedSubdomain,
-    websiteDomain: `${requestedSubdomain}.${baseDomain}`,
-    status: lifecycle.status,
-    approvalStatus: 'pending',
-    paymentStatus: 'pending',
-    websiteStatus: lifecycle.websiteStatus,
-    setupFeeCents: quote.setupFeeCents,
-    studentFeeCents: quote.studentFeeCents,
-    currency: quote.currency,
-    discountCode: quote.discountCode,
-    discountSnapshot: quote.discountSnapshot,
-    metadata: {
-      registeredFrom: new URL(c.req.url).origin,
-    },
-  })
-
-  const ownerSettings = await withHashedPassword({
-    email: ownerEmail,
-    name: ownerName,
-    role: 'owner',
-    accountType: 'school-owner',
-    status: 'pending_activation',
-    tenantId,
-    schoolId: tenantId,
-    schoolName,
-    planKey,
-    requestedSubdomain,
-    websiteDomain: `${requestedSubdomain}.${baseDomain}`,
-    tenantStatus: tenant?.status || lifecycle.status,
-  }, password)
-
-  await upsertSettings(c.env.APP_DB, ownerEmail, ownerSettings)
-  await addAudit(c.env.APP_DB, tenantId, {
-    action: 'tenantRegistered',
-    data: {
-      ownerEmail,
-      planKey,
-      studentCount,
-      discountCode: quote.discountCode,
-      requestedSubdomain,
-    },
-  })
-
-  return c.json({
-    success: true,
-    tenant,
-    quote,
-    nextStep: 'Log in as the school owner to complete payment and await Ami approval.',
-  }, 201)
 })
 
 // Authenticate middleware
@@ -651,7 +902,8 @@ app.get('/api/tenants/me', authenticate, async (c) => {
 
   const payments = await listTenantPayments(c.env.APP_DB, tenant.id)
   const discountCode = tenant.discountCode ? await getTenantDiscountCode(c.env.APP_DB, tenant.discountCode) : null
-  const quote = buildTenantQuote(tenant.planKey, tenant.studentCount, discountCode)
+  const { plans } = await getTenantPricingState(c.env.APP_DB)
+  const quote = buildTenantQuote(tenant.planKey, tenant.studentCount, discountCode, plans)
 
   return c.json({
     success: true,
@@ -670,72 +922,25 @@ app.post('/api/tenants/payments/initiate', authenticate, async (c) => {
   if (!actorId || !tenant) return c.json({ error: 'Tenant not found.' }, 404)
 
   const discountCode = tenant.discountCode ? await resolveDiscountCode(c.env.APP_DB, tenant.discountCode, tenant.planKey) : null
-  const quote = buildTenantQuote(tenant.planKey, tenant.studentCount, discountCode)
-  const txRef = `tenant_${tenant.id}_${Date.now()}`
-  const paymentRecord = await createTenantPayment(c.env.APP_DB, {
-    id: `payment_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
-    tenantId: tenant.id,
-    initiatedBy: actorId,
-    initiatedRole: role,
-    txRef,
-    amountCents: quote.totalDueNowCents,
-    currency: quote.currency,
-    status: 'pending',
-    planKey: tenant.planKey,
-    studentCount: tenant.studentCount,
-    discountCode: quote.discountCode,
-  })
+  const { plans } = await getTenantPricingState(c.env.APP_DB)
+  const quote = buildTenantQuote(tenant.planKey, tenant.studentCount, discountCode, plans)
 
   try {
-    const flutterwavePayload = {
-      tx_ref: txRef,
-      amount: quote.totalDueNow.toFixed(2),
-      currency: quote.currency,
-      redirect_url: buildFlutterwaveRedirectUrl(c, role, tenant.id, txRef),
-      customer: {
-        email: tenant.ownerEmail,
-        name: tenant.ownerName,
-        phonenumber: tenant.ownerPhone || undefined,
-      },
-      customizations: {
-        title: `${tenant.schoolName} onboarding payment`,
-        description: `${quote.planName} plan: setup plus first-term student billing`,
-      },
-      meta: {
-        tenantId: tenant.id,
-        initiatedBy: actorId,
-        initiatedRole: role,
-        planKey: tenant.planKey,
-        studentCount: tenant.studentCount,
-        discountCode: quote.discountCode,
-      },
-    }
-
-    const providerResponse = await createFlutterwavePayment(c, flutterwavePayload)
-    const updatedPayment = await updateTenantPayment(c.env.APP_DB, txRef, {
-      flutterwaveLink: providerResponse.data.link,
-      providerResponse,
-      status: 'pending',
-    })
-
-    await addAudit(c.env.APP_DB, tenant.id, {
-      action: 'tenantPaymentInitiated',
-      data: { txRef, initiatedBy: actorId, role, amount: quote.totalDueNow },
+    const checkout = await initiateTenantCheckout(c, {
+      tenant,
+      quote,
+      actorId,
+      initiatedRole: role,
     })
 
     return c.json({
       success: true,
       tenant,
       quote,
-      payment: updatedPayment || paymentRecord,
-      checkoutUrl: providerResponse.data.link,
+      payment: checkout.payment,
+      checkoutUrl: checkout.checkoutUrl,
     })
   } catch (error) {
-    await updateTenantPayment(c.env.APP_DB, txRef, {
-      status: 'failed',
-      providerResponse: { message: error instanceof Error ? error.message : String(error) },
-    }).catch(() => {})
-
     return c.json({
       error: error instanceof Error ? error.message : 'Unable to initialize payment.',
     }, 503)
@@ -755,45 +960,40 @@ app.post('/api/tenants/payments/verify', authenticate, async (c) => {
   if (!tenant) return c.json({ error: 'Tenant not found.' }, 404)
 
   try {
-    const providerResponse = await verifyFlutterwavePayment(c, txRef)
-    const transactionStatus = String(providerResponse?.data?.status || '').toLowerCase()
-    const paymentSucceeded = providerResponse?.status === 'success' && transactionStatus === 'successful'
-    const nextPaymentStatus = paymentSucceeded ? 'paid' : transactionStatus || 'pending'
-    const nextLifecycle = deriveTenantLifecycleState(tenant.approvalStatus, paymentSucceeded ? 'paid' : tenant.paymentStatus, tenant.suspendedAt)
-    const now = new Date().toISOString()
-
-    const updatedPayment = await updateTenantPayment(c.env.APP_DB, txRef, {
-      status: nextPaymentStatus,
-      flutterwaveTxId: providerResponse?.data?.id ? String(providerResponse.data.id) : payment.flutterwaveTxId,
-      providerResponse,
-      paidAt: paymentSucceeded ? now : payment.paidAt,
-    })
-
-    const updatedTenant = await updateTenant(c.env.APP_DB, tenant.id, {
-      paymentStatus: paymentSucceeded ? 'paid' : tenant.paymentStatus,
-      status: nextLifecycle.status,
-      websiteStatus: nextLifecycle.websiteStatus,
-      activatedAt: nextLifecycle.dashboardActive ? (tenant.activatedAt || now) : tenant.activatedAt,
-      suspendedAt: nextLifecycle.status === 'suspended' ? tenant.suspendedAt : null,
-    })
-
-    if (paymentSucceeded && payment.discountCode && payment.status !== 'paid') {
-      await incrementTenantDiscountCodeRedemption(c.env.APP_DB, payment.discountCode).catch(() => {})
-    }
-
-    await addAudit(c.env.APP_DB, tenant.id, {
-      action: 'tenantPaymentVerified',
-      data: { txRef, paymentStatus: nextPaymentStatus, verifiedByRole: role },
-    })
+    const verification = await verifyTenantPaymentForState(c, txRef, role)
 
     return c.json({
       success: true,
-      payment: updatedPayment,
-      tenant: updatedTenant,
-      verified: paymentSucceeded,
+      payment: verification.payment,
+      tenant: verification.tenant,
+      quote: verification.quote,
+      verified: verification.verified,
     })
   } catch (error) {
-    return c.json({ error: error instanceof Error ? error.message : 'Unable to verify payment.' }, 503)
+    return c.json({ error: error instanceof Error ? error.message : 'Unable to verify payment.' }, (error as any)?.status || 503)
+  }
+})
+
+app.post('/api/tenants/payments/verify-public', async (c) => {
+  const payload = await c.req.json()
+  const txRef = String(payload.txRef || '').trim()
+  if (!txRef) return c.json({ error: 'txRef is required.' }, 400)
+
+  try {
+    const verification = await verifyTenantPaymentForState(c, txRef, 'public-registration')
+
+    return c.json({
+      success: true,
+      payment: verification.payment,
+      tenant: verification.tenant,
+      quote: verification.quote,
+      verified: verification.verified,
+      nextStep: verification.verified
+        ? 'Payment verified. The school now awaits Ami approval before activation.'
+        : 'Payment has not been confirmed yet.',
+    })
+  } catch (error) {
+    return c.json({ error: error instanceof Error ? error.message : 'Unable to verify payment.' }, (error as any)?.status || 503)
   }
 })
 
@@ -803,6 +1003,7 @@ app.get('/api/ami/tenants', authenticate, async (c) => {
   const tenants = await listTenants(c.env.APP_DB)
   const payments = await listTenantPayments(c.env.APP_DB)
   const discountCodes = await listTenantDiscountCodes(c.env.APP_DB, true)
+  const { pricingConfig, plans } = await getTenantPricingState(c.env.APP_DB)
   const summary = {
     totalTenants: tenants.length,
     activeTenants: tenants.filter(tenant => tenant.status === 'active').length,
@@ -811,7 +1012,34 @@ app.get('/api/ami/tenants', authenticate, async (c) => {
     activeDiscountCodes: discountCodes.filter(discountCode => discountCode.active).length,
   }
 
-  return c.json({ success: true, summary, tenants, payments, discountCodes, plans: Object.values(TENANT_PLANS) })
+  return c.json({ success: true, summary, tenants, payments, discountCodes, pricingConfig, plans: serializeTenantPlans(plans) })
+})
+
+app.post('/api/ami/tenant-pricing', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+
+  const payload = await c.req.json().catch(() => ({}))
+  const customPlanSetupFeeNaira = Number(payload.customPlanSetupFeeNaira || 0)
+
+  if (!Number.isFinite(customPlanSetupFeeNaira) || customPlanSetupFeeNaira <= 0) {
+    return c.json({ error: 'Provide a valid custom onboarding fee.' }, 400)
+  }
+
+  const pricingConfig = await saveTenantPricingConfig(
+    c.env.APP_DB,
+    { customPlanSetupFeeCents: Math.round(customPlanSetupFeeNaira * KOBO_PER_NAIRA) },
+    c.var.user.id || c.var.user.email || 'ami',
+  )
+
+  await addAudit(c.env.APP_DB, TENANT_PRICING_SETTINGS_KEY, {
+    action: 'tenantPricingUpdated',
+    data: {
+      by: c.var.user.id || c.var.user.email || 'ami',
+      customPlanSetupFeeNaira: pricingConfig.customPlanSetupFee,
+    },
+  }).catch(() => {})
+
+  return c.json({ success: true, pricingConfig })
 })
 
 app.post('/api/ami/tenants/:tenantId/approve', authenticate, async (c) => {

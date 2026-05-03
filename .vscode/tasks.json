@@ -1,0 +1,49 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "frontend-build-validation",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"./frontend/node_modules/react-scripts/bin/react-scripts.js",
+				"build"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "frontend-build-from-root",
+			"type": "shell",
+			"command": "Set-Location frontend; npm run build",
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "pages-deploy-frontend",
+			"type": "shell",
+			"command": "Set-Location frontend; npx wrangler pages deploy build --project-name ndovera",
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "frontend-build-public-onboarding",
+			"type": "shell",
+			"command": "Set-Location frontend; npm run build",
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "backend-build-public-onboarding",
+			"type": "shell",
+			"command": "Set-Location frontend/backend; npm run build",
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		}
+	]
+}

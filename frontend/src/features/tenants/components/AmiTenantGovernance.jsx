@@ -7,6 +7,7 @@ import {
   initiateTenantPayment,
   restoreTenant,
   suspendTenant,
+  updateTenantPricing,
   upsertDiscountCode,
   verifyTenantPayment,
 } from '../services/tenantApi';
@@ -49,6 +50,7 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
   const location = useLocation();
   const [governanceData, setGovernanceData] = useState(null);
   const [discountForm, setDiscountForm] = useState(initialDiscountState);
+  const [pricingForm, setPricingForm] = useState({ customPlanSetupFeeNaira: 50000 });
   const [busyAction, setBusyAction] = useState('');
   const [error, setError] = useState('');
   const [notice, setNotice] = useState('');
@@ -68,6 +70,13 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
   useEffect(() => {
     loadGovernanceData();
   }, []);
+
+  useEffect(() => {
+    const nextValue = governanceData?.pricingConfig?.customPlanSetupFee;
+    if (typeof nextValue === 'number') {
+      setPricingForm({ customPlanSetupFeeNaira: nextValue });
+    }
+  }, [governanceData?.pricingConfig?.customPlanSetupFee]);
 
   useEffect(() => {
     if (!paymentRef) {
@@ -138,6 +147,24 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
     });
   };
 
+  const handlePricingChange = event => {
+    const { name, value } = event.target;
+    setPricingForm(current => ({
+      ...current,
+      [name]: Number(value),
+    }));
+  };
+
+  const handleSavePricing = async event => {
+    event.preventDefault();
+    await runAction('save-pricing', async () => {
+      await updateTenantPricing({
+        customPlanSetupFeeNaira: pricingForm.customPlanSetupFeeNaira,
+      });
+      setNotice('Custom onboarding fee updated.');
+    });
+  };
+
   const tenants = governanceData?.tenants || [];
   const payments = governanceData?.payments || [];
   const discountCodes = governanceData?.discountCodes || [];
@@ -204,7 +231,7 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
                     <p className="mt-2 text-slate-100 font-semibold">{currencyFormatter.format(tenant.setupFee)}</p>
                   </div>
                   <div className="rounded-2xl bg-slate-900/30 p-4">
-                    <p className="micro-label neon-subtle">Student Fee / Term</p>
+                    <p className="micro-label neon-subtle">Student Fee / Subsequent Term</p>
                     <p className="mt-2 text-slate-100 font-semibold">{currencyFormatter.format(tenant.studentFeePerTerm)}</p>
                   </div>
                   <div className="rounded-2xl bg-slate-900/30 p-4">
@@ -269,6 +296,31 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
         </section>
 
         <div className="space-y-6">
+          <section className="glass-surface rounded-3xl p-6 border border-white/10">
+            <h2 className="text-xl command-title neon-title mb-4">Plan Pricing</h2>
+            <form onSubmit={handleSavePricing} className="space-y-3">
+              <div className="rounded-2xl bg-slate-900/30 p-4 text-sm text-slate-300">
+                <p className="font-semibold text-slate-100">Custom Plan Onboarding Fee</p>
+                <p className="mt-2">This onboarding fee is Ami-managed and can be changed at any time before schools pay.</p>
+                {governanceData?.pricingConfig?.updatedAt && (
+                  <p className="mt-2 text-xs text-slate-400">Updated: {new Date(governanceData.pricingConfig.updatedAt).toLocaleString()}</p>
+                )}
+              </div>
+              <input
+                name="customPlanSetupFeeNaira"
+                type="number"
+                min="1"
+                value={pricingForm.customPlanSetupFeeNaira}
+                onChange={handlePricingChange}
+                placeholder="Custom onboarding fee (NGN)"
+                className="w-full rounded-2xl border border-white/10 bg-slate-900/30 px-4 py-3"
+              />
+              <button type="submit" disabled={busyAction === 'save-pricing'} className="w-full rounded-2xl bg-emerald-500 px-4 py-3 font-semibold text-slate-950 disabled:opacity-60">
+                {busyAction === 'save-pricing' ? 'Saving...' : 'Update Custom Pricing'}
+              </button>
+            </form>
+          </section>
+
           <section className="glass-surface rounded-3xl p-6 border border-white/10">
             <h2 className="text-xl command-title neon-title mb-4">Discount Codes</h2>
             <form onSubmit={handleSaveDiscount} className="space-y-3">
