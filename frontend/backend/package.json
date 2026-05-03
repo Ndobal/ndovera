@@ -7,7 +7,8 @@
     "dev": "wrangler dev",
     "build": "wrangler build",
     "schema:remote": "wrangler d1 execute APP_DB --remote --file d1/schema.sql",
-    "provision:superadmins": "node scripts/provision_superadmins.mjs"
+    "provision:superadmins": "node scripts/provision_superadmins.mjs",
+    "provision:flutterwave": "node scripts/provision_flutterwave_keys.mjs"
   },
   "dependencies": {
     "@tsndr/cloudflare-worker-jwt": "^3.2.1",

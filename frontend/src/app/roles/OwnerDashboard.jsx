@@ -5,8 +5,9 @@ import RoleSectionPage from '../../shared/components/RoleSectionPage';
 import ownerConfig from './config/ownerConfig';
 import { OwnerResultAnalytics } from '../../features/results-engine';
 import AdminPasswordReset from '../../features/auth/components/AdminPasswordReset';
+import OwnerTenantConsole from '../../features/tenants/components/OwnerTenantConsole';
 
-export default function OwnerDashboard() {
+export default function OwnerDashboard({ auth = null }) {
   const location = useLocation();
   const pathParts = location.pathname.split('/').filter(Boolean);
   const sectionKey = pathParts[2] || 'overview';
@@ -16,6 +17,11 @@ export default function OwnerDashboard() {
     return <Navigate to="/roles/owner" replace />;
   }
 
+  const tenantStatus = auth?.user?.tenantStatus;
+
+  if (tenantStatus !== 'active') {
+    return <OwnerTenantConsole authUser={auth?.user} sectionKey={sectionKey} />;
+  }
 
   if (sectionKey === 'overview' || sectionKey === 'academics' || sectionKey === 'reports') {
     return <OwnerResultAnalytics />;

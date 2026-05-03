@@ -17,6 +17,8 @@ CORS_ORIGIN = "https://ndovera.com,https://www.ndovera.com"
 HYPERDRIVE_CONNECTION_STRING = ""
 SESSION_COOKIE_NAME = "ndovera_session"
 SESSION_TTL_SECONDS = "2592000"
+FLUTTERWAVE_REDIRECT_BASE_URL = "https://ndovera.com"
+TENANT_BASE_DOMAIN = "ndovera.com"
 
 [[kv_namespaces]]
 binding = "SESSIONS"

@@ -139,6 +139,75 @@ CREATE TABLE IF NOT EXISTS tuck_orders (
   updated_at TEXT
 );
 
+CREATE TABLE IF NOT EXISTS tenants (
+  id TEXT PRIMARY KEY,
+  school_name TEXT NOT NULL,
+  school_slug TEXT NOT NULL UNIQUE,
+  owner_name TEXT NOT NULL,
+  owner_email TEXT NOT NULL UNIQUE,
+  owner_phone TEXT,
+  plan_key TEXT NOT NULL,
+  student_count INTEGER NOT NULL DEFAULT 0,
+  requested_subdomain TEXT NOT NULL UNIQUE,
+  website_domain TEXT NOT NULL UNIQUE,
+  status TEXT NOT NULL DEFAULT 'pending_payment',
+  approval_status TEXT NOT NULL DEFAULT 'pending',
+  payment_status TEXT NOT NULL DEFAULT 'pending',
+  website_status TEXT NOT NULL DEFAULT 'inactive',
+  setup_fee_cents INTEGER NOT NULL,
+  student_fee_cents INTEGER NOT NULL,
+  currency TEXT NOT NULL DEFAULT 'NGN',
+  discount_code TEXT,
+  discount_snapshot TEXT,
+  metadata TEXT,
+  created_at TEXT NOT NULL,
+  updated_at TEXT NOT NULL,
+  approved_at TEXT,
+  approved_by TEXT,
+  approval_note TEXT,
+  activated_at TEXT,
+  suspended_at TEXT
+);
+
+CREATE TABLE IF NOT EXISTS tenant_discount_codes (
+  code TEXT PRIMARY KEY,
+  name TEXT,
+  description TEXT,
+  active INTEGER NOT NULL DEFAULT 1,
+  setup_fee_cents INTEGER,
+  student_fee_cents INTEGER,
+  plan_scope TEXT,
+  starts_at TEXT,
+  ends_at TEXT,
+  max_redemptions INTEGER,
+  redemption_count INTEGER NOT NULL DEFAULT 0,
+  created_by TEXT,
+  metadata TEXT,
+  created_at TEXT NOT NULL,
+  updated_at TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS tenant_payments (
+  id TEXT PRIMARY KEY,
+  tenant_id TEXT NOT NULL,
+  initiated_by TEXT,
+  initiated_role TEXT,
+  tx_ref TEXT NOT NULL UNIQUE,
+  flutterwave_link TEXT,
+  flutterwave_tx_id TEXT,
+  amount_cents INTEGER NOT NULL,
+  currency TEXT NOT NULL DEFAULT 'NGN',
+  status TEXT NOT NULL DEFAULT 'pending',
+  plan_key TEXT NOT NULL,
+  student_count INTEGER NOT NULL DEFAULT 0,
+  discount_code TEXT,
+  provider_response TEXT,
+  created_at TEXT NOT NULL,
+  updated_at TEXT NOT NULL,
+  paid_at TEXT,
+  FOREIGN KEY (tenant_id) REFERENCES tenants(id)
+);
+
 CREATE INDEX IF NOT EXISTS idx_audit_studentId_ts ON audit(studentId, ts DESC);
 CREATE INDEX IF NOT EXISTS idx_borrowings_studentId_borrowedAt ON borrowings(studentId, borrowedAt DESC);
 CREATE INDEX IF NOT EXISTS idx_posts_classId_createdAt ON posts(classId, createdAt DESC);
@@ -149,3 +218,43 @@ CREATE INDEX IF NOT EXISTS idx_attendance_student_id_date ON attendance_records(
 CREATE INDEX IF NOT EXISTS idx_conversations_updated_at ON conversations(updated_at DESC);
 CREATE INDEX IF NOT EXISTS idx_messages_conversation_id_sent_at ON messages(conversation_id, sent_at ASC);
 CREATE INDEX IF NOT EXISTS idx_tuck_orders_placed_at ON tuck_orders(placed_at DESC);
+CREATE INDEX IF NOT EXISTS idx_tenants_owner_email ON tenants(owner_email);
+CREATE INDEX IF NOT EXISTS idx_tenants_status_created_at ON tenants(status, created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_tenants_subdomain ON tenants(requested_subdomain);
+CREATE INDEX IF NOT EXISTS idx_tenant_discount_codes_active ON tenant_discount_codes(active, updated_at DESC);
+CREATE INDEX IF NOT EXISTS idx_tenant_payments_tenant_id_created_at ON tenant_payments(tenant_id, created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_tenant_payments_status ON tenant_payments(status, updated_at DESC);
+
+INSERT INTO tenant_discount_codes(
+  code,
+  name,
+  description,
+  active,
+  setup_fee_cents,
+  student_fee_cents,
+  plan_scope,
+  starts_at,
+  ends_at,
+  max_redemptions,
+  redemption_count,
+  created_by,
+  metadata,
+  created_at,
+  updated_at
+) VALUES (
+  'NDO35K500',
+  'Launch Discount',
+  'Drops setup fee to N35,000 and student billing to N500 per student per term while active.',
+  1,
+  3500000,
+  50000,
+  'growth,custom',
+  strftime('%Y-%m-%dT%H:%M:%fZ', 'now'),
+  NULL,
+  NULL,
+  0,
+  'ami-bootstrap',
+  '{}',
+  strftime('%Y-%m-%dT%H:%M:%fZ', 'now'),
+  strftime('%Y-%m-%dT%H:%M:%fZ', 'now')
+) ON CONFLICT(code) DO NOTHING;

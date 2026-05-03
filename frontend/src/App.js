@@ -19,6 +19,7 @@ import TeacherClassroom from './features/classroom/TeacherClassroom';
 import HoSDashboard from './app/roles/HoSDashboard';
 import AccountantDashboard from './app/roles/AccountantDashboard';
 import OwnerDashboard from './app/roles/OwnerDashboard';
+import AmiDashboard from './app/roles/AmiDashboard';
 import OperationalRoleDashboard from './app/roles/OperationalRoleDashboard';
 import StudentClassroom from './app/roles/student/StudentClassroom';
 import StudentAssignments from './app/roles/student/StudentAssignments';
@@ -35,6 +36,7 @@ import StudentSettings from './app/roles/student/StudentSettings';
 import RoleLibrary from './app/RoleLibrary';
 import TeacherMessaging from './app/roles/teacher/TeacherMessaging';
 import LoginPage from './features/auth/pages/LoginPage';
+import SchoolRegistrationPage from './features/tenants/pages/SchoolRegistrationPage';
 import { clearStoredAuth, getStoredAuth } from './features/auth/services/authApi';
 import './App.css';
 
@@ -128,6 +130,7 @@ function AnimatedRoutes({ auth, onLogin }) {
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Navigate to={defaultAppRoute} replace />} />
         <Route path="/login" element={auth?.token ? <Navigate to={defaultAppRoute} replace /> : <LoginPage onLogin={onLogin} />} />
+        <Route path="/register-school" element={auth?.token ? <Navigate to={defaultAppRoute} replace /> : <SchoolRegistrationPage />} />
         <Route path="/classroom" element={<RequireAuth auth={auth}><RouteTransition><Classroom /></RouteTransition></RequireAuth>} />
         <Route path="/assignments" element={<RequireAuth auth={auth}><RouteTransition><Assignments /></RouteTransition></RequireAuth>} />
         <Route path="/exams" element={<RequireAuth auth={auth}><RouteTransition><Exams /></RouteTransition></RequireAuth>} />
@@ -162,7 +165,7 @@ function AnimatedRoutes({ auth, onLogin }) {
         <Route path="/roles/teacher/*" element={<RoleGuard auth={auth} expectedRole="teacher"><RouteTransition><TeacherDashboard /></RouteTransition></RoleGuard>} />
         <Route path="/roles/hos/*" element={<RoleGuard auth={auth} expectedRole="hos"><RouteTransition><HoSDashboard /></RouteTransition></RoleGuard>} />
         <Route path="/roles/accountant/*" element={<RoleGuard auth={auth} expectedRole="accountant"><RouteTransition><AccountantDashboard /></RouteTransition></RoleGuard>} />
-        <Route path="/roles/owner/*" element={<RoleGuard auth={auth} expectedRole="owner"><RouteTransition><OwnerDashboard /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/owner/*" element={<RoleGuard auth={auth} expectedRole="owner"><RouteTransition><OwnerDashboard auth={auth} /></RouteTransition></RoleGuard>} />
         <Route path="/roles/librarian/*" element={<RoleGuard auth={auth} expectedRole="librarian"><RouteTransition><OperationalRoleDashboard roleKey="librarian" /></RouteTransition></RoleGuard>} />
         <Route path="/roles/sanitation/*" element={<RoleGuard auth={auth} expectedRole="sanitation"><RouteTransition><OperationalRoleDashboard roleKey="sanitation" /></RouteTransition></RoleGuard>} />
         <Route path="/roles/tuckshopmanager/*" element={<RoleGuard auth={auth} expectedRole="tuckshopmanager"><RouteTransition><OperationalRoleDashboard roleKey="tuckshopmanager" /></RouteTransition></RoleGuard>} />
@@ -180,7 +183,7 @@ function AnimatedRoutes({ auth, onLogin }) {
         <Route path="/roles/nurseryhead/*" element={<RoleGuard auth={auth} expectedRole="nurseryhead"><RouteTransition><OperationalRoleDashboard roleKey="nurseryhead" /></RouteTransition></RoleGuard>} />
         <Route path="/roles/examofficer/*" element={<RoleGuard auth={auth} expectedRole="examofficer"><RouteTransition><OperationalRoleDashboard roleKey="examofficer" /></RouteTransition></RoleGuard>} />
         <Route path="/roles/sportsmaster/*" element={<RoleGuard auth={auth} expectedRole="sportsmaster"><RouteTransition><OperationalRoleDashboard roleKey="sportsmaster" /></RouteTransition></RoleGuard>} />
-        <Route path="/roles/ami/*" element={<RoleGuard auth={auth} expectedRole="ami"><RouteTransition><OperationalRoleDashboard roleKey="ami" /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/ami/*" element={<RoleGuard auth={auth} expectedRole="ami"><RouteTransition><AmiDashboard /></RouteTransition></RoleGuard>} />
         <Route path="*" element={<Navigate to={defaultAppRoute} replace />} />
       </Routes>
     </AnimatePresence>
