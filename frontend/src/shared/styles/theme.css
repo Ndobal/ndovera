@@ -87,49 +87,57 @@
 
 .dark .sidebar-item-active { @apply bg-emerald-600/20 text-emerald-200 border-emerald-500; }
 
-/* Sidebar butter styling: apply buttery yellow and bold weight to all sidebars */
-:root {
-  --butter: #F6E08B;
-  --butter-dark: #FFF6C2;
-}
-
-aside.frost-panel,
-aside.frost-panel a,
-aside .sidebar-item-active,
-aside .micro-label,
-aside .frost-panel .neon-subtle {
-  color: var(--butter) !important;
-  font-weight: 700 !important;
-}
-
-.dark aside.frost-panel,
-.dark aside.frost-panel a,
-.dark aside .sidebar-item-active,
-.dark aside .micro-label,
-.dark aside .frost-panel .neon-subtle {
-  color: var(--butter-dark) !important;
-  font-weight: 700 !important;
-  text-shadow: 0 0 6px rgba(255, 246, 193, 0.06);
-}
-
-/* Force Overview item to black */
-.sidebar-overview {
-  color: #000000 !important;
-  font-weight: 700 !important;
-}
-
-.dark .sidebar-overview {
-  color: #000000 !important;
-}
-
-/* AMI dashboard light-mode almond background (#EADDCA) */
-.ami-dashboard-bg {
+/* Global dashboard background: Almond #EADDCA (light mode) */
+.dashboard-bg {
   background-color: #EADDCA;
   background-image:
     radial-gradient(circle at 10% 15%, rgba(180, 140, 100, 0.18), transparent 40%),
     radial-gradient(circle at 88% 80%, rgba(200, 160, 110, 0.14), transparent 38%),
     linear-gradient(160deg, #EADDCA 0%, #e0d0b8 100%);
   background-attachment: fixed;
+}
+
+/* Global sidebar: Burgundy #800020, 50% larger text */
+aside.frost-panel a,
+aside.frost-panel .sidebar-item-active,
+aside.frost-panel .micro-label,
+aside.frost-panel .neon-subtle {
+  color: #800020 !important;
+  font-size: 1.125rem !important;
+  font-weight: 700 !important;
+  text-shadow: none !important;
+}
+
+aside.frost-panel a:hover {
+  color: #5a0016 !important;
+  background-color: rgba(128, 0, 32, 0.08) !important;
+}
+
+aside.frost-panel .sidebar-item-active {
+  color: #5a0016 !important;
+  background-color: rgba(128, 0, 32, 0.12) !important;
+  border-color: #800020 !important;
+}
+
+.dark aside.frost-panel a,
+.dark aside.frost-panel .sidebar-item-active,
+.dark aside.frost-panel .micro-label,
+.dark aside.frost-panel .neon-subtle {
+  color: #f4a0b0 !important;
+  font-size: 1.125rem !important;
+  font-weight: 700 !important;
+  text-shadow: 0 0 8px rgba(244, 160, 176, 0.2) !important;
+}
+
+.dark aside.frost-panel a:hover {
+  color: #ffc8d2 !important;
+  background-color: rgba(244, 160, 176, 0.1) !important;
+}
+
+.dark aside.frost-panel .sidebar-item-active {
+  color: #ffc8d2 !important;
+  background-color: rgba(244, 160, 176, 0.15) !important;
+  border-color: #f4a0b0 !important;
 }
 
 /* Reusable bottom navigation glass styles */
