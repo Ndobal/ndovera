@@ -197,6 +197,7 @@ function AppWorkspace({ auth, onLogin, onLogout }) {
   const isPublicRoute = location.pathname === '/login' || location.pathname === '/register-school';
   const inDashboardMode = location.pathname.startsWith('/roles/');
   const inStudentClassroom = location.pathname.startsWith('/roles/student/classroom');
+  const isAmiRole = auth?.user?.role === 'ami' && location.pathname.startsWith('/roles/ami');
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
   useEffect(() => {
@@ -212,7 +213,7 @@ function AppWorkspace({ auth, onLogin, onLogout }) {
   }
 
   return (
-    <div className="flex h-screen overflow-hidden bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-500">
+    <div className={`flex h-screen overflow-hidden text-slate-900 dark:text-slate-100 transition-colors duration-500 ${isAmiRole ? 'ami-dashboard-bg dark:bg-slate-950' : 'bg-slate-50 dark:bg-slate-950'}`}>
       {!mobileClassroomMode && <Sidebar />}
       <main className={`flex-1 min-h-0 relative ${inStudentClassroom ? 'overflow-hidden' : 'overflow-y-auto'}`}>
         {inDashboardMode && !mobileClassroomMode && <DashboardTopBar authUser={auth?.user} onLogout={onLogout} />}

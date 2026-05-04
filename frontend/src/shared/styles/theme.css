@@ -122,6 +122,16 @@ aside .frost-panel .neon-subtle {
   color: #000000 !important;
 }
 
+/* AMI dashboard light-mode almond background (#EADDCA) */
+.ami-dashboard-bg {
+  background-color: #EADDCA;
+  background-image:
+    radial-gradient(circle at 10% 15%, rgba(180, 140, 100, 0.18), transparent 40%),
+    radial-gradient(circle at 88% 80%, rgba(200, 160, 110, 0.14), transparent 38%),
+    linear-gradient(160deg, #EADDCA 0%, #e0d0b8 100%);
+  background-attachment: fixed;
+}
+
 /* Reusable bottom navigation glass styles */
 .bottom-nav {
   @apply fixed left-0 right-0 bottom-0 z-40 border-t border-white/10 backdrop-blur-2xl; 
