@@ -85,7 +85,10 @@
   text-shadow: 0 0 6px rgba(99, 102, 241, 0.08);
 }
 
-.dark .sidebar-item-active { @apply bg-emerald-600/20 text-emerald-200 border-emerald-500; }
+.dark .sidebar-item-active {
+  @apply bg-indigo-500/20 border-indigo-400/50;
+  color: #ffffff !important;
+}
 
 /* Global dashboard background: Almond #EADDCA (light mode only) */
 .dashboard-bg {

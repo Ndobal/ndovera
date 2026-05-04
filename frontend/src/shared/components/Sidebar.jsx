@@ -410,8 +410,8 @@ export default function Sidebar() {
   return (
     <aside className="w-64 h-full overflow-y-auto border-r border-slate-200/60 dark:border-indigo-500/20 frost-panel dashboard-bg dark:bg-transparent">
       <div className="p-6">
-        <p className="micro-label text-slate-500 neon-subtle mb-2">{nodeTitle}</p>
-        <div className="font-black tracking-tighter text-xl text-indigo-700 dark:text-indigo-300">NDOVERA</div>
+        <p className="micro-label text-slate-500 dark:text-white neon-subtle mb-2">{nodeTitle}</p>
+        <div className="font-black tracking-tighter text-xl text-indigo-700 dark:text-white">NDOVERA</div>
       </div>
       <ul>
         {sidebarItems.map(item => (
@@ -428,7 +428,7 @@ export default function Sidebar() {
                 to={item.path}
                 className={({ isActive }) =>
                   isActive
-                    ? `sidebar-item-active block px-6 py-3 rounded-2xl font-semibold${item.name === 'Overview' ? ' sidebar-overview' : ''}`
+                    ? `sidebar-item-active block px-6 py-3 rounded-2xl font-semibold dark:text-white${item.name === 'Overview' ? ' sidebar-overview' : ''}`
                     : `block px-6 py-3 rounded-2xl text-slate-700 dark:text-white hover:bg-emerald-50 hover:text-slate-900 dark:hover:bg-indigo-500/20 dark:hover:text-white transition-colors${item.name === 'Overview' ? ' sidebar-overview' : ''}`
                 }
                 end

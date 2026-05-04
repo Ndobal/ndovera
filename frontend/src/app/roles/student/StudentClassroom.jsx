@@ -226,8 +226,8 @@ export default function StudentClassroom() {
 
   const tabButtonClass = tabKey => (
     activeTab === tabKey
-      ? 'px-4 py-2 rounded-2xl font-semibold bg-indigo-500/30 text-white border border-indigo-300/40'
-      : 'px-4 py-2 rounded-2xl font-semibold bg-slate-900/30 text-slate-200 border border-white/10 hover:bg-indigo-500/15'
+      ? 'px-4 py-2 rounded-2xl font-semibold bg-[#800020] text-white border border-[#c27a8d] shadow-[0_12px_30px_rgba(128,0,32,0.28)]'
+      : 'px-4 py-2 rounded-2xl font-semibold bg-[#800020] text-white border border-[#a64d68] hover:bg-[#670019] hover:border-[#d196a6] transition-colors'
   );
 
   const bottomTabs = [
