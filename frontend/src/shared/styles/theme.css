@@ -75,13 +75,13 @@
 
 .dark .frost-panel {
   @apply bg-slate-900/45 backdrop-blur-2xl border border-cyan-300/25;
-  color: #e6f0ff;
+  color: #ffffff;
 }
 .dark .frost-panel a, .dark .frost-panel .sidebar-item-active {
-  color: #e6f7ff;
+  color: #ffffff;
 }
 .dark .frost-panel .neon-subtle {
-  color: #cfe8ff; /* brighter subtle */
+  color: #ffffff; /* brighter subtle */
   text-shadow: 0 0 6px rgba(99, 102, 241, 0.08);
 }
 
