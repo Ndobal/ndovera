@@ -3,7 +3,7 @@ import StudentSectionShell from './StudentSectionShell';
 import { getStudentResult } from '../../../features/results-engine';
 
 export default function StudentResults() {
-  const studentId = localStorage.getItem('userId') || 'current_student';
+  const studentId = localStorage.getItem('userId') || '';
   const result = getStudentResult(studentId);
 
   return (

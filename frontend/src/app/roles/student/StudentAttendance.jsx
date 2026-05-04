@@ -35,7 +35,7 @@ export default function StudentAttendance() {
   const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState(null); // selected day detail
 
-  const studentId = localStorage.getItem('userId') || 'current_student';
+  const studentId = localStorage.getItem('userId') || '';
 
   useEffect(() => {
     let mounted = true;

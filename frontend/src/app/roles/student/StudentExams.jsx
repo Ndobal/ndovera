@@ -7,7 +7,7 @@ import ExamSession from '../../../features/exams/components/ExamSession';
 import ExamSummary from '../../../features/exams/components/ExamSummary';
 
 export default function StudentExams() {
-  const userId = 'current_student'; // replace with real auth
+  const userId = localStorage.getItem('userId') || '';
   const {
     examList,
     currentExam,

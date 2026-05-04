@@ -87,7 +87,7 @@
 
 .dark .sidebar-item-active { @apply bg-emerald-600/20 text-emerald-200 border-emerald-500; }
 
-/* Global dashboard background: Almond #EADDCA (light mode) */
+/* Global dashboard background: Almond #EADDCA (light mode only) */
 .dashboard-bg {
   background-color: #EADDCA;
   background-image:
@@ -97,47 +97,36 @@
   background-attachment: fixed;
 }
 
-/* Global sidebar: Burgundy #800020, 50% larger text */
-aside.frost-panel a,
-aside.frost-panel .sidebar-item-active,
-aside.frost-panel .micro-label,
-aside.frost-panel .neon-subtle {
+/* Dark mode: reset to original dark slate background */
+.dark .dashboard-bg {
+  background-color: #020617 !important;
+  background-image:
+    radial-gradient(circle at 15% 12%, rgba(99, 102, 241, 0.24), transparent 35%),
+    radial-gradient(circle at 86% 14%, rgba(16, 185, 129, 0.18), transparent 34%),
+    radial-gradient(circle at 55% 88%, rgba(244, 63, 94, 0.14), transparent 30%),
+    linear-gradient(160deg, #020617 0%, #0f172a 100%) !important;
+}
+
+/* Global sidebar: Burgundy #800020, 50% larger text — LIGHT MODE ONLY */
+:not(.dark) aside.frost-panel a,
+:not(.dark) aside.frost-panel .sidebar-item-active,
+:not(.dark) aside.frost-panel .micro-label,
+:not(.dark) aside.frost-panel .neon-subtle {
   color: #800020 !important;
   font-size: 1.125rem !important;
   font-weight: 700 !important;
   text-shadow: none !important;
 }
 
-aside.frost-panel a:hover {
+:not(.dark) aside.frost-panel a:hover {
   color: #5a0016 !important;
   background-color: rgba(128, 0, 32, 0.08) !important;
 }
 
-aside.frost-panel .sidebar-item-active {
+:not(.dark) aside.frost-panel .sidebar-item-active {
   color: #5a0016 !important;
   background-color: rgba(128, 0, 32, 0.12) !important;
   border-color: #800020 !important;
-}
-
-.dark aside.frost-panel a,
-.dark aside.frost-panel .sidebar-item-active,
-.dark aside.frost-panel .micro-label,
-.dark aside.frost-panel .neon-subtle {
-  color: #f4a0b0 !important;
-  font-size: 1.125rem !important;
-  font-weight: 700 !important;
-  text-shadow: 0 0 8px rgba(244, 160, 176, 0.2) !important;
-}
-
-.dark aside.frost-panel a:hover {
-  color: #ffc8d2 !important;
-  background-color: rgba(244, 160, 176, 0.1) !important;
-}
-
-.dark aside.frost-panel .sidebar-item-active {
-  color: #ffc8d2 !important;
-  background-color: rgba(244, 160, 176, 0.15) !important;
-  border-color: #f4a0b0 !important;
 }
 
 /* Reusable bottom navigation glass styles */

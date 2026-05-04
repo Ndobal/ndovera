@@ -3,7 +3,7 @@ import StudentSectionShell from './StudentSectionShell';
 import { io } from 'socket.io-client';
 
 export default function StudentMessaging() {
-  const me = localStorage.getItem('userId') || 'current_student';
+  const me = localStorage.getItem('userId') || '';
   const [conversations, setConversations] = useState([]);
   const [activeConv, setActiveConv] = useState(null);
   const [messages, setMessages] = useState([]);
@@ -192,7 +192,7 @@ export default function StudentMessaging() {
         <div className="col-span-1 glass-surface rounded-xl p-3">
           <div className="flex items-center justify-between mb-2 quick-create">
             <strong className="">Conversations</strong>
-            <button onClick={() => startConversationWith('admin-support')} className="text-xs px-2 py-1 rounded quick-create">New</button>
+            <button onClick={() => startConversationWith('support')} className="text-xs px-2 py-1 rounded quick-create">New</button>
           </div>
           <div className="space-y-2">
             {conversations.map(c => (

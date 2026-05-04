@@ -1,15 +1,22 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import StudentSectionShell from './StudentSectionShell';
 
-const INVENTORY = [
-  { id: 'itm-lunch', name: 'Lunch Combo', price: 1500, desc: 'Rice, stew & protein', img: '' },
-  { id: 'itm-juice', name: 'Fruit Juice', price: 400, desc: 'Freshly squeezed', img: '' },
-  { id: 'itm-snack', name: 'Snack Pack', price: 500, desc: 'Chips + cookie', img: '' },
-  { id: 'itm-sandwich', name: 'Sandwich', price: 700, desc: 'Ham & cheese', img: '' },
-];
-
 export default function StudentTuckShop() {
+  const studentId = localStorage.getItem('userId') || '';
+  const [inventory, setInventory] = useState([]);
+  const [inventoryLoading, setInventoryLoading] = useState(true);
   const [cart, setCart] = useState({});
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const headers = token ? { Authorization: `Bearer ${token}` } : {};
+    fetch('/api/tuck/menu', { headers })
+      .then(r => r.ok ? r.json() : { items: [] })
+      .then(json => setInventory(json.items || json.menu || []))
+      .catch(() => setInventory([]))
+      .finally(() => setInventoryLoading(false));
+  }, []);
+
   const addToCart = (item) => {
     setCart(prev => ({ ...prev, [item.id]: (prev[item.id] || 0) + 1 }));
   };
@@ -25,18 +32,29 @@ export default function StudentTuckShop() {
 
   const cartItems = useMemo(() => {
     return Object.entries(cart).map(([id, qty]) => {
-      const info = INVENTORY.find(i => i.id === id);
+      const info = inventory.find(i => i.id === id);
       return { ...info, qty };
     });
-  }, [cart]);
+  }, [cart, inventory]);
 
   const total = useMemo(() => cartItems.reduce((s, it) => s + (it.price || 0) * it.qty, 0), [cartItems]);
 
   const checkout = async () => {
     if (cartItems.length === 0) return alert('Cart is empty');
-    const payload = { id: `order_${Date.now()}`, placedBy: 'student-1', items: cartItems.map(i=>({ id: i.id, name: i.name, qty: i.qty, price: i.price })), total, notes: null };
+    const payload = {
+      id: `order_${Date.now()}`,
+      placedBy: studentId,
+      items: cartItems.map(i => ({ id: i.id, name: i.name, qty: i.qty, price: i.price })),
+      total,
+      notes: null,
+    };
     try {
-      const resp = await fetch('/api/tuck/orders', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+      const token = localStorage.getItem('token');
+      const resp = await fetch('/api/tuck/orders', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', ...(token ? { Authorization: `Bearer ${token}` } : {}) },
+        body: JSON.stringify(payload),
+      });
       const json = await resp.json();
       if (json && json.success) {
         alert('Purchase placed! Your order will be served at lunch.');
@@ -53,9 +71,9 @@ export default function StudentTuckShop() {
 
   // Weekly history
   const [history, setHistory] = useState([]);
-  const studentId = localStorage.getItem('userId') || 'current_student';
 
   useEffect(() => {
+    if (!studentId) return;
     let mounted = true;
     async function loadHistory() {
       try {
@@ -93,7 +111,17 @@ export default function StudentTuckShop() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="col-span-2">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {INVENTORY.map(item => (
+            {inventoryLoading && (
+              <div className="rounded-2xl p-4 bg-slate-900/20 border border-white/10">
+                <p className="text-sm text-slate-400">Loading menu…</p>
+              </div>
+            )}
+            {!inventoryLoading && inventory.length === 0 && (
+              <div className="rounded-2xl p-4 bg-slate-900/20 border border-white/10">
+                <p className="text-sm text-slate-400">No menu items available right now. Check back later.</p>
+              </div>
+            )}
+            {inventory.map(item => (
               <div key={item.id} className="rounded-2xl p-4 bg-slate-900/20 border border-white/10">
                 <div className="flex items-start gap-4">
                   <div className="w-20 h-20 bg-slate-800 rounded-md flex items-center justify-center text-slate-400">🍱</div>

@@ -38,132 +38,35 @@ export default function StudentClassroom() {
     studentAnnouncementsEnabled: false,
   });
 
-  const [streamPosts, setStreamPosts] = useState([
-    {
-      id: 'stream-1',
-      author: 'Teacher • Mathematics',
-      text: 'Pinned Rule: Submit all classwork before 6:00 PM. Be respectful in comments.',
-      pinned: true,
-      comments: [{ id: 'c1', user: 'David', text: 'Noted, thank you.' }],
-      isStudentPost: false,
-    },
-    {
-      id: 'stream-2',
-      author: 'Teacher • English',
-      text: 'Tomorrow we have a reading activity. Bring your notes.',
-      pinned: false,
-      comments: [],
-      isStudentPost: false,
-    },
-  ]);
-
+  const [streamPosts, setStreamPosts] = useState([]);
   const [streamInput, setStreamInput] = useState('');
   const [commentInputs, setCommentInputs] = useState({});
+  const [tasks, setTasks] = useState([]);
+  const [taskChat, setTaskChat] = useState([]);
+  const [liveSessions] = useState([]);
+  const [classroomMaterials, setClassroomMaterials] = useState([]);
+  const [practiceItems] = useState([]);
+  const [classMembers, setClassMembers] = useState([]);
+  const [classroomLoading, setClassroomLoading] = useState(true);
 
-  const [tasks, setTasks] = useState([
-    {
-      id: 'task-1',
-      title: 'Math CA: Quadratic Equations',
-      type: 'Assignment',
-      dueDate: 'Today, 6:00 PM',
-      status: 'Pending',
-      week: 'Week 1',
-      topic: 'Quadratic Equations',
-      scheme: 'Algebra Unit 2',
-      teacherComment: '',
-      submissions: [],
-    },
-    {
-      id: 'task-2',
-      title: 'English Narrative Writing',
-      type: 'Essay',
-      dueDate: 'Tomorrow, 3:00 PM',
-      status: 'Submitted',
-      week: 'Week 1',
-      topic: 'Creative Writing',
-      scheme: 'Composition Unit 1',
-      teacherComment: '',
-      submissions: [{ version: 1, content: 'First draft submission', time: 'Yesterday, 8:10 PM' }],
-    },
-    {
-      id: 'task-3',
-      title: 'Biology Diagram Labeling',
-      type: 'Classwork',
-      dueDate: 'Returned for edit',
-      status: 'Needs Improvement',
-      week: 'Week 2',
-      topic: 'Cell Structure',
-      scheme: 'Biology Basics',
-      teacherComment: 'Good effort. Improve your labels for mitochondria and nucleus.',
-      submissions: [{ version: 1, content: 'Original diagram text', time: 'Mon, 4:20 PM' }],
-    },
-    {
-      id: 'task-4',
-      title: 'Chemistry Matching Test',
-      type: 'Test',
-      dueDate: 'Fri, 10:00 AM',
-      status: 'Pending',
-      week: 'Week 2',
-      topic: 'Acids and Bases',
-      scheme: 'Chemistry Unit 3',
-      teacherComment: '',
-      submissions: [],
-    },
-  ]);
-
-  const [taskChat, setTaskChat] = useState([
-    { id: 'm1', sender: 'Teacher', text: 'If you are stuck, ask me directly here.' },
-  ]);
-
-  const liveSessions = [
-    {
-      id: 'live-1',
-      subject: 'Mathematics',
-      teacher: 'Mrs. Okoro',
-      topic: 'Quadratic Equations - Live Solving',
-      startsAt: 'Now',
-      mode: 'Video + Audio',
-      status: 'Live Now',
-    },
-    {
-      id: 'live-2',
-      subject: 'English',
-      teacher: 'Mr. Danjuma',
-      topic: 'Narrative Writing Workshop',
-      startsAt: '2:30 PM',
-      mode: 'Audio Class',
-      status: 'Upcoming',
-    },
-    {
-      id: 'live-3',
-      subject: 'Biology',
-      teacher: 'Mrs. Okoro',
-      topic: 'Cell Structure Revision',
-      startsAt: '4:00 PM',
-      mode: 'Video + Audio',
-      status: 'Upcoming',
-    },
-  ];
-
-  const classroomMaterials = [
-    { id: 'mat-1', title: 'Quadratic Equations Notes', type: 'PDF', subject: 'Mathematics' },
-    { id: 'mat-2', title: 'Creative Writing Guide', type: 'Doc', subject: 'English' },
-    { id: 'mat-3', title: 'Cell Structure Video', type: 'Video', subject: 'Biology' },
-  ];
-
-  const practiceItems = [
-    { id: 'pr-1', title: 'Math Drill: Factorization', mode: 'Self Practice', due: 'Open now' },
-    { id: 'pr-2', title: 'English Grammar Quiz', mode: 'Timed Practice', due: 'Today, 7:30 PM' },
-    { id: 'pr-3', title: 'Biology Flash Cards', mode: 'Revision', due: 'Anytime' },
-  ];
-
-  const classMembers = [
-    { name: 'Mrs. Okoro', role: 'Teacher', status: 'Active' },
-    { name: 'Mr. Danjuma', role: 'Teacher', status: 'Active' },
-    { name: 'David', role: 'Student', status: 'Active' },
-    { name: 'Amara', role: 'Student', status: 'Muted' },
-    { name: 'Joseph', role: 'Student', status: 'Flagged' },
-  ];
+  useEffect(() => {
+    const classId = localStorage.getItem('classroomId');
+    if (!classId) { setClassroomLoading(false); return; }
+    const token = localStorage.getItem('token');
+    const headers = token ? { Authorization: `Bearer ${token}` } : {};
+    setClassroomLoading(true);
+    Promise.all([
+      fetch(`/api/classrooms/${classId}/posts`, { headers }).then(r => r.ok ? r.json() : { posts: [] }),
+      fetch(`/api/classrooms/${classId}/assignments`, { headers }).then(r => r.ok ? r.json() : { assignments: [] }),
+      fetch(`/api/classrooms/${classId}/materials`, { headers }).then(r => r.ok ? r.json() : { materials: [] }),
+      fetch(`/api/classrooms/${classId}/members`, { headers }).then(r => r.ok ? r.json() : { members: [] }),
+    ]).then(([postsRes, assignRes, matRes, membersRes]) => {
+      setStreamPosts(postsRes.posts || []);
+      setTasks(assignRes.assignments || []);
+      setClassroomMaterials(matRes.materials || []);
+      setClassMembers(membersRes.members || []);
+    }).catch(() => {}).finally(() => setClassroomLoading(false));
+  }, []);
 
   useEffect(() => {
     const onResize = () => setIsMobile(window.innerWidth < 768);
@@ -352,6 +255,11 @@ export default function StudentClassroom() {
 
   return (
     <div className={`min-h-screen ${isMobile ? 'p-4 pb-24' : 'p-8'} max-w-5xl mx-auto`}>
+      {classroomLoading && (
+        <div className="glass-surface rounded-3xl p-6 mb-4">
+          <p className="neon-subtle text-sm">Loading classroom data…</p>
+        </div>
+      )}
       <div className="flex items-center gap-3 mb-4">
         <button
           onClick={goBackToDashboard}
