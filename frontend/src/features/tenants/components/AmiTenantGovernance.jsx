@@ -63,7 +63,12 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
       setGovernanceData(data);
       setError('');
     } catch (loadError) {
-      setError(loadError.message || 'Unable to load tenant governance data.');
+      const msg = loadError.message || '';
+      if (msg.includes('401') || msg.toLowerCase().includes('unauthorized') || msg.toLowerCase().includes('request failed')) {
+        setError('Session expired or insufficient permissions. Please log out and log back in as AMI.');
+      } else {
+        setError(msg || 'Unable to load tenant governance data.');
+      }
     }
   };
 
@@ -314,7 +319,7 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
                 value={pricingForm.customPlanSetupFeeNaira}
                 onChange={handlePricingChange}
                 placeholder="Custom onboarding fee (NGN)"
-                className="w-full rounded-2xl border border-white/10 bg-slate-900/30 px-4 py-3"
+                className="w-full rounded-2xl border border-white/10 bg-slate-900/30 px-4 py-3 text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-500"
               />
               <button type="submit" disabled={busyAction === 'save-pricing'} className="w-full rounded-2xl bg-emerald-500 px-4 py-3 font-semibold text-slate-950 disabled:opacity-60">
                 {busyAction === 'save-pricing' ? 'Saving...' : 'Update Custom Pricing'}
@@ -323,7 +328,7 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
           </section>
 
           <section className="glass-surface rounded-3xl p-6 border border-white/10">
-  <h2 className="text-xl command-title neon-title mb-4 text-black">
+  <h2 className="text-xl command-title neon-title mb-4">
     Discount Codes
   </h2>
 
@@ -334,7 +339,7 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
       onChange={handleDiscountChange}
       required
       placeholder="CODE"
-      className="w-full rounded-2xl border border-white/10 bg-slate-900/30 px-4 py-3 text-black placeholder:text-slate-500"
+      className="w-full rounded-2xl border border-white/10 bg-slate-900/30 px-4 py-3 text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-500"
     />
 
     <input
@@ -342,7 +347,7 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
       value={discountForm.name}
       onChange={handleDiscountChange}
       placeholder="Display name"
-      className="w-full rounded-2xl border border-white/10 bg-slate-900/30 px-4 py-3 text-black placeholder:text-slate-500"
+      className="w-full rounded-2xl border border-white/10 bg-slate-900/30 px-4 py-3 text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-500"
     />
 
     <textarea
@@ -350,7 +355,7 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
       value={discountForm.description}
       onChange={handleDiscountChange}
       placeholder="Discount description"
-      className="w-full rounded-2xl border border-white/10 bg-slate-900/30 px-4 py-3 min-h-[96px] text-black placeholder:text-slate-500"
+      className="w-full rounded-2xl border border-white/10 bg-slate-900/30 px-4 py-3 min-h-[96px] text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-500"
     />
 
     <div className="grid grid-cols-2 gap-3">
@@ -360,7 +365,7 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
         value={discountForm.setupFeeNaira}
         onChange={handleDiscountChange}
         placeholder="Setup fee (NGN)"
-        className="w-full rounded-2xl border border-white/10 bg-slate-900/30 px-4 py-3 text-black placeholder:text-slate-500"
+        className="w-full rounded-2xl border border-white/10 bg-slate-900/30 px-4 py-3 text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-500"
       />
 
       <input
@@ -369,7 +374,7 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
         value={discountForm.studentFeeNaira}
         onChange={handleDiscountChange}
         placeholder="Student fee / term (NGN)"
-        className="w-full rounded-2xl border border-white/10 bg-slate-900/30 px-4 py-3 text-black placeholder:text-slate-500"
+        className="w-full rounded-2xl border border-white/10 bg-slate-900/30 px-4 py-3 text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-500"
       />
     </div>
 
@@ -378,7 +383,7 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
       value={discountForm.planScope}
       onChange={handleDiscountChange}
       placeholder="growth,custom"
-      className="w-full rounded-2xl border border-white/10 bg-slate-900/30 px-4 py-3 text-black placeholder:text-slate-500"
+      className="w-full rounded-2xl border border-white/10 bg-slate-900/30 px-4 py-3 text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-500"
     />
 
     <input
@@ -386,10 +391,10 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
       type="datetime-local"
       value={discountForm.endsAt}
       onChange={handleDiscountChange}
-      className="w-full rounded-2xl border border-white/10 bg-slate-900/30 px-4 py-3 text-black"
+      className="w-full rounded-2xl border border-white/10 bg-slate-900/30 px-4 py-3 text-slate-900 dark:text-amber-100"
     />
 
-    <label className="flex items-center gap-2 text-sm text-black">
+    <label className="flex items-center gap-2 text-sm text-slate-900 dark:text-amber-100">
       <input
         name="active"
         type="checkbox"
@@ -402,7 +407,7 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
     <button
       type="submit"
       disabled={busyAction === 'save-discount'}
-      className="w-full rounded-2xl bg-emerald-500 px-4 py-3 font-semibold text-black disabled:opacity-60"
+      className="w-full rounded-2xl bg-emerald-500 px-4 py-3 font-semibold text-slate-950 disabled:opacity-60"
     >
       {busyAction === 'save-discount' ? 'Saving...' : 'Save Discount Code'}
     </button>
@@ -412,10 +417,10 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
     {discountCodes.map((discountCode) => (
       <div
         key={discountCode.code}
-        className="rounded-2xl bg-slate-900/30 p-4 text-sm text-black"
+        className="rounded-2xl bg-slate-900/30 p-4 text-sm text-slate-800 dark:text-amber-100"
       >
         <div className="flex items-center justify-between gap-3">
-          <p className="font-semibold text-black">
+          <p className="font-semibold text-slate-900 dark:text-amber-50">
             {discountCode.code}
           </p>
 
@@ -428,16 +433,16 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
           </span>
         </div>
 
-        <p className="mt-2 text-black">{discountCode.description}</p>
+        <p className="mt-2">{discountCode.description}</p>
 
-        <p className="mt-2 text-black">
+        <p className="mt-2">
           Setup:{' '}
           {discountCode.setupFee
             ? currencyFormatter.format(discountCode.setupFee)
             : 'unchanged'}
         </p>
 
-        <p className="mt-1 text-black">
+        <p className="mt-1">
           Student:{' '}
           {discountCode.studentFeePerTerm
             ? currencyFormatter.format(discountCode.studentFeePerTerm)
@@ -454,7 +459,7 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
               })
             }
             disabled={busyAction === `end-${discountCode.code}`}
-            className="mt-3 rounded-2xl border border-rose-400/40 px-3 py-2 font-semibold text-black disabled:opacity-40"
+            className="mt-3 rounded-2xl border border-rose-400/40 px-3 py-2 font-semibold text-rose-700 dark:text-rose-200 disabled:opacity-40"
           >
             End Code
           </button>
