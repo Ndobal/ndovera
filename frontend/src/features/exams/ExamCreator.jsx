@@ -2,16 +2,9 @@ import React, {useState} from 'react'
 import QuestionRenderer from './QuestionRenderer'
 import WorkflowControls from './WorkflowControls'
 
-const sampleQuestions = [
-  {id:'q1', type:'mcq', prompt:'What is 2+2?', options:['1','2','3','4']},
-  {id:'q2', type:'shortanswer', prompt:'Name the capital of France.'},
-  {id:'q3', type:'crossmatching', prompt:'Match country to capital', left:['France','Nigeria','India'], right:['Paris','Abuja','New Delhi'], pairs:[]},
-  {id:'q4', type:'essay', prompt:'Discuss climate change.'}
-]
-
 export default function ExamCreator(){
-  const [questions, setQuestions] = useState(sampleQuestions)
-  const [status, setStatus] = useState('editing')
+  const [questions, setQuestions] = useState([])
+  const [status, setStatus] = useState('idle')
   const [mode, setMode] = useState('light')
 
   function updateQuestion(idx, q){
@@ -21,19 +14,11 @@ export default function ExamCreator(){
   }
 
   async function saveDraft(){
-    setStatus('saving')
-    // simulate API save
-    await new Promise(r=>setTimeout(r,600))
-    setStatus('draft')
-    console.log('Saved draft', questions)
+    setStatus(questions.length ? 'draft-ready' : 'no-content')
   }
 
   async function submitForReview(){
-    setStatus('submitting')
-    // simulate API submit, sets status to pending_sectional_head
-    await new Promise(r=>setTimeout(r,700))
-    setStatus('pending_sectional_head')
-    console.log('Submitted for review', questions)
+    setStatus(questions.length ? 'review-pending' : 'no-content')
   }
 
   return (
@@ -51,6 +36,11 @@ export default function ExamCreator(){
             <QuestionRenderer question={q} onChange={(next)=>updateQuestion(idx,next)} />
           </div>
         ))}
+        {questions.length === 0 && (
+          <div className="p-4 border rounded bg-white/70 dark:bg-slate-800/60 text-sm">
+            No live exam questions are loaded. Connect this builder to a real exam source before publishing to production.
+          </div>
+        )}
       </div>
 
       <WorkflowControls mode={mode} onSaveDraft={saveDraft} onSubmit={submitForReview} />

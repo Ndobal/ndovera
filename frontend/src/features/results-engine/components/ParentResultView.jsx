@@ -3,7 +3,7 @@ import { getResultEngineState, getParentResult } from '../service/resultEngineSe
 
 export default function ParentResultView() {
   const [state] = useState(getResultEngineState());
-  const [activeChildId, setActiveChildId] = useState(state.students[0]?.id || 'stu-001');
+  const [activeChildId, setActiveChildId] = useState(state.students[0]?.id || '');
 
   const result = useMemo(() => getParentResult(activeChildId), [activeChildId]);
 
@@ -16,6 +16,13 @@ export default function ParentResultView() {
       </section>
 
       <section className="glass-surface rounded-3xl p-6 space-y-4">
+        {state.students.length === 0 && (
+          <div className="rounded-2xl border border-dashed border-white/10 bg-slate-900/20 p-5 text-center">
+            <p className="micro-label accent-amber">No live result records</p>
+            <p className="mt-2 text-sm text-slate-300">Parent result access will appear here after the school publishes approved student results.</p>
+          </div>
+        )}
+
         <div className="flex flex-wrap gap-2">
           {state.students.map(student => (
             <button
@@ -30,28 +37,28 @@ export default function ParentResultView() {
           ))}
         </div>
 
-        {!result.published && (
+        {state.students.length > 0 && !result.published && (
           <div className="rounded-2xl border border-amber-300/30 bg-amber-500/20 p-4 text-amber-100 text-sm">
             Results are not released yet. Teachers are still finalizing CA sheet entries.
           </div>
         )}
 
-        {result.published && !result.hosApproved && (
+        {state.students.length > 0 && result.published && !result.hosApproved && (
           <div className="rounded-2xl border border-amber-300/30 bg-amber-500/20 p-4 text-amber-100 text-sm">
             Results are awaiting HoS approval and are not visible to parents yet.
           </div>
         )}
 
-        {result.visibleToStudent && result.lockedByFees && (
+        {state.students.length > 0 && result.visibleToStudent && result.lockedByFees && (
           <div className="rounded-2xl border border-rose-300/30 bg-rose-500/20 p-4 text-rose-100 text-sm">
             Result locked: school fees not cleared for this child.
           </div>
         )}
 
-        {result.visibleToStudent && !result.lockedByFees && (
+        {state.students.length > 0 && result.visibleToStudent && !result.lockedByFees && (
           <>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-              <div className="glass-chip rounded-2xl p-4"><p className="micro-label accent-indigo">Child</p><p className="text-slate-100 font-semibold mt-1">{result.student.name}</p></div>
+              <div className="glass-chip rounded-2xl p-4"><p className="micro-label accent-indigo">Child</p><p className="text-slate-100 font-semibold mt-1">{result.student?.name || 'Unavailable'}</p></div>
               <div className="glass-chip rounded-2xl p-4"><p className="micro-label accent-emerald">Average</p><p className="text-slate-100 font-semibold mt-1">{result.average}%</p></div>
               <div className="glass-chip rounded-2xl p-4"><p className="micro-label accent-amber">Published</p><p className="text-slate-100 font-semibold mt-1">{new Date(result.publishedAt).toLocaleString()}</p></div>
             </div>

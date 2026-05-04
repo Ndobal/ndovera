@@ -3,19 +3,27 @@ import StudentSectionShell from './StudentSectionShell';
 import { getStudentResult } from '../../../features/results-engine';
 
 export default function StudentResults() {
-  const result = getStudentResult('stu-001');
+  const studentId = localStorage.getItem('userId') || 'current_student';
+  const result = getStudentResult(studentId);
 
   return (
     <StudentSectionShell title="Results" subtitle="See your scores and track your progress.">
       <div className="space-y-4">
-        {!result.published && (
+        {!result.student && (
+          <section className="glass-surface rounded-3xl p-6">
+            <p className="micro-label accent-amber">No live result records</p>
+            <p className="mt-2 text-slate-200">Your result history will appear here after the school publishes approved records for your account.</p>
+          </section>
+        )}
+
+        {result.student && !result.published && (
           <section className="glass-surface rounded-3xl p-6">
             <p className="text-slate-200">Results are not yet released. Your teachers are finalizing CA score sheet entries.</p>
             <p className="micro-label mt-3 accent-amber">State: Draft</p>
           </section>
         )}
 
-        {result.published && !result.hosApproved && (
+        {result.student && result.published && !result.hosApproved && (
           <section className="glass-surface rounded-3xl p-6">
             <p className="text-slate-200">Results are published by teachers and awaiting HoS approval.</p>
             <p className="micro-label mt-3 accent-amber">State: Pending HoS Approval</p>

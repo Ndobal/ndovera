@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { ebooks } from '../data/libraryData';
 import { runAiReview, logAdminDecision } from '../service/libraryService';
 
 export default function AdminPanel() {
-  const [pending, setPending] = useState(ebooks.filter(b => b.status !== 'approved' && !b.pinned));
+  const [pending, setPending] = useState([]);
 
   const handleView = async (book) => {
     const report = await runAiReview(null);

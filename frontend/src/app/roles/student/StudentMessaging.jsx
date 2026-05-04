@@ -3,7 +3,7 @@ import StudentSectionShell from './StudentSectionShell';
 import { io } from 'socket.io-client';
 
 export default function StudentMessaging() {
-  const me = localStorage.getItem('userId') || 'student-demo';
+  const me = localStorage.getItem('userId') || 'current_student';
   const [conversations, setConversations] = useState([]);
   const [activeConv, setActiveConv] = useState(null);
   const [messages, setMessages] = useState([]);

@@ -2,19 +2,22 @@ import React from 'react';
 import StatsCard from '../shared/components/StatsCard';
 
 export default function DashboardStats() {
-  // Example stats, replace with real data later
-  const stats = [
-    { title: 'Attendance', value: '98%', colorClass: 'blue', icon: '📊' },
-    { title: 'Recent Scores', value: 'A+', colorClass: 'green', icon: '🏆' },
-    { title: 'Outstanding Fees', value: '₦0', colorClass: 'red', icon: '💸' },
-    { title: 'Scholarships', value: '2', colorClass: 'yellow', icon: '🎓' },
-  ];
+  const stats = [];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 p-8 items-stretch place-items-center">
-      {stats.map(stat => (
-        <StatsCard key={stat.title} {...stat} />
-      ))}
+    <div className="p-8">
+      {stats.length > 0 ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch place-items-center">
+          {stats.map(stat => (
+            <StatsCard key={stat.title} {...stat} />
+          ))}
+        </div>
+      ) : (
+        <div className="glass-surface rounded-3xl border border-white/10 p-6 text-center">
+          <p className="micro-label accent-amber">Live metrics unavailable</p>
+          <p className="mt-2 text-slate-200">Dashboard statistics will appear when live attendance, assessment, and billing feeds are available.</p>
+        </div>
+      )}
     </div>
   );
 }

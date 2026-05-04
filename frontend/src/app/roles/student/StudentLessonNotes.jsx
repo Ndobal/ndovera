@@ -47,6 +47,12 @@ export default function StudentLessonNotes() {
                 </div>
               </article>
             ))}
+            {filteredNotes.length === 0 && (
+              <div className="rounded-3xl border border-dashed border-white/10 bg-slate-900/20 p-5 text-center md:col-span-2 xl:col-span-3">
+                <p className="micro-label accent-amber">No live notes</p>
+                <p className="mt-2 text-sm text-slate-300">Lesson notes will appear here when teachers upload real materials for your subjects.</p>
+              </div>
+            )}
           </div>
         )}
 
@@ -64,6 +70,12 @@ export default function StudentLessonNotes() {
                 </div>
               </div>
             ))}
+            {filteredVideos.length === 0 && (
+              <div className="rounded-3xl border border-dashed border-white/10 bg-slate-900/20 p-5 text-center">
+                <p className="micro-label accent-amber">No live videos</p>
+                <p className="mt-2 text-sm text-slate-300">Teacher-uploaded video lessons will appear here when available.</p>
+              </div>
+            )}
           </div>
         )}
       </section>

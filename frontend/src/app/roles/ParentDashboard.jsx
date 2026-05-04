@@ -30,7 +30,7 @@ export default function ParentDashboard() {
       sectionTitle={section.title}
       sectionSubtitle={section.subtitle}
       watermark={parentConfig.watermark}
-      metricCards={section.cards || []}
+      metricCards={[]}
       infoCards={section.panels || []}
     />
   );

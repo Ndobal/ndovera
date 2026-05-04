@@ -35,6 +35,13 @@ export default function RoleSectionPage({
         </div>
       )}
 
+      {metricCards.length === 0 && (
+        <section className="glass-surface rounded-3xl p-5 mb-6">
+          <p className="micro-label accent-amber">Live metrics unavailable</p>
+          <p className="mt-2 text-slate-300">This section no longer shows fabricated dashboard totals. Live metrics will appear once the connected service is available.</p>
+        </section>
+      )}
+
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
         {infoCards.map(card => (
           <section key={card.title} className="glass-surface rounded-3xl p-6">

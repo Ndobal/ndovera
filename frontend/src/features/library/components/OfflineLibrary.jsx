@@ -14,8 +14,12 @@ export default function OfflineLibrary({ schoolId, userId }) {
   }, [schoolId]);
 
   const handleRequest = async (item) => {
-    const req = await requestOfflineBook({ physicalId: item.id, userId, pickupDate: pickupDate || new Date().toISOString().slice(0,10) });
-    alert(`Request submitted: ${req.requestId}`);
+    try {
+      const req = await requestOfflineBook({ physicalId: item.id, userId, pickupDate: pickupDate || new Date().toISOString().slice(0,10) });
+      alert(`Request submitted: ${req.requestId}`);
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
   return (
@@ -41,6 +45,13 @@ export default function OfflineLibrary({ schoolId, userId }) {
           </div>
         ))}
       </div>
+
+      {inventory.length === 0 && (
+        <div className="rounded-xl border border-dashed border-white/10 p-5 bg-slate-900/20 text-center">
+          <p className="micro-label accent-amber">No offline inventory</p>
+          <p className="mt-2 text-sm text-slate-300">Physical library inventory is not yet connected for this school.</p>
+        </div>
+      )}
 
       {selected && (
         <div className="rounded-xl p-4 border border-white/10 bg-slate-900/30">

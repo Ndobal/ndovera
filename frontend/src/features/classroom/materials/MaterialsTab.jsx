@@ -44,7 +44,7 @@ export default function MaterialsTab() {
         <input value={materialsQuery} onChange={event => setMaterialsQuery(event.target.value)} className="w-full rounded-2xl bg-slate-900/30 border border-white/10 px-4 py-2 text-slate-100" placeholder="Search notes, videos, images" />
 
         <div className="space-y-3">
-          {materialRows.map(item => (
+          {materialRows.length > 0 ? materialRows.map(item => (
             <article key={item.id} className="rounded-2xl border border-white/10 bg-slate-900/30 p-4 space-y-2">
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <p className="text-slate-100 font-semibold">{item.title}</p>
@@ -77,7 +77,12 @@ export default function MaterialsTab() {
                 </>
               )}
             </article>
-          ))}
+          )) : (
+            <div className="rounded-2xl border border-dashed border-white/10 bg-slate-900/20 p-5 text-center">
+              <p className="micro-label accent-amber">No materials published</p>
+              <p className="mt-2 text-sm text-slate-300">Teacher-uploaded notes, videos, and images will appear here once live classroom content is available.</p>
+            </div>
+          )}
         </div>
       </section>
     </div>

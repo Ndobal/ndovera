@@ -19,7 +19,7 @@ export default function AccountantDashboard() {
       sectionTitle={section.title}
       sectionSubtitle={section.subtitle}
       watermark={accountantConfig.watermark}
-      metricCards={section.cards || []}
+      metricCards={[]}
       infoCards={section.panels || []}
     />
   );

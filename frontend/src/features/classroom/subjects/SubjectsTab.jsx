@@ -8,6 +8,15 @@ export default function SubjectsTab() {
 
   const selectedSubject = useMemo(() => subjects.find(item => item.id === activeSubjectId) || null, [activeSubjectId]);
 
+  if (subjects.length === 0) {
+    return (
+      <div className="glass-surface rounded-3xl p-5 text-center">
+        <p className="micro-label accent-amber">No live subjects</p>
+        <p className="mt-2 text-slate-300">Subject dashboards will appear here after this classroom is linked to live timetable and roster data.</p>
+      </div>
+    );
+  }
+
   if (!selectedSubject) {
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">

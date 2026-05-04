@@ -1,11 +1,6 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import StudentSectionShell from './StudentSectionShell';
 
-// fallback sample (used when backend not reachable)
-const sampleRecords = [
-  { date: new Date().toISOString().slice(0,10), status: 'Present', reason: null },
-];
-
 function stateScore(state) {
   if (!state) return 0;
   const s = state.toLowerCase();
@@ -40,7 +35,7 @@ export default function StudentAttendance() {
   const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState(null); // selected day detail
 
-  const studentId = localStorage.getItem('userId') || 'student-demo';
+  const studentId = localStorage.getItem('userId') || 'current_student';
 
   useEffect(() => {
     let mounted = true;
@@ -55,8 +50,7 @@ export default function StudentAttendance() {
           setRecords(rows);
         }
       } catch (err) {
-        // fallback to sample
-        setRecords(sampleRecords.map(r => ({ id: null, date: r.date, status: r.status, reason: r.reason })));
+        setRecords([]);
       } finally {
         if (mounted) setLoading(false);
       }
@@ -166,6 +160,12 @@ export default function StudentAttendance() {
               </div>
             );
           })}
+          {records.length === 0 && (
+            <div className="rounded-2xl border border-dashed border-white/10 p-4 bg-slate-900/20 text-center">
+              <p className="micro-label accent-amber">No live attendance records</p>
+              <p className="mt-2 text-sm text-slate-300">Attendance history will appear here once your school syncs student attendance data.</p>
+            </div>
+          )}
         </div>
 
         {/* modal/drill-down */}

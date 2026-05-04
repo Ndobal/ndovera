@@ -25,7 +25,7 @@ export default function AmiDashboard() {
       sectionTitle={section.title}
       sectionSubtitle={section.subtitle}
       watermark={roleConfig.watermark}
-      metricCards={section.cards || []}
+      metricCards={[]}
       infoCards={section.panels || []}
     />
   );

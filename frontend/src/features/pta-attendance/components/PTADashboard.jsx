@@ -9,6 +9,7 @@ export const PTADashboard = () => {
 
   // Calculate meeting attendance
   const meetingAttendees = useMemo(() => {
+    if (!selectedMeeting) return [];
     const records = ptaAttendanceRecords.filter(r => r.meetingId === selectedMeeting.id);
 
     return ptaParticipants.map(parent => {
@@ -58,6 +59,19 @@ export const PTADashboard = () => {
   // Get all upcoming meetings
   const upcomingMeetings = ptaMeetings.filter(m => m.status !== 'completed');
   const completedMeetings = ptaMeetings.filter(m => m.status === 'completed');
+
+  if (!selectedMeeting) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-6">
+        <div className="max-w-5xl mx-auto">
+          <div className="glass-surface rounded-2xl p-6 border border-white/10 text-center">
+            <p className="micro-label accent-amber">No live PTA data</p>
+            <p className="mt-2 text-slate-300">PTA meetings and attendance dashboards will appear here when real parent records are connected.</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-6">

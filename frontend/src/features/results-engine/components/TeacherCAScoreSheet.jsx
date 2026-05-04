@@ -149,6 +149,12 @@ export default function TeacherCAScoreSheet() {
               </div>
             </div>
           ))}
+          {sheet.students.length === 0 && (
+            <div className="rounded-2xl border border-dashed border-white/10 p-5 text-center bg-slate-900/20">
+              <p className="micro-label accent-amber">No live result sheet</p>
+              <p className="mt-2 text-sm text-slate-300">Student score rows will appear here after a real class roster and assessments are synced.</p>
+            </div>
+          )}
         </div>
       </section>
 

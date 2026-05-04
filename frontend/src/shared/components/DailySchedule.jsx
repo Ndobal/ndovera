@@ -1,14 +1,9 @@
 import React from 'react';
 import { SparklesIcon, CalendarDaysIcon, BookOpenIcon, AcademicCapIcon } from '@heroicons/react/24/outline';
 
-const schedule = [
-  { time: '08:00 AM', subject: 'Mathematics', type: 'Live Class', icon: AcademicCapIcon, color: 'emerald' },
-  { time: '10:00 AM', subject: 'Biology', type: 'Lab Session', icon: SparklesIcon, color: 'blue' },
-  { time: '01:00 PM', subject: 'English', type: 'Lecture', icon: BookOpenIcon, color: 'yellow' },
-  { time: '03:00 PM', subject: 'Study Group', type: 'Meeting', icon: CalendarDaysIcon, color: 'purple' },
-];
-
 export default function DailySchedule() {
+  const schedule = [];
+
   return (
     <div className="bg-white glass-surface p-6 rounded-3xl shadow-sm border border-slate-100 mt-6 flex flex-col transition-all duration-300">
       <div className="flex justify-between items-center mb-6">
@@ -24,7 +19,7 @@ export default function DailySchedule() {
         <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-slate-100"></div>
 
         <div className="space-y-6 relative z-10">
-          {schedule.map((item, index) => (
+          {schedule.length > 0 ? schedule.map((item, index) => (
             <div key={index} className="flex gap-4">
               <div className={`w-8 h-8 rounded-full bg-${item.color}-100 flex items-center justify-center flex-shrink-0 border-2 border-white shadow-sm`}>
                 <item.icon className={`w-4 h-4 text-${item.color}-600`} />
@@ -42,7 +37,12 @@ export default function DailySchedule() {
                 </div>
               </div>
             </div>
-          ))}
+          )) : (
+            <div className="rounded-2xl border border-dashed border-white/10 bg-slate-900/20 p-4 text-center">
+              <p className="micro-label accent-amber">No timetable loaded</p>
+              <p className="mt-2 text-sm text-slate-300">Today&apos;s schedule will show here when a live timetable feed is available.</p>
+            </div>
+          )}
         </div>
       </div>
       

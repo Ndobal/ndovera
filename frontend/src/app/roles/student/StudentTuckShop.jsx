@@ -53,7 +53,7 @@ export default function StudentTuckShop() {
 
   // Weekly history
   const [history, setHistory] = useState([]);
-  const studentId = localStorage.getItem('userId') || 'student-demo';
+  const studentId = localStorage.getItem('userId') || 'current_student';
 
   useEffect(() => {
     let mounted = true;

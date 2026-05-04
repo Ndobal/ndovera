@@ -36,7 +36,7 @@ export default function OwnerDashboard({ auth = null }) {
           sectionTitle={section.title}
           sectionSubtitle={section.subtitle}
           watermark={ownerConfig.watermark}
-          metricCards={section.cards || []}
+          metricCards={[]}
           infoCards={section.panels || []}
         />
         <div className="mt-8">
@@ -52,7 +52,7 @@ export default function OwnerDashboard({ auth = null }) {
       sectionTitle={section.title}
       sectionSubtitle={section.subtitle}
       watermark={ownerConfig.watermark}
-      metricCards={section.cards || []}
+      metricCards={[]}
       infoCards={section.panels || []}
     />
   );

@@ -24,7 +24,7 @@ export default function HoSDashboard() {
       sectionTitle={section.title}
       sectionSubtitle={section.subtitle}
       watermark={hosConfig.watermark}
-      metricCards={section.cards || []}
+      metricCards={[]}
       infoCards={section.panels || []}
     />
   );

@@ -59,26 +59,7 @@ export default function PerformanceChart() {
     }
   };
 
-  const data = {
-    labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6'],
-    datasets: [
-      {
-        label: 'Average Score (%)',
-        data: [75, 82, 78, 85, 89, 92],
-        borderColor: '#10b981', // emerald-500
-        backgroundColor: 'rgba(16, 185, 129, 0.1)',
-        fill: true,
-      },
-      {
-        label: 'Class Average (%)',
-        data: [70, 72, 75, 74, 78, 80],
-        borderColor: '#64748b', // slate-500
-        backgroundColor: 'transparent',
-        borderDash: [5, 5],
-        fill: false,
-      }
-    ],
-  };
+  const data = null;
 
   return (
     <div className="bg-white glass-surface p-6 rounded-3xl shadow-sm border border-slate-100 flex flex-col h-full transition-all duration-300">
@@ -94,7 +75,16 @@ export default function PerformanceChart() {
         </select>
       </div>
       <div className="relative flex-grow min-h-[250px]">
-        <Line options={options} data={data} />
+        {data ? (
+          <Line options={options} data={data} />
+        ) : (
+          <div className="flex h-full items-center justify-center rounded-2xl border border-dashed border-white/10 bg-slate-900/20 p-6 text-center">
+            <div>
+              <p className="micro-label accent-amber">No performance trend</p>
+              <p className="mt-2 text-sm text-slate-300">Performance analytics will render here after real assessment results are published.</p>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

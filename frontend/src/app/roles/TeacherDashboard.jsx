@@ -34,7 +34,7 @@ export default function TeacherDashboard() {
       sectionTitle={section.title}
       sectionSubtitle={section.subtitle}
       watermark={teacherConfig.watermark}
-      metricCards={section.cards || []}
+      metricCards={[]}
       infoCards={section.panels || []}
     />
   );

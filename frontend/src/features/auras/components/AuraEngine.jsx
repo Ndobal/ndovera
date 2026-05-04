@@ -13,13 +13,11 @@ import TransactionLog from './TransactionLog';
  */
 export default function AuraEngine() {
   const [activeTab, setActiveTab] = useState('balance');
-
-  // Mock user data - replace with actual user context
-  const currentUser = {
-    id: 'STF-001',
-    name: 'Jane Williams',
-    role: 'teacher',
-  };
+  const currentUser = useMemo(() => ({
+    id: localStorage.getItem('userId') || 'current_user',
+    name: localStorage.getItem('userName') || 'Current User',
+    role: localStorage.getItem('role') || 'teacher',
+  }), []);
 
   const tabs = useMemo(() => {
     const baseTabs = [

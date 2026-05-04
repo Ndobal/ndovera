@@ -168,6 +168,12 @@ export default function StudentAssignments() {
                   <span className="glass-chip px-3 py-1 rounded-full micro-label accent-amber">New</span>
                 </Link>
               ))}
+              {assignments.newAssignments.length === 0 && (
+                <div className="rounded-2xl border border-dashed border-white/10 p-4 bg-slate-900/20 text-center">
+                  <p className="micro-label accent-amber">No live assignments</p>
+                  <p className="mt-2 text-sm text-slate-300">New assignments will appear here once teachers publish them.</p>
+                </div>
+              )}
             </div>
           </section>
 
@@ -190,6 +196,12 @@ export default function StudentAssignments() {
                   </div>
                 </div>
               ))}
+              {assignments.oldByWeek.length === 0 && (
+                <div className="rounded-2xl border border-dashed border-white/10 p-4 bg-slate-900/20 text-center">
+                  <p className="micro-label accent-amber">No archived assignments</p>
+                  <p className="mt-2 text-sm text-slate-300">Reviewed assignment history will appear here after live submissions are marked.</p>
+                </div>
+              )}
             </div>
           </section>
         </div>

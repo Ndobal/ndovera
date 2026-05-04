@@ -3,10 +3,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import ptaAttendanceService from '../services/ptaAttendanceService';
 import { ptaMeetings, ptaParticipants, ptaAttendanceRecords } from '../data/ptaData';
 
-export const PTAQRScanner = ({ parentId = 'PARENT001' }) => {
+export const PTAQRScanner = ({ parentId = null }) => {
+  const resolvedParentId = parentId || localStorage.getItem('userId') || '';
   const [selectedMeeting, setSelectedMeeting] = useState(ptaMeetings[0]);
   const [currentParent] = useState(
-    ptaParticipants.find(p => p.id === parentId) || ptaParticipants[0]
+    ptaParticipants.find(p => p.id === resolvedParentId) || ptaParticipants[0]
   );
   const [showScanner, setShowScanner] = useState(false);
   const [qrInput, setQrInput] = useState('');
@@ -18,6 +19,10 @@ export const PTAQRScanner = ({ parentId = 'PARENT001' }) => {
 
   // Check if already marked for this meeting
   useEffect(() => {
+    if (!currentParent || !selectedMeeting) {
+      setMarked(false);
+      return;
+    }
     const alreadyMarked = ptaAttendanceRecords.some(
       r =>
         r.parentId === currentParent.id &&
@@ -83,14 +88,29 @@ export const PTAQRScanner = ({ parentId = 'PARENT001' }) => {
   };
 
   const upcomingMeetings = ptaMeetings.filter(m => m.status !== 'completed');
-  const attendedMeetings = ptaMeetings.filter(m =>
-    ptaAttendanceRecords.some(
-      r =>
-        r.parentId === currentParent.id &&
-        r.meetingId === m.id &&
-        r.status === 'Present'
-    )
-  );
+  const attendedMeetings = currentParent
+    ? ptaMeetings.filter(m =>
+        ptaAttendanceRecords.some(
+          r =>
+            r.parentId === currentParent.id &&
+            r.meetingId === m.id &&
+            r.status === 'Present'
+        )
+      )
+    : [];
+
+  if (!selectedMeeting || !currentParent) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-6">
+        <div className="max-w-5xl mx-auto">
+          <div className="glass-surface rounded-2xl p-6 border border-white/10 text-center">
+            <p className="micro-label accent-amber">No live PTA check-in data</p>
+            <p className="mt-2 text-slate-300">PTA QR attendance will appear here when live meetings and parent accounts are configured.</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-6">

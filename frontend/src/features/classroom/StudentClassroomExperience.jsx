@@ -14,8 +14,8 @@ import TeachersTab from './teachers';
 
 export default function StudentClassroomExperience() {
   const [activeTab, setActiveTab] = useState('stream');
-  const [auraBalance, setAuraBalance] = useState(320);
-  const shortClassName = liveSessionSeed.className.split(' - ')[0];
+  const [auraBalance, setAuraBalance] = useState(0);
+  const shortClassName = (liveSessionSeed.className || 'Live Classroom').split(' - ')[0];
 
   const renderActiveTab = () => {
     if (activeTab === 'stream') return <StreamTab />;

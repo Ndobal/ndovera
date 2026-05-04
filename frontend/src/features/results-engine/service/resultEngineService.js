@@ -1,39 +1,21 @@
 const STORAGE_KEY = 'ndovera.resultEngine.v1';
 
 const seedState = {
-  term: '2025/2026 • Term 2',
+  term: '',
   published: false,
   publishedAt: null,
   hosApproved: false,
   hosApprovedAt: null,
   hosApprovedBy: null,
   examWindow: {
-    armed: true,
+    armed: false,
     active: false,
-    incidents: 2,
-    autoSubmits: 1,
+    incidents: 0,
+    autoSubmits: 0,
   },
-  students: [
-    { id: 'stu-001', name: 'David N.', className: 'SS2 Gold', feeCleared: true },
-    { id: 'stu-002', name: 'Ada P.', className: 'SS2 Gold', feeCleared: true },
-    { id: 'stu-003', name: 'Musa K.', className: 'SS2 Gold', feeCleared: false },
-  ],
-  attendanceByStudent: {
-    'stu-001': 96,
-    'stu-002': 94,
-    'stu-003': 88,
-  },
-  scoreRows: [
-    { studentId: 'stu-001', subject: 'Mathematics', ca: 34, exam: 52 },
-    { studentId: 'stu-001', subject: 'English Language', ca: 31, exam: 50 },
-    { studentId: 'stu-001', subject: 'Biology', ca: 29, exam: 46 },
-    { studentId: 'stu-002', subject: 'Mathematics', ca: 36, exam: 55 },
-    { studentId: 'stu-002', subject: 'English Language', ca: 33, exam: 54 },
-    { studentId: 'stu-002', subject: 'Biology', ca: 31, exam: 48 },
-    { studentId: 'stu-003', subject: 'Mathematics', ca: 28, exam: 40 },
-    { studentId: 'stu-003', subject: 'English Language', ca: 26, exam: 42 },
-    { studentId: 'stu-003', subject: 'Biology', ca: 27, exam: 44 },
-  ],
+  students: [],
+  attendanceByStudent: {},
+  scoreRows: [],
 };
 
 function clamp(value, min, max) {
@@ -192,10 +174,10 @@ export function revokeHoSApproval() {
   return getResultEngineState();
 }
 
-export function getStudentResult(studentId = 'stu-001') {
+export function getStudentResult(studentId = 'current_student') {
   const state = getResultEngineState();
-  const student = state.students.find(item => item.id === studentId) || state.students[0];
-  const rows = state.scoreRows.filter(row => row.studentId === student.id);
+  const student = state.students.find(item => item.id === studentId) || state.students[0] || null;
+  const rows = student ? state.scoreRows.filter(row => row.studentId === student.id) : [];
   const average = rows.length ? Math.round(rows.reduce((sum, row) => sum + row.total, 0) / rows.length) : 0;
 
   return {
@@ -208,14 +190,14 @@ export function getStudentResult(studentId = 'stu-001') {
     hosApprovedBy: state.hosApprovedBy,
     rows,
     average,
-    attendanceRate: clamp(Number(state.attendanceByStudent[student.id]) || 0, 0, 100),
-    feeCleared: Boolean(student.feeCleared),
-    visibleToStudent: state.published && state.hosApproved,
-    lockedByFees: !student.feeCleared,
+    attendanceRate: student ? clamp(Number(state.attendanceByStudent[student.id]) || 0, 0, 100) : 0,
+    feeCleared: Boolean(student?.feeCleared),
+    visibleToStudent: Boolean(student) && state.published && state.hosApproved,
+    lockedByFees: Boolean(student) && !student.feeCleared,
   };
 }
 
-export function getParentResult(activeChildId = 'stu-001') {
+export function getParentResult(activeChildId = 'current_student') {
   return getStudentResult(activeChildId);
 }
 
@@ -295,16 +277,12 @@ export function getHoSResultAnalytics() {
 
 export function getOwnerResultAnalytics() {
   const hos = getHoSResultAnalytics();
-  const campuses = [
-    { name: 'Main Campus', average: hos.classAverage, passRate: hos.passRate, attendance: hos.attendanceAverage },
-    { name: 'Annex Campus', average: Math.max(hos.classAverage - 3, 0), passRate: Math.max(hos.passRate - 4, 0), attendance: Math.max(hos.attendanceAverage - 2, 0) },
-    { name: 'Junior Campus', average: Math.max(hos.classAverage - 1, 0), passRate: Math.max(hos.passRate - 2, 0), attendance: Math.max(hos.attendanceAverage - 1, 0) },
-  ];
+  const campuses = [];
 
   return {
     ...hos,
     campuses,
-    globalAverage: Math.round(campuses.reduce((sum, campus) => sum + campus.average, 0) / campuses.length),
-    globalPassRate: Math.round(campuses.reduce((sum, campus) => sum + campus.passRate, 0) / campuses.length),
+    globalAverage: 0,
+    globalPassRate: 0,
   };
 }

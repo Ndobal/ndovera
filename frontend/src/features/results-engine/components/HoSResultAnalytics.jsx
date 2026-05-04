@@ -78,6 +78,12 @@ export default function HoSResultAnalytics() {
               <div className="h-2 rounded-full bg-slate-700 overflow-hidden"><div className="h-full bg-indigo-400" style={{ width: `${subject.average}%` }} /></div>
             </div>
           ))}
+          {data.subjectPerformance.length === 0 && (
+            <div className="rounded-2xl border border-dashed border-white/10 bg-slate-900/20 p-5 text-center">
+              <p className="micro-label accent-amber">No subject analytics</p>
+              <p className="mt-2 text-sm text-slate-300">Subject performance will appear here once teachers upload and publish live scores.</p>
+            </div>
+          )}
         </div>
       </section>
 

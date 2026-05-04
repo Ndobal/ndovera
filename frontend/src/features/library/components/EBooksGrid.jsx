@@ -5,11 +5,14 @@ export default function EBooksGrid({ onOpenBook }) {
   const [books, setBooks] = useState([]);
   const [query, setQuery] = useState('');
   const [filters, setFilters] = useState({});
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     (async () => {
+      setLoading(true);
       const data = await fetchEbooks();
-      setBooks(data);
+      setBooks(Array.isArray(data) ? data : []);
+      setLoading(false);
     })();
   }, []);
 
@@ -58,6 +61,13 @@ export default function EBooksGrid({ onOpenBook }) {
           </div>
         ))}
       </div>
+
+      {!loading && filtered.length === 0 && (
+        <div className="rounded-2xl border border-dashed border-white/10 p-5 text-center bg-slate-900/20">
+          <p className="micro-label accent-amber">No live books</p>
+          <p className="mt-2 text-sm text-slate-300">The e-book catalog will appear here once approved library records are available.</p>
+        </div>
+      )}
     </div>
   );
 }

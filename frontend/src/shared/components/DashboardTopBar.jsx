@@ -12,12 +12,12 @@ import UserProfileDropdown from './UserProfileDropdown';
 import { getHeaderBarData } from '../../services/headerBarService';
 
 const roleHeaderStats = {
-  student: { notifications: 4, chats: 3, auras: 320 },
-  parent: { notifications: 5, chats: 2, auras: 580 },
-  teacher: { notifications: 7, chats: 8, auras: 1240 },
-  hos: { notifications: 6, chats: 5, auras: 2640 },
-  accountant: { notifications: 3, chats: 1, auras: 910 },
-  owner: { notifications: 9, chats: 4, auras: 5210 },
+  student: { notifications: 0, chats: 0, auras: 0 },
+  parent: { notifications: 0, chats: 0, auras: 0 },
+  teacher: { notifications: 0, chats: 0, auras: 0 },
+  hos: { notifications: 0, chats: 0, auras: 0 },
+  accountant: { notifications: 0, chats: 0, auras: 0 },
+  owner: { notifications: 0, chats: 0, auras: 0 },
 };
 
 export default function DashboardTopBar({ authUser = null, onLogout = () => {} }) {
@@ -29,7 +29,7 @@ export default function DashboardTopBar({ authUser = null, onLogout = () => {} }
     : 'student';
 
   const baseStats = useMemo(
-    () => roleHeaderStats[roleKey] || { notifications: 2, chats: 1, auras: 450 },
+    () => roleHeaderStats[roleKey] || { notifications: 0, chats: 0, auras: 0 },
     [roleKey]
   );
 

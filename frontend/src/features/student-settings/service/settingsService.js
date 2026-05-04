@@ -3,8 +3,8 @@ import { getApiUrl } from '../../../config/apiBase';
 const STORAGE_KEY = 'ndovera.student.settings.v1';
 
 const seed = {
-  profile: { id: 'stu-001', name: 'David N.', avatar: '', email: 'david@example.com' },
-  password: 'password123',
+  profile: { id: '', name: '', avatar: '', email: '' },
+  password: '',
   devices: [],
   theme: 'system',
   language: 'en',
@@ -16,7 +16,14 @@ function localLoad() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return { ...seed };
-    return { ...seed, ...JSON.parse(raw) };
+    const state = JSON.parse(raw);
+    return {
+      ...seed,
+      ...state,
+      profile: { ...seed.profile, ...(state.profile || {}) },
+      notifications: { ...seed.notifications, ...(state.notifications || {}) },
+      privacy: { ...seed.privacy, ...(state.privacy || {}) },
+    };
   } catch {
     return { ...seed };
   }
@@ -44,7 +51,7 @@ function auditUrl(studentId) {
   return getApiUrl(`/api/settings/${studentId}/audit`);
 }
 
-export async function getSettings(studentId = 'stu-001') {
+export async function getSettings(studentId = 'current_student') {
   try {
     const data = await fetchJSON(settingsUrl(studentId));
     if (data) return data;
@@ -63,7 +70,7 @@ async function saveSettingsToBackend(studentId, state) {
   }
 }
 
-export async function updateProfile(nextProfile, studentId = 'stu-001') {
+export async function updateProfile(nextProfile, studentId = 'current_student') {
   const state = localLoad();
   state.profile = { ...state.profile, ...nextProfile };
   localSave(state);
@@ -72,7 +79,7 @@ export async function updateProfile(nextProfile, studentId = 'stu-001') {
   return state.profile;
 }
 
-export async function changePassword({ current, next }, studentId = 'stu-001') {
+export async function changePassword({ current, next }, studentId = 'current_student') {
   const state = localLoad();
   if (String(current) !== String(state.password)) {
     throw new Error('Current password does not match');
@@ -84,12 +91,12 @@ export async function changePassword({ current, next }, studentId = 'stu-001') {
   return true;
 }
 
-export async function listDevices(studentId = 'stu-001') {
+export async function listDevices(studentId = 'current_student') {
   const state = localLoad();
   return state.devices || [];
 }
 
-export async function addDevice(device, studentId = 'stu-001') {
+export async function addDevice(device, studentId = 'current_student') {
   const state = localLoad();
   const next = { id: `dev-${Date.now()}`, ...device, lastSeen: new Date().toISOString() };
   state.devices = [next, ...(state.devices || [])];
@@ -99,7 +106,7 @@ export async function addDevice(device, studentId = 'stu-001') {
   return state.devices;
 }
 
-export async function removeDevice(id, studentId = 'stu-001') {
+export async function removeDevice(id, studentId = 'current_student') {
   const state = localLoad();
   state.devices = (state.devices || []).filter(d => d.id !== id);
   localSave(state);
@@ -108,7 +115,7 @@ export async function removeDevice(id, studentId = 'stu-001') {
   return state.devices;
 }
 
-export async function setTheme(theme, studentId = 'stu-001') {
+export async function setTheme(theme, studentId = 'current_student') {
   const state = localLoad();
   state.theme = theme;
   localSave(state);
@@ -117,7 +124,7 @@ export async function setTheme(theme, studentId = 'stu-001') {
   return state.theme;
 }
 
-export async function setLanguage(code, studentId = 'stu-001') {
+export async function setLanguage(code, studentId = 'current_student') {
   const state = localLoad();
   state.language = code;
   localSave(state);
@@ -126,7 +133,7 @@ export async function setLanguage(code, studentId = 'stu-001') {
   return state.language;
 }
 
-export async function setNotifications(next, studentId = 'stu-001') {
+export async function setNotifications(next, studentId = 'current_student') {
   const state = localLoad();
   state.notifications = { ...state.notifications, ...next };
   localSave(state);
@@ -135,7 +142,7 @@ export async function setNotifications(next, studentId = 'stu-001') {
   return state.notifications;
 }
 
-export async function blockUser(id, studentId = 'stu-001') {
+export async function blockUser(id, studentId = 'current_student') {
   const state = localLoad();
   state.privacy = state.privacy || { blocked: [] };
   if (!state.privacy.blocked.includes(id)) state.privacy.blocked.push(id);
@@ -145,7 +152,7 @@ export async function blockUser(id, studentId = 'stu-001') {
   return state.privacy.blocked;
 }
 
-export async function unblockUser(id, studentId = 'stu-001') {
+export async function unblockUser(id, studentId = 'current_student') {
   const state = localLoad();
   state.privacy = state.privacy || { blocked: [] };
   state.privacy.blocked = state.privacy.blocked.filter(x => x !== id);
@@ -165,7 +172,7 @@ export async function addAuditEntry(studentId, payload) {
   }
 }
 
-export async function getAuditLog(studentId = 'stu-001') {
+export async function getAuditLog(studentId = 'current_student') {
   try {
     const res = await fetch(auditUrl(studentId), { headers: { Authorization: (window.__dev_token__ || '') } });
     if (!res.ok) throw new Error('audit-fetch');

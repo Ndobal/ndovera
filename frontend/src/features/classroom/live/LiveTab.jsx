@@ -2,14 +2,24 @@ import React, { useState } from 'react';
 import { liveSessionSeed } from '../data/classroomData';
 
 export default function LiveTab() {
+  const currentUserName = localStorage.getItem('userName') || 'Current Student';
   const [liveActive, setLiveActive] = useState(false);
   const [permissionPopupOpen, setPermissionPopupOpen] = useState(false);
   const [cameraAllowed, setCameraAllowed] = useState(true);
   const [micAllowed, setMicAllowed] = useState(true);
   const [chatInput, setChatInput] = useState('');
-  const [liveChats, setLiveChats] = useState(liveSessionSeed.chats);
+  const [liveChats, setLiveChats] = useState(liveSessionSeed.chats || []);
   const [livePanel, setLivePanel] = useState('chat');
   const [raisedHand, setRaisedHand] = useState(false);
+
+  if (!liveSessionSeed.sessionTitle) {
+    return (
+      <section className="glass-surface rounded-3xl p-5 text-center">
+        <p className="micro-label accent-amber">No live session scheduled</p>
+        <p className="mt-2 text-slate-300">Live class information will appear here when a teacher starts or schedules a real session.</p>
+      </section>
+    );
+  }
 
   const requestLivePermissions = () => setPermissionPopupOpen(true);
   const confirmPermissions = () => {
@@ -20,7 +30,7 @@ export default function LiveTab() {
   const sendLiveChat = () => {
     const message = chatInput.trim();
     if (!message) return;
-    setLiveChats(prev => [...prev, { id: `l-c-${Date.now()}`, user: 'David N.', text: message, time: 'Now' }]);
+    setLiveChats(prev => [...prev, { id: `l-c-${Date.now()}`, user: currentUserName, text: message, time: 'Now' }]);
     setChatInput('');
   };
 

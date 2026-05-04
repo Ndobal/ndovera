@@ -47,6 +47,17 @@ export default function AssignmentsTab() {
     createTextDownload('assignment-analytics.csv', content);
   };
 
+  const hasAssignments = assignmentData.normal.length > 0 || assignmentData.quiz.questions.length > 0 || assignmentData.matching.pairs.length > 0;
+
+  if (!hasAssignments) {
+    return (
+      <section className="glass-surface rounded-3xl p-5 text-center">
+        <p className="micro-label accent-amber">No live assignments</p>
+        <p className="mt-2 text-slate-300">Assignments will appear here when teachers publish real classwork and assessments.</p>
+      </section>
+    );
+  }
+
   return (
     <div className="space-y-4">
       <section className="glass-surface rounded-3xl p-5 space-y-3">

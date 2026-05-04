@@ -1,14 +1,9 @@
 import React from 'react';
 import { ChartPieIcon, CheckCircleIcon, ClockIcon, XCircleIcon } from '@heroicons/react/24/solid';
 
-const tasks = [
-  { id: 1, title: 'Math Assignment 4', course: 'Mathematics 101', due: 'Today, 11:59 PM', status: 'pending', icon: ClockIcon, color: 'text-amber-500', bg: 'bg-amber-50' },
-  { id: 2, title: 'Physics Lab Report', course: 'Physics 202', due: 'Tomorrow, 5:00 PM', status: 'pending', icon: ClockIcon, color: 'text-amber-500', bg: 'bg-amber-50' },
-  { id: 3, title: 'History Essay', course: 'History 105', due: 'Completed', status: 'done', icon: CheckCircleIcon, color: 'text-emerald-500', bg: 'bg-emerald-50' },
-  { id: 4, title: 'Chemistry Quiz', course: 'Chemistry 101', due: 'Missed', status: 'missed', icon: XCircleIcon, color: 'text-red-500', bg: 'bg-red-50' },
-];
-
 export default function UpcomingTasks() {
+  const tasks = [];
+
   return (
     <div className="bg-white glass-surface p-6 rounded-3xl shadow-sm border border-slate-100 flex flex-col h-full transition-all duration-300">
       <div className="flex justify-between items-center mb-4">
@@ -20,7 +15,7 @@ export default function UpcomingTasks() {
       </div>
       
       <div className="space-y-4">
-        {tasks.map(task => (
+        {tasks.length > 0 ? tasks.map(task => (
           <div key={task.id} className="flex items-start gap-4 p-3 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/35 transition-colors border border-transparent hover:border-slate-100 dark:hover:border-cyan-300/20">
             <div className={`p-2 rounded-full ${task.bg}`}>
               <task.icon className={`w-5 h-5 ${task.color}`} />
@@ -35,7 +30,12 @@ export default function UpcomingTasks() {
               </span>
             </div>
           </div>
-        ))}
+        )) : (
+          <div className="rounded-2xl border border-dashed border-white/10 bg-slate-900/20 p-4 text-center">
+            <p className="micro-label accent-amber">No live tasks</p>
+            <p className="mt-2 text-sm text-slate-300">Upcoming assignments will appear here once your classrooms publish live work.</p>
+          </div>
+        )}
       </div>
     </div>
   );

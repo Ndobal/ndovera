@@ -107,7 +107,7 @@ function TeacherMessaging() {
   function createConversationForGroup(selectedGroup) {
     // map groups to participant ids (simplified demo mapping)
     let participants = [];
-    if (selectedGroup === 'class') participants = ['teacher-1','student-demo','student-2'];
+    if (selectedGroup === 'class') participants = ['teacher-1', 'student-1', 'student-2'];
     if (selectedGroup === 'parents') participants = ['teacher-1','parent-1','parent-2'];
     if (selectedGroup === 'staff') participants = ['teacher-1','admin-1','owner-1'];
 

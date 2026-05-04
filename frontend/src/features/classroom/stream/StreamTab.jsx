@@ -5,10 +5,11 @@ import { createTextDownload, getRoleAccent } from '../shared/classroomHelpers';
 const reactionIcons = ['👍', '❤️', '🔥', '📚'];
 
 export default function StreamTab() {
-  const [postType, setPostType] = useState(streamPostTypes[0]);
+  const currentUserName = localStorage.getItem('userName') || 'Current Student';
+  const [postType, setPostType] = useState(streamPostTypes[0] || '');
   const [postContent, setPostContent] = useState('');
   const [postAttachments, setPostAttachments] = useState([]);
-  const [posts, setPosts] = useState(streamPostsSeed);
+  const [posts, setPosts] = useState(streamPostsSeed || []);
   const [studentMuted, setStudentMuted] = useState(false);
   const [replyDrafts, setReplyDrafts] = useState({});
   const [commentDrafts, setCommentDrafts] = useState({});
@@ -31,12 +32,12 @@ export default function StreamTab() {
     const content = postContent.trim();
     if (!content || studentMuted) return;
 
-    setPosts(prev => ([...prev, {
-      id: `post-${Date.now()}`,
-      type: postType,
-      author: 'David N.',
-      role: 'Student',
-      time: 'Now',
+      setPosts(prev => ([...prev, {
+        id: `post-${Date.now()}`,
+        type: postType,
+        author: currentUserName,
+        role: 'Student',
+        time: 'Now',
       pinned: false,
       locked: false,
       content,
@@ -75,7 +76,7 @@ export default function StreamTab() {
           ...post.comments,
           {
             id: `${postId}-c-${Date.now()}`,
-            user: 'David N.',
+            user: currentUserName,
             role: 'Student',
             text,
             time: 'Now',
@@ -103,7 +104,7 @@ export default function StreamTab() {
             ...comment,
             replies: [
               ...comment.replies,
-              { id: `${commentId}-r-${Date.now()}`, user: 'David N.', role: 'Student', text, time: 'Now' },
+              { id: `${commentId}-r-${Date.now()}`, user: currentUserName, role: 'Student', text, time: 'Now' },
             ],
           }
         )),
@@ -146,7 +147,7 @@ export default function StreamTab() {
       </section>
 
       <div className="flex-1 overflow-y-auto overflow-x-hidden py-4 pr-1 pb-40 space-y-4">
-        {posts.map(post => (
+        {posts.length > 0 ? posts.map(post => (
           <article key={post.id} className="glass-surface rounded-3xl p-5 space-y-4 overflow-hidden">
             <div className="flex flex-wrap justify-between gap-3">
               <div>
@@ -218,7 +219,12 @@ export default function StreamTab() {
               </div>
             )}
           </article>
-        ))}
+        )) : (
+          <div className="rounded-2xl border border-dashed border-white/10 bg-slate-900/20 p-5 text-center">
+            <p className="micro-label accent-amber">No live stream posts</p>
+            <p className="mt-2 text-sm text-slate-300">Announcements and classroom discussions will appear here when teachers publish them.</p>
+          </div>
+        )}
         <div ref={bottomAnchorRef} />
       </div>
 

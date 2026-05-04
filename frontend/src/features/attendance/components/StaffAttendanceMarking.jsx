@@ -19,6 +19,19 @@ export const StaffAttendanceMarking = ({
   );
   const [todayMarked, setTodayMarked] = useState(false);
 
+  if (!selectedStaff) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-6">
+        <div className="max-w-4xl mx-auto">
+          <div className="glass-surface rounded-2xl p-6 border border-white/10 text-center">
+            <p className="micro-label accent-amber">No staff roster</p>
+            <p className="mt-2 text-slate-300">Attendance marking is disabled until live staff records are available for this tenant.</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   const markingMethods = [
     {
       id: 'facial',

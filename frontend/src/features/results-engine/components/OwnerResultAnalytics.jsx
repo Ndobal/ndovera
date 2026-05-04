@@ -42,6 +42,12 @@ export default function OwnerResultAnalytics() {
               <p className="text-sm text-slate-300">Attendance: {campus.attendance}%</p>
             </div>
           ))}
+          {data.campuses.length === 0 && (
+            <div className="rounded-2xl border border-dashed border-white/10 p-5 bg-slate-900/20 text-center md:col-span-3">
+              <p className="micro-label accent-amber">No campus roll-up</p>
+              <p className="mt-2 text-sm text-slate-300">Cross-campus analytics will appear here once multiple live school result feeds are connected.</p>
+            </div>
+          )}
         </div>
       </section>
 

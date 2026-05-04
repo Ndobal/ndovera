@@ -10,6 +10,7 @@ import SessionSummary from './components/SessionSummary';
  * Pixel-perfect, calm, academic design with exam-grade security
  */
 export default function PracticeTab({ auraBalance = 0, setAuraBalance = () => {} }) {
+  const hasPracticeContent = (practice.questions || []).length > 0;
   const [view, setView] = useState('dashboard'); // 'dashboard' | 'session' | 'summary'
   const [selectedTopic, setSelectedTopic] = useState(null);
   const [aiPrompt, setAiPrompt] = useState('');
@@ -136,6 +137,15 @@ export default function PracticeTab({ auraBalance = 0, setAuraBalance = () => {}
   // Weak areas warning
   const weakAreas = engine.getWeakAreas();
   const shouldEnforceWeakAreas = weakAreas.length > 0;
+
+  if (!hasPracticeContent) {
+    return (
+      <section className="glass-surface rounded-3xl p-5 text-center">
+        <p className="micro-label accent-amber">No live practice sets</p>
+        <p className="mt-2 text-slate-300">Practice drills will appear here after teachers publish real question banks for this class.</p>
+      </section>
+    );
+  }
 
   return (
     <div className="space-y-6">

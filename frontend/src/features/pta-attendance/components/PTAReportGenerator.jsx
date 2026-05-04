@@ -10,6 +10,19 @@ export const PTAReportGenerator = () => {
   const [generating, setGenerating] = useState(false);
   const [generatedReport, setGeneratedReport] = useState(null);
 
+  if (ptaMeetings.length === 0) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-6">
+        <div className="max-w-5xl mx-auto">
+          <div className="glass-surface rounded-2xl p-6 border border-white/10 text-center">
+            <p className="micro-label accent-amber">No live PTA reports</p>
+            <p className="mt-2 text-slate-300">Report generation will appear here when PTA meetings and attendance records are available.</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   const handleToggleMeeting = (meetingId) => {
     setSelectedMeetings(prev =>
       prev.includes(meetingId)
@@ -29,8 +42,7 @@ export const PTAReportGenerator = () => {
   const generateReport = async () => {
     setGenerating(true);
 
-    // Simulate report generation
-    const generatedData = {
+      const generatedData = {
       type: reportType,
       dateRange,
       format,
@@ -79,10 +91,8 @@ export const PTAReportGenerator = () => {
       },
     };
 
-    setTimeout(() => {
-      setGeneratedReport(generatedData);
-      setGenerating(false);
-    }, 1500);
+    setGeneratedReport(generatedData);
+    setGenerating(false);
   };
 
   const downloadReport = () => {
