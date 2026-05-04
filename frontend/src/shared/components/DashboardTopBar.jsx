@@ -3,7 +3,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import {
   BellIcon,
   ChatBubbleLeftRightIcon,
-  SparklesIcon,
   XMarkIcon,
 } from '@heroicons/react/24/outline';
 import RoleSwitcher from './RoleSwitcher';
@@ -33,7 +32,6 @@ export default function DashboardTopBar({ authUser = null, onLogout = () => {} }
     [roleKey]
   );
 
-  const [auras, setAuras] = useState(baseStats.auras);
   const [chatsCount, setChatsCount] = useState(baseStats.chats);
   const [notificationsCount, setNotificationsCount] = useState(baseStats.notifications);
   const [chatItems, setChatItems] = useState([]);
@@ -41,7 +39,6 @@ export default function DashboardTopBar({ authUser = null, onLogout = () => {} }
   const [activePanel, setActivePanel] = useState(null);
 
   useEffect(() => {
-    setAuras(baseStats.auras);
     setChatsCount(baseStats.chats);
     setNotificationsCount(baseStats.notifications);
   }, [baseStats]);
@@ -52,7 +49,6 @@ export default function DashboardTopBar({ authUser = null, onLogout = () => {} }
     const refreshData = async () => {
       const data = await getHeaderBarData(roleKey);
       if (!mounted) return;
-      setAuras(data.auras ?? baseStats.auras);
       setChatsCount(data.chats ?? baseStats.chats);
       setNotificationsCount(data.notifications ?? baseStats.notifications);
       setChatItems(data.chatItems || []);
@@ -92,12 +88,6 @@ export default function DashboardTopBar({ authUser = null, onLogout = () => {} }
         </div>
 
         <div className="flex items-center gap-2 md:gap-3">
-          <div className="glass-chip flex items-center gap-2 rounded-full px-2.5 md:px-3 py-1">
-            <SparklesIcon className="w-4 h-4 text-emerald-500 dark:text-emerald-300" />
-            <span className="micro-label text-emerald-600 dark:text-emerald-300">Auras</span>
-            <span className="micro-label text-emerald-600 dark:text-emerald-300">{auras.toLocaleString()}</span>
-          </div>
-
           <button
             onClick={() => togglePanel('chat')}
             className="glass-chip relative p-2 rounded-xl text-slate-700 dark:text-slate-100 hover:bg-white/70 dark:hover:bg-slate-700/60 transition-colors"
