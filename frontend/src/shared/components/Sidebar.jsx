@@ -419,7 +419,7 @@ export default function Sidebar() {
             {item.path.includes('#') ? (
               <a
                 href={item.path}
-                className={`block px-6 py-3 rounded-2xl text-slate-700 dark:text-slate-200 hover:bg-emerald-50 hover:text-slate-900 dark:hover:bg-indigo-500/20 dark:hover:text-white transition-colors${item.name === 'Overview' ? ' sidebar-overview' : ''}`}
+                className={`block px-6 py-3 rounded-2xl text-slate-700 dark:text-white hover:bg-emerald-50 hover:text-slate-900 dark:hover:bg-indigo-500/20 dark:hover:text-white transition-colors${item.name === 'Overview' ? ' sidebar-overview' : ''}`}
               >
                 {item.name}
               </a>
@@ -429,7 +429,7 @@ export default function Sidebar() {
                 className={({ isActive }) =>
                   isActive
                     ? `sidebar-item-active block px-6 py-3 rounded-2xl font-semibold${item.name === 'Overview' ? ' sidebar-overview' : ''}`
-                    : `block px-6 py-3 rounded-2xl text-slate-700 dark:text-slate-200 hover:bg-emerald-50 hover:text-slate-900 dark:hover:bg-indigo-500/20 dark:hover:text-white transition-colors${item.name === 'Overview' ? ' sidebar-overview' : ''}`
+                    : `block px-6 py-3 rounded-2xl text-slate-700 dark:text-white hover:bg-emerald-50 hover:text-slate-900 dark:hover:bg-indigo-500/20 dark:hover:text-white transition-colors${item.name === 'Overview' ? ' sidebar-overview' : ''}`
                 }
                 end
               >
