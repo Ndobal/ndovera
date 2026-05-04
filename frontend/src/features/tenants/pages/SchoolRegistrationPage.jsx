@@ -304,7 +304,7 @@ export default function SchoolRegistrationPage() {
             <p className="text-xs font-semibold uppercase tracking-[0.28em] text-emerald-700">School Onboarding</p>
             <h1 className="mt-4 text-4xl font-black tracking-tight text-slate-950">Register Your School And Pay Onboarding In Two Steps</h1>
             <p className="mt-4 max-w-2xl text-base leading-7 text-slate-600">
-              Step 1 captures the school and owner details. Step 2 lets you choose the plan, apply any discount code, review the onboarding fee, and continue directly to Flutterwave.
+              Please provide the right details.
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">
