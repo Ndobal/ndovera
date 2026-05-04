@@ -135,6 +135,7 @@ function AssignmentDetail({ assignment, oldItem }) {
 
 export default function StudentAssignments() {
   const { assignmentId } = useParams();
+  const [showOld, setShowOld] = useState(false);
 
   const selectedAssignment = useMemo(
     () => assignments.newAssignments.find(item => item.id === assignmentId),
@@ -178,8 +179,15 @@ export default function StudentAssignments() {
           </section>
 
           <section className="glass-surface rounded-3xl p-6">
-            <h2 className="text-xl command-title neon-title mb-4">Old Assignments (Weekly Scaffold)</h2>
-            <div className="space-y-4">
+            <button
+              onClick={() => setShowOld(prev => !prev)}
+              className="flex w-full items-center justify-between text-left"
+            >
+              <h2 className="text-xl command-title neon-title">Old Assignments (Weekly Scaffold)</h2>
+              <span className="ml-2 text-lg">{showOld ? '▲' : '▼'}</span>
+            </button>
+            {showOld && (
+            <div className="space-y-4 mt-4">
               {assignments.oldByWeek.map(group => (
                 <div key={group.week} className="rounded-2xl border border-white/10 p-4 bg-slate-900/30">
                   <p className="micro-label accent-indigo mb-3">{group.week}</p>
@@ -203,6 +211,7 @@ export default function StudentAssignments() {
                 </div>
               )}
             </div>
+            )}
           </section>
         </div>
       )}

@@ -44,7 +44,7 @@ export default function PrivacySettings() {
         ))}
       </div>
       <div className="flex gap-2">
-        <input value={id} onChange={e => setId(e.target.value)} placeholder="User id to block" className="p-2 bg-slate-900/40 rounded-xl" />
+        <input value={id} onChange={e => setId(e.target.value)} placeholder="User id to block" className="p-2 wheat-input dark:bg-slate-900/40 dark:text-slate-100 rounded-xl" />
         <button onClick={add} className="px-3 py-1 rounded-2xl bg-emerald-500/20">Block</button>
       </div>
     </div>

@@ -18,7 +18,7 @@ export default function StudentProfessorAura() {
   const ask = () => {
     if (!input.trim()) return;
     if (isSocialQuery(input)) {
-      setReply({ type: 'error', text: 'Professor Vera responds only to academic questions. Please ask about a subject topic, problem, or exam review.' });
+      setReply({ type: 'error', text: 'Ndovera AI responds only to academic questions. Please ask about a subject topic, problem, or exam review.' });
       return;
     }
 
@@ -27,25 +27,25 @@ export default function StudentProfessorAura() {
   };
 
   return (
-    <StudentSectionShell title="Professor Vera" subtitle="Academic-only assistant: ask about lessons, exams, or topics.">
+    <StudentSectionShell title="Ndovera AI" subtitle="Academic-only assistant: ask about lessons, exams, or topics.">
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 items-center">
         {modes.map(mode => (
-          <div key={mode} className="glass-surface rounded-xl p-3 flex flex-col items-start gap-1">
+          <div key={mode} className="wheat-card glass-surface rounded-xl p-3 flex flex-col items-start gap-1">
             <p className="text-sm font-semibold command-title neon-title">{mode}</p>
             <p className="neon-subtle text-xs">Focused, academic support only.</p>
           </div>
         ))}
 
         <div className="col-span-2 sm:col-span-4 glass-surface rounded-xl p-3">
-          <p className="text-slate-200 mb-1 text-sm">Ask Professor Vera (academic topics only)</p>
-          <textarea value={input} onChange={e => setInput(e.target.value)} className="w-full rounded-lg bg-slate-900/40 border border-white/10 px-2 py-1 text-sm text-slate-100" rows={2} />
+          <p className="text-slate-200 mb-1 text-sm" style={{ color: '#722F37' }}>Ask Professor Vera (academic topics only)</p>
+          <textarea value={input} onChange={e => setInput(e.target.value)} className="wheat-input w-full rounded-lg bg-slate-900/40 border border-white/10 px-2 py-1 text-sm text-slate-100 dark:bg-slate-900/40 dark:text-slate-100" style={{ color: '#000000' }} rows={2} />
           <div className="mt-2 flex gap-2">
             <button onClick={ask} className="px-2 py-1 rounded-lg bg-indigo-600 text-white text-sm">Ask</button>
             <button onClick={() => { setInput(''); setReply(null); }} className="px-2 py-1 rounded-lg bg-slate-700 text-white text-sm">Clear</button>
           </div>
 
           {reply && (
-            <div className={`mt-3 p-2 rounded-md ${reply.type === 'error' ? 'bg-rose-800/40' : 'bg-slate-800/40'}`}>
+            <div className={`wheat-card mt-3 p-2 rounded-md ${reply.type === 'error' ? 'bg-rose-800/40' : 'bg-slate-800/40'}`}>
               <div className="text-slate-100 text-sm">{reply.text}</div>
             </div>
           )}

@@ -35,15 +35,15 @@ export default function ProfileEditor() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
         <div>
           <label className="micro-label">Full name</label>
-          <input value={profile.name} onChange={e => setProfile({ ...profile, name: e.target.value })} className="w-full rounded-xl p-2 bg-slate-900/40" />
+          <input value={profile.name} onChange={e => setProfile({ ...profile, name: e.target.value })} className="w-full rounded-xl p-2 wheat-input dark:bg-slate-900/40 dark:text-slate-100" />
         </div>
         <div>
           <label className="micro-label">Email</label>
-          <input value={profile.email} onChange={e => setProfile({ ...profile, email: e.target.value })} className="w-full rounded-xl p-2 bg-slate-900/40" />
+          <input value={profile.email} onChange={e => setProfile({ ...profile, email: e.target.value })} className="w-full rounded-xl p-2 wheat-input dark:bg-slate-900/40 dark:text-slate-100" />
         </div>
         <div>
           <label className="micro-label">Avatar URL</label>
-          <input value={profile.avatar} onChange={e => setProfile({ ...profile, avatar: e.target.value })} className="w-full rounded-xl p-2 bg-slate-900/40" />
+          <input value={profile.avatar} onChange={e => setProfile({ ...profile, avatar: e.target.value })} className="w-full rounded-xl p-2 wheat-input dark:bg-slate-900/40 dark:text-slate-100" />
         </div>
       </div>
       <div className="flex gap-2">

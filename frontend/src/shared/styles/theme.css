@@ -330,3 +330,23 @@
   content: '';
   @apply absolute inset-0 rounded-full bg-rose-400 animate-ping;
 }
+
+/* Light-mode-only card and text helpers */
+:not(.dark) .wheat-card {
+  background-color: #f5deb3 !important;
+  border-color: rgba(180,140,60,0.35) !important;
+  color: inherit;
+}
+:not(.dark) .burgundy-text { color: #800020 !important; }
+:not(.dark) .midnight-text { color: #191970 !important; }
+:not(.dark) .wheat-input {
+  background-color: #f5deb3 !important;
+  color: #000000 !important;
+  border-color: rgba(180,140,60,0.5) !important;
+}
+:not(.dark) .burgundy-tab {
+  background-color: #800020 !important;
+  color: #ffffff !important;
+  border-color: rgba(128,0,32,0.4) !important;
+}
+:not(.dark) .burgundy-tab:hover { background-color: #670019 !important; }

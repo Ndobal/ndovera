@@ -95,6 +95,16 @@ export default function LoginForm({ onSuccess }) {
       >
         {isSubmitting ? 'Signing in...' : 'Sign In'}
       </button>
+
+      <div className="mt-4 text-center">
+        <p className="text-sm text-slate-500">Don't have an account?</p>
+        <a
+          href="/register-school"
+          className="mt-2 inline-block w-full rounded-2xl border border-emerald-600 px-4 py-3 text-emerald-700 font-semibold text-center transition-colors hover:bg-emerald-50"
+        >
+          Register Your School
+        </a>
+      </div>
     </form>
   );
 }

@@ -44,7 +44,7 @@ export default function AppSettings() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
         <div>
           <p className="micro-label">Theme</p>
-          <select value={theme} onChange={e => applyTheme(e.target.value)} className="w-full p-2 rounded-xl bg-slate-900/40">
+          <select value={theme} onChange={e => applyTheme(e.target.value)} className="w-full p-2 rounded-xl wheat-input dark:bg-slate-900/40 dark:text-slate-100">
             <option value="system">System</option>
             <option value="light">Light</option>
             <option value="dark">Dark</option>
@@ -52,7 +52,7 @@ export default function AppSettings() {
         </div>
         <div>
           <p className="micro-label">Language</p>
-          <select value={lang} onChange={e => applyLang(e.target.value)} className="w-full p-2 rounded-xl bg-slate-900/40">
+          <select value={lang} onChange={e => applyLang(e.target.value)} className="w-full p-2 rounded-xl wheat-input dark:bg-slate-900/40 dark:text-slate-100">
             <option value="en">English</option>
             <option value="fr">Français</option>
             <option value="es">Español</option>

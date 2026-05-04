@@ -129,7 +129,7 @@ function AnimatedRoutes({ auth, onLogin }) {
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<Navigate to={defaultAppRoute} replace />} />
+        <Route path="/" element={auth?.token ? <Navigate to={defaultAppRoute} replace /> : <LoginPage onLogin={onLogin} />} />
         <Route path="/login" element={auth?.token ? <Navigate to={defaultAppRoute} replace /> : <LoginPage onLogin={onLogin} />} />
         <Route path="/register-school" element={<SchoolRegistrationPage />} />
         <Route path="/classroom" element={<RequireAuth auth={auth}><RouteTransition><Classroom /></RouteTransition></RequireAuth>} />
@@ -194,7 +194,7 @@ function AnimatedRoutes({ auth, onLogin }) {
 
 function AppWorkspace({ auth, onLogin, onLogout }) {
   const location = useLocation();
-  const isPublicRoute = location.pathname === '/login' || location.pathname === '/register-school';
+  const isPublicRoute = location.pathname === '/login' || location.pathname === '/register-school' || (location.pathname === '/' && !auth?.token);
   const inDashboardMode = location.pathname.startsWith('/roles/');
   const inStudentClassroom = location.pathname.startsWith('/roles/student/classroom');
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);

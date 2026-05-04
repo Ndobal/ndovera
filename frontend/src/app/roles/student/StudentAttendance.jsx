@@ -110,34 +110,37 @@ export default function StudentAttendance() {
 
   return (
     <StudentSectionShell title="Attendance" subtitle="Check your school attendance record.">
-      <div className="glass-surface rounded-3xl p-6">
+      <div className="wheat-card glass-surface rounded-3xl p-6">
         <div className="flex items-center justify-between mb-4 gap-4">
           <div>
-            <p className="text-slate-100 mb-1">This term attendance</p>
+            <p className="burgundy-text text-slate-100 mb-1">This term attendance</p>
             <div className="flex items-baseline gap-3">
-              <div className="text-3xl font-extrabold mono-metric text-slate-100">{summary.pct}%</div>
+              <div className="text-3xl font-extrabold mono-metric burgundy-text text-slate-100">{summary.pct}%</div>
               <div className="space-x-2">
-                <span className="glass-chip px-3 py-1 rounded-full text-xs">Present: <strong className="ml-1">{summary.totals.present}</strong></span>
-                <span className="glass-chip px-3 py-1 rounded-full text-xs">Late: <strong className="ml-1">{summary.totals.late}</strong></span>
-                <span className="glass-chip px-3 py-1 rounded-full text-xs">Absent: <strong className="ml-1">{summary.totals.absent}</strong></span>
+                <span className="glass-chip px-3 py-1 rounded-full text-xs">Present: <strong className="ml-1 burgundy-text">{summary.totals.present}</strong></span>
+                <span className="glass-chip px-3 py-1 rounded-full text-xs">Late: <strong className="ml-1 burgundy-text">{summary.totals.late}</strong></span>
+                <span className="glass-chip px-3 py-1 rounded-full text-xs">Absent: <strong className="ml-1 burgundy-text">{summary.totals.absent}</strong></span>
               </div>
             </div>
           </div>
 
           <div className="ml-auto">
-            <button onClick={() => downloadCSV(records.map(r => ({ day: r.date, state: r.status || 'Unknown' })))} className="px-3 py-2 rounded-xl bg-indigo-500/25 border border-indigo-300/30 text-white">Export CSV</button>
+            <button onClick={() => downloadCSV(records.map(r => ({ day: r.date, state: r.status || 'Unknown' })))} className="burgundy-text px-3 py-2 rounded-xl bg-indigo-500/25 border border-indigo-300/30 text-white">Export CSV</button>
           </div>
         </div>
 
         {/* Heatmap */}
         <div className="mb-4">
-          <div className="text-sm text-slate-300 mb-2">Last 30 days</div>
+          <div className="text-sm burgundy-text text-slate-300 mb-2">Last 30 days</div>
           <div className="grid grid-cols-10 gap-2">
             {heatmap.map(cell => {
               const s = (cell.status || '').toLowerCase();
-              const bg = s.startsWith('present') ? 'bg-emerald-400' : s.startsWith('late') ? 'bg-amber-400' : cell.status ? 'bg-rose-400' : 'bg-slate-700/30';
+              const borderColor = s.startsWith('present') ? 'border-b-4 border-b-emerald-400' : s.startsWith('late') ? 'border-b-4 border-b-amber-400' : cell.status ? 'border-b-4 border-b-rose-400' : 'border-b-4 border-b-slate-400';
+              const shortDate = cell.date ? new Date(cell.date + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '';
               return (
-                <button key={cell.date} onClick={() => setSelected(cell)} title={`${cell.date} — ${cell.status || 'No data'}`} className={`h-6 w-6 rounded ${bg} border border-white/10`} />
+                <button key={cell.date} onClick={() => setSelected(cell)} title={`${cell.date} — ${cell.status || 'No data'}`} className={`wheat-card h-12 w-full rounded border border-white/10 ${borderColor} flex items-center justify-center`}>
+                  <span className="text-[9px] font-semibold burgundy-text leading-none">{shortDate}</span>
+                </button>
               );
             })}
           </div>
@@ -148,10 +151,10 @@ export default function StudentAttendance() {
           {records.slice(0, 14).map(item => {
             const badge = niceBadge(item.status);
             return (
-              <div key={item.date} className="rounded-2xl border border-white/10 p-3 bg-slate-900/30 flex items-center justify-between">
+              <div key={item.date} className="wheat-card rounded-2xl border border-white/10 p-3 bg-slate-900/30 flex items-center justify-between">
                 <div>
-                  <div className="text-slate-100 font-medium">{item.date}</div>
-                  {item.reason && <div className="text-xs neon-subtle mt-1">{item.reason}</div>}
+                  <div className="burgundy-text text-slate-100 font-medium">{item.date}</div>
+                  {item.reason && <div className="burgundy-text text-xs neon-subtle mt-1">{item.reason}</div>}
                 </div>
                 <div className="flex items-center gap-3">
                   <span className={badge.cls}>{badge.label}</span>
@@ -161,9 +164,9 @@ export default function StudentAttendance() {
             );
           })}
           {records.length === 0 && (
-            <div className="rounded-2xl border border-dashed border-white/10 p-4 bg-slate-900/20 text-center">
-              <p className="micro-label accent-amber">No live attendance records</p>
-              <p className="mt-2 text-sm text-slate-300">Attendance history will appear here once your school syncs student attendance data.</p>
+            <div className="wheat-card rounded-2xl border border-dashed border-white/10 p-4 bg-slate-900/20 text-center">
+              <p className="micro-label accent-amber burgundy-text">No live attendance records</p>
+              <p className="mt-2 text-sm burgundy-text text-slate-300">Attendance history will appear here once your school syncs student attendance data.</p>
             </div>
           )}
         </div>
@@ -177,7 +180,7 @@ export default function StudentAttendance() {
               <div className="mb-2">Status: <strong>{selected.status || 'No data'}</strong></div>
               <div className="mb-3">
                 <label className="block text-sm mb-1">Reason / Notes</label>
-                <textarea defaultValue={selected.reason || ''} id="attendance-reason" className="w-full rounded-xl bg-slate-900/40 border border-white/10 px-3 py-2 text-sm text-slate-100" />
+                <textarea defaultValue={selected.reason || ''} id="attendance-reason" className="wheat-input w-full rounded-xl bg-slate-900/40 border border-white/10 px-3 py-2 text-sm text-slate-100" />
               </div>
               <div className="flex gap-2 justify-end">
                 <button onClick={() => setSelected(null)} className="px-3 py-2 rounded-xl bg-slate-700/30">Close</button>
