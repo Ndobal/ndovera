@@ -408,7 +408,7 @@ export default function Sidebar() {
   const nodeTitle = inRoleMode && roleKey ? roleLabels[roleKey] || 'Role Dashboard' : 'Institution Dashboard';
 
   return (
-    <aside className="w-64 h-full overflow-y-auto bg-white border-r border-slate-200 dark:border-indigo-500/20 frost-panel">
+    <aside className={`w-64 h-full overflow-y-auto border-r border-slate-200 dark:border-indigo-500/20 frost-panel ${roleKey === 'ami' ? 'ami-dashboard-bg dark:bg-transparent' : 'bg-white'}`}>
       <div className="p-6">
         <p className="micro-label text-slate-500 neon-subtle mb-2">{nodeTitle}</p>
         <div className="font-black tracking-tighter text-xl text-indigo-700 dark:text-indigo-300">NDOVERA</div>

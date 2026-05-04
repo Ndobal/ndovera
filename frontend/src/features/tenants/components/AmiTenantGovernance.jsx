@@ -175,54 +175,114 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
   const discountCodes = governanceData?.discountCodes || [];
   const summary = governanceData?.summary;
 
+  const headerSection = (
+    <section className="glass-surface rounded-3xl p-6 border border-white/10">
+      <div className="flex flex-wrap items-start justify-between gap-4">
+        <div>
+          <p className="micro-label neon-subtle">Ami Tenant Governance</p>
+          <h1 className="text-3xl command-title neon-title mt-2">
+            {sectionKey === 'overview' ? 'Platform Overview' : 'Manage Tenants'}
+          </h1>
+          <p className="mt-2 text-slate-600 dark:text-slate-300">
+            {sectionKey === 'overview'
+              ? 'Live platform stats — active schools, pending approvals, payments and discount codes.'
+              : 'Review school registrations, create discount codes, launch Flutterwave checkout links, and approve or suspend tenants.'}
+          </p>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          {busyAction && <span className="micro-label accent-amber">Working...</span>}
+        </div>
+      </div>
+      {(error || notice) && (
+        <div className="mt-5 space-y-3">
+          {error && <div className="rounded-2xl border border-rose-300/30 bg-rose-500/10 px-4 py-3 text-sm text-rose-600 dark:text-rose-200">{error}</div>}
+          {notice && <div className="rounded-2xl border border-emerald-400/30 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-700 dark:text-emerald-100">{notice}</div>}
+        </div>
+      )}
+    </section>
+  );
+
+  const statCards = (
+    <section className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-4">
+      <div className="glass-surface rounded-3xl p-5"><p className="micro-label neon-subtle">Tenants</p><p className="mt-2 text-2xl command-title text-rose-500 dark:text-red-400">{summary?.totalTenants ?? 0}</p></div>
+      <div className="glass-surface rounded-3xl p-5"><p className="micro-label neon-subtle">Active</p><p className="mt-2 text-2xl command-title text-emerald-600 dark:text-green-300">{summary?.activeTenants ?? 0}</p></div>
+      <div className="glass-surface rounded-3xl p-5"><p className="micro-label neon-subtle">Pending Approval</p><p className="mt-2 text-2xl command-title text-blue-600 dark:text-blue-400">{summary?.pendingApproval ?? 0}</p></div>
+      <div className="glass-surface rounded-3xl p-5"><p className="micro-label neon-subtle">Pending Payments</p><p className="mt-2 text-2xl command-title text-rose-500 dark:text-red-400">{summary?.pendingPayments ?? 0}</p></div>
+      <div className="glass-surface rounded-3xl p-5"><p className="micro-label neon-subtle">Active Codes</p><p className="mt-2 text-2xl command-title text-emerald-600 dark:text-green-300">{summary?.activeDiscountCodes ?? 0}</p></div>
+    </section>
+  );
+
+  // ── OVERVIEW ────────────────────────────────────────────────────────────────
+  if (sectionKey === 'overview') {
+    return (
+      <div className="p-8 max-w-7xl mx-auto space-y-6">
+        {headerSection}
+        {statCards}
+
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+          {/* Recent Tenants snapshot */}
+          <section className="glass-surface rounded-3xl p-6 border border-white/10">
+            <h2 className="text-xl command-title neon-title mb-4">Recent Registrations</h2>
+            <div className="space-y-3 max-h-[360px] overflow-y-auto pr-1">
+              {tenants.length ? tenants.slice(0, 8).map(tenant => (
+                <div key={tenant.id} className="rounded-2xl border border-white/10 bg-slate-900/20 dark:bg-slate-900/30 p-4 flex items-center justify-between gap-3">
+                  <div className="min-w-0">
+                    <p className="font-semibold text-slate-800 dark:text-slate-100 truncate">{tenant.schoolName}</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 truncate">{tenant.ownerEmail} • {tenant.planKey}</p>
+                  </div>
+                  <div className="flex flex-col items-end gap-1 shrink-0">
+                    <span className={`micro-label ${statusClass(tenant.status)}`}>{tenant.status}</span>
+                    <span className={`micro-label ${statusClass(tenant.approvalStatus)}`}>{tenant.approvalStatus}</span>
+                  </div>
+                </div>
+              )) : (
+                <p className="text-slate-500 dark:text-slate-400 text-sm">No tenant registrations yet.</p>
+              )}
+            </div>
+          </section>
+
+          {/* Payment Feed */}
+          <section className="glass-surface rounded-3xl p-6 border border-white/10">
+            <h2 className="text-xl command-title neon-title mb-4">Payment Feed</h2>
+            <div className="space-y-3 text-sm max-h-[360px] overflow-y-auto pr-1">
+              {payments.length ? payments.map(payment => (
+                <div key={payment.txRef} className="rounded-2xl bg-slate-900/20 dark:bg-slate-900/30 p-4">
+                  <div className="flex items-center justify-between gap-3">
+                    <p className="text-slate-800 dark:text-slate-100 font-semibold truncate">{payment.txRef}</p>
+                    <span className={`micro-label ${statusClass(payment.status)}`}>{payment.status}</span>
+                  </div>
+                  <p className="mt-1 text-slate-600 dark:text-slate-300">{currencyFormatter.format(payment.amount)} • {payment.planKey}</p>
+                  <p className="mt-0.5 text-slate-500 dark:text-slate-400">{payment.studentCount} students</p>
+                </div>
+              )) : <p className="text-slate-500 dark:text-slate-400">No onboarding payments yet.</p>}
+            </div>
+          </section>
+        </div>
+      </div>
+    );
+  }
+
+  // ── TENANTS ──────────────────────────────────────────────────────────────────
   return (
     <div className="p-8 max-w-7xl mx-auto space-y-6">
-      <section className="glass-surface rounded-3xl p-6 border border-white/10">
-        <div className="flex flex-wrap items-start justify-between gap-4">
-          <div>
-            <p className="micro-label neon-subtle">Ami Tenant Governance</p>
-            <h1 className="text-3xl command-title neon-title mt-2">Manage Tenant Controls And States</h1>
-            <p className="mt-2 text-slate-600 dark:text-slate-300">
-              Review school registrations, create multiple live discount codes, launch Flutterwave checkout links, and approve or suspend tenants.
-            </p>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            <span className="micro-label accent-indigo">Section: {sectionKey}</span>
-            {busyAction && <span className="micro-label accent-amber">Working...</span>}
-          </div>
-        </div>
-
-        {(error || notice) && (
-          <div className="mt-5 space-y-3">
-            {error && <div className="rounded-2xl border border-rose-300/30 bg-rose-500/10 px-4 py-3 text-sm text-rose-200">{error}</div>}
-            {notice && <div className="rounded-2xl border border-emerald-400/30 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-100">{notice}</div>}
-          </div>
-        )}
-      </section>
-
-      <section className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-4">
-        <div className="glass-surface rounded-3xl p-5"><p className="micro-label neon-subtle">Tenants</p><p className="mt-2 text-2xl command-title text-red-400">{summary?.totalTenants ?? 0}</p></div>
-        <div className="glass-surface rounded-3xl p-5"><p className="micro-label neon-subtle">Active</p><p className="mt-2 text-2xl command-title text-green-300">{summary?.activeTenants ?? 0}</p></div>
-        <div className="glass-surface rounded-3xl p-5"><p className="micro-label neon-subtle">Pending Approval</p><p className="mt-2 text-2xl command-title text-blue-500">{summary?.pendingApproval ?? 0}</p></div>
-        <div className="glass-surface rounded-3xl p-5"><p className="micro-label neon-subtle">Pending Payments</p><p className="mt-2 text-2xl command-title text-red-400">{summary?.pendingPayments ?? 0}</p></div>
-        <div className="glass-surface rounded-3xl p-5"><p className="micro-label neon-subtle">Active Codes</p><p className="mt-2 text-2xl command-title text-green-300">{summary?.activeDiscountCodes ?? 0}</p></div>
-      </section>
+      {headerSection}
+      {statCards}
 
       <div className="grid grid-cols-1 xl:grid-cols-[1.2fr_0.8fr] gap-6">
+        {/* Tenant Queue */}
         <section className="glass-surface rounded-3xl p-6 border border-white/10 space-y-4">
           <div className="flex items-center justify-between gap-3">
             <h2 className="text-xl command-title neon-title">Tenant Queue</h2>
-            <p className="text-sm text-purple-600 dark:text-purple-300">Approve after payment, or approve early and wait for payment to activate.
-</p>
+            <p className="text-sm text-purple-600 dark:text-purple-300">Approve after payment, or approve early and wait for payment to activate.</p>
           </div>
           <div className="space-y-4">
             {tenants.length ? tenants.map(tenant => (
               <div key={tenant.id} className="rounded-3xl border border-white/10 bg-slate-900/20 p-5 space-y-4">
                 <div className="flex flex-wrap items-start justify-between gap-3">
                   <div>
-                    <p className="text-lg font-semibold text-slate-100">{tenant.schoolName}</p>
-                    <p className="text-sm text-slate-400">{tenant.ownerName} • {tenant.ownerEmail}</p>
-                    <p className="text-sm text-slate-400 mt-1">{tenant.websiteDomain} • {tenant.studentCount} students • {tenant.planKey}</p>
+                    <p className="text-lg font-semibold text-slate-800 dark:text-slate-100">{tenant.schoolName}</p>
+                    <p className="text-sm text-slate-500 dark:text-slate-400">{tenant.ownerName} • {tenant.ownerEmail}</p>
+                    <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">{tenant.websiteDomain} • {tenant.studentCount} students • {tenant.planKey}</p>
                   </div>
                   <div className="flex flex-wrap gap-2">
                     <span className={`micro-label ${statusClass(tenant.status)}`}>{tenant.status}</span>
@@ -232,17 +292,17 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
-                  <div className="rounded-2xl bg-slate-900/30 p-4">
+                  <div className="rounded-2xl bg-slate-900/20 dark:bg-slate-900/30 p-4">
                     <p className="micro-label neon-subtle">Setup Fee</p>
-                    <p className="mt-2 text-slate-100 font-semibold">{currencyFormatter.format(tenant.setupFee)}</p>
+                    <p className="mt-2 text-slate-800 dark:text-slate-100 font-semibold">{currencyFormatter.format(tenant.setupFee)}</p>
                   </div>
-                  <div className="rounded-2xl bg-slate-900/30 p-4">
-                    <p className="micro-label neon-subtle">Student Fee / Subsequent Term</p>
-                    <p className="mt-2 text-slate-100 font-semibold">{currencyFormatter.format(tenant.studentFeePerTerm)}</p>
+                  <div className="rounded-2xl bg-slate-900/20 dark:bg-slate-900/30 p-4">
+                    <p className="micro-label neon-subtle">Student Fee / Term</p>
+                    <p className="mt-2 text-slate-800 dark:text-slate-100 font-semibold">{currencyFormatter.format(tenant.studentFeePerTerm)}</p>
                   </div>
-                  <div className="rounded-2xl bg-slate-900/30 p-4">
-                    <p className="micro-label neon-subtle">Discount</p>
-                    <p className="mt-2 text-slate-100 font-semibold">{tenant.discountCode || 'None'}</p>
+                  <div className="rounded-2xl bg-slate-900/20 dark:bg-slate-900/30 p-4">
+                    <p className="micro-label neon-subtle">Discount Code</p>
+                    <p className="mt-2 text-slate-800 dark:text-slate-100 font-semibold">{tenant.discountCode || 'None'}</p>
                   </div>
                 </div>
 
@@ -266,7 +326,7 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
                       setNotice(`${tenant.schoolName} approved.`);
                     })}
                     disabled={busyAction === `approve-${tenant.id}` || tenant.approvalStatus === 'approved'}
-                    className="rounded-2xl border border-emerald-400/40 px-4 py-3 font-semibold text-emerald-200 disabled:opacity-40"
+                    className="rounded-2xl border border-emerald-400/40 px-4 py-3 font-semibold text-emerald-700 dark:text-emerald-200 disabled:opacity-40"
                   >
                     Approve School
                   </button>
@@ -278,7 +338,7 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
                         setNotice(`${tenant.schoolName} restored.`);
                       })}
                       disabled={busyAction === `restore-${tenant.id}`}
-                      className="rounded-2xl border border-indigo-400/40 px-4 py-3 font-semibold text-indigo-200 disabled:opacity-40"
+                      className="rounded-2xl border border-indigo-400/40 px-4 py-3 font-semibold text-indigo-700 dark:text-indigo-200 disabled:opacity-40"
                     >
                       Restore Tenant
                     </button>
@@ -290,26 +350,27 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
                         setNotice(`${tenant.schoolName} suspended.`);
                       })}
                       disabled={busyAction === `suspend-${tenant.id}`}
-                      className="rounded-2xl border border-rose-400/40 px-4 py-3 font-semibold text-rose-200 disabled:opacity-40"
+                      className="rounded-2xl border border-rose-400/40 px-4 py-3 font-semibold text-rose-700 dark:text-rose-200 disabled:opacity-40"
                     >
                       Suspend Tenant
                     </button>
                   )}
                 </div>
               </div>
-            )) : <p className="text-slate-400">No tenant registrations yet.</p>}
+            )) : <p className="text-slate-500 dark:text-slate-400">No tenant registrations yet.</p>}
           </div>
         </section>
 
+        {/* Right column: Pricing + Discount Codes */}
         <div className="space-y-6">
           <section className="glass-surface rounded-3xl p-6 border border-white/10">
             <h2 className="text-xl command-title neon-title mb-4">Plan Pricing</h2>
             <form onSubmit={handleSavePricing} className="space-y-3">
-              <div className="rounded-2xl bg-slate-900/30 p-4 text-sm text-slate-300">
-                <p className="font-semibold text-blue-50">Custom Plan Onboarding Fee</p>
+              <div className="rounded-2xl bg-slate-900/20 dark:bg-slate-900/30 p-4 text-sm text-slate-600 dark:text-slate-300">
+                <p className="font-semibold text-slate-800 dark:text-blue-50">Custom Plan Onboarding Fee</p>
                 <p className="mt-2">This onboarding fee is Ami-managed and can be changed at any time before schools pay.</p>
                 {governanceData?.pricingConfig?.updatedAt && (
-                  <p className="mt-2 text-xs text-orange-50">Updated: {new Date(governanceData.pricingConfig.updatedAt).toLocaleString()}</p>
+                  <p className="mt-2 text-xs text-orange-600 dark:text-orange-50">Updated: {new Date(governanceData.pricingConfig.updatedAt).toLocaleString()}</p>
                 )}
               </div>
               <input
@@ -319,7 +380,7 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
                 value={pricingForm.customPlanSetupFeeNaira}
                 onChange={handlePricingChange}
                 placeholder="Custom onboarding fee (NGN)"
-                className="w-full rounded-2xl border border-white/10 bg-slate-900/30 px-4 py-3 text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-500"
+                className="w-full rounded-2xl border border-white/10 bg-slate-900/20 dark:bg-slate-900/30 px-4 py-3 text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-500"
               />
               <button type="submit" disabled={busyAction === 'save-pricing'} className="w-full rounded-2xl bg-emerald-500 px-4 py-3 font-semibold text-slate-950 disabled:opacity-60">
                 {busyAction === 'save-pricing' ? 'Saving...' : 'Update Custom Pricing'}
@@ -328,160 +389,52 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
           </section>
 
           <section className="glass-surface rounded-3xl p-6 border border-white/10">
-  <h2 className="text-xl command-title neon-title mb-4">
-    Discount Codes
-  </h2>
+            <h2 className="text-xl command-title neon-title mb-4">Discount Codes</h2>
+            <form onSubmit={handleSaveDiscount} className="space-y-3">
+              <input name="code" value={discountForm.code} onChange={handleDiscountChange} required placeholder="CODE"
+                className="w-full rounded-2xl border border-white/10 bg-slate-900/20 dark:bg-slate-900/30 px-4 py-3 text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-500" />
+              <input name="name" value={discountForm.name} onChange={handleDiscountChange} placeholder="Display name"
+                className="w-full rounded-2xl border border-white/10 bg-slate-900/20 dark:bg-slate-900/30 px-4 py-3 text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-500" />
+              <textarea name="description" value={discountForm.description} onChange={handleDiscountChange} placeholder="Discount description"
+                className="w-full rounded-2xl border border-white/10 bg-slate-900/20 dark:bg-slate-900/30 px-4 py-3 min-h-[80px] text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-500" />
+              <div className="grid grid-cols-2 gap-3">
+                <input name="setupFeeNaira" type="number" value={discountForm.setupFeeNaira} onChange={handleDiscountChange} placeholder="Setup fee (NGN)"
+                  className="w-full rounded-2xl border border-white/10 bg-slate-900/20 dark:bg-slate-900/30 px-4 py-3 text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-500" />
+                <input name="studentFeeNaira" type="number" value={discountForm.studentFeeNaira} onChange={handleDiscountChange} placeholder="Student fee / term"
+                  className="w-full rounded-2xl border border-white/10 bg-slate-900/20 dark:bg-slate-900/30 px-4 py-3 text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-500" />
+              </div>
+              <input name="planScope" value={discountForm.planScope} onChange={handleDiscountChange} placeholder="growth,custom"
+                className="w-full rounded-2xl border border-white/10 bg-slate-900/20 dark:bg-slate-900/30 px-4 py-3 text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-500" />
+              <input name="endsAt" type="datetime-local" value={discountForm.endsAt} onChange={handleDiscountChange}
+                className="w-full rounded-2xl border border-white/10 bg-slate-900/20 dark:bg-slate-900/30 px-4 py-3 text-slate-900 dark:text-amber-100" />
+              <label className="flex items-center gap-2 text-sm text-slate-900 dark:text-amber-100">
+                <input name="active" type="checkbox" checked={discountForm.active} onChange={handleDiscountChange} />
+                Active now
+              </label>
+              <button type="submit" disabled={busyAction === 'save-discount'} className="w-full rounded-2xl bg-emerald-500 px-4 py-3 font-semibold text-slate-950 disabled:opacity-60">
+                {busyAction === 'save-discount' ? 'Saving...' : 'Save Discount Code'}
+              </button>
+            </form>
 
-  <form onSubmit={handleSaveDiscount} className="space-y-3">
-    <input
-      name="code"
-      value={discountForm.code}
-      onChange={handleDiscountChange}
-      required
-      placeholder="CODE"
-      className="w-full rounded-2xl border border-white/10 bg-slate-900/30 px-4 py-3 text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-500"
-    />
-
-    <input
-      name="name"
-      value={discountForm.name}
-      onChange={handleDiscountChange}
-      placeholder="Display name"
-      className="w-full rounded-2xl border border-white/10 bg-slate-900/30 px-4 py-3 text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-500"
-    />
-
-    <textarea
-      name="description"
-      value={discountForm.description}
-      onChange={handleDiscountChange}
-      placeholder="Discount description"
-      className="w-full rounded-2xl border border-white/10 bg-slate-900/30 px-4 py-3 min-h-[96px] text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-500"
-    />
-
-    <div className="grid grid-cols-2 gap-3">
-      <input
-        name="setupFeeNaira"
-        type="number"
-        value={discountForm.setupFeeNaira}
-        onChange={handleDiscountChange}
-        placeholder="Setup fee (NGN)"
-        className="w-full rounded-2xl border border-white/10 bg-slate-900/30 px-4 py-3 text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-500"
-      />
-
-      <input
-        name="studentFeeNaira"
-        type="number"
-        value={discountForm.studentFeeNaira}
-        onChange={handleDiscountChange}
-        placeholder="Student fee / term (NGN)"
-        className="w-full rounded-2xl border border-white/10 bg-slate-900/30 px-4 py-3 text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-500"
-      />
-    </div>
-
-    <input
-      name="planScope"
-      value={discountForm.planScope}
-      onChange={handleDiscountChange}
-      placeholder="growth,custom"
-      className="w-full rounded-2xl border border-white/10 bg-slate-900/30 px-4 py-3 text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-500"
-    />
-
-    <input
-      name="endsAt"
-      type="datetime-local"
-      value={discountForm.endsAt}
-      onChange={handleDiscountChange}
-      className="w-full rounded-2xl border border-white/10 bg-slate-900/30 px-4 py-3 text-slate-900 dark:text-amber-100"
-    />
-
-    <label className="flex items-center gap-2 text-sm text-slate-900 dark:text-amber-100">
-      <input
-        name="active"
-        type="checkbox"
-        checked={discountForm.active}
-        onChange={handleDiscountChange}
-      />
-      Active now
-    </label>
-
-    <button
-      type="submit"
-      disabled={busyAction === 'save-discount'}
-      className="w-full rounded-2xl bg-emerald-500 px-4 py-3 font-semibold text-slate-950 disabled:opacity-60"
-    >
-      {busyAction === 'save-discount' ? 'Saving...' : 'Save Discount Code'}
-    </button>
-  </form>
-
-  <div className="mt-5 space-y-3">
-    {discountCodes.map((discountCode) => (
-      <div
-        key={discountCode.code}
-        className="rounded-2xl bg-slate-900/30 p-4 text-sm text-slate-800 dark:text-amber-100"
-      >
-        <div className="flex items-center justify-between gap-3">
-          <p className="font-semibold text-slate-900 dark:text-amber-50">
-            {discountCode.code}
-          </p>
-
-          <span
-            className={`micro-label ${
-              discountCode.active ? 'accent-emerald' : 'accent-slate'
-            }`}
-          >
-            {discountCode.active ? 'active' : 'ended'}
-          </span>
-        </div>
-
-        <p className="mt-2">{discountCode.description}</p>
-
-        <p className="mt-2">
-          Setup:{' '}
-          {discountCode.setupFee
-            ? currencyFormatter.format(discountCode.setupFee)
-            : 'unchanged'}
-        </p>
-
-        <p className="mt-1">
-          Student:{' '}
-          {discountCode.studentFeePerTerm
-            ? currencyFormatter.format(discountCode.studentFeePerTerm)
-            : 'unchanged'}
-        </p>
-
-        {discountCode.active && (
-          <button
-            type="button"
-            onClick={() =>
-              runAction(`end-${discountCode.code}`, async () => {
-                await endDiscountCode(discountCode.code);
-                setNotice(`${discountCode.code} ended.`);
-              })
-            }
-            disabled={busyAction === `end-${discountCode.code}`}
-            className="mt-3 rounded-2xl border border-rose-400/40 px-3 py-2 font-semibold text-rose-700 dark:text-rose-200 disabled:opacity-40"
-          >
-            End Code
-          </button>
-        )}
-      </div>
-    ))}
-  </div>
-</section>
-
-          <section className="glass-surface rounded-3xl p-6 border border-white/10">
-            <h2 className="text-xl command-title neon-title mb-4">Payment Feed</h2>
-            <div className="space-y-3 text-sm text-slate-300 max-h-[420px] overflow-y-auto pr-1">
-              {payments.length ? payments.map(payment => (
-                <div key={payment.txRef} className="rounded-2xl bg-slate-900/30 p-4">
+            <div className="mt-5 space-y-3">
+              {discountCodes.map(dc => (
+                <div key={dc.code} className="rounded-2xl bg-slate-900/20 dark:bg-slate-900/30 p-4 text-sm text-slate-700 dark:text-amber-100">
                   <div className="flex items-center justify-between gap-3">
-                    <p className="text-slate-100 font-semibold">{payment.txRef}</p>
-                    <span className={`micro-label ${statusClass(payment.status)}`}>{payment.status}</span>
+                    <p className="font-semibold text-slate-900 dark:text-amber-50">{dc.code}</p>
+                    <span className={`micro-label ${dc.active ? 'accent-emerald' : 'accent-slate'}`}>{dc.active ? 'active' : 'ended'}</span>
                   </div>
-                  <p className="mt-2">{currencyFormatter.format(payment.amount)} • {payment.planKey}</p>
-                  <p className="mt-1">{payment.studentCount} students</p>
+                  <p className="mt-2">{dc.description}</p>
+                  <p className="mt-2">Setup: {dc.setupFee ? currencyFormatter.format(dc.setupFee) : 'unchanged'}</p>
+                  <p className="mt-1">Student: {dc.studentFeePerTerm ? currencyFormatter.format(dc.studentFeePerTerm) : 'unchanged'}</p>
+                  {dc.active && (
+                    <button type="button" onClick={() => runAction(`end-${dc.code}`, async () => { await endDiscountCode(dc.code); setNotice(`${dc.code} ended.`); })}
+                      disabled={busyAction === `end-${dc.code}`}
+                      className="mt-3 rounded-2xl border border-rose-400/40 px-3 py-2 font-semibold text-rose-700 dark:text-rose-200 disabled:opacity-40">
+                      End Code
+                    </button>
+                  )}
                 </div>
-              )) : <p className="text-red-500">No onboarding payments yet.</p>}
+              ))}
             </div>
           </section>
         </div>
