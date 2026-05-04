@@ -384,6 +384,7 @@ function getRoleSidebarItems(roleKey) {
       { name: 'Policies', path: '/roles/ami/policies' },
       { name: 'Audits', path: '/roles/ami/audits' },
       { name: 'Reports', path: '/roles/ami/reports' },
+      { name: 'Inbox', path: '/roles/ami/messaging' },
       { name: 'Settings', path: '/roles/ami/settings' },
       libEntry,
     ];

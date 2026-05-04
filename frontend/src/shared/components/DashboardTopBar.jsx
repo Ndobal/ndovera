@@ -104,9 +104,11 @@ export default function DashboardTopBar({ authUser = null, onLogout = () => {} }
             aria-label="Open chats"
           >
             <ChatBubbleLeftRightIcon className="w-5 h-5" />
-            <span className="absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 rounded-full bg-indigo-500 text-white text-[10px] font-bold flex items-center justify-center">
-              {chatsCount}
-            </span>
+            {chatsCount > 0 && (
+              <span className="absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 rounded-full bg-indigo-500 text-white text-[10px] font-bold flex items-center justify-center">
+                {chatsCount}
+              </span>
+            )}
           </button>
 
           <button
@@ -115,9 +117,11 @@ export default function DashboardTopBar({ authUser = null, onLogout = () => {} }
             aria-label="Open notifications"
           >
             <BellIcon className="w-5 h-5" />
-            <span className="absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 rounded-full bg-rose-500 text-white text-[10px] font-bold flex items-center justify-center">
-              {notificationsCount}
-            </span>
+            {notificationsCount > 0 && (
+              <span className="absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 rounded-full bg-rose-500 text-white text-[10px] font-bold flex items-center justify-center">
+                {notificationsCount}
+              </span>
+            )}
           </button>
 
           <RoleSwitcher authUser={authUser} />

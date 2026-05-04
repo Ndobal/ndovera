@@ -35,6 +35,7 @@ import StudentMessaging from './app/roles/student/StudentMessaging';
 import StudentSettings from './app/roles/student/StudentSettings';
 import RoleLibrary from './app/RoleLibrary';
 import TeacherMessaging from './app/roles/teacher/TeacherMessaging';
+import AmiInbox from './app/roles/ami/AmiInbox';
 import LoginPage from './features/auth/pages/LoginPage';
 import SchoolRegistrationPage from './features/tenants/pages/SchoolRegistrationPage';
 import { clearStoredAuth, getStoredAuth } from './features/auth/services/authApi';
@@ -183,6 +184,7 @@ function AnimatedRoutes({ auth, onLogin }) {
         <Route path="/roles/nurseryhead/*" element={<RoleGuard auth={auth} expectedRole="nurseryhead"><RouteTransition><OperationalRoleDashboard roleKey="nurseryhead" /></RouteTransition></RoleGuard>} />
         <Route path="/roles/examofficer/*" element={<RoleGuard auth={auth} expectedRole="examofficer"><RouteTransition><OperationalRoleDashboard roleKey="examofficer" /></RouteTransition></RoleGuard>} />
         <Route path="/roles/sportsmaster/*" element={<RoleGuard auth={auth} expectedRole="sportsmaster"><RouteTransition><OperationalRoleDashboard roleKey="sportsmaster" /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/ami/messaging" element={<RoleGuard auth={auth} expectedRole="ami"><RouteTransition><AmiInbox /></RouteTransition></RoleGuard>} />
         <Route path="/roles/ami/*" element={<RoleGuard auth={auth} expectedRole="ami"><RouteTransition><AmiDashboard /></RouteTransition></RoleGuard>} />
         <Route path="*" element={<Navigate to={defaultAppRoute} replace />} />
       </Routes>
