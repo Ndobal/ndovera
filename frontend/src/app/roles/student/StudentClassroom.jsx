@@ -68,6 +68,29 @@ export default function StudentClassroom() {
     }).catch(() => {}).finally(() => setClassroomLoading(false));
   }, []);
 
+  // Poll stream every 15 s so all users see new posts without full reload
+  useEffect(() => {
+    const classId = localStorage.getItem('classroomId');
+    if (!classId) return;
+    const token = localStorage.getItem('token');
+    const headers = token ? { Authorization: `Bearer ${token}` } : {};
+    const poll = setInterval(() => {
+      fetch(`/api/classrooms/${classId}/posts`, { headers })
+        .then(r => r.ok ? r.json() : null)
+        .then(json => {
+          if (json && json.posts) {
+            setStreamPosts(prev => {
+              // merge: keep optimistic posts not yet confirmed, prepend new server posts
+              const serverIds = new Set(json.posts.map(p => p.id));
+              const optimistic = prev.filter(p => !serverIds.has(p.id) && p.isStudentPost);
+              return [...optimistic, ...json.posts];
+            });
+          }
+        }).catch(() => {});
+    }, 15000);
+    return () => clearInterval(poll);
+  }, []);
+
   useEffect(() => {
     const onResize = () => setIsMobile(window.innerWidth < 768);
     window.addEventListener('resize', onResize);
@@ -121,39 +144,62 @@ export default function StudentClassroom() {
     return { pending, submitted, needsImprovement };
   }, [tasks]);
 
-  const postAnnouncement = () => {
+  const postAnnouncement = async () => {
     if (!teacherSettings.studentAnnouncementsEnabled) return;
     if (!streamInput.trim()) return;
-
-    setStreamPosts(prev => [
-      {
-        id: `stream-${Date.now()}`,
-        author: 'Student Post • You',
-        text: streamInput.trim(),
-        pinned: false,
-        comments: [],
-        isStudentPost: true,
-      },
-      ...prev,
-    ]);
+    const classId = localStorage.getItem('classroomId');
+    const token = localStorage.getItem('token');
+    const userId = localStorage.getItem('userId') || 'student';
+    const headers = { 'Content-Type': 'application/json', ...(token ? { Authorization: `Bearer ${token}` } : {}) };
+    const optimistic = {
+      id: `stream-${Date.now()}`,
+      author: 'You',
+      text: streamInput.trim(),
+      pinned: false,
+      comments: [],
+      isStudentPost: true,
+      createdAt: new Date().toISOString(),
+    };
+    setStreamPosts(prev => [optimistic, ...prev]);
     setStreamInput('');
+    if (classId) {
+      try {
+        const res = await fetch(`/api/classrooms/${classId}/posts`, {
+          method: 'POST',
+          headers,
+          body: JSON.stringify({ text: optimistic.text, authorId: userId }),
+        });
+        const json = res.ok ? await res.json() : null;
+        if (json && (json.post || json.id)) {
+          const saved = json.post || json;
+          setStreamPosts(prev => prev.map(p => p.id === optimistic.id ? { ...optimistic, ...saved } : p));
+        }
+      } catch { /* keep optimistic */ }
+    }
   };
 
-  const addComment = (postId) => {
+  const addComment = async (postId) => {
     if (!teacherSettings.commentsEnabled) return;
     const text = (commentInputs[postId] || '').trim();
     if (!text) return;
-
+    const classId = localStorage.getItem('classroomId');
+    const token = localStorage.getItem('token');
+    const userId = localStorage.getItem('userId') || 'student';
+    const headers = { 'Content-Type': 'application/json', ...(token ? { Authorization: `Bearer ${token}` } : {}) };
+    const optimistic = { id: `cm-${Date.now()}`, user: 'You', text };
     setStreamPosts(prev => prev.map(post => (
-      post.id === postId
-        ? {
-          ...post,
-          comments: [...post.comments, { id: `cm-${Date.now()}`, user: 'You', text }],
-        }
-        : post
+      post.id === postId ? { ...post, comments: [...post.comments, optimistic] } : post
     )));
-
     setCommentInputs(prev => ({ ...prev, [postId]: '' }));
+    if (classId) {
+      try {
+        await fetch(`/api/classrooms/${classId}/posts/${postId}/comments`, {
+          method: 'POST',
+          headers,
+          body: JSON.stringify({ text, authorId: userId }),
+        });
+      } catch { /* keep optimistic */ }
+    }
   };
 
   const toggleGroup = (groupId) => {
@@ -231,11 +277,11 @@ export default function StudentClassroom() {
   );
 
   const bottomTabs = [
+    { key: 'stream', label: 'Stream', icon: MegaphoneIcon },
     { key: 'subjects', label: 'Subjects', icon: AcademicCapIcon },
     { key: 'materials', label: 'Materials', icon: DocumentTextIcon },
     { key: 'practice', label: 'Practice', icon: LightBulbIcon },
     { key: 'assignment', label: 'Assignment', icon: ClipboardDocumentListIcon },
-    { key: 'stream', label: 'Stream', icon: MegaphoneIcon },
     { key: 'live', label: 'Live', icon: PlayCircleIcon },
     { key: 'students', label: 'Classmates', icon: UserGroupIcon },
     { key: 'teachers', label: 'Teachers', icon: BookOpenIcon },
@@ -413,9 +459,11 @@ export default function StudentClassroom() {
               <input
                 value={streamInput}
                 onChange={(event) => setStreamInput(event.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && postAnnouncement()}
                 disabled={!teacherSettings.studentAnnouncementsEnabled}
-                className="flex-1 rounded-2xl bg-slate-900/50 border border-white/10 px-4 py-2 text-sm text-slate-100"
-                placeholder={teacherSettings.studentAnnouncementsEnabled ? 'Post class announcement' : 'Teacher has disabled student announcements'}
+                className="flex-1 rounded-2xl border border-amber-300/60 px-4 py-2 text-sm text-slate-800 font-medium placeholder:text-amber-700/60"
+                style={{ backgroundColor: '#f5deb3' }}
+                placeholder={teacherSettings.studentAnnouncementsEnabled ? 'Post class announcement…' : 'Teacher has disabled student posts'}
               />
               <button
                 onClick={postAnnouncement}
@@ -453,9 +501,11 @@ export default function StudentClassroom() {
                   <input
                     value={commentInputs[post.id] || ''}
                     onChange={(event) => setCommentInputs(prev => ({ ...prev, [post.id]: event.target.value }))}
+                    onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && addComment(post.id)}
                     disabled={!teacherSettings.commentsEnabled}
-                    className="flex-1 rounded-2xl bg-slate-900/50 border border-white/10 px-4 py-2 text-sm text-slate-100"
-                    placeholder={teacherSettings.commentsEnabled ? 'Comment respectfully' : 'Comments disabled by teacher'}
+                    className="flex-1 rounded-2xl border border-amber-300/60 px-4 py-2 text-sm text-slate-800 font-medium placeholder:text-amber-700/60"
+                    style={{ backgroundColor: '#f5deb3' }}
+                    placeholder={teacherSettings.commentsEnabled ? 'Comment respectfully…' : 'Comments disabled by teacher'}
                   />
                   <button
                     onClick={() => addComment(post.id)}
