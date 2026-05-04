@@ -1100,6 +1100,31 @@ app.post('/api/ami/tenants/:tenantId/restore', authenticate, async (c) => {
   return c.json({ success: true, tenant: updatedTenant })
 })
 
+app.post('/api/ami/tenants/:tenantId/mark-paid', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+
+  const tenantId = c.req.param('tenantId')
+  const tenant = await getTenantById(c.env.APP_DB, tenantId)
+  if (!tenant) return c.json({ error: 'Tenant not found.' }, 404)
+
+  const now = new Date().toISOString()
+  const lifecycle = deriveTenantLifecycleState(tenant.approvalStatus, 'paid', tenant.suspendedAt)
+  const updatedTenant = await updateTenant(c.env.APP_DB, tenantId, {
+    paymentStatus: 'paid',
+    status: lifecycle.status,
+    websiteStatus: lifecycle.websiteStatus,
+    activatedAt: lifecycle.dashboardActive ? (tenant.activatedAt || now) : tenant.activatedAt,
+    suspendedAt: null,
+  })
+
+  await addAudit(c.env.APP_DB, tenantId, {
+    action: 'tenantMarkedPaid',
+    data: { by: c.var.user.id || 'ami', manualOverride: true, markedAt: now },
+  })
+
+  return c.json({ success: true, tenant: updatedTenant })
+})
+
 app.get('/api/ami/discount-codes', authenticate, async (c) => {
   if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
 

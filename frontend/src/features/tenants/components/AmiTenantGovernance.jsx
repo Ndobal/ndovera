@@ -5,6 +5,7 @@ import {
   endDiscountCode,
   getAmiTenants,
   initiateTenantPayment,
+  markTenantAsPaid,
   restoreTenant,
   suspendTenant,
   updateTenantPricing,
@@ -318,6 +319,17 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
                     className="rounded-2xl bg-emerald-500 px-4 py-3 font-semibold text-slate-950 disabled:opacity-60"
                   >
                     {busyAction === `pay-${tenant.id}` ? 'Opening...' : 'Open Flutterwave Checkout'}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => runAction(`mark-paid-${tenant.id}`, async () => {
+                      await markTenantAsPaid(tenant.id);
+                      setNotice(`${tenant.schoolName} marked as paid.`);
+                    })}
+                    disabled={busyAction === `mark-paid-${tenant.id}` || tenant.paymentStatus === 'paid'}
+                    className="rounded-2xl border border-amber-400/40 px-4 py-3 font-semibold text-amber-700 dark:text-amber-200 disabled:opacity-40"
+                  >
+                    {busyAction === `mark-paid-${tenant.id}` ? 'Marking...' : 'Mark as Paid'}
                   </button>
                   <button
                     type="button"

@@ -125,6 +125,13 @@ export function suspendTenant(tenantId) {
   });
 }
 
+export function markTenantAsPaid(tenantId) {
+  return requestJson(`/api/ami/tenants/${encodeURIComponent(tenantId)}/mark-paid`, {
+    method: 'POST',
+    body: {},
+  });
+}
+
 export function restoreTenant(tenantId) {
   return requestJson(`/api/ami/tenants/${encodeURIComponent(tenantId)}/restore`, {
     method: 'POST',

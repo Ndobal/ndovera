@@ -140,8 +140,8 @@ export default function OwnerTenantConsole({ authUser = null, sectionKey = 'over
 
         {!dashboardActive && (
           <div className="mt-6 rounded-3xl border border-amber-400/30 bg-amber-500/10 p-5 space-y-3">
-            <p className="text-lg font-semibold text-slate-100">Owner dashboard is locked until onboarding is complete.</p>
-            <ol className="space-y-2 text-sm text-slate-300 list-decimal list-inside">
+            <p className="text-lg font-semibold text-black">Owner dashboard is locked until onboarding is complete.</p>
+            <ol className="space-y-2 text-sm text-black list-decimal list-inside">
               <li>Pay the onboarding invoice through Flutterwave.</li>
               <li>Wait for Ami to approve the tenant.</li>
               <li>Once both are done, {tenant?.websiteDomain || 'your school subdomain'} becomes active.</li>
@@ -173,19 +173,19 @@ export default function OwnerTenantConsole({ authUser = null, sectionKey = 'over
       <section className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
         <div className="glass-surface rounded-3xl p-5">
           <p className="micro-label neon-subtle">Plan</p>
-          <p className="mt-2 text-2xl command-title text-slate-100">{quote?.planName || tenant?.planKey || 'Unknown'}</p>
+          <p className="mt-2 text-2xl command-title text-black dark:text-slate-100">{quote?.planName || tenant?.planKey || 'Unknown'}</p>
         </div>
         <div className="glass-surface rounded-3xl p-5">
           <p className="micro-label neon-subtle">Setup Fee</p>
-          <p className="mt-2 text-2xl command-title text-slate-100">{quote ? currencyFormatter.format(quote.setupFee) : '-'}</p>
+          <p className="mt-2 text-2xl command-title text-black dark:text-slate-100">{quote ? currencyFormatter.format(quote.setupFee) : '-'}</p>
         </div>
         <div className="glass-surface rounded-3xl p-5">
           <p className="micro-label neon-subtle">Student Billing / Subsequent Term</p>
-          <p className="mt-2 text-2xl command-title text-slate-100">{quote ? currencyFormatter.format(quote.studentFeePerTerm) : '-'}</p>
+          <p className="mt-2 text-2xl command-title text-black dark:text-slate-100">{quote ? currencyFormatter.format(quote.studentFeePerTerm) : '-'}</p>
         </div>
         <div className="glass-surface rounded-3xl p-5">
           <p className="micro-label neon-subtle">Subdomain</p>
-          <p className="mt-2 text-xl command-title text-slate-100">{tenant?.websiteDomain || 'pending.ndovera.com'}</p>
+          <p className="mt-2 text-xl command-title text-black dark:text-slate-100">{tenant?.websiteDomain || 'pending.ndovera.com'}</p>
         </div>
       </section>
 
@@ -243,11 +243,11 @@ export default function OwnerTenantConsole({ authUser = null, sectionKey = 'over
             <div className="space-y-4 text-sm text-slate-300">
               <div className="rounded-2xl bg-slate-900/30 p-4">
                 <p className="micro-label neon-subtle">Owner Email</p>
-                <p className="mt-2 text-slate-100 font-semibold">{tenant?.ownerEmail}</p>
+                <p className="mt-2 text-[#800020] dark:text-slate-100 font-semibold">{tenant?.ownerEmail}</p>
               </div>
               <div className="rounded-2xl bg-slate-900/30 p-4">
                 <p className="micro-label neon-subtle">Student Count</p>
-                <p className="mt-2 text-slate-100 font-semibold">{tenant?.studentCount}</p>
+                <p className="mt-2 text-[#800020] dark:text-slate-100 font-semibold">{tenant?.studentCount}</p>
               </div>
             </div>
           )}
@@ -259,12 +259,12 @@ export default function OwnerTenantConsole({ authUser = null, sectionKey = 'over
             {payments.length ? payments.map(payment => (
               <div key={payment.txRef} className="rounded-2xl bg-slate-900/30 p-4 text-sm text-slate-300">
                 <div className="flex items-center justify-between gap-3">
-                  <p className="text-slate-100 font-semibold">{payment.txRef}</p>
+                  <p className="text-[#800020] dark:text-slate-100 font-semibold">{payment.txRef}</p>
                   <span className={`micro-label ${statusClass(payment.status)}`}>{payment.status}</span>
                 </div>
-                <p className="mt-2">Amount: {currencyFormatter.format(payment.amount)}</p>
-                <p className="mt-1">Created: {new Date(payment.createdAt).toLocaleString()}</p>
-                {payment.paidAt && <p className="mt-1">Paid: {new Date(payment.paidAt).toLocaleString()}</p>}
+                <p className="mt-2 text-[#800020] dark:text-slate-300">Amount: {currencyFormatter.format(payment.amount)}</p>
+                <p className="mt-1 text-[#800020] dark:text-slate-300">Created: {new Date(payment.createdAt).toLocaleString()}</p>
+                {payment.paidAt && <p className="mt-1 text-[#800020] dark:text-slate-300">Paid: {new Date(payment.paidAt).toLocaleString()}</p>}
               </div>
             )) : <p className="text-slate-400">No payment attempts yet.</p>}
           </div>
