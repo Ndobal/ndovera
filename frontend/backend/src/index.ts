@@ -1863,16 +1863,26 @@ app.put('/api/people/:userId/role', authenticate, async (c) => {
   }
 })
 
+const INIT_BRANDING = `CREATE TABLE IF NOT EXISTS tenant_branding (tenant_id TEXT PRIMARY KEY, logo_url TEXT, tagline TEXT, website TEXT, updated_at TEXT)`
+const INIT_WEBSITE_SECTIONS = `CREATE TABLE IF NOT EXISTS website_sections (id TEXT PRIMARY KEY, tenant_id TEXT, section_key TEXT, title TEXT, content TEXT, image_url TEXT, updated_at TEXT)`
+const INIT_SCHOOL_EVENTS = `CREATE TABLE IF NOT EXISTS school_events (id TEXT PRIMARY KEY, tenant_id TEXT, title TEXT, description TEXT, event_date TEXT, media_urls TEXT, created_at TEXT, updated_at TEXT)`
+
 app.get('/api/school/branding', authenticate, async (c) => {
   const { tenant } = await resolveTenantForActor(c)
   if (!tenant) return c.json({ error: 'Tenant not found.' }, 404)
-  return c.json({ success: true, branding: {
-    schoolName: tenant.schoolName,
-    subdomain: tenant.requestedSubdomain,
-    logoUrl: (tenant as any).logoUrl || null,
-    tagline: (tenant as any).tagline || null,
-    website: (tenant as any).website || null,
-  }})
+  try {
+    await c.env.APP_DB.prepare(INIT_BRANDING).run()
+    const row = await c.env.APP_DB.prepare(`SELECT * FROM tenant_branding WHERE tenant_id = ?`).bind(tenant.id).first() as any
+    return c.json({ success: true, branding: {
+      schoolName: tenant.schoolName,
+      subdomain: tenant.requestedSubdomain,
+      logoUrl: row?.logo_url || null,
+      tagline: row?.tagline || null,
+      website: row?.website || null,
+    }})
+  } catch {
+    return c.json({ success: true, branding: { schoolName: tenant.schoolName, subdomain: tenant.requestedSubdomain, logoUrl: null, tagline: null, website: null } })
+  }
 })
 
 app.post('/api/school/branding', authenticate, async (c) => {
@@ -1880,8 +1890,142 @@ app.post('/api/school/branding', authenticate, async (c) => {
   const { tenant } = await resolveTenantForActor(c)
   if (!tenant) return c.json({ error: 'Tenant not found.' }, 404)
   const { tagline, website, logoUrl } = await c.req.json()
-  await updateTenant(c.env.APP_DB, tenant.id, { tagline, website, logoUrl } as any)
+  try {
+    await c.env.APP_DB.prepare(INIT_BRANDING).run()
+    const existing = await c.env.APP_DB.prepare(`SELECT * FROM tenant_branding WHERE tenant_id = ?`).bind(tenant.id).first() as any
+    await c.env.APP_DB.prepare(`INSERT OR REPLACE INTO tenant_branding (tenant_id, logo_url, tagline, website, updated_at) VALUES (?, ?, ?, ?, ?)`)
+      .bind(tenant.id, logoUrl ?? existing?.logo_url ?? null, tagline ?? null, website ?? null, new Date().toISOString()).run()
+    return c.json({ success: true })
+  } catch (err) {
+    return c.json({ error: 'Could not save branding.' }, 500)
+  }
+})
+
+// Logo file upload to R2
+app.post('/api/school/logo', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['owner'])) return c.json({ error: 'forbidden' }, 403)
+  const { tenant } = await resolveTenantForActor(c)
+  if (!tenant) return c.json({ error: 'Tenant not found.' }, 404)
+  const formData = await c.req.formData()
+  const file = formData.get('file') as File
+  if (!file) return c.json({ error: 'No file provided.' }, 400)
+  try {
+    const ext = file.name.split('.').pop()?.toLowerCase() || 'png'
+    const key = `logos/${tenant.id}/logo_${Date.now()}.${ext}`
+    await c.env.UPLOADS.put(key, file.stream(), { httpMetadata: { contentType: file.type } })
+    const logoUrl = `https://files.ndovera.com/${key}`
+    await c.env.APP_DB.prepare(INIT_BRANDING).run()
+    const existing = await c.env.APP_DB.prepare(`SELECT * FROM tenant_branding WHERE tenant_id = ?`).bind(tenant.id).first() as any
+    await c.env.APP_DB.prepare(`INSERT OR REPLACE INTO tenant_branding (tenant_id, logo_url, tagline, website, updated_at) VALUES (?, ?, ?, ?, ?)`)
+      .bind(tenant.id, logoUrl, existing?.tagline ?? null, existing?.website ?? null, new Date().toISOString()).run()
+    return c.json({ success: true, logoUrl })
+  } catch {
+    return c.json({ error: 'Upload failed.' }, 500)
+  }
+})
+
+// Website sections
+app.get('/api/school/website/sections', authenticate, async (c) => {
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  try {
+    await c.env.APP_DB.prepare(INIT_WEBSITE_SECTIONS).run()
+    const rows = await c.env.APP_DB.prepare(`SELECT * FROM website_sections WHERE tenant_id = ? ORDER BY section_key`).bind(tenantId).all()
+    return c.json({ success: true, sections: rows.results || [] })
+  } catch { return c.json({ success: true, sections: [] }) }
+})
+
+app.post('/api/school/website/sections', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['owner'])) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  const { sectionKey, title, content, imageUrl } = await c.req.json()
+  if (!sectionKey) return c.json({ error: 'Section key required.' }, 400)
+  const id = `ws_${tenantId}_${sectionKey}`
+  try {
+    await c.env.APP_DB.prepare(INIT_WEBSITE_SECTIONS).run()
+    await c.env.APP_DB.prepare(`INSERT OR REPLACE INTO website_sections (id, tenant_id, section_key, title, content, image_url, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?)`)
+      .bind(id, tenantId, sectionKey, title || '', content || '', imageUrl || null, new Date().toISOString()).run()
+    return c.json({ success: true })
+  } catch (err) {
+    return c.json({ error: 'Could not save section.' }, 500)
+  }
+})
+
+app.post('/api/school/website/sections/upload', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['owner'])) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  const formData = await c.req.formData()
+  const file = formData.get('file') as File
+  const sectionKey = (formData.get('sectionKey') as string) || 'general'
+  if (!file) return c.json({ error: 'No file provided.' }, 400)
+  try {
+    const ext = file.name.split('.').pop()?.toLowerCase() || 'jpg'
+    const key = `website/${tenantId}/${sectionKey}/${Date.now()}.${ext}`
+    await c.env.UPLOADS.put(key, file.stream(), { httpMetadata: { contentType: file.type } })
+    return c.json({ success: true, url: `https://files.ndovera.com/${key}` })
+  } catch { return c.json({ error: 'Upload failed.' }, 500) }
+})
+
+// School events
+app.get('/api/school/events', authenticate, async (c) => {
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  try {
+    await c.env.APP_DB.prepare(INIT_SCHOOL_EVENTS).run()
+    const rows = await c.env.APP_DB.prepare(`SELECT * FROM school_events WHERE tenant_id = ? ORDER BY event_date DESC`).bind(tenantId).all()
+    const events = (rows.results || []).map((e: any) => ({ ...e, mediaUrls: JSON.parse(e.media_urls || '[]') }))
+    return c.json({ success: true, events })
+  } catch { return c.json({ success: true, events: [] }) }
+})
+
+app.post('/api/school/events', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos'])) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  const { title, description, eventDate, mediaUrls } = await c.req.json()
+  if (!title) return c.json({ error: 'Title required.' }, 400)
+  const id = `event_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`
+  try {
+    await c.env.APP_DB.prepare(INIT_SCHOOL_EVENTS).run()
+    await c.env.APP_DB.prepare(`INSERT INTO school_events (id, tenant_id, title, description, event_date, media_urls, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`)
+      .bind(id, tenantId, title, description || '', eventDate || '', JSON.stringify(mediaUrls || []), new Date().toISOString(), new Date().toISOString()).run()
+    return c.json({ success: true, id }, 201)
+  } catch (err) { return c.json({ error: 'Could not create event.' }, 500) }
+})
+
+app.put('/api/school/events/:id', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos'])) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = c.var.user?.tenantId
+  const eventId = c.req.param('id')
+  const { title, description, eventDate, mediaUrls } = await c.req.json()
+  await c.env.APP_DB.prepare(`UPDATE school_events SET title=?, description=?, event_date=?, media_urls=?, updated_at=? WHERE id=? AND tenant_id=?`)
+    .bind(title, description || '', eventDate || '', JSON.stringify(mediaUrls || []), new Date().toISOString(), eventId, tenantId).run()
   return c.json({ success: true })
+})
+
+app.delete('/api/school/events/:id', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos'])) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = c.var.user?.tenantId
+  const eventId = c.req.param('id')
+  await c.env.APP_DB.prepare(`DELETE FROM school_events WHERE id=? AND tenant_id=?`).bind(eventId, tenantId).run()
+  return c.json({ success: true })
+})
+
+app.post('/api/school/events/upload', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos'])) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  const formData = await c.req.formData()
+  const file = formData.get('file') as File
+  if (!file) return c.json({ error: 'No file provided.' }, 400)
+  try {
+    const ext = file.name.split('.').pop()?.toLowerCase() || 'jpg'
+    const key = `events/${tenantId}/${Date.now()}.${ext}`
+    await c.env.UPLOADS.put(key, file.stream(), { httpMetadata: { contentType: file.type } })
+    return c.json({ success: true, url: `https://files.ndovera.com/${key}` })
+  } catch { return c.json({ error: 'Upload failed.' }, 500) }
 })
 
 app.get('/api/school/classes', authenticate, async (c) => {

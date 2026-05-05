@@ -40,3 +40,28 @@ export const getSession = () => req('/api/school/session');
 export const saveSession = (data) => req('/api/school/session', { method: 'POST', body: data });
 export const getBranding = () => req('/api/school/branding');
 export const saveBranding = (data) => req('/api/school/branding', { method: 'POST', body: data });
+
+async function uploadFile(path, file, extraFields = {}) {
+  const auth = getStoredAuth();
+  const formData = new FormData();
+  formData.append('file', file);
+  for (const [k, v] of Object.entries(extraFields)) formData.append(k, v);
+  const res = await fetch(getApiUrl(path), {
+    method: 'POST',
+    headers: auth?.token ? { Authorization: `Bearer ${auth.token}` } : {},
+    body: formData,
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.error || data.message || 'Upload failed.');
+  return data;
+}
+
+export const uploadLogo = (file) => uploadFile('/api/school/logo', file);
+export const getWebsiteSections = () => req('/api/school/website/sections');
+export const saveWebsiteSection = (data) => req('/api/school/website/sections', { method: 'POST', body: data });
+export const uploadSectionImage = (file, sectionKey) => uploadFile('/api/school/website/sections/upload', file, { sectionKey });
+export const getEvents = () => req('/api/school/events');
+export const createEvent = (data) => req('/api/school/events', { method: 'POST', body: data });
+export const updateEvent = (id, data) => req(`/api/school/events/${id}`, { method: 'PUT', body: data });
+export const deleteEvent = (id) => req(`/api/school/events/${id}`, { method: 'DELETE' });
+export const uploadEventMedia = (file) => uploadFile('/api/school/events/upload', file);

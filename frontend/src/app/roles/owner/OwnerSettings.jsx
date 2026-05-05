@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { getMe, getClasses, addClass, getSubjects, addSubject, getSession, saveSession, getBranding, saveBranding, getPeople } from '../../../features/school/services/schoolApi';
+import React, { useEffect, useState, useRef } from 'react';
+import { getMe, getClasses, addClass, getSubjects, addSubject, getSession, saveSession, getBranding, saveBranding, uploadLogo, getPeople } from '../../../features/school/services/schoolApi';
 import AdminPasswordReset from '../../../features/auth/components/AdminPasswordReset';
+import WebsiteTab from './tabs/WebsiteTab';
+import EventsTab from './tabs/EventsTab';
 
-const TABS = ['Profile', 'School Branding', 'Classes', 'Subjects', 'Sessions & Terms'];
+const TABS = ['Profile', 'School Branding', 'Website', 'Events', 'Classes', 'Subjects', 'Sessions & Terms'];
 
 function ProfileTab() {
   const [me, setMe] = useState(null);
@@ -34,30 +36,59 @@ function BrandingTab() {
   const [form, setForm] = useState({ schoolName: '', tagline: '', website: '', logoUrl: '' });
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const [msg, setMsg] = useState('');
+  const fileRef = useRef();
+
   useEffect(() => {
     getBranding().then(d => { if (d?.branding) setForm(f => ({ ...f, ...d.branding })); }).finally(() => setLoading(false));
   }, []);
+
+  async function handleLogoUpload(e) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploading(true); setMsg('');
+    try {
+      const result = await uploadLogo(file);
+      setForm(f => ({ ...f, logoUrl: result.logoUrl }));
+      setMsg('Logo uploaded!');
+    } catch (err) { setMsg(err.message); }
+    finally { setUploading(false); }
+  }
+
   async function handleSave(e) {
     e.preventDefault(); setSaving(true); setMsg('');
     try { await saveBranding(form); setMsg('Saved!'); } catch (err) { setMsg(err.message); } finally { setSaving(false); }
   }
+
   if (loading) return <p className="text-[#800020]">Loading...</p>;
   return (
     <form onSubmit={handleSave} className="space-y-4">
       <p className="text-xs text-[#800020] dark:text-slate-400">Your logo and branding appear in the Ndovera school directory.</p>
-      {[['School Name', 'schoolName'], ['Tagline', 'tagline'], ['Website URL', 'website'], ['Logo URL', 'logoUrl']].map(([label, key]) => (
+
+      <div>
+        <label className="text-xs text-[#800020] dark:text-slate-400 uppercase font-semibold">School Logo</label>
+        <div className="flex items-center gap-3 mt-2">
+          {form.logoUrl && <img src={form.logoUrl} alt="Logo" className="h-16 w-16 rounded-xl object-contain border border-[#c9a96e]/40 bg-white" />}
+          <div className="flex flex-col gap-1">
+            <button type="button" onClick={() => fileRef.current?.click()} disabled={uploading}
+              className="bg-[#1a5c38] hover:bg-[#154a2e] text-[#f5deb3] font-bold px-5 py-2 rounded-2xl text-sm transition-colors disabled:opacity-60">
+              {uploading ? 'Uploading…' : '📁 Upload Logo'}
+            </button>
+            <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={handleLogoUpload} />
+            <p className="text-xs text-[#800020] dark:text-slate-400">PNG, JPG, SVG recommended</p>
+          </div>
+        </div>
+      </div>
+
+      {[['School Name', 'schoolName'], ['Tagline', 'tagline'], ['Website URL', 'website']].map(([label, key]) => (
         <div key={key}>
           <label className="text-xs text-[#800020] dark:text-slate-400 uppercase font-semibold">{label}</label>
-          <input
-            value={form[key] || ''}
-            onChange={e => setForm(f => ({ ...f, [key]: e.target.value }))}
-            className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 dark:border-white/10 bg-[#f0d090] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1a5c38]"
-          />
+          <input value={form[key] || ''} onChange={e => setForm(f => ({ ...f, [key]: e.target.value }))}
+            className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 dark:border-white/10 bg-[#fff8ee] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1a5c38]" />
         </div>
       ))}
-      {form.logoUrl && <img src={form.logoUrl} alt="Logo preview" className="h-16 rounded-xl object-contain border border-[#c9a96e]/40" />}
-      {msg && <p className={`text-sm ${msg === 'Saved!' ? 'text-emerald-700' : 'text-red-600'}`}>{msg}</p>}
+      {msg && <p className={`text-sm ${msg.includes('!') ? 'text-emerald-700' : 'text-red-600'}`}>{msg}</p>}
       <button type="submit" disabled={saving} className="bg-[#1a5c38] hover:bg-[#154a2e] text-[#f5deb3] font-bold px-6 py-2 rounded-2xl text-sm transition-colors disabled:opacity-60">
         {saving ? 'Saving...' : 'Save Branding'}
       </button>
@@ -216,7 +247,7 @@ function SessionTab() {
 
 export default function OwnerSettings({ auth }) {
   const [tab, setTab] = useState('Profile');
-  const tabContent = { Profile: <ProfileTab />, 'School Branding': <BrandingTab />, Classes: <ClassesTab />, Subjects: <SubjectsTab />, 'Sessions & Terms': <SessionTab /> };
+  const tabContent = { Profile: <ProfileTab />, 'School Branding': <BrandingTab />, Website: <WebsiteTab />, Events: <EventsTab />, Classes: <ClassesTab />, Subjects: <SubjectsTab />, 'Sessions & Terms': <SessionTab /> };
   return (
     <div className="p-8 max-w-7xl mx-auto space-y-6">
       <div className="rounded-3xl p-6 bg-[#f5deb3] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
