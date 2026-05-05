@@ -1,2 +1,18 @@
 name = "ndovera-web"
 pages_build_output_dir = "packages/web/dist"
+
+
+[[d1_databases]]
+binding = "DB"
+database_name = "ndovera-db"
+database_id = "77d6f37d-7fc8-4f5d-927c-42f3c6f24538"
+
+
+[[kv_namespaces]]
+binding = "ndovera-kv"
+id = "3b679aac9c5a44f8bcc191f1f336d9af"
+
+
+[[r2_buckets]]
+binding = "BUCKET"
+bucket_name = "dovera-files"

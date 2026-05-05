@@ -24,8 +24,6 @@ CORS_ORIGIN = "https://www.ndovera.com"
 SESSION_COOKIE_NAME = "ndovera_ami_session"
 SESSION_TTL_SECONDS = "2592000"
 HYPERDRIVE_CONNECTION_STRING = ""
-SUPER_ADMIN_EMAIL = ""
-SUPER_ADMIN_PASSWORD_HASH = ""
 
 # Optional Hyperdrive binding. Add after creating Hyperdrive in Cloudflare:
 # [[hyperdrive]]
