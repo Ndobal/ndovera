@@ -2124,6 +2124,81 @@ app.put('/api/people/:userId/role', authenticate, async (c) => {
   }
 })
 
+app.put('/api/people/:userId', authenticate, async (c) => {
+  const tenantId = c.var.user?.tenantId
+  const callerId = c.var.user?.id
+  const callerRole = c.var.user?.role
+  const userId = c.req.param('userId')
+  // owner/hos can edit anyone; other users can only edit their own profile
+  const isAdminEdit = hasRequiredRole(callerRole, ['owner', 'hos'])
+  if (!isAdminEdit && callerId !== userId) return c.json({ error: 'forbidden' }, 403)
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  const { name, phone, classId } = await c.req.json()
+  try {
+    await ensureUsersTable(c.env.APP_DB)
+    const existingUser = await c.env.APP_DB.prepare(
+      `SELECT id, email, role FROM users WHERE id = ? AND tenantId = ?`
+    ).bind(userId, tenantId).first() as any
+    if (!existingUser) return c.json({ error: 'User not found.' }, 404)
+    if (name) {
+      await c.env.APP_DB.prepare(`UPDATE users SET name = ? WHERE id = ? AND tenantId = ?`).bind(name, userId, tenantId).run()
+    }
+    const settings = await getSettings(c.env.APP_DB, existingUser.email).catch(() => null) || {}
+    const updates: Record<string, any> = {}
+    if (name !== undefined) updates.name = name
+    if (phone !== undefined) updates.phone = phone
+    if (classId !== undefined && isAdminEdit) {
+      // resolve class name for classId
+      try {
+        await ensureClassesTable(c.env.APP_DB)
+        const cls = await c.env.APP_DB.prepare(`SELECT id, name, arm FROM classes WHERE id = ? AND tenantId = ?`).bind(classId, tenantId).first() as any
+        updates.classId = classId
+        updates.className = cls ? `${cls.name}${cls.arm ? ` ${cls.arm}` : ''}` : classId
+      } catch { updates.classId = classId }
+    }
+    if (Object.keys(updates).length > 0) {
+      await upsertSettings(c.env.APP_DB, existingUser.email, { ...settings, ...updates })
+    }
+    await addAudit(c.env.APP_DB, tenantId, { action: 'personUpdated', data: { by: callerId, userId, fields: Object.keys(updates) } })
+    return c.json({ success: true })
+  } catch (err) {
+    return c.json({ error: 'Could not update profile.' }, 500)
+  }
+})
+
+app.post('/api/school/parent-student-link', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos', 'parent'])) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = c.var.user?.tenantId
+  const callerRole = c.var.user?.role
+  const callerId = c.var.user?.id
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  const { parentId, studentId } = await c.req.json()
+  if (!parentId || !studentId) return c.json({ error: 'parentId and studentId are required.' }, 400)
+  // parents can only link themselves
+  if (callerRole === 'parent' && callerId !== parentId) return c.json({ error: 'forbidden' }, 403)
+  try {
+    await ensureParentStudentLinksTable(c.env.APP_DB)
+    // enforce max 2 parents per student
+    const existingLinks = await c.env.APP_DB.prepare(
+      `SELECT id FROM parent_student_links WHERE student_id = ? AND tenant_id = ?`
+    ).bind(studentId, tenantId).all()
+    // check if this parent is already linked
+    const alreadyLinked = (existingLinks.results || []).length > 0 &&
+      await c.env.APP_DB.prepare(
+        `SELECT id FROM parent_student_links WHERE student_id = ? AND parent_id = ? AND tenant_id = ?`
+      ).bind(studentId, parentId, tenantId).first()
+    if (alreadyLinked) return c.json({ success: true, message: 'Already linked.' })
+    if ((existingLinks.results || []).length >= 2) return c.json({ error: 'A student can have at most 2 linked parents.' }, 400)
+    const linkId = `link_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`
+    await c.env.APP_DB.prepare(
+      `INSERT OR IGNORE INTO parent_student_links (id, parent_id, student_id, tenant_id, created_at) VALUES (?, ?, ?, ?, ?)`
+    ).bind(linkId, parentId, studentId, tenantId, new Date().toISOString()).run()
+    return c.json({ success: true, linkId })
+  } catch (err) {
+    return c.json({ error: 'Could not create link.' }, 500)
+  }
+})
+
 app.get('/api/people/:userId', authenticate, async (c) => {
   if (!hasRequiredRole(c.var.user.role, ['owner', 'hos'])) return c.json({ error: 'forbidden' }, 403)
   const tenantId = c.var.user?.tenantId
@@ -2374,23 +2449,7 @@ app.get('/api/school/parents', authenticate, async (c) => {
   }
 })
 
-app.post('/api/school/parent-student-link', authenticate, async (c) => {
-  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos'])) return c.json({ error: 'forbidden' }, 403)
-  const tenantId = c.var.user?.tenantId
-  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
-  const { parentId, studentId } = await c.req.json()
-  if (!parentId || !studentId) return c.json({ error: 'parentId and studentId are required.' }, 400)
-  try {
-    await ensureParentStudentLinksTable(c.env.APP_DB)
-    const linkId = `link_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`
-    await c.env.APP_DB.prepare(
-      `INSERT OR IGNORE INTO parent_student_links (id, parent_id, student_id, tenant_id, created_at) VALUES (?, ?, ?, ?, ?)`
-    ).bind(linkId, parentId, studentId, tenantId, new Date().toISOString()).run()
-    return c.json({ success: true, linkId })
-  } catch (err) {
-    return c.json({ error: 'Could not create link.' }, 500)
-  }
-})
+// parent-student-link is registered earlier (before GET /api/people/:userId)
 
 app.get('/api/school/classes', authenticate, async (c) => {
   const tenantId = c.var.user?.tenantId

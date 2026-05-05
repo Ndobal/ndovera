@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import {
   getPeople, addPerson, deactivatePerson, updatePersonRole,
-  getClasses, getParents, getUserProfile,
+  getClasses, getParents, getUserProfile, updateUserProfile, linkParentStudent,
 } from '../../../features/school/services/schoolApi';
 
 const ROLES = ['teacher', 'hos', 'accountant', 'student', 'parent', 'librarian', 'classteacher', 'hod', 'principal', 'growthpartner'];
@@ -16,19 +16,76 @@ function filterPeople(people, filter) {
   return people;
 }
 
-function UserProfileModal({ userId, onClose }) {
+function UserProfileModal({ userId, onClose, isAdmin, currentUserId }) {
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [editing, setEditing] = useState(false);
+  const [editForm, setEditForm] = useState({});
+  const [saving, setSaving] = useState(false);
+  const [saveMsg, setSaveMsg] = useState('');
+  // second parent linking
+  const [showLinkParent, setShowLinkParent] = useState(false);
+  const [allParents, setAllParents] = useState([]);
+  const [linkSearch, setLinkSearch] = useState('');
+  const [linkParentId, setLinkParentId] = useState('');
+  const [linking, setLinking] = useState(false);
+  const [linkMsg, setLinkMsg] = useState('');
+  const [classes, setClasses] = useState([]);
 
-  useEffect(() => {
+  const load = useCallback(() => {
     if (!userId) return;
     setLoading(true);
+    setError('');
     getUserProfile(userId)
-      .then(data => setProfile(data?.user || null))
+      .then(data => {
+        const u = data?.user || null;
+        setProfile(u);
+        setEditForm({ name: u?.name || '', phone: u?.phone || '', classId: u?.classId || '' });
+      })
       .catch(err => setError(err.message))
       .finally(() => setLoading(false));
   }, [userId]);
+
+  useEffect(() => {
+    load();
+    getParents().then(d => setAllParents(d?.parents || [])).catch(() => {});
+    getClasses().then(d => setClasses(d?.classes || [])).catch(() => {});
+  }, [load]);
+
+  async function handleSave() {
+    setSaving(true); setSaveMsg('');
+    try {
+      await updateUserProfile(userId, { name: editForm.name, phone: editForm.phone, classId: editForm.classId || undefined });
+      setSaveMsg('Saved!');
+      setEditing(false);
+      load();
+    } catch (err) { setSaveMsg(err.message); }
+    finally { setSaving(false); }
+  }
+
+  async function handleLinkParent() {
+    if (!linkParentId) return;
+    setLinking(true); setLinkMsg('');
+    try {
+      await linkParentStudent({ parentId: linkParentId, studentId: userId });
+      setLinkMsg('Parent linked!');
+      setShowLinkParent(false);
+      load();
+    } catch (err) { setLinkMsg(err.message); }
+    finally { setLinking(false); }
+  }
+
+  const filteredForLink = allParents.filter(p =>
+    !linkSearch
+    || p.name?.toLowerCase().includes(linkSearch.toLowerCase())
+    || p.email?.toLowerCase().includes(linkSearch.toLowerCase())
+    || p.phone?.toLowerCase().includes(linkSearch.toLowerCase())
+    || p.displayId?.toLowerCase().includes(linkSearch.toLowerCase())
+  );
+
+  const canEdit = isAdmin || currentUserId === userId;
+  const linkedParentsCount = profile?.linkedParents?.length || 0;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40" onClick={onClose}>
@@ -38,7 +95,12 @@ function UserProfileModal({ userId, onClose }) {
       >
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-lg font-bold text-[#800000] dark:text-slate-100">User Profile</h2>
-          <button onClick={onClose} className="text-[#800020] dark:text-slate-400 text-xl font-bold hover:text-red-600">✕</button>
+          <div className="flex gap-2 items-center">
+            {canEdit && !editing && (
+              <button onClick={() => setEditing(true)} className="bg-[#1a5c38] text-[#f5deb3] font-bold text-xs px-3 py-1.5 rounded-xl">Edit</button>
+            )}
+            <button onClick={onClose} className="text-[#800020] dark:text-slate-400 text-xl font-bold hover:text-red-600">✕</button>
+          </div>
         </div>
 
         {loading && <p className="text-[#800020] dark:text-slate-400 text-sm">Loading...</p>}
@@ -51,84 +113,180 @@ function UserProfileModal({ userId, onClose }) {
                 {profile.displayId}
               </div>
             )}
-            <div className="grid grid-cols-2 gap-3">
-              {[
-                ['User ID', profile.displayId],
-                ['Name', profile.name],
-                ['Email', profile.email],
-                ['Phone', profile.phone],
-                ['Role', profile.role],
-                ['Status', profile.status || 'active'],
-                ['Created', profile.createdAt ? new Date(profile.createdAt).toLocaleDateString() : '—'],
-              ].map(([label, value]) => (
-                <div key={label}>
-                  <p className="text-xs font-semibold uppercase text-[#800020] dark:text-slate-400">{label}</p>
-                  <p className="text-sm text-[#191970] dark:text-slate-200 capitalize">{value || '—'}</p>
+
+            {editing ? (
+              <div className="space-y-3">
+                <div>
+                  <label className="text-xs font-semibold uppercase text-[#800020]">Name</label>
+                  <input
+                    value={editForm.name}
+                    onChange={e => setEditForm(f => ({ ...f, name: e.target.value }))}
+                    className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#f0d090] text-[#191970] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1a5c38]"
+                  />
                 </div>
-              ))}
-            </div>
-
-            <div>
-              <p className="text-xs font-semibold uppercase text-[#800020] dark:text-slate-400 mb-2">School Record</p>
-              <div className="rounded-2xl bg-[#f0d090] dark:bg-slate-800 px-4 py-3 text-sm text-[#191970] dark:text-slate-200">
-                {profile.currentClass
-                  ? `Current class: ${profile.currentClass.name}${profile.currentClass.arm ? ` ${profile.currentClass.arm}` : ''}`
-                  : 'No class record assigned yet.'}
-              </div>
-            </div>
-
-            {profile.role === 'student' && profile.linkedParents?.length > 0 && (
-              <div>
-                <p className="text-xs font-semibold uppercase text-[#800020] dark:text-slate-400 mb-2">Linked Parents</p>
-                <div className="space-y-1">
-                  {profile.linkedParents.map(p => (
-                    <div key={p.id} className="text-sm text-[#191970] dark:text-slate-200 bg-[#f0d090] dark:bg-slate-800 rounded-xl px-3 py-1.5">
-                      {p.name} {p.email ? `· ${p.email}` : ''} {p.displayId ? <span className="text-[#800020] font-mono text-xs ml-1">{p.displayId}</span> : null}
-                    </div>
-                  ))}
+                <div>
+                  <label className="text-xs font-semibold uppercase text-[#800020]">Phone</label>
+                  <input
+                    value={editForm.phone}
+                    onChange={e => setEditForm(f => ({ ...f, phone: e.target.value }))}
+                    className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#f0d090] text-[#191970] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1a5c38]"
+                  />
                 </div>
-              </div>
-            )}
-
-            {profile.role === 'parent' && profile.linkedChildren?.length > 0 && (
-              <div>
-                <p className="text-xs font-semibold uppercase text-[#800020] dark:text-slate-400 mb-2">Children</p>
-                <div className="space-y-1">
-                  {profile.linkedChildren.map(c => (
-                    <div key={c.id} className="text-sm text-[#191970] dark:text-slate-200 bg-[#f0d090] dark:bg-slate-800 rounded-xl px-3 py-1.5">
-                      {c.name} {c.displayId ? <span className="text-[#800020] font-mono text-xs ml-1">{c.displayId}</span> : null}
-                    </div>
-                  ))}
+                <div>
+                  <label className="text-xs font-semibold uppercase text-[#800020]">Email (cannot change)</label>
+                  <input value={profile.email} disabled className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#e8c878]/60 text-[#191970]/60 px-3 py-2 text-sm cursor-not-allowed" />
+                </div>
+                {isAdmin && profile.role === 'student' && (
+                  <div>
+                    <label className="text-xs font-semibold uppercase text-[#800020]">Class</label>
+                    <select
+                      value={editForm.classId}
+                      onChange={e => setEditForm(f => ({ ...f, classId: e.target.value }))}
+                      className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#f0d090] text-[#191970] px-3 py-2 text-sm outline-none"
+                    >
+                      <option value="">— Select Class —</option>
+                      {classes.map(cl => <option key={cl.id} value={cl.id}>{cl.name}{cl.arm ? ` ${cl.arm}` : ''}</option>)}
+                    </select>
+                  </div>
+                )}
+                {saveMsg && <p className={`text-sm ${saveMsg === 'Saved!' ? 'text-emerald-600' : 'text-red-600'}`}>{saveMsg}</p>}
+                <div className="flex gap-2 pt-1">
+                  <button onClick={() => setEditing(false)} className="flex-1 border border-[#c9a96e]/40 text-[#800020] px-4 py-2 rounded-2xl text-sm font-semibold">Cancel</button>
+                  <button onClick={handleSave} disabled={saving} className="flex-1 bg-[#1a5c38] text-[#f5deb3] font-bold px-4 py-2 rounded-2xl text-sm disabled:opacity-60">
+                    {saving ? 'Saving…' : 'Save'}
+                  </button>
                 </div>
               </div>
-            )}
-
-            {profile.recentAttendance?.length > 0 && (
-              <div>
-                <p className="text-xs font-semibold uppercase text-[#800020] dark:text-slate-400 mb-2">Recent Attendance (last 5)</p>
-                <div className="space-y-1">
-                  {profile.recentAttendance.slice(0, 5).map((a, i) => (
-                    <div key={i} className="text-xs text-[#191970] dark:text-slate-200 flex justify-between bg-[#f0d090] dark:bg-slate-800 rounded-xl px-3 py-1">
-                      <span>{a.date}</span>
-                      <span className={a.status === 'present' ? 'text-emerald-600' : 'text-red-500'}>{a.status}</span>
-                    </div>
-                  ))}
-                </div>
+            ) : (
+              <div className="grid grid-cols-2 gap-3">
+                {[
+                  ['User ID', profile.displayId],
+                  ['Name', profile.name],
+                  ['Email', profile.email],
+                  ['Phone', profile.phone],
+                  ['Role', profile.role],
+                  ['Status', profile.status || 'active'],
+                  ['Created', profile.createdAt ? new Date(profile.createdAt).toLocaleDateString() : '—'],
+                ].map(([label, value]) => (
+                  <div key={label}>
+                    <p className="text-xs font-semibold uppercase text-[#800020] dark:text-slate-400">{label}</p>
+                    <p className="text-sm text-[#191970] dark:text-slate-200 capitalize">{value || '—'}</p>
+                  </div>
+                ))}
               </div>
             )}
 
-            {profile.activity?.length > 0 && (
-              <div>
-                <p className="text-xs font-semibold uppercase text-[#800020] dark:text-slate-400 mb-2">Recent Activity</p>
-                <div className="space-y-1">
-                  {profile.activity.slice(0, 5).map(item => (
-                    <div key={item.id || `${item.action}-${item.ts}`} className="rounded-xl bg-[#f0d090] dark:bg-slate-800 px-3 py-2">
-                      <p className="text-sm font-semibold text-[#800000] dark:text-slate-100">{item.action || 'Record'}</p>
-                      <p className="text-xs text-[#191970] dark:text-slate-300">{item.ts ? new Date(item.ts).toLocaleString() : '—'}</p>
-                    </div>
-                  ))}
+            {!editing && (
+              <>
+                <div>
+                  <p className="text-xs font-semibold uppercase text-[#800020] dark:text-slate-400 mb-2">School Record</p>
+                  <div className="rounded-2xl bg-[#f0d090] dark:bg-slate-800 px-4 py-3 text-sm text-[#191970] dark:text-slate-200">
+                    {profile.currentClass
+                      ? `Current class: ${profile.currentClass.name}${profile.currentClass.arm ? ` ${profile.currentClass.arm}` : ''}`
+                      : 'No class record assigned yet.'}
+                  </div>
                 </div>
-              </div>
+
+                {profile.role === 'student' && (
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <p className="text-xs font-semibold uppercase text-[#800020] dark:text-slate-400">
+                        Linked Parents ({linkedParentsCount}/2)
+                      </p>
+                      {linkedParentsCount < 2 && (
+                        <button
+                          onClick={() => setShowLinkParent(v => !v)}
+                          className="bg-[#1a5c38] text-[#f5deb3] font-bold text-xs px-3 py-1 rounded-xl"
+                        >
+                          + Link Parent
+                        </button>
+                      )}
+                    </div>
+
+                    {profile.linkedParents?.length > 0 && (
+                      <div className="space-y-1 mb-2">
+                        {profile.linkedParents.map(p => (
+                          <div key={p.id} className="text-sm text-[#191970] dark:text-slate-200 bg-[#f0d090] dark:bg-slate-800 rounded-xl px-3 py-1.5 flex justify-between">
+                            <span>{p.name}</span>
+                            <span className="text-[#800020] text-xs">{p.email || p.phone || ''}{p.displayId ? ` · ${p.displayId}` : ''}</span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
+                    {showLinkParent && (
+                      <div className="rounded-2xl bg-[#f0d090] dark:bg-slate-800 px-4 py-3 space-y-2">
+                        <input
+                          type="text"
+                          placeholder="Search parent by name/email/phone…"
+                          value={linkSearch}
+                          onChange={e => setLinkSearch(e.target.value)}
+                          className="w-full rounded-xl border border-[#c9a96e]/40 bg-[#f5deb3] text-[#191970] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1a5c38]"
+                        />
+                        <select
+                          value={linkParentId}
+                          onChange={e => setLinkParentId(e.target.value)}
+                          className="w-full rounded-xl border border-[#c9a96e]/40 bg-[#f5deb3] text-[#191970] px-3 py-2 text-sm outline-none"
+                        >
+                          <option value="">— Select Parent —</option>
+                          {filteredForLink.map(p => (
+                            <option key={p.id} value={p.id}>{p.name}{p.email ? ` (${p.email})` : ''}{p.displayId ? ` · ${p.displayId}` : ''}</option>
+                          ))}
+                        </select>
+                        {linkMsg && <p className={`text-xs ${linkMsg.includes('!') ? 'text-emerald-600' : 'text-red-600'}`}>{linkMsg}</p>}
+                        <button
+                          onClick={handleLinkParent}
+                          disabled={linking || !linkParentId}
+                          className="w-full bg-[#1a5c38] text-[#f5deb3] font-bold py-2 rounded-xl text-sm disabled:opacity-60"
+                        >
+                          {linking ? 'Linking…' : 'Link Parent'}
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {profile.role === 'parent' && profile.linkedChildren?.length > 0 && (
+                  <div>
+                    <p className="text-xs font-semibold uppercase text-[#800020] dark:text-slate-400 mb-2">Children</p>
+                    <div className="space-y-1">
+                      {profile.linkedChildren.map(c => (
+                        <div key={c.id} className="text-sm text-[#191970] dark:text-slate-200 bg-[#f0d090] dark:bg-slate-800 rounded-xl px-3 py-1.5">
+                          {c.name}{c.displayId ? <span className="text-[#800020] font-mono text-xs ml-1">{c.displayId}</span> : null}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {profile.recentAttendance?.length > 0 && (
+                  <div>
+                    <p className="text-xs font-semibold uppercase text-[#800020] dark:text-slate-400 mb-2">Recent Attendance (last 5)</p>
+                    <div className="space-y-1">
+                      {profile.recentAttendance.slice(0, 5).map((a, i) => (
+                        <div key={i} className="text-xs text-[#191970] dark:text-slate-200 flex justify-between bg-[#f0d090] dark:bg-slate-800 rounded-xl px-3 py-1">
+                          <span>{a.date}</span>
+                          <span className={a.status === 'present' ? 'text-emerald-600' : 'text-red-500'}>{a.status}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {profile.activity?.length > 0 && (
+                  <div>
+                    <p className="text-xs font-semibold uppercase text-[#800020] dark:text-slate-400 mb-2">Recent Activity</p>
+                    <div className="space-y-1">
+                      {profile.activity.slice(0, 5).map(item => (
+                        <div key={item.id || `${item.action}-${item.ts}`} className="rounded-xl bg-[#f0d090] dark:bg-slate-800 px-3 py-2">
+                          <p className="text-sm font-semibold text-[#800000] dark:text-slate-100">{item.action || 'Record'}</p>
+                          <p className="text-xs text-[#191970] dark:text-slate-300">{item.ts ? new Date(item.ts).toLocaleString() : '—'}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </>
             )}
           </div>
         )}
@@ -328,12 +486,18 @@ function AddPersonModal({ onClose, onAdd }) {
 export default function OwnerPeople() {
   const [people, setPeople] = useState([]);
   const [filter, setFilter] = useState('All');
+  const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showAdd, setShowAdd] = useState(false);
   const [changingRole, setChangingRole] = useState(null);
   const [newRole, setNewRole] = useState('');
   const [profileUserId, setProfileUserId] = useState(null);
+
+  // get current user info for edit-own-profile logic
+  const currentUser = (() => { try { return JSON.parse(localStorage.getItem('ndovera_user') || '{}'); } catch { return {}; } })();
+  const currentUserId = currentUser?.id || '';
+  const isAdmin = ['owner', 'hos'].includes(currentUser?.role);
 
   function load() {
     setLoading(true);
@@ -363,12 +527,30 @@ export default function OwnerPeople() {
     load();
   }
 
-  const filtered = filterPeople(people, filter);
+  const q = search.trim().toLowerCase();
+  const filtered = filterPeople(people, filter).filter(p => {
+    if (!q) return true;
+    return (
+      p.name?.toLowerCase().includes(q)
+      || p.email?.toLowerCase().includes(q)
+      || p.phone?.toLowerCase().includes(q)
+      || p.displayId?.toLowerCase().includes(q)
+      || p.role?.toLowerCase().includes(q)
+      || p.id?.toLowerCase().includes(q)
+    );
+  });
 
   return (
     <div className="p-8 max-w-7xl mx-auto space-y-6">
       {showAdd && <AddPersonModal onClose={() => setShowAdd(false)} onAdd={handleAdd} />}
-      {profileUserId && <UserProfileModal userId={profileUserId} onClose={() => setProfileUserId(null)} />}
+      {profileUserId && (
+        <UserProfileModal
+          userId={profileUserId}
+          onClose={() => setProfileUserId(null)}
+          isAdmin={isAdmin}
+          currentUserId={currentUserId}
+        />
+      )}
 
       <div className="rounded-3xl p-6 bg-[#f5deb3] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10 flex items-start justify-between gap-4">
         <div>
@@ -378,10 +560,20 @@ export default function OwnerPeople() {
         <button onClick={() => setShowAdd(true)} aria-label="Add person" className="shrink-0 h-12 w-12 flex items-center justify-center bg-[#1a5c38] hover:bg-[#154a2e] text-[#f5deb3] font-bold rounded-2xl text-2xl leading-none transition-colors">+</button>
       </div>
 
-      <div className="flex gap-3 flex-wrap">
-        {FILTERS.map(f => (
-          <button key={f} onClick={() => setFilter(f)} className={`px-4 py-2 rounded-2xl text-sm font-semibold border transition-colors ${filter === f ? 'bg-[#800020] text-[#f5deb3] border-[#800020]' : 'bg-[#f5deb3] text-[#800020] border-[#c9a96e]/40 dark:bg-slate-900/30 dark:text-slate-400 dark:border-white/10 hover:bg-[#efd4a0]'}`}>{f}</button>
-        ))}
+      {/* Search + filter row */}
+      <div className="flex flex-col sm:flex-row gap-3">
+        <input
+          type="text"
+          value={search}
+          onChange={e => setSearch(e.target.value)}
+          placeholder="Search by name, email, phone, user ID…"
+          className="flex-1 rounded-2xl border border-[#c9a96e]/40 bg-[#f5deb3] dark:bg-slate-900/30 text-[#191970] dark:text-slate-100 px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-[#1a5c38] placeholder:text-[#800020]/50"
+        />
+        <div className="flex gap-2 flex-wrap">
+          {FILTERS.map(f => (
+            <button key={f} onClick={() => setFilter(f)} className={`px-4 py-2 rounded-2xl text-sm font-semibold border transition-colors ${filter === f ? 'bg-[#800020] text-[#f5deb3] border-[#800020]' : 'bg-[#f5deb3] text-[#800020] border-[#c9a96e]/40 dark:bg-slate-900/30 dark:text-slate-400 dark:border-white/10 hover:bg-[#efd4a0]'}`}>{f}</button>
+          ))}
+        </div>
       </div>
 
       <div className="rounded-3xl p-6 bg-[#f5deb3] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
@@ -390,10 +582,12 @@ export default function OwnerPeople() {
         ) : error ? (
           <p className="text-[#800000] dark:text-slate-100">{error}</p>
         ) : filtered.length === 0 ? (
-          <p className="text-[#800020] dark:text-slate-400">No people found. Click + to add students, parents, or staff.</p>
+          <p className="text-[#800020] dark:text-slate-400">
+            {q ? `No results for "${search}".` : 'No people found. Click + to add students, parents, or staff.'}
+          </p>
         ) : (
           <>
-            <p className="text-xs text-[#800020] dark:text-slate-400 mb-4 font-semibold uppercase">{filtered.length} {filter.toLowerCase()}</p>
+            <p className="text-xs text-[#800020] dark:text-slate-400 mb-4 font-semibold uppercase">{filtered.length} result{filtered.length !== 1 ? 's' : ''}</p>
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
@@ -440,8 +634,12 @@ export default function OwnerPeople() {
                       </td>
                       <td className="py-2">
                         <div className="flex gap-2">
-                          <button onClick={() => { setChangingRole(p.id); setNewRole(p.role); }} className="bg-[#1a5c38] hover:bg-[#154a2e] text-[#f5deb3] text-xs px-3 py-1 rounded-xl font-bold transition-colors">Role</button>
-                          <button onClick={() => handleDeactivate(p)} className="border border-red-300 text-red-600 text-xs px-3 py-1 rounded-xl font-semibold hover:bg-red-50 transition-colors">Off</button>
+                          {isAdmin && (
+                            <button onClick={() => { setChangingRole(p.id); setNewRole(p.role); }} className="bg-[#1a5c38] hover:bg-[#154a2e] text-[#f5deb3] text-xs px-3 py-1 rounded-xl font-bold transition-colors">Role</button>
+                          )}
+                          {isAdmin && (
+                            <button onClick={() => handleDeactivate(p)} className="border border-red-300 text-red-600 text-xs px-3 py-1 rounded-xl font-semibold hover:bg-red-50 transition-colors">Off</button>
+                          )}
                         </div>
                       </td>
                     </tr>
