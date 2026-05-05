@@ -1866,7 +1866,7 @@ app.post('/api/people', authenticate, async (c) => {
       `INSERT INTO users (id, email, name, role, tenantId, passwordHash, status, createdAt)
        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
        ON CONFLICT(email) DO UPDATE SET name=excluded.name, role=excluded.role, tenantId=excluded.tenantId, passwordHash=excluded.passwordHash, status='active'`
-    ).bind(userId, email, name, role, tenantId, userSettings.passwordHash || '', 'active', new Date().toISOString()).run()
+    ).bind(userId, email, name, role, tenantId, JSON.stringify(userSettings.passwordHash || ''), 'active', new Date().toISOString()).run()
     await upsertSettings(c.env.APP_DB, email, userSettings)
     await addAudit(c.env.APP_DB, tenantId, { action: 'personCreated', data: { by: c.var.user.id, name, email, role } })
     // Return the actual inserted/updated user id
