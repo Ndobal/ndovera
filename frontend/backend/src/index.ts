@@ -2938,4 +2938,314 @@ app.post('/api/school/finance/ai-analysis', authenticate, async (c) => {
   })
 })
 
-export default app
+// ─── Public tenant data endpoint ─────────────────────────────────────────────
+app.get('/api/public/tenant/:subdomain', async (c) => {
+  const subdomain = c.req.param('subdomain')
+  try {
+    const tenant = await getTenantBySubdomain(c.env.APP_DB, subdomain)
+    if (!tenant) return c.json({ error: 'Not found' }, 404)
+    await c.env.APP_DB.prepare(INIT_BRANDING).run()
+    await c.env.APP_DB.prepare(INIT_WEBSITE_SECTIONS).run()
+    await c.env.APP_DB.prepare(INIT_SCHOOL_EVENTS).run()
+    const [brandingRow, sectionsResult, eventsResult] = await Promise.all([
+      c.env.APP_DB.prepare(`SELECT * FROM tenant_branding WHERE tenant_id = ?`).bind(tenant.id).first() as Promise<any>,
+      c.env.APP_DB.prepare(`SELECT * FROM website_sections WHERE tenant_id = ? ORDER BY section_key`).bind(tenant.id).all(),
+      c.env.APP_DB.prepare(`SELECT * FROM school_events WHERE tenant_id = ? ORDER BY event_date DESC LIMIT 10`).bind(tenant.id).all(),
+    ])
+    return c.json({
+      success: true,
+      tenant: { schoolName: tenant.schoolName, subdomain: tenant.requestedSubdomain },
+      branding: { logoUrl: brandingRow?.logo_url || null, tagline: brandingRow?.tagline || null },
+      sections: sectionsResult.results || [],
+      events: (eventsResult.results || []).map((e: any) => ({ ...e, mediaUrls: JSON.parse(e.media_urls || '[]') })),
+    })
+  } catch { return c.json({ error: 'Not found' }, 404) }
+})
+
+// ─── Subdomain HTML rendering ─────────────────────────────────────────────────
+function subdomainNavbar(schoolName: string, subdomain: string, logoUrl?: string | null) {
+  const logoImg = logoUrl
+    ? `<img src="${logoUrl}" alt="${schoolName} logo" style="height:40px;width:40px;border-radius:50%;object-fit:cover;">`
+    : `<div style="height:40px;width:40px;border-radius:50%;background:#800000;display:flex;align-items:center;justify-content:center;color:#f5deb3;font-weight:700;font-size:18px;">${schoolName.charAt(0)}</div>`
+  return `
+  <nav style="background:#800000;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:64px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,0.18);">
+    <a href="/" style="display:flex;align-items:center;gap:12px;text-decoration:none;">
+      ${logoImg}
+      <span style="color:#f5deb3;font-size:18px;font-weight:700;">${escHtml(schoolName)}</span>
+    </a>
+    <div style="display:flex;gap:24px;align-items:center;">
+      <a href="/" style="color:#f5deb3;text-decoration:none;font-size:14px;font-weight:500;">Home</a>
+      <a href="/events" style="color:#f5deb3;text-decoration:none;font-size:14px;font-weight:500;">Events</a>
+      <a href="/contact" style="color:#f5deb3;text-decoration:none;font-size:14px;font-weight:500;">Contact</a>
+      <a href="/login" style="background:#f5deb3;color:#800000;padding:8px 18px;border-radius:6px;text-decoration:none;font-size:14px;font-weight:700;">Login</a>
+    </div>
+  </nav>`
+}
+
+function subdomainFooter(schoolName: string) {
+  return `
+  <footer style="background:#191970;color:#f5deb3;text-align:center;padding:24px;font-size:13px;margin-top:60px;">
+    <p style="margin:0 0 6px;">&copy; ${new Date().getFullYear()} ${escHtml(schoolName)}. All rights reserved.</p>
+    <p style="margin:0;opacity:0.7;">Powered by <a href="https://ndovera.com" style="color:#f5deb3;text-decoration:underline;">Ndovera</a></p>
+  </footer>`
+}
+
+function escHtml(s: string) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')
+}
+
+function baseHtml(title: string, body: string) {
+  return `<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>${escHtml(title)}</title>
+  <style>*{box-sizing:border-box;margin:0;padding:0;}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#191970;background:#fff;}
+  @media(max-width:600px){nav div{gap:12px!important;}nav div a{font-size:12px!important;}}</style>
+  </head><body>${body}</body></html>`
+}
+
+function renderSchoolHome(tenant: any, branding: any, sections: any[], events: any[]) {
+  const schoolName = tenant.schoolName || 'Our School'
+  const tagline = branding?.tagline || 'Excellence in Education'
+  const logoUrl = branding?.logoUrl || null
+  const heroSection = sections.find((s: any) => s.section_key === 'hero')
+  const aboutSection = sections.find((s: any) => s.section_key === 'about')
+  const eventsPreview = events.slice(0, 3)
+
+  const heroImg = heroSection?.image_url
+    ? `<div style="position:absolute;inset:0;background:url('${escHtml(heroSection.image_url)}') center/cover no-repeat;opacity:0.25;"></div>`
+    : ''
+
+  const aboutHtml = aboutSection
+    ? `<section style="padding:60px 24px;max-width:900px;margin:0 auto;display:grid;grid-template-columns:${aboutSection.image_url ? '1fr 1fr' : '1fr'};gap:40px;align-items:center;">
+        <div>
+          <h2 style="color:#800000;font-size:28px;margin-bottom:16px;">About Us</h2>
+          <p style="color:#191970;line-height:1.7;font-size:15px;">${escHtml(aboutSection.content || aboutSection.title || '')}</p>
+        </div>
+        ${aboutSection.image_url ? `<img src="${escHtml(aboutSection.image_url)}" alt="About" style="width:100%;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.15);">` : ''}
+      </section>` : ''
+
+  const eventsHtml = eventsPreview.length > 0
+    ? `<section style="background:#f5deb3;padding:60px 24px;">
+        <div style="max-width:900px;margin:0 auto;">
+          <h2 style="color:#800000;font-size:28px;margin-bottom:32px;text-align:center;">Latest Events</h2>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:24px;">
+            ${eventsPreview.map((e: any) => `
+              <div style="background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+                ${e.mediaUrls?.[0] ? `<img src="${escHtml(e.mediaUrls[0])}" alt="${escHtml(e.title)}" style="width:100%;height:160px;object-fit:cover;">` : `<div style="height:160px;background:#800000;display:flex;align-items:center;justify-content:center;"><span style="color:#f5deb3;font-size:32px;">📅</span></div>`}
+                <div style="padding:16px;">
+                  <h3 style="color:#800000;margin-bottom:8px;font-size:16px;">${escHtml(e.title)}</h3>
+                  <p style="color:#800020;font-size:12px;margin-bottom:8px;">${e.event_date ? new Date(e.event_date).toLocaleDateString('en-NG',{day:'numeric',month:'long',year:'numeric'}) : ''}</p>
+                  <p style="color:#191970;font-size:14px;line-height:1.5;">${escHtml((e.description || '').slice(0, 100))}${(e.description || '').length > 100 ? '…' : ''}</p>
+                </div>
+              </div>`).join('')}
+          </div>
+          <div style="text-align:center;margin-top:32px;">
+            <a href="/events" style="background:#800000;color:#f5deb3;padding:12px 28px;border-radius:8px;text-decoration:none;font-weight:700;">View All Events</a>
+          </div>
+        </div>
+      </section>` : ''
+
+  const body = `
+  ${subdomainNavbar(schoolName, tenant.requestedSubdomain, logoUrl)}
+  <section style="position:relative;background:#191970;padding:80px 24px;text-align:center;overflow:hidden;">
+    ${heroImg}
+    <div style="position:relative;z-index:1;">
+      ${logoUrl ? `<img src="${escHtml(logoUrl)}" alt="${escHtml(schoolName)}" style="height:80px;width:80px;border-radius:50%;object-fit:cover;border:3px solid #f5deb3;margin-bottom:20px;">` : ''}
+      <h1 style="color:#f5deb3;font-size:40px;font-weight:700;margin-bottom:16px;">${escHtml(schoolName)}</h1>
+      <p style="color:#f5deb3;font-size:18px;opacity:0.9;max-width:540px;margin:0 auto 32px;">${escHtml(tagline)}</p>
+      <a href="/login" style="background:#800000;color:#f5deb3;padding:14px 32px;border-radius:8px;text-decoration:none;font-size:16px;font-weight:700;display:inline-block;">Student / Staff Login</a>
+    </div>
+  </section>
+  ${aboutHtml}
+  ${eventsHtml}
+  ${subdomainFooter(schoolName)}`
+
+  return baseHtml(schoolName, body)
+}
+
+function renderEventsPage(tenant: any, branding: any, events: any[]) {
+  const schoolName = tenant.schoolName || 'Our School'
+  const logoUrl = branding?.logoUrl || null
+
+  const eventsHtml = events.length === 0
+    ? `<p style="text-align:center;color:#800020;font-size:16px;padding:60px;">No events posted yet. Check back soon!</p>`
+    : `<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:28px;">
+        ${events.map((e: any) => `
+          <div style="background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.1);">
+            ${e.mediaUrls?.[0] ? `<img src="${escHtml(e.mediaUrls[0])}" alt="${escHtml(e.title)}" style="width:100%;height:180px;object-fit:cover;">` : `<div style="height:180px;background:#800000;display:flex;align-items:center;justify-content:center;"><span style="color:#f5deb3;font-size:40px;">📅</span></div>`}
+            <div style="padding:20px;">
+              <h3 style="color:#800000;margin-bottom:8px;font-size:18px;">${escHtml(e.title)}</h3>
+              <p style="color:#800020;font-size:13px;font-weight:600;margin-bottom:10px;">${e.event_date ? new Date(e.event_date).toLocaleDateString('en-NG',{weekday:'long',day:'numeric',month:'long',year:'numeric'}) : ''}</p>
+              <p style="color:#191970;font-size:14px;line-height:1.6;">${escHtml(e.description || '')}</p>
+            </div>
+          </div>`).join('')}
+      </div>`
+
+  const body = `
+  ${subdomainNavbar(schoolName, tenant.requestedSubdomain, logoUrl)}
+  <main style="max-width:960px;margin:0 auto;padding:48px 24px;">
+    <h1 style="color:#800000;font-size:32px;margin-bottom:8px;">School Events</h1>
+    <p style="color:#800020;margin-bottom:36px;">Upcoming and recent events at ${escHtml(schoolName)}</p>
+    ${eventsHtml}
+  </main>
+  ${subdomainFooter(schoolName)}`
+
+  return baseHtml(`Events — ${schoolName}`, body)
+}
+
+function renderContactPage(tenant: any, branding: any) {
+  const schoolName = tenant.schoolName || 'Our School'
+  const logoUrl = branding?.logoUrl || null
+  const website = branding?.website || null
+
+  const body = `
+  ${subdomainNavbar(schoolName, tenant.requestedSubdomain, logoUrl)}
+  <main style="max-width:700px;margin:0 auto;padding:60px 24px;text-align:center;">
+    <h1 style="color:#800000;font-size:32px;margin-bottom:24px;">Contact Us</h1>
+    ${website ? `<p style="color:#191970;margin-bottom:16px;">Website: <a href="${escHtml(website)}" style="color:#800000;">${escHtml(website)}</a></p>` : ''}
+    <p style="color:#191970;margin-bottom:32px;">For enquiries about admissions, fees, or school activities, please reach out to us directly.</p>
+    <a href="/login" style="background:#800000;color:#f5deb3;padding:12px 28px;border-radius:8px;text-decoration:none;font-weight:700;">Access School Portal</a>
+  </main>
+  ${subdomainFooter(schoolName)}`
+
+  return baseHtml(`Contact — ${schoolName}`, body)
+}
+
+function renderLoginPage(tenant: any, branding: any) {
+  const schoolName = tenant.schoolName || 'Our School'
+  const logoUrl = branding?.logoUrl || null
+
+  const logoHtml = logoUrl
+    ? `<img src="${escHtml(logoUrl)}" alt="${escHtml(schoolName)}" style="height:72px;width:72px;border-radius:50%;object-fit:cover;border:3px solid #800000;margin-bottom:16px;">`
+    : `<div style="height:72px;width:72px;border-radius:50%;background:#800000;display:flex;align-items:center;justify-content:center;color:#f5deb3;font-size:28px;font-weight:700;margin:0 auto 16px;">${schoolName.charAt(0)}</div>`
+
+  const body = `
+  <div style="min-height:100vh;background:#f5deb3;display:flex;align-items:center;justify-content:center;padding:24px;">
+    <div style="background:#fff;border-radius:16px;padding:40px;max-width:420px;width:100%;box-shadow:0 8px 40px rgba(0,0,0,0.15);">
+      <div style="text-align:center;margin-bottom:28px;">
+        ${logoHtml}
+        <h1 style="color:#800000;font-size:22px;font-weight:700;margin-bottom:6px;">${escHtml(schoolName)}</h1>
+        <p style="color:#800020;font-size:14px;">School Portal Login</p>
+      </div>
+      <form id="loginForm">
+        <div style="margin-bottom:18px;">
+          <label style="display:block;color:#800020;font-size:13px;font-weight:600;margin-bottom:6px;">Email Address</label>
+          <input id="email" type="email" placeholder="Enter your email" required
+            style="width:100%;padding:10px 14px;border:1.5px solid #800020;border-radius:8px;font-size:15px;color:#191970;outline:none;">
+        </div>
+        <div style="margin-bottom:24px;">
+          <label style="display:block;color:#800020;font-size:13px;font-weight:600;margin-bottom:6px;">Password</label>
+          <input id="password" type="password" placeholder="Enter your password" required
+            style="width:100%;padding:10px 14px;border:1.5px solid #800020;border-radius:8px;font-size:15px;color:#191970;outline:none;">
+        </div>
+        <div id="errorMsg" style="display:none;background:#fef2f2;color:#800000;padding:10px 14px;border-radius:8px;font-size:13px;margin-bottom:16px;"></div>
+        <button type="submit" id="submitBtn"
+          style="width:100%;background:#1a5c38;color:#f5deb3;padding:12px;border:none;border-radius:8px;font-size:16px;font-weight:700;cursor:pointer;">
+          Sign In
+        </button>
+      </form>
+      <p style="text-align:center;margin-top:20px;font-size:12px;color:#800020;">
+        Powered by <a href="https://ndovera.com" style="color:#800000;font-weight:600;">Ndovera</a>
+      </p>
+    </div>
+  </div>
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const btn = document.getElementById('submitBtn');
+      const errDiv = document.getElementById('errorMsg');
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      btn.disabled = true; btn.textContent = 'Signing in…';
+      errDiv.style.display = 'none';
+      try {
+        const res = await fetch('https://ndovera.com/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+        const data = await res.json();
+        if (!res.ok || !data.token) throw new Error(data.error || 'Login failed. Please check your credentials.');
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('authUser', JSON.stringify(data.user));
+        const role = data.user?.role || 'student';
+        const mustChange = data.user?.mustChangePassword;
+        if (mustChange) {
+          window.location.href = 'https://ndovera.com/change-password';
+        } else {
+          const roleMap = { owner: '/roles/owner', hos: '/roles/hos', teacher: '/roles/teacher', student: '/roles/student', parent: '/roles/parent', accountant: '/roles/accountant', ami: '/roles/ami' };
+          window.location.href = 'https://ndovera.com' + (roleMap[role] || '/roles/student');
+        }
+      } catch(err) {
+        errDiv.textContent = err.message;
+        errDiv.style.display = 'block';
+        btn.disabled = false; btn.textContent = 'Sign In';
+      }
+    });
+  </script>`
+
+  return baseHtml(`Login — ${schoolName}`, body)
+}
+
+async function handleSubdomainRequest(request: Request, env: Bindings, subdomain: string, url: URL): Promise<Response> {
+  try {
+    const tenant = await getTenantBySubdomain(env.APP_DB, subdomain)
+    if (!tenant) {
+      return new Response(baseHtml('School Not Found', `
+        <div style="min-height:100vh;background:#f5deb3;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;">
+          <div>
+            <h1 style="color:#800000;font-size:32px;margin-bottom:16px;">School Not Found</h1>
+            <p style="color:#191970;font-size:16px;margin-bottom:24px;">No school is registered at <strong>${escHtml(subdomain)}.ndovera.com</strong>.</p>
+            <a href="https://ndovera.com" style="background:#800000;color:#f5deb3;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:700;">← Back to Ndovera</a>
+          </div>
+        </div>`), { headers: { 'Content-Type': 'text/html' } })
+    }
+
+    await env.APP_DB.prepare(INIT_BRANDING).run()
+    await env.APP_DB.prepare(INIT_WEBSITE_SECTIONS).run()
+    await env.APP_DB.prepare(INIT_SCHOOL_EVENTS).run()
+
+    const [brandingRow, sectionsResult, eventsResult] = await Promise.all([
+      env.APP_DB.prepare(`SELECT * FROM tenant_branding WHERE tenant_id = ?`).bind(tenant.id).first() as Promise<any>,
+      env.APP_DB.prepare(`SELECT * FROM website_sections WHERE tenant_id = ? ORDER BY section_key`).bind(tenant.id).all(),
+      env.APP_DB.prepare(`SELECT * FROM school_events WHERE tenant_id = ? ORDER BY event_date DESC LIMIT 10`).bind(tenant.id).all(),
+    ])
+
+    const branding = { logoUrl: (brandingRow as any)?.logo_url || null, tagline: (brandingRow as any)?.tagline || null, website: (brandingRow as any)?.website || null }
+    const sections = sectionsResult.results || []
+    const events = (eventsResult.results || []).map((e: any) => ({ ...e, mediaUrls: JSON.parse(e.media_urls || '[]') }))
+
+    const path = url.pathname.replace(/\/$/, '') || '/'
+    let html: string
+    if (path === '/login') html = renderLoginPage(tenant, branding)
+    else if (path === '/events') html = renderEventsPage(tenant, branding, events)
+    else if (path === '/contact') html = renderContactPage(tenant, branding)
+    else html = renderSchoolHome(tenant, branding, sections, events)
+
+    return new Response(html, { headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'public, max-age=60, stale-while-revalidate=300' } })
+  } catch (err) {
+    return new Response(`<html><body><p>Error loading school page.</p></body></html>`, { status: 500, headers: { 'Content-Type': 'text/html' } })
+  }
+}
+
+export default {
+  async fetch(request: Request, env: Bindings, ctx: ExecutionContext): Promise<Response> {
+    const url = new URL(request.url)
+    const hostname = url.hostname
+    const baseDomain = env.TENANT_BASE_DOMAIN || DEFAULT_TENANT_BASE_DOMAIN
+
+    if (
+      hostname !== baseDomain &&
+      hostname !== `www.${baseDomain}` &&
+      hostname.endsWith(`.${baseDomain}`)
+    ) {
+      const subdomain = hostname.slice(0, hostname.length - baseDomain.length - 1)
+      if (subdomain && subdomain !== 'www') {
+        return handleSubdomainRequest(request, env, subdomain, url)
+      }
+    }
+
+    return app.fetch(request, env, ctx)
+  }
+}
