@@ -794,6 +794,7 @@ app.use('*', cors({
   },
   allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowHeaders: ['Content-Type', 'Authorization'],
+  exposeHeaders: ['X-Refresh-Token'],
 }))
 
 app.use('*', logger())
@@ -866,7 +867,17 @@ async function authenticate(c: any, next: any) {
   try {
     const { payload } = await verify(token, c.env.JWT_SECRET)
     c.set('user', payload)
-    return next()
+    await next()
+    // Sliding expiry: issue a fresh 7-day token on every authenticated request
+    // so the session stays alive as long as the user keeps using the app
+    const refreshed = await sign({
+      role: payload.role,
+      name: payload.name,
+      id: payload.id,
+      tenantId: payload.tenantId,
+      exp: Math.floor(Date.now() / 1000) + (7 * 24 * 60 * 60),
+    }, c.env.JWT_SECRET)
+    c.res.headers.set('X-Refresh-Token', refreshed)
   } catch (e) {
     return c.json({ error: 'invalid token' }, 401)
   }

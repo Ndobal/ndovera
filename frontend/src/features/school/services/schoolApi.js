@@ -1,5 +1,5 @@
 import { getApiUrl } from '../../../config/apiBase';
-import { getStoredAuth, clearStoredAuth } from '../../auth/services/authApi';
+import { getStoredAuth, clearStoredAuth, persistAuth } from '../../auth/services/authApi';
 
 function buildHeaders() {
   const auth = getStoredAuth();
@@ -14,6 +14,15 @@ function handleUnauthorized() {
   window.location.href = '/login';
 }
 
+// Silently refresh the stored token if the server issued a new one (sliding expiry)
+function applyRefreshedToken(res) {
+  const refreshed = res.headers.get('X-Refresh-Token');
+  if (refreshed) {
+    const auth = getStoredAuth();
+    if (auth) persistAuth({ token: refreshed, user: auth.user });
+  }
+}
+
 async function req(path, opts = {}) {
   const res = await fetch(getApiUrl(path), {
     method: opts.method || 'GET',
@@ -21,6 +30,7 @@ async function req(path, opts = {}) {
     body: opts.body ? JSON.stringify(opts.body) : undefined,
   });
   if (res.status === 401) { handleUnauthorized(); return {}; }
+  applyRefreshedToken(res);
   const data = await res.json().catch(() => ({}));
   if (!res.ok) throw new Error(data.error || data.message || 'Request failed.');
   return data;
@@ -58,6 +68,7 @@ async function uploadFile(path, file, extraFields = {}) {
     body: formData,
   });
   if (res.status === 401) { handleUnauthorized(); return {}; }
+  applyRefreshedToken(res);
   const data = await res.json().catch(() => ({}));
   if (!res.ok) throw new Error(data.error || data.message || 'Upload failed.');
   return data;
