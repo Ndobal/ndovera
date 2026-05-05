@@ -1,11 +1,11 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   getPeople, addPerson, deactivatePerson, updatePersonRole,
   getClasses, getParents, getUserProfile,
 } from '../../../features/school/services/schoolApi';
 
-const ROLES = ['teacher', 'hos', 'accountant', 'student', 'parent', 'librarian', 'classteacher', 'hod', 'principal'];
+const ROLES = ['teacher', 'hos', 'accountant', 'student', 'parent', 'librarian', 'classteacher', 'hod', 'principal', 'growthpartner'];
 const FILTERS = ['All', 'Teachers', 'Admin', 'Students', 'Parents'];
 
 function filterPeople(people, filter) {
@@ -53,8 +53,10 @@ function UserProfileModal({ userId, onClose }) {
             )}
             <div className="grid grid-cols-2 gap-3">
               {[
+                ['User ID', profile.displayId],
                 ['Name', profile.name],
                 ['Email', profile.email],
+                ['Phone', profile.phone],
                 ['Role', profile.role],
                 ['Status', profile.status || 'active'],
                 ['Created', profile.createdAt ? new Date(profile.createdAt).toLocaleDateString() : '—'],
@@ -64,6 +66,15 @@ function UserProfileModal({ userId, onClose }) {
                   <p className="text-sm text-[#191970] dark:text-slate-200 capitalize">{value || '—'}</p>
                 </div>
               ))}
+            </div>
+
+            <div>
+              <p className="text-xs font-semibold uppercase text-[#800020] dark:text-slate-400 mb-2">School Record</p>
+              <div className="rounded-2xl bg-[#f0d090] dark:bg-slate-800 px-4 py-3 text-sm text-[#191970] dark:text-slate-200">
+                {profile.currentClass
+                  ? `Current class: ${profile.currentClass.name}${profile.currentClass.arm ? ` ${profile.currentClass.arm}` : ''}`
+                  : 'No class record assigned yet.'}
+              </div>
             </div>
 
             {profile.role === 'student' && profile.linkedParents?.length > 0 && (
@@ -105,6 +116,20 @@ function UserProfileModal({ userId, onClose }) {
                 </div>
               </div>
             )}
+
+            {profile.activity?.length > 0 && (
+              <div>
+                <p className="text-xs font-semibold uppercase text-[#800020] dark:text-slate-400 mb-2">Recent Activity</p>
+                <div className="space-y-1">
+                  {profile.activity.slice(0, 5).map(item => (
+                    <div key={item.id || `${item.action}-${item.ts}`} className="rounded-xl bg-[#f0d090] dark:bg-slate-800 px-3 py-2">
+                      <p className="text-sm font-semibold text-[#800000] dark:text-slate-100">{item.action || 'Record'}</p>
+                      <p className="text-xs text-[#191970] dark:text-slate-300">{item.ts ? new Date(item.ts).toLocaleString() : '—'}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         )}
       </div>
@@ -132,7 +157,12 @@ function AddPersonModal({ onClose, onAdd }) {
   }, []);
 
   const filteredParents = parents.filter(p =>
-    !parentSearch || p.name?.toLowerCase().includes(parentSearch.toLowerCase()) || p.email?.toLowerCase().includes(parentSearch.toLowerCase())
+    !parentSearch
+    || p.name?.toLowerCase().includes(parentSearch.toLowerCase())
+    || p.email?.toLowerCase().includes(parentSearch.toLowerCase())
+    || p.phone?.toLowerCase().includes(parentSearch.toLowerCase())
+    || p.displayId?.toLowerCase().includes(parentSearch.toLowerCase())
+    || p.id?.toLowerCase().includes(parentSearch.toLowerCase())
   );
 
   async function handleSubmit(e) {
@@ -140,6 +170,12 @@ function AddPersonModal({ onClose, onAdd }) {
     setSaving(true);
     setError('');
     try {
+      if (form.role === 'student' && classes.length === 0) {
+        throw new Error('Create a class in Settings before adding a student.');
+      }
+      if (form.role === 'student' && !classId) {
+        throw new Error('Select a class for the student before creating the account.');
+      }
       const payload = { name: form.name, email: form.email, role: form.role, password: form.password || undefined };
       if (form.role === 'student') {
         payload.classId = classId || undefined;
@@ -177,6 +213,11 @@ function AddPersonModal({ onClose, onAdd }) {
                 required={key !== 'password'}
                 className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 dark:border-white/10 bg-[#f0d090] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1a5c38]"
               />
+              {key === 'password' && (
+                <p className="mt-1 text-[11px] text-[#800020] dark:text-slate-400">
+                  Leave blank to use the default password <span className="font-bold">abcABC@123</span>. The user must change it on first sign in.
+                </p>
+              )}
             </div>
           ))}
 
@@ -246,7 +287,7 @@ function AddPersonModal({ onClose, onAdd }) {
                     >
                       <option value="">— Select Parent —</option>
                       {filteredParents.map(p => (
-                        <option key={p.id} value={p.id}>{p.name} {p.email ? `(${p.email})` : ''}</option>
+                        <option key={p.id} value={p.id}>{p.name} {p.email ? `(${p.email})` : ''}{p.phone ? ` · ${p.phone}` : ''}{p.displayId ? ` · ${p.displayId}` : ''}</option>
                       ))}
                     </select>
                   </div>
@@ -284,7 +325,7 @@ function AddPersonModal({ onClose, onAdd }) {
   );
 }
 
-export default function OwnerPeople({ auth }) {
+export default function OwnerPeople() {
   const [people, setPeople] = useState([]);
   const [filter, setFilter] = useState('All');
   const [loading, setLoading] = useState(true);
@@ -332,9 +373,9 @@ export default function OwnerPeople({ auth }) {
       <div className="rounded-3xl p-6 bg-[#f5deb3] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10 flex items-start justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-[#800000] dark:text-slate-100">People</h1>
-          <p className="text-[#191970] dark:text-slate-300 mt-1 text-sm">Manage all staff enrolled in your institution.</p>
+          <p className="text-[#191970] dark:text-slate-300 mt-1 text-sm">Manage students, parents, and school staff with live profile records.</p>
         </div>
-        <button onClick={() => setShowAdd(true)} className="shrink-0 bg-[#1a5c38] hover:bg-[#154a2e] text-[#f5deb3] font-bold px-5 py-3 rounded-2xl text-sm transition-colors">+ Add</button>
+        <button onClick={() => setShowAdd(true)} aria-label="Add person" className="shrink-0 h-12 w-12 flex items-center justify-center bg-[#1a5c38] hover:bg-[#154a2e] text-[#f5deb3] font-bold rounded-2xl text-2xl leading-none transition-colors">+</button>
       </div>
 
       <div className="flex gap-3 flex-wrap">
@@ -349,7 +390,7 @@ export default function OwnerPeople({ auth }) {
         ) : error ? (
           <p className="text-[#800000] dark:text-slate-100">{error}</p>
         ) : filtered.length === 0 ? (
-          <p className="text-[#800020] dark:text-slate-400">No people found. Click + Add to enroll staff.</p>
+          <p className="text-[#800020] dark:text-slate-400">No people found. Click + to add students, parents, or staff.</p>
         ) : (
           <>
             <p className="text-xs text-[#800020] dark:text-slate-400 mb-4 font-semibold uppercase">{filtered.length} {filter.toLowerCase()}</p>

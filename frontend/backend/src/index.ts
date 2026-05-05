@@ -723,6 +723,9 @@ function buildUserProfile(id: string, role: string, name: string, settings: Reco
     aura: settings.aura || 320,
     accountType: settings.accountType || (role === 'ami' ? 'superadmin' : 'user'),
     status: settings.status || 'active',
+    displayId: settings.displayId || null,
+    classId: settings.classId || null,
+    phone: settings.phone || null,
   }
 }
 
@@ -903,19 +906,24 @@ app.post('/api/auth/change-password', authenticate, async (c) => {
   if (!id) return c.json({ error: 'invalid token' }, 401)
 
   const { currentPassword, newPassword } = await c.req.json()
-  if (!currentPassword || !newPassword) return c.json({ error: 'currentPassword and newPassword are required.' }, 400)
+  if (!newPassword) return c.json({ error: 'newPassword is required.' }, 400)
   if (newPassword.length < 8) return c.json({ error: 'New password must be at least 8 characters.' }, 400)
 
   const settings = await getSettings(c.env.APP_DB, id)
   if (!settings) return c.json({ error: 'User not found.' }, 404)
 
-  let passwordValid = false
-  try {
-    passwordValid = await verifyPasswordCandidate(String(currentPassword), settings)
-  } catch {
-    return c.json({ error: 'Unable to verify credentials.' }, 500)
+  const forceChangeFlow = settings.mustChangePassword === true || currentUser.mustChangePassword === true
+
+  if (!forceChangeFlow) {
+    if (!currentPassword) return c.json({ error: 'currentPassword is required.' }, 400)
+    let passwordValid = false
+    try {
+      passwordValid = await verifyPasswordCandidate(String(currentPassword), settings)
+    } catch {
+      return c.json({ error: 'Unable to verify credentials.' }, 500)
+    }
+    if (!passwordValid) return c.json({ error: 'Current password is incorrect.' }, 400)
   }
-  if (!passwordValid) return c.json({ error: 'Current password is incorrect.' }, 400)
 
   const updatedSettings = await withHashedPassword({ ...settings, mustChangePassword: false }, String(newPassword))
   await upsertSettings(c.env.APP_DB, id, updatedSettings)
@@ -1715,19 +1723,100 @@ app.post('/api/ai/review', (c) => {
   return c.json({ success: true, report })
 })
 
+const USERS_TABLE_SQL = `CREATE TABLE IF NOT EXISTS users (id TEXT PRIMARY KEY, email TEXT UNIQUE, name TEXT, role TEXT, tenantId TEXT, passwordHash TEXT, status TEXT, createdAt TEXT)`
+const PARENT_STUDENT_LINKS_SQL = `CREATE TABLE IF NOT EXISTS parent_student_links (id TEXT PRIMARY KEY, parent_id TEXT, student_id TEXT, tenant_id TEXT, created_at TEXT)`
+const CLASSES_TABLE_SQL = `CREATE TABLE IF NOT EXISTS classes (id TEXT PRIMARY KEY, tenantId TEXT, name TEXT, arm TEXT, classTeacherId TEXT, createdAt TEXT)`
+
+type DisplayIdConfig = {
+  counterKey: string
+  prefix: string
+  digits: number
+}
+
+async function ensureUsersTable(db: D1Database) {
+  await db.prepare(USERS_TABLE_SQL).run()
+}
+
+async function ensureParentStudentLinksTable(db: D1Database) {
+  await db.prepare(PARENT_STUDENT_LINKS_SQL).run()
+}
+
+async function ensureClassesTable(db: D1Database) {
+  await db.prepare(CLASSES_TABLE_SQL).run()
+}
+
+function getDisplayIdConfig(role: string): DisplayIdConfig {
+  const normalizedRole = String(role || '').toLowerCase()
+
+  if (normalizedRole === 'student') {
+    return { counterKey: 'student', prefix: 'NS', digits: 5 }
+  }
+
+  if (normalizedRole === 'parent') {
+    return { counterKey: 'parent', prefix: 'NP', digits: 6 }
+  }
+
+  if (normalizedRole === 'growthpartner') {
+    return { counterKey: 'growthpartner', prefix: 'NG', digits: 6 }
+  }
+
+  if (normalizedRole === 'ami') {
+    return { counterKey: 'system-admin', prefix: 'NDA', digits: 5 }
+  }
+
+  return { counterKey: 'tenant-staff', prefix: 'NS', digits: 6 }
+}
+
+async function generateDisplayId(db: D1Database, config: DisplayIdConfig): Promise<string> {
+  await db.prepare(
+    `CREATE TABLE IF NOT EXISTS user_id_counters (counter_key TEXT PRIMARY KEY, last_count INTEGER NOT NULL DEFAULT 0)`
+  ).run()
+
+  const row = await db.prepare(
+    `SELECT last_count FROM user_id_counters WHERE counter_key = ?`
+  ).bind(config.counterKey).first() as any
+
+  const next = Number(row?.last_count || 0) + 1
+
+  await db.prepare(
+    `INSERT INTO user_id_counters (counter_key, last_count)
+     VALUES (?, ?)
+     ON CONFLICT(counter_key) DO UPDATE SET last_count = excluded.last_count`
+  ).bind(config.counterKey, next).run()
+
+  return `${config.prefix}${String(next).padStart(config.digits, '0')}`
+}
+
+async function hydrateUserRecord(db: D1Database, row: Record<string, any> | null) {
+  if (!row) return null
+
+  const settingsKey = row.email || row.id
+  const settings = settingsKey ? await getSettings(db, settingsKey).catch(() => null) : null
+
+  return {
+    ...row,
+    displayId: settings?.displayId || null,
+    phone: settings?.phone || null,
+    classId: settings?.classId || null,
+    mustChangePassword: settings?.mustChangePassword === true,
+  }
+}
+
+async function hydrateUserRecords(db: D1Database, rows: Record<string, any>[]) {
+  return Promise.all((rows || []).map(row => hydrateUserRecord(db, row)))
+}
+
 // Staff list for owner/HoS
 app.get('/api/people', authenticate, async (c) => {
   const tenantId = c.var.user?.tenantId
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
   try {
-    // Ensure users table exists
-    await c.env.APP_DB.prepare(
-      `CREATE TABLE IF NOT EXISTS users (id TEXT PRIMARY KEY, email TEXT UNIQUE, name TEXT, role TEXT, tenantId TEXT, passwordHash TEXT, status TEXT, createdAt TEXT, displayId TEXT)`
-    ).run()
+    await ensureUsersTable(c.env.APP_DB)
     const rows = await c.env.APP_DB.prepare(
-      `SELECT id, name, email, role, status, createdAt, displayId FROM users WHERE tenantId = ? AND (status IS NULL OR status != 'inactive') ORDER BY role, name`
+      `SELECT id, name, email, role, status, createdAt FROM users WHERE tenantId = ? AND (status IS NULL OR status != 'inactive') ORDER BY role, name`
     ).bind(tenantId).all()
-    return c.json({ success: true, people: rows.results || [] })
+    const people = await hydrateUserRecords(c.env.APP_DB, (rows.results || []) as Record<string, any>[])
+    return c.json({ success: true, people })
   } catch {
     return c.json({ success: true, people: [] })
   }
@@ -1890,32 +1979,29 @@ app.get('/api/owner/schools', authenticate, async (c) => {
   }
 })
 
-async function generateDisplayId(db: D1Database, prefix: string, digits: number): Promise<string> {
-  await db.prepare(`CREATE TABLE IF NOT EXISTS user_id_counters (prefix TEXT PRIMARY KEY, last_count INTEGER NOT NULL DEFAULT 0)`).run()
-  const row = await db.prepare(`SELECT last_count FROM user_id_counters WHERE prefix = ?`).bind(prefix).first() as any
-  const next = (row?.last_count || 0) + 1
-  await db.prepare(`INSERT INTO user_id_counters (prefix, last_count) VALUES (?, ?) ON CONFLICT(prefix) DO UPDATE SET last_count = excluded.last_count`).bind(prefix, next).run()
-  return `${prefix}${String(next).padStart(digits, '0')}`
-}
-
-function getDisplayIdConfig(role: string): { prefix: string; digits: number } {
-  if (role === 'student') return { prefix: 'NS', digits: 5 }
-  if (role === 'parent') return { prefix: 'NP', digits: 6 }
-  if (['teacher', 'hos', 'accountant', 'principal', 'hod', 'classteacher', 'librarian'].includes(role)) return { prefix: 'NT', digits: 6 }
-  if (role === 'owner') return { prefix: 'NO', digits: 6 }
-  if (role === 'ami') return { prefix: 'NDA', digits: 5 }
-  return { prefix: 'NU', digits: 6 }
-}
-
 app.post('/api/people', authenticate, async (c) => {
   if (!hasRequiredRole(c.var.user.role, ['owner', 'hos'])) return c.json({ error: 'forbidden' }, 403)
   const tenantId = c.var.user?.tenantId
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
-  const { name, email, role, password, parentData } = await c.req.json()
+  const { name, email, role, password, parentData, classId } = await c.req.json()
   if (!name || !email || !role) return c.json({ error: 'name, email, and role are required.' }, 400)
+
+  let selectedClass: Record<string, any> | null = null
+  if (role === 'student') {
+    await ensureClassesTable(c.env.APP_DB)
+    if (!classId) return c.json({ error: 'Students must be assigned to a class. Create or select a class first.' }, 400)
+    selectedClass = await c.env.APP_DB.prepare(
+      `SELECT id, name, arm FROM classes WHERE id = ? AND tenantId = ?`
+    ).bind(classId, tenantId).first() as Record<string, any> | null
+    if (!selectedClass) return c.json({ error: 'Selected class was not found for this school.' }, 404)
+  }
+
   const userId = `user_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`
   const defaultPassword = password || 'abcABC@123'
+  const existingSettings = await getSettings(c.env.APP_DB, email).catch(() => null)
+  const displayId = existingSettings?.displayId || await generateDisplayId(c.env.APP_DB, getDisplayIdConfig(role))
   const userSettings = await withHashedPassword({
+    ...(existingSettings || {}),
     email,
     name,
     role,
@@ -1923,47 +2009,43 @@ app.post('/api/people', authenticate, async (c) => {
     schoolId: tenantId,
     status: 'active',
     mustChangePassword: true,
+    displayId,
+    ...(classId ? { classId, className: selectedClass?.name || null, classArm: selectedClass?.arm || null } : {}),
   }, defaultPassword)
   try {
-    // Ensure users table exists
-    await c.env.APP_DB.prepare(
-      `CREATE TABLE IF NOT EXISTS users (id TEXT PRIMARY KEY, email TEXT UNIQUE, name TEXT, role TEXT, tenantId TEXT, passwordHash TEXT, status TEXT, createdAt TEXT, displayId TEXT)`
-    ).run()
-    // Use INSERT OR REPLACE so re-adding an existing email updates their record
+    await ensureUsersTable(c.env.APP_DB)
     await c.env.APP_DB.prepare(
       `INSERT INTO users (id, email, name, role, tenantId, passwordHash, status, createdAt)
        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
        ON CONFLICT(email) DO UPDATE SET name=excluded.name, role=excluded.role, tenantId=excluded.tenantId, passwordHash=excluded.passwordHash, status='active'`
     ).bind(userId, email, name, role, tenantId, JSON.stringify(userSettings.passwordHash || ''), 'active', new Date().toISOString()).run()
 
-    // Generate and store display ID
-    const { prefix, digits } = getDisplayIdConfig(role)
-    const displayId = await generateDisplayId(c.env.APP_DB, prefix, digits)
-    await c.env.APP_DB.prepare(`UPDATE users SET displayId = ? WHERE email = ?`).bind(displayId, email).run()
+    await upsertSettings(c.env.APP_DB, email, userSettings)
+    await addAudit(c.env.APP_DB, tenantId, { action: 'personCreated', data: { by: c.var.user.id, name, email, role, displayId, classId: classId || null } })
 
-    const settingsWithDisplayId = { ...userSettings, displayId }
-    await upsertSettings(c.env.APP_DB, email, settingsWithDisplayId)
-    await addAudit(c.env.APP_DB, tenantId, { action: 'personCreated', data: { by: c.var.user.id, name, email, role, displayId } })
-
-    // Handle parent-student linking for students
-    const saved = await c.env.APP_DB.prepare(`SELECT id, email, name, role, status, displayId FROM users WHERE email = ?`).bind(email).first() as any
+    const saved = await c.env.APP_DB.prepare(
+      `SELECT id, email, name, role, status, createdAt FROM users WHERE email = ?`
+    ).bind(email).first() as Record<string, any> | null
     const actualUserId = saved?.id || userId
 
     if (role === 'student' && parentData) {
-      await c.env.APP_DB.prepare(
-        `CREATE TABLE IF NOT EXISTS parent_student_links (id TEXT PRIMARY KEY, parent_id TEXT, student_id TEXT, tenant_id TEXT, created_at TEXT)`
-      ).run()
+      await ensureParentStudentLinksTable(c.env.APP_DB)
 
       let parentId: string | null = null
 
       if (parentData.existingParentId) {
-        parentId = String(parentData.existingParentId)
+        const existingParent = await c.env.APP_DB.prepare(
+          `SELECT id FROM users WHERE id = ? AND tenantId = ? AND role = 'parent'`
+        ).bind(String(parentData.existingParentId), tenantId).first() as any
+        parentId = existingParent?.id || null
       } else if (parentData.name || parentData.email) {
-        // Create new parent user
         const parentEmail = parentData.email || `parent_${Date.now()}@ndovera.local`
         const parentName = parentData.name || 'Parent'
         const parentUserId = `user_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`
+        const existingParentSettings = await getSettings(c.env.APP_DB, parentEmail).catch(() => null)
+        const parentDisplayId = existingParentSettings?.displayId || await generateDisplayId(c.env.APP_DB, getDisplayIdConfig('parent'))
         const parentSettings = await withHashedPassword({
+          ...(existingParentSettings || {}),
           email: parentEmail,
           name: parentName,
           role: 'parent',
@@ -1971,6 +2053,7 @@ app.post('/api/people', authenticate, async (c) => {
           schoolId: tenantId,
           status: 'active',
           mustChangePassword: true,
+          displayId: parentDisplayId,
           phone: parentData.phone || null,
         }, 'abcABC@123')
         await c.env.APP_DB.prepare(
@@ -1978,10 +2061,7 @@ app.post('/api/people', authenticate, async (c) => {
            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
            ON CONFLICT(email) DO UPDATE SET name=excluded.name, role=excluded.role, tenantId=excluded.tenantId, passwordHash=excluded.passwordHash, status='active'`
         ).bind(parentUserId, parentEmail, parentName, 'parent', tenantId, JSON.stringify(parentSettings.passwordHash || ''), 'active', new Date().toISOString()).run()
-        const parentDisplayConf = getDisplayIdConfig('parent')
-        const parentDisplayId = await generateDisplayId(c.env.APP_DB, parentDisplayConf.prefix, parentDisplayConf.digits)
-        await c.env.APP_DB.prepare(`UPDATE users SET displayId = ? WHERE email = ?`).bind(parentDisplayId, parentEmail).run()
-        await upsertSettings(c.env.APP_DB, parentEmail, { ...parentSettings, displayId: parentDisplayId })
+        await upsertSettings(c.env.APP_DB, parentEmail, parentSettings)
         const savedParent = await c.env.APP_DB.prepare(`SELECT id FROM users WHERE email = ?`).bind(parentEmail).first() as any
         parentId = savedParent?.id || parentUserId
       }
@@ -1994,7 +2074,8 @@ app.post('/api/people', authenticate, async (c) => {
       }
     }
 
-    return c.json({ success: true, user: saved || { id: userId, email, name, role, status: 'active', displayId } }, 201)
+    const hydratedSaved = await hydrateUserRecord(c.env.APP_DB, saved || { id: userId, email, name, role, status: 'active' })
+    return c.json({ success: true, user: hydratedSaved }, 201)
   } catch (err) {
     return c.json({ error: err instanceof Error ? err.message : 'Could not create person.' }, 500)
   }
@@ -2005,10 +2086,15 @@ app.delete('/api/people/:userId', authenticate, async (c) => {
   const tenantId = c.var.user?.tenantId
   const userId = c.req.param('userId')
   try {
-    await c.env.APP_DB.prepare(
-      `CREATE TABLE IF NOT EXISTS users (id TEXT PRIMARY KEY, email TEXT UNIQUE, name TEXT, role TEXT, tenantId TEXT, passwordHash TEXT, status TEXT, createdAt TEXT)`
-    ).run()
+    await ensureUsersTable(c.env.APP_DB)
+    const existingUser = await c.env.APP_DB.prepare(`SELECT email FROM users WHERE id = ? AND tenantId = ?`).bind(userId, tenantId).first() as any
     await c.env.APP_DB.prepare(`UPDATE users SET status='inactive' WHERE id=? AND tenantId=?`).bind(userId, tenantId).run()
+    if (existingUser?.email) {
+      const settings = await getSettings(c.env.APP_DB, existingUser.email).catch(() => null)
+      if (settings) {
+        await upsertSettings(c.env.APP_DB, existingUser.email, { ...settings, status: 'inactive' })
+      }
+    }
     await addAudit(c.env.APP_DB, tenantId, { action: 'personDeactivated', data: { by: c.var.user.id, userId } })
     return c.json({ success: true })
   } catch (err) {
@@ -2023,7 +2109,14 @@ app.put('/api/people/:userId/role', authenticate, async (c) => {
   const { role } = await c.req.json()
   if (!role) return c.json({ error: 'role is required.' }, 400)
   try {
+    const existingUser = await c.env.APP_DB.prepare(`SELECT email FROM users WHERE id = ? AND tenantId = ?`).bind(userId, tenantId).first() as any
     await c.env.APP_DB.prepare(`UPDATE users SET role=? WHERE id=? AND tenantId=?`).bind(role, userId, tenantId).run()
+    if (existingUser?.email) {
+      const settings = await getSettings(c.env.APP_DB, existingUser.email).catch(() => null)
+      if (settings) {
+        await upsertSettings(c.env.APP_DB, existingUser.email, { ...settings, role })
+      }
+    }
     await addAudit(c.env.APP_DB, tenantId, { action: 'personRoleUpdated', data: { by: c.var.user.id, userId, role } })
     return c.json({ success: true })
   } catch (err) {
@@ -2036,56 +2129,64 @@ app.get('/api/people/:userId', authenticate, async (c) => {
   const tenantId = c.var.user?.tenantId
   const userId = c.req.param('userId')
   try {
+    await ensureUsersTable(c.env.APP_DB)
     const user = await c.env.APP_DB.prepare(
-      `SELECT id, name, email, role, status, createdAt, displayId FROM users WHERE id = ? AND tenantId = ?`
-    ).bind(userId, tenantId).first() as any
-    if (!user) return c.json({ error: 'User not found.' }, 404)
+      `SELECT id, name, email, role, status, createdAt FROM users WHERE id = ? AND tenantId = ?`
+    ).bind(userId, tenantId).first() as Record<string, any> | null
+    const hydratedUser = await hydrateUserRecord(c.env.APP_DB, user)
+    if (!hydratedUser) return c.json({ error: 'User not found.' }, 404)
 
     let linkedParents: any[] = []
     let linkedChildren: any[] = []
-    let classes: any[] = []
     let recentAttendance: any[] = []
+    let currentClass: Record<string, any> | null = null
+    let activity: any[] = []
 
     try {
-      await c.env.APP_DB.prepare(
-        `CREATE TABLE IF NOT EXISTS parent_student_links (id TEXT PRIMARY KEY, parent_id TEXT, student_id TEXT, tenant_id TEXT, created_at TEXT)`
-      ).run()
-      if (user.role === 'student') {
+      await ensureParentStudentLinksTable(c.env.APP_DB)
+      if (hydratedUser.role === 'student') {
         const parentLinks = await c.env.APP_DB.prepare(
-          `SELECT u.id, u.name, u.email, u.role, u.displayId FROM parent_student_links psl JOIN users u ON psl.parent_id = u.id WHERE psl.student_id = ? AND psl.tenant_id = ?`
+          `SELECT u.id, u.name, u.email, u.role, u.status, u.createdAt FROM parent_student_links psl JOIN users u ON psl.parent_id = u.id WHERE psl.student_id = ? AND psl.tenant_id = ?`
         ).bind(userId, tenantId).all()
-        linkedParents = (parentLinks.results || []) as any[]
+        linkedParents = await hydrateUserRecords(c.env.APP_DB, (parentLinks.results || []) as Record<string, any>[])
       }
-      if (user.role === 'parent') {
+      if (hydratedUser.role === 'parent') {
         const childLinks = await c.env.APP_DB.prepare(
-          `SELECT u.id, u.name, u.email, u.role, u.displayId FROM parent_student_links psl JOIN users u ON psl.student_id = u.id WHERE psl.parent_id = ? AND psl.tenant_id = ?`
+          `SELECT u.id, u.name, u.email, u.role, u.status, u.createdAt FROM parent_student_links psl JOIN users u ON psl.student_id = u.id WHERE psl.parent_id = ? AND psl.tenant_id = ?`
         ).bind(userId, tenantId).all()
-        linkedChildren = (childLinks.results || []) as any[]
+        linkedChildren = await hydrateUserRecords(c.env.APP_DB, (childLinks.results || []) as Record<string, any>[])
       }
     } catch {}
 
     try {
-      const classRows = await c.env.APP_DB.prepare(
-        `SELECT id, name, arm FROM classes WHERE tenantId = ?`
-      ).bind(tenantId).all()
-      classes = (classRows.results || []) as any[]
+      await ensureClassesTable(c.env.APP_DB)
+      if (hydratedUser.classId) {
+        currentClass = await c.env.APP_DB.prepare(
+          `SELECT id, name, arm FROM classes WHERE id = ? AND tenantId = ?`
+        ).bind(hydratedUser.classId, tenantId).first() as Record<string, any> | null
+      }
     } catch {}
 
     try {
-      const attRows = await c.env.APP_DB.prepare(
-        `SELECT * FROM attendance WHERE student_id = ? ORDER BY date DESC LIMIT 30`
-      ).bind(userId).all()
-      recentAttendance = (attRows.results || []) as any[]
+      recentAttendance = await getAttendance(c.env.APP_DB, hydratedUser.email || userId, 30)
+      if (!recentAttendance.length && hydratedUser.id && hydratedUser.id !== hydratedUser.email) {
+        recentAttendance = await getAttendance(c.env.APP_DB, hydratedUser.id, 30)
+      }
+    } catch {}
+
+    try {
+      activity = await getAuditForStudent(c.env.APP_DB, hydratedUser.email || userId)
     } catch {}
 
     return c.json({
       success: true,
       user: {
-        ...user,
+        ...hydratedUser,
         linkedParents,
         linkedChildren,
-        classes,
+        currentClass,
         recentAttendance,
+        activity: activity.slice(0, 10),
       },
     })
   } catch (err) {
@@ -2262,13 +2363,12 @@ app.get('/api/school/parents', authenticate, async (c) => {
   const tenantId = c.var.user?.tenantId
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
   try {
-    await c.env.APP_DB.prepare(
-      `CREATE TABLE IF NOT EXISTS users (id TEXT PRIMARY KEY, email TEXT UNIQUE, name TEXT, role TEXT, tenantId TEXT, passwordHash TEXT, status TEXT, createdAt TEXT, displayId TEXT)`
-    ).run()
+    await ensureUsersTable(c.env.APP_DB)
     const rows = await c.env.APP_DB.prepare(
-      `SELECT id, name, email, role, status, displayId FROM users WHERE tenantId = ? AND role = 'parent' AND (status IS NULL OR status != 'inactive') ORDER BY name`
+      `SELECT id, name, email, role, status, createdAt FROM users WHERE tenantId = ? AND role = 'parent' AND (status IS NULL OR status != 'inactive') ORDER BY name`
     ).bind(tenantId).all()
-    return c.json({ success: true, parents: rows.results || [] })
+    const parents = await hydrateUserRecords(c.env.APP_DB, (rows.results || []) as Record<string, any>[])
+    return c.json({ success: true, parents })
   } catch {
     return c.json({ success: true, parents: [] })
   }
@@ -2281,9 +2381,7 @@ app.post('/api/school/parent-student-link', authenticate, async (c) => {
   const { parentId, studentId } = await c.req.json()
   if (!parentId || !studentId) return c.json({ error: 'parentId and studentId are required.' }, 400)
   try {
-    await c.env.APP_DB.prepare(
-      `CREATE TABLE IF NOT EXISTS parent_student_links (id TEXT PRIMARY KEY, parent_id TEXT, student_id TEXT, tenant_id TEXT, created_at TEXT)`
-    ).run()
+    await ensureParentStudentLinksTable(c.env.APP_DB)
     const linkId = `link_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`
     await c.env.APP_DB.prepare(
       `INSERT OR IGNORE INTO parent_student_links (id, parent_id, student_id, tenant_id, created_at) VALUES (?, ?, ?, ?, ?)`

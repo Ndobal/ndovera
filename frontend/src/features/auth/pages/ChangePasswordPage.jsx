@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { getApiUrl } from '../../../config/apiBase';
-import { persistAuth, getStoredAuth } from '../services/authApi';
+import { changePassword, getStoredAuth, persistAuth } from '../services/authApi';
 
 export default function ChangePasswordPage({ onLogin }) {
   const location = useLocation();
@@ -30,16 +29,10 @@ export default function ChangePasswordPage({ onLogin }) {
     }
     setSaving(true);
     try {
-      const response = await fetch(getApiUrl('/api/auth/change-password'), {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ currentPassword: 'abcABC@123', newPassword }),
-      });
-      const data = await response.json().catch(() => ({}));
-      if (!response.ok) throw new Error(data.error || 'Could not change password.');
+      if (!token) {
+        throw new Error('Your sign-in session has expired. Please log in again.');
+      }
+      const data = await changePassword({ newPassword }, token);
       const nextAuth = persistAuth(data);
       onLogin?.(nextAuth);
       navigate(`/roles/${data.user?.role || nextAuth.user?.role || 'student'}`, { replace: true });
