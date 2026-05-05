@@ -37,6 +37,26 @@ type Bindings = {
 
 const app = new Hono<{ Bindings: Bindings }>()
 
+// R2 file proxy — serves uploaded files at /files/:key
+app.get('/files/*', async (c) => {
+  const key = c.req.path.replace(/^\/files\//, '')
+  if (!key) return c.json({ error: 'Not found' }, 404)
+  try {
+    const obj = await c.env.UPLOADS.get(key)
+    if (!obj) return c.json({ error: 'Not found' }, 404)
+    const contentType = obj.httpMetadata?.contentType || 'application/octet-stream'
+    return new Response(obj.body, {
+      headers: {
+        'Content-Type': contentType,
+        'Cache-Control': 'public, max-age=31536000',
+        'Access-Control-Allow-Origin': '*',
+      },
+    })
+  } catch {
+    return c.json({ error: 'Not found' }, 404)
+  }
+})
+
 const headerFallbackByRole: Record<string, any> = {}
 
 const studentDashboardFallback = {
@@ -1457,7 +1477,7 @@ app.post('/api/classrooms/:classroomId/materials/upload-multipart', authenticate
     await c.env.UPLOADS.put(fileName, file.stream(), {
       httpMetadata: { contentType: file.type }
     })
-    const url = `https://files.ndovera.com/${fileName}` // Assuming custom domain
+    const url = `https://ndovera.com/files/${fileName}` // Assuming custom domain
     const newMaterial = {
       classId: classroomId,
       title,
@@ -1913,7 +1933,7 @@ app.post('/api/school/logo', authenticate, async (c) => {
     const ext = file.name.split('.').pop()?.toLowerCase() || 'png'
     const key = `logos/${tenant.id}/logo_${Date.now()}.${ext}`
     await c.env.UPLOADS.put(key, file.stream(), { httpMetadata: { contentType: file.type } })
-    const logoUrl = `https://files.ndovera.com/${key}`
+    const logoUrl = `https://ndovera.com/files/${key}`
     await c.env.APP_DB.prepare(INIT_BRANDING).run()
     const existing = await c.env.APP_DB.prepare(`SELECT * FROM tenant_branding WHERE tenant_id = ?`).bind(tenant.id).first() as any
     await c.env.APP_DB.prepare(`INSERT OR REPLACE INTO tenant_branding (tenant_id, logo_url, tagline, website, updated_at) VALUES (?, ?, ?, ?, ?)`)
@@ -1964,7 +1984,7 @@ app.post('/api/school/website/sections/upload', authenticate, async (c) => {
     const ext = file.name.split('.').pop()?.toLowerCase() || 'jpg'
     const key = `website/${tenantId}/${sectionKey}/${Date.now()}.${ext}`
     await c.env.UPLOADS.put(key, file.stream(), { httpMetadata: { contentType: file.type } })
-    return c.json({ success: true, url: `https://files.ndovera.com/${key}` })
+    return c.json({ success: true, url: `https://ndovera.com/files/${key}` })
   } catch { return c.json({ error: 'Upload failed.' }, 500) }
 })
 
@@ -2024,7 +2044,7 @@ app.post('/api/school/events/upload', authenticate, async (c) => {
     const ext = file.name.split('.').pop()?.toLowerCase() || 'jpg'
     const key = `events/${tenantId}/${Date.now()}.${ext}`
     await c.env.UPLOADS.put(key, file.stream(), { httpMetadata: { contentType: file.type } })
-    return c.json({ success: true, url: `https://files.ndovera.com/${key}` })
+    return c.json({ success: true, url: `https://ndovera.com/files/${key}` })
   } catch { return c.json({ error: 'Upload failed.' }, 500) }
 })
 
