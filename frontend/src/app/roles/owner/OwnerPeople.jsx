@@ -495,7 +495,7 @@ export default function OwnerPeople() {
   const [profileUserId, setProfileUserId] = useState(null);
 
   // get current user info for edit-own-profile logic
-  const currentUser = (() => { try { return JSON.parse(localStorage.getItem('ndovera_user') || '{}'); } catch { return {}; } })();
+  const currentUser = (() => { try { return JSON.parse(localStorage.getItem('authUser') || '{}'); } catch { return {}; } })();
   const currentUserId = currentUser?.id || '';
   const isAdmin = ['owner', 'hos'].includes(currentUser?.role);
 

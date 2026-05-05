@@ -2015,10 +2015,10 @@ app.post('/api/people', authenticate, async (c) => {
   try {
     await ensureUsersTable(c.env.APP_DB)
     await c.env.APP_DB.prepare(
-      `INSERT INTO users (id, email, name, role, tenantId, passwordHash, status, createdAt)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-       ON CONFLICT(email) DO UPDATE SET name=excluded.name, role=excluded.role, tenantId=excluded.tenantId, passwordHash=excluded.passwordHash, status='active'`
-    ).bind(userId, email, name, role, tenantId, JSON.stringify(userSettings.passwordHash || ''), 'active', new Date().toISOString()).run()
+      `INSERT INTO users (id, email, name, role, tenantId, status, createdAt)
+       VALUES (?, ?, ?, ?, ?, ?, ?)
+       ON CONFLICT(email) DO UPDATE SET name=excluded.name, role=excluded.role, tenantId=excluded.tenantId, status='active'`
+    ).bind(userId, email, name, role, tenantId, 'active', new Date().toISOString()).run()
 
     await upsertSettings(c.env.APP_DB, email, userSettings)
     await addAudit(c.env.APP_DB, tenantId, { action: 'personCreated', data: { by: c.var.user.id, name, email, role, displayId, classId: classId || null } })
@@ -2057,10 +2057,10 @@ app.post('/api/people', authenticate, async (c) => {
           phone: parentData.phone || null,
         }, 'abcABC@123')
         await c.env.APP_DB.prepare(
-          `INSERT INTO users (id, email, name, role, tenantId, passwordHash, status, createdAt)
-           VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-           ON CONFLICT(email) DO UPDATE SET name=excluded.name, role=excluded.role, tenantId=excluded.tenantId, passwordHash=excluded.passwordHash, status='active'`
-        ).bind(parentUserId, parentEmail, parentName, 'parent', tenantId, JSON.stringify(parentSettings.passwordHash || ''), 'active', new Date().toISOString()).run()
+          `INSERT INTO users (id, email, name, role, tenantId, status, createdAt)
+           VALUES (?, ?, ?, ?, ?, ?, ?)
+           ON CONFLICT(email) DO UPDATE SET name=excluded.name, role=excluded.role, tenantId=excluded.tenantId, status='active'`
+        ).bind(parentUserId, parentEmail, parentName, 'parent', tenantId, 'active', new Date().toISOString()).run()
         await upsertSettings(c.env.APP_DB, parentEmail, parentSettings)
         const savedParent = await c.env.APP_DB.prepare(`SELECT id FROM users WHERE email = ?`).bind(parentEmail).first() as any
         parentId = savedParent?.id || parentUserId
