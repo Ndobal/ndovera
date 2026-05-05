@@ -730,7 +730,7 @@ function buildUserProfile(id: string, role: string, name: string, settings: Reco
 }
 
 async function finishLogin(c: any, payload: Record<string, any>) {
-  const id = payload.id || payload.email || payload.username
+  let id = payload.id || payload.email || payload.username
   const password = payload.password
   const requestedRole = payload.role
 
@@ -738,9 +738,40 @@ async function finishLogin(c: any, payload: Record<string, any>) {
     return c.json({ error: 'id and password required' }, 400)
   }
 
-  const settings = await getSettings(c.env.APP_DB, id)
+  let settings = await getSettings(c.env.APP_DB, id)
+
+  // Accounts created before the PBKDF2 fix have no settings row.
+  // If the user exists in the users table and presents the default password,
+  // bootstrap their settings on the fly so they can log in.
   if (!settings) {
-    return c.json({ error: 'invalid credentials' }, 401)
+    const DEFAULT_PASSWORD = 'abcABC@123'
+    if (String(password) !== DEFAULT_PASSWORD) {
+      return c.json({ error: 'invalid credentials' }, 401)
+    }
+    const userRow = await c.env.APP_DB.prepare(
+      `SELECT id, email, name, role, tenantId, status FROM users WHERE email = ? OR id = ?`
+    ).bind(id, id).first() as Record<string, any> | null
+
+    if (!userRow) {
+      return c.json({ error: 'invalid credentials' }, 401)
+    }
+
+    // Bootstrap settings with plain initialPassword — they must change password on first login
+    settings = {
+      email: userRow.email,
+      name: userRow.name,
+      role: userRow.role,
+      tenantId: userRow.tenantId,
+      schoolId: userRow.tenantId,
+      status: 'active',
+      mustChangePassword: true,
+      initialPassword: DEFAULT_PASSWORD,
+    }
+    await upsertSettings(c.env.APP_DB, userRow.email, settings).catch(e =>
+      console.error('Bootstrap settings failed', e)
+    )
+    // Reassign id to canonical email for the rest of login
+    id = userRow.email
   }
 
   let passwordValid = false
