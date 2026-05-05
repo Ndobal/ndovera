@@ -1,5 +1,5 @@
 import { getApiUrl } from '../../../config/apiBase';
-import { getStoredAuth } from '../../auth/services/authApi';
+import { getStoredAuth, clearStoredAuth } from '../../auth/services/authApi';
 
 function buildHeaders() {
   const auth = getStoredAuth();
@@ -9,12 +9,18 @@ function buildHeaders() {
   };
 }
 
+function handleUnauthorized() {
+  clearStoredAuth();
+  window.location.href = '/login';
+}
+
 async function req(path, opts = {}) {
   const res = await fetch(getApiUrl(path), {
     method: opts.method || 'GET',
     headers: buildHeaders(),
     body: opts.body ? JSON.stringify(opts.body) : undefined,
   });
+  if (res.status === 401) { handleUnauthorized(); return {}; }
   const data = await res.json().catch(() => ({}));
   if (!res.ok) throw new Error(data.error || data.message || 'Request failed.');
   return data;
@@ -51,6 +57,7 @@ async function uploadFile(path, file, extraFields = {}) {
     headers: auth?.token ? { Authorization: `Bearer ${auth.token}` } : {},
     body: formData,
   });
+  if (res.status === 401) { handleUnauthorized(); return {}; }
   const data = await res.json().catch(() => ({}));
   if (!res.ok) throw new Error(data.error || data.message || 'Upload failed.');
   return data;

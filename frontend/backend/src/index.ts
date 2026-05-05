@@ -776,7 +776,7 @@ async function finishLogin(c: any, payload: Record<string, any>) {
     name,
     id,
     tenantId: tenant?.id,
-    exp: Math.floor(Date.now() / 1000) + (8 * 60 * 60),
+    exp: Math.floor(Date.now() / 1000) + (7 * 24 * 60 * 60),
   }, c.env.JWT_SECRET)
 
   const user = attachTenantContext(buildUserProfile(id, userRole, name, settings), tenant)
