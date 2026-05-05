@@ -1670,8 +1670,12 @@ app.get('/api/people', authenticate, async (c) => {
   const tenantId = c.var.user?.tenantId
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
   try {
+    // Ensure users table exists
+    await c.env.APP_DB.prepare(
+      `CREATE TABLE IF NOT EXISTS users (id TEXT PRIMARY KEY, email TEXT UNIQUE, name TEXT, role TEXT, tenantId TEXT, passwordHash TEXT, status TEXT, createdAt TEXT)`
+    ).run()
     const rows = await c.env.APP_DB.prepare(
-      `SELECT id, name, email, role, createdAt FROM users WHERE tenantId = ? ORDER BY role, name`
+      `SELECT id, name, email, role, status, createdAt FROM users WHERE tenantId = ? AND (status IS NULL OR status != 'inactive') ORDER BY role, name`
     ).bind(tenantId).all()
     return c.json({ success: true, people: rows.results || [] })
   } catch {
@@ -1853,14 +1857,21 @@ app.post('/api/people', authenticate, async (c) => {
     status: 'active',
   }, defaultPassword)
   try {
+    // Ensure users table exists
     await c.env.APP_DB.prepare(
-      `INSERT OR IGNORE INTO users (id, email, name, role, tenantId, passwordHash, status, createdAt) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
+      `CREATE TABLE IF NOT EXISTS users (id TEXT PRIMARY KEY, email TEXT UNIQUE, name TEXT, role TEXT, tenantId TEXT, passwordHash TEXT, status TEXT, createdAt TEXT)`
+    ).run()
+    // Use INSERT OR REPLACE so re-adding an existing email updates their record
+    await c.env.APP_DB.prepare(
+      `INSERT INTO users (id, email, name, role, tenantId, passwordHash, status, createdAt)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+       ON CONFLICT(email) DO UPDATE SET name=excluded.name, role=excluded.role, tenantId=excluded.tenantId, passwordHash=excluded.passwordHash, status='active'`
     ).bind(userId, email, name, role, tenantId, userSettings.passwordHash || '', 'active', new Date().toISOString()).run()
-  } catch (_) {}
-  try {
     await upsertSettings(c.env.APP_DB, email, userSettings)
     await addAudit(c.env.APP_DB, tenantId, { action: 'personCreated', data: { by: c.var.user.id, name, email, role } })
-    return c.json({ success: true, user: { id: userId, email, name, role, status: 'active' } }, 201)
+    // Return the actual inserted/updated user id
+    const saved = await c.env.APP_DB.prepare(`SELECT id, email, name, role, status FROM users WHERE email = ?`).bind(email).first() as any
+    return c.json({ success: true, user: saved || { id: userId, email, name, role, status: 'active' } }, 201)
   } catch (err) {
     return c.json({ error: err instanceof Error ? err.message : 'Could not create person.' }, 500)
   }
@@ -1871,6 +1882,9 @@ app.delete('/api/people/:userId', authenticate, async (c) => {
   const tenantId = c.var.user?.tenantId
   const userId = c.req.param('userId')
   try {
+    await c.env.APP_DB.prepare(
+      `CREATE TABLE IF NOT EXISTS users (id TEXT PRIMARY KEY, email TEXT UNIQUE, name TEXT, role TEXT, tenantId TEXT, passwordHash TEXT, status TEXT, createdAt TEXT)`
+    ).run()
     await c.env.APP_DB.prepare(`UPDATE users SET status='inactive' WHERE id=? AND tenantId=?`).bind(userId, tenantId).run()
     await addAudit(c.env.APP_DB, tenantId, { action: 'personDeactivated', data: { by: c.var.user.id, userId } })
     return c.json({ success: true })
