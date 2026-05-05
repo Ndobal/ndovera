@@ -297,7 +297,7 @@ export default function SchoolRegistrationPage() {
   }
 
   return (
-    <div className="min-h-screen overflow-y-auto bg-[linear-gradient(180deg,#ffffff_0%,#f8fafc_38%,#ecfdf5_100%)] px-4 py-10 text-slate-900">
+    <div className="h-screen overflow-y-auto bg-[linear-gradient(180deg,#ffffff_0%,#f8fafc_38%,#ecfdf5_100%)] px-4 py-10 text-slate-900">
       <div className="mx-auto max-w-6xl space-y-8">
         <section className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
           <div className="rounded-[32px] border border-slate-200 bg-white p-8 shadow-[0_24px_80px_rgba(15,23,42,0.08)]">

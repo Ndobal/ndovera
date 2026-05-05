@@ -84,6 +84,10 @@ export const updateEvent = (id, data) => req(`/api/school/events/${id}`, { metho
 export const deleteEvent = (id) => req(`/api/school/events/${id}`, { method: 'DELETE' });
 export const uploadEventMedia = (file) => uploadFile('/api/school/events/upload', file);
 export const getParents = () => req('/api/school/parents');
+export const bulkAddSubjects = (classId, data) => req(`/api/school/classes/${classId}/subjects/bulk`, { method: 'POST', body: data });
+export const updateSubject = (subjectId, data) => req(`/api/school/subjects/${subjectId}`, { method: 'PUT', body: data });
+export const deleteSubject = (subjectId) => req(`/api/school/subjects/${subjectId}`, { method: 'DELETE' });
+export const updateClass = (classId, data) => req(`/api/school/classes/${classId}`, { method: 'PUT', body: data });
 export const getUserProfile = (userId) => req(`/api/people/${userId}`);
 export const updateUserProfile = (userId, data) => req(`/api/people/${userId}`, { method: 'PUT', body: data });
 export const linkParentStudent = (data) => req('/api/school/parent-student-link', { method: 'POST', body: data });

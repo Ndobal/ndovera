@@ -2456,6 +2456,9 @@ app.get('/api/school/classes', authenticate, async (c) => {
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
   try {
     await c.env.APP_DB.prepare(`CREATE TABLE IF NOT EXISTS classes (id TEXT PRIMARY KEY, tenantId TEXT, name TEXT, arm TEXT, classTeacherId TEXT, createdAt TEXT)`).run()
+    try { await c.env.APP_DB.exec('ALTER TABLE classes ADD COLUMN tenantId TEXT') } catch {}
+    try { await c.env.APP_DB.exec('ALTER TABLE classes ADD COLUMN arm TEXT') } catch {}
+    try { await c.env.APP_DB.exec('ALTER TABLE classes ADD COLUMN classTeacherId TEXT') } catch {}
     const rows = await c.env.APP_DB.prepare(`SELECT * FROM classes WHERE tenantId = ? ORDER BY name, arm`).bind(tenantId).all()
     return c.json({ success: true, classes: rows.results || [] })
   } catch {
@@ -2472,10 +2475,43 @@ app.post('/api/school/classes', authenticate, async (c) => {
   const id = `class_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`
   try {
     await c.env.APP_DB.prepare(`CREATE TABLE IF NOT EXISTS classes (id TEXT PRIMARY KEY, tenantId TEXT, name TEXT, arm TEXT, classTeacherId TEXT, createdAt TEXT)`).run()
+    try { await c.env.APP_DB.exec('ALTER TABLE classes ADD COLUMN tenantId TEXT') } catch {}
+    try { await c.env.APP_DB.exec('ALTER TABLE classes ADD COLUMN arm TEXT') } catch {}
+    try { await c.env.APP_DB.exec('ALTER TABLE classes ADD COLUMN classTeacherId TEXT') } catch {}
     await c.env.APP_DB.prepare(`INSERT INTO classes (id, tenantId, name, arm, classTeacherId, createdAt) VALUES (?, ?, ?, ?, ?, ?)`).bind(id, tenantId, name, arm || '', classTeacherId || null, new Date().toISOString()).run()
+    if (classTeacherId) {
+      await c.env.APP_DB.prepare('UPDATE subjects SET teacherId = ? WHERE classId = ? AND tenantId = ?')
+        .bind(classTeacherId, id, tenantId).run()
+    }
     return c.json({ success: true, id }, 201)
   } catch (err) {
     return c.json({ error: err instanceof Error ? err.message : 'Could not add class.' }, 500)
+  }
+})
+
+app.put('/api/school/classes/:classId', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos'])) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  const classId = c.req.param('classId')
+  const body = await c.req.json()
+  const { name, arm, classTeacherId } = body
+  try {
+    const sets: string[] = []
+    const vals: unknown[] = []
+    if (name !== undefined) { sets.push('name = ?'); vals.push(name) }
+    if (arm !== undefined) { sets.push('arm = ?'); vals.push(arm) }
+    if (classTeacherId !== undefined) { sets.push('classTeacherId = ?'); vals.push(classTeacherId) }
+    if (sets.length === 0) return c.json({ error: 'Nothing to update.' }, 400)
+    vals.push(classId, tenantId)
+    await c.env.APP_DB.prepare(`UPDATE classes SET ${sets.join(', ')} WHERE id = ? AND tenantId = ?`).bind(...vals).run()
+    if (classTeacherId) {
+      await c.env.APP_DB.prepare('UPDATE subjects SET teacherId = ? WHERE classId = ? AND tenantId = ?')
+        .bind(classTeacherId, classId, tenantId).run()
+    }
+    return c.json({ success: true })
+  } catch (err) {
+    return c.json({ error: err instanceof Error ? err.message : 'Could not update class.' }, 500)
   }
 })
 
@@ -2484,6 +2520,9 @@ app.get('/api/school/subjects', authenticate, async (c) => {
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
   try {
     await c.env.APP_DB.prepare(`CREATE TABLE IF NOT EXISTS subjects (id TEXT PRIMARY KEY, tenantId TEXT, name TEXT, classId TEXT, teacherId TEXT, createdAt TEXT)`).run()
+    try { await c.env.APP_DB.exec('ALTER TABLE subjects ADD COLUMN tenantId TEXT') } catch {}
+    try { await c.env.APP_DB.exec('ALTER TABLE subjects ADD COLUMN classId TEXT') } catch {}
+    try { await c.env.APP_DB.exec('ALTER TABLE subjects ADD COLUMN teacherId TEXT') } catch {}
     const rows = await c.env.APP_DB.prepare(`SELECT * FROM subjects WHERE tenantId = ? ORDER BY name`).bind(tenantId).all()
     return c.json({ success: true, subjects: rows.results || [] })
   } catch {
@@ -2500,10 +2539,75 @@ app.post('/api/school/subjects', authenticate, async (c) => {
   const id = `subject_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`
   try {
     await c.env.APP_DB.prepare(`CREATE TABLE IF NOT EXISTS subjects (id TEXT PRIMARY KEY, tenantId TEXT, name TEXT, classId TEXT, teacherId TEXT, createdAt TEXT)`).run()
+    try { await c.env.APP_DB.exec('ALTER TABLE subjects ADD COLUMN tenantId TEXT') } catch {}
+    try { await c.env.APP_DB.exec('ALTER TABLE subjects ADD COLUMN classId TEXT') } catch {}
+    try { await c.env.APP_DB.exec('ALTER TABLE subjects ADD COLUMN teacherId TEXT') } catch {}
     await c.env.APP_DB.prepare(`INSERT INTO subjects (id, tenantId, name, classId, teacherId, createdAt) VALUES (?, ?, ?, ?, ?, ?)`).bind(id, tenantId, name, classId || null, teacherId || null, new Date().toISOString()).run()
     return c.json({ success: true, id }, 201)
   } catch (err) {
     return c.json({ error: err instanceof Error ? err.message : 'Could not add subject.' }, 500)
+  }
+})
+
+app.post('/api/school/classes/:classId/subjects/bulk', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos'])) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  const classId = c.req.param('classId')
+  const { subjects } = await c.req.json()
+  if (!Array.isArray(subjects) || subjects.length === 0) return c.json({ error: 'subjects array required.' }, 400)
+  try {
+    await c.env.APP_DB.prepare(`CREATE TABLE IF NOT EXISTS subjects (id TEXT PRIMARY KEY, tenantId TEXT, name TEXT, classId TEXT, teacherId TEXT, createdAt TEXT)`).run()
+    try { await c.env.APP_DB.exec('ALTER TABLE subjects ADD COLUMN tenantId TEXT') } catch {}
+    try { await c.env.APP_DB.exec('ALTER TABLE subjects ADD COLUMN classId TEXT') } catch {}
+    try { await c.env.APP_DB.exec('ALTER TABLE subjects ADD COLUMN teacherId TEXT') } catch {}
+    let added = 0
+    for (const name of subjects) {
+      const trimmed = (name as string).trim()
+      if (!trimmed) continue
+      const id = `subject_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`
+      await c.env.APP_DB.prepare(`INSERT INTO subjects (id, tenantId, name, classId, teacherId, createdAt) VALUES (?, ?, ?, ?, ?, ?)`)
+        .bind(id, tenantId, trimmed, classId, null, new Date().toISOString()).run()
+      added++
+    }
+    return c.json({ success: true, added }, 201)
+  } catch (err) {
+    return c.json({ error: err instanceof Error ? err.message : 'Could not add subjects.' }, 500)
+  }
+})
+
+app.put('/api/school/subjects/:subjectId', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos'])) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  const subjectId = c.req.param('subjectId')
+  const body = await c.req.json()
+  const { name, classId, teacherId } = body
+  try {
+    const sets: string[] = []
+    const vals: unknown[] = []
+    if (name !== undefined) { sets.push('name = ?'); vals.push(name) }
+    if (classId !== undefined) { sets.push('classId = ?'); vals.push(classId) }
+    if (teacherId !== undefined) { sets.push('teacherId = ?'); vals.push(teacherId) }
+    if (sets.length === 0) return c.json({ error: 'Nothing to update.' }, 400)
+    vals.push(subjectId, tenantId)
+    await c.env.APP_DB.prepare(`UPDATE subjects SET ${sets.join(', ')} WHERE id = ? AND tenantId = ?`).bind(...vals).run()
+    return c.json({ success: true })
+  } catch (err) {
+    return c.json({ error: err instanceof Error ? err.message : 'Could not update subject.' }, 500)
+  }
+})
+
+app.delete('/api/school/subjects/:subjectId', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos'])) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  const subjectId = c.req.param('subjectId')
+  try {
+    await c.env.APP_DB.prepare(`DELETE FROM subjects WHERE id = ? AND tenantId = ?`).bind(subjectId, tenantId).run()
+    return c.json({ success: true })
+  } catch (err) {
+    return c.json({ error: err instanceof Error ? err.message : 'Could not delete subject.' }, 500)
   }
 })
 

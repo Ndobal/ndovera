@@ -483,6 +483,138 @@ function AddPersonModal({ onClose, onAdd }) {
   );
 }
 
+const DEFAULT_PASSWORD = 'abcABC@123';
+
+function ShareModal({ person, onClose }) {
+  const [copied, setCopied] = useState(false);
+  const loginLink = 'https://ndovera.com/login';
+  const hasDefaultPw = person.mustChangePassword;
+  const pwText = hasDefaultPw ? DEFAULT_PASSWORD : '(user changed password)';
+
+  const message = `School Login Details\n\nLogin link: ${loginLink}\nName: ${person.name || ''}\nEmail: ${person.email || ''}\nPassword: ${pwText}\n\nPlease sign in and change your password.`;
+
+  function copyAll() {
+    navigator.clipboard.writeText(message).then(() => { setCopied(true); setTimeout(() => setCopied(false), 2000); });
+  }
+
+  function whatsapp() {
+    window.open(`https://wa.me/?text=${encodeURIComponent(message)}`, '_blank');
+  }
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40" onClick={onClose}>
+      <div className="w-full max-w-sm rounded-3xl p-6 bg-[#f5deb3] border border-[#c9a96e]/40 shadow-xl" onClick={e => e.stopPropagation()}>
+        <h2 className="text-lg font-bold text-[#800000] mb-4">Share Login Details</h2>
+        <div className="space-y-2 text-sm text-[#191970] mb-4">
+          <div><span className="text-[#800020] font-semibold text-xs uppercase">Login Link</span><p className="font-mono text-xs mt-0.5 break-all">{loginLink}</p></div>
+          <div><span className="text-[#800020] font-semibold text-xs uppercase">Name</span><p>{person.name || '—'}</p></div>
+          <div><span className="text-[#800020] font-semibold text-xs uppercase">Email</span><p>{person.email || '—'}</p></div>
+          <div>
+            <span className="text-[#800020] font-semibold text-xs uppercase">Password</span>
+            <p className={`font-mono ${hasDefaultPw ? '' : 'text-[#800020] italic'}`}>{pwText}</p>
+          </div>
+        </div>
+        <div className="flex flex-col gap-2">
+          <button onClick={copyAll} className="w-full bg-[#1a5c38] text-[#f5deb3] font-bold py-2 rounded-2xl text-sm transition-colors hover:bg-[#154a2e]">
+            {copied ? '✓ Copied!' : '📋 Copy All'}
+          </button>
+          <button onClick={whatsapp} className="w-full bg-[#25D366] text-white font-bold py-2 rounded-2xl text-sm transition-colors hover:bg-[#1ebe5d]">
+            💬 Send via WhatsApp
+          </button>
+          <button onClick={onClose} className="w-full border border-[#c9a96e]/40 text-[#800020] font-semibold py-2 rounded-2xl text-sm">Close</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function PersonCard({ person: p, isAdmin, onViewProfile, onDeactivate, changingRole, newRole, setNewRole, onSaveRole, onCancelRole, onStartRoleChange }) {
+  const [showShare, setShowShare] = useState(false);
+  const [copiedPw, setCopiedPw] = useState(false);
+
+  function copyPassword() {
+    navigator.clipboard.writeText(DEFAULT_PASSWORD).then(() => { setCopiedPw(true); setTimeout(() => setCopiedPw(false), 2000); });
+  }
+
+  return (
+    <>
+      {showShare && <ShareModal person={p} onClose={() => setShowShare(false)} />}
+      <div className="rounded-2xl p-4 bg-[#f5deb3] border border-[#c9a96e]/40 shadow-sm flex flex-col gap-3">
+        {/* Header */}
+        <div className="flex items-start justify-between gap-2">
+          <div className="flex flex-col gap-1">
+            {p.displayId && (
+              <span className="inline-block font-mono text-xs text-[#800000] bg-[#f0d090] px-2 py-0.5 rounded-full self-start">{p.displayId}</span>
+            )}
+            <button onClick={onViewProfile} className="text-left font-bold text-[#800000] hover:underline text-base leading-tight">
+              {p.name || '—'}
+            </button>
+          </div>
+          <span className="shrink-0 text-xs font-semibold text-[#f5deb3] bg-[#800020] px-2 py-0.5 rounded-full capitalize">{p.role || '—'}</span>
+        </div>
+
+        {/* Body info */}
+        <div className="space-y-1 text-sm text-[#191970]">
+          {p.email && <p><span className="text-[#800020] text-xs font-semibold uppercase">Email </span>{p.email}</p>}
+          {p.phone && <p><span className="text-[#800020] text-xs font-semibold uppercase">Phone </span>{p.phone}</p>}
+          {p.role === 'student' && p.currentClass && (
+            <p><span className="text-[#800020] text-xs font-semibold uppercase">Class </span>
+              {p.currentClass.name}{p.currentClass.arm ? ` ${p.currentClass.arm}` : ''}
+            </p>
+          )}
+          <div>
+            <span className={`inline-block px-2 py-0.5 rounded-full text-xs font-semibold mt-1 ${p.status === 'inactive' ? 'bg-red-100 text-red-700' : 'bg-emerald-100 text-emerald-700'}`}>
+              {p.status || 'active'}
+            </span>
+          </div>
+        </div>
+
+        {/* Password section */}
+        <div className="rounded-xl bg-[#f0d090] px-3 py-2 text-xs">
+          {p.mustChangePassword ? (
+            <div className="flex flex-col gap-1">
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-[#800020] font-semibold uppercase">Initial Password</span>
+                <button onClick={copyPassword} className="text-[#1a5c38] font-bold hover:underline">
+                  {copiedPw ? '✓ Copied' : '📋 Copy'}
+                </button>
+              </div>
+              <p className="font-mono text-[#191970]">{DEFAULT_PASSWORD}</p>
+              <p className="text-[#800020] italic">Must change on first sign in</p>
+            </div>
+          ) : (
+            <p className="text-[#1a5c38] font-semibold">Password updated ✓</p>
+          )}
+        </div>
+
+        {/* Role change */}
+        {isAdmin && changingRole && (
+          <div className="flex gap-1 items-center">
+            <select defaultValue={p.role} onChange={e => setNewRole(e.target.value)} className="flex-1 rounded-lg border border-[#c9a96e]/40 bg-[#f0d090] text-[#191970] px-2 py-1 text-xs">
+              {ROLES.map(r => <option key={r} value={r}>{r}</option>)}
+            </select>
+            <button onClick={onSaveRole} className="bg-[#1a5c38] text-[#f5deb3] text-xs px-2 py-1 rounded-lg font-bold">Save</button>
+            <button onClick={onCancelRole} className="text-[#800020] text-xs px-1">✕</button>
+          </div>
+        )}
+
+        {/* Actions */}
+        <div className="flex gap-2 flex-wrap">
+          <button onClick={() => setShowShare(true)} className="flex-1 bg-[#1a5c38] hover:bg-[#154a2e] text-[#f5deb3] font-bold text-xs py-1.5 px-3 rounded-xl transition-colors">
+            📤 Share
+          </button>
+          {isAdmin && !changingRole && (
+            <button onClick={onStartRoleChange} className="bg-[#1a5c38] hover:bg-[#154a2e] text-[#f5deb3] text-xs px-3 py-1.5 rounded-xl font-bold transition-colors">Role</button>
+          )}
+          {isAdmin && (
+            <button onClick={onDeactivate} className="border border-red-300 text-red-600 text-xs px-3 py-1.5 rounded-xl font-semibold hover:bg-red-50 transition-colors">Off</button>
+          )}
+        </div>
+      </div>
+    </>
+  );
+}
+
 export default function OwnerPeople() {
   const [people, setPeople] = useState([]);
   const [filter, setFilter] = useState('All');
@@ -588,64 +720,23 @@ export default function OwnerPeople() {
         ) : (
           <>
             <p className="text-xs text-[#800020] dark:text-slate-400 mb-4 font-semibold uppercase">{filtered.length} result{filtered.length !== 1 ? 's' : ''}</p>
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b border-[#c9a96e]/40 dark:border-white/10">
-                    {['ID', 'Name', 'Email', 'Role', 'Status', 'Actions'].map(h => (
-                      <th key={h} className="text-left py-2 pr-4 text-[#800020] dark:text-slate-400 font-semibold">{h}</th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {filtered.map(p => (
-                    <tr key={p.id} className="border-b border-[#c9a96e]/20 dark:border-white/5">
-                      <td className="py-2 pr-4">
-                        {p.displayId && (
-                          <span className="font-mono text-xs text-[#800000] dark:text-slate-400 bg-[#f0d090] dark:bg-slate-800 px-2 py-0.5 rounded-full">{p.displayId}</span>
-                        )}
-                      </td>
-                      <td className="py-2 pr-4">
-                        <button
-                          onClick={() => setProfileUserId(p.id)}
-                          className="text-[#800020] underline cursor-pointer hover:text-[#800000] font-medium text-left"
-                        >
-                          {p.name || '—'}
-                        </button>
-                      </td>
-                      <td className="py-2 pr-4 text-[#191970] dark:text-slate-300 text-xs">{p.email || '—'}</td>
-                      <td className="py-2 pr-4">
-                        {changingRole === p.id ? (
-                          <div className="flex gap-1 items-center">
-                            <select defaultValue={p.role} onChange={e => setNewRole(e.target.value)} className="rounded-lg border border-[#c9a96e]/40 bg-[#f0d090] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-2 py-1 text-xs">
-                              {ROLES.map(r => <option key={r} value={r}>{r}</option>)}
-                            </select>
-                            <button onClick={() => handleRoleChange(p)} className="bg-[#1a5c38] text-[#f5deb3] text-xs px-2 py-1 rounded-lg font-bold">Save</button>
-                            <button onClick={() => setChangingRole(null)} className="text-[#800020] text-xs px-1">✕</button>
-                          </div>
-                        ) : (
-                          <span className="text-[#191970] dark:text-slate-300 capitalize">{p.role || '—'}</span>
-                        )}
-                      </td>
-                      <td className="py-2 pr-4">
-                        <span className={`inline-block px-2 py-0.5 rounded-full text-xs font-semibold ${p.status === 'inactive' ? 'bg-red-100 text-red-700' : 'bg-emerald-100 text-emerald-700'}`}>
-                          {p.status || 'active'}
-                        </span>
-                      </td>
-                      <td className="py-2">
-                        <div className="flex gap-2">
-                          {isAdmin && (
-                            <button onClick={() => { setChangingRole(p.id); setNewRole(p.role); }} className="bg-[#1a5c38] hover:bg-[#154a2e] text-[#f5deb3] text-xs px-3 py-1 rounded-xl font-bold transition-colors">Role</button>
-                          )}
-                          {isAdmin && (
-                            <button onClick={() => handleDeactivate(p)} className="border border-red-300 text-red-600 text-xs px-3 py-1 rounded-xl font-semibold hover:bg-red-50 transition-colors">Off</button>
-                          )}
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {filtered.map(p => (
+                <PersonCard
+                  key={p.id}
+                  person={p}
+                  isAdmin={isAdmin}
+                  onViewProfile={() => setProfileUserId(p.id)}
+                  onDeactivate={() => handleDeactivate(p)}
+                  onRoleChange={(role) => { setChangingRole(p.id); setNewRole(role); handleRoleChange(p); }}
+                  changingRole={changingRole === p.id}
+                  newRole={newRole}
+                  setNewRole={setNewRole}
+                  onSaveRole={() => handleRoleChange(p)}
+                  onCancelRole={() => setChangingRole(null)}
+                  onStartRoleChange={() => { setChangingRole(p.id); setNewRole(p.role); }}
+                />
+              ))}
             </div>
           </>
         )}
