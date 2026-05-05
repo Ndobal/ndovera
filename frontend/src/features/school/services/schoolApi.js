@@ -91,3 +91,32 @@ export const updateClass = (classId, data) => req(`/api/school/classes/${classId
 export const getUserProfile = (userId) => req(`/api/people/${userId}`);
 export const updateUserProfile = (userId, data) => req(`/api/people/${userId}`, { method: 'PUT', body: data });
 export const linkParentStudent = (data) => req('/api/school/parent-student-link', { method: 'POST', body: data });
+
+// Fees
+export const getFeesConfig = () => req('/api/school/fees-config');
+export const saveFeesConfig = (data) => req('/api/school/fees-config', { method: 'POST', body: data });
+export const getFeesLedger = () => req('/api/school/fees-ledger');
+export const markFeePaid = (studentId, data) => req(`/api/school/fees/${studentId}/pay`, { method: 'POST', body: data });
+
+// Expenditure
+export const getExpenditure = () => req('/api/school/expenditure');
+export const addExpenditure = (data) => req('/api/school/expenditure', { method: 'POST', body: data });
+
+// Payroll
+export const getPayroll = () => req('/api/school/payroll');
+export const updatePayrollStaff = (staffId, data) => req(`/api/school/payroll/staff/${staffId}`, { method: 'PUT', body: data });
+export const approvePayroll = () => req('/api/school/payroll/approve', { method: 'POST' });
+export const submitPayroll = () => req('/api/school/payroll/submit', { method: 'POST' });
+export const getPayrollHistory = () => req('/api/school/payroll/history');
+export const getPayrollSettings = () => req('/api/school/payroll/settings');
+export const savePayrollSettings = (data) => req('/api/school/payroll/settings', { method: 'POST', body: data });
+export const getMyPayslip = () => req('/api/school/payroll/my-payslip');
+
+// Attendance
+export const getStaffAttendance = (date) => req(`/api/school/staff-attendance?date=${date}`);
+export const markStaffAttendance = (data) => req('/api/school/staff-attendance', { method: 'POST', body: data });
+export const getStudentAttendance = (date, classId) => req(`/api/school/student-attendance?date=${date}${classId ? `&classId=${classId}` : ''}`);
+export const markStudentAttendance = (data) => req('/api/school/student-attendance', { method: 'POST', body: data });
+export const runAttendanceAI = () => req('/api/school/attendance/ai-analysis', { method: 'POST' });
+export const runFinanceAI = () => req('/api/school/finance/ai-analysis', { method: 'POST' });
+

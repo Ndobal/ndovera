@@ -107,6 +107,7 @@ function getRoleSidebarItems(roleKey) {
       { name: 'Farming Mode', path: '/roles/teacher/farming' },
       { name: 'Reports', path: '/roles/teacher/reports' },
       { name: 'Settings', path: '/roles/teacher/settings' },
+      { name: 'Payslip', path: '/roles/teacher/payslip' },
       libEntry,
     ];
   }
@@ -116,6 +117,7 @@ function getRoleSidebarItems(roleKey) {
       { name: 'Overview', path: '/roles/hos' },
       { name: 'Academics', path: '/roles/hos/academics' },
       { name: 'Attendance', path: '/roles/hos/attendance' },
+      { name: 'Payroll', path: '/roles/hos/payroll' },
       { name: 'Teacher Review', path: '/roles/hos/teacher-review' },
       { name: 'Timetable', path: '/roles/hos/timetable' },
       { name: 'Discipline', path: '/roles/hos/discipline' },
@@ -149,6 +151,8 @@ function getRoleSidebarItems(roleKey) {
       { name: 'Overview', path: '/roles/owner' },
       { name: 'Schools', path: '/roles/owner/schools' },
       { name: 'Finance', path: '/roles/owner/finance' },
+      { name: 'Payroll', path: '/roles/owner/payroll' },
+      { name: 'Attendance', path: '/roles/owner/attendance' },
       { name: 'Academics', path: '/roles/owner/academics' },
       { name: 'People', path: '/roles/owner/people' },
       { name: 'Compliance', path: '/roles/owner/compliance' },
@@ -168,6 +172,7 @@ function getRoleSidebarItems(roleKey) {
       { name: 'Digital Library', path: '/roles/librarian/digital-library' },
       { name: 'Reports', path: '/roles/librarian/reports' },
       { name: 'Settings', path: '/roles/librarian/settings' },
+      { name: 'Payslip', path: '/roles/librarian/payslip' },
       libEntry,
     ];
   }
@@ -180,6 +185,7 @@ function getRoleSidebarItems(roleKey) {
       { name: 'Incidents', path: '/roles/sanitation/incidents' },
       { name: 'Reports', path: '/roles/sanitation/reports' },
       { name: 'Settings', path: '/roles/sanitation/settings' },
+      { name: 'Payslip', path: '/roles/sanitation/payslip' },
       libEntry,
     ];
   }
@@ -193,6 +199,7 @@ function getRoleSidebarItems(roleKey) {
       { name: 'Sales', path: '/roles/tuckshopmanager/sales' },
       { name: 'Reports', path: '/roles/tuckshopmanager/reports' },
       { name: 'Settings', path: '/roles/tuckshopmanager/settings' },
+      { name: 'Payslip', path: '/roles/tuckshopmanager/payslip' },
       libEntry,
     ];
   }
@@ -206,6 +213,7 @@ function getRoleSidebarItems(roleKey) {
       { name: 'Audits', path: '/roles/storekeeper/audits' },
       { name: 'Reports', path: '/roles/storekeeper/reports' },
       { name: 'Settings', path: '/roles/storekeeper/settings' },
+      { name: 'Payslip', path: '/roles/storekeeper/payslip' },
       libEntry,
     ];
   }
@@ -219,6 +227,7 @@ function getRoleSidebarItems(roleKey) {
       { name: 'Incidents', path: '/roles/transport/incidents' },
       { name: 'Reports', path: '/roles/transport/reports' },
       { name: 'Settings', path: '/roles/transport/settings' },
+      { name: 'Payslip', path: '/roles/transport/payslip' },
       libEntry,
     ];
   }
@@ -232,6 +241,7 @@ function getRoleSidebarItems(roleKey) {
       { name: 'Incidents', path: '/roles/hostel/incidents' },
       { name: 'Reports', path: '/roles/hostel/reports' },
       { name: 'Settings', path: '/roles/hostel/settings' },
+      { name: 'Payslip', path: '/roles/hostel/payslip' },
       libEntry,
     ];
   }
@@ -245,6 +255,7 @@ function getRoleSidebarItems(roleKey) {
       { name: 'Hygiene', path: '/roles/cafeteria/hygiene' },
       { name: 'Reports', path: '/roles/cafeteria/reports' },
       { name: 'Settings', path: '/roles/cafeteria/settings' },
+      { name: 'Payslip', path: '/roles/cafeteria/payslip' },
       libEntry,
     ];
   }
@@ -258,6 +269,7 @@ function getRoleSidebarItems(roleKey) {
       { name: 'Emergencies', path: '/roles/clinic/emergencies' },
       { name: 'Reports', path: '/roles/clinic/reports' },
       { name: 'Settings', path: '/roles/clinic/settings' },
+      { name: 'Payslip', path: '/roles/clinic/payslip' },
       libEntry,
     ];
   }
@@ -271,6 +283,7 @@ function getRoleSidebarItems(roleKey) {
       { name: 'Assets', path: '/roles/ict/assets' },
       { name: 'Reports', path: '/roles/ict/reports' },
       { name: 'Settings', path: '/roles/ict/settings' },
+      { name: 'Payslip', path: '/roles/ict/payslip' },
       libEntry,
     ];
   }
@@ -284,6 +297,7 @@ function getRoleSidebarItems(roleKey) {
       { name: 'Messaging', path: '/roles/classteacher/messaging' },
       { name: 'Reports', path: '/roles/classteacher/reports' },
       { name: 'Settings', path: '/roles/classteacher/settings' },
+      { name: 'Payslip', path: '/roles/classteacher/payslip' },
       libEntry,
     ];
   }
@@ -297,6 +311,7 @@ function getRoleSidebarItems(roleKey) {
       { name: 'Analytics', path: '/roles/hod/analytics' },
       { name: 'Reports', path: '/roles/hod/reports' },
       { name: 'Settings', path: '/roles/hod/settings' },
+      { name: 'Payslip', path: '/roles/hod/payslip' },
       libEntry,
     ];
   }
@@ -309,6 +324,7 @@ function getRoleSidebarItems(roleKey) {
       { name: 'Communication', path: '/roles/hodassistant/communication' },
       { name: 'Reports', path: '/roles/hodassistant/reports' },
       { name: 'Settings', path: '/roles/hodassistant/settings' },
+      { name: 'Payslip', path: '/roles/hodassistant/payslip' },
       libEntry,
     ];
   }
@@ -322,6 +338,7 @@ function getRoleSidebarItems(roleKey) {
       { name: 'Messaging', path: '/roles/principal/messaging' },
       { name: 'Reports', path: '/roles/principal/reports' },
       { name: 'Settings', path: '/roles/principal/settings' },
+      { name: 'Payslip', path: '/roles/principal/payslip' },
       libEntry,
     ];
   }
@@ -334,6 +351,7 @@ function getRoleSidebarItems(roleKey) {
       { name: 'Welfare', path: '/roles/headteacher/welfare' },
       { name: 'Reports', path: '/roles/headteacher/reports' },
       { name: 'Settings', path: '/roles/headteacher/settings' },
+      { name: 'Payslip', path: '/roles/headteacher/payslip' },
       libEntry,
     ];
   }
@@ -346,6 +364,7 @@ function getRoleSidebarItems(roleKey) {
       { name: 'Communication', path: '/roles/nurseryhead/communication' },
       { name: 'Reports', path: '/roles/nurseryhead/reports' },
       { name: 'Settings', path: '/roles/nurseryhead/settings' },
+      { name: 'Payslip', path: '/roles/nurseryhead/payslip' },
       libEntry,
     ];
   }
@@ -359,6 +378,7 @@ function getRoleSidebarItems(roleKey) {
       { name: 'Integrity', path: '/roles/examofficer/integrity' },
       { name: 'Reports', path: '/roles/examofficer/reports' },
       { name: 'Settings', path: '/roles/examofficer/settings' },
+      { name: 'Payslip', path: '/roles/examofficer/payslip' },
       libEntry,
     ];
   }
@@ -372,6 +392,7 @@ function getRoleSidebarItems(roleKey) {
       { name: 'Welfare', path: '/roles/sportsmaster/welfare' },
       { name: 'Reports', path: '/roles/sportsmaster/reports' },
       { name: 'Settings', path: '/roles/sportsmaster/settings' },
+      { name: 'Payslip', path: '/roles/sportsmaster/payslip' },
       libEntry,
     ];
   }

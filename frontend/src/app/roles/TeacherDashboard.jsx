@@ -5,11 +5,17 @@ import teacherConfig from './config/teacherConfig';
 import { TeacherCAScoreSheet } from '../../features/results-engine';
 import { StaffCashout } from '../../features/auras';
 import TeacherExams from './teacher/TeacherExams';
+import TeacherPayslip from './teacher/TeacherPayslip';
 
-export default function TeacherDashboard() {
+export default function TeacherDashboard({ auth }) {
   const location = useLocation();
   const pathParts = location.pathname.split('/').filter(Boolean);
   const sectionKey = pathParts[2] || 'overview';
+
+  if (sectionKey === 'payslip') {
+    return <TeacherPayslip auth={auth} />;
+  }
+
   const section = teacherConfig.sections[sectionKey];
 
   if (!section) {

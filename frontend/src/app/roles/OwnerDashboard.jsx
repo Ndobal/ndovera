@@ -12,6 +12,8 @@ import OwnerCompliance from './owner/OwnerCompliance';
 import OwnerApprovals from './owner/OwnerApprovals';
 import OwnerReports from './owner/OwnerReports';
 import OwnerSettings from './owner/OwnerSettings';
+import OwnerPayroll from './owner/OwnerPayroll';
+import OwnerAttendance from './owner/OwnerAttendance';
 
 export default function OwnerDashboard({ auth = null }) {
   const location = useLocation();
@@ -33,6 +35,8 @@ export default function OwnerDashboard({ auth = null }) {
     case 'approvals': return <OwnerApprovals auth={auth} />;
     case 'reports': return <OwnerReports auth={auth} />;
     case 'settings': return <OwnerSettings auth={auth} />;
+    case 'payroll': return <OwnerPayroll auth={auth} />;
+    case 'attendance': return <OwnerAttendance auth={auth} />;
     case 'library': return <RoleLibrary />;
     case 'library-admin': return <AdminLibrary />;
     default: return <Navigate to="/roles/owner" replace />;
