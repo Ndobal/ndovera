@@ -1312,23 +1312,43 @@ app.get('/api/header/:roleKey', async (c) => {
   return c.json(headerFallbackByRole[roleKey] || buildGenericHeader(roleKey))
 })
 
-app.get('/api/dashboards/:roleKey', async (c) => {
+app.get('/api/dashboards/:roleKey', authenticate, async (c) => {
   const roleKey = c.req.param('roleKey')
+  const user = c.var.user
+  const settings = await getSettings(c.env.APP_DB, user.id || user.email).catch(() => null)
+  const displayName = settings?.name || user.name || user.id || 'User'
+
+  const quickLinks = [
+    { name: 'Classroom', path: '/roles/student/classroom' },
+    { name: 'Practice', path: '/roles/student/practice' },
+    { name: 'Assignments', path: '/roles/student/assignments' },
+    { name: 'Materials', path: '/roles/student/materials' },
+    { name: 'Results', path: '/roles/student/results' },
+  ]
+
   if (roleKey === 'student') {
-    return c.json(studentDashboardFallback)
+    return c.json({
+      studentName: displayName,
+      roleWatermark: 'STUDENT',
+      metrics: [],
+      quickLinks,
+      notices: [],
+      classId: settings?.classId || null,
+      className: settings?.className || null,
+      displayId: settings?.displayId || null,
+    })
   }
 
   return c.json({
     role: roleKey.toUpperCase(),
     roleWatermark: roleKey.toUpperCase(),
-    metrics: [
-      { label: 'Open Items', value: '3', accent: 'accent-amber' },
-      { label: 'Completed', value: '12', accent: 'accent-emerald' },
-      { label: 'Alerts', value: '1', accent: 'accent-rose' },
-      { label: 'Auras', value: '450', accent: 'accent-indigo' },
-    ],
+    studentName: displayName,
+    name: displayName,
+    metrics: [],
     quickLinks: [],
     notices: [],
+    priorities: [],
+    activity: [],
   })
 })
 
