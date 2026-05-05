@@ -1,31 +1,36 @@
 import React from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
-import RoleSectionPage from '../../shared/components/RoleSectionPage';
-import hosConfig from './config/hosConfig';
 import { HoSResultAnalytics } from '../../features/results-engine';
+import RoleLibrary from '../RoleLibrary';
+import HoSOverview from './hos/HoSOverview';
+import HoSAttendance from './hos/HoSAttendance';
+import HoSTeacherReview from './hos/HoSTeacherReview';
+import HoSTimetable from './hos/HoSTimetable';
+import HoSDiscipline from './hos/HoSDiscipline';
+import HoSExams from './hos/HoSExams';
+import HoSApprovals from './hos/HoSApprovals';
+import HoSReports from './hos/HoSReports';
+import HoSMessaging from './hos/HoSMessaging';
+import HoSSettings from './hos/HoSSettings';
 
-export default function HoSDashboard() {
+export default function HoSDashboard({ auth = null }) {
   const location = useLocation();
   const pathParts = location.pathname.split('/').filter(Boolean);
   const sectionKey = pathParts[2] || 'overview';
-  const section = hosConfig.sections[sectionKey];
 
-  if (!section) {
-    return <Navigate to="/roles/hos" replace />;
+  switch (sectionKey) {
+    case 'overview': return <HoSOverview auth={auth} />;
+    case 'academics': return <HoSResultAnalytics />;
+    case 'attendance': return <HoSAttendance auth={auth} />;
+    case 'teacher-review': return <HoSTeacherReview auth={auth} />;
+    case 'timetable': return <HoSTimetable />;
+    case 'discipline': return <HoSDiscipline auth={auth} />;
+    case 'exams': return <HoSExams auth={auth} />;
+    case 'approvals': return <HoSApprovals auth={auth} />;
+    case 'reports': return <HoSReports auth={auth} />;
+    case 'messaging': return <HoSMessaging auth={auth} />;
+    case 'settings': return <HoSSettings auth={auth} />;
+    case 'library': return <RoleLibrary />;
+    default: return <Navigate to="/roles/hos" replace />;
   }
-
-  if (sectionKey === 'academics' || sectionKey === 'exams' || sectionKey === 'reports') {
-    return <HoSResultAnalytics />;
-  }
-
-  return (
-    <RoleSectionPage
-      roleTitle={hosConfig.roleTitle}
-      sectionTitle={section.title}
-      sectionSubtitle={section.subtitle}
-      watermark={hosConfig.watermark}
-      metricCards={[]}
-      infoCards={section.panels || []}
-    />
-  );
 }

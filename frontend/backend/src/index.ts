@@ -1634,6 +1634,34 @@ app.post('/api/ai/review', (c) => {
   return c.json({ success: true, report })
 })
 
+// Staff list for owner/HoS
+app.get('/api/people', authenticate, async (c) => {
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  try {
+    const rows = await c.env.APP_DB.prepare(
+      `SELECT id, name, email, role, createdAt FROM users WHERE tenantId = ? ORDER BY role, name`
+    ).bind(tenantId).all()
+    return c.json({ success: true, people: rows.results || [] })
+  } catch {
+    return c.json({ success: true, people: [] })
+  }
+})
+
+// Approval requests placeholder (uses audit log as base)
+app.get('/api/approvals', authenticate, async (c) => {
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ success: true, approvals: [] })
+  try {
+    const rows = await c.env.APP_DB.prepare(
+      `SELECT * FROM audit_log WHERE tenantId = ? AND action LIKE '%request%' ORDER BY createdAt DESC LIMIT 50`
+    ).bind(tenantId).all()
+    return c.json({ success: true, approvals: rows.results || [] })
+  } catch {
+    return c.json({ success: true, approvals: [] })
+  }
+})
+
 // Attendance
 app.get('/api/attendance', authenticate, async (c) => {
   const { studentId, limit } = c.req.query()

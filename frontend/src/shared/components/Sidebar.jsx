@@ -156,6 +156,7 @@ function getRoleSidebarItems(roleKey) {
       { name: 'Reports', path: '/roles/owner/reports' },
       { name: 'Settings', path: '/roles/owner/settings' },
       libEntry,
+      { name: 'Library Admin', path: '/roles/owner/library-admin' },
     ];
   }
 
