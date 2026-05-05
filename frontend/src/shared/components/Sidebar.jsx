@@ -155,7 +155,6 @@ function getRoleSidebarItems(roleKey) {
       { name: 'Approvals', path: '/roles/owner/approvals' },
       { name: 'Reports', path: '/roles/owner/reports' },
       { name: 'Settings', path: '/roles/owner/settings' },
-      libEntry,
       { name: 'Library Admin', path: '/roles/owner/library-admin' },
     ];
   }
@@ -404,7 +403,7 @@ export default function Sidebar() {
   const roleKey = inRoleMode ? location.pathname.split('/')[2] : null;
   const sidebarItemsRaw = inRoleMode && roleKey ? getRoleSidebarItems(roleKey) : defaultSidebarItems;
   const adminEntry = { name: 'Library Admin', path: '/library/admin' };
-  const adminRoles = new Set(['hos', 'owner', 'admin', 'librarian', 'teacher']);
+  const adminRoles = new Set(['hos', 'admin', 'librarian', 'teacher']);
   const sidebarItems = (roleKey && adminRoles.has(roleKey)) ? [...sidebarItemsRaw, adminEntry] : sidebarItemsRaw;
   const nodeTitle = inRoleMode && roleKey ? roleLabels[roleKey] || 'Role Dashboard' : 'Institution Dashboard';
 

@@ -1792,4 +1792,179 @@ app.get('/api/tuck/orders/weekly', authenticate, async (c) => {
   }
 })
 
+app.get('/api/owner/schools', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'ami'])) return c.json({ error: 'forbidden' }, 403)
+  const actorId = c.var.user.id || c.var.user.sub || c.var.user.email
+  try {
+    const rows = await c.env.APP_DB.prepare(
+      `SELECT id, school_name as schoolName, requested_subdomain as subdomain, status, student_count as studentCount, owner_email as ownerEmail, plan_key as planKey, created_at as createdAt FROM tenants WHERE owner_email = ? ORDER BY created_at DESC`
+    ).bind(actorId).all()
+    return c.json({ success: true, schools: rows.results || [] })
+  } catch (err) {
+    return c.json({ success: true, schools: [] })
+  }
+})
+
+app.post('/api/people', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos'])) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  const { name, email, role, password } = await c.req.json()
+  if (!name || !email || !role) return c.json({ error: 'name, email, and role are required.' }, 400)
+  const userId = `user_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`
+  const defaultPassword = password || 'changeme123'
+  const userSettings = await withHashedPassword({
+    email,
+    name,
+    role,
+    tenantId,
+    schoolId: tenantId,
+    status: 'active',
+  }, defaultPassword)
+  try {
+    await c.env.APP_DB.prepare(
+      `INSERT OR IGNORE INTO users (id, email, name, role, tenantId, passwordHash, status, createdAt) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
+    ).bind(userId, email, name, role, tenantId, userSettings.passwordHash || '', 'active', new Date().toISOString()).run()
+  } catch (_) {}
+  try {
+    await upsertSettings(c.env.APP_DB, email, userSettings)
+    await addAudit(c.env.APP_DB, tenantId, { action: 'personCreated', data: { by: c.var.user.id, name, email, role } })
+    return c.json({ success: true, user: { id: userId, email, name, role, status: 'active' } }, 201)
+  } catch (err) {
+    return c.json({ error: err instanceof Error ? err.message : 'Could not create person.' }, 500)
+  }
+})
+
+app.delete('/api/people/:userId', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos'])) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = c.var.user?.tenantId
+  const userId = c.req.param('userId')
+  try {
+    await c.env.APP_DB.prepare(`UPDATE users SET status='inactive' WHERE id=? AND tenantId=?`).bind(userId, tenantId).run()
+    await addAudit(c.env.APP_DB, tenantId, { action: 'personDeactivated', data: { by: c.var.user.id, userId } })
+    return c.json({ success: true })
+  } catch (err) {
+    return c.json({ error: 'Could not deactivate person.' }, 500)
+  }
+})
+
+app.put('/api/people/:userId/role', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos'])) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = c.var.user?.tenantId
+  const userId = c.req.param('userId')
+  const { role } = await c.req.json()
+  if (!role) return c.json({ error: 'role is required.' }, 400)
+  try {
+    await c.env.APP_DB.prepare(`UPDATE users SET role=? WHERE id=? AND tenantId=?`).bind(role, userId, tenantId).run()
+    await addAudit(c.env.APP_DB, tenantId, { action: 'personRoleUpdated', data: { by: c.var.user.id, userId, role } })
+    return c.json({ success: true })
+  } catch (err) {
+    return c.json({ error: 'Could not update role.' }, 500)
+  }
+})
+
+app.get('/api/school/branding', authenticate, async (c) => {
+  const { tenant } = await resolveTenantForActor(c)
+  if (!tenant) return c.json({ error: 'Tenant not found.' }, 404)
+  return c.json({ success: true, branding: {
+    schoolName: tenant.schoolName,
+    subdomain: tenant.requestedSubdomain,
+    logoUrl: (tenant as any).logoUrl || null,
+    tagline: (tenant as any).tagline || null,
+    website: (tenant as any).website || null,
+  }})
+})
+
+app.post('/api/school/branding', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['owner'])) return c.json({ error: 'forbidden' }, 403)
+  const { tenant } = await resolveTenantForActor(c)
+  if (!tenant) return c.json({ error: 'Tenant not found.' }, 404)
+  const { tagline, website, logoUrl } = await c.req.json()
+  await updateTenant(c.env.APP_DB, tenant.id, { tagline, website, logoUrl } as any)
+  return c.json({ success: true })
+})
+
+app.get('/api/school/classes', authenticate, async (c) => {
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  try {
+    await c.env.APP_DB.prepare(`CREATE TABLE IF NOT EXISTS classes (id TEXT PRIMARY KEY, tenantId TEXT, name TEXT, arm TEXT, classTeacherId TEXT, createdAt TEXT)`).run()
+    const rows = await c.env.APP_DB.prepare(`SELECT * FROM classes WHERE tenantId = ? ORDER BY name, arm`).bind(tenantId).all()
+    return c.json({ success: true, classes: rows.results || [] })
+  } catch {
+    return c.json({ success: true, classes: [] })
+  }
+})
+
+app.post('/api/school/classes', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos'])) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  const { name, arm, classTeacherId } = await c.req.json()
+  if (!name) return c.json({ error: 'Class name is required.' }, 400)
+  const id = `class_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`
+  try {
+    await c.env.APP_DB.prepare(`CREATE TABLE IF NOT EXISTS classes (id TEXT PRIMARY KEY, tenantId TEXT, name TEXT, arm TEXT, classTeacherId TEXT, createdAt TEXT)`).run()
+    await c.env.APP_DB.prepare(`INSERT INTO classes (id, tenantId, name, arm, classTeacherId, createdAt) VALUES (?, ?, ?, ?, ?, ?)`).bind(id, tenantId, name, arm || '', classTeacherId || null, new Date().toISOString()).run()
+    return c.json({ success: true, id }, 201)
+  } catch (err) {
+    return c.json({ error: err instanceof Error ? err.message : 'Could not add class.' }, 500)
+  }
+})
+
+app.get('/api/school/subjects', authenticate, async (c) => {
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  try {
+    await c.env.APP_DB.prepare(`CREATE TABLE IF NOT EXISTS subjects (id TEXT PRIMARY KEY, tenantId TEXT, name TEXT, classId TEXT, teacherId TEXT, createdAt TEXT)`).run()
+    const rows = await c.env.APP_DB.prepare(`SELECT * FROM subjects WHERE tenantId = ? ORDER BY name`).bind(tenantId).all()
+    return c.json({ success: true, subjects: rows.results || [] })
+  } catch {
+    return c.json({ success: true, subjects: [] })
+  }
+})
+
+app.post('/api/school/subjects', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos'])) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  const { name, classId, teacherId } = await c.req.json()
+  if (!name) return c.json({ error: 'Subject name is required.' }, 400)
+  const id = `subject_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`
+  try {
+    await c.env.APP_DB.prepare(`CREATE TABLE IF NOT EXISTS subjects (id TEXT PRIMARY KEY, tenantId TEXT, name TEXT, classId TEXT, teacherId TEXT, createdAt TEXT)`).run()
+    await c.env.APP_DB.prepare(`INSERT INTO subjects (id, tenantId, name, classId, teacherId, createdAt) VALUES (?, ?, ?, ?, ?, ?)`).bind(id, tenantId, name, classId || null, teacherId || null, new Date().toISOString()).run()
+    return c.json({ success: true, id }, 201)
+  } catch (err) {
+    return c.json({ error: err instanceof Error ? err.message : 'Could not add subject.' }, 500)
+  }
+})
+
+app.get('/api/school/session', authenticate, async (c) => {
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  try {
+    await c.env.APP_DB.prepare(`CREATE TABLE IF NOT EXISTS school_sessions (id TEXT PRIMARY KEY, tenantId TEXT, session TEXT, term TEXT, startDate TEXT, endDate TEXT, createdAt TEXT)`).run()
+    const row = await c.env.APP_DB.prepare(`SELECT * FROM school_sessions WHERE tenantId = ? ORDER BY createdAt DESC LIMIT 1`).bind(tenantId).first()
+    return c.json({ success: true, session: row || null })
+  } catch {
+    return c.json({ success: true, session: null })
+  }
+})
+
+app.post('/api/school/session', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos'])) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  const { session, term, startDate, endDate } = await c.req.json()
+  const id = `session_${tenantId}`
+  try {
+    await c.env.APP_DB.prepare(`CREATE TABLE IF NOT EXISTS school_sessions (id TEXT PRIMARY KEY, tenantId TEXT, session TEXT, term TEXT, startDate TEXT, endDate TEXT, createdAt TEXT)`).run()
+    await c.env.APP_DB.prepare(`INSERT OR REPLACE INTO school_sessions (id, tenantId, session, term, startDate, endDate, createdAt) VALUES (?, ?, ?, ?, ?, ?, ?)`).bind(id, tenantId, session || '', term || 'Term 1', startDate || '', endDate || '', new Date().toISOString()).run()
+    return c.json({ success: true })
+  } catch (err) {
+    return c.json({ error: err instanceof Error ? err.message : 'Could not save session.' }, 500)
+  }
+})
+
 export default app
