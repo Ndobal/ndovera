@@ -600,22 +600,19 @@ function PersonCard({ person: p, isAdmin, subdomain, onViewProfile, onDeactivate
           </div>
         </div>
 
-        {/* Password section */}
-        <div className="rounded-xl bg-[#f0d090] px-3 py-2 text-xs">
-          {p.mustChangePassword ? (
-            <div className="flex flex-col gap-1">
-              <div className="flex items-center justify-between gap-2">
-                <span className="text-[#800020] font-semibold uppercase">Initial Password</span>
-                <button onClick={copyPassword} className="text-[#1a5c38] font-bold hover:underline">
-                  {copiedPw ? '✓ Copied' : '📋 Copy'}
-                </button>
-              </div>
-              <p className="font-mono text-[#191970]">{DEFAULT_PASSWORD}</p>
-              <p className="text-[#800020] italic">Must change on first sign in</p>
-            </div>
-          ) : (
-            <p className="text-[#1a5c38] font-semibold">Password updated ✓</p>
-          )}
+        {/* Password section — always visible so admin can share credentials */}
+        <div className="rounded-xl bg-[#f0d090] px-3 py-2 text-xs space-y-1">
+          <div className="flex items-center justify-between gap-2">
+            <span className="text-[#800020] font-semibold uppercase">Default Password</span>
+            <button onClick={copyPassword} className="text-[#1a5c38] font-bold hover:underline">
+              {copiedPw ? '✓ Copied' : '📋 Copy'}
+            </button>
+          </div>
+          <p className="font-mono text-[#191970] tracking-wide">{DEFAULT_PASSWORD}</p>
+          {p.mustChangePassword
+            ? <p className="text-[#800020] italic">⚠ User must change password on first sign in</p>
+            : <p className="text-[#1a5c38] font-semibold">✓ Password already updated by user</p>
+          }
         </div>
 
         {/* Role change */}
