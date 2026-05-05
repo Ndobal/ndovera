@@ -72,11 +72,23 @@ export async function login(credentials) {
 	return persistAuth(data);
 }
 
+export async function changePassword(payload, token) {
+	const response = await fetch(getApiUrl('/api/auth/change-password'), {
+		method: 'POST',
+		headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+		body: JSON.stringify(payload),
+	});
+	const data = await response.json().catch(() => ({}));
+	if (!response.ok) throw new Error(data.error || 'Could not change password.');
+	return data;
+}
+
 const authApi = {
 	login,
 	getStoredAuth,
 	clearStoredAuth,
 	persistAuth,
+	changePassword,
 };
 
 export default authApi;

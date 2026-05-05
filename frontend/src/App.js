@@ -37,6 +37,7 @@ import RoleLibrary from './app/RoleLibrary';
 import TeacherMessaging from './app/roles/teacher/TeacherMessaging';
 import AmiInbox from './app/roles/ami/AmiInbox';
 import LoginPage from './features/auth/pages/LoginPage';
+import ChangePasswordPage from './features/auth/pages/ChangePasswordPage';
 import SchoolRegistrationPage from './features/tenants/pages/SchoolRegistrationPage';
 import { clearStoredAuth, getStoredAuth } from './features/auth/services/authApi';
 import './App.css';
@@ -132,6 +133,7 @@ function AnimatedRoutes({ auth, onLogin }) {
         <Route path="/" element={auth?.token ? <Navigate to={defaultAppRoute} replace /> : <LoginPage onLogin={onLogin} />} />
         <Route path="/login" element={auth?.token ? <Navigate to={defaultAppRoute} replace /> : <LoginPage onLogin={onLogin} />} />
         <Route path="/register-school" element={<SchoolRegistrationPage />} />
+        <Route path="/change-password" element={<ChangePasswordPage onLogin={onLogin} />} />
         <Route path="/classroom" element={<RequireAuth auth={auth}><RouteTransition><Classroom /></RouteTransition></RequireAuth>} />
         <Route path="/assignments" element={<RequireAuth auth={auth}><RouteTransition><Assignments /></RouteTransition></RequireAuth>} />
         <Route path="/exams" element={<RequireAuth auth={auth}><RouteTransition><Exams /></RouteTransition></RequireAuth>} />
@@ -194,7 +196,7 @@ function AnimatedRoutes({ auth, onLogin }) {
 
 function AppWorkspace({ auth, onLogin, onLogout }) {
   const location = useLocation();
-  const isPublicRoute = location.pathname === '/login' || location.pathname === '/register-school' || (location.pathname === '/' && !auth?.token);
+  const isPublicRoute = location.pathname === '/login' || location.pathname === '/register-school' || location.pathname === '/change-password' || (location.pathname === '/' && !auth?.token);
   const inDashboardMode = location.pathname.startsWith('/roles/');
   const inStudentClassroom = location.pathname.startsWith('/roles/student/classroom');
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);

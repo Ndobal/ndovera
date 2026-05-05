@@ -8,10 +8,13 @@ export default function LoginPage({ onLogin }) {
 
   const handleSuccess = auth => {
     onLogin?.(auth);
+    if (auth.user?.mustChangePassword === true) {
+      navigate('/change-password', { replace: true, state: { auth } });
+      return;
+    }
     const targetPath = location.state?.from && location.state.from !== '/login'
       ? location.state.from
       : `/roles/${auth.user?.role || 'student'}`;
-
     navigate(targetPath, { replace: true });
   };
 
