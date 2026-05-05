@@ -6,15 +6,23 @@ coverage/
 .env.*
 *.log
 
+# Build output
 frontend/build/
+
+# Temp files
 frontend/tmp_bundle.js
 frontend/tmp_upload.txt
 frontend/tmp_upload2.txt
 
+# Old Node.js backend (not Cloudflare)
 frontend/backend/dev.sqlite3
-frontend/backend/data/*.db
-frontend/backend/data/uploads/
+frontend/backend/data/
 frontend/backend/uploads/
+frontend/backend/migrations/
 
-frontend/messaging/node_modules/
-frontend/messaging/dist/
+# Old messaging app (not Cloudflare)
+frontend/messaging/
+
+# Root-level stale files
+src/
+wrangler.toml
