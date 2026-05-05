@@ -95,8 +95,13 @@ function mapTenantPaymentRow(row: any) {
   }
 }
 
+const SETTINGS_DDL = `CREATE TABLE IF NOT EXISTS settings (studentId TEXT PRIMARY KEY, payload TEXT NOT NULL)`
+
 // Settings functions
 export async function getSettings(db: D1Database, studentId: string) {
+  try {
+    await db.prepare(SETTINGS_DDL).run()
+  } catch { /* table already exists */ }
   const result = await db.prepare('SELECT payload FROM settings WHERE studentId = ?').bind(studentId).first()
   if (!result) return null
   try {
@@ -107,6 +112,9 @@ export async function getSettings(db: D1Database, studentId: string) {
 }
 
 export async function upsertSettings(db: D1Database, studentId: string, payload: any) {
+  try {
+    await db.prepare(SETTINGS_DDL).run()
+  } catch { /* table already exists */ }
   const str = JSON.stringify(payload)
   await db.prepare('INSERT INTO settings(studentId, payload) VALUES(?, ?) ON CONFLICT(studentId) DO UPDATE SET payload = excluded.payload').bind(studentId, str).run()
   return true

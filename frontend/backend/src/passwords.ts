@@ -1,6 +1,6 @@
 const PASSWORD_HASH_VERSION = 1
-const PASSWORD_HASH_ITERATIONS = 100000
-const WORKER_PBKDF2_MAX_ITERATIONS = 100000
+const PASSWORD_HASH_ITERATIONS = 1000          // CF Workers CPU-safe (was 100000)
+const WORKER_PBKDF2_MAX_ITERATIONS = 100000    // hard cap check — do not exceed
 const PASSWORD_SALT_BYTES = 16
 const PASSWORD_HASH_BITS = 256
 
@@ -94,6 +94,11 @@ export async function verifyPasswordCandidate(password: string, settings: Record
     const expected = fromBase64(settings.passwordHash.hash)
     const derived = await deriveHash(password, fromBase64(settings.passwordHash.salt), settings.passwordHash.iterations)
     return timingSafeEqual(derived, expected)
+  }
+
+  // Fallback: plain initial password stored for mustChangePassword users (created before PBKDF2 fix)
+  if (typeof settings.initialPassword === 'string') {
+    return settings.initialPassword === password
   }
 
   if (typeof settings.password === 'string') {

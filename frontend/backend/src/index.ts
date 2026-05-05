@@ -925,7 +925,7 @@ app.post('/api/auth/change-password', authenticate, async (c) => {
     if (!passwordValid) return c.json({ error: 'Current password is incorrect.' }, 400)
   }
 
-  const updatedSettings = await withHashedPassword({ ...settings, mustChangePassword: false }, String(newPassword))
+  const updatedSettings = await withHashedPassword({ ...settings, mustChangePassword: false, initialPassword: undefined }, String(newPassword))
   await upsertSettings(c.env.APP_DB, id, updatedSettings)
 
   const userRole = settings.role || currentUser.role || 'student'
@@ -2000,20 +2000,22 @@ app.post('/api/people', authenticate, async (c) => {
   const defaultPassword = password || 'abcABC@123'
   const existingSettings = await getSettings(c.env.APP_DB, email).catch(() => null)
   const displayId = existingSettings?.displayId || await generateDisplayId(c.env.APP_DB, getDisplayIdConfig(role))
-  const userSettings = await withHashedPassword({
-    ...(existingSettings || {}),
-    email,
-    name,
-    role,
-    tenantId,
-    schoolId: tenantId,
-    status: 'active',
-    mustChangePassword: true,
-    displayId,
-    ...(classId ? { classId, className: selectedClass?.name || null, classArm: selectedClass?.arm || null } : {}),
-  }, defaultPassword)
+
   try {
     await ensureUsersTable(c.env.APP_DB)
+    const userSettings = await withHashedPassword({
+      ...(existingSettings || {}),
+      email,
+      name,
+      role,
+      tenantId,
+      schoolId: tenantId,
+      status: 'active',
+      mustChangePassword: true,
+      initialPassword: defaultPassword, // plain-text fallback for first-login; cleared on password change
+      displayId,
+      ...(classId ? { classId, className: selectedClass?.name || null, classArm: selectedClass?.arm || null } : {}),
+    }, defaultPassword)
     await c.env.APP_DB.prepare(
       `INSERT INTO users (id, email, name, role, tenantId, status, createdAt)
        VALUES (?, ?, ?, ?, ?, ?, ?)
