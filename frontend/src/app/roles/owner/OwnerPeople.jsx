@@ -2,11 +2,30 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import {
   getPeople, addPerson, deactivatePerson, updatePersonRole,
-  getClasses, getParents, getUserProfile, updateUserProfile, linkParentStudent,
+  getClasses, getParents, getUserProfile, updateUserProfile, linkParentStudent, getMyTenant,
 } from '../../../features/school/services/schoolApi';
 
 const ROLES = ['teacher', 'hos', 'accountant', 'student', 'parent', 'librarian', 'classteacher', 'hod', 'principal', 'growthpartner'];
 const FILTERS = ['All', 'Teachers', 'Admin', 'Students', 'Parents'];
+
+// Colour-coded role badges — each role gets a distinct colour
+const ROLE_COLORS = {
+  owner:         { bg: '#800000', text: '#f5deb3' },  // maroon
+  hos:           { bg: '#191970', text: '#f5deb3' },  // midnight blue
+  principal:     { bg: '#191970', text: '#f5deb3' },  // midnight blue
+  hod:           { bg: '#2d5a8e', text: '#dbeafe' },  // steel blue
+  teacher:       { bg: '#1a5c38', text: '#f5deb3' },  // night green
+  classteacher:  { bg: '#2d6a4f', text: '#d1fae5' },  // forest green
+  accountant:    { bg: '#b45309', text: '#fef3c7' },  // amber
+  student:       { bg: '#1e40af', text: '#dbeafe' },  // blue
+  parent:        { bg: '#6d28d9', text: '#ede9fe' },  // purple
+  librarian:     { bg: '#0e7490', text: '#cffafe' },  // cyan
+  growthpartner: { bg: '#be185d', text: '#fce7f3' },  // pink
+};
+
+function getRoleBadgeStyle(role) {
+  return ROLE_COLORS[role?.toLowerCase()] || { bg: '#800020', text: '#f5deb3' };
+}
 
 function filterPeople(people, filter) {
   if (filter === 'Teachers') return people.filter(p => p.role === 'teacher');
@@ -164,7 +183,6 @@ function UserProfileModal({ userId, onClose, isAdmin, currentUserId }) {
                   ['Name', profile.name],
                   ['Email', profile.email],
                   ['Phone', profile.phone],
-                  ['Role', profile.role],
                   ['Status', profile.status || 'active'],
                   ['Created', profile.createdAt ? new Date(profile.createdAt).toLocaleDateString() : '—'],
                 ].map(([label, value]) => (
@@ -173,6 +191,15 @@ function UserProfileModal({ userId, onClose, isAdmin, currentUserId }) {
                     <p className="text-sm text-[#191970] dark:text-slate-200 capitalize">{value || '—'}</p>
                   </div>
                 ))}
+                <div>
+                  <p className="text-xs font-semibold uppercase text-[#800020] dark:text-slate-400">Role</p>
+                  {profile.role ? (
+                    <span className="inline-block mt-0.5 px-2 py-0.5 rounded-full text-xs font-bold capitalize"
+                      style={{ backgroundColor: getRoleBadgeStyle(profile.role).bg, color: getRoleBadgeStyle(profile.role).text }}>
+                      {profile.role}
+                    </span>
+                  ) : <p className="text-sm text-[#191970]">—</p>}
+                </div>
               </div>
             )}
 
@@ -485,9 +512,9 @@ function AddPersonModal({ onClose, onAdd }) {
 
 const DEFAULT_PASSWORD = 'abcABC@123';
 
-function ShareModal({ person, onClose }) {
+function ShareModal({ person, subdomain, onClose }) {
   const [copied, setCopied] = useState(false);
-  const loginLink = 'https://ndovera.com/login';
+  const loginLink = subdomain ? `https://${subdomain}.ndovera.com/login` : 'https://ndovera.com/login';
   const hasDefaultPw = person.mustChangePassword;
   const pwText = hasDefaultPw ? DEFAULT_PASSWORD : '(user changed password)';
 
@@ -528,9 +555,10 @@ function ShareModal({ person, onClose }) {
   );
 }
 
-function PersonCard({ person: p, isAdmin, onViewProfile, onDeactivate, changingRole, newRole, setNewRole, onSaveRole, onCancelRole, onStartRoleChange }) {
+function PersonCard({ person: p, isAdmin, subdomain, onViewProfile, onDeactivate, changingRole, newRole, setNewRole, onSaveRole, onCancelRole, onStartRoleChange }) {
   const [showShare, setShowShare] = useState(false);
   const [copiedPw, setCopiedPw] = useState(false);
+  const roleBadge = getRoleBadgeStyle(p.role);
 
   function copyPassword() {
     navigator.clipboard.writeText(DEFAULT_PASSWORD).then(() => { setCopiedPw(true); setTimeout(() => setCopiedPw(false), 2000); });
@@ -538,7 +566,7 @@ function PersonCard({ person: p, isAdmin, onViewProfile, onDeactivate, changingR
 
   return (
     <>
-      {showShare && <ShareModal person={p} onClose={() => setShowShare(false)} />}
+      {showShare && <ShareModal person={p} subdomain={subdomain} onClose={() => setShowShare(false)} />}}
       <div className="rounded-2xl p-4 bg-[#f5deb3] border border-[#c9a96e]/40 shadow-sm flex flex-col gap-3">
         {/* Header */}
         <div className="flex items-start justify-between gap-2">
@@ -550,7 +578,10 @@ function PersonCard({ person: p, isAdmin, onViewProfile, onDeactivate, changingR
               {p.name || '—'}
             </button>
           </div>
-          <span className="shrink-0 text-xs font-semibold text-[#f5deb3] bg-[#800020] px-2 py-0.5 rounded-full capitalize">{p.role || '—'}</span>
+          <span className="shrink-0 text-xs font-bold px-2 py-0.5 rounded-full capitalize"
+            style={{ backgroundColor: roleBadge.bg, color: roleBadge.text }}>
+            {p.role || '—'}
+          </span>
         </div>
 
         {/* Body info */}
@@ -625,6 +656,7 @@ export default function OwnerPeople() {
   const [changingRole, setChangingRole] = useState(null);
   const [newRole, setNewRole] = useState('');
   const [profileUserId, setProfileUserId] = useState(null);
+  const [subdomain, setSubdomain] = useState('');
 
   // get current user info for edit-own-profile logic
   const currentUser = (() => { try { return JSON.parse(localStorage.getItem('authUser') || '{}'); } catch { return {}; } })();
@@ -639,7 +671,16 @@ export default function OwnerPeople() {
       .finally(() => setLoading(false));
   }
 
-  useEffect(load, []);
+  useEffect(() => {
+    load();
+    // Fetch school subdomain for branded login link in share modal
+    getMyTenant()
+      .then(data => {
+        const s = data?.tenants?.[0]?.subdomain || data?.subdomain || '';
+        setSubdomain(s);
+      })
+      .catch(() => {});
+  }, []);
 
   async function handleAdd(form) {
     await addPerson(form);
@@ -726,6 +767,7 @@ export default function OwnerPeople() {
                   key={p.id}
                   person={p}
                   isAdmin={isAdmin}
+                  subdomain={subdomain}
                   onViewProfile={() => setProfileUserId(p.id)}
                   onDeactivate={() => handleDeactivate(p)}
                   onRoleChange={(role) => { setChangingRole(p.id); setNewRole(role); handleRoleChange(p); }}
