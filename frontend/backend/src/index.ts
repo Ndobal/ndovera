@@ -3182,8 +3182,12 @@ function renderLoginPage(tenant: any, branding: any) {
         </div>
         <div style="margin-bottom:24px;">
           <label style="display:block;color:#800020;font-size:13px;font-weight:600;margin-bottom:6px;">Password</label>
-          <input id="password" type="password" placeholder="Enter your password" required
-            style="width:100%;padding:10px 14px;border:1.5px solid #800020;border-radius:8px;font-size:15px;color:#191970;outline:none;">
+          <div style="position:relative;">
+            <input id="password" type="password" placeholder="Enter your password" required
+              style="width:100%;padding:10px 44px 10px 14px;border:1.5px solid #800020;border-radius:8px;font-size:15px;color:#191970;outline:none;box-sizing:border-box;">
+            <button type="button" id="togglePwd" onclick="(function(){var i=document.getElementById('password'),b=document.getElementById('togglePwd');if(i.type==='password'){i.type='text';b.innerHTML='&#128065;&#8419;';}else{i.type='password';b.innerHTML='&#128065;';}})()"
+              style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:16px;color:#800020;line-height:1;padding:0;">&#128065;</button>
+          </div>
         </div>
         <div id="errorMsg" style="display:none;background:#fef2f2;color:#800000;padding:10px 14px;border-radius:8px;font-size:13px;margin-bottom:16px;"></div>
         <button type="submit" id="submitBtn"
