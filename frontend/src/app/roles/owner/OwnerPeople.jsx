@@ -566,7 +566,7 @@ function PersonCard({ person: p, isAdmin, subdomain, onViewProfile, onDeactivate
 
   return (
     <>
-      {showShare && <ShareModal person={p} subdomain={subdomain} onClose={() => setShowShare(false)} />}}
+      {showShare && <ShareModal person={p} subdomain={subdomain} onClose={() => setShowShare(false)} />}
       <div className="rounded-2xl p-4 bg-[#f5deb3] border border-[#c9a96e]/40 shadow-sm flex flex-col gap-3">
         {/* Header */}
         <div className="flex items-start justify-between gap-2">

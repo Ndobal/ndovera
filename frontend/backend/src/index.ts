@@ -805,6 +805,15 @@ async function finishLogin(c: any, payload: Record<string, any>) {
     ? await getTenantById(c.env.APP_DB, tenantId)
     : await getTenantByOwnerEmail(c.env.APP_DB, id)
 
+  // Auto-generate displayId for old users who were created before the displayId system
+  if (!settings.displayId) {
+    try {
+      const newDisplayId = await generateDisplayId(c.env.APP_DB, getDisplayIdConfig(userRole))
+      settings = { ...settings, displayId: newDisplayId }
+      await upsertSettings(c.env.APP_DB, id, { ...settings, displayId: newDisplayId }).catch(() => {})
+    } catch { /* non-critical */ }
+  }
+
   const mustChangePassword = settings.mustChangePassword === true
 
   const token = await sign({
@@ -1637,26 +1646,7 @@ app.post('/api/classrooms/:classroomId/attendance', authenticate, async (c) => {
 })
 
 // In-memory exams (for simplicity, keeping as is since it's small)
-const exams = [
-  {
-    id: 'exam-math-cbt',
-    title: 'Mathematics CBT',
-    window: '2026-03-05 09:00',
-    questions: [
-      { id: 'q1', text: '2 + 2 = ?', choices: ['1','2','3','4'], answer: '4' },
-      { id: 'q2', text: '5 × 6 = ?', choices: ['11','30','56','65'], answer: '30' },
-    ],
-  },
-  {
-    id: 'exam-bio-mid',
-    title: 'Biology Midterm',
-    window: '2026-03-08 10:00',
-    questions: [
-      { id: 'q1', text: 'Cell nucleus contains?', choices: ['DNA','RNA','Proteins','Lipids'], answer: 'DNA' },
-      { id: 'q2', text: 'Photosynthesis takes place in?', choices: ['Roots','Stem','Leaves','Flowers'], answer: 'Leaves' },
-    ],
-  },
-]
+const exams: any[] = []
 
 const examResults: any[] = []
 
@@ -2512,6 +2502,7 @@ app.get('/api/school/classes', authenticate, async (c) => {
     try { await c.env.APP_DB.exec('ALTER TABLE classes ADD COLUMN tenantId TEXT') } catch {}
     try { await c.env.APP_DB.exec('ALTER TABLE classes ADD COLUMN arm TEXT') } catch {}
     try { await c.env.APP_DB.exec('ALTER TABLE classes ADD COLUMN classTeacherId TEXT') } catch {}
+    try { await c.env.APP_DB.exec('ALTER TABLE classes ADD COLUMN createdAt TEXT') } catch {}
     const rows = await c.env.APP_DB.prepare(`SELECT * FROM classes WHERE tenantId = ? ORDER BY name, arm`).bind(tenantId).all()
     return c.json({ success: true, classes: rows.results || [] })
   } catch {
@@ -2531,6 +2522,7 @@ app.post('/api/school/classes', authenticate, async (c) => {
     try { await c.env.APP_DB.exec('ALTER TABLE classes ADD COLUMN tenantId TEXT') } catch {}
     try { await c.env.APP_DB.exec('ALTER TABLE classes ADD COLUMN arm TEXT') } catch {}
     try { await c.env.APP_DB.exec('ALTER TABLE classes ADD COLUMN classTeacherId TEXT') } catch {}
+    try { await c.env.APP_DB.exec('ALTER TABLE classes ADD COLUMN createdAt TEXT') } catch {}
     await c.env.APP_DB.prepare(`INSERT INTO classes (id, tenantId, name, arm, classTeacherId, createdAt) VALUES (?, ?, ?, ?, ?, ?)`).bind(id, tenantId, name, arm || '', classTeacherId || null, new Date().toISOString()).run()
     if (classTeacherId) {
       await c.env.APP_DB.prepare('UPDATE subjects SET teacherId = ? WHERE classId = ? AND tenantId = ?')
