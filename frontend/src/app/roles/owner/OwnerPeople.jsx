@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import {
   getPeople, addPerson, deactivatePerson, updatePersonRole,
   getClasses, getParents, getUserProfile, updateUserProfile, linkParentStudent, getMyTenant,
+  resetPassword,
 } from '../../../features/school/services/schoolApi';
 
 const ROLES = ['teacher', 'hos', 'accountant', 'student', 'parent', 'librarian', 'classteacher', 'hod', 'principal', 'growthpartner'];
@@ -555,13 +556,30 @@ function ShareModal({ person, subdomain, onClose }) {
   );
 }
 
-function PersonCard({ person: p, isAdmin, subdomain, onViewProfile, onDeactivate, changingRole, newRole, setNewRole, onSaveRole, onCancelRole, onStartRoleChange }) {
+function PersonCard({ person: p, isAdmin, subdomain, onViewProfile, onDeactivate, onResetPassword, changingRole, newRole, setNewRole, onSaveRole, onCancelRole, onStartRoleChange }) {
   const [showShare, setShowShare] = useState(false);
   const [copiedPw, setCopiedPw] = useState(false);
+  const [resetting, setResetting] = useState(false);
+  const [resetMsg, setResetMsg] = useState('');
   const roleBadge = getRoleBadgeStyle(p.role);
 
   function copyPassword() {
     navigator.clipboard.writeText(DEFAULT_PASSWORD).then(() => { setCopiedPw(true); setTimeout(() => setCopiedPw(false), 2000); });
+  }
+
+  async function handleReset() {
+    if (!window.confirm(`Reset password for ${p.name || p.email}?\n\nTheir password will be set to the default and they will be required to change it on next sign in.`)) return;
+    setResetting(true); setResetMsg('');
+    try {
+      await onResetPassword(p);
+      setResetMsg('✓ Reset!');
+      setTimeout(() => setResetMsg(''), 3000);
+    } catch (err) {
+      setResetMsg('✗ Failed');
+      setTimeout(() => setResetMsg(''), 3000);
+    } finally {
+      setResetting(false);
+    }
   }
 
   return (
@@ -613,6 +631,7 @@ function PersonCard({ person: p, isAdmin, subdomain, onViewProfile, onDeactivate
             ? <p className="text-[#800020] italic">⚠ User must change password on first sign in</p>
             : <p className="text-[#1a5c38] font-semibold">✓ Password already updated by user</p>
           }
+          {resetMsg && <p className={`font-semibold ${resetMsg.startsWith('✓') ? 'text-[#1a5c38]' : 'text-red-600'}`}>{resetMsg}</p>}
         </div>
 
         {/* Role change */}
@@ -631,6 +650,16 @@ function PersonCard({ person: p, isAdmin, subdomain, onViewProfile, onDeactivate
           <button onClick={() => setShowShare(true)} className="flex-1 bg-[#1a5c38] hover:bg-[#154a2e] text-[#f5deb3] font-bold text-xs py-1.5 px-3 rounded-xl transition-colors">
             📤 Share
           </button>
+          {isAdmin && (
+            <button
+              onClick={handleReset}
+              disabled={resetting}
+              title="Reset to default password — user must change on next sign in"
+              className="bg-[#800020] hover:bg-[#5c0018] text-[#f5deb3] text-xs px-3 py-1.5 rounded-xl font-bold transition-colors disabled:opacity-60"
+            >
+              {resetting ? '…' : '🔑 Reset'}
+            </button>
+          )}
           {isAdmin && !changingRole && (
             <button onClick={onStartRoleChange} className="bg-[#1a5c38] hover:bg-[#154a2e] text-[#f5deb3] text-xs px-3 py-1.5 rounded-xl font-bold transition-colors">Role</button>
           )}
@@ -682,6 +711,11 @@ export default function OwnerPeople() {
   async function handleAdd(form) {
     await addPerson(form);
     load();
+  }
+
+  async function handleResetPassword(person) {
+    await resetPassword({ targetId: person.id, newPassword: DEFAULT_PASSWORD });
+    load(); // refresh to update mustChangePassword badge
   }
 
   async function handleDeactivate(person) {
@@ -767,6 +801,7 @@ export default function OwnerPeople() {
                   subdomain={subdomain}
                   onViewProfile={() => setProfileUserId(p.id)}
                   onDeactivate={() => handleDeactivate(p)}
+                  onResetPassword={handleResetPassword}
                   onRoleChange={(role) => { setChangingRole(p.id); setNewRole(role); handleRoleChange(p); }}
                   changingRole={changingRole === p.id}
                   newRole={newRole}

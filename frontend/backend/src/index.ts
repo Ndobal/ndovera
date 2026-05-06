@@ -1397,9 +1397,9 @@ app.get('/api/audit', authenticate, async (c) => {
   return c.json(all || [])
 })
 
-// Admin reset password
+// Admin reset password — owner, hos, ict_manager
 app.post('/api/admin/reset-password', authenticate, async (c) => {
-  if (!hasRequiredRole(c.var.user.role, ['owner'])) {
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos', 'ict_manager'])) {
     return c.json({ error: 'forbidden' }, 403)
   }
   const { targetId, newPassword } = await c.req.json()
@@ -1413,13 +1413,14 @@ app.post('/api/admin/reset-password', authenticate, async (c) => {
     email: settings.email || targetId,
     name: settings.name || targetId,
     role: settings.role || 'student',
+    mustChangePassword: true,
   }, String(newPassword))
   await upsertSettings(c.env.APP_DB, targetId, nextSettings)
   await addAudit(c.env.APP_DB, targetId, {
     action: 'resetPassword',
     data: { by: c.var.user.name || c.var.user.role, adminRole: c.var.user.role }
   })
-  return c.json({ ok: true, message: 'Password reset successful' })
+  return c.json({ ok: true, message: 'Password reset to default. User must change on next sign in.' })
 })
 
 // Library
