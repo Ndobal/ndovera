@@ -1406,17 +1406,32 @@ app.post('/api/admin/reset-password', authenticate, async (c) => {
   if (!targetId || !newPassword) {
     return c.json({ error: 'targetId and newPassword required' }, 400)
   }
-  let settings = await getSettings(c.env.APP_DB, targetId)
+  
+  // Look up user record to get canonical email (settings key)
+  await ensureUsersTable(c.env.APP_DB)
+  const userRow = await c.env.APP_DB.prepare(
+    `SELECT id, email, name, role FROM users WHERE id = ? OR email = ?`
+  ).bind(targetId, targetId).first() as Record<string, any> | null
+  
+  if (!userRow) {
+    return c.json({ error: 'User not found.' }, 404)
+  }
+  
+  const settingsKey = userRow.email || userRow.id
+  let settings = await getSettings(c.env.APP_DB, settingsKey)
   if (!settings) settings = {}
+  
   const nextSettings = await withHashedPassword({
     ...settings,
-    email: settings.email || targetId,
-    name: settings.name || targetId,
-    role: settings.role || 'student',
+    email: userRow.email || settingsKey,
+    name: userRow.name || settingsKey,
+    role: userRow.role || 'student',
     mustChangePassword: true,
   }, String(newPassword))
-  await upsertSettings(c.env.APP_DB, targetId, nextSettings)
-  await addAudit(c.env.APP_DB, targetId, {
+  
+  // Always store under email for consistency with login/change-password flows
+  await upsertSettings(c.env.APP_DB, settingsKey, nextSettings)
+  await addAudit(c.env.APP_DB, settingsKey, {
     action: 'resetPassword',
     data: { by: c.var.user.name || c.var.user.role, adminRole: c.var.user.role }
   })
