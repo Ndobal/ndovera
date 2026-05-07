@@ -941,6 +941,8 @@ app.post('/api/auth/login', async (c) => {
 })
 
 app.post('/api/auth/change-password', authenticate, async (c) => {
+  // DEBUG: log change-password entry for investigation
+  try { console.log('DEBUG: change-password request headers', { auth: c.req.header('Authorization'), url: c.req.url }) } catch(e){}
   const currentUser = c.var.user || {}
   const id = currentUser.id || currentUser.email
   if (!id) return c.json({ error: 'invalid token' }, 401)
