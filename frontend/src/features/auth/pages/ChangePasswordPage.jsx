@@ -33,7 +33,9 @@ export default function ChangePasswordPage({ onLogin }) {
   const auth = stateAuth || storedAuth;
   const token = auth?.token;
   // Force-change flow: user was forced to change on first login — no currentPassword needed
-  const isForceChange = auth?.user?.mustChangePassword === true;
+  const isForceChange =
+    auth?.user?.mustChangePassword === true ||
+    auth?.mustChangePassword === true;
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -46,17 +48,13 @@ export default function ChangePasswordPage({ onLogin }) {
       setError('Passwords do not match.');
       return;
     }
-    if (!isForceChange && !currentPassword) {
-      setError('Please enter your current password.');
-      return;
-    }
     setSaving(true);
     try {
       if (!token) {
         throw new Error('Your sign-in session has expired. Please log in again.');
       }
       const payload = { newPassword };
-      if (!isForceChange) payload.currentPassword = currentPassword;
+      if (currentPassword) payload.currentPassword = currentPassword;
       const data = await changePassword(payload, token);
       const nextAuth = persistAuth(data);
       onLogin?.(nextAuth);

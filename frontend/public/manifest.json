@@ -1,6 +1,9 @@
 {
   "name": "Ndovera",
   "short_name": "NDOVERA",
+  "description": "Ndovera school management platform",
+  "start_url": "/",
+  "scope": "/",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",
@@ -15,5 +18,6 @@
   ],
   "theme_color": "#0f172a",
   "background_color": "#ffffff",
-  "display": "standalone"
+  "display": "standalone",
+  "orientation": "portrait-primary"
 }
