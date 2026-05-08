@@ -5,7 +5,6 @@ import {
   ChatBubbleLeftRightIcon,
   XMarkIcon,
 } from '@heroicons/react/24/outline';
-import RoleSwitcher from './RoleSwitcher';
 import ThemeToggle from './ThemeToggle';
 import UserProfileDropdown from './UserProfileDropdown';
 import { getHeaderBarData } from '../../services/headerBarService';
@@ -114,7 +113,6 @@ export default function DashboardTopBar({ authUser = null, onLogout = () => {} }
             )}
           </button>
 
-          <RoleSwitcher authUser={authUser} />
           <ThemeToggle />
           <UserProfileDropdown user={authUser} onLogout={onLogout} />
         </div>

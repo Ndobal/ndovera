@@ -1,4 +1,36 @@
 const DEFAULT_TIMEOUT_MS = 7000;
+const AUTH_TOKEN_KEY = 'token';
+const AUTH_COOKIE_KEY = 'ndovera_token';
+
+function getCookie(name) {
+  const match = document.cookie
+    .split(';')
+    .map(part => part.trim())
+    .find(part => part.startsWith(`${name}=`));
+  return match ? decodeURIComponent(match.slice(name.length + 1)) : '';
+}
+
+function setAuthCookie(token) {
+  document.cookie = `${AUTH_COOKIE_KEY}=${encodeURIComponent(token)}; path=/; domain=.ndovera.com; max-age=600; secure; samesite=lax`;
+}
+
+function getStoredToken() {
+  const localToken = window.localStorage?.getItem(AUTH_TOKEN_KEY) || '';
+  const cookieToken = getCookie(AUTH_COOKIE_KEY);
+
+  if (cookieToken && cookieToken !== localToken) {
+    window.localStorage?.setItem(AUTH_TOKEN_KEY, cookieToken);
+  }
+
+  return cookieToken || localToken;
+}
+
+function syncRefreshedToken(response) {
+  const refreshedToken = response?.headers?.get?.('X-Refresh-Token');
+  if (!refreshedToken) return;
+  window.localStorage?.setItem(AUTH_TOKEN_KEY, refreshedToken);
+  setAuthCookie(refreshedToken);
+}
 
 function withTimeout(promise, timeoutMs = DEFAULT_TIMEOUT_MS) {
   return new Promise((resolve, reject) => {
@@ -20,11 +52,14 @@ function withTimeout(promise, timeoutMs = DEFAULT_TIMEOUT_MS) {
 
 export async function getJson(url, fallbackData, options = {}) {
   try {
+    const token = getStoredToken();
     const response = await withTimeout(
       fetch(url, {
         method: 'GET',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
           ...options.headers,
         },
       }),
@@ -35,6 +70,7 @@ export async function getJson(url, fallbackData, options = {}) {
       throw new Error(`HTTP ${response.status} for ${url}`);
     }
 
+    syncRefreshedToken(response);
     return await response.json();
   } catch (error) {
     return {

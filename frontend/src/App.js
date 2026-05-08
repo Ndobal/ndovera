@@ -39,48 +39,12 @@ import AmiInbox from './app/roles/ami/AmiInbox';
 import LoginPage from './features/auth/pages/LoginPage';
 import ChangePasswordPage from './features/auth/pages/ChangePasswordPage';
 import SchoolRegistrationPage from './features/tenants/pages/SchoolRegistrationPage';
-import { clearStoredAuth, getStoredAuth } from './features/auth/services/authApi';
+import { clearStoredAuth, getStoredAuth, persistAuth, syncRefreshedToken } from './features/auth/services/authApi';
+import { getApiUrl } from './config/apiBase';
 import './App.css';
 
-const VALID_ROLES = [
-  'student',
-  'parent',
-  'teacher',
-  'hos',
-  'accountant',
-  'owner',
-  'librarian',
-  'sanitation',
-  'tuckshopmanager',
-  'storekeeper',
-  'transport',
-  'hostel',
-  'cafeteria',
-  'clinic',
-  'ict',
-  'classteacher',
-  'hod',
-  'hodassistant',
-  'principal',
-  'headteacher',
-  'nurseryhead',
-  'examofficer',
-  'sportsmaster',
-  'ami',
-];
-
-function getSelectedRole(authRole) {
-  if (!authRole) {
-    return null;
-  }
-
-  const storedRole = localStorage.getItem('selectedRole');
-  if (authRole === 'ami' && storedRole && VALID_ROLES.includes(storedRole)) {
-    return storedRole;
-  }
-
-  localStorage.setItem('selectedRole', authRole);
-  return authRole;
+function getAuthenticatedRole(auth) {
+  return auth?.user?.role || 'student';
 }
 
 function RouteTransition({ children }) {
@@ -108,15 +72,14 @@ function RequireAuth({ auth, children }) {
 }
 
 function RoleGuard({ expectedRole, auth, children }) {
-  const authRole = auth?.user?.role;
-  const activeRole = getSelectedRole(authRole);
+  const authRole = getAuthenticatedRole(auth);
 
   if (!auth?.token) {
     return <Navigate to="/login" replace />;
   }
 
-  if (authRole !== 'ami' && activeRole !== expectedRole) {
-    return <Navigate to={`/roles/${activeRole}`} replace />;
+  if (authRole !== expectedRole) {
+    return <Navigate to={`/roles/${authRole}`} replace />;
   }
 
   return children;
@@ -124,8 +87,8 @@ function RoleGuard({ expectedRole, auth, children }) {
 
 function AnimatedRoutes({ auth, onLogin }) {
   const location = useLocation();
-  const selectedRole = getSelectedRole(auth?.user?.role) || 'student';
-  const defaultAppRoute = auth?.token ? `/roles/${selectedRole}` : '/login';
+  const authRole = getAuthenticatedRole(auth);
+  const defaultAppRoute = auth?.token ? `/roles/${authRole}` : '/login';
 
   return (
     <AnimatePresence mode="wait">
@@ -238,8 +201,29 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 1200);
-    return () => clearTimeout(timer);
+    let cancelled = false;
+    async function hydrateSession() {
+      const stored = getStoredAuth();
+      if (stored?.token && !stored?.user?.role) {
+        try {
+          const res = await fetch(getApiUrl('/api/users/me'), {
+            credentials: 'include',
+            headers: { Authorization: `Bearer ${stored.token}` },
+          });
+          syncRefreshedToken(res);
+          const data = await res.json().catch(() => ({}));
+          if (res.ok && data?.user && !cancelled) {
+            const nextAuth = persistAuth({ token: stored.token, user: data.user });
+            setAuth(nextAuth);
+          }
+        } catch {
+          // Keep the existing token state; guarded pages will redirect if it is invalid.
+        }
+      }
+      if (!cancelled) setLoading(false);
+    }
+    const timer = setTimeout(hydrateSession, 500);
+    return () => { cancelled = true; clearTimeout(timer); };
   }, []);
 
   if (loading) {

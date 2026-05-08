@@ -2,7 +2,6 @@ import { getApiUrl } from '../../../config/apiBase';
 
 const AUTH_TOKEN_KEY = 'token';
 const AUTH_USER_KEY = 'authUser';
-const SELECTED_ROLE_KEY = 'selectedRole';
 const AUTH_COOKIE_KEY = 'ndovera_token';
 
 function getCookie(name) {
@@ -17,6 +16,12 @@ function setAuthCookie(token) {
 	document.cookie = `${AUTH_COOKIE_KEY}=${encodeURIComponent(token)}; path=/; domain=.ndovera.com; max-age=600; secure; samesite=lax`;
 }
 
+function storeToken(token) {
+	if (!token) return;
+	window.localStorage.setItem(AUTH_TOKEN_KEY, token);
+	setAuthCookie(token);
+}
+
 function safeParse(value) {
 	if (!value) return null;
 
@@ -28,16 +33,27 @@ function safeParse(value) {
 }
 
 export function getStoredAuth() {
-	const token = window.localStorage.getItem(AUTH_TOKEN_KEY) || getCookie(AUTH_COOKIE_KEY);
-	const user = safeParse(window.localStorage.getItem(AUTH_USER_KEY));
+	const localToken = window.localStorage.getItem(AUTH_TOKEN_KEY);
+	const cookieToken = getCookie(AUTH_COOKIE_KEY);
+	const token = cookieToken || localToken;
+	const tokenChanged = Boolean(cookieToken && cookieToken !== localToken);
 
 	if (!token) {
 		return null;
 	}
 
-	if (!window.localStorage.getItem(AUTH_TOKEN_KEY)) {
+	if (tokenChanged) {
+		window.localStorage.removeItem(AUTH_USER_KEY);
+		window.localStorage.removeItem('selectedRole');
+	}
+
+	if (cookieToken && cookieToken !== localToken) {
+		window.localStorage.setItem(AUTH_TOKEN_KEY, cookieToken);
+	} else if (!localToken) {
 		window.localStorage.setItem(AUTH_TOKEN_KEY, token);
 	}
+
+	const user = tokenChanged ? null : safeParse(window.localStorage.getItem(AUTH_USER_KEY));
 
 	return {
 		token,
@@ -62,10 +78,9 @@ export function persistAuth(payload) {
 		throw new Error('Invalid authentication payload');
 	}
 
-	window.localStorage.setItem(AUTH_TOKEN_KEY, token);
+	storeToken(token);
 	window.localStorage.setItem(AUTH_USER_KEY, JSON.stringify(normalizedUser));
-	window.localStorage.setItem(SELECTED_ROLE_KEY, normalizedUser.role);
-	setAuthCookie(token);
+	window.localStorage.removeItem('selectedRole');
 	// Also expose classroomId and userId as standalone keys for legacy reads
 	if (normalizedUser.classId) window.localStorage.setItem('classroomId', normalizedUser.classId);
 	if (normalizedUser.id) window.localStorage.setItem('userId', normalizedUser.id);
@@ -73,10 +88,18 @@ export function persistAuth(payload) {
 	return { token, user: normalizedUser };
 }
 
+export function syncRefreshedToken(response) {
+	const refreshedToken = response?.headers?.get?.('X-Refresh-Token');
+	if (refreshedToken) {
+		storeToken(refreshedToken);
+	}
+	return refreshedToken || '';
+}
+
 export function clearStoredAuth() {
 	window.localStorage.removeItem(AUTH_TOKEN_KEY);
 	window.localStorage.removeItem(AUTH_USER_KEY);
-	window.localStorage.removeItem(SELECTED_ROLE_KEY);
+	window.localStorage.removeItem('selectedRole');
 	document.cookie = `${AUTH_COOKIE_KEY}=; path=/; domain=.ndovera.com; max-age=0; secure; samesite=lax`;
 }
 
@@ -91,6 +114,7 @@ export async function login(credentials) {
 	});
 
 	const data = await response.json().catch(() => ({ error: 'Unable to complete login.' }));
+	syncRefreshedToken(response);
 
 	if (!response.ok) {
 		throw new Error(data.error || data.message || 'Unable to complete login.');
@@ -107,6 +131,7 @@ export async function changePassword(payload, token) {
 		body: JSON.stringify(payload),
 	});
 	const data = await response.json().catch(() => ({}));
+	syncRefreshedToken(response);
 	if (!response.ok) throw new Error(data.error || 'Could not change password.');
 	return data;
 }
@@ -116,6 +141,7 @@ const authApi = {
 	getStoredAuth,
 	clearStoredAuth,
 	persistAuth,
+	syncRefreshedToken,
 	changePassword,
 };
 

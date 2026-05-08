@@ -8,7 +8,6 @@ import UpcomingTasks from '../shared/components/UpcomingTasks';
 import DailySchedule from '../shared/components/DailySchedule';
 import UserProfileDropdown from '../shared/components/UserProfileDropdown';
 import ThemeToggle from '../shared/components/ThemeToggle';
-import RoleSwitcher from '../shared/components/RoleSwitcher';
 
 // Container animation variants
 const containerVariants = {
@@ -39,7 +38,6 @@ export default function DashboardHome({ toggleTheme, isDark }) {
           <p className="text-slate-500 dark:text-slate-400 mt-1 neon-subtle">Here's what's happening with your academic progress today.</p>
         </div>
         <div className="flex items-center gap-4 relative">
-          <RoleSwitcher />
           <ThemeToggle isDark={isDark} toggleTheme={toggleTheme} />
           <QuickActions />
           <UserProfileDropdown />
