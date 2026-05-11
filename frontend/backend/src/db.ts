@@ -256,24 +256,98 @@ async function ensureSubmissionsTable(db: D1Database) {
   )`).run()
 }
 
+async function ensurePostsTable(db: D1Database) {
+  await db.prepare(`CREATE TABLE IF NOT EXISTS posts (
+    id TEXT PRIMARY KEY,
+    classId TEXT,
+    authorId TEXT,
+    content TEXT,
+    attachments TEXT,
+    comments TEXT,
+    createdAt TEXT
+  )`).run()
+  try { await db.exec('ALTER TABLE posts ADD COLUMN comments TEXT') } catch {}
+}
+
+async function ensureMaterialsTable(db: D1Database) {
+  await db.prepare(`CREATE TABLE IF NOT EXISTS materials (
+    id TEXT PRIMARY KEY,
+    classId TEXT,
+    title TEXT,
+    url TEXT,
+    metadata TEXT,
+    uploadedAt TEXT,
+    uploadedBy TEXT
+  )`).run()
+}
+
+async function ensureLiveSessionsTable(db: D1Database) {
+  await db.prepare(`CREATE TABLE IF NOT EXISTS classroom_live_sessions (
+    id TEXT PRIMARY KEY,
+    classId TEXT,
+    subjectId TEXT,
+    subjectName TEXT,
+    topic TEXT,
+    mode TEXT,
+    status TEXT,
+    createdBy TEXT,
+    createdByName TEXT,
+    startedAt TEXT,
+    endedAt TEXT,
+    createdAt TEXT,
+    metadata TEXT
+  )`).run()
+  try { await db.exec('ALTER TABLE classroom_live_sessions ADD COLUMN metadata TEXT') } catch {}
+  try { await db.exec('ALTER TABLE classroom_live_sessions ADD COLUMN createdByName TEXT') } catch {}
+}
+
 // Classroom functions
 export async function getClassById(db: D1Database, id: string) {
-  const result = await db.prepare('SELECT id, name, teacherId, meta FROM classes WHERE id = ?').bind(id).first()
+  const result = await db.prepare('SELECT id, tenantId, name, arm, classTeacherId FROM classes WHERE id = ?').bind(id).first()
   if (!result) return null
-  return { ...result, meta: result.meta ? JSON.parse(result.meta as string) : {} }
+  return {
+    ...result,
+    className: `${result.name as string}${result.arm ? ` ${result.arm as string}` : ''}`,
+    teacherId: result.classTeacherId,
+  }
 }
 
 export async function getPostsForClass(db: D1Database, classId: string, limit = 100) {
-  const result = await db.prepare('SELECT id, classId, authorId, content, attachments, createdAt FROM posts WHERE classId = ? ORDER BY createdAt DESC LIMIT ?').bind(classId, limit).all()
-  return result.results.map(r => ({ ...r, attachments: r.attachments ? JSON.parse(r.attachments as string) : [] }))
+  await ensurePostsTable(db)
+  const result = await db.prepare('SELECT id, classId, authorId, content, attachments, comments, createdAt FROM posts WHERE classId = ? ORDER BY createdAt DESC LIMIT ?').bind(classId, limit).all()
+  return result.results.map(r => ({
+    ...r,
+    attachments: parseJsonField(r.attachments, [] as any[]),
+    comments: parseJsonField(r.comments, [] as any[]),
+  }))
 }
 
 export async function createPost(db: D1Database, post: any) {
+  await ensurePostsTable(db)
   const id = post.id || `post-${Date.now()}`
   const createdAt = new Date().toISOString()
   const attachments = JSON.stringify(post.attachments || [])
-  await db.prepare('INSERT INTO posts(id, classId, authorId, content, attachments, createdAt) VALUES(?, ?, ?, ?, ?, ?)').bind(id, post.classId, post.authorId, post.content || null, attachments, createdAt).run()
-  return { id, classId: post.classId, authorId: post.authorId, content: post.content, attachments: post.attachments || [], createdAt }
+  const comments = JSON.stringify(post.comments || [])
+  await db.prepare('INSERT INTO posts(id, classId, authorId, content, attachments, comments, createdAt) VALUES(?, ?, ?, ?, ?, ?, ?)').bind(id, post.classId, post.authorId, post.content || null, attachments, comments, createdAt).run()
+  return { id, classId: post.classId, authorId: post.authorId, content: post.content, attachments: post.attachments || [], comments: post.comments || [], createdAt }
+}
+
+export async function addPostComment(db: D1Database, postId: string, comment: any) {
+  await ensurePostsTable(db)
+  const row = await db.prepare('SELECT id, comments FROM posts WHERE id = ?').bind(postId).first()
+  if (!row) throw new Error('Post not found')
+
+  const existingComments = parseJsonField((row as any).comments, [] as any[])
+  const insertedComment = {
+    id: comment.id || `comment-${Date.now()}`,
+    user: comment.user || comment.authorId || 'Teacher',
+    authorId: comment.authorId || null,
+    text: comment.text || '',
+    createdAt: comment.createdAt || new Date().toISOString(),
+  }
+
+  await db.prepare('UPDATE posts SET comments = ? WHERE id = ?').bind(JSON.stringify([...existingComments, insertedComment]), postId).run()
+  return insertedComment
 }
 
 export async function getAssignmentsForClass(db: D1Database, classId: string) {
@@ -383,15 +457,17 @@ export async function createSubmission(db: D1Database, submission: any) {
 }
 
 export async function getMaterialsForClass(db: D1Database, classId: string) {
+  await ensureMaterialsTable(db)
   const result = await db.prepare('SELECT id, classId, title, url, metadata, uploadedAt, uploadedBy FROM materials WHERE classId = ? ORDER BY uploadedAt DESC').bind(classId).all()
   return result.results.map(mapMaterialRow)
 }
 
 export async function addMaterial(db: D1Database, mat: any) {
+  await ensureMaterialsTable(db)
   const id = mat.id || `mat-${Date.now()}`
   const uploadedAt = new Date().toISOString()
   const metadata = mat.metadata && typeof mat.metadata === 'object' ? mat.metadata : {}
-  await db.prepare('INSERT INTO materials(id, classId, title, url, metadata, uploadedAt, uploadedBy) VALUES(?, ?, ?, ?, ?, ?, ?)').bind(id, mat.classId, mat.title || null, mat.url || null, metadata, uploadedAt, mat.uploadedBy || null).run()
+  await db.prepare('INSERT INTO materials(id, classId, title, url, metadata, uploadedAt, uploadedBy) VALUES(?, ?, ?, ?, ?, ?, ?)').bind(id, mat.classId, mat.title || null, mat.url || null, JSON.stringify(metadata), uploadedAt, mat.uploadedBy || null).run()
   return mapMaterialRow({
     id,
     classId: mat.classId,
@@ -426,6 +502,77 @@ export async function saveContent(db: D1Database, classId: string, role: string,
   const ts = new Date().toISOString()
   await db.prepare('INSERT INTO content_saves(id, classId, role, content, ts) VALUES(?, ?, ?, ?, ?)').bind(id, classId || null, role || null, content || null, ts).run()
   return { id, classId, role, ts }
+}
+
+export async function getLiveSessionsForClass(db: D1Database, classId: string) {
+  await ensureLiveSessionsTable(db)
+  const result = await db.prepare(
+    'SELECT id, classId, subjectId, subjectName, topic, mode, status, createdBy, createdByName, startedAt, endedAt, createdAt, metadata FROM classroom_live_sessions WHERE classId = ? ORDER BY createdAt DESC LIMIT 50'
+  ).bind(classId).all()
+
+  return result.results.map(row => ({
+    ...row,
+    metadata: parseJsonField((row as any).metadata, {} as Record<string, any>),
+  }))
+}
+
+export async function createLiveSession(db: D1Database, session: any) {
+  await ensureLiveSessionsTable(db)
+  const id = session.id || `live_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`
+  const now = new Date().toISOString()
+  const inserted = {
+    id,
+    classId: session.classId,
+    subjectId: session.subjectId || null,
+    subjectName: session.subjectName || null,
+    topic: session.topic || 'Live Class',
+    mode: session.mode || 'Video + Audio',
+    status: session.status || 'Live Now',
+    createdBy: session.createdBy || null,
+    createdByName: session.createdByName || null,
+    startedAt: session.startedAt || now,
+    endedAt: session.endedAt || null,
+    createdAt: now,
+    metadata: session.metadata && typeof session.metadata === 'object' ? session.metadata : {},
+  }
+
+  await db.prepare(
+    'INSERT INTO classroom_live_sessions(id, classId, subjectId, subjectName, topic, mode, status, createdBy, createdByName, startedAt, endedAt, createdAt, metadata) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+  ).bind(
+    inserted.id,
+    inserted.classId,
+    inserted.subjectId,
+    inserted.subjectName,
+    inserted.topic,
+    inserted.mode,
+    inserted.status,
+    inserted.createdBy,
+    inserted.createdByName,
+    inserted.startedAt,
+    inserted.endedAt,
+    inserted.createdAt,
+    JSON.stringify(inserted.metadata),
+  ).run()
+
+  return inserted
+}
+
+export async function updateLiveSessionStatus(db: D1Database, sessionId: string, status: string, endedAt?: string | null) {
+  await ensureLiveSessionsTable(db)
+  const row = await db.prepare(
+    'SELECT id, classId, subjectId, subjectName, topic, mode, status, createdBy, createdByName, startedAt, endedAt, createdAt, metadata FROM classroom_live_sessions WHERE id = ?'
+  ).bind(sessionId).first()
+  if (!row) throw new Error('Live session not found')
+
+  const nextEndedAt = typeof endedAt === 'string' ? endedAt : (status === 'Ended' ? new Date().toISOString() : null)
+  await db.prepare('UPDATE classroom_live_sessions SET status = ?, endedAt = ? WHERE id = ?').bind(status, nextEndedAt, sessionId).run()
+
+  return {
+    ...row,
+    status,
+    endedAt: nextEndedAt,
+    metadata: parseJsonField((row as any).metadata, {} as Record<string, any>),
+  }
 }
 
 // Attendance functions (assuming attendance_records table exists)

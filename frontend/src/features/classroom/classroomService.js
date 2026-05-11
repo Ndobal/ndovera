@@ -24,12 +24,17 @@ export async function getAssignedClasses() {
 }
 
 export async function getPosts(classId) {
-  const res = await fetch(`${API}/classrooms/${classId}/posts`, { headers: getAuthHeaders() });
+  const res = await fetch(`${API}/classrooms/${classId}/stream`, { headers: getAuthHeaders() });
   return res.json();
 }
 
 export async function createPost(classId, payload) {
-  const res = await fetch(`${API}/classrooms/${classId}/posts`, { method: 'POST', headers: getAuthHeaders(), body: JSON.stringify(payload) });
+  const res = await fetch(`${API}/classrooms/${classId}/stream`, { method: 'POST', headers: getAuthHeaders(), body: JSON.stringify(payload) });
+  return res.json();
+}
+
+export async function addPostComment(classId, postId, payload) {
+  const res = await fetch(`${API}/classrooms/${classId}/posts/${postId}/comments`, { method: 'POST', headers: getAuthHeaders(), body: JSON.stringify(payload) });
   return res.json();
 }
 
@@ -87,6 +92,11 @@ export async function getClassStudents(classId) {
   return res.json();
 }
 
+export async function getClassSubjects(classId) {
+  const res = await fetch(`${API}/classrooms/${classId}/subjects`, { headers: getAuthHeaders() });
+  return res.json();
+}
+
 export async function addMaterial(classId, payload) {
   const res = await fetch(`${API}/classrooms/${classId}/materials`, { method: 'POST', headers: getAuthHeaders(), body: JSON.stringify(payload) });
   return res.json();
@@ -112,6 +122,21 @@ export async function uploadMaterial(classId, payload) {
   }
   // fallback to base64 path
   const res = await fetch(`${API}/classrooms/${classId}/materials/upload`, { method: 'POST', headers: getAuthHeaders(), body: JSON.stringify(payload) });
+  return res.json();
+}
+
+export async function getLiveSessions(classId) {
+  const res = await fetch(`${API}/classrooms/${classId}/live`, { headers: getAuthHeaders() });
+  return res.json();
+}
+
+export async function startLiveSession(classId, payload) {
+  const res = await fetch(`${API}/classrooms/${classId}/live`, { method: 'POST', headers: getAuthHeaders(), body: JSON.stringify(payload) });
+  return res.json();
+}
+
+export async function endLiveSession(classId, sessionId) {
+  const res = await fetch(`${API}/classrooms/${classId}/live/${sessionId}/end`, { method: 'POST', headers: getAuthHeaders() });
   return res.json();
 }
 

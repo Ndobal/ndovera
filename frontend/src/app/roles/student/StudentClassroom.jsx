@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getStoredAuth } from '../../../features/auth/services/authApi';
+import * as svc from '../../../features/classroom/classroomService';
 import {
   AcademicCapIcon,
   ArrowLeftIcon,
@@ -15,6 +16,15 @@ import {
   UserGroupIcon,
   VideoCameraIcon,
 } from '@heroicons/react/24/outline';
+
+function normalizeStreamPost(post) {
+  return {
+    ...post,
+    author: post?.author || post?.authorName || post?.authorId || 'Teacher',
+    text: post?.text || post?.content || '',
+    comments: Array.isArray(post?.comments) ? post.comments : [],
+  };
+}
 
 export default function StudentClassroom() {
   const navigate = useNavigate();
@@ -36,9 +46,9 @@ export default function StudentClassroom() {
   const [streamInput, setStreamInput] = useState('');
   const [commentInputs, setCommentInputs] = useState({});
   const [tasks, setTasks] = useState([]);
-  const [liveSessions] = useState([]);
+  const [liveSessions, setLiveSessions] = useState([]);
   const [classroomMaterials, setClassroomMaterials] = useState([]);
-  const [practiceItems] = useState([]);
+  const [classSubjects, setClassSubjects] = useState([]);
   const [classMembers, setClassMembers] = useState([]);
   const [classroomLoading, setClassroomLoading] = useState(true);
   const [classroomLabel, setClassroomLabel] = useState(storedClassName || localStorage.getItem('classroomId') || 'Assigned Classroom');
@@ -51,23 +61,28 @@ export default function StudentClassroom() {
     setClassroomLoading(true);
     Promise.all([
       fetch(`/api/classrooms/${classId}`, { headers }).then(r => r.ok ? r.json() : { success: false, class: null }),
-      fetch(`/api/classrooms/${classId}/posts`, { headers }).then(r => r.ok ? r.json() : { posts: [] }),
+      fetch(`/api/classrooms/${classId}/stream`, { headers }).then(r => r.ok ? r.json() : { posts: [] }),
       fetch(`/api/classrooms/${classId}/assignments`, { headers }).then(r => r.ok ? r.json() : { assignments: [] }),
       fetch(`/api/classrooms/${classId}/materials`, { headers }).then(r => r.ok ? r.json() : { materials: [] }),
       fetch(`/api/classrooms/${classId}/members`, { headers }).then(r => r.ok ? r.json() : { members: [] }),
-    ]).then(([classRes, postsRes, assignRes, matRes, membersRes]) => {
+      svc.getClassSubjects(classId).catch(() => ({ subjects: [] })),
+      svc.getLiveSessions(classId).catch(() => ({ sessions: [] })),
+    ]).then(([classRes, postsRes, assignRes, matRes, membersRes, subjectsRes, liveRes]) => {
       const resolvedClassName = classRes?.class?.name
         ? `${classRes.class.name}${classRes.class.arm ? ` ${classRes.class.arm}` : ''}`
         : (storedClassName || classId);
+      const classSubjectRows = subjectsRes?.subjects || [];
       setClassroomLabel(resolvedClassName);
       try {
         const authUser = JSON.parse(localStorage.getItem('authUser') || '{}');
         localStorage.setItem('authUser', JSON.stringify({ ...authUser, classId, className: resolvedClassName }));
       } catch {}
-      setStreamPosts(postsRes.posts || []);
+      setStreamPosts((postsRes.posts || []).map(normalizeStreamPost));
       setTasks(assignRes.assignments || []);
       setClassroomMaterials(matRes.materials || []);
+      setClassSubjects(classSubjectRows);
       setClassMembers(membersRes.members || []);
+      setLiveSessions(liveRes.sessions || []);
     }).catch(() => {}).finally(() => setClassroomLoading(false));
   }, [storedClassName]);
 
@@ -75,21 +90,25 @@ export default function StudentClassroom() {
   useEffect(() => {
     const classId = localStorage.getItem('classroomId');
     if (!classId) return;
-    const token = localStorage.getItem('token');
-    const headers = token ? { Authorization: `Bearer ${token}` } : {};
     const poll = setInterval(() => {
-      fetch(`/api/classrooms/${classId}/posts`, { headers })
-        .then(r => r.ok ? r.json() : null)
-        .then(json => {
-          if (json && json.posts) {
+      Promise.all([
+        fetch(`/api/classrooms/${classId}/stream`, { headers: localStorage.getItem('token') ? { Authorization: `Bearer ${localStorage.getItem('token')}` } : {} }).then(r => r.ok ? r.json() : null),
+        svc.getLiveSessions(classId).catch(() => null),
+      ]).then(([json, liveJson]) => {
+        if (json && json.posts) {
             setStreamPosts(prev => {
               // merge: keep optimistic posts not yet confirmed, prepend new server posts
-              const serverIds = new Set(json.posts.map(p => p.id));
+              const nextPosts = json.posts.map(normalizeStreamPost);
+              const serverIds = new Set(nextPosts.map(p => p.id));
               const optimistic = prev.filter(p => !serverIds.has(p.id) && p.isStudentPost);
-              return [...optimistic, ...json.posts];
+              return [...optimistic, ...nextPosts];
             });
-          }
-        }).catch(() => {});
+        }
+
+        if (liveJson && liveJson.success) {
+          setLiveSessions(liveJson.sessions || []);
+        }
+      }).catch(() => {});
     }, 15000);
     return () => clearInterval(poll);
   }, []);
@@ -161,14 +180,14 @@ export default function StudentClassroom() {
     setStreamInput('');
     if (classId) {
       try {
-        const res = await fetch(`/api/classrooms/${classId}/posts`, {
+        const res = await fetch(`/api/classrooms/${classId}/stream`, {
           method: 'POST',
           headers,
           body: JSON.stringify({ text: optimistic.text, authorId: userId }),
         });
         const json = res.ok ? await res.json() : null;
         if (json && (json.post || json.id)) {
-          const saved = json.post || json;
+          const saved = normalizeStreamPost(json.post || json);
           setStreamPosts(prev => prev.map(p => p.id === optimistic.id ? { ...optimistic, ...saved } : p));
         }
       } catch { /* keep optimistic */ }
@@ -180,9 +199,7 @@ export default function StudentClassroom() {
     const text = (commentInputs[postId] || '').trim();
     if (!text) return;
     const classId = localStorage.getItem('classroomId');
-    const token = localStorage.getItem('token');
     const userId = localStorage.getItem('userId') || 'student';
-    const headers = { 'Content-Type': 'application/json', ...(token ? { Authorization: `Bearer ${token}` } : {}) };
     const optimistic = { id: `cm-${Date.now()}`, user: 'You', text };
     setStreamPosts(prev => prev.map(post => (
       post.id === postId ? { ...post, comments: [...post.comments, optimistic] } : post
@@ -190,11 +207,7 @@ export default function StudentClassroom() {
     setCommentInputs(prev => ({ ...prev, [postId]: '' }));
     if (classId) {
       try {
-        await fetch(`/api/classrooms/${classId}/posts/${postId}/comments`, {
-          method: 'POST',
-          headers,
-          body: JSON.stringify({ text, authorId: userId }),
-        });
+        await svc.addPostComment(classId, postId, { text, authorId: userId });
       } catch { /* keep optimistic */ }
     }
   };
@@ -270,19 +283,59 @@ export default function StudentClassroom() {
     { key: 'teachers', label: 'Teachers', icon: BookOpenIcon },
   ];
 
-  const subjectRows = Array.from(new Set(tasks.map(task => task.subjectName || 'General Subject'))).map(subjectName => {
-    const linkedTasks = tasks.filter(task => (task.subjectName || 'General Subject') === subjectName);
-    return {
-      topic: subjectName,
-      count: linkedTasks.length,
-      nextDue: linkedTasks[0]?.dueAt ? formatAssignmentDue(linkedTasks[0].dueAt) : 'No due item',
-      submittedCount: linkedTasks.filter(task => task.mySubmission).length,
-      items: linkedTasks,
-    };
-  });
+  const subjectRows = useMemo(() => {
+    const subjectMap = new Map();
 
-  const studentMembers = classMembers.filter(member => member.role === 'Student');
-  const teacherMembers = classMembers.filter(member => member.role === 'Teacher');
+    classSubjects.forEach(subject => {
+      const subjectName = String(subject.name || '').trim();
+      if (!subjectName) return;
+      subjectMap.set(subjectName, {
+        topic: subjectName,
+        count: 0,
+        nextDue: 'No due item',
+        submittedCount: 0,
+        items: [],
+      });
+    });
+
+    tasks.forEach(task => {
+      const subjectName = String(task.subjectName || 'General Subject').trim() || 'General Subject';
+      if (!subjectMap.has(subjectName)) {
+        subjectMap.set(subjectName, {
+          topic: subjectName,
+          count: 0,
+          nextDue: 'No due item',
+          submittedCount: 0,
+          items: [],
+        });
+      }
+
+      const currentRow = subjectMap.get(subjectName);
+      currentRow.items.push(task);
+      currentRow.count = currentRow.items.length;
+      currentRow.submittedCount = currentRow.items.filter(item => item.mySubmission).length;
+      currentRow.nextDue = currentRow.items[0]?.dueAt ? formatAssignmentDue(currentRow.items[0].dueAt) : 'No due item';
+    });
+
+    return Array.from(subjectMap.values()).sort((first, second) => first.topic.localeCompare(second.topic));
+  }, [classSubjects, tasks]);
+
+  const practiceRows = useMemo(() => {
+    return subjectRows.map(subject => {
+      const materialCount = classroomMaterials.filter(material => materialSubjectName(material) === subject.topic).length;
+      const pendingItems = subject.items.filter(item => !item.mySubmission);
+
+      return {
+        ...subject,
+        materialCount,
+        pendingCount: pendingItems.length,
+        primaryTask: pendingItems[0] || subject.items[0] || null,
+      };
+    });
+  }, [classroomMaterials, subjectRows]);
+
+  const studentMembers = classMembers.filter(member => String(member.role || '').toLowerCase() === 'student');
+  const teacherMembers = classMembers.filter(member => String(member.role || '').toLowerCase() === 'teacher');
 
   return (
     <div className={`min-h-screen ${isMobile ? 'p-4 pb-24' : 'p-8'} max-w-5xl mx-auto`}>
@@ -386,9 +439,15 @@ export default function StudentClassroom() {
                   {material.description && <p className="text-sm text-slate-300 mt-2">{material.description}</p>}
                   <p className="neon-subtle text-xs mt-2">{material.uploadedAt ? new Date(material.uploadedAt).toLocaleString() : 'Recently uploaded'}{material.uploadedByName ? ` • ${material.uploadedByName}` : ''}</p>
                 </div>
-                <a href={material.url} target="_blank" rel="noreferrer" className="rounded-2xl bg-emerald-500/30 border border-emerald-300/40 px-4 py-2 text-sm font-semibold text-white">
-                  Open
-                </a>
+                {material.url ? (
+                  <a href={material.url} target="_blank" rel="noreferrer" className="rounded-2xl bg-emerald-500/30 border border-emerald-300/40 px-4 py-2 text-sm font-semibold text-white">
+                    Open
+                  </a>
+                ) : (
+                  <span className="rounded-2xl border border-white/10 px-4 py-2 text-sm font-semibold text-slate-200">
+                    Teacher Note
+                  </span>
+                )}
               </div>
             ))}
             {classroomMaterials.length === 0 && (
@@ -405,15 +464,37 @@ export default function StudentClassroom() {
         <section className="glass-surface rounded-3xl p-5">
           <h2 className="text-xl command-title neon-title mb-4">Practice</h2>
           <div className="space-y-3">
-            {practiceItems.map(item => (
-              <div key={item.id} className="rounded-2xl border border-white/10 p-4 bg-slate-900/30">
+            {practiceRows.map(item => (
+              <div key={item.topic} className="rounded-2xl border border-white/10 p-4 bg-slate-900/30">
                 <div className="flex items-center justify-between gap-2">
-                  <p className="text-slate-100 font-semibold">{item.title}</p>
-                  <span className="glass-chip px-3 py-1 rounded-full micro-label accent-indigo">{item.mode}</span>
+                  <p className="text-slate-100 font-semibold">{item.topic}</p>
+                  <span className="glass-chip px-3 py-1 rounded-full micro-label accent-indigo">{item.count} assignment(s)</span>
                 </div>
-                <p className="text-sm neon-subtle mt-1">Availability: {item.due}</p>
+                <p className="text-sm neon-subtle mt-1">Pending practice: {item.pendingCount} • Materials: {item.materialCount}</p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {item.primaryTask ? (
+                    <button onClick={() => openTaskWorkspace(item.primaryTask.id)} className="px-4 py-2 rounded-2xl bg-indigo-500/30 border border-indigo-300/40 text-white text-sm font-semibold">
+                      Open Practice Assignment
+                    </button>
+                  ) : (
+                    <button onClick={() => setActiveTab('subjects')} className="px-4 py-2 rounded-2xl bg-slate-800/40 border border-white/10 text-slate-100 text-sm font-semibold">
+                      Review Subject
+                    </button>
+                  )}
+                  {item.materialCount > 0 && (
+                    <button onClick={() => setActiveTab('materials')} className="px-4 py-2 rounded-2xl bg-emerald-500/30 border border-emerald-300/40 text-white text-sm font-semibold">
+                      Review Materials
+                    </button>
+                  )}
+                </div>
               </div>
             ))}
+            {practiceRows.length === 0 && (
+              <div className="rounded-2xl border border-dashed border-white/10 p-4 bg-slate-900/20 text-center">
+                <p className="micro-label accent-amber">No linked practice yet</p>
+                <p className="mt-2 text-sm text-slate-300">Practice cards will appear once subjects, assignments, or materials are available for this class.</p>
+              </div>
+            )}
           </div>
         </section>
       )}
@@ -549,21 +630,21 @@ export default function StudentClassroom() {
           <section className="space-y-3">
             {liveSessions.map(session => {
               const joined = joinedLiveId === session.id;
-              const isLive = session.status === 'Live Now';
+              const isLive = String(session.status || '').toLowerCase() !== 'ended';
               return (
                 <div key={session.id} className="glass-surface rounded-3xl p-4">
                   <div className="flex items-center justify-between gap-3">
                     <div>
-                      <p className="text-slate-100 font-semibold">{session.subject} • {session.topic}</p>
-                      <p className="text-sm neon-subtle mt-1">{session.teacher} • Starts: {session.startsAt}</p>
+                      <p className="text-slate-100 font-semibold">{session.subjectName || 'Live Class'} • {session.topic}</p>
+                      <p className="text-sm neon-subtle mt-1">{session.createdByName || session.createdBy || 'Teacher'} • Starts: {session.startedAt ? new Date(session.startedAt).toLocaleString() : 'Now'}</p>
                     </div>
                     <span className={`glass-chip px-3 py-1 rounded-full micro-label ${isLive ? 'accent-rose' : 'accent-amber'}`}>
-                      {session.status}
+                      {session.status || 'Live Now'}
                     </span>
                   </div>
 
                   <div className="flex items-center justify-between gap-3 mt-3">
-                    <p className="text-sm text-slate-300">Mode: {session.mode}</p>
+                    <p className="text-sm text-slate-300">Mode: {session.mode || 'Video + Audio'}</p>
                     {!joined ? (
                       <button
                         onClick={() => setJoinedLiveId(session.id)}
@@ -614,6 +695,11 @@ export default function StudentClassroom() {
                 </div>
               );
             })}
+            {liveSessions.length === 0 && (
+              <div className="glass-surface rounded-3xl p-4">
+                <p className="text-sm text-slate-300">No live class has been started for this classroom yet.</p>
+              </div>
+            )}
           </section>
         </div>
       )}
@@ -631,6 +717,7 @@ export default function StudentClassroom() {
                 <span className={`micro-label ${member.status === 'Active' ? 'accent-emerald' : member.status === 'Muted' ? 'accent-amber' : 'accent-rose'}`}>{member.status}</span>
               </div>
             ))}
+            {studentMembers.length === 0 && <p className="text-sm text-slate-300">No classmates are visible for this class yet.</p>}
           </div>
         </section>
       )}
@@ -652,6 +739,11 @@ export default function StudentClassroom() {
               </div>
             </section>
           ))}
+          {teacherMembers.length === 0 && (
+            <section className="glass-surface rounded-3xl p-5">
+              <p className="text-sm text-slate-300">No teachers are visible for this class yet.</p>
+            </section>
+          )}
           <button onClick={goBackToDashboard} className="w-full px-4 py-3 rounded-2xl bg-rose-500/25 border border-rose-300/40 text-slate-100 font-semibold">
             Exit Classroom
           </button>

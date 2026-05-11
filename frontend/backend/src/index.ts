@@ -12,7 +12,7 @@ import {
   getSettings, upsertSettings, addAudit, getAuditForStudent, getAllAudits,
   getAllBooks, getBookById, upsertBook, deleteBook, borrowBook, returnBook,
   getBorrowingsForStudent, getAllBorrowings, getClassById, getPostsForClass,
-  createPost, getAssignmentsForClass, getAssignmentById, createAssignment, getLatestSubmissionForStudent, createSubmission, getMaterialsForClass,
+  createPost, addPostComment, getAssignmentsForClass, getAssignmentById, createAssignment, getLatestSubmissionForStudent, createSubmission, getMaterialsForClass,
   addMaterial, getAttendanceForClass, recordAttendance, saveContent,
   getAttendance, upsertAttendance, updateAttendance, getConversations,
   createConversation, getMessages, sendMessage, markMessagesRead,
@@ -21,7 +21,7 @@ import {
   listTenants, updateTenant, listTenantDiscountCodes, getTenantDiscountCode,
   upsertTenantDiscountCode, incrementTenantDiscountCodeRedemption,
   createTenantPayment, getTenantPaymentByTxRef, listTenantPayments,
-  updateTenantPayment,
+  updateTenantPayment, getLiveSessionsForClass, createLiveSession, updateLiveSessionStatus,
 } from './db'
 
 type Bindings = {
@@ -868,6 +868,53 @@ async function resolveSettingsIdentity(db: D1Database, identifier: string) {
   }
 }
 
+type ResolvedIdentityLike = {
+  settingsKey?: string | null
+  settings?: Record<string, any> | null
+  userRow?: Record<string, any> | null
+}
+
+function toComparableIdentifier(value: unknown) {
+  return String(value || '').trim().toLowerCase()
+}
+
+function collectResolvedIdentityIdentifiers(
+  resolvedIdentity: ResolvedIdentityLike = {},
+  user: Record<string, any> = {},
+) {
+  const rawIdentifiers = [
+    resolvedIdentity.userRow?.id,
+    resolvedIdentity.userRow?.email,
+    resolvedIdentity.settingsKey,
+    resolvedIdentity.settings?.email,
+    resolvedIdentity.settings?.displayId,
+    user.id,
+    user.email,
+    user.sub,
+  ]
+    .map(value => String(value || '').trim())
+    .filter(Boolean)
+
+  return Array.from(new Set(rawIdentifiers))
+}
+
+function collectComparableIdentifiers(values: unknown[] = []) {
+  return Array.from(new Set(values.map(value => toComparableIdentifier(value)).filter(Boolean)))
+}
+
+function matchesComparableIdentifier(value: unknown, comparableIdentifiers: string[]) {
+  const normalizedValue = toComparableIdentifier(value)
+  return normalizedValue !== '' && comparableIdentifiers.includes(normalizedValue)
+}
+
+async function resolveCanonicalUserIdentifier(db: D1Database, identifier: unknown) {
+  const raw = String(identifier || '').trim()
+  if (!raw) return null
+
+  const resolved = await resolveSettingsIdentity(db, raw)
+  return String(resolved.userRow?.id || resolved.userRow?.email || resolved.settingsKey || raw).trim() || null
+}
+
 async function finishLogin(c: any, payload: Record<string, any>) {
   let id = payload.id || payload.email || payload.username
   const password = payload.password
@@ -1502,6 +1549,7 @@ app.get('/api/dashboards/:roleKey', authenticate, async (c) => {
   if (roleKey === 'student') {
     let className = settings?.className || null
     let subjects: Record<string, any>[] = []
+    let metrics: Array<{ label: string, value: string | number, accent: string }> = []
 
     if (tenantId && settings?.classId) {
       try {
@@ -1525,12 +1573,47 @@ app.get('/api/dashboards/:roleKey', authenticate, async (c) => {
         ).bind(tenantId, settings.classId).all()
         subjects = (subjectRows.results || []) as Record<string, any>[]
       } catch {}
+
+      try {
+        await ensureSchoolStudentAttendanceTable(c.env.APP_DB)
+        const sessionRow = await c.env.APP_DB.prepare(
+          `SELECT startDate, endDate FROM school_sessions WHERE tenantId = ? ORDER BY createdAt DESC LIMIT 1`
+        ).bind(tenantId).first() as Record<string, any> | null
+
+        const attendanceQuery = sessionRow?.startDate && sessionRow?.endDate
+          ? `SELECT COUNT(*) as count FROM student_attendance_school WHERE tenant_id = ? AND student_id = ? AND date >= ? AND date <= ?`
+          : `SELECT COUNT(*) as count FROM student_attendance_school WHERE tenant_id = ? AND student_id = ?`
+        const attendanceParams = sessionRow?.startDate && sessionRow?.endDate
+          ? [tenantId, resolvedUser.userRow?.id || user.id || userIdentifier, sessionRow.startDate, sessionRow.endDate]
+          : [tenantId, resolvedUser.userRow?.id || user.id || userIdentifier]
+
+        const [assignmentCountRow, materialCountRow, classmateCountRow, attendanceCountRow] = await Promise.all([
+          c.env.APP_DB.prepare(`SELECT COUNT(*) as count FROM assignments WHERE classId = ?`).bind(settings.classId).first().catch(() => ({ count: 0 })),
+          c.env.APP_DB.prepare(`SELECT COUNT(*) as count FROM materials WHERE classId = ?`).bind(settings.classId).first().catch(() => ({ count: 0 })),
+          c.env.APP_DB.prepare(
+            `SELECT COUNT(*) as count
+             FROM settings
+             WHERE json_extract(payload, '$.tenantId') = ?
+               AND json_extract(payload, '$.role') = 'student'
+               AND json_extract(payload, '$.classId') = ?
+               AND COALESCE(json_extract(payload, '$.status'), 'active') != 'inactive'`
+          ).bind(tenantId, settings.classId).first().catch(() => ({ count: 0 })),
+          c.env.APP_DB.prepare(attendanceQuery).bind(...attendanceParams).first().catch(() => ({ count: 0 })),
+        ])
+
+        metrics = [
+          { label: 'Attendance Days', value: Number(attendanceCountRow?.count || 0), accent: 'accent-emerald' },
+          { label: 'Assignments', value: Number(assignmentCountRow?.count || 0), accent: 'accent-indigo' },
+          { label: 'Materials', value: Number(materialCountRow?.count || 0), accent: 'accent-amber' },
+          { label: 'Classmates', value: Number(classmateCountRow?.count || 0), accent: 'accent-rose' },
+        ]
+      } catch {}
     }
 
     return c.json({
       studentName: displayName,
       roleWatermark: 'STUDENT',
-      metrics: [],
+      metrics,
       quickLinks,
       notices: [],
       classId: settings?.classId || null,
@@ -1705,9 +1788,13 @@ app.get('/api/classrooms/assigned', authenticate, async (c) => {
   const userIdentifier = user.id || user.email || user.sub || ''
   const resolvedUser = await resolveSettingsIdentity(c.env.APP_DB, userIdentifier)
   const tenantId = resolvedUser.settings?.tenantId || resolvedUser.settings?.schoolId || resolvedUser.userRow?.tenantId || user.tenantId
-  const teacherId = resolvedUser.userRow?.id || user.id || ''
+  const teacherIdentifiers = collectComparableIdentifiers(collectResolvedIdentityIdentifiers(resolvedUser, user))
+  const fallbackClassIds = Array.from(new Set([
+    ...(Array.isArray(resolvedUser.settings?.classIds) ? resolvedUser.settings.classIds : []),
+    resolvedUser.settings?.classId,
+  ].map(value => String(value || '').trim()).filter(Boolean)))
 
-  if (!tenantId || !teacherId) {
+  if (!tenantId || (!teacherIdentifiers.length && !fallbackClassIds.length)) {
     return c.json({ success: true, classes: [] })
   }
 
@@ -1718,17 +1805,44 @@ app.get('/api/classrooms/assigned', authenticate, async (c) => {
     try { await c.env.APP_DB.exec('ALTER TABLE subjects ADD COLUMN classId TEXT') } catch {}
     try { await c.env.APP_DB.exec('ALTER TABLE subjects ADD COLUMN teacherId TEXT') } catch {}
 
-    const classRows = await c.env.APP_DB.prepare(
-      `SELECT DISTINCT c.id, c.name, c.arm, c.classTeacherId
-       FROM classes c
-       LEFT JOIN subjects s ON s.classId = c.id AND s.tenantId = c.tenantId
-       WHERE c.tenantId = ? AND (c.classTeacherId = ? OR s.teacherId = ?)
-       ORDER BY c.name, c.arm`
-    ).bind(tenantId, teacherId, teacherId).all()
+    let classRows: Record<string, any>[] = []
+    if (teacherIdentifiers.length) {
+      const identifierPlaceholders = teacherIdentifiers.map(() => '?').join(', ')
+      const assignedClassRows = await c.env.APP_DB.prepare(
+        `SELECT DISTINCT c.id, c.name, c.arm, c.classTeacherId
+         FROM classes c
+         LEFT JOIN subjects s ON s.classId = c.id AND s.tenantId = c.tenantId
+         WHERE c.tenantId = ?
+           AND (
+             lower(trim(coalesce(c.classTeacherId, ''))) IN (${identifierPlaceholders})
+             OR lower(trim(coalesce(s.teacherId, ''))) IN (${identifierPlaceholders})
+           )
+         ORDER BY c.name, c.arm`
+      ).bind(tenantId, ...teacherIdentifiers, ...teacherIdentifiers).all()
+      classRows = (assignedClassRows.results || []) as Record<string, any>[]
+    }
 
-    const assignedClasses = await Promise.all(((classRows.results || []) as Record<string, any>[]).map(async row => {
+    if (fallbackClassIds.length) {
+      const classPlaceholders = fallbackClassIds.map(() => '?').join(', ')
+      const fallbackRows = await c.env.APP_DB.prepare(
+        `SELECT DISTINCT id, name, arm, classTeacherId
+         FROM classes
+         WHERE tenantId = ? AND id IN (${classPlaceholders})
+         ORDER BY name, arm`
+      ).bind(tenantId, ...fallbackClassIds).all()
+
+      const rowMap = new Map<string, Record<string, any>>()
+      for (const row of [...classRows, ...((fallbackRows.results || []) as Record<string, any>[])]) {
+        const classId = String(row?.id || '').trim()
+        if (!classId || rowMap.has(classId)) continue
+        rowMap.set(classId, row)
+      }
+      classRows = Array.from(rowMap.values())
+    }
+
+    const assignedClasses = await Promise.all(classRows.map(async row => {
       const classId = String(row.id || '')
-      const isClassTeacher = String(row.classTeacherId || '') === teacherId
+      const isClassTeacher = matchesComparableIdentifier(row.classTeacherId, teacherIdentifiers)
       const [studentCountRow, subjectCountRow, assignmentCountRow, materialCountRow, streamCountRow, teacherSubjectRows] = await Promise.all([
         c.env.APP_DB.prepare(
           `SELECT COUNT(*) as count
@@ -1751,11 +1865,12 @@ app.get('/api/classrooms/assigned', authenticate, async (c) => {
           `SELECT COUNT(*) as count FROM posts WHERE classId = ?`
         ).bind(classId).first().catch(() => ({ count: 0 })),
         c.env.APP_DB.prepare(
-          `SELECT id, name, teacherId FROM subjects WHERE tenantId = ? AND classId = ? AND teacherId = ? ORDER BY name`
-        ).bind(tenantId, classId, teacherId).all().catch(() => ({ results: [] })),
+          `SELECT id, name, teacherId FROM subjects WHERE tenantId = ? AND classId = ? ORDER BY name`
+        ).bind(tenantId, classId).all().catch(() => ({ results: [] })),
       ])
 
-      let subjectRows = ((teacherSubjectRows as any)?.results || []) as Record<string, any>[]
+      let subjectRows = (((teacherSubjectRows as any)?.results || []) as Record<string, any>[])
+        .filter(subjectRow => matchesComparableIdentifier(subjectRow.teacherId, teacherIdentifiers))
       if (subjectRows.length === 0 && isClassTeacher) {
         const fallbackSubjectRows = await c.env.APP_DB.prepare(
           `SELECT id, name, teacherId FROM subjects WHERE tenantId = ? AND classId = ? ORDER BY name`
@@ -1807,10 +1922,21 @@ app.get('/api/classrooms/:classroomId/stream', authenticate, async (c) => {
   }
 })
 
+app.get('/api/classrooms/:classroomId/posts', authenticate, async (c) => {
+  const classroomId = c.req.param('classroomId')
+  try {
+    const posts = await getPostsForClass(c.env.APP_DB, classroomId)
+    return c.json({ success: true, posts })
+  } catch (error) {
+    return c.json({ success: false, message: 'Server error', error }, 500)
+  }
+})
+
 app.post('/api/classrooms/:classroomId/stream', authenticate, async (c) => {
   const classroomId = c.req.param('classroomId')
-  const { content } = await c.req.json()
-  const authorId = 'user-teacher-1' // Placeholder
+  const body = await c.req.json()
+  const content = String(body?.content || body?.text || '').trim()
+  const authorId = String(body?.authorId || c.var.user?.id || 'user-teacher-1').trim()
   if (!content) {
     return c.json({ success: false, message: 'Content is required' }, 400)
   }
@@ -1824,6 +1950,123 @@ app.post('/api/classrooms/:classroomId/stream', authenticate, async (c) => {
     return c.json({ success: true, post: insertedPost }, 201)
   } catch (error) {
     return c.json({ success: false, message: 'Server error', error }, 500)
+  }
+})
+
+app.post('/api/classrooms/:classroomId/posts', authenticate, async (c) => {
+  const classroomId = c.req.param('classroomId')
+  const body = await c.req.json()
+  const content = String(body?.content || body?.text || '').trim()
+  const authorId = String(body?.authorId || c.var.user?.id || 'user-teacher-1').trim()
+  if (!content) {
+    return c.json({ success: false, message: 'Content is required' }, 400)
+  }
+  try {
+    const newPost = {
+      classId: classroomId,
+      authorId,
+      content,
+    }
+    const insertedPost = await createPost(c.env.APP_DB, newPost)
+    return c.json({ success: true, post: insertedPost }, 201)
+  } catch (error) {
+    return c.json({ success: false, message: 'Server error', error }, 500)
+  }
+})
+
+app.post('/api/classrooms/:classroomId/posts/:postId/comments', authenticate, async (c) => {
+  const postId = c.req.param('postId')
+  const body = await c.req.json()
+  const text = String(body?.text || body?.content || '').trim()
+  const authorId = String(body?.authorId || c.var.user?.id || c.var.user?.email || '').trim()
+  const authorName = String(c.var.user?.name || authorId || 'Teacher').trim()
+
+  if (!text) {
+    return c.json({ success: false, message: 'Comment text is required.' }, 400)
+  }
+
+  try {
+    const comment = await addPostComment(c.env.APP_DB, postId, {
+      text,
+      authorId,
+      user: authorName,
+    })
+    return c.json({ success: true, comment }, 201)
+  } catch (error) {
+    return c.json({ success: false, message: error instanceof Error ? error.message : 'Could not add comment.' }, 500)
+  }
+})
+
+app.get('/api/classrooms/:classroomId/live', authenticate, async (c) => {
+  const classroomId = c.req.param('classroomId')
+  try {
+    const sessions = await getLiveSessionsForClass(c.env.APP_DB, classroomId)
+    return c.json({ success: true, sessions })
+  } catch (error) {
+    return c.json({ success: false, message: 'Could not load live sessions.', error }, 500)
+  }
+})
+
+app.post('/api/classrooms/:classroomId/live', authenticate, async (c) => {
+  const classroomId = c.req.param('classroomId')
+  const { subjectId, topic, mode } = await c.req.json()
+
+  if (!subjectId) {
+    return c.json({ success: false, message: 'subjectId is required.' }, 400)
+  }
+
+  try {
+    const publishContext = await resolveMaterialPublishingContext(c.env.APP_DB, c.var.user || {}, classroomId, String(subjectId))
+    if (!publishContext.ok) {
+      return c.json({ success: false, message: publishContext.message }, publishContext.status)
+    }
+
+    const session = await createLiveSession(c.env.APP_DB, {
+      classId: classroomId,
+      subjectId: String(publishContext.subjectRow.id || ''),
+      subjectName: String(publishContext.subjectRow.name || ''),
+      topic: String(topic || '').trim() || `${String(publishContext.subjectRow.name || 'Class')} Live Session`,
+      mode: String(mode || '').trim() || 'Video + Audio',
+      createdBy: publishContext.teacherId,
+      createdByName: publishContext.uploadedByName,
+      metadata: {
+        className: `${publishContext.classRow.name}${publishContext.classRow.arm ? ` ${publishContext.classRow.arm}` : ''}`,
+      },
+    })
+
+    return c.json({ success: true, session }, 201)
+  } catch (error) {
+    return c.json({ success: false, message: 'Could not start live class.', error }, 500)
+  }
+})
+
+app.post('/api/classrooms/:classroomId/live/:sessionId/end', authenticate, async (c) => {
+  const sessionId = c.req.param('sessionId')
+
+  try {
+    const session = await updateLiveSessionStatus(c.env.APP_DB, sessionId, 'Ended')
+    return c.json({ success: true, session })
+  } catch (error) {
+    return c.json({ success: false, message: error instanceof Error ? error.message : 'Could not end live class.' }, 500)
+  }
+})
+
+app.get('/api/classrooms/:classroomId/subjects', authenticate, async (c) => {
+  const classroomId = c.req.param('classroomId')
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ success: false, message: 'No tenant.' }, 400)
+
+  try {
+    await c.env.APP_DB.prepare(`CREATE TABLE IF NOT EXISTS subjects (id TEXT PRIMARY KEY, tenantId TEXT, name TEXT, classId TEXT, teacherId TEXT, createdAt TEXT)`).run()
+    try { await c.env.APP_DB.exec('ALTER TABLE subjects ADD COLUMN tenantId TEXT') } catch {}
+    try { await c.env.APP_DB.exec('ALTER TABLE subjects ADD COLUMN classId TEXT') } catch {}
+    try { await c.env.APP_DB.exec('ALTER TABLE subjects ADD COLUMN teacherId TEXT') } catch {}
+    const rows = await c.env.APP_DB.prepare(
+      'SELECT * FROM subjects WHERE tenantId = ? AND classId = ? ORDER BY name'
+    ).bind(tenantId, classroomId).all()
+    return c.json({ success: true, subjects: rows.results || [] })
+  } catch (error) {
+    return c.json({ success: false, message: 'Could not load class subjects.', error }, 500)
   }
 })
 
@@ -1866,7 +2109,8 @@ app.post('/api/classrooms/:classroomId/assignments', authenticate, async (c) => 
     const userIdentifier = user.id || user.email || user.sub || ''
     const resolvedUser = await resolveSettingsIdentity(c.env.APP_DB, userIdentifier)
     const tenantId = resolvedUser.settings?.tenantId || resolvedUser.settings?.schoolId || resolvedUser.userRow?.tenantId || user.tenantId
-    const teacherId = resolvedUser.userRow?.id || user.id || ''
+    const teacherIdentifiers = collectComparableIdentifiers(collectResolvedIdentityIdentifiers(resolvedUser, user))
+    const teacherId = String(resolvedUser.userRow?.id || resolvedUser.userRow?.email || resolvedUser.settingsKey || user.id || '').trim()
 
     await ensureClassesTable(c.env.APP_DB)
     await c.env.APP_DB.prepare(`CREATE TABLE IF NOT EXISTS subjects (id TEXT PRIMARY KEY, tenantId TEXT, name TEXT, classId TEXT, teacherId TEXT, createdAt TEXT)`).run()
@@ -1890,7 +2134,8 @@ app.post('/api/classrooms/:classroomId/assignments', authenticate, async (c) => 
       return c.json({ success: false, message: 'Subject not found for this class.' }, 404)
     }
 
-    const canCreateForSubject = String(subjectRow.teacherId || '') === teacherId || String(classRow.classTeacherId || '') === teacherId
+    const canCreateForSubject = matchesComparableIdentifier(subjectRow.teacherId, teacherIdentifiers)
+      || matchesComparableIdentifier(classRow.classTeacherId, teacherIdentifiers)
     if (!canCreateForSubject) {
       return c.json({ success: false, message: 'You are not assigned to this subject.' }, 403)
     }
@@ -1928,14 +2173,20 @@ app.post('/api/assignments/:assignmentId/submit', authenticate, async (c) => {
     const userIdentifier = user.id || user.email || user.sub || ''
     const resolvedUser = await resolveSettingsIdentity(c.env.APP_DB, userIdentifier)
     const studentId = resolvedUser.userRow?.id || user.id || userIdentifier
-    const studentClassId = resolvedUser.settings?.classId || user.classId || ''
     const assignment = await getAssignmentById(c.env.APP_DB, assignmentId)
 
     if (!assignment) {
       return c.json({ success: false, message: 'Assignment not found.' }, 404)
     }
 
-    if (studentClassId && String((assignment as any).classId || '') !== String(studentClassId)) {
+    const assignmentClassId = String((assignment as any).classId || '').trim()
+    const knownStudentClassIds = Array.from(new Set([
+      resolvedUser.settings?.classId,
+      user.classId,
+      resolvedUser.userRow?.classId,
+    ].map(value => String(value || '').trim()).filter(Boolean)))
+
+    if (knownStudentClassIds.length > 0 && assignmentClassId && !knownStudentClassIds.includes(assignmentClassId)) {
       return c.json({ success: false, message: 'You are not assigned to this class assignment.' }, 403)
     }
 
@@ -2009,7 +2260,8 @@ async function resolveMaterialPublishingContext(db: D1Database, user: Record<str
   const userIdentifier = user.id || user.email || user.sub || ''
   const resolvedUser = await resolveSettingsIdentity(db, userIdentifier)
   const tenantId = resolvedUser.settings?.tenantId || resolvedUser.settings?.schoolId || resolvedUser.userRow?.tenantId || user.tenantId
-  const teacherId = resolvedUser.userRow?.id || user.id || ''
+  const teacherIdentifiers = collectComparableIdentifiers(collectResolvedIdentityIdentifiers(resolvedUser, user))
+  const teacherId = String(resolvedUser.userRow?.id || resolvedUser.userRow?.email || resolvedUser.settingsKey || user.id || '').trim()
 
   await ensureClassesTable(db)
   await ensureClassroomSubjectsTable(db)
@@ -2030,7 +2282,8 @@ async function resolveMaterialPublishingContext(db: D1Database, user: Record<str
     return { ok: false, status: 404, message: 'Subject not found for this class.' }
   }
 
-  const canPublish = String(subjectRow.teacherId || '') === teacherId || String(classRow.classTeacherId || '') === teacherId
+  const canPublish = matchesComparableIdentifier(subjectRow.teacherId, teacherIdentifiers)
+    || matchesComparableIdentifier(classRow.classTeacherId, teacherIdentifiers)
   if (!canPublish) {
     return { ok: false, status: 403, message: 'You are not assigned to this subject.' }
   }
@@ -2057,8 +2310,8 @@ app.get('/api/classrooms/:classroomId/materials', authenticate, async (c) => {
 app.post('/api/classrooms/:classroomId/materials', authenticate, async (c) => {
   const classroomId = c.req.param('classroomId')
   const { title, url, subjectId, description, type } = await c.req.json()
-  if (!title || !url || !subjectId) {
-    return c.json({ success: false, message: 'Title, URL, and subject are required.' }, 400)
+  if (!title || !subjectId) {
+    return c.json({ success: false, message: 'Title and subject are required.' }, 400)
   }
   try {
     const publishContext = await resolveMaterialPublishingContext(c.env.APP_DB, c.var.user || {}, classroomId, String(subjectId))
@@ -2069,7 +2322,7 @@ app.post('/api/classrooms/:classroomId/materials', authenticate, async (c) => {
     const newMaterial = {
       classId: classroomId,
       title,
-      url,
+      url: String(url || '').trim() || null,
       uploadedBy: publishContext.uploadedByName,
       metadata: {
         subjectId: String(publishContext.subjectRow.id || ''),
@@ -2079,7 +2332,7 @@ app.post('/api/classrooms/:classroomId/materials', authenticate, async (c) => {
         uploadedByName: publishContext.uploadedByName,
         uploadedById: publishContext.teacherId,
         className: `${publishContext.classRow.name}${publishContext.classRow.arm ? ` ${publishContext.classRow.arm}` : ''}`,
-        source: 'link',
+        source: url ? 'link' : 'note',
       },
     }
     const insertedMaterial = await addMaterial(c.env.APP_DB, newMaterial)
@@ -2183,7 +2436,12 @@ async function getSchoolClassroomContext(db: D1Database, tenantId: string, class
   const normalizedActorId = String(actorId || '').trim()
   const normalizedRole = String(actorRole || '').toLowerCase().trim()
   const isElevatedViewer = ['owner', 'hos', 'admin'].includes(normalizedRole)
-  const isClassTeacher = normalizedActorId !== '' && String(classRow.classTeacherId || '') === normalizedActorId
+  const resolvedActor = normalizedActorId ? await resolveSettingsIdentity(db, normalizedActorId).catch(() => null) : null
+  const actorIdentifiers = collectComparableIdentifiers(collectResolvedIdentityIdentifiers(
+    resolvedActor || { settingsKey: normalizedActorId, settings: null, userRow: null },
+    { id: normalizedActorId },
+  ))
+  const isClassTeacher = matchesComparableIdentifier(classRow.classTeacherId, actorIdentifiers)
 
   return {
     classRow,
@@ -2380,6 +2638,110 @@ app.get('/api/classrooms/:classroomId/students', authenticate, async (c) => {
       }))
 
     return c.json({ success: true, students })
+  } catch (error) {
+    return c.json({ success: false, message: 'Server error', error }, 500)
+  }
+})
+
+app.get('/api/classrooms/:classroomId/members', authenticate, async (c) => {
+  const classroomId = c.req.param('classroomId')
+
+  try {
+    const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
+    if (!actor.tenantId) {
+      return c.json({ success: false, message: 'No tenant.' }, 400)
+    }
+
+    const classRow = await c.env.APP_DB.prepare(
+      `SELECT id, tenantId, name, arm, classTeacherId FROM classes WHERE id = ? AND tenantId = ?`
+    ).bind(classroomId, actor.tenantId).first() as Record<string, any> | null
+
+    if (!classRow) {
+      return c.json({ success: false, message: 'Class not found.' }, 404)
+    }
+
+    const normalizedRole = String(actor.role || '').toLowerCase().trim()
+    let canViewMembers = ['owner', 'hos', 'admin'].includes(normalizedRole)
+
+    if (!canViewMembers && normalizedRole === 'student') {
+      const self = await resolveStudentAttendanceTarget(c.env.APP_DB, actor.tenantId, actor.actorId || actor.resolvedUser.settingsKey || '')
+      canViewMembers = Boolean(self && String(self.classId || '') === classroomId)
+    }
+
+    if (!canViewMembers && ['teacher', 'classteacher'].includes(normalizedRole)) {
+      const teacherIdentifiers = collectComparableIdentifiers(collectResolvedIdentityIdentifiers(
+        actor.resolvedUser,
+        { id: actor.actorId, email: actor.resolvedUser?.settings?.email, sub: actor.actorId },
+      ))
+
+      const subjectRows = await c.env.APP_DB.prepare(
+        `SELECT teacherId FROM subjects WHERE tenantId = ? AND classId = ?`
+      ).bind(actor.tenantId, classroomId).all().catch(() => ({ results: [] }))
+
+      const classTeacherMatch = matchesComparableIdentifier(classRow.classTeacherId, teacherIdentifiers)
+      const subjectTeacherMatch = ((subjectRows.results || []) as Record<string, any>[])
+        .some(subjectRow => matchesComparableIdentifier(subjectRow.teacherId, teacherIdentifiers))
+
+      canViewMembers = classTeacherMatch || subjectTeacherMatch
+    }
+
+    if (!canViewMembers) {
+      return c.json({ success: false, message: 'You are not allowed to view this class member list.' }, 403)
+    }
+
+    await ensureUsersTable(c.env.APP_DB)
+
+    const studentRows = await c.env.APP_DB.prepare(
+      `SELECT id, name, email, role, status, createdAt
+       FROM users
+       WHERE tenantId = ? AND role = 'student' AND (status IS NULL OR status != 'inactive')
+       ORDER BY name`
+    ).bind(actor.tenantId).all()
+
+    const studentRoster = await hydrateUserRecords(c.env.APP_DB, (studentRows.results || []) as Record<string, any>[])
+    const className = `${classRow.name}${classRow.arm ? ` ${classRow.arm}` : ''}`
+    const students = studentRoster
+      .filter(student => String(student?.classId || '') === classroomId)
+      .map(student => ({
+        id: student.id,
+        name: student.name,
+        email: student.email,
+        displayId: student.displayId || null,
+        classId: classroomId,
+        className,
+        role: 'Student',
+        status: String(student.status || 'active').toLowerCase() === 'active' ? 'Active' : String(student.status || ''),
+      }))
+
+    const subjectTeacherRows = await c.env.APP_DB.prepare(
+      `SELECT teacherId FROM subjects WHERE tenantId = ? AND classId = ? AND teacherId IS NOT NULL AND trim(teacherId) != ''`
+    ).bind(actor.tenantId, classroomId).all().catch(() => ({ results: [] }))
+
+    const teacherIdentifiers = Array.from(new Set([
+      String(classRow.classTeacherId || '').trim(),
+      ...((subjectTeacherRows.results || []) as Record<string, any>[]).map(row => String(row.teacherId || '').trim()),
+    ].filter(Boolean)))
+
+    const teacherRows = (await Promise.all(teacherIdentifiers.map(identifier => findUserByIdentifier(c.env.APP_DB, identifier).catch(() => null))))
+      .filter(Boolean) as Record<string, any>[]
+    const hydratedTeachers = await hydrateUserRecords(c.env.APP_DB, teacherRows)
+    const teachers = hydratedTeachers.map(teacher => ({
+      id: teacher.id,
+      name: teacher.name,
+      email: teacher.email,
+      displayId: teacher.displayId || null,
+      classId: classroomId,
+      className,
+      role: 'Teacher',
+      status: String(teacher.status || 'active').toLowerCase() === 'active' ? 'Active' : String(teacher.status || ''),
+      isClassTeacher: matchesComparableIdentifier(classRow.classTeacherId, collectComparableIdentifiers([
+        teacher.id,
+        teacher.email,
+        teacher.displayId,
+      ])),
+    }))
+
+    return c.json({ success: true, members: [...teachers, ...students] })
   } catch (error) {
     return c.json({ success: false, message: 'Server error', error }, 500)
   }
@@ -3357,12 +3719,8 @@ app.post('/api/school/classes', authenticate, async (c) => {
     try { await c.env.APP_DB.exec('ALTER TABLE classes ADD COLUMN arm TEXT') } catch {}
     try { await c.env.APP_DB.exec('ALTER TABLE classes ADD COLUMN classTeacherId TEXT') } catch {}
     try { await c.env.APP_DB.exec('ALTER TABLE classes ADD COLUMN createdAt TEXT') } catch {}
-    const normalizedTeacherId = String(classTeacherId || '').trim() || null
+    const normalizedTeacherId = await resolveCanonicalUserIdentifier(c.env.APP_DB, classTeacherId)
     await c.env.APP_DB.prepare(`INSERT INTO classes (id, tenantId, name, arm, classTeacherId, createdAt) VALUES (?, ?, ?, ?, ?, ?)`).bind(id, tenantId, name, arm || '', normalizedTeacherId, new Date().toISOString()).run()
-    if (normalizedTeacherId) {
-      await c.env.APP_DB.prepare('UPDATE subjects SET teacherId = ? WHERE classId = ? AND tenantId = ?')
-        .bind(normalizedTeacherId, id, tenantId).run()
-    }
     await syncTeacherClassAssignment(c.env.APP_DB, tenantId, { id, name, arm: arm || '', classTeacherId: normalizedTeacherId })
     return c.json({ success: true, id }, 201)
   } catch (err) {
@@ -3385,18 +3743,11 @@ app.put('/api/school/classes/:classId', authenticate, async (c) => {
     const vals: unknown[] = []
     if (name !== undefined) { sets.push('name = ?'); vals.push(name) }
     if (arm !== undefined) { sets.push('arm = ?'); vals.push(arm) }
-    const normalizedTeacherId = classTeacherId !== undefined ? (String(classTeacherId || '').trim() || null) : undefined
+    const normalizedTeacherId = classTeacherId !== undefined ? await resolveCanonicalUserIdentifier(c.env.APP_DB, classTeacherId) : undefined
     if (normalizedTeacherId !== undefined) { sets.push('classTeacherId = ?'); vals.push(normalizedTeacherId) }
     if (sets.length === 0) return c.json({ error: 'Nothing to update.' }, 400)
     vals.push(classId, tenantId)
     await c.env.APP_DB.prepare(`UPDATE classes SET ${sets.join(', ')} WHERE id = ? AND tenantId = ?`).bind(...vals).run()
-    if (normalizedTeacherId) {
-      await c.env.APP_DB.prepare('UPDATE subjects SET teacherId = ? WHERE classId = ? AND tenantId = ?')
-        .bind(normalizedTeacherId, classId, tenantId).run()
-    } else if (classTeacherId !== undefined) {
-      await c.env.APP_DB.prepare('UPDATE subjects SET teacherId = NULL WHERE classId = ? AND tenantId = ?')
-        .bind(classId, tenantId).run()
-    }
 
     const updatedClass = {
       ...existingClass,
@@ -3434,11 +3785,17 @@ app.post('/api/school/subjects', authenticate, async (c) => {
   if (!name) return c.json({ error: 'Subject name is required.' }, 400)
   const id = `subject_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`
   try {
+    const normalizedClassId = String(classId || '').trim() || null
+    const normalizedTeacherId = await resolveCanonicalUserIdentifier(c.env.APP_DB, teacherId)
+    if (normalizedTeacherId && !normalizedClassId) {
+      return c.json({ error: 'Assign the subject to a class before assigning a teacher.' }, 400)
+    }
+
     await c.env.APP_DB.prepare(`CREATE TABLE IF NOT EXISTS subjects (id TEXT PRIMARY KEY, tenantId TEXT, name TEXT, classId TEXT, teacherId TEXT, createdAt TEXT)`).run()
     try { await c.env.APP_DB.exec('ALTER TABLE subjects ADD COLUMN tenantId TEXT') } catch {}
     try { await c.env.APP_DB.exec('ALTER TABLE subjects ADD COLUMN classId TEXT') } catch {}
     try { await c.env.APP_DB.exec('ALTER TABLE subjects ADD COLUMN teacherId TEXT') } catch {}
-    await c.env.APP_DB.prepare(`INSERT INTO subjects (id, tenantId, name, classId, teacherId, createdAt) VALUES (?, ?, ?, ?, ?, ?)`).bind(id, tenantId, name, classId || null, teacherId || null, new Date().toISOString()).run()
+    await c.env.APP_DB.prepare(`INSERT INTO subjects (id, tenantId, name, classId, teacherId, createdAt) VALUES (?, ?, ?, ?, ?, ?)`).bind(id, tenantId, name, normalizedClassId, normalizedTeacherId, new Date().toISOString()).run()
     return c.json({ success: true, id }, 201)
   } catch (err) {
     return c.json({ error: err instanceof Error ? err.message : 'Could not add subject.' }, 500)
@@ -3480,11 +3837,23 @@ app.put('/api/school/subjects/:subjectId', authenticate, async (c) => {
   const body = await c.req.json()
   const { name, classId, teacherId } = body
   try {
+    const existingSubject = await c.env.APP_DB.prepare(`SELECT * FROM subjects WHERE id = ? AND tenantId = ?`).bind(subjectId, tenantId).first() as Record<string, any> | null
+    if (!existingSubject) return c.json({ error: 'Subject not found.' }, 404)
+
     const sets: string[] = []
     const vals: unknown[] = []
     if (name !== undefined) { sets.push('name = ?'); vals.push(name) }
-    if (classId !== undefined) { sets.push('classId = ?'); vals.push(classId) }
-    if (teacherId !== undefined) { sets.push('teacherId = ?'); vals.push(teacherId) }
+    const normalizedClassId = classId !== undefined
+      ? (String(classId || '').trim() || null)
+      : (String(existingSubject.classId || '').trim() || null)
+    const normalizedTeacherId = teacherId !== undefined
+      ? await resolveCanonicalUserIdentifier(c.env.APP_DB, teacherId)
+      : undefined
+    if (normalizedTeacherId && !normalizedClassId) {
+      return c.json({ error: 'Assign the subject to a class before assigning a teacher.' }, 400)
+    }
+    if (classId !== undefined) { sets.push('classId = ?'); vals.push(normalizedClassId) }
+    if (teacherId !== undefined) { sets.push('teacherId = ?'); vals.push(normalizedTeacherId) }
     if (sets.length === 0) return c.json({ error: 'Nothing to update.' }, 400)
     vals.push(subjectId, tenantId)
     await c.env.APP_DB.prepare(`UPDATE subjects SET ${sets.join(', ')} WHERE id = ? AND tenantId = ?`).bind(...vals).run()

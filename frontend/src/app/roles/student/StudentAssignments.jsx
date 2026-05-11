@@ -140,7 +140,7 @@ function AssignmentDetail({ assignment, onSubmissionSaved }) {
     try {
       const response = await submitAssignment(assignment.id, { answers });
       if (!response?.success) {
-        throw new Error(response?.message || 'Could not submit assignment.');
+        throw new Error(response?.message || response?.error || 'Could not submit assignment.');
       }
       onSubmissionSaved(assignment.id, response.submission);
       setNotice('Assignment submitted successfully.');

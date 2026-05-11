@@ -35,6 +35,14 @@ export default function TeacherDashboard({ auth }) {
     return <TeacherClassroom initialTab="attendance" lockedTab="attendance" />;
   }
 
+  if (sectionKey === 'classroom') {
+    return <TeacherClassroom initialTab="stream" />;
+  }
+
+  if (sectionKey === 'assignments') {
+    return <TeacherClassroom initialTab="assignments" lockedTab="assignments" />;
+  }
+
   if (sectionKey === 'materials') {
     return <TeacherClassroom initialTab="materials" lockedTab="materials" />;
   }

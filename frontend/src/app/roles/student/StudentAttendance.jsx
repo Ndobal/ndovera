@@ -1,7 +1,7 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import StudentSectionShell from './StudentSectionShell';
 import { getStoredAuth } from '../../../features/auth/services/authApi';
-import { getStudentAttendance } from '../../../features/school/services/schoolApi';
+import { getSession, getStudentAttendance } from '../../../features/school/services/schoolApi';
 
 function stateScore(state) {
   if (!state) return 0;
@@ -13,10 +13,10 @@ function stateScore(state) {
 
 function niceBadge(state) {
   const s = (state || '').toLowerCase();
-  if (s.startsWith('present')) return { label: 'Present', cls: 'glass-chip accent-emerald text-emerald-700' };
-  if (s.startsWith('late')) return { label: 'Late', cls: 'glass-chip accent-amber text-amber-600' };
-  if (s.startsWith('excused')) return { label: 'Excused', cls: 'glass-chip accent-indigo text-indigo-600' };
-  return { label: state || 'Unknown', cls: 'glass-chip accent-rose text-rose-600' };
+  if (s.startsWith('present')) return { label: 'Present', cls: 'px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-700 border border-emerald-300' };
+  if (s.startsWith('late')) return { label: 'Late', cls: 'px-3 py-1 rounded-full text-xs font-semibold bg-sky-100 text-sky-700 border border-sky-300' };
+  if (s.startsWith('excused')) return { label: 'Excused', cls: 'px-3 py-1 rounded-full text-xs font-semibold bg-indigo-100 text-indigo-700 border border-indigo-300' };
+  return { label: state || 'Unknown', cls: 'px-3 py-1 rounded-full text-xs font-semibold bg-rose-100 text-rose-700 border border-rose-300' };
 }
 
 function normalizeStatus(state) {
@@ -48,6 +48,7 @@ export default function StudentAttendance() {
   const [records, setRecords] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState(null);
+  const [termWindow, setTermWindow] = useState({ startDate: '', endDate: '', term: '' });
 
   useEffect(() => {
     let mounted = true;
@@ -55,7 +56,20 @@ export default function StudentAttendance() {
     async function load() {
       setLoading(true);
       try {
-        const data = await getStudentAttendance({ limit: 365 });
+        const sessionData = await getSession().catch(() => null);
+        const activeSession = sessionData?.session || {};
+        const from = String(activeSession.startDate || '').trim();
+        const to = String(activeSession.endDate || '').trim();
+        if (mounted) {
+          setTermWindow({
+            startDate: from,
+            endDate: to,
+            term: String(activeSession.term || '').trim(),
+          });
+        }
+
+        const filters = from && to ? { from, to } : { limit: 365 };
+        const data = await getStudentAttendance(filters);
         if (mounted && data && Array.isArray(data.records)) {
           const rows = data.records.map(r => ({
             id: r.id,
@@ -78,19 +92,33 @@ export default function StudentAttendance() {
     return () => { mounted = false; };
   }, []);
 
-  // build calendar heatmap for last 30 days
+  const attendanceWindowLabel = useMemo(() => {
+    if (!termWindow.startDate || !termWindow.endDate) return 'Attendance timeline';
+    const start = new Date(`${termWindow.startDate}T00:00:00`);
+    const end = new Date(`${termWindow.endDate}T00:00:00`);
+    const startLabel = start.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    const endLabel = end.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    return `${termWindow.term ? `${termWindow.term} • ` : ''}${startLabel} to ${endLabel}`;
+  }, [termWindow]);
+
+  // build calendar heatmap for the active term window
   const heatmap = useMemo(() => {
+    const recordMap = new Map(records.map(record => [record.date, record]));
     const days = [];
-    const today = new Date();
-    for (let i = 29; i >= 0; i--) {
-      const d = new Date(today);
-      d.setDate(today.getDate() - i);
-      const iso = d.toISOString().slice(0,10);
-      const rec = records.find(r => r.date === iso);
+    const start = termWindow.startDate ? new Date(`${termWindow.startDate}T00:00:00`) : (() => {
+      const fallback = new Date();
+      fallback.setDate(fallback.getDate() - 29);
+      return fallback;
+    })();
+    const end = termWindow.endDate ? new Date(`${termWindow.endDate}T00:00:00`) : new Date();
+
+    for (let cursor = new Date(start); cursor <= end; cursor.setDate(cursor.getDate() + 1)) {
+      const iso = cursor.toISOString().slice(0, 10);
+      const rec = recordMap.get(iso);
       days.push({ date: iso, status: rec ? rec.status : null, notes: rec ? rec.notes : null, recordedBy: rec ? rec.recordedBy : null, id: rec ? rec.id : null });
     }
     return days;
-  }, [records]);
+  }, [records, termWindow]);
 
   const summary = useMemo(() => {
     const totals = { present: 0, late: 0, absent: 0 };
@@ -131,14 +159,22 @@ export default function StudentAttendance() {
 
         {/* Heatmap */}
         <div className="mb-4">
-          <div className="text-sm burgundy-text text-slate-300 mb-2">Last 30 days</div>
+          <div className="text-sm burgundy-text text-slate-300 mb-2">{attendanceWindowLabel}</div>
           <div className="grid grid-cols-10 gap-2">
             {heatmap.map(cell => {
               const s = (cell.status || '').toLowerCase();
-              const borderColor = s.startsWith('present') ? 'border-b-4 border-b-emerald-400' : s.startsWith('late') ? 'border-b-4 border-b-amber-400' : cell.status ? 'border-b-4 border-b-rose-400' : 'border-b-4 border-b-slate-400';
+              const cellClass = s.startsWith('present')
+                ? 'bg-emerald-100 border-emerald-300 text-emerald-800'
+                : s.startsWith('late')
+                  ? 'bg-sky-100 border-sky-300 text-sky-800'
+                  : s.startsWith('excused')
+                    ? 'bg-indigo-100 border-indigo-300 text-indigo-800'
+                    : cell.status
+                      ? 'bg-rose-100 border-rose-300 text-rose-800'
+                      : 'bg-slate-100 border-slate-300 text-slate-600';
               const shortDate = cell.date ? new Date(cell.date + 'T00:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '';
               return (
-                <button key={cell.date} onClick={() => setSelected(cell)} title={`${cell.date} — ${cell.status || 'No data'}`} className={`wheat-card h-12 w-full rounded border border-white/10 ${borderColor} flex items-center justify-center`}>
+                <button key={cell.date} onClick={() => setSelected(cell)} title={`${cell.date} — ${cell.status || 'No data'}`} className={`h-12 w-full rounded border flex items-center justify-center ${cellClass}`}>
                   <span className="text-[9px] font-semibold burgundy-text leading-none">{shortDate}</span>
                 </button>
               );
@@ -151,7 +187,7 @@ export default function StudentAttendance() {
           {records.slice(0, 14).map(item => {
             const badge = niceBadge(item.status);
             return (
-              <div key={item.date} className="wheat-card rounded-2xl border border-white/10 p-3 bg-slate-900/30 flex items-center justify-between">
+              <div key={item.date} className="wheat-card rounded-2xl border border-white/10 p-3 bg-slate-900/30 flex items-center justify-between gap-3">
                 <div>
                   <div className="burgundy-text text-slate-100 font-medium">{item.date}</div>
                   {item.notes && <div className="burgundy-text text-xs neon-subtle mt-1">{item.notes}</div>}

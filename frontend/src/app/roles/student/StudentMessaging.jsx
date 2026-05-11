@@ -1,247 +1,606 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import StudentSectionShell from './StudentSectionShell';
-import { io } from 'socket.io-client';
+import { getStoredAuth } from '../../../features/auth/services/authApi';
+
+function uniqueIdentifiers(values) {
+  return Array.from(new Set((values || []).map(value => String(value || '').trim()).filter(Boolean)));
+}
+
+function buildRequestInit(token, init = {}) {
+  const nextHeaders = {
+    ...(init.body ? { 'Content-Type': 'application/json' } : {}),
+    ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    ...(init.headers || {}),
+  };
+
+  return {
+    credentials: 'include',
+    ...init,
+    headers: nextHeaders,
+  };
+}
+
+function prettifyIdentifier(identifier) {
+  const value = String(identifier || '').trim();
+  if (!value) return 'Conversation';
+  if (value === 'support') return 'School Support';
+
+  const base = value.includes('@') ? value.split('@')[0] : value;
+  return base
+    .replace(/[_-]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .replace(/\b\w/g, letter => letter.toUpperCase());
+}
+
+function groupMessagesByDate(messages) {
+  const groups = new Map();
+
+  (messages || []).forEach(message => {
+    const sentAt = message.sentAt || message.sent_at || message.createdAt || new Date().toISOString();
+    const key = new Date(sentAt).toISOString().slice(0, 10);
+    const bucket = groups.get(key) || [];
+    bucket.push(message);
+    groups.set(key, bucket);
+  });
+
+  return Array.from(groups.entries()).map(([dateKey, items]) => {
+    const date = new Date(`${dateKey}T00:00:00`);
+    const today = new Date();
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+
+    let label = date.toLocaleDateString();
+    if (date.toDateString() === today.toDateString()) label = 'Today';
+    if (date.toDateString() === yesterday.toDateString()) label = 'Yesterday';
+
+    return { dateKey, label, items };
+  });
+}
+
+function normalizeTeacherContact(member) {
+  return {
+    id: String(member.id || member.email || member.displayId || ''),
+    name: String(member.name || member.email || 'Teacher'),
+    email: String(member.email || ''),
+    displayId: String(member.displayId || ''),
+    role: member.isClassTeacher ? 'Class Teacher' : 'Subject Teacher',
+    status: String(member.status || 'Active'),
+    isClassTeacher: Boolean(member.isClassTeacher),
+    identifiers: uniqueIdentifiers([member.id, member.email, member.displayId]),
+  };
+}
+
+async function requestJson(path, token, init = {}) {
+  const response = await fetch(path, buildRequestInit(token, init));
+  const json = await response.json().catch(() => ({}));
+
+  if (!response.ok || json?.success === false) {
+    throw new Error(json?.error || json?.message || 'Request failed.');
+  }
+
+  return json;
+}
 
 export default function StudentMessaging() {
-  const me = localStorage.getItem('userId') || '';
+  const storedAuth = getStoredAuth();
+  const authUser = storedAuth?.user || {};
+  const token = storedAuth?.token || localStorage.getItem('token') || '';
+  const me = authUser.id || authUser.email || localStorage.getItem('userId') || '';
+  const classroomId = authUser.classId || localStorage.getItem('classroomId') || '';
+  const selfIdentifiers = useMemo(() => uniqueIdentifiers([me, authUser.email, authUser.displayId]), [authUser.displayId, authUser.email, me]);
+
+  const supportContact = useMemo(() => ({
+    id: 'support',
+    name: 'School Support',
+    role: 'Help Desk',
+    status: 'Available',
+    isClassTeacher: false,
+    identifiers: ['support'],
+  }), []);
+
+  const [teacherContacts, setTeacherContacts] = useState([]);
   const [conversations, setConversations] = useState([]);
-  const [activeConv, setActiveConv] = useState(null);
+  const [activeConversationId, setActiveConversationId] = useState('');
   const [messages, setMessages] = useState([]);
   const [composer, setComposer] = useState('');
-  const socketRef = useRef(null);
+  const [loadingContacts, setLoadingContacts] = useState(true);
+  const [loadingConversations, setLoadingConversations] = useState(true);
+  const [loadingMessages, setLoadingMessages] = useState(false);
+  const [actionError, setActionError] = useState('');
 
-  const activeConvIdRef = useRef(null);
+  async function refreshConversations(preferredConversationId) {
+    if (!me) {
+      setConversations([]);
+      setActiveConversationId('');
+      return;
+    }
+
+    const payload = await requestJson(`/api/conversations?userId=${encodeURIComponent(me)}`, token);
+    const nextConversations = payload.conversations || [];
+
+    setConversations(nextConversations);
+    setActiveConversationId(currentConversationId => {
+      const nextId = preferredConversationId || currentConversationId;
+      if (nextId && nextConversations.some(conversation => conversation.id === nextId)) {
+        return nextId;
+      }
+      return nextConversations[0]?.id || '';
+    });
+  }
 
   useEffect(() => {
-    activeConvIdRef.current = activeConv ? activeConv.id : null;
-  }, [activeConv]);
+    let ignore = false;
+
+    async function loadContacts() {
+      if (!classroomId || !me) {
+        setTeacherContacts([]);
+        setLoadingContacts(false);
+        return;
+      }
+
+      setLoadingContacts(true);
+
+      try {
+        const payload = await requestJson(`/api/classrooms/${encodeURIComponent(classroomId)}/members`, token);
+        const teachers = (payload.members || [])
+          .filter(member => String(member.role || '').toLowerCase() === 'teacher')
+          .map(normalizeTeacherContact)
+          .sort((left, right) => Number(Boolean(right.isClassTeacher)) - Number(Boolean(left.isClassTeacher)) || left.name.localeCompare(right.name));
+
+        if (!ignore) {
+          setTeacherContacts(teachers);
+        }
+      } catch {
+        if (!ignore) {
+          setTeacherContacts([]);
+        }
+      } finally {
+        if (!ignore) {
+          setLoadingContacts(false);
+        }
+      }
+    }
+
+    loadContacts();
+    return () => { ignore = true; };
+  }, [classroomId, me, supportContact, token]);
 
   useEffect(() => {
-    // init socket (only once per user)
-    socketRef.current = io(window.location.origin, { query: { userId: me } });
-    socketRef.current.on('connect', () => {});
-      socketRef.current.on('message', (m) => {
-        if (m.conversationId && (activeConv && m.conversationId === activeConv.id)) {
-          setMessages(prev => {
-            // ignore if already present
-            if (prev.some(x => x.id === m.id)) return prev;
-            // find optimistic local message match (same sender/body/conversation)
-            const idx = prev.findIndex(x => (x.status === 'sending' || x.status === 'failed') && x.senderId === m.senderId && x.body === m.body && x.conversationId === m.conversationId);
-            if (idx !== -1) {
-              const copy = [...prev]; copy[idx] = m; return copy;
+    let ignore = false;
+
+    async function loadConversations() {
+      if (!me) {
+        setConversations([]);
+        setActiveConversationId('');
+        setLoadingConversations(false);
+        return;
+      }
+
+      setLoadingConversations(true);
+
+      try {
+        const payload = await requestJson(`/api/conversations?userId=${encodeURIComponent(me)}`, token);
+        const nextConversations = payload.conversations || [];
+
+        if (!ignore) {
+          setConversations(nextConversations);
+          setActiveConversationId(currentConversationId => {
+            if (currentConversationId && nextConversations.some(conversation => conversation.id === currentConversationId)) {
+              return currentConversationId;
             }
-            return [...prev, m];
+            return nextConversations[0]?.id || '';
           });
-          try { socketRef.current.emit('ack', { messageId: m.id, conversationId: m.conversationId }); } catch(e){}
+          setActionError('');
         }
-        // refresh conversations to reflect updated_at
-        fetch(`/api/conversations?userId=${encodeURIComponent(me)}`).then(r=>r.json()).then(d=>setConversations(d.conversations||[])).catch(()=>{});
-      });
-      socketRef.current.on('delivered', ({ messageId }) => {
-        setMessages(prev => prev.map(m => m.id === messageId ? { ...m, deliveredAt: new Date().toISOString() } : m));
-      });
-      socketRef.current.on('read', ({ conversationId, userId: reader }) => {
-        if (conversationId === (activeConv && activeConv.id)) {
-          setMessages(prev => prev.map(m => ({ ...m, readAt: m.readAt || new Date().toISOString() })));
+      } catch (error) {
+        if (!ignore) {
+          setActionError(error instanceof Error ? error.message : 'Could not load conversations.');
         }
-      });
-    socketRef.current.on('delivered', ({ messageId }) => {
-      setMessages(prev => prev.map(m => m.id === messageId ? { ...m, deliveredAt: new Date().toISOString() } : m));
-    });
-    socketRef.current.on('read', ({ conversationId, userId: reader }) => {
-      if (conversationId === activeConvIdRef.current) {
-        setMessages(prev => prev.map(m => ({ ...m, readAt: m.readAt || new Date().toISOString() })));
+      } finally {
+        if (!ignore) {
+          setLoadingConversations(false);
+        }
       }
-    });
-    return () => { socketRef.current && socketRef.current.disconnect(); };
-  }, [me]);
-
-  useEffect(() => {
-    fetch(`/api/conversations?userId=${encodeURIComponent(me)}`).then(r => r.json()).then(j => setConversations(j.conversations || [])).catch(() => {});
-  }, [me]);
-
-  useEffect(() => {
-    if (!activeConv) return;
-    fetch(`/api/conversations/${activeConv.id}/messages`).then(r => r.json()).then(j => setMessages(j.messages || [])).catch(()=>{});
-    // join socket room
-    if (socketRef.current) socketRef.current.emit('join', activeConv.id);
-    // mark messages read for this user
-    if (socketRef.current) {
-      try { fetch(`/api/conversations/${activeConv.id}/mark-read`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ userId: me }) }); } catch(e) {}
-      socketRef.current.emit('join', activeConv.id);
     }
-    return () => { if (socketRef.current) socketRef.current.emit('leave', activeConv.id); };
-  }, [activeConv]);
 
-  const openConversation = (conv) => {
-    setActiveConv(conv);
-  };
+    loadConversations();
+    const poll = window.setInterval(loadConversations, 12000);
+    return () => {
+      ignore = true;
+      window.clearInterval(poll);
+    };
+  }, [me, token]);
 
-  const sendMessage = async () => {
-    if (!composer.trim() || !activeConv) return;
-    const localId = `local_${Date.now()}`;
-    const localMsg = { id: localId, conversationId: activeConv.id, senderId: me, body: composer.trim(), sentAt: new Date().toISOString(), status: 'sending' };
-    setMessages(prev => [...prev, localMsg]);
-    setComposer('');
+  useEffect(() => {
+    let ignore = false;
+
+    async function loadMessages() {
+      if (!activeConversationId) {
+        setMessages([]);
+        setLoadingMessages(false);
+        return;
+      }
+
+      setLoadingMessages(true);
+
+      try {
+        const payload = await requestJson(`/api/conversations/${encodeURIComponent(activeConversationId)}/messages`, token);
+        if (!ignore) {
+          setMessages(payload.messages || []);
+        }
+
+        await requestJson(`/api/conversations/${encodeURIComponent(activeConversationId)}/mark-read`, token, {
+          method: 'POST',
+        }).catch(() => null);
+      } catch (error) {
+        if (!ignore) {
+          setActionError(error instanceof Error ? error.message : 'Could not load messages.');
+        }
+      } finally {
+        if (!ignore) {
+          setLoadingMessages(false);
+        }
+      }
+    }
+
+    loadMessages();
+    const poll = window.setInterval(loadMessages, 9000);
+    return () => {
+      ignore = true;
+      window.clearInterval(poll);
+    };
+  }, [activeConversationId, token]);
+
+  const contactLookup = useMemo(() => {
+    const map = new Map();
+    const selfProfile = {
+      id: me,
+      name: String(authUser.name || authUser.email || 'You'),
+      role: 'Student',
+      status: 'Active',
+      identifiers: selfIdentifiers,
+    };
+
+    selfIdentifiers.forEach(identifier => map.set(identifier, selfProfile));
+    teacherContacts.forEach(contact => {
+      contact.identifiers.forEach(identifier => map.set(identifier, contact));
+    });
+    supportContact.identifiers.forEach(identifier => map.set(identifier, supportContact));
+
+    return map;
+  }, [authUser.email, authUser.name, me, selfIdentifiers, supportContact, teacherContacts]);
+
+  const conversationCards = useMemo(() => {
+    return (conversations || []).map(conversation => {
+      const participants = Array.isArray(conversation.participants) ? conversation.participants.map(value => String(value || '')) : [];
+      const otherParticipants = participants.filter(identifier => !selfIdentifiers.includes(identifier));
+      const otherProfiles = otherParticipants.map(identifier => contactLookup.get(identifier) || {
+        id: identifier,
+        name: prettifyIdentifier(identifier),
+        role: 'School Contact',
+      });
+
+      return {
+        ...conversation,
+        title: String(conversation.subject || '').trim() || otherProfiles.map(profile => profile.name).join(', ') || 'Conversation',
+        subtitle: otherProfiles.map(profile => profile.role).filter(Boolean).join(' • ') || 'Direct message',
+        lastUpdated: conversation.updated_at || conversation.updatedAt || conversation.created_at || conversation.createdAt || '',
+      };
+    }).sort((left, right) => new Date(right.lastUpdated || 0).getTime() - new Date(left.lastUpdated || 0).getTime());
+  }, [contactLookup, conversations, selfIdentifiers]);
+
+  const activeConversation = useMemo(
+    () => conversationCards.find(conversation => conversation.id === activeConversationId) || null,
+    [activeConversationId, conversationCards],
+  );
+
+  const groupedMessages = useMemo(() => groupMessagesByDate(messages), [messages]);
+
+  function resolveParticipantName(identifier) {
+    return contactLookup.get(String(identifier || ''))?.name || prettifyIdentifier(identifier);
+  }
+
+  function resolveParticipantRole(identifier) {
+    return contactLookup.get(String(identifier || ''))?.role || 'School Contact';
+  }
+
+  async function startConversationWith(contact) {
+    setActionError('');
+
+    const existingConversation = conversationCards.find(conversation => {
+      const participants = Array.isArray(conversation.participants) ? conversation.participants.map(value => String(value || '')) : [];
+      const hasSelf = participants.some(identifier => selfIdentifiers.includes(identifier));
+      const hasContact = participants.some(identifier => contact.identifiers.includes(identifier));
+      return hasSelf && hasContact;
+    });
+
+    if (existingConversation) {
+      setActiveConversationId(existingConversation.id);
+      return;
+    }
+
     try {
-      const payload = { senderId: me, body: localMsg.body };
-      const res = await fetch(`/api/conversations/${activeConv.id}/messages`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
-      const j = await res.json();
-      if (j.success && j.message) {
-        // replace local message with server message
-        setMessages(prev => prev.map(m => m.id === localId ? j.message : m));
-      }
-    } catch (err) {
-      setMessages(prev => prev.map(m => m.id === localId ? { ...m, status: 'failed' } : m));
+      const payload = await requestJson('/api/conversations', token, {
+        method: 'POST',
+        body: JSON.stringify({
+          subject: '',
+          participants: [me, contact.id],
+        }),
+      });
+      const nextConversation = payload.conversation;
+      setConversations(previous => [nextConversation, ...previous.filter(conversation => conversation.id !== nextConversation.id)]);
+      setActiveConversationId(nextConversation.id);
+      setMessages([]);
+    } catch (error) {
+      setActionError(error instanceof Error ? error.message : 'Could not start that conversation.');
     }
-  };
+  }
 
-  function handleComposerKey(e) {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      sendMessage();
+  async function sendMessage() {
+    if (!composer.trim() || !activeConversationId) return;
+
+    const localId = `local_${Date.now()}`;
+    const optimisticMessage = {
+      id: localId,
+      conversationId: activeConversationId,
+      senderId: me,
+      body: composer.trim(),
+      sentAt: new Date().toISOString(),
+      status: 'sending',
+    };
+
+    setMessages(previous => [...previous, optimisticMessage]);
+    setComposer('');
+    setActionError('');
+
+    try {
+      const payload = await requestJson(`/api/conversations/${encodeURIComponent(activeConversationId)}/messages`, token, {
+        method: 'POST',
+        body: JSON.stringify({ senderId: me, body: optimisticMessage.body }),
+      });
+
+      if (payload.message) {
+        setMessages(previous => previous.map(message => message.id === localId ? payload.message : message));
+      }
+
+      await refreshConversations(activeConversationId);
+    } catch (error) {
+      setMessages(previous => previous.map(message => message.id === localId ? { ...message, status: 'failed' } : message));
+      setActionError(error instanceof Error ? error.message : 'Could not send the message.');
     }
   }
 
   async function retryMessage(localId) {
-    const msg = messages.find(m => m.id === localId);
-    if (!msg) return;
-    // set sending state
-    setMessages(prev => prev.map(m => m.id === localId ? { ...m, status: 'sending' } : m));
+    const message = messages.find(entry => entry.id === localId);
+    if (!message || !activeConversationId) return;
+
+    setMessages(previous => previous.map(entry => entry.id === localId ? { ...entry, status: 'sending' } : entry));
+
     try {
-      const payload = { senderId: me, body: msg.body };
-      const res = await fetch(`/api/conversations/${msg.conversationId}/messages`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
-      const j = await res.json();
-      if (j.success && j.message) {
-        setMessages(prev => prev.map(m => m.id === localId ? j.message : m));
-      } else {
-        setMessages(prev => prev.map(m => m.id === localId ? { ...m, status: 'failed' } : m));
+      const payload = await requestJson(`/api/conversations/${encodeURIComponent(activeConversationId)}/messages`, token, {
+        method: 'POST',
+        body: JSON.stringify({ senderId: me, body: message.body || '' }),
+      });
+
+      if (payload.message) {
+        setMessages(previous => previous.map(entry => entry.id === localId ? payload.message : entry));
       }
-    } catch (err) {
-      setMessages(prev => prev.map(m => m.id === localId ? { ...m, status: 'failed' } : m));
+
+      await refreshConversations(activeConversationId);
+    } catch (error) {
+      setMessages(previous => previous.map(entry => entry.id === localId ? { ...entry, status: 'failed' } : entry));
+      setActionError(error instanceof Error ? error.message : 'Could not resend the message.');
     }
   }
 
-  const startConversationWith = async (participantId) => {
-    // create or find existing conv with participant
-    const subject = '';
-    const payload = { subject, participants: [me, participantId] };
-    const r = await fetch('/api/conversations', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
-    const j = await r.json();
-    if (j.success) {
-      setConversations(prev => [j.conversation, ...prev]);
-      setActiveConv(j.conversation);
-    } else {
-      alert(j.error || 'Could not create conversation');
+  function handleComposerKey(event) {
+    if (event.key === 'Enter' && !event.shiftKey) {
+      event.preventDefault();
+      sendMessage();
     }
-  };
-
-  function groupMessagesByDate(msgs) {
-    const groups = {};
-    msgs.forEach(m => {
-      const d = new Date(m.sentAt || m.sentAt);
-      const key = d.toISOString().slice(0,10);
-      if (!groups[key]) groups[key] = [];
-      groups[key].push(m);
-    });
-    // transform to array with labels
-    const keys = Object.keys(groups).sort();
-    return keys.map(k => {
-      const d = new Date(k + 'T00:00:00');
-      const today = new Date();
-      const yesterday = new Date(); yesterday.setDate(yesterday.getDate() -1);
-      let label = d.toLocaleDateString();
-      if (d.toDateString() === today.toDateString()) label = 'Today';
-      if (d.toDateString() === yesterday.toDateString()) label = 'Yesterday';
-      return { date: k, label, items: groups[k] };
-    });
-  }
-
-  function msgColorClass(senderId) {
-    if (String(senderId).startsWith('teacher') || String(senderId).startsWith('admin') || String(senderId).startsWith('parent')) return 'msg-text-teacher';
-    return 'msg-text-skyblue';
-  }
-
-  function renderTicks(m) {
-    // sending -> single gray tick, persisted -> double gray, read -> double blue
-    if (m.status === 'sending') {
-      return (
-        <svg className="tick-icon tick-gray" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden>
-          <path d="M20.285 6.709l-11.39 11.39-5.18-5.18 1.414-1.414 3.766 3.766 9.976-9.976z" />
-        </svg>
-      );
-    }
-    if (m.readAt) {
-      return (
-        <svg className="tick-icon tick-blue" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden>
-          <path d="M1 13l4 4L23 3l-4-4L5 13zM7 13l4 4 12-12-4-4L7 13z" />
-        </svg>
-      );
-    }
-    // delivered (persisted to server)
-    return (
-      <svg className="tick-icon tick-gray" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden>
-        <path d="M1 13l4 4L23 3l-4-4L5 13zM7 13l4 4 12-12-4-4L7 13z" />
-      </svg>
-    );
   }
 
   return (
-    <StudentSectionShell title="Messaging" subtitle="Send safe messages to school staff.">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="col-span-1 glass-surface rounded-xl p-3">
-          <div className="flex items-center justify-between mb-2 quick-create">
-            <strong className="">Conversations</strong>
-            <button onClick={() => startConversationWith('support')} className="text-xs px-2 py-1 rounded quick-create">New</button>
-          </div>
-          <div className="space-y-2">
-            {conversations.map(c => (
-              <div key={c.id} onClick={() => openConversation(c)} className={`p-2 rounded-md cursor-pointer conv-list-item ${activeConv && activeConv.id === c.id ? 'bg-indigo-700/20' : ''}`}>
-                <div className="text-sm font-semibold">{c.subject || (c.participants || []).filter(p => p !== me)[0] || 'Conversation'}</div>
-                <div className="text-xs neon-subtle">{(c.participants || []).join(', ')}</div>
+    <StudentSectionShell title="Messaging" subtitle="Reach the teachers handling your class from one place.">
+      <div className="grid grid-cols-1 xl:grid-cols-[320px_minmax(0,1fr)] gap-5">
+        <div className="space-y-4">
+          <section className="rounded-3xl border border-[#800000]/15 bg-[#f5deb3]/95 p-4 shadow-[0_18px_40px_rgba(128,0,0,0.08)] dark:border-[#bf00ff]/30 dark:bg-[#800000]/70">
+            <div className="flex items-start justify-between gap-3">
+              <div>
+                <h3 className="text-lg font-semibold text-[#800000] dark:text-[#0000ff]">Teachers In Your Class</h3>
+                <p className="mt-1 text-sm text-[#191970] dark:text-[#39ff14]">Open a direct conversation with the class teacher or subject teachers.</p>
               </div>
-            ))}
-          </div>
+              <span className="rounded-full bg-[#800000]/10 px-3 py-1 text-xs font-semibold text-[#800020] dark:bg-[#00ffff]/20 dark:text-[#bf00ff]">
+                {loadingContacts ? 'Loading' : `${teacherContacts.length} teachers`}
+              </span>
+            </div>
+
+            <div className="mt-4 space-y-3">
+              {teacherContacts.map(contact => (
+                <button
+                  key={contact.id}
+                  type="button"
+                  onClick={() => startConversationWith(contact)}
+                  className="flex w-full items-start justify-between rounded-2xl border border-[#800000]/10 bg-white/50 px-4 py-3 text-left transition hover:-translate-y-0.5 hover:border-[#1a5c38]/40 hover:shadow-[0_14px_30px_rgba(26,92,56,0.12)] dark:border-[#bf00ff]/25 dark:bg-[#191970]/35"
+                >
+                  <div>
+                    <div className="text-sm font-semibold text-[#800000] dark:text-[#ffffff]">{contact.name}</div>
+                    <div className="mt-1 text-xs text-[#800020] dark:text-[#bf00ff]">{contact.role}</div>
+                  </div>
+                  <span className="rounded-full bg-[#1a5c38] px-3 py-1 text-xs font-bold text-[#f5deb3] dark:bg-[#00ffff] dark:text-black">
+                    Chat
+                  </span>
+                </button>
+              ))}
+
+              {!loadingContacts && teacherContacts.length === 0 ? (
+                <div className="rounded-2xl border border-dashed border-[#800000]/20 px-4 py-6 text-sm text-[#191970] dark:border-[#bf00ff]/30 dark:text-[#39ff14]">
+                  No class teachers are available yet.
+                </div>
+              ) : null}
+
+              <button
+                type="button"
+                onClick={() => startConversationWith(supportContact)}
+                className="flex w-full items-start justify-between rounded-2xl border border-[#800000]/10 bg-[#fff5e1] px-4 py-3 text-left transition hover:-translate-y-0.5 hover:border-[#1a5c38]/40 hover:shadow-[0_14px_30px_rgba(26,92,56,0.12)] dark:border-[#bf00ff]/25 dark:bg-[#191970]/35"
+              >
+                <div>
+                  <div className="text-sm font-semibold text-[#800000] dark:text-[#ffffff]">{supportContact.name}</div>
+                  <div className="mt-1 text-xs text-[#800020] dark:text-[#bf00ff]">{supportContact.role}</div>
+                </div>
+                <span className="rounded-full bg-[#1a5c38] px-3 py-1 text-xs font-bold text-[#f5deb3] dark:bg-[#00ffff] dark:text-black">
+                  Chat
+                </span>
+              </button>
+            </div>
+          </section>
+
+          <section className="rounded-3xl border border-[#800000]/15 bg-[#f5deb3]/95 p-4 shadow-[0_18px_40px_rgba(25,25,112,0.08)] dark:border-[#bf00ff]/30 dark:bg-[#800000]/70">
+            <div className="flex items-center justify-between gap-3">
+              <div>
+                <h3 className="text-lg font-semibold text-[#800000] dark:text-[#0000ff]">Conversations</h3>
+                <p className="mt-1 text-sm text-[#191970] dark:text-[#39ff14]">Your existing staff chats appear here.</p>
+              </div>
+              <span className="text-xs font-semibold text-[#800020] dark:text-[#bf00ff]">{loadingConversations ? 'Refreshing...' : `${conversationCards.length} threads`}</span>
+            </div>
+
+            <div className="mt-4 space-y-3">
+              {conversationCards.map(conversation => (
+                <button
+                  key={conversation.id}
+                  type="button"
+                  onClick={() => setActiveConversationId(conversation.id)}
+                  className={`w-full rounded-2xl border px-4 py-3 text-left transition ${activeConversationId === conversation.id
+                    ? 'border-[#1a5c38] bg-[#1a5c38]/10 shadow-[0_14px_30px_rgba(26,92,56,0.12)] dark:border-[#00ffff] dark:bg-[#191970]/50'
+                    : 'border-[#800000]/10 bg-white/45 hover:border-[#800000]/25 dark:border-[#bf00ff]/20 dark:bg-[#191970]/30'
+                  }`}
+                >
+                  <div className="text-sm font-semibold text-[#800000] dark:text-[#ffffff]">{conversation.title}</div>
+                  <div className="mt-1 text-xs text-[#800020] dark:text-[#bf00ff]">{conversation.subtitle}</div>
+                  <div className="mt-2 text-[11px] text-[#191970]/80 dark:text-[#39ff14]/80">
+                    {conversation.lastUpdated ? new Date(conversation.lastUpdated).toLocaleString() : 'No messages yet'}
+                  </div>
+                </button>
+              ))}
+
+              {!loadingConversations && conversationCards.length === 0 ? (
+                <div className="rounded-2xl border border-dashed border-[#800000]/20 px-4 py-6 text-sm text-[#191970] dark:border-[#bf00ff]/30 dark:text-[#39ff14]">
+                  Start with a teacher card above to open your first conversation.
+                </div>
+              ) : null}
+            </div>
+          </section>
         </div>
 
-        <div className="col-span-2 glass-surface rounded-xl p-3">
-          {!activeConv ? (
-            <div className="text-slate-400">Select or start a conversation</div>
+        <section className="flex min-h-[38rem] flex-col rounded-[2rem] border border-[#800000]/15 bg-[#f5deb3] p-5 shadow-[0_26px_60px_rgba(128,0,0,0.10)] dark:border-[#bf00ff]/30 dark:bg-[#800000]/75">
+          {!me ? (
+            <div className="flex flex-1 items-center justify-center rounded-[1.5rem] border border-dashed border-[#800000]/20 text-sm text-[#191970] dark:border-[#bf00ff]/35 dark:text-[#39ff14]">
+              Sign in again to load your messages.
+            </div>
+          ) : !activeConversation ? (
+            <div className="flex flex-1 flex-col items-center justify-center rounded-[1.5rem] border border-dashed border-[#800000]/20 bg-white/35 px-6 text-center dark:border-[#bf00ff]/35 dark:bg-[#191970]/35">
+              <h3 className="text-xl font-semibold text-[#800000] dark:text-[#0000ff]">Select A Conversation</h3>
+              <p className="mt-2 max-w-xl text-sm text-[#191970] dark:text-[#39ff14]">
+                Pick an existing thread or start a new chat with one of your teachers.
+              </p>
+            </div>
           ) : (
-            <div className="flex flex-col h-96">
-              <div className="flex-1 overflow-auto mb-2 p-2 bg-slate-900/10 rounded">
-                {groupMessagesByDate(messages).map(group => (
-                  <div key={group.date} className="mb-4">
-                    <div className="text-center text-2xs neon-subtle mb-2">{group.label}</div>
-                    {group.items.map(m => (
-                      <div key={m.id} className={`msg-row ${m.senderId === me ? 'own' : 'other'}`}>
-                        <div style={{ maxWidth: '72%' }}>
-                          <div className="msg-sender-name">{m.senderId}</div>
-                          <div className={`msg-bubble ${m.senderId === me ? 'own' : 'other'} msg-no-bg`}>
-                            <div className="text-xs msg-text-skyblue">{m.body}</div>
-                              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                                <div className="text-2xs neon-subtle">{new Date(m.sentAt).toLocaleTimeString()}</div>
-                                {renderTicks(m)}
-                                {m.status === 'failed' ? (
-                                  <button onClick={() => retryMessage(m.id)} className="ml-2 text-xs px-2 py-0.5 rounded bg-yellow-500 text-black">Retry</button>
-                                ) : null}
+            <>
+              <div className="flex items-start justify-between gap-4 border-b border-[#800000]/10 pb-4 dark:border-[#bf00ff]/20">
+                <div>
+                  <h3 className="text-2xl font-semibold text-[#800000] dark:text-[#0000ff]">{activeConversation.title}</h3>
+                  <p className="mt-1 text-sm text-[#191970] dark:text-[#39ff14]">{activeConversation.subtitle}</p>
+                </div>
+                <div className="rounded-full bg-[#1a5c38] px-4 py-2 text-xs font-bold text-[#f5deb3] dark:bg-[#00ffff] dark:text-black">
+                  Safe School Chat
+                </div>
+              </div>
+
+              <div className="mt-4 flex-1 overflow-y-auto rounded-[1.5rem] border border-[#800000]/10 bg-white/40 p-4 dark:border-[#bf00ff]/20 dark:bg-[#191970]/25">
+                {loadingMessages ? (
+                  <div className="text-sm text-[#191970] dark:text-[#39ff14]">Loading messages...</div>
+                ) : groupedMessages.length === 0 ? (
+                  <div className="flex h-full items-center justify-center text-sm text-[#191970] dark:text-[#39ff14]">
+                    No messages yet. Say hello to begin.
+                  </div>
+                ) : (
+                  <div className="space-y-5">
+                    {groupedMessages.map(group => (
+                      <div key={group.dateKey}>
+                        <div className="mb-3 text-center text-xs font-semibold uppercase tracking-[0.2em] text-[#800020] dark:text-[#bf00ff]">
+                          {group.label}
+                        </div>
+                        <div className="space-y-3">
+                          {group.items.map(message => {
+                            const isOwn = selfIdentifiers.includes(String(message.senderId || ''));
+                            const sentAt = message.sentAt || message.sent_at || message.createdAt || new Date().toISOString();
+
+                            return (
+                              <div key={message.id} className={`flex ${isOwn ? 'justify-end' : 'justify-start'}`}>
+                                <div className={`max-w-[78%] rounded-[1.4rem] border px-4 py-3 ${isOwn
+                                  ? 'border-[#1a5c38]/25 bg-[#1a5c38]/12 text-[#191970] dark:border-[#00ffff]/35 dark:bg-[#00ffff]/10 dark:text-[#ffffff]'
+                                  : 'border-[#800000]/15 bg-[#fff8ea] text-[#191970] dark:border-[#bf00ff]/25 dark:bg-[#191970]/45 dark:text-[#39ff14]'
+                                }`}>
+                                  <div className="text-xs font-semibold text-[#800020] dark:text-[#bf00ff]">
+                                    {isOwn ? 'You' : resolveParticipantName(message.senderId)}
+                                  </div>
+                                  <div className="mt-2 whitespace-pre-wrap text-sm leading-6">
+                                    {message.body}
+                                  </div>
+                                  <div className="mt-3 flex items-center justify-between gap-3 text-[11px] text-[#191970]/75 dark:text-[#39ff14]/80">
+                                    <span>{new Date(sentAt).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}</span>
+                                    <span>{isOwn ? (message.readAt ? 'Read' : message.status === 'sending' ? 'Sending...' : message.status === 'failed' ? 'Failed' : 'Sent') : resolveParticipantRole(message.senderId)}</span>
+                                  </div>
+                                  {message.status === 'failed' ? (
+                                    <button
+                                      type="button"
+                                      onClick={() => retryMessage(message.id)}
+                                      className="mt-3 rounded-full bg-[#00ffff] px-3 py-1 text-xs font-bold text-black"
+                                    >
+                                      Retry
+                                    </button>
+                                  ) : null}
+                                </div>
                               </div>
-                          </div>
+                            );
+                          })}
                         </div>
                       </div>
                     ))}
                   </div>
-                ))}
+                )}
               </div>
-              <div>
-                <textarea value={composer} onChange={e => setComposer(e.target.value)} className="w-full rounded-md bg-slate-900/40 border border-white/10 px-2 py-1 text-sm text-slate-100" rows={2} />
-                <div className="mt-2 text-right">
-                  <button onClick={sendMessage} className="px-3 py-1 rounded bg-indigo-600 text-white text-sm">Send</button>
+
+              <div className="mt-4 rounded-[1.5rem] border border-[#800000]/10 bg-white/45 p-4 dark:border-[#bf00ff]/20 dark:bg-[#191970]/35">
+                {actionError ? (
+                  <div className="mb-3 rounded-2xl border border-[#800000]/15 bg-[#fff3df] px-4 py-3 text-sm text-[#800000] dark:border-[#bf00ff]/25 dark:bg-[#2a0f3c] dark:text-[#ffffff]">
+                    {actionError}
+                  </div>
+                ) : null}
+                <textarea
+                  value={composer}
+                  onChange={event => setComposer(event.target.value)}
+                  onKeyDown={handleComposerKey}
+                  rows={3}
+                  placeholder="Write a clear message to your teacher..."
+                  className="w-full rounded-[1.2rem] border border-[#800000]/10 bg-[#fff9f0] px-4 py-3 text-sm text-[#191970] outline-none transition focus:border-[#1a5c38] focus:ring-2 focus:ring-[#1a5c38]/20 dark:border-[#bf00ff]/20 dark:bg-[#12001f] dark:text-[#39ff14] dark:focus:border-[#00ffff] dark:focus:ring-[#00ffff]/20"
+                />
+                <div className="mt-3 flex items-center justify-between gap-3">
+                  <p className="text-xs text-[#800020] dark:text-[#bf00ff]">Messages stay limited to staff contacts for your class.</p>
+                  <button
+                    type="button"
+                    onClick={sendMessage}
+                    disabled={!composer.trim()}
+                    className="rounded-full bg-[#1a5c38] px-5 py-2 text-sm font-bold text-[#f5deb3] transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-[#00ffff] dark:text-black"
+                  >
+                    Send Message
+                  </button>
                 </div>
               </div>
-            </div>
+            </>
           )}
-        </div>
+        </section>
       </div>
     </StudentSectionShell>
   );

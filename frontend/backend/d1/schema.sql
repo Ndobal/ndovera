@@ -54,6 +54,7 @@ CREATE TABLE IF NOT EXISTS posts (
   authorId TEXT,
   content TEXT,
   attachments TEXT,
+  comments TEXT,
   createdAt TEXT
 );
 
@@ -107,6 +108,22 @@ CREATE TABLE IF NOT EXISTS materials (
   metadata TEXT,
   uploadedAt TEXT,
   uploadedBy TEXT
+);
+
+CREATE TABLE IF NOT EXISTS classroom_live_sessions (
+  id TEXT PRIMARY KEY,
+  classId TEXT,
+  subjectId TEXT,
+  subjectName TEXT,
+  topic TEXT,
+  mode TEXT,
+  status TEXT,
+  createdBy TEXT,
+  createdByName TEXT,
+  startedAt TEXT,
+  endedAt TEXT,
+  createdAt TEXT,
+  metadata TEXT
 );
 
 CREATE TABLE IF NOT EXISTS content_saves (
@@ -220,6 +237,7 @@ CREATE INDEX IF NOT EXISTS idx_borrowings_studentId_borrowedAt ON borrowings(stu
 CREATE INDEX IF NOT EXISTS idx_posts_classId_createdAt ON posts(classId, createdAt DESC);
 CREATE INDEX IF NOT EXISTS idx_assignments_classId_createdAt ON assignments(classId, createdAt DESC);
 CREATE INDEX IF NOT EXISTS idx_materials_classId_uploadedAt ON materials(classId, uploadedAt DESC);
+CREATE INDEX IF NOT EXISTS idx_classroom_live_sessions_classId_createdAt ON classroom_live_sessions(classId, createdAt DESC);
 CREATE INDEX IF NOT EXISTS idx_attendance_classId_date ON attendance_records(classId, date DESC);
 CREATE INDEX IF NOT EXISTS idx_attendance_student_id_date ON attendance_records(student_id, date DESC);
 CREATE INDEX IF NOT EXISTS idx_conversations_updated_at ON conversations(updated_at DESC);

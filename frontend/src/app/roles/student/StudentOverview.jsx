@@ -154,20 +154,20 @@ export default function StudentOverview() {
       </div>
 
       <section style={{ background: '#f5deb3', borderRadius: 16, padding: 24, marginTop: 24 }}>
-        <h2 style={{ color: '#800000', fontWeight: 800, fontSize: 18, marginBottom: 16 }}>Subjects</h2>
+        <h2 style={{ color: '#800000', fontWeight: 800, fontSize: 18, marginBottom: 16 }}>Learning Analytics</h2>
         {!hasClass ? (
-          <p style={{ color: '#191970', fontSize: 14 }}>Your subjects will appear here once your class assignment is active.</p>
-        ) : data.subjects.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
-            {data.subjects.map(subject => (
-              <div key={subject.id || subject.name} style={{ background: '#fff8f0', borderRadius: 12, padding: 16, borderLeft: '4px solid #1a5c38' }}>
-                <p style={{ color: '#800000', fontWeight: 700 }}>{subject.name}</p>
-                <p style={{ color: '#191970', fontSize: 13, marginTop: 4 }}>{subject.teacherId ? `Teacher assigned: ${subject.teacherId}` : 'Teacher will be assigned soon.'}</p>
+          <p style={{ color: '#191970', fontSize: 14 }}>Your learning analytics will appear here once your class assignment is active.</p>
+        ) : data.metrics.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-3">
+            {data.metrics.map(metric => (
+              <div key={metric.label} style={{ background: '#fff8f0', borderRadius: 12, padding: 16, borderLeft: '4px solid #1a5c38' }}>
+                <p style={{ color: '#800020', fontSize: 12, fontWeight: 700, textTransform: 'uppercase', marginBottom: 6 }}>{metric.label}</p>
+                <p style={{ color: '#191970', fontSize: 22, fontWeight: 800 }}>{metric.value}</p>
               </div>
             ))}
           </div>
         ) : (
-          <p style={{ color: '#191970', fontSize: 14 }}>No subjects have been added to your class yet.</p>
+          <p style={{ color: '#191970', fontSize: 14 }}>Attendance, assignment, materials, and class analytics will appear here once your school starts recording them.</p>
         )}
       </section>
     </StudentSectionShell>
