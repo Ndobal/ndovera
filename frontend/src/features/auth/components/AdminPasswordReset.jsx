@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { getApiUrl } from '../../../config/apiBase';
+import { getStoredAuth } from '../services/authApi';
 
 export default function AdminPasswordReset({ onReset }) {
   const [targetId, setTargetId] = useState('');
@@ -8,12 +10,14 @@ export default function AdminPasswordReset({ onReset }) {
   const handleReset = async () => {
     setStatus(null);
     try {
-      const token = localStorage.getItem('jwt'); // Assumes JWT is stored here
-      const res = await fetch('/api/admin/reset-password', {
+      const auth = getStoredAuth();
+      if (!auth?.token) throw new Error('Your sign-in session has expired. Please log in again.');
+
+      const res = await fetch(getApiUrl('/api/admin/reset-password'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
+          'Authorization': `Bearer ${auth.token}`,
         },
         body: JSON.stringify({ targetId, newPassword }),
       });

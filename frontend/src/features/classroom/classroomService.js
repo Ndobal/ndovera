@@ -18,6 +18,11 @@ export async function getClass(id) {
   return res.json();
 }
 
+export async function getAssignedClasses() {
+  const res = await fetch(`${API}/classrooms/assigned`, { headers: getAuthHeaders() });
+  return res.json();
+}
+
 export async function getPosts(classId) {
   const res = await fetch(`${API}/classrooms/${classId}/posts`, { headers: getAuthHeaders() });
   return res.json();
@@ -35,6 +40,19 @@ export async function getAssignments(classId) {
 
 export async function createAssignment(classId, payload) {
   const res = await fetch(`${API}/classrooms/${classId}/assignments`, { method: 'POST', headers: getAuthHeaders(), body: JSON.stringify(payload) });
+  return res.json();
+}
+
+export async function uploadAssignmentAsset(classId, payload) {
+  const token = localStorage.getItem('token');
+  const formData = new FormData();
+  formData.append('file', payload.file);
+  if (payload.title) formData.append('title', payload.title);
+  const res = await fetch(`${API}/classrooms/${classId}/assignment-assets/upload`, {
+    method: 'POST',
+    headers: token ? { Authorization: `Bearer ${token}` } : {},
+    body: formData,
+  });
   return res.json();
 }
 
@@ -64,6 +82,11 @@ export async function getAttendance(classId, since) {
   return res.json();
 }
 
+export async function getClassStudents(classId) {
+  const res = await fetch(`${API}/classrooms/${classId}/students`, { headers: getAuthHeaders() });
+  return res.json();
+}
+
 export async function addMaterial(classId, payload) {
   const res = await fetch(`${API}/classrooms/${classId}/materials`, { method: 'POST', headers: getAuthHeaders(), body: JSON.stringify(payload) });
   return res.json();
@@ -81,6 +104,9 @@ export async function uploadMaterial(classId, payload) {
     const fd = new FormData();
     fd.append('file', payload.file);
     if (payload.title) fd.append('title', payload.title);
+    if (payload.subjectId) fd.append('subjectId', payload.subjectId);
+    if (payload.description) fd.append('description', payload.description);
+    if (payload.type) fd.append('type', payload.type);
     const res = await fetch(`${API}/classrooms/${classId}/materials/upload-multipart`, { method: 'POST', headers: token ? { Authorization: `Bearer ${token}` } : {}, body: fd });
     return res.json();
   }

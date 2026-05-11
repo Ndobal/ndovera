@@ -1,5 +1,7 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import StudentSectionShell from './StudentSectionShell';
+import { getStoredAuth } from '../../../features/auth/services/authApi';
+import { getStudentAttendance } from '../../../features/school/services/schoolApi';
 
 function stateScore(state) {
   if (!state) return 0;
@@ -13,7 +15,17 @@ function niceBadge(state) {
   const s = (state || '').toLowerCase();
   if (s.startsWith('present')) return { label: 'Present', cls: 'glass-chip accent-emerald text-emerald-700' };
   if (s.startsWith('late')) return { label: 'Late', cls: 'glass-chip accent-amber text-amber-600' };
+  if (s.startsWith('excused')) return { label: 'Excused', cls: 'glass-chip accent-indigo text-indigo-600' };
   return { label: state || 'Unknown', cls: 'glass-chip accent-rose text-rose-600' };
+}
+
+function normalizeStatus(state) {
+  const s = (state || '').toLowerCase();
+  if (s.startsWith('present')) return 'Present';
+  if (s.startsWith('late')) return 'Late';
+  if (s.startsWith('excused')) return 'Excused';
+  if (s.startsWith('absent')) return 'Absent';
+  return state || 'Unknown';
 }
 
 function downloadCSV(rows) {
@@ -31,33 +43,40 @@ function downloadCSV(rows) {
 }
 
 export default function StudentAttendance() {
+  const storedAuth = getStoredAuth();
+  const storedUser = storedAuth?.user || JSON.parse(localStorage.getItem('authUser') || '{}');
   const [records, setRecords] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [selected, setSelected] = useState(null); // selected day detail
-
-  const studentId = localStorage.getItem('userId') || '';
+  const [selected, setSelected] = useState(null);
 
   useEffect(() => {
     let mounted = true;
+
     async function load() {
+      setLoading(true);
       try {
-        const resp = await fetch(`/api/attendance?studentId=${encodeURIComponent(studentId)}&limit=365`);
-        if (!resp.ok) throw new Error('Fetch failed');
-        const data = await resp.json();
+        const data = await getStudentAttendance({ limit: 365 });
         if (mounted && data && Array.isArray(data.records)) {
-          // normalize rows to { date, status, reason }
-          const rows = data.records.map(r => ({ id: r.id, date: (r.date || '').toString().slice(0,10), status: r.status, reason: r.reason }));
+          const rows = data.records.map(r => ({
+            id: r.id,
+            date: (r.date || '').toString().slice(0, 10),
+            status: normalizeStatus(r.status),
+            notes: r.notes || '',
+            recordedBy: r.recordedBy || '',
+            classId: r.classId || '',
+          }));
           setRecords(rows);
         }
-      } catch (err) {
+      } catch {
         setRecords([]);
       } finally {
         if (mounted) setLoading(false);
       }
     }
+
     load();
     return () => { mounted = false; };
-  }, [studentId]);
+  }, []);
 
   // build calendar heatmap for last 30 days
   const heatmap = useMemo(() => {
@@ -68,7 +87,7 @@ export default function StudentAttendance() {
       d.setDate(today.getDate() - i);
       const iso = d.toISOString().slice(0,10);
       const rec = records.find(r => r.date === iso);
-      days.push({ date: iso, status: rec ? rec.status : null, reason: rec ? rec.reason : null, id: rec ? rec.id : null });
+      days.push({ date: iso, status: rec ? rec.status : null, notes: rec ? rec.notes : null, recordedBy: rec ? rec.recordedBy : null, id: rec ? rec.id : null });
     }
     return days;
   }, [records]);
@@ -87,29 +106,10 @@ export default function StudentAttendance() {
     return { totals, pct };
   }, [records]);
 
-  const saveDetail = async (payload) => {
-    try {
-      if (payload.id) {
-        await fetch(`/api/attendance/${payload.id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ status: payload.status, reason: payload.reason }) });
-      } else {
-        await fetch('/api/attendance', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ studentId, date: payload.date, status: payload.status, reason: payload.reason, recordedBy: studentId }) });
-      }
-      // refresh
-      const resp = await fetch(`/api/attendance?studentId=${encodeURIComponent(studentId)}&limit=365`);
-      const data = await resp.json();
-      const rows = data.records.map(r => ({ id: r.id, date: (r.date || '').toString().slice(0,10), status: r.status, reason: r.reason }));
-      setRecords(rows);
-      setSelected(null);
-    } catch (err) {
-      console.error('Save failed', err && err.message);
-      // leave selected open
-    }
-  };
-
   if (loading) return <StudentSectionShell title="Attendance" subtitle="Check your school attendance record."><div className="p-6">Loading…</div></StudentSectionShell>;
 
   return (
-    <StudentSectionShell title="Attendance" subtitle="Check your school attendance record.">
+    <StudentSectionShell title="Attendance" subtitle={storedUser.className ? `Attendance record for ${storedUser.className}` : 'Check your school attendance record.'}>
       <div className="wheat-card glass-surface rounded-3xl p-6">
         <div className="flex items-center justify-between mb-4 gap-4">
           <div>
@@ -154,7 +154,8 @@ export default function StudentAttendance() {
               <div key={item.date} className="wheat-card rounded-2xl border border-white/10 p-3 bg-slate-900/30 flex items-center justify-between">
                 <div>
                   <div className="burgundy-text text-slate-100 font-medium">{item.date}</div>
-                  {item.reason && <div className="burgundy-text text-xs neon-subtle mt-1">{item.reason}</div>}
+                  {item.notes && <div className="burgundy-text text-xs neon-subtle mt-1">{item.notes}</div>}
+                  {item.recordedBy && <div className="burgundy-text text-[11px] neon-subtle mt-1">Marked by {item.recordedBy}</div>}
                 </div>
                 <div className="flex items-center gap-3">
                   <span className={badge.cls}>{badge.label}</span>
@@ -178,17 +179,15 @@ export default function StudentAttendance() {
             <div className="relative z-60 max-w-md w-full glass-surface rounded-2xl p-4">
               <h3 className="text-lg font-bold mb-2">{selected.date}</h3>
               <div className="mb-2">Status: <strong>{selected.status || 'No data'}</strong></div>
-              <div className="mb-3">
-                <label className="block text-sm mb-1">Reason / Notes</label>
-                <textarea defaultValue={selected.reason || ''} id="attendance-reason" className="wheat-input w-full rounded-xl bg-slate-900/40 border border-white/10 px-3 py-2 text-sm text-slate-100" />
-              </div>
+              {selected.recordedBy && <div className="mb-2">Marked by: <strong>{selected.recordedBy}</strong></div>}
+              {selected.notes && (
+                <div className="mb-3">
+                  <label className="block text-sm mb-1">Notes</label>
+                  <div className="wheat-input w-full rounded-xl bg-slate-900/40 border border-white/10 px-3 py-2 text-sm text-slate-100 whitespace-pre-wrap">{selected.notes}</div>
+                </div>
+              )}
               <div className="flex gap-2 justify-end">
                 <button onClick={() => setSelected(null)} className="px-3 py-2 rounded-xl bg-slate-700/30">Close</button>
-                <button onClick={async () => {
-                  const reason = document.getElementById('attendance-reason').value;
-                  const payload = { id: selected.id, date: selected.date, status: selected.status || 'Absent', reason };
-                  await saveDetail(payload);
-                }} className="px-3 py-2 rounded-xl bg-emerald-500/30">Save</button>
               </div>
             </div>
           </div>

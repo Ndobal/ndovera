@@ -16,6 +16,35 @@ function parseJsonField<T>(value: unknown, fallback: T): T {
   }
 }
 
+function resolveMaterialType(url: string | null | undefined, metadata: Record<string, any> = {}) {
+  const explicit = String(metadata.type || '').trim().toLowerCase()
+  if (['document', 'video', 'image', 'link'].includes(explicit)) return explicit
+
+  const contentType = String(metadata.contentType || '').toLowerCase()
+  const target = String(url || '').toLowerCase()
+
+  if (contentType.startsWith('video/') || /\.(mp4|webm|ogg|mov|m4v)(\?|#|$)/.test(target)) return 'video'
+  if (contentType.startsWith('image/') || /\.(png|jpe?g|gif|webp|svg)(\?|#|$)/.test(target)) return 'image'
+  if (/^https?:\/\//.test(target) && !/\.(pdf|docx?|pptx?|xlsx?|csv|txt|rtf|zip)(\?|#|$)/.test(target)) return 'link'
+  return 'document'
+}
+
+function mapMaterialRow(row: any) {
+  const metadata = row?.metadata && typeof row.metadata === 'object'
+    ? row.metadata as Record<string, any>
+    : parseJsonField(row?.metadata, {} as Record<string, any>)
+
+  return {
+    ...row,
+    metadata,
+    type: resolveMaterialType(row?.url as string, metadata),
+    subjectId: String(metadata.subjectId || ''),
+    subjectName: String(metadata.subjectName || metadata.subject || 'General Material'),
+    description: String(metadata.description || ''),
+    uploadedByName: String(metadata.uploadedByName || row?.uploadedBy || ''),
+  }
+}
+
 function mapTenantRow(row: any) {
   return {
     id: row.id,
@@ -189,6 +218,44 @@ export async function getAllBorrowings(db: D1Database) {
   return result.results.map(r => ({ ...r, meta: r.meta ? JSON.parse(r.meta as string) : {} }))
 }
 
+async function ensureAssignmentsTable(db: D1Database) {
+  await db.prepare(`CREATE TABLE IF NOT EXISTS assignments (
+    id TEXT PRIMARY KEY,
+    classId TEXT,
+    title TEXT,
+    description TEXT,
+    dueAt TEXT,
+    createdAt TEXT,
+    subjectId TEXT,
+    subjectName TEXT,
+    format TEXT,
+    questionPayload TEXT,
+    metadata TEXT,
+    createdBy TEXT,
+    updatedAt TEXT
+  )`).run()
+  try { await db.exec('ALTER TABLE assignments ADD COLUMN subjectId TEXT') } catch {}
+  try { await db.exec('ALTER TABLE assignments ADD COLUMN subjectName TEXT') } catch {}
+  try { await db.exec('ALTER TABLE assignments ADD COLUMN format TEXT') } catch {}
+  try { await db.exec('ALTER TABLE assignments ADD COLUMN questionPayload TEXT') } catch {}
+  try { await db.exec('ALTER TABLE assignments ADD COLUMN metadata TEXT') } catch {}
+  try { await db.exec('ALTER TABLE assignments ADD COLUMN createdBy TEXT') } catch {}
+  try { await db.exec('ALTER TABLE assignments ADD COLUMN updatedAt TEXT') } catch {}
+}
+
+async function ensureSubmissionsTable(db: D1Database) {
+  await db.prepare(`CREATE TABLE IF NOT EXISTS submissions (
+    id TEXT PRIMARY KEY,
+    assignmentId TEXT,
+    studentId TEXT,
+    content TEXT,
+    submittedAt TEXT,
+    grade REAL,
+    gradedAt TEXT,
+    feedback TEXT
+  )`).run()
+}
+
 // Classroom functions
 export async function getClassById(db: D1Database, id: string) {
   const result = await db.prepare('SELECT id, name, teacherId, meta FROM classes WHERE id = ?').bind(id).first()
@@ -210,28 +277,130 @@ export async function createPost(db: D1Database, post: any) {
 }
 
 export async function getAssignmentsForClass(db: D1Database, classId: string) {
-  const result = await db.prepare('SELECT id, classId, title, description, dueAt, createdAt FROM assignments WHERE classId = ? ORDER BY createdAt DESC').bind(classId).all()
-  return result.results
+  await ensureAssignmentsTable(db)
+  const result = await db.prepare(
+    'SELECT id, classId, title, description, dueAt, createdAt, subjectId, subjectName, format, questionPayload, metadata, createdBy, updatedAt FROM assignments WHERE classId = ? ORDER BY createdAt DESC'
+  ).bind(classId).all()
+  return result.results.map(row => ({
+    ...row,
+    questions: parseJsonField(row.questionPayload, [] as any[]),
+    metadata: parseJsonField(row.metadata, {} as Record<string, any>),
+  }))
+}
+
+export async function getAssignmentById(db: D1Database, assignmentId: string) {
+  await ensureAssignmentsTable(db)
+  const row = await db.prepare(
+    'SELECT id, classId, title, description, dueAt, createdAt, subjectId, subjectName, format, questionPayload, metadata, createdBy, updatedAt FROM assignments WHERE id = ?'
+  ).bind(assignmentId).first()
+  if (!row) return null
+  return {
+    ...row,
+    questions: parseJsonField((row as any).questionPayload, [] as any[]),
+    metadata: parseJsonField((row as any).metadata, {} as Record<string, any>),
+  }
 }
 
 export async function createAssignment(db: D1Database, a: any) {
+  await ensureAssignmentsTable(db)
   const id = a.id || `assign-${Date.now()}`
   const createdAt = new Date().toISOString()
-  await db.prepare('INSERT INTO assignments(id, classId, title, description, dueAt, createdAt) VALUES(?, ?, ?, ?, ?, ?)').bind(id, a.classId, a.title || null, a.description || null, a.dueAt || null, createdAt).run()
-  return { id, classId: a.classId, title: a.title, description: a.description, dueAt: a.dueAt, createdAt }
+  const updatedAt = createdAt
+  const questions = Array.isArray(a.questions) ? a.questions : []
+  const metadata = a.metadata && typeof a.metadata === 'object' ? a.metadata : {}
+  await db.prepare(
+    'INSERT INTO assignments(id, classId, title, description, dueAt, createdAt, subjectId, subjectName, format, questionPayload, metadata, createdBy, updatedAt) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+  ).bind(
+    id,
+    a.classId,
+    a.title || null,
+    a.description || null,
+    a.dueAt || null,
+    createdAt,
+    a.subjectId || null,
+    a.subjectName || null,
+    a.format || null,
+    JSON.stringify(questions),
+    JSON.stringify(metadata),
+    a.createdBy || null,
+    updatedAt,
+  ).run()
+  return {
+    id,
+    classId: a.classId,
+    title: a.title,
+    description: a.description,
+    dueAt: a.dueAt,
+    createdAt,
+    updatedAt,
+    subjectId: a.subjectId || null,
+    subjectName: a.subjectName || null,
+    format: a.format || null,
+    questions,
+    metadata,
+    createdBy: a.createdBy || null,
+  }
+}
+
+export async function getLatestSubmissionForStudent(db: D1Database, assignmentId: string, studentId: string) {
+  await ensureSubmissionsTable(db)
+  const row = await db.prepare(
+    'SELECT id, assignmentId, studentId, content, submittedAt, grade, gradedAt, feedback FROM submissions WHERE assignmentId = ? AND studentId = ? ORDER BY submittedAt DESC LIMIT 1'
+  ).bind(assignmentId, studentId).first()
+  if (!row) return null
+  return {
+    ...row,
+    content: parseJsonField((row as any).content, {} as Record<string, any>),
+  }
+}
+
+export async function createSubmission(db: D1Database, submission: any) {
+  await ensureSubmissionsTable(db)
+  const id = submission.id || `submission_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`
+  const submittedAt = submission.submittedAt || new Date().toISOString()
+  await db.prepare(
+    'INSERT INTO submissions(id, assignmentId, studentId, content, submittedAt, grade, gradedAt, feedback) VALUES(?, ?, ?, ?, ?, ?, ?, ?)'
+  ).bind(
+    id,
+    submission.assignmentId,
+    submission.studentId,
+    JSON.stringify(submission.content || {}),
+    submittedAt,
+    submission.grade ?? null,
+    submission.gradedAt ?? null,
+    submission.feedback ?? null,
+  ).run()
+  return {
+    id,
+    assignmentId: submission.assignmentId,
+    studentId: submission.studentId,
+    content: submission.content || {},
+    submittedAt,
+    grade: submission.grade ?? null,
+    gradedAt: submission.gradedAt ?? null,
+    feedback: submission.feedback ?? null,
+  }
 }
 
 export async function getMaterialsForClass(db: D1Database, classId: string) {
   const result = await db.prepare('SELECT id, classId, title, url, metadata, uploadedAt, uploadedBy FROM materials WHERE classId = ? ORDER BY uploadedAt DESC').bind(classId).all()
-  return result.results.map(r => ({ ...r, metadata: r.metadata ? JSON.parse(r.metadata as string) : {} }))
+  return result.results.map(mapMaterialRow)
 }
 
 export async function addMaterial(db: D1Database, mat: any) {
   const id = mat.id || `mat-${Date.now()}`
   const uploadedAt = new Date().toISOString()
-  const metadata = JSON.stringify(mat.metadata || {})
+  const metadata = mat.metadata && typeof mat.metadata === 'object' ? mat.metadata : {}
   await db.prepare('INSERT INTO materials(id, classId, title, url, metadata, uploadedAt, uploadedBy) VALUES(?, ?, ?, ?, ?, ?, ?)').bind(id, mat.classId, mat.title || null, mat.url || null, metadata, uploadedAt, mat.uploadedBy || null).run()
-  return { id, classId: mat.classId, title: mat.title, url: mat.url, metadata: mat.metadata || {}, uploadedAt, uploadedBy: mat.uploadedBy }
+  return mapMaterialRow({
+    id,
+    classId: mat.classId,
+    title: mat.title,
+    url: mat.url,
+    metadata,
+    uploadedAt,
+    uploadedBy: mat.uploadedBy,
+  })
 }
 
 export async function getAttendanceForClass(db: D1Database, classId: string, sinceDate?: string) {

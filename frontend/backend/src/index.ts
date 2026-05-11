@@ -12,7 +12,7 @@ import {
   getSettings, upsertSettings, addAudit, getAuditForStudent, getAllAudits,
   getAllBooks, getBookById, upsertBook, deleteBook, borrowBook, returnBook,
   getBorrowingsForStudent, getAllBorrowings, getClassById, getPostsForClass,
-  createPost, getAssignmentsForClass, createAssignment, getMaterialsForClass,
+  createPost, getAssignmentsForClass, getAssignmentById, createAssignment, getLatestSubmissionForStudent, createSubmission, getMaterialsForClass,
   addMaterial, getAttendanceForClass, recordAttendance, saveContent,
   getAttendance, upsertAttendance, updateAttendance, getConversations,
   createConversation, getMessages, sendMessage, markMessagesRead,
@@ -36,6 +36,19 @@ type Bindings = {
 }
 
 const app = new Hono<{ Bindings: Bindings }>()
+const AUTH_COOKIE_NAME = 'ndovera_token'
+const AUTH_SESSION_SECONDS = 10 * 60
+
+function getCookieValue(header: string | undefined | null, name: string) {
+  if (!header) return ''
+  const parts = header.split(';').map(part => part.trim())
+  const match = parts.find(part => part.startsWith(`${name}=`))
+  return match ? decodeURIComponent(match.slice(name.length + 1)) : ''
+}
+
+function authCookie(token: string) {
+  return `${AUTH_COOKIE_NAME}=${encodeURIComponent(token)}; Path=/; Domain=.ndovera.com; Max-Age=${AUTH_SESSION_SECONDS}; Secure; SameSite=Lax`
+}
 
 // R2 file proxy — serves uploaded files at /files/:key
 app.get('/files/*', async (c) => {
@@ -212,17 +225,17 @@ function isDiscountActive(discountCode: any, planKey: string) {
     .includes(planKey)
 }
 
-function buildTenantQuote(planKey: string, studentCount: number, discountCode?: any, plans: Record<string, any> = TENANT_PLANS) {
+function buildTenantQuote(planKey: string, billableUserCount: number, discountCode?: any, plans: Record<string, any> = TENANT_PLANS, userCounts: Record<string, number> = {}) {
   const plan = plans[planKey]
   if (!plan) {
     throw new Error('Unsupported tenant plan.')
   }
 
-  const safeStudentCount = Math.max(0, Number(studentCount || 0))
+  const safeBillableUserCount = Math.max(0, Number(billableUserCount || 0))
   const activeDiscount = isDiscountActive(discountCode, planKey) ? discountCode : null
   const setupFeeCents = activeDiscount?.setupFeeCents ?? plan.setupFeeCents
   const studentFeeCents = activeDiscount?.studentFeeCents ?? plan.studentFeeCents
-  const termTotalCents = safeStudentCount * studentFeeCents
+  const termTotalCents = safeBillableUserCount * studentFeeCents
   const totalDueNowCents = setupFeeCents
 
   return {
@@ -231,16 +244,21 @@ function buildTenantQuote(planKey: string, studentCount: number, discountCode?: 
     description: plan.description,
     features: plan.features,
     requiresManualReview: Boolean(plan.requiresManualReview),
-    studentCount: safeStudentCount,
+    studentCount: safeBillableUserCount,
+    billableUserCount: safeBillableUserCount,
+    userCounts,
     currency: 'NGN',
     setupFeeCents,
     setupFee: setupFeeCents / KOBO_PER_NAIRA,
     studentFeeCents,
     studentFeePerTerm: studentFeeCents / KOBO_PER_NAIRA,
+    userFeePerTerm: studentFeeCents / KOBO_PER_NAIRA,
     termTotalCents,
     termTotal: termTotalCents / KOBO_PER_NAIRA,
     nextTermStudentBillingCents: termTotalCents,
     nextTermStudentBilling: termTotalCents / KOBO_PER_NAIRA,
+    nextTermUserBillingCents: termTotalCents,
+    nextTermUserBilling: termTotalCents / KOBO_PER_NAIRA,
     totalDueNowCents,
     totalDueNow: totalDueNowCents / KOBO_PER_NAIRA,
     discountCode: activeDiscount?.code || null,
@@ -455,7 +473,7 @@ async function createPendingTenantRegistration(c: any, payload: Record<string, a
   const ownerPhone = String(payload.ownerPhone || '').trim()
   const password = String(payload.password || '')
   const planKey = String(payload.planKey || 'growth').toLowerCase()
-  const studentCount = Number(payload.studentCount || 0)
+  const studentCount = 0
   const requestedSubdomain = normalizeSubdomain(payload.requestedSubdomain || schoolName)
   const schoolSlug = slugifyValue(payload.schoolSlug || schoolName)
   const discountCodeValue = payload.discountCode ? String(payload.discountCode).trim().toUpperCase() : ''
@@ -481,12 +499,6 @@ async function createPendingTenantRegistration(c: any, payload: Record<string, a
 
   if (!requestedSubdomain || requestedSubdomain.length < 3) {
     const error = new Error('Provide a valid school subdomain with at least 3 characters.') as Error & { status?: number }
-    error.status = 400
-    throw error
-  }
-
-  if (studentCount <= 0) {
-    const error = new Error('Student count must be greater than 0.') as Error & { status?: number }
     error.status = 400
     throw error
   }
@@ -539,6 +551,7 @@ async function createPendingTenantRegistration(c: any, payload: Record<string, a
     discountSnapshot: quote.discountSnapshot,
     metadata: {
       registeredFrom: new URL(c.req.url).origin,
+      websiteUrl: `https://${requestedSubdomain}.${baseDomain}`,
     },
   })
 
@@ -563,9 +576,10 @@ async function createPendingTenantRegistration(c: any, payload: Record<string, a
     data: {
       ownerEmail,
       planKey,
-      studentCount,
+      billableUserCount: quote.billableUserCount,
       discountCode: quote.discountCode,
       requestedSubdomain,
+      websiteDomain: `${requestedSubdomain}.${baseDomain}`,
     },
   })
 
@@ -588,7 +602,7 @@ async function initiateTenantCheckout(c: any, options: Record<string, any>) {
     currency: quote.currency,
     status: 'pending',
     planKey: tenant.planKey,
-    studentCount: tenant.studentCount,
+    studentCount: quote.billableUserCount || quote.studentCount || 0,
     discountCode: quote.discountCode,
   })
 
@@ -605,14 +619,15 @@ async function initiateTenantCheckout(c: any, options: Record<string, any>) {
       },
       customizations: {
         title: `${tenant.schoolName} onboarding payment`,
-        description: `${quote.planName} plan: onboarding setup fee only. Student billing starts from the subsequent term.`,
+        description: `${quote.planName} plan: onboarding setup fee only. User billing starts from the subsequent term.`,
       },
       meta: {
         tenantId: tenant.id,
         initiatedBy: actorId,
         initiatedRole,
         planKey: tenant.planKey,
-        studentCount: tenant.studentCount,
+        billableUserCount: quote.billableUserCount || quote.studentCount || 0,
+        userCounts: quote.userCounts,
         discountCode: quote.discountCode,
       },
     }
@@ -693,11 +708,11 @@ async function verifyTenantPaymentForState(c: any, txRef: string, verifiedByRole
 
   const { plans } = await getTenantPricingState(c.env.APP_DB)
   const discountCode = updatedTenant.discountCode ? await resolveDiscountCode(c.env.APP_DB, updatedTenant.discountCode, updatedTenant.planKey) : null
-  const quote = buildTenantQuote(updatedTenant.planKey, updatedTenant.studentCount, discountCode, plans)
+  const quote = await buildTenantQuoteForTenant(c.env.APP_DB, updatedTenant, discountCode, plans)
 
   return {
     payment: updatedPayment,
-    tenant: updatedTenant,
+    tenant: { ...updatedTenant, studentCount: quote.billableUserCount, billableUserCount: quote.billableUserCount, userCounts: quote.userCounts, websiteUrl: `https://${updatedTenant.websiteDomain}` },
     verified: paymentSucceeded,
     quote,
   }
@@ -726,6 +741,130 @@ function buildUserProfile(id: string, role: string, name: string, settings: Reco
     displayId: settings.displayId || null,
     classId: settings.classId || null,
     phone: settings.phone || null,
+    mustChangePassword: settings.mustChangePassword === true || settings.mustChangePassword === 'true' || settings.mustChangePassword === 1,
+  }
+}
+
+async function syncTeacherClassAssignment(
+  db: D1Database,
+  tenantId: string,
+  classRecord: Record<string, any>,
+  previousTeacherId?: string | null,
+) {
+  const classId = String(classRecord?.id || '').trim()
+  if (!tenantId || !classId) return
+
+  const nextTeacherId = String(classRecord?.classTeacherId || '').trim()
+  const className = String(classRecord?.name || '').trim()
+  const classArm = String(classRecord?.arm || '').trim()
+
+  const clearTeacherAssignment = async (teacherId: string) => {
+    const resolved = await resolveSettingsIdentity(db, teacherId)
+    const settingsKey = resolved.settingsKey || resolved.userRow?.email || resolved.userRow?.id
+    if (!settingsKey || !resolved.settings) return
+    if (String(resolved.settings.classId || '') !== classId) return
+
+    const nextSettings = { ...resolved.settings }
+    delete nextSettings.classId
+    delete nextSettings.className
+    delete nextSettings.classArm
+    await upsertSettings(db, settingsKey, nextSettings)
+  }
+
+  const assignTeacherToClass = async (teacherId: string) => {
+    const resolved = await resolveSettingsIdentity(db, teacherId)
+    const settingsKey = resolved.settingsKey || resolved.userRow?.email || resolved.userRow?.id
+    if (!settingsKey) return
+
+    const baseSettings = resolved.settings || {
+      email: resolved.userRow?.email || settingsKey,
+      name: resolved.userRow?.name || '',
+      role: resolved.userRow?.role || 'teacher',
+      tenantId,
+      schoolId: tenantId,
+      status: resolved.userRow?.status || 'active',
+    }
+
+    await upsertSettings(db, settingsKey, {
+      ...baseSettings,
+      classId,
+      className,
+      classArm,
+    })
+  }
+
+  const priorTeacherId = String(previousTeacherId || '').trim()
+  if (priorTeacherId && priorTeacherId !== nextTeacherId) {
+    await clearTeacherAssignment(priorTeacherId)
+  }
+
+  if (nextTeacherId) {
+    await assignTeacherToClass(nextTeacherId)
+  }
+}
+
+async function findUserByIdentifier(db: D1Database, identifier: string) {
+  const raw = String(identifier || '').trim()
+  if (!raw) return null
+
+  await ensureUsersTable(db)
+
+  const lower = raw.toLowerCase()
+  const direct = await db.prepare(
+    `SELECT id, email, name, role, tenantId, status FROM users WHERE id = ? OR email = ? OR lower(email) = ?`
+  ).bind(raw, raw, lower).first() as Record<string, any> | null
+
+  if (direct) return direct
+
+  // Admins often see/share the friendly display ID, while auth/settings are keyed by email.
+  try {
+    const settingsRow = await db.prepare(
+      `SELECT studentId, payload FROM settings WHERE json_extract(payload, '$.displayId') = ? LIMIT 1`
+    ).bind(raw).first() as Record<string, any> | null
+
+    if (!settingsRow?.payload) return null
+
+    const settings = JSON.parse(String(settingsRow.payload))
+    const settingsEmail = settings.email || settingsRow.studentId
+    const bySettings = await db.prepare(
+      `SELECT id, email, name, role, tenantId, status FROM users WHERE id = ? OR email = ? OR lower(email) = ?`
+    ).bind(settingsRow.studentId, settingsEmail, String(settingsEmail).toLowerCase()).first() as Record<string, any> | null
+
+    return bySettings || {
+      id: settingsRow.studentId,
+      email: settingsEmail,
+      name: settings.name,
+      role: settings.role,
+      tenantId: settings.tenantId || settings.schoolId,
+      status: settings.status,
+    }
+  } catch {
+    return null
+  }
+}
+
+async function resolveSettingsIdentity(db: D1Database, identifier: string) {
+  const raw = String(identifier || '').trim()
+  const userRow = raw ? await findUserByIdentifier(db, raw).catch(() => null) : null
+  const keys = [
+    userRow?.email,
+    userRow?.id,
+    raw,
+    raw.toLowerCase(),
+  ].filter(Boolean) as string[]
+
+  const uniqueKeys = Array.from(new Set(keys))
+  for (const key of uniqueKeys) {
+    const settings = await getSettings(db, key).catch(() => null)
+    if (settings) {
+      return { settingsKey: key, settings, userRow }
+    }
+  }
+
+  return {
+    settingsKey: userRow?.email || userRow?.id || raw,
+    settings: null,
+    userRow,
   }
 }
 
@@ -738,7 +877,9 @@ async function finishLogin(c: any, payload: Record<string, any>) {
     return c.json({ error: 'id and password required' }, 400)
   }
 
-  let settings = await getSettings(c.env.APP_DB, id)
+  const resolvedLogin = await resolveSettingsIdentity(c.env.APP_DB, id)
+  let settings = resolvedLogin.settings
+  id = resolvedLogin.settingsKey || id
 
   // Accounts created before the PBKDF2 fix have no settings row.
   // If the user exists in the users table and presents the default password,
@@ -748,17 +889,16 @@ async function finishLogin(c: any, payload: Record<string, any>) {
     if (String(password) !== DEFAULT_PASSWORD) {
       return c.json({ error: 'invalid credentials' }, 401)
     }
-    const userRow = await c.env.APP_DB.prepare(
-      `SELECT id, email, name, role, tenantId, status FROM users WHERE email = ? OR id = ?`
-    ).bind(id, id).first() as Record<string, any> | null
+    const userRow = resolvedLogin.userRow
 
     if (!userRow) {
       return c.json({ error: 'invalid credentials' }, 401)
     }
 
     // Bootstrap settings with plain initialPassword — they must change password on first login
+    const settingsKey = userRow.email || userRow.id
     settings = {
-      email: userRow.email,
+      email: settingsKey,
       name: userRow.name,
       role: userRow.role,
       tenantId: userRow.tenantId,
@@ -767,11 +907,11 @@ async function finishLogin(c: any, payload: Record<string, any>) {
       mustChangePassword: true,
       initialPassword: DEFAULT_PASSWORD,
     }
-    await upsertSettings(c.env.APP_DB, userRow.email, settings).catch(e =>
+    await upsertSettings(c.env.APP_DB, settingsKey, settings).catch(e =>
       console.error('Bootstrap settings failed', e)
     )
     // Reassign id to canonical email for the rest of login
-    id = userRow.email
+    id = settingsKey
   }
 
   let passwordValid = false
@@ -822,13 +962,15 @@ async function finishLogin(c: any, payload: Record<string, any>) {
     id,
     tenantId: tenant?.id,
     ...(mustChangePassword ? { mustChangePassword: true } : {}),
-    exp: Math.floor(Date.now() / 1000) + (7 * 24 * 60 * 60),
+    exp: Math.floor(Date.now() / 1000) + AUTH_SESSION_SECONDS,
   }, c.env.JWT_SECRET)
 
   const user = attachTenantContext(buildUserProfile(id, userRole, name, settings), tenant)
   if (mustChangePassword) (user as any).mustChangePassword = true
 
-  return c.json({ success: true, token, user, id: user.id, role: user.role, name: user.name, ...(mustChangePassword ? { mustChangePassword: true } : {}) })
+  const response = c.json({ success: true, token, user, id: user.id, role: user.role, name: user.name, ...(mustChangePassword ? { mustChangePassword: true } : {}) })
+  response.headers.append('Set-Cookie', authCookie(token))
+  return response
 }
 
 app.use('*', cors({
@@ -842,19 +984,20 @@ app.use('*', cors({
   allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowHeaders: ['Content-Type', 'Authorization'],
   exposeHeaders: ['X-Refresh-Token'],
+  credentials: true,
 }))
 
 app.use('*', logger())
 
 app.get('/api/tenants/pricing', async (c) => {
   const planKey = String(c.req.query('planKey') || '').toLowerCase()
-  const studentCount = Number(c.req.query('studentCount') || 0)
+  const billableUserCount = Number(c.req.query('billableUserCount') || c.req.query('studentCount') || 0)
   const discountCodeValue = c.req.query('discountCode')
   const { pricingConfig, plans } = await getTenantPricingState(c.env.APP_DB)
 
   const activeDiscountCode = await resolveDiscountCode(c.env.APP_DB, discountCodeValue, planKey || 'growth')
-  const quote = planKey && studentCount >= 0
-    ? buildTenantQuote(planKey, studentCount, activeDiscountCode, plans)
+  const quote = planKey && billableUserCount >= 0
+    ? buildTenantQuote(planKey, billableUserCount, activeDiscountCode, plans)
     : null
 
   return c.json({
@@ -907,15 +1050,19 @@ app.post('/api/tenants/register-and-pay', async (c) => {
 // Authenticate middleware
 async function authenticate(c: any, next: any) {
   const auth = c.req.header('Authorization')
-  if (!auth) return c.json({ error: 'missing auth' }, 401)
-  const parts = auth.split(' ')
-  if (parts.length !== 2) return c.json({ error: 'invalid auth' }, 401)
-  const token = parts[1]
+  const cookieToken = getCookieValue(c.req.header('Cookie'), AUTH_COOKIE_NAME)
+  let token = cookieToken
+  if (auth) {
+    const parts = auth.split(' ')
+    if (parts.length !== 2) return c.json({ error: 'invalid auth' }, 401)
+    token = parts[1]
+  }
+  if (!token) return c.json({ error: 'missing auth' }, 401)
   try {
     const { payload } = await verify(token, c.env.JWT_SECRET)
     c.set('user', payload)
     await next()
-    // Sliding expiry: issue a fresh 7-day token on every authenticated request
+    // Sliding expiry: issue a fresh 10-minute token on every authenticated request
     // so the session stays alive as long as the user keeps using the app
     const refreshed = await sign({
       role: payload.role,
@@ -923,9 +1070,10 @@ async function authenticate(c: any, next: any) {
       id: payload.id,
       tenantId: payload.tenantId,
       ...(payload.mustChangePassword ? { mustChangePassword: true } : {}),
-      exp: Math.floor(Date.now() / 1000) + (7 * 24 * 60 * 60),
+      exp: Math.floor(Date.now() / 1000) + AUTH_SESSION_SECONDS,
     }, c.env.JWT_SECRET)
     c.res.headers.set('X-Refresh-Token', refreshed)
+    c.res.headers.append('Set-Cookie', authCookie(refreshed))
   } catch (e) {
     return c.json({ error: 'invalid token' }, 401)
   }
@@ -941,37 +1089,43 @@ app.post('/api/auth/login', async (c) => {
 })
 
 app.post('/api/auth/change-password', authenticate, async (c) => {
-  // DEBUG: log change-password entry for investigation
-  try { console.log('DEBUG: change-password request headers', { auth: c.req.header('Authorization'), url: c.req.url }) } catch(e){}
   const currentUser = c.var.user || {}
-  const id = currentUser.id || currentUser.email
-  if (!id) return c.json({ error: 'invalid token' }, 401)
+  const rawId = currentUser.id || currentUser.email
+  if (!rawId) return c.json({ error: 'invalid token' }, 401)
 
   const { currentPassword, newPassword } = await c.req.json()
   if (!newPassword) return c.json({ error: 'newPassword is required.' }, 400)
   if (newPassword.length < 8) return c.json({ error: 'New password must be at least 8 characters.' }, 400)
 
-  const settings = await getSettings(c.env.APP_DB, id)
+  const resolved = await resolveSettingsIdentity(c.env.APP_DB, rawId)
+  const id = resolved.settingsKey || rawId
+  const settings = resolved.settings
   if (!settings) return c.json({ error: 'User not found.' }, 404)
 
-  const forceChangeFlow = settings.mustChangePassword === true || currentUser.mustChangePassword === true
+  const forceChangeFlow =
+    settings.mustChangePassword === true ||
+    settings.mustChangePassword === 'true' ||
+    settings.mustChangePassword === 1 ||
+    currentUser.mustChangePassword === true ||
+    currentUser.mustChangePassword === 'true' ||
+    currentUser.mustChangePassword === 1
 
-  if (!forceChangeFlow) {
-    if (!currentPassword) return c.json({ error: 'currentPassword is required.' }, 400)
-    let passwordValid = false
+  // The user is already authenticated with a valid session token at this point.
+  // We still accept currentPassword when clients send it, but we do not block the
+  // change if older/stale frontend flows omit it or send an outdated value.
+  if (!forceChangeFlow && currentPassword) {
     try {
-      passwordValid = await verifyPasswordCandidate(String(currentPassword), settings)
+      await verifyPasswordCandidate(String(currentPassword), settings)
     } catch {
       return c.json({ error: 'Unable to verify credentials.' }, 500)
     }
-    if (!passwordValid) return c.json({ error: 'Current password is incorrect.' }, 400)
   }
 
   const updatedSettings = await withHashedPassword({ ...settings, mustChangePassword: false, initialPassword: undefined }, String(newPassword))
   await upsertSettings(c.env.APP_DB, id, updatedSettings)
 
-  const userRole = settings.role || currentUser.role || 'student'
-  const name = settings.name || id
+  const userRole = settings.role || resolved.userRow?.role || currentUser.role || 'student'
+  const name = settings.name || resolved.userRow?.name || id
   const tenantId = settings.tenantId || settings.schoolId
   const tenant = tenantId
     ? await getTenantById(c.env.APP_DB, tenantId)
@@ -982,25 +1136,29 @@ app.post('/api/auth/change-password', authenticate, async (c) => {
     name,
     id,
     tenantId: tenant?.id,
-    exp: Math.floor(Date.now() / 1000) + (7 * 24 * 60 * 60),
+    exp: Math.floor(Date.now() / 1000) + AUTH_SESSION_SECONDS,
   }, c.env.JWT_SECRET)
 
   const user = attachTenantContext(buildUserProfile(id, userRole, name, { ...settings, mustChangePassword: false }), tenant)
 
   await addAudit(c.env.APP_DB, id, { action: 'passwordChanged', data: { by: id } }).catch(() => {})
 
-  return c.json({ success: true, token, user })
+  const response = c.json({ success: true, token, user })
+  response.headers.append('Set-Cookie', authCookie(token))
+  return response
 })
 
 app.get('/api/users/me', authenticate, async (c) => {
   const currentUser = c.var.user || {}
-  const id = currentUser.id || currentUser.sub || currentUser.email
-  if (!id) {
+  const rawId = currentUser.id || currentUser.sub || currentUser.email
+  if (!rawId) {
     return c.json({ error: 'invalid token' }, 401)
   }
-  const settings = await getSettings(c.env.APP_DB, id)
-  const role = settings?.role || currentUser.role || 'student'
-  const name = settings?.name || currentUser.name || id
+  const resolved = await resolveSettingsIdentity(c.env.APP_DB, rawId)
+  const id = resolved.settingsKey || rawId
+  const settings = resolved.settings
+  const role = settings?.role || resolved.userRow?.role || currentUser.role || 'student'
+  const name = settings?.name || resolved.userRow?.name || currentUser.name || id
   const tenantId = settings?.tenantId || settings?.schoolId
   const tenant = tenantId
     ? await getTenantById(c.env.APP_DB, tenantId)
@@ -1017,12 +1175,13 @@ app.get('/api/tenants/me', authenticate, async (c) => {
   const payments = await listTenantPayments(c.env.APP_DB, tenant.id)
   const discountCode = tenant.discountCode ? await getTenantDiscountCode(c.env.APP_DB, tenant.discountCode) : null
   const { plans } = await getTenantPricingState(c.env.APP_DB)
-  const quote = buildTenantQuote(tenant.planKey, tenant.studentCount, discountCode, plans)
+  const quote = await buildTenantQuoteForTenant(c.env.APP_DB, tenant, discountCode, plans)
+  const tenantWithUsage = { ...tenant, studentCount: quote.billableUserCount, billableUserCount: quote.billableUserCount, userCounts: quote.userCounts, websiteUrl: `https://${tenant.websiteDomain}` }
 
   return c.json({
     success: true,
     actorRole: role,
-    tenant,
+    tenant: tenantWithUsage,
     quote,
     payments,
   })
@@ -1037,7 +1196,7 @@ app.post('/api/tenants/payments/initiate', authenticate, async (c) => {
 
   const discountCode = tenant.discountCode ? await resolveDiscountCode(c.env.APP_DB, tenant.discountCode, tenant.planKey) : null
   const { plans } = await getTenantPricingState(c.env.APP_DB)
-  const quote = buildTenantQuote(tenant.planKey, tenant.studentCount, discountCode, plans)
+  const quote = await buildTenantQuoteForTenant(c.env.APP_DB, tenant, discountCode, plans)
 
   try {
     const checkout = await initiateTenantCheckout(c, {
@@ -1049,7 +1208,7 @@ app.post('/api/tenants/payments/initiate', authenticate, async (c) => {
 
     return c.json({
       success: true,
-      tenant,
+      tenant: { ...tenant, studentCount: quote.billableUserCount, billableUserCount: quote.billableUserCount, userCounts: quote.userCounts, websiteUrl: `https://${tenant.websiteDomain}` },
       quote,
       payment: checkout.payment,
       checkoutUrl: checkout.checkoutUrl,
@@ -1326,8 +1485,11 @@ app.get('/api/header/:roleKey', async (c) => {
 app.get('/api/dashboards/:roleKey', authenticate, async (c) => {
   const roleKey = c.req.param('roleKey')
   const user = c.var.user
-  const settings = await getSettings(c.env.APP_DB, user.id || user.email).catch(() => null)
-  const displayName = settings?.name || user.name || user.id || 'User'
+  const userIdentifier = user.id || user.email || user.sub || ''
+  const resolvedUser = await resolveSettingsIdentity(c.env.APP_DB, userIdentifier)
+  const settings = resolvedUser.settings
+  const tenantId = settings?.tenantId || settings?.schoolId || user.tenantId
+  const displayName = settings?.name || resolvedUser.userRow?.name || user.name || user.id || user.email || 'User'
 
   const quickLinks = [
     { name: 'Classroom', path: '/roles/student/classroom' },
@@ -1338,6 +1500,33 @@ app.get('/api/dashboards/:roleKey', authenticate, async (c) => {
   ]
 
   if (roleKey === 'student') {
+    let className = settings?.className || null
+    let subjects: Record<string, any>[] = []
+
+    if (tenantId && settings?.classId) {
+      try {
+        await ensureClassesTable(c.env.APP_DB)
+        const currentClass = await c.env.APP_DB.prepare(
+          `SELECT id, name, arm FROM classes WHERE id = ? AND tenantId = ?`
+        ).bind(settings.classId, tenantId).first() as Record<string, any> | null
+
+        if (currentClass) {
+          className = `${currentClass.name}${currentClass.arm ? ` ${currentClass.arm}` : ''}`
+        }
+      } catch {}
+
+      try {
+        await c.env.APP_DB.prepare(`CREATE TABLE IF NOT EXISTS subjects (id TEXT PRIMARY KEY, tenantId TEXT, name TEXT, classId TEXT, teacherId TEXT, createdAt TEXT)`).run()
+        try { await c.env.APP_DB.exec('ALTER TABLE subjects ADD COLUMN tenantId TEXT') } catch {}
+        try { await c.env.APP_DB.exec('ALTER TABLE subjects ADD COLUMN classId TEXT') } catch {}
+        try { await c.env.APP_DB.exec('ALTER TABLE subjects ADD COLUMN teacherId TEXT') } catch {}
+        const subjectRows = await c.env.APP_DB.prepare(
+          `SELECT id, name, teacherId FROM subjects WHERE tenantId = ? AND classId = ? ORDER BY name`
+        ).bind(tenantId, settings.classId).all()
+        subjects = (subjectRows.results || []) as Record<string, any>[]
+      } catch {}
+    }
+
     return c.json({
       studentName: displayName,
       roleWatermark: 'STUDENT',
@@ -1345,8 +1534,9 @@ app.get('/api/dashboards/:roleKey', authenticate, async (c) => {
       quickLinks,
       notices: [],
       classId: settings?.classId || null,
-      className: settings?.className || null,
+      className,
       displayId: settings?.displayId || null,
+      subjects,
     })
   }
 
@@ -1409,18 +1599,17 @@ app.post('/api/admin/reset-password', authenticate, async (c) => {
     return c.json({ error: 'targetId and newPassword required' }, 400)
   }
   
-  // Look up user record to get canonical email (settings key)
-  await ensureUsersTable(c.env.APP_DB)
-  const userRow = await c.env.APP_DB.prepare(
-    `SELECT id, email, name, role FROM users WHERE id = ? OR email = ?`
-  ).bind(targetId, targetId).first() as Record<string, any> | null
+  // Look up user record to get canonical email (settings key). Accept internal ID,
+  // email, or display ID so admins can reset from whichever identifier they see.
+  const resolvedTarget = await resolveSettingsIdentity(c.env.APP_DB, targetId)
+  const userRow = resolvedTarget.userRow
   
   if (!userRow) {
     return c.json({ error: 'User not found.' }, 404)
   }
   
   const settingsKey = userRow.email || userRow.id
-  let settings = await getSettings(c.env.APP_DB, settingsKey)
+  let settings = resolvedTarget.settings || await getSettings(c.env.APP_DB, settingsKey)
   if (!settings) settings = {}
   
   const nextSettings = await withHashedPassword({
@@ -1511,6 +1700,96 @@ app.post('/api/save-content', authenticate, async (c) => {
 })
 
 // Classrooms
+app.get('/api/classrooms/assigned', authenticate, async (c) => {
+  const user = c.var.user || {}
+  const userIdentifier = user.id || user.email || user.sub || ''
+  const resolvedUser = await resolveSettingsIdentity(c.env.APP_DB, userIdentifier)
+  const tenantId = resolvedUser.settings?.tenantId || resolvedUser.settings?.schoolId || resolvedUser.userRow?.tenantId || user.tenantId
+  const teacherId = resolvedUser.userRow?.id || user.id || ''
+
+  if (!tenantId || !teacherId) {
+    return c.json({ success: true, classes: [] })
+  }
+
+  try {
+    await ensureClassesTable(c.env.APP_DB)
+    await c.env.APP_DB.prepare(`CREATE TABLE IF NOT EXISTS subjects (id TEXT PRIMARY KEY, tenantId TEXT, name TEXT, classId TEXT, teacherId TEXT, createdAt TEXT)`).run()
+    try { await c.env.APP_DB.exec('ALTER TABLE subjects ADD COLUMN tenantId TEXT') } catch {}
+    try { await c.env.APP_DB.exec('ALTER TABLE subjects ADD COLUMN classId TEXT') } catch {}
+    try { await c.env.APP_DB.exec('ALTER TABLE subjects ADD COLUMN teacherId TEXT') } catch {}
+
+    const classRows = await c.env.APP_DB.prepare(
+      `SELECT DISTINCT c.id, c.name, c.arm, c.classTeacherId
+       FROM classes c
+       LEFT JOIN subjects s ON s.classId = c.id AND s.tenantId = c.tenantId
+       WHERE c.tenantId = ? AND (c.classTeacherId = ? OR s.teacherId = ?)
+       ORDER BY c.name, c.arm`
+    ).bind(tenantId, teacherId, teacherId).all()
+
+    const assignedClasses = await Promise.all(((classRows.results || []) as Record<string, any>[]).map(async row => {
+      const classId = String(row.id || '')
+      const isClassTeacher = String(row.classTeacherId || '') === teacherId
+      const [studentCountRow, subjectCountRow, assignmentCountRow, materialCountRow, streamCountRow, teacherSubjectRows] = await Promise.all([
+        c.env.APP_DB.prepare(
+          `SELECT COUNT(*) as count
+           FROM settings
+           WHERE json_extract(payload, '$.tenantId') = ?
+             AND json_extract(payload, '$.role') = 'student'
+             AND json_extract(payload, '$.classId') = ?
+             AND COALESCE(json_extract(payload, '$.status'), 'active') != 'inactive'`
+        ).bind(tenantId, classId).first().catch(() => ({ count: 0 })),
+        c.env.APP_DB.prepare(
+          `SELECT COUNT(*) as count FROM subjects WHERE tenantId = ? AND classId = ?`
+        ).bind(tenantId, classId).first().catch(() => ({ count: 0 })),
+        c.env.APP_DB.prepare(
+          `SELECT COUNT(*) as count FROM assignments WHERE classId = ?`
+        ).bind(classId).first().catch(() => ({ count: 0 })),
+        c.env.APP_DB.prepare(
+          `SELECT COUNT(*) as count FROM materials WHERE classId = ?`
+        ).bind(classId).first().catch(() => ({ count: 0 })),
+        c.env.APP_DB.prepare(
+          `SELECT COUNT(*) as count FROM posts WHERE classId = ?`
+        ).bind(classId).first().catch(() => ({ count: 0 })),
+        c.env.APP_DB.prepare(
+          `SELECT id, name, teacherId FROM subjects WHERE tenantId = ? AND classId = ? AND teacherId = ? ORDER BY name`
+        ).bind(tenantId, classId, teacherId).all().catch(() => ({ results: [] })),
+      ])
+
+      let subjectRows = ((teacherSubjectRows as any)?.results || []) as Record<string, any>[]
+      if (subjectRows.length === 0 && isClassTeacher) {
+        const fallbackSubjectRows = await c.env.APP_DB.prepare(
+          `SELECT id, name, teacherId FROM subjects WHERE tenantId = ? AND classId = ? ORDER BY name`
+        ).bind(tenantId, classId).all().catch(() => ({ results: [] }))
+        subjectRows = ((fallbackSubjectRows as any)?.results || []) as Record<string, any>[]
+      }
+
+      const className = `${row.name}${row.arm ? ` ${row.arm}` : ''}`
+      return {
+        id: classId,
+        name: row.name,
+        arm: row.arm || '',
+        className,
+        isClassTeacher,
+        studentCount: Number((studentCountRow as any)?.count || 0),
+        subjectCount: Number((subjectCountRow as any)?.count || 0),
+        assignmentCount: Number((assignmentCountRow as any)?.count || 0),
+        materialCount: Number((materialCountRow as any)?.count || 0),
+        streamCount: Number((streamCountRow as any)?.count || 0),
+        subjects: subjectRows.map(subject => ({
+          id: String(subject.id || ''),
+          name: String(subject.name || ''),
+          teacherId: String(subject.teacherId || ''),
+        })),
+      }
+    }))
+
+    return c.json({ success: true, classes: assignedClasses })
+  } catch (error) {
+    console.error('Failed to load assigned classes', error)
+    return c.json({ success: false, error: 'Could not load assigned classes.' }, 500)
+  }
+})
+
 app.get('/api/classrooms/:classroomId', authenticate, async (c) => {
   const classroomId = c.req.param('classroomId')
   const classroom = await getClassById(c.env.APP_DB, classroomId)
@@ -1552,6 +1831,23 @@ app.get('/api/classrooms/:classroomId/assignments', authenticate, async (c) => {
   const classroomId = c.req.param('classroomId')
   try {
     const assignments = await getAssignmentsForClass(c.env.APP_DB, classroomId)
+    const user = c.var.user || {}
+
+    if (String(user.role || '').toLowerCase() === 'student') {
+      const userIdentifier = user.id || user.email || user.sub || ''
+      const resolvedUser = await resolveSettingsIdentity(c.env.APP_DB, userIdentifier)
+      const studentId = resolvedUser.userRow?.id || user.id || userIdentifier
+      const hydratedAssignments = await Promise.all(assignments.map(async assignment => {
+        const mySubmission = await getLatestSubmissionForStudent(c.env.APP_DB, String((assignment as any).id || ''), studentId).catch(() => null)
+        return {
+          ...assignment,
+          mySubmission,
+          studentStatus: mySubmission ? 'Submitted' : 'Pending',
+        }
+      }))
+      return c.json({ success: true, assignments: hydratedAssignments })
+    }
+
     return c.json({ success: true, assignments })
   } catch (error) {
     return c.json({ success: false, message: 'Server error', error }, 500)
@@ -1560,16 +1856,61 @@ app.get('/api/classrooms/:classroomId/assignments', authenticate, async (c) => {
 
 app.post('/api/classrooms/:classroomId/assignments', authenticate, async (c) => {
   const classroomId = c.req.param('classroomId')
-  const { title, description, dueAt } = await c.req.json()
-  if (!title) {
-    return c.json({ success: false, message: 'Title is required' }, 400)
+  const payload = await c.req.json()
+  const { title, description, dueAt, subjectId, format, questions, metadata } = payload
+  if (!title || !subjectId) {
+    return c.json({ success: false, message: 'Title and subject are required' }, 400)
   }
   try {
+    const user = c.var.user || {}
+    const userIdentifier = user.id || user.email || user.sub || ''
+    const resolvedUser = await resolveSettingsIdentity(c.env.APP_DB, userIdentifier)
+    const tenantId = resolvedUser.settings?.tenantId || resolvedUser.settings?.schoolId || resolvedUser.userRow?.tenantId || user.tenantId
+    const teacherId = resolvedUser.userRow?.id || user.id || ''
+
+    await ensureClassesTable(c.env.APP_DB)
+    await c.env.APP_DB.prepare(`CREATE TABLE IF NOT EXISTS subjects (id TEXT PRIMARY KEY, tenantId TEXT, name TEXT, classId TEXT, teacherId TEXT, createdAt TEXT)`).run()
+    try { await c.env.APP_DB.exec('ALTER TABLE subjects ADD COLUMN tenantId TEXT') } catch {}
+    try { await c.env.APP_DB.exec('ALTER TABLE subjects ADD COLUMN classId TEXT') } catch {}
+    try { await c.env.APP_DB.exec('ALTER TABLE subjects ADD COLUMN teacherId TEXT') } catch {}
+
+    const classRow = await c.env.APP_DB.prepare(
+      `SELECT id, tenantId, name, arm, classTeacherId FROM classes WHERE id = ?`
+    ).bind(classroomId).first() as Record<string, any> | null
+
+    if (!classRow || (tenantId && String(classRow.tenantId || '') !== String(tenantId))) {
+      return c.json({ success: false, message: 'Class not found.' }, 404)
+    }
+
+    const subjectRow = await c.env.APP_DB.prepare(
+      `SELECT id, name, teacherId FROM subjects WHERE id = ? AND classId = ? AND tenantId = ?`
+    ).bind(subjectId, classroomId, classRow.tenantId || tenantId || '').first() as Record<string, any> | null
+
+    if (!subjectRow) {
+      return c.json({ success: false, message: 'Subject not found for this class.' }, 404)
+    }
+
+    const canCreateForSubject = String(subjectRow.teacherId || '') === teacherId || String(classRow.classTeacherId || '') === teacherId
+    if (!canCreateForSubject) {
+      return c.json({ success: false, message: 'You are not assigned to this subject.' }, 403)
+    }
+
+    const normalizedQuestions = Array.isArray(questions) ? questions : []
     const newAssignment = {
       classId: classroomId,
       title,
       description,
-      dueAt
+      dueAt,
+      subjectId: String(subjectRow.id || ''),
+      subjectName: String(subjectRow.name || payload.subjectName || ''),
+      format: String(format || (normalizedQuestions.length > 1 ? 'mixed' : normalizedQuestions[0]?.type || 'assignment')),
+      questions: normalizedQuestions,
+      metadata: {
+        ...(metadata && typeof metadata === 'object' ? metadata : {}),
+        questionCount: normalizedQuestions.length,
+        className: `${classRow.name}${classRow.arm ? ` ${classRow.arm}` : ''}`,
+      },
+      createdBy: teacherId,
     }
     const insertedAssignment = await createAssignment(c.env.APP_DB, newAssignment)
     return c.json({ success: true, assignment: insertedAssignment }, 201)
@@ -1577,6 +1918,131 @@ app.post('/api/classrooms/:classroomId/assignments', authenticate, async (c) => 
     return c.json({ success: false, message: 'Server error', error }, 500)
   }
 })
+
+app.post('/api/assignments/:assignmentId/submit', authenticate, async (c) => {
+  const assignmentId = c.req.param('assignmentId')
+  const payload = await c.req.json()
+
+  try {
+    const user = c.var.user || {}
+    const userIdentifier = user.id || user.email || user.sub || ''
+    const resolvedUser = await resolveSettingsIdentity(c.env.APP_DB, userIdentifier)
+    const studentId = resolvedUser.userRow?.id || user.id || userIdentifier
+    const studentClassId = resolvedUser.settings?.classId || user.classId || ''
+    const assignment = await getAssignmentById(c.env.APP_DB, assignmentId)
+
+    if (!assignment) {
+      return c.json({ success: false, message: 'Assignment not found.' }, 404)
+    }
+
+    if (studentClassId && String((assignment as any).classId || '') !== String(studentClassId)) {
+      return c.json({ success: false, message: 'You are not assigned to this class assignment.' }, 403)
+    }
+
+    const answers = payload?.answers && typeof payload.answers === 'object' ? payload.answers : {}
+    const submission = await createSubmission(c.env.APP_DB, {
+      assignmentId,
+      studentId,
+      content: { answers },
+    })
+
+    return c.json({ success: true, submission }, 201)
+  } catch (error) {
+    return c.json({ success: false, message: 'Could not submit assignment.', error }, 500)
+  }
+})
+
+app.post('/api/classrooms/:classroomId/assignment-assets/upload', authenticate, async (c) => {
+  const classroomId = c.req.param('classroomId')
+  const formData = await c.req.formData()
+  const file = formData.get('file') as File
+  const title = String(formData.get('title') || '').trim() || (file?.name || 'assignment-asset')
+
+  if (!file) {
+    return c.json({ success: false, message: 'File is required.' }, 400)
+  }
+
+  try {
+    const fileName = `assignment_${classroomId}_${Date.now()}_${file.name.replace(/[^a-zA-Z0-9._-]/g, '_')}`
+    await c.env.UPLOADS.put(fileName, file.stream(), {
+      httpMetadata: { contentType: file.type || 'application/octet-stream' }
+    })
+    const url = `https://ndovera.com/files/${fileName}`
+    return c.json({
+      success: true,
+      asset: {
+        title,
+        url,
+        fileName,
+        contentType: file.type || 'application/octet-stream',
+      }
+    })
+  } catch (error) {
+    return c.json({ success: false, message: 'Could not upload assignment asset.', error }, 500)
+  }
+})
+
+async function ensureClassroomSubjectsTable(db: D1Database) {
+  await db.prepare(`CREATE TABLE IF NOT EXISTS subjects (id TEXT PRIMARY KEY, tenantId TEXT, name TEXT, classId TEXT, teacherId TEXT, createdAt TEXT)`).run()
+  try { await db.exec('ALTER TABLE subjects ADD COLUMN tenantId TEXT') } catch {}
+  try { await db.exec('ALTER TABLE subjects ADD COLUMN classId TEXT') } catch {}
+  try { await db.exec('ALTER TABLE subjects ADD COLUMN teacherId TEXT') } catch {}
+}
+
+function normalizeMaterialType(value: string, fallback = 'document') {
+  const normalized = String(value || '').trim().toLowerCase()
+  if (['document', 'video', 'image', 'link'].includes(normalized)) return normalized
+  return fallback
+}
+
+function inferMaterialType(url: string, contentType = '') {
+  const safeUrl = String(url || '').toLowerCase()
+  const safeContentType = String(contentType || '').toLowerCase()
+
+  if (safeContentType.startsWith('video/') || /\.(mp4|webm|ogg|mov|m4v)(\?|#|$)/.test(safeUrl)) return 'video'
+  if (safeContentType.startsWith('image/') || /\.(png|jpe?g|gif|webp|svg)(\?|#|$)/.test(safeUrl)) return 'image'
+  if (/^https?:\/\//.test(safeUrl) && !/\.(pdf|docx?|pptx?|xlsx?|csv|txt|rtf|zip)(\?|#|$)/.test(safeUrl)) return 'link'
+  return 'document'
+}
+
+async function resolveMaterialPublishingContext(db: D1Database, user: Record<string, any>, classroomId: string, subjectId: string) {
+  const userIdentifier = user.id || user.email || user.sub || ''
+  const resolvedUser = await resolveSettingsIdentity(db, userIdentifier)
+  const tenantId = resolvedUser.settings?.tenantId || resolvedUser.settings?.schoolId || resolvedUser.userRow?.tenantId || user.tenantId
+  const teacherId = resolvedUser.userRow?.id || user.id || ''
+
+  await ensureClassesTable(db)
+  await ensureClassroomSubjectsTable(db)
+
+  const classRow = await db.prepare(
+    `SELECT id, tenantId, name, arm, classTeacherId FROM classes WHERE id = ?`
+  ).bind(classroomId).first() as Record<string, any> | null
+
+  if (!tenantId || !teacherId || !classRow || String(classRow.tenantId || '') !== String(tenantId)) {
+    return { ok: false, status: 404, message: 'Class not found.' }
+  }
+
+  const subjectRow = await db.prepare(
+    `SELECT id, name, teacherId FROM subjects WHERE id = ? AND classId = ? AND tenantId = ?`
+  ).bind(subjectId, classroomId, classRow.tenantId || tenantId || '').first() as Record<string, any> | null
+
+  if (!subjectRow) {
+    return { ok: false, status: 404, message: 'Subject not found for this class.' }
+  }
+
+  const canPublish = String(subjectRow.teacherId || '') === teacherId || String(classRow.classTeacherId || '') === teacherId
+  if (!canPublish) {
+    return { ok: false, status: 403, message: 'You are not assigned to this subject.' }
+  }
+
+  return {
+    ok: true,
+    teacherId,
+    subjectRow,
+    classRow,
+    uploadedByName: String(resolvedUser.settings?.name || resolvedUser.userRow?.name || user.name || teacherId),
+  }
+}
 
 app.get('/api/classrooms/:classroomId/materials', authenticate, async (c) => {
   const classroomId = c.req.param('classroomId')
@@ -1590,17 +2056,31 @@ app.get('/api/classrooms/:classroomId/materials', authenticate, async (c) => {
 
 app.post('/api/classrooms/:classroomId/materials', authenticate, async (c) => {
   const classroomId = c.req.param('classroomId')
-  const { title, url } = await c.req.json()
-  const uploadedBy = 'user-teacher-1' // Placeholder
-  if (!title || !url) {
-    return c.json({ success: false, message: 'Title and URL are required' }, 400)
+  const { title, url, subjectId, description, type } = await c.req.json()
+  if (!title || !url || !subjectId) {
+    return c.json({ success: false, message: 'Title, URL, and subject are required.' }, 400)
   }
   try {
+    const publishContext = await resolveMaterialPublishingContext(c.env.APP_DB, c.var.user || {}, classroomId, String(subjectId))
+    if (!publishContext.ok) {
+      return c.json({ success: false, message: publishContext.message }, publishContext.status)
+    }
+
     const newMaterial = {
       classId: classroomId,
       title,
       url,
-      uploadedBy
+      uploadedBy: publishContext.uploadedByName,
+      metadata: {
+        subjectId: String(publishContext.subjectRow.id || ''),
+        subjectName: String(publishContext.subjectRow.name || ''),
+        description: String(description || '').trim(),
+        type: normalizeMaterialType(type, inferMaterialType(String(url || ''))),
+        uploadedByName: publishContext.uploadedByName,
+        uploadedById: publishContext.teacherId,
+        className: `${publishContext.classRow.name}${publishContext.classRow.arm ? ` ${publishContext.classRow.arm}` : ''}`,
+        source: 'link',
+      },
     }
     const insertedMaterial = await addMaterial(c.env.APP_DB, newMaterial)
     return c.json({ success: true, material: insertedMaterial }, 201)
@@ -1615,11 +2095,18 @@ app.post('/api/classrooms/:classroomId/materials/upload-multipart', authenticate
   const formData = await c.req.formData()
   const file = formData.get('file') as File
   const title = formData.get('title') as string
-  const uploadedBy = 'user-teacher-1' // Placeholder
-  if (!title || !file) {
-    return c.json({ success: false, message: 'Title and file are required' }, 400)
+  const subjectId = String(formData.get('subjectId') || '').trim()
+  const description = String(formData.get('description') || '').trim()
+  const requestedType = String(formData.get('type') || '').trim()
+  if (!title || !file || !subjectId) {
+    return c.json({ success: false, message: 'Title, file, and subject are required.' }, 400)
   }
   try {
+    const publishContext = await resolveMaterialPublishingContext(c.env.APP_DB, c.var.user || {}, classroomId, subjectId)
+    if (!publishContext.ok) {
+      return c.json({ success: false, message: publishContext.message }, publishContext.status)
+    }
+
     const fileName = `${Date.now()}_${file.name.replace(/[^a-zA-Z0-9._-]/g, '_')}`
     await c.env.UPLOADS.put(fileName, file.stream(), {
       httpMetadata: { contentType: file.type }
@@ -1629,7 +2116,18 @@ app.post('/api/classrooms/:classroomId/materials/upload-multipart', authenticate
       classId: classroomId,
       title,
       url,
-      uploadedBy
+      uploadedBy: publishContext.uploadedByName,
+      metadata: {
+        subjectId: String(publishContext.subjectRow.id || ''),
+        subjectName: String(publishContext.subjectRow.name || ''),
+        description,
+        type: normalizeMaterialType(requestedType, inferMaterialType(file.name, file.type)),
+        uploadedByName: publishContext.uploadedByName,
+        uploadedById: publishContext.teacherId,
+        className: `${publishContext.classRow.name}${publishContext.classRow.arm ? ` ${publishContext.classRow.arm}` : ''}`,
+        source: 'upload',
+        contentType: file.type || 'application/octet-stream',
+      },
     }
     const insertedMaterial = await addMaterial(c.env.APP_DB, newMaterial)
     return c.json({ success: true, material: insertedMaterial }, 201)
@@ -1638,11 +2136,250 @@ app.post('/api/classrooms/:classroomId/materials/upload-multipart', authenticate
   }
 })
 
+async function ensureSchoolStudentAttendanceTable(db: D1Database) {
+  await db.prepare(`CREATE TABLE IF NOT EXISTS student_attendance_school (
+    id TEXT PRIMARY KEY,
+    tenant_id TEXT,
+    student_id TEXT,
+    class_id TEXT,
+    date TEXT,
+    status TEXT,
+    notes TEXT,
+    recorded_by TEXT,
+    created_at TEXT,
+    updated_at TEXT
+  )`).run()
+  try { await db.exec('ALTER TABLE student_attendance_school ADD COLUMN notes TEXT') } catch {}
+  try { await db.exec('ALTER TABLE student_attendance_school ADD COLUMN updated_at TEXT') } catch {}
+}
+
+async function resolveSchoolAttendanceActor(db: D1Database, user: Record<string, any>) {
+  const userIdentifier = String(user?.id || user?.email || user?.sub || '').trim()
+  const resolvedUser = await resolveSettingsIdentity(db, userIdentifier)
+  const actorId = String(resolvedUser.userRow?.id || user?.id || userIdentifier || '').trim()
+  const actorName = String(user?.name || resolvedUser.userRow?.name || resolvedUser.settings?.name || actorId || '').trim()
+  const tenantId = String(
+    resolvedUser.settings?.tenantId ||
+    resolvedUser.settings?.schoolId ||
+    resolvedUser.userRow?.tenantId ||
+    user?.tenantId ||
+    ''
+  ).trim()
+  const role = String(user?.role || resolvedUser.settings?.role || resolvedUser.userRow?.role || '').toLowerCase().trim()
+
+  return { resolvedUser, actorId, actorName, tenantId, role }
+}
+
+async function getSchoolClassroomContext(db: D1Database, tenantId: string, classroomId: string, actorId?: string, actorRole?: string) {
+  await ensureClassesTable(db)
+  const classRow = await db.prepare(
+    `SELECT id, tenantId, name, arm, classTeacherId FROM classes WHERE id = ? AND tenantId = ?`
+  ).bind(classroomId, tenantId).first() as Record<string, any> | null
+
+  if (!classRow) {
+    return { classRow: null, isClassTeacher: false, canView: false, canManage: false }
+  }
+
+  const normalizedActorId = String(actorId || '').trim()
+  const normalizedRole = String(actorRole || '').toLowerCase().trim()
+  const isElevatedViewer = ['owner', 'hos', 'admin'].includes(normalizedRole)
+  const isClassTeacher = normalizedActorId !== '' && String(classRow.classTeacherId || '') === normalizedActorId
+
+  return {
+    classRow,
+    isClassTeacher,
+    canView: isElevatedViewer || isClassTeacher,
+    canManage: isClassTeacher,
+  }
+}
+
+async function resolveStudentAttendanceTarget(db: D1Database, tenantId: string, studentIdentifier: string) {
+  const resolvedStudent = await resolveSettingsIdentity(db, studentIdentifier)
+  const studentId = String(resolvedStudent.userRow?.id || studentIdentifier || '').trim()
+  const studentRole = String(resolvedStudent.userRow?.role || resolvedStudent.settings?.role || '').toLowerCase().trim()
+  const studentTenantId = String(
+    resolvedStudent.settings?.tenantId ||
+    resolvedStudent.settings?.schoolId ||
+    resolvedStudent.userRow?.tenantId ||
+    ''
+  ).trim()
+  const classId = String(resolvedStudent.settings?.classId || '').trim()
+
+  if (!studentId || studentRole !== 'student' || studentTenantId !== tenantId) {
+    return null
+  }
+
+  return {
+    studentId,
+    classId,
+    studentName: String(resolvedStudent.userRow?.name || resolvedStudent.settings?.name || studentId),
+  }
+}
+
+async function listSchoolStudentAttendance(
+  db: D1Database,
+  filters: { tenantId: string, classId?: string, studentId?: string, date?: string, from?: string, to?: string, limit?: number }
+) {
+  await ensureSchoolStudentAttendanceTable(db)
+
+  let query = 'SELECT * FROM student_attendance_school WHERE tenant_id = ?'
+  const params: Array<string | number> = [filters.tenantId]
+
+  if (filters.classId) {
+    query += ' AND class_id = ?'
+    params.push(filters.classId)
+  }
+
+  if (filters.studentId) {
+    query += ' AND student_id = ?'
+    params.push(filters.studentId)
+  }
+
+  if (filters.date) {
+    query += ' AND date = ?'
+    params.push(filters.date)
+  } else {
+    if (filters.from) {
+      query += ' AND date >= ?'
+      params.push(filters.from)
+    }
+    if (filters.to) {
+      query += ' AND date <= ?'
+      params.push(filters.to)
+    }
+  }
+
+  query += ' ORDER BY date DESC'
+
+  if (typeof filters.limit === 'number' && Number.isFinite(filters.limit) && filters.limit > 0) {
+    query += ' LIMIT ?'
+    params.push(Math.trunc(filters.limit))
+  }
+
+  const rows = await db.prepare(query).bind(...params).all()
+  return ((rows.results || []) as Record<string, any>[]).map(row => ({
+    id: String(row.id || ''),
+    tenantId: String(row.tenant_id || filters.tenantId || ''),
+    studentId: String(row.student_id || ''),
+    classId: String(row.class_id || ''),
+    date: String(row.date || ''),
+    status: String(row.status || ''),
+    notes: String(row.notes || ''),
+    recordedBy: String(row.recorded_by || ''),
+    createdAt: String(row.created_at || ''),
+    updatedAt: String(row.updated_at || row.created_at || ''),
+  }))
+}
+
+async function upsertSchoolStudentAttendance(db: D1Database, record: {
+  tenantId: string
+  studentId: string
+  classId: string
+  date: string
+  status: string
+  notes?: string
+  recordedBy: string
+}) {
+  await ensureSchoolStudentAttendanceTable(db)
+
+  const id = `stua_${record.tenantId}_${record.studentId}_${record.date}`
+  const timestamp = new Date().toISOString()
+
+  await db.prepare(
+    `INSERT OR REPLACE INTO student_attendance_school (
+      id, tenant_id, student_id, class_id, date, status, notes, recorded_by, created_at, updated_at
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+  ).bind(
+    id,
+    record.tenantId,
+    record.studentId,
+    record.classId,
+    record.date,
+    record.status,
+    record.notes || null,
+    record.recordedBy,
+    timestamp,
+    timestamp,
+  ).run()
+
+  return {
+    id,
+    tenantId: record.tenantId,
+    studentId: record.studentId,
+    classId: record.classId,
+    date: record.date,
+    status: record.status,
+    notes: record.notes || '',
+    recordedBy: record.recordedBy,
+    updatedAt: timestamp,
+  }
+}
+
 app.get('/api/classrooms/:classroomId/attendance', authenticate, async (c) => {
   const classroomId = c.req.param('classroomId')
   try {
-    const attendance = await getAttendanceForClass(c.env.APP_DB, classroomId)
+    const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
+    if (!actor.tenantId) {
+      return c.json({ success: false, message: 'No tenant.' }, 400)
+    }
+
+    const classroom = await getSchoolClassroomContext(c.env.APP_DB, actor.tenantId, classroomId, actor.actorId, actor.role)
+    if (!classroom.classRow) {
+      return c.json({ success: false, message: 'Class not found.' }, 404)
+    }
+
+    if (!classroom.canView) {
+      return c.json({ success: false, message: 'Only the class teacher can view attendance for this class.' }, 403)
+    }
+
+    const attendance = await listSchoolStudentAttendance(c.env.APP_DB, {
+      tenantId: actor.tenantId,
+      classId: classroomId,
+      date: c.req.query('date') || undefined,
+      from: c.req.query('since') || undefined,
+    })
     return c.json({ success: true, attendance })
+  } catch (error) {
+    return c.json({ success: false, message: 'Server error', error }, 500)
+  }
+})
+
+app.get('/api/classrooms/:classroomId/students', authenticate, async (c) => {
+  const classroomId = c.req.param('classroomId')
+
+  try {
+    const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
+    if (!actor.tenantId) {
+      return c.json({ success: false, message: 'No tenant.' }, 400)
+    }
+
+    const classroom = await getSchoolClassroomContext(c.env.APP_DB, actor.tenantId, classroomId, actor.actorId, actor.role)
+    if (!classroom.classRow) {
+      return c.json({ success: false, message: 'Class not found.' }, 404)
+    }
+
+    if (!classroom.canView) {
+      return c.json({ success: false, message: 'Only the class teacher can load this class roster.' }, 403)
+    }
+
+    await ensureUsersTable(c.env.APP_DB)
+    const rows = await c.env.APP_DB.prepare(
+      `SELECT id, name, email, role, status, createdAt
+       FROM users
+       WHERE tenantId = ? AND role = 'student' AND (status IS NULL OR status != 'inactive')
+       ORDER BY name`
+    ).bind(actor.tenantId).all()
+
+    const roster = await hydrateUserRecords(c.env.APP_DB, (rows.results || []) as Record<string, any>[])
+    const className = `${classroom.classRow.name}${classroom.classRow.arm ? ` ${classroom.classRow.arm}` : ''}`
+    const students = roster
+      .filter(student => String(student?.classId || '') === classroomId)
+      .map(student => ({
+        ...student,
+        className,
+      }))
+
+    return c.json({ success: true, students })
   } catch (error) {
     return c.json({ success: false, message: 'Server error', error }, 500)
   }
@@ -1651,12 +2388,43 @@ app.get('/api/classrooms/:classroomId/attendance', authenticate, async (c) => {
 app.post('/api/classrooms/:classroomId/attendance', authenticate, async (c) => {
   const classroomId = c.req.param('classroomId')
   const { studentId, date, status, notes } = await c.req.json()
-  const recordedBy = 'user-teacher-1' // Placeholder
   if (!studentId || !date || !status) {
     return c.json({ success: false, message: 'studentId, date, and status are required' }, 400)
   }
+
   try {
-    const insertedRecord = await recordAttendance(c.env.APP_DB, classroomId, studentId, date, status, recordedBy, notes)
+    const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
+    if (!actor.tenantId) {
+      return c.json({ success: false, message: 'No tenant.' }, 400)
+    }
+
+    const classroom = await getSchoolClassroomContext(c.env.APP_DB, actor.tenantId, classroomId, actor.actorId, actor.role)
+    if (!classroom.classRow) {
+      return c.json({ success: false, message: 'Class not found.' }, 404)
+    }
+
+    if (!classroom.canManage) {
+      return c.json({ success: false, message: 'Only the class teacher can mark attendance for this class.' }, 403)
+    }
+
+    const targetStudent = await resolveStudentAttendanceTarget(c.env.APP_DB, actor.tenantId, String(studentId))
+    if (!targetStudent) {
+      return c.json({ success: false, message: 'Student not found for this tenant.' }, 404)
+    }
+
+    if (targetStudent.classId !== classroomId) {
+      return c.json({ success: false, message: 'Student does not belong to this class.' }, 400)
+    }
+
+    const insertedRecord = await upsertSchoolStudentAttendance(c.env.APP_DB, {
+      tenantId: actor.tenantId,
+      studentId: targetStudent.studentId,
+      classId: classroomId,
+      date: String(date),
+      status: String(status),
+      notes: typeof notes === 'string' ? notes.trim() : '',
+      recordedBy: actor.actorName || actor.actorId,
+    })
     return c.json({ success: true, attendance: insertedRecord }, 201)
   } catch (error) {
     return c.json({ success: false, message: 'Server error', error }, 500)
@@ -1794,6 +2562,45 @@ type DisplayIdConfig = {
 
 async function ensureUsersTable(db: D1Database) {
   await db.prepare(USERS_TABLE_SQL).run()
+}
+
+async function getTenantUserCounts(db: D1Database, tenantId: string) {
+  await ensureUsersTable(db)
+  const rows = await db.prepare(
+    `SELECT role, COUNT(*) as count FROM users WHERE tenantId = ? AND (status IS NULL OR status != 'inactive') GROUP BY role`
+  ).bind(tenantId).all()
+
+  const byRole: Record<string, number> = {}
+  for (const row of (rows.results || []) as Record<string, any>[]) {
+    const role = String(row.role || 'staff').toLowerCase()
+    byRole[role] = Number(row.count || 0)
+  }
+
+  const students = byRole.student || 0
+  const teachers = byRole.teacher || 0
+  const parents = byRole.parent || 0
+  const staff = Object.entries(byRole).reduce((sum, [role, count]) => {
+    if (['student', 'teacher', 'parent', 'owner', 'ami'].includes(role)) return sum
+    return sum + Number(count || 0)
+  }, 0)
+  const billable = Object.entries(byRole).reduce((sum, [role, count]) => {
+    if (['owner', 'ami'].includes(role)) return sum
+    return sum + Number(count || 0)
+  }, 0)
+
+  return {
+    ...byRole,
+    students,
+    teachers,
+    parents,
+    staff,
+    billable,
+  }
+}
+
+async function buildTenantQuoteForTenant(db: D1Database, tenant: any, discountCode?: any, plans: Record<string, any> = TENANT_PLANS) {
+  const counts = tenant?.id ? await getTenantUserCounts(db, tenant.id).catch(() => ({ billable: Number(tenant.studentCount || 0) })) : { billable: 0 }
+  return buildTenantQuote(tenant.planKey, Number((counts as any).billable || 0), discountCode, plans, counts as Record<string, number>)
 }
 
 async function ensureParentStudentLinksTable(db: D1Database) {
@@ -2331,8 +3138,13 @@ app.get('/api/people/:userId', authenticate, async (c) => {
 })
 
 const INIT_BRANDING = `CREATE TABLE IF NOT EXISTS tenant_branding (tenant_id TEXT PRIMARY KEY, logo_url TEXT, tagline TEXT, website TEXT, updated_at TEXT)`
-const INIT_WEBSITE_SECTIONS = `CREATE TABLE IF NOT EXISTS website_sections (id TEXT PRIMARY KEY, tenant_id TEXT, section_key TEXT, title TEXT, content TEXT, image_url TEXT, updated_at TEXT)`
+const INIT_WEBSITE_SECTIONS = `CREATE TABLE IF NOT EXISTS website_sections (id TEXT PRIMARY KEY, tenant_id TEXT, section_key TEXT, title TEXT, content TEXT, image_url TEXT, metadata TEXT, updated_at TEXT)`
 const INIT_SCHOOL_EVENTS = `CREATE TABLE IF NOT EXISTS school_events (id TEXT PRIMARY KEY, tenant_id TEXT, title TEXT, description TEXT, event_date TEXT, media_urls TEXT, created_at TEXT, updated_at TEXT)`
+
+async function ensureWebsiteSectionsTable(db: D1Database) {
+  await db.prepare(INIT_WEBSITE_SECTIONS).run()
+  await db.prepare(`ALTER TABLE website_sections ADD COLUMN metadata TEXT`).run().catch(() => {})
+}
 
 app.get('/api/school/branding', authenticate, async (c) => {
   const { tenant } = await resolveTenantForActor(c)
@@ -2340,15 +3152,18 @@ app.get('/api/school/branding', authenticate, async (c) => {
   try {
     await c.env.APP_DB.prepare(INIT_BRANDING).run()
     const row = await c.env.APP_DB.prepare(`SELECT * FROM tenant_branding WHERE tenant_id = ?`).bind(tenant.id).first() as any
+    const websiteUrl = row?.website || (tenant.websiteDomain ? `https://${tenant.websiteDomain}` : null)
     return c.json({ success: true, branding: {
       schoolName: tenant.schoolName,
       subdomain: tenant.requestedSubdomain,
       logoUrl: row?.logo_url || null,
       tagline: row?.tagline || null,
-      website: row?.website || null,
+      website: websiteUrl,
+      websiteUrl,
     }})
   } catch {
-    return c.json({ success: true, branding: { schoolName: tenant.schoolName, subdomain: tenant.requestedSubdomain, logoUrl: null, tagline: null, website: null } })
+    const websiteUrl = tenant.websiteDomain ? `https://${tenant.websiteDomain}` : null
+    return c.json({ success: true, branding: { schoolName: tenant.schoolName, subdomain: tenant.requestedSubdomain, logoUrl: null, tagline: null, website: websiteUrl, websiteUrl } })
   }
 })
 
@@ -2360,8 +3175,9 @@ app.post('/api/school/branding', authenticate, async (c) => {
   try {
     await c.env.APP_DB.prepare(INIT_BRANDING).run()
     const existing = await c.env.APP_DB.prepare(`SELECT * FROM tenant_branding WHERE tenant_id = ?`).bind(tenant.id).first() as any
+    const websiteUrl = website ?? existing?.website ?? (tenant.websiteDomain ? `https://${tenant.websiteDomain}` : null)
     await c.env.APP_DB.prepare(`INSERT OR REPLACE INTO tenant_branding (tenant_id, logo_url, tagline, website, updated_at) VALUES (?, ?, ?, ?, ?)`)
-      .bind(tenant.id, logoUrl ?? existing?.logo_url ?? null, tagline ?? null, website ?? null, new Date().toISOString()).run()
+      .bind(tenant.id, logoUrl ?? existing?.logo_url ?? null, tagline ?? null, websiteUrl, new Date().toISOString()).run()
     return c.json({ success: true })
   } catch (err) {
     return c.json({ error: 'Could not save branding.' }, 500)
@@ -2396,23 +3212,23 @@ app.get('/api/school/website/sections', authenticate, async (c) => {
   const tenantId = c.var.user?.tenantId
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
   try {
-    await c.env.APP_DB.prepare(INIT_WEBSITE_SECTIONS).run()
+    await ensureWebsiteSectionsTable(c.env.APP_DB)
     const rows = await c.env.APP_DB.prepare(`SELECT * FROM website_sections WHERE tenant_id = ? ORDER BY section_key`).bind(tenantId).all()
     return c.json({ success: true, sections: rows.results || [] })
   } catch { return c.json({ success: true, sections: [] }) }
 })
 
 app.post('/api/school/website/sections', authenticate, async (c) => {
-  if (!hasRequiredRole(c.var.user.role, ['owner'])) return c.json({ error: 'forbidden' }, 403)
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos', 'ict', 'ict_manager'])) return c.json({ error: 'forbidden' }, 403)
   const tenantId = c.var.user?.tenantId
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
-  const { sectionKey, title, content, imageUrl } = await c.req.json()
+  const { sectionKey, title, content, imageUrl, metadata } = await c.req.json()
   if (!sectionKey) return c.json({ error: 'Section key required.' }, 400)
   const id = `ws_${tenantId}_${sectionKey}`
   try {
-    await c.env.APP_DB.prepare(INIT_WEBSITE_SECTIONS).run()
-    await c.env.APP_DB.prepare(`INSERT OR REPLACE INTO website_sections (id, tenant_id, section_key, title, content, image_url, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?)`)
-      .bind(id, tenantId, sectionKey, title || '', content || '', imageUrl || null, new Date().toISOString()).run()
+    await ensureWebsiteSectionsTable(c.env.APP_DB)
+    await c.env.APP_DB.prepare(`INSERT OR REPLACE INTO website_sections (id, tenant_id, section_key, title, content, image_url, metadata, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`)
+      .bind(id, tenantId, sectionKey, title || '', content || '', imageUrl || null, JSON.stringify(metadata || {}), new Date().toISOString()).run()
     return c.json({ success: true })
   } catch (err) {
     return c.json({ error: 'Could not save section.' }, 500)
@@ -2420,7 +3236,7 @@ app.post('/api/school/website/sections', authenticate, async (c) => {
 })
 
 app.post('/api/school/website/sections/upload', authenticate, async (c) => {
-  if (!hasRequiredRole(c.var.user.role, ['owner'])) return c.json({ error: 'forbidden' }, 403)
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos', 'ict', 'ict_manager'])) return c.json({ error: 'forbidden' }, 403)
   const tenantId = c.var.user?.tenantId
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
   const formData = await c.req.formData()
@@ -2541,11 +3357,13 @@ app.post('/api/school/classes', authenticate, async (c) => {
     try { await c.env.APP_DB.exec('ALTER TABLE classes ADD COLUMN arm TEXT') } catch {}
     try { await c.env.APP_DB.exec('ALTER TABLE classes ADD COLUMN classTeacherId TEXT') } catch {}
     try { await c.env.APP_DB.exec('ALTER TABLE classes ADD COLUMN createdAt TEXT') } catch {}
-    await c.env.APP_DB.prepare(`INSERT INTO classes (id, tenantId, name, arm, classTeacherId, createdAt) VALUES (?, ?, ?, ?, ?, ?)`).bind(id, tenantId, name, arm || '', classTeacherId || null, new Date().toISOString()).run()
-    if (classTeacherId) {
+    const normalizedTeacherId = String(classTeacherId || '').trim() || null
+    await c.env.APP_DB.prepare(`INSERT INTO classes (id, tenantId, name, arm, classTeacherId, createdAt) VALUES (?, ?, ?, ?, ?, ?)`).bind(id, tenantId, name, arm || '', normalizedTeacherId, new Date().toISOString()).run()
+    if (normalizedTeacherId) {
       await c.env.APP_DB.prepare('UPDATE subjects SET teacherId = ? WHERE classId = ? AND tenantId = ?')
-        .bind(classTeacherId, id, tenantId).run()
+        .bind(normalizedTeacherId, id, tenantId).run()
     }
+    await syncTeacherClassAssignment(c.env.APP_DB, tenantId, { id, name, arm: arm || '', classTeacherId: normalizedTeacherId })
     return c.json({ success: true, id }, 201)
   } catch (err) {
     return c.json({ error: err instanceof Error ? err.message : 'Could not add class.' }, 500)
@@ -2560,18 +3378,33 @@ app.put('/api/school/classes/:classId', authenticate, async (c) => {
   const body = await c.req.json()
   const { name, arm, classTeacherId } = body
   try {
+    const existingClass = await c.env.APP_DB.prepare(`SELECT * FROM classes WHERE id = ? AND tenantId = ?`).bind(classId, tenantId).first() as Record<string, any> | null
+    if (!existingClass) return c.json({ error: 'Class not found.' }, 404)
+
     const sets: string[] = []
     const vals: unknown[] = []
     if (name !== undefined) { sets.push('name = ?'); vals.push(name) }
     if (arm !== undefined) { sets.push('arm = ?'); vals.push(arm) }
-    if (classTeacherId !== undefined) { sets.push('classTeacherId = ?'); vals.push(classTeacherId) }
+    const normalizedTeacherId = classTeacherId !== undefined ? (String(classTeacherId || '').trim() || null) : undefined
+    if (normalizedTeacherId !== undefined) { sets.push('classTeacherId = ?'); vals.push(normalizedTeacherId) }
     if (sets.length === 0) return c.json({ error: 'Nothing to update.' }, 400)
     vals.push(classId, tenantId)
     await c.env.APP_DB.prepare(`UPDATE classes SET ${sets.join(', ')} WHERE id = ? AND tenantId = ?`).bind(...vals).run()
-    if (classTeacherId) {
+    if (normalizedTeacherId) {
       await c.env.APP_DB.prepare('UPDATE subjects SET teacherId = ? WHERE classId = ? AND tenantId = ?')
-        .bind(classTeacherId, classId, tenantId).run()
+        .bind(normalizedTeacherId, classId, tenantId).run()
+    } else if (classTeacherId !== undefined) {
+      await c.env.APP_DB.prepare('UPDATE subjects SET teacherId = NULL WHERE classId = ? AND tenantId = ?')
+        .bind(classId, tenantId).run()
     }
+
+    const updatedClass = {
+      ...existingClass,
+      ...(name !== undefined ? { name } : {}),
+      ...(arm !== undefined ? { arm } : {}),
+      ...(normalizedTeacherId !== undefined ? { classTeacherId: normalizedTeacherId } : {}),
+    }
+    await syncTeacherClassAssignment(c.env.APP_DB, tenantId, updatedClass, existingClass.classTeacherId)
     return c.json({ success: true })
   } catch (err) {
     return c.json({ error: err instanceof Error ? err.message : 'Could not update class.' }, 500)
@@ -2911,61 +3744,504 @@ app.get('/api/school/payroll/my-payslip', authenticate, async (c) => {
 })
 
 // ─── Staff Attendance ─────────────────────────────────────────────────────────
+async function ensureStaffAttendanceBaseTable(db: D1Database) {
+  await db.prepare(`CREATE TABLE IF NOT EXISTS staff_attendance (
+    id TEXT PRIMARY KEY,
+    tenant_id TEXT,
+    staff_id TEXT,
+    date TEXT,
+    status TEXT,
+    recorded_by TEXT,
+    created_at TEXT
+  )`).run()
+}
+
+async function ensureStaffAttendanceSettingsTable(db: D1Database) {
+  await db.prepare(`CREATE TABLE IF NOT EXISTS staff_attendance_settings (
+    tenant_id TEXT PRIMARY KEY,
+    mode TEXT,
+    require_qr_on_face INTEGER,
+    active_qr_code TEXT,
+    qr_rotated_at TEXT,
+    updated_by TEXT,
+    created_at TEXT,
+    updated_at TEXT
+  )`).run()
+}
+
+async function ensureStaffAttendanceEventsTable(db: D1Database) {
+  await db.prepare(`CREATE TABLE IF NOT EXISTS staff_attendance_events (
+    id TEXT PRIMARY KEY,
+    tenant_id TEXT,
+    staff_id TEXT,
+    date TEXT,
+    action TEXT,
+    method TEXT,
+    qr_code TEXT,
+    face_image_url TEXT,
+    notes TEXT,
+    recorded_by TEXT,
+    created_at TEXT,
+    updated_at TEXT
+  )`).run()
+}
+
+function canManageStaffAttendanceConfig(role: string) {
+  return ['owner', 'hos', 'ict', 'ict_manager'].includes(String(role || '').toLowerCase().trim())
+}
+
+function canUseStaffAttendance(role: string) {
+  return !['', 'student', 'parent', 'ami'].includes(String(role || '').toLowerCase().trim())
+}
+
+function generateStaffAttendanceQrCode(tenantId: string) {
+  return `ndovera-${tenantId}-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`
+}
+
+function mapStaffAttendanceSettings(row: Record<string, any> | null, includeSecret = true) {
+  const mode = String(row?.mode || 'qr') === 'face_qr' ? 'face_qr' : 'qr'
+  const mapped = {
+    mode,
+    modeLabel: mode === 'face_qr' ? 'Face + QR (Shared Phone)' : 'QR Sign-In',
+    modeDescription: mode === 'face_qr'
+      ? 'Use this when a staff member is signing in from another person\'s phone. The face capture and active school QR must appear together.'
+      : 'Use this when staff sign in with the active school QR on their own phone or a school scanner.',
+    requireQrOnFace: Boolean(Number(row?.require_qr_on_face ?? 1)),
+    qrRotatedAt: String(row?.qr_rotated_at || row?.updated_at || row?.created_at || ''),
+    updatedAt: String(row?.updated_at || row?.created_at || ''),
+  } as Record<string, any>
+
+  if (includeSecret) {
+    mapped.activeQrCode = String(row?.active_qr_code || '')
+  }
+
+  return mapped
+}
+
+function mapStaffAttendanceEvent(row: Record<string, any>) {
+  return {
+    id: String(row.id || ''),
+    tenantId: String(row.tenant_id || ''),
+    staffId: String(row.staff_id || ''),
+    date: String(row.date || ''),
+    action: String(row.action || ''),
+    method: String(row.method || ''),
+    qrCode: String(row.qr_code || ''),
+    faceImageUrl: String(row.face_image_url || ''),
+    notes: String(row.notes || ''),
+    recordedBy: String(row.recorded_by || ''),
+    createdAt: String(row.created_at || ''),
+    updatedAt: String(row.updated_at || row.created_at || ''),
+  }
+}
+
+async function getOrCreateStaffAttendanceSettings(db: D1Database, tenantId: string) {
+  await ensureStaffAttendanceSettingsTable(db)
+  const existing = await db.prepare(`SELECT * FROM staff_attendance_settings WHERE tenant_id = ?`).bind(tenantId).first() as Record<string, any> | null
+
+  if (existing) {
+    return existing
+  }
+
+  const timestamp = new Date().toISOString()
+  const seeded = {
+    tenant_id: tenantId,
+    mode: 'qr',
+    require_qr_on_face: 1,
+    active_qr_code: generateStaffAttendanceQrCode(tenantId),
+    qr_rotated_at: timestamp,
+    updated_by: 'system',
+    created_at: timestamp,
+    updated_at: timestamp,
+  }
+
+  await db.prepare(
+    `INSERT INTO staff_attendance_settings (tenant_id, mode, require_qr_on_face, active_qr_code, qr_rotated_at, updated_by, created_at, updated_at)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
+  ).bind(
+    seeded.tenant_id,
+    seeded.mode,
+    seeded.require_qr_on_face,
+    seeded.active_qr_code,
+    seeded.qr_rotated_at,
+    seeded.updated_by,
+    seeded.created_at,
+    seeded.updated_at,
+  ).run()
+
+  return seeded
+}
+
 app.get('/api/school/staff-attendance', authenticate, async (c) => {
-  const tenantId = c.var.user?.tenantId
-  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
+  if (!actor.tenantId) return c.json({ error: 'No tenant.' }, 400)
   const date = c.req.query('date') || new Date().toISOString().slice(0, 10)
   try {
-    await c.env.APP_DB.prepare(`CREATE TABLE IF NOT EXISTS staff_attendance (id TEXT PRIMARY KEY, tenant_id TEXT, staff_id TEXT, date TEXT, status TEXT, recorded_by TEXT, created_at TEXT)`).run()
-    const rows = await c.env.APP_DB.prepare(`SELECT * FROM staff_attendance WHERE tenant_id = ? AND date = ?`).bind(tenantId, date).all()
-    return c.json({ success: true, records: rows.results || [] })
+    await ensureStaffAttendanceBaseTable(c.env.APP_DB)
+    const rows = await c.env.APP_DB.prepare(`SELECT * FROM staff_attendance WHERE tenant_id = ? AND date = ?`).bind(actor.tenantId, date).all()
+    const records = ((rows.results || []) as Record<string, any>[]).map(row => ({
+      id: String(row.id || ''),
+      tenantId: String(row.tenant_id || actor.tenantId),
+      staffId: String(row.staff_id || ''),
+      date: String(row.date || ''),
+      status: String(row.status || ''),
+      recordedBy: String(row.recorded_by || ''),
+      createdAt: String(row.created_at || ''),
+    }))
+    return c.json({ success: true, records })
   } catch { return c.json({ success: true, records: [] }) }
 })
 
 app.post('/api/school/staff-attendance', authenticate, async (c) => {
   if (!hasRequiredRole(c.var.user.role, ['owner', 'hos', 'accountant'])) return c.json({ error: 'forbidden' }, 403)
-  const tenantId = c.var.user?.tenantId
-  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
+  if (!actor.tenantId) return c.json({ error: 'No tenant.' }, 400)
   const { staffId, date, status } = await c.req.json()
   if (!staffId || !date || !status) return c.json({ error: 'staffId, date, status required.' }, 400)
-  const id = `sa_${tenantId}_${staffId}_${date}`
+  const id = `sa_${actor.tenantId}_${staffId}_${date}`
   try {
-    await c.env.APP_DB.prepare(`CREATE TABLE IF NOT EXISTS staff_attendance (id TEXT PRIMARY KEY, tenant_id TEXT, staff_id TEXT, date TEXT, status TEXT, recorded_by TEXT, created_at TEXT)`).run()
+    await ensureStaffAttendanceBaseTable(c.env.APP_DB)
     await c.env.APP_DB.prepare(`INSERT OR REPLACE INTO staff_attendance (id, tenant_id, staff_id, date, status, recorded_by, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)`)
-      .bind(id, tenantId, staffId, date, status, c.var.user.name || c.var.user.id, new Date().toISOString()).run()
+      .bind(id, actor.tenantId, staffId, date, status, actor.actorName || actor.actorId, new Date().toISOString()).run()
     return c.json({ success: true })
   } catch (err) { return c.json({ error: 'Could not record attendance.' }, 500) }
 })
 
+app.get('/api/school/staff-attendance/settings', authenticate, async (c) => {
+  const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
+  if (!actor.tenantId) return c.json({ error: 'No tenant.' }, 400)
+
+  try {
+    const settings = await getOrCreateStaffAttendanceSettings(c.env.APP_DB, actor.tenantId)
+    return c.json({
+      success: true,
+      settings: mapStaffAttendanceSettings(settings, canManageStaffAttendanceConfig(actor.role)),
+    })
+  } catch {
+    return c.json({ error: 'Could not load staff attendance settings.' }, 500)
+  }
+})
+
+app.post('/api/school/staff-attendance/settings', authenticate, async (c) => {
+  const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
+  if (!canManageStaffAttendanceConfig(actor.role)) return c.json({ error: 'forbidden' }, 403)
+  if (!actor.tenantId) return c.json({ error: 'No tenant.' }, 400)
+
+  const body = await c.req.json()
+  const mode = String(body?.mode || 'qr') === 'face_qr' ? 'face_qr' : 'qr'
+  const requireQrOnFace = body?.requireQrOnFace === false ? 0 : 1
+
+  try {
+    const existing = await getOrCreateStaffAttendanceSettings(c.env.APP_DB, actor.tenantId)
+    const timestamp = new Date().toISOString()
+    await c.env.APP_DB.prepare(
+      `INSERT OR REPLACE INTO staff_attendance_settings (tenant_id, mode, require_qr_on_face, active_qr_code, qr_rotated_at, updated_by, created_at, updated_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
+    ).bind(
+      actor.tenantId,
+      mode,
+      requireQrOnFace,
+      String(existing.active_qr_code || generateStaffAttendanceQrCode(actor.tenantId)),
+      String(existing.qr_rotated_at || timestamp),
+      actor.actorName || actor.actorId,
+      String(existing.created_at || timestamp),
+      timestamp,
+    ).run()
+
+    const updated = await getOrCreateStaffAttendanceSettings(c.env.APP_DB, actor.tenantId)
+    return c.json({ success: true, settings: mapStaffAttendanceSettings(updated, true) })
+  } catch {
+    return c.json({ error: 'Could not save staff attendance settings.' }, 500)
+  }
+})
+
+app.post('/api/school/staff-attendance/settings/rotate-qr', authenticate, async (c) => {
+  const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
+  if (!canManageStaffAttendanceConfig(actor.role)) return c.json({ error: 'forbidden' }, 403)
+  if (!actor.tenantId) return c.json({ error: 'No tenant.' }, 400)
+
+  try {
+    const existing = await getOrCreateStaffAttendanceSettings(c.env.APP_DB, actor.tenantId)
+    const timestamp = new Date().toISOString()
+    const activeQrCode = generateStaffAttendanceQrCode(actor.tenantId)
+    await c.env.APP_DB.prepare(
+      `INSERT OR REPLACE INTO staff_attendance_settings (tenant_id, mode, require_qr_on_face, active_qr_code, qr_rotated_at, updated_by, created_at, updated_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
+    ).bind(
+      actor.tenantId,
+      String(existing.mode || 'qr'),
+      Number(existing.require_qr_on_face ?? 1),
+      activeQrCode,
+      timestamp,
+      actor.actorName || actor.actorId,
+      String(existing.created_at || timestamp),
+      timestamp,
+    ).run()
+
+    const updated = await getOrCreateStaffAttendanceSettings(c.env.APP_DB, actor.tenantId)
+    return c.json({ success: true, settings: mapStaffAttendanceSettings(updated, true) })
+  } catch {
+    return c.json({ error: 'Could not rotate attendance QR.' }, 500)
+  }
+})
+
+app.post('/api/school/staff-attendance/face-upload', authenticate, async (c) => {
+  const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
+  if (!actor.tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!canUseStaffAttendance(actor.role)) return c.json({ error: 'forbidden' }, 403)
+
+  const formData = await c.req.formData()
+  const file = formData.get('file') as File
+  if (!file) return c.json({ error: 'No file provided.' }, 400)
+
+  try {
+    const ext = file.name.split('.').pop()?.toLowerCase() || 'jpg'
+    const key = `attendance/staff/${actor.tenantId}/${actor.actorId}/${Date.now()}.${ext}`
+    await c.env.UPLOADS.put(key, file.stream(), { httpMetadata: { contentType: file.type || 'image/jpeg' } })
+    return c.json({ success: true, url: `https://ndovera.com/files/${key}` })
+  } catch {
+    return c.json({ error: 'Upload failed.' }, 500)
+  }
+})
+
+app.get('/api/school/staff-attendance/activity', authenticate, async (c) => {
+  const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
+  if (!actor.tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!canUseStaffAttendance(actor.role)) return c.json({ error: 'forbidden' }, 403)
+
+  const requestedStaffId = String(c.req.query('staffId') || '').trim()
+  const date = String(c.req.query('date') || new Date().toISOString().slice(0, 10)).trim()
+  const rawLimit = Number(c.req.query('limit') || 20)
+  const limit = Number.isFinite(rawLimit) && rawLimit > 0 ? Math.trunc(rawLimit) : 20
+  const effectiveStaffId = canManageStaffAttendanceConfig(actor.role) ? requestedStaffId : actor.actorId
+
+  if (!canManageStaffAttendanceConfig(actor.role) && requestedStaffId && requestedStaffId !== actor.actorId) {
+    return c.json({ error: 'forbidden' }, 403)
+  }
+
+  try {
+    await ensureStaffAttendanceEventsTable(c.env.APP_DB)
+    let query = 'SELECT * FROM staff_attendance_events WHERE tenant_id = ? AND date = ?'
+    const params: Array<string | number> = [actor.tenantId, date]
+
+    if (effectiveStaffId) {
+      query += ' AND staff_id = ?'
+      params.push(effectiveStaffId)
+    }
+
+    query += ' ORDER BY created_at DESC LIMIT ?'
+    params.push(limit)
+
+    const rows = await c.env.APP_DB.prepare(query).bind(...params).all()
+    const events = ((rows.results || []) as Record<string, any>[]).map(mapStaffAttendanceEvent)
+    return c.json({ success: true, events })
+  } catch {
+    return c.json({ success: true, events: [] })
+  }
+})
+
+app.post('/api/school/staff-attendance/activity', authenticate, async (c) => {
+  const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
+  if (!actor.tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!canUseStaffAttendance(actor.role)) return c.json({ error: 'forbidden' }, 403)
+
+  const body = await c.req.json()
+  const action = String(body?.action || 'sign-in') === 'sign-out' ? 'sign-out' : 'sign-in'
+  const attendanceDate = String(body?.date || new Date().toISOString().slice(0, 10)).trim()
+  const qrCode = String(body?.qrCode || '').trim()
+  const faceImageUrl = String(body?.faceImageUrl || '').trim()
+  const notes = String(body?.notes || '').trim()
+
+  try {
+    const settings = await getOrCreateStaffAttendanceSettings(c.env.APP_DB, actor.tenantId)
+    const normalizedMode = String(settings.mode || 'qr') === 'face_qr' ? 'face_qr' : 'qr'
+    const requireQrOnFace = Boolean(Number(settings.require_qr_on_face ?? 1))
+    const activeQrCode = String(settings.active_qr_code || '')
+
+    if (!qrCode || qrCode !== activeQrCode) {
+      return c.json({ error: 'The scanned QR code is not valid for this school.' }, 400)
+    }
+
+    if (normalizedMode === 'face_qr') {
+      if (requireQrOnFace && !qrCode) {
+        return c.json({ error: 'QR code is required for face attendance.' }, 400)
+      }
+      if (!faceImageUrl) {
+        return c.json({ error: 'A face capture is required for this attendance mode.' }, 400)
+      }
+    }
+
+    await ensureStaffAttendanceEventsTable(c.env.APP_DB)
+    await ensureStaffAttendanceBaseTable(c.env.APP_DB)
+
+    const timestamp = new Date().toISOString()
+    const eventId = `sae_${actor.tenantId}_${actor.actorId}_${attendanceDate}_${action}`
+    const method = normalizedMode === 'face_qr' ? 'face_qr' : 'qr'
+
+    await c.env.APP_DB.prepare(
+      `INSERT OR REPLACE INTO staff_attendance_events (id, tenant_id, staff_id, date, action, method, qr_code, face_image_url, notes, recorded_by, created_at, updated_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+    ).bind(
+      eventId,
+      actor.tenantId,
+      actor.actorId,
+      attendanceDate,
+      action,
+      method,
+      qrCode,
+      faceImageUrl || null,
+      notes || null,
+      actor.actorName || actor.actorId,
+      timestamp,
+      timestamp,
+    ).run()
+
+    if (action === 'sign-in') {
+      const summaryId = `sa_${actor.tenantId}_${actor.actorId}_${attendanceDate}`
+      await c.env.APP_DB.prepare(
+        `INSERT OR REPLACE INTO staff_attendance (id, tenant_id, staff_id, date, status, recorded_by, created_at)
+         VALUES (?, ?, ?, ?, ?, ?, ?)`
+      ).bind(
+        summaryId,
+        actor.tenantId,
+        actor.actorId,
+        attendanceDate,
+        'Present',
+        actor.actorName || actor.actorId,
+        timestamp,
+      ).run()
+    }
+
+    return c.json({
+      success: true,
+      event: mapStaffAttendanceEvent({
+        id: eventId,
+        tenant_id: actor.tenantId,
+        staff_id: actor.actorId,
+        date: attendanceDate,
+        action,
+        method,
+        qr_code: qrCode,
+        face_image_url: faceImageUrl,
+        notes,
+        recorded_by: actor.actorName || actor.actorId,
+        created_at: timestamp,
+        updated_at: timestamp,
+      }),
+    })
+  } catch {
+    return c.json({ error: 'Could not record staff attendance activity.' }, 500)
+  }
+})
+
 // ─── Student Attendance (school-level) ───────────────────────────────────────
 app.get('/api/school/student-attendance', authenticate, async (c) => {
-  const tenantId = c.var.user?.tenantId
-  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
-  const date = c.req.query('date') || new Date().toISOString().slice(0, 10)
-  const classId = c.req.query('classId') || null
   try {
-    await c.env.APP_DB.prepare(`CREATE TABLE IF NOT EXISTS student_attendance_school (id TEXT PRIMARY KEY, tenant_id TEXT, student_id TEXT, class_id TEXT, date TEXT, status TEXT, recorded_by TEXT, created_at TEXT)`).run()
-    let query = `SELECT * FROM student_attendance_school WHERE tenant_id = ? AND date = ?`
-    const params: unknown[] = [tenantId, date]
-    if (classId) { query += ` AND class_id = ?`; params.push(classId) }
-    const rows = await c.env.APP_DB.prepare(query).bind(...params).all()
-    return c.json({ success: true, records: rows.results || [] })
-  } catch { return c.json({ success: true, records: [] }) }
+    const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
+    if (!actor.tenantId) return c.json({ error: 'No tenant.' }, 400)
+
+    const requestedStudentId = String(c.req.query('studentId') || '').trim()
+    let classId = String(c.req.query('classId') || '').trim()
+    let studentId = requestedStudentId
+
+    if (actor.role === 'student') {
+      const self = await resolveStudentAttendanceTarget(c.env.APP_DB, actor.tenantId, actor.actorId || actor.resolvedUser.settingsKey || '')
+      if (!self) {
+        return c.json({ error: 'Student record not found.' }, 404)
+      }
+      studentId = self.studentId
+      classId = self.classId
+    } else if (['teacher', 'classteacher'].includes(actor.role)) {
+      if (!classId && studentId) {
+        const studentTarget = await resolveStudentAttendanceTarget(c.env.APP_DB, actor.tenantId, studentId)
+        classId = studentTarget?.classId || ''
+      }
+
+      if (!classId) {
+        return c.json({ error: 'classId is required.' }, 400)
+      }
+
+      const classroom = await getSchoolClassroomContext(c.env.APP_DB, actor.tenantId, classId, actor.actorId, actor.role)
+      if (!classroom.classRow) {
+        return c.json({ error: 'Class not found.' }, 404)
+      }
+
+      if (!classroom.canView) {
+        return c.json({ error: 'Only the class teacher can view attendance for this class.' }, 403)
+      }
+
+      if (studentId) {
+        const studentTarget = await resolveStudentAttendanceTarget(c.env.APP_DB, actor.tenantId, studentId)
+        if (!studentTarget || studentTarget.classId !== classId) {
+          return c.json({ error: 'Student does not belong to this class.' }, 400)
+        }
+      }
+    } else if (!['owner', 'hos', 'admin'].includes(actor.role)) {
+      return c.json({ error: 'forbidden' }, 403)
+    }
+
+    const rawLimit = Number(c.req.query('limit') || 0)
+    const records = await listSchoolStudentAttendance(c.env.APP_DB, {
+      tenantId: actor.tenantId,
+      classId: classId || undefined,
+      studentId: studentId || undefined,
+      date: c.req.query('date') || undefined,
+      from: c.req.query('from') || undefined,
+      to: c.req.query('to') || undefined,
+      limit: rawLimit > 0 ? rawLimit : undefined,
+    })
+    return c.json({ success: true, records })
+  } catch {
+    return c.json({ success: true, records: [] })
+  }
 })
 
 app.post('/api/school/student-attendance', authenticate, async (c) => {
-  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos', 'teacher', 'classteacher'])) return c.json({ error: 'forbidden' }, 403)
-  const tenantId = c.var.user?.tenantId
-  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
-  const { studentId, date, status, classId } = await c.req.json()
+  const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
+  if (!['teacher', 'classteacher'].includes(actor.role)) return c.json({ error: 'forbidden' }, 403)
+  if (!actor.tenantId) return c.json({ error: 'No tenant.' }, 400)
+
+  const { studentId, date, status, classId, notes } = await c.req.json()
   if (!studentId || !date || !status) return c.json({ error: 'studentId, date, status required.' }, 400)
-  const id = `stua_${tenantId}_${studentId}_${date}`
+
   try {
-    await c.env.APP_DB.prepare(`CREATE TABLE IF NOT EXISTS student_attendance_school (id TEXT PRIMARY KEY, tenant_id TEXT, student_id TEXT, class_id TEXT, date TEXT, status TEXT, recorded_by TEXT, created_at TEXT)`).run()
-    await c.env.APP_DB.prepare(`INSERT OR REPLACE INTO student_attendance_school (id, tenant_id, student_id, class_id, date, status, recorded_by, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`)
-      .bind(id, tenantId, studentId, classId || null, date, status, c.var.user.name || c.var.user.id, new Date().toISOString()).run()
-    return c.json({ success: true })
-  } catch (err) { return c.json({ error: 'Could not record student attendance.' }, 500) }
+    const targetStudent = await resolveStudentAttendanceTarget(c.env.APP_DB, actor.tenantId, String(studentId))
+    if (!targetStudent) {
+      return c.json({ error: 'Student not found for this tenant.' }, 404)
+    }
+
+    const effectiveClassId = String(classId || targetStudent.classId || '').trim()
+    if (!effectiveClassId) {
+      return c.json({ error: 'classId is required.' }, 400)
+    }
+
+    const classroom = await getSchoolClassroomContext(c.env.APP_DB, actor.tenantId, effectiveClassId, actor.actorId, actor.role)
+    if (!classroom.classRow) {
+      return c.json({ error: 'Class not found.' }, 404)
+    }
+
+    if (!classroom.canManage) {
+      return c.json({ error: 'Only the class teacher can mark attendance for this class.' }, 403)
+    }
+
+    if (targetStudent.classId !== effectiveClassId) {
+      return c.json({ error: 'Student does not belong to this class.' }, 400)
+    }
+
+    const record = await upsertSchoolStudentAttendance(c.env.APP_DB, {
+      tenantId: actor.tenantId,
+      studentId: targetStudent.studentId,
+      classId: effectiveClassId,
+      date: String(date),
+      status: String(status),
+      notes: typeof notes === 'string' ? notes.trim() : '',
+      recordedBy: actor.actorName || actor.actorId,
+    })
+
+    return c.json({ success: true, record })
+  } catch (err) {
+    return c.json({ error: 'Could not record student attendance.' }, 500)
+  }
 })
 
 // ─── AI Analysis ──────────────────────────────────────────────────────────────
@@ -3008,7 +4284,7 @@ app.get('/api/public/tenant/:subdomain', async (c) => {
     const tenant = await getTenantBySubdomain(c.env.APP_DB, subdomain)
     if (!tenant) return c.json({ error: 'Not found' }, 404)
     await c.env.APP_DB.prepare(INIT_BRANDING).run()
-    await c.env.APP_DB.prepare(INIT_WEBSITE_SECTIONS).run()
+    await ensureWebsiteSectionsTable(c.env.APP_DB)
     await c.env.APP_DB.prepare(INIT_SCHOOL_EVENTS).run()
     const [brandingRow, sectionsResult, eventsResult] = await Promise.all([
       c.env.APP_DB.prepare(`SELECT * FROM tenant_branding WHERE tenant_id = ?`).bind(tenant.id).first() as Promise<any>,
@@ -3018,7 +4294,7 @@ app.get('/api/public/tenant/:subdomain', async (c) => {
     return c.json({
       success: true,
       tenant: { schoolName: tenant.schoolName, subdomain: tenant.requestedSubdomain },
-      branding: { logoUrl: brandingRow?.logo_url || null, tagline: brandingRow?.tagline || null },
+      branding: { logoUrl: brandingRow?.logo_url || null, tagline: brandingRow?.tagline || null, website: brandingRow?.website || (tenant.websiteDomain ? `https://${tenant.websiteDomain}` : null) },
       sections: sectionsResult.results || [],
       events: (eventsResult.results || []).map((e: any) => ({ ...e, mediaUrls: JSON.parse(e.media_urls || '[]') })),
     })
@@ -3028,28 +4304,55 @@ app.get('/api/public/tenant/:subdomain', async (c) => {
 // ─── Subdomain HTML rendering ─────────────────────────────────────────────────
 function subdomainNavbar(schoolName: string, subdomain: string, logoUrl?: string | null) {
   const logoImg = logoUrl
-    ? `<img src="${logoUrl}" alt="${schoolName} logo" style="height:40px;width:40px;border-radius:50%;object-fit:cover;">`
-    : `<div style="height:40px;width:40px;border-radius:50%;background:#800000;display:flex;align-items:center;justify-content:center;color:#f5deb3;font-weight:700;font-size:18px;">${schoolName.charAt(0)}</div>`
+    ? `<img src="${escAttr(logoUrl)}" alt="${escAttr(schoolName)} logo" class="site-logo">`
+    : `<div class="site-logo logo-fallback">${escHtml(schoolName.charAt(0))}</div>`
   return `
-  <nav style="background:#800000;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:64px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,0.18);">
-    <a href="/" style="display:flex;align-items:center;gap:12px;text-decoration:none;">
+  <div class="top-strip"><a href="/gallery">Virtual Tour</a><a href="/contact">Contact</a></div>
+  <nav class="site-nav">
+    <a href="/" class="brand-link">
       ${logoImg}
-      <span style="color:#f5deb3;font-size:18px;font-weight:700;">${escHtml(schoolName)}</span>
+      <span>${escHtml(schoolName)}</span>
     </a>
-    <div style="display:flex;gap:24px;align-items:center;">
-      <a href="/" style="color:#f5deb3;text-decoration:none;font-size:14px;font-weight:500;">Home</a>
-      <a href="/events" style="color:#f5deb3;text-decoration:none;font-size:14px;font-weight:500;">Events</a>
-      <a href="/contact" style="color:#f5deb3;text-decoration:none;font-size:14px;font-weight:500;">Contact</a>
-      <a href="/login" style="background:#f5deb3;color:#800000;padding:8px 18px;border-radius:6px;text-decoration:none;font-size:14px;font-weight:700;">Login</a>
+    <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="/about">About Us</a>
+      <a href="/academics">Academics</a>
+      <a href="/admissions">Admission</a>
+      <a href="/events">News</a>
+      <a href="/gallery">Gallery</a>
+      <a href="/contact">Contact</a>
+      <a href="/login" class="portal-link">Portal Login</a>
     </div>
   </nav>`
 }
 
-function subdomainFooter(schoolName: string) {
+function subdomainFooter(schoolName: string, branding: any = {}, contact: any = {}) {
+  const phone = contact.phone || branding?.phone || ''
+  const email = contact.email || branding?.email || ''
+  const address = contact.address || ''
   return `
-  <footer style="background:#191970;color:#f5deb3;text-align:center;padding:24px;font-size:13px;margin-top:60px;">
-    <p style="margin:0 0 6px;">&copy; ${new Date().getFullYear()} ${escHtml(schoolName)}. All rights reserved.</p>
-    <p style="margin:0;opacity:0.7;">Powered by <a href="https://ndovera.com" style="color:#f5deb3;text-decoration:underline;">Ndovera</a></p>
+  <footer class="site-footer">
+    <div>
+      <h3>${escHtml(schoolName)}</h3>
+      <p>Raising confident learners through excellent academics, character, leadership, and community.</p>
+    </div>
+    <div>
+      <h4>Quick Links</h4>
+      <a href="/about">About</a>
+      <a href="/academics">Academics</a>
+      <a href="/admissions">Admissions</a>
+      <a href="/login">Portal Login</a>
+    </div>
+    <div>
+      <h4>Get In Touch</h4>
+      ${address ? `<p>${escHtml(address)}</p>` : ''}
+      ${phone ? `<p>${escHtml(phone)}</p>` : ''}
+      ${email ? `<p>${escHtml(email)}</p>` : ''}
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; ${new Date().getFullYear()} ${escHtml(schoolName)}. All rights reserved.</span>
+      <span>Powered by <a href="https://ndovera.com">Ndovera</a></span>
+    </div>
   </footer>`
 }
 
@@ -3057,13 +4360,123 @@ function escHtml(s: string) {
   return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')
 }
 
+function escAttr(s: string) {
+  return escHtml(s).replace(/'/g, '&#39;')
+}
+
+function parseMeta(section: any) {
+  if (!section?.metadata) return {}
+  if (typeof section.metadata === 'object') return section.metadata
+  try { return JSON.parse(section.metadata) } catch { return {} }
+}
+
+function sectionByKey(sections: any[], key: string) {
+  return sections.find((s: any) => s.section_key === key) || null
+}
+
+function isVideoUrl(url: string) {
+  return /\.(mp4|webm|ogg|mov)(\?|#|$)/i.test(String(url || ''))
+}
+
+function isPdfUrl(url: string) {
+  return /\.pdf(\?|#|$)/i.test(String(url || ''))
+}
+
+function renderMedia(url: string, alt: string, className = 'media-frame') {
+  if (!url) return ''
+  if (isPdfUrl(url)) {
+    return `<div class="${className || 'placeholder-media'}"><a class="btn-primary" href="${escAttr(url)}" target="_blank" rel="noopener">${escHtml(alt || 'View document')}</a></div>`
+  }
+  if (isVideoUrl(url)) {
+    return `<video class="${className}" src="${escAttr(url)}" controls playsinline muted></video>`
+  }
+  return `<img class="${className}" src="${escAttr(url)}" alt="${escAttr(alt)}">`
+}
+
+function renderLoginPanel(schoolName: string, logoUrl?: string | null, compact = false) {
+  const logoHtml = logoUrl
+    ? `<img src="${escAttr(logoUrl)}" alt="${escAttr(schoolName)}" class="login-logo">`
+    : `<div class="login-logo logo-fallback">${escHtml(schoolName.charAt(0))}</div>`
+  return `
+    <div class="${compact ? 'login-card compact-login' : 'login-card'}">
+      <div class="login-heading">
+        ${logoHtml}
+        <div>
+          <h2>${compact ? 'Portal Login' : escHtml(schoolName)}</h2>
+          <p>Students, parents, and staff can sign in here.</p>
+        </div>
+      </div>
+      <form class="tenant-login-form">
+        <label>Email Address<input name="email" type="email" required placeholder="Enter your email"></label>
+        <label>Password<div class="password-field"><input name="password" type="password" required placeholder="Enter your password"><button type="button" class="password-toggle" aria-label="Show password">Show</button></div></label>
+        <div class="login-error"></div>
+        <button type="submit">Sign In</button>
+      </form>
+    </div>`
+}
+
+function loginScript() {
+  return `<script>
+    document.querySelectorAll('.password-toggle').forEach(function(toggle) {
+      toggle.addEventListener('click', function() {
+        var field = toggle.parentElement && toggle.parentElement.querySelector('input[name="password"]');
+        if (!field) return;
+        var showing = field.type === 'text';
+        field.type = showing ? 'password' : 'text';
+        toggle.textContent = showing ? 'Show' : 'Hide';
+        toggle.setAttribute('aria-label', showing ? 'Show password' : 'Hide password');
+      });
+    });
+
+    document.querySelectorAll('.tenant-login-form').forEach(function(form) {
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const btn = form.querySelector('button');
+        const errDiv = form.querySelector('.login-error');
+        const email = form.querySelector('[name=email]').value.trim();
+        const password = form.querySelector('[name=password]').value;
+        btn.disabled = true; btn.textContent = 'Signing in...';
+        errDiv.style.display = 'none';
+        try {
+          const res = await fetch('https://ndovera.com/api/auth/login', {
+            method: 'POST',
+            credentials: 'include',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password })
+          });
+          const data = await res.json();
+          if (!res.ok || !data.token) throw new Error(data.error || 'Login failed. Please check your credentials.');
+          localStorage.setItem('token', data.token);
+          localStorage.setItem('authUser', JSON.stringify(data.user));
+          if (data.user?.classId) localStorage.setItem('classroomId', data.user.classId);
+          if (data.user?.id) localStorage.setItem('userId', data.user.id);
+          const role = data.user?.role || 'student';
+          if (data.user?.mustChangePassword) {
+            window.location.href = 'https://ndovera.com/change-password';
+            return;
+          }
+          const roleMap = { owner: '/roles/owner', hos: '/roles/hos', teacher: '/roles/teacher', student: '/roles/student', parent: '/roles/parent', accountant: '/roles/accountant', ami: '/roles/ami', ict: '/roles/ict' };
+          window.location.href = 'https://ndovera.com' + (roleMap[role] || '/roles/student');
+        } catch(err) {
+          errDiv.textContent = err.message;
+          errDiv.style.display = 'block';
+          btn.disabled = false; btn.textContent = 'Sign In';
+        }
+      });
+    });
+  </script>`
+}
+
 function baseHtml(title: string, body: string) {
   return `<!DOCTYPE html><html lang="en"><head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>${escHtml(title)}</title>
-  <style>*{box-sizing:border-box;margin:0;padding:0;}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#191970;background:#fff;}
-  @media(max-width:600px){nav div{gap:12px!important;}nav div a{font-size:12px!important;}}</style>
+  <style>
+  *{box-sizing:border-box;margin:0;padding:0}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#191970;background:#fff8ee;line-height:1.6}a{color:inherit}.top-strip{height:34px;background:#191970;color:#f5deb3;display:flex;align-items:center;justify-content:flex-end;gap:22px;padding:0 32px;font-size:12px;font-weight:700}.top-strip a{text-decoration:none}.site-nav{background:#800000;color:#f5deb3;display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:76px;padding:12px 34px;position:sticky;top:0;z-index:100;box-shadow:0 10px 28px rgba(25,25,112,.16)}.brand-link{display:flex;align-items:center;gap:12px;text-decoration:none;font-size:18px;font-weight:900}.site-logo,.login-logo{height:48px;width:48px;border-radius:50%;object-fit:cover;border:2px solid #f5deb3}.logo-fallback{background:#f5deb3;color:#800000;display:flex;align-items:center;justify-content:center;font-weight:900}.nav-links{display:flex;align-items:center;gap:18px;flex-wrap:wrap}.nav-links a{text-decoration:none;font-size:13px;font-weight:800}.portal-link,.btn-primary{background:#1a5c38;color:#f5deb3!important;padding:10px 16px;border-radius:8px;text-decoration:none;font-weight:900;display:inline-flex}.btn-secondary{border:1px solid #f5deb3;color:#f5deb3;padding:10px 16px;border-radius:8px;text-decoration:none;font-weight:900;display:inline-flex}.hero{min-height:620px;background:#191970;color:#f5deb3;position:relative;overflow:hidden;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(320px,.75fr);gap:34px;align-items:center;padding:74px 7vw}.hero:before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(25,25,112,.92),rgba(128,0,0,.76),rgba(25,25,112,.36));z-index:1}.hero-bg{position:absolute;inset:0;background-position:center;background-size:cover;opacity:.62}.hero-content,.hero-login{position:relative;z-index:2}.eyebrow{color:#f5deb3;text-transform:uppercase;font-size:12px;font-weight:900;letter-spacing:.18em}.hero h1{font-size:clamp(36px,6vw,72px);line-height:1.02;max-width:820px;margin:14px 0 18px;letter-spacing:0}.hero p{font-size:18px;max-width:680px}.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}.section{padding:72px 7vw}.section.alt{background:#f5deb3}.section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:30px}.section h2,.page-title{color:#800000;font-size:clamp(28px,4vw,44px);line-height:1.1}.section-kicker{color:#800020;font-weight:900;text-transform:uppercase;font-size:12px;letter-spacing:.16em}.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,.85fr);gap:38px;align-items:center}.media-frame{width:100%;height:360px;object-fit:cover;border-radius:8px;border:1px solid rgba(128,0,32,.16);box-shadow:0 20px 50px rgba(25,25,112,.12);background:#f5deb3}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}.info-card,.news-card{background:#fff;border:1px solid rgba(128,0,32,.14);border-radius:8px;overflow:hidden;box-shadow:0 12px 28px rgba(25,25,112,.08)}.info-card{padding:22px}.info-card h3,.news-card h3{color:#800000;font-size:18px;margin-bottom:8px}.info-card p,.news-card p{color:#191970;font-size:14px}.news-card img,.news-card video{width:100%;height:190px;object-fit:cover;background:#f5deb3}.news-card>div{padding:18px}.admission-flyer{background:#800000;color:#f5deb3;border-radius:8px;display:grid;grid-template-columns:minmax(0,.75fr) minmax(300px,1fr);gap:0;overflow:hidden;box-shadow:0 24px 60px rgba(128,0,0,.2)}.admission-flyer .copy{padding:34px}.admission-flyer h2{color:#f5deb3}.admission-flyer img,.admission-flyer video{height:100%;min-height:320px;width:100%;object-fit:cover}.login-card{background:#fff;color:#191970;border-radius:8px;padding:24px;border:1px solid rgba(128,0,32,.16);box-shadow:0 24px 70px rgba(25,25,112,.18)}.login-heading{display:flex;gap:14px;align-items:center;margin-bottom:18px}.login-heading h2{color:#800000;font-size:22px;line-height:1.1}.login-heading p{font-size:13px;color:#800020}.tenant-login-form{display:grid;gap:12px}.tenant-login-form label{display:grid;gap:5px;color:#800020;font-size:12px;text-transform:uppercase;font-weight:900}.tenant-login-form input,.tenant-login-form textarea{border:1.5px solid rgba(128,0,32,.28);border-radius:8px;padding:11px 12px;color:#191970;background:#fff8ee;font:inherit;outline:none}.password-field{position:relative}.password-field input{padding-right:74px}.password-toggle{position:absolute;top:50%;right:8px;transform:translateY(-50%);background:transparent!important;color:#800020!important;border:0!important;padding:4px 8px!important;font-size:12px;font-weight:900;cursor:pointer}.tenant-login-form > button{background:#1a5c38;color:#f5deb3;border:0;border-radius:8px;padding:12px;font-weight:900;cursor:pointer}.login-error{display:none;background:#fef2f2;color:#800000;padding:9px 11px;border-radius:8px;font-size:13px;text-transform:none}.gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.gallery-grid img,.gallery-grid video{width:100%;height:210px;object-fit:cover;border-radius:8px;background:#f5deb3}.page-hero{background:#191970;color:#f5deb3;padding:70px 7vw}.page-hero h1{font-size:clamp(34px,5vw,58px);line-height:1.05}.page-hero p{max-width:760px;margin-top:12px}.site-footer{background:#191970;color:#f5deb3;padding:48px 7vw 24px;display:grid;grid-template-columns:1.3fr .7fr 1fr;gap:30px}.site-footer h3,.site-footer h4{color:#f5deb3;margin-bottom:10px}.site-footer a{display:block;color:#f5deb3;text-decoration:none;margin:4px 0}.footer-bottom{grid-column:1/-1;border-top:1px solid rgba(245,222,179,.25);padding-top:18px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-size:13px}.muted{color:#800020}.placeholder-media{height:260px;background:#800000;color:#f5deb3;display:flex;align-items:center;justify-content:center;border-radius:8px;font-weight:900}
+  @media(max-width:860px){.top-strip{justify-content:center}.site-nav{align-items:flex-start;flex-direction:column;padding:16px 20px}.nav-links{gap:12px}.hero,.split,.admission-flyer{grid-template-columns:1fr}.hero{min-height:auto;padding:58px 22px}.section,.page-hero{padding:52px 22px}.section-head{align-items:flex-start;flex-direction:column}.gallery-grid{grid-template-columns:repeat(2,1fr)}.site-footer{grid-template-columns:1fr}.admission-flyer img,.admission-flyer video{min-height:240px}.media-frame{height:260px}}
+  @media(max-width:520px){.gallery-grid{grid-template-columns:1fr}.nav-links a{font-size:12px}.hero h1{font-size:36px}.site-logo,.login-logo{height:42px;width:42px}}
+  </style>
   </head><body>${body}</body></html>`
 }
 
@@ -3071,60 +4484,156 @@ function renderSchoolHome(tenant: any, branding: any, sections: any[], events: a
   const schoolName = tenant.schoolName || 'Our School'
   const tagline = branding?.tagline || 'Excellence in Education'
   const logoUrl = branding?.logoUrl || null
-  const heroSection = sections.find((s: any) => s.section_key === 'hero')
-  const aboutSection = sections.find((s: any) => s.section_key === 'about')
-  const eventsPreview = events.slice(0, 3)
+  const hero = sectionByKey(sections, 'hero')
+  const heroMeta = parseMeta(hero)
+  const about = sectionByKey(sections, 'about') || sectionByKey(sections, 'mission')
+  const academics = sectionByKey(sections, 'academics')
+  const admissions = sectionByKey(sections, 'admissions')
+  const flyer = sectionByKey(sections, 'admission_flyer')
+  const tour = sectionByKey(sections, 'tour')
+  const gallery = sectionByKey(sections, 'gallery')
+  const contact = sectionByKey(sections, 'contact')
+  const contactMeta = parseMeta(contact)
+  const galleryUrls = [gallery?.image_url, ...(parseMeta(gallery).mediaUrls || [])].filter(Boolean).slice(0, 8)
+  const heroBg = hero?.image_url ? `<div class="hero-bg" style="background-image:url('${escAttr(hero.image_url)}')"></div>` : ''
+  const heroTitle = hero?.title || schoolName
+  const heroContent = hero?.content || tagline || 'Building excellence in every student.'
+  const heroButton = heroMeta.buttonLabel || 'Learn More'
+  const heroHref = heroMeta.buttonUrl || '/about'
+  const eventsPreview = events.slice(0, 4)
+  const flyerUrl = flyer?.image_url || parseMeta(flyer).flyerUrl
 
-  const heroImg = heroSection?.image_url
-    ? `<div style="position:absolute;inset:0;background:url('${escHtml(heroSection.image_url)}') center/cover no-repeat;opacity:0.25;"></div>`
-    : ''
-
-  const aboutHtml = aboutSection
-    ? `<section style="padding:60px 24px;max-width:900px;margin:0 auto;display:grid;grid-template-columns:${aboutSection.image_url ? '1fr 1fr' : '1fr'};gap:40px;align-items:center;">
-        <div>
-          <h2 style="color:#800000;font-size:28px;margin-bottom:16px;">About Us</h2>
-          <p style="color:#191970;line-height:1.7;font-size:15px;">${escHtml(aboutSection.content || aboutSection.title || '')}</p>
+  const flyerHtml = flyerUrl ? `
+    <section class="section">
+      <div class="admission-flyer">
+        <div class="copy">
+          <p class="section-kicker">Admissions</p>
+          <h2>${escHtml(flyer?.title || 'Admissions Now Open')}</h2>
+          <p>${escHtml(flyer?.content || 'Begin your child journey where excellence meets character, leadership, and lifelong learning.')}</p>
+          <div class="hero-actions"><a class="btn-primary" href="/admissions">Admission Details</a><a class="btn-secondary" href="${escAttr(flyerUrl)}" target="_blank" rel="noopener">View Flyer</a></div>
         </div>
-        ${aboutSection.image_url ? `<img src="${escHtml(aboutSection.image_url)}" alt="About" style="width:100%;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.15);">` : ''}
-      </section>` : ''
-
-  const eventsHtml = eventsPreview.length > 0
-    ? `<section style="background:#f5deb3;padding:60px 24px;">
-        <div style="max-width:900px;margin:0 auto;">
-          <h2 style="color:#800000;font-size:28px;margin-bottom:32px;text-align:center;">Latest Events</h2>
-          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:24px;">
-            ${eventsPreview.map((e: any) => `
-              <div style="background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.1);">
-                ${e.mediaUrls?.[0] ? `<img src="${escHtml(e.mediaUrls[0])}" alt="${escHtml(e.title)}" style="width:100%;height:160px;object-fit:cover;">` : `<div style="height:160px;background:#800000;display:flex;align-items:center;justify-content:center;"><span style="color:#f5deb3;font-size:32px;">📅</span></div>`}
-                <div style="padding:16px;">
-                  <h3 style="color:#800000;margin-bottom:8px;font-size:16px;">${escHtml(e.title)}</h3>
-                  <p style="color:#800020;font-size:12px;margin-bottom:8px;">${e.event_date ? new Date(e.event_date).toLocaleDateString('en-NG',{day:'numeric',month:'long',year:'numeric'}) : ''}</p>
-                  <p style="color:#191970;font-size:14px;line-height:1.5;">${escHtml((e.description || '').slice(0, 100))}${(e.description || '').length > 100 ? '…' : ''}</p>
-                </div>
-              </div>`).join('')}
-          </div>
-          <div style="text-align:center;margin-top:32px;">
-            <a href="/events" style="background:#800000;color:#f5deb3;padding:12px 28px;border-radius:8px;text-decoration:none;font-weight:700;">View All Events</a>
-          </div>
-        </div>
-      </section>` : ''
+        ${renderMedia(flyerUrl, flyer?.title || 'Admission flyer', '')}
+      </div>
+    </section>` : ''
 
   const body = `
   ${subdomainNavbar(schoolName, tenant.requestedSubdomain, logoUrl)}
-  <section style="position:relative;background:#191970;padding:80px 24px;text-align:center;overflow:hidden;">
-    ${heroImg}
-    <div style="position:relative;z-index:1;">
-      ${logoUrl ? `<img src="${escHtml(logoUrl)}" alt="${escHtml(schoolName)}" style="height:80px;width:80px;border-radius:50%;object-fit:cover;border:3px solid #f5deb3;margin-bottom:20px;">` : ''}
-      <h1 style="color:#f5deb3;font-size:40px;font-weight:700;margin-bottom:16px;">${escHtml(schoolName)}</h1>
-      <p style="color:#f5deb3;font-size:18px;opacity:0.9;max-width:540px;margin:0 auto 32px;">${escHtml(tagline)}</p>
-      <a href="/login" style="background:#800000;color:#f5deb3;padding:14px 32px;border-radius:8px;text-decoration:none;font-size:16px;font-weight:700;display:inline-block;">Student / Staff Login</a>
+  <section class="hero">
+    ${heroBg}
+    <div class="hero-content">
+      <p class="eyebrow">${escHtml(heroMeta.eyebrow || 'Admissions and Learning Portal')}</p>
+      <h1>${escHtml(heroTitle)}</h1>
+      <p>${escHtml(heroContent)}</p>
+      <div class="hero-actions">
+        <a class="btn-primary" href="${escAttr(heroHref)}">${escHtml(heroButton)}</a>
+        <a class="btn-secondary" href="/admissions">Apply / Enquire</a>
+      </div>
+    </div>
+    <div class="hero-login">${renderLoginPanel(schoolName, logoUrl, true)}</div>
+  </section>
+
+  ${flyerHtml}
+
+  <section class="section alt">
+    <div class="split">
+      <div>
+        <p class="section-kicker">The School Mission</p>
+        <h2>${escHtml(about?.title || 'A Mission With Purpose')}</h2>
+        <p>${escHtml(about?.content || `${schoolName} partners with families to develop disciplined, confident, curious learners prepared for leadership and lifelong success.`)}</p>
+        <div class="hero-actions"><a class="btn-primary" href="/about">Read More</a></div>
+      </div>
+      ${about?.image_url ? renderMedia(about.image_url, about?.title || 'About our school') : '<div class="placeholder-media">School Story</div>'}
     </div>
   </section>
-  ${aboutHtml}
-  ${eventsHtml}
-  ${subdomainFooter(schoolName)}`
+
+  <section class="section">
+    <div class="section-head"><div><p class="section-kicker">Academics</p><h2>${escHtml(academics?.title || 'A Global Standard In Learning')}</h2></div><a class="btn-primary" href="/academics">Explore Academics</a></div>
+    <div class="cards">
+      ${(parseMeta(academics).programs || ['Primary School', 'High School', 'Leadership & Character', 'Digital Learning']).map((item: string) => `<div class="info-card"><h3>${escHtml(item)}</h3><p>${escHtml(academics?.content || 'Structured learning, strong values, and close support for every learner.')}</p></div>`).join('')}
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="split">
+      ${tour?.image_url ? renderMedia(tour.image_url, tour?.title || 'Virtual tour') : '<div class="placeholder-media">Virtual Tour</div>'}
+      <div>
+        <p class="section-kicker">Campus Life</p>
+        <h2>${escHtml(tour?.title || 'Shaping Future Leaders')}</h2>
+        <p>${escHtml(tour?.content || 'Show families your classrooms, learning spaces, activities, and student life through uploaded photos and videos.')}</p>
+        <div class="hero-actions"><a class="btn-primary" href="/gallery">Take A Tour</a></div>
+      </div>
+    </div>
+  </section>
+
+  ${galleryUrls.length ? `<section class="section"><div class="section-head"><div><p class="section-kicker">Gallery</p><h2>${escHtml(gallery?.title || 'Life At Our School')}</h2></div><a class="btn-primary" href="/gallery">Open Gallery</a></div><div class="gallery-grid">${galleryUrls.map((url: string) => renderMedia(url, 'School gallery')).join('')}</div></section>` : ''}
+
+  ${eventsPreview.length ? `<section class="section alt"><div class="section-head"><div><p class="section-kicker">News & Updates</p><h2>Latest From ${escHtml(schoolName)}</h2></div><a class="btn-primary" href="/events">View All News</a></div><div class="cards">${eventsPreview.map((e: any) => renderEventCard(e)).join('')}</div></section>` : ''}
+
+  <section class="section"><div class="split"><div><p class="section-kicker">Begin Your Journey</p><h2>${escHtml(admissions?.title || 'Begin Your Admission Journey')}</h2><p>${escHtml(admissions?.content || 'Learn about enrolment, admission requirements, school visits, and how to begin your application.')}</p><div class="hero-actions"><a class="btn-primary" href="/admissions">Learn More About Admissions</a></div></div>${admissions?.image_url ? renderMedia(admissions.image_url, 'Admissions') : renderLoginPanel(schoolName, logoUrl, true)}</div></section>
+
+  ${subdomainFooter(schoolName, branding, contactMeta)}
+  ${loginScript()}`
 
   return baseHtml(schoolName, body)
+}
+
+function renderEventCard(e: any) {
+  const media = e.mediaUrls?.[0] ? renderMedia(e.mediaUrls[0], e.title, '') : '<div class="placeholder-media">News</div>'
+  return `<article class="news-card">${media}<div><p class="muted">${e.event_date ? new Date(e.event_date).toLocaleDateString('en-NG',{day:'numeric',month:'long',year:'numeric'}) : 'School update'}</p><h3>${escHtml(e.title)}</h3><p>${escHtml((e.description || '').slice(0, 150))}${(e.description || '').length > 150 ? '...' : ''}</p><p style="margin-top:12px"><a class="btn-primary" href="/events">Read More</a></p></div></article>`
+}
+
+function renderContentPage(tenant: any, branding: any, sections: any[], key: string, fallbackTitle: string, fallbackCopy: string) {
+  const schoolName = tenant.schoolName || 'Our School'
+  const logoUrl = branding?.logoUrl || null
+  const section = sectionByKey(sections, key)
+  const meta = parseMeta(section)
+  const body = `
+    ${subdomainNavbar(schoolName, tenant.requestedSubdomain, logoUrl)}
+    <header class="page-hero"><p class="eyebrow">${escHtml(meta.eyebrow || schoolName)}</p><h1>${escHtml(section?.title || fallbackTitle)}</h1><p>${escHtml(section?.content || fallbackCopy)}</p></header>
+    <main class="section">
+      <div class="split">
+        <div>
+          <p class="section-kicker">${escHtml(fallbackTitle)}</p>
+          <h2>${escHtml(section?.title || fallbackTitle)}</h2>
+          <p>${escHtml(section?.content || fallbackCopy)}</p>
+          ${meta.buttonUrl ? `<div class="hero-actions"><a class="btn-primary" href="${escAttr(meta.buttonUrl)}">${escHtml(meta.buttonLabel || 'Learn More')}</a></div>` : ''}
+        </div>
+        ${section?.image_url ? renderMedia(section.image_url, section?.title || fallbackTitle) : '<div class="placeholder-media">Add photos or videos from Website settings</div>'}
+      </div>
+      ${Array.isArray(meta.programs) && meta.programs.length ? `<div class="cards" style="margin-top:34px">${meta.programs.map((item: string) => `<div class="info-card"><h3>${escHtml(item)}</h3><p>${escHtml(section?.content || fallbackCopy)}</p></div>`).join('')}</div>` : ''}
+    </main>
+    ${subdomainFooter(schoolName, branding, parseMeta(sectionByKey(sections, 'contact')))}`
+  return baseHtml(`${fallbackTitle} - ${schoolName}`, body)
+}
+
+function renderAdmissionsPage(tenant: any, branding: any, sections: any[]) {
+  const schoolName = tenant.schoolName || 'Our School'
+  const logoUrl = branding?.logoUrl || null
+  const admissions = sectionByKey(sections, 'admissions')
+  const flyer = sectionByKey(sections, 'admission_flyer')
+  const flyerUrl = flyer?.image_url || parseMeta(flyer).flyerUrl
+  const body = `
+    ${subdomainNavbar(schoolName, tenant.requestedSubdomain, logoUrl)}
+    <header class="page-hero"><p class="eyebrow">Admission</p><h1>${escHtml(admissions?.title || 'Begin Your Admission Journey')}</h1><p>${escHtml(admissions?.content || 'Discover the enrolment process, prepare your documents, and contact the school to begin.')}</p></header>
+    ${flyerUrl ? `<section class="section"><div class="admission-flyer"><div class="copy"><p class="section-kicker">Admission Flyer</p><h2>${escHtml(flyer?.title || 'Admissions Now Open')}</h2><p>${escHtml(flyer?.content || 'Download or view the latest admission flyer.')}</p><div class="hero-actions"><a class="btn-primary" href="${escAttr(flyerUrl)}" target="_blank" rel="noopener">View Flyer</a></div></div>${renderMedia(flyerUrl, 'Admission flyer', '')}</div></section>` : ''}
+    <section class="section alt"><div class="cards"><div class="info-card"><h3>1. Enquire</h3><p>Contact the school or visit the campus to learn about available classes.</p></div><div class="info-card"><h3>2. Apply</h3><p>Submit the required student details and admission documents.</p></div><div class="info-card"><h3>3. Assessment</h3><p>The school reviews placement needs and communicates the next step.</p></div><div class="info-card"><h3>4. Resume</h3><p>Complete onboarding and receive access to the Ndovera school portal.</p></div></div></section>
+    <section class="section"><div class="split"><div><p class="section-kicker">Portal Access</p><h2>Already admitted?</h2><p>Students, parents, and staff can log in from the school website home page or here.</p></div>${renderLoginPanel(schoolName, logoUrl, true)}</div></section>
+    ${subdomainFooter(schoolName, branding, parseMeta(sectionByKey(sections, 'contact')))}
+    ${loginScript()}`
+  return baseHtml(`Admissions - ${schoolName}`, body)
+}
+
+function renderGalleryPage(tenant: any, branding: any, sections: any[]) {
+  const schoolName = tenant.schoolName || 'Our School'
+  const logoUrl = branding?.logoUrl || null
+  const gallery = sectionByKey(sections, 'gallery')
+  const urls = [gallery?.image_url, ...(parseMeta(gallery).mediaUrls || [])].filter(Boolean)
+  const body = `
+    ${subdomainNavbar(schoolName, tenant.requestedSubdomain, logoUrl)}
+    <header class="page-hero"><p class="eyebrow">Gallery</p><h1>${escHtml(gallery?.title || 'School Gallery')}</h1><p>${escHtml(gallery?.content || 'Photos and videos from campus life, learning, events, and activities.')}</p></header>
+    <main class="section">${urls.length ? `<div class="gallery-grid">${urls.map((url: string) => renderMedia(url, 'School gallery')).join('')}</div>` : '<div class="placeholder-media">Upload photos and videos from Website settings.</div>'}</main>
+    ${subdomainFooter(schoolName, branding, parseMeta(sectionByKey(sections, 'contact')))}`
+  return baseHtml(`Gallery - ${schoolName}`, body)
 }
 
 function renderEventsPage(tenant: any, branding: any, events: any[]) {
@@ -3132,127 +4641,59 @@ function renderEventsPage(tenant: any, branding: any, events: any[]) {
   const logoUrl = branding?.logoUrl || null
 
   const eventsHtml = events.length === 0
-    ? `<p style="text-align:center;color:#800020;font-size:16px;padding:60px;">No events posted yet. Check back soon!</p>`
-    : `<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:28px;">
-        ${events.map((e: any) => `
-          <div style="background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.1);">
-            ${e.mediaUrls?.[0] ? `<img src="${escHtml(e.mediaUrls[0])}" alt="${escHtml(e.title)}" style="width:100%;height:180px;object-fit:cover;">` : `<div style="height:180px;background:#800000;display:flex;align-items:center;justify-content:center;"><span style="color:#f5deb3;font-size:40px;">📅</span></div>`}
-            <div style="padding:20px;">
-              <h3 style="color:#800000;margin-bottom:8px;font-size:18px;">${escHtml(e.title)}</h3>
-              <p style="color:#800020;font-size:13px;font-weight:600;margin-bottom:10px;">${e.event_date ? new Date(e.event_date).toLocaleDateString('en-NG',{weekday:'long',day:'numeric',month:'long',year:'numeric'}) : ''}</p>
-              <p style="color:#191970;font-size:14px;line-height:1.6;">${escHtml(e.description || '')}</p>
-            </div>
-          </div>`).join('')}
-      </div>`
+    ? `<div class="placeholder-media">No news posted yet. Check back soon.</div>`
+    : `<div class="cards">${events.map((e: any) => renderEventCard(e)).join('')}</div>`
 
   const body = `
   ${subdomainNavbar(schoolName, tenant.requestedSubdomain, logoUrl)}
-  <main style="max-width:960px;margin:0 auto;padding:48px 24px;">
-    <h1 style="color:#800000;font-size:32px;margin-bottom:8px;">School Events</h1>
-    <p style="color:#800020;margin-bottom:36px;">Upcoming and recent events at ${escHtml(schoolName)}</p>
+  <header class="page-hero"><p class="eyebrow">News & Updates</p><h1>Latest From ${escHtml(schoolName)}</h1><p>Upcoming and recent events, announcements, celebrations, and school highlights.</p></header>
+  <main class="section">
     ${eventsHtml}
   </main>
-  ${subdomainFooter(schoolName)}`
+  ${subdomainFooter(schoolName, branding)}`
 
-  return baseHtml(`Events — ${schoolName}`, body)
+  return baseHtml(`News - ${schoolName}`, body)
 }
 
-function renderContactPage(tenant: any, branding: any) {
+function renderContactPage(tenant: any, branding: any, sections: any[] = []) {
   const schoolName = tenant.schoolName || 'Our School'
   const logoUrl = branding?.logoUrl || null
   const website = branding?.website || null
+  const contact = sectionByKey(sections, 'contact')
+  const meta = parseMeta(contact)
 
   const body = `
   ${subdomainNavbar(schoolName, tenant.requestedSubdomain, logoUrl)}
-  <main style="max-width:700px;margin:0 auto;padding:60px 24px;text-align:center;">
-    <h1 style="color:#800000;font-size:32px;margin-bottom:24px;">Contact Us</h1>
-    ${website ? `<p style="color:#191970;margin-bottom:16px;">Website: <a href="${escHtml(website)}" style="color:#800000;">${escHtml(website)}</a></p>` : ''}
-    <p style="color:#191970;margin-bottom:32px;">For enquiries about admissions, fees, or school activities, please reach out to us directly.</p>
-    <a href="/login" style="background:#800000;color:#f5deb3;padding:12px 28px;border-radius:8px;text-decoration:none;font-weight:700;">Access School Portal</a>
+  <header class="page-hero"><p class="eyebrow">Contact</p><h1>${escHtml(contact?.title || 'Get In Touch')}</h1><p>${escHtml(contact?.content || 'For enquiries about admissions, fees, visits, or school activities, please reach out to us directly.')}</p></header>
+  <main class="section">
+    <div class="split">
+      <div class="cards">
+        ${meta.address ? `<div class="info-card"><h3>Address</h3><p>${escHtml(meta.address)}</p></div>` : ''}
+        ${meta.phone ? `<div class="info-card"><h3>Phone</h3><p>${escHtml(meta.phone)}</p></div>` : ''}
+        ${meta.email ? `<div class="info-card"><h3>Email</h3><p>${escHtml(meta.email)}</p></div>` : ''}
+        ${website ? `<div class="info-card"><h3>Website</h3><p><a href="${escAttr(website)}">${escHtml(website)}</a></p></div>` : ''}
+      </div>
+      ${renderLoginPanel(schoolName, logoUrl, true)}
+    </div>
   </main>
-  ${subdomainFooter(schoolName)}`
+  ${subdomainFooter(schoolName, branding, meta)}
+  ${loginScript()}`
 
-  return baseHtml(`Contact — ${schoolName}`, body)
+  return baseHtml(`Contact - ${schoolName}`, body)
 }
 
 function renderLoginPage(tenant: any, branding: any) {
   const schoolName = tenant.schoolName || 'Our School'
   const logoUrl = branding?.logoUrl || null
-
-  const logoHtml = logoUrl
-    ? `<img src="${escHtml(logoUrl)}" alt="${escHtml(schoolName)}" style="height:72px;width:72px;border-radius:50%;object-fit:cover;border:3px solid #800000;margin-bottom:16px;">`
-    : `<div style="height:72px;width:72px;border-radius:50%;background:#800000;display:flex;align-items:center;justify-content:center;color:#f5deb3;font-size:28px;font-weight:700;margin:0 auto 16px;">${schoolName.charAt(0)}</div>`
-
   const body = `
-  <div style="min-height:100vh;background:#f5deb3;display:flex;align-items:center;justify-content:center;padding:24px;">
-    <div style="background:#fff;border-radius:16px;padding:40px;max-width:420px;width:100%;box-shadow:0 8px 40px rgba(0,0,0,0.15);">
-      <div style="text-align:center;margin-bottom:28px;">
-        ${logoHtml}
-        <h1 style="color:#800000;font-size:22px;font-weight:700;margin-bottom:6px;">${escHtml(schoolName)}</h1>
-        <p style="color:#800020;font-size:14px;">School Portal Login</p>
-      </div>
-      <form id="loginForm">
-        <div style="margin-bottom:18px;">
-          <label style="display:block;color:#800020;font-size:13px;font-weight:600;margin-bottom:6px;">Email Address</label>
-          <input id="email" type="email" placeholder="Enter your email" required
-            style="width:100%;padding:10px 14px;border:1.5px solid #800020;border-radius:8px;font-size:15px;color:#191970;outline:none;">
-        </div>
-        <div style="margin-bottom:24px;">
-          <label style="display:block;color:#800020;font-size:13px;font-weight:600;margin-bottom:6px;">Password</label>
-          <div style="position:relative;">
-            <input id="password" type="password" placeholder="Enter your password" required
-              style="width:100%;padding:10px 44px 10px 14px;border:1.5px solid #800020;border-radius:8px;font-size:15px;color:#191970;outline:none;box-sizing:border-box;">
-            <button type="button" id="togglePwd" onclick="(function(){var i=document.getElementById('password'),b=document.getElementById('togglePwd');if(i.type==='password'){i.type='text';b.innerHTML='&#128065;&#8419;';}else{i.type='password';b.innerHTML='&#128065;';}})()"
-              style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:16px;color:#800020;line-height:1;padding:0;">&#128065;</button>
-          </div>
-        </div>
-        <div id="errorMsg" style="display:none;background:#fef2f2;color:#800000;padding:10px 14px;border-radius:8px;font-size:13px;margin-bottom:16px;"></div>
-        <button type="submit" id="submitBtn"
-          style="width:100%;background:#1a5c38;color:#f5deb3;padding:12px;border:none;border-radius:8px;font-size:16px;font-weight:700;cursor:pointer;">
-          Sign In
-        </button>
-      </form>
-      <p style="text-align:center;margin-top:20px;font-size:12px;color:#800020;">
-        Powered by <a href="https://ndovera.com" style="color:#800000;font-weight:600;">Ndovera</a>
-      </p>
-    </div>
-  </div>
-  <script>
-    document.getElementById('loginForm').addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const btn = document.getElementById('submitBtn');
-      const errDiv = document.getElementById('errorMsg');
-      const email = document.getElementById('email').value.trim();
-      const password = document.getElementById('password').value;
-      btn.disabled = true; btn.textContent = 'Signing in…';
-      errDiv.style.display = 'none';
-      try {
-        const res = await fetch('https://ndovera.com/api/auth/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, password })
-        });
-        const data = await res.json();
-        if (!res.ok || !data.token) throw new Error(data.error || 'Login failed. Please check your credentials.');
-        localStorage.setItem('token', data.token);
-        localStorage.setItem('authUser', JSON.stringify(data.user));
-        const role = data.user?.role || 'student';
-        const mustChange = data.user?.mustChangePassword;
-        if (mustChange) {
-          window.location.href = 'https://ndovera.com/change-password';
-        } else {
-          const roleMap = { owner: '/roles/owner', hos: '/roles/hos', teacher: '/roles/teacher', student: '/roles/student', parent: '/roles/parent', accountant: '/roles/accountant', ami: '/roles/ami' };
-          window.location.href = 'https://ndovera.com' + (roleMap[role] || '/roles/student');
-        }
-      } catch(err) {
-        errDiv.textContent = err.message;
-        errDiv.style.display = 'block';
-        btn.disabled = false; btn.textContent = 'Sign In';
-      }
-    });
-  </script>`
+  ${subdomainNavbar(schoolName, tenant.requestedSubdomain, logoUrl)}
+  <section class="hero">
+    <div class="hero-content"><p class="eyebrow">Secure Portal</p><h1>${escHtml(schoolName)} Login</h1><p>Access your dashboard for learning, school operations, parent updates, and staff workflows.</p></div>
+    <div class="hero-login">${renderLoginPanel(schoolName, logoUrl)}</div>
+  </section>
+  ${loginScript()}`
 
-  return baseHtml(`Login — ${schoolName}`, body)
+  return baseHtml(`Login - ${schoolName}`, body)
 }
 
 async function handleSubdomainRequest(request: Request, env: Bindings, subdomain: string, url: URL): Promise<Response> {
@@ -3270,7 +4711,7 @@ async function handleSubdomainRequest(request: Request, env: Bindings, subdomain
     }
 
     await env.APP_DB.prepare(INIT_BRANDING).run()
-    await env.APP_DB.prepare(INIT_WEBSITE_SECTIONS).run()
+    await ensureWebsiteSectionsTable(env.APP_DB)
     await env.APP_DB.prepare(INIT_SCHOOL_EVENTS).run()
 
     const [brandingRow, sectionsResult, eventsResult] = await Promise.all([
@@ -3279,15 +4720,19 @@ async function handleSubdomainRequest(request: Request, env: Bindings, subdomain
       env.APP_DB.prepare(`SELECT * FROM school_events WHERE tenant_id = ? ORDER BY event_date DESC LIMIT 10`).bind(tenant.id).all(),
     ])
 
-    const branding = { logoUrl: (brandingRow as any)?.logo_url || null, tagline: (brandingRow as any)?.tagline || null, website: (brandingRow as any)?.website || null }
+    const branding = { logoUrl: (brandingRow as any)?.logo_url || null, tagline: (brandingRow as any)?.tagline || null, website: (brandingRow as any)?.website || (tenant.websiteDomain ? `https://${tenant.websiteDomain}` : null) }
     const sections = sectionsResult.results || []
     const events = (eventsResult.results || []).map((e: any) => ({ ...e, mediaUrls: JSON.parse(e.media_urls || '[]') }))
 
     const path = url.pathname.replace(/\/$/, '') || '/'
     let html: string
     if (path === '/login') html = renderLoginPage(tenant, branding)
+    else if (path === '/about') html = renderContentPage(tenant, branding, sections, 'about', 'About Us', 'Learn about our mission, values, leadership, and the culture that shapes our learners.')
+    else if (path === '/academics') html = renderContentPage(tenant, branding, sections, 'academics', 'Academics', 'Explore our academic programmes, learning pathways, and student support structure.')
+    else if (path === '/admissions') html = renderAdmissionsPage(tenant, branding, sections)
+    else if (path === '/gallery') html = renderGalleryPage(tenant, branding, sections)
     else if (path === '/events') html = renderEventsPage(tenant, branding, events)
-    else if (path === '/contact') html = renderContactPage(tenant, branding)
+    else if (path === '/contact') html = renderContactPage(tenant, branding, sections)
     else html = renderSchoolHome(tenant, branding, sections, events)
 
     return new Response(html, { headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'public, max-age=60, stale-while-revalidate=300' } })

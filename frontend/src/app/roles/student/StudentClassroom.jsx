@@ -1,34 +1,28 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { getStoredAuth } from '../../../features/auth/services/authApi';
 import {
   AcademicCapIcon,
   ArrowLeftIcon,
   BookOpenIcon,
-  BookmarkIcon,
-  ChatBubbleBottomCenterTextIcon,
   ClipboardDocumentListIcon,
   DocumentTextIcon,
   LightBulbIcon,
   MegaphoneIcon,
   MicrophoneIcon,
-  PaperAirplaneIcon,
   PhoneXMarkIcon,
   PlayCircleIcon,
   UserGroupIcon,
   VideoCameraIcon,
-  XMarkIcon,
 } from '@heroicons/react/24/outline';
 
 export default function StudentClassroom() {
   const navigate = useNavigate();
+  const storedAuth = getStoredAuth();
+  const storedClassName = storedAuth?.user?.className || null;
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [activeTab, setActiveTab] = useState('stream');
-  const [groupMode, setGroupMode] = useState('week');
-  const [expandedGroups, setExpandedGroups] = useState(['week-1']);
-  const [openTaskId, setOpenTaskId] = useState(null);
-  const [taskDraft, setTaskDraft] = useState('');
-  const [chatPanelOpen, setChatPanelOpen] = useState(false);
-  const [teacherChatInput, setTeacherChatInput] = useState('');
+  const [groupMode, setGroupMode] = useState('subject');
   const [joinedLiveId, setJoinedLiveId] = useState(null);
   const [micEnabled, setMicEnabled] = useState(true);
   const [cameraEnabled, setCameraEnabled] = useState(true);
@@ -42,12 +36,12 @@ export default function StudentClassroom() {
   const [streamInput, setStreamInput] = useState('');
   const [commentInputs, setCommentInputs] = useState({});
   const [tasks, setTasks] = useState([]);
-  const [taskChat, setTaskChat] = useState([]);
   const [liveSessions] = useState([]);
   const [classroomMaterials, setClassroomMaterials] = useState([]);
   const [practiceItems] = useState([]);
   const [classMembers, setClassMembers] = useState([]);
   const [classroomLoading, setClassroomLoading] = useState(true);
+  const [classroomLabel, setClassroomLabel] = useState(storedClassName || localStorage.getItem('classroomId') || 'Assigned Classroom');
 
   useEffect(() => {
     const classId = localStorage.getItem('classroomId');
@@ -56,17 +50,26 @@ export default function StudentClassroom() {
     const headers = token ? { Authorization: `Bearer ${token}` } : {};
     setClassroomLoading(true);
     Promise.all([
+      fetch(`/api/classrooms/${classId}`, { headers }).then(r => r.ok ? r.json() : { success: false, class: null }),
       fetch(`/api/classrooms/${classId}/posts`, { headers }).then(r => r.ok ? r.json() : { posts: [] }),
       fetch(`/api/classrooms/${classId}/assignments`, { headers }).then(r => r.ok ? r.json() : { assignments: [] }),
       fetch(`/api/classrooms/${classId}/materials`, { headers }).then(r => r.ok ? r.json() : { materials: [] }),
       fetch(`/api/classrooms/${classId}/members`, { headers }).then(r => r.ok ? r.json() : { members: [] }),
-    ]).then(([postsRes, assignRes, matRes, membersRes]) => {
+    ]).then(([classRes, postsRes, assignRes, matRes, membersRes]) => {
+      const resolvedClassName = classRes?.class?.name
+        ? `${classRes.class.name}${classRes.class.arm ? ` ${classRes.class.arm}` : ''}`
+        : (storedClassName || classId);
+      setClassroomLabel(resolvedClassName);
+      try {
+        const authUser = JSON.parse(localStorage.getItem('authUser') || '{}');
+        localStorage.setItem('authUser', JSON.stringify({ ...authUser, classId, className: resolvedClassName }));
+      } catch {}
       setStreamPosts(postsRes.posts || []);
       setTasks(assignRes.assignments || []);
       setClassroomMaterials(matRes.materials || []);
       setClassMembers(membersRes.members || []);
     }).catch(() => {}).finally(() => setClassroomLoading(false));
-  }, []);
+  }, [storedClassName]);
 
   // Poll stream every 15 s so all users see new posts without full reload
   useEffect(() => {
@@ -97,32 +100,27 @@ export default function StudentClassroom() {
     return () => window.removeEventListener('resize', onResize);
   }, []);
 
-  useEffect(() => {
-    if (!openTaskId) return;
-    const saved = localStorage.getItem(`ndovera-task-draft-${openTaskId}`);
-    setTaskDraft(saved || '');
-  }, [openTaskId]);
-
-  useEffect(() => {
-    if (!openTaskId) return;
-    const timer = setTimeout(() => {
-      localStorage.setItem(`ndovera-task-draft-${openTaskId}`, taskDraft);
-    }, 500);
-    return () => clearTimeout(timer);
-  }, [openTaskId, taskDraft]);
-
-  const currentTask = tasks.find(task => task.id === openTaskId) || null;
-
   const groupedTasks = useMemo(() => {
-    const keyByMode = {
-      week: 'week',
-      topic: 'topic',
-      scheme: 'scheme',
+    const labelByMode = {
+      subject: task => task.subjectName || 'General Subject',
+      format: task => {
+        const format = String(task.format || '').toLowerCase();
+        if (format === 'mcq') return 'MCQ';
+        if (format === 'shortanswer') return 'Short Answer';
+        if (format === 'fillgaps') return 'Fill In The Blanks';
+        if (format === 'crossmatching') return 'Cross Matching';
+        if (format === 'essay') return 'Essay';
+        if (format === 'comprehension') return 'Comprehension';
+        if (format === 'longanswer') return 'Long Answer';
+        if (format === 'mixed') return 'Mixed Format';
+        return 'Assignment';
+      },
+      status: task => (task.mySubmission ? 'Submitted' : 'Pending'),
     };
 
-    const key = keyByMode[groupMode];
+    const resolver = labelByMode[groupMode] || labelByMode.subject;
     const groups = tasks.reduce((accumulator, task) => {
-      const groupValue = task[key];
+      const groupValue = resolver(task);
       if (!accumulator[groupValue]) {
         accumulator[groupValue] = [];
       }
@@ -130,18 +128,17 @@ export default function StudentClassroom() {
       return accumulator;
     }, {});
 
-    return Object.entries(groups).map(([label, items], index) => ({
-      id: `${groupMode}-${index + 1}`,
+    return Object.entries(groups).map(([label, items]) => ({
       label,
       items,
     }));
   }, [groupMode, tasks]);
 
   const statusCounts = useMemo(() => {
-    const pending = tasks.filter(task => task.status === 'Pending').length;
-    const submitted = tasks.filter(task => task.status === 'Submitted').length;
-    const needsImprovement = tasks.filter(task => task.status === 'Needs Improvement').length;
-    return { pending, submitted, needsImprovement };
+    const pending = tasks.filter(task => !task.mySubmission).length;
+    const submitted = tasks.filter(task => task.mySubmission && task.mySubmission.grade == null && !task.mySubmission.feedback).length;
+    const reviewed = tasks.filter(task => task.mySubmission && (task.mySubmission.grade != null || task.mySubmission.feedback)).length;
+    return { pending, submitted, reviewed };
   }, [tasks]);
 
   const postAnnouncement = async () => {
@@ -202,71 +199,57 @@ export default function StudentClassroom() {
     }
   };
 
-  const toggleGroup = (groupId) => {
-    setExpandedGroups(prev => (
-      prev.includes(groupId)
-        ? prev.filter(item => item !== groupId)
-        : [...prev, groupId]
-    ));
-  };
-
   const openTaskWorkspace = (taskId) => {
-    setOpenTaskId(taskId);
-    setChatPanelOpen(false);
-  };
-
-  const closeTaskWorkspace = () => {
-    setOpenTaskId(null);
-    setTeacherChatInput('');
-  };
-
-  const submitTask = () => {
-    if (!currentTask) return;
-
-    setTasks(prev => prev.map(task => {
-      if (task.id !== currentTask.id) return task;
-      const version = task.submissions.length + 1;
-      return {
-        ...task,
-        status: 'Submitted',
-        dueDate: 'Awaiting teacher review',
-        submissions: [
-          ...task.submissions,
-          {
-            version,
-            content: taskDraft || `Submission version ${version}`,
-            time: new Date().toLocaleString(),
-          },
-        ],
-      };
-    }));
-  };
-
-  const improveAndResubmit = () => {
-    if (!currentTask) return;
-    submitTask();
-  };
-
-  const sendTeacherMessage = () => {
-    if (!teacherChatInput.trim()) return;
-    setTaskChat(prev => [...prev, { id: `m-${Date.now()}`, sender: 'You', text: teacherChatInput.trim() }]);
-    setTeacherChatInput('');
+    navigate(`/roles/student/assignments/${taskId}`);
   };
 
   const goBackToDashboard = () => {
     navigate('/roles/student');
   };
 
+  const formatAssignmentType = assignment => {
+    const format = String(assignment.format || '').toLowerCase();
+    if (format === 'mcq') return 'MCQ';
+    if (format === 'shortanswer') return 'Short Answer';
+    if (format === 'fillgaps') return 'Fill In The Blanks';
+    if (format === 'crossmatching') return 'Cross Matching';
+    if (format === 'essay') return 'Essay';
+    if (format === 'comprehension') return 'Comprehension';
+    if (format === 'longanswer') return 'Long Answer';
+    if (format === 'mixed') return 'Mixed Format';
+    return 'Assignment';
+  };
+
+  const formatAssignmentDue = value => {
+    if (!value) return 'No due date';
+    const parsed = new Date(value);
+    return Number.isNaN(parsed.getTime()) ? value : parsed.toLocaleString();
+  };
+
+  const formatMaterialType = value => {
+    switch (String(value || '').toLowerCase()) {
+      case 'video':
+        return 'Video';
+      case 'image':
+        return 'Image';
+      case 'link':
+        return 'Link';
+      default:
+        return 'Document';
+    }
+  };
+
+  const materialSubjectName = material => material.subjectName || material.metadata?.subjectName || 'General Material';
+
   const typeClass = taskType => {
-    if (taskType === 'Assignment') return 'accent-indigo';
-    if (taskType === 'Essay') return 'accent-rose';
-    if (taskType === 'Classwork') return 'accent-emerald';
+    if (taskType === 'MCQ' || taskType === 'Short Answer') return 'accent-indigo';
+    if (taskType === 'Essay' || taskType === 'Long Answer' || taskType === 'Comprehension') return 'accent-rose';
+    if (taskType === 'Cross Matching' || taskType === 'Fill In The Blanks') return 'accent-emerald';
     return 'accent-amber';
   };
 
   const statusClass = status => {
-    if (status === 'Submitted') return 'accent-emerald';
-    if (status === 'Needs Improvement') return 'accent-rose';
+    if (status === 'Submitted' || status === 'Reviewed') return 'accent-emerald';
     return 'accent-amber';
   };
 
@@ -287,12 +270,14 @@ export default function StudentClassroom() {
     { key: 'teachers', label: 'Teachers', icon: BookOpenIcon },
   ];
 
-  const subjectRows = Array.from(new Set(tasks.map(task => task.topic))).map(topic => {
-    const linkedTasks = tasks.filter(task => task.topic === topic);
+  const subjectRows = Array.from(new Set(tasks.map(task => task.subjectName || 'General Subject'))).map(subjectName => {
+    const linkedTasks = tasks.filter(task => (task.subjectName || 'General Subject') === subjectName);
     return {
-      topic,
+      topic: subjectName,
       count: linkedTasks.length,
-      nextDue: linkedTasks[0]?.dueDate || 'No due item',
+      nextDue: linkedTasks[0]?.dueAt ? formatAssignmentDue(linkedTasks[0].dueAt) : 'No due item',
+      submittedCount: linkedTasks.filter(task => task.mySubmission).length,
+      items: linkedTasks,
     };
   });
 
@@ -316,7 +301,7 @@ export default function StudentClassroom() {
         </button>
         <div>
           <p className="micro-label neon-subtle">Classroom Mode</p>
-          <p className="font-semibold text-slate-800 dark:text-slate-100">SS2A • Focus Learning Space</p>
+          <p className="font-semibold text-slate-800 dark:text-slate-100">{classroomLabel}</p>
         </div>
       </div>
 
@@ -332,7 +317,7 @@ export default function StudentClassroom() {
         <div className="space-y-4">
           <section className="glass-surface rounded-3xl p-5">
             <h2 className="text-xl command-title neon-title">Subjects</h2>
-            <p className="neon-subtle mt-2">Track each subject area and current learning focus.</p>
+            <p className="neon-subtle mt-2">See each subject and the assignments your teachers created for it.</p>
           </section>
 
           <section className="space-y-3">
@@ -343,6 +328,23 @@ export default function StudentClassroom() {
                   <span className="glass-chip px-3 py-1 rounded-full micro-label accent-indigo">{subject.count} item(s)</span>
                 </div>
                 <p className="text-sm neon-subtle mt-1">Next due: {subject.nextDue}</p>
+                <p className="micro-label mt-2 accent-emerald">Submitted: {subject.submittedCount}</p>
+                <div className="mt-3 space-y-2">
+                  {subject.items.map(task => {
+                    const assignmentType = formatAssignmentType(task);
+                    const assignmentStatus = task.mySubmission ? (task.mySubmission.grade != null || task.mySubmission.feedback ? 'Reviewed' : 'Submitted') : 'Pending';
+                    return (
+                      <button key={task.id} onClick={() => openTaskWorkspace(task.id)} className="w-full text-left rounded-2xl border border-white/10 p-4 bg-slate-900/30 hover:bg-indigo-500/10 transition-colors">
+                        <div className="flex items-center justify-between gap-2">
+                          <p className="text-slate-100 font-semibold">{task.title}</p>
+                          <span className={`micro-label ${typeClass(assignmentType)}`}>{assignmentType}</span>
+                        </div>
+                        <p className="text-sm neon-subtle mt-1">Due: {formatAssignmentDue(task.dueAt)}</p>
+                        <p className={`micro-label mt-2 ${statusClass(assignmentStatus)}`}>{assignmentStatus}</p>
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
             ))}
             {subjectRows.length === 0 && (
@@ -358,12 +360,12 @@ export default function StudentClassroom() {
               <p className="text-2xl command-title accent-amber">{statusCounts.pending}</p>
             </div>
             <div className="glass-surface rounded-3xl p-4">
-              <p className="micro-label neon-subtle">Completed</p>
+              <p className="micro-label neon-subtle">Submitted</p>
               <p className="text-2xl command-title accent-emerald">{statusCounts.submitted}</p>
             </div>
             <div className="glass-surface rounded-3xl p-4">
-              <p className="micro-label neon-subtle">Needs Work</p>
-              <p className="text-2xl command-title accent-rose">{statusCounts.needsImprovement}</p>
+              <p className="micro-label neon-subtle">Reviewed</p>
+              <p className="text-2xl command-title accent-indigo">{statusCounts.reviewed}</p>
             </div>
           </section>
         </div>
@@ -374,14 +376,27 @@ export default function StudentClassroom() {
           <h2 className="text-xl command-title neon-title mb-4">Materials</h2>
           <div className="space-y-3">
             {classroomMaterials.map(material => (
-              <div key={material.id} className="rounded-2xl border border-white/10 p-4 bg-slate-900/30">
-                <div className="flex items-center justify-between gap-2">
-                  <p className="text-slate-100 font-semibold">{material.title}</p>
-                  <span className="glass-chip px-3 py-1 rounded-full micro-label accent-emerald">{material.type}</span>
+              <div key={material.id} className="rounded-2xl border border-white/10 p-4 bg-slate-900/30 flex flex-wrap items-start justify-between gap-3">
+                <div>
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <p className="text-slate-100 font-semibold">{material.title}</p>
+                    <span className="glass-chip px-3 py-1 rounded-full micro-label accent-emerald">{formatMaterialType(material.type)}</span>
+                  </div>
+                  <p className="text-sm neon-subtle mt-1">Subject: {materialSubjectName(material)}</p>
+                  {material.description && <p className="text-sm text-slate-300 mt-2">{material.description}</p>}
+                  <p className="neon-subtle text-xs mt-2">{material.uploadedAt ? new Date(material.uploadedAt).toLocaleString() : 'Recently uploaded'}{material.uploadedByName ? ` • ${material.uploadedByName}` : ''}</p>
                 </div>
-                <p className="text-sm neon-subtle mt-1">Subject: {material.subject}</p>
+                <a href={material.url} target="_blank" rel="noreferrer" className="rounded-2xl bg-emerald-500/30 border border-emerald-300/40 px-4 py-2 text-sm font-semibold text-white">
+                  Open
+                </a>
               </div>
             ))}
+            {classroomMaterials.length === 0 && (
+              <div className="rounded-2xl border border-dashed border-white/10 p-4 bg-slate-900/20 text-center">
+                <p className="micro-label accent-amber">No materials yet</p>
+                <p className="mt-2 text-sm text-slate-300">Teacher-posted subject materials will show here automatically.</p>
+              </div>
+            )}
           </div>
         </section>
       )}
@@ -407,38 +422,42 @@ export default function StudentClassroom() {
         <div className="space-y-4">
           <section className="glass-surface rounded-3xl p-4 flex flex-wrap items-center gap-2">
             <span className="micro-label neon-subtle mr-2">Group by</span>
-            <button onClick={() => setGroupMode('week')} className={groupMode === 'week' ? 'glass-chip px-3 py-1 rounded-full micro-label accent-indigo' : 'px-3 py-1 rounded-full border border-white/10 micro-label'}>Week</button>
-            <button onClick={() => setGroupMode('topic')} className={groupMode === 'topic' ? 'glass-chip px-3 py-1 rounded-full micro-label accent-indigo' : 'px-3 py-1 rounded-full border border-white/10 micro-label'}>Topic</button>
-            <button onClick={() => setGroupMode('scheme')} className={groupMode === 'scheme' ? 'glass-chip px-3 py-1 rounded-full micro-label accent-indigo' : 'px-3 py-1 rounded-full border border-white/10 micro-label'}>Scheme of Work</button>
+            <button onClick={() => setGroupMode('subject')} className={groupMode === 'subject' ? 'glass-chip px-3 py-1 rounded-full micro-label accent-indigo' : 'px-3 py-1 rounded-full border border-white/10 micro-label'}>Subject</button>
+            <button onClick={() => setGroupMode('format')} className={groupMode === 'format' ? 'glass-chip px-3 py-1 rounded-full micro-label accent-indigo' : 'px-3 py-1 rounded-full border border-white/10 micro-label'}>Format</button>
+            <button onClick={() => setGroupMode('status')} className={groupMode === 'status' ? 'glass-chip px-3 py-1 rounded-full micro-label accent-indigo' : 'px-3 py-1 rounded-full border border-white/10 micro-label'}>Status</button>
           </section>
 
           <section className="space-y-3">
-            {groupedTasks.map(group => {
-              const expanded = expandedGroups.includes(group.id);
-              return (
-                <div key={group.id} className="glass-surface rounded-3xl p-4">
-                  <button onClick={() => toggleGroup(group.id)} className="w-full flex items-center justify-between">
-                    <p className="text-slate-100 font-semibold">{group.label}</p>
-                    <span className="micro-label accent-indigo">{expanded ? 'Collapse' : 'Expand'}</span>
-                  </button>
-
-                  {expanded && (
-                    <div className="mt-3 space-y-3">
-                      {group.items.map(task => (
-                        <button key={task.id} onClick={() => openTaskWorkspace(task.id)} className="w-full text-left rounded-2xl border border-white/10 p-4 bg-slate-900/30">
-                          <div className="flex items-center justify-between gap-2">
-                            <p className="text-slate-100 font-semibold">{task.title}</p>
-                            <span className={`micro-label ${typeClass(task.type)}`}>{task.type}</span>
-                          </div>
-                          <p className="text-sm neon-subtle mt-1">Due: {task.dueDate}</p>
-                          <p className={`micro-label mt-2 ${statusClass(task.status)}`}>{task.status}</p>
-                        </button>
-                      ))}
-                    </div>
-                  )}
+            {groupedTasks.map(group => (
+              <div key={group.label} className="glass-surface rounded-3xl p-4">
+                <div className="flex items-center justify-between gap-2">
+                  <p className="text-slate-100 font-semibold">{group.label}</p>
+                  <span className="micro-label accent-indigo">{group.items.length} assignment(s)</span>
                 </div>
-              );
-            })}
+
+                <div className="mt-3 space-y-3">
+                  {group.items.map(task => {
+                    const assignmentType = formatAssignmentType(task);
+                    const assignmentStatus = task.mySubmission ? (task.mySubmission.grade != null || task.mySubmission.feedback ? 'Reviewed' : 'Submitted') : 'Pending';
+                    return (
+                      <button key={task.id} onClick={() => openTaskWorkspace(task.id)} className="w-full text-left rounded-2xl border border-white/10 p-4 bg-slate-900/30 hover:bg-indigo-500/10 transition-colors">
+                        <div className="flex items-center justify-between gap-2">
+                          <p className="text-slate-100 font-semibold">{task.title}</p>
+                          <span className={`micro-label ${typeClass(assignmentType)}`}>{assignmentType}</span>
+                        </div>
+                        <p className="text-sm neon-subtle mt-1">{task.subjectName || 'General Subject'} • Due: {formatAssignmentDue(task.dueAt)}</p>
+                        <p className={`micro-label mt-2 ${statusClass(assignmentStatus)}`}>{assignmentStatus}</p>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
+            {groupedTasks.length === 0 && (
+              <div className="glass-surface rounded-3xl p-4">
+                <p className="text-sm text-slate-300">No assignments published for this class yet.</p>
+              </div>
+            )}
           </section>
         </div>
       )}
@@ -657,107 +676,6 @@ export default function StudentClassroom() {
             })}
           </div>
         </nav>
-      )}
-
-      {currentTask && (
-        <div className="fixed inset-0 z-50 bg-slate-50 dark:bg-slate-950 overflow-y-auto">
-          <div className="max-w-3xl mx-auto p-4 md:p-6 pb-28">
-            <div className="flex items-center justify-between mb-4">
-              <div>
-                <p className="micro-label neon-subtle">Task Workspace</p>
-                <h2 className="text-xl command-title neon-title">{currentTask.title}</h2>
-              </div>
-              <button onClick={closeTaskWorkspace} className="p-2 rounded-xl border border-white/10 bg-slate-900/30">
-                <XMarkIcon className="w-5 h-5" />
-              </button>
-            </div>
-
-            <section className="glass-surface rounded-3xl p-5 mb-4">
-              <div className="flex flex-wrap items-center gap-2 mb-3">
-                <span className={`glass-chip px-3 py-1 rounded-full micro-label ${typeClass(currentTask.type)}`}>{currentTask.type}</span>
-                <span className={`glass-chip px-3 py-1 rounded-full micro-label ${statusClass(currentTask.status)}`}>{currentTask.status}</span>
-              </div>
-              <p className="text-slate-300 text-sm">Due: {currentTask.dueDate}</p>
-              {currentTask.teacherComment && (
-                <div className="mt-3 rounded-2xl border border-rose-400/30 p-3 bg-rose-500/10">
-                  <p className="micro-label accent-rose mb-1">Teacher Comment</p>
-                  <p className="text-slate-100 text-sm">{currentTask.teacherComment}</p>
-                </div>
-              )}
-            </section>
-
-            <section className="glass-surface rounded-3xl p-5 mb-4">
-              <p className="micro-label neon-subtle mb-2">Auto-save enabled</p>
-              <textarea
-                value={taskDraft}
-                onChange={(event) => setTaskDraft(event.target.value)}
-                className="w-full min-h-[260px] rounded-2xl bg-slate-900/50 border border-white/10 px-4 py-3 text-sm text-slate-100"
-                placeholder="Work on your task here. Your draft saves automatically."
-              />
-            </section>
-
-            {currentTask.submissions.length > 0 && (
-              <section className="glass-surface rounded-3xl p-5 mb-4">
-                <p className="font-semibold text-slate-100 mb-2">Previous Versions</p>
-                <div className="space-y-2">
-                  {currentTask.submissions.map(item => (
-                    <div key={`${currentTask.id}-${item.version}`} className="rounded-2xl border border-white/10 p-3 bg-slate-900/30">
-                      <p className="micro-label accent-indigo">Version {item.version}</p>
-                      <p className="text-xs neon-subtle mt-1">{item.time}</p>
-                    </div>
-                  ))}
-                </div>
-              </section>
-            )}
-          </div>
-
-          <div className="fixed bottom-4 right-4 left-4 md:left-auto md:w-[22rem] z-50 flex flex-wrap gap-2 justify-end">
-            <button onClick={() => setChatPanelOpen(true)} className="px-4 py-2 rounded-2xl bg-indigo-500/30 border border-indigo-300/40 text-white text-sm font-semibold flex items-center gap-2">
-              <ChatBubbleBottomCenterTextIcon className="w-4 h-4" /> Ask Teacher
-            </button>
-            <button onClick={submitTask} className="px-4 py-2 rounded-2xl bg-emerald-500/30 border border-emerald-300/40 text-white text-sm font-semibold flex items-center gap-2">
-              <PaperAirplaneIcon className="w-4 h-4" /> Submit
-            </button>
-            <button onClick={() => localStorage.setItem(`ndovera-task-draft-${currentTask.id}`, taskDraft)} className="px-4 py-2 rounded-2xl bg-slate-800/40 border border-white/10 text-white text-sm font-semibold flex items-center gap-2">
-              <BookmarkIcon className="w-4 h-4" /> Save Draft
-            </button>
-            {currentTask.status === 'Needs Improvement' && (
-              <button onClick={improveAndResubmit} className="px-4 py-2 rounded-2xl bg-rose-500/25 border border-rose-300/40 text-white text-sm font-semibold">
-                Improve & Resubmit
-              </button>
-            )}
-          </div>
-
-          <div className={`fixed left-0 right-0 bottom-0 z-50 transition-transform duration-300 ${chatPanelOpen ? 'translate-y-0' : 'translate-y-full'}`}>
-            <div className="mx-auto max-w-3xl rounded-t-3xl p-4 bottom-nav bottom-nav--subtle">
-              <div className="flex items-center justify-between mb-2">
-                <p className="font-semibold text-slate-100">Private Help Chat (You + Teacher)</p>
-                <button onClick={() => setChatPanelOpen(false)} className="p-1 rounded-lg hover:bg-slate-800/70">
-                  <XMarkIcon className="w-4 h-4 text-slate-200" />
-                </button>
-              </div>
-              <div className="max-h-40 overflow-y-auto space-y-2 mb-3">
-                {taskChat.map(item => (
-                  <div key={item.id} className="rounded-2xl border border-white/10 p-3 bg-slate-800/50">
-                    <p className="text-xs micro-label neon-subtle">{item.sender}</p>
-                    <p className="text-sm text-slate-100 mt-1">{item.text}</p>
-                  </div>
-                ))}
-              </div>
-              <div className="flex gap-2">
-                <input
-                  value={teacherChatInput}
-                  onChange={(event) => setTeacherChatInput(event.target.value)}
-                  className="flex-1 rounded-2xl bg-slate-900/60 border border-white/10 px-4 py-2 text-sm text-slate-100"
-                  placeholder="Ask your teacher privately"
-                />
-                <button onClick={sendTeacherMessage} className="px-4 py-2 rounded-2xl bg-indigo-500/30 border border-indigo-300/40 text-white text-sm font-semibold">
-                  Send
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
       )}
     </div>
   );

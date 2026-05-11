@@ -11,7 +11,6 @@ const initialFormState = {
   password: '',
   confirmPassword: '',
   planKey: 'growth',
-  studentCount: 120,
   discountCode: '',
 };
 
@@ -72,7 +71,6 @@ export default function SchoolRegistrationPage() {
       try {
         const data = await getTenantPricing({
           planKey: formState.planKey,
-          studentCount: formState.studentCount,
           discountCode: formState.discountCode,
         });
 
@@ -91,7 +89,7 @@ export default function SchoolRegistrationPage() {
     return () => {
       cancelled = true;
     };
-  }, [formState.planKey, formState.studentCount, formState.discountCode]);
+  }, [formState.planKey, formState.discountCode]);
 
   useEffect(() => {
     if (!paymentRef) {
@@ -158,10 +156,6 @@ export default function SchoolRegistrationPage() {
       return 'Select a pricing plan.';
     }
 
-    if (formState.studentCount <= 0) {
-      return 'Projected students must be greater than 0.';
-    }
-
     if (!pricing.quote) {
       return 'The pricing preview is not ready yet.';
     }
@@ -182,7 +176,7 @@ export default function SchoolRegistrationPage() {
 
     setFormState(current => ({
       ...current,
-      [name]: name === 'studentCount' ? Number(value) : value,
+      [name]: value,
       ...(name === 'schoolName' && !current.requestedSubdomain
         ? { requestedSubdomain: value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') }
         : {}),
@@ -229,7 +223,6 @@ export default function SchoolRegistrationPage() {
         ownerPhone: formState.ownerPhone.trim(),
         password: formState.password,
         planKey: formState.planKey,
-        studentCount: formState.studentCount,
         discountCode: formState.discountCode.trim(),
       });
 
@@ -427,11 +420,6 @@ export default function SchoolRegistrationPage() {
                     </select>
                   </label>
 
-                  <label className="block space-y-2">
-                    <span className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Projected Students</span>
-                    <input name="studentCount" type="number" min="1" value={formState.studentCount} onChange={handleChange} required className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100" />
-                  </label>
-
                   <label className="block space-y-2 md:col-span-2">
                     <span className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Discount Code</span>
                     <input name="discountCode" value={formState.discountCode} onChange={handleChange} className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100" placeholder="Enter discount code if you have one" />
@@ -494,16 +482,16 @@ export default function SchoolRegistrationPage() {
                         <p className="mt-3 text-xl font-bold text-slate-950">{currencyFormatter.format(quote.totalDueNow)}</p>
                       </div>
                       <div className="rounded-3xl border border-slate-200 bg-slate-50 p-4">
-                        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Student Fee / Subsequent Term</p>
-                        <p className="mt-3 text-xl font-bold text-slate-950">{currencyFormatter.format(quote.studentFeePerTerm)}</p>
+                        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">User Fee / Subsequent Term</p>
+                        <p className="mt-3 text-xl font-bold text-slate-950">{currencyFormatter.format(quote.userFeePerTerm || quote.studentFeePerTerm)}</p>
                       </div>
                     </div>
 
                     <div className="rounded-3xl border border-slate-200 bg-slate-50 p-4">
                       <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Subsequent Term Billing</p>
-                      <p className="mt-3 text-xl font-bold text-slate-950">{currencyFormatter.format(quote.nextTermStudentBilling)}</p>
+                      <p className="mt-3 text-xl font-bold text-slate-950">Calculated from live users</p>
                       <p className="mt-2 text-sm leading-6 text-slate-600">
-                        {quote.studentCount} students x {currencyFormatter.format(quote.studentFeePerTerm)} billed from the subsequent term.
+                        After onboarding, the system counts active staff, teachers, students, and parents, then multiplies that count by the termly user fee.
                       </p>
                     </div>
 
@@ -517,7 +505,7 @@ export default function SchoolRegistrationPage() {
 
                     <div className="rounded-3xl border border-slate-200 bg-white p-4">
                       <p className="text-sm leading-7 text-slate-600">
-                        Only the onboarding fee is charged on Flutterwave now. Student billing starts from the subsequent term.
+                        Only the onboarding fee is charged on Flutterwave now. User billing starts from the subsequent term and is based on actual active users.
                       </p>
                     </div>
                   </div>

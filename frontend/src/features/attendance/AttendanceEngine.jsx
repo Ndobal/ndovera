@@ -13,7 +13,7 @@ export const AttendanceEngine = ({ userRole = 'admin' }) => {
       id: 'marking',
       label: 'Mark Attendance',
       icon: '✓',
-      description: 'Mark staff attendance using Facial, QR, or Device',
+      description: 'Mark staff attendance using QR, Face + QR on shared phones, or Device',
       component: StaffAttendanceMarking,
       roles: ['admin', 'staff', 'security'],
     },

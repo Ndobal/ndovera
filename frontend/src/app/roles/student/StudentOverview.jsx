@@ -5,7 +5,10 @@ import { getStoredAuth } from '../../../features/auth/services/authApi';
 
 export default function StudentOverview() {
   const storedAuth = getStoredAuth();
-  const storedName = storedAuth?.user?.name || storedAuth?.user?.email || 'Student';
+  const storedUser = storedAuth?.user || {};
+  const storedName = storedUser.name && storedUser.name !== storedUser.id
+    ? storedUser.name
+    : storedUser.email || 'Student';
 
   const [data, setData] = useState({
     studentName: storedName,
@@ -19,23 +22,57 @@ export default function StudentOverview() {
       { name: 'Results', path: '/roles/student/results' },
     ],
     notices: [],
-    classId: null,
-    className: null,
-    displayId: null,
+    classId: storedUser.classId || null,
+    className: storedUser.className || null,
+    displayId: storedUser.displayId || null,
+    subjects: [],
   });
 
   useEffect(() => {
     let mounted = true;
     getStudentDashboard().then(result => {
-      if (mounted && result) setData(prev => ({ ...prev, ...result }));
+      if (!mounted || !result) return;
+      // Only override studentName if the API returned a real name (not the fallback 'Student')
+      const resolvedName = (result.studentName && result.studentName !== 'Student')
+        ? result.studentName
+        : storedName;
+      const nextClassId = result.classId || null;
+      const nextClassName = result.className || storedUser.className || null;
+
+      if (nextClassId) {
+        window.localStorage.setItem('classroomId', nextClassId);
+      } else {
+        window.localStorage.removeItem('classroomId');
+      }
+
+      try {
+        window.localStorage.setItem('authUser', JSON.stringify({
+          ...storedUser,
+          classId: nextClassId,
+          className: nextClassName,
+          displayId: result.displayId || storedUser.displayId || null,
+          name: storedUser.name || resolvedName,
+        }));
+      } catch {}
+
+      setData(prev => ({
+        ...prev,
+        ...result,
+        classId: nextClassId,
+        className: nextClassName,
+        subjects: result.subjects || [],
+        studentName: resolvedName,
+      }));
     }).catch(() => {/* use defaults */});
     return () => { mounted = false; };
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const hasClass = !!(data.classId || data.className);
 
   return (
     <StudentSectionShell
       title={`Welcome, ${data.studentName}`}
-      subtitle={data.className ? `Class: ${data.className}` : 'Here is your dashboard.'}
+      subtitle={data.className ? `Class: ${data.className}` : 'Your school dashboard'}
     >
       {data.displayId && (
         <div className="mb-4 flex items-center gap-3">
@@ -47,6 +84,16 @@ export default function StudentOverview() {
               {data.className}
             </span>
           )}
+        </div>
+      )}
+
+      {!hasClass && (
+        <div style={{ background: '#fff8f0', border: '1.5px solid #800020', borderRadius: 14, padding: '14px 18px', marginBottom: 20, display: 'flex', alignItems: 'flex-start', gap: 10 }}>
+          <span style={{ fontSize: 20 }}>⚠️</span>
+          <div>
+            <p style={{ color: '#800000', fontWeight: 700, fontSize: 14, marginBottom: 2 }}>No class assigned yet</p>
+            <p style={{ color: '#191970', fontSize: 13 }}>You have not been assigned to a class. Please contact your school administrator or teacher to get assigned to your class. Once assigned, your classroom, assignments, and materials will be available here.</p>
+          </div>
         </div>
       )}
 
@@ -105,6 +152,24 @@ export default function StudentOverview() {
           )}
         </section>
       </div>
+
+      <section style={{ background: '#f5deb3', borderRadius: 16, padding: 24, marginTop: 24 }}>
+        <h2 style={{ color: '#800000', fontWeight: 800, fontSize: 18, marginBottom: 16 }}>Subjects</h2>
+        {!hasClass ? (
+          <p style={{ color: '#191970', fontSize: 14 }}>Your subjects will appear here once your class assignment is active.</p>
+        ) : data.subjects.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
+            {data.subjects.map(subject => (
+              <div key={subject.id || subject.name} style={{ background: '#fff8f0', borderRadius: 12, padding: 16, borderLeft: '4px solid #1a5c38' }}>
+                <p style={{ color: '#800000', fontWeight: 700 }}>{subject.name}</p>
+                <p style={{ color: '#191970', fontSize: 13, marginTop: 4 }}>{subject.teacherId ? `Teacher assigned: ${subject.teacherId}` : 'Teacher will be assigned soon.'}</p>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p style={{ color: '#191970', fontSize: 14 }}>No subjects have been added to your class yet.</p>
+        )}
+      </section>
     </StudentSectionShell>
   );
 }

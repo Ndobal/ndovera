@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import {
   BellIcon,
+  Bars3Icon,
   ChatBubbleLeftRightIcon,
   XMarkIcon,
 } from '@heroicons/react/24/outline';
@@ -18,7 +19,7 @@ const roleHeaderStats = {
   owner: { notifications: 0, chats: 0, auras: 0 },
 };
 
-export default function DashboardTopBar({ authUser = null, onLogout = () => {} }) {
+export default function DashboardTopBar({ authUser = null, onLogout = () => {}, onToggleSidebar = null, isSidebarOpen = false }) {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -82,6 +83,15 @@ export default function DashboardTopBar({ authUser = null, onLogout = () => {} }
     <header className="sticky top-0 z-40 px-4 md:px-6 py-3 border-b border-slate-200/70 dark:border-cyan-300/20 glass-surface">
       <div className="max-w-7xl mx-auto flex items-center justify-between gap-3 md:gap-4 relative">
         <div className="flex items-center gap-2 md:gap-3 min-w-0">
+          <button
+            type="button"
+            onClick={onToggleSidebar}
+            className="md:hidden glass-chip p-2 rounded-xl text-slate-700 dark:text-[#f5deb3] hover:bg-white/70 dark:hover:bg-slate-700/60 transition-colors"
+            aria-label={isSidebarOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={isSidebarOpen}
+          >
+            {isSidebarOpen ? <XMarkIcon className="w-5 h-5" /> : <Bars3Icon className="w-5 h-5" />}
+          </button>
           <span className="live-dot" />
           <p className="micro-label neon-subtle truncate">Live Dashboard</p>
         </div>

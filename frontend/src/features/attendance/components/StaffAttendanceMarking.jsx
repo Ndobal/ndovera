@@ -34,17 +34,17 @@ export const StaffAttendanceMarking = ({
 
   const markingMethods = [
     {
-      id: 'facial',
-      name: 'Facial Recognition',
-      icon: '👤',
-      description: 'Use biometric scanner at entrance',
+      id: 'face_qr',
+      name: 'Face + QR (Shared Phone)',
+      icon: '🪪',
+      description: 'Use this when a staff member signs in on someone else\'s phone. Capture the face with the school QR in view.',
       color: 'from-blue-500 to-blue-600',
     },
     {
       id: 'qr',
       name: 'QR Code',
       icon: '📱',
-      description: 'Scan QR code with your phone',
+      description: 'Use your own phone or a school scanner with the active QR code',
       color: 'from-purple-500 to-purple-600',
     },
     {
@@ -64,7 +64,7 @@ export const StaffAttendanceMarking = ({
     }
 
     const markingData = {
-      method: selectedMethod.charAt(0).toUpperCase() + selectedMethod.slice(1),
+      method: selectedMethod === 'face_qr' ? 'Face + QR' : selectedMethod === 'qr' ? 'QR' : 'Device/Admin',
       deviceId: selectedDevice?.id,
       status,
       notes,
@@ -175,6 +175,13 @@ export const StaffAttendanceMarking = ({
                   );
                 })}
               </div>
+
+              {selectedMethod === 'face_qr' && (
+                <div className="mt-4 rounded-xl border border-cyan-300/20 bg-cyan-500/10 p-4 text-left">
+                  <p className="text-cyan-100 font-semibold">Shared-phone verification</p>
+                  <p className="mt-2 text-sm text-cyan-50/80">Use Face + QR only when a staff member is signing in with another person\'s phone. The face capture and the active school QR should both be visible during sign-in.</p>
+                </div>
+              )}
             </motion.div>
 
             {/* Device Selection (if Device method selected) */}

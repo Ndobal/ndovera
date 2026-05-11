@@ -63,7 +63,14 @@ CREATE TABLE IF NOT EXISTS assignments (
   title TEXT,
   description TEXT,
   dueAt TEXT,
-  createdAt TEXT
+  createdAt TEXT,
+  subjectId TEXT,
+  subjectName TEXT,
+  format TEXT,
+  questionPayload TEXT,
+  metadata TEXT,
+  createdBy TEXT,
+  updatedAt TEXT
 );
 
 CREATE TABLE IF NOT EXISTS submissions (

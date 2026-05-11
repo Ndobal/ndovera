@@ -1,5 +1,5 @@
 import { getApiUrl } from '../../../config/apiBase';
-import { getStoredAuth, clearStoredAuth, persistAuth } from '../../auth/services/authApi';
+import { getStoredAuth, clearStoredAuth, syncRefreshedToken } from '../../auth/services/authApi';
 
 function buildHeaders() {
   const auth = getStoredAuth();
@@ -16,16 +16,13 @@ function handleUnauthorized() {
 
 // Silently refresh the stored token if the server issued a new one (sliding expiry)
 function applyRefreshedToken(res) {
-  const refreshed = res.headers.get('X-Refresh-Token');
-  if (refreshed) {
-    const auth = getStoredAuth();
-    if (auth) persistAuth({ token: refreshed, user: auth.user });
-  }
+  syncRefreshedToken(res);
 }
 
 async function req(path, opts = {}) {
   const res = await fetch(getApiUrl(path), {
     method: opts.method || 'GET',
+    credentials: 'include',
     headers: buildHeaders(),
     body: opts.body ? JSON.stringify(opts.body) : undefined,
   });
@@ -64,6 +61,7 @@ async function uploadFile(path, file, extraFields = {}) {
   for (const [k, v] of Object.entries(extraFields)) formData.append(k, v);
   const res = await fetch(getApiUrl(path), {
     method: 'POST',
+    credentials: 'include',
     headers: auth?.token ? { Authorization: `Bearer ${auth.token}` } : {},
     body: formData,
   });
@@ -115,7 +113,22 @@ export const getMyPayslip = () => req('/api/school/payroll/my-payslip');
 // Attendance
 export const getStaffAttendance = (date) => req(`/api/school/staff-attendance?date=${date}`);
 export const markStaffAttendance = (data) => req('/api/school/staff-attendance', { method: 'POST', body: data });
-export const getStudentAttendance = (date, classId) => req(`/api/school/student-attendance?date=${date}${classId ? `&classId=${classId}` : ''}`);
+export const getStudentAttendance = (dateOrFilters, classId) => {
+  const params = new URLSearchParams();
+
+  if (dateOrFilters && typeof dateOrFilters === 'object') {
+    Object.entries(dateOrFilters).forEach(([key, value]) => {
+      if (value === undefined || value === null || value === '') return;
+      params.set(key, String(value));
+    });
+  } else {
+    if (dateOrFilters) params.set('date', String(dateOrFilters));
+    if (classId) params.set('classId', String(classId));
+  }
+
+  const query = params.toString();
+  return req(`/api/school/student-attendance${query ? `?${query}` : ''}`);
+};
 export const markStudentAttendance = (data) => req('/api/school/student-attendance', { method: 'POST', body: data });
 export const runAttendanceAI = () => req('/api/school/attendance/ai-analysis', { method: 'POST' });
 export const runFinanceAI = () => req('/api/school/finance/ai-analysis', { method: 'POST' });

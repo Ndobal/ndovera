@@ -119,8 +119,8 @@ export default function OwnerOverview({ auth }) {
               <p className="text-[#191970] dark:text-slate-300 mt-1">{me?.email || tenant?.ownerEmail || '—'}</p>
             </div>
             <div>
-              <p className="text-xs text-[#800020] dark:text-slate-400 uppercase font-semibold">Student Count</p>
-              <p className="text-[#191970] dark:text-slate-300 mt-1">{tenant?.studentCount ?? '—'}</p>
+              <p className="text-xs text-[#800020] dark:text-slate-400 uppercase font-semibold">Billable Users</p>
+              <p className="text-[#191970] dark:text-slate-300 mt-1">{tenant?.billableUserCount ?? tenant?.studentCount ?? '—'}</p>
             </div>
             <div>
               <p className="text-xs text-[#800020] dark:text-slate-400 uppercase font-semibold">Subdomain</p>

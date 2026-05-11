@@ -7,6 +7,7 @@ export default function StudentSectionShell({
   compact = false,
   viewportLocked = false,
   hideHeader = false,
+  dashboardLabel = 'Student Dashboard',
   watermarkText = '',
   diagonalWatermark = false,
 }) {
@@ -20,7 +21,7 @@ export default function StudentSectionShell({
 
       {!hideHeader && (
         <section className={compact ? 'glass-surface rounded-3xl p-4 mb-3' : 'glass-surface rounded-3xl p-6 mb-6'}>
-          <p className={compact ? 'micro-label neon-subtle mb-1 text-[9px]' : 'micro-label neon-subtle mb-2'}>Student Dashboard</p>
+          <p className={compact ? 'micro-label neon-subtle mb-1 text-[9px]' : 'micro-label neon-subtle mb-2'}>{dashboardLabel}</p>
           <h1 className={compact ? 'text-xl md:text-2xl command-title neon-title mb-1' : 'text-3xl command-title neon-title mb-2'}>{title}</h1>
           <p className="text-slate-700 dark:text-slate-300 neon-subtle">{subtitle}</p>
         </section>

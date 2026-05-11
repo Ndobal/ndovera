@@ -19,6 +19,7 @@ function buildHeaders(includeAuth = true) {
 async function requestJson(path, options = {}) {
   const response = await fetch(getApiUrl(path), {
     method: options.method || 'GET',
+    credentials: 'include',
     headers: buildHeaders(options.auth !== false),
     body: typeof options.body === 'undefined' ? undefined : JSON.stringify(options.body),
   });

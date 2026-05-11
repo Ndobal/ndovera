@@ -1,5 +1,53 @@
 import React from 'react';
 
+const defaultTheme = {
+  page: 'p-8 max-w-7xl mx-auto',
+  panel: 'glass-surface rounded-3xl p-6 mb-6',
+  eyebrow: 'micro-label neon-subtle mb-2',
+  title: 'text-3xl command-title neon-title mb-2',
+  body: 'text-slate-700 dark:text-slate-300 neon-subtle',
+  metricsWrap: 'relative mb-6',
+  metricGrid: 'grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4',
+  metricCard: 'glass-surface rounded-3xl p-5 text-center',
+  metricLabel: 'micro-label neon-subtle mb-1',
+  metricValue: 'text-2xl command-title mono-metric',
+  emptyPanel: 'glass-surface rounded-3xl p-5 mb-6',
+  emptyLabel: 'micro-label accent-amber',
+  emptyBody: 'mt-2 text-slate-300',
+  watermark: 'pointer-events-none absolute inset-0 flex items-center justify-center text-5xl md:text-7xl font-black tracking-[0.6rem] text-white/5 select-none',
+  infoGrid: 'grid grid-cols-1 xl:grid-cols-2 gap-6',
+  infoPanel: 'glass-surface rounded-3xl p-6',
+  infoTitle: 'text-xl command-title neon-title mb-4',
+  infoList: 'space-y-3',
+  infoItem: 'rounded-2xl border border-white/10 p-4 bg-slate-900/30',
+  infoText: 'text-slate-100',
+  infoTag: 'micro-label mt-2',
+};
+
+const wheatTheme = {
+  page: 'p-8 max-w-7xl mx-auto space-y-6',
+  panel: 'rounded-3xl p-6 bg-[#f5deb3] border border-[#c9a96e]/40 shadow-[0_18px_45px_rgba(128,0,0,0.08)]',
+  eyebrow: 'text-xs font-semibold uppercase tracking-[0.24em] text-[#800020] mb-2',
+  title: 'text-3xl font-black tracking-tight text-[#800000] mb-2',
+  body: 'text-[#191970]',
+  metricsWrap: 'relative',
+  metricGrid: 'grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4',
+  metricCard: 'rounded-3xl p-5 text-center bg-[#f5deb3] border border-[#c9a96e]/40 shadow-[0_12px_32px_rgba(128,0,0,0.08)]',
+  metricLabel: 'text-xs font-semibold uppercase tracking-[0.22em] text-[#800020] mb-2',
+  metricValue: 'text-2xl font-black text-[#191970]',
+  emptyPanel: 'rounded-3xl p-5 bg-[#f5deb3] border border-[#c9a96e]/40 shadow-[0_12px_28px_rgba(128,0,0,0.06)]',
+  emptyLabel: 'text-xs font-semibold uppercase tracking-[0.22em] text-[#800020]',
+  emptyBody: 'mt-2 text-[#191970]',
+  watermark: 'pointer-events-none absolute inset-0 flex items-center justify-center text-5xl md:text-7xl font-black tracking-[0.6rem] text-[#800020]/10 select-none',
+  infoGrid: 'grid grid-cols-1 xl:grid-cols-2 gap-6',
+  infoPanel: 'rounded-3xl p-6 bg-[#f5deb3] border border-[#c9a96e]/40 shadow-[0_12px_32px_rgba(128,0,0,0.08)]',
+  infoTitle: 'text-xl font-bold text-[#800000] mb-4',
+  infoList: 'space-y-3',
+  infoItem: 'rounded-2xl border border-[#c9a96e]/40 p-4 bg-[#fff8f0]',
+  infoText: 'text-[#191970]',
+  infoTag: 'mt-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#800020]',
+};
+
 export default function RoleSectionPage({
   roleTitle,
   sectionTitle,
@@ -7,28 +55,33 @@ export default function RoleSectionPage({
   watermark,
   metricCards = [],
   infoCards = [],
+  theme = 'default',
 }) {
+  const palette = theme === 'wheat' ? wheatTheme : defaultTheme;
+
   return (
-    <div className="p-8 max-w-7xl mx-auto">
-      <section className="glass-surface rounded-3xl p-6 mb-6">
-        <p className="micro-label neon-subtle mb-2">{roleTitle}</p>
-        <h1 className="text-3xl command-title neon-title mb-2">{sectionTitle}</h1>
-        <p className="text-slate-700 dark:text-slate-300 neon-subtle">{sectionSubtitle}</p>
+    <div className={palette.page}>
+      <section className={palette.panel}>
+        <p className={palette.eyebrow}>{roleTitle}</p>
+        <h1 className={palette.title}>{sectionTitle}</h1>
+        <p className={palette.body}>{sectionSubtitle}</p>
       </section>
 
       {metricCards.length > 0 && (
-        <div className="relative mb-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+        <div className={palette.metricsWrap}>
+          <div className={palette.metricGrid}>
             {metricCards.map(card => (
-              <div key={card.label} className="glass-surface rounded-3xl p-5 text-center">
-                <p className="micro-label neon-subtle mb-1">{card.label}</p>
-                <p className={`text-2xl command-title mono-metric ${card.accent || 'accent-indigo'}`}>{card.value}</p>
+              <div key={card.label} className={palette.metricCard}>
+                <p className={palette.metricLabel}>{card.label}</p>
+                <p className={theme === 'wheat' ? palette.metricValue : `${palette.metricValue} ${card.accent || 'accent-indigo'}`}>
+                  {card.value}
+                </p>
               </div>
             ))}
           </div>
 
           {watermark && (
-            <p className="pointer-events-none absolute inset-0 flex items-center justify-center text-5xl md:text-7xl font-black tracking-[0.6rem] text-white/5 select-none">
+            <p className={palette.watermark}>
               {watermark}
             </p>
           )}
@@ -36,21 +89,21 @@ export default function RoleSectionPage({
       )}
 
       {metricCards.length === 0 && (
-        <section className="glass-surface rounded-3xl p-5 mb-6">
-          <p className="micro-label accent-amber">Live metrics unavailable</p>
-          <p className="mt-2 text-slate-300">This section no longer shows fabricated dashboard totals. Live metrics will appear once the connected service is available.</p>
+        <section className={palette.emptyPanel}>
+          <p className={palette.emptyLabel}>Live metrics unavailable</p>
+          <p className={palette.emptyBody}>This section no longer shows fabricated dashboard totals. Live metrics will appear once the connected service is available.</p>
         </section>
       )}
 
-      <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+      <div className={palette.infoGrid}>
         {infoCards.map(card => (
-          <section key={card.title} className="glass-surface rounded-3xl p-6">
-            <h2 className="text-xl command-title neon-title mb-4">{card.title}</h2>
-            <div className="space-y-3">
+          <section key={card.title} className={palette.infoPanel}>
+            <h2 className={palette.infoTitle}>{card.title}</h2>
+            <div className={palette.infoList}>
               {card.items.map(item => (
-                <div key={`${card.title}-${item.text}`} className="rounded-2xl border border-white/10 p-4 bg-slate-900/30">
-                  <p className="text-slate-100">{item.text}</p>
-                  {item.tag && <p className={`micro-label mt-2 ${item.accent || 'accent-indigo'}`}>{item.tag}</p>}
+                <div key={`${card.title}-${item.text}`} className={palette.infoItem}>
+                  <p className={palette.infoText}>{item.text}</p>
+                  {item.tag && <p className={palette.infoTag}>{item.tag}</p>}
                 </div>
               ))}
             </div>

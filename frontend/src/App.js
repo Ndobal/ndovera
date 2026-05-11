@@ -163,12 +163,32 @@ function AppWorkspace({ auth, onLogin, onLogout }) {
   const inDashboardMode = location.pathname.startsWith('/roles/');
   const inStudentClassroom = location.pathname.startsWith('/roles/student/classroom');
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useEffect(() => {
     const onResize = () => setIsMobile(window.innerWidth < 768);
     window.addEventListener('resize', onResize);
     return () => window.removeEventListener('resize', onResize);
   }, []);
+
+  useEffect(() => {
+    if (!isMobile) {
+      setIsSidebarOpen(false);
+    }
+  }, [isMobile]);
+
+  useEffect(() => {
+    setIsSidebarOpen(false);
+  }, [location.pathname]);
+
+  useEffect(() => {
+    if (!isMobile || !isSidebarOpen) return undefined;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [isMobile, isSidebarOpen]);
 
   const mobileClassroomMode = inStudentClassroom && isMobile;
 
@@ -178,9 +198,16 @@ function AppWorkspace({ auth, onLogin, onLogout }) {
 
   return (
     <div className="flex h-screen overflow-hidden text-slate-900 dark:text-slate-100 transition-colors duration-500 dashboard-bg dark:bg-slate-950">
-      {!mobileClassroomMode && <Sidebar />}
+      {!mobileClassroomMode && <Sidebar mobileOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />}
       <main className={`flex-1 min-h-0 relative ${inStudentClassroom ? 'overflow-hidden' : 'overflow-y-auto'}`}>
-        {inDashboardMode && !mobileClassroomMode && <DashboardTopBar authUser={auth?.user} onLogout={onLogout} />}
+        {inDashboardMode && !mobileClassroomMode && (
+          <DashboardTopBar
+            authUser={auth?.user}
+            onLogout={onLogout}
+            onToggleSidebar={() => setIsSidebarOpen(open => !open)}
+            isSidebarOpen={isSidebarOpen}
+          />
+        )}
         <AnimatedRoutes auth={auth} onLogin={onLogin} />
       </main>
     </div>

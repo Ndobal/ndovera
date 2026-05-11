@@ -32,8 +32,8 @@ function SubscriptionTab() {
           <InfoRow label="Plan" value={quote?.planName || tenant?.planKey} />
           <InfoRow label="Setup Fee" value={quote?.setupFee ? `₦${quote.setupFee.toLocaleString()}` : null} />
           <div><p className="text-xs text-[#800020] uppercase font-semibold">Status</p><div className="mt-1"><StatusPill status={tenant?.paymentStatus} /></div></div>
-          <InfoRow label="Student Fee/Term" value={quote?.studentFeePerTerm ? `₦${quote.studentFeePerTerm.toLocaleString()}/student` : null} />
-          <InfoRow label="Student Count" value={tenant?.studentCount} />
+          <InfoRow label="User Fee/Term" value={(quote?.userFeePerTerm || quote?.studentFeePerTerm) ? `₦${(quote.userFeePerTerm || quote.studentFeePerTerm).toLocaleString()}/user` : null} />
+          <InfoRow label="Billable Users" value={tenant?.billableUserCount ?? tenant?.studentCount} />
           <InfoRow label="Term Total" value={quote?.termTotal ? `₦${quote.termTotal.toLocaleString()}` : null} />
         </div>
       </div>

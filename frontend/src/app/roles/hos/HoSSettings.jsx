@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getMe } from '../../../features/school/services/schoolApi';
 import AdminPasswordReset from '../../../features/auth/components/AdminPasswordReset';
+import WebsiteTab from '../owner/tabs/WebsiteTab';
 
 export default function HoSSettings({ auth }) {
   const [me, setMe] = useState(null);
@@ -52,6 +53,11 @@ export default function HoSSettings({ auth }) {
       <div className="rounded-3xl p-6 bg-[#f5deb3] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
         <h2 className="text-lg font-semibold text-[#800000] dark:text-slate-100 mb-4">Password Reset</h2>
         <AdminPasswordReset />
+      </div>
+
+      <div className="rounded-3xl p-6 bg-[#f5deb3] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
+        <h2 className="text-lg font-semibold text-[#800000] dark:text-slate-100 mb-4">School Website</h2>
+        <WebsiteTab />
       </div>
     </div>
   );

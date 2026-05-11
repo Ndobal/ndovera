@@ -180,8 +180,8 @@ export default function OwnerTenantConsole({ authUser = null, sectionKey = 'over
           <p className="mt-2 text-2xl command-title text-black dark:text-slate-100">{quote ? currencyFormatter.format(quote.setupFee) : '-'}</p>
         </div>
         <div className="glass-surface rounded-3xl p-5">
-          <p className="micro-label neon-subtle">Student Billing / Subsequent Term</p>
-          <p className="mt-2 text-2xl command-title text-black dark:text-slate-100">{quote ? currencyFormatter.format(quote.studentFeePerTerm) : '-'}</p>
+          <p className="micro-label neon-subtle">User Billing / Subsequent Term</p>
+          <p className="mt-2 text-2xl command-title text-black dark:text-slate-100">{quote ? currencyFormatter.format(quote.userFeePerTerm || quote.studentFeePerTerm) : '-'}</p>
         </div>
         <div className="glass-surface rounded-3xl p-5">
           <p className="micro-label neon-subtle">Subdomain</p>
@@ -209,13 +209,14 @@ export default function OwnerTenantConsole({ authUser = null, sectionKey = 'over
               <div className="rounded-2xl border border-emerald-400/20 bg-slate-900/30 p-4">
                 <p className="micro-label neon-subtle">Current Invoice</p>
                 <p className="mt-2 text-2xl command-title text-slate-100">{quote ? currencyFormatter.format(quote.totalDueNow) : '-'}</p>
-                <p className="mt-2">Only the onboarding fee is due now. Student billing starts from the subsequent term.</p>
+                <p className="mt-2">Only the onboarding fee is due now. User billing starts from the subsequent term.</p>
                 {quote?.discountApplied && <p className="mt-2 text-indigo-300">Discount applied: {quote.discountCode}</p>}
               </div>
               <div className="rounded-2xl bg-slate-900/30 p-4">
                 <p className="micro-label neon-subtle">Subsequent Term Billing</p>
                 <p className="mt-2 text-slate-100 font-semibold">{quote ? currencyFormatter.format(quote.nextTermStudentBilling) : '-'}</p>
-                <p className="mt-2">{quote?.studentCount || tenant?.studentCount || 0} students x {quote ? currencyFormatter.format(quote.studentFeePerTerm) : '-'} billed from the subsequent term.</p>
+                <p className="mt-2">{quote?.billableUserCount || tenant?.billableUserCount || tenant?.studentCount || 0} active users x {quote ? currencyFormatter.format(quote.userFeePerTerm || quote.studentFeePerTerm) : '-'} billed from the subsequent term.</p>
+                {quote?.userCounts && <p className="mt-2">Students: {quote.userCounts.students || 0} • Teachers: {quote.userCounts.teachers || 0} • Staff: {quote.userCounts.staff || 0} • Parents: {quote.userCounts.parents || 0}</p>}
               </div>
               {latestPayment && (
                 <div className="rounded-2xl bg-slate-900/30 p-4">
@@ -246,8 +247,8 @@ export default function OwnerTenantConsole({ authUser = null, sectionKey = 'over
                 <p className="mt-2 text-[#800020] dark:text-slate-100 font-semibold">{tenant?.ownerEmail}</p>
               </div>
               <div className="rounded-2xl bg-slate-900/30 p-4">
-                <p className="micro-label neon-subtle">Student Count</p>
-                <p className="mt-2 text-[#800020] dark:text-slate-100 font-semibold">{tenant?.studentCount}</p>
+                <p className="micro-label neon-subtle">Billable Users</p>
+                <p className="mt-2 text-[#800020] dark:text-slate-100 font-semibold">{tenant?.billableUserCount ?? tenant?.studentCount}</p>
               </div>
             </div>
           )}

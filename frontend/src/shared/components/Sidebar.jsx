@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
+import { XMarkIcon } from '@heroicons/react/24/outline';
+
+const noop = () => {};
 
 const defaultSidebarItems = [
   { name: 'Dashboard', path: '/' },
@@ -418,7 +421,7 @@ function getRoleSidebarItems(roleKey) {
   ];
 }
 
-export default function Sidebar() {
+export default function Sidebar({ mobileOpen = false, onClose = noop }) {
   const location = useLocation();
   const inRoleMode = location.pathname.startsWith('/roles/');
   const roleKey = inRoleMode ? location.pathname.split('/')[2] : null;
@@ -428,38 +431,71 @@ export default function Sidebar() {
   const sidebarItems = (roleKey && adminRoles.has(roleKey)) ? [...sidebarItemsRaw, adminEntry] : sidebarItemsRaw;
   const nodeTitle = inRoleMode && roleKey ? roleLabels[roleKey] || 'Role Dashboard' : 'Institution Dashboard';
 
+  useEffect(() => {
+    onClose();
+  }, [location.pathname, onClose]);
+
   return (
-    <aside className="w-64 h-full overflow-y-auto border-r border-slate-200/60 dark:border-indigo-500/20 frost-panel dashboard-bg dark:bg-transparent">
-      <div className="p-6">
-        <p className="micro-label text-slate-500 dark:text-white neon-subtle mb-2">{nodeTitle}</p>
-        <div className="font-black tracking-tighter text-xl text-indigo-700 dark:text-white">NDOVERA</div>
-      </div>
-      <ul>
-        {sidebarItems.map(item => (
-          <li key={item.path}>
-            {item.path.includes('#') ? (
-              <a
-                href={item.path}
-                className={`block px-6 py-3 rounded-2xl text-slate-700 dark:text-white hover:bg-emerald-50 hover:text-slate-900 dark:hover:bg-indigo-500/20 dark:hover:text-white transition-colors${item.name === 'Overview' ? ' sidebar-overview' : ''}`}
-              >
-                {item.name}
-              </a>
-            ) : (
-              <NavLink
-                to={item.path}
-                className={({ isActive }) =>
-                  isActive
-                    ? `sidebar-item-active block px-6 py-3 rounded-2xl font-semibold dark:text-white${item.name === 'Overview' ? ' sidebar-overview' : ''}`
-                    : `block px-6 py-3 rounded-2xl text-slate-700 dark:text-white hover:bg-emerald-50 hover:text-slate-900 dark:hover:bg-indigo-500/20 dark:hover:text-white transition-colors${item.name === 'Overview' ? ' sidebar-overview' : ''}`
-                }
-                end
-              >
-                {item.name}
-              </NavLink>
-            )}
-          </li>
-        ))}
-      </ul>
-    </aside>
+    <>
+      <div
+        className={`fixed inset-0 z-40 bg-slate-950/45 backdrop-blur-[1.5px] transition-opacity duration-300 md:hidden ${
+          mobileOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        }`}
+        onClick={onClose}
+        aria-hidden={!mobileOpen}
+      />
+
+      <aside
+        className={`fixed inset-y-0 left-0 z-50 w-72 max-w-[84vw] overflow-y-auto border-r border-slate-200/60 dark:border-indigo-500/20 frost-panel dashboard-bg dark:bg-transparent transform transition-transform duration-300 md:static md:z-auto md:w-64 md:max-w-none md:translate-x-0 ${
+          mobileOpen ? 'translate-x-0' : '-translate-x-full'
+        }`}
+        aria-hidden={!mobileOpen}
+      >
+        <div className="p-6">
+          <div className="mb-4 flex items-start justify-between gap-3 md:block">
+            <div>
+              <p className="micro-label text-slate-500 dark:text-[#f5deb3] neon-subtle mb-2">{nodeTitle}</p>
+              <div className="font-black tracking-tighter text-xl text-indigo-700 dark:text-[#f5deb3]">NDOVERA</div>
+            </div>
+            <button
+              type="button"
+              onClick={onClose}
+              className="md:hidden glass-chip p-2 rounded-xl text-slate-700 dark:text-[#f5deb3] hover:bg-white/70 dark:hover:bg-slate-700/60 transition-colors"
+              aria-label="Close menu"
+            >
+              <XMarkIcon className="h-5 w-5" />
+            </button>
+          </div>
+        </div>
+        <ul className="pb-4">
+          {sidebarItems.map(item => (
+            <li key={item.path}>
+              {item.path.includes('#') ? (
+                <a
+                  href={item.path}
+                  onClick={onClose}
+                  className={`block px-6 py-3 rounded-2xl text-slate-700 dark:text-[#f5deb3] hover:bg-emerald-50 hover:text-slate-900 dark:hover:bg-indigo-500/20 dark:hover:text-[#f5deb3] transition-colors${item.name === 'Overview' ? ' sidebar-overview' : ''}`}
+                >
+                  {item.name}
+                </a>
+              ) : (
+                <NavLink
+                  to={item.path}
+                  onClick={onClose}
+                  className={({ isActive }) =>
+                    isActive
+                      ? `sidebar-item-active block px-6 py-3 rounded-2xl font-semibold dark:text-[#f5deb3]${item.name === 'Overview' ? ' sidebar-overview' : ''}`
+                      : `block px-6 py-3 rounded-2xl text-slate-700 dark:text-[#f5deb3] hover:bg-emerald-50 hover:text-slate-900 dark:hover:bg-indigo-500/20 dark:hover:text-[#f5deb3] transition-colors${item.name === 'Overview' ? ' sidebar-overview' : ''}`
+                  }
+                  end
+                >
+                  {item.name}
+                </NavLink>
+              )}
+            </li>
+          ))}
+        </ul>
+      </aside>
+    </>
   );
 }

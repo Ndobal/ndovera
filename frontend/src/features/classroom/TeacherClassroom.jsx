@@ -1,28 +1,152 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import StudentSectionShell from '../../app/roles/student/StudentSectionShell';
+import TeacherAssignmentsPanel from './TeacherAssignmentsPanel';
 import * as svc from './classroomService';
 
-export default function TeacherClassroom() {
-  const { role } = useParams();
-  // default class id for demo
-  const [classId, setClassId] = useState('class-default');
-  const [cls, setCls] = useState(null);
-  const [activeTab, setActiveTab] = useState('stream');
+const TODAY = new Date().toISOString().slice(0, 10);
+
+export default function TeacherClassroom({
+  initialTab = 'stream',
+  lockedTab = '',
+  dashboardLabel = 'Teacher Dashboard',
+  watermarkText = 'Teacher Dashboard',
+}) {
+  const [classId, setClassId] = useState('');
+  const [assignedClasses, setAssignedClasses] = useState([]);
+  const [activeTab, setActiveTab] = useState(() => lockedTab || initialTab);
   const [posts, setPosts] = useState([]);
   const [draftContent, setDraftContent] = useState('');
   const [assignments, setAssignments] = useState([]);
   const [materials, setMaterials] = useState([]);
   const [attendance, setAttendance] = useState([]);
+  const [students, setStudents] = useState([]);
+  const [selectedStudentId, setSelectedStudentId] = useState('');
+  const [attendanceDate, setAttendanceDate] = useState(TODAY);
+  const [attendanceStatus, setAttendanceStatus] = useState('Present');
+  const [attendanceNotes, setAttendanceNotes] = useState('');
+  const [attendanceLoading, setAttendanceLoading] = useState(false);
+  const [attendanceMessage, setAttendanceMessage] = useState('');
+  const [materialSubjectId, setMaterialSubjectId] = useState('');
+  const [materialType, setMaterialType] = useState('document');
+  const [materialTitle, setMaterialTitle] = useState('');
+  const [materialUrl, setMaterialUrl] = useState('');
+  const [materialDescription, setMaterialDescription] = useState('');
+  const [materialMessage, setMaterialMessage] = useState('');
   const [uploadProgress, setUploadProgress] = useState({});
+  const [classroomLoading, setClassroomLoading] = useState(true);
+  const [classroomError, setClassroomError] = useState('');
+
+  const selectedClass = assignedClasses.find(classroom => classroom.id === classId) || null;
+  const materialSubjects = useMemo(() => selectedClass?.subjects || [], [selectedClass?.subjects]);
+  const selectedMaterialSubject = materialSubjects.find(subject => subject.id === materialSubjectId) || materialSubjects[0] || null;
+  const isChoosingClass = !classId;
 
   useEffect(() => {
-    // try to load class info
-    svc.getClass(classId).then(r => { if (r && r.success) setCls(r.class); }).catch(()=>{});
-    loadAll();
+    setActiveTab(lockedTab || initialTab);
+  }, [initialTab, lockedTab]);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    async function resolveAssignedClasses() {
+      try {
+        const data = await svc.getAssignedClasses();
+        if (cancelled) return;
+
+        const classes = data?.classes || [];
+        setAssignedClasses(classes);
+
+        if (classes.length === 0) {
+          setClassroomError('No classes have been assigned to this teacher yet.');
+        } else {
+          setClassroomError('');
+        }
+      } catch {
+        if (!cancelled) {
+          setClassroomError('Unable to load your assigned classes right now.');
+        }
+      } finally {
+        if (!cancelled) {
+          setClassroomLoading(false);
+        }
+      }
+    }
+
+    resolveAssignedClasses();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!classId) {
+      setPosts([]);
+      setAssignments([]);
+      setMaterials([]);
+      setAttendance([]);
+      setStudents([]);
+      setSelectedStudentId('');
+      setAttendanceMessage('');
+      setMaterialTitle('');
+      setMaterialUrl('');
+      setMaterialDescription('');
+      setMaterialMessage('');
+      return;
+    }
+
+    setClassroomError('');
+    window.localStorage.setItem('teacherClassroomId', classId);
+    window.localStorage.setItem('classroomId', classId);
+    svc.getPosts(classId).then(r => { if (r && r.success) setPosts(r.posts || []); }).catch(()=>{});
+    svc.getAssignments(classId).then(r => { if (r && r.success) setAssignments(r.assignments || []); }).catch(()=>{});
+    svc.getMaterials(classId).then(r => { if (r && r.success) setMaterials(r.materials || []); }).catch(()=>{});
+    svc.getAttendance(classId).then(r => { if (r && r.success) setAttendance(r.attendance || []); }).catch(()=>{});
   }, [classId]);
 
+  useEffect(() => {
+    if (!classId || !selectedClass?.isClassTeacher) {
+      setStudents([]);
+      setSelectedStudentId('');
+      return;
+    }
+
+    let cancelled = false;
+    svc.getClassStudents(classId).then(r => {
+      if (cancelled || !r || !r.success) return;
+      const roster = r.students || [];
+      setStudents(roster);
+      setSelectedStudentId(currentStudentId => (
+        roster.some(student => student.id === currentStudentId)
+          ? currentStudentId
+          : (roster[0]?.id || '')
+      ));
+    }).catch(() => {
+      if (!cancelled) {
+        setStudents([]);
+        setSelectedStudentId('');
+      }
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [classId, selectedClass?.isClassTeacher]);
+
+  useEffect(() => {
+    if (!materialSubjects.length) {
+      setMaterialSubjectId('');
+      return;
+    }
+
+    setMaterialSubjectId(currentSubjectId => (
+      materialSubjects.some(subject => subject.id === currentSubjectId)
+        ? currentSubjectId
+        : String(materialSubjects[0]?.id || '')
+    ));
+  }, [materialSubjects]);
+
   function loadAll() {
+    if (!classId) return;
     svc.getPosts(classId).then(r => { if (r && r.success) setPosts(r.posts || []); }).catch(()=>{});
     svc.getAssignments(classId).then(r => { if (r && r.success) setAssignments(r.assignments || []); }).catch(()=>{});
     svc.getMaterials(classId).then(r => { if (r && r.success) setMaterials(r.materials || []); }).catch(()=>{});
@@ -32,7 +156,7 @@ export default function TeacherClassroom() {
   async function handleCreatePost(e) {
     e.preventDefault();
     const content = draftContent || '';
-    if (!content) return;
+    if (!content || !classId) return;
     await svc.createPost(classId, { content });
     // clear editor
     setDraftContent('');
@@ -41,20 +165,54 @@ export default function TeacherClassroom() {
     loadAll();
   }
 
-  async function handleAttachFile(e) {
-    const f = e.target.files && e.target.files[0];
-    if (!f) return;
-    // multipart upload via FormData handled in classroomService.uploadMaterial
-    await uploadFileWithProgress(f);
-    loadAll();
-  }
-
   // wire file input in toolbar
   useEffect(() => {
     const inp = document.getElementById('fileInput');
     if (!inp) return;
-    inp.addEventListener('change', handleAttachFile);
-    return () => inp.removeEventListener('change', handleAttachFile);
+    const onFileChange = async (event) => {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+      try {
+        const token = localStorage.getItem('token');
+        const xhr = new XMLHttpRequest();
+        const url = `/api/classrooms/${encodeURIComponent(classId)}/materials/upload-multipart`;
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('title', file.name);
+
+        await new Promise((resolve, reject) => {
+          xhr.open('POST', url, true);
+          if (token) xhr.setRequestHeader('Authorization', `Bearer ${token}`);
+
+          xhr.upload.onprogress = (progressEvent) => {
+            if (!progressEvent.lengthComputable) return;
+            const pct = Math.round((progressEvent.loaded / progressEvent.total) * 100);
+            setUploadProgress(prev => ({ ...prev, [file.name]: pct }));
+          };
+
+          xhr.onload = () => {
+            setUploadProgress(prev => ({ ...prev, [file.name]: 100 }));
+            resolve(xhr.responseText || '{}');
+          };
+
+          xhr.onerror = () => {
+            setUploadProgress(prev => ({ ...prev, [file.name]: 0 }));
+            reject(new Error('Upload failed'));
+          };
+
+          xhr.send(formData);
+        });
+
+        svc.getPosts(classId).then(r => { if (r && r.success) setPosts(r.posts || []); }).catch(()=>{});
+        svc.getAssignments(classId).then(r => { if (r && r.success) setAssignments(r.assignments || []); }).catch(()=>{});
+        svc.getMaterials(classId).then(r => { if (r && r.success) setMaterials(r.materials || []); }).catch(()=>{});
+        svc.getAttendance(classId).then(r => { if (r && r.success) setAttendance(r.attendance || []); }).catch(()=>{});
+      } catch {}
+      event.target.value = '';
+    };
+
+    inp.addEventListener('change', onFileChange);
+    return () => inp.removeEventListener('change', onFileChange);
   }, [classId]);
 
   // autosave scheduling (use a ref to persist timer)
@@ -68,14 +226,47 @@ export default function TeacherClassroom() {
   }
 
   // Upload with progress using XMLHttpRequest (to support progress events)
-  function uploadFileWithProgress(file) {
+  function resetMaterialComposer() {
+    setMaterialTitle('');
+    setMaterialUrl('');
+    setMaterialDescription('');
+  }
+
+  function formatMaterialTypeLabel(value) {
+    switch (String(value || '').toLowerCase()) {
+      case 'video':
+        return 'Video';
+      case 'image':
+        return 'Image';
+      case 'link':
+        return 'Link';
+      default:
+        return 'Document';
+    }
+  }
+
+  function uploadFileWithProgress(file, overrides = {}) {
     return new Promise((resolve, reject) => {
       const token = localStorage.getItem('token');
       const xhr = new XMLHttpRequest();
       const url = `/api/classrooms/${encodeURIComponent(classId)}/materials/upload-multipart`;
       const fd = new FormData();
+      const nextSubject = materialSubjects.find(subject => subject.id === (overrides.subjectId || materialSubjectId)) || materialSubjects[0] || null;
+      const nextTitle = String(overrides.title || materialTitle || file.name).trim() || file.name;
+      const nextDescription = String(overrides.description ?? materialDescription).trim();
+      const nextType = String(overrides.type || materialType || 'document').trim();
+
+      if (!nextSubject) {
+        setMaterialMessage('Add a subject to this class before posting materials.');
+        reject(new Error('Subject is required.'));
+        return;
+      }
+
       fd.append('file', file);
-      fd.append('title', file.name);
+      fd.append('title', nextTitle);
+      fd.append('subjectId', nextSubject.id);
+      if (nextDescription) fd.append('description', nextDescription);
+      if (nextType) fd.append('type', nextType);
 
       xhr.open('POST', url, true);
       if (token) xhr.setRequestHeader('Authorization', `Bearer ${token}`);
@@ -90,6 +281,10 @@ export default function TeacherClassroom() {
         try {
           const json = JSON.parse(xhr.responseText || '{}');
           setUploadProgress(prev => ({ ...prev, [file.name]: 100 }));
+          if (json?.success) {
+            setMaterialMessage(`Uploaded ${nextTitle} to ${nextSubject.name}.`);
+            resetMaterialComposer();
+          }
           resolve(json);
         } catch (err) {
           reject(err || new Error('Invalid JSON'));
@@ -105,6 +300,37 @@ export default function TeacherClassroom() {
     });
   }
 
+  async function handleCreateMaterial(event) {
+    event.preventDefault();
+
+    if (!classId || !selectedMaterialSubject) {
+      setMaterialMessage('Choose the subject this material belongs to before posting it.');
+      return;
+    }
+
+    if (!materialTitle.trim() || !materialUrl.trim()) {
+      setMaterialMessage('Enter a material title and link before posting it.');
+      return;
+    }
+
+    const response = await svc.addMaterial(classId, {
+      title: materialTitle.trim(),
+      url: materialUrl.trim(),
+      subjectId: selectedMaterialSubject.id,
+      description: materialDescription.trim(),
+      type: materialType,
+    });
+
+    if (!response?.success) {
+      setMaterialMessage(response?.message || 'Could not post this material right now.');
+      return;
+    }
+
+    setMaterialMessage(`Posted ${materialTitle.trim()} to ${selectedMaterialSubject.name}.`);
+    resetMaterialComposer();
+    loadAll();
+  }
+
   // Drag-and-drop handlers
   function handleDrop(e) {
     e.preventDefault();
@@ -115,49 +341,151 @@ export default function TeacherClassroom() {
 
   function handleDragOver(e) { e.preventDefault(); }
 
-  async function handleCreateAssignment(e) {
-    e.preventDefault();
-    const form = e.target;
-    const title = form.title.value;
-    const description = form.description.value;
-    const dueAt = form.dueAt.value || null;
-    if (!title) return;
-    await svc.createAssignment(classId, { title, description, dueAt });
-    form.reset();
-    loadAll();
-  }
-
   async function handleRecordAttendance(e) {
     e.preventDefault();
-    const form = e.target;
-    const studentId = form.studentId.value;
-    const date = form.date.value;
-    const status = form.status.value;
-    if (!studentId || !date || !status) return;
-    await svc.recordAttendance(classId, { studentId, date, status });
-    form.reset();
-    loadAll();
+    if (!selectedClass?.isClassTeacher) {
+      setAttendanceMessage('Only the class teacher can mark attendance for this class.');
+      return;
+    }
+
+    if (!selectedStudentId || !attendanceDate || !attendanceStatus || !classId) {
+      setAttendanceMessage('Select a student, date, and status before recording attendance.');
+      return;
+    }
+
+    setAttendanceLoading(true);
+    setAttendanceMessage('');
+
+    try {
+      const response = await svc.recordAttendance(classId, {
+        studentId: selectedStudentId,
+        date: attendanceDate,
+        status: attendanceStatus,
+        notes: attendanceNotes,
+      });
+
+      if (!response?.success) {
+        setAttendanceMessage(response?.message || 'Could not record attendance right now.');
+        return;
+      }
+
+      const selectedStudent = students.find(student => student.id === selectedStudentId);
+      setAttendanceMessage(`Recorded ${attendanceStatus} for ${selectedStudent?.name || 'student'}.`);
+      setAttendanceNotes('');
+      loadAll();
+    } catch {
+      setAttendanceMessage('Could not record attendance right now.');
+    } finally {
+      setAttendanceLoading(false);
+    }
   }
 
+  function handleSelectClass(nextClassId) {
+    setActiveTab(lockedTab || initialTab);
+    setClassId(nextClassId);
+    window.localStorage.setItem('teacherClassroomId', nextClassId);
+    window.localStorage.setItem('classroomId', nextClassId);
+  }
+
+  function handleExitClass() {
+    setClassId('');
+    setActiveTab(lockedTab || initialTab);
+    setAttendanceMessage('');
+    window.localStorage.removeItem('teacherClassroomId');
+    window.localStorage.removeItem('classroomId');
+  }
+
+  const attendanceStudentsById = Object.fromEntries(students.map(student => [student.id, student]));
+  const showingLockedAttendance = lockedTab === 'attendance';
+
   return (
-    <StudentSectionShell title={`Classroom (Teacher)`} watermarkText="Teacher Dashboard">
+    <StudentSectionShell
+      title={selectedClass?.className || (showingLockedAttendance ? 'Class Attendance' : 'Teacher Classroom')}
+      subtitle={selectedClass ? 'Manage one class at a time. Exit this class to choose another one.' : 'Choose an assigned class card to open its classroom.'}
+      dashboardLabel={dashboardLabel}
+      watermarkText={watermarkText}
+    >
       <div id="devMarker" style={{display: 'none'}}>DEV_BUILD: teacher-classroom-20260304</div>
       <div className="p-4">
-        <div className="mb-4">
-          <label className="block text-sm font-medium">Class ID</label>
-          <input value={classId} onChange={e => setClassId(e.target.value)} className="border rounded px-2 py-1 mt-1" />
-        </div>
+        {isChoosingClass && <div className="mb-6">
+          <label className="block text-sm font-medium text-[#800000] dark:text-[#0000ff] mb-3">Assigned Classes</label>
+          {assignedClasses.length > 0 ? (
+            <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
+              {assignedClasses.map(classroom => (
+                <button
+                  key={classroom.id}
+                  type="button"
+                  onClick={() => handleSelectClass(classroom.id)}
+                  className="text-left rounded-3xl p-5 border transition-all duration-200 bg-[#f5deb3] border-[#c9a96e]/50 shadow-[0_18px_40px_rgba(128,0,0,0.08)] hover:-translate-y-0.5 hover:shadow-[0_22px_46px_rgba(128,0,0,0.12)] dark:bg-[#800000]/75 dark:border-[#bf00ff]/45 dark:shadow-[0_0_28px_rgba(191,0,255,0.22)] dark:hover:shadow-[0_0_36px_rgba(0,255,255,0.22)]"
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <p className="text-lg font-semibold text-[#800000] dark:text-[#ffffff]">{classroom.className}</p>
+                      <p className="mt-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#800020] dark:text-[#bf00ff]">{classroom.isClassTeacher ? 'Class Teacher' : 'Subject Teacher'}</p>
+                    </div>
+                    <span className="inline-flex items-center rounded-full bg-[#1a5c38] px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] text-[#f5deb3] dark:bg-[#00ffff] dark:text-[#000000]">Open Class</span>
+                  </div>
 
-        <div className="mb-4">
+                  <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-3">
+                    <div className="rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] p-3 dark:border-[#bf00ff]/35 dark:bg-black/20">
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#800020] dark:text-[#bf00ff]">Students</p>
+                      <p className="mt-1 text-lg font-black text-[#191970] dark:text-[#39ff14]">{classroom.studentCount}</p>
+                    </div>
+                    <div className="rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] p-3 dark:border-[#bf00ff]/35 dark:bg-black/20">
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#800020] dark:text-[#bf00ff]">Subjects</p>
+                      <p className="mt-1 text-lg font-black text-[#191970] dark:text-[#39ff14]">{classroom.subjectCount}</p>
+                    </div>
+                    <div className="rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] p-3 dark:border-[#bf00ff]/35 dark:bg-black/20">
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#800020] dark:text-[#bf00ff]">Assignments</p>
+                      <p className="mt-1 text-lg font-black text-[#191970] dark:text-[#39ff14]">{classroom.assignmentCount}</p>
+                    </div>
+                    <div className="rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] p-3 dark:border-[#bf00ff]/35 dark:bg-black/20">
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#800020] dark:text-[#bf00ff]">Materials</p>
+                      <p className="mt-1 text-lg font-black text-[#191970] dark:text-[#39ff14]">{classroom.materialCount}</p>
+                    </div>
+                  </div>
+                </button>
+              ))}
+            </div>
+          ) : (
+            <div className="rounded-3xl border border-[#c9a96e]/45 bg-[#f5deb3] px-4 py-4 text-sm text-[#191970] dark:border-[#bf00ff]/35 dark:bg-[#800000]/70 dark:text-[#39ff14]">
+              {classroomLoading ? 'Loading assigned classes...' : 'No classes assigned yet.'}
+            </div>
+          )}
+          {classroomError && <p className="text-sm text-red-600 dark:text-[#ffffff] mt-2">{classroomError}</p>}
+        </div>}
+
+        {!!selectedClass && <div className="mb-4 rounded-3xl border border-[#c9a96e]/45 bg-[#f5deb3] p-5 shadow-[0_18px_42px_rgba(128,0,0,0.08)] dark:border-[#bf00ff]/35 dark:bg-[#800000]/75 dark:shadow-[0_0_28px_rgba(191,0,255,0.18)]">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#800020] dark:text-[#bf00ff]">Working In</p>
+              <p className="text-lg font-semibold text-[#800000] dark:text-[#ffffff] mt-1">{selectedClass.className}</p>
+            </div>
+            <div className="flex flex-wrap gap-2 items-center">
+              <span className="rounded-full bg-[#fff8f0] px-3 py-1 text-xs font-semibold uppercase tracking-[0.15em] text-[#800020] border border-[#c9a96e]/45 dark:bg-black/20 dark:border-[#bf00ff]/35 dark:text-[#bf00ff]">Students {selectedClass.studentCount}</span>
+              <span className="rounded-full bg-[#fff8f0] px-3 py-1 text-xs font-semibold uppercase tracking-[0.15em] text-[#800020] border border-[#c9a96e]/45 dark:bg-black/20 dark:border-[#bf00ff]/35 dark:text-[#bf00ff]">Subjects {selectedClass.subjectCount}</span>
+              <span className="rounded-full bg-[#fff8f0] px-3 py-1 text-xs font-semibold uppercase tracking-[0.15em] text-[#800020] border border-[#c9a96e]/45 dark:bg-black/20 dark:border-[#bf00ff]/35 dark:text-[#bf00ff]">Posts {selectedClass.streamCount}</span>
+              <button
+                type="button"
+                onClick={handleExitClass}
+                className="rounded-2xl bg-[#1a5c38] px-4 py-2 text-sm font-bold text-[#f5deb3] transition-colors hover:bg-[#154a2e] dark:bg-[#00ffff] dark:text-[#000000] dark:hover:bg-[#7dfcff]"
+              >
+                Exit Class
+              </button>
+            </div>
+          </div>
+        </div>}
+
+        {!!classId && !lockedTab && <div className="mb-4">
           <nav className="flex gap-2">
-            <button className={`px-3 py-1 rounded ${activeTab==='stream'?'bg-blue-500 text-white':''}`} onClick={()=>setActiveTab('stream')}>Stream</button>
-            <button className={`px-3 py-1 rounded ${activeTab==='assignments'?'bg-blue-500 text-white':''}`} onClick={()=>setActiveTab('assignments')}>Assignments</button>
-            <button className={`px-3 py-1 rounded ${activeTab==='attendance'?'bg-blue-500 text-white':''}`} onClick={()=>setActiveTab('attendance')}>Attendance</button>
-            <button className={`px-3 py-1 rounded ${activeTab==='materials'?'bg-blue-500 text-white':''}`} onClick={()=>setActiveTab('materials')}>Materials</button>
+            <button className={`px-3 py-1 rounded-2xl border text-sm font-semibold transition-colors ${activeTab==='stream'?'bg-[#1a5c38] border-[#1a5c38] text-[#f5deb3] dark:bg-[#00ffff] dark:border-[#00ffff] dark:text-[#000000]':'bg-[#fff8f0] border-[#c9a96e]/45 text-[#191970] hover:bg-[#f2e1bf] dark:bg-black/20 dark:border-[#bf00ff]/35 dark:text-[#ffffff] dark:hover:bg-[#800000]/85'}`} onClick={()=>setActiveTab('stream')}>Stream</button>
+            <button className={`px-3 py-1 rounded-2xl border text-sm font-semibold transition-colors ${activeTab==='assignments'?'bg-[#1a5c38] border-[#1a5c38] text-[#f5deb3] dark:bg-[#00ffff] dark:border-[#00ffff] dark:text-[#000000]':'bg-[#fff8f0] border-[#c9a96e]/45 text-[#191970] hover:bg-[#f2e1bf] dark:bg-black/20 dark:border-[#bf00ff]/35 dark:text-[#ffffff] dark:hover:bg-[#800000]/85'}`} onClick={()=>setActiveTab('assignments')}>Assignments</button>
+            <button className={`px-3 py-1 rounded-2xl border text-sm font-semibold transition-colors ${activeTab==='attendance'?'bg-[#1a5c38] border-[#1a5c38] text-[#f5deb3] dark:bg-[#00ffff] dark:border-[#00ffff] dark:text-[#000000]':'bg-[#fff8f0] border-[#c9a96e]/45 text-[#191970] hover:bg-[#f2e1bf] dark:bg-black/20 dark:border-[#bf00ff]/35 dark:text-[#ffffff] dark:hover:bg-[#800000]/85'}`} onClick={()=>setActiveTab('attendance')}>Attendance</button>
+            <button className={`px-3 py-1 rounded-2xl border text-sm font-semibold transition-colors ${activeTab==='materials'?'bg-[#1a5c38] border-[#1a5c38] text-[#f5deb3] dark:bg-[#00ffff] dark:border-[#00ffff] dark:text-[#000000]':'bg-[#fff8f0] border-[#c9a96e]/45 text-[#191970] hover:bg-[#f2e1bf] dark:bg-black/20 dark:border-[#bf00ff]/35 dark:text-[#ffffff] dark:hover:bg-[#800000]/85'}`} onClick={()=>setActiveTab('materials')}>Materials</button>
           </nav>
-        </div>
+        </div>}
 
-        <div onDrop={handleDrop} onDragOver={handleDragOver}>
+        {!!classId && <div onDrop={handleDrop} onDragOver={handleDragOver}>
           {activeTab === 'stream' && (
             <div>
               <form onSubmit={handleCreatePost} className="mb-3">
@@ -213,75 +541,188 @@ export default function TeacherClassroom() {
           )}
 
           {activeTab === 'assignments' && (
-            <div>
-              <form onSubmit={handleCreateAssignment} className="mb-3">
-                <input name="title" placeholder="Title" className="w-full border rounded p-2 mb-2" />
-                <textarea name="description" placeholder="Description" rows={3} className="w-full border rounded p-2 mb-2" />
-                <input name="dueAt" type="datetime-local" className="w-full border rounded p-2 mb-2" />
-                <div><button className="px-3 py-1 bg-green-600 text-white rounded">Create Assignment</button></div>
-              </form>
-
-              <div>
-                {assignments.map(a => (
-                  <div key={a.id} className="border rounded p-2 mb-2">
-                    <div className="font-semibold">{a.title}</div>
-                    <div className="text-sm text-gray-600">Due: {a.dueAt || '—'}</div>
-                    <div className="mt-1">{a.description}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <TeacherAssignmentsPanel
+              assignedClasses={assignedClasses}
+              currentClassId={classId}
+              currentClassName={selectedClass?.className || ''}
+              assignments={assignments}
+              onRefreshAssignments={loadAll}
+              onSelectClass={handleSelectClass}
+            />
           )}
 
           {activeTab === 'attendance' && (
-            <div>
-              <form onSubmit={handleRecordAttendance} className="mb-3 grid grid-cols-4 gap-2">
-                <input name="studentId" placeholder="student-123" className="border rounded p-2" />
-                <input name="date" type="date" className="border rounded p-2" />
-                <select name="status" className="border rounded p-2">
-                  <option value="present">Present</option>
-                  <option value="absent">Absent</option>
-                  <option value="late">Late</option>
-                </select>
-                <div><button className="px-3 py-1 bg-green-600 text-white rounded">Record</button></div>
-              </form>
+            <div className="space-y-4">
+              {!selectedClass?.isClassTeacher && (
+                <div className="rounded-3xl border border-[#c9a96e]/45 bg-[#f5deb3] px-4 py-4 text-sm text-[#191970] dark:border-[#bf00ff]/35 dark:bg-[#800000]/70 dark:text-[#39ff14]">
+                  Only the class teacher can mark attendance for this class. Open a class where you are the assigned class teacher to record student attendance.
+                </div>
+              )}
 
-              <div>
-                {attendance.map(a => (
-                  <div key={a.id} className="border rounded p-2 mb-2">
-                    <div className="text-sm text-gray-600">{a.studentId} • {a.date}</div>
-                    <div>{a.status} {a.notes ? `- ${a.notes}` : ''}</div>
+              {selectedClass?.isClassTeacher && (
+                <div className="rounded-3xl border border-[#c9a96e]/45 bg-[#f5deb3] p-5 shadow-[0_18px_42px_rgba(128,0,0,0.08)] dark:border-[#bf00ff]/35 dark:bg-[#800000]/75 dark:shadow-[0_0_28px_rgba(191,0,255,0.18)]">
+                  <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+                    <div>
+                      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#800020] dark:text-[#bf00ff]">Live Attendance</p>
+                      <p className="mt-1 text-lg font-semibold text-[#800000] dark:text-[#ffffff]">Mark from class roster</p>
+                    </div>
+                    <span className="rounded-full bg-[#fff8f0] px-3 py-1 text-xs font-semibold uppercase tracking-[0.15em] text-[#800020] border border-[#c9a96e]/45 dark:bg-black/20 dark:border-[#bf00ff]/35 dark:text-[#bf00ff]">Roster {students.length}</span>
                   </div>
-                ))}
+
+                  <form onSubmit={handleRecordAttendance} className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-3">
+                    <select value={selectedStudentId} onChange={e => setSelectedStudentId(e.target.value)} className="rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] p-3 text-sm text-[#191970] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#ffffff]">
+                      <option value="">Select student</option>
+                      {students.map(student => (
+                        <option key={student.id} value={student.id}>{student.name}{student.displayId ? ` (${student.displayId})` : ''}</option>
+                      ))}
+                    </select>
+                    <input value={attendanceDate} onChange={e => setAttendanceDate(e.target.value)} type="date" className="rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] p-3 text-sm text-[#191970] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#ffffff]" />
+                    <select value={attendanceStatus} onChange={e => setAttendanceStatus(e.target.value)} className="rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] p-3 text-sm text-[#191970] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#ffffff]">
+                      <option value="Present">Present</option>
+                      <option value="Absent">Absent</option>
+                      <option value="Late">Late</option>
+                      <option value="Excused">Excused</option>
+                    </select>
+                    <button disabled={attendanceLoading || !students.length} className="rounded-2xl bg-[#1a5c38] px-4 py-3 text-sm font-bold text-[#f5deb3] transition-colors hover:bg-[#154a2e] disabled:opacity-60 disabled:cursor-not-allowed dark:bg-[#00ffff] dark:text-[#000000] dark:hover:bg-[#7dfcff]">
+                      {attendanceLoading ? 'Recording…' : 'Record Attendance'}
+                    </button>
+                    <textarea value={attendanceNotes} onChange={e => setAttendanceNotes(e.target.value)} rows={3} placeholder="Optional note for this attendance mark" className="md:col-span-2 xl:col-span-4 rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] p-3 text-sm text-[#191970] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#ffffff]" />
+                  </form>
+
+                  {attendanceMessage && (
+                    <p className="mt-4 text-sm font-medium text-[#800000] dark:text-[#39ff14]">{attendanceMessage}</p>
+                  )}
+                </div>
+              )}
+
+              <div className="rounded-3xl border border-[#c9a96e]/45 bg-[#f5deb3] p-5 shadow-[0_18px_42px_rgba(128,0,0,0.08)] dark:border-[#bf00ff]/35 dark:bg-[#800000]/75 dark:shadow-[0_0_28px_rgba(191,0,255,0.18)]">
+                <div className="mb-4 flex items-center justify-between gap-3">
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#800020] dark:text-[#bf00ff]">Recorded Marks</p>
+                    <p className="mt-1 text-lg font-semibold text-[#800000] dark:text-[#ffffff]">Latest attendance entries</p>
+                  </div>
+                  <span className="rounded-full bg-[#fff8f0] px-3 py-1 text-xs font-semibold uppercase tracking-[0.15em] text-[#800020] border border-[#c9a96e]/45 dark:bg-black/20 dark:border-[#bf00ff]/35 dark:text-[#bf00ff]">Records {attendance.length}</span>
+                </div>
+
+                {attendance.length === 0 ? (
+                  <p className="text-sm text-[#191970] dark:text-[#39ff14]">No attendance has been recorded for this class yet.</p>
+                ) : (
+                  <div className="space-y-3">
+                    {attendance.map(a => {
+                      const student = attendanceStudentsById[a.studentId];
+                      return (
+                        <div key={a.id} className="rounded-2xl border border-[#c9a96e]/35 bg-[#fff8f0] p-4 dark:border-[#bf00ff]/30 dark:bg-black/20">
+                          <div className="flex flex-wrap items-start justify-between gap-3">
+                            <div>
+                              <p className="font-semibold text-[#191970] dark:text-[#ffffff]">{student?.name || a.studentId}</p>
+                              <p className="mt-1 text-xs font-semibold uppercase tracking-[0.16em] text-[#800020] dark:text-[#bf00ff]">{a.date}</p>
+                            </div>
+                            <span className="rounded-full bg-[#1a5c38] px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] text-[#f5deb3] dark:bg-[#00ffff] dark:text-[#000000]">{a.status}</span>
+                          </div>
+                          {(a.notes || a.recordedBy) && (
+                            <div className="mt-3 space-y-1 text-sm text-[#191970] dark:text-[#39ff14]">
+                              {a.notes && <p>{a.notes}</p>}
+                              {a.recordedBy && <p className="text-xs font-medium text-[#800020] dark:text-[#bf00ff]">Recorded by {a.recordedBy}</p>}
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
               </div>
             </div>
           )}
 
           {activeTab === 'materials' && (
-            <div>
-              <form onSubmit={async (e)=>{ e.preventDefault(); const t=e.target; await svc.addMaterial(classId,{ title: t.title.value, url: t.url.value }); t.reset(); loadAll(); }} className="mb-3">
-                <input name="title" placeholder="Title" className="w-full border rounded p-2 mb-2" />
-                <input name="url" placeholder="URL" className="w-full border rounded p-2 mb-2" />
-                <div className="flex gap-2 items-center">
-                  <label className="flex items-center gap-2">
-                    <input id="materialFile" type="file" onChange={async (e) => { const f = e.target.files && e.target.files[0]; if (!f) return; await uploadFileWithProgress(f); loadAll(); e.target.value = ''; }} />
-                    <span className="text-sm text-gray-600">Upload file</span>
-                  </label>
-                  <button className="px-3 py-1 bg-green-600 text-white rounded">Add Material</button>
-                </div>
-              </form>
-
-              <div>
-                {materials.map(m => (
-                  <div key={m.id} className="border rounded p-2 mb-2">
-                    <a href={m.url} className="font-semibold text-blue-600" target="_blank" rel="noreferrer">{m.title}</a>
-                    <div className="text-sm text-gray-600">{m.uploadedAt} {m.uploadedBy ? `• ${m.uploadedBy}` : ''}</div>
+            <div className="space-y-4">
+              <div className="rounded-3xl border border-[#c9a96e]/45 bg-[#f5deb3] p-5 shadow-[0_18px_42px_rgba(128,0,0,0.08)] dark:border-[#bf00ff]/35 dark:bg-[#800000]/75 dark:shadow-[0_0_28px_rgba(191,0,255,0.18)]">
+                <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#800020] dark:text-[#bf00ff]">Subject Materials</p>
+                    <p className="mt-1 text-lg font-semibold text-[#800000] dark:text-[#ffffff]">Publish materials by subject</p>
                   </div>
-                ))}
+                  <span className="rounded-full bg-[#fff8f0] px-3 py-1 text-xs font-semibold uppercase tracking-[0.15em] text-[#800020] border border-[#c9a96e]/45 dark:bg-black/20 dark:border-[#bf00ff]/35 dark:text-[#bf00ff]">
+                    Visible to students in this subject
+                  </span>
+                </div>
+
+                {materialSubjects.length === 0 ? (
+                  <div className="rounded-2xl border border-[#c9a96e]/35 bg-[#fff8f0] p-4 text-sm text-[#191970] dark:border-[#bf00ff]/30 dark:bg-black/20 dark:text-[#39ff14]">
+                    Add subjects to this class before posting materials. Students only see materials tied to their class subjects.
+                  </div>
+                ) : (
+                  <form onSubmit={handleCreateMaterial} className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-3">
+                    <select value={materialSubjectId} onChange={e => setMaterialSubjectId(e.target.value)} className="rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] p-3 text-sm text-[#191970] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#ffffff]">
+                      {materialSubjects.map(subject => (
+                        <option key={subject.id} value={subject.id}>{subject.name}</option>
+                      ))}
+                    </select>
+                    <select value={materialType} onChange={e => setMaterialType(e.target.value)} className="rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] p-3 text-sm text-[#191970] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#ffffff]">
+                      <option value="document">Document / Note</option>
+                      <option value="video">Video</option>
+                      <option value="image">Image</option>
+                      <option value="link">External Link</option>
+                    </select>
+                    <input value={materialTitle} onChange={e => setMaterialTitle(e.target.value)} placeholder="Material title" className="rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] p-3 text-sm text-[#191970] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#ffffff]" />
+                    <input value={materialUrl} onChange={e => setMaterialUrl(e.target.value)} placeholder="Paste a material link" className="rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] p-3 text-sm text-[#191970] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#ffffff]" />
+                    <textarea value={materialDescription} onChange={e => setMaterialDescription(e.target.value)} rows={3} placeholder="What should students know before opening this material?" className="md:col-span-2 xl:col-span-4 rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] p-3 text-sm text-[#191970] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#ffffff]" />
+                    <div className="md:col-span-2 xl:col-span-4 flex flex-wrap gap-3 items-center">
+                      <label className="inline-flex cursor-pointer items-center rounded-2xl bg-[#fff8f0] px-4 py-3 text-sm font-semibold text-[#191970] border border-[#c9a96e]/45 dark:bg-black/20 dark:border-[#bf00ff]/35 dark:text-[#ffffff]">
+                        <input id="materialFile" type="file" className="hidden" onChange={async (e) => { const file = e.target.files && e.target.files[0]; if (!file) return; try { await uploadFileWithProgress(file); loadAll(); } catch {} e.target.value = ''; }} />
+                        Upload file
+                      </label>
+                      <button className="rounded-2xl bg-[#1a5c38] px-4 py-3 text-sm font-bold text-[#f5deb3] transition-colors hover:bg-[#154a2e] dark:bg-[#00ffff] dark:text-[#000000] dark:hover:bg-[#7dfcff]">
+                        Add link material
+                      </button>
+                      {selectedMaterialSubject && (
+                        <span className="text-xs font-semibold uppercase tracking-[0.16em] text-[#800020] dark:text-[#bf00ff]">
+                          Posting to {selectedMaterialSubject.name}
+                        </span>
+                      )}
+                    </div>
+                  </form>
+                )}
+
+                {materialMessage && (
+                  <p className="mt-4 text-sm font-medium text-[#800000] dark:text-[#39ff14]">{materialMessage}</p>
+                )}
+              </div>
+
+              <div className="rounded-3xl border border-[#c9a96e]/45 bg-[#f5deb3] p-5 shadow-[0_18px_42px_rgba(128,0,0,0.08)] dark:border-[#bf00ff]/35 dark:bg-[#800000]/75 dark:shadow-[0_0_28px_rgba(191,0,255,0.18)]">
+                <div className="mb-4 flex items-center justify-between gap-3">
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#800020] dark:text-[#bf00ff]">Published Materials</p>
+                    <p className="mt-1 text-lg font-semibold text-[#800000] dark:text-[#ffffff]">Latest uploads and links</p>
+                  </div>
+                  <span className="rounded-full bg-[#fff8f0] px-3 py-1 text-xs font-semibold uppercase tracking-[0.15em] text-[#800020] border border-[#c9a96e]/45 dark:bg-black/20 dark:border-[#bf00ff]/35 dark:text-[#bf00ff]">Items {materials.length}</span>
+                </div>
+
+                {materials.length === 0 ? (
+                  <p className="text-sm text-[#191970] dark:text-[#39ff14]">No materials have been posted for this class yet.</p>
+                ) : (
+                  <div className="space-y-3">
+                    {materials.map(material => (
+                      <div key={material.id} className="rounded-2xl border border-[#c9a96e]/35 bg-[#fff8f0] p-4 dark:border-[#bf00ff]/30 dark:bg-black/20">
+                        <div className="flex flex-wrap items-start justify-between gap-3">
+                          <div>
+                            <p className="font-semibold text-[#191970] dark:text-[#ffffff]">{material.title}</p>
+                            <p className="mt-1 text-xs font-semibold uppercase tracking-[0.16em] text-[#800020] dark:text-[#bf00ff]">{material.subjectName || 'General Material'} • {formatMaterialTypeLabel(material.type)}</p>
+                            {material.description && <p className="mt-2 text-sm text-[#191970] dark:text-[#39ff14]">{material.description}</p>}
+                            <p className="mt-2 text-xs text-[#800020] dark:text-[#bf00ff]">{material.uploadedAt ? new Date(material.uploadedAt).toLocaleString() : 'Recently uploaded'}{material.uploadedByName ? ` • ${material.uploadedByName}` : ''}</p>
+                          </div>
+                          <a href={material.url} target="_blank" rel="noreferrer" className="rounded-2xl bg-[#1a5c38] px-4 py-2 text-sm font-bold text-[#f5deb3] transition-colors hover:bg-[#154a2e] dark:bg-[#00ffff] dark:text-[#000000] dark:hover:bg-[#7dfcff]">
+                            Open Material
+                          </a>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
           )}
-        </div>
+        </div>}
       </div>
     </StudentSectionShell>
   );

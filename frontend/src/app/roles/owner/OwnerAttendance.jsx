@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getPeople, getStaffAttendance, markStaffAttendance, getStudentAttendance, markStudentAttendance, getClasses, runAttendanceAI } from '../../../features/school/services/schoolApi';
+import { getPeople, getStaffAttendance, markStaffAttendance, getStudentAttendance, getClasses, runAttendanceAI } from '../../../features/school/services/schoolApi';
 
 const TABS = ['Staff Attendance', 'Student Attendance', 'AI Analysis'];
 const CARD = 'rounded-3xl p-6 bg-[#f5deb3] border border-[#c9a96e]/40';
@@ -58,8 +58,6 @@ function StudentAttendanceTab() {
   const [students, setStudents] = useState([]);
   const [records, setRecords] = useState({});
   const [loading, setLoading] = useState(false);
-  const [toast, setToast] = useState('');
-  function showToast(msg) { setToast(msg); setTimeout(() => setToast(''), 3000); }
   useEffect(() => { getClasses().then(d => setClasses(d?.classes || [])).catch(() => {}); }, []);
   useEffect(() => {
     if (!date) return;
@@ -72,13 +70,9 @@ function StudentAttendanceTab() {
         const m = {}; (a?.records || []).forEach(r => { m[r.studentId || r.userId] = r.status; }); setRecords(m);
       }).catch(() => {}).finally(() => setLoading(false));
   }, [date, classId]);
-  async function handleMark(studentId, status) {
-    try { await markStudentAttendance({ studentId, date, status, classId }); setRecords(r => ({...r, [studentId]: status})); showToast(`Marked ${status}`); } catch (e) { showToast(e.message); }
-  }
   const counts = students.reduce((acc, s) => { const st = records[s.id]; acc[st || 'Unmarked'] = (acc[st || 'Unmarked'] || 0) + 1; return acc; }, {});
   return (
     <div className="space-y-4">
-      {toast && <div className="fixed top-6 right-6 z-50 bg-[#1a5c38] text-[#f5deb3] font-bold px-5 py-3 rounded-2xl shadow-xl">{toast}</div>}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[['Present', 'text-emerald-700'], ['Absent', 'text-red-700'], ['Late', 'text-amber-700'], ['Unmarked', 'text-[#191970]']].map(([k, cls]) => (
           <div key={k} className={CARD}><p className="text-xs text-[#800020] uppercase font-semibold">{k}</p><p className={`text-2xl font-bold mt-1 ${cls}`}>{counts[k] || 0}</p></div>
@@ -90,13 +84,15 @@ function StudentAttendanceTab() {
           <input type="date" value={date} onChange={e => setDate(e.target.value)} className="rounded-xl border border-[#c9a96e]/40 p-2 text-[#191970] text-sm" />
           <select value={classId} onChange={e => setClassId(e.target.value)} className="rounded-xl border border-[#c9a96e]/40 p-2 text-[#191970] text-sm"><option value="">All Classes</option>{classes.map(c => <option key={c.id} value={c.id}>{c.name}{c.arm ? ` ${c.arm}` : ''}</option>)}</select>
         </div>
+        <div className={`${INNER} mb-4 text-sm text-[#191970]`}>
+          Only the assigned class teacher can mark student attendance. Owner and HoS access here is view-only.
+        </div>
         {loading ? <p className="text-[#800020] text-sm">Loading...</p> : students.length === 0 ? <p className="text-[#800020] text-sm">No students found{classId ? ' for this class' : ''}.</p> :
           <div className="space-y-2">{students.map(s => (
             <div key={s.id} className={`${INNER} flex items-center justify-between gap-3`}>
               <div><p className="text-[#191970] font-medium">{s.name}</p><p className="text-xs text-[#800020]">{s.className || s.classId || '—'}</p></div>
               <div className="flex items-center gap-2">
-                {records[s.id] && <span className={`text-xs font-semibold ${statusColor(records[s.id])}`}>{records[s.id]}</span>}
-                <select value={records[s.id] || ''} onChange={e => e.target.value && handleMark(s.id, e.target.value)} className="rounded-xl border border-[#c9a96e]/40 p-1.5 text-[#191970] text-xs"><option value="">Mark…</option><option>Present</option><option>Absent</option><option>Late</option></select>
+                <span className={`text-xs font-semibold ${statusColor(records[s.id] || 'Unmarked')}`}>{records[s.id] || 'Unmarked'}</span>
               </div>
             </div>))}
           </div>}

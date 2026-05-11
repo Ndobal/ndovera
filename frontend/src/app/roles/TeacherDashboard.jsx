@@ -6,6 +6,7 @@ import { TeacherCAScoreSheet } from '../../features/results-engine';
 import { StaffCashout } from '../../features/auras';
 import TeacherExams from './teacher/TeacherExams';
 import TeacherPayslip from './teacher/TeacherPayslip';
+import TeacherClassroom from '../../features/classroom/TeacherClassroom';
 
 export default function TeacherDashboard({ auth }) {
   const location = useLocation();
@@ -30,6 +31,14 @@ export default function TeacherDashboard({ auth }) {
     return <TeacherExams />;
   }
 
+  if (sectionKey === 'attendance') {
+    return <TeacherClassroom initialTab="attendance" lockedTab="attendance" />;
+  }
+
+  if (sectionKey === 'materials') {
+    return <TeacherClassroom initialTab="materials" lockedTab="materials" />;
+  }
+
   if (sectionKey === 'cashout') {
     return <StaffCashout staffId="current_staff" staffName="Staff" balance={1240} farmingMode={{ enabled: true, activeMonths: 2 }} />;
   }
@@ -40,8 +49,9 @@ export default function TeacherDashboard({ auth }) {
       sectionTitle={section.title}
       sectionSubtitle={section.subtitle}
       watermark={teacherConfig.watermark}
-      metricCards={[]}
+      metricCards={section.cards || []}
       infoCards={section.panels || []}
+      theme="wheat"
     />
   );
 }
