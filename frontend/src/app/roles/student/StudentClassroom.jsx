@@ -18,6 +18,19 @@ import {
   VideoCameraIcon,
 } from '@heroicons/react/24/outline';
 
+const STREAM_EMOJIS = ['😀', '😂', '😍', '🔥', '👏', '🎉', '👍', '🙏', '💡', '📚', '💯', '🚀'];
+const STUDENT_MESSAGING_INTENT_KEY = 'studentMessagingIntent';
+
+function normalizeMemberIdentifier(value) {
+  return String(value || '').trim().toLowerCase();
+}
+
+function saveStudentMessagingIntent(intent) {
+  try {
+    window.sessionStorage.setItem(STUDENT_MESSAGING_INTENT_KEY, JSON.stringify(intent));
+  } catch {}
+}
+
 function readStoredUser() {
   try {
     return JSON.parse(localStorage.getItem('authUser') || '{}');
@@ -54,12 +67,15 @@ export default function StudentClassroom() {
 
   const [teacherSettings] = useState({
     commentsEnabled: true,
-    studentAnnouncementsEnabled: false,
+    studentAnnouncementsEnabled: true,
   });
 
   const [streamPosts, setStreamPosts] = useState([]);
   const [streamInput, setStreamInput] = useState('');
+  const [streamEmojiOpen, setStreamEmojiOpen] = useState(false);
   const [commentInputs, setCommentInputs] = useState({});
+  const [selectedClassmateId, setSelectedClassmateId] = useState('');
+  const [profileMember, setProfileMember] = useState(null);
   const [tasks, setTasks] = useState([]);
   const [liveSessions, setLiveSessions] = useState([]);
   const [classroomMaterials, setClassroomMaterials] = useState([]);
@@ -175,6 +191,23 @@ export default function StudentClassroom() {
     return { pending, submitted, reviewed };
   }, [tasks]);
 
+  const selfMemberIdentifiers = useMemo(() => new Set(
+    [storedUser?.id, storedUser?.email, storedUser?.displayId]
+      .map(normalizeMemberIdentifier)
+      .filter(Boolean)
+  ), [storedUser?.displayId, storedUser?.email, storedUser?.id]);
+
+  const sortedStreamPosts = useMemo(() => (
+    [...streamPosts].sort((first, second) => {
+      const pinDifference = Number(Boolean(second?.pinned)) - Number(Boolean(first?.pinned));
+      if (pinDifference !== 0) return pinDifference;
+
+      const firstTime = new Date(first?.createdAt || first?.updatedAt || 0).getTime();
+      const secondTime = new Date(second?.createdAt || second?.updatedAt || 0).getTime();
+      return firstTime - secondTime;
+    })
+  ), [streamPosts]);
+
   const postAnnouncement = async () => {
     if (!teacherSettings.studentAnnouncementsEnabled) return;
     if (!streamInput.trim()) return;
@@ -227,6 +260,36 @@ export default function StudentClassroom() {
 
   const openTaskWorkspace = (taskId) => {
     navigate(`/roles/student/assignments/${taskId}`);
+  };
+
+  const appendEmojiToStream = emoji => {
+    setStreamInput(currentValue => `${currentValue}${emoji}`);
+    setStreamEmojiOpen(false);
+  };
+
+  const openChatWithClassmate = member => {
+    saveStudentMessagingIntent({
+      contact: {
+        id: member.id,
+        name: member.name,
+        email: member.email,
+        displayId: member.displayId,
+        role: 'Classmate',
+      },
+    });
+    navigate('/roles/student/messaging');
+  };
+
+  const reportClassmate = member => {
+    saveStudentMessagingIntent({
+      contact: {
+        id: 'support',
+        name: 'School Support',
+        role: 'Help Desk',
+      },
+      composeDraft: `I want to report ${member.name}${member.displayId ? ` (${member.displayId})` : ''} from ${member.className || classroomLabel}. Please review this issue: `,
+    });
+    navigate('/roles/student/messaging');
   };
 
   const goBackToDashboard = () => {
@@ -334,7 +397,14 @@ export default function StudentClassroom() {
     });
   }, [classroomMaterials, subjectRows]);
 
-  const studentMembers = classMembers.filter(member => String(member.role || '').toLowerCase() === 'student');
+  const studentMembers = useMemo(() => classMembers
+    .filter(member => String(member.role || '').toLowerCase() === 'student')
+    .filter(member => {
+      const memberIdentifiers = [member.id, member.email, member.displayId]
+        .map(normalizeMemberIdentifier)
+        .filter(Boolean);
+      return !memberIdentifiers.some(identifier => selfMemberIdentifiers.has(identifier));
+    }), [classMembers, selfMemberIdentifiers]);
   const teacherMembers = classMembers.filter(member => String(member.role || '').toLowerCase() === 'teacher');
 
   return (
@@ -547,40 +617,16 @@ export default function StudentClassroom() {
       )}
 
       {activeTab === 'stream' && (
-        <div className="space-y-4">
-          <section className="glass-surface rounded-3xl p-4">
-            <div className="flex flex-wrap gap-2 mb-3">
-              <span className={`glass-chip px-3 py-1 rounded-full micro-label ${teacherSettings.commentsEnabled ? 'accent-emerald' : 'accent-rose'}`}>
-                Comments {teacherSettings.commentsEnabled ? 'Enabled' : 'Disabled'}
-              </span>
-              <span className={`glass-chip px-3 py-1 rounded-full micro-label ${teacherSettings.studentAnnouncementsEnabled ? 'accent-emerald' : 'accent-amber'}`}>
-                Student Posts {teacherSettings.studentAnnouncementsEnabled ? 'Enabled' : 'Teacher Only'}
-              </span>
-            </div>
+        <div className="flex min-h-[70vh] flex-col gap-4">
+          <div className="flex-1 space-y-4">
+            {sortedStreamPosts.length === 0 && (
+              <section className="glass-surface rounded-3xl p-5">
+                <p className="micro-label accent-amber">No stream updates yet</p>
+                <p className="mt-2 text-sm text-slate-300">Posts from teachers and classmates will appear here, with the newest updates settling at the bottom.</p>
+              </section>
+            )}
 
-            <div className="flex gap-2">
-              <input
-                value={streamInput}
-                onChange={(event) => setStreamInput(event.target.value)}
-                onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && postAnnouncement()}
-                disabled={!teacherSettings.studentAnnouncementsEnabled}
-                className="flex-1 rounded-2xl border border-amber-300/60 px-4 py-2 text-sm text-slate-800 font-medium placeholder:text-amber-700/60"
-                style={{ backgroundColor: '#f5deb3' }}
-                placeholder={teacherSettings.studentAnnouncementsEnabled ? 'Post class announcement…' : 'Teacher has disabled student posts'}
-              />
-              <button
-                onClick={postAnnouncement}
-                disabled={!teacherSettings.studentAnnouncementsEnabled}
-                className="px-4 py-2 rounded-2xl bg-indigo-500/30 border border-indigo-300/40 text-white text-sm font-semibold disabled:opacity-40"
-              >
-                Post
-              </button>
-            </div>
-          </section>
-
-          {streamPosts
-            .sort((first, second) => Number(second.pinned) - Number(first.pinned))
-            .map(post => (
+            {sortedStreamPosts.map(post => (
               <section key={post.id} className="glass-surface rounded-3xl p-5">
                 <div className="flex items-center justify-between gap-2 mb-2">
                   <p className="text-slate-100 font-semibold">{post.author}</p>
@@ -590,7 +636,7 @@ export default function StudentClassroom() {
                   </div>
                 </div>
 
-                <p className="text-slate-100 mb-3">{post.text}</p>
+                <p className="text-slate-100 mb-3 whitespace-pre-wrap">{post.text}</p>
 
                 <div className="space-y-2 mb-3">
                   {post.comments.map(comment => (
@@ -620,6 +666,66 @@ export default function StudentClassroom() {
                 </div>
               </section>
             ))}
+          </div>
+
+          <section className={`sticky ${isMobile ? 'bottom-20' : 'bottom-6'} glass-surface rounded-3xl p-4 shadow-[0_18px_40px_rgba(15,23,42,0.18)]`}>
+            <div className="flex flex-wrap gap-2 mb-3">
+              <span className={`glass-chip px-3 py-1 rounded-full micro-label ${teacherSettings.commentsEnabled ? 'accent-emerald' : 'accent-rose'}`}>
+                Comments {teacherSettings.commentsEnabled ? 'Enabled' : 'Disabled'}
+              </span>
+              <span className={`glass-chip px-3 py-1 rounded-full micro-label ${teacherSettings.studentAnnouncementsEnabled ? 'accent-emerald' : 'accent-amber'}`}>
+                Student Posts {teacherSettings.studentAnnouncementsEnabled ? 'Enabled' : 'Teacher Only'}
+              </span>
+            </div>
+
+            <div className="space-y-3">
+              <textarea
+                value={streamInput}
+                onChange={(event) => setStreamInput(event.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && postAnnouncement()}
+                disabled={!teacherSettings.studentAnnouncementsEnabled}
+                rows={3}
+                className="w-full rounded-2xl border border-amber-300/60 px-4 py-3 text-sm text-slate-800 font-medium placeholder:text-amber-700/60"
+                style={{ backgroundColor: '#f5deb3' }}
+                placeholder={teacherSettings.studentAnnouncementsEnabled ? 'Post class announcement…' : 'Teacher has disabled student posts'}
+              />
+
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <div className="flex flex-wrap items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setStreamEmojiOpen(open => !open)}
+                    className="rounded-2xl border border-amber-300/60 bg-[#f5deb3] px-4 py-2 text-sm font-semibold text-slate-800"
+                  >
+                    Emoji
+                  </button>
+                  <p className="text-xs text-slate-300">Students can post and chat with classmates in this class by default.</p>
+                </div>
+                <button
+                  onClick={postAnnouncement}
+                  disabled={!teacherSettings.studentAnnouncementsEnabled}
+                  className="px-4 py-2 rounded-2xl bg-indigo-500/30 border border-indigo-300/40 text-white text-sm font-semibold disabled:opacity-40"
+                >
+                  Post
+                </button>
+              </div>
+
+              {streamEmojiOpen && (
+                <div className="flex flex-wrap gap-2 rounded-2xl border border-white/10 bg-slate-900/30 p-3">
+                  {STREAM_EMOJIS.map(emoji => (
+                    <button
+                      key={emoji}
+                      type="button"
+                      onClick={() => appendEmojiToStream(emoji)}
+                      className="rounded-xl border border-white/10 bg-white/10 px-3 py-2 text-lg"
+                    >
+                      {emoji}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          </section>
         </div>
       )}
 
@@ -710,14 +816,49 @@ export default function StudentClassroom() {
       {activeTab === 'students' && (
         <section className="glass-surface rounded-3xl p-5">
           <h2 className="text-xl command-title neon-title mb-4">Classmates / Students</h2>
+          <p className="text-sm text-slate-300 mb-4">Tap a classmate&apos;s name to view profile details, send a chat, or report the user.</p>
           <div className="space-y-3">
             {studentMembers.map(member => (
-              <div key={member.name} className="rounded-2xl border border-white/10 p-4 bg-slate-900/30 flex items-center justify-between">
-                <div>
-                  <p className="text-slate-100 font-semibold">{member.name}</p>
-                  <p className="neon-subtle text-sm">{member.role}</p>
+              <div key={member.id || member.name} className="rounded-2xl border border-white/10 p-4 bg-slate-900/30">
+                <div className="flex items-center justify-between gap-3">
+                  <div>
+                    <button
+                      type="button"
+                      onClick={() => setSelectedClassmateId(currentId => currentId === member.id ? '' : member.id)}
+                      className="text-left text-slate-100 font-semibold hover:text-amber-200"
+                    >
+                      {member.name}
+                    </button>
+                    <p className="neon-subtle text-sm">{member.role}{member.displayId ? ` • ${member.displayId}` : ''}</p>
+                  </div>
+                  <span className={`micro-label ${member.status === 'Active' ? 'accent-emerald' : member.status === 'Muted' ? 'accent-amber' : 'accent-rose'}`}>{member.status}</span>
                 </div>
-                <span className={`micro-label ${member.status === 'Active' ? 'accent-emerald' : member.status === 'Muted' ? 'accent-amber' : 'accent-rose'}`}>{member.status}</span>
+
+                {selectedClassmateId === member.id && (
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setProfileMember(member)}
+                      className="rounded-2xl border border-white/10 px-4 py-2 text-sm font-semibold text-slate-100 hover:bg-white/10"
+                    >
+                      View Profile
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => openChatWithClassmate(member)}
+                      className="rounded-2xl bg-emerald-500/30 border border-emerald-300/40 px-4 py-2 text-sm font-semibold text-white"
+                    >
+                      Send Chat
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => reportClassmate(member)}
+                      className="rounded-2xl bg-rose-500/25 border border-rose-300/40 px-4 py-2 text-sm font-semibold text-white"
+                    >
+                      Report User
+                    </button>
+                  </div>
+                )}
               </div>
             ))}
             {studentMembers.length === 0 && <p className="text-sm text-slate-300">No classmates are visible for this class yet.</p>}
@@ -771,6 +912,65 @@ export default function StudentClassroom() {
             })}
           </div>
         </nav>
+      )}
+
+      {profileMember && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-4">
+          <div className="w-full max-w-lg rounded-[2rem] border border-white/10 bg-slate-950/95 p-6 shadow-[0_24px_60px_rgba(15,23,42,0.45)]">
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <p className="micro-label accent-indigo">Classmate Profile</p>
+                <h3 className="mt-2 text-2xl font-semibold text-slate-100">{profileMember.name}</h3>
+                <p className="mt-2 text-sm text-slate-300">{profileMember.role} • {profileMember.status}</p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setProfileMember(null)}
+                className="rounded-2xl border border-white/10 px-4 py-2 text-sm font-semibold text-slate-100 hover:bg-white/10"
+              >
+                Close
+              </button>
+            </div>
+
+            <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-3">
+              <div className="rounded-2xl border border-white/10 bg-slate-900/40 p-4">
+                <p className="micro-label accent-amber">Display ID</p>
+                <p className="mt-2 text-sm text-slate-100">{profileMember.displayId || 'Not shared'}</p>
+              </div>
+              <div className="rounded-2xl border border-white/10 bg-slate-900/40 p-4">
+                <p className="micro-label accent-amber">Class</p>
+                <p className="mt-2 text-sm text-slate-100">{profileMember.className || classroomLabel}</p>
+              </div>
+              <div className="rounded-2xl border border-white/10 bg-slate-900/40 p-4 md:col-span-2">
+                <p className="micro-label accent-amber">School Email</p>
+                <p className="mt-2 text-sm text-slate-100">{profileMember.email || 'Not shared'}</p>
+              </div>
+            </div>
+
+            <div className="mt-6 flex flex-wrap gap-2">
+              <button
+                type="button"
+                onClick={() => {
+                  setProfileMember(null);
+                  openChatWithClassmate(profileMember);
+                }}
+                className="rounded-2xl bg-emerald-500/30 border border-emerald-300/40 px-4 py-2 text-sm font-semibold text-white"
+              >
+                Send Chat
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setProfileMember(null);
+                  reportClassmate(profileMember);
+                }}
+                className="rounded-2xl bg-rose-500/25 border border-rose-300/40 px-4 py-2 text-sm font-semibold text-white"
+              >
+                Report User
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );

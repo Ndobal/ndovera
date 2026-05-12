@@ -1,6 +1,8 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import StudentSectionShell from './StudentSectionShell';
 import { getStoredAuth } from '../../../features/auth/services/authApi';
+
+const STUDENT_MESSAGING_INTENT_KEY = 'studentMessagingIntent';
 
 function uniqueIdentifiers(values) {
   return Array.from(new Set((values || []).map(value => String(value || '').trim()).filter(Boolean)));
@@ -71,6 +73,33 @@ function normalizeTeacherContact(member) {
   };
 }
 
+function normalizeStudentContact(member) {
+  return {
+    id: String(member.id || member.email || member.displayId || ''),
+    name: String(member.name || member.email || 'Classmate'),
+    email: String(member.email || ''),
+    displayId: String(member.displayId || ''),
+    role: 'Classmate',
+    status: String(member.status || 'Active'),
+    isClassTeacher: false,
+    identifiers: uniqueIdentifiers([member.id, member.email, member.displayId]),
+  };
+}
+
+function readStudentMessagingIntent() {
+  try {
+    return JSON.parse(window.sessionStorage.getItem(STUDENT_MESSAGING_INTENT_KEY) || 'null');
+  } catch {
+    return null;
+  }
+}
+
+function clearStudentMessagingIntent() {
+  try {
+    window.sessionStorage.removeItem(STUDENT_MESSAGING_INTENT_KEY);
+  } catch {}
+}
+
 async function requestJson(path, token, init = {}) {
   const response = await fetch(path, buildRequestInit(token, init));
   const json = await response.json().catch(() => ({}));
@@ -100,6 +129,7 @@ export default function StudentMessaging() {
   }), []);
 
   const [teacherContacts, setTeacherContacts] = useState([]);
+  const [classmateContacts, setClassmateContacts] = useState([]);
   const [conversations, setConversations] = useState([]);
   const [activeConversationId, setActiveConversationId] = useState('');
   const [messages, setMessages] = useState([]);
@@ -108,6 +138,8 @@ export default function StudentMessaging() {
   const [loadingConversations, setLoadingConversations] = useState(true);
   const [loadingMessages, setLoadingMessages] = useState(false);
   const [actionError, setActionError] = useState('');
+  const [pendingIntent, setPendingIntent] = useState(() => readStudentMessagingIntent());
+  const startConversationRef = useRef(null);
 
   async function refreshConversations(preferredConversationId) {
     if (!me) {
@@ -143,17 +175,25 @@ export default function StudentMessaging() {
 
       try {
         const payload = await requestJson(`/api/classrooms/${encodeURIComponent(classroomId)}/members`, token);
-        const teachers = (payload.members || [])
+        const members = payload.members || [];
+        const teachers = members
           .filter(member => String(member.role || '').toLowerCase() === 'teacher')
           .map(normalizeTeacherContact)
           .sort((left, right) => Number(Boolean(right.isClassTeacher)) - Number(Boolean(left.isClassTeacher)) || left.name.localeCompare(right.name));
+        const classmates = members
+          .filter(member => String(member.role || '').toLowerCase() === 'student')
+          .map(normalizeStudentContact)
+          .filter(contact => !contact.identifiers.some(identifier => selfIdentifiers.includes(identifier)))
+          .sort((left, right) => left.name.localeCompare(right.name));
 
         if (!ignore) {
           setTeacherContacts(teachers);
+          setClassmateContacts(classmates);
         }
       } catch {
         if (!ignore) {
           setTeacherContacts([]);
+          setClassmateContacts([]);
         }
       } finally {
         if (!ignore) {
@@ -164,7 +204,7 @@ export default function StudentMessaging() {
 
     loadContacts();
     return () => { ignore = true; };
-  }, [classroomId, me, supportContact, token]);
+  }, [classroomId, me, selfIdentifiers, supportContact, token]);
 
   useEffect(() => {
     let ignore = false;
@@ -266,10 +306,15 @@ export default function StudentMessaging() {
     teacherContacts.forEach(contact => {
       contact.identifiers.forEach(identifier => map.set(identifier, contact));
     });
+    classmateContacts.forEach(contact => {
+      contact.identifiers.forEach(identifier => map.set(identifier, contact));
+    });
     supportContact.identifiers.forEach(identifier => map.set(identifier, supportContact));
 
     return map;
-  }, [authUser.email, authUser.name, me, selfIdentifiers, supportContact, teacherContacts]);
+  }, [authUser.email, authUser.name, classmateContacts, me, selfIdentifiers, supportContact, teacherContacts]);
+
+  const allContacts = useMemo(() => [...teacherContacts, ...classmateContacts, supportContact], [classmateContacts, supportContact, teacherContacts]);
 
   const conversationCards = useMemo(() => {
     return (conversations || []).map(conversation => {
@@ -337,6 +382,47 @@ export default function StudentMessaging() {
     }
   }
 
+  startConversationRef.current = startConversationWith;
+
+  useEffect(() => {
+    if (!pendingIntent || loadingContacts || loadingConversations) return;
+
+    const finalizeIntent = () => {
+      clearStudentMessagingIntent();
+      setPendingIntent(null);
+    };
+
+    const requestedContact = pendingIntent.contact;
+    const requestedIdentifiers = uniqueIdentifiers([
+      requestedContact?.id,
+      requestedContact?.email,
+      requestedContact?.displayId,
+    ]);
+    const resolvedContact = requestedContact?.id === 'support'
+      ? supportContact
+      : allContacts.find(contact => contact.identifiers.some(identifier => requestedIdentifiers.includes(identifier))) || (requestedContact ? {
+          id: String(requestedContact.id || requestedContact.email || requestedContact.displayId || ''),
+          name: String(requestedContact.name || requestedContact.email || 'Conversation'),
+          email: String(requestedContact.email || ''),
+          displayId: String(requestedContact.displayId || ''),
+          role: String(requestedContact.role || 'Classmate'),
+          status: String(requestedContact.status || 'Active'),
+          isClassTeacher: false,
+          identifiers: requestedIdentifiers,
+        } : null);
+
+    if (pendingIntent.composeDraft) {
+      setComposer(currentValue => currentValue || pendingIntent.composeDraft);
+    }
+
+    if (resolvedContact?.id && startConversationRef.current) {
+      Promise.resolve(startConversationRef.current(resolvedContact)).finally(finalizeIntent);
+      return;
+    }
+
+    finalizeIntent();
+  }, [allContacts, loadingContacts, loadingConversations, pendingIntent, supportContact]);
+
   async function sendMessage() {
     if (!composer.trim() || !activeConversationId) return;
 
@@ -402,21 +488,26 @@ export default function StudentMessaging() {
   }
 
   return (
-    <StudentSectionShell title="Messaging" subtitle="Reach the teachers handling your class from one place.">
+    <StudentSectionShell title="Messaging" subtitle="Chat with classmates, teachers, and school support from one place.">
       <div className="grid grid-cols-1 xl:grid-cols-[320px_minmax(0,1fr)] gap-5">
         <div className="space-y-4">
           <section className="rounded-3xl border border-[#800000]/15 bg-[#f5deb3]/95 p-4 shadow-[0_18px_40px_rgba(128,0,0,0.08)] dark:border-[#bf00ff]/30 dark:bg-[#800000]/70">
             <div className="flex items-start justify-between gap-3">
               <div>
-                <h3 className="text-lg font-semibold text-[#800000] dark:text-[#0000ff]">Teachers In Your Class</h3>
-                <p className="mt-1 text-sm text-[#191970] dark:text-[#39ff14]">Open a direct conversation with the class teacher or subject teachers.</p>
+                <h3 className="text-lg font-semibold text-[#800000] dark:text-[#0000ff]">People In Your Class</h3>
+                <p className="mt-1 text-sm text-[#191970] dark:text-[#39ff14]">Open a direct conversation with classmates, teachers, or school support.</p>
               </div>
               <span className="rounded-full bg-[#800000]/10 px-3 py-1 text-xs font-semibold text-[#800020] dark:bg-[#00ffff]/20 dark:text-[#bf00ff]">
-                {loadingContacts ? 'Loading' : `${teacherContacts.length} teachers`}
+                {loadingContacts ? 'Loading' : `${teacherContacts.length + classmateContacts.length} contacts`}
               </span>
             </div>
 
             <div className="mt-4 space-y-3">
+              <div>
+                <div className="mb-2 flex items-center justify-between gap-3">
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#800020] dark:text-[#bf00ff]">Teachers</p>
+                  <span className="text-xs text-[#191970] dark:text-[#39ff14]">{teacherContacts.length}</span>
+                </div>
               {teacherContacts.map(contact => (
                 <button
                   key={contact.id}
@@ -435,10 +526,41 @@ export default function StudentMessaging() {
               ))}
 
               {!loadingContacts && teacherContacts.length === 0 ? (
-                <div className="rounded-2xl border border-dashed border-[#800000]/20 px-4 py-6 text-sm text-[#191970] dark:border-[#bf00ff]/30 dark:text-[#39ff14]">
-                  No class teachers are available yet.
+                <div className="rounded-2xl border border-dashed border-[#800000]/20 px-4 py-4 text-sm text-[#191970] dark:border-[#bf00ff]/30 dark:text-[#39ff14]">
+                  No teachers are available for direct class messaging yet.
                 </div>
               ) : null}
+              </div>
+
+              <div>
+                <div className="mb-2 flex items-center justify-between gap-3">
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#800020] dark:text-[#bf00ff]">Classmates</p>
+                  <span className="text-xs text-[#191970] dark:text-[#39ff14]">{classmateContacts.length}</span>
+                </div>
+
+                {classmateContacts.map(contact => (
+                  <button
+                    key={contact.id}
+                    type="button"
+                    onClick={() => startConversationWith(contact)}
+                    className="mb-3 flex w-full items-start justify-between rounded-2xl border border-[#800000]/10 bg-white/50 px-4 py-3 text-left transition hover:-translate-y-0.5 hover:border-[#1a5c38]/40 hover:shadow-[0_14px_30px_rgba(26,92,56,0.12)] dark:border-[#bf00ff]/25 dark:bg-[#191970]/35"
+                  >
+                    <div>
+                      <div className="text-sm font-semibold text-[#800000] dark:text-[#ffffff]">{contact.name}</div>
+                      <div className="mt-1 text-xs text-[#800020] dark:text-[#bf00ff]">{contact.role}{contact.displayId ? ` • ${contact.displayId}` : ''}</div>
+                    </div>
+                    <span className="rounded-full bg-[#1a5c38] px-3 py-1 text-xs font-bold text-[#f5deb3] dark:bg-[#00ffff] dark:text-black">
+                      Chat
+                    </span>
+                  </button>
+                ))}
+
+                {!loadingContacts && classmateContacts.length === 0 ? (
+                  <div className="rounded-2xl border border-dashed border-[#800000]/20 px-4 py-4 text-sm text-[#191970] dark:border-[#bf00ff]/30 dark:text-[#39ff14]">
+                    No classmates are available for direct messaging yet.
+                  </div>
+                ) : null}
+              </div>
 
               <button
                 type="button"
@@ -460,7 +582,7 @@ export default function StudentMessaging() {
             <div className="flex items-center justify-between gap-3">
               <div>
                 <h3 className="text-lg font-semibold text-[#800000] dark:text-[#0000ff]">Conversations</h3>
-                <p className="mt-1 text-sm text-[#191970] dark:text-[#39ff14]">Your existing staff chats appear here.</p>
+                <p className="mt-1 text-sm text-[#191970] dark:text-[#39ff14]">Your current chats with classmates, teachers, and support appear here.</p>
               </div>
               <span className="text-xs font-semibold text-[#800020] dark:text-[#bf00ff]">{loadingConversations ? 'Refreshing...' : `${conversationCards.length} threads`}</span>
             </div>
@@ -486,7 +608,7 @@ export default function StudentMessaging() {
 
               {!loadingConversations && conversationCards.length === 0 ? (
                 <div className="rounded-2xl border border-dashed border-[#800000]/20 px-4 py-6 text-sm text-[#191970] dark:border-[#bf00ff]/30 dark:text-[#39ff14]">
-                  Start with a teacher card above to open your first conversation.
+                  Start with a classmate, teacher, or support card above to open your first conversation.
                 </div>
               ) : null}
             </div>
@@ -502,7 +624,7 @@ export default function StudentMessaging() {
             <div className="flex flex-1 flex-col items-center justify-center rounded-[1.5rem] border border-dashed border-[#800000]/20 bg-white/35 px-6 text-center dark:border-[#bf00ff]/35 dark:bg-[#191970]/35">
               <h3 className="text-xl font-semibold text-[#800000] dark:text-[#0000ff]">Select A Conversation</h3>
               <p className="mt-2 max-w-xl text-sm text-[#191970] dark:text-[#39ff14]">
-                Pick an existing thread or start a new chat with one of your teachers.
+                Pick an existing thread or start a new chat with a classmate, teacher, or school support.
               </p>
             </div>
           ) : (
@@ -583,11 +705,11 @@ export default function StudentMessaging() {
                   onChange={event => setComposer(event.target.value)}
                   onKeyDown={handleComposerKey}
                   rows={3}
-                  placeholder="Write a clear message to your teacher..."
+                  placeholder="Write a clear message to your classmate, teacher, or school support..."
                   className="w-full rounded-[1.2rem] border border-[#800000]/10 bg-[#fff9f0] px-4 py-3 text-sm text-[#191970] outline-none transition focus:border-[#1a5c38] focus:ring-2 focus:ring-[#1a5c38]/20 dark:border-[#bf00ff]/20 dark:bg-[#12001f] dark:text-[#39ff14] dark:focus:border-[#00ffff] dark:focus:ring-[#00ffff]/20"
                 />
                 <div className="mt-3 flex items-center justify-between gap-3">
-                  <p className="text-xs text-[#800020] dark:text-[#bf00ff]">Messages stay limited to staff contacts for your class.</p>
+                  <p className="text-xs text-[#800020] dark:text-[#bf00ff]">Chats stay within your class roster and school support channels.</p>
                   <button
                     type="button"
                     onClick={sendMessage}

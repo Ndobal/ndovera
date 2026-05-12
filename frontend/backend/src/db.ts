@@ -613,13 +613,12 @@ export async function getConversations(db: D1Database, userId?: string) {
 }
 
 export async function createConversation(db: D1Database, subject: string | null, participants: string[]) {
-  if (!Array.isArray(participants) || participants.length === 0) throw new Error('Missing participants')
-  const studentCount = participants.filter(p => String(p).startsWith('student-')).length
-  if (studentCount > 1) throw new Error('Student-to-student messaging is disabled')
+  const normalizedParticipants = Array.from(new Set((participants || []).map(participant => String(participant || '').trim()).filter(Boolean)))
+  if (!Array.isArray(normalizedParticipants) || normalizedParticipants.length === 0) throw new Error('Missing participants')
   const id = `conv_${Date.now()}_${Math.random().toString(36).slice(2,8)}`
   const now = new Date().toISOString()
-  await db.prepare('INSERT INTO conversations(id, subject, participants, created_at, updated_at) VALUES(?, ?, ?, ?, ?)').bind(id, subject, JSON.stringify(participants), now, now).run()
-  return { id, subject, participants }
+  await db.prepare('INSERT INTO conversations(id, subject, participants, created_at, updated_at) VALUES(?, ?, ?, ?, ?)').bind(id, subject, JSON.stringify(normalizedParticipants), now, now).run()
+  return { id, subject, participants: normalizedParticipants }
 }
 
 export async function getMessages(db: D1Database, conversationId: string) {
@@ -630,11 +629,6 @@ export async function getMessages(db: D1Database, conversationId: string) {
 export async function sendMessage(db: D1Database, conversationId: string, senderId: string, body: string, metadata?: any) {
   const conv = await db.prepare('SELECT participants FROM conversations WHERE id = ?').bind(conversationId).first()
   if (!conv) throw new Error('Conversation not found')
-  const participants = JSON.parse(conv.participants as string)
-  const otherStudents = participants.filter((p: string) => String(p).startsWith('student-') && p !== senderId)
-  if (String(senderId).startsWith('student-') && otherStudents.length > 0) {
-    throw new Error('Student-to-student messaging is disabled')
-  }
   const msgId = `msg_${Date.now()}_${Math.random().toString(36).slice(2,8)}`
   const now = new Date().toISOString()
   await db.prepare('INSERT INTO messages(id, conversation_id, sender_id, body, metadata, sent_at) VALUES(?, ?, ?, ?, ?, ?)').bind(msgId, conversationId, senderId, body, JSON.stringify(metadata || {}), now).run()

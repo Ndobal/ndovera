@@ -5,6 +5,17 @@ import * as svc from './classroomService';
 import MaterialTypeThumbnail, { materialTypeLabel } from '../../shared/components/MaterialTypeThumbnail';
 
 const TODAY = new Date().toISOString().slice(0, 10);
+const STREAM_EMOJIS = ['😀', '😂', '😍', '🔥', '👏', '🎉', '👍', '🙏', '💡', '📚', '💯', '🚀'];
+
+function formatTeacherStreamContent(value) {
+  return String(value || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+    .replace(/\n/g, '<br />');
+}
 
 export default function TeacherClassroom({
   initialTab = 'stream',
@@ -17,6 +28,7 @@ export default function TeacherClassroom({
   const [activeTab, setActiveTab] = useState(() => lockedTab || initialTab);
   const [posts, setPosts] = useState([]);
   const [draftContent, setDraftContent] = useState('');
+  const [streamEmojiOpen, setStreamEmojiOpen] = useState(false);
   const [assignments, setAssignments] = useState([]);
   const [materials, setMaterials] = useState([]);
   const [attendance, setAttendance] = useState([]);
@@ -48,6 +60,13 @@ export default function TeacherClassroom({
   const selectedMaterialSubject = materialSubjects.find(subject => subject.id === materialSubjectId) || materialSubjects[0] || null;
   const selectedLiveSubject = materialSubjects.find(subject => subject.id === liveSubjectId) || materialSubjects[0] || null;
   const isChoosingClass = !classId;
+  const sortedPosts = useMemo(() => (
+    [...posts].sort((first, second) => {
+      const firstTime = new Date(first?.createdAt || first?.updatedAt || 0).getTime();
+      const secondTime = new Date(second?.createdAt || second?.updatedAt || 0).getTime();
+      return firstTime - secondTime;
+    })
+  ), [posts]);
 
   useEffect(() => {
     setActiveTab(lockedTab || initialTab);
@@ -175,29 +194,32 @@ export default function TeacherClassroom({
 
   async function handleCreatePost(e) {
     e.preventDefault();
-    const content = draftContent || '';
+    const content = draftContent.trim();
     if (!content || !classId) return;
-    const response = await svc.createPost(classId, { content });
+    const response = await svc.createPost(classId, { content: formatTeacherStreamContent(content) });
     if (!response?.success) {
       setClassroomError(response?.message || 'Could not post to the class stream right now.');
       return;
     }
-    // clear editor
     setDraftContent('');
-    // clear editable div
-    const editable = document.querySelector('[contenteditable]'); if (editable) editable.innerHTML = '';
+    setStreamEmojiOpen(false);
     setClassroomError('');
     loadAll();
   }
 
   // autosave scheduling (use a ref to persist timer)
   const saveTimerRef = useRef(null);
-  function scheduleSave() {
+  function scheduleSave(nextContent) {
     if (saveTimerRef.current) clearTimeout(saveTimerRef.current);
     saveTimerRef.current = setTimeout(() => {
-      const content = document.getElementById('editorContent')?.innerHTML || '';
+      const content = formatTeacherStreamContent(nextContent || '');
       svc.saveContent(classId, { content, role: 'teacher' }).catch(()=>{});
     }, 2000);
+  }
+
+  function appendStreamEmoji(emoji) {
+    setDraftContent(currentValue => `${currentValue}${emoji}`);
+    setStreamEmojiOpen(false);
   }
 
   // Upload with progress using XMLHttpRequest (to support progress events)
@@ -505,41 +527,62 @@ export default function TeacherClassroom({
 
         {!!classId && <div onDrop={handleDrop} onDragOver={handleDragOver}>
           {activeTab === 'stream' && (
-            <div>
-              <form onSubmit={handleCreatePost} className="mb-3">
-                <div className="toolbar mb-2 flex gap-2">
-                  <button type="button" onClick={() => document.execCommand('bold')} className="px-2 py-1 border rounded">B</button>
-                  <button type="button" onClick={() => document.execCommand('italic')} className="px-2 py-1 border rounded">I</button>
-                  <button type="button" onClick={() => document.execCommand('underline')} className="px-2 py-1 border rounded">U</button>
-                  <button type="button" onClick={() => document.execCommand('insertUnorderedList')} className="px-2 py-1 border rounded">• List</button>
-                  <button type="button" onClick={() => document.execCommand('insertOrderedList')} className="px-2 py-1 border rounded">1. List</button>
-                  <button type="button" onClick={() => { const url = prompt('Enter link URL'); if (url) document.execCommand('createLink', false, url); }} className="px-2 py-1 border rounded">Link</button>
-                  <input type="color" onChange={e => document.execCommand('foreColor', false, e.target.value)} />
-                  <button type="button" onClick={() => { document.getElementById('editorContent').classList.toggle('hidden'); document.getElementById('markdownView').classList.toggle('hidden'); }} className="px-2 py-1 border rounded">Markdown</button>
-                  <span className="ml-2 text-xs font-medium text-[#800020] dark:text-[#bf00ff]">Upload files from the Materials tab.</span>
-                </div>
-
-                <div
-                  id="editorContent"
-                  contentEditable
-                  suppressContentEditableWarning
-                  onInput={e => { setDraftContent(e.currentTarget.innerHTML); scheduleSave(); }}
-                  className="w-full border rounded p-2 min-h-[80px]"
-                />
-                <div id="markdownView" className="hidden w-full border rounded p-2 min-h-[80px]" />
-
-                <div className="mt-2 flex gap-2">
-                  <button className="px-3 py-1 bg-green-600 text-white rounded">POST</button>
-                </div>
-              </form>
-              <div>
-                {posts.map(p => (
-                  <div key={p.id} className="border rounded p-2 mb-2">
-                    <div className="text-sm text-gray-600">{p.authorId} • {new Date(p.createdAt).toLocaleString()}</div>
-                    <div className="mt-1" dangerouslySetInnerHTML={{ __html: p.content }} />
+            <div className="flex min-h-[70vh] flex-col gap-4">
+              <div className="flex-1 space-y-3">
+                {sortedPosts.length === 0 ? (
+                  <div className="rounded-3xl border border-[#c9a96e]/45 bg-[#f5deb3] px-4 py-4 text-sm text-[#191970] dark:border-[#bf00ff]/35 dark:bg-[#800000]/70 dark:text-[#39ff14]">
+                    No stream posts yet. New posts will appear here, with the newest update settling at the bottom.
                   </div>
-                ))}
+                ) : (
+                  sortedPosts.map(p => (
+                    <div key={p.id} className="rounded-2xl border border-[#c9a96e]/35 bg-[#fff8f0] p-4 dark:border-[#bf00ff]/30 dark:bg-black/20">
+                      <div className="text-sm text-[#800020] dark:text-[#bf00ff]">{p.authorId} • {new Date(p.createdAt).toLocaleString()}</div>
+                      <div className="mt-2 text-[#191970] dark:text-[#ffffff]" dangerouslySetInnerHTML={{ __html: p.content }} />
+                    </div>
+                  ))
+                )}
               </div>
+
+              <form onSubmit={handleCreatePost} className="sticky bottom-6 rounded-3xl border border-[#c9a96e]/45 bg-[#f5deb3] p-4 shadow-[0_20px_40px_rgba(128,0,0,0.12)] dark:border-[#bf00ff]/35 dark:bg-[#800000]/78 dark:shadow-[0_0_24px_rgba(191,0,255,0.18)]">
+                <textarea
+                  value={draftContent}
+                  onChange={event => {
+                    setDraftContent(event.target.value);
+                    scheduleSave(event.target.value);
+                  }}
+                  rows={4}
+                  placeholder="Post an update to your class stream..."
+                  className="w-full rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] p-3 text-sm text-[#191970] outline-none focus:ring-2 focus:ring-[#1a5c38] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#ffffff] dark:focus:ring-[#00ffff]"
+                />
+
+                <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setStreamEmojiOpen(open => !open)}
+                      className="rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] px-4 py-2 text-sm font-semibold text-[#191970] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#ffffff]"
+                    >
+                      Emoji
+                    </button>
+                  </div>
+                  <button className="rounded-2xl bg-[#1a5c38] px-4 py-2 text-sm font-bold text-[#f5deb3] transition-colors hover:bg-[#154a2e] dark:bg-[#00ffff] dark:text-[#000000] dark:hover:bg-[#7dfcff]">Post</button>
+                </div>
+
+                {streamEmojiOpen && (
+                  <div className="mt-3 flex flex-wrap gap-2 rounded-2xl border border-[#c9a96e]/35 bg-[#fff8f0] p-3 dark:border-[#bf00ff]/30 dark:bg-black/20">
+                    {STREAM_EMOJIS.map(emoji => (
+                      <button
+                        key={emoji}
+                        type="button"
+                        onClick={() => appendStreamEmoji(emoji)}
+                        className="rounded-xl border border-[#c9a96e]/35 px-3 py-2 text-lg dark:border-[#bf00ff]/30"
+                      >
+                        {emoji}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </form>
             </div>
           )}
 
