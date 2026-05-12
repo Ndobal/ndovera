@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import Loader from './shared/components/Loader';
@@ -39,7 +39,7 @@ import AmiInbox from './app/roles/ami/AmiInbox';
 import LoginPage from './features/auth/pages/LoginPage';
 import ChangePasswordPage from './features/auth/pages/ChangePasswordPage';
 import SchoolRegistrationPage from './features/tenants/pages/SchoolRegistrationPage';
-import { clearStoredAuth, getStoredAuth, persistAuth, syncRefreshedToken } from './features/auth/services/authApi';
+import { clearStoredAuth, getSignedOutRedirectPath, getStoredAuth, persistAuth, syncRefreshedToken } from './features/auth/services/authApi';
 import { getApiUrl } from './config/apiBase';
 import './App.css';
 
@@ -217,6 +217,7 @@ function AppWorkspace({ auth, onLogin, onLogout }) {
 function App() {
   const [loading, setLoading] = useState(true);
   const [auth, setAuth] = useState(() => getStoredAuth());
+  const hydrationInFlightRef = useRef(false);
 
   useEffect(() => {
     // Check initial system/localStorage theme
@@ -229,28 +230,81 @@ function App() {
 
   useEffect(() => {
     let cancelled = false;
-    async function hydrateSession() {
+    async function hydrateSession({ initial = false } = {}) {
       const stored = getStoredAuth();
-      if (stored?.token && !stored?.user?.role) {
+      if (!stored?.token) {
+        if (!cancelled) {
+          setAuth(null);
+          if (initial) setLoading(false);
+        }
+        return;
+      }
+
+      if (!stored?.needsHydration) {
+        if (!cancelled) {
+          setAuth(stored);
+          if (initial) setLoading(false);
+        }
+        return;
+      }
+
+      if (hydrationInFlightRef.current) {
+        if (!cancelled && initial) {
+          setLoading(false);
+        }
+        return;
+      }
+
+      hydrationInFlightRef.current = true;
+      try {
         try {
           const res = await fetch(getApiUrl('/api/users/me'), {
             credentials: 'include',
             headers: { Authorization: `Bearer ${stored.token}` },
           });
           syncRefreshedToken(res);
+          if (res.status === 401) {
+            clearStoredAuth();
+            if (!cancelled) {
+              setAuth(null);
+              if (initial) setLoading(false);
+              window.location.replace(getSignedOutRedirectPath());
+            }
+            return;
+          }
           const data = await res.json().catch(() => ({}));
           if (res.ok && data?.user && !cancelled) {
-            const nextAuth = persistAuth({ token: stored.token, user: data.user });
+            const nextAuth = persistAuth({ token: stored.token, user: data.user }, { preserveSelectedRole: true });
             setAuth(nextAuth);
+          } else if (!cancelled) {
+            setAuth(stored);
           }
         } catch {
           // Keep the existing token state; guarded pages will redirect if it is invalid.
+          if (!cancelled) {
+            setAuth(stored);
+          }
         }
+      } finally {
+        hydrationInFlightRef.current = false;
+        if (!cancelled && initial) setLoading(false);
       }
-      if (!cancelled) setLoading(false);
     }
-    const timer = setTimeout(hydrateSession, 500);
-    return () => { cancelled = true; clearTimeout(timer); };
+
+    function handleSessionResume() {
+      if (document.visibilityState === 'hidden') return;
+      hydrateSession();
+    }
+
+    const timer = setTimeout(() => hydrateSession({ initial: true }), 500);
+    window.addEventListener('focus', handleSessionResume);
+    document.addEventListener('visibilitychange', handleSessionResume);
+    return () => {
+      cancelled = true;
+      clearTimeout(timer);
+      window.removeEventListener('focus', handleSessionResume);
+      document.removeEventListener('visibilitychange', handleSessionResume);
+    };
   }, []);
 
   if (loading) {
@@ -264,6 +318,7 @@ function App() {
   const handleLogout = () => {
     clearStoredAuth();
     setAuth(null);
+    window.location.replace(getSignedOutRedirectPath());
   };
 
   return (

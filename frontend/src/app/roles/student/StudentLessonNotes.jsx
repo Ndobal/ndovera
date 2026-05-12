@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import StudentSectionShell from './StudentSectionShell';
 import { getStoredAuth } from '../../../features/auth/services/authApi';
 import { getMaterials } from '../../../features/classroom/classroomService';
+import MaterialTypeThumbnail, { materialTypeLabel } from '../../../shared/components/MaterialTypeThumbnail';
 
 const MATERIAL_TABS = [
   { id: 'all', label: 'All' },
@@ -13,19 +14,6 @@ const MATERIAL_TABS = [
 
 function resolveCurrentClassroom(authUser) {
   return localStorage.getItem('classroomId') || authUser?.classId || '';
-}
-
-function materialTypeLabel(type) {
-  switch (String(type || '').toLowerCase()) {
-    case 'video':
-      return 'Video';
-    case 'image':
-      return 'Image';
-    case 'link':
-      return 'Link';
-    default:
-      return 'Document';
-  }
 }
 
 function formatUploadedAt(value) {
@@ -135,16 +123,16 @@ export default function StudentLessonNotes() {
         {!loading && !error && (
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
             {filteredMaterials.map(material => (
-              <article key={material.id} className="wheat-card rounded-3xl border border-white/10 overflow-hidden bg-slate-900/30 p-4 flex flex-col gap-3">
-                <div className="flex items-start justify-between gap-3">
-                  <div>
+              <article key={material.id} className="wheat-card rounded-3xl border border-white/10 overflow-hidden bg-slate-900/30 p-4 flex flex-col gap-4">
+                <div className="flex items-start gap-4">
+                  <MaterialTypeThumbnail material={material} className="border-white/10 dark:border-white/10" />
+                  <div className="min-w-0 flex-1">
                     <p className="text-slate-100 font-semibold">{material.title}</p>
                     <p className="neon-subtle text-sm mt-1">{material.subjectName || 'General Material'}</p>
+                    {material.description && <p className="text-sm text-slate-300 mt-3">{material.description}</p>}
                   </div>
-                  <span className="glass-chip px-3 py-1 rounded-full micro-label accent-emerald">{materialTypeLabel(material.type)}</span>
+                  <span className="glass-chip px-3 py-1 rounded-full micro-label accent-emerald">{materialTypeLabel(material)}</span>
                 </div>
-
-                {material.description && <p className="text-sm text-slate-300">{material.description}</p>}
 
                 <div className="mt-auto flex items-center justify-between gap-3">
                   <div>

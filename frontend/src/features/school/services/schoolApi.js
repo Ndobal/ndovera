@@ -1,5 +1,5 @@
 import { getApiUrl } from '../../../config/apiBase';
-import { getStoredAuth, clearStoredAuth, syncRefreshedToken } from '../../auth/services/authApi';
+import { getStoredAuth, clearStoredAuth, getSignedOutRedirectPath, syncRefreshedToken } from '../../auth/services/authApi';
 
 function buildHeaders() {
   const auth = getStoredAuth();
@@ -11,7 +11,7 @@ function buildHeaders() {
 
 function handleUnauthorized() {
   clearStoredAuth();
-  window.location.href = '/login';
+  window.location.replace(getSignedOutRedirectPath());
 }
 
 // Silently refresh the stored token if the server issued a new one (sliding expiry)

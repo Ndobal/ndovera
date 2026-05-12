@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getStoredAuth } from '../../../features/auth/services/authApi';
 import * as svc from '../../../features/classroom/classroomService';
+import MaterialTypeThumbnail, { materialTypeLabel } from '../../../shared/components/MaterialTypeThumbnail';
 import {
   AcademicCapIcon,
   ArrowLeftIcon,
@@ -17,6 +18,18 @@ import {
   VideoCameraIcon,
 } from '@heroicons/react/24/outline';
 
+function readStoredUser() {
+  try {
+    return JSON.parse(localStorage.getItem('authUser') || '{}');
+  } catch {
+    return {};
+  }
+}
+
+function resolveCurrentClassroom(authUser) {
+  return authUser?.classId || localStorage.getItem('classroomId') || '';
+}
+
 function normalizeStreamPost(post) {
   return {
     ...post,
@@ -29,7 +42,9 @@ function normalizeStreamPost(post) {
 export default function StudentClassroom() {
   const navigate = useNavigate();
   const storedAuth = getStoredAuth();
-  const storedClassName = storedAuth?.user?.className || null;
+  const storedUser = storedAuth?.user || readStoredUser();
+  const classroomId = resolveCurrentClassroom(storedUser);
+  const storedClassName = storedUser?.className || null;
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [activeTab, setActiveTab] = useState('stream');
   const [groupMode, setGroupMode] = useState('subject');
@@ -51,31 +66,32 @@ export default function StudentClassroom() {
   const [classSubjects, setClassSubjects] = useState([]);
   const [classMembers, setClassMembers] = useState([]);
   const [classroomLoading, setClassroomLoading] = useState(true);
-  const [classroomLabel, setClassroomLabel] = useState(storedClassName || localStorage.getItem('classroomId') || 'Assigned Classroom');
+  const [classroomLabel, setClassroomLabel] = useState(storedClassName || classroomId || 'Assigned Classroom');
 
   useEffect(() => {
-    const classId = localStorage.getItem('classroomId');
-    if (!classId) { setClassroomLoading(false); return; }
+    if (!classroomId) { setClassroomLoading(false); return; }
+
+    localStorage.setItem('classroomId', classroomId);
     const token = localStorage.getItem('token');
     const headers = token ? { Authorization: `Bearer ${token}` } : {};
     setClassroomLoading(true);
     Promise.all([
-      fetch(`/api/classrooms/${classId}`, { headers }).then(r => r.ok ? r.json() : { success: false, class: null }),
-      fetch(`/api/classrooms/${classId}/stream`, { headers }).then(r => r.ok ? r.json() : { posts: [] }),
-      fetch(`/api/classrooms/${classId}/assignments`, { headers }).then(r => r.ok ? r.json() : { assignments: [] }),
-      fetch(`/api/classrooms/${classId}/materials`, { headers }).then(r => r.ok ? r.json() : { materials: [] }),
-      fetch(`/api/classrooms/${classId}/members`, { headers }).then(r => r.ok ? r.json() : { members: [] }),
-      svc.getClassSubjects(classId).catch(() => ({ subjects: [] })),
-      svc.getLiveSessions(classId).catch(() => ({ sessions: [] })),
+      fetch(`/api/classrooms/${classroomId}`, { headers }).then(r => r.ok ? r.json() : { success: false, class: null }),
+      fetch(`/api/classrooms/${classroomId}/stream`, { headers }).then(r => r.ok ? r.json() : { posts: [] }),
+      fetch(`/api/classrooms/${classroomId}/assignments`, { headers }).then(r => r.ok ? r.json() : { assignments: [] }),
+      fetch(`/api/classrooms/${classroomId}/materials`, { headers }).then(r => r.ok ? r.json() : { materials: [] }),
+      fetch(`/api/classrooms/${classroomId}/members`, { headers }).then(r => r.ok ? r.json() : { members: [] }),
+      svc.getClassSubjects(classroomId).catch(() => ({ subjects: [] })),
+      svc.getLiveSessions(classroomId).catch(() => ({ sessions: [] })),
     ]).then(([classRes, postsRes, assignRes, matRes, membersRes, subjectsRes, liveRes]) => {
       const resolvedClassName = classRes?.class?.name
         ? `${classRes.class.name}${classRes.class.arm ? ` ${classRes.class.arm}` : ''}`
-        : (storedClassName || classId);
+        : (storedClassName || classroomId);
       const classSubjectRows = subjectsRes?.subjects || [];
       setClassroomLabel(resolvedClassName);
       try {
         const authUser = JSON.parse(localStorage.getItem('authUser') || '{}');
-        localStorage.setItem('authUser', JSON.stringify({ ...authUser, classId, className: resolvedClassName }));
+        localStorage.setItem('authUser', JSON.stringify({ ...authUser, classId: classroomId, className: resolvedClassName }));
       } catch {}
       setStreamPosts((postsRes.posts || []).map(normalizeStreamPost));
       setTasks(assignRes.assignments || []);
@@ -84,16 +100,15 @@ export default function StudentClassroom() {
       setClassMembers(membersRes.members || []);
       setLiveSessions(liveRes.sessions || []);
     }).catch(() => {}).finally(() => setClassroomLoading(false));
-  }, [storedClassName]);
+  }, [classroomId, storedClassName]);
 
   // Poll stream every 15 s so all users see new posts without full reload
   useEffect(() => {
-    const classId = localStorage.getItem('classroomId');
-    if (!classId) return;
+    if (!classroomId) return;
     const poll = setInterval(() => {
       Promise.all([
-        fetch(`/api/classrooms/${classId}/stream`, { headers: localStorage.getItem('token') ? { Authorization: `Bearer ${localStorage.getItem('token')}` } : {} }).then(r => r.ok ? r.json() : null),
-        svc.getLiveSessions(classId).catch(() => null),
+        fetch(`/api/classrooms/${classroomId}/stream`, { headers: localStorage.getItem('token') ? { Authorization: `Bearer ${localStorage.getItem('token')}` } : {} }).then(r => r.ok ? r.json() : null),
+        svc.getLiveSessions(classroomId).catch(() => null),
       ]).then(([json, liveJson]) => {
         if (json && json.posts) {
             setStreamPosts(prev => {
@@ -111,7 +126,7 @@ export default function StudentClassroom() {
       }).catch(() => {});
     }, 15000);
     return () => clearInterval(poll);
-  }, []);
+  }, [classroomId]);
 
   useEffect(() => {
     const onResize = () => setIsMobile(window.innerWidth < 768);
@@ -163,7 +178,6 @@ export default function StudentClassroom() {
   const postAnnouncement = async () => {
     if (!teacherSettings.studentAnnouncementsEnabled) return;
     if (!streamInput.trim()) return;
-    const classId = localStorage.getItem('classroomId');
     const token = localStorage.getItem('token');
     const userId = localStorage.getItem('userId') || 'student';
     const headers = { 'Content-Type': 'application/json', ...(token ? { Authorization: `Bearer ${token}` } : {}) };
@@ -178,9 +192,9 @@ export default function StudentClassroom() {
     };
     setStreamPosts(prev => [optimistic, ...prev]);
     setStreamInput('');
-    if (classId) {
+    if (classroomId) {
       try {
-        const res = await fetch(`/api/classrooms/${classId}/stream`, {
+        const res = await fetch(`/api/classrooms/${classroomId}/stream`, {
           method: 'POST',
           headers,
           body: JSON.stringify({ text: optimistic.text, authorId: userId }),
@@ -198,16 +212,15 @@ export default function StudentClassroom() {
     if (!teacherSettings.commentsEnabled) return;
     const text = (commentInputs[postId] || '').trim();
     if (!text) return;
-    const classId = localStorage.getItem('classroomId');
     const userId = localStorage.getItem('userId') || 'student';
     const optimistic = { id: `cm-${Date.now()}`, user: 'You', text };
     setStreamPosts(prev => prev.map(post => (
       post.id === postId ? { ...post, comments: [...post.comments, optimistic] } : post
     )));
     setCommentInputs(prev => ({ ...prev, [postId]: '' }));
-    if (classId) {
+    if (classroomId) {
       try {
-        await svc.addPostComment(classId, postId, { text, authorId: userId });
+        await svc.addPostComment(classroomId, postId, { text, authorId: userId });
       } catch { /* keep optimistic */ }
     }
   };
@@ -237,19 +250,6 @@ export default function StudentClassroom() {
     if (!value) return 'No due date';
     const parsed = new Date(value);
     return Number.isNaN(parsed.getTime()) ? value : parsed.toLocaleString();
-  };
-
-  const formatMaterialType = value => {
-    switch (String(value || '').toLowerCase()) {
-      case 'video':
-        return 'Video';
-      case 'image':
-        return 'Image';
-      case 'link':
-        return 'Link';
-      default:
-        return 'Document';
-    }
   };
 
   const materialSubjectName = material => material.subjectName || material.metadata?.subjectName || 'General Material';
@@ -430,14 +430,17 @@ export default function StudentClassroom() {
           <div className="space-y-3">
             {classroomMaterials.map(material => (
               <div key={material.id} className="rounded-2xl border border-white/10 p-4 bg-slate-900/30 flex flex-wrap items-start justify-between gap-3">
-                <div>
-                  <div className="flex items-center gap-2 flex-wrap">
+                <div className="flex min-w-0 flex-1 items-start gap-4">
+                  <MaterialTypeThumbnail material={material} className="border-white/10 dark:border-white/10" />
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-center gap-2 flex-wrap">
                     <p className="text-slate-100 font-semibold">{material.title}</p>
-                    <span className="glass-chip px-3 py-1 rounded-full micro-label accent-emerald">{formatMaterialType(material.type)}</span>
+                    <span className="glass-chip px-3 py-1 rounded-full micro-label accent-emerald">{materialTypeLabel(material)}</span>
+                    </div>
+                    <p className="text-sm neon-subtle mt-1">Subject: {materialSubjectName(material)}</p>
+                    {material.description && <p className="text-sm text-slate-300 mt-2">{material.description}</p>}
+                    <p className="neon-subtle text-xs mt-2">{material.uploadedAt ? new Date(material.uploadedAt).toLocaleString() : 'Recently uploaded'}{material.uploadedByName ? ` • ${material.uploadedByName}` : ''}</p>
                   </div>
-                  <p className="text-sm neon-subtle mt-1">Subject: {materialSubjectName(material)}</p>
-                  {material.description && <p className="text-sm text-slate-300 mt-2">{material.description}</p>}
-                  <p className="neon-subtle text-xs mt-2">{material.uploadedAt ? new Date(material.uploadedAt).toLocaleString() : 'Recently uploaded'}{material.uploadedByName ? ` • ${material.uploadedByName}` : ''}</p>
                 </div>
                 {material.url ? (
                   <a href={material.url} target="_blank" rel="noreferrer" className="rounded-2xl bg-emerald-500/30 border border-emerald-300/40 px-4 py-2 text-sm font-semibold text-white">

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import StudentSectionShell from './StudentSectionShell';
 import { getStoredAuth } from '../../../features/auth/services/authApi';
@@ -34,12 +34,208 @@ function summarizeQuestionTypes(questions) {
   return labels.length ? labels.join(', ') : 'General assignment';
 }
 
-function AssignmentQuestion({ question, value, onChange }) {
+function questionScore(question) {
+  const numericScore = Number(question?.score);
+  return Number.isFinite(numericScore) && numericScore > 0 ? numericScore : 1;
+}
+
+function assignmentTotalScore(questions = []) {
+  return questions.reduce((total, question) => total + questionScore(question), 0);
+}
+
+function hashText(value) {
+  return String(value || '').split('').reduce((hash, character) => ((hash * 31) + character.charCodeAt(0)) >>> 0, 7);
+}
+
+function buildShuffledMatchingChoices(question) {
+  const pairs = Array.isArray(question?.pairs) ? question.pairs : [];
+  const seed = hashText(question?.id || question?.prompt || 'matching');
+  return [...pairs]
+    .map((pair, index) => ({
+      id: String(pair?.id || `pair-${index}`),
+      label: String(pair?.right || '').trim(),
+      sortKey: hashText(`${seed}-${pair?.id || index}-${pair?.right || ''}`),
+    }))
+    .sort((left, right) => left.sortKey - right.sortKey || left.label.localeCompare(right.label));
+}
+
+function normalizeMatchingAnswer(value) {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return {};
+  return value;
+}
+
+function CrossMatchingQuestion({ question, value, onChange }) {
+  const containerRef = useRef(null);
+  const leftRefs = useRef({});
+  const rightRefs = useRef({});
+  const [selectedLeftId, setSelectedLeftId] = useState('');
+  const [lines, setLines] = useState([]);
+
+  const pairs = useMemo(() => (
+    Array.isArray(question?.pairs) ? question.pairs.map((pair, index) => ({
+      id: String(pair?.id || `pair-${index}`),
+      left: String(pair?.left || '').trim(),
+      right: String(pair?.right || '').trim(),
+    })) : []
+  ), [question?.pairs]);
+
+  const matchingChoices = useMemo(() => buildShuffledMatchingChoices(question), [question]);
+  const matchingValue = useMemo(() => normalizeMatchingAnswer(value), [value]);
+
+  useEffect(() => {
+    if (selectedLeftId && !pairs.some(pair => pair.id === selectedLeftId)) {
+      setSelectedLeftId('');
+    }
+  }, [pairs, selectedLeftId]);
+
+  useLayoutEffect(() => {
+    function updateLines() {
+      const container = containerRef.current;
+      if (!container) {
+        setLines([]);
+        return;
+      }
+
+      const containerRect = container.getBoundingClientRect();
+      const nextLines = Object.entries(matchingValue).map(([leftId, rightId]) => {
+        const leftElement = leftRefs.current[leftId];
+        const rightElement = rightRefs.current[rightId];
+        if (!leftElement || !rightElement) return null;
+
+        const leftRect = leftElement.getBoundingClientRect();
+        const rightRect = rightElement.getBoundingClientRect();
+        return {
+          key: `${leftId}-${rightId}`,
+          x1: leftRect.right - containerRect.left,
+          y1: leftRect.top + (leftRect.height / 2) - containerRect.top,
+          x2: rightRect.left - containerRect.left,
+          y2: rightRect.top + (rightRect.height / 2) - containerRect.top,
+        };
+      }).filter(Boolean);
+
+      setLines(nextLines);
+    }
+
+    const frameId = window.requestAnimationFrame(updateLines);
+    window.addEventListener('resize', updateLines);
+    return () => {
+      window.cancelAnimationFrame(frameId);
+      window.removeEventListener('resize', updateLines);
+    };
+  }, [matchingChoices, matchingValue, pairs]);
+
+  const handleLeftSelect = leftId => {
+    setSelectedLeftId(currentLeftId => currentLeftId === leftId ? '' : leftId);
+  };
+
+  const handleRightSelect = rightId => {
+    if (!selectedLeftId) return;
+
+    const nextValue = { ...matchingValue };
+    Object.keys(nextValue).forEach(leftId => {
+      if (nextValue[leftId] === rightId && leftId !== selectedLeftId) {
+        delete nextValue[leftId];
+      }
+    });
+
+    if (nextValue[selectedLeftId] === rightId) {
+      delete nextValue[selectedLeftId];
+    } else {
+      nextValue[selectedLeftId] = rightId;
+    }
+
+    onChange(question.id, nextValue);
+    setSelectedLeftId('');
+  };
+
+  return (
+    <div className="space-y-3">
+      <p className="text-sm text-slate-300">Select a left item, then click the matching item on the right. Click the same pair again to remove the line.</p>
+
+      <div ref={containerRef} className="relative overflow-hidden rounded-2xl border border-white/10 bg-slate-950/20 p-4">
+        <svg className="pointer-events-none absolute inset-0 h-full w-full" aria-hidden="true">
+          {lines.map(line => (
+            <line
+              key={line.key}
+              x1={line.x1}
+              y1={line.y1}
+              x2={line.x2}
+              y2={line.y2}
+              stroke="#34d399"
+              strokeWidth="3"
+              strokeLinecap="round"
+            />
+          ))}
+        </svg>
+
+        <div className="relative z-10 grid grid-cols-[minmax(0,1fr),minmax(0,1fr)] gap-4">
+          <div className="space-y-3 pr-3">
+            {pairs.map((pair, index) => {
+              const isSelected = selectedLeftId === pair.id;
+              const isMatched = Boolean(matchingValue[pair.id]);
+              return (
+                <button
+                  key={pair.id}
+                  type="button"
+                  ref={element => {
+                    if (element) leftRefs.current[pair.id] = element;
+                  }}
+                  onClick={() => handleLeftSelect(pair.id)}
+                  className={`flex w-full items-start justify-between gap-3 rounded-2xl border px-4 py-3 text-left transition-colors ${isSelected ? 'border-emerald-300/60 bg-emerald-500/15' : isMatched ? 'border-indigo-300/40 bg-indigo-500/10' : 'border-white/10 bg-slate-900/30 hover:bg-slate-900/45'}`}
+                >
+                  <div className="flex items-start gap-3">
+                    <input type="radio" checked={isSelected} readOnly className="mt-1 h-4 w-4 accent-emerald-400 pointer-events-none" />
+                    <div>
+                      <p className="micro-label accent-indigo">Item {index + 1}</p>
+                      <p className="mt-1 text-sm text-slate-100">{pair.left || 'Left item'}</p>
+                    </div>
+                  </div>
+                  {isMatched && <span className="micro-label accent-emerald">Matched</span>}
+                </button>
+              );
+            })}
+          </div>
+
+          <div className="space-y-3 pl-3">
+            {matchingChoices.map((choice, index) => {
+              const isLinked = Object.values(matchingValue).includes(choice.id);
+              return (
+                <button
+                  key={choice.id}
+                  type="button"
+                  ref={element => {
+                    if (element) rightRefs.current[choice.id] = element;
+                  }}
+                  onClick={() => handleRightSelect(choice.id)}
+                  className={`flex w-full items-start justify-between gap-3 rounded-2xl border px-4 py-3 text-left transition-colors ${selectedLeftId ? 'border-emerald-300/50 bg-emerald-500/10 hover:bg-emerald-500/20' : isLinked ? 'border-indigo-300/40 bg-indigo-500/10' : 'border-white/10 bg-slate-900/30 hover:bg-slate-900/45'}`}
+                >
+                  <div>
+                    <p className="micro-label accent-amber">Match {index + 1}</p>
+                    <p className="mt-1 text-sm text-slate-100">{choice.label || 'Right item'}</p>
+                  </div>
+                  {isLinked && <span className="micro-label accent-indigo">Linked</span>}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function AssignmentQuestion({ question, value, onChange, index }) {
   return (
     <article className="rounded-2xl border border-white/10 p-4 bg-slate-900/30 space-y-3">
       <div className="flex flex-wrap items-start justify-between gap-3">
-        <p className="text-slate-100 font-semibold">{question.prompt || 'Question'}</p>
-        <span className="glass-chip px-3 py-1 rounded-full micro-label accent-indigo">{typeLabel(question.type)}</span>
+        <div>
+          <p className="micro-label accent-amber">Question {index + 1}</p>
+          <p className="mt-1 text-slate-100 font-semibold">{question.prompt || 'Question'}</p>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          <span className="glass-chip px-3 py-1 rounded-full micro-label accent-indigo">{typeLabel(question.type)}</span>
+          <span className="glass-chip px-3 py-1 rounded-full micro-label accent-emerald">{questionScore(question)} pt{questionScore(question) === 1 ? '' : 's'}</span>
+        </div>
       </div>
 
       {question.passage && (
@@ -88,21 +284,7 @@ function AssignmentQuestion({ question, value, onChange }) {
       )}
 
       {question.type === 'crossmatching' && (
-        <div className="space-y-3">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            {(question.pairs || []).map((pair, index) => (
-              <div key={`${question.id}-pair-${index}`} className="rounded-xl border border-white/10 p-3 bg-slate-800/30 text-sm text-slate-200">
-                <p><span className="font-semibold">{pair.left}</span> ↔ {pair.right}</p>
-              </div>
-            ))}
-          </div>
-          <textarea
-            value={value || ''}
-            onChange={(event) => onChange(question.id, event.target.value)}
-            className="w-full min-h-[96px] rounded-2xl bg-slate-900/50 border border-white/10 px-4 py-2 text-sm text-slate-100"
-            placeholder="Type your matching answers, for example: 1-A, 2-B, 3-C"
-          />
-        </div>
+        <CrossMatchingQuestion question={question} value={value} onChange={onChange} />
       )}
 
       {(question.type === 'essay' || question.type === 'longanswer' || question.type === 'comprehension') && (
@@ -167,6 +349,7 @@ function AssignmentDetail({ assignment, onSubmissionSaved }) {
         </div>
         <p className="text-slate-300 mt-4">{assignment.description || 'No additional teacher instructions were added.'}</p>
         <p className="micro-label mt-3 accent-indigo">{summarizeQuestionTypes(assignment.questions)}</p>
+        <p className="micro-label mt-2 accent-emerald">Total Score {assignmentTotalScore(assignment.questions)}</p>
         {assignment.mySubmission?.submittedAt && (
           <p className="micro-label mt-2 accent-emerald">Last submitted {formatDueDate(assignment.mySubmission.submittedAt)}</p>
         )}
@@ -176,12 +359,13 @@ function AssignmentDetail({ assignment, onSubmissionSaved }) {
       {notice && <section className="rounded-3xl border border-emerald-300/30 p-4 bg-emerald-500/10 text-emerald-100">{notice}</section>}
 
       <section className="space-y-4">
-        {(assignment.questions || []).map(question => (
+        {(assignment.questions || []).map((question, index) => (
           <AssignmentQuestion
             key={question.id}
             question={question}
             value={answers[question.id]}
             onChange={handleAnswer}
+            index={index}
           />
         ))}
       </section>
@@ -298,6 +482,7 @@ export default function StudentAssignments() {
                       <p className="text-slate-100 font-semibold">{item.title}</p>
                       <p className="neon-subtle text-sm">Due {formatDueDate(item.dueAt)}</p>
                       <p className="micro-label mt-2 accent-amber">{summarizeQuestionTypes(item.questions)}</p>
+                      <p className="micro-label mt-2 accent-emerald">Total Score {assignmentTotalScore(item.questions)}</p>
                     </div>
                     <span className={`glass-chip px-3 py-1 rounded-full micro-label ${item.mySubmission ? 'accent-emerald' : 'accent-amber'}`}>
                       {item.mySubmission ? 'Submitted' : 'Work on it'}

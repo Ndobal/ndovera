@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import StudentSectionShell from '../../app/roles/student/StudentSectionShell';
 import TeacherAssignmentsPanel from './TeacherAssignmentsPanel';
 import * as svc from './classroomService';
+import MaterialTypeThumbnail, { materialTypeLabel } from '../../shared/components/MaterialTypeThumbnail';
 
 const TODAY = new Date().toISOString().slice(0, 10);
 
@@ -204,19 +205,6 @@ export default function TeacherClassroom({
     setMaterialTitle('');
     setMaterialUrl('');
     setMaterialDescription('');
-  }
-
-  function formatMaterialTypeLabel(value) {
-    switch (String(value || '').toLowerCase()) {
-      case 'video':
-        return 'Video';
-      case 'image':
-        return 'Image';
-      case 'link':
-        return 'Link';
-      default:
-        return 'Document';
-    }
   }
 
   function uploadFileWithProgress(file, overrides = {}) {
@@ -734,12 +722,15 @@ export default function TeacherClassroom({
                   <div className="space-y-3">
                     {materials.map(material => (
                       <div key={material.id} className="rounded-2xl border border-[#c9a96e]/35 bg-[#fff8f0] p-4 dark:border-[#bf00ff]/30 dark:bg-black/20">
-                        <div className="flex flex-wrap items-start justify-between gap-3">
-                          <div>
+                        <div className="flex flex-wrap items-start justify-between gap-4">
+                          <div className="flex min-w-0 flex-1 items-start gap-4">
+                            <MaterialTypeThumbnail material={material} />
+                            <div className="min-w-0 flex-1">
                             <p className="font-semibold text-[#191970] dark:text-[#ffffff]">{material.title}</p>
-                            <p className="mt-1 text-xs font-semibold uppercase tracking-[0.16em] text-[#800020] dark:text-[#bf00ff]">{material.subjectName || 'General Material'} • {formatMaterialTypeLabel(material.type)}</p>
+                            <p className="mt-1 text-xs font-semibold uppercase tracking-[0.16em] text-[#800020] dark:text-[#bf00ff]">{material.subjectName || 'General Material'} • {materialTypeLabel(material)}</p>
                             {material.description && <p className="mt-2 text-sm text-[#191970] dark:text-[#39ff14]">{material.description}</p>}
                             <p className="mt-2 text-xs text-[#800020] dark:text-[#bf00ff]">{material.uploadedAt ? new Date(material.uploadedAt).toLocaleString() : 'Recently uploaded'}{material.uploadedByName ? ` • ${material.uploadedByName}` : ''}</p>
+                          </div>
                           </div>
                           {material.url ? (
                             <a href={material.url} target="_blank" rel="noreferrer" className="rounded-2xl bg-[#1a5c38] px-4 py-2 text-sm font-bold text-[#f5deb3] transition-colors hover:bg-[#154a2e] dark:bg-[#00ffff] dark:text-[#000000] dark:hover:bg-[#7dfcff]">
