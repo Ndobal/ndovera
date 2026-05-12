@@ -7,6 +7,7 @@ import { StaffCashout } from '../../features/auras';
 import TeacherExams from './teacher/TeacherExams';
 import TeacherPayslip from './teacher/TeacherPayslip';
 import TeacherClassroom from '../../features/classroom/TeacherClassroom';
+import TeacherOverview from './teacher/TeacherOverview';
 
 export default function TeacherDashboard({ auth }) {
   const location = useLocation();
@@ -15,6 +16,10 @@ export default function TeacherDashboard({ auth }) {
 
   if (sectionKey === 'payslip') {
     return <TeacherPayslip auth={auth} />;
+  }
+
+  if (sectionKey === 'overview') {
+    return <TeacherOverview />;
   }
 
   const section = teacherConfig.sections[sectionKey];

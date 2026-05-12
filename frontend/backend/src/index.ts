@@ -1623,6 +1623,262 @@ app.get('/api/dashboards/:roleKey', authenticate, async (c) => {
     })
   }
 
+  if (roleKey === 'teacher') {
+    const teacherIdentifiers = collectComparableIdentifiers(collectResolvedIdentityIdentifiers(resolvedUser, user))
+    const fallbackClassIds = Array.from(new Set([
+      settings?.classId,
+      user.classId,
+      resolvedUser.userRow?.classId,
+    ].map(value => String(value || '').trim()).filter(Boolean)))
+
+    let metrics: Array<{ label: string, value: string | number, accent: string }> = []
+    let priorities: Array<{ text: string, tag?: string, accent?: string }> = []
+    let activity: Array<{ text: string, tag?: string, accent?: string }> = []
+    let classes: Record<string, any>[] = []
+
+    const summary = {
+      assignedClasses: 0,
+      studentsReached: 0,
+      activeSubjects: 0,
+      reviewedSubmissions: 0,
+      waitingReview: 0,
+      assignmentsInClasses: 0,
+      materialsInClasses: 0,
+      activeLiveSessions: 0,
+    }
+
+    if (tenantId) {
+      try {
+        await ensureClassesTable(c.env.APP_DB)
+        await c.env.APP_DB.prepare(`CREATE TABLE IF NOT EXISTS subjects (id TEXT PRIMARY KEY, tenantId TEXT, name TEXT, classId TEXT, teacherId TEXT, createdAt TEXT)`).run()
+        try { await c.env.APP_DB.exec('ALTER TABLE subjects ADD COLUMN tenantId TEXT') } catch {}
+        try { await c.env.APP_DB.exec('ALTER TABLE subjects ADD COLUMN classId TEXT') } catch {}
+        try { await c.env.APP_DB.exec('ALTER TABLE subjects ADD COLUMN teacherId TEXT') } catch {}
+
+        let classRows: Record<string, any>[] = []
+        if (teacherIdentifiers.length) {
+          const identifierPlaceholders = teacherIdentifiers.map(() => '?').join(', ')
+          const assignedClassRows = await c.env.APP_DB.prepare(
+            `SELECT DISTINCT c.id, c.name, c.arm, c.classTeacherId
+             FROM classes c
+             LEFT JOIN subjects s ON s.classId = c.id AND s.tenantId = c.tenantId
+             WHERE c.tenantId = ?
+               AND (
+                 lower(trim(coalesce(c.classTeacherId, ''))) IN (${identifierPlaceholders})
+                 OR lower(trim(coalesce(s.teacherId, ''))) IN (${identifierPlaceholders})
+               )
+             ORDER BY c.name, c.arm`
+          ).bind(tenantId, ...teacherIdentifiers, ...teacherIdentifiers).all()
+          classRows = (assignedClassRows.results || []) as Record<string, any>[]
+        }
+
+        if (fallbackClassIds.length) {
+          const classPlaceholders = fallbackClassIds.map(() => '?').join(', ')
+          const fallbackRows = await c.env.APP_DB.prepare(
+            `SELECT DISTINCT id, name, arm, classTeacherId
+             FROM classes
+             WHERE tenantId = ? AND id IN (${classPlaceholders})
+             ORDER BY name, arm`
+          ).bind(tenantId, ...fallbackClassIds).all()
+
+          const rowMap = new Map<string, Record<string, any>>()
+          for (const row of [...classRows, ...((fallbackRows.results || []) as Record<string, any>[])]) {
+            const classId = String(row?.id || '').trim()
+            if (!classId || rowMap.has(classId)) continue
+            rowMap.set(classId, row)
+          }
+          classRows = Array.from(rowMap.values())
+        }
+
+        const today = new Date().toISOString().slice(0, 10)
+
+        classes = await Promise.all(classRows.map(async row => {
+          const classId = String(row.id || '')
+          const isClassTeacher = matchesComparableIdentifier(row.classTeacherId, teacherIdentifiers)
+          const [studentCountRow, subjectCountRow, assignmentCountRow, materialCountRow, teacherSubjectRows, liveCountRow, attendanceTodayRow] = await Promise.all([
+            c.env.APP_DB.prepare(
+              `SELECT COUNT(*) as count
+               FROM settings
+               WHERE json_extract(payload, '$.tenantId') = ?
+                 AND json_extract(payload, '$.role') = 'student'
+                 AND json_extract(payload, '$.classId') = ?
+                 AND COALESCE(json_extract(payload, '$.status'), 'active') != 'inactive'`
+            ).bind(tenantId, classId).first().catch(() => ({ count: 0 })),
+            c.env.APP_DB.prepare(
+              `SELECT COUNT(*) as count FROM subjects WHERE tenantId = ? AND classId = ?`
+            ).bind(tenantId, classId).first().catch(() => ({ count: 0 })),
+            c.env.APP_DB.prepare(
+              `SELECT COUNT(*) as count FROM assignments WHERE classId = ?`
+            ).bind(classId).first().catch(() => ({ count: 0 })),
+            c.env.APP_DB.prepare(
+              `SELECT COUNT(*) as count FROM materials WHERE classId = ?`
+            ).bind(classId).first().catch(() => ({ count: 0 })),
+            c.env.APP_DB.prepare(
+              `SELECT id, name, teacherId FROM subjects WHERE tenantId = ? AND classId = ? ORDER BY name`
+            ).bind(tenantId, classId).all().catch(() => ({ results: [] })),
+            c.env.APP_DB.prepare(
+              `SELECT COUNT(*) as count
+               FROM classroom_live_sessions
+               WHERE classId = ? AND lower(trim(coalesce(status, 'live'))) != 'ended'`
+            ).bind(classId).first().catch(() => ({ count: 0 })),
+            c.env.APP_DB.prepare(
+              `SELECT COUNT(*) as count
+               FROM student_attendance_school
+               WHERE tenant_id = ? AND class_id = ? AND date = ?`
+            ).bind(tenantId, classId, today).first().catch(() => ({ count: 0 })),
+          ])
+
+          let subjectRows = (((teacherSubjectRows as any)?.results || []) as Record<string, any>[])
+            .filter(subjectRow => matchesComparableIdentifier(subjectRow.teacherId, teacherIdentifiers))
+          if (subjectRows.length === 0 && isClassTeacher) {
+            subjectRows = (((teacherSubjectRows as any)?.results || []) as Record<string, any>[])
+          }
+
+          return {
+            id: classId,
+            className: `${row.name}${row.arm ? ` ${row.arm}` : ''}`,
+            isClassTeacher,
+            studentCount: Number((studentCountRow as any)?.count || 0),
+            subjectCount: Number((subjectCountRow as any)?.count || 0),
+            assignmentCount: Number((assignmentCountRow as any)?.count || 0),
+            materialCount: Number((materialCountRow as any)?.count || 0),
+            liveActiveCount: Number((liveCountRow as any)?.count || 0),
+            attendanceTodayCount: Number((attendanceTodayRow as any)?.count || 0),
+            subjects: subjectRows.map(subject => ({
+              id: String(subject.id || ''),
+              name: String(subject.name || ''),
+              teacherId: String(subject.teacherId || ''),
+            })),
+          }
+        }))
+
+        const studentsReached = classes.reduce((total, classroom) => total + Number(classroom.studentCount || 0), 0)
+        const assignmentsInClasses = classes.reduce((total, classroom) => total + Number(classroom.assignmentCount || 0), 0)
+        const materialsInClasses = classes.reduce((total, classroom) => total + Number(classroom.materialCount || 0), 0)
+        const activeLiveSessions = classes.reduce((total, classroom) => total + Number(classroom.liveActiveCount || 0), 0)
+        const activeSubjects = new Set(classes.flatMap(classroom =>
+          (Array.isArray(classroom.subjects) ? classroom.subjects : []).map((subject: Record<string, any>) => String(subject.id || subject.name || '')).filter(Boolean)
+        )).size
+        const classesPendingAttendance = classes.filter(classroom => classroom.isClassTeacher && Number(classroom.attendanceTodayCount || 0) === 0).length
+        const classesWithoutMaterials = classes.filter(classroom => Number(classroom.materialCount || 0) === 0).length
+
+        let assignmentsCreated = 0
+        let reviewedSubmissions = 0
+        let waitingReview = 0
+        let overdueReviews = 0
+
+        if (teacherIdentifiers.length) {
+          const identifierPlaceholders = teacherIdentifiers.map(() => '?').join(', ')
+          const latestSubmissionCte = `
+            WITH latest_submissions AS (
+              SELECT s.assignmentId, s.studentId, s.grade, s.gradedAt, s.feedback, s.submittedAt
+              FROM submissions s
+              INNER JOIN (
+                SELECT assignmentId, studentId, MAX(submittedAt) AS latestSubmittedAt
+                FROM submissions
+                GROUP BY assignmentId, studentId
+              ) latest
+                ON latest.assignmentId = s.assignmentId
+               AND latest.studentId = s.studentId
+               AND latest.latestSubmittedAt = s.submittedAt
+            )
+          `
+
+          const [assignmentsCreatedRow, reviewedSubmissionsRow, waitingReviewRow, overdueReviewRow] = await Promise.all([
+            c.env.APP_DB.prepare(
+              `SELECT COUNT(*) as count
+               FROM assignments
+               WHERE lower(trim(coalesce(createdBy, ''))) IN (${identifierPlaceholders})`
+            ).bind(...teacherIdentifiers).first().catch(() => ({ count: 0 })),
+            c.env.APP_DB.prepare(
+              `${latestSubmissionCte}
+               SELECT COUNT(*) as count
+               FROM latest_submissions s
+               INNER JOIN assignments a ON a.id = s.assignmentId
+               WHERE lower(trim(coalesce(a.createdBy, ''))) IN (${identifierPlaceholders})
+                 AND (s.gradedAt IS NOT NULL OR s.grade IS NOT NULL OR length(trim(coalesce(s.feedback, ''))) > 0)`
+            ).bind(...teacherIdentifiers).first().catch(() => ({ count: 0 })),
+            c.env.APP_DB.prepare(
+              `${latestSubmissionCte}
+               SELECT COUNT(*) as count
+               FROM latest_submissions s
+               INNER JOIN assignments a ON a.id = s.assignmentId
+               WHERE lower(trim(coalesce(a.createdBy, ''))) IN (${identifierPlaceholders})
+                 AND s.gradedAt IS NULL
+                 AND s.grade IS NULL
+                 AND length(trim(coalesce(s.feedback, ''))) = 0`
+            ).bind(...teacherIdentifiers).first().catch(() => ({ count: 0 })),
+            c.env.APP_DB.prepare(
+              `${latestSubmissionCte}
+               SELECT COUNT(*) as count
+               FROM latest_submissions s
+               INNER JOIN assignments a ON a.id = s.assignmentId
+               WHERE lower(trim(coalesce(a.createdBy, ''))) IN (${identifierPlaceholders})
+                 AND a.dueAt IS NOT NULL
+                 AND trim(coalesce(a.dueAt, '')) != ''
+                 AND a.dueAt < ?
+                 AND s.gradedAt IS NULL
+                 AND s.grade IS NULL
+                 AND length(trim(coalesce(s.feedback, ''))) = 0`
+            ).bind(...teacherIdentifiers, new Date().toISOString()).first().catch(() => ({ count: 0 })),
+          ])
+
+          assignmentsCreated = Number((assignmentsCreatedRow as any)?.count || 0)
+          reviewedSubmissions = Number((reviewedSubmissionsRow as any)?.count || 0)
+          waitingReview = Number((waitingReviewRow as any)?.count || 0)
+          overdueReviews = Number((overdueReviewRow as any)?.count || 0)
+        }
+
+        metrics = [
+          { label: 'Assigned Classes', value: classes.length, accent: 'accent-indigo' },
+          { label: 'Students Reached', value: studentsReached, accent: 'accent-emerald' },
+          { label: 'Reviewed', value: reviewedSubmissions, accent: 'accent-indigo' },
+          { label: 'Waiting Review', value: waitingReview, accent: 'accent-amber' },
+        ]
+
+        priorities = [
+          classesPendingAttendance > 0
+            ? { text: `Attendance is still open in ${classesPendingAttendance} class${classesPendingAttendance === 1 ? '' : 'es'} today.`, tag: 'Today', accent: 'accent-rose' }
+            : { text: 'Attendance has been recorded for every class where you are the class teacher today.', tag: 'On Track', accent: 'accent-emerald' },
+          overdueReviews > 0
+            ? { text: `${overdueReviews} submission${overdueReviews === 1 ? '' : 's'} are overdue for review.`, tag: 'Urgent', accent: 'accent-amber' }
+            : { text: 'No overdue submission reviews right now.', tag: 'Clear', accent: 'accent-emerald' },
+          classesWithoutMaterials > 0
+            ? { text: `${classesWithoutMaterials} assigned class${classesWithoutMaterials === 1 ? '' : 'es'} still has no published materials.`, tag: 'Materials', accent: 'accent-indigo' }
+            : { text: 'Every assigned class already has at least one published material.', tag: 'Covered', accent: 'accent-emerald' },
+        ]
+
+        activity = [
+          { text: `${assignmentsCreated} assignment${assignmentsCreated === 1 ? '' : 's'} created by you across ${activeSubjects} active subject${activeSubjects === 1 ? '' : 's'}.`, tag: 'Assignments', accent: 'accent-indigo' },
+          { text: `${materialsInClasses} material${materialsInClasses === 1 ? '' : 's'} and ${activeLiveSessions} live session${activeLiveSessions === 1 ? '' : 's'} are currently attached to your teaching classes.`, tag: 'Delivery', accent: 'accent-emerald' },
+          { text: `${studentsReached} student${studentsReached === 1 ? '' : 's'} sit across ${classes.length} class${classes.length === 1 ? '' : 'es'} in your present teaching load.`, tag: 'Reach', accent: 'accent-amber' },
+        ]
+
+        summary.assignedClasses = classes.length
+        summary.studentsReached = studentsReached
+        summary.activeSubjects = activeSubjects
+        summary.reviewedSubmissions = reviewedSubmissions
+        summary.waitingReview = waitingReview
+        summary.assignmentsInClasses = assignmentsInClasses
+        summary.materialsInClasses = materialsInClasses
+        summary.activeLiveSessions = activeLiveSessions
+      } catch (error) {
+        console.error('Failed to build teacher dashboard', error)
+      }
+    }
+
+    return c.json({
+      role: 'Teacher Dashboard',
+      roleWatermark: 'TEACHER',
+      name: displayName,
+      metrics,
+      priorities,
+      activity,
+      classes,
+      summary,
+    })
+  }
+
   return c.json({
     role: roleKey.toUpperCase(),
     roleWatermark: roleKey.toUpperCase(),
