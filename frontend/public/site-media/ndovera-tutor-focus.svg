@@ -1,0 +1,20 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="900" fill="#FFF8EF"/>
+  <rect x="84" y="84" width="1432" height="732" rx="44" fill="#1A5C38"/>
+  <circle cx="1384" cy="158" r="122" fill="#F5DEB3" fill-opacity="0.32"/>
+  <text x="136" y="192" fill="#F5DEB3" font-family="Segoe UI, Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="3">NDOVERA TUTOR</text>
+  <text x="136" y="286" fill="#FFF8EF" font-family="Segoe UI, Arial, sans-serif" font-size="66" font-weight="800">Simple help that keeps</text>
+  <text x="136" y="360" fill="#FFF8EF" font-family="Segoe UI, Arial, sans-serif" font-size="66" font-weight="800">students thinking.</text>
+  <rect x="136" y="454" width="362" height="176" rx="30" fill="#FFF8EF"/>
+  <text x="176" y="514" fill="#191970" font-family="Segoe UI, Arial, sans-serif" font-size="26" font-weight="700">Homework help</text>
+  <text x="176" y="566" fill="#31416F" font-family="Segoe UI, Arial, sans-serif" font-size="22">Clear guidance for the next</text>
+  <text x="176" y="598" fill="#31416F" font-family="Segoe UI, Arial, sans-serif" font-size="22">step, not shortcuts.</text>
+  <rect x="538" y="454" width="362" height="176" rx="30" fill="#800020"/>
+  <text x="578" y="514" fill="#F5DEB3" font-family="Segoe UI, Arial, sans-serif" font-size="26" font-weight="700">Lesson support</text>
+  <text x="578" y="566" fill="#FFF8EF" font-family="Segoe UI, Arial, sans-serif" font-size="22">Hard topics explained in</text>
+  <text x="578" y="598" fill="#FFF8EF" font-family="Segoe UI, Arial, sans-serif" font-size="22">plain English.</text>
+  <rect x="940" y="454" width="438" height="176" rx="30" fill="#F5DEB3"/>
+  <text x="980" y="514" fill="#191970" font-family="Segoe UI, Arial, sans-serif" font-size="26" font-weight="700">Exam revision</text>
+  <text x="980" y="566" fill="#31416F" font-family="Segoe UI, Arial, sans-serif" font-size="22">Practice support that helps</text>
+  <text x="980" y="598" fill="#31416F" font-family="Segoe UI, Arial, sans-serif" font-size="22">students prepare with confidence.</text>
+</svg>

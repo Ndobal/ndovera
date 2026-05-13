@@ -125,6 +125,13 @@ function mapTenantPaymentRow(row: any) {
 }
 
 const SETTINGS_DDL = `CREATE TABLE IF NOT EXISTS settings (studentId TEXT PRIMARY KEY, payload TEXT NOT NULL)`
+const AUDIT_DDL = `CREATE TABLE IF NOT EXISTS audit (
+  id TEXT PRIMARY KEY,
+  studentId TEXT,
+  ts TEXT,
+  action TEXT,
+  data TEXT
+)`
 
 // Settings functions
 export async function getSettings(db: D1Database, studentId: string) {
@@ -149,7 +156,14 @@ export async function upsertSettings(db: D1Database, studentId: string, payload:
   return true
 }
 
+async function ensureAuditTable(db: D1Database) {
+  try {
+    await db.prepare(AUDIT_DDL).run()
+  } catch { /* table already exists */ }
+}
+
 export async function addAudit(db: D1Database, studentId: string, entry: any) {
+  await ensureAuditTable(db)
   const id = entry.id || `audit-${Date.now()}`
   const ts = entry.ts || new Date().toISOString()
   const action = entry.action || 'unknown'
@@ -159,11 +173,13 @@ export async function addAudit(db: D1Database, studentId: string, entry: any) {
 }
 
 export async function getAuditForStudent(db: D1Database, studentId: string) {
+  await ensureAuditTable(db)
   const result = await db.prepare('SELECT id, studentId, ts, action, data FROM audit WHERE studentId = ? ORDER BY ts DESC').bind(studentId).all()
   return result.results.map(r => ({ ...r, data: JSON.parse(r.data as string) }))
 }
 
 export async function getAllAudits(db: D1Database) {
+  await ensureAuditTable(db)
   const result = await db.prepare('SELECT id, studentId, ts, action, data FROM audit ORDER BY ts DESC').all()
   return result.results.map(r => ({ ...r, data: JSON.parse(r.data as string) }))
 }

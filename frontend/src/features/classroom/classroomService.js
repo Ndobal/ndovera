@@ -92,6 +92,11 @@ export async function getClassStudents(classId) {
   return res.json();
 }
 
+export async function getClassMembers(classId) {
+  const res = await fetch(`${API}/classrooms/${classId}/members`, { headers: getAuthHeaders() });
+  return res.json();
+}
+
 export async function getClassSubjects(classId) {
   const res = await fetch(`${API}/classrooms/${classId}/subjects`, { headers: getAuthHeaders() });
   return res.json();

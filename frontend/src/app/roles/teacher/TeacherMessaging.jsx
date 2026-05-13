@@ -2,6 +2,8 @@ import React, { useEffect, useState, useRef } from 'react';
 import { io } from 'socket.io-client';
 import StudentSectionShell from '../student/StudentSectionShell';
 
+const STAFF_MESSAGING_INTENT_KEY = 'staffMessagingIntent';
+
 const TEMPLATES = [
   { text: 'Received — will review and respond shortly.', style: 'msg-text-butter' },
   { text: "Please check your child's homework and acknowledge.", style: 'msg-text-lemon' },
@@ -18,13 +20,22 @@ function TeacherMessaging() {
   const [messages, setMessages] = useState([]);
   const [body, setBody] = useState('');
   const [group, setGroup] = useState('class');
+  const [pendingIntent, setPendingIntent] = useState(() => {
+    try {
+      return JSON.parse(window.sessionStorage.getItem(STAFF_MESSAGING_INTENT_KEY) || 'null');
+    } catch {
+      return null;
+    }
+  });
+  const [conversationsLoaded, setConversationsLoaded] = useState(false);
   const socketRef = useRef(null);
 
   useEffect(() => {
     fetch(`/api/conversations?userId=${encodeURIComponent(userId)}`)
       .then(r => r.json())
       .then(d => setConversations(d.conversations || []))
-      .catch(() => {});
+      .catch(() => {})
+      .finally(() => setConversationsLoaded(true));
 
     // connect socket
     const s = io('/', { query: { userId } });
@@ -56,6 +67,55 @@ function TeacherMessaging() {
     if (socketRef.current && activeConv.id) socketRef.current.emit('join', activeConv.id);
     return () => { if (socketRef.current && activeConv.id) socketRef.current.emit('leave', activeConv.id); };
   }, [activeConv]);
+
+  useEffect(() => {
+    if (!pendingIntent || !conversationsLoaded) return;
+
+    const requestedContact = pendingIntent.contact;
+    const participantId = String(requestedContact?.id || '').trim();
+    if (!participantId) {
+      try { window.sessionStorage.removeItem(STAFF_MESSAGING_INTENT_KEY); } catch {}
+      setPendingIntent(null);
+      return;
+    }
+
+    if (pendingIntent.composeDraft) {
+      setBody(currentBody => currentBody || pendingIntent.composeDraft);
+    }
+
+    const existingConversation = conversations.find(conversation => {
+      const participants = Array.isArray(conversation.participants) ? conversation.participants.map(String) : [];
+      return participants.includes(String(userId)) && participants.includes(participantId);
+    });
+
+    const finalize = () => {
+      try { window.sessionStorage.removeItem(STAFF_MESSAGING_INTENT_KEY); } catch {}
+      setPendingIntent(null);
+    };
+
+    if (existingConversation) {
+      setActiveConv(existingConversation);
+      finalize();
+      return;
+    }
+
+    fetch('/api/conversations', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        subject: `Direct: ${requestedContact?.name || 'Conversation'}`,
+        participants: [userId, participantId],
+      }),
+    })
+      .then(r => r.json())
+      .then(d => {
+        if (d.success && d.conversation) {
+          setConversations(prev => [d.conversation, ...prev]);
+          setActiveConv(d.conversation);
+        }
+      })
+      .finally(finalize);
+  }, [conversations, conversationsLoaded, pendingIntent, userId]);
 
   function msgColorClass(senderId) {
     if (String(senderId).startsWith('teacher') || String(senderId).startsWith('admin') || String(senderId).startsWith('parent')) return 'msg-text-teacher';

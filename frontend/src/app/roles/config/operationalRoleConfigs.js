@@ -487,6 +487,7 @@ const operationalRoleConfigs = {
         ],
       },
       tenants: { title: 'Tenant Governance', subtitle: 'Manage tenant-level controls and states.', panels: [{ title: 'Tenant Controls', items: [{ text: 'View tenant health and usage.' }, { text: 'Suspend or restore tenant access.' }, { text: 'Apply global policy overrides.' }] }] },
+      website: { title: 'Website', subtitle: 'Manage the public NDOVERA corporate website.', panels: [{ title: 'Public Site Controls', items: [{ text: 'Edit homepage and public website pages.' }, { text: 'Upload website media to R2.' }, { text: 'Embed YouTube videos inside the public pages.' }] }] },
       security: { title: 'Security Command', subtitle: 'Handle platform-wide security events.', panels: [{ title: 'Security Ops', items: [{ text: 'Review high-risk sign-in events.' }, { text: 'Trigger emergency containment.' }, { text: 'Audit privileged access actions.' }] }] },
       policies: { title: 'Policy Engine', subtitle: 'Create and roll out system policies.', panels: [{ title: 'Policy Management', items: [{ text: 'Draft and publish global policies.' }, { text: 'Set compliance checks per tenant.' }, { text: 'Track acceptance and violations.' }] }] },
       audits: { title: 'Audit Trail', subtitle: 'Monitor immutable logs for all critical actions.', panels: [{ title: 'Audit Reports', items: [{ text: 'Search by actor, action, and time.' }, { text: 'Export legal-grade audit logs.' }, { text: 'Flag suspicious activity patterns.' }] }] },

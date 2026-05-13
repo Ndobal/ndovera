@@ -1,7 +1,9 @@
-var CACHE_NAME = 'ndovera-pwa-v2';
+var CACHE_NAME = 'ndovera-pwa-v3';
 var APP_SHELL = [
   '/',
+  '/index.html',
   '/login',
+  '/register-school',
   '/manifest.json',
   '/android-chrome-192x192.png',
   '/android-chrome-512x512.png'
@@ -51,6 +53,7 @@ self.addEventListener('fetch', function (event) {
   if (event.request.headers.get('range')) return;
 
   var requestUrl = new URL(event.request.url);
+  var isNavigationRequest = event.request.mode === 'navigate';
   if (requestUrl.origin !== self.location.origin) return;
 
   if (requestUrl.pathname.indexOf('/api/') === 0 || requestUrl.pathname.indexOf('/files/') === 0) {
@@ -60,6 +63,13 @@ self.addEventListener('fetch', function (event) {
   event.respondWith(
     fetch(event.request)
       .then(function (response) {
+        if (isNavigationRequest && response && response.status === 404) {
+          return caches.match('/')
+            .then(function (cachedHome) {
+              return cachedHome || caches.match('/index.html') || response;
+            });
+        }
+
         if (shouldCacheResponse(event.request, response)) {
           var responseCopy = response.clone();
           event.waitUntil(
@@ -77,7 +87,18 @@ self.addEventListener('fetch', function (event) {
       .catch(function () {
         return caches.match(event.request)
           .then(function (cachedResponse) {
-            return cachedResponse || caches.match('/');
+            if (cachedResponse) {
+              return cachedResponse;
+            }
+
+            if (isNavigationRequest) {
+              return caches.match('/')
+                .then(function (cachedHome) {
+                  return cachedHome || caches.match('/index.html');
+                });
+            }
+
+            return caches.match('/');
           });
       })
   );

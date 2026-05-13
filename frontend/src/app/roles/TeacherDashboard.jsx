@@ -8,6 +8,7 @@ import TeacherExams from './teacher/TeacherExams';
 import TeacherPayslip from './teacher/TeacherPayslip';
 import TeacherClassroom from '../../features/classroom/TeacherClassroom';
 import TeacherOverview from './teacher/TeacherOverview';
+import TeacherMessaging from './teacher/TeacherMessaging';
 
 export default function TeacherDashboard({ auth }) {
   const location = useLocation();
@@ -50,6 +51,10 @@ export default function TeacherDashboard({ auth }) {
 
   if (sectionKey === 'materials') {
     return <TeacherClassroom initialTab="materials" lockedTab="materials" />;
+  }
+
+  if (sectionKey === 'messaging') {
+    return <TeacherMessaging auth={auth} />;
   }
 
   if (sectionKey === 'cashout') {

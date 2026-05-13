@@ -404,6 +404,7 @@ function getRoleSidebarItems(roleKey) {
     return [
       { name: 'Overview', path: '/roles/ami' },
       { name: 'Tenants', path: '/roles/ami/tenants' },
+      { name: 'Website', path: '/roles/ami/website' },
       { name: 'Security', path: '/roles/ami/security' },
       { name: 'Policies', path: '/roles/ami/policies' },
       { name: 'Audits', path: '/roles/ami/audits' },

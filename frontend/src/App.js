@@ -39,9 +39,36 @@ import AmiInbox from './app/roles/ami/AmiInbox';
 import LoginPage from './features/auth/pages/LoginPage';
 import ChangePasswordPage from './features/auth/pages/ChangePasswordPage';
 import SchoolRegistrationPage from './features/tenants/pages/SchoolRegistrationPage';
+import PublicHomePage from './features/public/pages/PublicHomePage';
+import PublicSitePage from './features/public/pages/PublicSitePage';
 import { clearStoredAuth, getSignedOutRedirectPath, getStoredAuth, persistAuth, syncRefreshedToken } from './features/auth/services/authApi';
 import { getApiUrl } from './config/apiBase';
 import './App.css';
+
+const PUBLIC_ROUTE_PATHS = new Set([
+  '/',
+  '/about',
+  '/mission',
+  '/vision',
+  '/mission-vision',
+  '/growth-partners',
+  '/partners',
+  '/tutor',
+  '/opportunities',
+  '/events',
+  '/events-gallery',
+  '/gallery',
+  '/login',
+  '/register-school',
+  '/change-password',
+]);
+
+function normalizePublicPath(pathname) {
+  if (pathname.length > 1 && pathname.endsWith('/')) {
+    return pathname.slice(0, -1);
+  }
+  return pathname;
+}
 
 function getAuthenticatedRole(auth) {
   return auth?.user?.role || 'student';
@@ -88,12 +115,23 @@ function RoleGuard({ expectedRole, auth, children }) {
 function AnimatedRoutes({ auth, onLogin }) {
   const location = useLocation();
   const authRole = getAuthenticatedRole(auth);
-  const defaultAppRoute = auth?.token ? `/roles/${authRole}` : '/login';
+  const defaultAppRoute = auth?.token ? `/roles/${authRole}` : '/';
 
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
-        <Route path="/" element={auth?.token ? <Navigate to={defaultAppRoute} replace /> : <LoginPage onLogin={onLogin} />} />
+        <Route path="/" element={<PublicHomePage />} />
+        <Route path="/about" element={<PublicSitePage pageKey="about" />} />
+        <Route path="/mission" element={<PublicSitePage pageKey="mission" />} />
+        <Route path="/vision" element={<PublicSitePage pageKey="vision" />} />
+        <Route path="/mission-vision" element={<PublicSitePage pageKey="mission" />} />
+        <Route path="/growth-partners" element={<PublicSitePage pageKey="partners" />} />
+        <Route path="/partners" element={<PublicSitePage pageKey="partners" />} />
+        <Route path="/tutor" element={<PublicSitePage pageKey="tutor" />} />
+        <Route path="/opportunities" element={<PublicSitePage pageKey="opportunities" />} />
+        <Route path="/events" element={<PublicSitePage pageKey="events" />} />
+        <Route path="/events-gallery" element={<PublicSitePage pageKey="events" />} />
+        <Route path="/gallery" element={<PublicSitePage pageKey="gallery" />} />
         <Route path="/login" element={auth?.token ? <Navigate to={defaultAppRoute} replace /> : <LoginPage onLogin={onLogin} />} />
         <Route path="/register-school" element={<SchoolRegistrationPage />} />
         <Route path="/change-password" element={<ChangePasswordPage onLogin={onLogin} />} />
@@ -159,7 +197,8 @@ function AnimatedRoutes({ auth, onLogin }) {
 
 function AppWorkspace({ auth, onLogin, onLogout }) {
   const location = useLocation();
-  const isPublicRoute = location.pathname === '/login' || location.pathname === '/register-school' || location.pathname === '/change-password' || (location.pathname === '/' && !auth?.token);
+  const normalizedPath = normalizePublicPath(location.pathname);
+  const isPublicRoute = PUBLIC_ROUTE_PATHS.has(normalizedPath);
   const inDashboardMode = location.pathname.startsWith('/roles/');
   const inStudentClassroom = location.pathname.startsWith('/roles/student/classroom');
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);

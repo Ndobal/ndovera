@@ -1,0 +1,21 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="900" fill="#FFF8EF"/>
+  <rect x="88" y="88" width="1424" height="724" rx="44" fill="#F5DEB3"/>
+  <rect x="132" y="132" width="768" height="636" rx="36" fill="#191970"/>
+  <text x="182" y="224" fill="#F5DEB3" font-family="Segoe UI, Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="3">ABOUT NDOVERA</text>
+  <text x="182" y="322" fill="#FFF8EF" font-family="Segoe UI, Arial, sans-serif" font-size="68" font-weight="800">Built for schools that</text>
+  <text x="182" y="396" fill="#FFF8EF" font-family="Segoe UI, Arial, sans-serif" font-size="68" font-weight="800">want structure without stress.</text>
+  <text x="182" y="492" fill="#E6DDD0" font-family="Segoe UI, Arial, sans-serif" font-size="28">Clear systems. Human support. Real growth.</text>
+  <rect x="980" y="168" width="420" height="170" rx="32" fill="#800020"/>
+  <text x="1026" y="236" fill="#F5DEB3" font-family="Segoe UI, Arial, sans-serif" font-size="28" font-weight="700">Clear systems</text>
+  <text x="1026" y="286" fill="#FFF8EF" font-family="Segoe UI, Arial, sans-serif" font-size="22">A stronger way to manage</text>
+  <text x="1026" y="320" fill="#FFF8EF" font-family="Segoe UI, Arial, sans-serif" font-size="22">school life with less confusion.</text>
+  <rect x="980" y="376" width="420" height="170" rx="32" fill="#1A5C38"/>
+  <text x="1026" y="444" fill="#F5DEB3" font-family="Segoe UI, Arial, sans-serif" font-size="28" font-weight="700">Human support</text>
+  <text x="1026" y="494" fill="#FFF8EF" font-family="Segoe UI, Arial, sans-serif" font-size="22">Technology that helps people</text>
+  <text x="1026" y="528" fill="#FFF8EF" font-family="Segoe UI, Arial, sans-serif" font-size="22">work better together.</text>
+  <rect x="980" y="584" width="420" height="170" rx="32" fill="#FFF8EF"/>
+  <text x="1026" y="652" fill="#191970" font-family="Segoe UI, Arial, sans-serif" font-size="28" font-weight="700">Real growth</text>
+  <text x="1026" y="702" fill="#31416F" font-family="Segoe UI, Arial, sans-serif" font-size="22">Progress that schools can feel</text>
+  <text x="1026" y="736" fill="#31416F" font-family="Segoe UI, Arial, sans-serif" font-size="22">in daily work and daily learning.</text>
+</svg>

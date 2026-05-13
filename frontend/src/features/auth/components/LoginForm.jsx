@@ -37,7 +37,7 @@ export default function LoginForm({ onSuccess }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="rounded-[28px] border border-slate-200 bg-white p-6 shadow-[0_18px_50px_rgba(15,23,42,0.08)] sm:p-7">
+    <form onSubmit={handleSubmit} autoComplete="off" className="rounded-[28px] border border-slate-200 bg-white p-6 shadow-[0_18px_50px_rgba(15,23,42,0.08)] sm:p-7">
       <div className="space-y-1">
         <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">Secure Sign In</p>
         <p className="text-base leading-7 text-slate-600">Use your account email and password to access your assigned dashboard.</p>
@@ -49,7 +49,10 @@ export default function LoginForm({ onSuccess }) {
         <input
           name="id"
           type="email"
-          autoComplete="username"
+          autoComplete="off"
+          autoCapitalize="none"
+          autoCorrect="off"
+          spellCheck={false}
           value={formState.id}
           onChange={handleChange}
           className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"
@@ -64,7 +67,10 @@ export default function LoginForm({ onSuccess }) {
           <input
             name="password"
             type={showPassword ? 'text' : 'password'}
-            autoComplete="current-password"
+            autoComplete="off"
+            autoCapitalize="none"
+            autoCorrect="off"
+            spellCheck={false}
             value={formState.password}
             onChange={handleChange}
             className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 pr-20 text-slate-900 outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100"

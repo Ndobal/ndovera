@@ -4,11 +4,14 @@
 		{
 			"label": "frontend-build-validation",
 			"type": "shell",
-			"command": "node",
+			"command": "npm",
 			"args": [
-				"./frontend/node_modules/react-scripts/bin/react-scripts.js",
+				"run",
 				"build"
 			],
+			"options": {
+				"cwd": "${workspaceFolder}/frontend"
+			},
 			"isBackground": false,
 			"problemMatcher": [],
 			"group": "build"
@@ -16,7 +19,14 @@
 		{
 			"label": "frontend-build-from-root",
 			"type": "shell",
-			"command": "Set-Location frontend; npm run build",
+			"command": "npm",
+			"args": [
+				"run",
+				"build"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}/frontend"
+			},
 			"isBackground": false,
 			"problemMatcher": [],
 			"group": "build"
@@ -24,7 +34,20 @@
 		{
 			"label": "pages-deploy-frontend",
 			"type": "shell",
-			"command": "Set-Location frontend; npx wrangler pages deploy build --project-name ndovera",
+			"command": "${workspaceFolder}/frontend/backend/node_modules/.bin/wrangler.cmd",
+			"args": [
+				"pages",
+				"deploy",
+				"build",
+				"--project-name",
+				"ndovera",
+				"--branch",
+				"main",
+				"--commit-dirty=true"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}/frontend"
+			},
 			"isBackground": false,
 			"problemMatcher": [],
 			"group": "build"
@@ -32,7 +55,14 @@
 		{
 			"label": "frontend-build-public-onboarding",
 			"type": "shell",
-			"command": "Set-Location frontend; npm run build",
+			"command": "npm",
+			"args": [
+				"run",
+				"build"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}/frontend"
+			},
 			"isBackground": false,
 			"problemMatcher": [],
 			"group": "build"
@@ -40,7 +70,14 @@
 		{
 			"label": "backend-build-public-onboarding",
 			"type": "shell",
-			"command": "Set-Location frontend/backend; npm run build",
+			"command": "npm",
+			"args": [
+				"run",
+				"build"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}/frontend/backend"
+			},
 			"isBackground": false,
 			"problemMatcher": [],
 			"group": "build"

@@ -25,6 +25,50 @@ function normalizeMemberIdentifier(value) {
   return String(value || '').trim().toLowerCase();
 }
 
+function looksLikeEmail(value) {
+  return /\S+@\S+\.\S+/.test(String(value || '').trim());
+}
+
+function formatRoleLabel(value, fallback = 'Class User') {
+  const normalized = String(value || '').trim();
+  if (!normalized) return fallback;
+  return normalized.charAt(0).toUpperCase() + normalized.slice(1);
+}
+
+function buildAvatarLabel(value) {
+  const parts = String(value || 'CU').trim().split(/\s+/).filter(Boolean);
+  if (parts.length === 0) return 'CU';
+  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+  return `${parts[0][0] || ''}${parts[1][0] || ''}`.toUpperCase();
+}
+
+function htmlToDisplayText(value) {
+  const raw = String(value || '').trim();
+  if (!raw) return '';
+
+  const normalized = raw
+    .replace(/<div><br\s*\/?>\s*<\/div>/gi, '\n')
+    .replace(/<\/div>\s*<div>/gi, '\n')
+    .replace(/<div>/gi, '')
+    .replace(/<\/div>/gi, '\n')
+    .replace(/<\/p>\s*<p>/gi, '\n')
+    .replace(/<p>/gi, '')
+    .replace(/<\/p>/gi, '\n')
+    .replace(/<br\s*\/?>/gi, '\n')
+    .replace(/&nbsp;/gi, ' ');
+
+  if (typeof window !== 'undefined' && window.document) {
+    const element = window.document.createElement('div');
+    element.innerHTML = normalized;
+    return String(element.textContent || element.innerText || '')
+      .replace(/\r/g, '')
+      .replace(/\n{3,}/g, '\n\n')
+      .trim();
+  }
+
+  return normalized.replace(/<[^>]+>/g, '').replace(/\n{3,}/g, '\n\n').trim();
+}
+
 function saveStudentMessagingIntent(intent) {
   try {
     window.sessionStorage.setItem(STUDENT_MESSAGING_INTENT_KEY, JSON.stringify(intent));
@@ -46,9 +90,15 @@ function resolveCurrentClassroom(authUser) {
 function normalizeStreamPost(post) {
   return {
     ...post,
-    author: post?.author || post?.authorName || post?.authorId || 'Teacher',
-    text: post?.text || post?.content || '',
-    comments: Array.isArray(post?.comments) ? post.comments : [],
+    author: post?.authorName || post?.author || post?.authorId || 'Teacher',
+    text: htmlToDisplayText(post?.text || post?.content || ''),
+    comments: Array.isArray(post?.comments)
+      ? post.comments.map(comment => ({
+          ...comment,
+          user: comment?.user || comment?.authorName || comment?.authorId || 'Class User',
+          text: htmlToDisplayText(comment?.text || comment?.content || ''),
+        }))
+      : [],
   };
 }
 
@@ -73,6 +123,7 @@ export default function StudentClassroom() {
   const [streamPosts, setStreamPosts] = useState([]);
   const [streamInput, setStreamInput] = useState('');
   const [streamEmojiOpen, setStreamEmojiOpen] = useState(false);
+  const [activeStreamMenuId, setActiveStreamMenuId] = useState('');
   const [commentInputs, setCommentInputs] = useState({});
   const [selectedClassmateId, setSelectedClassmateId] = useState('');
   const [profileMember, setProfileMember] = useState(null);
@@ -197,6 +248,17 @@ export default function StudentClassroom() {
       .filter(Boolean)
   ), [storedUser?.displayId, storedUser?.email, storedUser?.id]);
 
+  const currentUserProfile = useMemo(() => ({
+    id: String(storedUser?.id || storedUser?.email || 'student'),
+    name: String(storedUser?.name || 'You'),
+    email: String(storedUser?.email || ''),
+    displayId: String(storedUser?.displayId || ''),
+    role: formatRoleLabel(storedUser?.role || 'student', 'Student'),
+    className: storedUser?.className || classroomLabel,
+    status: 'Active',
+    isSelf: true,
+  }), [classroomLabel, storedUser?.className, storedUser?.displayId, storedUser?.email, storedUser?.id, storedUser?.name, storedUser?.role]);
+
   const sortedStreamPosts = useMemo(() => (
     [...streamPosts].sort((first, second) => {
       const pinDifference = Number(Boolean(second?.pinned)) - Number(Boolean(first?.pinned));
@@ -216,7 +278,9 @@ export default function StudentClassroom() {
     const headers = { 'Content-Type': 'application/json', ...(token ? { Authorization: `Bearer ${token}` } : {}) };
     const optimistic = {
       id: `stream-${Date.now()}`,
-      author: 'You',
+      author: currentUserProfile.name,
+      authorId: currentUserProfile.id,
+      authorName: currentUserProfile.name,
       text: streamInput.trim(),
       pinned: false,
       comments: [],
@@ -267,20 +331,22 @@ export default function StudentClassroom() {
     setStreamEmojiOpen(false);
   };
 
-  const openChatWithClassmate = member => {
+  const openChatWithMember = member => {
+    if (!member || member.isSelf) return;
     saveStudentMessagingIntent({
       contact: {
         id: member.id,
         name: member.name,
         email: member.email,
         displayId: member.displayId,
-        role: 'Classmate',
+        role: formatRoleLabel(member.role || 'Classmate', 'Classmate'),
       },
     });
     navigate('/roles/student/messaging');
   };
 
-  const reportClassmate = member => {
+  const reportMember = member => {
+    if (!member || member.isSelf) return;
     saveStudentMessagingIntent({
       contact: {
         id: 'support',
@@ -290,6 +356,49 @@ export default function StudentClassroom() {
       composeDraft: `I want to report ${member.name}${member.displayId ? ` (${member.displayId})` : ''} from ${member.className || classroomLabel}. Please review this issue: `,
     });
     navigate('/roles/student/messaging');
+  };
+
+  const resolveStreamAuthor = post => {
+    const postIdentifiers = [post?.authorId, post?.author, post?.authorName, post?.authorEmail, post?.displayId]
+      .map(normalizeMemberIdentifier)
+      .filter(Boolean);
+
+    if (postIdentifiers.some(identifier => selfMemberIdentifiers.has(identifier))) {
+      return currentUserProfile;
+    }
+
+    const matchedMember = classMembers.find(member => {
+      const memberIdentifiers = [member.id, member.email, member.displayId, member.name]
+        .map(normalizeMemberIdentifier)
+        .filter(Boolean);
+      return postIdentifiers.some(identifier => memberIdentifiers.includes(identifier));
+    });
+
+    if (matchedMember) {
+      return {
+        ...matchedMember,
+        name: matchedMember.name || matchedMember.email || matchedMember.id || 'Class User',
+        role: formatRoleLabel(matchedMember.role || (post?.isStudentPost ? 'student' : 'teacher')),
+        className: matchedMember.className || classroomLabel,
+        status: matchedMember.status || 'Active',
+        isSelf: false,
+      };
+    }
+
+    const fallbackName = [post?.authorName, post?.author]
+      .find(value => value && !looksLikeEmail(value)) || (post?.isStudentPost ? 'Student' : 'Teacher');
+    const fallbackEmail = [post?.author, post?.authorId].find(looksLikeEmail) || '';
+
+    return {
+      id: String(post?.authorId || post?.id || fallbackName),
+      name: String(fallbackName || 'Class User'),
+      email: String(fallbackEmail),
+      displayId: String(post?.displayId || ''),
+      role: formatRoleLabel(post?.isStudentPost ? 'student' : 'teacher'),
+      className: classroomLabel,
+      status: 'Active',
+      isSelf: false,
+    };
   };
 
   const goBackToDashboard = () => {
@@ -406,9 +515,12 @@ export default function StudentClassroom() {
       return !memberIdentifiers.some(identifier => selfMemberIdentifiers.has(identifier));
     }), [classMembers, selfMemberIdentifiers]);
   const teacherMembers = classMembers.filter(member => String(member.role || '').toLowerCase() === 'teacher');
+  const rootContainerClassName = activeTab === 'stream'
+    ? `min-h-screen ${isMobile ? 'px-4 pb-24 pt-4' : 'px-8 py-8'} max-w-none`
+    : `min-h-screen ${isMobile ? 'p-4 pb-24' : 'p-8'} max-w-5xl mx-auto`;
 
   return (
-    <div className={`min-h-screen ${isMobile ? 'p-4 pb-24' : 'p-8'} max-w-5xl mx-auto`}>
+    <div className={rootContainerClassName}>
       {classroomLoading && (
         <div className="glass-surface rounded-3xl p-6 mb-4">
           <p className="neon-subtle text-sm">Loading classroom data…</p>
@@ -617,31 +729,89 @@ export default function StudentClassroom() {
       )}
 
       {activeTab === 'stream' && (
-        <div className="flex min-h-[70vh] flex-col gap-4">
+        <div className={`flex min-h-[70vh] flex-col gap-4 ${isMobile ? '-mx-4' : '-mx-8'}`}>
           <div className="flex-1 space-y-4">
             {sortedStreamPosts.length === 0 && (
-              <section className="glass-surface rounded-3xl p-5">
-                <p className="micro-label accent-amber">No stream updates yet</p>
-                <p className="mt-2 text-sm text-slate-300">Posts from teachers and classmates will appear here, with the newest updates settling at the bottom.</p>
+              <section className="rounded-[1.75rem] border border-[#c9a96e]/45 bg-[#f5deb3] p-5 shadow-[0_14px_30px_rgba(128,0,0,0.08)]">
+                <p className="micro-label text-[#800020]">No stream updates yet</p>
+                <p className="mt-2 text-sm text-[#191970]">Posts from teachers and classmates will appear here, with the newest updates settling at the bottom.</p>
               </section>
             )}
 
-            {sortedStreamPosts.map(post => (
-              <section key={post.id} className="glass-surface rounded-3xl p-5">
-                <div className="flex items-center justify-between gap-2 mb-2">
-                  <p className="text-slate-100 font-semibold">{post.author}</p>
-                  <div className="flex gap-2">
-                    {post.pinned && <span className="glass-chip px-3 py-1 rounded-full micro-label accent-amber">Pinned</span>}
-                    {post.isStudentPost && <span className="glass-chip px-3 py-1 rounded-full micro-label accent-indigo">Student Post</span>}
+            {sortedStreamPosts.map(post => {
+              const authorProfile = resolveStreamAuthor(post);
+              const postTimestamp = post?.createdAt || post?.updatedAt || new Date().toISOString();
+
+              return (
+              <section key={post.id} className="rounded-[1.75rem] border border-[#c9a96e]/45 bg-[#f5deb3] p-5 shadow-[0_14px_30px_rgba(128,0,0,0.08)]">
+                <div className="mb-3 flex items-start justify-between gap-3">
+                  <div className="relative">
+                    <button
+                      type="button"
+                      onClick={() => setActiveStreamMenuId(currentId => currentId === post.id ? '' : post.id)}
+                      className="flex h-12 w-12 items-center justify-center rounded-full border border-[#c9a96e]/60 bg-[#fff8f0] text-sm font-bold text-[#191970] shadow-[0_10px_24px_rgba(25,25,112,0.12)]"
+                      aria-label={`Open ${authorProfile.name} actions`}
+                    >
+                      {buildAvatarLabel(authorProfile.name)}
+                    </button>
+
+                    {activeStreamMenuId === post.id && (
+                      <div className="absolute left-0 top-14 z-30 w-64 rounded-[1.4rem] border border-[#c9a96e]/50 bg-[#fff8f0] p-3 shadow-[0_18px_40px_rgba(128,0,0,0.16)]">
+                        <p className="text-sm font-semibold text-[#191970]">{authorProfile.name}</p>
+                        <p className="mt-1 text-xs font-semibold uppercase tracking-[0.16em] text-[#800020]">{authorProfile.role}</p>
+                        <div className="mt-3 flex flex-col gap-2">
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setActiveStreamMenuId('');
+                              setProfileMember(authorProfile);
+                            }}
+                            className="rounded-2xl border border-[#c9a96e]/45 px-3 py-2 text-left text-sm font-semibold text-[#191970] hover:bg-[#f5deb3]"
+                          >
+                            View Profile
+                          </button>
+                          <button
+                            type="button"
+                            disabled={authorProfile.isSelf}
+                            onClick={() => {
+                              setActiveStreamMenuId('');
+                              openChatWithMember(authorProfile);
+                            }}
+                            className="rounded-2xl border border-[#1a5c38]/35 bg-[#1a5c38]/10 px-3 py-2 text-left text-sm font-semibold text-[#191970] hover:bg-[#1a5c38]/20 disabled:cursor-not-allowed disabled:opacity-50"
+                          >
+                            Send Private Message
+                          </button>
+                          <button
+                            type="button"
+                            disabled={authorProfile.isSelf}
+                            onClick={() => {
+                              setActiveStreamMenuId('');
+                              reportMember(authorProfile);
+                            }}
+                            className="rounded-2xl border border-[#800000]/25 bg-[#800000]/8 px-3 py-2 text-left text-sm font-semibold text-[#191970] hover:bg-[#800000]/12 disabled:cursor-not-allowed disabled:opacity-50"
+                          >
+                            Report User
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="flex flex-1 items-start justify-between gap-3">
+                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#800020]">{new Date(postTimestamp).toLocaleString()}</p>
+                    <div className="flex gap-2">
+                      {post.pinned && <span className="rounded-full border border-[#c9a96e]/45 bg-[#fff8f0] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#800020]">Pinned</span>}
+                      {post.isStudentPost && <span className="rounded-full border border-[#c9a96e]/45 bg-[#fff8f0] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#800020]">Student Post</span>}
+                    </div>
                   </div>
                 </div>
 
-                <p className="text-slate-100 mb-3 whitespace-pre-wrap">{post.text}</p>
+                <p className="mb-3 whitespace-pre-wrap text-sm leading-7 text-[#191970]">{post.text}</p>
 
                 <div className="space-y-2 mb-3">
                   {post.comments.map(comment => (
-                    <div key={comment.id} className="rounded-2xl border border-white/10 p-3 bg-slate-900/30">
-                      <p className="text-sm text-slate-100"><span className="font-semibold">{comment.user}:</span> {comment.text}</p>
+                    <div key={comment.id} className="rounded-2xl border border-[#c9a96e]/35 bg-[#fff8f0] p-3">
+                      <p className="text-sm text-[#191970]"><span className="font-semibold text-[#800000]">{comment.user}:</span> {comment.text}</p>
                     </div>
                   ))}
                 </div>
@@ -652,72 +822,62 @@ export default function StudentClassroom() {
                     onChange={(event) => setCommentInputs(prev => ({ ...prev, [post.id]: event.target.value }))}
                     onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && addComment(post.id)}
                     disabled={!teacherSettings.commentsEnabled}
-                    className="flex-1 rounded-2xl border border-amber-300/60 px-4 py-2 text-sm text-slate-800 font-medium placeholder:text-amber-700/60"
+                    className="flex-1 rounded-2xl border border-[#c9a96e]/60 px-4 py-2 text-sm font-medium text-[#191970] placeholder:text-[#800020]/60"
                     style={{ backgroundColor: '#f5deb3' }}
                     placeholder={teacherSettings.commentsEnabled ? 'Comment respectfully…' : 'Comments disabled by teacher'}
                   />
                   <button
                     onClick={() => addComment(post.id)}
                     disabled={!teacherSettings.commentsEnabled}
-                    className="px-4 py-2 rounded-2xl bg-emerald-500/30 border border-emerald-300/40 text-white text-sm font-semibold disabled:opacity-40"
+                    className="rounded-2xl border border-[#1a5c38]/35 bg-[#1a5c38]/12 px-4 py-2 text-sm font-semibold text-[#191970] disabled:opacity-40"
                   >
                     Comment
                   </button>
                 </div>
               </section>
-            ))}
+            );})}
           </div>
 
-          <section className={`sticky ${isMobile ? 'bottom-20' : 'bottom-6'} glass-surface rounded-3xl p-4 shadow-[0_18px_40px_rgba(15,23,42,0.18)]`}>
-            <div className="flex flex-wrap gap-2 mb-3">
-              <span className={`glass-chip px-3 py-1 rounded-full micro-label ${teacherSettings.commentsEnabled ? 'accent-emerald' : 'accent-rose'}`}>
-                Comments {teacherSettings.commentsEnabled ? 'Enabled' : 'Disabled'}
-              </span>
-              <span className={`glass-chip px-3 py-1 rounded-full micro-label ${teacherSettings.studentAnnouncementsEnabled ? 'accent-emerald' : 'accent-amber'}`}>
-                Student Posts {teacherSettings.studentAnnouncementsEnabled ? 'Enabled' : 'Teacher Only'}
-              </span>
-            </div>
-
+          <section className={`sticky ${isMobile ? 'bottom-16' : 'bottom-0'} z-20 border border-[#c9a96e]/45 bg-[#f5deb3] p-3 shadow-[0_18px_40px_rgba(128,0,0,0.14)]`}>
             <div className="space-y-3">
               <textarea
                 value={streamInput}
                 onChange={(event) => setStreamInput(event.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && postAnnouncement()}
                 disabled={!teacherSettings.studentAnnouncementsEnabled}
-                rows={3}
-                className="w-full rounded-2xl border border-amber-300/60 px-4 py-3 text-sm text-slate-800 font-medium placeholder:text-amber-700/60"
+                rows={1}
+                className="h-[100px] min-h-[100px] w-full resize-none rounded-2xl border border-[#c9a96e]/60 px-4 py-3 text-sm font-medium text-[#191970] placeholder:text-[#800020]/60"
                 style={{ backgroundColor: '#f5deb3' }}
                 placeholder={teacherSettings.studentAnnouncementsEnabled ? 'Post class announcement…' : 'Teacher has disabled student posts'}
               />
 
-              <div className="flex flex-wrap items-center justify-between gap-3">
-                <div className="flex flex-wrap items-center gap-2">
+              <div className="flex flex-wrap items-center justify-end gap-3">
+                <div className="mr-auto flex flex-wrap items-center gap-2">
                   <button
                     type="button"
                     onClick={() => setStreamEmojiOpen(open => !open)}
-                    className="rounded-2xl border border-amber-300/60 bg-[#f5deb3] px-4 py-2 text-sm font-semibold text-slate-800"
+                    className="rounded-2xl border border-[#c9a96e]/60 bg-[#fff8f0] px-4 py-2 text-sm font-semibold text-[#191970]"
                   >
                     Emoji
                   </button>
-                  <p className="text-xs text-slate-300">Students can post and chat with classmates in this class by default.</p>
                 </div>
                 <button
                   onClick={postAnnouncement}
                   disabled={!teacherSettings.studentAnnouncementsEnabled}
-                  className="px-4 py-2 rounded-2xl bg-indigo-500/30 border border-indigo-300/40 text-white text-sm font-semibold disabled:opacity-40"
+                  className="rounded-2xl border border-[#1a5c38]/35 bg-[#1a5c38]/12 px-4 py-2 text-sm font-semibold text-[#191970] disabled:opacity-40"
                 >
                   Post
                 </button>
               </div>
 
               {streamEmojiOpen && (
-                <div className="flex flex-wrap gap-2 rounded-2xl border border-white/10 bg-slate-900/30 p-3">
+                <div className="flex flex-wrap gap-2 rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] p-3">
                   {STREAM_EMOJIS.map(emoji => (
                     <button
                       key={emoji}
                       type="button"
                       onClick={() => appendEmojiToStream(emoji)}
-                      className="rounded-xl border border-white/10 bg-white/10 px-3 py-2 text-lg"
+                      className="rounded-xl border border-[#c9a96e]/45 bg-[#f5deb3] px-3 py-2 text-lg"
                     >
                       {emoji}
                     </button>
@@ -838,21 +998,21 @@ export default function StudentClassroom() {
                   <div className="mt-4 flex flex-wrap gap-2">
                     <button
                       type="button"
-                      onClick={() => setProfileMember(member)}
+                      onClick={() => setProfileMember({ ...member, role: formatRoleLabel(member.role), className: member.className || classroomLabel })}
                       className="rounded-2xl border border-white/10 px-4 py-2 text-sm font-semibold text-slate-100 hover:bg-white/10"
                     >
                       View Profile
                     </button>
                     <button
                       type="button"
-                      onClick={() => openChatWithClassmate(member)}
+                      onClick={() => openChatWithMember({ ...member, role: formatRoleLabel(member.role), className: member.className || classroomLabel })}
                       className="rounded-2xl bg-emerald-500/30 border border-emerald-300/40 px-4 py-2 text-sm font-semibold text-white"
                     >
                       Send Chat
                     </button>
                     <button
                       type="button"
-                      onClick={() => reportClassmate(member)}
+                      onClick={() => reportMember({ ...member, role: formatRoleLabel(member.role), className: member.className || classroomLabel })}
                       className="rounded-2xl bg-rose-500/25 border border-rose-300/40 px-4 py-2 text-sm font-semibold text-white"
                     >
                       Report User
@@ -952,7 +1112,7 @@ export default function StudentClassroom() {
                 type="button"
                 onClick={() => {
                   setProfileMember(null);
-                  openChatWithClassmate(profileMember);
+                  openChatWithMember(profileMember);
                 }}
                 className="rounded-2xl bg-emerald-500/30 border border-emerald-300/40 px-4 py-2 text-sm font-semibold text-white"
               >
@@ -962,7 +1122,7 @@ export default function StudentClassroom() {
                 type="button"
                 onClick={() => {
                   setProfileMember(null);
-                  reportClassmate(profileMember);
+                  reportMember(profileMember);
                 }}
                 className="rounded-2xl bg-rose-500/25 border border-rose-300/40 px-4 py-2 text-sm font-semibold text-white"
               >

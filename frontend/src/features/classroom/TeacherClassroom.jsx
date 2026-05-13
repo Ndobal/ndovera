@@ -1,11 +1,76 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import StudentSectionShell from '../../app/roles/student/StudentSectionShell';
 import TeacherAssignmentsPanel from './TeacherAssignmentsPanel';
 import * as svc from './classroomService';
 import MaterialTypeThumbnail, { materialTypeLabel } from '../../shared/components/MaterialTypeThumbnail';
+import { getStoredAuth } from '../auth/services/authApi';
 
 const TODAY = new Date().toISOString().slice(0, 10);
 const STREAM_EMOJIS = ['😀', '😂', '😍', '🔥', '👏', '🎉', '👍', '🙏', '💡', '📚', '💯', '🚀'];
+const STAFF_MESSAGING_INTENT_KEY = 'staffMessagingIntent';
+
+function normalizeMemberIdentifier(value) {
+  return String(value || '').trim().toLowerCase();
+}
+
+function looksLikeEmail(value) {
+  return /\S+@\S+\.\S+/.test(String(value || '').trim());
+}
+
+function formatRoleLabel(value, fallback = 'Class User') {
+  const normalized = String(value || '').trim();
+  if (!normalized) return fallback;
+  return normalized.charAt(0).toUpperCase() + normalized.slice(1);
+}
+
+function buildAvatarLabel(value) {
+  const parts = String(value || 'CU').trim().split(/\s+/).filter(Boolean);
+  if (parts.length === 0) return 'CU';
+  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+  return `${parts[0][0] || ''}${parts[1][0] || ''}`.toUpperCase();
+}
+
+function readStoredUser() {
+  try {
+    return JSON.parse(window.localStorage.getItem('authUser') || '{}');
+  } catch {
+    return {};
+  }
+}
+
+function htmlToDisplayText(value) {
+  const raw = String(value || '').trim();
+  if (!raw) return '';
+
+  const normalized = raw
+    .replace(/<div><br\s*\/?>\s*<\/div>/gi, '\n')
+    .replace(/<\/div>\s*<div>/gi, '\n')
+    .replace(/<div>/gi, '')
+    .replace(/<\/div>/gi, '\n')
+    .replace(/<\/p>\s*<p>/gi, '\n')
+    .replace(/<p>/gi, '')
+    .replace(/<\/p>/gi, '\n')
+    .replace(/<br\s*\/?>/gi, '\n')
+    .replace(/&nbsp;/gi, ' ');
+
+  if (typeof window !== 'undefined' && window.document) {
+    const element = window.document.createElement('div');
+    element.innerHTML = normalized;
+    return String(element.textContent || element.innerText || '')
+      .replace(/\r/g, '')
+      .replace(/\n{3,}/g, '\n\n')
+      .trim();
+  }
+
+  return normalized.replace(/<[^>]+>/g, '').replace(/\n{3,}/g, '\n\n').trim();
+}
+
+function saveStaffMessagingIntent(intent) {
+  try {
+    window.sessionStorage.setItem(STAFF_MESSAGING_INTENT_KEY, JSON.stringify(intent));
+  } catch {}
+}
 
 function formatTeacherStreamContent(value) {
   return String(value || '')
@@ -23,6 +88,9 @@ export default function TeacherClassroom({
   dashboardLabel = 'Teacher Dashboard',
   watermarkText = 'Teacher Dashboard',
 }) {
+  const navigate = useNavigate();
+  const storedAuth = getStoredAuth();
+  const storedUser = storedAuth?.user || readStoredUser();
   const [classId, setClassId] = useState('');
   const [assignedClasses, setAssignedClasses] = useState([]);
   const [activeTab, setActiveTab] = useState(() => lockedTab || initialTab);
@@ -54,12 +122,31 @@ export default function TeacherClassroom({
   const [uploadProgress, setUploadProgress] = useState({});
   const [classroomLoading, setClassroomLoading] = useState(true);
   const [classroomError, setClassroomError] = useState('');
+  const [classMembers, setClassMembers] = useState([]);
+  const [activeStreamMenuId, setActiveStreamMenuId] = useState('');
+  const [profileMember, setProfileMember] = useState(null);
 
   const selectedClass = assignedClasses.find(classroom => classroom.id === classId) || null;
+  const classroomLabel = selectedClass?.className || storedUser?.className || classId || 'Assigned Classroom';
   const materialSubjects = useMemo(() => selectedClass?.subjects || [], [selectedClass?.subjects]);
   const selectedMaterialSubject = materialSubjects.find(subject => subject.id === materialSubjectId) || materialSubjects[0] || null;
   const selectedLiveSubject = materialSubjects.find(subject => subject.id === liveSubjectId) || materialSubjects[0] || null;
   const isChoosingClass = !classId;
+  const selfMemberIdentifiers = useMemo(() => new Set(
+    [storedUser?.id, storedUser?.email, storedUser?.displayId]
+      .map(normalizeMemberIdentifier)
+      .filter(Boolean)
+  ), [storedUser?.displayId, storedUser?.email, storedUser?.id]);
+  const currentUserProfile = useMemo(() => ({
+    id: String(storedUser?.id || storedUser?.email || 'teacher'),
+    name: String(storedUser?.name || 'You'),
+    email: String(storedUser?.email || ''),
+    displayId: String(storedUser?.displayId || ''),
+    role: formatRoleLabel(storedUser?.role || 'teacher', 'Teacher'),
+    className: classroomLabel,
+    status: 'Active',
+    isSelf: true,
+  }), [classroomLabel, storedUser?.displayId, storedUser?.email, storedUser?.id, storedUser?.name, storedUser?.role]);
   const sortedPosts = useMemo(() => (
     [...posts].sort((first, second) => {
       const firstTime = new Date(first?.createdAt || first?.updatedAt || 0).getTime();
@@ -112,6 +199,7 @@ export default function TeacherClassroom({
       setMaterials([]);
       setAttendance([]);
       setStudents([]);
+      setClassMembers([]);
       setSelectedStudentId('');
       setAttendanceMessage('');
       setMaterialTitle('');
@@ -121,6 +209,8 @@ export default function TeacherClassroom({
       setLiveSessions([]);
       setLiveTopic('');
       setLiveMessage('');
+      setActiveStreamMenuId('');
+      setProfileMember(null);
       return;
     }
 
@@ -132,6 +222,7 @@ export default function TeacherClassroom({
     svc.getMaterials(classId).then(r => { if (r && r.success) setMaterials(r.materials || []); }).catch(()=>{});
     svc.getAttendance(classId).then(r => { if (r && r.success) setAttendance(r.attendance || []); }).catch(()=>{});
     svc.getLiveSessions(classId).then(r => { if (r && r.success) setLiveSessions(r.sessions || []); }).catch(()=>{});
+    svc.getClassMembers(classId).then(r => { if (r && r.success) setClassMembers(r.members || []); }).catch(() => setClassMembers([]));
   }, [classId]);
 
   useEffect(() => {
@@ -190,6 +281,7 @@ export default function TeacherClassroom({
     svc.getMaterials(classId).then(r => { if (r && r.success) setMaterials(r.materials || []); }).catch(()=>{});
     svc.getAttendance(classId).then(r => { if (r && r.success) setAttendance(r.attendance || []); }).catch(()=>{});
     svc.getLiveSessions(classId).then(r => { if (r && r.success) setLiveSessions(r.sessions || []); }).catch(()=>{});
+    svc.getClassMembers(classId).then(r => { if (r && r.success) setClassMembers(r.members || []); }).catch(() => setClassMembers([]));
   }
 
   async function handleCreatePost(e) {
@@ -220,6 +312,76 @@ export default function TeacherClassroom({
   function appendStreamEmoji(emoji) {
     setDraftContent(currentValue => `${currentValue}${emoji}`);
     setStreamEmojiOpen(false);
+  }
+
+  function openChatWithMember(member) {
+    if (!member || member.isSelf) return;
+    saveStaffMessagingIntent({
+      contact: {
+        id: member.id,
+        name: member.name,
+        email: member.email,
+        displayId: member.displayId,
+        role: formatRoleLabel(member.role || 'Student', 'Student'),
+      },
+    });
+    navigate('/roles/teacher/messaging');
+  }
+
+  function reportMember(member) {
+    if (!member || member.isSelf) return;
+    saveStaffMessagingIntent({
+      contact: {
+        id: 'support',
+        name: 'School Support',
+        role: 'Help Desk',
+      },
+      composeDraft: `I want to report ${member.name}${member.displayId ? ` (${member.displayId})` : ''} from ${member.className || classroomLabel}. Please review this issue: `,
+    });
+    navigate('/roles/teacher/messaging');
+  }
+
+  function resolveStreamAuthor(post) {
+    const postIdentifiers = [post?.authorId, post?.author, post?.authorName, post?.authorEmail, post?.displayId]
+      .map(normalizeMemberIdentifier)
+      .filter(Boolean);
+
+    if (postIdentifiers.some(identifier => selfMemberIdentifiers.has(identifier))) {
+      return currentUserProfile;
+    }
+
+    const matchedMember = classMembers.find(member => {
+      const memberIdentifiers = [member.id, member.email, member.displayId, member.name]
+        .map(normalizeMemberIdentifier)
+        .filter(Boolean);
+      return postIdentifiers.some(identifier => memberIdentifiers.includes(identifier));
+    });
+
+    if (matchedMember) {
+      return {
+        ...matchedMember,
+        name: matchedMember.name || matchedMember.email || matchedMember.id || 'Class User',
+        role: formatRoleLabel(matchedMember.role || (post?.isStudentPost ? 'student' : 'teacher')),
+        className: matchedMember.className || classroomLabel,
+        status: matchedMember.status || 'Active',
+        isSelf: false,
+      };
+    }
+
+    const fallbackName = [post?.authorName, post?.author]
+      .find(value => value && !looksLikeEmail(value)) || (post?.isStudentPost ? 'Student' : 'Teacher');
+    const fallbackEmail = [post?.author, post?.authorId].find(looksLikeEmail) || '';
+
+    return {
+      id: String(post?.authorId || post?.id || fallbackName),
+      name: String(fallbackName || 'Class User'),
+      email: String(fallbackEmail),
+      displayId: String(post?.displayId || ''),
+      role: formatRoleLabel(post?.isStudentPost ? 'student' : 'teacher'),
+      className: classroomLabel,
+      status: 'Active',
+      isSelf: false,
+    };
   }
 
   // Upload with progress using XMLHttpRequest (to support progress events)
@@ -534,12 +696,81 @@ export default function TeacherClassroom({
                     No stream posts yet. New posts will appear here, with the newest update settling at the bottom.
                   </div>
                 ) : (
-                  sortedPosts.map(p => (
-                    <div key={p.id} className="rounded-2xl border border-[#c9a96e]/35 bg-[#fff8f0] p-4 dark:border-[#bf00ff]/30 dark:bg-black/20">
-                      <div className="text-sm text-[#800020] dark:text-[#bf00ff]">{p.authorId} • {new Date(p.createdAt).toLocaleString()}</div>
-                      <div className="mt-2 text-[#191970] dark:text-[#ffffff]" dangerouslySetInnerHTML={{ __html: p.content }} />
-                    </div>
-                  ))
+                  sortedPosts.map(post => {
+                    const authorProfile = resolveStreamAuthor(post);
+                    const postTimestamp = post?.createdAt || post?.updatedAt || new Date().toISOString();
+                    const postText = htmlToDisplayText(post?.content || post?.text || '');
+
+                    return (
+                      <div key={post.id} className="rounded-2xl border border-[#c9a96e]/35 bg-[#fff8f0] p-4 dark:border-[#bf00ff]/30 dark:bg-black/20">
+                        <div className="flex items-start gap-4">
+                          <div className="relative">
+                            <button
+                              type="button"
+                              onClick={() => setActiveStreamMenuId(currentId => currentId === post.id ? '' : post.id)}
+                              className="flex h-11 w-11 items-center justify-center rounded-full border border-[#c9a96e]/60 bg-[#f5deb3] text-sm font-bold text-[#191970] shadow-[0_10px_24px_rgba(25,25,112,0.08)] dark:border-[#bf00ff]/35 dark:bg-black/25 dark:text-[#ffffff]"
+                              aria-label={`Open ${authorProfile.name} actions`}
+                            >
+                              {buildAvatarLabel(authorProfile.name)}
+                            </button>
+
+                            {activeStreamMenuId === post.id && (
+                              <div className="absolute left-0 top-14 z-30 w-64 rounded-[1.4rem] border border-[#c9a96e]/45 bg-[#fff8f0] p-3 shadow-[0_18px_40px_rgba(128,0,0,0.16)] dark:border-[#bf00ff]/35 dark:bg-[#26001f]">
+                                <p className="text-sm font-semibold text-[#191970] dark:text-[#ffffff]">{authorProfile.name}</p>
+                                <p className="mt-1 text-xs font-semibold uppercase tracking-[0.16em] text-[#800020] dark:text-[#bf00ff]">{authorProfile.role}</p>
+                                <div className="mt-3 flex flex-col gap-2">
+                                  <button
+                                    type="button"
+                                    onClick={() => {
+                                      setActiveStreamMenuId('');
+                                      setProfileMember(authorProfile);
+                                    }}
+                                    className="rounded-2xl border border-[#c9a96e]/45 px-3 py-2 text-left text-sm font-semibold text-[#191970] hover:bg-[#f5deb3] dark:border-[#bf00ff]/35 dark:text-[#ffffff] dark:hover:bg-black/25"
+                                  >
+                                    View Profile
+                                  </button>
+                                  <button
+                                    type="button"
+                                    disabled={authorProfile.isSelf}
+                                    onClick={() => {
+                                      setActiveStreamMenuId('');
+                                      openChatWithMember(authorProfile);
+                                    }}
+                                    className="rounded-2xl border border-[#1a5c38]/35 bg-[#1a5c38]/10 px-3 py-2 text-left text-sm font-semibold text-[#191970] hover:bg-[#1a5c38]/20 disabled:cursor-not-allowed disabled:opacity-50 dark:text-[#ffffff]"
+                                  >
+                                    Send Private Message
+                                  </button>
+                                  <button
+                                    type="button"
+                                    disabled={authorProfile.isSelf}
+                                    onClick={() => {
+                                      setActiveStreamMenuId('');
+                                      reportMember(authorProfile);
+                                    }}
+                                    className="rounded-2xl border border-[#800000]/20 bg-[#800000]/5 px-3 py-2 text-left text-sm font-semibold text-[#191970] hover:bg-[#800000]/10 disabled:cursor-not-allowed disabled:opacity-50 dark:text-[#ffffff]"
+                                  >
+                                    Report User
+                                  </button>
+                                </div>
+                              </div>
+                            )}
+                          </div>
+
+                          <div className="min-w-0 flex-1">
+                            <div className="flex flex-wrap items-start justify-between gap-3">
+                              <div>
+                                <p className="text-sm font-semibold text-[#191970] dark:text-[#ffffff]">{authorProfile.name}</p>
+                                <p className="mt-1 text-xs font-semibold uppercase tracking-[0.16em] text-[#800020] dark:text-[#bf00ff]">{authorProfile.role}{authorProfile.displayId ? ` • ${authorProfile.displayId}` : ''}</p>
+                              </div>
+                              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#800020] dark:text-[#bf00ff]">{new Date(postTimestamp).toLocaleString()}</p>
+                            </div>
+
+                            <p className="mt-3 whitespace-pre-wrap text-sm leading-7 text-[#191970] dark:text-[#ffffff]">{postText}</p>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })
                 )}
               </div>
 
@@ -876,6 +1107,67 @@ export default function TeacherClassroom({
             </div>
           )}
         </div>}
+
+        {profileMember && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-4">
+            <div className="w-full max-w-lg rounded-[2rem] border border-[#c9a96e]/45 bg-[#fff8f0] p-6 shadow-[0_24px_60px_rgba(15,23,42,0.35)] dark:border-[#bf00ff]/35 dark:bg-[#26001f]">
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#800020] dark:text-[#bf00ff]">Classroom Profile</p>
+                  <h3 className="mt-2 text-2xl font-semibold text-[#191970] dark:text-[#ffffff]">{profileMember.name}</h3>
+                  <p className="mt-2 text-sm text-[#191970] dark:text-[#ffffff]">{profileMember.role} • {profileMember.status}</p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setProfileMember(null)}
+                  className="rounded-2xl border border-[#c9a96e]/45 px-4 py-2 text-sm font-semibold text-[#191970] hover:bg-[#f5deb3] dark:border-[#bf00ff]/35 dark:text-[#ffffff] dark:hover:bg-black/25"
+                >
+                  Close
+                </button>
+              </div>
+
+              <div className="mt-6 grid grid-cols-1 gap-3 md:grid-cols-2">
+                <div className="rounded-2xl border border-[#c9a96e]/35 bg-[#f5deb3] p-4 dark:border-[#bf00ff]/30 dark:bg-black/20">
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#800020] dark:text-[#bf00ff]">Display ID</p>
+                  <p className="mt-2 text-sm text-[#191970] dark:text-[#ffffff]">{profileMember.displayId || 'Not shared'}</p>
+                </div>
+                <div className="rounded-2xl border border-[#c9a96e]/35 bg-[#f5deb3] p-4 dark:border-[#bf00ff]/30 dark:bg-black/20">
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#800020] dark:text-[#bf00ff]">Class</p>
+                  <p className="mt-2 text-sm text-[#191970] dark:text-[#ffffff]">{profileMember.className || classroomLabel}</p>
+                </div>
+                <div className="rounded-2xl border border-[#c9a96e]/35 bg-[#f5deb3] p-4 md:col-span-2 dark:border-[#bf00ff]/30 dark:bg-black/20">
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#800020] dark:text-[#bf00ff]">School Email</p>
+                  <p className="mt-2 text-sm text-[#191970] dark:text-[#ffffff]">{profileMember.email || 'Not shared'}</p>
+                </div>
+              </div>
+
+              {!profileMember.isSelf && (
+                <div className="mt-6 flex flex-wrap gap-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setProfileMember(null);
+                      openChatWithMember(profileMember);
+                    }}
+                    className="rounded-2xl bg-[#1a5c38] px-4 py-2 text-sm font-bold text-[#f5deb3] transition-colors hover:bg-[#154a2e] dark:bg-[#00ffff] dark:text-[#000000] dark:hover:bg-[#7dfcff]"
+                  >
+                    Send Private Message
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setProfileMember(null);
+                      reportMember(profileMember);
+                    }}
+                    className="rounded-2xl border border-[#800000]/20 bg-[#fff8f0] px-4 py-2 text-sm font-semibold text-[#800000] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#ffffff]"
+                  >
+                    Report User
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
       </div>
     </StudentSectionShell>
   );

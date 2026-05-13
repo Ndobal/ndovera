@@ -85,12 +85,55 @@ function toLines(value) {
     .filter(Boolean);
 }
 
+function getYouTubeEmbedUrl(url) {
+  const raw = String(url || '').trim();
+  if (!raw) return '';
+
+  try {
+    const parsed = new URL(raw);
+    if (parsed.hostname.includes('youtu.be')) {
+      const videoId = parsed.pathname.replace(/^\//, '').trim();
+      return videoId ? `https://www.youtube.com/embed/${videoId}` : '';
+    }
+
+    if (parsed.hostname.includes('youtube.com')) {
+      if (parsed.pathname === '/watch') {
+        const videoId = parsed.searchParams.get('v') || '';
+        return videoId ? `https://www.youtube.com/embed/${videoId}` : '';
+      }
+
+      const match = parsed.pathname.match(/\/(embed|shorts)\/([^/?#]+)/);
+      return match?.[2] ? `https://www.youtube.com/embed/${match[2]}` : '';
+    }
+  } catch {
+    return '';
+  }
+
+  return '';
+}
+
 function isVideo(url) {
   return /\.(mp4|webm|ogg|mov)(\?|#|$)/i.test(String(url || ''));
 }
 
 function MediaPreview({ url, label }) {
   if (!url) return null;
+  const youtubeUrl = getYouTubeEmbedUrl(url);
+
+  if (youtubeUrl) {
+    return (
+      <iframe
+        src={youtubeUrl}
+        title={label}
+        className="mt-2 h-28 w-full max-w-xs rounded-xl border border-[#c9a96e]/40"
+        loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerPolicy="strict-origin-when-cross-origin"
+        allowFullScreen
+      />
+    );
+  }
+
   if (/\.pdf(\?|#|$)/i.test(url)) {
     return (
       <a href={url} target="_blank" rel="noreferrer" className="mt-2 inline-flex text-xs font-bold text-[#1a5c38] underline">
@@ -246,6 +289,12 @@ function SectionCard({ section, data, onSaved }) {
             {form.imageUrl && <span className="text-xs text-[#1a5c38] font-semibold">Primary media set</span>}
           </div>
           <MediaPreview url={form.imageUrl} label={section.label} />
+        </div>
+
+        <div>
+          <label className={labelClass}>YouTube / Video URL</label>
+          <input value={form.videoUrl} onChange={e => setForm(f => ({ ...f, videoUrl: e.target.value }))} className={inputClass} placeholder="https://www.youtube.com/watch?v=..." />
+          <MediaPreview url={form.videoUrl} label={`${section.label} video`} />
         </div>
 
         {show('button') && (

@@ -7,6 +7,7 @@ import AmiPoliciesPage from './ami/AmiPoliciesPage';
 import AmiAuditsPage from './ami/AmiAuditsPage';
 import AmiReportsPage from './ami/AmiReportsPage';
 import AmiSettingsPage from './ami/AmiSettingsPage';
+import AmiWebsitePage from './ami/AmiWebsitePage';
 
 export default function AmiDashboard() {
   const location = useLocation();
@@ -23,6 +24,7 @@ export default function AmiDashboard() {
   if (sectionKey === 'policies') return <AmiPoliciesPage />;
   if (sectionKey === 'audits')   return <AmiAuditsPage />;
   if (sectionKey === 'reports')  return <AmiReportsPage />;
+  if (sectionKey === 'website')  return <AmiWebsitePage />;
   if (sectionKey === 'settings') return <AmiSettingsPage />;
 
   // overview, tenants

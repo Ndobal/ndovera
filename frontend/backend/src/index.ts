@@ -1036,6 +1036,15 @@ app.use('*', cors({
 
 app.use('*', logger())
 
+app.use('*', async (c, next) => {
+  const requestUrl = new URL(c.req.url)
+  if (requestUrl.hostname.toLowerCase() === 'www.ndovera.com') {
+    requestUrl.hostname = 'ndovera.com'
+    return c.redirect(requestUrl.toString(), 301)
+  }
+  await next()
+})
+
 app.get('/api/tenants/pricing', async (c) => {
   const planKey = String(c.req.query('planKey') || '').toLowerCase()
   const billableUserCount = Number(c.req.query('billableUserCount') || c.req.query('studentCount') || 0)
@@ -3757,11 +3766,251 @@ app.get('/api/people/:userId', authenticate, async (c) => {
 
 const INIT_BRANDING = `CREATE TABLE IF NOT EXISTS tenant_branding (tenant_id TEXT PRIMARY KEY, logo_url TEXT, tagline TEXT, website TEXT, updated_at TEXT)`
 const INIT_WEBSITE_SECTIONS = `CREATE TABLE IF NOT EXISTS website_sections (id TEXT PRIMARY KEY, tenant_id TEXT, section_key TEXT, title TEXT, content TEXT, image_url TEXT, metadata TEXT, updated_at TEXT)`
+const INIT_PLATFORM_SITE_SECTIONS = `CREATE TABLE IF NOT EXISTS platform_site_sections (id TEXT PRIMARY KEY, section_key TEXT, title TEXT, content TEXT, image_url TEXT, metadata TEXT, updated_at TEXT)`
 const INIT_SCHOOL_EVENTS = `CREATE TABLE IF NOT EXISTS school_events (id TEXT PRIMARY KEY, tenant_id TEXT, title TEXT, description TEXT, event_date TEXT, media_urls TEXT, created_at TEXT, updated_at TEXT)`
+
+const PLATFORM_SITE_SECTION_SEEDS = [
+  {
+    sectionKey: 'home',
+    title: 'School owners get control, parents get clarity, and students get better support.',
+    content: 'NDOVERA helps schools run daily work, support learning, and keep parents informed from one place. It gives school owners a clearer view, helps teachers stay organised, and helps families feel included.',
+    imageUrl: '/site-media/ndovera-home-hero.svg',
+    metadata: {
+      eyebrow: 'For School Owners, Parents, And Growth Partners',
+      buttonLabel: 'Discover NDOVERA',
+      buttonUrl: '/about',
+      secondaryButtonLabel: 'See NDOVERA Tutor',
+      secondaryButtonUrl: '/tutor',
+      spotlightEyebrow: 'Built For Real School Life',
+      spotlightTitle: 'When a school runs well, everyone feels it.',
+      spotlightDescription: 'Owners see what needs attention. Parents get updates they can understand. Teachers and students work in a calmer system that is easier to trust.',
+      stats: [
+        { label: 'School owners', value: 'Clear view' },
+        { label: 'Parents', value: 'Better updates' },
+        { label: 'Teachers', value: 'Less stress' },
+        { label: 'Growth', value: 'Stronger base' },
+      ],
+      cards: [
+        { title: 'Leadership Control', description: 'Give school owners a clearer picture of daily work, progress, and what needs attention next.' },
+        { title: 'Parent Confidence', description: 'Help families feel informed, respected, and closer to the life of the school.' },
+        { title: 'Better Learning Support', description: 'Support teachers and students with tools that keep learning clear and steady.' },
+        { title: 'A Stronger School Brand', description: 'Show the school well in public while improving how the school runs inside.' },
+      ],
+      mediaUrls: [
+        '/site-media/ndovera-about-story.svg',
+        '/site-media/ndovera-gallery-learning.svg',
+      ],
+    },
+  },
+  {
+    sectionKey: 'about',
+    title: 'NDOVERA helps schools look professional and run with confidence.',
+    content: 'A good school needs more than good intentions. It needs clear systems, trusted communication, and a strong public presence. NDOVERA brings these together in one steady platform.',
+    imageUrl: '/site-media/ndovera-about-story.svg',
+    metadata: {
+      eyebrow: 'About NDOVERA',
+      spotlightEyebrow: 'Clear By Design',
+      spotlightTitle: 'Schools deserve one strong system for both the office and the classroom.',
+      spotlightDescription: 'NDOVERA was shaped around real school life. It gives owners, teachers, parents, and students a shared system that feels useful from day one.',
+      cards: [
+        { title: 'For School Owners', description: 'See the school more clearly, lead with more confidence, and make better decisions faster.' },
+        { title: 'For Parents', description: 'Create communication that is easier to trust and easier to understand.' },
+        { title: 'For Real Growth', description: 'Build a stronger school image while improving the daily systems behind it.' },
+      ],
+      mediaUrls: [
+        '/site-media/ndovera-gallery-school.svg',
+      ],
+    },
+  },
+  {
+    sectionKey: 'mission',
+    title: 'Our mission is to make school management simpler, clearer, and more trusted.',
+    content: 'We help schools reduce confusion, improve communication, and support learning with tools people can actually use. NDOVERA is built to make daily school work lighter and more dependable.',
+    imageUrl: '/site-media/ndovera-home-hero.svg',
+    metadata: {
+      eyebrow: 'Our Mission',
+      spotlightEyebrow: 'What Drives Us',
+      spotlightTitle: 'Good schools move faster when the system behind them is strong.',
+      spotlightDescription: 'We want owners to lead with confidence, parents to stay informed, and teachers to spend more time helping students succeed.',
+      cards: [
+        { title: 'Help Owners Lead Well', description: 'Give school leaders better visibility and fewer blind spots in daily operations.' },
+        { title: 'Help Parents Stay Informed', description: 'Make school communication clearer, calmer, and easier to trust.' },
+        { title: 'Help Teaching Stay Strong', description: 'Support teachers and students with tools that keep learning focused and moving forward.' },
+      ],
+      mediaUrls: [
+        '/site-media/ndovera-gallery-community.svg',
+      ],
+    },
+  },
+  {
+    sectionKey: 'vision',
+    title: 'Our vision is a future where every school can grow on a stronger digital foundation.',
+    content: 'We want school owners to have a clearer view of progress, parents to feel informed, and students to learn in better supported environments. NDOVERA is growing toward that future one strong school at a time.',
+    imageUrl: '/site-media/ndovera-opportunity-paths.svg',
+    metadata: {
+      eyebrow: 'Our Vision',
+      spotlightEyebrow: 'Looking Ahead',
+      spotlightTitle: 'Every school deserves tools that help people move with confidence.',
+      spotlightDescription: 'We see a future where leadership is clearer, parent trust is stronger, and student support is built into the daily life of the school.',
+      cards: [
+        { title: 'Confident Leadership', description: 'School owners should be able to see what matters and act early with confidence.' },
+        { title: 'Trusted Parent Communication', description: 'Families should not be left guessing about school life or student progress.' },
+        { title: 'Better Supported Learning', description: 'Students should have stronger guidance without losing effort, care, or human support.' },
+      ],
+      mediaUrls: [
+        '/site-media/ndovera-gallery-learning.svg',
+      ],
+    },
+  },
+  {
+    sectionKey: 'partners',
+    title: 'We welcome growth partners who want better results for schools.',
+    content: 'NDOVERA is open to school groups, rollout teams, education supporters, and investors who believe practical school improvement matters. We want partnerships that create useful change, not empty noise.',
+    imageUrl: '/site-media/ndovera-partner-network.svg',
+    metadata: {
+      eyebrow: 'Growth Partners',
+      spotlightEyebrow: 'Built Through Collaboration',
+      spotlightTitle: 'The best partnerships help schools grow faster and with less waste.',
+      spotlightDescription: 'We are interested in partners who want real outcomes for schools, stronger rollout, and long-term value that people can actually see.',
+      cards: [
+        { title: 'School Groups', description: 'Work with NDOVERA to help more schools move into stronger, more trusted systems.' },
+        { title: 'Rollout Partners', description: 'Help schools launch well, train teams, and keep adoption strong after go-live.' },
+        { title: 'Education Supporters And Investors', description: 'Back practical tools and services that help schools improve in visible ways.' },
+      ],
+      mediaUrls: [
+        '/site-media/ndovera-opportunity-paths.svg',
+        '/site-media/ndovera-event-briefing.svg',
+      ],
+    },
+  },
+  {
+    sectionKey: 'tutor',
+    title: 'NDOVERA Tutor helps students learn with more confidence.',
+    content: 'Students can ask questions, revise important topics, and get help in clear English. It supports better understanding in a way parents can trust and teachers can respect.',
+    imageUrl: '/site-media/ndovera-tutor-focus.svg',
+    metadata: {
+      eyebrow: 'NDOVERA Tutor',
+      spotlightEyebrow: 'Student Support',
+      spotlightTitle: 'Parents want support they can trust. Students need help they can understand.',
+      spotlightDescription: 'NDOVERA Tutor is designed to explain, guide, and support practice in a way that still respects the learner, the teacher, and the parent.',
+      mediaEyebrow: 'Learning Support',
+      mediaTitle: 'Simple explanations, steady revision, and support that feels safe and useful.',
+      mediaDescription: 'The tutor helps students break down hard topics, prepare with more confidence, and keep learning moving forward in plain English.',
+      cards: [
+        { title: 'Homework Help', description: 'Support students with clear guidance when they get stuck and need a better way into the work.' },
+        { title: 'Lesson Support', description: 'Turn confusion into understanding with explanations that are easier to follow.' },
+        { title: 'Exam Revision', description: 'Help students prepare with more focus, stronger recall, and better confidence.' },
+      ],
+      mediaUrls: [
+        '/site-media/ndovera-gallery-learning.svg',
+      ],
+    },
+  },
+  {
+    sectionKey: 'opportunities',
+    title: 'There are real opportunities to build, support, and grow with NDOVERA.',
+    content: 'If you work with schools, support education, or want to back practical tools that help schools improve, there may be a place for you here. We are open to people and teams who want useful work with real impact.',
+    imageUrl: '/site-media/ndovera-opportunity-paths.svg',
+    metadata: {
+      eyebrow: 'Opportunities',
+      spotlightEyebrow: 'Grow With Purpose',
+      spotlightTitle: 'Real opportunity starts where useful work meets real school needs.',
+      spotlightDescription: 'We are open to schools, partners, operators, and backers who want to help schools become more organised, more trusted, and more ready for growth.',
+      cards: [
+        { title: 'School Onboarding', description: 'Support schools that are ready to strengthen their systems and public presence.' },
+        { title: 'Training And Rollout', description: 'Help teams learn the platform, settle in well, and stay confident after launch.' },
+        { title: 'Education Partners', description: 'Work with NDOVERA on programmes, content, and support that help schools grow.' },
+        { title: 'Product And Growth', description: 'Back better workflows, stronger delivery, and practical school innovation.' },
+      ],
+      mediaUrls: [
+        '/site-media/ndovera-partner-network.svg',
+        '/site-media/ndovera-gallery-community.svg',
+      ],
+    },
+  },
+  {
+    sectionKey: 'events',
+    title: 'NDOVERA events bring school owners, parents, partners, and supporters into useful conversation.',
+    content: 'We host moments that help people learn, connect, and take practical next steps. Every event should leave visitors with clearer thinking and stronger confidence in where NDOVERA is going.',
+    imageUrl: '/site-media/ndovera-event-briefing.svg',
+    metadata: {
+      eyebrow: 'Events',
+      spotlightEyebrow: 'Useful Conversations',
+      spotlightTitle: 'Our events are built around clarity, connection, and practical action.',
+      spotlightDescription: 'We want every briefing, demo, and roundtable to give people real insight, not just a nice poster and a short speech.',
+      cards: [
+        { eyebrow: 'Jun 2026', title: 'School Owner Growth Briefing', description: 'A live session for school owners and leadership teams exploring stronger structure for admissions, reporting, and parent communication.' },
+        { eyebrow: 'Jul 2026', title: 'Parent Trust And Tutor Demo', description: 'A focused session showing how simple learning support and clearer school updates can build confidence for families.' },
+        { eyebrow: 'Aug 2026', title: 'Partner And Investor Roundtable', description: 'A conversation with growth partners, education supporters, and backers who want practical school progress.' },
+      ],
+      mediaUrls: [
+        '/site-media/ndovera-gallery-community.svg',
+        '/site-media/ndovera-gallery-school.svg',
+        '/site-media/ndovera-gallery-learning.svg',
+      ],
+    },
+  },
+  {
+    sectionKey: 'gallery',
+    title: 'See how NDOVERA supports school growth in real life.',
+    content: 'This gallery holds moments that reflect the spirit of NDOVERA: calm systems, strong learning, better teamwork, and visible growth. It helps visitors feel the work, the care, and the direction of NDOVERA.',
+    imageUrl: '/site-media/ndovera-gallery-school.svg',
+    metadata: {
+      eyebrow: 'Gallery',
+      spotlightEyebrow: 'In Motion',
+      spotlightTitle: 'The NDOVERA story is best seen in real moments of work, learning, and growth.',
+      spotlightDescription: 'This gallery gives visitors a clearer feel for the people, sessions, and progress behind the platform.',
+      cards: [
+        { title: 'Leadership And Planning', description: 'Scenes that reflect direction, decision-making, and confident school management.' },
+        { title: 'Parents And Communication', description: 'Moments that show trust, visibility, and stronger family connection.' },
+        { title: 'Learning Support In Motion', description: 'Visuals that capture focus, support, and student progress.' },
+        { title: 'Partners And Progress', description: 'A look at how NDOVERA grows through collaboration, demos, and real working days.' },
+      ],
+      mediaUrls: [
+        '/site-media/ndovera-home-hero.svg',
+        '/site-media/ndovera-about-story.svg',
+        '/site-media/ndovera-partner-network.svg',
+        '/site-media/ndovera-tutor-focus.svg',
+        '/site-media/ndovera-gallery-learning.svg',
+        '/site-media/ndovera-gallery-community.svg',
+      ],
+    },
+  },
+]
 
 async function ensureWebsiteSectionsTable(db: D1Database) {
   await db.prepare(INIT_WEBSITE_SECTIONS).run()
   await db.prepare(`ALTER TABLE website_sections ADD COLUMN metadata TEXT`).run().catch(() => {})
+}
+
+async function ensurePlatformSiteSectionsTable(db: D1Database) {
+  await db.prepare(INIT_PLATFORM_SITE_SECTIONS).run()
+  await db.prepare(`ALTER TABLE platform_site_sections ADD COLUMN metadata TEXT`).run().catch(() => {})
+
+  for (const seed of PLATFORM_SITE_SECTION_SEEDS) {
+    const metadataText = JSON.stringify(seed.metadata || {})
+    const updatedAt = new Date().toISOString()
+
+    await db.prepare(
+      `INSERT INTO platform_site_sections (id, section_key, title, content, image_url, metadata, updated_at)
+       SELECT ?, ?, ?, ?, ?, ?, ?
+       WHERE NOT EXISTS (SELECT 1 FROM platform_site_sections WHERE section_key = ?)`
+    )
+      .bind(`platform_${seed.sectionKey}`, seed.sectionKey, seed.title, seed.content, seed.imageUrl || null, metadataText, updatedAt, seed.sectionKey)
+      .run()
+
+    await db.prepare(
+      `UPDATE platform_site_sections
+       SET title = ?, content = ?, image_url = ?, metadata = ?, updated_at = ?
+       WHERE section_key = ?
+         AND COALESCE(title, '') = ''
+         AND COALESCE(content, '') = ''
+         AND COALESCE(image_url, '') = ''
+         AND (metadata IS NULL OR TRIM(metadata) = '' OR TRIM(metadata) = '{}')`
+    )
+      .bind(seed.title, seed.content, seed.imageUrl || null, metadataText, updatedAt, seed.sectionKey)
+      .run()
+  }
 }
 
 app.get('/api/school/branding', authenticate, async (c) => {
@@ -3867,6 +4116,62 @@ app.post('/api/school/website/sections/upload', authenticate, async (c) => {
     await c.env.UPLOADS.put(key, file.stream(), { httpMetadata: { contentType: file.type } })
     return c.json({ success: true, url: `https://ndovera.com/files/${key}` })
   } catch { return c.json({ error: 'Upload failed.' }, 500) }
+})
+
+app.get('/api/public/platform-site', async (c) => {
+  try {
+    await ensurePlatformSiteSectionsTable(c.env.APP_DB)
+    const rows = await c.env.APP_DB.prepare(`SELECT * FROM platform_site_sections ORDER BY section_key`).all()
+    return c.json({ success: true, sections: rows.results || [] })
+  } catch {
+    return c.json({ success: true, sections: [] })
+  }
+})
+
+app.get('/api/ami/website/sections', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  try {
+    await ensurePlatformSiteSectionsTable(c.env.APP_DB)
+    const rows = await c.env.APP_DB.prepare(`SELECT * FROM platform_site_sections ORDER BY section_key`).all()
+    return c.json({ success: true, sections: rows.results || [] })
+  } catch {
+    return c.json({ success: true, sections: [] })
+  }
+})
+
+app.post('/api/ami/website/sections', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  const { sectionKey, title, content, imageUrl, metadata } = await c.req.json()
+  if (!sectionKey) return c.json({ error: 'Section key required.' }, 400)
+
+  try {
+    await ensurePlatformSiteSectionsTable(c.env.APP_DB)
+    await c.env.APP_DB.prepare(
+      `INSERT OR REPLACE INTO platform_site_sections (id, section_key, title, content, image_url, metadata, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?)`
+    )
+      .bind(`platform_${sectionKey}`, sectionKey, title || '', content || '', imageUrl || null, JSON.stringify(metadata || {}), new Date().toISOString())
+      .run()
+    return c.json({ success: true })
+  } catch {
+    return c.json({ error: 'Could not save section.' }, 500)
+  }
+})
+
+app.post('/api/ami/website/sections/upload', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  const formData = await c.req.formData()
+  const file = formData.get('file') as File
+  const sectionKey = (formData.get('sectionKey') as string) || 'general'
+  if (!file) return c.json({ error: 'No file provided.' }, 400)
+
+  try {
+    const ext = file.name.split('.').pop()?.toLowerCase() || 'jpg'
+    const key = `platform-site/${sectionKey}/${Date.now()}.${ext}`
+    await c.env.UPLOADS.put(key, file.stream(), { httpMetadata: { contentType: file.type } })
+    return c.json({ success: true, url: `https://ndovera.com/files/${key}` })
+  } catch {
+    return c.json({ error: 'Upload failed.' }, 500)
+  }
 })
 
 // School events
@@ -5007,8 +5312,45 @@ function isPdfUrl(url: string) {
   return /\.pdf(\?|#|$)/i.test(String(url || ''))
 }
 
+function isYouTubeUrl(url: string) {
+  return /(youtube\.com|youtu\.be)/i.test(String(url || ''))
+}
+
+function toYouTubeEmbedUrl(url: string) {
+  const raw = String(url || '').trim()
+  if (!raw) return ''
+
+  try {
+    const parsed = new URL(raw)
+    if (parsed.hostname.includes('youtu.be')) {
+      const videoId = parsed.pathname.replace(/^\//, '').trim()
+      return videoId ? `https://www.youtube.com/embed/${videoId}` : ''
+    }
+
+    if (parsed.hostname.includes('youtube.com')) {
+      if (parsed.pathname === '/watch') {
+        const videoId = parsed.searchParams.get('v') || ''
+        return videoId ? `https://www.youtube.com/embed/${videoId}` : ''
+      }
+
+      const match = parsed.pathname.match(/\/(embed|shorts)\/([^/?#]+)/)
+      return match?.[2] ? `https://www.youtube.com/embed/${match[2]}` : ''
+    }
+  } catch {
+    return ''
+  }
+
+  return ''
+}
+
 function renderMedia(url: string, alt: string, className = 'media-frame') {
   if (!url) return ''
+  if (isYouTubeUrl(url)) {
+    const embedUrl = toYouTubeEmbedUrl(url)
+    if (embedUrl) {
+      return `<iframe class="${className}" src="${escAttr(embedUrl)}" title="${escAttr(alt || 'Embedded video')}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`
+    }
+  }
   if (isPdfUrl(url)) {
     return `<div class="${className || 'placeholder-media'}"><a class="btn-primary" href="${escAttr(url)}" target="_blank" rel="noopener">${escHtml(alt || 'View document')}</a></div>`
   }
@@ -5112,10 +5454,12 @@ function renderSchoolHome(tenant: any, branding: any, sections: any[], events: a
   const hero = sectionByKey(sections, 'hero')
   const heroMeta = parseMeta(hero)
   const about = sectionByKey(sections, 'about') || sectionByKey(sections, 'mission')
+  const aboutMeta = parseMeta(about)
   const academics = sectionByKey(sections, 'academics')
   const admissions = sectionByKey(sections, 'admissions')
   const flyer = sectionByKey(sections, 'admission_flyer')
   const tour = sectionByKey(sections, 'tour')
+  const tourMeta = parseMeta(tour)
   const gallery = sectionByKey(sections, 'gallery')
   const contact = sectionByKey(sections, 'contact')
   const contactMeta = parseMeta(contact)
@@ -5125,6 +5469,8 @@ function renderSchoolHome(tenant: any, branding: any, sections: any[], events: a
   const heroContent = hero?.content || tagline || 'Building excellence in every student.'
   const heroButton = heroMeta.buttonLabel || 'Learn More'
   const heroHref = heroMeta.buttonUrl || '/about'
+  const aboutMediaUrl = aboutMeta.youtubeUrl || aboutMeta.videoUrl || about?.image_url || ''
+  const tourMediaUrl = tourMeta.youtubeUrl || tourMeta.videoUrl || tour?.image_url || ''
   const eventsPreview = events.slice(0, 4)
   const flyerUrl = flyer?.image_url || parseMeta(flyer).flyerUrl
 
@@ -5167,7 +5513,7 @@ function renderSchoolHome(tenant: any, branding: any, sections: any[], events: a
         <p>${escHtml(about?.content || `${schoolName} partners with families to develop disciplined, confident, curious learners prepared for leadership and lifelong success.`)}</p>
         <div class="hero-actions"><a class="btn-primary" href="/about">Read More</a></div>
       </div>
-      ${about?.image_url ? renderMedia(about.image_url, about?.title || 'About our school') : '<div class="placeholder-media">School Story</div>'}
+      ${aboutMediaUrl ? renderMedia(aboutMediaUrl, about?.title || 'About our school') : '<div class="placeholder-media">School Story</div>'}
     </div>
   </section>
 
@@ -5180,7 +5526,7 @@ function renderSchoolHome(tenant: any, branding: any, sections: any[], events: a
 
   <section class="section alt">
     <div class="split">
-      ${tour?.image_url ? renderMedia(tour.image_url, tour?.title || 'Virtual tour') : '<div class="placeholder-media">Virtual Tour</div>'}
+      ${tourMediaUrl ? renderMedia(tourMediaUrl, tour?.title || 'Virtual tour') : '<div class="placeholder-media">Virtual Tour</div>'}
       <div>
         <p class="section-kicker">Campus Life</p>
         <h2>${escHtml(tour?.title || 'Shaping Future Leaders')}</h2>
@@ -5212,6 +5558,7 @@ function renderContentPage(tenant: any, branding: any, sections: any[], key: str
   const logoUrl = branding?.logoUrl || null
   const section = sectionByKey(sections, key)
   const meta = parseMeta(section)
+  const mediaUrl = meta.youtubeUrl || meta.videoUrl || section?.image_url || ''
   const body = `
     ${subdomainNavbar(schoolName, tenant.requestedSubdomain, logoUrl)}
     <header class="page-hero"><p class="eyebrow">${escHtml(meta.eyebrow || schoolName)}</p><h1>${escHtml(section?.title || fallbackTitle)}</h1><p>${escHtml(section?.content || fallbackCopy)}</p></header>
@@ -5223,7 +5570,7 @@ function renderContentPage(tenant: any, branding: any, sections: any[], key: str
           <p>${escHtml(section?.content || fallbackCopy)}</p>
           ${meta.buttonUrl ? `<div class="hero-actions"><a class="btn-primary" href="${escAttr(meta.buttonUrl)}">${escHtml(meta.buttonLabel || 'Learn More')}</a></div>` : ''}
         </div>
-        ${section?.image_url ? renderMedia(section.image_url, section?.title || fallbackTitle) : '<div class="placeholder-media">Add photos or videos from Website settings</div>'}
+        ${mediaUrl ? renderMedia(mediaUrl, section?.title || fallbackTitle) : '<div class="placeholder-media">Add photos or videos from Website settings</div>'}
       </div>
       ${Array.isArray(meta.programs) && meta.programs.length ? `<div class="cards" style="margin-top:34px">${meta.programs.map((item: string) => `<div class="info-card"><h3>${escHtml(item)}</h3><p>${escHtml(section?.content || fallbackCopy)}</p></div>`).join('')}</div>` : ''}
     </main>
