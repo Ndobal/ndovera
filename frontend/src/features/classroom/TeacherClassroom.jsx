@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import StudentSectionShell from '../../app/roles/student/StudentSectionShell';
 import TeacherAssignmentsPanel from './TeacherAssignmentsPanel';
 import * as svc from './classroomService';
+import SubjectsTab from './subjects';
 import MaterialTypeThumbnail, { materialTypeLabel } from '../../shared/components/MaterialTypeThumbnail';
 import { getStoredAuth } from '../auth/services/authApi';
 
@@ -680,6 +681,7 @@ export default function TeacherClassroom({
         {!!classId && !lockedTab && <div className="mb-4">
           <nav className="flex gap-2">
             <button className={`px-3 py-1 rounded-2xl border text-sm font-semibold transition-colors ${activeTab==='stream'?'bg-[#1a5c38] border-[#1a5c38] text-[#f5deb3] dark:bg-[#00ffff] dark:border-[#00ffff] dark:text-[#000000]':'bg-[#fff8f0] border-[#c9a96e]/45 text-[#191970] hover:bg-[#f2e1bf] dark:bg-black/20 dark:border-[#bf00ff]/35 dark:text-[#ffffff] dark:hover:bg-[#800000]/85'}`} onClick={()=>setActiveTab('stream')}>Stream</button>
+            <button className={`px-3 py-1 rounded-2xl border text-sm font-semibold transition-colors ${activeTab==='subjects'?'bg-[#1a5c38] border-[#1a5c38] text-[#f5deb3] dark:bg-[#00ffff] dark:border-[#00ffff] dark:text-[#000000]':'bg-[#fff8f0] border-[#c9a96e]/45 text-[#191970] hover:bg-[#f2e1bf] dark:bg-black/20 dark:border-[#bf00ff]/35 dark:text-[#ffffff] dark:hover:bg-[#800000]/85'}`} onClick={()=>setActiveTab('subjects')}>Subjects</button>
             <button className={`px-3 py-1 rounded-2xl border text-sm font-semibold transition-colors ${activeTab==='assignments'?'bg-[#1a5c38] border-[#1a5c38] text-[#f5deb3] dark:bg-[#00ffff] dark:border-[#00ffff] dark:text-[#000000]':'bg-[#fff8f0] border-[#c9a96e]/45 text-[#191970] hover:bg-[#f2e1bf] dark:bg-black/20 dark:border-[#bf00ff]/35 dark:text-[#ffffff] dark:hover:bg-[#800000]/85'}`} onClick={()=>setActiveTab('assignments')}>Assignments</button>
             <button className={`px-3 py-1 rounded-2xl border text-sm font-semibold transition-colors ${activeTab==='attendance'?'bg-[#1a5c38] border-[#1a5c38] text-[#f5deb3] dark:bg-[#00ffff] dark:border-[#00ffff] dark:text-[#000000]':'bg-[#fff8f0] border-[#c9a96e]/45 text-[#191970] hover:bg-[#f2e1bf] dark:bg-black/20 dark:border-[#bf00ff]/35 dark:text-[#ffffff] dark:hover:bg-[#800000]/85'}`} onClick={()=>setActiveTab('attendance')}>Attendance</button>
             <button className={`px-3 py-1 rounded-2xl border text-sm font-semibold transition-colors ${activeTab==='materials'?'bg-[#1a5c38] border-[#1a5c38] text-[#f5deb3] dark:bg-[#00ffff] dark:border-[#00ffff] dark:text-[#000000]':'bg-[#fff8f0] border-[#c9a96e]/45 text-[#191970] hover:bg-[#f2e1bf] dark:bg-black/20 dark:border-[#bf00ff]/35 dark:text-[#ffffff] dark:hover:bg-[#800000]/85'}`} onClick={()=>setActiveTab('materials')}>Materials</button>
@@ -925,6 +927,13 @@ export default function TeacherClassroom({
               </div>
             </div>
           )}
+
+          {activeTab === 'subjects' && (() => {
+            const subjectsList = selectedClass?.subjects || [];
+            const userRole = String(storedUser?.role || '').toLowerCase();
+            const canManage = selectedClass?.isClassTeacher || ['owner','hos','ict','ict_manager'].includes(userRole);
+            return <SubjectsTab classId={classId} subjects={subjectsList} canManage={canManage} />;
+          })()}
 
           {activeTab === 'materials' && (
             <div className="space-y-4">

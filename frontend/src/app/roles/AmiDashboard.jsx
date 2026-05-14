@@ -8,6 +8,7 @@ import AmiAuditsPage from './ami/AmiAuditsPage';
 import AmiReportsPage from './ami/AmiReportsPage';
 import AmiSettingsPage from './ami/AmiSettingsPage';
 import AmiWebsitePage from './ami/AmiWebsitePage';
+import AmiQuestionBank from './ami/AmiQuestionBank';
 
 export default function AmiDashboard() {
   const location = useLocation();
@@ -20,12 +21,13 @@ export default function AmiDashboard() {
     return <Navigate to="/roles/ami" replace />;
   }
 
-  if (sectionKey === 'security') return <AmiSecurityPage />;
-  if (sectionKey === 'policies') return <AmiPoliciesPage />;
-  if (sectionKey === 'audits')   return <AmiAuditsPage />;
-  if (sectionKey === 'reports')  return <AmiReportsPage />;
-  if (sectionKey === 'website')  return <AmiWebsitePage />;
-  if (sectionKey === 'settings') return <AmiSettingsPage />;
+  if (sectionKey === 'security')      return <AmiSecurityPage />;
+  if (sectionKey === 'policies')      return <AmiPoliciesPage />;
+  if (sectionKey === 'audits')        return <AmiAuditsPage />;
+  if (sectionKey === 'reports')       return <AmiReportsPage />;
+  if (sectionKey === 'website')       return <AmiWebsitePage />;
+  if (sectionKey === 'settings')      return <AmiSettingsPage />;
+  if (sectionKey === 'question-bank') return <AmiQuestionBank />;
 
   // overview, tenants
   return <AmiTenantGovernance sectionKey={sectionKey} />;

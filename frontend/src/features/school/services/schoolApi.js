@@ -63,6 +63,7 @@ export const getClasses = () => req('/api/school/classes');
 export const addClass = (data) => req('/api/school/classes', { method: 'POST', body: data });
 export const getSubjects = () => req('/api/school/subjects');
 export const addSubject = (data) => req('/api/school/subjects', { method: 'POST', body: data });
+export const bulkAddSubjectsBySection = (sectionName, subjects, teacherId) => req(`/api/school/sections/${encodeURIComponent(sectionName)}/subjects/bulk`, { method: 'POST', body: { subjects, teacherId } });
 export const getSession = () => req('/api/school/session');
 export const saveSession = (data) => req('/api/school/session', { method: 'POST', body: data });
 export const getBranding = () => req('/api/school/branding');

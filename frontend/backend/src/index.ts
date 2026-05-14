@@ -43,7 +43,7 @@ type Bindings = {
 
 const app = new Hono<{ Bindings: Bindings }>()
 const AUTH_COOKIE_NAME = 'ndovera_token'
-const AUTH_SESSION_SECONDS = 10 * 60
+const AUTH_SESSION_SECONDS = 30 * 24 * 60 * 60
 const PASSWORD_RESET_TOKEN_TTL_MS = 30 * 60 * 1000
 const PASSWORD_RESET_TOKENS_DDL = `CREATE TABLE IF NOT EXISTS password_reset_tokens (
   id TEXT PRIMARY KEY,
@@ -2657,14 +2657,17 @@ app.post('/api/classrooms/:classroomId/assignments', authenticate, async (c) => 
     }
 
     const subjectRow = await c.env.APP_DB.prepare(
-      `SELECT id, name, teacherId FROM subjects WHERE id = ? AND classId = ? AND tenantId = ?`
+      `SELECT id, name, teacherId FROM subjects WHERE id = ? AND classId = ? AND (tenantId = ? OR tenantId IS NULL OR tenantId = '')`
     ).bind(subjectId, classroomId, classRow.tenantId || tenantId || '').first() as Record<string, any> | null
 
     if (!subjectRow) {
       return c.json({ success: false, message: 'Subject not found for this class.' }, 404)
     }
 
-    const canCreateForSubject = matchesComparableIdentifier(subjectRow.teacherId, teacherIdentifiers)
+    const userRole = String((user as any).role || '').toLowerCase()
+    const isAdmin = ['owner', 'hos', 'ict', 'ict_manager', 'ami'].includes(userRole)
+    const canCreateForSubject = isAdmin
+      || matchesComparableIdentifier(subjectRow.teacherId, teacherIdentifiers)
       || matchesComparableIdentifier(classRow.classTeacherId, teacherIdentifiers)
     if (!canCreateForSubject) {
       return c.json({ success: false, message: 'You are not assigned to this subject.' }, 403)
@@ -2730,6 +2733,65 @@ app.post('/api/assignments/:assignmentId/submit', authenticate, async (c) => {
     return c.json({ success: true, submission }, 201)
   } catch (error) {
     return c.json({ success: false, message: 'Could not submit assignment.', error }, 500)
+  }
+})
+
+// Student: get own latest submission for an assignment (includes grade/feedback if marked)
+app.get('/api/assignments/:assignmentId/my-submission', authenticate, async (c) => {
+  const assignmentId = c.req.param('assignmentId')
+  try {
+    const user = c.var.user || {}
+    const userIdentifier = user.id || user.email || user.sub || ''
+    const resolvedUser = await resolveSettingsIdentity(c.env.APP_DB, userIdentifier)
+    const studentId = resolvedUser.userRow?.id || user.id || userIdentifier
+    const submission = await getLatestSubmissionForStudent(c.env.APP_DB, assignmentId, studentId)
+    if (!submission) return c.json({ success: true, submission: null })
+    const content = submission.content ? (() => { try { return JSON.parse(String(submission.content)) } catch { return {} } })() : {}
+    return c.json({ success: true, submission: { ...submission, content } })
+  } catch (error) {
+    return c.json({ success: false, message: 'Could not fetch submission.', error }, 500)
+  }
+})
+
+// Teacher: get all submissions for an assignment
+app.get('/api/assignments/:assignmentId/submissions', authenticate, async (c) => {
+  const assignmentId = c.req.param('assignmentId')
+  try {
+    const db = c.env.APP_DB
+    await db.prepare(`CREATE TABLE IF NOT EXISTS submissions (id TEXT PRIMARY KEY, assignmentId TEXT NOT NULL, studentId TEXT NOT NULL, content TEXT, submittedAt TEXT, grade REAL, gradedAt TEXT, feedback TEXT)`).run()
+    const rows = await db.prepare(
+      `SELECT s.id, s.assignmentId, s.studentId, s.content, s.submittedAt, s.grade, s.gradedAt, s.feedback, u.name as studentName
+       FROM submissions s
+       LEFT JOIN users u ON u.id = s.studentId
+       WHERE s.assignmentId = ?
+       ORDER BY s.submittedAt DESC`
+    ).bind(assignmentId).all()
+    const submissions = (rows.results || []).map((s: any) => ({
+      ...s,
+      content: s.content ? (() => { try { return JSON.parse(s.content) } catch { return {} } })() : {},
+    }))
+    return c.json({ success: true, submissions })
+  } catch (error) {
+    return c.json({ success: false, message: 'Could not fetch submissions.', error }, 500)
+  }
+})
+
+// Teacher: grade a submission
+app.post('/api/submissions/:submissionId/grade', authenticate, async (c) => {
+  const submissionId = c.req.param('submissionId')
+  try {
+    const db = c.env.APP_DB
+    const body = await c.req.json() as any
+    const { grade, feedback } = body
+    if (grade === undefined || grade === null) return c.json({ error: 'grade is required' }, 400)
+    const existing = await db.prepare('SELECT id FROM submissions WHERE id = ?').bind(submissionId).first()
+    if (!existing) return c.json({ error: 'Submission not found' }, 404)
+    const gradedAt = new Date().toISOString()
+    await db.prepare('UPDATE submissions SET grade = ?, gradedAt = ?, feedback = ? WHERE id = ?')
+      .bind(Number(grade), gradedAt, feedback || null, submissionId).run()
+    return c.json({ success: true, submissionId, grade: Number(grade), gradedAt, feedback: feedback || null })
+  } catch (error) {
+    return c.json({ success: false, message: 'Could not grade submission.', error }, 500)
   }
 })
 
@@ -2805,7 +2867,7 @@ async function resolveMaterialPublishingContext(db: D1Database, user: Record<str
   }
 
   const subjectRow = await db.prepare(
-    `SELECT id, name, teacherId FROM subjects WHERE id = ? AND classId = ? AND tenantId = ?`
+    `SELECT id, name, teacherId FROM subjects WHERE id = ? AND classId = ? AND (tenantId = ? OR tenantId IS NULL OR tenantId = '')`
   ).bind(subjectId, classroomId, classRow.tenantId || tenantId || '').first() as Record<string, any> | null
 
   if (!subjectRow) {
@@ -4703,7 +4765,7 @@ app.get('/api/school/subjects', authenticate, async (c) => {
 })
 
 app.post('/api/school/subjects', authenticate, async (c) => {
-  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos'])) return c.json({ error: 'forbidden' }, 403)
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos', 'ict', 'ict_manager'])) return c.json({ error: 'forbidden' }, 403)
   const tenantId = c.var.user?.tenantId
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
   const { name, classId, teacherId } = await c.req.json()
@@ -4728,7 +4790,7 @@ app.post('/api/school/subjects', authenticate, async (c) => {
 })
 
 app.post('/api/school/classes/:classId/subjects/bulk', authenticate, async (c) => {
-  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos'])) return c.json({ error: 'forbidden' }, 403)
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos', 'ict', 'ict_manager'])) return c.json({ error: 'forbidden' }, 403)
   const tenantId = c.var.user?.tenantId
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
   const classId = c.req.param('classId')
@@ -4755,7 +4817,7 @@ app.post('/api/school/classes/:classId/subjects/bulk', authenticate, async (c) =
 })
 
 app.put('/api/school/subjects/:subjectId', authenticate, async (c) => {
-  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos'])) return c.json({ error: 'forbidden' }, 403)
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos', 'ict', 'ict_manager'])) return c.json({ error: 'forbidden' }, 403)
   const tenantId = c.var.user?.tenantId
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
   const subjectId = c.req.param('subjectId')
@@ -4789,7 +4851,7 @@ app.put('/api/school/subjects/:subjectId', authenticate, async (c) => {
 })
 
 app.delete('/api/school/subjects/:subjectId', authenticate, async (c) => {
-  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos'])) return c.json({ error: 'forbidden' }, 403)
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos', 'ict', 'ict_manager'])) return c.json({ error: 'forbidden' }, 403)
   const tenantId = c.var.user?.tenantId
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
   const subjectId = c.req.param('subjectId')
@@ -4798,6 +4860,143 @@ app.delete('/api/school/subjects/:subjectId', authenticate, async (c) => {
     return c.json({ success: true })
   } catch (err) {
     return c.json({ error: err instanceof Error ? err.message : 'Could not delete subject.' }, 500)
+  }
+})
+
+// ─── Section-level bulk subject creation ──────────────────────────────────────
+app.post('/api/school/sections/:sectionName/subjects/bulk', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos', 'ict', 'ict_manager'])) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  const sectionName = decodeURIComponent(c.req.param('sectionName'))
+  const { subjects, teacherId } = await c.req.json()
+  if (!Array.isArray(subjects) || subjects.length === 0) return c.json({ error: 'subjects array required.' }, 400)
+  try {
+    await c.env.APP_DB.prepare(`CREATE TABLE IF NOT EXISTS subjects (id TEXT PRIMARY KEY, tenantId TEXT, name TEXT, classId TEXT, teacherId TEXT, createdAt TEXT)`).run()
+    try { await c.env.APP_DB.exec('ALTER TABLE subjects ADD COLUMN tenantId TEXT') } catch {}
+    try { await c.env.APP_DB.exec('ALTER TABLE subjects ADD COLUMN classId TEXT') } catch {}
+    try { await c.env.APP_DB.exec('ALTER TABLE subjects ADD COLUMN teacherId TEXT') } catch {}
+    await ensureClassesTable(c.env.APP_DB)
+    const classRows = await c.env.APP_DB.prepare(
+      `SELECT id FROM classes WHERE name = ? AND tenantId = ?`
+    ).bind(sectionName, tenantId).all()
+    const classIds = ((classRows.results || []) as Record<string, any>[]).map((r: any) => String(r.id || '').trim()).filter(Boolean)
+    if (classIds.length === 0) return c.json({ error: 'No classes found in this section.' }, 404)
+    let added = 0
+    for (const classId of classIds) {
+      for (const name of subjects) {
+        const trimmed = String(name || '').trim()
+        if (!trimmed) continue
+        const existing = await c.env.APP_DB.prepare(
+          `SELECT id FROM subjects WHERE tenantId = ? AND classId = ? AND lower(trim(name)) = lower(trim(?))`
+        ).bind(tenantId, classId, trimmed).first()
+        if (existing) continue
+        const id = `subject_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`
+        const resolvedTeacherId = teacherId ? await resolveCanonicalUserIdentifier(c.env.APP_DB, teacherId) : null
+        await c.env.APP_DB.prepare(
+          `INSERT INTO subjects (id, tenantId, name, classId, teacherId, createdAt) VALUES (?, ?, ?, ?, ?, ?)`
+        ).bind(id, tenantId, trimmed, classId, resolvedTeacherId, new Date().toISOString()).run()
+        added++
+      }
+    }
+    return c.json({ success: true, added, classCount: classIds.length }, 201)
+  } catch (err) {
+    return c.json({ error: err instanceof Error ? err.message : 'Could not add subjects to section.' }, 500)
+  }
+})
+
+// ─── Subject exclusions (remove/restore student from a subject) ───────────────
+app.post('/api/classrooms/:classroomId/subjects/:subjectId/remove-student', authenticate, async (c) => {
+  const actor = c.var.user || {}
+  const role = String(actor.role || '').toLowerCase()
+  const tenantId = actor.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  const classroomId = c.req.param('classroomId')
+  const subjectId = c.req.param('subjectId')
+  const { studentId } = await c.req.json()
+  if (!studentId) return c.json({ error: 'studentId required.' }, 400)
+  try {
+    await c.env.APP_DB.prepare(
+      `CREATE TABLE IF NOT EXISTS subject_exclusions (id TEXT PRIMARY KEY, tenantId TEXT, subjectId TEXT, classId TEXT, studentId TEXT, createdAt TEXT, createdBy TEXT)`
+    ).run()
+    await ensureClassesTable(c.env.APP_DB)
+    const classRow = await c.env.APP_DB.prepare(
+      `SELECT id, classTeacherId FROM classes WHERE id = ? AND tenantId = ?`
+    ).bind(classroomId, tenantId).first() as Record<string, any> | null
+    if (!classRow) return c.json({ error: 'Class not found.' }, 404)
+    const isAdmin = hasRequiredRole(role, ['owner', 'hos', 'ict', 'ict_manager'])
+    const teacherIdentifiers = collectComparableIdentifiers([actor.id, actor.email, actor.sub].filter(Boolean))
+    const isClassTeacher = matchesComparableIdentifier(classRow.classTeacherId, teacherIdentifiers)
+    if (!isAdmin && !isClassTeacher) return c.json({ error: 'forbidden' }, 403)
+    const id = `excl_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`
+    await c.env.APP_DB.prepare(
+      `INSERT OR IGNORE INTO subject_exclusions (id, tenantId, subjectId, classId, studentId, createdAt, createdBy) VALUES (?, ?, ?, ?, ?, ?, ?)`
+    ).bind(id, tenantId, subjectId, classroomId, studentId, new Date().toISOString(), actor.id || '').run()
+    return c.json({ success: true })
+  } catch (err) {
+    return c.json({ error: err instanceof Error ? err.message : 'Could not remove student.' }, 500)
+  }
+})
+
+app.delete('/api/classrooms/:classroomId/subjects/:subjectId/remove-student/:studentId', authenticate, async (c) => {
+  const actor = c.var.user || {}
+  const role = String(actor.role || '').toLowerCase()
+  const tenantId = actor.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  const classroomId = c.req.param('classroomId')
+  const subjectId = c.req.param('subjectId')
+  const studentId = c.req.param('studentId')
+  try {
+    await c.env.APP_DB.prepare(
+      `CREATE TABLE IF NOT EXISTS subject_exclusions (id TEXT PRIMARY KEY, tenantId TEXT, subjectId TEXT, classId TEXT, studentId TEXT, createdAt TEXT, createdBy TEXT)`
+    ).run()
+    await ensureClassesTable(c.env.APP_DB)
+    const classRow = await c.env.APP_DB.prepare(
+      `SELECT id, classTeacherId FROM classes WHERE id = ? AND tenantId = ?`
+    ).bind(classroomId, tenantId).first() as Record<string, any> | null
+    if (!classRow) return c.json({ error: 'Class not found.' }, 404)
+    const isAdmin = hasRequiredRole(role, ['owner', 'hos', 'ict', 'ict_manager'])
+    const teacherIdentifiers = collectComparableIdentifiers([actor.id, actor.email, actor.sub].filter(Boolean))
+    const isClassTeacher = matchesComparableIdentifier(classRow.classTeacherId, teacherIdentifiers)
+    if (!isAdmin && !isClassTeacher) return c.json({ error: 'forbidden' }, 403)
+    await c.env.APP_DB.prepare(
+      `DELETE FROM subject_exclusions WHERE tenantId = ? AND subjectId = ? AND classId = ? AND studentId = ?`
+    ).bind(tenantId, subjectId, classroomId, studentId).run()
+    return c.json({ success: true })
+  } catch (err) {
+    return c.json({ error: err instanceof Error ? err.message : 'Could not restore student.' }, 500)
+  }
+})
+
+app.get('/api/classrooms/:classroomId/subjects/:subjectId/members', authenticate, async (c) => {
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  const classroomId = c.req.param('classroomId')
+  const subjectId = c.req.param('subjectId')
+  try {
+    await c.env.APP_DB.prepare(
+      `CREATE TABLE IF NOT EXISTS subject_exclusions (id TEXT PRIMARY KEY, tenantId TEXT, subjectId TEXT, classId TEXT, studentId TEXT, createdAt TEXT, createdBy TEXT)`
+    ).run()
+    await ensureUsersTable(c.env.APP_DB)
+    const exclusionRows = await c.env.APP_DB.prepare(
+      `SELECT studentId FROM subject_exclusions WHERE tenantId = ? AND subjectId = ? AND classId = ?`
+    ).bind(tenantId, subjectId, classroomId).all()
+    const excludedIds = new Set(((exclusionRows.results || []) as Record<string, any>[]).map((r: any) => String(r.studentId || '')))
+    const studentRows = await c.env.APP_DB.prepare(
+      `SELECT u.id, u.name, u.email, u.role, u.status
+       FROM users u
+       JOIN settings s ON (s.studentId = u.email OR s.studentId = u.id)
+       WHERE u.tenantId = ? AND u.role = 'student' AND (u.status IS NULL OR u.status != 'inactive')
+         AND json_extract(s.payload, '$.classId') = ?
+       ORDER BY u.name`
+    ).bind(tenantId, classroomId).all().catch(() => ({ results: [] }))
+    const members = ((studentRows.results || []) as Record<string, any>[]).map((r: any) => ({
+      id: r.id, name: r.name, email: r.email, role: r.role, status: r.status,
+      excluded: excludedIds.has(String(r.id || ''))
+    }))
+    return c.json({ success: true, members })
+  } catch (err) {
+    return c.json({ error: err instanceof Error ? err.message : 'Could not load subject members.' }, 500)
   }
 })
 
@@ -6076,6 +6275,57 @@ async function handleSubdomainRequest(request: Request, env: Bindings, subdomain
     return new Response(`<html><body><p>Error loading school page.</p></body></html>`, { status: 500, headers: { 'Content-Type': 'text/html' } })
   }
 }
+
+// ─── Question Bank Endpoints ────────────────────────────────────────────────
+
+app.get('/api/question-bank', authenticate, async (c) => {
+  const user = c.get('user') as any
+  const db = c.env.DB
+  const { subject, classLevel, type, limit = '200', offset = '0' } = c.req.query() as any
+  let sql = 'SELECT * FROM question_bank WHERE 1=1'
+  const params: any[] = []
+  if (subject) { sql += ' AND subject = ?'; params.push(subject) }
+  if (classLevel) { sql += ' AND classLevel = ?'; params.push(classLevel) }
+  if (type) { sql += ' AND type = ?'; params.push(type) }
+  sql += ' ORDER BY createdAt DESC LIMIT ? OFFSET ?'
+  params.push(Number(limit), Number(offset))
+  const rows = await db.prepare(sql).bind(...params).all()
+  const questions = (rows.results || []).map((q: any) => ({
+    ...q,
+    options: q.options ? (() => { try { return JSON.parse(q.options) } catch { return q.options } })() : null,
+  }))
+  return c.json({ questions })
+})
+
+app.post('/api/question-bank', authenticate, async (c) => {
+  const user = c.get('user') as any
+  if (String(user.role || '').toLowerCase() !== 'ami') {
+    return c.json({ error: 'Forbidden' }, 403)
+  }
+  const db = c.env.DB
+  const body = await c.req.json() as any
+  const { subject, classLevel, type, prompt, options, answer, explanation, imageUrl } = body
+  if (!subject || !type || !prompt) return c.json({ error: 'subject, type, and prompt are required' }, 400)
+  const id = crypto.randomUUID()
+  const createdAt = new Date().toISOString()
+  await db.prepare(
+    `INSERT INTO question_bank (id, subject, classLevel, type, prompt, options, answer, explanation, imageUrl, createdAt, createdBy) VALUES (?,?,?,?,?,?,?,?,?,?,?)`
+  ).bind(id, subject, classLevel || null, type, prompt, options ? JSON.stringify(options) : null, answer || null, explanation || null, imageUrl || null, createdAt, user.id || user.email || null).run()
+  return c.json({ success: true, id })
+})
+
+app.delete('/api/question-bank/:id', authenticate, async (c) => {
+  const user = c.get('user') as any
+  if (String(user.role || '').toLowerCase() !== 'ami') {
+    return c.json({ error: 'Forbidden' }, 403)
+  }
+  const db = c.env.DB
+  const id = c.req.param('id')
+  const existing = await db.prepare('SELECT id FROM question_bank WHERE id = ?').bind(id).first()
+  if (!existing) return c.json({ error: 'Not found' }, 404)
+  await db.prepare('DELETE FROM question_bank WHERE id = ?').bind(id).run()
+  return c.json({ success: true })
+})
 
 export default {
   async fetch(request: Request, env: Bindings, ctx: ExecutionContext): Promise<Response> {

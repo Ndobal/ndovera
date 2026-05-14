@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import * as svc from './classroomService';
 
 const SURFACE = 'rounded-3xl border border-[#c9a96e]/45 bg-[#f5deb3] p-5 shadow-[0_18px_42px_rgba(128,0,0,0.08)] dark:border-[#bf00ff]/35 dark:bg-[#800000]/75 dark:shadow-[0_0_28px_rgba(191,0,255,0.18)]';
@@ -397,6 +397,213 @@ function summarizeAssignment(assignment) {
   };
 }
 
+function QuestionImagePreview({ imageUrl }) {
+  const [err, setErr] = useState(false);
+  if (!imageUrl) return null;
+  return (
+    <div className={SUB_SURFACE}>
+      {err ? (
+        <p className="text-xs text-[#800020] dark:text-[#bf00ff] italic">Image could not load: <span className="break-all">{imageUrl}</span></p>
+      ) : (
+        <img
+          src={imageUrl}
+          alt="Question"
+          className="max-h-56 w-full rounded-2xl object-contain"
+          onError={() => setErr(true)}
+        />
+      )}
+    </div>
+  );
+}
+
+function SubmissionsPanel({ assignment, onClose }) {
+  const [submissions, setSubmissions] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [grading, setGrading] = useState({}); // { [submissionId]: { grade, feedback } }
+  const [savingId, setSavingId] = useState(null);
+  const [savedIds, setSavedIds] = useState([]);
+  const [msg, setMsg] = useState('');
+
+  useEffect(() => {
+    svc.getSubmissions(assignment.id)
+      .then(d => setSubmissions(d?.submissions || []))
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  }, [assignment.id]);
+
+  async function handleGrade(sub) {
+    const g = grading[sub.id];
+    if (!g || g.grade === '' || g.grade === undefined) { setMsg('Enter a grade (0-100) first.'); return; }
+    setSavingId(sub.id); setMsg('');
+    try {
+      const res = await svc.gradeSubmission(sub.id, { grade: Number(g.grade), feedback: g.feedback || '' });
+      if (res?.success) {
+        setSavedIds(prev => [...prev, sub.id]);
+        setSubmissions(prev => prev.map(s => s.id === sub.id ? { ...s, grade: Number(g.grade), feedback: g.feedback || '', gradedAt: res.gradedAt } : s));
+        setMsg('Grade saved!');
+      } else { setMsg(res?.error || 'Could not save grade.'); }
+    } catch (err) { setMsg(err.message || 'Error saving grade.'); }
+    finally { setSavingId(null); }
+  }
+
+  const questions = Array.isArray(assignment.questions) ? assignment.questions : [];
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/55 px-4 py-6 backdrop-blur-sm">
+      <div className="w-full max-w-4xl max-h-[92vh] overflow-y-auto rounded-[2rem] border border-[#c9a96e]/45 bg-[#fff8f0] p-6 shadow-2xl dark:border-[#bf00ff]/35 dark:bg-[#800000]/92">
+        <div className="flex flex-wrap items-start justify-between gap-4 mb-5">
+          <div>
+            <p className={LABEL}>Submissions</p>
+            <h3 className={TITLE}>{assignment.title}</h3>
+            <p className={BODY}>{submissions.length} submission(s)</p>
+          </div>
+          <button type="button" onClick={onClose} className="rounded-2xl border border-[#800000]/25 bg-white/70 px-3 py-2 text-sm font-semibold text-[#800000] hover:bg-[#ffe8db]">Close</button>
+        </div>
+        {msg && <p className={`mb-3 text-sm font-bold ${msg.includes('saved') ? 'text-[#1a5c38]' : 'text-red-600'}`}>{msg}</p>}
+        {loading ? (
+          <p className={BODY}>Loading submissions...</p>
+        ) : submissions.length === 0 ? (
+          <div className={SUB_SURFACE}><p className={BODY}>No students have submitted this assignment yet.</p></div>
+        ) : (
+          <div className="space-y-4">
+            {submissions.map(sub => {
+              const content = sub.content || {};
+              const answers = content.answers || content || {};
+              const isAlreadyGraded = sub.grade != null;
+              return (
+                <div key={sub.id} className={SUB_SURFACE}>
+                  <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+                    <div>
+                      <p className="font-bold text-[#800000] dark:text-white">{sub.studentName || sub.studentId}</p>
+                      <p className="text-xs text-[#800020] font-semibold">Submitted: {sub.submittedAt ? new Date(sub.submittedAt).toLocaleString() : '—'}</p>
+                    </div>
+                    {isAlreadyGraded && (
+                      <span className="rounded-full bg-[#1a5c38] px-3 py-1 text-xs font-bold text-[#f5deb3]">Graded: {sub.grade}/100</span>
+                    )}
+                  </div>
+                  {/* Show answers */}
+                  {questions.length > 0 ? (
+                    <div className="space-y-1 mb-3">
+                      {questions.map((q, qi) => {
+                        const ans = answers[q.id || qi];
+                        return (
+                          <div key={q.id || qi} className="rounded-xl bg-[#f5deb3]/60 dark:bg-black/20 px-3 py-2">
+                            <p className="text-xs font-bold text-[#800020]">Q{qi + 1}: {q.prompt || q.text}</p>
+                            <p className="text-sm font-semibold text-[#191970] dark:text-slate-200">
+                              {ans !== undefined && ans !== '' ? String(ans) : <span className="italic text-[#800020]">No answer</span>}
+                            </p>
+                            {q.answer && <p className="text-xs font-semibold text-[#1a5c38]">Correct: {String(q.answer)}</p>}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  ) : (
+                    answers.response ? (
+                      <div className="rounded-xl bg-[#f5deb3]/60 dark:bg-black/20 px-3 py-2 mb-3">
+                        <p className="text-xs font-bold text-[#800020] mb-1">Response</p>
+                        <p className="text-sm font-semibold text-[#191970] dark:text-slate-200">{String(answers.response)}</p>
+                      </div>
+                    ) : null
+                  )}
+                  {/* Grading form */}
+                  <div className="flex flex-wrap gap-3 items-end mt-2">
+                    <div>
+                      <label className={LABEL}>Score (0–100)</label>
+                      <input
+                        type="number" min="0" max="100"
+                        value={grading[sub.id]?.grade !== undefined ? grading[sub.id].grade : (isAlreadyGraded ? sub.grade : '')}
+                        onChange={e => setGrading(prev => ({ ...prev, [sub.id]: { ...prev[sub.id], grade: e.target.value } }))}
+                        className="mt-1 w-24 rounded-xl border border-[#c9a96e]/40 bg-[#f5deb3] dark:bg-slate-900 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none"
+                        placeholder="0–100"
+                      />
+                    </div>
+                    <div className="flex-1 min-w-[160px]">
+                      <label className={LABEL}>Feedback (optional)</label>
+                      <input
+                        value={grading[sub.id]?.feedback !== undefined ? grading[sub.id].feedback : (sub.feedback || '')}
+                        onChange={e => setGrading(prev => ({ ...prev, [sub.id]: { ...prev[sub.id], feedback: e.target.value } }))}
+                        className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#f5deb3] dark:bg-slate-900 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none"
+                        placeholder="Well done! or areas to improve..."
+                      />
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => handleGrade(sub)}
+                      disabled={savingId === sub.id}
+                      className="bg-[#1a5c38] hover:bg-[#154a2e] text-[#f5deb3] font-bold px-4 py-2 rounded-2xl text-sm disabled:opacity-60"
+                    >
+                      {savingId === sub.id ? 'Saving...' : savedIds.includes(sub.id) ? '✓ Saved' : 'Save Grade'}
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function AssignmentViewer({ assignment, onClose }) {
+  const questions = Array.isArray(assignment.questions) ? assignment.questions : [];
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/55 px-4 py-6 backdrop-blur-sm">
+      <div className="w-full max-w-4xl max-h-[92vh] overflow-y-auto rounded-[2rem] border border-[#c9a96e]/45 bg-[#fff8f0] p-6 shadow-[0_24px_60px_rgba(128,0,0,0.18)] dark:border-[#bf00ff]/35 dark:bg-[#800000]/92 dark:shadow-[0_0_40px_rgba(191,0,255,0.28)]">
+        <div className="flex flex-wrap items-start justify-between gap-4">
+          <div>
+            <p className={LABEL}>Assignment</p>
+            <h3 className={TITLE}>{assignment.title}</h3>
+            {assignment.description && <p className={`${BODY} mt-1`}>{assignment.description}</p>}
+            <p className={`${BODY} mt-1`}>Subject: <strong>{assignment.subjectName || '—'}</strong> · Questions: <strong>{questions.length}</strong></p>
+          </div>
+          <button type="button" onClick={onClose} className="rounded-2xl border border-[#800000]/25 bg-white/70 px-3 py-2 text-sm font-semibold text-[#800000] hover:bg-[#ffe8db] dark:border-[#ff5f8d]/35 dark:bg-black/20 dark:text-[#ffffff]">Close</button>
+        </div>
+        <div className="mt-5 space-y-4">
+          {questions.length === 0 && <p className={BODY}>No questions stored for this assignment.</p>}
+          {questions.map((question, index) => (
+            <div key={question.id || index} className={SURFACE}>
+              <div className="flex flex-wrap items-start justify-between gap-2">
+                <div>
+                  <p className={LABEL}>Question {index + 1} · {typeLabel(question.type)}</p>
+                  <p className="mt-2 text-base font-semibold text-[#191970] dark:text-[#ffffff] whitespace-pre-wrap">{question.prompt || question.passage || '—'}</p>
+                </div>
+                <span className="rounded-full bg-[#1a5c38] px-3 py-1 text-xs font-bold text-[#f5deb3] dark:bg-[#00ffff] dark:text-[#000000]">{normalizeQuestionScore(question.score)} pt{normalizeQuestionScore(question.score) !== 1 ? 's' : ''}</span>
+              </div>
+              <QuestionImagePreview imageUrl={question.imageUrl} />
+              {question.type === 'mcq' && Array.isArray(question.options) && (
+                <div className="mt-3 space-y-1">
+                  {question.options.map((opt, oi) => (
+                    <div key={oi} className={`flex gap-2 items-center rounded-xl px-3 py-2 text-sm ${opt === question.answer ? 'bg-[#1a5c38]/15 dark:bg-[#00ffff]/15 font-bold text-[#1a5c38] dark:text-[#00ffff]' : 'text-[#191970] dark:text-[#39ff14]'}`}>
+                      <span className="font-bold">{getOptionLabel(oi)}.</span> {opt}
+                      {opt === question.answer && <span className="ml-1 text-xs">(Answer)</span>}
+                    </div>
+                  ))}
+                </div>
+              )}
+              {question.type === 'crossmatching' && Array.isArray(question.pairs) && (
+                <div className="mt-3 space-y-1">
+                  {question.pairs.map((pair, pi) => (
+                    <div key={pi} className="grid grid-cols-[1fr,auto,1fr] gap-2 text-sm text-[#191970] dark:text-[#39ff14]">
+                      <span>{pair.left}</span><span className="text-center">↔</span><span>{pair.right}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+              {(question.markingGuide || question.answer || question.acceptedAnswers) && (
+                <div className="mt-3 rounded-xl border border-[#c9a96e]/45 bg-[#f5deb3]/40 px-3 py-2 dark:border-[#bf00ff]/35 dark:bg-black/20">
+                  <p className={LABEL}>Answer / Guide</p>
+                  <p className="mt-1 text-sm text-[#191970] dark:text-[#39ff14] whitespace-pre-wrap">{question.markingGuide || question.answer || (Array.isArray(question.acceptedAnswers) ? question.acceptedAnswers.join(', ') : question.acceptedAnswers) || '—'}</p>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function TeacherAssignmentsPanel({
   assignedClasses = [],
   currentClassId = '',
@@ -405,6 +612,8 @@ export default function TeacherAssignmentsPanel({
   onRefreshAssignments,
   onSelectClass,
 }) {
+  const [viewingAssignment, setViewingAssignment] = useState(null);
+  const [submissionsAssignment, setSubmissionsAssignment] = useState(null);
   const [composerOpen, setComposerOpen] = useState(false);
   const [composerStep, setComposerStep] = useState('class');
   const [composerMode, setComposerMode] = useState('build');
@@ -794,9 +1003,7 @@ export default function TeacherAssignmentsPanel({
           </div>
 
           {question.imageUrl && (
-            <div className={SUB_SURFACE}>
-              <img src={question.imageUrl} alt="Question" className="max-h-56 rounded-2xl object-contain" />
-            </div>
+            <QuestionImagePreview imageUrl={question.imageUrl} />
           )}
 
           {question.type === 'mcq' && (
@@ -941,7 +1148,11 @@ export default function TeacherAssignmentsPanel({
                     <h4 className="text-lg font-bold text-[#800000] dark:text-[#ffffff]">{assignment.title}</h4>
                     <p className={`${BODY} mt-2`}>{assignment.description || 'No teacher instructions added yet.'}</p>
                   </div>
-                  <span className="inline-flex rounded-full bg-[#1a5c38] px-3 py-1 text-xs font-bold uppercase tracking-[0.15em] text-[#f5deb3] dark:bg-[#00ffff] dark:text-[#000000]">{summary.format}</span>
+                  <div className="flex flex-wrap gap-2 items-center">
+                    <span className="inline-flex rounded-full bg-[#1a5c38] px-3 py-1 text-xs font-bold uppercase tracking-[0.15em] text-[#f5deb3] dark:bg-[#00ffff] dark:text-[#000000]">{summary.format}</span>
+                    <button type="button" onClick={() => setViewingAssignment(assignment)} className={SECONDARY_BUTTON}>View</button>
+                    <button type="button" onClick={() => setSubmissionsAssignment(assignment)} className="rounded-2xl border border-[#1a5c38]/50 bg-[#1a5c38]/10 px-4 py-2 text-sm font-bold text-[#1a5c38] hover:bg-[#1a5c38]/20 transition-colors">Submissions</button>
+                  </div>
                 </div>
 
                 <div className="mt-4 flex flex-wrap gap-2">
@@ -1153,6 +1364,14 @@ export default function TeacherAssignmentsPanel({
         <button type="button" onClick={addNextQuestion} className={FLOATING_ADD_BUTTON} aria-label="Add new question">
           +
         </button>
+      )}
+
+      {viewingAssignment && (
+        <AssignmentViewer assignment={viewingAssignment} onClose={() => setViewingAssignment(null)} />
+      )}
+
+      {submissionsAssignment && (
+        <SubmissionsPanel assignment={submissionsAssignment} onClose={() => setSubmissionsAssignment(null)} />
       )}
     </div>
   );

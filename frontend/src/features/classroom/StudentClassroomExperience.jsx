@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import StudentSectionShell from '../../app/roles/student/StudentSectionShell';
 import { classroomTabs, liveSessionSeed } from './data';
@@ -11,21 +11,35 @@ import AssignmentsTab from './assignments';
 import LiveTab from './live';
 import ClassmatesTab from './classmates';
 import TeachersTab from './teachers';
+import { getClassSubjects } from './classroomService';
+import { getStoredAuth } from '../auth/services/authApi';
 
 export default function StudentClassroomExperience() {
   const [activeTab, setActiveTab] = useState('stream');
   const [auraBalance, setAuraBalance] = useState(0);
+  const [subjects, setSubjects] = useState([]);
   const shortClassName = (liveSessionSeed.className || 'Live Classroom').split(' - ')[0];
+
+  // Get student's classId from stored auth
+  const storedUser = getStoredAuth()?.user || {};
+  const classId = storedUser.classId || '';
+
+  useEffect(() => {
+    if (!classId) return;
+    getClassSubjects(classId)
+      .then(d => setSubjects(d?.subjects || []))
+      .catch(() => {});
+  }, [classId]);
 
   const renderActiveTab = () => {
     if (activeTab === 'stream') return <StreamTab />;
-    if (activeTab === 'subjects') return <SubjectsTab />;
-    if (activeTab === 'materials') return <MaterialsTab />;
+    if (activeTab === 'subjects') return <SubjectsTab classId={classId} subjects={subjects} canManage={false} />;
+    if (activeTab === 'materials') return <MaterialsTab classId={classId} />;
     if (activeTab === 'practice') return <PracticeTab auraBalance={auraBalance} setAuraBalance={setAuraBalance} />;
-    if (activeTab === 'assignments') return <AssignmentsTab />;
+    if (activeTab === 'assignments') return <AssignmentsTab classId={classId} />;
     if (activeTab === 'live') return <LiveTab />;
-    if (activeTab === 'classmates') return <ClassmatesTab />;
-    return <TeachersTab />;
+    if (activeTab === 'classmates') return <ClassmatesTab classId={classId} />;
+    return <TeachersTab classId={classId} />;
   };
 
   return (

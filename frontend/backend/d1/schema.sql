@@ -244,6 +244,22 @@ CREATE TABLE IF NOT EXISTS password_reset_tokens (
   user_agent TEXT
 );
 
+CREATE TABLE IF NOT EXISTS question_bank (
+  id TEXT PRIMARY KEY,
+  subject TEXT NOT NULL,
+  classLevel TEXT,
+  type TEXT NOT NULL DEFAULT 'mcq',
+  prompt TEXT NOT NULL,
+  options TEXT,
+  answer TEXT,
+  explanation TEXT,
+  imageUrl TEXT,
+  createdAt TEXT NOT NULL,
+  createdBy TEXT
+);
+
+CREATE INDEX IF NOT EXISTS idx_question_bank_subject_classLevel ON question_bank(subject, classLevel);
+
 CREATE INDEX IF NOT EXISTS idx_audit_studentId_ts ON audit(studentId, ts DESC);
 CREATE INDEX IF NOT EXISTS idx_borrowings_studentId_borrowedAt ON borrowings(studentId, borrowedAt DESC);
 CREATE INDEX IF NOT EXISTS idx_posts_classId_createdAt ON posts(classId, createdAt DESC);

@@ -494,6 +494,7 @@ const operationalRoleConfigs = {
       audits: { title: 'Audit Trail', subtitle: 'Monitor immutable logs for all critical actions.', panels: [{ title: 'Audit Reports', items: [{ text: 'Search by actor, action, and time.' }, { text: 'Export legal-grade audit logs.' }, { text: 'Flag suspicious activity patterns.' }] }] },
       reports: { title: 'Reports', subtitle: 'Generate executive system governance reports.', panels: [{ title: 'Governance Reports', items: [{ text: 'Platform health and risk report.' }, { text: 'Tenant compliance report.' }, { text: 'Security incident summary.' }] }] },
       settings: { title: 'Settings', subtitle: 'Manage highest-tier security configuration.', panels: [{ title: 'Security', items: [{ text: 'Rotate privileged credentials.' }, { text: 'Enforce multi-factor controls.' }, { text: 'Review trusted device list.' }] }] },
+      'question-bank': { title: 'Question Bank', subtitle: 'Manage default questions for teachers and students.', panels: [{ title: 'Question Bank', items: [{ text: 'Add questions by subject and class level.' }, { text: 'Filter and review existing questions.' }, { text: 'Delete outdated or incorrect questions.' }] }] },
     },
   },
 };

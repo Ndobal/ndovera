@@ -1,90 +1,77 @@
-import React, { useMemo, useState } from 'react';
-import { materials } from '../data/classroomData';
-import { createTextDownload } from '../shared/classroomHelpers';
+import React, { useEffect, useState } from 'react';
+import { getMaterials } from '../classroomService';
 
-export default function MaterialsTab() {
-  const [materialsTab, setMaterialsTab] = useState('notes');
-  const [materialsQuery, setMaterialsQuery] = useState('');
-  const [videoProgress, setVideoProgress] = useState(() => Object.fromEntries(materials.videos.map(video => [video.id, video.completion])));
+function typeIcon(type) {
+  if (type === 'video') return '▶';
+  if (type === 'image') return '🖼';
+  if (type === 'link') return '🔗';
+  return '📄';
+}
 
-  const materialRows = useMemo(() => {
-    const mixed = [
-      ...materials.notes.map(item => ({ ...item, rowType: 'note' })),
-      ...materials.videos.map(item => ({ ...item, rowType: 'video' })),
-      ...materials.images.map(item => ({ ...item, rowType: 'image' })),
-    ];
+export default function MaterialsTab({ classId = '' }) {
+  const [materials, setMaterials] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [filter, setFilter] = useState('all');
 
-    const sourceByTab = {
-      notes: materials.notes.map(item => ({ ...item, rowType: 'note' })),
-      videos: materials.videos.map(item => ({ ...item, rowType: 'video' })),
-      images: materials.images.map(item => ({ ...item, rowType: 'image' })),
-      mixed,
-    };
+  useEffect(() => {
+    if (!classId) { setLoading(false); return; }
+    getMaterials(classId)
+      .then(d => setMaterials(d?.materials || []))
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  }, [classId]);
 
-    const activeSource = sourceByTab[materialsTab] || mixed;
-    const query = materialsQuery.trim().toLowerCase();
-    if (!query) return activeSource;
-    return activeSource.filter(item => JSON.stringify(item).toLowerCase().includes(query));
-  }, [materialsTab, materialsQuery]);
+  const filtered = filter === 'all' ? materials : materials.filter(m => m.type === filter);
+  const types = ['all', ...Array.from(new Set(materials.map(m => m.type || 'document')))];
 
   return (
-    <div className="space-y-4">
-      <section className="glass-surface rounded-3xl p-5 space-y-4">
-        <div className="flex flex-wrap gap-2">
-          {[
-            { id: 'notes', label: 'Notes' },
-            { id: 'videos', label: 'Videos' },
-            { id: 'images', label: 'Images' },
-            { id: 'mixed', label: 'Mixed' },
-          ].map(tab => (
-            <button key={tab.id} onClick={() => setMaterialsTab(tab.id)} className={materialsTab === tab.id ? 'px-4 py-2 rounded-2xl bg-indigo-500/30 border border-indigo-300/40 text-white' : 'px-4 py-2 rounded-2xl bg-slate-900/30 border border-white/10 text-slate-200'}>{tab.label}</button>
+    <div className="space-y-4 p-1">
+      {/* Filter tabs */}
+      <div className="flex flex-wrap gap-2">
+        {types.map(t => (
+          <button key={t} type="button" onClick={() => setFilter(t)}
+            className={`px-4 py-1.5 rounded-2xl border text-sm font-bold transition-colors capitalize ${filter === t ? 'bg-[#1a5c38] border-[#1a5c38] text-[#f5deb3]' : 'bg-[#f0d090] border-[#c9a96e]/40 text-[#191970]'}`}>
+            {t === 'all' ? 'All' : t}
+          </button>
+        ))}
+      </div>
+
+      {loading ? (
+        <p className="text-sm font-bold text-[#191970]">Loading materials...</p>
+      ) : filtered.length === 0 ? (
+        <div className="rounded-2xl border border-dashed border-[#c9a96e]/40 bg-[#f5deb3] p-5 text-center">
+          <p className="text-xs font-bold uppercase text-[#800020]">No materials published</p>
+          <p className="mt-1 text-sm font-bold text-[#191970]">Your teacher has not uploaded any materials yet.</p>
+        </div>
+      ) : (
+        <div className="flex flex-wrap gap-3">
+          {filtered.map((item, i) => (
+            <div key={item.id || i}
+              style={{ width: '150px', minHeight: '100px' }}
+              className="relative flex flex-col justify-between rounded-2xl border border-[#c9a96e]/40 bg-[#f0d090] p-3 shadow-sm overflow-hidden">
+              {/* Type badge */}
+              <div className="flex items-center gap-1 mb-1">
+                <span className="text-base leading-none">{typeIcon(item.type)}</span>
+                <span className="text-[10px] font-bold uppercase tracking-wide text-[#800020]">{item.type || 'doc'}</span>
+              </div>
+              {/* Title */}
+              <p className="text-xs font-bold text-[#191970] leading-snug line-clamp-3 flex-1">{item.title || 'Untitled'}</p>
+              {/* Subject */}
+              {item.subjectName && <p className="text-[9px] font-bold text-[#800020] mt-1 truncate">{item.subjectName}</p>}
+              {/* Open button */}
+              <a
+                href={item.url || '#'}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-2 block text-center bg-[#1a5c38] hover:bg-[#154a2e] text-[#f5deb3] font-bold text-xs px-2 py-1.5 rounded-xl transition-colors"
+                onClick={e => { if (!item.url) e.preventDefault(); }}
+              >
+                Open
+              </a>
+            </div>
           ))}
         </div>
-
-        <input value={materialsQuery} onChange={event => setMaterialsQuery(event.target.value)} className="w-full rounded-2xl bg-slate-900/30 border border-white/10 px-4 py-2 text-slate-100" placeholder="Search notes, videos, images" />
-
-        <div className="space-y-3">
-          {materialRows.length > 0 ? materialRows.map(item => (
-            <article key={item.id} className="rounded-2xl border border-white/10 bg-slate-900/30 p-4 space-y-2">
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <p className="text-slate-100 font-semibold">{item.title}</p>
-                <span className="glass-chip rounded-full px-3 py-1 micro-label accent-indigo">{item.rowType.toUpperCase()}</span>
-              </div>
-
-              {item.rowType === 'note' && (
-                <>
-                  <p className="text-sm text-slate-300">{item.body}</p>
-                  <p className="micro-label accent-emerald">{item.subject} • Updated {item.updated}</p>
-                  <button onClick={() => createTextDownload(`${item.title}.txt`, `${item.title}\n\n${item.body}`)} className="px-3 py-1 rounded-xl border border-white/10 bg-slate-900/30 text-xs text-slate-100">Download Note</button>
-                </>
-              )}
-
-              {item.rowType === 'video' && (
-                <>
-                  <div className="rounded-xl border border-white/10 bg-slate-950/60 p-3"><p className="text-sm text-slate-200">Embedded Player • {item.duration}</p></div>
-                  <div className="space-y-1">
-                    <div className="h-2 rounded-full bg-slate-700 overflow-hidden"><div className="h-full bg-emerald-400" style={{ width: `${videoProgress[item.id] || 0}%` }} /></div>
-                    <p className="text-xs text-slate-300">Watch completion: {videoProgress[item.id] || 0}%</p>
-                  </div>
-                  <button onClick={() => setVideoProgress(prev => ({ ...prev, [item.id]: Math.min((prev[item.id] || 0) + 10, 100) }))} className="px-3 py-1 rounded-xl border border-white/10 bg-slate-900/30 text-xs text-slate-100">Mark +10% Watched</button>
-                </>
-              )}
-
-              {item.rowType === 'image' && (
-                <>
-                  <div className="rounded-xl border border-white/10 bg-slate-950/60 p-4 text-sm text-slate-200">Visual reference: {item.category}</div>
-                  <p className="micro-label accent-amber">{item.subject} • {item.resolution}</p>
-                </>
-              )}
-            </article>
-          )) : (
-            <div className="rounded-2xl border border-dashed border-white/10 bg-slate-900/20 p-5 text-center">
-              <p className="micro-label accent-amber">No materials published</p>
-              <p className="mt-2 text-sm text-slate-300">Teacher-uploaded notes, videos, and images will appear here once live classroom content is available.</p>
-            </div>
-          )}
-        </div>
-      </section>
+      )}
     </div>
   );
 }

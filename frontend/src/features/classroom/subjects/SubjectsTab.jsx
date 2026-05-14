@@ -1,42 +1,70 @@
-import React, { useMemo, useState } from 'react';
-import { subjects } from '../data/classroomData';
-import { getRoleAccent, renderProgressBars } from '../shared/classroomHelpers';
+import React, { useEffect, useMemo, useState } from 'react';
+import { getRoleAccent } from '../shared/classroomHelpers';
+import { getSubjectMembers, removeStudentFromSubject, restoreStudentToSubject } from '../classroomService';
 
-export default function SubjectsTab() {
+// classId + subjects come from parent (TeacherClassroom or StudentClassroomExperience)
+// canManage = owner/hos/ict/classteacher can remove students from subjects
+export default function SubjectsTab({ classId = '', subjects = [], canManage = false }) {
   const [activeSubjectId, setActiveSubjectId] = useState(null);
-  const [subjectInnerTab, setSubjectInnerTab] = useState('stream');
+  const [subjectInnerTab, setSubjectInnerTab] = useState('members');
+  const [members, setMembers] = useState([]);
+  const [membersLoading, setMembersLoading] = useState(false);
+  const [membersError, setMembersError] = useState('');
+  const [actionMsg, setActionMsg] = useState('');
 
-  const selectedSubject = useMemo(() => subjects.find(item => item.id === activeSubjectId) || null, [activeSubjectId]);
+  const selectedSubject = useMemo(() => subjects.find(s => s.id === activeSubjectId) || null, [activeSubjectId, subjects]);
+
+  useEffect(() => {
+    if (!activeSubjectId || !classId || subjectInnerTab !== 'members') return;
+    setMembersLoading(true); setMembersError(''); setMembers([]);
+    getSubjectMembers(classId, activeSubjectId)
+      .then(d => setMembers(d?.members || []))
+      .catch(() => setMembersError('Could not load members.'))
+      .finally(() => setMembersLoading(false));
+  }, [activeSubjectId, classId, subjectInnerTab]);
+
+  async function handleRemove(studentId) {
+    if (!window.confirm('Remove this student from the subject?')) return;
+    try {
+      await removeStudentFromSubject(classId, activeSubjectId, studentId);
+      setActionMsg('Student removed from subject.');
+      setMembers(prev => prev.map(m => m.id === studentId ? { ...m, excluded: true } : m));
+    } catch { setActionMsg('Failed to remove student.'); }
+  }
+
+  async function handleRestore(studentId) {
+    try {
+      await restoreStudentToSubject(classId, activeSubjectId, studentId);
+      setActionMsg('Student restored to subject.');
+      setMembers(prev => prev.map(m => m.id === studentId ? { ...m, excluded: false } : m));
+    } catch { setActionMsg('Failed to restore student.'); }
+  }
 
   if (subjects.length === 0) {
     return (
       <div className="glass-surface rounded-3xl p-5 text-center">
-        <p className="micro-label accent-amber">No live subjects</p>
-        <p className="mt-2 text-slate-300">Subject dashboards will appear here after this classroom is linked to live timetable and roster data.</p>
+        <p className="micro-label accent-amber">No subjects yet</p>
+        <p className="mt-2 text-slate-300 text-sm">Subjects will appear here once they are added to this class in Settings → Subjects.</p>
       </div>
     );
   }
 
   if (!selectedSubject) {
     return (
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+      <div className="grid grid-cols-2 gap-3 p-1">
         {subjects.map(subject => (
           <button
             key={subject.id}
-            onClick={() => {
-              setActiveSubjectId(subject.id);
-              setSubjectInnerTab('stream');
-            }}
-            className="text-left glass-surface rounded-3xl p-5 space-y-3 hover:border-indigo-300/40 border border-white/10 transition-colors"
+            onClick={() => { setActiveSubjectId(subject.id); setSubjectInnerTab('members'); setActionMsg(''); }}
+            className="text-left glass-surface rounded-3xl p-4 space-y-2 hover:border-indigo-300/40 border border-white/10 transition-colors"
           >
-            <p className="text-lg command-title neon-title">{subject.name}</p>
-            <p className="neon-subtle text-sm">{subject.teacher}</p>
-            <div className="grid grid-cols-3 gap-2 text-xs">
-              <div className="rounded-xl bg-slate-900/30 border border-white/10 p-2"><p className="micro-label accent-indigo">Performance</p><p className="text-slate-100 mt-1">{subject.performance}%</p></div>
-              <div className="rounded-xl bg-slate-900/30 border border-white/10 p-2"><p className="micro-label accent-emerald">Attendance</p><p className="text-slate-100 mt-1">{subject.attendance}%</p></div>
-              <div className="rounded-xl bg-slate-900/30 border border-white/10 p-2"><p className="micro-label accent-amber">Completion</p><p className="text-slate-100 mt-1">{subject.completion}%</p></div>
+            <p className="text-base command-title neon-title truncate">{subject.name}</p>
+            {subject.teacherName && <p className="neon-subtle text-xs truncate">{subject.teacherName}</p>}
+            <div className="flex items-center gap-1 mt-1">
+              <span className="px-2 py-0.5 rounded-full text-xs bg-indigo-500/20 border border-indigo-300/30 text-indigo-200">
+                {subject.teacherId ? 'Assigned' : 'No teacher'}
+              </span>
             </div>
-            {renderProgressBars(subject.graph)}
           </button>
         ))}
       </div>
@@ -44,66 +72,46 @@ export default function SubjectsTab() {
   }
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3">
       <div className="flex flex-wrap items-center justify-between gap-3 glass-surface rounded-3xl p-4">
         <div>
-          <p className="micro-label accent-indigo">Subject Page</p>
-          <h3 className="text-xl command-title neon-title">{selectedSubject.name}</h3>
-          <p className="neon-subtle text-sm">Teacher: {selectedSubject.teacher}</p>
+          <p className="micro-label accent-indigo">Subject</p>
+          <h3 className="text-lg command-title neon-title">{selectedSubject.name}</h3>
+          {selectedSubject.teacherName && <p className="neon-subtle text-xs">Teacher: {selectedSubject.teacherName}</p>}
         </div>
-        <button onClick={() => setActiveSubjectId(null)} className="px-4 py-2 rounded-xl border border-white/10 bg-slate-900/30 text-sm text-slate-100">Back to Subjects</button>
+        <button onClick={() => { setActiveSubjectId(null); setActionMsg(''); }} className="px-3 py-1.5 rounded-xl border border-white/10 bg-slate-900/30 text-sm text-slate-100">← Back</button>
       </div>
 
       <div className="flex flex-wrap gap-2">
-        {[
-          { id: 'stream', label: 'Subject Stream' },
-          { id: 'assignments', label: 'Assignments' },
-          { id: 'materials', label: 'Materials' },
-          { id: 'members', label: 'Members' },
-        ].map(tab => (
-          <button key={tab.id} onClick={() => setSubjectInnerTab(tab.id)} className={subjectInnerTab === tab.id ? 'px-4 py-2 rounded-2xl bg-indigo-500/30 border border-indigo-300/40 text-white' : 'px-4 py-2 rounded-2xl bg-slate-900/30 border border-white/10 text-slate-200'}>{tab.label}</button>
+        {['members'].map(tab => (
+          <button key={tab} onClick={() => setSubjectInnerTab(tab)}
+            className={subjectInnerTab === tab ? 'px-4 py-2 rounded-2xl bg-indigo-500/30 border border-indigo-300/40 text-white text-sm capitalize' : 'px-4 py-2 rounded-2xl bg-slate-900/30 border border-white/10 text-slate-200 text-sm capitalize'}>
+            {tab}
+          </button>
         ))}
       </div>
 
-      {subjectInnerTab === 'stream' && (
-        <section className="glass-surface rounded-3xl p-5 space-y-3">
-          {selectedSubject.stream.map(item => (
-            <div key={item.id} className="rounded-2xl border border-white/10 bg-slate-900/30 p-4">
-              <p className="text-slate-100"><span className="font-semibold">{item.author}:</span> {item.text}</p>
-              <p className="micro-label mt-1 accent-indigo">{item.time}</p>
-            </div>
-          ))}
-        </section>
-      )}
-
-      {subjectInnerTab === 'assignments' && (
-        <section className="glass-surface rounded-3xl p-5 space-y-3">
-          {selectedSubject.assignments.map(item => (
-            <div key={item.id} className="rounded-2xl border border-white/10 bg-slate-900/30 p-4 flex items-center justify-between gap-3">
-              <div><p className="text-slate-100 font-semibold">{item.title}</p><p className="neon-subtle text-sm">Due: {item.due}</p></div>
-              <span className="glass-chip rounded-full px-3 py-1 micro-label accent-amber">{item.status}</span>
-            </div>
-          ))}
-        </section>
-      )}
-
-      {subjectInnerTab === 'materials' && (
-        <section className="glass-surface rounded-3xl p-5 space-y-3">
-          {selectedSubject.materials.map(item => (
-            <div key={item.id} className="rounded-2xl border border-white/10 bg-slate-900/30 p-4 flex items-center justify-between gap-3">
-              <div><p className="text-slate-100 font-semibold">{item.title}</p><p className="neon-subtle text-sm">{item.type}</p></div>
-              <span className="glass-chip rounded-full px-3 py-1 micro-label accent-indigo">{item.size}</span>
-            </div>
-          ))}
-        </section>
-      )}
+      {actionMsg && <p className="text-xs px-3 py-1.5 rounded-xl bg-emerald-900/30 text-emerald-300 border border-emerald-500/30">{actionMsg}</p>}
 
       {subjectInnerTab === 'members' && (
-        <section className="glass-surface rounded-3xl p-5 space-y-3">
-          {selectedSubject.members.map(member => (
-            <div key={member.name} className="rounded-2xl border border-white/10 bg-slate-900/30 p-4 flex items-center justify-between gap-3">
-              <p className="text-slate-100 font-semibold">{member.name}</p>
-              <span className={`glass-chip rounded-full px-3 py-1 micro-label ${getRoleAccent(member.role)}`}>{member.role}</span>
+        <section className="glass-surface rounded-3xl p-4 space-y-2">
+          {membersLoading && <p className="text-slate-300 text-sm">Loading members...</p>}
+          {membersError && <p className="text-red-400 text-sm">{membersError}</p>}
+          {!membersLoading && !membersError && members.length === 0 && (
+            <p className="text-slate-400 text-sm">No students enrolled in this class yet.</p>
+          )}
+          {members.map(member => (
+            <div key={member.id} className={`rounded-2xl border p-3 flex items-center justify-between gap-3 ${member.excluded ? 'border-red-500/20 bg-red-900/10 opacity-60' : 'border-white/10 bg-slate-900/30'}`}>
+              <div>
+                <p className="text-slate-100 font-semibold text-sm">{member.name}</p>
+                <p className="text-xs text-slate-400">{member.email}</p>
+                {member.excluded && <span className="text-xs text-red-400 font-semibold">Excluded from subject</span>}
+              </div>
+              {canManage && (
+                member.excluded
+                  ? <button onClick={() => handleRestore(member.id)} className="text-xs bg-emerald-700/60 hover:bg-emerald-600/70 text-emerald-200 px-3 py-1 rounded-xl font-bold transition-colors">Restore</button>
+                  : <button onClick={() => handleRemove(member.id)} className="text-xs bg-red-900/40 hover:bg-red-700/50 text-red-300 border border-red-500/30 px-3 py-1 rounded-xl font-semibold transition-colors">Remove</button>
+              )}
             </div>
           ))}
         </section>

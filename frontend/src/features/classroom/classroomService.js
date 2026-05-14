@@ -66,6 +66,11 @@ export async function submitAssignment(assignmentId, payload) {
   return res.json();
 }
 
+export async function getMySubmission(assignmentId) {
+  const res = await fetch(`${API}/assignments/${assignmentId}/my-submission`, { headers: getAuthHeaders() });
+  return res.json();
+}
+
 export async function getSubmissions(assignmentId) {
   const res = await fetch(`${API}/assignments/${assignmentId}/submissions`, { headers: getAuthHeaders() });
   return res.json();
@@ -147,5 +152,20 @@ export async function endLiveSession(classId, sessionId) {
 
 export async function saveContent(classId, payload) {
   const res = await fetch(`${API}/save-content`, { method: 'POST', headers: getAuthHeaders(), body: JSON.stringify({ classId, ...payload }) });
+  return res.json();
+}
+
+export async function getSubjectMembers(classId, subjectId) {
+  const res = await fetch(`${API}/classrooms/${classId}/subjects/${subjectId}/members`, { headers: getAuthHeaders() });
+  return res.json();
+}
+
+export async function removeStudentFromSubject(classId, subjectId, studentId) {
+  const res = await fetch(`${API}/classrooms/${classId}/subjects/${subjectId}/remove-student`, { method: 'POST', headers: getAuthHeaders(), body: JSON.stringify({ studentId }) });
+  return res.json();
+}
+
+export async function restoreStudentToSubject(classId, subjectId, studentId) {
+  const res = await fetch(`${API}/classrooms/${classId}/subjects/${subjectId}/remove-student/${studentId}`, { method: 'DELETE', headers: getAuthHeaders() });
   return res.json();
 }

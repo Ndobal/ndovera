@@ -16,7 +16,7 @@ function getCookie(name) {
 }
 
 function setAuthCookie(token) {
-	document.cookie = `${AUTH_COOKIE_KEY}=${encodeURIComponent(token)}; path=/; domain=.ndovera.com; max-age=600; secure; samesite=lax`;
+	document.cookie = `${AUTH_COOKIE_KEY}=${encodeURIComponent(token)}; path=/; domain=.ndovera.com; max-age=2592000; secure; samesite=lax`;
 }
 
 function clearAuthCookie() {

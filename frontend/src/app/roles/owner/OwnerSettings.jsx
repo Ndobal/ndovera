@@ -1,10 +1,40 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { getMe, getClasses, addClass, getSubjects, addSubject, getSession, saveSession, getBranding, saveBranding, uploadLogo, getPeople, bulkAddSubjects, updateSubject, deleteSubject, updateClass } from '../../../features/school/services/schoolApi';
+import { getMe, getClasses, addClass, getSubjects, addSubject, getSession, saveSession, getBranding, saveBranding, uploadLogo, getPeople, bulkAddSubjects, bulkAddSubjectsBySection, updateSubject, deleteSubject, updateClass } from '../../../features/school/services/schoolApi';
 import AdminPasswordReset from '../../../features/auth/components/AdminPasswordReset';
 import WebsiteTab from './tabs/WebsiteTab';
 import EventsTab from './tabs/EventsTab';
 
 const TABS = ['Profile', 'School Branding', 'Website', 'Events', 'Classes', 'Subjects', 'Sessions & Terms'];
+
+const DEFAULT_CLASS_NAMES = [
+  { label: 'Primary 1', value: 'Primary 1' },
+  { label: 'Primary 2', value: 'Primary 2' },
+  { label: 'Primary 3', value: 'Primary 3' },
+  { label: 'Primary 4', value: 'Primary 4' },
+  { label: 'Primary 5', value: 'Primary 5' },
+  { label: 'Primary 6', value: 'Primary 6' },
+  { label: 'JSS 1', value: 'JSS 1' },
+  { label: 'JSS 2', value: 'JSS 2' },
+  { label: 'JSS 3', value: 'JSS 3' },
+  { label: 'SS 1', value: 'SS 1' },
+  { label: 'SS 2', value: 'SS 2' },
+  { label: 'SS 3', value: 'SS 3' },
+];
+
+const DEFAULT_SUBJECT_PRESETS = {
+  'Primary 1': 'Mathematics\nEnglish Language\nPhonics\nHandwriting\nSocial Studies\nBasic Science\nCultural & Creative Arts\nReligious Studies\nPhysical Education',
+  'Primary 2': 'Mathematics\nEnglish Language\nPhonics\nHandwriting\nSocial Studies\nBasic Science\nCultural & Creative Arts\nReligious Studies\nPhysical Education',
+  'Primary 3': 'Mathematics\nEnglish Language\nPhonics\nHandwriting\nSocial Studies\nBasic Science\nCultural & Creative Arts\nReligious Studies\nPhysical Education',
+  'Primary 4': 'Mathematics\nEnglish Language\nSocial Studies\nBasic Science\nCultural & Creative Arts\nReligious Studies\nBasic Technology\nPhysical Education',
+  'Primary 5': 'Mathematics\nEnglish Language\nSocial Studies\nBasic Science\nCultural & Creative Arts\nReligious Studies\nBasic Technology\nPhysical Education',
+  'Primary 6': 'Mathematics\nEnglish Language\nSocial Studies\nBasic Science\nCultural & Creative Arts\nReligious Studies\nBasic Technology\nPhysical Education',
+  'JSS 1': 'Mathematics\nEnglish Language\nFrench Language\nBiology\nChemistry\nPhysics\nGeography\nHistory\nSocial Studies\nBasic Technology\nCultural & Creative Arts\nComputer Studies\nReligious Studies\nAgricultural Science\nPhysical & Health Education',
+  'JSS 2': 'Mathematics\nEnglish Language\nFrench Language\nBiology\nChemistry\nPhysics\nGeography\nHistory\nSocial Studies\nBasic Technology\nCultural & Creative Arts\nComputer Studies\nReligious Studies\nAgricultural Science\nPhysical & Health Education',
+  'JSS 3': 'Mathematics\nEnglish Language\nFrench Language\nBiology\nChemistry\nPhysics\nGeography\nHistory\nSocial Studies\nBasic Technology\nCultural & Creative Arts\nComputer Studies\nReligious Studies\nAgricultural Science\nPhysical & Health Education',
+  'SS 1': 'Mathematics\nEnglish Language\nFrench Language\nBiology\nChemistry\nPhysics\nGeography\nHistory\nLiterature in English\nEconomics\nGovernment\nAccounting\nCommerce\nChristian Religious Knowledge\nIslamic Religious Knowledge',
+  'SS 2': 'Mathematics\nEnglish Language\nFrench Language\nBiology\nChemistry\nPhysics\nGeography\nHistory\nLiterature in English\nEconomics\nGovernment\nAccounting\nCommerce\nChristian Religious Knowledge\nIslamic Religious Knowledge',
+  'SS 3': 'Mathematics\nEnglish Language\nFrench Language\nBiology\nChemistry\nPhysics\nGeography\nHistory\nLiterature in English\nEconomics\nGovernment\nAccounting\nCommerce\nChristian Religious Knowledge\nIslamic Religious Knowledge',
+};
 
 function ProfileTab() {
   const [me, setMe] = useState(null);
@@ -113,6 +143,12 @@ function ClassesTab() {
   const [editingClassId, setEditingClassId] = useState(null);
   const [editTeacherId, setEditTeacherId] = useState('');
   const [editSaving, setEditSaving] = useState(false);
+  // quick setup
+  const [showQuickSetup, setShowQuickSetup] = useState(false);
+  const [quickArms, setQuickArms] = useState('A,B,C');
+  const [quickSelected, setQuickSelected] = useState([]);
+  const [quickSaving, setQuickSaving] = useState(false);
+  const [quickMsg, setQuickMsg] = useState('');
 
   function reload() {
     return Promise.all([getClasses(), getPeople(), getSubjects()]).then(([cd, pd, sd]) => {
@@ -149,6 +185,30 @@ function ClassesTab() {
     catch {} finally { setEditSaving(false); }
   }
 
+  async function handleQuickSetup() {
+    const arms = quickArms.split(',').map(a => a.trim()).filter(Boolean);
+    if (quickSelected.length === 0) { setQuickMsg('Select at least one class.'); return; }
+    setQuickSaving(true); setQuickMsg('');
+    try {
+      let created = 0;
+      for (const name of quickSelected) {
+        if (arms.length === 0) {
+          await addClass({ name, arm: '', classTeacherId: '' });
+          created++;
+        } else {
+          for (const arm of arms) {
+            await addClass({ name, arm, classTeacherId: '' });
+            created++;
+          }
+        }
+      }
+      await reload();
+      setQuickMsg(`Created ${created} class(es)!`);
+      setQuickSelected([]);
+    } catch (err) { setQuickMsg(err.message || 'Could not create classes.'); }
+    finally { setQuickSaving(false); }
+  }
+
   function teacherName(id) {
     if (!id) return null;
     const t = teachers.find(t => t.id === id);
@@ -158,6 +218,46 @@ function ClassesTab() {
   if (loading) return <p className="text-[#800020]">Loading...</p>;
   return (
     <div className="space-y-4">
+      {/* Quick Setup Panel */}
+      <div className="rounded-2xl border border-[#c9a96e]/40 bg-[#f0d090] dark:bg-slate-800/40 p-4">
+        <div className="flex items-center justify-between">
+          <p className="text-sm font-bold text-[#800000] dark:text-slate-100">Quick Setup — Default Classes</p>
+          <button type="button" onClick={() => { setShowQuickSetup(v => !v); setQuickMsg(''); }}
+            className="text-xs font-semibold text-[#1a5c38] underline dark:text-[#00ffff]">
+            {showQuickSetup ? 'Hide' : 'Show'}
+          </button>
+        </div>
+        {showQuickSetup && (
+          <div className="mt-3 space-y-3">
+            <p className="text-xs text-[#800020] dark:text-slate-400">Select class names to create, then specify the arms (sections) to generate. E.g. arms "A,B,C" will create JSS 1A, JSS 1B, JSS 1C.</p>
+            <div className="flex flex-wrap gap-2">
+              {DEFAULT_CLASS_NAMES.map(cls => {
+                const isSelected = quickSelected.includes(cls.value);
+                return (
+                  <button key={cls.value} type="button"
+                    onClick={() => setQuickSelected(prev => isSelected ? prev.filter(v => v !== cls.value) : [...prev, cls.value])}
+                    className={`px-3 py-1 rounded-full text-xs font-semibold border transition-colors ${isSelected ? 'bg-[#1a5c38] text-[#f5deb3] border-[#1a5c38]' : 'bg-[#f5deb3] text-[#800020] border-[#c9a96e]/40 hover:bg-[#efd4a0]'}`}>
+                    {cls.label}
+                  </button>
+                );
+              })}
+            </div>
+            <div className="flex flex-wrap gap-3 items-end">
+              <div>
+                <label className="text-xs text-[#800020] dark:text-slate-400 uppercase font-semibold">Arms/Sections (comma-separated, or leave blank for none)</label>
+                <input value={quickArms} onChange={e => setQuickArms(e.target.value)}
+                  className="mt-1 w-48 rounded-xl border border-[#c9a96e]/40 bg-[#f5deb3] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none"
+                  placeholder="A,B,C" />
+              </div>
+              <button type="button" onClick={handleQuickSetup} disabled={quickSaving || quickSelected.length === 0}
+                className="bg-[#1a5c38] hover:bg-[#154a2e] text-[#f5deb3] font-bold px-5 py-2 rounded-2xl text-sm transition-colors disabled:opacity-60">
+                {quickSaving ? 'Creating...' : `Create ${quickSelected.length ? quickSelected.length * Math.max(1, quickArms.split(',').filter(a => a.trim()).length) : ''} Classes`}
+              </button>
+            </div>
+            {quickMsg && <p className={`text-sm font-semibold ${quickMsg.includes('!') ? 'text-[#1a5c38]' : 'text-red-600'}`}>{quickMsg}</p>}
+          </div>
+        )}
+      </div>
       <form onSubmit={handleAdd} className="flex flex-wrap gap-3 items-end">
         {[['Class Name', 'name', 'text', true], ['Arm/Section', 'arm', 'text', false]].map(([label, key, type, req]) => (
           <div key={key} className="flex-1 min-w-[140px]">
@@ -255,6 +355,11 @@ function SubjectsTab() {
   const [editingId, setEditingId] = useState(null);
   const [editForm, setEditForm] = useState({});
   const [editSaving, setEditSaving] = useState(false);
+  // Section bulk form
+  const [sectionMode, setSectionMode] = useState(false);
+  const [sectionForm, setSectionForm] = useState({ sectionName: '', subjectsText: '', teacherId: '' });
+  const [sectionSaving, setSectionSaving] = useState(false);
+  const [sectionMsg, setSectionMsg] = useState('');
 
   function reload() {
     return Promise.all([getSubjects(), getClasses(), getPeople()]).then(([sd, cd, pd]) => {
@@ -280,6 +385,17 @@ function SubjectsTab() {
   async function handleDelete(id, name) {
     if (!window.confirm(`Delete subject "${name}"?`)) return;
     try { await deleteSubject(id); await reload(); } catch {}
+  }
+
+  async function handleSectionBulk(e) {
+    e.preventDefault(); setSectionSaving(true); setSectionMsg('');
+    try {
+      const lines = sectionForm.subjectsText.split('\n').map(l => l.trim()).filter(Boolean);
+      if (!sectionForm.sectionName || lines.length === 0) { setSectionMsg('Section name and at least one subject required.'); setSectionSaving(false); return; }
+      const result = await bulkAddSubjectsBySection(sectionForm.sectionName, lines, sectionForm.teacherId || null);
+      if (result?.success) { setSectionMsg(`Added ${result.added} subject(s) across ${result.classCount} class(es).`); await reload(); setSectionForm({ sectionName: '', subjectsText: '', teacherId: '' }); }
+      else setSectionMsg(result?.error || 'Could not add subjects.');
+    } catch (err) { setSectionMsg(err.message); } finally { setSectionSaving(false); }
   }
 
   function className(classId) {
@@ -309,7 +425,50 @@ function SubjectsTab() {
 
   return (
     <div className="space-y-4">
-      <form onSubmit={handleAdd} className="flex flex-wrap gap-3 items-end">
+      {/* Mode toggle */}
+      <div className="flex gap-2">
+        <button type="button" onClick={() => setSectionMode(false)} className={`px-4 py-1.5 rounded-2xl border text-sm font-semibold transition-colors ${!sectionMode ? 'bg-[#1a5c38] border-[#1a5c38] text-[#f5deb3]' : 'bg-[#f0d090] border-[#c9a96e]/40 text-[#800020]'}`}>Single / Class</button>
+        <button type="button" onClick={() => setSectionMode(true)} className={`px-4 py-1.5 rounded-2xl border text-sm font-semibold transition-colors ${sectionMode ? 'bg-[#1a5c38] border-[#1a5c38] text-[#f5deb3]' : 'bg-[#f0d090] border-[#c9a96e]/40 text-[#800020]'}`}>Bulk by Section</button>
+      </div>
+
+      {sectionMode ? (
+        <form onSubmit={handleSectionBulk} className="space-y-3">
+          <div>
+            <label className="text-xs text-[#800020] dark:text-slate-400 uppercase font-semibold">Section Name (e.g. JSS 1)</label>
+            <select required value={sectionForm.sectionName} onChange={e => setSectionForm(f => ({ ...f, sectionName: e.target.value }))}
+              className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#f0d090] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none">
+              <option value="">— Choose Section —</option>
+              {[...new Set(classes.map(c => c.name))].sort().map(n => <option key={n} value={n}>{n}</option>)}
+            </select>
+            {sectionForm.sectionName && DEFAULT_SUBJECT_PRESETS[sectionForm.sectionName] && (
+              <button type="button"
+                onClick={() => setSectionForm(f => ({ ...f, subjectsText: DEFAULT_SUBJECT_PRESETS[sectionForm.sectionName] }))}
+                className="mt-1 text-xs font-semibold text-[#1a5c38] underline dark:text-[#00ffff]">
+                Load default subjects for {sectionForm.sectionName}
+              </button>
+            )}
+          </div>
+          <div>
+            <label className="text-xs text-[#800020] dark:text-slate-400 uppercase font-semibold">Subjects (one per line)</label>
+            <textarea required value={sectionForm.subjectsText} onChange={e => setSectionForm(f => ({ ...f, subjectsText: e.target.value }))} rows={5}
+              className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#f0d090] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none"
+              placeholder={"Mathematics\nEnglish Language\nBasic Science"} />
+          </div>
+          <div>
+            <label className="text-xs text-[#800020] dark:text-slate-400 uppercase font-semibold">Default Teacher (optional)</label>
+            <select value={sectionForm.teacherId} onChange={e => setSectionForm(f => ({ ...f, teacherId: e.target.value }))}
+              className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#f0d090] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none">
+              <option value="">— None —</option>
+              {teachers.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
+            </select>
+          </div>
+          {sectionMsg && <p className={`text-sm font-semibold ${sectionMsg.includes('Added') ? 'text-[#1a5c38]' : 'text-red-600'}`}>{sectionMsg}</p>}
+          <button type="submit" disabled={sectionSaving} className="bg-[#1a5c38] hover:bg-[#154a2e] text-[#f5deb3] font-bold px-5 py-2 rounded-2xl text-sm transition-colors disabled:opacity-60">
+            {sectionSaving ? 'Adding...' : 'Add to All Section Arms'}
+          </button>
+        </form>
+      ) : (
+        <form onSubmit={handleAdd} className="flex flex-wrap gap-3 items-end">
         <div className="flex-1 min-w-[140px]">
           <label className="text-xs text-[#800020] dark:text-slate-400 uppercase font-semibold">Subject Name</label>
           <input required value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#f0d090] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none" />
@@ -330,7 +489,8 @@ function SubjectsTab() {
         </div>
         <button type="submit" disabled={saving} className="bg-[#1a5c38] hover:bg-[#154a2e] text-[#f5deb3] font-bold px-5 py-2 rounded-2xl text-sm transition-colors disabled:opacity-60">+ Add</button>
       </form>
-      {error && <p className="text-red-600 text-sm">{error}</p>}
+      )}
+      {!sectionMode && error && <p className="text-red-600 text-sm">{error}</p>}
 
       {groups.length === 0 ? (
         <p className="text-[#800020] dark:text-slate-400 text-sm">No subjects yet.</p>

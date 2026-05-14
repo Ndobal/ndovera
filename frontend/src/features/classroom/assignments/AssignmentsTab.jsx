@@ -1,160 +1,252 @@
-import React, { useMemo, useState } from 'react';
-import { assignmentData } from '../data/classroomData';
-import { createTextDownload } from '../shared/classroomHelpers';
+import React, { useEffect, useState } from 'react';
+import { getAssignments, submitAssignment, getMySubmission } from '../classroomService';
 
-export default function AssignmentsTab() {
-  const [assignmentTab, setAssignmentTab] = useState('normal');
-  const [quizAnswers, setQuizAnswers] = useState({});
-  const [matchingAnswers, setMatchingAnswers] = useState({});
-  const [quizSubmitted, setQuizSubmitted] = useState(false);
-  const [matchingSubmitted, setMatchingSubmitted] = useState(false);
-  const [retakeEnabled, setRetakeEnabled] = useState(true);
+const CARD = 'relative rounded-2xl border border-[#c9a96e]/40 bg-[#f5deb3] dark:bg-[#800000]/20 p-4 shadow-sm';
+const LABEL = 'text-xs font-bold uppercase tracking-[0.15em] text-[#800020]';
+const TITLE = 'text-base font-bold text-[#800000]';
+const BODY = 'text-sm font-semibold text-[#191970]';
+const INPUT_CLS = 'w-full rounded-xl border border-[#c9a96e]/40 bg-white/80 dark:bg-slate-900 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none focus:border-[#800020] font-semibold';
+const BTN_PRIMARY = 'bg-[#1a5c38] hover:bg-[#154a2e] text-[#f5deb3] font-bold px-5 py-2 rounded-2xl text-sm transition-colors disabled:opacity-60';
+const BTN_SECONDARY = 'bg-[#f5deb3] border border-[#c9a96e]/40 text-[#800020] font-bold px-4 py-2 rounded-2xl text-sm hover:bg-[#efd4a0] transition-colors';
 
-  const randomizedQuizQuestions = useMemo(() => {
-    const source = [...assignmentData.quiz.questions];
-    return source.map(question => {
-      if (question.type !== 'mcq') return question;
-      const options = [...question.options];
-      for (let index = options.length - 1; index > 0; index -= 1) {
-        const randomIndex = Math.floor(Math.random() * (index + 1));
-        [options[index], options[randomIndex]] = [options[randomIndex], options[index]];
+function typeLabel(type) {
+  const map = { mcq: 'MCQ', true_false: 'True/False', short_answer: 'Short Answer', essay: 'Essay', fill_blank: 'Fill in Blank', assignment: 'Assignment' };
+  return map[type] || (type || 'Task');
+}
+
+function SubmissionModal({ assignment, onClose, onSubmitted }) {
+  const questions = Array.isArray(assignment.questions) ? assignment.questions : [];
+  const [answers, setAnswers] = useState({});
+  const [textAnswer, setTextAnswer] = useState('');
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState('');
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setSubmitting(true); setError('');
+    try {
+      const payload = questions.length > 0
+        ? { answers }
+        : { answers: { response: textAnswer } };
+      const res = await submitAssignment(assignment.id, payload);
+      if (res?.success) {
+        onSubmitted(assignment.id, res.submission);
+        onClose();
+      } else {
+        setError(res?.message || 'Submission failed. Please try again.');
       }
-      return { ...question, options };
-    });
-  }, []);
+    } catch (err) {
+      setError(err.message || 'Network error.');
+    } finally {
+      setSubmitting(false);
+    }
+  }
 
-  const quizScore = useMemo(() => {
-    const totalMcq = assignmentData.quiz.questions.filter(question => question.type === 'mcq').length;
-    const correct = assignmentData.quiz.questions.filter(question => question.type === 'mcq' && quizAnswers[question.id] === question.answer).length;
-    return { correct, totalMcq, percent: totalMcq ? Math.round((correct / totalMcq) * 100) : 0 };
-  }, [quizAnswers]);
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/55 px-4 py-8 backdrop-blur-sm">
+      <div className="w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-[2rem] border border-[#c9a96e]/40 bg-[#fff8f0] p-6 shadow-2xl">
+        <div className="flex items-start justify-between gap-3 mb-4">
+          <div>
+            <p className={LABEL}>Assignment</p>
+            <h2 className="text-xl font-bold text-[#800000]">{assignment.title}</h2>
+            {assignment.description && <p className="mt-1 text-sm font-semibold text-[#191970]">{assignment.description}</p>}
+            {assignment.dueAt && <p className="mt-1 text-xs text-[#800020] font-semibold">Due: {new Date(assignment.dueAt).toLocaleString()}</p>}
+          </div>
+          <button type="button" onClick={onClose} className="ml-2 text-[#800020] font-bold text-xl leading-none">✕</button>
+        </div>
 
-  const matchingScore = useMemo(() => {
-    const total = assignmentData.matching.pairs.length;
-    const correct = assignmentData.matching.pairs.filter(pair => matchingAnswers[pair.left] === pair.right).length;
-    return { total, correct, percent: total ? Math.round((correct / total) * 100) : 0 };
-  }, [matchingAnswers]);
+        <form onSubmit={handleSubmit} className="space-y-4">
+          {questions.length === 0 ? (
+            <div>
+              <label className={LABEL}>Your Response</label>
+              <textarea
+                value={textAnswer}
+                onChange={e => setTextAnswer(e.target.value)}
+                rows={5}
+                className={INPUT_CLS + ' mt-1'}
+                placeholder="Type your answer or response here..."
+                required
+              />
+            </div>
+          ) : (
+            questions.map((q, i) => (
+              <div key={q.id || i} className="rounded-2xl border border-[#c9a96e]/30 bg-[#f0d090] p-4 space-y-2">
+                <p className="text-sm font-bold text-[#800020] uppercase tracking-wide">{typeLabel(q.type)} — Q{i + 1}</p>
+                <p className="font-bold text-[#191970] text-sm">{q.prompt || q.text || q.question}</p>
+                {q.imageUrl && <img src={q.imageUrl} alt="" className="max-h-48 rounded-xl object-contain" onError={e => { e.currentTarget.style.display = 'none'; }} />}
+                {q.type === 'mcq' && Array.isArray(q.options) && (
+                  <div className="space-y-1.5 mt-1">
+                    {q.options.map((opt, oi) => (
+                      <label key={oi} className={`flex items-center gap-2 rounded-xl border px-3 py-2 cursor-pointer transition-colors ${answers[q.id || i] === opt ? 'border-[#1a5c38] bg-[#1a5c38]/10' : 'border-[#c9a96e]/30 bg-white/70'}`}>
+                        <input type="radio" name={q.id || String(i)} checked={answers[q.id || i] === opt} onChange={() => setAnswers(a => ({ ...a, [q.id || i]: opt }))} className="accent-[#1a5c38]" />
+                        <span className="text-sm font-semibold text-[#191970]">{String.fromCharCode(65 + oi)}. {opt}</span>
+                      </label>
+                    ))}
+                  </div>
+                )}
+                {q.type === 'true_false' && (
+                  <div className="flex gap-3 mt-1">
+                    {['True', 'False'].map(opt => (
+                      <label key={opt} className={`flex items-center gap-2 rounded-xl border px-4 py-2 cursor-pointer transition-colors ${answers[q.id || i] === opt ? 'border-[#1a5c38] bg-[#1a5c38]/10' : 'border-[#c9a96e]/30 bg-white/70'}`}>
+                        <input type="radio" name={q.id || String(i)} checked={answers[q.id || i] === opt} onChange={() => setAnswers(a => ({ ...a, [q.id || i]: opt }))} className="accent-[#1a5c38]" />
+                        <span className="font-bold text-[#191970]">{opt}</span>
+                      </label>
+                    ))}
+                  </div>
+                )}
+                {(q.type === 'short_answer' || q.type === 'fill_blank') && (
+                  <input value={answers[q.id || i] || ''} onChange={e => setAnswers(a => ({ ...a, [q.id || i]: e.target.value }))} className={INPUT_CLS + ' mt-1'} placeholder="Your answer..." />
+                )}
+                {q.type === 'essay' && (
+                  <textarea value={answers[q.id || i] || ''} onChange={e => setAnswers(a => ({ ...a, [q.id || i]: e.target.value }))} rows={3} className={INPUT_CLS + ' mt-1'} placeholder="Write your essay response..." />
+                )}
+              </div>
+            ))
+          )}
+          {error && <p className="text-sm font-bold text-red-600">{error}</p>}
+          <div className="flex gap-3">
+            <button type="submit" disabled={submitting} className={BTN_PRIMARY}>
+              {submitting ? 'Submitting...' : 'Submit Assignment'}
+            </button>
+            <button type="button" onClick={onClose} className={BTN_SECONDARY}>Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+}
 
-  const exportAssignmentAnalytics = () => {
-    const csv = [
-      ['Metric', 'Value'],
-      ['Quiz Auto-Graded Score', `${quizScore.percent}%`],
-      ['Matching Score', `${matchingScore.percent}%`],
-      ['Late Penalty Rule', assignmentData.policy.latePenalty],
-      ['Retake Enabled', retakeEnabled ? 'Yes' : 'No'],
-    ];
-    const content = csv.map(row => row.map(value => `"${String(value).replace(/"/g, '""')}"`).join(',')).join('\n');
-    createTextDownload('assignment-analytics.csv', content);
-  };
+export default function AssignmentsTab({ classId = '' }) {
+  const [assignments, setAssignments] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [openAssignment, setOpenAssignment] = useState(null);
+  // submissionMap: { [assignmentId]: { submittedAt, grade, feedback } }
+  const [submissionMap, setSubmissionMap] = useState({});
 
-  const hasAssignments = assignmentData.normal.length > 0 || assignmentData.quiz.questions.length > 0 || assignmentData.matching.pairs.length > 0;
+  useEffect(() => {
+    if (!classId) { setLoading(false); return; }
+    getAssignments(classId)
+      .then(d => {
+        const list = d?.assignments || [];
+        setAssignments(list);
+        // Load my submission status for each assignment
+        list.forEach(a => {
+          getMySubmission(a.id)
+            .then(r => {
+              if (r?.submission) {
+                setSubmissionMap(prev => ({ ...prev, [a.id]: r.submission }));
+              }
+            })
+            .catch(() => {});
+        });
+      })
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  }, [classId]);
 
-  if (!hasAssignments) {
+  function handleSubmitted(assignmentId, submission) {
+    setSubmissionMap(prev => ({ ...prev, [assignmentId]: submission || { submittedAt: new Date().toISOString() } }));
+  }
+
+  if (loading) {
     return (
-      <section className="glass-surface rounded-3xl p-5 text-center">
-        <p className="micro-label accent-amber">No live assignments</p>
-        <p className="mt-2 text-slate-300">Assignments will appear here when teachers publish real classwork and assessments.</p>
+      <section className="rounded-3xl border border-[#c9a96e]/40 bg-[#f5deb3] p-6 text-center">
+        <p className="text-sm font-bold text-[#191970]">Loading assignments...</p>
+      </section>
+    );
+  }
+
+  if (!classId) {
+    return (
+      <section className="rounded-3xl border border-[#c9a96e]/40 bg-[#f5deb3] p-6 text-center">
+        <p className={LABEL}>No Class Linked</p>
+        <p className="mt-2 text-sm font-semibold text-[#191970]">Your account is not yet assigned to a class. Contact your school admin.</p>
+      </section>
+    );
+  }
+
+  if (assignments.length === 0) {
+    return (
+      <section className="rounded-3xl border border-[#c9a96e]/40 bg-[#f5deb3] p-6 text-center">
+        <p className={LABEL}>No Assignments Yet</p>
+        <p className="mt-2 text-sm font-semibold text-[#191970]">Your teacher has not published any assignments yet. Check back later.</p>
       </section>
     );
   }
 
   return (
-    <div className="space-y-4">
-      <section className="glass-surface rounded-3xl p-5 space-y-3">
-        <div className="flex flex-wrap gap-2">
-          {[
-            { id: 'normal', label: 'Normal Assignment' },
-            { id: 'quiz', label: 'Quiz Assignment' },
-            { id: 'matching', label: 'Matching Assignment' },
-          ].map(tab => (
-            <button key={tab.id} onClick={() => setAssignmentTab(tab.id)} className={assignmentTab === tab.id ? 'px-4 py-2 rounded-2xl bg-indigo-500/30 border border-indigo-300/40 text-white' : 'px-4 py-2 rounded-2xl bg-slate-900/30 border border-white/10 text-slate-200'}>{tab.label}</button>
-          ))}
-        </div>
+    <div className="space-y-3 p-1">
+      {assignments.map(assignment => {
+        const sub = submissionMap[assignment.id];
+        const isSubmitted = !!sub;
+        const isGraded = sub?.grade != null;
 
-        {assignmentTab === 'normal' && (
-          <div className="space-y-3">
-            {assignmentData.normal.map(item => (
-              <div key={item.id} className="rounded-2xl border border-white/10 bg-slate-900/30 p-4 space-y-2">
-                <p className="text-slate-100 font-semibold">{item.title}</p>
-                <p className="neon-subtle text-sm">Due: {item.due}</p>
-                <p className="micro-label accent-indigo">Rubric: {item.rubric}</p>
-                <div className="flex flex-wrap gap-2">
-                  <button className="px-3 py-1 rounded-xl border border-white/10 bg-slate-900/40 text-sm text-slate-100">Attach File</button>
-                  <button className="px-3 py-1 rounded-xl border border-white/10 bg-slate-900/40 text-sm text-slate-100">Write Response</button>
-                  <button className="px-3 py-1 rounded-xl border border-emerald-300/30 bg-emerald-500/20 text-sm text-emerald-100">Submit</button>
-                </div>
+        return (
+          <div key={assignment.id} className={CARD}>
+            {/* Submitted badge */}
+            {isSubmitted && (
+              <div className="absolute top-3 right-3 flex items-center gap-1 rounded-full bg-[#1a5c38] px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-[#f5deb3] shadow">
+                ✓ Submitted
               </div>
-            ))}
-          </div>
-        )}
+            )}
+            {/* Graded badge (overlays submitted badge) */}
+            {isGraded && (
+              <div className="absolute top-3 right-3 flex items-center gap-1 rounded-full bg-[#800020] px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-[#f5deb3] shadow">
+                ★ Graded
+              </div>
+            )}
 
-        {assignmentTab === 'quiz' && (
-          <div className="space-y-4">
-            <div className="rounded-2xl border border-white/10 bg-slate-900/30 p-4">
-              <p className="text-slate-100 font-semibold">{assignmentData.quiz.title}</p>
-              <p className="neon-subtle text-sm">Time Limit: {assignmentData.quiz.durationMins} mins • Auto-grade for MCQ • Essay manual grading</p>
-              <p className="micro-label mt-1 accent-amber">Anti-cheat shuffle enabled</p>
+            <div className="pr-24">
+              <p className={LABEL + ' mb-1'}>{assignment.subjectName || 'Assignment'} · {assignment.format ? assignment.format.toUpperCase() : 'TASK'}</p>
+              <h3 className={TITLE}>{assignment.title}</h3>
+              {assignment.description && <p className={BODY + ' mt-1'}>{assignment.description}</p>}
+              {assignment.dueAt && (
+                <p className="mt-1 text-xs font-semibold text-[#800020]">Due: {new Date(assignment.dueAt).toLocaleString()}</p>
+              )}
             </div>
 
-            {randomizedQuizQuestions.map(question => (
-              <div key={question.id} className="rounded-2xl border border-white/10 bg-slate-900/30 p-4 space-y-2">
-                <p className="text-slate-100 font-semibold">{question.text}</p>
-                {question.type === 'mcq' && (
-                  <div className="space-y-2">
-                    {question.options.map(option => (
-                      <label key={option} className="flex items-center gap-2 text-sm text-slate-200">
-                        <input type="radio" name={question.id} checked={quizAnswers[question.id] === option} onChange={() => setQuizAnswers(prev => ({ ...prev, [question.id]: option }))} />
-                        <span>{option}</span>
-                      </label>
-                    ))}
-                  </div>
-                )}
-                {question.type === 'short' && <input value={quizAnswers[question.id] || ''} onChange={event => setQuizAnswers(prev => ({ ...prev, [question.id]: event.target.value }))} className="w-full rounded-xl bg-slate-900/40 border border-white/10 px-3 py-2 text-sm text-slate-100" placeholder="Type short answer" />}
-                {question.type === 'essay' && <textarea value={quizAnswers[question.id] || ''} onChange={event => setQuizAnswers(prev => ({ ...prev, [question.id]: event.target.value }))} className="w-full min-h-[80px] rounded-xl bg-slate-900/40 border border-white/10 px-3 py-2 text-sm text-slate-100" placeholder="Type essay response" />}
+            {/* Grade display if marked */}
+            {isGraded && (
+              <div className="mt-3 rounded-xl border border-[#c9a96e]/30 bg-[#f0d090] p-3">
+                <p className="text-xs font-bold text-[#800020] uppercase tracking-wide mb-1">Your Result</p>
+                <p className="text-2xl font-bold text-[#1a5c38]">{sub.grade}<span className="text-sm font-semibold text-[#191970] ml-1">/ 100</span></p>
+                {sub.feedback && <p className="mt-1 text-sm font-semibold text-[#191970] italic">"{sub.feedback}"</p>}
               </div>
-            ))}
+            )}
 
-            <button onClick={() => setQuizSubmitted(true)} className="px-4 py-2 rounded-xl bg-emerald-500/30 border border-emerald-300/40 text-white font-semibold">Submit Quiz</button>
-            {quizSubmitted && <div className="rounded-2xl border border-white/10 bg-slate-900/30 p-4 space-y-1"><p className="text-slate-100">Auto-Graded MCQ Score: {quizScore.correct}/{quizScore.totalMcq} ({quizScore.percent}%)</p><p className="micro-label accent-indigo">Essay responses pending teacher review</p></div>}
-          </div>
-        )}
-
-        {assignmentTab === 'matching' && (
-          <div className="space-y-3">
-            <p className="text-slate-200">Match each item from Column A to Column B. Auto-graded on submit.</p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-              <div className="rounded-2xl border border-white/10 bg-slate-900/30 p-4 space-y-2"><p className="micro-label accent-indigo">Column A</p>{assignmentData.matching.pairs.map(pair => <p key={pair.left} className="text-slate-100">{pair.left}</p>)}</div>
-              <div className="rounded-2xl border border-white/10 bg-slate-900/30 p-4 space-y-2">
-                <p className="micro-label accent-amber">Column B</p>
-                {assignmentData.matching.pairs.map(pair => (
-                  <div key={pair.left} className="space-y-1">
-                    <p className="text-xs text-slate-300">{pair.left}</p>
-                    <select value={matchingAnswers[pair.left] || ''} onChange={event => setMatchingAnswers(prev => ({ ...prev, [pair.left]: event.target.value }))} className="w-full rounded-xl bg-slate-900/40 border border-white/10 px-3 py-2 text-sm text-slate-100">
-                      <option value="">Select answer</option>
-                      {assignmentData.matching.pairs.map(option => <option key={option.right} value={option.right}>{option.right}</option>)}
-                    </select>
-                  </div>
-                ))}
+            {/* Submission timestamp */}
+            {isSubmitted && !isGraded && (
+              <div className="mt-3 rounded-xl border border-[#c9a96e]/30 bg-[#f0d090] p-3">
+                <p className="text-xs font-semibold text-[#1a5c38]">
+                  Submitted on {sub.submittedAt ? new Date(sub.submittedAt).toLocaleString() : '—'}
+                </p>
+                <p className="text-xs font-semibold text-[#800020] mt-0.5">Awaiting teacher review...</p>
               </div>
-            </div>
-            <button onClick={() => setMatchingSubmitted(true)} className="px-4 py-2 rounded-xl bg-emerald-500/30 border border-emerald-300/40 text-white">Submit Matching</button>
-            {matchingSubmitted && <p className="micro-label accent-emerald">Matching Score: {matchingScore.correct}/{matchingScore.total} ({matchingScore.percent}%)</p>}
-          </div>
-        )}
-      </section>
+            )}
 
-      <section className="glass-surface rounded-3xl p-5 space-y-3">
-        <h3 className="text-xl command-title neon-title">Advanced Assignment Features</h3>
-        <div className="rounded-2xl border border-white/10 bg-slate-900/30 p-4 space-y-2">
-          <p className="text-sm text-slate-200">Late Penalty Rule: {assignmentData.policy.latePenalty}</p>
-          <p className="text-sm text-slate-200">Retake Policy: {assignmentData.policy.retake}</p>
-          <p className="text-sm text-slate-200">Integrity Control: {assignmentData.policy.antiCheat}</p>
-          <div className="flex flex-wrap items-center gap-2">
-            <button onClick={() => setRetakeEnabled(prev => !prev)} className="px-3 py-1 rounded-xl border border-white/10 bg-slate-900/40 text-sm text-slate-100">Retake: {retakeEnabled ? 'Enabled' : 'Disabled'}</button>
-            <button onClick={exportAssignmentAnalytics} className="px-3 py-1 rounded-xl border border-indigo-300/40 bg-indigo-500/20 text-sm text-indigo-100">Export Results</button>
+            {/* Action */}
+            {!isSubmitted && (
+              <div className="mt-3">
+                <button
+                  type="button"
+                  onClick={() => setOpenAssignment(assignment)}
+                  className={BTN_PRIMARY}
+                >
+                  Open &amp; Submit
+                </button>
+              </div>
+            )}
           </div>
-        </div>
-      </section>
+        );
+      })}
+
+      {openAssignment && (
+        <SubmissionModal
+          assignment={openAssignment}
+          onClose={() => setOpenAssignment(null)}
+          onSubmitted={handleSubmitted}
+        />
+      )}
     </div>
   );
 }
