@@ -13,6 +13,7 @@ import HoSMessaging from './hos/HoSMessaging';
 import HoSSettings from './hos/HoSSettings';
 import HoSPayroll from './hos/HoSPayroll';
 import OwnerAttendance from './owner/OwnerAttendance';
+import OwnerPeople from './owner/OwnerPeople';
 
 export default function HoSDashboard({ auth = null }) {
   const location = useLocation();
@@ -33,6 +34,7 @@ export default function HoSDashboard({ auth = null }) {
     case 'settings': return <HoSSettings auth={auth} />;
     case 'payroll': return <HoSPayroll auth={auth} />;
     case 'library': return <RoleLibrary />;
+    case 'people': return <OwnerPeople />;
     default: return <Navigate to="/roles/hos" replace />;
   }
 }

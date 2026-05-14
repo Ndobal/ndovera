@@ -118,6 +118,7 @@ function getRoleSidebarItems(roleKey) {
   if (roleKey === 'hos') {
     return [
       { name: 'Overview', path: '/roles/hos' },
+      { name: 'People', path: '/roles/hos/people' },
       { name: 'Academics', path: '/roles/hos/academics' },
       { name: 'Attendance', path: '/roles/hos/attendance' },
       { name: 'Payroll', path: '/roles/hos/payroll' },
@@ -280,6 +281,7 @@ function getRoleSidebarItems(roleKey) {
   if (roleKey === 'ict') {
     return [
       { name: 'Overview', path: '/roles/ict' },
+      { name: 'People', path: '/roles/ict/people' },
       { name: 'Support', path: '/roles/ict/support' },
       { name: 'Systems', path: '/roles/ict/systems' },
       { name: 'Access', path: '/roles/ict/access' },

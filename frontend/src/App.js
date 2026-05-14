@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import Loader from './shared/components/Loader';
@@ -43,6 +43,7 @@ import SchoolRegistrationPage from './features/tenants/pages/SchoolRegistrationP
 import PublicHomePage from './features/public/pages/PublicHomePage';
 import PublicSitePage from './features/public/pages/PublicSitePage';
 import { clearStoredAuth, getSignedOutRedirectPath, getStoredAuth, persistAuth, syncRefreshedToken } from './features/auth/services/authApi';
+import { useTenantPwaManifest } from './shared/hooks/useTenantPwaManifest';
 import { getApiUrl } from './config/apiBase';
 import './App.css';
 
@@ -202,12 +203,14 @@ function AnimatedRoutes({ auth, onLogin }) {
 
 function AppWorkspace({ auth, onLogin, onLogout }) {
   const location = useLocation();
+  useTenantPwaManifest(auth);
   const normalizedPath = normalizePublicPath(location.pathname);
   const isPublicRoute = PUBLIC_ROUTE_PATHS.has(normalizedPath);
   const inDashboardMode = location.pathname.startsWith('/roles/');
   const inStudentClassroom = location.pathname.startsWith('/roles/student/classroom');
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const handleCloseSidebar = useCallback(() => setIsSidebarOpen(false), []);
 
   useEffect(() => {
     const onResize = () => setIsMobile(window.innerWidth < 768);
@@ -242,7 +245,7 @@ function AppWorkspace({ auth, onLogin, onLogout }) {
 
   return (
     <div className="flex h-screen overflow-hidden text-slate-900 dark:text-slate-100 transition-colors duration-500 dashboard-bg dark:bg-slate-950">
-      {!mobileClassroomMode && <Sidebar mobileOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />}
+      {!mobileClassroomMode && <Sidebar mobileOpen={isSidebarOpen} onClose={handleCloseSidebar} />}
       <main className={`flex-1 min-h-0 relative ${inStudentClassroom ? 'overflow-hidden' : 'overflow-y-auto'}`}>
         {inDashboardMode && !mobileClassroomMode && (
           <DashboardTopBar

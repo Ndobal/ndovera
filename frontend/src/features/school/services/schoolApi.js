@@ -1,5 +1,6 @@
 import { getApiUrl } from '../../../config/apiBase';
 import { getStoredAuth, clearStoredAuth, getSignedOutRedirectPath, syncRefreshedToken } from '../../auth/services/authApi';
+import { storeTenantPwaInfo } from '../../../shared/hooks/useTenantPwaManifest';
 
 function buildHeaders() {
   const auth = getStoredAuth();
@@ -34,7 +35,19 @@ async function req(path, opts = {}) {
 }
 
 export const getMe = () => req('/api/users/me');
-export const getMyTenant = () => req('/api/tenants/me');
+export const getMyTenant = async () => {
+  const data = await req('/api/tenants/me');
+  // Cache tenant branding for PWA manifest and logout redirect
+  const t = data?.tenants?.[0] || data;
+  if (t?.subdomain || t?.schoolName || t?.name || t?.branding?.logoUrl || t?.logoUrl) {
+    const subdomain = t.subdomain || '';
+    const schoolName = t.schoolName || t.name || t.branding?.schoolName || '';
+    const logoUrl = t.branding?.logoUrl || t.logoUrl || '';
+    storeTenantPwaInfo({ schoolName, logoUrl, subdomain });
+    window.localStorage.setItem('tenantSubdomain', subdomain);
+  }
+  return data;
+};
 export const getAuditLog = () => req('/api/audit');
 export const getAttendance = () => req('/api/attendance');
 export const resetPassword = (payload) => req('/api/admin/reset-password', { method: 'POST', body: payload });
@@ -43,6 +56,7 @@ export const getPeople = () => req('/api/people');
 export const getExams = () => req('/api/exams');
 export const getOwnerSchools = () => req('/api/owner/schools');
 export const addPerson = (data) => req('/api/people', { method: 'POST', body: data });
+export const bulkImportPeople = (rows) => req('/api/people/bulk', { method: 'POST', body: { rows } });
 export const deactivatePerson = (userId) => req(`/api/people/${userId}`, { method: 'DELETE' });
 export const updatePersonRole = (userId, role) => req(`/api/people/${userId}/role`, { method: 'PUT', body: { role } });
 export const getClasses = () => req('/api/school/classes');

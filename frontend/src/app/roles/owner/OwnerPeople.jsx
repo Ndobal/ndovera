@@ -1,7 +1,7 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import {
-  getPeople, addPerson, deactivatePerson, updatePersonRole,
+  getPeople, addPerson, bulkImportPeople, deactivatePerson, updatePersonRole,
   getClasses, getParents, getUserProfile, updateUserProfile, linkParentStudent, getMyTenant,
   resetPassword,
 } from '../../../features/school/services/schoolApi';
@@ -513,6 +513,165 @@ function AddPersonModal({ onClose, onAdd }) {
 
 const DEFAULT_PASSWORD = 'abcABC@123';
 
+// ─── CSV template columns ─────────────────────────────────────────────────────
+const CSV_HEADERS = ['name', 'email', 'role', 'password', 'classId'];
+const CSV_EXAMPLE_ROWS = [
+  ['John Doe', 'john.doe@school.com', 'teacher', '', ''],
+  ['Jane Smith', 'jane.smith@school.com', 'student', '', 'class_id_here'],
+  ['Mark Brown', 'mark.brown@school.com', 'parent', '', ''],
+];
+
+function parseCsv(text) {
+  const lines = text.trim().split(/\r?\n/);
+  if (lines.length < 2) return [];
+  const headers = lines[0].split(',').map(h => h.trim().toLowerCase().replace(/[\"]/g, ''));
+  return lines.slice(1).map(line => {
+    const vals = line.split(',').map(v => v.trim().replace(/^"|"$/g, ''));
+    const row = {};
+    headers.forEach((h, i) => { row[h] = vals[i] || ''; });
+    return row;
+  }).filter(r => r.name || r.email);
+}
+
+function downloadCsvTemplate() {
+  const rows = [CSV_HEADERS.join(','), ...CSV_EXAMPLE_ROWS.map(r => r.join(','))];
+  const blob = new Blob([rows.join('\n')], { type: 'text/csv' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'ndovera_users_template.csv';
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+function BulkImportModal({ onClose, onDone }) {
+  const fileRef = useRef(null);
+  const [rows, setRows] = useState([]);
+  const [parseError, setParseError] = useState('');
+  const [importing, setImporting] = useState(false);
+  const [results, setResults] = useState(null);
+
+  function handleFile(e) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = ev => {
+      try {
+        const parsed = parseCsv(ev.target.result);
+        if (!parsed.length) { setParseError('No valid rows found. Check the file format.'); setRows([]); return; }
+        setParseError('');
+        setRows(parsed);
+        setResults(null);
+      } catch {
+        setParseError('Could not parse file.');
+      }
+    };
+    reader.readAsText(file);
+  }
+
+  async function handleImport() {
+    if (!rows.length) return;
+    setImporting(true);
+    try {
+      const data = await bulkImportPeople(rows);
+      setResults(data.results || []);
+      onDone();
+    } catch (err) {
+      setParseError(err.message);
+    } finally {
+      setImporting(false);
+    }
+  }
+
+  const okCount = results ? results.filter(r => r.status === 'ok').length : 0;
+  const errCount = results ? results.filter(r => r.status === 'error').length : 0;
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40" onClick={onClose}>
+      <div className="w-full max-w-lg rounded-3xl p-6 bg-[#f5deb3] dark:bg-slate-900 border border-[#c9a96e]/40 dark:border-white/10 shadow-xl max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-lg font-bold text-[#800000] dark:text-slate-100">Bulk Import Users</h2>
+          <button onClick={onClose} className="text-[#800020] dark:text-slate-400 text-xl font-bold hover:text-red-600">✕</button>
+        </div>
+
+        <div className="space-y-4">
+          {/* Template download */}
+          <div className="rounded-2xl bg-[#f0d090] dark:bg-slate-800 p-4 flex items-center justify-between gap-3">
+            <div>
+              <p className="text-xs font-bold text-[#800000] dark:text-slate-100 uppercase">Step 1: Download Template</p>
+              <p className="text-xs text-[#191970] dark:text-slate-400 mt-0.5">Fill in name, email, role, optional password &amp; classId.</p>
+            </div>
+            <button onClick={downloadCsvTemplate} className="shrink-0 bg-[#191970] hover:bg-[#111450] text-[#f5deb3] font-bold text-xs px-4 py-2 rounded-xl transition-colors">
+              📥 Template
+            </button>
+          </div>
+
+          {/* File upload */}
+          <div>
+            <p className="text-xs font-bold text-[#800020] dark:text-slate-400 uppercase mb-1">Step 2: Upload CSV</p>
+            <input
+              ref={fileRef}
+              type="file"
+              accept=".csv,text/csv"
+              onChange={handleFile}
+              className="block w-full text-sm text-[#191970] dark:text-slate-300 file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:bg-[#800020] file:text-[#f5deb3] file:font-bold file:text-xs cursor-pointer"
+            />
+            {parseError && <p className="mt-1 text-red-600 text-xs">{parseError}</p>}
+          </div>
+
+          {/* Preview */}
+          {rows.length > 0 && !results && (
+            <div>
+              <p className="text-xs font-bold text-[#800020] dark:text-slate-400 uppercase mb-2">{rows.length} row{rows.length !== 1 ? 's' : ''} ready to import</p>
+              <div className="overflow-x-auto rounded-xl border border-[#c9a96e]/40">
+                <table className="w-full text-xs">
+                  <thead>
+                    <tr className="bg-[#f0d090] dark:bg-slate-800">
+                      {CSV_HEADERS.map(h => <th key={h} className="px-3 py-1.5 text-left text-[#800020] font-bold uppercase">{h}</th>)}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {rows.slice(0, 10).map((r, i) => (
+                      <tr key={i} className="border-t border-[#c9a96e]/20">
+                        {CSV_HEADERS.map(h => <td key={h} className="px-3 py-1.5 text-[#191970] dark:text-slate-300 truncate max-w-[100px]">{r[h] || '—'}</td>)}
+                      </tr>
+                    ))}
+                    {rows.length > 10 && (
+                      <tr><td colSpan={5} className="px-3 py-1.5 text-[#800020] text-center italic">…and {rows.length - 10} more</td></tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+
+          {/* Results */}
+          {results && (
+            <div className="space-y-2">
+              <p className="text-sm font-bold text-[#800000] dark:text-slate-100">Import complete: {okCount} added, {errCount} failed.</p>
+              {results.filter(r => r.status === 'error').map((r, i) => (
+                <p key={i} className="text-xs text-red-600">✗ {r.email}: {r.error}</p>
+              ))}
+            </div>
+          )}
+
+          <div className="flex gap-3 pt-1">
+            <button onClick={onClose} className="flex-1 border border-[#c9a96e]/40 text-[#800020] px-4 py-2 rounded-2xl text-sm font-semibold">{results ? 'Close' : 'Cancel'}</button>
+            {!results && (
+              <button
+                onClick={handleImport}
+                disabled={importing || rows.length === 0}
+                className="flex-1 bg-[#1a5c38] hover:bg-[#154a2e] text-[#f5deb3] font-bold px-4 py-2 rounded-2xl text-sm transition-colors disabled:opacity-60"
+              >
+                {importing ? 'Importing…' : `Import ${rows.length} row${rows.length !== 1 ? 's' : ''}`}
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function ShareModal({ person, subdomain, onClose }) {
   const [copied, setCopied] = useState(false);
   const loginLink = subdomain ? `https://${subdomain}.ndovera.com/login` : 'https://ndovera.com/login';
@@ -679,6 +838,7 @@ export default function OwnerPeople() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showAdd, setShowAdd] = useState(false);
+  const [showBulk, setShowBulk] = useState(false);
   const [changingRole, setChangingRole] = useState(null);
   const [newRole, setNewRole] = useState('');
   const [profileUserId, setProfileUserId] = useState(null);
@@ -747,6 +907,7 @@ export default function OwnerPeople() {
   return (
     <div className="p-8 max-w-7xl mx-auto space-y-6">
       {showAdd && <AddPersonModal onClose={() => setShowAdd(false)} onAdd={handleAdd} />}
+      {showBulk && <BulkImportModal onClose={() => setShowBulk(false)} onDone={load} />}
       {profileUserId && (
         <UserProfileModal
           userId={profileUserId}
@@ -761,7 +922,10 @@ export default function OwnerPeople() {
           <h1 className="text-2xl font-bold text-[#800000] dark:text-slate-100">People</h1>
           <p className="text-[#191970] dark:text-slate-300 mt-1 text-sm">Manage students, parents, and school staff with live profile records.</p>
         </div>
-        <button onClick={() => setShowAdd(true)} aria-label="Add person" className="shrink-0 h-12 w-12 flex items-center justify-center bg-[#1a5c38] hover:bg-[#154a2e] text-[#f5deb3] font-bold rounded-2xl text-2xl leading-none transition-colors">+</button>
+        <div className="flex gap-2 shrink-0">
+          <button onClick={() => setShowBulk(true)} title="Bulk import via CSV" className="h-12 px-4 flex items-center gap-1.5 bg-[#191970] hover:bg-[#111450] text-[#f5deb3] font-bold rounded-2xl text-sm transition-colors">📥 Import</button>
+          <button onClick={() => setShowAdd(true)} aria-label="Add person" className="h-12 w-12 flex items-center justify-center bg-[#1a5c38] hover:bg-[#154a2e] text-[#f5deb3] font-bold rounded-2xl text-2xl leading-none transition-colors">+</button>
+        </div>
       </div>
 
       {/* Search + filter row */}

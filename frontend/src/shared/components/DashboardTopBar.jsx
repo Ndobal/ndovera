@@ -1,10 +1,11 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import {
   BellIcon,
   Bars3Icon,
   ChatBubbleLeftRightIcon,
   XMarkIcon,
+  ArrowDownTrayIcon,
 } from '@heroicons/react/24/outline';
 import ThemeToggle from './ThemeToggle';
 import UserProfileDropdown from './UserProfileDropdown';
@@ -22,6 +23,8 @@ const roleHeaderStats = {
 export default function DashboardTopBar({ authUser = null, onLogout = () => {}, onToggleSidebar = null, isSidebarOpen = false }) {
   const navigate = useNavigate();
   const location = useLocation();
+  const installPromptRef = useRef(null);
+  const [installable, setInstallable] = useState(false);
 
   const roleKey = location.pathname.startsWith('/roles/')
     ? location.pathname.split('/')[2]
@@ -67,6 +70,29 @@ export default function DashboardTopBar({ authUser = null, onLogout = () => {}, 
   useEffect(() => {
     setActivePanel(null);
   }, [location.pathname]);
+
+  useEffect(() => {
+    const handler = (e) => {
+      e.preventDefault();
+      installPromptRef.current = e;
+      setInstallable(true);
+    };
+    window.addEventListener('beforeinstallprompt', handler);
+    window.addEventListener('appinstalled', () => setInstallable(false));
+    return () => {
+      window.removeEventListener('beforeinstallprompt', handler);
+    };
+  }, []);
+
+  async function handleInstall() {
+    if (!installPromptRef.current) return;
+    installPromptRef.current.prompt();
+    const { outcome } = await installPromptRef.current.userChoice;
+    if (outcome === 'accepted') {
+      setInstallable(false);
+      installPromptRef.current = null;
+    }
+  }
 
   const togglePanel = panel => {
     setActivePanel(prev => (prev === panel ? null : panel));
@@ -124,6 +150,16 @@ export default function DashboardTopBar({ authUser = null, onLogout = () => {}, 
           </button>
 
           <ThemeToggle />
+          {installable && (
+            <button
+              onClick={handleInstall}
+              title="Install NDOVERA app"
+              className="glass-chip p-2 rounded-xl text-[#1a5c38] dark:text-[#39ff14] hover:bg-white/70 dark:hover:bg-slate-700/60 transition-colors"
+              aria-label="Install app"
+            >
+              <ArrowDownTrayIcon className="w-5 h-5" />
+            </button>
+          )}
           <UserProfileDropdown user={authUser} onLogout={onLogout} />
         </div>
 

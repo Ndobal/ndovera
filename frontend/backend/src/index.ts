@@ -3738,7 +3738,7 @@ app.get('/api/owner/schools', authenticate, async (c) => {
 })
 
 app.post('/api/people', authenticate, async (c) => {
-  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos'])) return c.json({ error: 'forbidden' }, 403)
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos', 'ict', 'ict_manager'])) return c.json({ error: 'forbidden' }, 403)
   const tenantId = c.var.user?.tenantId
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
   const { name, email, role, password, parentData, classId } = await c.req.json()
@@ -3841,8 +3841,79 @@ app.post('/api/people', authenticate, async (c) => {
   }
 })
 
+// ─── Bulk people import ───────────────────────────────────────────────────────
+app.post('/api/people/bulk', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos', 'ict', 'ict_manager'])) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+
+  let rows: Array<{ name?: string; email?: string; role?: string; password?: string; classId?: string }> = []
+  try {
+    const body = await c.req.json()
+    rows = Array.isArray(body?.rows) ? body.rows : []
+  } catch {
+    return c.json({ error: 'Invalid request body.' }, 400)
+  }
+
+  if (!rows.length) return c.json({ error: 'No rows provided.' }, 400)
+  if (rows.length > 200) return c.json({ error: 'Maximum 200 rows per import.' }, 400)
+
+  await ensureUsersTable(c.env.APP_DB)
+  await ensureClassesTable(c.env.APP_DB)
+
+  const results: Array<{ email: string; status: 'ok' | 'error'; error?: string }> = []
+
+  for (const row of rows) {
+    const { name, email, role, password, classId } = row
+    if (!name || !email || !role) {
+      results.push({ email: email || '?', status: 'error', error: 'name, email, and role are required.' })
+      continue
+    }
+    try {
+      const userId = `user_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`
+      const defaultPassword = password || 'abcABC@123'
+      const existingSettings = await getSettings(c.env.APP_DB, email).catch(() => null)
+      const displayId = existingSettings?.displayId || await generateDisplayId(c.env.APP_DB, getDisplayIdConfig(role))
+
+      let selectedClass: Record<string, any> | null = null
+      if (role === 'student' && classId) {
+        selectedClass = await c.env.APP_DB.prepare(
+          `SELECT id, name, arm FROM classes WHERE id = ? AND tenantId = ?`
+        ).bind(classId, tenantId).first() as Record<string, any> | null
+      }
+
+      const userSettings = await withHashedPassword({
+        ...(existingSettings || {}),
+        email,
+        name,
+        role,
+        tenantId,
+        schoolId: tenantId,
+        status: 'active',
+        mustChangePassword: true,
+        displayId,
+        ...(selectedClass ? { classId: selectedClass.id, className: selectedClass.name, classArm: selectedClass.arm } : {}),
+      }, defaultPassword)
+
+      await c.env.APP_DB.prepare(
+        `INSERT INTO users (id, email, name, role, tenantId, status, createdAt)
+         VALUES (?, ?, ?, ?, ?, ?, ?)
+         ON CONFLICT(email) DO UPDATE SET name=excluded.name, role=excluded.role, tenantId=excluded.tenantId, status='active'`
+      ).bind(userId, email, name, role, tenantId, 'active', new Date().toISOString()).run()
+
+      await upsertSettings(c.env.APP_DB, email, userSettings)
+      results.push({ email, status: 'ok' })
+    } catch (err) {
+      results.push({ email: email || '?', status: 'error', error: err instanceof Error ? err.message : 'unknown error' })
+    }
+  }
+
+  await addAudit(c.env.APP_DB, tenantId, { action: 'bulkImport', data: { by: c.var.user.id, total: rows.length, ok: results.filter(r => r.status === 'ok').length } })
+  return c.json({ results })
+})
+
 app.delete('/api/people/:userId', authenticate, async (c) => {
-  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos'])) return c.json({ error: 'forbidden' }, 403)
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos', 'ict', 'ict_manager'])) return c.json({ error: 'forbidden' }, 403)
   const tenantId = c.var.user?.tenantId
   const userId = c.req.param('userId')
   try {
@@ -3863,7 +3934,7 @@ app.delete('/api/people/:userId', authenticate, async (c) => {
 })
 
 app.put('/api/people/:userId/role', authenticate, async (c) => {
-  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos'])) return c.json({ error: 'forbidden' }, 403)
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos', 'ict', 'ict_manager'])) return c.json({ error: 'forbidden' }, 403)
   const tenantId = c.var.user?.tenantId
   const userId = c.req.param('userId')
   const { role } = await c.req.json()

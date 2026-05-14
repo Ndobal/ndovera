@@ -4,6 +4,7 @@ import RoleSectionPage from '../../shared/components/RoleSectionPage';
 import operationalRoleConfigs from './config/operationalRoleConfigs';
 import WebsiteTab from './owner/tabs/WebsiteTab';
 import TeacherClassroom from '../../features/classroom/TeacherClassroom';
+import OwnerPeople from './owner/OwnerPeople';
 
 export default function OperationalRoleDashboard({ roleKey }) {
   const location = useLocation();
@@ -19,6 +20,10 @@ export default function OperationalRoleDashboard({ roleKey }) {
 
   if (!section) {
     return <Navigate to={`/roles/${roleKey}`} replace />;
+  }
+
+  if (roleKey === 'ict' && sectionKey === 'people') {
+    return <OwnerPeople />;
   }
 
   if (roleKey === 'ict' && sectionKey === 'settings') {

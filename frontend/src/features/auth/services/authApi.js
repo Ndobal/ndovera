@@ -150,6 +150,10 @@ function mergeStoredUserWithToken(storedUser, payload) {
 }
 
 export function getSignedOutRedirectPath() {
+	const subdomain = window.localStorage.getItem('tenantSubdomain');
+	if (subdomain) {
+		return `https://${subdomain}.ndovera.com`;
+	}
 	return SIGNED_OUT_REDIRECT_PATH;
 }
 
@@ -235,6 +239,7 @@ export function clearStoredAuth() {
 	window.localStorage.removeItem(AUTH_USER_KEY);
 	window.localStorage.removeItem(AUTH_PROFILE_SYNC_KEY);
 	window.localStorage.removeItem('selectedRole');
+	window.localStorage.removeItem('tenantSubdomain');
 	clearAuthCookie();
 }
 
