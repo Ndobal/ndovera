@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getAssignments, submitAssignment, getMySubmission } from '../classroomService';
+import { getAssignments, submitAssignment } from '../classroomService';
 
 const CARD = 'relative rounded-2xl border border-[#c9a96e]/40 bg-[#f5deb3] dark:bg-[#800000]/20 p-4 shadow-sm';
 const LABEL = 'text-xs font-bold uppercase tracking-[0.15em] text-[#800020]';
@@ -8,9 +8,22 @@ const BODY = 'text-sm font-semibold text-[#191970]';
 const INPUT_CLS = 'w-full rounded-xl border border-[#c9a96e]/40 bg-white/80 dark:bg-slate-900 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none focus:border-[#800020] font-semibold';
 const BTN_PRIMARY = 'bg-[#1a5c38] hover:bg-[#154a2e] text-[#f5deb3] font-bold px-5 py-2 rounded-2xl text-sm transition-colors disabled:opacity-60';
 const BTN_SECONDARY = 'bg-[#f5deb3] border border-[#c9a96e]/40 text-[#800020] font-bold px-4 py-2 rounded-2xl text-sm hover:bg-[#efd4a0] transition-colors';
+const REFRESH_INTERVAL_MS = 15000;
 
 function typeLabel(type) {
-  const map = { mcq: 'MCQ', true_false: 'True/False', short_answer: 'Short Answer', essay: 'Essay', fill_blank: 'Fill in Blank', assignment: 'Assignment' };
+  const map = {
+    mcq: 'MCQ',
+    true_false: 'True/False',
+    short_answer: 'Short Answer',
+    shortanswer: 'Short Answer',
+    essay: 'Essay',
+    longanswer: 'Long Answer',
+    comprehension: 'Comprehension',
+    fill_blank: 'Fill in Blank',
+    fillgaps: 'Fill in Blank',
+    crossmatching: 'Cross Matching',
+    assignment: 'Assignment',
+  };
   return map[type] || (type || 'Task');
 }
 
@@ -72,6 +85,7 @@ function SubmissionModal({ assignment, onClose, onSubmitted }) {
             questions.map((q, i) => (
               <div key={q.id || i} className="rounded-2xl border border-[#c9a96e]/30 bg-[#f0d090] p-4 space-y-2">
                 <p className="text-sm font-bold text-[#800020] uppercase tracking-wide">{typeLabel(q.type)} — Q{i + 1}</p>
+                {q.passage && <p className="text-sm font-semibold text-[#800020] whitespace-pre-wrap">{q.passage}</p>}
                 <p className="font-bold text-[#191970] text-sm">{q.prompt || q.text || q.question}</p>
                 {q.imageUrl && <img src={q.imageUrl} alt="" className="max-h-48 rounded-xl object-contain" onError={e => { e.currentTarget.style.display = 'none'; }} />}
                 {q.type === 'mcq' && Array.isArray(q.options) && (
@@ -94,10 +108,10 @@ function SubmissionModal({ assignment, onClose, onSubmitted }) {
                     ))}
                   </div>
                 )}
-                {(q.type === 'short_answer' || q.type === 'fill_blank') && (
+                {['short_answer', 'fill_blank', 'shortanswer', 'fillgaps'].includes(String(q.type || '').toLowerCase()) && (
                   <input value={answers[q.id || i] || ''} onChange={e => setAnswers(a => ({ ...a, [q.id || i]: e.target.value }))} className={INPUT_CLS + ' mt-1'} placeholder="Your answer..." />
                 )}
-                {q.type === 'essay' && (
+                {['essay', 'longanswer', 'comprehension'].includes(String(q.type || '').toLowerCase()) && (
                   <textarea value={answers[q.id || i] || ''} onChange={e => setAnswers(a => ({ ...a, [q.id || i]: e.target.value }))} rows={3} className={INPUT_CLS + ' mt-1'} placeholder="Write your essay response..." />
                 )}
               </div>
@@ -124,24 +138,69 @@ export default function AssignmentsTab({ classId = '' }) {
   const [submissionMap, setSubmissionMap] = useState({});
 
   useEffect(() => {
-    if (!classId) { setLoading(false); return; }
-    getAssignments(classId)
-      .then(d => {
-        const list = d?.assignments || [];
+    let isActive = true;
+
+    async function refreshAssignments(showSpinner = false) {
+      if (!classId) {
+        if (isActive) {
+          setAssignments([]);
+          setSubmissionMap({});
+          setLoading(false);
+        }
+        return;
+      }
+
+      if (showSpinner) setLoading(true);
+
+      try {
+        const data = await getAssignments(classId);
+        if (!isActive) return;
+        const list = data?.assignments || [];
         setAssignments(list);
-        // Load my submission status for each assignment
-        list.forEach(a => {
-          getMySubmission(a.id)
-            .then(r => {
-              if (r?.submission) {
-                setSubmissionMap(prev => ({ ...prev, [a.id]: r.submission }));
-              }
-            })
-            .catch(() => {});
+        setSubmissionMap(prev => {
+          const next = {};
+          list.forEach(assignment => {
+            if (assignment?.mySubmission) {
+              next[assignment.id] = assignment.mySubmission;
+            } else if (prev[assignment.id]) {
+              next[assignment.id] = prev[assignment.id];
+            }
+          });
+          return next;
         });
-      })
-      .catch(() => {})
-      .finally(() => setLoading(false));
+      } catch {
+        if (isActive && showSpinner) {
+          setAssignments([]);
+        }
+      } finally {
+        if (isActive && showSpinner) setLoading(false);
+      }
+    }
+
+    refreshAssignments(true);
+
+    if (!classId) {
+      return () => {
+        isActive = false;
+      };
+    }
+
+    const handleRefresh = () => {
+      if (typeof document === 'undefined' || document.visibilityState !== 'hidden') {
+        refreshAssignments(false);
+      }
+    };
+
+    const intervalId = window.setInterval(handleRefresh, REFRESH_INTERVAL_MS);
+    window.addEventListener('focus', handleRefresh);
+    document.addEventListener('visibilitychange', handleRefresh);
+
+    return () => {
+      isActive = false;
+      window.clearInterval(intervalId);
+      window.removeEventListener('focus', handleRefresh);
+      document.removeEventListener('visibilitychange', handleRefresh);
+    };
   }, [classId]);
 
   function handleSubmitted(assignmentId, submission) {
@@ -180,6 +239,7 @@ export default function AssignmentsTab({ classId = '' }) {
         const sub = submissionMap[assignment.id];
         const isSubmitted = !!sub;
         const isGraded = sub?.grade != null;
+        const displayGrade = Number.isFinite(Number(sub?.grade)) ? Number(sub.grade) : sub?.grade;
 
         return (
           <div key={assignment.id} className={CARD}>
@@ -209,7 +269,7 @@ export default function AssignmentsTab({ classId = '' }) {
             {isGraded && (
               <div className="mt-3 rounded-xl border border-[#c9a96e]/30 bg-[#f0d090] p-3">
                 <p className="text-xs font-bold text-[#800020] uppercase tracking-wide mb-1">Your Result</p>
-                <p className="text-2xl font-bold text-[#1a5c38]">{sub.grade}<span className="text-sm font-semibold text-[#191970] ml-1">/ 100</span></p>
+                <p className="text-2xl font-bold text-[#1a5c38]">{displayGrade}<span className="text-sm font-semibold text-[#191970] ml-1">/ 100</span></p>
                 {sub.feedback && <p className="mt-1 text-sm font-semibold text-[#191970] italic">"{sub.feedback}"</p>}
               </div>
             )}

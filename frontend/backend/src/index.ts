@@ -2746,8 +2746,7 @@ app.get('/api/assignments/:assignmentId/my-submission', authenticate, async (c) 
     const studentId = resolvedUser.userRow?.id || user.id || userIdentifier
     const submission = await getLatestSubmissionForStudent(c.env.APP_DB, assignmentId, studentId)
     if (!submission) return c.json({ success: true, submission: null })
-    const content = submission.content ? (() => { try { return JSON.parse(String(submission.content)) } catch { return {} } })() : {}
-    return c.json({ success: true, submission: { ...submission, content } })
+    return c.json({ success: true, submission })
   } catch (error) {
     return c.json({ success: false, message: 'Could not fetch submission.', error }, 500)
   }

@@ -623,6 +623,7 @@ export default function TeacherAssignmentsPanel({
   const [uploadingQuestionId, setUploadingQuestionId] = useState('');
   const [importText, setImportText] = useState('');
   const [importedFromText, setImportedFromText] = useState(false);
+  const [successState, setSuccessState] = useState(null);
   const [draft, setDraft] = useState(buildFreshDraft(currentClassId || assignedClasses[0]?.id || ''));
 
   const draftClass = useMemo(
@@ -646,6 +647,7 @@ export default function TeacherAssignmentsPanel({
     setComposerMode('build');
     setComposerError('');
     setComposerNotice('');
+    setSuccessState(null);
     setComposerStep(assignedClasses.length > 1 ? 'class' : initialSubjects.length > 1 ? 'subject' : 'details');
     setComposerOpen(true);
   }
@@ -843,7 +845,7 @@ export default function TeacherAssignmentsPanel({
       };
     });
     setImportedFromText(true);
-    setComposerNotice(`Imported ${parsed.questions.length} question${parsed.questions.length === 1 ? '' : 's'}.`);
+    setComposerNotice(`Imported ${parsed.questions.length} question${parsed.questions.length === 1 ? '' : 's'}. Review them, then click Create Imported Assignment.`);
     setComposerError(parsed.errors[0] || '');
     setImportText('');
   }
@@ -883,8 +885,11 @@ export default function TeacherAssignmentsPanel({
 
     setComposerSaving(true);
     try {
+      const assignmentTitle = draft.title.trim();
+      const targetClassId = draft.classId;
+      const isImportedAssignment = composerMode === 'import' || importedFromText;
       const payload = {
-        title: draft.title.trim(),
+        title: assignmentTitle,
         description: draft.description.trim(),
         dueAt: draft.dueAt || null,
         subjectId: draft.subjectId,
@@ -904,13 +909,20 @@ export default function TeacherAssignmentsPanel({
         throw new Error(response?.message || 'Could not create assignment.');
       }
 
-      if (draft.classId !== currentClassId && onSelectClass) {
-        onSelectClass(draft.classId);
+      if (targetClassId !== currentClassId && onSelectClass) {
+        onSelectClass(targetClassId);
       } else if (onRefreshAssignments) {
-        onRefreshAssignments(draft.classId);
+        await Promise.resolve(onRefreshAssignments(targetClassId));
       }
 
       closeComposer();
+
+      if (isImportedAssignment) {
+        setSuccessState({
+          title: 'Bulk Assignment Created',
+          message: `${assignmentTitle} was created successfully.`,
+        });
+      }
     } catch (error) {
       setComposerError(error instanceof Error ? error.message : 'Could not create assignment.');
     } finally {
@@ -1351,7 +1363,7 @@ export default function TeacherAssignmentsPanel({
                   <button type="button" onClick={goBack} className={SECONDARY_BUTTON}>Back</button>
                   <div className="flex flex-wrap gap-2">
                     <button type="button" onClick={closeComposer} className={SECONDARY_BUTTON}>Cancel</button>
-                    <button type="submit" disabled={composerSaving} className={PRIMARY_BUTTON}>{composerSaving ? 'Saving...' : 'Create Assignment'}</button>
+                    <button type="submit" disabled={composerSaving} className={PRIMARY_BUTTON}>{composerSaving ? 'Saving...' : (composerMode === 'import' || importedFromText ? 'Create Imported Assignment' : 'Create Assignment')}</button>
                   </div>
                 </div>
               </form>
@@ -1372,6 +1384,19 @@ export default function TeacherAssignmentsPanel({
 
       {submissionsAssignment && (
         <SubmissionsPanel assignment={submissionsAssignment} onClose={() => setSubmissionsAssignment(null)} />
+      )}
+
+      {successState && (
+        <div className="fixed inset-0 z-[80] flex items-center justify-center bg-black/45 px-4 py-6 backdrop-blur-sm">
+          <div className="w-full max-w-md rounded-[2rem] border border-[#1a5c38]/35 bg-[#edf8f1] p-6 text-center shadow-[0_24px_60px_rgba(26,92,56,0.28)] dark:border-[#00ffff]/35 dark:bg-[#002b2c]">
+            <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-[#1a5c38] text-4xl font-bold text-[#f5deb3] dark:bg-[#00ffff] dark:text-[#000000]">
+              ✓
+            </div>
+            <h4 className="mt-4 text-2xl font-bold text-[#1a5c38] dark:text-[#00ffff]">{successState.title}</h4>
+            <p className="mt-2 text-sm font-semibold text-[#191970] dark:text-[#ffffff]">{successState.message}</p>
+            <button type="button" onClick={() => setSuccessState(null)} className="mt-5 rounded-2xl bg-[#1a5c38] px-5 py-2 text-sm font-bold text-[#f5deb3] transition-colors hover:bg-[#154a2e] dark:bg-[#00ffff] dark:text-[#000000] dark:hover:bg-[#7dfcff]">Close</button>
+          </div>
+        </div>
       )}
     </div>
   );
