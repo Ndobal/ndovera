@@ -36,7 +36,9 @@ type Bindings = {
   TENANT_BASE_DOMAIN?: string
   ZOHO_MAIL_ACCOUNT_ID?: string
   ZOHO_MAIL_FROM_ADDRESS?: string
-  ZOHO_MAIL_OAUTH_TOKEN?: string
+  ZOHO_MAIL_CLIENT_ID?: string
+  ZOHO_MAIL_CLIENT_SECRET?: string
+  ZOHO_MAIL_REFRESH_TOKEN?: string
 }
 
 const app = new Hono<{ Bindings: Bindings }>()
@@ -156,14 +158,48 @@ async function markPasswordResetTokenUsed(db: D1Database, tokenId: string) {
   await db.prepare(`UPDATE password_reset_tokens SET used_at = ? WHERE id = ?`).bind(new Date().toISOString(), tokenId).run()
 }
 
+async function getZohoAccessToken(env: Bindings) {
+  const clientId = String(env.ZOHO_MAIL_CLIENT_ID || '').trim()
+  const clientSecret = String(env.ZOHO_MAIL_CLIENT_SECRET || '').trim()
+  const refreshToken = String(env.ZOHO_MAIL_REFRESH_TOKEN || '').trim()
+
+  if (!clientId || !clientSecret || !refreshToken) {
+    throw new Error('Zoho Mail credentials are not configured. Set ZOHO_MAIL_CLIENT_ID, ZOHO_MAIL_CLIENT_SECRET, and ZOHO_MAIL_REFRESH_TOKEN secrets.')
+  }
+
+  const params = new URLSearchParams({
+    client_id: clientId,
+    client_secret: clientSecret,
+    refresh_token: refreshToken,
+    grant_type: 'refresh_token',
+  })
+
+  const tokenResponse = await fetch('https://accounts.zoho.com/oauth/v2/token', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: params.toString(),
+  })
+
+  if (!tokenResponse.ok) {
+    const errorText = await tokenResponse.text().catch(() => '')
+    throw new Error(`Zoho token refresh failed: ${errorText}`)
+  }
+
+  const tokenData = await tokenResponse.json() as Record<string, any>
+  const accessToken = String(tokenData.access_token || '').trim()
+  if (!accessToken) throw new Error('Zoho token refresh returned no access_token.')
+  return accessToken
+}
+
 async function sendZohoPasswordResetEmail(env: Bindings, payload: { to: string; name: string; resetUrl: string }) {
   const accountId = String(env.ZOHO_MAIL_ACCOUNT_ID || '').trim()
   const fromAddress = String(env.ZOHO_MAIL_FROM_ADDRESS || '').trim()
-  const oauthToken = String(env.ZOHO_MAIL_OAUTH_TOKEN || '').trim()
 
-  if (!accountId || !fromAddress || !oauthToken) {
-    throw new Error('Zoho password reset email is not configured.')
+  if (!accountId || !fromAddress) {
+    throw new Error('ZOHO_MAIL_ACCOUNT_ID and ZOHO_MAIL_FROM_ADDRESS must be set.')
   }
+
+  const accessToken = await getZohoAccessToken(env)
 
   const recipientName = escapePasswordResetHtml(payload.name || payload.to)
   const safeResetUrl = escapePasswordResetHtml(payload.resetUrl)
@@ -186,7 +222,7 @@ async function sendZohoPasswordResetEmail(env: Bindings, payload: { to: string; 
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Zoho-oauthtoken ${oauthToken}`,
+      Authorization: `Zoho-oauthtoken ${accessToken}`,
     },
     body: JSON.stringify({
       fromAddress,
