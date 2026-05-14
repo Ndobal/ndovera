@@ -3527,19 +3527,19 @@ function getDisplayIdConfig(role: string): DisplayIdConfig {
 
 async function generateDisplayId(db: D1Database, config: DisplayIdConfig): Promise<string> {
   await db.prepare(
-    `CREATE TABLE IF NOT EXISTS user_id_counters (counter_key TEXT PRIMARY KEY, last_count INTEGER NOT NULL DEFAULT 0)`
+    `CREATE TABLE IF NOT EXISTS user_id_counters (prefix TEXT PRIMARY KEY, last_count INTEGER NOT NULL DEFAULT 0)`
   ).run()
 
   const row = await db.prepare(
-    `SELECT last_count FROM user_id_counters WHERE counter_key = ?`
+    `SELECT last_count FROM user_id_counters WHERE prefix = ?`
   ).bind(config.counterKey).first() as any
 
   const next = Number(row?.last_count || 0) + 1
 
   await db.prepare(
-    `INSERT INTO user_id_counters (counter_key, last_count)
+    `INSERT INTO user_id_counters (prefix, last_count)
      VALUES (?, ?)
-     ON CONFLICT(counter_key) DO UPDATE SET last_count = excluded.last_count`
+     ON CONFLICT(prefix) DO UPDATE SET last_count = excluded.last_count`
   ).bind(config.counterKey, next).run()
 
   return `${config.prefix}${String(next).padStart(config.digits, '0')}`
@@ -3847,7 +3847,7 @@ app.post('/api/people/bulk', authenticate, async (c) => {
   const tenantId = c.var.user?.tenantId
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
 
-  let rows: Array<{ name?: string; email?: string; role?: string; password?: string; classId?: string }> = []
+  let rows: Array<{ name?: string; email?: string; role?: string; password?: string; className?: string }> = []
   try {
     const body = await c.req.json()
     rows = Array.isArray(body?.rows) ? body.rows : []
@@ -3864,7 +3864,7 @@ app.post('/api/people/bulk', authenticate, async (c) => {
   const results: Array<{ email: string; status: 'ok' | 'error'; error?: string }> = []
 
   for (const row of rows) {
-    const { name, email, role, password, classId } = row
+    const { name, email, role, password, className } = row
     if (!name || !email || !role) {
       results.push({ email: email || '?', status: 'error', error: 'name, email, and role are required.' })
       continue
@@ -3876,10 +3876,10 @@ app.post('/api/people/bulk', authenticate, async (c) => {
       const displayId = existingSettings?.displayId || await generateDisplayId(c.env.APP_DB, getDisplayIdConfig(role))
 
       let selectedClass: Record<string, any> | null = null
-      if (role === 'student' && classId) {
+      if (role === 'student' && className) {
         selectedClass = await c.env.APP_DB.prepare(
-          `SELECT id, name, arm FROM classes WHERE id = ? AND tenantId = ?`
-        ).bind(classId, tenantId).first() as Record<string, any> | null
+          `SELECT id, name, arm FROM classes WHERE (name = ? OR (name || ' ' || COALESCE(arm,'')) = ?) AND tenantId = ? LIMIT 1`
+        ).bind(className.trim(), className.trim(), tenantId).first() as Record<string, any> | null
       }
 
       const userSettings = await withHashedPassword({

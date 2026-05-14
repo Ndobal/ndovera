@@ -514,10 +514,10 @@ function AddPersonModal({ onClose, onAdd }) {
 const DEFAULT_PASSWORD = 'abcABC@123';
 
 // ─── CSV template columns ─────────────────────────────────────────────────────
-const CSV_HEADERS = ['name', 'email', 'role', 'password', 'classId'];
+const CSV_HEADERS = ['name', 'email', 'role', 'password', 'className'];
 const CSV_EXAMPLE_ROWS = [
   ['John Doe', 'john.doe@school.com', 'teacher', '', ''],
-  ['Jane Smith', 'jane.smith@school.com', 'student', '', 'class_id_here'],
+  ['Jane Smith', 'jane.smith@school.com', 'student', '', 'JSS 1A'],
   ['Mark Brown', 'mark.brown@school.com', 'parent', '', ''],
 ];
 
