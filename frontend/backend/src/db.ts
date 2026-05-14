@@ -657,6 +657,88 @@ export async function markMessagesRead(db: D1Database, conversationId: string) {
   return true
 }
 
+const SCHOOL_ANNOUNCEMENTS_DDL = `CREATE TABLE IF NOT EXISTS school_announcements (
+  id TEXT PRIMARY KEY,
+  tenant_id TEXT NOT NULL,
+  title TEXT NOT NULL,
+  body TEXT NOT NULL,
+  author_id TEXT NOT NULL,
+  author_name TEXT,
+  author_role TEXT,
+  audience_roles TEXT,
+  created_at TEXT NOT NULL,
+  updated_at TEXT NOT NULL
+)`
+
+async function ensureSchoolAnnouncementsTable(db: D1Database) {
+  await db.prepare(SCHOOL_ANNOUNCEMENTS_DDL).run()
+}
+
+export async function listSchoolAnnouncements(db: D1Database, tenantId: string, limit = 10) {
+  await ensureSchoolAnnouncementsTable(db)
+  const safeLimit = Math.max(1, Math.min(Number(limit) || 10, 50))
+  const result = await db.prepare(
+    'SELECT id, tenant_id, title, body, author_id, author_name, author_role, audience_roles, created_at, updated_at FROM school_announcements WHERE tenant_id = ? ORDER BY created_at DESC LIMIT ?'
+  ).bind(tenantId, safeLimit).all()
+
+  return result.results.map(row => ({
+    id: row.id,
+    tenantId: row.tenant_id,
+    title: row.title,
+    body: row.body,
+    authorId: row.author_id,
+    authorName: row.author_name,
+    authorRole: row.author_role,
+    audienceRoles: row.audience_roles ? JSON.parse(row.audience_roles as string) : ['all'],
+    createdAt: row.created_at,
+    updatedAt: row.updated_at,
+  }))
+}
+
+export async function createSchoolAnnouncement(db: D1Database, payload: {
+  tenantId: string,
+  title: string,
+  body: string,
+  authorId: string,
+  authorName?: string,
+  authorRole?: string,
+  audienceRoles?: string[],
+}) {
+  await ensureSchoolAnnouncementsTable(db)
+
+  const id = `ann_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`
+  const now = new Date().toISOString()
+  const audienceRoles = Array.from(new Set((payload.audienceRoles || ['all']).map(role => String(role || '').trim().toLowerCase()).filter(Boolean)))
+
+  await db.prepare(
+    'INSERT INTO school_announcements(id, tenant_id, title, body, author_id, author_name, author_role, audience_roles, created_at, updated_at) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+  ).bind(
+    id,
+    payload.tenantId,
+    payload.title,
+    payload.body,
+    payload.authorId,
+    payload.authorName || null,
+    payload.authorRole || null,
+    JSON.stringify(audienceRoles.length > 0 ? audienceRoles : ['all']),
+    now,
+    now,
+  ).run()
+
+  return {
+    id,
+    tenantId: payload.tenantId,
+    title: payload.title,
+    body: payload.body,
+    authorId: payload.authorId,
+    authorName: payload.authorName || null,
+    authorRole: payload.authorRole || null,
+    audienceRoles: audienceRoles.length > 0 ? audienceRoles : ['all'],
+    createdAt: now,
+    updatedAt: now,
+  }
+}
+
 // Tuck orders (assuming tuck_orders table exists)
 export async function getTuckOrders(db: D1Database, placedBy?: string) {
   let query = 'SELECT id, placed_by, items, total_cents, notes, status, placed_at, updated_at FROM tuck_orders ORDER BY placed_at DESC LIMIT 200'

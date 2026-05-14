@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getMe, getMyTenant } from '../../../features/school/services/schoolApi';
+import SchoolAnnouncementsPanel from '../../../shared/components/SchoolAnnouncementsPanel';
 
 function StatusBadge({ label, value }) {
   const colors = {
@@ -108,6 +109,8 @@ export default function OwnerOverview({ auth }) {
           ))}
         </div>
       </div>
+
+      <SchoolAnnouncementsPanel subtitle="Publish a school-wide owner update here. Students, parents, teachers, and staff will see it in their notification bell." />
 
       {/* School Info */}
       <div className="rounded-3xl p-6 bg-[#f5deb3] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">

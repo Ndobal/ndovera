@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getAttendance, getMe } from '../../../features/school/services/schoolApi';
+import SchoolAnnouncementsPanel from '../../../shared/components/SchoolAnnouncementsPanel';
 
 const quickLinks = [
   { label: 'Academics', path: '/roles/hos/academics' },
@@ -81,6 +82,8 @@ export default function HoSOverview({ auth }) {
               ))}
             </div>
           </div>
+
+          <SchoolAnnouncementsPanel subtitle="Publish a school-wide HoS update here. School users will receive it from the notification bell in their dashboards." />
         </>
       )}
     </div>

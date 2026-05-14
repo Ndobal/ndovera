@@ -870,7 +870,31 @@ export default function TeacherAssignmentsPanel({
       return;
     }
 
-    const normalizedQuestions = draft.questions
+    const pendingImportText = composerMode === 'import' ? String(importText || '').trim() : '';
+    const pendingImport = pendingImportText ? parseImportedQuestions(pendingImportText) : null;
+
+    if (pendingImport && pendingImport.questions.length === 0) {
+      setComposerError(pendingImport.errors[0] || 'No supported questions were found in the pasted text.');
+      return;
+    }
+
+    const questionSource = pendingImport
+      ? (() => {
+          const shouldReplaceStarter = draft.questions.length === 1 && isQuestionBlank(draft.questions[0]);
+          return shouldReplaceStarter ? pendingImport.questions : [...draft.questions, ...pendingImport.questions];
+        })()
+      : draft.questions;
+
+    if (pendingImport) {
+      setDraft(prev => ({
+        ...prev,
+        questions: questionSource,
+      }));
+      setImportText('');
+      setImportedFromText(true);
+    }
+
+    const normalizedQuestions = questionSource
       .map((question, index) => normalizeQuestionForSave(question, index))
       .filter(question => {
         if (question.type === 'crossmatching') return Array.isArray(question.pairs) && question.pairs.length > 0;
@@ -887,7 +911,7 @@ export default function TeacherAssignmentsPanel({
     try {
       const assignmentTitle = draft.title.trim();
       const targetClassId = draft.classId;
-      const isImportedAssignment = composerMode === 'import' || importedFromText;
+      const isImportedAssignment = composerMode === 'import' || importedFromText || Boolean(pendingImport);
       const payload = {
         title: assignmentTitle,
         description: draft.description.trim(),
@@ -900,7 +924,7 @@ export default function TeacherAssignmentsPanel({
           questionCount: normalizedQuestions.length,
           totalScore: calculateTotalScore(normalizedQuestions),
           questionTypes: Array.from(new Set(normalizedQuestions.map(question => question.type))),
-          importedFromText,
+          importedFromText: importedFromText || Boolean(pendingImport),
         },
       };
 
@@ -1359,12 +1383,16 @@ export default function TeacherAssignmentsPanel({
                   </div>
                 )}
 
-                <div className="flex flex-wrap justify-between gap-3">
+                <div className="space-y-3">
+                  {composerError && <div className="rounded-2xl border border-red-400/35 bg-red-50 px-4 py-3 text-sm text-[#800000] dark:border-[#ff5f8d]/35 dark:bg-[#4a0014] dark:text-[#ffffff]">{composerError}</div>}
+
+                  <div className="flex flex-wrap justify-between gap-3">
                   <button type="button" onClick={goBack} className={SECONDARY_BUTTON}>Back</button>
                   <div className="flex flex-wrap gap-2">
                     <button type="button" onClick={closeComposer} className={SECONDARY_BUTTON}>Cancel</button>
                     <button type="submit" disabled={composerSaving} className={PRIMARY_BUTTON}>{composerSaving ? 'Saving...' : (composerMode === 'import' || importedFromText ? 'Create Imported Assignment' : 'Create Assignment')}</button>
                   </div>
+                </div>
                 </div>
               </form>
             )}

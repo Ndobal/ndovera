@@ -16,6 +16,7 @@ import {
   addMaterial, getAttendanceForClass, recordAttendance, saveContent,
   getAttendance, upsertAttendance, updateAttendance, getConversations,
   createConversation, getMessages, sendMessage, markMessagesRead,
+  listSchoolAnnouncements, createSchoolAnnouncement,
   getTuckOrders, createTuckOrder, updateTuckOrder, getWeeklyTuckSummary,
   createTenant, getTenantById, getTenantByOwnerEmail, getTenantBySubdomain,
   listTenants, updateTenant, listTenantDiscountCodes, getTenantDiscountCode,
@@ -45,6 +46,7 @@ const app = new Hono<{ Bindings: Bindings }>()
 const AUTH_COOKIE_NAME = 'ndovera_token'
 const AUTH_SESSION_SECONDS = 30 * 24 * 60 * 60
 const PASSWORD_RESET_TOKEN_TTL_MS = 30 * 60 * 1000
+const SCHOOL_ANNOUNCEMENT_CREATOR_ROLES = ['owner', 'hos', 'ict']
 const PASSWORD_RESET_TOKENS_DDL = `CREATE TABLE IF NOT EXISTS password_reset_tokens (
   id TEXT PRIMARY KEY,
   email TEXT NOT NULL,
@@ -915,6 +917,128 @@ function buildGenericHeader(_roleKey: string) {
     notifications: 0,
     chatItems: [],
     notificationItems: [],
+  }
+}
+
+function normalizeRole(value: unknown) {
+  return String(value || '').trim().toLowerCase()
+}
+
+function canCreateSchoolAnnouncements(role: unknown) {
+  return SCHOOL_ANNOUNCEMENT_CREATOR_ROLES.includes(normalizeRole(role))
+}
+
+function announcementTargetsRole(audienceRoles: unknown, role: unknown) {
+  const normalizedAudience = Array.isArray(audienceRoles)
+    ? audienceRoles.map(entry => normalizeRole(entry)).filter(Boolean)
+    : []
+
+  if (normalizedAudience.length === 0 || normalizedAudience.includes('all')) {
+    return true
+  }
+
+  return normalizedAudience.includes(normalizeRole(role))
+}
+
+function clampPreview(value: unknown, maxLength = 88) {
+  const text = String(value || '').replace(/\s+/g, ' ').trim()
+  if (text.length <= maxLength) return text
+  return `${text.slice(0, Math.max(0, maxLength - 1)).trim()}…`
+}
+
+function formatHeaderTime(value: unknown) {
+  const timestamp = String(value || '').trim()
+  if (!timestamp) return ''
+
+  const then = new Date(timestamp).getTime()
+  if (!Number.isFinite(then)) return ''
+
+  const diffMs = Date.now() - then
+  const diffMinutes = Math.max(1, Math.round(diffMs / 60000))
+  if (diffMinutes < 60) return `${diffMinutes}m ago`
+
+  const diffHours = Math.round(diffMinutes / 60)
+  if (diffHours < 24) return `${diffHours}h ago`
+
+  const diffDays = Math.round(diffHours / 24)
+  if (diffDays < 7) return `${diffDays}d ago`
+
+  return new Date(timestamp).toLocaleDateString()
+}
+
+async function buildAuthenticatedHeader(c: any, roleKey: string) {
+  const currentUser = c.var.user || {}
+  const userIdentifier = currentUser.id || currentUser.email || currentUser.sub || ''
+  if (!userIdentifier) {
+    return buildGenericHeader(roleKey)
+  }
+
+  const resolvedUser = await resolveSettingsIdentity(c.env.APP_DB, userIdentifier)
+  const settings = resolvedUser.settings || {}
+  const actorRole = settings.role || resolvedUser.userRow?.role || currentUser.role || roleKey
+  const tenantId = settings.tenantId || settings.schoolId || resolvedUser.userRow?.tenantId || currentUser.tenantId
+
+  const rawIdentifiers = collectResolvedIdentityIdentifiers(resolvedUser, currentUser)
+  const canonicalIdentifiers = (await Promise.all(rawIdentifiers.map(identifier => resolveCanonicalUserIdentifier(c.env.APP_DB, identifier).catch(() => null))))
+    .filter(Boolean) as string[]
+  const comparableIdentifiers = collectComparableIdentifiers([...rawIdentifiers, ...canonicalIdentifiers])
+
+  const conversations = (await getConversations(c.env.APP_DB)).filter(conversation => {
+    const participants = Array.isArray(conversation.participants) ? conversation.participants : []
+    return participants.some(participant => matchesComparableIdentifier(participant, comparableIdentifiers))
+  })
+
+  const conversationDetails = await Promise.all(conversations.slice(0, 24).map(async conversation => {
+    const messages = await getMessages(c.env.APP_DB, conversation.id)
+    const latestMessage = messages[messages.length - 1] || null
+    const participants = Array.isArray(conversation.participants) ? conversation.participants.map(value => String(value || '').trim()).filter(Boolean) : []
+    const counterpart = participants.find(participant => !matchesComparableIdentifier(participant, comparableIdentifiers)) || participants[0] || conversation.subject || 'Conversation'
+    const hasUnread = messages.some(message => {
+      const sender = (message as any).senderId || (message as any).sender_id
+      const readAt = (message as any).readAt || (message as any).read_at
+      return !matchesComparableIdentifier(sender, comparableIdentifiers) && !readAt
+    })
+
+    return {
+      id: conversation.id,
+      title: conversation.subject || counterpart,
+      preview: clampPreview((latestMessage as any)?.body || ''),
+      time: formatHeaderTime((latestMessage as any)?.sentAt || (latestMessage as any)?.sent_at || conversation.updated_at),
+      unread: hasUnread,
+      updatedAt: (latestMessage as any)?.sentAt || (latestMessage as any)?.sent_at || conversation.updated_at || conversation.created_at || '',
+    }
+  }))
+
+  conversationDetails.sort((left, right) => String(right.updatedAt || '').localeCompare(String(left.updatedAt || '')))
+  const chatItems = conversationDetails.slice(0, 6).map(item => ({
+    id: item.id,
+    sender: item.title,
+    preview: item.preview,
+    time: item.time,
+    unread: item.unread,
+  }))
+
+  let notificationItems: Array<Record<string, any>> = []
+  if (tenantId) {
+    const announcements = await listSchoolAnnouncements(c.env.APP_DB, tenantId, 8)
+    notificationItems = announcements
+      .filter(announcement => announcementTargetsRole(announcement.audienceRoles, actorRole))
+      .map(announcement => ({
+        id: announcement.id,
+        title: announcement.title,
+        detail: clampPreview(announcement.body, 120),
+        sender: announcement.authorName || announcement.authorRole || 'School announcement',
+        time: formatHeaderTime(announcement.createdAt),
+        unread: true,
+      }))
+  }
+
+  return {
+    auras: 0,
+    chats: chatItems.filter(item => item.unread).length,
+    notifications: notificationItems.length,
+    chatItems,
+    notificationItems,
   }
 }
 
@@ -1798,9 +1922,68 @@ app.get('/api/schools/:schoolId/website', async (c) => {
   return c.json({ success: true, school: website, website, ...website })
 })
 
-app.get('/api/header/:roleKey', async (c) => {
+app.get('/api/header/:roleKey', authenticate, async (c) => {
   const roleKey = c.req.param('roleKey')
-  return c.json(headerFallbackByRole[roleKey] || buildGenericHeader(roleKey))
+  try {
+    return c.json(await buildAuthenticatedHeader(c, roleKey))
+  } catch {
+    return c.json(headerFallbackByRole[roleKey] || buildGenericHeader(roleKey))
+  }
+})
+
+app.get('/api/announcements', authenticate, async (c) => {
+  const { role, tenant, forbidden } = await resolveTenantForActor(c)
+  if (forbidden) return c.json({ success: false, error: 'forbidden' }, 403)
+
+  if (!tenant?.id) {
+    return c.json({ success: true, announcements: [], canCreate: canCreateSchoolAnnouncements(role), role })
+  }
+
+  const announcements = await listSchoolAnnouncements(c.env.APP_DB, tenant.id, 12)
+  return c.json({
+    success: true,
+    announcements: announcements.filter(announcement => announcementTargetsRole(announcement.audienceRoles, role)),
+    canCreate: canCreateSchoolAnnouncements(role),
+    role,
+  })
+})
+
+app.post('/api/announcements', authenticate, async (c) => {
+  const { actorId, settings, role, tenant, forbidden } = await resolveTenantForActor(c)
+  if (forbidden) return c.json({ success: false, error: 'forbidden' }, 403)
+  if (!tenant?.id) return c.json({ success: false, error: 'No tenant.' }, 400)
+  if (!canCreateSchoolAnnouncements(role)) return c.json({ success: false, error: 'forbidden' }, 403)
+
+  const payload = await c.req.json().catch(() => ({})) as Record<string, any>
+  const title = String(payload.title || '').trim()
+  const body = String(payload.body || '').trim()
+  const audienceRoles = Array.isArray(payload.audienceRoles) ? payload.audienceRoles : ['all']
+
+  if (!title || !body) {
+    return c.json({ success: false, error: 'Title and body are required.' }, 400)
+  }
+
+  const announcement = await createSchoolAnnouncement(c.env.APP_DB, {
+    tenantId: tenant.id,
+    title,
+    body,
+    authorId: actorId || String(c.var.user?.id || c.var.user?.email || 'staff'),
+    authorName: String(settings?.name || c.var.user?.name || actorId || role || 'Staff'),
+    authorRole: String(role || ''),
+    audienceRoles,
+  })
+
+  await addAudit(c.env.APP_DB, tenant.id, {
+    action: 'schoolAnnouncementCreated',
+    data: {
+      id: announcement.id,
+      title: announcement.title,
+      authorId: announcement.authorId,
+      authorRole: announcement.authorRole,
+    },
+  }).catch(() => {})
+
+  return c.json({ success: true, announcement }, 201)
 })
 
 app.get('/api/dashboards/:roleKey', authenticate, async (c) => {

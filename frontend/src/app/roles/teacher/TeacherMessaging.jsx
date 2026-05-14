@@ -1,6 +1,7 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { io } from 'socket.io-client';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import StudentSectionShell from '../student/StudentSectionShell';
+import { getStoredAuth } from '../../../features/auth/services/authApi';
+import { getApiUrl } from '../../../config/apiBase';
 
 const STAFF_MESSAGING_INTENT_KEY = 'staffMessagingIntent';
 
@@ -13,13 +14,79 @@ const TEMPLATES = [
   { text: 'Meeting at 3pm in the staff room.', style: 'msg-text-white' },
 ];
 
+function buildRequestInit(token, init = {}) {
+  const nextHeaders = {
+    ...(init.body ? { 'Content-Type': 'application/json' } : {}),
+    ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    ...(init.headers || {}),
+  };
+
+  return {
+    credentials: 'include',
+    ...init,
+    headers: nextHeaders,
+  };
+}
+
+async function requestJson(path, token, init = {}) {
+  const response = await fetch(getApiUrl(path), buildRequestInit(token, init));
+  const json = await response.json().catch(() => ({}));
+
+  if (!response.ok || json?.success === false) {
+    throw new Error(json?.error || json?.message || 'Request failed.');
+  }
+
+  return json;
+}
+
+function groupMessagesByDate(messages) {
+  const groups = new Map();
+
+  (messages || []).forEach(message => {
+    const sentAt = message.sentAt || message.sent_at || message.createdAt || new Date().toISOString();
+    const key = new Date(sentAt).toISOString().slice(0, 10);
+    const bucket = groups.get(key) || [];
+    bucket.push(message);
+    groups.set(key, bucket);
+  });
+
+  return Array.from(groups.entries()).map(([dateKey, items]) => {
+    const date = new Date(`${dateKey}T00:00:00`);
+    const today = new Date();
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+
+    let label = date.toLocaleDateString();
+    if (date.toDateString() === today.toDateString()) label = 'Today';
+    if (date.toDateString() === yesterday.toDateString()) label = 'Yesterday';
+
+    return { date: dateKey, label, items };
+  });
+}
+
+function conversationTitle(conversation, userIdentifiers) {
+  const participants = Array.isArray(conversation?.participants) ? conversation.participants.map(value => String(value || '')) : [];
+  const counterpart = participants.find(participant => !userIdentifiers.includes(participant));
+  return conversation?.subject || counterpart || 'Conversation';
+}
+
 function TeacherMessaging() {
-  const [userId] = useState(() => localStorage.getItem('userId') || 'teacher-1');
+  const storedAuth = getStoredAuth();
+  const authUser = storedAuth?.user || {};
+  const token = storedAuth?.token || localStorage.getItem('token') || '';
+  const userId = authUser.id || authUser.email || localStorage.getItem('userId') || '';
+  const userIdentifiers = useMemo(
+    () => Array.from(new Set([userId, authUser.email, authUser.displayId].map(value => String(value || '').trim()).filter(Boolean))),
+    [authUser.displayId, authUser.email, userId],
+  );
   const [conversations, setConversations] = useState([]);
-  const [activeConv, setActiveConv] = useState(null);
+  const [activeConversationId, setActiveConversationId] = useState('');
   const [messages, setMessages] = useState([]);
   const [body, setBody] = useState('');
   const [group, setGroup] = useState('class');
+  const [loadingConversations, setLoadingConversations] = useState(true);
+  const [loadingMessages, setLoadingMessages] = useState(false);
+  const [actionError, setActionError] = useState('');
   const [pendingIntent, setPendingIntent] = useState(() => {
     try {
       return JSON.parse(window.sessionStorage.getItem(STAFF_MESSAGING_INTENT_KEY) || 'null');
@@ -28,45 +95,120 @@ function TeacherMessaging() {
     }
   });
   const [conversationsLoaded, setConversationsLoaded] = useState(false);
-  const socketRef = useRef(null);
+  const activeConv = useMemo(
+    () => conversations.find(conversation => conversation.id === activeConversationId) || null,
+    [activeConversationId, conversations],
+  );
+
+  const refreshConversations = useCallback(async (preferredConversationId) => {
+    if (!userId) {
+      setConversations([]);
+      setActiveConversationId('');
+      return;
+    }
+
+    const payload = await requestJson(`/api/conversations?userId=${encodeURIComponent(userId)}`, token);
+    const nextConversations = payload.conversations || [];
+
+    setConversations(nextConversations);
+    setActiveConversationId(currentConversationId => {
+      const nextConversationId = preferredConversationId || currentConversationId;
+      if (nextConversationId && nextConversations.some(conversation => conversation.id === nextConversationId)) {
+        return nextConversationId;
+      }
+      return nextConversations[0]?.id || '';
+    });
+  }, [token, userId]);
 
   useEffect(() => {
-    fetch(`/api/conversations?userId=${encodeURIComponent(userId)}`)
-      .then(r => r.json())
-      .then(d => setConversations(d.conversations || []))
-      .catch(() => {})
-      .finally(() => setConversationsLoaded(true));
+    let ignore = false;
 
-    // connect socket
-    const s = io('/', { query: { userId } });
-    socketRef.current = s;
-    s.on('connect', () => {});
-    s.on('message', (m) => {
-      if (m.conversationId && (activeConv && m.conversationId === activeConv.id)) {
-        setMessages((prev) => [...prev, m]);
-        try { s.emit('ack', { messageId: m.id, conversationId: m.conversationId }); } catch(e){}
+    async function loadConversations() {
+      if (!userId) {
+        setConversations([]);
+        setActiveConversationId('');
+        setLoadingConversations(false);
+        setConversationsLoaded(true);
+        return;
       }
-      // refresh conversations to reflect updated_at
-      fetch(`/api/conversations?userId=${encodeURIComponent(userId)}`).then(r=>r.json()).then(d=>setConversations(d.conversations||[])).catch(()=>{});
-    });
-    s.on('delivered', ({ messageId }) => {
-      setMessages(prev => prev.map(m => m.id === messageId ? { ...m, deliveredAt: new Date().toISOString() } : m));
-    });
-    s.on('read', ({ conversationId, userId: reader }) => {
-      if (conversationId === (activeConv && activeConv.id)) {
-        setMessages(prev => prev.map(m => ({ ...m, readAt: m.readAt || new Date().toISOString() })));
+
+      setLoadingConversations(true);
+
+      try {
+        const payload = await requestJson(`/api/conversations?userId=${encodeURIComponent(userId)}`, token);
+        const nextConversations = payload.conversations || [];
+
+        if (!ignore) {
+          setConversations(nextConversations);
+          setActiveConversationId(currentConversationId => {
+            if (currentConversationId && nextConversations.some(conversation => conversation.id === currentConversationId)) {
+              return currentConversationId;
+            }
+            return nextConversations[0]?.id || '';
+          });
+          setActionError('');
+        }
+      } catch (error) {
+        if (!ignore) {
+          setActionError(error instanceof Error ? error.message : 'Could not load conversations.');
+        }
+      } finally {
+        if (!ignore) {
+          setLoadingConversations(false);
+          setConversationsLoaded(true);
+        }
       }
-    });
-    return () => s.disconnect();
-  }, [userId, activeConv]);
+    }
+
+    loadConversations();
+    const poll = window.setInterval(loadConversations, 12000);
+    return () => {
+      ignore = true;
+      window.clearInterval(poll);
+    };
+  }, [token, userId]);
 
   useEffect(() => {
-    if (!activeConv) return;
-    fetch(`/api/conversations/${activeConv.id}/messages`).then(r=>r.json()).then(d=>setMessages(d.messages||[])).catch(()=>{});
-    // join socket room
-    if (socketRef.current && activeConv.id) socketRef.current.emit('join', activeConv.id);
-    return () => { if (socketRef.current && activeConv.id) socketRef.current.emit('leave', activeConv.id); };
-  }, [activeConv]);
+    let ignore = false;
+
+    async function loadMessages() {
+      if (!activeConversationId) {
+        setMessages([]);
+        setLoadingMessages(false);
+        return;
+      }
+
+      setLoadingMessages(true);
+
+      try {
+        const payload = await requestJson(`/api/conversations/${encodeURIComponent(activeConversationId)}/messages`, token);
+        if (!ignore) {
+          setMessages(payload.messages || []);
+        }
+
+        await requestJson(`/api/conversations/${encodeURIComponent(activeConversationId)}/mark-read`, token, {
+          method: 'POST',
+        }).catch(() => {});
+
+        await refreshConversations(activeConversationId).catch(() => {});
+      } catch (error) {
+        if (!ignore) {
+          setActionError(error instanceof Error ? error.message : 'Could not load messages.');
+        }
+      } finally {
+        if (!ignore) {
+          setLoadingMessages(false);
+        }
+      }
+    }
+
+    loadMessages();
+    const poll = window.setInterval(loadMessages, 9000);
+    return () => {
+      ignore = true;
+      window.clearInterval(poll);
+    };
+  }, [activeConversationId, refreshConversations, token]);
 
   useEffect(() => {
     if (!pendingIntent || !conversationsLoaded) return;
@@ -85,7 +227,7 @@ function TeacherMessaging() {
 
     const existingConversation = conversations.find(conversation => {
       const participants = Array.isArray(conversation.participants) ? conversation.participants.map(String) : [];
-      return participants.includes(String(userId)) && participants.includes(participantId);
+      return participants.includes(participantId) && participants.some(participant => userIdentifiers.includes(participant));
     });
 
     const finalize = () => {
@@ -94,28 +236,29 @@ function TeacherMessaging() {
     };
 
     if (existingConversation) {
-      setActiveConv(existingConversation);
+      setActiveConversationId(existingConversation.id);
       finalize();
       return;
     }
 
-    fetch('/api/conversations', {
+    requestJson('/api/conversations', token, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         subject: `Direct: ${requestedContact?.name || 'Conversation'}`,
         participants: [userId, participantId],
       }),
     })
-      .then(r => r.json())
-      .then(d => {
-        if (d.success && d.conversation) {
-          setConversations(prev => [d.conversation, ...prev]);
-          setActiveConv(d.conversation);
+      .then(payload => {
+        if (payload.conversation) {
+          setConversations(previous => [payload.conversation, ...previous.filter(conversation => conversation.id !== payload.conversation.id)]);
+          setActiveConversationId(payload.conversation.id);
         }
       })
+      .catch(error => {
+        setActionError(error instanceof Error ? error.message : 'Could not start that conversation.');
+      })
       .finally(finalize);
-  }, [conversations, conversationsLoaded, pendingIntent, userId]);
+  }, [conversations, conversationsLoaded, pendingIntent, token, userId, userIdentifiers]);
 
   function msgColorClass(senderId) {
     if (String(senderId).startsWith('teacher') || String(senderId).startsWith('admin') || String(senderId).startsWith('parent')) return 'msg-text-teacher';
@@ -144,41 +287,26 @@ function TeacherMessaging() {
     );
   }
 
-  function groupMessagesByDate(msgs) {
-    const groups = {};
-    msgs.forEach(m => {
-      const d = new Date(m.sentAt || m.sentAt);
-      const key = d.toISOString().slice(0,10);
-      if (!groups[key]) groups[key] = [];
-      groups[key].push(m);
-    });
-    const keys = Object.keys(groups).sort();
-    return keys.map(k => {
-      const d = new Date(k + 'T00:00:00');
-      const today = new Date();
-      const yesterday = new Date(); yesterday.setDate(yesterday.getDate() -1);
-      let label = d.toLocaleDateString();
-      if (d.toDateString() === today.toDateString()) label = 'Today';
-      if (d.toDateString() === yesterday.toDateString()) label = 'Yesterday';
-      return { date: k, label, items: groups[k] };
-    });
-  }
-
   function createConversationForGroup(selectedGroup) {
     // map groups to participant ids (simplified demo mapping)
     let participants = [];
-    if (selectedGroup === 'class') participants = ['teacher-1', 'student-1', 'student-2'];
-    if (selectedGroup === 'parents') participants = ['teacher-1','parent-1','parent-2'];
-    if (selectedGroup === 'staff') participants = ['teacher-1','admin-1','owner-1'];
+    if (selectedGroup === 'class') participants = [userId, 'student-1', 'student-2'];
+    if (selectedGroup === 'parents') participants = [userId, 'parent-1', 'parent-2'];
+    if (selectedGroup === 'staff') participants = [userId, 'admin-1', 'owner-1'];
 
-    return fetch('/api/conversations', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ subject: `Group: ${selectedGroup}`, participants }) })
-      .then(r => r.json())
-      .then(d => {
-        if (d.success && d.conversation) {
-          setConversations(prev => [d.conversation, ...prev]);
-          setActiveConv(d.conversation);
+    return requestJson('/api/conversations', token, {
+      method: 'POST',
+      body: JSON.stringify({ subject: `Group: ${selectedGroup}`, participants }),
+    })
+      .then(payload => {
+        if (payload.conversation) {
+          setConversations(previous => [payload.conversation, ...previous.filter(conversation => conversation.id !== payload.conversation.id)]);
+          setActiveConversationId(payload.conversation.id);
         }
-      }).catch(()=>{});
+      })
+      .catch(error => {
+        setActionError(error instanceof Error ? error.message : 'Could not create a group conversation.');
+      });
   }
 
   async function sendMessage() {
@@ -188,16 +316,19 @@ function TeacherMessaging() {
     setMessages(prev => [...prev, localMsg]);
     setBody('');
     try {
-      const res = await fetch(`/api/conversations/${activeConv.id}/messages`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ senderId: userId, body: localMsg.body }) });
-      const d = await res.json();
-      if (d.success && d.message) {
-        // replace local optimistic message with server message
-        setMessages(prev => prev.map(m => m.id === localId ? d.message : m));
+      const payload = await requestJson(`/api/conversations/${activeConv.id}/messages`, token, {
+        method: 'POST',
+        body: JSON.stringify({ senderId: userId, body: localMsg.body }),
+      });
+      if (payload.message) {
+        setMessages(prev => prev.map(m => m.id === localId ? payload.message : m));
+        await refreshConversations(activeConv.id).catch(() => {});
       } else {
         setMessages(prev => prev.map(m => m.id === localId ? { ...m, status: 'failed' } : m));
       }
     } catch (err) {
       setMessages(prev => prev.map(m => m.id === localId ? { ...m, status: 'failed' } : m));
+      setActionError(err instanceof Error ? err.message : 'Could not send the message.');
     }
   }
 
@@ -216,10 +347,18 @@ function TeacherMessaging() {
               <button onClick={() => createConversationForGroup(group)} className="text-xs px-2 py-1 rounded quick-create">New</button>
             </div>
           </div>
+
+          {actionError && (
+            <div className="mb-3 rounded-2xl border border-red-300/60 bg-red-50 px-3 py-2 text-xs font-semibold text-[#800000] dark:border-[#ff5f8d]/35 dark:bg-[#4a0014] dark:text-[#ffffff]">
+              {actionError}
+            </div>
+          )}
+
           <div className="space-y-2">
+            {loadingConversations && conversations.length === 0 && <div className="text-xs text-slate-500 dark:text-slate-300">Loading conversations...</div>}
             {conversations.map(c => (
-              <div key={c.id} onClick={() => setActiveConv(c)} className={`p-2 rounded-md cursor-pointer conv-list-item ${activeConv && activeConv.id === c.id ? 'bg-indigo-700/20' : ''}`}>
-                <div className="text-sm font-semibold">{c.subject || (c.participants || []).filter(p => p !== userId)[0] || 'Conversation'}</div>
+              <div key={c.id} onClick={() => setActiveConversationId(c.id)} className={`p-2 rounded-md cursor-pointer conv-list-item ${activeConv && activeConv.id === c.id ? 'bg-indigo-700/20' : ''}`}>
+                <div className="text-sm font-semibold">{conversationTitle(c, userIdentifiers)}</div>
                 <div className="text-xs neon-subtle">{(c.participants || []).join(', ')}</div>
               </div>
             ))}
@@ -232,6 +371,7 @@ function TeacherMessaging() {
           ) : (
             <div className="flex flex-col h-96">
               <div className="flex-1 overflow-auto mb-2 p-2 bg-slate-900/10 rounded">
+                {loadingMessages && messages.length === 0 && <p className="text-xs text-center mt-8 text-slate-500 dark:text-slate-300">Loading messages...</p>}
                 {groupMessagesByDate(messages).map(groupItem => (
                   <div key={groupItem.date} className="mb-4">
                     <div className="text-center text-2xs neon-subtle mb-2">{groupItem.label}</div>
@@ -242,7 +382,7 @@ function TeacherMessaging() {
                           <div className={`msg-bubble ${m.senderId === userId ? 'own' : 'other'} msg-no-bg`}>
                             <div className={`${msgColorClass(m.senderId)} text-xs`}>{m.body}</div>
                             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                              <div className="text-2xs neon-subtle">{new Date(m.sentAt).toLocaleTimeString()}</div>
+                              <div className="text-2xs neon-subtle">{new Date(m.sentAt || m.sent_at || Date.now()).toLocaleTimeString()}</div>
                               {renderTicks(m)}
                             </div>
                           </div>
