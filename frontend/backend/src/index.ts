@@ -30,14 +30,30 @@ type Bindings = {
   UPLOADS: R2Bucket
   JWT_SECRET: string
   CORS_ORIGIN: string
+  PASSWORD_RESET_BASE_URL?: string
   FLUTTERWAVE_SECRET_KEY?: string
   FLUTTERWAVE_REDIRECT_BASE_URL?: string
   TENANT_BASE_DOMAIN?: string
+  ZOHO_MAIL_ACCOUNT_ID?: string
+  ZOHO_MAIL_FROM_ADDRESS?: string
+  ZOHO_MAIL_OAUTH_TOKEN?: string
 }
 
 const app = new Hono<{ Bindings: Bindings }>()
 const AUTH_COOKIE_NAME = 'ndovera_token'
 const AUTH_SESSION_SECONDS = 10 * 60
+const PASSWORD_RESET_TOKEN_TTL_MS = 30 * 60 * 1000
+const PASSWORD_RESET_TOKENS_DDL = `CREATE TABLE IF NOT EXISTS password_reset_tokens (
+  id TEXT PRIMARY KEY,
+  email TEXT NOT NULL,
+  role TEXT,
+  token_hash TEXT NOT NULL UNIQUE,
+  expires_at TEXT NOT NULL,
+  used_at TEXT,
+  created_at TEXT NOT NULL,
+  requested_ip TEXT,
+  user_agent TEXT
+)`
 
 function getCookieValue(header: string | undefined | null, name: string) {
   if (!header) return ''
@@ -48,6 +64,144 @@ function getCookieValue(header: string | undefined | null, name: string) {
 
 function authCookie(token: string) {
   return `${AUTH_COOKIE_NAME}=${encodeURIComponent(token)}; Path=/; Domain=.ndovera.com; Max-Age=${AUTH_SESSION_SECONDS}; Secure; SameSite=Lax`
+}
+
+function escapePasswordResetHtml(value: unknown) {
+  return String(value || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+}
+
+function getPasswordResetBaseUrl(env: Bindings) {
+  const configured = String(env.PASSWORD_RESET_BASE_URL || '').trim()
+  return configured || 'https://ndovera.com/reset-password'
+}
+
+function isEligibleSelfServeReset(role: unknown, accountType: unknown) {
+  const normalizedRole = String(role || '').trim().toLowerCase()
+  const normalizedAccountType = String(accountType || '').trim().toLowerCase()
+  return normalizedRole === 'owner' || normalizedRole === 'ami' || normalizedAccountType === 'superadmin'
+}
+
+function toBase64Url(bytes: Uint8Array) {
+  let binary = ''
+  for (const byte of bytes) {
+    binary += String.fromCharCode(byte)
+  }
+
+  return btoa(binary)
+    .replace(/\+/g, '-')
+    .replace(/\//g, '_')
+    .replace(/=+$/g, '')
+}
+
+async function sha256Hex(value: string) {
+  const bytes = new TextEncoder().encode(value)
+  const digest = await crypto.subtle.digest('SHA-256', bytes)
+  return Array.from(new Uint8Array(digest)).map(byte => byte.toString(16).padStart(2, '0')).join('')
+}
+
+async function ensurePasswordResetTokensTable(db: D1Database) {
+  await db.prepare(PASSWORD_RESET_TOKENS_DDL).run()
+}
+
+async function createPasswordResetToken(
+  db: D1Database,
+  email: string,
+  role: string,
+  metadata: { requestedIp?: string; userAgent?: string } = {},
+) {
+  await ensurePasswordResetTokensTable(db)
+
+  const createdAt = new Date().toISOString()
+  const expiresAt = new Date(Date.now() + PASSWORD_RESET_TOKEN_TTL_MS).toISOString()
+  const rawToken = toBase64Url(crypto.getRandomValues(new Uint8Array(32)))
+  const tokenHash = await sha256Hex(rawToken)
+
+  await db.prepare(
+    `INSERT INTO password_reset_tokens (id, email, role, token_hash, expires_at, used_at, created_at, requested_ip, user_agent)
+     VALUES (?, ?, ?, ?, ?, NULL, ?, ?, ?)`
+  )
+    .bind(
+      `password-reset-${crypto.randomUUID()}`,
+      email,
+      role,
+      tokenHash,
+      expiresAt,
+      createdAt,
+      metadata.requestedIp || null,
+      metadata.userAgent || null,
+    )
+    .run()
+
+  return { token: rawToken, expiresAt }
+}
+
+async function getPasswordResetTokenRecord(db: D1Database, rawToken: string) {
+  await ensurePasswordResetTokensTable(db)
+  const tokenHash = await sha256Hex(String(rawToken || '').trim())
+  return db.prepare(
+    `SELECT id, email, role, expires_at as expiresAt, used_at as usedAt, created_at as createdAt
+     FROM password_reset_tokens
+     WHERE token_hash = ?
+     LIMIT 1`
+  ).bind(tokenHash).first() as Promise<Record<string, any> | null>
+}
+
+async function markPasswordResetTokenUsed(db: D1Database, tokenId: string) {
+  await ensurePasswordResetTokensTable(db)
+  await db.prepare(`UPDATE password_reset_tokens SET used_at = ? WHERE id = ?`).bind(new Date().toISOString(), tokenId).run()
+}
+
+async function sendZohoPasswordResetEmail(env: Bindings, payload: { to: string; name: string; resetUrl: string }) {
+  const accountId = String(env.ZOHO_MAIL_ACCOUNT_ID || '').trim()
+  const fromAddress = String(env.ZOHO_MAIL_FROM_ADDRESS || '').trim()
+  const oauthToken = String(env.ZOHO_MAIL_OAUTH_TOKEN || '').trim()
+
+  if (!accountId || !fromAddress || !oauthToken) {
+    throw new Error('Zoho password reset email is not configured.')
+  }
+
+  const recipientName = escapePasswordResetHtml(payload.name || payload.to)
+  const safeResetUrl = escapePasswordResetHtml(payload.resetUrl)
+  const emailBody = `
+    <div style="font-family:Segoe UI,Arial,sans-serif;color:#191970;line-height:1.6;max-width:640px;margin:0 auto;padding:24px;background:#fff8ef;border:1px solid rgba(201,169,110,0.45);border-radius:24px;">
+      <p style="margin:0 0 12px;font-size:12px;font-weight:700;letter-spacing:0.28em;text-transform:uppercase;color:#800020;">NDOVERA</p>
+      <h1 style="margin:0 0 16px;font-size:28px;line-height:1.1;color:#191970;">Reset your password</h1>
+      <p style="margin:0 0 16px;">Hello ${recipientName},</p>
+      <p style="margin:0 0 20px;">Use the button below to set a new password for your NDOVERA account.</p>
+      <p style="margin:0 0 24px;">
+        <a href="${safeResetUrl}" style="display:inline-block;padding:14px 24px;border-radius:999px;background:#1a5c38;color:#f5deb3;text-decoration:none;font-weight:700;">Reset Password</a>
+      </p>
+      <p style="margin:0 0 10px;">If the button does not open, use this link:</p>
+      <p style="margin:0 0 18px;word-break:break-word;"><a href="${safeResetUrl}" style="color:#800020;">${safeResetUrl}</a></p>
+      <p style="margin:0;font-size:14px;color:#31416f;">This link expires in 30 minutes.</p>
+    </div>
+  `.trim()
+
+  const response = await fetch(`https://mail.zoho.com/api/accounts/${encodeURIComponent(accountId)}/messages`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Zoho-oauthtoken ${oauthToken}`,
+    },
+    body: JSON.stringify({
+      fromAddress,
+      toAddress: payload.to,
+      subject: 'NDOVERA password reset',
+      content: emailBody,
+      mailFormat: 'html',
+      encoding: 'UTF-8',
+    }),
+  })
+
+  if (!response.ok) {
+    const errorText = await response.text().catch(() => '')
+    throw new Error(errorText || 'Zoho email request failed.')
+  }
 }
 
 // R2 file proxy — serves uploaded files at /files/:key
@@ -1202,6 +1356,81 @@ app.post('/api/auth/change-password', authenticate, async (c) => {
   const response = c.json({ success: true, token, user })
   response.headers.append('Set-Cookie', authCookie(token))
   return response
+})
+
+app.post('/api/auth/forgot-password', async (c) => {
+  const payload = await c.req.json().catch(() => ({}))
+  const email = String(payload?.email || '').trim().toLowerCase()
+  if (!email) return c.json({ error: 'Email is required.' }, 400)
+
+  const resolved = await resolveSettingsIdentity(c.env.APP_DB, email)
+  const settings = resolved.settings || {}
+  const role = String(settings.role || resolved.userRow?.role || '').trim().toLowerCase()
+  const accountType = String(settings.accountType || '').trim().toLowerCase()
+
+  if (!resolved.settings || !isEligibleSelfServeReset(role, accountType)) {
+    return c.json({ error: 'Contact your school admin for password reset.' }, 403)
+  }
+
+  try {
+    const issued = await createPasswordResetToken(c.env.APP_DB, email, role || accountType || 'user', {
+      requestedIp: c.req.header('CF-Connecting-IP') || c.req.header('x-forwarded-for') || '',
+      userAgent: c.req.header('User-Agent') || '',
+    })
+
+    const resetUrl = `${getPasswordResetBaseUrl(c.env)}?token=${encodeURIComponent(issued.token)}`
+    await sendZohoPasswordResetEmail(c.env, {
+      to: email,
+      name: String(settings.name || resolved.userRow?.name || email),
+      resetUrl,
+    })
+
+    await addAudit(c.env.APP_DB, email, { action: 'passwordResetRequested', data: { email, role } }).catch(() => {})
+    return c.json({ success: true, message: 'Check your email for the reset link.' })
+  } catch (error) {
+    console.error('Forgot password failed', { email, error })
+    return c.json({ error: error instanceof Error ? error.message : 'Could not request password reset.' }, 500)
+  }
+})
+
+app.post('/api/auth/reset-password', async (c) => {
+  const payload = await c.req.json().catch(() => ({}))
+  const token = String(payload?.token || '').trim()
+  const newPassword = String(payload?.newPassword || '')
+
+  if (!token || !newPassword) {
+    return c.json({ error: 'token and newPassword are required.' }, 400)
+  }
+
+  if (newPassword.length < 8) {
+    return c.json({ error: 'New password must be at least 8 characters.' }, 400)
+  }
+
+  const tokenRecord = await getPasswordResetTokenRecord(c.env.APP_DB, token)
+  if (!tokenRecord) return c.json({ error: 'This reset link is invalid or expired.' }, 400)
+  if (tokenRecord.usedAt) return c.json({ error: 'This reset link has already been used.' }, 400)
+  if (new Date(String(tokenRecord.expiresAt || '')) <= new Date()) {
+    return c.json({ error: 'This reset link is invalid or expired.' }, 400)
+  }
+
+  const email = String(tokenRecord.email || '').trim().toLowerCase()
+  const resolved = await resolveSettingsIdentity(c.env.APP_DB, email)
+  const id = resolved.settingsKey || email
+  const settings = resolved.settings
+  if (!settings) return c.json({ error: 'Account not found.' }, 404)
+
+  const role = String(settings.role || resolved.userRow?.role || tokenRecord.role || '').trim().toLowerCase()
+  const accountType = String(settings.accountType || '').trim().toLowerCase()
+  if (!isEligibleSelfServeReset(role, accountType)) {
+    return c.json({ error: 'Contact your school admin for password reset.' }, 403)
+  }
+
+  const updatedSettings = await withHashedPassword({ ...settings, mustChangePassword: false, initialPassword: undefined }, newPassword)
+  await upsertSettings(c.env.APP_DB, id, updatedSettings)
+  await markPasswordResetTokenUsed(c.env.APP_DB, String(tokenRecord.id))
+  await addAudit(c.env.APP_DB, email, { action: 'passwordResetCompleted', data: { email, role } }).catch(() => {})
+
+  return c.json({ success: true, message: 'Password has been reset. You can now sign in.' })
 })
 
 app.get('/api/users/me', authenticate, async (c) => {
@@ -3903,6 +4132,34 @@ const PLATFORM_SITE_SECTION_SEEDS = [
       ],
       mediaUrls: [
         '/site-media/ndovera-gallery-learning.svg',
+      ],
+    },
+  },
+  {
+    sectionKey: 'pricing',
+    title: 'Simple pricing for schools that want a strong start with NDOVERA.',
+    content: 'Choose a standard rollout or a custom launch. Pay the onboarding fee now, then move to live-user billing from the next term based on active users in your school.',
+    imageUrl: '/site-media/ndovera-partner-network.svg',
+    metadata: {
+      eyebrow: 'Pricing',
+      buttonLabel: 'Register A School',
+      buttonUrl: '/register-school',
+      secondaryButtonLabel: 'Talk To Growth Team',
+      secondaryButtonUrl: '/growth-partners',
+      spotlightEyebrow: 'Clear Billing',
+      spotlightTitle: 'Only the onboarding fee is paid now. Live-user billing starts later.',
+      spotlightDescription: 'NDOVERA keeps the first payment simple, then moves to term billing based on actual active users instead of rough guesses.',
+      mediaEyebrow: 'How Billing Works',
+      mediaTitle: 'Growth gives schools a standard launch. Custom supports schools that need extra rollout planning.',
+      mediaDescription: 'The pricing page helps owners understand what is paid now, what starts next term, and where custom rollout support fits in.',
+      cards: [
+        { title: 'Pay Onboarding First', description: 'Reserve your school domain, create the owner account, and pay the onboarding fee before launch work begins.' },
+        { title: 'Move To Live-User Billing', description: 'From the next term, NDOVERA bills by active users so schools can scale with clearer cost control.' },
+        { title: 'Choose Growth Or Custom', description: 'Pick a standard NDOVERA launch or a custom rollout that Ami reviews before final approval.' },
+      ],
+      mediaUrls: [
+        '/site-media/ndovera-home-hero.svg',
+        '/site-media/ndovera-event-briefing.svg',
       ],
     },
   },

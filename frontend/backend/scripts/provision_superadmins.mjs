@@ -8,6 +8,7 @@ import { spawnSync } from 'node:child_process';
 const SUPERADMINS = [
   { email: 'ndobalamwilliams@ndovera.com', name: 'Ndobalam Williams' },
   { email: 'ndobal.will@gmail.com', name: 'Ndobal Will' },
+  { email: 'support@ndovera.com', name: 'NDOVERA Support' },
 ];
 
 const PASSWORD_HASH_VERSION = 1;
@@ -21,6 +22,16 @@ const backendDir = path.resolve(__dirname, '..');
 const schemaPath = path.join(backendDir, 'd1', 'schema.sql');
 const useShell = process.platform === 'win32';
 const npxCommand = 'npx';
+
+function resolveSharedPassword() {
+  const envPassword = String(process.env.SUPERADMIN_PASSWORD || '').trim();
+  if (envPassword) return envPassword;
+
+  const flag = process.argv.find(argument => argument.startsWith('--password='));
+  if (!flag) return '';
+
+  return String(flag.slice('--password='.length)).trim();
+}
 
 function escapeSql(value) {
   return String(value).replace(/'/g, "''");
@@ -116,9 +127,10 @@ async function main() {
 
   const now = new Date().toISOString();
   const statements = [];
+  const sharedPassword = resolveSharedPassword();
 
   for (const account of SUPERADMINS) {
-    const password = await promptForPassword(account);
+    const password = sharedPassword || await promptForPassword(account);
     const payload = {
       email: account.email,
       name: account.name,
@@ -154,7 +166,7 @@ async function main() {
     fs.rmSync(tempDir, { recursive: true, force: true });
   }
 
-  console.log('Provisioned the two superadmin accounts in remote D1.');
+  console.log(`Provisioned ${SUPERADMINS.length} superadmin accounts in remote D1.`);
 }
 
 main().catch((error) => {

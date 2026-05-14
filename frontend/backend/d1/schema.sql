@@ -232,6 +232,18 @@ CREATE TABLE IF NOT EXISTS tenant_payments (
   FOREIGN KEY (tenant_id) REFERENCES tenants(id)
 );
 
+CREATE TABLE IF NOT EXISTS password_reset_tokens (
+  id TEXT PRIMARY KEY,
+  email TEXT NOT NULL,
+  role TEXT,
+  token_hash TEXT NOT NULL UNIQUE,
+  expires_at TEXT NOT NULL,
+  used_at TEXT,
+  created_at TEXT NOT NULL,
+  requested_ip TEXT,
+  user_agent TEXT
+);
+
 CREATE INDEX IF NOT EXISTS idx_audit_studentId_ts ON audit(studentId, ts DESC);
 CREATE INDEX IF NOT EXISTS idx_borrowings_studentId_borrowedAt ON borrowings(studentId, borrowedAt DESC);
 CREATE INDEX IF NOT EXISTS idx_posts_classId_createdAt ON posts(classId, createdAt DESC);
@@ -249,6 +261,8 @@ CREATE INDEX IF NOT EXISTS idx_tenants_subdomain ON tenants(requested_subdomain)
 CREATE INDEX IF NOT EXISTS idx_tenant_discount_codes_active ON tenant_discount_codes(active, updated_at DESC);
 CREATE INDEX IF NOT EXISTS idx_tenant_payments_tenant_id_created_at ON tenant_payments(tenant_id, created_at DESC);
 CREATE INDEX IF NOT EXISTS idx_tenant_payments_status ON tenant_payments(status, updated_at DESC);
+CREATE INDEX IF NOT EXISTS idx_password_reset_tokens_email_created_at ON password_reset_tokens(email, created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_password_reset_tokens_expires_at ON password_reset_tokens(expires_at);
 
 INSERT INTO tenant_discount_codes(
   code,

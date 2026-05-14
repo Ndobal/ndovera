@@ -22,6 +22,11 @@ SESSION_COOKIE_NAME = "ndovera_session"
 SESSION_TTL_SECONDS = "2592000"
 FLUTTERWAVE_REDIRECT_BASE_URL = "https://ndovera.com"
 TENANT_BASE_DOMAIN = "ndovera.com"
+PASSWORD_RESET_BASE_URL = "https://ndovera.com/reset-password"
+# Zoho Mail – set real values via `wrangler secret put` in production
+# ZOHO_MAIL_ACCOUNT_ID = ""
+# ZOHO_MAIL_FROM_ADDRESS = ""
+# ZOHO_MAIL_OAUTH_TOKEN = ""
 
 [[kv_namespaces]]
 binding = "SESSIONS"

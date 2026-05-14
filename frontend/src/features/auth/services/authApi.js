@@ -271,6 +271,30 @@ export async function changePassword(payload, token) {
 	return data;
 }
 
+export async function requestPasswordReset(email) {
+	const response = await fetch(getApiUrl('/api/auth/forgot-password'), {
+		method: 'POST',
+		credentials: 'include',
+		headers: { 'Content-Type': 'application/json' },
+		body: JSON.stringify({ email }),
+	});
+	const data = await response.json().catch(() => ({}));
+	if (!response.ok) throw new Error(data.error || 'Could not request password reset.');
+	return data;
+}
+
+export async function resetPasswordWithToken(payload) {
+	const response = await fetch(getApiUrl('/api/auth/reset-password'), {
+		method: 'POST',
+		credentials: 'include',
+		headers: { 'Content-Type': 'application/json' },
+		body: JSON.stringify(payload),
+	});
+	const data = await response.json().catch(() => ({}));
+	if (!response.ok) throw new Error(data.error || 'Could not reset password.');
+	return data;
+}
+
 const authApi = {
 	login,
 	getStoredAuth,
@@ -278,6 +302,8 @@ const authApi = {
 	persistAuth,
 	syncRefreshedToken,
 	changePassword,
+	requestPasswordReset,
+	resetPasswordWithToken,
 };
 
 export default authApi;

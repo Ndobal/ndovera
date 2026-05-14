@@ -24,5 +24,5 @@ frontend/backend/migrations/
 frontend/messaging/
 
 # Root-level stale files
-src/
-wrangler.toml
+/src/
+/wrangler.toml

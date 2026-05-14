@@ -38,6 +38,7 @@ import TeacherMessaging from './app/roles/teacher/TeacherMessaging';
 import AmiInbox from './app/roles/ami/AmiInbox';
 import LoginPage from './features/auth/pages/LoginPage';
 import ChangePasswordPage from './features/auth/pages/ChangePasswordPage';
+import ResetPasswordPage from './features/auth/pages/ResetPasswordPage';
 import SchoolRegistrationPage from './features/tenants/pages/SchoolRegistrationPage';
 import PublicHomePage from './features/public/pages/PublicHomePage';
 import PublicSitePage from './features/public/pages/PublicSitePage';
@@ -54,11 +55,13 @@ const PUBLIC_ROUTE_PATHS = new Set([
   '/growth-partners',
   '/partners',
   '/tutor',
+  '/pricing',
   '/opportunities',
   '/events',
   '/events-gallery',
   '/gallery',
   '/login',
+  '/reset-password',
   '/register-school',
   '/change-password',
 ]);
@@ -128,11 +131,13 @@ function AnimatedRoutes({ auth, onLogin }) {
         <Route path="/growth-partners" element={<PublicSitePage pageKey="partners" />} />
         <Route path="/partners" element={<PublicSitePage pageKey="partners" />} />
         <Route path="/tutor" element={<PublicSitePage pageKey="tutor" />} />
+        <Route path="/pricing" element={<PublicSitePage pageKey="pricing" />} />
         <Route path="/opportunities" element={<PublicSitePage pageKey="opportunities" />} />
         <Route path="/events" element={<PublicSitePage pageKey="events" />} />
         <Route path="/events-gallery" element={<PublicSitePage pageKey="events" />} />
         <Route path="/gallery" element={<PublicSitePage pageKey="gallery" />} />
         <Route path="/login" element={auth?.token ? <Navigate to={defaultAppRoute} replace /> : <LoginPage onLogin={onLogin} />} />
+        <Route path="/reset-password" element={<ResetPasswordPage />} />
         <Route path="/register-school" element={<SchoolRegistrationPage />} />
         <Route path="/change-password" element={<ChangePasswordPage onLogin={onLogin} />} />
         <Route path="/classroom" element={<RequireAuth auth={auth}><RouteTransition><Classroom /></RouteTransition></RequireAuth>} />
