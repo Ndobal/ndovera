@@ -516,8 +516,8 @@ export default function StudentClassroom() {
     }), [classMembers, selfMemberIdentifiers]);
   const teacherMembers = classMembers.filter(member => String(member.role || '').toLowerCase() === 'teacher');
   const rootContainerClassName = activeTab === 'stream'
-    ? `min-h-screen ${isMobile ? 'px-4 pb-24 pt-4' : 'px-8 py-8'} max-w-none`
-    : `min-h-screen ${isMobile ? 'p-4 pb-24' : 'p-8'} max-w-5xl mx-auto`;
+    ? `h-full min-h-0 overflow-y-auto overflow-x-hidden overscroll-contain ${isMobile ? 'px-4 pb-24 pt-4' : 'px-8 py-8 pr-4'} max-w-none`
+    : `h-full min-h-0 overflow-y-auto overflow-x-hidden overscroll-contain ${isMobile ? 'p-4 pb-24' : 'p-8 pr-4'} max-w-5xl mx-auto`;
 
   return (
     <div className={rootContainerClassName}>

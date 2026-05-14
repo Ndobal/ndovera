@@ -909,12 +909,6 @@ export default function TeacherAssignmentsPanel({
         throw new Error(response?.message || 'Could not create assignment.');
       }
 
-      if (targetClassId !== currentClassId && onSelectClass) {
-        onSelectClass(targetClassId);
-      } else if (onRefreshAssignments) {
-        await Promise.resolve(onRefreshAssignments(targetClassId));
-      }
-
       closeComposer();
 
       if (isImportedAssignment) {
@@ -922,6 +916,12 @@ export default function TeacherAssignmentsPanel({
           title: 'Bulk Assignment Created',
           message: `${assignmentTitle} was created successfully.`,
         });
+      }
+
+      if (targetClassId !== currentClassId && onSelectClass) {
+        Promise.resolve(onSelectClass(targetClassId)).catch(() => {});
+      } else if (onRefreshAssignments) {
+        Promise.resolve(onRefreshAssignments(targetClassId)).catch(() => {});
       }
     } catch (error) {
       setComposerError(error instanceof Error ? error.message : 'Could not create assignment.');

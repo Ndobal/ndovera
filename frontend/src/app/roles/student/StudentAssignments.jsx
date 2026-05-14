@@ -4,6 +4,8 @@ import StudentSectionShell from './StudentSectionShell';
 import { getStoredAuth } from '../../../features/auth/services/authApi';
 import { getAssignments, submitAssignment } from '../../../features/classroom/classroomService';
 
+const REFRESH_INTERVAL_MS = 15000;
+
 function getCurrentClassId() {
   const storedAuth = getStoredAuth();
   return localStorage.getItem('classroomId') || storedAuth?.user?.classId || '';
@@ -41,6 +43,16 @@ function questionScore(question) {
 
 function assignmentTotalScore(questions = []) {
   return questions.reduce((total, question) => total + questionScore(question), 0);
+}
+
+function hasTeacherReview(submission) {
+  if (!submission) return false;
+  return submission.grade != null || String(submission.feedback || '').trim() !== '';
+}
+
+function normalizeDisplayGrade(value) {
+  const numericGrade = Number(value);
+  return Number.isFinite(numericGrade) ? numericGrade : value;
 }
 
 function hashText(value) {
@@ -304,12 +316,14 @@ function AssignmentDetail({ assignment, onSubmissionSaved }) {
   const [submitting, setSubmitting] = useState(false);
   const [notice, setNotice] = useState('');
   const [error, setError] = useState('');
+  const reviewed = hasTeacherReview(assignment?.mySubmission);
+  const displayGrade = normalizeDisplayGrade(assignment?.mySubmission?.grade);
 
   useEffect(() => {
     setAnswers(assignment?.mySubmission?.content?.answers || {});
     setNotice('');
     setError('');
-  }, [assignment]);
+  }, [assignment?.id, assignment?.mySubmission?.submittedAt]);
 
   const handleAnswer = (questionId, value) => {
     setAnswers(prev => ({ ...prev, [questionId]: value }));
@@ -355,6 +369,37 @@ function AssignmentDetail({ assignment, onSubmissionSaved }) {
         )}
       </section>
 
+      {assignment.mySubmission && reviewed && (
+        <section className="glass-surface rounded-3xl p-6">
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div>
+              <p className="micro-label accent-emerald">Teacher Review</p>
+              {assignment.mySubmission?.grade != null && (
+                <h3 className="mt-2 text-2xl command-title neon-title">Score {displayGrade}/{assignmentTotalScore(assignment.questions)}</h3>
+              )}
+              {assignment.mySubmission?.gradedAt && (
+                <p className="neon-subtle mt-2">Reviewed {formatDueDate(assignment.mySubmission.gradedAt)}</p>
+              )}
+            </div>
+            <span className="glass-chip px-3 py-1 rounded-full micro-label accent-indigo">Reviewed</span>
+          </div>
+
+          {assignment.mySubmission?.feedback && (
+            <div className="mt-4 rounded-2xl border border-white/10 bg-slate-900/30 p-4">
+              <p className="micro-label accent-amber">Teacher Remark</p>
+              <p className="mt-2 text-slate-100 whitespace-pre-wrap">{assignment.mySubmission.feedback}</p>
+            </div>
+          )}
+        </section>
+      )}
+
+      {assignment.mySubmission && !reviewed && (
+        <section className="glass-surface rounded-3xl p-6">
+          <p className="micro-label accent-amber">Awaiting Review</p>
+          <p className="mt-2 text-slate-200">Your work has been submitted. Your teacher's score and remark will appear here once the review is complete.</p>
+        </section>
+      )}
+
       {error && <section className="rounded-3xl border border-rose-400/30 p-4 bg-rose-500/10 text-rose-100">{error}</section>}
       {notice && <section className="rounded-3xl border border-emerald-300/30 p-4 bg-emerald-500/10 text-emerald-100">{notice}</section>}
 
@@ -391,24 +436,63 @@ export default function StudentAssignments() {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    const classId = getCurrentClassId();
-    if (!classId) {
-      setAssignments([]);
-      setLoading(false);
-      return;
-    }
+    let isActive = true;
 
-    setLoading(true);
-    setError('');
-    getAssignments(classId)
-      .then(response => {
+    async function refreshAssignments(showSpinner = false) {
+      const classId = getCurrentClassId();
+      if (!classId) {
+        if (isActive) {
+          setAssignments([]);
+          setLoading(false);
+        }
+        return;
+      }
+
+      if (showSpinner) {
+        setLoading(true);
+      }
+
+      try {
+        if (showSpinner) {
+          setError('');
+        }
+        const response = await getAssignments(classId);
         if (!response?.success) {
           throw new Error(response?.message || 'Could not load assignments.');
         }
-        setAssignments(response.assignments || []);
-      })
-      .catch(err => setError(err instanceof Error ? err.message : 'Could not load assignments.'))
-      .finally(() => setLoading(false));
+        if (isActive) {
+          setAssignments(response.assignments || []);
+          setError('');
+        }
+      } catch (err) {
+        if (isActive && showSpinner) {
+          setError(err instanceof Error ? err.message : 'Could not load assignments.');
+        }
+      } finally {
+        if (isActive && showSpinner) {
+          setLoading(false);
+        }
+      }
+    }
+
+    refreshAssignments(true);
+
+    const handleRefresh = () => {
+      if (typeof document === 'undefined' || document.visibilityState !== 'hidden') {
+        refreshAssignments(false);
+      }
+    };
+
+    const intervalId = window.setInterval(handleRefresh, REFRESH_INTERVAL_MS);
+    window.addEventListener('focus', handleRefresh);
+    document.addEventListener('visibilitychange', handleRefresh);
+
+    return () => {
+      isActive = false;
+      window.clearInterval(intervalId);
+      window.removeEventListener('focus', handleRefresh);
+      document.removeEventListener('visibilitychange', handleRefresh);
+    };
   }, []);
 
   const groupedAssignments = useMemo(() => {
@@ -483,9 +567,15 @@ export default function StudentAssignments() {
                       <p className="neon-subtle text-sm">Due {formatDueDate(item.dueAt)}</p>
                       <p className="micro-label mt-2 accent-amber">{summarizeQuestionTypes(item.questions)}</p>
                       <p className="micro-label mt-2 accent-emerald">Total Score {assignmentTotalScore(item.questions)}</p>
+                      {hasTeacherReview(item.mySubmission) && item.mySubmission?.grade != null && (
+                        <p className="micro-label mt-2 accent-indigo">Score {normalizeDisplayGrade(item.mySubmission.grade)}/{assignmentTotalScore(item.questions)}</p>
+                      )}
+                      {hasTeacherReview(item.mySubmission) && item.mySubmission?.feedback && (
+                        <p className="mt-2 text-sm text-slate-300">Remark available from teacher review.</p>
+                      )}
                     </div>
-                    <span className={`glass-chip px-3 py-1 rounded-full micro-label ${item.mySubmission ? 'accent-emerald' : 'accent-amber'}`}>
-                      {item.mySubmission ? 'Submitted' : 'Work on it'}
+                    <span className={`glass-chip px-3 py-1 rounded-full micro-label ${hasTeacherReview(item.mySubmission) ? 'accent-indigo' : item.mySubmission ? 'accent-emerald' : 'accent-amber'}`}>
+                      {hasTeacherReview(item.mySubmission) ? 'Reviewed' : item.mySubmission ? 'Submitted' : 'Work on it'}
                     </span>
                   </Link>
                 ))}
