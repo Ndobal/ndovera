@@ -477,7 +477,7 @@ export default function Sidebar({ mobileOpen = false, onClose = noop }) {
                 <a
                   href={item.path}
                   onClick={onClose}
-                  className={`block px-6 py-3 rounded-2xl text-slate-700 dark:text-[#f5deb3] hover:bg-emerald-50 hover:text-slate-900 dark:hover:bg-indigo-500/20 dark:hover:text-[#f5deb3] transition-colors${item.name === 'Overview' ? ' sidebar-overview' : ''}`}
+                  className={`block px-6 py-3 rounded-2xl text-slate-700 dark:text-[#f5deb3] dark:font-bold hover:bg-emerald-50 hover:text-slate-900 dark:hover:bg-indigo-500/20 dark:hover:text-[#f5deb3] transition-colors${item.name === 'Overview' ? ' sidebar-overview' : ''}`}
                 >
                   {item.name}
                 </a>
@@ -487,8 +487,8 @@ export default function Sidebar({ mobileOpen = false, onClose = noop }) {
                   onClick={onClose}
                   className={({ isActive }) =>
                     isActive
-                      ? `sidebar-item-active block px-6 py-3 rounded-2xl font-semibold dark:text-[#f5deb3]${item.name === 'Overview' ? ' sidebar-overview' : ''}`
-                      : `block px-6 py-3 rounded-2xl text-slate-700 dark:text-[#f5deb3] hover:bg-emerald-50 hover:text-slate-900 dark:hover:bg-indigo-500/20 dark:hover:text-[#f5deb3] transition-colors${item.name === 'Overview' ? ' sidebar-overview' : ''}`
+                      ? `sidebar-item-active block px-6 py-3 rounded-2xl font-semibold dark:font-bold dark:text-[#f5deb3]${item.name === 'Overview' ? ' sidebar-overview' : ''}`
+                      : `block px-6 py-3 rounded-2xl text-slate-700 dark:text-[#f5deb3] dark:font-bold hover:bg-emerald-50 hover:text-slate-900 dark:hover:bg-indigo-500/20 dark:hover:text-[#f5deb3] transition-colors${item.name === 'Overview' ? ' sidebar-overview' : ''}`
                   }
                   end
                 >
