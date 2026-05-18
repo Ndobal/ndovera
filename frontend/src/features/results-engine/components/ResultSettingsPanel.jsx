@@ -1,4 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import {
+  RESULT_BODY,
+  RESULT_BUTTON,
+  RESULT_HEADING,
+  RESULT_INPUT,
+  RESULT_INNER_SURFACE,
+  RESULT_LABEL,
+  RESULT_SURFACE,
+} from './resultSheetTheme';
 
 function normalizeDomainKey(label, index) {
   return String(label || `Domain ${index + 1}`)
@@ -19,6 +28,10 @@ function toDomainText(entries = []) {
   return (Array.isArray(entries) ? entries : []).map(entry => entry.label || entry.key || '').filter(Boolean).join(', ');
 }
 
+function toCaComponentLines(entries = []) {
+  return (Array.isArray(entries) ? entries : []).map(entry => `${entry.maxScore || 0}|${entry.label || ''}`).join('\n');
+}
+
 function parseLines(text = '', mode = 'grading') {
   return String(text || '').split('\n').map(line => line.trim()).filter(Boolean).map(line => {
     const [first = '', second = '', third = ''] = line.split('|').map(part => part.trim());
@@ -36,6 +49,22 @@ function parseDomains(text = '') {
     .map((label, index) => ({ key: normalizeDomainKey(label, index), label }));
 }
 
+function parseCaComponentLines(text = '') {
+  return String(text || '')
+    .split('\n')
+    .map(line => line.trim())
+    .filter(Boolean)
+    .map((line, index) => {
+      const [first = '', second = ''] = line.split('|').map(part => part.trim());
+      return {
+        key: normalizeDomainKey(second, index),
+        label: second || `CA ${index + 1}`,
+        maxScore: Number(first || 0),
+      };
+    })
+    .filter(entry => entry.label && Number(entry.maxScore || 0) > 0);
+}
+
 function buildFormState(settings = {}, suggestedSettings = {}) {
   const source = settings?.templateKey || settings?.updatedAt ? settings : suggestedSettings;
   const branding = source?.metadata?.branding || suggestedSettings?.metadata?.branding || {};
@@ -46,6 +75,7 @@ function buildFormState(settings = {}, suggestedSettings = {}) {
     affectiveScaleText: toLines(source?.affectiveScale || suggestedSettings?.affectiveScale || [], 'value'),
     affectiveDomainsText: toDomainText(source?.affectiveDomains || suggestedSettings?.affectiveDomains || []),
     ratingDomainsText: toDomainText(source?.metadata?.ratingDomains || suggestedSettings?.metadata?.ratingDomains || []),
+    caComponentsText: toCaComponentLines(source?.metadata?.caComponents || suggestedSettings?.metadata?.caComponents || []),
     affectiveWriteUp: source?.metadata?.affectiveWriteUp || suggestedSettings?.metadata?.affectiveWriteUp || '',
     brandingSchoolName: branding.schoolName || '',
     brandingReportTitle: branding.reportTitle || '',
@@ -83,6 +113,7 @@ export default function ResultSettingsPanel({
         ...existingMetadata,
         affectiveWriteUp: form.affectiveWriteUp,
         ratingDomains: parseDomains(form.ratingDomainsText),
+        caComponents: parseCaComponentLines(form.caComponentsText),
         branding: {
           ...existingBranding,
           schoolName: form.brandingSchoolName,
@@ -96,23 +127,23 @@ export default function ResultSettingsPanel({
   }
 
   return (
-    <section className="glass-surface rounded-3xl p-6">
+    <section className={`${RESULT_SURFACE} p-6`}>
       <div className="flex items-center justify-between gap-3 mb-4">
         <div>
-          <p className="micro-label neon-subtle">Result Configuration</p>
-          <h2 className="text-xl command-title neon-title">Template, grading, and affective setup</h2>
+          <p className={`micro-label ${RESULT_LABEL}`}>Result Configuration</p>
+          <h2 className={`text-xl command-title mt-2 ${RESULT_HEADING}`}>Template, grading, CA components, and affective setup</h2>
         </div>
-        {!canManageSettings && <p className="micro-label accent-amber">View only</p>}
+        {!canManageSettings && <p className={`micro-label ${RESULT_LABEL}`}>View only</p>}
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <label className="block">
-          <span className="micro-label accent-indigo">Result Template</span>
+          <span className={`micro-label ${RESULT_LABEL}`}>Result Template</span>
           <select
             value={form.templateKey}
             disabled={!canManageSettings || saving}
             onChange={event => setForm(current => ({ ...current, templateKey: event.target.value }))}
-            className="mt-2 w-full rounded-2xl bg-slate-900/30 border border-white/10 px-3 py-2 text-slate-100"
+            className={`mt-2 ${RESULT_INPUT}`}
           >
             <option value="">Choose template</option>
             {templates.map(template => (
@@ -123,125 +154,137 @@ export default function ResultSettingsPanel({
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <label className="block">
-            <span className="micro-label accent-emerald">Grading Scale</span>
+            <span className={`micro-label ${RESULT_LABEL}`}>Grading Scale</span>
             <textarea
               rows={6}
               disabled={!canManageSettings || saving}
               value={form.gradingScaleText}
               onChange={event => setForm(current => ({ ...current, gradingScaleText: event.target.value }))}
-              className="mt-2 w-full rounded-2xl bg-slate-900/30 border border-white/10 px-3 py-2 text-slate-100"
+              className={`mt-2 ${RESULT_INPUT}`}
             />
-            <p className="text-xs text-slate-400 mt-2">One line per grade: minimum score | grade | remark</p>
+            <p className={`text-xs mt-2 ${RESULT_BODY}`}>One line per grade: minimum score | grade | remark</p>
           </label>
 
           <label className="block">
-            <span className="micro-label accent-amber">Rating Scale</span>
+            <span className={`micro-label ${RESULT_LABEL}`}>Rating Scale</span>
             <textarea
               rows={6}
               disabled={!canManageSettings || saving}
               value={form.ratingScaleText}
               onChange={event => setForm(current => ({ ...current, ratingScaleText: event.target.value }))}
-              className="mt-2 w-full rounded-2xl bg-slate-900/30 border border-white/10 px-3 py-2 text-slate-100"
+              className={`mt-2 ${RESULT_INPUT}`}
             />
-            <p className="text-xs text-slate-400 mt-2">One line per rating: value | label</p>
+            <p className={`text-xs mt-2 ${RESULT_BODY}`}>One line per rating: value | label</p>
           </label>
         </div>
 
+        <label className="block">
+          <span className={`micro-label ${RESULT_LABEL}`}>CA Components</span>
+          <textarea
+            rows={4}
+            disabled={!canManageSettings || saving}
+            value={form.caComponentsText}
+            onChange={event => setForm(current => ({ ...current, caComponentsText: event.target.value }))}
+            className={`mt-2 ${RESULT_INPUT}`}
+          />
+          <p className={`text-xs mt-2 ${RESULT_BODY}`}>One line per component: max score | label. The configured maxima must add up to 40.</p>
+        </label>
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <label className="block">
-            <span className="micro-label accent-rose">Affective Scale</span>
+            <span className={`micro-label ${RESULT_LABEL}`}>Affective Scale</span>
             <textarea
               rows={6}
               disabled={!canManageSettings || saving}
               value={form.affectiveScaleText}
               onChange={event => setForm(current => ({ ...current, affectiveScaleText: event.target.value }))}
-              className="mt-2 w-full rounded-2xl bg-slate-900/30 border border-white/10 px-3 py-2 text-slate-100"
+              className={`mt-2 ${RESULT_INPUT}`}
             />
-            <p className="text-xs text-slate-400 mt-2">One line per affective score: value | label</p>
+            <p className={`text-xs mt-2 ${RESULT_BODY}`}>One line per affective score: value | label</p>
           </label>
 
           <div className="space-y-4">
             <label className="block">
-              <span className="micro-label accent-indigo">Affective Areas</span>
+              <span className={`micro-label ${RESULT_LABEL}`}>Affective Areas</span>
               <input
                 type="text"
                 disabled={!canManageSettings || saving}
                 value={form.affectiveDomainsText}
                 onChange={event => setForm(current => ({ ...current, affectiveDomainsText: event.target.value }))}
-                className="mt-2 w-full rounded-2xl bg-slate-900/30 border border-white/10 px-3 py-2 text-slate-100"
+                className={`mt-2 ${RESULT_INPUT}`}
               />
-              <p className="text-xs text-slate-400 mt-2">Comma-separated, up to 8 areas.</p>
+              <p className={`text-xs mt-2 ${RESULT_BODY}`}>Comma-separated, up to 8 areas.</p>
             </label>
 
             <label className="block">
-              <span className="micro-label accent-amber">Rating Areas</span>
+              <span className={`micro-label ${RESULT_LABEL}`}>Rating Areas</span>
               <input
                 type="text"
                 disabled={!canManageSettings || saving}
                 value={form.ratingDomainsText}
                 onChange={event => setForm(current => ({ ...current, ratingDomainsText: event.target.value }))}
-                className="mt-2 w-full rounded-2xl bg-slate-900/30 border border-white/10 px-3 py-2 text-slate-100"
+                className={`mt-2 ${RESULT_INPUT}`}
               />
             </label>
           </div>
         </div>
 
         <label className="block">
-          <span className="micro-label accent-indigo">Affective Write-up Guide</span>
+          <span className={`micro-label ${RESULT_LABEL}`}>Affective Write-up Guide</span>
           <textarea
             rows={4}
             disabled={!canManageSettings || saving}
             value={form.affectiveWriteUp}
             onChange={event => setForm(current => ({ ...current, affectiveWriteUp: event.target.value }))}
-            className="mt-2 w-full rounded-2xl bg-slate-900/30 border border-white/10 px-3 py-2 text-slate-100"
+            className={`mt-2 ${RESULT_INPUT}`}
           />
         </label>
 
-        <section className="rounded-2xl border border-white/10 bg-slate-950/20 p-4 space-y-4">
+        <section className={`${RESULT_INNER_SURFACE} p-4 space-y-4`}>
           <div>
-            <p className="micro-label accent-emerald">Document Branding</p>
-            <p className="text-xs text-slate-400 mt-2">Applied to the published result viewer now and carried in the result payload for future generated document exports.</p>
+            <p className={`micro-label ${RESULT_LABEL}`}>Document Branding</p>
+            <p className={`text-xs mt-2 ${RESULT_BODY}`}>Applied to the published result viewer now and carried in the result payload for future generated document exports.</p>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <label className="block">
-              <span className="micro-label accent-indigo">School Name</span>
+              <span className={`micro-label ${RESULT_LABEL}`}>School Name</span>
               <input
                 type="text"
                 disabled={!canManageSettings || saving}
                 value={form.brandingSchoolName}
                 onChange={event => setForm(current => ({ ...current, brandingSchoolName: event.target.value }))}
-                className="mt-2 w-full rounded-2xl bg-slate-900/30 border border-white/10 px-3 py-2 text-slate-100"
+                className={`mt-2 ${RESULT_INPUT}`}
               />
             </label>
 
             <label className="block">
-              <span className="micro-label accent-amber">Report Title</span>
+              <span className={`micro-label ${RESULT_LABEL}`}>Report Title</span>
               <input
                 type="text"
                 disabled={!canManageSettings || saving}
                 value={form.brandingReportTitle}
                 onChange={event => setForm(current => ({ ...current, brandingReportTitle: event.target.value }))}
-                className="mt-2 w-full rounded-2xl bg-slate-900/30 border border-white/10 px-3 py-2 text-slate-100"
+                className={`mt-2 ${RESULT_INPUT}`}
               />
             </label>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
             <label className="block lg:col-span-1">
-              <span className="micro-label accent-indigo">Logo URL</span>
+              <span className={`micro-label ${RESULT_LABEL}`}>Logo URL</span>
               <input
                 type="url"
                 disabled={!canManageSettings || saving}
                 value={form.brandingLogoUrl}
                 onChange={event => setForm(current => ({ ...current, brandingLogoUrl: event.target.value }))}
-                className="mt-2 w-full rounded-2xl bg-slate-900/30 border border-white/10 px-3 py-2 text-slate-100"
+                className={`mt-2 ${RESULT_INPUT}`}
               />
             </label>
 
             <label className="block">
-              <span className="micro-label accent-emerald">Primary Color</span>
-              <div className="mt-2 flex items-center gap-3 rounded-2xl bg-slate-900/30 border border-white/10 px-3 py-2">
+              <span className={`micro-label ${RESULT_LABEL}`}>Primary Color</span>
+              <div className={`mt-2 flex items-center gap-3 px-3 py-2 ${RESULT_INNER_SURFACE}`}>
                 <input
                   type="color"
                   disabled={!canManageSettings || saving}
@@ -249,13 +292,13 @@ export default function ResultSettingsPanel({
                   onChange={event => setForm(current => ({ ...current, brandingPrimaryColor: event.target.value }))}
                   className="h-10 w-12 rounded-lg bg-transparent"
                 />
-                <span className="text-sm text-slate-200">{form.brandingPrimaryColor}</span>
+                <span className={`text-sm ${RESULT_BODY}`}>{form.brandingPrimaryColor}</span>
               </div>
             </label>
 
             <label className="block">
-              <span className="micro-label accent-rose">Accent Color</span>
-              <div className="mt-2 flex items-center gap-3 rounded-2xl bg-slate-900/30 border border-white/10 px-3 py-2">
+              <span className={`micro-label ${RESULT_LABEL}`}>Accent Color</span>
+              <div className={`mt-2 flex items-center gap-3 px-3 py-2 ${RESULT_INNER_SURFACE}`}>
                 <input
                   type="color"
                   disabled={!canManageSettings || saving}
@@ -263,7 +306,7 @@ export default function ResultSettingsPanel({
                   onChange={event => setForm(current => ({ ...current, brandingAccentColor: event.target.value }))}
                   className="h-10 w-12 rounded-lg bg-transparent"
                 />
-                <span className="text-sm text-slate-200">{form.brandingAccentColor}</span>
+                <span className={`text-sm ${RESULT_BODY}`}>{form.brandingAccentColor}</span>
               </div>
             </label>
           </div>
@@ -273,7 +316,7 @@ export default function ResultSettingsPanel({
           <button
             type="submit"
             disabled={saving}
-            className="px-4 py-2 rounded-2xl border border-emerald-300/30 bg-emerald-500/20 text-emerald-100 text-sm disabled:opacity-50"
+            className={RESULT_BUTTON}
           >
             {saving ? 'Saving settings...' : 'Save Result Settings'}
           </button>

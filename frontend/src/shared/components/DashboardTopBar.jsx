@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import {
   BellIcon,
@@ -6,11 +6,18 @@ import {
   ChatBubbleLeftRightIcon,
   XMarkIcon,
   ArrowDownTrayIcon,
+  ArrowLeftIcon,
+  PaperAirplaneIcon,
 } from '@heroicons/react/24/outline';
 import ThemeToggle from './ThemeToggle';
 import RoleSwitcher from './RoleSwitcher';
 import UserProfileDropdown from './UserProfileDropdown';
-import { getHeaderBarData } from '../../services/headerBarService';
+import {
+  getConversationMessages,
+  getHeaderBarData,
+  markConversationRead,
+  sendConversationReply,
+} from '../../services/headerBarService';
 
 const CLICKABLE_CHAT_ROLES = new Set(['student', 'teacher', 'hos']);
 
@@ -22,6 +29,19 @@ const roleHeaderStats = {
   accountant: { notifications: 0, chats: 0, auras: 0 },
   owner: { notifications: 0, chats: 0, auras: 0 },
 };
+
+function normalizeIdentifier(value) {
+  return String(value || '').trim().toLowerCase();
+}
+
+function formatConversationTimestamp(value) {
+  const timestamp = String(value || '').trim();
+  if (!timestamp) return '';
+
+  const parsed = new Date(timestamp);
+  if (Number.isNaN(parsed.getTime())) return '';
+  return parsed.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+}
 
 export default function DashboardTopBar({ authUser = null, onLogout = () => {}, onToggleSidebar = null, isSidebarOpen = false }) {
   const navigate = useNavigate();
@@ -43,6 +63,29 @@ export default function DashboardTopBar({ authUser = null, onLogout = () => {}, 
   const [chatItems, setChatItems] = useState([]);
   const [notificationItems, setNotificationItems] = useState([]);
   const [activePanel, setActivePanel] = useState(null);
+  const [activeChatId, setActiveChatId] = useState('');
+  const [activeChatMessages, setActiveChatMessages] = useState([]);
+  const [chatDraft, setChatDraft] = useState('');
+  const [loadingChatThread, setLoadingChatThread] = useState(false);
+  const [sendingChatReply, setSendingChatReply] = useState(false);
+  const [panelError, setPanelError] = useState('');
+
+  const selfIdentifiers = useMemo(
+    () => Array.from(new Set([
+      authUser?.id,
+      authUser?.email,
+      authUser?.displayId,
+    ].map(normalizeIdentifier).filter(Boolean))),
+    [authUser?.displayId, authUser?.email, authUser?.id],
+  );
+
+  const refreshData = useCallback(async () => {
+    const data = await getHeaderBarData(roleKey);
+    setChatsCount(data.chats ?? baseStats.chats);
+    setNotificationsCount(data.notifications ?? baseStats.notifications);
+    setChatItems(data.chatItems || []);
+    setNotificationItems(data.notificationItems || []);
+  }, [baseStats.chats, baseStats.notifications, roleKey]);
 
   useEffect(() => {
     setChatsCount(baseStats.chats);
@@ -52,7 +95,7 @@ export default function DashboardTopBar({ authUser = null, onLogout = () => {}, 
   useEffect(() => {
     let mounted = true;
 
-    const refreshData = async () => {
+    const load = async () => {
       const data = await getHeaderBarData(roleKey);
       if (!mounted) return;
       setChatsCount(data.chats ?? baseStats.chats);
@@ -61,8 +104,8 @@ export default function DashboardTopBar({ authUser = null, onLogout = () => {}, 
       setNotificationItems(data.notificationItems || []);
     };
 
-    refreshData();
-    const timer = setInterval(refreshData, 12000);
+    load();
+    const timer = setInterval(load, 12000);
 
     return () => {
       mounted = false;
@@ -72,6 +115,10 @@ export default function DashboardTopBar({ authUser = null, onLogout = () => {}, 
 
   useEffect(() => {
     setActivePanel(null);
+    setActiveChatId('');
+    setActiveChatMessages([]);
+    setChatDraft('');
+    setPanelError('');
   }, [location.pathname]);
 
   useEffect(() => {
@@ -98,19 +145,82 @@ export default function DashboardTopBar({ authUser = null, onLogout = () => {}, 
   }
 
   const togglePanel = panel => {
+    setPanelError('');
     setActivePanel(prev => (prev === panel ? null : panel));
   };
 
   const openFullMessaging = () => {
     setActivePanel(null);
-    navigate(`/roles/${roleKey}/messaging`);
+    navigate(`/roles/${roleKey}/messaging`, {
+      state: activeChatId ? { conversationId: activeChatId } : undefined,
+    });
   };
 
-  const openChatItem = item => {
+  const loadChatThread = useCallback(async (conversationId, options = {}) => {
+    const { markRead = true } = options;
+    if (!conversationId) return;
+
+    setLoadingChatThread(true);
+    setPanelError('');
+
+    try {
+      const payload = await getConversationMessages(conversationId);
+      setActiveChatId(conversationId);
+      setActiveChatMessages(payload.messages || []);
+
+      if (markRead) {
+        await markConversationRead(conversationId).catch(() => null);
+        await refreshData();
+      }
+    } catch (error) {
+      setPanelError(error instanceof Error ? error.message : 'Could not open that conversation.');
+    } finally {
+      setLoadingChatThread(false);
+    }
+  }, [refreshData]);
+
+  const openChatItem = useCallback((item) => {
     if (!CLICKABLE_CHAT_ROLES.has(roleKey)) return;
-    setActivePanel(null);
-    navigate(`/roles/${roleKey}/messaging`, { state: { conversationId: item.id } });
-  };
+    loadChatThread(item.id, { markRead: true });
+  }, [loadChatThread, roleKey]);
+
+  const handleMarkRead = useCallback(async () => {
+    if (!activeChatId) return;
+    setPanelError('');
+    try {
+      await markConversationRead(activeChatId);
+      await refreshData();
+    } catch (error) {
+      setPanelError(error instanceof Error ? error.message : 'Could not mark that thread as read.');
+    }
+  }, [activeChatId, refreshData]);
+
+  const handleSendReply = useCallback(async () => {
+    if (!activeChatId || !chatDraft.trim()) return;
+    setSendingChatReply(true);
+    setPanelError('');
+    try {
+      await sendConversationReply(activeChatId, chatDraft.trim());
+      setChatDraft('');
+      await loadChatThread(activeChatId, { markRead: true });
+    } catch (error) {
+      setPanelError(error instanceof Error ? error.message : 'Could not send that reply.');
+    } finally {
+      setSendingChatReply(false);
+    }
+  }, [activeChatId, chatDraft, loadChatThread]);
+
+  function handleChatDraftKeyDown(event) {
+    if (event.key === 'Enter' && !event.shiftKey) {
+      event.preventDefault();
+      handleSendReply();
+    }
+  }
+
+  const activeChatItem = useMemo(
+    () => chatItems.find(item => item.id === activeChatId) || null,
+    [activeChatId, chatItems],
+  );
 
   const panelItems = activePanel === 'chat' ? chatItems : notificationItems;
 
@@ -200,48 +310,147 @@ export default function DashboardTopBar({ authUser = null, onLogout = () => {}, 
                 </button>
               </div>
 
-              <div className="flex-1 overflow-y-auto p-3 space-y-2">
-                {panelItems.map(item => (
-                  activePanel === 'chat' && CLICKABLE_CHAT_ROLES.has(roleKey) ? (
-                    <button
-                      key={item.id}
-                      type="button"
-                      onClick={() => openChatItem(item)}
-                      className="glass-chip w-full rounded-2xl border border-slate-200/70 p-3 text-left transition hover:bg-white/70 dark:border-cyan-300/15 dark:hover:bg-slate-700/40"
-                    >
-                      <div className="flex items-center justify-between gap-3">
-                        <p className="text-sm font-semibold text-slate-800 dark:text-slate-100">{item.sender || item.title}</p>
-                        <p className="text-[10px] micro-label neon-subtle">{item.time}</p>
+              {activePanel === 'chat' && activeChatId && CLICKABLE_CHAT_ROLES.has(roleKey) ? (
+                <>
+                  <div className="flex items-center justify-between gap-2 px-3 py-3 border-b border-slate-200/70 dark:border-slate-700/70">
+                    <div className="flex items-center gap-2 min-w-0">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setActiveChatId('');
+                          setActiveChatMessages([]);
+                          setChatDraft('');
+                          setPanelError('');
+                        }}
+                        className="glass-chip p-1.5 rounded-lg hover:bg-white/70 dark:hover:bg-slate-700/60"
+                        aria-label="Back to conversation list"
+                      >
+                        <ArrowLeftIcon className="w-4 h-4 text-slate-700 dark:text-slate-200" />
+                      </button>
+                      <div className="min-w-0">
+                        <p className="text-sm font-semibold truncate text-slate-800 dark:text-slate-100">{activeChatItem?.sender || 'Conversation'}</p>
+                        <p className="text-[10px] micro-label neon-subtle truncate">{activeChatItem?.preview || 'Open thread'}</p>
                       </div>
-                      <p className="text-xs text-slate-600 dark:text-slate-300 mt-1">{item.preview || item.detail}</p>
-                      {item.unread && <p className="text-[10px] micro-label accent-indigo mt-2">Unread</p>}
-                    </button>
-                  ) : (
-                    <div key={item.id} className="glass-chip rounded-2xl border border-slate-200/70 dark:border-cyan-300/15 p-3">
-                      <div className="flex items-center justify-between gap-3">
-                        <p className="text-sm font-semibold text-slate-800 dark:text-slate-100">{item.sender || item.title}</p>
-                        <p className="text-[10px] micro-label neon-subtle">{item.time}</p>
-                      </div>
-                      <p className="text-xs text-slate-600 dark:text-slate-300 mt-1">{item.preview || item.detail}</p>
-                      {item.unread && <p className="text-[10px] micro-label accent-indigo mt-2">Unread</p>}
                     </div>
-                  )
-                ))}
+                    <button
+                      type="button"
+                      onClick={handleMarkRead}
+                      className="rounded-full border border-emerald-300/30 px-3 py-1 text-[10px] font-semibold text-[#1a5c38] dark:border-cyan-300/30 dark:text-[#00ffff]"
+                    >
+                      Mark Read
+                    </button>
+                  </div>
 
-                {panelItems.length === 0 && (
-                  <p className="text-sm text-slate-600 dark:text-slate-300">No new updates right now.</p>
-                )}
-              </div>
+                  <div className="flex-1 overflow-y-auto p-3 space-y-3">
+                    {panelError ? (
+                      <div className="rounded-2xl border border-rose-300/40 bg-rose-50/80 px-3 py-2 text-xs text-rose-700 dark:border-rose-400/30 dark:bg-rose-900/40 dark:text-rose-100">
+                        {panelError}
+                      </div>
+                    ) : null}
 
-              {activePanel === 'chat' && (
-                <div className="p-3 border-t border-slate-200/70 dark:border-slate-700/70">
-                  <button
-                    onClick={openFullMessaging}
-                    className="w-full px-4 py-2 rounded-2xl glass-chip text-sm font-semibold text-slate-900 dark:text-slate-100 hover:bg-white/70 dark:hover:bg-slate-700/60"
-                  >
-                    Open Full Messaging
-                  </button>
-                </div>
+                    {loadingChatThread && activeChatMessages.length === 0 ? (
+                      <p className="text-sm text-slate-600 dark:text-slate-300">Loading conversation...</p>
+                    ) : activeChatMessages.length === 0 ? (
+                      <p className="text-sm text-slate-600 dark:text-slate-300">No messages yet in this thread.</p>
+                    ) : activeChatMessages.map(message => {
+                      const senderId = normalizeIdentifier(message.senderId || message.sender_id);
+                      const isOwn = selfIdentifiers.includes(senderId);
+                      return (
+                        <div key={message.id} className={`flex ${isOwn ? 'justify-end' : 'justify-start'}`}>
+                          <div className={`max-w-[88%] rounded-2xl border px-3 py-2 ${isOwn
+                            ? 'border-[#1a5c38]/25 bg-[#1a5c38]/12 text-slate-800 dark:border-[#00ffff]/35 dark:bg-[#00ffff]/10 dark:text-white'
+                            : 'border-slate-200/70 bg-white/80 text-slate-800 dark:border-cyan-300/20 dark:bg-slate-800/60 dark:text-slate-100'
+                          }`}>
+                            <div className="text-[10px] font-semibold text-[#800020] dark:text-[#bf00ff]">
+                              {isOwn ? 'You' : (activeChatItem?.sender || 'Contact')}
+                            </div>
+                            <div className="mt-1 whitespace-pre-wrap text-xs leading-5">{message.body}</div>
+                            <div className="mt-2 text-[10px] text-slate-500 dark:text-slate-300">
+                              {formatConversationTimestamp(message.sentAt || message.sent_at || message.createdAt)}
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+
+                  <div className="p-3 border-t border-slate-200/70 dark:border-slate-700/70 space-y-3">
+                    <textarea
+                      value={chatDraft}
+                      onChange={event => setChatDraft(event.target.value)}
+                      onKeyDown={handleChatDraftKeyDown}
+                      rows={3}
+                      placeholder="Reply from the sidebar..."
+                      className="w-full rounded-2xl border border-slate-200/70 bg-white/80 px-3 py-2 text-sm text-slate-800 outline-none transition focus:border-[#1a5c38] focus:ring-2 focus:ring-[#1a5c38]/20 dark:border-cyan-300/20 dark:bg-slate-900/60 dark:text-slate-100 dark:focus:border-[#00ffff] dark:focus:ring-[#00ffff]/20"
+                    />
+                    <div className="flex items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={handleSendReply}
+                        disabled={sendingChatReply || !chatDraft.trim()}
+                        className="flex-1 rounded-2xl bg-[#1a5c38] px-4 py-2 text-sm font-bold text-[#f5deb3] transition disabled:opacity-50 dark:bg-[#00ffff] dark:text-black"
+                      >
+                        <span className="inline-flex items-center gap-2">
+                          <PaperAirplaneIcon className="w-4 h-4" />
+                          {sendingChatReply ? 'Sending...' : 'Reply'}
+                        </span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={openFullMessaging}
+                        className="rounded-2xl glass-chip px-4 py-2 text-sm font-semibold text-slate-900 dark:text-slate-100 hover:bg-white/70 dark:hover:bg-slate-700/60"
+                      >
+                        Full Chat
+                      </button>
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="flex-1 overflow-y-auto p-3 space-y-2">
+                    {panelItems.map(item => (
+                      activePanel === 'chat' && CLICKABLE_CHAT_ROLES.has(roleKey) ? (
+                        <button
+                          key={item.id}
+                          type="button"
+                          onClick={() => openChatItem(item)}
+                          className="glass-chip w-full rounded-2xl border border-slate-200/70 p-3 text-left transition hover:bg-white/70 dark:border-cyan-300/15 dark:hover:bg-slate-700/40"
+                        >
+                          <div className="flex items-center justify-between gap-3">
+                            <p className="text-sm font-semibold text-slate-800 dark:text-slate-100">{item.sender || item.title}</p>
+                            <p className="text-[10px] micro-label neon-subtle">{item.time}</p>
+                          </div>
+                          <p className="text-xs text-slate-600 dark:text-slate-300 mt-1">{item.preview || item.detail}</p>
+                          {item.unread && <p className="text-[10px] micro-label accent-indigo mt-2">Unread</p>}
+                        </button>
+                      ) : (
+                        <div key={item.id} className="glass-chip rounded-2xl border border-slate-200/70 dark:border-cyan-300/15 p-3">
+                          <div className="flex items-center justify-between gap-3">
+                            <p className="text-sm font-semibold text-slate-800 dark:text-slate-100">{item.sender || item.title}</p>
+                            <p className="text-[10px] micro-label neon-subtle">{item.time}</p>
+                          </div>
+                          <p className="text-xs text-slate-600 dark:text-slate-300 mt-1">{item.preview || item.detail}</p>
+                          {item.unread && <p className="text-[10px] micro-label accent-indigo mt-2">Unread</p>}
+                        </div>
+                      )
+                    ))}
+
+                    {panelItems.length === 0 && (
+                      <p className="text-sm text-slate-600 dark:text-slate-300">No new updates right now.</p>
+                    )}
+                  </div>
+
+                  {activePanel === 'chat' && (
+                    <div className="p-3 border-t border-slate-200/70 dark:border-slate-700/70">
+                      <button
+                        onClick={openFullMessaging}
+                        className="w-full px-4 py-2 rounded-2xl glass-chip text-sm font-semibold text-slate-900 dark:text-slate-100 hover:bg-white/70 dark:hover:bg-slate-700/60"
+                      >
+                        Open Full Messaging
+                      </button>
+                    </div>
+                  )}
+                </>
               )}
             </div>
           </aside>

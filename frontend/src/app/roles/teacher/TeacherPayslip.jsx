@@ -45,14 +45,36 @@ export default function TeacherPayslip({ auth }) {
   const deductionBreakdown = Array.isArray(p.deductionBreakdown)
     ? p.deductionBreakdown
     : [];
+  const branding = p.branding && typeof p.branding === 'object' ? p.branding : {};
+  const schoolName = branding.schoolName || p.schoolName || 'School';
+  const logoUrl = branding.logoUrl || p.logoUrl || '';
+  const tagline = branding.tagline || p.tagline || '';
+  const website = branding.website || p.website || '';
+  const schoolInitials = schoolName
+    .split(' ')
+    .filter(Boolean)
+    .slice(0, 2)
+    .map(part => part[0]?.toUpperCase() || '')
+    .join('') || 'ND';
 
   return (
     <div className="p-8 max-w-3xl mx-auto space-y-6">
       <div className={CARD}><h1 className="text-2xl font-bold text-[#800000]">My Payslip</h1><p className="text-[#191970] mt-1 text-sm">{month}</p></div>
       <div className={CARD} id="payslip-print">
-        <div className="text-center mb-6">
-          <h2 className="text-xl font-bold text-[#800000]">{p.schoolName || 'School'}</h2>
-          <p className="text-sm text-[#191970]">Staff Payslip — {month}</p>
+        <div className="mb-6 flex items-center gap-4 border-b border-[#c9a96e]/40 pb-5">
+          {logoUrl ? (
+            <img src={logoUrl} alt={`${schoolName} logo`} className="h-20 w-20 rounded-3xl object-cover border border-[#c9a96e]/40 bg-white/70 p-2" />
+          ) : (
+            <div className="flex h-20 w-20 items-center justify-center rounded-3xl border border-[#c9a96e]/40 bg-[#f0d090] text-2xl font-black text-[#800000]">
+              {schoolInitials}
+            </div>
+          )}
+          <div className="min-w-0 flex-1">
+            <h2 className="text-2xl font-bold text-[#800000]">{schoolName}</h2>
+            {tagline ? <p className="mt-1 text-sm text-[#800020]">{tagline}</p> : null}
+            <p className="mt-2 text-sm text-[#191970]">Staff Payslip — {month}</p>
+            {website ? <p className="mt-1 text-xs text-[#191970] break-all">{website}</p> : null}
+          </div>
         </div>
         <div className={`${INNER} mb-4`}>
           <div className="grid grid-cols-2 gap-3">

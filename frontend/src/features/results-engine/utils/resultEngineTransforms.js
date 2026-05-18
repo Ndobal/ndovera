@@ -27,6 +27,51 @@ export function computeRemark(total, gradingScale = []) {
   return match?.remark || '';
 }
 
+export function normalizeCaComponentDefinitions(settings = {}) {
+  return (Array.isArray(settings?.metadata?.caComponents) ? settings.metadata.caComponents : [])
+    .map((component, index) => ({
+      key: String(component?.key || component?.label || `ca_${index + 1}`)
+        .trim()
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '_')
+        .replace(/^_+|_+$/g, '') || `ca_${index + 1}`,
+      label: String(component?.label || component?.key || `CA ${index + 1}`).trim(),
+      maxScore: clampNumber(component?.maxScore, 1, 40),
+    }))
+    .filter(component => component.label);
+}
+
+function normalizeCaComponentScores(value = {}, definitions = [], fallbackCa = 0) {
+  if (!definitions.length) return {};
+
+  const source = value && typeof value === 'object' && !Array.isArray(value) ? value : {};
+  const normalized = Object.fromEntries(definitions.map(component => [
+    component.key,
+    clampNumber(source?.[component.key], 0, component.maxScore),
+  ]));
+  const hasAny = Object.values(normalized).some(score => Number(score || 0) > 0);
+
+  if (!hasAny && Number(fallbackCa || 0) > 0) {
+    let remaining = clampNumber(fallbackCa, 0, 40);
+    definitions.forEach(component => {
+      const allocated = clampNumber(Math.min(remaining, component.maxScore), 0, component.maxScore);
+      normalized[component.key] = allocated;
+      remaining -= allocated;
+    });
+  }
+
+  return normalized;
+}
+
+function computeCaFromComponents(scores = {}, definitions = [], fallbackCa = 0) {
+  if (!definitions.length) return clampNumber(fallbackCa, 0, 40);
+  return clampNumber(
+    definitions.reduce((sum, component) => sum + Number(scores?.[component.key] || 0), 0),
+    0,
+    40,
+  );
+}
+
 function normalizeStudentProfile(profile = {}) {
   return {
     attendanceRate: clampNumber(profile?.attendanceRate, 0, 100),
@@ -54,14 +99,17 @@ function buildTeacherBroadsheet(students = []) {
 
 export function recomputeTeacherSheet(sheet = {}) {
   const gradingScale = Array.isArray(sheet?.settings?.gradingScale) ? sheet.settings.gradingScale : [];
+  const caComponentDefinitions = normalizeCaComponentDefinitions(sheet?.settings);
   const students = (Array.isArray(sheet?.students) ? sheet.students : []).map(student => {
     const rows = (Array.isArray(student?.rows) ? student.rows : [])
       .map(row => {
-        const ca = clampNumber(row?.ca, 0, 40);
+        const caComponents = normalizeCaComponentScores(row?.caComponents, caComponentDefinitions, row?.ca);
+        const ca = computeCaFromComponents(caComponents, caComponentDefinitions, row?.ca);
         const exam = clampNumber(row?.exam, 0, 60);
         const total = clampNumber(ca + exam, 0, 100);
         return {
           ...row,
+          caComponents,
           ca,
           exam,
           rawTotal: total,
@@ -108,15 +156,18 @@ function normalizePublication(publication) {
   };
 }
 
-function buildSubjectRows(entries = [], gradingScale = []) {
+function buildSubjectRows(entries = [], gradingScale = [], settings = {}) {
+  const caComponentDefinitions = normalizeCaComponentDefinitions(settings);
   return entries
     .map(entry => {
-      const ca = clampNumber(entry?.caScore, 0, 40);
+      const caComponents = normalizeCaComponentScores(entry?.caComponents, caComponentDefinitions, entry?.caScore);
+      const ca = computeCaFromComponents(caComponents, caComponentDefinitions, entry?.caScore);
       const exam = clampNumber(entry?.examScore, 0, 60);
       const total = clampNumber(ca + exam, 0, 100);
       return {
         subjectId: String(entry?.subjectId || ''),
         subjectName: String(entry?.subjectName || ''),
+        caComponents,
         ca,
         exam,
         rawTotal: total,
@@ -141,7 +192,7 @@ export function normalizeTeacherSheetResponse(data = {}) {
 
   const students = (Array.isArray(data?.students) ? data.students : []).map(student => {
     const studentId = String(student?.id || '');
-    const rows = buildSubjectRows(entryMap.get(studentId) || [], gradingScale);
+    const rows = buildSubjectRows(entryMap.get(studentId) || [], gradingScale, data?.settings || {});
     const average = rows.length ? Math.round(rows.reduce((sum, row) => sum + row.total, 0) / rows.length) : 0;
     const profile = profileMap.get(studentId) || {};
     return {
@@ -188,6 +239,7 @@ export function buildEntryPayload(sheet = {}) {
     (Array.isArray(student?.rows) ? student.rows : []).map(row => ({
       studentId: student.id,
       subjectId: row.subjectId,
+      caComponents: row.caComponents || {},
       caScore: clampNumber(row.ca, 0, 40),
       examScore: clampNumber(row.exam, 0, 60),
     }))

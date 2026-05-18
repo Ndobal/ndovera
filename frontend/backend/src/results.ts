@@ -16,6 +16,20 @@ function normalizeKeyPart(value: unknown) {
     .replace(/^_+|_+$/g, '') || 'na'
 }
 
+function normalizeEntryCaComponents(value: unknown) {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return {} as Record<string, number>
+
+  return Object.fromEntries(
+    Object.entries(value as Record<string, unknown>)
+      .map(([key, componentScore]) => {
+        const normalizedKey = normalizeKeyPart(key)
+        const numeric = Number(componentScore || 0)
+        return [normalizedKey, Number.isFinite(numeric) ? Math.max(0, numeric) : 0]
+      })
+      .filter(([key]) => Boolean(key))
+  )
+}
+
 function buildBatchId(tenantId: string, classId: string, sessionName: string, termName: string) {
   return `resultbatch_${normalizeKeyPart(tenantId)}_${normalizeKeyPart(classId)}_${normalizeKeyPart(sessionName)}_${normalizeKeyPart(termName)}`
 }
@@ -78,6 +92,7 @@ const RESULT_ENTRIES_DDL = `CREATE TABLE IF NOT EXISTS result_ca_entries (
   subject_id TEXT NOT NULL,
   subject_name TEXT NOT NULL,
   teacher_id TEXT,
+  ca_components_json TEXT,
   ca_score REAL NOT NULL DEFAULT 0,
   exam_score REAL NOT NULL DEFAULT 0,
   updated_by TEXT,
@@ -137,6 +152,7 @@ export async function ensureResultsTables(db: D1Database) {
   await db.prepare(RESULT_SETTINGS_DDL).run()
   await db.prepare(RESULT_BATCHES_DDL).run()
   await db.prepare(RESULT_ENTRIES_DDL).run()
+  try { await db.exec('ALTER TABLE result_ca_entries ADD COLUMN ca_components_json TEXT') } catch {}
   await db.prepare(RESULT_STUDENT_PROFILES_DDL).run()
   await db.prepare(RESULT_PUBLICATIONS_DDL).run()
   await db.prepare(RESULT_DOCUMENTS_DDL).run()
@@ -278,8 +294,8 @@ export async function upsertResultEntries(db: D1Database, params: { tenantId: st
   for (const row of params.rows || []) {
     await db.prepare(
       `INSERT OR REPLACE INTO result_ca_entries
-       (id, batch_id, tenant_id, class_id, session_name, term_name, student_id, subject_id, subject_name, teacher_id, ca_score, exam_score, updated_by, updated_at)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+       (id, batch_id, tenant_id, class_id, session_name, term_name, student_id, subject_id, subject_name, teacher_id, ca_components_json, ca_score, exam_score, updated_by, updated_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
     ).bind(
       buildEntryId(batchId, String(row.studentId || ''), String(row.subjectId || '')),
       batchId,
@@ -291,6 +307,7 @@ export async function upsertResultEntries(db: D1Database, params: { tenantId: st
       String(row.subjectId || ''),
       String(row.subjectName || ''),
       String(row.teacherId || params.actorId || ''),
+      JSON.stringify(normalizeEntryCaComponents(row.caComponents)),
       Number(row.caScore || 0),
       Number(row.examScore || 0),
       params.actorId,
@@ -315,6 +332,7 @@ export async function listResultEntries(db: D1Database, batchId: string) {
     subjectId: row.subject_id,
     subjectName: row.subject_name,
     teacherId: row.teacher_id,
+    caComponents: normalizeEntryCaComponents(parseJsonField(row.ca_components_json, {} as Record<string, unknown>)),
     caScore: Number(row.ca_score || 0),
     examScore: Number(row.exam_score || 0),
     updatedBy: row.updated_by,

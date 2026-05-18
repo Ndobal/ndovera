@@ -689,12 +689,19 @@ const RESULT_DEFAULT_AFFECTIVE_DOMAINS = [
   { key: 'neatness', label: 'Neatness' },
   { key: 'honesty', label: 'Honesty' },
   { key: 'leadership', label: 'Leadership' },
+  { key: 'relationship_with_others', label: 'Relationship With Others' },
 ]
 
 const RESULT_DEFAULT_RATING_DOMAINS = [
   { key: 'teamwork', label: 'Teamwork' },
   { key: 'attention', label: 'Attention' },
   { key: 'creativity', label: 'Creativity' },
+]
+
+const RESULT_DEFAULT_CA_COMPONENTS = [
+  { key: 'homework', label: 'Homework', maxScore: 10 },
+  { key: 'quiz', label: 'Quiz', maxScore: 15 },
+  { key: 'classwork', label: 'Classwork', maxScore: 15 },
 ]
 
 const RESULT_DEFAULT_BRANDING = {
@@ -723,6 +730,34 @@ function normalizeResultDomainList(values: unknown, fallback: Record<string, any
       description: String((entry as any)?.description || '').trim(),
     }))
     .filter(entry => entry.label)
+}
+
+function normalizeResultCaComponentList(values: unknown, fallback: Record<string, any>[] = [], limit = 8) {
+  const base = Array.isArray(values) && values.length > 0 ? values : fallback
+  return base
+    .slice(0, limit)
+    .map((entry, index) => ({
+      key: normalizeResultDomainKey((entry as any)?.key || (entry as any)?.label, `ca_${index + 1}`),
+      label: String((entry as any)?.label || (entry as any)?.key || `CA${index + 1}`).trim(),
+      maxScore: Math.max(1, Math.min(40, Number((entry as any)?.maxScore || 0) || 0)),
+    }))
+    .filter(entry => entry.label && entry.maxScore > 0)
+}
+
+function ensureResultDomainEntry(values: Record<string, any>[] = [], entry: Record<string, any>, limit = 8) {
+  const normalizedKey = normalizeResultDomainKey(entry?.key || entry?.label, String(entry?.key || ''))
+  if (!normalizedKey) return values
+  if ((values || []).some(value => normalizeResultDomainKey(value?.key || value?.label, '') === normalizedKey)) {
+    return values
+  }
+  if ((values || []).length >= limit) return values
+  return [
+    ...(values || []),
+    {
+      key: normalizedKey,
+      label: String(entry?.label || entry?.key || normalizedKey).trim(),
+    },
+  ]
 }
 
 function normalizeResultScale(values: unknown, fallback: Record<string, any>[] = []) {
@@ -764,6 +799,7 @@ function getSuggestedResultSettings() {
     metadata: {
       affectiveWriteUp: 'Use the affective scale to describe conduct, attitude, and class disposition clearly and consistently.',
       ratingDomains: RESULT_DEFAULT_RATING_DOMAINS,
+      caComponents: RESULT_DEFAULT_CA_COMPONENTS,
       branding: RESULT_DEFAULT_BRANDING,
     },
   }
@@ -785,25 +821,63 @@ function normalizeResultSettingsInput(payload: Record<string, any> = {}) {
     affectiveScale: normalizeResultScale(payload.affectiveScale, fallback.affectiveScale)
       .map(entry => ({ value: Number(entry.value || 0), label: entry.label }))
       .sort((left, right) => right.value - left.value),
-    affectiveDomains: normalizeResultDomainList(payload.affectiveDomains, fallback.affectiveDomains, 8),
+    affectiveDomains: ensureResultDomainEntry(
+      normalizeResultDomainList(payload.affectiveDomains, fallback.affectiveDomains, 8),
+      { key: 'relationship_with_others', label: 'Relationship With Others' },
+      8,
+    ),
     metadata: {
       ...((payload.metadata && typeof payload.metadata === 'object') ? payload.metadata : {}),
       affectiveWriteUp: String(payload?.metadata?.affectiveWriteUp || '').trim(),
       ratingDomains: normalizeResultDomainList(payload?.metadata?.ratingDomains, fallback.metadata.ratingDomains, 8),
+      caComponents: normalizeResultCaComponentList(payload?.metadata?.caComponents, fallback.metadata.caComponents, 8),
       branding: normalizeResultBranding(payload?.metadata?.branding, fallback.metadata.branding),
     },
   }
 }
 
 function validateResultSettings(settings: Record<string, any>) {
+  const caComponents = normalizeResultCaComponentList(settings?.metadata?.caComponents, RESULT_DEFAULT_CA_COMPONENTS, 8)
+  const caComponentMaxTotal = caComponents.reduce((sum, entry) => sum + Number(entry.maxScore || 0), 0)
   if (!String(settings?.templateKey || '').trim()) return 'Choose a result template before CA scores will be accepted.'
   if (!Array.isArray(settings?.gradingScale) || settings.gradingScale.length === 0) return 'Set the grading system before CA scores will be accepted.'
   if (!Array.isArray(settings?.ratingScale) || settings.ratingScale.length === 0) return 'Set the rating scale before CA scores will be accepted.'
   if (!Array.isArray(settings?.affectiveScale) || settings.affectiveScale.length === 0) return 'Set the affective scale before CA scores will be accepted.'
   if (!Array.isArray(settings?.affectiveDomains) || settings.affectiveDomains.length === 0) return 'Add at least one affective domain before CA scores will be accepted.'
   if (settings.affectiveDomains.length > 8) return 'Affective marking can cover at most 8 areas.'
+  if (caComponents.length === 0) return 'Add at least one CA component before CA scores will be accepted.'
+  if (caComponentMaxTotal !== 40) return 'CA component maximum scores must add up to 40.'
   if (!String(settings?.metadata?.affectiveWriteUp || '').trim()) return 'Set the affective write-up guide before CA scores will be accepted.'
   return ''
+}
+
+function normalizeResultEntryCaComponents(value: unknown, componentDefinitions: Record<string, any>[] = RESULT_DEFAULT_CA_COMPONENTS, fallbackTotal = 0) {
+  const source = value && typeof value === 'object' && !Array.isArray(value) ? value as Record<string, any> : {}
+  const normalized = Object.fromEntries(
+    componentDefinitions.map(component => [
+      String(component.key || ''),
+      clampResultScore(source?.[String(component.key || '')], Number(component.maxScore || 0) || 0),
+    ])
+  )
+  const hasAnyScore = Object.values(normalized).some(score => Number(score || 0) > 0)
+  if (!hasAnyScore && Number(fallbackTotal || 0) > 0 && componentDefinitions.length > 0) {
+    let remaining = clampResultScore(fallbackTotal, 40)
+    componentDefinitions.forEach(component => {
+      const key = String(component.key || '')
+      const maxScore = Number(component.maxScore || 0)
+      const allocated = Math.max(0, Math.min(remaining, maxScore))
+      normalized[key] = allocated
+      remaining -= allocated
+    })
+  }
+  return normalized
+}
+
+function sumResultEntryCaComponents(componentScores: Record<string, any> = {}, componentDefinitions: Record<string, any>[] = RESULT_DEFAULT_CA_COMPONENTS) {
+  return clampResultScore(
+    componentDefinitions.reduce((sum, component) => sum + Number(componentScores?.[String(component.key || '')] || 0), 0),
+    40,
+  )
 }
 
 async function resolveCurrentResultPeriod(db: D1Database, tenantId: string, requestedSessionName?: unknown, requestedTermName?: unknown) {
@@ -913,6 +987,7 @@ function buildPublishedResultPayloads(params: {
   const gradeScale = normalizeResultScale(params.settings?.gradingScale, RESULT_DEFAULT_GRADING_SCALE)
   const affectiveDomains = normalizeResultDomainList(params.settings?.affectiveDomains, RESULT_DEFAULT_AFFECTIVE_DOMAINS, 8)
   const ratingDomains = normalizeResultDomainList(params.settings?.metadata?.ratingDomains, RESULT_DEFAULT_RATING_DOMAINS, 8)
+  const caComponents = normalizeResultCaComponentList(params.settings?.metadata?.caComponents, RESULT_DEFAULT_CA_COMPONENTS, 8)
   const branding = normalizeResultBranding(params.settings?.metadata?.branding, RESULT_DEFAULT_BRANDING)
   const profileMap = new Map(params.profiles.map(profile => [String(profile.studentId || ''), profile]))
 
@@ -922,12 +997,20 @@ function buildPublishedResultPayloads(params: {
     const subjectRows = params.entries
       .filter(entry => String(entry.studentId || '') === studentId)
       .map(entry => {
-        const total = clampResultScore(Number(entry.caScore || 0) + Number(entry.examScore || 0), 100)
+        const caComponentScores = normalizeResultEntryCaComponents(entry.caComponents, caComponents, entry.caScore)
+        const caScore = sumResultEntryCaComponents(caComponentScores, caComponents)
+        const total = clampResultScore(caScore + Number(entry.examScore || 0), 100)
         const band = resolveGradeBand(total, gradeScale)
         return {
           subjectId: String(entry.subjectId || ''),
           subjectName: String(entry.subjectName || ''),
-          caScore: clampResultScore(entry.caScore, 40),
+          caComponents: caComponents.map(component => ({
+            key: String(component.key || ''),
+            label: String(component.label || ''),
+            maxScore: Number(component.maxScore || 0),
+            score: Number(caComponentScores?.[String(component.key || '')] || 0),
+          })),
+          caScore,
           examScore: clampResultScore(entry.examScore, 60),
           total,
           grade: band.grade,
@@ -1674,6 +1757,44 @@ async function buildAuthenticatedHeader(c: any, roleKey: string) {
     chatItems,
     notificationItems,
   }
+}
+
+async function resolveConversationActorContext(db: D1Database, currentUser: Record<string, any> = {}, fallbackIdentifier = '') {
+  const userIdentifier = String(currentUser.id || currentUser.email || currentUser.sub || fallbackIdentifier || '').trim()
+  const resolvedUser = userIdentifier
+    ? await resolveSettingsIdentity(db, userIdentifier)
+    : { settingsKey: '', settings: null, userRow: null }
+  const rawIdentifiers = collectResolvedIdentityIdentifiers(resolvedUser, currentUser)
+  const canonicalIdentifiers = (await Promise.all(
+    rawIdentifiers.map(identifier => resolveCanonicalUserIdentifier(db, identifier).catch(() => null))
+  )).filter(Boolean) as string[]
+  const comparableIdentifiers = collectComparableIdentifiers([...rawIdentifiers, ...canonicalIdentifiers])
+  const canonicalUserId = String(
+    await resolveCanonicalUserIdentifier(db, userIdentifier).catch(() => null)
+      || canonicalIdentifiers[0]
+      || rawIdentifiers[0]
+      || userIdentifier
+  ).trim()
+
+  return {
+    userIdentifier,
+    resolvedUser,
+    rawIdentifiers,
+    canonicalIdentifiers,
+    comparableIdentifiers,
+    canonicalUserId,
+  }
+}
+
+function conversationMatchesComparableIdentifiers(conversation: Record<string, any> = {}, comparableIdentifiers: string[] = []) {
+  const participants = Array.isArray(conversation?.participants) ? conversation.participants : []
+  return participants.some(participant => matchesComparableIdentifier(participant, comparableIdentifiers))
+}
+
+function conversationMatchesParticipantSet(conversation: Record<string, any> = {}, comparableParticipants: string[] = []) {
+  const participants = collectComparableIdentifiers(Array.isArray(conversation?.participants) ? conversation.participants : [])
+  if (participants.length !== comparableParticipants.length) return false
+  return comparableParticipants.every(identifier => participants.includes(identifier))
 }
 
 function buildUserProfile(id: string, role: string, name: string, settings: Record<string, any> = {}) {
@@ -5321,7 +5442,9 @@ app.put('/api/attendance/:id', authenticate, async (c) => {
 app.get('/api/conversations', authenticate, async (c) => {
   const { userId } = c.req.query()
   try {
-    const conversations = await getConversations(c.env.APP_DB, userId as string)
+    const actor = await resolveConversationActorContext(c.env.APP_DB, c.var.user || {}, String(userId || ''))
+    const conversations = (await getConversations(c.env.APP_DB))
+      .filter(conversation => conversationMatchesComparableIdentifiers(conversation, actor.comparableIdentifiers))
     return c.json({ success: true, conversations })
   } catch (err) {
     return c.json({ success: false, error: 'Could not fetch conversations' }, 500)
@@ -5331,7 +5454,22 @@ app.get('/api/conversations', authenticate, async (c) => {
 app.post('/api/conversations', authenticate, async (c) => {
   const { subject, participants } = await c.req.json()
   try {
-    const conversation = await createConversation(c.env.APP_DB, subject, participants)
+    const actor = await resolveConversationActorContext(c.env.APP_DB, c.var.user || {})
+    const participantCandidates = Array.isArray(participants) ? participants : []
+    const normalizedParticipants = Array.from(new Set((await Promise.all(
+      [...participantCandidates, actor.canonicalUserId]
+        .map(participant => resolveCanonicalUserIdentifier(c.env.APP_DB, participant).catch(() => String(participant || '').trim() || null))
+    )).filter(Boolean) as string[]))
+
+    if (normalizedParticipants.length === 0) {
+      return c.json({ success: false, error: 'Missing participants' }, 400)
+    }
+
+    const comparableParticipants = collectComparableIdentifiers(normalizedParticipants)
+    const existingConversation = (await getConversations(c.env.APP_DB))
+      .find(conversation => conversationMatchesParticipantSet(conversation, comparableParticipants))
+
+    const conversation = existingConversation || await createConversation(c.env.APP_DB, subject, normalizedParticipants)
     return c.json({ success: true, conversation })
   } catch (err) {
     return c.json({ success: false, error: err.message }, 400)
@@ -5351,9 +5489,13 @@ app.get('/api/conversations/:id/messages', authenticate, async (c) => {
 app.post('/api/conversations/:id/messages', authenticate, async (c) => {
   const { id } = c.req.param()
   const { senderId, body, metadata } = await c.req.json()
-  if (!senderId || !body) return c.json({ success: false, error: 'Missing senderId or body' }, 400)
+  if (!body) return c.json({ success: false, error: 'Missing body' }, 400)
   try {
-    const message = await sendMessage(c.env.APP_DB, id, senderId, body, metadata)
+    const actor = await resolveConversationActorContext(c.env.APP_DB, c.var.user || {}, String(senderId || ''))
+    const normalizedSenderId = actor.canonicalUserId || String(senderId || '').trim()
+    if (!normalizedSenderId) return c.json({ success: false, error: 'Missing senderId or body' }, 400)
+
+    const message = await sendMessage(c.env.APP_DB, id, normalizedSenderId, body, metadata)
     return c.json({ success: true, message })
   } catch (err) {
     return c.json({ success: false, error: err.message }, 403)
@@ -6779,6 +6921,7 @@ app.post('/api/results/entries', authenticate, async (c) => {
   const students = await listResultClassStudents(c.env.APP_DB, access.tenantId, access.classRow)
   const allowedStudentIds = new Set(students.map(student => String(student.id || '')))
   const allowedSubjects = new Map(access.allowedSubjectRows.map(subject => [String(subject.id || ''), subject]))
+  const caComponents = normalizeResultCaComponentList(settings.metadata?.caComponents, RESULT_DEFAULT_CA_COMPONENTS, 8)
   const rows = Array.isArray(body.rows) ? body.rows : []
   const normalizedRows = rows
     .map((row: any) => {
@@ -6786,12 +6929,15 @@ app.post('/api/results/entries', authenticate, async (c) => {
       const studentId = String(row.studentId || '')
       if (!subject || !allowedStudentIds.has(studentId)) return null
 
+      const componentScores = normalizeResultEntryCaComponents(row.caComponents, caComponents, row.caScore)
+
       return {
         studentId,
         subjectId: String(subject.id || ''),
         subjectName: String(subject.name || ''),
         teacherId: String(subject.teacherId || access.actorId || ''),
-        caScore: clampResultScore(row.caScore, 40),
+        caComponents: componentScores,
+        caScore: sumResultEntryCaComponents(componentScores, caComponents),
         examScore: clampResultScore(row.examScore, 60),
       }
     })
@@ -7375,9 +7521,11 @@ app.get('/api/school/payroll/my-payslip', authenticate, async (c) => {
   const period = new Date().toISOString().slice(0, 7)
   try {
     await c.env.APP_DB.prepare(`CREATE TABLE IF NOT EXISTS payroll_entries (id TEXT PRIMARY KEY, tenant_id TEXT, staff_id TEXT, period TEXT, gross REAL, deductions REAL, net REAL, status TEXT, approved INTEGER, submitted INTEGER, created_at TEXT, updated_at TEXT)`).run()
+    await c.env.APP_DB.prepare(INIT_BRANDING).run()
     const settings = await getSettings(c.env.APP_DB, userId)
     const payrollSettings = await getSettings(c.env.APP_DB, `payroll_settings_${tenantId}`)
     const tenant = tenantId ? await getTenantById(c.env.APP_DB, tenantId) : null
+    const brandingRow = await c.env.APP_DB.prepare(`SELECT * FROM tenant_branding WHERE tenant_id = ?`).bind(tenantId).first() as any
     const rows = await c.env.APP_DB.prepare(`SELECT * FROM payroll_entries WHERE (staff_id = ? OR staff_id = ?) AND tenant_id = ? AND period = ? LIMIT 1`).bind(userId, settings?.email || userId, tenantId, period).first() as any
     const gross = Number(rows?.gross || 0)
     const deductions = Number(rows?.deductions || 0)
@@ -7393,10 +7541,20 @@ app.get('/api/school/payroll/my-payslip', authenticate, async (c) => {
     const pension = gross * (pensionRate / 100)
     const otherDeductions = Math.max(0, deductions - incomeTax - pension)
     const net = Number((rows?.net ?? (gross - deductions)) || 0)
+    const branding = {
+      schoolName: tenant?.schoolName || 'School',
+      logoUrl: String(brandingRow?.logo_url || '').trim(),
+      tagline: String(brandingRow?.tagline || '').trim(),
+      website: String(brandingRow?.website || (tenant?.websiteDomain ? `https://${tenant.websiteDomain}` : '') || '').trim(),
+    }
 
     return c.json({ success: true, payslip: {
       staffId: userId, name: settings?.name || c.var.user.name || userId, displayId: settings?.displayId || null,
-      role: settings?.role || getActiveRole(c.var.user), period, schoolName: tenant?.schoolName || 'School',
+      role: settings?.role || getActiveRole(c.var.user), period, schoolName: branding.schoolName,
+      logoUrl: branding.logoUrl,
+      tagline: branding.tagline,
+      website: branding.website,
+      branding,
       gross,
       deductions,
       net,

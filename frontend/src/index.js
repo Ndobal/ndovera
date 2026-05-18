@@ -15,9 +15,50 @@ function shouldEnablePwa() {
   return androidMajorVersion === null || androidMajorVersion >= 8;
 }
 
+function activateWaitingServiceWorker(registration) {
+  if (!registration?.waiting) return;
+  registration.waiting.postMessage({ type: 'SKIP_WAITING' });
+}
+
 if ('serviceWorker' in navigator && shouldEnablePwa()) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js')
+    let didReloadForUpdate = false;
+    const handleControllerChange = () => {
+      if (didReloadForUpdate) return;
+      didReloadForUpdate = true;
+      window.location.reload();
+    };
+
+    navigator.serviceWorker.addEventListener('controllerchange', handleControllerChange);
+
+    navigator.serviceWorker.register('/sw.js', { updateViaCache: 'none' })
+      .then(registration => {
+        const refreshRegistration = () => {
+          registration.update().catch(() => null);
+        };
+
+        if (registration.waiting) {
+          activateWaitingServiceWorker(registration);
+        }
+
+        registration.addEventListener('updatefound', () => {
+          const installingWorker = registration.installing;
+          if (!installingWorker) return;
+          installingWorker.addEventListener('statechange', () => {
+            if (installingWorker.state === 'installed' && navigator.serviceWorker.controller) {
+              activateWaitingServiceWorker(registration);
+            }
+          });
+        });
+
+        refreshRegistration();
+        window.addEventListener('focus', refreshRegistration);
+        document.addEventListener('visibilitychange', () => {
+          if (document.visibilityState === 'visible') {
+            refreshRegistration();
+          }
+        });
+      })
       .catch(() => null);
   });
 } else if ('serviceWorker' in navigator) {
