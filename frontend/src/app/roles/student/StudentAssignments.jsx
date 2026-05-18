@@ -312,7 +312,8 @@ function AssignmentQuestion({ question, value, onChange, index }) {
 }
 
 function AssignmentDetail({ assignment, onSubmissionSaved }) {
-  const [answers, setAnswers] = useState(assignment?.mySubmission?.content?.answers || {});
+  const submissionAnswers = useMemo(() => assignment?.mySubmission?.content?.answers || {}, [assignment?.mySubmission?.content?.answers]);
+  const [answers, setAnswers] = useState(submissionAnswers);
   const [submitting, setSubmitting] = useState(false);
   const [notice, setNotice] = useState('');
   const [error, setError] = useState('');
@@ -320,10 +321,10 @@ function AssignmentDetail({ assignment, onSubmissionSaved }) {
   const displayGrade = normalizeDisplayGrade(assignment?.mySubmission?.grade);
 
   useEffect(() => {
-    setAnswers(assignment?.mySubmission?.content?.answers || {});
+    setAnswers(submissionAnswers);
     setNotice('');
     setError('');
-  }, [assignment?.id, assignment?.mySubmission?.submittedAt]);
+  }, [assignment?.id, assignment?.mySubmission?.submittedAt, submissionAnswers]);
 
   const handleAnswer = (questionId, value) => {
     setAnswers(prev => ({ ...prev, [questionId]: value }));

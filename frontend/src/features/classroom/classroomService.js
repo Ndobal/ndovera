@@ -12,6 +12,16 @@ function getAuthHeaders() {
   };
 }
 
+function buildQuery(params = {}) {
+  const query = new URLSearchParams();
+  Object.entries(params || {}).forEach(([key, value]) => {
+    if (value === undefined || value === null || value === '') return;
+    query.set(key, String(value));
+  });
+  const serialized = query.toString();
+  return serialized ? `?${serialized}` : '';
+}
+
 export async function createClass(payload) {
   const res = await apiFetch('/api/classrooms', { method: 'POST', headers: getAuthHeaders(), body: JSON.stringify(payload) });
   return res.json();
@@ -116,8 +126,13 @@ export async function addMaterial(classId, payload) {
   return res.json();
 }
 
-export async function getMaterials(classId) {
-  const res = await apiFetch(`/api/classrooms/${classId}/materials`, { headers: getAuthHeaders() });
+export async function getMaterials(classId, params = {}) {
+  const res = await apiFetch(`/api/classrooms/${classId}/materials${buildQuery(params)}`, { headers: getAuthHeaders() });
+  return res.json();
+}
+
+export async function getLearningStudents() {
+  const res = await apiFetch('/api/learning/students', { headers: getAuthHeaders() });
   return res.json();
 }
 
@@ -127,10 +142,9 @@ export async function uploadMaterial(classId, payload) {
   if (payload.file) {
     const fd = new FormData();
     fd.append('file', payload.file);
-    if (payload.title) fd.append('title', payload.title);
-    if (payload.subjectId) fd.append('subjectId', payload.subjectId);
-    if (payload.description) fd.append('description', payload.description);
-    if (payload.type) fd.append('type', payload.type);
+    ['title', 'subjectId', 'description', 'type', 'topic', 'weekLabel', 'week', 'visibility', 'releaseAt'].forEach(key => {
+      if (payload[key]) fd.append(key, payload[key]);
+    });
     const res = await apiFetch(`/api/classrooms/${classId}/materials/upload-multipart`, { method: 'POST', headers: token ? { Authorization: `Bearer ${token}` } : {}, body: fd });
     return res.json();
   }

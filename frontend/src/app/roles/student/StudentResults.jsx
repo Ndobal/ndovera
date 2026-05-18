@@ -1,77 +1,56 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import StudentSectionShell from './StudentSectionShell';
 import { getStudentResult } from '../../../features/results-engine';
+import ResultRecordViewer from '../../../features/results-engine/components/ResultRecordViewer';
 
 export default function StudentResults() {
-  const studentId = localStorage.getItem('userId') || '';
-  const result = getStudentResult(studentId);
+  const [result, setResult] = useState({ publications: [], documents: [], students: [], activeRecord: null, feeStatus: '', lockedByFees: false });
+  const [selectedRecordId, setSelectedRecordId] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    let cancelled = false;
+
+    async function loadResult() {
+      setLoading(true);
+      setError('');
+      try {
+        const nextResult = await getStudentResult();
+        if (cancelled) return;
+        setResult(nextResult);
+        setSelectedRecordId(nextResult.activeRecord?.id || '');
+      } catch (loadError) {
+        if (!cancelled) setError(loadError.message || 'Unable to load student result records.');
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    }
+
+    loadResult();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   return (
     <StudentSectionShell title="Results" subtitle="See your scores and track your progress.">
       <div className="space-y-4">
-        {!result.student && (
-          <section className="glass-surface rounded-3xl p-6">
-            <p className="micro-label accent-amber">No live result records</p>
-            <p className="mt-2 text-slate-200">Your result history will appear here after the school publishes approved records for your account.</p>
-          </section>
-        )}
+        {error && <section className="glass-surface rounded-3xl p-6 text-sm text-rose-100 border border-rose-300/30 bg-rose-500/20">{error}</section>}
+        {loading && <section className="glass-surface rounded-3xl p-6 text-slate-200">Loading your published results...</section>}
 
-        {result.student && !result.published && (
-          <section className="glass-surface rounded-3xl p-6">
-            <p className="text-slate-200">Results are not yet released. Your teachers are finalizing CA score sheet entries.</p>
-            <p className="micro-label mt-3 accent-amber">State: Draft</p>
-          </section>
-        )}
-
-        {result.student && result.published && !result.hosApproved && (
-          <section className="glass-surface rounded-3xl p-6">
-            <p className="text-slate-200">Results are published by teachers and awaiting HoS approval.</p>
-            <p className="micro-label mt-3 accent-amber">State: Pending HoS Approval</p>
-          </section>
-        )}
-
-        {result.visibleToStudent && result.lockedByFees && (
-          <section className="glass-surface rounded-3xl p-6">
-            <p className="text-slate-200">Result locked due to pending school fee clearance.</p>
-            <p className="micro-label mt-3 accent-rose">State: Locked</p>
-          </section>
-        )}
-
-        {result.visibleToStudent && !result.lockedByFees && (
-          <>
-            <section className="glass-surface rounded-3xl p-6 grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div><p className="micro-label accent-indigo">Student</p><p className="text-slate-100 font-semibold mt-1">{result.student.name}</p></div>
-              <div><p className="micro-label accent-emerald">Average</p><p className="text-slate-100 font-semibold mt-1">{result.average}%</p></div>
-              <div><p className="micro-label accent-amber">Attendance Weight</p><p className="text-slate-100 font-semibold mt-1">{result.attendanceRate}%</p></div>
-            </section>
-
-            <div className="glass-surface rounded-3xl p-6 overflow-x-auto">
-              <table className="w-full text-sm min-w-[520px]">
-                <thead>
-                  <tr className="text-left">
-                    <th className="micro-label py-2 pr-4">Subject</th>
-                    <th className="micro-label py-2 pr-4">CA</th>
-                    <th className="micro-label py-2 pr-4">Exam</th>
-                    <th className="micro-label py-2 pr-4">Raw</th>
-                    <th className="micro-label py-2 pr-4">Weighted</th>
-                    <th className="micro-label py-2">Grade</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {result.rows.map(row => (
-                    <tr key={row.subject} className="border-t border-white/10">
-                      <td className="py-3 pr-4 text-slate-100">{row.subject}</td>
-                      <td className="py-3 pr-4 mono-metric">{row.ca}</td>
-                      <td className="py-3 pr-4 mono-metric">{row.exam}</td>
-                      <td className="py-3 pr-4 mono-metric">{row.rawTotal}</td>
-                      <td className="py-3 pr-4 mono-metric">{row.total}</td>
-                      <td className="py-3 command-title accent-emerald">{row.grade}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </>
+        {!loading && (
+          <ResultRecordViewer
+            students={result.students}
+            activeStudentId={result.activeStudentId}
+            records={result.publications}
+            selectedRecordId={selectedRecordId}
+            onSelectRecord={setSelectedRecordId}
+            documents={result.documents}
+            lockedByFees={result.lockedByFees}
+            feeStatus={result.feeStatus}
+            emptyMessage="Your result history will appear here after the school publishes approved records for your account."
+          />
         )}
       </div>
     </StudentSectionShell>

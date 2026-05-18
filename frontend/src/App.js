@@ -18,6 +18,7 @@ import TeacherDashboard from './app/roles/TeacherDashboard';
 import TeacherClassroom from './features/classroom/TeacherClassroom';
 import HoSDashboard from './app/roles/HoSDashboard';
 import AccountantDashboard from './app/roles/AccountantDashboard';
+import AdminDashboard from './app/roles/AdminDashboard';
 import OwnerDashboard from './app/roles/OwnerDashboard';
 import AmiDashboard from './app/roles/AmiDashboard';
 import OperationalRoleDashboard from './app/roles/OperationalRoleDashboard';
@@ -33,6 +34,7 @@ import StaffTuckShop from './app/roles/teacher/StaffTuckShop';
 import StudentProfessorAura from './app/roles/student/StudentProfessorAura';
 import StudentMessaging from './app/roles/student/StudentMessaging';
 import StudentSettings from './app/roles/student/StudentSettings';
+import LessonPlanViewerPage from './features/lesson-plans/LessonPlanViewerPage';
 import RoleLibrary from './app/RoleLibrary';
 import TeacherMessaging from './app/roles/teacher/TeacherMessaging';
 import AmiInbox from './app/roles/ami/AmiInbox';
@@ -42,7 +44,7 @@ import ResetPasswordPage from './features/auth/pages/ResetPasswordPage';
 import SchoolRegistrationPage from './features/tenants/pages/SchoolRegistrationPage';
 import PublicHomePage from './features/public/pages/PublicHomePage';
 import PublicSitePage from './features/public/pages/PublicSitePage';
-import { clearStoredAuth, getSignedOutRedirectPath, getStoredAuth, persistAuth, syncRefreshedToken } from './features/auth/services/authApi';
+import { buildSelectedRoleHeader, clearStoredAuth, getSignedOutRedirectPath, getStoredAuth, persistAuth, syncRefreshedToken } from './features/auth/services/authApi';
 import { useTenantPwaManifest } from './shared/hooks/useTenantPwaManifest';
 import { getApiUrl } from './config/apiBase';
 import './App.css';
@@ -74,8 +76,47 @@ function normalizePublicPath(pathname) {
   return pathname;
 }
 
+function getAccessibleRoles(auth) {
+  const roles = new Set();
+
+  (auth?.user?.roles || []).forEach(role => {
+    if (role) roles.add(role);
+  });
+
+  (auth?.user?.switchableRoles || []).forEach(role => {
+    if (role) roles.add(role);
+  });
+
+  if (auth?.user?.role) {
+    roles.add(auth.user.role);
+  }
+
+  if (roles.has('headteacher') && !roles.has('nurseryhead')) {
+    roles.add('nurseryhead');
+  }
+
+  return Array.from(roles);
+}
+
 function getAuthenticatedRole(auth) {
-  return auth?.user?.role || 'student';
+  const switchableRoles = Array.isArray(auth?.user?.switchableRoles) && auth.user.switchableRoles.length > 0
+    ? auth.user.switchableRoles
+    : [auth?.user?.role || 'student'];
+  const storedRole = window.localStorage.getItem('selectedRole');
+
+  if (storedRole && switchableRoles.includes(storedRole)) {
+    return storedRole;
+  }
+
+  if (switchableRoles.includes(auth?.user?.role)) {
+    return auth.user.role;
+  }
+
+  if (switchableRoles.includes('admin') && Array.isArray(auth?.user?.adminRoles) && auth.user.adminRoles.includes(auth?.user?.role)) {
+    return 'admin';
+  }
+
+  return switchableRoles[0] || auth?.user?.role || 'student';
 }
 
 function RouteTransition({ children }) {
@@ -104,12 +145,13 @@ function RequireAuth({ auth, children }) {
 
 function RoleGuard({ expectedRole, auth, children }) {
   const authRole = getAuthenticatedRole(auth);
+  const accessibleRoles = getAccessibleRoles(auth);
 
   if (!auth?.token) {
     return <Navigate to="/login" replace />;
   }
 
-  if (authRole !== expectedRole) {
+  if (!accessibleRoles.includes(expectedRole)) {
     return <Navigate to={`/roles/${authRole}`} replace />;
   }
 
@@ -155,6 +197,7 @@ function AnimatedRoutes({ auth, onLogin }) {
         <Route path="/roles/student/assignments/:assignmentId" element={<RoleGuard auth={auth} expectedRole="student"><RouteTransition><StudentAssignments /></RouteTransition></RoleGuard>} />
         <Route path="/roles/student/materials" element={<RoleGuard auth={auth} expectedRole="student"><RouteTransition><StudentLessonNotes /></RouteTransition></RoleGuard>} />
         <Route path="/roles/student/lesson-notes" element={<Navigate to="/roles/student/materials" replace />} />
+        <Route path="/roles/student/lesson-plans" element={<RoleGuard auth={auth} expectedRole="student"><RouteTransition><LessonPlanViewerPage /></RouteTransition></RoleGuard>} />
         <Route path="/roles/student/practice" element={<RoleGuard auth={auth} expectedRole="student"><RouteTransition><StudentPractice /></RouteTransition></RoleGuard>} />
         <Route path="/roles/student/exams" element={<RoleGuard auth={auth} expectedRole="student"><RouteTransition><StudentExams /></RouteTransition></RoleGuard>} />
         <Route path="/roles/student/results" element={<RoleGuard auth={auth} expectedRole="student"><RouteTransition><StudentResults /></RouteTransition></RoleGuard>} />
@@ -174,6 +217,7 @@ function AnimatedRoutes({ auth, onLogin }) {
         <Route path="/roles/teacher/classroom" element={<RoleGuard auth={auth} expectedRole="teacher"><RouteTransition><TeacherClassroom /></RouteTransition></RoleGuard>} />
         <Route path="/roles/teacher/*" element={<RoleGuard auth={auth} expectedRole="teacher"><RouteTransition><TeacherDashboard /></RouteTransition></RoleGuard>} />
         <Route path="/roles/hos/*" element={<RoleGuard auth={auth} expectedRole="hos"><RouteTransition><HoSDashboard /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/admin/*" element={<RoleGuard auth={auth} expectedRole="admin"><RouteTransition><AdminDashboard auth={auth} /></RouteTransition></RoleGuard>} />
         <Route path="/roles/accountant/*" element={<RoleGuard auth={auth} expectedRole="accountant"><RouteTransition><AccountantDashboard /></RouteTransition></RoleGuard>} />
         <Route path="/roles/owner/*" element={<RoleGuard auth={auth} expectedRole="owner"><RouteTransition><OwnerDashboard auth={auth} /></RouteTransition></RoleGuard>} />
         <Route path="/roles/librarian/*" element={<RoleGuard auth={auth} expectedRole="librarian"><RouteTransition><OperationalRoleDashboard roleKey="librarian" /></RouteTransition></RoleGuard>} />
@@ -307,7 +351,10 @@ function App() {
         try {
           const res = await fetch(getApiUrl('/api/users/me'), {
             credentials: 'include',
-            headers: { Authorization: `Bearer ${stored.token}` },
+            headers: {
+              Authorization: `Bearer ${stored.token}`,
+              ...buildSelectedRoleHeader(),
+            },
           });
           syncRefreshedToken(res);
           if (res.status === 401) {

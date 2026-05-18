@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import StudentSectionShell from './StudentSectionShell';
 import { getStoredAuth } from '../../../features/auth/services/authApi';
 
@@ -112,6 +113,7 @@ async function requestJson(path, token, init = {}) {
 }
 
 export default function StudentMessaging() {
+  const location = useLocation();
   const storedAuth = getStoredAuth();
   const authUser = storedAuth?.user || {};
   const token = storedAuth?.token || localStorage.getItem('token') || '';
@@ -137,6 +139,7 @@ export default function StudentMessaging() {
   const [loadingContacts, setLoadingContacts] = useState(true);
   const [loadingConversations, setLoadingConversations] = useState(true);
   const [loadingMessages, setLoadingMessages] = useState(false);
+  const [conversationsLoaded, setConversationsLoaded] = useState(false);
   const [actionError, setActionError] = useState('');
   const [pendingIntent, setPendingIntent] = useState(() => readStudentMessagingIntent());
   const startConversationRef = useRef(null);
@@ -214,6 +217,7 @@ export default function StudentMessaging() {
         setConversations([]);
         setActiveConversationId('');
         setLoadingConversations(false);
+        setConversationsLoaded(true);
         return;
       }
 
@@ -240,6 +244,7 @@ export default function StudentMessaging() {
       } finally {
         if (!ignore) {
           setLoadingConversations(false);
+          setConversationsLoaded(true);
         }
       }
     }
@@ -383,6 +388,17 @@ export default function StudentMessaging() {
   }
 
   startConversationRef.current = startConversationWith;
+
+  useEffect(() => {
+    const requestedConversationId = String(location.state?.conversationId || '').trim();
+    if (!requestedConversationId || !conversationsLoaded) return;
+    if (requestedConversationId === activeConversationId) return;
+
+    const existingConversation = conversations.find(conversation => conversation.id === requestedConversationId);
+    if (existingConversation) {
+      setActiveConversationId(existingConversation.id);
+    }
+  }, [activeConversationId, conversations, conversationsLoaded, location.state]);
 
   useEffect(() => {
     if (!pendingIntent || loadingContacts || loadingConversations) return;

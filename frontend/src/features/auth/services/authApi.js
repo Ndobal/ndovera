@@ -67,6 +67,76 @@ function normalizeComparableValue(value) {
 	return String(value || '').trim().toLowerCase();
 }
 
+function normalizeRoleList(...values) {
+	const roles = [];
+	const seen = new Set();
+
+	const appendRole = (value) => {
+		const normalized = normalizeComparableValue(value);
+		if (!normalized || seen.has(normalized)) return;
+		seen.add(normalized);
+		roles.push(normalized);
+	};
+
+	const visit = (value) => {
+		if (Array.isArray(value)) {
+			value.forEach(visit);
+			return;
+		}
+
+		if (typeof value === 'string' && value.includes(',')) {
+			value.split(',').forEach(entry => appendRole(entry));
+			return;
+		}
+
+		appendRole(value);
+	};
+
+	values.forEach(visit);
+	return roles;
+}
+
+function normalizeAuthUser(user) {
+	if (!user) return null;
+
+	const roles = normalizeRoleList(user.roles, user.role);
+	const switchableRoles = normalizeRoleList(user.switchableRoles, user.role);
+	const adminRoles = normalizeRoleList(user.adminRoles);
+	const role = normalizeComparableValue(user.role)
+		|| (switchableRoles.includes('admin') && adminRoles.length > 0 ? 'admin' : '')
+		|| switchableRoles[0]
+		|| roles[0]
+		|| 'student';
+
+	return {
+		...user,
+		role,
+		roles,
+		switchableRoles: switchableRoles.length > 0 ? switchableRoles : [role],
+		adminRoles,
+	};
+}
+
+function resolveSelectedRoleForUser(user) {
+	const normalizedUser = normalizeAuthUser(user);
+	if (!normalizedUser) return '';
+
+	const storedSelectedRole = normalizeComparableValue(window.localStorage.getItem('selectedRole'));
+	if (storedSelectedRole && normalizedUser.switchableRoles.includes(storedSelectedRole)) {
+		return storedSelectedRole;
+	}
+
+	if (normalizedUser.switchableRoles.includes(normalizedUser.role)) {
+		return normalizedUser.role;
+	}
+
+	if (normalizedUser.switchableRoles.includes('admin') && normalizedUser.adminRoles.includes(normalizedUser.role)) {
+		return 'admin';
+	}
+
+	return normalizedUser.switchableRoles[0] || normalizedUser.role;
+}
+
 function readProfileSyncedAt() {
 	const rawValue = Number(window.localStorage.getItem(AUTH_PROFILE_SYNC_KEY));
 	return Number.isFinite(rawValue) && rawValue > 0 ? rawValue : 0;
@@ -100,14 +170,17 @@ function buildUserFromTokenPayload(payload) {
 
 	const tenantId = String(payload.tenantId || '').trim();
 
-	return {
+	return normalizeAuthUser({
 		id: payload.id,
 		email: payload.id,
 		role: payload.role,
+		roles: payload.roles,
+		switchableRoles: payload.switchableRoles,
+		adminRoles: payload.adminRoles,
 		name: payload.name || '',
 		...(tenantId ? { tenantId, schoolId: tenantId } : {}),
 		...(payload.mustChangePassword === true ? { mustChangePassword: true } : {}),
-	};
+	});
 }
 
 function userMatchesTokenPayload(user, payload) {
@@ -116,10 +189,6 @@ function userMatchesTokenPayload(user, payload) {
 	const userId = normalizeComparableValue(user.id || user.email);
 	const tokenId = normalizeComparableValue(payload.id);
 	if (!userId || !tokenId || userId !== tokenId) return false;
-
-	const userRole = normalizeComparableValue(user.role);
-	const tokenRole = normalizeComparableValue(payload.role);
-	if (userRole && tokenRole && userRole !== tokenRole) return false;
 
 	const userTenantId = normalizeComparableValue(user.tenantId || user.schoolId);
 	const tokenTenantId = normalizeComparableValue(payload.tenantId);
@@ -130,23 +199,37 @@ function userMatchesTokenPayload(user, payload) {
 
 function mergeStoredUserWithToken(storedUser, payload) {
 	const tokenUser = buildUserFromTokenPayload(payload);
+	const normalizedStoredUser = normalizeAuthUser(storedUser);
 
-	if (!storedUser) return tokenUser;
+	if (!normalizedStoredUser) return tokenUser;
 	if (!tokenUser) return storedUser;
-	if (!userMatchesTokenPayload(storedUser, payload)) return tokenUser;
+	if (!userMatchesTokenPayload(normalizedStoredUser, payload)) return tokenUser;
 
-	const tenantId = storedUser.tenantId || storedUser.schoolId || tokenUser.tenantId || tokenUser.schoolId;
+	const tenantId = normalizedStoredUser.tenantId || normalizedStoredUser.schoolId || tokenUser.tenantId || tokenUser.schoolId;
 
-	return {
+	return normalizeAuthUser({
 		...tokenUser,
-		...storedUser,
-		id: storedUser.id || tokenUser.id,
-		email: storedUser.email || tokenUser.email,
-		role: storedUser.role || tokenUser.role,
-		name: storedUser.name || tokenUser.name,
-		...(tenantId ? { tenantId, schoolId: storedUser.schoolId || storedUser.tenantId || tokenUser.schoolId } : {}),
-		...(storedUser.mustChangePassword === true || tokenUser.mustChangePassword === true ? { mustChangePassword: true } : {}),
-	};
+		...normalizedStoredUser,
+		id: normalizedStoredUser.id || tokenUser.id,
+		email: normalizedStoredUser.email || tokenUser.email,
+		role: tokenUser.role || normalizedStoredUser.role,
+		roles: tokenUser.roles?.length ? tokenUser.roles : normalizedStoredUser.roles,
+		switchableRoles: tokenUser.switchableRoles?.length ? tokenUser.switchableRoles : normalizedStoredUser.switchableRoles,
+		adminRoles: tokenUser.adminRoles?.length ? tokenUser.adminRoles : normalizedStoredUser.adminRoles,
+		name: normalizedStoredUser.name || tokenUser.name,
+		...(tenantId ? { tenantId, schoolId: normalizedStoredUser.schoolId || normalizedStoredUser.tenantId || tokenUser.schoolId } : {}),
+		...(normalizedStoredUser.mustChangePassword === true || tokenUser.mustChangePassword === true ? { mustChangePassword: true } : {}),
+	});
+}
+
+export function getSelectedRole() {
+	const storedUser = safeParse(window.localStorage.getItem(AUTH_USER_KEY));
+	return resolveSelectedRoleForUser(storedUser);
+}
+
+export function buildSelectedRoleHeader() {
+	const selectedRole = getSelectedRole();
+	return selectedRole ? { 'X-Selected-Role': selectedRole } : {};
 }
 
 export function getSignedOutRedirectPath() {
@@ -202,12 +285,15 @@ export function persistAuth(payload, options = {}) {
 		id: payload?.id,
 		email: payload?.id,
 		role: payload?.role,
+		roles: payload?.roles,
+		switchableRoles: payload?.switchableRoles,
+		adminRoles: payload?.adminRoles,
 		name: payload?.name,
 	};
-	const normalizedUser = {
+	const normalizedUser = normalizeAuthUser({
 		...user,
 		...(payload?.mustChangePassword === true ? { mustChangePassword: true } : {}),
-	};
+	});
 
 	if (!token || !normalizedUser?.role) {
 		throw new Error('Invalid authentication payload');
@@ -216,7 +302,12 @@ export function persistAuth(payload, options = {}) {
 	storeToken(token);
 	window.localStorage.setItem(AUTH_USER_KEY, JSON.stringify(normalizedUser));
 	markProfileSynced();
+	const nextSelectedRole = resolveSelectedRoleForUser(normalizedUser);
 	if (options?.preserveSelectedRole !== true) {
+		window.localStorage.removeItem('selectedRole');
+	} else if (nextSelectedRole) {
+		window.localStorage.setItem('selectedRole', nextSelectedRole);
+	} else {
 		window.localStorage.removeItem('selectedRole');
 	}
 	// Also expose classroomId and userId as standalone keys for legacy reads

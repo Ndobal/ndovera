@@ -58,6 +58,13 @@ const parentConfig = {
         { title: 'Parent Guidance', items: [{ text: 'Prioritize weak-topic materials first.' }, { text: 'Pair notes with practice sessions.' }, { text: 'Review completion weekly.' }] },
       ],
     },
+    'lesson-plans': {
+      title: 'Lesson Plans',
+      subtitle: 'Review approved lesson plans and teaching flow prepared for your child.',
+      panels: [
+        { title: 'Plan Visibility', items: [{ text: 'Only approved plans shared with parents appear here.' }, { text: 'Each plan follows your linked child and class.' }, { text: 'Use plans to support home study before lessons.' }] },
+      ],
+    },
     practice: {
       title: 'Practice',
       subtitle: 'Track personalized drills and weak-topic improvement.',

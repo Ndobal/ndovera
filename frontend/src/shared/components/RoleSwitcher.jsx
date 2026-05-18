@@ -5,6 +5,7 @@ const roleOptions = [
   { label: 'Student', path: '/roles/student' },
   { label: 'Parent', path: '/roles/parent' },
   { label: 'Teacher', path: '/roles/teacher' },
+  { label: 'Admin', path: '/roles/admin' },
   { label: 'Head of School', path: '/roles/hos' },
   { label: 'Accountant', path: '/roles/accountant' },
   { label: 'Owner', path: '/roles/owner' },
@@ -32,30 +33,56 @@ function getRoleKeyFromPath(path) {
   return path.split('/')[2];
 }
 
+function normalizeRoles(values, fallbackRole = 'student') {
+  const roles = [];
+  const seen = new Set();
+
+  const appendRole = (value) => {
+    const normalized = String(value || '').trim().toLowerCase();
+    if (!normalized || seen.has(normalized)) return;
+    seen.add(normalized);
+    roles.push(normalized);
+  };
+
+  if (Array.isArray(values)) {
+    values.forEach(appendRole);
+  } else {
+    appendRole(values);
+  }
+
+  if (roles.length === 0 && fallbackRole) {
+    appendRole(fallbackRole);
+  }
+
+  return roles;
+}
+
 export default function RoleSwitcher({ authUser = null }) {
   const navigate = useNavigate();
   const location = useLocation();
 
   const currentUserRole = authUser?.role || 'student';
-  const canSwitchAllRoles = currentUserRole === 'ami';
+  const rawRoles = normalizeRoles(authUser?.roles, currentUserRole);
+  const switchableRoles = normalizeRoles(authUser?.switchableRoles, currentUserRole);
+  const canSwitchAllRoles = rawRoles.includes('ami') || currentUserRole === 'ami';
   const availableOptions = canSwitchAllRoles
     ? roleOptions
-    : roleOptions.filter(option => getRoleKeyFromPath(option.path) === currentUserRole);
+    : roleOptions.filter(option => switchableRoles.includes(getRoleKeyFromPath(option.path)));
 
-  const selectedRole = canSwitchAllRoles
-    ? (localStorage.getItem('selectedRole') || currentUserRole)
-    : currentUserRole;
+  const storedSelectedRole = localStorage.getItem('selectedRole');
+  const selectedRole = storedSelectedRole && availableOptions.some(option => getRoleKeyFromPath(option.path) === storedSelectedRole)
+    ? storedSelectedRole
+    : (switchableRoles.includes(currentUserRole)
+      ? currentUserRole
+      : (switchableRoles.includes('admin') && normalizeRoles(authUser?.adminRoles).includes(currentUserRole)
+        ? 'admin'
+        : (switchableRoles[0] || currentUserRole)));
   const selectedPath = `/roles/${selectedRole}`;
-  const currentPath = availableOptions.some(option => option.path === location.pathname)
-    ? location.pathname
+  const currentPath = availableOptions.some(option => location.pathname === option.path || location.pathname.startsWith(`${option.path}/`))
+    ? (availableOptions.find(option => location.pathname === option.path || location.pathname.startsWith(`${option.path}/`))?.path || selectedPath)
     : selectedPath;
 
   const handleSwitchRole = event => {
-    if (!canSwitchAllRoles) {
-      navigate(selectedPath);
-      return;
-    }
-
     const nextPath = event.target.value;
     const nextRole = getRoleKeyFromPath(nextPath);
     localStorage.setItem('selectedRole', nextRole);
@@ -70,7 +97,7 @@ export default function RoleSwitcher({ authUser = null }) {
         onChange={handleSwitchRole}
         className="glass-chip text-slate-800 dark:text-slate-100 rounded-xl px-3 py-2 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-400"
         aria-label="Switch dashboard role"
-        disabled={!canSwitchAllRoles}
+        disabled={availableOptions.length <= 1}
       >
         {availableOptions.map(option => (
           <option key={option.path} value={option.path}>

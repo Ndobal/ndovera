@@ -1,99 +1,102 @@
-// examService.js
-// Provides client-side functions to interact with the exam backend endpoints.
+import { getApiUrl } from '../../../config/apiBase';
+import { clearStoredAuth, getSignedOutRedirectPath, getStoredAuth, syncRefreshedToken, buildSelectedRoleHeader } from '../../auth/services/authApi';
 
-export async function fetchExamList() {
-  const resp = await fetch('/api/exams');
-  const text = await resp.text();
-  if (!resp.ok) {
-    throw new Error(`Failed to fetch exams: ${resp.status} ${resp.statusText} - ${text}`);
+function buildHeaders() {
+  const auth = getStoredAuth();
+  return {
+    'Content-Type': 'application/json',
+    ...(auth?.token ? { Authorization: `Bearer ${auth.token}` } : {}),
+    ...buildSelectedRoleHeader(),
+  };
+}
+
+function handleUnauthorized() {
+  clearStoredAuth();
+  window.location.replace(getSignedOutRedirectPath());
+}
+
+function buildQuery(params = {}) {
+  const query = new URLSearchParams();
+  Object.entries(params || {}).forEach(([key, value]) => {
+    if (value === undefined || value === null || value === '') return;
+    query.set(key, String(value));
+  });
+  const serialized = query.toString();
+  return serialized ? `?${serialized}` : '';
+}
+
+async function req(path, options = {}) {
+  const response = await fetch(getApiUrl(path), {
+    method: options.method || 'GET',
+    credentials: 'include',
+    headers: buildHeaders(),
+    body: options.body ? JSON.stringify(options.body) : undefined,
+  });
+
+  if (response.status === 401) {
+    handleUnauthorized();
+    return {};
   }
+
+  syncRefreshedToken(response);
+
+  const text = await response.text();
+  let data = {};
   try {
-    const data = JSON.parse(text);
-    return data.exams || [];
-  } catch (err) {
-    throw new Error(`Invalid JSON response fetching exams: ${err.message} - response: ${text}`);
+    data = text ? JSON.parse(text) : {};
+  } catch (error) {
+    throw new Error(`Invalid JSON response: ${error.message} - response: ${text}`);
   }
+
+  if (!response.ok) {
+    throw new Error(data.error || data.message || `Request failed with ${response.status}`);
+  }
+
+  return data;
+}
+
+export async function fetchExamList(params = {}) {
+  const data = await req(`/api/exams${buildQuery(params)}`);
+  return data.exams || [];
 }
 
 export async function startExam(examId, userId) {
-  const resp = await fetch(`/api/exams/${examId}/start`, {
+  return req(`/api/exams/${examId}/start`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ userId }),
+    body: { userId },
   });
-  const text = await resp.text();
-  if (!resp.ok) {
-    throw new Error(`Failed to start exam: ${resp.status} ${resp.statusText} - ${text}`);
-  }
-  try { return JSON.parse(text); } catch (err) {
-    throw new Error(`Invalid JSON response starting exam: ${err.message} - response: ${text}`);
-  }
 }
 
 export async function fetchExamById(examId) {
-  const resp = await fetch(`/api/exams/${examId}`);
-  const text = await resp.text();
-  if (!resp.ok) {
-    throw new Error(`Failed to fetch exam: ${resp.status} ${resp.statusText} - ${text}`);
-  }
-  try {
-    const data = JSON.parse(text);
-    return data.exam;
-  } catch (err) {
-    throw new Error(`Invalid JSON response fetching exam: ${err.message} - response: ${text}`);
-  }
+  const data = await req(`/api/exams/${examId}`);
+  return data.exam;
 }
 
 export async function submitExam(examId, userId, answers) {
-  const resp = await fetch(`/api/exams/${examId}/submit`, {
+  return req(`/api/exams/${examId}/submit`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ userId, answers }),
+    body: { userId, answers },
   });
-  const text = await resp.text();
-  if (!resp.ok) {
-    throw new Error(`Failed to submit exam: ${resp.status} ${resp.statusText} - ${text}`);
-  }
-  try { return JSON.parse(text); } catch (err) {
-    throw new Error(`Invalid JSON response submitting exam: ${err.message} - response: ${text}`);
-  }
 }
 
 export async function createExam(examData) {
-  const resp = await fetch('/api/exams', {
+  return req('/api/exams', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(examData),
+    body: examData,
   });
-  const text = await resp.text();
-  if (!resp.ok) {
-    throw new Error(`Failed to create exam: ${resp.status} ${resp.statusText} - ${text}`);
-  }
-  try { return JSON.parse(text); } catch (err) {
-    throw new Error(`Invalid JSON response creating exam: ${err.message} - response: ${text}`);
-  }
 }
 
 export async function updateExam(examId, examData) {
-  const resp = await fetch(`/api/exams/${examId}`, {
+  return req(`/api/exams/${examId}`, {
     method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(examData),
+    body: examData,
   });
-  const text = await resp.text();
-  if (!resp.ok) {
-    throw new Error(`Failed to update exam: ${resp.status} ${resp.statusText} - ${text}`);
-  }
-  try { return JSON.parse(text); } catch (err) { throw new Error(`Invalid JSON response updating exam: ${err.message} - response: ${text}`); }
 }
 
 export async function deleteExam(examId) {
-  const resp = await fetch(`/api/exams/${examId}`, { method: 'DELETE' });
-  const text = await resp.text();
-  if (!resp.ok) {
-    throw new Error(`Failed to delete exam: ${resp.status} ${resp.statusText} - ${text}`);
-  }
-  try { return JSON.parse(text); } catch (err) { throw new Error(`Invalid JSON response deleting exam: ${err.message} - response: ${text}`); }
+  return req(`/api/exams/${examId}`, {
+    method: 'DELETE',
+  });
 }
 
 const examService = { fetchExamList, startExam, submitExam };

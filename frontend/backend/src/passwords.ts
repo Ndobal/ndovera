@@ -133,7 +133,39 @@ export async function withHashedPassword(settings: Record<string, any>, password
   return nextSettings
 }
 
-export function hasRequiredRole(userRole: string | undefined, allowedRoles: string[]) {
-  if (!userRole) return false
-  return userRole === 'ami' || allowedRoles.includes(userRole)
+const MERGED_ADMIN_ROLE_KEYS = new Set([
+  'accountant',
+  'librarian',
+  'sanitation',
+  'tuckshopmanager',
+  'storekeeper',
+  'transport',
+  'hostel',
+  'cafeteria',
+  'clinic',
+  'ict',
+  'examofficer',
+  'sportsmaster',
+])
+
+function normalizeRoleValues(value: string | string[] | undefined) {
+  if (Array.isArray(value)) {
+    return value
+      .map(entry => String(entry || '').trim().toLowerCase())
+      .filter(Boolean)
+  }
+
+  return String(value || '')
+    .split(',')
+    .map(entry => entry.trim().toLowerCase())
+    .filter(Boolean)
+}
+
+export function hasRequiredRole(userRole: string | string[] | undefined, allowedRoles: string[]) {
+  const roles = normalizeRoleValues(userRole)
+  if (roles.length === 0) return false
+  if (roles.includes('ami')) return true
+  if (roles.some(role => allowedRoles.includes(role))) return true
+  if (allowedRoles.includes('admin') && roles.some(role => MERGED_ADMIN_ROLE_KEYS.has(role))) return true
+  return false
 }

@@ -8,8 +8,11 @@ import {
   ArrowDownTrayIcon,
 } from '@heroicons/react/24/outline';
 import ThemeToggle from './ThemeToggle';
+import RoleSwitcher from './RoleSwitcher';
 import UserProfileDropdown from './UserProfileDropdown';
 import { getHeaderBarData } from '../../services/headerBarService';
+
+const CLICKABLE_CHAT_ROLES = new Set(['student', 'teacher', 'hos']);
 
 const roleHeaderStats = {
   student: { notifications: 0, chats: 0, auras: 0 },
@@ -103,6 +106,12 @@ export default function DashboardTopBar({ authUser = null, onLogout = () => {}, 
     navigate(`/roles/${roleKey}/messaging`);
   };
 
+  const openChatItem = item => {
+    if (!CLICKABLE_CHAT_ROLES.has(roleKey)) return;
+    setActivePanel(null);
+    navigate(`/roles/${roleKey}/messaging`, { state: { conversationId: item.id } });
+  };
+
   const panelItems = activePanel === 'chat' ? chatItems : notificationItems;
 
   return (
@@ -123,6 +132,7 @@ export default function DashboardTopBar({ authUser = null, onLogout = () => {}, 
         </div>
 
         <div className="flex items-center gap-2 md:gap-3">
+          <RoleSwitcher authUser={authUser} />
           <button
             onClick={() => togglePanel('chat')}
             className="glass-chip relative p-2 rounded-xl text-slate-700 dark:text-slate-100 hover:bg-white/70 dark:hover:bg-slate-700/60 transition-colors"
@@ -192,14 +202,30 @@ export default function DashboardTopBar({ authUser = null, onLogout = () => {}, 
 
               <div className="flex-1 overflow-y-auto p-3 space-y-2">
                 {panelItems.map(item => (
-                  <div key={item.id} className="glass-chip rounded-2xl border border-slate-200/70 dark:border-cyan-300/15 p-3">
-                    <div className="flex items-center justify-between gap-3">
-                      <p className="text-sm font-semibold text-slate-800 dark:text-slate-100">{item.sender || item.title}</p>
-                      <p className="text-[10px] micro-label neon-subtle">{item.time}</p>
+                  activePanel === 'chat' && CLICKABLE_CHAT_ROLES.has(roleKey) ? (
+                    <button
+                      key={item.id}
+                      type="button"
+                      onClick={() => openChatItem(item)}
+                      className="glass-chip w-full rounded-2xl border border-slate-200/70 p-3 text-left transition hover:bg-white/70 dark:border-cyan-300/15 dark:hover:bg-slate-700/40"
+                    >
+                      <div className="flex items-center justify-between gap-3">
+                        <p className="text-sm font-semibold text-slate-800 dark:text-slate-100">{item.sender || item.title}</p>
+                        <p className="text-[10px] micro-label neon-subtle">{item.time}</p>
+                      </div>
+                      <p className="text-xs text-slate-600 dark:text-slate-300 mt-1">{item.preview || item.detail}</p>
+                      {item.unread && <p className="text-[10px] micro-label accent-indigo mt-2">Unread</p>}
+                    </button>
+                  ) : (
+                    <div key={item.id} className="glass-chip rounded-2xl border border-slate-200/70 dark:border-cyan-300/15 p-3">
+                      <div className="flex items-center justify-between gap-3">
+                        <p className="text-sm font-semibold text-slate-800 dark:text-slate-100">{item.sender || item.title}</p>
+                        <p className="text-[10px] micro-label neon-subtle">{item.time}</p>
+                      </div>
+                      <p className="text-xs text-slate-600 dark:text-slate-300 mt-1">{item.preview || item.detail}</p>
+                      {item.unread && <p className="text-[10px] micro-label accent-indigo mt-2">Unread</p>}
                     </div>
-                    <p className="text-xs text-slate-600 dark:text-slate-300 mt-1">{item.preview || item.detail}</p>
-                    {item.unread && <p className="text-[10px] micro-label accent-indigo mt-2">Unread</p>}
-                  </div>
+                  )
                 ))}
 
                 {panelItems.length === 0 && (

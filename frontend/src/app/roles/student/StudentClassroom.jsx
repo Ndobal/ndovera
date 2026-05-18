@@ -620,7 +620,8 @@ export default function StudentClassroom() {
                     <span className="glass-chip px-3 py-1 rounded-full micro-label accent-emerald">{materialTypeLabel(material)}</span>
                     </div>
                     <p className="text-sm neon-subtle mt-1">Subject: {materialSubjectName(material)}</p>
-                    {material.description && <p className="text-sm text-slate-300 mt-2">{material.description}</p>}
+                    {(material.topic || material.weekLabel) && <p className="text-xs text-slate-400 mt-2">{material.topic || 'Lesson note'}{material.weekLabel ? ` • ${material.weekLabel}` : ''}</p>}
+                    {material.description && <p className="text-sm text-slate-300 mt-2 whitespace-pre-wrap">{material.description}</p>}
                     <p className="neon-subtle text-xs mt-2">{material.uploadedAt ? new Date(material.uploadedAt).toLocaleString() : 'Recently uploaded'}{material.uploadedByName ? ` • ${material.uploadedByName}` : ''}</p>
                   </div>
                 </div>

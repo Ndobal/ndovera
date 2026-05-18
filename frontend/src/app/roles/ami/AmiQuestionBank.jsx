@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { getStoredAuth } from '../../../features/auth/services/authApi';
 import { getApiBase } from '../../../config/apiBase';
 
@@ -11,7 +11,6 @@ const TITLE = 'text-xl font-bold text-[#800000] dark:text-[#0000ff]';
 const BODY = 'text-sm text-[#191970] dark:text-[#39ff14]';
 const INPUT = 'mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#f5deb3] dark:bg-slate-900 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none focus:border-[#800020]';
 const PRIMARY_BUTTON = 'bg-[#1a5c38] hover:bg-[#154a2e] text-[#f5deb3] font-bold px-5 py-2 rounded-2xl text-sm transition-colors disabled:opacity-60 dark:bg-[#00ffff] dark:text-black dark:hover:bg-[#00e5e5]';
-const SECONDARY_BUTTON = 'bg-[#f5deb3] hover:bg-[#efd4a0] border border-[#c9a96e]/40 text-[#800020] font-semibold px-4 py-2 rounded-2xl text-sm transition-colors dark:bg-transparent dark:border-[#00ffff] dark:text-[#00ffff]';
 const DANGER_BUTTON = 'bg-red-600 hover:bg-red-700 text-white font-bold px-3 py-1.5 rounded-xl text-xs transition-colors';
 
 const QUESTION_TYPES = [
@@ -51,16 +50,18 @@ export default function AmiQuestionBank() {
   const [filterType, setFilterType] = useState('');
   const [showForm, setShowForm] = useState(false);
 
-  async function reload() {
+  const reload = useCallback(async () => {
+    setLoading(true);
     const params = new URLSearchParams();
     if (filterSubject) params.set('subject', filterSubject);
     if (filterLevel) params.set('classLevel', filterLevel);
     if (filterType) params.set('type', filterType);
     const data = await apiFetch(`/api/question-bank?${params.toString()}`);
     setQuestions(data.questions || []);
-  }
+    setLoading(false);
+  }, [filterLevel, filterSubject, filterType]);
 
-  useEffect(() => { reload().finally(() => setLoading(false)); }, [filterSubject, filterLevel, filterType]);
+  useEffect(() => { reload().catch(() => setLoading(false)); }, [reload]);
 
   async function handleSave(e) {
     e.preventDefault(); setSaving(true); setSaveMsg('');
@@ -89,8 +90,6 @@ export default function AmiQuestionBank() {
     try { await apiFetch(`/api/question-bank/${id}`, { method: 'DELETE' }); await reload(); }
     catch (err) { alert(err.message); }
   }
-
-  const allSubjects = [...new Set(questions.map(q => q.subject))].sort();
 
   return (
     <div className="space-y-5 px-1">

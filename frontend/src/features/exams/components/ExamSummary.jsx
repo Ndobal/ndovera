@@ -6,6 +6,9 @@ export default function ExamSummary({ result, onRestart }) {
     <div className="space-y-4">
       <h2 className="text-2xl font-bold">Exam Completed</h2>
       <p className="text-lg">Score: {result.score} / {result.total}</p>
+      {result.pendingManualCount > 0 && (
+        <p className="text-sm text-amber-300">{result.pendingManualCount} answer(s) still need manual review.</p>
+      )}
       <button onClick={onRestart} className="px-4 py-2 rounded-lg bg-indigo-500/30 text-indigo-100">
         Back to list
       </button>

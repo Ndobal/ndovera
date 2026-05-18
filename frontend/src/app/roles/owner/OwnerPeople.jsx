@@ -6,7 +6,7 @@ import {
   resetPassword,
 } from '../../../features/school/services/schoolApi';
 
-const ROLES = ['teacher', 'hos', 'accountant', 'student', 'parent', 'librarian', 'classteacher', 'hod', 'principal', 'growthpartner'];
+const ROLES = ['teacher', 'hos', 'accountant', 'student', 'parent', 'librarian', 'classteacher', 'hod', 'hodassistant', 'principal', 'headteacher', 'nurseryhead', 'storekeeper', 'tuckshopmanager', 'transport', 'hostel', 'cafeteria', 'clinic', 'ict', 'examofficer', 'sportsmaster', 'sanitation', 'growthpartner'];
 const FILTERS = ['All', 'Teachers', 'Admin', 'Students', 'Parents'];
 
 // Colour-coded role badges — each role gets a distinct colour
@@ -29,10 +29,10 @@ function getRoleBadgeStyle(role) {
 }
 
 function filterPeople(people, filter) {
-  if (filter === 'Teachers') return people.filter(p => p.role === 'teacher');
-  if (filter === 'Admin') return people.filter(p => ['owner', 'hos', 'accountant', 'principal', 'hod'].includes(p.role));
-  if (filter === 'Students') return people.filter(p => p.role === 'student');
-  if (filter === 'Parents') return people.filter(p => p.role === 'parent');
+  if (filter === 'Teachers') return people.filter(p => (p.roles || [p.role]).includes('teacher'));
+  if (filter === 'Admin') return people.filter(p => (p.roles || [p.role]).some(role => ['owner', 'hos', 'accountant', 'principal', 'hod', 'hodassistant', 'headteacher', 'nurseryhead', 'storekeeper', 'tuckshopmanager', 'transport', 'hostel', 'cafeteria', 'clinic', 'ict', 'examofficer', 'sportsmaster', 'sanitation', 'librarian'].includes(role)));
+  if (filter === 'Students') return people.filter(p => (p.roles || [p.role]).includes('student'));
+  if (filter === 'Parents') return people.filter(p => (p.roles || [p.role]).includes('parent'));
   return people;
 }
 
@@ -524,7 +524,7 @@ const CSV_EXAMPLE_ROWS = [
 function parseCsv(text) {
   const lines = text.trim().split(/\r?\n/);
   if (lines.length < 2) return [];
-  const headers = lines[0].split(',').map(h => h.trim().toLowerCase().replace(/[\"]/g, ''));
+  const headers = lines[0].split(',').map(h => h.trim().toLowerCase().replace(/["]/g, ''));
   return lines.slice(1).map(line => {
     const vals = line.split(',').map(v => v.trim().replace(/^"|"$/g, ''));
     const row = {};
@@ -720,6 +720,7 @@ function PersonCard({ person: p, isAdmin, subdomain, onViewProfile, onDeactivate
   const [copiedPw, setCopiedPw] = useState(false);
   const [resetting, setResetting] = useState(false);
   const [resetMsg, setResetMsg] = useState('');
+  const personRoles = Array.isArray(p.roles) && p.roles.length > 0 ? p.roles : [p.role].filter(Boolean);
   const roleBadge = getRoleBadgeStyle(p.role);
 
   function copyPassword() {
@@ -760,12 +761,21 @@ function PersonCard({ person: p, isAdmin, subdomain, onViewProfile, onDeactivate
             {p.role || '—'}
           </span>
         </div>
+        {personRoles.length > 1 && (
+          <div className="flex flex-wrap gap-1">
+            {personRoles.map(roleKey => (
+              <span key={roleKey} className="rounded-full bg-[#f0d090] px-2 py-0.5 text-[11px] font-semibold capitalize text-[#800020]">
+                {roleKey}
+              </span>
+            ))}
+          </div>
+        )}
 
         {/* Body info */}
         <div className="space-y-1 text-sm text-[#191970]">
           {p.email && <p><span className="text-[#800020] text-xs font-semibold uppercase">Email </span>{p.email}</p>}
           {p.phone && <p><span className="text-[#800020] text-xs font-semibold uppercase">Phone </span>{p.phone}</p>}
-          {p.role === 'student' && p.currentClass && (
+          {personRoles.includes('student') && p.currentClass && (
             <p><span className="text-[#800020] text-xs font-semibold uppercase">Class </span>
               {p.currentClass.name}{p.currentClass.arm ? ` ${p.currentClass.arm}` : ''}
             </p>
@@ -796,7 +806,8 @@ function PersonCard({ person: p, isAdmin, subdomain, onViewProfile, onDeactivate
         {/* Role change */}
         {isAdmin && changingRole && (
           <div className="flex gap-1 items-center">
-            <select defaultValue={p.role} onChange={e => setNewRole(e.target.value)} className="flex-1 rounded-lg border border-[#c9a96e]/40 bg-[#f0d090] text-[#191970] px-2 py-1 text-xs">
+            <select value={newRole} onChange={e => setNewRole(e.target.value)} className="flex-1 rounded-lg border border-[#c9a96e]/40 bg-[#f0d090] text-[#191970] px-2 py-1 text-xs">
+              <option value="">Select additional role</option>
               {ROLES.map(r => <option key={r} value={r}>{r}</option>)}
             </select>
             <button onClick={onSaveRole} className="bg-[#1a5c38] text-[#f5deb3] text-xs px-2 py-1 rounded-lg font-bold">Save</button>
@@ -820,7 +831,7 @@ function PersonCard({ person: p, isAdmin, subdomain, onViewProfile, onDeactivate
             </button>
           )}
           {isAdmin && !changingRole && (
-            <button onClick={onStartRoleChange} className="bg-[#1a5c38] hover:bg-[#154a2e] text-[#f5deb3] text-xs px-3 py-1.5 rounded-xl font-bold transition-colors">Role</button>
+            <button onClick={onStartRoleChange} className="bg-[#1a5c38] hover:bg-[#154a2e] text-[#f5deb3] text-xs px-3 py-1.5 rounded-xl font-bold transition-colors">Add Role</button>
           )}
           {isAdmin && (
             <button onClick={onDeactivate} className="border border-red-300 text-red-600 text-xs px-3 py-1.5 rounded-xl font-semibold hover:bg-red-50 transition-colors">Off</button>
@@ -885,9 +896,11 @@ export default function OwnerPeople() {
   }
 
   async function handleRoleChange(person) {
-    if (!newRole || newRole === person.role) { setChangingRole(null); return; }
+    const personRoles = Array.isArray(person.roles) && person.roles.length > 0 ? person.roles : [person.role].filter(Boolean);
+    if (!newRole || personRoles.includes(newRole)) { setChangingRole(null); return; }
     await updatePersonRole(person.id, newRole);
     setChangingRole(null);
+    setNewRole('');
     load();
   }
 
@@ -900,6 +913,7 @@ export default function OwnerPeople() {
       || p.phone?.toLowerCase().includes(q)
       || p.displayId?.toLowerCase().includes(q)
       || p.role?.toLowerCase().includes(q)
+      || (Array.isArray(p.roles) && p.roles.some(role => role?.toLowerCase().includes(q)))
       || p.id?.toLowerCase().includes(q)
     );
   });
@@ -972,7 +986,7 @@ export default function OwnerPeople() {
                   setNewRole={setNewRole}
                   onSaveRole={() => handleRoleChange(p)}
                   onCancelRole={() => setChangingRole(null)}
-                  onStartRoleChange={() => { setChangingRole(p.id); setNewRole(p.role); }}
+                  onStartRoleChange={() => { setChangingRole(p.id); setNewRole(''); }}
                 />
               ))}
             </div>

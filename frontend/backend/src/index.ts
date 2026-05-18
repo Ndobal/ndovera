@@ -15,7 +15,7 @@ import {
   createPost, addPostComment, getAssignmentsForClass, getAssignmentById, createAssignment, getLatestSubmissionForStudent, createSubmission, getMaterialsForClass,
   addMaterial, getAttendanceForClass, recordAttendance, saveContent,
   getAttendance, upsertAttendance, updateAttendance, getConversations,
-  createConversation, getMessages, sendMessage, markMessagesRead,
+  createConversation, getMessages, sendMessage, markMessagesRead, listConversationReadStates,
   listSchoolAnnouncements, createSchoolAnnouncement,
   getTuckOrders, createTuckOrder, updateTuckOrder, getWeeklyTuckSummary,
   createTenant, getTenantById, getTenantByOwnerEmail, getTenantBySubdomain,
@@ -24,6 +24,56 @@ import {
   createTenantPayment, getTenantPaymentByTxRef, listTenantPayments,
   updateTenantPayment, getLiveSessionsForClass, createLiveSession, updateLiveSessionStatus,
 } from './db'
+import {
+  ensureResultsTables,
+  getResultSettings,
+  saveResultSettings,
+  getResultBatch,
+  listResultBatches,
+  upsertResultEntries,
+  listResultEntries,
+  upsertResultStudentProfiles,
+  listResultStudentProfiles,
+  updateResultBatchStatus,
+  saveResultPublications,
+  listStudentResultPublications,
+  saveResultDocuments,
+  listStudentResultDocuments,
+  listRecentResultDocuments,
+} from './results'
+import {
+  ensureLessonPlanTables,
+  getLessonPlanById,
+  listLessonPlans,
+  upsertLessonPlan,
+  reviewLessonPlan,
+} from './lessonPlans'
+import {
+  buildPracticeQuestionFeed,
+  deleteCbtExam,
+  deleteQuestionFromBank,
+  getCbtExamById,
+  listCbtExams,
+  listQuestionBankQuestions,
+  saveCbtExam,
+  saveQuestionToBank,
+  startCbtExam,
+  submitCbtExamAttempt,
+  syncQuestionUsagesForEngine,
+} from './questionBank'
+import {
+  AI_GLOBAL_SETTINGS_KEY,
+  buildAcademicAiResponse,
+  consumeAiAccess,
+  getAiPaymentRecord,
+  getResolvedAiBillingPolicy,
+  getTenantAiBillingSettingsKey,
+  grantAiCredits,
+  isAcademicOnlyPrompt,
+  normalizeAiBillingPolicy,
+  saveAiPaymentRecord,
+  summarizeAiAccess,
+} from './aiTutor'
 
 type Bindings = {
   APP_DB: D1Database
@@ -122,6 +172,15 @@ async function createPasswordResetToken(
 
   const createdAt = new Date().toISOString()
   const expiresAt = new Date(Date.now() + PASSWORD_RESET_TOKEN_TTL_MS).toISOString()
+
+    await syncQuestionUsagesForEngine(c.env.APP_DB, String(classRow.tenantId || tenantId || '').trim(), 'assignment', String(insertedAssignment.id || ''), normalizedQuestions, {
+      classId: classroomId,
+      className: `${classRow.name}${classRow.arm ? ` ${classRow.arm}` : ''}`,
+      subjectId: String(subjectRow.id || ''),
+      subjectName: String(subjectRow.name || ''),
+      createdBy: teacherId,
+    })
+
   const rawToken = toBase64Url(crypto.getRandomValues(new Uint8Array(32)))
   const tokenHash = await sha256Hex(rawToken)
 
@@ -542,11 +601,11 @@ async function resolveTenantForActor(c: any, requestedTenantId?: string) {
   const currentUser = c.var.user || {}
   const actorId = currentUser.id || currentUser.sub || currentUser.email
   if (!actorId) {
-    return { actorId: null, settings: null, role: currentUser.role, tenant: null, forbidden: false }
+    return { actorId: null, settings: null, role: getActiveRole(currentUser), tenant: null, forbidden: false }
   }
 
   const settings = await getSettings(c.env.APP_DB, actorId)
-  const role = settings?.role || currentUser.role
+  const role = normalizeRole(settings?.role) || getActiveRole(currentUser)
 
   if (role === 'ami') {
     const tenant = requestedTenantId ? await getTenantById(c.env.APP_DB, requestedTenantId) : null
@@ -563,6 +622,437 @@ async function resolveTenantForActor(c: any, requestedTenantId?: string) {
   }
 
   return { actorId, settings, role, tenant, forbidden: false }
+}
+
+const RESULT_SETTINGS_EDITOR_ROLES = ['owner', 'hos', 'ict', 'ict_manager']
+const RESULT_ENTRY_EDITOR_ROLES = ['teacher', 'classteacher', 'owner', 'hos', 'ict', 'ict_manager']
+const RESULT_APPROVER_ROLES = ['owner', 'hos']
+const RESULT_DOCUMENT_UPLOADER_ROLES = ['owner', 'hos', 'ict', 'ict_manager']
+
+const RESULT_TEMPLATE_CATALOG = [
+  {
+    key: 'premium-ledger',
+    name: 'Premium Academic Ledger',
+    description: 'Formal ledger layout with strong headers, wide subject tables, and signature space for official printing.',
+    preview: {
+      mood: 'Formal',
+      strengths: ['Large summary strip', 'Broad subject table', 'Signature block and QR area'],
+    },
+  },
+  {
+    key: 'glass-crest',
+    name: 'Glass Crest Report',
+    description: 'Modern layered report sheet with highlight cards for term summary, affective scores, and approval workflow.',
+    preview: {
+      mood: 'Modern',
+      strengths: ['Hero summary card', 'Segmented domains', 'Parent-friendly visual grouping'],
+    },
+  },
+  {
+    key: 'montessori-grid',
+    name: 'Montessori Grid',
+    description: 'Soft structured template for early years and primary with rating grids and narrative remarks.',
+    preview: {
+      mood: 'Foundational',
+      strengths: ['Narrative-friendly', 'Affective emphasis', 'Clean print spacing'],
+    },
+  },
+]
+
+const RESULT_DEFAULT_GRADING_SCALE = [
+  { minScore: 85, grade: 'A', remark: 'Excellent' },
+  { minScore: 75, grade: 'B+', remark: 'Very Good' },
+  { minScore: 65, grade: 'B', remark: 'Good' },
+  { minScore: 55, grade: 'C+', remark: 'Credit' },
+  { minScore: 45, grade: 'C', remark: 'Pass' },
+  { minScore: 0, grade: 'D', remark: 'Needs Improvement' },
+]
+
+const RESULT_DEFAULT_RATING_SCALE = [
+  { value: 5, label: 'Outstanding' },
+  { value: 4, label: 'Very Good' },
+  { value: 3, label: 'Good' },
+  { value: 2, label: 'Fair' },
+  { value: 1, label: 'Needs Attention' },
+]
+
+const RESULT_DEFAULT_AFFECTIVE_SCALE = [
+  { value: 5, label: 'Excellent' },
+  { value: 4, label: 'Very Good' },
+  { value: 3, label: 'Good' },
+  { value: 2, label: 'Fair' },
+  { value: 1, label: 'Weak' },
+]
+
+const RESULT_DEFAULT_AFFECTIVE_DOMAINS = [
+  { key: 'punctuality', label: 'Punctuality' },
+  { key: 'neatness', label: 'Neatness' },
+  { key: 'honesty', label: 'Honesty' },
+  { key: 'leadership', label: 'Leadership' },
+]
+
+const RESULT_DEFAULT_RATING_DOMAINS = [
+  { key: 'teamwork', label: 'Teamwork' },
+  { key: 'attention', label: 'Attention' },
+  { key: 'creativity', label: 'Creativity' },
+]
+
+const RESULT_DEFAULT_BRANDING = {
+  schoolName: '',
+  reportTitle: 'Official Result Record',
+  logoUrl: '',
+  primaryColor: '#800000',
+  accentColor: '#1a5c38',
+}
+
+function normalizeResultDomainKey(value: unknown, fallback: string) {
+  return String(value || '')
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '_')
+    .replace(/^_+|_+$/g, '') || fallback
+}
+
+function normalizeResultDomainList(values: unknown, fallback: Record<string, any>[] = [], limit = 8) {
+  const base = Array.isArray(values) && values.length > 0 ? values : fallback
+  return base
+    .slice(0, limit)
+    .map((entry, index) => ({
+      key: normalizeResultDomainKey((entry as any)?.key || (entry as any)?.label, `domain_${index + 1}`),
+      label: String((entry as any)?.label || (entry as any)?.key || `Domain ${index + 1}`).trim(),
+      description: String((entry as any)?.description || '').trim(),
+    }))
+    .filter(entry => entry.label)
+}
+
+function normalizeResultScale(values: unknown, fallback: Record<string, any>[] = []) {
+  const base = Array.isArray(values) && values.length > 0 ? values : fallback
+  return base
+    .map(entry => ({
+      minScore: Number((entry as any)?.minScore ?? (entry as any)?.minimum ?? 0),
+      grade: String((entry as any)?.grade || '').trim(),
+      remark: String((entry as any)?.remark || '').trim(),
+      value: Number((entry as any)?.value ?? 0),
+      label: String((entry as any)?.label || '').trim(),
+    }))
+    .filter(entry => entry.grade || entry.label)
+}
+
+function normalizeResultColor(value: unknown, fallback: string) {
+  const color = String(value || '').trim()
+  return /^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/.test(color) ? color : fallback
+}
+
+function normalizeResultBranding(value: unknown, fallback: Record<string, any> = RESULT_DEFAULT_BRANDING) {
+  const source = value && typeof value === 'object' ? value as Record<string, any> : {}
+  return {
+    schoolName: String(source.schoolName || fallback.schoolName || '').trim(),
+    reportTitle: String(source.reportTitle || fallback.reportTitle || 'Official Result Record').trim() || 'Official Result Record',
+    logoUrl: String(source.logoUrl || fallback.logoUrl || '').trim(),
+    primaryColor: normalizeResultColor(source.primaryColor, String(fallback.primaryColor || RESULT_DEFAULT_BRANDING.primaryColor)),
+    accentColor: normalizeResultColor(source.accentColor, String(fallback.accentColor || RESULT_DEFAULT_BRANDING.accentColor)),
+  }
+}
+
+function getSuggestedResultSettings() {
+  return {
+    templateKey: '',
+    gradingScale: RESULT_DEFAULT_GRADING_SCALE,
+    ratingScale: RESULT_DEFAULT_RATING_SCALE,
+    affectiveScale: RESULT_DEFAULT_AFFECTIVE_SCALE,
+    affectiveDomains: RESULT_DEFAULT_AFFECTIVE_DOMAINS,
+    metadata: {
+      affectiveWriteUp: 'Use the affective scale to describe conduct, attitude, and class disposition clearly and consistently.',
+      ratingDomains: RESULT_DEFAULT_RATING_DOMAINS,
+      branding: RESULT_DEFAULT_BRANDING,
+    },
+  }
+}
+
+function normalizeResultSettingsInput(payload: Record<string, any> = {}) {
+  const fallback = getSuggestedResultSettings()
+  const knownTemplateKeys = new Set(RESULT_TEMPLATE_CATALOG.map(template => template.key))
+  const templateKey = String(payload.templateKey || '').trim()
+
+  return {
+    templateKey: knownTemplateKeys.has(templateKey) ? templateKey : '',
+    gradingScale: normalizeResultScale(payload.gradingScale, fallback.gradingScale)
+      .map(entry => ({ minScore: Number(entry.minScore || 0), grade: entry.grade, remark: entry.remark }))
+      .sort((left, right) => right.minScore - left.minScore),
+    ratingScale: normalizeResultScale(payload.ratingScale, fallback.ratingScale)
+      .map(entry => ({ value: Number(entry.value || 0), label: entry.label }))
+      .sort((left, right) => right.value - left.value),
+    affectiveScale: normalizeResultScale(payload.affectiveScale, fallback.affectiveScale)
+      .map(entry => ({ value: Number(entry.value || 0), label: entry.label }))
+      .sort((left, right) => right.value - left.value),
+    affectiveDomains: normalizeResultDomainList(payload.affectiveDomains, fallback.affectiveDomains, 8),
+    metadata: {
+      ...((payload.metadata && typeof payload.metadata === 'object') ? payload.metadata : {}),
+      affectiveWriteUp: String(payload?.metadata?.affectiveWriteUp || '').trim(),
+      ratingDomains: normalizeResultDomainList(payload?.metadata?.ratingDomains, fallback.metadata.ratingDomains, 8),
+      branding: normalizeResultBranding(payload?.metadata?.branding, fallback.metadata.branding),
+    },
+  }
+}
+
+function validateResultSettings(settings: Record<string, any>) {
+  if (!String(settings?.templateKey || '').trim()) return 'Choose a result template before CA scores will be accepted.'
+  if (!Array.isArray(settings?.gradingScale) || settings.gradingScale.length === 0) return 'Set the grading system before CA scores will be accepted.'
+  if (!Array.isArray(settings?.ratingScale) || settings.ratingScale.length === 0) return 'Set the rating scale before CA scores will be accepted.'
+  if (!Array.isArray(settings?.affectiveScale) || settings.affectiveScale.length === 0) return 'Set the affective scale before CA scores will be accepted.'
+  if (!Array.isArray(settings?.affectiveDomains) || settings.affectiveDomains.length === 0) return 'Add at least one affective domain before CA scores will be accepted.'
+  if (settings.affectiveDomains.length > 8) return 'Affective marking can cover at most 8 areas.'
+  if (!String(settings?.metadata?.affectiveWriteUp || '').trim()) return 'Set the affective write-up guide before CA scores will be accepted.'
+  return ''
+}
+
+async function resolveCurrentResultPeriod(db: D1Database, tenantId: string, requestedSessionName?: unknown, requestedTermName?: unknown) {
+  await db.prepare(`CREATE TABLE IF NOT EXISTS school_sessions (id TEXT PRIMARY KEY, tenantId TEXT, session TEXT, term TEXT, startDate TEXT, endDate TEXT, createdAt TEXT)`).run()
+  const current = tenantId
+    ? await db.prepare(`SELECT session, term FROM school_sessions WHERE tenantId = ? ORDER BY createdAt DESC LIMIT 1`).bind(tenantId).first() as Record<string, any> | null
+    : null
+
+  return {
+    sessionName: String(requestedSessionName || current?.session || 'Current Session').trim(),
+    termName: String(requestedTermName || current?.term || 'Term 1').trim() || 'Term 1',
+  }
+}
+
+async function resolveResultClassAccess(db: D1Database, user: Record<string, any>, classId: string) {
+  const userIdentifier = user.id || user.email || user.sub || ''
+  const resolvedUser = await resolveSettingsIdentity(db, userIdentifier)
+  const tenantId = resolvedUser.settings?.tenantId || resolvedUser.settings?.schoolId || resolvedUser.userRow?.tenantId || user.tenantId
+  const actorId = String(resolvedUser.userRow?.id || resolvedUser.userRow?.email || resolvedUser.settingsKey || userIdentifier || '').trim()
+  const actorName = String(resolvedUser.settings?.name || resolvedUser.userRow?.name || user.name || actorId).trim()
+  const normalizedRole = String(resolvedUser.settings?.role || resolvedUser.userRow?.role || user.role || '').trim().toLowerCase()
+  const teacherIdentifiers = collectComparableIdentifiers(collectResolvedIdentityIdentifiers(resolvedUser, user))
+
+  await ensureClassesTable(db)
+  await db.prepare(`CREATE TABLE IF NOT EXISTS subjects (id TEXT PRIMARY KEY, tenantId TEXT, name TEXT, classId TEXT, teacherId TEXT, createdAt TEXT)`).run()
+  try { await db.exec('ALTER TABLE subjects ADD COLUMN tenantId TEXT') } catch {}
+  try { await db.exec('ALTER TABLE subjects ADD COLUMN classId TEXT') } catch {}
+  try { await db.exec('ALTER TABLE subjects ADD COLUMN teacherId TEXT') } catch {}
+
+  const classRow = tenantId
+    ? await db.prepare(`SELECT id, tenantId, name, arm, classTeacherId FROM classes WHERE id = ? AND tenantId = ?`).bind(classId, tenantId).first() as Record<string, any> | null
+    : null
+  const subjectRowsResult = classRow
+    ? await db.prepare(`SELECT id, name, teacherId FROM subjects WHERE tenantId = ? AND classId = ? ORDER BY name`).bind(tenantId, classId).all().catch(() => ({ results: [] }))
+    : { results: [] }
+  const subjectRows = ((subjectRowsResult as any)?.results || []) as Record<string, any>[]
+  const isElevatedManager = RESULT_SETTINGS_EDITOR_ROLES.includes(normalizedRole) || RESULT_APPROVER_ROLES.includes(normalizedRole)
+  const isClassTeacher = Boolean(classRow) && matchesComparableIdentifier(classRow?.classTeacherId, teacherIdentifiers)
+  let allowedSubjectRows = subjectRows.filter(subjectRow => matchesComparableIdentifier(subjectRow.teacherId, teacherIdentifiers))
+  if (isClassTeacher || isElevatedManager) {
+    allowedSubjectRows = subjectRows
+  }
+
+  return {
+    tenantId,
+    actorId,
+    actorName,
+    normalizedRole,
+    resolvedUser,
+    classRow,
+    subjectRows,
+    allowedSubjectRows,
+    isClassTeacher,
+    isElevatedManager,
+    canManageEntries: Boolean(classRow) && (isElevatedManager || isClassTeacher || allowedSubjectRows.length > 0),
+    canManageProfiles: Boolean(classRow) && (isElevatedManager || isClassTeacher),
+  }
+}
+
+async function listResultClassStudents(db: D1Database, tenantId: string, classRow: Record<string, any>) {
+  await ensureUsersTable(db)
+  const rows = await db.prepare(
+    `SELECT id, name, email, role, status, createdAt FROM users WHERE tenantId = ? AND role = 'student' ORDER BY name`
+  ).bind(tenantId).all()
+  const hydrated = await hydrateUserRecords(db, (rows.results || []) as Record<string, any>[])
+  const className = `${classRow.name}${classRow.arm ? ` ${classRow.arm}` : ''}`
+  return hydrated
+    .filter(student => String(student?.classId || '') === String(classRow.id || ''))
+    .map(student => ({
+      id: String(student?.id || ''),
+      name: String(student?.name || ''),
+      email: String(student?.email || ''),
+      displayId: String(student?.displayId || ''),
+      classId: String(classRow.id || ''),
+      className,
+      status: String(student?.status || 'active'),
+    }))
+}
+
+function clampResultScore(value: unknown, max: number) {
+  const numeric = Number(value || 0)
+  if (!Number.isFinite(numeric)) return 0
+  return Math.max(0, Math.min(max, numeric))
+}
+
+function resolveGradeBand(score: number, gradingScale: Record<string, any>[] = RESULT_DEFAULT_GRADING_SCALE) {
+  const ordered = [...gradingScale]
+    .map(entry => ({
+      minScore: Number(entry.minScore || 0),
+      grade: String(entry.grade || '').trim(),
+      remark: String(entry.remark || '').trim(),
+    }))
+    .sort((left, right) => right.minScore - left.minScore)
+
+  return ordered.find(entry => score >= entry.minScore) || ordered[ordered.length - 1] || { grade: '', remark: '' }
+}
+
+function buildPublishedResultPayloads(params: {
+  students: Array<Record<string, any>>,
+  entries: Array<Record<string, any>>,
+  profiles: Array<Record<string, any>>,
+  settings: Record<string, any>,
+  batch: Record<string, any>,
+  className: string,
+  actorName: string,
+}) {
+  const gradeScale = normalizeResultScale(params.settings?.gradingScale, RESULT_DEFAULT_GRADING_SCALE)
+  const affectiveDomains = normalizeResultDomainList(params.settings?.affectiveDomains, RESULT_DEFAULT_AFFECTIVE_DOMAINS, 8)
+  const ratingDomains = normalizeResultDomainList(params.settings?.metadata?.ratingDomains, RESULT_DEFAULT_RATING_DOMAINS, 8)
+  const branding = normalizeResultBranding(params.settings?.metadata?.branding, RESULT_DEFAULT_BRANDING)
+  const profileMap = new Map(params.profiles.map(profile => [String(profile.studentId || ''), profile]))
+
+  const studentSummaries = params.students.map(student => {
+    const studentId = String(student.id || '')
+    const profile = profileMap.get(studentId) || {}
+    const subjectRows = params.entries
+      .filter(entry => String(entry.studentId || '') === studentId)
+      .map(entry => {
+        const total = clampResultScore(Number(entry.caScore || 0) + Number(entry.examScore || 0), 100)
+        const band = resolveGradeBand(total, gradeScale)
+        return {
+          subjectId: String(entry.subjectId || ''),
+          subjectName: String(entry.subjectName || ''),
+          caScore: clampResultScore(entry.caScore, 40),
+          examScore: clampResultScore(entry.examScore, 60),
+          total,
+          grade: band.grade,
+          remark: band.remark,
+        }
+      })
+
+    const average = subjectRows.length
+      ? Math.round(subjectRows.reduce((sum, row) => sum + Number(row.total || 0), 0) / subjectRows.length)
+      : 0
+    const summaryBand = resolveGradeBand(average, gradeScale)
+    const affectiveScores = affectiveDomains.map(domain => ({
+      key: domain.key,
+      label: domain.label,
+      score: (profile as any)?.affective?.[domain.key] ?? '',
+    }))
+    const ratingScores = ratingDomains.map(domain => ({
+      key: domain.key,
+      label: domain.label,
+      score: (profile as any)?.ratings?.[domain.key] ?? '',
+    }))
+
+    return {
+      studentId,
+      studentName: String(student.name || ''),
+      average,
+      summaryBand,
+      payload: {
+        student: {
+          id: studentId,
+          name: String(student.name || ''),
+          email: String(student.email || ''),
+          displayId: String(student.displayId || ''),
+          className: params.className,
+        },
+        sessionName: params.batch.sessionName,
+        termName: params.batch.termName,
+        templateKey: String(params.settings?.templateKey || ''),
+        branding,
+        settingsSnapshot: params.settings,
+        approvals: {
+          submittedBy: params.batch.submittedBy || null,
+          submittedAt: params.batch.submittedAt || null,
+          approvedBy: params.actorName,
+          approvedAt: new Date().toISOString(),
+        },
+        summary: {
+          average,
+          grade: summaryBand.grade,
+          classSize: params.students.length,
+          attendanceRate: Number((profile as any)?.attendanceRate || 0),
+          promotionStatus: String((profile as any)?.promotionStatus || (average >= 50 ? 'Promoted' : 'Review')).trim(),
+          teacherRemark: String((profile as any)?.teacherRemark || '').trim(),
+          principalRemark: String((profile as any)?.principalRemark || '').trim(),
+        },
+        subjects: subjectRows,
+        affective: affectiveScores,
+        ratings: ratingScores,
+      },
+    }
+  }).filter(item => Array.isArray(item.payload.subjects) && item.payload.subjects.length > 0)
+
+  const ranked = [...studentSummaries]
+    .sort((left, right) => right.average - left.average || left.studentName.localeCompare(right.studentName))
+    .map((item, index) => ({
+      ...item,
+      payload: {
+        ...item.payload,
+        summary: {
+          ...item.payload.summary,
+          position: index + 1,
+        },
+      },
+    }))
+
+  return ranked.map(item => ({ studentId: item.studentId, payload: item.payload }))
+}
+
+async function getStudentFeeStatus(db: D1Database, tenantId: string, studentId: string) {
+  await db.prepare(`CREATE TABLE IF NOT EXISTS fees_ledger (id TEXT PRIMARY KEY, tenant_id TEXT, student_id TEXT, student_name TEXT, class_id TEXT, class_name TEXT, fee_amount REAL, amount_paid REAL, status TEXT, updated_at TEXT)`).run()
+  const row = await db.prepare(`SELECT fee_amount, amount_paid, status FROM fees_ledger WHERE tenant_id = ? AND student_id = ?`).bind(tenantId, studentId).first() as Record<string, any> | null
+  if (!row) return { locked: false, status: 'Not Tracked' }
+
+  const feeAmount = Number(row.fee_amount || 0)
+  const amountPaid = Number(row.amount_paid || 0)
+  const derivedStatus = feeAmount > 0
+    ? (amountPaid >= feeAmount ? 'Paid' : amountPaid > 0 ? 'Partial' : 'Unpaid')
+    : (String(row.status || '').trim() || 'Paid')
+
+  return {
+    locked: ['Partial', 'Unpaid'].includes(derivedStatus),
+    status: derivedStatus,
+  }
+}
+
+function normalizeResultMatchKey(value: unknown) {
+  return String(value || '').trim().toLowerCase()
+}
+
+function buildResultUploadMatchKeys(student: Record<string, any>) {
+  const email = normalizeResultMatchKey(student.email)
+  const emailPrefix = email.includes('@') ? email.split('@')[0] : email
+  return Array.from(new Set([
+    normalizeResultMatchKey(student.displayId),
+    normalizeResultMatchKey(student.id),
+    email,
+    emailPrefix,
+  ].filter(value => value.length >= 4 || value.includes('@'))))
+}
+
+function matchResultUploadStudent(fileName: string, students: Record<string, any>[]) {
+  const base = normalizeResultMatchKey(fileName.replace(/\.[^.]+$/, ''))
+  const tokens = Array.from(new Set([
+    base,
+    ...base.split(/[^a-z0-9@]+/g).filter(Boolean),
+  ])).sort((left, right) => right.length - left.length)
+
+  for (const token of tokens) {
+    if (!token || (token.length < 4 && !token.includes('@'))) continue
+    const matches = students.filter(student => buildResultUploadMatchKeys(student).includes(token))
+    if (matches.length === 1) return { student: matches[0], matchedBy: token, ambiguous: false }
+    if (matches.length > 1) return { student: null, matchedBy: token, ambiguous: true }
+  }
+
+  return { student: null, matchedBy: '', ambiguous: false }
 }
 
 function buildTenantWebsite(c: any, schoolId: string, tenant?: any) {
@@ -656,6 +1146,69 @@ function buildFlutterwaveRedirectUrl(c: any, initiatedRole: string, tenantId: st
   }
 
   return `${baseUrl}${path}`
+}
+
+function buildAiCreditRedirectUrl(c: any, txRef: string) {
+  const baseUrl = String(c.env.FLUTTERWAVE_REDIRECT_BASE_URL || 'https://ndovera.com').replace(/\/$/, '')
+  return `${baseUrl}/ai-tutor?ai_payment_ref=${encodeURIComponent(txRef)}`
+}
+
+async function resolveAiActor(db: D1Database, user: Record<string, any>) {
+  const userIdentifier = String(user?.id || user?.email || user?.sub || '').trim()
+  const resolvedUser = await resolveSettingsIdentity(db, userIdentifier)
+  const settingsKey = String(resolvedUser.settingsKey || resolvedUser.userRow?.email || resolvedUser.userRow?.id || userIdentifier || '').trim()
+  const tenantId = String(
+    resolvedUser.settings?.tenantId ||
+    resolvedUser.settings?.schoolId ||
+    resolvedUser.userRow?.tenantId ||
+    user?.tenantId ||
+    ''
+  ).trim()
+
+  return {
+    resolvedUser,
+    settingsKey,
+    tenantId,
+    actorId: String(resolvedUser.userRow?.id || user?.id || settingsKey || '').trim(),
+    actorName: String(user?.name || resolvedUser.userRow?.name || resolvedUser.settings?.name || settingsKey || 'NDOVERA User').trim(),
+    email: String(resolvedUser.userRow?.email || resolvedUser.settings?.email || user?.email || '').trim().toLowerCase(),
+    phone: String(resolvedUser.settings?.phone || '').trim(),
+    role: getActiveRole(user),
+  }
+}
+
+function canManageAiBilling(role: string) {
+  const normalized = String(role || '').trim().toLowerCase()
+  return ['owner', 'ami'].includes(normalized)
+}
+
+function canAccessAiCreditPayment(actor: Record<string, any>, payment: Record<string, any>) {
+  const normalizedRole = String(actor?.role || '').trim().toLowerCase()
+  if (normalizedRole === 'ami') return true
+
+  if (String(payment?.target || '').trim().toLowerCase() === 'school') {
+    return normalizedRole === 'owner' && String(actor?.tenantId || '').trim() === String(payment?.tenantId || '').trim()
+  }
+
+  const actorSettingsKey = String(actor?.settingsKey || '').trim().toLowerCase()
+  const actorEmail = String(actor?.email || '').trim().toLowerCase()
+  const paymentSettingsKey = String(payment?.settingsKey || '').trim().toLowerCase()
+  const paymentEmail = String(payment?.userEmail || '').trim().toLowerCase()
+
+  return Boolean((actorSettingsKey && actorSettingsKey === paymentSettingsKey) || (actorEmail && actorEmail === paymentEmail))
+}
+
+async function buildAiAccessPayload(db: D1Database, actor: Record<string, any>) {
+  const access = await summarizeAiAccess(db, { tenantId: actor.tenantId, settingsKey: actor.settingsKey })
+  return {
+    access,
+    management: {
+      canManagePolicy: canManageAiBilling(actor.role),
+      canTopUpSchoolCredits: canManageAiBilling(actor.role),
+      role: actor.role,
+      tenantId: actor.tenantId,
+    },
+  }
 }
 
 async function createPendingTenantRegistration(c: any, payload: Record<string, any>) {
@@ -924,6 +1477,84 @@ function normalizeRole(value: unknown) {
   return String(value || '').trim().toLowerCase()
 }
 
+const MERGED_ADMIN_ROLE_KEYS = new Set([
+  'accountant',
+  'librarian',
+  'sanitation',
+  'tuckshopmanager',
+  'storekeeper',
+  'transport',
+  'hostel',
+  'cafeteria',
+  'clinic',
+  'ict',
+  'examofficer',
+  'sportsmaster',
+])
+
+function parseRoleList(...values: unknown[]) {
+  const seen = new Set<string>()
+  const roles: string[] = []
+
+  const appendRole = (value: unknown) => {
+    const normalized = normalizeRole(value)
+    if (!normalized || seen.has(normalized)) return
+    seen.add(normalized)
+    roles.push(normalized)
+  }
+
+  const visit = (value: unknown) => {
+    if (Array.isArray(value)) {
+      value.forEach(visit)
+      return
+    }
+
+    if (typeof value === 'string' && value.includes(',')) {
+      value.split(',').forEach(entry => appendRole(entry))
+      return
+    }
+
+    appendRole(value)
+  }
+
+  values.forEach(visit)
+  return roles
+}
+
+function buildRoleContext(settings: Record<string, any> = {}, storedRole?: unknown, requestedRole?: unknown) {
+  const rawRoles = parseRoleList(settings.role, settings.roles, storedRole)
+  const adminRoles = rawRoles.filter(role => MERGED_ADMIN_ROLE_KEYS.has(role))
+  const switchableRoles = rawRoles.filter(role => !MERGED_ADMIN_ROLE_KEYS.has(role))
+
+  if (adminRoles.length > 0 && !switchableRoles.includes('admin')) {
+    switchableRoles.push('admin')
+  }
+
+  if (switchableRoles.includes('headteacher') && !switchableRoles.includes('nurseryhead') && !rawRoles.includes('nurseryhead')) {
+    switchableRoles.push('nurseryhead')
+  }
+
+  const normalizedRequestedRole = normalizeRole(requestedRole)
+  const canUseRequestedRole = normalizedRequestedRole
+    && (switchableRoles.includes(normalizedRequestedRole) || rawRoles.includes(normalizedRequestedRole))
+
+  const selectedRole = canUseRequestedRole
+    ? normalizedRequestedRole
+    : (switchableRoles[0] || rawRoles[0] || 'student')
+
+  return {
+    rawRoles,
+    adminRoles,
+    switchableRoles,
+    selectedRole,
+    primaryRole: rawRoles[0] || selectedRole,
+  }
+}
+
+function getActiveRole(user: Record<string, any> | null | undefined) {
+  return normalizeRole(user?.activeRole || user?.selectedRole || user?.role) || 'student'
+}
+
 function canCreateSchoolAnnouncements(role: unknown) {
   return SCHOOL_ANNOUNCEMENT_CREATOR_ROLES.includes(normalizeRole(role))
 }
@@ -975,13 +1606,15 @@ async function buildAuthenticatedHeader(c: any, roleKey: string) {
 
   const resolvedUser = await resolveSettingsIdentity(c.env.APP_DB, userIdentifier)
   const settings = resolvedUser.settings || {}
-  const actorRole = settings.role || resolvedUser.userRow?.role || currentUser.role || roleKey
+  const actorRole = normalizeRole(settings.role) || getActiveRole(currentUser) || roleKey
   const tenantId = settings.tenantId || settings.schoolId || resolvedUser.userRow?.tenantId || currentUser.tenantId
 
   const rawIdentifiers = collectResolvedIdentityIdentifiers(resolvedUser, currentUser)
   const canonicalIdentifiers = (await Promise.all(rawIdentifiers.map(identifier => resolveCanonicalUserIdentifier(c.env.APP_DB, identifier).catch(() => null))))
     .filter(Boolean) as string[]
   const comparableIdentifiers = collectComparableIdentifiers([...rawIdentifiers, ...canonicalIdentifiers])
+  const canonicalReaderId = String(await resolveCanonicalUserIdentifier(c.env.APP_DB, userIdentifier).catch(() => null) || rawIdentifiers[0] || userIdentifier).trim()
+  const readStates = canonicalReaderId ? await listConversationReadStates(c.env.APP_DB, canonicalReaderId) : {}
 
   const conversations = (await getConversations(c.env.APP_DB)).filter(conversation => {
     const participants = Array.isArray(conversation.participants) ? conversation.participants : []
@@ -991,12 +1624,13 @@ async function buildAuthenticatedHeader(c: any, roleKey: string) {
   const conversationDetails = await Promise.all(conversations.slice(0, 24).map(async conversation => {
     const messages = await getMessages(c.env.APP_DB, conversation.id)
     const latestMessage = messages[messages.length - 1] || null
+    const lastReadAt = readStates[conversation.id] || ''
     const participants = Array.isArray(conversation.participants) ? conversation.participants.map(value => String(value || '').trim()).filter(Boolean) : []
     const counterpart = participants.find(participant => !matchesComparableIdentifier(participant, comparableIdentifiers)) || participants[0] || conversation.subject || 'Conversation'
     const hasUnread = messages.some(message => {
       const sender = (message as any).senderId || (message as any).sender_id
-      const readAt = (message as any).readAt || (message as any).read_at
-      return !matchesComparableIdentifier(sender, comparableIdentifiers) && !readAt
+      const sentAt = String((message as any).sentAt || (message as any).sent_at || '')
+      return !matchesComparableIdentifier(sender, comparableIdentifiers) && Boolean(sentAt) && (!lastReadAt || sentAt > lastReadAt)
     })
 
     return {
@@ -1043,11 +1677,16 @@ async function buildAuthenticatedHeader(c: any, roleKey: string) {
 }
 
 function buildUserProfile(id: string, role: string, name: string, settings: Record<string, any> = {}) {
+  const roleContext = buildRoleContext(settings, settings.role, role)
+
   return {
     id,
     email: settings.email || id,
     name,
     role,
+    roles: roleContext.rawRoles,
+    switchableRoles: roleContext.switchableRoles,
+    adminRoles: roleContext.adminRoles,
     schoolId: settings.schoolId || settings.tenantId || 'school-1',
     aura: settings.aura || 320,
     accountType: settings.accountType || (role === 'ami' ? 'superadmin' : 'user'),
@@ -1297,9 +1936,11 @@ async function finishLogin(c: any, payload: Record<string, any>) {
     await upsertSettings(c.env.APP_DB, id, migratedSettings).catch(error => {
       console.error('Legacy password migration failed', error)
     })
+    settings = migratedSettings
   }
 
-  const userRole = settings.role || requestedRole || 'student'
+  const roleContext = buildRoleContext(settings, resolvedLogin.userRow?.role, requestedRole)
+  const userRole = roleContext.selectedRole
   const name = settings.name || id
   const tenantId = settings.tenantId || settings.schoolId
   const tenant = tenantId
@@ -1309,7 +1950,7 @@ async function finishLogin(c: any, payload: Record<string, any>) {
   // Auto-generate displayId for old users who were created before the displayId system
   if (!settings.displayId) {
     try {
-      const newDisplayId = await generateDisplayId(c.env.APP_DB, getDisplayIdConfig(userRole))
+      const newDisplayId = await generateDisplayId(c.env.APP_DB, getDisplayIdConfig(roleContext.primaryRole))
       settings = { ...settings, displayId: newDisplayId }
       await upsertSettings(c.env.APP_DB, id, { ...settings, displayId: newDisplayId }).catch(() => {})
     } catch { /* non-critical */ }
@@ -1319,6 +1960,9 @@ async function finishLogin(c: any, payload: Record<string, any>) {
 
   const token = await sign({
     role: userRole,
+    roles: roleContext.rawRoles,
+    switchableRoles: roleContext.switchableRoles,
+    adminRoles: roleContext.adminRoles,
     name,
     id,
     tenantId: tenant?.id,
@@ -1430,16 +2074,28 @@ async function authenticate(c: any, next: any) {
   if (!token) return c.json({ error: 'missing auth' }, 401)
   try {
     const { payload } = await verify(token, c.env.JWT_SECRET)
-    c.set('user', payload)
+    const roleContext = buildRoleContext({ role: payload.role, roles: payload.roles }, payload.role, c.req.header('X-Selected-Role'))
+    const authenticatedUser = {
+      ...payload,
+      activeRole: roleContext.selectedRole,
+      role: roleContext.rawRoles,
+      roles: roleContext.rawRoles,
+      switchableRoles: roleContext.switchableRoles,
+      adminRoles: roleContext.adminRoles,
+    }
+    c.set('user', authenticatedUser)
     await next()
     // Sliding expiry: issue a fresh 10-minute token on every authenticated request
     // so the session stays alive as long as the user keeps using the app
     const refreshed = await sign({
-      role: payload.role,
-      name: payload.name,
-      id: payload.id,
-      tenantId: payload.tenantId,
-      ...(payload.mustChangePassword ? { mustChangePassword: true } : {}),
+      role: authenticatedUser.activeRole,
+      roles: authenticatedUser.roles,
+      switchableRoles: authenticatedUser.switchableRoles,
+      adminRoles: authenticatedUser.adminRoles,
+      name: authenticatedUser.name,
+      id: authenticatedUser.id,
+      tenantId: authenticatedUser.tenantId,
+      ...(authenticatedUser.mustChangePassword ? { mustChangePassword: true } : {}),
       exp: Math.floor(Date.now() / 1000) + AUTH_SESSION_SECONDS,
     }, c.env.JWT_SECRET)
     c.res.headers.set('X-Refresh-Token', refreshed)
@@ -1494,8 +2150,9 @@ app.post('/api/auth/change-password', authenticate, async (c) => {
   const updatedSettings = await withHashedPassword({ ...settings, mustChangePassword: false, initialPassword: undefined }, String(newPassword))
   await upsertSettings(c.env.APP_DB, id, updatedSettings)
 
-  const userRole = settings.role || resolved.userRow?.role || currentUser.role || 'student'
-  const name = settings.name || resolved.userRow?.name || id
+  const roleContext = buildRoleContext(updatedSettings, resolved.userRow?.role, currentUser.activeRole || currentUser.role)
+  const userRole = roleContext.selectedRole
+  const name = updatedSettings.name || resolved.userRow?.name || id
   const tenantId = settings.tenantId || settings.schoolId
   const tenant = tenantId
     ? await getTenantById(c.env.APP_DB, tenantId)
@@ -1503,13 +2160,16 @@ app.post('/api/auth/change-password', authenticate, async (c) => {
 
   const token = await sign({
     role: userRole,
+    roles: roleContext.rawRoles,
+    switchableRoles: roleContext.switchableRoles,
+    adminRoles: roleContext.adminRoles,
     name,
     id,
     tenantId: tenant?.id,
     exp: Math.floor(Date.now() / 1000) + AUTH_SESSION_SECONDS,
   }, c.env.JWT_SECRET)
 
-  const user = attachTenantContext(buildUserProfile(id, userRole, name, { ...settings, mustChangePassword: false }), tenant)
+  const user = attachTenantContext(buildUserProfile(id, userRole, name, { ...updatedSettings, mustChangePassword: false }), tenant)
 
   await addAudit(c.env.APP_DB, id, { action: 'passwordChanged', data: { by: id } }).catch(() => {})
 
@@ -1602,7 +2262,8 @@ app.get('/api/users/me', authenticate, async (c) => {
   const resolved = await resolveSettingsIdentity(c.env.APP_DB, rawId)
   const id = resolved.settingsKey || rawId
   const settings = resolved.settings
-  const role = settings?.role || resolved.userRow?.role || currentUser.role || 'student'
+  const roleContext = buildRoleContext(settings || {}, resolved.userRow?.role, currentUser.activeRole || currentUser.role)
+  const role = roleContext.selectedRole
   const name = settings?.name || resolved.userRow?.name || currentUser.name || id
   const tenantId = settings?.tenantId || settings?.schoolId
   const tenant = tenantId
@@ -1913,6 +2574,49 @@ app.post('/api/ami/discount-codes/:code/end', authenticate, async (c) => {
   })
 
   return c.json({ success: true, discountCode })
+})
+
+app.get('/api/feature-flags', authenticate, async (c) => {
+  try {
+    const tenantId = String(c.var.user?.tenantId || '').trim()
+    const flags = await getResolvedFeatureFlags(c.env.APP_DB, tenantId)
+    return c.json({ success: true, featureFlags: flags.featureFlags })
+  } catch (error) {
+    return c.json({ success: false, message: 'Could not load feature flags.', error }, 500)
+  }
+})
+
+app.get('/api/ami/feature-flags', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+
+  try {
+    const tenantId = String(c.req.query('tenantId') || '').trim()
+    const flags = await getResolvedFeatureFlags(c.env.APP_DB, tenantId)
+    return c.json({ success: true, tenantId, ...flags })
+  } catch (error) {
+    return c.json({ success: false, message: 'Could not load feature flags.', error }, 500)
+  }
+})
+
+app.post('/api/ami/feature-flags', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+
+  try {
+    const payload = await c.req.json() as Record<string, any>
+    const tenantId = String(payload?.tenantId || '').trim()
+    const settingsKey = tenantId ? `tenant_feature_flags_${tenantId}` : 'platform_feature_flags'
+    const existing = pickFeatureFlagOverrides(await getSettings(c.env.APP_DB, settingsKey))
+    const next = {
+      ...existing,
+      ...pickFeatureFlagOverrides(payload),
+    }
+
+    await upsertSettings(c.env.APP_DB, settingsKey, next)
+    const flags = await getResolvedFeatureFlags(c.env.APP_DB, tenantId)
+    return c.json({ success: true, tenantId, ...flags })
+  } catch (error) {
+    return c.json({ success: false, message: 'Could not save feature flags.', error }, 500)
+  }
 })
 
 app.get('/api/schools/:schoolId/website', async (c) => {
@@ -2455,7 +3159,7 @@ app.delete('/api/library/books/:id', authenticate, async (c) => {
 app.post('/api/library/books/:id/borrow', authenticate, async (c) => {
   const { id } = c.req.param()
   const by = c.var.user.name || c.var.user.sub || 'unknown'
-  const studentId = c.var.user.role === 'student' ? by : (await c.req.json()).studentId || by
+  const studentId = getActiveRole(c.var.user) === 'student' ? by : (await c.req.json()).studentId || by
   const { dueAt } = await c.req.json()
   const b = await borrowBook(c.env.APP_DB, id, studentId, dueAt || null, { by })
   await addAudit(c.env.APP_DB, studentId, { action: 'borrow', data: { bookId: id, by } })
@@ -2487,7 +3191,7 @@ app.post('/api/save-content', authenticate, async (c) => {
   const { classId, content, role } = await c.req.json()
   if (!classId || typeof content === 'undefined') return c.json({ success: false, error: 'missing fields' }, 400)
   try {
-    const saved = await saveContent(c.env.APP_DB, classId, role || c.var.user.role, content)
+    const saved = await saveContent(c.env.APP_DB, classId, role || getActiveRole(c.var.user), content)
     return c.json({ success: true, saved })
   } catch (err) {
     console.error('Save content failed', err)
@@ -2874,6 +3578,15 @@ app.post('/api/classrooms/:classroomId/assignments', authenticate, async (c) => 
       createdBy: teacherId,
     }
     const insertedAssignment = await createAssignment(c.env.APP_DB, newAssignment)
+
+    await syncQuestionUsagesForEngine(c.env.APP_DB, String(classRow.tenantId || tenantId || '').trim(), 'assignment', String(insertedAssignment.id || '').trim(), normalizedQuestions, {
+      classId: classroomId,
+      className: `${classRow.name}${classRow.arm ? ` ${classRow.arm}` : ''}`,
+      subjectId: String(subjectRow.id || ''),
+      subjectName: String(subjectRow.name || ''),
+      createdBy: teacherId,
+    })
+
     return c.json({ success: true, assignment: insertedAssignment }, 201)
   } catch (error) {
     return c.json({ success: false, message: 'Server error', error }, 500)
@@ -3014,6 +3727,158 @@ async function ensureClassroomSubjectsTable(db: D1Database) {
   try { await db.exec('ALTER TABLE subjects ADD COLUMN teacherId TEXT') } catch {}
 }
 
+const LEARNING_AUTHOR_ROLES = ['teacher', 'classteacher', 'hod', 'hodassistant', 'hos', 'owner', 'ami']
+const LEARNING_REVIEWER_ROLES = ['hod', 'hodassistant', 'hos', 'owner', 'ami']
+const LEARNING_MANAGER_ROLES = Array.from(new Set([...LEARNING_AUTHOR_ROLES, 'ict', 'ict_manager', 'admin']))
+
+function normalizeLearningVisibility(value: unknown, fallback = 'student') {
+  const normalized = String(value || '')
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z]+/g, '_')
+    .replace(/^_+|_+$/g, '')
+
+  if (normalized === 'student_parent' || normalized === 'parent_student') return 'student_parent'
+  if (normalized === 'student' || normalized === 'teacher') return normalized
+  return fallback
+}
+
+function normalizeLearningReleaseAt(value: unknown) {
+  const raw = String(value || '').trim()
+  if (!raw) return ''
+  const parsed = new Date(raw)
+  return Number.isNaN(parsed.getTime()) ? '' : parsed.toISOString()
+}
+
+function isLearningContentReleased(value: unknown) {
+  const normalized = normalizeLearningReleaseAt(value)
+  if (!normalized) return true
+  return new Date(normalized).getTime() <= Date.now()
+}
+
+function canRoleSeeLearningContent(role: string, visibility: string) {
+  if (role === 'parent') return visibility === 'student_parent'
+  if (role === 'student') return visibility === 'student' || visibility === 'student_parent'
+  return true
+}
+
+async function listAccessibleLearningStudents(db: D1Database, user: Record<string, any>) {
+  const userIdentifier = user.id || user.email || user.sub || ''
+  const resolvedUser = await resolveSettingsIdentity(db, userIdentifier)
+  const tenantId = resolvedUser.settings?.tenantId || resolvedUser.settings?.schoolId || resolvedUser.userRow?.tenantId || user.tenantId
+  const normalizedRole = String(resolvedUser.settings?.role || resolvedUser.userRow?.role || user.role || '').trim().toLowerCase()
+  let students: Array<Record<string, any>> = []
+
+  if (normalizedRole === 'student') {
+    const selfRow = await findUserByIdentifier(db, String(resolvedUser.userRow?.id || resolvedUser.settingsKey || userIdentifier || '')).catch(() => null)
+    const hydrated = await hydrateUserRecords(db, selfRow ? [selfRow] : [])
+    students = hydrated.filter(Boolean) as Array<Record<string, any>>
+  } else if (normalizedRole === 'parent' && tenantId) {
+    await ensureParentStudentLinksTable(db)
+    const parentIdentifiers = Array.from(new Set(collectResolvedIdentityIdentifiers(resolvedUser, user).filter(Boolean)))
+    if (parentIdentifiers.length > 0) {
+      const placeholders = parentIdentifiers.map(() => '?').join(', ')
+      const linkRows = await db.prepare(
+        `SELECT DISTINCT student_id FROM parent_student_links WHERE tenant_id = ? AND parent_id IN (${placeholders})`
+      ).bind(tenantId, ...parentIdentifiers).all()
+      const linkedStudentRows = await Promise.all(
+        ((linkRows.results || []) as Record<string, any>[]).map(row => findUserByIdentifier(db, String(row.student_id || '')).catch(() => null))
+      )
+      const hydrated = await hydrateUserRecords(db, linkedStudentRows.filter(Boolean) as Record<string, any>[])
+      students = hydrated.filter(Boolean) as Array<Record<string, any>>
+    }
+  }
+
+  const classIds = Array.from(new Set(students.map(student => String(student?.classId || '').trim()).filter(Boolean)))
+  const classMap = new Map<string, string>()
+  if (tenantId && classIds.length > 0) {
+    await ensureClassesTable(db)
+    const placeholders = classIds.map(() => '?').join(', ')
+    const classRows = await db.prepare(
+      `SELECT id, name, arm FROM classes WHERE tenantId = ? AND id IN (${placeholders})`
+    ).bind(tenantId, ...classIds).all()
+    for (const row of ((classRows.results || []) as Record<string, any>[])) {
+      classMap.set(String(row.id || ''), `${row.name || ''}${row.arm ? ` ${row.arm}` : ''}`.trim())
+    }
+  }
+
+  return {
+    tenantId,
+    role: normalizedRole,
+    students: students.map(student => ({
+      id: String(student?.id || ''),
+      name: String(student?.name || ''),
+      email: String(student?.email || ''),
+      displayId: String(student?.displayId || ''),
+      classId: String(student?.classId || ''),
+      className: classMap.get(String(student?.classId || '')) || String(student?.className || ''),
+    })),
+  }
+}
+
+async function resolveClassroomLearningAccess(db: D1Database, user: Record<string, any>, classroomId: string, requestedStudentId = '') {
+  const userIdentifier = user.id || user.email || user.sub || ''
+  const resolvedUser = await resolveSettingsIdentity(db, userIdentifier)
+  const tenantId = resolvedUser.settings?.tenantId || resolvedUser.settings?.schoolId || resolvedUser.userRow?.tenantId || user.tenantId
+  const normalizedRole = String(resolvedUser.settings?.role || resolvedUser.userRow?.role || user.role || '').trim().toLowerCase()
+
+  await ensureClassesTable(db)
+  await ensureClassroomSubjectsTable(db)
+
+  const classRow = tenantId
+    ? await db.prepare(
+      `SELECT id, tenantId, name, arm, classTeacherId FROM classes WHERE id = ? AND tenantId = ?`
+    ).bind(classroomId, tenantId).first() as Record<string, any> | null
+    : null
+
+  if (!tenantId || !classRow) {
+    return { ok: false, status: 404, message: 'Class not found.' }
+  }
+
+  const teacherIdentifiers = collectComparableIdentifiers(collectResolvedIdentityIdentifiers(resolvedUser, user))
+  const subjectRows = await db.prepare(
+    `SELECT id, name, teacherId FROM subjects WHERE classId = ? AND (tenantId = ? OR tenantId IS NULL OR tenantId = '')`
+  ).bind(classroomId, tenantId).all().catch(() => ({ results: [] }))
+  const subjectResults = ((subjectRows.results || []) as Record<string, any>[])
+  const isElevatedViewer = LEARNING_MANAGER_ROLES.includes(normalizedRole)
+  const isClassTeacher = matchesComparableIdentifier(classRow.classTeacherId, teacherIdentifiers)
+  const isAssignedTeacher = subjectResults.some(subject => matchesComparableIdentifier(subject.teacherId, teacherIdentifiers))
+
+  if (isElevatedViewer || isClassTeacher || isAssignedTeacher) {
+    return {
+      ok: true,
+      tenantId,
+      role: normalizedRole,
+      classRow,
+      canManage: true,
+      students: [] as Array<Record<string, any>>,
+      selectedStudent: null as Record<string, any> | null,
+    }
+  }
+
+  if (!['student', 'parent'].includes(normalizedRole)) {
+    return { ok: false, status: 403, message: 'You are not allowed to view this class.' }
+  }
+
+  const audience = await listAccessibleLearningStudents(db, user)
+  const classStudents = audience.students.filter(student => String(student.classId || '') === String(classroomId || ''))
+  const selectedStudent = classStudents.find(student => [student.id, student.email, student.displayId].includes(requestedStudentId)) || classStudents[0] || null
+
+  if (!selectedStudent) {
+    return { ok: false, status: 403, message: 'You are not allowed to view this class.' }
+  }
+
+  return {
+    ok: true,
+    tenantId,
+    role: normalizedRole,
+    classRow,
+    canManage: false,
+    students: classStudents,
+    selectedStudent,
+  }
+}
+
 function normalizeMaterialType(value: string, fallback = 'document') {
   const normalized = String(value || '').trim().toLowerCase()
   if (['document', 'video', 'image', 'link'].includes(normalized)) return normalized
@@ -3071,11 +3936,32 @@ async function resolveMaterialPublishingContext(db: D1Database, user: Record<str
   }
 }
 
+app.get('/api/learning/students', authenticate, async (c) => {
+  try {
+    const audience = await listAccessibleLearningStudents(c.env.APP_DB, c.var.user || {})
+    return c.json({ success: true, role: audience.role, students: audience.students })
+  } catch (error) {
+    return c.json({ success: false, message: 'Could not load learning audience.', error }, 500)
+  }
+})
+
 app.get('/api/classrooms/:classroomId/materials', authenticate, async (c) => {
   const classroomId = c.req.param('classroomId')
+  const requestedStudentId = String(c.req.query('studentId') || '').trim()
   try {
-    const materials = await getMaterialsForClass(c.env.APP_DB, classroomId)
-    return c.json({ success: true, materials })
+    const access = await resolveClassroomLearningAccess(c.env.APP_DB, c.var.user || {}, classroomId, requestedStudentId)
+    if (!access.ok) return c.json({ success: false, message: access.message }, access.status)
+
+    let materials = await getMaterialsForClass(c.env.APP_DB, classroomId)
+    if (!access.canManage) {
+      materials = materials.filter(material => {
+        const visibility = normalizeLearningVisibility(material.visibility || material.metadata?.visibility, 'student_parent')
+        return isLearningContentReleased(material.releaseAt || material.metadata?.releaseAt)
+          && canRoleSeeLearningContent(access.role, visibility)
+      })
+    }
+
+    return c.json({ success: true, materials, students: access.students || [], activeStudentId: String(access.selectedStudent?.id || '') })
   } catch (error) {
     return c.json({ success: false, message: 'Server error', error }, 500)
   }
@@ -3083,7 +3969,7 @@ app.get('/api/classrooms/:classroomId/materials', authenticate, async (c) => {
 
 app.post('/api/classrooms/:classroomId/materials', authenticate, async (c) => {
   const classroomId = c.req.param('classroomId')
-  const { title, url, subjectId, description, type } = await c.req.json()
+  const { title, url, subjectId, description, type, topic, week, weekLabel, visibility, releaseAt } = await c.req.json()
   if (!title || !subjectId) {
     return c.json({ success: false, message: 'Title and subject are required.' }, 400)
   }
@@ -3102,6 +3988,10 @@ app.post('/api/classrooms/:classroomId/materials', authenticate, async (c) => {
         subjectId: String(publishContext.subjectRow.id || ''),
         subjectName: String(publishContext.subjectRow.name || ''),
         description: String(description || '').trim(),
+        topic: String(topic || '').trim(),
+        weekLabel: String(weekLabel || week || '').trim(),
+        visibility: normalizeLearningVisibility(visibility, 'student_parent'),
+        releaseAt: normalizeLearningReleaseAt(releaseAt),
         type: normalizeMaterialType(type, inferMaterialType(String(url || ''))),
         uploadedByName: publishContext.uploadedByName,
         uploadedById: publishContext.teacherId,
@@ -3125,6 +4015,10 @@ app.post('/api/classrooms/:classroomId/materials/upload-multipart', authenticate
   const subjectId = String(formData.get('subjectId') || '').trim()
   const description = String(formData.get('description') || '').trim()
   const requestedType = String(formData.get('type') || '').trim()
+  const topic = String(formData.get('topic') || '').trim()
+  const weekLabel = String(formData.get('weekLabel') || formData.get('week') || '').trim()
+  const visibility = normalizeLearningVisibility(formData.get('visibility'), 'student_parent')
+  const releaseAt = normalizeLearningReleaseAt(formData.get('releaseAt'))
   if (!title || !file || !subjectId) {
     return c.json({ success: false, message: 'Title, file, and subject are required.' }, 400)
   }
@@ -3148,6 +4042,10 @@ app.post('/api/classrooms/:classroomId/materials/upload-multipart', authenticate
         subjectId: String(publishContext.subjectRow.id || ''),
         subjectName: String(publishContext.subjectRow.name || ''),
         description,
+        topic,
+        weekLabel,
+        visibility,
+        releaseAt,
         type: normalizeMaterialType(requestedType, inferMaterialType(file.name, file.type)),
         uploadedByName: publishContext.uploadedByName,
         uploadedById: publishContext.teacherId,
@@ -3160,6 +4058,148 @@ app.post('/api/classrooms/:classroomId/materials/upload-multipart', authenticate
     return c.json({ success: true, material: insertedMaterial }, 201)
   } catch (error) {
     return c.json({ success: false, message: 'Server error', error }, 500)
+  }
+})
+
+app.get('/api/lesson-plans', authenticate, async (c) => {
+  const classId = String(c.req.query('classId') || '').trim()
+  const requestedStudentId = String(c.req.query('studentId') || '').trim()
+  const currentUser = c.var.user || {}
+  const userIdentifier = currentUser.id || currentUser.email || currentUser.sub || ''
+  const resolvedUser = await resolveSettingsIdentity(c.env.APP_DB, userIdentifier)
+  const tenantId = resolvedUser.settings?.tenantId || resolvedUser.settings?.schoolId || resolvedUser.userRow?.tenantId || currentUser.tenantId
+  const normalizedRole = getActiveRole(currentUser)
+  if (!tenantId) return c.json({ success: false, message: 'No tenant.' }, 400)
+
+  try {
+    let students: Array<Record<string, any>> = []
+    let activeStudentId = ''
+    let lessonPlans = await listLessonPlans(c.env.APP_DB, tenantId, classId ? { classId } : {})
+
+    if (classId) {
+      const access = await resolveClassroomLearningAccess(c.env.APP_DB, currentUser, classId, requestedStudentId)
+      if (!access.ok) return c.json({ success: false, message: access.message }, access.status)
+
+      students = access.students || []
+      activeStudentId = String(access.selectedStudent?.id || '')
+      if (!access.canManage) {
+        lessonPlans = lessonPlans.filter(lessonPlan => (
+          String(lessonPlan.status || '') === 'approved'
+            && isLearningContentReleased(lessonPlan.releaseAt)
+            && canRoleSeeLearningContent(access.role, normalizeLearningVisibility(lessonPlan.visibility))
+        ))
+      }
+    } else if (!LEARNING_REVIEWER_ROLES.includes(normalizedRole)) {
+      return c.json({ success: false, message: 'classId is required.' }, 400)
+    }
+
+    return c.json({
+      success: true,
+      lessonPlans,
+      students,
+      activeStudentId,
+      permissions: {
+        canCreate: LEARNING_AUTHOR_ROLES.includes(normalizedRole),
+        canReview: LEARNING_REVIEWER_ROLES.includes(normalizedRole),
+      },
+    })
+  } catch (error) {
+    return c.json({ success: false, message: 'Could not load lesson plans.', error }, 500)
+  }
+})
+
+app.post('/api/lesson-plans', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, LEARNING_AUTHOR_ROLES)) return c.json({ error: 'forbidden' }, 403)
+
+  const body = await c.req.json().catch(() => ({}))
+  const classId = String(body.classId || '').trim()
+  const subjectId = String(body.subjectId || '').trim()
+  const title = String(body.title || '').trim()
+  if (!classId || !subjectId || !title) {
+    return c.json({ success: false, message: 'Class, subject, and title are required.' }, 400)
+  }
+
+  try {
+    const publishContext = await resolveMaterialPublishingContext(c.env.APP_DB, c.var.user || {}, classId, subjectId)
+    if (!publishContext.ok) return c.json({ success: false, message: publishContext.message }, publishContext.status)
+
+    const currentUser = c.var.user || {}
+    const userIdentifier = currentUser.id || currentUser.email || currentUser.sub || ''
+    const resolvedUser = await resolveSettingsIdentity(c.env.APP_DB, userIdentifier)
+    const tenantId = resolvedUser.settings?.tenantId || resolvedUser.settings?.schoolId || resolvedUser.userRow?.tenantId || currentUser.tenantId || publishContext.classRow.tenantId
+    const actorId = String(resolvedUser.userRow?.id || publishContext.teacherId || userIdentifier || '').trim()
+    const actorName = String(resolvedUser.settings?.name || resolvedUser.userRow?.name || publishContext.uploadedByName || actorId).trim()
+    const normalizedStatus = ['draft', 'submitted'].includes(String(body.status || '').trim().toLowerCase())
+      ? String(body.status || '').trim().toLowerCase()
+      : 'draft'
+
+    const lessonPlan = await upsertLessonPlan(c.env.APP_DB, {
+      id: String(body.id || '').trim() || undefined,
+      tenantId,
+      classId,
+      className: `${publishContext.classRow.name}${publishContext.classRow.arm ? ` ${publishContext.classRow.arm}` : ''}`,
+      subjectId,
+      subjectName: String(publishContext.subjectRow.name || ''),
+      teacherId: actorId,
+      teacherName: actorName,
+      title,
+      topic: String(body.topic || '').trim(),
+      weekLabel: String(body.weekLabel || body.week || '').trim(),
+      visibility: normalizeLearningVisibility(body.visibility, 'student'),
+      status: normalizedStatus,
+      releaseAt: normalizeLearningReleaseAt(body.releaseAt),
+      liveSessionId: String(body.liveSessionId || '').trim(),
+      liveSessionLabel: String(body.liveSessionLabel || '').trim(),
+      objectives: String(body.objectives || '').trim(),
+      activities: String(body.activities || '').trim(),
+      assessment: String(body.assessment || '').trim(),
+      notes: String(body.notes || '').trim(),
+      resources: Array.isArray(body.resources) ? body.resources : [],
+      actorId,
+      changeNote: String(body.changeNote || '').trim(),
+    })
+
+    return c.json({ success: true, lessonPlan }, body.id ? 200 : 201)
+  } catch (error) {
+    return c.json({ success: false, message: 'Could not save lesson plan.', error }, 500)
+  }
+})
+
+app.post('/api/lesson-plans/:lessonPlanId/review', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, LEARNING_REVIEWER_ROLES)) return c.json({ error: 'forbidden' }, 403)
+
+  const lessonPlanId = String(c.req.param('lessonPlanId') || '').trim()
+  const body = await c.req.json().catch(() => ({}))
+  const nextStatus = String(body.status || '').trim().toLowerCase()
+  if (!lessonPlanId || !['approved', 'returned'].includes(nextStatus)) {
+    return c.json({ success: false, message: 'A valid lesson plan and review status are required.' }, 400)
+  }
+
+  const currentUser = c.var.user || {}
+  const userIdentifier = currentUser.id || currentUser.email || currentUser.sub || ''
+  const resolvedUser = await resolveSettingsIdentity(c.env.APP_DB, userIdentifier)
+  const tenantId = resolvedUser.settings?.tenantId || resolvedUser.settings?.schoolId || resolvedUser.userRow?.tenantId || currentUser.tenantId
+  if (!tenantId) return c.json({ success: false, message: 'No tenant.' }, 400)
+
+  try {
+    await ensureLessonPlanTables(c.env.APP_DB)
+    const existing = await getLessonPlanById(c.env.APP_DB, tenantId, lessonPlanId)
+    if (!existing) return c.json({ success: false, message: 'Lesson plan not found.' }, 404)
+
+    const reviewerId = String(resolvedUser.userRow?.id || resolvedUser.userRow?.email || resolvedUser.settingsKey || userIdentifier || '').trim()
+    const reviewerName = String(resolvedUser.settings?.name || resolvedUser.userRow?.name || currentUser.name || reviewerId).trim()
+    const lessonPlan = await reviewLessonPlan(c.env.APP_DB, {
+      tenantId,
+      id: lessonPlanId,
+      status: nextStatus,
+      reviewComment: String(body.reviewComment || '').trim(),
+      reviewedBy: reviewerId,
+      reviewedByName: reviewerName,
+    })
+
+    return c.json({ success: true, lessonPlan })
+  } catch (error) {
+    return c.json({ success: false, message: 'Could not review lesson plan.', error }, 500)
   }
 })
 
@@ -3567,72 +4607,212 @@ app.post('/api/classrooms/:classroomId/attendance', authenticate, async (c) => {
   }
 })
 
-// In-memory exams (for simplicity, keeping as is since it's small)
-const exams: any[] = []
+function canAuthorCbt(role: string) {
+  return LEARNING_AUTHOR_ROLES.includes(String(role || '').trim().toLowerCase())
+}
 
-const examResults: any[] = []
+function canManageCbt(role: string) {
+  return LEARNING_MANAGER_ROLES.includes(String(role || '').trim().toLowerCase())
+}
 
-app.get('/api/exams', (c) => {
-  const safe = exams.map(e => ({ id: e.id, title: e.title, window: e.window }))
-  return c.json({ success: true, exams: safe })
-})
-
-app.get('/api/exams/:id', (c) => {
-  const { id } = c.req.param()
-  const exam = exams.find(e => e.id === id)
-  if (!exam) return c.json({ error: 'Exam not found' }, 404)
-  return c.json({ success: true, exam })
-})
-
-app.post('/api/exams', (c) => {
-  const { title, window, questions } = c.req.json()
-  if (!title || !questions || !Array.isArray(questions)) {
-    return c.json({ error: 'Invalid exam payload' }, 400)
+function canViewCbtExam(actor: Record<string, any>, user: Record<string, any>, exam: Record<string, any>) {
+  if (canManageCbt(actor.role)) return true
+  if (canAuthorCbt(actor.role)) {
+    const actorIdentifiers = collectComparableIdentifiers(collectResolvedIdentityIdentifiers(actor.resolvedUser, user))
+    if (matchesComparableIdentifier(exam.teacherId, actorIdentifiers)) return true
   }
-  const id = `exam-${Date.now()}`
-  exams.push({ id, title, window, questions })
-  return c.json({ success: true, exam: { id, title, window } })
+  return String(exam.status || '').trim().toLowerCase() === 'published'
+}
+
+app.get('/api/exams', authenticate, async (c) => {
+  try {
+    const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
+    const tenantId = String(actor.tenantId || '').trim()
+    if (!tenantId) return c.json({ success: false, message: 'School context not found.' }, 400)
+
+    const mode = String(c.req.query('mode') || 'cbt').trim().toLowerCase()
+    const subjectId = String(c.req.query('subjectId') || '').trim()
+    const classId = String(c.req.query('classId') || '').trim()
+    const exams = await listCbtExams(c.env.APP_DB, tenantId, {
+      mode,
+      subjectId,
+      classId,
+    })
+
+    const visible = exams.filter(exam => canViewCbtExam(actor, c.var.user || {}, exam))
+    return c.json({
+      success: true,
+      exams: visible.map(exam => ({
+        id: exam.id,
+        title: exam.title,
+        window: exam.window,
+        status: exam.status,
+        mode: exam.mode,
+        questionCount: Array.isArray(exam.questions) ? exam.questions.length : undefined,
+        subjectId: exam.subjectId,
+        subjectName: exam.subjectName,
+        classId: exam.classId,
+        className: exam.className,
+        updatedAt: exam.updatedAt,
+      })),
+    })
+  } catch (error) {
+    return c.json({ success: false, message: 'Server error', error }, 500)
+  }
 })
 
-app.put('/api/exams/:id', (c) => {
-  const { id } = c.req.param()
-  const { title, window, questions } = c.req.json()
-  const exam = exams.find(e => e.id === id)
-  if (!exam) return c.json({ error: 'Exam not found' }, 404)
-  if (title) exam.title = title
-  if (window) exam.window = window
-  if (Array.isArray(questions)) exam.questions = questions
-  return c.json({ success: true, exam: { id: exam.id, title: exam.title, window: exam.window } })
+app.get('/api/exams/:id', authenticate, async (c) => {
+  try {
+    const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
+    const tenantId = String(actor.tenantId || '').trim()
+    if (!tenantId) return c.json({ success: false, message: 'School context not found.' }, 400)
+
+    const exam = await getCbtExamById(c.env.APP_DB, tenantId, c.req.param('id'), { includeQuestions: true })
+    if (!exam) return c.json({ success: false, message: 'Exam not found' }, 404)
+    if (!canViewCbtExam(actor, c.var.user || {}, exam)) {
+      return c.json({ success: false, message: 'You are not allowed to view this exam.' }, 403)
+    }
+
+    return c.json({ success: true, exam })
+  } catch (error) {
+    return c.json({ success: false, message: 'Server error', error }, 500)
+  }
 })
 
-app.delete('/api/exams/:id', (c) => {
-  const { id } = c.req.param()
-  const idx = exams.findIndex(e => e.id === id)
-  if (idx === -1) return c.json({ error: 'Exam not found' }, 404)
-  exams.splice(idx, 1)
-  return c.json({ success: true, deletedId: id })
+app.post('/api/exams', authenticate, async (c) => {
+  try {
+    const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
+    const tenantId = String(actor.tenantId || '').trim()
+    if (!tenantId) return c.json({ success: false, message: 'School context not found.' }, 400)
+    if (!canAuthorCbt(actor.role)) return c.json({ success: false, message: 'Forbidden' }, 403)
+
+    const payload = await c.req.json() as Record<string, any>
+    if (!payload.title || !Array.isArray(payload.questions)) {
+      return c.json({ success: false, message: 'Title and questions are required.' }, 400)
+    }
+
+    const exam = await saveCbtExam(c.env.APP_DB, {
+      ...payload,
+      tenantId,
+      teacherId: actor.actorId,
+      teacherName: actor.actorName,
+      status: String(payload.status || 'published').trim().toLowerCase(),
+      mode: String(payload.mode || 'cbt').trim().toLowerCase(),
+    })
+    return c.json({ success: true, exam }, 201)
+  } catch (error) {
+    return c.json({ success: false, message: 'Server error', error }, 500)
+  }
 })
 
-app.post('/api/exams/:id/start', (c) => {
-  const { id } = c.req.param()
-  const exam = exams.find(e => e.id === id)
-  if (!exam) return c.json({ error: 'Exam not found' }, 404)
-  const questions = exam.questions.map(q => ({ id: q.id, text: q.text, choices: q.choices }))
-  return c.json({ success: true, exam: { id: exam.id, title: exam.title }, questions })
+app.put('/api/exams/:id', authenticate, async (c) => {
+  try {
+    const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
+    const tenantId = String(actor.tenantId || '').trim()
+    if (!tenantId) return c.json({ success: false, message: 'School context not found.' }, 400)
+
+    const existingExam = await getCbtExamById(c.env.APP_DB, tenantId, c.req.param('id'), { includeQuestions: true })
+    if (!existingExam) return c.json({ success: false, message: 'Exam not found' }, 404)
+    if (!canViewCbtExam(actor, c.var.user || {}, existingExam) || !canAuthorCbt(actor.role)) {
+      return c.json({ success: false, message: 'You are not allowed to update this exam.' }, 403)
+    }
+
+    const payload = await c.req.json() as Record<string, any>
+    const exam = await saveCbtExam(c.env.APP_DB, {
+      ...existingExam,
+      ...payload,
+      id: existingExam.id,
+      tenantId,
+      teacherId: existingExam.teacherId || actor.actorId,
+      teacherName: existingExam.teacherName || actor.actorName,
+      questions: Array.isArray(payload.questions) ? payload.questions : existingExam.questions,
+      status: String(payload.status || existingExam.status || 'published').trim().toLowerCase(),
+      mode: String(payload.mode || existingExam.mode || 'cbt').trim().toLowerCase(),
+    })
+    return c.json({ success: true, exam })
+  } catch (error) {
+    return c.json({ success: false, message: 'Server error', error }, 500)
+  }
 })
 
-app.post('/api/exams/:id/submit', (c) => {
-  const { id } = c.req.param()
-  const { userId, answers } = c.req.json()
-  const exam = exams.find(e => e.id === id)
-  if (!exam) return c.json({ error: 'Exam not found' }, 404)
-  let score = 0
-  exam.questions.forEach(q => {
-    if (answers[q.id] === q.answer) score += 1
-  })
-  const result = { examId: id, userId, score, total: exam.questions.length, timestamp: new Date().toISOString() }
-  examResults.push(result)
-  return c.json({ success: true, result })
+app.delete('/api/exams/:id', authenticate, async (c) => {
+  try {
+    const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
+    const tenantId = String(actor.tenantId || '').trim()
+    if (!tenantId) return c.json({ success: false, message: 'School context not found.' }, 400)
+
+    const existingExam = await getCbtExamById(c.env.APP_DB, tenantId, c.req.param('id'))
+    if (!existingExam) return c.json({ success: false, message: 'Exam not found' }, 404)
+    if (!canViewCbtExam(actor, c.var.user || {}, existingExam) || !canAuthorCbt(actor.role)) {
+      return c.json({ success: false, message: 'You are not allowed to delete this exam.' }, 403)
+    }
+
+    await deleteCbtExam(c.env.APP_DB, tenantId, existingExam.id)
+    return c.json({ success: true, deletedId: existingExam.id })
+  } catch (error) {
+    return c.json({ success: false, message: 'Server error', error }, 500)
+  }
+})
+
+app.post('/api/exams/:id/start', authenticate, async (c) => {
+  try {
+    const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
+    const tenantId = String(actor.tenantId || '').trim()
+    if (!tenantId) return c.json({ success: false, message: 'School context not found.' }, 400)
+
+    const exam = await getCbtExamById(c.env.APP_DB, tenantId, c.req.param('id'))
+    if (!exam) return c.json({ success: false, message: 'Exam not found' }, 404)
+    if (!canViewCbtExam(actor, c.var.user || {}, exam)) {
+      return c.json({ success: false, message: 'You are not allowed to start this exam.' }, 403)
+    }
+
+    const session = await startCbtExam(c.env.APP_DB, tenantId, exam.id)
+    return c.json({ success: true, ...(session || {}) })
+  } catch (error) {
+    return c.json({ success: false, message: 'Server error', error }, 500)
+  }
+})
+
+app.post('/api/exams/:id/submit', authenticate, async (c) => {
+  try {
+    const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
+    const tenantId = String(actor.tenantId || '').trim()
+    if (!tenantId) return c.json({ success: false, message: 'School context not found.' }, 400)
+
+    const payload = await c.req.json() as Record<string, any>
+    const exam = await getCbtExamById(c.env.APP_DB, tenantId, c.req.param('id'))
+    if (!exam) return c.json({ success: false, message: 'Exam not found' }, 404)
+    if (!canViewCbtExam(actor, c.var.user || {}, exam)) {
+      return c.json({ success: false, message: 'You are not allowed to submit this exam.' }, 403)
+    }
+
+    const result = await submitCbtExamAttempt(c.env.APP_DB, {
+      tenantId,
+      examId: exam.id,
+      studentId: String(payload.userId || actor.actorId || '').trim(),
+      answers: payload.answers && typeof payload.answers === 'object' ? payload.answers : {},
+    })
+    return c.json({ success: true, result })
+  } catch (error) {
+    return c.json({ success: false, message: 'Server error', error }, 500)
+  }
+})
+
+app.get('/api/practice/questions', authenticate, async (c) => {
+  try {
+    const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
+    const tenantId = String(actor.tenantId || '').trim()
+    if (!tenantId) return c.json({ success: false, message: 'School context not found.' }, 400)
+
+    const practice = await buildPracticeQuestionFeed(c.env.APP_DB, tenantId, {
+      classId: String(c.req.query('classId') || '').trim(),
+      subjectId: String(c.req.query('subjectId') || '').trim(),
+      studentId: String(c.req.query('studentId') || actor.actorId || '').trim(),
+    })
+    return c.json({ success: true, ...practice })
+  } catch (error) {
+    return c.json({ success: false, message: 'Server error', error }, 500)
+  }
 })
 
 // Purchase and package (in-memory books)
@@ -3674,6 +4854,244 @@ app.post('/api/admin/log', (c) => {
   return c.json({ success: true, loggedAt: new Date().toISOString() })
 })
 
+app.get('/api/ai/access', authenticate, async (c) => {
+  try {
+    const actor = await resolveAiActor(c.env.APP_DB, c.var.user || {})
+    return c.json({ success: true, ...(await buildAiAccessPayload(c.env.APP_DB, actor)) })
+  } catch (error) {
+    return c.json({ success: false, message: 'Could not load AI access.', error }, 500)
+  }
+})
+
+app.post('/api/ai/access/settings', authenticate, async (c) => {
+  try {
+    const actor = await resolveAiActor(c.env.APP_DB, c.var.user || {})
+    if (!canManageAiBilling(actor.role)) return c.json({ success: false, message: 'forbidden' }, 403)
+
+    const payload = await c.req.json().catch(() => ({})) as Record<string, any>
+    const requestedScope = String(payload.scope || '').trim().toLowerCase()
+    const requestedTenantId = String(payload.tenantId || '').trim()
+
+    if (String(actor.role || '').trim().toLowerCase() !== 'ami' && requestedTenantId && requestedTenantId !== actor.tenantId) {
+      return c.json({ success: false, message: 'You can only manage AI billing for your own school.' }, 403)
+    }
+
+    const tenantId = requestedScope === 'global'
+      ? ''
+      : String((String(actor.role || '').trim().toLowerCase() === 'ami' ? requestedTenantId : actor.tenantId) || '').trim()
+
+    if (!tenantId && requestedScope !== 'global' && String(actor.role || '').trim().toLowerCase() !== 'ami') {
+      return c.json({ success: false, message: 'No tenant is available for AI billing management.' }, 400)
+    }
+
+    const settingsKey = tenantId ? getTenantAiBillingSettingsKey(tenantId) : AI_GLOBAL_SETTINGS_KEY
+    const existing = await getSettings(c.env.APP_DB, settingsKey).catch(() => null)
+    const next = normalizeAiBillingPolicy({ ...existing, ...payload })
+
+    await upsertSettings(c.env.APP_DB, settingsKey, next)
+    const resolved = await getResolvedAiBillingPolicy(c.env.APP_DB, tenantId)
+
+    return c.json({
+      success: true,
+      tenantId,
+      scope: tenantId ? 'tenant' : 'global',
+      policy: resolved.policy,
+    })
+  } catch (error) {
+    return c.json({ success: false, message: 'Could not save AI billing settings.', error }, 500)
+  }
+})
+
+app.post('/api/ai/access/top-up/initiate', authenticate, async (c) => {
+  try {
+    const actor = await resolveAiActor(c.env.APP_DB, c.var.user || {})
+    const payload = await c.req.json().catch(() => ({})) as Record<string, any>
+    const target = String(payload.target || 'individual').trim().toLowerCase() === 'school' ? 'school' : 'individual'
+    const quantity = Math.max(1, Math.floor(Number(payload.quantity) || 0))
+
+    if (!quantity) {
+      return c.json({ success: false, message: 'A positive credit quantity is required.' }, 400)
+    }
+
+    if (target === 'school' && !canManageAiBilling(actor.role)) {
+      return c.json({ success: false, message: 'Only the school owner or Ami can top up school AI credits.' }, 403)
+    }
+
+    if (target === 'school' && !actor.tenantId) {
+      return c.json({ success: false, message: 'No school is available for school-sponsored AI billing.' }, 400)
+    }
+
+    const { policy } = await getResolvedAiBillingPolicy(c.env.APP_DB, actor.tenantId)
+    if (policy.pricePerCreditNaira <= 0) {
+      return c.json({ success: false, message: 'AI credit pricing has not been configured yet.' }, 400)
+    }
+
+    const amountNaira = Number((quantity * policy.pricePerCreditNaira).toFixed(2))
+    const txRef = `ai_${target}_${String(actor.actorId || actor.settingsKey || 'user').replace(/[^a-zA-Z0-9_-]/g, '_')}_${Date.now()}`
+
+    await saveAiPaymentRecord(c.env.APP_DB, txRef, {
+      target,
+      tenantId: actor.tenantId,
+      settingsKey: actor.settingsKey,
+      initiatedBy: actor.actorId,
+      initiatedRole: actor.role,
+      userEmail: actor.email,
+      userName: actor.actorName,
+      quantity,
+      amountNaira,
+      currency: 'NGN',
+      status: 'pending',
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    })
+
+    const flutterwavePayload = {
+      tx_ref: txRef,
+      amount: amountNaira,
+      currency: 'NGN',
+      redirect_url: buildAiCreditRedirectUrl(c, txRef),
+      customer: {
+        email: actor.email || 'billing@ndovera.com',
+        name: actor.actorName || 'NDOVERA User',
+        phone_number: actor.phone || undefined,
+      },
+      customizations: {
+        title: 'NDOVERA AI Credits',
+        description: `${quantity} AI credits for ${target === 'school' ? 'school-sponsored AI access' : 'personal AI access'}`,
+      },
+    }
+
+    const providerResponse = await createFlutterwavePayment(c, flutterwavePayload)
+    const payment = await saveAiPaymentRecord(c.env.APP_DB, txRef, {
+      target,
+      tenantId: actor.tenantId,
+      settingsKey: actor.settingsKey,
+      initiatedBy: actor.actorId,
+      initiatedRole: actor.role,
+      userEmail: actor.email,
+      userName: actor.actorName,
+      quantity,
+      amountNaira,
+      currency: 'NGN',
+      status: 'pending',
+      flutterwaveLink: String(providerResponse?.data?.link || '').trim(),
+      providerResponse,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    })
+
+    return c.json({ success: true, payment, paymentLink: providerResponse?.data?.link || '' })
+  } catch (error) {
+    return c.json({ success: false, message: error instanceof Error ? error.message : 'Could not start AI credit checkout.' }, 500)
+  }
+})
+
+app.post('/api/ai/access/top-up/verify', authenticate, async (c) => {
+  try {
+    const actor = await resolveAiActor(c.env.APP_DB, c.var.user || {})
+    const payload = await c.req.json().catch(() => ({})) as Record<string, any>
+    const txRef = String(payload.txRef || '').trim()
+    if (!txRef) return c.json({ success: false, message: 'txRef is required.' }, 400)
+
+    const payment = await getAiPaymentRecord(c.env.APP_DB, txRef)
+    if (!payment) return c.json({ success: false, message: 'AI credit payment not found.' }, 404)
+    if (!canAccessAiCreditPayment(actor, payment)) {
+      return c.json({ success: false, message: 'You are not allowed to verify this AI credit payment.' }, 403)
+    }
+
+    if (payment.status === 'paid') {
+      const access = await summarizeAiAccess(c.env.APP_DB, { tenantId: payment.tenantId, settingsKey: payment.settingsKey })
+      return c.json({ success: true, verified: true, payment, access })
+    }
+
+    const providerResponse = await verifyFlutterwavePayment(c, txRef)
+    const providerStatus = String(providerResponse?.data?.status || '').trim().toLowerCase()
+    const providerAmount = Number(providerResponse?.data?.amount || 0)
+    const isVerified = ['successful', 'completed'].includes(providerStatus)
+      && Math.abs(providerAmount - Number(payment.amountNaira || 0)) < 0.01
+
+    if (!isVerified) {
+      const updatedPayment = await saveAiPaymentRecord(c.env.APP_DB, txRef, {
+        ...payment,
+        status: providerStatus || 'failed',
+        providerResponse,
+      })
+      return c.json({
+        success: false,
+        verified: false,
+        payment: updatedPayment,
+        message: 'Flutterwave has not confirmed this AI credit payment yet.',
+      }, 400)
+    }
+
+    const access = await grantAiCredits(c.env.APP_DB, {
+      tenantId: payment.tenantId,
+      settingsKey: payment.settingsKey,
+      quantity: payment.quantity,
+      target: payment.target,
+    })
+
+    const updatedPayment = await saveAiPaymentRecord(c.env.APP_DB, txRef, {
+      ...payment,
+      status: 'paid',
+      paidAt: new Date().toISOString(),
+      flutterwaveTxId: String(providerResponse?.data?.id || payment.flutterwaveTxId || '').trim(),
+      providerResponse,
+    })
+
+    return c.json({ success: true, verified: true, payment: updatedPayment, access })
+  } catch (error) {
+    return c.json({ success: false, message: error instanceof Error ? error.message : 'Could not verify AI credit payment.' }, 500)
+  }
+})
+
+app.post('/api/ai/tutor/ask', authenticate, async (c) => {
+  try {
+    const actor = await resolveAiActor(c.env.APP_DB, c.var.user || {})
+    const payload = await c.req.json().catch(() => ({})) as Record<string, any>
+    const prompt = String(payload.prompt || '').trim()
+    const mode = String(payload.mode || 'Explain Mode').trim()
+
+    if (!prompt) {
+      return c.json({ success: false, message: 'Prompt is required.' }, 400)
+    }
+
+    if (!isAcademicOnlyPrompt(prompt)) {
+      const access = await summarizeAiAccess(c.env.APP_DB, { tenantId: actor.tenantId, settingsKey: actor.settingsKey })
+      return c.json({
+        success: false,
+        message: 'Ndovera AI responds only to academic questions. Please ask about a subject topic, problem, or exam review.',
+        access,
+      }, 400)
+    }
+
+    const consumption = await consumeAiAccess(c.env.APP_DB, {
+      tenantId: actor.tenantId,
+      settingsKey: actor.settingsKey,
+      actorId: actor.actorId,
+      actorName: actor.actorName,
+    })
+
+    if (!consumption.allowed) {
+      return c.json({
+        success: false,
+        message: consumption.reason,
+        access: consumption.access,
+      }, consumption.statusCode)
+    }
+
+    return c.json({
+      success: true,
+      answer: buildAcademicAiResponse(prompt, mode),
+      source: consumption.source,
+      chargedCredits: consumption.chargedCredits,
+      access: consumption.access,
+    })
+  } catch (error) {
+    return c.json({ success: false, message: error instanceof Error ? error.message : 'Could not process the AI request.' }, 500)
+  }
+})
+
 app.post('/api/ai/review', (c) => {
   const report = {
     academicQuality: 'High',
@@ -3689,6 +5107,10 @@ app.post('/api/ai/review', (c) => {
 const USERS_TABLE_SQL = `CREATE TABLE IF NOT EXISTS users (id TEXT PRIMARY KEY, email TEXT UNIQUE, name TEXT, role TEXT, tenantId TEXT, passwordHash TEXT, status TEXT, createdAt TEXT)`
 const PARENT_STUDENT_LINKS_SQL = `CREATE TABLE IF NOT EXISTS parent_student_links (id TEXT PRIMARY KEY, parent_id TEXT, student_id TEXT, tenant_id TEXT, created_at TEXT)`
 const CLASSES_TABLE_SQL = `CREATE TABLE IF NOT EXISTS classes (id TEXT PRIMARY KEY, tenantId TEXT, name TEXT, arm TEXT, classTeacherId TEXT, createdAt TEXT)`
+const DEFAULT_FEATURE_FLAGS = {
+  aurasEnabled: false,
+  farmingModeEnabled: false,
+}
 
 type DisplayIdConfig = {
   counterKey: string
@@ -3698,6 +5120,24 @@ type DisplayIdConfig = {
 
 async function ensureUsersTable(db: D1Database) {
   await db.prepare(USERS_TABLE_SQL).run()
+}
+
+function pickFeatureFlagOverrides(value: Record<string, any> | null | undefined) {
+  const overrides = {} as Record<string, boolean>
+  if (typeof value?.aurasEnabled === 'boolean') overrides.aurasEnabled = value.aurasEnabled
+  if (typeof value?.farmingModeEnabled === 'boolean') overrides.farmingModeEnabled = value.farmingModeEnabled
+  return overrides
+}
+
+async function getResolvedFeatureFlags(db: D1Database, tenantId = '') {
+  const globalFlags = pickFeatureFlagOverrides(await getSettings(db, 'platform_feature_flags'))
+  const tenantFlags = tenantId ? pickFeatureFlagOverrides(await getSettings(db, `tenant_feature_flags_${tenantId}`)) : {}
+
+  return {
+    globalFlags: { ...DEFAULT_FEATURE_FLAGS, ...globalFlags },
+    tenantFlags,
+    featureFlags: { ...DEFAULT_FEATURE_FLAGS, ...globalFlags, ...tenantFlags },
+  }
 }
 
 async function getTenantUserCounts(db: D1Database, tenantId: string) {
@@ -3794,9 +5234,14 @@ async function hydrateUserRecord(db: D1Database, row: Record<string, any> | null
 
   const settingsKey = row.email || row.id
   const settings = settingsKey ? await getSettings(db, settingsKey).catch(() => null) : null
+  const roleContext = buildRoleContext(settings || {}, row.role)
 
   return {
     ...row,
+    role: roleContext.primaryRole,
+    roles: roleContext.rawRoles,
+    switchableRoles: roleContext.switchableRoles,
+    adminRoles: roleContext.adminRoles,
     displayId: settings?.displayId || null,
     phone: settings?.phone || null,
     classId: settings?.classId || null,
@@ -3918,7 +5363,12 @@ app.post('/api/conversations/:id/messages', authenticate, async (c) => {
 app.post('/api/conversations/:id/mark-read', authenticate, async (c) => {
   const { id } = c.req.param()
   try {
-    await markMessagesRead(c.env.APP_DB, id)
+    const currentUser = c.var.user || {}
+    const userIdentifier = currentUser.id || currentUser.email || currentUser.sub || ''
+    const resolvedReader = userIdentifier ? await resolveSettingsIdentity(c.env.APP_DB, userIdentifier) : { settingsKey: '', settings: null, userRow: null }
+    const readerIdentifiers = collectResolvedIdentityIdentifiers(resolvedReader, currentUser)
+    const canonicalReaderId = String(await resolveCanonicalUserIdentifier(c.env.APP_DB, userIdentifier).catch(() => null) || readerIdentifiers[0] || userIdentifier).trim()
+    await markMessagesRead(c.env.APP_DB, id, canonicalReaderId, readerIdentifiers)
     return c.json({ success: true })
   } catch (err) {
     return c.json({ success: false, error: 'Could not mark read' }, 500)
@@ -3987,9 +5437,10 @@ app.post('/api/people', authenticate, async (c) => {
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
   const { name, email, role, password, parentData, classId } = await c.req.json()
   if (!name || !email || !role) return c.json({ error: 'name, email, and role are required.' }, 400)
+  const normalizedRole = normalizeRole(role)
 
   let selectedClass: Record<string, any> | null = null
-  if (role === 'student') {
+  if (normalizedRole === 'student') {
     await ensureClassesTable(c.env.APP_DB)
     if (!classId) return c.json({ error: 'Students must be assigned to a class. Create or select a class first.' }, 400)
     selectedClass = await c.env.APP_DB.prepare(
@@ -4001,7 +5452,9 @@ app.post('/api/people', authenticate, async (c) => {
   const userId = `user_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`
   const defaultPassword = password || 'abcABC@123'
   const existingSettings = await getSettings(c.env.APP_DB, email).catch(() => null)
-  const displayId = existingSettings?.displayId || await generateDisplayId(c.env.APP_DB, getDisplayIdConfig(role))
+  const mergedRoles = parseRoleList(existingSettings?.role, existingSettings?.roles, normalizedRole)
+  const primaryRole = normalizeRole(existingSettings?.role) || mergedRoles[0] || normalizedRole
+  const displayId = existingSettings?.displayId || await generateDisplayId(c.env.APP_DB, getDisplayIdConfig(primaryRole))
 
   try {
     await ensureUsersTable(c.env.APP_DB)
@@ -4009,7 +5462,8 @@ app.post('/api/people', authenticate, async (c) => {
       ...(existingSettings || {}),
       email,
       name,
-      role,
+      role: primaryRole,
+      roles: mergedRoles,
       tenantId,
       schoolId: tenantId,
       status: 'active',
@@ -4022,17 +5476,17 @@ app.post('/api/people', authenticate, async (c) => {
       `INSERT INTO users (id, email, name, role, tenantId, status, createdAt)
        VALUES (?, ?, ?, ?, ?, ?, ?)
        ON CONFLICT(email) DO UPDATE SET name=excluded.name, role=excluded.role, tenantId=excluded.tenantId, status='active'`
-    ).bind(userId, email, name, role, tenantId, 'active', new Date().toISOString()).run()
+    ).bind(userId, email, name, primaryRole, tenantId, 'active', new Date().toISOString()).run()
 
     await upsertSettings(c.env.APP_DB, email, userSettings)
-    await addAudit(c.env.APP_DB, tenantId, { action: 'personCreated', data: { by: c.var.user.id, name, email, role, displayId, classId: classId || null } })
+    await addAudit(c.env.APP_DB, tenantId, { action: 'personCreated', data: { by: c.var.user.id, name, email, role: normalizedRole, roles: mergedRoles, displayId, classId: classId || null } })
 
     const saved = await c.env.APP_DB.prepare(
       `SELECT id, email, name, role, status, createdAt FROM users WHERE email = ?`
     ).bind(email).first() as Record<string, any> | null
     const actualUserId = saved?.id || userId
 
-    if (role === 'student' && parentData) {
+    if (normalizedRole === 'student' && parentData) {
       await ensureParentStudentLinksTable(c.env.APP_DB)
 
       let parentId: string | null = null
@@ -4078,7 +5532,7 @@ app.post('/api/people', authenticate, async (c) => {
       }
     }
 
-    const hydratedSaved = await hydrateUserRecord(c.env.APP_DB, saved || { id: userId, email, name, role, status: 'active' })
+    const hydratedSaved = await hydrateUserRecord(c.env.APP_DB, saved || { id: userId, email, name, role: primaryRole, status: 'active' })
     return c.json({ success: true, user: hydratedSaved }, 201)
   } catch (err) {
     return c.json({ error: err instanceof Error ? err.message : 'Could not create person.' }, 500)
@@ -4117,10 +5571,13 @@ app.post('/api/people/bulk', authenticate, async (c) => {
       const userId = `user_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`
       const defaultPassword = password || 'abcABC@123'
       const existingSettings = await getSettings(c.env.APP_DB, email).catch(() => null)
-      const displayId = existingSettings?.displayId || await generateDisplayId(c.env.APP_DB, getDisplayIdConfig(role))
+      const normalizedRole = normalizeRole(role)
+      const mergedRoles = parseRoleList(existingSettings?.role, existingSettings?.roles, normalizedRole)
+      const primaryRole = normalizeRole(existingSettings?.role) || mergedRoles[0] || normalizedRole
+      const displayId = existingSettings?.displayId || await generateDisplayId(c.env.APP_DB, getDisplayIdConfig(primaryRole))
 
       let selectedClass: Record<string, any> | null = null
-      if (role === 'student' && className) {
+      if (normalizedRole === 'student' && className) {
         selectedClass = await c.env.APP_DB.prepare(
           `SELECT id, name, arm FROM classes WHERE (name = ? OR (name || ' ' || COALESCE(arm,'')) = ?) AND tenantId = ? LIMIT 1`
         ).bind(className.trim(), className.trim(), tenantId).first() as Record<string, any> | null
@@ -4130,7 +5587,8 @@ app.post('/api/people/bulk', authenticate, async (c) => {
         ...(existingSettings || {}),
         email,
         name,
-        role,
+        role: primaryRole,
+        roles: mergedRoles,
         tenantId,
         schoolId: tenantId,
         status: 'active',
@@ -4143,7 +5601,7 @@ app.post('/api/people/bulk', authenticate, async (c) => {
         `INSERT INTO users (id, email, name, role, tenantId, status, createdAt)
          VALUES (?, ?, ?, ?, ?, ?, ?)
          ON CONFLICT(email) DO UPDATE SET name=excluded.name, role=excluded.role, tenantId=excluded.tenantId, status='active'`
-      ).bind(userId, email, name, role, tenantId, 'active', new Date().toISOString()).run()
+      ).bind(userId, email, name, primaryRole, tenantId, 'active', new Date().toISOString()).run()
 
       await upsertSettings(c.env.APP_DB, email, userSettings)
       results.push({ email, status: 'ok' })
@@ -4185,14 +5643,17 @@ app.put('/api/people/:userId/role', authenticate, async (c) => {
   if (!role) return c.json({ error: 'role is required.' }, 400)
   try {
     const existingUser = await c.env.APP_DB.prepare(`SELECT email FROM users WHERE id = ? AND tenantId = ?`).bind(userId, tenantId).first() as any
-    await c.env.APP_DB.prepare(`UPDATE users SET role=? WHERE id=? AND tenantId=?`).bind(role, userId, tenantId).run()
+    const normalizedRole = normalizeRole(role)
+    const settings = existingUser?.email ? await getSettings(c.env.APP_DB, existingUser.email).catch(() => null) : null
+    const mergedRoles = parseRoleList(settings?.role, settings?.roles, normalizedRole)
+    const primaryRole = normalizeRole(settings?.role) || mergedRoles[0] || normalizedRole
+    await c.env.APP_DB.prepare(`UPDATE users SET role=? WHERE id=? AND tenantId=?`).bind(primaryRole, userId, tenantId).run()
     if (existingUser?.email) {
-      const settings = await getSettings(c.env.APP_DB, existingUser.email).catch(() => null)
       if (settings) {
-        await upsertSettings(c.env.APP_DB, existingUser.email, { ...settings, role })
+        await upsertSettings(c.env.APP_DB, existingUser.email, { ...settings, role: primaryRole, roles: mergedRoles })
       }
     }
-    await addAudit(c.env.APP_DB, tenantId, { action: 'personRoleUpdated', data: { by: c.var.user.id, userId, role } })
+    await addAudit(c.env.APP_DB, tenantId, { action: 'personRoleUpdated', data: { by: c.var.user.id, userId, role: normalizedRole, roles: mergedRoles } })
     return c.json({ success: true })
   } catch (err) {
     return c.json({ error: 'Could not update role.' }, 500)
@@ -5209,6 +6670,513 @@ app.post('/api/school/session', authenticate, async (c) => {
   }
 })
 
+app.get('/api/results/templates', authenticate, async (c) => {
+  return c.json({ success: true, templates: RESULT_TEMPLATE_CATALOG, suggestedSettings: getSuggestedResultSettings() })
+})
+
+app.get('/api/results/settings', authenticate, async (c) => {
+  const { tenant } = await resolveTenantForActor(c)
+  if (!tenant) return c.json({ error: 'Tenant not found.' }, 404)
+
+  const stored = await getResultSettings(c.env.APP_DB, tenant.id)
+  const settings = { ...stored, ...normalizeResultSettingsInput(stored) }
+  const configurationError = validateResultSettings(settings)
+
+  return c.json({
+    success: true,
+    settings,
+    templates: RESULT_TEMPLATE_CATALOG,
+    suggestedSettings: getSuggestedResultSettings(),
+    configurationReady: !configurationError,
+    configurationError,
+    canManageSettings: hasRequiredRole(c.var.user.role, RESULT_SETTINGS_EDITOR_ROLES),
+  })
+})
+
+app.post('/api/results/settings', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, RESULT_SETTINGS_EDITOR_ROLES)) return c.json({ error: 'forbidden' }, 403)
+  const { tenant } = await resolveTenantForActor(c)
+  if (!tenant) return c.json({ error: 'Tenant not found.' }, 404)
+
+  const actorId = String(c.var.user?.id || c.var.user?.email || c.var.user?.sub || '').trim()
+  const normalized = normalizeResultSettingsInput(await c.req.json().catch(() => ({})))
+  const configurationError = validateResultSettings(normalized)
+  if (configurationError) return c.json({ error: configurationError }, 400)
+
+  const saved = await saveResultSettings(c.env.APP_DB, tenant.id, normalized, actorId)
+  const settings = { ...saved, ...normalizeResultSettingsInput(saved) }
+  return c.json({ success: true, settings, configurationReady: true, configurationError: '' })
+})
+
+app.get('/api/results/sheet', authenticate, async (c) => {
+  const query = c.req.query()
+  const classId = String(query.classId || '').trim()
+  if (!classId) return c.json({ error: 'classId is required.' }, 400)
+
+  const access = await resolveResultClassAccess(c.env.APP_DB, c.var.user || {}, classId)
+  if (!access.tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!access.classRow) return c.json({ error: 'Class not found.' }, 404)
+  if (!access.canManageEntries && !access.isElevatedManager) return c.json({ error: 'forbidden' }, 403)
+
+  const period = await resolveCurrentResultPeriod(c.env.APP_DB, access.tenantId, query.sessionName || query.session, query.termName || query.term)
+  const storedSettings = await getResultSettings(c.env.APP_DB, access.tenantId)
+  const settings = { ...storedSettings, ...normalizeResultSettingsInput(storedSettings) }
+  const configurationError = validateResultSettings(settings)
+  const batch = await getResultBatch(c.env.APP_DB, access.tenantId, classId, period.sessionName, period.termName)
+  const [entries, profiles, students] = await Promise.all([
+    listResultEntries(c.env.APP_DB, batch.id),
+    listResultStudentProfiles(c.env.APP_DB, batch.id),
+    listResultClassStudents(c.env.APP_DB, access.tenantId, access.classRow),
+  ])
+
+  return c.json({
+    success: true,
+    period,
+    settings,
+    configurationReady: !configurationError,
+    configurationError,
+    templates: RESULT_TEMPLATE_CATALOG,
+    classroom: {
+      id: String(access.classRow.id || ''),
+      className: `${access.classRow.name}${access.classRow.arm ? ` ${access.classRow.arm}` : ''}`,
+      isClassTeacher: access.isClassTeacher,
+    },
+    permissions: {
+      canManageEntries: access.canManageEntries,
+      canManageProfiles: access.canManageProfiles,
+      canSubmit: access.canManageProfiles || RESULT_APPROVER_ROLES.includes(access.normalizedRole),
+      canPublish: RESULT_APPROVER_ROLES.includes(access.normalizedRole),
+    },
+    subjects: access.allowedSubjectRows.map(subject => ({
+      id: String(subject.id || ''),
+      name: String(subject.name || ''),
+      teacherId: String(subject.teacherId || ''),
+    })),
+    students,
+    batch,
+    entries,
+    profiles,
+  })
+})
+
+app.post('/api/results/entries', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, RESULT_ENTRY_EDITOR_ROLES)) return c.json({ error: 'forbidden' }, 403)
+  const body = await c.req.json().catch(() => ({}))
+  const classId = String(body.classId || '').trim()
+  if (!classId) return c.json({ error: 'classId is required.' }, 400)
+
+  const access = await resolveResultClassAccess(c.env.APP_DB, c.var.user || {}, classId)
+  if (!access.tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!access.classRow) return c.json({ error: 'Class not found.' }, 404)
+  if (!access.canManageEntries) return c.json({ error: 'You are not allowed to enter scores for this class.' }, 403)
+
+  const period = await resolveCurrentResultPeriod(c.env.APP_DB, access.tenantId, body.sessionName || body.session, body.termName || body.term)
+  const storedSettings = await getResultSettings(c.env.APP_DB, access.tenantId)
+  const settings = { ...storedSettings, ...normalizeResultSettingsInput(storedSettings) }
+  const configurationError = validateResultSettings(settings)
+  if (configurationError) return c.json({ error: configurationError }, 400)
+
+  const students = await listResultClassStudents(c.env.APP_DB, access.tenantId, access.classRow)
+  const allowedStudentIds = new Set(students.map(student => String(student.id || '')))
+  const allowedSubjects = new Map(access.allowedSubjectRows.map(subject => [String(subject.id || ''), subject]))
+  const rows = Array.isArray(body.rows) ? body.rows : []
+  const normalizedRows = rows
+    .map((row: any) => {
+      const subject = allowedSubjects.get(String(row.subjectId || ''))
+      const studentId = String(row.studentId || '')
+      if (!subject || !allowedStudentIds.has(studentId)) return null
+
+      return {
+        studentId,
+        subjectId: String(subject.id || ''),
+        subjectName: String(subject.name || ''),
+        teacherId: String(subject.teacherId || access.actorId || ''),
+        caScore: clampResultScore(row.caScore, 40),
+        examScore: clampResultScore(row.examScore, 60),
+      }
+    })
+    .filter(Boolean) as Array<Record<string, any>>
+
+  if (normalizedRows.length === 0) return c.json({ error: 'No valid score rows were provided.' }, 400)
+
+  const batch = await upsertResultEntries(c.env.APP_DB, {
+    tenantId: access.tenantId,
+    classId,
+    sessionName: period.sessionName,
+    termName: period.termName,
+    actorId: access.actorId,
+    templateKey: settings.templateKey,
+    settingsSnapshot: settings,
+    rows: normalizedRows,
+  })
+
+  return c.json({ success: true, batch, savedRows: normalizedRows.length })
+})
+
+app.post('/api/results/profiles', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, RESULT_ENTRY_EDITOR_ROLES)) return c.json({ error: 'forbidden' }, 403)
+  const body = await c.req.json().catch(() => ({}))
+  const classId = String(body.classId || '').trim()
+  if (!classId) return c.json({ error: 'classId is required.' }, 400)
+
+  const access = await resolveResultClassAccess(c.env.APP_DB, c.var.user || {}, classId)
+  if (!access.tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!access.classRow) return c.json({ error: 'Class not found.' }, 404)
+  if (!access.canManageProfiles) return c.json({ error: 'Only the class teacher, HoS, owner, or ICT manager can update class result profiles.' }, 403)
+
+  const period = await resolveCurrentResultPeriod(c.env.APP_DB, access.tenantId, body.sessionName || body.session, body.termName || body.term)
+  const storedSettings = await getResultSettings(c.env.APP_DB, access.tenantId)
+  const settings = { ...storedSettings, ...normalizeResultSettingsInput(storedSettings) }
+  const configurationError = validateResultSettings(settings)
+  if (configurationError) return c.json({ error: configurationError }, 400)
+
+  const students = await listResultClassStudents(c.env.APP_DB, access.tenantId, access.classRow)
+  const allowedStudentIds = new Set(students.map(student => String(student.id || '')))
+  const affectiveDomains = normalizeResultDomainList(settings.affectiveDomains, RESULT_DEFAULT_AFFECTIVE_DOMAINS, 8)
+  const ratingDomains = normalizeResultDomainList(settings.metadata?.ratingDomains, RESULT_DEFAULT_RATING_DOMAINS, 8)
+  const affectiveMax = Math.max(...settings.affectiveScale.map((entry: any) => Number(entry.value || 0)), 5)
+  const ratingMax = Math.max(...settings.ratingScale.map((entry: any) => Number(entry.value || 0)), 5)
+  const allowedAffectiveKeys = new Set(affectiveDomains.map(domain => domain.key))
+  const allowedRatingKeys = new Set(ratingDomains.map(domain => domain.key))
+  const rows = Array.isArray(body.rows) ? body.rows : []
+  const normalizedRows = rows
+    .map((row: any) => {
+      const studentId = String(row.studentId || '')
+      if (!allowedStudentIds.has(studentId)) return null
+
+      const affective = Object.fromEntries(
+        Object.entries((row.affective && typeof row.affective === 'object') ? row.affective : {})
+          .filter(([key]) => allowedAffectiveKeys.has(String(key)))
+          .map(([key, value]) => [String(key), clampResultScore(value, affectiveMax)])
+      )
+      const ratings = Object.fromEntries(
+        Object.entries((row.ratings && typeof row.ratings === 'object') ? row.ratings : {})
+          .filter(([key]) => allowedRatingKeys.has(String(key)))
+          .map(([key, value]) => [String(key), clampResultScore(value, ratingMax)])
+      )
+
+      return {
+        studentId,
+        attendanceRate: clampResultScore(row.attendanceRate, 100),
+        affective,
+        ratings,
+        teacherRemark: String(row.teacherRemark || '').trim(),
+        principalRemark: String(row.principalRemark || '').trim(),
+        promotionStatus: String(row.promotionStatus || '').trim(),
+      }
+    })
+    .filter(Boolean) as Array<Record<string, any>>
+
+  if (normalizedRows.length === 0) return c.json({ error: 'No valid student profile rows were provided.' }, 400)
+
+  const batch = await upsertResultStudentProfiles(c.env.APP_DB, {
+    tenantId: access.tenantId,
+    classId,
+    sessionName: period.sessionName,
+    termName: period.termName,
+    actorId: access.actorId,
+    templateKey: settings.templateKey,
+    settingsSnapshot: settings,
+    rows: normalizedRows,
+  })
+
+  return c.json({ success: true, batch, savedRows: normalizedRows.length })
+})
+
+app.post('/api/results/batch-status', authenticate, async (c) => {
+  const body = await c.req.json().catch(() => ({}))
+  const classId = String(body.classId || '').trim()
+  const status = String(body.status || '').trim().toLowerCase()
+  if (!classId || !['draft', 'submitted'].includes(status)) return c.json({ error: 'classId and a valid status are required.' }, 400)
+
+  const access = await resolveResultClassAccess(c.env.APP_DB, c.var.user || {}, classId)
+  if (!access.tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!access.classRow) return c.json({ error: 'Class not found.' }, 404)
+  if (!access.canManageProfiles && !RESULT_APPROVER_ROLES.includes(access.normalizedRole)) {
+    return c.json({ error: 'Only the class teacher, HoS, or owner can submit this batch.' }, 403)
+  }
+
+  const period = await resolveCurrentResultPeriod(c.env.APP_DB, access.tenantId, body.sessionName || body.session, body.termName || body.term)
+  const storedSettings = await getResultSettings(c.env.APP_DB, access.tenantId)
+  const settings = { ...storedSettings, ...normalizeResultSettingsInput(storedSettings) }
+  if (status === 'submitted') {
+    const configurationError = validateResultSettings(settings)
+    if (configurationError) return c.json({ error: configurationError }, 400)
+  }
+
+  const batch = await updateResultBatchStatus(c.env.APP_DB, {
+    tenantId: access.tenantId,
+    classId,
+    sessionName: period.sessionName,
+    termName: period.termName,
+    actorId: access.actorId,
+    status: status as 'draft' | 'submitted',
+    templateKey: settings.templateKey,
+    settingsSnapshot: settings,
+  })
+
+  return c.json({ success: true, batch })
+})
+
+app.post('/api/results/publish', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, RESULT_APPROVER_ROLES)) return c.json({ error: 'forbidden' }, 403)
+  const body = await c.req.json().catch(() => ({}))
+  const classId = String(body.classId || '').trim()
+  if (!classId) return c.json({ error: 'classId is required.' }, 400)
+
+  const access = await resolveResultClassAccess(c.env.APP_DB, c.var.user || {}, classId)
+  if (!access.tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!access.classRow) return c.json({ error: 'Class not found.' }, 404)
+
+  const period = await resolveCurrentResultPeriod(c.env.APP_DB, access.tenantId, body.sessionName || body.session, body.termName || body.term)
+  const storedSettings = await getResultSettings(c.env.APP_DB, access.tenantId)
+  const settings = { ...storedSettings, ...normalizeResultSettingsInput(storedSettings) }
+  const configurationError = validateResultSettings(settings)
+  if (configurationError) return c.json({ error: configurationError }, 400)
+
+  const batch = await getResultBatch(c.env.APP_DB, access.tenantId, classId, period.sessionName, period.termName)
+  const [entries, profiles, students] = await Promise.all([
+    listResultEntries(c.env.APP_DB, batch.id),
+    listResultStudentProfiles(c.env.APP_DB, batch.id),
+    listResultClassStudents(c.env.APP_DB, access.tenantId, access.classRow),
+  ])
+
+  if (entries.length === 0) return c.json({ error: 'No CA score rows were found for this batch.' }, 400)
+
+  const publications = buildPublishedResultPayloads({
+    students,
+    entries,
+    profiles,
+    settings,
+    batch: { ...batch, sessionName: period.sessionName, termName: period.termName },
+    className: `${access.classRow.name}${access.classRow.arm ? ` ${access.classRow.arm}` : ''}`,
+    actorName: access.actorName,
+  })
+  if (publications.length === 0) return c.json({ error: 'No publishable student results were generated from the CA score sheet.' }, 400)
+
+  const publishedBatch = await saveResultPublications(c.env.APP_DB, {
+    tenantId: access.tenantId,
+    classId,
+    sessionName: period.sessionName,
+    termName: period.termName,
+    actorId: access.actorId,
+    templateKey: settings.templateKey,
+    settingsSnapshot: settings,
+    publications,
+  })
+
+  return c.json({ success: true, batch: publishedBatch, publishedCount: publications.length })
+})
+
+app.get('/api/results/overview', authenticate, async (c) => {
+  const { tenant } = await resolveTenantForActor(c)
+  if (!tenant) return c.json({ error: 'Tenant not found.' }, 404)
+
+  await ensureResultsTables(c.env.APP_DB)
+  const stored = await getResultSettings(c.env.APP_DB, tenant.id)
+  const settings = { ...stored, ...normalizeResultSettingsInput(stored) }
+  const configurationError = validateResultSettings(settings)
+  const [batches, recentDocuments] = await Promise.all([
+    listResultBatches(c.env.APP_DB, tenant.id),
+    listRecentResultDocuments(c.env.APP_DB, tenant.id, 80),
+  ])
+
+  return c.json({
+    success: true,
+    settings,
+    templates: RESULT_TEMPLATE_CATALOG,
+    suggestedSettings: getSuggestedResultSettings(),
+    configurationReady: !configurationError,
+    configurationError,
+    batches,
+    recentDocuments,
+    canManageSettings: hasRequiredRole(c.var.user.role, RESULT_SETTINGS_EDITOR_ROLES),
+    canPublish: hasRequiredRole(c.var.user.role, RESULT_APPROVER_ROLES),
+    canUploadDocuments: hasRequiredRole(c.var.user.role, RESULT_DOCUMENT_UPLOADER_ROLES),
+  })
+})
+
+app.get('/api/results/records', authenticate, async (c) => {
+  const currentUser = c.var.user || {}
+  const userIdentifier = currentUser.id || currentUser.email || currentUser.sub || ''
+  const resolvedUser = await resolveSettingsIdentity(c.env.APP_DB, userIdentifier)
+  const tenantId = resolvedUser.settings?.tenantId || resolvedUser.settings?.schoolId || resolvedUser.userRow?.tenantId || currentUser.tenantId
+  const normalizedRole = getActiveRole(currentUser)
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+
+  const queryStudentId = String(c.req.query('studentId') || '').trim()
+  let students: Array<Record<string, any>> = []
+
+  if (normalizedRole === 'student') {
+    const selfRow = await findUserByIdentifier(c.env.APP_DB, String(resolvedUser.userRow?.id || resolvedUser.settingsKey || userIdentifier || '')).catch(() => null)
+    const hydrated = await hydrateUserRecords(c.env.APP_DB, selfRow ? [selfRow] : [])
+    students = hydrated.map(student => ({
+      id: String(student?.id || ''),
+      name: String(student?.name || ''),
+      email: String(student?.email || ''),
+      displayId: String(student?.displayId || ''),
+      classId: String(student?.classId || ''),
+      className: String(student?.className || ''),
+    }))
+  } else if (normalizedRole === 'parent') {
+    await ensureParentStudentLinksTable(c.env.APP_DB)
+    const parentIdentifiers = Array.from(new Set(collectResolvedIdentityIdentifiers(resolvedUser, currentUser).filter(Boolean)))
+    if (parentIdentifiers.length > 0) {
+      const placeholders = parentIdentifiers.map(() => '?').join(', ')
+      const linkRows = await c.env.APP_DB.prepare(
+        `SELECT DISTINCT student_id FROM parent_student_links WHERE tenant_id = ? AND parent_id IN (${placeholders})`
+      ).bind(tenantId, ...parentIdentifiers).all()
+      const linkedStudentRows = await Promise.all(
+        ((linkRows.results || []) as Record<string, any>[]).map(row => findUserByIdentifier(c.env.APP_DB, String(row.student_id || '')).catch(() => null))
+      )
+      const hydrated = await hydrateUserRecords(c.env.APP_DB, linkedStudentRows.filter(Boolean) as Record<string, any>[])
+      students = hydrated.map(student => ({
+        id: String(student?.id || ''),
+        name: String(student?.name || ''),
+        email: String(student?.email || ''),
+        displayId: String(student?.displayId || ''),
+        classId: String(student?.classId || ''),
+        className: String(student?.className || ''),
+      }))
+    }
+  } else if (queryStudentId && RESULT_SETTINGS_EDITOR_ROLES.concat(RESULT_APPROVER_ROLES).includes(normalizedRole)) {
+    const requested = await findUserByIdentifier(c.env.APP_DB, queryStudentId).catch(() => null)
+    const hydrated = await hydrateUserRecords(c.env.APP_DB, requested ? [requested] : [])
+    students = hydrated
+      .filter(student => String(student?.role || '').toLowerCase() === 'student' && String(student?.tenantId || '') === String(tenantId))
+      .map(student => ({
+        id: String(student?.id || ''),
+        name: String(student?.name || ''),
+        email: String(student?.email || ''),
+        displayId: String(student?.displayId || ''),
+        classId: String(student?.classId || ''),
+        className: String(student?.className || ''),
+      }))
+  }
+
+  if (students.length === 0) {
+    return c.json({ success: true, students: [], activeStudentId: '', lockedByFees: false, feeStatus: 'Not Tracked', publications: [], documents: [] })
+  }
+
+  const selectedStudent = students.find(student => [student.id, student.email, student.displayId].includes(queryStudentId)) || students[0]
+  const feeState = await getStudentFeeStatus(c.env.APP_DB, tenantId, String(selectedStudent.id || ''))
+  const [publications, documents] = await Promise.all([
+    listStudentResultPublications(c.env.APP_DB, tenantId, String(selectedStudent.id || '')),
+    listStudentResultDocuments(c.env.APP_DB, tenantId, String(selectedStudent.id || '')),
+  ])
+  const hideSensitiveContent = ['student', 'parent'].includes(normalizedRole) && feeState.locked
+
+  return c.json({
+    success: true,
+    role: normalizedRole,
+    students,
+    activeStudentId: String(selectedStudent.id || ''),
+    lockedByFees: hideSensitiveContent,
+    feeStatus: feeState.status,
+    publications: hideSensitiveContent
+      ? publications.map(publication => ({ ...publication, payload: null }))
+      : publications,
+    documents: hideSensitiveContent ? [] : documents,
+  })
+})
+
+app.post('/api/results/documents/upload', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, RESULT_DOCUMENT_UPLOADER_ROLES)) return c.json({ error: 'forbidden' }, 403)
+  const { tenant } = await resolveTenantForActor(c)
+  if (!tenant) return c.json({ error: 'Tenant not found.' }, 404)
+
+  const actorId = String(c.var.user?.id || c.var.user?.email || c.var.user?.sub || '').trim()
+  const formData = await c.req.formData()
+  const files = formData.getAll('files').filter(item => item instanceof File) as File[]
+  if (files.length === 0) return c.json({ error: 'Upload at least one PDF file.' }, 400)
+
+  const classId = String(formData.get('classId') || '').trim()
+  const period = await resolveCurrentResultPeriod(
+    c.env.APP_DB,
+    tenant.id,
+    formData.get('sessionName') || formData.get('session') || undefined,
+    formData.get('termName') || formData.get('term') || undefined,
+  )
+
+  let students: Array<Record<string, any>> = []
+  if (classId) {
+    const access = await resolveResultClassAccess(c.env.APP_DB, c.var.user || {}, classId)
+    if (!access.classRow) return c.json({ error: 'Class not found.' }, 404)
+    students = await listResultClassStudents(c.env.APP_DB, tenant.id, access.classRow)
+  } else {
+    await ensureUsersTable(c.env.APP_DB)
+    const rows = await c.env.APP_DB.prepare(`SELECT id, name, email, role, status, createdAt FROM users WHERE tenantId = ? AND role = 'student' ORDER BY name`).bind(tenant.id).all()
+    const hydrated = await hydrateUserRecords(c.env.APP_DB, (rows.results || []) as Record<string, any>[])
+    students = hydrated.map(student => ({
+      id: String(student?.id || ''),
+      name: String(student?.name || ''),
+      email: String(student?.email || ''),
+      displayId: String(student?.displayId || ''),
+      classId: String(student?.classId || ''),
+      className: String(student?.className || ''),
+    }))
+  }
+
+  if (students.length === 0) return c.json({ error: 'No students were available for result distribution.' }, 400)
+
+  const docsToSave: Array<Record<string, any>> = []
+  const results: Array<Record<string, any>> = []
+
+  for (const file of files) {
+    const lowerName = String(file.name || '').toLowerCase()
+    if (!lowerName.endsWith('.pdf') && !String(file.type || '').toLowerCase().includes('pdf')) {
+      results.push({ fileName: file.name, status: 'error', message: 'Only PDF result files are supported.' })
+      continue
+    }
+
+    const matched = matchResultUploadStudent(file.name, students)
+    if (matched.ambiguous) {
+      results.push({ fileName: file.name, status: 'error', message: 'Filename matched more than one student. Include the exact display ID or student email.' })
+      continue
+    }
+    if (!matched.student) {
+      results.push({ fileName: file.name, status: 'error', message: 'Could not match this PDF to a student. Use the exact display ID, student ID, or email in the filename.' })
+      continue
+    }
+
+    const safeFileName = String(file.name || 'result.pdf').replace(/[^A-Za-z0-9_.-]+/g, '_')
+    const key = `results/${normalizeResultDomainKey(tenant.id, 'tenant')}/${normalizeResultDomainKey(period.sessionName, 'session')}/${normalizeResultDomainKey(period.termName, 'term')}/${normalizeResultDomainKey(matched.student.id, 'student')}/${Date.now()}_${safeFileName}`
+    await c.env.UPLOADS.put(key, file.stream(), { httpMetadata: { contentType: file.type || 'application/pdf' } })
+    const uploadedAt = new Date().toISOString()
+
+    docsToSave.push({
+      id: `resultdoc_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
+      tenantId: tenant.id,
+      studentId: matched.student.id,
+      sessionName: period.sessionName,
+      termName: period.termName,
+      sourceKind: 'uploaded-pdf',
+      fileUrl: `https://ndovera.com/files/${key}`,
+      fileName: safeFileName,
+      uploadedBy: actorId,
+      uploadedAt,
+      metadata: {
+        classId: classId || null,
+        matchedBy: matched.matchedBy,
+        originalFileName: file.name,
+      },
+    })
+    results.push({
+      fileName: file.name,
+      status: 'ok',
+      studentId: matched.student.id,
+      studentName: matched.student.name,
+      matchedBy: matched.matchedBy,
+    })
+  }
+
+  if (docsToSave.length > 0) {
+    await saveResultDocuments(c.env.APP_DB, docsToSave)
+  }
+
+  return c.json({ success: true, sessionName: period.sessionName, termName: period.termName, results })
+})
+
 // ─── Fees Config ────────────────────────────────────────────────────────────
 app.get('/api/school/fees-config', authenticate, async (c) => {
   const tenantId = c.var.user?.tenantId
@@ -5408,12 +7376,46 @@ app.get('/api/school/payroll/my-payslip', authenticate, async (c) => {
   try {
     await c.env.APP_DB.prepare(`CREATE TABLE IF NOT EXISTS payroll_entries (id TEXT PRIMARY KEY, tenant_id TEXT, staff_id TEXT, period TEXT, gross REAL, deductions REAL, net REAL, status TEXT, approved INTEGER, submitted INTEGER, created_at TEXT, updated_at TEXT)`).run()
     const settings = await getSettings(c.env.APP_DB, userId)
+    const payrollSettings = await getSettings(c.env.APP_DB, `payroll_settings_${tenantId}`)
     const tenant = tenantId ? await getTenantById(c.env.APP_DB, tenantId) : null
     const rows = await c.env.APP_DB.prepare(`SELECT * FROM payroll_entries WHERE (staff_id = ? OR staff_id = ?) AND tenant_id = ? AND period = ? LIMIT 1`).bind(userId, settings?.email || userId, tenantId, period).first() as any
+    const gross = Number(rows?.gross || 0)
+    const deductions = Number(rows?.deductions || 0)
+    const housingAllowanceRate = Number(payrollSettings?.housingAllowance || 0)
+    const transportAllowanceRate = Number(payrollSettings?.transportAllowance || 0)
+    const taxRate = Number(payrollSettings?.taxRate || 0)
+    const pensionRate = Number(payrollSettings?.pensionRate || 0)
+    const allowanceFactor = 1 + (housingAllowanceRate / 100) + (transportAllowanceRate / 100)
+    const basicSalary = allowanceFactor > 0 ? gross / allowanceFactor : gross
+    const housingAllowance = basicSalary * (housingAllowanceRate / 100)
+    const transportAllowance = basicSalary * (transportAllowanceRate / 100)
+    const incomeTax = gross * (taxRate / 100)
+    const pension = gross * (pensionRate / 100)
+    const otherDeductions = Math.max(0, deductions - incomeTax - pension)
+    const net = Number((rows?.net ?? (gross - deductions)) || 0)
+
     return c.json({ success: true, payslip: {
       staffId: userId, name: settings?.name || c.var.user.name || userId, displayId: settings?.displayId || null,
-      role: settings?.role || c.var.user.role, period, schoolName: tenant?.schoolName || 'School',
-      gross: rows?.gross || 0, deductions: rows?.deductions || 0, net: rows?.net || 0,
+      role: settings?.role || getActiveRole(c.var.user), period, schoolName: tenant?.schoolName || 'School',
+      gross,
+      deductions,
+      net,
+      earnings: [
+        { label: 'Basic Salary', amount: Number(basicSalary.toFixed(2)) },
+        { label: 'Housing Allowance', amount: Number(housingAllowance.toFixed(2)) },
+        { label: 'Transport Allowance', amount: Number(transportAllowance.toFixed(2)) },
+      ].filter(entry => entry.amount > 0 || entry.label === 'Basic Salary'),
+      deductionBreakdown: [
+        { label: 'Income Tax', amount: Number(incomeTax.toFixed(2)) },
+        { label: 'Pension', amount: Number(pension.toFixed(2)) },
+        { label: 'Other Deductions', amount: Number(otherDeductions.toFixed(2)) },
+      ].filter(entry => entry.amount > 0),
+      settings: {
+        housingAllowance: housingAllowanceRate,
+        transportAllowance: transportAllowanceRate,
+        taxRate,
+        pensionRate,
+      },
     }})
   } catch { return c.json({ success: true, payslip: { gross: 0, deductions: 0, net: 0, period } }) }
 })
@@ -6461,52 +8463,69 @@ async function handleSubdomainRequest(request: Request, env: Bindings, subdomain
 // ─── Question Bank Endpoints ────────────────────────────────────────────────
 
 app.get('/api/question-bank', authenticate, async (c) => {
-  const user = c.get('user') as any
-  const db = c.env.DB
-  const { subject, classLevel, type, limit = '200', offset = '0' } = c.req.query() as any
-  let sql = 'SELECT * FROM question_bank WHERE 1=1'
-  const params: any[] = []
-  if (subject) { sql += ' AND subject = ?'; params.push(subject) }
-  if (classLevel) { sql += ' AND classLevel = ?'; params.push(classLevel) }
-  if (type) { sql += ' AND type = ?'; params.push(type) }
-  sql += ' ORDER BY createdAt DESC LIMIT ? OFFSET ?'
-  params.push(Number(limit), Number(offset))
-  const rows = await db.prepare(sql).bind(...params).all()
-  const questions = (rows.results || []).map((q: any) => ({
-    ...q,
-    options: q.options ? (() => { try { return JSON.parse(q.options) } catch { return q.options } })() : null,
-  }))
-  return c.json({ questions })
+  try {
+    const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
+    if (!canAuthorCbt(actor.role) && !canManageCbt(actor.role)) {
+      return c.json({ success: false, message: 'Forbidden' }, 403)
+    }
+
+    const tenantId = String(actor.tenantId || 'global').trim()
+    const questions = await listQuestionBankQuestions(c.env.APP_DB, tenantId, {
+      subject: c.req.query('subject') || '',
+      classLevel: c.req.query('classLevel') || '',
+      classId: c.req.query('classId') || '',
+      subjectId: c.req.query('subjectId') || '',
+      type: c.req.query('type') || '',
+      status: c.req.query('status') || '',
+    })
+    return c.json({ success: true, questions })
+  } catch (error) {
+    return c.json({ success: false, message: 'Server error', error }, 500)
+  }
 })
 
 app.post('/api/question-bank', authenticate, async (c) => {
-  const user = c.get('user') as any
-  if (String(user.role || '').toLowerCase() !== 'ami') {
-    return c.json({ error: 'Forbidden' }, 403)
+  try {
+    const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
+    if (!canAuthorCbt(actor.role) && !canManageCbt(actor.role)) {
+      return c.json({ success: false, message: 'Forbidden' }, 403)
+    }
+
+    const body = await c.req.json() as Record<string, any>
+    if (!body.subject && !body.subjectId) {
+      return c.json({ success: false, message: 'A subject or subjectId is required.' }, 400)
+    }
+    if (!body.type || !(body.prompt || body.text || body.question)) {
+      return c.json({ success: false, message: 'Question type and prompt are required.' }, 400)
+    }
+
+    const result = await saveQuestionToBank(c.env.APP_DB, String(actor.tenantId || 'global').trim(), {
+      ...body,
+      createdBy: actor.actorId,
+    })
+    return c.json({ success: true, question: result.question, deduplicated: result.deduplicated, similarMatches: result.similarMatches }, result.deduplicated ? 200 : 201)
+  } catch (error) {
+    return c.json({ success: false, message: 'Server error', error }, 500)
   }
-  const db = c.env.DB
-  const body = await c.req.json() as any
-  const { subject, classLevel, type, prompt, options, answer, explanation, imageUrl } = body
-  if (!subject || !type || !prompt) return c.json({ error: 'subject, type, and prompt are required' }, 400)
-  const id = crypto.randomUUID()
-  const createdAt = new Date().toISOString()
-  await db.prepare(
-    `INSERT INTO question_bank (id, subject, classLevel, type, prompt, options, answer, explanation, imageUrl, createdAt, createdBy) VALUES (?,?,?,?,?,?,?,?,?,?,?)`
-  ).bind(id, subject, classLevel || null, type, prompt, options ? JSON.stringify(options) : null, answer || null, explanation || null, imageUrl || null, createdAt, user.id || user.email || null).run()
-  return c.json({ success: true, id })
 })
 
 app.delete('/api/question-bank/:id', authenticate, async (c) => {
-  const user = c.get('user') as any
-  if (String(user.role || '').toLowerCase() !== 'ami') {
-    return c.json({ error: 'Forbidden' }, 403)
+  try {
+    const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
+    if (!canManageCbt(actor.role)) {
+      return c.json({ success: false, message: 'Forbidden' }, 403)
+    }
+
+    const tenantId = String(actor.tenantId || 'global').trim()
+    const existing = await listQuestionBankQuestions(c.env.APP_DB, tenantId)
+    const question = existing.find(entry => String(entry.id || '') === String(c.req.param('id') || ''))
+    if (!question) return c.json({ success: false, message: 'Not found' }, 404)
+
+    await deleteQuestionFromBank(c.env.APP_DB, tenantId, String(question.id || ''))
+    return c.json({ success: true })
+  } catch (error) {
+    return c.json({ success: false, message: 'Server error', error }, 500)
   }
-  const db = c.env.DB
-  const id = c.req.param('id')
-  const existing = await db.prepare('SELECT id FROM question_bank WHERE id = ?').bind(id).first()
-  if (!existing) return c.json({ error: 'Not found' }, 404)
-  await db.prepare('DELETE FROM question_bank WHERE id = ?').bind(id).run()
-  return c.json({ success: true })
 })
 
 export default {

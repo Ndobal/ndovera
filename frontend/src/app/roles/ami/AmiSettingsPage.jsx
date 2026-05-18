@@ -3,6 +3,9 @@ import React, { useEffect, useState } from 'react';
 export default function AmiSettingsPage() {
   const [settings, setSettings]     = useState(null);
   const [devices, setDevices]       = useState([]);
+  const [tenants, setTenants]       = useState([]);
+  const [featureScope, setFeatureScope] = useState('global');
+  const [featureFlags, setFeatureFlags] = useState({ aurasEnabled: false, farmingModeEnabled: false });
   const [loading, setLoading]       = useState(true);
   const [error, setError]           = useState('');
   const [notice, setNotice]         = useState('');
@@ -13,18 +16,36 @@ export default function AmiSettingsPage() {
   const token = localStorage.getItem('token');
   const headers = { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` };
 
+  async function loadFeatureFlags(scope = 'global') {
+    const tenantId = scope === 'global' ? '' : scope;
+    const query = tenantId ? `?tenantId=${encodeURIComponent(tenantId)}` : '';
+    const response = await fetch(`/api/ami/feature-flags${query}`, { headers });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.error || data.message || 'Could not load feature flags.');
+    setFeatureFlags(data.featureFlags || { aurasEnabled: false, farmingModeEnabled: false });
+  }
+
   useEffect(() => {
-    fetch('/api/ami/settings', { headers })
-      .then(r => r.json())
-      .then(d => {
-        setSettings(d.settings || d);
-        setDevices(d.trustedDevices || d.devices || []);
-        setMfaEnabled(d.settings?.mfaEnabled || d.mfaEnabled || false);
+    Promise.all([
+      fetch('/api/ami/settings', { headers }).then(r => r.json()),
+      fetch('/api/ami/tenants', { headers }).then(r => r.json()).catch(() => ({})),
+      loadFeatureFlags('global'),
+    ])
+      .then(([settingsData, tenantsData]) => {
+        setSettings(settingsData.settings || settingsData);
+        setDevices(settingsData.trustedDevices || settingsData.devices || []);
+        setMfaEnabled(settingsData.settings?.mfaEnabled || settingsData.mfaEnabled || false);
+        setTenants(Array.isArray(tenantsData?.tenants) ? tenantsData.tenants : []);
         setError('');
       })
       .catch(() => {})
       .finally(() => setLoading(false));
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    if (loading) return;
+    loadFeatureFlags(featureScope).catch(err => setError(err.message));
+  }, [featureScope]); // eslint-disable-line react-hooks/exhaustive-deps
 
   async function changePassword(e) {
     e.preventDefault();
@@ -76,6 +97,28 @@ export default function AmiSettingsPage() {
       if (!res.ok) throw new Error(d.error || 'Failed.');
       setDevices(prev => prev.filter(dev => dev.id !== deviceId));
       setNotice('Device revoked.');
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setBusy('');
+    }
+  }
+
+  async function saveFeatureFlags() {
+    setBusy('feature-flags'); setError(''); setNotice('');
+    try {
+      const res = await fetch('/api/ami/feature-flags', {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({
+          tenantId: featureScope === 'global' ? '' : featureScope,
+          ...featureFlags,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || data.message || 'Failed.');
+      setFeatureFlags(data.featureFlags || featureFlags);
+      setNotice(`Feature governance updated for ${featureScope === 'global' ? 'all schools' : 'the selected school'}.`);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -210,6 +253,55 @@ export default function AmiSettingsPage() {
             </div>
           ))}
         </div>
+      </section>
+
+      <section className="glass-surface rounded-3xl p-6 border border-white/10">
+        <h2 className="text-xl command-title neon-title mb-2">Feature Governance</h2>
+        <p className="text-sm neon-subtle mb-4">
+          Auras and farming mode are off by default. Enable them globally or for a single tenant only when a school is ready.
+        </p>
+
+        <div className="grid gap-4 md:grid-cols-[minmax(0,240px),1fr]">
+          <div>
+            <label className="micro-label neon-subtle">Scope</label>
+            <select
+              value={featureScope}
+              onChange={e => setFeatureScope(e.target.value)}
+              className="mt-2 w-full rounded-2xl border border-white/10 bg-slate-900/30 px-4 py-3 text-slate-100"
+            >
+              <option value="global">Global Default</option>
+              {tenants.map(tenant => (
+                <option key={tenant.id} value={tenant.id}>{tenant.schoolName || tenant.name || tenant.id}</option>
+              ))}
+            </select>
+          </div>
+
+          <div className="grid gap-3">
+            <label className="rounded-2xl bg-slate-900/30 p-4 flex items-center justify-between gap-4">
+              <span>
+                <span className="block text-sm font-semibold text-slate-100">Auras</span>
+                <span className="text-xs neon-subtle">Controls Auras wallets and Aura-linked classroom surfaces.</span>
+              </span>
+              <input type="checkbox" checked={featureFlags.aurasEnabled} onChange={e => setFeatureFlags(prev => ({ ...prev, aurasEnabled: e.target.checked }))} />
+            </label>
+
+            <label className="rounded-2xl bg-slate-900/30 p-4 flex items-center justify-between gap-4">
+              <span>
+                <span className="block text-sm font-semibold text-slate-100">Farming Mode</span>
+                <span className="text-xs neon-subtle">Controls farming mode, farming-linked cashout, and related navigation entries.</span>
+              </span>
+              <input type="checkbox" checked={featureFlags.farmingModeEnabled} onChange={e => setFeatureFlags(prev => ({ ...prev, farmingModeEnabled: e.target.checked }))} />
+            </label>
+          </div>
+        </div>
+
+        <button
+          onClick={saveFeatureFlags}
+          disabled={busy === 'feature-flags'}
+          className="mt-4 rounded-2xl bg-emerald-500 px-4 py-3 font-semibold text-slate-950 disabled:opacity-60"
+        >
+          {busy === 'feature-flags' ? 'Saving…' : 'Save Feature Governance'}
+        </button>
       </section>
     </div>
   );

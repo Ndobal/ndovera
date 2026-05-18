@@ -4,8 +4,10 @@ import RoleSectionPage from '../../shared/components/RoleSectionPage';
 import operationalRoleConfigs from './config/operationalRoleConfigs';
 import WebsiteTab from './owner/tabs/WebsiteTab';
 import TeacherClassroom from '../../features/classroom/TeacherClassroom';
+import { ResultAdminConsole, TeacherCAScoreSheet } from '../../features/results-engine';
 import OwnerPeople from './owner/OwnerPeople';
 import SchoolAnnouncementsPanel from '../../shared/components/SchoolAnnouncementsPanel';
+import LessonPlanReviewPage from '../../features/lesson-plans/LessonPlanReviewPage';
 
 export default function OperationalRoleDashboard({ roleKey }) {
   const location = useLocation();
@@ -65,6 +67,10 @@ export default function OperationalRoleDashboard({ roleKey }) {
     );
   }
 
+  if (roleKey === 'ict' && sectionKey === 'results') {
+    return <ResultAdminConsole analyticsMode="hos" roleTitle="ICT Dashboard" />;
+  }
+
   if (roleKey === 'classteacher' && sectionKey === 'attendance') {
     return (
       <TeacherClassroom
@@ -74,6 +80,14 @@ export default function OperationalRoleDashboard({ roleKey }) {
         watermarkText="Class Teacher Dashboard"
       />
     );
+  }
+
+  if (roleKey === 'classteacher' && sectionKey === 'results') {
+    return <TeacherCAScoreSheet dashboardLabel="Class Teacher Dashboard" />;
+  }
+
+  if ((roleKey === 'hod' || roleKey === 'hodassistant') && sectionKey === 'lessons') {
+    return <LessonPlanReviewPage dashboardLabel={roleConfig.roleTitle} />;
   }
 
   return (

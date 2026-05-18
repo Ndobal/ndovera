@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { getRoleAccent } from '../shared/classroomHelpers';
 import { getSubjectMembers, removeStudentFromSubject, restoreStudentToSubject } from '../classroomService';
 
 // classId + subjects come from parent (TeacherClassroom or StudentClassroomExperience)

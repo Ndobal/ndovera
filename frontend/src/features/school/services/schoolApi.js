@@ -1,5 +1,5 @@
 import { getApiUrl } from '../../../config/apiBase';
-import { getStoredAuth, clearStoredAuth, getSignedOutRedirectPath, syncRefreshedToken } from '../../auth/services/authApi';
+import { getStoredAuth, clearStoredAuth, getSignedOutRedirectPath, syncRefreshedToken, buildSelectedRoleHeader } from '../../auth/services/authApi';
 import { storeTenantPwaInfo } from '../../../shared/hooks/useTenantPwaManifest';
 
 function buildHeaders() {
@@ -7,6 +7,7 @@ function buildHeaders() {
   return {
     'Content-Type': 'application/json',
     ...(auth?.token ? { Authorization: `Bearer ${auth.token}` } : {}),
+    ...buildSelectedRoleHeader(),
   };
 }
 
@@ -77,7 +78,10 @@ async function uploadFile(path, file, extraFields = {}) {
   const res = await fetch(getApiUrl(path), {
     method: 'POST',
     credentials: 'include',
-    headers: auth?.token ? { Authorization: `Bearer ${auth.token}` } : {},
+    headers: {
+      ...(auth?.token ? { Authorization: `Bearer ${auth.token}` } : {}),
+      ...buildSelectedRoleHeader(),
+    },
     body: formData,
   });
   if (res.status === 401) { handleUnauthorized(); return {}; }
@@ -85,6 +89,41 @@ async function uploadFile(path, file, extraFields = {}) {
   const data = await res.json().catch(() => ({}));
   if (!res.ok) throw new Error(data.error || data.message || 'Upload failed.');
   return data;
+}
+
+async function uploadFiles(path, files = [], extraFields = {}) {
+  const auth = getStoredAuth();
+  const formData = new FormData();
+  files.forEach(file => formData.append('files', file));
+  Object.entries(extraFields || {}).forEach(([key, value]) => {
+    if (value === undefined || value === null || value === '') return;
+    formData.append(key, String(value));
+  });
+
+  const res = await fetch(getApiUrl(path), {
+    method: 'POST',
+    credentials: 'include',
+    headers: {
+      ...(auth?.token ? { Authorization: `Bearer ${auth.token}` } : {}),
+      ...buildSelectedRoleHeader(),
+    },
+    body: formData,
+  });
+  if (res.status === 401) { handleUnauthorized(); return {}; }
+  applyRefreshedToken(res);
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.error || data.message || 'Upload failed.');
+  return data;
+}
+
+function buildQuery(params = {}) {
+  const query = new URLSearchParams();
+  Object.entries(params || {}).forEach(([key, value]) => {
+    if (value === undefined || value === null || value === '') return;
+    query.set(key, String(value));
+  });
+  const serialized = query.toString();
+  return serialized ? `?${serialized}` : '';
 }
 
 export const uploadLogo = (file) => uploadFile('/api/school/logo', file);
@@ -147,4 +186,23 @@ export const getStudentAttendance = (dateOrFilters, classId) => {
 export const markStudentAttendance = (data) => req('/api/school/student-attendance', { method: 'POST', body: data });
 export const runAttendanceAI = () => req('/api/school/attendance/ai-analysis', { method: 'POST' });
 export const runFinanceAI = () => req('/api/school/finance/ai-analysis', { method: 'POST' });
+
+// Results
+export const getResultTemplates = () => req('/api/results/templates');
+export const getResultSettings = () => req('/api/results/settings');
+export const saveResultSettings = (data) => req('/api/results/settings', { method: 'POST', body: data });
+export const getResultSheet = (params = {}) => req(`/api/results/sheet${buildQuery(params)}`);
+export const saveResultEntries = (data) => req('/api/results/entries', { method: 'POST', body: data });
+export const saveResultProfiles = (data) => req('/api/results/profiles', { method: 'POST', body: data });
+export const updateResultBatchStatus = (data) => req('/api/results/batch-status', { method: 'POST', body: data });
+export const publishResultBatch = (data) => req('/api/results/publish', { method: 'POST', body: data });
+export const getResultOverview = () => req('/api/results/overview');
+export const getResultRecords = (studentId = '') => req(`/api/results/records${buildQuery(studentId ? { studentId } : {})}`);
+export const uploadResultDocuments = (files, extraFields = {}) => uploadFiles('/api/results/documents/upload', files, extraFields);
+export const getLearningStudents = () => req('/api/learning/students');
+export const getLessonPlans = (params = {}) => req(`/api/lesson-plans${buildQuery(params)}`);
+export const saveLessonPlan = (data) => req('/api/lesson-plans', { method: 'POST', body: data });
+export const reviewLessonPlan = (lessonPlanId, data) => req(`/api/lesson-plans/${lessonPlanId}/review`, { method: 'POST', body: data });
+export const getPracticeQuestions = (params = {}) => req(`/api/practice/questions${buildQuery(params)}`);
+export const getFeatureFlags = () => req('/api/feature-flags');
 

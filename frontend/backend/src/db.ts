@@ -41,6 +41,10 @@ function mapMaterialRow(row: any) {
     subjectId: String(metadata.subjectId || ''),
     subjectName: String(metadata.subjectName || metadata.subject || 'General Material'),
     description: String(metadata.description || ''),
+    topic: String(metadata.topic || ''),
+    weekLabel: String(metadata.weekLabel || metadata.week || ''),
+    visibility: String(metadata.visibility || ''),
+    releaseAt: String(metadata.releaseAt || ''),
     uploadedByName: String(metadata.uploadedByName || row?.uploadedBy || ''),
   }
 }
@@ -652,8 +656,61 @@ export async function sendMessage(db: D1Database, conversationId: string, sender
   return { id: msgId, conversationId, senderId, body, metadata: metadata || {}, sentAt: now }
 }
 
-export async function markMessagesRead(db: D1Database, conversationId: string) {
-  await db.prepare('UPDATE messages SET read_at = ? WHERE conversation_id = ? AND read_at IS NULL').bind(new Date().toISOString(), conversationId).run()
+const CONVERSATION_READS_DDL = `CREATE TABLE IF NOT EXISTS conversation_reads (
+  id TEXT PRIMARY KEY,
+  conversation_id TEXT NOT NULL,
+  user_id TEXT NOT NULL,
+  last_read_at TEXT NOT NULL,
+  created_at TEXT NOT NULL,
+  updated_at TEXT NOT NULL,
+  UNIQUE(conversation_id, user_id)
+)`
+
+async function ensureConversationReadsTable(db: D1Database) {
+  await db.prepare(CONVERSATION_READS_DDL).run()
+}
+
+export async function listConversationReadStates(db: D1Database, userId: string) {
+  await ensureConversationReadsTable(db)
+  const normalizedUserId = String(userId || '').trim()
+  if (!normalizedUserId) return {}
+
+  const result = await db.prepare(
+    'SELECT conversation_id, last_read_at FROM conversation_reads WHERE user_id = ?'
+  ).bind(normalizedUserId).all()
+
+  return result.results.reduce((accumulator, row) => {
+    accumulator[String(row.conversation_id)] = String(row.last_read_at || '')
+    return accumulator
+  }, {} as Record<string, string>)
+}
+
+export async function markMessagesRead(db: D1Database, conversationId: string, readerId?: string, readerIdentifiers: string[] = []) {
+  await ensureConversationReadsTable(db)
+
+  const now = new Date().toISOString()
+  const normalizedReaderId = String(readerId || '').trim()
+  const normalizedIdentifiers = Array.from(new Set((readerIdentifiers || []).map(identifier => String(identifier || '').trim()).filter(Boolean)))
+
+  if (normalizedIdentifiers.length > 0) {
+    const placeholders = normalizedIdentifiers.map(() => '?').join(', ')
+    await db.prepare(
+      `UPDATE messages SET read_at = ? WHERE conversation_id = ? AND sender_id NOT IN (${placeholders}) AND read_at IS NULL`
+    ).bind(now, conversationId, ...normalizedIdentifiers).run()
+  } else {
+    await db.prepare('UPDATE messages SET read_at = ? WHERE conversation_id = ? AND read_at IS NULL').bind(now, conversationId).run()
+  }
+
+  if (normalizedReaderId) {
+    const recordId = `convread_${conversationId}_${normalizedReaderId}`
+    await db.prepare(
+      `INSERT INTO conversation_reads(id, conversation_id, user_id, last_read_at, created_at, updated_at)
+       VALUES(?, ?, ?, ?, ?, ?)
+       ON CONFLICT(conversation_id, user_id)
+       DO UPDATE SET last_read_at = excluded.last_read_at, updated_at = excluded.updated_at`
+    ).bind(recordId, conversationId, normalizedReaderId, now, now, now).run()
+  }
+
   return true
 }
 

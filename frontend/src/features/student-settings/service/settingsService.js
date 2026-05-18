@@ -192,7 +192,7 @@ export async function getAllAudits(token = '') {
   }
 }
 
-export default {
+const settingsService = {
   getSettings,
   updateProfile,
   changePassword,
@@ -207,3 +207,5 @@ export default {
   addAuditEntry,
   getAuditLog,
 };
+
+export default settingsService;

@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import {
   calculateTopicStrengthScore,
   getTopicStatus,
@@ -35,6 +35,14 @@ export const usePracticeEngine = (initialQuestionPool = [], initialTopicMap = {}
   const [showFeedback, setShowFeedback] = useState(false);
   const [feedbackData, setFeedbackData] = useState(null);
   const [sessionSummary, setSessionSummary] = useState(null);
+
+  useEffect(() => {
+    setQuestionPool(Array.isArray(initialQuestionPool) ? initialQuestionPool : []);
+  }, [initialQuestionPool]);
+
+  useEffect(() => {
+    setTopicPerformanceMap(initialTopicMap && typeof initialTopicMap === 'object' ? initialTopicMap : {});
+  }, [initialTopicMap]);
 
   /**
    * Initialize practice session

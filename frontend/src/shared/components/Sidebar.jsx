@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { XMarkIcon } from '@heroicons/react/24/outline';
+import useFeatureFlags from '../hooks/useFeatureFlags';
 
 const noop = () => {};
 
@@ -21,6 +22,7 @@ const roleLabels = {
   student: 'Student Dashboard',
   parent: 'Parent Dashboard',
   teacher: 'Teacher Dashboard',
+  admin: 'Admin Dashboard',
   hos: 'HoS Dashboard',
   accountant: 'Accountant Dashboard',
   owner: 'Owner Dashboard',
@@ -48,12 +50,20 @@ function getRoleSidebarItems(roleKey) {
   // library entry lives inside each role context
   const libEntry = { name: 'Library', path: `/roles/${roleKey}/library` };
 
+  if (roleKey === 'admin') {
+    return [
+      { name: 'Overview', path: '/roles/admin' },
+      { name: 'Library Admin', path: '/library/admin' },
+    ];
+  }
+
   if (roleKey === 'student') {
     return [
       { name: 'Overview', path: '/roles/student' },
       { name: 'Classroom', path: '/roles/student/classroom' },
       { name: 'Assignments', path: '/roles/student/assignments' },
       { name: 'Materials', path: '/roles/student/materials' },
+      { name: 'Lesson Plans', path: '/roles/student/lesson-plans' },
       { name: 'Practice', path: '/roles/student/practice' },
       { name: 'Exams', path: '/roles/student/exams' },
       { name: 'Results', path: '/roles/student/results' },
@@ -71,6 +81,7 @@ function getRoleSidebarItems(roleKey) {
       { name: 'Overview', path: '/roles/parent' },
       { name: 'Classroom', path: '/roles/parent/classroom' },
       { name: 'Materials', path: '/roles/parent/materials' },
+      { name: 'Lesson Plans', path: '/roles/parent/lesson-plans' },
       { name: 'Practice', path: '/roles/parent/practice' },
       { name: 'Live', path: '/roles/parent/live' },
       { name: 'Children', path: '/roles/parent/children' },
@@ -281,6 +292,7 @@ function getRoleSidebarItems(roleKey) {
   if (roleKey === 'ict') {
     return [
       { name: 'Overview', path: '/roles/ict' },
+      { name: 'Results', path: '/roles/ict/results' },
       { name: 'People', path: '/roles/ict/people' },
       { name: 'Support', path: '/roles/ict/support' },
       { name: 'Systems', path: '/roles/ict/systems' },
@@ -296,6 +308,7 @@ function getRoleSidebarItems(roleKey) {
   if (roleKey === 'classteacher') {
     return [
       { name: 'Overview', path: '/roles/classteacher' },
+      { name: 'Results', path: '/roles/classteacher/results' },
       { name: 'Attendance', path: '/roles/classteacher/attendance' },
       { name: 'Behavior', path: '/roles/classteacher/behavior' },
       { name: 'Assignments', path: '/roles/classteacher/assignments' },
@@ -429,10 +442,17 @@ export default function Sidebar({ mobileOpen = false, onClose = noop }) {
   const location = useLocation();
   const inRoleMode = location.pathname.startsWith('/roles/');
   const roleKey = inRoleMode ? location.pathname.split('/')[2] : null;
+  const { featureFlags } = useFeatureFlags();
   const sidebarItemsRaw = inRoleMode && roleKey ? getRoleSidebarItems(roleKey) : defaultSidebarItems;
   const adminEntry = { name: 'Library Admin', path: '/library/admin' };
   const adminRoles = new Set(['hos', 'admin', 'librarian', 'teacher']);
-  const sidebarItems = (roleKey && adminRoles.has(roleKey)) ? [...sidebarItemsRaw, adminEntry] : sidebarItemsRaw;
+  const sidebarItems = ((roleKey && adminRoles.has(roleKey)) ? [...sidebarItemsRaw, adminEntry] : sidebarItemsRaw)
+    .filter(item => {
+      const normalizedPath = String(item.path || '').toLowerCase();
+      if (!featureFlags.aurasEnabled && normalizedPath.includes('/auras')) return false;
+      if (!featureFlags.farmingModeEnabled && (normalizedPath.includes('/farming') || normalizedPath.includes('/cashout'))) return false;
+      return true;
+    });
   const nodeTitle = inRoleMode && roleKey ? roleLabels[roleKey] || 'Role Dashboard' : 'Institution Dashboard';
 
   useEffect(() => {

@@ -1,155 +1,270 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { getAssignedClasses } from '../../classroom/classroomService';
 import {
-  getBroadsheetRanking,
   getTeacherScoreSheet,
-  publishResults,
-  unpublishResults,
-  upsertAttendance,
-  upsertCAScore,
+  reopenTeacherResults,
+  saveTeacherProfiles,
+  saveTeacherScoreSheet,
+  submitTeacherResults,
 } from '../service/resultEngineService';
+import { recomputeTeacherSheet } from '../utils/resultEngineTransforms';
 import BroadsheetTable from './BroadsheetTable';
+import TeacherResultStudentCard from './TeacherResultStudentCard';
 
-export default function TeacherCAScoreSheet() {
-  const initialSheet = getTeacherScoreSheet() || { rows: [], students: [], attendanceByStudent: {}, term: '' };
-  const initialBroadsheet = getBroadsheetRanking() || { rows: [], term: '' };
+function readStoredClassId() {
+  return window.localStorage.getItem('teacherClassroomId') || window.localStorage.getItem('classroomId') || '';
+}
 
-  const [sheet, setSheet] = useState(initialSheet);
-  const [broadsheet, setBroadsheet] = useState(initialBroadsheet);
+export default function TeacherCAScoreSheet({ dashboardLabel = 'Teacher Dashboard' }) {
+  const [assignedClasses, setAssignedClasses] = useState([]);
+  const storedClassIdRef = useRef(readStoredClassId());
+  const [classId, setClassId] = useState(storedClassIdRef.current);
+  const [sheet, setSheet] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState('');
+  const [message, setMessage] = useState('');
 
-  const groupedRows = useMemo(() => {
-    const map = new Map();
-    const rows = (sheet && Array.isArray(sheet.rows)) ? sheet.rows : [];
-    rows.forEach(row => {
-      if (!map.has(row.studentId)) map.set(row.studentId, []);
-      map.get(row.studentId).push(row);
+  useEffect(() => {
+    let cancelled = false;
+
+    async function loadAssigned() {
+      try {
+        const data = await getAssignedClasses();
+        if (cancelled) return;
+        const classes = data?.classes || [];
+        setAssignedClasses(classes);
+        const preferredClassId = storedClassIdRef.current;
+        const initialClassId = classes.some(item => item.id === preferredClassId) ? preferredClassId : (classes[0]?.id || '');
+        setClassId(initialClassId);
+        if (!initialClassId) setLoading(false);
+      } catch (loadError) {
+        if (!cancelled) {
+          setError(loadError.message || 'Unable to load assigned classes for result entry.');
+          setLoading(false);
+        }
+      }
+    }
+
+    loadAssigned();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+    async function loadSheet() {
+      if (!classId) return;
+      setLoading(true);
+      setError('');
+      try {
+        const nextSheet = await getTeacherScoreSheet({ classId });
+        if (cancelled) return;
+        setSheet(nextSheet);
+        window.localStorage.setItem('teacherClassroomId', classId);
+        window.localStorage.setItem('classroomId', classId);
+      } catch (loadError) {
+        if (!cancelled) setError(loadError.message || 'Unable to load this CA score sheet.');
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    }
+
+    loadSheet();
+    return () => {
+      cancelled = true;
+    };
+  }, [classId]);
+
+  function handleScoreChange(studentId, subjectId, field, value) {
+    setSheet(current => {
+      if (!current) return current;
+      return recomputeTeacherSheet({
+        ...current,
+        students: current.students.map(student => student.id !== studentId ? student : ({
+          ...student,
+          rows: student.rows.map(row => row.subjectId !== subjectId ? row : ({
+            ...row,
+            [field]: Number(value || 0),
+          })),
+        })),
+      });
     });
-    return map;
-  }, [sheet]);
+  }
 
-  const handleScoreChange = (studentId, subject, field, value) => {
-    const current = sheet.rows.find(row => row.studentId === studentId && row.subject === subject);
-    const nextCA = field === 'ca' ? value : (current?.ca ?? 0);
-    const nextExam = field === 'exam' ? value : (current?.exam ?? 0);
-    setSheet(upsertCAScore({ studentId, subject, ca: nextCA, exam: nextExam }));
-    setBroadsheet(getBroadsheetRanking());
-  };
+  function handleProfileFieldChange(studentId, field, value) {
+    setSheet(current => {
+      if (!current) return current;
+      return recomputeTeacherSheet({
+        ...current,
+        students: current.students.map(student => student.id !== studentId ? student : ({
+          ...student,
+          profile: { ...student.profile, [field]: value },
+        })),
+      });
+    });
+  }
 
-  const handleAttendanceChange = (studentId, value) => {
-    setSheet(upsertAttendance({ studentId, attendanceRate: value }));
-    setBroadsheet(getBroadsheetRanking());
-  };
+  function handleProfileMapChange(studentId, group, key, value) {
+    setSheet(current => {
+      if (!current) return current;
+      return recomputeTeacherSheet({
+        ...current,
+        students: current.students.map(student => student.id !== studentId ? student : ({
+          ...student,
+          profile: {
+            ...student.profile,
+            [group]: { ...(student.profile?.[group] || {}), [key]: Number(value || 0) },
+          },
+        })),
+      });
+    });
+  }
+
+  async function persistScores() {
+    if (!sheet) return;
+    setSaving(true);
+    setError('');
+    setMessage('');
+    try {
+      setSheet(await saveTeacherScoreSheet(sheet));
+      setMessage('CA score rows saved.');
+    } catch (saveError) {
+      setError(saveError.message || 'Unable to save CA scores.');
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  async function persistProfiles() {
+    if (!sheet) return;
+    setSaving(true);
+    setError('');
+    setMessage('');
+    try {
+      setSheet(await saveTeacherProfiles(sheet));
+      setMessage('Attendance, affective areas, and remarks saved.');
+    } catch (saveError) {
+      setError(saveError.message || 'Unable to save result profile fields.');
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  async function submitBatch() {
+    if (!sheet) return;
+    setSaving(true);
+    setError('');
+    setMessage('');
+    try {
+      setSheet(await submitTeacherResults(sheet));
+      setMessage('Result batch submitted for HoS review.');
+    } catch (submitError) {
+      setError(submitError.message || 'Unable to submit this result batch.');
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  async function reopenBatch() {
+    if (!sheet) return;
+    setSaving(true);
+    setError('');
+    setMessage('');
+    try {
+      setSheet(await reopenTeacherResults(sheet));
+      setMessage('Result batch reopened as draft.');
+    } catch (reopenError) {
+      setError(reopenError.message || 'Unable to reopen this result batch.');
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  const visibleStudents = sheet?.students?.filter(student => sheet.permissions?.canManageProfiles || student.rows.length > 0) || [];
 
   return (
     <div className="p-8 max-w-7xl mx-auto space-y-6">
       <section className="glass-surface rounded-3xl p-6 flex flex-wrap items-center justify-between gap-3">
         <div>
-          <p className="micro-label neon-subtle">Teacher Dashboard</p>
+          <p className="micro-label neon-subtle">{dashboardLabel}</p>
           <h1 className="text-3xl command-title neon-title">CA Score Sheet</h1>
-          <p className="text-slate-300 mt-1">Single Source of Truth for result computation • {sheet.term}</p>
+          <p className="text-slate-300 mt-1">Single source of truth for result computation{sheet?.period ? ` • ${sheet.period.termName || ''} ${sheet.period.sessionName ? `• ${sheet.period.sessionName}` : ''}` : ''}</p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap items-center gap-2">
+          <select value={classId} onChange={event => setClassId(event.target.value)} className="rounded-2xl bg-slate-900/30 border border-white/10 px-3 py-2 text-slate-100 min-w-[220px]">
+            {assignedClasses.map(item => (
+              <option key={item.id} value={item.id}>{item.className || item.name || item.id}</option>
+            ))}
+          </select>
           <button
-            onClick={() => {
-              setSheet(unpublishResults());
-              setBroadsheet(getBroadsheetRanking());
-            }}
-            className="px-4 py-2 rounded-2xl border border-amber-300/30 bg-amber-500/20 text-amber-100 text-sm"
+            type="button"
+            onClick={persistScores}
+            disabled={saving || !sheet?.configurationReady}
+            className="px-4 py-2 rounded-2xl border border-emerald-300/30 bg-emerald-500/20 text-emerald-100 text-sm disabled:opacity-50"
           >
-            Set Draft
+            {saving ? 'Saving...' : 'Save Scores'}
           </button>
-          <button
-            onClick={() => {
-              setSheet(publishResults());
-              setBroadsheet(getBroadsheetRanking());
-            }}
-            className="px-4 py-2 rounded-2xl border border-emerald-300/30 bg-emerald-500/20 text-emerald-100 text-sm"
-          >
-            Publish Results
-          </button>
+          {sheet?.permissions?.canManageProfiles && (
+            <button
+              type="button"
+              onClick={persistProfiles}
+              disabled={saving || !sheet?.configurationReady}
+              className="px-4 py-2 rounded-2xl border border-cyan-300/30 bg-cyan-500/20 text-cyan-100 text-sm disabled:opacity-50"
+            >
+              Save Profiles
+            </button>
+          )}
+          {sheet?.submitted ? (
+            <button type="button" onClick={reopenBatch} disabled={saving} className="px-4 py-2 rounded-2xl border border-amber-300/30 bg-amber-500/20 text-amber-100 text-sm disabled:opacity-50">Reopen Draft</button>
+          ) : (
+            sheet?.permissions?.canSubmit && <button type="button" onClick={submitBatch} disabled={saving || !sheet?.configurationReady} className="px-4 py-2 rounded-2xl border border-indigo-300/30 bg-indigo-500/20 text-indigo-100 text-sm disabled:opacity-50">Submit to HoS</button>
+          )}
         </div>
       </section>
 
-      <section className="glass-surface rounded-3xl p-6">
+      {error && <section className="glass-surface rounded-3xl p-6 text-sm text-rose-100 border border-rose-300/30 bg-rose-500/20">{error}</section>}
+      {message && <section className="glass-surface rounded-3xl p-6 text-sm text-emerald-100 border border-emerald-300/30 bg-emerald-500/20">{message}</section>}
+
+      {sheet && !sheet.configurationReady && (
+        <section className="glass-surface rounded-3xl p-6 text-sm text-amber-100 border border-amber-300/30 bg-amber-500/20">
+          {sheet.configurationError || 'Result settings are incomplete. Owner, HoS, or ICT must configure template, grading, and affective scales before CA entry can be saved.'}
+        </section>
+      )}
+
+      {loading && <section className="glass-surface rounded-3xl p-6 text-slate-200">Loading CA score sheet...</section>}
+
+      {!loading && !sheet && (
+        <section className="glass-surface rounded-3xl p-6">
+          <p className="micro-label accent-amber">No assigned class</p>
+          <p className="mt-2 text-slate-300">This user does not have any assigned result class yet.</p>
+        </section>
+      )}
+
+      {sheet && (
+        <section className="glass-surface rounded-3xl p-6">
         <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
-          <p className="micro-label accent-indigo">Result State: {sheet.published ? 'Published' : 'Draft'}</p>
+          <p className="micro-label accent-indigo">Result State: {sheet.published ? 'Published' : sheet.submitted ? 'Submitted' : 'Draft'}</p>
           <div className="text-right">
             {sheet.publishedAt && <p className="text-xs text-slate-300">Published: {new Date(sheet.publishedAt).toLocaleString()}</p>}
-            <p className="text-xs text-slate-300 mt-1">
-              HoS Approval: {sheet.hosApproved
-                ? `Approved${sheet.hosApprovedAt ? ` • ${new Date(sheet.hosApprovedAt).toLocaleString()}` : ''}`
-                : 'Pending'}
-            </p>
+            <p className="text-xs text-slate-300 mt-1">Approver: {sheet.hosApprovedBy || (sheet.hosApproved ? 'HoS / Owner' : 'Pending')}</p>
           </div>
         </div>
 
         <div className="space-y-4">
-          {sheet.students.map(student => (
-            <div key={student.id} className="rounded-2xl border border-white/10 p-4 bg-slate-900/30 space-y-3">
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <p className="text-slate-100 font-semibold">{student.name} • {student.className}</p>
-                <div className="flex items-center gap-2">
-                  <label className="text-xs text-slate-300">Attendance %</label>
-                  <input
-                    type="number"
-                    min={0}
-                    max={100}
-                    value={sheet.attendanceByStudent[student.id] ?? 0}
-                    onChange={event => handleAttendanceChange(student.id, event.target.value)}
-                    className="w-20 rounded-xl bg-slate-900/50 border border-white/10 px-2 py-1 text-slate-100"
-                  />
-                  <span className={`glass-chip px-3 py-1 rounded-full micro-label ${student.feeCleared ? 'accent-emerald' : 'accent-rose'}`}>
-                    {student.feeCleared ? 'Fee Cleared' : 'Fee Pending'}
-                  </span>
-                </div>
-              </div>
-
-              <div className="overflow-x-auto">
-                <table className="w-full text-sm min-w-[560px]">
-                  <thead>
-                    <tr className="text-left">
-                      <th className="micro-label py-2 pr-4">Subject</th>
-                      <th className="micro-label py-2 pr-4">CA (40)</th>
-                      <th className="micro-label py-2 pr-4">Exam (60)</th>
-                      <th className="micro-label py-2 pr-4">Raw Total</th>
-                      <th className="micro-label py-2 pr-4">Weighted</th>
-                      <th className="micro-label py-2">Grade</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {(groupedRows.get(student.id) || []).map(row => (
-                      <tr key={`${row.studentId}-${row.subject}`} className="border-t border-white/10">
-                        <td className="py-2 pr-4 text-slate-100">{row.subject}</td>
-                        <td className="py-2 pr-4">
-                          <input
-                            type="number"
-                            min={0}
-                            max={40}
-                            value={row.ca}
-                            onChange={event => handleScoreChange(student.id, row.subject, 'ca', event.target.value)}
-                            className="w-20 rounded-xl bg-slate-900/50 border border-white/10 px-2 py-1 text-slate-100"
-                          />
-                        </td>
-                        <td className="py-2 pr-4">
-                          <input
-                            type="number"
-                            min={0}
-                            max={60}
-                            value={row.exam}
-                            onChange={event => handleScoreChange(student.id, row.subject, 'exam', event.target.value)}
-                            className="w-20 rounded-xl bg-slate-900/50 border border-white/10 px-2 py-1 text-slate-100"
-                          />
-                        </td>
-                        <td className="py-2 pr-4 mono-metric text-slate-100">{row.rawTotal}</td>
-                        <td className="py-2 pr-4 mono-metric text-slate-100">{row.total}</td>
-                        <td className="py-2 command-title accent-emerald">{row.grade}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
+          {visibleStudents.map(student => (
+            <TeacherResultStudentCard
+              key={student.id}
+              student={student}
+              settings={sheet.settings}
+              permissions={sheet.permissions}
+              onScoreChange={handleScoreChange}
+              onProfileFieldChange={handleProfileFieldChange}
+              onProfileMapChange={handleProfileMapChange}
+            />
           ))}
-          {sheet.students.length === 0 && (
+          {visibleStudents.length === 0 && (
             <div className="rounded-2xl border border-dashed border-white/10 p-5 text-center bg-slate-900/20">
               <p className="micro-label accent-amber">No live result sheet</p>
               <p className="mt-2 text-sm text-slate-300">Student score rows will appear here after a real class roster and assessments are synced.</p>
@@ -157,8 +272,9 @@ export default function TeacherCAScoreSheet() {
           )}
         </div>
       </section>
+      )}
 
-      <BroadsheetTable rows={broadsheet.rows} title="Broadsheet Ranking (Live Preview)" />
+      {sheet && <BroadsheetTable rows={sheet.broadsheet} title="Broadsheet Ranking (Live Preview)" />}
     </div>
   );
 }

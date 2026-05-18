@@ -83,6 +83,23 @@ function formatTeacherStreamContent(value) {
     .replace(/\n/g, '<br />');
 }
 
+function formatVisibilityLabel(value) {
+  switch (String(value || '').toLowerCase()) {
+    case 'student_parent':
+      return 'Students + Parents';
+    case 'teacher':
+      return 'Teacher Only';
+    default:
+      return 'Students';
+  }
+}
+
+function formatReleaseLabel(value) {
+  if (!value) return 'Immediate release';
+  const parsed = new Date(value);
+  return Number.isNaN(parsed.getTime()) ? value : `Releases ${parsed.toLocaleString()}`;
+}
+
 export default function TeacherClassroom({
   initialTab = 'stream',
   lockedTab = '',
@@ -113,6 +130,10 @@ export default function TeacherClassroom({
   const [materialTitle, setMaterialTitle] = useState('');
   const [materialUrl, setMaterialUrl] = useState('');
   const [materialDescription, setMaterialDescription] = useState('');
+  const [materialTopic, setMaterialTopic] = useState('');
+  const [materialWeekLabel, setMaterialWeekLabel] = useState('');
+  const [materialVisibility, setMaterialVisibility] = useState('student_parent');
+  const [materialReleaseAt, setMaterialReleaseAt] = useState('');
   const [materialMessage, setMaterialMessage] = useState('');
   const [liveSessions, setLiveSessions] = useState([]);
   const [liveSubjectId, setLiveSubjectId] = useState('');
@@ -206,6 +227,10 @@ export default function TeacherClassroom({
       setMaterialTitle('');
       setMaterialUrl('');
       setMaterialDescription('');
+      setMaterialTopic('');
+      setMaterialWeekLabel('');
+      setMaterialVisibility('student_parent');
+      setMaterialReleaseAt('');
       setMaterialMessage('');
       setLiveSessions([]);
       setLiveTopic('');
@@ -390,6 +415,10 @@ export default function TeacherClassroom({
     setMaterialTitle('');
     setMaterialUrl('');
     setMaterialDescription('');
+    setMaterialTopic('');
+    setMaterialWeekLabel('');
+    setMaterialVisibility('student_parent');
+    setMaterialReleaseAt('');
   }
 
   function uploadFileWithProgress(file, overrides = {}) {
@@ -402,6 +431,10 @@ export default function TeacherClassroom({
       const nextTitle = String(overrides.title || materialTitle || file.name).trim() || file.name;
       const nextDescription = String(overrides.description ?? materialDescription).trim();
       const nextType = String(overrides.type || materialType || 'document').trim();
+      const nextTopic = String(overrides.topic ?? materialTopic).trim();
+      const nextWeekLabel = String(overrides.weekLabel ?? materialWeekLabel).trim();
+      const nextVisibility = String(overrides.visibility || materialVisibility || 'student_parent').trim();
+      const nextReleaseAt = String(overrides.releaseAt ?? materialReleaseAt).trim();
 
       if (!nextSubject) {
         setMaterialMessage('Add a subject to this class before posting materials.');
@@ -414,6 +447,10 @@ export default function TeacherClassroom({
       fd.append('subjectId', nextSubject.id);
       if (nextDescription) fd.append('description', nextDescription);
       if (nextType) fd.append('type', nextType);
+      if (nextTopic) fd.append('topic', nextTopic);
+      if (nextWeekLabel) fd.append('weekLabel', nextWeekLabel);
+      if (nextVisibility) fd.append('visibility', nextVisibility);
+      if (nextReleaseAt) fd.append('releaseAt', nextReleaseAt);
 
       xhr.open('POST', url, true);
       if (token) xhr.setRequestHeader('Authorization', `Bearer ${token}`);
@@ -466,6 +503,10 @@ export default function TeacherClassroom({
       url: materialUrl.trim(),
       subjectId: selectedMaterialSubject.id,
       description: materialDescription.trim(),
+      topic: materialTopic.trim(),
+      weekLabel: materialWeekLabel.trim(),
+      visibility: materialVisibility,
+      releaseAt: materialReleaseAt,
       type: materialType,
     });
 
@@ -944,7 +985,7 @@ export default function TeacherClassroom({
                     <p className="mt-1 text-lg font-semibold text-[#800000] dark:text-[#ffffff]">Publish materials by subject</p>
                   </div>
                   <span className="rounded-full bg-[#fff8f0] px-3 py-1 text-xs font-semibold uppercase tracking-[0.15em] text-[#800020] border border-[#c9a96e]/45 dark:bg-black/20 dark:border-[#bf00ff]/35 dark:text-[#bf00ff]">
-                    Visible to students in this subject
+                    Visibility controlled per material
                   </span>
                 </div>
 
@@ -967,6 +1008,14 @@ export default function TeacherClassroom({
                     </select>
                     <input value={materialTitle} onChange={e => setMaterialTitle(e.target.value)} placeholder="Material title" className="rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] p-3 text-sm text-[#191970] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#ffffff]" />
                     <input value={materialUrl} onChange={e => setMaterialUrl(e.target.value)} placeholder="Paste a material link (optional)" className="rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] p-3 text-sm text-[#191970] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#ffffff]" />
+                    <input value={materialTopic} onChange={e => setMaterialTopic(e.target.value)} placeholder="Topic or unit" className="rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] p-3 text-sm text-[#191970] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#ffffff]" />
+                    <input value={materialWeekLabel} onChange={e => setMaterialWeekLabel(e.target.value)} placeholder="Week label" className="rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] p-3 text-sm text-[#191970] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#ffffff]" />
+                    <select value={materialVisibility} onChange={e => setMaterialVisibility(e.target.value)} className="rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] p-3 text-sm text-[#191970] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#ffffff]">
+                      <option value="student_parent">Students + Parents</option>
+                      <option value="student">Students Only</option>
+                      <option value="teacher">Teacher Only</option>
+                    </select>
+                    <input value={materialReleaseAt} onChange={e => setMaterialReleaseAt(e.target.value)} type="datetime-local" className="rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] p-3 text-sm text-[#191970] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#ffffff]" />
                     <textarea value={materialDescription} onChange={e => setMaterialDescription(e.target.value)} rows={3} placeholder="What should students know before opening this material?" className="md:col-span-2 xl:col-span-4 rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] p-3 text-sm text-[#191970] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#ffffff]" />
                     <div className="md:col-span-2 xl:col-span-4 flex flex-wrap gap-3 items-center">
                       <label className="inline-flex cursor-pointer items-center rounded-2xl bg-[#fff8f0] px-4 py-3 text-sm font-semibold text-[#191970] border border-[#c9a96e]/45 dark:bg-black/20 dark:border-[#bf00ff]/35 dark:text-[#ffffff]">
@@ -978,7 +1027,7 @@ export default function TeacherClassroom({
                       </button>
                       {selectedMaterialSubject && (
                         <span className="text-xs font-semibold uppercase tracking-[0.16em] text-[#800020] dark:text-[#bf00ff]">
-                          Posting to {selectedMaterialSubject.name}
+                          Posting to {selectedMaterialSubject.name} • {formatVisibilityLabel(materialVisibility)}
                         </span>
                       )}
                     </div>
@@ -1011,7 +1060,9 @@ export default function TeacherClassroom({
                             <div className="min-w-0 flex-1">
                             <p className="font-semibold text-[#191970] dark:text-[#ffffff]">{material.title}</p>
                             <p className="mt-1 text-xs font-semibold uppercase tracking-[0.16em] text-[#800020] dark:text-[#bf00ff]">{material.subjectName || 'General Material'} • {materialTypeLabel(material)}</p>
-                            {material.description && <p className="mt-2 text-sm text-[#191970] dark:text-[#39ff14]">{material.description}</p>}
+                            {(material.topic || material.weekLabel) && <p className="mt-2 text-xs text-[#800020] dark:text-[#bf00ff]">{material.topic || 'Lesson note'}{material.weekLabel ? ` • ${material.weekLabel}` : ''}</p>}
+                            {material.description && <p className="mt-2 text-sm whitespace-pre-wrap text-[#191970] dark:text-[#39ff14]">{material.description}</p>}
+                            <p className="mt-2 text-xs text-[#800020] dark:text-[#bf00ff]">{formatVisibilityLabel(material.visibility)} • {formatReleaseLabel(material.releaseAt)}</p>
                             <p className="mt-2 text-xs text-[#800020] dark:text-[#bf00ff]">{material.uploadedAt ? new Date(material.uploadedAt).toLocaleString() : 'Recently uploaded'}{material.uploadedByName ? ` • ${material.uploadedByName}` : ''}</p>
                           </div>
                           </div>

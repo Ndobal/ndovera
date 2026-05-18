@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { getMyPayslip } from '../../../features/school/services/schoolApi';
 
 const CARD = 'rounded-3xl p-6 bg-[#f5deb3] border border-[#c9a96e]/40';
 const INNER = 'rounded-2xl p-4 bg-[#f0d090] border border-[#c9a96e]/30';
@@ -11,16 +12,24 @@ export default function TeacherPayslip({ auth }) {
   const month = new Date().toLocaleString('default', { month: 'long', year: 'numeric' });
 
   useEffect(() => {
-    import('../../../features/school/services/schoolApi').then(({ req: _req, getMyPayslip }) => {
-      if (typeof getMyPayslip === 'function') {
-        getMyPayslip().then(d => setPayslip(d?.payslip || d)).catch(e => setError(e.message)).finally(() => setLoading(false));
-      } else {
-        // fallback: call directly
-        fetch('/api/school/payroll/my-payslip', {
-          headers: { Authorization: `Bearer ${JSON.parse(localStorage.getItem('ndovera_auth') || '{}')?.token || ''}` }
-        }).then(r => r.json()).then(d => setPayslip(d?.payslip || d)).catch(e => setError(e.message)).finally(() => setLoading(false));
-      }
-    }).catch(() => setLoading(false));
+    let active = true;
+
+    getMyPayslip()
+      .then(data => {
+        if (!active) return;
+        setPayslip(data?.payslip || data || null);
+      })
+      .catch(err => {
+        if (!active) return;
+        setError(err.message || 'Could not load your payslip.');
+      })
+      .finally(() => {
+        if (active) setLoading(false);
+      });
+
+    return () => {
+      active = false;
+    };
   }, []);
 
   if (loading) return <div className="p-8 max-w-3xl mx-auto"><div className={CARD}><p className="text-[#800020]">Loading payslip…</p></div></div>;
@@ -29,7 +38,13 @@ export default function TeacherPayslip({ auth }) {
   const p = payslip || {};
   const gross = p.gross || 0;
   const deductions = p.deductions || 0;
-  const net = gross - deductions;
+  const net = p.net ?? (gross - deductions);
+  const earnings = Array.isArray(p.earnings) && p.earnings.length
+    ? p.earnings
+    : [{ label: 'Basic Salary', amount: gross }];
+  const deductionBreakdown = Array.isArray(p.deductionBreakdown)
+    ? p.deductionBreakdown
+    : [];
 
   return (
     <div className="p-8 max-w-3xl mx-auto space-y-6">
@@ -50,18 +65,18 @@ export default function TeacherPayslip({ auth }) {
         <div className={`${INNER} mb-4`}>
           <p className="text-xs text-[#800020] uppercase font-semibold mb-3">Earnings</p>
           <div className="space-y-1.5">
-            <div className="flex justify-between text-sm text-[#191970]"><span>Basic Salary</span><span>₦{(gross * 0.8).toLocaleString()}</span></div>
-            <div className="flex justify-between text-sm text-[#191970]"><span>Housing Allowance</span><span>₦{(gross * 0.12).toLocaleString()}</span></div>
-            <div className="flex justify-between text-sm text-[#191970]"><span>Transport Allowance</span><span>₦{(gross * 0.08).toLocaleString()}</span></div>
+            {earnings.map(entry => (
+              <div key={entry.label} className="flex justify-between text-sm text-[#191970]"><span>{entry.label}</span><span>₦{Number(entry.amount || 0).toLocaleString()}</span></div>
+            ))}
             <div className="flex justify-between text-sm font-bold text-[#800000] border-t border-[#c9a96e]/40 pt-2 mt-2"><span>Gross Pay</span><span>₦{gross.toLocaleString()}</span></div>
           </div>
         </div>
         <div className={`${INNER} mb-4`}>
           <p className="text-xs text-[#800020] uppercase font-semibold mb-3">Deductions</p>
           <div className="space-y-1.5">
-            <div className="flex justify-between text-sm text-[#191970]"><span>Income Tax</span><span>₦{(deductions * 0.6).toLocaleString()}</span></div>
-            <div className="flex justify-between text-sm text-[#191970]"><span>Pension</span><span>₦{(deductions * 0.3).toLocaleString()}</span></div>
-            <div className="flex justify-between text-sm text-[#191970]"><span>Other</span><span>₦{(deductions * 0.1).toLocaleString()}</span></div>
+            {deductionBreakdown.length ? deductionBreakdown.map(entry => (
+              <div key={entry.label} className="flex justify-between text-sm text-[#191970]"><span>{entry.label}</span><span>₦{Number(entry.amount || 0).toLocaleString()}</span></div>
+            )) : <div className="flex justify-between text-sm text-[#191970]"><span>Total Deductions</span><span>₦{deductions.toLocaleString()}</span></div>}
             <div className="flex justify-between text-sm font-bold text-red-700 border-t border-[#c9a96e]/40 pt-2 mt-2"><span>Total Deductions</span><span>₦{deductions.toLocaleString()}</span></div>
           </div>
         </div>

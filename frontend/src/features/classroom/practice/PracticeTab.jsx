@@ -1,16 +1,53 @@
 import React, { useEffect, useState } from 'react';
-import { practice } from '../data/classroomData';
 import usePracticeEngine from './hooks/usePracticeEngine';
 import PracticeDashboard from './components/PracticeDashboard';
 import PracticeSession from './components/PracticeSession';
 import SessionSummary from './components/SessionSummary';
+import { getPracticeQuestions } from '../../school/services/schoolApi';
+import useFeatureFlags from '../../../shared/hooks/useFeatureFlags';
+
+function normalizePracticeAnswerIndex(question, options) {
+  const normalizedAnswer = String(question.answer ?? '').trim().toLowerCase();
+  if (!normalizedAnswer) return -1;
+
+  return options.findIndex((option, index) => {
+    const optionText = String(option || '').trim().toLowerCase();
+    const optionLabel = String.fromCharCode(65 + index).toLowerCase();
+    return optionText === normalizedAnswer || optionLabel === normalizedAnswer || String(index) === normalizedAnswer;
+  });
+}
+
+function normalizePracticeQuestion(question) {
+  const type = String(question.type || 'mcq').trim().toLowerCase();
+  if (!['mcq', 'truefalse'].includes(type)) return null;
+
+  const options = Array.isArray(question.options) ? question.options : Array.isArray(question.choices) ? question.choices : [];
+  const correctAnswer = normalizePracticeAnswerIndex(question, options);
+  if (!options.length || correctAnswer < 0) return null;
+
+  return {
+    id: question.id,
+    topic: question.topic || question.subjectName || question.subject || 'General',
+    difficulty: question.metadata?.difficulty || 'standard',
+    text: question.prompt || question.text || '',
+    options,
+    correctAnswer,
+    explanation: question.explanation || '',
+    hint: question.metadata?.hint || '',
+    active: true,
+    imageUrl: question.imageUrl || '',
+  };
+}
 
 /**
  * PracticeTab - Main practice interface orchestrating the adaptive intelligence engine
  * Pixel-perfect, calm, academic design with exam-grade security
  */
 export default function PracticeTab({ auraBalance = 0, setAuraBalance = () => {} }) {
-  const hasPracticeContent = (practice.questions || []).length > 0;
+  const { featureFlags } = useFeatureFlags();
+  const [practiceData, setPracticeData] = useState({ questions: [], topicPerformanceMap: {} });
+  const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState('');
   const [view, setView] = useState('dashboard'); // 'dashboard' | 'session' | 'summary'
   const [selectedTopic, setSelectedTopic] = useState(null);
   const [aiPrompt, setAiPrompt] = useState('');
@@ -18,9 +55,44 @@ export default function PracticeTab({ auraBalance = 0, setAuraBalance = () => {}
 
   // Initialize practice engine with questions and topic performance map
   const engine = usePracticeEngine(
-    practice.questions || [],
-    practice.topicPerformanceMap || {},
+    practiceData.questions,
+    practiceData.topicPerformanceMap,
   );
+
+  useEffect(() => {
+    let active = true;
+
+    async function loadPractice() {
+      setLoading(true);
+      setLoadError('');
+      try {
+        const classId = window.localStorage.getItem('classroomId') || '';
+        const data = await getPracticeQuestions(classId ? { classId } : {});
+        if (!active) return;
+
+        const liveQuestions = (Array.isArray(data.questions) ? data.questions : [])
+          .map(normalizePracticeQuestion)
+          .filter(Boolean);
+
+        setPracticeData({
+          questions: liveQuestions,
+          topicPerformanceMap: data.topicPerformanceMap || {},
+        });
+      } catch (error) {
+        if (!active) return;
+        setLoadError(error.message || 'Failed to load live practice questions.');
+      } finally {
+        if (active) setLoading(false);
+      }
+    }
+
+    loadPractice();
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  const hasPracticeContent = practiceData.questions.length > 0;
 
   // Handle weak areas enforcement
   useEffect(() => {
@@ -138,6 +210,24 @@ export default function PracticeTab({ auraBalance = 0, setAuraBalance = () => {}
   const weakAreas = engine.getWeakAreas();
   const shouldEnforceWeakAreas = weakAreas.length > 0;
 
+  if (loading) {
+    return (
+      <section className="glass-surface rounded-3xl p-5 text-center">
+        <p className="micro-label accent-amber">Loading live practice</p>
+        <p className="mt-2 text-slate-300">Fetching the current question bank for this learner.</p>
+      </section>
+    );
+  }
+
+  if (loadError) {
+    return (
+      <section className="glass-surface rounded-3xl p-5 text-center">
+        <p className="micro-label accent-rose">Practice unavailable</p>
+        <p className="mt-2 text-slate-300">{loadError}</p>
+      </section>
+    );
+  }
+
   if (!hasPracticeContent) {
     return (
       <section className="glass-surface rounded-3xl p-5 text-center">
@@ -175,6 +265,7 @@ export default function PracticeTab({ auraBalance = 0, setAuraBalance = () => {}
           />
 
           {/* AI Assistance Section */}
+          {featureFlags.aurasEnabled && (
           <section className="glass-surface rounded-3xl p-5 space-y-3">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <h3 className="text-lg font-semibold text-slate-100">AI Assistance</h3>
@@ -213,6 +304,7 @@ export default function PracticeTab({ auraBalance = 0, setAuraBalance = () => {}
               </div>
             )}
           </section>
+          )}
         </>
       )}
 

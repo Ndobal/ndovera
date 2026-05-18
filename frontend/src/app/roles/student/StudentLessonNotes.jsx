@@ -129,7 +129,8 @@ export default function StudentLessonNotes() {
                   <div className="min-w-0 flex-1">
                     <p className="text-slate-100 font-semibold">{material.title}</p>
                     <p className="neon-subtle text-sm mt-1">{material.subjectName || 'General Material'}</p>
-                    {material.description && <p className="text-sm text-slate-300 mt-3">{material.description}</p>}
+                    {(material.topic || material.weekLabel) && <p className="text-xs text-slate-400 mt-2">{material.topic || 'Lesson note'}{material.weekLabel ? ` • ${material.weekLabel}` : ''}</p>}
+                    {material.description && <p className="text-sm text-slate-300 mt-3 whitespace-pre-wrap">{material.description}</p>}
                   </div>
                   <span className="glass-chip px-3 py-1 rounded-full micro-label accent-emerald">{materialTypeLabel(material)}</span>
                 </div>

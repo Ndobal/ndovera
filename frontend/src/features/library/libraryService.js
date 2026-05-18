@@ -50,4 +50,6 @@ export async function getAllAudits() {
   return res.json();
 }
 
-export default { listBooks, getBook, createOrUpdateBook, deleteBook, borrowBook, returnBorrowing, myBorrowings, allBorrowings };
+const libraryService = { listBooks, getBook, createOrUpdateBook, deleteBook, borrowBook, returnBorrowing, myBorrowings, allBorrowings };
+
+export default libraryService;
