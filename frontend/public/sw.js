@@ -1,6 +1,7 @@
 var CACHE_NAME = 'ndovera-pwa-v4';
 var NOTIFICATION_STATE_CACHE = 'ndovera-notification-state-v1';
 var NOTIFICATION_STATE_KEY = '/__fee-reminder-state__';
+var PUSH_CONTEXT_KEY = '/__push-context__';
 var PERIODIC_FEE_REMINDER_TAG = 'parent-fee-reminders';
 var APP_SHELL = [
   '/',
@@ -38,6 +39,134 @@ function writeNotificationState(state) {
     })
     .catch(function () {
       return null;
+    });
+}
+
+function readPushContext() {
+  return caches.open(NOTIFICATION_STATE_CACHE)
+    .then(function (cache) {
+      return cache.match(PUSH_CONTEXT_KEY);
+    })
+    .then(function (response) {
+      if (!response) return {};
+      return response.json().catch(function () { return {}; });
+    })
+    .catch(function () {
+      return {};
+    });
+}
+
+function writePushContext(context) {
+  return caches.open(NOTIFICATION_STATE_CACHE)
+    .then(function (cache) {
+      return cache.put(
+        PUSH_CONTEXT_KEY,
+        new Response(JSON.stringify(context || {}), {
+          headers: { 'Content-Type': 'application/json' }
+        })
+      );
+    })
+    .catch(function () {
+      return null;
+    });
+}
+
+function urlBase64ToUint8Array(base64String) {
+  var padding = '='.repeat((4 - (base64String.length % 4)) % 4);
+  var base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
+  var rawData = atob(base64);
+  var outputArray = new Uint8Array(rawData.length);
+  for (var index = 0; index < rawData.length; index += 1) {
+    outputArray[index] = rawData.charCodeAt(index);
+  }
+  return outputArray;
+}
+
+function fetchPushPublicKey() {
+  return fetch('/api/push/public-key', {
+    credentials: 'include',
+    headers: { 'Accept': 'application/json' }
+  })
+    .then(function (response) {
+      if (!response || !response.ok) return null;
+      return response.json().catch(function () { return null; });
+    })
+    .catch(function () {
+      return null;
+    });
+}
+
+function fetchPushFeed(roleKey) {
+  return fetch('/api/push/feed?roleKey=' + encodeURIComponent(roleKey || 'student'), {
+    credentials: 'include',
+    headers: { 'Accept': 'application/json' }
+  })
+    .then(function (response) {
+      if (!response || !response.ok) return null;
+      return response.json().catch(function () { return null; });
+    })
+    .catch(function () {
+      return null;
+    });
+}
+
+function showDeliveredNotification(notification, fallbackUrl) {
+  if (!notification || !notification.id) {
+    return null;
+  }
+
+  return readNotificationState().then(function (delivered) {
+    var nextState = delivered || {};
+    var deliveryKey = String(notification.tag || notification.id || 'push-notice');
+    if (nextState[deliveryKey]) {
+      return null;
+    }
+
+    return self.registration.showNotification(notification.title || 'NDOVERA notice', {
+      body: notification.body || '',
+      tag: deliveryKey,
+      icon: notification.icon || '/android-chrome-192x192.png',
+      badge: notification.badge || '/android-chrome-192x192.png',
+      data: {
+        url: notification.url || fallbackUrl || '/'
+      }
+    }).then(function () {
+      nextState[deliveryKey] = new Date().toISOString();
+      return writeNotificationState(nextState);
+    });
+  });
+}
+
+function syncPushNotifications(roleKey) {
+  return fetchPushFeed(roleKey)
+    .then(function (payload) {
+      return showDeliveredNotification(payload && payload.notification, '/roles/' + String(roleKey || 'student'));
+    });
+}
+
+function resubscribeToPush(roleKey) {
+  return fetchPushPublicKey()
+    .then(function (payload) {
+      if (!payload || !payload.available || !payload.publicKey) {
+        return null;
+      }
+
+      return self.registration.pushManager.subscribe({
+        userVisibleOnly: true,
+        applicationServerKey: urlBase64ToUint8Array(payload.publicKey)
+      }).then(function (subscription) {
+        return fetch('/api/push/subscriptions', {
+          method: 'POST',
+          credentials: 'include',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ roleKey: roleKey || 'student', subscription: subscription.toJSON() })
+        }).catch(function () {
+          return null;
+        });
+      });
     });
 }
 
@@ -149,6 +278,16 @@ self.addEventListener('message', function (event) {
     return;
   }
 
+  if (event.data && event.data.type === 'SET_PUSH_CONTEXT') {
+    var roleKey = event.data.roleKey || 'student';
+    if (event.waitUntil) {
+      event.waitUntil(writePushContext({ roleKey: roleKey }));
+    } else {
+      writePushContext({ roleKey: roleKey });
+    }
+    return;
+  }
+
   if (event.data && event.data.type === 'SYNC_PARENT_FEE_REMINDERS') {
     if (event.waitUntil) {
       event.waitUntil(syncParentFeeReminders());
@@ -162,6 +301,37 @@ self.addEventListener('periodicsync', function (event) {
   if (event.tag === PERIODIC_FEE_REMINDER_TAG) {
     event.waitUntil(syncParentFeeReminders());
   }
+});
+
+self.addEventListener('push', function (event) {
+  event.waitUntil(
+    readPushContext().then(function (context) {
+      var roleKey = context && context.roleKey ? context.roleKey : 'student';
+
+      if (event.data) {
+        try {
+          return showDeliveredNotification(event.data.json(), '/roles/' + roleKey);
+        } catch (error) {
+          return showDeliveredNotification({
+            id: 'push-' + Date.now(),
+            title: 'NDOVERA notice',
+            body: event.data.text(),
+            url: '/roles/' + roleKey,
+          }, '/roles/' + roleKey);
+        }
+      }
+
+      return syncPushNotifications(roleKey);
+    })
+  );
+});
+
+self.addEventListener('pushsubscriptionchange', function (event) {
+  event.waitUntil(
+    readPushContext().then(function (context) {
+      return resubscribeToPush(context && context.roleKey ? context.roleKey : 'student');
+    })
+  );
 });
 
 self.addEventListener('notificationclick', function (event) {

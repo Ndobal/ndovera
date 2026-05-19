@@ -489,6 +489,26 @@ export async function listStudentResultDocuments(db: D1Database, tenantId: strin
   }))
 }
 
+export async function listResultDocumentsForPeriod(db: D1Database, tenantId: string, sessionName: string, termName: string) {
+  await ensureResultsTables(db)
+  const rows = await db.prepare(
+    'SELECT * FROM result_documents WHERE tenant_id = ? AND session_name = ? AND term_name = ? ORDER BY uploaded_at DESC'
+  ).bind(tenantId, sessionName, termName).all()
+
+  return (rows.results || []).map((row: any) => ({
+    id: row.id,
+    studentId: row.student_id,
+    sessionName: row.session_name,
+    termName: row.term_name,
+    sourceKind: row.source_kind,
+    fileUrl: row.file_url,
+    fileName: row.file_name,
+    uploadedBy: row.uploaded_by,
+    uploadedAt: row.uploaded_at,
+    metadata: parseJsonField(row.metadata_json, {} as Record<string, any>),
+  }))
+}
+
 export async function listRecentResultDocuments(db: D1Database, tenantId: string, limit = 50) {
   await ensureResultsTables(db)
   const rows = await db.prepare('SELECT * FROM result_documents WHERE tenant_id = ? ORDER BY uploaded_at DESC LIMIT ?').bind(tenantId, limit).all()

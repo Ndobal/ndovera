@@ -23,6 +23,9 @@ SESSION_TTL_SECONDS = "2592000"
 FLUTTERWAVE_REDIRECT_BASE_URL = "https://ndovera.com"
 TENANT_BASE_DOMAIN = "ndovera.com"
 PASSWORD_RESET_BASE_URL = "https://ndovera.com/reset-password"
+WEB_PUSH_SUBJECT = "mailto:notifications@ndovera.com"
+# WEB_PUSH_VAPID_PUBLIC_KEY = ""   # Set with your generated VAPID public key.
+# WEB_PUSH_VAPID_PRIVATE_KEY = ""  # Set with `wrangler secret put WEB_PUSH_VAPID_PRIVATE_KEY`.
 # Zoho Mail – set real values via `wrangler secret put` in production
 # ZOHO_MAIL_ACCOUNT_ID = ""       (numeric account ID from Zoho Mail API)
 # ZOHO_MAIL_FROM_ADDRESS = ""     (sender address, e.g. no-reply@ndovera.com)

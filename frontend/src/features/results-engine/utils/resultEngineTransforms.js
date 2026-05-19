@@ -4,6 +4,19 @@ function clampNumber(value, min, max) {
   return Math.max(min, Math.min(max, numeric));
 }
 
+export function resolveResultScoreModel(settings = {}) {
+  const configuredCa = Number(settings?.metadata?.caMaxScore);
+  const configuredExam = Number(settings?.metadata?.examMaxScore);
+  const caMaxScore = Number.isFinite(configuredCa) && configuredCa > 0 ? clampNumber(configuredCa, 1, 99) : 40;
+  const examMaxScore = Number.isFinite(configuredExam) && configuredExam > 0 ? clampNumber(configuredExam, 1, 99) : 60;
+
+  return {
+    caMaxScore,
+    examMaxScore,
+    totalMaxScore: caMaxScore + examMaxScore,
+  };
+}
+
 function sortedGradingScale(gradingScale = []) {
   return [...(Array.isArray(gradingScale) ? gradingScale : [])]
     .map(entry => ({
@@ -28,6 +41,7 @@ export function computeRemark(total, gradingScale = []) {
 }
 
 export function normalizeCaComponentDefinitions(settings = {}) {
+  const scoreModel = resolveResultScoreModel(settings);
   return (Array.isArray(settings?.metadata?.caComponents) ? settings.metadata.caComponents : [])
     .map((component, index) => ({
       key: String(component?.key || component?.label || `ca_${index + 1}`)
@@ -36,12 +50,12 @@ export function normalizeCaComponentDefinitions(settings = {}) {
         .replace(/[^a-z0-9]+/g, '_')
         .replace(/^_+|_+$/g, '') || `ca_${index + 1}`,
       label: String(component?.label || component?.key || `CA ${index + 1}`).trim(),
-      maxScore: clampNumber(component?.maxScore, 1, 40),
+      maxScore: clampNumber(component?.maxScore, 1, scoreModel.caMaxScore),
     }))
     .filter(component => component.label);
 }
 
-function normalizeCaComponentScores(value = {}, definitions = [], fallbackCa = 0) {
+function normalizeCaComponentScores(value = {}, definitions = [], fallbackCa = 0, caMaxScore = 40) {
   if (!definitions.length) return {};
 
   const source = value && typeof value === 'object' && !Array.isArray(value) ? value : {};
@@ -52,7 +66,7 @@ function normalizeCaComponentScores(value = {}, definitions = [], fallbackCa = 0
   const hasAny = Object.values(normalized).some(score => Number(score || 0) > 0);
 
   if (!hasAny && Number(fallbackCa || 0) > 0) {
-    let remaining = clampNumber(fallbackCa, 0, 40);
+    let remaining = clampNumber(fallbackCa, 0, caMaxScore);
     definitions.forEach(component => {
       const allocated = clampNumber(Math.min(remaining, component.maxScore), 0, component.maxScore);
       normalized[component.key] = allocated;
@@ -63,12 +77,12 @@ function normalizeCaComponentScores(value = {}, definitions = [], fallbackCa = 0
   return normalized;
 }
 
-function computeCaFromComponents(scores = {}, definitions = [], fallbackCa = 0) {
-  if (!definitions.length) return clampNumber(fallbackCa, 0, 40);
+function computeCaFromComponents(scores = {}, definitions = [], fallbackCa = 0, caMaxScore = 40) {
+  if (!definitions.length) return clampNumber(fallbackCa, 0, caMaxScore);
   return clampNumber(
     definitions.reduce((sum, component) => sum + Number(scores?.[component.key] || 0), 0),
     0,
-    40,
+    caMaxScore,
   );
 }
 
@@ -99,14 +113,15 @@ function buildTeacherBroadsheet(students = []) {
 
 export function recomputeTeacherSheet(sheet = {}) {
   const gradingScale = Array.isArray(sheet?.settings?.gradingScale) ? sheet.settings.gradingScale : [];
+  const scoreModel = resolveResultScoreModel(sheet?.settings);
   const caComponentDefinitions = normalizeCaComponentDefinitions(sheet?.settings);
   const students = (Array.isArray(sheet?.students) ? sheet.students : []).map(student => {
     const rows = (Array.isArray(student?.rows) ? student.rows : [])
       .map(row => {
-        const caComponents = normalizeCaComponentScores(row?.caComponents, caComponentDefinitions, row?.ca);
-        const ca = computeCaFromComponents(caComponents, caComponentDefinitions, row?.ca);
-        const exam = clampNumber(row?.exam, 0, 60);
-        const total = clampNumber(ca + exam, 0, 100);
+        const caComponents = normalizeCaComponentScores(row?.caComponents, caComponentDefinitions, row?.ca, scoreModel.caMaxScore);
+        const ca = computeCaFromComponents(caComponents, caComponentDefinitions, row?.ca, scoreModel.caMaxScore);
+        const exam = clampNumber(row?.exam, 0, scoreModel.examMaxScore);
+        const total = clampNumber(ca + exam, 0, scoreModel.totalMaxScore);
         return {
           ...row,
           caComponents,
@@ -157,13 +172,14 @@ function normalizePublication(publication) {
 }
 
 function buildSubjectRows(entries = [], gradingScale = [], settings = {}) {
+  const scoreModel = resolveResultScoreModel(settings);
   const caComponentDefinitions = normalizeCaComponentDefinitions(settings);
   return entries
     .map(entry => {
-      const caComponents = normalizeCaComponentScores(entry?.caComponents, caComponentDefinitions, entry?.caScore);
-      const ca = computeCaFromComponents(caComponents, caComponentDefinitions, entry?.caScore);
-      const exam = clampNumber(entry?.examScore, 0, 60);
-      const total = clampNumber(ca + exam, 0, 100);
+      const caComponents = normalizeCaComponentScores(entry?.caComponents, caComponentDefinitions, entry?.caScore, scoreModel.caMaxScore);
+      const ca = computeCaFromComponents(caComponents, caComponentDefinitions, entry?.caScore, scoreModel.caMaxScore);
+      const exam = clampNumber(entry?.examScore, 0, scoreModel.examMaxScore);
+      const total = clampNumber(ca + exam, 0, scoreModel.totalMaxScore);
       return {
         subjectId: String(entry?.subjectId || ''),
         subjectName: String(entry?.subjectName || ''),
@@ -235,13 +251,14 @@ export function normalizeTeacherSheetResponse(data = {}) {
 }
 
 export function buildEntryPayload(sheet = {}) {
+  const scoreModel = resolveResultScoreModel(sheet?.settings);
   return (Array.isArray(sheet?.students) ? sheet.students : []).flatMap(student =>
     (Array.isArray(student?.rows) ? student.rows : []).map(row => ({
       studentId: student.id,
       subjectId: row.subjectId,
       caComponents: row.caComponents || {},
-      caScore: clampNumber(row.ca, 0, 40),
-      examScore: clampNumber(row.exam, 0, 60),
+      caScore: clampNumber(row.ca, 0, scoreModel.caMaxScore),
+      examScore: clampNumber(row.exam, 0, scoreModel.examMaxScore),
     }))
   );
 }

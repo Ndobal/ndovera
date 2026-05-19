@@ -1,11 +1,18 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import FeeReceiptPrintCard from './FeeReceiptPrintCard';
 import {
+  approveFeePaymentClaim,
+  getFeePaymentClaims,
+  getFeeReceipts,
   getClasses,
   getFeesConfig,
   getFeesLedger,
+  getFeesPaymentDetails,
   getPeople,
   markFeePaid,
+  rejectFeePaymentClaim,
   saveFeesConfig,
+  saveFeesPaymentDetails,
 } from '../services/schoolApi';
 
 const DEFAULT_FEE_COLUMNS = [
@@ -39,6 +46,23 @@ const TD = 'border border-[#c9a96e]/30 p-2 align-top dark:border-[#00ffff]/15';
 
 function formatNaira(value) {
   return `₦${Number(value || 0).toLocaleString()}`;
+}
+
+function createEmptyPaymentDetails() {
+  return {
+    bankName: '',
+    accountName: '',
+    accountNumber: '',
+    paymentInstructions: '',
+    paymentReferenceHint: '',
+  };
+}
+
+function getClaimStatusLabel(status) {
+  const normalizedStatus = String(status || 'pending').toLowerCase();
+  if (normalizedStatus === 'verified') return 'Verified';
+  if (normalizedStatus === 'rejected') return 'Rejected';
+  return 'Pending';
 }
 
 function getDefaultSessionLabel() {
@@ -126,6 +150,7 @@ function buildStudentRows({ students, ledger, classes, feeColumns, configs }) {
       const classId = String(person?.classId || '').trim();
       roster[studentId] = {
         id: studentId,
+        displayId: String(person?.displayId || '').trim(),
         name: person?.name || person?.displayId || studentId,
         classId,
         className: classNameById[classId] || 'Unassigned',
@@ -140,6 +165,7 @@ function buildStudentRows({ students, ledger, classes, feeColumns, configs }) {
 
     roster[studentId] = {
       id: studentId,
+      displayId: String(entry?.displayId || roster[studentId]?.displayId || '').trim(),
       name: entry?.name || roster[studentId]?.name || studentId,
       classId: String(entry?.classId || roster[studentId]?.classId || '').trim(),
       className:
@@ -186,6 +212,7 @@ function buildStudentRows({ students, ledger, classes, feeColumns, configs }) {
 
       return {
         id: student.id,
+        displayId: student.displayId,
         name: student.name,
         classId: student.classId,
         className: student.className,
@@ -208,6 +235,7 @@ function buildStudentRows({ students, ledger, classes, feeColumns, configs }) {
 function FeesManagementBoard() {
   const [feeColumns, setFeeColumns] = useState(DEFAULT_FEE_COLUMNS);
   const [students, setStudents] = useState([]);
+  const [receipts, setReceipts] = useState([]);
   const [sessionLabel, setSessionLabel] = useState(getDefaultSessionLabel());
   const [statusFilter, setStatusFilter] = useState('all');
   const [loading, setLoading] = useState(true);
@@ -217,6 +245,10 @@ function FeesManagementBoard() {
   const [selectedReceipt, setSelectedReceipt] = useState(null);
   const [toast, setToast] = useState('');
   const [dirty, setDirty] = useState(false);
+  const [paymentDetailsForm, setPaymentDetailsForm] = useState(createEmptyPaymentDetails());
+  const [claims, setClaims] = useState([]);
+  const [paymentDetailsSaving, setPaymentDetailsSaving] = useState(false);
+  const [claimSavingId, setClaimSavingId] = useState('');
   const toastTimeoutRef = useRef(null);
 
   const showToast = useCallback((message) => {
@@ -231,56 +263,48 @@ function FeesManagementBoard() {
     };
   }, []);
 
-  useEffect(() => {
-    let ignore = false;
+  const loadBoard = useCallback(async () => {
+    setLoading(true);
 
-    async function loadBoard() {
-      setLoading(true);
+    try {
+      const [ledgerResult, configResult, classResult, peopleResult, receiptResult, paymentDetailsResult, claimResult] = await Promise.all([
+        getFeesLedger(),
+        getFeesConfig(),
+        getClasses(),
+        getPeople(),
+        getFeeReceipts(),
+        getFeesPaymentDetails(),
+        getFeePaymentClaims(),
+      ]);
 
-      try {
-        const [ledgerResult, configResult, classResult, peopleResult] = await Promise.all([
-          getFeesLedger(),
-          getFeesConfig(),
-          getClasses(),
-          getPeople(),
-        ]);
+      const configs = configResult?.configs || [];
+      const columns = createFeeColumns(configs);
+      const nextStudents = buildStudentRows({
+        students: peopleResult?.people || [],
+        ledger: ledgerResult?.ledger || [],
+        classes: classResult?.classes || [],
+        feeColumns: columns,
+        configs,
+      });
 
-        if (ignore) {
-          return;
-        }
+      const persistedSession = configs.find((config) => String(config?.session || '').trim())?.session;
 
-        const configs = configResult?.configs || [];
-        const columns = createFeeColumns(configs);
-        const nextStudents = buildStudentRows({
-          students: peopleResult?.people || [],
-          ledger: ledgerResult?.ledger || [],
-          classes: classResult?.classes || [],
-          feeColumns: columns,
-          configs,
-        });
-
-        const persistedSession = configs.find((config) => String(config?.session || '').trim())?.session;
-
-        setFeeColumns(columns);
-        setStudents(nextStudents);
-        setSessionLabel(persistedSession || getDefaultSessionLabel());
-      } catch (error) {
-        if (!ignore) {
-          showToast(error.message || 'Could not load fees.');
-        }
-      } finally {
-        if (!ignore) {
-          setLoading(false);
-        }
-      }
+      setFeeColumns(columns);
+      setStudents(nextStudents);
+      setSessionLabel(persistedSession || getDefaultSessionLabel());
+      setReceipts(receiptResult?.receipts || []);
+      setPaymentDetailsForm(paymentDetailsResult?.paymentDetails || createEmptyPaymentDetails());
+      setClaims((claimResult?.claims || []).map(claim => ({ ...claim, reviewNote: claim.verificationNote || '' })));
+    } catch (error) {
+      showToast(error.message || 'Could not load fees.');
+    } finally {
+      setLoading(false);
     }
-
-    loadBoard();
-
-    return () => {
-      ignore = true;
-    };
   }, [showToast]);
+
+  useEffect(() => {
+    loadBoard();
+  }, [loadBoard]);
 
   const calculateTotal = useCallback(
     (student) =>
@@ -306,7 +330,7 @@ function FeesManagementBoard() {
     [expectedAmount],
   );
 
-  function getStatus(student) {
+  const getStatus = useCallback((student) => {
     if (balance(student) <= 0 && Number(student?.amountPaid || 0) > 0) {
       return 'Paid';
     }
@@ -314,7 +338,17 @@ function FeesManagementBoard() {
       return 'Partial';
     }
     return 'Unpaid';
-  }
+  }, [balance]);
+
+  const pendingClaims = useMemo(
+    () => claims.filter(claim => String(claim?.status || '').toLowerCase() === 'pending'),
+    [claims],
+  );
+
+  const recentClaims = useMemo(
+    () => claims.slice(0, 8),
+    [claims],
+  );
 
   const filteredStudents = useMemo(() => {
     if (statusFilter === 'all') {
@@ -322,7 +356,7 @@ function FeesManagementBoard() {
     }
 
     return students.filter((student) => String(getStatus(student)).toLowerCase() === statusFilter);
-  }, [balance, statusFilter, students]);
+  }, [getStatus, statusFilter, students]);
 
   function updateFee(index, feeName, value) {
     const nextValue = Number(value || 0);
@@ -483,6 +517,55 @@ function FeesManagementBoard() {
     }
   }
 
+  async function persistPaymentDetails() {
+    setPaymentDetailsSaving(true);
+    try {
+      const result = await saveFeesPaymentDetails(paymentDetailsForm);
+      setPaymentDetailsForm(result?.paymentDetails || paymentDetailsForm);
+      showToast('School payment details saved.');
+    } catch (error) {
+      showToast(error.message || 'Could not save payment details.');
+    } finally {
+      setPaymentDetailsSaving(false);
+    }
+  }
+
+  function updateClaimReviewNote(claimId, reviewNote) {
+    setClaims(currentClaims => currentClaims.map(claim => (
+      claim.id === claimId
+        ? { ...claim, reviewNote }
+        : claim
+    )));
+  }
+
+  async function reviewClaim(claimId, action) {
+    const targetClaim = claims.find(claim => claim.id === claimId);
+    if (!targetClaim) {
+      return;
+    }
+
+    setClaimSavingId(`${claimId}:${action}`);
+    try {
+      if (action === 'approve') {
+        const response = await approveFeePaymentClaim(claimId, { verificationNote: targetClaim.reviewNote || '' });
+        if (response?.receipt) {
+          setReceipts(currentReceipts => [response.receipt, ...currentReceipts.filter(receipt => receipt.id !== response.receipt.id)]);
+          setSelectedReceipt(response.receipt);
+          setReceiptModal(true);
+        }
+        showToast(`Payment claim approved${response?.receipt?.receiptNo ? ` and receipt ${response.receipt.receiptNo} issued.` : '.'}`);
+      } else {
+        await rejectFeePaymentClaim(claimId, { verificationNote: targetClaim.reviewNote || '' });
+        showToast('Payment claim rejected.');
+      }
+      await loadBoard();
+    } catch (error) {
+      showToast(error.message || 'Could not review payment claim.');
+    } finally {
+      setClaimSavingId('');
+    }
+  }
+
   async function persistAmountPaid(studentId) {
     const target = students.find((student) => student.id === studentId);
     if (!target) {
@@ -529,7 +612,7 @@ function FeesManagementBoard() {
     setPaymentSavingId(studentId);
 
     try {
-      await markFeePaid(studentId, {
+      const result = await markFeePaid(studentId, {
         amount: nextAmount - recordedAmount,
         paymentType: 'cash',
         feeAmount: expectedAmount(target),
@@ -556,7 +639,12 @@ function FeesManagementBoard() {
           };
         }),
       );
-      showToast('Payment recorded.');
+      if (result?.receipt) {
+        setReceipts(currentReceipts => [result.receipt, ...currentReceipts.filter(receipt => receipt.id !== result.receipt.id)]);
+        setSelectedReceipt(result.receipt);
+        setReceiptModal(true);
+      }
+      showToast(`Payment recorded${result?.receipt?.receiptNo ? ` and receipt ${result.receipt.receiptNo} issued.` : '.'}`);
     } catch (error) {
       setStudents((currentStudents) =>
         currentStudents.map((student) =>
@@ -575,15 +663,13 @@ function FeesManagementBoard() {
   }
 
   function issueReceipt(student) {
-    setSelectedReceipt({
-      ...student,
-      total: calculateTotal(student),
-      expected: expectedAmount(student),
-      balance: balance(student),
-      status: getStatus(student),
-      date: new Date().toLocaleDateString(),
-      receiptNo: `RCT-${Date.now()}`,
-    });
+    const latestReceipt = receipts.find(receipt => receipt.studentId === student.id);
+    if (!latestReceipt) {
+      showToast('No official receipt has been recorded for this student yet. Record a payment or approve a payment claim first.');
+      return;
+    }
+
+    setSelectedReceipt(latestReceipt);
     setReceiptModal(true);
   }
 
@@ -617,6 +703,8 @@ function FeesManagementBoard() {
 
   return (
     <div className="space-y-6">
+      <style>{'@media print { body * { visibility: hidden; } #fees-receipt-print, #fees-receipt-print * { visibility: visible; } #fees-receipt-print { position: absolute; inset: 0; margin: 0; padding: 32px; width: 100%; background: #f5deb3; } }'}</style>
+
       {toast ? (
         <div className="fixed right-6 top-6 z-50 rounded-2xl bg-[#1a5c38] px-5 py-3 text-sm font-bold text-[#f5deb3] shadow-xl dark:bg-[#00ffff] dark:text-black">
           {toast}
@@ -676,6 +764,89 @@ function FeesManagementBoard() {
       </div>
 
       <div className={CARD}>
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+          <div>
+            <h3 className="text-2xl font-bold text-[#800000] dark:text-[#0000ff]">Parent Payment Channels</h3>
+            <p className="mt-2 text-sm text-[#191970] dark:text-[#39ff14]">
+              Publish the school account details parents use before they submit the “I have paid” verification claim.
+            </p>
+          </div>
+          <button onClick={persistPaymentDetails} disabled={paymentDetailsSaving} className={BTN}>
+            {paymentDetailsSaving ? 'Saving...' : 'Save Payment Details'}
+          </button>
+        </div>
+
+        <div className="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          <label className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">Bank Name
+            <input value={paymentDetailsForm.bankName} onChange={(event) => setPaymentDetailsForm(current => ({ ...current, bankName: event.target.value }))} className={`${INPUT} mt-2`} />
+          </label>
+          <label className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">Account Name
+            <input value={paymentDetailsForm.accountName} onChange={(event) => setPaymentDetailsForm(current => ({ ...current, accountName: event.target.value }))} className={`${INPUT} mt-2`} />
+          </label>
+          <label className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">Account Number
+            <input value={paymentDetailsForm.accountNumber} onChange={(event) => setPaymentDetailsForm(current => ({ ...current, accountNumber: event.target.value }))} className={`${INPUT} mt-2`} />
+          </label>
+          <label className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">Reference Hint
+            <input value={paymentDetailsForm.paymentReferenceHint} onChange={(event) => setPaymentDetailsForm(current => ({ ...current, paymentReferenceHint: event.target.value }))} className={`${INPUT} mt-2`} placeholder="e.g. Student name + teller no." />
+          </label>
+          <label className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff] md:col-span-2 xl:col-span-4">Payment Instructions
+            <textarea value={paymentDetailsForm.paymentInstructions} onChange={(event) => setPaymentDetailsForm(current => ({ ...current, paymentInstructions: event.target.value }))} rows={3} className={`${INPUT} mt-2 min-h-[110px] resize-y`} placeholder="Explain how parents should pay and what proof or reference they should include." />
+          </label>
+        </div>
+      </div>
+
+      <div className={CARD}>
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+          <div>
+            <h3 className="text-2xl font-bold text-[#800000] dark:text-[#0000ff]">Payment Claim Queue</h3>
+            <p className="mt-2 text-sm text-[#191970] dark:text-[#39ff14]">
+              Approve verified parent claims to issue the receipt automatically and push the ledger forward, or reject with a finance note.
+            </p>
+          </div>
+          <span className={BADGE}>{pendingClaims.length} Pending</span>
+        </div>
+
+        <div className="mt-5 space-y-4">
+          {!recentClaims.length ? <p className="text-sm text-[#800020] dark:text-[#bf00ff]">No payment claims have been submitted yet.</p> : null}
+          {recentClaims.map(claim => (
+            <article key={claim.id} className={`${INNER} space-y-4`}>
+              <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+                <div className="space-y-2">
+                  <p className="text-lg font-bold text-[#191970] dark:text-white">{claim.studentName} • {formatNaira(claim.amount)}</p>
+                  <p className="text-sm text-[#191970] dark:text-[#39ff14]">{claim.claimantName || 'Parent'} • {claim.paymentMethod || 'bank-transfer'} • {claim.paidAt || claim.claimedAt || 'Recently submitted'}</p>
+                  <div className="flex flex-wrap gap-2">
+                    <span className={BADGE}>{claim.className || 'No class assigned'}</span>
+                    <span className={BADGE}>{claim.paymentReference || 'No reference supplied'}</span>
+                    {claim.receiptNo ? <span className={BADGE}>Receipt {claim.receiptNo}</span> : null}
+                  </div>
+                  {claim.paymentNote ? <p className="text-sm text-[#191970] dark:text-[#39ff14]">{claim.paymentNote}</p> : null}
+                  {claim.verificationNote && String(claim.status || '').toLowerCase() !== 'pending' ? <p className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">Finance note: {claim.verificationNote}</p> : null}
+                </div>
+                <span className={BADGE}>{getClaimStatusLabel(claim.status)}</span>
+              </div>
+
+              {String(claim.status || '').toLowerCase() === 'pending' ? (
+                <div className="grid gap-3 lg:grid-cols-[1fr_auto_auto]">
+                  <input
+                    value={claim.reviewNote || ''}
+                    onChange={(event) => updateClaimReviewNote(claim.id, event.target.value)}
+                    className={INPUT}
+                    placeholder="Optional finance note for the parent"
+                  />
+                  <button onClick={() => reviewClaim(claim.id, 'approve')} disabled={Boolean(claimSavingId)} className={BTN}>
+                    {claimSavingId === `${claim.id}:approve` ? 'Approving...' : 'Approve & Issue Receipt'}
+                  </button>
+                  <button onClick={() => reviewClaim(claim.id, 'reject')} disabled={Boolean(claimSavingId)} className={OUTLINE_BTN}>
+                    {claimSavingId === `${claim.id}:reject` ? 'Rejecting...' : 'Reject Claim'}
+                  </button>
+                </div>
+              ) : null}
+            </article>
+          ))}
+        </div>
+      </div>
+
+      <div className={CARD}>
         <p className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">Template behavior</p>
         <p className="mt-2 text-sm text-[#191970] dark:text-[#39ff14]">
           Editing a fee cell updates that student&apos;s class template locally. Use Save Template to persist those fee headings and amounts for the session.
@@ -709,7 +880,7 @@ function FeesManagementBoard() {
               {filteredStudents.map((student, index) => (
                 <tr key={student.id} className="bg-white/35 hover:bg-white/60 dark:bg-[#120014]/55 dark:hover:bg-[#1a0020]">
                   <td className={TD}>{index + 1}</td>
-                  <td className={TD}>{student.id}</td>
+                  <td className={TD}>{student.displayId || student.id}</td>
                   <td className={TD}>
                     <div className="min-w-[220px]">
                       <p className="font-semibold text-[#191970] dark:text-white">{student.name}</p>
@@ -820,53 +991,17 @@ function FeesManagementBoard() {
 
       {receiptModal && selectedReceipt ? (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/55 p-4">
-          <div className={`${CARD} w-full max-w-lg`} id="fees-receipt-print">
-            <div className="flex items-start justify-between gap-4">
-              <div>
-                <h3 className="text-2xl font-bold text-[#800000] dark:text-[#0000ff]">Payment Receipt</h3>
-                <p className="mt-1 text-sm text-[#191970] dark:text-[#39ff14]">School fees receipt preview for printing.</p>
-              </div>
-              <span className={BADGE}>{selectedReceipt.status}</span>
-            </div>
+          <div className="w-full max-w-4xl space-y-4">
+            <FeeReceiptPrintCard
+              receipt={selectedReceipt}
+              printId="fees-receipt-print"
+              title="School Finance Copy Receipt"
+              subtitle="Official school fees receipt generated from the finance ledger."
+            />
 
-            <div className="mt-6 space-y-3">
-              <div className={`${INNER} flex items-center justify-between`}>
-                <span className="font-semibold text-[#800020] dark:text-[#bf00ff]">Receipt No</span>
-                <span className="font-bold text-[#191970] dark:text-white">{selectedReceipt.receiptNo}</span>
-              </div>
-              <div className={`${INNER} flex items-center justify-between`}>
-                <span className="font-semibold text-[#800020] dark:text-[#bf00ff]">Date</span>
-                <span className="font-bold text-[#191970] dark:text-white">{selectedReceipt.date}</span>
-              </div>
-              <div className={`${INNER} flex items-center justify-between`}>
-                <span className="font-semibold text-[#800020] dark:text-[#bf00ff]">Student</span>
-                <span className="font-bold text-[#191970] dark:text-white">{selectedReceipt.name}</span>
-              </div>
-              <div className={`${INNER} flex items-center justify-between`}>
-                <span className="font-semibold text-[#800020] dark:text-[#bf00ff]">Class</span>
-                <span className="font-bold text-[#191970] dark:text-white">{selectedReceipt.className}</span>
-              </div>
-              <div className={`${INNER} flex items-center justify-between`}>
-                <span className="font-semibold text-[#800020] dark:text-[#bf00ff]">Expected</span>
-                <span className="font-bold text-[#191970] dark:text-white">{formatNaira(selectedReceipt.expected)}</span>
-              </div>
-              <div className={`${INNER} flex items-center justify-between`}>
-                <span className="font-semibold text-[#800020] dark:text-[#bf00ff]">Paid</span>
-                <span className="font-bold text-[#191970] dark:text-white">{formatNaira(selectedReceipt.amountPaid)}</span>
-              </div>
-              <div className={`${INNER} flex items-center justify-between`}>
-                <span className="font-semibold text-[#800020] dark:text-[#bf00ff]">Balance</span>
-                <span className="font-bold text-[#191970] dark:text-white">{formatNaira(selectedReceipt.balance)}</span>
-              </div>
-              <div className={`${INNER} flex items-center justify-between`}>
-                <span className="font-semibold text-[#800020] dark:text-[#bf00ff]">Remark</span>
-                <span className="font-bold text-[#191970] dark:text-white">{selectedReceipt.remark || selectedReceipt.status}</span>
-              </div>
-            </div>
-
-            <div className="mt-6 flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-3">
               <button onClick={() => window.print()} className={BTN}>Print Receipt</button>
-              <button onClick={() => setReceiptModal(false)} className={OUTLINE_BTN}>Close</button>
+              <button onClick={() => { setReceiptModal(false); setSelectedReceipt(null); }} className={OUTLINE_BTN}>Close</button>
             </div>
           </div>
         </div>

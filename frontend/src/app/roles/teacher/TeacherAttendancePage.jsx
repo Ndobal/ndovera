@@ -1,0 +1,706 @@
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import StudentSectionShell from '../student/StudentSectionShell';
+import { getStoredAuth } from '../../../features/auth/services/authApi';
+import {
+  getStaffAttendanceActivity,
+  getStaffAttendanceSettings,
+  submitStaffAttendanceActivity,
+  uploadStaffAttendanceFace,
+} from '../../../features/school/services/schoolApi';
+import { getAssignedClasses, getClassStudents, recordAttendance } from '../../../features/classroom/classroomService';
+
+const SURFACE = 'rounded-3xl border border-[#c9a96e]/40 bg-[#f5deb3] p-6 shadow-[0_18px_42px_rgba(128,0,0,0.08)] dark:border-[#bf00ff]/35 dark:bg-[#800000]/75 dark:shadow-[0_0_28px_rgba(191,0,255,0.18)]';
+const PANEL = 'rounded-2xl border border-[#c9a96e]/35 bg-[#fff8f0] p-4 dark:border-[#bf00ff]/25 dark:bg-black/20';
+const LABEL = 'text-xs font-semibold uppercase tracking-[0.18em] text-[#800020] dark:text-[#bf00ff]';
+const BODY = 'text-sm text-[#191970] dark:text-[#39ff14]';
+const INPUT = 'w-full rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] px-4 py-3 text-sm text-[#191970] outline-none focus:ring-2 focus:ring-[#1a5c38] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#ffffff] dark:focus:ring-[#00ffff]';
+const PRIMARY_BUTTON = 'rounded-2xl bg-[#1a5c38] px-4 py-2.5 text-sm font-bold text-[#f5deb3] transition-colors hover:bg-[#154a2e] disabled:cursor-not-allowed disabled:opacity-60 dark:bg-[#00ffff] dark:text-[#000000] dark:hover:bg-[#7dfcff]';
+const SECONDARY_BUTTON = 'rounded-2xl border border-[#800020]/30 bg-white/70 px-4 py-2.5 text-sm font-semibold text-[#800020] transition-colors hover:bg-white disabled:cursor-not-allowed disabled:opacity-60 dark:border-[#bf00ff]/35 dark:bg-black/25 dark:text-[#bf00ff] dark:hover:bg-[#140014]';
+const TODAY = new Date().toISOString().slice(0, 10);
+
+function formatDateTime(value) {
+  if (!value) return 'Recent';
+  const parsed = new Date(value);
+  return Number.isNaN(parsed.getTime()) ? value : parsed.toLocaleString();
+}
+
+function formatMoney(value) {
+  return `₦${Number(value || 0).toLocaleString()}`;
+}
+
+function monthStart(dateText = TODAY) {
+  const date = new Date(`${dateText}T00:00:00`);
+  if (Number.isNaN(date.getTime())) {
+    return TODAY.slice(0, 8) + '01';
+  }
+  return new Date(date.getFullYear(), date.getMonth(), 1).toISOString().slice(0, 10);
+}
+
+function findLatestSignIn(events = []) {
+  return events.find(event => event.action === 'sign-in') || null;
+}
+
+function statusTone(isLate) {
+  return isLate
+    ? 'border-amber-400/35 bg-amber-50 text-amber-800 dark:border-amber-300/35 dark:bg-[#2d1a00] dark:text-amber-200'
+    : 'border-[#1a5c38]/25 bg-[#edf8f1] text-[#1a5c38] dark:border-[#00ffff]/30 dark:bg-[#012124] dark:text-[#00ffff]';
+}
+
+function buildTodaySummary(summary = {}, latestSignIn = null) {
+  return {
+    signIns: Number(summary?.signIns || 0),
+    onTimeCount: Number(summary?.onTimeCount || 0),
+    lateCount: Number(summary?.lateCount || 0),
+    lateCharge: Number(summary?.lateCharge || 0),
+    arrivalTime: latestSignIn?.createdAt || '',
+  };
+}
+
+function MetricCard({ label, value, accent = 'text-[#191970] dark:text-[#39ff14]' }) {
+  return (
+    <div className={PANEL}>
+      <p className={LABEL}>{label}</p>
+      <p className={`mt-2 text-2xl font-black ${accent}`}>{value}</p>
+    </div>
+  );
+}
+
+function CameraScanner({ open, onDetect, disabled }) {
+  const videoRef = useRef(null);
+  const animationRef = useRef(null);
+  const streamRef = useRef(null);
+  const detectedRef = useRef(false);
+  const [scannerError, setScannerError] = useState('');
+  const [scannerReady, setScannerReady] = useState(false);
+
+  const stopScanner = useCallback(() => {
+    detectedRef.current = false;
+    if (animationRef.current) {
+      window.cancelAnimationFrame(animationRef.current);
+      animationRef.current = null;
+    }
+    if (streamRef.current) {
+      streamRef.current.getTracks().forEach(track => track.stop());
+      streamRef.current = null;
+    }
+    if (videoRef.current) {
+      videoRef.current.srcObject = null;
+    }
+    setScannerReady(false);
+  }, []);
+
+  useEffect(() => {
+    if (!open || disabled) {
+      stopScanner();
+      return undefined;
+    }
+
+    if (typeof window === 'undefined' || !window.BarcodeDetector || !window.navigator?.mediaDevices?.getUserMedia) {
+      setScannerError('Live camera QR scanning is not available in this browser. Use the manual QR entry field below.');
+      stopScanner();
+      return undefined;
+    }
+
+    let active = true;
+    let detector;
+
+    async function startScanner() {
+      setScannerError('');
+      try {
+        detector = new window.BarcodeDetector({ formats: ['qr_code'] });
+        const stream = await window.navigator.mediaDevices.getUserMedia({
+          video: {
+            facingMode: { ideal: 'environment' },
+          },
+          audio: false,
+        });
+
+        if (!active) {
+          stream.getTracks().forEach(track => track.stop());
+          return;
+        }
+
+        streamRef.current = stream;
+        if (videoRef.current) {
+          videoRef.current.srcObject = stream;
+          await videoRef.current.play().catch(() => null);
+        }
+        setScannerReady(true);
+
+        const scan = async () => {
+          if (!active || !videoRef.current || detectedRef.current) return;
+          try {
+            const barcodes = await detector.detect(videoRef.current);
+            const nextCode = String(barcodes?.[0]?.rawValue || '').trim();
+            if (nextCode) {
+              detectedRef.current = true;
+              stopScanner();
+              onDetect(nextCode);
+              return;
+            }
+          } catch {}
+          animationRef.current = window.requestAnimationFrame(scan);
+        };
+
+        animationRef.current = window.requestAnimationFrame(scan);
+      } catch (error) {
+        setScannerError(error instanceof Error ? error.message : 'Could not start the camera scanner.');
+        stopScanner();
+      }
+    }
+
+    startScanner();
+    return () => {
+      active = false;
+      stopScanner();
+    };
+  }, [disabled, onDetect, open, stopScanner]);
+
+  if (!open) return null;
+
+  return (
+    <div className={PANEL}>
+      <p className={LABEL}>Live QR Scanner</p>
+      <div className="mt-3 overflow-hidden rounded-3xl border border-[#c9a96e]/35 bg-black/80">
+        <video ref={videoRef} muted playsInline className="h-72 w-full object-cover" />
+      </div>
+      <p className={`${BODY} mt-3`}>
+        {scannerReady ? 'Point the camera at the active school QR code to sign in automatically.' : 'Preparing the camera scanner...'}
+      </p>
+      {scannerError ? <p className="mt-2 text-sm text-[#800000] dark:text-rose-200">{scannerError}</p> : null}
+    </div>
+  );
+}
+
+export default function TeacherAttendancePage() {
+  const auth = getStoredAuth();
+  const currentUser = auth?.user || {};
+  const teacherName = String(currentUser?.name || 'Teacher');
+
+  const [activeTab, setActiveTab] = useState('sign-in');
+  const [settingsLoading, setSettingsLoading] = useState(true);
+  const [settings, setSettings] = useState(null);
+  const [todayEvents, setTodayEvents] = useState([]);
+  const [todaySummary, setTodaySummary] = useState({ signIns: 0, onTimeCount: 0, lateCount: 0, lateCharge: 0, arrivalTime: '' });
+  const [signInLoading, setSignInLoading] = useState(false);
+  const [signInMessage, setSignInMessage] = useState('');
+  const [signInError, setSignInError] = useState('');
+  const [scannerOpen, setScannerOpen] = useState(false);
+  const [manualQrCode, setManualQrCode] = useState('');
+  const [signInNote, setSignInNote] = useState('');
+  const [faceImageUrl, setFaceImageUrl] = useState('');
+  const [faceUploadLabel, setFaceUploadLabel] = useState('');
+  const [faceUploading, setFaceUploading] = useState(false);
+  const [managedClasses, setManagedClasses] = useState([]);
+  const [selectedClassId, setSelectedClassId] = useState('');
+  const [classStudents, setClassStudents] = useState([]);
+  const [selectedStudentId, setSelectedStudentId] = useState('');
+  const [studentDate, setStudentDate] = useState(TODAY);
+  const [studentStatus, setStudentStatus] = useState('Present');
+  const [studentNotes, setStudentNotes] = useState('');
+  const [studentLoading, setStudentLoading] = useState(false);
+  const [studentMessage, setStudentMessage] = useState('');
+  const [studentError, setStudentError] = useState('');
+  const [recordsFrom, setRecordsFrom] = useState(monthStart(TODAY));
+  const [recordsTo, setRecordsTo] = useState(TODAY);
+  const [recordEvents, setRecordEvents] = useState([]);
+  const [recordSummary, setRecordSummary] = useState({ signIns: 0, signOuts: 0, onTimeCount: 0, lateCount: 0, lateMinutes: 0, lateCharge: 0, totalCharges: 0 });
+  const [recordsLoading, setRecordsLoading] = useState(false);
+  const [recordsError, setRecordsError] = useState('');
+
+  const latestSignIn = useMemo(() => findLatestSignIn(todayEvents), [todayEvents]);
+  const attendanceClasses = useMemo(
+    () => managedClasses.filter(classroom => Boolean(classroom?.canManageClassroom || classroom?.isClassTeacher || classroom?.isSupervisor)),
+    [managedClasses],
+  );
+  const signInTone = latestSignIn ? statusTone(latestSignIn.isLate) : 'border-[#c9a96e]/35 bg-[#fff8f0] text-[#191970] dark:border-[#bf00ff]/25 dark:bg-black/20 dark:text-[#39ff14]';
+
+  const loadTodayActivity = useCallback(async () => {
+    const response = await getStaffAttendanceActivity({ date: TODAY, limit: 8 });
+    const nextEvents = response?.events || [];
+    const nextLatestSignIn = findLatestSignIn(nextEvents);
+    setTodayEvents(nextEvents);
+    setTodaySummary(buildTodaySummary(response?.summary || {}, nextLatestSignIn));
+    return nextEvents;
+  }, []);
+
+  const loadSettings = useCallback(async () => {
+    setSettingsLoading(true);
+    try {
+      const response = await getStaffAttendanceSettings();
+      setSettings(response?.settings || null);
+      setSignInError('');
+    } catch (error) {
+      setSettings(null);
+      setSignInError(error instanceof Error ? error.message : 'Could not load staff attendance settings.');
+    } finally {
+      setSettingsLoading(false);
+    }
+  }, []);
+
+  const loadManagedClasses = useCallback(async () => {
+    try {
+      const response = await getAssignedClasses();
+      const nextClasses = response?.classes || [];
+      setManagedClasses(nextClasses);
+      setSelectedClassId(currentClassId => (
+        nextClasses.some(classroom => classroom.id === currentClassId)
+          ? currentClassId
+          : String(nextClasses.find(classroom => classroom?.canManageClassroom || classroom?.isClassTeacher || classroom?.isSupervisor)?.id || '')
+      ));
+    } catch {
+      setManagedClasses([]);
+      setSelectedClassId('');
+    }
+  }, []);
+
+  const loadRecordRange = useCallback(async () => {
+    setRecordsLoading(true);
+    setRecordsError('');
+    try {
+      const response = await getStaffAttendanceActivity({ from: recordsFrom, to: recordsTo, limit: 120 });
+      setRecordEvents((response?.events || []).filter(event => event.action === 'sign-in'));
+      setRecordSummary(response?.summary || { signIns: 0, signOuts: 0, onTimeCount: 0, lateCount: 0, lateMinutes: 0, lateCharge: 0, totalCharges: 0 });
+    } catch (error) {
+      setRecordEvents([]);
+      setRecordSummary({ signIns: 0, signOuts: 0, onTimeCount: 0, lateCount: 0, lateMinutes: 0, lateCharge: 0, totalCharges: 0 });
+      setRecordsError(error instanceof Error ? error.message : 'Could not load your attendance records.');
+    } finally {
+      setRecordsLoading(false);
+    }
+  }, [recordsFrom, recordsTo]);
+
+  useEffect(() => {
+    loadSettings();
+    loadTodayActivity();
+    loadManagedClasses();
+  }, [loadManagedClasses, loadSettings, loadTodayActivity]);
+
+  useEffect(() => {
+    if (activeTab !== 'records') return;
+    loadRecordRange();
+  }, [activeTab, loadRecordRange]);
+
+  useEffect(() => {
+    if (!selectedClassId) {
+      setClassStudents([]);
+      setSelectedStudentId('');
+      return;
+    }
+
+    let cancelled = false;
+    getClassStudents(selectedClassId)
+      .then(response => {
+        if (cancelled) return;
+        const students = response?.students || [];
+        setClassStudents(students);
+        setSelectedStudentId(currentStudentId => (
+          students.some(student => student.id === currentStudentId)
+            ? currentStudentId
+            : String(students[0]?.id || '')
+        ));
+      })
+      .catch(() => {
+        if (!cancelled) {
+          setClassStudents([]);
+          setSelectedStudentId('');
+        }
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [selectedClassId]);
+
+  const submitSignIn = useCallback(async (qrCodeValue) => {
+    const nextQrCode = String(qrCodeValue || manualQrCode || '').trim();
+    if (!nextQrCode) {
+      setSignInError('Scan the active school QR code or enter it manually before signing in.');
+      return;
+    }
+
+    if (String(settings?.mode || 'qr') === 'face_qr' && !faceImageUrl) {
+      setSignInError('This school requires a face capture before QR sign-in. Upload a selfie and try again.');
+      return;
+    }
+
+    setSignInLoading(true);
+    setSignInError('');
+    setSignInMessage('');
+    try {
+      const response = await submitStaffAttendanceActivity({
+        action: 'sign-in',
+        date: TODAY,
+        qrCode: nextQrCode,
+        faceImageUrl,
+        notes: signInNote,
+      });
+
+      const event = response?.event || null;
+      await loadTodayActivity();
+      setManualQrCode(nextQrCode);
+      setScannerOpen(false);
+      setSignInMessage(event?.isLate
+        ? `Signed in at ${formatDateTime(event?.createdAt)}. You are late by ${event?.lateMinutes || 0} minute${Number(event?.lateMinutes || 0) === 1 ? '' : 's'}${Number(event?.lateCharge || 0) > 0 ? ` and charged ${formatMoney(event?.lateCharge)}` : ''}.`
+        : `Signed in successfully at ${formatDateTime(event?.createdAt)}. You are on time.`);
+      if (activeTab === 'records') {
+        loadRecordRange();
+      }
+    } catch (error) {
+      setSignInError(error instanceof Error ? error.message : 'Could not complete QR sign-in.');
+    } finally {
+      setSignInLoading(false);
+    }
+  }, [activeTab, faceImageUrl, loadRecordRange, loadTodayActivity, manualQrCode, settings?.mode, signInNote]);
+
+  const handleScanDetect = useCallback((value) => {
+    setManualQrCode(value);
+    submitSignIn(value);
+  }, [submitSignIn]);
+
+  async function handleFaceCapture(event) {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    setFaceUploading(true);
+    setSignInError('');
+    try {
+      const response = await uploadStaffAttendanceFace(file);
+      setFaceImageUrl(String(response?.url || ''));
+      setFaceUploadLabel(file.name);
+      setSignInMessage('Face capture uploaded. Continue with QR sign-in.');
+    } catch (error) {
+      setFaceImageUrl('');
+      setFaceUploadLabel('');
+      setSignInError(error instanceof Error ? error.message : 'Could not upload the face capture.');
+    } finally {
+      setFaceUploading(false);
+    }
+  }
+
+  async function handleStudentAttendanceSubmit(event) {
+    event.preventDefault();
+    if (!selectedClassId || !selectedStudentId || !studentDate || !studentStatus) {
+      setStudentError('Choose the class, student, date, and attendance status first.');
+      return;
+    }
+
+    setStudentLoading(true);
+    setStudentError('');
+    setStudentMessage('');
+    try {
+      const response = await recordAttendance(selectedClassId, {
+        studentId: selectedStudentId,
+        date: studentDate,
+        status: studentStatus,
+        notes: studentNotes,
+      });
+
+      if (!response?.success) {
+        setStudentError(response?.message || 'Could not record student attendance.');
+        return;
+      }
+
+      const selectedStudent = classStudents.find(student => student.id === selectedStudentId);
+      setStudentMessage(`Recorded ${studentStatus} for ${selectedStudent?.name || 'the selected student'} on ${studentDate}.`);
+      setStudentNotes('');
+    } catch (error) {
+      setStudentError(error instanceof Error ? error.message : 'Could not record student attendance.');
+    } finally {
+      setStudentLoading(false);
+    }
+  }
+
+  return (
+    <StudentSectionShell
+      title="Attendance"
+      subtitle="Sign yourself in with the school QR code, mark student attendance, and review your daily sign-in history from one page."
+      dashboardLabel="Teacher Dashboard"
+      watermarkText="Teacher Attendance"
+    >
+      <div className="space-y-6">
+        <section className={SURFACE}>
+          <div className="flex flex-wrap items-start justify-between gap-4">
+            <div>
+              <p className={LABEL}>Teacher attendance workspace</p>
+              <h2 className="mt-2 text-3xl font-black text-[#800000] dark:text-[#ffffff]">Welcome, {teacherName}</h2>
+              <p className={`${BODY} mt-2 max-w-4xl`}>Choose what you want to do right now: sign yourself in, mark student attendance, or review your own sign-in records.</p>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {[
+                { key: 'sign-in', label: 'Sign In' },
+                { key: 'students', label: 'Mark Student Attendance' },
+                { key: 'records', label: 'My Records' },
+              ].map(tab => (
+                <button
+                  key={tab.key}
+                  type="button"
+                  onClick={() => setActiveTab(tab.key)}
+                  className={activeTab === tab.key ? PRIMARY_BUTTON : SECONDARY_BUTTON}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {activeTab === 'sign-in' ? (
+          <div className="space-y-6">
+            <section className="grid grid-cols-1 gap-4 md:grid-cols-4">
+              <MetricCard label="Today sign-ins" value={todaySummary.signIns} />
+              <MetricCard label="On time" value={todaySummary.onTimeCount} accent="text-[#1a5c38] dark:text-[#00ffff]" />
+              <MetricCard label="Late" value={todaySummary.lateCount} accent="text-amber-700 dark:text-amber-300" />
+              <MetricCard label="Charges today" value={formatMoney(todaySummary.lateCharge)} accent="text-[#800000] dark:text-[#ff6bff]" />
+            </section>
+
+            <section className={SURFACE}>
+              <div className="grid gap-4 lg:grid-cols-[1.05fr_0.95fr]">
+                <div className="space-y-4">
+                  <div className={`${PANEL} ${signInTone}`}>
+                    <p className={LABEL}>Today&apos;s status</p>
+                    <h3 className="mt-2 text-2xl font-black">
+                      {latestSignIn ? (latestSignIn.isLate ? 'Late' : 'On Time') : 'Not signed in yet'}
+                    </h3>
+                    <p className="mt-2 text-sm">
+                      {latestSignIn
+                        ? `Arrival recorded at ${formatDateTime(latestSignIn.createdAt)}${latestSignIn.isLate ? ` with ${latestSignIn.lateMinutes || 0} late minute${Number(latestSignIn.lateMinutes || 0) === 1 ? '' : 's'}.` : '.'}`
+                        : 'Open the QR scanner and sign in when you arrive.'}
+                    </p>
+                  </div>
+
+                  <div className={PANEL}>
+                    <p className={LABEL}>Attendance mode</p>
+                    {settingsLoading ? <p className={`${BODY} mt-2`}>Loading sign-in mode...</p> : null}
+                    {!settingsLoading ? (
+                      <>
+                        <h3 className="mt-2 text-xl font-black text-[#800000] dark:text-white">{settings?.modeLabel || 'QR Sign-In'}</h3>
+                        <p className={`${BODY} mt-2`}>{settings?.modeDescription || 'Use the active school QR code to sign yourself in.'}</p>
+                        <div className="mt-4 grid grid-cols-1 gap-3 md:grid-cols-2">
+                          <div className={PANEL}>
+                            <p className={LABEL}>Late after</p>
+                            <p className="mt-2 text-lg font-black text-[#191970] dark:text-[#39ff14]">{settings?.lateAfterTime || '08:00'}</p>
+                          </div>
+                          <div className={PANEL}>
+                            <p className={LABEL}>Late penalty</p>
+                            <p className="mt-2 text-lg font-black text-[#191970] dark:text-[#39ff14]">
+                              {settings?.latePenaltyEnabled ? formatMoney(settings?.latePenaltyAmount || 0) : 'Disabled'}
+                            </p>
+                          </div>
+                        </div>
+                      </>
+                    ) : null}
+                  </div>
+
+                  <div className={PANEL}>
+                    <p className={LABEL}>Sign-in actions</p>
+                    <div className="mt-4 flex flex-wrap gap-3">
+                      <button type="button" onClick={() => setScannerOpen(current => !current)} className={PRIMARY_BUTTON} disabled={signInLoading || settingsLoading}>
+                        {scannerOpen ? 'Close QR Scanner' : 'Open QR Scanner'}
+                      </button>
+                      <button type="button" onClick={() => submitSignIn()} className={SECONDARY_BUTTON} disabled={signInLoading || settingsLoading || !manualQrCode.trim()}>
+                        {signInLoading ? 'Signing In...' : 'Confirm Manual QR'}
+                      </button>
+                    </div>
+                    <div className="mt-4 grid gap-4 md:grid-cols-2">
+                      <label className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">
+                        Manual QR Entry
+                        <input
+                          value={manualQrCode}
+                          onChange={event => setManualQrCode(event.target.value)}
+                          className={`${INPUT} mt-2`}
+                          placeholder="Paste or type the QR code if camera scanning is unavailable"
+                        />
+                      </label>
+                      <label className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">
+                        Optional Note
+                        <input
+                          value={signInNote}
+                          onChange={event => setSignInNote(event.target.value)}
+                          className={`${INPUT} mt-2`}
+                          placeholder="Add an optional sign-in note"
+                        />
+                      </label>
+                    </div>
+
+                    {String(settings?.mode || 'qr') === 'face_qr' ? (
+                      <div className="mt-4 rounded-2xl border border-[#c9a96e]/35 bg-[#fff8f0] p-4 dark:border-[#bf00ff]/25 dark:bg-black/20">
+                        <p className={LABEL}>Required face capture</p>
+                        <p className={`${BODY} mt-2`}>This school requires a face capture before QR sign-in. Upload a selfie from the current device, then scan the QR code.</p>
+                        <label className="mt-4 block text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">
+                          Face Capture
+                          <input type="file" accept="image/*" capture="user" onChange={handleFaceCapture} className={`${INPUT} mt-2`} />
+                        </label>
+                        <p className={`${BODY} mt-2`}>{faceUploading ? 'Uploading face capture...' : faceUploadLabel ? `Uploaded: ${faceUploadLabel}` : 'No face capture uploaded yet.'}</p>
+                      </div>
+                    ) : null}
+
+                    {signInMessage ? <div className="mt-4 rounded-2xl border border-[#1a5c38]/25 bg-[#edf8f1] px-4 py-3 text-sm text-[#1a5c38] dark:border-[#00ffff]/30 dark:bg-[#002326] dark:text-[#00ffff]">{signInMessage}</div> : null}
+                    {signInError ? <div className="mt-4 rounded-2xl border border-red-400/35 bg-red-50 px-4 py-3 text-sm text-[#800000] dark:border-[#ff5f8d]/35 dark:bg-[#4a0014] dark:text-[#ffffff]">{signInError}</div> : null}
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  <CameraScanner open={scannerOpen} onDetect={handleScanDetect} disabled={signInLoading || settingsLoading} />
+
+                  <div className={PANEL}>
+                    <p className={LABEL}>Today&apos;s sign-in log</p>
+                    <div className="mt-4 space-y-3">
+                      {todayEvents.filter(event => event.action === 'sign-in').length === 0 ? <p className={BODY}>No sign-in has been recorded for you today yet.</p> : null}
+                      {todayEvents.filter(event => event.action === 'sign-in').map(event => (
+                        <div key={event.id} className={`${PANEL} ${statusTone(event.isLate)}`}>
+                          <div className="flex flex-wrap items-center justify-between gap-3">
+                            <div>
+                              <p className="text-sm font-bold">{event.isLate ? 'Late' : 'On Time'}</p>
+                              <p className="mt-1 text-xs">{formatDateTime(event.createdAt)}</p>
+                            </div>
+                            <div className="text-right text-xs font-semibold uppercase tracking-[0.14em]">
+                              <p>{event.lateMinutes ? `${event.lateMinutes} late min` : 'Present'}</p>
+                              <p>{event.lateCharge ? formatMoney(event.lateCharge) : 'No charge'}</p>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+        ) : null}
+
+        {activeTab === 'students' ? (
+          <section className={SURFACE}>
+            <div className="flex flex-wrap items-start justify-between gap-4">
+              <div>
+                <p className={LABEL}>Student attendance</p>
+                <h2 className="mt-2 text-2xl font-black text-[#800000] dark:text-[#ffffff]">Mark Student Attendance</h2>
+                <p className={`${BODY} mt-2 max-w-3xl`}>Choose your managed class, then record present, late, absent, or excused attendance for a student.</p>
+              </div>
+              <span className="rounded-full border border-[#800020]/20 bg-white/70 px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] text-[#800020] dark:border-[#bf00ff]/30 dark:bg-black/25 dark:text-[#bf00ff]">
+                {attendanceClasses.length} Managed Class{attendanceClasses.length === 1 ? '' : 'es'}
+              </span>
+            </div>
+
+            {attendanceClasses.length === 0 ? (
+              <div className="mt-5 rounded-2xl border border-red-400/30 bg-red-50 px-4 py-3 text-sm text-[#800000] dark:border-[#ff5f8d]/35 dark:bg-[#4a0014] dark:text-[#ffffff]">
+                No class with attendance permissions is assigned to this teacher account yet.
+              </div>
+            ) : (
+              <form onSubmit={handleStudentAttendanceSubmit} className="mt-5 grid gap-4 lg:grid-cols-2">
+                <label className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">
+                  Managed Class
+                  <select value={selectedClassId} onChange={event => setSelectedClassId(event.target.value)} className={`${INPUT} mt-2`}>
+                    {attendanceClasses.map(classroom => (
+                      <option key={classroom.id} value={classroom.id}>{classroom.className}</option>
+                    ))}
+                  </select>
+                </label>
+                <label className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">
+                  Student
+                  <select value={selectedStudentId} onChange={event => setSelectedStudentId(event.target.value)} className={`${INPUT} mt-2`}>
+                    {classStudents.map(student => (
+                      <option key={student.id} value={student.id}>{student.name}</option>
+                    ))}
+                  </select>
+                </label>
+                <label className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">
+                  Attendance Date
+                  <input type="date" value={studentDate} onChange={event => setStudentDate(event.target.value)} className={`${INPUT} mt-2`} />
+                </label>
+                <label className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">
+                  Status
+                  <select value={studentStatus} onChange={event => setStudentStatus(event.target.value)} className={`${INPUT} mt-2`}>
+                    <option value="Present">Present</option>
+                    <option value="Late">Late</option>
+                    <option value="Absent">Absent</option>
+                    <option value="Excused">Excused</option>
+                  </select>
+                </label>
+                <label className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff] lg:col-span-2">
+                  Notes
+                  <textarea value={studentNotes} onChange={event => setStudentNotes(event.target.value)} rows={4} className={`${INPUT} mt-2 min-h-[120px] resize-y`} placeholder="Optional note for the attendance record" />
+                </label>
+                <div className="lg:col-span-2 flex flex-wrap gap-3">
+                  <button type="submit" className={PRIMARY_BUTTON} disabled={studentLoading || !selectedClassId || !selectedStudentId}>
+                    {studentLoading ? 'Saving Attendance...' : 'Record Student Attendance'}
+                  </button>
+                </div>
+              </form>
+            )}
+
+            {studentMessage ? <div className="mt-4 rounded-2xl border border-[#1a5c38]/25 bg-[#edf8f1] px-4 py-3 text-sm text-[#1a5c38] dark:border-[#00ffff]/30 dark:bg-[#002326] dark:text-[#00ffff]">{studentMessage}</div> : null}
+            {studentError ? <div className="mt-4 rounded-2xl border border-red-400/35 bg-red-50 px-4 py-3 text-sm text-[#800000] dark:border-[#ff5f8d]/35 dark:bg-[#4a0014] dark:text-[#ffffff]">{studentError}</div> : null}
+          </section>
+        ) : null}
+
+        {activeTab === 'records' ? (
+          <div className="space-y-6">
+            <section className={SURFACE}>
+              <div className="flex flex-wrap items-start justify-between gap-4">
+                <div>
+                  <p className={LABEL}>Personal attendance history</p>
+                  <h2 className="mt-2 text-2xl font-black text-[#800000] dark:text-[#ffffff]">My Sign-In Records</h2>
+                  <p className={`${BODY} mt-2 max-w-3xl`}>Review each day you signed in, how many times you were on time or late, and how much was charged within the selected period.</p>
+                </div>
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                  <label className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">
+                    From
+                    <input type="date" value={recordsFrom} onChange={event => setRecordsFrom(event.target.value)} className={`${INPUT} mt-2`} />
+                  </label>
+                  <label className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">
+                    To
+                    <input type="date" value={recordsTo} onChange={event => setRecordsTo(event.target.value)} className={`${INPUT} mt-2`} />
+                  </label>
+                </div>
+              </div>
+              <div className="mt-4 flex flex-wrap gap-3">
+                <button type="button" onClick={loadRecordRange} className={PRIMARY_BUTTON} disabled={recordsLoading}>
+                  {recordsLoading ? 'Refreshing...' : 'Refresh Records'}
+                </button>
+              </div>
+            </section>
+
+            <section className="grid grid-cols-1 gap-4 md:grid-cols-4">
+              <MetricCard label="Sign-ins" value={recordSummary.signIns} />
+              <MetricCard label="On time" value={recordSummary.onTimeCount} accent="text-[#1a5c38] dark:text-[#00ffff]" />
+              <MetricCard label="Late" value={recordSummary.lateCount} accent="text-amber-700 dark:text-amber-300" />
+              <MetricCard label="Amount charged" value={formatMoney(recordSummary.totalCharges)} accent="text-[#800000] dark:text-[#ff6bff]" />
+            </section>
+
+            <section className={SURFACE}>
+              {recordsError ? <div className="rounded-2xl border border-red-400/35 bg-red-50 px-4 py-3 text-sm text-[#800000] dark:border-[#ff5f8d]/35 dark:bg-[#4a0014] dark:text-[#ffffff]">{recordsError}</div> : null}
+              {recordsLoading ? <p className={BODY}>Loading your sign-in history...</p> : null}
+              {!recordsLoading && recordEvents.length === 0 ? <p className={BODY}>No sign-in records were found for the selected period.</p> : null}
+
+              {!recordsLoading && recordEvents.length > 0 ? (
+                <div className="space-y-3">
+                  {recordEvents.map(event => (
+                    <article key={event.id} className={`${PANEL} ${statusTone(event.isLate)}`}>
+                      <div className="flex flex-wrap items-start justify-between gap-3">
+                        <div>
+                          <p className={LABEL}>{event.date}</p>
+                          <h3 className="mt-1 text-lg font-black">{event.isLate ? 'Late Sign-In' : 'On-Time Sign-In'}</h3>
+                          <p className="mt-2 text-sm">Recorded at {formatDateTime(event.createdAt)}</p>
+                          {event.notes ? <p className="mt-2 text-sm">Note: {event.notes}</p> : null}
+                        </div>
+                        <div className="space-y-2 text-right">
+                          <div className="rounded-full bg-white/70 px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] dark:bg-black/20">
+                            {event.isLate ? `${event.lateMinutes || 0} Late Min` : 'On Time'}
+                          </div>
+                          <div className="rounded-full bg-white/70 px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] dark:bg-black/20">
+                            {event.lateCharge ? formatMoney(event.lateCharge) : 'No Charge'}
+                          </div>
+                        </div>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              ) : null}
+            </section>
+          </div>
+        ) : null}
+      </div>
+    </StudentSectionShell>
+  );
+}

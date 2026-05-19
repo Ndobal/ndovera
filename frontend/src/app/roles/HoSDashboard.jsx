@@ -16,6 +16,7 @@ import OwnerAttendance from './owner/OwnerAttendance';
 import OwnerPeople from './owner/OwnerPeople';
 import TeacherClassroom from '../../features/classroom/TeacherClassroom';
 import AdmissionsManagementBoard from '../../features/school/components/AdmissionsManagementBoard';
+import SchoolAuditTrailPage from '../../features/school/components/SchoolAuditTrailPage';
 
 export default function HoSDashboard({ auth = null }) {
   const location = useLocation();
@@ -31,6 +32,7 @@ export default function HoSDashboard({ auth = null }) {
     case 'teacher-review': return <HoSTeacherReview auth={auth} />;
     case 'timetable': return <HoSTimetable />;
     case 'discipline': return <HoSDiscipline auth={auth} />;
+    case 'audits': return <SchoolAuditTrailPage roleLabel="HoS dashboard" title="Live School Audit Trail" subtitle="Watch critical school actions in real time so leadership can trace who did what and when." />;
     case 'exams': return <HoSExams auth={auth} />;
     case 'approvals': return <HoSApprovals auth={auth} />;
     case 'reports': return <HoSReports auth={auth} />;

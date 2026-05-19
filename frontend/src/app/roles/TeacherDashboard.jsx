@@ -11,6 +11,7 @@ import TeacherOverview from './teacher/TeacherOverview';
 import TeacherMessaging from './teacher/TeacherMessaging';
 import TeacherLessonPlansPage from '../../features/lesson-plans/TeacherLessonPlansPage';
 import TeacherReports from './teacher/TeacherReports';
+import TeacherAttendancePage from './teacher/TeacherAttendancePage';
 import useFeatureFlags from '../../shared/hooks/useFeatureFlags';
 
 export default function TeacherDashboard({ auth }) {
@@ -74,7 +75,7 @@ export default function TeacherDashboard({ auth }) {
   }
 
   if (sectionKey === 'attendance') {
-    return <TeacherClassroom initialTab="attendance" lockedTab="attendance" />;
+    return <TeacherAttendancePage auth={auth} />;
   }
 
   if (sectionKey === 'classroom') {

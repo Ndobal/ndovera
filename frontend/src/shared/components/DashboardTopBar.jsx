@@ -11,7 +11,6 @@ import {
   PaperAirplaneIcon,
 } from '@heroicons/react/24/outline';
 import ThemeToggle from './ThemeToggle';
-import RoleSwitcher from './RoleSwitcher';
 import UserProfileDropdown from './UserProfileDropdown';
 import {
   getConversationMessages,
@@ -19,6 +18,10 @@ import {
   markConversationRead,
   sendConversationReply,
 } from '../../services/headerBarService';
+import {
+  getPushPublicKey,
+  savePushSubscription,
+} from '../../features/school/services/schoolApi';
 
 const CLICKABLE_CHAT_ROLES = new Set(['student', 'teacher', 'hos']);
 const DELIVERED_NOTIFICATION_STORAGE_KEY = 'ndovera.delivered.notifications.v1';
@@ -72,6 +75,55 @@ function writeDeliveredNotifications(nextState) {
   }
 
   window.localStorage.setItem(DELIVERED_NOTIFICATION_STORAGE_KEY, JSON.stringify(nextState));
+}
+
+function urlBase64ToUint8Array(base64String) {
+  const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
+  const base64 = `${base64String}${padding}`.replace(/-/g, '+').replace(/_/g, '/');
+  const rawData = window.atob(base64);
+  return Uint8Array.from(Array.from(rawData).map(character => character.charCodeAt(0)));
+}
+
+async function syncPushContext(roleKey) {
+  if (typeof window === 'undefined' || !('serviceWorker' in navigator)) {
+    return false;
+  }
+
+  const registration = await navigator.serviceWorker.ready;
+  registration.active?.postMessage({ type: 'SET_PUSH_CONTEXT', roleKey });
+  return true;
+}
+
+async function ensureRolePushSubscription(roleKey) {
+  if (typeof window === 'undefined' || !('serviceWorker' in navigator) || !('PushManager' in window)) {
+    return false;
+  }
+
+  const pushConfig = await getPushPublicKey().catch(() => ({ available: false }));
+  if (!pushConfig?.available || !pushConfig?.publicKey) {
+    await syncPushContext(roleKey).catch(() => false);
+    return false;
+  }
+
+  const registration = await navigator.serviceWorker.ready;
+  if (!registration?.pushManager) {
+    return false;
+  }
+
+  const existingSubscription = await registration.pushManager.getSubscription();
+  const subscription = existingSubscription || await registration.pushManager.subscribe({
+    userVisibleOnly: true,
+    applicationServerKey: urlBase64ToUint8Array(pushConfig.publicKey),
+  });
+
+  await syncPushContext(roleKey).catch(() => false);
+  await savePushSubscription({
+    roleKey,
+    subscription: subscription.toJSON(),
+    deviceLabel: navigator.platform || 'web-device',
+  }).catch(() => null);
+
+  return true;
 }
 
 async function registerParentBackgroundFeeReminders() {
@@ -210,6 +262,21 @@ export default function DashboardTopBar({ authUser = null, onLogout = () => {}, 
     });
   };
 
+  const openNotificationItem = useCallback((item) => {
+    const actionUrl = String(item?.actionUrl || '').trim();
+    if (!actionUrl) return;
+
+    setActivePanel(null);
+    setPanelError('');
+
+    if (/^https?:\/\//i.test(actionUrl)) {
+      window.location.assign(actionUrl);
+      return;
+    }
+
+    navigate(actionUrl);
+  }, [navigate]);
+
   const loadChatThread = useCallback(async (conversationId, options = {}) => {
     const { markRead = true } = options;
     if (!conversationId) return;
@@ -276,12 +343,19 @@ export default function DashboardTopBar({ authUser = null, onLogout = () => {}, 
     [activeChatId, chatItems],
   );
 
-  const feeReminderItems = useMemo(
-    () => notificationItems.filter(item => item.category === 'fee_reminder'),
+  const deviceNotificationItems = useMemo(
+    () => notificationItems.filter(item => [
+      'fee_reminder',
+      'fee_payment_claim_pending',
+      'fee_payment_claim_verified',
+      'fee_payment_claim_rejected',
+      'fee_payment_receipt',
+      'school_announcement',
+    ].includes(item.category)),
     [notificationItems],
   );
 
-  const canRequestDeviceNotifications = notificationPermission !== 'unsupported' && feeReminderItems.length > 0;
+  const canRequestDeviceNotifications = notificationPermission !== 'unsupported';
 
   const panelItems = activePanel === 'chat' ? chatItems : notificationItems;
 
@@ -292,15 +366,18 @@ export default function DashboardTopBar({ authUser = null, onLogout = () => {}, 
 
     if (notificationPermission === 'denied') {
       setActivePanel('notifications');
-      setPanelError('Device notifications are blocked in this browser. Enable notifications for this site in browser settings to receive fee reminders on this phone.');
+      setPanelError('Device notifications are blocked in this browser. Enable notifications for this site in browser settings to receive closed-app alerts on this device.');
       return;
     }
 
     const permission = await window.Notification.requestPermission();
     setNotificationPermission(permission);
 
-    if (permission === 'granted' && roleKey === 'parent') {
-      await registerParentBackgroundFeeReminders();
+    if (permission === 'granted') {
+      await ensureRolePushSubscription(roleKey).catch(() => null);
+      if (roleKey === 'parent') {
+        await registerParentBackgroundFeeReminders();
+      }
     }
   }, [notificationPermission, roleKey]);
 
@@ -309,14 +386,14 @@ export default function DashboardTopBar({ authUser = null, onLogout = () => {}, 
   }, []);
 
   useEffect(() => {
-    if (notificationPermission !== 'granted' || feeReminderItems.length === 0 || typeof window === 'undefined' || !('Notification' in window)) {
+    if (notificationPermission !== 'granted' || deviceNotificationItems.length === 0 || typeof window === 'undefined' || !('Notification' in window)) {
       return;
     }
 
     const delivered = readDeliveredNotifications();
     let changed = false;
 
-    feeReminderItems.forEach((item) => {
+    deviceNotificationItems.forEach((item) => {
       const deliveryKey = `${item.id}:${item.reminderSlotKey || 'current'}`;
       if (delivered[deliveryKey]) {
         return;
@@ -339,14 +416,17 @@ export default function DashboardTopBar({ authUser = null, onLogout = () => {}, 
     if (changed) {
       writeDeliveredNotifications(delivered);
     }
-  }, [feeReminderItems, notificationPermission]);
+  }, [deviceNotificationItems, notificationPermission]);
 
   useEffect(() => {
-    if (notificationPermission !== 'granted' || roleKey !== 'parent') {
+    if (notificationPermission !== 'granted') {
       return;
     }
 
-    registerParentBackgroundFeeReminders().catch(() => null);
+    ensureRolePushSubscription(roleKey).catch(() => null);
+    if (roleKey === 'parent') {
+      registerParentBackgroundFeeReminders().catch(() => null);
+    }
   }, [notificationPermission, roleKey]);
 
   return (
@@ -367,7 +447,6 @@ export default function DashboardTopBar({ authUser = null, onLogout = () => {}, 
         </div>
 
         <div className="flex items-center gap-2 md:gap-3">
-          <RoleSwitcher authUser={authUser} />
           <button
             onClick={() => togglePanel('chat')}
             className="glass-chip relative p-2 rounded-xl text-slate-700 dark:text-slate-100 hover:bg-white/70 dark:hover:bg-slate-700/60 transition-colors"
@@ -400,7 +479,7 @@ export default function DashboardTopBar({ authUser = null, onLogout = () => {}, 
               onClick={requestDeviceNotifications}
               className="glass-chip p-2 rounded-xl text-[#800020] dark:text-[#00ffff] hover:bg-white/70 dark:hover:bg-slate-700/60 transition-colors"
               aria-label="Enable device notifications"
-              title="Enable device notifications for fee reminders"
+              title="Enable device notifications"
             >
               <BellAlertIcon className="w-5 h-5" />
             </button>
@@ -450,8 +529,8 @@ export default function DashboardTopBar({ authUser = null, onLogout = () => {}, 
               {activePanel === 'notifications' && canRequestDeviceNotifications && notificationPermission !== 'granted' && (
                 <div className="mx-3 mt-3 rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] p-3 text-sm text-[#191970] dark:border-[#00ffff]/20 dark:bg-[#120014]/80 dark:text-[#39ff14]">
                   <p className="font-semibold text-[#800000] dark:text-[#ffffff]">Enable device alerts</p>
-                  <p className="mt-1">Allow notifications so unpaid fee reminders can also show on this phone twice every week while the balance remains open.</p>
-                  <p className="mt-2 text-xs text-[#800020] dark:text-[#bf00ff]">On supported installed browsers, NDOVERA will also register background reminder checks that can open straight into Fees &amp; Receipts.</p>
+                  <p className="mt-1">Allow notifications so NDOVERA can deliver closed-app alerts for unpaid fees, approved payment claims, new receipts, and school announcements on this device.</p>
+                  <p className="mt-2 text-xs text-[#800020] dark:text-[#bf00ff]">On supported installed browsers, NDOVERA also keeps a real push subscription so alerts can arrive even when the dashboard is closed.</p>
                   <button
                     type="button"
                     onClick={requestDeviceNotifications}
@@ -566,6 +645,20 @@ export default function DashboardTopBar({ authUser = null, onLogout = () => {}, 
                           key={item.id}
                           type="button"
                           onClick={() => openChatItem(item)}
+                          className="glass-chip w-full rounded-2xl border border-slate-200/70 p-3 text-left transition hover:bg-white/70 dark:border-cyan-300/15 dark:hover:bg-slate-700/40"
+                        >
+                          <div className="flex items-center justify-between gap-3">
+                            <p className="text-sm font-semibold text-slate-800 dark:text-slate-100">{item.sender || item.title}</p>
+                            <p className="text-[10px] micro-label neon-subtle">{item.time}</p>
+                          </div>
+                          <p className="text-xs text-slate-600 dark:text-slate-300 mt-1">{item.preview || item.detail}</p>
+                          {item.unread && <p className="text-[10px] micro-label accent-indigo mt-2">Unread</p>}
+                        </button>
+                      ) : item.actionUrl ? (
+                        <button
+                          key={item.id}
+                          type="button"
+                          onClick={() => openNotificationItem(item)}
                           className="glass-chip w-full rounded-2xl border border-slate-200/70 p-3 text-left transition hover:bg-white/70 dark:border-cyan-300/15 dark:hover:bg-slate-700/40"
                         >
                           <div className="flex items-center justify-between gap-3">

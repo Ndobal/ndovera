@@ -1,6 +1,13 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import StudentSectionShell from '../../../app/roles/student/StudentSectionShell';
-import { getFeeReceipts, getFeesLedger } from '../services/schoolApi';
+import FeeReceiptPrintCard from './FeeReceiptPrintCard';
+import {
+  getFeePaymentClaims,
+  getFeeReceipts,
+  getFeesLedger,
+  getFeesPaymentDetails,
+  submitFeePaymentClaim,
+} from '../services/schoolApi';
 
 const CARD = 'rounded-3xl border border-[#c9a96e]/40 bg-[#f5deb3] p-6 text-[#191970] shadow-sm dark:border-[#00ffff]/20 dark:bg-[#800000]/25 dark:text-[#39ff14] dark:backdrop-blur-xl';
 const INNER = 'rounded-2xl border border-[#c9a96e]/30 bg-[#f0d090] p-4 dark:border-[#00ffff]/20 dark:bg-[#330014]/70';
@@ -20,28 +27,43 @@ function formatDateTime(value) {
 export default function ParentFeesReceiptsPage() {
   const [ledger, setLedger] = useState([]);
   const [receipts, setReceipts] = useState([]);
+  const [claims, setClaims] = useState([]);
+  const [paymentDetails, setPaymentDetails] = useState({ bankName: '', accountName: '', accountNumber: '', paymentInstructions: '', paymentReferenceHint: '' });
   const [selectedStudentId, setSelectedStudentId] = useState('');
   const [selectedReceipt, setSelectedReceipt] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [notice, setNotice] = useState('');
+  const [submittingClaim, setSubmittingClaim] = useState(false);
+  const [claimForm, setClaimForm] = useState({
+    amount: '',
+    paymentMethod: 'bank-transfer',
+    payerName: '',
+    paymentReference: '',
+    paymentNote: '',
+    paidAt: new Date().toISOString().slice(0, 10),
+  });
 
   useEffect(() => {
     let cancelled = false;
     setLoading(true);
     setError('');
 
-    Promise.all([getFeesLedger(), getFeeReceipts()])
-      .then(([ledgerResult, receiptResult]) => {
+    Promise.all([getFeesLedger(), getFeeReceipts(), getFeesPaymentDetails(), getFeePaymentClaims()])
+      .then(([ledgerResult, receiptResult, paymentDetailsResult, claimResult]) => {
         if (cancelled) return;
         const nextLedger = (ledgerResult?.ledger || []).map(entry => ({ ...entry, id: entry.studentId || entry.id }));
         setLedger(nextLedger);
         setReceipts(receiptResult?.receipts || []);
+        setPaymentDetails(paymentDetailsResult?.paymentDetails || { bankName: '', accountName: '', accountNumber: '', paymentInstructions: '', paymentReferenceHint: '' });
+        setClaims(claimResult?.claims || []);
         setSelectedStudentId(current => (nextLedger.some(entry => entry.id === current) ? current : String(nextLedger[0]?.id || '')));
       })
       .catch(loadError => {
         if (!cancelled) {
           setLedger([]);
           setReceipts([]);
+          setClaims([]);
           setError(loadError instanceof Error ? loadError.message : 'Could not load fees and receipts.');
         }
       })
@@ -57,6 +79,55 @@ export default function ParentFeesReceiptsPage() {
   const students = useMemo(() => [...ledger].sort((left, right) => String(left?.name || '').localeCompare(String(right?.name || ''))), [ledger]);
   const selectedStudent = students.find(student => student.id === selectedStudentId) || students[0] || null;
   const studentReceipts = useMemo(() => receipts.filter(receipt => receipt.studentId === selectedStudent?.id), [receipts, selectedStudent?.id]);
+  const studentClaims = useMemo(() => claims.filter(claim => claim.studentId === selectedStudent?.id), [claims, selectedStudent?.id]);
+
+  useEffect(() => {
+    if (!selectedStudent) return;
+    setClaimForm(current => ({
+      ...current,
+      amount: current.amount || String(Math.max(Number(selectedStudent.balance || 0), 0) || Number(selectedStudent.feeAmount || 0) || ''),
+    }));
+  }, [selectedStudent]);
+
+  async function handleSubmitClaim() {
+    if (!selectedStudent) return;
+
+    setSubmittingClaim(true);
+    setError('');
+    setNotice('');
+
+    try {
+      const result = await submitFeePaymentClaim({
+        studentId: selectedStudent.id,
+        amount: Number(claimForm.amount || 0),
+        paymentMethod: claimForm.paymentMethod,
+        payerName: claimForm.payerName,
+        paymentReference: claimForm.paymentReference,
+        paymentNote: claimForm.paymentNote,
+        paidAt: claimForm.paidAt,
+      });
+
+      setClaims(current => [result?.claim, ...current].filter(Boolean));
+      setNotice('Payment claim submitted. The school finance team will verify it and issue the receipt after approval.');
+      setClaimForm(current => ({
+        ...current,
+        amount: String(Math.max(Number(selectedStudent.balance || 0), 0) || Number(selectedStudent.feeAmount || 0) || ''),
+        paymentReference: '',
+        paymentNote: '',
+      }));
+    } catch (submitError) {
+      setError(submitError instanceof Error ? submitError.message : 'Could not submit payment claim.');
+    } finally {
+      setSubmittingClaim(false);
+    }
+  }
+
+  function renderClaimStatus(status) {
+    const normalizedStatus = String(status || 'pending').toLowerCase();
+    if (normalizedStatus === 'verified') return 'Verified';
+    if (normalizedStatus === 'rejected') return 'Rejected';
+    return 'Pending';
+  }
 
   return (
     <StudentSectionShell
@@ -68,6 +139,8 @@ export default function ParentFeesReceiptsPage() {
       <style>{'@media print { body * { visibility: hidden; } #parent-fees-receipt-print, #parent-fees-receipt-print * { visibility: visible; } #parent-fees-receipt-print { position: absolute; inset: 0; margin: 0; padding: 32px; width: 100%; background: #f5deb3; } }'}</style>
 
       <div className="space-y-6">
+        {notice ? <section className="rounded-2xl border border-[#1a5c38]/20 bg-[#e4f4e6] px-4 py-3 text-sm text-[#1a5c38] dark:border-[#00ffff]/20 dark:bg-[#03181a] dark:text-[#7df9ff]">{notice}</section> : null}
+
         <section className={CARD}>
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div>
@@ -105,6 +178,7 @@ export default function ParentFeesReceiptsPage() {
           {selectedStudent ? (
             <div className="mt-5 grid gap-3 md:grid-cols-2">
               <div className={`${INNER} flex items-center justify-between`}><span className="font-semibold text-[#800020] dark:text-[#bf00ff]">Student</span><span className="font-bold text-[#191970] dark:text-white">{selectedStudent.name}</span></div>
+              <div className={`${INNER} flex items-center justify-between`}><span className="font-semibold text-[#800020] dark:text-[#bf00ff]">Student ID</span><span className="font-bold text-[#191970] dark:text-white">{selectedStudent.displayId || selectedStudent.id || 'Not assigned'}</span></div>
               <div className={`${INNER} flex items-center justify-between`}><span className="font-semibold text-[#800020] dark:text-[#bf00ff]">Class</span><span className="font-bold text-[#191970] dark:text-white">{selectedStudent.className || 'Not assigned'}</span></div>
               <div className={`${INNER} flex items-center justify-between`}><span className="font-semibold text-[#800020] dark:text-[#bf00ff]">Expected Amount</span><span className="font-bold text-[#191970] dark:text-white">{formatNaira(selectedStudent.feeAmount)}</span></div>
               <div className={`${INNER} flex items-center justify-between`}><span className="font-semibold text-[#800020] dark:text-[#bf00ff]">Amount Paid</span><span className="font-bold text-[#191970] dark:text-white">{formatNaira(selectedStudent.amountPaid)}</span></div>
@@ -112,6 +186,99 @@ export default function ParentFeesReceiptsPage() {
               <div className={`${INNER} flex items-center justify-between`}><span className="font-semibold text-[#800020] dark:text-[#bf00ff]">Last Updated</span><span className="font-bold text-[#191970] dark:text-white">{formatDateTime(selectedStudent.updatedAt)}</span></div>
             </div>
           ) : <p className="mt-4 text-sm text-[#800020] dark:text-[#bf00ff]">Select a linked child to view the ledger.</p>}
+        </section>
+
+        <section className={CARD}>
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+            <div>
+              <h2 className="text-2xl font-bold text-[#800000] dark:text-[#0000ff]">School Payment Details</h2>
+              <p className="mt-2 text-sm text-[#191970] dark:text-[#39ff14]">Pay into the school account below, then submit an “I have paid” claim so the finance team can verify and issue the receipt.</p>
+            </div>
+            {selectedStudent ? <span className={BADGE}>{studentClaims.length} Claim{studentClaims.length === 1 ? '' : 's'}</span> : null}
+          </div>
+
+          <div className="mt-5 grid gap-3 md:grid-cols-2">
+            <div className={`${INNER} flex items-center justify-between`}><span className="font-semibold text-[#800020] dark:text-[#bf00ff]">Bank</span><span className="font-bold text-[#191970] dark:text-white">{paymentDetails.bankName || 'Awaiting school update'}</span></div>
+            <div className={`${INNER} flex items-center justify-between`}><span className="font-semibold text-[#800020] dark:text-[#bf00ff]">Account Name</span><span className="font-bold text-[#191970] dark:text-white">{paymentDetails.accountName || 'Awaiting school update'}</span></div>
+            <div className={`${INNER} flex items-center justify-between`}><span className="font-semibold text-[#800020] dark:text-[#bf00ff]">Account Number</span><span className="font-bold text-[#191970] dark:text-white">{paymentDetails.accountNumber || 'Awaiting school update'}</span></div>
+            <div className={`${INNER} flex items-center justify-between`}><span className="font-semibold text-[#800020] dark:text-[#bf00ff]">Reference Hint</span><span className="font-bold text-[#191970] dark:text-white">{paymentDetails.paymentReferenceHint || 'Use student name or receipt reference.'}</span></div>
+          </div>
+
+          <div className={`${INNER} mt-4`}>
+            <p className="font-semibold text-[#800020] dark:text-[#bf00ff]">Instructions</p>
+            <p className="mt-2 text-sm text-[#191970] dark:text-[#39ff14]">{paymentDetails.paymentInstructions || 'Finance office payment instructions will appear here once the school updates them.'}</p>
+          </div>
+        </section>
+
+        <section className={CARD}>
+          <div className="flex items-center justify-between gap-4">
+            <div>
+              <h2 className="text-2xl font-bold text-[#800000] dark:text-[#0000ff]">I Have Paid</h2>
+              <p className="mt-2 text-sm text-[#191970] dark:text-[#39ff14]">Submit the payment claim after transfer so the school can verify it and issue the official receipt.</p>
+            </div>
+            {selectedStudent ? <span className={BADGE}>{selectedStudent.name}</span> : null}
+          </div>
+
+          {selectedStudent ? (
+            <div className="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+              <label className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">Amount Paid
+                <input type="number" value={claimForm.amount} onChange={event => setClaimForm(current => ({ ...current, amount: event.target.value }))} className="mt-2 w-full rounded-2xl border border-[#c9a96e]/40 bg-white/80 px-4 py-3 text-sm text-[#191970] outline-none dark:border-[#00ffff]/20 dark:bg-[#120014]/80 dark:text-white" />
+              </label>
+              <label className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">Payment Date
+                <input type="date" value={claimForm.paidAt} onChange={event => setClaimForm(current => ({ ...current, paidAt: event.target.value }))} className="mt-2 w-full rounded-2xl border border-[#c9a96e]/40 bg-white/80 px-4 py-3 text-sm text-[#191970] outline-none dark:border-[#00ffff]/20 dark:bg-[#120014]/80 dark:text-white" />
+              </label>
+              <label className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">Payment Method
+                <select value={claimForm.paymentMethod} onChange={event => setClaimForm(current => ({ ...current, paymentMethod: event.target.value }))} className="mt-2 w-full rounded-2xl border border-[#c9a96e]/40 bg-white/80 px-4 py-3 text-sm text-[#191970] outline-none dark:border-[#00ffff]/20 dark:bg-[#120014]/80 dark:text-white">
+                  <option value="bank-transfer">Bank Transfer</option>
+                  <option value="cash-deposit">Cash Deposit</option>
+                  <option value="mobile-money">Mobile Money</option>
+                </select>
+              </label>
+              <label className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">Payer Name
+                <input value={claimForm.payerName} onChange={event => setClaimForm(current => ({ ...current, payerName: event.target.value }))} className="mt-2 w-full rounded-2xl border border-[#c9a96e]/40 bg-white/80 px-4 py-3 text-sm text-[#191970] outline-none dark:border-[#00ffff]/20 dark:bg-[#120014]/80 dark:text-white" placeholder="Who made the transfer?" />
+              </label>
+              <label className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">Reference / Teller No.
+                <input value={claimForm.paymentReference} onChange={event => setClaimForm(current => ({ ...current, paymentReference: event.target.value }))} className="mt-2 w-full rounded-2xl border border-[#c9a96e]/40 bg-white/80 px-4 py-3 text-sm text-[#191970] outline-none dark:border-[#00ffff]/20 dark:bg-[#120014]/80 dark:text-white" placeholder={paymentDetails.paymentReferenceHint || 'Enter transfer reference'} />
+              </label>
+              <label className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff] xl:col-span-3">Notes For Finance Office
+                <textarea value={claimForm.paymentNote} onChange={event => setClaimForm(current => ({ ...current, paymentNote: event.target.value }))} rows={3} className="mt-2 w-full rounded-2xl border border-[#c9a96e]/40 bg-white/80 px-4 py-3 text-sm text-[#191970] outline-none dark:border-[#00ffff]/20 dark:bg-[#120014]/80 dark:text-white" placeholder="Any extra detail that helps finance verify the payment quickly." />
+              </label>
+            </div>
+          ) : <p className="mt-4 text-sm text-[#800020] dark:text-[#bf00ff]">Select a linked child to submit a payment claim.</p>}
+
+          <div className="mt-5 flex justify-end">
+            <button onClick={handleSubmitClaim} disabled={!selectedStudent || submittingClaim} className={BTN}>{submittingClaim ? 'Submitting...' : 'Submit Claim'}</button>
+          </div>
+        </section>
+
+        <section className={CARD}>
+          <div className="flex items-center justify-between gap-4">
+            <div>
+              <h2 className="text-2xl font-bold text-[#800000] dark:text-[#0000ff]">Claim History</h2>
+              <p className="mt-2 text-sm text-[#191970] dark:text-[#39ff14]">Track pending, approved, and rejected payment claims for the selected child.</p>
+            </div>
+            {selectedStudent ? <span className={BADGE}>{studentClaims.length} Claim{studentClaims.length === 1 ? '' : 's'}</span> : null}
+          </div>
+
+          <div className="mt-5 space-y-3">
+            {!loading && selectedStudent && studentClaims.length === 0 ? <p className="text-sm text-[#800020] dark:text-[#bf00ff]">No payment claims have been submitted for this child yet.</p> : null}
+            {studentClaims.map(claim => (
+              <article key={claim.id} className={`${INNER} flex flex-col gap-4 md:flex-row md:items-start md:justify-between`}>
+                <div className="space-y-2">
+                  <p className="text-lg font-bold text-[#191970] dark:text-white">{formatNaira(claim.amount)} • {renderClaimStatus(claim.status)}</p>
+                  <p className="text-sm text-[#191970] dark:text-[#39ff14]">{formatDateTime(claim.updatedAt || claim.claimedAt)} • {claim.paymentMethod || 'bank-transfer'}</p>
+                  <div className="flex flex-wrap gap-2">
+                    <span className={BADGE}>{claim.paymentReference || 'No reference supplied'}</span>
+                    {claim.receiptNo ? <span className={BADGE}>Receipt {claim.receiptNo}</span> : null}
+                    {claim.verifiedAt ? <span className={BADGE}>Reviewed {formatDateTime(claim.verifiedAt)}</span> : null}
+                  </div>
+                  {claim.paymentNote ? <p className="text-sm text-[#191970] dark:text-[#39ff14]">{claim.paymentNote}</p> : null}
+                  {claim.verificationNote ? <p className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">Finance note: {claim.verificationNote}</p> : null}
+                </div>
+                <span className={BADGE}>{renderClaimStatus(claim.status)}</span>
+              </article>
+            ))}
+          </div>
         </section>
 
         <section className={CARD}>
@@ -132,6 +299,7 @@ export default function ParentFeesReceiptsPage() {
                   <p className="text-lg font-bold text-[#191970] dark:text-white">{receipt.receiptNo}</p>
                   <p className="text-sm text-[#191970] dark:text-[#39ff14]">{formatDateTime(receipt.recordedAt)} • {receipt.paymentType || 'cash'}</p>
                   <div className="flex flex-wrap gap-2">
+                    <span className={BADGE}>ID {receipt.studentDisplayId || selectedStudent?.displayId || selectedStudent?.id || 'Not assigned'}</span>
                     <span className={BADGE}>Paid {formatNaira(receipt.amount)}</span>
                     <span className={BADGE}>Balance {formatNaira(receipt.balanceAfter)}</span>
                     <span className={BADGE}>{receipt.statusAfter || 'Recorded'}</span>
@@ -146,25 +314,14 @@ export default function ParentFeesReceiptsPage() {
 
       {selectedReceipt ? (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/55 p-4">
-          <div className={`${CARD} w-full max-w-lg`} id="parent-fees-receipt-print">
-            <div className="flex items-start justify-between gap-4">
-              <div>
-                <h3 className="text-2xl font-bold text-[#800000] dark:text-[#0000ff]">Payment Receipt</h3>
-                <p className="mt-1 text-sm text-[#191970] dark:text-[#39ff14]">Parent receipt printout for recorded school fee payment.</p>
-              </div>
-              <span className={BADGE}>{selectedReceipt.statusAfter || 'Recorded'}</span>
-            </div>
-            <div className="mt-6 space-y-3">
-              <div className={`${INNER} flex items-center justify-between`}><span className="font-semibold text-[#800020] dark:text-[#bf00ff]">Receipt No</span><span className="font-bold text-[#191970] dark:text-white">{selectedReceipt.receiptNo}</span></div>
-              <div className={`${INNER} flex items-center justify-between`}><span className="font-semibold text-[#800020] dark:text-[#bf00ff]">Date</span><span className="font-bold text-[#191970] dark:text-white">{formatDateTime(selectedReceipt.recordedAt)}</span></div>
-              <div className={`${INNER} flex items-center justify-between`}><span className="font-semibold text-[#800020] dark:text-[#bf00ff]">Student</span><span className="font-bold text-[#191970] dark:text-white">{selectedReceipt.studentName}</span></div>
-              <div className={`${INNER} flex items-center justify-between`}><span className="font-semibold text-[#800020] dark:text-[#bf00ff]">Class</span><span className="font-bold text-[#191970] dark:text-white">{selectedReceipt.className || 'Not assigned'}</span></div>
-              <div className={`${INNER} flex items-center justify-between`}><span className="font-semibold text-[#800020] dark:text-[#bf00ff]">Amount Paid</span><span className="font-bold text-[#191970] dark:text-white">{formatNaira(selectedReceipt.amount)}</span></div>
-              <div className={`${INNER} flex items-center justify-between`}><span className="font-semibold text-[#800020] dark:text-[#bf00ff]">Total Paid So Far</span><span className="font-bold text-[#191970] dark:text-white">{formatNaira(selectedReceipt.amountPaidAfter)}</span></div>
-              <div className={`${INNER} flex items-center justify-between`}><span className="font-semibold text-[#800020] dark:text-[#bf00ff]">Balance After Payment</span><span className="font-bold text-[#191970] dark:text-white">{formatNaira(selectedReceipt.balanceAfter)}</span></div>
-              <div className={`${INNER} flex items-center justify-between`}><span className="font-semibold text-[#800020] dark:text-[#bf00ff]">Recorded By</span><span className="font-bold text-[#191970] dark:text-white">{selectedReceipt.recordedBy || 'School finance office'}</span></div>
-            </div>
-            <div className="mt-6 flex flex-wrap gap-3">
+          <div className="w-full max-w-4xl space-y-4">
+            <FeeReceiptPrintCard
+              receipt={selectedReceipt}
+              printId="parent-fees-receipt-print"
+              title="Parent Copy School Fees Receipt"
+              subtitle="Official receipt for an approved and recorded school fee payment."
+            />
+            <div className="flex flex-wrap gap-3">
               <button onClick={() => window.print()} className={BTN}>Print Receipt</button>
               <button onClick={() => setSelectedReceipt(null)} className="rounded-2xl border border-[#800020]/30 bg-white/60 px-4 py-2 text-sm font-semibold text-[#800020] transition-colors hover:bg-white dark:border-[#bf00ff]/40 dark:bg-[#120014]/80 dark:text-[#bf00ff] dark:hover:bg-[#1f0022]">Close</button>
             </div>

@@ -108,7 +108,7 @@ export default function StaffAttendanceManagementPanel() {
 
   return (
     <div className="space-y-6">
-      <style>{'@media print { body * { visibility: hidden; } #staff-attendance-print-card, #staff-attendance-print-card * { visibility: visible; } #staff-attendance-print-card { position: absolute; inset: 0; margin: 0; padding: 32px; width: 100%; background: #f5deb3; } }'}</style>
+      <style>{'@media print { body * { visibility: hidden; } #staff-attendance-print-card, #staff-attendance-print-card * { visibility: visible; } #staff-attendance-print-card { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); margin: 0; padding: 40px 32px; width: min(88vw, 760px); background: #f5deb3; box-shadow: none; border-color: rgba(128, 0, 0, 0.24); } #staff-attendance-print-card .staff-attendance-print-qr { width: min(72vw, 460px); height: min(72vw, 460px); margin: 24px auto 0; } }'}</style>
       <div className="rounded-2xl border border-[#c9a96e]/40 bg-[#f0d090] p-5 text-[#191970] dark:border-white/10 dark:bg-slate-800/40 dark:text-slate-200">
         <h3 className="text-lg font-semibold text-[#800000] dark:text-slate-100">Attendance Management</h3>
         <p className="mt-2 text-sm">Manage the live school QR for staff sign-in and sign-out, and keep lateness policy inside the attendance engine rather than scattered across payroll screens.</p>
@@ -173,7 +173,7 @@ export default function StaffAttendanceManagementPanel() {
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#800020] dark:text-cyan-300">Staff Sign-In / Sign-Out</p>
           <h4 className="mt-2 text-2xl font-bold text-[#800000] dark:text-slate-100">School Attendance QR</h4>
           <p className="mt-2 text-sm text-[#191970] dark:text-slate-300">Print and place this code at the staff sign-in point. The same live QR is used for both sign-in and sign-out.</p>
-          <div className="mx-auto mt-6 flex h-[280px] w-[280px] items-center justify-center rounded-3xl border border-[#c9a96e]/40 bg-[#f0d090] p-4 dark:border-white/10 dark:bg-slate-800/80">
+          <div className="staff-attendance-print-qr mx-auto mt-6 flex h-[280px] w-[280px] items-center justify-center rounded-3xl border border-[#c9a96e]/40 bg-[#f0d090] p-4 dark:border-white/10 dark:bg-slate-800/80">
             {qrDataUrl ? <img src={qrDataUrl} alt="Staff attendance QR" className="h-full w-full rounded-2xl object-contain" /> : <span className="text-sm text-[#800020] dark:text-slate-400">QR unavailable</span>}
           </div>
           <div className="mt-5 space-y-2 text-sm text-[#191970] dark:text-slate-300">

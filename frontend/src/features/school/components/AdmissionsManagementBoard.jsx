@@ -1,5 +1,10 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { getAdmissionsQueue, reviewAdmissionApplication } from '../services/schoolApi';
+import {
+  getAdmissionsQueue,
+  getWebsiteEnquiries,
+  reviewAdmissionApplication,
+  reviewWebsiteEnquiry,
+} from '../services/schoolApi';
 
 const SURFACE = 'rounded-3xl border border-[#c9a96e]/45 bg-[#f5deb3] p-5 shadow-[0_18px_42px_rgba(128,0,0,0.08)] dark:border-[#bf00ff]/35 dark:bg-[#800000]/75 dark:shadow-[0_0_28px_rgba(191,0,255,0.18)]';
 const SUB_SURFACE = 'rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] p-4 dark:border-[#bf00ff]/35 dark:bg-black/20';
@@ -11,6 +16,7 @@ const PRIMARY_BUTTON = 'rounded-2xl bg-[#1a5c38] px-4 py-2 text-sm font-bold tex
 const SECONDARY_BUTTON = 'rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] px-4 py-2 text-sm font-semibold text-[#191970] transition-colors hover:bg-[#f2e1bf] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#ffffff] dark:hover:bg-[#800000]/85';
 
 const STATUS_OPTIONS = ['', 'pending', 'reviewing', 'approved', 'waitlisted', 'rejected'];
+const ENQUIRY_STATUS_OPTIONS = ['', 'new', 'contacted', 'application_started', 'enrolled', 'not_enrolled'];
 
 function prettifyStatus(value) {
   const normalized = String(value || 'pending').trim().toLowerCase();
@@ -52,13 +58,29 @@ function readSummary(application) {
   };
 }
 
+function readEnquirySummary(enquiry) {
+  return {
+    visitorName: enquiry?.visitorName || 'Website visitor',
+    visitorEmail: enquiry?.visitorEmail || '',
+    visitorPhone: enquiry?.visitorPhone || '',
+    subject: enquiry?.subject || 'Website enquiry',
+    message: enquiry?.message || '',
+    sourcePage: enquiry?.sourcePage || '/contact',
+    reviewNotes: enquiry?.reviewNotes || '',
+    outcomeReason: enquiry?.outcomeReason || '',
+    linkedApplicationId: enquiry?.linkedApplicationId || '',
+  };
+}
+
 export default function AdmissionsManagementBoard({
   audience = 'owner',
   title = 'Admissions Pipeline',
   subtitle = 'Review and route admission requests.',
 }) {
   const [applications, setApplications] = useState([]);
+  const [enquiries, setEnquiries] = useState([]);
   const [statusFilter, setStatusFilter] = useState('');
+  const [enquiryStatusFilter, setEnquiryStatusFilter] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
@@ -73,12 +95,17 @@ export default function AdmissionsManagementBoard({
       setLoading(true);
       setError('');
       try {
-        const response = await getAdmissionsQueue({ status: statusFilter, channel });
+        const [applicationsResponse, enquiriesResponse] = await Promise.all([
+          getAdmissionsQueue({ status: statusFilter, channel }),
+          canReview ? getWebsiteEnquiries({ status: enquiryStatusFilter }) : Promise.resolve({ enquiries: [] }),
+        ]);
         if (cancelled) return;
-        setApplications(response?.applications || []);
+        setApplications(applicationsResponse?.applications || []);
+        setEnquiries(enquiriesResponse?.enquiries || []);
       } catch (loadError) {
         if (!cancelled) {
           setApplications([]);
+          setEnquiries([]);
           setError(loadError instanceof Error ? loadError.message : 'Could not load admissions right now.');
         }
       } finally {
@@ -88,7 +115,7 @@ export default function AdmissionsManagementBoard({
 
     loadApplications();
     return () => { cancelled = true; };
-  }, [channel, statusFilter]);
+  }, [canReview, channel, enquiryStatusFilter, statusFilter]);
 
   const summary = useMemo(() => ({
     total: applications.length,
@@ -96,6 +123,14 @@ export default function AdmissionsManagementBoard({
     pending: applications.filter(application => application.status === 'pending').length,
     needsSupport: applications.filter(application => buildServiceFlags(application.serviceFlags).length > 0).length,
   }), [applications]);
+
+  const enquirySummary = useMemo(() => ({
+    total: enquiries.length,
+    fresh: enquiries.filter(enquiry => enquiry.status === 'new').length,
+    active: enquiries.filter(enquiry => ['contacted', 'application_started'].includes(enquiry.status)).length,
+    enrolled: enquiries.filter(enquiry => enquiry.status === 'enrolled').length,
+    notEnrolled: enquiries.filter(enquiry => enquiry.status === 'not_enrolled').length,
+  }), [enquiries]);
 
   async function handleReview(application, nextStatus) {
     const reviewNotes = window.prompt('Add review notes for this admission application.', application.reviewNotes || '');
@@ -121,6 +156,51 @@ export default function AdmissionsManagementBoard({
       setMessage(`Marked ${readSummary(application).studentName} as ${prettifyStatus(nextStatus)}.`);
     } catch (reviewError) {
       setError(reviewError instanceof Error ? reviewError.message : 'Could not update this admission application.');
+    }
+  }
+
+  async function handleEnquiryReview(enquiry, nextStatus) {
+    const details = readEnquirySummary(enquiry);
+    const reviewNotes = window.prompt('Add handling notes for this website enquiry.', details.reviewNotes || '');
+    if (reviewNotes === null) return;
+
+    let linkedApplicationId = details.linkedApplicationId;
+    let outcomeReason = details.outcomeReason;
+
+    if (['application_started', 'enrolled'].includes(nextStatus)) {
+      const linkedValue = window.prompt('Link the admission application ID if it is available.', linkedApplicationId || '');
+      if (linkedValue === null) return;
+      linkedApplicationId = linkedValue.trim();
+    }
+
+    if (nextStatus === 'not_enrolled') {
+      const outcomeValue = window.prompt('Why did this enquiry not enrol?', outcomeReason || reviewNotes || '');
+      if (outcomeValue === null) return;
+      outcomeReason = outcomeValue.trim();
+    }
+
+    setError('');
+    setMessage('');
+
+    try {
+      const response = await reviewWebsiteEnquiry(enquiry.id, {
+        status: nextStatus,
+        reviewNotes,
+        outcomeReason,
+        linkedApplicationId,
+      });
+
+      if (!response?.success) {
+        setError(response?.message || 'Could not update this website enquiry.');
+        return;
+      }
+
+      setEnquiries(currentEnquiries => currentEnquiries.map(currentEnquiry => (
+        currentEnquiry.id === enquiry.id ? response.enquiry : currentEnquiry
+      )));
+      setMessage(`Marked ${details.visitorName} as ${prettifyStatus(nextStatus).replace(/_/g, ' ')}.`);
+    } catch (reviewError) {
+      setError(reviewError instanceof Error ? reviewError.message : 'Could not update this website enquiry.');
     }
   }
 
@@ -154,7 +234,7 @@ export default function AdmissionsManagementBoard({
       </section>
 
       {loading ? (
-        <section className={SURFACE}><p className={BODY}>Loading admission applications...</p></section>
+        <section className={SURFACE}><p className={BODY}>Loading admission applications and website enquiries...</p></section>
       ) : applications.length === 0 ? (
         <section className={SURFACE}><p className={BODY}>No admission applications match the current filter.</p></section>
       ) : (
@@ -229,6 +309,94 @@ export default function AdmissionsManagementBoard({
           );
         })
       )}
+
+      {canReview && (
+        <section className={SURFACE}>
+          <div className="flex flex-wrap items-start justify-between gap-4">
+            <div>
+              <p className={LABEL}>Website Enquiries</p>
+              <h3 className="mt-1 text-xl font-bold text-[#800000] dark:text-[#ffffff]">Enquiry to Enrolment Tracking</h3>
+              <p className={`${BODY} mt-2 max-w-3xl`}>Track who enquired, who later enrolled, and capture why a prospect did not convert.</p>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              <select value={enquiryStatusFilter} onChange={event => setEnquiryStatusFilter(event.target.value)} className={INPUT}>
+                {ENQUIRY_STATUS_OPTIONS.map(option => (
+                  <option key={option || 'all-enquiries'} value={option}>{option ? prettifyStatus(option).replace(/_/g, ' ') : 'All enquiry statuses'}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          <div className="mt-4 grid grid-cols-1 gap-3 md:grid-cols-5">
+            <div className={SUB_SURFACE}><p className={LABEL}>Total</p><p className="mt-2 text-2xl font-black text-[#191970] dark:text-[#39ff14]">{enquirySummary.total}</p></div>
+            <div className={SUB_SURFACE}><p className={LABEL}>New</p><p className="mt-2 text-2xl font-black text-[#191970] dark:text-[#39ff14]">{enquirySummary.fresh}</p></div>
+            <div className={SUB_SURFACE}><p className={LABEL}>Active</p><p className="mt-2 text-2xl font-black text-[#191970] dark:text-[#39ff14]">{enquirySummary.active}</p></div>
+            <div className={SUB_SURFACE}><p className={LABEL}>Enrolled</p><p className="mt-2 text-2xl font-black text-[#191970] dark:text-[#39ff14]">{enquirySummary.enrolled}</p></div>
+            <div className={SUB_SURFACE}><p className={LABEL}>Not Enrolled</p><p className="mt-2 text-2xl font-black text-[#191970] dark:text-[#39ff14]">{enquirySummary.notEnrolled}</p></div>
+          </div>
+        </section>
+      )}
+
+      {canReview && !loading && enquiries.length === 0 ? (
+        <section className={SURFACE}><p className={BODY}>No website enquiries match the current filter.</p></section>
+      ) : null}
+
+      {canReview && !loading ? enquiries.map(enquiry => {
+        const details = readEnquirySummary(enquiry);
+
+        return (
+          <article key={enquiry.id} className={SURFACE}>
+            <div className="flex flex-wrap items-start justify-between gap-4">
+              <div>
+                <p className={LABEL}>Website Enquiry</p>
+                <h3 className="mt-1 text-xl font-bold text-[#800000] dark:text-[#ffffff]">{details.visitorName}</h3>
+                <p className={`${BODY} mt-2`}>{details.subject}</p>
+              </div>
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="rounded-full bg-[#1a5c38] px-3 py-1 text-xs font-bold uppercase tracking-[0.15em] text-[#f5deb3] dark:bg-[#00ffff] dark:text-[#000000]">{prettifyStatus(enquiry.status).replace(/_/g, ' ')}</span>
+                <span className="rounded-full border border-[#c9a96e]/45 bg-white/60 px-3 py-1 text-xs font-semibold uppercase tracking-[0.15em] text-[#800020] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#bf00ff]">{formatDateTime(enquiry.createdAt)}</span>
+              </div>
+            </div>
+
+            <div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-2">
+              <div className={SUB_SURFACE}>
+                <p className={LABEL}>Contact</p>
+                {details.visitorEmail && <p className={`${BODY} mt-2`}>{details.visitorEmail}</p>}
+                {details.visitorPhone && <p className={`${BODY} mt-1`}>{details.visitorPhone}</p>}
+                <p className={`${BODY} mt-3`}>Source page: <strong>{details.sourcePage}</strong></p>
+                {details.linkedApplicationId && <p className={`${BODY} mt-1`}>Linked application: <strong>{details.linkedApplicationId}</strong></p>}
+              </div>
+
+              <div className={SUB_SURFACE}>
+                <p className={LABEL}>Enquiry Message</p>
+                <p className={`${BODY} mt-2 whitespace-pre-wrap`}>{details.message || 'No message captured.'}</p>
+              </div>
+            </div>
+
+            <div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-2">
+              <div className={SUB_SURFACE}>
+                <p className={LABEL}>Handling Notes</p>
+                <p className={`${BODY} mt-2`}>{details.reviewNotes || 'No handling notes yet.'}</p>
+                {details.outcomeReason && <p className={`${BODY} mt-2`}>Outcome reason: <strong>{details.outcomeReason}</strong></p>}
+              </div>
+
+              <div className={SUB_SURFACE}>
+                <p className={LABEL}>Last Review</p>
+                <p className={`${BODY} mt-2`}>
+                  {enquiry.reviewedBy ? `Handled by ${enquiry.reviewedBy}${enquiry.reviewedAt ? ` on ${formatDateTime(enquiry.reviewedAt)}` : ''}` : 'Awaiting review.'}
+                </p>
+              </div>
+            </div>
+
+            <div className="mt-4 flex flex-wrap gap-2">
+              <button type="button" onClick={() => handleEnquiryReview(enquiry, 'contacted')} className={SECONDARY_BUTTON}>Mark Contacted</button>
+              <button type="button" onClick={() => handleEnquiryReview(enquiry, 'application_started')} className={SECONDARY_BUTTON}>Application Started</button>
+              <button type="button" onClick={() => handleEnquiryReview(enquiry, 'enrolled')} className={PRIMARY_BUTTON}>Mark Enrolled</button>
+              <button type="button" onClick={() => handleEnquiryReview(enquiry, 'not_enrolled')} className={SECONDARY_BUTTON}>Mark Not Enrolled</button>
+            </div>
+          </article>
+        );
+      }) : null}
     </div>
   );
 }

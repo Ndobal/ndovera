@@ -5,6 +5,8 @@ const AUTH_USER_KEY = 'authUser';
 const AUTH_COOKIE_KEY = 'ndovera_token';
 const AUTH_PROFILE_SYNC_KEY = 'authProfileSyncedAt';
 const SIGNED_OUT_REDIRECT_PATH = '/';
+const TENANT_SITE_URL_KEY = 'tenantWebsiteUrl';
+const SIGNED_OUT_TENANT_REDIRECT_KEY = 'signedOutRedirectUrl';
 const AUTH_PROFILE_MAX_AGE_MS = 5 * 60 * 1000;
 
 function getCookie(name) {
@@ -233,6 +235,16 @@ export function buildSelectedRoleHeader() {
 }
 
 export function getSignedOutRedirectPath() {
+	const rememberedRedirect = window.sessionStorage.getItem(SIGNED_OUT_TENANT_REDIRECT_KEY);
+	if (rememberedRedirect) {
+		return rememberedRedirect;
+	}
+
+	const websiteUrl = window.localStorage.getItem(TENANT_SITE_URL_KEY);
+	if (websiteUrl) {
+		return websiteUrl;
+	}
+
 	const subdomain = window.localStorage.getItem('tenantSubdomain');
 	if (subdomain) {
 		return `https://${subdomain}.ndovera.com`;
@@ -326,11 +338,20 @@ export function syncRefreshedToken(response) {
 }
 
 export function clearStoredAuth() {
+	const tenantWebsiteUrl = window.localStorage.getItem(TENANT_SITE_URL_KEY);
+	const tenantSubdomain = window.localStorage.getItem('tenantSubdomain');
+	if (tenantWebsiteUrl) {
+		window.sessionStorage.setItem(SIGNED_OUT_TENANT_REDIRECT_KEY, tenantWebsiteUrl);
+	} else if (tenantSubdomain) {
+		window.sessionStorage.setItem(SIGNED_OUT_TENANT_REDIRECT_KEY, `https://${tenantSubdomain}.ndovera.com`);
+	}
+
 	window.localStorage.removeItem(AUTH_TOKEN_KEY);
 	window.localStorage.removeItem(AUTH_USER_KEY);
 	window.localStorage.removeItem(AUTH_PROFILE_SYNC_KEY);
 	window.localStorage.removeItem('selectedRole');
 	window.localStorage.removeItem('tenantSubdomain');
+	window.localStorage.removeItem(TENANT_SITE_URL_KEY);
 	clearAuthCookie();
 }
 

@@ -7,6 +7,7 @@ import { ParentFarmingMode } from '../../features/auras';
 import ParentMaterialsPage from '../../features/classroom/ParentMaterialsPage';
 import LessonPlanViewerPage from '../../features/lesson-plans/LessonPlanViewerPage';
 import ParentFeesReceiptsPage from '../../features/school/components/ParentFeesReceiptsPage';
+import ParentSettings from './parent/ParentSettings';
 import useFeatureFlags from '../../shared/hooks/useFeatureFlags';
 
 export default function ParentDashboard() {
@@ -42,6 +43,10 @@ export default function ParentDashboard() {
 
   if (sectionKey === 'fees') {
     return <ParentFeesReceiptsPage />;
+  }
+
+  if (sectionKey === 'settings') {
+    return <ParentSettings />;
   }
 
   if (sectionKey === 'auras' && !featureFlags.aurasEnabled) {

@@ -41,6 +41,7 @@ import {
   saveResultDocuments,
   listStudentResultDocuments,
   listRecentResultDocuments,
+  listResultDocumentsForPeriod,
 } from './results'
 import {
   ensureLessonPlanTables,
@@ -91,6 +92,9 @@ type Bindings = {
   ZOHO_MAIL_CLIENT_ID?: string
   ZOHO_MAIL_CLIENT_SECRET?: string
   ZOHO_MAIL_REFRESH_TOKEN?: string
+  WEB_PUSH_VAPID_PUBLIC_KEY?: string
+  WEB_PUSH_VAPID_PRIVATE_KEY?: string
+  WEB_PUSH_SUBJECT?: string
 }
 
 const app = new Hono<{ Bindings: Bindings }>()
@@ -157,6 +161,116 @@ async function sha256Hex(value: string) {
   const bytes = new TextEncoder().encode(value)
   const digest = await crypto.subtle.digest('SHA-256', bytes)
   return Array.from(new Uint8Array(digest)).map(byte => byte.toString(16).padStart(2, '0')).join('')
+}
+
+function fromBase64Url(value: string) {
+  const normalized = String(value || '')
+    .replace(/-/g, '+')
+    .replace(/_/g, '/')
+    .padEnd(Math.ceil(String(value || '').length / 4) * 4, '=')
+
+  const binary = atob(normalized)
+  const bytes = new Uint8Array(binary.length)
+  for (let index = 0; index < binary.length; index += 1) {
+    bytes[index] = binary.charCodeAt(index)
+  }
+  return bytes
+}
+
+function sanitizeProfileText(value: unknown, maxLength = 160) {
+  return String(value || '').trim().slice(0, maxLength)
+}
+
+function normalizeIsoDateValue(value: unknown) {
+  const normalized = String(value || '').trim()
+  return /^\d{4}-\d{2}-\d{2}$/.test(normalized) ? normalized : ''
+}
+
+function normalizeProfileBoolean(value: unknown) {
+  if (typeof value === 'boolean') return value
+  const normalized = String(value || '').trim().toLowerCase()
+  if (['true', '1', 'yes', 'required'].includes(normalized)) return true
+  if (['false', '0', 'no', 'optional', 'not_required'].includes(normalized)) return false
+  return false
+}
+
+function buildAdmissionProfileRecord(settings: Record<string, any> = {}, row: Record<string, any> = {}) {
+  const profile = settings?.profile && typeof settings.profile === 'object'
+    ? settings.profile as Record<string, any>
+    : {}
+
+  return {
+    id: String(profile.id || row.id || '').trim(),
+    name: sanitizeProfileText(profile.name ?? settings.name ?? row.name, 160),
+    email: sanitizeProfileText(profile.email ?? settings.email ?? row.email, 180),
+    avatar: sanitizeProfileText(profile.avatar ?? settings.avatar ?? settings.avatarUrl, 2048),
+    dateOfBirth: normalizeIsoDateValue(profile.dateOfBirth ?? settings.dateOfBirth),
+    gender: sanitizeProfileText(profile.gender ?? settings.gender, 80),
+    phone: sanitizeProfileText(profile.phone ?? settings.phone, 60),
+    address: sanitizeProfileText(profile.address ?? settings.address, 240),
+    relationship: sanitizeProfileText(profile.relationship ?? settings.relationship, 120),
+    nationality: sanitizeProfileText(profile.nationality, 120),
+    stateOfOrigin: sanitizeProfileText(profile.stateOfOrigin, 120),
+    religion: sanitizeProfileText(profile.religion, 120),
+    bloodGroup: sanitizeProfileText(profile.bloodGroup, 16),
+    parentName: sanitizeProfileText(profile.parentName, 160),
+    parentEmail: sanitizeProfileText(profile.parentEmail, 180),
+    parentPhone: sanitizeProfileText(profile.parentPhone, 60),
+    emergencyContactName: sanitizeProfileText(profile.emergencyContactName, 160),
+    emergencyContactPhone: sanitizeProfileText(profile.emergencyContactPhone, 60),
+    previousSchool: sanitizeProfileText(profile.previousSchool, 240),
+    strengths: sanitizeProfileText(profile.strengths, 500),
+    allergies: sanitizeProfileText(profile.allergies, 500),
+    conditions: sanitizeProfileText(profile.conditions, 500),
+    medicalNotes: sanitizeProfileText(profile.medicalNotes, 500),
+    senNeeds: sanitizeProfileText(profile.senNeeds, 500),
+    talents: sanitizeProfileText(profile.talents, 500),
+    transportRequired: normalizeProfileBoolean(profile.transportRequired),
+    transportArea: sanitizeProfileText(profile.transportArea, 240),
+    hostelRequired: normalizeProfileBoolean(profile.hostelRequired),
+    hostelNotes: sanitizeProfileText(profile.hostelNotes, 500),
+    registrationPlan: sanitizeProfileText(profile.registrationPlan, 120),
+    preferredExamDate: normalizeIsoDateValue(profile.preferredExamDate),
+  }
+}
+
+function mergeAdmissionProfileRecord(existingProfile: Record<string, any>, payload: Record<string, any> = {}) {
+  const source = payload?.profile && typeof payload.profile === 'object'
+    ? payload.profile as Record<string, any>
+    : payload
+  const nextProfile = { ...existingProfile }
+
+  if (source.name !== undefined) nextProfile.name = sanitizeProfileText(source.name, 160)
+  if (source.avatar !== undefined) nextProfile.avatar = sanitizeProfileText(source.avatar, 2048)
+  if (source.dateOfBirth !== undefined) nextProfile.dateOfBirth = normalizeIsoDateValue(source.dateOfBirth)
+  if (source.gender !== undefined) nextProfile.gender = sanitizeProfileText(source.gender, 80)
+  if (source.phone !== undefined) nextProfile.phone = sanitizeProfileText(source.phone, 60)
+  if (source.address !== undefined) nextProfile.address = sanitizeProfileText(source.address, 240)
+  if (source.relationship !== undefined) nextProfile.relationship = sanitizeProfileText(source.relationship, 120)
+  if (source.nationality !== undefined) nextProfile.nationality = sanitizeProfileText(source.nationality, 120)
+  if (source.stateOfOrigin !== undefined) nextProfile.stateOfOrigin = sanitizeProfileText(source.stateOfOrigin, 120)
+  if (source.religion !== undefined) nextProfile.religion = sanitizeProfileText(source.religion, 120)
+  if (source.bloodGroup !== undefined) nextProfile.bloodGroup = sanitizeProfileText(source.bloodGroup, 16)
+  if (source.parentName !== undefined) nextProfile.parentName = sanitizeProfileText(source.parentName, 160)
+  if (source.parentEmail !== undefined) nextProfile.parentEmail = sanitizeProfileText(source.parentEmail, 180)
+  if (source.parentPhone !== undefined) nextProfile.parentPhone = sanitizeProfileText(source.parentPhone, 60)
+  if (source.emergencyContactName !== undefined) nextProfile.emergencyContactName = sanitizeProfileText(source.emergencyContactName, 160)
+  if (source.emergencyContactPhone !== undefined) nextProfile.emergencyContactPhone = sanitizeProfileText(source.emergencyContactPhone, 60)
+  if (source.previousSchool !== undefined) nextProfile.previousSchool = sanitizeProfileText(source.previousSchool, 240)
+  if (source.strengths !== undefined) nextProfile.strengths = sanitizeProfileText(source.strengths, 500)
+  if (source.allergies !== undefined) nextProfile.allergies = sanitizeProfileText(source.allergies, 500)
+  if (source.conditions !== undefined) nextProfile.conditions = sanitizeProfileText(source.conditions, 500)
+  if (source.medicalNotes !== undefined) nextProfile.medicalNotes = sanitizeProfileText(source.medicalNotes, 500)
+  if (source.senNeeds !== undefined) nextProfile.senNeeds = sanitizeProfileText(source.senNeeds, 500)
+  if (source.talents !== undefined) nextProfile.talents = sanitizeProfileText(source.talents, 500)
+  if (source.transportRequired !== undefined) nextProfile.transportRequired = normalizeProfileBoolean(source.transportRequired)
+  if (source.transportArea !== undefined) nextProfile.transportArea = sanitizeProfileText(source.transportArea, 240)
+  if (source.hostelRequired !== undefined) nextProfile.hostelRequired = normalizeProfileBoolean(source.hostelRequired)
+  if (source.hostelNotes !== undefined) nextProfile.hostelNotes = sanitizeProfileText(source.hostelNotes, 500)
+  if (source.registrationPlan !== undefined) nextProfile.registrationPlan = sanitizeProfileText(source.registrationPlan, 120)
+  if (source.preferredExamDate !== undefined) nextProfile.preferredExamDate = normalizeIsoDateValue(source.preferredExamDate)
+
+  return nextProfile
 }
 
 async function ensurePasswordResetTokensTable(db: D1Database) {
@@ -713,6 +827,11 @@ const RESULT_DEFAULT_BRANDING = {
   accentColor: '#1a5c38',
 }
 
+const RESULT_DEFAULT_SCORE_LIMITS = {
+  caMaxScore: 40,
+  examMaxScore: 60,
+}
+
 function normalizeResultDomainKey(value: unknown, fallback: string) {
   return String(value || '')
     .trim()
@@ -733,14 +852,15 @@ function normalizeResultDomainList(values: unknown, fallback: Record<string, any
     .filter(entry => entry.label)
 }
 
-function normalizeResultCaComponentList(values: unknown, fallback: Record<string, any>[] = [], limit = 8) {
+function normalizeResultCaComponentList(values: unknown, fallback: Record<string, any>[] = [], limit = 8, maxScoreCap = RESULT_DEFAULT_SCORE_LIMITS.caMaxScore) {
   const base = Array.isArray(values) && values.length > 0 ? values : fallback
+  const normalizedCap = Math.max(1, Number(maxScoreCap || RESULT_DEFAULT_SCORE_LIMITS.caMaxScore))
   return base
     .slice(0, limit)
     .map((entry, index) => ({
       key: normalizeResultDomainKey((entry as any)?.key || (entry as any)?.label, `ca_${index + 1}`),
       label: String((entry as any)?.label || (entry as any)?.key || `CA${index + 1}`).trim(),
-      maxScore: Math.max(1, Math.min(40, Number((entry as any)?.maxScore || 0) || 0)),
+      maxScore: Math.max(1, Math.min(normalizedCap, Number((entry as any)?.maxScore || 0) || 0)),
     }))
     .filter(entry => entry.label && entry.maxScore > 0)
 }
@@ -790,6 +910,85 @@ function normalizeResultBranding(value: unknown, fallback: Record<string, any> =
   }
 }
 
+function normalizeResultScoreLimit(value: unknown, fallback: number) {
+  const numeric = Math.round(Number(value ?? fallback))
+  if (!Number.isFinite(numeric)) return fallback
+  return Math.max(1, Math.min(99, numeric))
+}
+
+function normalizeResultScoreSettings(value: unknown, fallback: Record<string, any> = RESULT_DEFAULT_SCORE_LIMITS) {
+  const source = value && typeof value === 'object' ? value as Record<string, any> : {}
+  const caMaxScore = normalizeResultScoreLimit(source.caMaxScore, Number(fallback.caMaxScore || RESULT_DEFAULT_SCORE_LIMITS.caMaxScore))
+  const examMaxScore = normalizeResultScoreLimit(source.examMaxScore, Number(fallback.examMaxScore || RESULT_DEFAULT_SCORE_LIMITS.examMaxScore))
+
+  return {
+    caMaxScore,
+    examMaxScore,
+    totalMaxScore: caMaxScore + examMaxScore,
+  }
+}
+
+function mergeResultBrandingWithTenant(value: unknown, tenantBranding: Record<string, any> = {}) {
+  const source = value && typeof value === 'object' ? value as Record<string, any> : {}
+  const schoolName = String(tenantBranding.schoolName || source.schoolName || '').trim()
+  const logoUrl = String(tenantBranding.logoUrl || source.logoUrl || '').trim()
+
+  return normalizeResultBranding(
+    {
+      ...source,
+      schoolName,
+      logoUrl,
+    },
+    {
+      ...RESULT_DEFAULT_BRANDING,
+      schoolName,
+      logoUrl,
+    },
+  )
+}
+
+function attachTenantBrandingToResultSettings(settings: Record<string, any>, tenantBranding: Record<string, any> = {}) {
+  const metadata = settings?.metadata && typeof settings.metadata === 'object' ? settings.metadata : {}
+  return {
+    ...settings,
+    metadata: {
+      ...metadata,
+      branding: mergeResultBrandingWithTenant(metadata.branding, tenantBranding),
+    },
+  }
+}
+
+async function getTenantSchoolBranding(db: D1Database, tenant: Record<string, any> | null) {
+  if (!tenant?.id) {
+    return {
+      schoolName: '',
+      logoUrl: '',
+      tagline: '',
+      website: '',
+      websiteUrl: '',
+      subdomain: '',
+    }
+  }
+
+  let row: Record<string, any> | null = null
+  try {
+    await db.prepare(INIT_BRANDING).run()
+    row = await db.prepare(`SELECT * FROM tenant_branding WHERE tenant_id = ?`).bind(tenant.id).first() as Record<string, any> | null
+  } catch {
+    row = null
+  }
+
+  const websiteUrl = row?.website || (tenant.websiteDomain ? `https://${tenant.websiteDomain}` : null)
+  return {
+    schoolName: String(tenant.schoolName || '').trim(),
+    logoUrl: String(row?.logo_url || '').trim(),
+    tagline: String(row?.tagline || '').trim(),
+    website: String(websiteUrl || '').trim(),
+    websiteUrl: String(websiteUrl || '').trim(),
+    subdomain: String(tenant.requestedSubdomain || '').trim(),
+  }
+}
+
 function getSuggestedResultSettings() {
   return {
     templateKey: '',
@@ -801,6 +1000,8 @@ function getSuggestedResultSettings() {
       affectiveWriteUp: 'Use the affective scale to describe conduct, attitude, and class disposition clearly and consistently.',
       ratingDomains: RESULT_DEFAULT_RATING_DOMAINS,
       caComponents: RESULT_DEFAULT_CA_COMPONENTS,
+      caMaxScore: RESULT_DEFAULT_SCORE_LIMITS.caMaxScore,
+      examMaxScore: RESULT_DEFAULT_SCORE_LIMITS.examMaxScore,
       branding: RESULT_DEFAULT_BRANDING,
     },
   }
@@ -810,6 +1011,9 @@ function normalizeResultSettingsInput(payload: Record<string, any> = {}) {
   const fallback = getSuggestedResultSettings()
   const knownTemplateKeys = new Set(RESULT_TEMPLATE_CATALOG.map(template => template.key))
   const templateKey = String(payload.templateKey || '').trim()
+  const metadata = payload?.metadata && typeof payload.metadata === 'object' ? payload.metadata as Record<string, any> : {}
+  const fallbackMetadata = fallback.metadata && typeof fallback.metadata === 'object' ? fallback.metadata as Record<string, any> : {}
+  const scoreSettings = normalizeResultScoreSettings(metadata, fallbackMetadata)
 
   return {
     templateKey: knownTemplateKeys.has(templateKey) ? templateKey : '',
@@ -828,17 +1032,20 @@ function normalizeResultSettingsInput(payload: Record<string, any> = {}) {
       8,
     ),
     metadata: {
-      ...((payload.metadata && typeof payload.metadata === 'object') ? payload.metadata : {}),
-      affectiveWriteUp: String(payload?.metadata?.affectiveWriteUp || '').trim(),
-      ratingDomains: normalizeResultDomainList(payload?.metadata?.ratingDomains, fallback.metadata.ratingDomains, 8),
-      caComponents: normalizeResultCaComponentList(payload?.metadata?.caComponents, fallback.metadata.caComponents, 8),
-      branding: normalizeResultBranding(payload?.metadata?.branding, fallback.metadata.branding),
+      ...metadata,
+      affectiveWriteUp: String(metadata.affectiveWriteUp || '').trim(),
+      ratingDomains: normalizeResultDomainList(metadata.ratingDomains, fallback.metadata.ratingDomains, 8),
+      caMaxScore: scoreSettings.caMaxScore,
+      examMaxScore: scoreSettings.examMaxScore,
+      caComponents: normalizeResultCaComponentList(metadata.caComponents, fallback.metadata.caComponents, 8, scoreSettings.caMaxScore),
+      branding: normalizeResultBranding(metadata.branding, fallback.metadata.branding),
     },
   }
 }
 
 function validateResultSettings(settings: Record<string, any>) {
-  const caComponents = normalizeResultCaComponentList(settings?.metadata?.caComponents, RESULT_DEFAULT_CA_COMPONENTS, 8)
+  const scoreSettings = normalizeResultScoreSettings(settings?.metadata, RESULT_DEFAULT_SCORE_LIMITS)
+  const caComponents = normalizeResultCaComponentList(settings?.metadata?.caComponents, RESULT_DEFAULT_CA_COMPONENTS, 8, scoreSettings.caMaxScore)
   const caComponentMaxTotal = caComponents.reduce((sum, entry) => sum + Number(entry.maxScore || 0), 0)
   if (!String(settings?.templateKey || '').trim()) return 'Choose a result template before CA scores will be accepted.'
   if (!Array.isArray(settings?.gradingScale) || settings.gradingScale.length === 0) return 'Set the grading system before CA scores will be accepted.'
@@ -846,13 +1053,14 @@ function validateResultSettings(settings: Record<string, any>) {
   if (!Array.isArray(settings?.affectiveScale) || settings.affectiveScale.length === 0) return 'Set the affective scale before CA scores will be accepted.'
   if (!Array.isArray(settings?.affectiveDomains) || settings.affectiveDomains.length === 0) return 'Add at least one affective domain before CA scores will be accepted.'
   if (settings.affectiveDomains.length > 8) return 'Affective marking can cover at most 8 areas.'
+  if (scoreSettings.totalMaxScore !== 100) return 'CA max score and exam max score must add up to 100.'
   if (caComponents.length === 0) return 'Add at least one CA component before CA scores will be accepted.'
-  if (caComponentMaxTotal !== 40) return 'CA component maximum scores must add up to 40.'
+  if (caComponentMaxTotal !== scoreSettings.caMaxScore) return `CA component maximum scores must add up to ${scoreSettings.caMaxScore}.`
   if (!String(settings?.metadata?.affectiveWriteUp || '').trim()) return 'Set the affective write-up guide before CA scores will be accepted.'
   return ''
 }
 
-function normalizeResultEntryCaComponents(value: unknown, componentDefinitions: Record<string, any>[] = RESULT_DEFAULT_CA_COMPONENTS, fallbackTotal = 0) {
+function normalizeResultEntryCaComponents(value: unknown, componentDefinitions: Record<string, any>[] = RESULT_DEFAULT_CA_COMPONENTS, fallbackTotal = 0, caMaxScore = RESULT_DEFAULT_SCORE_LIMITS.caMaxScore) {
   const source = value && typeof value === 'object' && !Array.isArray(value) ? value as Record<string, any> : {}
   const normalized = Object.fromEntries(
     componentDefinitions.map(component => [
@@ -862,7 +1070,7 @@ function normalizeResultEntryCaComponents(value: unknown, componentDefinitions: 
   )
   const hasAnyScore = Object.values(normalized).some(score => Number(score || 0) > 0)
   if (!hasAnyScore && Number(fallbackTotal || 0) > 0 && componentDefinitions.length > 0) {
-    let remaining = clampResultScore(fallbackTotal, 40)
+    let remaining = clampResultScore(fallbackTotal, caMaxScore)
     componentDefinitions.forEach(component => {
       const key = String(component.key || '')
       const maxScore = Number(component.maxScore || 0)
@@ -874,10 +1082,10 @@ function normalizeResultEntryCaComponents(value: unknown, componentDefinitions: 
   return normalized
 }
 
-function sumResultEntryCaComponents(componentScores: Record<string, any> = {}, componentDefinitions: Record<string, any>[] = RESULT_DEFAULT_CA_COMPONENTS) {
+function sumResultEntryCaComponents(componentScores: Record<string, any> = {}, componentDefinitions: Record<string, any> = RESULT_DEFAULT_CA_COMPONENTS, caMaxScore = RESULT_DEFAULT_SCORE_LIMITS.caMaxScore) {
   return clampResultScore(
     componentDefinitions.reduce((sum, component) => sum + Number(componentScores?.[String(component.key || '')] || 0), 0),
-    40,
+    caMaxScore,
   )
 }
 
@@ -984,12 +1192,14 @@ function buildPublishedResultPayloads(params: {
   batch: Record<string, any>,
   className: string,
   actorName: string,
+  tenantBranding?: Record<string, any>,
 }) {
   const gradeScale = normalizeResultScale(params.settings?.gradingScale, RESULT_DEFAULT_GRADING_SCALE)
   const affectiveDomains = normalizeResultDomainList(params.settings?.affectiveDomains, RESULT_DEFAULT_AFFECTIVE_DOMAINS, 8)
   const ratingDomains = normalizeResultDomainList(params.settings?.metadata?.ratingDomains, RESULT_DEFAULT_RATING_DOMAINS, 8)
-  const caComponents = normalizeResultCaComponentList(params.settings?.metadata?.caComponents, RESULT_DEFAULT_CA_COMPONENTS, 8)
-  const branding = normalizeResultBranding(params.settings?.metadata?.branding, RESULT_DEFAULT_BRANDING)
+  const scoreSettings = normalizeResultScoreSettings(params.settings?.metadata, RESULT_DEFAULT_SCORE_LIMITS)
+  const caComponents = normalizeResultCaComponentList(params.settings?.metadata?.caComponents, RESULT_DEFAULT_CA_COMPONENTS, 8, scoreSettings.caMaxScore)
+  const branding = mergeResultBrandingWithTenant(params.settings?.metadata?.branding, params.tenantBranding)
   const profileMap = new Map(params.profiles.map(profile => [String(profile.studentId || ''), profile]))
 
   const studentSummaries = params.students.map(student => {
@@ -998,9 +1208,9 @@ function buildPublishedResultPayloads(params: {
     const subjectRows = params.entries
       .filter(entry => String(entry.studentId || '') === studentId)
       .map(entry => {
-        const caComponentScores = normalizeResultEntryCaComponents(entry.caComponents, caComponents, entry.caScore)
-        const caScore = sumResultEntryCaComponents(caComponentScores, caComponents)
-        const total = clampResultScore(caScore + Number(entry.examScore || 0), 100)
+        const caComponentScores = normalizeResultEntryCaComponents(entry.caComponents, caComponents, entry.caScore, scoreSettings.caMaxScore)
+        const caScore = sumResultEntryCaComponents(caComponentScores, caComponents, scoreSettings.caMaxScore)
+        const total = clampResultScore(caScore + Number(entry.examScore || 0), scoreSettings.totalMaxScore)
         const band = resolveGradeBand(total, gradeScale)
         return {
           subjectId: String(entry.subjectId || ''),
@@ -1012,7 +1222,7 @@ function buildPublishedResultPayloads(params: {
             score: Number(caComponentScores?.[String(component.key || '')] || 0),
           })),
           caScore,
-          examScore: clampResultScore(entry.examScore, 60),
+          examScore: clampResultScore(entry.examScore, scoreSettings.examMaxScore),
           total,
           grade: band.grade,
           remark: band.remark,
@@ -1051,6 +1261,7 @@ function buildPublishedResultPayloads(params: {
         termName: params.batch.termName,
         templateKey: String(params.settings?.templateKey || ''),
         branding,
+        scoreModel: scoreSettings,
         settingsSnapshot: params.settings,
         approvals: {
           submittedBy: params.batch.submittedBy || null,
@@ -1107,7 +1318,10 @@ async function getStudentFeeStatus(db: D1Database, tenantId: string, studentId: 
 
 const FEES_LEDGER_DDL = `CREATE TABLE IF NOT EXISTS fees_ledger (id TEXT PRIMARY KEY, tenant_id TEXT, student_id TEXT, student_name TEXT, class_id TEXT, class_name TEXT, fee_amount REAL, amount_paid REAL, status TEXT, updated_at TEXT)`
 const FEES_CONFIG_DDL = `CREATE TABLE IF NOT EXISTS fees_config (id TEXT PRIMARY KEY, tenant_id TEXT, fee_type TEXT, class_id TEXT, amount REAL, session TEXT, created_at TEXT)`
-const FEES_PAYMENT_RECEIPTS_DDL = `CREATE TABLE IF NOT EXISTS fees_payment_receipts (id TEXT PRIMARY KEY, receipt_no TEXT, tenant_id TEXT, student_id TEXT, student_name TEXT, class_id TEXT, class_name TEXT, amount REAL, payment_type TEXT, fee_amount REAL, amount_paid_after REAL, balance_after REAL, status_after TEXT, recorded_by TEXT, recorded_at TEXT)`
+const FEES_PAYMENT_RECEIPTS_DDL = `CREATE TABLE IF NOT EXISTS fees_payment_receipts (id TEXT PRIMARY KEY, receipt_no TEXT, tenant_id TEXT, student_id TEXT, student_display_id TEXT, student_name TEXT, class_id TEXT, class_name TEXT, amount REAL, payment_type TEXT, payment_reference TEXT, fee_amount REAL, amount_paid_after REAL, balance_after REAL, status_after TEXT, recorded_by TEXT, verification_url TEXT, recorded_at TEXT)`
+const FEES_PAYMENT_CLAIMS_DDL = `CREATE TABLE IF NOT EXISTS fees_payment_claims (id TEXT PRIMARY KEY, tenant_id TEXT, student_id TEXT, student_name TEXT, class_id TEXT, class_name TEXT, claimant_user_id TEXT, claimant_name TEXT, claimant_role TEXT, amount REAL, payment_method TEXT, payer_name TEXT, payment_reference TEXT, payment_note TEXT, paid_at TEXT, status TEXT, account_name TEXT, account_number TEXT, bank_name TEXT, verified_by TEXT, verified_at TEXT, verification_note TEXT, receipt_id TEXT, receipt_no TEXT, created_at TEXT, updated_at TEXT)`
+const WEB_PUSH_SUBSCRIPTIONS_DDL = `CREATE TABLE IF NOT EXISTS web_push_subscriptions (id TEXT PRIMARY KEY, tenant_id TEXT, user_id TEXT, user_email TEXT, role_key TEXT, endpoint TEXT NOT NULL UNIQUE, p256dh TEXT, auth_secret TEXT, subscription_json TEXT, device_label TEXT, active INTEGER NOT NULL DEFAULT 1, created_at TEXT NOT NULL, updated_at TEXT NOT NULL, last_used_at TEXT)`
+const FEE_PAYMENT_APPROVER_ROLES = ['owner', 'hos', 'accountant']
 
 async function ensureFeesLedgerTable(db: D1Database) {
   await db.prepare(FEES_LEDGER_DDL).run()
@@ -1119,6 +1333,42 @@ async function ensureFeesConfigTable(db: D1Database) {
 
 async function ensureFeesPaymentReceiptsTable(db: D1Database) {
   await db.prepare(FEES_PAYMENT_RECEIPTS_DDL).run()
+  try { await db.exec('ALTER TABLE fees_payment_receipts ADD COLUMN student_display_id TEXT') } catch {}
+  try { await db.exec('ALTER TABLE fees_payment_receipts ADD COLUMN payment_reference TEXT') } catch {}
+  try { await db.exec('ALTER TABLE fees_payment_receipts ADD COLUMN verification_url TEXT') } catch {}
+}
+
+async function ensureFeesPaymentClaimsTable(db: D1Database) {
+  await db.prepare(FEES_PAYMENT_CLAIMS_DDL).run()
+}
+
+async function ensureWebPushSubscriptionsTable(db: D1Database) {
+  await db.prepare(WEB_PUSH_SUBSCRIPTIONS_DDL).run()
+}
+
+function getFeesPaymentDetailsSettingsKey(tenantId: string) {
+  return `fees_payment_details:${tenantId}`
+}
+
+function normalizeFeesPaymentDetails(settings: Record<string, any> = {}) {
+  return {
+    bankName: sanitizeProfileText(settings.bankName, 160),
+    accountName: sanitizeProfileText(settings.accountName, 160),
+    accountNumber: sanitizeProfileText(settings.accountNumber, 80),
+    paymentInstructions: sanitizeProfileText(settings.paymentInstructions, 500),
+    paymentReferenceHint: sanitizeProfileText(settings.paymentReferenceHint, 180),
+  }
+}
+
+async function getFeesPaymentDetails(db: D1Database, tenantId: string) {
+  const settings = await getSettings(db, getFeesPaymentDetailsSettingsKey(tenantId)).catch(() => null)
+  return normalizeFeesPaymentDetails(settings || {})
+}
+
+async function saveFeesPaymentDetails(db: D1Database, tenantId: string, payload: Record<string, any>) {
+  const normalized = normalizeFeesPaymentDetails(payload)
+  await upsertSettings(db, getFeesPaymentDetailsSettingsKey(tenantId), normalized)
+  return normalized
 }
 
 function deriveFeeLedgerStatus(feeAmount: unknown, amountPaid: unknown, explicitStatus: unknown = '') {
@@ -1141,6 +1391,808 @@ function formatNairaAmount(value: unknown) {
   const amount = Number(value || 0)
   const safeAmount = Number.isFinite(amount) ? amount : 0
   return `₦${safeAmount.toLocaleString()}`
+}
+
+function buildFeeReceiptNumber(date = new Date()) {
+  const dateKey = date.toISOString().slice(0, 10).replace(/-/g, '')
+  const serial = `${Date.now()}${Math.floor(Math.random() * 100).toString().padStart(2, '0')}`.slice(-8)
+  return `NDV-RCPT-${dateKey}-${serial}`
+}
+
+function buildFeeReceiptVerificationUrl(baseUrl: string, receiptNo: string) {
+  const normalizedBaseUrl = String(baseUrl || '').trim().replace(/\/$/, '')
+  if (!normalizedBaseUrl || !receiptNo) return ''
+  return `${normalizedBaseUrl}/receipt-verification/${encodeURIComponent(receiptNo)}`
+}
+
+function buildResultVerificationUrl(baseUrl: string, publicationId: string) {
+  const normalizedBaseUrl = String(baseUrl || '').trim().replace(/\/$/, '')
+  if (!normalizedBaseUrl || !publicationId) return ''
+  return `${normalizedBaseUrl}/result-verification/${encodeURIComponent(publicationId)}`
+}
+
+function escapeReceiptVerificationHtml(value: unknown) {
+  return String(value ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+}
+
+function formatReceiptVerificationDate(value: unknown) {
+  const timestamp = String(value || '').trim()
+  if (!timestamp) return 'Not recorded'
+
+  const parsed = new Date(timestamp)
+  if (Number.isNaN(parsed.getTime())) return timestamp
+
+  return parsed.toLocaleString()
+}
+
+function renderPublicFeeReceiptVerificationHtml(options: {
+  verified: boolean
+  receiptNo?: string
+  message?: string
+  receipt?: Record<string, any> | null
+}) {
+  const receipt = options.receipt || {}
+  const verified = Boolean(options.verified)
+  const title = verified ? 'Receipt verified' : 'Receipt not found'
+  const subtitle = verified
+    ? 'This payment receipt is a valid NDOVERA record.'
+    : 'The receipt number supplied could not be verified.'
+  const receiptNo = escapeReceiptVerificationHtml(options.receiptNo || receipt.receiptNo || '')
+  const schoolName = escapeReceiptVerificationHtml(receipt.schoolName || 'NDOVERA School')
+  const studentName = escapeReceiptVerificationHtml(receipt.studentName || 'Not available')
+  const studentDisplayId = escapeReceiptVerificationHtml(receipt.studentDisplayId || 'Not assigned')
+  const className = escapeReceiptVerificationHtml(receipt.className || 'Not assigned')
+  const paymentType = escapeReceiptVerificationHtml(receipt.paymentType || 'Not specified')
+  const paymentReference = escapeReceiptVerificationHtml(receipt.paymentReference || 'Not provided')
+  const statusAfter = escapeReceiptVerificationHtml(receipt.statusAfter || 'Recorded')
+  const recordedBy = escapeReceiptVerificationHtml(receipt.recordedBy || 'School bursary')
+  const verificationMessage = escapeReceiptVerificationHtml(
+    options.message || (verified ? 'Official school receipt confirmed.' : 'Check the receipt number and try again.')
+  )
+  const amount = formatNairaAmount(receipt.amount || 0)
+  const amountPaidAfter = formatNairaAmount(receipt.amountPaidAfter || 0)
+  const balanceAfter = formatNairaAmount(receipt.balanceAfter || 0)
+  const recordedAt = escapeReceiptVerificationHtml(formatReceiptVerificationDate(receipt.recordedAt))
+
+  return `<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>${escapeReceiptVerificationHtml(title)} | NDOVERA</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --wheat: #f5deb3;
+        --paper: #fff8f0;
+        --maroon: #800000;
+        --midnight: #191970;
+        --burgundy: #800020;
+        --green: #1a5c38;
+        --line: rgba(128, 0, 0, 0.16);
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: "Segoe UI", Arial, sans-serif;
+        background:
+          radial-gradient(circle at top left, rgba(128, 0, 0, 0.08), transparent 38%),
+          radial-gradient(circle at bottom right, rgba(26, 92, 56, 0.12), transparent 32%),
+          linear-gradient(160deg, #fffaf3 0%, #f5deb3 100%);
+        color: var(--midnight);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+      }
+
+      .card {
+        width: min(920px, 100%);
+        background: rgba(245, 222, 179, 0.96);
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        box-shadow: 0 24px 64px rgba(25, 25, 112, 0.14);
+        overflow: hidden;
+      }
+
+      .hero {
+        padding: 28px 28px 20px;
+        background: linear-gradient(135deg, rgba(128, 0, 0, 0.94), rgba(26, 92, 56, 0.92));
+        color: #ffffff;
+      }
+
+      .eyebrow {
+        margin: 0 0 10px;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: #f5deb3;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(28px, 4vw, 42px);
+        line-height: 1.05;
+      }
+
+      .subtitle {
+        margin: 12px 0 0;
+        max-width: 640px;
+        line-height: 1.6;
+        color: rgba(255, 255, 255, 0.92);
+      }
+
+      .status-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 18px;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        border-radius: 999px;
+        padding: 10px 16px;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        background: rgba(245, 222, 179, 0.16);
+        color: #ffffff;
+        border: 1px solid rgba(245, 222, 179, 0.28);
+      }
+
+      .body {
+        padding: 28px;
+        display: grid;
+        gap: 22px;
+      }
+
+      .message {
+        border-radius: 22px;
+        background: var(--paper);
+        border: 1px solid rgba(128, 0, 32, 0.14);
+        padding: 18px 20px;
+      }
+
+      .message strong {
+        display: block;
+        color: var(--maroon);
+        margin-bottom: 6px;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 14px;
+      }
+
+      .metric,
+      .detail {
+        border-radius: 22px;
+        background: var(--paper);
+        border: 1px solid rgba(128, 0, 32, 0.12);
+        padding: 18px;
+      }
+
+      .label {
+        margin: 0;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--burgundy);
+      }
+
+      .value {
+        margin: 10px 0 0;
+        font-size: 24px;
+        font-weight: 900;
+        color: var(--midnight);
+      }
+
+      .details {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 14px;
+      }
+
+      .detail-value {
+        margin: 8px 0 0;
+        line-height: 1.55;
+        color: var(--midnight);
+        word-break: break-word;
+      }
+
+      .footer {
+        padding: 0 28px 28px;
+        color: var(--midnight);
+        font-size: 14px;
+        line-height: 1.6;
+      }
+
+      .cta {
+        display: inline-flex;
+        margin-top: 14px;
+        align-items: center;
+        justify-content: center;
+        border-radius: 999px;
+        background: var(--green);
+        color: var(--wheat);
+        padding: 12px 18px;
+        text-decoration: none;
+        font-weight: 800;
+      }
+
+      @media (max-width: 640px) {
+        .hero, .body, .footer { padding-left: 20px; padding-right: 20px; }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="card">
+      <section class="hero">
+        <p class="eyebrow">NDOVERA Receipt Check</p>
+        <h1>${escapeReceiptVerificationHtml(title)}</h1>
+        <p class="subtitle">${escapeReceiptVerificationHtml(subtitle)}</p>
+        <div class="status-row">
+          <span class="pill">${verified ? 'Verified official receipt' : 'Verification unavailable'}</span>
+          ${receiptNo ? `<span class="pill">${receiptNo}</span>` : ''}
+          <span class="pill">${schoolName}</span>
+        </div>
+      </section>
+
+      <section class="body">
+        <div class="message">
+          <strong>Verification status</strong>
+          <span>${verificationMessage}</span>
+        </div>
+
+        ${verified ? `
+        <section class="grid">
+          <article class="metric">
+            <p class="label">Amount received</p>
+            <p class="value">${escapeReceiptVerificationHtml(amount)}</p>
+          </article>
+          <article class="metric">
+            <p class="label">Amount paid after</p>
+            <p class="value">${escapeReceiptVerificationHtml(amountPaidAfter)}</p>
+          </article>
+          <article class="metric">
+            <p class="label">Balance after</p>
+            <p class="value">${escapeReceiptVerificationHtml(balanceAfter)}</p>
+          </article>
+          <article class="metric">
+            <p class="label">Status after payment</p>
+            <p class="value">${statusAfter}</p>
+          </article>
+        </section>
+
+        <section class="details">
+          <article class="detail">
+            <p class="label">Student</p>
+            <p class="detail-value">${studentName}</p>
+          </article>
+          <article class="detail">
+            <p class="label">Student ID</p>
+            <p class="detail-value">${studentDisplayId}</p>
+          </article>
+          <article class="detail">
+            <p class="label">Class</p>
+            <p class="detail-value">${className}</p>
+          </article>
+          <article class="detail">
+            <p class="label">Payment type</p>
+            <p class="detail-value">${paymentType}</p>
+          </article>
+          <article class="detail">
+            <p class="label">Payment reference</p>
+            <p class="detail-value">${paymentReference}</p>
+          </article>
+          <article class="detail">
+            <p class="label">Recorded at</p>
+            <p class="detail-value">${recordedAt}</p>
+          </article>
+          <article class="detail">
+            <p class="label">Recorded by</p>
+            <p class="detail-value">${recordedBy}</p>
+          </article>
+          <article class="detail">
+            <p class="label">School</p>
+            <p class="detail-value">${schoolName}</p>
+          </article>
+        </section>
+        ` : ''}
+      </section>
+
+      <section class="footer">
+        This verification screen is generated directly from NDOVERA's live school records. If the information above does not match the printed receipt, contact the school bursary with the receipt number.
+        ${receiptNo ? `<div><a class="cta" href="/api/public/fees-receipts/${encodeURIComponent(String(options.receiptNo || receipt.receiptNo || ''))}?format=json">Open JSON verification</a></div>` : ''}
+      </section>
+    </main>
+  </body>
+</html>`
+}
+
+async function resolvePublicFeeReceiptVerification(db: D1Database, receiptNo: string) {
+  const normalizedReceiptNo = String(receiptNo || '').trim()
+  if (!normalizedReceiptNo) {
+    return { success: false, verified: false, message: 'Receipt number is required.', receipt: null }
+  }
+
+  await ensureFeesPaymentReceiptsTable(db)
+  const receiptRow = await db.prepare(
+    'SELECT * FROM fees_payment_receipts WHERE receipt_no = ? LIMIT 1'
+  ).bind(normalizedReceiptNo).first() as Record<string, any> | null
+
+  if (!receiptRow) {
+    return { success: false, verified: false, message: 'Receipt not found.', receipt: null }
+  }
+
+  const tenant = await getTenantById(db, String(receiptRow.tenant_id || '')).catch(() => null)
+  return {
+    success: true,
+    verified: true,
+    message: 'Official NDOVERA receipt verified.',
+    receipt: {
+      receiptNo: String(receiptRow.receipt_no || ''),
+      schoolName: String(tenant?.schoolName || tenant?.name || 'NDOVERA School'),
+      tenantId: String(receiptRow.tenant_id || ''),
+      studentId: String(receiptRow.student_id || ''),
+      studentDisplayId: String(receiptRow.student_display_id || ''),
+      studentName: String(receiptRow.student_name || ''),
+      className: String(receiptRow.class_name || ''),
+      amount: Number(receiptRow.amount || 0),
+      paymentType: String(receiptRow.payment_type || 'cash'),
+      paymentReference: String(receiptRow.payment_reference || ''),
+      feeAmount: Number(receiptRow.fee_amount || 0),
+      amountPaidAfter: Number(receiptRow.amount_paid_after || 0),
+      balanceAfter: Number(receiptRow.balance_after || 0),
+      statusAfter: String(receiptRow.status_after || ''),
+      recordedBy: String(receiptRow.recorded_by || ''),
+      recordedAt: String(receiptRow.recorded_at || ''),
+      verificationUrl: String(receiptRow.verification_url || ''),
+    },
+  }
+}
+
+function renderPublicResultVerificationHtml(options: {
+  verified: boolean
+  publicationId?: string
+  message?: string
+  result?: Record<string, any> | null
+}) {
+  const result = options.result || {}
+  const verified = Boolean(options.verified)
+  const branding = normalizeResultBranding(result.branding, RESULT_DEFAULT_BRANDING)
+  const summary = result.summary && typeof result.summary === 'object' ? result.summary as Record<string, any> : {}
+  const approvals = result.approvals && typeof result.approvals === 'object' ? result.approvals as Record<string, any> : {}
+  const student = result.student && typeof result.student === 'object' ? result.student as Record<string, any> : {}
+  const subjects = Array.isArray(result.subjects) ? result.subjects as Record<string, any>[] : []
+  const title = verified ? 'Result verified' : 'Result not found'
+  const subtitle = verified
+    ? 'This result sheet matches NDOVERA published records.'
+    : 'The result verification code supplied could not be verified.'
+  const publicationId = escapeReceiptVerificationHtml(options.publicationId || result.id || '')
+  const schoolName = escapeReceiptVerificationHtml(branding.schoolName || 'NDOVERA School')
+  const reportTitle = escapeReceiptVerificationHtml(branding.reportTitle || 'Official Result Record')
+  const studentName = escapeReceiptVerificationHtml(student.name || 'Not available')
+  const studentDisplayId = escapeReceiptVerificationHtml(student.displayId || 'Not assigned')
+  const className = escapeReceiptVerificationHtml(student.className || 'Not assigned')
+  const sessionName = escapeReceiptVerificationHtml(result.sessionName || 'Session not specified')
+  const termName = escapeReceiptVerificationHtml(result.termName || 'Term not specified')
+  const grade = escapeReceiptVerificationHtml(summary.grade || 'Not graded')
+  const promotionStatus = escapeReceiptVerificationHtml(summary.promotionStatus || 'Pending review')
+  const teacherRemark = escapeReceiptVerificationHtml(summary.teacherRemark || 'No teacher remark recorded.')
+  const principalRemark = escapeReceiptVerificationHtml(summary.principalRemark || 'No principal remark recorded.')
+  const average = escapeReceiptVerificationHtml(`${Number(summary.average || 0)}%`)
+  const attendanceRate = escapeReceiptVerificationHtml(`${Number(summary.attendanceRate || 0)}%`)
+  const position = escapeReceiptVerificationHtml(
+    summary.position ? `${summary.position}${summary.classSize ? ` of ${summary.classSize}` : ''}` : 'Not ranked'
+  )
+  const publishedAt = escapeReceiptVerificationHtml(formatReceiptVerificationDate(result.publishedAt))
+  const approvedAt = escapeReceiptVerificationHtml(formatReceiptVerificationDate(result.approvedAt || approvals.approvedAt))
+  const approvedBy = escapeReceiptVerificationHtml(result.approvedBy || approvals.approvedBy || 'School leadership')
+  const verificationMessage = escapeReceiptVerificationHtml(
+    options.message || (verified ? 'Official NDOVERA result record confirmed.' : 'Check the verification code and try again.')
+  )
+  const subjectRows = verified
+    ? subjects.map(subject => `
+        <tr>
+          <td>${escapeReceiptVerificationHtml(subject.subjectName || 'Subject')}</td>
+          <td>${escapeReceiptVerificationHtml(subject.caScore ?? '')}</td>
+          <td>${escapeReceiptVerificationHtml(subject.examScore ?? '')}</td>
+          <td>${escapeReceiptVerificationHtml(subject.total ?? '')}</td>
+          <td>${escapeReceiptVerificationHtml(subject.grade || '')}</td>
+          <td>${escapeReceiptVerificationHtml(subject.remark || '—')}</td>
+        </tr>`).join('')
+    : ''
+
+  return `<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>${escapeReceiptVerificationHtml(title)} | NDOVERA</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --wheat: #f5deb3;
+        --paper: #fff8f0;
+        --maroon: ${branding.primaryColor};
+        --midnight: #191970;
+        --burgundy: #800020;
+        --green: ${branding.accentColor};
+        --line: rgba(128, 0, 0, 0.16);
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: "Segoe UI", Arial, sans-serif;
+        background:
+          radial-gradient(circle at top left, rgba(128, 0, 0, 0.08), transparent 38%),
+          radial-gradient(circle at bottom right, rgba(26, 92, 56, 0.12), transparent 32%),
+          linear-gradient(160deg, #fffaf3 0%, #f5deb3 100%);
+        color: var(--midnight);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+      }
+
+      .card {
+        width: min(1100px, 100%);
+        background: rgba(245, 222, 179, 0.97);
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        box-shadow: 0 24px 64px rgba(25, 25, 112, 0.14);
+        overflow: hidden;
+      }
+
+      .hero {
+        padding: 28px 28px 20px;
+        background: linear-gradient(135deg, var(--maroon), var(--green));
+        color: #ffffff;
+      }
+
+      .eyebrow {
+        margin: 0 0 10px;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: #f5deb3;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(28px, 4vw, 42px);
+        line-height: 1.05;
+      }
+
+      .subtitle {
+        margin: 12px 0 0;
+        max-width: 720px;
+        line-height: 1.6;
+        color: rgba(255, 255, 255, 0.92);
+      }
+
+      .status-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 18px;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        border-radius: 999px;
+        padding: 10px 16px;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        background: rgba(245, 222, 179, 0.16);
+        color: #ffffff;
+        border: 1px solid rgba(245, 222, 179, 0.28);
+      }
+
+      .body {
+        padding: 28px;
+        display: grid;
+        gap: 22px;
+      }
+
+      .message {
+        border-radius: 22px;
+        background: var(--paper);
+        border: 1px solid rgba(128, 0, 32, 0.14);
+        padding: 18px 20px;
+      }
+
+      .message strong {
+        display: block;
+        color: var(--maroon);
+        margin-bottom: 6px;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 14px;
+      }
+
+      .metric,
+      .detail,
+      .table-shell {
+        border-radius: 22px;
+        background: var(--paper);
+        border: 1px solid rgba(128, 0, 32, 0.12);
+        padding: 18px;
+      }
+
+      .label {
+        margin: 0;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--burgundy);
+      }
+
+      .value {
+        margin: 10px 0 0;
+        font-size: 24px;
+        font-weight: 900;
+        color: var(--midnight);
+      }
+
+      .details {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 14px;
+      }
+
+      .detail-value {
+        margin: 8px 0 0;
+        line-height: 1.55;
+        color: var(--midnight);
+        word-break: break-word;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      th,
+      td {
+        text-align: left;
+        padding: 10px 8px;
+        border-top: 1px solid rgba(128, 0, 32, 0.12);
+        color: var(--midnight);
+        vertical-align: top;
+      }
+
+      th {
+        border-top: 0;
+        color: var(--burgundy);
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .footer {
+        padding: 0 28px 28px;
+        color: var(--midnight);
+        font-size: 14px;
+        line-height: 1.6;
+      }
+
+      .cta {
+        display: inline-flex;
+        margin-top: 14px;
+        align-items: center;
+        justify-content: center;
+        border-radius: 999px;
+        background: var(--green);
+        color: var(--wheat);
+        padding: 12px 18px;
+        text-decoration: none;
+        font-weight: 800;
+      }
+
+      @media (max-width: 640px) {
+        .hero, .body, .footer { padding-left: 20px; padding-right: 20px; }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="card">
+      <section class="hero">
+        <p class="eyebrow">NDOVERA Result Check</p>
+        <h1>${escapeReceiptVerificationHtml(title)}</h1>
+        <p class="subtitle">${escapeReceiptVerificationHtml(subtitle)}</p>
+        <div class="status-row">
+          <span class="pill">${verified ? 'Verified official result' : 'Verification unavailable'}</span>
+          ${publicationId ? `<span class="pill">${publicationId}</span>` : ''}
+          <span class="pill">${schoolName}</span>
+        </div>
+      </section>
+
+      <section class="body">
+        <div class="message">
+          <strong>Verification status</strong>
+          <span>${verificationMessage}</span>
+        </div>
+
+        ${verified ? `
+        <section class="grid">
+          <article class="metric">
+            <p class="label">Average</p>
+            <p class="value">${average}</p>
+          </article>
+          <article class="metric">
+            <p class="label">Grade</p>
+            <p class="value">${grade}</p>
+          </article>
+          <article class="metric">
+            <p class="label">Attendance</p>
+            <p class="value">${attendanceRate}</p>
+          </article>
+          <article class="metric">
+            <p class="label">Position</p>
+            <p class="value">${position}</p>
+          </article>
+        </section>
+
+        <section class="details">
+          <article class="detail">
+            <p class="label">Student</p>
+            <p class="detail-value">${studentName}</p>
+          </article>
+          <article class="detail">
+            <p class="label">Student ID</p>
+            <p class="detail-value">${studentDisplayId}</p>
+          </article>
+          <article class="detail">
+            <p class="label">Class</p>
+            <p class="detail-value">${className}</p>
+          </article>
+          <article class="detail">
+            <p class="label">Session</p>
+            <p class="detail-value">${sessionName}</p>
+          </article>
+          <article class="detail">
+            <p class="label">Term</p>
+            <p class="detail-value">${termName}</p>
+          </article>
+          <article class="detail">
+            <p class="label">Promotion status</p>
+            <p class="detail-value">${promotionStatus}</p>
+          </article>
+          <article class="detail">
+            <p class="label">Approved by</p>
+            <p class="detail-value">${approvedBy}</p>
+          </article>
+          <article class="detail">
+            <p class="label">Published at</p>
+            <p class="detail-value">${publishedAt}</p>
+          </article>
+          <article class="detail">
+            <p class="label">Approved at</p>
+            <p class="detail-value">${approvedAt}</p>
+          </article>
+          <article class="detail">
+            <p class="label">Teacher remark</p>
+            <p class="detail-value">${teacherRemark}</p>
+          </article>
+          <article class="detail">
+            <p class="label">Principal remark</p>
+            <p class="detail-value">${principalRemark}</p>
+          </article>
+          <article class="detail">
+            <p class="label">Report title</p>
+            <p class="detail-value">${reportTitle}</p>
+          </article>
+        </section>
+
+        <section class="table-shell">
+          <p class="label">Published subject breakdown</p>
+          <table>
+            <thead>
+              <tr>
+                <th>Subject</th>
+                <th>CA</th>
+                <th>Exam</th>
+                <th>Total</th>
+                <th>Grade</th>
+                <th>Remark</th>
+              </tr>
+            </thead>
+            <tbody>${subjectRows}</tbody>
+          </table>
+        </section>
+        ` : ''}
+      </section>
+
+      <section class="footer">
+        This verification screen is generated directly from NDOVERA's published result records. If the information above does not match the printed result sheet, contact the school administration with the verification code.
+        ${publicationId ? `<div><a class="cta" href="/api/public/results/${encodeURIComponent(String(options.publicationId || result.id || ''))}?format=json">Open JSON verification</a></div>` : ''}
+      </section>
+    </main>
+  </body>
+</html>`
+}
+
+async function resolvePublicResultVerification(db: D1Database, publicationId: string, baseUrl = '') {
+  const normalizedPublicationId = String(publicationId || '').trim()
+  if (!normalizedPublicationId) {
+    return { success: false, verified: false, message: 'Result verification code is required.', result: null }
+  }
+
+  await ensureResultsTables(db)
+  const publicationRow = await db.prepare(
+    'SELECT * FROM result_publications WHERE id = ? LIMIT 1'
+  ).bind(normalizedPublicationId).first() as Record<string, any> | null
+
+  if (!publicationRow) {
+    return { success: false, verified: false, message: 'Published result not found.', result: null }
+  }
+
+  const payload = parseAdmissionJson(publicationRow.payload_json, {})
+  const tenant = await getTenantById(db, String(publicationRow.tenant_id || '')).catch(() => null)
+  const branding = normalizeResultBranding(payload?.branding, {
+    ...RESULT_DEFAULT_BRANDING,
+    schoolName: String(tenant?.schoolName || tenant?.name || RESULT_DEFAULT_BRANDING.schoolName || 'NDOVERA School'),
+  })
+
+  return {
+    success: true,
+    verified: true,
+    message: 'Official NDOVERA result record verified.',
+    result: {
+      id: String(publicationRow.id || normalizedPublicationId),
+      tenantId: String(publicationRow.tenant_id || ''),
+      student: payload?.student || {},
+      sessionName: String(publicationRow.session_name || payload?.sessionName || ''),
+      termName: String(publicationRow.term_name || payload?.termName || ''),
+      branding,
+      summary: payload?.summary || {},
+      approvals: payload?.approvals || {},
+      subjects: Array.isArray(payload?.subjects) ? payload.subjects : [],
+      publishedAt: String(publicationRow.published_at || ''),
+      approvedAt: String(publicationRow.approved_at || ''),
+      approvedBy: String(publicationRow.approved_by || ''),
+      verificationUrl: buildResultVerificationUrl(baseUrl, normalizedPublicationId),
+    },
+  }
+}
+
+function requestPrefersHtml(c: any) {
+  const format = String(c.req.query('format') || '').trim().toLowerCase()
+  if (format === 'json') return false
+  if (format === 'html') return true
+
+  const accept = String(c.req.header('accept') || '').toLowerCase()
+  return accept.includes('text/html')
 }
 
 function buildFeesConfigLookup(configRows: Record<string, any>[] = []) {
@@ -1284,6 +2336,7 @@ async function listVisibleFeeLedgerEntries(db: D1Database, currentUser: Record<s
       return {
         id: String(ledgerRow?.id || student.id || ''),
         studentId: String(student.id || ''),
+        displayId: String(student.displayId || ''),
         name: String(student.name || ledgerRow?.student_name || student.id || ''),
         classId: String(student.classId || ledgerRow?.class_id || ''),
         className: String(student.className || ledgerRow?.class_name || ''),
@@ -1323,6 +2376,7 @@ async function buildFeeReminderNotificationItems(db: D1Database, currentUser: Re
       reminderSlotKey,
       studentId: entry.studentId,
       feeStatus: entry.status,
+      sortAt: String(entry.updatedAt || new Date().toISOString()),
     }))
 }
 
@@ -1351,19 +2405,546 @@ async function listVisibleFeePaymentReceipts(db: D1Database, currentUser: Record
       id: String(row.id || ''),
       receiptNo: String(row.receipt_no || row.id || ''),
       studentId: String(row.student_id || ''),
+      studentDisplayId: String(row.student_display_id || ''),
       studentName: String(row.student_name || ''),
       classId: String(row.class_id || ''),
       className: String(row.class_name || ''),
       amount: Number(row.amount || 0),
       paymentType: String(row.payment_type || 'cash'),
+      paymentReference: String(row.payment_reference || ''),
       feeAmount: Number(row.fee_amount || 0),
       amountPaidAfter: Number(row.amount_paid_after || 0),
       balanceAfter: Number(row.balance_after || 0),
       statusAfter: String(row.status_after || ''),
       recordedBy: String(row.recorded_by || ''),
+      verificationUrl: String(row.verification_url || ''),
       recordedAt: String(row.recorded_at || ''),
     })),
   }
+}
+
+function mapFeePaymentClaimRow(row: Record<string, any>) {
+  return {
+    id: String(row.id || ''),
+    tenantId: String(row.tenant_id || ''),
+    studentId: String(row.student_id || ''),
+    studentName: String(row.student_name || ''),
+    classId: String(row.class_id || ''),
+    className: String(row.class_name || ''),
+    claimantUserId: String(row.claimant_user_id || ''),
+    claimantName: String(row.claimant_name || ''),
+    claimantRole: String(row.claimant_role || ''),
+    amount: Number(row.amount || 0),
+    paymentMethod: String(row.payment_method || 'bank-transfer'),
+    payerName: String(row.payer_name || ''),
+    paymentReference: String(row.payment_reference || ''),
+    paymentNote: String(row.payment_note || ''),
+    paidAt: String(row.paid_at || ''),
+    status: String(row.status || 'pending').toLowerCase(),
+    accountName: String(row.account_name || ''),
+    accountNumber: String(row.account_number || ''),
+    bankName: String(row.bank_name || ''),
+    verifiedBy: String(row.verified_by || ''),
+    verifiedAt: String(row.verified_at || ''),
+    verificationNote: String(row.verification_note || ''),
+    receiptId: String(row.receipt_id || ''),
+    receiptNo: String(row.receipt_no || ''),
+    claimedAt: String(row.created_at || ''),
+    updatedAt: String(row.updated_at || ''),
+  }
+}
+
+async function listVisibleFeePaymentClaims(db: D1Database, currentUser: Record<string, any>) {
+  const feeView = await listVisibleFeeLedgerEntries(db, currentUser)
+  if (!feeView.allowed || !feeView.tenantId) {
+    return { allowed: false, tenantId: feeView.tenantId, role: feeView.role, claims: [] as Array<Record<string, any>> }
+  }
+
+  await ensureFeesPaymentClaimsTable(db)
+
+  if ([...FEE_PAYMENT_APPROVER_ROLES, 'admin'].includes(feeView.role)) {
+    const rows = await db.prepare(
+      `SELECT * FROM fees_payment_claims WHERE tenant_id = ? ORDER BY updated_at DESC, created_at DESC LIMIT 200`
+    ).bind(feeView.tenantId).all().catch(() => ({ results: [] }))
+
+    return {
+      allowed: true,
+      tenantId: feeView.tenantId,
+      role: feeView.role,
+      claims: ((rows.results || []) as Record<string, any>[]).map(mapFeePaymentClaimRow),
+    }
+  }
+
+  const studentIds = Array.from(new Set((feeView.ledger || []).map(entry => String(entry.studentId || '').trim()).filter(Boolean)))
+  if (studentIds.length === 0) {
+    return { allowed: true, tenantId: feeView.tenantId, role: feeView.role, claims: [] as Array<Record<string, any>> }
+  }
+
+  const placeholders = studentIds.map(() => '?').join(', ')
+  const rows = await db.prepare(
+    `SELECT * FROM fees_payment_claims WHERE tenant_id = ? AND student_id IN (${placeholders}) ORDER BY updated_at DESC, created_at DESC LIMIT 200`
+  ).bind(feeView.tenantId, ...studentIds).all().catch(() => ({ results: [] }))
+
+  return {
+    allowed: true,
+    tenantId: feeView.tenantId,
+    role: feeView.role,
+    claims: ((rows.results || []) as Record<string, any>[]).map(mapFeePaymentClaimRow),
+  }
+}
+
+async function buildFeePaymentReceiptNotificationItems(db: D1Database, currentUser: Record<string, any>, actorRole: string) {
+  if (!['parent', 'student'].includes(actorRole)) {
+    return [] as Array<Record<string, any>>
+  }
+
+  const receiptView = await listVisibleFeePaymentReceipts(db, currentUser)
+  if (!receiptView.allowed) {
+    return [] as Array<Record<string, any>>
+  }
+
+  return receiptView.receipts.slice(0, 6).map(receipt => ({
+    id: `fee_receipt_${receipt.id}`,
+    title: 'Fee receipt issued',
+    detail: `${receipt.studentName}${receipt.className ? ` (${receipt.className})` : ''} now has a confirmed fee receipt for ${formatNairaAmount(receipt.amount)}.`,
+    sender: 'Fees office',
+    time: formatHeaderTime(receipt.recordedAt),
+    unread: true,
+    category: 'fee_payment_receipt',
+    studentId: receipt.studentId,
+    sortAt: String(receipt.recordedAt || ''),
+  }))
+}
+
+async function buildFeePaymentClaimNotificationItems(db: D1Database, currentUser: Record<string, any>, actorRole: string) {
+  const claimView = await listVisibleFeePaymentClaims(db, currentUser)
+  if (!claimView.allowed) {
+    return [] as Array<Record<string, any>>
+  }
+
+  const claims = claimView.claims.slice(0, 8)
+
+  if ([...FEE_PAYMENT_APPROVER_ROLES, 'admin'].includes(actorRole)) {
+    return claims
+      .filter(claim => claim.status === 'pending')
+      .map(claim => ({
+        id: `fee_claim_${claim.id}_pending`,
+        title: 'Fee claim awaiting review',
+        detail: `${claim.studentName}${claim.className ? ` (${claim.className})` : ''} has a ${formatNairaAmount(claim.amount)} payment claim waiting for verification.`,
+        sender: claim.claimantName || 'Parent',
+        time: formatHeaderTime(claim.updatedAt || claim.claimedAt),
+        unread: true,
+        category: 'fee_payment_claim_pending',
+        claimId: claim.id,
+        studentId: claim.studentId,
+        sortAt: String(claim.updatedAt || claim.claimedAt || ''),
+      }))
+  }
+
+  if (!['parent', 'student'].includes(actorRole)) {
+    return [] as Array<Record<string, any>>
+  }
+
+  return claims
+    .filter(claim => ['pending', 'verified', 'rejected'].includes(claim.status))
+    .map(claim => ({
+      id: `fee_claim_${claim.id}_${claim.status}`,
+      title: claim.status === 'verified'
+        ? 'Fee claim approved'
+        : claim.status === 'rejected'
+          ? 'Fee claim update'
+          : 'Fee claim received',
+      detail: claim.status === 'verified'
+        ? `${claim.studentName}${claim.className ? ` (${claim.className})` : ''} payment claim for ${formatNairaAmount(claim.amount)} was approved${claim.receiptNo ? ` and receipted as ${claim.receiptNo}` : ''}.`
+        : claim.status === 'rejected'
+          ? `${claim.studentName}${claim.className ? ` (${claim.className})` : ''} payment claim needs attention${claim.verificationNote ? `: ${claim.verificationNote}` : '.'}`
+          : `${claim.studentName}${claim.className ? ` (${claim.className})` : ''} payment claim for ${formatNairaAmount(claim.amount)} is pending school verification.`,
+      sender: 'Fees office',
+      time: formatHeaderTime(claim.updatedAt || claim.claimedAt),
+      unread: true,
+      category: claim.status === 'verified'
+        ? 'fee_payment_claim_verified'
+        : claim.status === 'rejected'
+          ? 'fee_payment_claim_rejected'
+          : 'fee_payment_claim_pending',
+      claimId: claim.id,
+      studentId: claim.studentId,
+      sortAt: String(claim.updatedAt || claim.claimedAt || ''),
+    }))
+}
+
+async function listLinkedParentIds(db: D1Database, tenantId: string, studentId: string) {
+  await ensureParentStudentLinksTable(db)
+  const rows = await db.prepare(
+    `SELECT DISTINCT parent_id FROM parent_student_links WHERE tenant_id = ? AND student_id = ?`
+  ).bind(tenantId, studentId).all().catch(() => ({ results: [] }))
+  return Array.from(new Set(((rows.results || []) as Record<string, any>[]).map(row => String(row.parent_id || '').trim()).filter(Boolean)))
+}
+
+async function buildFeeStakeholderUserIds(db: D1Database, tenantId: string, studentId: string, extraUserIds: string[] = []) {
+  const parentIds = await listLinkedParentIds(db, tenantId, studentId).catch(() => [])
+  return Array.from(new Set([studentId, ...parentIds, ...extraUserIds].map(value => String(value || '').trim()).filter(Boolean)))
+}
+
+async function recordStudentFeePayment(db: D1Database, options: {
+  tenantId: string
+  studentId: string
+  amount: number
+  paymentType?: string
+  paymentReference?: string
+  feeAmount?: number | null
+  recordedBy: string
+  verificationBaseUrl?: string
+}) {
+  await ensureFeesLedgerTable(db)
+  await ensureFeesPaymentReceiptsTable(db)
+
+  const existing = await db.prepare(
+    `SELECT * FROM fees_ledger WHERE student_id = ? AND tenant_id = ?`
+  ).bind(options.studentId, options.tenantId).first() as Record<string, any> | null
+  const studentRow = await findUserByIdentifier(db, options.studentId).catch(() => null)
+  const hydratedStudent = (await hydrateUserRecords(db, studentRow ? [studentRow] : []))[0] as Record<string, any> | undefined
+  const previousPaid = Number(existing?.amount_paid || 0)
+  const paymentAmount = Number(options.amount || 0)
+  const newPaid = previousPaid + paymentAmount
+  const resolvedFeeAmount = options.feeAmount !== undefined && options.feeAmount !== null && Number.isFinite(Number(options.feeAmount))
+    ? Number(options.feeAmount)
+    : Number(existing?.fee_amount || 0)
+  const status = deriveFeeLedgerStatus(resolvedFeeAmount, newPaid, existing?.status)
+  const balanceAfter = Math.max(resolvedFeeAmount - newPaid, 0)
+  const studentName = String(hydratedStudent?.name || existing?.student_name || options.studentId)
+  const studentDisplayId = String(hydratedStudent?.displayId || existing?.student_display_id || '')
+  const classId = String(hydratedStudent?.classId || existing?.class_id || '')
+  const className = String(hydratedStudent?.className || existing?.class_name || '')
+  const recordedAt = new Date().toISOString()
+  const receiptId = `fee_receipt_${options.tenantId}_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`
+  const receiptNo = buildFeeReceiptNumber(new Date(recordedAt))
+  const verificationUrl = buildFeeReceiptVerificationUrl(String(options.verificationBaseUrl || ''), receiptNo)
+
+  if (existing) {
+    await db.prepare(
+      `UPDATE fees_ledger
+       SET student_name = ?, class_id = ?, class_name = ?, fee_amount = ?, amount_paid = ?, status = ?, updated_at = ?
+       WHERE student_id = ? AND tenant_id = ?`
+    ).bind(studentName, classId || null, className || null, resolvedFeeAmount, newPaid, status, recordedAt, options.studentId, options.tenantId).run()
+  } else {
+    const id = `fl_${options.studentId}_${options.tenantId}`
+    await db.prepare(
+      `INSERT INTO fees_ledger (id, tenant_id, student_id, student_name, class_id, class_name, fee_amount, amount_paid, status, updated_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+    ).bind(id, options.tenantId, options.studentId, studentName, classId || null, className || null, resolvedFeeAmount, paymentAmount, status, recordedAt).run()
+  }
+
+  await db.prepare(
+    `INSERT INTO fees_payment_receipts (id, receipt_no, tenant_id, student_id, student_display_id, student_name, class_id, class_name, amount, payment_type, payment_reference, fee_amount, amount_paid_after, balance_after, status_after, recorded_by, verification_url, recorded_at)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+  ).bind(
+    receiptId,
+    receiptNo,
+    options.tenantId,
+    options.studentId,
+    studentDisplayId || null,
+    studentName,
+    classId || null,
+    className || null,
+    paymentAmount,
+    String(options.paymentType || 'cash'),
+    String(options.paymentReference || '') || null,
+    resolvedFeeAmount,
+    newPaid,
+    balanceAfter,
+    status,
+    options.recordedBy,
+    verificationUrl || null,
+    recordedAt,
+  ).run()
+
+  return {
+    amountPaid: newPaid,
+    previousPaid,
+    status,
+    receipt: {
+      id: receiptId,
+      receiptNo,
+      studentId: options.studentId,
+      studentDisplayId,
+      studentName,
+      classId,
+      className,
+      amount: paymentAmount,
+      paymentType: String(options.paymentType || 'cash'),
+      paymentReference: String(options.paymentReference || ''),
+      feeAmount: resolvedFeeAmount,
+      amountPaidAfter: newPaid,
+      balanceAfter,
+      statusAfter: status,
+      recordedAt,
+      recordedBy: options.recordedBy,
+      verificationUrl,
+    },
+  }
+}
+
+function normalizePushSubscriptionPayload(value: unknown) {
+  const subscription = value && typeof value === 'object' ? value as Record<string, any> : {}
+  const endpoint = sanitizeProfileText(subscription.endpoint, 2048)
+  const p256dh = sanitizeProfileText(subscription?.keys?.p256dh, 512)
+  const authSecret = sanitizeProfileText(subscription?.keys?.auth, 256)
+
+  if (!endpoint || !p256dh || !authSecret) {
+    return null
+  }
+
+  return {
+    endpoint,
+    keys: {
+      p256dh,
+      auth: authSecret,
+    },
+  }
+}
+
+function hasWebPushConfig(env: Bindings) {
+  return Boolean(String(env.WEB_PUSH_VAPID_PUBLIC_KEY || '').trim() && String(env.WEB_PUSH_VAPID_PRIVATE_KEY || '').trim())
+}
+
+function buildVapidJwk(env: Bindings) {
+  const publicKey = String(env.WEB_PUSH_VAPID_PUBLIC_KEY || '').trim()
+  const privateKey = String(env.WEB_PUSH_VAPID_PRIVATE_KEY || '').trim()
+  if (!publicKey || !privateKey) {
+    return null
+  }
+
+  const publicKeyBytes = fromBase64Url(publicKey)
+  if (publicKeyBytes.length !== 65 || publicKeyBytes[0] !== 4) {
+    throw new Error('Invalid VAPID public key.')
+  }
+
+  return {
+    kty: 'EC',
+    crv: 'P-256',
+    x: toBase64Url(publicKeyBytes.slice(1, 33)),
+    y: toBase64Url(publicKeyBytes.slice(33, 65)),
+    d: privateKey,
+  }
+}
+
+async function buildWebPushHeaders(subscriptionEndpoint: string, env: Bindings) {
+  const vapidJwk = buildVapidJwk(env)
+  if (!vapidJwk) return null
+
+  const endpointUrl = new URL(subscriptionEndpoint)
+  const audience = `${endpointUrl.protocol}//${endpointUrl.host}`
+  const subject = String(env.WEB_PUSH_SUBJECT || 'mailto:notifications@ndovera.com').trim()
+  const token = await sign(
+    {
+      aud: audience,
+      exp: Math.floor(Date.now() / 1000) + (12 * 60 * 60),
+      sub: subject,
+    },
+    vapidJwk,
+    { algorithm: 'ES256', header: { typ: 'JWT', alg: 'ES256' } },
+  )
+
+  return {
+    Authorization: `vapid t=${token}, k=${String(env.WEB_PUSH_VAPID_PUBLIC_KEY || '').trim()}`,
+    'Crypto-Key': `p256ecdsa=${String(env.WEB_PUSH_VAPID_PUBLIC_KEY || '').trim()}`,
+  }
+}
+
+async function upsertWebPushSubscription(db: D1Database, payload: {
+  tenantId: string
+  userId: string
+  userEmail: string
+  roleKey: string
+  deviceLabel?: string
+  subscription: { endpoint: string, keys: { p256dh: string, auth: string } }
+}) {
+  await ensureWebPushSubscriptionsTable(db)
+  const now = new Date().toISOString()
+  const existing = await db.prepare(
+    `SELECT id FROM web_push_subscriptions WHERE endpoint = ?`
+  ).bind(payload.subscription.endpoint).first() as Record<string, any> | null
+
+  if (existing?.id) {
+    await db.prepare(
+      `UPDATE web_push_subscriptions
+       SET tenant_id = ?, user_id = ?, user_email = ?, role_key = ?, p256dh = ?, auth_secret = ?, subscription_json = ?, device_label = ?, active = 1, updated_at = ?
+       WHERE id = ?`
+    ).bind(
+      payload.tenantId,
+      payload.userId,
+      payload.userEmail || null,
+      payload.roleKey,
+      payload.subscription.keys.p256dh,
+      payload.subscription.keys.auth,
+      JSON.stringify(payload.subscription),
+      sanitizeProfileText(payload.deviceLabel, 120) || null,
+      now,
+      existing.id,
+    ).run()
+
+    return { id: String(existing.id), endpoint: payload.subscription.endpoint }
+  }
+
+  const id = `push_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`
+  await db.prepare(
+    `INSERT INTO web_push_subscriptions (id, tenant_id, user_id, user_email, role_key, endpoint, p256dh, auth_secret, subscription_json, device_label, active, created_at, updated_at)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, ?, ?)`
+  ).bind(
+    id,
+    payload.tenantId,
+    payload.userId,
+    payload.userEmail || null,
+    payload.roleKey,
+    payload.subscription.endpoint,
+    payload.subscription.keys.p256dh,
+    payload.subscription.keys.auth,
+    JSON.stringify(payload.subscription),
+    sanitizeProfileText(payload.deviceLabel, 120) || null,
+    now,
+    now,
+  ).run()
+
+  return { id, endpoint: payload.subscription.endpoint }
+}
+
+async function deactivateWebPushSubscriptionByEndpoint(db: D1Database, endpoint: string) {
+  await ensureWebPushSubscriptionsTable(db)
+  await db.prepare(
+    `UPDATE web_push_subscriptions SET active = 0, updated_at = ? WHERE endpoint = ?`
+  ).bind(new Date().toISOString(), endpoint).run()
+}
+
+async function touchWebPushSubscription(db: D1Database, subscriptionId: string) {
+  await ensureWebPushSubscriptionsTable(db)
+  const now = new Date().toISOString()
+  await db.prepare(
+    `UPDATE web_push_subscriptions SET last_used_at = ?, updated_at = ? WHERE id = ?`
+  ).bind(now, now, subscriptionId).run()
+}
+
+async function listActiveWebPushSubscriptions(db: D1Database, options: {
+  tenantId?: string
+  userIds?: string[]
+  roleKeys?: string[]
+}) {
+  await ensureWebPushSubscriptionsTable(db)
+
+  const userIds = Array.from(new Set((options.userIds || []).map(value => String(value || '').trim()).filter(Boolean)))
+  const roleKeys = Array.from(new Set((options.roleKeys || []).map(value => normalizeRole(value)).filter(Boolean)))
+
+  let rows: { results?: Record<string, any>[] } = { results: [] }
+
+  if (userIds.length > 0) {
+    const placeholders = userIds.map(() => '?').join(', ')
+    const params = options.tenantId ? [options.tenantId, ...userIds] : userIds
+    rows = await db.prepare(
+      `SELECT * FROM web_push_subscriptions WHERE active = 1 ${options.tenantId ? 'AND tenant_id = ? ' : ''}AND user_id IN (${placeholders}) ORDER BY updated_at DESC`
+    ).bind(...params).all().catch(() => ({ results: [] }))
+  } else if (options.tenantId && roleKeys.length > 0) {
+    if (roleKeys.includes('all')) {
+      rows = await db.prepare(
+        `SELECT * FROM web_push_subscriptions WHERE active = 1 AND tenant_id = ? ORDER BY updated_at DESC`
+      ).bind(options.tenantId).all().catch(() => ({ results: [] }))
+    } else {
+      const placeholders = roleKeys.map(() => '?').join(', ')
+      rows = await db.prepare(
+        `SELECT * FROM web_push_subscriptions WHERE active = 1 AND tenant_id = ? AND role_key IN (${placeholders}) ORDER BY updated_at DESC`
+      ).bind(options.tenantId, ...roleKeys).all().catch(() => ({ results: [] }))
+    }
+  } else if (options.tenantId) {
+    rows = await db.prepare(
+      `SELECT * FROM web_push_subscriptions WHERE active = 1 AND tenant_id = ? ORDER BY updated_at DESC`
+    ).bind(options.tenantId).all().catch(() => ({ results: [] }))
+  }
+
+  return ((rows.results || []) as Record<string, any>[]).map(row => ({
+    id: String(row.id || ''),
+    tenantId: String(row.tenant_id || ''),
+    userId: String(row.user_id || ''),
+    roleKey: String(row.role_key || ''),
+    endpoint: String(row.endpoint || ''),
+  }))
+}
+
+async function sendWebPushSignal(env: Bindings, subscriptionEndpoint: string) {
+  const headers = await buildWebPushHeaders(subscriptionEndpoint, env)
+  if (!headers) return null
+
+  return fetch(subscriptionEndpoint, {
+    method: 'POST',
+    headers: {
+      ...headers,
+      TTL: '60',
+      Urgency: 'high',
+    },
+  })
+}
+
+async function sendWebPushToAudience(db: D1Database, env: Bindings, options: {
+  tenantId?: string
+  userIds?: string[]
+  roleKeys?: string[]
+}) {
+  if (!hasWebPushConfig(env)) {
+    return { sent: 0, total: 0, configured: false }
+  }
+
+  const subscriptions = await listActiveWebPushSubscriptions(db, options)
+  const results = await Promise.all(subscriptions.map(async subscription => {
+    try {
+      const response = await sendWebPushSignal(env, subscription.endpoint)
+      if (response?.ok) {
+        await touchWebPushSubscription(db, subscription.id).catch(() => null)
+        return 1
+      }
+
+      if (response && [404, 410].includes(response.status)) {
+        await deactivateWebPushSubscriptionByEndpoint(db, subscription.endpoint).catch(() => null)
+      }
+    } catch {
+      return 0
+    }
+
+    return 0
+  }))
+
+  return {
+    sent: results.reduce((sum, value) => sum + value, 0),
+    total: subscriptions.length,
+    configured: true,
+  }
+}
+
+function resolvePushNotificationPath(roleKey: string, category: string) {
+  if (category.startsWith('fee_')) {
+    return `/roles/${roleKey}/fees`
+  }
+
+  return `/roles/${roleKey}`
+}
+
+function buildPushNotificationPayload(item: Record<string, any> | null, roleKey: string) {
+  if (!item) return null
+
+  const category = String(item.category || 'notice')
+  return {
+    id: String(item.id || ''),
+    title: String(item.title || 'NDOVERA notice'),
+    body: String(item.detail || item.preview || item.sender || ''),
+    tag: `${category}:${String(item.id || roleKey)}`,
+    url: String(item.actionUrl || resolvePushNotificationPath(roleKey, category)),
+    icon: '/android-chrome-192x192.png',
+    badge: '/android-chrome-192x192.png',
+    category,
+    sortAt: String(item.sortAt || ''),
+  }
+}
+
+function buildLatestPushNotificationPayload(notificationItems: Array<Record<string, any>>, roleKey: string) {
+  const sortedItems = [...(notificationItems || [])].sort((left, right) => String(right.sortAt || '').localeCompare(String(left.sortAt || '')))
+  return buildPushNotificationPayload(sortedItems[0] || null, roleKey)
 }
 
 function normalizeResultMatchKey(value: unknown) {
@@ -1387,6 +2968,7 @@ function matchResultUploadStudent(fileName: string, students: Record<string, any
     base,
     ...base.split(/[^a-z0-9@]+/g).filter(Boolean),
   ])).sort((left, right) => right.length - left.length)
+  const tokenSet = new Set(tokens)
 
   for (const token of tokens) {
     if (!token || (token.length < 4 && !token.includes('@'))) continue
@@ -1394,6 +2976,35 @@ function matchResultUploadStudent(fileName: string, students: Record<string, any
     if (matches.length === 1) return { student: matches[0], matchedBy: token, ambiguous: false }
     if (matches.length > 1) return { student: null, matchedBy: token, ambiguous: true }
   }
+
+  const nameMatches = students.filter(student => {
+    const nameParts = String(student.name || '')
+      .trim()
+      .toLowerCase()
+      .split(/[^a-z0-9]+/g)
+      .filter(part => part.length >= 2)
+
+    if (nameParts.length < 2) return false
+
+    const first = nameParts[0] || ''
+    const last = nameParts[nameParts.length - 1] || ''
+    const overlap = nameParts.filter(part => tokenSet.has(part)).length
+    const fullJoined = nameParts.join('_')
+    const fullCompact = nameParts.join('')
+
+    return overlap >= 2
+      || Boolean(fullJoined && base.includes(fullJoined))
+      || Boolean(fullCompact && base.includes(fullCompact))
+      || Boolean(first && last && (
+        base.includes(`${first}_${last}`)
+        || base.includes(`${first}${last}`)
+        || base.includes(`${last}_${first}`)
+        || base.includes(`${last}${first}`)
+      ))
+  })
+
+  if (nameMatches.length === 1) return { student: nameMatches[0], matchedBy: 'student-name', ambiguous: false }
+  if (nameMatches.length > 1) return { student: null, matchedBy: 'student-name', ambiguous: true }
 
   return { student: null, matchedBy: '', ambiguous: false }
 }
@@ -1940,6 +3551,119 @@ function formatHeaderTime(value: unknown) {
   return new Date(timestamp).toLocaleDateString()
 }
 
+const HEADER_AUDIT_DDL = `CREATE TABLE IF NOT EXISTS audit (
+  id TEXT PRIMARY KEY,
+  studentId TEXT,
+  ts TEXT,
+  action TEXT,
+  data TEXT
+)`
+
+const HIGH_PRIORITY_AUDIT_SNIPPETS = [
+  'password',
+  'payroll',
+  'fee',
+  'receipt',
+  'claimapproved',
+  'claimrejected',
+  'deactivated',
+  'roleupdated',
+  'tenant',
+  'discount',
+  'announcement',
+]
+
+function humanizeHeaderAction(value: unknown) {
+  const text = String(value || 'event')
+    .replace(/([a-z])([A-Z])/g, '$1 $2')
+    .replace(/_/g, ' ')
+    .trim()
+  return text ? `${text.charAt(0).toUpperCase()}${text.slice(1)}` : 'Event'
+}
+
+function parseHeaderJsonObject(value: unknown) {
+  if (!value) return {} as Record<string, any>
+  if (typeof value === 'object') return value as Record<string, any>
+  try {
+    return JSON.parse(String(value || '')) as Record<string, any>
+  } catch {
+    return {} as Record<string, any>
+  }
+}
+
+function summarizeHeaderAuditData(value: unknown) {
+  const payload = parseHeaderJsonObject(value)
+  return Object.entries(payload)
+    .filter(([, entryValue]) => entryValue !== undefined && entryValue !== null && entryValue !== '')
+    .slice(0, 3)
+    .map(([key, entryValue]) => `${key}: ${typeof entryValue === 'object' ? JSON.stringify(entryValue) : String(entryValue)}`)
+    .join(' | ')
+}
+
+function isHighPriorityAuditEvent(entry: Record<string, any> = {}) {
+  const action = String(entry.action || '').trim().toLowerCase()
+  if (!action) return false
+  return HIGH_PRIORITY_AUDIT_SNIPPETS.some(snippet => action.includes(snippet))
+}
+
+async function ensureHeaderAuditTable(db: D1Database) {
+  await db.prepare(HEADER_AUDIT_DDL).run().catch(() => null)
+}
+
+async function buildWebsiteEnquiryNotificationItems(db: D1Database, tenantId: string, actorRole: string) {
+  if (!['owner', 'hos'].includes(normalizeRole(actorRole))) return [] as Array<Record<string, any>>
+
+  await ensureWebsiteEnquiriesTable(db)
+  const rows = await db.prepare(
+    'SELECT * FROM website_enquiries WHERE tenant_id = ? AND status = ? ORDER BY created_at DESC LIMIT 10'
+  ).bind(tenantId, 'new').all().catch(() => ({ results: [] }))
+
+  return ((rows.results || []) as Record<string, any>[])
+    .map(mapWebsiteEnquiryRow)
+    .map(enquiry => ({
+      id: `website-enquiry:${enquiry.id}`,
+      title: 'New website enquiry',
+      detail: clampPreview(
+        `${enquiry.visitorName || 'Website visitor'}${enquiry.subject ? `: ${enquiry.subject}` : ''}${enquiry.sourcePage ? ` • ${enquiry.sourcePage}` : ''}`,
+        120,
+      ),
+      sender: 'Admissions desk',
+      time: formatHeaderTime(enquiry.createdAt),
+      unread: true,
+      category: 'website_enquiry',
+      actionUrl: `/roles/${normalizeRole(actorRole)}/admissions`,
+      sortAt: String(enquiry.createdAt || ''),
+    }))
+}
+
+async function buildCriticalAuditNotificationItems(db: D1Database, tenantId: string, actorRole: string) {
+  if (!['owner', 'hos'].includes(normalizeRole(actorRole))) return [] as Array<Record<string, any>>
+
+  await ensureHeaderAuditTable(db)
+  const rows = await db.prepare(
+    'SELECT id, studentId, ts, action, data FROM audit WHERE studentId = ? ORDER BY ts DESC LIMIT 80'
+  ).bind(tenantId).all().catch(() => ({ results: [] }))
+
+  return ((rows.results || []) as Record<string, any>[])
+    .map(row => ({
+      ...row,
+      data: parseHeaderJsonObject(row.data),
+    }))
+    .filter(isHighPriorityAuditEvent)
+    .slice(0, 8)
+    .map(entry => ({
+      id: `critical-audit:${entry.id}`,
+      title: `Critical audit: ${humanizeHeaderAction(entry.action)}`,
+      detail: clampPreview(summarizeHeaderAuditData(entry.data) || 'Leadership attention recommended.', 120),
+      sender: 'Audit trail',
+      time: formatHeaderTime(entry.ts),
+      unread: true,
+      category: 'critical_audit_event',
+      actionUrl: `/roles/${normalizeRole(actorRole)}/audits`,
+      sortAt: String(entry.ts || ''),
+    }))
+}
+
 async function buildAuthenticatedHeader(c: any, roleKey: string) {
   const currentUser = c.var.user || {}
   const userIdentifier = currentUser.id || currentUser.email || currentUser.sub || ''
@@ -1998,6 +3722,10 @@ async function buildAuthenticatedHeader(c: any, roleKey: string) {
   let notificationItems: Array<Record<string, any>> = []
   if (tenantId) {
     const feeReminderItems = await buildFeeReminderNotificationItems(c.env.APP_DB, currentUser, actorRole)
+    const feeClaimItems = await buildFeePaymentClaimNotificationItems(c.env.APP_DB, currentUser, actorRole)
+    const feeReceiptItems = await buildFeePaymentReceiptNotificationItems(c.env.APP_DB, currentUser, actorRole)
+    const websiteEnquiryItems = await buildWebsiteEnquiryNotificationItems(c.env.APP_DB, tenantId, actorRole)
+    const criticalAuditItems = await buildCriticalAuditNotificationItems(c.env.APP_DB, tenantId, actorRole)
     const announcements = await listSchoolAnnouncements(c.env.APP_DB, tenantId, 8)
     const announcementItems = announcements
       .filter(announcement => announcementTargetsRole(announcement.audienceRoles, actorRole))
@@ -2008,9 +3736,19 @@ async function buildAuthenticatedHeader(c: any, roleKey: string) {
         sender: announcement.authorName || announcement.authorRole || 'School announcement',
         time: formatHeaderTime(announcement.createdAt),
         unread: true,
+        category: 'school_announcement',
+        sortAt: String(announcement.createdAt || ''),
       }))
 
-      notificationItems = [...feeReminderItems, ...announcementItems]
+      notificationItems = [
+        ...feeClaimItems,
+        ...feeReminderItems,
+        ...feeReceiptItems,
+        ...websiteEnquiryItems,
+        ...criticalAuditItems,
+        ...announcementItems,
+      ]
+        .sort((left, right) => String(right.sortAt || '').localeCompare(String(left.sortAt || '')))
   }
 
   return {
@@ -2098,14 +3836,42 @@ const ADMISSION_APPLICATIONS_DDL = `CREATE TABLE IF NOT EXISTS admission_applica
   created_at TEXT NOT NULL,
   updated_at TEXT NOT NULL
 )`
+const WEBSITE_ENQUIRIES_DDL = `CREATE TABLE IF NOT EXISTS website_enquiries (
+  id TEXT PRIMARY KEY,
+  tenant_id TEXT NOT NULL,
+  visitor_name TEXT,
+  visitor_email TEXT,
+  visitor_phone TEXT,
+  subject TEXT,
+  message TEXT NOT NULL,
+  source_page TEXT,
+  status TEXT NOT NULL,
+  review_notes TEXT,
+  outcome_reason TEXT,
+  linked_application_id TEXT,
+  reviewed_by TEXT,
+  reviewed_at TEXT,
+  created_at TEXT NOT NULL,
+  updated_at TEXT NOT NULL
+)`
 
 async function ensureAdmissionApplicationsTable(db: D1Database) {
   await db.prepare(ADMISSION_APPLICATIONS_DDL).run()
 }
 
+async function ensureWebsiteEnquiriesTable(db: D1Database) {
+  await db.prepare(WEBSITE_ENQUIRIES_DDL).run()
+}
+
 function normalizeAdmissionStatus(value: unknown, fallback = 'pending') {
   const normalized = String(value || '').trim().toLowerCase()
   if (['pending', 'reviewing', 'approved', 'rejected', 'waitlisted'].includes(normalized)) return normalized
+  return fallback
+}
+
+function normalizeWebsiteEnquiryStatus(value: unknown, fallback = 'new') {
+  const normalized = String(value || '').trim().toLowerCase()
+  if (['new', 'contacted', 'application_started', 'enrolled', 'not_enrolled'].includes(normalized)) return normalized
   return fallback
 }
 
@@ -2154,6 +3920,83 @@ function mapAdmissionApplicationRow(row: Record<string, any>) {
   }
 }
 
+function mapWebsiteEnquiryRow(row: Record<string, any>) {
+  return {
+    id: String(row.id || ''),
+    tenantId: String(row.tenant_id || ''),
+    visitorName: String(row.visitor_name || ''),
+    visitorEmail: String(row.visitor_email || ''),
+    visitorPhone: String(row.visitor_phone || ''),
+    subject: String(row.subject || ''),
+    message: String(row.message || ''),
+    sourcePage: String(row.source_page || ''),
+    status: normalizeWebsiteEnquiryStatus(row.status),
+    reviewNotes: String(row.review_notes || ''),
+    outcomeReason: String(row.outcome_reason || ''),
+    linkedApplicationId: String(row.linked_application_id || ''),
+    reviewedBy: String(row.reviewed_by || ''),
+    reviewedAt: String(row.reviewed_at || ''),
+    createdAt: String(row.created_at || ''),
+    updatedAt: String(row.updated_at || ''),
+  }
+}
+
+async function syncWebsiteEnquiriesForApplication(
+  db: D1Database,
+  tenantId: string,
+  applicationRow: Record<string, any>,
+  admissionStatus: string,
+  reviewNotes: string,
+  reviewedBy: string,
+  reviewedAt: string,
+) {
+  const applicantEmail = String(applicationRow?.applicant_email || '').trim().toLowerCase()
+  const applicantPhone = String(applicationRow?.applicant_phone || '').trim()
+  const nextStatus = admissionStatus === 'approved'
+    ? 'enrolled'
+    : admissionStatus === 'rejected'
+      ? 'not_enrolled'
+      : admissionStatus === 'reviewing'
+        ? 'application_started'
+        : ''
+
+  if (!tenantId || !nextStatus || (!applicantEmail && !applicantPhone)) {
+    return
+  }
+
+  await ensureWebsiteEnquiriesTable(db)
+  const rows = await db.prepare(
+    'SELECT * FROM website_enquiries WHERE tenant_id = ? ORDER BY created_at DESC'
+  ).bind(tenantId).all().catch(() => ({ results: [] }))
+
+  const matchingEnquiries = ((rows.results || []) as Record<string, any>[]).filter(row => {
+    const visitorEmail = String(row.visitor_email || '').trim().toLowerCase()
+    const visitorPhone = String(row.visitor_phone || '').trim()
+    return (applicantEmail && visitorEmail && applicantEmail === visitorEmail)
+      || (applicantPhone && visitorPhone && applicantPhone === visitorPhone)
+  })
+
+  if (matchingEnquiries.length === 0) {
+    return
+  }
+
+  await Promise.all(matchingEnquiries.map(row => db.prepare(
+    `UPDATE website_enquiries
+     SET status = ?, review_notes = ?, outcome_reason = ?, linked_application_id = ?, reviewed_by = ?, reviewed_at = ?, updated_at = ?
+     WHERE id = ? AND tenant_id = ?`
+  ).bind(
+    nextStatus,
+    reviewNotes || row.review_notes || null,
+    nextStatus === 'not_enrolled' ? (reviewNotes || row.outcome_reason || null) : null,
+    String(applicationRow.id || ''),
+    reviewedBy || null,
+    reviewedAt,
+    reviewedAt,
+    String(row.id || ''),
+    tenantId,
+  ).run()))
+}
+
 function conversationMatchesComparableIdentifiers(conversation: Record<string, any> = {}, comparableIdentifiers: string[] = []) {
   const participants = Array.isArray(conversation?.participants) ? conversation.participants : []
   return participants.some(participant => matchesComparableIdentifier(participant, comparableIdentifiers))
@@ -2167,11 +4010,12 @@ function conversationMatchesParticipantSet(conversation: Record<string, any> = {
 
 function buildUserProfile(id: string, role: string, name: string, settings: Record<string, any> = {}) {
   const roleContext = buildRoleContext(settings, settings.role, role)
+  const profile = buildAdmissionProfileRecord(settings, { id, name, email: settings.email || id })
 
   return {
     id,
-    email: settings.email || id,
-    name,
+    email: profile.email || settings.email || id,
+    name: profile.name || name,
     role,
     roles: roleContext.rawRoles,
     switchableRoles: roleContext.switchableRoles,
@@ -2182,7 +4026,15 @@ function buildUserProfile(id: string, role: string, name: string, settings: Reco
     status: settings.status || 'active',
     displayId: settings.displayId || null,
     classId: settings.classId || null,
-    phone: settings.phone || null,
+    className: settings.className || null,
+    phone: profile.phone || null,
+    avatar: profile.avatar || null,
+    avatarUrl: profile.avatar || null,
+    dateOfBirth: profile.dateOfBirth || null,
+    gender: profile.gender || null,
+    address: profile.address || null,
+    relationship: profile.relationship || null,
+    profile,
     mustChangePassword: settings.mustChangePassword === true || settings.mustChangePassword === 'true' || settings.mustChangePassword === 1,
   }
 }
@@ -3191,6 +5043,59 @@ app.get('/api/header/:roleKey', authenticate, async (c) => {
   }
 })
 
+app.get('/api/push/public-key', authenticate, async (c) => {
+  const publicKey = String(c.env.WEB_PUSH_VAPID_PUBLIC_KEY || '').trim()
+  return c.json({ success: true, available: Boolean(publicKey), publicKey: publicKey || null })
+})
+
+app.post('/api/push/subscriptions', authenticate, async (c) => {
+  const currentUser = c.var.user || {}
+  const userIdentifier = String(currentUser.id || currentUser.email || currentUser.sub || '').trim()
+  if (!userIdentifier) return c.json({ success: false, error: 'invalid token' }, 401)
+
+  const payload = await c.req.json().catch(() => ({})) as Record<string, any>
+  const subscription = normalizePushSubscriptionPayload(payload.subscription || payload)
+  if (!subscription) return c.json({ success: false, error: 'Valid push subscription is required.' }, 400)
+
+  const resolvedUser = await resolveSettingsIdentity(c.env.APP_DB, userIdentifier)
+  const tenantId = String(resolvedUser.settings?.tenantId || resolvedUser.settings?.schoolId || resolvedUser.userRow?.tenantId || currentUser.tenantId || '').trim()
+  if (!tenantId) return c.json({ success: false, error: 'No tenant.' }, 400)
+
+  const userId = String(resolvedUser.userRow?.id || userIdentifier).trim()
+  const userEmail = String(resolvedUser.userRow?.email || resolvedUser.settings?.email || currentUser.email || '').trim()
+  const roleKey = normalizeRole(payload.roleKey) || normalizeRole(resolvedUser.settings?.role || currentUser.role) || 'student'
+
+  const saved = await upsertWebPushSubscription(c.env.APP_DB, {
+    tenantId,
+    userId,
+    userEmail,
+    roleKey,
+    deviceLabel: String(payload.deviceLabel || '').trim(),
+    subscription,
+  })
+
+  return c.json({ success: true, subscription: saved })
+})
+
+app.delete('/api/push/subscriptions', authenticate, async (c) => {
+  const payload = await c.req.json().catch(() => ({})) as Record<string, any>
+  const endpoint = String(payload.endpoint || payload?.subscription?.endpoint || '').trim()
+  if (!endpoint) return c.json({ success: false, error: 'Subscription endpoint is required.' }, 400)
+
+  await deactivateWebPushSubscriptionByEndpoint(c.env.APP_DB, endpoint).catch(() => null)
+  return c.json({ success: true })
+})
+
+app.get('/api/push/feed', authenticate, async (c) => {
+  const roleKey = normalizeRole(c.req.query('roleKey') || getActiveRole(c.var.user) || 'student') || 'student'
+  try {
+    const header = await buildAuthenticatedHeader(c, roleKey)
+    return c.json({ success: true, notification: buildLatestPushNotificationPayload(header.notificationItems || [], roleKey) })
+  } catch {
+    return c.json({ success: true, notification: null })
+  }
+})
+
 app.get('/api/announcements', authenticate, async (c) => {
   const { role, tenant, forbidden } = await resolveTenantForActor(c)
   if (forbidden) return c.json({ success: false, error: 'forbidden' }, 403)
@@ -3242,6 +5147,11 @@ app.post('/api/announcements', authenticate, async (c) => {
       authorRole: announcement.authorRole,
     },
   }).catch(() => {})
+
+  await sendWebPushToAudience(c.env.APP_DB, c.env, {
+    tenantId: tenant.id,
+    roleKeys: Array.isArray(audienceRoles) ? audienceRoles : ['all'],
+  }).catch(() => null)
 
   return c.json({ success: true, announcement }, 201)
 })
@@ -3641,8 +5551,18 @@ app.post('/api/settings/:id/audit', authenticate, async (c) => {
 // Admin audit
 app.get('/api/audit', authenticate, async (c) => {
   if (!hasRequiredRole(c.var.user.role, ['hos', 'owner'])) return c.json({ error: 'forbidden' }, 403)
+  const user = c.var.user || {}
+  const userIdentifier = user.id || user.email || user.sub || ''
+  const resolvedUser = await resolveSettingsIdentity(c.env.APP_DB, userIdentifier)
+  const tenantId = String(resolvedUser.settings?.tenantId || resolvedUser.settings?.schoolId || resolvedUser.userRow?.tenantId || user.tenantId || '').trim()
   const all = await getAllAudits(c.env.APP_DB)
-  return c.json(all || [])
+  const filtered = !tenantId
+    ? []
+    : (all || []).filter((entry: Record<string, any>) => {
+      const entryTenantId = String(entry?.studentId || entry?.data?.tenantId || entry?.data?.schoolId || '').trim()
+      return Boolean(entryTenantId) && entryTenantId === tenantId
+    })
+  return c.json(filtered)
 })
 
 // Admin reset password — owner, hos, ict_manager
@@ -4531,6 +6451,30 @@ async function listAccessibleLearningStudents(db: D1Database, user: Record<strin
       className: classMap.get(String(student?.classId || '')) || String(student?.className || ''),
     })),
   }
+}
+
+async function resolveUserProfileAccess(db: D1Database, currentUser: Record<string, any>, userId: string) {
+  const callerId = String(currentUser?.id || currentUser?.email || currentUser?.sub || '').trim()
+  const callerRole = normalizeRole(currentUser?.role)
+  const isAdminEdit = hasRequiredRole(callerRole, ['owner', 'hos'])
+
+  if (isAdminEdit) {
+    return { allowed: true, isAdminEdit: true, isSelfEdit: callerId === userId, linkedStudent: null as Record<string, any> | null }
+  }
+
+  if (callerId && callerId === userId) {
+    return { allowed: true, isAdminEdit: false, isSelfEdit: true, linkedStudent: null as Record<string, any> | null }
+  }
+
+  if (callerRole === 'parent') {
+    const audience = await listAccessibleLearningStudents(db, currentUser)
+    const linkedStudent = (audience.students || []).find(student => [student.id, student.email, student.displayId].includes(userId)) || null
+    if (linkedStudent) {
+      return { allowed: true, isAdminEdit: false, isSelfEdit: false, linkedStudent }
+    }
+  }
+
+  return { allowed: false, isAdminEdit: false, isSelfEdit: false, linkedStudent: null as Record<string, any> | null }
 }
 
 async function resolveClassroomLearningAccess(db: D1Database, user: Record<string, any>, classroomId: string, requestedStudentId = '') {
@@ -6082,11 +8026,7 @@ async function hydrateUserRecord(db: D1Database, row: Record<string, any> | null
 
   const resolvedIdentity = await resolveSettingsIdentity(db, String(row.email || row.id || '').trim())
   const settings = resolvedIdentity.settings || null
-  const profile = settings?.profile && typeof settings.profile === 'object'
-    ? settings.profile as Record<string, any>
-    : {}
-  const avatarUrl = String(profile.avatar || settings?.avatar || settings?.avatarUrl || '').trim()
-  const dateOfBirth = String(settings?.dateOfBirth || profile.dateOfBirth || '').trim()
+  const profile = buildAdmissionProfileRecord(settings || {}, row)
   const roleContext = buildRoleContext(settings || {}, row.role)
 
   return {
@@ -6096,12 +8036,16 @@ async function hydrateUserRecord(db: D1Database, row: Record<string, any> | null
     switchableRoles: roleContext.switchableRoles,
     adminRoles: roleContext.adminRoles,
     displayId: settings?.displayId || null,
-    phone: settings?.phone || null,
+    phone: profile.phone || null,
     classId: settings?.classId || null,
     className: settings?.className || null,
-    avatar: avatarUrl || null,
-    avatarUrl: avatarUrl || null,
-    dateOfBirth: dateOfBirth || null,
+    avatar: profile.avatar || null,
+    avatarUrl: profile.avatar || null,
+    dateOfBirth: profile.dateOfBirth || null,
+    gender: profile.gender || null,
+    address: profile.address || null,
+    relationship: profile.relationship || null,
+    profile,
     mustChangePassword: settings?.mustChangePassword === true,
   }
 }
@@ -6862,6 +8806,27 @@ app.post('/api/public/website-enquiries', async (c) => {
       return c.json({ success: false, message: 'School not found.' }, 404)
     }
 
+    await ensureWebsiteEnquiriesTable(c.env.APP_DB)
+
+    const enquiryId = `website_enquiry_${tenantId}_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`
+    const enquiryTimestamp = new Date().toISOString()
+
+    await c.env.APP_DB.prepare(
+      `INSERT INTO website_enquiries (id, tenant_id, visitor_name, visitor_email, visitor_phone, subject, message, source_page, status, review_notes, outcome_reason, linked_application_id, reviewed_by, reviewed_at, created_at, updated_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'new', NULL, NULL, NULL, NULL, NULL, ?, ?)`
+    ).bind(
+      enquiryId,
+      tenantId,
+      name,
+      email,
+      phone || null,
+      subject || null,
+      body,
+      sourcePage,
+      enquiryTimestamp,
+      enquiryTimestamp,
+    ).run()
+
     const recipients = await listTenantConversationRecipients(c.env.APP_DB, tenantId, ['owner', 'hos'])
     if (recipients.length === 0) {
       return c.json({ success: false, message: 'No owner or HoS inbox is available for this school yet.' }, 503)
@@ -6885,6 +8850,16 @@ app.post('/api/public/website-enquiries', async (c) => {
       sourcePage,
       subject: conversationSubject,
     })
+
+    await addAudit(c.env.APP_DB, tenantId, {
+      action: 'websiteEnquirySubmitted',
+      data: {
+        enquiryId,
+        visitorName: name,
+        visitorEmail: email,
+        sourcePage,
+      },
+    }).catch(() => null)
 
     return c.json({ success: true, conversationId: conversation.id, messageId: message.id })
   } catch (error) {
@@ -6998,6 +8973,17 @@ app.post('/api/public/admissions', async (c) => {
       now,
     ).run()
 
+    await addAudit(c.env.APP_DB, tenantId, {
+      action: 'admissionApplicationSubmitted',
+      data: {
+        applicationId,
+        applicantName: parentName,
+        applicantEmail: parentEmail,
+        studentName,
+        desiredClass,
+      },
+    }).catch(() => null)
+
     const recipients = await listTenantConversationRecipients(c.env.APP_DB, tenantId, ['owner', 'hos'])
     if (recipients.length > 0) {
       const participants = Array.from(new Set([...recipients, parentEmail]))
@@ -7020,6 +9006,124 @@ app.post('/api/public/admissions', async (c) => {
     return c.json({ success: true, applicationId })
   } catch (error) {
     return c.json({ success: false, message: 'Could not submit admission application.', error }, 500)
+  }
+})
+
+app.get('/receipt-verification/:receiptNo', async (c) => {
+  try {
+    const receiptNo = String(c.req.param('receiptNo') || '').trim()
+    const payload = await resolvePublicFeeReceiptVerification(c.env.APP_DB, receiptNo)
+    const statusCode = payload.verified ? 200 : receiptNo ? 404 : 400
+    return c.html(
+      renderPublicFeeReceiptVerificationHtml({
+        verified: payload.verified,
+        receiptNo,
+        message: payload.message,
+        receipt: payload.receipt,
+      }),
+      statusCode,
+    )
+  } catch {
+    return c.html(
+      renderPublicFeeReceiptVerificationHtml({
+        verified: false,
+        message: 'Could not verify this receipt right now.',
+      }),
+      500,
+    )
+  }
+})
+
+app.get('/result-verification/:publicationId', async (c) => {
+  try {
+    const publicationId = String(c.req.param('publicationId') || '').trim()
+    const payload = await resolvePublicResultVerification(c.env.APP_DB, publicationId, new URL(c.req.url).origin)
+    const statusCode = payload.verified ? 200 : publicationId ? 404 : 400
+    return c.html(
+      renderPublicResultVerificationHtml({
+        verified: payload.verified,
+        publicationId,
+        message: payload.message,
+        result: payload.result,
+      }),
+      statusCode,
+    )
+  } catch {
+    return c.html(
+      renderPublicResultVerificationHtml({
+        verified: false,
+        message: 'Could not verify this result right now.',
+      }),
+      500,
+    )
+  }
+})
+
+app.get('/api/public/fees-receipts/:receiptNo', async (c) => {
+  try {
+    const receiptNo = String(c.req.param('receiptNo') || '').trim()
+    const payload = await resolvePublicFeeReceiptVerification(c.env.APP_DB, receiptNo)
+    const statusCode = payload.verified ? 200 : receiptNo ? 404 : 400
+
+    if (requestPrefersHtml(c)) {
+      return c.html(
+        renderPublicFeeReceiptVerificationHtml({
+          verified: payload.verified,
+          receiptNo,
+          message: payload.message,
+          receipt: payload.receipt,
+        }),
+        statusCode,
+      )
+    }
+
+    return c.json(payload, statusCode)
+  } catch (error) {
+    if (requestPrefersHtml(c)) {
+      return c.html(
+        renderPublicFeeReceiptVerificationHtml({
+          verified: false,
+          message: 'Could not verify this receipt right now.',
+        }),
+        500,
+      )
+    }
+
+    return c.json({ success: false, verified: false, message: 'Could not verify receipt.', error }, 500)
+  }
+})
+
+app.get('/api/public/results/:publicationId', async (c) => {
+  try {
+    const publicationId = String(c.req.param('publicationId') || '').trim()
+    const payload = await resolvePublicResultVerification(c.env.APP_DB, publicationId, new URL(c.req.url).origin)
+    const statusCode = payload.verified ? 200 : publicationId ? 404 : 400
+
+    if (requestPrefersHtml(c)) {
+      return c.html(
+        renderPublicResultVerificationHtml({
+          verified: payload.verified,
+          publicationId,
+          message: payload.message,
+          result: payload.result,
+        }),
+        statusCode,
+      )
+    }
+
+    return c.json(payload, statusCode)
+  } catch (error) {
+    if (requestPrefersHtml(c)) {
+      return c.html(
+        renderPublicResultVerificationHtml({
+          verified: false,
+          message: 'Could not verify this result right now.',
+        }),
+        500,
+      )
+    }
+
+    return c.json({ success: false, verified: false, message: 'Could not verify result.', error }, 500)
   }
 })
 
@@ -7092,6 +9196,17 @@ app.post('/api/school/admissions/:applicationId/review', authenticate, async (c)
       'UPDATE admission_applications SET status = ?, review_notes = ?, reviewed_by = ?, reviewed_at = ?, updated_at = ? WHERE id = ? AND tenant_id = ?'
     ).bind(status, reviewNotes || null, reviewedBy || null, reviewedAt, reviewedAt, applicationId, tenantId).run()
 
+    await syncWebsiteEnquiriesForApplication(c.env.APP_DB, tenantId, existing, status, reviewNotes, reviewedBy, reviewedAt).catch(() => null)
+
+    await addAudit(c.env.APP_DB, tenantId, {
+      action: 'admissionApplicationReviewed',
+      data: {
+        applicationId,
+        status,
+        reviewedBy,
+      },
+    }).catch(() => null)
+
     const updated = await c.env.APP_DB.prepare(
       'SELECT * FROM admission_applications WHERE id = ? AND tenant_id = ? LIMIT 1'
     ).bind(applicationId, tenantId).first() as Record<string, any> | null
@@ -7099,6 +9214,99 @@ app.post('/api/school/admissions/:applicationId/review', authenticate, async (c)
     return c.json({ success: true, application: updated ? mapAdmissionApplicationRow(updated) : null })
   } catch (error) {
     return c.json({ success: false, message: 'Could not review admission application.', error }, 500)
+  }
+})
+
+app.get('/api/school/enquiries', authenticate, async (c) => {
+  try {
+    const user = c.var.user || {}
+    const userIdentifier = user.id || user.email || user.sub || ''
+    const resolvedUser = await resolveSettingsIdentity(c.env.APP_DB, userIdentifier)
+    const tenantId = String(resolvedUser.settings?.tenantId || resolvedUser.settings?.schoolId || resolvedUser.userRow?.tenantId || user.tenantId || '').trim()
+    const role = String(resolvedUser.settings?.role || resolvedUser.userRow?.role || user.role || '').trim().toLowerCase()
+    const requestedStatus = normalizeWebsiteEnquiryStatus(c.req.query('status'), '')
+
+    if (!tenantId || !['owner', 'hos', 'admin', 'ict', 'ict_manager', 'ami'].includes(role)) {
+      return c.json({ success: false, message: 'forbidden' }, 403)
+    }
+
+    await ensureWebsiteEnquiriesTable(c.env.APP_DB)
+    const rows = await c.env.APP_DB.prepare(
+      'SELECT * FROM website_enquiries WHERE tenant_id = ? ORDER BY created_at DESC'
+    ).bind(tenantId).all()
+
+    let enquiries = ((rows.results || []) as Record<string, any>[]).map(mapWebsiteEnquiryRow)
+    if (requestedStatus) {
+      enquiries = enquiries.filter(enquiry => enquiry.status === requestedStatus)
+    }
+
+    return c.json({ success: true, enquiries })
+  } catch (error) {
+    return c.json({ success: false, message: 'Could not load website enquiries.', error }, 500)
+  }
+})
+
+app.post('/api/school/enquiries/:enquiryId/review', authenticate, async (c) => {
+  try {
+    const enquiryId = c.req.param('enquiryId')
+    const body = await c.req.json()
+    const user = c.var.user || {}
+    const userIdentifier = user.id || user.email || user.sub || ''
+    const resolvedUser = await resolveSettingsIdentity(c.env.APP_DB, userIdentifier)
+    const tenantId = String(resolvedUser.settings?.tenantId || resolvedUser.settings?.schoolId || resolvedUser.userRow?.tenantId || user.tenantId || '').trim()
+    const role = String(resolvedUser.settings?.role || resolvedUser.userRow?.role || user.role || '').trim().toLowerCase()
+
+    if (!tenantId || !['owner', 'hos', 'admin', 'ict', 'ict_manager', 'ami'].includes(role)) {
+      return c.json({ success: false, message: 'forbidden' }, 403)
+    }
+
+    await ensureWebsiteEnquiriesTable(c.env.APP_DB)
+    const existing = await c.env.APP_DB.prepare(
+      'SELECT * FROM website_enquiries WHERE id = ? AND tenant_id = ? LIMIT 1'
+    ).bind(enquiryId, tenantId).first() as Record<string, any> | null
+
+    if (!existing) {
+      return c.json({ success: false, message: 'Website enquiry not found.' }, 404)
+    }
+
+    const reviewedAt = new Date().toISOString()
+    const status = normalizeWebsiteEnquiryStatus(body?.status, existing.status)
+    const reviewNotes = String(body?.reviewNotes || '').trim()
+    const outcomeReason = String(body?.outcomeReason || '').trim()
+    const linkedApplicationId = String(body?.linkedApplicationId || existing.linked_application_id || '').trim()
+    const reviewedBy = String(resolvedUser.settings?.name || resolvedUser.userRow?.name || user.name || userIdentifier || role).trim()
+
+    await c.env.APP_DB.prepare(
+      'UPDATE website_enquiries SET status = ?, review_notes = ?, outcome_reason = ?, linked_application_id = ?, reviewed_by = ?, reviewed_at = ?, updated_at = ? WHERE id = ? AND tenant_id = ?'
+    ).bind(
+      status,
+      reviewNotes || null,
+      outcomeReason || null,
+      linkedApplicationId || null,
+      reviewedBy || null,
+      reviewedAt,
+      reviewedAt,
+      enquiryId,
+      tenantId,
+    ).run()
+
+    await addAudit(c.env.APP_DB, tenantId, {
+      action: 'websiteEnquiryReviewed',
+      data: {
+        enquiryId,
+        status,
+        linkedApplicationId: linkedApplicationId || null,
+        reviewedBy,
+      },
+    }).catch(() => null)
+
+    const updated = await c.env.APP_DB.prepare(
+      'SELECT * FROM website_enquiries WHERE id = ? AND tenant_id = ? LIMIT 1'
+    ).bind(enquiryId, tenantId).first() as Record<string, any> | null
+
+    return c.json({ success: true, enquiry: updated ? mapWebsiteEnquiryRow(updated) : null })
+  } catch (error) {
+    return c.json({ success: false, message: 'Could not review website enquiry.', error }, 500)
   }
 })
 
@@ -7456,65 +9664,70 @@ app.put('/api/people/:userId/role', authenticate, async (c) => {
 
 app.put('/api/people/:userId', authenticate, async (c) => {
   const tenantId = c.var.user?.tenantId
-  const callerId = c.var.user?.id
-  const callerRole = c.var.user?.role
   const userId = c.req.param('userId')
-  // owner/hos can edit anyone; other users can only edit their own profile
-  const isAdminEdit = hasRequiredRole(callerRole, ['owner', 'hos'])
-  if (!isAdminEdit && callerId !== userId) return c.json({ error: 'forbidden' }, 403)
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
-  const { name, phone, classId, dateOfBirth, avatar } = await c.req.json()
+  const payload = await c.req.json().catch(() => ({})) as Record<string, any>
+  const access = await resolveUserProfileAccess(c.env.APP_DB, c.var.user || {}, userId)
+  if (!access.allowed) return c.json({ error: 'forbidden' }, 403)
   try {
     await ensureUsersTable(c.env.APP_DB)
     const existingUser = await c.env.APP_DB.prepare(
       `SELECT id, email, role FROM users WHERE id = ? AND tenantId = ?`
     ).bind(userId, tenantId).first() as any
     if (!existingUser) return c.json({ error: 'User not found.' }, 404)
-    if (name) {
-      await c.env.APP_DB.prepare(`UPDATE users SET name = ? WHERE id = ? AND tenantId = ?`).bind(name, userId, tenantId).run()
+    if (access.linkedStudent && normalizeRole(existingUser.role) !== 'student') {
+      return c.json({ error: 'Only linked student profiles can be updated from a parent account.' }, 403)
+    }
+
+    const normalizedName = payload.name !== undefined ? sanitizeProfileText(payload.name, 160) : undefined
+    if (payload.name !== undefined && !normalizedName) {
+      return c.json({ error: 'Name is required.' }, 400)
+    }
+
+    if (normalizedName) {
+      await c.env.APP_DB.prepare(`UPDATE users SET name = ? WHERE id = ? AND tenantId = ?`).bind(normalizedName, userId, tenantId).run()
     }
     const resolvedIdentity = await resolveSettingsIdentity(c.env.APP_DB, existingUser.email || existingUser.id)
     const settingsKey = String(resolvedIdentity.settingsKey || existingUser.email || existingUser.id || '').trim()
     const settings = resolvedIdentity.settings || {}
-    const existingProfile = settings?.profile && typeof settings.profile === 'object'
-      ? settings.profile as Record<string, any>
-      : {}
+    const existingProfile = buildAdmissionProfileRecord(settings, { id: userId, email: existingUser.email, name: normalizedName || settings?.name || '' })
     const updates: Record<string, any> = {}
-    const profileUpdates: Record<string, any> = { ...existingProfile }
-    if (name !== undefined) updates.name = name
-    if (phone !== undefined) updates.phone = phone
-    if (dateOfBirth !== undefined) {
-      const normalizedDateOfBirth = /^\d{4}-\d{2}-\d{2}$/.test(String(dateOfBirth || '').trim())
-        ? String(dateOfBirth || '').trim()
-        : ''
-      updates.dateOfBirth = normalizedDateOfBirth || null
-      profileUpdates.dateOfBirth = normalizedDateOfBirth
+    const profileUpdates = mergeAdmissionProfileRecord(existingProfile, payload)
+
+    profileUpdates.id = userId
+    profileUpdates.email = existingUser.email || existingProfile.email || ''
+    profileUpdates.name = normalizedName || profileUpdates.name || settings?.name || existingUser.email || userId
+
+    if (normalizedName !== undefined) updates.name = normalizedName
+    if (payload.phone !== undefined) updates.phone = profileUpdates.phone || null
+    if (payload.dateOfBirth !== undefined) updates.dateOfBirth = profileUpdates.dateOfBirth || null
+    if (payload.avatar !== undefined) {
+      updates.avatar = profileUpdates.avatar || null
+      updates.avatarUrl = profileUpdates.avatar || null
     }
-    if (avatar !== undefined) {
-      const normalizedAvatar = String(avatar || '').trim()
-      updates.avatar = normalizedAvatar || null
-      updates.avatarUrl = normalizedAvatar || null
-      profileUpdates.avatar = normalizedAvatar
-    }
-    if (classId !== undefined && isAdminEdit) {
+    if (payload.gender !== undefined) updates.gender = profileUpdates.gender || null
+    if (payload.address !== undefined) updates.address = profileUpdates.address || null
+    if (payload.relationship !== undefined) updates.relationship = profileUpdates.relationship || null
+
+    if (payload.classId !== undefined && access.isAdminEdit) {
       // resolve class name for classId
       try {
         await ensureClassesTable(c.env.APP_DB)
+        const classId = String(payload.classId || '').trim()
         const cls = await c.env.APP_DB.prepare(`SELECT id, name, arm FROM classes WHERE id = ? AND tenantId = ?`).bind(classId, tenantId).first() as any
-        updates.classId = classId
-        updates.className = cls ? `${cls.name}${cls.arm ? ` ${cls.arm}` : ''}` : classId
-      } catch { updates.classId = classId }
+        updates.classId = classId || null
+        updates.className = classId ? (cls ? `${cls.name}${cls.arm ? ` ${cls.arm}` : ''}` : classId) : null
+      } catch {
+        updates.classId = String(payload.classId || '').trim() || null
+      }
     }
-    if (Object.keys(profileUpdates).length > 0) {
-      profileUpdates.id = userId
-      profileUpdates.email = existingUser.email || existingProfile.email || ''
-      profileUpdates.name = name !== undefined ? name : (profileUpdates.name || settings?.name || existingUser.email || '')
-      updates.profile = profileUpdates
-    }
+
+    updates.profile = profileUpdates
+
     if (Object.keys(updates).length > 0) {
       await upsertSettings(c.env.APP_DB, settingsKey, { ...settings, ...updates })
     }
-    await addAudit(c.env.APP_DB, tenantId, { action: 'personUpdated', data: { by: callerId, userId, fields: Object.keys(updates) } })
+    await addAudit(c.env.APP_DB, tenantId, { action: 'personUpdated', data: { by: c.var.user?.id, userId, fields: Object.keys(updates) } })
     return c.json({ success: true })
   } catch (err) {
     return c.json({ error: 'Could not update profile.' }, 500)
@@ -7555,9 +9768,10 @@ app.post('/api/school/parent-student-link', authenticate, async (c) => {
 })
 
 app.get('/api/people/:userId', authenticate, async (c) => {
-  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos'])) return c.json({ error: 'forbidden' }, 403)
   const tenantId = c.var.user?.tenantId
   const userId = c.req.param('userId')
+  const access = await resolveUserProfileAccess(c.env.APP_DB, c.var.user || {}, userId)
+  if (!access.allowed) return c.json({ error: 'forbidden' }, 403)
   try {
     await ensureUsersTable(c.env.APP_DB)
     const user = await c.env.APP_DB.prepare(
@@ -8498,14 +10712,16 @@ app.get('/api/results/settings', authenticate, async (c) => {
   if (!tenant) return c.json({ error: 'Tenant not found.' }, 404)
 
   const stored = await getResultSettings(c.env.APP_DB, tenant.id)
-  const settings = { ...stored, ...normalizeResultSettingsInput(stored) }
+  const tenantBranding = await getTenantSchoolBranding(c.env.APP_DB, tenant)
+  const settings = attachTenantBrandingToResultSettings({ ...stored, ...normalizeResultSettingsInput(stored) }, tenantBranding)
+  const suggestedSettings = attachTenantBrandingToResultSettings(getSuggestedResultSettings(), tenantBranding)
   const configurationError = validateResultSettings(settings)
 
   return c.json({
     success: true,
     settings,
     templates: RESULT_TEMPLATE_CATALOG,
-    suggestedSettings: getSuggestedResultSettings(),
+    suggestedSettings,
     configurationReady: !configurationError,
     configurationError,
     canManageSettings: hasRequiredRole(c.var.user.role, RESULT_SETTINGS_EDITOR_ROLES),
@@ -8523,7 +10739,8 @@ app.post('/api/results/settings', authenticate, async (c) => {
   if (configurationError) return c.json({ error: configurationError }, 400)
 
   const saved = await saveResultSettings(c.env.APP_DB, tenant.id, normalized, actorId)
-  const settings = { ...saved, ...normalizeResultSettingsInput(saved) }
+  const tenantBranding = await getTenantSchoolBranding(c.env.APP_DB, tenant)
+  const settings = attachTenantBrandingToResultSettings({ ...saved, ...normalizeResultSettingsInput(saved) }, tenantBranding)
   return c.json({ success: true, settings, configurationReady: true, configurationError: '' })
 })
 
@@ -8538,8 +10755,10 @@ app.get('/api/results/sheet', authenticate, async (c) => {
   if (!access.canManageEntries && !access.isElevatedManager) return c.json({ error: 'forbidden' }, 403)
 
   const period = await resolveCurrentResultPeriod(c.env.APP_DB, access.tenantId, query.sessionName || query.session, query.termName || query.term)
+  const tenant = await getTenantById(c.env.APP_DB, access.tenantId)
+  const tenantBranding = await getTenantSchoolBranding(c.env.APP_DB, tenant)
   const storedSettings = await getResultSettings(c.env.APP_DB, access.tenantId)
-  const settings = { ...storedSettings, ...normalizeResultSettingsInput(storedSettings) }
+  const settings = attachTenantBrandingToResultSettings({ ...storedSettings, ...normalizeResultSettingsInput(storedSettings) }, tenantBranding)
   const configurationError = validateResultSettings(settings)
   const batch = await getResultBatch(c.env.APP_DB, access.tenantId, classId, period.sessionName, period.termName)
   const [entries, profiles, students] = await Promise.all([
@@ -8598,7 +10817,8 @@ app.post('/api/results/entries', authenticate, async (c) => {
   const students = await listResultClassStudents(c.env.APP_DB, access.tenantId, access.classRow)
   const allowedStudentIds = new Set(students.map(student => String(student.id || '')))
   const allowedSubjects = new Map(access.allowedSubjectRows.map(subject => [String(subject.id || ''), subject]))
-  const caComponents = normalizeResultCaComponentList(settings.metadata?.caComponents, RESULT_DEFAULT_CA_COMPONENTS, 8)
+  const scoreSettings = normalizeResultScoreSettings(settings.metadata, RESULT_DEFAULT_SCORE_LIMITS)
+  const caComponents = normalizeResultCaComponentList(settings.metadata?.caComponents, RESULT_DEFAULT_CA_COMPONENTS, 8, scoreSettings.caMaxScore)
   const rows = Array.isArray(body.rows) ? body.rows : []
   const normalizedRows = rows
     .map((row: any) => {
@@ -8606,7 +10826,7 @@ app.post('/api/results/entries', authenticate, async (c) => {
       const studentId = String(row.studentId || '')
       if (!subject || !allowedStudentIds.has(studentId)) return null
 
-      const componentScores = normalizeResultEntryCaComponents(row.caComponents, caComponents, row.caScore)
+      const componentScores = normalizeResultEntryCaComponents(row.caComponents, caComponents, row.caScore, scoreSettings.caMaxScore)
 
       return {
         studentId,
@@ -8614,8 +10834,8 @@ app.post('/api/results/entries', authenticate, async (c) => {
         subjectName: String(subject.name || ''),
         teacherId: String(subject.teacherId || access.actorId || ''),
         caComponents: componentScores,
-        caScore: sumResultEntryCaComponents(componentScores, caComponents),
-        examScore: clampResultScore(row.examScore, 60),
+        caScore: sumResultEntryCaComponents(componentScores, caComponents, scoreSettings.caMaxScore),
+        examScore: clampResultScore(row.examScore, scoreSettings.examMaxScore),
       }
     })
     .filter(Boolean) as Array<Record<string, any>>
@@ -8752,8 +10972,10 @@ app.post('/api/results/publish', authenticate, async (c) => {
   if (!access.classRow) return c.json({ error: 'Class not found.' }, 404)
 
   const period = await resolveCurrentResultPeriod(c.env.APP_DB, access.tenantId, body.sessionName || body.session, body.termName || body.term)
+  const tenant = await getTenantById(c.env.APP_DB, access.tenantId)
+  const tenantBranding = await getTenantSchoolBranding(c.env.APP_DB, tenant)
   const storedSettings = await getResultSettings(c.env.APP_DB, access.tenantId)
-  const settings = { ...storedSettings, ...normalizeResultSettingsInput(storedSettings) }
+  const settings = attachTenantBrandingToResultSettings({ ...storedSettings, ...normalizeResultSettingsInput(storedSettings) }, tenantBranding)
   const configurationError = validateResultSettings(settings)
   if (configurationError) return c.json({ error: configurationError }, 400)
 
@@ -8797,7 +11019,9 @@ app.get('/api/results/overview', authenticate, async (c) => {
 
   await ensureResultsTables(c.env.APP_DB)
   const stored = await getResultSettings(c.env.APP_DB, tenant.id)
-  const settings = { ...stored, ...normalizeResultSettingsInput(stored) }
+  const tenantBranding = await getTenantSchoolBranding(c.env.APP_DB, tenant)
+  const settings = attachTenantBrandingToResultSettings({ ...stored, ...normalizeResultSettingsInput(stored) }, tenantBranding)
+  const suggestedSettings = attachTenantBrandingToResultSettings(getSuggestedResultSettings(), tenantBranding)
   const configurationError = validateResultSettings(settings)
   const [batches, recentDocuments] = await Promise.all([
     listResultBatches(c.env.APP_DB, tenant.id),
@@ -8808,7 +11032,7 @@ app.get('/api/results/overview', authenticate, async (c) => {
     success: true,
     settings,
     templates: RESULT_TEMPLATE_CATALOG,
-    suggestedSettings: getSuggestedResultSettings(),
+    suggestedSettings,
     configurationReady: !configurationError,
     configurationError,
     batches,
@@ -8898,7 +11122,10 @@ app.get('/api/results/records', authenticate, async (c) => {
     feeStatus: feeState.status,
     publications: hideSensitiveContent
       ? publications.map(publication => ({ ...publication, payload: null }))
-      : publications,
+      : publications.map(publication => ({
+        ...publication,
+        verificationUrl: buildResultVerificationUrl(new URL(c.req.url).origin, String(publication.id || '')),
+      })),
     documents: hideSensitiveContent ? [] : documents,
   })
 })
@@ -8942,25 +11169,82 @@ app.post('/api/results/documents/upload', authenticate, async (c) => {
 
   if (students.length === 0) return c.json({ error: 'No students were available for result distribution.' }, 400)
 
+  const existingDocuments = await listResultDocumentsForPeriod(c.env.APP_DB, tenant.id, period.sessionName, period.termName)
+  const relevantStudentIds = new Set(students.map(student => String(student.id || '')).filter(Boolean))
+  const alreadyUploadedStudentIds = new Set(
+    existingDocuments
+      .map(document => String(document.studentId || ''))
+      .filter(studentId => relevantStudentIds.has(studentId))
+  )
+  const queuedStudentIds = new Set<string>()
+  const coveredStudentIds = new Set(alreadyUploadedStudentIds)
   const docsToSave: Array<Record<string, any>> = []
   const results: Array<Record<string, any>> = []
+  const summary = {
+    totalFiles: files.length,
+    matchedCount: 0,
+    uploadedCount: 0,
+    skippedCount: 0,
+    alreadyUploadedCount: 0,
+    duplicateMatchedCount: 0,
+    unmatchedCount: 0,
+    ambiguousCount: 0,
+    invalidTypeCount: 0,
+  }
 
   for (const file of files) {
     const lowerName = String(file.name || '').toLowerCase()
     if (!lowerName.endsWith('.pdf') && !String(file.type || '').toLowerCase().includes('pdf')) {
+      summary.invalidTypeCount += 1
       results.push({ fileName: file.name, status: 'error', message: 'Only PDF result files are supported.' })
       continue
     }
 
     const matched = matchResultUploadStudent(file.name, students)
     if (matched.ambiguous) {
-      results.push({ fileName: file.name, status: 'error', message: 'Filename matched more than one student. Include the exact display ID or student email.' })
+      summary.ambiguousCount += 1
+      results.push({ fileName: file.name, status: 'error', message: 'Filename matched more than one student. Include the exact display ID, student email, or a clearer student name and surname.' })
       continue
     }
     if (!matched.student) {
-      results.push({ fileName: file.name, status: 'error', message: 'Could not match this PDF to a student. Use the exact display ID, student ID, or email in the filename.' })
+      summary.unmatchedCount += 1
+      results.push({ fileName: file.name, status: 'error', message: 'Could not match this PDF to a student. Use the exact student ID, display ID, email, or student name and surname in the filename.' })
       continue
     }
+
+    summary.matchedCount += 1
+    const studentId = String(matched.student.id || '')
+    coveredStudentIds.add(studentId)
+
+    if (alreadyUploadedStudentIds.has(studentId)) {
+      summary.skippedCount += 1
+      summary.alreadyUploadedCount += 1
+      results.push({
+        fileName: file.name,
+        status: 'skipped',
+        studentId,
+        studentName: matched.student.name,
+        matchedBy: matched.matchedBy,
+        message: 'A result PDF for this student, session, and term already exists. Skipped.',
+      })
+      continue
+    }
+
+    if (queuedStudentIds.has(studentId)) {
+      summary.skippedCount += 1
+      summary.duplicateMatchedCount += 1
+      results.push({
+        fileName: file.name,
+        status: 'skipped',
+        studentId,
+        studentName: matched.student.name,
+        matchedBy: matched.matchedBy,
+        message: 'Another file in this upload already matched this student. Skipped.',
+      })
+      continue
+    }
+
+    queuedStudentIds.add(studentId)
 
     const safeFileName = String(file.name || 'result.pdf').replace(/[^A-Za-z0-9_.-]+/g, '_')
     const key = `results/${normalizeResultDomainKey(tenant.id, 'tenant')}/${normalizeResultDomainKey(period.sessionName, 'session')}/${normalizeResultDomainKey(period.termName, 'term')}/${normalizeResultDomainKey(matched.student.id, 'student')}/${Date.now()}_${safeFileName}`
@@ -8984,6 +11268,7 @@ app.post('/api/results/documents/upload', authenticate, async (c) => {
         originalFileName: file.name,
       },
     })
+    summary.uploadedCount += 1
     results.push({
       fileName: file.name,
       status: 'ok',
@@ -8997,7 +11282,29 @@ app.post('/api/results/documents/upload', authenticate, async (c) => {
     await saveResultDocuments(c.env.APP_DB, docsToSave)
   }
 
-  return c.json({ success: true, sessionName: period.sessionName, termName: period.termName, results })
+  const missingStudents = students
+    .filter(student => !coveredStudentIds.has(String(student.id || '')))
+    .map(student => ({
+      id: String(student.id || ''),
+      name: String(student.name || ''),
+      displayId: String(student.displayId || ''),
+      className: String(student.className || ''),
+    }))
+  const hasBlockingIssues = summary.invalidTypeCount > 0 || summary.unmatchedCount > 0 || summary.ambiguousCount > 0
+
+  return c.json({
+    success: !hasBlockingIssues,
+    partialSuccess: hasBlockingIssues && summary.uploadedCount > 0,
+    hasBlockingIssues,
+    sessionName: period.sessionName,
+    termName: period.termName,
+    results,
+    summary: {
+      ...summary,
+      missingStudentCount: missingStudents.length,
+    },
+    missingStudents,
+  })
 })
 
 // ─── Fees Config ────────────────────────────────────────────────────────────
@@ -9048,8 +11355,286 @@ app.get('/api/school/fees-receipts', authenticate, async (c) => {
   }
 })
 
+app.get('/api/school/fees/payment-details', authenticate, async (c) => {
+  const currentUser = c.var.user || {}
+  const userIdentifier = String(currentUser.id || currentUser.email || currentUser.sub || '').trim()
+  const resolvedUser = userIdentifier
+    ? await resolveSettingsIdentity(c.env.APP_DB, userIdentifier)
+    : { settings: null, userRow: null }
+  const role = normalizeRole(resolvedUser.settings?.role || currentUser.role)
+  const tenantId = String(resolvedUser.settings?.tenantId || resolvedUser.settings?.schoolId || resolvedUser.userRow?.tenantId || currentUser.tenantId || '').trim()
+
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (![...FEE_PAYMENT_APPROVER_ROLES, 'admin', 'parent', 'student'].includes(role)) return c.json({ error: 'forbidden' }, 403)
+
+  const paymentDetails = await getFeesPaymentDetails(c.env.APP_DB, tenantId)
+  return c.json({ success: true, paymentDetails, canEdit: [...FEE_PAYMENT_APPROVER_ROLES, 'admin'].includes(role) })
+})
+
+app.post('/api/school/fees/payment-details', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, [...FEE_PAYMENT_APPROVER_ROLES, 'admin'])) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+
+  const payload = await c.req.json().catch(() => ({})) as Record<string, any>
+  const paymentDetails = await saveFeesPaymentDetails(c.env.APP_DB, tenantId, payload)
+  await addAudit(c.env.APP_DB, tenantId, {
+    action: 'feesPaymentDetailsUpdated',
+    data: { by: c.var.user?.id },
+  }).catch(() => null)
+
+  return c.json({ success: true, paymentDetails })
+})
+
+app.get('/api/school/fees/payment-claims', authenticate, async (c) => {
+  try {
+    const claimView = await listVisibleFeePaymentClaims(c.env.APP_DB, c.var.user || {})
+    if (!claimView.tenantId) return c.json({ error: 'No tenant.' }, 400)
+    if (!claimView.allowed) return c.json({ error: 'forbidden' }, 403)
+    return c.json({ success: true, claims: claimView.claims, canReview: [...FEE_PAYMENT_APPROVER_ROLES, 'admin'].includes(claimView.role) })
+  } catch {
+    return c.json({ success: true, claims: [], canReview: false })
+  }
+})
+
+app.post('/api/school/fees/payment-claims', authenticate, async (c) => {
+  const feeView = await listVisibleFeeLedgerEntries(c.env.APP_DB, c.var.user || {})
+  if (!feeView.tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!feeView.allowed || !['parent', 'student'].includes(feeView.role)) return c.json({ error: 'forbidden' }, 403)
+
+  const payload = await c.req.json().catch(() => ({})) as Record<string, any>
+  const studentId = String(payload.studentId || '').trim()
+  const studentEntry = (feeView.ledger || []).find(entry => String(entry.studentId || '').trim() === studentId)
+  if (!studentEntry) return c.json({ error: 'Student not accessible.' }, 403)
+
+  const amount = Number(payload.amount || 0)
+  if (!Number.isFinite(amount) || amount <= 0) return c.json({ error: 'Amount required.' }, 400)
+
+  await ensureFeesPaymentClaimsTable(c.env.APP_DB)
+  const paymentDetails = await getFeesPaymentDetails(c.env.APP_DB, feeView.tenantId)
+  const claimId = `fee_claim_${feeView.tenantId}_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`
+  const now = new Date().toISOString()
+  const paidAt = normalizeIsoDateValue(payload.paidAt) || now.slice(0, 10)
+  const claimRow = {
+    id: claimId,
+    tenant_id: feeView.tenantId,
+    student_id: studentId,
+    student_name: String(studentEntry.name || ''),
+    class_id: String(studentEntry.classId || ''),
+    class_name: String(studentEntry.className || ''),
+    claimant_user_id: String(c.var.user?.id || c.var.user?.email || '').trim(),
+    claimant_name: String(c.var.user?.name || c.var.user?.email || 'Parent').trim(),
+    claimant_role: feeView.role,
+    amount,
+    payment_method: sanitizeProfileText(payload.paymentMethod || 'bank-transfer', 80) || 'bank-transfer',
+    payer_name: sanitizeProfileText(payload.payerName || c.var.user?.name, 160),
+    payment_reference: sanitizeProfileText(payload.paymentReference, 160),
+    payment_note: sanitizeProfileText(payload.paymentNote, 500),
+    paid_at: paidAt,
+    status: 'pending',
+    account_name: paymentDetails.accountName,
+    account_number: paymentDetails.accountNumber,
+    bank_name: paymentDetails.bankName,
+    verified_by: '',
+    verified_at: '',
+    verification_note: '',
+    receipt_id: '',
+    receipt_no: '',
+    created_at: now,
+    updated_at: now,
+  }
+
+  await c.env.APP_DB.prepare(
+    `INSERT INTO fees_payment_claims (id, tenant_id, student_id, student_name, class_id, class_name, claimant_user_id, claimant_name, claimant_role, amount, payment_method, payer_name, payment_reference, payment_note, paid_at, status, account_name, account_number, bank_name, verified_by, verified_at, verification_note, receipt_id, receipt_no, created_at, updated_at)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+  ).bind(
+    claimRow.id,
+    claimRow.tenant_id,
+    claimRow.student_id,
+    claimRow.student_name,
+    claimRow.class_id || null,
+    claimRow.class_name || null,
+    claimRow.claimant_user_id,
+    claimRow.claimant_name,
+    claimRow.claimant_role,
+    claimRow.amount,
+    claimRow.payment_method,
+    claimRow.payer_name || null,
+    claimRow.payment_reference || null,
+    claimRow.payment_note || null,
+    claimRow.paid_at,
+    claimRow.status,
+    claimRow.account_name || null,
+    claimRow.account_number || null,
+    claimRow.bank_name || null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    claimRow.created_at,
+    claimRow.updated_at,
+  ).run()
+
+  await addAudit(c.env.APP_DB, feeView.tenantId, {
+    action: 'feePaymentClaimSubmitted',
+    data: {
+      claimId,
+      studentId,
+      amount,
+      by: c.var.user?.id,
+    },
+  }).catch(() => null)
+
+  await sendWebPushToAudience(c.env.APP_DB, c.env, {
+    tenantId: feeView.tenantId,
+    roleKeys: FEE_PAYMENT_APPROVER_ROLES,
+  }).catch(() => null)
+
+  return c.json({ success: true, claim: mapFeePaymentClaimRow(claimRow) }, 201)
+})
+
+app.post('/api/school/fees/payment-claims/:claimId/approve', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, [...FEE_PAYMENT_APPROVER_ROLES, 'admin'])) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+
+  await ensureFeesPaymentClaimsTable(c.env.APP_DB)
+  const claimId = c.req.param('claimId')
+  const claimRow = await c.env.APP_DB.prepare(
+    `SELECT * FROM fees_payment_claims WHERE id = ? AND tenant_id = ?`
+  ).bind(claimId, tenantId).first() as Record<string, any> | null
+  if (!claimRow) return c.json({ error: 'Claim not found.' }, 404)
+  if (String(claimRow.status || '').toLowerCase() !== 'pending') return c.json({ error: 'Claim has already been reviewed.' }, 400)
+
+  const payload = await c.req.json().catch(() => ({})) as Record<string, any>
+  const providedFeeAmount = payload.feeAmount === undefined || payload.feeAmount === null || payload.feeAmount === ''
+    ? undefined
+    : Number(payload.feeAmount)
+  if (providedFeeAmount !== undefined && (!Number.isFinite(providedFeeAmount) || providedFeeAmount < 0)) {
+    return c.json({ error: 'Invalid fee amount.' }, 400)
+  }
+
+  const paymentResult = await recordStudentFeePayment(c.env.APP_DB, {
+    tenantId,
+    studentId: String(claimRow.student_id || ''),
+    amount: Number(claimRow.amount || 0),
+    paymentType: String(claimRow.payment_method || 'bank-transfer'),
+    paymentReference: String(claimRow.payment_reference || ''),
+    feeAmount: providedFeeAmount,
+    recordedBy: String(c.var.user?.name || c.var.user?.id || 'Fees office'),
+    verificationBaseUrl: new URL(c.req.url).origin,
+  })
+
+  const verifiedAt = new Date().toISOString()
+  const verificationNote = sanitizeProfileText(payload.verificationNote, 500)
+  await c.env.APP_DB.prepare(
+    `UPDATE fees_payment_claims
+     SET status = 'verified', verified_by = ?, verified_at = ?, verification_note = ?, receipt_id = ?, receipt_no = ?, updated_at = ?
+     WHERE id = ? AND tenant_id = ?`
+  ).bind(
+    String(c.var.user?.id || c.var.user?.email || ''),
+    verifiedAt,
+    verificationNote || null,
+    paymentResult.receipt.id,
+    paymentResult.receipt.receiptNo,
+    verifiedAt,
+    claimId,
+    tenantId,
+  ).run()
+
+  await addAudit(c.env.APP_DB, tenantId, {
+    action: 'feePaymentClaimApproved',
+    data: {
+      claimId,
+      studentId: String(claimRow.student_id || ''),
+      receiptId: paymentResult.receipt.id,
+      by: c.var.user?.id,
+    },
+  }).catch(() => null)
+
+  const stakeholderUserIds = await buildFeeStakeholderUserIds(c.env.APP_DB, tenantId, String(claimRow.student_id || ''), [String(claimRow.claimant_user_id || '')])
+  await sendWebPushToAudience(c.env.APP_DB, c.env, {
+    tenantId,
+    userIds: stakeholderUserIds,
+  }).catch(() => null)
+
+  return c.json({
+    success: true,
+    claim: mapFeePaymentClaimRow({
+      ...claimRow,
+      status: 'verified',
+      verified_by: String(c.var.user?.id || c.var.user?.email || ''),
+      verified_at: verifiedAt,
+      verification_note: verificationNote,
+      receipt_id: paymentResult.receipt.id,
+      receipt_no: paymentResult.receipt.receiptNo,
+      updated_at: verifiedAt,
+    }),
+    receipt: paymentResult.receipt,
+  })
+})
+
+app.post('/api/school/fees/payment-claims/:claimId/reject', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, [...FEE_PAYMENT_APPROVER_ROLES, 'admin'])) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+
+  await ensureFeesPaymentClaimsTable(c.env.APP_DB)
+  const claimId = c.req.param('claimId')
+  const claimRow = await c.env.APP_DB.prepare(
+    `SELECT * FROM fees_payment_claims WHERE id = ? AND tenant_id = ?`
+  ).bind(claimId, tenantId).first() as Record<string, any> | null
+  if (!claimRow) return c.json({ error: 'Claim not found.' }, 404)
+  if (String(claimRow.status || '').toLowerCase() !== 'pending') return c.json({ error: 'Claim has already been reviewed.' }, 400)
+
+  const payload = await c.req.json().catch(() => ({})) as Record<string, any>
+  const verificationNote = sanitizeProfileText(payload.verificationNote, 500)
+  const verifiedAt = new Date().toISOString()
+
+  await c.env.APP_DB.prepare(
+    `UPDATE fees_payment_claims
+     SET status = 'rejected', verified_by = ?, verified_at = ?, verification_note = ?, updated_at = ?
+     WHERE id = ? AND tenant_id = ?`
+  ).bind(
+    String(c.var.user?.id || c.var.user?.email || ''),
+    verifiedAt,
+    verificationNote || null,
+    verifiedAt,
+    claimId,
+    tenantId,
+  ).run()
+
+  await addAudit(c.env.APP_DB, tenantId, {
+    action: 'feePaymentClaimRejected',
+    data: {
+      claimId,
+      studentId: String(claimRow.student_id || ''),
+      by: c.var.user?.id,
+    },
+  }).catch(() => null)
+
+  const stakeholderUserIds = await buildFeeStakeholderUserIds(c.env.APP_DB, tenantId, String(claimRow.student_id || ''), [String(claimRow.claimant_user_id || '')])
+  await sendWebPushToAudience(c.env.APP_DB, c.env, {
+    tenantId,
+    userIds: stakeholderUserIds,
+  }).catch(() => null)
+
+  return c.json({
+    success: true,
+    claim: mapFeePaymentClaimRow({
+      ...claimRow,
+      status: 'rejected',
+      verified_by: String(c.var.user?.id || c.var.user?.email || ''),
+      verified_at: verifiedAt,
+      verification_note: verificationNote,
+      updated_at: verifiedAt,
+    }),
+  })
+})
+
 app.post('/api/school/fees/:studentId/pay', authenticate, async (c) => {
-  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos', 'accountant'])) return c.json({ error: 'forbidden' }, 403)
+  if (!hasRequiredRole(c.var.user.role, FEE_PAYMENT_APPROVER_ROLES)) return c.json({ error: 'forbidden' }, 403)
   const tenantId = c.var.user?.tenantId
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
   const studentId = c.req.param('studentId')
@@ -9061,57 +11646,19 @@ app.post('/api/school/fees/:studentId/pay', authenticate, async (c) => {
 
   if (!Number.isFinite(paymentAmount) || paymentAmount <= 0) return c.json({ error: 'Amount required.' }, 400)
   try {
-    await ensureFeesLedgerTable(c.env.APP_DB)
-    await ensureFeesPaymentReceiptsTable(c.env.APP_DB)
-    const existing = await c.env.APP_DB.prepare(`SELECT * FROM fees_ledger WHERE student_id = ? AND tenant_id = ?`).bind(studentId, tenantId).first() as any
-    const studentRow = await findUserByIdentifier(c.env.APP_DB, studentId).catch(() => null)
-    const hydratedStudent = (await hydrateUserRecords(c.env.APP_DB, studentRow ? [studentRow] : []))[0] as Record<string, any> | undefined
-    const previousPaid = Number(existing?.amount_paid || 0)
-    const newPaid = Number(existing?.amount_paid || 0) + paymentAmount
-    const resolvedFeeAmount = providedFeeAmount !== null && Number.isFinite(providedFeeAmount)
-      ? providedFeeAmount
-      : Number(existing?.fee_amount || 0)
-    const status = resolvedFeeAmount > 0
-      ? (newPaid >= resolvedFeeAmount ? 'Paid' : newPaid > 0 ? 'Partial' : 'Unpaid')
-      : (newPaid > 0 ? 'Partial' : 'Unpaid')
-    const balanceAfter = Math.max(resolvedFeeAmount - newPaid, 0)
-    const studentName = String(hydratedStudent?.name || existing?.student_name || studentId)
-    const classId = String(hydratedStudent?.classId || existing?.class_id || '')
-    const className = String(hydratedStudent?.className || existing?.class_name || '')
-    const recordedAt = new Date().toISOString()
-    const receiptId = `fee_receipt_${tenantId}_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`
-    const receiptNo = `RCT-${Date.now()}`
-
-    if (existing) {
-      await c.env.APP_DB.prepare(`UPDATE fees_ledger SET student_name = ?, class_id = ?, class_name = ?, fee_amount = ?, amount_paid = ?, status = ?, updated_at = ? WHERE student_id = ? AND tenant_id = ?`)
-        .bind(studentName, classId || null, className || null, resolvedFeeAmount, newPaid, status, recordedAt, studentId, tenantId).run()
-    } else {
-      const id = `fl_${studentId}_${tenantId}`
-      await c.env.APP_DB.prepare(`INSERT INTO fees_ledger (id, tenant_id, student_id, student_name, class_id, class_name, fee_amount, amount_paid, status, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
-        .bind(id, tenantId, studentId, studentName, classId || null, className || null, resolvedFeeAmount, paymentAmount, status, recordedAt).run()
-    }
-    await c.env.APP_DB.prepare(
-      `INSERT INTO fees_payment_receipts (id, receipt_no, tenant_id, student_id, student_name, class_id, class_name, amount, payment_type, fee_amount, amount_paid_after, balance_after, status_after, recorded_by, recorded_at)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
-    ).bind(
-      receiptId,
-      receiptNo,
+    const paymentResult = await recordStudentFeePayment(c.env.APP_DB, {
       tenantId,
       studentId,
-      studentName,
-      classId || null,
-      className || null,
-      paymentAmount,
-      String(paymentType || 'cash'),
-      resolvedFeeAmount,
-      newPaid,
-      balanceAfter,
-      status,
-      c.var.user.name || c.var.user.id,
-      recordedAt,
-    ).run()
+      amount: paymentAmount,
+      paymentType: String(paymentType || 'cash'),
+      feeAmount: providedFeeAmount,
+      recordedBy: String(c.var.user.name || c.var.user.id || 'Fees office'),
+      verificationBaseUrl: new URL(c.req.url).origin,
+    })
     await addAudit(c.env.APP_DB, tenantId, { action: 'feePaymentRecorded', data: { studentId, amount, paymentType, by: c.var.user.id } })
-    return c.json({ success: true, amountPaid: newPaid, previousPaid, status, receipt: { id: receiptId, receiptNo, studentId, studentName, className, amount: paymentAmount, paymentType: String(paymentType || 'cash'), feeAmount: resolvedFeeAmount, amountPaidAfter: newPaid, balanceAfter, statusAfter: status, recordedAt } })
+    const stakeholderUserIds = await buildFeeStakeholderUserIds(c.env.APP_DB, tenantId, studentId)
+    await sendWebPushToAudience(c.env.APP_DB, c.env, { tenantId, userIds: stakeholderUserIds }).catch(() => null)
+    return c.json({ success: true, amountPaid: paymentResult.amountPaid, previousPaid: paymentResult.previousPaid, status: paymentResult.status, receipt: paymentResult.receipt })
   } catch (err) { return c.json({ error: 'Could not record payment.' }, 500) }
 })
 
@@ -9730,7 +12277,9 @@ app.get('/api/school/staff-attendance/activity', authenticate, async (c) => {
   if (!canUseStaffAttendance(actor.role)) return c.json({ error: 'forbidden' }, 403)
 
   const requestedStaffId = String(c.req.query('staffId') || '').trim()
-  const date = String(c.req.query('date') || new Date().toISOString().slice(0, 10)).trim()
+  const date = String(c.req.query('date') || '').trim()
+  const fromDate = String(c.req.query('from') || '').trim()
+  const toDate = String(c.req.query('to') || '').trim()
   const rawLimit = Number(c.req.query('limit') || 20)
   const limit = Number.isFinite(rawLimit) && rawLimit > 0 ? Math.trunc(rawLimit) : 20
   const effectiveStaffId = canManageStaffAttendanceConfig(actor.role) ? requestedStaffId : actor.actorId
@@ -9741,8 +12290,18 @@ app.get('/api/school/staff-attendance/activity', authenticate, async (c) => {
 
   try {
     await ensureStaffAttendanceEventsTable(c.env.APP_DB)
-    let query = 'SELECT * FROM staff_attendance_events WHERE tenant_id = ? AND date = ?'
-    const params: Array<string | number> = [actor.tenantId, date]
+    let query = 'SELECT * FROM staff_attendance_events WHERE tenant_id = ?'
+    const params: Array<string | number> = [actor.tenantId]
+
+    if (date) {
+      query += ' AND date = ?'
+      params.push(date)
+    } else {
+      const effectiveFrom = fromDate || new Date(new Date().getFullYear(), new Date().getMonth(), 1).toISOString().slice(0, 10)
+      const effectiveTo = toDate || new Date().toISOString().slice(0, 10)
+      query += ' AND date >= ? AND date <= ?'
+      params.push(effectiveFrom, effectiveTo)
+    }
 
     if (effectiveStaffId) {
       query += ' AND staff_id = ?'
@@ -9754,9 +12313,19 @@ app.get('/api/school/staff-attendance/activity', authenticate, async (c) => {
 
     const rows = await c.env.APP_DB.prepare(query).bind(...params).all()
     const events = ((rows.results || []) as Record<string, any>[]).map(mapStaffAttendanceEvent)
-    return c.json({ success: true, events })
+    const signInEvents = events.filter(event => event.action === 'sign-in')
+    const summary = {
+      signIns: signInEvents.length,
+      signOuts: events.filter(event => event.action === 'sign-out').length,
+      onTimeCount: signInEvents.filter(event => !event.isLate).length,
+      lateCount: signInEvents.filter(event => event.isLate).length,
+      lateMinutes: signInEvents.reduce((sum, event) => sum + Number(event.lateMinutes || 0), 0),
+      lateCharge: signInEvents.reduce((sum, event) => sum + Number(event.lateCharge || 0), 0),
+      totalCharges: signInEvents.reduce((sum, event) => sum + Number(event.lateCharge || 0), 0),
+    }
+    return c.json({ success: true, events, summary })
   } catch {
-    return c.json({ success: true, events: [] })
+    return c.json({ success: true, events: [], summary: { signIns: 0, signOuts: 0, onTimeCount: 0, lateCount: 0, lateMinutes: 0, lateCharge: 0, totalCharges: 0 } })
   }
 })
 

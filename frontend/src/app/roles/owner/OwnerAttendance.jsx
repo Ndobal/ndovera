@@ -217,7 +217,8 @@ function MonthlyReportTab({ month }) {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <div className={CARD}>
-              <h3 className="text-lg font-bold text-[#800000] mb-3">Recognition Highlights</h3>
+              <h3 className="text-lg font-bold text-[#800000] mb-3">Automatic School Recognition</h3>
+              <p className="mb-3 text-sm text-[#191970]">Birthdays, attendance, and punctuality highlights here are generated directly from this school&apos;s records.</p>
               <div className="space-y-3">
                 {recognitions.length ? recognitions.map(item => (
                   <RecognitionCard
@@ -225,13 +226,15 @@ function MonthlyReportTab({ month }) {
                     title={item.title}
                     description={item.description}
                     recipient={item.recipient}
+                    badge="School"
                   />
                 )) : <p className="text-sm text-[#800020]">No calculated recognitions yet for this month.</p>}
               </div>
             </div>
 
             <div className={CARD}>
-              <h3 className="text-lg font-bold text-[#800000] mb-3">AMI Awards</h3>
+              <h3 className="text-lg font-bold text-[#800000] mb-3">Optional AMI Spotlight Awards</h3>
+              <p className="mb-3 text-sm text-[#191970]">These awards are separate from the school&apos;s automatic attendance and birthday recognitions.</p>
               <div className="space-y-3">
                 {amiAwards.length ? amiAwards.map(item => (
                   <RecognitionCard
@@ -248,7 +251,8 @@ function MonthlyReportTab({ month }) {
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
             <div className={CARD}>
-              <h3 className="text-lg font-bold text-[#800000] mb-3">Birthdays</h3>
+              <h3 className="text-lg font-bold text-[#800000] mb-3">School Birthdays</h3>
+              <p className="mb-3 text-sm text-[#191970]">Automatically gathered from learner and staff birth records inside this school.</p>
               <div className="space-y-3">
                 {birthdays.length ? birthdays.map(person => (
                   <div key={`${person.userId}-${person.birthdayDate}`} className={`${INNER} flex items-center gap-3`}>

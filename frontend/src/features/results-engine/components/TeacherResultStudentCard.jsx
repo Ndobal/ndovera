@@ -9,7 +9,7 @@ import {
   RESULT_TABLE_ROW,
   getBatchTone,
 } from './resultSheetTheme';
-import { normalizeCaComponentDefinitions } from '../utils/resultEngineTransforms';
+import { normalizeCaComponentDefinitions, resolveResultScoreModel } from '../utils/resultEngineTransforms';
 
 export default function TeacherResultStudentCard({
   index,
@@ -23,6 +23,7 @@ export default function TeacherResultStudentCard({
 }) {
   const affectiveDomains = Array.isArray(settings?.affectiveDomains) ? settings.affectiveDomains : [];
   const ratingDomains = Array.isArray(settings?.metadata?.ratingDomains) ? settings.metadata.ratingDomains : [];
+  const scoreModel = resolveResultScoreModel(settings);
   const caComponentDefinitions = normalizeCaComponentDefinitions(settings);
   const componentTableWidth = 560 + (caComponentDefinitions.length * 120);
 
@@ -72,9 +73,9 @@ export default function TeacherResultStudentCard({
               {caComponentDefinitions.map(component => (
                 <th key={component.key} className="micro-label py-3 px-3">{component.label} ({component.maxScore})</th>
               ))}
-              <th className="micro-label py-3 px-3">CA Total (40)</th>
-              <th className="micro-label py-3 px-3">Exam (60)</th>
-              <th className="micro-label py-3 px-3">Total</th>
+              <th className="micro-label py-3 px-3">CA Total ({scoreModel.caMaxScore})</th>
+              <th className="micro-label py-3 px-3">Exam ({scoreModel.examMaxScore})</th>
+              <th className="micro-label py-3 px-3">Total ({scoreModel.totalMaxScore})</th>
               <th className="micro-label py-3 px-3">Grade</th>
               <th className="micro-label py-3 px-3">Remark</th>
             </tr>
@@ -100,7 +101,7 @@ export default function TeacherResultStudentCard({
                   <input
                     type="number"
                     min={0}
-                    max={60}
+                    max={scoreModel.examMaxScore}
                     value={row.exam}
                     onChange={event => onScoreChange(student.id, row.subjectId, 'exam', event.target.value)}
                     className={RESULT_INPUT}

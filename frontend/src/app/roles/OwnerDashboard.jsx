@@ -17,6 +17,7 @@ import OwnerAttendance from './owner/OwnerAttendance';
 import TeacherClassroom from '../../features/classroom/TeacherClassroom';
 import HoSMessaging from './hos/HoSMessaging';
 import AdmissionsManagementBoard from '../../features/school/components/AdmissionsManagementBoard';
+import SchoolAuditTrailPage from '../../features/school/components/SchoolAuditTrailPage';
 
 export default function OwnerDashboard({ auth = null }) {
   const location = useLocation();
@@ -35,6 +36,7 @@ export default function OwnerDashboard({ auth = null }) {
     case 'academics': return <OwnerResultAnalytics />;
     case 'people': return <OwnerPeople auth={auth} />;
     case 'compliance': return <OwnerCompliance auth={auth} />;
+    case 'audits': return <SchoolAuditTrailPage roleLabel="Owner dashboard" title="Live School Audit Trail" subtitle="Monitor the school's critical actions as they happen, including people, finance, admissions, and governance events." />;
     case 'approvals': return <OwnerApprovals auth={auth} />;
     case 'reports': return <OwnerReports auth={auth} />;
     case 'settings': return <OwnerSettings auth={auth} />;

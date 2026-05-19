@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
+import QRCode from 'qrcode';
 
 function normalizeBrandColor(value, fallback) {
   const color = String(value || '').trim();
@@ -21,12 +22,34 @@ function resolveRecordBranding(record = null) {
   };
 }
 
+function resolveRecordScoreModel(record = null) {
+  const payloadModel = record?.payload?.scoreModel && typeof record.payload.scoreModel === 'object' ? record.payload.scoreModel : {};
+  const metadata = record?.payload?.settingsSnapshot?.metadata && typeof record.payload.settingsSnapshot.metadata === 'object'
+    ? record.payload.settingsSnapshot.metadata
+    : {};
+  const configuredCa = Number(payloadModel.caMaxScore ?? metadata.caMaxScore);
+  const configuredExam = Number(payloadModel.examMaxScore ?? metadata.examMaxScore);
+  const caMaxScore = Number.isFinite(configuredCa) && configuredCa > 0 ? Math.max(1, Math.min(99, configuredCa)) : 40;
+  const examMaxScore = Number.isFinite(configuredExam) && configuredExam > 0 ? Math.max(1, Math.min(99, configuredExam)) : 60;
+
+  return {
+    caMaxScore,
+    examMaxScore,
+    totalMaxScore: caMaxScore + examMaxScore,
+  };
+}
+
 function filterRecordDocuments(documents = [], record = null) {
   if (!record) return [];
   return (Array.isArray(documents) ? documents : []).filter(document => (
     String(document?.sessionName || '') === String(record?.sessionName || '')
       && String(document?.termName || '') === String(record?.termName || '')
   ));
+}
+
+function buildVerificationLabel(url) {
+  if (!url) return '';
+  return url.length > 72 ? `${url.slice(0, 69)}...` : url;
 }
 
 export default function ResultRecordViewer({
@@ -45,6 +68,38 @@ export default function ResultRecordViewer({
   const summary = selectedRecord?.summary || {};
   const selectedDocuments = filterRecordDocuments(documents, selectedRecord);
   const branding = resolveRecordBranding(selectedRecord);
+  const scoreModel = resolveRecordScoreModel(selectedRecord);
+  const [qrDataUrl, setQrDataUrl] = useState('');
+
+  const verificationUrl = useMemo(() => {
+    const existingUrl = String(selectedRecord?.verificationUrl || '').trim();
+    if (existingUrl) return existingUrl;
+    if (typeof window === 'undefined' || !selectedRecord?.id) return '';
+    return `${window.location.origin}/result-verification/${encodeURIComponent(String(selectedRecord.id || ''))}`;
+  }, [selectedRecord?.id, selectedRecord?.verificationUrl]);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    if (!verificationUrl) {
+      setQrDataUrl('');
+      return undefined;
+    }
+
+    QRCode.toDataURL(verificationUrl, {
+      margin: 1,
+      width: 220,
+      color: { dark: '#800000', light: '#f5deb3' },
+    }).then(url => {
+      if (!cancelled) setQrDataUrl(url);
+    }).catch(() => {
+      if (!cancelled) setQrDataUrl('');
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [verificationUrl]);
 
   function handlePrint() {
     window.print();
@@ -82,6 +137,11 @@ export default function ResultRecordViewer({
           .result-record-print-gradient {
             print-color-adjust: exact;
             -webkit-print-color-adjust: exact;
+          }
+
+          .result-record-print-qr-wrap {
+            width: min(58vw, 420px) !important;
+            height: min(58vw, 420px) !important;
           }
         }
       `}</style>
@@ -197,14 +257,27 @@ export default function ResultRecordViewer({
             </div>
           </section>
 
+          {qrDataUrl ? (
+            <section className="result-record-print-surface rounded-3xl border border-[#c9a96e]/40 bg-[#f5deb3] p-6 text-center text-[#191970] shadow-[0_18px_42px_rgba(128,0,0,0.12)] dark:border-[#bf00ff]/35 dark:bg-[#800000]/75 dark:text-[#39ff14]">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#800020] dark:text-[#bf00ff]">Result Verification QR</p>
+              <h3 className="mt-2 text-2xl font-black text-[#800000] dark:text-white">Scan To Verify This Published Result</h3>
+              <p className="mt-2 text-sm text-[#191970] dark:text-[#39ff14]">The QR code is centered for printing so the full code remains clear on paper and PDF exports.</p>
+              <div className="result-record-print-qr-wrap mx-auto mt-6 flex h-[300px] w-[300px] items-center justify-center rounded-[32px] border border-[#c9a96e]/40 bg-[#fff8f0] p-4 dark:border-[#bf00ff]/30 dark:bg-black/25">
+                <img src={qrDataUrl} alt="Result verification QR code" className="h-full w-full rounded-3xl object-contain" />
+              </div>
+              <p className="mt-3 text-sm font-bold text-[#800000] dark:text-white">Public verification page</p>
+              <p className="mt-2 break-all text-[11px] font-semibold text-[#800020] dark:text-[#bf00ff]">{buildVerificationLabel(verificationUrl)}</p>
+            </section>
+          ) : null}
+
           <div className="result-record-print-surface glass-surface rounded-3xl p-6 overflow-x-auto">
             <table className="w-full text-sm min-w-[620px]">
               <thead>
                 <tr className="text-left">
                   <th className="micro-label py-2 pr-4">Subject</th>
-                  <th className="micro-label py-2 pr-4">CA</th>
-                  <th className="micro-label py-2 pr-4">Exam</th>
-                  <th className="micro-label py-2 pr-4">Total</th>
+                  <th className="micro-label py-2 pr-4">CA ({scoreModel.caMaxScore})</th>
+                  <th className="micro-label py-2 pr-4">Exam ({scoreModel.examMaxScore})</th>
+                  <th className="micro-label py-2 pr-4">Total ({scoreModel.totalMaxScore})</th>
                   <th className="micro-label py-2 pr-4">Grade</th>
                   <th className="micro-label py-2">Remark</th>
                 </tr>

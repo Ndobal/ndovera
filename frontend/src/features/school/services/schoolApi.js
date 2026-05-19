@@ -42,10 +42,14 @@ export const getMyTenant = async () => {
   const t = data?.tenants?.[0] || data;
   if (t?.subdomain || t?.schoolName || t?.name || t?.branding?.logoUrl || t?.logoUrl) {
     const subdomain = t.subdomain || '';
+    const websiteUrl = t.websiteUrl || (t.websiteDomain ? `https://${t.websiteDomain}` : (subdomain ? `https://${subdomain}.ndovera.com` : ''));
     const schoolName = t.schoolName || t.name || t.branding?.schoolName || '';
     const logoUrl = t.branding?.logoUrl || t.logoUrl || '';
     storeTenantPwaInfo({ schoolName, logoUrl, subdomain });
     window.localStorage.setItem('tenantSubdomain', subdomain);
+    if (websiteUrl) {
+      window.localStorage.setItem('tenantWebsiteUrl', websiteUrl);
+    }
   }
   return data;
 };
@@ -137,6 +141,8 @@ export const deleteEvent = (id) => req(`/api/school/events/${id}`, { method: 'DE
 export const uploadEventMedia = (file) => uploadFile('/api/school/events/upload', file);
 export const getAdmissionsQueue = (params = {}) => req(`/api/school/admissions${buildQuery(params)}`);
 export const reviewAdmissionApplication = (applicationId, data) => req(`/api/school/admissions/${applicationId}/review`, { method: 'POST', body: data });
+export const getWebsiteEnquiries = (params = {}) => req(`/api/school/enquiries${buildQuery(params)}`);
+export const reviewWebsiteEnquiry = (enquiryId, data) => req(`/api/school/enquiries/${enquiryId}/review`, { method: 'POST', body: data });
 export const getParents = () => req('/api/school/parents');
 export const bulkAddSubjects = (classId, data) => req(`/api/school/classes/${classId}/subjects/bulk`, { method: 'POST', body: data });
 export const updateSubject = (subjectId, data) => req(`/api/school/subjects/${subjectId}`, { method: 'PUT', body: data });
@@ -151,7 +157,16 @@ export const getFeesConfig = () => req('/api/school/fees-config');
 export const saveFeesConfig = (data) => req('/api/school/fees-config', { method: 'POST', body: data });
 export const getFeesLedger = () => req('/api/school/fees-ledger');
 export const getFeeReceipts = () => req('/api/school/fees-receipts');
+export const getFeesPaymentDetails = () => req('/api/school/fees/payment-details');
+export const saveFeesPaymentDetails = (data) => req('/api/school/fees/payment-details', { method: 'POST', body: data });
+export const getFeePaymentClaims = () => req('/api/school/fees/payment-claims');
+export const submitFeePaymentClaim = (data) => req('/api/school/fees/payment-claims', { method: 'POST', body: data });
+export const approveFeePaymentClaim = (claimId, data = {}) => req(`/api/school/fees/payment-claims/${claimId}/approve`, { method: 'POST', body: data });
+export const rejectFeePaymentClaim = (claimId, data = {}) => req(`/api/school/fees/payment-claims/${claimId}/reject`, { method: 'POST', body: data });
 export const markFeePaid = (studentId, data) => req(`/api/school/fees/${studentId}/pay`, { method: 'POST', body: data });
+export const getPushPublicKey = () => req('/api/push/public-key');
+export const savePushSubscription = (data) => req('/api/push/subscriptions', { method: 'POST', body: data });
+export const removePushSubscription = (data) => req('/api/push/subscriptions', { method: 'DELETE', body: data });
 
 // Expenditure
 export const getExpenditure = () => req('/api/school/expenditure');
@@ -173,7 +188,14 @@ export const markStaffAttendance = (data) => req('/api/school/staff-attendance',
 export const getStaffAttendanceSettings = () => req('/api/school/staff-attendance/settings');
 export const saveStaffAttendanceSettings = (data) => req('/api/school/staff-attendance/settings', { method: 'POST', body: data });
 export const rotateStaffAttendanceQr = () => req('/api/school/staff-attendance/settings/rotate-qr', { method: 'POST' });
-export const getStaffAttendanceActivity = (date) => req(`/api/school/staff-attendance/activity?date=${date}`);
+export const getStaffAttendanceActivity = (params = {}) => {
+  if (typeof params === 'string') {
+    return req(`/api/school/staff-attendance/activity?date=${encodeURIComponent(params)}`);
+  }
+  return req(`/api/school/staff-attendance/activity${buildQuery(params)}`);
+};
+export const submitStaffAttendanceActivity = (data) => req('/api/school/staff-attendance/activity', { method: 'POST', body: data });
+export const uploadStaffAttendanceFace = (file) => uploadFile('/api/school/staff-attendance/face-upload', file);
 export const getStudentAttendance = (dateOrFilters, classId) => {
   const params = new URLSearchParams();
 

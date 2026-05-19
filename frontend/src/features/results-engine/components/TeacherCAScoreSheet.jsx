@@ -7,7 +7,7 @@ import {
   saveTeacherScoreSheet,
   submitTeacherResults,
 } from '../service/resultEngineService';
-import { normalizeCaComponentDefinitions, recomputeTeacherSheet } from '../utils/resultEngineTransforms';
+import { normalizeCaComponentDefinitions, recomputeTeacherSheet, resolveResultScoreModel } from '../utils/resultEngineTransforms';
 import BroadsheetTable from './BroadsheetTable';
 import TeacherResultStudentCard from './TeacherResultStudentCard';
 import {
@@ -243,6 +243,7 @@ export default function TeacherCAScoreSheet({ dashboardLabel = 'Teacher Dashboar
   const workflowSteps = buildWorkflowSteps(sheet);
   const totalRows = visibleStudents.reduce((sum, student) => sum + student.rows.length, 0);
   const caComponentDefinitions = normalizeCaComponentDefinitions(sheet?.settings);
+  const scoreModel = resolveResultScoreModel(sheet?.settings);
 
   return (
     <div className="p-8 max-w-7xl mx-auto space-y-6">
@@ -337,7 +338,7 @@ export default function TeacherCAScoreSheet({ dashboardLabel = 'Teacher Dashboar
             <article className={`${RESULT_INNER_SURFACE} p-4`}>
               <p className={`micro-label ${RESULT_LABEL}`}>Subject Rows</p>
               <p className={`mt-2 text-3xl font-black ${RESULT_HEADING}`}>{totalRows}</p>
-              <p className={`mt-2 text-xs ${RESULT_BODY}`}>Every row is clamped to CA 40, exam 60, total 100.</p>
+              <p className={`mt-2 text-xs ${RESULT_BODY}`}>Every row is clamped to CA {scoreModel.caMaxScore}, exam {scoreModel.examMaxScore}, total {scoreModel.totalMaxScore}.</p>
             </article>
             <article className={`${RESULT_INNER_SURFACE} p-4`}>
               <p className={`micro-label ${RESULT_LABEL}`}>CA Grid</p>
