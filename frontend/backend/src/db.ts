@@ -352,6 +352,44 @@ export async function createPost(db: D1Database, post: any) {
   return { id, classId: post.classId, authorId: post.authorId, content: post.content, attachments: post.attachments || [], comments: post.comments || [], createdAt }
 }
 
+export async function getPostById(db: D1Database, postId: string) {
+  await ensurePostsTable(db)
+  const row = await db.prepare('SELECT id, classId, authorId, content, attachments, comments, createdAt FROM posts WHERE id = ?').bind(postId).first()
+  if (!row) return null
+  return {
+    ...row,
+    attachments: parseJsonField((row as any).attachments, [] as any[]),
+    comments: parseJsonField((row as any).comments, [] as any[]),
+  }
+}
+
+export async function updatePost(db: D1Database, postId: string, changes: any) {
+  const existing = await getPostById(db, postId)
+  if (!existing) return null
+
+  const nextPost = {
+    ...existing,
+    content: typeof changes?.content === 'string' ? changes.content : existing.content,
+    attachments: Array.isArray(changes?.attachments) ? changes.attachments : existing.attachments,
+    comments: Array.isArray(changes?.comments) ? changes.comments : existing.comments,
+  }
+
+  await db.prepare('UPDATE posts SET content = ?, attachments = ?, comments = ? WHERE id = ?').bind(
+    nextPost.content || null,
+    JSON.stringify(nextPost.attachments || []),
+    JSON.stringify(nextPost.comments || []),
+    postId,
+  ).run()
+
+  return nextPost
+}
+
+export async function deletePost(db: D1Database, postId: string) {
+  await ensurePostsTable(db)
+  await db.prepare('DELETE FROM posts WHERE id = ?').bind(postId).run()
+  return true
+}
+
 export async function addPostComment(db: D1Database, postId: string, comment: any) {
   await ensurePostsTable(db)
   const row = await db.prepare('SELECT id, comments FROM posts WHERE id = ?').bind(postId).first()
@@ -436,6 +474,55 @@ export async function createAssignment(db: D1Database, a: any) {
   }
 }
 
+export async function updateAssignment(db: D1Database, assignmentId: string, changes: any) {
+  const existing = await getAssignmentById(db, assignmentId)
+  if (!existing) return null
+
+  const updatedAt = new Date().toISOString()
+  const questions = Array.isArray(changes?.questions) ? changes.questions : (Array.isArray(existing.questions) ? existing.questions : [])
+  const metadata = changes?.metadata && typeof changes.metadata === 'object'
+    ? changes.metadata
+    : (existing.metadata && typeof existing.metadata === 'object' ? existing.metadata : {})
+
+  const nextAssignment = {
+    ...existing,
+    title: typeof changes?.title === 'string' ? changes.title : existing.title,
+    description: typeof changes?.description === 'string' ? changes.description : existing.description,
+    dueAt: Object.prototype.hasOwnProperty.call(changes || {}, 'dueAt') ? (changes?.dueAt || null) : existing.dueAt,
+    subjectId: typeof changes?.subjectId === 'string' ? changes.subjectId : existing.subjectId,
+    subjectName: typeof changes?.subjectName === 'string' ? changes.subjectName : existing.subjectName,
+    format: typeof changes?.format === 'string' ? changes.format : existing.format,
+    questions,
+    metadata,
+    updatedAt,
+  }
+
+  await db.prepare(
+    'UPDATE assignments SET title = ?, description = ?, dueAt = ?, subjectId = ?, subjectName = ?, format = ?, questionPayload = ?, metadata = ?, updatedAt = ? WHERE id = ?'
+  ).bind(
+    nextAssignment.title || null,
+    nextAssignment.description || null,
+    nextAssignment.dueAt || null,
+    nextAssignment.subjectId || null,
+    nextAssignment.subjectName || null,
+    nextAssignment.format || null,
+    JSON.stringify(nextAssignment.questions || []),
+    JSON.stringify(nextAssignment.metadata || {}),
+    updatedAt,
+    assignmentId,
+  ).run()
+
+  return nextAssignment
+}
+
+export async function deleteAssignment(db: D1Database, assignmentId: string) {
+  await ensureAssignmentsTable(db)
+  await ensureSubmissionsTable(db)
+  await db.prepare('DELETE FROM submissions WHERE assignmentId = ?').bind(assignmentId).run()
+  await db.prepare('DELETE FROM assignments WHERE id = ?').bind(assignmentId).run()
+  return true
+}
+
 export async function getLatestSubmissionForStudent(db: D1Database, assignmentId: string, studentId: string) {
   await ensureSubmissionsTable(db)
   const row = await db.prepare(
@@ -497,6 +584,50 @@ export async function addMaterial(db: D1Database, mat: any) {
     uploadedAt,
     uploadedBy: mat.uploadedBy,
   })
+}
+
+export async function getMaterialById(db: D1Database, materialId: string) {
+  await ensureMaterialsTable(db)
+  const row = await db.prepare('SELECT id, classId, title, url, metadata, uploadedAt, uploadedBy FROM materials WHERE id = ?').bind(materialId).first()
+  if (!row) return null
+  return mapMaterialRow(row)
+}
+
+export async function updateMaterial(db: D1Database, materialId: string, changes: any) {
+  const existing = await getMaterialById(db, materialId)
+  if (!existing) return null
+
+  const nextMaterial = {
+    ...existing,
+    title: typeof changes?.title === 'string' ? changes.title : existing.title,
+    url: Object.prototype.hasOwnProperty.call(changes || {}, 'url') ? (changes?.url || null) : existing.url,
+    metadata: changes?.metadata && typeof changes.metadata === 'object'
+      ? changes.metadata
+      : (existing.metadata && typeof existing.metadata === 'object' ? existing.metadata : {}),
+  }
+
+  await db.prepare('UPDATE materials SET title = ?, url = ?, metadata = ? WHERE id = ?').bind(
+    nextMaterial.title || null,
+    nextMaterial.url || null,
+    JSON.stringify(nextMaterial.metadata || {}),
+    materialId,
+  ).run()
+
+  return mapMaterialRow({
+    id: nextMaterial.id,
+    classId: nextMaterial.classId,
+    title: nextMaterial.title,
+    url: nextMaterial.url,
+    metadata: nextMaterial.metadata,
+    uploadedAt: nextMaterial.uploadedAt,
+    uploadedBy: nextMaterial.uploadedBy,
+  })
+}
+
+export async function deleteMaterial(db: D1Database, materialId: string) {
+  await ensureMaterialsTable(db)
+  await db.prepare('DELETE FROM materials WHERE id = ?').bind(materialId).run()
+  return true
 }
 
 export async function getAttendanceForClass(db: D1Database, classId: string, sinceDate?: string) {

@@ -35,6 +35,7 @@ const roleLabels = {
   cafeteria: 'Cafeteria Dashboard',
   clinic: 'Clinic Dashboard',
   ict: 'ICT Dashboard',
+  ict_manager: 'ICT Manager Dashboard',
   classteacher: 'Class Teacher Dashboard',
   hod: 'HOD Dashboard',
   hodassistant: 'HOD Assistant Dashboard',
@@ -131,6 +132,8 @@ function getRoleSidebarItems(roleKey) {
       { name: 'Overview', path: '/roles/hos' },
       { name: 'People', path: '/roles/hos/people' },
       { name: 'Academics', path: '/roles/hos/academics' },
+      { name: 'Admissions', path: '/roles/hos/admissions' },
+      { name: 'Classroom', path: '/roles/hos/classroom' },
       { name: 'Attendance', path: '/roles/hos/attendance' },
       { name: 'Payroll', path: '/roles/hos/payroll' },
       { name: 'Teacher Review', path: '/roles/hos/teacher-review' },
@@ -167,9 +170,12 @@ function getRoleSidebarItems(roleKey) {
       { name: 'Schools', path: '/roles/owner/schools' },
       { name: 'Finance', path: '/roles/owner/finance' },
       { name: 'Payroll', path: '/roles/owner/payroll' },
+      { name: 'Admissions', path: '/roles/owner/admissions' },
+      { name: 'Classroom', path: '/roles/owner/classroom' },
       { name: 'Attendance', path: '/roles/owner/attendance' },
       { name: 'Academics', path: '/roles/owner/academics' },
       { name: 'People', path: '/roles/owner/people' },
+      { name: 'Messaging', path: '/roles/owner/messaging' },
       { name: 'Compliance', path: '/roles/owner/compliance' },
       { name: 'Approvals', path: '/roles/owner/approvals' },
       { name: 'Reports', path: '/roles/owner/reports' },
@@ -236,6 +242,7 @@ function getRoleSidebarItems(roleKey) {
   if (roleKey === 'transport') {
     return [
       { name: 'Overview', path: '/roles/transport' },
+      { name: 'Admissions', path: '/roles/transport/admissions' },
       { name: 'Routes', path: '/roles/transport/routes' },
       { name: 'Attendance', path: '/roles/transport/attendance' },
       { name: 'Fleet', path: '/roles/transport/fleet' },
@@ -250,6 +257,7 @@ function getRoleSidebarItems(roleKey) {
   if (roleKey === 'hostel') {
     return [
       { name: 'Overview', path: '/roles/hostel' },
+      { name: 'Admissions', path: '/roles/hostel/admissions' },
       { name: 'Rooms', path: '/roles/hostel/rooms' },
       { name: 'Attendance', path: '/roles/hostel/attendance' },
       { name: 'Welfare', path: '/roles/hostel/welfare' },
@@ -278,6 +286,7 @@ function getRoleSidebarItems(roleKey) {
   if (roleKey === 'clinic') {
     return [
       { name: 'Overview', path: '/roles/clinic' },
+      { name: 'Admissions', path: '/roles/clinic/admissions' },
       { name: 'Patients', path: '/roles/clinic/patients' },
       { name: 'Visits', path: '/roles/clinic/visits' },
       { name: 'Medication', path: '/roles/clinic/medication' },
@@ -289,18 +298,18 @@ function getRoleSidebarItems(roleKey) {
     ];
   }
 
-  if (roleKey === 'ict') {
+  if (roleKey === 'ict' || roleKey === 'ict_manager') {
     return [
-      { name: 'Overview', path: '/roles/ict' },
-      { name: 'Results', path: '/roles/ict/results' },
-      { name: 'People', path: '/roles/ict/people' },
-      { name: 'Support', path: '/roles/ict/support' },
-      { name: 'Systems', path: '/roles/ict/systems' },
-      { name: 'Access', path: '/roles/ict/access' },
-      { name: 'Assets', path: '/roles/ict/assets' },
-      { name: 'Reports', path: '/roles/ict/reports' },
-      { name: 'Settings', path: '/roles/ict/settings' },
-      { name: 'Payslip', path: '/roles/ict/payslip' },
+      { name: 'Overview', path: `/roles/${roleKey}` },
+      { name: 'Results', path: `/roles/${roleKey}/results` },
+      { name: 'People', path: `/roles/${roleKey}/people` },
+      { name: 'Support', path: `/roles/${roleKey}/support` },
+      { name: 'Systems', path: `/roles/${roleKey}/systems` },
+      { name: 'Access', path: `/roles/${roleKey}/access` },
+      { name: 'Assets', path: `/roles/${roleKey}/assets` },
+      { name: 'Reports', path: `/roles/${roleKey}/reports` },
+      { name: 'Settings', path: `/roles/${roleKey}/settings` },
+      { name: 'Payslip', path: `/roles/${roleKey}/payslip` },
       libEntry,
     ];
   }

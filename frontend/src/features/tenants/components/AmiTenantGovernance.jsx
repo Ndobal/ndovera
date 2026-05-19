@@ -8,6 +8,7 @@ import {
   markTenantAsPaid,
   restoreTenant,
   suspendTenant,
+  upsertTenantAward,
   updateTenantPricing,
   upsertDiscountCode,
   verifyTenantPayment,
@@ -29,6 +30,36 @@ const initialDiscountState = {
   endsAt: '',
   active: true,
 };
+
+const currentAwardMonth = new Date().toISOString().slice(0, 7);
+const AWARD_OPTIONS = [
+  { value: 'most-active-staff', label: 'Most Active Staff' },
+  { value: 'most-active-student', label: 'Most Active Student' },
+  { value: 'most-punctual-staff', label: 'Most Punctual Staff' },
+  { value: 'attendance-champion-student', label: 'Attendance Champion Student' },
+  { value: 'consistency-star-staff', label: 'Consistency Star' },
+  { value: 'birthday-spotlight', label: 'Birthday Spotlight' },
+  { value: 'custom-award', label: 'Custom Award' },
+];
+
+function defaultAwardTitle(awardKey) {
+  return AWARD_OPTIONS.find(option => option.value === awardKey)?.label || 'School Recognition Award';
+}
+
+function buildDefaultAwardForm() {
+  return {
+    awardKey: 'most-active-staff',
+    awardTitle: defaultAwardTitle('most-active-staff'),
+    description: '',
+    periodMonth: currentAwardMonth,
+    userId: '',
+  };
+}
+
+function buildAwardAvatar(recipient) {
+  const seed = encodeURIComponent(recipient?.name || recipient?.displayId || recipient?.userId || recipient?.role || 'Ndovera');
+  return recipient?.avatarUrl || `https://api.dicebear.com/7.x/avataaars/svg?seed=${seed}`;
+}
 
 function statusClass(status) {
   switch (status) {
@@ -52,6 +83,7 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
   const [governanceData, setGovernanceData] = useState(null);
   const [discountForm, setDiscountForm] = useState(initialDiscountState);
   const [pricingForm, setPricingForm] = useState({ customPlanSetupFeeNaira: 50000 });
+  const [awardForms, setAwardForms] = useState({});
   const [busyAction, setBusyAction] = useState('');
   const [error, setError] = useState('');
   const [notice, setNotice] = useState('');
@@ -161,6 +193,26 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
     }));
   };
 
+  const handleAwardFormChange = (tenantId, event) => {
+    const { name, value } = event.target;
+    setAwardForms(current => {
+      const existing = current[tenantId] || buildDefaultAwardForm();
+      const next = {
+        ...existing,
+        [name]: value,
+      };
+
+      if (name === 'awardKey') {
+        next.awardTitle = value === 'custom-award' ? existing.awardTitle || 'School Recognition Award' : defaultAwardTitle(value);
+      }
+
+      return {
+        ...current,
+        [tenantId]: next,
+      };
+    });
+  };
+
   const handleSavePricing = async event => {
     event.preventDefault();
     await runAction('save-pricing', async () => {
@@ -174,6 +226,8 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
   const tenants = governanceData?.tenants || [];
   const payments = governanceData?.payments || [];
   const discountCodes = governanceData?.discountCodes || [];
+  const tenantAwards = governanceData?.tenantAwards || [];
+  const awardCandidatesByTenantId = governanceData?.awardCandidatesByTenantId || {};
   const summary = governanceData?.summary;
 
   const headerSection = (
@@ -277,99 +331,174 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
             <p className="text-sm text-purple-600 dark:text-purple-300">Approve after payment, or approve early and wait for payment to activate.</p>
           </div>
           <div className="space-y-4">
-            {tenants.length ? tenants.map(tenant => (
-              <div key={tenant.id} className="rounded-3xl border border-white/10 bg-slate-900/20 p-5 space-y-4">
-                <div className="flex flex-wrap items-start justify-between gap-3">
-                  <div>
-                    <p className="text-lg font-semibold text-slate-800 dark:text-slate-100">{tenant.schoolName}</p>
-                    <p className="text-sm text-slate-500 dark:text-slate-400">{tenant.ownerName} • {tenant.ownerEmail}</p>
-                    <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">{tenant.websiteDomain} • {tenant.studentCount} students • {tenant.planKey}</p>
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    <span className={`micro-label ${statusClass(tenant.status)}`}>{tenant.status}</span>
-                    <span className={`micro-label ${statusClass(tenant.paymentStatus)}`}>Payment: {tenant.paymentStatus}</span>
-                    <span className={`micro-label ${statusClass(tenant.approvalStatus)}`}>Approval: {tenant.approvalStatus}</span>
-                  </div>
-                </div>
+            {tenants.length ? tenants.map(tenant => {
+              const awardCandidates = awardCandidatesByTenantId[tenant.id] || [];
+              const awardForm = awardForms[tenant.id] || buildDefaultAwardForm();
+              const recentAwards = tenantAwards.filter(award => award.tenantId === tenant.id).slice(0, 4);
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
-                  <div className="rounded-2xl bg-slate-900/20 dark:bg-slate-900/30 p-4">
-                    <p className="micro-label neon-subtle">Setup Fee</p>
-                    <p className="mt-2 text-slate-800 dark:text-slate-100 font-semibold">{currencyFormatter.format(tenant.setupFee)}</p>
+              return (
+                <div key={tenant.id} className="rounded-3xl border border-white/10 bg-slate-900/20 p-5 space-y-4">
+                  <div className="flex flex-wrap items-start justify-between gap-3">
+                    <div>
+                      <p className="text-lg font-semibold text-slate-800 dark:text-slate-100">{tenant.schoolName}</p>
+                      <p className="text-sm text-slate-500 dark:text-slate-400">{tenant.ownerName} • {tenant.ownerEmail}</p>
+                      <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">{tenant.websiteDomain} • {tenant.studentCount} students • {tenant.planKey}</p>
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      <span className={`micro-label ${statusClass(tenant.status)}`}>{tenant.status}</span>
+                      <span className={`micro-label ${statusClass(tenant.paymentStatus)}`}>Payment: {tenant.paymentStatus}</span>
+                      <span className={`micro-label ${statusClass(tenant.approvalStatus)}`}>Approval: {tenant.approvalStatus}</span>
+                    </div>
                   </div>
-                  <div className="rounded-2xl bg-slate-900/20 dark:bg-slate-900/30 p-4">
-                    <p className="micro-label neon-subtle">Student Fee / Term</p>
-                    <p className="mt-2 text-slate-800 dark:text-slate-100 font-semibold">{currencyFormatter.format(tenant.studentFeePerTerm)}</p>
-                  </div>
-                  <div className="rounded-2xl bg-slate-900/20 dark:bg-slate-900/30 p-4">
-                    <p className="micro-label neon-subtle">Discount Code</p>
-                    <p className="mt-2 text-slate-800 dark:text-slate-100 font-semibold">{tenant.discountCode || 'None'}</p>
-                  </div>
-                </div>
 
-                <div className="flex flex-wrap gap-3">
-                  <button
-                    type="button"
-                    onClick={() => runAction(`pay-${tenant.id}`, async () => {
-                      const result = await initiateTenantPayment({ tenantId: tenant.id });
-                      window.open(result.checkoutUrl, '_blank', 'noopener,noreferrer');
-                      setNotice(`Flutterwave checkout opened for ${tenant.schoolName}.`);
-                    })}
-                    disabled={busyAction === `pay-${tenant.id}`}
-                    className="rounded-2xl bg-emerald-500 px-4 py-3 font-semibold text-slate-950 disabled:opacity-60"
-                  >
-                    {busyAction === `pay-${tenant.id}` ? 'Opening...' : 'Open Flutterwave Checkout'}
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => runAction(`mark-paid-${tenant.id}`, async () => {
-                      await markTenantAsPaid(tenant.id);
-                      setNotice(`${tenant.schoolName} marked as paid.`);
-                    })}
-                    disabled={busyAction === `mark-paid-${tenant.id}` || tenant.paymentStatus === 'paid'}
-                    className="rounded-2xl border border-amber-400/40 px-4 py-3 font-semibold text-amber-700 dark:text-amber-200 disabled:opacity-40"
-                  >
-                    {busyAction === `mark-paid-${tenant.id}` ? 'Marking...' : 'Mark as Paid'}
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => runAction(`approve-${tenant.id}`, async () => {
-                      await approveTenant(tenant.id, 'Approved from Ami tenant governance.');
-                      setNotice(`${tenant.schoolName} approved.`);
-                    })}
-                    disabled={busyAction === `approve-${tenant.id}` || tenant.approvalStatus === 'approved'}
-                    className="rounded-2xl border border-emerald-400/40 px-4 py-3 font-semibold text-emerald-700 dark:text-emerald-200 disabled:opacity-40"
-                  >
-                    Approve School
-                  </button>
-                  {tenant.status === 'suspended' ? (
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
+                    <div className="rounded-2xl bg-slate-900/20 dark:bg-slate-900/30 p-4">
+                      <p className="micro-label neon-subtle">Setup Fee</p>
+                      <p className="mt-2 text-slate-800 dark:text-slate-100 font-semibold">{currencyFormatter.format(tenant.setupFee)}</p>
+                    </div>
+                    <div className="rounded-2xl bg-slate-900/20 dark:bg-slate-900/30 p-4">
+                      <p className="micro-label neon-subtle">Student Fee / Term</p>
+                      <p className="mt-2 text-slate-800 dark:text-slate-100 font-semibold">{currencyFormatter.format(tenant.studentFeePerTerm)}</p>
+                    </div>
+                    <div className="rounded-2xl bg-slate-900/20 dark:bg-slate-900/30 p-4">
+                      <p className="micro-label neon-subtle">Discount Code</p>
+                      <p className="mt-2 text-slate-800 dark:text-slate-100 font-semibold">{tenant.discountCode || 'None'}</p>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-wrap gap-3">
                     <button
                       type="button"
-                      onClick={() => runAction(`restore-${tenant.id}`, async () => {
-                        await restoreTenant(tenant.id);
-                        setNotice(`${tenant.schoolName} restored.`);
+                      onClick={() => runAction(`pay-${tenant.id}`, async () => {
+                        const result = await initiateTenantPayment({ tenantId: tenant.id });
+                        window.open(result.checkoutUrl, '_blank', 'noopener,noreferrer');
+                        setNotice(`Flutterwave checkout opened for ${tenant.schoolName}.`);
                       })}
-                      disabled={busyAction === `restore-${tenant.id}`}
-                      className="rounded-2xl border border-indigo-400/40 px-4 py-3 font-semibold text-indigo-700 dark:text-indigo-200 disabled:opacity-40"
+                      disabled={busyAction === `pay-${tenant.id}`}
+                      className="rounded-2xl bg-emerald-500 px-4 py-3 font-semibold text-slate-950 disabled:opacity-60"
                     >
-                      Restore Tenant
+                      {busyAction === `pay-${tenant.id}` ? 'Opening...' : 'Open Flutterwave Checkout'}
                     </button>
-                  ) : (
                     <button
                       type="button"
-                      onClick={() => runAction(`suspend-${tenant.id}`, async () => {
-                        await suspendTenant(tenant.id);
-                        setNotice(`${tenant.schoolName} suspended.`);
+                      onClick={() => runAction(`mark-paid-${tenant.id}`, async () => {
+                        await markTenantAsPaid(tenant.id);
+                        setNotice(`${tenant.schoolName} marked as paid.`);
                       })}
-                      disabled={busyAction === `suspend-${tenant.id}`}
-                      className="rounded-2xl border border-rose-400/40 px-4 py-3 font-semibold text-rose-700 dark:text-rose-200 disabled:opacity-40"
+                      disabled={busyAction === `mark-paid-${tenant.id}` || tenant.paymentStatus === 'paid'}
+                      className="rounded-2xl border border-amber-400/40 px-4 py-3 font-semibold text-amber-700 dark:text-amber-200 disabled:opacity-40"
                     >
-                      Suspend Tenant
+                      {busyAction === `mark-paid-${tenant.id}` ? 'Marking...' : 'Mark as Paid'}
                     </button>
-                  )}
+                    <button
+                      type="button"
+                      onClick={() => runAction(`approve-${tenant.id}`, async () => {
+                        await approveTenant(tenant.id, 'Approved from Ami tenant governance.');
+                        setNotice(`${tenant.schoolName} approved.`);
+                      })}
+                      disabled={busyAction === `approve-${tenant.id}` || tenant.approvalStatus === 'approved'}
+                      className="rounded-2xl border border-emerald-400/40 px-4 py-3 font-semibold text-emerald-700 dark:text-emerald-200 disabled:opacity-40"
+                    >
+                      Approve School
+                    </button>
+                    {tenant.status === 'suspended' ? (
+                      <button
+                        type="button"
+                        onClick={() => runAction(`restore-${tenant.id}`, async () => {
+                          await restoreTenant(tenant.id);
+                          setNotice(`${tenant.schoolName} restored.`);
+                        })}
+                        disabled={busyAction === `restore-${tenant.id}`}
+                        className="rounded-2xl border border-indigo-400/40 px-4 py-3 font-semibold text-indigo-700 dark:text-indigo-200 disabled:opacity-40"
+                      >
+                        Restore Tenant
+                      </button>
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={() => runAction(`suspend-${tenant.id}`, async () => {
+                          await suspendTenant(tenant.id);
+                          setNotice(`${tenant.schoolName} suspended.`);
+                        })}
+                        disabled={busyAction === `suspend-${tenant.id}`}
+                        className="rounded-2xl border border-rose-400/40 px-4 py-3 font-semibold text-rose-700 dark:text-rose-200 disabled:opacity-40"
+                      >
+                        Suspend Tenant
+                      </button>
+                    )}
+                  </div>
+
+                  <div className="grid grid-cols-1 xl:grid-cols-[1.1fr_0.9fr] gap-4">
+                    <div className="rounded-3xl border border-white/10 bg-slate-900/20 dark:bg-slate-900/30 p-4 space-y-3">
+                      <div className="flex items-center justify-between gap-3">
+                        <div>
+                          <p className="micro-label neon-subtle">Attach Monthly Award</p>
+                          <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">Select a school user and attach an AMI-managed highlight for the month.</p>
+                        </div>
+                        <span className="micro-label accent-indigo">{awardForm.periodMonth || currentAwardMonth}</span>
+                      </div>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <select name="awardKey" value={awardForm.awardKey} onChange={event => handleAwardFormChange(tenant.id, event)} className="w-full rounded-2xl border border-white/10 bg-slate-900/20 px-4 py-3 text-slate-900 dark:text-amber-100">
+                          {AWARD_OPTIONS.map(option => <option key={option.value} value={option.value}>{option.label}</option>)}
+                        </select>
+                        <input name="periodMonth" type="month" value={awardForm.periodMonth} onChange={event => handleAwardFormChange(tenant.id, event)} className="w-full rounded-2xl border border-white/10 bg-slate-900/20 px-4 py-3 text-slate-900 dark:text-amber-100" />
+                      </div>
+                      <select name="userId" value={awardForm.userId} onChange={event => handleAwardFormChange(tenant.id, event)} className="w-full rounded-2xl border border-white/10 bg-slate-900/20 px-4 py-3 text-slate-900 dark:text-amber-100">
+                        <option value="">Select award recipient</option>
+                        {awardCandidates.map(candidate => <option key={candidate.userId} value={candidate.userId}>{candidate.name} • {candidate.role || 'user'}</option>)}
+                      </select>
+                      <input name="awardTitle" value={awardForm.awardTitle} onChange={event => handleAwardFormChange(tenant.id, event)} placeholder="Award title" className="w-full rounded-2xl border border-white/10 bg-slate-900/20 px-4 py-3 text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-500" />
+                      <textarea name="description" value={awardForm.description} onChange={event => handleAwardFormChange(tenant.id, event)} placeholder="Why this award matters for the school this month" className="w-full min-h-[84px] rounded-2xl border border-white/10 bg-slate-900/20 px-4 py-3 text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-500" />
+                      <button
+                        type="button"
+                        onClick={() => runAction(`award-${tenant.id}`, async () => {
+                          await upsertTenantAward(tenant.id, awardForm);
+                          setNotice(`${awardForm.awardTitle || 'Award'} attached to ${tenant.schoolName}.`);
+                          setAwardForms(current => ({
+                            ...current,
+                            [tenant.id]: {
+                              ...buildDefaultAwardForm(),
+                              awardKey: awardForm.awardKey,
+                              awardTitle: awardForm.awardKey === 'custom-award' ? 'School Recognition Award' : defaultAwardTitle(awardForm.awardKey),
+                              periodMonth: awardForm.periodMonth || currentAwardMonth,
+                            },
+                          }));
+                        })}
+                        disabled={busyAction === `award-${tenant.id}` || !awardForm.userId}
+                        className="w-full rounded-2xl bg-cyan-400 px-4 py-3 font-semibold text-slate-950 disabled:opacity-60"
+                      >
+                        {busyAction === `award-${tenant.id}` ? 'Attaching...' : 'Attach Award'}
+                      </button>
+                    </div>
+
+                    <div className="rounded-3xl border border-white/10 bg-slate-900/20 dark:bg-slate-900/30 p-4 space-y-3">
+                      <div className="flex items-center justify-between gap-3">
+                        <div>
+                          <p className="micro-label neon-subtle">Recent School Awards</p>
+                          <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">Latest AMI-attached recognitions for this tenant.</p>
+                        </div>
+                        <span className="micro-label accent-emerald">{recentAwards.length}</span>
+                      </div>
+                      <div className="space-y-3">
+                        {recentAwards.length ? recentAwards.map(award => (
+                          <div key={award.id} className="rounded-2xl border border-white/10 bg-slate-900/20 p-3 flex items-start gap-3">
+                            <img src={buildAwardAvatar(award.recipient)} alt={award.recipient?.name || award.awardTitle} className="h-12 w-12 rounded-2xl object-cover border border-white/10 bg-white/70" />
+                            <div className="min-w-0">
+                              <div className="flex flex-wrap items-center gap-2">
+                                <p className="font-semibold text-slate-900 dark:text-amber-50">{award.awardTitle}</p>
+                                <span className="micro-label accent-indigo">{award.periodMonth}</span>
+                              </div>
+                              <p className="mt-1 text-sm text-slate-700 dark:text-amber-100">{award.recipient?.name} • {award.recipient?.role || 'user'}</p>
+                              {award.description ? <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">{award.description}</p> : null}
+                            </div>
+                          </div>
+                        )) : <p className="text-sm text-slate-500 dark:text-slate-400">No awards attached for this school yet.</p>}
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            )) : <p className="text-slate-500 dark:text-slate-400">No tenant registrations yet.</p>}
+              );
+            }) : <p className="text-slate-500 dark:text-slate-400">No tenant registrations yet.</p>}
           </div>
         </section>
 

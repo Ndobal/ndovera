@@ -6,6 +6,7 @@ import { ParentResultView } from '../../features/results-engine';
 import { ParentFarmingMode } from '../../features/auras';
 import ParentMaterialsPage from '../../features/classroom/ParentMaterialsPage';
 import LessonPlanViewerPage from '../../features/lesson-plans/LessonPlanViewerPage';
+import ParentFeesReceiptsPage from '../../features/school/components/ParentFeesReceiptsPage';
 import useFeatureFlags from '../../shared/hooks/useFeatureFlags';
 
 export default function ParentDashboard() {
@@ -37,6 +38,10 @@ export default function ParentDashboard() {
         emptyMessage="Approved lesson plans shared with parents will appear here automatically."
       />
     );
+  }
+
+  if (sectionKey === 'fees') {
+    return <ParentFeesReceiptsPage />;
   }
 
   if (sectionKey === 'auras' && !featureFlags.aurasEnabled) {

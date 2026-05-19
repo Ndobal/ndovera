@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { getMyTenant, getFeesLedger, saveFeesConfig, markFeePaid, getExpenditure, addExpenditure, runFinanceAI, getClasses } from '../../../features/school/services/schoolApi';
+import FeesManagementBoard from '../../../features/school/components/FeesManagementBoard';
+import { getMyTenant, getExpenditure, addExpenditure, runFinanceAI, getFeesLedger } from '../../../features/school/services/schoolApi';
 
 const TABS = ['Subscription', 'Fees', 'Expenditure', 'Income & Expenditure', 'AI Analysis'];
 const CARD = 'rounded-3xl p-6 bg-[#f5deb3] border border-[#c9a96e]/40';
@@ -59,67 +60,7 @@ function SubscriptionTab() {
 }
 
 function FeesTab() {
-  const [ledger, setLedger] = useState([]);
-  const [classes, setClasses] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [showModal, setShowModal] = useState(false);
-  const [payModal, setPayModal] = useState(null);
-  const [form, setForm] = useState({ feeType: 'Tuition', classId: '', amount: '', session: '' });
-  const [payForm, setPayForm] = useState({ amount: '', paymentType: 'cash' });
-  const [saving, setSaving] = useState(false);
-  const [toast, setToast] = useState('');
-  function showToast(msg) { setToast(msg); setTimeout(() => setToast(''), 3000); }
-  useEffect(() => {
-    Promise.all([getFeesLedger(), getClasses()])
-      .then(([l, c]) => { setLedger(l?.ledger || l?.fees || []); setClasses(c?.classes || []); })
-      .catch(() => {}).finally(() => setLoading(false));
-  }, []);
-  async function handleConfigSave() {
-    if (!form.amount) return;
-    setSaving(true);
-    try { await saveFeesConfig(form); showToast('Fees configured!'); setShowModal(false); setForm({ feeType: 'Tuition', classId: '', amount: '', session: '' }); }
-    catch (e) { showToast(e.message); } finally { setSaving(false); }
-  }
-  async function handleMarkPaid() {
-    if (!payModal || !payForm.amount) return;
-    setSaving(true);
-    try { await markFeePaid(payModal.studentId || payModal.id, payForm); showToast('Payment recorded!'); setPayModal(null); const l = await getFeesLedger(); setLedger(l?.ledger || l?.fees || []); }
-    catch (e) { showToast(e.message); } finally { setSaving(false); }
-  }
-  const statusColor = { Paid: 'text-emerald-700', Partial: 'text-amber-700', Unpaid: 'text-red-700' };
-  return (
-    <div className="space-y-4">
-      {toast && <div className="fixed top-6 right-6 z-50 bg-[#1a5c38] text-[#f5deb3] font-bold px-5 py-3 rounded-2xl shadow-xl">{toast}</div>}
-      <div className={CARD}><div className="flex items-center justify-between mb-4"><h2 className="text-lg font-bold text-[#800000]">Student Fees</h2><button onClick={() => setShowModal(true)} className={BTN}>Configure Fees</button></div>
-        {loading ? <p className="text-[#800020] text-sm">Loading...</p> : ledger.length === 0 ? <p className="text-[#800020] text-sm">No fee records found.</p> :
-          <div className="overflow-x-auto"><table className="w-full text-sm"><thead><tr className="text-left text-[#800020] font-semibold border-b border-[#c9a96e]/40">
-            <th className="pb-2 pr-4">Name</th><th className="pb-2 pr-4">Class</th><th className="pb-2 pr-4">Fee Amount</th><th className="pb-2 pr-4">Amount Paid</th><th className="pb-2 pr-4">Balance</th><th className="pb-2 pr-4">Status</th><th className="pb-2">Action</th>
-          </tr></thead><tbody>{ledger.map((s, i) => (
-            <tr key={s.id || i} className="border-b border-[#c9a96e]/20"><td className="py-2 pr-4 text-[#191970]">{s.name}</td><td className="py-2 pr-4 text-[#191970]">{s.className || s.classId || '—'}</td>
-              <td className="py-2 pr-4 text-[#191970]">₦{(s.feeAmount || 0).toLocaleString()}</td><td className="py-2 pr-4 text-[#191970]">₦{(s.amountPaid || 0).toLocaleString()}</td>
-              <td className="py-2 pr-4 text-[#191970]">₦{((s.feeAmount || 0) - (s.amountPaid || 0)).toLocaleString()}</td>
-              <td className="py-2 pr-4"><span className={`font-semibold ${statusColor[s.status] || 'text-[#191970]'}`}>{s.status || 'Unpaid'}</span></td>
-              <td className="py-2"><button onClick={() => setPayModal(s)} className="text-xs bg-[#1a5c38] text-[#f5deb3] font-bold px-3 py-1 rounded-xl">Mark Paid</button></td>
-            </tr>))}</tbody></table></div>}
-      </div>
-      {showModal && <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40"><div className={`${CARD} w-full max-w-md`}><h3 className="text-base font-bold text-[#800000] mb-4">Configure Fees</h3>
-        <div className="space-y-3">
-          <div><label className="text-xs font-semibold text-[#800020]">Fee Type</label><select value={form.feeType} onChange={e => setForm(f => ({...f, feeType: e.target.value}))} className="w-full mt-1 rounded-xl border border-[#c9a96e]/40 p-2 text-[#191970]"><option>Tuition</option><option>Transport</option><option>Extras</option></select></div>
-          <div><label className="text-xs font-semibold text-[#800020]">Class</label><select value={form.classId} onChange={e => setForm(f => ({...f, classId: e.target.value}))} className="w-full mt-1 rounded-xl border border-[#c9a96e]/40 p-2 text-[#191970]"><option value="">All Classes</option>{classes.map(c => <option key={c.id} value={c.id}>{c.name}{c.arm ? ` ${c.arm}` : ''}</option>)}</select></div>
-          <div><label className="text-xs font-semibold text-[#800020]">Amount (₦)</label><input type="number" value={form.amount} onChange={e => setForm(f => ({...f, amount: e.target.value}))} className="w-full mt-1 rounded-xl border border-[#c9a96e]/40 p-2 text-[#191970]" /></div>
-          <div><label className="text-xs font-semibold text-[#800020]">Session</label><input type="text" value={form.session} placeholder="e.g. 2024/2025" onChange={e => setForm(f => ({...f, session: e.target.value}))} className="w-full mt-1 rounded-xl border border-[#c9a96e]/40 p-2 text-[#191970]" /></div>
-        </div>
-        <div className="flex gap-3 mt-4"><button onClick={handleConfigSave} disabled={saving} className={BTN}>{saving ? 'Saving…' : 'Save Config'}</button><button onClick={() => setShowModal(false)} className="text-[#800020] font-semibold px-4 py-2 text-sm">Cancel</button></div>
-      </div></div>}
-      {payModal && <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40"><div className={`${CARD} w-full max-w-sm`}><h3 className="text-base font-bold text-[#800000] mb-4">Record Payment — {payModal.name}</h3>
-        <div className="space-y-3">
-          <div><label className="text-xs font-semibold text-[#800020]">Amount (₦)</label><input type="number" value={payForm.amount} onChange={e => setPayForm(f => ({...f, amount: e.target.value}))} className="w-full mt-1 rounded-xl border border-[#c9a96e]/40 p-2 text-[#191970]" /></div>
-          <div><label className="text-xs font-semibold text-[#800020]">Payment Type</label><select value={payForm.paymentType} onChange={e => setPayForm(f => ({...f, paymentType: e.target.value}))} className="w-full mt-1 rounded-xl border border-[#c9a96e]/40 p-2 text-[#191970]"><option value="cash">Cash</option><option value="transfer">Transfer</option><option value="wallet">Wallet</option></select></div>
-        </div>
-        <div className="flex gap-3 mt-4"><button onClick={handleMarkPaid} disabled={saving} className={BTN}>{saving ? 'Saving…' : 'Record Payment'}</button><button onClick={() => setPayModal(null)} className="text-[#800020] font-semibold px-4 py-2 text-sm">Cancel</button></div>
-      </div></div>}
-    </div>
-  );
+  return <FeesManagementBoard />;
 }
 
 function ExpenditureTab() {

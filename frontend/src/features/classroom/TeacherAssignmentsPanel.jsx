@@ -112,6 +112,14 @@ function formatDueDate(value) {
   return Number.isNaN(parsed.getTime()) ? value : parsed.toLocaleString();
 }
 
+function formatDueDateInput(value) {
+  const raw = String(value || '').trim();
+  if (!raw) return '';
+  if (/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}/.test(raw)) return raw.slice(0, 16);
+  const parsed = new Date(raw);
+  return Number.isNaN(parsed.getTime()) ? '' : parsed.toISOString().slice(0, 16);
+}
+
 function normalizeQuestionScore(value) {
   const numericScore = Number(value);
   return Number.isFinite(numericScore) && numericScore > 0 ? numericScore : 1;
@@ -609,6 +617,7 @@ export default function TeacherAssignmentsPanel({
   currentClassId = '',
   currentClassName = '',
   assignments = [],
+  canModerate = false,
   onRefreshAssignments,
   onSelectClass,
 }) {
@@ -810,6 +819,79 @@ export default function TeacherAssignmentsPanel({
         return { ...question, pairs: remainingPairs.length ? remainingPairs : [{ id: createId('pair'), left: '', right: '' }] };
       }),
     }));
+  }
+
+  async function handleEditAssignment(assignment) {
+    if (!currentClassId) {
+      setComposerError('Choose a class before editing this assignment.');
+      return;
+    }
+
+    setComposerError('');
+    setComposerNotice('');
+
+    const nextTitle = window.prompt('Update assignment title', assignment.title || '');
+    if (nextTitle === null) return;
+    const normalizedTitle = nextTitle.trim();
+    if (!normalizedTitle) {
+      setComposerError('Assignment title is required.');
+      return;
+    }
+
+    const nextDescription = window.prompt('Update assignment instructions', assignment.description || '');
+    if (nextDescription === null) return;
+
+    const nextDueAt = window.prompt('Update due date/time in YYYY-MM-DDTHH:mm format. Leave blank to clear it.', formatDueDateInput(assignment.dueAt));
+    if (nextDueAt === null) return;
+
+    try {
+      const response = await svc.updateAssignment(currentClassId, assignment.id, {
+        title: normalizedTitle,
+        description: nextDescription.trim(),
+        dueAt: nextDueAt.trim(),
+      });
+
+      if (!response?.success) {
+        setComposerError(response?.message || 'Could not update this assignment.');
+        return;
+      }
+
+      setComposerNotice(`Updated ${normalizedTitle}.`);
+      if (viewingAssignment?.id === assignment.id) setViewingAssignment(response.assignment || null);
+      if (submissionsAssignment?.id === assignment.id) setSubmissionsAssignment(response.assignment || null);
+      onRefreshAssignments?.();
+    } catch (error) {
+      setComposerError(error instanceof Error ? error.message : 'Could not update this assignment.');
+    }
+  }
+
+  async function handleDeleteAssignment(assignment) {
+    if (!currentClassId) {
+      setComposerError('Choose a class before deleting this assignment.');
+      return;
+    }
+
+    if (!window.confirm(`Delete ${assignment.title || 'this assignment'}? This will also remove its saved submissions.`)) {
+      return;
+    }
+
+    setComposerError('');
+    setComposerNotice('');
+
+    try {
+      const response = await svc.deleteAssignment(currentClassId, assignment.id);
+      if (!response?.success) {
+        setComposerError(response?.message || 'Could not delete this assignment.');
+        return;
+      }
+
+      setComposerNotice(`Deleted ${assignment.title || 'assignment'}.`);
+      if (viewingAssignment?.id === assignment.id) setViewingAssignment(null);
+      if (submissionsAssignment?.id === assignment.id) setSubmissionsAssignment(null);
+      onRefreshAssignments?.();
+    } catch (error) {
+      setComposerError(error instanceof Error ? error.message : 'Could not delete this assignment.');
+    }
   }
 
   async function uploadQuestionImage(questionId, file) {
@@ -1167,6 +1249,9 @@ export default function TeacherAssignmentsPanel({
           <button type="button" onClick={openComposer} className={PRIMARY_BUTTON}>Create Assignment</button>
         </div>
 
+        {!composerOpen && composerError && <div className="mt-4 rounded-2xl border border-red-400/35 bg-red-50 px-4 py-3 text-sm text-[#800000] dark:border-[#ff5f8d]/35 dark:bg-[#4a0014] dark:text-[#ffffff]">{composerError}</div>}
+        {!composerOpen && composerNotice && <div className="mt-4 rounded-2xl border border-[#1a5c38]/35 bg-[#edf8f1] px-4 py-3 text-sm text-[#1a5c38] dark:border-[#00ffff]/35 dark:bg-[#002b2c] dark:text-[#00ffff]">{composerNotice}</div>}
+
         <div className="mt-4 space-y-3">
           {assignments.length === 0 && (
             <div className={SUB_SURFACE}>
@@ -1188,6 +1273,8 @@ export default function TeacherAssignmentsPanel({
                     <span className="inline-flex rounded-full bg-[#1a5c38] px-3 py-1 text-xs font-bold uppercase tracking-[0.15em] text-[#f5deb3] dark:bg-[#00ffff] dark:text-[#000000]">{summary.format}</span>
                     <button type="button" onClick={() => setViewingAssignment(assignment)} className={SECONDARY_BUTTON}>View</button>
                     <button type="button" onClick={() => setSubmissionsAssignment(assignment)} className="rounded-2xl border border-[#1a5c38]/50 bg-[#1a5c38]/10 px-4 py-2 text-sm font-bold text-[#1a5c38] hover:bg-[#1a5c38]/20 transition-colors">Submissions</button>
+                    {canModerate && <button type="button" onClick={() => handleEditAssignment(assignment)} className={SECONDARY_BUTTON}>Edit</button>}
+                    {canModerate && <button type="button" onClick={() => handleDeleteAssignment(assignment)} className={DANGER_BUTTON}>Delete</button>}
                   </div>
                 </div>
 

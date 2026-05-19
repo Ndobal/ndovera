@@ -12,8 +12,9 @@ import {
   getSettings, upsertSettings, addAudit, getAuditForStudent, getAllAudits,
   getAllBooks, getBookById, upsertBook, deleteBook, borrowBook, returnBook,
   getBorrowingsForStudent, getAllBorrowings, getClassById, getPostsForClass,
-  createPost, addPostComment, getAssignmentsForClass, getAssignmentById, createAssignment, getLatestSubmissionForStudent, createSubmission, getMaterialsForClass,
-  addMaterial, getAttendanceForClass, recordAttendance, saveContent,
+  createPost, getPostById, updatePost, deletePost, addPostComment,
+  getAssignmentsForClass, getAssignmentById, createAssignment, updateAssignment, deleteAssignment, getLatestSubmissionForStudent, createSubmission,
+  getMaterialsForClass, getMaterialById, addMaterial, updateMaterial, deleteMaterial, getAttendanceForClass, recordAttendance, saveContent,
   getAttendance, upsertAttendance, updateAttendance, getConversations,
   createConversation, getMessages, sendMessage, markMessagesRead, listConversationReadStates,
   listSchoolAnnouncements, createSchoolAnnouncement,
@@ -1090,19 +1091,278 @@ function buildPublishedResultPayloads(params: {
 }
 
 async function getStudentFeeStatus(db: D1Database, tenantId: string, studentId: string) {
-  await db.prepare(`CREATE TABLE IF NOT EXISTS fees_ledger (id TEXT PRIMARY KEY, tenant_id TEXT, student_id TEXT, student_name TEXT, class_id TEXT, class_name TEXT, fee_amount REAL, amount_paid REAL, status TEXT, updated_at TEXT)`).run()
+  await ensureFeesLedgerTable(db)
   const row = await db.prepare(`SELECT fee_amount, amount_paid, status FROM fees_ledger WHERE tenant_id = ? AND student_id = ?`).bind(tenantId, studentId).first() as Record<string, any> | null
   if (!row) return { locked: false, status: 'Not Tracked' }
 
   const feeAmount = Number(row.fee_amount || 0)
   const amountPaid = Number(row.amount_paid || 0)
-  const derivedStatus = feeAmount > 0
-    ? (amountPaid >= feeAmount ? 'Paid' : amountPaid > 0 ? 'Partial' : 'Unpaid')
-    : (String(row.status || '').trim() || 'Paid')
+  const derivedStatus = deriveFeeLedgerStatus(feeAmount, amountPaid, row.status)
 
   return {
     locked: ['Partial', 'Unpaid'].includes(derivedStatus),
     status: derivedStatus,
+  }
+}
+
+const FEES_LEDGER_DDL = `CREATE TABLE IF NOT EXISTS fees_ledger (id TEXT PRIMARY KEY, tenant_id TEXT, student_id TEXT, student_name TEXT, class_id TEXT, class_name TEXT, fee_amount REAL, amount_paid REAL, status TEXT, updated_at TEXT)`
+const FEES_CONFIG_DDL = `CREATE TABLE IF NOT EXISTS fees_config (id TEXT PRIMARY KEY, tenant_id TEXT, fee_type TEXT, class_id TEXT, amount REAL, session TEXT, created_at TEXT)`
+const FEES_PAYMENT_RECEIPTS_DDL = `CREATE TABLE IF NOT EXISTS fees_payment_receipts (id TEXT PRIMARY KEY, receipt_no TEXT, tenant_id TEXT, student_id TEXT, student_name TEXT, class_id TEXT, class_name TEXT, amount REAL, payment_type TEXT, fee_amount REAL, amount_paid_after REAL, balance_after REAL, status_after TEXT, recorded_by TEXT, recorded_at TEXT)`
+
+async function ensureFeesLedgerTable(db: D1Database) {
+  await db.prepare(FEES_LEDGER_DDL).run()
+}
+
+async function ensureFeesConfigTable(db: D1Database) {
+  await db.prepare(FEES_CONFIG_DDL).run()
+}
+
+async function ensureFeesPaymentReceiptsTable(db: D1Database) {
+  await db.prepare(FEES_PAYMENT_RECEIPTS_DDL).run()
+}
+
+function deriveFeeLedgerStatus(feeAmount: unknown, amountPaid: unknown, explicitStatus: unknown = '') {
+  const total = Number(feeAmount || 0)
+  const paid = Number(amountPaid || 0)
+
+  if (total > 0) {
+    return paid >= total ? 'Paid' : paid > 0 ? 'Partial' : 'Unpaid'
+  }
+
+  const normalizedStatus = String(explicitStatus || '').trim()
+  if (normalizedStatus) {
+    return normalizedStatus
+  }
+
+  return paid > 0 ? 'Partial' : 'Paid'
+}
+
+function formatNairaAmount(value: unknown) {
+  const amount = Number(value || 0)
+  const safeAmount = Number.isFinite(amount) ? amount : 0
+  return `₦${safeAmount.toLocaleString()}`
+}
+
+function buildFeesConfigLookup(configRows: Record<string, any>[] = []) {
+  const feeLookup = {} as Record<string, number>
+  const feeTypes = new Set<string>()
+
+  for (const config of configRows) {
+    const feeType = String(config.fee_type || config.feeType || '').trim()
+    if (!feeType) continue
+
+    feeTypes.add(feeType)
+    const classKey = String(config.class_id || config.classId || '').trim() || '__all__'
+    const lookupKey = `${classKey}::${feeType.toLowerCase()}`
+
+    if (feeLookup[lookupKey] === undefined) {
+      feeLookup[lookupKey] = Number(config.amount || 0)
+    }
+  }
+
+  return {
+    feeLookup,
+    feeTypes: Array.from(feeTypes),
+  }
+}
+
+function computeConfiguredFeeTotal(classId: unknown, feeTypes: string[], feeLookup: Record<string, number>) {
+  const classKey = String(classId || '').trim() || '__all__'
+
+  return feeTypes.reduce((sum, feeType) => {
+    const exactKey = `${classKey}::${feeType.toLowerCase()}`
+    const fallbackKey = `__all__::${feeType.toLowerCase()}`
+    const amount = feeLookup[exactKey] !== undefined ? feeLookup[exactKey] : feeLookup[fallbackKey]
+    return sum + Number(amount || 0)
+  }, 0)
+}
+
+function buildTwiceWeeklyReminderSlotKey(date = new Date()) {
+  const normalized = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()))
+  const day = normalized.getUTCDay()
+  const mondayBasedDay = day === 0 ? 6 : day - 1
+  const weekStart = new Date(normalized)
+  weekStart.setUTCDate(normalized.getUTCDate() - mondayBasedDay)
+  const slot = mondayBasedDay <= 2 ? 'early' : 'late'
+  return `${weekStart.toISOString().slice(0, 10)}:${slot}`
+}
+
+async function listTenantActiveStudents(db: D1Database, tenantId: string) {
+  await ensureUsersTable(db)
+  await ensureClassesTable(db)
+
+  const rows = await db.prepare(
+    `SELECT id, name, email, role, status, createdAt
+     FROM users
+     WHERE tenantId = ? AND role = 'student' AND (status IS NULL OR status != 'inactive')
+     ORDER BY name`
+  ).bind(tenantId).all()
+
+  const hydrated = await hydrateUserRecords(db, (rows.results || []) as Record<string, any>[])
+  const classIds = Array.from(new Set(hydrated.map(student => String(student?.classId || '').trim()).filter(Boolean)))
+  const classMap = new Map<string, string>()
+
+  if (classIds.length > 0) {
+    const placeholders = classIds.map(() => '?').join(', ')
+    const classRows = await db.prepare(
+      `SELECT id, name, arm FROM classes WHERE tenantId = ? AND id IN (${placeholders})`
+    ).bind(tenantId, ...classIds).all()
+
+    for (const row of ((classRows.results || []) as Record<string, any>[])) {
+      classMap.set(String(row.id || ''), `${row.name || ''}${row.arm ? ` ${row.arm}` : ''}`.trim())
+    }
+  }
+
+  return hydrated.map(student => ({
+    id: String(student?.id || ''),
+    name: String(student?.name || ''),
+    email: String(student?.email || ''),
+    displayId: String(student?.displayId || ''),
+    classId: String(student?.classId || ''),
+    className: classMap.get(String(student?.classId || '')) || String(student?.className || ''),
+  }))
+}
+
+async function listVisibleFeeLedgerEntries(db: D1Database, currentUser: Record<string, any>) {
+  const userIdentifier = String(currentUser.id || currentUser.email || currentUser.sub || '').trim()
+  const resolvedUser = userIdentifier
+    ? await resolveSettingsIdentity(db, userIdentifier)
+    : { settingsKey: '', settings: null, userRow: null }
+  const settings = resolvedUser.settings || {}
+  const tenantId = String(settings.tenantId || settings.schoolId || resolvedUser.userRow?.tenantId || currentUser.tenantId || '').trim()
+  const role = normalizeRole(settings.role) || getActiveRole(currentUser)
+
+  if (!tenantId) {
+    return { allowed: false, tenantId: '', role, ledger: [] as Array<Record<string, any>> }
+  }
+
+  let students: Array<Record<string, any>> = []
+  if (['owner', 'hos', 'accountant', 'admin'].includes(role)) {
+    students = await listTenantActiveStudents(db, tenantId)
+  } else if (['parent', 'student'].includes(role)) {
+    const access = await listAccessibleLearningStudents(db, currentUser)
+    students = access.students || []
+  } else {
+    return { allowed: false, tenantId, role, ledger: [] as Array<Record<string, any>> }
+  }
+
+  await ensureFeesLedgerTable(db)
+  await ensureFeesConfigTable(db)
+
+  const studentIds = Array.from(new Set(students.map(student => String(student.id || '').trim()).filter(Boolean)))
+  const ledgerMap = new Map<string, Record<string, any>>()
+
+  if (studentIds.length > 0) {
+    const placeholders = studentIds.map(() => '?').join(', ')
+    const rows = await db.prepare(
+      `SELECT * FROM fees_ledger WHERE tenant_id = ? AND student_id IN (${placeholders}) ORDER BY student_name`
+    ).bind(tenantId, ...studentIds).all()
+
+    for (const row of ((rows.results || []) as Record<string, any>[])) {
+      ledgerMap.set(String(row.student_id || ''), row)
+    }
+  }
+
+  const configRows = await db.prepare(
+    `SELECT * FROM fees_config WHERE tenant_id = ? ORDER BY created_at DESC`
+  ).bind(tenantId).all().catch(() => ({ results: [] }))
+  const { feeLookup, feeTypes } = buildFeesConfigLookup((configRows.results || []) as Record<string, any>[])
+
+  return {
+    allowed: true,
+    tenantId,
+    role,
+    ledger: students.map(student => {
+      const ledgerRow = ledgerMap.get(String(student.id || '')) || null
+      const configuredFeeAmount = computeConfiguredFeeTotal(student.classId, feeTypes, feeLookup)
+      const recordedFeeAmount = Number(ledgerRow?.fee_amount || 0)
+      const feeAmount = recordedFeeAmount > 0 ? recordedFeeAmount : configuredFeeAmount
+      const amountPaid = Number(ledgerRow?.amount_paid || 0)
+      const status = deriveFeeLedgerStatus(feeAmount, amountPaid, ledgerRow?.status)
+      const balance = Math.max(feeAmount - amountPaid, 0)
+
+      return {
+        id: String(ledgerRow?.id || student.id || ''),
+        studentId: String(student.id || ''),
+        name: String(student.name || ledgerRow?.student_name || student.id || ''),
+        classId: String(student.classId || ledgerRow?.class_id || ''),
+        className: String(student.className || ledgerRow?.class_name || ''),
+        feeAmount,
+        amountPaid,
+        balance,
+        status,
+        updatedAt: String(ledgerRow?.updated_at || ''),
+      }
+    }),
+  }
+}
+
+async function buildFeeReminderNotificationItems(db: D1Database, currentUser: Record<string, any>, actorRole: string) {
+  if (actorRole !== 'parent') {
+    return [] as Array<Record<string, any>>
+  }
+
+  const feeView = await listVisibleFeeLedgerEntries(db, currentUser)
+  if (!feeView.allowed || feeView.role !== 'parent') {
+    return [] as Array<Record<string, any>>
+  }
+
+  const reminderSlotKey = buildTwiceWeeklyReminderSlotKey()
+
+  return feeView.ledger
+    .filter(entry => ['Partial', 'Unpaid'].includes(String(entry.status || '')) && Number(entry.balance || 0) > 0)
+    .slice(0, 8)
+    .map(entry => ({
+      id: `fee_reminder_${entry.studentId}_${String(entry.status || '').toLowerCase()}`,
+      title: entry.status === 'Unpaid' ? 'School fees unpaid' : 'School fees partly paid',
+      detail: `${entry.name}${entry.className ? ` (${entry.className})` : ''} still has ${formatNairaAmount(entry.balance)} outstanding. This fee reminder appears twice every week until payment is completed.`,
+      sender: 'Fees office',
+      time: formatHeaderTime(entry.updatedAt || new Date().toISOString()),
+      unread: true,
+      category: 'fee_reminder',
+      reminderSlotKey,
+      studentId: entry.studentId,
+      feeStatus: entry.status,
+    }))
+}
+
+async function listVisibleFeePaymentReceipts(db: D1Database, currentUser: Record<string, any>) {
+  const feeView = await listVisibleFeeLedgerEntries(db, currentUser)
+  if (!feeView.allowed) {
+    return { allowed: false, tenantId: feeView.tenantId, role: feeView.role, receipts: [] as Array<Record<string, any>> }
+  }
+
+  const studentIds = Array.from(new Set((feeView.ledger || []).map(entry => String(entry.studentId || '').trim()).filter(Boolean)))
+  if (studentIds.length === 0) {
+    return { allowed: true, tenantId: feeView.tenantId, role: feeView.role, receipts: [] as Array<Record<string, any>> }
+  }
+
+  await ensureFeesPaymentReceiptsTable(db)
+  const placeholders = studentIds.map(() => '?').join(', ')
+  const rows = await db.prepare(
+    `SELECT * FROM fees_payment_receipts WHERE tenant_id = ? AND student_id IN (${placeholders}) ORDER BY recorded_at DESC LIMIT 200`
+  ).bind(feeView.tenantId, ...studentIds).all().catch(() => ({ results: [] }))
+
+  return {
+    allowed: true,
+    tenantId: feeView.tenantId,
+    role: feeView.role,
+    receipts: ((rows.results || []) as Record<string, any>[]).map(row => ({
+      id: String(row.id || ''),
+      receiptNo: String(row.receipt_no || row.id || ''),
+      studentId: String(row.student_id || ''),
+      studentName: String(row.student_name || ''),
+      classId: String(row.class_id || ''),
+      className: String(row.class_name || ''),
+      amount: Number(row.amount || 0),
+      paymentType: String(row.payment_type || 'cash'),
+      feeAmount: Number(row.fee_amount || 0),
+      amountPaidAfter: Number(row.amount_paid_after || 0),
+      balanceAfter: Number(row.balance_after || 0),
+      statusAfter: String(row.status_after || ''),
+      recordedBy: String(row.recorded_by || ''),
+      recordedAt: String(row.recorded_at || ''),
+    })),
   }
 }
 
@@ -1737,8 +1997,9 @@ async function buildAuthenticatedHeader(c: any, roleKey: string) {
 
   let notificationItems: Array<Record<string, any>> = []
   if (tenantId) {
+    const feeReminderItems = await buildFeeReminderNotificationItems(c.env.APP_DB, currentUser, actorRole)
     const announcements = await listSchoolAnnouncements(c.env.APP_DB, tenantId, 8)
-    notificationItems = announcements
+    const announcementItems = announcements
       .filter(announcement => announcementTargetsRole(announcement.audienceRoles, actorRole))
       .map(announcement => ({
         id: announcement.id,
@@ -1748,6 +2009,8 @@ async function buildAuthenticatedHeader(c: any, roleKey: string) {
         time: formatHeaderTime(announcement.createdAt),
         unread: true,
       }))
+
+      notificationItems = [...feeReminderItems, ...announcementItems]
   }
 
   return {
@@ -1783,6 +2046,111 @@ async function resolveConversationActorContext(db: D1Database, currentUser: Reco
     canonicalIdentifiers,
     comparableIdentifiers,
     canonicalUserId,
+  }
+}
+
+async function listTenantConversationRecipients(db: D1Database, tenantId: string, roles: string[] = ['owner', 'hos']) {
+  const normalizedTenantId = String(tenantId || '').trim()
+  const allowedRoles = new Set((roles || []).map(role => String(role || '').trim().toLowerCase()).filter(Boolean))
+  if (!normalizedTenantId || allowedRoles.size === 0) return [] as string[]
+
+  const recipientIds = new Set<string>()
+  const settingRows = await db.prepare('SELECT studentId, payload FROM settings').all().catch(() => ({ results: [] }))
+
+  for (const row of ((settingRows.results || []) as Record<string, any>[])) {
+    try {
+      const payload = JSON.parse(String(row.payload || '{}')) as Record<string, any>
+      const rowTenantId = String(payload.tenantId || payload.schoolId || '').trim()
+      const rowRole = String(payload.role || '').trim().toLowerCase()
+      const rowStatus = String(payload.status || 'active').trim().toLowerCase()
+      if (rowTenantId !== normalizedTenantId || !allowedRoles.has(rowRole) || rowStatus === 'inactive') continue
+      const canonicalId = await resolveCanonicalUserIdentifier(db, payload.email || row.studentId || '').catch(() => null)
+      const recipientId = String(canonicalId || payload.email || row.studentId || '').trim()
+      if (recipientId) recipientIds.add(recipientId)
+    } catch {}
+  }
+
+  const userRows = await db.prepare('SELECT id, email, role, tenantId FROM users WHERE tenantId = ?').bind(normalizedTenantId).all().catch(() => ({ results: [] }))
+  for (const row of ((userRows.results || []) as Record<string, any>[])) {
+    const rowRole = String(row.role || '').trim().toLowerCase()
+    if (!allowedRoles.has(rowRole)) continue
+    const canonicalId = await resolveCanonicalUserIdentifier(db, row.id || row.email || '').catch(() => null)
+    const recipientId = String(canonicalId || row.email || row.id || '').trim()
+    if (recipientId) recipientIds.add(recipientId)
+  }
+
+  return Array.from(recipientIds)
+}
+
+const ADMISSION_APPLICATIONS_DDL = `CREATE TABLE IF NOT EXISTS admission_applications (
+  id TEXT PRIMARY KEY,
+  tenant_id TEXT NOT NULL,
+  applicant_name TEXT,
+  applicant_email TEXT,
+  applicant_phone TEXT,
+  desired_class TEXT,
+  status TEXT NOT NULL,
+  payload TEXT NOT NULL,
+  service_flags TEXT NOT NULL,
+  review_notes TEXT,
+  reviewed_by TEXT,
+  reviewed_at TEXT,
+  created_at TEXT NOT NULL,
+  updated_at TEXT NOT NULL
+)`
+
+async function ensureAdmissionApplicationsTable(db: D1Database) {
+  await db.prepare(ADMISSION_APPLICATIONS_DDL).run()
+}
+
+function normalizeAdmissionStatus(value: unknown, fallback = 'pending') {
+  const normalized = String(value || '').trim().toLowerCase()
+  if (['pending', 'reviewing', 'approved', 'rejected', 'waitlisted'].includes(normalized)) return normalized
+  return fallback
+}
+
+function parseAdmissionJson(value: unknown, fallback: Record<string, any> = {}) {
+  if (!value) return fallback
+  if (typeof value === 'object') return value as Record<string, any>
+  try {
+    return JSON.parse(String(value || '')) as Record<string, any>
+  } catch {
+    return fallback
+  }
+}
+
+function buildAdmissionServiceFlags(payload: Record<string, any> = {}) {
+  return {
+    transport: Boolean(payload?.transport?.required || payload?.transportRequired),
+    hostel: Boolean(payload?.hostel?.required || payload?.hostelRequired),
+    clinic: Boolean(
+      payload?.clinic?.followUpRequired
+      || payload?.medical?.followUpRequired
+      || payload?.medical?.allergies
+      || payload?.medical?.conditions
+      || payload?.medical?.notes
+    ),
+  }
+}
+
+function mapAdmissionApplicationRow(row: Record<string, any>) {
+  const payload = parseAdmissionJson(row.payload)
+  const serviceFlags = parseAdmissionJson(row.service_flags)
+  return {
+    id: String(row.id || ''),
+    tenantId: String(row.tenant_id || ''),
+    applicantName: String(row.applicant_name || ''),
+    applicantEmail: String(row.applicant_email || ''),
+    applicantPhone: String(row.applicant_phone || ''),
+    desiredClass: String(row.desired_class || ''),
+    status: normalizeAdmissionStatus(row.status),
+    payload,
+    serviceFlags,
+    reviewNotes: String(row.review_notes || ''),
+    reviewedBy: String(row.reviewed_by || ''),
+    reviewedAt: String(row.reviewed_at || ''),
+    createdAt: String(row.created_at || ''),
+    updatedAt: String(row.updated_at || ''),
   }
 }
 
@@ -2503,6 +2871,12 @@ app.get('/api/ami/tenants', authenticate, async (c) => {
   const tenants = await listTenants(c.env.APP_DB)
   const payments = await listTenantPayments(c.env.APP_DB)
   const discountCodes = await listTenantDiscountCodes(c.env.APP_DB, true)
+  const tenantAwards = await listSchoolAwards(c.env.APP_DB, { limit: 240 })
+  const awardCandidatesEntries = await Promise.all(tenants.map(async tenant => {
+    const people = await listActiveTenantPeopleWithProfiles(c.env.APP_DB, tenant.id).catch(() => [])
+    return [tenant.id, people.map(person => buildAwardRecipientSnapshot(person))] as const
+  }))
+  const awardCandidatesByTenantId = Object.fromEntries(awardCandidatesEntries)
   const { pricingConfig, plans } = await getTenantPricingState(c.env.APP_DB)
   const summary = {
     totalTenants: tenants.length,
@@ -2512,7 +2886,17 @@ app.get('/api/ami/tenants', authenticate, async (c) => {
     activeDiscountCodes: discountCodes.filter(discountCode => discountCode.active).length,
   }
 
-  return c.json({ success: true, summary, tenants, payments, discountCodes, pricingConfig, plans: serializeTenantPlans(plans) })
+  return c.json({
+    success: true,
+    summary,
+    tenants,
+    payments,
+    discountCodes,
+    tenantAwards,
+    awardCandidatesByTenantId,
+    pricingConfig,
+    plans: serializeTenantPlans(plans),
+  })
 })
 
 app.post('/api/ami/tenant-pricing', authenticate, async (c) => {
@@ -2640,6 +3024,57 @@ app.post('/api/ami/tenants/:tenantId/mark-paid', authenticate, async (c) => {
   })
 
   return c.json({ success: true, tenant: updatedTenant })
+})
+
+app.post('/api/ami/tenants/:tenantId/awards', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+
+  const tenantId = String(c.req.param('tenantId') || '').trim()
+  if (!tenantId) return c.json({ error: 'Tenant is required.' }, 400)
+
+  const tenant = await getTenantById(c.env.APP_DB, tenantId)
+  if (!tenant) return c.json({ error: 'Tenant not found.' }, 404)
+
+  const payload = await c.req.json().catch(() => ({})) as Record<string, any>
+  const subjectUserId = String(payload?.userId || payload?.subjectUserId || '').trim()
+  const awardKey = slugifyValue(String(payload?.awardKey || payload?.awardTitle || 'custom-award')).slice(0, 80) || 'custom-award'
+  const awardTitle = String(payload?.awardTitle || '').trim() || 'School Recognition Award'
+  const description = String(payload?.description || '').trim()
+  const periodMonth = normalizeMonthKey(payload?.periodMonth)
+
+  if (!subjectUserId) {
+    return c.json({ error: 'Select a user for the award.' }, 400)
+  }
+
+  const people = await listActiveTenantPeopleWithProfiles(c.env.APP_DB, tenantId)
+  const recipient = people.find(person => String(person.id || '').trim() === subjectUserId)
+  if (!recipient) {
+    return c.json({ error: 'The selected user is not active in this school.' }, 400)
+  }
+
+  const award = await upsertSchoolAward(c.env.APP_DB, {
+    tenantId,
+    periodMonth,
+    awardKey,
+    awardTitle,
+    description,
+    subjectUserId,
+    recipientSnapshot: buildAwardRecipientSnapshot(recipient),
+    attachedBy: String(c.var.user.id || c.var.user.email || 'ami'),
+  })
+
+  await addAudit(c.env.APP_DB, tenantId, {
+    action: 'tenantAwardAttached',
+    data: {
+      by: c.var.user.id || c.var.user.email || 'ami',
+      awardKey,
+      awardTitle,
+      periodMonth,
+      subjectUserId,
+    },
+  }).catch(() => {})
+
+  return c.json({ success: true, award })
 })
 
 app.get('/api/ami/discount-codes', authenticate, async (c) => {
@@ -3320,19 +3755,25 @@ app.post('/api/save-content', authenticate, async (c) => {
   }
 })
 
+function isClassroomSupervisorRole(role: string) {
+  return ['owner', 'hos', 'admin', 'ict', 'ict_manager', 'ami'].includes(String(role || '').trim().toLowerCase())
+}
+
 // Classrooms
 app.get('/api/classrooms/assigned', authenticate, async (c) => {
   const user = c.var.user || {}
   const userIdentifier = user.id || user.email || user.sub || ''
   const resolvedUser = await resolveSettingsIdentity(c.env.APP_DB, userIdentifier)
   const tenantId = resolvedUser.settings?.tenantId || resolvedUser.settings?.schoolId || resolvedUser.userRow?.tenantId || user.tenantId
+  const normalizedRole = String(resolvedUser.settings?.role || resolvedUser.userRow?.role || user.role || '').trim().toLowerCase()
+  const isSupervisor = isClassroomSupervisorRole(normalizedRole)
   const teacherIdentifiers = collectComparableIdentifiers(collectResolvedIdentityIdentifiers(resolvedUser, user))
   const fallbackClassIds = Array.from(new Set([
     ...(Array.isArray(resolvedUser.settings?.classIds) ? resolvedUser.settings.classIds : []),
     resolvedUser.settings?.classId,
   ].map(value => String(value || '').trim()).filter(Boolean)))
 
-  if (!tenantId || (!teacherIdentifiers.length && !fallbackClassIds.length)) {
+  if (!tenantId || (!isSupervisor && !teacherIdentifiers.length && !fallbackClassIds.length)) {
     return c.json({ success: true, classes: [] })
   }
 
@@ -3344,7 +3785,15 @@ app.get('/api/classrooms/assigned', authenticate, async (c) => {
     try { await c.env.APP_DB.exec('ALTER TABLE subjects ADD COLUMN teacherId TEXT') } catch {}
 
     let classRows: Record<string, any>[] = []
-    if (teacherIdentifiers.length) {
+    if (isSupervisor) {
+      const allClassRows = await c.env.APP_DB.prepare(
+        `SELECT DISTINCT id, name, arm, classTeacherId
+         FROM classes
+         WHERE tenantId = ?
+         ORDER BY name, arm`
+      ).bind(tenantId).all()
+      classRows = (allClassRows.results || []) as Record<string, any>[]
+    } else if (teacherIdentifiers.length) {
       const identifierPlaceholders = teacherIdentifiers.map(() => '?').join(', ')
       const assignedClassRows = await c.env.APP_DB.prepare(
         `SELECT DISTINCT c.id, c.name, c.arm, c.classTeacherId
@@ -3381,6 +3830,7 @@ app.get('/api/classrooms/assigned', authenticate, async (c) => {
     const assignedClasses = await Promise.all(classRows.map(async row => {
       const classId = String(row.id || '')
       const isClassTeacher = matchesComparableIdentifier(row.classTeacherId, teacherIdentifiers)
+      const canManageClassroom = isSupervisor || isClassTeacher
       const [studentCountRow, subjectCountRow, assignmentCountRow, materialCountRow, streamCountRow, teacherSubjectRows] = await Promise.all([
         c.env.APP_DB.prepare(
           `SELECT COUNT(*) as count
@@ -3407,9 +3857,11 @@ app.get('/api/classrooms/assigned', authenticate, async (c) => {
         ).bind(tenantId, classId).all().catch(() => ({ results: [] })),
       ])
 
-      let subjectRows = (((teacherSubjectRows as any)?.results || []) as Record<string, any>[])
-        .filter(subjectRow => matchesComparableIdentifier(subjectRow.teacherId, teacherIdentifiers))
-      if (subjectRows.length === 0 && isClassTeacher) {
+      let subjectRows = ((teacherSubjectRows as any)?.results || []) as Record<string, any>[]
+      if (!isSupervisor) {
+        subjectRows = subjectRows.filter(subjectRow => matchesComparableIdentifier(subjectRow.teacherId, teacherIdentifiers))
+      }
+      if (subjectRows.length === 0 && isClassTeacher && !isSupervisor) {
         const fallbackSubjectRows = await c.env.APP_DB.prepare(
           `SELECT id, name, teacherId FROM subjects WHERE tenantId = ? AND classId = ? ORDER BY name`
         ).bind(tenantId, classId).all().catch(() => ({ results: [] }))
@@ -3423,6 +3875,8 @@ app.get('/api/classrooms/assigned', authenticate, async (c) => {
         arm: row.arm || '',
         className,
         isClassTeacher,
+        canManageClassroom,
+        isSupervisor,
         studentCount: Number((studentCountRow as any)?.count || 0),
         subjectCount: Number((subjectCountRow as any)?.count || 0),
         assignmentCount: Number((assignmentCountRow as any)?.count || 0),
@@ -3532,6 +3986,66 @@ app.post('/api/classrooms/:classroomId/posts/:postId/comments', authenticate, as
     return c.json({ success: true, comment }, 201)
   } catch (error) {
     return c.json({ success: false, message: error instanceof Error ? error.message : 'Could not add comment.' }, 500)
+  }
+})
+
+app.put('/api/classrooms/:classroomId/stream/:postId', authenticate, async (c) => {
+  const classroomId = c.req.param('classroomId')
+  const postId = c.req.param('postId')
+  const body = await c.req.json()
+  const content = String(body?.content || '').trim()
+
+  if (!content) {
+    return c.json({ success: false, message: 'Content is required.' }, 400)
+  }
+
+  try {
+    const context = await resolveClassroomModerationContext(c.env.APP_DB, c.var.user || {}, classroomId)
+    if (!context.ok) {
+      return c.json({ success: false, message: context.message }, context.status)
+    }
+
+    const post = await getPostById(c.env.APP_DB, postId)
+    if (!post || String(post.classId || '') !== String(classroomId || '')) {
+      return c.json({ success: false, message: 'Post not found.' }, 404)
+    }
+
+    const canManagePost = context.canManageClasswide || matchesComparableIdentifier(post.authorId, context.actorIdentifiers)
+    if (!canManagePost) {
+      return c.json({ success: false, message: 'You are not allowed to edit this post.' }, 403)
+    }
+
+    const updatedPost = await updatePost(c.env.APP_DB, postId, { content })
+    return c.json({ success: true, post: updatedPost })
+  } catch (error) {
+    return c.json({ success: false, message: 'Server error', error }, 500)
+  }
+})
+
+app.delete('/api/classrooms/:classroomId/stream/:postId', authenticate, async (c) => {
+  const classroomId = c.req.param('classroomId')
+  const postId = c.req.param('postId')
+
+  try {
+    const context = await resolveClassroomModerationContext(c.env.APP_DB, c.var.user || {}, classroomId)
+    if (!context.ok) {
+      return c.json({ success: false, message: context.message }, context.status)
+    }
+
+    const post = await getPostById(c.env.APP_DB, postId)
+    if (!post || String(post.classId || '') !== String(classroomId || '')) {
+      return c.json({ success: false, message: 'Post not found.' }, 404)
+    }
+
+    const canManagePost = context.canManageClasswide || matchesComparableIdentifier(post.authorId, context.actorIdentifiers)
+    if (!canManagePost) {
+      return c.json({ success: false, message: 'You are not allowed to delete this post.' }, 403)
+    }
+
+    await deletePost(c.env.APP_DB, postId)
+    return c.json({ success: true })
+  } catch (error) {
+    return c.json({ success: false, message: 'Server error', error }, 500)
   }
 })
 
@@ -3709,6 +4223,88 @@ app.post('/api/classrooms/:classroomId/assignments', authenticate, async (c) => 
     })
 
     return c.json({ success: true, assignment: insertedAssignment }, 201)
+  } catch (error) {
+    return c.json({ success: false, message: 'Server error', error }, 500)
+  }
+})
+
+app.put('/api/classrooms/:classroomId/assignments/:assignmentId', authenticate, async (c) => {
+  const classroomId = c.req.param('classroomId')
+  const assignmentId = c.req.param('assignmentId')
+  const payload = await c.req.json()
+  const nextTitle = String(payload?.title || '').trim()
+
+  if (!nextTitle) {
+    return c.json({ success: false, message: 'Title is required.' }, 400)
+  }
+
+  try {
+    const context = await resolveClassroomModerationContext(c.env.APP_DB, c.var.user || {}, classroomId)
+    if (!context.ok) {
+      return c.json({ success: false, message: context.message }, context.status)
+    }
+
+    const assignment = await getAssignmentById(c.env.APP_DB, assignmentId)
+    if (!assignment || String(assignment.classId || '') !== String(classroomId || '')) {
+      return c.json({ success: false, message: 'Assignment not found.' }, 404)
+    }
+
+    const canManageAssignment = context.canManageClasswide || matchesComparableIdentifier(assignment.createdBy, context.actorIdentifiers)
+    if (!canManageAssignment) {
+      return c.json({ success: false, message: 'You are not allowed to edit this assignment.' }, 403)
+    }
+
+    const updatedAssignment = await updateAssignment(c.env.APP_DB, assignmentId, {
+      title: nextTitle,
+      description: typeof payload?.description === 'string' ? payload.description.trim() : assignment.description,
+      dueAt: Object.prototype.hasOwnProperty.call(payload || {}, 'dueAt') ? (payload?.dueAt || null) : assignment.dueAt,
+    })
+
+    await syncQuestionUsagesForEngine(
+      c.env.APP_DB,
+      context.tenantId,
+      'assignment',
+      assignmentId,
+      Array.isArray(updatedAssignment?.questions) ? updatedAssignment.questions : [],
+      {
+        classId: classroomId,
+        className: `${context.classRow.name}${context.classRow.arm ? ` ${context.classRow.arm}` : ''}`,
+        subjectId: String(updatedAssignment?.subjectId || ''),
+        subjectName: String(updatedAssignment?.subjectName || ''),
+        createdBy: String(updatedAssignment?.createdBy || context.actorId || ''),
+      },
+    )
+
+    return c.json({ success: true, assignment: updatedAssignment })
+  } catch (error) {
+    return c.json({ success: false, message: 'Server error', error }, 500)
+  }
+})
+
+app.delete('/api/classrooms/:classroomId/assignments/:assignmentId', authenticate, async (c) => {
+  const classroomId = c.req.param('classroomId')
+  const assignmentId = c.req.param('assignmentId')
+
+  try {
+    const context = await resolveClassroomModerationContext(c.env.APP_DB, c.var.user || {}, classroomId)
+    if (!context.ok) {
+      return c.json({ success: false, message: context.message }, context.status)
+    }
+
+    const assignment = await getAssignmentById(c.env.APP_DB, assignmentId)
+    if (!assignment || String(assignment.classId || '') !== String(classroomId || '')) {
+      return c.json({ success: false, message: 'Assignment not found.' }, 404)
+    }
+
+    const canManageAssignment = context.canManageClasswide || matchesComparableIdentifier(assignment.createdBy, context.actorIdentifiers)
+    if (!canManageAssignment) {
+      return c.json({ success: false, message: 'You are not allowed to delete this assignment.' }, 403)
+    }
+
+    await deleteAssignment(c.env.APP_DB, assignmentId)
+    await syncQuestionUsagesForEngine(c.env.APP_DB, context.tenantId, 'assignment', assignmentId, [], {})
+
+    return c.json({ success: true })
   } catch (error) {
     return c.json({ success: false, message: 'Server error', error }, 500)
   }
@@ -4020,6 +4616,8 @@ async function resolveMaterialPublishingContext(db: D1Database, user: Record<str
   const userIdentifier = user.id || user.email || user.sub || ''
   const resolvedUser = await resolveSettingsIdentity(db, userIdentifier)
   const tenantId = resolvedUser.settings?.tenantId || resolvedUser.settings?.schoolId || resolvedUser.userRow?.tenantId || user.tenantId
+  const normalizedRole = String(resolvedUser.settings?.role || resolvedUser.userRow?.role || user.role || '').trim().toLowerCase()
+  const isSupervisor = isClassroomSupervisorRole(normalizedRole)
   const teacherIdentifiers = collectComparableIdentifiers(collectResolvedIdentityIdentifiers(resolvedUser, user))
   const teacherId = String(resolvedUser.userRow?.id || resolvedUser.userRow?.email || resolvedUser.settingsKey || user.id || '').trim()
 
@@ -4042,7 +4640,8 @@ async function resolveMaterialPublishingContext(db: D1Database, user: Record<str
     return { ok: false, status: 404, message: 'Subject not found for this class.' }
   }
 
-  const canPublish = matchesComparableIdentifier(subjectRow.teacherId, teacherIdentifiers)
+  const canPublish = isSupervisor
+    || matchesComparableIdentifier(subjectRow.teacherId, teacherIdentifiers)
     || matchesComparableIdentifier(classRow.classTeacherId, teacherIdentifiers)
   if (!canPublish) {
     return { ok: false, status: 403, message: 'You are not assigned to this subject.' }
@@ -4054,6 +4653,39 @@ async function resolveMaterialPublishingContext(db: D1Database, user: Record<str
     subjectRow,
     classRow,
     uploadedByName: String(resolvedUser.settings?.name || resolvedUser.userRow?.name || user.name || teacherId),
+  }
+}
+
+async function resolveClassroomModerationContext(db: D1Database, user: Record<string, any>, classroomId: string) {
+  const userIdentifier = user.id || user.email || user.sub || ''
+  const resolvedUser = await resolveSettingsIdentity(db, userIdentifier)
+  const tenantId = resolvedUser.settings?.tenantId || resolvedUser.settings?.schoolId || resolvedUser.userRow?.tenantId || user.tenantId
+  const normalizedRole = String(resolvedUser.settings?.role || resolvedUser.userRow?.role || user.role || '').trim().toLowerCase()
+  const actorIdentifiers = collectComparableIdentifiers(collectResolvedIdentityIdentifiers(resolvedUser, user))
+  const actorId = String(resolvedUser.userRow?.id || resolvedUser.userRow?.email || resolvedUser.settingsKey || user.id || '').trim()
+
+  await ensureClassesTable(db)
+  const classRow = await db.prepare(
+    `SELECT id, tenantId, name, arm, classTeacherId FROM classes WHERE id = ?`
+  ).bind(classroomId).first() as Record<string, any> | null
+
+  if (!tenantId || !classRow || String(classRow.tenantId || '') !== String(tenantId)) {
+    return { ok: false, status: 404, message: 'Class not found.' }
+  }
+
+  const isSupervisor = isClassroomSupervisorRole(normalizedRole)
+  const isClassTeacher = matchesComparableIdentifier(classRow.classTeacherId, actorIdentifiers)
+
+  return {
+    ok: true,
+    tenantId: String(tenantId || '').trim(),
+    classRow,
+    actorId,
+    actorIdentifiers,
+    normalizedRole,
+    isSupervisor,
+    isClassTeacher,
+    canManageClasswide: isSupervisor || isClassTeacher,
   }
 }
 
@@ -4122,6 +4754,101 @@ app.post('/api/classrooms/:classroomId/materials', authenticate, async (c) => {
     }
     const insertedMaterial = await addMaterial(c.env.APP_DB, newMaterial)
     return c.json({ success: true, material: insertedMaterial }, 201)
+  } catch (error) {
+    return c.json({ success: false, message: 'Server error', error }, 500)
+  }
+})
+
+app.put('/api/classrooms/:classroomId/materials/:materialId', authenticate, async (c) => {
+  const classroomId = c.req.param('classroomId')
+  const materialId = c.req.param('materialId')
+  const payload = await c.req.json()
+  const nextTitle = String(payload?.title || '').trim()
+
+  if (!nextTitle) {
+    return c.json({ success: false, message: 'Title is required.' }, 400)
+  }
+
+  try {
+    const context = await resolveClassroomModerationContext(c.env.APP_DB, c.var.user || {}, classroomId)
+    if (!context.ok) {
+      return c.json({ success: false, message: context.message }, context.status)
+    }
+
+    const material = await getMaterialById(c.env.APP_DB, materialId)
+    if (!material || String(material.classId || '') !== String(classroomId || '')) {
+      return c.json({ success: false, message: 'Material not found.' }, 404)
+    }
+
+    const subjectId = String(payload?.subjectId || material.subjectId || '').trim()
+    const publishContext = subjectId
+      ? await resolveMaterialPublishingContext(c.env.APP_DB, c.var.user || {}, classroomId, subjectId)
+      : { ok: false }
+    const canManageMaterial = context.canManageClasswide
+      || matchesComparableIdentifier(material.uploadedById, context.actorIdentifiers)
+      || Boolean((publishContext as any)?.ok)
+
+    if (!canManageMaterial) {
+      return c.json({ success: false, message: 'You are not allowed to edit this material.' }, 403)
+    }
+
+    const updatedMetadata = {
+      ...(material.metadata && typeof material.metadata === 'object' ? material.metadata : {}),
+      description: typeof payload?.description === 'string' ? payload.description.trim() : material.description,
+      topic: typeof payload?.topic === 'string' ? payload.topic.trim() : material.topic,
+      weekLabel: typeof payload?.weekLabel === 'string' ? payload.weekLabel.trim() : material.weekLabel,
+      visibility: Object.prototype.hasOwnProperty.call(payload || {}, 'visibility')
+        ? normalizeLearningVisibility(payload?.visibility, material.visibility || 'student_parent')
+        : material.visibility,
+      releaseAt: Object.prototype.hasOwnProperty.call(payload || {}, 'releaseAt')
+        ? normalizeLearningReleaseAt(payload?.releaseAt)
+        : normalizeLearningReleaseAt(material.releaseAt),
+      type: Object.prototype.hasOwnProperty.call(payload || {}, 'type')
+        ? normalizeMaterialType(payload?.type, inferMaterialType(String(payload?.url || material.url || '')))
+        : normalizeMaterialType(material.type, inferMaterialType(String(material.url || ''))),
+    }
+
+    const updatedMaterial = await updateMaterial(c.env.APP_DB, materialId, {
+      title: nextTitle,
+      url: Object.prototype.hasOwnProperty.call(payload || {}, 'url') ? String(payload?.url || '').trim() || null : material.url,
+      metadata: updatedMetadata,
+    })
+
+    return c.json({ success: true, material: updatedMaterial })
+  } catch (error) {
+    return c.json({ success: false, message: 'Server error', error }, 500)
+  }
+})
+
+app.delete('/api/classrooms/:classroomId/materials/:materialId', authenticate, async (c) => {
+  const classroomId = c.req.param('classroomId')
+  const materialId = c.req.param('materialId')
+
+  try {
+    const context = await resolveClassroomModerationContext(c.env.APP_DB, c.var.user || {}, classroomId)
+    if (!context.ok) {
+      return c.json({ success: false, message: context.message }, context.status)
+    }
+
+    const material = await getMaterialById(c.env.APP_DB, materialId)
+    if (!material || String(material.classId || '') !== String(classroomId || '')) {
+      return c.json({ success: false, message: 'Material not found.' }, 404)
+    }
+
+    const subjectId = String(material.subjectId || '').trim()
+    const publishContext = subjectId
+      ? await resolveMaterialPublishingContext(c.env.APP_DB, c.var.user || {}, classroomId, subjectId)
+      : { ok: false }
+    const canManageMaterial = context.canManageClasswide
+      || matchesComparableIdentifier(material.uploadedById, context.actorIdentifiers)
+      || Boolean((publishContext as any)?.ok)
+
+    if (!canManageMaterial) {
+      return c.json({ success: false, message: 'You are not allowed to delete this material.' }, 403)
+    }
+
+    await deleteMaterial(c.env.APP_DB, materialId)
+    return c.json({ success: true })
   } catch (error) {
     return c.json({ success: false, message: 'Server error', error }, 500)
   }
@@ -4382,7 +5109,7 @@ async function getSchoolClassroomContext(db: D1Database, tenantId: string, class
     classRow,
     isClassTeacher,
     canView: isElevatedViewer || isClassTeacher,
-    canManage: isClassTeacher,
+    canManage: isElevatedViewer || isClassTeacher,
   }
 }
 
@@ -5353,8 +6080,13 @@ async function generateDisplayId(db: D1Database, config: DisplayIdConfig): Promi
 async function hydrateUserRecord(db: D1Database, row: Record<string, any> | null) {
   if (!row) return null
 
-  const settingsKey = row.email || row.id
-  const settings = settingsKey ? await getSettings(db, settingsKey).catch(() => null) : null
+  const resolvedIdentity = await resolveSettingsIdentity(db, String(row.email || row.id || '').trim())
+  const settings = resolvedIdentity.settings || null
+  const profile = settings?.profile && typeof settings.profile === 'object'
+    ? settings.profile as Record<string, any>
+    : {}
+  const avatarUrl = String(profile.avatar || settings?.avatar || settings?.avatarUrl || '').trim()
+  const dateOfBirth = String(settings?.dateOfBirth || profile.dateOfBirth || '').trim()
   const roleContext = buildRoleContext(settings || {}, row.role)
 
   return {
@@ -5366,12 +6098,679 @@ async function hydrateUserRecord(db: D1Database, row: Record<string, any> | null
     displayId: settings?.displayId || null,
     phone: settings?.phone || null,
     classId: settings?.classId || null,
+    className: settings?.className || null,
+    avatar: avatarUrl || null,
+    avatarUrl: avatarUrl || null,
+    dateOfBirth: dateOfBirth || null,
     mustChangePassword: settings?.mustChangePassword === true,
   }
 }
 
 async function hydrateUserRecords(db: D1Database, rows: Record<string, any>[]) {
   return Promise.all((rows || []).map(row => hydrateUserRecord(db, row)))
+}
+
+function normalizeMonthKey(value: unknown) {
+  const raw = String(value || '').trim()
+  return /^\d{4}-\d{2}$/.test(raw) ? raw : new Date().toISOString().slice(0, 7)
+}
+
+function getMonthDateRange(monthKey: string) {
+  const normalized = normalizeMonthKey(monthKey)
+  const [yearText, monthText] = normalized.split('-')
+  const year = Number(yearText)
+  const monthIndex = Number(monthText) - 1
+  const start = new Date(Date.UTC(year, monthIndex, 1))
+  const end = new Date(Date.UTC(year, monthIndex + 1, 0))
+
+  return {
+    month: normalized,
+    from: start.toISOString().slice(0, 10),
+    to: end.toISOString().slice(0, 10),
+    fromDateTime: `${start.toISOString().slice(0, 10)}T00:00:00.000Z`,
+    toDateTime: `${end.toISOString().slice(0, 10)}T23:59:59.999Z`,
+  }
+}
+
+function formatPercentage(value: number) {
+  return `${Math.round(Number.isFinite(value) ? value : 0)}%`
+}
+
+function safeNumber(value: unknown) {
+  const normalized = Number(value || 0)
+  return Number.isFinite(normalized) ? normalized : 0
+}
+
+function parseAwardRecipientSnapshot(value: unknown) {
+  if (value && typeof value === 'object') {
+    return value as Record<string, any>
+  }
+
+  if (typeof value !== 'string' || !value.trim()) {
+    return {} as Record<string, any>
+  }
+
+  try {
+    return JSON.parse(value) as Record<string, any>
+  } catch {
+    return {} as Record<string, any>
+  }
+}
+
+function buildAwardRecipientSnapshot(person: Record<string, any> | null) {
+  return {
+    userId: String(person?.id || ''),
+    name: String(person?.name || 'Unknown user'),
+    role: String(person?.role || ''),
+    avatarUrl: String(person?.avatarUrl || person?.avatar || '').trim(),
+    dateOfBirth: String(person?.dateOfBirth || '').trim(),
+    classId: String(person?.classId || '').trim(),
+    className: String(person?.className || '').trim(),
+    displayId: String(person?.displayId || '').trim(),
+  }
+}
+
+async function listActiveTenantPeopleWithProfiles(db: D1Database, tenantId: string) {
+  if (!tenantId) return [] as Record<string, any>[]
+
+  await ensureUsersTable(db)
+  const rows = await db.prepare(
+    `SELECT id, name, email, role, status, createdAt FROM users WHERE tenantId = ? AND (status IS NULL OR status != 'inactive') ORDER BY role, name`
+  ).bind(tenantId).all()
+  const people = await hydrateUserRecords(db, (rows.results || []) as Record<string, any>[])
+  return people.filter(Boolean) as Record<string, any>[]
+}
+
+async function ensureSchoolAwardsTable(db: D1Database) {
+  await db.prepare(`CREATE TABLE IF NOT EXISTS school_awards (
+    id TEXT PRIMARY KEY,
+    tenant_id TEXT NOT NULL,
+    period_month TEXT NOT NULL,
+    award_key TEXT NOT NULL,
+    award_title TEXT NOT NULL,
+    description TEXT,
+    subject_user_id TEXT NOT NULL,
+    recipient_snapshot TEXT NOT NULL,
+    attached_by TEXT,
+    created_at TEXT NOT NULL,
+    updated_at TEXT NOT NULL,
+    UNIQUE(tenant_id, period_month, award_key, subject_user_id)
+  )`).run()
+}
+
+function mapSchoolAwardRow(row: Record<string, any> | null) {
+  if (!row) return null
+
+  return {
+    id: String(row.id || ''),
+    tenantId: String(row.tenant_id || ''),
+    periodMonth: String(row.period_month || ''),
+    awardKey: String(row.award_key || ''),
+    awardTitle: String(row.award_title || ''),
+    description: String(row.description || ''),
+    subjectUserId: String(row.subject_user_id || ''),
+    recipient: parseAwardRecipientSnapshot(row.recipient_snapshot),
+    attachedBy: String(row.attached_by || ''),
+    createdAt: String(row.created_at || ''),
+    updatedAt: String(row.updated_at || row.created_at || ''),
+  }
+}
+
+async function listSchoolAwards(
+  db: D1Database,
+  filters: { tenantId?: string, periodMonth?: string, limit?: number } = {},
+) {
+  await ensureSchoolAwardsTable(db)
+
+  let query = 'SELECT * FROM school_awards WHERE 1 = 1'
+  const params: Array<string | number> = []
+
+  if (filters.tenantId) {
+    query += ' AND tenant_id = ?'
+    params.push(filters.tenantId)
+  }
+
+  if (filters.periodMonth) {
+    query += ' AND period_month = ?'
+    params.push(normalizeMonthKey(filters.periodMonth))
+  }
+
+  query += ' ORDER BY period_month DESC, updated_at DESC'
+
+  if (typeof filters.limit === 'number' && Number.isFinite(filters.limit) && filters.limit > 0) {
+    query += ' LIMIT ?'
+    params.push(Math.trunc(filters.limit))
+  }
+
+  const rows = await db.prepare(query).bind(...params).all()
+  return ((rows.results || []) as Record<string, any>[])
+    .map(mapSchoolAwardRow)
+    .filter(Boolean)
+}
+
+async function upsertSchoolAward(db: D1Database, award: {
+  tenantId: string
+  periodMonth: string
+  awardKey: string
+  awardTitle: string
+  description?: string
+  subjectUserId: string
+  recipientSnapshot: Record<string, any>
+  attachedBy?: string
+}) {
+  await ensureSchoolAwardsTable(db)
+
+  const timestamp = new Date().toISOString()
+  const id = `award_${award.tenantId}_${award.subjectUserId}_${award.awardKey}_${award.periodMonth}`
+  const normalizedMonth = normalizeMonthKey(award.periodMonth)
+  const normalizedAwardKey = slugifyValue(String(award.awardKey || '').trim()).slice(0, 80) || 'custom-award'
+
+  await db.prepare(
+    `INSERT INTO school_awards (
+      id, tenant_id, period_month, award_key, award_title, description, subject_user_id, recipient_snapshot, attached_by, created_at, updated_at
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    ON CONFLICT(tenant_id, period_month, award_key, subject_user_id)
+    DO UPDATE SET
+      award_title = excluded.award_title,
+      description = excluded.description,
+      recipient_snapshot = excluded.recipient_snapshot,
+      attached_by = excluded.attached_by,
+      updated_at = excluded.updated_at`
+  ).bind(
+    id,
+    award.tenantId,
+    normalizedMonth,
+    normalizedAwardKey,
+    String(award.awardTitle || 'School Recognition Award').trim(),
+    String(award.description || '').trim() || null,
+    award.subjectUserId,
+    JSON.stringify(award.recipientSnapshot || {}),
+    String(award.attachedBy || '').trim() || null,
+    timestamp,
+    timestamp,
+  ).run()
+
+  const saved = await db.prepare(
+    `SELECT * FROM school_awards WHERE tenant_id = ? AND period_month = ? AND award_key = ? AND subject_user_id = ? LIMIT 1`
+  ).bind(
+    award.tenantId,
+    normalizedMonth,
+    normalizedAwardKey,
+    award.subjectUserId,
+  ).first() as Record<string, any> | null
+
+  return mapSchoolAwardRow(saved)
+}
+
+function buildGroupedCountMap(rows: any) {
+  return ((rows?.results || []) as Record<string, any>[]).reduce((accumulator, row) => {
+    const actor = String(row.actor || '').trim().toLowerCase()
+    if (!actor) return accumulator
+    accumulator[actor] = safeNumber(row.count)
+    return accumulator
+  }, {} as Record<string, number>)
+}
+
+function sumComparableCounts(countMap: Record<string, number>, identifiers: unknown[]) {
+  const comparableIdentifiers = collectComparableIdentifiers(identifiers)
+  return comparableIdentifiers.reduce((sum, identifier) => sum + safeNumber(countMap[identifier]), 0)
+}
+
+async function buildSchoolActivityAggregates(db: D1Database, tenantId: string, monthKey: string) {
+  await ensureClassesTable(db)
+
+  const classRows = await db.prepare(
+    `SELECT id FROM classes WHERE tenantId = ?`
+  ).bind(tenantId).all().catch(() => ({ results: [] }))
+  const classIds = ((classRows.results || []) as Record<string, any>[])
+    .map(row => String(row.id || '').trim())
+    .filter(Boolean)
+
+  if (!classIds.length) {
+    return {
+      posts: {} as Record<string, number>,
+      assignments: {} as Record<string, number>,
+      materials: {} as Record<string, number>,
+      liveSessions: {} as Record<string, number>,
+      submissions: {} as Record<string, number>,
+    }
+  }
+
+  const period = getMonthDateRange(monthKey)
+  const classPlaceholders = classIds.map(() => '?').join(', ')
+
+  const [postRows, assignmentRows, materialRows, liveRows, submissionRows] = await Promise.all([
+    db.prepare(
+      `SELECT lower(trim(coalesce(authorId, ''))) AS actor, COUNT(*) as count
+       FROM posts
+       WHERE classId IN (${classPlaceholders})
+         AND createdAt >= ?
+         AND createdAt <= ?
+       GROUP BY lower(trim(coalesce(authorId, '')))`
+    ).bind(...classIds, period.fromDateTime, period.toDateTime).all().catch(() => ({ results: [] })),
+    db.prepare(
+      `SELECT lower(trim(coalesce(createdBy, ''))) AS actor, COUNT(*) as count
+       FROM assignments
+       WHERE classId IN (${classPlaceholders})
+         AND createdAt >= ?
+         AND createdAt <= ?
+       GROUP BY lower(trim(coalesce(createdBy, '')))`
+    ).bind(...classIds, period.fromDateTime, period.toDateTime).all().catch(() => ({ results: [] })),
+    db.prepare(
+      `SELECT lower(trim(coalesce(uploadedBy, ''))) AS actor, COUNT(*) as count
+       FROM materials
+       WHERE classId IN (${classPlaceholders})
+         AND uploadedAt >= ?
+         AND uploadedAt <= ?
+       GROUP BY lower(trim(coalesce(uploadedBy, '')))`
+    ).bind(...classIds, period.fromDateTime, period.toDateTime).all().catch(() => ({ results: [] })),
+    db.prepare(
+      `SELECT lower(trim(coalesce(createdBy, ''))) AS actor, COUNT(*) as count
+       FROM classroom_live_sessions
+       WHERE classId IN (${classPlaceholders})
+         AND createdAt >= ?
+         AND createdAt <= ?
+       GROUP BY lower(trim(coalesce(createdBy, '')))`
+    ).bind(...classIds, period.fromDateTime, period.toDateTime).all().catch(() => ({ results: [] })),
+    db.prepare(
+      `SELECT lower(trim(coalesce(s.studentId, ''))) AS actor, COUNT(*) as count
+       FROM submissions s
+       INNER JOIN assignments a ON a.id = s.assignmentId
+       WHERE a.classId IN (${classPlaceholders})
+         AND s.submittedAt >= ?
+         AND s.submittedAt <= ?
+       GROUP BY lower(trim(coalesce(s.studentId, '')))`
+    ).bind(...classIds, period.fromDateTime, period.toDateTime).all().catch(() => ({ results: [] })),
+  ])
+
+  return {
+    posts: buildGroupedCountMap(postRows),
+    assignments: buildGroupedCountMap(assignmentRows),
+    materials: buildGroupedCountMap(materialRows),
+    liveSessions: buildGroupedCountMap(liveRows),
+    submissions: buildGroupedCountMap(submissionRows),
+  }
+}
+
+function buildBirthdayHighlights(people: Record<string, any>[], monthKey: string) {
+  const normalizedMonth = normalizeMonthKey(monthKey)
+  const targetMonth = normalizedMonth.slice(5, 7)
+  const targetYear = Number(normalizedMonth.slice(0, 4))
+
+  return people
+    .map(person => {
+      const dateOfBirth = String(person?.dateOfBirth || '').trim().slice(0, 10)
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(dateOfBirth) || dateOfBirth.slice(5, 7) !== targetMonth) {
+        return null
+      }
+
+      const birthYear = Number(dateOfBirth.slice(0, 4))
+      const day = dateOfBirth.slice(8, 10)
+      return {
+        ...buildAwardRecipientSnapshot(person),
+        birthdayDate: `${normalizedMonth}-${day}`,
+        birthdayLabel: new Date(`${normalizedMonth}-${day}T00:00:00Z`).toLocaleDateString(undefined, { month: 'long', day: 'numeric' }),
+        ageTurning: Number.isFinite(birthYear) && birthYear > 1900 ? Math.max(0, targetYear - birthYear) : null,
+      }
+    })
+    .filter(Boolean)
+    .sort((left, right) => String((left as any).birthdayDate).localeCompare(String((right as any).birthdayDate)))
+}
+
+async function buildMonthlyAttendanceReport(db: D1Database, tenantId: string, monthKey: string) {
+  const normalizedMonth = normalizeMonthKey(monthKey)
+  const period = getMonthDateRange(normalizedMonth)
+  const today = new Date().toISOString().slice(0, 10)
+  const weeklyEnd = period.to < today ? period.to : today
+  const weeklyStartDate = new Date(`${weeklyEnd}T00:00:00Z`)
+  weeklyStartDate.setUTCDate(weeklyStartDate.getUTCDate() - 6)
+  const weeklyStart = weeklyStartDate.toISOString().slice(0, 10) < period.from ? period.from : weeklyStartDate.toISOString().slice(0, 10)
+
+  const people = await listActiveTenantPeopleWithProfiles(db, tenantId)
+  const staffMembers = people.filter(person => !['student', 'parent', 'ami'].includes(String(person.role || '').toLowerCase()))
+  const studentMembers = people.filter(person => String(person.role || '').toLowerCase() === 'student')
+
+  const studentRecords = await listSchoolStudentAttendance(db, {
+    tenantId,
+    from: period.from,
+    to: period.to,
+  })
+
+  await ensureStaffAttendanceBaseTable(db)
+  await ensureStaffAttendanceEventsTable(db)
+
+  const [staffRecordRows, staffEventRows, amiAwards, activityAggregates] = await Promise.all([
+    db.prepare(
+      `SELECT staff_id, status, date FROM staff_attendance WHERE tenant_id = ? AND date >= ? AND date <= ?`
+    ).bind(tenantId, period.from, period.to).all().catch(() => ({ results: [] })),
+    db.prepare(
+      `SELECT staff_id, is_late, late_minutes, late_charge, date FROM staff_attendance_events WHERE tenant_id = ? AND action = 'sign-in' AND date >= ? AND date <= ?`
+    ).bind(tenantId, period.from, period.to).all().catch(() => ({ results: [] })),
+    listSchoolAwards(db, { tenantId, periodMonth: normalizedMonth, limit: 24 }),
+    buildSchoolActivityAggregates(db, tenantId, normalizedMonth),
+  ])
+
+  const studentStats = new Map<string, Record<string, number>>()
+  for (const student of studentMembers) {
+    studentStats.set(String(student.id || ''), { present: 0, late: 0, absent: 0, total: 0, weeklyPresent: 0, weeklyLate: 0, weeklyTotal: 0 })
+  }
+
+  let studentPresentCount = 0
+  let studentLateCount = 0
+  let studentAbsentCount = 0
+
+  for (const record of studentRecords) {
+    const studentId = String(record.studentId || '')
+    if (!studentId) continue
+    const status = String(record.status || '').toLowerCase()
+    const stats = studentStats.get(studentId) || { present: 0, late: 0, absent: 0, total: 0, weeklyPresent: 0, weeklyLate: 0, weeklyTotal: 0 }
+    stats.total += 1
+    if (status === 'present') {
+      stats.present += 1
+      studentPresentCount += 1
+    } else if (status === 'late') {
+      stats.late += 1
+      studentLateCount += 1
+    } else if (status === 'absent') {
+      stats.absent += 1
+      studentAbsentCount += 1
+    }
+    if (String(record.date || '') >= weeklyStart && String(record.date || '') <= weeklyEnd) {
+      stats.weeklyTotal += 1
+      if (status === 'present') stats.weeklyPresent += 1
+      if (status === 'late') stats.weeklyLate += 1
+    }
+    studentStats.set(studentId, stats)
+  }
+
+  const staffStats = new Map<string, Record<string, number>>()
+  for (const staffMember of staffMembers) {
+    staffStats.set(String(staffMember.id || ''), { present: 0, late: 0, absent: 0, total: 0, onTime: 0, lateMinutes: 0, lateCharges: 0, signIns: 0 })
+  }
+
+  let staffPresentCount = 0
+  let staffLateCount = 0
+  let staffAbsentCount = 0
+  let staffLateChargeTotal = 0
+
+  for (const row of (staffRecordRows.results || []) as Record<string, any>[]) {
+    const staffId = String(row.staff_id || '').trim()
+    if (!staffId) continue
+    const status = String(row.status || '').toLowerCase()
+    const stats = staffStats.get(staffId) || { present: 0, late: 0, absent: 0, total: 0, onTime: 0, lateMinutes: 0, lateCharges: 0, signIns: 0 }
+    stats.total += 1
+    if (status === 'present') {
+      stats.present += 1
+      staffPresentCount += 1
+    } else if (status === 'late') {
+      stats.late += 1
+      staffLateCount += 1
+    } else if (status === 'absent') {
+      stats.absent += 1
+      staffAbsentCount += 1
+    }
+    staffStats.set(staffId, stats)
+  }
+
+  for (const row of (staffEventRows.results || []) as Record<string, any>[]) {
+    const staffId = String(row.staff_id || '').trim()
+    if (!staffId) continue
+    const stats = staffStats.get(staffId) || { present: 0, late: 0, absent: 0, total: 0, onTime: 0, lateMinutes: 0, lateCharges: 0, signIns: 0 }
+    stats.signIns += 1
+    if (Boolean(Number(row.is_late || 0))) {
+      stats.lateMinutes += safeNumber(row.late_minutes)
+    } else {
+      stats.onTime += 1
+    }
+    stats.lateCharges += safeNumber(row.late_charge)
+    staffLateChargeTotal += safeNumber(row.late_charge)
+    staffStats.set(staffId, stats)
+  }
+
+  const studentAttendanceRate = studentRecords.length > 0
+    ? ((studentPresentCount + studentLateCount) / studentRecords.length) * 100
+    : 0
+  const weeklyStudentRecords = studentRecords.filter(record => String(record.date || '') >= weeklyStart && String(record.date || '') <= weeklyEnd)
+  const weeklyStudentPresentish = weeklyStudentRecords.filter(record => ['present', 'late'].includes(String(record.status || '').toLowerCase())).length
+  const weeklyStudentAttendanceRate = weeklyStudentRecords.length > 0
+    ? (weeklyStudentPresentish / weeklyStudentRecords.length) * 100
+    : 0
+  const staffRecordCount = staffPresentCount + staffLateCount + staffAbsentCount
+  const staffAttendanceRate = staffRecordCount > 0
+    ? ((staffPresentCount + staffLateCount) / staffRecordCount) * 100
+    : 0
+
+  const atRiskStudents = studentMembers
+    .map(student => {
+      const stats = studentStats.get(String(student.id || '')) || { present: 0, late: 0, absent: 0, total: 0, weeklyPresent: 0, weeklyLate: 0, weeklyTotal: 0 }
+      const rate = stats.total > 0 ? ((stats.present + stats.late) / stats.total) * 100 : 0
+      return {
+        ...buildAwardRecipientSnapshot(student),
+        attendanceRate: Number(rate.toFixed(1)),
+        presentCount: stats.present,
+        lateCount: stats.late,
+        absentCount: stats.absent,
+        totalRecords: stats.total,
+      }
+    })
+    .filter(student => student.totalRecords > 0 && student.attendanceRate < 75)
+    .sort((left, right) => left.attendanceRate - right.attendanceRate)
+    .slice(0, 5)
+
+  const mostPunctualStaff = staffMembers
+    .map(staffMember => {
+      const stats = staffStats.get(String(staffMember.id || '')) || { present: 0, late: 0, absent: 0, total: 0, onTime: 0, lateMinutes: 0, lateCharges: 0, signIns: 0 }
+      return {
+        ...buildAwardRecipientSnapshot(staffMember),
+        onTimeCount: stats.onTime,
+        signIns: stats.signIns,
+        lateMinutes: stats.lateMinutes,
+        score: stats.onTime,
+      }
+    })
+    .filter(staffMember => staffMember.signIns > 0)
+    .sort((left, right) => {
+      if (right.score !== left.score) return right.score - left.score
+      if (left.lateMinutes !== right.lateMinutes) return left.lateMinutes - right.lateMinutes
+      return left.name.localeCompare(right.name)
+    })[0] || null
+
+  const consistencyStarStaff = staffMembers
+    .map(staffMember => {
+      const stats = staffStats.get(String(staffMember.id || '')) || { present: 0, late: 0, absent: 0, total: 0, onTime: 0, lateMinutes: 0, lateCharges: 0, signIns: 0 }
+      const rate = stats.total > 0 ? ((stats.present + stats.late) / stats.total) * 100 : 0
+      return {
+        ...buildAwardRecipientSnapshot(staffMember),
+        attendanceRate: Number(rate.toFixed(1)),
+        totalRecords: stats.total,
+        score: rate,
+      }
+    })
+    .filter(staffMember => staffMember.totalRecords > 0)
+    .sort((left, right) => {
+      if (right.score !== left.score) return right.score - left.score
+      if (right.totalRecords !== left.totalRecords) return right.totalRecords - left.totalRecords
+      return left.name.localeCompare(right.name)
+    })[0] || null
+
+  const attendanceChampionStudent = studentMembers
+    .map(student => {
+      const stats = studentStats.get(String(student.id || '')) || { present: 0, late: 0, absent: 0, total: 0, weeklyPresent: 0, weeklyLate: 0, weeklyTotal: 0 }
+      const rate = stats.total > 0 ? ((stats.present + stats.late) / stats.total) * 100 : 0
+      return {
+        ...buildAwardRecipientSnapshot(student),
+        attendanceRate: Number(rate.toFixed(1)),
+        totalRecords: stats.total,
+        score: rate,
+      }
+    })
+    .filter(student => student.totalRecords > 0)
+    .sort((left, right) => {
+      if (right.score !== left.score) return right.score - left.score
+      if (right.totalRecords !== left.totalRecords) return right.totalRecords - left.totalRecords
+      return left.name.localeCompare(right.name)
+    })[0] || null
+
+  const activityLeaderboards = {
+    staff: staffMembers
+      .map(staffMember => {
+        const identifiers = [staffMember.id, staffMember.email, staffMember.displayId]
+        const posts = sumComparableCounts(activityAggregates.posts, identifiers)
+        const assignments = sumComparableCounts(activityAggregates.assignments, identifiers)
+        const materials = sumComparableCounts(activityAggregates.materials, identifiers)
+        const liveSessions = sumComparableCounts(activityAggregates.liveSessions, identifiers)
+        const score = (assignments * 4) + (materials * 3) + (liveSessions * 4) + (posts * 2)
+        return {
+          ...buildAwardRecipientSnapshot(staffMember),
+          posts,
+          assignments,
+          materials,
+          liveSessions,
+          score,
+        }
+      })
+      .filter(staffMember => staffMember.score > 0)
+      .sort((left, right) => right.score - left.score)
+      .slice(0, 3),
+    students: studentMembers
+      .map(student => {
+        const identifiers = [student.id, student.email, student.displayId]
+        const posts = sumComparableCounts(activityAggregates.posts, identifiers)
+        const submissions = sumComparableCounts(activityAggregates.submissions, identifiers)
+        const score = (submissions * 4) + (posts * 2)
+        return {
+          ...buildAwardRecipientSnapshot(student),
+          posts,
+          submissions,
+          score,
+        }
+      })
+      .filter(student => student.score > 0)
+      .sort((left, right) => right.score - left.score)
+      .slice(0, 3),
+  }
+
+  const recognitions = [
+    mostPunctualStaff ? {
+      key: 'most-punctual-staff',
+      title: 'Most Punctual Staff',
+      description: `${mostPunctualStaff.name} signed in on time ${mostPunctualStaff.onTimeCount} time${mostPunctualStaff.onTimeCount === 1 ? '' : 's'} this month.`,
+      recipient: mostPunctualStaff,
+    } : null,
+    consistencyStarStaff ? {
+      key: 'consistency-star-staff',
+      title: 'Consistency Star',
+      description: `${consistencyStarStaff.name} kept a ${formatPercentage(consistencyStarStaff.attendanceRate)} staff attendance rate this month.`,
+      recipient: consistencyStarStaff,
+    } : null,
+    attendanceChampionStudent ? {
+      key: 'attendance-champion-student',
+      title: 'Attendance Champion Student',
+      description: `${attendanceChampionStudent.name} led student attendance with ${formatPercentage(attendanceChampionStudent.attendanceRate)} attendance.`,
+      recipient: attendanceChampionStudent,
+    } : null,
+    activityLeaderboards.staff[0] ? {
+      key: 'most-active-staff',
+      title: 'Most Active Staff',
+      description: `${activityLeaderboards.staff[0].name} led classroom delivery with ${activityLeaderboards.staff[0].score} activity points.`,
+      recipient: activityLeaderboards.staff[0],
+    } : null,
+    activityLeaderboards.students[0] ? {
+      key: 'most-active-student',
+      title: 'Most Active Student',
+      description: `${activityLeaderboards.students[0].name} led student participation with ${activityLeaderboards.students[0].score} activity points.`,
+      recipient: activityLeaderboards.students[0],
+    } : null,
+  ].filter(Boolean)
+
+  const lateStaff = staffMembers
+    .map(staffMember => {
+      const stats = staffStats.get(String(staffMember.id || '')) || { present: 0, late: 0, absent: 0, total: 0, onTime: 0, lateMinutes: 0, lateCharges: 0, signIns: 0 }
+      return {
+        ...buildAwardRecipientSnapshot(staffMember),
+        lateCount: stats.late,
+        lateMinutes: stats.lateMinutes,
+        lateCharges: Number(stats.lateCharges.toFixed(2)),
+      }
+    })
+    .filter(staffMember => staffMember.lateCount > 0 || staffMember.lateMinutes > 0)
+    .sort((left, right) => {
+      if (right.lateCount !== left.lateCount) return right.lateCount - left.lateCount
+      return right.lateMinutes - left.lateMinutes
+    })
+    .slice(0, 5)
+
+  return {
+    month: normalizedMonth,
+    dateRange: { from: period.from, to: period.to },
+    generatedAt: new Date().toISOString(),
+    staffSummary: {
+      totalStaff: staffMembers.length,
+      recordsCaptured: staffRecordCount,
+      presentCount: staffPresentCount,
+      lateCount: staffLateCount,
+      absentCount: staffAbsentCount,
+      attendanceRate: Number(staffAttendanceRate.toFixed(1)),
+      lateChargeTotal: Number(staffLateChargeTotal.toFixed(2)),
+    },
+    studentSummary: {
+      totalStudents: studentMembers.length,
+      recordsCaptured: studentRecords.length,
+      presentCount: studentPresentCount,
+      lateCount: studentLateCount,
+      absentCount: studentAbsentCount,
+      attendanceRate: Number(studentAttendanceRate.toFixed(1)),
+      weeklyAttendanceRate: Number(weeklyStudentAttendanceRate.toFixed(1)),
+      atRiskCount: atRiskStudents.length,
+    },
+    birthdays: buildBirthdayHighlights(people, normalizedMonth),
+    recognitions,
+    amiAwards,
+    lateStaff,
+    atRiskStudents,
+    activityLeaderboards,
+    peopleTotals: {
+      staff: staffMembers.length,
+      students: studentMembers.length,
+    },
+  }
+}
+
+function buildAttendanceAiAnalysis(report: Record<string, any>) {
+  const atRiskStudents = Array.isArray(report?.atRiskStudents) ? report.atRiskStudents : []
+  const recognitions = Array.isArray(report?.recognitions) ? report.recognitions : []
+  const birthdays = Array.isArray(report?.birthdays) ? report.birthdays : []
+  const lateStaff = Array.isArray(report?.lateStaff) ? report.lateStaff : []
+
+  const suggestions: string[] = []
+  if (atRiskStudents.length > 0) {
+    suggestions.push(`Follow up with ${atRiskStudents.length} student${atRiskStudents.length === 1 ? '' : 's'} below 75% attendance this month, starting with ${atRiskStudents[0].name}.`)
+  }
+  if (lateStaff.length > 0) {
+    suggestions.push(`Review sign-in discipline with ${lateStaff.length} staff member${lateStaff.length === 1 ? '' : 's'} who recorded lateness this month.`)
+  }
+  if (birthdays.length > 0) {
+    suggestions.push(`Celebrate ${birthdays.slice(0, 3).map((person: Record<string, any>) => person.name).join(', ')} in the monthly assembly or on the dashboard.`)
+  }
+  if (recognitions.length > 0) {
+    suggestions.push(`Publicly recognise ${recognitions[0].recipient?.name || 'this month\'s top contributor'} to reinforce strong attendance and platform engagement.`)
+  }
+  if (suggestions.length === 0) {
+    suggestions.push('Attendance is stable this month. Keep celebrating punctual staff and students to maintain momentum.')
+  }
+
+  const teacherPatterns = lateStaff.length > 0
+    ? `${lateStaff.length} staff member${lateStaff.length === 1 ? '' : 's'} recorded lateness this month, with ${report?.staffSummary?.lateCount || 0} late attendance record${report?.staffSummary?.lateCount === 1 ? '' : 's'} overall.`
+    : 'Staff attendance was stable this month, with no recorded late sign-ins in the captured data.'
+
+  return {
+    weeklyRate: formatPercentage(safeNumber(report?.studentSummary?.weeklyAttendanceRate)),
+    monthlyRate: formatPercentage(safeNumber(report?.studentSummary?.attendanceRate)),
+    atRiskStudents: atRiskStudents.map((student: Record<string, any>) => `${student.name} — ${formatPercentage(student.attendanceRate)}`),
+    teacherPatterns,
+    suggestions,
+    report,
+  }
 }
 
 // Staff list for owner/HoS
@@ -5439,6 +6838,60 @@ app.put('/api/attendance/:id', authenticate, async (c) => {
 })
 
 // Conversations
+app.post('/api/public/website-enquiries', async (c) => {
+  try {
+    const payload = await c.req.json().catch(async () => {
+      const formData = await c.req.formData()
+      return Object.fromEntries(Array.from(formData.entries()).map(([key, value]) => [key, String(value || '')]))
+    }) as Record<string, any>
+
+    const tenantId = String(payload?.tenantId || '').trim()
+    const name = String(payload?.name || '').trim()
+    const email = String(payload?.email || '').trim().toLowerCase()
+    const phone = String(payload?.phone || '').trim()
+    const subject = String(payload?.subject || '').trim()
+    const body = String(payload?.message || '').trim()
+    const sourcePage = String(payload?.sourcePage || '/contact').trim() || '/contact'
+
+    if (!tenantId || !name || !email || !body) {
+      return c.json({ success: false, message: 'tenantId, name, email, and message are required.' }, 400)
+    }
+
+    const tenant = await getTenantById(c.env.APP_DB, tenantId)
+    if (!tenant) {
+      return c.json({ success: false, message: 'School not found.' }, 404)
+    }
+
+    const recipients = await listTenantConversationRecipients(c.env.APP_DB, tenantId, ['owner', 'hos'])
+    if (recipients.length === 0) {
+      return c.json({ success: false, message: 'No owner or HoS inbox is available for this school yet.' }, 503)
+    }
+
+    const visitorId = email
+    const participants = Array.from(new Set([...recipients, visitorId]))
+    const comparableParticipants = collectComparableIdentifiers(participants)
+    const existingConversation = (await getConversations(c.env.APP_DB))
+      .find(conversation => conversationMatchesParticipantSet(conversation, comparableParticipants))
+
+    const conversationSubject = subject || `Website enquiry from ${name}`
+    const conversation = existingConversation || await createConversation(c.env.APP_DB, conversationSubject, participants)
+    const message = await sendMessage(c.env.APP_DB, conversation.id, visitorId, body, {
+      source: 'website_contact',
+      tenantId,
+      schoolName: tenant.schoolName || '',
+      visitorName: name,
+      visitorEmail: email,
+      visitorPhone: phone,
+      sourcePage,
+      subject: conversationSubject,
+    })
+
+    return c.json({ success: true, conversationId: conversation.id, messageId: message.id })
+  } catch (error) {
+    return c.json({ success: false, message: 'Could not submit website enquiry.', error }, 500)
+  }
+})
+
 app.get('/api/conversations', authenticate, async (c) => {
   const { userId } = c.req.query()
   try {
@@ -5450,6 +6903,205 @@ app.get('/api/conversations', authenticate, async (c) => {
     return c.json({ success: false, error: 'Could not fetch conversations' }, 500)
   }
 })
+
+app.post('/api/public/admissions', async (c) => {
+  try {
+    const payload = await c.req.json().catch(async () => {
+      const formData = await c.req.formData()
+      return Object.fromEntries(Array.from(formData.entries()).map(([key, value]) => [key, String(value || '')]))
+    }) as Record<string, any>
+
+    const tenantId = String(payload?.tenantId || '').trim()
+    const studentName = String(payload?.studentName || '').trim()
+    const parentName = String(payload?.parentName || '').trim()
+    const parentEmail = String(payload?.parentEmail || '').trim().toLowerCase()
+    const parentPhone = String(payload?.parentPhone || '').trim()
+    const desiredClass = String(payload?.desiredClass || '').trim()
+
+    if (!tenantId || !studentName || !parentName || !parentEmail || !desiredClass) {
+      return c.json({ success: false, message: 'tenantId, studentName, parentName, parentEmail, and desiredClass are required.' }, 400)
+    }
+
+    const tenant = await getTenantById(c.env.APP_DB, tenantId)
+    if (!tenant) {
+      return c.json({ success: false, message: 'School not found.' }, 404)
+    }
+
+    await ensureAdmissionApplicationsTable(c.env.APP_DB)
+
+    const applicationPayload = {
+      student: {
+        name: studentName,
+        gender: String(payload?.gender || '').trim(),
+        dateOfBirth: String(payload?.dateOfBirth || '').trim(),
+        desiredClass,
+      },
+      academic: {
+        previousSchool: String(payload?.previousSchool || '').trim(),
+        strengths: String(payload?.strengths || '').trim(),
+      },
+      parent: {
+        name: parentName,
+        email: parentEmail,
+        phone: parentPhone,
+        relationship: String(payload?.relationship || '').trim(),
+        address: String(payload?.address || '').trim(),
+      },
+      medical: {
+        allergies: String(payload?.allergies || '').trim(),
+        conditions: String(payload?.conditions || '').trim(),
+        notes: String(payload?.medicalNotes || '').trim(),
+      },
+      sen: {
+        needs: String(payload?.senNeeds || '').trim(),
+        talents: String(payload?.talents || '').trim(),
+      },
+      transport: {
+        required: String(payload?.transportRequired || '').trim().toLowerCase() === 'yes',
+        area: String(payload?.transportArea || '').trim(),
+      },
+      hostel: {
+        required: String(payload?.hostelRequired || '').trim().toLowerCase() === 'yes',
+        notes: String(payload?.hostelNotes || '').trim(),
+      },
+      clinic: {
+        followUpRequired: Boolean(String(payload?.allergies || '').trim() || String(payload?.conditions || '').trim() || String(payload?.medicalNotes || '').trim()),
+      },
+      payment: {
+        registrationPlan: String(payload?.registrationPlan || '').trim(),
+      },
+      exam: {
+        preferredDate: String(payload?.examDate || '').trim(),
+      },
+      sourcePage: String(payload?.sourcePage || '/admissions').trim() || '/admissions',
+    }
+    const serviceFlags = buildAdmissionServiceFlags(applicationPayload)
+    const now = new Date().toISOString()
+    const applicationId = `adm_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`
+
+    await c.env.APP_DB.prepare(
+      'INSERT INTO admission_applications(id, tenant_id, applicant_name, applicant_email, applicant_phone, desired_class, status, payload, service_flags, review_notes, reviewed_by, reviewed_at, created_at, updated_at) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+    ).bind(
+      applicationId,
+      tenantId,
+      studentName,
+      parentEmail,
+      parentPhone || null,
+      desiredClass,
+      'pending',
+      JSON.stringify(applicationPayload),
+      JSON.stringify(serviceFlags),
+      null,
+      null,
+      null,
+      now,
+      now,
+    ).run()
+
+    const recipients = await listTenantConversationRecipients(c.env.APP_DB, tenantId, ['owner', 'hos'])
+    if (recipients.length > 0) {
+      const participants = Array.from(new Set([...recipients, parentEmail]))
+      const comparableParticipants = collectComparableIdentifiers(participants)
+      const existingConversation = (await getConversations(c.env.APP_DB))
+        .find(conversation => conversationMatchesParticipantSet(conversation, comparableParticipants))
+      const conversation = existingConversation || await createConversation(c.env.APP_DB, `Admission application for ${studentName}`, participants)
+      await sendMessage(c.env.APP_DB, conversation.id, parentEmail, `New admission application submitted for ${studentName}. Preferred class: ${desiredClass}.`, {
+        source: 'admission_application',
+        tenantId,
+        applicationId,
+        parentName,
+        parentEmail,
+        parentPhone,
+        desiredClass,
+        serviceFlags,
+      })
+    }
+
+    return c.json({ success: true, applicationId })
+  } catch (error) {
+    return c.json({ success: false, message: 'Could not submit admission application.', error }, 500)
+  }
+})
+
+app.get('/api/school/admissions', authenticate, async (c) => {
+  try {
+    const user = c.var.user || {}
+    const userIdentifier = user.id || user.email || user.sub || ''
+    const resolvedUser = await resolveSettingsIdentity(c.env.APP_DB, userIdentifier)
+    const tenantId = String(resolvedUser.settings?.tenantId || resolvedUser.settings?.schoolId || resolvedUser.userRow?.tenantId || user.tenantId || '').trim()
+    const role = String(resolvedUser.settings?.role || resolvedUser.userRow?.role || user.role || '').trim().toLowerCase()
+    const requestedChannel = String(c.req.query('channel') || '').trim().toLowerCase()
+    const requestedStatus = normalizeAdmissionStatus(c.req.query('status'), '')
+
+    const allowedRoles = new Set(['owner', 'hos', 'admin', 'ict', 'ict_manager', 'ami', 'transport', 'hostel', 'clinic'])
+    if (!tenantId || !allowedRoles.has(role)) {
+      return c.json({ success: false, message: 'forbidden' }, 403)
+    }
+
+    await ensureAdmissionApplicationsTable(c.env.APP_DB)
+    const rows = await c.env.APP_DB.prepare(
+      'SELECT * FROM admission_applications WHERE tenant_id = ? ORDER BY created_at DESC'
+    ).bind(tenantId).all()
+
+    const effectiveChannel = ['transport', 'hostel', 'clinic'].includes(role) ? role : requestedChannel
+    let applications = ((rows.results || []) as Record<string, any>[]).map(mapAdmissionApplicationRow)
+
+    if (requestedStatus) {
+      applications = applications.filter(application => application.status === requestedStatus)
+    }
+
+    if (effectiveChannel) {
+      applications = applications.filter(application => Boolean(application.serviceFlags?.[effectiveChannel]))
+    }
+
+    return c.json({ success: true, applications })
+  } catch (error) {
+    return c.json({ success: false, message: 'Could not load admissions.', error }, 500)
+  }
+})
+
+app.post('/api/school/admissions/:applicationId/review', authenticate, async (c) => {
+  try {
+    const applicationId = c.req.param('applicationId')
+    const body = await c.req.json()
+    const user = c.var.user || {}
+    const userIdentifier = user.id || user.email || user.sub || ''
+    const resolvedUser = await resolveSettingsIdentity(c.env.APP_DB, userIdentifier)
+    const tenantId = String(resolvedUser.settings?.tenantId || resolvedUser.settings?.schoolId || resolvedUser.userRow?.tenantId || user.tenantId || '').trim()
+    const role = String(resolvedUser.settings?.role || resolvedUser.userRow?.role || user.role || '').trim().toLowerCase()
+
+    if (!tenantId || !['owner', 'hos', 'admin', 'ict', 'ict_manager', 'ami'].includes(role)) {
+      return c.json({ success: false, message: 'forbidden' }, 403)
+    }
+
+    await ensureAdmissionApplicationsTable(c.env.APP_DB)
+    const existing = await c.env.APP_DB.prepare(
+      'SELECT * FROM admission_applications WHERE id = ? AND tenant_id = ? LIMIT 1'
+    ).bind(applicationId, tenantId).first() as Record<string, any> | null
+
+    if (!existing) {
+      return c.json({ success: false, message: 'Admission application not found.' }, 404)
+    }
+
+    const reviewedAt = new Date().toISOString()
+    const status = normalizeAdmissionStatus(body?.status, existing.status)
+    const reviewNotes = String(body?.reviewNotes || '').trim()
+    const reviewedBy = String(resolvedUser.settings?.name || resolvedUser.userRow?.name || user.name || userIdentifier || role).trim()
+
+    await c.env.APP_DB.prepare(
+      'UPDATE admission_applications SET status = ?, review_notes = ?, reviewed_by = ?, reviewed_at = ?, updated_at = ? WHERE id = ? AND tenant_id = ?'
+    ).bind(status, reviewNotes || null, reviewedBy || null, reviewedAt, reviewedAt, applicationId, tenantId).run()
+
+    const updated = await c.env.APP_DB.prepare(
+      'SELECT * FROM admission_applications WHERE id = ? AND tenant_id = ? LIMIT 1'
+    ).bind(applicationId, tenantId).first() as Record<string, any> | null
+
+    return c.json({ success: true, application: updated ? mapAdmissionApplicationRow(updated) : null })
+  } catch (error) {
+    return c.json({ success: false, message: 'Could not review admission application.', error }, 500)
+  }
+})
+
 
 app.post('/api/conversations', authenticate, async (c) => {
   const { subject, participants } = await c.req.json()
@@ -5811,7 +7463,7 @@ app.put('/api/people/:userId', authenticate, async (c) => {
   const isAdminEdit = hasRequiredRole(callerRole, ['owner', 'hos'])
   if (!isAdminEdit && callerId !== userId) return c.json({ error: 'forbidden' }, 403)
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
-  const { name, phone, classId } = await c.req.json()
+  const { name, phone, classId, dateOfBirth, avatar } = await c.req.json()
   try {
     await ensureUsersTable(c.env.APP_DB)
     const existingUser = await c.env.APP_DB.prepare(
@@ -5821,10 +7473,29 @@ app.put('/api/people/:userId', authenticate, async (c) => {
     if (name) {
       await c.env.APP_DB.prepare(`UPDATE users SET name = ? WHERE id = ? AND tenantId = ?`).bind(name, userId, tenantId).run()
     }
-    const settings = await getSettings(c.env.APP_DB, existingUser.email).catch(() => null) || {}
+    const resolvedIdentity = await resolveSettingsIdentity(c.env.APP_DB, existingUser.email || existingUser.id)
+    const settingsKey = String(resolvedIdentity.settingsKey || existingUser.email || existingUser.id || '').trim()
+    const settings = resolvedIdentity.settings || {}
+    const existingProfile = settings?.profile && typeof settings.profile === 'object'
+      ? settings.profile as Record<string, any>
+      : {}
     const updates: Record<string, any> = {}
+    const profileUpdates: Record<string, any> = { ...existingProfile }
     if (name !== undefined) updates.name = name
     if (phone !== undefined) updates.phone = phone
+    if (dateOfBirth !== undefined) {
+      const normalizedDateOfBirth = /^\d{4}-\d{2}-\d{2}$/.test(String(dateOfBirth || '').trim())
+        ? String(dateOfBirth || '').trim()
+        : ''
+      updates.dateOfBirth = normalizedDateOfBirth || null
+      profileUpdates.dateOfBirth = normalizedDateOfBirth
+    }
+    if (avatar !== undefined) {
+      const normalizedAvatar = String(avatar || '').trim()
+      updates.avatar = normalizedAvatar || null
+      updates.avatarUrl = normalizedAvatar || null
+      profileUpdates.avatar = normalizedAvatar
+    }
     if (classId !== undefined && isAdminEdit) {
       // resolve class name for classId
       try {
@@ -5834,8 +7505,14 @@ app.put('/api/people/:userId', authenticate, async (c) => {
         updates.className = cls ? `${cls.name}${cls.arm ? ` ${cls.arm}` : ''}` : classId
       } catch { updates.classId = classId }
     }
+    if (Object.keys(profileUpdates).length > 0) {
+      profileUpdates.id = userId
+      profileUpdates.email = existingUser.email || existingProfile.email || ''
+      profileUpdates.name = name !== undefined ? name : (profileUpdates.name || settings?.name || existingUser.email || '')
+      updates.profile = profileUpdates
+    }
     if (Object.keys(updates).length > 0) {
-      await upsertSettings(c.env.APP_DB, existingUser.email, { ...settings, ...updates })
+      await upsertSettings(c.env.APP_DB, settingsKey, { ...settings, ...updates })
     }
     await addAudit(c.env.APP_DB, tenantId, { action: 'personUpdated', data: { by: callerId, userId, fields: Object.keys(updates) } })
     return c.json({ success: true })
@@ -7328,7 +9005,7 @@ app.get('/api/school/fees-config', authenticate, async (c) => {
   const tenantId = c.var.user?.tenantId
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
   try {
-    await c.env.APP_DB.prepare(`CREATE TABLE IF NOT EXISTS fees_config (id TEXT PRIMARY KEY, tenant_id TEXT, fee_type TEXT, class_id TEXT, amount REAL, session TEXT, created_at TEXT)`).run()
+    await ensureFeesConfigTable(c.env.APP_DB)
     const rows = await c.env.APP_DB.prepare(`SELECT * FROM fees_config WHERE tenant_id = ? ORDER BY created_at DESC`).bind(tenantId).all()
     return c.json({ success: true, configs: rows.results || [] })
   } catch { return c.json({ success: true, configs: [] }) }
@@ -7339,10 +9016,10 @@ app.post('/api/school/fees-config', authenticate, async (c) => {
   const tenantId = c.var.user?.tenantId
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
   const { feeType, classId, amount, session } = await c.req.json()
-  if (!amount) return c.json({ error: 'Amount required.' }, 400)
+  if (amount === undefined || amount === null || amount === '') return c.json({ error: 'Amount required.' }, 400)
   const id = `fc_${tenantId}_${Date.now()}`
   try {
-    await c.env.APP_DB.prepare(`CREATE TABLE IF NOT EXISTS fees_config (id TEXT PRIMARY KEY, tenant_id TEXT, fee_type TEXT, class_id TEXT, amount REAL, session TEXT, created_at TEXT)`).run()
+    await ensureFeesConfigTable(c.env.APP_DB)
     await c.env.APP_DB.prepare(`INSERT OR REPLACE INTO fees_config (id, tenant_id, fee_type, class_id, amount, session, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)`)
       .bind(id, tenantId, feeType || 'Tuition', classId || null, Number(amount), session || '', new Date().toISOString()).run()
     return c.json({ success: true, id }, 201)
@@ -7350,18 +9027,25 @@ app.post('/api/school/fees-config', authenticate, async (c) => {
 })
 
 app.get('/api/school/fees-ledger', authenticate, async (c) => {
-  const tenantId = c.var.user?.tenantId
-  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
   try {
-    await c.env.APP_DB.prepare(`CREATE TABLE IF NOT EXISTS fees_ledger (id TEXT PRIMARY KEY, tenant_id TEXT, student_id TEXT, student_name TEXT, class_id TEXT, class_name TEXT, fee_amount REAL, amount_paid REAL, status TEXT, updated_at TEXT)`).run()
-    const rows = await c.env.APP_DB.prepare(`SELECT * FROM fees_ledger WHERE tenant_id = ? ORDER BY student_name`).bind(tenantId).all()
-    const ledger = (rows.results || []).map((r: any) => ({
-      id: r.id, studentId: r.student_id, name: r.student_name, classId: r.class_id, className: r.class_name,
-      feeAmount: r.fee_amount || 0, amountPaid: r.amount_paid || 0,
-      status: (r.amount_paid || 0) >= (r.fee_amount || 0) ? 'Paid' : (r.amount_paid || 0) > 0 ? 'Partial' : 'Unpaid',
-    }))
-    return c.json({ success: true, ledger })
-  } catch { return c.json({ success: true, ledger: [] }) }
+    const feeView = await listVisibleFeeLedgerEntries(c.env.APP_DB, c.var.user || {})
+    if (!feeView.tenantId) return c.json({ error: 'No tenant.' }, 400)
+    if (!feeView.allowed) return c.json({ error: 'forbidden' }, 403)
+    return c.json({ success: true, ledger: feeView.ledger })
+  } catch {
+    return c.json({ success: true, ledger: [] })
+  }
+})
+
+app.get('/api/school/fees-receipts', authenticate, async (c) => {
+  try {
+    const receiptView = await listVisibleFeePaymentReceipts(c.env.APP_DB, c.var.user || {})
+    if (!receiptView.tenantId) return c.json({ error: 'No tenant.' }, 400)
+    if (!receiptView.allowed) return c.json({ error: 'forbidden' }, 403)
+    return c.json({ success: true, receipts: receiptView.receipts })
+  } catch {
+    return c.json({ success: true, receipts: [] })
+  }
 })
 
 app.post('/api/school/fees/:studentId/pay', authenticate, async (c) => {
@@ -7369,24 +9053,65 @@ app.post('/api/school/fees/:studentId/pay', authenticate, async (c) => {
   const tenantId = c.var.user?.tenantId
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
   const studentId = c.req.param('studentId')
-  const { amount, paymentType } = await c.req.json()
-  if (!amount) return c.json({ error: 'Amount required.' }, 400)
+  const { amount, paymentType, feeAmount } = await c.req.json()
+  const paymentAmount = Number(amount)
+  const providedFeeAmount = feeAmount === undefined || feeAmount === null || feeAmount === ''
+    ? null
+    : Number(feeAmount)
+
+  if (!Number.isFinite(paymentAmount) || paymentAmount <= 0) return c.json({ error: 'Amount required.' }, 400)
   try {
-    await c.env.APP_DB.prepare(`CREATE TABLE IF NOT EXISTS fees_ledger (id TEXT PRIMARY KEY, tenant_id TEXT, student_id TEXT, student_name TEXT, class_id TEXT, class_name TEXT, fee_amount REAL, amount_paid REAL, status TEXT, updated_at TEXT)`).run()
+    await ensureFeesLedgerTable(c.env.APP_DB)
+    await ensureFeesPaymentReceiptsTable(c.env.APP_DB)
     const existing = await c.env.APP_DB.prepare(`SELECT * FROM fees_ledger WHERE student_id = ? AND tenant_id = ?`).bind(studentId, tenantId).first() as any
-    const newPaid = (existing?.amount_paid || 0) + Number(amount)
-    const feeAmount = existing?.fee_amount || 0
-    const status = newPaid >= feeAmount ? 'Paid' : newPaid > 0 ? 'Partial' : 'Unpaid'
+    const studentRow = await findUserByIdentifier(c.env.APP_DB, studentId).catch(() => null)
+    const hydratedStudent = (await hydrateUserRecords(c.env.APP_DB, studentRow ? [studentRow] : []))[0] as Record<string, any> | undefined
+    const previousPaid = Number(existing?.amount_paid || 0)
+    const newPaid = Number(existing?.amount_paid || 0) + paymentAmount
+    const resolvedFeeAmount = providedFeeAmount !== null && Number.isFinite(providedFeeAmount)
+      ? providedFeeAmount
+      : Number(existing?.fee_amount || 0)
+    const status = resolvedFeeAmount > 0
+      ? (newPaid >= resolvedFeeAmount ? 'Paid' : newPaid > 0 ? 'Partial' : 'Unpaid')
+      : (newPaid > 0 ? 'Partial' : 'Unpaid')
+    const balanceAfter = Math.max(resolvedFeeAmount - newPaid, 0)
+    const studentName = String(hydratedStudent?.name || existing?.student_name || studentId)
+    const classId = String(hydratedStudent?.classId || existing?.class_id || '')
+    const className = String(hydratedStudent?.className || existing?.class_name || '')
+    const recordedAt = new Date().toISOString()
+    const receiptId = `fee_receipt_${tenantId}_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`
+    const receiptNo = `RCT-${Date.now()}`
+
     if (existing) {
-      await c.env.APP_DB.prepare(`UPDATE fees_ledger SET amount_paid = ?, status = ?, updated_at = ? WHERE student_id = ? AND tenant_id = ?`)
-        .bind(newPaid, status, new Date().toISOString(), studentId, tenantId).run()
+      await c.env.APP_DB.prepare(`UPDATE fees_ledger SET student_name = ?, class_id = ?, class_name = ?, fee_amount = ?, amount_paid = ?, status = ?, updated_at = ? WHERE student_id = ? AND tenant_id = ?`)
+        .bind(studentName, classId || null, className || null, resolvedFeeAmount, newPaid, status, recordedAt, studentId, tenantId).run()
     } else {
       const id = `fl_${studentId}_${tenantId}`
-      await c.env.APP_DB.prepare(`INSERT INTO fees_ledger (id, tenant_id, student_id, student_name, fee_amount, amount_paid, status, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`)
-        .bind(id, tenantId, studentId, studentId, 0, Number(amount), 'Partial', new Date().toISOString()).run()
+      await c.env.APP_DB.prepare(`INSERT INTO fees_ledger (id, tenant_id, student_id, student_name, class_id, class_name, fee_amount, amount_paid, status, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
+        .bind(id, tenantId, studentId, studentName, classId || null, className || null, resolvedFeeAmount, paymentAmount, status, recordedAt).run()
     }
+    await c.env.APP_DB.prepare(
+      `INSERT INTO fees_payment_receipts (id, receipt_no, tenant_id, student_id, student_name, class_id, class_name, amount, payment_type, fee_amount, amount_paid_after, balance_after, status_after, recorded_by, recorded_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+    ).bind(
+      receiptId,
+      receiptNo,
+      tenantId,
+      studentId,
+      studentName,
+      classId || null,
+      className || null,
+      paymentAmount,
+      String(paymentType || 'cash'),
+      resolvedFeeAmount,
+      newPaid,
+      balanceAfter,
+      status,
+      c.var.user.name || c.var.user.id,
+      recordedAt,
+    ).run()
     await addAudit(c.env.APP_DB, tenantId, { action: 'feePaymentRecorded', data: { studentId, amount, paymentType, by: c.var.user.id } })
-    return c.json({ success: true, amountPaid: newPaid, status })
+    return c.json({ success: true, amountPaid: newPaid, previousPaid, status, receipt: { id: receiptId, receiptNo, studentId, studentName, className, amount: paymentAmount, paymentType: String(paymentType || 'cash'), feeAmount: resolvedFeeAmount, amountPaidAfter: newPaid, balanceAfter, statusAfter: status, recordedAt } })
   } catch (err) { return c.json({ error: 'Could not record payment.' }, 500) }
 })
 
@@ -7417,19 +9142,104 @@ app.post('/api/school/expenditure', authenticate, async (c) => {
   } catch (err) { return c.json({ error: 'Could not add expenditure.' }, 500) }
 })
 
+async function ensurePayrollEntriesTable(db: D1Database) {
+  await db.prepare(`CREATE TABLE IF NOT EXISTS payroll_entries (id TEXT PRIMARY KEY, tenant_id TEXT, staff_id TEXT, period TEXT, gross REAL, deductions REAL, manual_deductions REAL, net REAL, status TEXT, approved INTEGER, submitted INTEGER, created_at TEXT, updated_at TEXT)`).run()
+  try { await db.exec('ALTER TABLE payroll_entries ADD COLUMN submitted INTEGER DEFAULT 0') } catch {}
+  try { await db.exec('ALTER TABLE payroll_entries ADD COLUMN manual_deductions REAL DEFAULT 0') } catch {}
+}
+
+function getPayrollPeriodBounds(period: string) {
+  const [rawYear, rawMonth] = String(period || '').split('-').map(value => Number(value))
+  const today = new Date()
+  const year = Number.isFinite(rawYear) && rawYear > 0 ? rawYear : today.getUTCFullYear()
+  const monthIndex = Number.isFinite(rawMonth) && rawMonth >= 1 && rawMonth <= 12 ? rawMonth - 1 : today.getUTCMonth()
+  const start = new Date(Date.UTC(year, monthIndex, 1))
+  const end = new Date(Date.UTC(year, monthIndex + 1, 1))
+
+  return {
+    startDate: start.toISOString().slice(0, 10),
+    endDate: end.toISOString().slice(0, 10),
+  }
+}
+
+async function listPayrollLateChargeSummaries(db: D1Database, tenantId: string, period: string) {
+  await ensureStaffAttendanceEventsTable(db)
+  const { startDate, endDate } = getPayrollPeriodBounds(period)
+  const rows = await db.prepare(
+    `SELECT staff_id, SUM(late_charge) AS total_late_charge, COUNT(*) AS late_count
+     FROM staff_attendance_events
+     WHERE tenant_id = ?
+       AND action = 'sign-in'
+       AND late_charge > 0
+       AND date >= ?
+       AND date < ?
+     GROUP BY staff_id`
+  ).bind(tenantId, startDate, endDate).all().catch(() => ({ results: [] }))
+
+  return ((rows.results || []) as Record<string, any>[]).map(row => ({
+    staffId: String(row.staff_id || '').trim(),
+    amount: Number(row.total_late_charge || 0),
+    count: Number(row.late_count || 0),
+  })).filter(row => row.staffId)
+}
+
+async function getPayrollLateChargeSummaryForIdentifiers(db: D1Database, tenantId: string, period: string, identifiers: string[]) {
+  const normalizedIdentifiers = Array.from(new Set((identifiers || []).map(value => String(value || '').trim()).filter(Boolean)))
+  if (normalizedIdentifiers.length === 0) {
+    return { amount: 0, count: 0 }
+  }
+
+  await ensureStaffAttendanceEventsTable(db)
+  const { startDate, endDate } = getPayrollPeriodBounds(period)
+  const placeholders = normalizedIdentifiers.map(() => '?').join(', ')
+  const row = await db.prepare(
+    `SELECT COALESCE(SUM(late_charge), 0) AS total_late_charge, COUNT(*) AS late_count
+     FROM staff_attendance_events
+     WHERE tenant_id = ?
+       AND action = 'sign-in'
+       AND late_charge > 0
+       AND date >= ?
+       AND date < ?
+       AND staff_id IN (${placeholders})`
+  ).bind(tenantId, startDate, endDate, ...normalizedIdentifiers).first() as Record<string, any> | null
+
+  return {
+    amount: Number(row?.total_late_charge || 0),
+    count: Number(row?.late_count || 0),
+  }
+}
+
 // ─── Payroll ──────────────────────────────────────────────────────────────────
 app.get('/api/school/payroll', authenticate, async (c) => {
   const tenantId = c.var.user?.tenantId
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
   try {
-    await c.env.APP_DB.prepare(`CREATE TABLE IF NOT EXISTS payroll_entries (id TEXT PRIMARY KEY, tenant_id TEXT, staff_id TEXT, period TEXT, gross REAL, deductions REAL, net REAL, status TEXT, approved INTEGER, submitted INTEGER, created_at TEXT, updated_at TEXT)`).run()
-    try { await c.env.APP_DB.exec('ALTER TABLE payroll_entries ADD COLUMN submitted INTEGER DEFAULT 0') } catch {}
+    await ensurePayrollEntriesTable(c.env.APP_DB)
     const period = new Date().toISOString().slice(0, 7)
     const rows = await c.env.APP_DB.prepare(`SELECT * FROM payroll_entries WHERE tenant_id = ? AND period = ?`).bind(tenantId, period).all()
-    const payroll = (rows.results || []).map((r: any) => ({ id: r.id, staffId: r.staff_id, period: r.period, gross: r.gross || 0, deductions: r.deductions || 0, net: r.net || 0, status: r.status || 'Ready', approved: Boolean(r.approved), submitted: Boolean(r.submitted) }))
+    const lateChargeSummaries = await listPayrollLateChargeSummaries(c.env.APP_DB, tenantId, period)
+    const payroll = (rows.results || []).map((r: any) => {
+      const manualDeductions = Number((r.manual_deductions ?? r.deductions) || 0)
+      const lateChargeSummary = lateChargeSummaries.find(summary => summary.staffId === String(r.staff_id || '').trim()) || { amount: 0, count: 0 }
+      const deductions = manualDeductions + Number(lateChargeSummary.amount || 0)
+      return {
+        id: r.id,
+        staffId: r.staff_id,
+        period: r.period,
+        gross: Number(r.gross || 0),
+        manualDeductions,
+        autoLateDeductions: Number(lateChargeSummary.amount || 0),
+        lateChargeCount: Number(lateChargeSummary.count || 0),
+        deductions,
+        net: Number(r.gross || 0) - deductions,
+        status: r.status || 'Ready',
+        approved: Boolean(r.approved),
+        submitted: Boolean(r.submitted),
+      }
+    })
     const approved = payroll.some(p => p.approved)
     const submitted = payroll.some(p => p.submitted)
-    return c.json({ success: true, payroll, approved, submitted, period })
+    return c.json({ success: true, payroll, lateChargeSummaries, approved, submitted, period })
   } catch { return c.json({ success: true, payroll: [], approved: false, submitted: false }) }
 })
 
@@ -7444,15 +9254,15 @@ app.put('/api/school/payroll/staff/:staffId', authenticate, async (c) => {
   const g = gross !== undefined ? Number(gross) : null
   const d = deductions !== undefined ? Number(deductions) : null
   try {
-    await c.env.APP_DB.prepare(`CREATE TABLE IF NOT EXISTS payroll_entries (id TEXT PRIMARY KEY, tenant_id TEXT, staff_id TEXT, period TEXT, gross REAL, deductions REAL, net REAL, status TEXT, approved INTEGER, submitted INTEGER, created_at TEXT, updated_at TEXT)`).run()
-    try { await c.env.APP_DB.exec('ALTER TABLE payroll_entries ADD COLUMN submitted INTEGER DEFAULT 0') } catch {}
+    await ensurePayrollEntriesTable(c.env.APP_DB)
     const existing = await c.env.APP_DB.prepare(`SELECT * FROM payroll_entries WHERE id = ?`).bind(id).first() as any
     const newGross = g !== null ? g : (existing?.gross || 0)
-    const newDed = d !== null ? d : (existing?.deductions || 0)
-    const newNet = newGross - newDed
+    const newManualDed = d !== null ? d : Number((existing?.manual_deductions ?? existing?.deductions) || 0)
     const newStatus = status || existing?.status || 'Ready'
-    await c.env.APP_DB.prepare(`INSERT OR REPLACE INTO payroll_entries (id, tenant_id, staff_id, period, gross, deductions, net, status, approved, submitted, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
-      .bind(id, tenantId, staffId, period, newGross, newDed, newNet, newStatus, existing?.approved || 0, existing?.submitted || 0, existing?.created_at || new Date().toISOString(), new Date().toISOString()).run()
+    const newDed = newManualDed
+    const newNet = newGross - newManualDed
+    await c.env.APP_DB.prepare(`INSERT OR REPLACE INTO payroll_entries (id, tenant_id, staff_id, period, gross, deductions, manual_deductions, net, status, approved, submitted, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
+      .bind(id, tenantId, staffId, period, newGross, newDed, newManualDed, newNet, newStatus, existing?.approved || 0, existing?.submitted || 0, existing?.created_at || new Date().toISOString(), new Date().toISOString()).run()
     return c.json({ success: true })
   } catch (err) { return c.json({ error: 'Could not update payroll.' }, 500) }
 })
@@ -7475,8 +9285,7 @@ app.post('/api/school/payroll/submit', authenticate, async (c) => {
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
   const period = new Date().toISOString().slice(0, 7)
   try {
-    await c.env.APP_DB.prepare(`CREATE TABLE IF NOT EXISTS payroll_entries (id TEXT PRIMARY KEY, tenant_id TEXT, staff_id TEXT, period TEXT, gross REAL, deductions REAL, net REAL, status TEXT, approved INTEGER, submitted INTEGER, created_at TEXT, updated_at TEXT)`).run()
-    try { await c.env.APP_DB.exec('ALTER TABLE payroll_entries ADD COLUMN submitted INTEGER DEFAULT 0') } catch {}
+    await ensurePayrollEntriesTable(c.env.APP_DB)
     await c.env.APP_DB.prepare(`UPDATE payroll_entries SET submitted = 1, updated_at = ? WHERE tenant_id = ? AND period = ?`).bind(new Date().toISOString(), tenantId, period).run()
     await addAudit(c.env.APP_DB, tenantId, { action: 'payrollSubmitted', data: { period, by: c.var.user.id } })
     return c.json({ success: true })
@@ -7487,7 +9296,7 @@ app.get('/api/school/payroll/history', authenticate, async (c) => {
   const tenantId = c.var.user?.tenantId
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
   try {
-    await c.env.APP_DB.prepare(`CREATE TABLE IF NOT EXISTS payroll_entries (id TEXT PRIMARY KEY, tenant_id TEXT, staff_id TEXT, period TEXT, gross REAL, deductions REAL, net REAL, status TEXT, approved INTEGER, submitted INTEGER, created_at TEXT, updated_at TEXT)`).run()
+    await ensurePayrollEntriesTable(c.env.APP_DB)
     const rows = await c.env.APP_DB.prepare(`SELECT period, SUM(net) as total_net, MAX(approved) as approved FROM payroll_entries WHERE tenant_id = ? GROUP BY period ORDER BY period DESC LIMIT 12`).bind(tenantId).all()
     const history = (rows.results || []).map((r: any) => ({ period: r.period, totalNet: r.total_net || 0, status: r.approved ? 'approved' : 'draft' }))
     return c.json({ success: true, history })
@@ -7520,15 +9329,23 @@ app.get('/api/school/payroll/my-payslip', authenticate, async (c) => {
   if (!userId || !tenantId) return c.json({ error: 'No user/tenant.' }, 400)
   const period = new Date().toISOString().slice(0, 7)
   try {
-    await c.env.APP_DB.prepare(`CREATE TABLE IF NOT EXISTS payroll_entries (id TEXT PRIMARY KEY, tenant_id TEXT, staff_id TEXT, period TEXT, gross REAL, deductions REAL, net REAL, status TEXT, approved INTEGER, submitted INTEGER, created_at TEXT, updated_at TEXT)`).run()
+    await ensurePayrollEntriesTable(c.env.APP_DB)
     await c.env.APP_DB.prepare(INIT_BRANDING).run()
+    const resolvedIdentity = await resolveSettingsIdentity(c.env.APP_DB, userId)
     const settings = await getSettings(c.env.APP_DB, userId)
     const payrollSettings = await getSettings(c.env.APP_DB, `payroll_settings_${tenantId}`)
     const tenant = tenantId ? await getTenantById(c.env.APP_DB, tenantId) : null
     const brandingRow = await c.env.APP_DB.prepare(`SELECT * FROM tenant_branding WHERE tenant_id = ?`).bind(tenantId).first() as any
     const rows = await c.env.APP_DB.prepare(`SELECT * FROM payroll_entries WHERE (staff_id = ? OR staff_id = ?) AND tenant_id = ? AND period = ? LIMIT 1`).bind(userId, settings?.email || userId, tenantId, period).first() as any
     const gross = Number(rows?.gross || 0)
-    const deductions = Number(rows?.deductions || 0)
+    const manualDeductions = Number((rows?.manual_deductions ?? rows?.deductions) || 0)
+    const lateChargeSummary = await getPayrollLateChargeSummaryForIdentifiers(
+      c.env.APP_DB,
+      tenantId,
+      period,
+      collectResolvedIdentityIdentifiers(resolvedIdentity, c.var.user || {}),
+    )
+    const deductions = manualDeductions + lateChargeSummary.amount
     const housingAllowanceRate = Number(payrollSettings?.housingAllowance || 0)
     const transportAllowanceRate = Number(payrollSettings?.transportAllowance || 0)
     const taxRate = Number(payrollSettings?.taxRate || 0)
@@ -7539,7 +9356,7 @@ app.get('/api/school/payroll/my-payslip', authenticate, async (c) => {
     const transportAllowance = basicSalary * (transportAllowanceRate / 100)
     const incomeTax = gross * (taxRate / 100)
     const pension = gross * (pensionRate / 100)
-    const otherDeductions = Math.max(0, deductions - incomeTax - pension)
+    const otherDeductions = Math.max(0, manualDeductions - incomeTax - pension)
     const net = Number((rows?.net ?? (gross - deductions)) || 0)
     const branding = {
       schoolName: tenant?.schoolName || 'School',
@@ -7566,8 +9383,10 @@ app.get('/api/school/payroll/my-payslip', authenticate, async (c) => {
       deductionBreakdown: [
         { label: 'Income Tax', amount: Number(incomeTax.toFixed(2)) },
         { label: 'Pension', amount: Number(pension.toFixed(2)) },
+        { label: 'Lateness Charges', amount: Number(lateChargeSummary.amount.toFixed(2)) },
         { label: 'Other Deductions', amount: Number(otherDeductions.toFixed(2)) },
       ].filter(entry => entry.amount > 0),
+      lateChargeCount: lateChargeSummary.count,
       settings: {
         housingAllowance: housingAllowanceRate,
         transportAllowance: transportAllowanceRate,
@@ -7597,11 +9416,18 @@ async function ensureStaffAttendanceSettingsTable(db: D1Database) {
     mode TEXT,
     require_qr_on_face INTEGER,
     active_qr_code TEXT,
+    late_after_time TEXT,
+    late_penalty_enabled INTEGER,
+    late_penalty_amount REAL,
     qr_rotated_at TEXT,
     updated_by TEXT,
     created_at TEXT,
     updated_at TEXT
   )`).run()
+
+  try { await db.exec('ALTER TABLE staff_attendance_settings ADD COLUMN late_after_time TEXT') } catch {}
+  try { await db.exec('ALTER TABLE staff_attendance_settings ADD COLUMN late_penalty_enabled INTEGER DEFAULT 0') } catch {}
+  try { await db.exec('ALTER TABLE staff_attendance_settings ADD COLUMN late_penalty_amount REAL DEFAULT 0') } catch {}
 }
 
 async function ensureStaffAttendanceEventsTable(db: D1Database) {
@@ -7614,11 +9440,18 @@ async function ensureStaffAttendanceEventsTable(db: D1Database) {
     method TEXT,
     qr_code TEXT,
     face_image_url TEXT,
+    is_late INTEGER,
+    late_minutes INTEGER,
+    late_charge REAL,
     notes TEXT,
     recorded_by TEXT,
     created_at TEXT,
     updated_at TEXT
   )`).run()
+
+  try { await db.exec('ALTER TABLE staff_attendance_events ADD COLUMN is_late INTEGER DEFAULT 0') } catch {}
+  try { await db.exec('ALTER TABLE staff_attendance_events ADD COLUMN late_minutes INTEGER DEFAULT 0') } catch {}
+  try { await db.exec('ALTER TABLE staff_attendance_events ADD COLUMN late_charge REAL DEFAULT 0') } catch {}
 }
 
 function canManageStaffAttendanceConfig(role: string) {
@@ -7633,6 +9466,40 @@ function generateStaffAttendanceQrCode(tenantId: string) {
   return `ndovera-${tenantId}-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`
 }
 
+function normalizeStaffAttendanceCutoffTime(value: unknown, fallback = '08:00') {
+  const normalized = String(value || '').trim()
+  return /^\d{2}:\d{2}$/.test(normalized) ? normalized : fallback
+}
+
+function buildStaffAttendanceLateMetrics(attendanceDate: string, recordedAt: string, settings: Record<string, any> | null) {
+  const lateAfterTime = normalizeStaffAttendanceCutoffTime(settings?.late_after_time, '08:00')
+  const latePenaltyEnabled = Boolean(Number(settings?.late_penalty_enabled ?? 0))
+  const configuredCharge = Number(settings?.late_penalty_amount || 0)
+  const eventTimestamp = new Date(recordedAt).getTime()
+  const cutoffTimestamp = new Date(`${attendanceDate}T${lateAfterTime}:00`).getTime()
+
+  if (!Number.isFinite(eventTimestamp) || !Number.isFinite(cutoffTimestamp) || eventTimestamp <= cutoffTimestamp) {
+    return {
+      lateAfterTime,
+      latePenaltyEnabled,
+      latePenaltyAmount: configuredCharge,
+      isLate: false,
+      lateMinutes: 0,
+      lateCharge: 0,
+    }
+  }
+
+  const lateMinutes = Math.max(0, Math.round((eventTimestamp - cutoffTimestamp) / 60000))
+  return {
+    lateAfterTime,
+    latePenaltyEnabled,
+    latePenaltyAmount: configuredCharge,
+    isLate: lateMinutes > 0,
+    lateMinutes,
+    lateCharge: latePenaltyEnabled ? configuredCharge : 0,
+  }
+}
+
 function mapStaffAttendanceSettings(row: Record<string, any> | null, includeSecret = true) {
   const mode = String(row?.mode || 'qr') === 'face_qr' ? 'face_qr' : 'qr'
   const mapped = {
@@ -7642,6 +9509,9 @@ function mapStaffAttendanceSettings(row: Record<string, any> | null, includeSecr
       ? 'Use this when a staff member is signing in from another person\'s phone. The face capture and active school QR must appear together.'
       : 'Use this when staff sign in with the active school QR on their own phone or a school scanner.',
     requireQrOnFace: Boolean(Number(row?.require_qr_on_face ?? 1)),
+    lateAfterTime: normalizeStaffAttendanceCutoffTime(row?.late_after_time, '08:00'),
+    latePenaltyEnabled: Boolean(Number(row?.late_penalty_enabled ?? 0)),
+    latePenaltyAmount: Number(row?.late_penalty_amount || 0),
     qrRotatedAt: String(row?.qr_rotated_at || row?.updated_at || row?.created_at || ''),
     updatedAt: String(row?.updated_at || row?.created_at || ''),
   } as Record<string, any>
@@ -7663,6 +9533,9 @@ function mapStaffAttendanceEvent(row: Record<string, any>) {
     method: String(row.method || ''),
     qrCode: String(row.qr_code || ''),
     faceImageUrl: String(row.face_image_url || ''),
+    isLate: Boolean(Number(row.is_late || 0)),
+    lateMinutes: Number(row.late_minutes || 0),
+    lateCharge: Number(row.late_charge || 0),
     notes: String(row.notes || ''),
     recordedBy: String(row.recorded_by || ''),
     createdAt: String(row.created_at || ''),
@@ -7684,6 +9557,9 @@ async function getOrCreateStaffAttendanceSettings(db: D1Database, tenantId: stri
     mode: 'qr',
     require_qr_on_face: 1,
     active_qr_code: generateStaffAttendanceQrCode(tenantId),
+    late_after_time: '08:00',
+    late_penalty_enabled: 0,
+    late_penalty_amount: 0,
     qr_rotated_at: timestamp,
     updated_by: 'system',
     created_at: timestamp,
@@ -7691,13 +9567,16 @@ async function getOrCreateStaffAttendanceSettings(db: D1Database, tenantId: stri
   }
 
   await db.prepare(
-    `INSERT INTO staff_attendance_settings (tenant_id, mode, require_qr_on_face, active_qr_code, qr_rotated_at, updated_by, created_at, updated_at)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
+    `INSERT INTO staff_attendance_settings (tenant_id, mode, require_qr_on_face, active_qr_code, late_after_time, late_penalty_enabled, late_penalty_amount, qr_rotated_at, updated_by, created_at, updated_at)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
   ).bind(
     seeded.tenant_id,
     seeded.mode,
     seeded.require_qr_on_face,
     seeded.active_qr_code,
+    seeded.late_after_time,
+    seeded.late_penalty_enabled,
+    seeded.late_penalty_amount,
     seeded.qr_rotated_at,
     seeded.updated_by,
     seeded.created_at,
@@ -7765,18 +9644,24 @@ app.post('/api/school/staff-attendance/settings', authenticate, async (c) => {
   const body = await c.req.json()
   const mode = String(body?.mode || 'qr') === 'face_qr' ? 'face_qr' : 'qr'
   const requireQrOnFace = body?.requireQrOnFace === false ? 0 : 1
+  const lateAfterTime = normalizeStaffAttendanceCutoffTime(body?.lateAfterTime, '08:00')
+  const latePenaltyEnabled = body?.latePenaltyEnabled === true ? 1 : 0
+  const latePenaltyAmount = Number(body?.latePenaltyAmount || 0)
 
   try {
     const existing = await getOrCreateStaffAttendanceSettings(c.env.APP_DB, actor.tenantId)
     const timestamp = new Date().toISOString()
     await c.env.APP_DB.prepare(
-      `INSERT OR REPLACE INTO staff_attendance_settings (tenant_id, mode, require_qr_on_face, active_qr_code, qr_rotated_at, updated_by, created_at, updated_at)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
+      `INSERT OR REPLACE INTO staff_attendance_settings (tenant_id, mode, require_qr_on_face, active_qr_code, late_after_time, late_penalty_enabled, late_penalty_amount, qr_rotated_at, updated_by, created_at, updated_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
     ).bind(
       actor.tenantId,
       mode,
       requireQrOnFace,
       String(existing.active_qr_code || generateStaffAttendanceQrCode(actor.tenantId)),
+      lateAfterTime,
+      latePenaltyEnabled,
+      Number.isFinite(latePenaltyAmount) && latePenaltyAmount > 0 ? latePenaltyAmount : 0,
       String(existing.qr_rotated_at || timestamp),
       actor.actorName || actor.actorId,
       String(existing.created_at || timestamp),
@@ -7912,10 +9797,13 @@ app.post('/api/school/staff-attendance/activity', authenticate, async (c) => {
     const timestamp = new Date().toISOString()
     const eventId = `sae_${actor.tenantId}_${actor.actorId}_${attendanceDate}_${action}`
     const method = normalizedMode === 'face_qr' ? 'face_qr' : 'qr'
+    const lateMetrics = action === 'sign-in'
+      ? buildStaffAttendanceLateMetrics(attendanceDate, timestamp, settings)
+      : buildStaffAttendanceLateMetrics(attendanceDate, `${attendanceDate}T00:00:00`, settings)
 
     await c.env.APP_DB.prepare(
-      `INSERT OR REPLACE INTO staff_attendance_events (id, tenant_id, staff_id, date, action, method, qr_code, face_image_url, notes, recorded_by, created_at, updated_at)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+      `INSERT OR REPLACE INTO staff_attendance_events (id, tenant_id, staff_id, date, action, method, qr_code, face_image_url, is_late, late_minutes, late_charge, notes, recorded_by, created_at, updated_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
     ).bind(
       eventId,
       actor.tenantId,
@@ -7925,6 +9813,9 @@ app.post('/api/school/staff-attendance/activity', authenticate, async (c) => {
       method,
       qrCode,
       faceImageUrl || null,
+      lateMetrics.isLate ? 1 : 0,
+      lateMetrics.lateMinutes,
+      lateMetrics.lateCharge,
       notes || null,
       actor.actorName || actor.actorId,
       timestamp,
@@ -7941,7 +9832,7 @@ app.post('/api/school/staff-attendance/activity', authenticate, async (c) => {
         actor.tenantId,
         actor.actorId,
         attendanceDate,
-        'Present',
+        lateMetrics.isLate ? 'Late' : 'Present',
         actor.actorName || actor.actorId,
         timestamp,
       ).run()
@@ -7958,6 +9849,9 @@ app.post('/api/school/staff-attendance/activity', authenticate, async (c) => {
         method,
         qr_code: qrCode,
         face_image_url: faceImageUrl,
+        is_late: lateMetrics.isLate ? 1 : 0,
+        late_minutes: lateMetrics.lateMinutes,
+        late_charge: lateMetrics.lateCharge,
         notes,
         recorded_by: actor.actorName || actor.actorId,
         created_at: timestamp,
@@ -8080,21 +9974,31 @@ app.post('/api/school/student-attendance', authenticate, async (c) => {
 })
 
 // ─── AI Analysis ──────────────────────────────────────────────────────────────
+app.get('/api/school/attendance/monthly-report', authenticate, async (c) => {
+  const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
+  if (!actor.tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!['owner', 'hos', 'admin'].includes(actor.role)) return c.json({ error: 'forbidden' }, 403)
+
+  try {
+    const report = await buildMonthlyAttendanceReport(c.env.APP_DB, actor.tenantId, c.req.query('month') || undefined)
+    return c.json({ success: true, report })
+  } catch {
+    return c.json({ error: 'Could not build attendance report.' }, 500)
+  }
+})
+
 app.post('/api/school/attendance/ai-analysis', authenticate, async (c) => {
-  return c.json({
-    success: true,
-    analysis: {
-      weeklyRate: '87%',
-      monthlyRate: '84%',
-      atRiskStudents: ['Chidi Obi — 68%', 'Amaka Eze — 71%', 'Tunde Bello — 69%'],
-      teacherPatterns: 'Most teachers maintain above 90% attendance. 2 teachers had notable absences this month.',
-      suggestions: [
-        'Send reminder to parents of 3 students with attendance below 70% this week',
-        'Review late-arrival patterns for JSS2 students on Mondays',
-        'Consider incentive programme for classes achieving 100% weekly attendance',
-      ],
-    },
-  })
+  const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
+  if (!actor.tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!['owner', 'hos', 'admin'].includes(actor.role)) return c.json({ error: 'forbidden' }, 403)
+
+  try {
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const report = await buildMonthlyAttendanceReport(c.env.APP_DB, actor.tenantId, body?.month)
+    return c.json({ success: true, analysis: buildAttendanceAiAnalysis(report) })
+  } catch {
+    return c.json({ error: 'Could not analyse attendance.' }, 500)
+  }
 })
 
 app.post('/api/school/finance/ai-analysis', authenticate, async (c) => {
@@ -8493,11 +10397,100 @@ function renderAdmissionsPage(tenant: any, branding: any, sections: any[]) {
     ${subdomainNavbar(schoolName, tenant.requestedSubdomain, logoUrl)}
     <header class="page-hero"><p class="eyebrow">Admission</p><h1>${escHtml(admissions?.title || 'Begin Your Admission Journey')}</h1><p>${escHtml(admissions?.content || 'Discover the enrolment process, prepare your documents, and contact the school to begin.')}</p></header>
     ${flyerUrl ? `<section class="section"><div class="admission-flyer"><div class="copy"><p class="section-kicker">Admission Flyer</p><h2>${escHtml(flyer?.title || 'Admissions Now Open')}</h2><p>${escHtml(flyer?.content || 'Download or view the latest admission flyer.')}</p><div class="hero-actions"><a class="btn-primary" href="${escAttr(flyerUrl)}" target="_blank" rel="noopener">View Flyer</a></div></div>${renderMedia(flyerUrl, 'Admission flyer', '')}</div></section>` : ''}
-    <section class="section alt"><div class="cards"><div class="info-card"><h3>1. Enquire</h3><p>Contact the school or visit the campus to learn about available classes.</p></div><div class="info-card"><h3>2. Apply</h3><p>Submit the required student details and admission documents.</p></div><div class="info-card"><h3>3. Assessment</h3><p>The school reviews placement needs and communicates the next step.</p></div><div class="info-card"><h3>4. Resume</h3><p>Complete onboarding and receive access to the Ndovera school portal.</p></div></div></section>
-    <section class="section"><div class="split"><div><p class="section-kicker">Portal Access</p><h2>Already admitted?</h2><p>Students, parents, and staff can log in from the school website home page or here.</p></div>${renderLoginPanel(schoolName, logoUrl, true)}</div></section>
+    <section class="section alt">
+      <div class="split" style="align-items:start;gap:24px;">
+        <div class="info-card" style="padding:28px;">
+          <p class="section-kicker">Online Application</p>
+          <h2 style="margin-top:0;">Start An Admission Request</h2>
+          <p>Provide the learner, parent, medical, transport, hostel, and support details the school needs to begin review.</p>
+          <form id="website-admission-form" style="display:grid;gap:18px;margin-top:20px;">
+            <input type="hidden" name="tenantId" value="${escAttr(String(tenant.id || ''))}" />
+            <input type="hidden" name="sourcePage" value="/admissions" />
+            <div style="display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));">
+              <input type="text" name="studentName" placeholder="Student full name" required style="padding:12px 14px;border-radius:14px;border:1px solid rgba(128,0,0,0.15);font:inherit;" />
+              <input type="text" name="desiredClass" placeholder="Applying for class" required style="padding:12px 14px;border-radius:14px;border:1px solid rgba(128,0,0,0.15);font:inherit;" />
+              <select name="gender" style="padding:12px 14px;border-radius:14px;border:1px solid rgba(128,0,0,0.15);font:inherit;"><option value="">Gender</option><option value="Female">Female</option><option value="Male">Male</option></select>
+              <input type="date" name="dateOfBirth" style="padding:12px 14px;border-radius:14px;border:1px solid rgba(128,0,0,0.15);font:inherit;" />
+            </div>
+            <div style="display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));">
+              <input type="text" name="parentName" placeholder="Parent or guardian name" required style="padding:12px 14px;border-radius:14px;border:1px solid rgba(128,0,0,0.15);font:inherit;" />
+              <input type="email" name="parentEmail" placeholder="Parent email" required style="padding:12px 14px;border-radius:14px;border:1px solid rgba(128,0,0,0.15);font:inherit;" />
+              <input type="text" name="parentPhone" placeholder="Parent phone" style="padding:12px 14px;border-radius:14px;border:1px solid rgba(128,0,0,0.15);font:inherit;" />
+              <input type="text" name="relationship" placeholder="Relationship" style="padding:12px 14px;border-radius:14px;border:1px solid rgba(128,0,0,0.15);font:inherit;" />
+            </div>
+            <textarea name="address" rows="2" placeholder="Home address" style="padding:12px 14px;border-radius:14px;border:1px solid rgba(128,0,0,0.15);font:inherit;resize:vertical;"></textarea>
+            <div style="display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));">
+              <input type="text" name="previousSchool" placeholder="Previous school" style="padding:12px 14px;border-radius:14px;border:1px solid rgba(128,0,0,0.15);font:inherit;" />
+              <input type="text" name="strengths" placeholder="Academic strengths or interests" style="padding:12px 14px;border-radius:14px;border:1px solid rgba(128,0,0,0.15);font:inherit;" />
+              <input type="text" name="talents" placeholder="Talents and gifts" style="padding:12px 14px;border-radius:14px;border:1px solid rgba(128,0,0,0.15);font:inherit;" />
+              <input type="datetime-local" name="examDate" style="padding:12px 14px;border-radius:14px;border:1px solid rgba(128,0,0,0.15);font:inherit;" />
+            </div>
+            <div style="display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));">
+              <input type="text" name="allergies" placeholder="Allergies" style="padding:12px 14px;border-radius:14px;border:1px solid rgba(128,0,0,0.15);font:inherit;" />
+              <input type="text" name="conditions" placeholder="Medical conditions" style="padding:12px 14px;border-radius:14px;border:1px solid rgba(128,0,0,0.15);font:inherit;" />
+              <input type="text" name="senNeeds" placeholder="SEN or learning support needs" style="padding:12px 14px;border-radius:14px;border:1px solid rgba(128,0,0,0.15);font:inherit;" />
+              <input type="text" name="registrationPlan" placeholder="Registration fee/payment note" style="padding:12px 14px;border-radius:14px;border:1px solid rgba(128,0,0,0.15);font:inherit;" />
+            </div>
+            <textarea name="medicalNotes" rows="3" placeholder="Medical notes, clinic follow-up needs, or special care instructions" style="padding:12px 14px;border-radius:14px;border:1px solid rgba(128,0,0,0.15);font:inherit;resize:vertical;"></textarea>
+            <div style="display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));">
+              <select name="transportRequired" style="padding:12px 14px;border-radius:14px;border:1px solid rgba(128,0,0,0.15);font:inherit;"><option value="">Transport needed?</option><option value="yes">Yes</option><option value="no">No</option></select>
+              <input type="text" name="transportArea" placeholder="Pick-up or route area" style="padding:12px 14px;border-radius:14px;border:1px solid rgba(128,0,0,0.15);font:inherit;" />
+              <select name="hostelRequired" style="padding:12px 14px;border-radius:14px;border:1px solid rgba(128,0,0,0.15);font:inherit;"><option value="">Hostel needed?</option><option value="yes">Yes</option><option value="no">No</option></select>
+              <input type="text" name="hostelNotes" placeholder="Hostel notes" style="padding:12px 14px;border-radius:14px;border:1px solid rgba(128,0,0,0.15);font:inherit;" />
+            </div>
+            <button type="submit" style="border:none;border-radius:999px;padding:14px 20px;background:#800000;color:#f5deb3;font-weight:700;cursor:pointer;">Submit Admission Request</button>
+            <p id="website-admission-status" style="margin:0;font-size:14px;color:#191970;"></p>
+          </form>
+        </div>
+        <div class="cards" style="display:grid;gap:16px;">
+          <div class="info-card"><h3>1. Submit</h3><p>Share student, guardian, academic, medical, transport, and hostel needs in one application.</p></div>
+          <div class="info-card"><h3>2. Review</h3><p>The owner and Head of School review the application inside the school system.</p></div>
+          <div class="info-card"><h3>3. Operational Routing</h3><p>Transport, hostel, and clinic teams can view applications that need their follow-up.</p></div>
+          <div class="info-card"><h3>4. Portal Access</h3><p>Once admitted, the family can continue onboarding through the school portal.</p></div>
+          ${renderLoginPanel(schoolName, logoUrl, true)}
+        </div>
+      </div>
+    </section>
     ${subdomainFooter(schoolName, branding, parseMeta(sectionByKey(sections, 'contact')))}
-    ${loginScript()}`
+    ${loginScript()}
+    ${admissionFormScript()}`
   return baseHtml(`Admissions - ${schoolName}`, body)
+}
+
+function admissionFormScript() {
+  return `<script>
+  (function () {
+    const form = document.getElementById('website-admission-form');
+    const status = document.getElementById('website-admission-status');
+    if (!form || !status) return;
+
+    form.addEventListener('submit', async function (event) {
+      event.preventDefault();
+      status.textContent = 'Submitting application...';
+      status.style.color = '#191970';
+
+      const payload = Object.fromEntries(new FormData(form).entries());
+      try {
+        const response = await fetch('/api/public/admissions', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        const json = await response.json().catch(() => ({}));
+        if (!response.ok || json.success === false) {
+          throw new Error(json.message || 'Could not submit the application right now.');
+        }
+
+        status.textContent = 'Application submitted. The school will review it in the admissions dashboard.';
+        status.style.color = '#1a5c38';
+        form.reset();
+      } catch (error) {
+        status.textContent = error instanceof Error ? error.message : 'Could not submit the application right now.';
+        status.style.color = '#800000';
+      }
+    });
+  }());
+  </script>`
 }
 
 function renderGalleryPage(tenant: any, branding: any, sections: any[]) {
@@ -8532,6 +10525,45 @@ function renderEventsPage(tenant: any, branding: any, events: any[]) {
   return baseHtml(`News - ${schoolName}`, body)
 }
 
+function websiteEnquiryScript() {
+  return `<script>
+  (function () {
+    const form = document.getElementById('website-contact-form');
+    const status = document.getElementById('website-contact-status');
+    if (!form || !status) return;
+
+    form.addEventListener('submit', async function (event) {
+      event.preventDefault();
+      status.textContent = 'Sending your enquiry...';
+      status.style.color = '#191970';
+
+      const formData = new FormData(form);
+      const payload = Object.fromEntries(formData.entries());
+
+      try {
+        const response = await fetch('/api/public/website-enquiries', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        const json = await response.json().catch(() => ({}));
+
+        if (!response.ok || json.success === false) {
+          throw new Error(json.message || 'Could not send your enquiry right now.');
+        }
+
+        status.textContent = 'Your message has been sent to the school leadership team.';
+        status.style.color = '#1a5c38';
+        form.reset();
+      } catch (error) {
+        status.textContent = error instanceof Error ? error.message : 'Could not send your enquiry right now.';
+        status.style.color = '#800000';
+      }
+    });
+  }());
+  </script>`
+}
+
 function renderContactPage(tenant: any, branding: any, sections: any[] = []) {
   const schoolName = tenant.schoolName || 'Our School'
   const logoUrl = branding?.logoUrl || null
@@ -8544,17 +10576,34 @@ function renderContactPage(tenant: any, branding: any, sections: any[] = []) {
   <header class="page-hero"><p class="eyebrow">Contact</p><h1>${escHtml(contact?.title || 'Get In Touch')}</h1><p>${escHtml(contact?.content || 'For enquiries about admissions, fees, visits, or school activities, please reach out to us directly.')}</p></header>
   <main class="section">
     <div class="split">
-      <div class="cards">
+      <div class="cards" style="display:grid;gap:16px;">
+        <div class="info-card">
+          <h3>Send A Direct Enquiry</h3>
+          <p style="margin-bottom:16px;">Website enquiries now go straight to the owner and Head of School inbox.</p>
+          <form id="website-contact-form" style="display:grid;gap:12px;">
+            <input type="hidden" name="tenantId" value="${escAttr(String(tenant.id || ''))}" />
+            <input type="hidden" name="sourcePage" value="/contact" />
+            <input type="text" name="name" placeholder="Your full name" required style="padding:12px 14px;border-radius:14px;border:1px solid rgba(128,0,0,0.15);font:inherit;" />
+            <input type="email" name="email" placeholder="Your email address" required style="padding:12px 14px;border-radius:14px;border:1px solid rgba(128,0,0,0.15);font:inherit;" />
+            <input type="text" name="phone" placeholder="Phone number" style="padding:12px 14px;border-radius:14px;border:1px solid rgba(128,0,0,0.15);font:inherit;" />
+            <input type="text" name="subject" placeholder="What is this about?" style="padding:12px 14px;border-radius:14px;border:1px solid rgba(128,0,0,0.15);font:inherit;" />
+            <textarea name="message" rows="5" placeholder="Tell the school what you need help with." required style="padding:12px 14px;border-radius:14px;border:1px solid rgba(128,0,0,0.15);font:inherit;resize:vertical;"></textarea>
+            <button type="submit" style="border:none;border-radius:999px;padding:12px 18px;background:#800000;color:#f5deb3;font-weight:700;cursor:pointer;">Send Enquiry</button>
+            <p id="website-contact-status" style="margin:0;font-size:14px;color:#191970;"></p>
+          </form>
+        </div>
         ${meta.address ? `<div class="info-card"><h3>Address</h3><p>${escHtml(meta.address)}</p></div>` : ''}
         ${meta.phone ? `<div class="info-card"><h3>Phone</h3><p>${escHtml(meta.phone)}</p></div>` : ''}
         ${meta.email ? `<div class="info-card"><h3>Email</h3><p>${escHtml(meta.email)}</p></div>` : ''}
         ${website ? `<div class="info-card"><h3>Website</h3><p><a href="${escAttr(website)}">${escHtml(website)}</a></p></div>` : ''}
+        <div class="info-card"><h3>Response Window</h3><p>The school leadership team receives this message inside their dashboard as soon as you submit it.</p></div>
       </div>
       ${renderLoginPanel(schoolName, logoUrl, true)}
     </div>
   </main>
   ${subdomainFooter(schoolName, branding, meta)}
-  ${loginScript()}`
+  ${loginScript()}
+  ${websiteEnquiryScript()}`
 
   return baseHtml(`Contact - ${schoolName}`, body)
 }

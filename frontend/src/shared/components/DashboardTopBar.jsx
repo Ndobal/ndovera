@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
 import {
   BellIcon,
+  BellAlertIcon,
   Bars3Icon,
   ChatBubbleLeftRightIcon,
   XMarkIcon,
@@ -20,6 +21,7 @@ import {
 } from '../../services/headerBarService';
 
 const CLICKABLE_CHAT_ROLES = new Set(['student', 'teacher', 'hos']);
+const DELIVERED_NOTIFICATION_STORAGE_KEY = 'ndovera.delivered.notifications.v1';
 
 const roleHeaderStats = {
   student: { notifications: 0, chats: 0, auras: 0 },
@@ -41,6 +43,57 @@ function formatConversationTimestamp(value) {
   const parsed = new Date(timestamp);
   if (Number.isNaN(parsed.getTime())) return '';
   return parsed.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+}
+
+function getNotificationPermissionState() {
+  if (typeof window === 'undefined' || !('Notification' in window)) {
+    return 'unsupported';
+  }
+
+  return window.Notification.permission;
+}
+
+function readDeliveredNotifications() {
+  if (typeof window === 'undefined') {
+    return {};
+  }
+
+  try {
+    const raw = window.localStorage.getItem(DELIVERED_NOTIFICATION_STORAGE_KEY);
+    return raw ? JSON.parse(raw) : {};
+  } catch {
+    return {};
+  }
+}
+
+function writeDeliveredNotifications(nextState) {
+  if (typeof window === 'undefined') {
+    return;
+  }
+
+  window.localStorage.setItem(DELIVERED_NOTIFICATION_STORAGE_KEY, JSON.stringify(nextState));
+}
+
+async function registerParentBackgroundFeeReminders() {
+  if (typeof window === 'undefined' || !('serviceWorker' in navigator)) {
+    return false;
+  }
+
+  try {
+    const registration = await navigator.serviceWorker.ready;
+    if (!registration || !('periodicSync' in registration)) {
+      return false;
+    }
+
+    await registration.periodicSync.register('parent-fee-reminders', {
+      minInterval: 12 * 60 * 60 * 1000,
+    });
+
+    registration.active?.postMessage({ type: 'SYNC_PARENT_FEE_REMINDERS' });
+    return true;
+  } catch {
+    return false;
+  }
 }
 
 export default function DashboardTopBar({ authUser = null, onLogout = () => {}, onToggleSidebar = null, isSidebarOpen = false }) {
@@ -69,6 +122,7 @@ export default function DashboardTopBar({ authUser = null, onLogout = () => {}, 
   const [loadingChatThread, setLoadingChatThread] = useState(false);
   const [sendingChatReply, setSendingChatReply] = useState(false);
   const [panelError, setPanelError] = useState('');
+  const [notificationPermission, setNotificationPermission] = useState(getNotificationPermissionState);
 
   const selfIdentifiers = useMemo(
     () => Array.from(new Set([
@@ -222,7 +276,78 @@ export default function DashboardTopBar({ authUser = null, onLogout = () => {}, 
     [activeChatId, chatItems],
   );
 
+  const feeReminderItems = useMemo(
+    () => notificationItems.filter(item => item.category === 'fee_reminder'),
+    [notificationItems],
+  );
+
+  const canRequestDeviceNotifications = notificationPermission !== 'unsupported' && feeReminderItems.length > 0;
+
   const panelItems = activePanel === 'chat' ? chatItems : notificationItems;
+
+  const requestDeviceNotifications = useCallback(async () => {
+    if (typeof window === 'undefined' || !('Notification' in window)) {
+      return;
+    }
+
+    if (notificationPermission === 'denied') {
+      setActivePanel('notifications');
+      setPanelError('Device notifications are blocked in this browser. Enable notifications for this site in browser settings to receive fee reminders on this phone.');
+      return;
+    }
+
+    const permission = await window.Notification.requestPermission();
+    setNotificationPermission(permission);
+
+    if (permission === 'granted' && roleKey === 'parent') {
+      await registerParentBackgroundFeeReminders();
+    }
+  }, [notificationPermission, roleKey]);
+
+  useEffect(() => {
+    setNotificationPermission(getNotificationPermissionState());
+  }, []);
+
+  useEffect(() => {
+    if (notificationPermission !== 'granted' || feeReminderItems.length === 0 || typeof window === 'undefined' || !('Notification' in window)) {
+      return;
+    }
+
+    const delivered = readDeliveredNotifications();
+    let changed = false;
+
+    feeReminderItems.forEach((item) => {
+      const deliveryKey = `${item.id}:${item.reminderSlotKey || 'current'}`;
+      if (delivered[deliveryKey]) {
+        return;
+      }
+
+      const popup = new window.Notification(item.title || 'School reminder', {
+        body: item.detail || item.preview || '',
+        tag: deliveryKey,
+      });
+
+      popup.onclick = () => {
+        window.focus();
+        popup.close();
+      };
+
+      delivered[deliveryKey] = new Date().toISOString();
+      changed = true;
+    });
+
+    if (changed) {
+      writeDeliveredNotifications(delivered);
+    }
+  }, [feeReminderItems, notificationPermission]);
+
+  useEffect(() => {
+    if (notificationPermission !== 'granted' || roleKey !== 'parent') {
+      return;
+    }
+
+    registerParentBackgroundFeeReminders().catch(() => null);
+  }, [notificationPermission, roleKey]);
 
   return (
     <header className="sticky top-0 z-40 px-4 md:px-6 py-3 border-b border-slate-200/70 dark:border-cyan-300/20 glass-surface">
@@ -269,6 +394,18 @@ export default function DashboardTopBar({ authUser = null, onLogout = () => {}, 
             )}
           </button>
 
+          {canRequestDeviceNotifications && notificationPermission !== 'granted' && (
+            <button
+              type="button"
+              onClick={requestDeviceNotifications}
+              className="glass-chip p-2 rounded-xl text-[#800020] dark:text-[#00ffff] hover:bg-white/70 dark:hover:bg-slate-700/60 transition-colors"
+              aria-label="Enable device notifications"
+              title="Enable device notifications for fee reminders"
+            >
+              <BellAlertIcon className="w-5 h-5" />
+            </button>
+          )}
+
           <ThemeToggle />
           {installable && (
             <button
@@ -309,6 +446,21 @@ export default function DashboardTopBar({ authUser = null, onLogout = () => {}, 
                   <XMarkIcon className="w-4 h-4 text-slate-700 dark:text-slate-200" />
                 </button>
               </div>
+
+              {activePanel === 'notifications' && canRequestDeviceNotifications && notificationPermission !== 'granted' && (
+                <div className="mx-3 mt-3 rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] p-3 text-sm text-[#191970] dark:border-[#00ffff]/20 dark:bg-[#120014]/80 dark:text-[#39ff14]">
+                  <p className="font-semibold text-[#800000] dark:text-[#ffffff]">Enable device alerts</p>
+                  <p className="mt-1">Allow notifications so unpaid fee reminders can also show on this phone twice every week while the balance remains open.</p>
+                  <p className="mt-2 text-xs text-[#800020] dark:text-[#bf00ff]">On supported installed browsers, NDOVERA will also register background reminder checks that can open straight into Fees &amp; Receipts.</p>
+                  <button
+                    type="button"
+                    onClick={requestDeviceNotifications}
+                    className="mt-3 rounded-2xl bg-[#1a5c38] px-4 py-2 text-sm font-bold text-[#f5deb3] dark:bg-[#00ffff] dark:text-[#000000]"
+                  >
+                    Allow Notifications
+                  </button>
+                </div>
+              )}
 
               {activePanel === 'chat' && activeChatId && CLICKABLE_CHAT_ROLES.has(roleKey) ? (
                 <>

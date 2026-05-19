@@ -28,6 +28,11 @@ function getRoleBadgeStyle(role) {
   return ROLE_COLORS[role?.toLowerCase()] || { bg: '#800020', text: '#f5deb3' };
 }
 
+function buildAvatarSrc(user) {
+  const seed = encodeURIComponent(user?.name || user?.email || user?.displayId || 'Ndovera');
+  return user?.avatarUrl || user?.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${seed}`;
+}
+
 function filterPeople(people, filter) {
   if (filter === 'Teachers') return people.filter(p => (p.roles || [p.role]).includes('teacher'));
   if (filter === 'Admin') return people.filter(p => (p.roles || [p.role]).some(role => ['owner', 'hos', 'accountant', 'principal', 'hod', 'hodassistant', 'headteacher', 'nurseryhead', 'storekeeper', 'tuckshopmanager', 'transport', 'hostel', 'cafeteria', 'clinic', 'ict', 'examofficer', 'sportsmaster', 'sanitation', 'librarian'].includes(role)));
@@ -61,7 +66,13 @@ function UserProfileModal({ userId, onClose, isAdmin, currentUserId }) {
       .then(data => {
         const u = data?.user || null;
         setProfile(u);
-        setEditForm({ name: u?.name || '', phone: u?.phone || '', classId: u?.classId || '' });
+        setEditForm({
+          name: u?.name || '',
+          phone: u?.phone || '',
+          classId: u?.classId || '',
+          dateOfBirth: u?.dateOfBirth || '',
+          avatar: u?.avatarUrl || u?.avatar || '',
+        });
       })
       .catch(err => setError(err.message))
       .finally(() => setLoading(false));
@@ -76,7 +87,13 @@ function UserProfileModal({ userId, onClose, isAdmin, currentUserId }) {
   async function handleSave() {
     setSaving(true); setSaveMsg('');
     try {
-      await updateUserProfile(userId, { name: editForm.name, phone: editForm.phone, classId: editForm.classId || undefined });
+      await updateUserProfile(userId, {
+        name: editForm.name,
+        phone: editForm.phone,
+        classId: editForm.classId || undefined,
+        dateOfBirth: editForm.dateOfBirth || undefined,
+        avatar: editForm.avatar || undefined,
+      });
       setSaveMsg('Saved!');
       setEditing(false);
       load();
@@ -128,6 +145,14 @@ function UserProfileModal({ userId, onClose, isAdmin, currentUserId }) {
 
         {profile && (
           <div className="space-y-4">
+            <div className="flex items-center gap-4">
+              <img src={buildAvatarSrc(profile)} alt={profile.name || 'User avatar'} className="h-20 w-20 rounded-3xl object-cover border border-[#c9a96e]/40 bg-white" />
+              <div>
+                <p className="text-lg font-bold text-[#800000]">{profile.name || 'Unnamed user'}</p>
+                <p className="text-sm uppercase tracking-wide text-[#800020]">{profile.role || 'user'}</p>
+              </div>
+            </div>
+
             {profile.displayId && (
               <div className="inline-block px-3 py-1 rounded-full bg-[#800000] text-[#f5deb3] text-xs font-bold tracking-widest">
                 {profile.displayId}
@@ -149,6 +174,23 @@ function UserProfileModal({ userId, onClose, isAdmin, currentUserId }) {
                   <input
                     value={editForm.phone}
                     onChange={e => setEditForm(f => ({ ...f, phone: e.target.value }))}
+                    className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#f0d090] text-[#191970] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1a5c38]"
+                  />
+                </div>
+                <div>
+                  <label className="text-xs font-semibold uppercase text-[#800020]">Date of Birth</label>
+                  <input
+                    type="date"
+                    value={editForm.dateOfBirth}
+                    onChange={e => setEditForm(f => ({ ...f, dateOfBirth: e.target.value }))}
+                    className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#f0d090] text-[#191970] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1a5c38]"
+                  />
+                </div>
+                <div>
+                  <label className="text-xs font-semibold uppercase text-[#800020]">Avatar URL</label>
+                  <input
+                    value={editForm.avatar}
+                    onChange={e => setEditForm(f => ({ ...f, avatar: e.target.value }))}
                     className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#f0d090] text-[#191970] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1a5c38]"
                   />
                 </div>
@@ -184,6 +226,7 @@ function UserProfileModal({ userId, onClose, isAdmin, currentUserId }) {
                   ['Name', profile.name],
                   ['Email', profile.email],
                   ['Phone', profile.phone],
+                  ['Date of Birth', profile.dateOfBirth ? new Date(`${profile.dateOfBirth}T00:00:00Z`).toLocaleDateString() : '—'],
                   ['Status', profile.status || 'active'],
                   ['Created', profile.createdAt ? new Date(profile.createdAt).toLocaleDateString() : '—'],
                 ].map(([label, value]) => (

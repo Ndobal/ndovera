@@ -47,6 +47,16 @@ export async function createPost(classId, payload) {
   return res.json();
 }
 
+export async function updatePost(classId, postId, payload) {
+  const res = await apiFetch(`/api/classrooms/${classId}/stream/${postId}`, { method: 'PUT', headers: getAuthHeaders(), body: JSON.stringify(payload) });
+  return res.json();
+}
+
+export async function deletePost(classId, postId) {
+  const res = await apiFetch(`/api/classrooms/${classId}/stream/${postId}`, { method: 'DELETE', headers: getAuthHeaders() });
+  return res.json();
+}
+
 export async function addPostComment(classId, postId, payload) {
   const res = await apiFetch(`/api/classrooms/${classId}/posts/${postId}/comments`, { method: 'POST', headers: getAuthHeaders(), body: JSON.stringify(payload) });
   return res.json();
@@ -59,6 +69,16 @@ export async function getAssignments(classId) {
 
 export async function createAssignment(classId, payload) {
   const res = await apiFetch(`/api/classrooms/${classId}/assignments`, { method: 'POST', headers: getAuthHeaders(), body: JSON.stringify(payload) });
+  return res.json();
+}
+
+export async function updateAssignment(classId, assignmentId, payload) {
+  const res = await apiFetch(`/api/classrooms/${classId}/assignments/${assignmentId}`, { method: 'PUT', headers: getAuthHeaders(), body: JSON.stringify(payload) });
+  return res.json();
+}
+
+export async function deleteAssignment(classId, assignmentId) {
+  const res = await apiFetch(`/api/classrooms/${classId}/assignments/${assignmentId}`, { method: 'DELETE', headers: getAuthHeaders() });
   return res.json();
 }
 
@@ -123,6 +143,16 @@ export async function getClassSubjects(classId) {
 
 export async function addMaterial(classId, payload) {
   const res = await apiFetch(`/api/classrooms/${classId}/materials`, { method: 'POST', headers: getAuthHeaders(), body: JSON.stringify(payload) });
+  return res.json();
+}
+
+export async function updateMaterial(classId, materialId, payload) {
+  const res = await apiFetch(`/api/classrooms/${classId}/materials/${materialId}`, { method: 'PUT', headers: getAuthHeaders(), body: JSON.stringify(payload) });
+  return res.json();
+}
+
+export async function deleteMaterial(classId, materialId) {
+  const res = await apiFetch(`/api/classrooms/${classId}/materials/${materialId}`, { method: 'DELETE', headers: getAuthHeaders() });
   return res.json();
 }
 

@@ -109,6 +109,8 @@ export default function TeacherClassroom({
   const navigate = useNavigate();
   const storedAuth = getStoredAuth();
   const storedUser = storedAuth?.user || readStoredUser();
+  const currentRoleKey = String(storedUser?.role || 'teacher').trim().toLowerCase() || 'teacher';
+  const isSupervisorRole = ['owner', 'hos', 'admin', 'ict', 'ict_manager', 'ami'].includes(currentRoleKey);
   const [classId, setClassId] = useState('');
   const [assignedClasses, setAssignedClasses] = useState([]);
   const [activeTab, setActiveTab] = useState(() => lockedTab || initialTab);
@@ -154,6 +156,7 @@ export default function TeacherClassroom({
   const selectedMaterialSubject = materialSubjects.find(subject => subject.id === materialSubjectId) || materialSubjects[0] || null;
   const selectedLiveSubject = materialSubjects.find(subject => subject.id === liveSubjectId) || materialSubjects[0] || null;
   const isChoosingClass = !classId;
+  const canManageSelectedClass = Boolean(selectedClass?.canManageClassroom || selectedClass?.isClassTeacher);
   const selfMemberIdentifiers = useMemo(() => new Set(
     [storedUser?.id, storedUser?.email, storedUser?.displayId]
       .map(normalizeMemberIdentifier)
@@ -193,7 +196,7 @@ export default function TeacherClassroom({
         setAssignedClasses(classes);
 
         if (classes.length === 0) {
-          setClassroomError('No classes have been assigned to this teacher yet.');
+          setClassroomError(isSupervisorRole ? 'No classes are available for supervision yet.' : 'No classes have been assigned to this teacher yet.');
         } else {
           setClassroomError('');
         }
@@ -212,7 +215,7 @@ export default function TeacherClassroom({
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [isSupervisorRole]);
 
   useEffect(() => {
     if (!classId) {
@@ -252,7 +255,7 @@ export default function TeacherClassroom({
   }, [classId]);
 
   useEffect(() => {
-    if (!classId || !selectedClass?.isClassTeacher) {
+    if (!classId || !canManageSelectedClass) {
       setStudents([]);
       setSelectedStudentId('');
       return;
@@ -278,7 +281,7 @@ export default function TeacherClassroom({
     return () => {
       cancelled = true;
     };
-  }, [classId, selectedClass?.isClassTeacher]);
+  }, [canManageSelectedClass, classId]);
 
   useEffect(() => {
     if (!materialSubjects.length) {
@@ -325,6 +328,41 @@ export default function TeacherClassroom({
     loadAll();
   }
 
+  async function handleEditPost(post) {
+    if (!classId || !post?.id) return;
+    const nextContent = window.prompt('Edit stream update', htmlToDisplayText(post?.content || post?.text || ''));
+    if (nextContent === null) return;
+
+    const normalizedContent = nextContent.trim();
+    if (!normalizedContent) {
+      setClassroomError('Post content cannot be empty.');
+      return;
+    }
+
+    const response = await svc.updatePost(classId, post.id, { content: formatTeacherStreamContent(normalizedContent) });
+    if (!response?.success) {
+      setClassroomError(response?.message || 'Could not update this stream post right now.');
+      return;
+    }
+
+    setClassroomError('');
+    loadAll();
+  }
+
+  async function handleDeletePost(postId) {
+    if (!classId || !postId) return;
+    if (!window.confirm('Delete this stream post?')) return;
+
+    const response = await svc.deletePost(classId, postId);
+    if (!response?.success) {
+      setClassroomError(response?.message || 'Could not delete this stream post right now.');
+      return;
+    }
+
+    setClassroomError('');
+    loadAll();
+  }
+
   // autosave scheduling (use a ref to persist timer)
   const saveTimerRef = useRef(null);
   function scheduleSave(nextContent) {
@@ -351,7 +389,7 @@ export default function TeacherClassroom({
         role: formatRoleLabel(member.role || 'Student', 'Student'),
       },
     });
-    navigate('/roles/teacher/messaging');
+    navigate(`/roles/${currentRoleKey}/messaging`);
   }
 
   function reportMember(member) {
@@ -364,7 +402,7 @@ export default function TeacherClassroom({
       },
       composeDraft: `I want to report ${member.name}${member.displayId ? ` (${member.displayId})` : ''} from ${member.className || classroomLabel}. Please review this issue: `,
     });
-    navigate('/roles/teacher/messaging');
+    navigate(`/roles/${currentRoleKey}/messaging`);
   }
 
   function resolveStreamAuthor(post) {
@@ -520,6 +558,52 @@ export default function TeacherClassroom({
     loadAll();
   }
 
+  async function handleEditMaterial(material) {
+    if (!classId || !material?.id) return;
+
+    const nextTitle = window.prompt('Update material title', material.title || '');
+    if (nextTitle === null) return;
+    const normalizedTitle = nextTitle.trim();
+    if (!normalizedTitle) {
+      setMaterialMessage('Material title is required.');
+      return;
+    }
+
+    const nextDescription = window.prompt('Update material description', material.description || '');
+    if (nextDescription === null) return;
+
+    const nextUrl = window.prompt('Update material link. Leave blank to keep it as a teacher note.', material.url || '');
+    if (nextUrl === null) return;
+
+    const response = await svc.updateMaterial(classId, material.id, {
+      title: normalizedTitle,
+      description: nextDescription.trim(),
+      url: nextUrl.trim(),
+    });
+
+    if (!response?.success) {
+      setMaterialMessage(response?.message || 'Could not update this material right now.');
+      return;
+    }
+
+    setMaterialMessage(`Updated ${normalizedTitle}.`);
+    loadAll();
+  }
+
+  async function handleDeleteMaterial(material) {
+    if (!classId || !material?.id) return;
+    if (!window.confirm(`Delete ${material.title || 'this material'}?`)) return;
+
+    const response = await svc.deleteMaterial(classId, material.id);
+    if (!response?.success) {
+      setMaterialMessage(response?.message || 'Could not delete this material right now.');
+      return;
+    }
+
+    setMaterialMessage(`Deleted ${material.title || 'material'}.`);
+    loadAll();
+  }
+
   async function handleStartLiveSession(event) {
     event.preventDefault();
 
@@ -586,8 +670,8 @@ export default function TeacherClassroom({
 
   async function handleRecordAttendance(e) {
     e.preventDefault();
-    if (!selectedClass?.isClassTeacher) {
-      setAttendanceMessage('Only the class teacher can mark attendance for this class.');
+    if (!canManageSelectedClass) {
+      setAttendanceMessage('Only the assigned class teacher, HoS, owner, or another classroom supervisor can mark attendance for this class.');
       return;
     }
 
@@ -644,14 +728,14 @@ export default function TeacherClassroom({
   return (
     <StudentSectionShell
       title={selectedClass?.className || (showingLockedAttendance ? 'Class Attendance' : 'Teacher Classroom')}
-      subtitle={selectedClass ? 'Manage one class at a time. Exit this class to choose another one.' : 'Choose an assigned class card to open its classroom.'}
+      subtitle={selectedClass ? 'Manage one class at a time. Exit this class to choose another one.' : 'Choose a class card to open and supervise its classroom.'}
       dashboardLabel={dashboardLabel}
       watermarkText={watermarkText}
     >
       <div id="devMarker" style={{display: 'none'}}>DEV_BUILD: teacher-classroom-20260304</div>
       <div className="p-4">
         {isChoosingClass && <div className="mb-6">
-          <label className="block text-sm font-medium text-[#800000] dark:text-[#0000ff] mb-3">Assigned Classes</label>
+          <label className="block text-sm font-medium text-[#800000] dark:text-[#0000ff] mb-3">{isSupervisorRole ? 'Available Classes' : 'Assigned Classes'}</label>
           {assignedClasses.length > 0 ? (
             <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
               {assignedClasses.map(classroom => (
@@ -664,7 +748,7 @@ export default function TeacherClassroom({
                   <div className="flex items-start justify-between gap-3">
                     <div>
                       <p className="text-lg font-semibold text-[#800000] dark:text-[#ffffff]">{classroom.className}</p>
-                      <p className="mt-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#800020] dark:text-[#bf00ff]">{classroom.isClassTeacher ? 'Class Teacher' : 'Subject Teacher'}</p>
+                      <p className="mt-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#800020] dark:text-[#bf00ff]">{classroom.isClassTeacher ? 'Class Teacher' : classroom.isSupervisor ? 'Supervisor Access' : 'Subject Teacher'}</p>
                     </div>
                     <span className="inline-flex items-center rounded-full bg-[#1a5c38] px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] text-[#f5deb3] dark:bg-[#00ffff] dark:text-[#000000]">Open Class</span>
                   </div>
@@ -692,7 +776,7 @@ export default function TeacherClassroom({
             </div>
           ) : (
             <div className="rounded-3xl border border-[#c9a96e]/45 bg-[#f5deb3] px-4 py-4 text-sm text-[#191970] dark:border-[#bf00ff]/35 dark:bg-[#800000]/70 dark:text-[#39ff14]">
-              {classroomLoading ? 'Loading assigned classes...' : 'No classes assigned yet.'}
+              {classroomLoading ? 'Loading classes...' : (isSupervisorRole ? 'No classes are available for supervision yet.' : 'No classes assigned yet.')}
             </div>
           )}
           {classroomError && <p className="text-sm text-red-600 dark:text-[#ffffff] mt-2">{classroomError}</p>}
@@ -805,7 +889,11 @@ export default function TeacherClassroom({
                                 <p className="text-sm font-semibold text-[#191970] dark:text-[#ffffff]">{authorProfile.name}</p>
                                 <p className="mt-1 text-xs font-semibold uppercase tracking-[0.16em] text-[#800020] dark:text-[#bf00ff]">{authorProfile.role}{authorProfile.displayId ? ` • ${authorProfile.displayId}` : ''}</p>
                               </div>
-                              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#800020] dark:text-[#bf00ff]">{new Date(postTimestamp).toLocaleString()}</p>
+                              <div className="flex flex-wrap items-center justify-end gap-2">
+                                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#800020] dark:text-[#bf00ff]">{new Date(postTimestamp).toLocaleString()}</p>
+                                {canManageSelectedClass && <button type="button" onClick={() => handleEditPost(post)} className="rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] px-3 py-1 text-xs font-semibold text-[#191970] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#ffffff]">Edit</button>}
+                                {canManageSelectedClass && <button type="button" onClick={() => handleDeletePost(post.id)} className="rounded-2xl border border-[#800000]/25 bg-white/70 px-3 py-1 text-xs font-semibold text-[#800000] hover:bg-[#ffe8db] dark:border-[#ff5f8d]/35 dark:bg-black/20 dark:text-[#ffffff] dark:hover:bg-[#5a1024]">Delete</button>}
+                              </div>
                             </div>
 
                             <p className="mt-3 whitespace-pre-wrap text-sm leading-7 text-[#191970] dark:text-[#ffffff]">{postText}</p>
@@ -881,6 +969,7 @@ export default function TeacherClassroom({
               currentClassId={classId}
               currentClassName={selectedClass?.className || ''}
               assignments={assignments}
+              canModerate={canManageSelectedClass}
               onRefreshAssignments={loadAll}
               onSelectClass={handleSelectClass}
             />
@@ -888,13 +977,13 @@ export default function TeacherClassroom({
 
           {activeTab === 'attendance' && (
             <div className="space-y-4">
-              {!selectedClass?.isClassTeacher && (
+              {!canManageSelectedClass && (
                 <div className="rounded-3xl border border-[#c9a96e]/45 bg-[#f5deb3] px-4 py-4 text-sm text-[#191970] dark:border-[#bf00ff]/35 dark:bg-[#800000]/70 dark:text-[#39ff14]">
-                  Only the class teacher can mark attendance for this class. Open a class where you are the assigned class teacher to record student attendance.
+                  Only the assigned class teacher, HoS, owner, or another classroom supervisor can mark attendance for this class.
                 </div>
               )}
 
-              {selectedClass?.isClassTeacher && (
+              {canManageSelectedClass && (
                 <div className="rounded-3xl border border-[#c9a96e]/45 bg-[#f5deb3] p-5 shadow-[0_18px_42px_rgba(128,0,0,0.08)] dark:border-[#bf00ff]/35 dark:bg-[#800000]/75 dark:shadow-[0_0_28px_rgba(191,0,255,0.18)]">
                   <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
                     <div>
@@ -1066,15 +1155,19 @@ export default function TeacherClassroom({
                             <p className="mt-2 text-xs text-[#800020] dark:text-[#bf00ff]">{material.uploadedAt ? new Date(material.uploadedAt).toLocaleString() : 'Recently uploaded'}{material.uploadedByName ? ` • ${material.uploadedByName}` : ''}</p>
                           </div>
                           </div>
-                          {material.url ? (
-                            <a href={material.url} target="_blank" rel="noreferrer" className="rounded-2xl bg-[#1a5c38] px-4 py-2 text-sm font-bold text-[#f5deb3] transition-colors hover:bg-[#154a2e] dark:bg-[#00ffff] dark:text-[#000000] dark:hover:bg-[#7dfcff]">
-                              Open Material
-                            </a>
-                          ) : (
-                            <span className="rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] px-4 py-2 text-sm font-semibold text-[#800020] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#bf00ff]">
-                              Teacher Note
-                            </span>
-                          )}
+                          <div className="flex flex-wrap items-center gap-2">
+                            {canManageSelectedClass && <button type="button" onClick={() => handleEditMaterial(material)} className="rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] px-4 py-2 text-sm font-semibold text-[#191970] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#ffffff]">Edit</button>}
+                            {canManageSelectedClass && <button type="button" onClick={() => handleDeleteMaterial(material)} className="rounded-2xl border border-[#800000]/25 bg-white/70 px-4 py-2 text-sm font-semibold text-[#800000] hover:bg-[#ffe8db] dark:border-[#ff5f8d]/35 dark:bg-black/20 dark:text-[#ffffff] dark:hover:bg-[#5a1024]">Delete</button>}
+                            {material.url ? (
+                              <a href={material.url} target="_blank" rel="noreferrer" className="rounded-2xl bg-[#1a5c38] px-4 py-2 text-sm font-bold text-[#f5deb3] transition-colors hover:bg-[#154a2e] dark:bg-[#00ffff] dark:text-[#000000] dark:hover:bg-[#7dfcff]">
+                                Open Material
+                              </a>
+                            ) : (
+                              <span className="rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] px-4 py-2 text-sm font-semibold text-[#800020] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#bf00ff]">
+                                Teacher Note
+                              </span>
+                            )}
+                          </div>
                         </div>
                       </div>
                     ))}

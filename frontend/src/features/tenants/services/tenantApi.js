@@ -139,3 +139,10 @@ export function restoreTenant(tenantId) {
     body: {},
   });
 }
+
+export function upsertTenantAward(tenantId, payload) {
+  return requestJson(`/api/ami/tenants/${encodeURIComponent(tenantId)}/awards`, {
+    method: 'POST',
+    body: payload,
+  });
+}

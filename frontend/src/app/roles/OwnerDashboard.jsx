@@ -14,6 +14,9 @@ import OwnerReports from './owner/OwnerReports';
 import OwnerSettings from './owner/OwnerSettings';
 import OwnerPayroll from './owner/OwnerPayroll';
 import OwnerAttendance from './owner/OwnerAttendance';
+import TeacherClassroom from '../../features/classroom/TeacherClassroom';
+import HoSMessaging from './hos/HoSMessaging';
+import AdmissionsManagementBoard from '../../features/school/components/AdmissionsManagementBoard';
 
 export default function OwnerDashboard({ auth = null }) {
   const location = useLocation();
@@ -37,6 +40,9 @@ export default function OwnerDashboard({ auth = null }) {
     case 'settings': return <OwnerSettings auth={auth} />;
     case 'payroll': return <OwnerPayroll auth={auth} />;
     case 'attendance': return <OwnerAttendance auth={auth} />;
+    case 'admissions': return <AdmissionsManagementBoard audience="owner" title="Admissions Oversight" subtitle="Review new applications, approve candidates, and route hostel, transport, and clinic follow-up." />;
+    case 'classroom': return <TeacherClassroom initialTab="stream" dashboardLabel="Owner Dashboard" watermarkText="Owner Dashboard" />;
+    case 'messaging': return <HoSMessaging auth={auth} />;
     case 'library': return <RoleLibrary />;
     case 'library-admin': return <AdminLibrary />;
     default: return <Navigate to="/roles/owner" replace />;

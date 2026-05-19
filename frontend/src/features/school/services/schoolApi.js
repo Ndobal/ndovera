@@ -135,6 +135,8 @@ export const createEvent = (data) => req('/api/school/events', { method: 'POST',
 export const updateEvent = (id, data) => req(`/api/school/events/${id}`, { method: 'PUT', body: data });
 export const deleteEvent = (id) => req(`/api/school/events/${id}`, { method: 'DELETE' });
 export const uploadEventMedia = (file) => uploadFile('/api/school/events/upload', file);
+export const getAdmissionsQueue = (params = {}) => req(`/api/school/admissions${buildQuery(params)}`);
+export const reviewAdmissionApplication = (applicationId, data) => req(`/api/school/admissions/${applicationId}/review`, { method: 'POST', body: data });
 export const getParents = () => req('/api/school/parents');
 export const bulkAddSubjects = (classId, data) => req(`/api/school/classes/${classId}/subjects/bulk`, { method: 'POST', body: data });
 export const updateSubject = (subjectId, data) => req(`/api/school/subjects/${subjectId}`, { method: 'PUT', body: data });
@@ -148,6 +150,7 @@ export const linkParentStudent = (data) => req('/api/school/parent-student-link'
 export const getFeesConfig = () => req('/api/school/fees-config');
 export const saveFeesConfig = (data) => req('/api/school/fees-config', { method: 'POST', body: data });
 export const getFeesLedger = () => req('/api/school/fees-ledger');
+export const getFeeReceipts = () => req('/api/school/fees-receipts');
 export const markFeePaid = (studentId, data) => req(`/api/school/fees/${studentId}/pay`, { method: 'POST', body: data });
 
 // Expenditure
@@ -167,6 +170,10 @@ export const getMyPayslip = () => req('/api/school/payroll/my-payslip');
 // Attendance
 export const getStaffAttendance = (date) => req(`/api/school/staff-attendance?date=${date}`);
 export const markStaffAttendance = (data) => req('/api/school/staff-attendance', { method: 'POST', body: data });
+export const getStaffAttendanceSettings = () => req('/api/school/staff-attendance/settings');
+export const saveStaffAttendanceSettings = (data) => req('/api/school/staff-attendance/settings', { method: 'POST', body: data });
+export const rotateStaffAttendanceQr = () => req('/api/school/staff-attendance/settings/rotate-qr', { method: 'POST' });
+export const getStaffAttendanceActivity = (date) => req(`/api/school/staff-attendance/activity?date=${date}`);
 export const getStudentAttendance = (dateOrFilters, classId) => {
   const params = new URLSearchParams();
 
@@ -184,7 +191,8 @@ export const getStudentAttendance = (dateOrFilters, classId) => {
   return req(`/api/school/student-attendance${query ? `?${query}` : ''}`);
 };
 export const markStudentAttendance = (data) => req('/api/school/student-attendance', { method: 'POST', body: data });
-export const runAttendanceAI = () => req('/api/school/attendance/ai-analysis', { method: 'POST' });
+export const getAttendanceMonthlyReport = (params = {}) => req(`/api/school/attendance/monthly-report${buildQuery(params)}`);
+export const runAttendanceAI = (payload = {}) => req('/api/school/attendance/ai-analysis', { method: 'POST', body: payload });
 export const runFinanceAI = () => req('/api/school/finance/ai-analysis', { method: 'POST' });
 
 // Results

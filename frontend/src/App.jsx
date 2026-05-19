@@ -34,7 +34,7 @@ const ROLE_TO_DASHBOARD = {
 
 const OPERATIONAL_ROLES = new Set([
   'librarian','sanitation','tuckshopmanager','storekeeper','transport',
-  'hostel','cafeteria','clinic','ict','classteacher','hod','hodassistant',
+  'hostel','cafeteria','clinic','ict','ict_manager','classteacher','hod','hodassistant',
   'principal','headteacher','nurseryhead','examofficer','sportsmaster',
 ]);
 

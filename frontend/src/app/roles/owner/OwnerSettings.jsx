@@ -1,10 +1,11 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { getMe, getClasses, addClass, getSubjects, addSubject, getSession, saveSession, getBranding, saveBranding, uploadLogo, getPeople, bulkAddSubjects, bulkAddSubjectsBySection, updateSubject, deleteSubject, updateClass } from '../../../features/school/services/schoolApi';
 import AdminPasswordReset from '../../../features/auth/components/AdminPasswordReset';
+import StaffAttendanceManagementPanel from '../../../features/attendance/components/StaffAttendanceManagementPanel';
 import WebsiteTab from './tabs/WebsiteTab';
 import EventsTab from './tabs/EventsTab';
 
-const TABS = ['Profile', 'School Branding', 'Website', 'Events', 'Classes', 'Subjects', 'Sessions & Terms'];
+const TABS = ['Profile', 'School Branding', 'Website', 'Events', 'Classes', 'Subjects', 'Sessions & Terms', 'Attendance Management'];
 
 const DEFAULT_CLASS_NAMES = [
   { label: 'Primary 1', value: 'Primary 1' },
@@ -589,12 +590,12 @@ function SessionTab() {
 
 export default function OwnerSettings({ auth }) {
   const [tab, setTab] = useState('Profile');
-  const tabContent = { Profile: <ProfileTab />, 'School Branding': <BrandingTab />, Website: <WebsiteTab />, Events: <EventsTab />, Classes: <ClassesTab />, Subjects: <SubjectsTab />, 'Sessions & Terms': <SessionTab /> };
+  const tabContent = { Profile: <ProfileTab />, 'School Branding': <BrandingTab />, Website: <WebsiteTab />, Events: <EventsTab />, Classes: <ClassesTab />, Subjects: <SubjectsTab />, 'Sessions & Terms': <SessionTab />, 'Attendance Management': <StaffAttendanceManagementPanel /> };
   return (
     <div className="p-8 max-w-7xl mx-auto space-y-6">
       <div className="rounded-3xl p-6 bg-[#f5deb3] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
         <h1 className="text-2xl font-bold text-[#800000] dark:text-slate-100">Settings</h1>
-        <p className="text-[#191970] dark:text-slate-300 mt-1 text-sm">Manage your profile, branding, classes, and academic sessions.</p>
+        <p className="text-[#191970] dark:text-slate-300 mt-1 text-sm">Manage your profile, branding, classes, academic sessions, and staff attendance policy.</p>
       </div>
       <div className="flex gap-2 flex-wrap">
         {TABS.map(t => (

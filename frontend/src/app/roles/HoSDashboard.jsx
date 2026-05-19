@@ -14,6 +14,8 @@ import HoSSettings from './hos/HoSSettings';
 import HoSPayroll from './hos/HoSPayroll';
 import OwnerAttendance from './owner/OwnerAttendance';
 import OwnerPeople from './owner/OwnerPeople';
+import TeacherClassroom from '../../features/classroom/TeacherClassroom';
+import AdmissionsManagementBoard from '../../features/school/components/AdmissionsManagementBoard';
 
 export default function HoSDashboard({ auth = null }) {
   const location = useLocation();
@@ -24,6 +26,8 @@ export default function HoSDashboard({ auth = null }) {
     case 'overview': return <HoSOverview auth={auth} />;
     case 'academics': return <HoSResultAnalytics />;
     case 'attendance': return <OwnerAttendance auth={auth} />;
+    case 'admissions': return <AdmissionsManagementBoard audience="hos" title="Admissions Review" subtitle="Review applicants, coordinate placement, and prepare downstream teams for onboarding." />;
+    case 'classroom': return <TeacherClassroom initialTab="stream" dashboardLabel="HoS Dashboard" watermarkText="HoS Dashboard" />;
     case 'teacher-review': return <HoSTeacherReview auth={auth} />;
     case 'timetable': return <HoSTimetable />;
     case 'discipline': return <HoSDiscipline auth={auth} />;
