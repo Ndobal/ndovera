@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import FeeReceiptPrintCard from './FeeReceiptPrintCard';
+import FeeReceiptDialog from './FeeReceiptDialog';
 import {
   approveFeePaymentClaim,
   getFeePaymentClaims,
@@ -989,23 +989,14 @@ function FeesManagementBoard() {
         </div>
       </div>
 
-      {receiptModal && selectedReceipt ? (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/55 p-4">
-          <div className="w-full max-w-4xl space-y-4">
-            <FeeReceiptPrintCard
-              receipt={selectedReceipt}
-              printId="fees-receipt-print"
-              title="School Finance Copy Receipt"
-              subtitle="Official school fees receipt generated from the finance ledger."
-            />
-
-            <div className="flex flex-wrap gap-3">
-              <button onClick={() => window.print()} className={BTN}>Print Receipt</button>
-              <button onClick={() => { setReceiptModal(false); setSelectedReceipt(null); }} className={OUTLINE_BTN}>Close</button>
-            </div>
-          </div>
-        </div>
-      ) : null}
+      <FeeReceiptDialog
+        receipt={selectedReceipt}
+        isOpen={receiptModal && Boolean(selectedReceipt)}
+        onClose={() => { setReceiptModal(false); setSelectedReceipt(null); }}
+        printId="fees-receipt-print"
+        title="School Finance Copy Receipt"
+        subtitle="Official school fees receipt generated from the finance ledger."
+      />
     </div>
   );
 }

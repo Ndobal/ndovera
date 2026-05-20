@@ -64,7 +64,7 @@ export default function FeeReceiptPrintCard({ receipt, printId = 'fee-receipt-pr
   const studentIdLabel = receipt.studentDisplayId || receipt.studentId || 'Not assigned';
 
   return (
-    <div id={printId} className="w-full rounded-[32px] border border-[#c9a96e]/40 bg-[#f5deb3] p-6 text-[#191970] shadow-[0_18px_42px_rgba(128,0,0,0.12)] dark:border-[#bf00ff]/35 dark:bg-[#800000]/88 dark:text-[#39ff14]">
+    <div id={printId} className="w-full rounded-[32px] border border-[#c9a96e]/40 bg-[#f5deb3] p-4 sm:p-6 text-[#191970] shadow-[0_18px_42px_rgba(128,0,0,0.12)] dark:border-[#bf00ff]/35 dark:bg-[#800000]/88 dark:text-[#39ff14]">
       <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#800020] dark:text-[#bf00ff]">{schoolName}</p>

@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import StudentSectionShell from '../../../app/roles/student/StudentSectionShell';
-import FeeReceiptPrintCard from './FeeReceiptPrintCard';
+import FeeReceiptDialog from './FeeReceiptDialog';
 import {
   getFeePaymentClaims,
   getFeeReceipts,
@@ -312,22 +312,14 @@ export default function ParentFeesReceiptsPage() {
         </section>
       </div>
 
-      {selectedReceipt ? (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/55 p-4">
-          <div className="w-full max-w-4xl space-y-4">
-            <FeeReceiptPrintCard
-              receipt={selectedReceipt}
-              printId="parent-fees-receipt-print"
-              title="Parent Copy School Fees Receipt"
-              subtitle="Official receipt for an approved and recorded school fee payment."
-            />
-            <div className="flex flex-wrap gap-3">
-              <button onClick={() => window.print()} className={BTN}>Print Receipt</button>
-              <button onClick={() => setSelectedReceipt(null)} className="rounded-2xl border border-[#800020]/30 bg-white/60 px-4 py-2 text-sm font-semibold text-[#800020] transition-colors hover:bg-white dark:border-[#bf00ff]/40 dark:bg-[#120014]/80 dark:text-[#bf00ff] dark:hover:bg-[#1f0022]">Close</button>
-            </div>
-          </div>
-        </div>
-      ) : null}
+      <FeeReceiptDialog
+        receipt={selectedReceipt}
+        isOpen={Boolean(selectedReceipt)}
+        onClose={() => setSelectedReceipt(null)}
+        printId="parent-fees-receipt-print"
+        title="Parent Copy School Fees Receipt"
+        subtitle="Official receipt for an approved and recorded school fee payment."
+      />
     </StudentSectionShell>
   );
 }
