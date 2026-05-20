@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import QRCode from 'qrcode';
+import { getApiBase } from '../../../config/apiBase';
 
 function normalizeBrandColor(value, fallback) {
   const color = String(value || '').trim();
@@ -52,6 +53,16 @@ function buildVerificationLabel(url) {
   return url.length > 72 ? `${url.slice(0, 69)}...` : url;
 }
 
+function resolvePublicVerificationOrigin() {
+  if (typeof window === 'undefined') return '';
+
+  try {
+    return new URL(getApiBase('/api'), window.location.origin).origin;
+  } catch {
+    return window.location.origin;
+  }
+}
+
 export default function ResultRecordViewer({
   students = [],
   activeStudentId = '',
@@ -75,7 +86,7 @@ export default function ResultRecordViewer({
     const existingUrl = String(selectedRecord?.verificationUrl || '').trim();
     if (existingUrl) return existingUrl;
     if (typeof window === 'undefined' || !selectedRecord?.id) return '';
-    return `${window.location.origin}/result-verification/${encodeURIComponent(String(selectedRecord.id || ''))}`;
+    return `${resolvePublicVerificationOrigin()}/result-verification/${encodeURIComponent(String(selectedRecord.id || ''))}`;
   }, [selectedRecord?.id, selectedRecord?.verificationUrl]);
 
   useEffect(() => {

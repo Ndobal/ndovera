@@ -19,7 +19,7 @@ import {
   createConversation, getMessages, sendMessage, markMessagesRead, listConversationReadStates,
   listSchoolAnnouncements, createSchoolAnnouncement,
   getTuckOrders, createTuckOrder, updateTuckOrder, getWeeklyTuckSummary,
-  createTenant, getTenantById, getTenantByOwnerEmail, getTenantBySubdomain,
+  createTenant, getTenantById, getTenantByOwnerEmail, getTenantBySubdomain, getTenantByWebsiteHost,
   listTenants, updateTenant, listTenantDiscountCodes, getTenantDiscountCode,
   upsertTenantDiscountCode, incrementTenantDiscountCodeRedemption,
   createTenantPayment, getTenantPaymentByTxRef, listTenantPayments,
@@ -121,8 +121,38 @@ function getCookieValue(header: string | undefined | null, name: string) {
   return match ? decodeURIComponent(match.slice(name.length + 1)) : ''
 }
 
-function authCookie(token: string) {
-  return `${AUTH_COOKIE_NAME}=${encodeURIComponent(token)}; Path=/; Domain=.ndovera.com; Max-Age=${AUTH_SESSION_SECONDS}; Secure; SameSite=Lax`
+function normalizeHostname(value: unknown) {
+  const raw = String(value || '').trim().toLowerCase()
+  if (!raw) return ''
+
+  try {
+    const parsed = raw.includes('://') ? new URL(raw) : new URL(`https://${raw}`)
+    return String(parsed.hostname || '').trim().toLowerCase().replace(/\.$/, '')
+  } catch {
+    return raw.replace(/^https?:\/\//, '').split('/')[0].split(':')[0].replace(/\.$/, '')
+  }
+}
+
+function stripLeadingWww(hostname: string) {
+  return hostname.startsWith('www.') ? hostname.slice(4) : hostname
+}
+
+function authCookie(token: string, requestUrl: string | URL | null = null, baseDomain = DEFAULT_TENANT_BASE_DOMAIN) {
+  const normalizedBaseDomain = normalizeHostname(baseDomain) || DEFAULT_TENANT_BASE_DOMAIN
+  const requestHost = normalizeHostname(requestUrl instanceof URL ? requestUrl.hostname : requestUrl || '')
+  const parts = [
+    `${AUTH_COOKIE_NAME}=${encodeURIComponent(token)}`,
+    'Path=/',
+    `Max-Age=${AUTH_SESSION_SECONDS}`,
+    'Secure',
+    'SameSite=Lax',
+  ]
+
+  if (requestHost && (requestHost === normalizedBaseDomain || requestHost.endsWith(`.${normalizedBaseDomain}`))) {
+    parts.splice(2, 0, `Domain=.${normalizedBaseDomain}`)
+  }
+
+  return parts.join('; ')
 }
 
 function escapePasswordResetHtml(value: unknown) {
@@ -467,6 +497,55 @@ const TENANT_BASE_SETUP_FEE_CENTS = 50000 * KOBO_PER_NAIRA
 const TENANT_BASE_STUDENT_FEE_CENTS = 500 * KOBO_PER_NAIRA
 const DEFAULT_TENANT_BASE_DOMAIN = 'ndovera.com'
 const TENANT_PRICING_SETTINGS_KEY = 'system:tenant-pricing'
+
+function buildDefaultTenantWebsiteHost(tenant: Record<string, any> | null | undefined, baseDomain: string) {
+  const requestedSubdomain = normalizeSubdomain(String(tenant?.requestedSubdomain || ''))
+  const normalizedBaseDomain = normalizeHostname(baseDomain) || DEFAULT_TENANT_BASE_DOMAIN
+  if (!requestedSubdomain) return normalizedBaseDomain
+  return `${requestedSubdomain}.${normalizedBaseDomain}`
+}
+
+function resolveTenantWebsiteHost(tenant: Record<string, any> | null | undefined, baseDomain: string) {
+  const configuredHost = normalizeHostname(tenant?.websiteDomain)
+  return configuredHost || buildDefaultTenantWebsiteHost(tenant, baseDomain)
+}
+
+function buildTenantWebsiteUrl(tenant: Record<string, any> | null | undefined, baseDomain: string) {
+  const host = resolveTenantWebsiteHost(tenant, baseDomain)
+  return host ? `https://${host}` : `https://${normalizeHostname(baseDomain) || DEFAULT_TENANT_BASE_DOMAIN}`
+}
+
+function extractTenantSubdomainFromHost(hostname: string, baseDomain: string) {
+  const normalizedHost = normalizeHostname(hostname)
+  const normalizedBaseDomain = normalizeHostname(baseDomain)
+  if (!normalizedHost || !normalizedBaseDomain) return ''
+
+  const suffix = `.${normalizedBaseDomain}`
+  if (!normalizedHost.endsWith(suffix)) return ''
+
+  const prefix = normalizedHost.slice(0, -suffix.length)
+  const candidate = stripLeadingWww(prefix)
+  return candidate && !candidate.includes('.') ? candidate : ''
+}
+
+function isPlatformHost(hostname: string, baseDomain: string) {
+  const normalizedHost = normalizeHostname(hostname)
+  const normalizedBaseDomain = normalizeHostname(baseDomain)
+  return normalizedHost === normalizedBaseDomain || normalizedHost === `www.${normalizedBaseDomain}`
+}
+
+function isCustomTenantHost(hostname: string, baseDomain: string) {
+  const normalizedHost = normalizeHostname(hostname)
+  const normalizedBaseDomain = normalizeHostname(baseDomain)
+  if (!normalizedHost || !normalizedBaseDomain) return false
+  return !isPlatformHost(normalizedHost, normalizedBaseDomain) && !normalizedHost.endsWith(`.${normalizedBaseDomain}`)
+}
+
+function buildPlatformAuthUrl(path: string, tenantReturnUrl = '') {
+  const target = new URL(`https://${DEFAULT_TENANT_BASE_DOMAIN}${path}`)
+  if (tenantReturnUrl) target.searchParams.set('tenantReturnUrl', tenantReturnUrl)
+  return target.toString()
+}
 
 const TENANT_PLANS: Record<string, any> = {
   growth: {
@@ -1599,16 +1678,44 @@ function buildFeeReceiptNumber(date = new Date()) {
   return `NDV-RCPT-${dateKey}-${serial}`
 }
 
-function buildFeeReceiptVerificationUrl(baseUrl: string, receiptNo: string) {
+function buildPublicVerificationBaseUrl(baseUrl: string) {
+  const fallback = `https://${DEFAULT_TENANT_BASE_DOMAIN}`
   const normalizedBaseUrl = String(baseUrl || '').trim().replace(/\/$/, '')
-  if (!normalizedBaseUrl || !receiptNo) return ''
-  return `${normalizedBaseUrl}/receipt-verification/${encodeURIComponent(receiptNo)}`
+  if (!normalizedBaseUrl) return fallback
+
+  try {
+    const parsed = new URL(normalizedBaseUrl)
+    if (!/^https?:$/i.test(parsed.protocol)) {
+      return fallback
+    }
+
+    const hostname = String(parsed.hostname || '').trim().toLowerCase()
+    if (
+      hostname === 'localhost'
+      || hostname === '127.0.0.1'
+      || hostname === '0.0.0.0'
+      || hostname.endsWith('.local')
+      || hostname.startsWith('192.168.')
+      || hostname.startsWith('10.')
+      || /^172\.(1[6-9]|2\d|3[01])\./.test(hostname)
+    ) {
+      return fallback
+    }
+
+    return `${parsed.protocol}//${parsed.host}`
+  } catch {
+    return fallback
+  }
+}
+
+function buildFeeReceiptVerificationUrl(baseUrl: string, receiptNo: string) {
+  if (!receiptNo) return ''
+  return `${buildPublicVerificationBaseUrl(baseUrl)}/receipt-verification/${encodeURIComponent(receiptNo)}`
 }
 
 function buildResultVerificationUrl(baseUrl: string, publicationId: string) {
-  const normalizedBaseUrl = String(baseUrl || '').trim().replace(/\/$/, '')
-  if (!normalizedBaseUrl || !publicationId) return ''
-  return `${normalizedBaseUrl}/result-verification/${encodeURIComponent(publicationId)}`
+  if (!publicationId) return ''
+  return `${buildPublicVerificationBaseUrl(baseUrl)}/result-verification/${encodeURIComponent(publicationId)}`
 }
 
 function escapeReceiptVerificationHtml(value: unknown) {
@@ -1962,7 +2069,7 @@ async function resolvePublicFeeReceiptVerification(db: D1Database, receiptNo: st
       statusAfter: String(receiptRow.status_after || ''),
       recordedBy: String(receiptRow.recorded_by || ''),
       recordedAt: String(receiptRow.recorded_at || ''),
-      verificationUrl: String(receiptRow.verification_url || ''),
+      verificationUrl: String(receiptRow.verification_url || buildFeeReceiptVerificationUrl('', normalizedReceiptNo)),
     },
   }
 }
@@ -2619,9 +2726,10 @@ async function listVisibleFeePaymentReceipts(db: D1Database, currentUser: Record
 }
 
 function mapFeePaymentReceiptRow(row: Record<string, any>) {
+  const receiptNo = String(row.receipt_no || row.id || '')
   return {
     id: String(row.id || ''),
-    receiptNo: String(row.receipt_no || row.id || ''),
+    receiptNo,
     studentId: String(row.student_id || ''),
     studentDisplayId: String(row.student_display_id || ''),
     studentName: String(row.student_name || ''),
@@ -2635,7 +2743,7 @@ function mapFeePaymentReceiptRow(row: Record<string, any>) {
     balanceAfter: Number(row.balance_after || 0),
     statusAfter: String(row.status_after || ''),
     recordedBy: String(row.recorded_by || ''),
-    verificationUrl: String(row.verification_url || ''),
+    verificationUrl: String(row.verification_url || buildFeeReceiptVerificationUrl('', receiptNo)),
     schoolName: String(row.school_name || ''),
     schoolLogoUrl: String(row.school_logo_url || ''),
     sessionName: String(row.session_name || ''),
@@ -3377,7 +3485,7 @@ function buildTenantWebsite(c: any, schoolId: string, tenant?: any) {
       name: tenant.schoolName,
       shortName: tenant.schoolName,
       logoUrl: `${origin}/logo192.png`,
-      domain: tenant.websiteDomain,
+      domain: resolveTenantWebsiteHost(tenant, baseDomain),
       requestedSubdomain: tenant.requestedSubdomain,
       supportEmail: tenant.ownerEmail,
       primaryColor: '#0f172a',
@@ -3596,7 +3704,7 @@ async function createPendingTenantRegistration(c: any, payload: Record<string, a
     planKey,
     studentCount,
     requestedSubdomain,
-    websiteDomain: `${requestedSubdomain}.${baseDomain}`,
+    websiteDomain: buildDefaultTenantWebsiteHost({ requestedSubdomain }, baseDomain),
     status: lifecycle.status,
     approvalStatus: 'pending',
     paymentStatus: 'pending',
@@ -3608,7 +3716,7 @@ async function createPendingTenantRegistration(c: any, payload: Record<string, a
     discountSnapshot: quote.discountSnapshot,
     metadata: {
       registeredFrom: new URL(c.req.url).origin,
-      websiteUrl: `https://${requestedSubdomain}.${baseDomain}`,
+      websiteUrl: buildTenantWebsiteUrl({ requestedSubdomain }, baseDomain),
     },
   })
 
@@ -3623,7 +3731,7 @@ async function createPendingTenantRegistration(c: any, payload: Record<string, a
     schoolName,
     planKey,
     requestedSubdomain,
-    websiteDomain: `${requestedSubdomain}.${baseDomain}`,
+    websiteDomain: buildDefaultTenantWebsiteHost({ requestedSubdomain }, baseDomain),
     tenantStatus: tenant?.status || lifecycle.status,
   }, password)
 
@@ -3636,7 +3744,7 @@ async function createPendingTenantRegistration(c: any, payload: Record<string, a
       billableUserCount: quote.billableUserCount,
       discountCode: quote.discountCode,
       requestedSubdomain,
-      websiteDomain: `${requestedSubdomain}.${baseDomain}`,
+      websiteDomain: buildDefaultTenantWebsiteHost({ requestedSubdomain }, baseDomain),
     },
   })
 
@@ -3769,7 +3877,7 @@ async function verifyTenantPaymentForState(c: any, txRef: string, verifiedByRole
 
   return {
     payment: updatedPayment,
-    tenant: { ...updatedTenant, studentCount: quote.billableUserCount, billableUserCount: quote.billableUserCount, userCounts: quote.userCounts, websiteUrl: `https://${updatedTenant.websiteDomain}` },
+    tenant: { ...updatedTenant, studentCount: quote.billableUserCount, billableUserCount: quote.billableUserCount, userCounts: quote.userCounts, websiteUrl: buildTenantWebsiteUrl(updatedTenant, c.env.TENANT_BASE_DOMAIN || DEFAULT_TENANT_BASE_DOMAIN) },
     verified: paymentSucceeded,
     quote,
   }
@@ -4673,7 +4781,7 @@ async function finishLogin(c: any, payload: Record<string, any>) {
   if (mustChangePassword) (user as any).mustChangePassword = true
 
   const response = c.json({ success: true, token, user, id: user.id, role: user.role, name: user.name, ...(mustChangePassword ? { mustChangePassword: true } : {}) })
-  response.headers.append('Set-Cookie', authCookie(token))
+  response.headers.append('Set-Cookie', authCookie(token, c.req.url, c.env.TENANT_BASE_DOMAIN || DEFAULT_TENANT_BASE_DOMAIN))
   return response
 }
 
@@ -4798,7 +4906,7 @@ async function authenticate(c: any, next: any) {
       exp: Math.floor(Date.now() / 1000) + AUTH_SESSION_SECONDS,
     }, c.env.JWT_SECRET)
     c.res.headers.set('X-Refresh-Token', refreshed)
-    c.res.headers.append('Set-Cookie', authCookie(refreshed))
+    c.res.headers.append('Set-Cookie', authCookie(refreshed, c.req.url, c.env.TENANT_BASE_DOMAIN || DEFAULT_TENANT_BASE_DOMAIN))
   } catch (e) {
     return c.json({ error: 'invalid token' }, 401)
   }
@@ -4873,7 +4981,7 @@ app.post('/api/auth/change-password', authenticate, async (c) => {
   await addAudit(c.env.APP_DB, id, { action: 'passwordChanged', data: { by: id } }).catch(() => {})
 
   const response = c.json({ success: true, token, user })
-  response.headers.append('Set-Cookie', authCookie(token))
+  response.headers.append('Set-Cookie', authCookie(token, c.req.url, c.env.TENANT_BASE_DOMAIN || DEFAULT_TENANT_BASE_DOMAIN))
   return response
 })
 
@@ -4981,7 +5089,7 @@ app.get('/api/tenants/me', authenticate, async (c) => {
   const discountCode = tenant.discountCode ? await getTenantDiscountCode(c.env.APP_DB, tenant.discountCode) : null
   const { plans } = await getTenantPricingState(c.env.APP_DB)
   const quote = await buildTenantQuoteForTenant(c.env.APP_DB, tenant, discountCode, plans)
-  const tenantWithUsage = { ...tenant, studentCount: quote.billableUserCount, billableUserCount: quote.billableUserCount, userCounts: quote.userCounts, websiteUrl: `https://${tenant.websiteDomain}` }
+  const tenantWithUsage = { ...tenant, studentCount: quote.billableUserCount, billableUserCount: quote.billableUserCount, userCounts: quote.userCounts, websiteUrl: buildTenantWebsiteUrl(tenant, c.env.TENANT_BASE_DOMAIN || DEFAULT_TENANT_BASE_DOMAIN) }
 
   return c.json({
     success: true,
@@ -5013,7 +5121,7 @@ app.post('/api/tenants/payments/initiate', authenticate, async (c) => {
 
     return c.json({
       success: true,
-      tenant: { ...tenant, studentCount: quote.billableUserCount, billableUserCount: quote.billableUserCount, userCounts: quote.userCounts, websiteUrl: `https://${tenant.websiteDomain}` },
+      tenant: { ...tenant, studentCount: quote.billableUserCount, billableUserCount: quote.billableUserCount, userCounts: quote.userCounts, websiteUrl: buildTenantWebsiteUrl(tenant, c.env.TENANT_BASE_DOMAIN || DEFAULT_TENANT_BASE_DOMAIN) },
       quote,
       payment: checkout.payment,
       checkoutUrl: checkout.checkoutUrl,
@@ -5234,6 +5342,73 @@ app.post('/api/ami/tenants/:tenantId/mark-paid', authenticate, async (c) => {
   })
 
   return c.json({ success: true, tenant: updatedTenant })
+})
+
+app.post('/api/ami/tenants/:tenantId/domain', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+
+  const tenantId = c.req.param('tenantId')
+  const tenant = await getTenantById(c.env.APP_DB, tenantId)
+  if (!tenant) return c.json({ error: 'Tenant not found.' }, 404)
+
+  const payload = await c.req.json().catch(() => ({})) as Record<string, any>
+  const baseDomain = c.env.TENANT_BASE_DOMAIN || DEFAULT_TENANT_BASE_DOMAIN
+  const defaultWebsiteDomain = buildDefaultTenantWebsiteHost(tenant, baseDomain)
+
+  let websiteDomain = normalizeHostname(payload.websiteDomain)
+  if (!websiteDomain) websiteDomain = defaultWebsiteDomain
+  if (websiteDomain === normalizeHostname(baseDomain) || websiteDomain === `www.${normalizeHostname(baseDomain)}`) {
+    return c.json({ error: 'Platform domains cannot be assigned as tenant domains.' }, 400)
+  }
+  if (websiteDomain.endsWith(`.${normalizeHostname(baseDomain)}`)) {
+    websiteDomain = defaultWebsiteDomain
+  }
+
+  const customDomainFeeNaira = Number(payload.customDomainFeeNaira || 0)
+  if (!Number.isFinite(customDomainFeeNaira) || customDomainFeeNaira < 0) {
+    return c.json({ error: 'Provide a valid custom domain fee.' }, 400)
+  }
+
+  const customDomainNotes = String(payload.customDomainNotes || '').trim()
+  const existingTenant = await getTenantByWebsiteHost(c.env.APP_DB, websiteDomain)
+  if (existingTenant && existingTenant.id !== tenant.id) {
+    return c.json({ error: 'That domain is already assigned to another tenant.' }, 409)
+  }
+
+  const now = new Date().toISOString()
+  const updatedTenant = await updateTenant(c.env.APP_DB, tenantId, {
+    websiteDomain,
+    metadata: {
+      ...(tenant.metadata || {}),
+      defaultWebsiteDomain,
+      customDomainConfigured: websiteDomain !== defaultWebsiteDomain,
+      customDomainFeeNaira,
+      customDomainNotes,
+      customDomainUpdatedAt: now,
+      customDomainUpdatedBy: c.var.user.id || c.var.user.email || 'ami',
+    },
+    updatedAt: now,
+  })
+
+  await addAudit(c.env.APP_DB, tenantId, {
+    action: 'tenantDomainUpdated',
+    data: {
+      by: c.var.user.id || c.var.user.email || 'ami',
+      websiteDomain,
+      defaultWebsiteDomain,
+      customDomainFeeNaira,
+      customDomainNotes,
+      updatedAt: now,
+    },
+  }).catch(() => {})
+
+  return c.json({
+    success: true,
+    tenant: {
+      ...updatedTenant,
+      websiteUrl: buildTenantWebsiteUrl(updatedTenant, baseDomain),
+    },
+  })
 })
 
 app.post('/api/ami/tenants/:tenantId/awards', authenticate, async (c) => {
@@ -13393,25 +13568,36 @@ function renderMedia(url: string, alt: string, className = 'media-frame') {
   return `<img class="${className}" src="${escAttr(url)}" alt="${escAttr(alt)}">`
 }
 
-function renderLoginPanel(schoolName: string, logoUrl?: string | null, compact = false) {
+function renderLoginPanel(
+  schoolName: string,
+  logoUrl?: string | null,
+  compact = false,
+  options: { platformLoginUrl?: string } = {},
+) {
   const logoHtml = logoUrl
     ? `<img src="${escAttr(logoUrl)}" alt="${escAttr(schoolName)}" class="login-logo">`
     : `<div class="login-logo logo-fallback">${escHtml(schoolName.charAt(0))}</div>`
+  const platformLoginUrl = String(options.platformLoginUrl || '').trim()
   return `
     <div class="${compact ? 'login-card compact-login' : 'login-card'}">
       <div class="login-heading">
         ${logoHtml}
         <div>
           <h2>${compact ? 'Portal Login' : escHtml(schoolName)}</h2>
-          <p>Students, parents, and staff can sign in here.</p>
+          <p>${platformLoginUrl ? 'The school dashboard opens securely on the NDOVERA portal.' : 'Students, parents, and staff can sign in here.'}</p>
         </div>
       </div>
+      ${platformLoginUrl ? `
+      <div class="tenant-login-form">
+        <a href="${escAttr(platformLoginUrl)}" class="btn-primary" style="justify-content:center;width:100%;">Continue to Secure Portal</a>
+        <p style="font-size:13px;color:#800020;text-transform:none;line-height:1.6;">The portal opens on NDOVERA's secure dashboard host. When you sign out there, you will return to this school website.</p>
+      </div>` : `
       <form class="tenant-login-form">
         <label>Email Address<input name="email" type="email" required placeholder="Enter your email"></label>
         <label>Password<div class="password-field"><input name="password" type="password" required placeholder="Enter your password"><button type="button" class="password-toggle" aria-label="Show password">Show</button></div></label>
         <div class="login-error"></div>
         <button type="submit">Sign In</button>
-      </form>
+      </form>`}
     </div>`
 }
 
@@ -13435,6 +13621,7 @@ function loginScript() {
         const errDiv = form.querySelector('.login-error');
         const email = form.querySelector('[name=email]').value.trim();
         const password = form.querySelector('[name=password]').value;
+        const tenantReturnUrl = window.location.origin;
         btn.disabled = true; btn.textContent = 'Signing in...';
         errDiv.style.display = 'none';
         try {
@@ -13452,11 +13639,15 @@ function loginScript() {
           if (data.user?.id) localStorage.setItem('userId', data.user.id);
           const role = data.user?.role || 'student';
           if (data.user?.mustChangePassword) {
-            window.location.href = 'https://ndovera.com/change-password';
+            const changePasswordUrl = new URL('https://ndovera.com/change-password');
+            changePasswordUrl.searchParams.set('tenantReturnUrl', tenantReturnUrl);
+            window.location.href = changePasswordUrl.toString();
             return;
           }
           const roleMap = { owner: '/roles/owner', hos: '/roles/hos', teacher: '/roles/teacher', student: '/roles/student', parent: '/roles/parent', accountant: '/roles/accountant', ami: '/roles/ami', ict: '/roles/ict' };
-          window.location.href = 'https://ndovera.com' + (roleMap[role] || '/roles/student');
+          const redirectUrl = new URL('https://ndovera.com' + (roleMap[role] || '/roles/student'));
+          redirectUrl.searchParams.set('tenantReturnUrl', tenantReturnUrl);
+          window.location.href = redirectUrl.toString();
         } catch(err) {
           errDiv.textContent = err.message;
           errDiv.style.display = 'block';
@@ -13480,7 +13671,7 @@ function baseHtml(title: string, body: string) {
   </head><body>${body}</body></html>`
 }
 
-function renderSchoolHome(tenant: any, branding: any, sections: any[], events: any[]) {
+function renderSchoolHome(tenant: any, branding: any, sections: any[], events: any[], options: { platformLoginUrl?: string } = {}) {
   const schoolName = tenant.schoolName || 'Our School'
   const tagline = branding?.tagline || 'Excellence in Education'
   const logoUrl = branding?.logoUrl || null
@@ -13539,7 +13730,7 @@ function renderSchoolHome(tenant: any, branding: any, sections: any[], events: a
         includeEmbeds: true,
       })}
     </div>
-    <div class="hero-login">${renderLoginPanel(schoolName, logoUrl, true)}</div>
+    <div class="hero-login">${renderLoginPanel(schoolName, logoUrl, true, options)}</div>
   </section>
 
   ${flyerHtml}
@@ -13579,7 +13770,7 @@ function renderSchoolHome(tenant: any, branding: any, sections: any[], events: a
 
   ${eventsPreview.length ? `<section class="section alt"><div class="section-head"><div><p class="section-kicker">News & Updates</p><h2>Latest From ${escHtml(schoolName)}</h2></div><a class="btn-primary" href="/events">View All News</a></div><div class="cards">${eventsPreview.map((e: any) => renderEventCard(e)).join('')}</div></section>` : ''}
 
-  <section class="section"><div class="split"><div><p class="section-kicker">Begin Your Journey</p><h2>${escHtml(admissions?.title || 'Begin Your Admission Journey')}</h2><p>${escHtml(admissions?.content || 'Learn about enrolment, admission requirements, school visits, and how to begin your application.')}</p><div class="hero-actions"><a class="btn-primary" href="/admissions">Learn More About Admissions</a></div></div>${admissions?.image_url ? renderMedia(admissions.image_url, 'Admissions') : renderLoginPanel(schoolName, logoUrl, true)}</div></section>
+  <section class="section"><div class="split"><div><p class="section-kicker">Begin Your Journey</p><h2>${escHtml(admissions?.title || 'Begin Your Admission Journey')}</h2><p>${escHtml(admissions?.content || 'Learn about enrolment, admission requirements, school visits, and how to begin your application.')}</p><div class="hero-actions"><a class="btn-primary" href="/admissions">Learn More About Admissions</a></div></div>${admissions?.image_url ? renderMedia(admissions.image_url, 'Admissions') : renderLoginPanel(schoolName, logoUrl, true, options)}</div></section>
 
   ${subdomainFooter(schoolName, branding, contactMeta)}
   ${loginScript()}`
@@ -13617,7 +13808,7 @@ function renderContentPage(tenant: any, branding: any, sections: any[], key: str
   return baseHtml(`${fallbackTitle} - ${schoolName}`, body)
 }
 
-function renderAdmissionsPage(tenant: any, branding: any, sections: any[]) {
+function renderAdmissionsPage(tenant: any, branding: any, sections: any[], options: { platformLoginUrl?: string } = {}) {
   const schoolName = tenant.schoolName || 'Our School'
   const logoUrl = branding?.logoUrl || null
   const admissions = sectionByKey(sections, 'admissions')
@@ -13677,7 +13868,7 @@ function renderAdmissionsPage(tenant: any, branding: any, sections: any[]) {
           <div class="info-card"><h3>2. Review</h3><p>The owner and Head of School review the application inside the school system.</p></div>
           <div class="info-card"><h3>3. Operational Routing</h3><p>Transport, hostel, and clinic teams can view applications that need their follow-up.</p></div>
           <div class="info-card"><h3>4. Portal Access</h3><p>Once admitted, the family can continue onboarding through the school portal.</p></div>
-          ${renderLoginPanel(schoolName, logoUrl, true)}
+          ${renderLoginPanel(schoolName, logoUrl, true, options)}
         </div>
       </div>
     </section>
@@ -13794,7 +13985,7 @@ function websiteEnquiryScript() {
   </script>`
 }
 
-function renderContactPage(tenant: any, branding: any, sections: any[] = []) {
+function renderContactPage(tenant: any, branding: any, sections: any[] = [], options: { platformLoginUrl?: string } = {}) {
   const schoolName = tenant.schoolName || 'Our School'
   const logoUrl = branding?.logoUrl || null
   const website = branding?.website || null
@@ -13828,7 +14019,7 @@ function renderContactPage(tenant: any, branding: any, sections: any[] = []) {
         ${website ? `<div class="info-card"><h3>Website</h3><p><a href="${escAttr(website)}">${escHtml(website)}</a></p></div>` : ''}
         <div class="info-card"><h3>Response Window</h3><p>The school leadership team receives this message inside their dashboard as soon as you submit it.</p></div>
       </div>
-      ${renderLoginPanel(schoolName, logoUrl, true)}
+      ${renderLoginPanel(schoolName, logoUrl, true, options)}
     </div>
   </main>
   ${subdomainFooter(schoolName, branding, meta)}
@@ -13838,34 +14029,39 @@ function renderContactPage(tenant: any, branding: any, sections: any[] = []) {
   return baseHtml(`Contact - ${schoolName}`, body)
 }
 
-function renderLoginPage(tenant: any, branding: any) {
+function renderLoginPage(tenant: any, branding: any, options: { platformLoginUrl?: string } = {}) {
   const schoolName = tenant.schoolName || 'Our School'
   const logoUrl = branding?.logoUrl || null
   const body = `
   ${subdomainNavbar(schoolName, tenant.requestedSubdomain, logoUrl)}
   <section class="hero">
     <div class="hero-content"><p class="eyebrow">Secure Portal</p><h1>${escHtml(schoolName)} Login</h1><p>Access your dashboard for learning, school operations, parent updates, and staff workflows.</p></div>
-    <div class="hero-login">${renderLoginPanel(schoolName, logoUrl)}</div>
+    <div class="hero-login">${renderLoginPanel(schoolName, logoUrl, false, options)}</div>
   </section>
   ${loginScript()}`
 
   return baseHtml(`Login - ${schoolName}`, body)
 }
 
-async function handleSubdomainRequest(request: Request, env: Bindings, subdomain: string, url: URL): Promise<Response> {
-  try {
-    const tenant = await getTenantBySubdomain(env.APP_DB, subdomain)
-    if (!tenant) {
-      return new Response(baseHtml('School Not Found', `
-        <div style="min-height:100vh;background:#f5deb3;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;">
-          <div>
-            <h1 style="color:#800000;font-size:32px;margin-bottom:16px;">School Not Found</h1>
-            <p style="color:#191970;font-size:16px;margin-bottom:24px;">No school is registered at <strong>${escHtml(subdomain)}.ndovera.com</strong>.</p>
-            <a href="https://ndovera.com" style="background:#800000;color:#f5deb3;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:700;">← Back to Ndovera</a>
-          </div>
-        </div>`), { headers: { 'Content-Type': 'text/html' } })
-    }
+function renderTenantNotFoundHtml(requestedHost: string) {
+  const safeHost = requestedHost || 'this school address'
+  return baseHtml('School Not Found', `
+    <div style="min-height:100vh;background:#f5deb3;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;">
+      <div>
+        <h1 style="color:#800000;font-size:32px;margin-bottom:16px;">School Not Found</h1>
+        <p style="color:#191970;font-size:16px;margin-bottom:24px;">No school is registered at <strong>${escHtml(safeHost)}</strong>.</p>
+        <a href="https://ndovera.com" style="background:#800000;color:#f5deb3;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:700;">← Back to Ndovera</a>
+      </div>
+    </div>`)
+}
 
+async function renderTenantWebsiteResponse(
+  env: Bindings,
+  tenant: Record<string, any>,
+  url: URL,
+  options: { platformLoginUrl?: string } = {},
+): Promise<Response> {
+  try {
     await ensureBrandingTable(env.APP_DB)
     await ensureWebsiteSectionsTable(env.APP_DB)
     await env.APP_DB.prepare(INIT_SCHOOL_EVENTS).run()
@@ -13882,19 +14078,30 @@ async function handleSubdomainRequest(request: Request, env: Bindings, subdomain
 
     const path = url.pathname.replace(/\/$/, '') || '/'
     let html: string
-    if (path === '/login') html = renderLoginPage(tenant, branding)
+  if (path === '/login') html = renderLoginPage(tenant, branding, options)
     else if (path === '/about') html = renderContentPage(tenant, branding, sections, 'about', 'About Us', 'Learn about our mission, values, leadership, and the culture that shapes our learners.')
     else if (path === '/academics') html = renderContentPage(tenant, branding, sections, 'academics', 'Academics', 'Explore our academic programmes, learning pathways, and student support structure.')
-    else if (path === '/admissions') html = renderAdmissionsPage(tenant, branding, sections)
+    else if (path === '/admissions') html = renderAdmissionsPage(tenant, branding, sections, options)
     else if (path === '/gallery') html = renderGalleryPage(tenant, branding, sections)
     else if (path === '/events') html = renderEventsPage(tenant, branding, events)
-    else if (path === '/contact') html = renderContactPage(tenant, branding, sections)
-    else html = renderSchoolHome(tenant, branding, sections, events)
+    else if (path === '/contact') html = renderContactPage(tenant, branding, sections, options)
+    else html = renderSchoolHome(tenant, branding, sections, events, options)
 
     return new Response(html, { headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'public, max-age=60, stale-while-revalidate=300' } })
   } catch (err) {
     return new Response(`<html><body><p>Error loading school page.</p></body></html>`, { status: 500, headers: { 'Content-Type': 'text/html' } })
   }
+}
+
+async function handleSubdomainRequest(request: Request, env: Bindings, subdomain: string, url: URL, requestedHost = ''): Promise<Response> {
+  const tenant = await getTenantBySubdomain(env.APP_DB, subdomain)
+  if (!tenant) {
+    return new Response(renderTenantNotFoundHtml(requestedHost || `${subdomain}.${env.TENANT_BASE_DOMAIN || DEFAULT_TENANT_BASE_DOMAIN}`), {
+      headers: { 'Content-Type': 'text/html' },
+    })
+  }
+
+  return renderTenantWebsiteResponse(env, tenant, url)
 }
 
 // ─── Question Bank Endpoints ────────────────────────────────────────────────
@@ -13968,17 +14175,41 @@ app.delete('/api/question-bank/:id', authenticate, async (c) => {
 export default {
   async fetch(request: Request, env: Bindings, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url)
-    const hostname = url.hostname
+    const hostname = normalizeHostname(url.hostname)
     const baseDomain = env.TENANT_BASE_DOMAIN || DEFAULT_TENANT_BASE_DOMAIN
 
-    if (
-      hostname !== baseDomain &&
-      hostname !== `www.${baseDomain}` &&
-      hostname.endsWith(`.${baseDomain}`)
-    ) {
-      const subdomain = hostname.slice(0, hostname.length - baseDomain.length - 1)
-      if (subdomain && subdomain !== 'www') {
-        return handleSubdomainRequest(request, env, subdomain, url)
+    if (!url.pathname.startsWith('/api/')) {
+      if (hostname === `www.${normalizeHostname(baseDomain)}`) {
+        url.hostname = normalizeHostname(baseDomain)
+        return Response.redirect(url.toString(), 301)
+      }
+
+      const subdomain = extractTenantSubdomainFromHost(hostname, baseDomain)
+      if (subdomain) {
+        const canonicalHost = `${subdomain}.${normalizeHostname(baseDomain)}`
+        if (hostname !== canonicalHost) {
+          url.hostname = canonicalHost
+          return Response.redirect(url.toString(), 301)
+        }
+
+        return handleSubdomainRequest(request, env, subdomain, url, canonicalHost)
+      }
+
+      if (!isPlatformHost(hostname, baseDomain)) {
+        const tenant = await getTenantByWebsiteHost(env.APP_DB, hostname)
+        if (tenant) {
+          const canonicalHost = resolveTenantWebsiteHost(tenant, baseDomain)
+          if (canonicalHost && hostname !== canonicalHost) {
+            url.hostname = canonicalHost
+            return Response.redirect(url.toString(), 301)
+          }
+
+          return renderTenantWebsiteResponse(env, tenant, url, {
+            platformLoginUrl: isCustomTenantHost(hostname, baseDomain)
+              ? buildPlatformAuthUrl('/login', `https://${hostname}`)
+              : '',
+          })
+        }
       }
     }
 

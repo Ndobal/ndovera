@@ -421,7 +421,7 @@ function formatAutoSaveTime(value) {
   return Number.isNaN(parsed.getTime()) ? '' : parsed.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
 }
 
-function FeesManagementBoard() {
+function FeesManagementBoard({ initialFinanceTab = 'fees' }) {
   const [feeColumns, setFeeColumns] = useState(DEFAULT_FEE_COLUMNS);
   const [students, setStudents] = useState([]);
   const [configArchive, setConfigArchive] = useState([]);
@@ -515,6 +515,12 @@ function FeesManagementBoard() {
   useEffect(() => {
     loadBoard();
   }, [loadBoard]);
+
+  useEffect(() => {
+    if (['fees', 'channels', 'claims'].includes(initialFinanceTab)) {
+      setFinanceTab(initialFinanceTab);
+    }
+  }, [initialFinanceTab]);
 
   const calculateTotal = useCallback(
     (student) =>
@@ -1177,6 +1183,68 @@ function FeesManagementBoard() {
     return totals;
   }, [balance, calculateTotal, expectedAmount, feeColumns, filteredStudents]);
 
+  const stickyStats = [
+    { label: 'Total Expected', value: formatNaira(columnTotals.expected) },
+    { label: 'Total Paid', value: formatNaira(columnTotals.paid) },
+    { label: 'Outstanding Balance', value: formatNaira(columnTotals.balance) },
+    { label: 'Students', value: String(filteredStudents.length) },
+    { label: 'Receipts Pending', value: String(actionableReceiptStudents.length) },
+    { label: 'Live Claims', value: String(pendingClaims.length) },
+  ];
+
+  const claimQueuePanel = (
+    <div className={CARD}>
+      <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+        <div>
+          <h3 className="text-2xl font-bold text-[#800000] dark:text-[#0000ff]">Payment Claim Queue</h3>
+          <p className="mt-2 text-sm text-[#191970] dark:text-[#39ff14]">
+            Review and verify parent payment claims before receipts are issued.
+          </p>
+        </div>
+        <span className={BADGE}>{pendingClaims.length} Pending</span>
+      </div>
+
+      <div className="mt-5 space-y-4">
+        {!recentClaims.length ? <p className="text-sm text-[#800020] dark:text-[#bf00ff]">No payment claims have been submitted yet.</p> : null}
+        {recentClaims.map(claim => (
+          <article key={claim.id} className={`${INNER} space-y-4`}>
+            <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+              <div className="space-y-2">
+                <p className="text-lg font-bold text-[#191970] dark:text-white">{claim.studentName} • {formatNaira(claim.amount)}</p>
+                <p className="text-sm text-[#191970] dark:text-[#39ff14]">{claim.claimantName || 'Parent'} • {claim.paymentMethod || 'bank-transfer'} • {claim.paidAt || claim.claimedAt || 'Recently submitted'}</p>
+                <div className="flex flex-wrap gap-2">
+                  <span className={BADGE}>{claim.className || 'No class assigned'}</span>
+                  <span className={BADGE}>{claim.paymentReference || 'No reference supplied'}</span>
+                  {claim.receiptNo ? <span className={BADGE}>Receipt {claim.receiptNo}</span> : null}
+                </div>
+                {claim.paymentNote ? <p className="text-sm text-[#191970] dark:text-[#39ff14]">{claim.paymentNote}</p> : null}
+                {claim.verificationNote && String(claim.status || '').toLowerCase() !== 'pending' ? <p className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">Finance note: {claim.verificationNote}</p> : null}
+              </div>
+              <span className={BADGE}>{getClaimStatusLabel(claim.status)}</span>
+            </div>
+
+            {String(claim.status || '').toLowerCase() === 'pending' ? (
+              <div className="grid gap-3 lg:grid-cols-[1fr_auto_auto]">
+                <input
+                  value={claim.reviewNote || ''}
+                  onChange={(event) => updateClaimReviewNote(claim.id, event.target.value)}
+                  className={INPUT}
+                  placeholder="Optional finance note for the parent"
+                />
+                <button onClick={() => reviewClaim(claim.id, 'approve')} disabled={Boolean(claimSavingId)} className={BTN}>
+                  {claimSavingId === `${claim.id}:approve` ? 'Approving...' : 'Approve Claim'}
+                </button>
+                <button onClick={() => reviewClaim(claim.id, 'reject')} disabled={Boolean(claimSavingId)} className={OUTLINE_BTN}>
+                  {claimSavingId === `${claim.id}:reject` ? 'Rejecting...' : 'Reject Claim'}
+                </button>
+              </div>
+            ) : null}
+          </article>
+        ))}
+      </div>
+    </div>
+  );
+
   if (loading) {
     return (
       <div className={CARD}>
@@ -1195,33 +1263,22 @@ function FeesManagementBoard() {
         </div>
       ) : null}
 
-      <div className={CARD}>
-        <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-          <div>
-            <h2 className="text-2xl font-bold text-[#800000] dark:text-[#0000ff]">Finance Workspace</h2>
-            <p className="mt-2 text-sm text-[#191970] dark:text-[#39ff14]">
-              Manage live school fees from the active session and term, then issue receipts only when finance is ready.
-            </p>
-            <div className="mt-3 flex flex-wrap gap-2">
-              <span className={BADGE}>Current Session: {sessionLabel || 'Not set'}</span>
-              <span className={BADGE}>Current Term: {currentTerm || 'Not set'}</span>
-              <span className={BADGE}>{actionableReceiptStudents.length} Receipts Pending Attention</span>
-            </div>
-          </div>
-
-          <div className="flex flex-wrap items-center gap-3">
-            <button onClick={() => setFinanceTab('fees')} className={financeTab === 'fees' ? BTN : OUTLINE_BTN}>School Fees</button>
-            <button onClick={() => setFinanceTab('channels')} className={financeTab === 'channels' ? BTN : OUTLINE_BTN}>Tab 2: Parent Payment Channels</button>
-          </div>
+      <div className="sticky top-[96px] z-40 rounded-3xl border border-[#c9a96e]/40 bg-[#f5deb3]/95 p-3 shadow-sm backdrop-blur dark:border-[#00ffff]/20 dark:bg-[#800000]/75">
+        <div className="flex flex-wrap gap-3 overflow-x-auto pb-1">
+          {stickyStats.map((item) => (
+            <article key={item.label} className="min-h-[86px] min-w-[170px] rounded-2xl border border-[#c9a96e]/35 bg-[#f0d090]/80 px-3 py-3 dark:border-[#00ffff]/20 dark:bg-[#1f0022]/80">
+              <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-[#800020] dark:text-[#bf00ff]">{item.label}</p>
+              <h3 className="mt-2 text-lg font-black text-[#800000] dark:text-white">{item.value}</h3>
+            </article>
+          ))}
         </div>
       </div>
 
-      <div className={CARD}>
-        <div className="flex flex-wrap items-center gap-3">
-          <span className={BADGE}>Owner</span>
-          <span className={BADGE}>Head Of School</span>
-          <span className={BADGE}>Accountant</span>
-          <span className={BADGE}>Owner Override</span>
+      <div className="sticky top-[204px] z-30 rounded-3xl border border-[#c9a96e]/40 bg-[#f5deb3]/95 p-3 shadow-sm backdrop-blur dark:border-[#00ffff]/20 dark:bg-[#800000]/75">
+        <div className="flex flex-wrap gap-2">
+          <button onClick={() => setFinanceTab('fees')} className={financeTab === 'fees' ? BTN : OUTLINE_BTN}>Fees</button>
+          <button onClick={() => setFinanceTab('channels')} className={financeTab === 'channels' ? BTN : OUTLINE_BTN}>Parent Payment Channels</button>
+          <button onClick={() => setFinanceTab('claims')} className={financeTab === 'claims' ? BTN : OUTLINE_BTN}>Payment Claim Queue ({pendingClaims.length})</button>
         </div>
       </div>
 
@@ -1258,6 +1315,8 @@ function FeesManagementBoard() {
           </div>
         </div>
       ) : null}
+
+      {financeTab === 'claims' ? claimQueuePanel : null}
 
       {financeTab === 'fees' ? (
         <>
@@ -1357,64 +1416,6 @@ function FeesManagementBoard() {
 
           {feesExpanded ? (
             <>
-              <div className={CARD}>
-                <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-                  <div>
-                    <h3 className="text-2xl font-bold text-[#800000] dark:text-[#0000ff]">Payment Claim Queue</h3>
-                    <p className="mt-2 text-sm text-[#191970] dark:text-[#39ff14]">
-                      Approve verified parent claims to move the ledger forward. Finance can issue the receipt later from the student row.
-                    </p>
-                  </div>
-                  <span className={BADGE}>{pendingClaims.length} Pending</span>
-                </div>
-
-                <div className="mt-5 space-y-4">
-                  {!recentClaims.length ? <p className="text-sm text-[#800020] dark:text-[#bf00ff]">No payment claims have been submitted yet.</p> : null}
-                  {recentClaims.map(claim => (
-                    <article key={claim.id} className={`${INNER} space-y-4`}>
-                      <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
-                        <div className="space-y-2">
-                          <p className="text-lg font-bold text-[#191970] dark:text-white">{claim.studentName} • {formatNaira(claim.amount)}</p>
-                          <p className="text-sm text-[#191970] dark:text-[#39ff14]">{claim.claimantName || 'Parent'} • {claim.paymentMethod || 'bank-transfer'} • {claim.paidAt || claim.claimedAt || 'Recently submitted'}</p>
-                          <div className="flex flex-wrap gap-2">
-                            <span className={BADGE}>{claim.className || 'No class assigned'}</span>
-                            <span className={BADGE}>{claim.paymentReference || 'No reference supplied'}</span>
-                            {claim.receiptNo ? <span className={BADGE}>Receipt {claim.receiptNo}</span> : null}
-                          </div>
-                          {claim.paymentNote ? <p className="text-sm text-[#191970] dark:text-[#39ff14]">{claim.paymentNote}</p> : null}
-                          {claim.verificationNote && String(claim.status || '').toLowerCase() !== 'pending' ? <p className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">Finance note: {claim.verificationNote}</p> : null}
-                        </div>
-                        <span className={BADGE}>{getClaimStatusLabel(claim.status)}</span>
-                      </div>
-
-                      {String(claim.status || '').toLowerCase() === 'pending' ? (
-                        <div className="grid gap-3 lg:grid-cols-[1fr_auto_auto]">
-                          <input
-                            value={claim.reviewNote || ''}
-                            onChange={(event) => updateClaimReviewNote(claim.id, event.target.value)}
-                            className={INPUT}
-                            placeholder="Optional finance note for the parent"
-                          />
-                          <button onClick={() => reviewClaim(claim.id, 'approve')} disabled={Boolean(claimSavingId)} className={BTN}>
-                            {claimSavingId === `${claim.id}:approve` ? 'Approving...' : 'Approve Claim'}
-                          </button>
-                          <button onClick={() => reviewClaim(claim.id, 'reject')} disabled={Boolean(claimSavingId)} className={OUTLINE_BTN}>
-                            {claimSavingId === `${claim.id}:reject` ? 'Rejecting...' : 'Reject Claim'}
-                          </button>
-                        </div>
-                      ) : null}
-                    </article>
-                  ))}
-                </div>
-              </div>
-
-              <div className={CARD}>
-                <p className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">Template behavior</p>
-                <p className="mt-2 text-sm text-[#191970] dark:text-[#39ff14]">
-                  Editing a fee cell updates that student&apos;s class template locally. Save Template persists the active-session configuration; Issue Receipt releases the latest finance snapshot.
-                </p>
-              </div>
-
               <div className={CARD}>
                 <div className="overflow-x-auto">
                   <table className="min-w-[2300px] w-full text-sm">
@@ -1561,25 +1562,6 @@ function FeesManagementBoard() {
                       </tr>
                     </tbody>
                   </table>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 gap-5 md:grid-cols-4">
-                <div className={CARD}>
-                  <p className="text-sm font-semibold uppercase tracking-[0.14em] text-[#800020] dark:text-[#bf00ff]">Total Expected</p>
-                  <h3 className="mt-3 text-3xl font-bold text-[#800000] dark:text-[#0000ff]">{formatNaira(columnTotals.expected)}</h3>
-                </div>
-                <div className={CARD}>
-                  <p className="text-sm font-semibold uppercase tracking-[0.14em] text-[#800020] dark:text-[#bf00ff]">Total Paid</p>
-                  <h3 className="mt-3 text-3xl font-bold text-[#1a5c38] dark:text-[#00ffff]">{formatNaira(columnTotals.paid)}</h3>
-                </div>
-                <div className={CARD}>
-                  <p className="text-sm font-semibold uppercase tracking-[0.14em] text-[#800020] dark:text-[#bf00ff]">Outstanding Balance</p>
-                  <h3 className="mt-3 text-3xl font-bold text-[#800000] dark:text-[#ff6bff]">{formatNaira(columnTotals.balance)}</h3>
-                </div>
-                <div className={CARD}>
-                  <p className="text-sm font-semibold uppercase tracking-[0.14em] text-[#800020] dark:text-[#bf00ff]">Students Count</p>
-                  <h3 className="mt-3 text-3xl font-bold text-[#800000] dark:text-[#0000ff]">{filteredStudents.length}</h3>
                 </div>
               </div>
             </>

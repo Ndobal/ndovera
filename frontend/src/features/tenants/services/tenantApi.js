@@ -133,6 +133,13 @@ export function markTenantAsPaid(tenantId) {
   });
 }
 
+export function updateTenantDomain(tenantId, payload) {
+	return requestJson(`/api/ami/tenants/${encodeURIComponent(tenantId)}/domain`, {
+		method: 'POST',
+		body: payload,
+	});
+}
+
 export function restoreTenant(tenantId) {
   return requestJson(`/api/ami/tenants/${encodeURIComponent(tenantId)}/restore`, {
     method: 'POST',

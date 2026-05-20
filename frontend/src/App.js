@@ -44,7 +44,7 @@ import ResetPasswordPage from './features/auth/pages/ResetPasswordPage';
 import SchoolRegistrationPage from './features/tenants/pages/SchoolRegistrationPage';
 import PublicHomePage from './features/public/pages/PublicHomePage';
 import PublicSitePage from './features/public/pages/PublicSitePage';
-import { buildSelectedRoleHeader, clearStoredAuth, getSignedOutRedirectPath, getStoredAuth, persistAuth, syncRefreshedToken } from './features/auth/services/authApi';
+import { buildSelectedRoleHeader, clearStoredAuth, consumeTenantReturnUrlFromLocation, getSignedOutRedirectPath, getStoredAuth, persistAuth, syncRefreshedToken } from './features/auth/services/authApi';
 import { useTenantPwaManifest } from './shared/hooks/useTenantPwaManifest';
 import { getApiUrl } from './config/apiBase';
 import './App.css';
@@ -320,6 +320,8 @@ function App() {
   }, []);
 
   useEffect(() => {
+	consumeTenantReturnUrlFromLocation();
+
     let cancelled = false;
     async function hydrateSession({ initial = false } = {}) {
       const stored = getStoredAuth();

@@ -1,5 +1,5 @@
 import { getApiUrl } from '../../../config/apiBase';
-import { getStoredAuth, clearStoredAuth, getSignedOutRedirectPath, syncRefreshedToken, buildSelectedRoleHeader } from '../../auth/services/authApi';
+import { getStoredAuth, clearStoredAuth, getSignedOutRedirectPath, rememberTenantSiteUrl, syncRefreshedToken, buildSelectedRoleHeader } from '../../auth/services/authApi';
 import { storeTenantPwaInfo } from '../../../shared/hooks/useTenantPwaManifest';
 
 function buildHeaders() {
@@ -48,7 +48,7 @@ export const getMyTenant = async () => {
     storeTenantPwaInfo({ schoolName, logoUrl, subdomain });
     window.localStorage.setItem('tenantSubdomain', subdomain);
     if (websiteUrl) {
-      window.localStorage.setItem('tenantWebsiteUrl', websiteUrl);
+      rememberTenantSiteUrl(websiteUrl, { persistSignedOutRedirect: false });
     }
   }
   return data;

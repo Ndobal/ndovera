@@ -83,6 +83,29 @@ function mapTenantRow(row: any) {
   }
 }
 
+function normalizeTenantHost(value: unknown) {
+  const raw = String(value || '').trim().toLowerCase()
+  if (!raw) return ''
+
+  try {
+    const parsed = raw.includes('://') ? new URL(raw) : new URL(`https://${raw}`)
+    return String(parsed.hostname || '').trim().toLowerCase().replace(/\.$/, '')
+  } catch {
+    return raw.replace(/^https?:\/\//, '').split('/')[0].split(':')[0].replace(/\.$/, '')
+  }
+}
+
+function buildTenantHostCandidates(host: string) {
+  const normalized = normalizeTenantHost(host)
+  if (!normalized) return []
+
+  const withoutWww = normalized.startsWith('www.') ? normalized.slice(4) : normalized
+  const withWww = withoutWww ? `www.${withoutWww}` : ''
+  const candidates = new Set<string>([normalized, withoutWww])
+  if (withWww && withWww !== normalized) candidates.add(withWww)
+  return Array.from(candidates).filter(Boolean)
+}
+
 function mapDiscountCodeRow(row: any) {
   return {
     code: row.code,
@@ -1068,6 +1091,18 @@ export async function getTenantByOwnerEmail(db: D1Database, ownerEmail: string) 
 
 export async function getTenantBySubdomain(db: D1Database, requestedSubdomain: string) {
   const result = await db.prepare('SELECT * FROM tenants WHERE requested_subdomain = ? OR website_domain = ?').bind(requestedSubdomain, requestedSubdomain).first()
+  if (!result) return null
+  return mapTenantRow(result)
+}
+
+export async function getTenantByWebsiteHost(db: D1Database, host: string) {
+  const [first, second, third] = buildTenantHostCandidates(host)
+  if (!first) return null
+
+  const result = await db.prepare(
+    'SELECT * FROM tenants WHERE lower(website_domain) IN (?, ?, ?) LIMIT 1'
+  ).bind(first, second || first, third || second || first).first()
+
   if (!result) return null
   return mapTenantRow(result)
 }

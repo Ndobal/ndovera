@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import FeesManagementBoard from '../../../features/school/components/FeesManagementBoard';
 import { getMyTenant, getExpenditure, addExpenditure, runFinanceAI, getFeesLedger } from '../../../features/school/services/schoolApi';
 
-const TABS = ['Subscription', 'Fees', 'Expenditure', 'Income & Expenditure', 'AI Analysis'];
+const TABS = ['Subscription', 'Fees', 'Parent Payment Channels', 'Payment Claim Queue', 'Expenditure', 'Income & Expenditure', 'AI Analysis'];
 const CARD = 'rounded-3xl p-6 bg-[#f5deb3] border border-[#c9a96e]/40';
 const INNER = 'rounded-2xl p-4 bg-[#f0d090] border border-[#c9a96e]/30';
 const BTN = 'bg-[#1a5c38] hover:bg-[#154a2e] text-[#f5deb3] font-bold px-5 py-2.5 rounded-2xl text-sm transition-colors';
@@ -59,8 +59,8 @@ function SubscriptionTab() {
   );
 }
 
-function FeesTab() {
-  return <FeesManagementBoard />;
+function FeesTab({ initialFinanceTab = 'fees' }) {
+  return <FeesManagementBoard initialFinanceTab={initialFinanceTab} />;
 }
 
 function ExpenditureTab() {
@@ -168,14 +168,18 @@ export default function OwnerFinance({ auth }) {
   return (
     <div className="p-8 max-w-7xl mx-auto space-y-6">
       <div className={CARD}><h1 className="text-2xl font-bold text-[#800000]">Finance</h1><p className="text-[#191970] mt-1 text-sm">Manage subscriptions, student fees, expenditure, and AI insights.</p></div>
-      <div className="flex flex-wrap gap-2">
+      <div className="sticky top-3 z-40 rounded-3xl border border-[#c9a96e]/40 bg-[#f5deb3]/95 p-3 shadow-sm backdrop-blur dark:border-[#00ffff]/20 dark:bg-[#800000]/75">
+        <div className="flex flex-wrap gap-2">
         {TABS.map((t, i) => <button key={t} onClick={() => setTab(i)} className={`px-5 py-2 rounded-2xl text-sm font-semibold transition-colors ${tab === i ? 'bg-[#800020] text-[#f5deb3]' : 'bg-[#f5deb3] text-[#800020] border border-[#c9a96e]/40 hover:bg-[#f0d090]'}`}>{t}</button>)}
+        </div>
       </div>
       {tab === 0 && <SubscriptionTab />}
-      {tab === 1 && <FeesTab />}
-      {tab === 2 && <ExpenditureTab />}
-      {tab === 3 && <IncomeExpenditureTab />}
-      {tab === 4 && <AIAnalysisTab />}
+      {tab === 1 && <FeesTab initialFinanceTab="fees" />}
+      {tab === 2 && <FeesTab initialFinanceTab="channels" />}
+      {tab === 3 && <FeesTab initialFinanceTab="claims" />}
+      {tab === 4 && <ExpenditureTab />}
+      {tab === 5 && <IncomeExpenditureTab />}
+      {tab === 6 && <AIAnalysisTab />}
     </div>
   );
 }

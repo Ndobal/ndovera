@@ -49,7 +49,6 @@ export default function FeeReceiptDialog({
           <div className="flex items-center justify-between gap-3 border-b border-[#c9a96e]/35 px-4 py-3 sm:px-5 dark:border-[#bf00ff]/25">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#800020] dark:text-[#bf00ff]">Receipt Viewer</p>
-              <p className="mt-1 text-sm text-[#191970] dark:text-[#39ff14]">Fits the screen and closes with Esc.</p>
             </div>
             <button type="button" onClick={onClose} className={CLOSE_BTN}>Close</button>
           </div>

@@ -9,6 +9,7 @@ import {
   restoreTenant,
   suspendTenant,
   upsertTenantAward,
+  updateTenantDomain,
   updateTenantPricing,
   upsertDiscountCode,
   verifyTenantPayment,
@@ -56,6 +57,14 @@ function buildDefaultAwardForm() {
   };
 }
 
+function buildDefaultDomainForm(tenant = null) {
+	return {
+		websiteDomain: String(tenant?.websiteDomain || '').trim(),
+		customDomainFeeNaira: Number(tenant?.metadata?.customDomainFeeNaira || 0),
+		customDomainNotes: String(tenant?.metadata?.customDomainNotes || '').trim(),
+	};
+}
+
 function buildAwardAvatar(recipient) {
   const seed = encodeURIComponent(recipient?.name || recipient?.displayId || recipient?.userId || recipient?.role || 'Ndovera');
   return recipient?.avatarUrl || `https://api.dicebear.com/7.x/avataaars/svg?seed=${seed}`;
@@ -84,6 +93,7 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
   const [discountForm, setDiscountForm] = useState(initialDiscountState);
   const [pricingForm, setPricingForm] = useState({ customPlanSetupFeeNaira: 50000 });
   const [awardForms, setAwardForms] = useState({});
+  const [domainForms, setDomainForms] = useState({});
   const [busyAction, setBusyAction] = useState('');
   const [error, setError] = useState('');
   const [notice, setNotice] = useState('');
@@ -190,6 +200,17 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
     setPricingForm(current => ({
       ...current,
       [name]: Number(value),
+    }));
+  };
+
+  const handleDomainFormChange = (tenant, event) => {
+    const { name, value, type } = event.target;
+    setDomainForms(current => ({
+      ...current,
+      [tenant.id]: {
+        ...(current[tenant.id] || buildDefaultDomainForm(tenant)),
+        [name]: type === 'number' ? Number(value) : value,
+      },
     }));
   };
 
@@ -334,6 +355,9 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
             {tenants.length ? tenants.map(tenant => {
               const awardCandidates = awardCandidatesByTenantId[tenant.id] || [];
               const awardForm = awardForms[tenant.id] || buildDefaultAwardForm();
+              const domainForm = domainForms[tenant.id] || buildDefaultDomainForm(tenant);
+              const defaultDomain = `${tenant.requestedSubdomain}.ndovera.com`;
+              const usingCustomDomain = Boolean(tenant.websiteDomain && tenant.websiteDomain !== defaultDomain);
               const recentAwards = tenantAwards.filter(award => award.tenantId === tenant.id).slice(0, 4);
 
               return (
@@ -365,6 +389,65 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
                       <p className="mt-2 text-slate-800 dark:text-slate-100 font-semibold">{tenant.discountCode || 'None'}</p>
                     </div>
                   </div>
+
+          <div className="rounded-3xl border border-white/10 bg-slate-900/20 dark:bg-slate-900/30 p-4 space-y-3">
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div>
+              <p className="micro-label neon-subtle">Tenant Website Domain</p>
+              <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">Set a custom tenant domain here. The default subdomain stays available as a fallback alias.</p>
+            </div>
+            <span className={`micro-label ${usingCustomDomain ? 'accent-cyan' : 'accent-indigo'}`}>{usingCustomDomain ? 'Custom Domain Live' : 'Default Subdomain Live'}</span>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-[1fr_220px] gap-3">
+            <input
+              name="websiteDomain"
+              value={domainForm.websiteDomain}
+              onChange={event => handleDomainFormChange(tenant, event)}
+              placeholder={defaultDomain}
+              className="w-full rounded-2xl border border-white/10 bg-slate-900/20 px-4 py-3 text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-500"
+            />
+            <input
+              name="customDomainFeeNaira"
+              type="number"
+              min="0"
+              value={domainForm.customDomainFeeNaira}
+              onChange={event => handleDomainFormChange(tenant, event)}
+              placeholder="Custom domain fee"
+              className="w-full rounded-2xl border border-white/10 bg-slate-900/20 px-4 py-3 text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-500"
+            />
+          </div>
+          <textarea
+            name="customDomainNotes"
+            value={domainForm.customDomainNotes}
+            onChange={event => handleDomainFormChange(tenant, event)}
+            placeholder="DNS notes, registrar details, or the fee rationale for this tenant"
+            className="w-full min-h-[84px] rounded-2xl border border-white/10 bg-slate-900/20 px-4 py-3 text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-500"
+          />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+            <div className="rounded-2xl bg-slate-900/20 p-3">
+              <p className="micro-label neon-subtle">Current Public Host</p>
+              <p className="mt-2 text-slate-900 dark:text-amber-50 font-semibold break-all">{tenant.websiteDomain || defaultDomain}</p>
+            </div>
+            <div className="rounded-2xl bg-slate-900/20 p-3">
+              <p className="micro-label neon-subtle">Fallback Alias</p>
+              <p className="mt-2 text-slate-900 dark:text-amber-50 font-semibold break-all">{defaultDomain}</p>
+            </div>
+          </div>
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <p className="text-xs text-slate-500 dark:text-slate-400">Custom domains still need DNS pointing and Cloudflare custom-domain routing outside this form. Leave the domain blank to restore the default subdomain.</p>
+            <button
+              type="button"
+              onClick={() => runAction(`domain-${tenant.id}`, async () => {
+                await updateTenantDomain(tenant.id, domainForm);
+                setNotice(`${tenant.schoolName} domain settings updated.`);
+              })}
+              disabled={busyAction === `domain-${tenant.id}`}
+              className="rounded-2xl bg-cyan-400 px-4 py-3 font-semibold text-slate-950 disabled:opacity-60"
+            >
+              {busyAction === `domain-${tenant.id}` ? 'Saving Domain...' : 'Save Domain Setup'}
+            </button>
+          </div>
+          </div>
 
                   <div className="flex flex-wrap gap-3">
                     <button

@@ -8,6 +8,68 @@ const SIGNED_OUT_REDIRECT_PATH = '/';
 const TENANT_SITE_URL_KEY = 'tenantWebsiteUrl';
 const SIGNED_OUT_TENANT_REDIRECT_KEY = 'signedOutRedirectUrl';
 const AUTH_PROFILE_MAX_AGE_MS = 5 * 60 * 1000;
+const PLATFORM_BASE_DOMAIN = 'ndovera.com';
+
+function normalizeHostname(value) {
+	const raw = String(value || '').trim().toLowerCase();
+	if (!raw) return '';
+
+	try {
+		const parsed = raw.includes('://') ? new URL(raw) : new URL(`https://${raw}`);
+		return String(parsed.hostname || '').trim().toLowerCase().replace(/\.$/, '');
+	} catch {
+		return raw.replace(/^https?:\/\//, '').split('/')[0].split(':')[0].replace(/\.$/, '');
+	}
+}
+
+function shouldUseSharedAuthCookieDomain(hostname = window.location.hostname) {
+	const normalizedHost = normalizeHostname(hostname);
+	return normalizedHost === PLATFORM_BASE_DOMAIN || normalizedHost.endsWith(`.${PLATFORM_BASE_DOMAIN}`);
+}
+
+function buildCookieDomainClause(hostname = window.location.hostname) {
+	return shouldUseSharedAuthCookieDomain(hostname) ? `; domain=.${PLATFORM_BASE_DOMAIN}` : '';
+}
+
+function normalizeTenantSiteUrl(value) {
+	const raw = String(value || '').trim();
+	if (!raw) return '';
+
+	try {
+		const parsed = new URL(raw);
+		if (!/^https?:$/i.test(parsed.protocol)) return '';
+		const normalizedHost = normalizeHostname(parsed.hostname);
+		if (!normalizedHost || normalizedHost === PLATFORM_BASE_DOMAIN || normalizedHost === `www.${PLATFORM_BASE_DOMAIN}`) {
+			return '';
+		}
+		return `${parsed.protocol}//${parsed.host}`.replace(/\/$/, '');
+	} catch {
+		return '';
+	}
+}
+
+export function rememberTenantSiteUrl(value, options = {}) {
+	const normalizedUrl = normalizeTenantSiteUrl(value);
+	if (!normalizedUrl) return '';
+	window.localStorage.setItem(TENANT_SITE_URL_KEY, normalizedUrl);
+	if (options.persistSignedOutRedirect !== false) {
+		window.sessionStorage.setItem(SIGNED_OUT_TENANT_REDIRECT_KEY, normalizedUrl);
+	}
+	return normalizedUrl;
+}
+
+export function consumeTenantReturnUrlFromLocation() {
+	const params = new URLSearchParams(window.location.search);
+	const tenantReturnUrl = params.get('tenantReturnUrl');
+	const remembered = rememberTenantSiteUrl(tenantReturnUrl, { persistSignedOutRedirect: true });
+	if (!tenantReturnUrl) return remembered;
+
+	params.delete('tenantReturnUrl');
+	const nextQuery = params.toString();
+	const nextUrl = `${window.location.pathname}${nextQuery ? `?${nextQuery}` : ''}${window.location.hash || ''}`;
+	window.history.replaceState({}, document.title, nextUrl);
+	return remembered;
+}
 
 function getCookie(name) {
 	const match = document.cookie
@@ -18,13 +80,13 @@ function getCookie(name) {
 }
 
 function setAuthCookie(token) {
-	document.cookie = `${AUTH_COOKIE_KEY}=${encodeURIComponent(token)}; path=/; domain=.ndovera.com; max-age=2592000; secure; samesite=lax`;
+	document.cookie = `${AUTH_COOKIE_KEY}=${encodeURIComponent(token)}; path=/${buildCookieDomainClause()}; max-age=2592000; secure; samesite=lax`;
 }
 
 function clearAuthCookie() {
 	const expiredCookie = `${AUTH_COOKIE_KEY}=; path=/; max-age=0; secure; samesite=lax`;
 	document.cookie = expiredCookie;
-	document.cookie = `${expiredCookie}; domain=.ndovera.com`;
+	document.cookie = `${expiredCookie}; domain=.${PLATFORM_BASE_DOMAIN}`;
 }
 
 function storeToken(token) {
@@ -235,12 +297,12 @@ export function buildSelectedRoleHeader() {
 }
 
 export function getSignedOutRedirectPath() {
-	const rememberedRedirect = window.sessionStorage.getItem(SIGNED_OUT_TENANT_REDIRECT_KEY);
+	const rememberedRedirect = normalizeTenantSiteUrl(window.sessionStorage.getItem(SIGNED_OUT_TENANT_REDIRECT_KEY));
 	if (rememberedRedirect) {
 		return rememberedRedirect;
 	}
 
-	const websiteUrl = window.localStorage.getItem(TENANT_SITE_URL_KEY);
+	const websiteUrl = normalizeTenantSiteUrl(window.localStorage.getItem(TENANT_SITE_URL_KEY));
 	if (websiteUrl) {
 		return websiteUrl;
 	}
@@ -338,7 +400,7 @@ export function syncRefreshedToken(response) {
 }
 
 export function clearStoredAuth() {
-	const tenantWebsiteUrl = window.localStorage.getItem(TENANT_SITE_URL_KEY);
+	const tenantWebsiteUrl = normalizeTenantSiteUrl(window.localStorage.getItem(TENANT_SITE_URL_KEY));
 	const tenantSubdomain = window.localStorage.getItem('tenantSubdomain');
 	if (tenantWebsiteUrl) {
 		window.sessionStorage.setItem(SIGNED_OUT_TENANT_REDIRECT_KEY, tenantWebsiteUrl);

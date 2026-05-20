@@ -1,7 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 
 export default function UserProfileDropdown({ user = null, onLogout = () => {} }) {
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef(null);
   const displayName = user?.name || 'User';
@@ -53,11 +55,29 @@ export default function UserProfileDropdown({ user = null, onLogout = () => {} }
               <p className="text-xs micro-label text-slate-500 dark:text-slate-400">{displayRole.toUpperCase()}</p>
             </div>
             <ul className="py-2">
-              <li className="px-4 py-2 text-sm text-slate-700 dark:text-slate-200 hover:bg-emerald-100 dark:hover:bg-emerald-700/25 hover:text-slate-900 dark:hover:text-white cursor-pointer transition-colors flex items-center gap-2">
-                <span className="opacity-70">👤</span> Profile
+              <li>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setOpen(false);
+                    navigate('/settings', { state: { tab: 'profile' } });
+                  }}
+                  className="w-full px-4 py-2 text-left text-sm text-slate-700 dark:text-slate-200 hover:bg-emerald-100 dark:hover:bg-emerald-700/25 hover:text-slate-900 dark:hover:text-white cursor-pointer transition-colors flex items-center gap-2"
+                >
+                  <span className="opacity-70">👤</span> Profile
+                </button>
               </li>
-              <li className="px-4 py-2 text-sm text-slate-700 dark:text-slate-200 hover:bg-emerald-100 dark:hover:bg-emerald-700/25 hover:text-slate-900 dark:hover:text-white cursor-pointer transition-colors flex items-center gap-2">
-                <span className="opacity-70">⚙️</span> Settings
+              <li>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setOpen(false);
+                    navigate('/settings');
+                  }}
+                  className="w-full px-4 py-2 text-left text-sm text-slate-700 dark:text-slate-200 hover:bg-emerald-100 dark:hover:bg-emerald-700/25 hover:text-slate-900 dark:hover:text-white cursor-pointer transition-colors flex items-center gap-2"
+                >
+                  <span className="opacity-70">⚙️</span> Settings
+                </button>
               </li>
               <li className="px-4 py-2 text-sm text-red-600 dark:text-red-300 hover:bg-red-100 dark:hover:bg-red-700/25 hover:text-red-700 dark:hover:text-white cursor-pointer transition-colors flex items-center gap-2 mt-1 border-t border-slate-50 dark:border-slate-800 pt-3">
                 <button
