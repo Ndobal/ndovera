@@ -6,7 +6,7 @@ import {
   resetPassword,
 } from '../../../features/school/services/schoolApi';
 
-const ROLES = ['teacher', 'hos', 'accountant', 'student', 'parent', 'librarian', 'classteacher', 'hod', 'hodassistant', 'principal', 'headteacher', 'nurseryhead', 'storekeeper', 'tuckshopmanager', 'transport', 'hostel', 'cafeteria', 'clinic', 'ict', 'examofficer', 'sportsmaster', 'sanitation', 'growthpartner'];
+const ROLES = ['owner', 'admin', 'teacher', 'hos', 'accountant', 'student', 'parent', 'librarian', 'classteacher', 'hod', 'hodassistant', 'principal', 'headteacher', 'nurseryhead', 'storekeeper', 'tuckshopmanager', 'transport', 'hostel', 'cafeteria', 'clinic', 'ict', 'ict_manager', 'examofficer', 'sportsmaster', 'sanitation', 'growthpartner'];
 const FILTERS = ['All', 'Teachers', 'Admin', 'Students', 'Parents'];
 
 // Colour-coded role badges — each role gets a distinct colour

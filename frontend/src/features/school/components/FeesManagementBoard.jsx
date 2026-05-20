@@ -1,17 +1,22 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import JSZip from 'jszip';
+import QRCode from 'qrcode';
 import FeeReceiptDialog from './FeeReceiptDialog';
 import {
   approveFeePaymentClaim,
+  getBranding,
   getFeePaymentClaims,
   getFeeReceipts,
   getClasses,
   getFeesConfig,
   getFeesLedger,
   getFeesPaymentDetails,
+  getSession,
   getPeople,
+  issueFeeReceipt,
   markFeePaid,
   rejectFeePaymentClaim,
-  saveFeesConfig,
+  saveFeesConfigSnapshot,
   saveFeesPaymentDetails,
 } from '../services/schoolApi';
 
@@ -46,6 +51,127 @@ const TD = 'border border-[#c9a96e]/30 p-2 align-top dark:border-[#00ffff]/15';
 
 function formatNaira(value) {
   return `₦${Number(value || 0).toLocaleString()}`;
+}
+
+function formatReceiptDateTime(value) {
+  if (!value) return 'Recent';
+  const parsed = new Date(value);
+  return Number.isNaN(parsed.getTime()) ? value : parsed.toLocaleString();
+}
+
+function formatReceiptPaymentType(value) {
+  const normalized = String(value || 'cash').replace(/-/g, ' ');
+  return normalized.charAt(0).toUpperCase() + normalized.slice(1);
+}
+
+function escapeReceiptHtml(value) {
+  return String(value ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function sanitizeReceiptFilePart(value) {
+  return String(value || '')
+    .replace(/[\\/:*?"<>|]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .replace(/ /g, '_')
+    .slice(0, 80);
+}
+
+async function buildReceiptExportDocument(receipt, fallbackBranding = {}) {
+  const schoolName = receipt.schoolName || fallbackBranding.schoolName || 'NDOVERA School';
+  const schoolLogoUrl = receipt.schoolLogoUrl || fallbackBranding.logoUrl || '';
+  const qrDataUrl = receipt.verificationUrl
+    ? await QRCode.toDataURL(receipt.verificationUrl, {
+        margin: 1,
+        width: 176,
+        color: { dark: '#800000', light: '#f5deb3' },
+      }).catch(() => '')
+    : '';
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>${escapeReceiptHtml(receipt.receiptNo || 'School Fee Receipt')}</title>
+  <style>
+    body { margin: 0; padding: 32px; background: #f5deb3; color: #191970; font-family: 'Segoe UI', sans-serif; }
+    .card { max-width: 960px; margin: 0 auto; background: rgba(255,255,255,0.55); border: 1px solid rgba(128,0,32,0.15); border-radius: 28px; padding: 28px; }
+    .header { display: flex; justify-content: space-between; gap: 24px; align-items: flex-start; }
+    .brand { display: flex; gap: 16px; align-items: flex-start; }
+    .logo { width: 88px; height: 88px; object-fit: contain; border-radius: 24px; background: white; border: 1px solid rgba(128,0,0,0.15); padding: 8px; }
+    .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #800020; }
+    h1 { margin: 10px 0 0; color: #800000; font-size: 28px; }
+    .subtitle { margin-top: 10px; font-size: 14px; }
+    .pill { display: inline-block; margin-left: 8px; padding: 8px 12px; border-radius: 999px; font-size: 11px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; }
+    .pill-status { border: 1px solid rgba(128,0,32,0.2); background: rgba(255,255,255,0.75); color: #800020; }
+    .pill-number { background: #1a5c38; color: #f5deb3; }
+    .grid { display: grid; grid-template-columns: 1.3fr 0.7fr; gap: 20px; margin-top: 24px; }
+    .details { display: grid; gap: 12px; }
+    .row { display: flex; justify-content: space-between; gap: 16px; padding: 14px 16px; border-radius: 18px; background: rgba(255,248,240,0.85); border: 1px solid rgba(201,169,110,0.25); }
+    .label { font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #800020; }
+    .value { font-size: 14px; font-weight: 700; text-align: right; }
+    .summary { border-radius: 22px; background: rgba(255,248,240,0.85); border: 1px solid rgba(201,169,110,0.25); padding: 20px; }
+    .summary-row { display: flex; justify-content: space-between; gap: 16px; padding: 0 0 12px; margin-bottom: 12px; border-bottom: 1px solid rgba(201,169,110,0.3); }
+    .summary-row:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: 0; }
+    .summary-value { font-size: 22px; font-weight: 800; }
+    .green { color: #1a5c38; }
+    .red { color: #800000; }
+    .verification { margin-top: 20px; border-radius: 18px; background: rgba(240,208,144,0.75); border: 1px solid rgba(201,169,110,0.25); padding: 16px; text-align: center; }
+    .qr { width: 144px; height: 144px; object-fit: contain; background: white; border-radius: 18px; padding: 8px; border: 1px solid rgba(201,169,110,0.3); }
+    .footer { margin-top: 24px; padding: 14px 16px; border-radius: 18px; background: rgba(255,255,255,0.55); border: 1px dashed rgba(128,0,32,0.25); font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #800020; }
+    @media print { body { padding: 0; } .card { border: 0; background: transparent; } }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <div class="brand">
+        ${schoolLogoUrl ? `<img class="logo" src="${escapeReceiptHtml(schoolLogoUrl)}" alt="${escapeReceiptHtml(schoolName)} logo" />` : ''}
+        <div>
+          <div class="eyebrow">${escapeReceiptHtml(schoolName)}</div>
+          <h1>Official School Fees Receipt</h1>
+          <div class="subtitle">Verification-ready payment receipt.</div>
+        </div>
+      </div>
+      <div>
+        <span class="pill pill-status">${escapeReceiptHtml(receipt.statusAfter || receipt.status || 'Recorded')}</span>
+        <span class="pill pill-number">${escapeReceiptHtml(receipt.receiptNo || 'Receipt')}</span>
+      </div>
+    </div>
+    <div class="grid">
+      <div class="details">
+        <div class="row"><span class="label">Receipt number</span><span class="value">${escapeReceiptHtml(receipt.receiptNo || '')}</span></div>
+        <div class="row"><span class="label">Date issued</span><span class="value">${escapeReceiptHtml(formatReceiptDateTime(receipt.recordedAt || receipt.date))}</span></div>
+        <div class="row"><span class="label">Student</span><span class="value">${escapeReceiptHtml(receipt.studentName || receipt.name || '')}</span></div>
+        <div class="row"><span class="label">Student ID</span><span class="value">${escapeReceiptHtml(receipt.studentDisplayId || receipt.studentId || 'Not assigned')}</span></div>
+        <div class="row"><span class="label">Class</span><span class="value">${escapeReceiptHtml(receipt.className || 'Not assigned')}</span></div>
+        <div class="row"><span class="label">Session</span><span class="value">${escapeReceiptHtml(receipt.sessionName || 'Current session')}</span></div>
+        <div class="row"><span class="label">Term</span><span class="value">${escapeReceiptHtml(receipt.termName || 'Current term')}</span></div>
+        <div class="row"><span class="label">Payment method</span><span class="value">${escapeReceiptHtml(formatReceiptPaymentType(receipt.paymentType))}</span></div>
+        <div class="row"><span class="label">Reference</span><span class="value">${escapeReceiptHtml(receipt.paymentReference || receipt.reference || 'School office entry')}</span></div>
+        <div class="row"><span class="label">Receipt type</span><span class="value">${escapeReceiptHtml(receipt.receiptKind || 'issued')}</span></div>
+        ${receipt.reissuedFromReceiptNo ? `<div class="row"><span class="label">Reissued from</span><span class="value">${escapeReceiptHtml(receipt.reissuedFromReceiptNo)}</span></div>` : ''}
+      </div>
+      <div class="summary">
+        <div class="eyebrow">Payment Summary</div>
+        <div style="margin-top: 16px;">
+          <div class="summary-row"><span>Expected Fees</span><span class="summary-value red">${escapeReceiptHtml(formatNaira(receipt.feeAmount || receipt.expected))}</span></div>
+          <div class="summary-row"><span>Amount Paid</span><span class="summary-value green">${escapeReceiptHtml(formatNaira(receipt.amount || receipt.amountPaid))}</span></div>
+          <div class="summary-row"><span>Total Paid To Date</span><span class="summary-value">${escapeReceiptHtml(formatNaira(receipt.amountPaidAfter || receipt.amountPaid))}</span></div>
+          <div class="summary-row"><span>Balance After Payment</span><span class="summary-value red">${escapeReceiptHtml(formatNaira(receipt.balanceAfter || receipt.balance))}</span></div>
+        </div>
+        ${qrDataUrl ? `<div class="verification"><div class="eyebrow">Receipt verification</div><img class="qr" src="${qrDataUrl}" alt="Receipt verification QR code" /><div style="margin-top: 12px; font-size: 12px; font-weight: 700;">Scan to verify online</div><div style="margin-top: 8px; font-size: 11px; color: #800020; word-break: break-all;">${escapeReceiptHtml(receipt.verificationUrl || '')}</div></div>` : ''}
+      </div>
+    </div>
+    <div class="footer">This receipt reflects a recorded school fee payment and should be retained for school record verification.</div>
+  </div>
+</body>
+</html>`;
 }
 
 function createEmptyPaymentDetails() {
@@ -100,6 +226,34 @@ function createConfigLookup(configs) {
 
     return lookup;
   }, {});
+}
+
+function filterConfigsForPeriod(configs = [], sessionName = '', termName = '') {
+  const normalizedSession = String(sessionName || '').trim().toLowerCase();
+  const normalizedTerm = String(termName || '').trim().toLowerCase();
+
+  if (!normalizedSession && !normalizedTerm) {
+    return configs;
+  }
+
+  const exact = configs.filter((config) => {
+    const configSession = String(config?.session || '').trim().toLowerCase();
+    const configTerm = String(config?.term || '').trim().toLowerCase();
+    if (!configSession || configSession !== normalizedSession) {
+      return false;
+    }
+    if (!normalizedTerm) {
+      return true;
+    }
+    return !configTerm || configTerm === normalizedTerm;
+  });
+
+  if (exact.length) {
+    return exact;
+  }
+
+  const legacy = configs.filter((config) => !String(config?.session || '').trim() && !String(config?.term || '').trim());
+  return legacy.length ? legacy : configs;
 }
 
 function createFeeColumns(configs) {
@@ -232,24 +386,70 @@ function buildStudentRows({ students, ledger, classes, feeColumns, configs }) {
     });
 }
 
+function buildFeeSnapshotPayload({ students, feeColumns, sessionLabel, currentTerm }) {
+  const payloads = [];
+  const seen = new Set();
+
+  students.forEach((student) => {
+    feeColumns.forEach((feeName, index) => {
+      const classKey = String(student.classId || '').trim() || '__all__';
+      const uniqueKey = `${classKey}::${String(feeName || '').toLowerCase()}`;
+      if (seen.has(uniqueKey)) {
+        return;
+      }
+
+      seen.add(uniqueKey);
+      payloads.push({
+        feeType: feeName,
+        classId: student.classId || '',
+        amount: Number(student?.fees?.[feeName] || 0),
+        sortOrder: index,
+      });
+    });
+  });
+
+  return {
+    session: sessionLabel,
+    term: currentTerm,
+    configs: payloads,
+  };
+}
+
+function formatAutoSaveTime(value) {
+  if (!value) return '';
+  const parsed = new Date(value);
+  return Number.isNaN(parsed.getTime()) ? '' : parsed.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+}
+
 function FeesManagementBoard() {
   const [feeColumns, setFeeColumns] = useState(DEFAULT_FEE_COLUMNS);
   const [students, setStudents] = useState([]);
+  const [configArchive, setConfigArchive] = useState([]);
   const [receipts, setReceipts] = useState([]);
+  const [branding, setBranding] = useState(null);
   const [sessionLabel, setSessionLabel] = useState(getDefaultSessionLabel());
+  const [currentTerm, setCurrentTerm] = useState('');
+  const [sessionHistory, setSessionHistory] = useState([]);
   const [statusFilter, setStatusFilter] = useState('all');
   const [loading, setLoading] = useState(true);
   const [savingTemplate, setSavingTemplate] = useState(false);
   const [paymentSavingId, setPaymentSavingId] = useState('');
+  const [receiptIssuingId, setReceiptIssuingId] = useState('');
+  const [bulkIssuing, setBulkIssuing] = useState(false);
+  const [bulkDownloading, setBulkDownloading] = useState(false);
   const [receiptModal, setReceiptModal] = useState(false);
   const [selectedReceipt, setSelectedReceipt] = useState(null);
   const [toast, setToast] = useState('');
   const [dirty, setDirty] = useState(false);
+  const [lastTemplateSavedAt, setLastTemplateSavedAt] = useState('');
+  const [financeTab, setFinanceTab] = useState('fees');
+  const [feesExpanded, setFeesExpanded] = useState(true);
   const [paymentDetailsForm, setPaymentDetailsForm] = useState(createEmptyPaymentDetails());
   const [claims, setClaims] = useState([]);
   const [paymentDetailsSaving, setPaymentDetailsSaving] = useState(false);
   const [claimSavingId, setClaimSavingId] = useState('');
   const toastTimeoutRef = useRef(null);
+  const autoSaveTimeoutRef = useRef(null);
 
   const showToast = useCallback((message) => {
     setToast(message);
@@ -260,6 +460,7 @@ function FeesManagementBoard() {
   useEffect(() => {
     return () => {
       window.clearTimeout(toastTimeoutRef.current);
+      window.clearTimeout(autoSaveTimeoutRef.current);
     };
   }, []);
 
@@ -267,7 +468,7 @@ function FeesManagementBoard() {
     setLoading(true);
 
     try {
-      const [ledgerResult, configResult, classResult, peopleResult, receiptResult, paymentDetailsResult, claimResult] = await Promise.all([
+      const [ledgerResult, configResult, classResult, peopleResult, receiptResult, paymentDetailsResult, claimResult, sessionResult, brandingResult] = await Promise.all([
         getFeesLedger(),
         getFeesConfig(),
         getClasses(),
@@ -275,26 +476,35 @@ function FeesManagementBoard() {
         getFeeReceipts(),
         getFeesPaymentDetails(),
         getFeePaymentClaims(),
+        getSession(),
+        getBranding(),
       ]);
 
-      const configs = configResult?.configs || [];
-      const columns = createFeeColumns(configs);
+      const allConfigs = configResult?.configs || [];
+      const currentSession = sessionResult?.session || configResult?.currentSession || null;
+      const activeConfigs = filterConfigsForPeriod(allConfigs, currentSession?.session, currentSession?.term);
+      const columns = createFeeColumns(activeConfigs);
       const nextStudents = buildStudentRows({
         students: peopleResult?.people || [],
         ledger: ledgerResult?.ledger || [],
         classes: classResult?.classes || [],
         feeColumns: columns,
-        configs,
+        configs: activeConfigs,
       });
 
-      const persistedSession = configs.find((config) => String(config?.session || '').trim())?.session;
+      const persistedSession = activeConfigs.find((config) => String(config?.session || '').trim())?.session;
 
       setFeeColumns(columns);
       setStudents(nextStudents);
-      setSessionLabel(persistedSession || getDefaultSessionLabel());
+      setConfigArchive(allConfigs);
+      setSessionLabel(String(currentSession?.session || persistedSession || getDefaultSessionLabel()));
+      setCurrentTerm(String(currentSession?.term || ''));
+      setSessionHistory(sessionResult?.history || []);
       setReceipts(receiptResult?.receipts || []);
+      setBranding(brandingResult?.branding || null);
       setPaymentDetailsForm(paymentDetailsResult?.paymentDetails || createEmptyPaymentDetails());
       setClaims((claimResult?.claims || []).map(claim => ({ ...claim, reviewNote: claim.verificationNote || '' })));
+      setDirty(false);
     } catch (error) {
       showToast(error.message || 'Could not load fees.');
     } finally {
@@ -350,6 +560,18 @@ function FeesManagementBoard() {
     [claims],
   );
 
+  const latestReceiptByStudent = useMemo(() => {
+    const map = new Map();
+    receipts.forEach((receipt) => {
+      const studentId = String(receipt?.studentId || '').trim();
+      if (!studentId || map.has(studentId)) {
+        return;
+      }
+      map.set(studentId, receipt);
+    });
+    return map;
+  }, [receipts]);
+
   const filteredStudents = useMemo(() => {
     if (statusFilter === 'all') {
       return students;
@@ -357,6 +579,85 @@ function FeesManagementBoard() {
 
     return students.filter((student) => String(getStatus(student)).toLowerCase() === statusFilter);
   }, [getStatus, statusFilter, students]);
+
+  const getReceiptState = useCallback((student) => {
+    const latestReceipt = latestReceiptByStudent.get(student.id) || null;
+    const paidAmount = Number(student?.amountPaid || 0);
+    if (paidAmount <= 0) {
+      return { key: 'none', label: 'Issue Receipt', disabled: true, latestReceipt };
+    }
+
+    if (!latestReceipt) {
+      return { key: 'issue', label: 'Issue Receipt', disabled: false, latestReceipt };
+    }
+
+    const currentExpected = expectedAmount(student);
+    const currentBalance = Math.max(currentExpected - paidAmount, 0);
+    const hasNewPayment = paidAmount > Number(latestReceipt.amountPaidAfter || 0);
+    const snapshotChanged = !hasNewPayment && (
+      Number(currentExpected || 0) !== Number(latestReceipt.feeAmount || 0)
+      || Number(currentBalance || 0) !== Number(latestReceipt.balanceAfter || 0)
+      || String(getStatus(student) || '') !== String(latestReceipt.statusAfter || '')
+      || String(sessionLabel || '') !== String(latestReceipt.sessionName || '')
+      || String(currentTerm || '') !== String(latestReceipt.termName || '')
+      || String(branding?.schoolName || '') !== String(latestReceipt.schoolName || '')
+      || String(branding?.logoUrl || '') !== String(latestReceipt.schoolLogoUrl || '')
+    );
+
+    if (hasNewPayment) {
+      return { key: 'issue', label: 'Issue Receipt', disabled: false, latestReceipt };
+    }
+
+    if (snapshotChanged) {
+      return { key: 'reissue', label: 'Reissue Receipt', disabled: false, latestReceipt };
+    }
+
+    return { key: 'issued', label: 'Issued', disabled: false, latestReceipt };
+  }, [branding?.logoUrl, branding?.schoolName, currentTerm, expectedAmount, getStatus, latestReceiptByStudent, sessionLabel]);
+
+  const actionableReceiptStudents = useMemo(
+    () => filteredStudents.filter((student) => {
+      const receiptState = getReceiptState(student);
+      return receiptState.key === 'issue' || receiptState.key === 'reissue';
+    }),
+    [filteredStudents, getReceiptState],
+  );
+
+  const downloadableReceipts = useMemo(() => {
+    const seen = new Set();
+    return filteredStudents.reduce((collection, student) => {
+      const receipt = latestReceiptByStudent.get(student.id);
+      if (!receipt || seen.has(receipt.id)) {
+        return collection;
+      }
+      seen.add(receipt.id);
+      collection.push(receipt);
+      return collection;
+    }, []);
+  }, [filteredStudents, latestReceiptByStudent]);
+
+  const pastSessionGroups = useMemo(() => {
+    if (sessionHistory.length) {
+      return sessionHistory.filter((entry) => String(entry?.session || '') !== String(sessionLabel || ''));
+    }
+
+    const grouped = new Map();
+    configArchive.forEach((config) => {
+      const configSession = String(config?.session || '').trim();
+      const configTerm = String(config?.term || '').trim();
+      if (!configSession || configSession === String(sessionLabel || '')) {
+        return;
+      }
+      if (!grouped.has(configSession)) {
+        grouped.set(configSession, { session: configSession, terms: [] });
+      }
+      const entry = grouped.get(configSession);
+      if (configTerm && !entry.terms.some((termItem) => termItem.term === configTerm)) {
+        entry.terms.push({ term: configTerm });
+      }
+    });
+    return Array.from(grouped.values());
+  }, [configArchive, sessionHistory, sessionLabel]);
 
   function updateFee(index, feeName, value) {
     const nextValue = Number(value || 0);
@@ -439,6 +740,43 @@ function FeesManagementBoard() {
     setDirty(true);
   }
 
+  function renameFeeColumn(feeName) {
+    const nextHeading = window.prompt('Rename fee heading', feeName);
+    const trimmedHeading = String(nextHeading || '').trim();
+
+    if (!trimmedHeading || trimmedHeading === feeName) {
+      return;
+    }
+
+    if (feeColumns.includes(trimmedHeading)) {
+      showToast('That fee heading already exists.');
+      return;
+    }
+
+    setFeeColumns((currentColumns) => currentColumns.map((column) => (column === feeName ? trimmedHeading : column)));
+    setStudents((currentStudents) => currentStudents.map((student) => {
+      const nextFees = { ...student.fees };
+      nextFees[trimmedHeading] = Number(nextFees[feeName] || 0);
+      delete nextFees[feeName];
+      return { ...student, fees: nextFees };
+    }));
+    setDirty(true);
+  }
+
+  function removeFeeColumn(feeName) {
+    if (!window.confirm(`Remove ${feeName} from the active fee template?`)) {
+      return;
+    }
+
+    setFeeColumns((currentColumns) => currentColumns.filter((column) => column !== feeName));
+    setStudents((currentStudents) => currentStudents.map((student) => {
+      const nextFees = { ...student.fees };
+      delete nextFees[feeName];
+      return { ...student, fees: nextFees };
+    }));
+    setDirty(true);
+  }
+
   function applyFeesToAll() {
     const headingResponse = window.prompt(
       'Which fee heading should be applied to all students?',
@@ -476,46 +814,73 @@ function FeesManagementBoard() {
     setDirty(true);
   }
 
-  async function saveTemplate() {
+  const persistTemplateSnapshot = useCallback(async ({ silent = false } = {}) => {
     if (students.length === 0) {
-      showToast('No students found to save.');
-      return;
+      if (!silent) {
+        showToast('No students found to save.');
+      }
+      return false;
+    }
+
+    if (!sessionLabel || !currentTerm) {
+      if (!silent) {
+        showToast('Set the current session and term in school settings before saving fee headings.');
+      }
+      return false;
     }
 
     setSavingTemplate(true);
 
     try {
-      const payloads = [];
-      const seen = new Set();
-
-      students.forEach((student) => {
-        feeColumns.forEach((feeName) => {
-          const classKey = String(student.classId || '').trim() || '__all__';
-          const uniqueKey = `${classKey}::${feeName.toLowerCase()}`;
-
-          if (seen.has(uniqueKey)) {
-            return;
-          }
-
-          seen.add(uniqueKey);
-          payloads.push({
-            feeType: feeName,
-            classId: student.classId || '',
-            amount: Number(student.fees?.[feeName] || 0),
-            session: sessionLabel,
-          });
-        });
+      const snapshotPayload = buildFeeSnapshotPayload({
+        students,
+        feeColumns,
+        sessionLabel,
+        currentTerm,
       });
 
-      await Promise.all(payloads.map((payload) => saveFeesConfig(payload)));
+      const response = await saveFeesConfigSnapshot(snapshotPayload);
+      const nextConfigs = response?.configs || [];
+
+      setConfigArchive((currentConfigs) => [
+        ...nextConfigs,
+        ...currentConfigs.filter((config) => !(String(config?.session || '') === String(sessionLabel || '') && String(config?.term || '') === String(currentTerm || ''))),
+      ]);
       setDirty(false);
-      showToast('Fee template saved.');
+      setLastTemplateSavedAt(new Date().toISOString());
+      if (!silent) {
+        showToast('Fee template saved.');
+      }
+      return true;
     } catch (error) {
-      showToast(error.message || 'Could not save fee template.');
+      if (!silent) {
+        showToast(error.message || 'Could not save fee template.');
+      }
+      return false;
     } finally {
       setSavingTemplate(false);
     }
+  }, [currentTerm, feeColumns, sessionLabel, showToast, students]);
+
+  async function saveTemplate() {
+    await persistTemplateSnapshot({ silent: false });
   }
+
+  useEffect(() => {
+    window.clearTimeout(autoSaveTimeoutRef.current);
+
+    if (!dirty || loading || savingTemplate) {
+      return undefined;
+    }
+
+    autoSaveTimeoutRef.current = window.setTimeout(() => {
+      persistTemplateSnapshot({ silent: true });
+    }, 1200);
+
+    return () => {
+      window.clearTimeout(autoSaveTimeoutRef.current);
+    };
+  }, [dirty, loading, persistTemplateSnapshot, savingTemplate]);
 
   async function persistPaymentDetails() {
     setPaymentDetailsSaving(true);
@@ -547,13 +912,8 @@ function FeesManagementBoard() {
     setClaimSavingId(`${claimId}:${action}`);
     try {
       if (action === 'approve') {
-        const response = await approveFeePaymentClaim(claimId, { verificationNote: targetClaim.reviewNote || '' });
-        if (response?.receipt) {
-          setReceipts(currentReceipts => [response.receipt, ...currentReceipts.filter(receipt => receipt.id !== response.receipt.id)]);
-          setSelectedReceipt(response.receipt);
-          setReceiptModal(true);
-        }
-        showToast(`Payment claim approved${response?.receipt?.receiptNo ? ` and receipt ${response.receipt.receiptNo} issued.` : '.'}`);
+        await approveFeePaymentClaim(claimId, { verificationNote: targetClaim.reviewNote || '' });
+        showToast('Payment claim approved. Issue the receipt from the fees ledger when ready.');
       } else {
         await rejectFeePaymentClaim(claimId, { verificationNote: targetClaim.reviewNote || '' });
         showToast('Payment claim rejected.');
@@ -641,10 +1001,8 @@ function FeesManagementBoard() {
       );
       if (result?.receipt) {
         setReceipts(currentReceipts => [result.receipt, ...currentReceipts.filter(receipt => receipt.id !== result.receipt.id)]);
-        setSelectedReceipt(result.receipt);
-        setReceiptModal(true);
       }
-      showToast(`Payment recorded${result?.receipt?.receiptNo ? ` and receipt ${result.receipt.receiptNo} issued.` : '.'}`);
+      showToast('Payment recorded. Use Issue Receipt when you are ready to release the receipt.');
     } catch (error) {
       setStudents((currentStudents) =>
         currentStudents.map((student) =>
@@ -662,15 +1020,141 @@ function FeesManagementBoard() {
     }
   }
 
-  function issueReceipt(student) {
-    const latestReceipt = receipts.find(receipt => receipt.studentId === student.id);
-    if (!latestReceipt) {
-      showToast('No official receipt has been recorded for this student yet. Record a payment or approve a payment claim first.');
+  async function handleIssueReceipt(student) {
+    const receiptState = getReceiptState(student);
+    if (receiptState.key === 'none') {
+      showToast('Record a payment before issuing a receipt.');
       return;
     }
 
-    setSelectedReceipt(latestReceipt);
-    setReceiptModal(true);
+    if (receiptState.key === 'issued') {
+      setSelectedReceipt(receiptState.latestReceipt || null);
+      setReceiptModal(Boolean(receiptState.latestReceipt));
+      return;
+    }
+
+    setReceiptIssuingId(student.id);
+    try {
+      const response = await issueFeeReceipt(student.id);
+      if (response?.receipt) {
+        setReceipts((currentReceipts) => [response.receipt, ...currentReceipts.filter((receipt) => receipt.id !== response.receipt.id)]);
+        setSelectedReceipt(response.receipt);
+        setReceiptModal(true);
+        showToast(response.action === 'reissued'
+          ? `Receipt ${response.receipt.receiptNo} reissued.`
+          : response.action === 'already-issued'
+            ? `Receipt ${response.receipt.receiptNo} is already current.`
+            : `Receipt ${response.receipt.receiptNo} issued.`);
+        return;
+      }
+
+      showToast(response?.message || 'Receipt state checked.');
+    } catch (error) {
+      showToast(error.message || 'Could not issue receipt.');
+    } finally {
+      setReceiptIssuingId('');
+    }
+  }
+
+  async function handleBulkIssueReceipts() {
+    if (!actionableReceiptStudents.length) {
+      showToast('No pending or stale receipts are available for bulk issue.');
+      return;
+    }
+
+    setBulkIssuing(true);
+    try {
+      const results = await Promise.allSettled(actionableReceiptStudents.map((student) => issueFeeReceipt(student.id)));
+      const mergedReceipts = [];
+      let issuedCount = 0;
+      let skippedCount = 0;
+
+      results.forEach((result) => {
+        if (result.status !== 'fulfilled') {
+          skippedCount += 1;
+          return;
+        }
+
+        const payload = result.value;
+        if (payload?.receipt) {
+          mergedReceipts.push(payload.receipt);
+        }
+
+        if (payload?.action === 'issued' || payload?.action === 'reissued') {
+          issuedCount += 1;
+        } else {
+          skippedCount += 1;
+        }
+      });
+
+      if (mergedReceipts.length) {
+        setReceipts((currentReceipts) => [
+          ...mergedReceipts,
+          ...currentReceipts.filter((receipt) => !mergedReceipts.some((nextReceipt) => nextReceipt.id === receipt.id)),
+        ]);
+      }
+
+      showToast(`Bulk receipt run completed: ${issuedCount} issued${skippedCount ? `, ${skippedCount} skipped` : ''}.`);
+    } catch (error) {
+      showToast(error.message || 'Could not bulk issue receipts.');
+    } finally {
+      setBulkIssuing(false);
+    }
+  }
+
+  async function handleBulkDownloadReceipts() {
+    if (!downloadableReceipts.length) {
+      showToast('No issued receipts are available for download in the current view.');
+      return;
+    }
+
+    setBulkDownloading(true);
+    try {
+      const folderName = sanitizeReceiptFilePart(`${branding?.schoolName || 'receipts'}_${sessionLabel || 'session'}_${currentTerm || 'term'}`) || 'school_receipts';
+      const documents = await Promise.all(downloadableReceipts.map(async (receipt) => ({
+        name: `${sanitizeReceiptFilePart(receipt.studentName || receipt.studentDisplayId || receipt.studentId || 'student') || 'student'}_${sanitizeReceiptFilePart(receipt.receiptNo || 'receipt') || 'receipt'}.html`,
+        content: await buildReceiptExportDocument(receipt, branding || {}),
+      })));
+
+      if (typeof window.showDirectoryPicker === 'function') {
+        const rootHandle = await window.showDirectoryPicker({ mode: 'readwrite' });
+        const receiptsDirectory = await rootHandle.getDirectoryHandle(folderName, { create: true });
+
+        for (const documentFile of documents) {
+          const fileHandle = await receiptsDirectory.getFileHandle(documentFile.name, { create: true });
+          const writable = await fileHandle.createWritable();
+          await writable.write(documentFile.content);
+          await writable.close();
+        }
+
+        showToast(`Saved ${documents.length} receipts into ${folderName}.`);
+        return;
+      }
+
+      const zip = new JSZip();
+      const directory = zip.folder(folderName);
+      documents.forEach((documentFile) => {
+        directory.file(documentFile.name, documentFile.content);
+      });
+      const zipBlob = await zip.generateAsync({ type: 'blob' });
+      const url = window.URL.createObjectURL(zipBlob);
+      const anchor = document.createElement('a');
+      anchor.href = url;
+      anchor.download = `${folderName}.zip`;
+      document.body.appendChild(anchor);
+      anchor.click();
+      anchor.remove();
+      window.URL.revokeObjectURL(url);
+      showToast(`Downloaded ${documents.length} receipts as ${folderName}.zip.`);
+    } catch (error) {
+      if (error?.name === 'AbortError') {
+        showToast('Bulk receipt download cancelled.');
+      } else {
+        showToast(error.message || 'Could not bulk download receipts.');
+      }
+    } finally {
+      setBulkDownloading(false);
+    }
   }
 
   const columnTotals = useMemo(() => {
@@ -714,42 +1198,20 @@ function FeesManagementBoard() {
       <div className={CARD}>
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <div>
-            <h2 className="text-2xl font-bold text-[#800000] dark:text-[#0000ff]">School Fees Management</h2>
+            <h2 className="text-2xl font-bold text-[#800000] dark:text-[#0000ff]">Finance Workspace</h2>
             <p className="mt-2 text-sm text-[#191970] dark:text-[#39ff14]">
-              Configure fee headings by class, review each student ledger, and print receipts from one board.
+              Manage live school fees from the active session and term, then issue receipts only when finance is ready.
             </p>
-            <p className="mt-2 text-xs font-semibold uppercase tracking-[0.14em] text-[#800020] dark:text-[#bf00ff]">
-              Showing {filteredStudents.length} of {students.length} students
-            </p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              <span className={BADGE}>Current Session: {sessionLabel || 'Not set'}</span>
+              <span className={BADGE}>Current Term: {currentTerm || 'Not set'}</span>
+              <span className={BADGE}>{actionableReceiptStudents.length} Receipts Pending Attention</span>
+            </div>
           </div>
 
-          <div className="flex flex-wrap items-end gap-3">
-            <label className="min-w-[180px] text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">
-              Session
-              <input
-                value={sessionLabel}
-                onChange={(event) => setSessionLabel(event.target.value)}
-                className={`${INPUT} mt-2`}
-                placeholder="e.g. 2026/2027"
-              />
-            </label>
-            <label className="min-w-[220px] text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">
-              Payment Status Filter
-              <select
-                value={statusFilter}
-                onChange={(event) => setStatusFilter(event.target.value)}
-                className={`${INPUT} mt-2`}
-              >
-                {PAYMENT_STATUS_FILTERS.map((filterOption) => (
-                  <option key={filterOption.value} value={filterOption.value}>{filterOption.label}</option>
-                ))}
-              </select>
-            </label>
-            <button onClick={applyFeesToAll} className={BTN}>Apply Fee To All</button>
-            <button onClick={addNewColumn} className={OUTLINE_BTN}>Add Fee Heading</button>
-            <button onClick={saveTemplate} disabled={savingTemplate} className={BTN}>
-              {savingTemplate ? 'Saving...' : dirty ? 'Save Template *' : 'Save Template'}
-            </button>
+          <div className="flex flex-wrap items-center gap-3">
+            <button onClick={() => setFinanceTab('fees')} className={financeTab === 'fees' ? BTN : OUTLINE_BTN}>School Fees</button>
+            <button onClick={() => setFinanceTab('channels')} className={financeTab === 'channels' ? BTN : OUTLINE_BTN}>Tab 2: Parent Payment Channels</button>
           </div>
         </div>
       </div>
@@ -763,231 +1225,367 @@ function FeesManagementBoard() {
         </div>
       </div>
 
-      <div className={CARD}>
-        <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-          <div>
-            <h3 className="text-2xl font-bold text-[#800000] dark:text-[#0000ff]">Parent Payment Channels</h3>
-            <p className="mt-2 text-sm text-[#191970] dark:text-[#39ff14]">
-              Publish the school account details parents use before they submit the “I have paid” verification claim.
-            </p>
+      {financeTab === 'channels' ? (
+        <div className={CARD}>
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+            <div>
+              <h3 className="text-2xl font-bold text-[#800000] dark:text-[#0000ff]">Parent Payment Channels</h3>
+              <p className="mt-2 text-sm text-[#191970] dark:text-[#39ff14]">
+                Publish the school account details parents use before they submit the “I have paid” verification claim.
+              </p>
+            </div>
+            <button onClick={persistPaymentDetails} disabled={paymentDetailsSaving} className={BTN}>
+              {paymentDetailsSaving ? 'Saving...' : 'Save Payment Details'}
+            </button>
           </div>
-          <button onClick={persistPaymentDetails} disabled={paymentDetailsSaving} className={BTN}>
-            {paymentDetailsSaving ? 'Saving...' : 'Save Payment Details'}
-          </button>
-        </div>
 
-        <div className="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-          <label className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">Bank Name
-            <input value={paymentDetailsForm.bankName} onChange={(event) => setPaymentDetailsForm(current => ({ ...current, bankName: event.target.value }))} className={`${INPUT} mt-2`} />
-          </label>
-          <label className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">Account Name
-            <input value={paymentDetailsForm.accountName} onChange={(event) => setPaymentDetailsForm(current => ({ ...current, accountName: event.target.value }))} className={`${INPUT} mt-2`} />
-          </label>
-          <label className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">Account Number
-            <input value={paymentDetailsForm.accountNumber} onChange={(event) => setPaymentDetailsForm(current => ({ ...current, accountNumber: event.target.value }))} className={`${INPUT} mt-2`} />
-          </label>
-          <label className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">Reference Hint
-            <input value={paymentDetailsForm.paymentReferenceHint} onChange={(event) => setPaymentDetailsForm(current => ({ ...current, paymentReferenceHint: event.target.value }))} className={`${INPUT} mt-2`} placeholder="e.g. Student name + teller no." />
-          </label>
-          <label className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff] md:col-span-2 xl:col-span-4">Payment Instructions
-            <textarea value={paymentDetailsForm.paymentInstructions} onChange={(event) => setPaymentDetailsForm(current => ({ ...current, paymentInstructions: event.target.value }))} rows={3} className={`${INPUT} mt-2 min-h-[110px] resize-y`} placeholder="Explain how parents should pay and what proof or reference they should include." />
-          </label>
-        </div>
-      </div>
-
-      <div className={CARD}>
-        <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-          <div>
-            <h3 className="text-2xl font-bold text-[#800000] dark:text-[#0000ff]">Payment Claim Queue</h3>
-            <p className="mt-2 text-sm text-[#191970] dark:text-[#39ff14]">
-              Approve verified parent claims to issue the receipt automatically and push the ledger forward, or reject with a finance note.
-            </p>
+          <div className="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+            <label className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">Bank Name
+              <input value={paymentDetailsForm.bankName} onChange={(event) => setPaymentDetailsForm(current => ({ ...current, bankName: event.target.value }))} className={`${INPUT} mt-2`} />
+            </label>
+            <label className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">Account Name
+              <input value={paymentDetailsForm.accountName} onChange={(event) => setPaymentDetailsForm(current => ({ ...current, accountName: event.target.value }))} className={`${INPUT} mt-2`} />
+            </label>
+            <label className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">Account Number
+              <input value={paymentDetailsForm.accountNumber} onChange={(event) => setPaymentDetailsForm(current => ({ ...current, accountNumber: event.target.value }))} className={`${INPUT} mt-2`} />
+            </label>
+            <label className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">Reference Hint
+              <input value={paymentDetailsForm.paymentReferenceHint} onChange={(event) => setPaymentDetailsForm(current => ({ ...current, paymentReferenceHint: event.target.value }))} className={`${INPUT} mt-2`} placeholder="e.g. Student name + teller no." />
+            </label>
+            <label className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff] md:col-span-2 xl:col-span-4">Payment Instructions
+              <textarea value={paymentDetailsForm.paymentInstructions} onChange={(event) => setPaymentDetailsForm(current => ({ ...current, paymentInstructions: event.target.value }))} rows={3} className={`${INPUT} mt-2 min-h-[110px] resize-y`} placeholder="Explain how parents should pay and what proof or reference they should include." />
+            </label>
           </div>
-          <span className={BADGE}>{pendingClaims.length} Pending</span>
         </div>
+      ) : null}
 
-        <div className="mt-5 space-y-4">
-          {!recentClaims.length ? <p className="text-sm text-[#800020] dark:text-[#bf00ff]">No payment claims have been submitted yet.</p> : null}
-          {recentClaims.map(claim => (
-            <article key={claim.id} className={`${INNER} space-y-4`}>
-              <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
-                <div className="space-y-2">
-                  <p className="text-lg font-bold text-[#191970] dark:text-white">{claim.studentName} • {formatNaira(claim.amount)}</p>
-                  <p className="text-sm text-[#191970] dark:text-[#39ff14]">{claim.claimantName || 'Parent'} • {claim.paymentMethod || 'bank-transfer'} • {claim.paidAt || claim.claimedAt || 'Recently submitted'}</p>
-                  <div className="flex flex-wrap gap-2">
-                    <span className={BADGE}>{claim.className || 'No class assigned'}</span>
-                    <span className={BADGE}>{claim.paymentReference || 'No reference supplied'}</span>
-                    {claim.receiptNo ? <span className={BADGE}>Receipt {claim.receiptNo}</span> : null}
-                  </div>
-                  {claim.paymentNote ? <p className="text-sm text-[#191970] dark:text-[#39ff14]">{claim.paymentNote}</p> : null}
-                  {claim.verificationNote && String(claim.status || '').toLowerCase() !== 'pending' ? <p className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">Finance note: {claim.verificationNote}</p> : null}
-                </div>
-                <span className={BADGE}>{getClaimStatusLabel(claim.status)}</span>
+      {financeTab === 'fees' ? (
+        <>
+          <div className={CARD}>
+            <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+              <div>
+                <h3 className="text-2xl font-bold text-[#800000] dark:text-[#0000ff]">School Fees Management</h3>
+                <p className="mt-2 text-sm text-[#191970] dark:text-[#39ff14]">
+                  The finance board follows the current school session and term from settings. Record payments first, then issue or reissue receipts deliberately.
+                </p>
+                <p className="mt-2 text-xs font-semibold uppercase tracking-[0.14em] text-[#800020] dark:text-[#bf00ff]">
+                  Showing {filteredStudents.length} of {students.length} students
+                </p>
+                <p className="mt-2 text-xs font-semibold text-[#800020] dark:text-[#bf00ff]">
+                  {dirty ? 'Unsaved fee changes pending autosave.' : lastTemplateSavedAt ? `Last saved ${formatAutoSaveTime(lastTemplateSavedAt)}` : 'No saved fee snapshot yet.'}
+                </p>
               </div>
 
-              {String(claim.status || '').toLowerCase() === 'pending' ? (
-                <div className="grid gap-3 lg:grid-cols-[1fr_auto_auto]">
-                  <input
-                    value={claim.reviewNote || ''}
-                    onChange={(event) => updateClaimReviewNote(claim.id, event.target.value)}
-                    className={INPUT}
-                    placeholder="Optional finance note for the parent"
-                  />
-                  <button onClick={() => reviewClaim(claim.id, 'approve')} disabled={Boolean(claimSavingId)} className={BTN}>
-                    {claimSavingId === `${claim.id}:approve` ? 'Approving...' : 'Approve & Issue Receipt'}
-                  </button>
-                  <button onClick={() => reviewClaim(claim.id, 'reject')} disabled={Boolean(claimSavingId)} className={OUTLINE_BTN}>
-                    {claimSavingId === `${claim.id}:reject` ? 'Rejecting...' : 'Reject Claim'}
-                  </button>
-                </div>
-              ) : null}
-            </article>
-          ))}
-        </div>
-      </div>
+              <div className="flex flex-wrap items-end gap-3">
+                <label className="min-w-[220px] text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">
+                  Payment Status Filter
+                  <select
+                    value={statusFilter}
+                    onChange={(event) => setStatusFilter(event.target.value)}
+                    className={`${INPUT} mt-2`}
+                  >
+                    {PAYMENT_STATUS_FILTERS.map((filterOption) => (
+                      <option key={filterOption.value} value={filterOption.value}>{filterOption.label}</option>
+                    ))}
+                  </select>
+                </label>
+                <button onClick={applyFeesToAll} className={BTN}>Apply Fee To All</button>
+                <button onClick={addNewColumn} className={OUTLINE_BTN}>Add Fee Heading</button>
+                <button onClick={saveTemplate} disabled={savingTemplate} className={BTN}>
+                  {savingTemplate ? 'Saving...' : dirty ? 'Save Template *' : 'Save Template'}
+                </button>
+                <button onClick={handleBulkIssueReceipts} disabled={bulkIssuing || !actionableReceiptStudents.length} className={BTN}>
+                  {bulkIssuing ? 'Issuing Receipts...' : `Bulk Issue Receipts (${actionableReceiptStudents.length})`}
+                </button>
+                <button onClick={handleBulkDownloadReceipts} disabled={bulkDownloading || !downloadableReceipts.length} className={OUTLINE_BTN}>
+                  {bulkDownloading ? 'Preparing Download...' : `Bulk Download Receipts (${downloadableReceipts.length})`}
+                </button>
+                <button onClick={() => setFeesExpanded((current) => !current)} className={OUTLINE_BTN}>
+                  {feesExpanded ? 'Collapse' : 'Expand'}
+                </button>
+              </div>
+            </div>
+          </div>
 
-      <div className={CARD}>
-        <p className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">Template behavior</p>
-        <p className="mt-2 text-sm text-[#191970] dark:text-[#39ff14]">
-          Editing a fee cell updates that student&apos;s class template locally. Use Save Template to persist those fee headings and amounts for the session.
-        </p>
-      </div>
+          <div className={CARD}>
+            <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+              <div>
+                <h3 className="text-2xl font-bold text-[#800000] dark:text-[#0000ff]">Session Timeline</h3>
+                <p className="mt-2 text-sm text-[#191970] dark:text-[#39ff14]">
+                  Fees always bind to the current school session and term. Past sessions stay visible as collapsible history.
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                <span className={BADGE}>Current Session: {sessionLabel || 'Not set'}</span>
+                <span className={BADGE}>Current Term: {currentTerm || 'Not set'}</span>
+              </div>
+            </div>
 
-      <div className={CARD}>
-        <div className="overflow-x-auto">
-          <table className="min-w-[2300px] w-full text-sm">
-            <thead>
-              <tr>
-                <th className={TH}>S/N</th>
-                <th className={TH}>Student ID</th>
-                <th className={TH}>Student Name</th>
-                <th className={TH}>Class</th>
-                <th className={TH}>Outstanding</th>
-                {feeColumns.map((feeName) => (
-                  <th key={feeName} className={TH}>{feeName}</th>
+            <div className="mt-5 grid gap-4 lg:grid-cols-[0.85fr_1.15fr]">
+              <div className={INNER}>
+                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#800020] dark:text-[#bf00ff]">Active Period</p>
+                <h4 className="mt-3 text-2xl font-black text-[#800000] dark:text-white">{sessionLabel || 'No current session'}</h4>
+                <p className="mt-2 text-sm font-semibold text-[#191970] dark:text-[#39ff14]">{currentTerm || 'No current term set'}</p>
+                <p className="mt-3 text-sm text-[#191970] dark:text-[#39ff14]">
+                  Update the active period from school settings when the school moves to a new session or term.
+                </p>
+              </div>
+
+              <div className="space-y-3">
+                {!pastSessionGroups.length ? <p className="text-sm text-[#800020] dark:text-[#bf00ff]">No past sessions have been recorded yet.</p> : null}
+                {pastSessionGroups.map((entry) => (
+                  <details key={entry.session} className={`${INNER} group`}>
+                    <summary className="flex cursor-pointer list-none items-center justify-between gap-3">
+                      <div>
+                        <p className="text-sm font-black text-[#800000] dark:text-white">{entry.session}</p>
+                        <p className="mt-1 text-xs font-semibold uppercase tracking-[0.14em] text-[#800020] dark:text-[#bf00ff]">
+                          {entry.terms?.length || 0} {entry.terms?.length === 1 ? 'term' : 'terms'}
+                        </p>
+                      </div>
+                      <span className="text-xs font-semibold uppercase tracking-[0.14em] text-[#800020] dark:text-[#bf00ff] group-open:rotate-180">Open</span>
+                    </summary>
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      {(entry.terms || []).map((termItem) => (
+                        <span key={`${entry.session}-${termItem.term || 'term'}`} className={BADGE}>{termItem.term || 'Recorded term'}</span>
+                      ))}
+                    </div>
+                  </details>
                 ))}
-                <th className={TH}>Total</th>
-                <th className={TH}>Discount %</th>
-                <th className={TH}>Expected Amount</th>
-                <th className={TH}>Amount Paid</th>
-                <th className={TH}>Balance</th>
-                <th className={TH}>Remark</th>
-                <th className={TH}>Receipt</th>
-              </tr>
-            </thead>
+              </div>
+            </div>
+          </div>
 
-            <tbody>
-              {filteredStudents.map((student, index) => (
-                <tr key={student.id} className="bg-white/35 hover:bg-white/60 dark:bg-[#120014]/55 dark:hover:bg-[#1a0020]">
-                  <td className={TD}>{index + 1}</td>
-                  <td className={TD}>{student.displayId || student.id}</td>
-                  <td className={TD}>
-                    <div className="min-w-[220px]">
-                      <p className="font-semibold text-[#191970] dark:text-white">{student.name}</p>
-                      <p className="mt-1 text-xs uppercase tracking-[0.12em] text-[#800020] dark:text-[#bf00ff]">{student.section}</p>
-                    </div>
-                  </td>
-                  <td className={TD}>
-                    <div>
-                      <p className="font-semibold text-[#191970] dark:text-white">{student.className}</p>
-                      <p className="mt-1 text-xs text-[#800020] dark:text-[#bf00ff]">Class template</p>
-                    </div>
-                  </td>
-                  <td className={TD}>
-                    <input
-                      type="number"
-                      value={student.outstanding}
-                      onChange={(event) => updateField(index, 'outstanding', event.target.value)}
-                      className={INPUT}
-                    />
-                  </td>
-                  {feeColumns.map((feeName) => (
-                    <td key={`${student.id}-${feeName}`} className={TD}>
-                      <input
-                        type="number"
-                        value={student.fees?.[feeName] || 0}
-                        onChange={(event) => updateFee(index, feeName, event.target.value)}
-                        className={INPUT}
-                      />
-                    </td>
-                  ))}
-                  <td className={`${TD} font-bold text-[#800000] dark:text-[#0000ff]`}>{formatNaira(calculateTotal(student))}</td>
-                  <td className={TD}>
-                    <input
-                      type="number"
-                      value={student.discount}
-                      onChange={(event) => updateField(index, 'discount', event.target.value)}
-                      className={INPUT}
-                    />
-                  </td>
-                  <td className={`${TD} font-bold text-[#1a5c38] dark:text-[#00ffff]`}>{formatNaira(expectedAmount(student))}</td>
-                  <td className={TD}>
-                    <input
-                      type="number"
-                      value={student.amountPaid}
-                      onChange={(event) => updateField(index, 'amountPaid', event.target.value)}
-                      onBlur={() => persistAmountPaid(student.id)}
-                      disabled={paymentSavingId === student.id}
-                      className={INPUT}
-                    />
-                    <p className="mt-1 text-xs text-[#800020] dark:text-[#bf00ff]">
-                      {paymentSavingId === student.id ? 'Saving payment...' : 'Blur to record payment'}
+          {feesExpanded ? (
+            <>
+              <div className={CARD}>
+                <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+                  <div>
+                    <h3 className="text-2xl font-bold text-[#800000] dark:text-[#0000ff]">Payment Claim Queue</h3>
+                    <p className="mt-2 text-sm text-[#191970] dark:text-[#39ff14]">
+                      Approve verified parent claims to move the ledger forward. Finance can issue the receipt later from the student row.
                     </p>
-                  </td>
-                  <td className={`${TD} font-bold ${balance(student) <= 0 ? 'text-[#1a5c38] dark:text-[#00ffff]' : 'text-[#800000] dark:text-[#ff6bff]'}`}>
-                    {formatNaira(balance(student))}
-                  </td>
-                  <td className={TD}>
-                    <input
-                      value={student.remark}
-                      onChange={(event) => updateField(index, 'remark', event.target.value)}
-                      placeholder={getStatus(student)}
-                      className={INPUT}
-                    />
-                  </td>
-                  <td className={TD}>
-                    <button onClick={() => issueReceipt(student)} className={BTN}>Receipt</button>
-                  </td>
-                </tr>
-              ))}
+                  </div>
+                  <span className={BADGE}>{pendingClaims.length} Pending</span>
+                </div>
 
-              <tr className="bg-[#f0d090] font-bold dark:bg-[#220022]">
-                <td colSpan={4} className={TD}>TOTAL</td>
-                <td className={TD}>{formatNaira(columnTotals.outstanding)}</td>
-                {feeColumns.map((feeName) => (
-                  <td key={`total-${feeName}`} className={TD}>{formatNaira(columnTotals[feeName])}</td>
-                ))}
-                <td className={TD}>{formatNaira(columnTotals.total)}</td>
-                <td className={TD}>-</td>
-                <td className={TD}>{formatNaira(columnTotals.expected)}</td>
-                <td className={TD}>{formatNaira(columnTotals.paid)}</td>
-                <td className={TD}>{formatNaira(columnTotals.balance)}</td>
-                <td className={TD}>-</td>
-                <td className={TD}>-</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
+                <div className="mt-5 space-y-4">
+                  {!recentClaims.length ? <p className="text-sm text-[#800020] dark:text-[#bf00ff]">No payment claims have been submitted yet.</p> : null}
+                  {recentClaims.map(claim => (
+                    <article key={claim.id} className={`${INNER} space-y-4`}>
+                      <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+                        <div className="space-y-2">
+                          <p className="text-lg font-bold text-[#191970] dark:text-white">{claim.studentName} • {formatNaira(claim.amount)}</p>
+                          <p className="text-sm text-[#191970] dark:text-[#39ff14]">{claim.claimantName || 'Parent'} • {claim.paymentMethod || 'bank-transfer'} • {claim.paidAt || claim.claimedAt || 'Recently submitted'}</p>
+                          <div className="flex flex-wrap gap-2">
+                            <span className={BADGE}>{claim.className || 'No class assigned'}</span>
+                            <span className={BADGE}>{claim.paymentReference || 'No reference supplied'}</span>
+                            {claim.receiptNo ? <span className={BADGE}>Receipt {claim.receiptNo}</span> : null}
+                          </div>
+                          {claim.paymentNote ? <p className="text-sm text-[#191970] dark:text-[#39ff14]">{claim.paymentNote}</p> : null}
+                          {claim.verificationNote && String(claim.status || '').toLowerCase() !== 'pending' ? <p className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">Finance note: {claim.verificationNote}</p> : null}
+                        </div>
+                        <span className={BADGE}>{getClaimStatusLabel(claim.status)}</span>
+                      </div>
 
-      <div className="grid grid-cols-1 gap-5 md:grid-cols-4">
-        <div className={CARD}>
-          <p className="text-sm font-semibold uppercase tracking-[0.14em] text-[#800020] dark:text-[#bf00ff]">Total Expected</p>
-          <h3 className="mt-3 text-3xl font-bold text-[#800000] dark:text-[#0000ff]">{formatNaira(columnTotals.expected)}</h3>
-        </div>
-        <div className={CARD}>
-          <p className="text-sm font-semibold uppercase tracking-[0.14em] text-[#800020] dark:text-[#bf00ff]">Total Paid</p>
-          <h3 className="mt-3 text-3xl font-bold text-[#1a5c38] dark:text-[#00ffff]">{formatNaira(columnTotals.paid)}</h3>
-        </div>
-        <div className={CARD}>
-          <p className="text-sm font-semibold uppercase tracking-[0.14em] text-[#800020] dark:text-[#bf00ff]">Outstanding Balance</p>
-          <h3 className="mt-3 text-3xl font-bold text-[#800000] dark:text-[#ff6bff]">{formatNaira(columnTotals.balance)}</h3>
-        </div>
-        <div className={CARD}>
-          <p className="text-sm font-semibold uppercase tracking-[0.14em] text-[#800020] dark:text-[#bf00ff]">Students Count</p>
-          <h3 className="mt-3 text-3xl font-bold text-[#800000] dark:text-[#0000ff]">{filteredStudents.length}</h3>
-        </div>
-      </div>
+                      {String(claim.status || '').toLowerCase() === 'pending' ? (
+                        <div className="grid gap-3 lg:grid-cols-[1fr_auto_auto]">
+                          <input
+                            value={claim.reviewNote || ''}
+                            onChange={(event) => updateClaimReviewNote(claim.id, event.target.value)}
+                            className={INPUT}
+                            placeholder="Optional finance note for the parent"
+                          />
+                          <button onClick={() => reviewClaim(claim.id, 'approve')} disabled={Boolean(claimSavingId)} className={BTN}>
+                            {claimSavingId === `${claim.id}:approve` ? 'Approving...' : 'Approve Claim'}
+                          </button>
+                          <button onClick={() => reviewClaim(claim.id, 'reject')} disabled={Boolean(claimSavingId)} className={OUTLINE_BTN}>
+                            {claimSavingId === `${claim.id}:reject` ? 'Rejecting...' : 'Reject Claim'}
+                          </button>
+                        </div>
+                      ) : null}
+                    </article>
+                  ))}
+                </div>
+              </div>
+
+              <div className={CARD}>
+                <p className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">Template behavior</p>
+                <p className="mt-2 text-sm text-[#191970] dark:text-[#39ff14]">
+                  Editing a fee cell updates that student&apos;s class template locally. Save Template persists the active-session configuration; Issue Receipt releases the latest finance snapshot.
+                </p>
+              </div>
+
+              <div className={CARD}>
+                <div className="overflow-x-auto">
+                  <table className="min-w-[2300px] w-full text-sm">
+                    <thead>
+                      <tr>
+                        <th className={TH}>S/N</th>
+                        <th className={TH}>Student ID</th>
+                        <th className={TH}>Student Name</th>
+                        <th className={TH}>Class</th>
+                        <th className={TH}>Outstanding</th>
+                        {feeColumns.map((feeName) => (
+                          <th key={feeName} className={TH}>
+                            <div className="flex min-w-[160px] items-center justify-between gap-2">
+                              <span>{feeName}</span>
+                              <div className="flex items-center gap-1">
+                                <button type="button" onClick={() => renameFeeColumn(feeName)} className="rounded-full border border-white/30 px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.12em] text-white transition hover:bg-white/10">
+                                  Edit
+                                </button>
+                                <button type="button" onClick={() => removeFeeColumn(feeName)} className="rounded-full border border-white/30 px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.12em] text-white transition hover:bg-white/10">
+                                  Remove
+                                </button>
+                              </div>
+                            </div>
+                          </th>
+                        ))}
+                        <th className={TH}>Total</th>
+                        <th className={TH}>Discount %</th>
+                        <th className={TH}>Expected Amount</th>
+                        <th className={TH}>Amount Paid</th>
+                        <th className={TH}>Balance</th>
+                        <th className={TH}>Remark</th>
+                        <th className={TH}>Receipt</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      {filteredStudents.map((student, index) => {
+                        const receiptState = getReceiptState(student);
+                        return (
+                          <tr key={student.id} className="bg-white/35 hover:bg-white/60 dark:bg-[#120014]/55 dark:hover:bg-[#1a0020]">
+                            <td className={TD}>{index + 1}</td>
+                            <td className={TD}>{student.displayId || student.id}</td>
+                            <td className={TD}>
+                              <div className="min-w-[220px]">
+                                <p className="font-semibold text-[#191970] dark:text-white">{student.name}</p>
+                                <p className="mt-1 text-xs uppercase tracking-[0.12em] text-[#800020] dark:text-[#bf00ff]">{student.section}</p>
+                              </div>
+                            </td>
+                            <td className={TD}>
+                              <div>
+                                <p className="font-semibold text-[#191970] dark:text-white">{student.className}</p>
+                                <p className="mt-1 text-xs text-[#800020] dark:text-[#bf00ff]">Class template</p>
+                              </div>
+                            </td>
+                            <td className={TD}>
+                              <input
+                                type="number"
+                                value={student.outstanding}
+                                onChange={(event) => updateField(index, 'outstanding', event.target.value)}
+                                className={INPUT}
+                              />
+                            </td>
+                            {feeColumns.map((feeName) => (
+                              <td key={`${student.id}-${feeName}`} className={TD}>
+                                <input
+                                  type="number"
+                                  value={student.fees?.[feeName] || 0}
+                                  onChange={(event) => updateFee(index, feeName, event.target.value)}
+                                  className={INPUT}
+                                />
+                              </td>
+                            ))}
+                            <td className={`${TD} font-bold text-[#800000] dark:text-[#0000ff]`}>{formatNaira(calculateTotal(student))}</td>
+                            <td className={TD}>
+                              <input
+                                type="number"
+                                value={student.discount}
+                                onChange={(event) => updateField(index, 'discount', event.target.value)}
+                                className={INPUT}
+                              />
+                            </td>
+                            <td className={`${TD} font-bold text-[#1a5c38] dark:text-[#00ffff]`}>{formatNaira(expectedAmount(student))}</td>
+                            <td className={TD}>
+                              <input
+                                type="number"
+                                value={student.amountPaid}
+                                onChange={(event) => updateField(index, 'amountPaid', event.target.value)}
+                                onBlur={() => persistAmountPaid(student.id)}
+                                disabled={paymentSavingId === student.id}
+                                className={INPUT}
+                              />
+                              <p className="mt-1 text-xs text-[#800020] dark:text-[#bf00ff]">
+                                {paymentSavingId === student.id ? 'Saving payment...' : 'Blur to record payment'}
+                              </p>
+                            </td>
+                            <td className={`${TD} font-bold ${balance(student) <= 0 ? 'text-[#1a5c38] dark:text-[#00ffff]' : 'text-[#800000] dark:text-[#ff6bff]'}`}>
+                              {formatNaira(balance(student))}
+                            </td>
+                            <td className={TD}>
+                              <input
+                                value={student.remark}
+                                onChange={(event) => updateField(index, 'remark', event.target.value)}
+                                placeholder={getStatus(student)}
+                                className={INPUT}
+                              />
+                            </td>
+                            <td className={TD}>
+                              <div className="min-w-[170px] space-y-2">
+                                <button
+                                  onClick={() => handleIssueReceipt(student)}
+                                  disabled={receiptState.disabled || receiptIssuingId === student.id || bulkIssuing}
+                                  className={receiptState.key === 'issued' ? OUTLINE_BTN : BTN}
+                                >
+                                  {receiptIssuingId === student.id
+                                    ? receiptState.key === 'reissue' ? 'Reissuing...' : 'Issuing...'
+                                    : receiptState.label}
+                                </button>
+                                {receiptState.latestReceipt ? (
+                                  <p className="text-xs font-semibold text-[#800020] dark:text-[#bf00ff]">
+                                    Latest: {receiptState.latestReceipt.receiptNo}
+                                  </p>
+                                ) : (
+                                  <p className="text-xs text-[#800020] dark:text-[#bf00ff]">No official receipt yet.</p>
+                                )}
+                              </div>
+                            </td>
+                          </tr>
+                        );
+                      })}
+
+                      <tr className="bg-[#f0d090] font-bold dark:bg-[#220022]">
+                        <td colSpan={4} className={TD}>TOTAL</td>
+                        <td className={TD}>{formatNaira(columnTotals.outstanding)}</td>
+                        {feeColumns.map((feeName) => (
+                          <td key={`total-${feeName}`} className={TD}>{formatNaira(columnTotals[feeName])}</td>
+                        ))}
+                        <td className={TD}>{formatNaira(columnTotals.total)}</td>
+                        <td className={TD}>-</td>
+                        <td className={TD}>{formatNaira(columnTotals.expected)}</td>
+                        <td className={TD}>{formatNaira(columnTotals.paid)}</td>
+                        <td className={TD}>{formatNaira(columnTotals.balance)}</td>
+                        <td className={TD}>-</td>
+                        <td className={TD}>-</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 gap-5 md:grid-cols-4">
+                <div className={CARD}>
+                  <p className="text-sm font-semibold uppercase tracking-[0.14em] text-[#800020] dark:text-[#bf00ff]">Total Expected</p>
+                  <h3 className="mt-3 text-3xl font-bold text-[#800000] dark:text-[#0000ff]">{formatNaira(columnTotals.expected)}</h3>
+                </div>
+                <div className={CARD}>
+                  <p className="text-sm font-semibold uppercase tracking-[0.14em] text-[#800020] dark:text-[#bf00ff]">Total Paid</p>
+                  <h3 className="mt-3 text-3xl font-bold text-[#1a5c38] dark:text-[#00ffff]">{formatNaira(columnTotals.paid)}</h3>
+                </div>
+                <div className={CARD}>
+                  <p className="text-sm font-semibold uppercase tracking-[0.14em] text-[#800020] dark:text-[#bf00ff]">Outstanding Balance</p>
+                  <h3 className="mt-3 text-3xl font-bold text-[#800000] dark:text-[#ff6bff]">{formatNaira(columnTotals.balance)}</h3>
+                </div>
+                <div className={CARD}>
+                  <p className="text-sm font-semibold uppercase tracking-[0.14em] text-[#800020] dark:text-[#bf00ff]">Students Count</p>
+                  <h3 className="mt-3 text-3xl font-bold text-[#800000] dark:text-[#0000ff]">{filteredStudents.length}</h3>
+                </div>
+              </div>
+            </>
+          ) : null}
+        </>
+      ) : null}
 
       <FeeReceiptDialog
         receipt={selectedReceipt}

@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import useFeatureFlags from '../hooks/useFeatureFlags';
+import { getTenantPwaInfo } from '../hooks/useTenantPwaManifest';
 
 const noop = () => {};
 
@@ -449,11 +450,12 @@ function getRoleSidebarItems(roleKey) {
   ];
 }
 
-export default function Sidebar({ mobileOpen = false, onClose = noop }) {
+export default function Sidebar({ auth = null, mobileOpen = false, onClose = noop }) {
   const location = useLocation();
   const inRoleMode = location.pathname.startsWith('/roles/');
   const roleKey = inRoleMode ? location.pathname.split('/')[2] : null;
   const { featureFlags } = useFeatureFlags();
+  const tenantBranding = auth?.user?.tenantId && auth?.user?.role !== 'ami' ? getTenantPwaInfo() : null;
   const sidebarItemsRaw = inRoleMode && roleKey ? getRoleSidebarItems(roleKey) : defaultSidebarItems;
   const adminEntry = { name: 'Library Admin', path: '/library/admin' };
   const adminRoles = new Set(['hos', 'admin', 'librarian', 'teacher']);
@@ -465,6 +467,8 @@ export default function Sidebar({ mobileOpen = false, onClose = noop }) {
       return true;
     });
   const nodeTitle = inRoleMode && roleKey ? roleLabels[roleKey] || 'Role Dashboard' : 'Institution Dashboard';
+  const schoolName = tenantBranding?.schoolName || 'NDOVERA';
+  const schoolLogoUrl = tenantBranding?.logoUrl || '';
 
   useEffect(() => {
     onClose();
@@ -490,7 +494,14 @@ export default function Sidebar({ mobileOpen = false, onClose = noop }) {
           <div className="mb-4 flex items-start justify-between gap-3 md:block">
             <div>
               <p className="micro-label text-slate-500 dark:text-[#f5deb3] neon-subtle mb-2">{nodeTitle}</p>
-              <div className="font-black tracking-tighter text-xl text-indigo-700 dark:text-[#f5deb3]">NDOVERA</div>
+              <div className="flex items-center gap-3">
+                {schoolLogoUrl ? (
+                  <div className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-2xl border border-slate-200/60 bg-white/80 p-1.5 dark:border-indigo-500/25 dark:bg-slate-950/40">
+                    <img src={schoolLogoUrl} alt={`${schoolName} logo`} className="h-full w-full object-contain" />
+                  </div>
+                ) : null}
+                <div className="font-black tracking-tighter text-xl text-indigo-700 dark:text-[#f5deb3]">{schoolName}</div>
+              </div>
             </div>
             <button
               type="button"

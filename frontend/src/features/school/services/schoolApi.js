@@ -155,8 +155,10 @@ export const linkParentStudent = (data) => req('/api/school/parent-student-link'
 // Fees
 export const getFeesConfig = () => req('/api/school/fees-config');
 export const saveFeesConfig = (data) => req('/api/school/fees-config', { method: 'POST', body: data });
+export const saveFeesConfigSnapshot = (data) => req('/api/school/fees-config/snapshot', { method: 'PUT', body: data });
 export const getFeesLedger = () => req('/api/school/fees-ledger');
 export const getFeeReceipts = () => req('/api/school/fees-receipts');
+export const issueFeeReceipt = (studentId) => req(`/api/school/fees/${studentId}/issue-receipt`, { method: 'POST' });
 export const getFeesPaymentDetails = () => req('/api/school/fees/payment-details');
 export const saveFeesPaymentDetails = (data) => req('/api/school/fees/payment-details', { method: 'POST', body: data });
 export const getFeePaymentClaims = () => req('/api/school/fees/payment-claims');

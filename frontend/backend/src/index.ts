@@ -967,26 +967,23 @@ async function getTenantSchoolBranding(db: D1Database, tenant: Record<string, an
       website: '',
       websiteUrl: '',
       subdomain: '',
+      facebook: '',
+      instagram: '',
+      tiktok: '',
+      youtube: '',
+      whatsapp: '',
     }
   }
 
   let row: Record<string, any> | null = null
   try {
-    await db.prepare(INIT_BRANDING).run()
+    await ensureBrandingTable(db)
     row = await db.prepare(`SELECT * FROM tenant_branding WHERE tenant_id = ?`).bind(tenant.id).first() as Record<string, any> | null
   } catch {
     row = null
   }
 
-  const websiteUrl = row?.website || (tenant.websiteDomain ? `https://${tenant.websiteDomain}` : null)
-  return {
-    schoolName: String(tenant.schoolName || '').trim(),
-    logoUrl: String(row?.logo_url || '').trim(),
-    tagline: String(row?.tagline || '').trim(),
-    website: String(websiteUrl || '').trim(),
-    websiteUrl: String(websiteUrl || '').trim(),
-    subdomain: String(tenant.requestedSubdomain || '').trim(),
-  }
+  return mapTenantBranding(tenant, row)
 }
 
 function getSuggestedResultSettings() {
@@ -1317,8 +1314,8 @@ async function getStudentFeeStatus(db: D1Database, tenantId: string, studentId: 
 }
 
 const FEES_LEDGER_DDL = `CREATE TABLE IF NOT EXISTS fees_ledger (id TEXT PRIMARY KEY, tenant_id TEXT, student_id TEXT, student_name TEXT, class_id TEXT, class_name TEXT, fee_amount REAL, amount_paid REAL, status TEXT, updated_at TEXT)`
-const FEES_CONFIG_DDL = `CREATE TABLE IF NOT EXISTS fees_config (id TEXT PRIMARY KEY, tenant_id TEXT, fee_type TEXT, class_id TEXT, amount REAL, session TEXT, created_at TEXT)`
-const FEES_PAYMENT_RECEIPTS_DDL = `CREATE TABLE IF NOT EXISTS fees_payment_receipts (id TEXT PRIMARY KEY, receipt_no TEXT, tenant_id TEXT, student_id TEXT, student_display_id TEXT, student_name TEXT, class_id TEXT, class_name TEXT, amount REAL, payment_type TEXT, payment_reference TEXT, fee_amount REAL, amount_paid_after REAL, balance_after REAL, status_after TEXT, recorded_by TEXT, verification_url TEXT, recorded_at TEXT)`
+const FEES_CONFIG_DDL = `CREATE TABLE IF NOT EXISTS fees_config (id TEXT PRIMARY KEY, tenant_id TEXT, fee_type TEXT, class_id TEXT, amount REAL, session TEXT, term TEXT, sort_order INTEGER, created_at TEXT, updated_at TEXT)`
+const FEES_PAYMENT_RECEIPTS_DDL = `CREATE TABLE IF NOT EXISTS fees_payment_receipts (id TEXT PRIMARY KEY, receipt_no TEXT, tenant_id TEXT, student_id TEXT, student_display_id TEXT, student_name TEXT, class_id TEXT, class_name TEXT, amount REAL, payment_type TEXT, payment_reference TEXT, fee_amount REAL, amount_paid_after REAL, balance_after REAL, status_after TEXT, recorded_by TEXT, verification_url TEXT, school_name TEXT, school_logo_url TEXT, session_name TEXT, term_name TEXT, receipt_kind TEXT, reissued_from_receipt_no TEXT, recorded_at TEXT)`
 const FEES_PAYMENT_CLAIMS_DDL = `CREATE TABLE IF NOT EXISTS fees_payment_claims (id TEXT PRIMARY KEY, tenant_id TEXT, student_id TEXT, student_name TEXT, class_id TEXT, class_name TEXT, claimant_user_id TEXT, claimant_name TEXT, claimant_role TEXT, amount REAL, payment_method TEXT, payer_name TEXT, payment_reference TEXT, payment_note TEXT, paid_at TEXT, status TEXT, account_name TEXT, account_number TEXT, bank_name TEXT, verified_by TEXT, verified_at TEXT, verification_note TEXT, receipt_id TEXT, receipt_no TEXT, created_at TEXT, updated_at TEXT)`
 const WEB_PUSH_SUBSCRIPTIONS_DDL = `CREATE TABLE IF NOT EXISTS web_push_subscriptions (id TEXT PRIMARY KEY, tenant_id TEXT, user_id TEXT, user_email TEXT, role_key TEXT, endpoint TEXT NOT NULL UNIQUE, p256dh TEXT, auth_secret TEXT, subscription_json TEXT, device_label TEXT, active INTEGER NOT NULL DEFAULT 1, created_at TEXT NOT NULL, updated_at TEXT NOT NULL, last_used_at TEXT)`
 const FEE_PAYMENT_APPROVER_ROLES = ['owner', 'hos', 'accountant']
@@ -1329,6 +1326,9 @@ async function ensureFeesLedgerTable(db: D1Database) {
 
 async function ensureFeesConfigTable(db: D1Database) {
   await db.prepare(FEES_CONFIG_DDL).run()
+  try { await db.exec('ALTER TABLE fees_config ADD COLUMN term TEXT') } catch {}
+  try { await db.exec('ALTER TABLE fees_config ADD COLUMN sort_order INTEGER') } catch {}
+  try { await db.exec('ALTER TABLE fees_config ADD COLUMN updated_at TEXT') } catch {}
 }
 
 async function ensureFeesPaymentReceiptsTable(db: D1Database) {
@@ -1336,10 +1336,20 @@ async function ensureFeesPaymentReceiptsTable(db: D1Database) {
   try { await db.exec('ALTER TABLE fees_payment_receipts ADD COLUMN student_display_id TEXT') } catch {}
   try { await db.exec('ALTER TABLE fees_payment_receipts ADD COLUMN payment_reference TEXT') } catch {}
   try { await db.exec('ALTER TABLE fees_payment_receipts ADD COLUMN verification_url TEXT') } catch {}
+  try { await db.exec('ALTER TABLE fees_payment_receipts ADD COLUMN school_name TEXT') } catch {}
+  try { await db.exec('ALTER TABLE fees_payment_receipts ADD COLUMN school_logo_url TEXT') } catch {}
+  try { await db.exec('ALTER TABLE fees_payment_receipts ADD COLUMN session_name TEXT') } catch {}
+  try { await db.exec('ALTER TABLE fees_payment_receipts ADD COLUMN term_name TEXT') } catch {}
+  try { await db.exec('ALTER TABLE fees_payment_receipts ADD COLUMN receipt_kind TEXT') } catch {}
+  try { await db.exec('ALTER TABLE fees_payment_receipts ADD COLUMN reissued_from_receipt_no TEXT') } catch {}
 }
 
 async function ensureFeesPaymentClaimsTable(db: D1Database) {
   await db.prepare(FEES_PAYMENT_CLAIMS_DDL).run()
+}
+
+async function ensureSchoolSessionsTable(db: D1Database) {
+  await db.prepare(`CREATE TABLE IF NOT EXISTS school_sessions (id TEXT PRIMARY KEY, tenantId TEXT, session TEXT, term TEXT, startDate TEXT, endDate TEXT, createdAt TEXT)`).run()
 }
 
 async function ensureWebPushSubscriptionsTable(db: D1Database) {
@@ -1369,6 +1379,196 @@ async function saveFeesPaymentDetails(db: D1Database, tenantId: string, payload:
   const normalized = normalizeFeesPaymentDetails(payload)
   await upsertSettings(db, getFeesPaymentDetailsSettingsKey(tenantId), normalized)
   return normalized
+}
+
+async function getCurrentSchoolSessionSnapshot(db: D1Database, tenantId: string) {
+  await ensureSchoolSessionsTable(db)
+  const row = await db.prepare(
+    `SELECT session, term FROM school_sessions WHERE tenantId = ? ORDER BY createdAt DESC LIMIT 1`
+  ).bind(tenantId).first() as Record<string, any> | null
+
+  return {
+    sessionName: String(row?.session || '').trim(),
+    termName: String(row?.term || '').trim(),
+  }
+}
+
+function normalizeFeeConfigPeriodValue(value: unknown) {
+  return sanitizeProfileText(String(value || '').trim(), 120)
+}
+
+function mapFeeConfigRow(row: Record<string, any>) {
+  return {
+    id: String(row.id || ''),
+    tenantId: String(row.tenant_id || ''),
+    feeType: String(row.fee_type || row.feeType || '').trim(),
+    classId: String(row.class_id || row.classId || '').trim(),
+    amount: Number(row.amount || 0),
+    session: String(row.session || '').trim(),
+    term: String(row.term || '').trim(),
+    sortOrder: Number(row.sort_order || row.sortOrder || 0),
+    createdAt: String(row.created_at || ''),
+    updatedAt: String(row.updated_at || row.created_at || ''),
+  }
+}
+
+function filterFeeConfigRowsForPeriod(configRows: Record<string, any>[] = [], sessionName: unknown, termName: unknown) {
+  const normalizedSession = String(sessionName || '').trim().toLowerCase()
+  const normalizedTerm = String(termName || '').trim().toLowerCase()
+
+  if (!normalizedSession && !normalizedTerm) {
+    return configRows
+  }
+
+  const exactRows = configRows.filter((config) => {
+    const configSession = String(config.session || config.sessionName || '').trim().toLowerCase()
+    const configTerm = String(config.term || config.termName || '').trim().toLowerCase()
+    if (!configSession) return false
+    if (configSession !== normalizedSession) return false
+    if (!normalizedTerm) return true
+    return !configTerm || configTerm === normalizedTerm
+  })
+  if (exactRows.length) return exactRows
+
+  const legacyRows = configRows.filter((config) => {
+    const configSession = String(config.session || config.sessionName || '').trim()
+    const configTerm = String(config.term || config.termName || '').trim()
+    return !configSession && !configTerm
+  })
+
+  return legacyRows.length ? legacyRows : configRows
+}
+
+async function listSchoolSessionHistory(db: D1Database, tenantId: string) {
+  await ensureSchoolSessionsTable(db)
+  const rows = await db.prepare(
+    `SELECT * FROM school_sessions WHERE tenantId = ? ORDER BY createdAt DESC`
+  ).bind(tenantId).all().catch(() => ({ results: [] }))
+
+  const deduped = [] as Array<Record<string, any>>
+  const seen = new Set<string>()
+
+  for (const row of ((rows.results || []) as Record<string, any>[])) {
+    const sessionName = String(row.session || '').trim()
+    const termName = String(row.term || '').trim()
+    if (!sessionName && !termName) continue
+
+    const key = `${sessionName.toLowerCase()}::${termName.toLowerCase()}`
+    if (seen.has(key)) continue
+    seen.add(key)
+
+    deduped.push({
+      id: String(row.id || ''),
+      session: sessionName,
+      term: termName,
+      startDate: String(row.startDate || ''),
+      endDate: String(row.endDate || ''),
+      createdAt: String(row.createdAt || ''),
+    })
+  }
+
+  const historyMap = new Map<string, { session: string, createdAt: string, terms: Array<Record<string, any>> }>()
+  for (const row of deduped) {
+    const sessionName = String(row.session || '').trim()
+    if (!sessionName) continue
+    if (!historyMap.has(sessionName)) {
+      historyMap.set(sessionName, { session: sessionName, createdAt: String(row.createdAt || ''), terms: [] })
+    }
+    historyMap.get(sessionName)?.terms.push({
+      term: String(row.term || '').trim(),
+      startDate: String(row.startDate || ''),
+      endDate: String(row.endDate || ''),
+      createdAt: String(row.createdAt || ''),
+    })
+  }
+
+  return {
+    current: deduped[0] || null,
+    history: Array.from(historyMap.values()),
+  }
+}
+
+async function replaceFeesConfigSnapshot(db: D1Database, options: {
+  tenantId: string
+  sessionName?: unknown
+  termName?: unknown
+  configs?: Array<Record<string, any>>
+}) {
+  await ensureFeesConfigTable(db)
+
+  const sessionName = normalizeFeeConfigPeriodValue(options.sessionName)
+  const termName = normalizeFeeConfigPeriodValue(options.termName)
+  const now = new Date().toISOString()
+  const incoming = Array.isArray(options.configs) ? options.configs : []
+  const normalizedMap = new Map<string, Record<string, any>>()
+
+  incoming.forEach((config, index) => {
+    const feeType = sanitizeProfileText(String(config.feeType || config.fee_type || '').trim(), 120)
+    if (!feeType) return
+
+    const classId = String(config.classId || config.class_id || '').trim()
+    const key = `${classId || '__all__'}::${feeType.toLowerCase()}`
+    normalizedMap.set(key, {
+      feeType,
+      classId,
+      amount: Number(config.amount || 0),
+      sortOrder: Number(config.sortOrder ?? config.sort_order ?? index),
+    })
+  })
+
+  await db.prepare(
+    `DELETE FROM fees_config WHERE tenant_id = ? AND session = ? AND term = ?`
+  ).bind(options.tenantId, sessionName, termName).run()
+
+  const normalized = Array.from(normalizedMap.values()).sort((left, right) => Number(left.sortOrder || 0) - Number(right.sortOrder || 0))
+
+  for (const config of normalized) {
+    const id = [
+      'fc',
+      options.tenantId,
+      slugifyValue(sessionName || 'session').slice(0, 24) || 'session',
+      slugifyValue(termName || 'term').slice(0, 16) || 'term',
+      slugifyValue(config.classId || 'all').slice(0, 24) || 'all',
+      slugifyValue(config.feeType).slice(0, 40) || 'fee',
+    ].join('_')
+
+    await db.prepare(
+      `INSERT OR REPLACE INTO fees_config (id, tenant_id, fee_type, class_id, amount, session, term, sort_order, created_at, updated_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, COALESCE((SELECT created_at FROM fees_config WHERE id = ?), ?), ?)`
+    ).bind(
+      id,
+      options.tenantId,
+      config.feeType,
+      config.classId || null,
+      Number(config.amount || 0),
+      sessionName,
+      termName,
+      Number(config.sortOrder || 0),
+      id,
+      now,
+      now,
+    ).run()
+  }
+
+  return normalized.map((config) => ({
+    id: [
+      'fc',
+      options.tenantId,
+      slugifyValue(sessionName || 'session').slice(0, 24) || 'session',
+      slugifyValue(termName || 'term').slice(0, 16) || 'term',
+      slugifyValue(config.classId || 'all').slice(0, 24) || 'all',
+      slugifyValue(config.feeType).slice(0, 40) || 'fee',
+    ].join('_'),
+    tenantId: options.tenantId,
+    feeType: config.feeType,
+    classId: config.classId,
+    amount: Number(config.amount || 0),
+    session: sessionName,
+    term: termName,
+    sortOrder: Number(config.sortOrder || 0),
+    createdAt: now,
+    updatedAt: now,
+  }))
 }
 
 function deriveFeeLedgerStatus(feeAmount: unknown, amountPaid: unknown, explicitStatus: unknown = '') {
@@ -2199,7 +2399,14 @@ function buildFeesConfigLookup(configRows: Record<string, any>[] = []) {
   const feeLookup = {} as Record<string, number>
   const feeTypes = new Set<string>()
 
-  for (const config of configRows) {
+  const orderedRows = [...configRows].sort((left, right) => {
+    const leftOrder = Number(left.sort_order || left.sortOrder || 0)
+    const rightOrder = Number(right.sort_order || right.sortOrder || 0)
+    if (leftOrder !== rightOrder) return leftOrder - rightOrder
+    return String(left.fee_type || left.feeType || '').localeCompare(String(right.fee_type || right.feeType || ''))
+  })
+
+  for (const config of orderedRows) {
     const feeType = String(config.fee_type || config.feeType || '').trim()
     if (!feeType) continue
 
@@ -2300,6 +2507,7 @@ async function listVisibleFeeLedgerEntries(db: D1Database, currentUser: Record<s
 
   await ensureFeesLedgerTable(db)
   await ensureFeesConfigTable(db)
+  const currentSession = await getCurrentSchoolSessionSnapshot(db, tenantId)
 
   const studentIds = Array.from(new Set(students.map(student => String(student.id || '').trim()).filter(Boolean)))
   const ledgerMap = new Map<string, Record<string, any>>()
@@ -2316,9 +2524,14 @@ async function listVisibleFeeLedgerEntries(db: D1Database, currentUser: Record<s
   }
 
   const configRows = await db.prepare(
-    `SELECT * FROM fees_config WHERE tenant_id = ? ORDER BY created_at DESC`
+    `SELECT * FROM fees_config WHERE tenant_id = ? ORDER BY session DESC, term DESC, sort_order ASC, updated_at DESC, created_at DESC`
   ).bind(tenantId).all().catch(() => ({ results: [] }))
-  const { feeLookup, feeTypes } = buildFeesConfigLookup((configRows.results || []) as Record<string, any>[])
+  const activeConfigRows = filterFeeConfigRowsForPeriod(
+    (configRows.results || []) as Record<string, any>[],
+    currentSession.sessionName,
+    currentSession.termName,
+  )
+  const { feeLookup, feeTypes } = buildFeesConfigLookup(activeConfigRows)
 
   return {
     allowed: true,
@@ -2401,25 +2614,35 @@ async function listVisibleFeePaymentReceipts(db: D1Database, currentUser: Record
     allowed: true,
     tenantId: feeView.tenantId,
     role: feeView.role,
-    receipts: ((rows.results || []) as Record<string, any>[]).map(row => ({
-      id: String(row.id || ''),
-      receiptNo: String(row.receipt_no || row.id || ''),
-      studentId: String(row.student_id || ''),
-      studentDisplayId: String(row.student_display_id || ''),
-      studentName: String(row.student_name || ''),
-      classId: String(row.class_id || ''),
-      className: String(row.class_name || ''),
-      amount: Number(row.amount || 0),
-      paymentType: String(row.payment_type || 'cash'),
-      paymentReference: String(row.payment_reference || ''),
-      feeAmount: Number(row.fee_amount || 0),
-      amountPaidAfter: Number(row.amount_paid_after || 0),
-      balanceAfter: Number(row.balance_after || 0),
-      statusAfter: String(row.status_after || ''),
-      recordedBy: String(row.recorded_by || ''),
-      verificationUrl: String(row.verification_url || ''),
-      recordedAt: String(row.recorded_at || ''),
-    })),
+    receipts: ((rows.results || []) as Record<string, any>[]).map(mapFeePaymentReceiptRow),
+  }
+}
+
+function mapFeePaymentReceiptRow(row: Record<string, any>) {
+  return {
+    id: String(row.id || ''),
+    receiptNo: String(row.receipt_no || row.id || ''),
+    studentId: String(row.student_id || ''),
+    studentDisplayId: String(row.student_display_id || ''),
+    studentName: String(row.student_name || ''),
+    classId: String(row.class_id || ''),
+    className: String(row.class_name || ''),
+    amount: Number(row.amount || 0),
+    paymentType: String(row.payment_type || 'cash'),
+    paymentReference: String(row.payment_reference || ''),
+    feeAmount: Number(row.fee_amount || 0),
+    amountPaidAfter: Number(row.amount_paid_after || 0),
+    balanceAfter: Number(row.balance_after || 0),
+    statusAfter: String(row.status_after || ''),
+    recordedBy: String(row.recorded_by || ''),
+    verificationUrl: String(row.verification_url || ''),
+    schoolName: String(row.school_name || ''),
+    schoolLogoUrl: String(row.school_logo_url || ''),
+    sessionName: String(row.session_name || ''),
+    termName: String(row.term_name || ''),
+    receiptKind: String(row.receipt_kind || 'issued'),
+    reissuedFromReceiptNo: String(row.reissued_from_receipt_no || ''),
+    recordedAt: String(row.recorded_at || ''),
   }
 }
 
@@ -2597,7 +2820,6 @@ async function recordStudentFeePayment(db: D1Database, options: {
   verificationBaseUrl?: string
 }) {
   await ensureFeesLedgerTable(db)
-  await ensureFeesPaymentReceiptsTable(db)
 
   const existing = await db.prepare(
     `SELECT * FROM fees_ledger WHERE student_id = ? AND tenant_id = ?`
@@ -2617,9 +2839,6 @@ async function recordStudentFeePayment(db: D1Database, options: {
   const classId = String(hydratedStudent?.classId || existing?.class_id || '')
   const className = String(hydratedStudent?.className || existing?.class_name || '')
   const recordedAt = new Date().toISOString()
-  const receiptId = `fee_receipt_${options.tenantId}_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`
-  const receiptNo = buildFeeReceiptNumber(new Date(recordedAt))
-  const verificationUrl = buildFeeReceiptVerificationUrl(String(options.verificationBaseUrl || ''), receiptNo)
 
   if (existing) {
     await db.prepare(
@@ -2663,24 +2882,163 @@ async function recordStudentFeePayment(db: D1Database, options: {
     amountPaid: newPaid,
     previousPaid,
     status,
-    receipt: {
-      id: receiptId,
-      receiptNo,
+    balanceAfter,
+    feeAmount: resolvedFeeAmount,
+    paymentAmount,
+    paymentType: String(options.paymentType || 'cash'),
+    paymentReference: String(options.paymentReference || ''),
+    student: {
       studentId: options.studentId,
       studentDisplayId,
       studentName,
       classId,
       className,
-      amount: paymentAmount,
-      paymentType: String(options.paymentType || 'cash'),
-      paymentReference: String(options.paymentReference || ''),
-      feeAmount: resolvedFeeAmount,
-      amountPaidAfter: newPaid,
-      balanceAfter,
-      statusAfter: status,
+      recordedAt,
+    },
+  }
+}
+
+function hasFeeReceiptSnapshotChanged(current: Record<string, any>, latest: Record<string, any> | null) {
+  if (!latest) return false
+
+  return (
+    Number(current.feeAmount || 0) !== Number(latest.feeAmount || 0)
+    || Number(current.amountPaidAfter || 0) !== Number(latest.amountPaidAfter || 0)
+    || Number(current.balanceAfter || 0) !== Number(latest.balanceAfter || 0)
+    || String(current.statusAfter || '') !== String(latest.statusAfter || '')
+    || String(current.schoolName || '') !== String(latest.schoolName || '')
+    || String(current.schoolLogoUrl || '') !== String(latest.schoolLogoUrl || '')
+    || String(current.sessionName || '') !== String(latest.sessionName || '')
+    || String(current.termName || '') !== String(latest.termName || '')
+  )
+}
+
+async function issueStudentFeeReceipt(db: D1Database, options: {
+  tenantId: string
+  studentId: string
+  recordedBy: string
+  verificationBaseUrl?: string
+}) {
+  await ensureFeesLedgerTable(db)
+  await ensureFeesPaymentReceiptsTable(db)
+
+  const ledgerRow = await db.prepare(
+    `SELECT * FROM fees_ledger WHERE student_id = ? AND tenant_id = ?`
+  ).bind(options.studentId, options.tenantId).first() as Record<string, any> | null
+
+  if (!ledgerRow) {
+    return { success: false, action: 'missing-payment', receipt: null, latestReceipt: null, message: 'No recorded payment found for this student yet.' }
+  }
+
+  const currentPaid = Number(ledgerRow.amount_paid || 0)
+  if (!Number.isFinite(currentPaid) || currentPaid <= 0) {
+    return { success: false, action: 'missing-payment', receipt: null, latestReceipt: null, message: 'No recorded payment found for this student yet.' }
+  }
+
+  const studentRow = await findUserByIdentifier(db, options.studentId).catch(() => null)
+  const hydratedStudent = (await hydrateUserRecords(db, studentRow ? [studentRow] : []))[0] as Record<string, any> | undefined
+  const tenant = await getTenantById(db, options.tenantId).catch(() => null)
+  const tenantBranding = await getTenantSchoolBranding(db, tenant)
+  const currentSession = await getCurrentSchoolSessionSnapshot(db, options.tenantId)
+  const latestReceiptRow = await db.prepare(
+    `SELECT * FROM fees_payment_receipts WHERE tenant_id = ? AND student_id = ? ORDER BY recorded_at DESC LIMIT 1`
+  ).bind(options.tenantId, options.studentId).first() as Record<string, any> | null
+  const latestReceipt = latestReceiptRow ? mapFeePaymentReceiptRow(latestReceiptRow) : null
+
+  const snapshot = {
+    studentId: options.studentId,
+    studentDisplayId: String(hydratedStudent?.displayId || ledgerRow.student_display_id || ''),
+    studentName: String(hydratedStudent?.name || ledgerRow.student_name || options.studentId),
+    classId: String(hydratedStudent?.classId || ledgerRow.class_id || ''),
+    className: String(hydratedStudent?.className || ledgerRow.class_name || ''),
+    feeAmount: Number(ledgerRow.fee_amount || 0),
+    amountPaidAfter: currentPaid,
+    balanceAfter: Math.max(Number(ledgerRow.fee_amount || 0) - currentPaid, 0),
+    statusAfter: String(ledgerRow.status || deriveFeeLedgerStatus(ledgerRow.fee_amount, currentPaid, ledgerRow.status)),
+    schoolName: String(tenantBranding.schoolName || tenant?.schoolName || tenant?.name || 'NDOVERA School'),
+    schoolLogoUrl: String(tenantBranding.logoUrl || ''),
+    sessionName: String(currentSession.sessionName || ''),
+    termName: String(currentSession.termName || ''),
+  }
+
+  const pendingAmount = Math.max(snapshot.amountPaidAfter - Number(latestReceipt?.amountPaidAfter || 0), 0)
+  const needsReissue = pendingAmount <= 0 && hasFeeReceiptSnapshotChanged(snapshot, latestReceipt)
+
+  if (pendingAmount <= 0 && !needsReissue) {
+    return {
+      success: true,
+      action: 'already-issued',
+      receipt: latestReceipt,
+      latestReceipt,
+      message: 'The latest payment snapshot is already receipted.',
+    }
+  }
+
+  const receiptAmount = needsReissue ? Number(latestReceipt?.amount || 0) : pendingAmount
+  const recordedAt = new Date().toISOString()
+  const receiptId = `fee_receipt_${options.tenantId}_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`
+  const receiptNo = buildFeeReceiptNumber(new Date(recordedAt))
+  const verificationUrl = buildFeeReceiptVerificationUrl(String(options.verificationBaseUrl || ''), receiptNo)
+  const receiptKind = needsReissue ? 'reissue' : latestReceipt ? 'balance' : 'initial'
+
+  await db.prepare(
+    `INSERT INTO fees_payment_receipts (id, receipt_no, tenant_id, student_id, student_display_id, student_name, class_id, class_name, amount, payment_type, payment_reference, fee_amount, amount_paid_after, balance_after, status_after, recorded_by, verification_url, school_name, school_logo_url, session_name, term_name, receipt_kind, reissued_from_receipt_no, recorded_at)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+  ).bind(
+    receiptId,
+    receiptNo,
+    options.tenantId,
+    options.studentId,
+    snapshot.studentDisplayId || null,
+    snapshot.studentName,
+    snapshot.classId || null,
+    snapshot.className || null,
+    receiptAmount,
+    String(latestReceipt?.paymentType || 'cash'),
+    String(latestReceipt?.paymentReference || '') || null,
+    snapshot.feeAmount,
+    snapshot.amountPaidAfter,
+    snapshot.balanceAfter,
+    snapshot.statusAfter,
+    options.recordedBy,
+    verificationUrl || null,
+    snapshot.schoolName,
+    snapshot.schoolLogoUrl || null,
+    snapshot.sessionName || null,
+    snapshot.termName || null,
+    receiptKind,
+    needsReissue ? String(latestReceipt?.receiptNo || '') || null : null,
+    recordedAt,
+  ).run()
+
+  return {
+    success: true,
+    action: needsReissue ? 'reissued' : 'issued',
+    latestReceipt,
+    receipt: {
+      id: receiptId,
+      receiptNo,
+      studentId: options.studentId,
+      studentDisplayId: snapshot.studentDisplayId,
+      studentName: snapshot.studentName,
+      classId: snapshot.classId,
+      className: snapshot.className,
+      amount: receiptAmount,
+      paymentType: String(latestReceipt?.paymentType || 'cash'),
+      paymentReference: String(latestReceipt?.paymentReference || ''),
+      feeAmount: snapshot.feeAmount,
+      amountPaidAfter: snapshot.amountPaidAfter,
+      balanceAfter: snapshot.balanceAfter,
+      statusAfter: snapshot.statusAfter,
       recordedAt,
       recordedBy: options.recordedBy,
       verificationUrl,
+      schoolName: snapshot.schoolName,
+      schoolLogoUrl: snapshot.schoolLogoUrl,
+      sessionName: snapshot.sessionName,
+      termName: snapshot.termName,
+      receiptKind,
+      reissuedFromReceiptNo: needsReissue ? String(latestReceipt?.receiptNo || '') : '',
     },
   }
 }
@@ -9838,10 +10196,129 @@ app.get('/api/people/:userId', authenticate, async (c) => {
   }
 })
 
-const INIT_BRANDING = `CREATE TABLE IF NOT EXISTS tenant_branding (tenant_id TEXT PRIMARY KEY, logo_url TEXT, tagline TEXT, website TEXT, updated_at TEXT)`
+const INIT_BRANDING = `CREATE TABLE IF NOT EXISTS tenant_branding (tenant_id TEXT PRIMARY KEY, logo_url TEXT, tagline TEXT, website TEXT, facebook_url TEXT, instagram_url TEXT, tiktok_url TEXT, youtube_url TEXT, whatsapp_url TEXT, updated_at TEXT)`
 const INIT_WEBSITE_SECTIONS = `CREATE TABLE IF NOT EXISTS website_sections (id TEXT PRIMARY KEY, tenant_id TEXT, section_key TEXT, title TEXT, content TEXT, image_url TEXT, metadata TEXT, updated_at TEXT)`
 const INIT_PLATFORM_SITE_SECTIONS = `CREATE TABLE IF NOT EXISTS platform_site_sections (id TEXT PRIMARY KEY, section_key TEXT, title TEXT, content TEXT, image_url TEXT, metadata TEXT, updated_at TEXT)`
 const INIT_SCHOOL_EVENTS = `CREATE TABLE IF NOT EXISTS school_events (id TEXT PRIMARY KEY, tenant_id TEXT, title TEXT, description TEXT, event_date TEXT, media_urls TEXT, created_at TEXT, updated_at TEXT)`
+
+const BRANDING_SOCIAL_COLUMNS = [
+  { key: 'facebook', column: 'facebook_url', label: 'Facebook', action: 'Like / Follow', className: 'social-facebook' },
+  { key: 'instagram', column: 'instagram_url', label: 'Instagram', action: 'Follow', className: 'social-instagram' },
+  { key: 'tiktok', column: 'tiktok_url', label: 'TikTok', action: 'Follow', className: 'social-tiktok' },
+  { key: 'youtube', column: 'youtube_url', label: 'YouTube', action: 'Subscribe', className: 'social-youtube' },
+  { key: 'whatsapp', column: 'whatsapp_url', label: 'WhatsApp', action: 'Chat', className: 'social-whatsapp' },
+] as const
+
+async function ensureBrandingTable(db: D1Database) {
+  await db.prepare(INIT_BRANDING).run()
+  for (const social of BRANDING_SOCIAL_COLUMNS) {
+    await db.prepare(`ALTER TABLE tenant_branding ADD COLUMN ${social.column} TEXT`).run().catch(() => {})
+  }
+}
+
+function normalizeAbsoluteUrl(value: unknown) {
+  const raw = String(value || '').trim()
+  if (!raw) return ''
+  if (/^https?:\/\//i.test(raw)) return raw
+  if (/^www\./i.test(raw)) return `https://${raw}`
+  return ''
+}
+
+function normalizeSocialHandle(value: unknown) {
+  return String(value || '').trim().replace(/^@+/, '').replace(/^\/+/, '')
+}
+
+function normalizeBrandingSocialLink(platform: string, value: unknown) {
+  const raw = String(value || '').trim()
+  if (!raw) return ''
+
+  const absoluteUrl = normalizeAbsoluteUrl(raw)
+  if (absoluteUrl) return absoluteUrl
+
+  if (/^(facebook\.com|instagram\.com|tiktok\.com|youtube\.com|youtu\.be|wa\.me|api\.whatsapp\.com|chat\.whatsapp\.com|whatsapp\.com)/i.test(raw)) {
+    return `https://${raw.replace(/^\/+/, '')}`
+  }
+
+  if (platform === 'facebook') {
+    const handle = normalizeSocialHandle(raw)
+    return handle ? `https://www.facebook.com/${handle}` : ''
+  }
+
+  if (platform === 'instagram') {
+    const handle = normalizeSocialHandle(raw)
+    return handle ? `https://www.instagram.com/${handle}` : ''
+  }
+
+  if (platform === 'tiktok') {
+    const handle = normalizeSocialHandle(raw)
+    return handle ? `https://www.tiktok.com/@${handle}` : ''
+  }
+
+  if (platform === 'youtube') {
+    const path = String(raw).trim().replace(/^\/+/, '')
+    if (!path) return ''
+    if (path.startsWith('@')) return `https://www.youtube.com/${path}`
+    if (/^(channel|c|user)\//i.test(path)) return `https://www.youtube.com/${path}`
+    return `https://www.youtube.com/@${path.replace(/^@+/, '')}`
+  }
+
+  if (platform === 'whatsapp') {
+    const digits = raw.replace(/[^\d]/g, '')
+    return digits.length >= 7 ? `https://wa.me/${digits}` : ''
+  }
+
+  return ''
+}
+
+function mapTenantBranding(tenant: Record<string, any> | null, row: Record<string, any> | null = null) {
+  const websiteUrl = row?.website || (tenant?.websiteDomain ? `https://${tenant.websiteDomain}` : null)
+  return {
+    schoolName: String(tenant?.schoolName || '').trim(),
+    logoUrl: String(row?.logo_url || '').trim(),
+    tagline: String(row?.tagline || '').trim(),
+    website: String(websiteUrl || '').trim(),
+    websiteUrl: String(websiteUrl || '').trim(),
+    subdomain: String(tenant?.requestedSubdomain || '').trim(),
+    facebook: String(row?.facebook_url || '').trim(),
+    instagram: String(row?.instagram_url || '').trim(),
+    tiktok: String(row?.tiktok_url || '').trim(),
+    youtube: String(row?.youtube_url || '').trim(),
+    whatsapp: String(row?.whatsapp_url || '').trim(),
+  }
+}
+
+async function upsertTenantBranding(db: D1Database, tenant: Record<string, any>, values: Record<string, any>) {
+  await ensureBrandingTable(db)
+  const existing = await db.prepare(`SELECT * FROM tenant_branding WHERE tenant_id = ?`).bind(tenant.id).first() as Record<string, any> | null
+  const websiteValue = values.website ?? existing?.website ?? (tenant.websiteDomain ? `https://${tenant.websiteDomain}` : null)
+  const nextRow = {
+    logo_url: values.logoUrl ?? existing?.logo_url ?? null,
+    tagline: values.tagline ?? existing?.tagline ?? null,
+    website: websiteValue == null ? null : String(websiteValue).trim(),
+    facebook_url: normalizeBrandingSocialLink('facebook', values.facebook ?? existing?.facebook_url) || null,
+    instagram_url: normalizeBrandingSocialLink('instagram', values.instagram ?? existing?.instagram_url) || null,
+    tiktok_url: normalizeBrandingSocialLink('tiktok', values.tiktok ?? existing?.tiktok_url) || null,
+    youtube_url: normalizeBrandingSocialLink('youtube', values.youtube ?? existing?.youtube_url) || null,
+    whatsapp_url: normalizeBrandingSocialLink('whatsapp', values.whatsapp ?? existing?.whatsapp_url) || null,
+  }
+
+  await db.prepare(`INSERT OR REPLACE INTO tenant_branding (tenant_id, logo_url, tagline, website, facebook_url, instagram_url, tiktok_url, youtube_url, whatsapp_url, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
+    .bind(
+      tenant.id,
+      nextRow.logo_url,
+      nextRow.tagline,
+      nextRow.website,
+      nextRow.facebook_url,
+      nextRow.instagram_url,
+      nextRow.tiktok_url,
+      nextRow.youtube_url,
+      nextRow.whatsapp_url,
+      new Date().toISOString(),
+    )
+    .run()
+
+  return nextRow
+}
 
 const PLATFORM_SITE_SECTION_SEEDS = [
   {
@@ -10119,20 +10596,11 @@ app.get('/api/school/branding', authenticate, async (c) => {
   const { tenant } = await resolveTenantForActor(c)
   if (!tenant) return c.json({ error: 'Tenant not found.' }, 404)
   try {
-    await c.env.APP_DB.prepare(INIT_BRANDING).run()
+    await ensureBrandingTable(c.env.APP_DB)
     const row = await c.env.APP_DB.prepare(`SELECT * FROM tenant_branding WHERE tenant_id = ?`).bind(tenant.id).first() as any
-    const websiteUrl = row?.website || (tenant.websiteDomain ? `https://${tenant.websiteDomain}` : null)
-    return c.json({ success: true, branding: {
-      schoolName: tenant.schoolName,
-      subdomain: tenant.requestedSubdomain,
-      logoUrl: row?.logo_url || null,
-      tagline: row?.tagline || null,
-      website: websiteUrl,
-      websiteUrl,
-    }})
+    return c.json({ success: true, branding: mapTenantBranding(tenant, row) })
   } catch {
-    const websiteUrl = tenant.websiteDomain ? `https://${tenant.websiteDomain}` : null
-    return c.json({ success: true, branding: { schoolName: tenant.schoolName, subdomain: tenant.requestedSubdomain, logoUrl: null, tagline: null, website: websiteUrl, websiteUrl } })
+    return c.json({ success: true, branding: mapTenantBranding(tenant, null) })
   }
 })
 
@@ -10140,13 +10608,9 @@ app.post('/api/school/branding', authenticate, async (c) => {
   if (!hasRequiredRole(c.var.user.role, ['owner'])) return c.json({ error: 'forbidden' }, 403)
   const { tenant } = await resolveTenantForActor(c)
   if (!tenant) return c.json({ error: 'Tenant not found.' }, 404)
-  const { tagline, website, logoUrl } = await c.req.json()
+  const { tagline, website, logoUrl, facebook, instagram, tiktok, youtube, whatsapp } = await c.req.json()
   try {
-    await c.env.APP_DB.prepare(INIT_BRANDING).run()
-    const existing = await c.env.APP_DB.prepare(`SELECT * FROM tenant_branding WHERE tenant_id = ?`).bind(tenant.id).first() as any
-    const websiteUrl = website ?? existing?.website ?? (tenant.websiteDomain ? `https://${tenant.websiteDomain}` : null)
-    await c.env.APP_DB.prepare(`INSERT OR REPLACE INTO tenant_branding (tenant_id, logo_url, tagline, website, updated_at) VALUES (?, ?, ?, ?, ?)`)
-      .bind(tenant.id, logoUrl ?? existing?.logo_url ?? null, tagline ?? null, websiteUrl, new Date().toISOString()).run()
+    await upsertTenantBranding(c.env.APP_DB, tenant, { tagline, website, logoUrl, facebook, instagram, tiktok, youtube, whatsapp })
     return c.json({ success: true })
   } catch (err) {
     return c.json({ error: 'Could not save branding.' }, 500)
@@ -10166,10 +10630,7 @@ app.post('/api/school/logo', authenticate, async (c) => {
     const key = `logos/${tenant.id}/logo_${Date.now()}.${ext}`
     await c.env.UPLOADS.put(key, file.stream(), { httpMetadata: { contentType: file.type } })
     const logoUrl = `https://ndovera.com/files/${key}`
-    await c.env.APP_DB.prepare(INIT_BRANDING).run()
-    const existing = await c.env.APP_DB.prepare(`SELECT * FROM tenant_branding WHERE tenant_id = ?`).bind(tenant.id).first() as any
-    await c.env.APP_DB.prepare(`INSERT OR REPLACE INTO tenant_branding (tenant_id, logo_url, tagline, website, updated_at) VALUES (?, ?, ?, ?, ?)`)
-      .bind(tenant.id, logoUrl, existing?.tagline ?? null, existing?.website ?? null, new Date().toISOString()).run()
+    await upsertTenantBranding(c.env.APP_DB, tenant, { logoUrl })
     return c.json({ success: true, logoUrl })
   } catch {
     return c.json({ error: 'Upload failed.' }, 500)
@@ -10680,11 +11141,10 @@ app.get('/api/school/session', authenticate, async (c) => {
   const tenantId = c.var.user?.tenantId
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
   try {
-    await c.env.APP_DB.prepare(`CREATE TABLE IF NOT EXISTS school_sessions (id TEXT PRIMARY KEY, tenantId TEXT, session TEXT, term TEXT, startDate TEXT, endDate TEXT, createdAt TEXT)`).run()
-    const row = await c.env.APP_DB.prepare(`SELECT * FROM school_sessions WHERE tenantId = ? ORDER BY createdAt DESC LIMIT 1`).bind(tenantId).first()
-    return c.json({ success: true, session: row || null })
+    const sessionState = await listSchoolSessionHistory(c.env.APP_DB, tenantId)
+    return c.json({ success: true, session: sessionState.current, history: sessionState.history })
   } catch {
-    return c.json({ success: true, session: null })
+    return c.json({ success: true, session: null, history: [] })
   }
 })
 
@@ -10693,11 +11153,26 @@ app.post('/api/school/session', authenticate, async (c) => {
   const tenantId = c.var.user?.tenantId
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
   const { session, term, startDate, endDate } = await c.req.json()
-  const id = `session_${tenantId}`
+  const normalizedSession = normalizeFeeConfigPeriodValue(session)
+  const normalizedTerm = normalizeFeeConfigPeriodValue(term || 'Term 1') || 'Term 1'
   try {
-    await c.env.APP_DB.prepare(`CREATE TABLE IF NOT EXISTS school_sessions (id TEXT PRIMARY KEY, tenantId TEXT, session TEXT, term TEXT, startDate TEXT, endDate TEXT, createdAt TEXT)`).run()
-    await c.env.APP_DB.prepare(`INSERT OR REPLACE INTO school_sessions (id, tenantId, session, term, startDate, endDate, createdAt) VALUES (?, ?, ?, ?, ?, ?, ?)`).bind(id, tenantId, session || '', term || 'Term 1', startDate || '', endDate || '', new Date().toISOString()).run()
-    return c.json({ success: true })
+    await ensureSchoolSessionsTable(c.env.APP_DB)
+    const latestRow = await c.env.APP_DB.prepare(
+      `SELECT * FROM school_sessions WHERE tenantId = ? ORDER BY createdAt DESC LIMIT 1`
+    ).bind(tenantId).first() as Record<string, any> | null
+    const sameCurrent = String(latestRow?.session || '').trim() === normalizedSession
+      && String(latestRow?.term || '').trim() === normalizedTerm
+    const id = sameCurrent && latestRow?.id
+      ? String(latestRow.id)
+      : `session_${tenantId}_${Date.now()}_${slugifyValue(normalizedSession || 'session').slice(0, 30)}_${slugifyValue(normalizedTerm || 'term').slice(0, 20)}`
+    const createdAt = new Date().toISOString()
+
+    await c.env.APP_DB.prepare(
+      `INSERT OR REPLACE INTO school_sessions (id, tenantId, session, term, startDate, endDate, createdAt) VALUES (?, ?, ?, ?, ?, ?, ?)`
+    ).bind(id, tenantId, normalizedSession, normalizedTerm, startDate || '', endDate || '', createdAt).run()
+
+    const sessionState = await listSchoolSessionHistory(c.env.APP_DB, tenantId)
+    return c.json({ success: true, session: sessionState.current, history: sessionState.history })
   } catch (err) {
     return c.json({ error: err instanceof Error ? err.message : 'Could not save session.' }, 500)
   }
@@ -11313,8 +11788,11 @@ app.get('/api/school/fees-config', authenticate, async (c) => {
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
   try {
     await ensureFeesConfigTable(c.env.APP_DB)
-    const rows = await c.env.APP_DB.prepare(`SELECT * FROM fees_config WHERE tenant_id = ? ORDER BY created_at DESC`).bind(tenantId).all()
-    return c.json({ success: true, configs: rows.results || [] })
+    const rows = await c.env.APP_DB.prepare(
+      `SELECT * FROM fees_config WHERE tenant_id = ? ORDER BY session DESC, term DESC, sort_order ASC, updated_at DESC, created_at DESC`
+    ).bind(tenantId).all()
+    const currentSession = await getCurrentSchoolSessionSnapshot(c.env.APP_DB, tenantId)
+    return c.json({ success: true, configs: ((rows.results || []) as Record<string, any>[]).map(mapFeeConfigRow), currentSession })
   } catch { return c.json({ success: true, configs: [] }) }
 })
 
@@ -11322,15 +11800,36 @@ app.post('/api/school/fees-config', authenticate, async (c) => {
   if (!hasRequiredRole(c.var.user.role, ['owner', 'hos', 'accountant'])) return c.json({ error: 'forbidden' }, 403)
   const tenantId = c.var.user?.tenantId
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
-  const { feeType, classId, amount, session } = await c.req.json()
+  const { feeType, classId, amount, session, term, sortOrder } = await c.req.json()
   if (amount === undefined || amount === null || amount === '') return c.json({ error: 'Amount required.' }, 400)
   const id = `fc_${tenantId}_${Date.now()}`
   try {
     await ensureFeesConfigTable(c.env.APP_DB)
-    await c.env.APP_DB.prepare(`INSERT OR REPLACE INTO fees_config (id, tenant_id, fee_type, class_id, amount, session, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)`)
-      .bind(id, tenantId, feeType || 'Tuition', classId || null, Number(amount), session || '', new Date().toISOString()).run()
+    const timestamp = new Date().toISOString()
+    await c.env.APP_DB.prepare(`INSERT OR REPLACE INTO fees_config (id, tenant_id, fee_type, class_id, amount, session, term, sort_order, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
+      .bind(id, tenantId, feeType || 'Tuition', classId || null, Number(amount), normalizeFeeConfigPeriodValue(session), normalizeFeeConfigPeriodValue(term), Number(sortOrder || 0), timestamp, timestamp).run()
     return c.json({ success: true, id }, 201)
   } catch (err) { return c.json({ error: 'Could not save fees config.' }, 500) }
+})
+
+app.put('/api/school/fees-config/snapshot', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos', 'accountant'])) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+
+  const payload = await c.req.json().catch(() => ({})) as Record<string, any>
+  const savedConfigs = await replaceFeesConfigSnapshot(c.env.APP_DB, {
+    tenantId,
+    sessionName: payload.session,
+    termName: payload.term,
+    configs: Array.isArray(payload.configs) ? payload.configs : [],
+  }).catch(() => null)
+
+  if (!savedConfigs) {
+    return c.json({ error: 'Could not save fee template.' }, 500)
+  }
+
+  return c.json({ success: true, configs: savedConfigs })
 })
 
 app.get('/api/school/fees-ledger', authenticate, async (c) => {
@@ -11536,8 +12035,8 @@ app.post('/api/school/fees/payment-claims/:claimId/approve', authenticate, async
     String(c.var.user?.id || c.var.user?.email || ''),
     verifiedAt,
     verificationNote || null,
-    paymentResult.receipt.id,
-    paymentResult.receipt.receiptNo,
+    null,
+    null,
     verifiedAt,
     claimId,
     tenantId,
@@ -11548,7 +12047,8 @@ app.post('/api/school/fees/payment-claims/:claimId/approve', authenticate, async
     data: {
       claimId,
       studentId: String(claimRow.student_id || ''),
-      receiptId: paymentResult.receipt.id,
+      amountPaid: paymentResult.amountPaid,
+      receiptReady: paymentResult.amountPaid > paymentResult.previousPaid,
       by: c.var.user?.id,
     },
   }).catch(() => null)
@@ -11567,11 +12067,12 @@ app.post('/api/school/fees/payment-claims/:claimId/approve', authenticate, async
       verified_by: String(c.var.user?.id || c.var.user?.email || ''),
       verified_at: verifiedAt,
       verification_note: verificationNote,
-      receipt_id: paymentResult.receipt.id,
-      receipt_no: paymentResult.receipt.receiptNo,
+      receipt_id: '',
+      receipt_no: '',
       updated_at: verifiedAt,
     }),
-    receipt: paymentResult.receipt,
+    receipt: null,
+    receiptReady: paymentResult.amountPaid > paymentResult.previousPaid,
   })
 })
 
@@ -11658,8 +12159,55 @@ app.post('/api/school/fees/:studentId/pay', authenticate, async (c) => {
     await addAudit(c.env.APP_DB, tenantId, { action: 'feePaymentRecorded', data: { studentId, amount, paymentType, by: c.var.user.id } })
     const stakeholderUserIds = await buildFeeStakeholderUserIds(c.env.APP_DB, tenantId, studentId)
     await sendWebPushToAudience(c.env.APP_DB, c.env, { tenantId, userIds: stakeholderUserIds }).catch(() => null)
-    return c.json({ success: true, amountPaid: paymentResult.amountPaid, previousPaid: paymentResult.previousPaid, status: paymentResult.status, receipt: paymentResult.receipt })
+    return c.json({ success: true, amountPaid: paymentResult.amountPaid, previousPaid: paymentResult.previousPaid, status: paymentResult.status, receipt: null, receiptReady: paymentResult.amountPaid > paymentResult.previousPaid })
   } catch (err) { return c.json({ error: 'Could not record payment.' }, 500) }
+})
+
+app.post('/api/school/fees/:studentId/issue-receipt', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, FEE_PAYMENT_APPROVER_ROLES)) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+
+  const studentId = c.req.param('studentId')
+
+  try {
+    const issueResult = await issueStudentFeeReceipt(c.env.APP_DB, {
+      tenantId,
+      studentId,
+      recordedBy: String(c.var.user.name || c.var.user.id || 'Fees office'),
+      verificationBaseUrl: new URL(c.req.url).origin,
+    })
+
+    if (!issueResult.success) {
+      return c.json({ error: issueResult.message || 'Could not issue receipt.' }, 400)
+    }
+
+    if (issueResult.action === 'issued' || issueResult.action === 'reissued') {
+      await addAudit(c.env.APP_DB, tenantId, {
+        action: issueResult.action === 'reissued' ? 'feeReceiptReissued' : 'feeReceiptIssued',
+        data: {
+          studentId,
+          receiptId: issueResult.receipt?.id,
+          receiptNo: issueResult.receipt?.receiptNo,
+          previousReceiptNo: issueResult.latestReceipt?.receiptNo || '',
+          by: c.var.user?.id,
+        },
+      }).catch(() => null)
+
+      const stakeholderUserIds = await buildFeeStakeholderUserIds(c.env.APP_DB, tenantId, studentId)
+      await sendWebPushToAudience(c.env.APP_DB, c.env, { tenantId, userIds: stakeholderUserIds }).catch(() => null)
+    }
+
+    return c.json({
+      success: true,
+      action: issueResult.action,
+      receipt: issueResult.receipt,
+      latestReceipt: issueResult.latestReceipt || null,
+      message: issueResult.message || '',
+    })
+  } catch {
+    return c.json({ error: 'Could not issue receipt.' }, 500)
+  }
 })
 
 // ─── Expenditure ─────────────────────────────────────────────────────────────
@@ -11877,7 +12425,7 @@ app.get('/api/school/payroll/my-payslip', authenticate, async (c) => {
   const period = new Date().toISOString().slice(0, 7)
   try {
     await ensurePayrollEntriesTable(c.env.APP_DB)
-    await c.env.APP_DB.prepare(INIT_BRANDING).run()
+    await ensureBrandingTable(c.env.APP_DB)
     const resolvedIdentity = await resolveSettingsIdentity(c.env.APP_DB, userId)
     const settings = await getSettings(c.env.APP_DB, userId)
     const payrollSettings = await getSettings(c.env.APP_DB, `payroll_settings_${tenantId}`)
@@ -12591,7 +13139,7 @@ app.get('/api/public/tenant/:subdomain', async (c) => {
   try {
     const tenant = await getTenantBySubdomain(c.env.APP_DB, subdomain)
     if (!tenant) return c.json({ error: 'Not found' }, 404)
-    await c.env.APP_DB.prepare(INIT_BRANDING).run()
+    await ensureBrandingTable(c.env.APP_DB)
     await ensureWebsiteSectionsTable(c.env.APP_DB)
     await c.env.APP_DB.prepare(INIT_SCHOOL_EVENTS).run()
     const [brandingRow, sectionsResult, eventsResult] = await Promise.all([
@@ -12602,7 +13150,7 @@ app.get('/api/public/tenant/:subdomain', async (c) => {
     return c.json({
       success: true,
       tenant: { schoolName: tenant.schoolName, subdomain: tenant.requestedSubdomain },
-      branding: { logoUrl: brandingRow?.logo_url || null, tagline: brandingRow?.tagline || null, website: brandingRow?.website || (tenant.websiteDomain ? `https://${tenant.websiteDomain}` : null) },
+      branding: mapTenantBranding(tenant, brandingRow),
       sections: sectionsResult.results || [],
       events: (eventsResult.results || []).map((e: any) => ({ ...e, mediaUrls: JSON.parse(e.media_urls || '[]') })),
     })
@@ -12634,10 +13182,116 @@ function subdomainNavbar(schoolName: string, subdomain: string, logoUrl?: string
   </nav>`
 }
 
+function getBrandingSocialLinks(branding: any = {}) {
+  return BRANDING_SOCIAL_COLUMNS
+    .map((social) => {
+      const href = String(branding?.[social.key] || '').trim()
+      if (!href) return null
+      return { ...social, href }
+    })
+    .filter(Boolean) as Array<{ key: string; label: string; action: string; href: string }>
+}
+
+function getSocialButtonStyle(key: string) {
+  const shared = 'display:inline-flex;align-items:center;justify-content:center;padding:10px 14px;border-radius:999px;font-size:13px;font-weight:900;text-decoration:none;margin:0;'
+  if (key === 'facebook') return `${shared}background:#f5deb3;color:#800000;border:1px solid rgba(245,222,179,.4);`
+  if (key === 'instagram') return `${shared}background:#fff8ee;color:#800020;border:1px solid rgba(245,222,179,.35);`
+  if (key === 'tiktok') return `${shared}background:#111827;color:#f5deb3;border:1px solid rgba(245,222,179,.2);`
+  if (key === 'youtube') return `${shared}background:#800000;color:#f5deb3;border:1px solid rgba(245,222,179,.25);`
+  return `${shared}background:#1a5c38;color:#f5deb3;border:1px solid rgba(245,222,179,.2);`
+}
+
+function toFacebookPagePluginUrl(url: string) {
+  const href = String(url || '').trim()
+  if (!href) return ''
+  return `https://www.facebook.com/plugins/page.php?href=${encodeURIComponent(href)}&tabs=timeline&width=340&height=360&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true`
+}
+
+function toYouTubeSubscribeEmbedUrl(url: string) {
+  const raw = String(url || '').trim()
+  if (!raw) return ''
+
+  try {
+    const parsed = new URL(raw)
+    if (!parsed.hostname.includes('youtube.com')) return ''
+
+    const channelMatch = parsed.pathname.match(/^\/channel\/([^/?#]+)/i)
+    if (channelMatch?.[1]) {
+      return `https://www.youtube.com/subscribe_embed?usegapi=1&channelid=${encodeURIComponent(channelMatch[1])}&layout=full&count=default`
+    }
+
+    const namedChannelMatch = parsed.pathname.match(/^\/(user|c)\/([^/?#]+)/i)
+    if (namedChannelMatch?.[2]) {
+      return `https://www.youtube.com/subscribe_embed?usegapi=1&channel=${encodeURIComponent(namedChannelMatch[2])}&layout=full&count=default`
+    }
+  } catch {
+    return ''
+  }
+
+  return ''
+}
+
+function renderBrandingSocialEmbeds(branding: any = {}) {
+  const cards = [] as string[]
+  const facebookUrl = String(branding?.facebook || '').trim()
+  const youtubeUrl = String(branding?.youtube || '').trim()
+  const facebookEmbedUrl = toFacebookPagePluginUrl(facebookUrl)
+  const youtubeSubscribeUrl = toYouTubeSubscribeEmbedUrl(youtubeUrl)
+  const youtubeVideoEmbedUrl = youtubeSubscribeUrl ? '' : toYouTubeEmbedUrl(youtubeUrl)
+
+  if (facebookEmbedUrl) {
+    cards.push(`
+      <div style="flex:1 1 320px;min-width:280px;border:1px solid rgba(245,222,179,.18);border-radius:18px;padding:16px;background:rgba(255,255,255,.06);">
+        <p style="margin:0 0 10px;font-size:12px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#f5deb3;">Facebook Page</p>
+        <iframe src="${escAttr(facebookEmbedUrl)}" title="Facebook page preview" loading="lazy" style="width:100%;min-height:360px;border:0;border-radius:16px;background:#fff;"></iframe>
+      </div>`)
+  }
+
+  if (youtubeSubscribeUrl || youtubeVideoEmbedUrl) {
+    cards.push(`
+      <div style="flex:1 1 280px;min-width:280px;border:1px solid rgba(245,222,179,.18);border-radius:18px;padding:16px;background:rgba(255,255,255,.06);">
+        <p style="margin:0 0 10px;font-size:12px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#f5deb3;">YouTube</p>
+        ${youtubeSubscribeUrl
+          ? `<iframe src="${escAttr(youtubeSubscribeUrl)}" title="YouTube subscribe" loading="lazy" style="width:100%;height:120px;border:0;border-radius:16px;background:#fff;"></iframe>`
+          : `<iframe src="${escAttr(youtubeVideoEmbedUrl)}" title="YouTube video" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="width:100%;min-height:220px;border:0;border-radius:16px;background:#000;"></iframe>`}
+        <p style="margin:10px 0 0;font-size:12px;color:rgba(245,222,179,.82);">${youtubeSubscribeUrl ? 'Visitors can subscribe to the school channel directly from the site.' : 'Visitors can preview the school YouTube video without leaving the site.'}</p>
+      </div>`)
+  }
+
+  if (!cards.length) return ''
+
+  return `<div style="margin-top:16px;display:flex;flex-wrap:wrap;gap:16px;align-items:stretch;">${cards.join('')}</div>`
+}
+
+function renderBrandingSocialLinks(
+  branding: any = {},
+  options: { title?: string; note?: string; panelStyle?: string; titleStyle?: string; noteStyle?: string; includeEmbeds?: boolean } = {},
+) {
+  const links = getBrandingSocialLinks(branding)
+  const embeds = options.includeEmbeds ? renderBrandingSocialEmbeds(branding) : ''
+  if (!links.length && !embeds) return ''
+
+  const panelStyle = options.panelStyle || 'margin-top:24px;'
+  const titleStyle = options.titleStyle || 'margin-bottom:10px;color:#f5deb3;font-size:20px;line-height:1.2;'
+  const noteStyle = options.noteStyle || 'margin-top:12px;font-size:13px;color:rgba(245,222,179,.82);max-width:560px;'
+
+  return `
+  <div style="${panelStyle}">
+    ${options.title ? `<h4 style="${titleStyle}">${escHtml(options.title)}</h4>` : ''}
+    ${links.length ? `<div style="display:flex;flex-wrap:wrap;gap:10px;">${links.map((social) => `<a href="${escAttr(social.href)}" target="_blank" rel="noopener noreferrer" style="${getSocialButtonStyle(social.key)}">${escHtml(social.action)} on ${escHtml(social.label)}</a>`).join('')}</div>` : ''}
+    ${options.note ? `<p style="${noteStyle}">${escHtml(options.note)}</p>` : ''}
+    ${embeds}
+  </div>`
+}
+
 function subdomainFooter(schoolName: string, branding: any = {}, contact: any = {}) {
   const phone = contact.phone || branding?.phone || ''
   const email = contact.email || branding?.email || ''
   const address = contact.address || ''
+  const socialLinks = renderBrandingSocialLinks(branding, {
+    title: 'Follow Us',
+    note: 'Buttons open the school official social pages so visitors can like, follow, subscribe, or chat there.',
+  })
   return `
   <footer class="site-footer">
     <div>
@@ -12657,6 +13311,7 @@ function subdomainFooter(schoolName: string, branding: any = {}, contact: any = 
       ${phone ? `<p>${escHtml(phone)}</p>` : ''}
       ${email ? `<p>${escHtml(email)}</p>` : ''}
     </div>
+    ${socialLinks ? `<div>${socialLinks}</div>` : ''}
     <div class="footer-bottom">
       <span>&copy; ${new Date().getFullYear()} ${escHtml(schoolName)}. All rights reserved.</span>
       <span>Powered by <a href="https://ndovera.com">Ndovera</a></span>
@@ -12877,6 +13532,12 @@ function renderSchoolHome(tenant: any, branding: any, sections: any[], events: a
         <a class="btn-primary" href="${escAttr(heroHref)}">${escHtml(heroButton)}</a>
         <a class="btn-secondary" href="/admissions">Apply / Enquire</a>
       </div>
+      ${renderBrandingSocialLinks(branding, {
+        title: 'Follow Our Updates',
+        note: 'These buttons open the school official social pages so visitors can like, follow, subscribe, or chat there.',
+        panelStyle: 'margin-top:26px;background:rgba(245,222,179,.12);border:1px solid rgba(245,222,179,.22);border-radius:18px;padding:18px 20px;max-width:640px;',
+        includeEmbeds: true,
+      })}
     </div>
     <div class="hero-login">${renderLoginPanel(schoolName, logoUrl, true)}</div>
   </section>
@@ -13205,7 +13866,7 @@ async function handleSubdomainRequest(request: Request, env: Bindings, subdomain
         </div>`), { headers: { 'Content-Type': 'text/html' } })
     }
 
-    await env.APP_DB.prepare(INIT_BRANDING).run()
+    await ensureBrandingTable(env.APP_DB)
     await ensureWebsiteSectionsTable(env.APP_DB)
     await env.APP_DB.prepare(INIT_SCHOOL_EVENTS).run()
 
@@ -13215,7 +13876,7 @@ async function handleSubdomainRequest(request: Request, env: Bindings, subdomain
       env.APP_DB.prepare(`SELECT * FROM school_events WHERE tenant_id = ? ORDER BY event_date DESC LIMIT 10`).bind(tenant.id).all(),
     ])
 
-    const branding = { logoUrl: (brandingRow as any)?.logo_url || null, tagline: (brandingRow as any)?.tagline || null, website: (brandingRow as any)?.website || (tenant.websiteDomain ? `https://${tenant.websiteDomain}` : null) }
+    const branding = mapTenantBranding(tenant, brandingRow as any)
     const sections = sectionsResult.results || []
     const events = (eventsResult.results || []).map((e: any) => ({ ...e, mediaUrls: JSON.parse(e.media_urls || '[]') }))
 

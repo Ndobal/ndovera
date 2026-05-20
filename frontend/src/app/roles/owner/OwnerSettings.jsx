@@ -64,7 +64,17 @@ function ProfileTab() {
 }
 
 function BrandingTab() {
-  const [form, setForm] = useState({ schoolName: '', tagline: '', website: '', logoUrl: '' });
+  const [form, setForm] = useState({
+    schoolName: '',
+    tagline: '',
+    website: '',
+    logoUrl: '',
+    facebook: '',
+    instagram: '',
+    tiktok: '',
+    youtube: '',
+    whatsapp: '',
+  });
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
@@ -95,7 +105,7 @@ function BrandingTab() {
   if (loading) return <p className="text-[#800020]">Loading...</p>;
   return (
     <form onSubmit={handleSave} className="space-y-4">
-      <p className="text-xs text-[#800020] dark:text-slate-400">Your logo and branding appear in the Ndovera school directory.</p>
+      <p className="text-xs text-[#800020] dark:text-slate-400">Your logo, website, and social links appear on the school public website and in the Ndovera directory.</p>
 
       <div>
         <label className="text-xs text-[#800020] dark:text-slate-400 uppercase font-semibold">School Logo</label>
@@ -119,6 +129,33 @@ function BrandingTab() {
             className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 dark:border-white/10 bg-[#fff8ee] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1a5c38]" />
         </div>
       ))}
+
+      <div className="rounded-2xl border border-[#c9a96e]/30 bg-[#f0d090]/50 p-4 dark:border-white/10 dark:bg-slate-900/20">
+        <div className="mb-3">
+          <p className="text-xs font-semibold uppercase text-[#800020] dark:text-slate-400">Social Media Links</p>
+          <p className="mt-1 text-xs text-[#191970] dark:text-slate-300">Use a full profile URL, an @handle, or for WhatsApp a phone number or wa.me link.</p>
+        </div>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          {[
+            ['Facebook', 'facebook', 'facebook.com/your-school'],
+            ['Instagram', 'instagram', '@your-school'],
+            ['TikTok', 'tiktok', '@your-school'],
+            ['YouTube', 'youtube', 'youtube.com/@your-school'],
+            ['WhatsApp', 'whatsapp', '2348012345678'],
+          ].map(([label, key, placeholder]) => (
+            <div key={key}>
+              <label className="text-xs text-[#800020] dark:text-slate-400 uppercase font-semibold">{label}</label>
+              <input
+                value={form[key] || ''}
+                onChange={e => setForm(f => ({ ...f, [key]: e.target.value }))}
+                placeholder={placeholder}
+                className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 dark:border-white/10 bg-[#fff8ee] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1a5c38]"
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+
       {msg && <p className={`text-sm ${msg.includes('!') ? 'text-emerald-700' : 'text-red-600'}`}>{msg}</p>}
       <button type="submit" disabled={saving} className="bg-[#1a5c38] hover:bg-[#154a2e] text-[#f5deb3] font-bold px-6 py-2 rounded-2xl text-sm transition-colors disabled:opacity-60">
         {saving ? 'Saving...' : 'Save Branding'}

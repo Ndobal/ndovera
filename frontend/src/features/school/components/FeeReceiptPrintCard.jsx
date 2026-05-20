@@ -61,15 +61,23 @@ export default function FeeReceiptPrintCard({ receipt, printId = 'fee-receipt-pr
   if (!receipt) return null;
 
   const schoolName = receipt.schoolName || tenantBranding?.schoolName || 'NDOVERA School';
+  const schoolLogoUrl = receipt.schoolLogoUrl || tenantBranding?.logoUrl || '';
   const studentIdLabel = receipt.studentDisplayId || receipt.studentId || 'Not assigned';
 
   return (
     <div id={printId} className="w-full rounded-[32px] border border-[#c9a96e]/40 bg-[#f5deb3] p-4 sm:p-6 text-[#191970] shadow-[0_18px_42px_rgba(128,0,0,0.12)] dark:border-[#bf00ff]/35 dark:bg-[#800000]/88 dark:text-[#39ff14]">
       <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#800020] dark:text-[#bf00ff]">{schoolName}</p>
-          <h3 className="mt-2 text-2xl font-black text-[#800000] dark:text-white">{title}</h3>
-          <p className="mt-2 text-sm text-[#191970] dark:text-[#39ff14]">{subtitle}</p>
+        <div className="flex items-start gap-4">
+          {schoolLogoUrl ? (
+            <div className="flex h-20 w-20 items-center justify-center overflow-hidden rounded-3xl border border-[#c9a96e]/35 bg-white/85 p-2 dark:border-[#bf00ff]/25 dark:bg-black/25">
+              <img src={schoolLogoUrl} alt={`${schoolName} logo`} className="h-full w-full object-contain" />
+            </div>
+          ) : null}
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#800020] dark:text-[#bf00ff]">{schoolName}</p>
+            <h3 className="mt-2 text-2xl font-black text-[#800000] dark:text-white">{title}</h3>
+            <p className="mt-2 text-sm text-[#191970] dark:text-[#39ff14]">{subtitle}</p>
+          </div>
         </div>
         <div className="flex flex-wrap items-center gap-2">
           <span className="rounded-full border border-[#800020]/20 bg-white/75 px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] text-[#800020] dark:border-[#bf00ff]/30 dark:bg-black/25 dark:text-[#bf00ff]">
@@ -88,9 +96,13 @@ export default function FeeReceiptPrintCard({ receipt, printId = 'fee-receipt-pr
           <DetailRow label="Student" value={receipt.studentName || receipt.name} />
           <DetailRow label="Student ID" value={studentIdLabel} />
           <DetailRow label="Class" value={receipt.className || 'Not assigned'} />
+          <DetailRow label="Session" value={receipt.sessionName || 'Current session'} />
+          <DetailRow label="Term" value={receipt.termName || 'Current term'} />
           <DetailRow label="Payment method" value={formatPaymentType(receipt.paymentType)} />
           <DetailRow label="Reference" value={receipt.paymentReference || receipt.reference || 'School office entry'} />
+          <DetailRow label="Receipt type" value={receipt.receiptKind || 'issued'} />
           <DetailRow label="Recorded by" value={receipt.recordedBy || 'School finance office'} />
+          {receipt.reissuedFromReceiptNo ? <DetailRow label="Reissued from" value={receipt.reissuedFromReceiptNo} /> : null}
         </div>
 
         <div className="rounded-3xl border border-[#c9a96e]/35 bg-[#fff8f0] p-5 dark:border-[#bf00ff]/25 dark:bg-black/25">
