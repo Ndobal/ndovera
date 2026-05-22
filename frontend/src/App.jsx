@@ -115,7 +115,7 @@ export default function App() {
         <Route
           path="/login"
           element={
-            auth && !auth.user?.mustChangePassword
+            auth
               ? <Navigate to={`/roles/${auth.user?.role || 'student'}`} replace />
               : <LoginPage onLogin={handleLogin} />
           }

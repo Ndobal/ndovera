@@ -13458,14 +13458,105 @@ async function getPayrollLateChargeSummaryForIdentifiers(db: D1Database, tenantI
 
 async function listTenantStaffRoster(db: D1Database, tenantId: string) {
   await ensureUsersTable(db)
-  const rows = await db.prepare(
+  const [userRows, settingRows] = await Promise.all([
+    db.prepare(
     `SELECT id, name, email, role, primary_role, employment_category, status, createdAt, tenantId
      FROM users
      WHERE tenantId = ? AND (status IS NULL OR status != 'inactive')
      ORDER BY COALESCE(primary_role, role), name, email`
-  ).bind(tenantId).all().catch(() => ({ results: [] }))
-  const people = await hydrateUserRecords(db, (rows.results || []) as Record<string, any>[])
-  return people.filter(person => isStaff(person?.role, person?.roles))
+    ).bind(tenantId).all().catch(() => ({ results: [] })),
+    db.prepare(
+      `SELECT studentId, payload
+       FROM settings
+       WHERE json_extract(payload, '$.tenantId') = ?
+          OR json_extract(payload, '$.schoolId') = ?`
+    ).bind(tenantId, tenantId).all().catch(() => ({ results: [] })),
+  ])
+
+  const hydratedUsers = (await hydrateUserRecords(db, (userRows.results || []) as Record<string, any>[]))
+    .filter(Boolean) as Record<string, any>[]
+  const roster = new Map<string, Record<string, any>>()
+
+  for (const person of hydratedUsers) {
+    const identityKeys = Array.from(new Set([
+      String(person?.id || '').trim(),
+      String(person?.email || '').trim().toLowerCase(),
+    ].filter(Boolean)))
+    for (const key of identityKeys) {
+      roster.set(key, person)
+    }
+  }
+
+  for (const row of ((settingRows.results || []) as Record<string, any>[])) {
+    const settings = parseHeaderJsonObject(row.payload)
+    const roleContext = buildRoleContext(settings || {}, settings?.role)
+    const primaryRole = roleContext.primaryRole || 'staff'
+    const roles = roleContext.rawRoles
+    const status = String(settings?.status || 'active').trim().toLowerCase()
+    const email = String(settings?.email || row.studentId || '').trim()
+    const recordId = String(settings?.userId || settings?.profile?.id || email || row.studentId || '').trim()
+    const identityKeys = Array.from(new Set([
+      recordId,
+      email.toLowerCase(),
+      String(row.studentId || '').trim().toLowerCase(),
+    ].filter(Boolean)))
+
+    if (!identityKeys.length || status === 'inactive' || !isStaff(primaryRole, roles)) {
+      continue
+    }
+
+    if (identityKeys.some(key => roster.has(key))) {
+      continue
+    }
+
+    const profile = buildAdmissionProfileRecord(settings || {}, {
+      id: recordId,
+      name: settings?.name || email,
+      email,
+    })
+    const person = {
+      id: recordId || email,
+      email: email || String(row.studentId || '').trim(),
+      name: profile.name || String(settings?.name || email || row.studentId || 'Staff').trim(),
+      role: primaryRole,
+      primaryRole,
+      roles,
+      switchableRoles: roleContext.switchableRoles,
+      adminRoles: roleContext.adminRoles,
+      capabilities: roleContext.capabilities,
+      tenantId,
+      schoolId: tenantId,
+      status: settings?.status || 'active',
+      displayId: getPublicFacingUserId(settings || {}, primaryRole) || null,
+      publicStudentId: String(settings?.publicStudentId || '').trim() || null,
+      employmentCategory: deriveEmploymentCategory(primaryRole, settings?.employmentCategory, roles),
+      classId: settings?.classId || null,
+      className: settings?.className || null,
+      phone: profile.phone || null,
+      avatar: profile.avatar || null,
+      avatarUrl: profile.avatar || null,
+      dateOfBirth: profile.dateOfBirth || null,
+      gender: profile.gender || null,
+      address: profile.address || null,
+      relationship: profile.relationship || null,
+      profile,
+      mustChangePassword: settings?.mustChangePassword === true || settings?.mustChangePassword === 'true' || settings?.mustChangePassword === 1,
+    }
+
+    for (const key of identityKeys) {
+      roster.set(key, person)
+    }
+  }
+
+  return Array.from(new Map(
+    Array.from(roster.values())
+      .filter(person => isStaff(person?.role, person?.roles))
+      .map(person => [String(person.id || person.email || '').trim(), person])
+  ).values()).sort((left, right) => {
+    const leftName = String(left?.name || left?.email || '')
+    const rightName = String(right?.name || right?.email || '')
+    return leftName.localeCompare(rightName)
+  })
 }
 
 // ─── Payroll ──────────────────────────────────────────────────────────────────
@@ -13481,7 +13572,9 @@ app.get('/api/school/payroll', authenticate, async (c) => {
     const staffRoster = await listTenantStaffRoster(c.env.APP_DB, tenantId)
     const payrollMap = new Map((rows.results || []).map((row: any) => [String(row.staff_id || '').trim(), row]))
     const payroll = staffRoster.map((staffMember: any) => {
-      const row = payrollMap.get(String(staffMember.id || '').trim()) || null
+      const row = payrollMap.get(String(staffMember.id || '').trim())
+        || payrollMap.get(String(staffMember.email || '').trim())
+        || null
       const allowances = parseHeaderJsonObject(row?.allowances_json)
       const deductionsMap = parseHeaderJsonObject(row?.deductions_json)
       const basicSalary = Number(row?.basic_salary || 0)
@@ -14715,12 +14808,6 @@ function loginScript() {
           if (data.user?.classId) localStorage.setItem('classroomId', data.user.classId);
           if (data.user?.id) localStorage.setItem('userId', data.user.id);
           const role = data.user?.role || 'student';
-          if (data.user?.mustChangePassword) {
-            const changePasswordUrl = new URL('https://ndovera.com/change-password');
-            changePasswordUrl.searchParams.set('tenantReturnUrl', tenantReturnUrl);
-            window.location.href = changePasswordUrl.toString();
-            return;
-          }
           const roleMap = { owner: '/roles/owner', hos: '/roles/hos', teacher: '/roles/teacher', student: '/roles/student', parent: '/roles/parent', accountant: '/roles/accountant', ami: '/roles/ami', ict: '/roles/ict' };
           const redirectUrl = new URL('https://ndovera.com' + (roleMap[role] || '/roles/student'));
           redirectUrl.searchParams.set('tenantReturnUrl', tenantReturnUrl);
