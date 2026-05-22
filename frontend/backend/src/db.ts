@@ -152,6 +152,17 @@ function mapTenantPaymentRow(row: any) {
 }
 
 const SETTINGS_DDL = `CREATE TABLE IF NOT EXISTS settings (studentId TEXT PRIMARY KEY, payload TEXT NOT NULL)`
+const SETTINGS_INDEXES = [
+  `CREATE INDEX IF NOT EXISTS idx_settings_display_id ON settings(json_extract(payload, '$.displayId'))`,
+  `CREATE INDEX IF NOT EXISTS idx_settings_public_student_id ON settings(json_extract(payload, '$.publicStudentId'))`,
+  `CREATE INDEX IF NOT EXISTS idx_settings_tenant_role_class_status
+   ON settings(
+     json_extract(payload, '$.tenantId'),
+     json_extract(payload, '$.role'),
+     json_extract(payload, '$.classId'),
+     COALESCE(json_extract(payload, '$.status'), 'active')
+   )`,
+]
 const AUDIT_DDL = `CREATE TABLE IF NOT EXISTS audit (
   id TEXT PRIMARY KEY,
   studentId TEXT,
@@ -160,11 +171,21 @@ const AUDIT_DDL = `CREATE TABLE IF NOT EXISTS audit (
   data TEXT
 )`
 
-// Settings functions
-export async function getSettings(db: D1Database, studentId: string) {
+async function ensureSettingsTable(db: D1Database) {
   try {
     await db.prepare(SETTINGS_DDL).run()
   } catch { /* table already exists */ }
+
+  for (const ddl of SETTINGS_INDEXES) {
+    try {
+      await db.prepare(ddl).run()
+    } catch { /* index already exists or expression indexes unsupported */ }
+  }
+}
+
+// Settings functions
+export async function getSettings(db: D1Database, studentId: string) {
+  await ensureSettingsTable(db)
   const result = await db.prepare('SELECT payload FROM settings WHERE studentId = ?').bind(studentId).first()
   if (!result) return null
   try {
@@ -175,9 +196,7 @@ export async function getSettings(db: D1Database, studentId: string) {
 }
 
 export async function upsertSettings(db: D1Database, studentId: string, payload: any) {
-  try {
-    await db.prepare(SETTINGS_DDL).run()
-  } catch { /* table already exists */ }
+  await ensureSettingsTable(db)
   const str = JSON.stringify(payload)
   await db.prepare('INSERT INTO settings(studentId, payload) VALUES(?, ?) ON CONFLICT(studentId) DO UPDATE SET payload = excluded.payload').bind(studentId, str).run()
   return true

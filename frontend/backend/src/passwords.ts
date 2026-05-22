@@ -148,7 +148,28 @@ const MERGED_ADMIN_ROLE_KEYS = new Set([
   'sportsmaster',
 ])
 
-function normalizeRoleValues(value: string | string[] | undefined) {
+const STAFF_EXCLUDED_ROLES = new Set(['student', 'parent'])
+
+const ROLE_CAPABILITIES: Record<string, string[]> = {
+  owner: ['manage_admissions', 'manage_payroll', 'teach_subjects', 'manage_fees', 'assign_classes', 'approve_results', 'manage_users'],
+  hos: ['manage_admissions', 'manage_payroll', 'teach_subjects', 'manage_fees', 'assign_classes', 'approve_results', 'manage_users'],
+  admin: ['manage_admissions', 'manage_fees', 'assign_classes', 'manage_users'],
+  teacher: ['teach_subjects'],
+  classteacher: ['teach_subjects', 'assign_classes'],
+  principal: ['manage_admissions', 'teach_subjects', 'assign_classes', 'approve_results', 'manage_users'],
+  viceprincipal: ['manage_admissions', 'teach_subjects', 'assign_classes', 'approve_results', 'manage_users'],
+  headteacher: ['manage_admissions', 'teach_subjects', 'assign_classes', 'approve_results', 'manage_users'],
+  nurseryhead: ['manage_admissions', 'teach_subjects', 'assign_classes', 'approve_results', 'manage_users'],
+  hod: ['teach_subjects', 'assign_classes', 'approve_results'],
+  hodassistant: ['teach_subjects', 'assign_classes'],
+  accountant: ['manage_payroll', 'manage_fees'],
+  ict: ['manage_users', 'assign_classes'],
+  ict_manager: ['manage_users', 'assign_classes', 'approve_results'],
+  examofficer: ['approve_results'],
+  librarian: ['assign_classes'],
+}
+
+export function normalizeRoleValues(value: string | string[] | undefined | null) {
   if (Array.isArray(value)) {
     return value
       .map(entry => String(entry || '').trim().toLowerCase())
@@ -161,8 +182,87 @@ function normalizeRoleValues(value: string | string[] | undefined) {
     .filter(Boolean)
 }
 
+export function getUserRoles(...values: Array<string | string[] | undefined | null>) {
+  const roles: string[] = []
+  const seen = new Set<string>()
+
+  for (const value of values) {
+    for (const role of normalizeRoleValues(value)) {
+      if (seen.has(role)) continue
+      seen.add(role)
+      roles.push(role)
+    }
+  }
+
+  return roles
+}
+
+export function deriveCapabilities(userRole: string | string[] | undefined, extraRoles: string | string[] | undefined = undefined) {
+  const roles = getUserRoles(userRole, extraRoles)
+  const capabilities = new Set<string>()
+
+  if (roles.includes('ami')) {
+    capabilities.add('manage_admissions')
+    capabilities.add('manage_payroll')
+    capabilities.add('teach_subjects')
+    capabilities.add('manage_fees')
+    capabilities.add('assign_classes')
+    capabilities.add('approve_results')
+    capabilities.add('manage_users')
+  }
+
+  for (const role of roles) {
+    for (const capability of ROLE_CAPABILITIES[role] || []) {
+      capabilities.add(capability)
+    }
+  }
+
+  return Array.from(capabilities)
+}
+
+export function hasRequiredCapability(
+  userRole: string | string[] | undefined,
+  requiredCapability: string,
+  extraRoles: string | string[] | undefined = undefined,
+) {
+  return deriveCapabilities(userRole, extraRoles).includes(String(requiredCapability || '').trim())
+}
+
+export function isStaffRole(role: string) {
+  const normalizedRole = String(role || '').trim().toLowerCase()
+  return normalizedRole !== '' && !STAFF_EXCLUDED_ROLES.has(normalizedRole)
+}
+
+export function isStaff(userRole: string | string[] | undefined, extraRoles: string | string[] | undefined = undefined) {
+  const roles = getUserRoles(userRole, extraRoles)
+  return roles.some(role => isStaffRole(role))
+}
+
+export function canTeach(userRole: string | string[] | undefined, extraRoles: string | string[] | undefined = undefined) {
+  return hasRequiredCapability(userRole, 'teach_subjects', extraRoles)
+}
+
+export function deriveEmploymentCategory(
+  userRole: string | string[] | undefined,
+  preferredCategory: unknown = '',
+  extraRoles: string | string[] | undefined = undefined,
+) {
+  const explicit = String(preferredCategory || '').trim().toLowerCase()
+  if (['academic', 'administrative', 'support', 'contract'].includes(explicit)) {
+    return explicit
+  }
+
+  const roles = getUserRoles(userRole, extraRoles)
+  if (roles.includes('contract')) return 'contract'
+  if (canTeach(userRole, extraRoles)) return 'academic'
+  if (roles.some(role => ['owner', 'hos', 'admin', 'principal', 'viceprincipal', 'headteacher', 'nurseryhead', 'hod', 'hodassistant', 'accountant', 'ict', 'ict_manager', 'examofficer'].includes(role))) {
+    return 'administrative'
+  }
+  return 'support'
+}
+
 export function hasRequiredRole(userRole: string | string[] | undefined, allowedRoles: string[]) {
-  const roles = normalizeRoleValues(userRole)
+  const roles = getUserRoles(userRole)
   if (roles.length === 0) return false
   if (roles.includes('ami')) return true
   if (roles.some(role => allowedRoles.includes(role))) return true

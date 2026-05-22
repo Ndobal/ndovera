@@ -479,6 +479,115 @@ export async function listQuestionBankQuestions(db: D1Database, tenantId: string
     })
 }
 
+function mapAssignmentQuestionToPracticeQuestion(
+  tenantId: string,
+  row: Record<string, any>,
+  rawQuestion: Record<string, any>,
+  index: number,
+) {
+  const className = `${String(row.class_name || '').trim()}${row.class_arm ? ` ${String(row.class_arm || '').trim()}` : ''}`.trim()
+  const normalizedQuestion = extractQuestionBankPayload({
+    ...rawQuestion,
+    id: String(rawQuestion.id || `${row.assignment_id || 'assignment'}_${index + 1}`).trim(),
+    classId: String(rawQuestion.classId || row.class_id || '').trim(),
+    className: String(rawQuestion.className || className || '').trim(),
+    subjectId: String(rawQuestion.subjectId || row.subject_id || '').trim(),
+    subjectName: String(rawQuestion.subjectName || row.subject_name || '').trim(),
+    subject: String(rawQuestion.subject || rawQuestion.subjectName || row.subject_name || '').trim(),
+    source: rawQuestion.source || 'assignment',
+    status: rawQuestion.status || 'approved',
+    createdBy: rawQuestion.createdBy || row.created_by || '',
+  })
+
+  const answerPairs = normalizedQuestion.type === 'crossmatching' && Array.isArray(normalizedQuestion.answer)
+    ? normalizedQuestion.answer
+    : []
+
+  return {
+    id: normalizedQuestion.id,
+    tenantId,
+    subject: normalizedQuestion.subject,
+    classLevel: normalizedQuestion.classLevel,
+    classId: normalizedQuestion.classId,
+    subjectId: normalizedQuestion.subjectId,
+    subjectName: normalizedQuestion.subjectName,
+    topic: normalizedQuestion.topic,
+    type: normalizedQuestion.type,
+    prompt: normalizedQuestion.prompt,
+    text: normalizedQuestion.prompt,
+    options: normalizedQuestion.options,
+    choices: normalizedQuestion.options,
+    answer: normalizedQuestion.answer,
+    explanation: normalizedQuestion.explanation,
+    imageUrl: normalizedQuestion.imageUrl,
+    score: normalizedQuestion.score,
+    status: normalizedQuestion.status,
+    source: normalizedQuestion.source,
+    createdBy: normalizedQuestion.createdBy,
+    createdAt: String(row.created_at || ''),
+    updatedAt: String(row.updated_at || row.created_at || ''),
+    metadata: {
+      ...normalizedQuestion.metadata,
+      assignmentId: String(row.assignment_id || ''),
+      assignmentTitle: String(row.assignment_title || ''),
+      className: normalizedQuestion.className || className,
+      subjectName: normalizedQuestion.subjectName || String(row.subject_name || ''),
+    },
+    passage: String(normalizedQuestion.metadata?.passage || ''),
+    pairs: answerPairs,
+    left: Array.isArray(normalizedQuestion.metadata?.left) ? normalizedQuestion.metadata.left : answerPairs.map(pair => String((pair as any)?.left || '').trim()),
+    right: Array.isArray(normalizedQuestion.metadata?.right) ? normalizedQuestion.metadata.right : answerPairs.map(pair => String((pair as any)?.right || '').trim()),
+  }
+}
+
+async function listAssignmentBackedPracticeQuestions(db: D1Database, tenantId: string, filters: Record<string, any> = {}) {
+  const rows = await db.prepare(
+    `SELECT
+       a.id AS assignment_id,
+       a.title AS assignment_title,
+       a.subjectId AS subject_id,
+       a.subjectName AS subject_name,
+       a.questionPayload AS question_payload,
+       a.createdBy AS created_by,
+       a.createdAt AS created_at,
+       a.updatedAt AS updated_at,
+       c.id AS class_id,
+       c.name AS class_name,
+       c.arm AS class_arm
+     FROM assignments a
+     INNER JOIN classes c ON c.id = a.classId
+     WHERE c.tenantId = ?
+     ORDER BY a.updatedAt DESC, a.createdAt DESC`
+  ).bind(tenantId).all().catch(() => ({ results: [] }))
+
+  const questions: Array<Record<string, any>> = []
+  for (const row of ((rows.results || []) as Record<string, any>[])) {
+    if (filters.classId && String(row.class_id || '') !== String(filters.classId || '')) continue
+    if (filters.subjectId && String(row.subject_id || '') !== String(filters.subjectId || '')) continue
+
+    const rawQuestions = parseJsonField(row.question_payload, [] as Array<Record<string, any>>)
+    rawQuestions.forEach((question, index) => {
+      if (!question || typeof question !== 'object') return
+      questions.push(mapAssignmentQuestionToPracticeQuestion(tenantId, row, question, index))
+    })
+  }
+
+  return questions
+}
+
+function buildPracticeQuestionSignature(question: Record<string, any>) {
+  return [
+    normalizeQuestionType(question.type),
+    normalizeComparableText(question.prompt || question.text || ''),
+    (Array.isArray(question.options) ? question.options : Array.isArray(question.choices) ? question.choices : [])
+      .map(option => normalizeComparableText(option))
+      .join('|'),
+    Array.isArray(question.answer)
+      ? question.answer.map(entry => normalizeComparableText(typeof entry === 'string' ? entry : JSON.stringify(entry))).join('|')
+      : normalizeComparableText(question.answer),
+  ].join('::')
+}
+
 export async function getQuestionBankQuestionById(db: D1Database, tenantId: string, questionId: string) {
   await ensureQuestionBankTables(db)
   const row = await db.prepare(
@@ -771,13 +880,28 @@ export async function submitCbtExamAttempt(db: D1Database, input: Record<string,
 
 export async function buildPracticeQuestionFeed(db: D1Database, tenantId: string, filters: Record<string, any> = {}) {
   await ensureQuestionBankTables(db)
-  const questions = await listQuestionBankQuestions(db, tenantId, {
-    classId: filters.classId,
-    subjectId: filters.subjectId,
-    status: 'approved',
-  })
+  const [questionBankQuestions, assignmentQuestions] = await Promise.all([
+    listQuestionBankQuestions(db, tenantId, {
+      classId: filters.classId,
+      subjectId: filters.subjectId,
+      status: 'approved',
+    }),
+    listAssignmentBackedPracticeQuestions(db, tenantId, {
+      classId: filters.classId,
+      subjectId: filters.subjectId,
+    }),
+  ])
 
-  const candidateQuestions = questions.filter(question => {
+  const mergedQuestions = new Map<string, Record<string, any>>()
+  for (const question of [...assignmentQuestions, ...questionBankQuestions]) {
+    const signature = buildPracticeQuestionSignature(question)
+    const existing = mergedQuestions.get(signature)
+    if (!existing || (existing.source === 'assignment' && question.source !== 'assignment')) {
+      mergedQuestions.set(signature, question)
+    }
+  }
+
+  const candidateQuestions = Array.from(mergedQuestions.values()).filter(question => {
     const type = normalizeQuestionType(question.type)
     return ['mcq', 'truefalse', 'shortanswer', 'fillgaps', 'crossmatching'].includes(type)
   })

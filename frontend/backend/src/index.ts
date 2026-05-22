@@ -3,8 +3,14 @@ import { cors } from 'hono/cors'
 import { logger } from 'hono/logger'
 import { sign, verify } from '@tsndr/cloudflare-worker-jwt'
 import {
+  canTeach,
+  deriveCapabilities,
+  deriveEmploymentCategory,
   hasRequiredRole,
+  hasRequiredCapability,
+  isStaff,
   migrateLegacyPasswordIfNeeded,
+  normalizeRoleValues,
   verifyPasswordCandidate,
   withHashedPassword,
 } from './passwords'
@@ -99,7 +105,9 @@ type Bindings = {
 
 const app = new Hono<{ Bindings: Bindings }>()
 const AUTH_COOKIE_NAME = 'ndovera_token'
-const AUTH_SESSION_SECONDS = 30 * 24 * 60 * 60
+// Keep auth sessions at a 10-minute rolling window so first-login password changes
+// have enough time to complete. Do not shorten this without updating the entire auth flow.
+const AUTH_SESSION_SECONDS = 10 * 60
 const PASSWORD_RESET_TOKEN_TTL_MS = 30 * 60 * 1000
 const SCHOOL_ANNOUNCEMENT_CREATOR_ROLES = ['owner', 'hos', 'ict']
 const PASSWORD_RESET_TOKENS_DDL = `CREATE TABLE IF NOT EXISTS password_reset_tokens (
@@ -3724,6 +3732,8 @@ async function createPendingTenantRegistration(c: any, payload: Record<string, a
     email: ownerEmail,
     name: ownerName,
     role: 'owner',
+    primaryRole: 'owner',
+    roles: ['owner'],
     accountType: 'school-owner',
     status: 'pending_activation',
     tenantId,
@@ -3735,7 +3745,37 @@ async function createPendingTenantRegistration(c: any, payload: Record<string, a
     tenantStatus: tenant?.status || lifecycle.status,
   }, password)
 
+  await ensureUsersTable(c.env.APP_DB)
+  const ownerUserId = createUserId()
+  await c.env.APP_DB.prepare(
+    `INSERT INTO users (id, email, name, role, primary_role, employment_category, tenantId, status, createdAt)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+     ON CONFLICT(email) DO UPDATE SET
+       name = excluded.name,
+       role = excluded.role,
+       primary_role = excluded.primary_role,
+       employment_category = excluded.employment_category,
+       tenantId = excluded.tenantId,
+       status = excluded.status`
+  ).bind(
+    ownerUserId,
+    ownerEmail,
+    ownerName,
+    'owner',
+    'owner',
+    'administrative',
+    tenantId,
+    'pending_activation',
+    new Date().toISOString(),
+  ).run()
   await upsertSettings(c.env.APP_DB, ownerEmail, ownerSettings)
+  const savedOwner = await c.env.APP_DB.prepare(`SELECT id FROM users WHERE email = ?`).bind(ownerEmail).first() as Record<string, any> | null
+  await syncUserRoleRecords(c.env.APP_DB, {
+    tenantId,
+    userId: String(savedOwner?.id || ownerUserId),
+    primaryRole: 'owner',
+    roles: ['owner'],
+  })
   await addAudit(c.env.APP_DB, tenantId, {
     action: 'tenantRegistered',
     data: {
@@ -3913,36 +3953,28 @@ const MERGED_ADMIN_ROLE_KEYS = new Set([
 ])
 
 function parseRoleList(...values: unknown[]) {
-  const seen = new Set<string>()
-  const roles: string[] = []
+  return Array.from(new Set(values.flatMap(value => normalizeRoleValues(value as string | string[] | undefined))))
+}
 
-  const appendRole = (value: unknown) => {
-    const normalized = normalizeRole(value)
-    if (!normalized || seen.has(normalized)) return
-    seen.add(normalized)
-    roles.push(normalized)
+function createUserId() {
+  return crypto.randomUUID()
+}
+
+function getPrimaryRole(settings: Record<string, any> = {}, fallbackRole: unknown = '') {
+  return normalizeRole(settings.primaryRole || settings.primary_role || settings.role || fallbackRole)
+}
+
+function getPublicFacingUserId(settings: Record<string, any> = {}, role: unknown = '') {
+  const normalizedRole = normalizeRole(role || settings.primaryRole || settings.primary_role || settings.role)
+  if (normalizedRole === 'student') {
+    return String(settings.publicStudentId || '').trim() || null
   }
-
-  const visit = (value: unknown) => {
-    if (Array.isArray(value)) {
-      value.forEach(visit)
-      return
-    }
-
-    if (typeof value === 'string' && value.includes(',')) {
-      value.split(',').forEach(entry => appendRole(entry))
-      return
-    }
-
-    appendRole(value)
-  }
-
-  values.forEach(visit)
-  return roles
+  return String(settings.displayId || '').trim() || null
 }
 
 function buildRoleContext(settings: Record<string, any> = {}, storedRole?: unknown, requestedRole?: unknown) {
-  const rawRoles = parseRoleList(settings.role, settings.roles, storedRole)
+  const primaryRole = getPrimaryRole(settings, storedRole)
+  const rawRoles = parseRoleList(primaryRole, settings.role, settings.roles, storedRole)
   const adminRoles = rawRoles.filter(role => MERGED_ADMIN_ROLE_KEYS.has(role))
   const switchableRoles = rawRoles.filter(role => !MERGED_ADMIN_ROLE_KEYS.has(role))
 
@@ -3967,7 +3999,8 @@ function buildRoleContext(settings: Record<string, any> = {}, storedRole?: unkno
     adminRoles,
     switchableRoles,
     selectedRole,
-    primaryRole: rawRoles[0] || selectedRole,
+    primaryRole: primaryRole || rawRoles[0] || selectedRole,
+    capabilities: deriveCapabilities(rawRoles),
   }
 }
 
@@ -4477,20 +4510,26 @@ function conversationMatchesParticipantSet(conversation: Record<string, any> = {
 function buildUserProfile(id: string, role: string, name: string, settings: Record<string, any> = {}) {
   const roleContext = buildRoleContext(settings, settings.role, role)
   const profile = buildAdmissionProfileRecord(settings, { id, name, email: settings.email || id })
+  const displayId = getPublicFacingUserId(settings, roleContext.primaryRole)
+  const employmentCategory = deriveEmploymentCategory(roleContext.primaryRole, settings.employmentCategory, roleContext.rawRoles)
 
   return {
     id,
     email: profile.email || settings.email || id,
     name: profile.name || name,
     role,
+    primaryRole: roleContext.primaryRole,
     roles: roleContext.rawRoles,
     switchableRoles: roleContext.switchableRoles,
     adminRoles: roleContext.adminRoles,
+    capabilities: roleContext.capabilities,
     schoolId: settings.schoolId || settings.tenantId || 'school-1',
     aura: settings.aura || 320,
     accountType: settings.accountType || (role === 'ami' ? 'superadmin' : 'user'),
     status: settings.status || 'active',
-    displayId: settings.displayId || null,
+    displayId,
+    publicStudentId: String(settings.publicStudentId || '').trim() || null,
+    employmentCategory,
     classId: settings.classId || null,
     className: settings.className || null,
     phone: profile.phone || null,
@@ -4563,6 +4602,61 @@ async function syncTeacherClassAssignment(
   }
 }
 
+async function replaceClassMemberships(
+  db: D1Database,
+  tenantId: string,
+  classId: string,
+  membershipRole: 'teacher' | 'caregiver',
+  userIds: string[] = [],
+) {
+  await ensureClassMembershipsTable(db)
+  const normalizedTenantId = String(tenantId || '').trim()
+  const normalizedClassId = String(classId || '').trim()
+  if (!normalizedTenantId || !normalizedClassId) return
+
+  const normalizedUserIds = Array.from(new Set(userIds.map(value => String(value || '').trim()).filter(Boolean)))
+  const timestamp = new Date().toISOString()
+
+  await db.prepare(
+    `DELETE FROM class_memberships WHERE tenant_id = ? AND class_id = ? AND membership_role = ?`
+  ).bind(normalizedTenantId, normalizedClassId, membershipRole).run()
+
+  for (const userId of normalizedUserIds) {
+    await db.prepare(
+      `INSERT OR REPLACE INTO class_memberships (id, tenant_id, class_id, user_id, membership_role, created_at, updated_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?)`
+    ).bind(
+      `classmember_${normalizedTenantId}_${normalizedClassId}_${membershipRole}_${slugifyValue(userId).slice(0, 80)}`,
+      normalizedTenantId,
+      normalizedClassId,
+      userId,
+      membershipRole,
+      timestamp,
+      timestamp,
+    ).run()
+  }
+}
+
+async function listClassMembershipIdentifiers(
+  db: D1Database,
+  tenantId: string,
+  classId: string,
+  membershipRole?: 'teacher' | 'student' | 'caregiver',
+) {
+  await ensureClassMembershipsTable(db)
+
+  let query = `SELECT user_id, membership_role FROM class_memberships WHERE tenant_id = ? AND class_id = ?`
+  const params: string[] = [tenantId, classId]
+  if (membershipRole) {
+    query += ` AND membership_role = ?`
+    params.push(membershipRole)
+  }
+  query += ` ORDER BY membership_role, updated_at DESC`
+
+  const rows = await db.prepare(query).bind(...params).all().catch(() => ({ results: [] }))
+  return (rows.results || []) as Record<string, any>[]
+}
+
 async function findUserByIdentifier(db: D1Database, identifier: string) {
   const raw = String(identifier || '').trim()
   if (!raw) return null
@@ -4599,7 +4693,31 @@ async function findUserByIdentifier(db: D1Database, identifier: string) {
       status: settings.status,
     }
   } catch {
-    return null
+    try {
+      const settingsRow = await db.prepare(
+        `SELECT studentId, payload FROM settings WHERE json_extract(payload, '$.publicStudentId') = ? LIMIT 1`
+      ).bind(raw).first() as Record<string, any> | null
+
+      if (!settingsRow?.payload) return null
+
+      const settings = JSON.parse(String(settingsRow.payload))
+      const settingsEmail = settings.email || settingsRow.studentId
+      const bySettings = await db.prepare(
+        `SELECT id, email, name, role, primary_role, tenantId, status FROM users WHERE id = ? OR email = ? OR lower(email) = ?`
+      ).bind(settingsRow.studentId, settingsEmail, String(settingsEmail).toLowerCase()).first() as Record<string, any> | null
+
+      return bySettings || {
+        id: settingsRow.studentId,
+        email: settingsEmail,
+        name: settings.name,
+        role: settings.role,
+        primary_role: settings.primaryRole || settings.role,
+        tenantId: settings.tenantId || settings.schoolId,
+        status: settings.status,
+      }
+    } catch {
+      return null
+    }
   }
 }
 
@@ -4673,6 +4791,34 @@ async function resolveCanonicalUserIdentifier(db: D1Database, identifier: unknow
 
   const resolved = await resolveSettingsIdentity(db, raw)
   return String(resolved.userRow?.id || resolved.userRow?.email || resolved.settingsKey || raw).trim() || null
+}
+
+async function resolveAssignableStaffIdentifier(
+  db: D1Database,
+  tenantId: string,
+  identifier: unknown,
+  options: { requireTeachingCapability?: boolean, label?: string } = {},
+) {
+  const canonicalId = await resolveCanonicalUserIdentifier(db, identifier)
+  if (!canonicalId) return null
+
+  const userRow = await findUserByIdentifier(db, canonicalId).catch(() => null)
+  const hydratedUser = await hydrateUserRecord(db, userRow)
+  const label = String(options.label || 'Staff member')
+
+  if (!hydratedUser || String(hydratedUser.tenantId || hydratedUser.schoolId || '').trim() !== String(tenantId || '').trim()) {
+    throw new Error(`${label} was not found in this school.`)
+  }
+
+  if (!isStaff(hydratedUser.primaryRole || hydratedUser.role, hydratedUser.roles)) {
+    throw new Error(`${label} must be a staff account.`)
+  }
+
+  if (options.requireTeachingCapability && !canTeach(hydratedUser.primaryRole || hydratedUser.role, hydratedUser.roles)) {
+    throw new Error(`${label} must have teaching capability.`)
+  }
+
+  return canonicalId
 }
 
 async function finishLogin(c: any, payload: Record<string, any>) {
@@ -4750,6 +4896,12 @@ async function finishLogin(c: any, payload: Record<string, any>) {
   const userRole = roleContext.selectedRole
   const name = settings.name || id
   const tenantId = settings.tenantId || settings.schoolId
+  settings = await ensureStudentPublicId(c.env.APP_DB, {
+    tenantId,
+    userId: resolvedLogin.userRow?.id,
+    settingsKey: id,
+    settings,
+  }) || settings
   const tenant = tenantId
     ? await getTenantById(c.env.APP_DB, tenantId)
     : await getTenantByOwnerEmail(c.env.APP_DB, id)
@@ -4764,6 +4916,21 @@ async function finishLogin(c: any, payload: Record<string, any>) {
   }
 
   const mustChangePassword = settings.mustChangePassword === true
+
+  if (tenantId && resolvedLogin.userRow?.id) {
+    const employmentCategory = deriveEmploymentCategory(roleContext.primaryRole, settings.employmentCategory, roleContext.rawRoles)
+    await c.env.APP_DB.prepare(
+      `UPDATE users
+       SET role = ?, primary_role = ?, employment_category = ?, tenantId = COALESCE(tenantId, ?)
+       WHERE id = ?`
+    ).bind(roleContext.primaryRole, roleContext.primaryRole, employmentCategory, tenantId, resolvedLogin.userRow.id).run().catch(() => null)
+    await syncUserRoleRecords(c.env.APP_DB, {
+      tenantId,
+      userId: String(resolvedLogin.userRow.id),
+      primaryRole: roleContext.primaryRole,
+      roles: roleContext.rawRoles,
+    }).catch(() => null)
+  }
 
   const token = await sign({
     role: userRole,
@@ -5596,7 +5763,7 @@ app.post('/api/push/subscriptions', authenticate, async (c) => {
 
   const userId = String(resolvedUser.userRow?.id || userIdentifier).trim()
   const userEmail = String(resolvedUser.userRow?.email || resolvedUser.settings?.email || currentUser.email || '').trim()
-  const roleKey = normalizeRole(payload.roleKey) || normalizeRole(resolvedUser.settings?.role || currentUser.role) || 'student'
+  const roleKey = normalizeRole(payload.roleKey) || getActiveRole(currentUser) || normalizeRole(resolvedUser.settings?.role) || 'student'
 
   const saved = await upsertWebPushSubscription(c.env.APP_DB, {
     tenantId,
@@ -6133,7 +6300,7 @@ app.post('/api/admin/reset-password', authenticate, async (c) => {
   await upsertSettings(c.env.APP_DB, settingsKey, nextSettings)
   await addAudit(c.env.APP_DB, settingsKey, {
     action: 'resetPassword',
-    data: { by: c.var.user.name || c.var.user.role, adminRole: c.var.user.role }
+    data: { by: c.var.user.name || getActiveRole(c.var.user), adminRole: getActiveRole(c.var.user) }
   })
   return c.json({ ok: true, message: 'Password reset to default. User must change on next sign in.' })
 })
@@ -6232,10 +6399,8 @@ app.get('/api/classrooms/assigned', authenticate, async (c) => {
 
   try {
     await ensureClassesTable(c.env.APP_DB)
-    await c.env.APP_DB.prepare(`CREATE TABLE IF NOT EXISTS subjects (id TEXT PRIMARY KEY, tenantId TEXT, name TEXT, classId TEXT, teacherId TEXT, createdAt TEXT)`).run()
-    try { await c.env.APP_DB.exec('ALTER TABLE subjects ADD COLUMN tenantId TEXT') } catch {}
-    try { await c.env.APP_DB.exec('ALTER TABLE subjects ADD COLUMN classId TEXT') } catch {}
-    try { await c.env.APP_DB.exec('ALTER TABLE subjects ADD COLUMN teacherId TEXT') } catch {}
+    await ensureSubjectsTable(c.env.APP_DB)
+    await ensureClassMembershipsTable(c.env.APP_DB)
 
     let classRows: Record<string, any>[] = []
     if (isSupervisor) {
@@ -6252,13 +6417,18 @@ app.get('/api/classrooms/assigned', authenticate, async (c) => {
         `SELECT DISTINCT c.id, c.name, c.arm, c.classTeacherId
          FROM classes c
          LEFT JOIN subjects s ON s.classId = c.id AND s.tenantId = c.tenantId
+         LEFT JOIN class_memberships cm
+           ON cm.class_id = c.id
+          AND cm.tenant_id = c.tenantId
+          AND cm.membership_role = 'teacher'
          WHERE c.tenantId = ?
            AND (
              lower(trim(coalesce(c.classTeacherId, ''))) IN (${identifierPlaceholders})
              OR lower(trim(coalesce(s.teacherId, ''))) IN (${identifierPlaceholders})
+             OR lower(trim(coalesce(cm.user_id, ''))) IN (${identifierPlaceholders})
            )
          ORDER BY c.name, c.arm`
-      ).bind(tenantId, ...teacherIdentifiers, ...teacherIdentifiers).all()
+      ).bind(tenantId, ...teacherIdentifiers, ...teacherIdentifiers, ...teacherIdentifiers).all()
       classRows = (assignedClassRows.results || []) as Record<string, any>[]
     }
 
@@ -6284,6 +6454,7 @@ app.get('/api/classrooms/assigned', authenticate, async (c) => {
       const classId = String(row.id || '')
       const isClassTeacher = matchesComparableIdentifier(row.classTeacherId, teacherIdentifiers)
       const canManageClassroom = isSupervisor || isClassTeacher
+      const classMembershipRows = await listClassMembershipIdentifiers(c.env.APP_DB, tenantId, classId, 'teacher').catch(() => [])
       const [studentCountRow, subjectCountRow, assignmentCountRow, materialCountRow, streamCountRow, teacherSubjectRows] = await Promise.all([
         c.env.APP_DB.prepare(
           `SELECT COUNT(*) as count
@@ -6322,6 +6493,9 @@ app.get('/api/classrooms/assigned', authenticate, async (c) => {
       }
 
       const className = `${row.name}${row.arm ? ` ${row.arm}` : ''}`
+      const extraTeacherIds = classMembershipRows
+        .map(membership => String(membership.user_id || '').trim())
+        .filter(Boolean)
       return {
         id: classId,
         name: row.name,
@@ -6330,6 +6504,7 @@ app.get('/api/classrooms/assigned', authenticate, async (c) => {
         isClassTeacher,
         canManageClassroom,
         isSupervisor,
+        teacherIds: Array.from(new Set([String(row.classTeacherId || '').trim(), ...extraTeacherIds].filter(Boolean))),
         studentCount: Number((studentCountRow as any)?.count || 0),
         subjectCount: Number((subjectCountRow as any)?.count || 0),
         assignmentCount: Number((assignmentCountRow as any)?.count || 0),
@@ -7613,6 +7788,36 @@ async function resolveStudentAttendanceTarget(db: D1Database, tenantId: string, 
   }
 }
 
+async function listStudentsForClass(db: D1Database, tenantId: string, classroomId: string) {
+  await ensureUsersTable(db)
+  const rows = await db.prepare(
+    `SELECT u.id, u.name, u.email, u.role, u.status, u.createdAt, s.payload
+     FROM users u
+     LEFT JOIN settings s ON (s.studentId = u.email OR s.studentId = u.id)
+     WHERE u.tenantId = ?
+       AND lower(u.role) = 'student'
+       AND (u.status IS NULL OR u.status != 'inactive')
+       AND json_extract(s.payload, '$.classId') = ?
+     ORDER BY u.name, u.email`
+  ).bind(tenantId, classroomId).all().catch(() => ({ results: [] }))
+
+  return ((rows.results || []) as Record<string, any>[]).map(row => {
+    const settings = parseHeaderJsonObject(row.payload)
+    const profile = buildAdmissionProfileRecord(settings || {}, row)
+    return {
+      id: String(row.id || ''),
+      name: String(row.name || profile.name || ''),
+      email: String(row.email || settings.email || ''),
+      displayId: settings.displayId || null,
+      classId: String(settings.classId || classroomId),
+      className: String(settings.className || ''),
+      role: 'Student',
+      status: String(row.status || 'active').toLowerCase() === 'active' ? 'Active' : String(row.status || ''),
+      phone: profile.phone || null,
+    }
+  })
+}
+
 async function listSchoolStudentAttendance(
   db: D1Database,
   filters: { tenantId: string, classId?: string, studentId?: string, date?: string, from?: string, to?: string, limit?: number }
@@ -7759,18 +7964,8 @@ app.get('/api/classrooms/:classroomId/students', authenticate, async (c) => {
       return c.json({ success: false, message: 'Only the class teacher can load this class roster.' }, 403)
     }
 
-    await ensureUsersTable(c.env.APP_DB)
-    const rows = await c.env.APP_DB.prepare(
-      `SELECT id, name, email, role, status, createdAt
-       FROM users
-       WHERE tenantId = ? AND role = 'student' AND (status IS NULL OR status != 'inactive')
-       ORDER BY name`
-    ).bind(actor.tenantId).all()
-
-    const roster = await hydrateUserRecords(c.env.APP_DB, (rows.results || []) as Record<string, any>[])
     const className = `${classroom.classRow.name}${classroom.classRow.arm ? ` ${classroom.classRow.arm}` : ''}`
-    const students = roster
-      .filter(student => String(student?.classId || '') === classroomId)
+    const students = (await listStudentsForClass(c.env.APP_DB, actor.tenantId, classroomId))
       .map(student => ({
         ...student,
         className,
@@ -7828,38 +8023,29 @@ app.get('/api/classrooms/:classroomId/members', authenticate, async (c) => {
       return c.json({ success: false, message: 'You are not allowed to view this class member list.' }, 403)
     }
 
-    await ensureUsersTable(c.env.APP_DB)
-
-    const studentRows = await c.env.APP_DB.prepare(
-      `SELECT id, name, email, role, status, createdAt
-       FROM users
-       WHERE tenantId = ? AND role = 'student' AND (status IS NULL OR status != 'inactive')
-       ORDER BY name`
-    ).bind(actor.tenantId).all()
-
-    const studentRoster = await hydrateUserRecords(c.env.APP_DB, (studentRows.results || []) as Record<string, any>[])
     const className = `${classRow.name}${classRow.arm ? ` ${classRow.arm}` : ''}`
-    const students = studentRoster
-      .filter(student => String(student?.classId || '') === classroomId)
-      .map(student => ({
-        id: student.id,
-        name: student.name,
-        email: student.email,
-        displayId: student.displayId || null,
-        classId: classroomId,
-        className,
-        role: 'Student',
-        status: String(student.status || 'active').toLowerCase() === 'active' ? 'Active' : String(student.status || ''),
-      }))
+    const students = await listStudentsForClass(c.env.APP_DB, actor.tenantId, classroomId)
 
-    const subjectTeacherRows = await c.env.APP_DB.prepare(
-      `SELECT teacherId FROM subjects WHERE tenantId = ? AND classId = ? AND teacherId IS NOT NULL AND trim(teacherId) != ''`
-    ).bind(actor.tenantId, classroomId).all().catch(() => ({ results: [] }))
+    const [subjectTeacherRows, classMembershipRows] = await Promise.all([
+      c.env.APP_DB.prepare(
+        `SELECT teacherId FROM subjects WHERE tenantId = ? AND classId = ? AND teacherId IS NOT NULL AND trim(teacherId) != ''`
+      ).bind(actor.tenantId, classroomId).all().catch(() => ({ results: [] })),
+      listClassMembershipIdentifiers(c.env.APP_DB, actor.tenantId, classroomId).catch(() => []),
+    ])
 
     const teacherIdentifiers = Array.from(new Set([
       String(classRow.classTeacherId || '').trim(),
       ...((subjectTeacherRows.results || []) as Record<string, any>[]).map(row => String(row.teacherId || '').trim()),
+      ...classMembershipRows
+        .filter(row => String(row.membership_role || '') === 'teacher')
+        .map(row => String(row.user_id || '').trim()),
     ].filter(Boolean)))
+    const caregiverIdentifiers = Array.from(new Set(
+      classMembershipRows
+        .filter(row => String(row.membership_role || '') === 'caregiver')
+        .map(row => String(row.user_id || '').trim())
+        .filter(Boolean),
+    ))
 
     const teacherRows = (await Promise.all(teacherIdentifiers.map(identifier => findUserByIdentifier(c.env.APP_DB, identifier).catch(() => null))))
       .filter(Boolean) as Record<string, any>[]
@@ -7880,9 +8066,133 @@ app.get('/api/classrooms/:classroomId/members', authenticate, async (c) => {
       ])),
     }))
 
-    return c.json({ success: true, members: [...teachers, ...students] })
+    const caregiverRows = (await Promise.all(caregiverIdentifiers.map(identifier => findUserByIdentifier(c.env.APP_DB, identifier).catch(() => null))))
+      .filter(Boolean) as Record<string, any>[]
+    const hydratedCaregivers = await hydrateUserRecords(c.env.APP_DB, caregiverRows)
+    const caregivers = hydratedCaregivers.map(caregiver => ({
+      id: caregiver.id,
+      name: caregiver.name,
+      email: caregiver.email,
+      displayId: caregiver.displayId || null,
+      classId: classroomId,
+      className,
+      role: 'Caregiver',
+      status: String(caregiver.status || 'active').toLowerCase() === 'active' ? 'Active' : String(caregiver.status || ''),
+    }))
+
+    return c.json({ success: true, members: [...teachers, ...caregivers, ...students] })
   } catch (error) {
     return c.json({ success: false, message: 'Server error', error }, 500)
+  }
+})
+
+app.post('/api/classrooms/:classroomId/members', authenticate, async (c) => {
+  const classroomId = c.req.param('classroomId')
+
+  try {
+    const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
+    if (!actor.tenantId) return c.json({ success: false, message: 'No tenant.' }, 400)
+
+    const classroom = await getSchoolClassroomContext(c.env.APP_DB, actor.tenantId, classroomId, actor.actorId, actor.role)
+    if (!classroom.classRow) return c.json({ success: false, message: 'Class not found.' }, 404)
+    if (!classroom.canManage) {
+      return c.json({ success: false, message: 'Only the class teacher, HoS, or owner can manage this class roster.' }, 403)
+    }
+
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const memberRole = String(body.memberRole || '').trim().toLowerCase()
+    const rawUserId = String(body.userId || '').trim()
+    if (!rawUserId || !['teacher', 'student', 'caregiver'].includes(memberRole)) {
+      return c.json({ success: false, message: 'userId and a valid memberRole are required.' }, 400)
+    }
+
+    const userId = memberRole === 'teacher'
+      ? await resolveAssignableStaffIdentifier(c.env.APP_DB, actor.tenantId, rawUserId, {
+        requireTeachingCapability: true,
+        label: 'Assigned teacher',
+      })
+      : await resolveCanonicalUserIdentifier(c.env.APP_DB, rawUserId)
+    if (!userId) return c.json({ success: false, message: 'User not found.' }, 404)
+
+    if (memberRole === 'student') {
+      const resolved = await resolveSettingsIdentity(c.env.APP_DB, userId)
+      const settingsKey = resolved.settingsKey || resolved.userRow?.email || userId
+      const baseSettings = resolved.settings || {
+        email: resolved.userRow?.email || settingsKey,
+        name: resolved.userRow?.name || '',
+        role: 'student',
+        tenantId: actor.tenantId,
+        schoolId: actor.tenantId,
+        status: 'active',
+      }
+      await upsertSettings(c.env.APP_DB, settingsKey, {
+        ...baseSettings,
+        classId: classroomId,
+        className: classroom.classRow.name,
+        classArm: classroom.classRow.arm || '',
+      })
+    } else {
+      const existingMembershipRows = await listClassMembershipIdentifiers(c.env.APP_DB, actor.tenantId, classroomId, memberRole as 'teacher' | 'caregiver')
+      const nextUserIds = Array.from(new Set([
+        ...existingMembershipRows.map(row => String(row.user_id || '').trim()).filter(Boolean),
+        userId,
+      ]))
+      await replaceClassMemberships(c.env.APP_DB, actor.tenantId, classroomId, memberRole as 'teacher' | 'caregiver', nextUserIds)
+    }
+
+    return c.json({ success: true })
+  } catch (error) {
+    return c.json({ success: false, message: error instanceof Error ? error.message : 'Could not add class member.' }, 500)
+  }
+})
+
+app.delete('/api/classrooms/:classroomId/members/:memberRole/:userId', authenticate, async (c) => {
+  const classroomId = c.req.param('classroomId')
+  const rawUserId = c.req.param('userId')
+  const memberRole = String(c.req.param('memberRole') || '').trim().toLowerCase()
+
+  try {
+    const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
+    if (!actor.tenantId) return c.json({ success: false, message: 'No tenant.' }, 400)
+
+    const classroom = await getSchoolClassroomContext(c.env.APP_DB, actor.tenantId, classroomId, actor.actorId, actor.role)
+    if (!classroom.classRow) return c.json({ success: false, message: 'Class not found.' }, 404)
+    if (!classroom.canManage) {
+      return c.json({ success: false, message: 'Only the class teacher, HoS, or owner can manage this class roster.' }, 403)
+    }
+
+    const userId = await resolveCanonicalUserIdentifier(c.env.APP_DB, rawUserId)
+    if (!userId) return c.json({ success: false, message: 'User not found.' }, 404)
+
+    if (memberRole === 'student') {
+      const resolved = await resolveSettingsIdentity(c.env.APP_DB, userId)
+      const settingsKey = resolved.settingsKey || resolved.userRow?.email || userId
+      if (resolved.settings && String(resolved.settings.classId || '') === classroomId) {
+        const nextSettings = { ...resolved.settings }
+        delete nextSettings.classId
+        delete nextSettings.className
+        delete nextSettings.classArm
+        await upsertSettings(c.env.APP_DB, settingsKey, nextSettings)
+      }
+    } else if (memberRole === 'teacher' || memberRole === 'caregiver') {
+      const existingMembershipRows = await listClassMembershipIdentifiers(c.env.APP_DB, actor.tenantId, classroomId, memberRole as 'teacher' | 'caregiver')
+      const nextUserIds = existingMembershipRows
+        .map(row => String(row.user_id || '').trim())
+        .filter(value => value && value !== userId)
+      await replaceClassMemberships(c.env.APP_DB, actor.tenantId, classroomId, memberRole as 'teacher' | 'caregiver', nextUserIds)
+      if (memberRole === 'teacher' && String(classroom.classRow.classTeacherId || '').trim() === userId) {
+        await c.env.APP_DB.prepare(
+          `UPDATE classes SET classTeacherId = NULL WHERE id = ? AND tenantId = ?`
+        ).bind(classroomId, actor.tenantId).run()
+        await syncTeacherClassAssignment(c.env.APP_DB, actor.tenantId, { ...classroom.classRow, classTeacherId: null }, classroom.classRow.classTeacherId)
+      }
+    } else {
+      return c.json({ success: false, message: 'Unsupported member role.' }, 400)
+    }
+
+    return c.json({ success: true })
+  } catch (error) {
+    return c.json({ success: false, message: error instanceof Error ? error.message : 'Could not remove class member.' }, 500)
   }
 })
 
@@ -8136,7 +8446,11 @@ app.get('/api/practice/questions', authenticate, async (c) => {
     })
     return c.json({ success: true, ...practice })
   } catch (error) {
-    return c.json({ success: false, message: 'Server error', error }, 500)
+    return c.json({
+      success: false,
+      message: error instanceof Error ? error.message : 'Could not load practice questions.',
+      error: error instanceof Error ? error.message : 'Could not load practice questions.',
+    }, 500)
   }
 })
 
@@ -8429,9 +8743,46 @@ app.post('/api/ai/review', (c) => {
   return c.json({ success: true, report })
 })
 
-const USERS_TABLE_SQL = `CREATE TABLE IF NOT EXISTS users (id TEXT PRIMARY KEY, email TEXT UNIQUE, name TEXT, role TEXT, tenantId TEXT, passwordHash TEXT, status TEXT, createdAt TEXT)`
+const USERS_TABLE_SQL = `CREATE TABLE IF NOT EXISTS users (id TEXT PRIMARY KEY, email TEXT UNIQUE, name TEXT, role TEXT, primary_role TEXT, employment_category TEXT, tenantId TEXT, passwordHash TEXT, status TEXT, createdAt TEXT)`
+const USER_ROLES_TABLE_SQL = `CREATE TABLE IF NOT EXISTS user_roles (
+  id TEXT PRIMARY KEY,
+  tenant_id TEXT NOT NULL,
+  user_id TEXT NOT NULL,
+  role TEXT NOT NULL,
+  is_primary INTEGER NOT NULL DEFAULT 0,
+  created_at TEXT NOT NULL,
+  updated_at TEXT NOT NULL,
+  UNIQUE(tenant_id, user_id, role)
+)`
+const STUDENT_PUBLIC_ID_COUNTERS_SQL = `CREATE TABLE IF NOT EXISTS student_public_id_counters (
+  tenant_id TEXT PRIMARY KEY,
+  last_count INTEGER NOT NULL DEFAULT 0,
+  updated_at TEXT NOT NULL
+)`
 const PARENT_STUDENT_LINKS_SQL = `CREATE TABLE IF NOT EXISTS parent_student_links (id TEXT PRIMARY KEY, parent_id TEXT, student_id TEXT, tenant_id TEXT, created_at TEXT)`
 const CLASSES_TABLE_SQL = `CREATE TABLE IF NOT EXISTS classes (id TEXT PRIMARY KEY, tenantId TEXT, name TEXT, arm TEXT, classTeacherId TEXT, createdAt TEXT)`
+const SUBJECTS_TABLE_SQL = `CREATE TABLE IF NOT EXISTS subjects (id TEXT PRIMARY KEY, tenantId TEXT, name TEXT, classId TEXT, teacherId TEXT, createdAt TEXT)`
+const CLASS_MEMBERSHIPS_TABLE_SQL = `CREATE TABLE IF NOT EXISTS class_memberships (
+  id TEXT PRIMARY KEY,
+  tenant_id TEXT NOT NULL,
+  class_id TEXT NOT NULL,
+  user_id TEXT NOT NULL,
+  membership_role TEXT NOT NULL,
+  created_at TEXT NOT NULL,
+  updated_at TEXT NOT NULL,
+  UNIQUE(tenant_id, class_id, user_id, membership_role)
+)`
+
+const BATCH_LIMIT_DEFAULT = 50
+const BATCH_LIMIT_MAX = 200
+
+async function runIndexStatements(db: D1Database, statements: string[]) {
+  for (const statement of statements) {
+    try {
+      await db.prepare(statement).run()
+    } catch {}
+  }
+}
 const DEFAULT_FEATURE_FLAGS = {
   aurasEnabled: false,
   farmingModeEnabled: false,
@@ -8445,6 +8796,144 @@ type DisplayIdConfig = {
 
 async function ensureUsersTable(db: D1Database) {
   await db.prepare(USERS_TABLE_SQL).run()
+  try { await db.exec('ALTER TABLE users ADD COLUMN primary_role TEXT') } catch {}
+  try { await db.exec('ALTER TABLE users ADD COLUMN employment_category TEXT') } catch {}
+  await runIndexStatements(db, [
+    `CREATE INDEX IF NOT EXISTS idx_users_tenant_role_status_name ON users(tenantId, role, status, name)`,
+    `CREATE INDEX IF NOT EXISTS idx_users_tenant_primary_role_status_name ON users(tenantId, primary_role, status, name)`,
+    `CREATE INDEX IF NOT EXISTS idx_users_tenant_status_name ON users(tenantId, status, name)`,
+    `CREATE INDEX IF NOT EXISTS idx_users_lower_email ON users(lower(email))`,
+  ])
+}
+
+async function ensureUserRolesTable(db: D1Database) {
+  await db.prepare(USER_ROLES_TABLE_SQL).run()
+  await runIndexStatements(db, [
+    `CREATE INDEX IF NOT EXISTS idx_user_roles_tenant_role_user ON user_roles(tenant_id, role, user_id)`,
+    `CREATE INDEX IF NOT EXISTS idx_user_roles_tenant_user_primary ON user_roles(tenant_id, user_id, is_primary)`,
+  ])
+}
+
+async function ensureStudentPublicIdCounterTable(db: D1Database) {
+  await db.prepare(STUDENT_PUBLIC_ID_COUNTERS_SQL).run()
+}
+
+async function syncUserRoleRecords(
+  db: D1Database,
+  args: { tenantId: string, userId: string, primaryRole: string, roles: string[] },
+) {
+  const tenantId = String(args.tenantId || '').trim()
+  const userId = String(args.userId || '').trim()
+  const primaryRole = normalizeRole(args.primaryRole)
+  const roles = Array.from(new Set((args.roles || []).map(role => normalizeRole(role)).filter(Boolean)))
+  if (!tenantId || !userId) return
+
+  await ensureUserRolesTable(db)
+  await db.prepare(`DELETE FROM user_roles WHERE tenant_id = ? AND user_id = ?`).bind(tenantId, userId).run()
+
+  const timestamp = new Date().toISOString()
+  for (const role of roles) {
+    await db.prepare(
+      `INSERT OR REPLACE INTO user_roles (id, tenant_id, user_id, role, is_primary, created_at, updated_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?)`
+    ).bind(
+      `userrole_${tenantId}_${userId}_${role}`,
+      tenantId,
+      userId,
+      role,
+      role === primaryRole ? 1 : 0,
+      timestamp,
+      timestamp,
+    ).run()
+  }
+}
+
+async function generateTenantStudentPublicId(db: D1Database, tenantId: string) {
+  const normalizedTenantId = String(tenantId || '').trim()
+  if (!normalizedTenantId) throw new Error('Tenant is required to generate a student public ID.')
+
+  await ensureStudentPublicIdCounterTable(db)
+  const now = new Date().toISOString()
+  const row = await db.prepare(
+    `SELECT last_count FROM student_public_id_counters WHERE tenant_id = ?`
+  ).bind(normalizedTenantId).first() as Record<string, any> | null
+  const next = Number(row?.last_count || 0) + 1
+  await db.prepare(
+    `INSERT INTO student_public_id_counters (tenant_id, last_count, updated_at)
+     VALUES (?, ?, ?)
+     ON CONFLICT(tenant_id) DO UPDATE SET last_count = excluded.last_count, updated_at = excluded.updated_at`
+  ).bind(normalizedTenantId, next, now).run()
+  return `NS${String(next).padStart(7, '0')}`
+}
+
+async function ensureStudentPublicId(
+  db: D1Database,
+  args: { tenantId?: unknown, userId?: unknown, settingsKey?: unknown, settings?: Record<string, any> | null },
+) {
+  const tenantId = String(args.tenantId || args.settings?.tenantId || args.settings?.schoolId || '').trim()
+  const userId = String(args.userId || '').trim()
+  const settingsKey = String(args.settingsKey || '').trim()
+  const settings = args.settings || null
+  const effectiveRole = getPrimaryRole(settings || {}, settings?.role)
+  if (!settings || effectiveRole !== 'student' || !tenantId || !settingsKey) {
+    return settings
+  }
+
+  const existing = String(settings.publicStudentId || '').trim()
+  if (existing) {
+    return settings
+  }
+
+  const publicStudentId = await generateTenantStudentPublicId(db, tenantId)
+  const nextSettings = {
+    ...settings,
+    publicStudentId,
+  }
+  await upsertSettings(db, settingsKey, nextSettings)
+
+  if (userId) {
+    await db.prepare(
+      `UPDATE users
+       SET employment_category = COALESCE(employment_category, ?)
+       WHERE id = ? AND tenantId = ?`
+    ).bind(
+      deriveEmploymentCategory(getPrimaryRole(nextSettings, 'student'), nextSettings.employmentCategory, nextSettings.roles),
+      userId,
+      tenantId,
+    ).run().catch(() => null)
+  }
+
+  return nextSettings
+}
+
+function hasOwnerRole(values: unknown[] = []) {
+  return parseRoleList(...values).includes('owner')
+}
+
+async function assertTenantOwnerAssignmentAllowed(
+  db: D1Database,
+  tenantId: string,
+  nextRoles: unknown[] = [],
+  exemptUserId = '',
+) {
+  if (!hasOwnerRole(nextRoles)) return
+
+  const tenant = await getTenantById(db, tenantId)
+  const ownerEmail = String(tenant?.ownerEmail || '').trim().toLowerCase()
+  const normalizedExemptUserId = String(exemptUserId || '').trim()
+  const users = await db.prepare(
+    `SELECT id, email FROM users WHERE tenantId = ? AND lower(COALESCE(primary_role, role, '')) = 'owner' AND (status IS NULL OR status != 'inactive')`
+  ).bind(tenantId).all().catch(() => ({ results: [] }))
+  const conflictingOwner = ((users.results || []) as Record<string, any>[]).find(user => String(user.id || '').trim() !== normalizedExemptUserId)
+
+  if (conflictingOwner) {
+    throw new Error('Only one owner is allowed per tenant. Use the ownership transfer flow instead.')
+  }
+
+  if (ownerEmail && ownerEmail !== String(exemptUserId || '').trim().toLowerCase()) {
+    // School setup owns the one legal owner account. Normal person/role flows cannot assign owner.
+    throw new Error('Owner role can only be assigned during school setup or ownership transfer.')
+  }
 }
 
 function pickFeatureFlagOverrides(value: Record<string, any> | null | undefined) {
@@ -8510,6 +8999,31 @@ async function ensureParentStudentLinksTable(db: D1Database) {
 
 async function ensureClassesTable(db: D1Database) {
   await db.prepare(CLASSES_TABLE_SQL).run()
+  await runIndexStatements(db, [
+    `CREATE INDEX IF NOT EXISTS idx_classes_tenant_name_arm ON classes(tenantId, name, arm)`,
+    `CREATE INDEX IF NOT EXISTS idx_classes_tenant_teacher ON classes(tenantId, classTeacherId)`,
+  ])
+}
+
+async function ensureSubjectsTable(db: D1Database) {
+  await db.prepare(SUBJECTS_TABLE_SQL).run()
+  try { await db.exec('ALTER TABLE subjects ADD COLUMN tenantId TEXT') } catch {}
+  try { await db.exec('ALTER TABLE subjects ADD COLUMN classId TEXT') } catch {}
+  try { await db.exec('ALTER TABLE subjects ADD COLUMN teacherId TEXT') } catch {}
+  try { await db.exec('ALTER TABLE subjects ADD COLUMN createdAt TEXT') } catch {}
+  await runIndexStatements(db, [
+    `CREATE INDEX IF NOT EXISTS idx_subjects_tenant_class_name ON subjects(tenantId, classId, name)`,
+    `CREATE INDEX IF NOT EXISTS idx_subjects_tenant_teacher_class ON subjects(tenantId, teacherId, classId)`,
+    `CREATE INDEX IF NOT EXISTS idx_subjects_tenant_name ON subjects(tenantId, name)`,
+  ])
+}
+
+async function ensureClassMembershipsTable(db: D1Database) {
+  await db.prepare(CLASS_MEMBERSHIPS_TABLE_SQL).run()
+  await runIndexStatements(db, [
+    `CREATE INDEX IF NOT EXISTS idx_class_memberships_tenant_class_role ON class_memberships(tenant_id, class_id, membership_role)`,
+    `CREATE INDEX IF NOT EXISTS idx_class_memberships_tenant_user_role ON class_memberships(tenant_id, user_id, membership_role)`,
+  ])
 }
 
 function getDisplayIdConfig(role: string): DisplayIdConfig {
@@ -8558,17 +9072,28 @@ async function hydrateUserRecord(db: D1Database, row: Record<string, any> | null
   if (!row) return null
 
   const resolvedIdentity = await resolveSettingsIdentity(db, String(row.email || row.id || '').trim())
-  const settings = resolvedIdentity.settings || null
+  let settings = resolvedIdentity.settings || null
+  settings = await ensureStudentPublicId(db, {
+    tenantId: row.tenantId || settings?.tenantId || settings?.schoolId,
+    userId: row.id,
+    settingsKey: resolvedIdentity.settingsKey,
+    settings,
+  })
   const profile = buildAdmissionProfileRecord(settings || {}, row)
   const roleContext = buildRoleContext(settings || {}, row.role)
+  const publicDisplayId = getPublicFacingUserId(settings || {}, roleContext.primaryRole)
 
   return {
     ...row,
     role: roleContext.primaryRole,
+    primaryRole: roleContext.primaryRole,
     roles: roleContext.rawRoles,
     switchableRoles: roleContext.switchableRoles,
     adminRoles: roleContext.adminRoles,
-    displayId: settings?.displayId || null,
+    capabilities: roleContext.capabilities,
+    displayId: publicDisplayId,
+    publicStudentId: String(settings?.publicStudentId || '').trim() || null,
+    employmentCategory: deriveEmploymentCategory(roleContext.primaryRole, settings?.employmentCategory, roleContext.rawRoles),
     phone: profile.phone || null,
     classId: settings?.classId || null,
     className: settings?.className || null,
@@ -8583,8 +9108,79 @@ async function hydrateUserRecord(db: D1Database, row: Record<string, any> | null
   }
 }
 
+function chunkList<T>(items: T[], size = 100) {
+  const normalizedSize = Math.max(1, Math.trunc(size || 100))
+  const chunks: T[][] = []
+  for (let index = 0; index < items.length; index += normalizedSize) {
+    chunks.push(items.slice(index, index + normalizedSize))
+  }
+  return chunks
+}
+
+async function getSettingsMapForUserRows(db: D1Database, rows: Record<string, any>[]) {
+  const settingsMap = new Map<string, Record<string, any>>()
+  const lookupKeys = Array.from(new Set(
+    (rows || [])
+      .flatMap(row => [row?.email, row?.id])
+      .map(value => String(value || '').trim())
+      .filter(Boolean),
+  ))
+
+  if (!lookupKeys.length) return settingsMap
+
+  for (const keys of chunkList(lookupKeys, 150)) {
+    const placeholders = keys.map(() => '?').join(', ')
+    const settingsRows = await cenvlessSettingsQuery(db, placeholders, keys)
+    for (const row of settingsRows) {
+      const settingKey = String(row.studentId || '').trim()
+      const payload = parseHeaderJsonObject(row.payload)
+      if (settingKey && Object.keys(payload).length > 0) {
+        settingsMap.set(settingKey, payload)
+      }
+    }
+  }
+
+  return settingsMap
+}
+
+async function cenvlessSettingsQuery(db: D1Database, placeholders: string, keys: string[]) {
+  const result = await db.prepare(
+    `SELECT studentId, payload FROM settings WHERE studentId IN (${placeholders})`
+  ).bind(...keys).all().catch(() => ({ results: [] }))
+  return (result.results || []) as Record<string, any>[]
+}
+
 async function hydrateUserRecords(db: D1Database, rows: Record<string, any>[]) {
-  return Promise.all((rows || []).map(row => hydrateUserRecord(db, row)))
+  const settingsMap = await getSettingsMapForUserRows(db, rows)
+  return Promise.all((rows || []).map(async row => {
+    if (!row) return null
+
+    const emailKey = String(row.email || '').trim()
+    const idKey = String(row.id || '').trim()
+    const settings = settingsMap.get(emailKey) || settingsMap.get(idKey) || null
+    const profile = buildAdmissionProfileRecord(settings || {}, row)
+    const roleContext = buildRoleContext(settings || {}, row.role)
+
+    return {
+      ...row,
+      role: roleContext.primaryRole,
+      roles: roleContext.rawRoles,
+      switchableRoles: roleContext.switchableRoles,
+      adminRoles: roleContext.adminRoles,
+      displayId: settings?.displayId || null,
+      phone: profile.phone || null,
+      classId: settings?.classId || null,
+      className: settings?.className || null,
+      avatar: profile.avatar || null,
+      avatarUrl: profile.avatar || null,
+      dateOfBirth: profile.dateOfBirth || null,
+      gender: profile.gender || null,
+      address: profile.address || null,
+      relationship: profile.relationship || null,
+      profile,
+      mustChangePassword: settings?.mustChangePassword === true,
+    }
+  }))
 }
 
 function normalizeMonthKey(value: unknown) {
@@ -9256,13 +9852,60 @@ app.get('/api/people', authenticate, async (c) => {
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
   try {
     await ensureUsersTable(c.env.APP_DB)
+    const search = String(c.req.query('search') || '').trim().toLowerCase()
+    const roleFilter = normalizeRole(c.req.query('role') || '')
+    const page = Math.max(1, Number(c.req.query('page') || 1) || 1)
+    const requestedLimit = Number(c.req.query('limit') || BATCH_LIMIT_DEFAULT)
+    const limit = Math.max(1, Math.min(BATCH_LIMIT_MAX, Number.isFinite(requestedLimit) ? requestedLimit : BATCH_LIMIT_DEFAULT))
+    const offset = (page - 1) * limit
     const rows = await c.env.APP_DB.prepare(
-      `SELECT id, name, email, role, status, createdAt FROM users WHERE tenantId = ? AND (status IS NULL OR status != 'inactive') ORDER BY role, name`
+      `SELECT id, name, email, role, primary_role, employment_category, status, createdAt, tenantId
+       FROM users
+       WHERE tenantId = ? AND (status IS NULL OR status != 'inactive')
+       ORDER BY COALESCE(primary_role, role), name, email`
     ).bind(tenantId).all()
-    const people = await hydrateUserRecords(c.env.APP_DB, (rows.results || []) as Record<string, any>[])
-    return c.json({ success: true, people })
-  } catch {
-    return c.json({ success: true, people: [] })
+
+    let people = await hydrateUserRecords(c.env.APP_DB, (rows.results || []) as Record<string, any>[])
+
+    if (roleFilter === 'teacher') {
+      people = people.filter(person => canTeach(person?.role, person?.roles))
+    } else if (roleFilter === 'staff') {
+      people = people.filter(person => isStaff(person?.role, person?.roles))
+    } else if (roleFilter) {
+      people = people.filter(person => parseRoleList(person?.primaryRole, person?.role, person?.roles).includes(roleFilter))
+    }
+
+    if (search) {
+      people = people.filter(person => {
+        const roles = parseRoleList(person?.primaryRole, person?.role, person?.roles).join(' ')
+        const haystack = [
+          person?.name,
+          person?.email,
+          person?.displayId,
+          person?.publicStudentId,
+          person?.primaryRole,
+          roles,
+          person?.employmentCategory,
+        ].map(value => String(value || '').trim().toLowerCase()).join(' ')
+        return haystack.includes(search)
+      })
+    }
+
+    const total = people.length
+    people = people.slice(offset, offset + limit)
+    return c.json({
+      success: true,
+      people,
+      pagination: {
+        page,
+        limit,
+        total,
+        hasMore: offset + people.length < total,
+      },
+    })
+  } catch (error) {
+    console.error('Failed to load people', error)
+    return c.json({ success: true, people: [], pagination: { page: 1, limit: BATCH_LIMIT_DEFAULT, total: 0, hasMore: false } })
   }
 })
 
@@ -9984,20 +10627,24 @@ app.post('/api/people', authenticate, async (c) => {
     if (!selectedClass) return c.json({ error: 'Selected class was not found for this school.' }, 404)
   }
 
-  const userId = `user_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`
+  if (normalizedRole === 'owner') return c.json({ error: 'Owner role can only be assigned during school setup or ownership transfer.' }, 400)
+
+  const userId = createUserId()
   const defaultPassword = password || 'abcABC@123'
   const existingSettings = await getSettings(c.env.APP_DB, email).catch(() => null)
   const mergedRoles = parseRoleList(existingSettings?.role, existingSettings?.roles, normalizedRole)
-  const primaryRole = normalizeRole(existingSettings?.role) || mergedRoles[0] || normalizedRole
+  const primaryRole = getPrimaryRole(existingSettings || {}, mergedRoles[0] || normalizedRole) || normalizedRole
   const displayId = existingSettings?.displayId || await generateDisplayId(c.env.APP_DB, getDisplayIdConfig(primaryRole))
 
   try {
+    await assertTenantOwnerAssignmentAllowed(c.env.APP_DB, tenantId, [primaryRole, mergedRoles])
     await ensureUsersTable(c.env.APP_DB)
     const userSettings = await withHashedPassword({
       ...(existingSettings || {}),
       email,
       name,
       role: primaryRole,
+      primaryRole,
       roles: mergedRoles,
       tenantId,
       schoolId: tenantId,
@@ -10005,21 +10652,33 @@ app.post('/api/people', authenticate, async (c) => {
       mustChangePassword: true,
       initialPassword: defaultPassword, // plain-text fallback for first-login; cleared on password change
       displayId,
+      employmentCategory: deriveEmploymentCategory(primaryRole, existingSettings?.employmentCategory, mergedRoles),
       ...(classId ? { classId, className: selectedClass?.name || null, classArm: selectedClass?.arm || null } : {}),
     }, defaultPassword)
     await c.env.APP_DB.prepare(
-      `INSERT INTO users (id, email, name, role, tenantId, status, createdAt)
-       VALUES (?, ?, ?, ?, ?, ?, ?)
-       ON CONFLICT(email) DO UPDATE SET name=excluded.name, role=excluded.role, tenantId=excluded.tenantId, status='active'`
-    ).bind(userId, email, name, primaryRole, tenantId, 'active', new Date().toISOString()).run()
-
-    await upsertSettings(c.env.APP_DB, email, userSettings)
-    await addAudit(c.env.APP_DB, tenantId, { action: 'personCreated', data: { by: c.var.user.id, name, email, role: normalizedRole, roles: mergedRoles, displayId, classId: classId || null } })
+      `INSERT INTO users (id, email, name, role, primary_role, employment_category, tenantId, status, createdAt)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+       ON CONFLICT(email) DO UPDATE SET name=excluded.name, role=excluded.role, primary_role=excluded.primary_role, employment_category=excluded.employment_category, tenantId=excluded.tenantId, status='active'`
+    ).bind(userId, email, name, primaryRole, primaryRole, deriveEmploymentCategory(primaryRole, userSettings.employmentCategory, mergedRoles), tenantId, 'active', new Date().toISOString()).run()
 
     const saved = await c.env.APP_DB.prepare(
-      `SELECT id, email, name, role, status, createdAt FROM users WHERE email = ?`
+      `SELECT id, email, name, role, primary_role, employment_category, status, createdAt, tenantId FROM users WHERE email = ?`
     ).bind(email).first() as Record<string, any> | null
     const actualUserId = saved?.id || userId
+    const nextSettings = await ensureStudentPublicId(c.env.APP_DB, {
+      tenantId,
+      userId: actualUserId,
+      settingsKey: email,
+      settings: userSettings,
+    }) || userSettings
+    await upsertSettings(c.env.APP_DB, email, nextSettings)
+    await syncUserRoleRecords(c.env.APP_DB, {
+      tenantId,
+      userId: actualUserId,
+      primaryRole,
+      roles: mergedRoles,
+    })
+    await addAudit(c.env.APP_DB, tenantId, { action: 'personCreated', data: { by: c.var.user.id, name, email, role: normalizedRole, roles: mergedRoles, displayId: getPublicFacingUserId(nextSettings, primaryRole), classId: classId || null } })
 
     if (normalizedRole === 'student' && parentData) {
       await ensureParentStudentLinksTable(c.env.APP_DB)
@@ -10028,13 +10687,16 @@ app.post('/api/people', authenticate, async (c) => {
 
       if (parentData.existingParentId) {
         const existingParent = await c.env.APP_DB.prepare(
-          `SELECT id FROM users WHERE id = ? AND tenantId = ? AND role = 'parent'`
-        ).bind(String(parentData.existingParentId), tenantId).first() as any
-        parentId = existingParent?.id || null
+          `SELECT id, name, email, role, primary_role, employment_category, status, createdAt, tenantId FROM users WHERE id = ? AND tenantId = ?`
+        ).bind(String(parentData.existingParentId), tenantId).first() as Record<string, any> | null
+        const hydratedParent = await hydrateUserRecord(c.env.APP_DB, existingParent)
+        parentId = parseRoleList(hydratedParent?.primaryRole, hydratedParent?.role, hydratedParent?.roles).includes('parent')
+          ? String(hydratedParent?.id || '')
+          : null
       } else if (parentData.name || parentData.email) {
         const parentEmail = parentData.email || `parent_${Date.now()}@ndovera.local`
         const parentName = parentData.name || 'Parent'
-        const parentUserId = `user_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`
+        const parentUserId = createUserId()
         const existingParentSettings = await getSettings(c.env.APP_DB, parentEmail).catch(() => null)
         const parentDisplayId = existingParentSettings?.displayId || await generateDisplayId(c.env.APP_DB, getDisplayIdConfig('parent'))
         const parentSettings = await withHashedPassword({
@@ -10042,21 +10704,29 @@ app.post('/api/people', authenticate, async (c) => {
           email: parentEmail,
           name: parentName,
           role: 'parent',
+          primaryRole: 'parent',
           tenantId,
           schoolId: tenantId,
           status: 'active',
           mustChangePassword: true,
           displayId: parentDisplayId,
           phone: parentData.phone || null,
+          employmentCategory: deriveEmploymentCategory('parent'),
         }, 'abcABC@123')
         await c.env.APP_DB.prepare(
-          `INSERT INTO users (id, email, name, role, tenantId, status, createdAt)
-           VALUES (?, ?, ?, ?, ?, ?, ?)
-           ON CONFLICT(email) DO UPDATE SET name=excluded.name, role=excluded.role, tenantId=excluded.tenantId, status='active'`
-        ).bind(parentUserId, parentEmail, parentName, 'parent', tenantId, 'active', new Date().toISOString()).run()
+          `INSERT INTO users (id, email, name, role, primary_role, employment_category, tenantId, status, createdAt)
+           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+           ON CONFLICT(email) DO UPDATE SET name=excluded.name, role=excluded.role, primary_role=excluded.primary_role, employment_category=excluded.employment_category, tenantId=excluded.tenantId, status='active'`
+        ).bind(parentUserId, parentEmail, parentName, 'parent', 'parent', deriveEmploymentCategory('parent'), tenantId, 'active', new Date().toISOString()).run()
         await upsertSettings(c.env.APP_DB, parentEmail, parentSettings)
         const savedParent = await c.env.APP_DB.prepare(`SELECT id FROM users WHERE email = ?`).bind(parentEmail).first() as any
         parentId = savedParent?.id || parentUserId
+        await syncUserRoleRecords(c.env.APP_DB, {
+          tenantId,
+          userId: parentId,
+          primaryRole: 'parent',
+          roles: ['parent'],
+        })
       }
 
       if (parentId) {
@@ -10080,7 +10750,7 @@ app.post('/api/people/bulk', authenticate, async (c) => {
   const tenantId = c.var.user?.tenantId
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
 
-  let rows: Array<{ name?: string; email?: string; role?: string; password?: string; className?: string }> = []
+  let rows: Array<{ name?: string; email?: string; role?: string; roles?: string[] | string; password?: string; className?: string; classId?: string }> = []
   try {
     const body = await c.req.json()
     rows = Array.isArray(body?.rows) ? body.rows : []
@@ -10089,57 +10759,92 @@ app.post('/api/people/bulk', authenticate, async (c) => {
   }
 
   if (!rows.length) return c.json({ error: 'No rows provided.' }, 400)
-  if (rows.length > 200) return c.json({ error: 'Maximum 200 rows per import.' }, 400)
+  if (rows.length > 1000) return c.json({ error: 'Maximum 1000 rows per import.' }, 400)
 
   await ensureUsersTable(c.env.APP_DB)
   await ensureClassesTable(c.env.APP_DB)
+  await ensureClassMembershipsTable(c.env.APP_DB)
 
   const results: Array<{ email: string; status: 'ok' | 'error'; error?: string }> = []
+  const classRows = await c.env.APP_DB.prepare(
+    `SELECT id, name, arm FROM classes WHERE tenantId = ?`
+  ).bind(tenantId).all().catch(() => ({ results: [] }))
+  const classLookup = new Map<string, Record<string, any>>()
+  for (const classRow of ((classRows.results || []) as Record<string, any>[])) {
+    const classId = String(classRow.id || '').trim()
+    const className = String(classRow.name || '').trim()
+    const fullLabel = `${className}${classRow.arm ? ` ${classRow.arm}` : ''}`.trim()
+    if (classId) classLookup.set(`id:${classId.toLowerCase()}`, classRow)
+    if (className) classLookup.set(`name:${className.toLowerCase()}`, classRow)
+    if (fullLabel) classLookup.set(`name:${fullLabel.toLowerCase()}`, classRow)
+  }
 
   for (const row of rows) {
-    const { name, email, role, password, className } = row
+    const { name, email, role, roles, password, className, classId } = row
     if (!name || !email || !role) {
       results.push({ email: email || '?', status: 'error', error: 'name, email, and role are required.' })
       continue
     }
     try {
-      const userId = `user_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`
+      const userId = createUserId()
       const defaultPassword = password || 'abcABC@123'
-      const existingSettings = await getSettings(c.env.APP_DB, email).catch(() => null)
+      const normalizedEmail = String(email || '').trim().toLowerCase()
+      const existingSettings = await getSettings(c.env.APP_DB, normalizedEmail).catch(() => null)
       const normalizedRole = normalizeRole(role)
-      const mergedRoles = parseRoleList(existingSettings?.role, existingSettings?.roles, normalizedRole)
-      const primaryRole = normalizeRole(existingSettings?.role) || mergedRoles[0] || normalizedRole
+      if (normalizedRole === 'owner') {
+        results.push({ email: normalizedEmail, status: 'error', error: 'Owner role cannot be bulk imported.' })
+        continue
+      }
+      const mergedRoles = parseRoleList(existingSettings?.role, existingSettings?.roles, roles, normalizedRole)
+      const primaryRole = getPrimaryRole(existingSettings || {}, mergedRoles[0] || normalizedRole) || normalizedRole
       const displayId = existingSettings?.displayId || await generateDisplayId(c.env.APP_DB, getDisplayIdConfig(primaryRole))
 
       let selectedClass: Record<string, any> | null = null
-      if (normalizedRole === 'student' && className) {
-        selectedClass = await c.env.APP_DB.prepare(
-          `SELECT id, name, arm FROM classes WHERE (name = ? OR (name || ' ' || COALESCE(arm,'')) = ?) AND tenantId = ? LIMIT 1`
-        ).bind(className.trim(), className.trim(), tenantId).first() as Record<string, any> | null
+      if (normalizedRole === 'student' && (classId || className)) {
+        const classIdKey = String(classId || '').trim().toLowerCase()
+        const classNameKey = String(className || '').trim().toLowerCase()
+        selectedClass = classLookup.get(`id:${classIdKey}`) || classLookup.get(`name:${classNameKey}`) || null
       }
 
+      await assertTenantOwnerAssignmentAllowed(c.env.APP_DB, tenantId, [primaryRole, mergedRoles])
       const userSettings = await withHashedPassword({
         ...(existingSettings || {}),
-        email,
+        email: normalizedEmail,
         name,
         role: primaryRole,
+        primaryRole,
         roles: mergedRoles,
         tenantId,
         schoolId: tenantId,
         status: 'active',
         mustChangePassword: true,
         displayId,
+        employmentCategory: deriveEmploymentCategory(primaryRole, existingSettings?.employmentCategory, mergedRoles),
         ...(selectedClass ? { classId: selectedClass.id, className: selectedClass.name, classArm: selectedClass.arm } : {}),
       }, defaultPassword)
 
       await c.env.APP_DB.prepare(
-        `INSERT INTO users (id, email, name, role, tenantId, status, createdAt)
-         VALUES (?, ?, ?, ?, ?, ?, ?)
-         ON CONFLICT(email) DO UPDATE SET name=excluded.name, role=excluded.role, tenantId=excluded.tenantId, status='active'`
-      ).bind(userId, email, name, primaryRole, tenantId, 'active', new Date().toISOString()).run()
+        `INSERT INTO users (id, email, name, role, primary_role, employment_category, tenantId, status, createdAt)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+         ON CONFLICT(email) DO UPDATE SET name=excluded.name, role=excluded.role, primary_role=excluded.primary_role, employment_category=excluded.employment_category, tenantId=excluded.tenantId, status='active'`
+      ).bind(userId, normalizedEmail, name, primaryRole, primaryRole, deriveEmploymentCategory(primaryRole, userSettings.employmentCategory, mergedRoles), tenantId, 'active', new Date().toISOString()).run()
 
-      await upsertSettings(c.env.APP_DB, email, userSettings)
-      results.push({ email, status: 'ok' })
+      const savedUser = await c.env.APP_DB.prepare(`SELECT id FROM users WHERE email = ?`).bind(normalizedEmail).first() as Record<string, any> | null
+      const actualUserId = String(savedUser?.id || userId)
+      const nextSettings = await ensureStudentPublicId(c.env.APP_DB, {
+        tenantId,
+        userId: actualUserId,
+        settingsKey: normalizedEmail,
+        settings: userSettings,
+      }) || userSettings
+      await upsertSettings(c.env.APP_DB, normalizedEmail, nextSettings)
+      await syncUserRoleRecords(c.env.APP_DB, {
+        tenantId,
+        userId: actualUserId,
+        primaryRole,
+        roles: mergedRoles,
+      })
+      results.push({ email: normalizedEmail, status: 'ok' })
     } catch (err) {
       results.push({ email: email || '?', status: 'error', error: err instanceof Error ? err.message : 'unknown error' })
     }
@@ -10177,17 +10882,23 @@ app.put('/api/people/:userId/role', authenticate, async (c) => {
   const { role } = await c.req.json()
   if (!role) return c.json({ error: 'role is required.' }, 400)
   try {
-    const existingUser = await c.env.APP_DB.prepare(`SELECT email FROM users WHERE id = ? AND tenantId = ?`).bind(userId, tenantId).first() as any
+    const existingUser = await c.env.APP_DB.prepare(`SELECT id, email, role, primary_role, employment_category FROM users WHERE id = ? AND tenantId = ?`).bind(userId, tenantId).first() as any
     const normalizedRole = normalizeRole(role)
+    if (normalizedRole === 'owner') {
+      return c.json({ error: 'Owner role can only be assigned during school setup or ownership transfer.' }, 400)
+    }
     const settings = existingUser?.email ? await getSettings(c.env.APP_DB, existingUser.email).catch(() => null) : null
-    const mergedRoles = parseRoleList(settings?.role, settings?.roles, normalizedRole)
-    const primaryRole = normalizeRole(settings?.role) || mergedRoles[0] || normalizedRole
-    await c.env.APP_DB.prepare(`UPDATE users SET role=? WHERE id=? AND tenantId=?`).bind(primaryRole, userId, tenantId).run()
+    const mergedRoles = parseRoleList(settings?.primaryRole, settings?.role, settings?.roles, normalizedRole)
+    const primaryRole = getPrimaryRole(settings || existingUser || {}, mergedRoles[0] || normalizedRole) || normalizedRole
+    await assertTenantOwnerAssignmentAllowed(c.env.APP_DB, tenantId, [primaryRole, mergedRoles], userId)
+    const employmentCategory = deriveEmploymentCategory(primaryRole, settings?.employmentCategory || existingUser?.employment_category, mergedRoles)
+    await c.env.APP_DB.prepare(`UPDATE users SET role=?, primary_role=?, employment_category=? WHERE id=? AND tenantId=?`).bind(primaryRole, primaryRole, employmentCategory, userId, tenantId).run()
     if (existingUser?.email) {
       if (settings) {
-        await upsertSettings(c.env.APP_DB, existingUser.email, { ...settings, role: primaryRole, roles: mergedRoles })
+        await upsertSettings(c.env.APP_DB, existingUser.email, { ...settings, role: primaryRole, primaryRole, roles: mergedRoles, employmentCategory })
       }
     }
+    await syncUserRoleRecords(c.env.APP_DB, { tenantId, userId, primaryRole, roles: mergedRoles })
     await addAudit(c.env.APP_DB, tenantId, { action: 'personRoleUpdated', data: { by: c.var.user.id, userId, role: normalizedRole, roles: mergedRoles } })
     return c.json({ success: true })
   } catch (err) {
@@ -10978,9 +11689,13 @@ app.get('/api/school/parents', authenticate, async (c) => {
   try {
     await ensureUsersTable(c.env.APP_DB)
     const rows = await c.env.APP_DB.prepare(
-      `SELECT id, name, email, role, status, createdAt FROM users WHERE tenantId = ? AND role = 'parent' AND (status IS NULL OR status != 'inactive') ORDER BY name`
+      `SELECT id, name, email, role, primary_role, employment_category, status, createdAt, tenantId
+       FROM users
+       WHERE tenantId = ? AND (status IS NULL OR status != 'inactive')
+       ORDER BY name`
     ).bind(tenantId).all()
-    const parents = await hydrateUserRecords(c.env.APP_DB, (rows.results || []) as Record<string, any>[])
+    const parents = (await hydrateUserRecords(c.env.APP_DB, (rows.results || []) as Record<string, any>[]))
+      .filter(parent => parseRoleList(parent?.primaryRole, parent?.role, parent?.roles).includes('parent'))
     return c.json({ success: true, parents })
   } catch {
     return c.json({ success: true, parents: [] })
@@ -10993,13 +11708,47 @@ app.get('/api/school/classes', authenticate, async (c) => {
   const tenantId = c.var.user?.tenantId
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
   try {
-    await c.env.APP_DB.prepare(`CREATE TABLE IF NOT EXISTS classes (id TEXT PRIMARY KEY, tenantId TEXT, name TEXT, arm TEXT, classTeacherId TEXT, createdAt TEXT)`).run()
-    try { await c.env.APP_DB.exec('ALTER TABLE classes ADD COLUMN tenantId TEXT') } catch {}
-    try { await c.env.APP_DB.exec('ALTER TABLE classes ADD COLUMN arm TEXT') } catch {}
-    try { await c.env.APP_DB.exec('ALTER TABLE classes ADD COLUMN classTeacherId TEXT') } catch {}
-    try { await c.env.APP_DB.exec('ALTER TABLE classes ADD COLUMN createdAt TEXT') } catch {}
+    await ensureClassesTable(c.env.APP_DB)
+    await ensureClassMembershipsTable(c.env.APP_DB)
     const rows = await c.env.APP_DB.prepare(`SELECT * FROM classes WHERE tenantId = ? ORDER BY name, arm`).bind(tenantId).all()
-    return c.json({ success: true, classes: rows.results || [] })
+    const classRows = (rows.results || []) as Record<string, any>[]
+    const membershipRows = await c.env.APP_DB.prepare(
+      `SELECT class_id, user_id, membership_role
+       FROM class_memberships
+       WHERE tenant_id = ?
+         AND membership_role IN ('teacher', 'caregiver')
+       ORDER BY updated_at DESC`
+    ).bind(tenantId).all().catch(() => ({ results: [] }))
+
+    const membershipsByClassId = new Map<string, { teacherIds: string[], caregiverIds: string[] }>()
+    for (const row of ((membershipRows.results || []) as Record<string, any>[])) {
+      const classId = String(row.class_id || '').trim()
+      if (!classId) continue
+      const bucket = membershipsByClassId.get(classId) || { teacherIds: [], caregiverIds: [] }
+      if (String(row.membership_role || '') === 'caregiver') {
+        if (!bucket.caregiverIds.includes(String(row.user_id || ''))) bucket.caregiverIds.push(String(row.user_id || ''))
+      } else if (!bucket.teacherIds.includes(String(row.user_id || ''))) {
+        bucket.teacherIds.push(String(row.user_id || ''))
+      }
+      membershipsByClassId.set(classId, bucket)
+    }
+
+    return c.json({
+      success: true,
+      classes: classRows.map(classRow => {
+        const classId = String(classRow.id || '').trim()
+        const membership = membershipsByClassId.get(classId) || { teacherIds: [], caregiverIds: [] }
+        const teacherIds = Array.from(new Set([
+          String(classRow.classTeacherId || '').trim(),
+          ...membership.teacherIds,
+        ].filter(Boolean)))
+        return {
+          ...classRow,
+          teacherIds,
+          caregiverIds: membership.caregiverIds,
+        }
+      }),
+    })
   } catch {
     return c.json({ success: true, classes: [] })
   }
@@ -11009,17 +11758,30 @@ app.post('/api/school/classes', authenticate, async (c) => {
   if (!hasRequiredRole(c.var.user.role, ['owner', 'hos'])) return c.json({ error: 'forbidden' }, 403)
   const tenantId = c.var.user?.tenantId
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
-  const { name, arm, classTeacherId } = await c.req.json()
+  const { name, arm, classTeacherId, teacherIds, caregiverIds } = await c.req.json()
   if (!name) return c.json({ error: 'Class name is required.' }, 400)
   const id = `class_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`
   try {
-    await c.env.APP_DB.prepare(`CREATE TABLE IF NOT EXISTS classes (id TEXT PRIMARY KEY, tenantId TEXT, name TEXT, arm TEXT, classTeacherId TEXT, createdAt TEXT)`).run()
-    try { await c.env.APP_DB.exec('ALTER TABLE classes ADD COLUMN tenantId TEXT') } catch {}
-    try { await c.env.APP_DB.exec('ALTER TABLE classes ADD COLUMN arm TEXT') } catch {}
-    try { await c.env.APP_DB.exec('ALTER TABLE classes ADD COLUMN classTeacherId TEXT') } catch {}
-    try { await c.env.APP_DB.exec('ALTER TABLE classes ADD COLUMN createdAt TEXT') } catch {}
-    const normalizedTeacherId = await resolveCanonicalUserIdentifier(c.env.APP_DB, classTeacherId)
+    await ensureClassesTable(c.env.APP_DB)
+    await ensureClassMembershipsTable(c.env.APP_DB)
+    const normalizedTeacherId = await resolveAssignableStaffIdentifier(c.env.APP_DB, tenantId, classTeacherId, {
+      requireTeachingCapability: true,
+      label: 'Class teacher',
+    })
     await c.env.APP_DB.prepare(`INSERT INTO classes (id, tenantId, name, arm, classTeacherId, createdAt) VALUES (?, ?, ?, ?, ?, ?)`).bind(id, tenantId, name, arm || '', normalizedTeacherId, new Date().toISOString()).run()
+    const normalizedTeacherIds = Array.from(new Set([
+      normalizedTeacherId,
+      ...((Array.isArray(teacherIds) ? teacherIds : []).map((value: unknown) => String(value || '').trim()).filter(Boolean)),
+    ].filter(Boolean)))
+    const canonicalTeacherIds = (await Promise.all(normalizedTeacherIds.map(value => resolveAssignableStaffIdentifier(c.env.APP_DB, tenantId, value, {
+      requireTeachingCapability: true,
+      label: 'Assigned teacher',
+    })))).filter(Boolean) as string[]
+    const canonicalCaregiverIds = (await Promise.all(
+      (Array.isArray(caregiverIds) ? caregiverIds : []).map(value => resolveCanonicalUserIdentifier(c.env.APP_DB, value))
+    )).filter(Boolean) as string[]
+    await replaceClassMemberships(c.env.APP_DB, tenantId, id, 'teacher', canonicalTeacherIds)
+    await replaceClassMemberships(c.env.APP_DB, tenantId, id, 'caregiver', canonicalCaregiverIds)
     await syncTeacherClassAssignment(c.env.APP_DB, tenantId, { id, name, arm: arm || '', classTeacherId: normalizedTeacherId })
     return c.json({ success: true, id }, 201)
   } catch (err) {
@@ -11033,7 +11795,7 @@ app.put('/api/school/classes/:classId', authenticate, async (c) => {
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
   const classId = c.req.param('classId')
   const body = await c.req.json()
-  const { name, arm, classTeacherId } = body
+  const { name, arm, classTeacherId, teacherIds, caregiverIds } = body
   try {
     const existingClass = await c.env.APP_DB.prepare(`SELECT * FROM classes WHERE id = ? AND tenantId = ?`).bind(classId, tenantId).first() as Record<string, any> | null
     if (!existingClass) return c.json({ error: 'Class not found.' }, 404)
@@ -11042,7 +11804,12 @@ app.put('/api/school/classes/:classId', authenticate, async (c) => {
     const vals: unknown[] = []
     if (name !== undefined) { sets.push('name = ?'); vals.push(name) }
     if (arm !== undefined) { sets.push('arm = ?'); vals.push(arm) }
-    const normalizedTeacherId = classTeacherId !== undefined ? await resolveCanonicalUserIdentifier(c.env.APP_DB, classTeacherId) : undefined
+    const normalizedTeacherId = classTeacherId !== undefined
+      ? await resolveAssignableStaffIdentifier(c.env.APP_DB, tenantId, classTeacherId, {
+        requireTeachingCapability: true,
+        label: 'Class teacher',
+      })
+      : undefined
     if (normalizedTeacherId !== undefined) { sets.push('classTeacherId = ?'); vals.push(normalizedTeacherId) }
     if (sets.length === 0) return c.json({ error: 'Nothing to update.' }, 400)
     vals.push(classId, tenantId)
@@ -11055,9 +11822,138 @@ app.put('/api/school/classes/:classId', authenticate, async (c) => {
       ...(normalizedTeacherId !== undefined ? { classTeacherId: normalizedTeacherId } : {}),
     }
     await syncTeacherClassAssignment(c.env.APP_DB, tenantId, updatedClass, existingClass.classTeacherId)
+
+    if (teacherIds !== undefined || classTeacherId !== undefined) {
+      const requestedTeacherIds = Array.isArray(teacherIds) ? teacherIds : []
+      const normalizedTeacherIds = Array.from(new Set([
+        ...(requestedTeacherIds.map((value: unknown) => String(value || '').trim()).filter(Boolean)),
+        String(normalizedTeacherId !== undefined ? normalizedTeacherId : updatedClass.classTeacherId || '').trim(),
+      ].filter(Boolean)))
+      const canonicalTeacherIds = (await Promise.all(normalizedTeacherIds.map(value => resolveAssignableStaffIdentifier(c.env.APP_DB, tenantId, value, {
+        requireTeachingCapability: true,
+        label: 'Assigned teacher',
+      })))).filter(Boolean) as string[]
+      await replaceClassMemberships(c.env.APP_DB, tenantId, classId, 'teacher', canonicalTeacherIds)
+    }
+
+    if (caregiverIds !== undefined) {
+      const canonicalCaregiverIds = (await Promise.all(
+        (Array.isArray(caregiverIds) ? caregiverIds : []).map(value => resolveCanonicalUserIdentifier(c.env.APP_DB, value))
+      )).filter(Boolean) as string[]
+      await replaceClassMemberships(c.env.APP_DB, tenantId, classId, 'caregiver', canonicalCaregiverIds)
+    }
+
     return c.json({ success: true })
   } catch (err) {
     return c.json({ error: err instanceof Error ? err.message : 'Could not update class.' }, 500)
+  }
+})
+
+app.put('/api/school/classes', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos'])) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+
+  const body = await c.req.json().catch(() => ({})) as Record<string, any>
+  const rows = Array.isArray(body.classes) ? body.classes : []
+  if (!rows.length) return c.json({ error: 'classes array required.' }, 400)
+
+  const results: Array<{ id: string, status: 'ok' | 'error', error?: string }> = []
+  for (const row of rows) {
+    const classId = String(row?.id || '').trim()
+    if (!classId) {
+      results.push({ id: '', status: 'error', error: 'Class id missing.' })
+      continue
+    }
+
+    try {
+      const existingClass = await c.env.APP_DB.prepare(
+        `SELECT * FROM classes WHERE id = ? AND tenantId = ?`
+      ).bind(classId, tenantId).first() as Record<string, any> | null
+      if (!existingClass) {
+        results.push({ id: classId, status: 'error', error: 'Class not found.' })
+        continue
+      }
+
+      const normalizedTeacherId = row.classTeacherId !== undefined
+        ? await resolveAssignableStaffIdentifier(c.env.APP_DB, tenantId, row.classTeacherId, {
+          requireTeachingCapability: true,
+          label: 'Class teacher',
+        })
+        : existingClass.classTeacherId
+
+      await c.env.APP_DB.prepare(
+        `UPDATE classes SET name = ?, arm = ?, classTeacherId = ? WHERE id = ? AND tenantId = ?`
+      ).bind(
+        row.name !== undefined ? String(row.name || '').trim() : existingClass.name,
+        row.arm !== undefined ? String(row.arm || '').trim() : String(existingClass.arm || ''),
+        normalizedTeacherId,
+        classId,
+        tenantId,
+      ).run()
+
+      const canonicalTeacherIds = (await Promise.all(
+        Array.from(new Set([
+          normalizedTeacherId,
+          ...((Array.isArray(row.teacherIds) ? row.teacherIds : []).map((value: unknown) => String(value || '').trim()).filter(Boolean)),
+        ].filter(Boolean))).map(value => resolveAssignableStaffIdentifier(c.env.APP_DB, tenantId, value, {
+          requireTeachingCapability: true,
+          label: 'Assigned teacher',
+        }))
+      )).filter(Boolean) as string[]
+      const canonicalCaregiverIds = (await Promise.all(
+        (Array.isArray(row.caregiverIds) ? row.caregiverIds : []).map(value => resolveCanonicalUserIdentifier(c.env.APP_DB, value))
+      )).filter(Boolean) as string[]
+
+      await replaceClassMemberships(c.env.APP_DB, tenantId, classId, 'teacher', canonicalTeacherIds)
+      await replaceClassMemberships(c.env.APP_DB, tenantId, classId, 'caregiver', canonicalCaregiverIds)
+      await syncTeacherClassAssignment(c.env.APP_DB, tenantId, {
+        ...existingClass,
+        id: classId,
+        name: row.name !== undefined ? String(row.name || '').trim() : existingClass.name,
+        arm: row.arm !== undefined ? String(row.arm || '').trim() : String(existingClass.arm || ''),
+        classTeacherId: normalizedTeacherId,
+      }, existingClass.classTeacherId)
+
+      results.push({ id: classId, status: 'ok' })
+    } catch (error) {
+      results.push({ id: classId, status: 'error', error: error instanceof Error ? error.message : 'Could not save class.' })
+    }
+  }
+
+  return c.json({ success: true, results })
+})
+
+app.delete('/api/school/classes/:classId', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos'])) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  const classId = c.req.param('classId')
+
+  try {
+    const existingClass = await c.env.APP_DB.prepare(
+      `SELECT * FROM classes WHERE id = ? AND tenantId = ?`
+    ).bind(classId, tenantId).first() as Record<string, any> | null
+    if (!existingClass) return c.json({ error: 'Class not found.' }, 404)
+
+    const settingsRows = await c.env.APP_DB.prepare(
+      `SELECT studentId, payload FROM settings WHERE json_extract(payload, '$.tenantId') = ? AND json_extract(payload, '$.classId') = ?`
+    ).bind(tenantId, classId).all().catch(() => ({ results: [] }))
+    for (const row of ((settingsRows.results || []) as Record<string, any>[])) {
+      const payload = parseHeaderJsonObject(row.payload)
+      delete payload.classId
+      delete payload.className
+      delete payload.classArm
+      await upsertSettings(c.env.APP_DB, String(row.studentId || ''), payload)
+    }
+
+    await replaceClassMemberships(c.env.APP_DB, tenantId, classId, 'teacher', [])
+    await replaceClassMemberships(c.env.APP_DB, tenantId, classId, 'caregiver', [])
+    await c.env.APP_DB.prepare(`DELETE FROM subjects WHERE tenantId = ? AND classId = ?`).bind(tenantId, classId).run().catch(() => null)
+    await c.env.APP_DB.prepare(`DELETE FROM classes WHERE id = ? AND tenantId = ?`).bind(classId, tenantId).run()
+    return c.json({ success: true })
+  } catch (error) {
+    return c.json({ error: error instanceof Error ? error.message : 'Could not delete class.' }, 500)
   }
 })
 
@@ -11065,10 +11961,7 @@ app.get('/api/school/subjects', authenticate, async (c) => {
   const tenantId = c.var.user?.tenantId
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
   try {
-    await c.env.APP_DB.prepare(`CREATE TABLE IF NOT EXISTS subjects (id TEXT PRIMARY KEY, tenantId TEXT, name TEXT, classId TEXT, teacherId TEXT, createdAt TEXT)`).run()
-    try { await c.env.APP_DB.exec('ALTER TABLE subjects ADD COLUMN tenantId TEXT') } catch {}
-    try { await c.env.APP_DB.exec('ALTER TABLE subjects ADD COLUMN classId TEXT') } catch {}
-    try { await c.env.APP_DB.exec('ALTER TABLE subjects ADD COLUMN teacherId TEXT') } catch {}
+    await ensureSubjectsTable(c.env.APP_DB)
     const rows = await c.env.APP_DB.prepare(`SELECT * FROM subjects WHERE tenantId = ? ORDER BY name`).bind(tenantId).all()
     return c.json({ success: true, subjects: rows.results || [] })
   } catch {
@@ -11085,15 +11978,15 @@ app.post('/api/school/subjects', authenticate, async (c) => {
   const id = `subject_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`
   try {
     const normalizedClassId = String(classId || '').trim() || null
-    const normalizedTeacherId = await resolveCanonicalUserIdentifier(c.env.APP_DB, teacherId)
+    const normalizedTeacherId = await resolveAssignableStaffIdentifier(c.env.APP_DB, tenantId, teacherId, {
+      requireTeachingCapability: true,
+      label: 'Assigned teacher',
+    })
     if (normalizedTeacherId && !normalizedClassId) {
       return c.json({ error: 'Assign the subject to a class before assigning a teacher.' }, 400)
     }
 
-    await c.env.APP_DB.prepare(`CREATE TABLE IF NOT EXISTS subjects (id TEXT PRIMARY KEY, tenantId TEXT, name TEXT, classId TEXT, teacherId TEXT, createdAt TEXT)`).run()
-    try { await c.env.APP_DB.exec('ALTER TABLE subjects ADD COLUMN tenantId TEXT') } catch {}
-    try { await c.env.APP_DB.exec('ALTER TABLE subjects ADD COLUMN classId TEXT') } catch {}
-    try { await c.env.APP_DB.exec('ALTER TABLE subjects ADD COLUMN teacherId TEXT') } catch {}
+    await ensureSubjectsTable(c.env.APP_DB)
     await c.env.APP_DB.prepare(`INSERT INTO subjects (id, tenantId, name, classId, teacherId, createdAt) VALUES (?, ?, ?, ?, ?, ?)`).bind(id, tenantId, name, normalizedClassId, normalizedTeacherId, new Date().toISOString()).run()
     return c.json({ success: true, id }, 201)
   } catch (err) {
@@ -11109,10 +12002,7 @@ app.post('/api/school/classes/:classId/subjects/bulk', authenticate, async (c) =
   const { subjects } = await c.req.json()
   if (!Array.isArray(subjects) || subjects.length === 0) return c.json({ error: 'subjects array required.' }, 400)
   try {
-    await c.env.APP_DB.prepare(`CREATE TABLE IF NOT EXISTS subjects (id TEXT PRIMARY KEY, tenantId TEXT, name TEXT, classId TEXT, teacherId TEXT, createdAt TEXT)`).run()
-    try { await c.env.APP_DB.exec('ALTER TABLE subjects ADD COLUMN tenantId TEXT') } catch {}
-    try { await c.env.APP_DB.exec('ALTER TABLE subjects ADD COLUMN classId TEXT') } catch {}
-    try { await c.env.APP_DB.exec('ALTER TABLE subjects ADD COLUMN teacherId TEXT') } catch {}
+    await ensureSubjectsTable(c.env.APP_DB)
     let added = 0
     for (const name of subjects) {
       const trimmed = (name as string).trim()
@@ -11146,7 +12036,10 @@ app.put('/api/school/subjects/:subjectId', authenticate, async (c) => {
       ? (String(classId || '').trim() || null)
       : (String(existingSubject.classId || '').trim() || null)
     const normalizedTeacherId = teacherId !== undefined
-      ? await resolveCanonicalUserIdentifier(c.env.APP_DB, teacherId)
+      ? await resolveAssignableStaffIdentifier(c.env.APP_DB, tenantId, teacherId, {
+        requireTeachingCapability: true,
+        label: 'Assigned teacher',
+      })
       : undefined
     if (normalizedTeacherId && !normalizedClassId) {
       return c.json({ error: 'Assign the subject to a class before assigning a teacher.' }, 400)
@@ -11184,10 +12077,7 @@ app.post('/api/school/sections/:sectionName/subjects/bulk', authenticate, async 
   const { subjects, teacherId } = await c.req.json()
   if (!Array.isArray(subjects) || subjects.length === 0) return c.json({ error: 'subjects array required.' }, 400)
   try {
-    await c.env.APP_DB.prepare(`CREATE TABLE IF NOT EXISTS subjects (id TEXT PRIMARY KEY, tenantId TEXT, name TEXT, classId TEXT, teacherId TEXT, createdAt TEXT)`).run()
-    try { await c.env.APP_DB.exec('ALTER TABLE subjects ADD COLUMN tenantId TEXT') } catch {}
-    try { await c.env.APP_DB.exec('ALTER TABLE subjects ADD COLUMN classId TEXT') } catch {}
-    try { await c.env.APP_DB.exec('ALTER TABLE subjects ADD COLUMN teacherId TEXT') } catch {}
+    await ensureSubjectsTable(c.env.APP_DB)
     await ensureClassesTable(c.env.APP_DB)
     const classRows = await c.env.APP_DB.prepare(
       `SELECT id FROM classes WHERE name = ? AND tenantId = ?`
@@ -11204,7 +12094,12 @@ app.post('/api/school/sections/:sectionName/subjects/bulk', authenticate, async 
         ).bind(tenantId, classId, trimmed).first()
         if (existing) continue
         const id = `subject_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`
-        const resolvedTeacherId = teacherId ? await resolveCanonicalUserIdentifier(c.env.APP_DB, teacherId) : null
+        const resolvedTeacherId = teacherId
+          ? await resolveAssignableStaffIdentifier(c.env.APP_DB, tenantId, teacherId, {
+            requireTeachingCapability: true,
+            label: 'Assigned teacher',
+          })
+          : null
         await c.env.APP_DB.prepare(
           `INSERT INTO subjects (id, tenantId, name, classId, teacherId, createdAt) VALUES (?, ?, ?, ?, ?, ?)`
         ).bind(id, tenantId, trimmed, classId, resolvedTeacherId, new Date().toISOString()).run()
@@ -11217,10 +12112,83 @@ app.post('/api/school/sections/:sectionName/subjects/bulk', authenticate, async 
   }
 })
 
+app.post('/api/school/subjects/assignments/bulk', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos', 'ict', 'ict_manager'])) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+
+  const body = await c.req.json().catch(() => ({})) as Record<string, any>
+  const teacherId = await resolveAssignableStaffIdentifier(c.env.APP_DB, tenantId, body.teacherId, {
+    requireTeachingCapability: true,
+    label: 'Assigned teacher',
+  })
+  const subjectNames = Array.from(new Set(
+    (Array.isArray(body.subjectNames) ? body.subjectNames : [])
+      .map(value => String(value || '').trim())
+      .filter(Boolean),
+  ))
+  const classIds = Array.from(new Set(
+    (Array.isArray(body.classIds) ? body.classIds : [])
+      .map(value => String(value || '').trim())
+      .filter(Boolean),
+  ))
+  const sectionNames = Array.from(new Set(
+    (Array.isArray(body.sectionNames) ? body.sectionNames : [])
+      .map(value => String(value || '').trim())
+      .filter(Boolean),
+  ))
+  const mode = String(body.mode || 'class').trim().toLowerCase()
+
+  if (!teacherId) return c.json({ error: 'Teacher is required.' }, 400)
+  if (!subjectNames.length) return c.json({ error: 'Select at least one subject.' }, 400)
+
+  try {
+    await ensureSubjectsTable(c.env.APP_DB)
+    await ensureClassesTable(c.env.APP_DB)
+
+    const filters: string[] = ['s.tenantId = ?']
+    const params: Array<string> = [tenantId]
+
+    const subjectPlaceholders = subjectNames.map(() => '?').join(', ')
+    filters.push(`lower(trim(s.name)) IN (${subjectPlaceholders})`)
+    params.push(...subjectNames.map(value => value.toLowerCase()))
+
+    if (mode === 'class' && classIds.length > 0) {
+      const placeholders = classIds.map(() => '?').join(', ')
+      filters.push(`s.classId IN (${placeholders})`)
+      params.push(...classIds)
+    } else if (mode === 'section' && sectionNames.length > 0) {
+      const placeholders = sectionNames.map(() => '?').join(', ')
+      filters.push(`c.name IN (${placeholders})`)
+      params.push(...sectionNames)
+    }
+
+    const targetRows = await c.env.APP_DB.prepare(
+      `SELECT s.id
+       FROM subjects s
+       LEFT JOIN classes c ON c.id = s.classId AND c.tenantId = s.tenantId
+       WHERE ${filters.join(' AND ')}`
+    ).bind(...params).all()
+
+    const subjectIds = ((targetRows.results || []) as Record<string, any>[]).map(row => String(row.id || '').trim()).filter(Boolean)
+    if (!subjectIds.length) return c.json({ error: 'No matching subject records were found.' }, 404)
+
+    for (const subjectId of subjectIds) {
+      await c.env.APP_DB.prepare(
+        `UPDATE subjects SET teacherId = ? WHERE id = ? AND tenantId = ?`
+      ).bind(teacherId, subjectId, tenantId).run()
+    }
+
+    return c.json({ success: true, updated: subjectIds.length })
+  } catch (error) {
+    return c.json({ error: error instanceof Error ? error.message : 'Could not bulk assign subjects.' }, 500)
+  }
+})
+
 // ─── Subject exclusions (remove/restore student from a subject) ───────────────
 app.post('/api/classrooms/:classroomId/subjects/:subjectId/remove-student', authenticate, async (c) => {
   const actor = c.var.user || {}
-  const role = String(actor.role || '').toLowerCase()
+  const role = actor.role
   const tenantId = actor.tenantId
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
   const classroomId = c.req.param('classroomId')
@@ -11252,7 +12220,7 @@ app.post('/api/classrooms/:classroomId/subjects/:subjectId/remove-student', auth
 
 app.delete('/api/classrooms/:classroomId/subjects/:subjectId/remove-student/:studentId', authenticate, async (c) => {
   const actor = c.var.user || {}
-  const role = String(actor.role || '').toLowerCase()
+  const role = actor.role
   const tenantId = actor.tenantId
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
   const classroomId = c.req.param('classroomId')
@@ -12035,7 +13003,7 @@ app.get('/api/school/fees/payment-details', authenticate, async (c) => {
   const resolvedUser = userIdentifier
     ? await resolveSettingsIdentity(c.env.APP_DB, userIdentifier)
     : { settings: null, userRow: null }
-  const role = normalizeRole(resolvedUser.settings?.role || currentUser.role)
+  const role = normalizeRole(resolvedUser.settings?.role || getActiveRole(currentUser))
   const tenantId = String(resolvedUser.settings?.tenantId || resolvedUser.settings?.schoolId || resolvedUser.userRow?.tenantId || currentUser.tenantId || '').trim()
 
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
@@ -12413,9 +13381,18 @@ app.post('/api/school/expenditure', authenticate, async (c) => {
 })
 
 async function ensurePayrollEntriesTable(db: D1Database) {
-  await db.prepare(`CREATE TABLE IF NOT EXISTS payroll_entries (id TEXT PRIMARY KEY, tenant_id TEXT, staff_id TEXT, period TEXT, gross REAL, deductions REAL, manual_deductions REAL, net REAL, status TEXT, approved INTEGER, submitted INTEGER, created_at TEXT, updated_at TEXT)`).run()
+  await db.prepare(`CREATE TABLE IF NOT EXISTS payroll_entries (id TEXT PRIMARY KEY, tenant_id TEXT, staff_id TEXT, period TEXT, basic_salary REAL, allowances_json TEXT, deductions_json TEXT, gross REAL, deductions REAL, manual_deductions REAL, net REAL, status TEXT, payment_status TEXT, employment_category TEXT, approved INTEGER, submitted INTEGER, created_at TEXT, updated_at TEXT)`).run()
   try { await db.exec('ALTER TABLE payroll_entries ADD COLUMN submitted INTEGER DEFAULT 0') } catch {}
   try { await db.exec('ALTER TABLE payroll_entries ADD COLUMN manual_deductions REAL DEFAULT 0') } catch {}
+  try { await db.exec('ALTER TABLE payroll_entries ADD COLUMN basic_salary REAL DEFAULT 0') } catch {}
+  try { await db.exec('ALTER TABLE payroll_entries ADD COLUMN allowances_json TEXT') } catch {}
+  try { await db.exec('ALTER TABLE payroll_entries ADD COLUMN deductions_json TEXT') } catch {}
+  try { await db.exec('ALTER TABLE payroll_entries ADD COLUMN payment_status TEXT DEFAULT \'pending\'') } catch {}
+  try { await db.exec('ALTER TABLE payroll_entries ADD COLUMN employment_category TEXT') } catch {}
+  await runIndexStatements(db, [
+    `CREATE INDEX IF NOT EXISTS idx_payroll_entries_tenant_period_staff ON payroll_entries(tenant_id, period, staff_id)`,
+    `CREATE INDEX IF NOT EXISTS idx_payroll_entries_tenant_period_payment_status ON payroll_entries(tenant_id, period, payment_status)`,
+  ])
 }
 
 function getPayrollPeriodBounds(period: string) {
@@ -12479,8 +13456,21 @@ async function getPayrollLateChargeSummaryForIdentifiers(db: D1Database, tenantI
   }
 }
 
+async function listTenantStaffRoster(db: D1Database, tenantId: string) {
+  await ensureUsersTable(db)
+  const rows = await db.prepare(
+    `SELECT id, name, email, role, primary_role, employment_category, status, createdAt, tenantId
+     FROM users
+     WHERE tenantId = ? AND (status IS NULL OR status != 'inactive')
+     ORDER BY COALESCE(primary_role, role), name, email`
+  ).bind(tenantId).all().catch(() => ({ results: [] }))
+  const people = await hydrateUserRecords(db, (rows.results || []) as Record<string, any>[])
+  return people.filter(person => isStaff(person?.role, person?.roles))
+}
+
 // ─── Payroll ──────────────────────────────────────────────────────────────────
 app.get('/api/school/payroll', authenticate, async (c) => {
+  if (!hasRequiredCapability(c.var.user.role, 'manage_payroll', c.var.user.roles)) return c.json({ error: 'forbidden' }, 403)
   const tenantId = c.var.user?.tenantId
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
   try {
@@ -12488,23 +13478,58 @@ app.get('/api/school/payroll', authenticate, async (c) => {
     const period = new Date().toISOString().slice(0, 7)
     const rows = await c.env.APP_DB.prepare(`SELECT * FROM payroll_entries WHERE tenant_id = ? AND period = ?`).bind(tenantId, period).all()
     const lateChargeSummaries = await listPayrollLateChargeSummaries(c.env.APP_DB, tenantId, period)
-    const payroll = (rows.results || []).map((r: any) => {
-      const manualDeductions = Number((r.manual_deductions ?? r.deductions) || 0)
-      const lateChargeSummary = lateChargeSummaries.find(summary => summary.staffId === String(r.staff_id || '').trim()) || { amount: 0, count: 0 }
-      const deductions = manualDeductions + Number(lateChargeSummary.amount || 0)
+    const staffRoster = await listTenantStaffRoster(c.env.APP_DB, tenantId)
+    const payrollMap = new Map((rows.results || []).map((row: any) => [String(row.staff_id || '').trim(), row]))
+    const payroll = staffRoster.map((staffMember: any) => {
+      const row = payrollMap.get(String(staffMember.id || '').trim()) || null
+      const allowances = parseHeaderJsonObject(row?.allowances_json)
+      const deductionsMap = parseHeaderJsonObject(row?.deductions_json)
+      const basicSalary = Number(row?.basic_salary || 0)
+      const housingAllowance = Number(allowances.housingAllowance || 0)
+      const transportAllowance = Number(allowances.transportAllowance || 0)
+      const bonus = Number(allowances.bonus || 0)
+      const tax = Number(deductionsMap.tax || 0)
+      const pension = Number(deductionsMap.pension || 0)
+      const otherDeduction = Number(deductionsMap.otherDeduction || 0)
+      const lateChargeSummary = lateChargeSummaries.find(summary => summary.staffId === String(staffMember.id || '').trim())
+        || lateChargeSummaries.find(summary => summary.staffId === String(staffMember.email || '').trim())
+        || { amount: 0, count: 0 }
+      const gross = Number(row?.gross || (basicSalary + housingAllowance + transportAllowance + bonus))
+      const manualDeductions = Number(row?.manual_deductions || (tax + pension + otherDeduction))
+      const autoLateDeductions = Number(lateChargeSummary.amount || 0)
+      const deductions = manualDeductions + autoLateDeductions
+      const paymentStatus = String(row?.payment_status || (String(row?.status || '').toLowerCase() === 'paid' ? 'paid' : 'pending')).toLowerCase()
+
       return {
-        id: r.id,
-        staffId: r.staff_id,
-        period: r.period,
-        gross: Number(r.gross || 0),
+        id: row?.id || `pay_${tenantId}_${staffMember.id}_${period}`,
+        staffId: staffMember.id,
+        staffInternalId: staffMember.id,
+        displayId: staffMember.displayId || staffMember.email || 'Staff',
+        name: staffMember.name || staffMember.email || 'Staff',
+        email: staffMember.email || '',
+        primaryRole: staffMember.primaryRole || staffMember.role || 'staff',
+        role: staffMember.role || 'staff',
+        roles: Array.isArray(staffMember.roles) ? staffMember.roles : [staffMember.role].filter(Boolean),
+        capabilities: Array.isArray(staffMember.capabilities) ? staffMember.capabilities : deriveCapabilities(staffMember.role, staffMember.roles),
+        employmentCategory: String(row?.employment_category || staffMember.employmentCategory || deriveEmploymentCategory(staffMember.role, staffMember.employmentCategory, staffMember.roles)),
+        period,
+        basicSalary,
+        housingAllowance,
+        transportAllowance,
+        bonus,
+        gross,
+        tax,
+        pension,
+        otherDeduction,
         manualDeductions,
-        autoLateDeductions: Number(lateChargeSummary.amount || 0),
+        autoLateDeductions,
         lateChargeCount: Number(lateChargeSummary.count || 0),
         deductions,
-        net: Number(r.gross || 0) - deductions,
-        status: r.status || 'Ready',
-        approved: Boolean(r.approved),
-        submitted: Boolean(r.submitted),
+        net: Number(row?.net || (gross - deductions)),
+        status: row?.status || 'Ready',
+        paymentStatus,
+        approved: Boolean(row?.approved),
+        submitted: Boolean(row?.submitted),
       }
     })
     const approved = payroll.some(p => p.approved)
@@ -12514,25 +13539,81 @@ app.get('/api/school/payroll', authenticate, async (c) => {
 })
 
 app.put('/api/school/payroll/staff/:staffId', authenticate, async (c) => {
-  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos', 'accountant'])) return c.json({ error: 'forbidden' }, 403)
+  if (!hasRequiredCapability(c.var.user.role, 'manage_payroll', c.var.user.roles)) return c.json({ error: 'forbidden' }, 403)
   const tenantId = c.var.user?.tenantId
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
   const staffId = c.req.param('staffId')
-  const { gross, deductions, status } = await c.req.json()
+  const {
+    basicSalary,
+    housingAllowance,
+    transportAllowance,
+    bonus,
+    tax,
+    pension,
+    otherDeduction,
+    gross,
+    deductions,
+    status,
+    paymentStatus,
+    employmentCategory,
+  } = await c.req.json()
   const period = new Date().toISOString().slice(0, 7)
   const id = `pay_${tenantId}_${staffId}_${period}`
-  const g = gross !== undefined ? Number(gross) : null
-  const d = deductions !== undefined ? Number(deductions) : null
   try {
     await ensurePayrollEntriesTable(c.env.APP_DB)
     const existing = await c.env.APP_DB.prepare(`SELECT * FROM payroll_entries WHERE id = ?`).bind(id).first() as any
-    const newGross = g !== null ? g : (existing?.gross || 0)
-    const newManualDed = d !== null ? d : Number((existing?.manual_deductions ?? existing?.deductions) || 0)
-    const newStatus = status || existing?.status || 'Ready'
-    const newDed = newManualDed
-    const newNet = newGross - newManualDed
-    await c.env.APP_DB.prepare(`INSERT OR REPLACE INTO payroll_entries (id, tenant_id, staff_id, period, gross, deductions, manual_deductions, net, status, approved, submitted, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
-      .bind(id, tenantId, staffId, period, newGross, newDed, newManualDed, newNet, newStatus, existing?.approved || 0, existing?.submitted || 0, existing?.created_at || new Date().toISOString(), new Date().toISOString()).run()
+    const staffUser = await c.env.APP_DB.prepare(
+      `SELECT id, name, email, role, primary_role, employment_category, status, createdAt, tenantId FROM users WHERE id = ? AND tenantId = ?`
+    ).bind(staffId, tenantId).first() as Record<string, any> | null
+    const hydratedStaffUser = await hydrateUserRecord(c.env.APP_DB, staffUser)
+    const allowanceDefaults = parseHeaderJsonObject(existing?.allowances_json)
+    const deductionDefaults = parseHeaderJsonObject(existing?.deductions_json)
+    const nextBasicSalary = basicSalary !== undefined ? Number(basicSalary) : Number(existing?.basic_salary || 0)
+    const nextAllowances = {
+      housingAllowance: housingAllowance !== undefined ? Number(housingAllowance) : Number(allowanceDefaults.housingAllowance || 0),
+      transportAllowance: transportAllowance !== undefined ? Number(transportAllowance) : Number(allowanceDefaults.transportAllowance || 0),
+      bonus: bonus !== undefined ? Number(bonus) : Number(allowanceDefaults.bonus || 0),
+    }
+    const nextDeductionsMap = {
+      tax: tax !== undefined ? Number(tax) : Number(deductionDefaults.tax || 0),
+      pension: pension !== undefined ? Number(pension) : Number(deductionDefaults.pension || 0),
+      otherDeduction: otherDeduction !== undefined ? Number(otherDeduction) : Number(deductionDefaults.otherDeduction || 0),
+    }
+    const computedGross = nextBasicSalary + nextAllowances.housingAllowance + nextAllowances.transportAllowance + nextAllowances.bonus
+    const nextGross = gross !== undefined ? Number(gross) : computedGross
+    const computedManualDeductions = nextDeductionsMap.tax + nextDeductionsMap.pension + nextDeductionsMap.otherDeduction
+    const nextManualDed = deductions !== undefined ? Number(deductions) : computedManualDeductions
+    const nextStatus = status || existing?.status || 'Ready'
+    const nextPaymentStatus = String(paymentStatus || existing?.payment_status || (String(nextStatus).toLowerCase() === 'paid' ? 'paid' : 'pending')).toLowerCase()
+    const nextEmploymentCategory = String(
+      employmentCategory
+      || existing?.employment_category
+      || hydratedStaffUser?.employmentCategory
+      || deriveEmploymentCategory(hydratedStaffUser?.role || existing?.role || '', hydratedStaffUser?.employmentCategory, hydratedStaffUser?.roles)
+      || 'support'
+    ).toLowerCase()
+    const newNet = nextGross - nextManualDed
+    await c.env.APP_DB.prepare(`INSERT OR REPLACE INTO payroll_entries (id, tenant_id, staff_id, period, basic_salary, allowances_json, deductions_json, gross, deductions, manual_deductions, net, status, payment_status, employment_category, approved, submitted, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
+      .bind(
+        id,
+        tenantId,
+        staffId,
+        period,
+        nextBasicSalary,
+        JSON.stringify(nextAllowances),
+        JSON.stringify(nextDeductionsMap),
+        nextGross,
+        nextManualDed,
+        nextManualDed,
+        newNet,
+        nextStatus,
+        nextPaymentStatus,
+        nextEmploymentCategory,
+        existing?.approved || 0,
+        existing?.submitted || 0,
+        existing?.created_at || new Date().toISOString(),
+        new Date().toISOString(),
+      ).run()
     return c.json({ success: true })
   } catch (err) { return c.json({ error: 'Could not update payroll.' }, 500) }
 })
@@ -12607,8 +13688,11 @@ app.get('/api/school/payroll/my-payslip', authenticate, async (c) => {
     const tenant = tenantId ? await getTenantById(c.env.APP_DB, tenantId) : null
     const brandingRow = await c.env.APP_DB.prepare(`SELECT * FROM tenant_branding WHERE tenant_id = ?`).bind(tenantId).first() as any
     const rows = await c.env.APP_DB.prepare(`SELECT * FROM payroll_entries WHERE (staff_id = ? OR staff_id = ?) AND tenant_id = ? AND period = ? LIMIT 1`).bind(userId, settings?.email || userId, tenantId, period).first() as any
-    const gross = Number(rows?.gross || 0)
-    const manualDeductions = Number((rows?.manual_deductions ?? rows?.deductions) || 0)
+    const allowances = parseHeaderJsonObject(rows?.allowances_json)
+    const deductionsMap = parseHeaderJsonObject(rows?.deductions_json)
+    const basicSalary = Number(rows?.basic_salary || 0)
+    const gross = Number(rows?.gross || (basicSalary + Number(allowances.housingAllowance || 0) + Number(allowances.transportAllowance || 0) + Number(allowances.bonus || 0)))
+    const manualDeductions = Number((rows?.manual_deductions ?? rows?.deductions) || (Number(deductionsMap.tax || 0) + Number(deductionsMap.pension || 0) + Number(deductionsMap.otherDeduction || 0)))
     const lateChargeSummary = await getPayrollLateChargeSummaryForIdentifiers(
       c.env.APP_DB,
       tenantId,
@@ -12616,17 +13700,12 @@ app.get('/api/school/payroll/my-payslip', authenticate, async (c) => {
       collectResolvedIdentityIdentifiers(resolvedIdentity, c.var.user || {}),
     )
     const deductions = manualDeductions + lateChargeSummary.amount
-    const housingAllowanceRate = Number(payrollSettings?.housingAllowance || 0)
-    const transportAllowanceRate = Number(payrollSettings?.transportAllowance || 0)
-    const taxRate = Number(payrollSettings?.taxRate || 0)
-    const pensionRate = Number(payrollSettings?.pensionRate || 0)
-    const allowanceFactor = 1 + (housingAllowanceRate / 100) + (transportAllowanceRate / 100)
-    const basicSalary = allowanceFactor > 0 ? gross / allowanceFactor : gross
-    const housingAllowance = basicSalary * (housingAllowanceRate / 100)
-    const transportAllowance = basicSalary * (transportAllowanceRate / 100)
-    const incomeTax = gross * (taxRate / 100)
-    const pension = gross * (pensionRate / 100)
-    const otherDeductions = Math.max(0, manualDeductions - incomeTax - pension)
+    const housingAllowance = Number(allowances.housingAllowance || 0)
+    const transportAllowance = Number(allowances.transportAllowance || 0)
+    const bonus = Number(allowances.bonus || 0)
+    const incomeTax = Number(deductionsMap.tax || 0)
+    const pension = Number(deductionsMap.pension || 0)
+    const otherDeductions = Number(deductionsMap.otherDeduction || Math.max(0, manualDeductions - incomeTax - pension))
     const net = Number((rows?.net ?? (gross - deductions)) || 0)
     const branding = {
       schoolName: tenant?.schoolName || 'School',
@@ -12636,7 +13715,7 @@ app.get('/api/school/payroll/my-payslip', authenticate, async (c) => {
     }
 
     return c.json({ success: true, payslip: {
-      staffId: userId, name: settings?.name || c.var.user.name || userId, displayId: settings?.displayId || null,
+      staffId: userId, name: settings?.name || c.var.user.name || userId, displayId: getPublicFacingUserId(settings || {}, getPrimaryRole(settings || {}, getActiveRole(c.var.user))),
       role: settings?.role || getActiveRole(c.var.user), period, schoolName: branding.schoolName,
       logoUrl: branding.logoUrl,
       tagline: branding.tagline,
@@ -12649,6 +13728,7 @@ app.get('/api/school/payroll/my-payslip', authenticate, async (c) => {
         { label: 'Basic Salary', amount: Number(basicSalary.toFixed(2)) },
         { label: 'Housing Allowance', amount: Number(housingAllowance.toFixed(2)) },
         { label: 'Transport Allowance', amount: Number(transportAllowance.toFixed(2)) },
+        { label: 'Bonus', amount: Number(bonus.toFixed(2)) },
       ].filter(entry => entry.amount > 0 || entry.label === 'Basic Salary'),
       deductionBreakdown: [
         { label: 'Income Tax', amount: Number(incomeTax.toFixed(2)) },
@@ -12658,10 +13738,7 @@ app.get('/api/school/payroll/my-payslip', authenticate, async (c) => {
       ].filter(entry => entry.amount > 0),
       lateChargeCount: lateChargeSummary.count,
       settings: {
-        housingAllowance: housingAllowanceRate,
-        transportAllowance: transportAllowanceRate,
-        taxRate,
-        pensionRate,
+        ...(payrollSettings || {}),
       },
     }})
   } catch { return c.json({ success: true, payslip: { gross: 0, deductions: 0, net: 0, period } }) }

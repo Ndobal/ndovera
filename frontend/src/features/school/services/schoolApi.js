@@ -21,6 +21,16 @@ function applyRefreshedToken(res) {
   syncRefreshedToken(res);
 }
 
+function readErrorMessage(data) {
+  if (!data || typeof data !== 'object') return 'Request failed.';
+  if (typeof data.error === 'string' && data.error.trim()) return data.error;
+  if (data.error && typeof data.error === 'object' && typeof data.error.message === 'string' && data.error.message.trim()) {
+    return data.error.message;
+  }
+  if (typeof data.message === 'string' && data.message.trim()) return data.message;
+  return 'Request failed.';
+}
+
 async function req(path, opts = {}) {
   const res = await fetch(getApiUrl(path), {
     method: opts.method || 'GET',
@@ -31,7 +41,7 @@ async function req(path, opts = {}) {
   if (res.status === 401) { handleUnauthorized(); return {}; }
   applyRefreshedToken(res);
   const data = await res.json().catch(() => ({}));
-  if (!res.ok) throw new Error(data.error || data.message || 'Request failed.');
+  if (!res.ok) throw new Error(readErrorMessage(data));
   return data;
 }
 
@@ -57,7 +67,7 @@ export const getAuditLog = () => req('/api/audit');
 export const getAttendance = () => req('/api/attendance');
 export const resetPassword = (payload) => req('/api/admin/reset-password', { method: 'POST', body: payload });
 export const getApprovals = () => req('/api/approvals');
-export const getPeople = () => req('/api/people');
+export const getPeople = (params = {}) => req(`/api/people${buildQuery(params)}`);
 export const getExams = () => req('/api/exams');
 export const getOwnerSchools = () => req('/api/owner/schools');
 export const addPerson = (data) => req('/api/people', { method: 'POST', body: data });
@@ -66,9 +76,12 @@ export const deactivatePerson = (userId) => req(`/api/people/${userId}`, { metho
 export const updatePersonRole = (userId, role) => req(`/api/people/${userId}/role`, { method: 'PUT', body: { role } });
 export const getClasses = () => req('/api/school/classes');
 export const addClass = (data) => req('/api/school/classes', { method: 'POST', body: data });
+export const bulkUpdateClasses = (classes) => req('/api/school/classes', { method: 'PUT', body: { classes } });
+export const deleteClass = (classId) => req(`/api/school/classes/${classId}`, { method: 'DELETE' });
 export const getSubjects = () => req('/api/school/subjects');
 export const addSubject = (data) => req('/api/school/subjects', { method: 'POST', body: data });
 export const bulkAddSubjectsBySection = (sectionName, subjects, teacherId) => req(`/api/school/sections/${encodeURIComponent(sectionName)}/subjects/bulk`, { method: 'POST', body: { subjects, teacherId } });
+export const bulkAssignSubjects = (data) => req('/api/school/subjects/assignments/bulk', { method: 'POST', body: data });
 export const getSession = () => req('/api/school/session');
 export const saveSession = (data) => req('/api/school/session', { method: 'POST', body: data });
 export const getBranding = () => req('/api/school/branding');

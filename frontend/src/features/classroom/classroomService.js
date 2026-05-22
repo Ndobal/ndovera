@@ -136,6 +136,16 @@ export async function getClassMembers(classId) {
   return res.json();
 }
 
+export async function addClassMember(classId, payload) {
+  const res = await apiFetch(`/api/classrooms/${classId}/members`, { method: 'POST', headers: getAuthHeaders(), body: JSON.stringify(payload) });
+  return res.json();
+}
+
+export async function removeClassMember(classId, memberRole, userId) {
+  const res = await apiFetch(`/api/classrooms/${classId}/members/${encodeURIComponent(memberRole)}/${encodeURIComponent(userId)}`, { method: 'DELETE', headers: getAuthHeaders() });
+  return res.json();
+}
+
 export async function getClassSubjects(classId) {
   const res = await apiFetch(`/api/classrooms/${classId}/subjects`, { headers: getAuthHeaders() });
   return res.json();

@@ -1,6 +1,8 @@
 const DEFAULT_TIMEOUT_MS = 7000;
 const AUTH_TOKEN_KEY = 'token';
 const AUTH_COOKIE_KEY = 'ndovera_token';
+// Keep this aligned with the backend/authApi session window to avoid shortening auth unexpectedly.
+const AUTH_SESSION_MAX_AGE_SECONDS = 10 * 60;
 
 function getCookie(name) {
   const match = document.cookie
@@ -11,7 +13,7 @@ function getCookie(name) {
 }
 
 function setAuthCookie(token) {
-  document.cookie = `${AUTH_COOKIE_KEY}=${encodeURIComponent(token)}; path=/; domain=.ndovera.com; max-age=600; secure; samesite=lax`;
+  document.cookie = `${AUTH_COOKIE_KEY}=${encodeURIComponent(token)}; path=/; domain=.ndovera.com; max-age=${AUTH_SESSION_MAX_AGE_SECONDS}; secure; samesite=lax`;
 }
 
 function getStoredToken() {

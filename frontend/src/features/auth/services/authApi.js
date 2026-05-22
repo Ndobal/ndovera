@@ -3,6 +3,8 @@ import { getApiUrl } from '../../../config/apiBase';
 const AUTH_TOKEN_KEY = 'token';
 const AUTH_USER_KEY = 'authUser';
 const AUTH_COOKIE_KEY = 'ndovera_token';
+// Match the backend's rolling auth window so password-change sessions do not expire early.
+const AUTH_SESSION_MAX_AGE_SECONDS = 10 * 60;
 const AUTH_PROFILE_SYNC_KEY = 'authProfileSyncedAt';
 const SIGNED_OUT_REDIRECT_PATH = '/';
 const TENANT_SITE_URL_KEY = 'tenantWebsiteUrl';
@@ -80,7 +82,7 @@ function getCookie(name) {
 }
 
 function setAuthCookie(token) {
-	document.cookie = `${AUTH_COOKIE_KEY}=${encodeURIComponent(token)}; path=/${buildCookieDomainClause()}; max-age=2592000; secure; samesite=lax`;
+	document.cookie = `${AUTH_COOKIE_KEY}=${encodeURIComponent(token)}; path=/${buildCookieDomainClause()}; max-age=${AUTH_SESSION_MAX_AGE_SECONDS}; secure; samesite=lax`;
 }
 
 function clearAuthCookie() {

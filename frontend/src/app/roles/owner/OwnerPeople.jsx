@@ -6,7 +6,7 @@ import {
   resetPassword,
 } from '../../../features/school/services/schoolApi';
 
-const ROLES = ['owner', 'admin', 'teacher', 'hos', 'accountant', 'student', 'parent', 'librarian', 'classteacher', 'hod', 'hodassistant', 'principal', 'headteacher', 'nurseryhead', 'storekeeper', 'tuckshopmanager', 'transport', 'hostel', 'cafeteria', 'clinic', 'ict', 'ict_manager', 'examofficer', 'sportsmaster', 'sanitation', 'growthpartner'];
+const ROLES = ['admin', 'teacher', 'hos', 'accountant', 'student', 'parent', 'caregiver', 'librarian', 'classteacher', 'hod', 'hodassistant', 'principal', 'viceprincipal', 'headteacher', 'nurseryhead', 'storekeeper', 'tuckshopmanager', 'transport', 'hostel', 'cafeteria', 'clinic', 'ict', 'ict_manager', 'examofficer', 'sportsmaster', 'sanitation', 'growthpartner'];
 const FILTERS = ['All', 'Teachers', 'Admin', 'Students', 'Parents'];
 
 // Colour-coded role badges — each role gets a distinct colour
@@ -20,6 +20,7 @@ const ROLE_COLORS = {
   accountant:    { bg: '#b45309', text: '#fef3c7' },  // amber
   student:       { bg: '#1e40af', text: '#dbeafe' },  // blue
   parent:        { bg: '#6d28d9', text: '#ede9fe' },  // purple
+  caregiver:     { bg: '#7c3aed', text: '#f3e8ff' },  // violet
   librarian:     { bg: '#0e7490', text: '#cffafe' },  // cyan
   growthpartner: { bg: '#be185d', text: '#fce7f3' },  // pink
 };
@@ -35,7 +36,7 @@ function buildAvatarSrc(user) {
 
 function filterPeople(people, filter) {
   if (filter === 'Teachers') return people.filter(p => (p.roles || [p.role]).includes('teacher'));
-  if (filter === 'Admin') return people.filter(p => (p.roles || [p.role]).some(role => ['owner', 'hos', 'accountant', 'principal', 'hod', 'hodassistant', 'headteacher', 'nurseryhead', 'storekeeper', 'tuckshopmanager', 'transport', 'hostel', 'cafeteria', 'clinic', 'ict', 'examofficer', 'sportsmaster', 'sanitation', 'librarian'].includes(role)));
+  if (filter === 'Admin') return people.filter(p => (p.roles || [p.role]).some(role => ['owner', 'hos', 'accountant', 'principal', 'viceprincipal', 'hod', 'hodassistant', 'headteacher', 'nurseryhead', 'storekeeper', 'tuckshopmanager', 'transport', 'hostel', 'cafeteria', 'clinic', 'ict', 'ict_manager', 'examofficer', 'sportsmaster', 'sanitation', 'librarian', 'admin'].includes(role)));
   if (filter === 'Students') return people.filter(p => (p.roles || [p.role]).includes('student'));
   if (filter === 'Parents') return people.filter(p => (p.roles || [p.role]).includes('parent'));
   return people;
@@ -615,8 +616,16 @@ function BulkImportModal({ onClose, onDone }) {
     if (!rows.length) return;
     setImporting(true);
     try {
-      const data = await bulkImportPeople(rows);
-      setResults(data.results || []);
+      const chunks = [];
+      for (let index = 0; index < rows.length; index += 250) {
+        chunks.push(rows.slice(index, index + 250));
+      }
+      const mergedResults = [];
+      for (const chunk of chunks) {
+        const data = await bulkImportPeople(chunk);
+        mergedResults.push(...(data.results || []));
+      }
+      setResults(mergedResults);
       onDone();
     } catch (err) {
       setParseError(err.message);
@@ -897,23 +906,31 @@ export default function OwnerPeople() {
   const [newRole, setNewRole] = useState('');
   const [profileUserId, setProfileUserId] = useState(null);
   const [subdomain, setSubdomain] = useState('');
+  const [page, setPage] = useState(1);
+  const [pagination, setPagination] = useState({ page: 1, limit: 24, total: 0, hasMore: false });
 
   // get current user info for edit-own-profile logic
   const currentUser = (() => { try { return JSON.parse(localStorage.getItem('authUser') || '{}'); } catch { return {}; } })();
   const currentUserId = currentUser?.id || '';
-  const isAdmin = ['owner', 'hos'].includes(currentUser?.role);
+  const currentRoles = Array.isArray(currentUser?.roles) && currentUser.roles.length > 0 ? currentUser.roles : [currentUser?.role].filter(Boolean);
+  const isAdmin = currentRoles.some(role => ['owner', 'hos'].includes(String(role || '').toLowerCase()));
 
-  function load() {
+  const load = useCallback((nextPage = page, nextSearch = search) => {
     setLoading(true);
-    getPeople()
-      .then(data => setPeople(data?.people || []))
+    getPeople({ page: nextPage, limit: 24, search: nextSearch })
+      .then(data => {
+        setPeople(data?.people || []);
+        setPagination(data?.pagination || { page: nextPage, limit: 24, total: 0, hasMore: false });
+      })
       .catch(err => setError(err.message))
       .finally(() => setLoading(false));
-  }
+  }, [page, search]);
 
   useEffect(() => {
-    load();
-    // Fetch school subdomain for branded login link in share modal
+    load(page, search);
+  }, [load, page, search]);
+
+  useEffect(() => {
     getMyTenant()
       .then(data => {
         const s = data?.tenants?.[0]?.subdomain || data?.subdomain || '';
@@ -924,18 +941,19 @@ export default function OwnerPeople() {
 
   async function handleAdd(form) {
     await addPerson(form);
-    load();
+    setPage(1);
+    load(1, search);
   }
 
   async function handleResetPassword(person) {
     await resetPassword({ targetId: person.id, newPassword: DEFAULT_PASSWORD });
-    load(); // refresh to update mustChangePassword badge
+    load(page, search); // refresh to update mustChangePassword badge
   }
 
   async function handleDeactivate(person) {
     if (!window.confirm(`Deactivate ${person.name}?`)) return;
     await deactivatePerson(person.id);
-    load();
+    load(page, search);
   }
 
   async function handleRoleChange(person) {
@@ -944,7 +962,7 @@ export default function OwnerPeople() {
     await updatePersonRole(person.id, newRole);
     setChangingRole(null);
     setNewRole('');
-    load();
+    load(page, search);
   }
 
   const q = search.trim().toLowerCase();
@@ -990,13 +1008,13 @@ export default function OwnerPeople() {
         <input
           type="text"
           value={search}
-          onChange={e => setSearch(e.target.value)}
+          onChange={e => { setSearch(e.target.value); setPage(1); }}
           placeholder="Search by name, email, phone, user ID…"
           className="flex-1 rounded-2xl border border-[#c9a96e]/40 bg-[#f5deb3] dark:bg-slate-900/30 text-[#191970] dark:text-slate-100 px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-[#1a5c38] placeholder:text-[#800020]/50"
         />
         <div className="flex gap-2 flex-wrap">
           {FILTERS.map(f => (
-            <button key={f} onClick={() => setFilter(f)} className={`px-4 py-2 rounded-2xl text-sm font-semibold border transition-colors ${filter === f ? 'bg-[#800020] text-[#f5deb3] border-[#800020]' : 'bg-[#f5deb3] text-[#800020] border-[#c9a96e]/40 dark:bg-slate-900/30 dark:text-slate-400 dark:border-white/10 hover:bg-[#efd4a0]'}`}>{f}</button>
+            <button key={f} onClick={() => { setFilter(f); setPage(1); }} className={`px-4 py-2 rounded-2xl text-sm font-semibold border transition-colors ${filter === f ? 'bg-[#800020] text-[#f5deb3] border-[#800020]' : 'bg-[#f5deb3] text-[#800020] border-[#c9a96e]/40 dark:bg-slate-900/30 dark:text-slate-400 dark:border-white/10 hover:bg-[#efd4a0]'}`}>{f}</button>
           ))}
         </div>
       </div>
@@ -1012,7 +1030,7 @@ export default function OwnerPeople() {
           </p>
         ) : (
           <>
-            <p className="text-xs text-[#800020] dark:text-slate-400 mb-4 font-semibold uppercase">{filtered.length} result{filtered.length !== 1 ? 's' : ''}</p>
+            <p className="text-xs text-[#800020] dark:text-slate-400 mb-4 font-semibold uppercase">{filtered.length} result{filtered.length !== 1 ? 's' : ''} on this page • {pagination.total} total</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {filtered.map(p => (
                 <PersonCard
@@ -1032,6 +1050,15 @@ export default function OwnerPeople() {
                   onStartRoleChange={() => { setChangingRole(p.id); setNewRole(''); }}
                 />
               ))}
+            </div>
+            <div className="mt-4 flex items-center justify-between gap-3">
+              <button onClick={() => setPage(current => Math.max(1, current - 1))} disabled={page === 1 || loading} className="rounded-2xl border border-[#c9a96e]/40 px-4 py-2 text-sm font-semibold text-[#800020] disabled:opacity-50">
+                Previous
+              </button>
+              <p className="text-xs font-semibold uppercase text-[#800020]">Page {pagination.page || page}</p>
+              <button onClick={() => setPage(current => current + 1)} disabled={!pagination.hasMore || loading} className="rounded-2xl bg-[#1a5c38] px-4 py-2 text-sm font-bold text-[#f5deb3] disabled:opacity-50">
+                Next
+              </button>
             </div>
           </>
         )}

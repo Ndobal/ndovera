@@ -6,6 +6,7 @@ import * as svc from './classroomService';
 import SubjectsTab from './subjects';
 import MaterialTypeThumbnail, { materialTypeLabel } from '../../shared/components/MaterialTypeThumbnail';
 import { getStoredAuth } from '../auth/services/authApi';
+import { getPeople } from '../school/services/schoolApi';
 
 const TODAY = new Date().toISOString().slice(0, 10);
 const STREAM_EMOJIS = ['😀', '😂', '😍', '🔥', '👏', '🎉', '👍', '🙏', '💡', '📚', '💯', '🚀'];
@@ -147,6 +148,11 @@ export default function TeacherClassroom({
   const [classroomLoading, setClassroomLoading] = useState(true);
   const [classroomError, setClassroomError] = useState('');
   const [classMembers, setClassMembers] = useState([]);
+  const [rosterRole, setRosterRole] = useState('student');
+  const [rosterSearch, setRosterSearch] = useState('');
+  const [rosterCandidates, setRosterCandidates] = useState([]);
+  const [rosterLoading, setRosterLoading] = useState(false);
+  const [rosterMessage, setRosterMessage] = useState('');
   const [activeStreamMenuId, setActiveStreamMenuId] = useState('');
   const [profileMember, setProfileMember] = useState(null);
 
@@ -303,6 +309,34 @@ export default function TeacherClassroom({
     ));
   }, [materialSubjects]);
 
+  useEffect(() => {
+    let cancelled = false;
+
+    async function searchRosterCandidates() {
+      if (!canManageSelectedClass || activeTab !== 'subjects' || !rosterSearch.trim()) {
+        setRosterCandidates([]);
+        return;
+      }
+
+      setRosterLoading(true);
+      try {
+        const payload = await getPeople({ search: rosterSearch.trim(), role: rosterRole, limit: 12, page: 1 });
+        if (!cancelled) {
+          setRosterCandidates(payload?.people || []);
+        }
+      } catch {
+        if (!cancelled) setRosterCandidates([]);
+      } finally {
+        if (!cancelled) setRosterLoading(false);
+      }
+    }
+
+    searchRosterCandidates();
+    return () => {
+      cancelled = true;
+    };
+  }, [activeTab, canManageSelectedClass, rosterRole, rosterSearch]);
+
   function loadAll() {
     if (!classId) return;
     svc.getPosts(classId).then(r => { if (r && r.success) setPosts(r.posts || []); }).catch(()=>{});
@@ -311,6 +345,34 @@ export default function TeacherClassroom({
     svc.getAttendance(classId).then(r => { if (r && r.success) setAttendance(r.attendance || []); }).catch(()=>{});
     svc.getLiveSessions(classId).then(r => { if (r && r.success) setLiveSessions(r.sessions || []); }).catch(()=>{});
     svc.getClassMembers(classId).then(r => { if (r && r.success) setClassMembers(r.members || []); }).catch(() => setClassMembers([]));
+  }
+
+  async function handleAddRosterMember(memberRole, userId) {
+    if (!classId || !userId) return;
+    const response = await svc.addClassMember(classId, { memberRole, userId });
+    if (!response?.success) {
+      setRosterMessage(response?.message || 'Could not add that person to the class.');
+      return;
+    }
+    setRosterMessage(`${formatRoleLabel(memberRole)} added to the class.`);
+    setRosterSearch('');
+    setRosterCandidates([]);
+    loadAll();
+  }
+
+  async function handleRemoveRosterMember(member) {
+    if (!classId || !member?.id) return;
+    const memberRole = String(member.role || '').trim().toLowerCase();
+    if (!window.confirm(`Remove ${member.name} from this class?`)) return;
+
+    const response = await svc.removeClassMember(classId, memberRole, member.id);
+    if (!response?.success) {
+      setRosterMessage(response?.message || 'Could not remove that person from the class.');
+      return;
+    }
+
+    setRosterMessage(`${member.name} removed from the class.`);
+    loadAll();
   }
 
   async function handleCreatePost(e) {
@@ -1062,7 +1124,83 @@ export default function TeacherClassroom({
             const subjectsList = selectedClass?.subjects || [];
             const userRole = String(storedUser?.role || '').toLowerCase();
             const canManage = selectedClass?.isClassTeacher || ['owner','hos','ict','ict_manager'].includes(userRole);
-            return <SubjectsTab classId={classId} subjects={subjectsList} canManage={canManage} />;
+            const groupedMembers = {
+              teachers: classMembers.filter(member => String(member.role || '').toLowerCase() === 'teacher'),
+              caregivers: classMembers.filter(member => String(member.role || '').toLowerCase() === 'caregiver'),
+              students: classMembers.filter(member => String(member.role || '').toLowerCase() === 'student'),
+            };
+            const currentMemberIds = new Set(classMembers.map(member => normalizeMemberIdentifier(member.id)));
+
+            return (
+              <div className="space-y-4">
+                {canManageSelectedClass && (
+                  <div className="rounded-3xl border border-[#c9a96e]/45 bg-[#f5deb3] p-5 shadow-[0_18px_42px_rgba(128,0,0,0.08)] dark:border-[#bf00ff]/35 dark:bg-[#800000]/75">
+                    <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+                      <div>
+                        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#800020] dark:text-[#bf00ff]">Class Roster</p>
+                        <p className="mt-1 text-lg font-semibold text-[#800000] dark:text-[#ffffff]">Add or remove teachers, students, and caregivers</p>
+                      </div>
+                      <span className="rounded-full bg-[#fff8f0] px-3 py-1 text-xs font-semibold uppercase tracking-[0.15em] text-[#800020] border border-[#c9a96e]/45 dark:bg-black/20 dark:border-[#bf00ff]/35 dark:text-[#bf00ff]">
+                        {classMembers.length} members
+                      </span>
+                    </div>
+
+                    <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
+                      {['teachers', 'caregivers', 'students'].map(groupKey => (
+                        <div key={groupKey} className="rounded-2xl border border-[#c9a96e]/35 bg-[#fff8f0] p-3 dark:border-[#bf00ff]/30 dark:bg-black/20">
+                          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#800020] dark:text-[#bf00ff]">{groupKey}</p>
+                          <div className="mt-2 space-y-2">
+                            {groupedMembers[groupKey].length === 0 && <p className="text-xs text-[#191970] dark:text-[#ffffff]">None yet.</p>}
+                            {groupedMembers[groupKey].map(member => (
+                              <div key={`${groupKey}-${member.id}`} className="flex items-center justify-between gap-2 rounded-2xl border border-[#c9a96e]/25 bg-[#f5deb3] px-3 py-2 dark:bg-[#35002b]">
+                                <div className="min-w-0">
+                                  <p className="truncate text-sm font-semibold text-[#191970] dark:text-[#ffffff]">{member.name}</p>
+                                  <p className="truncate text-xs text-[#800020] dark:text-[#bf00ff]">{member.displayId || member.email || member.status}</p>
+                                </div>
+                                <button type="button" onClick={() => handleRemoveRosterMember(member)} className="rounded-xl border border-red-300 px-3 py-1 text-xs font-semibold text-red-600">
+                                  Remove
+                                </button>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="mt-4 rounded-2xl border border-[#c9a96e]/35 bg-[#fff8f0] p-4 dark:border-[#bf00ff]/30 dark:bg-black/20">
+                      <div className="grid grid-cols-1 gap-3 md:grid-cols-[180px,1fr]">
+                        <select value={rosterRole} onChange={e => setRosterRole(e.target.value)} className="rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] p-3 text-sm text-[#191970] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#ffffff]">
+                          <option value="student">Student</option>
+                          <option value="teacher">Teacher</option>
+                          <option value="caregiver">Caregiver</option>
+                        </select>
+                        <input value={rosterSearch} onChange={e => setRosterSearch(e.target.value)} placeholder={`Search ${rosterRole}s by name or email`} className="rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] p-3 text-sm text-[#191970] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#ffffff]" />
+                      </div>
+                      {rosterMessage && <p className="mt-3 text-sm font-medium text-[#800000] dark:text-[#39ff14]">{rosterMessage}</p>}
+                      {rosterLoading && <p className="mt-3 text-sm text-[#191970] dark:text-[#ffffff]">Searching...</p>}
+                      {!rosterLoading && rosterCandidates.length > 0 && (
+                        <div className="mt-3 space-y-2">
+                          {rosterCandidates
+                            .filter(candidate => !currentMemberIds.has(normalizeMemberIdentifier(candidate.id)))
+                            .map(candidate => (
+                              <div key={candidate.id} className="flex items-center justify-between gap-3 rounded-2xl border border-[#c9a96e]/35 bg-[#f5deb3] px-3 py-2 dark:border-[#bf00ff]/30 dark:bg-[#35002b]">
+                                <div className="min-w-0">
+                                  <p className="truncate text-sm font-semibold text-[#191970] dark:text-[#ffffff]">{candidate.name}</p>
+                                  <p className="truncate text-xs text-[#800020] dark:text-[#bf00ff]">{candidate.displayId || candidate.email || candidate.role}</p>
+                                </div>
+                                <button type="button" onClick={() => handleAddRosterMember(rosterRole, candidate.id)} className="rounded-2xl bg-[#1a5c38] px-3 py-2 text-xs font-bold text-[#f5deb3] dark:bg-[#00ffff] dark:text-[#000000]">
+                                  Add
+                                </button>
+                              </div>
+                            ))}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
+                <SubjectsTab classId={classId} subjects={subjectsList} canManage={canManage} />
+              </div>
+            );
           })()}
 
           {activeTab === 'materials' && (

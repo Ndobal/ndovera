@@ -5,7 +5,6 @@ import {
   getPayroll,
   getPayrollHistory,
   getPayrollSettings,
-  getPeople,
   savePayrollSettings,
   submitPayroll,
   updatePayrollStaff,
@@ -66,67 +65,27 @@ function rowNet(staffRow) {
   return rowGross(staffRow) - rowTotalDeductions(staffRow);
 }
 
-function findLateChargeSummary(person, lateChargeSummaries = []) {
-  const identifiers = new Set([
-    String(person?.id || '').trim().toLowerCase(),
-    String(person?.email || '').trim().toLowerCase(),
-    String(person?.displayId || '').trim().toLowerCase(),
-  ].filter(Boolean));
-
-  return lateChargeSummaries.find(summary => identifiers.has(String(summary?.staffId || '').trim().toLowerCase())) || { amount: 0, count: 0 };
-}
-
-function buildPayrollRows(people, payrollEntries, settings, lateChargeSummaries = []) {
-  const payrollMap = (payrollEntries || []).reduce((map, entry) => {
-    const staffId = String(entry?.staffId || entry?.id || '').trim();
-    if (staffId) {
-      map[staffId] = entry;
-    }
-    return map;
-  }, {});
-
-  return (people || [])
-    .filter((person) => !['student', 'parent'].includes(String(person?.role || '').toLowerCase()))
+function buildPayrollRows(payrollEntries = []) {
+  return [...payrollEntries]
     .sort((left, right) => String(left?.name || '').localeCompare(String(right?.name || '')))
-    .map((person) => {
-      const entry = payrollMap[String(person?.id || '')] || {};
-      const gross = Number(entry?.gross || 0);
-      const manualDeductions = Number((entry?.manualDeductions ?? entry?.deductions) || 0);
-      const lateChargeSummary = findLateChargeSummary(person, lateChargeSummaries);
-      const housingAllowanceDefault = Number(settings?.housingAllowance || 0);
-      const transportAllowanceDefault = Number(settings?.transportAllowance || 0);
-      const totalAllowanceDefault = housingAllowanceDefault + transportAllowanceDefault;
-
-      const housingAllowance = gross >= totalAllowanceDefault ? housingAllowanceDefault : 0;
-      const transportAllowance = gross >= totalAllowanceDefault ? transportAllowanceDefault : 0;
-      const bonus = 0;
-      const basicSalary = Math.max(gross - housingAllowance - transportAllowance - bonus, 0);
-
-      const taxRate = Number(settings?.taxRate || 0);
-      const pensionRate = Number(settings?.pensionRate || 0);
-      const projectedTax = Math.round((gross * taxRate) / 100);
-      const tax = Math.min(projectedTax, manualDeductions);
-      const projectedPension = Math.round((gross * pensionRate) / 100);
-      const pension = Math.min(projectedPension, Math.max(manualDeductions - tax, 0));
-      const otherDeduction = Math.max(manualDeductions - tax - pension, 0);
-
-      return {
-        id: String(person?.id || ''),
-        displayId: person?.displayId || person?.id || '-',
-        name: person?.name || person?.displayId || person?.id || 'Staff',
-        role: person?.role || 'staff',
-        basicSalary,
-        housingAllowance,
-        transportAllowance,
-        bonus,
-        tax,
-        pension,
-        otherDeduction,
-        autoLateDeduction: Number((entry?.autoLateDeductions ?? lateChargeSummary.amount) || 0),
-        lateChargeCount: Number((entry?.lateChargeCount ?? lateChargeSummary.count) || 0),
-        status: entry?.status || 'Ready',
-      };
-    });
+    .map((entry) => ({
+      id: String(entry?.staffId || entry?.id || ''),
+      displayId: entry?.displayId || entry?.email || '-',
+      name: entry?.name || entry?.displayId || entry?.email || 'Staff',
+      role: entry?.primaryRole || entry?.role || 'staff',
+      employmentCategory: entry?.employmentCategory || 'support',
+      basicSalary: Number(entry?.basicSalary || 0),
+      housingAllowance: Number(entry?.housingAllowance || 0),
+      transportAllowance: Number(entry?.transportAllowance || 0),
+      bonus: Number(entry?.bonus || 0),
+      tax: Number(entry?.tax || 0),
+      pension: Number(entry?.pension || 0),
+      otherDeduction: Number(entry?.otherDeduction || 0),
+      autoLateDeduction: Number(entry?.autoLateDeductions || 0),
+      lateChargeCount: Number(entry?.lateChargeCount || 0),
+      status: entry?.status || 'Ready',
+      paymentStatus: String(entry?.paymentStatus || 'pending').toLowerCase(),
+    }));
 }
 
 function PayslipModal({ branding, monthLabel, staffRow, onClose }) {
@@ -138,7 +97,7 @@ function PayslipModal({ branding, monthLabel, staffRow, onClose }) {
             <h3 className="text-2xl font-bold text-[#800000] dark:text-[#0000ff]">{branding?.schoolName || 'School Payroll'}</h3>
             <p className="mt-2 text-sm text-[#191970] dark:text-[#39ff14]">Payslip for {monthLabel}</p>
           </div>
-          <span className={BADGE}>{staffRow.status}</span>
+          <span className={BADGE}>{staffRow.paymentStatus || staffRow.status}</span>
         </div>
 
         <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -149,6 +108,8 @@ function PayslipModal({ branding, monthLabel, staffRow, onClose }) {
             <p className="mt-2 font-semibold text-[#191970] dark:text-white">{staffRow.displayId}</p>
             <p className="mt-4 text-xs font-semibold uppercase tracking-[0.14em] text-[#800020] dark:text-[#bf00ff]">Role</p>
             <p className="mt-2 font-semibold capitalize text-[#191970] dark:text-white">{staffRow.role}</p>
+            <p className="mt-4 text-xs font-semibold uppercase tracking-[0.14em] text-[#800020] dark:text-[#bf00ff]">Employment Category</p>
+            <p className="mt-2 font-semibold capitalize text-[#191970] dark:text-white">{staffRow.employmentCategory}</p>
           </div>
 
           <div className={INNER}>
@@ -234,8 +195,7 @@ function PayrollManagementBoard({ canApprove = false }) {
       setLoading(true);
 
       try {
-        const [peopleResult, payrollResult, historyResult, settingsResult, brandingResult] = await Promise.all([
-          getPeople(),
+        const [payrollResult, historyResult, settingsResult, brandingResult] = await Promise.all([
           getPayroll(),
           getPayrollHistory(),
           getPayrollSettings(),
@@ -255,7 +215,7 @@ function PayrollManagementBoard({ canApprove = false }) {
         };
 
         setSettingsForm(nextSettings);
-        setRows(buildPayrollRows(peopleResult?.people || [], payrollResult?.payroll || [], nextSettings, payrollResult?.lateChargeSummaries || []));
+        setRows(buildPayrollRows(payrollResult?.payroll || []));
         setHistory(historyResult?.history || []);
         setBranding(brandingResult?.branding || null);
         setApproved(Boolean(payrollResult?.approved));
@@ -313,9 +273,16 @@ function PayrollManagementBoard({ canApprove = false }) {
 
     try {
       await updatePayrollStaff(staffId, {
-        gross: rowGross(targetRow),
-        deductions: rowManualDeductions(targetRow),
+        basicSalary: Number(targetRow.basicSalary || 0),
+        housingAllowance: Number(targetRow.housingAllowance || 0),
+        transportAllowance: Number(targetRow.transportAllowance || 0),
+        bonus: Number(targetRow.bonus || 0),
+        tax: Number(targetRow.tax || 0),
+        pension: Number(targetRow.pension || 0),
+        otherDeduction: Number(targetRow.otherDeduction || 0),
         status: targetRow.status,
+        paymentStatus: targetRow.paymentStatus,
+        employmentCategory: targetRow.employmentCategory,
       });
       showToast(`Saved ${targetRow.name}.`);
     } catch (error) {
@@ -471,6 +438,7 @@ function PayrollManagementBoard({ canApprove = false }) {
                       <th className={TH}>Staff ID</th>
                       <th className={TH}>Staff Name</th>
                       <th className={TH}>Role</th>
+                      <th className={TH}>Employment Category</th>
                       <th className={TH}>Basic Salary</th>
                       <th className={TH}>Housing</th>
                       <th className={TH}>Transport</th>
@@ -496,6 +464,20 @@ function PayrollManagementBoard({ canApprove = false }) {
                         </td>
                         <td className={TD}>
                           <p className="font-semibold capitalize text-[#191970] dark:text-white">{row.role}</p>
+                        </td>
+                        <td className={TD}>
+                          <select
+                            value={row.employmentCategory}
+                            disabled={inputsLocked}
+                            onChange={(event) => updateRowField(row.id, 'employmentCategory', event.target.value)}
+                            onBlur={() => persistRow(row.id)}
+                            className={INPUT}
+                          >
+                            <option value="academic">Academic</option>
+                            <option value="administrative">Administrative</option>
+                            <option value="support">Support</option>
+                            <option value="contract">Contract</option>
+                          </select>
                         </td>
                         {[
                           'basicSalary',
@@ -535,15 +517,16 @@ function PayrollManagementBoard({ canApprove = false }) {
                         <td className={`${TD} font-bold text-[#1a5c38] dark:text-[#00ffff]`}>{formatNaira(rowNet(row))}</td>
                         <td className={TD}>
                           <select
-                            value={row.status}
+                            value={row.paymentStatus}
                             disabled={inputsLocked}
-                            onChange={(event) => updateRowField(row.id, 'status', event.target.value)}
+                            onChange={(event) => updateRowField(row.id, 'paymentStatus', event.target.value)}
                             onBlur={() => persistRow(row.id)}
                             className={INPUT}
                           >
-                            <option value="Ready">Ready</option>
-                            <option value="Hold">Hold</option>
-                            <option value="Paid">Paid</option>
+                            <option value="pending">Pending</option>
+                            <option value="processing">Processing</option>
+                            <option value="paid">Paid</option>
+                            <option value="failed">Failed</option>
                           </select>
                           <p className="mt-1 text-xs text-[#800020] dark:text-[#bf00ff]">
                             {savingRowId === row.id ? 'Saving...' : 'Blur to save'}
@@ -556,7 +539,7 @@ function PayrollManagementBoard({ canApprove = false }) {
                     ))}
 
                     <tr className="bg-[#f0d090] font-bold dark:bg-[#220022]">
-                      <td colSpan={8} className={TD}>TOTAL</td>
+                      <td colSpan={9} className={TD}>TOTAL</td>
                       <td className={TD}>{formatNaira(payrollTotals.gross)}</td>
                       <td className={TD}>-</td>
                       <td className={TD}>-</td>
@@ -601,7 +584,7 @@ function PayrollManagementBoard({ canApprove = false }) {
               <div key={`payslip-${row.id}`} className={`${INNER} flex flex-col gap-4 md:flex-row md:items-center md:justify-between`}>
                 <div>
                   <p className="text-lg font-bold text-[#191970] dark:text-white">{row.name}</p>
-                  <p className="mt-1 text-sm capitalize text-[#800020] dark:text-[#bf00ff]">{row.role} · {row.displayId}</p>
+                  <p className="mt-1 text-sm capitalize text-[#800020] dark:text-[#bf00ff]">{row.role} · {row.employmentCategory} · {row.displayId}</p>
                   <p className="mt-2 text-sm text-[#191970] dark:text-[#39ff14]">Net pay {formatNaira(rowNet(row))}</p>
                   {row.autoLateDeduction > 0 ? <p className="mt-1 text-xs text-[#800020] dark:text-[#bf00ff]">Includes {formatNaira(row.autoLateDeduction)} lateness charge{row.lateChargeCount === 1 ? '' : 's'}.</p> : null}
                 </div>

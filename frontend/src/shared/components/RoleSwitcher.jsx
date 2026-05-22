@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 const roleOptions = [
   { label: 'Student', path: '/roles/student' },
   { label: 'Parent', path: '/roles/parent' },
+  { label: 'Caregiver', path: '/roles/caregiver' },
   { label: 'Teacher', path: '/roles/teacher' },
   { label: 'Admin', path: '/roles/admin' },
   { label: 'Head of School', path: '/roles/hos' },

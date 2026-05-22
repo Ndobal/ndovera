@@ -17,26 +17,86 @@ function normalizePracticeAnswerIndex(question, options) {
   });
 }
 
+function normalizeAcceptedAnswers(question) {
+  if (Array.isArray(question.answer)) {
+    return question.answer.map(answer => String(answer || '').trim()).filter(Boolean);
+  }
+
+  const rawAcceptedAnswers = question.acceptedAnswers ?? question.answer ?? '';
+  return String(rawAcceptedAnswers || '')
+    .split(/[\n,;]+/)
+    .map(answer => String(answer || '').trim())
+    .filter(Boolean);
+}
+
 function normalizePracticeQuestion(question) {
   const type = String(question.type || 'mcq').trim().toLowerCase();
-  if (!['mcq', 'truefalse'].includes(type)) return null;
-
-  const options = Array.isArray(question.options) ? question.options : Array.isArray(question.choices) ? question.choices : [];
-  const correctAnswer = normalizePracticeAnswerIndex(question, options);
-  if (!options.length || correctAnswer < 0) return null;
-
-  return {
+  const baseQuestion = {
     id: question.id,
     topic: question.topic || question.subjectName || question.subject || 'General',
     difficulty: question.metadata?.difficulty || 'standard',
     text: question.prompt || question.text || '',
-    options,
-    correctAnswer,
     explanation: question.explanation || '',
     hint: question.metadata?.hint || '',
     active: true,
     imageUrl: question.imageUrl || '',
+    type,
+    passage: question.passage || question.metadata?.passage || '',
   };
+
+  if (['mcq', 'truefalse'].includes(type)) {
+    const options = Array.isArray(question.options) ? question.options : Array.isArray(question.choices) ? question.choices : [];
+    const correctAnswer = normalizePracticeAnswerIndex(question, options);
+    if (!options.length || correctAnswer < 0) return null;
+
+    return {
+      ...baseQuestion,
+      responseType: 'choice',
+      options,
+      correctAnswer,
+    };
+  }
+
+  if (['shortanswer', 'fillgaps'].includes(type)) {
+    const acceptedAnswers = normalizeAcceptedAnswers(question);
+    if (!acceptedAnswers.length) return null;
+
+    return {
+      ...baseQuestion,
+      responseType: 'text',
+      acceptedAnswers,
+      answer: acceptedAnswers,
+    };
+  }
+
+  if (type === 'crossmatching') {
+    const pairs = Array.isArray(question.pairs) ? question.pairs : Array.isArray(question.answer) ? question.answer : [];
+    const left = Array.isArray(question.left) ? question.left : pairs.map(pair => String(pair?.left || '').trim()).filter(Boolean);
+    const right = Array.isArray(question.right) ? question.right : pairs.map(pair => String(pair?.right || '').trim()).filter(Boolean);
+    if (!pairs.length || !left.length || !right.length) return null;
+
+    return {
+      ...baseQuestion,
+      responseType: 'crossmatching',
+      pairs,
+      left,
+      right,
+      answer: pairs,
+    };
+  }
+
+  return null;
+}
+
+function formatPracticeLoadError(error) {
+  if (!error) return 'Failed to load live practice questions.';
+  if (typeof error === 'string' && error.trim()) return error;
+  if (error instanceof Error && typeof error.message === 'string' && error.message.trim()) return error.message;
+  if (typeof error?.message === 'string' && error.message.trim()) return error.message;
+  if (error?.message && typeof error.message === 'object') {
+    return Object.values(error.message).map(value => String(value || '').trim()).filter(Boolean).join(', ') || 'Failed to load live practice questions.';
+  }
+  return 'Failed to load live practice questions.';
 }
 
 /**
@@ -80,7 +140,7 @@ export default function PracticeTab({ auraBalance = 0, setAuraBalance = () => {}
         });
       } catch (error) {
         if (!active) return;
-        setLoadError(error.message || 'Failed to load live practice questions.');
+        setLoadError(formatPracticeLoadError(error));
       } finally {
         if (active) setLoading(false);
       }

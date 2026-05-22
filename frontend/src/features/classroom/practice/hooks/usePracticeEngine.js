@@ -7,6 +7,68 @@ import {
   shouldOfferAIFallback,
 } from '../service/practiceAdaptiveEngine';
 
+function normalizeComparableText(value) {
+  return String(value || '').trim().toLowerCase();
+}
+
+function evaluatePracticeResponse(question, response) {
+  const type = String(question?.type || question?.responseType || 'mcq').trim().toLowerCase();
+
+  if (type === 'crossmatching') {
+    const expectedPairs = Array.isArray(question?.pairs) ? question.pairs : [];
+    const actualPairs = Array.isArray(response) ? response : [];
+    const isCorrect = expectedPairs.length > 0
+      && expectedPairs.length === actualPairs.length
+      && expectedPairs.every(pair => actualPairs.some(candidate =>
+        normalizeComparableText(candidate?.left) === normalizeComparableText(pair?.left)
+        && normalizeComparableText(candidate?.right) === normalizeComparableText(pair?.right)
+      ));
+
+    return {
+      isCorrect,
+      expectedAnswer: expectedPairs,
+      response,
+    };
+  }
+
+  if (type === 'shortanswer') {
+    const acceptedAnswers = Array.isArray(question?.acceptedAnswers) ? question.acceptedAnswers : [];
+    const normalizedResponse = normalizeComparableText(response);
+    const isCorrect = normalizedResponse !== '' && acceptedAnswers.some(answer => normalizeComparableText(answer) === normalizedResponse);
+
+    return {
+      isCorrect,
+      expectedAnswer: acceptedAnswers,
+      response: String(response || ''),
+    };
+  }
+
+  if (type === 'fillgaps') {
+    const expectedAnswers = (Array.isArray(question?.acceptedAnswers) ? question.acceptedAnswers : [])
+      .map(answer => normalizeComparableText(answer))
+      .filter(Boolean);
+    const actualAnswers = String(response || '')
+      .split(/[\n,;]+/)
+      .map(answer => normalizeComparableText(answer))
+      .filter(Boolean);
+    const isCorrect = expectedAnswers.length > 0
+      && expectedAnswers.length === actualAnswers.length
+      && expectedAnswers.every((answer, index) => answer === actualAnswers[index]);
+
+    return {
+      isCorrect,
+      expectedAnswer: expectedAnswers,
+      response: String(response || ''),
+    };
+  }
+
+  return {
+    isCorrect: response === question?.correctAnswer,
+    expectedAnswer: question?.correctAnswer,
+    response,
+  };
+}
+
 /**
  * Custom hook for managing practice engine state and session lifecycle
  */
@@ -112,10 +174,11 @@ export const usePracticeEngine = (initialQuestionPool = [], initialTopicMap = {}
    * Handle answer submission
    */
   const submitAnswer = useCallback(
-    (selectedOption, timeSpent) => {
+    (response, timeSpent) => {
       if (!currentQuestion) return;
 
-      const isCorrect = selectedOption === currentQuestion.correctAnswer;
+      const evaluation = evaluatePracticeResponse(currentQuestion, response);
+      const isCorrect = evaluation.isCorrect;
 
       // Update performance signals
       const updatedPerformance = updatePerformanceSignals(
@@ -149,8 +212,8 @@ export const usePracticeEngine = (initialQuestionPool = [], initialTopicMap = {}
           ...prev.answers,
           {
             questionId: currentQuestion.id,
-            selected: selectedOption,
-            correct: currentQuestion.correctAnswer,
+            selected: response,
+            correct: evaluation.expectedAnswer,
             isCorrect,
             timeSpent,
             topic: currentQuestion.topic,
@@ -164,6 +227,8 @@ export const usePracticeEngine = (initialQuestionPool = [], initialTopicMap = {}
         explanation: currentQuestion.explanation,
         hint: currentQuestion.hint,
         timeSpent,
+        submittedAnswer: response,
+        expectedAnswer: evaluation.expectedAnswer,
       });
       setShowFeedback(true);
 

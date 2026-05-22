@@ -59,7 +59,7 @@ export default function TeacherLessonPlansPage() {
   const [error, setError] = useState('');
 
   const selectedClass = assignedClasses.find(classroom => classroom.id === classId) || null;
-  const subjectOptions = selectedClass?.subjects || [];
+  const subjectOptions = useMemo(() => selectedClass?.subjects || [], [selectedClass]);
 
   useEffect(() => {
     let cancelled = false;
