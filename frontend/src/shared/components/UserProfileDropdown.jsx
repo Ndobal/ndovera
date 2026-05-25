@@ -1,14 +1,21 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export default function UserProfileDropdown({ user = null, onLogout = () => {} }) {
   const navigate = useNavigate();
+  const location = useLocation();
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef(null);
   const displayName = user?.name || 'User';
   const displayRole = user?.role || 'guest';
   const avatarSeed = encodeURIComponent(displayName);
+  const avatarFallback = `https://api.dicebear.com/7.x/avataaars/svg?seed=${avatarSeed}`;
+  const avatarUrl = user?.avatarUrl || user?.avatar || avatarFallback;
+  const pathParts = location.pathname.split('/').filter(Boolean);
+  const activeRoleKey = pathParts[0] === 'roles' ? pathParts[1] : '';
+  const settingsRole = activeRoleKey || user?.role || '';
+  const settingsPath = settingsRole ? `/roles/${settingsRole}/settings` : '/settings';
 
   // Close when clicking outside
   useEffect(() => {
@@ -30,7 +37,7 @@ export default function UserProfileDropdown({ user = null, onLogout = () => {} }
         onClick={() => setOpen(!open)}
       >
         <span className="w-8 h-8 rounded-full bg-indigo-200 dark:bg-indigo-800 flex items-center justify-center text-lg overflow-hidden">
-          <img src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${avatarSeed}`} alt="avatar" className="w-full h-full object-cover" />
+          <img src={avatarUrl} alt={`${displayName} avatar`} className="w-full h-full object-cover" onError={(event) => { event.currentTarget.src = avatarFallback; }} />
         </span>
         <span>{displayName}</span>
         <motion.svg 
@@ -60,7 +67,7 @@ export default function UserProfileDropdown({ user = null, onLogout = () => {} }
                   type="button"
                   onClick={() => {
                     setOpen(false);
-                    navigate('/settings', { state: { tab: 'profile' } });
+                    navigate(settingsPath, { state: { tab: 'profile' } });
                   }}
                   className="w-full px-4 py-2 text-left text-sm text-slate-700 dark:text-slate-200 hover:bg-emerald-100 dark:hover:bg-emerald-700/25 hover:text-slate-900 dark:hover:text-white cursor-pointer transition-colors flex items-center gap-2"
                 >
@@ -72,7 +79,7 @@ export default function UserProfileDropdown({ user = null, onLogout = () => {} }
                   type="button"
                   onClick={() => {
                     setOpen(false);
-                    navigate('/settings');
+                    navigate(settingsPath);
                   }}
                   className="w-full px-4 py-2 text-left text-sm text-slate-700 dark:text-slate-200 hover:bg-emerald-100 dark:hover:bg-emerald-700/25 hover:text-slate-900 dark:hover:text-white cursor-pointer transition-colors flex items-center gap-2"
                 >

@@ -1,20 +1,50 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import StudentSectionShell from './StudentSectionShell';
-import { askAiTutor, getAiAccess, initiateAiTopUp } from '../../../features/ai/services/aiTutorApi';
+import { askAiTutor, getAiAccess } from '../../../features/ai/services/aiTutorApi';
 
 const modes = ['Explain Mode', 'Practice Mode', 'Weak Area Mode', 'Exam Review Mode'];
 const currencyFormatter = new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN', maximumFractionDigits: 0 });
 
-function StudentProfessorAura() {
+const modeDescriptions = {
+  'Explain Mode': 'Break concepts down in simple steps.',
+  'Practice Mode': 'Generate questions and guided drills.',
+  'Weak Area Mode': 'Focus on topics causing repeated mistakes.',
+  'Exam Review Mode': 'Prepare for tests with revision-style prompts.',
+};
+
+function buildWelcomeMessage(viewerRole) {
+  return [{
+    id: 'welcome',
+    role: 'assistant',
+    mode: 'Explain Mode',
+    text: viewerRole === 'parent'
+      ? 'Ndovera AI is ready. Ask for lesson explanations, revision help, or weak-topic support so you can guide your child from the same workspace.'
+      : 'Ndovera AI is ready. Ask for explanations, guided practice, weak-topic support, or exam review from this chat workspace.',
+  }];
+}
+
+function resolveSourceLabel(source) {
+  if (source === 'free') return 'Free Daily Request';
+  if (source === 'school_credits') return 'School Credit';
+  return 'Individual Credit';
+}
+
+function StudentProfessorAura({
+  viewerRole = 'student',
+  dashboardLabel = 'Student Dashboard',
+  homePath = '/roles/student',
+  tuckShopPath = '/roles/student/tuck-shop',
+}) {
+  const navigate = useNavigate();
   const [selectedMode, setSelectedMode] = useState(modes[0]);
   const [input, setInput] = useState('');
-  const [reply, setReply] = useState(null);
+  const [messages, setMessages] = useState(() => buildWelcomeMessage(viewerRole));
   const [accessPayload, setAccessPayload] = useState(null);
   const [loadingAccess, setLoadingAccess] = useState(true);
   const [asking, setAsking] = useState(false);
-  const [purchaseQuantity, setPurchaseQuantity] = useState(10);
-  const [purchaseBusy, setPurchaseBusy] = useState(false);
   const [error, setError] = useState('');
+  const transcriptRef = useRef(null);
 
   const access = accessPayload?.access || null;
 
@@ -44,49 +74,63 @@ function StudentProfessorAura() {
     };
   }, []);
 
-  const summaryCards = useMemo(() => {
+  useEffect(() => {
+    if (!transcriptRef.current) return;
+    transcriptRef.current.scrollTop = transcriptRef.current.scrollHeight;
+  }, [messages, error]);
+
+  const shouldRefillInTuckShop = access?.policy?.billingModel === 'individual'
+    && Number(access?.usage?.remainingFreeRequests || 0) <= 0
+    && Number(access?.wallet?.availableCredits || 0) <= 0;
+
+  const analyticsCards = useMemo(() => {
     if (!access) return [];
 
     return [
       {
-        label: 'Free Requests Left Today',
+        label: 'Free Left',
         value: `${access.usage.remainingFreeRequests}/${access.usage.dailyFreeRequests}`,
-        helper: 'Each student gets 50 free AI requests per day before credits are used.',
-      },
-      {
-        label: 'Billing Mode',
-        value: access.policy.billingModel === 'school' ? 'School Sponsored' : 'Individual Billing',
-        helper: access.policy.billingModel === 'school'
-          ? 'The school wallet covers paid AI requests after the free daily allowance.'
-          : 'Your personal wallet covers paid AI requests after the free daily allowance.',
+        helper: 'Daily requests before credits are used.',
       },
       {
         label: 'Available Credits',
         value: String(access.wallet.availableCredits || 0),
-        helper: access.policy.billingModel === 'school'
-          ? `${access.wallet.schoolCredits || 0} school credits available.`
-          : `${access.wallet.userCredits || 0} personal credits available.`,
+        helper: access.policy.billingModel === 'school' ? 'School wallet active.' : 'Personal AI wallet.',
+      },
+      {
+        label: 'Billing Mode',
+        value: access.policy.billingModel === 'school' ? 'School Sponsored' : 'Individual Billing',
+        helper: access.policy.billingModel === 'school' ? 'School covers paid requests.' : 'Refill from tuck shop when empty.',
       },
       {
         label: 'Credit Price',
         value: access.policy.pricePerCreditNaira > 0 ? currencyFormatter.format(access.policy.pricePerCreditNaira) : 'Not Set',
-        helper: 'Credits are charged only after the free daily requests are exhausted.',
+        helper: `${messages.filter(message => message.role === 'assistant').length} answers in this chat.`,
       },
     ];
-  }, [access]);
+  }, [access, messages]);
 
   async function ask() {
-    if (!input.trim()) return;
+    const prompt = input.trim();
+    if (!prompt || shouldRefillInTuckShop) return;
 
+    setMessages(current => [...current, { id: `prompt_${Date.now()}`, role: 'user', text: prompt, mode: selectedMode }]);
     setAsking(true);
     setError('');
+    setInput('');
 
     try {
-      const data = await askAiTutor({ prompt: input.trim(), mode: selectedMode });
-      setReply({ type: 'answer', text: data.answer, source: data.source, chargedCredits: data.chargedCredits || 0 });
+      const data = await askAiTutor({ prompt, mode: selectedMode });
+      setMessages(current => [...current, {
+        id: `reply_${Date.now()}`,
+        role: 'assistant',
+        text: data.answer,
+        mode: selectedMode,
+        source: data.source,
+        chargedCredits: data.chargedCredits || 0,
+      }]);
       setAccessPayload(current => ({ ...(current || {}), access: data.access, management: current?.management || {} }));
     } catch (askError) {
-      setReply(null);
       setError(askError.message || 'Could not process the AI request.');
       if (askError.data?.access) {
         setAccessPayload(current => ({ ...(current || {}), access: askError.data.access, management: current?.management || {} }));
@@ -96,195 +140,200 @@ function StudentProfessorAura() {
     }
   }
 
-  async function buyCredits() {
-    if (!access || access.policy.billingModel !== 'individual') return;
-
-    setPurchaseBusy(true);
-    setError('');
-
-    try {
-      const data = await initiateAiTopUp({ quantity: purchaseQuantity, target: 'individual' });
-      if (data.paymentLink) {
-        window.location.assign(data.paymentLink);
-        return;
-      }
-      throw new Error('Flutterwave checkout link was not returned.');
-    } catch (purchaseError) {
-      setError(purchaseError.message || 'Could not start the AI credit checkout.');
-    } finally {
-      setPurchaseBusy(false);
+  function handleComposerKeyDown(event) {
+    if (event.key === 'Enter' && !event.shiftKey) {
+      event.preventDefault();
+      ask();
     }
   }
 
   return (
-    <StudentSectionShell title="Ndovera AI" subtitle="Academic-only assistant with daily free requests and live credit control.">
-      <div className="space-y-5">
-        <section className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
-          {modes.map(mode => {
-            const active = selectedMode === mode;
-            return (
-              <button
-                key={mode}
-                type="button"
-                onClick={() => setSelectedMode(mode)}
-                className={`rounded-3xl border p-4 text-left transition ${active
-                  ? 'border-[#1a5c38] bg-[#f5deb3] shadow-[0_16px_34px_rgba(26,92,56,0.14)] dark:border-[#00ffff] dark:bg-[#800000]/75'
-                  : 'border-[#800000]/15 bg-[#fff7ea] hover:-translate-y-0.5 hover:border-[#800000]/30 dark:border-[#bf00ff]/25 dark:bg-[#800000]/55'
-                }`}
-              >
-                <p className="text-sm font-semibold text-[#800000] dark:text-[#0000ff]">{mode}</p>
-                <p className="mt-2 text-xs leading-6 text-[#191970] dark:text-[#39ff14]">Focused academic support with quota and billing enforcement.</p>
-              </button>
-            );
-          })}
-        </section>
-
-        <section className="grid grid-cols-1 gap-4 xl:grid-cols-[minmax(0,2fr)_minmax(320px,1fr)]">
-          <div className="rounded-[2rem] border border-[#800000]/15 bg-[#f5deb3] p-5 shadow-[0_22px_48px_rgba(128,0,0,0.10)] dark:border-[#bf00ff]/30 dark:bg-[#800000]/72">
-            <div className="flex items-start justify-between gap-4 border-b border-[#800000]/10 pb-4 dark:border-[#bf00ff]/20">
+    <StudentSectionShell
+      title="Ndovera AI"
+      subtitle="Academic-only assistant with a chat workspace, live analytics, and tuck-shop refill guidance."
+      dashboardLabel={dashboardLabel}
+      compact
+      hideHeader
+      viewportLocked
+      watermarkText="NDOVERA AI"
+      diagonalWatermark
+    >
+      <div className="flex h-full min-h-0 flex-col overflow-hidden rounded-[2rem] border border-[#800000]/15 bg-[#f5deb3]/95 shadow-[0_24px_54px_rgba(128,0,0,0.12)] dark:border-[#bf00ff]/30 dark:bg-[#800000]/72">
+        <header className="border-b border-[#800000]/10 bg-[#fff8ea]/90 px-4 py-4 backdrop-blur md:px-5 dark:border-[#bf00ff]/20 dark:bg-[#170018]/88">
+          <div className="flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
+            <div className="space-y-3">
+              <div className="flex flex-wrap items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => navigate(homePath)}
+                  className="rounded-full border border-[#800000]/20 px-3 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-[#800000] dark:border-[#00ffff]/25 dark:text-white"
+                >
+                  Home
+                </button>
+                <button
+                  type="button"
+                  onClick={() => navigate(tuckShopPath)}
+                  className="rounded-full border border-[#1a5c38]/25 bg-[#1a5c38]/10 px-3 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-[#1a5c38] dark:border-[#00ffff]/25 dark:bg-[#00ffff]/10 dark:text-[#00ffff]"
+                >
+                  Refill In Tuck Shop
+                </button>
+              </div>
               <div>
-                <h3 className="text-2xl font-semibold text-[#800000] dark:text-[#0000ff]">Professor Vera</h3>
-                <p className="mt-1 text-sm leading-6 text-[#191970] dark:text-[#39ff14]">Ask about lessons, exam review, weak topics, and guided practice.</p>
-              </div>
-              <span className="rounded-full bg-[#1a5c38] px-4 py-2 text-xs font-bold text-[#f5deb3] dark:bg-[#00ffff] dark:text-black">
-                {selectedMode}
-              </span>
-            </div>
-
-            {error ? (
-              <div className="mt-4 rounded-2xl border border-red-300/60 bg-red-50 px-4 py-3 text-sm font-semibold text-[#800000] dark:border-[#ff5f8d]/35 dark:bg-[#4a0014] dark:text-[#ffffff]">
-                {error}
-              </div>
-            ) : null}
-
-            <div className="mt-4">
-              <label className="mb-2 block text-xs font-semibold uppercase tracking-[0.2em] text-[#800020] dark:text-[#bf00ff]">
-                Ask An Academic Question
-              </label>
-              <textarea
-                value={input}
-                onChange={event => setInput(event.target.value)}
-                rows={5}
-                placeholder="Example: Explain why we borrow in subtraction and give me one practice question."
-                className="w-full rounded-[1.5rem] border border-[#800000]/15 bg-[#fff8ea] px-4 py-4 text-[15px] leading-7 text-[#191970] outline-none transition focus:border-[#1a5c38] focus:ring-4 focus:ring-[#1a5c38]/10 dark:border-[#bf00ff]/25 dark:bg-[#191970]/45 dark:text-[#ffffff]"
-              />
-            </div>
-
-            <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#800020] dark:text-[#bf00ff]">
-                Social chat is blocked. Academic prompts only.
-              </p>
-              <div className="flex items-center gap-3">
-                <button
-                  type="button"
-                  onClick={() => { setInput(''); setReply(null); setError(''); }}
-                  className="rounded-2xl border border-[#800000]/20 px-4 py-3 text-sm font-semibold text-[#800000] dark:border-[#bf00ff]/25 dark:text-[#ffffff]"
-                >
-                  Clear
-                </button>
-                <button
-                  type="button"
-                  onClick={ask}
-                  disabled={asking || loadingAccess}
-                  className="rounded-2xl bg-[#1a5c38] px-5 py-3 text-sm font-bold text-[#f5deb3] transition hover:bg-[#154a2e] disabled:opacity-60 dark:bg-[#00ffff] dark:text-black dark:hover:bg-[#7dfcff]"
-                >
-                  {asking ? 'Thinking...' : 'Ask Professor Vera'}
-                </button>
-              </div>
-            </div>
-
-            <div className="mt-5 rounded-[1.5rem] border border-[#800000]/10 bg-white/55 p-4 dark:border-[#bf00ff]/20 dark:bg-[#191970]/35">
-              {!reply ? (
-                <p className="text-sm leading-6 text-[#191970] dark:text-[#39ff14]">
-                  Your reply will appear here with the billing source used for the request.
+                <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-[#800020] dark:text-[#bf00ff]">{dashboardLabel}</p>
+                <h2 className="mt-2 text-3xl font-semibold text-[#800000] dark:text-[#0000ff]">Ndovera AI</h2>
+                <p className="mt-2 max-w-3xl text-sm leading-6 text-[#191970] dark:text-[#39ff14]">
+                  A ChatGPT-style study workspace for lesson explanations, practice, weak-topic repair, and exam review. Social chat stays blocked here.
                 </p>
-              ) : (
-                <div>
-                  <div className="flex items-center justify-between gap-3">
-                    <p className="text-sm font-semibold text-[#800000] dark:text-[#ffffff]">AI Reply</p>
-                    <span className="rounded-full bg-[#800000]/10 px-3 py-1 text-xs font-semibold text-[#800020] dark:bg-[#00ffff]/20 dark:text-[#bf00ff]">
-                      {reply.source === 'free' ? 'Free Daily Request' : reply.source === 'school_credits' ? 'School Credit' : 'Individual Credit'}
-                    </span>
-                  </div>
-                  <div className="mt-3 whitespace-pre-wrap text-[15px] leading-7 text-[#191970] dark:text-[#39ff14]">
-                    {reply.text}
-                  </div>
-                  {reply.chargedCredits > 0 ? (
-                    <p className="mt-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#800020] dark:text-[#bf00ff]">
-                      {reply.chargedCredits} credit used for this request.
-                    </p>
-                  ) : null}
+              </div>
+            </div>
+
+            <div className="flex max-w-full gap-3 overflow-x-auto pb-1 xl:max-w-[520px]">
+              {(loadingAccess ? [{ label: 'Status', value: 'Loading...', helper: 'Fetching AI access.' }] : analyticsCards).map(card => (
+                <div key={card.label} className="min-w-[145px] rounded-3xl border border-[#800000]/10 bg-white/55 px-4 py-3 dark:border-[#bf00ff]/20 dark:bg-[#191970]/35">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#800020] dark:text-[#bf00ff]">{card.label}</p>
+                  <p className="mt-2 text-lg font-semibold text-[#800000] dark:text-white">{card.value}</p>
+                  <p className="mt-1 text-xs leading-5 text-[#191970] dark:text-[#39ff14]">{card.helper}</p>
                 </div>
-              )}
+              ))}
             </div>
           </div>
 
-          <div className="space-y-4">
-            <section className="rounded-[2rem] border border-[#800000]/15 bg-[#f5deb3]/95 p-5 shadow-[0_18px_40px_rgba(25,25,112,0.08)] dark:border-[#bf00ff]/30 dark:bg-[#800000]/70">
-              <h3 className="text-lg font-semibold text-[#800000] dark:text-[#0000ff]">AI Access Summary</h3>
-              <p className="mt-1 text-sm leading-6 text-[#191970] dark:text-[#39ff14]">The current account follows the live quota and payment policy below.</p>
+          <div className="mt-4 flex gap-2 overflow-x-auto pb-1">
+            {modes.map(mode => {
+              const active = selectedMode === mode;
+              return (
+                <button
+                  key={mode}
+                  type="button"
+                  onClick={() => setSelectedMode(mode)}
+                  className={`min-h-[50px] min-w-[75px] rounded-2xl border px-3 py-2 text-left text-xs font-semibold transition ${active
+                    ? 'border-[#1a5c38] bg-[#1a5c38] text-[#f5deb3] dark:border-[#00ffff] dark:bg-[#00ffff] dark:text-black'
+                    : 'border-[#800000]/15 bg-white/55 text-[#800000] dark:border-[#bf00ff]/20 dark:bg-[#191970]/35 dark:text-white'
+                  }`}
+                >
+                  <span className="block leading-4">{mode.replace(' Mode', '')}</span>
+                </button>
+              );
+            })}
+          </div>
+          <p className="mt-3 text-xs leading-5 text-[#191970] dark:text-[#39ff14]">{modeDescriptions[selectedMode]}</p>
+        </header>
 
-              <div className="mt-4 space-y-3">
-                {loadingAccess ? (
-                  <p className="text-sm text-[#191970] dark:text-[#39ff14]">Loading AI access...</p>
-                ) : summaryCards.map(card => (
-                  <div key={card.label} className="rounded-3xl border border-[#800000]/10 bg-white/50 p-4 dark:border-[#bf00ff]/20 dark:bg-[#191970]/35">
-                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#800020] dark:text-[#bf00ff]">{card.label}</p>
-                    <p className="mt-2 text-xl font-semibold text-[#800000] dark:text-[#ffffff]">{card.value}</p>
-                    <p className="mt-2 text-sm leading-6 text-[#191970] dark:text-[#39ff14]">{card.helper}</p>
+        <div className="grid min-h-0 flex-1 xl:grid-cols-[minmax(0,1fr)_340px]">
+          <section className="flex min-h-0 flex-col border-b border-[#800000]/10 xl:border-b-0 xl:border-r dark:border-[#bf00ff]/20">
+            <div ref={transcriptRef} className="flex-1 overflow-y-auto px-4 py-5 md:px-6">
+              <div className="mx-auto flex w-full max-w-4xl flex-col gap-4">
+                {shouldRefillInTuckShop ? (
+                  <div className="rounded-[1.75rem] border border-[#1a5c38]/20 bg-[#e4f4e6] px-5 py-4 text-sm text-[#1a5c38] dark:border-[#00ffff]/20 dark:bg-[#03181a] dark:text-[#7df9ff]">
+                    <p className="font-semibold uppercase tracking-[0.18em]">AI Credits Exhausted</p>
+                    <p className="mt-2 leading-6">Your free requests are finished and your personal AI credits are empty. Use the tuck shop to refill before sending another prompt.</p>
+                    <button
+                      type="button"
+                      onClick={() => navigate(tuckShopPath)}
+                      className="mt-3 rounded-2xl bg-[#1a5c38] px-4 py-2 text-sm font-bold text-[#f5deb3] dark:bg-[#00ffff] dark:text-black"
+                    >
+                      Open Tuck Shop Refill
+                    </button>
                   </div>
-                ))}
+                ) : null}
+
+                {messages.map(message => {
+                  const isUser = message.role === 'user';
+                  const isAssistant = message.role === 'assistant';
+                  return (
+                    <div key={message.id} className={`flex ${isUser ? 'justify-end' : 'justify-start'}`}>
+                      <div className={`max-w-[88%] rounded-[1.75rem] px-4 py-3 shadow-sm ${isUser
+                        ? 'bg-[#1a5c38] text-[#f5deb3] dark:bg-[#00ffff] dark:text-black'
+                        : 'border border-[#800000]/10 bg-white/70 text-[#191970] dark:border-[#bf00ff]/20 dark:bg-[#191970]/35 dark:text-white'
+                      }`}>
+                        <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] opacity-80">
+                          <span>{isUser ? 'You' : 'Ndovera AI'}</span>
+                          {message.mode ? <span>{message.mode}</span> : null}
+                          {isAssistant && message.source ? <span>{resolveSourceLabel(message.source)}</span> : null}
+                        </div>
+                        <p className="mt-2 whitespace-pre-wrap text-sm leading-7">{message.text}</p>
+                        {isAssistant && message.chargedCredits > 0 ? (
+                          <p className="mt-2 text-[11px] font-semibold uppercase tracking-[0.18em] opacity-80">
+                            {message.chargedCredits} credit used for this answer.
+                          </p>
+                        ) : null}
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
+            </div>
+
+            <div className="border-t border-[#800000]/10 bg-[#fff8ea]/92 p-4 backdrop-blur md:p-5 dark:border-[#bf00ff]/20 dark:bg-[#170018]/90">
+              <div className="mx-auto w-full max-w-4xl">
+                {error ? (
+                  <div className="mb-3 rounded-2xl border border-red-300/60 bg-red-50 px-4 py-3 text-sm font-semibold text-[#800000] dark:border-[#ff5f8d]/35 dark:bg-[#4a0014] dark:text-white">
+                    {error}
+                  </div>
+                ) : null}
+
+                <label className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#800020] dark:text-[#bf00ff]">
+                  Ask An Academic Question
+                </label>
+                <textarea
+                  value={input}
+                  onChange={event => setInput(event.target.value)}
+                  onKeyDown={handleComposerKeyDown}
+                  rows={3}
+                  placeholder="Example: Explain why we borrow in subtraction and give me one practice question."
+                  className="mt-2 w-full rounded-[1.5rem] border border-[#800000]/15 bg-white/70 px-4 py-4 text-[15px] leading-7 text-[#191970] outline-none transition focus:border-[#1a5c38] focus:ring-4 focus:ring-[#1a5c38]/10 dark:border-[#bf00ff]/20 dark:bg-[#191970]/35 dark:text-white"
+                />
+
+                <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#800020] dark:text-[#bf00ff]">
+                    Academic prompts only. Press Enter to send.
+                  </p>
+                  <div className="flex items-center gap-3">
+                    <button
+                      type="button"
+                      onClick={() => { setInput(''); setError(''); }}
+                      className="rounded-2xl border border-[#800000]/20 px-4 py-3 text-sm font-semibold text-[#800000] dark:border-[#bf00ff]/25 dark:text-white"
+                    >
+                      Clear
+                    </button>
+                    <button
+                      type="button"
+                      onClick={ask}
+                      disabled={asking || loadingAccess || !input.trim() || shouldRefillInTuckShop}
+                      className="rounded-2xl bg-[#1a5c38] px-5 py-3 text-sm font-bold text-[#f5deb3] transition hover:bg-[#154a2e] disabled:opacity-60 dark:bg-[#00ffff] dark:text-black dark:hover:bg-[#7dfcff]"
+                    >
+                      {asking ? 'Thinking...' : 'Ask Ndovera AI'}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <aside className="hidden min-h-0 flex-col gap-4 overflow-y-auto border-t border-[#800000]/10 bg-[#fff8ea]/55 p-4 xl:flex dark:border-[#bf00ff]/20 dark:bg-[#180013]/55">
+            <section className="rounded-[1.75rem] border border-[#800000]/10 bg-white/60 p-4 dark:border-[#bf00ff]/20 dark:bg-[#191970]/35">
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#800020] dark:text-[#bf00ff]">Current Mode</p>
+              <h3 className="mt-2 text-xl font-semibold text-[#800000] dark:text-white">{selectedMode}</h3>
+              <p className="mt-2 text-sm leading-6 text-[#191970] dark:text-[#39ff14]">{modeDescriptions[selectedMode]}</p>
             </section>
 
-            {access?.policy?.billingModel === 'individual' ? (
-              <section className="rounded-[2rem] border border-[#800000]/15 bg-[#f5deb3]/95 p-5 shadow-[0_18px_40px_rgba(128,0,0,0.08)] dark:border-[#bf00ff]/30 dark:bg-[#800000]/70">
-                <h3 className="text-lg font-semibold text-[#800000] dark:text-[#0000ff]">Buy AI Credits</h3>
-                <p className="mt-1 text-sm leading-6 text-[#191970] dark:text-[#39ff14]">
-                  After the 50 free daily requests are used up, your personal wallet pays for additional AI help.
-                </p>
-
-                <div className="mt-4">
-                  <label className="mb-2 block text-xs font-semibold uppercase tracking-[0.2em] text-[#800020] dark:text-[#bf00ff]">
-                    Credit Quantity
-                  </label>
-                  <input
-                    type="number"
-                    min="1"
-                    value={purchaseQuantity}
-                    onChange={event => setPurchaseQuantity(Math.max(1, Number(event.target.value) || 1))}
-                    className="w-full rounded-2xl border border-[#800000]/15 bg-white/70 px-4 py-3 text-sm text-[#191970] outline-none transition focus:border-[#1a5c38] focus:ring-4 focus:ring-[#1a5c38]/10 dark:border-[#bf00ff]/20 dark:bg-[#191970]/35 dark:text-[#ffffff]"
-                  />
-                </div>
-
-                <p className="mt-3 text-sm leading-6 text-[#191970] dark:text-[#39ff14]">
-                  {access?.policy?.pricePerCreditNaira > 0
-                    ? `Current price: ${currencyFormatter.format(access.policy.pricePerCreditNaira)} per credit.`
-                    : 'AI credit price has not been configured yet.'}
-                </p>
-
-                <button
-                  type="button"
-                  onClick={buyCredits}
-                  disabled={purchaseBusy || !(access?.policy?.pricePerCreditNaira > 0)}
-                  className="mt-4 w-full rounded-2xl bg-[#1a5c38] px-5 py-3 text-sm font-bold text-[#f5deb3] transition hover:bg-[#154a2e] disabled:opacity-60 dark:bg-[#00ffff] dark:text-black dark:hover:bg-[#7dfcff]"
-                >
-                  {purchaseBusy ? 'Opening Checkout...' : 'Buy Credits'}
-                </button>
-              </section>
-            ) : (
-              <section className="rounded-[2rem] border border-[#800000]/15 bg-[#f5deb3]/95 p-5 shadow-[0_18px_40px_rgba(128,0,0,0.08)] dark:border-[#bf00ff]/30 dark:bg-[#800000]/70">
-                <h3 className="text-lg font-semibold text-[#800000] dark:text-[#0000ff]">School Sponsored AI</h3>
-                <p className="mt-2 text-sm leading-6 text-[#191970] dark:text-[#39ff14]">
-                  The school wallet is currently responsible for paid AI requests after the free daily quota. If the balance runs low, contact the school owner or Ami to top it up.
-                </p>
-                <p className="mt-3 text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">
-                  Current school credit balance: {access?.wallet?.schoolCredits || 0}
-                </p>
-              </section>
-            )}
-          </div>
-        </section>
+            <section className="rounded-[1.75rem] border border-[#800000]/10 bg-white/60 p-4 dark:border-[#bf00ff]/20 dark:bg-[#191970]/35">
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#800020] dark:text-[#bf00ff]">Wallet Guidance</p>
+              <div className="mt-3 space-y-3 text-sm leading-6 text-[#191970] dark:text-[#39ff14]">
+                <p>Free requests reset daily before credits are used.</p>
+                <p>Individual billing users refill from the tuck shop. School-sponsored users depend on the school wallet.</p>
+                <p>Current school credits: <span className="font-semibold text-[#800000] dark:text-white">{access?.wallet?.schoolCredits || 0}</span></p>
+              </div>
+              <button
+                type="button"
+                onClick={() => navigate(tuckShopPath)}
+                className="mt-4 w-full rounded-2xl bg-[#1a5c38] px-4 py-3 text-sm font-bold text-[#f5deb3] dark:bg-[#00ffff] dark:text-black"
+              >
+                Open Tuck Shop
+              </button>
+            </section>
+          </aside>
+        </div>
       </div>
     </StudentSectionShell>
   );

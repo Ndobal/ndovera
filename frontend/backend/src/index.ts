@@ -7162,15 +7162,21 @@ async function listAccessibleLearningStudents(db: D1Database, user: Record<strin
 }
 
 async function resolveUserProfileAccess(db: D1Database, currentUser: Record<string, any>, userId: string) {
-  const callerId = String(currentUser?.id || currentUser?.email || currentUser?.sub || '').trim()
+  const callerIdentifiers = [
+    currentUser?.id,
+    currentUser?.email,
+    currentUser?.sub,
+    currentUser?.displayId,
+  ].map(value => String(value || '').trim()).filter(Boolean)
+  const callerId = callerIdentifiers[0] || ''
   const callerRole = normalizeRole(currentUser?.role)
   const isAdminEdit = hasRequiredRole(callerRole, ['owner', 'hos'])
 
   if (isAdminEdit) {
-    return { allowed: true, isAdminEdit: true, isSelfEdit: callerId === userId, linkedStudent: null as Record<string, any> | null }
+    return { allowed: true, isAdminEdit: true, isSelfEdit: callerIdentifiers.includes(userId), linkedStudent: null as Record<string, any> | null }
   }
 
-  if (callerId && callerId === userId) {
+  if (callerId && callerIdentifiers.includes(userId)) {
     return { allowed: true, isAdminEdit: false, isSelfEdit: true, linkedStudent: null as Record<string, any> | null }
   }
 
@@ -10915,9 +10921,8 @@ app.put('/api/people/:userId', authenticate, async (c) => {
   if (!access.allowed) return c.json({ error: 'forbidden' }, 403)
   try {
     await ensureUsersTable(c.env.APP_DB)
-    const existingUser = await c.env.APP_DB.prepare(
-      `SELECT id, email, role FROM users WHERE id = ? AND tenantId = ?`
-    ).bind(userId, tenantId).first() as any
+    const existingUser = await findUserByIdentifier(c.env.APP_DB, userId)
+    if (!existingUser || String(existingUser.tenantId || '').trim() !== tenantId) return c.json({ error: 'User not found.' }, 404)
     if (!existingUser) return c.json({ error: 'User not found.' }, 404)
     if (access.linkedStudent && normalizeRole(existingUser.role) !== 'student') {
       return c.json({ error: 'Only linked student profiles can be updated from a parent account.' }, 403)
@@ -10929,18 +10934,18 @@ app.put('/api/people/:userId', authenticate, async (c) => {
     }
 
     if (normalizedName) {
-      await c.env.APP_DB.prepare(`UPDATE users SET name = ? WHERE id = ? AND tenantId = ?`).bind(normalizedName, userId, tenantId).run()
+      await c.env.APP_DB.prepare(`UPDATE users SET name = ? WHERE id = ? AND tenantId = ?`).bind(normalizedName, existingUser.id, tenantId).run()
     }
     const resolvedIdentity = await resolveSettingsIdentity(c.env.APP_DB, existingUser.email || existingUser.id)
     const settingsKey = String(resolvedIdentity.settingsKey || existingUser.email || existingUser.id || '').trim()
     const settings = resolvedIdentity.settings || {}
-    const existingProfile = buildAdmissionProfileRecord(settings, { id: userId, email: existingUser.email, name: normalizedName || settings?.name || '' })
+    const existingProfile = buildAdmissionProfileRecord(settings, { id: existingUser.id || userId, email: existingUser.email, name: normalizedName || settings?.name || existingUser.name || '' })
     const updates: Record<string, any> = {}
     const profileUpdates = mergeAdmissionProfileRecord(existingProfile, payload)
 
-    profileUpdates.id = userId
+    profileUpdates.id = existingUser.id || userId
     profileUpdates.email = existingUser.email || existingProfile.email || ''
-    profileUpdates.name = normalizedName || profileUpdates.name || settings?.name || existingUser.email || userId
+    profileUpdates.name = normalizedName || profileUpdates.name || settings?.name || existingUser.name || existingUser.email || userId
 
     if (normalizedName !== undefined) updates.name = normalizedName
     if (payload.phone !== undefined) updates.phone = profileUpdates.phone || null
@@ -10971,10 +10976,67 @@ app.put('/api/people/:userId', authenticate, async (c) => {
     if (Object.keys(updates).length > 0) {
       await upsertSettings(c.env.APP_DB, settingsKey, { ...settings, ...updates })
     }
-    await addAudit(c.env.APP_DB, tenantId, { action: 'personUpdated', data: { by: c.var.user?.id, userId, fields: Object.keys(updates) } })
+    await addAudit(c.env.APP_DB, tenantId, { action: 'personUpdated', data: { by: c.var.user?.id, userId: existingUser.id || userId, fields: Object.keys(updates) } })
     return c.json({ success: true })
   } catch (err) {
     return c.json({ error: 'Could not update profile.' }, 500)
+  }
+})
+
+app.post('/api/people/:userId/avatar-upload', authenticate, async (c) => {
+  const tenantId = c.var.user?.tenantId
+  const userId = c.req.param('userId')
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+
+  const access = await resolveUserProfileAccess(c.env.APP_DB, c.var.user || {}, userId)
+  if (!access.allowed) return c.json({ error: 'forbidden' }, 403)
+
+  try {
+    await ensureUsersTable(c.env.APP_DB)
+    const existingUser = await findUserByIdentifier(c.env.APP_DB, userId)
+    if (!existingUser || String(existingUser.tenantId || '').trim() !== tenantId) return c.json({ error: 'User not found.' }, 404)
+    if (access.linkedStudent && normalizeRole(existingUser.role) !== 'student') {
+      return c.json({ error: 'Only linked student profiles can be updated from a parent account.' }, 403)
+    }
+
+    const formData = await c.req.formData()
+    const file = formData.get('file')
+    if (!(file instanceof File)) return c.json({ error: 'No file provided.' }, 400)
+    if (!String(file.type || '').toLowerCase().startsWith('image/')) {
+      return c.json({ error: 'Only image uploads are allowed.' }, 400)
+    }
+
+    const rawExtension = String(file.name || '').split('.').pop()?.toLowerCase() || 'png'
+    const extension = /^[a-z0-9]+$/.test(rawExtension) ? rawExtension : 'png'
+    const key = `avatars/${tenantId}/${existingUser.id}/avatar_${Date.now()}.${extension}`
+    await c.env.UPLOADS.put(key, file.stream(), { httpMetadata: { contentType: file.type || 'image/png' } })
+
+    const avatarUrl = `https://ndovera.com/files/${key}`
+    const resolvedIdentity = await resolveSettingsIdentity(c.env.APP_DB, existingUser.email || existingUser.id)
+    const settingsKey = String(resolvedIdentity.settingsKey || existingUser.email || existingUser.id || '').trim()
+    const settings = resolvedIdentity.settings || {}
+    const existingProfile = buildAdmissionProfileRecord(settings, {
+      id: existingUser.id || userId,
+      email: existingUser.email || '',
+      name: existingUser.name || settings?.name || '',
+    })
+    const profile = mergeAdmissionProfileRecord(existingProfile, { avatar: avatarUrl })
+
+    await upsertSettings(c.env.APP_DB, settingsKey, {
+      ...settings,
+      avatar: avatarUrl,
+      avatarUrl,
+      profile,
+    })
+
+    await addAudit(c.env.APP_DB, tenantId, {
+      action: 'personAvatarUploaded',
+      data: { by: c.var.user?.id, userId: existingUser.id || userId, avatarUrl },
+    })
+
+    return c.json({ success: true, avatarUrl })
+  } catch {
+    return c.json({ error: 'Upload failed.' }, 500)
   }
 })
 
@@ -11018,11 +11080,11 @@ app.get('/api/people/:userId', authenticate, async (c) => {
   if (!access.allowed) return c.json({ error: 'forbidden' }, 403)
   try {
     await ensureUsersTable(c.env.APP_DB)
-    const user = await c.env.APP_DB.prepare(
-      `SELECT id, name, email, role, status, createdAt FROM users WHERE id = ? AND tenantId = ?`
-    ).bind(userId, tenantId).first() as Record<string, any> | null
+    const user = await findUserByIdentifier(c.env.APP_DB, userId)
+    if (!user || String(user.tenantId || '').trim() !== String(tenantId || '').trim()) return c.json({ error: 'User not found.' }, 404)
     const hydratedUser = await hydrateUserRecord(c.env.APP_DB, user)
     if (!hydratedUser) return c.json({ error: 'User not found.' }, 404)
+    const targetUserId = String(hydratedUser.id || user.id || userId).trim()
 
     let linkedParents: any[] = []
     let linkedChildren: any[] = []
@@ -11035,13 +11097,13 @@ app.get('/api/people/:userId', authenticate, async (c) => {
       if (hydratedUser.role === 'student') {
         const parentLinks = await c.env.APP_DB.prepare(
           `SELECT u.id, u.name, u.email, u.role, u.status, u.createdAt FROM parent_student_links psl JOIN users u ON psl.parent_id = u.id WHERE psl.student_id = ? AND psl.tenant_id = ?`
-        ).bind(userId, tenantId).all()
+        ).bind(targetUserId, tenantId).all()
         linkedParents = await hydrateUserRecords(c.env.APP_DB, (parentLinks.results || []) as Record<string, any>[])
       }
       if (hydratedUser.role === 'parent') {
         const childLinks = await c.env.APP_DB.prepare(
           `SELECT u.id, u.name, u.email, u.role, u.status, u.createdAt FROM parent_student_links psl JOIN users u ON psl.student_id = u.id WHERE psl.parent_id = ? AND psl.tenant_id = ?`
-        ).bind(userId, tenantId).all()
+        ).bind(targetUserId, tenantId).all()
         linkedChildren = await hydrateUserRecords(c.env.APP_DB, (childLinks.results || []) as Record<string, any>[])
       }
     } catch {}
@@ -11056,14 +11118,14 @@ app.get('/api/people/:userId', authenticate, async (c) => {
     } catch {}
 
     try {
-      recentAttendance = await getAttendance(c.env.APP_DB, hydratedUser.email || userId, 30)
+      recentAttendance = await getAttendance(c.env.APP_DB, hydratedUser.email || targetUserId, 30)
       if (!recentAttendance.length && hydratedUser.id && hydratedUser.id !== hydratedUser.email) {
         recentAttendance = await getAttendance(c.env.APP_DB, hydratedUser.id, 30)
       }
     } catch {}
 
     try {
-      activity = await getAuditForStudent(c.env.APP_DB, hydratedUser.email || userId)
+      activity = await getAuditForStudent(c.env.APP_DB, hydratedUser.email || targetUserId)
     } catch {}
 
     return c.json({
@@ -13395,6 +13457,95 @@ async function ensurePayrollEntriesTable(db: D1Database) {
   ])
 }
 
+const DEFAULT_PAYROLL_EARNING_COLUMNS = [
+  { key: 'basicSalary', label: 'Basic Salary' },
+  { key: 'housingAllowance', label: 'Housing Allowance' },
+  { key: 'transportAllowance', label: 'Transport Allowance' },
+  { key: 'bonus', label: 'Bonus' },
+]
+
+const DEFAULT_PAYROLL_DEDUCTION_COLUMNS = [
+  { key: 'tax', label: 'Income Tax' },
+  { key: 'pension', label: 'Pension' },
+  { key: 'otherDeduction', label: 'Other Deductions' },
+]
+
+function normalizePayrollColumnKey(value: unknown, fallback = '') {
+  const normalized = String(value || fallback || '').trim().replace(/[^a-zA-Z0-9]+/g, '_').replace(/^_+|_+$/g, '')
+  return normalized.slice(0, 48)
+}
+
+function normalizePayrollColumnLabel(value: unknown, fallback: string) {
+  return sanitizeProfileText(value, 80) || fallback
+}
+
+function normalizePayrollColumnList(values: unknown, defaults: Array<Record<string, any>>, prefix: string) {
+  const rawEntries = Array.isArray(values) ? values : []
+  const rawMap = new Map(
+    rawEntries
+      .map((entry, index) => {
+        const source = entry && typeof entry === 'object' ? entry as Record<string, any> : { key: entry, label: entry }
+        const key = normalizePayrollColumnKey(source.key || source.label, `${prefix}_${index + 1}`)
+        return key ? [key, source] as const : null
+      })
+      .filter(Boolean) as Array<readonly [string, Record<string, any>]>,
+  )
+  const seen = new Set<string>()
+
+  const defaultColumns = defaults.map(defaultEntry => {
+    const key = String(defaultEntry.key || '').trim()
+    seen.add(key)
+    const customEntry = rawMap.get(key) || {}
+    return {
+      key,
+      label: normalizePayrollColumnLabel(customEntry.label, String(defaultEntry.label || key)),
+      fixed: true,
+    }
+  })
+
+  const customColumns = rawEntries
+    .map((entry, index) => {
+      const source = entry && typeof entry === 'object' ? entry as Record<string, any> : { key: entry, label: entry }
+      const key = normalizePayrollColumnKey(source.key || source.label, `${prefix}_${index + 1}`)
+      if (!key || seen.has(key)) return null
+      seen.add(key)
+      return {
+        key,
+        label: normalizePayrollColumnLabel(source.label || key, key),
+        fixed: false,
+      }
+    })
+    .filter(Boolean)
+
+  return [...defaultColumns, ...customColumns]
+}
+
+function normalizePayrollNumericMap(value: unknown, excludedKeys: string[] = []) {
+  const excluded = new Set(excludedKeys)
+  return Object.entries(parseHeaderJsonObject(value)).reduce((accumulator, [rawKey, rawValue]) => {
+    const key = normalizePayrollColumnKey(rawKey, rawKey)
+    if (!key || excluded.has(key)) return accumulator
+    const numericValue = Number(rawValue || 0)
+    accumulator[key] = Number.isFinite(numericValue) ? numericValue : 0
+    return accumulator
+  }, {} as Record<string, number>)
+}
+
+function sumPayrollNumericMapValues(values: Record<string, any> = {}) {
+  return Object.values(values || {}).reduce((sum, value) => sum + (Number(value || 0) || 0), 0)
+}
+
+function normalizePayrollSettingsInput(payload: Record<string, any> = {}) {
+  return {
+    housingAllowance: Number(payload.housingAllowance || 0),
+    transportAllowance: Number(payload.transportAllowance || 0),
+    taxRate: Number(payload.taxRate || 7.5),
+    pensionRate: Number(payload.pensionRate || 8),
+    earningColumns: normalizePayrollColumnList(payload.earningColumns, DEFAULT_PAYROLL_EARNING_COLUMNS, 'earning'),
+    deductionColumns: normalizePayrollColumnList(payload.deductionColumns, DEFAULT_PAYROLL_DEDUCTION_COLUMNS, 'deduction'),
+  }
+}
+
 function getPayrollPeriodBounds(period: string) {
   const [rawYear, rawMonth] = String(period || '').split('-').map(value => Number(value))
   const today = new Date()
@@ -13489,9 +13640,6 @@ async function listTenantStaffRoster(db: D1Database, tenantId: string) {
 
   for (const row of ((settingRows.results || []) as Record<string, any>[])) {
     const settings = parseHeaderJsonObject(row.payload)
-    const roleContext = buildRoleContext(settings || {}, settings?.role)
-    const primaryRole = roleContext.primaryRole || 'staff'
-    const roles = roleContext.rawRoles
     const status = String(settings?.status || 'active').trim().toLowerCase()
     const email = String(settings?.email || row.studentId || '').trim()
     const recordId = String(settings?.userId || settings?.profile?.id || email || row.studentId || '').trim()
@@ -13500,24 +13648,50 @@ async function listTenantStaffRoster(db: D1Database, tenantId: string) {
       email.toLowerCase(),
       String(row.studentId || '').trim().toLowerCase(),
     ].filter(Boolean)))
+    const existingPerson = identityKeys.map(key => roster.get(key)).find(Boolean) || null
+    const settingsRoles = normalizeRoleValues([
+      settings?.primaryRole,
+      settings?.primary_role,
+      settings?.role,
+      settings?.roles,
+    ])
+    const fallbackRoles = normalizeRoleValues([
+      existingPerson?.primaryRole,
+      existingPerson?.role,
+      existingPerson?.roles,
+    ])
+    const roleContext = buildRoleContext(
+      settingsRoles.length
+        ? {
+            ...settings,
+            primaryRole: settings?.primaryRole || settings?.primary_role || settingsRoles[0],
+            role: settings?.role || settingsRoles[0],
+            roles: settingsRoles,
+          }
+        : {
+            primaryRole: existingPerson?.primaryRole || existingPerson?.role || '',
+            role: existingPerson?.role || '',
+            roles: fallbackRoles,
+          },
+      settings?.role || existingPerson?.role,
+    )
+    const primaryRole = roleContext.primaryRole || fallbackRoles[0] || 'staff'
+    const roles = roleContext.rawRoles.length ? roleContext.rawRoles : fallbackRoles
 
     if (!identityKeys.length || status === 'inactive' || !isStaff(primaryRole, roles)) {
       continue
     }
 
-    if (identityKeys.some(key => roster.has(key))) {
-      continue
-    }
-
     const profile = buildAdmissionProfileRecord(settings || {}, {
-      id: recordId,
-      name: settings?.name || email,
-      email,
+      id: existingPerson?.id || recordId,
+      name: settings?.name || existingPerson?.name || email,
+      email: existingPerson?.email || email,
     })
     const person = {
-      id: recordId || email,
-      email: email || String(row.studentId || '').trim(),
-      name: profile.name || String(settings?.name || email || row.studentId || 'Staff').trim(),
+      ...existingPerson,
+      id: existingPerson?.id || recordId || email,
+      email: existingPerson?.email || email || String(row.studentId || '').trim(),
+      name: profile.name || existingPerson?.name || String(settings?.name || email || row.studentId || 'Staff').trim(),
       role: primaryRole,
       primaryRole,
       roles,
@@ -13526,24 +13700,33 @@ async function listTenantStaffRoster(db: D1Database, tenantId: string) {
       capabilities: roleContext.capabilities,
       tenantId,
       schoolId: tenantId,
-      status: settings?.status || 'active',
-      displayId: getPublicFacingUserId(settings || {}, primaryRole) || null,
-      publicStudentId: String(settings?.publicStudentId || '').trim() || null,
-      employmentCategory: deriveEmploymentCategory(primaryRole, settings?.employmentCategory, roles),
-      classId: settings?.classId || null,
-      className: settings?.className || null,
-      phone: profile.phone || null,
-      avatar: profile.avatar || null,
-      avatarUrl: profile.avatar || null,
-      dateOfBirth: profile.dateOfBirth || null,
-      gender: profile.gender || null,
-      address: profile.address || null,
-      relationship: profile.relationship || null,
-      profile,
+      status: settings?.status || existingPerson?.status || 'active',
+      displayId: getPublicFacingUserId(settings || existingPerson || {}, primaryRole) || existingPerson?.displayId || null,
+      publicStudentId: String(settings?.publicStudentId || existingPerson?.publicStudentId || '').trim() || null,
+      employmentCategory: deriveEmploymentCategory(primaryRole, settings?.employmentCategory || existingPerson?.employmentCategory, roles),
+      classId: settings?.classId || existingPerson?.classId || null,
+      className: settings?.className || existingPerson?.className || null,
+      phone: profile.phone || existingPerson?.phone || null,
+      avatar: profile.avatar || existingPerson?.avatar || null,
+      avatarUrl: profile.avatar || existingPerson?.avatarUrl || existingPerson?.avatar || null,
+      dateOfBirth: profile.dateOfBirth || existingPerson?.dateOfBirth || null,
+      gender: profile.gender || existingPerson?.gender || null,
+      address: profile.address || existingPerson?.address || null,
+      relationship: profile.relationship || existingPerson?.relationship || null,
+      profile: {
+        ...(existingPerson?.profile && typeof existingPerson.profile === 'object' ? existingPerson.profile : {}),
+        ...profile,
+      },
       mustChangePassword: settings?.mustChangePassword === true || settings?.mustChangePassword === 'true' || settings?.mustChangePassword === 1,
     }
 
-    for (const key of identityKeys) {
+    const mergedIdentityKeys = Array.from(new Set([
+      ...identityKeys,
+      String(existingPerson?.id || '').trim(),
+      String(existingPerson?.email || '').trim().toLowerCase(),
+    ].filter(Boolean)))
+
+    for (const key of mergedIdentityKeys) {
       roster.set(key, person)
     }
   }
@@ -13570,13 +13753,14 @@ app.get('/api/school/payroll', authenticate, async (c) => {
     const rows = await c.env.APP_DB.prepare(`SELECT * FROM payroll_entries WHERE tenant_id = ? AND period = ?`).bind(tenantId, period).all()
     const lateChargeSummaries = await listPayrollLateChargeSummaries(c.env.APP_DB, tenantId, period)
     const staffRoster = await listTenantStaffRoster(c.env.APP_DB, tenantId)
+    const payrollSettings = normalizePayrollSettingsInput(await getSettings(c.env.APP_DB, `payroll_settings_${tenantId}`).catch(() => ({})))
     const payrollMap = new Map((rows.results || []).map((row: any) => [String(row.staff_id || '').trim(), row]))
     const payroll = staffRoster.map((staffMember: any) => {
       const row = payrollMap.get(String(staffMember.id || '').trim())
         || payrollMap.get(String(staffMember.email || '').trim())
         || null
-      const allowances = parseHeaderJsonObject(row?.allowances_json)
-      const deductionsMap = parseHeaderJsonObject(row?.deductions_json)
+      const allowances = normalizePayrollNumericMap(row?.allowances_json)
+      const deductionsMap = normalizePayrollNumericMap(row?.deductions_json)
       const basicSalary = Number(row?.basic_salary || 0)
       const housingAllowance = Number(allowances.housingAllowance || 0)
       const transportAllowance = Number(allowances.transportAllowance || 0)
@@ -13587,8 +13771,8 @@ app.get('/api/school/payroll', authenticate, async (c) => {
       const lateChargeSummary = lateChargeSummaries.find(summary => summary.staffId === String(staffMember.id || '').trim())
         || lateChargeSummaries.find(summary => summary.staffId === String(staffMember.email || '').trim())
         || { amount: 0, count: 0 }
-      const gross = Number(row?.gross || (basicSalary + housingAllowance + transportAllowance + bonus))
-      const manualDeductions = Number(row?.manual_deductions || (tax + pension + otherDeduction))
+      const gross = Number(row?.gross || (basicSalary + sumPayrollNumericMapValues(allowances)))
+      const manualDeductions = Number(row?.manual_deductions || sumPayrollNumericMapValues(deductionsMap))
       const autoLateDeductions = Number(lateChargeSummary.amount || 0)
       const deductions = manualDeductions + autoLateDeductions
       const paymentStatus = String(row?.payment_status || (String(row?.status || '').toLowerCase() === 'paid' ? 'paid' : 'pending')).toLowerCase()
@@ -13610,15 +13794,17 @@ app.get('/api/school/payroll', authenticate, async (c) => {
         housingAllowance,
         transportAllowance,
         bonus,
+        allowancesMap: allowances,
         gross,
         tax,
         pension,
         otherDeduction,
+        deductionsMap,
         manualDeductions,
         autoLateDeductions,
         lateChargeCount: Number(lateChargeSummary.count || 0),
         deductions,
-        net: Number(row?.net || (gross - deductions)),
+        net: Number(gross - deductions),
         status: row?.status || 'Ready',
         paymentStatus,
         approved: Boolean(row?.approved),
@@ -13627,7 +13813,7 @@ app.get('/api/school/payroll', authenticate, async (c) => {
     })
     const approved = payroll.some(p => p.approved)
     const submitted = payroll.some(p => p.submitted)
-    return c.json({ success: true, payroll, lateChargeSummaries, approved, submitted, period })
+    return c.json({ success: true, payroll, lateChargeSummaries, approved, submitted, period, settings: payrollSettings })
   } catch { return c.json({ success: true, payroll: [], approved: false, submitted: false }) }
 })
 
@@ -13641,9 +13827,11 @@ app.put('/api/school/payroll/staff/:staffId', authenticate, async (c) => {
     housingAllowance,
     transportAllowance,
     bonus,
+    allowancesMap,
     tax,
     pension,
     otherDeduction,
+    deductionsMap,
     gross,
     deductions,
     status,
@@ -13659,22 +13847,28 @@ app.put('/api/school/payroll/staff/:staffId', authenticate, async (c) => {
       `SELECT id, name, email, role, primary_role, employment_category, status, createdAt, tenantId FROM users WHERE id = ? AND tenantId = ?`
     ).bind(staffId, tenantId).first() as Record<string, any> | null
     const hydratedStaffUser = await hydrateUserRecord(c.env.APP_DB, staffUser)
-    const allowanceDefaults = parseHeaderJsonObject(existing?.allowances_json)
-    const deductionDefaults = parseHeaderJsonObject(existing?.deductions_json)
+    const allowanceDefaults = normalizePayrollNumericMap(existing?.allowances_json)
+    const deductionDefaults = normalizePayrollNumericMap(existing?.deductions_json)
     const nextBasicSalary = basicSalary !== undefined ? Number(basicSalary) : Number(existing?.basic_salary || 0)
+    const providedAllowancesMap = normalizePayrollNumericMap(allowancesMap, ['basicSalary'])
     const nextAllowances = {
+      ...allowanceDefaults,
+      ...providedAllowancesMap,
       housingAllowance: housingAllowance !== undefined ? Number(housingAllowance) : Number(allowanceDefaults.housingAllowance || 0),
       transportAllowance: transportAllowance !== undefined ? Number(transportAllowance) : Number(allowanceDefaults.transportAllowance || 0),
       bonus: bonus !== undefined ? Number(bonus) : Number(allowanceDefaults.bonus || 0),
     }
+    const providedDeductionsMap = normalizePayrollNumericMap(deductionsMap)
     const nextDeductionsMap = {
+      ...deductionDefaults,
+      ...providedDeductionsMap,
       tax: tax !== undefined ? Number(tax) : Number(deductionDefaults.tax || 0),
       pension: pension !== undefined ? Number(pension) : Number(deductionDefaults.pension || 0),
       otherDeduction: otherDeduction !== undefined ? Number(otherDeduction) : Number(deductionDefaults.otherDeduction || 0),
     }
-    const computedGross = nextBasicSalary + nextAllowances.housingAllowance + nextAllowances.transportAllowance + nextAllowances.bonus
+    const computedGross = nextBasicSalary + sumPayrollNumericMapValues(nextAllowances)
     const nextGross = gross !== undefined ? Number(gross) : computedGross
-    const computedManualDeductions = nextDeductionsMap.tax + nextDeductionsMap.pension + nextDeductionsMap.otherDeduction
+    const computedManualDeductions = sumPayrollNumericMapValues(nextDeductionsMap)
     const nextManualDed = deductions !== undefined ? Number(deductions) : computedManualDeductions
     const nextStatus = status || existing?.status || 'Ready'
     const nextPaymentStatus = String(paymentStatus || existing?.payment_status || (String(nextStatus).toLowerCase() === 'paid' ? 'paid' : 'pending')).toLowerCase()
@@ -13685,7 +13879,13 @@ app.put('/api/school/payroll/staff/:staffId', authenticate, async (c) => {
       || deriveEmploymentCategory(hydratedStaffUser?.role || existing?.role || '', hydratedStaffUser?.employmentCategory, hydratedStaffUser?.roles)
       || 'support'
     ).toLowerCase()
-    const newNet = nextGross - nextManualDed
+    const lateChargeSummary = await getPayrollLateChargeSummaryForIdentifiers(
+      c.env.APP_DB,
+      tenantId,
+      period,
+      collectComparableIdentifiers([staffId, hydratedStaffUser?.email, hydratedStaffUser?.id]),
+    )
+    const newNet = nextGross - (nextManualDed + Number(lateChargeSummary.amount || 0))
     await c.env.APP_DB.prepare(`INSERT OR REPLACE INTO payroll_entries (id, tenant_id, staff_id, period, basic_salary, allowances_json, deductions_json, gross, deductions, manual_deductions, net, status, payment_status, employment_category, approved, submitted, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
       .bind(
         id,
@@ -13696,7 +13896,7 @@ app.put('/api/school/payroll/staff/:staffId', authenticate, async (c) => {
         JSON.stringify(nextAllowances),
         JSON.stringify(nextDeductionsMap),
         nextGross,
-        nextManualDed,
+        nextManualDed + Number(lateChargeSummary.amount || 0),
         nextManualDed,
         newNet,
         nextStatus,
@@ -13752,15 +13952,15 @@ app.get('/api/school/payroll/settings', authenticate, async (c) => {
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
   try {
     const data = await getSettings(c.env.APP_DB, `payroll_settings_${tenantId}`)
-    return c.json({ success: true, settings: data || { housingAllowance: 0, transportAllowance: 0, taxRate: 7.5, pensionRate: 8 } })
-  } catch { return c.json({ success: true, settings: { housingAllowance: 0, transportAllowance: 0, taxRate: 7.5, pensionRate: 8 } }) }
+    return c.json({ success: true, settings: normalizePayrollSettingsInput(data || {}) })
+  } catch { return c.json({ success: true, settings: normalizePayrollSettingsInput({}) }) }
 })
 
 app.post('/api/school/payroll/settings', authenticate, async (c) => {
   if (!hasRequiredRole(c.var.user.role, ['owner', 'hos'])) return c.json({ error: 'forbidden' }, 403)
   const tenantId = c.var.user?.tenantId
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
-  const payload = await c.req.json()
+  const payload = normalizePayrollSettingsInput(await c.req.json())
   try {
     await upsertSettings(c.env.APP_DB, `payroll_settings_${tenantId}`, payload)
     return c.json({ success: true })
@@ -13777,15 +13977,15 @@ app.get('/api/school/payroll/my-payslip', authenticate, async (c) => {
     await ensureBrandingTable(c.env.APP_DB)
     const resolvedIdentity = await resolveSettingsIdentity(c.env.APP_DB, userId)
     const settings = await getSettings(c.env.APP_DB, userId)
-    const payrollSettings = await getSettings(c.env.APP_DB, `payroll_settings_${tenantId}`)
+    const payrollSettings = normalizePayrollSettingsInput(await getSettings(c.env.APP_DB, `payroll_settings_${tenantId}`))
     const tenant = tenantId ? await getTenantById(c.env.APP_DB, tenantId) : null
     const brandingRow = await c.env.APP_DB.prepare(`SELECT * FROM tenant_branding WHERE tenant_id = ?`).bind(tenantId).first() as any
     const rows = await c.env.APP_DB.prepare(`SELECT * FROM payroll_entries WHERE (staff_id = ? OR staff_id = ?) AND tenant_id = ? AND period = ? LIMIT 1`).bind(userId, settings?.email || userId, tenantId, period).first() as any
-    const allowances = parseHeaderJsonObject(rows?.allowances_json)
-    const deductionsMap = parseHeaderJsonObject(rows?.deductions_json)
+    const allowances = normalizePayrollNumericMap(rows?.allowances_json)
+    const deductionsMap = normalizePayrollNumericMap(rows?.deductions_json)
     const basicSalary = Number(rows?.basic_salary || 0)
-    const gross = Number(rows?.gross || (basicSalary + Number(allowances.housingAllowance || 0) + Number(allowances.transportAllowance || 0) + Number(allowances.bonus || 0)))
-    const manualDeductions = Number((rows?.manual_deductions ?? rows?.deductions) || (Number(deductionsMap.tax || 0) + Number(deductionsMap.pension || 0) + Number(deductionsMap.otherDeduction || 0)))
+    const gross = Number(rows?.gross || (basicSalary + sumPayrollNumericMapValues(allowances)))
+    const manualDeductions = Number((rows?.manual_deductions ?? rows?.deductions) || sumPayrollNumericMapValues(deductionsMap))
     const lateChargeSummary = await getPayrollLateChargeSummaryForIdentifiers(
       c.env.APP_DB,
       tenantId,
@@ -13793,19 +13993,27 @@ app.get('/api/school/payroll/my-payslip', authenticate, async (c) => {
       collectResolvedIdentityIdentifiers(resolvedIdentity, c.var.user || {}),
     )
     const deductions = manualDeductions + lateChargeSummary.amount
-    const housingAllowance = Number(allowances.housingAllowance || 0)
-    const transportAllowance = Number(allowances.transportAllowance || 0)
-    const bonus = Number(allowances.bonus || 0)
-    const incomeTax = Number(deductionsMap.tax || 0)
-    const pension = Number(deductionsMap.pension || 0)
-    const otherDeductions = Number(deductionsMap.otherDeduction || Math.max(0, manualDeductions - incomeTax - pension))
-    const net = Number((rows?.net ?? (gross - deductions)) || 0)
+    const net = Number(gross - deductions)
     const branding = {
       schoolName: tenant?.schoolName || 'School',
       logoUrl: String(brandingRow?.logo_url || '').trim(),
       tagline: String(brandingRow?.tagline || '').trim(),
       website: String(brandingRow?.website || (tenant?.websiteDomain ? `https://${tenant.websiteDomain}` : '') || '').trim(),
     }
+    const earnings = payrollSettings.earningColumns
+      .map((column: Record<string, any>) => ({
+        key: column.key,
+        label: String(column.label || column.key),
+        amount: Number((column.key === 'basicSalary' ? basicSalary : allowances[column.key] || 0) || 0),
+      }))
+      .filter((entry: Record<string, any>) => entry.amount > 0 || entry.key === 'basicSalary')
+    const deductionBreakdown = payrollSettings.deductionColumns
+      .map((column: Record<string, any>) => ({
+        key: column.key,
+        label: String(column.label || column.key),
+        amount: Number(deductionsMap[column.key] || 0),
+      }))
+      .filter((entry: Record<string, any>) => entry.amount > 0)
 
     return c.json({ success: true, payslip: {
       staffId: userId, name: settings?.name || c.var.user.name || userId, displayId: getPublicFacingUserId(settings || {}, getPrimaryRole(settings || {}, getActiveRole(c.var.user))),
@@ -13817,17 +14025,10 @@ app.get('/api/school/payroll/my-payslip', authenticate, async (c) => {
       gross,
       deductions,
       net,
-      earnings: [
-        { label: 'Basic Salary', amount: Number(basicSalary.toFixed(2)) },
-        { label: 'Housing Allowance', amount: Number(housingAllowance.toFixed(2)) },
-        { label: 'Transport Allowance', amount: Number(transportAllowance.toFixed(2)) },
-        { label: 'Bonus', amount: Number(bonus.toFixed(2)) },
-      ].filter(entry => entry.amount > 0 || entry.label === 'Basic Salary'),
+      earnings,
       deductionBreakdown: [
-        { label: 'Income Tax', amount: Number(incomeTax.toFixed(2)) },
-        { label: 'Pension', amount: Number(pension.toFixed(2)) },
+        ...deductionBreakdown,
         { label: 'Lateness Charges', amount: Number(lateChargeSummary.amount.toFixed(2)) },
-        { label: 'Other Deductions', amount: Number(otherDeductions.toFixed(2)) },
       ].filter(entry => entry.amount > 0),
       lateChargeCount: lateChargeSummary.count,
       settings: {

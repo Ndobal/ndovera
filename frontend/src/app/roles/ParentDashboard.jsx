@@ -9,6 +9,8 @@ import LessonPlanViewerPage from '../../features/lesson-plans/LessonPlanViewerPa
 import ParentFeesReceiptsPage from '../../features/school/components/ParentFeesReceiptsPage';
 import ParentSettings from './parent/ParentSettings';
 import useFeatureFlags from '../../shared/hooks/useFeatureFlags';
+import StudentProfessorAura from './student/StudentProfessorAura';
+import StudentTuckShop from './student/StudentTuckShop';
 
 export default function ParentDashboard() {
   const location = useLocation();
@@ -43,6 +45,28 @@ export default function ParentDashboard() {
 
   if (sectionKey === 'fees') {
     return <ParentFeesReceiptsPage />;
+  }
+
+  if (sectionKey === 'tuck-shop') {
+    return (
+      <StudentTuckShop
+        viewerRole="parent"
+        title="Tuck Shop"
+        subtitle="Buy meals and added learning services from the parent account."
+        dashboardLabel="Parent Dashboard"
+      />
+    );
+  }
+
+  if (sectionKey === 'professor-vera') {
+    return (
+      <StudentProfessorAura
+        viewerRole="parent"
+        dashboardLabel="Parent Dashboard"
+        homePath="/roles/parent"
+        tuckShopPath="/roles/parent/tuck-shop"
+      />
+    );
   }
 
   if (sectionKey === 'settings') {

@@ -1,5 +1,7 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import StudentSectionShell from '../student/StudentSectionShell';
+import TuckShopAiServicesPanel from '../../../features/ai/components/TuckShopAiServicesPanel';
+import { buildSelectedRoleHeader, getStoredAuth } from '../../../features/auth/services/authApi';
 
 const INVENTORY = [
   { id: 'itm-lunch', name: 'Lunch Combo', price: 1500, desc: 'Rice, stew & protein' },
@@ -16,7 +18,17 @@ function saveOrderToHistory(order) {
   localStorage.setItem('staffTuckOrders', JSON.stringify(arr.slice(0, 50)));
 }
 
+function buildAuthHeaders(includeJson = false) {
+  const auth = getStoredAuth();
+  return {
+    ...(includeJson ? { 'Content-Type': 'application/json' } : {}),
+    ...(auth?.token ? { Authorization: `Bearer ${auth.token}` } : {}),
+    ...buildSelectedRoleHeader(),
+  };
+}
+
 export default function StaffTuckShop() {
+  const actorId = getStoredAuth()?.user?.id || localStorage.getItem('userId') || 'staff';
   const [cart, setCart] = useState({});
   const [notes, setNotes] = useState('');
   const [history, setHistory] = useState([]);
@@ -28,7 +40,7 @@ export default function StaffTuckShop() {
     const load = async () => {
       setLoadingHistory(true);
       try {
-        const resp = await fetch('/api/tuck/orders?placedBy=staff-1');
+        const resp = await fetch(`/api/tuck/orders?placedBy=${encodeURIComponent(actorId)}`, { headers: buildAuthHeaders() });
         const json = await resp.json();
         if (json && json.success && Array.isArray(json.orders)) {
           setHistory(json.orders);
@@ -47,12 +59,12 @@ export default function StaffTuckShop() {
     // also fetch weekly summary for all users
     (async function loadWeekly(){
       try {
-        const resp = await fetch('/api/tuck/orders/weekly?weeks=8');
+        const resp = await fetch('/api/tuck/orders/weekly?weeks=8', { headers: buildAuthHeaders() });
         const json = await resp.json();
         if (json && json.success) setWeeklySummary(json.weeks || []);
       } catch (err) { /* ignore */ }
     })();
-  }, []);
+  }, [actorId]);
 
   const addToCart = (item) => setCart(prev => ({ ...prev, [item.id]: (prev[item.id] || 0) + 1 }));
   const removeFromCart = (item) => setCart(prev => {
@@ -74,18 +86,18 @@ export default function StaffTuckShop() {
 
   const placeOrder = async () => {
     if (cartItems.length === 0) return alert('Cart is empty');
-    const payload = { id: editingOrderId || `order_${Date.now()}`, items: cartItems, total, notes, placedBy: 'staff-1', status: 'pending' };
+    const payload = { id: editingOrderId || `order_${Date.now()}`, items: cartItems, total, notes, placedBy: actorId, status: 'pending' };
     try {
       if (editingOrderId) {
-        const resp = await fetch(`/api/tuck/orders/${editingOrderId}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ items: cartItems, total, notes, placedBy: 'staff-1' }) });
+        const resp = await fetch(`/api/tuck/orders/${editingOrderId}`, { method: 'PUT', headers: buildAuthHeaders(true), body: JSON.stringify({ items: cartItems, total, notes, placedBy: actorId }) });
         const json = await resp.json();
         if (json && json.success) {
           // refresh history
-          const hresp = await fetch('/api/tuck/orders?placedBy=staff-1');
+          const hresp = await fetch(`/api/tuck/orders?placedBy=${encodeURIComponent(actorId)}`, { headers: buildAuthHeaders() });
           const hj = await hresp.json();
           if (hj && hj.success) setHistory(hj.orders);
           // persist locally for offline quick access
-          saveOrderToHistory({ id: editingOrderId, items: cartItems, total, notes, placedBy: 'staff-1', status: 'pending', placedAt: new Date().toISOString() });
+          saveOrderToHistory({ id: editingOrderId, items: cartItems, total, notes, placedBy: actorId, status: 'pending', placedAt: new Date().toISOString() });
           setEditingOrderId(null);
           setCart({});
           setNotes('');
@@ -94,7 +106,7 @@ export default function StaffTuckShop() {
           alert('Could not update order');
         }
       } else {
-        const resp = await fetch('/api/tuck/orders', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+        const resp = await fetch('/api/tuck/orders', { method: 'POST', headers: buildAuthHeaders(true), body: JSON.stringify(payload) });
         const json = await resp.json();
         if (json && json.success) {
           // prepend to history
@@ -125,10 +137,10 @@ export default function StaffTuckShop() {
   const cancelOrder = async (orderId) => {
     if (!window.confirm('Cancel this pending order?')) return;
     try {
-      const resp = await fetch(`/api/tuck/orders/${orderId}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ status: 'cancelled' }) });
+      const resp = await fetch(`/api/tuck/orders/${orderId}`, { method: 'PUT', headers: buildAuthHeaders(true), body: JSON.stringify({ status: 'cancelled' }) });
       const json = await resp.json();
       if (json && json.success) {
-        const hresp = await fetch('/api/tuck/orders?placedBy=staff-1');
+        const hresp = await fetch(`/api/tuck/orders?placedBy=${encodeURIComponent(actorId)}`, { headers: buildAuthHeaders() });
         const hj = await hresp.json();
         if (hj && hj.success) setHistory(hj.orders);
         alert('Order cancelled');
@@ -138,7 +150,10 @@ export default function StaffTuckShop() {
 
   return (
     <StudentSectionShell title="Staff Tuck Shop" subtitle="Order meals and snacks for staff.">
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="space-y-6">
+        <TuckShopAiServicesPanel title="Added Services For Staff" />
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="col-span-2">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {INVENTORY.map(item => (
@@ -220,6 +235,7 @@ export default function StaffTuckShop() {
             ))}
           </div>
         </aside>
+        </div>
       </div>
     </StudentSectionShell>
   );

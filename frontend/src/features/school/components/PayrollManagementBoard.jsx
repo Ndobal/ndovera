@@ -5,6 +5,7 @@ import {
   getPayroll,
   getPayrollHistory,
   getPayrollSettings,
+  getWebsiteSections,
   savePayrollSettings,
   submitPayroll,
   updatePayrollStaff,
@@ -20,8 +21,121 @@ const BADGE = 'inline-flex items-center rounded-full border border-[#800020]/15 
 const TH = 'border border-[#c9a96e]/30 bg-[#800020] p-3 text-left text-xs font-semibold uppercase tracking-[0.14em] text-[#f5deb3] dark:border-[#00ffff]/20 dark:bg-[#0000ff]/25 dark:text-white';
 const TD = 'border border-[#c9a96e]/30 p-2 align-top dark:border-[#00ffff]/15';
 
+const DEFAULT_PAYROLL_SETTINGS = {
+  housingAllowance: 0,
+  transportAllowance: 0,
+  taxRate: 7.5,
+  pensionRate: 8,
+  earningColumns: [
+    { key: 'basicSalary', label: 'Basic Salary', fixed: true },
+    { key: 'housingAllowance', label: 'Housing Allowance', fixed: true },
+    { key: 'transportAllowance', label: 'Transport Allowance', fixed: true },
+    { key: 'bonus', label: 'Bonus', fixed: true },
+  ],
+  deductionColumns: [
+    { key: 'tax', label: 'Income Tax', fixed: true },
+    { key: 'pension', label: 'Pension', fixed: true },
+    { key: 'otherDeduction', label: 'Other Deductions', fixed: true },
+  ],
+};
+
 function formatNaira(value) {
   return `₦${Number(value || 0).toLocaleString()}`;
+}
+
+function parseMetadata(value) {
+  if (!value) return {};
+  if (typeof value === 'object') return value;
+  try {
+    return JSON.parse(value);
+  } catch {
+    return {};
+  }
+}
+
+function normalizeColumnKey(value, fallback) {
+  return String(value || fallback || '')
+    .trim()
+    .replace(/[^a-zA-Z0-9]+/g, '_')
+    .replace(/^_+|_+$/g, '')
+    .slice(0, 48);
+}
+
+function normalizeColumnLabel(value, fallback) {
+  return String(value || fallback || '').trim().slice(0, 80) || fallback;
+}
+
+function normalizeColumnList(values, defaults, prefix) {
+  const defaultMap = new Map(defaults.map(column => [column.key, column]));
+  const rawValues = Array.isArray(values) ? values : [];
+  const usedKeys = new Set();
+
+  const normalizedDefaults = defaults.map(defaultColumn => {
+    const match = rawValues.find(column => normalizeColumnKey(column?.key || column?.label, defaultColumn.key) === defaultColumn.key) || {};
+    usedKeys.add(defaultColumn.key);
+    return {
+      key: defaultColumn.key,
+      label: normalizeColumnLabel(match.label, defaultColumn.label),
+      fixed: true,
+    };
+  });
+
+  const customColumns = rawValues
+    .map((column, index) => {
+      const key = normalizeColumnKey(column?.key || column?.label, `${prefix}_${index + 1}`);
+      if (!key || usedKeys.has(key) || defaultMap.has(key)) return null;
+      usedKeys.add(key);
+      return {
+        key,
+        label: normalizeColumnLabel(column?.label, key),
+        fixed: false,
+      };
+    })
+    .filter(Boolean);
+
+  return [...normalizedDefaults, ...customColumns];
+}
+
+function normalizePayrollSettings(settings = {}) {
+  return {
+    ...DEFAULT_PAYROLL_SETTINGS,
+    ...settings,
+    earningColumns: normalizeColumnList(settings?.earningColumns, DEFAULT_PAYROLL_SETTINGS.earningColumns, 'earning'),
+    deductionColumns: normalizeColumnList(settings?.deductionColumns, DEFAULT_PAYROLL_SETTINGS.deductionColumns, 'deduction'),
+  };
+}
+
+function normalizeNumericMap(value = {}) {
+  return Object.entries(value || {}).reduce((accumulator, [key, rawValue]) => {
+    const normalizedKey = normalizeColumnKey(key, key);
+    if (!normalizedKey) return accumulator;
+    accumulator[normalizedKey] = Number(rawValue || 0);
+    return accumulator;
+  }, {});
+}
+
+function sumNumericMap(values = {}) {
+  return Object.values(values || {}).reduce((sum, value) => sum + (Number(value || 0) || 0), 0);
+}
+
+function extractContactInfo(sections = []) {
+  const contactSection = (sections || []).find(section => String(section?.section_key || '') === 'contact');
+  const metadata = parseMetadata(contactSection?.metadata);
+  return {
+    address: String(metadata.address || '').trim(),
+    phone: String(metadata.phone || '').trim(),
+    email: String(metadata.email || '').trim(),
+  };
+}
+
+function getRowEarningValue(staffRow, columnKey) {
+  return columnKey === 'basicSalary'
+    ? Number(staffRow?.basicSalary || 0)
+    : Number(staffRow?.allowancesMap?.[columnKey] || 0);
+}
+
+function getRowDeductionValue(staffRow, columnKey) {
+  return Number(staffRow?.deductionsMap?.[columnKey] || 0);
 }
 
 function formatPeriod(period) {
@@ -41,20 +155,11 @@ function formatPeriod(period) {
 }
 
 function rowGross(staffRow) {
-  return (
-    Number(staffRow?.basicSalary || 0) +
-    Number(staffRow?.housingAllowance || 0) +
-    Number(staffRow?.transportAllowance || 0) +
-    Number(staffRow?.bonus || 0)
-  );
+  return Number(staffRow?.basicSalary || 0) + sumNumericMap(staffRow?.allowancesMap || {});
 }
 
 function rowManualDeductions(staffRow) {
-  return (
-    Number(staffRow?.tax || 0) +
-    Number(staffRow?.pension || 0) +
-    Number(staffRow?.otherDeduction || 0)
-  );
+  return sumNumericMap(staffRow?.deductionsMap || {});
 }
 
 function rowTotalDeductions(staffRow) {
@@ -68,34 +173,84 @@ function rowNet(staffRow) {
 function buildPayrollRows(payrollEntries = []) {
   return [...payrollEntries]
     .sort((left, right) => String(left?.name || '').localeCompare(String(right?.name || '')))
-    .map((entry) => ({
-      id: String(entry?.staffId || entry?.id || ''),
-      displayId: entry?.displayId || entry?.email || '-',
-      name: entry?.name || entry?.displayId || entry?.email || 'Staff',
-      role: entry?.primaryRole || entry?.role || 'staff',
-      employmentCategory: entry?.employmentCategory || 'support',
-      basicSalary: Number(entry?.basicSalary || 0),
-      housingAllowance: Number(entry?.housingAllowance || 0),
-      transportAllowance: Number(entry?.transportAllowance || 0),
-      bonus: Number(entry?.bonus || 0),
-      tax: Number(entry?.tax || 0),
-      pension: Number(entry?.pension || 0),
-      otherDeduction: Number(entry?.otherDeduction || 0),
-      autoLateDeduction: Number(entry?.autoLateDeductions || 0),
-      lateChargeCount: Number(entry?.lateChargeCount || 0),
-      status: entry?.status || 'Ready',
-      paymentStatus: String(entry?.paymentStatus || 'pending').toLowerCase(),
-    }));
+    .map((entry) => {
+      const allowancesMap = normalizeNumericMap({
+        ...(entry?.allowancesMap || {}),
+        housingAllowance: entry?.housingAllowance,
+        transportAllowance: entry?.transportAllowance,
+        bonus: entry?.bonus,
+      });
+      const deductionsMap = normalizeNumericMap({
+        ...(entry?.deductionsMap || {}),
+        tax: entry?.tax,
+        pension: entry?.pension,
+        otherDeduction: entry?.otherDeduction,
+      });
+
+      return {
+        id: String(entry?.staffId || entry?.id || ''),
+        displayId: entry?.displayId || entry?.email || '-',
+        name: entry?.name || entry?.displayId || entry?.email || 'Staff',
+        role: entry?.primaryRole || entry?.role || 'staff',
+        employmentCategory: entry?.employmentCategory || 'support',
+        basicSalary: Number(entry?.basicSalary || 0),
+        housingAllowance: Number(allowancesMap.housingAllowance || 0),
+        transportAllowance: Number(allowancesMap.transportAllowance || 0),
+        bonus: Number(allowancesMap.bonus || 0),
+        tax: Number(deductionsMap.tax || 0),
+        pension: Number(deductionsMap.pension || 0),
+        otherDeduction: Number(deductionsMap.otherDeduction || 0),
+        allowancesMap,
+        deductionsMap,
+        autoLateDeduction: Number(entry?.autoLateDeductions || 0),
+        lateChargeCount: Number(entry?.lateChargeCount || 0),
+        status: entry?.status || 'Ready',
+        paymentStatus: String(entry?.paymentStatus || 'pending').toLowerCase(),
+      };
+    });
 }
 
-function PayslipModal({ branding, monthLabel, staffRow, onClose }) {
+function buildPayslipEarnings(staffRow, settings) {
+  return settings.earningColumns
+    .map(column => ({ key: column.key, label: column.label, amount: getRowEarningValue(staffRow, column.key) }))
+    .filter(entry => entry.amount > 0 || entry.key === 'basicSalary');
+}
+
+function buildPayslipDeductions(staffRow, settings) {
+  return [
+    ...settings.deductionColumns.map(column => ({ key: column.key, label: column.label, amount: getRowDeductionValue(staffRow, column.key) })),
+    { key: 'lateCharges', label: 'Lateness Charges', amount: Number(staffRow?.autoLateDeduction || 0) },
+  ].filter(entry => entry.amount > 0);
+}
+
+function PayslipModal({ branding, monthLabel, staffRow, settings, contactInfo, onClose }) {
+  const earnings = buildPayslipEarnings(staffRow, settings);
+  const deductions = buildPayslipDeductions(staffRow, settings);
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/55 p-4">
-      <div className={`${CARD} w-full max-w-2xl`} id="payroll-payslip-print">
-        <div className="flex items-start justify-between gap-4">
-          <div>
-            <h3 className="text-2xl font-bold text-[#800000] dark:text-[#0000ff]">{branding?.schoolName || 'School Payroll'}</h3>
-            <p className="mt-2 text-sm text-[#191970] dark:text-[#39ff14]">Payslip for {monthLabel}</p>
+      <div className={`${CARD} relative w-full max-w-3xl overflow-hidden`} id="payroll-payslip-print">
+        {branding?.logoUrl ? (
+          <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-[0.08] dark:opacity-[0.10]">
+            <img src={branding.logoUrl} alt="School watermark" className="h-72 w-72 object-contain" />
+          </div>
+        ) : null}
+
+        <div className="relative z-10 flex items-start justify-between gap-4 border-b border-[#c9a96e]/35 pb-5">
+          <div className="flex items-start gap-4">
+            {branding?.logoUrl ? (
+              <img src={branding.logoUrl} alt={`${branding?.schoolName || 'School'} logo`} className="h-20 w-20 rounded-3xl border border-[#c9a96e]/40 bg-white/70 object-cover p-2" />
+            ) : null}
+            <div>
+              <h3 className="text-2xl font-bold text-[#800000] dark:text-[#0000ff]">{branding?.schoolName || 'School Payroll'}</h3>
+              <p className="mt-2 text-sm text-[#191970] dark:text-[#39ff14]">Payslip for {monthLabel}</p>
+              {contactInfo?.address ? <p className="mt-2 text-sm text-[#191970] dark:text-[#39ff14]">{contactInfo.address}</p> : null}
+              <div className="mt-1 flex flex-wrap gap-x-4 gap-y-1 text-xs text-[#800020] dark:text-[#bf00ff]">
+                {contactInfo?.phone ? <span>{contactInfo.phone}</span> : null}
+                {contactInfo?.email ? <span>{contactInfo.email}</span> : null}
+                {branding?.website ? <span>{branding.website}</span> : null}
+              </div>
+            </div>
           </div>
           <span className={BADGE}>{staffRow.paymentStatus || staffRow.status}</span>
         </div>
@@ -124,10 +279,9 @@ function PayslipModal({ branding, monthLabel, staffRow, onClose }) {
           <div className={INNER}>
             <p className="text-sm font-bold text-[#800000] dark:text-[#0000ff]">Earnings</p>
             <div className="mt-4 space-y-3 text-sm text-[#191970] dark:text-white">
-              <div className="flex items-center justify-between"><span>Basic Salary</span><span>{formatNaira(staffRow.basicSalary)}</span></div>
-              <div className="flex items-center justify-between"><span>Housing Allowance</span><span>{formatNaira(staffRow.housingAllowance)}</span></div>
-              <div className="flex items-center justify-between"><span>Transport Allowance</span><span>{formatNaira(staffRow.transportAllowance)}</span></div>
-              <div className="flex items-center justify-between"><span>Bonus</span><span>{formatNaira(staffRow.bonus)}</span></div>
+              {earnings.map(entry => (
+                <div key={entry.key} className="flex items-center justify-between"><span>{entry.label}</span><span>{formatNaira(entry.amount)}</span></div>
+              ))}
               <div className="border-t border-[#c9a96e]/30 pt-3 font-bold text-[#800000] dark:text-[#0000ff]"><div className="flex items-center justify-between"><span>Gross Pay</span><span>{formatNaira(rowGross(staffRow))}</span></div></div>
             </div>
           </div>
@@ -135,10 +289,9 @@ function PayslipModal({ branding, monthLabel, staffRow, onClose }) {
           <div className={INNER}>
             <p className="text-sm font-bold text-[#800000] dark:text-[#0000ff]">Deductions</p>
             <div className="mt-4 space-y-3 text-sm text-[#191970] dark:text-white">
-              <div className="flex items-center justify-between"><span>Tax</span><span>{formatNaira(staffRow.tax)}</span></div>
-              <div className="flex items-center justify-between"><span>Pension</span><span>{formatNaira(staffRow.pension)}</span></div>
-              <div className="flex items-center justify-between"><span>Other</span><span>{formatNaira(staffRow.otherDeduction)}</span></div>
-              <div className="flex items-center justify-between"><span>Lateness Charges</span><span>{formatNaira(staffRow.autoLateDeduction)}</span></div>
+              {deductions.map(entry => (
+                <div key={entry.key} className="flex items-center justify-between"><span>{entry.label}</span><span>{formatNaira(entry.amount)}</span></div>
+              ))}
               {staffRow.lateChargeCount > 0 ? <p className="text-xs text-[#800020] dark:text-[#bf00ff]">Applied from {staffRow.lateChargeCount} late sign-in record{staffRow.lateChargeCount === 1 ? '' : 's'}.</p> : null}
               <div className="border-t border-[#c9a96e]/30 pt-3 font-bold text-[#800000] dark:text-[#0000ff]"><div className="flex items-center justify-between"><span>Total Deductions</span><span>{formatNaira(rowTotalDeductions(staffRow))}</span></div></div>
             </div>
@@ -158,13 +311,9 @@ function PayrollManagementBoard({ canApprove = false }) {
   const [tab, setTab] = useState(0);
   const [rows, setRows] = useState([]);
   const [history, setHistory] = useState([]);
-  const [settingsForm, setSettingsForm] = useState({
-    housingAllowance: 0,
-    transportAllowance: 0,
-    taxRate: 7.5,
-    pensionRate: 8,
-  });
+  const [settingsForm, setSettingsForm] = useState(() => normalizePayrollSettings(DEFAULT_PAYROLL_SETTINGS));
   const [branding, setBranding] = useState(null);
+  const [contactInfo, setContactInfo] = useState({ address: '', phone: '', email: '' });
   const [approved, setApproved] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [period, setPeriod] = useState(new Date().toISOString().slice(0, 7));
@@ -195,29 +344,25 @@ function PayrollManagementBoard({ canApprove = false }) {
       setLoading(true);
 
       try {
-        const [payrollResult, historyResult, settingsResult, brandingResult] = await Promise.all([
+        const [payrollResult, historyResult, settingsResult, brandingResult, websiteSectionsResult] = await Promise.all([
           getPayroll(),
           getPayrollHistory(),
           getPayrollSettings(),
           getBranding(),
+          getWebsiteSections(),
         ]);
 
         if (ignore) {
           return;
         }
 
-        const nextSettings = {
-          housingAllowance: 0,
-          transportAllowance: 0,
-          taxRate: 7.5,
-          pensionRate: 8,
-          ...(settingsResult?.settings || {}),
-        };
+        const nextSettings = normalizePayrollSettings(payrollResult?.settings || settingsResult?.settings || DEFAULT_PAYROLL_SETTINGS);
 
         setSettingsForm(nextSettings);
         setRows(buildPayrollRows(payrollResult?.payroll || []));
         setHistory(historyResult?.history || []);
         setBranding(brandingResult?.branding || null);
+        setContactInfo(extractContactInfo(websiteSectionsResult?.sections || []));
         setApproved(Boolean(payrollResult?.approved));
         setSubmitted(Boolean(payrollResult?.submitted));
         setPeriod(payrollResult?.period || new Date().toISOString().slice(0, 7));
@@ -240,27 +385,60 @@ function PayrollManagementBoard({ canApprove = false }) {
   }, [canApprove, showToast]);
 
   function updateRowField(staffId, field, value) {
-    const numericFields = new Set([
-      'basicSalary',
-      'housingAllowance',
-      'transportAllowance',
-      'bonus',
-      'tax',
-      'pension',
-      'otherDeduction',
-    ]);
-    const nextValue = numericFields.has(field) ? Number(value || 0) : value;
+    setRows((currentRows) =>
+      currentRows.map((row) => (row.id === staffId ? { ...row, [field]: value } : row)),
+    );
+  }
+
+  function updateRowAmount(staffId, kind, columnKey, value) {
+    const nextValue = Number(value || 0);
 
     setRows((currentRows) =>
-      currentRows.map((row) =>
-        row.id === staffId
-          ? {
-              ...row,
-              [field]: nextValue,
-            }
-          : row,
-      ),
+      currentRows.map((row) => {
+        if (row.id !== staffId) return row;
+
+        if (kind === 'earning') {
+          if (columnKey === 'basicSalary') {
+            return { ...row, basicSalary: nextValue };
+          }
+
+          const allowancesMap = { ...row.allowancesMap, [columnKey]: nextValue };
+          return {
+            ...row,
+            allowancesMap,
+            housingAllowance: Number(allowancesMap.housingAllowance || 0),
+            transportAllowance: Number(allowancesMap.transportAllowance || 0),
+            bonus: Number(allowancesMap.bonus || 0),
+          };
+        }
+
+        const deductionsMap = { ...row.deductionsMap, [columnKey]: nextValue };
+        return {
+          ...row,
+          deductionsMap,
+          tax: Number(deductionsMap.tax || 0),
+          pension: Number(deductionsMap.pension || 0),
+          otherDeduction: Number(deductionsMap.otherDeduction || 0),
+        };
+      }),
     );
+  }
+
+  function updateColumnLabel(kind, key, label) {
+    setSettingsForm((current) => ({
+      ...current,
+      [kind]: current[kind].map(column => (column.key === key ? { ...column, label } : column)),
+    }));
+  }
+
+  function addCustomColumn(kind) {
+    const prefix = kind === 'earningColumns' ? 'earning' : 'deduction';
+    const label = kind === 'earningColumns' ? 'New Earning' : 'New Deduction';
+    const key = `${prefix}_${Date.now()}`;
+    setSettingsForm((current) => ({
+      ...current,
+      [kind]: [...current[kind], { key, label, fixed: false }],
+    }));
   }
 
   async function persistRow(staffId) {
@@ -277,9 +455,12 @@ function PayrollManagementBoard({ canApprove = false }) {
         housingAllowance: Number(targetRow.housingAllowance || 0),
         transportAllowance: Number(targetRow.transportAllowance || 0),
         bonus: Number(targetRow.bonus || 0),
+        allowancesMap: targetRow.allowancesMap,
         tax: Number(targetRow.tax || 0),
         pension: Number(targetRow.pension || 0),
         otherDeduction: Number(targetRow.otherDeduction || 0),
+        deductionsMap: targetRow.deductionsMap,
+        deductions: rowManualDeductions(targetRow),
         status: targetRow.status,
         paymentStatus: targetRow.paymentStatus,
         employmentCategory: targetRow.employmentCategory,
@@ -343,11 +524,17 @@ function PayrollManagementBoard({ canApprove = false }) {
         totals.deductions += rowTotalDeductions(row);
         totals.net += rowNet(row);
         totals.count += 1;
+        settingsForm.earningColumns.forEach(column => {
+          totals.earnings[column.key] = (totals.earnings[column.key] || 0) + getRowEarningValue(row, column.key);
+        });
+        settingsForm.deductionColumns.forEach(column => {
+          totals.deductionsByKey[column.key] = (totals.deductionsByKey[column.key] || 0) + getRowDeductionValue(row, column.key);
+        });
         return totals;
       },
-      { gross: 0, manualDeductions: 0, autoLateDeductions: 0, deductions: 0, net: 0, count: 0 },
+      { gross: 0, manualDeductions: 0, autoLateDeductions: 0, deductions: 0, net: 0, count: 0, earnings: {}, deductionsByKey: {} },
     );
-  }, [rows]);
+  }, [rows, settingsForm]);
 
   const inputsLocked = approved || (!canApprove && submitted);
 
@@ -439,14 +626,13 @@ function PayrollManagementBoard({ canApprove = false }) {
                       <th className={TH}>Staff Name</th>
                       <th className={TH}>Role</th>
                       <th className={TH}>Employment Category</th>
-                      <th className={TH}>Basic Salary</th>
-                      <th className={TH}>Housing</th>
-                      <th className={TH}>Transport</th>
-                      <th className={TH}>Bonus</th>
+                      {settingsForm.earningColumns.map(column => (
+                        <th key={`earning-head-${column.key}`} className={TH}>{column.label}</th>
+                      ))}
                       <th className={TH}>Gross</th>
-                      <th className={TH}>Tax</th>
-                      <th className={TH}>Pension</th>
-                      <th className={TH}>Other Deductions</th>
+                      {settingsForm.deductionColumns.map(column => (
+                        <th key={`deduction-head-${column.key}`} className={TH}>{column.label}</th>
+                      ))}
                       <th className={TH}>Late Charges</th>
                       <th className={TH}>Total Deductions</th>
                       <th className={TH}>Net Pay</th>
@@ -479,31 +665,26 @@ function PayrollManagementBoard({ canApprove = false }) {
                             <option value="contract">Contract</option>
                           </select>
                         </td>
-                        {[
-                          'basicSalary',
-                          'housingAllowance',
-                          'transportAllowance',
-                          'bonus',
-                        ].map((field) => (
-                          <td key={`${row.id}-${field}`} className={TD}>
+                        {settingsForm.earningColumns.map((column) => (
+                          <td key={`${row.id}-${column.key}`} className={TD}>
                             <input
                               type="number"
-                              value={row[field]}
+                              value={getRowEarningValue(row, column.key)}
                               disabled={inputsLocked}
-                              onChange={(event) => updateRowField(row.id, field, event.target.value)}
+                              onChange={(event) => updateRowAmount(row.id, 'earning', column.key, event.target.value)}
                               onBlur={() => persistRow(row.id)}
                               className={INPUT}
                             />
                           </td>
                         ))}
                         <td className={`${TD} font-bold text-[#800000] dark:text-[#0000ff]`}>{formatNaira(rowGross(row))}</td>
-                        {['tax', 'pension', 'otherDeduction'].map((field) => (
-                          <td key={`${row.id}-${field}`} className={TD}>
+                        {settingsForm.deductionColumns.map((column) => (
+                          <td key={`${row.id}-${column.key}`} className={TD}>
                             <input
                               type="number"
-                              value={row[field]}
+                              value={getRowDeductionValue(row, column.key)}
                               disabled={inputsLocked}
-                              onChange={(event) => updateRowField(row.id, field, event.target.value)}
+                              onChange={(event) => updateRowAmount(row.id, 'deduction', column.key, event.target.value)}
                               onBlur={() => persistRow(row.id)}
                               className={INPUT}
                             />
@@ -539,11 +720,14 @@ function PayrollManagementBoard({ canApprove = false }) {
                     ))}
 
                     <tr className="bg-[#f0d090] font-bold dark:bg-[#220022]">
-                      <td colSpan={9} className={TD}>TOTAL</td>
+                      <td colSpan={5} className={TD}>TOTAL</td>
+                      {settingsForm.earningColumns.map(column => (
+                        <td key={`earning-total-${column.key}`} className={TD}>{formatNaira(payrollTotals.earnings[column.key] || 0)}</td>
+                      ))}
                       <td className={TD}>{formatNaira(payrollTotals.gross)}</td>
-                      <td className={TD}>-</td>
-                      <td className={TD}>-</td>
-                      <td className={TD}>{formatNaira(payrollTotals.manualDeductions)}</td>
+                      {settingsForm.deductionColumns.map(column => (
+                        <td key={`deduction-total-${column.key}`} className={TD}>{formatNaira(payrollTotals.deductionsByKey[column.key] || 0)}</td>
+                      ))}
                       <td className={TD}>{formatNaira(payrollTotals.autoLateDeductions)}</td>
                       <td className={TD}>{formatNaira(payrollTotals.deductions)}</td>
                       <td className={TD}>{formatNaira(payrollTotals.net)}</td>
@@ -642,6 +826,53 @@ function PayrollManagementBoard({ canApprove = false }) {
               </label>
             ))}
           </div>
+          <div className="mt-6 grid gap-6 lg:grid-cols-2">
+            <div className={INNER}>
+              <div className="flex items-center justify-between gap-3">
+                <div>
+                  <p className="text-sm font-bold text-[#800000] dark:text-[#0000ff]">Earning Headings</p>
+                  <p className="mt-1 text-xs text-[#191970] dark:text-[#39ff14]">Rename the standard columns and add more earning columns for this school.</p>
+                </div>
+                <button type="button" onClick={() => addCustomColumn('earningColumns')} className={OUTLINE_BTN}>Add Earning</button>
+              </div>
+              <div className="mt-4 space-y-3">
+                {settingsForm.earningColumns.map(column => (
+                  <label key={`earning-setting-${column.key}`} className="text-xs font-semibold uppercase tracking-[0.16em] text-[#800020] dark:text-[#bf00ff]">
+                    {column.fixed ? 'Standard Heading' : 'Custom Heading'}
+                    <input
+                      type="text"
+                      value={column.label}
+                      onChange={(event) => updateColumnLabel('earningColumns', column.key, event.target.value)}
+                      className={`${INPUT} mt-2`}
+                    />
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            <div className={INNER}>
+              <div className="flex items-center justify-between gap-3">
+                <div>
+                  <p className="text-sm font-bold text-[#800000] dark:text-[#0000ff]">Deduction Headings</p>
+                  <p className="mt-1 text-xs text-[#191970] dark:text-[#39ff14]">Rename deduction headings and add extra deduction columns for custom school policy.</p>
+                </div>
+                <button type="button" onClick={() => addCustomColumn('deductionColumns')} className={OUTLINE_BTN}>Add Deduction</button>
+              </div>
+              <div className="mt-4 space-y-3">
+                {settingsForm.deductionColumns.map(column => (
+                  <label key={`deduction-setting-${column.key}`} className="text-xs font-semibold uppercase tracking-[0.16em] text-[#800020] dark:text-[#bf00ff]">
+                    {column.fixed ? 'Standard Heading' : 'Custom Heading'}
+                    <input
+                      type="text"
+                      value={column.label}
+                      onChange={(event) => updateColumnLabel('deductionColumns', column.key, event.target.value)}
+                      className={`${INPUT} mt-2`}
+                    />
+                  </label>
+                ))}
+              </div>
+            </div>
+          </div>
           <div className="mt-6 flex flex-wrap gap-3">
             <button onClick={saveSettings} disabled={savingSettings} className={BTN}>
               {savingSettings ? 'Saving...' : 'Save Settings'}
@@ -655,6 +886,8 @@ function PayrollManagementBoard({ canApprove = false }) {
           branding={branding}
           monthLabel={monthLabel}
           staffRow={selectedPayslip}
+          settings={settingsForm}
+          contactInfo={contactInfo}
           onClose={() => setSelectedPayslip(null)}
         />
       ) : null}

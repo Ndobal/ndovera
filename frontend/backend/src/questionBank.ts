@@ -457,6 +457,17 @@ export async function ensureQuestionBankTables(db: D1Database) {
   await db.prepare(CBT_EXAMS_DDL).run()
   await db.prepare(CBT_EXAM_QUESTIONS_DDL).run()
   await db.prepare(CBT_ATTEMPTS_DDL).run()
+  try { await db.exec('ALTER TABLE question_bank ADD COLUMN metadata_json TEXT') } catch {}
+  try { await db.exec('ALTER TABLE question_bank ADD COLUMN created_by TEXT') } catch {}
+  try { await db.exec('ALTER TABLE question_bank ADD COLUMN status TEXT') } catch {}
+  try { await db.exec('ALTER TABLE question_bank ADD COLUMN source TEXT') } catch {}
+  try { await db.exec('ALTER TABLE question_bank ADD COLUMN image_url TEXT') } catch {}
+  try { await db.exec('ALTER TABLE question_bank ADD COLUMN explanation TEXT') } catch {}
+  try { await db.exec('ALTER TABLE cbt_exams ADD COLUMN release_at TEXT') } catch {}
+  try { await db.exec('ALTER TABLE cbt_exams ADD COLUMN settings_json TEXT') } catch {}
+  try { await db.exec('ALTER TABLE cbt_exam_questions ADD COLUMN settings_json TEXT') } catch {}
+  try { await db.exec('ALTER TABLE cbt_attempts ADD COLUMN responses_json TEXT') } catch {}
+  try { await db.exec('ALTER TABLE cbt_attempts ADD COLUMN feedback_json TEXT') } catch {}
   await db.prepare(`CREATE UNIQUE INDEX IF NOT EXISTS question_usage_unique_idx ON question_usage(question_id, engine_type, engine_id)`).run()
 }
 

@@ -1,16 +1,30 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import StudentSectionShell from './StudentSectionShell';
+import TuckShopAiServicesPanel from '../../../features/ai/components/TuckShopAiServicesPanel';
+import { buildSelectedRoleHeader, getStoredAuth } from '../../../features/auth/services/authApi';
 
-export default function StudentTuckShop() {
-  const studentId = localStorage.getItem('userId') || '';
+function buildAuthHeaders(includeJson = false) {
+  const auth = getStoredAuth();
+  return {
+    ...(includeJson ? { 'Content-Type': 'application/json' } : {}),
+    ...(auth?.token ? { Authorization: `Bearer ${auth.token}` } : {}),
+    ...buildSelectedRoleHeader(),
+  };
+}
+
+export default function StudentTuckShop({
+  viewerRole = 'student',
+  title = 'Tuck Shop',
+  subtitle = 'Order snacks, lunches, and added learning services from one place.',
+  dashboardLabel = 'Student Dashboard',
+}) {
+  const actorId = getStoredAuth()?.user?.id || localStorage.getItem('userId') || '';
   const [inventory, setInventory] = useState([]);
   const [inventoryLoading, setInventoryLoading] = useState(true);
   const [cart, setCart] = useState({});
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    const headers = token ? { Authorization: `Bearer ${token}` } : {};
-    fetch('/api/tuck/menu', { headers })
+    fetch('/api/tuck/menu', { headers: buildAuthHeaders() })
       .then(r => r.ok ? r.json() : { items: [] })
       .then(json => setInventory(json.items || json.menu || []))
       .catch(() => setInventory([]))
@@ -43,16 +57,15 @@ export default function StudentTuckShop() {
     if (cartItems.length === 0) return alert('Cart is empty');
     const payload = {
       id: `order_${Date.now()}`,
-      placedBy: studentId,
+      placedBy: actorId,
       items: cartItems.map(i => ({ id: i.id, name: i.name, qty: i.qty, price: i.price })),
       total,
       notes: null,
     };
     try {
-      const token = localStorage.getItem('token');
       const resp = await fetch('/api/tuck/orders', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', ...(token ? { Authorization: `Bearer ${token}` } : {}) },
+        headers: buildAuthHeaders(true),
         body: JSON.stringify(payload),
       });
       const json = await resp.json();
@@ -73,11 +86,11 @@ export default function StudentTuckShop() {
   const [history, setHistory] = useState([]);
 
   useEffect(() => {
-    if (!studentId) return;
+    if (!actorId) return;
     let mounted = true;
     async function loadHistory() {
       try {
-        const resp = await fetch(`/api/tuck/orders?placedBy=${encodeURIComponent(studentId)}`);
+        const resp = await fetch(`/api/tuck/orders?placedBy=${encodeURIComponent(actorId)}`, { headers: buildAuthHeaders() });
         if (!resp.ok) throw new Error('Network');
         const json = await resp.json();
         if (!mounted) return;
@@ -104,11 +117,14 @@ export default function StudentTuckShop() {
     }
     loadHistory();
     return () => { mounted = false; };
-  }, [studentId]);
+  }, [actorId]);
 
   return (
-    <StudentSectionShell title="Tuck Shop" subtitle="Order snacks and lunches for pickup at school">
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <StudentSectionShell title={title} subtitle={subtitle} dashboardLabel={dashboardLabel}>
+      <div className="space-y-6">
+        <TuckShopAiServicesPanel title={viewerRole === 'parent' ? 'Added Services For Parents' : 'Added Services For Learners'} />
+
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
         <div className="col-span-2">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {inventoryLoading && (
@@ -162,22 +178,22 @@ export default function StudentTuckShop() {
             <button onClick={checkout} className="w-full mt-3 px-4 py-2 rounded-xl bg-emerald-500/30 text-emerald-100">Checkout</button>
           </div>
         </aside>
-      </div>
+        </div>
 
-      {/* Weekly history */}
-      <div className="mt-8">
-        <h3 className="text-lg midnight-text text-slate-100 font-semibold mb-3">Weekly History</h3>
-        {history.length === 0 && <div className="midnight-text text-slate-400">No recent orders</div>}
-        <div className="space-y-3">
-          {history.map(w => (
-            <div key={w.weekStart} className="wheat-card rounded-2xl p-3 bg-slate-900/20 border border-white/10 flex items-center justify-between">
-              <div>
-                <div className="midnight-text text-slate-100 font-medium">Week of {w.weekStart}</div>
-                <div className="text-xs neon-subtle">{w.orders.length} orders</div>
+        <div className="mt-2">
+          <h3 className="text-lg midnight-text text-slate-100 font-semibold mb-3">Weekly History</h3>
+          {history.length === 0 && <div className="midnight-text text-slate-400">No recent orders</div>}
+          <div className="space-y-3">
+            {history.map(w => (
+              <div key={w.weekStart} className="wheat-card rounded-2xl p-3 bg-slate-900/20 border border-white/10 flex items-center justify-between">
+                <div>
+                  <div className="midnight-text text-slate-100 font-medium">Week of {w.weekStart}</div>
+                  <div className="text-xs neon-subtle">{w.orders.length} orders</div>
+                </div>
+                <div className="text-emerald-300 font-semibold">₦{w.total}</div>
               </div>
-              <div className="text-emerald-300 font-semibold">₦{w.total}</div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </StudentSectionShell>

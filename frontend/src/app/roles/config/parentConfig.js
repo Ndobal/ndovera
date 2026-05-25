@@ -150,8 +150,8 @@ const parentConfig = {
       panels: [{ title: 'Spending Log', items: [{ text: 'Item name, quantity, amount, and time.' }, { text: 'Set wallet top-up and limits.' }, { text: 'No delete or refund by parent.' }] }],
     },
     'professor-vera': {
-      title: 'Professor Vera',
-      subtitle: 'Track academic-only AI tutor support and guidance usage.',
+      title: 'Ndovera AI',
+      subtitle: 'Track academic-only AI tutor support, credits, and guidance usage.',
       cards: [
         { label: 'AI Sessions', value: '14', accent: 'accent-indigo' },
         { label: 'Concepts Clarified', value: '31', accent: 'accent-emerald' },

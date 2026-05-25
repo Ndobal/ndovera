@@ -3,6 +3,7 @@ import {
   getLearningStudents,
   getMe,
   getUserProfile,
+  uploadProfileAvatar,
   updateUserProfile,
 } from '../../school/services/schoolApi';
 
@@ -112,6 +113,20 @@ function TextAreaField({ label, value, onChange, rows = 3, placeholder = '' }) {
   );
 }
 
+function buildAvatarFallback(name = 'User') {
+  return `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(name || 'User')}`;
+}
+
+function syncStoredAuthUser(patch = {}) {
+  try {
+    const currentUser = JSON.parse(window.localStorage.getItem('authUser') || '{}');
+    const nextUser = { ...currentUser, ...patch };
+    const serialized = JSON.stringify(nextUser);
+    window.localStorage.setItem('authUser', serialized);
+    window.dispatchEvent(new StorageEvent('storage', { key: 'authUser', newValue: serialized }));
+  } catch {}
+}
+
 export default function ProfileEditor({ viewerRole = 'student', allowLinkedStudents = false }) {
   const [targets, setTargets] = useState([]);
   const [selectedTargetId, setSelectedTargetId] = useState('');
@@ -119,6 +134,7 @@ export default function ProfileEditor({ viewerRole = 'student', allowLinkedStude
   const [loadingTargets, setLoadingTargets] = useState(true);
   const [loadingProfile, setLoadingProfile] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [uploadingAvatar, setUploadingAvatar] = useState(false);
   const [notice, setNotice] = useState('');
   const [error, setError] = useState('');
 
@@ -134,13 +150,18 @@ export default function ProfileEditor({ viewerRole = 'student', allowLinkedStude
         const currentUser = meResult?.user || meResult || {};
         const linkedStudentsResult = allowLinkedStudents ? await getLearningStudents() : { students: [] };
         const linkedStudents = Array.isArray(linkedStudentsResult?.students) ? linkedStudentsResult.students : [];
+        const currentTargetKind = viewerRole === 'parent'
+          ? 'parent'
+          : viewerRole === 'student'
+            ? 'student'
+            : 'staff';
 
         const nextTargets = [
           {
             id: String(currentUser?.id || ''),
             name: currentUser?.name || '',
             className: currentUser?.className || '',
-            kind: viewerRole === 'parent' ? 'parent' : 'student',
+            kind: currentTargetKind,
             isSelf: true,
           },
           ...linkedStudents.map(student => ({
@@ -211,9 +232,36 @@ export default function ProfileEditor({ viewerRole = 'student', allowLinkedStude
 
   const selectedTarget = targets.find(target => target.id === selectedTargetId) || null;
   const isStudentRecord = selectedTarget?.kind === 'student';
+  const avatarPreview = profile.avatar || buildAvatarFallback(profile.name || selectedTarget?.name || 'User');
 
   function updateField(field, value) {
     setProfile(current => ({ ...current, [field]: value }));
+  }
+
+  async function handleAvatarUpload(event) {
+    const file = event.target.files?.[0];
+    event.target.value = '';
+    if (!file || !selectedTargetId) return;
+
+    setUploadingAvatar(true);
+    setNotice('');
+    setError('');
+
+    try {
+      const result = await uploadProfileAvatar(selectedTargetId, file);
+      const nextAvatar = String(result?.avatarUrl || result?.url || '').trim();
+      if (!nextAvatar) throw new Error('Upload failed.');
+
+      setProfile(current => ({ ...current, avatar: nextAvatar }));
+      if (selectedTarget?.isSelf) {
+        syncStoredAuthUser({ avatar: nextAvatar, avatarUrl: nextAvatar, name: profile.name || selectedTarget.name || 'User' });
+      }
+      setNotice('Avatar uploaded and saved.');
+    } catch (uploadError) {
+      setError(uploadError instanceof Error ? uploadError.message : 'Could not upload the avatar.');
+    } finally {
+      setUploadingAvatar(false);
+    }
   }
 
   async function handleSave() {
@@ -263,6 +311,14 @@ export default function ProfileEditor({ viewerRole = 'student', allowLinkedStude
           ? { ...target, name: refreshedUser?.name || profile.name, className: refreshedUser?.className || target.className }
           : target
       )));
+      if (selectedTarget?.isSelf) {
+        syncStoredAuthUser({
+          name: refreshedUser?.name || profile.name,
+          avatar: refreshedUser?.avatar || refreshedUser?.avatarUrl || profile.avatar || '',
+          avatarUrl: refreshedUser?.avatarUrl || refreshedUser?.avatar || profile.avatar || '',
+          phone: refreshedUser?.phone || profile.phone || '',
+        });
+      }
       setNotice(selectedTarget?.kind === 'student' ? 'Student record updated.' : 'Profile updated.');
     } catch (saveError) {
       setError(saveError instanceof Error ? saveError.message : 'Could not save the profile.');
@@ -314,11 +370,29 @@ export default function ProfileEditor({ viewerRole = 'student', allowLinkedStude
                 <InputField label="Birthday" type="date" value={profile.dateOfBirth} onChange={event => updateField('dateOfBirth', event.target.value)} />
                 <InputField label="Gender" value={profile.gender} onChange={event => updateField('gender', event.target.value)} placeholder="Female, Male, Prefer not to say" />
                 <InputField label="Relationship" value={profile.relationship} onChange={event => updateField('relationship', event.target.value)} placeholder="Parent, guardian, self" />
-                <InputField label="Avatar Url" value={profile.avatar} onChange={event => updateField('avatar', event.target.value)} placeholder="https://..." />
                 <InputField label="Nationality" value={profile.nationality} onChange={event => updateField('nationality', event.target.value)} />
                 <InputField label="State Of Origin" value={profile.stateOfOrigin} onChange={event => updateField('stateOfOrigin', event.target.value)} />
                 <InputField label="Religion" value={profile.religion} onChange={event => updateField('religion', event.target.value)} />
                 <InputField label="Blood Group" value={profile.bloodGroup} onChange={event => updateField('bloodGroup', event.target.value)} />
+              </div>
+              <div className="mt-4 rounded-2xl border border-[#c9a96e]/30 bg-white/45 p-4 dark:border-[#00ffff]/20 dark:bg-[#120014]/70">
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
+                  <img src={avatarPreview} alt={`${profile.name || selectedTarget.name || 'User'} avatar`} className="h-20 w-20 rounded-3xl border border-[#c9a96e]/35 bg-white object-cover" onError={(event) => { event.currentTarget.src = buildAvatarFallback(profile.name || selectedTarget?.name || 'User'); }} />
+                  <div className="flex-1 space-y-3">
+                    <div>
+                      <p className="text-sm font-semibold uppercase tracking-[0.12em] text-[#800020] dark:text-[#bf00ff]">Avatar</p>
+                      <p className="mt-1 text-sm text-[#191970] dark:text-[#39ff14]">Upload a profile picture or paste a direct image path below.</p>
+                    </div>
+                    <div className="flex flex-col gap-3 lg:flex-row lg:items-center">
+                      <label className={`${BTN} inline-flex cursor-pointer items-center justify-center`}>
+                        <input type="file" accept="image/*" className="hidden" onChange={handleAvatarUpload} disabled={uploadingAvatar || loadingProfile} />
+                        {uploadingAvatar ? 'Uploading avatar...' : 'Upload Avatar'}
+                      </label>
+                      <span className="text-xs font-medium uppercase tracking-[0.12em] text-[#800020]/70 dark:text-[#bf00ff]/80">PNG, JPG, WEBP</span>
+                    </div>
+                    <InputField label="Avatar Path" value={profile.avatar} onChange={event => updateField('avatar', event.target.value)} placeholder="https://..." />
+                  </div>
+                </div>
               </div>
               <div className="mt-4">
                 <TextAreaField label="Address" value={profile.address} onChange={event => updateField('address', event.target.value)} rows={3} />
