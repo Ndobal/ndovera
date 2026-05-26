@@ -101,6 +101,10 @@ function formatReleaseLabel(value) {
   return Number.isNaN(parsed.getTime()) ? value : `Releases ${parsed.toLocaleString()}`;
 }
 
+function buildMaterialUploadKey(file) {
+  return `${String(file?.name || 'file')}:${Number(file?.size || 0)}:${Number(file?.lastModified || 0)}`;
+}
+
 export default function TeacherClassroom({
   initialTab = 'stream',
   lockedTab = '',
@@ -138,6 +142,7 @@ export default function TeacherClassroom({
   const [materialVisibility, setMaterialVisibility] = useState('student_parent');
   const [materialReleaseAt, setMaterialReleaseAt] = useState('');
   const [materialMessage, setMaterialMessage] = useState('');
+  const [pendingMaterialFiles, setPendingMaterialFiles] = useState([]);
   const [liveSessions, setLiveSessions] = useState([]);
   const [liveSubjectId, setLiveSubjectId] = useState('');
   const [liveTopic, setLiveTopic] = useState('');
@@ -241,6 +246,8 @@ export default function TeacherClassroom({
       setMaterialVisibility('student_parent');
       setMaterialReleaseAt('');
       setMaterialMessage('');
+      setPendingMaterialFiles([]);
+      setUploadProgress({});
       setLiveSessions([]);
       setLiveTopic('');
       setLiveMessage('');
@@ -519,6 +526,44 @@ export default function TeacherClassroom({
     setMaterialWeekLabel('');
     setMaterialVisibility('student_parent');
     setMaterialReleaseAt('');
+    setPendingMaterialFiles([]);
+    setUploadProgress({});
+  }
+
+  function queueMaterialFiles(fileList) {
+    const nextFiles = Array.from(fileList || []).filter(Boolean);
+    if (nextFiles.length === 0) return;
+
+    setPendingMaterialFiles(currentFiles => {
+      const existingKeys = new Set(currentFiles.map(buildMaterialUploadKey));
+      return [...currentFiles, ...nextFiles.filter(file => !existingKeys.has(buildMaterialUploadKey(file)))];
+    });
+
+    setUploadProgress(currentProgress => {
+      const nextProgress = { ...currentProgress };
+      nextFiles.forEach(file => {
+        const uploadKey = buildMaterialUploadKey(file);
+        if (nextProgress[uploadKey] === undefined) {
+          nextProgress[uploadKey] = 0;
+        }
+      });
+      return nextProgress;
+    });
+
+    if (!materialTitle.trim() && nextFiles.length === 1) {
+      setMaterialTitle(String(nextFiles[0]?.name || '').replace(/\.[^.]+$/, ''));
+    }
+
+    setMaterialMessage(`${nextFiles.length} file${nextFiles.length === 1 ? '' : 's'} ready. Click Post Material to publish.`);
+  }
+
+  function removePendingMaterialFile(fileKey) {
+    setPendingMaterialFiles(currentFiles => currentFiles.filter(file => buildMaterialUploadKey(file) !== fileKey));
+    setUploadProgress(currentProgress => {
+      const nextProgress = { ...currentProgress };
+      delete nextProgress[fileKey];
+      return nextProgress;
+    });
   }
 
   function uploadFileWithProgress(file, overrides = {}) {
@@ -558,18 +603,15 @@ export default function TeacherClassroom({
       xhr.upload.onprogress = (evt) => {
         if (!evt.lengthComputable) return;
         const pct = Math.round((evt.loaded / evt.total) * 100);
-        setUploadProgress(prev => ({ ...prev, [file.name]: pct }));
+        const uploadKey = buildMaterialUploadKey(file);
+        setUploadProgress(prev => ({ ...prev, [uploadKey]: pct }));
       };
 
       xhr.onload = () => {
         try {
           const json = JSON.parse(xhr.responseText || '{}');
-          setUploadProgress(prev => ({ ...prev, [file.name]: 100 }));
-          if (json?.success) {
-            setMaterialMessage(`Uploaded ${nextTitle} to ${nextSubject.name}.`);
-            resetMaterialComposer();
-            loadAll();
-          }
+          const uploadKey = buildMaterialUploadKey(file);
+          setUploadProgress(prev => ({ ...prev, [uploadKey]: json?.success ? 100 : 0 }));
           resolve(json);
         } catch (err) {
           reject(err || new Error('Invalid JSON'));
@@ -577,7 +619,8 @@ export default function TeacherClassroom({
       };
 
       xhr.onerror = () => {
-        setUploadProgress(prev => ({ ...prev, [file.name]: 0 }));
+        const uploadKey = buildMaterialUploadKey(file);
+        setUploadProgress(prev => ({ ...prev, [uploadKey]: 0 }));
         reject(new Error('Upload failed'));
       };
 
@@ -590,6 +633,45 @@ export default function TeacherClassroom({
 
     if (!classId || !selectedMaterialSubject) {
       setMaterialMessage('Choose the subject this material belongs to before posting it.');
+      return;
+    }
+
+    if (pendingMaterialFiles.length > 0) {
+      let uploadedCount = 0;
+      const failedFiles = [];
+
+      for (const file of pendingMaterialFiles) {
+        try {
+          const response = await uploadFileWithProgress(file, {
+            title: pendingMaterialFiles.length === 1 && materialTitle.trim()
+              ? materialTitle.trim()
+              : String(file.name || '').replace(/\.[^.]+$/, ''),
+          });
+
+          if (response?.success) {
+            uploadedCount += 1;
+          } else {
+            failedFiles.push(file);
+          }
+        } catch {
+          failedFiles.push(file);
+        }
+      }
+
+      if (uploadedCount > 0) {
+        loadAll();
+      }
+
+      if (failedFiles.length === 0) {
+        setMaterialMessage(`Posted ${uploadedCount} material${uploadedCount === 1 ? '' : 's'} to ${selectedMaterialSubject.name}.`);
+        resetMaterialComposer();
+        return;
+      }
+
+      setPendingMaterialFiles(failedFiles);
+      setMaterialMessage(uploadedCount > 0
+        ? `Posted ${uploadedCount} material${uploadedCount === 1 ? '' : 's'}. ${failedFiles.length} file${failedFiles.length === 1 ? '' : 's'} still need attention.`
+        : 'Could not post the selected files right now.');
       return;
     }
 
@@ -723,9 +805,10 @@ export default function TeacherClassroom({
   // Drag-and-drop handlers
   function handleDrop(e) {
     e.preventDefault();
+    if (activeTab !== 'materials') return;
     const items = e.dataTransfer && e.dataTransfer.files;
     if (!items || items.length === 0) return;
-    Array.from(items).forEach(async (f) => { await uploadFileWithProgress(f); loadAll(); });
+    queueMaterialFiles(items);
   }
 
   function handleDragOver(e) { e.preventDefault(); }
@@ -866,8 +949,8 @@ export default function TeacherClassroom({
           </div>
         </div>}
 
-        {!!classId && !lockedTab && <div className="mb-4">
-          <nav className="flex gap-2">
+        {!!classId && !lockedTab && <div className="mb-4 overflow-x-hidden">
+          <nav className="grid grid-cols-3 gap-2 sm:flex sm:flex-wrap">
             <button className={`px-3 py-1 rounded-2xl border text-sm font-semibold transition-colors ${activeTab==='stream'?'bg-[#1a5c38] border-[#1a5c38] text-[#f5deb3] dark:bg-[#00ffff] dark:border-[#00ffff] dark:text-[#000000]':'bg-[#fff8f0] border-[#c9a96e]/45 text-[#191970] hover:bg-[#f2e1bf] dark:bg-black/20 dark:border-[#bf00ff]/35 dark:text-[#ffffff] dark:hover:bg-[#800000]/85'}`} onClick={()=>setActiveTab('stream')}>Stream</button>
             <button className={`px-3 py-1 rounded-2xl border text-sm font-semibold transition-colors ${activeTab==='subjects'?'bg-[#1a5c38] border-[#1a5c38] text-[#f5deb3] dark:bg-[#00ffff] dark:border-[#00ffff] dark:text-[#000000]':'bg-[#fff8f0] border-[#c9a96e]/45 text-[#191970] hover:bg-[#f2e1bf] dark:bg-black/20 dark:border-[#bf00ff]/35 dark:text-[#ffffff] dark:hover:bg-[#800000]/85'}`} onClick={()=>setActiveTab('subjects')}>Subjects</button>
             <button className={`px-3 py-1 rounded-2xl border text-sm font-semibold transition-colors ${activeTab==='assignments'?'bg-[#1a5c38] border-[#1a5c38] text-[#f5deb3] dark:bg-[#00ffff] dark:border-[#00ffff] dark:text-[#000000]':'bg-[#fff8f0] border-[#c9a96e]/45 text-[#191970] hover:bg-[#f2e1bf] dark:bg-black/20 dark:border-[#bf00ff]/35 dark:text-[#ffffff] dark:hover:bg-[#800000]/85'}`} onClick={()=>setActiveTab('assignments')}>Assignments</button>
@@ -1017,7 +1100,7 @@ export default function TeacherClassroom({
               <div className="font-semibold mb-1">Upload Progress</div>
               {Object.entries(uploadProgress).map(([name, pct]) => (
                 <div key={name} className="mb-2">
-                  <div className="text-sm">{name} — {pct}%</div>
+                  <div className="text-sm">{String(name).split(':')[0]} — {pct}%</div>
                   <div className="w-full bg-gray-200 h-2 rounded mt-1">
                     <div style={{ width: `${pct}%` }} className="h-2 bg-blue-500 rounded" />
                   </div>
@@ -1247,11 +1330,13 @@ export default function TeacherClassroom({
                     <textarea value={materialDescription} onChange={e => setMaterialDescription(e.target.value)} rows={4} placeholder="Paste the lesson note here, or add the guidance students should read before opening the material." className="md:col-span-2 xl:col-span-4 rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] p-3 text-sm text-[#191970] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#ffffff]" />
                     <div className="md:col-span-2 xl:col-span-4 flex flex-wrap gap-3 items-center">
                       <label className="inline-flex cursor-pointer items-center rounded-2xl bg-[#fff8f0] px-4 py-3 text-sm font-semibold text-[#191970] border border-[#c9a96e]/45 dark:bg-black/20 dark:border-[#bf00ff]/35 dark:text-[#ffffff]">
-                        <input id="materialFile" type="file" className="hidden" onChange={async (e) => { const file = e.target.files && e.target.files[0]; if (!file) return; try { await uploadFileWithProgress(file); loadAll(); } catch {} e.target.value = ''; }} />
+                        <input id="materialFile" type="file" multiple className="hidden" onChange={(e) => { const files = e.target.files; if (!files?.length) return; queueMaterialFiles(files); e.target.value = ''; }} />
                         Upload file
                       </label>
                       <button className="rounded-2xl bg-[#1a5c38] px-4 py-3 text-sm font-bold text-[#f5deb3] transition-colors hover:bg-[#154a2e] dark:bg-[#00ffff] dark:text-[#000000] dark:hover:bg-[#7dfcff]">
-                        {materialUrl.trim() ? 'Post Material' : 'Publish Lesson Note'}
+                        {pendingMaterialFiles.length > 0
+                          ? `Post ${pendingMaterialFiles.length} File${pendingMaterialFiles.length === 1 ? '' : 's'}`
+                          : materialUrl.trim() ? 'Post Material' : 'Publish Lesson Note'}
                       </button>
                       {selectedMaterialSubject && (
                         <span className="text-xs font-semibold uppercase tracking-[0.16em] text-[#800020] dark:text-[#bf00ff]">
@@ -1259,6 +1344,24 @@ export default function TeacherClassroom({
                         </span>
                       )}
                     </div>
+                    {pendingMaterialFiles.length > 0 && (
+                      <div className="md:col-span-2 xl:col-span-4 rounded-2xl border border-[#c9a96e]/35 bg-[#fff8f0] p-3 dark:border-[#bf00ff]/30 dark:bg-black/20">
+                        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#800020] dark:text-[#bf00ff]">Queued files</p>
+                        <div className="mt-3 flex flex-wrap gap-2">
+                          {pendingMaterialFiles.map(file => {
+                            const fileKey = buildMaterialUploadKey(file);
+                            return (
+                              <div key={fileKey} className="flex items-center gap-2 rounded-2xl border border-[#c9a96e]/35 bg-[#f5deb3] px-3 py-2 dark:border-[#bf00ff]/30 dark:bg-[#35002b]">
+                                <span className="max-w-[180px] truncate text-sm font-semibold text-[#191970] dark:text-[#ffffff]">{file.name}</span>
+                                <button type="button" onClick={() => removePendingMaterialFile(fileKey)} className="rounded-xl border border-[#800000]/25 bg-white/70 px-2 py-1 text-xs font-semibold text-[#800000] hover:bg-[#ffe8db] dark:border-[#ff5f8d]/35 dark:bg-black/20 dark:text-[#ffffff] dark:hover:bg-[#5a1024]">
+                                  Remove
+                                </button>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    )}
                   </form>
                 )}
 

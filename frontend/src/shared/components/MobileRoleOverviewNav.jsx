@@ -69,7 +69,7 @@ function buildPrimaryItems(roleKey, allItems) {
     return true;
   });
 
-  return [...preferred, ...fallback].slice(0, roleKey === 'teacher' || roleKey === 'owner' || roleKey === 'hos' ? 5 : 4);
+  return [...preferred, ...fallback].slice(0, 4);
 }
 
 export default function MobileRoleOverviewNav({ roleKey, counts = {} }) {
@@ -133,8 +133,8 @@ export default function MobileRoleOverviewNav({ roleKey, counts = {} }) {
   return (
     <>
       <div className="h-24 md:hidden" />
-      <section className="bottom-nav bottom-nav--subtle light px-3 py-2 md:hidden">
-        <div className="mx-auto flex max-w-screen-sm items-center gap-2 overflow-x-auto pb-1">
+      <section className="bottom-nav bottom-nav--subtle light overflow-x-hidden px-3 py-2 md:hidden">
+        <div className="mx-auto grid max-w-screen-sm grid-cols-5 gap-2 pb-1">
           {navItems.map(item => {
             const Icon = item.isMore ? EllipsisHorizontalCircleIcon : getItemIcon(item.name, item.path);
             const count = resolveCount(item);
@@ -144,7 +144,7 @@ export default function MobileRoleOverviewNav({ roleKey, counts = {} }) {
                 <span className="relative inline-flex items-center justify-center">
                   <Icon className="h-5 w-5" />
                   {count > 0 ? (
-                    <span className="absolute -right-3 -top-2 inline-flex min-w-[18px] items-center justify-center rounded-full bg-[#800020] px-1.5 py-0.5 text-[10px] font-bold text-[#f5deb3]">
+                    <span className="absolute -right-1 -top-1 inline-flex min-w-[18px] items-center justify-center rounded-full bg-[#800020] px-1.5 py-0.5 text-[10px] font-bold text-[#f5deb3]">
                       {count > 99 ? '99+' : count}
                     </span>
                   ) : null}
@@ -158,7 +158,7 @@ export default function MobileRoleOverviewNav({ roleKey, counts = {} }) {
                 key={item.name}
                 type="button"
                 onClick={() => setDrawerOpen(true)}
-                className="nav-button flex-shrink-0 border border-[#c9a96e]/30 bg-[#fff8ee]/95 text-[#191970]"
+                className="nav-button border border-[#c9a96e]/30 bg-[#fff8ee]/95 text-[#191970]"
               >
                 {content}
               </button>
@@ -166,7 +166,7 @@ export default function MobileRoleOverviewNav({ roleKey, counts = {} }) {
               <Link
                 key={item.path}
                 to={item.path}
-                className={`nav-button flex-shrink-0 border ${active ? 'active border-[#800020]/25 bg-[#800020]/10 text-[#800020]' : 'border-[#c9a96e]/30 bg-[#fff8ee]/95 text-[#191970]'}`}
+                className={`nav-button border ${active ? 'active border-[#800020]/25 bg-[#800020]/10 text-[#800020]' : 'border-[#c9a96e]/30 bg-[#fff8ee]/95 text-[#191970]'}`}
               >
                 {content}
               </Link>

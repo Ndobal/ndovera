@@ -30,7 +30,8 @@ If you are running the API locally, the frontend uses the proxy configured in `p
 - Role dashboards for school leadership, staff, parents, and students.
 - Classroom materials, assignments, parent learning views, and lesson plans.
 - Fees, receipts, finance controls, and claims review.
-- Results, attendance, library, messaging, AI tutor, and Auras.
+- Results, attendance, library, messaging, AI tutor, staff and teacher AI chat assistants, and Auras.
+- Staff-facing dashboards now expose a ChatGPT-style AI Assistant page that talks to the authenticated Worker API, so teachers, HoS, accountants, and operational staff can keep a running chat in-role.
 - Tenant website editing for owner and ICT surfaces, including hero media galleries, CTA routing, and section content management.
 - Shared newsroom dashboard pages for student, parent, teacher, owner, HoS, accountant, and operational staff authoring and review flows.
 

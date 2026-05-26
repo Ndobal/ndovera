@@ -5,6 +5,7 @@ import accountantConfig from './config/accountantConfig';
 import StaffSettingsPage from './shared/StaffSettingsPage';
 import SchoolNewsroomPage from '../../features/school/components/SchoolNewsroomPage';
 import PayrollManagementBoard from '../../features/school/components/PayrollManagementBoard';
+import StaffAiAssistantPage from '../../features/ai/components/StaffAiAssistantPage';
 
 export default function AccountantDashboard() {
   const location = useLocation();
@@ -34,6 +35,10 @@ export default function AccountantDashboard() {
 
   if (sectionKey === 'payroll') {
     return <PayrollManagementBoard canApprove={false} />;
+  }
+
+  if (sectionKey === 'ai-assistant') {
+    return <StaffAiAssistantPage roleKey="accountant" roleTitle={accountantConfig.roleTitle} />;
   }
 
   return (

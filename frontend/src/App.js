@@ -291,7 +291,7 @@ function AppWorkspace({ auth, onLogin, onLogout }) {
   return (
     <div className="flex h-screen overflow-hidden text-slate-900 dark:text-slate-100 transition-colors duration-500 dashboard-bg dark:bg-slate-950">
       {!mobileClassroomMode && <Sidebar mobileOpen={isSidebarOpen} onClose={handleCloseSidebar} />}
-      <main className={`flex-1 min-h-0 relative ${inStudentClassroom ? 'overflow-hidden' : 'overflow-y-auto'}`}>
+      <main className={`flex-1 min-h-0 relative ${inStudentClassroom ? 'overflow-hidden' : 'overflow-y-auto overflow-x-hidden'}`}>
         {inDashboardMode && !mobileClassroomMode && (
           <DashboardTopBar
             authUser={auth?.user}

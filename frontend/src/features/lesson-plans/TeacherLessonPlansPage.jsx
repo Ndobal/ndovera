@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import StudentSectionShell from '../../app/roles/student/StudentSectionShell';
-import { addMaterial, getAssignedClasses, getLiveSessions, getMaterials } from '../classroom/classroomService';
+import { addMaterial, deleteMaterial, getAssignedClasses, getLiveSessions, getMaterials } from '../classroom/classroomService';
 import { getLessonPlans, saveLessonPlan } from '../school/services/schoolApi';
 
 const EMPTY_DRAFT = {
@@ -56,11 +56,13 @@ export default function TeacherLessonPlansPage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [publishingNote, setPublishingNote] = useState(false);
+  const [deletingMaterialId, setDeletingMaterialId] = useState('');
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
 
   const selectedClass = assignedClasses.find(classroom => classroom.id === classId) || null;
   const subjectOptions = useMemo(() => selectedClass?.subjects || [], [selectedClass]);
+  const canManageMaterials = Boolean(selectedClass?.canManageClassroom || selectedClass?.isClassTeacher);
 
   useEffect(() => {
     let cancelled = false;
@@ -294,6 +296,39 @@ export default function TeacherLessonPlansPage() {
     }
   }
 
+  async function handleDeletePublishedMaterial(material) {
+    if (!classId || !material?.id) {
+      setError('Choose a class before deleting this material.');
+      return;
+    }
+
+    if (!window.confirm(`Delete ${material.title || 'this material'}?`)) {
+      return;
+    }
+
+    setDeletingMaterialId(String(material.id));
+    setError('');
+    setMessage('');
+
+    try {
+      const response = await deleteMaterial(classId, material.id);
+      if (!response?.success) {
+        throw new Error(response?.message || 'Could not delete this material.');
+      }
+
+      setMaterials(current => current.filter(entry => entry.id !== material.id));
+      setDraft(current => ({
+        ...current,
+        resourceIds: current.resourceIds.filter(resourceId => resourceId !== String(material.id || '')),
+      }));
+      setMessage(`${material.title || 'Material'} deleted.`);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Could not delete this material.');
+    } finally {
+      setDeletingMaterialId('');
+    }
+  }
+
   return (
     <StudentSectionShell
       title="Lesson Plans"
@@ -389,6 +424,20 @@ export default function TeacherLessonPlansPage() {
                           <p className="text-sm font-semibold text-slate-100">{material.title}</p>
                           <p className="text-xs text-slate-300 mt-1">{material.subjectName || 'General Material'}{material.weekLabel ? ` • ${material.weekLabel}` : ''}</p>
                           {material.description && <p className="text-xs text-slate-400 mt-2">{material.description}</p>}
+                          {canManageMaterials && (
+                            <button
+                              type="button"
+                              onClick={(event) => {
+                                event.preventDefault();
+                                event.stopPropagation();
+                                handleDeletePublishedMaterial(material);
+                              }}
+                              disabled={deletingMaterialId === String(material.id)}
+                              className="mt-3 rounded-2xl border border-rose-300/40 bg-rose-500/10 px-3 py-2 text-xs font-semibold text-rose-100 disabled:opacity-60"
+                            >
+                              {deletingMaterialId === String(material.id) ? 'Deleting...' : 'Delete Material'}
+                            </button>
+                          )}
                         </div>
                       </label>
                     );

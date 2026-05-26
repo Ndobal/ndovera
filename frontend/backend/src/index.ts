@@ -80,7 +80,6 @@ import {
 } from './questionBank'
 import {
   AI_GLOBAL_SETTINGS_KEY,
-  buildAcademicAiResponse,
   consumeAiAccess,
   getAiPaymentRecord,
   getResolvedAiBillingPolicy,
@@ -96,6 +95,9 @@ type Bindings = {
   APP_DB: D1Database
   SESSIONS: KVNamespace
   UPLOADS: R2Bucket
+  AI?: {
+    run: (model: string, inputs: Record<string, any>) => Promise<any>
+  }
   JWT_SECRET: string
   CORS_ORIGIN: string
   PASSWORD_RESET_BASE_URL?: string
@@ -3620,6 +3622,128 @@ async function resolveAiActor(db: D1Database, user: Record<string, any>) {
 function canManageAiBilling(role: string) {
   const normalized = String(role || '').trim().toLowerCase()
   return ['owner', 'ami'].includes(normalized)
+}
+
+const WORKERS_AI_MODEL = '@cf/meta/llama-3.1-8b-instruct-fast'
+const OPEN_AI_CHAT_ROLES = new Set([
+  'teacher',
+  'librarian',
+  'sanitation',
+  'tuckshopmanager',
+  'storekeeper',
+  'transport',
+  'hostel',
+  'cafeteria',
+  'clinic',
+  'ict',
+  'ict_manager',
+  'classteacher',
+  'hod',
+  'hodassistant',
+  'principal',
+  'headteacher',
+  'nurseryhead',
+  'examofficer',
+  'sportsmaster',
+])
+
+type AiConversationMessage = {
+  role: 'system' | 'user' | 'assistant'
+  content: string
+}
+
+function normalizeAiConversationMessages(raw: unknown): AiConversationMessage[] {
+  if (!Array.isArray(raw)) return []
+
+  return raw
+    .map((entry) => {
+      const role = String((entry as Record<string, any>)?.role || '').trim().toLowerCase()
+      const content = String((entry as Record<string, any>)?.content || '').trim()
+      if (!content) return null
+      if (!['user', 'assistant', 'system'].includes(role)) return null
+      return { role: role as AiConversationMessage['role'], content }
+    })
+    .filter(Boolean)
+    .slice(-12) as AiConversationMessage[]
+}
+
+function buildAiSystemPrompt(actor: Record<string, any>, mode: string) {
+  const role = String(actor?.role || '').trim().toLowerCase()
+  const actorName = String(actor?.actorName || 'staff member').trim()
+  const normalizedMode = String(mode || '').trim() || 'General Assistant'
+
+  if (!OPEN_AI_CHAT_ROLES.has(role)) {
+    return [
+      'You are Ndovera AI, an academic-only assistant for students and parents.',
+      `Current guidance mode: ${normalizedMode}.`,
+      'Answer only educational questions about subjects, revision, practice, and exam preparation.',
+      'If the request is not academic, briefly redirect the user to ask an academic question instead.',
+      'Do not claim to submit assignments, change records, or take actions inside Ndovera.',
+      'Keep answers structured, clear, and age-appropriate.',
+    ].join(' ')
+  }
+
+  return [
+    `You are Ndovera AI, a helpful Workers AI assistant for ${actorName}, working in the ${role || 'staff'} role inside a school operations platform.`,
+    `Current guidance mode: ${normalizedMode}.`,
+    'You can help with lesson ideas, communication drafts, summaries, planning, reports, professional writing, and general knowledge questions.',
+    'Do not claim to perform actions inside Ndovera, send messages, publish records, or change data.',
+    'If the request is unsafe, illegal, sexually explicit, hateful, or harmful, refuse briefly and redirect to a safe alternative.',
+    'Prefer direct, practical answers with bullets or short steps when useful.',
+  ].join(' ')
+}
+
+function buildAiConversation(actor: Record<string, any>, payload: Record<string, any>) {
+  const prompt = String(payload.prompt || '').trim()
+  const mode = String(payload.mode || '').trim() || 'General Assistant'
+  const messages = normalizeAiConversationMessages(payload.messages)
+  const conversation = messages.filter((message) => message.role !== 'system')
+
+  if (prompt && (!conversation.length || conversation[conversation.length - 1]?.content !== prompt || conversation[conversation.length - 1]?.role !== 'user')) {
+    conversation.push({ role: 'user', content: prompt })
+  }
+
+  return {
+    prompt,
+    mode,
+    messages: [
+      { role: 'system', content: buildAiSystemPrompt(actor, mode) },
+      ...conversation.slice(-12),
+    ] as AiConversationMessage[],
+  }
+}
+
+function extractWorkersAiText(result: any): string {
+  const direct = [
+    result?.response,
+    result?.result?.response,
+    result?.result?.output_text,
+    result?.text,
+  ].find((value) => typeof value === 'string' && value.trim())
+
+  if (typeof direct === 'string' && direct.trim()) {
+    return direct.trim()
+  }
+
+  const arrayCandidates = [result?.result, result?.response, result?.messages]
+  for (const candidate of arrayCandidates) {
+    if (!Array.isArray(candidate)) continue
+    const text = candidate
+      .map((entry) => {
+        if (typeof entry === 'string') return entry
+        if (typeof entry?.text === 'string') return entry.text
+        if (typeof entry?.content === 'string') return entry.content
+        if (typeof entry?.response === 'string') return entry.response
+        return ''
+      })
+      .filter(Boolean)
+      .join('\n\n')
+      .trim()
+
+    if (text) return text
+  }
+
+  return ''
 }
 
 function canAccessAiCreditPayment(actor: Record<string, any>, payment: Record<string, any>) {
@@ -8709,14 +8833,14 @@ app.post('/api/ai/tutor/ask', authenticate, async (c) => {
   try {
     const actor = await resolveAiActor(c.env.APP_DB, c.var.user || {})
     const payload = await c.req.json().catch(() => ({})) as Record<string, any>
-    const prompt = String(payload.prompt || '').trim()
-    const mode = String(payload.mode || 'Explain Mode').trim()
+    const aiBinding = c.env.AI
+    const { prompt, mode, messages } = buildAiConversation(actor, payload)
 
     if (!prompt) {
       return c.json({ success: false, message: 'Prompt is required.' }, 400)
     }
 
-    if (!isAcademicOnlyPrompt(prompt)) {
+    if (!OPEN_AI_CHAT_ROLES.has(String(actor.role || '').trim().toLowerCase()) && !isAcademicOnlyPrompt(prompt)) {
       const access = await summarizeAiAccess(c.env.APP_DB, { tenantId: actor.tenantId, settingsKey: actor.settingsKey })
       return c.json({
         success: false,
@@ -8740,12 +8864,36 @@ app.post('/api/ai/tutor/ask', authenticate, async (c) => {
       }, consumption.statusCode)
     }
 
+    if (!aiBinding || typeof aiBinding.run !== 'function') {
+      return c.json({
+        success: false,
+        message: 'Workers AI is not configured for this environment yet. Add the AI binding and redeploy the API worker.',
+        access: consumption.access,
+      }, 503)
+    }
+
+    const aiResult = await aiBinding.run(WORKERS_AI_MODEL, {
+      messages,
+      max_tokens: 700,
+      temperature: OPEN_AI_CHAT_ROLES.has(String(actor.role || '').trim().toLowerCase()) ? 0.65 : 0.45,
+    })
+    const answer = extractWorkersAiText(aiResult)
+
+    if (!answer) {
+      return c.json({
+        success: false,
+        message: 'Workers AI returned an empty response. Please try again.',
+        access: consumption.access,
+      }, 502)
+    }
+
     return c.json({
       success: true,
-      answer: buildAcademicAiResponse(prompt, mode),
+      answer,
       source: consumption.source,
       chargedCredits: consumption.chargedCredits,
       access: consumption.access,
+      mode,
     })
   } catch (error) {
     return c.json({ success: false, message: error instanceof Error ? error.message : 'Could not process the AI request.' }, 500)

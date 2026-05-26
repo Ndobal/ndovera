@@ -504,4 +504,48 @@ const operationalRoleConfigs = {
   },
 };
 
+const staffAiAssistantSection = {
+  title: 'AI Assistant',
+  subtitle: 'Chat with Workers AI for drafting, summaries, planning, and day-to-day staff support.',
+  panels: [
+    {
+      title: 'AI Support',
+      items: [
+        { text: 'Draft notices, reports, checklists, and professional replies.' },
+        { text: 'Ask follow-up questions in one running chat workspace.' },
+        { text: 'The assistant never claims to publish, approve, or change records for you.' },
+      ],
+    },
+  ],
+};
+
+[
+  'librarian',
+  'sanitation',
+  'tuckshopmanager',
+  'storekeeper',
+  'transport',
+  'hostel',
+  'cafeteria',
+  'clinic',
+  'ict',
+  'classteacher',
+  'hod',
+  'hodassistant',
+  'principal',
+  'headteacher',
+  'nurseryhead',
+  'examofficer',
+  'sportsmaster',
+].forEach((roleKey) => {
+  if (!operationalRoleConfigs[roleKey]) return;
+  operationalRoleConfigs[roleKey] = {
+    ...operationalRoleConfigs[roleKey],
+    sections: {
+      ...operationalRoleConfigs[roleKey].sections,
+      'ai-assistant': operationalRoleConfigs[roleKey].sections['ai-assistant'] || staffAiAssistantSection,
+    },
+  };
+});
+
 export default operationalRoleConfigs;

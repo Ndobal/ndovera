@@ -12,6 +12,7 @@ import StaffAttendanceManagementPanel from '../../features/attendance/components
 import AdmissionsManagementBoard from '../../features/school/components/AdmissionsManagementBoard';
 import StaffSettingsPage from './shared/StaffSettingsPage';
 import SchoolNewsroomPage from '../../features/school/components/SchoolNewsroomPage';
+import StaffAiAssistantPage from '../../features/ai/components/StaffAiAssistantPage';
 
 export default function OperationalRoleDashboard({ roleKey }) {
   const location = useLocation();
@@ -118,6 +119,10 @@ export default function OperationalRoleDashboard({ roleKey }) {
 
   if ((roleKey === 'hod' || roleKey === 'hodassistant') && sectionKey === 'lessons') {
     return <LessonPlanReviewPage dashboardLabel={roleConfig.roleTitle} />;
+  }
+
+  if (sectionKey === 'ai-assistant') {
+    return <StaffAiAssistantPage roleKey={roleKey} roleTitle={roleTitle} />;
   }
 
   if (['transport', 'hostel', 'clinic'].includes(roleKey) && sectionKey === 'admissions') {

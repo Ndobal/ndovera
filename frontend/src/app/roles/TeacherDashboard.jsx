@@ -14,6 +14,7 @@ import TeacherReports from './teacher/TeacherReports';
 import TeacherAttendancePage from './teacher/TeacherAttendancePage';
 import StaffSettingsPage from './shared/StaffSettingsPage';
 import SchoolNewsroomPage from '../../features/school/components/SchoolNewsroomPage';
+import StaffAiAssistantPage from '../../features/ai/components/StaffAiAssistantPage';
 import useFeatureFlags from '../../shared/hooks/useFeatureFlags';
 
 export default function TeacherDashboard({ auth }) {
@@ -117,6 +118,10 @@ export default function TeacherDashboard({ auth }) {
 
   if (sectionKey === 'reports') {
     return <TeacherReports />;
+  }
+
+  if (sectionKey === 'ai-assistant') {
+    return <StaffAiAssistantPage roleKey="teacher" roleTitle={teacherConfig.roleTitle} />;
   }
 
   if (sectionKey === 'cashout') {

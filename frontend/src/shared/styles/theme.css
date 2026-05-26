@@ -152,7 +152,7 @@
 }
 
 .bottom-nav .nav-button {
-  @apply min-w-[84px] flex flex-col items-center justify-center py-1 px-2 rounded-xl transition-colors;
+  @apply w-full min-w-0 flex flex-col items-center justify-center py-1.5 px-1 rounded-xl transition-colors overflow-hidden;
 }
 .bottom-nav .nav-button .label { @apply text-[10px] mt-1 neon-subtle; }
 

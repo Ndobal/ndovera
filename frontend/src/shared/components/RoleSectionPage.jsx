@@ -2,7 +2,7 @@ import React from 'react';
 import MobileRoleOverviewNav from './MobileRoleOverviewNav';
 
 const defaultTheme = {
-  page: 'p-8 max-w-7xl mx-auto',
+  page: 'w-full max-w-7xl mx-auto overflow-x-hidden px-4 py-6 sm:px-6 lg:px-8',
   panel: 'glass-surface rounded-3xl p-6 mb-6',
   eyebrow: 'micro-label neon-subtle mb-2',
   title: 'text-3xl command-title neon-title mb-2',
@@ -26,7 +26,7 @@ const defaultTheme = {
 };
 
 const wheatTheme = {
-  page: 'p-8 max-w-7xl mx-auto space-y-6',
+  page: 'w-full max-w-7xl mx-auto space-y-6 overflow-x-hidden px-4 py-6 sm:px-6 lg:px-8',
   panel: 'rounded-3xl p-6 bg-[#f5deb3] border border-[#c9a96e]/40 shadow-[0_18px_45px_rgba(128,0,0,0.08)]',
   eyebrow: 'text-xs font-semibold uppercase tracking-[0.24em] text-[#800020] mb-2',
   title: 'text-3xl font-black tracking-tight text-[#800000] mb-2',

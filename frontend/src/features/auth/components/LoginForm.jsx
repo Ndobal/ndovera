@@ -30,8 +30,16 @@ export default function LoginForm({ onSuccess }) {
     setError('');
     setIsSubmitting(true);
 
+    const formData = new FormData(event.currentTarget);
+    const submittedCredentials = {
+      id: String(formData.get('id') || formState.id || '').trim(),
+      password: String(formData.get('password') || formState.password || ''),
+    };
+
+    setFormState(submittedCredentials);
+
     try {
-      const auth = await login(formState);
+      const auth = await login(submittedCredentials);
       setFormState(initialState);
       onSuccess?.(auth);
     } catch (submitError) {
@@ -73,7 +81,7 @@ export default function LoginForm({ onSuccess }) {
 
   return (
     <>
-      <form onSubmit={handleSubmit} autoComplete="off" className="rounded-[28px] border border-[#c9a96e]/45 bg-[#fff8ed] p-6 shadow-[0_18px_50px_rgba(128,0,0,0.1)] sm:p-7 dark:border-[#bf00ff]/35 dark:bg-[#800000]/30">
+      <form onSubmit={handleSubmit} autoComplete="on" className="rounded-[28px] border border-[#c9a96e]/45 bg-[#fff8ed] p-6 shadow-[0_18px_50px_rgba(128,0,0,0.1)] sm:p-7 dark:border-[#bf00ff]/35 dark:bg-[#800000]/30">
         <div className="space-y-1">
           <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#800020] dark:text-[#bf00ff]">Secure Sign In</p>
           <p className="text-base leading-7 text-[#191970] dark:text-[#39ff14]">Use your account email and password to access your assigned dashboard.</p>
@@ -85,7 +93,8 @@ export default function LoginForm({ onSuccess }) {
             <input
               name="id"
               type="email"
-              autoComplete="off"
+              autoComplete="username"
+              inputMode="email"
               autoCapitalize="none"
               autoCorrect="off"
               spellCheck={false}
@@ -112,7 +121,7 @@ export default function LoginForm({ onSuccess }) {
               <input
                 name="password"
                 type={showPassword ? 'text' : 'password'}
-                autoComplete="off"
+                autoComplete="current-password"
                 autoCapitalize="none"
                 autoCorrect="off"
                 spellCheck={false}
