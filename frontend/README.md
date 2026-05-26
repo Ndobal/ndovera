@@ -23,6 +23,8 @@ cd frontend
 npm run build
 ```
 
+The build now also writes `build/404.html` from the generated app shell so Cloudflare Pages can still boot the React app on direct dashboard routes such as `/login` and `/roles/teacher`.
+
 If you are running the API locally, the frontend uses the proxy configured in `package.json` for `/api` requests.
 
 ## Main Feature Areas
