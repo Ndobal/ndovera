@@ -12,6 +12,8 @@ import TeacherMessaging from './teacher/TeacherMessaging';
 import TeacherLessonPlansPage from '../../features/lesson-plans/TeacherLessonPlansPage';
 import TeacherReports from './teacher/TeacherReports';
 import TeacherAttendancePage from './teacher/TeacherAttendancePage';
+import StaffSettingsPage from './shared/StaffSettingsPage';
+import SchoolNewsroomPage from '../../features/school/components/SchoolNewsroomPage';
 import useFeatureFlags from '../../shared/hooks/useFeatureFlags';
 
 export default function TeacherDashboard({ auth }) {
@@ -56,6 +58,10 @@ export default function TeacherDashboard({ auth }) {
     return <TeacherOverview />;
   }
 
+  if (sectionKey === 'newsroom') {
+    return <SchoolNewsroomPage viewerRole="teacher" dashboardLabel="Teacher Dashboard" />;
+  }
+
   const section = teacherConfig.sections[sectionKey];
 
   if (!section) {
@@ -96,6 +102,17 @@ export default function TeacherDashboard({ auth }) {
 
   if (sectionKey === 'messaging') {
     return <TeacherMessaging auth={auth} />;
+  }
+
+  if (sectionKey === 'settings') {
+    return (
+      <StaffSettingsPage
+        title="Profile & Settings"
+        subtitle="Keep your staff profile record current for payroll, attendance, and communication."
+        dashboardLabel="Teacher Dashboard"
+        watermarkText="Teacher Settings"
+      />
+    );
   }
 
   if (sectionKey === 'reports') {

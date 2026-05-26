@@ -10,6 +10,8 @@ import SchoolAnnouncementsPanel from '../../shared/components/SchoolAnnouncement
 import LessonPlanReviewPage from '../../features/lesson-plans/LessonPlanReviewPage';
 import StaffAttendanceManagementPanel from '../../features/attendance/components/StaffAttendanceManagementPanel';
 import AdmissionsManagementBoard from '../../features/school/components/AdmissionsManagementBoard';
+import StaffSettingsPage from './shared/StaffSettingsPage';
+import SchoolNewsroomPage from '../../features/school/components/SchoolNewsroomPage';
 
 export default function OperationalRoleDashboard({ roleKey }) {
   const location = useLocation();
@@ -24,6 +26,11 @@ export default function OperationalRoleDashboard({ roleKey }) {
 
   const pathParts = location.pathname.split('/').filter(Boolean);
   const sectionKey = pathParts[2] || 'overview';
+
+  if (sectionKey === 'newsroom') {
+    return <SchoolNewsroomPage viewerRole={roleKey} dashboardLabel={roleTitle} />;
+  }
+
   const section = roleConfig.sections[sectionKey];
 
   if (!section) {
@@ -53,6 +60,8 @@ export default function OperationalRoleDashboard({ roleKey }) {
           watermark={roleConfig.watermark}
           metricCards={section.cards || []}
           infoCards={section.panels || []}
+          showMobileRoleNav
+          mobileNavRoleKey={roleKey}
         />
       </div>
     );
@@ -74,6 +83,17 @@ export default function OperationalRoleDashboard({ roleKey }) {
           <StaffAttendanceManagementPanel />
         </div>
       </div>
+    );
+  }
+
+  if (sectionKey === 'settings') {
+    return (
+      <StaffSettingsPage
+        title="Profile & Settings"
+        subtitle="Keep your staff profile and contact information up to date for daily school operations."
+        dashboardLabel={roleTitle}
+        watermarkText={`${roleTitle} Settings`}
+      />
     );
   }
 
@@ -112,6 +132,8 @@ export default function OperationalRoleDashboard({ roleKey }) {
       watermark={roleConfig.watermark}
       metricCards={[]}
       infoCards={section.panels || []}
+      showMobileRoleNav={sectionKey === 'overview'}
+      mobileNavRoleKey={roleKey}
     />
   );
 }

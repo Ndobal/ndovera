@@ -5,6 +5,7 @@ import StudentPractice from './student/StudentPractice';
 import { StudentFarmingMode } from '../../features/auras';
 import RoleSectionPage from '../../shared/components/RoleSectionPage';
 import useFeatureFlags from '../../shared/hooks/useFeatureFlags';
+import SchoolNewsroomPage from '../../features/school/components/SchoolNewsroomPage';
 
 export default function StudentDashboard() {
   const location = useLocation();
@@ -30,6 +31,10 @@ export default function StudentDashboard() {
 
   if (sectionKey === 'practice') {
     return <StudentPractice />;
+  }
+
+  if (sectionKey === 'newsroom') {
+    return <SchoolNewsroomPage viewerRole="student" dashboardLabel="Student Dashboard" />;
   }
 
   if (sectionKey !== 'overview') {

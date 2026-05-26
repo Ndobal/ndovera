@@ -2,6 +2,12 @@ import React, { useEffect, useState } from 'react';
 import StudentSectionShell from './StudentSectionShell';
 import { getStudentDashboard } from '../../../services/roleDashboardService';
 import { getStoredAuth } from '../../../features/auth/services/authApi';
+import MobileRoleOverviewNav from '../../../shared/components/MobileRoleOverviewNav';
+
+function findMetricValue(metrics, pattern) {
+  const match = (metrics || []).find(metric => pattern.test(String(metric?.label || '')));
+  return match?.value || 0;
+}
 
 export default function StudentOverview() {
   const storedAuth = getStoredAuth();
@@ -68,6 +74,10 @@ export default function StudentOverview() {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const hasClass = !!(data.classId || data.className);
+  const bottomNavCounts = {
+    assignments: findMetricValue(data.metrics, /assign/i),
+    materials: findMetricValue(data.metrics, /material|resource/i),
+  };
 
   return (
     <StudentSectionShell
@@ -100,11 +110,11 @@ export default function StudentOverview() {
       <div className="relative mb-6">
         {data.metrics.length > 0 ? (
           <>
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6 gap-2.5">
               {data.metrics.map(metric => (
-                <div key={metric.label} style={{ background: '#f5deb3', borderRadius: 16, padding: 20, textAlign: 'center' }}>
-                  <p style={{ color: '#800020', fontSize: 12, fontWeight: 700, textTransform: 'uppercase', marginBottom: 4 }}>{metric.label}</p>
-                  <p style={{ color: '#191970', fontSize: 24, fontWeight: 800 }}>{metric.value}</p>
+                <div key={metric.label} style={{ background: '#fff8f0', borderRadius: 14, padding: '10px 12px', textAlign: 'left', minHeight: 48, border: '1px solid rgba(201,169,110,0.4)' }}>
+                  <p style={{ color: '#800020', fontSize: 10, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: 4 }}>{metric.label}</p>
+                  <p style={{ color: '#191970', fontSize: 16, fontWeight: 800, lineHeight: 1.1 }}>{metric.value}</p>
                 </div>
               ))}
             </div>
@@ -158,11 +168,11 @@ export default function StudentOverview() {
         {!hasClass ? (
           <p style={{ color: '#191970', fontSize: 14 }}>Your learning analytics will appear here once your class assignment is active.</p>
         ) : data.metrics.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-3">
+          <div className="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6 gap-2.5">
             {data.metrics.map(metric => (
-              <div key={metric.label} style={{ background: '#fff8f0', borderRadius: 12, padding: 16, borderLeft: '4px solid #1a5c38' }}>
-                <p style={{ color: '#800020', fontSize: 12, fontWeight: 700, textTransform: 'uppercase', marginBottom: 6 }}>{metric.label}</p>
-                <p style={{ color: '#191970', fontSize: 22, fontWeight: 800 }}>{metric.value}</p>
+              <div key={metric.label} style={{ background: '#fff8f0', borderRadius: 12, padding: '10px 12px', borderLeft: '3px solid #1a5c38', minHeight: 48 }}>
+                <p style={{ color: '#800020', fontSize: 10, fontWeight: 700, textTransform: 'uppercase', marginBottom: 4, letterSpacing: '0.12em' }}>{metric.label}</p>
+                <p style={{ color: '#191970', fontSize: 16, fontWeight: 800, lineHeight: 1.1 }}>{metric.value}</p>
               </div>
             ))}
           </div>
@@ -170,6 +180,8 @@ export default function StudentOverview() {
           <p style={{ color: '#191970', fontSize: 14 }}>Attendance, assignment, materials, and class analytics will appear here once your school starts recording them.</p>
         )}
       </section>
+
+      <MobileRoleOverviewNav roleKey="student" counts={bottomNavCounts} />
     </StudentSectionShell>
   );
 }

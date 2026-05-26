@@ -53,6 +53,24 @@ function formatNaira(value) {
   return `₦${Number(value || 0).toLocaleString()}`;
 }
 
+function isInternalUserId(value) {
+  return /^user_\d{10,}_[a-z0-9]+$/i.test(String(value || '').trim());
+}
+
+function getReadableStudentId(displayId, fallbackId = '') {
+  const normalizedDisplayId = String(displayId || '').trim();
+  if (normalizedDisplayId) {
+    return normalizedDisplayId;
+  }
+
+  const normalizedFallback = String(fallbackId || '').trim();
+  if (!normalizedFallback || isInternalUserId(normalizedFallback)) {
+    return 'Not assigned';
+  }
+
+  return normalizedFallback;
+}
+
 function formatReceiptDateTime(value) {
   if (!value) return 'Recent';
   const parsed = new Date(value);
@@ -85,6 +103,7 @@ function sanitizeReceiptFilePart(value) {
 async function buildReceiptExportDocument(receipt, fallbackBranding = {}) {
   const schoolName = receipt.schoolName || fallbackBranding.schoolName || 'NDOVERA School';
   const schoolLogoUrl = receipt.schoolLogoUrl || fallbackBranding.logoUrl || '';
+  const studentIdLabel = getReadableStudentId(receipt.studentDisplayId, receipt.studentId);
   const qrDataUrl = receipt.verificationUrl
     ? await QRCode.toDataURL(receipt.verificationUrl, {
         margin: 1,
@@ -148,7 +167,7 @@ async function buildReceiptExportDocument(receipt, fallbackBranding = {}) {
         <div class="row"><span class="label">Receipt number</span><span class="value">${escapeReceiptHtml(receipt.receiptNo || '')}</span></div>
         <div class="row"><span class="label">Date issued</span><span class="value">${escapeReceiptHtml(formatReceiptDateTime(receipt.recordedAt || receipt.date))}</span></div>
         <div class="row"><span class="label">Student</span><span class="value">${escapeReceiptHtml(receipt.studentName || receipt.name || '')}</span></div>
-        <div class="row"><span class="label">Student ID</span><span class="value">${escapeReceiptHtml(receipt.studentDisplayId || receipt.studentId || 'Not assigned')}</span></div>
+        <div class="row"><span class="label">Student ID</span><span class="value">${escapeReceiptHtml(studentIdLabel)}</span></div>
         <div class="row"><span class="label">Class</span><span class="value">${escapeReceiptHtml(receipt.className || 'Not assigned')}</span></div>
         <div class="row"><span class="label">Session</span><span class="value">${escapeReceiptHtml(receipt.sessionName || 'Current session')}</span></div>
         <div class="row"><span class="label">Term</span><span class="value">${escapeReceiptHtml(receipt.termName || 'Current term')}</span></div>
@@ -442,14 +461,16 @@ function FeesManagementBoard({ initialFinanceTab = 'fees' }) {
   const [toast, setToast] = useState('');
   const [dirty, setDirty] = useState(false);
   const [lastTemplateSavedAt, setLastTemplateSavedAt] = useState('');
-  const [financeTab, setFinanceTab] = useState('fees');
+  const [studentSearch, setStudentSearch] = useState('');
   const [feesExpanded, setFeesExpanded] = useState(true);
+  const [feesOverviewOpen, setFeesOverviewOpen] = useState(false);
   const [paymentDetailsForm, setPaymentDetailsForm] = useState(createEmptyPaymentDetails());
   const [claims, setClaims] = useState([]);
   const [paymentDetailsSaving, setPaymentDetailsSaving] = useState(false);
   const [claimSavingId, setClaimSavingId] = useState('');
   const toastTimeoutRef = useRef(null);
   const autoSaveTimeoutRef = useRef(null);
+  const financeView = ['fees', 'channels', 'claims'].includes(initialFinanceTab) ? initialFinanceTab : 'fees';
 
   const showToast = useCallback((message) => {
     setToast(message);
@@ -516,12 +537,6 @@ function FeesManagementBoard({ initialFinanceTab = 'fees' }) {
     loadBoard();
   }, [loadBoard]);
 
-  useEffect(() => {
-    if (['fees', 'channels', 'claims'].includes(initialFinanceTab)) {
-      setFinanceTab(initialFinanceTab);
-    }
-  }, [initialFinanceTab]);
-
   const calculateTotal = useCallback(
     (student) =>
       feeColumns.reduce(
@@ -579,12 +594,29 @@ function FeesManagementBoard({ initialFinanceTab = 'fees' }) {
   }, [receipts]);
 
   const filteredStudents = useMemo(() => {
-    if (statusFilter === 'all') {
-      return students;
-    }
+    const normalizedSearch = String(studentSearch || '').trim().toLowerCase();
 
-    return students.filter((student) => String(getStatus(student)).toLowerCase() === statusFilter);
-  }, [getStatus, statusFilter, students]);
+    return students.filter((student) => {
+      if (statusFilter !== 'all' && String(getStatus(student)).toLowerCase() !== statusFilter) {
+        return false;
+      }
+
+      if (!normalizedSearch) {
+        return true;
+      }
+
+      const haystack = [
+        student?.name,
+        student?.displayId,
+        student?.publicStudentId,
+        student?.id,
+        student?.className,
+        student?.section,
+      ].map(value => String(value || '').trim().toLowerCase()).join(' ');
+
+      return haystack.includes(normalizedSearch);
+    });
+  }, [getStatus, statusFilter, studentSearch, students]);
 
   const getReceiptState = useCallback((student) => {
     const latestReceipt = latestReceiptByStudent.get(student.id) || null;
@@ -665,9 +697,9 @@ function FeesManagementBoard({ initialFinanceTab = 'fees' }) {
     return Array.from(grouped.values());
   }, [configArchive, sessionHistory, sessionLabel]);
 
-  function updateFee(index, feeName, value) {
+  function updateFee(studentId, feeName, value) {
     const nextValue = Number(value || 0);
-    const target = students[index];
+    const target = students.find((student) => student.id === studentId);
     if (!target) {
       return;
     }
@@ -693,13 +725,13 @@ function FeesManagementBoard({ initialFinanceTab = 'fees' }) {
     setDirty(true);
   }
 
-  function updateField(index, field, value) {
+  function updateField(studentId, field, value) {
     const numericFields = new Set(['outstanding', 'discount', 'amountPaid']);
     const nextValue = numericFields.has(field) ? Number(value || 0) : value;
 
     setStudents((currentStudents) =>
       currentStudents.map((student, studentIndex) =>
-        studentIndex === index
+        student.id === studentId
           ? {
               ...student,
               [field]: nextValue,
@@ -1184,7 +1216,6 @@ function FeesManagementBoard({ initialFinanceTab = 'fees' }) {
   }, [balance, calculateTotal, expectedAmount, feeColumns, filteredStudents]);
 
   const stickyStats = [
-    { label: 'Total Expected', value: formatNaira(columnTotals.expected) },
     { label: 'Total Paid', value: formatNaira(columnTotals.paid) },
     { label: 'Outstanding Balance', value: formatNaira(columnTotals.balance) },
     { label: 'Students', value: String(filteredStudents.length) },
@@ -1264,25 +1295,30 @@ function FeesManagementBoard({ initialFinanceTab = 'fees' }) {
       ) : null}
 
       <div className="sticky top-[96px] z-40 rounded-3xl border border-[#c9a96e]/40 bg-[#f5deb3]/95 p-3 shadow-sm backdrop-blur dark:border-[#00ffff]/20 dark:bg-[#800000]/75">
-        <div className="flex flex-wrap gap-3 overflow-x-auto pb-1">
+        <div className="flex flex-col gap-3">
+          <div className="flex gap-3 overflow-x-auto pb-1">
           {stickyStats.map((item) => (
-            <article key={item.label} className="min-h-[86px] min-w-[170px] rounded-2xl border border-[#c9a96e]/35 bg-[#f0d090]/80 px-3 py-3 dark:border-[#00ffff]/20 dark:bg-[#1f0022]/80">
+            <article key={item.label} className="min-h-[72px] min-w-[160px] shrink-0 rounded-2xl border border-[#c9a96e]/35 bg-[#f0d090]/80 px-4 py-3 dark:border-[#00ffff]/20 dark:bg-[#1f0022]/80">
               <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-[#800020] dark:text-[#bf00ff]">{item.label}</p>
-              <h3 className="mt-2 text-lg font-black text-[#800000] dark:text-white">{item.value}</h3>
+              <h3 className="mt-2 text-base font-black text-[#800000] dark:text-white">{item.value}</h3>
             </article>
           ))}
+          </div>
+
+          {financeView === 'fees' ? (
+            <div className="flex flex-wrap gap-2">
+              <button onClick={() => setFeesOverviewOpen((current) => !current)} className={feesOverviewOpen ? BTN : OUTLINE_BTN}>
+                {feesOverviewOpen ? 'Hide Fee Overview' : 'Open Fee Overview'}
+              </button>
+              <button onClick={() => setFeesExpanded((current) => !current)} className={OUTLINE_BTN}>
+                {feesExpanded ? 'Collapse Fee Table' : 'Open Fee Table'}
+              </button>
+            </div>
+          ) : null}
         </div>
       </div>
 
-      <div className="sticky top-[204px] z-30 rounded-3xl border border-[#c9a96e]/40 bg-[#f5deb3]/95 p-3 shadow-sm backdrop-blur dark:border-[#00ffff]/20 dark:bg-[#800000]/75">
-        <div className="flex flex-wrap gap-2">
-          <button onClick={() => setFinanceTab('fees')} className={financeTab === 'fees' ? BTN : OUTLINE_BTN}>Fees</button>
-          <button onClick={() => setFinanceTab('channels')} className={financeTab === 'channels' ? BTN : OUTLINE_BTN}>Parent Payment Channels</button>
-          <button onClick={() => setFinanceTab('claims')} className={financeTab === 'claims' ? BTN : OUTLINE_BTN}>Payment Claim Queue ({pendingClaims.length})</button>
-        </div>
-      </div>
-
-      {financeTab === 'channels' ? (
+      {financeView === 'channels' ? (
         <div className={CARD}>
           <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
             <div>
@@ -1316,27 +1352,37 @@ function FeesManagementBoard({ initialFinanceTab = 'fees' }) {
         </div>
       ) : null}
 
-      {financeTab === 'claims' ? claimQueuePanel : null}
+      {financeView === 'claims' ? claimQueuePanel : null}
 
-      {financeTab === 'fees' ? (
+      {financeView === 'fees' ? (
         <>
           <div className={CARD}>
-            <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+            <div className="flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
               <div>
-                <h3 className="text-2xl font-bold text-[#800000] dark:text-[#0000ff]">School Fees Management</h3>
+                <h3 className="text-2xl font-bold text-[#800000] dark:text-[#0000ff]">Fees Ledger</h3>
                 <p className="mt-2 text-sm text-[#191970] dark:text-[#39ff14]">
-                  The finance board follows the current school session and term from settings. Record payments first, then issue or reissue receipts deliberately.
+                  Manage the active fee headings, record current payments, and issue receipts for the selected school period.
                 </p>
-                <p className="mt-2 text-xs font-semibold uppercase tracking-[0.14em] text-[#800020] dark:text-[#bf00ff]">
-                  Showing {filteredStudents.length} of {students.length} students
-                </p>
-                <p className="mt-2 text-xs font-semibold text-[#800020] dark:text-[#bf00ff]">
-                  {dirty ? 'Unsaved fee changes pending autosave.' : lastTemplateSavedAt ? `Last saved ${formatAutoSaveTime(lastTemplateSavedAt)}` : 'No saved fee snapshot yet.'}
-                </p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  <span className={BADGE}>Showing {filteredStudents.length} of {students.length} students</span>
+                  <span className={BADGE}>Session {sessionLabel || 'Not set'}</span>
+                  <span className={BADGE}>Term {currentTerm || 'Not set'}</span>
+                  <span className={BADGE}>{dirty ? 'Unsaved fee changes' : lastTemplateSavedAt ? `Saved ${formatAutoSaveTime(lastTemplateSavedAt)}` : 'No saved fee snapshot yet'}</span>
+                </div>
               </div>
+            </div>
 
-              <div className="flex flex-wrap items-end gap-3">
-                <label className="min-w-[220px] text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">
+            <div className="mt-5 grid gap-3 md:grid-cols-2">
+              <label className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">
+                Search Students
+                <input
+                  value={studentSearch}
+                  onChange={(event) => setStudentSearch(event.target.value)}
+                  placeholder="Search by student name or ID"
+                  className={`${INPUT} mt-2`}
+                />
+              </label>
+              <label className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">
                   Payment Status Filter
                   <select
                     value={statusFilter}
@@ -1347,31 +1393,31 @@ function FeesManagementBoard({ initialFinanceTab = 'fees' }) {
                       <option key={filterOption.value} value={filterOption.value}>{filterOption.label}</option>
                     ))}
                   </select>
-                </label>
-                <button onClick={applyFeesToAll} className={BTN}>Apply Fee To All</button>
-                <button onClick={addNewColumn} className={OUTLINE_BTN}>Add Fee Heading</button>
-                <button onClick={saveTemplate} disabled={savingTemplate} className={BTN}>
-                  {savingTemplate ? 'Saving...' : dirty ? 'Save Template *' : 'Save Template'}
-                </button>
-                <button onClick={handleBulkIssueReceipts} disabled={bulkIssuing || !actionableReceiptStudents.length} className={BTN}>
-                  {bulkIssuing ? 'Issuing Receipts...' : `Bulk Issue Receipts (${actionableReceiptStudents.length})`}
-                </button>
-                <button onClick={handleBulkDownloadReceipts} disabled={bulkDownloading || !downloadableReceipts.length} className={OUTLINE_BTN}>
-                  {bulkDownloading ? 'Preparing Download...' : `Bulk Download Receipts (${downloadableReceipts.length})`}
-                </button>
-                <button onClick={() => setFeesExpanded((current) => !current)} className={OUTLINE_BTN}>
-                  {feesExpanded ? 'Collapse' : 'Expand'}
-                </button>
-              </div>
+              </label>
+            </div>
+
+            <div className="mt-4 flex flex-wrap gap-2">
+              <button onClick={applyFeesToAll} className={BTN}>Apply Fee To All</button>
+              <button onClick={addNewColumn} className={OUTLINE_BTN}>Add Fee Heading</button>
+              <button onClick={saveTemplate} disabled={savingTemplate} className={BTN}>
+                {savingTemplate ? 'Saving...' : dirty ? 'Save Template *' : 'Save Template'}
+              </button>
+              <button onClick={handleBulkIssueReceipts} disabled={bulkIssuing || !actionableReceiptStudents.length} className={BTN}>
+                {bulkIssuing ? 'Issuing Receipts...' : `Bulk Issue Receipts (${actionableReceiptStudents.length})`}
+              </button>
+              <button onClick={handleBulkDownloadReceipts} disabled={bulkDownloading || !downloadableReceipts.length} className={OUTLINE_BTN}>
+                {bulkDownloading ? 'Preparing Download...' : `Bulk Download Receipts (${downloadableReceipts.length})`}
+              </button>
             </div>
           </div>
 
+          {feesOverviewOpen ? (
           <div className={CARD}>
             <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
               <div>
-                <h3 className="text-2xl font-bold text-[#800000] dark:text-[#0000ff]">Session Timeline</h3>
+                <h3 className="text-2xl font-bold text-[#800000] dark:text-[#0000ff]">Fee Overview</h3>
                 <p className="mt-2 text-sm text-[#191970] dark:text-[#39ff14]">
-                  Fees always bind to the current school session and term. Past sessions stay visible as collapsible history.
+                  The finance board follows the current school session and term from settings. Open this panel when you need the period summary, then close it to focus on the table.
                 </p>
               </div>
               <div className="flex flex-wrap gap-2">
@@ -1385,6 +1431,8 @@ function FeesManagementBoard({ initialFinanceTab = 'fees' }) {
                 <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#800020] dark:text-[#bf00ff]">Active Period</p>
                 <h4 className="mt-3 text-2xl font-black text-[#800000] dark:text-white">{sessionLabel || 'No current session'}</h4>
                 <p className="mt-2 text-sm font-semibold text-[#191970] dark:text-[#39ff14]">{currentTerm || 'No current term set'}</p>
+                <p className="mt-3 text-sm font-semibold text-[#191970] dark:text-[#39ff14]">Showing {filteredStudents.length} of {students.length} students in the current filtered view.</p>
+                <p className="mt-2 text-sm text-[#191970] dark:text-[#39ff14]">{dirty ? 'Unsaved fee changes are waiting for a template save.' : lastTemplateSavedAt ? `Template last saved ${formatAutoSaveTime(lastTemplateSavedAt)}.` : 'No saved fee snapshot yet.'}</p>
                 <p className="mt-3 text-sm text-[#191970] dark:text-[#39ff14]">
                   Update the active period from school settings when the school moves to a new session or term.
                 </p>
@@ -1413,11 +1461,133 @@ function FeesManagementBoard({ initialFinanceTab = 'fees' }) {
               </div>
             </div>
           </div>
+          ) : null}
 
           {feesExpanded ? (
             <>
               <div className={CARD}>
-                <div className="overflow-x-auto">
+                {!filteredStudents.length ? (
+                  <div className={`${INNER} text-sm font-semibold text-[#800020] dark:text-[#bf00ff]`}>
+                    No students match the current search or payment filter.
+                  </div>
+                ) : null}
+
+                {filteredStudents.length ? (
+                <div className="space-y-4 lg:hidden">
+                  {filteredStudents.map((student) => {
+                    const receiptState = getReceiptState(student);
+                    return (
+                      <article key={student.id} className={`${INNER} space-y-4`}>
+                        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                          <div>
+                            <div className="flex flex-wrap items-center gap-2">
+                              <h4 className="text-lg font-bold text-[#800000] dark:text-white">{student.name}</h4>
+                              <span className={BADGE}>{getReadableStudentId(student.displayId, student.id)}</span>
+                            </div>
+                            <p className="mt-1 text-sm text-[#191970] dark:text-[#39ff14]">{student.className || 'Unassigned'} • {student.section}</p>
+                            <p className="mt-2 text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">Current balance {formatNaira(balance(student))}</p>
+                          </div>
+                          <span className={BADGE}>{getStatus(student)}</span>
+                        </div>
+
+                        <div className="grid gap-3 sm:grid-cols-2">
+                          <label className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">Outstanding
+                            <input
+                              type="number"
+                              value={student.outstanding}
+                              onChange={(event) => updateField(student.id, 'outstanding', event.target.value)}
+                              className={`${INPUT} mt-2`}
+                            />
+                          </label>
+                          <label className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">Discount %
+                            <input
+                              type="number"
+                              value={student.discount}
+                              onChange={(event) => updateField(student.id, 'discount', event.target.value)}
+                              className={`${INPUT} mt-2`}
+                            />
+                          </label>
+                          <label className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">Amount Paid
+                            <input
+                              type="number"
+                              value={student.amountPaid}
+                              onChange={(event) => updateField(student.id, 'amountPaid', event.target.value)}
+                              onBlur={() => persistAmountPaid(student.id)}
+                              disabled={paymentSavingId === student.id}
+                              className={`${INPUT} mt-2`}
+                            />
+                            <p className="mt-1 text-xs text-[#800020] dark:text-[#bf00ff]">{paymentSavingId === student.id ? 'Saving payment...' : 'Blur to record payment'}</p>
+                          </label>
+                          <label className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">Remark
+                            <input
+                              value={student.remark}
+                              onChange={(event) => updateField(student.id, 'remark', event.target.value)}
+                              placeholder={getStatus(student)}
+                              className={`${INPUT} mt-2`}
+                            />
+                          </label>
+                        </div>
+
+                        <div className="grid gap-3 sm:grid-cols-2">
+                          {feeColumns.map((feeName) => (
+                            <label key={`${student.id}-${feeName}`} className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">{feeName}
+                              <input
+                                type="number"
+                                value={student.fees?.[feeName] || 0}
+                                onChange={(event) => updateFee(student.id, feeName, event.target.value)}
+                                className={`${INPUT} mt-2`}
+                              />
+                            </label>
+                          ))}
+                        </div>
+
+                        <div className="grid gap-3 sm:grid-cols-3">
+                          <div className="rounded-2xl border border-[#c9a96e]/30 bg-white/45 p-3 dark:border-[#00ffff]/15 dark:bg-[#120014]/65">
+                            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#800020] dark:text-[#bf00ff]">Total</p>
+                            <p className="mt-2 text-lg font-bold text-[#800000] dark:text-white">{formatNaira(calculateTotal(student))}</p>
+                          </div>
+                          <div className="rounded-2xl border border-[#c9a96e]/30 bg-white/45 p-3 dark:border-[#00ffff]/15 dark:bg-[#120014]/65">
+                            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#800020] dark:text-[#bf00ff]">Expected</p>
+                            <p className="mt-2 text-lg font-bold text-[#1a5c38] dark:text-[#00ffff]">{formatNaira(expectedAmount(student))}</p>
+                          </div>
+                          <div className="rounded-2xl border border-[#c9a96e]/30 bg-white/45 p-3 dark:border-[#00ffff]/15 dark:bg-[#120014]/65">
+                            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#800020] dark:text-[#bf00ff]">Balance</p>
+                            <p className={`mt-2 text-lg font-bold ${balance(student) <= 0 ? 'text-[#1a5c38] dark:text-[#00ffff]' : 'text-[#800000] dark:text-[#ff6bff]'}`}>{formatNaira(balance(student))}</p>
+                          </div>
+                        </div>
+
+                        <div className="space-y-2">
+                          <button
+                            onClick={() => handleIssueReceipt(student)}
+                            disabled={receiptState.disabled || receiptIssuingId === student.id || bulkIssuing}
+                            className={`w-full ${receiptState.key === 'issued' ? OUTLINE_BTN : BTN}`}
+                          >
+                            {receiptIssuingId === student.id
+                              ? receiptState.key === 'reissue' ? 'Reissuing...' : 'Issuing...'
+                              : receiptState.label}
+                          </button>
+                          <p className="text-xs font-semibold text-[#800020] dark:text-[#bf00ff]">
+                            {receiptState.latestReceipt ? `Latest: ${receiptState.latestReceipt.receiptNo}` : 'No official receipt yet.'}
+                          </p>
+                        </div>
+                      </article>
+                    );
+                  })}
+
+                  <section className={`${INNER} grid gap-3 sm:grid-cols-2`}>
+                    <div>
+                      <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#800020] dark:text-[#bf00ff]">Visible Total Paid</p>
+                      <p className="mt-2 text-xl font-bold text-[#1a5c38] dark:text-[#00ffff]">{formatNaira(columnTotals.paid)}</p>
+                    </div>
+                    <div>
+                      <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#800020] dark:text-[#bf00ff]">Visible Balance</p>
+                      <p className="mt-2 text-xl font-bold text-[#800000] dark:text-[#ff6bff]">{formatNaira(columnTotals.balance)}</p>
+                    </div>
+                  </section>
+                </div>
+                ) : null}
+
+                <div className="hidden lg:block overflow-x-auto">
                   <table className="min-w-[2300px] w-full text-sm">
                     <thead>
                       <tr>
@@ -1457,7 +1627,7 @@ function FeesManagementBoard({ initialFinanceTab = 'fees' }) {
                         return (
                           <tr key={student.id} className="bg-white/35 hover:bg-white/60 dark:bg-[#120014]/55 dark:hover:bg-[#1a0020]">
                             <td className={TD}>{index + 1}</td>
-                            <td className={TD}>{student.displayId || student.id}</td>
+                            <td className={TD}>{getReadableStudentId(student.displayId, student.id)}</td>
                             <td className={TD}>
                               <div className="min-w-[220px]">
                                 <p className="font-semibold text-[#191970] dark:text-white">{student.name}</p>
@@ -1474,7 +1644,7 @@ function FeesManagementBoard({ initialFinanceTab = 'fees' }) {
                               <input
                                 type="number"
                                 value={student.outstanding}
-                                onChange={(event) => updateField(index, 'outstanding', event.target.value)}
+                                onChange={(event) => updateField(student.id, 'outstanding', event.target.value)}
                                 className={INPUT}
                               />
                             </td>
@@ -1483,7 +1653,7 @@ function FeesManagementBoard({ initialFinanceTab = 'fees' }) {
                                 <input
                                   type="number"
                                   value={student.fees?.[feeName] || 0}
-                                  onChange={(event) => updateFee(index, feeName, event.target.value)}
+                                  onChange={(event) => updateFee(student.id, feeName, event.target.value)}
                                   className={INPUT}
                                 />
                               </td>
@@ -1493,7 +1663,7 @@ function FeesManagementBoard({ initialFinanceTab = 'fees' }) {
                               <input
                                 type="number"
                                 value={student.discount}
-                                onChange={(event) => updateField(index, 'discount', event.target.value)}
+                                onChange={(event) => updateField(student.id, 'discount', event.target.value)}
                                 className={INPUT}
                               />
                             </td>
@@ -1502,7 +1672,7 @@ function FeesManagementBoard({ initialFinanceTab = 'fees' }) {
                               <input
                                 type="number"
                                 value={student.amountPaid}
-                                onChange={(event) => updateField(index, 'amountPaid', event.target.value)}
+                                onChange={(event) => updateField(student.id, 'amountPaid', event.target.value)}
                                 onBlur={() => persistAmountPaid(student.id)}
                                 disabled={paymentSavingId === student.id}
                                 className={INPUT}
@@ -1517,7 +1687,7 @@ function FeesManagementBoard({ initialFinanceTab = 'fees' }) {
                             <td className={TD}>
                               <input
                                 value={student.remark}
-                                onChange={(event) => updateField(index, 'remark', event.target.value)}
+                                onChange={(event) => updateField(student.id, 'remark', event.target.value)}
                                 placeholder={getStatus(student)}
                                 className={INPUT}
                               />

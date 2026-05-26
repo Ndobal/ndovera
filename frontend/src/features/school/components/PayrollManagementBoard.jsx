@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { getStoredAuth } from '../../auth/services/authApi';
 import {
   approvePayroll,
   getBranding,
@@ -10,8 +11,9 @@ import {
   submitPayroll,
   updatePayrollStaff,
 } from '../services/schoolApi';
+import PayrollBankNotePanel from './PayrollBankNotePanel';
 
-const TABS = ['Payroll Sheet', 'Payslips', 'History', 'Settings'];
+const TABS = ['Payroll Sheet', 'Payslips', 'Bank Note', 'History', 'Settings'];
 const CARD = 'rounded-3xl border border-[#c9a96e]/40 bg-[#f5deb3] p-6 text-[#191970] shadow-sm dark:border-[#00ffff]/20 dark:bg-[#800000]/25 dark:text-[#39ff14] dark:backdrop-blur-xl';
 const INNER = 'rounded-2xl border border-[#c9a96e]/30 bg-[#f0d090] p-4 dark:border-[#00ffff]/20 dark:bg-[#330014]/70';
 const BTN = 'rounded-2xl bg-[#1a5c38] px-5 py-2.5 text-sm font-bold text-[#f5deb3] transition-colors hover:bg-[#154a2e] disabled:cursor-not-allowed disabled:opacity-70 dark:bg-[#00ffff] dark:text-black dark:hover:bg-[#7df9ff]';
@@ -206,6 +208,9 @@ function buildPayrollRows(payrollEntries = []) {
         lateChargeCount: Number(entry?.lateChargeCount || 0),
         status: entry?.status || 'Ready',
         paymentStatus: String(entry?.paymentStatus || 'pending').toLowerCase(),
+        bankName: String(entry?.bankName || ''),
+        accountName: String(entry?.accountName || ''),
+        accountNumber: String(entry?.accountNumber || ''),
       };
     });
 }
@@ -322,8 +327,10 @@ function PayrollManagementBoard({ canApprove = false }) {
   const [savingSettings, setSavingSettings] = useState(false);
   const [actionBusy, setActionBusy] = useState('');
   const [selectedPayslip, setSelectedPayslip] = useState(null);
+  const [bankNoteText, setBankNoteText] = useState('');
   const [toast, setToast] = useState('');
   const toastTimeoutRef = useRef(null);
+  const currentUser = useMemo(() => getStoredAuth()?.user || null, []);
 
   const showToast = useCallback((message) => {
     setToast(message);
@@ -336,6 +343,19 @@ function PayrollManagementBoard({ canApprove = false }) {
       window.clearTimeout(toastTimeoutRef.current);
     };
   }, []);
+
+  useEffect(() => {
+    const storageKey = `payroll-bank-note:${period}`;
+    const defaultNote = `Please process salary payments for ${formatPeriod(period)} and credit the listed staff accounts with their respective net pay amounts.`;
+    setBankNoteText(window.localStorage.getItem(storageKey) || defaultNote);
+  }, [period]);
+
+  useEffect(() => {
+    if (!period) {
+      return;
+    }
+    window.localStorage.setItem(`payroll-bank-note:${period}`, bankNoteText);
+  }, [bankNoteText, period]);
 
   useEffect(() => {
     let ignore = false;
@@ -464,6 +484,9 @@ function PayrollManagementBoard({ canApprove = false }) {
         status: targetRow.status,
         paymentStatus: targetRow.paymentStatus,
         employmentCategory: targetRow.employmentCategory,
+        bankName: targetRow.bankName,
+        accountName: targetRow.accountName,
+        accountNumber: targetRow.accountNumber,
       });
       showToast(`Saved ${targetRow.name}.`);
     } catch (error) {
@@ -780,6 +803,24 @@ function PayrollManagementBoard({ canApprove = false }) {
       ) : null}
 
       {tab === 2 ? (
+        <PayrollBankNotePanel
+          rows={rows.map(row => ({ ...row, net: rowNet(row) }))}
+          loading={loading}
+          monthLabel={monthLabel}
+          branding={branding}
+          contactInfo={contactInfo}
+          noteText={bankNoteText}
+          onNoteChange={setBankNoteText}
+          onRowFieldChange={updateRowField}
+          onPersistRow={persistRow}
+          savingRowId={savingRowId}
+          canEdit={!inputsLocked}
+          currentUser={currentUser}
+          showToast={showToast}
+        />
+      ) : null}
+
+      {tab === 3 ? (
         <div className={CARD}>
           <h3 className="text-xl font-bold text-[#800000] dark:text-[#0000ff]">Payroll History</h3>
           {history.length === 0 ? (
@@ -800,7 +841,7 @@ function PayrollManagementBoard({ canApprove = false }) {
         </div>
       ) : null}
 
-      {tab === 3 ? (
+      {tab === 4 ? (
         <div className={CARD}>
           <h3 className="text-xl font-bold text-[#800000] dark:text-[#0000ff]">Payroll Settings</h3>
           <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">

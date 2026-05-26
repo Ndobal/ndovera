@@ -5,19 +5,26 @@ import parentConfig from './config/parentConfig';
 import { ParentResultView } from '../../features/results-engine';
 import { ParentFarmingMode } from '../../features/auras';
 import ParentMaterialsPage from '../../features/classroom/ParentMaterialsPage';
+import ParentLearningBoard from '../../features/classroom/ParentLearningBoard';
 import LessonPlanViewerPage from '../../features/lesson-plans/LessonPlanViewerPage';
 import ParentFeesReceiptsPage from '../../features/school/components/ParentFeesReceiptsPage';
 import ParentSettings from './parent/ParentSettings';
 import useFeatureFlags from '../../shared/hooks/useFeatureFlags';
 import StudentProfessorAura from './student/StudentProfessorAura';
 import StudentTuckShop from './student/StudentTuckShop';
+import SchoolNewsroomPage from '../../features/school/components/SchoolNewsroomPage';
 
 export default function ParentDashboard() {
   const location = useLocation();
   const pathParts = location.pathname.split('/').filter(Boolean);
   const sectionKey = pathParts[2] || 'overview';
-  const section = parentConfig.sections[sectionKey];
   const { featureFlags } = useFeatureFlags();
+
+  if (sectionKey === 'newsroom') {
+    return <SchoolNewsroomPage viewerRole="parent" dashboardLabel="Parent Dashboard" />;
+  }
+
+  const section = parentConfig.sections[sectionKey];
 
   if (!section) {
     return <Navigate to="/roles/parent" replace />;
@@ -29,6 +36,14 @@ export default function ParentDashboard() {
 
   if (sectionKey === 'materials') {
     return <ParentMaterialsPage />;
+  }
+
+  if (sectionKey === 'assignments') {
+    return <ParentLearningBoard mode="assignments" />;
+  }
+
+  if (sectionKey === 'practice') {
+    return <ParentLearningBoard mode="practice" />;
   }
 
   if (sectionKey === 'lesson-plans') {

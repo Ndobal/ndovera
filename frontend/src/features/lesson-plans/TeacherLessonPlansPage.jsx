@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import StudentSectionShell from '../../app/roles/student/StudentSectionShell';
-import { getAssignedClasses, getLiveSessions, getMaterials } from '../classroom/classroomService';
+import { addMaterial, getAssignedClasses, getLiveSessions, getMaterials } from '../classroom/classroomService';
 import { getLessonPlans, saveLessonPlan } from '../school/services/schoolApi';
 
 const EMPTY_DRAFT = {
@@ -55,6 +55,7 @@ export default function TeacherLessonPlansPage() {
   const [draft, setDraft] = useState(EMPTY_DRAFT);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [publishingNote, setPublishingNote] = useState(false);
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
 
@@ -242,6 +243,57 @@ export default function TeacherLessonPlansPage() {
     }
   }
 
+  async function handlePublishLessonNote() {
+    if (!classId) {
+      setError('Choose a class before publishing a lesson note.');
+      return;
+    }
+
+    if (!draft.subjectId || !draft.title.trim()) {
+      setError('Subject and title are required before publishing a lesson note.');
+      return;
+    }
+
+    const lessonNoteBody = [draft.notes, draft.objectives, draft.activities, draft.assessment]
+      .map(value => String(value || '').trim())
+      .filter(Boolean)
+      .join('\n\n');
+
+    if (!lessonNoteBody) {
+      setError('Paste lesson note content, objectives, activities, or assessment before publishing.');
+      return;
+    }
+
+    setPublishingNote(true);
+    setError('');
+    setMessage('');
+
+    try {
+      const response = await addMaterial(classId, {
+        title: draft.title.trim(),
+        url: '',
+        subjectId: draft.subjectId,
+        description: lessonNoteBody,
+        topic: draft.topic.trim(),
+        weekLabel: draft.weekLabel.trim(),
+        visibility: draft.visibility,
+        releaseAt: draft.releaseAt,
+        type: 'document',
+      });
+
+      if (!response?.success) {
+        throw new Error(response?.message || 'Could not publish this lesson note.');
+      }
+
+      setMaterials(current => [response.material, ...current.filter(material => material.id !== response.material?.id)]);
+      setMessage('Lesson note published to classroom materials.');
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Could not publish this lesson note.');
+    } finally {
+      setPublishingNote(false);
+    }
+  }
+
   return (
     <StudentSectionShell
       title="Lesson Plans"
@@ -319,7 +371,7 @@ export default function TeacherLessonPlansPage() {
               <textarea value={draft.objectives} onChange={event => updateDraft('objectives', event.target.value)} rows={4} placeholder="Objectives" className="w-full rounded-3xl border border-white/10 bg-slate-950/40 px-4 py-3 text-sm text-white" />
               <textarea value={draft.activities} onChange={event => updateDraft('activities', event.target.value)} rows={4} placeholder="Activities / methodology" className="w-full rounded-3xl border border-white/10 bg-slate-950/40 px-4 py-3 text-sm text-white" />
               <textarea value={draft.assessment} onChange={event => updateDraft('assessment', event.target.value)} rows={3} placeholder="Assessment" className="w-full rounded-3xl border border-white/10 bg-slate-950/40 px-4 py-3 text-sm text-white" />
-              <textarea value={draft.notes} onChange={event => updateDraft('notes', event.target.value)} rows={4} placeholder="Teacher notes or delivery guide" className="w-full rounded-3xl border border-white/10 bg-slate-950/40 px-4 py-3 text-sm text-white" />
+              <textarea value={draft.notes} onChange={event => updateDraft('notes', event.target.value)} rows={6} placeholder="Paste the lesson note here exactly as you want students to read it." className="w-full rounded-3xl border border-white/10 bg-slate-950/40 px-4 py-3 text-sm text-white" />
 
               <div className="space-y-3">
                 <div>
@@ -347,6 +399,9 @@ export default function TeacherLessonPlansPage() {
               <div className="flex flex-wrap gap-3">
                 <button type="button" disabled={saving} onClick={() => persistLessonPlan('draft')} className="rounded-2xl border border-white/10 px-4 py-3 text-sm font-semibold text-white disabled:opacity-60">
                   {saving ? 'Saving...' : 'Save Draft'}
+                </button>
+                <button type="button" disabled={publishingNote} onClick={handlePublishLessonNote} className="rounded-2xl border border-cyan-300/40 bg-slate-900/40 px-4 py-3 text-sm font-semibold text-cyan-100 disabled:opacity-60">
+                  {publishingNote ? 'Publishing...' : 'Publish As Lesson Note'}
                 </button>
                 <button type="button" disabled={saving} onClick={() => persistLessonPlan('submitted')} className="rounded-2xl bg-cyan-300 px-4 py-3 text-sm font-bold text-black disabled:opacity-60">
                   {saving ? 'Submitting...' : 'Submit For Review'}

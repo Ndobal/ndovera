@@ -1,8 +1,9 @@
 const DEFAULT_TIMEOUT_MS = 7000;
 const AUTH_TOKEN_KEY = 'token';
 const AUTH_COOKIE_KEY = 'ndovera_token';
-// Keep this aligned with the backend/authApi session window to avoid shortening auth unexpectedly.
-const AUTH_SESSION_MAX_AGE_SECONDS = 10 * 60;
+const AUTH_USER_KEY = 'authUser';
+const AUTH_SESSION_MAX_AGE_SECONDS = 30 * 24 * 60 * 60;
+const JSON_RESPONSE_CACHE_PREFIX = 'ndovera:getjson-cache:';
 
 function getCookie(name) {
   const match = document.cookie
@@ -34,6 +35,44 @@ function syncRefreshedToken(response) {
   setAuthCookie(refreshedToken);
 }
 
+function getCachedUserId() {
+  try {
+    const parsed = JSON.parse(window.localStorage?.getItem(AUTH_USER_KEY) || '{}');
+    return String(parsed?.id || parsed?.email || 'guest').trim().toLowerCase() || 'guest';
+  } catch {
+    return 'guest';
+  }
+}
+
+function buildJsonCacheKey(url) {
+  return `${JSON_RESPONSE_CACHE_PREFIX}${getCachedUserId()}:${String(url || '').trim()}`;
+}
+
+function readCachedJson(url) {
+  try {
+    const raw = window.localStorage?.getItem(buildJsonCacheKey(url));
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    if (!parsed || typeof parsed !== 'object' || !('data' in parsed)) return null;
+    return parsed;
+  } catch {
+    return null;
+  }
+}
+
+function writeCachedJson(url, data) {
+  try {
+    window.localStorage?.setItem(buildJsonCacheKey(url), JSON.stringify({ cachedAt: Date.now(), data }));
+  } catch {}
+}
+
+function withResponseMeta(payload, meta) {
+  if (!payload || typeof payload !== 'object' || Array.isArray(payload)) {
+    return { data: payload, _meta: meta };
+  }
+  return { ...payload, _meta: meta };
+}
+
 function withTimeout(promise, timeoutMs = DEFAULT_TIMEOUT_MS) {
   return new Promise((resolve, reject) => {
     const timer = setTimeout(() => {
@@ -53,6 +92,8 @@ function withTimeout(promise, timeoutMs = DEFAULT_TIMEOUT_MS) {
 }
 
 export async function getJson(url, fallbackData, options = {}) {
+  const cached = readCachedJson(url);
+
   try {
     const token = getStoredToken();
     const response = await withTimeout(
@@ -73,8 +114,18 @@ export async function getJson(url, fallbackData, options = {}) {
     }
 
     syncRefreshedToken(response);
-    return await response.json();
+    const data = await response.json();
+    writeCachedJson(url, data);
+    return data;
   } catch (error) {
+    if (cached?.data) {
+      return withResponseMeta(cached.data, {
+        source: 'cache',
+        cachedAt: cached.cachedAt || 0,
+        reason: error.message,
+      });
+    }
+
     return {
       ...fallbackData,
       _meta: {

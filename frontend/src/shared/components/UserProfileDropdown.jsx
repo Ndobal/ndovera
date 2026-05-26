@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLocation, useNavigate } from 'react-router-dom';
+import ThemeToggle from './ThemeToggle';
 
 export default function UserProfileDropdown({ user = null, onLogout = () => {} }) {
   const navigate = useNavigate();
@@ -11,7 +12,8 @@ export default function UserProfileDropdown({ user = null, onLogout = () => {} }
   const displayRole = user?.role || 'guest';
   const avatarSeed = encodeURIComponent(displayName);
   const avatarFallback = `https://api.dicebear.com/7.x/avataaars/svg?seed=${avatarSeed}`;
-  const avatarUrl = user?.avatarUrl || user?.avatar || avatarFallback;
+  const uploadedAvatarUrl = user?.avatarUrl || user?.avatar || '';
+  const avatarUrl = uploadedAvatarUrl || avatarFallback;
   const pathParts = location.pathname.split('/').filter(Boolean);
   const activeRoleKey = pathParts[0] === 'roles' ? pathParts[1] : '';
   const settingsRole = activeRoleKey || user?.role || '';
@@ -33,13 +35,13 @@ export default function UserProfileDropdown({ user = null, onLogout = () => {} }
       <motion.button
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-        className="glass-chip flex items-center gap-2 px-4 py-2 rounded-full text-indigo-700 dark:text-indigo-200 font-semibold shadow-sm hover:shadow-md transition-all"
+        className="glass-chip flex items-center gap-2 px-2 py-2 rounded-full text-indigo-700 dark:text-indigo-200 font-semibold shadow-sm hover:shadow-md transition-all"
         onClick={() => setOpen(!open)}
+        aria-label="Open profile menu"
       >
-        <span className="w-8 h-8 rounded-full bg-indigo-200 dark:bg-indigo-800 flex items-center justify-center text-lg overflow-hidden">
-          <img src={avatarUrl} alt={`${displayName} avatar`} className="w-full h-full object-cover" onError={(event) => { event.currentTarget.src = avatarFallback; }} />
+        <span className={`h-9 w-9 overflow-hidden rounded-full border ${uploadedAvatarUrl ? 'border-white/60 bg-transparent dark:border-cyan-300/35' : 'bg-indigo-200 dark:bg-indigo-800 border-transparent'} flex items-center justify-center text-lg`}>
+          <img src={avatarUrl} alt={`${displayName} avatar`} className="h-full w-full object-cover" onError={(event) => { event.currentTarget.src = avatarFallback; }} />
         </span>
-        <span>{displayName}</span>
         <motion.svg 
           animate={{ rotate: open ? 180 : 0 }}
           width="16" height="16" fill="currentColor" className="ml-1"
@@ -57,11 +59,22 @@ export default function UserProfileDropdown({ user = null, onLogout = () => {} }
             transition={{ duration: 0.2, ease: "easeOut" }}
             className="absolute right-0 mt-3 w-56 bg-white/95 dark:bg-slate-900/90 backdrop-blur-2xl border border-slate-200/80 dark:border-cyan-300/20 rounded-3xl shadow-xl z-50 overflow-hidden"
           >
-            <div className="p-4 border-b border-slate-100 dark:border-slate-800">
-              <p className="text-sm font-semibold text-slate-800 dark:text-slate-200">{displayName}</p>
-              <p className="text-xs micro-label text-slate-500 dark:text-slate-400">{displayRole.toUpperCase()}</p>
+            <div className="flex items-center gap-3 p-4 border-b border-slate-100 dark:border-slate-800">
+              <span className={`h-12 w-12 overflow-hidden rounded-full border ${uploadedAvatarUrl ? 'border-slate-200/80 bg-transparent dark:border-cyan-300/30' : 'border-transparent bg-indigo-200 dark:bg-indigo-800'} flex items-center justify-center`}>
+                <img src={avatarUrl} alt={`${displayName} avatar`} className="h-full w-full object-cover" onError={(event) => { event.currentTarget.src = avatarFallback; }} />
+              </span>
+              <div>
+                <p className="text-sm font-semibold text-slate-800 dark:text-slate-200">{displayName}</p>
+                <p className="text-xs micro-label text-slate-500 dark:text-slate-400">{displayRole.toUpperCase()}</p>
+              </div>
             </div>
             <ul className="py-2">
+              <li>
+                <div className="flex items-center justify-between gap-3 px-4 py-2 text-sm text-slate-700 dark:text-slate-200">
+                  <span className="flex items-center gap-2"><span className="opacity-70">🌓</span> Theme</span>
+                  <ThemeToggle />
+                </div>
+              </li>
               <li>
                 <button
                   type="button"

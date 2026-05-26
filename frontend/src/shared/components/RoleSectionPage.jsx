@@ -1,4 +1,5 @@
 import React from 'react';
+import MobileRoleOverviewNav from './MobileRoleOverviewNav';
 
 const defaultTheme = {
   page: 'p-8 max-w-7xl mx-auto',
@@ -31,10 +32,10 @@ const wheatTheme = {
   title: 'text-3xl font-black tracking-tight text-[#800000] mb-2',
   body: 'text-[#191970]',
   metricsWrap: 'relative',
-  metricGrid: 'grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4',
-  metricCard: 'rounded-3xl p-5 text-center bg-[#f5deb3] border border-[#c9a96e]/40 shadow-[0_12px_32px_rgba(128,0,0,0.08)]',
-  metricLabel: 'text-xs font-semibold uppercase tracking-[0.22em] text-[#800020] mb-2',
-  metricValue: 'text-2xl font-black text-[#191970]',
+  metricGrid: 'grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6 gap-2.5',
+  metricCard: 'rounded-2xl min-h-[48px] px-3 py-2.5 text-left bg-[#fff8f0] border border-[#c9a96e]/40 shadow-[0_10px_24px_rgba(128,0,0,0.06)]',
+  metricLabel: 'text-[10px] font-semibold uppercase tracking-[0.18em] text-[#800020] mb-1',
+  metricValue: 'text-base font-black text-[#191970] leading-tight',
   emptyPanel: 'rounded-3xl p-5 bg-[#f5deb3] border border-[#c9a96e]/40 shadow-[0_12px_28px_rgba(128,0,0,0.06)]',
   emptyLabel: 'text-xs font-semibold uppercase tracking-[0.22em] text-[#800020]',
   emptyBody: 'mt-2 text-[#191970]',
@@ -56,6 +57,9 @@ export default function RoleSectionPage({
   metricCards = [],
   infoCards = [],
   theme = 'default',
+  showMobileRoleNav = false,
+  mobileNavRoleKey = '',
+  mobileNavCounts = {},
 }) {
   const palette = theme === 'wheat' ? wheatTheme : defaultTheme;
 
@@ -110,6 +114,8 @@ export default function RoleSectionPage({
           </section>
         ))}
       </div>
+
+      {showMobileRoleNav && mobileNavRoleKey ? <MobileRoleOverviewNav roleKey={mobileNavRoleKey} counts={mobileNavCounts} /> : null}
     </div>
   );
 }

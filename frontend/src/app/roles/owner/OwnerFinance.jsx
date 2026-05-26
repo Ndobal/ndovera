@@ -169,8 +169,8 @@ export default function OwnerFinance({ auth }) {
     <div className="p-8 max-w-7xl mx-auto space-y-6">
       <div className={CARD}><h1 className="text-2xl font-bold text-[#800000]">Finance</h1><p className="text-[#191970] mt-1 text-sm">Manage subscriptions, student fees, expenditure, and AI insights.</p></div>
       <div className="sticky top-3 z-40 rounded-3xl border border-[#c9a96e]/40 bg-[#f5deb3]/95 p-3 shadow-sm backdrop-blur dark:border-[#00ffff]/20 dark:bg-[#800000]/75">
-        <div className="flex flex-wrap gap-2">
-        {TABS.map((t, i) => <button key={t} onClick={() => setTab(i)} className={`px-5 py-2 rounded-2xl text-sm font-semibold transition-colors ${tab === i ? 'bg-[#800020] text-[#f5deb3]' : 'bg-[#f5deb3] text-[#800020] border border-[#c9a96e]/40 hover:bg-[#f0d090]'}`}>{t}</button>)}
+        <div className="flex gap-2 overflow-x-auto pb-1 sm:flex-wrap">
+        {TABS.map((t, i) => <button key={t} onClick={() => setTab(i)} className={`shrink-0 px-5 py-2 rounded-2xl text-sm font-semibold transition-colors ${tab === i ? 'bg-[#800020] text-[#f5deb3]' : 'bg-[#f5deb3] text-[#800020] border border-[#c9a96e]/40 hover:bg-[#f0d090]'}`}>{t}</button>)}
         </div>
       </div>
       {tab === 0 && <SubscriptionTab />}

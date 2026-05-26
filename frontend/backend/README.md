@@ -8,6 +8,8 @@ This package contains the Cloudflare Worker backend for the main Ndovera fronten
 - library, attendance, classroom, conversation, tuck-shop, purchase, and exam endpoints
 - R2-backed classroom file uploads
 - D1-backed application data for future remote usage
+- tenant subdomain website rendering, including hero media galleries, admissions content, and public news pages
+- school newsroom APIs for drafting, reviewing, publishing, and uploading blog media
 
 ## Worker Bindings
 
@@ -60,3 +62,4 @@ npm run deploy
 
 - The older `set_superadmin_password.js` flow is deprecated because it targeted local SQLite and plaintext password storage.
 - The committed [migration_data.sql](./migration_data.sql) contains sanitized account placeholders only and does not contain live passwords.
+- Published newsroom stories now feed the tenant public `/events` page, while legacy school events remain as a fallback when no story has been published yet.

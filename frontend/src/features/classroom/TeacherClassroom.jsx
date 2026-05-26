@@ -790,9 +790,10 @@ export default function TeacherClassroom({
   return (
     <StudentSectionShell
       title={selectedClass?.className || (showingLockedAttendance ? 'Class Attendance' : 'Teacher Classroom')}
-      subtitle={selectedClass ? 'Manage one class at a time. Exit this class to choose another one.' : 'Choose a class card to open and supervise its classroom.'}
+      subtitle={selectedClass ? 'Manage one class at a time. Exit this class to choose another one.' : ''}
       dashboardLabel={dashboardLabel}
       watermarkText={watermarkText}
+      hideHeader={isChoosingClass}
     >
       <div id="devMarker" style={{display: 'none'}}>DEV_BUILD: teacher-classroom-20260304</div>
       <div className="p-4">
@@ -1234,7 +1235,7 @@ export default function TeacherClassroom({
                       <option value="link">External Link</option>
                     </select>
                     <input value={materialTitle} onChange={e => setMaterialTitle(e.target.value)} placeholder="Material title" className="rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] p-3 text-sm text-[#191970] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#ffffff]" />
-                    <input value={materialUrl} onChange={e => setMaterialUrl(e.target.value)} placeholder="Paste a material link (optional)" className="rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] p-3 text-sm text-[#191970] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#ffffff]" />
+                    <input value={materialUrl} onChange={e => setMaterialUrl(e.target.value)} placeholder="Paste a material link (optional). Leave blank for a lesson note." className="rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] p-3 text-sm text-[#191970] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#ffffff]" />
                     <input value={materialTopic} onChange={e => setMaterialTopic(e.target.value)} placeholder="Topic or unit" className="rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] p-3 text-sm text-[#191970] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#ffffff]" />
                     <input value={materialWeekLabel} onChange={e => setMaterialWeekLabel(e.target.value)} placeholder="Week label" className="rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] p-3 text-sm text-[#191970] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#ffffff]" />
                     <select value={materialVisibility} onChange={e => setMaterialVisibility(e.target.value)} className="rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] p-3 text-sm text-[#191970] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#ffffff]">
@@ -1243,14 +1244,14 @@ export default function TeacherClassroom({
                       <option value="teacher">Teacher Only</option>
                     </select>
                     <input value={materialReleaseAt} onChange={e => setMaterialReleaseAt(e.target.value)} type="datetime-local" className="rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] p-3 text-sm text-[#191970] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#ffffff]" />
-                    <textarea value={materialDescription} onChange={e => setMaterialDescription(e.target.value)} rows={3} placeholder="What should students know before opening this material?" className="md:col-span-2 xl:col-span-4 rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] p-3 text-sm text-[#191970] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#ffffff]" />
+                    <textarea value={materialDescription} onChange={e => setMaterialDescription(e.target.value)} rows={4} placeholder="Paste the lesson note here, or add the guidance students should read before opening the material." className="md:col-span-2 xl:col-span-4 rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] p-3 text-sm text-[#191970] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#ffffff]" />
                     <div className="md:col-span-2 xl:col-span-4 flex flex-wrap gap-3 items-center">
                       <label className="inline-flex cursor-pointer items-center rounded-2xl bg-[#fff8f0] px-4 py-3 text-sm font-semibold text-[#191970] border border-[#c9a96e]/45 dark:bg-black/20 dark:border-[#bf00ff]/35 dark:text-[#ffffff]">
                         <input id="materialFile" type="file" className="hidden" onChange={async (e) => { const file = e.target.files && e.target.files[0]; if (!file) return; try { await uploadFileWithProgress(file); loadAll(); } catch {} e.target.value = ''; }} />
                         Upload file
                       </label>
                       <button className="rounded-2xl bg-[#1a5c38] px-4 py-3 text-sm font-bold text-[#f5deb3] transition-colors hover:bg-[#154a2e] dark:bg-[#00ffff] dark:text-[#000000] dark:hover:bg-[#7dfcff]">
-                        POST
+                        {materialUrl.trim() ? 'Post Material' : 'Publish Lesson Note'}
                       </button>
                       {selectedMaterialSubject && (
                         <span className="text-xs font-semibold uppercase tracking-[0.16em] text-[#800020] dark:text-[#bf00ff]">

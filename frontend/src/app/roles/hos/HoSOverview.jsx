@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getAttendance, getMe } from '../../../features/school/services/schoolApi';
 import SchoolAnnouncementsPanel from '../../../shared/components/SchoolAnnouncementsPanel';
+import MobileRoleOverviewNav from '../../../shared/components/MobileRoleOverviewNav';
 
 const quickLinks = [
   { label: 'Academics', path: '/roles/hos/academics' },
@@ -53,17 +54,17 @@ export default function HoSOverview({ auth }) {
         <>
           {/* Stats */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div className="rounded-3xl p-5 bg-[#f5deb3] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
+            <div className="rounded-2xl p-3 bg-[#fff8f0] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10 min-h-[48px]">
               <p className="text-xs text-[#800020] dark:text-slate-400 uppercase font-semibold">Attendance Records</p>
-              <p className="text-3xl font-bold text-[#800000] dark:text-slate-100 mt-2">{attendance.length}</p>
+              <p className="text-base font-bold text-[#800000] dark:text-slate-100 mt-1">{attendance.length}</p>
             </div>
-            <div className="rounded-3xl p-5 bg-[#f5deb3] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
+            <div className="rounded-2xl p-3 bg-[#fff8f0] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10 min-h-[48px]">
               <p className="text-xs text-[#800020] dark:text-slate-400 uppercase font-semibold">Role</p>
-              <p className="text-xl font-bold text-[#800000] dark:text-slate-100 mt-2 capitalize">{me?.role || '—'}</p>
+              <p className="text-base font-bold text-[#800000] dark:text-slate-100 mt-1 capitalize">{me?.role || '—'}</p>
             </div>
-            <div className="rounded-3xl p-5 bg-[#f5deb3] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
+            <div className="rounded-2xl p-3 bg-[#fff8f0] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10 min-h-[48px]">
               <p className="text-xs text-[#800020] dark:text-slate-400 uppercase font-semibold">Email</p>
-              <p className="text-sm font-bold text-[#800000] dark:text-slate-100 mt-2 truncate">{me?.email || '—'}</p>
+              <p className="text-xs font-bold text-[#800000] dark:text-slate-100 mt-1 truncate">{me?.email || '—'}</p>
             </div>
           </div>
 
@@ -84,6 +85,7 @@ export default function HoSOverview({ auth }) {
           </div>
 
           <SchoolAnnouncementsPanel subtitle="Publish a school-wide HoS update here. School users will receive it from the notification bell in their dashboards." />
+          <MobileRoleOverviewNav roleKey="hos" counts={{ approvals: 0 }} />
         </>
       )}
     </div>

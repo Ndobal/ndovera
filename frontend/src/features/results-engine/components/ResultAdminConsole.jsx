@@ -56,6 +56,10 @@ function filterRecentDocumentsForBatch(documents = [], batch = null) {
   ));
 }
 
+function buildUploadFileKey(file) {
+  return `${file?.name || 'result.pdf'}::${file?.size || 0}`;
+}
+
 export default function ResultAdminConsole({ analyticsMode = 'hos', roleTitle = 'Academic Result Console' }) {
   const [classMap, setClassMap] = useState({});
   const [selectedBatchKey, setSelectedBatchKey] = useState('');
@@ -67,6 +71,7 @@ export default function ResultAdminConsole({ analyticsMode = 'hos', roleTitle = 
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
   const [files, setFiles] = useState([]);
+  const [fileStudentMap, setFileStudentMap] = useState({});
   const [uploadReport, setUploadReport] = useState(null);
   const loader = analyticsMode === 'owner' ? getOwnerResultAnalytics : getHoSResultAnalytics;
 
@@ -122,7 +127,23 @@ export default function ResultAdminConsole({ analyticsMode = 'hos', roleTitle = 
   useEffect(() => {
     setUploadReport(null);
     setFiles([]);
+    setFileStudentMap({});
   }, [selectedBatchKey]);
+
+  const batchStudents = Array.isArray(data?.sheet?.students) ? data.sheet.students : [];
+
+  function handleSelectFiles(nextFiles) {
+    const normalizedFiles = Array.from(nextFiles || []);
+    setFiles(normalizedFiles);
+    setFileStudentMap(current => {
+      const nextMap = {};
+      normalizedFiles.forEach(file => {
+        const key = buildUploadFileKey(file);
+        nextMap[key] = current[key] || '';
+      });
+      return nextMap;
+    });
+  }
 
   async function handleSaveSettings(payload) {
     setSaving(true);
@@ -161,9 +182,10 @@ export default function ResultAdminConsole({ analyticsMode = 'hos', roleTitle = 
     setError('');
     setMessage('');
     try {
-      const response = await uploadPublishedResultDocuments({ ...selectedBatch, files });
+      const response = await uploadPublishedResultDocuments({ ...selectedBatch, files, fileStudentMap });
       setUploadReport(response || null);
       setFiles([]);
+      setFileStudentMap({});
       if (response?.hasBlockingIssues) {
         setError('Some PDFs could not be matched. Matched PDFs were uploaded, duplicates were skipped, and the missing students list is shown below.');
         if (response?.summary?.uploadedCount || response?.summary?.skippedCount) {
@@ -382,7 +404,7 @@ export default function ResultAdminConsole({ analyticsMode = 'hos', roleTitle = 
                         type="file"
                         multiple
                         accept="application/pdf,.pdf"
-                        onChange={event => setFiles(Array.from(event.target.files || []))}
+                        onChange={event => handleSelectFiles(event.target.files || [])}
                         className="sr-only"
                       />
                     </label>
@@ -402,8 +424,18 @@ export default function ResultAdminConsole({ analyticsMode = 'hos', roleTitle = 
                       <p className={`mt-2 text-sm ${RESULT_BODY}`}>{files.length} PDFs ready for matching and upload.</p>
                       <div className="mt-3 space-y-2 max-h-56 overflow-y-auto">
                         {files.map(file => (
-                          <div key={`${file.name}-${file.size}`} className="rounded-2xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-slate-100">
-                            {file.name}
+                          <div key={`${file.name}-${file.size}`} className="rounded-2xl border border-white/10 bg-white/5 px-3 py-3 text-sm text-slate-100 space-y-2">
+                            <p>{file.name}</p>
+                            <select
+                              value={fileStudentMap[buildUploadFileKey(file)] || ''}
+                              onChange={event => setFileStudentMap(current => ({ ...current, [buildUploadFileKey(file)]: event.target.value }))}
+                              className={`${RESULT_INPUT} w-full`}
+                            >
+                              <option value="">Auto-match from filename</option>
+                              {batchStudents.map(student => (
+                                <option key={student.id} value={student.id}>{student.name}{student.displayId ? ` • ${student.displayId}` : ''}</option>
+                              ))}
+                            </select>
                           </div>
                         ))}
                       </div>
@@ -415,6 +447,7 @@ export default function ResultAdminConsole({ analyticsMode = 'hos', roleTitle = 
                   <p className={`micro-label ${RESULT_LABEL}`}>Matching Rules</p>
                   <div className="mt-3 space-y-2">
                     <p className={`text-sm ${RESULT_BODY}`}>Accepted matches: student ID, display ID, student email, or student name and surname.</p>
+                    <p className={`text-sm ${RESULT_BODY}`}>If a filename is weak, pick the student manually beside the file before upload.</p>
                     <p className={`text-sm ${RESULT_BODY}`}>If a filename matches more than one student, that file is flagged and must be renamed.</p>
                     <p className={`text-sm ${RESULT_BODY}`}>Students missing from the upload are listed after processing so the remaining PDFs can be prepared.</p>
                   </div>
@@ -436,6 +469,7 @@ export default function ResultAdminConsole({ analyticsMode = 'hos', roleTitle = 
 
               <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-4">
                 <div className={`${RESULT_INNER_SURFACE} p-4`}><p className={`micro-label ${RESULT_LABEL}`}>Matched</p><p className={`mt-2 text-2xl font-black ${RESULT_HEADING}`}>{uploadReport?.summary?.matchedCount || 0}</p></div>
+                <div className={`${RESULT_INNER_SURFACE} p-4`}><p className={`micro-label ${RESULT_LABEL}`}>Manual Matches</p><p className={`mt-2 text-2xl font-black ${RESULT_HEADING}`}>{uploadReport?.summary?.manualMappedCount || 0}</p></div>
                 <div className={`${RESULT_INNER_SURFACE} p-4`}><p className={`micro-label ${RESULT_LABEL}`}>Uploaded</p><p className={`mt-2 text-2xl font-black ${RESULT_HEADING}`}>{uploadReport?.summary?.uploadedCount || 0}</p></div>
                 <div className={`${RESULT_INNER_SURFACE} p-4`}><p className={`micro-label ${RESULT_LABEL}`}>Skipped</p><p className={`mt-2 text-2xl font-black ${RESULT_HEADING}`}>{uploadReport?.summary?.skippedCount || 0}</p></div>
                 <div className={`${RESULT_INNER_SURFACE} p-4`}><p className={`micro-label ${RESULT_LABEL}`}>Unmatched</p><p className={`mt-2 text-2xl font-black ${RESULT_HEADING}`}>{uploadReport?.summary?.unmatchedCount || 0}</p></div>

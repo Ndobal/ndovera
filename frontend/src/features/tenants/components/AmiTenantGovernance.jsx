@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import MobileRoleOverviewNav from '../../../shared/components/MobileRoleOverviewNav';
 import {
   approveTenant,
   endDiscountCode,
@@ -279,12 +280,12 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
   );
 
   const statCards = (
-    <section className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-4">
-      <div className="glass-surface rounded-3xl p-5"><p className="micro-label neon-subtle">Tenants</p><p className="mt-2 text-2xl command-title text-rose-500 dark:text-red-400">{summary?.totalTenants ?? 0}</p></div>
-      <div className="glass-surface rounded-3xl p-5"><p className="micro-label neon-subtle">Active</p><p className="mt-2 text-2xl command-title text-emerald-600 dark:text-green-300">{summary?.activeTenants ?? 0}</p></div>
-      <div className="glass-surface rounded-3xl p-5"><p className="micro-label neon-subtle">Pending Approval</p><p className="mt-2 text-2xl command-title text-blue-600 dark:text-blue-400">{summary?.pendingApproval ?? 0}</p></div>
-      <div className="glass-surface rounded-3xl p-5"><p className="micro-label neon-subtle">Pending Payments</p><p className="mt-2 text-2xl command-title text-rose-500 dark:text-red-400">{summary?.pendingPayments ?? 0}</p></div>
-      <div className="glass-surface rounded-3xl p-5"><p className="micro-label neon-subtle">Active Codes</p><p className="mt-2 text-2xl command-title text-emerald-600 dark:text-green-300">{summary?.activeDiscountCodes ?? 0}</p></div>
+    <section className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-2.5">
+      <div className="glass-surface rounded-2xl min-h-[48px] p-3"><p className="micro-label neon-subtle">Tenants</p><p className="mt-1 text-base command-title text-rose-500 dark:text-red-400">{summary?.totalTenants ?? 0}</p></div>
+      <div className="glass-surface rounded-2xl min-h-[48px] p-3"><p className="micro-label neon-subtle">Active</p><p className="mt-1 text-base command-title text-emerald-600 dark:text-green-300">{summary?.activeTenants ?? 0}</p></div>
+      <div className="glass-surface rounded-2xl min-h-[48px] p-3"><p className="micro-label neon-subtle">Pending Approval</p><p className="mt-1 text-base command-title text-blue-600 dark:text-blue-400">{summary?.pendingApproval ?? 0}</p></div>
+      <div className="glass-surface rounded-2xl min-h-[48px] p-3"><p className="micro-label neon-subtle">Pending Payments</p><p className="mt-1 text-base command-title text-rose-500 dark:text-red-400">{summary?.pendingPayments ?? 0}</p></div>
+      <div className="glass-surface rounded-2xl min-h-[48px] p-3"><p className="micro-label neon-subtle">Active Codes</p><p className="mt-1 text-base command-title text-emerald-600 dark:text-green-300">{summary?.activeDiscountCodes ?? 0}</p></div>
     </section>
   );
 
@@ -334,6 +335,8 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
             </div>
           </section>
         </div>
+
+        <MobileRoleOverviewNav roleKey="ami" counts={{ tenants: summary?.totalTenants }} />
       </div>
     );
   }

@@ -98,6 +98,12 @@ export default function TeacherOverview() {
       metricCards={data.metrics || []}
       infoCards={infoCards}
       theme="wheat"
+      showMobileRoleNav
+      mobileNavRoleKey="teacher"
+      mobileNavCounts={{
+        assignments: data.summary?.assignmentsInClasses,
+        materials: data.summary?.materialsInClasses,
+      }}
     />
   );
 }

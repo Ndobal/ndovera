@@ -48,7 +48,7 @@ const roleLabels = {
   ami: 'Ami Dashboard',
 };
 
-function getRoleSidebarItems(roleKey) {
+export function getRoleSidebarItems(roleKey) {
   // library entry lives inside each role context
   const libEntry = { name: 'Library', path: `/roles/${roleKey}/library` };
 
@@ -457,9 +457,43 @@ export default function Sidebar({ auth = null, mobileOpen = false, onClose = noo
   const { featureFlags } = useFeatureFlags();
   const tenantBranding = auth?.user?.tenantId && auth?.user?.role !== 'ami' ? getTenantPwaInfo() : null;
   const sidebarItemsRaw = inRoleMode && roleKey ? getRoleSidebarItems(roleKey) : defaultSidebarItems;
+  const newsroomEligibleRoles = new Set([
+    'student',
+    'parent',
+    'teacher',
+    'hos',
+    'accountant',
+    'owner',
+    'librarian',
+    'sanitation',
+    'tuckshopmanager',
+    'storekeeper',
+    'transport',
+    'hostel',
+    'cafeteria',
+    'clinic',
+    'ict',
+    'ict_manager',
+    'classteacher',
+    'hod',
+    'hodassistant',
+    'principal',
+    'headteacher',
+    'nurseryhead',
+    'examofficer',
+    'sportsmaster',
+  ]);
+  const sidebarItemsWithNewsroom = roleKey && newsroomEligibleRoles.has(roleKey) && !sidebarItemsRaw.some(item => item.path === `/roles/${roleKey}/newsroom`)
+    ? (() => {
+        const newsroomEntry = { name: 'Newsroom', path: `/roles/${roleKey}/newsroom` };
+        const settingsIndex = sidebarItemsRaw.findIndex(item => String(item.path || '').endsWith('/settings'));
+        const insertAt = settingsIndex >= 0 ? settingsIndex : sidebarItemsRaw.length;
+        return [...sidebarItemsRaw.slice(0, insertAt), newsroomEntry, ...sidebarItemsRaw.slice(insertAt)];
+      })()
+    : sidebarItemsRaw;
   const adminEntry = { name: 'Library Admin', path: '/library/admin' };
   const adminRoles = new Set(['hos', 'admin', 'librarian', 'teacher']);
-  const sidebarItems = ((roleKey && adminRoles.has(roleKey)) ? [...sidebarItemsRaw, adminEntry] : sidebarItemsRaw)
+  const sidebarItems = ((roleKey && adminRoles.has(roleKey)) ? [...sidebarItemsWithNewsroom, adminEntry] : sidebarItemsWithNewsroom)
     .filter(item => {
       const normalizedPath = String(item.path || '').toLowerCase();
       if (!featureFlags.aurasEnabled && normalizedPath.includes('/auras')) return false;

@@ -3,14 +3,15 @@ import { getApiUrl } from '../../../config/apiBase';
 const AUTH_TOKEN_KEY = 'token';
 const AUTH_USER_KEY = 'authUser';
 const AUTH_COOKIE_KEY = 'ndovera_token';
-// Match the backend's rolling auth window so password-change sessions do not expire early.
-const AUTH_SESSION_MAX_AGE_SECONDS = 10 * 60;
+const AUTH_SESSION_MAX_AGE_SECONDS = 30 * 24 * 60 * 60;
 const AUTH_PROFILE_SYNC_KEY = 'authProfileSyncedAt';
 const SIGNED_OUT_REDIRECT_PATH = '/';
 const TENANT_SITE_URL_KEY = 'tenantWebsiteUrl';
 const SIGNED_OUT_TENANT_REDIRECT_KEY = 'signedOutRedirectUrl';
 const AUTH_PROFILE_MAX_AGE_MS = 5 * 60 * 1000;
 const PLATFORM_BASE_DOMAIN = 'ndovera.com';
+const API_RESPONSE_CACHE_PREFIX = 'ndovera:api-cache:';
+const JSON_RESPONSE_CACHE_PREFIX = 'ndovera:getjson-cache:';
 
 function normalizeHostname(value) {
 	const raw = String(value || '').trim().toLowerCase();
@@ -89,6 +90,15 @@ function clearAuthCookie() {
 	const expiredCookie = `${AUTH_COOKIE_KEY}=; path=/; max-age=0; secure; samesite=lax`;
 	document.cookie = expiredCookie;
 	document.cookie = `${expiredCookie}; domain=.${PLATFORM_BASE_DOMAIN}`;
+}
+
+function clearLocalCachePrefix(prefix) {
+	for (let index = window.localStorage.length - 1; index >= 0; index -= 1) {
+		const key = window.localStorage.key(index);
+		if (key && key.startsWith(prefix)) {
+			window.localStorage.removeItem(key);
+		}
+	}
 }
 
 function storeToken(token) {
@@ -416,6 +426,8 @@ export function clearStoredAuth() {
 	window.localStorage.removeItem('selectedRole');
 	window.localStorage.removeItem('tenantSubdomain');
 	window.localStorage.removeItem(TENANT_SITE_URL_KEY);
+	clearLocalCachePrefix(API_RESPONSE_CACHE_PREFIX);
+	clearLocalCachePrefix(JSON_RESPONSE_CACHE_PREFIX);
 	clearAuthCookie();
 }
 

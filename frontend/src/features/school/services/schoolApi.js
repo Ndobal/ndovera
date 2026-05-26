@@ -2,6 +2,9 @@ import { getApiUrl } from '../../../config/apiBase';
 import { getStoredAuth, clearStoredAuth, getSignedOutRedirectPath, rememberTenantSiteUrl, syncRefreshedToken, buildSelectedRoleHeader } from '../../auth/services/authApi';
 import { storeTenantPwaInfo } from '../../../shared/hooks/useTenantPwaManifest';
 
+const API_RESPONSE_CACHE_PREFIX = 'ndovera:api-cache:';
+const API_RESPONSE_CACHE_MAX_AGE_MS = 12 * 60 * 60 * 1000;
+
 function buildHeaders() {
   const auth = getStoredAuth();
   return {
@@ -31,18 +34,95 @@ function readErrorMessage(data) {
   return 'Request failed.';
 }
 
+function buildResponseCacheKey(path, auth) {
+  const userId = String(auth?.user?.id || auth?.user?.email || 'guest').trim().toLowerCase() || 'guest';
+  const tenantId = String(auth?.user?.tenantId || auth?.user?.schoolId || '').trim().toLowerCase();
+  const selectedRole = String(window.localStorage.getItem('selectedRole') || auth?.user?.role || '').trim().toLowerCase();
+  return `${API_RESPONSE_CACHE_PREFIX}${userId}:${tenantId}:${selectedRole}:${path}`;
+}
+
+function readCachedResponse(cacheKey) {
+  try {
+    const raw = window.localStorage.getItem(cacheKey);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    if (!parsed || typeof parsed !== 'object' || !('data' in parsed)) return null;
+    return parsed;
+  } catch {
+    return null;
+  }
+}
+
+function writeCachedResponse(cacheKey, data) {
+  try {
+    window.localStorage.setItem(cacheKey, JSON.stringify({ cachedAt: Date.now(), data }));
+  } catch {}
+}
+
+function withCacheMeta(payload, meta) {
+  if (!payload || typeof payload !== 'object' || Array.isArray(payload)) {
+    return { data: payload, _meta: meta };
+  }
+  return { ...payload, _meta: meta };
+}
+
 async function req(path, opts = {}) {
-  const res = await fetch(getApiUrl(path), {
-    method: opts.method || 'GET',
-    credentials: 'include',
-    headers: buildHeaders(),
-    body: opts.body ? JSON.stringify(opts.body) : undefined,
-  });
-  if (res.status === 401) { handleUnauthorized(); return {}; }
-  applyRefreshedToken(res);
-  const data = await res.json().catch(() => ({}));
-  if (!res.ok) throw new Error(readErrorMessage(data));
-  return data;
+  const method = String(opts.method || 'GET').toUpperCase();
+  const auth = getStoredAuth();
+  const cacheKey = method === 'GET' && opts.skipOfflineCache !== true ? buildResponseCacheKey(path, auth) : '';
+
+  try {
+    const res = await fetch(getApiUrl(path), {
+      method,
+      credentials: 'include',
+      headers: buildHeaders(),
+      body: opts.body ? JSON.stringify(opts.body) : undefined,
+    });
+
+    if (res.status === 401) {
+      handleUnauthorized();
+      return {};
+    }
+
+    applyRefreshedToken(res);
+    const data = await res.json().catch(() => ({}));
+
+    if (!res.ok) {
+      if (cacheKey && res.status >= 500) {
+        const cached = readCachedResponse(cacheKey);
+        if (cached?.data) {
+          return withCacheMeta(cached.data, {
+            source: 'cache',
+            cachedAt: cached.cachedAt || 0,
+            stale: Date.now() - Number(cached.cachedAt || 0) > API_RESPONSE_CACHE_MAX_AGE_MS,
+            reason: readErrorMessage(data),
+          });
+        }
+      }
+
+      throw new Error(readErrorMessage(data));
+    }
+
+    if (cacheKey) {
+      writeCachedResponse(cacheKey, data);
+    }
+
+    return data;
+  } catch (error) {
+    if (cacheKey) {
+      const cached = readCachedResponse(cacheKey);
+      if (cached?.data) {
+        return withCacheMeta(cached.data, {
+          source: 'cache',
+          cachedAt: cached.cachedAt || 0,
+          stale: Date.now() - Number(cached.cachedAt || 0) > API_RESPONSE_CACHE_MAX_AGE_MS,
+          reason: error.message,
+        });
+      }
+    }
+
+    throw error;
+  }
 }
 
 export const getMe = () => req('/api/users/me');
@@ -153,6 +233,12 @@ export const createEvent = (data) => req('/api/school/events', { method: 'POST',
 export const updateEvent = (id, data) => req(`/api/school/events/${id}`, { method: 'PUT', body: data });
 export const deleteEvent = (id) => req(`/api/school/events/${id}`, { method: 'DELETE' });
 export const uploadEventMedia = (file) => uploadFile('/api/school/events/upload', file);
+export const getSchoolNewsPosts = (params = {}) => req(`/api/school/news/posts${buildQuery(params)}`);
+export const saveSchoolNewsPost = (data) => req('/api/school/news/posts', { method: 'POST', body: data });
+export const submitSchoolNewsPost = (data) => req('/api/school/news/posts/submit', { method: 'POST', body: data });
+export const reviewSchoolNewsPost = (postId, data) => req(`/api/school/news/posts/${postId}/review`, { method: 'POST', body: data });
+export const publishSchoolNewsPost = (postId) => req(`/api/school/news/posts/${postId}/publish`, { method: 'POST' });
+export const uploadSchoolNewsMedia = (file) => uploadFile('/api/school/news/upload', file);
 export const getAdmissionsQueue = (params = {}) => req(`/api/school/admissions${buildQuery(params)}`);
 export const reviewAdmissionApplication = (applicationId, data) => req(`/api/school/admissions/${applicationId}/review`, { method: 'POST', body: data });
 export const getWebsiteEnquiries = (params = {}) => req(`/api/school/enquiries${buildQuery(params)}`);

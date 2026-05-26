@@ -57,6 +57,15 @@ import {
   reviewLessonPlan,
 } from './lessonPlans'
 import {
+  ensureNewsroomTables,
+  getSchoolNewsPostById,
+  listSchoolNewsPosts,
+  publishSchoolNewsPost,
+  reviewSchoolNewsPost,
+  saveSchoolNewsPost,
+  submitSchoolNewsPost,
+} from './newsroom'
+import {
   buildPracticeQuestionFeed,
   deleteCbtExam,
   deleteQuestionFromBank,
@@ -105,9 +114,7 @@ type Bindings = {
 
 const app = new Hono<{ Bindings: Bindings }>()
 const AUTH_COOKIE_NAME = 'ndovera_token'
-// Keep auth sessions at a 10-minute rolling window so first-login password changes
-// have enough time to complete. Do not shorten this without updating the entire auth flow.
-const AUTH_SESSION_SECONDS = 10 * 60
+const DEFAULT_AUTH_SESSION_SECONDS = 30 * 24 * 60 * 60
 const PASSWORD_RESET_TOKEN_TTL_MS = 30 * 60 * 1000
 const SCHOOL_ANNOUNCEMENT_CREATOR_ROLES = ['owner', 'hos', 'ict']
 const PASSWORD_RESET_TOKENS_DDL = `CREATE TABLE IF NOT EXISTS password_reset_tokens (
@@ -145,13 +152,18 @@ function stripLeadingWww(hostname: string) {
   return hostname.startsWith('www.') ? hostname.slice(4) : hostname
 }
 
-function authCookie(token: string, requestUrl: string | URL | null = null, baseDomain = DEFAULT_TENANT_BASE_DOMAIN) {
+function resolveAuthSessionSeconds(env?: Partial<Bindings> | null) {
+  const rawValue = Number(env?.SESSION_TTL_SECONDS || DEFAULT_AUTH_SESSION_SECONDS)
+  return Number.isFinite(rawValue) && rawValue > 0 ? Math.floor(rawValue) : DEFAULT_AUTH_SESSION_SECONDS
+}
+
+function authCookie(token: string, requestUrl: string | URL | null = null, baseDomain = DEFAULT_TENANT_BASE_DOMAIN, maxAgeSeconds = DEFAULT_AUTH_SESSION_SECONDS) {
   const normalizedBaseDomain = normalizeHostname(baseDomain) || DEFAULT_TENANT_BASE_DOMAIN
   const requestHost = normalizeHostname(requestUrl instanceof URL ? requestUrl.hostname : requestUrl || '')
   const parts = [
     `${AUTH_COOKIE_NAME}=${encodeURIComponent(token)}`,
     'Path=/',
-    `Max-Age=${AUTH_SESSION_SECONDS}`,
+    `Max-Age=${maxAgeSeconds}`,
     'Secure',
     'SameSite=Lax',
   ]
@@ -4932,6 +4944,7 @@ async function finishLogin(c: any, payload: Record<string, any>) {
     }).catch(() => null)
   }
 
+  const authSessionSeconds = resolveAuthSessionSeconds(c.env)
   const token = await sign({
     role: userRole,
     roles: roleContext.rawRoles,
@@ -4941,14 +4954,14 @@ async function finishLogin(c: any, payload: Record<string, any>) {
     id,
     tenantId: tenant?.id,
     ...(mustChangePassword ? { mustChangePassword: true } : {}),
-    exp: Math.floor(Date.now() / 1000) + AUTH_SESSION_SECONDS,
+    exp: Math.floor(Date.now() / 1000) + authSessionSeconds,
   }, c.env.JWT_SECRET)
 
   const user = attachTenantContext(buildUserProfile(id, userRole, name, settings), tenant)
   if (mustChangePassword) (user as any).mustChangePassword = true
 
   const response = c.json({ success: true, token, user, id: user.id, role: user.role, name: user.name, ...(mustChangePassword ? { mustChangePassword: true } : {}) })
-  response.headers.append('Set-Cookie', authCookie(token, c.req.url, c.env.TENANT_BASE_DOMAIN || DEFAULT_TENANT_BASE_DOMAIN))
+  response.headers.append('Set-Cookie', authCookie(token, c.req.url, c.env.TENANT_BASE_DOMAIN || DEFAULT_TENANT_BASE_DOMAIN, authSessionSeconds))
   return response
 }
 
@@ -5047,6 +5060,7 @@ async function authenticate(c: any, next: any) {
   }
   if (!token) return c.json({ error: 'missing auth' }, 401)
   try {
+    const authSessionSeconds = resolveAuthSessionSeconds(c.env)
     const { payload } = await verify(token, c.env.JWT_SECRET)
     const roleContext = buildRoleContext({ role: payload.role, roles: payload.roles }, payload.role, c.req.header('X-Selected-Role'))
     const authenticatedUser = {
@@ -5059,7 +5073,7 @@ async function authenticate(c: any, next: any) {
     }
     c.set('user', authenticatedUser)
     await next()
-    // Sliding expiry: issue a fresh 10-minute token on every authenticated request
+    // Sliding expiry: issue a fresh token on every authenticated request
     // so the session stays alive as long as the user keeps using the app
     const refreshed = await sign({
       role: authenticatedUser.activeRole,
@@ -5070,10 +5084,10 @@ async function authenticate(c: any, next: any) {
       id: authenticatedUser.id,
       tenantId: authenticatedUser.tenantId,
       ...(authenticatedUser.mustChangePassword ? { mustChangePassword: true } : {}),
-      exp: Math.floor(Date.now() / 1000) + AUTH_SESSION_SECONDS,
+      exp: Math.floor(Date.now() / 1000) + authSessionSeconds,
     }, c.env.JWT_SECRET)
     c.res.headers.set('X-Refresh-Token', refreshed)
-    c.res.headers.append('Set-Cookie', authCookie(refreshed, c.req.url, c.env.TENANT_BASE_DOMAIN || DEFAULT_TENANT_BASE_DOMAIN))
+    c.res.headers.append('Set-Cookie', authCookie(refreshed, c.req.url, c.env.TENANT_BASE_DOMAIN || DEFAULT_TENANT_BASE_DOMAIN, authSessionSeconds))
   } catch (e) {
     return c.json({ error: 'invalid token' }, 401)
   }
@@ -5132,6 +5146,7 @@ app.post('/api/auth/change-password', authenticate, async (c) => {
     ? await getTenantById(c.env.APP_DB, tenantId)
     : await getTenantByOwnerEmail(c.env.APP_DB, id)
 
+  const authSessionSeconds = resolveAuthSessionSeconds(c.env)
   const token = await sign({
     role: userRole,
     roles: roleContext.rawRoles,
@@ -5140,7 +5155,7 @@ app.post('/api/auth/change-password', authenticate, async (c) => {
     name,
     id,
     tenantId: tenant?.id,
-    exp: Math.floor(Date.now() / 1000) + AUTH_SESSION_SECONDS,
+    exp: Math.floor(Date.now() / 1000) + authSessionSeconds,
   }, c.env.JWT_SECRET)
 
   const user = attachTenantContext(buildUserProfile(id, userRole, name, { ...updatedSettings, mustChangePassword: false }), tenant)
@@ -5148,7 +5163,7 @@ app.post('/api/auth/change-password', authenticate, async (c) => {
   await addAudit(c.env.APP_DB, id, { action: 'passwordChanged', data: { by: id } }).catch(() => {})
 
   const response = c.json({ success: true, token, user })
-  response.headers.append('Set-Cookie', authCookie(token, c.req.url, c.env.TENANT_BASE_DOMAIN || DEFAULT_TENANT_BASE_DOMAIN))
+  response.headers.append('Set-Cookie', authCookie(token, c.req.url, c.env.TENANT_BASE_DOMAIN || DEFAULT_TENANT_BASE_DOMAIN, authSessionSeconds))
   return response
 })
 
@@ -9161,19 +9176,54 @@ async function hydrateUserRecords(db: D1Database, rows: Record<string, any>[]) {
   return Promise.all((rows || []).map(async row => {
     if (!row) return null
 
+    const lookupKey = String(row.email || row.id || '').trim()
     const emailKey = String(row.email || '').trim()
     const idKey = String(row.id || '').trim()
-    const settings = settingsMap.get(emailKey) || settingsMap.get(idKey) || null
-    const profile = buildAdmissionProfileRecord(settings || {}, row)
+    let settings = settingsMap.get(emailKey) || settingsMap.get(idKey) || null
+    let settingsKey = emailKey && settingsMap.has(emailKey) ? emailKey : idKey
+
+    if ((!settings || !getPublicFacingUserId(settings, row.role)) && lookupKey) {
+      const resolvedIdentity = await resolveSettingsIdentity(db, lookupKey).catch(() => null)
+      if (resolvedIdentity?.settings) {
+        settings = resolvedIdentity.settings
+      }
+      if (resolvedIdentity?.settingsKey) {
+        settingsKey = String(resolvedIdentity.settingsKey || '').trim() || settingsKey
+      }
+    }
+
     const roleContext = buildRoleContext(settings || {}, row.role)
+    settings = await ensureStudentPublicId(db, {
+      tenantId: row.tenantId || settings?.tenantId || settings?.schoolId,
+      userId: row.id,
+      settingsKey,
+      settings,
+    })
+
+    if (settings && !settings.displayId && roleContext.primaryRole !== 'student' && settingsKey) {
+      try {
+        const newDisplayId = await generateDisplayId(db, getDisplayIdConfig(roleContext.primaryRole))
+        settings = { ...settings, displayId: newDisplayId }
+        await upsertSettings(db, settingsKey, settings)
+      } catch {
+        // Non-critical for list rendering.
+      }
+    }
+
+    const profile = buildAdmissionProfileRecord(settings || {}, row)
+    const publicDisplayId = getPublicFacingUserId(settings || {}, roleContext.primaryRole)
 
     return {
       ...row,
       role: roleContext.primaryRole,
+      primaryRole: roleContext.primaryRole,
       roles: roleContext.rawRoles,
       switchableRoles: roleContext.switchableRoles,
       adminRoles: roleContext.adminRoles,
-      displayId: settings?.displayId || null,
+      capabilities: roleContext.capabilities,
+      displayId: publicDisplayId,
+      publicStudentId: String(settings?.publicStudentId || '').trim() || null,
+      employmentCategory: deriveEmploymentCategory(roleContext.primaryRole, settings?.employmentCategory, roleContext.rawRoles),
       phone: profile.phone || null,
       classId: settings?.classId || null,
       className: settings?.className || null,
@@ -11745,6 +11795,179 @@ app.post('/api/school/events/upload', authenticate, async (c) => {
   } catch { return c.json({ error: 'Upload failed.' }, 500) }
 })
 
+
+function canAuthorSchoolNews(role: unknown, tenantId: unknown) {
+  return Boolean(String(tenantId || '').trim()) && String(role || '').trim().toLowerCase() !== 'ami'
+}
+
+function canReviewSchoolNews(role: unknown) {
+  return hasRequiredRole(role, ['ict', 'ict_manager', 'hos', 'owner'])
+}
+
+function canPublishSchoolNews(role: unknown) {
+  return hasRequiredRole(role, ['hos', 'owner'])
+}
+
+function canManageSchoolNewsPost(post: Record<string, any> | null, actor: Record<string, any> = {}) {
+  if (!post) return false
+  if (canReviewSchoolNews(actor.role) || canPublishSchoolNews(actor.role)) return true
+  return String(post.authorId || '') === String(actor.id || '')
+}
+
+app.get('/api/school/news/posts', authenticate, async (c) => {
+  const tenantId = c.var.user?.tenantId
+  const actorId = c.var.user?.id
+  const actorRole = c.var.user?.role
+  const scope = String(c.req.query('scope') || 'mine').trim().toLowerCase()
+
+  if (!canAuthorSchoolNews(actorRole, tenantId)) return c.json({ error: 'forbidden' }, 403)
+
+  try {
+    let posts = [] as any[]
+    if (scope === 'review') {
+      if (!canReviewSchoolNews(actorRole)) return c.json({ error: 'forbidden' }, 403)
+      posts = await listSchoolNewsPosts(c.env.APP_DB, tenantId, { status: 'submitted' })
+    } else if (scope === 'publication') {
+      if (!canPublishSchoolNews(actorRole)) return c.json({ error: 'forbidden' }, 403)
+      posts = await listSchoolNewsPosts(c.env.APP_DB, tenantId, { status: 'reviewed' })
+    } else if (scope === 'published') {
+      posts = await listSchoolNewsPosts(c.env.APP_DB, tenantId, { status: 'published' })
+    } else if (scope === 'all') {
+      if (!canReviewSchoolNews(actorRole)) return c.json({ error: 'forbidden' }, 403)
+      posts = await listSchoolNewsPosts(c.env.APP_DB, tenantId)
+    } else {
+      posts = await listSchoolNewsPosts(c.env.APP_DB, tenantId, { authorId: actorId })
+    }
+
+    return c.json({ success: true, posts })
+  } catch {
+    return c.json({ success: true, posts: [] })
+  }
+})
+
+app.post('/api/school/news/posts', authenticate, async (c) => {
+  const tenantId = c.var.user?.tenantId
+  const actor = c.var.user || {}
+  if (!canAuthorSchoolNews(actor.role, tenantId)) return c.json({ error: 'forbidden' }, 403)
+
+  const payload = await c.req.json()
+  if (!String(payload.title || '').trim()) return c.json({ error: 'Title required.' }, 400)
+
+  const existing = payload.id ? await getSchoolNewsPostById(c.env.APP_DB, tenantId, String(payload.id || '')) : null
+  if (existing && !canManageSchoolNewsPost(existing, actor)) return c.json({ error: 'forbidden' }, 403)
+  if (existing?.status === 'published' && !canPublishSchoolNews(actor.role)) return c.json({ error: 'Published stories can only be edited by HoS or Owner.' }, 403)
+
+  try {
+    const post = await saveSchoolNewsPost(c.env.APP_DB, {
+      tenantId,
+      id: payload.id,
+      title: payload.title,
+      excerpt: payload.excerpt,
+      content: payload.content,
+      coverUrl: payload.coverUrl,
+      authorId: actor.id,
+      authorName: actor.name || actor.email || actor.id,
+      authorRole: actor.role,
+    })
+    return c.json({ success: true, post })
+  } catch {
+    return c.json({ error: 'Could not save story.' }, 500)
+  }
+})
+
+app.post('/api/school/news/posts/submit', authenticate, async (c) => {
+  const tenantId = c.var.user?.tenantId
+  const actor = c.var.user || {}
+  if (!canAuthorSchoolNews(actor.role, tenantId)) return c.json({ error: 'forbidden' }, 403)
+
+  const payload = await c.req.json()
+  if (!String(payload.title || '').trim()) return c.json({ error: 'Title required.' }, 400)
+  if (!String(payload.content || '').trim()) return c.json({ error: 'Content required before submission.' }, 400)
+
+  const existing = payload.id ? await getSchoolNewsPostById(c.env.APP_DB, tenantId, String(payload.id || '')) : null
+  if (existing && !canManageSchoolNewsPost(existing, actor)) return c.json({ error: 'forbidden' }, 403)
+  if (existing?.status === 'published') return c.json({ error: 'Published stories cannot be resubmitted.' }, 400)
+
+  try {
+    const post = await submitSchoolNewsPost(c.env.APP_DB, {
+      tenantId,
+      id: payload.id,
+      title: payload.title,
+      excerpt: payload.excerpt,
+      content: payload.content,
+      coverUrl: payload.coverUrl,
+      authorId: actor.id,
+      authorName: actor.name || actor.email || actor.id,
+      authorRole: actor.role,
+    })
+    return c.json({ success: true, post })
+  } catch {
+    return c.json({ error: 'Could not submit story for review.' }, 500)
+  }
+})
+
+app.post('/api/school/news/posts/:id/review', authenticate, async (c) => {
+  const tenantId = c.var.user?.tenantId
+  const actor = c.var.user || {}
+  if (!tenantId || !canReviewSchoolNews(actor.role)) return c.json({ error: 'forbidden' }, 403)
+
+  const payload = await c.req.json()
+  const decision = String(payload.decision || '').trim().toLowerCase()
+  if (!['approve', 'changes_requested'].includes(decision)) {
+    return c.json({ error: 'A valid review decision is required.' }, 400)
+  }
+
+  try {
+    const post = await reviewSchoolNewsPost(c.env.APP_DB, {
+      tenantId,
+      id: c.req.param('id'),
+      decision,
+      reviewNotes: payload.reviewNotes,
+      reviewedBy: actor.id,
+      reviewedByName: actor.name || actor.email || actor.id,
+    })
+    return c.json({ success: true, post })
+  } catch {
+    return c.json({ error: 'Could not review story.' }, 500)
+  }
+})
+
+app.post('/api/school/news/posts/:id/publish', authenticate, async (c) => {
+  const tenantId = c.var.user?.tenantId
+  const actor = c.var.user || {}
+  if (!tenantId || !canPublishSchoolNews(actor.role)) return c.json({ error: 'forbidden' }, 403)
+
+  try {
+    const post = await publishSchoolNewsPost(c.env.APP_DB, {
+      tenantId,
+      id: c.req.param('id'),
+      publishedBy: actor.id,
+      publishedByName: actor.name || actor.email || actor.id,
+    })
+    return c.json({ success: true, post })
+  } catch (error) {
+    return c.json({ error: error instanceof Error ? error.message : 'Could not publish story.' }, 500)
+  }
+})
+
+app.post('/api/school/news/upload', authenticate, async (c) => {
+  const tenantId = c.var.user?.tenantId
+  if (!canAuthorSchoolNews(c.var.user?.role, tenantId)) return c.json({ error: 'forbidden' }, 403)
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+
+  const formData = await c.req.formData()
+  const file = formData.get('file') as File
+  if (!file) return c.json({ error: 'No file provided.' }, 400)
+
+  try {
+    const ext = file.name.split('.').pop()?.toLowerCase() || 'jpg'
+    const key = `news/${tenantId}/${Date.now()}.${ext}`
+    await c.env.UPLOADS.put(key, file.stream(), { httpMetadata: { contentType: file.type } })
+    return c.json({ success: true, url: `https://ndovera.com/files/${key}` })
+  } catch {
+    return c.json({ error: 'Upload failed.' }, 500)
+  }
+})
 app.get('/api/school/parents', authenticate, async (c) => {
   const tenantId = c.var.user?.tenantId
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
@@ -12819,6 +13042,16 @@ app.post('/api/results/documents/upload', authenticate, async (c) => {
   const formData = await c.req.formData()
   const files = formData.getAll('files').filter(item => item instanceof File) as File[]
   if (files.length === 0) return c.json({ error: 'Upload at least one PDF file.' }, 400)
+  const rawFileStudentMap = String(formData.get('fileStudentMap') || '').trim()
+  let fileStudentMap: Record<string, string> = {}
+  if (rawFileStudentMap) {
+    try {
+      const parsed = JSON.parse(rawFileStudentMap)
+      fileStudentMap = parsed && typeof parsed === 'object' && !Array.isArray(parsed) ? parsed : {}
+    } catch {
+      return c.json({ error: 'Invalid manual result mapping payload.' }, 400)
+    }
+  }
 
   const classId = String(formData.get('classId') || '').trim()
   const period = await resolveCurrentResultPeriod(
@@ -12870,6 +13103,7 @@ app.post('/api/results/documents/upload', authenticate, async (c) => {
     unmatchedCount: 0,
     ambiguousCount: 0,
     invalidTypeCount: 0,
+    manualMappedCount: 0,
   }
 
   for (const file of files) {
@@ -12880,7 +13114,22 @@ app.post('/api/results/documents/upload', authenticate, async (c) => {
       continue
     }
 
-    const matched = matchResultUploadStudent(file.name, students)
+    const fileKey = `${String(file.name || 'result.pdf')}::${Number(file.size || 0)}`
+    const manuallySelectedStudentId = String(fileStudentMap[fileKey] || fileStudentMap[String(file.name || '')] || '').trim()
+    const matched = manuallySelectedStudentId
+      ? {
+          student: students.find(student => String(student.id || '') === manuallySelectedStudentId) || null,
+          matchedBy: 'manual-selection',
+          ambiguous: false,
+        }
+      : matchResultUploadStudent(file.name, students)
+
+    if (manuallySelectedStudentId && !matched.student) {
+      summary.unmatchedCount += 1
+      results.push({ fileName: file.name, status: 'error', message: 'The selected student could not be found for this batch.' })
+      continue
+    }
+
     if (matched.ambiguous) {
       summary.ambiguousCount += 1
       results.push({ fileName: file.name, status: 'error', message: 'Filename matched more than one student. Include the exact display ID, student email, or a clearer student name and surname.' })
@@ -12893,6 +13142,9 @@ app.post('/api/results/documents/upload', authenticate, async (c) => {
     }
 
     summary.matchedCount += 1
+    if (matched.matchedBy === 'manual-selection') {
+      summary.manualMappedCount += 1
+    }
     const studentId = String(matched.student.id || '')
     coveredStudentIds.add(studentId)
 
@@ -13443,7 +13695,7 @@ app.post('/api/school/expenditure', authenticate, async (c) => {
 })
 
 async function ensurePayrollEntriesTable(db: D1Database) {
-  await db.prepare(`CREATE TABLE IF NOT EXISTS payroll_entries (id TEXT PRIMARY KEY, tenant_id TEXT, staff_id TEXT, period TEXT, basic_salary REAL, allowances_json TEXT, deductions_json TEXT, gross REAL, deductions REAL, manual_deductions REAL, net REAL, status TEXT, payment_status TEXT, employment_category TEXT, approved INTEGER, submitted INTEGER, created_at TEXT, updated_at TEXT)`).run()
+  await db.prepare(`CREATE TABLE IF NOT EXISTS payroll_entries (id TEXT PRIMARY KEY, tenant_id TEXT, staff_id TEXT, period TEXT, basic_salary REAL, allowances_json TEXT, deductions_json TEXT, gross REAL, deductions REAL, manual_deductions REAL, net REAL, status TEXT, payment_status TEXT, employment_category TEXT, bank_name TEXT, account_name TEXT, account_number TEXT, approved INTEGER, submitted INTEGER, created_at TEXT, updated_at TEXT)`).run()
   try { await db.exec('ALTER TABLE payroll_entries ADD COLUMN submitted INTEGER DEFAULT 0') } catch {}
   try { await db.exec('ALTER TABLE payroll_entries ADD COLUMN manual_deductions REAL DEFAULT 0') } catch {}
   try { await db.exec('ALTER TABLE payroll_entries ADD COLUMN basic_salary REAL DEFAULT 0') } catch {}
@@ -13451,6 +13703,9 @@ async function ensurePayrollEntriesTable(db: D1Database) {
   try { await db.exec('ALTER TABLE payroll_entries ADD COLUMN deductions_json TEXT') } catch {}
   try { await db.exec('ALTER TABLE payroll_entries ADD COLUMN payment_status TEXT DEFAULT \'pending\'') } catch {}
   try { await db.exec('ALTER TABLE payroll_entries ADD COLUMN employment_category TEXT') } catch {}
+  try { await db.exec('ALTER TABLE payroll_entries ADD COLUMN bank_name TEXT') } catch {}
+  try { await db.exec('ALTER TABLE payroll_entries ADD COLUMN account_name TEXT') } catch {}
+  try { await db.exec('ALTER TABLE payroll_entries ADD COLUMN account_number TEXT') } catch {}
   await runIndexStatements(db, [
     `CREATE INDEX IF NOT EXISTS idx_payroll_entries_tenant_period_staff ON payroll_entries(tenant_id, period, staff_id)`,
     `CREATE INDEX IF NOT EXISTS idx_payroll_entries_tenant_period_payment_status ON payroll_entries(tenant_id, period, payment_status)`,
@@ -13809,6 +14064,9 @@ app.get('/api/school/payroll', authenticate, async (c) => {
         paymentStatus,
         approved: Boolean(row?.approved),
         submitted: Boolean(row?.submitted),
+        bankName: String(row?.bank_name || ''),
+        accountName: String(row?.account_name || ''),
+        accountNumber: String(row?.account_number || ''),
       }
     })
     const approved = payroll.some(p => p.approved)
@@ -13837,6 +14095,9 @@ app.put('/api/school/payroll/staff/:staffId', authenticate, async (c) => {
     status,
     paymentStatus,
     employmentCategory,
+    bankName,
+    accountName,
+    accountNumber,
   } = await c.req.json()
   const period = new Date().toISOString().slice(0, 7)
   const id = `pay_${tenantId}_${staffId}_${period}`
@@ -13886,7 +14147,7 @@ app.put('/api/school/payroll/staff/:staffId', authenticate, async (c) => {
       collectComparableIdentifiers([staffId, hydratedStaffUser?.email, hydratedStaffUser?.id]),
     )
     const newNet = nextGross - (nextManualDed + Number(lateChargeSummary.amount || 0))
-    await c.env.APP_DB.prepare(`INSERT OR REPLACE INTO payroll_entries (id, tenant_id, staff_id, period, basic_salary, allowances_json, deductions_json, gross, deductions, manual_deductions, net, status, payment_status, employment_category, approved, submitted, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
+    await c.env.APP_DB.prepare(`INSERT OR REPLACE INTO payroll_entries (id, tenant_id, staff_id, period, basic_salary, allowances_json, deductions_json, gross, deductions, manual_deductions, net, status, payment_status, employment_category, bank_name, account_name, account_number, approved, submitted, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
       .bind(
         id,
         tenantId,
@@ -13902,6 +14163,9 @@ app.put('/api/school/payroll/staff/:staffId', authenticate, async (c) => {
         nextStatus,
         nextPaymentStatus,
         nextEmploymentCategory,
+        String(bankName || existing?.bank_name || '').trim(),
+        String(accountName || existing?.account_name || '').trim(),
+        String(accountNumber || existing?.account_number || '').trim(),
         existing?.approved || 0,
         existing?.submitted || 0,
         existing?.created_at || new Date().toISOString(),
@@ -14883,6 +15147,48 @@ function sectionByKey(sections: any[], key: string) {
   return sections.find((s: any) => s.section_key === key) || null
 }
 
+function uniqueMediaUrls(...groups: unknown[]) {
+  return Array.from(new Set(
+    groups.flatMap(group => Array.isArray(group) ? group : [group])
+      .map(value => String(value || '').trim())
+      .filter(Boolean)
+  ))
+}
+
+function getWebsiteSectionDefaultPath(sectionKey: string) {
+  const normalized = String(sectionKey || '').trim().toLowerCase()
+  if (normalized === 'hero' || normalized === 'about' || normalized === 'mission') return '/about'
+  if (normalized === 'academics') return '/academics'
+  if (normalized === 'admissions' || normalized === 'admission' || normalized === 'admission_flyer') return '/admissions'
+  if (normalized === 'tour' || normalized === 'gallery') return '/gallery'
+  if (normalized === 'news' || normalized === 'events') return '/events'
+  if (normalized === 'contact') return '/contact'
+  if (normalized === 'login' || normalized === 'portal') return '/login'
+  return '/'
+}
+
+function resolveWebsiteCtaHref(value: string, fallbackPath = '/') {
+  const raw = String(value || '').trim()
+  if (!raw) return fallbackPath
+  if (/^(https?:|mailto:|tel:)/i.test(raw) || raw.startsWith('#')) return raw
+  if (raw.startsWith('/')) return raw
+
+  const normalized = raw
+    .toLowerCase()
+    .replace(/\s+/g, '-')
+    .replace(/^\/+|\/+$/g, '')
+
+  if (!normalized) return fallbackPath
+  if (normalized === 'news') return '/events'
+  if (normalized === 'admission' || normalized === 'apply' || normalized === 'enquire') return '/admissions'
+  if (normalized === 'portal' || normalized === 'portal-login') return '/login'
+  if (['about', 'academics', 'admissions', 'events', 'gallery', 'contact', 'login'].includes(normalized)) {
+    return `/${normalized}`
+  }
+
+  return /^[a-z0-9.-]+\.[a-z]{2,}/i.test(raw) ? `https://${raw}` : `/${normalized}`
+}
+
 function isVideoUrl(url: string) {
   return /\.(mp4|webm|ogg|mov)(\?|#|$)/i.test(String(url || ''))
 }
@@ -15029,8 +15335,8 @@ function baseHtml(title: string, body: string) {
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>${escHtml(title)}</title>
   <style>
-  *{box-sizing:border-box;margin:0;padding:0}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#191970;background:#fff8ee;line-height:1.6}a{color:inherit}.top-strip{height:34px;background:#191970;color:#f5deb3;display:flex;align-items:center;justify-content:flex-end;gap:22px;padding:0 32px;font-size:12px;font-weight:700}.top-strip a{text-decoration:none}.site-nav{background:#800000;color:#f5deb3;display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:76px;padding:12px 34px;position:sticky;top:0;z-index:100;box-shadow:0 10px 28px rgba(25,25,112,.16)}.brand-link{display:flex;align-items:center;gap:12px;text-decoration:none;font-size:18px;font-weight:900}.site-logo,.login-logo{height:48px;width:48px;border-radius:50%;object-fit:cover;border:2px solid #f5deb3}.logo-fallback{background:#f5deb3;color:#800000;display:flex;align-items:center;justify-content:center;font-weight:900}.nav-links{display:flex;align-items:center;gap:18px;flex-wrap:wrap}.nav-links a{text-decoration:none;font-size:13px;font-weight:800}.portal-link,.btn-primary{background:#1a5c38;color:#f5deb3!important;padding:10px 16px;border-radius:8px;text-decoration:none;font-weight:900;display:inline-flex}.btn-secondary{border:1px solid #f5deb3;color:#f5deb3;padding:10px 16px;border-radius:8px;text-decoration:none;font-weight:900;display:inline-flex}.hero{min-height:620px;background:#191970;color:#f5deb3;position:relative;overflow:hidden;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(320px,.75fr);gap:34px;align-items:center;padding:74px 7vw}.hero:before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(25,25,112,.92),rgba(128,0,0,.76),rgba(25,25,112,.36));z-index:1}.hero-bg{position:absolute;inset:0;background-position:center;background-size:cover;opacity:.62}.hero-content,.hero-login{position:relative;z-index:2}.eyebrow{color:#f5deb3;text-transform:uppercase;font-size:12px;font-weight:900;letter-spacing:.18em}.hero h1{font-size:clamp(36px,6vw,72px);line-height:1.02;max-width:820px;margin:14px 0 18px;letter-spacing:0}.hero p{font-size:18px;max-width:680px}.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}.section{padding:72px 7vw}.section.alt{background:#f5deb3}.section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:30px}.section h2,.page-title{color:#800000;font-size:clamp(28px,4vw,44px);line-height:1.1}.section-kicker{color:#800020;font-weight:900;text-transform:uppercase;font-size:12px;letter-spacing:.16em}.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,.85fr);gap:38px;align-items:center}.media-frame{width:100%;height:360px;object-fit:cover;border-radius:8px;border:1px solid rgba(128,0,32,.16);box-shadow:0 20px 50px rgba(25,25,112,.12);background:#f5deb3}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}.info-card,.news-card{background:#fff;border:1px solid rgba(128,0,32,.14);border-radius:8px;overflow:hidden;box-shadow:0 12px 28px rgba(25,25,112,.08)}.info-card{padding:22px}.info-card h3,.news-card h3{color:#800000;font-size:18px;margin-bottom:8px}.info-card p,.news-card p{color:#191970;font-size:14px}.news-card img,.news-card video{width:100%;height:190px;object-fit:cover;background:#f5deb3}.news-card>div{padding:18px}.admission-flyer{background:#800000;color:#f5deb3;border-radius:8px;display:grid;grid-template-columns:minmax(0,.75fr) minmax(300px,1fr);gap:0;overflow:hidden;box-shadow:0 24px 60px rgba(128,0,0,.2)}.admission-flyer .copy{padding:34px}.admission-flyer h2{color:#f5deb3}.admission-flyer img,.admission-flyer video{height:100%;min-height:320px;width:100%;object-fit:cover}.login-card{background:#fff;color:#191970;border-radius:8px;padding:24px;border:1px solid rgba(128,0,32,.16);box-shadow:0 24px 70px rgba(25,25,112,.18)}.login-heading{display:flex;gap:14px;align-items:center;margin-bottom:18px}.login-heading h2{color:#800000;font-size:22px;line-height:1.1}.login-heading p{font-size:13px;color:#800020}.tenant-login-form{display:grid;gap:12px}.tenant-login-form label{display:grid;gap:5px;color:#800020;font-size:12px;text-transform:uppercase;font-weight:900}.tenant-login-form input,.tenant-login-form textarea{border:1.5px solid rgba(128,0,32,.28);border-radius:8px;padding:11px 12px;color:#191970;background:#fff8ee;font:inherit;outline:none}.password-field{position:relative}.password-field input{padding-right:74px}.password-toggle{position:absolute;top:50%;right:8px;transform:translateY(-50%);background:transparent!important;color:#800020!important;border:0!important;padding:4px 8px!important;font-size:12px;font-weight:900;cursor:pointer}.tenant-login-form > button{background:#1a5c38;color:#f5deb3;border:0;border-radius:8px;padding:12px;font-weight:900;cursor:pointer}.login-error{display:none;background:#fef2f2;color:#800000;padding:9px 11px;border-radius:8px;font-size:13px;text-transform:none}.gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.gallery-grid img,.gallery-grid video{width:100%;height:210px;object-fit:cover;border-radius:8px;background:#f5deb3}.page-hero{background:#191970;color:#f5deb3;padding:70px 7vw}.page-hero h1{font-size:clamp(34px,5vw,58px);line-height:1.05}.page-hero p{max-width:760px;margin-top:12px}.site-footer{background:#191970;color:#f5deb3;padding:48px 7vw 24px;display:grid;grid-template-columns:1.3fr .7fr 1fr;gap:30px}.site-footer h3,.site-footer h4{color:#f5deb3;margin-bottom:10px}.site-footer a{display:block;color:#f5deb3;text-decoration:none;margin:4px 0}.footer-bottom{grid-column:1/-1;border-top:1px solid rgba(245,222,179,.25);padding-top:18px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-size:13px}.muted{color:#800020}.placeholder-media{height:260px;background:#800000;color:#f5deb3;display:flex;align-items:center;justify-content:center;border-radius:8px;font-weight:900}
-  @media(max-width:860px){.top-strip{justify-content:center}.site-nav{align-items:flex-start;flex-direction:column;padding:16px 20px}.nav-links{gap:12px}.hero,.split,.admission-flyer{grid-template-columns:1fr}.hero{min-height:auto;padding:58px 22px}.section,.page-hero{padding:52px 22px}.section-head{align-items:flex-start;flex-direction:column}.gallery-grid{grid-template-columns:repeat(2,1fr)}.site-footer{grid-template-columns:1fr}.admission-flyer img,.admission-flyer video{min-height:240px}.media-frame{height:260px}}
+  *{box-sizing:border-box;margin:0;padding:0}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#191970;background:#fff8ee;line-height:1.6}a{color:inherit}.top-strip{height:34px;background:#191970;color:#f5deb3;display:flex;align-items:center;justify-content:flex-end;gap:22px;padding:0 32px;font-size:12px;font-weight:700}.top-strip a{text-decoration:none}.site-nav{background:#800000;color:#f5deb3;display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:76px;padding:12px 34px;position:sticky;top:0;z-index:100;box-shadow:0 10px 28px rgba(25,25,112,.16)}.brand-link{display:flex;align-items:center;gap:12px;text-decoration:none;font-size:18px;font-weight:900}.site-logo,.login-logo{height:48px;width:48px;border-radius:50%;object-fit:cover;border:2px solid #f5deb3}.logo-fallback{background:#f5deb3;color:#800000;display:flex;align-items:center;justify-content:center;font-weight:900}.nav-links{display:flex;align-items:center;gap:18px;flex-wrap:wrap}.nav-links a{text-decoration:none;font-size:13px;font-weight:800}.portal-link,.btn-primary{background:#1a5c38;color:#f5deb3!important;padding:10px 16px;border-radius:8px;text-decoration:none;font-weight:900;display:inline-flex}.btn-secondary{border:1px solid #f5deb3;color:#f5deb3;padding:10px 16px;border-radius:8px;text-decoration:none;font-weight:900;display:inline-flex}.hero{min-height:620px;background:#191970;color:#f5deb3;position:relative;overflow:hidden;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(320px,.75fr);gap:34px;align-items:center;padding:74px 7vw}.hero:before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(25,25,112,.92),rgba(128,0,0,.76),rgba(25,25,112,.36));z-index:1}.hero-bg{position:absolute;inset:0;background-position:center;background-size:cover;opacity:.62}.hero-content,.hero-login{position:relative;z-index:2}.eyebrow{color:#f5deb3;text-transform:uppercase;font-size:12px;font-weight:900;letter-spacing:.18em}.hero h1{font-size:clamp(36px,6vw,72px);line-height:1.02;max-width:820px;margin:14px 0 18px;letter-spacing:0}.hero p{font-size:18px;max-width:680px}.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}.section{padding:72px 7vw}.section.alt{background:#f5deb3}.section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:30px}.section h2,.page-title{color:#800000;font-size:clamp(28px,4vw,44px);line-height:1.1}.section-kicker{color:#800020;font-weight:900;text-transform:uppercase;font-size:12px;letter-spacing:.16em}.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,.85fr);gap:38px;align-items:center}.media-frame{width:100%;height:360px;object-fit:cover;border-radius:8px;border:1px solid rgba(128,0,32,.16);box-shadow:0 20px 50px rgba(25,25,112,.12);background:#f5deb3}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}.info-card,.news-card{background:#fff;border:1px solid rgba(128,0,32,.14);border-radius:8px;overflow:hidden;box-shadow:0 12px 28px rgba(25,25,112,.08)}.info-card{padding:22px}.info-card h3,.news-card h3{color:#800000;font-size:18px;margin-bottom:8px}.info-card p,.news-card p{color:#191970;font-size:14px}.news-card img,.news-card video{width:100%;height:190px;object-fit:cover;background:#f5deb3}.news-card>div{padding:18px}.admission-flyer{background:#800000;color:#f5deb3;border-radius:8px;display:grid;grid-template-columns:minmax(0,.75fr) minmax(300px,1fr);gap:0;overflow:hidden;box-shadow:0 24px 60px rgba(128,0,0,.2)}.admission-flyer .copy{padding:34px}.admission-flyer h2{color:#f5deb3}.admission-flyer img,.admission-flyer video{height:100%;min-height:320px;width:100%;object-fit:cover}.login-card{background:#fff;color:#191970;border-radius:8px;padding:24px;border:1px solid rgba(128,0,32,.16);box-shadow:0 24px 70px rgba(25,25,112,.18)}.login-heading{display:flex;gap:14px;align-items:center;margin-bottom:18px}.login-heading h2{color:#800000;font-size:22px;line-height:1.1}.login-heading p{font-size:13px;color:#800020}.tenant-login-form{display:grid;gap:12px}.tenant-login-form label{display:grid;gap:5px;color:#800020;font-size:12px;text-transform:uppercase;font-weight:900}.tenant-login-form input,.tenant-login-form textarea{border:1.5px solid rgba(128,0,32,.28);border-radius:8px;padding:11px 12px;color:#191970;background:#fff8ee;font:inherit;outline:none}.password-field{position:relative}.password-field input{padding-right:74px}.password-toggle{position:absolute;top:50%;right:8px;transform:translateY(-50%);background:transparent!important;color:#800020!important;border:0!important;padding:4px 8px!important;font-size:12px;font-weight:900;cursor:pointer}.tenant-login-form > button{background:#1a5c38;color:#f5deb3;border:0;border-radius:8px;padding:12px;font-weight:900;cursor:pointer}.login-error{display:none;background:#fef2f2;color:#800000;padding:9px 11px;border-radius:8px;font-size:13px;text-transform:none}.gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.gallery-grid img,.gallery-grid video{width:100%;height:210px;object-fit:cover;border-radius:8px;background:#f5deb3}.page-hero{background:#191970;color:#f5deb3;padding:70px 7vw}.page-hero h1{font-size:clamp(34px,5vw,58px);line-height:1.05}.page-hero p{max-width:760px;margin-top:12px}.site-footer{background:#191970;color:#f5deb3;padding:48px 7vw 24px;display:grid;grid-template-columns:1.3fr .7fr 1fr;gap:30px}.site-footer h3,.site-footer h4{color:#f5deb3;margin-bottom:10px}.site-footer a{display:block;color:#f5deb3;text-decoration:none;margin:4px 0}.footer-bottom{grid-column:1/-1;border-top:1px solid rgba(245,222,179,.25);padding-top:18px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-size:13px}.muted{color:#800020}.placeholder-media{height:260px;background:#800000;color:#f5deb3;display:flex;align-items:center;justify-content:center;border-radius:8px;font-weight:900}.hero{min-height:100svh;grid-template-columns:minmax(0,1.08fr) minmax(340px,.92fr);align-items:stretch;padding:96px 7vw 64px}.hero-content{display:flex;flex-direction:column;justify-content:center;padding-right:6px;position:relative;z-index:2}.hero-side{display:flex;flex-direction:column;gap:18px;justify-content:flex-end;min-width:0;position:relative;z-index:2}.hero-media-rail{display:flex;gap:14px;overflow-x:auto;padding:6px 2px 10px 0;scroll-snap-type:x mandatory;scrollbar-width:thin}.hero-media-card{flex:0 0 min(280px,78vw);scroll-snap-align:start;padding:10px;border-radius:24px;border:1px solid rgba(245,222,179,.2);background:rgba(255,248,238,.1);backdrop-filter:blur(10px)}.hero-media-frame{width:100%;height:250px;object-fit:cover;border-radius:18px;border:1px solid rgba(245,222,179,.18);background:#f5deb3;box-shadow:none}.hero-scroll-note{font-size:11px;font-weight:900;letter-spacing:.18em;text-transform:uppercase;color:rgba(245,222,179,.88);margin-bottom:8px}
+  @media(max-width:860px){.top-strip{justify-content:center}.site-nav{align-items:flex-start;flex-direction:column;padding:16px 20px}.nav-links{gap:12px}.hero,.split,.admission-flyer{grid-template-columns:1fr}.hero{min-height:auto;padding:64px 22px 52px}.hero-side{gap:14px}.hero-media-card{flex-basis:min(82vw,320px)}.hero-media-frame{height:220px}.section,.page-hero{padding:52px 22px}.section-head{align-items:flex-start;flex-direction:column}.gallery-grid{grid-template-columns:repeat(2,1fr)}.site-footer{grid-template-columns:1fr}.admission-flyer img,.admission-flyer video{min-height:240px}.media-frame{height:260px}}
   @media(max-width:520px){.gallery-grid{grid-template-columns:1fr}.nav-links a{font-size:12px}.hero h1{font-size:36px}.site-logo,.login-logo{height:42px;width:42px}}
   </style>
   </head><body>${body}</body></html>`
@@ -15052,16 +15358,22 @@ function renderSchoolHome(tenant: any, branding: any, sections: any[], events: a
   const gallery = sectionByKey(sections, 'gallery')
   const contact = sectionByKey(sections, 'contact')
   const contactMeta = parseMeta(contact)
-  const galleryUrls = [gallery?.image_url, ...(parseMeta(gallery).mediaUrls || [])].filter(Boolean).slice(0, 8)
-  const heroBg = hero?.image_url ? `<div class="hero-bg" style="background-image:url('${escAttr(hero.image_url)}')"></div>` : ''
+  const heroMediaUrls = uniqueMediaUrls(hero?.image_url, ...(Array.isArray(heroMeta.mediaUrls) ? heroMeta.mediaUrls : [])).slice(0, 5)
+  const galleryUrls = uniqueMediaUrls(gallery?.image_url, ...(parseMeta(gallery).mediaUrls || [])).slice(0, 8)
+  const heroBg = heroMediaUrls[0] ? `<div class="hero-bg" style="background-image:url('${escAttr(heroMediaUrls[0])}')"></div>` : ''
   const heroTitle = hero?.title || schoolName
   const heroContent = hero?.content || tagline || 'Building excellence in every student.'
   const heroButton = heroMeta.buttonLabel || 'Learn More'
-  const heroHref = heroMeta.buttonUrl || '/about'
+  const heroHref = resolveWebsiteCtaHref(heroMeta.buttonUrl, '/about')
+  const heroSecondaryButton = heroMeta.secondaryButtonLabel || 'Apply / Enquire'
+  const heroSecondaryHref = resolveWebsiteCtaHref(heroMeta.secondaryButtonUrl, '/admissions')
   const aboutMediaUrl = aboutMeta.youtubeUrl || aboutMeta.videoUrl || about?.image_url || ''
   const tourMediaUrl = tourMeta.youtubeUrl || tourMeta.videoUrl || tour?.image_url || ''
   const eventsPreview = events.slice(0, 4)
   const flyerUrl = flyer?.image_url || parseMeta(flyer).flyerUrl
+  const heroMediaRail = heroMediaUrls.length
+    ? `<div><p class="hero-scroll-note">Hero media ${heroMediaUrls.length}/5 · scroll to view more</p><div class="hero-media-rail">${heroMediaUrls.map((url: string, index: number) => `<div class="hero-media-card">${renderMedia(url, `${heroTitle} media ${index + 1}`, 'hero-media-frame')}</div>`).join('')}</div></div>`
+    : ''
 
   const flyerHtml = flyerUrl ? `
     <section class="section">
@@ -15086,7 +15398,7 @@ function renderSchoolHome(tenant: any, branding: any, sections: any[], events: a
       <p>${escHtml(heroContent)}</p>
       <div class="hero-actions">
         <a class="btn-primary" href="${escAttr(heroHref)}">${escHtml(heroButton)}</a>
-        <a class="btn-secondary" href="/admissions">Apply / Enquire</a>
+        <a class="btn-secondary" href="${escAttr(heroSecondaryHref)}">${escHtml(heroSecondaryButton)}</a>
       </div>
       ${renderBrandingSocialLinks(branding, {
         title: 'Follow Our Updates',
@@ -15095,7 +15407,7 @@ function renderSchoolHome(tenant: any, branding: any, sections: any[], events: a
         includeEmbeds: true,
       })}
     </div>
-    <div class="hero-login">${renderLoginPanel(schoolName, logoUrl, true, options)}</div>
+    <div class="hero-side">${heroMediaRail}${renderLoginPanel(schoolName, logoUrl, true, options)}</div>
   </section>
 
   ${flyerHtml}
@@ -15143,9 +15455,14 @@ function renderSchoolHome(tenant: any, branding: any, sections: any[], events: a
   return baseHtml(schoolName, body)
 }
 
-function renderEventCard(e: any) {
+function renderEventCard(e: any, options: { fullCopy?: boolean } = {}) {
+  const fullCopy = Boolean(options.fullCopy)
+  const rawDescription = String(e.description || '')
+  const previewText = fullCopy
+    ? rawDescription
+    : `${escHtml(rawDescription.slice(0, 150))}${rawDescription.length > 150 ? '...' : ''}`
   const media = e.mediaUrls?.[0] ? renderMedia(e.mediaUrls[0], e.title, '') : '<div class="placeholder-media">News</div>'
-  return `<article class="news-card">${media}<div><p class="muted">${e.event_date ? new Date(e.event_date).toLocaleDateString('en-NG',{day:'numeric',month:'long',year:'numeric'}) : 'School update'}</p><h3>${escHtml(e.title)}</h3><p>${escHtml((e.description || '').slice(0, 150))}${(e.description || '').length > 150 ? '...' : ''}</p><p style="margin-top:12px"><a class="btn-primary" href="/events">Read More</a></p></div></article>`
+  return `<article class="news-card"${e.id ? ` id="story-${escAttr(String(e.id || ''))}"` : ''}>${media}<div><p class="muted">${e.event_date ? new Date(e.event_date).toLocaleDateString('en-NG',{day:'numeric',month:'long',year:'numeric'}) : 'School update'}</p><h3>${escHtml(e.title)}</h3><p>${previewText}</p>${fullCopy ? '' : `<p style="margin-top:12px"><a class="btn-primary" href="/events${e.id ? `#story-${escAttr(String(e.id || ''))}` : ''}">Read More</a></p>`}</div></article>`
 }
 
 function renderContentPage(tenant: any, branding: any, sections: any[], key: string, fallbackTitle: string, fallbackCopy: string) {
@@ -15154,16 +15471,20 @@ function renderContentPage(tenant: any, branding: any, sections: any[], key: str
   const section = sectionByKey(sections, key)
   const meta = parseMeta(section)
   const mediaUrl = meta.youtubeUrl || meta.videoUrl || section?.image_url || ''
+  const heroCopy = section?.content || fallbackCopy
+  const detailCopy = String(meta.detailCopy || '').trim()
+  const ctaHref = resolveWebsiteCtaHref(meta.buttonUrl, getWebsiteSectionDefaultPath(key))
+  const ctaLabel = meta.buttonLabel || 'Learn More'
   const body = `
     ${subdomainNavbar(schoolName, tenant.requestedSubdomain, logoUrl)}
-    <header class="page-hero"><p class="eyebrow">${escHtml(meta.eyebrow || schoolName)}</p><h1>${escHtml(section?.title || fallbackTitle)}</h1><p>${escHtml(section?.content || fallbackCopy)}</p></header>
+    <header class="page-hero"><p class="eyebrow">${escHtml(meta.eyebrow || schoolName)}</p><h1>${escHtml(section?.title || fallbackTitle)}</h1><p>${escHtml(heroCopy)}</p></header>
     <main class="section">
       <div class="split">
         <div>
           <p class="section-kicker">${escHtml(fallbackTitle)}</p>
           <h2>${escHtml(section?.title || fallbackTitle)}</h2>
-          <p>${escHtml(section?.content || fallbackCopy)}</p>
-          ${meta.buttonUrl ? `<div class="hero-actions"><a class="btn-primary" href="${escAttr(meta.buttonUrl)}">${escHtml(meta.buttonLabel || 'Learn More')}</a></div>` : ''}
+          ${detailCopy ? `<p>${escHtml(detailCopy)}</p>` : ''}
+          <div class="hero-actions"><a class="btn-primary" href="${escAttr(ctaHref)}">${escHtml(ctaLabel)}</a></div>
         </div>
         ${mediaUrl ? renderMedia(mediaUrl, section?.title || fallbackTitle) : '<div class="placeholder-media">Add photos or videos from Website settings</div>'}
       </div>
@@ -15298,7 +15619,7 @@ function renderEventsPage(tenant: any, branding: any, events: any[]) {
 
   const eventsHtml = events.length === 0
     ? `<div class="placeholder-media">No news posted yet. Check back soon.</div>`
-    : `<div class="cards">${events.map((e: any) => renderEventCard(e)).join('')}</div>`
+    : `<div class="cards">${events.map((e: any) => renderEventCard(e, { fullCopy: true })).join('')}</div>`
 
   const body = `
   ${subdomainNavbar(schoolName, tenant.requestedSubdomain, logoUrl)}
@@ -15429,17 +15750,28 @@ async function renderTenantWebsiteResponse(
   try {
     await ensureBrandingTable(env.APP_DB)
     await ensureWebsiteSectionsTable(env.APP_DB)
+    await ensureNewsroomTables(env.APP_DB)
     await env.APP_DB.prepare(INIT_SCHOOL_EVENTS).run()
 
-    const [brandingRow, sectionsResult, eventsResult] = await Promise.all([
+    const [brandingRow, sectionsResult, eventsResult, newsPosts] = await Promise.all([
       env.APP_DB.prepare(`SELECT * FROM tenant_branding WHERE tenant_id = ?`).bind(tenant.id).first() as Promise<any>,
       env.APP_DB.prepare(`SELECT * FROM website_sections WHERE tenant_id = ? ORDER BY section_key`).bind(tenant.id).all(),
       env.APP_DB.prepare(`SELECT * FROM school_events WHERE tenant_id = ? ORDER BY event_date DESC LIMIT 10`).bind(tenant.id).all(),
+      listSchoolNewsPosts(env.APP_DB, String(tenant.id || ''), { status: 'published' }),
     ])
 
     const branding = mapTenantBranding(tenant, brandingRow as any)
     const sections = sectionsResult.results || []
     const events = (eventsResult.results || []).map((e: any) => ({ ...e, mediaUrls: JSON.parse(e.media_urls || '[]') }))
+    const publicNewsItems = newsPosts.length
+      ? newsPosts.map((post: any) => ({
+          id: post.id,
+          title: post.title,
+          description: post.excerpt || post.content,
+          event_date: post.publishedAt || post.createdAt,
+          mediaUrls: post.coverUrl ? [post.coverUrl] : [],
+        }))
+      : events
 
     const path = url.pathname.replace(/\/$/, '') || '/'
     let html: string
@@ -15448,9 +15780,9 @@ async function renderTenantWebsiteResponse(
     else if (path === '/academics') html = renderContentPage(tenant, branding, sections, 'academics', 'Academics', 'Explore our academic programmes, learning pathways, and student support structure.')
     else if (path === '/admissions') html = renderAdmissionsPage(tenant, branding, sections, options)
     else if (path === '/gallery') html = renderGalleryPage(tenant, branding, sections)
-    else if (path === '/events') html = renderEventsPage(tenant, branding, events)
+    else if (path === '/events') html = renderEventsPage(tenant, branding, publicNewsItems)
     else if (path === '/contact') html = renderContactPage(tenant, branding, sections, options)
-    else html = renderSchoolHome(tenant, branding, sections, events, options)
+    else html = renderSchoolHome(tenant, branding, sections, publicNewsItems, options)
 
     return new Response(html, { headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'public, max-age=60, stale-while-revalidate=300' } })
   } catch (err) {

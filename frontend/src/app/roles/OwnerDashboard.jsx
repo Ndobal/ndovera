@@ -18,6 +18,7 @@ import TeacherClassroom from '../../features/classroom/TeacherClassroom';
 import HoSMessaging from './hos/HoSMessaging';
 import AdmissionsManagementBoard from '../../features/school/components/AdmissionsManagementBoard';
 import SchoolAuditTrailPage from '../../features/school/components/SchoolAuditTrailPage';
+import SchoolNewsroomPage from '../../features/school/components/SchoolNewsroomPage';
 
 export default function OwnerDashboard({ auth = null }) {
   const location = useLocation();
@@ -44,6 +45,7 @@ export default function OwnerDashboard({ auth = null }) {
     case 'attendance': return <OwnerAttendance auth={auth} />;
     case 'admissions': return <AdmissionsManagementBoard audience="owner" title="Admissions Oversight" subtitle="Review new applications, approve candidates, and route hostel, transport, and clinic follow-up." />;
     case 'classroom': return <TeacherClassroom initialTab="stream" dashboardLabel="Owner Dashboard" watermarkText="Owner Dashboard" />;
+    case 'newsroom': return <SchoolNewsroomPage viewerRole="owner" dashboardLabel="Owner Dashboard" />;
     case 'messaging': return <HoSMessaging auth={auth} />;
     case 'library': return <RoleLibrary />;
     case 'library-admin': return <AdminLibrary />;

@@ -1,42 +1,42 @@
-# Ndovera
+# Ndovera Frontend
 
-A modern React project scaffolded with a feature-based structure and best practices, including a custom animated loader.
+This package contains the React application for Ndovera's role-based dashboards and public onboarding flows.
 
-## Project Structure
-- Feature folders in `src/features/`
-- Shared components in `src/shared/`
-- App bootstrapping in `src/app/`
+## Structure
+
+- `src/app/` holds app bootstrapping and role dashboard entry points.
+- `src/features/` contains feature-owned UI, logic, and API helpers.
+- `src/shared/` contains reusable components, hooks, and styles used across features.
+- `public/` contains static assets and Cloudflare Pages routing support.
 
 ## Development
-- Run `npm start` to launch the app
-- Run `npm run build` for production build
 
-## Loader
-- Custom animated loader with your logo and a colorful spinning ring
+```powershell
+cd frontend
+npm start
+```
 
-## Customization
-- Follow the rules in NDOVERA.txt for future development
+The frontend build is validated with:
 
----
+```powershell
+cd frontend
+npm run build
+```
 
-© 2026 Ndovera
+If you are running the API locally, the frontend uses the proxy configured in `package.json` for `/api` requests.
 
-### Analyzing the Bundle Size
+## Main Feature Areas
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- Role dashboards for school leadership, staff, parents, and students.
+- Classroom materials, assignments, parent learning views, and lesson plans.
+- Fees, receipts, finance controls, and claims review.
+- Results, attendance, library, messaging, AI tutor, and Auras.
+- Tenant website editing for owner and ICT surfaces, including hero media galleries, CTA routing, and section content management.
+- Shared newsroom dashboard pages for student, parent, teacher, owner, HoS, accountant, and operational staff authoring and review flows.
 
-### Making a Progressive Web App
+## Working Rules
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Keep feature logic inside `src/features/`.
+- Move shared utilities and reusable UI into `src/shared/`.
+- Follow the structure rules in `../NDOVERA.txt` when adding or reshaping features.
+- Update this README when frontend commands or major user-facing surfaces change.

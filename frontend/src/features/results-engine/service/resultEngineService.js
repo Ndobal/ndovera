@@ -162,5 +162,6 @@ export async function uploadPublishedResultDocuments(payload = {}) {
     classId: payload.classId,
     sessionName: payload.sessionName,
     termName: payload.termName,
+    fileStudentMap: payload.fileStudentMap ? JSON.stringify(payload.fileStudentMap) : '',
   });
 }

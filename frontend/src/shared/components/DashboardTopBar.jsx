@@ -10,7 +10,6 @@ import {
   ArrowLeftIcon,
   PaperAirplaneIcon,
 } from '@heroicons/react/24/outline';
-import ThemeToggle from './ThemeToggle';
 import UserProfileDropdown from './UserProfileDropdown';
 import {
   getConversationMessages,
@@ -484,8 +483,6 @@ export default function DashboardTopBar({ authUser = null, onLogout = () => {}, 
               <BellAlertIcon className="w-5 h-5" />
             </button>
           )}
-
-          <ThemeToggle />
           {installable && (
             <button
               onClick={handleInstall}

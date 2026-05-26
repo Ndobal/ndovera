@@ -17,6 +17,7 @@ import OwnerPeople from './owner/OwnerPeople';
 import TeacherClassroom from '../../features/classroom/TeacherClassroom';
 import AdmissionsManagementBoard from '../../features/school/components/AdmissionsManagementBoard';
 import SchoolAuditTrailPage from '../../features/school/components/SchoolAuditTrailPage';
+import SchoolNewsroomPage from '../../features/school/components/SchoolNewsroomPage';
 
 export default function HoSDashboard({ auth = null }) {
   const location = useLocation();
@@ -29,6 +30,7 @@ export default function HoSDashboard({ auth = null }) {
     case 'attendance': return <OwnerAttendance auth={auth} />;
     case 'admissions': return <AdmissionsManagementBoard audience="hos" title="Admissions Review" subtitle="Review applicants, coordinate placement, and prepare downstream teams for onboarding." />;
     case 'classroom': return <TeacherClassroom initialTab="stream" dashboardLabel="HoS Dashboard" watermarkText="HoS Dashboard" />;
+    case 'newsroom': return <SchoolNewsroomPage viewerRole="hos" dashboardLabel="HoS Dashboard" />;
     case 'teacher-review': return <HoSTeacherReview auth={auth} />;
     case 'timetable': return <HoSTimetable />;
     case 'discipline': return <HoSDiscipline auth={auth} />;

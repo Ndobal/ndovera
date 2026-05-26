@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getMe, getMyTenant } from '../../../features/school/services/schoolApi';
 import SchoolAnnouncementsPanel from '../../../shared/components/SchoolAnnouncementsPanel';
+import MobileRoleOverviewNav from '../../../shared/components/MobileRoleOverviewNav';
 
 function StatusBadge({ label, value }) {
   const colors = {
@@ -134,6 +135,8 @@ export default function OwnerOverview({ auth }) {
           <p className="text-[#800020] dark:text-slate-400">No school info found.</p>
         )}
       </div>
+
+      <MobileRoleOverviewNav roleKey="owner" counts={{ schools: tenant ? 1 : 0 }} />
     </div>
   );
 }

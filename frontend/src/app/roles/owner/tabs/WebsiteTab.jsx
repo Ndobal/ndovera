@@ -5,9 +5,11 @@ const SECTION_KEYS = [
   {
     key: 'hero',
     label: 'Homepage Hero',
-    desc: 'Large first-screen banner, headline, CTA, and optional background video/image.',
-    mediaLabel: 'Hero Picture / Video',
-    fields: ['eyebrow', 'button'],
+    desc: 'Full-screen first impression with linked CTAs and up to 5 scrollable hero images or videos.',
+    mediaLabel: 'Hero Pictures / Videos',
+    fields: ['eyebrow', 'button', 'secondaryButton', 'gallery'],
+    multiple: true,
+    maxFiles: 5,
   },
   {
     key: 'about',
@@ -85,6 +87,15 @@ function toLines(value) {
     .filter(Boolean);
 }
 
+function uniqueLines(values = []) {
+  return Array.from(new Set((Array.isArray(values) ? values : []).map(value => String(value || '').trim()).filter(Boolean)));
+}
+
+function getCombinedMediaUrls(primaryUrl, mediaValue, maxFiles = 0) {
+  const combined = uniqueLines([primaryUrl, ...toLines(mediaValue)]);
+  return maxFiles > 0 ? combined.slice(0, maxFiles) : combined;
+}
+
 function getYouTubeEmbedUrl(url) {
   const raw = String(url || '').trim();
   if (!raw) return '';
@@ -156,6 +167,8 @@ function SectionCard({ section, data, onSaved }) {
     eyebrow: '',
     buttonLabel: '',
     buttonUrl: '',
+    secondaryButtonLabel: '',
+    secondaryButtonUrl: '',
     videoUrl: '',
     programs: '',
     mediaUrls: '',
@@ -177,6 +190,8 @@ function SectionCard({ section, data, onSaved }) {
       eyebrow: meta.eyebrow || '',
       buttonLabel: meta.buttonLabel || '',
       buttonUrl: meta.buttonUrl || '',
+      secondaryButtonLabel: meta.secondaryButtonLabel || '',
+      secondaryButtonUrl: meta.secondaryButtonUrl || '',
       videoUrl: meta.videoUrl || '',
       programs: asLines(meta.programs),
       mediaUrls: asLines(meta.mediaUrls),
@@ -190,21 +205,23 @@ function SectionCard({ section, data, onSaved }) {
     eyebrow: form.eyebrow,
     buttonLabel: form.buttonLabel,
     buttonUrl: form.buttonUrl,
+    secondaryButtonLabel: form.secondaryButtonLabel,
+    secondaryButtonUrl: form.secondaryButtonUrl,
     videoUrl: form.videoUrl,
     programs: toLines(form.programs),
-    mediaUrls: toLines(form.mediaUrls),
+    mediaUrls: getCombinedMediaUrls(form.imageUrl, form.mediaUrls, section.maxFiles || 0),
     address: form.address,
     phone: form.phone,
     email: form.email,
     flyerUrl: section.key === 'admission_flyer' ? form.imageUrl : undefined,
-  }), [form, section.key]);
+  }), [form, section.key, section.maxFiles]);
 
   async function uploadOne(file, appendToGallery = false) {
     const result = await uploadSectionImage(file, section.key);
     if (appendToGallery) {
       setForm(f => ({
         ...f,
-        mediaUrls: [...toLines(f.mediaUrls), result.url].join('\n'),
+        mediaUrls: uniqueLines([...toLines(f.mediaUrls), result.url]).join('\n'),
         imageUrl: f.imageUrl || result.url,
       }));
       return;
@@ -215,13 +232,23 @@ function SectionCard({ section, data, onSaved }) {
   async function handleMediaUpload(e) {
     const files = Array.from(e.target.files || []);
     if (!files.length) return;
+    const currentMedia = getCombinedMediaUrls(form.imageUrl, form.mediaUrls, 0);
+    const remainingSlots = section.maxFiles ? Math.max(section.maxFiles - currentMedia.length, 0) : files.length;
+    const filesToUpload = section.maxFiles ? files.slice(0, remainingSlots) : files;
+
+    if (!filesToUpload.length) {
+      setMsg(`You can upload up to ${section.maxFiles} files for this section.`);
+      if (fileRef.current) fileRef.current.value = '';
+      return;
+    }
+
     setUploading(true);
     setMsg('');
     try {
-      for (const file of files) {
+      for (const file of filesToUpload) {
         await uploadOne(file, section.multiple);
       }
-      setMsg('Upload complete.');
+      setMsg(filesToUpload.length < files.length ? `Upload complete. Only the first ${section.maxFiles} media files were kept.` : 'Upload complete.');
     } catch (err) {
       setMsg(err.message);
     } finally {
@@ -252,7 +279,7 @@ function SectionCard({ section, data, onSaved }) {
   }
 
   const show = name => section.fields?.includes(name);
-  const galleryUrls = toLines(form.mediaUrls);
+  const galleryUrls = getCombinedMediaUrls(form.imageUrl, form.mediaUrls, section.maxFiles || 0);
 
   return (
     <div className="rounded-2xl p-5 bg-[#f5deb3] dark:bg-slate-800/40 border border-[#c9a96e]/40 dark:border-white/10 space-y-4">
@@ -286,9 +313,10 @@ function SectionCard({ section, data, onSaved }) {
               {uploading ? 'Uploading...' : section.multiple ? 'Upload Media' : 'Upload File'}
             </button>
             <input ref={fileRef} type="file" accept={section.accept || 'image/*,video/*'} multiple={!!section.multiple} className="hidden" onChange={handleMediaUpload} />
-            {form.imageUrl && <span className="text-xs text-[#1a5c38] font-semibold">Primary media set</span>}
+            {section.maxFiles ? <span className="text-xs text-[#800020] font-semibold">Up to {section.maxFiles} files</span> : null}
+            {form.imageUrl && !section.multiple ? <span className="text-xs text-[#1a5c38] font-semibold">Primary media set</span> : null}
           </div>
-          <MediaPreview url={form.imageUrl} label={section.label} />
+          {!section.multiple ? <MediaPreview url={form.imageUrl} label={section.label} /> : null}
         </div>
 
         <div>
@@ -298,15 +326,30 @@ function SectionCard({ section, data, onSaved }) {
         </div>
 
         {show('button') && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            <div>
-              <label className={labelClass}>Button Text</label>
-              <input value={form.buttonLabel} onChange={e => setForm(f => ({ ...f, buttonLabel: e.target.value }))} className={inputClass} placeholder="Learn More" />
+          <div className="space-y-3">
+            <p className="text-xs text-[#800020] dark:text-slate-400">Leave button links blank to auto-link them to the matching website page.</p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <div>
+                <label className={labelClass}>Button Text</label>
+                <input value={form.buttonLabel} onChange={e => setForm(f => ({ ...f, buttonLabel: e.target.value }))} className={inputClass} placeholder="Learn More" />
+              </div>
+              <div>
+                <label className={labelClass}>Button Link</label>
+                <input value={form.buttonUrl} onChange={e => setForm(f => ({ ...f, buttonUrl: e.target.value }))} className={inputClass} placeholder="Leave blank to auto-link" />
+              </div>
             </div>
-            <div>
-              <label className={labelClass}>Button Link</label>
-              <input value={form.buttonUrl} onChange={e => setForm(f => ({ ...f, buttonUrl: e.target.value }))} className={inputClass} placeholder="/admissions" />
-            </div>
+            {show('secondaryButton') ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div>
+                  <label className={labelClass}>Secondary Button Text</label>
+                  <input value={form.secondaryButtonLabel} onChange={e => setForm(f => ({ ...f, secondaryButtonLabel: e.target.value }))} className={inputClass} placeholder="Apply / Enquire" />
+                </div>
+                <div>
+                  <label className={labelClass}>Secondary Button Link</label>
+                  <input value={form.secondaryButtonUrl} onChange={e => setForm(f => ({ ...f, secondaryButtonUrl: e.target.value }))} className={inputClass} placeholder="Leave blank to auto-link" />
+                </div>
+              </div>
+            ) : null}
           </div>
         )}
 
@@ -319,11 +362,15 @@ function SectionCard({ section, data, onSaved }) {
 
         {show('gallery') && (
           <div>
-            <label className={labelClass}>Gallery Media URLs</label>
+            <label className={labelClass}>{section.key === 'hero' ? 'Hero Media URLs' : 'Gallery Media URLs'}</label>
             <textarea rows={5} value={form.mediaUrls} onChange={e => setForm(f => ({ ...f, mediaUrls: e.target.value }))} className={`${inputClass} resize-none`} placeholder="Upload files above, or paste one URL per line." />
             {galleryUrls.length > 0 && (
-              <div className="mt-2 grid grid-cols-3 gap-2">
-                {galleryUrls.slice(0, 6).map(url => <MediaPreview key={url} url={url} label="Gallery media" />)}
+              <div className={section.key === 'hero' ? 'mt-3 flex gap-3 overflow-x-auto pb-2' : 'mt-2 grid grid-cols-3 gap-2'}>
+                {galleryUrls.map(url => (
+                  <div key={url} className={section.key === 'hero' ? 'min-w-[220px] max-w-[220px] shrink-0' : ''}>
+                    <MediaPreview url={url} label={section.key === 'hero' ? 'Hero media' : 'Gallery media'} />
+                  </div>
+                ))}
               </div>
             )}
           </div>
