@@ -17,7 +17,7 @@ export default function StudentPractice() {
   return (
     <StudentSectionShell
       title="Practice"
-      subtitle="Train, improve, and get better every day."
+      subtitle="Choose a subject, solve mixed questions, and study with AI."
     >
       <PracticeTab auraBalance={auraBalance} setAuraBalance={setAuraBalance} />
     </StudentSectionShell>

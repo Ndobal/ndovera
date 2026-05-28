@@ -133,8 +133,8 @@ export default function MobileRoleOverviewNav({ roleKey, counts = {} }) {
   return (
     <>
       <div className="h-24 md:hidden" />
-      <section className="bottom-nav bottom-nav--subtle light overflow-x-hidden px-3 py-2 md:hidden">
-        <div className="mx-auto grid max-w-screen-sm grid-cols-5 gap-2 pb-1">
+      <section className="bottom-nav bottom-nav--subtle light overflow-x-hidden px-2 py-2 md:hidden">
+        <div className="mx-auto grid w-full max-w-screen-sm grid-cols-5 gap-1.5 pb-1">
           {navItems.map(item => {
             const Icon = item.isMore ? EllipsisHorizontalCircleIcon : getItemIcon(item.name, item.path);
             const count = resolveCount(item);

@@ -98,6 +98,9 @@ type Bindings = {
   AI?: {
     run: (model: string, inputs: Record<string, any>) => Promise<any>
   }
+  NVIDIA_API_KEY?: string
+  NVIDIA_API_BASE_URL?: string
+  NVIDIA_STUDENT_AI_MODEL?: string
   JWT_SECRET: string
   CORS_ORIGIN: string
   PASSWORD_RESET_BASE_URL?: string
@@ -3625,6 +3628,9 @@ function canManageAiBilling(role: string) {
 }
 
 const WORKERS_AI_MODEL = '@cf/meta/llama-3.1-8b-instruct-fast'
+const NVIDIA_STUDENT_AI_DEFAULT_BASE_URL = 'https://integrate.api.nvidia.com/v1'
+const NVIDIA_STUDENT_AI_DEFAULT_MODEL = 'deepseek-ai/deepseek-v4-flash'
+const NVIDIA_STUDENT_AI_ROLES = new Set(['student'])
 const OPEN_AI_CHAT_ROLES = new Set([
   'teacher',
   'librarian',
@@ -3744,6 +3750,69 @@ function extractWorkersAiText(result: any): string {
   }
 
   return ''
+}
+
+function extractOpenAiCompatibleText(result: any): string {
+  const content = result?.choices?.[0]?.message?.content
+
+  if (typeof content === 'string' && content.trim()) {
+    return content.trim()
+  }
+
+  if (Array.isArray(content)) {
+    const text = content
+      .map((entry) => {
+        if (typeof entry === 'string') return entry
+        if (typeof entry?.text === 'string') return entry.text
+        if ((entry?.type === 'text' || entry?.type === 'output_text') && typeof entry?.text === 'string') {
+          return entry.text
+        }
+        return ''
+      })
+      .filter(Boolean)
+      .join('\n\n')
+      .trim()
+
+    if (text) return text
+  }
+
+  return ''
+}
+
+async function runNvidiaStudentChat(env: Bindings, messages: AiConversationMessage[]) {
+  const apiKey = String(env.NVIDIA_API_KEY || '').trim()
+  if (!apiKey) return ''
+
+  const baseUrl = String(env.NVIDIA_API_BASE_URL || NVIDIA_STUDENT_AI_DEFAULT_BASE_URL).trim().replace(/\/$/, '')
+  const model = String(env.NVIDIA_STUDENT_AI_MODEL || NVIDIA_STUDENT_AI_DEFAULT_MODEL).trim() || NVIDIA_STUDENT_AI_DEFAULT_MODEL
+
+  const response = await fetch(`${baseUrl}/chat/completions`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${apiKey}`,
+    },
+    body: JSON.stringify({
+      model,
+      messages,
+      temperature: 1,
+      top_p: 0.95,
+      max_tokens: 16384,
+      stream: false,
+      chat_template_kwargs: {
+        thinking: true,
+        reasoning_effort: 'high',
+      },
+    }),
+  })
+
+  const data = await response.json().catch(() => ({}))
+
+  if (!response.ok) {
+    throw new Error(String(data?.error?.message || data?.message || 'NVIDIA student AI request failed.'))
+  }
+
+  return extractOpenAiCompatibleText(data)
 }
 
 function canAccessAiCreditPayment(actor: Record<string, any>, payment: Record<string, any>) {
@@ -8580,6 +8649,37 @@ app.post('/api/exams/:id/submit', authenticate, async (c) => {
 
 app.get('/api/practice/questions', authenticate, async (c) => {
   try {
+    const sanitizePracticeQuestion = (question: Record<string, any>) => {
+      const metadata = question?.metadata && typeof question.metadata === 'object' ? question.metadata : {}
+      return {
+        id: question.id,
+        subject: question.subject,
+        subjectId: question.subjectId,
+        subjectName: question.subjectName,
+        topic: question.topic,
+        type: question.type,
+        prompt: question.prompt,
+        text: question.text || question.prompt,
+        options: Array.isArray(question.options) ? question.options : [],
+        choices: Array.isArray(question.choices) ? question.choices : (Array.isArray(question.options) ? question.options : []),
+        answer: question.answer,
+        acceptedAnswers: Array.isArray(question.acceptedAnswers) ? question.acceptedAnswers : undefined,
+        explanation: question.explanation,
+        imageUrl: question.imageUrl,
+        passage: question.passage || metadata?.passage || '',
+        pairs: Array.isArray(question.pairs) ? question.pairs : [],
+        left: Array.isArray(question.left) ? question.left : (Array.isArray(metadata?.left) ? metadata.left : []),
+        right: Array.isArray(question.right) ? question.right : (Array.isArray(metadata?.right) ? metadata.right : []),
+        metadata: {
+          difficulty: metadata?.difficulty || question.difficulty || 'standard',
+          hint: metadata?.hint || question.hint || '',
+          passage: metadata?.passage || question.passage || '',
+          left: Array.isArray(metadata?.left) ? metadata.left : (Array.isArray(question.left) ? question.left : []),
+          right: Array.isArray(metadata?.right) ? metadata.right : (Array.isArray(question.right) ? question.right : []),
+        },
+      }
+    }
+
     const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
     const tenantId = String(actor.tenantId || '').trim()
     if (!tenantId) return c.json({ success: false, message: 'School context not found.' }, 400)
@@ -8589,7 +8689,11 @@ app.get('/api/practice/questions', authenticate, async (c) => {
       subjectId: String(c.req.query('subjectId') || '').trim(),
       studentId: String(c.req.query('studentId') || actor.actorId || '').trim(),
     })
-    return c.json({ success: true, ...practice })
+    return c.json({
+      success: true,
+      questions: (Array.isArray(practice.questions) ? practice.questions : []).map(sanitizePracticeQuestion),
+      topicPerformanceMap: practice.topicPerformanceMap || {},
+    })
   } catch (error) {
     return c.json({
       success: false,
@@ -8835,12 +8939,15 @@ app.post('/api/ai/tutor/ask', authenticate, async (c) => {
     const payload = await c.req.json().catch(() => ({})) as Record<string, any>
     const aiBinding = c.env.AI
     const { prompt, mode, messages } = buildAiConversation(actor, payload)
+    const normalizedRole = String(actor.role || '').trim().toLowerCase()
+    const practiceSurface = NVIDIA_STUDENT_AI_ROLES.has(normalizedRole) && String(payload.surface || '').trim().toLowerCase() === 'practice'
+    const useNvidiaStudentModel = NVIDIA_STUDENT_AI_ROLES.has(normalizedRole) && Boolean(String(c.env.NVIDIA_API_KEY || '').trim())
 
     if (!prompt) {
       return c.json({ success: false, message: 'Prompt is required.' }, 400)
     }
 
-    if (!OPEN_AI_CHAT_ROLES.has(String(actor.role || '').trim().toLowerCase()) && !isAcademicOnlyPrompt(prompt)) {
+    if (!OPEN_AI_CHAT_ROLES.has(normalizedRole) && !isAcademicOnlyPrompt(prompt)) {
       const access = await summarizeAiAccess(c.env.APP_DB, { tenantId: actor.tenantId, settingsKey: actor.settingsKey })
       return c.json({
         success: false,
@@ -8849,12 +8956,21 @@ app.post('/api/ai/tutor/ask', authenticate, async (c) => {
       }, 400)
     }
 
-    const consumption = await consumeAiAccess(c.env.APP_DB, {
-      tenantId: actor.tenantId,
-      settingsKey: actor.settingsKey,
-      actorId: actor.actorId,
-      actorName: actor.actorName,
-    })
+    const consumption = practiceSurface
+      ? {
+          allowed: true,
+          statusCode: 200,
+          reason: '',
+          source: 'practice_aura',
+          chargedCredits: 0,
+          access: await summarizeAiAccess(c.env.APP_DB, { tenantId: actor.tenantId, settingsKey: actor.settingsKey }),
+        }
+      : await consumeAiAccess(c.env.APP_DB, {
+          tenantId: actor.tenantId,
+          settingsKey: actor.settingsKey,
+          actorId: actor.actorId,
+          actorName: actor.actorName,
+        })
 
     if (!consumption.allowed) {
       return c.json({
@@ -8864,27 +8980,43 @@ app.post('/api/ai/tutor/ask', authenticate, async (c) => {
       }, consumption.statusCode)
     }
 
-    if (!aiBinding || typeof aiBinding.run !== 'function') {
-      return c.json({
-        success: false,
-        message: 'Workers AI is not configured for this environment yet. Add the AI binding and redeploy the API worker.',
-        access: consumption.access,
-      }, 503)
-    }
+    let answer = ''
 
-    const aiResult = await aiBinding.run(WORKERS_AI_MODEL, {
-      messages,
-      max_tokens: 700,
-      temperature: OPEN_AI_CHAT_ROLES.has(String(actor.role || '').trim().toLowerCase()) ? 0.65 : 0.45,
-    })
-    const answer = extractWorkersAiText(aiResult)
+    if (useNvidiaStudentModel) {
+      answer = await runNvidiaStudentChat(c.env, messages)
 
-    if (!answer) {
-      return c.json({
-        success: false,
-        message: 'Workers AI returned an empty response. Please try again.',
-        access: consumption.access,
-      }, 502)
+      if (!answer) {
+        return c.json({
+          success: false,
+          message: 'NVIDIA DeepSeek returned an empty response. Please try again.',
+          access: consumption.access,
+        }, 502)
+      }
+    } else {
+      if (!aiBinding || typeof aiBinding.run !== 'function') {
+        return c.json({
+          success: false,
+          message: NVIDIA_STUDENT_AI_ROLES.has(normalizedRole)
+            ? 'Student AI is not configured for this environment yet. Add NVIDIA_API_KEY or restore the Workers AI binding and redeploy the API worker.'
+            : 'Workers AI is not configured for this environment yet. Add the AI binding and redeploy the API worker.',
+          access: consumption.access,
+        }, 503)
+      }
+
+      const aiResult = await aiBinding.run(WORKERS_AI_MODEL, {
+        messages,
+        max_tokens: 700,
+        temperature: OPEN_AI_CHAT_ROLES.has(normalizedRole) ? 0.65 : 0.45,
+      })
+      answer = extractWorkersAiText(aiResult)
+
+      if (!answer) {
+        return c.json({
+          success: false,
+          message: 'Workers AI returned an empty response. Please try again.',
+          access: consumption.access,
+        }, 502)
+      }
     }
 
     return c.json({
@@ -8894,6 +9026,7 @@ app.post('/api/ai/tutor/ask', authenticate, async (c) => {
       chargedCredits: consumption.chargedCredits,
       access: consumption.access,
       mode,
+      provider: useNvidiaStudentModel ? 'nvidia-deepseek' : 'workers-ai',
     })
   } catch (error) {
     return c.json({ success: false, message: error instanceof Error ? error.message : 'Could not process the AI request.' }, 500)

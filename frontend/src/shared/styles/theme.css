@@ -138,6 +138,8 @@
   /* turquoise blue background */
   background-color: rgba(64,224,208,0.30); /* turquoise translucent */
   box-shadow: 0 -10px 30px rgba(10,60,57,0.45), 0 0 40px rgba(64,224,208,0.12);
+  width: 100%;
+  max-width: 100vw;
 }
 
 /* variants */
@@ -154,7 +156,9 @@
 .bottom-nav .nav-button {
   @apply w-full min-w-0 flex flex-col items-center justify-center py-1.5 px-1 rounded-xl transition-colors overflow-hidden;
 }
-.bottom-nav .nav-button .label { @apply text-[10px] mt-1 neon-subtle; }
+.bottom-nav .nav-button .label {
+  @apply block w-full truncate text-center text-[9px] leading-tight mt-1 neon-subtle;
+}
 
 /* light-mode adjustments */
 .bottom-nav.light {

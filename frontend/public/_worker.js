@@ -16,11 +16,13 @@ export default {
 
     url.pathname = '/index.html';
     const appShellResponse = await env.ASSETS.fetch(new Request(url.toString(), request));
+    const headers = new Headers(appShellResponse.headers);
+    headers.delete('location');
 
     return new Response(appShellResponse.body, {
       status: 200,
       statusText: 'OK',
-      headers: appShellResponse.headers,
+      headers,
     });
   },
 };

@@ -19,6 +19,7 @@ The worker is configured in [wrangler.toml](./wrangler.toml) with:
 - `SESSIONS` bound to Workers KV
 - `UPLOADS` bound to the `dovera-files` R2 bucket
 - `AI` bound to Cloudflare Workers AI for authenticated staff and teacher chat responses
+- optional `NVIDIA_API_KEY` secret for student Ndovera AI chat and Practice assistance through NVIDIA's OpenAI-compatible DeepSeek endpoint
 - routes for `ndovera.com/api/*` and `www.ndovera.com/api/*`
 
 ## Remote Schema Bootstrap
@@ -60,6 +61,15 @@ npm run deploy
 ```
 
 The Worker now serves the authenticated `/api/ai/tutor/ask` chat endpoint with the Cloudflare Workers AI binding, so redeploy the Worker whenever you change AI prompts, models, or access logic.
+
+To enable NVIDIA DeepSeek for student Ndovera AI chat and Practice assistance, set the Worker secret before deploying:
+
+```powershell
+cd frontend/backend
+wrangler secret put NVIDIA_API_KEY
+```
+
+The student path defaults to `https://integrate.api.nvidia.com/v1` with model `deepseek-ai/deepseek-v4-flash`, and falls back to the current Workers AI path if the NVIDIA secret is not configured.
 
 ## Notes
 

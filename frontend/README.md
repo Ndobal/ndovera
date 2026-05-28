@@ -33,6 +33,8 @@ If you are running the API locally, the frontend uses the proxy configured in `p
 - Classroom materials, assignments, parent learning views, and lesson plans.
 - Fees, receipts, finance controls, and claims review.
 - Results, attendance, library, messaging, AI tutor, staff and teacher AI chat assistants, and Auras.
+- Student Ndovera AI chat and the subject-specific Practice AI study chat can route through NVIDIA DeepSeek v4 Flash via the backend Worker when `NVIDIA_API_KEY` is configured.
+- Student Practice now opens per-subject workspaces with separate `Questions` and `AI Study Chat` tabs; the question tab blends eligible practice items into one learner-facing stream without exposing internal source metadata.
 - Staff-facing dashboards now expose a ChatGPT-style AI Assistant page that talks to the authenticated Worker API, so teachers, HoS, accountants, and operational staff can keep a running chat in-role.
 - Tenant website editing for owner and ICT surfaces, including hero media galleries, CTA routing, and section content management.
 - Shared newsroom dashboard pages for student, parent, teacher, owner, HoS, accountant, and operational staff authoring and review flows.
