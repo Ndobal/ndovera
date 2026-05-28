@@ -282,6 +282,8 @@ export const submitPayroll = () => req('/api/school/payroll/submit', { method: '
 export const getPayrollHistory = () => req('/api/school/payroll/history');
 export const getPayrollSettings = () => req('/api/school/payroll/settings');
 export const savePayrollSettings = (data) => req('/api/school/payroll/settings', { method: 'POST', body: data });
+export const getPayrollNote = (period) => req(`/api/school/payroll/note${buildQuery(period ? { period } : {})}`);
+export const savePayrollNote = (data) => req('/api/school/payroll/note', { method: 'POST', body: data });
 export const getMyPayslip = () => req('/api/school/payroll/my-payslip');
 
 // Attendance

@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { getClasses } from '../../school/services/schoolApi';
+import { getClasses, getSession } from '../../school/services/schoolApi';
 import {
   approvePublishedResults,
   getHoSResultAnalytics,
@@ -60,10 +60,45 @@ function buildUploadFileKey(file) {
   return `${file?.name || 'result.pdf'}::${file?.size || 0}`;
 }
 
+function normalizeResultPeriodEntries(sessionPayload = {}) {
+  const seen = new Set();
+  return [sessionPayload?.session, ...(Array.isArray(sessionPayload?.history) ? sessionPayload.history : [])]
+    .map(entry => {
+      const sessionName = String(entry?.session || entry?.sessionName || '').trim();
+      const termName = String(entry?.term || entry?.termName || 'Term 1').trim() || 'Term 1';
+      if (!sessionName) return null;
+      const key = `${sessionName}::${termName}`;
+      if (seen.has(key)) return null;
+      seen.add(key);
+      return { sessionName, termName, key };
+    })
+    .filter(Boolean);
+}
+
+function buildFallbackBatchOptions(classMap = {}, sessionPayload = {}) {
+  const periods = normalizeResultPeriodEntries(sessionPayload);
+  const classes = Object.entries(classMap)
+    .filter(([classId]) => Boolean(String(classId || '').trim()))
+    .map(([classId, className]) => ({ classId, className: String(className || classId) }));
+
+  if (!classes.length || !periods.length) return [];
+
+  return classes.flatMap(classroom => periods.map(period => ({
+    id: `fallback_${classroom.classId}_${period.key}`,
+    classId: classroom.classId,
+    className: classroom.className,
+    sessionName: period.sessionName,
+    termName: period.termName,
+    status: 'draft',
+    label: `${classroom.className} • ${period.sessionName} • ${period.termName}`,
+  })));
+}
+
 export default function ResultAdminConsole({ analyticsMode = 'hos', roleTitle = 'Academic Result Console' }) {
   const [classMap, setClassMap] = useState({});
   const [selectedBatchKey, setSelectedBatchKey] = useState('');
   const [data, setData] = useState(null);
+  const [sessionPayload, setSessionPayload] = useState({ session: null, history: [] });
   const [activeTab, setActiveTab] = useState('console');
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -98,10 +133,14 @@ export default function ResultAdminConsole({ analyticsMode = 'hos', roleTitle = 
     let cancelled = false;
     async function bootstrap() {
       try {
-        const classData = await getClasses().catch(() => ({ classes: [] }));
+        const [classData, nextSessionPayload] = await Promise.all([
+          getClasses().catch(() => ({ classes: [] })),
+          getSession().catch(() => ({ session: null, history: [] })),
+        ]);
         if (cancelled) return;
         const nextClassMap = Object.fromEntries((classData?.classes || []).map(item => [String(item.id || ''), `${item.name || item.className || item.id}${item.arm ? ` ${item.arm}` : ''}`]));
         setClassMap(nextClassMap);
+        setSessionPayload(nextSessionPayload || { session: null, history: [] });
         await loadConsole('', nextClassMap);
       } catch (bootstrapError) {
         if (!cancelled) setError(bootstrapError.message || 'Unable to load result administration right now.');
@@ -119,10 +158,23 @@ export default function ResultAdminConsole({ analyticsMode = 'hos', roleTitle = 
   }, [classMap, loadConsole, selectedBatchKey]);
 
   const batchOptions = Array.isArray(data?.batches) ? data.batches : [];
-  const selectedBatch = batchOptions.find(batch => buildBatchKey(batch) === selectedBatchKey) || data?.selectedBatch || null;
+  const selectableBatches = batchOptions.length > 0 ? batchOptions : buildFallbackBatchOptions(classMap, sessionPayload);
+  const selectedBatch = selectableBatches.find(batch => buildBatchKey(batch) === selectedBatchKey) || data?.selectedBatch || null;
   const caComponents = Array.isArray(data?.settings?.metadata?.caComponents) ? data.settings.metadata.caComponents : [];
   const scoreModel = readScoreModel(data?.settings || {});
   const recentBatchDocuments = filterRecentDocumentsForBatch(data?.recentDocuments || [], selectedBatch);
+
+  useEffect(() => {
+    if (selectedBatchKey) return;
+
+    const nextBatchKey = data?.selectedBatch
+      ? buildBatchKey(data.selectedBatch)
+      : (selectableBatches[0] ? buildBatchKey(selectableBatches[0]) : '');
+
+    if (nextBatchKey) {
+      setSelectedBatchKey(nextBatchKey);
+    }
+  }, [data?.selectedBatch, selectableBatches, selectedBatchKey]);
 
   useEffect(() => {
     setUploadReport(null);
@@ -378,7 +430,8 @@ export default function ResultAdminConsole({ analyticsMode = 'hos', roleTitle = 
                 onChange={event => setSelectedBatchKey(event.target.value)}
                 className={`${RESULT_INPUT} min-w-[280px]`}
               >
-                {batchOptions.map(batch => (
+                {!selectableBatches.length && <option value="">No class/session batch available yet</option>}
+                {selectableBatches.map(batch => (
                   <option key={buildBatchKey(batch)} value={buildBatchKey(batch)}>{batch.label}</option>
                 ))}
               </select>
@@ -455,7 +508,11 @@ export default function ResultAdminConsole({ analyticsMode = 'hos', roleTitle = 
               </div>
             ) : (
               <div className={`${RESULT_INNER_SURFACE} p-5`}>
-                <p className={`text-sm ${RESULT_BODY}`}>Select a class, session, and term batch before uploading PDFs.</p>
+                <p className={`text-sm ${RESULT_BODY}`}>
+                  {selectableBatches.length > 0
+                    ? 'Select a class, session, and term batch before uploading PDFs.'
+                    : 'Set the current school session and ensure classes exist before uploading result PDFs.'}
+                </p>
               </div>
             )}
           </section>

@@ -5,15 +5,18 @@ import {
   getBranding,
   getPayroll,
   getPayrollHistory,
+  getPayrollNote,
   getPayrollSettings,
   getWebsiteSections,
+  savePayrollNote,
   savePayrollSettings,
   submitPayroll,
   updatePayrollStaff,
 } from '../services/schoolApi';
+import PayrollAccountDetailsPanel from './PayrollAccountDetailsPanel';
 import PayrollBankNotePanel from './PayrollBankNotePanel';
 
-const TABS = ['Payroll Sheet', 'Payslips', 'Bank Note', 'History', 'Settings'];
+const TABS = ['Payroll Sheet', 'Payslips', 'Account Details', 'Payroll Notes', 'History', 'Settings'];
 const CARD = 'rounded-3xl border border-[#c9a96e]/40 bg-[#f5deb3] p-6 text-[#191970] shadow-sm dark:border-[#00ffff]/20 dark:bg-[#800000]/25 dark:text-[#39ff14] dark:backdrop-blur-xl';
 const INNER = 'rounded-2xl border border-[#c9a96e]/30 bg-[#f0d090] p-4 dark:border-[#00ffff]/20 dark:bg-[#330014]/70';
 const BTN = 'rounded-2xl bg-[#1a5c38] px-5 py-2.5 text-sm font-bold text-[#f5deb3] transition-colors hover:bg-[#154a2e] disabled:cursor-not-allowed disabled:opacity-70 dark:bg-[#00ffff] dark:text-black dark:hover:bg-[#7df9ff]';
@@ -154,6 +157,10 @@ function formatPeriod(period) {
     month: 'long',
     year: 'numeric',
   });
+}
+
+function buildDefaultPayrollNoteText(period) {
+  return `Please process payroll for ${formatPeriod(period)} and credit each listed staff account with the corresponding net pay for the month.`;
 }
 
 function rowGross(staffRow) {
@@ -327,10 +334,16 @@ function PayrollManagementBoard({ canApprove = false }) {
   const [savingSettings, setSavingSettings] = useState(false);
   const [actionBusy, setActionBusy] = useState('');
   const [selectedPayslip, setSelectedPayslip] = useState(null);
-  const [bankNoteText, setBankNoteText] = useState('');
+  const [payrollNoteDraft, setPayrollNoteDraft] = useState('');
+  const [payrollNotesByPeriod, setPayrollNotesByPeriod] = useState({});
+  const [selectedNotePeriod, setSelectedNotePeriod] = useState(new Date().toISOString().slice(0, 7));
+  const [loadingPayrollNote, setLoadingPayrollNote] = useState(false);
+  const [savingPayrollNote, setSavingPayrollNote] = useState(false);
   const [toast, setToast] = useState('');
   const toastTimeoutRef = useRef(null);
   const currentUser = useMemo(() => getStoredAuth()?.user || null, []);
+  const currentUserRole = String(currentUser?.role || currentUser?.primaryRole || '').trim().toLowerCase();
+  const canEditPayrollSettings = ['owner', 'hos'].includes(currentUserRole);
 
   const showToast = useCallback((message) => {
     setToast(message);
@@ -345,31 +358,19 @@ function PayrollManagementBoard({ canApprove = false }) {
   }, []);
 
   useEffect(() => {
-    const storageKey = `payroll-bank-note:${period}`;
-    const defaultNote = `Please process salary payments for ${formatPeriod(period)} and credit the listed staff accounts with their respective net pay amounts.`;
-    setBankNoteText(window.localStorage.getItem(storageKey) || defaultNote);
-  }, [period]);
-
-  useEffect(() => {
-    if (!period) {
-      return;
-    }
-    window.localStorage.setItem(`payroll-bank-note:${period}`, bankNoteText);
-  }, [bankNoteText, period]);
-
-  useEffect(() => {
     let ignore = false;
 
     async function loadBoard() {
       setLoading(true);
 
       try {
-        const [payrollResult, historyResult, settingsResult, brandingResult, websiteSectionsResult] = await Promise.all([
+        const [payrollResult, historyResult, settingsResult, brandingResult, websiteSectionsResult, noteResult] = await Promise.all([
           getPayroll(),
           getPayrollHistory(),
           getPayrollSettings(),
           getBranding(),
           getWebsiteSections(),
+          getPayrollNote(),
         ]);
 
         if (ignore) {
@@ -377,6 +378,8 @@ function PayrollManagementBoard({ canApprove = false }) {
         }
 
         const nextSettings = normalizePayrollSettings(payrollResult?.settings || settingsResult?.settings || DEFAULT_PAYROLL_SETTINGS);
+        const nextPeriod = payrollResult?.period || new Date().toISOString().slice(0, 7);
+        const savedCurrentNote = noteResult?.note || null;
 
         setSettingsForm(nextSettings);
         setRows(buildPayrollRows(payrollResult?.payroll || []));
@@ -385,7 +388,10 @@ function PayrollManagementBoard({ canApprove = false }) {
         setContactInfo(extractContactInfo(websiteSectionsResult?.sections || []));
         setApproved(Boolean(payrollResult?.approved));
         setSubmitted(Boolean(payrollResult?.submitted));
-        setPeriod(payrollResult?.period || new Date().toISOString().slice(0, 7));
+        setPeriod(nextPeriod);
+        setSelectedNotePeriod(nextPeriod);
+        setPayrollNotesByPeriod(savedCurrentNote ? { [nextPeriod]: savedCurrentNote } : {});
+        setPayrollNoteDraft(savedCurrentNote?.noteText || buildDefaultPayrollNoteText(nextPeriod));
       } catch (error) {
         if (!ignore) {
           showToast(error.message || 'Could not load payroll.');
@@ -403,6 +409,56 @@ function PayrollManagementBoard({ canApprove = false }) {
       ignore = true;
     };
   }, [canApprove, showToast]);
+
+  useEffect(() => {
+    if (selectedNotePeriod !== period) {
+      return;
+    }
+
+    const currentNote = payrollNotesByPeriod[period] || null;
+    setPayrollNoteDraft(currentNote?.noteText || buildDefaultPayrollNoteText(period));
+  }, [payrollNotesByPeriod, period, selectedNotePeriod]);
+
+  useEffect(() => {
+    let ignore = false;
+
+    async function loadSelectedPayrollNote() {
+      if (!selectedNotePeriod || selectedNotePeriod === period) {
+        return;
+      }
+
+      if (Object.prototype.hasOwnProperty.call(payrollNotesByPeriod, selectedNotePeriod)) {
+        return;
+      }
+
+      const selectedHistory = history.find((entry) => entry.period === selectedNotePeriod);
+      if (!selectedHistory?.hasPayrollNote) {
+        setPayrollNotesByPeriod((current) => ({ ...current, [selectedNotePeriod]: null }));
+        return;
+      }
+
+      setLoadingPayrollNote(true);
+      try {
+        const noteResult = await getPayrollNote(selectedNotePeriod);
+        if (ignore) return;
+        setPayrollNotesByPeriod((current) => ({ ...current, [selectedNotePeriod]: noteResult?.note || null }));
+      } catch (error) {
+        if (!ignore) {
+          showToast(error.message || 'Could not load payroll notes.');
+        }
+      } finally {
+        if (!ignore) {
+          setLoadingPayrollNote(false);
+        }
+      }
+    }
+
+    loadSelectedPayrollNote();
+
+    return () => {
+      ignore = true;
+    };
+  }, [history, payrollNotesByPeriod, period, selectedNotePeriod, showToast]);
 
   function updateRowField(staffId, field, value) {
     setRows((currentRows) =>
@@ -525,6 +581,11 @@ function PayrollManagementBoard({ canApprove = false }) {
   }
 
   async function saveSettings() {
+    if (!canEditPayrollSettings) {
+      showToast('Only the owner or head of school can save payroll headings.');
+      return;
+    }
+
     setSavingSettings(true);
 
     try {
@@ -534,6 +595,61 @@ function PayrollManagementBoard({ canApprove = false }) {
       showToast(error.message || 'Could not save payroll settings.');
     } finally {
       setSavingSettings(false);
+    }
+  }
+
+  async function handleSavePayrollNote() {
+    if (!submitted && !approved) {
+      showToast('Submit payroll before saving payroll notes for this month.');
+      return;
+    }
+
+    setSavingPayrollNote(true);
+
+    try {
+      const noteResult = await savePayrollNote({
+        period,
+        noteText: payrollNoteDraft,
+        rows: rows.map((row) => ({
+          id: row.id,
+          staffId: row.id,
+          displayId: row.displayId,
+          name: row.name,
+          role: row.role,
+          employmentCategory: row.employmentCategory,
+          bankName: row.bankName,
+          accountName: row.accountName,
+          accountNumber: row.accountNumber,
+          net: rowNet(row),
+        })),
+      });
+
+      if (noteResult?.note) {
+        setPayrollNotesByPeriod((current) => ({ ...current, [period]: noteResult.note }));
+        setHistory((currentHistory) => {
+          const nextEntry = {
+            period,
+            totalNet: payrollTotals.net,
+            status: approved ? 'approved' : submitted ? 'submitted' : 'draft',
+            hasPayrollNote: true,
+            payrollNoteSavedAt: noteResult.note.savedAt,
+            payrollNotePreparedBy: noteResult.note.preparedByName,
+          };
+
+          const existingIndex = currentHistory.findIndex((entry) => entry.period === period);
+          if (existingIndex === -1) {
+            return [nextEntry, ...currentHistory];
+          }
+
+          return currentHistory.map((entry, index) => (index === existingIndex ? { ...entry, ...nextEntry } : entry));
+        });
+      }
+
+      showToast('Payroll notes saved for this month.');
+    } catch (error) {
+      showToast(error.message || 'Could not save payroll notes.');
+    } finally {
+      setSavingPayrollNote(false);
     }
   }
 
@@ -635,6 +751,17 @@ function PayrollManagementBoard({ canApprove = false }) {
           </div>
 
           <div className={CARD}>
+            {canEditPayrollSettings ? (
+              <div className="mb-4 flex flex-wrap items-center gap-3 border-b border-[#c9a96e]/30 pb-4 dark:border-[#00ffff]/15">
+                <span className={BADGE}>Editable Headings</span>
+                <button type="button" onClick={() => addCustomColumn('earningColumns')} className={OUTLINE_BTN}>Add Earning Heading</button>
+                <button type="button" onClick={() => addCustomColumn('deductionColumns')} className={OUTLINE_BTN}>Add Deduction Heading</button>
+                <button type="button" onClick={saveSettings} disabled={savingSettings} className={BTN}>
+                  {savingSettings ? 'Saving Headings...' : 'Save Heading Changes'}
+                </button>
+              </div>
+            ) : null}
+
             {loading ? (
               <p className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">Loading payroll sheet...</p>
             ) : rows.length === 0 ? (
@@ -650,11 +777,35 @@ function PayrollManagementBoard({ canApprove = false }) {
                       <th className={TH}>Role</th>
                       <th className={TH}>Employment Category</th>
                       {settingsForm.earningColumns.map(column => (
-                        <th key={`earning-head-${column.key}`} className={TH}>{column.label}</th>
+                        <th key={`earning-head-${column.key}`} className={TH}>
+                          {canEditPayrollSettings ? (
+                            <div className="min-w-[140px] space-y-2">
+                              <span className="block text-[10px] uppercase tracking-[0.16em] text-[#f5deb3]/80">{column.fixed ? 'Standard' : 'Custom'} earning</span>
+                              <input
+                                type="text"
+                                value={column.label}
+                                onChange={(event) => updateColumnLabel('earningColumns', column.key, event.target.value)}
+                                className="w-full rounded-lg border border-[#c9a96e]/40 bg-[#fff8ea] px-2 py-1.5 text-xs font-semibold text-[#800020] outline-none"
+                              />
+                            </div>
+                          ) : column.label}
+                        </th>
                       ))}
                       <th className={TH}>Gross</th>
                       {settingsForm.deductionColumns.map(column => (
-                        <th key={`deduction-head-${column.key}`} className={TH}>{column.label}</th>
+                        <th key={`deduction-head-${column.key}`} className={TH}>
+                          {canEditPayrollSettings ? (
+                            <div className="min-w-[140px] space-y-2">
+                              <span className="block text-[10px] uppercase tracking-[0.16em] text-[#f5deb3]/80">{column.fixed ? 'Standard' : 'Custom'} deduction</span>
+                              <input
+                                type="text"
+                                value={column.label}
+                                onChange={(event) => updateColumnLabel('deductionColumns', column.key, event.target.value)}
+                                className="w-full rounded-lg border border-[#c9a96e]/40 bg-[#fff8ea] px-2 py-1.5 text-xs font-semibold text-[#800020] outline-none"
+                              />
+                            </div>
+                          ) : column.label}
+                        </th>
                       ))}
                       <th className={TH}>Late Charges</th>
                       <th className={TH}>Total Deductions</th>
@@ -803,24 +954,43 @@ function PayrollManagementBoard({ canApprove = false }) {
       ) : null}
 
       {tab === 2 ? (
-        <PayrollBankNotePanel
+        <PayrollAccountDetailsPanel
           rows={rows.map(row => ({ ...row, net: rowNet(row) }))}
           loading={loading}
           monthLabel={monthLabel}
-          branding={branding}
-          contactInfo={contactInfo}
-          noteText={bankNoteText}
-          onNoteChange={setBankNoteText}
           onRowFieldChange={updateRowField}
           onPersistRow={persistRow}
           savingRowId={savingRowId}
           canEdit={!inputsLocked}
-          currentUser={currentUser}
-          showToast={showToast}
         />
       ) : null}
 
       {tab === 3 ? (
+        <PayrollBankNotePanel
+          rows={selectedNotePeriod === period
+            ? rows.map(row => ({ ...row, net: rowNet(row) }))
+            : (payrollNotesByPeriod[selectedNotePeriod]?.rows || [])}
+          loading={selectedNotePeriod === period ? loading : loadingPayrollNote}
+          monthLabel={formatPeriod(selectedNotePeriod)}
+          branding={branding}
+          contactInfo={contactInfo}
+          noteText={selectedNotePeriod === period ? payrollNoteDraft : (payrollNotesByPeriod[selectedNotePeriod]?.noteText || '')}
+          onNoteChange={setPayrollNoteDraft}
+          canEdit={selectedNotePeriod === period && (submitted || approved)}
+          canExport={selectedNotePeriod === period ? Boolean((submitted || approved) && rows.length) : Boolean(payrollNotesByPeriod[selectedNotePeriod]?.rows?.length)}
+          currentUser={currentUser}
+          showToast={showToast}
+          onSaveNote={handleSavePayrollNote}
+          savingNote={savingPayrollNote}
+          preparedByName={selectedNotePeriod === period ? payrollNotesByPeriod[period]?.preparedByName : payrollNotesByPeriod[selectedNotePeriod]?.preparedByName}
+          preparedByRole={selectedNotePeriod === period ? payrollNotesByPeriod[period]?.preparedByRole : payrollNotesByPeriod[selectedNotePeriod]?.preparedByRole}
+          savedAt={selectedNotePeriod === period ? payrollNotesByPeriod[period]?.savedAt : payrollNotesByPeriod[selectedNotePeriod]?.savedAt}
+          isReferenceView={selectedNotePeriod !== period}
+          onReturnToCurrent={() => setSelectedNotePeriod(period)}
+        />
+      ) : null}
+
+      {tab === 4 ? (
         <div className={CARD}>
           <h3 className="text-xl font-bold text-[#800000] dark:text-[#0000ff]">Payroll History</h3>
           {history.length === 0 ? (
@@ -832,8 +1002,23 @@ function PayrollManagementBoard({ canApprove = false }) {
                   <div>
                     <p className="text-lg font-bold text-[#191970] dark:text-white">{formatPeriod(entry.period || entry.month)}</p>
                     <p className="mt-1 text-sm text-[#191970] dark:text-[#39ff14]">Total net {formatNaira(entry.totalNet)}</p>
+                    {entry.payrollNoteSavedAt ? <p className="mt-1 text-xs text-[#800020] dark:text-[#bf00ff]">Payroll notes saved by {entry.payrollNotePreparedBy || 'Authorized Officer'} on {new Date(entry.payrollNoteSavedAt).toLocaleString()}</p> : null}
                   </div>
-                  <span className={BADGE}>{entry.status || 'draft'}</span>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className={BADGE}>{entry.status || 'draft'}</span>
+                    {entry.hasPayrollNote ? (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setSelectedNotePeriod(entry.period);
+                          setTab(3);
+                        }}
+                        className={OUTLINE_BTN}
+                      >
+                        Open Payroll Note
+                      </button>
+                    ) : null}
+                  </div>
                 </div>
               ))}
             </div>
@@ -841,7 +1026,7 @@ function PayrollManagementBoard({ canApprove = false }) {
         </div>
       ) : null}
 
-      {tab === 4 ? (
+      {tab === 5 ? (
         <div className={CARD}>
           <h3 className="text-xl font-bold text-[#800000] dark:text-[#0000ff]">Payroll Settings</h3>
           <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">

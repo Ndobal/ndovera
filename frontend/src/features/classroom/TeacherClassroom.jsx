@@ -105,6 +105,11 @@ function buildMaterialUploadKey(file) {
   return `${String(file?.name || 'file')}:${Number(file?.size || 0)}:${Number(file?.lastModified || 0)}`;
 }
 
+function readRememberedTeacherClassId() {
+  if (typeof window === 'undefined') return '';
+  return String(window.localStorage.getItem('teacherClassroomId') || window.localStorage.getItem('classroomId') || '').trim();
+}
+
 export default function TeacherClassroom({
   initialTab = 'stream',
   lockedTab = '',
@@ -116,7 +121,7 @@ export default function TeacherClassroom({
   const storedUser = storedAuth?.user || readStoredUser();
   const currentRoleKey = String(storedUser?.role || 'teacher').trim().toLowerCase() || 'teacher';
   const isSupervisorRole = ['owner', 'hos', 'admin', 'ict', 'ict_manager', 'ami'].includes(currentRoleKey);
-  const [classId, setClassId] = useState('');
+  const [classId, setClassId] = useState(() => readRememberedTeacherClassId());
   const [assignedClasses, setAssignedClasses] = useState([]);
   const [activeTab, setActiveTab] = useState(() => lockedTab || initialTab);
   const [posts, setPosts] = useState([]);
@@ -227,6 +232,32 @@ export default function TeacherClassroom({
       cancelled = true;
     };
   }, [isSupervisorRole]);
+
+  useEffect(() => {
+    if (classroomLoading) return;
+
+    if (!assignedClasses.length) {
+      if (classId) {
+        setClassId('');
+      }
+      return;
+    }
+
+    if (assignedClasses.some(classroom => classroom.id === classId)) {
+      return;
+    }
+
+    const rememberedClassId = readRememberedTeacherClassId();
+    const rememberedMatch = assignedClasses.find(classroom => classroom.id === rememberedClassId)?.id || '';
+    const fallbackClassId = rememberedMatch
+      || ((lockedTab || isSupervisorRole || assignedClasses.length === 1) ? String(assignedClasses[0]?.id || '') : '');
+
+    if (!fallbackClassId) return;
+
+    setClassId(fallbackClassId);
+    window.localStorage.setItem('teacherClassroomId', fallbackClassId);
+    window.localStorage.setItem('classroomId', fallbackClassId);
+  }, [assignedClasses, classId, classroomLoading, isSupervisorRole, lockedTab]);
 
   useEffect(() => {
     if (!classId) {

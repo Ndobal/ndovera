@@ -109,7 +109,17 @@ export async function saveResultConfiguration(payload = {}) {
 
 export async function getHoSResultAnalytics(filters = {}, classMap = {}) {
   const overview = normalizeOverviewResponse(await fetchResultOverview(), classMap);
-  const selectedBatch = resolveSelectedBatch(overview.batches, filters);
+  const requestedBatch = filters?.classId && filters?.sessionName && filters?.termName
+    ? {
+        classId: String(filters.classId || ''),
+        sessionName: String(filters.sessionName || filters.session || ''),
+        termName: String(filters.termName || filters.term || ''),
+        className: classMap[String(filters.classId || '')] || String(filters.classId || ''),
+        label: `${classMap[String(filters.classId || '')] || String(filters.classId || 'Class')} • ${filters.sessionName || filters.session || 'Session'} • ${filters.termName || filters.term || 'Term'}`,
+        status: 'draft',
+      }
+    : null;
+  const selectedBatch = resolveSelectedBatch(overview.batches, filters) || requestedBatch;
 
   if (!selectedBatch) {
     return {

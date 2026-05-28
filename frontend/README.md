@@ -32,6 +32,7 @@ If you are running the API locally, the frontend uses the proxy configured in `p
 - Role dashboards for school leadership, staff, parents, and students.
 - Classroom materials, assignments, parent learning views, and lesson plans.
 - Fees, receipts, finance controls, and claims review.
+- Payroll now includes editable earning and deduction headings, staff account details, and saved monthly payroll-note print sheets with preview/export support.
 - Results, attendance, library, messaging, AI tutor, staff and teacher AI chat assistants, and Auras.
 - Student Ndovera AI chat and the subject-specific Practice AI study chat can route through NVIDIA DeepSeek v4 Flash via the backend Worker when `NVIDIA_API_KEY` is configured.
 - Student and parent Ndovera AI now keep the chat composer pinned at the bottom, keep the latest messages anchored at the bottom of the transcript, and collapse the large control panel into a mobile menu.

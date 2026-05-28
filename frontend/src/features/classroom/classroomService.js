@@ -1,4 +1,5 @@
 import { getApiUrl } from '../../config/apiBase';
+import { buildSelectedRoleHeader } from '../auth/services/authApi';
 
 function apiFetch(path, options) {
   return fetch(getApiUrl(path), options);
@@ -8,8 +9,38 @@ function getAuthHeaders() {
   const token = localStorage.getItem('token');
   return {
     'Content-Type': 'application/json',
-    ...(token ? { Authorization: `Bearer ${token}` } : {})
+    ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    ...buildSelectedRoleHeader(),
   };
+}
+
+async function readJsonResponse(res) {
+  const text = await res.text();
+  const trimmed = String(text || '').trim();
+
+  if (!trimmed) return {};
+
+  try {
+    return JSON.parse(trimmed);
+  } catch {
+    const looksLikeHtml = /^<!doctype html/i.test(trimmed) || /^<html/i.test(trimmed);
+    if (looksLikeHtml) {
+      return {
+        success: false,
+        message: 'The classroom service returned the website shell instead of data. Please refresh and try again.',
+      };
+    }
+
+    return {
+      success: false,
+      message: res.ok ? 'Unexpected server response.' : trimmed,
+    };
+  }
+}
+
+async function requestJson(path, options) {
+  const res = await apiFetch(path, options);
+  return readJsonResponse(res);
 }
 
 function buildQuery(params = {}) {
@@ -23,23 +54,19 @@ function buildQuery(params = {}) {
 }
 
 export async function createClass(payload) {
-  const res = await apiFetch('/api/classrooms', { method: 'POST', headers: getAuthHeaders(), body: JSON.stringify(payload) });
-  return res.json();
+  return requestJson('/api/classrooms', { method: 'POST', headers: getAuthHeaders(), body: JSON.stringify(payload) });
 }
 
 export async function getClass(id) {
-  const res = await apiFetch(`/api/classrooms/${id}`, { headers: getAuthHeaders() });
-  return res.json();
+  return requestJson(`/api/classrooms/${id}`, { headers: getAuthHeaders() });
 }
 
 export async function getAssignedClasses() {
-  const res = await apiFetch('/api/classrooms/assigned', { headers: getAuthHeaders() });
-  return res.json();
+  return requestJson('/api/classrooms/assigned', { headers: getAuthHeaders() });
 }
 
 export async function getPosts(classId) {
-  const res = await apiFetch(`/api/classrooms/${classId}/stream`, { headers: getAuthHeaders() });
-  return res.json();
+  return requestJson(`/api/classrooms/${classId}/stream`, { headers: getAuthHeaders() });
 }
 
 export async function createPost(classId, payload) {
@@ -63,8 +90,7 @@ export async function addPostComment(classId, postId, payload) {
 }
 
 export async function getAssignments(classId) {
-  const res = await apiFetch(`/api/classrooms/${classId}/assignments`, { headers: getAuthHeaders() });
-  return res.json();
+  return requestJson(`/api/classrooms/${classId}/assignments`, { headers: getAuthHeaders() });
 }
 
 export async function createAssignment(classId, payload) {
@@ -122,18 +148,15 @@ export async function recordAttendance(classId, payload) {
 
 export async function getAttendance(classId, since) {
   const q = since ? `?since=${encodeURIComponent(since)}` : '';
-  const res = await apiFetch(`/api/classrooms/${classId}/attendance${q}`, { headers: getAuthHeaders() });
-  return res.json();
+  return requestJson(`/api/classrooms/${classId}/attendance${q}`, { headers: getAuthHeaders() });
 }
 
 export async function getClassStudents(classId) {
-  const res = await apiFetch(`/api/classrooms/${classId}/students`, { headers: getAuthHeaders() });
-  return res.json();
+  return requestJson(`/api/classrooms/${classId}/students`, { headers: getAuthHeaders() });
 }
 
 export async function getClassMembers(classId) {
-  const res = await apiFetch(`/api/classrooms/${classId}/members`, { headers: getAuthHeaders() });
-  return res.json();
+  return requestJson(`/api/classrooms/${classId}/members`, { headers: getAuthHeaders() });
 }
 
 export async function addClassMember(classId, payload) {
@@ -147,8 +170,7 @@ export async function removeClassMember(classId, memberRole, userId) {
 }
 
 export async function getClassSubjects(classId) {
-  const res = await apiFetch(`/api/classrooms/${classId}/subjects`, { headers: getAuthHeaders() });
-  return res.json();
+  return requestJson(`/api/classrooms/${classId}/subjects`, { headers: getAuthHeaders() });
 }
 
 export async function addMaterial(classId, payload) {
@@ -167,13 +189,11 @@ export async function deleteMaterial(classId, materialId) {
 }
 
 export async function getMaterials(classId, params = {}) {
-  const res = await apiFetch(`/api/classrooms/${classId}/materials${buildQuery(params)}`, { headers: getAuthHeaders() });
-  return res.json();
+  return requestJson(`/api/classrooms/${classId}/materials${buildQuery(params)}`, { headers: getAuthHeaders() });
 }
 
 export async function getLearningStudents() {
-  const res = await apiFetch('/api/learning/students', { headers: getAuthHeaders() });
-  return res.json();
+  return requestJson('/api/learning/students', { headers: getAuthHeaders() });
 }
 
 export async function uploadMaterial(classId, payload) {
@@ -185,17 +205,22 @@ export async function uploadMaterial(classId, payload) {
     ['title', 'subjectId', 'description', 'type', 'topic', 'weekLabel', 'week', 'visibility', 'releaseAt'].forEach(key => {
       if (payload[key]) fd.append(key, payload[key]);
     });
-    const res = await apiFetch(`/api/classrooms/${classId}/materials/upload-multipart`, { method: 'POST', headers: token ? { Authorization: `Bearer ${token}` } : {}, body: fd });
-    return res.json();
+    const res = await apiFetch(`/api/classrooms/${classId}/materials/upload-multipart`, {
+      method: 'POST',
+      headers: {
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        ...buildSelectedRoleHeader(),
+      },
+      body: fd,
+    });
+    return readJsonResponse(res);
   }
   // fallback to base64 path
-  const res = await apiFetch(`/api/classrooms/${classId}/materials/upload`, { method: 'POST', headers: getAuthHeaders(), body: JSON.stringify(payload) });
-  return res.json();
+  return requestJson(`/api/classrooms/${classId}/materials/upload`, { method: 'POST', headers: getAuthHeaders(), body: JSON.stringify(payload) });
 }
 
 export async function getLiveSessions(classId) {
-  const res = await apiFetch(`/api/classrooms/${classId}/live`, { headers: getAuthHeaders() });
-  return res.json();
+  return requestJson(`/api/classrooms/${classId}/live`, { headers: getAuthHeaders() });
 }
 
 export async function startLiveSession(classId, payload) {

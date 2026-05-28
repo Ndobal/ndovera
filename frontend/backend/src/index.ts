@@ -14082,6 +14082,66 @@ function normalizePayrollSettingsInput(payload: Record<string, any> = {}) {
   }
 }
 
+function normalizePayrollPeriod(value: unknown) {
+  const normalized = String(value || '').trim()
+  return /^\d{4}-\d{2}$/.test(normalized) ? normalized : new Date().toISOString().slice(0, 7)
+}
+
+function getPayrollNoteSettingsKey(tenantId: string, period: string) {
+  return `payroll_note_${String(tenantId || '').trim()}_${normalizePayrollPeriod(period)}`
+}
+
+function buildPayrollBankDetailsRecord(value: unknown) {
+  const source = value && typeof value === 'object' ? value as Record<string, any> : {}
+  return {
+    bankName: String(source.bankName || '').trim().slice(0, 120),
+    accountName: String(source.accountName || '').trim().slice(0, 120),
+    accountNumber: String(source.accountNumber || '').trim().slice(0, 40),
+  }
+}
+
+function normalizePayrollNoteRows(value: unknown) {
+  return (Array.isArray(value) ? value : [])
+    .map((entry, index) => {
+      const source = entry && typeof entry === 'object' ? entry as Record<string, any> : {}
+      const bankDetails = buildPayrollBankDetailsRecord(source)
+      return {
+        id: String(source.id || source.staffId || `payroll_note_row_${index + 1}`).trim().slice(0, 120),
+        staffId: String(source.staffId || source.id || '').trim().slice(0, 120),
+        displayId: String(source.displayId || '').trim().slice(0, 120),
+        name: String(source.name || source.staffName || 'Staff').trim().slice(0, 160) || 'Staff',
+        role: String(source.role || 'staff').trim().slice(0, 80) || 'staff',
+        employmentCategory: String(source.employmentCategory || '').trim().slice(0, 80),
+        bankName: bankDetails.bankName,
+        accountName: bankDetails.accountName,
+        accountNumber: bankDetails.accountNumber,
+        net: Number(source.net || 0) || 0,
+      }
+    })
+    .filter(entry => entry.name)
+    .slice(0, 500)
+}
+
+function normalizePayrollNoteRecord(value: unknown, fallbackPeriod = '') {
+  if (!value || typeof value !== 'object') return null
+
+  const source = value as Record<string, any>
+  const period = normalizePayrollPeriod(source.period || fallbackPeriod)
+  const rows = normalizePayrollNoteRows(source.rows)
+  const totalNetPay = rows.reduce((sum, row) => sum + Number(row.net || 0), 0)
+
+  return {
+    period,
+    noteText: String(source.noteText || '').trim().slice(0, 5000),
+    preparedByName: String(source.preparedByName || '').trim().slice(0, 160),
+    preparedByRole: String(source.preparedByRole || '').trim().slice(0, 80),
+    preparedByUserId: String(source.preparedByUserId || '').trim().slice(0, 120),
+    savedAt: String(source.savedAt || '').trim() || null,
+    rows,
+    totalNetPay,
+  }
+}
+
 function getPayrollPeriodBounds(period: string) {
   const [rawYear, rawMonth] = String(period || '').split('-').map(value => Number(value))
   const today = new Date()
@@ -14223,6 +14283,7 @@ async function listTenantStaffRoster(db: D1Database, tenantId: string) {
       name: settings?.name || existingPerson?.name || email,
       email: existingPerson?.email || email,
     })
+    const payrollBankDetails = buildPayrollBankDetailsRecord(settings?.payrollBankDetails)
     const person = {
       ...existingPerson,
       id: existingPerson?.id || recordId || email,
@@ -14249,9 +14310,13 @@ async function listTenantStaffRoster(db: D1Database, tenantId: string) {
       gender: profile.gender || existingPerson?.gender || null,
       address: profile.address || existingPerson?.address || null,
       relationship: profile.relationship || existingPerson?.relationship || null,
+      bankName: payrollBankDetails.bankName || existingPerson?.bankName || null,
+      accountName: payrollBankDetails.accountName || existingPerson?.accountName || null,
+      accountNumber: payrollBankDetails.accountNumber || existingPerson?.accountNumber || null,
       profile: {
         ...(existingPerson?.profile && typeof existingPerson.profile === 'object' ? existingPerson.profile : {}),
         ...profile,
+        payrollBankDetails,
       },
       mustChangePassword: settings?.mustChangePassword === true || settings?.mustChangePassword === 'true' || settings?.mustChangePassword === 1,
     }
@@ -14285,7 +14350,7 @@ app.get('/api/school/payroll', authenticate, async (c) => {
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
   try {
     await ensurePayrollEntriesTable(c.env.APP_DB)
-    const period = new Date().toISOString().slice(0, 7)
+    const period = normalizePayrollPeriod(c.req.query('period'))
     const rows = await c.env.APP_DB.prepare(`SELECT * FROM payroll_entries WHERE tenant_id = ? AND period = ?`).bind(tenantId, period).all()
     const lateChargeSummaries = await listPayrollLateChargeSummaries(c.env.APP_DB, tenantId, period)
     const staffRoster = await listTenantStaffRoster(c.env.APP_DB, tenantId)
@@ -14345,9 +14410,9 @@ app.get('/api/school/payroll', authenticate, async (c) => {
         paymentStatus,
         approved: Boolean(row?.approved),
         submitted: Boolean(row?.submitted),
-        bankName: String(row?.bank_name || ''),
-        accountName: String(row?.account_name || ''),
-        accountNumber: String(row?.account_number || ''),
+        bankName: String(row?.bank_name || staffMember?.bankName || staffMember?.profile?.payrollBankDetails?.bankName || ''),
+        accountName: String(row?.account_name || staffMember?.accountName || staffMember?.profile?.payrollBankDetails?.accountName || ''),
+        accountNumber: String(row?.account_number || staffMember?.accountNumber || staffMember?.profile?.payrollBankDetails?.accountNumber || ''),
       }
     })
     const approved = payroll.some(p => p.approved)
@@ -14414,6 +14479,11 @@ app.put('/api/school/payroll/staff/:staffId', authenticate, async (c) => {
     const nextManualDed = deductions !== undefined ? Number(deductions) : computedManualDeductions
     const nextStatus = status || existing?.status || 'Ready'
     const nextPaymentStatus = String(paymentStatus || existing?.payment_status || (String(nextStatus).toLowerCase() === 'paid' ? 'paid' : 'pending')).toLowerCase()
+    const nextBankDetails = buildPayrollBankDetailsRecord({
+      bankName: bankName !== undefined ? bankName : existing?.bank_name,
+      accountName: accountName !== undefined ? accountName : existing?.account_name,
+      accountNumber: accountNumber !== undefined ? accountNumber : existing?.account_number,
+    })
     const nextEmploymentCategory = String(
       employmentCategory
       || existing?.employment_category
@@ -14444,14 +14514,23 @@ app.put('/api/school/payroll/staff/:staffId', authenticate, async (c) => {
         nextStatus,
         nextPaymentStatus,
         nextEmploymentCategory,
-        String(bankName || existing?.bank_name || '').trim(),
-        String(accountName || existing?.account_name || '').trim(),
-        String(accountNumber || existing?.account_number || '').trim(),
+        nextBankDetails.bankName,
+        nextBankDetails.accountName,
+        nextBankDetails.accountNumber,
         existing?.approved || 0,
         existing?.submitted || 0,
         existing?.created_at || new Date().toISOString(),
         new Date().toISOString(),
       ).run()
+
+    const resolvedIdentity = await resolveSettingsIdentity(c.env.APP_DB, hydratedStaffUser?.email || staffId).catch(() => null)
+    if (resolvedIdentity?.settingsKey) {
+      await upsertSettings(c.env.APP_DB, resolvedIdentity.settingsKey, {
+        ...(resolvedIdentity.settings && typeof resolvedIdentity.settings === 'object' ? resolvedIdentity.settings : {}),
+        payrollBankDetails: nextBankDetails,
+      }).catch(() => {})
+    }
+
     return c.json({ success: true })
   } catch (err) { return c.json({ error: 'Could not update payroll.' }, 500) }
 })
@@ -14469,7 +14548,7 @@ app.post('/api/school/payroll/approve', authenticate, async (c) => {
 })
 
 app.post('/api/school/payroll/submit', authenticate, async (c) => {
-  if (!hasRequiredRole(c.var.user.role, ['hos', 'owner'])) return c.json({ error: 'forbidden' }, 403)
+  if (!hasRequiredRole(c.var.user.role, ['accountant', 'hos', 'owner'])) return c.json({ error: 'forbidden' }, 403)
   const tenantId = c.var.user?.tenantId
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
   const period = new Date().toISOString().slice(0, 7)
@@ -14486,8 +14565,18 @@ app.get('/api/school/payroll/history', authenticate, async (c) => {
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
   try {
     await ensurePayrollEntriesTable(c.env.APP_DB)
-    const rows = await c.env.APP_DB.prepare(`SELECT period, SUM(net) as total_net, MAX(approved) as approved FROM payroll_entries WHERE tenant_id = ? GROUP BY period ORDER BY period DESC LIMIT 12`).bind(tenantId).all()
-    const history = (rows.results || []).map((r: any) => ({ period: r.period, totalNet: r.total_net || 0, status: r.approved ? 'approved' : 'draft' }))
+    const rows = await c.env.APP_DB.prepare(`SELECT period, SUM(net) as total_net, MAX(approved) as approved, MAX(submitted) as submitted FROM payroll_entries WHERE tenant_id = ? GROUP BY period ORDER BY period DESC LIMIT 12`).bind(tenantId).all()
+    const history = await Promise.all(((rows.results || []) as Record<string, any>[]).map(async (r: any) => {
+      const note = normalizePayrollNoteRecord(await getSettings(c.env.APP_DB, getPayrollNoteSettingsKey(tenantId, String(r.period || ''))).catch(() => null), String(r.period || ''))
+      return {
+        period: r.period,
+        totalNet: r.total_net || 0,
+        status: r.approved ? 'approved' : r.submitted ? 'submitted' : 'draft',
+        hasPayrollNote: Boolean(note?.savedAt),
+        payrollNoteSavedAt: note?.savedAt || null,
+        payrollNotePreparedBy: note?.preparedByName || '',
+      }
+    }))
     return c.json({ success: true, history })
   } catch { return c.json({ success: true, history: [] }) }
 })
@@ -14510,6 +14599,73 @@ app.post('/api/school/payroll/settings', authenticate, async (c) => {
     await upsertSettings(c.env.APP_DB, `payroll_settings_${tenantId}`, payload)
     return c.json({ success: true })
   } catch (err) { return c.json({ error: 'Could not save settings.' }, 500) }
+})
+
+app.get('/api/school/payroll/note', authenticate, async (c) => {
+  if (!hasRequiredCapability(c.var.user.role, 'manage_payroll', c.var.user.roles)) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  const period = normalizePayrollPeriod(c.req.query('period'))
+  try {
+    const note = normalizePayrollNoteRecord(await getSettings(c.env.APP_DB, getPayrollNoteSettingsKey(tenantId, period)).catch(() => null), period)
+    return c.json({ success: true, note })
+  } catch {
+    return c.json({ success: true, note: null })
+  }
+})
+
+app.post('/api/school/payroll/note', authenticate, async (c) => {
+  if (!hasRequiredCapability(c.var.user.role, 'manage_payroll', c.var.user.roles)) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+
+  const payload = await c.req.json().catch(() => ({})) as Record<string, any>
+  const period = normalizePayrollPeriod(payload.period)
+
+  try {
+    await ensurePayrollEntriesTable(c.env.APP_DB)
+    const statusRow = await c.env.APP_DB.prepare(
+      `SELECT COUNT(*) AS total_rows, MAX(submitted) AS submitted, MAX(approved) AS approved
+       FROM payroll_entries
+       WHERE tenant_id = ? AND period = ?`
+    ).bind(tenantId, period).first() as Record<string, any> | null
+
+    if (Number(statusRow?.total_rows || 0) <= 0) {
+      return c.json({ error: 'No payroll rows were found for this period.' }, 400)
+    }
+
+    if (!Number(statusRow?.submitted || 0) && !Number(statusRow?.approved || 0)) {
+      return c.json({ error: 'Submit payroll before saving payroll notes for this month.' }, 400)
+    }
+
+    const note = normalizePayrollNoteRecord({
+      ...payload,
+      period,
+      preparedByName: c.var.user?.name || c.var.user?.email || 'Authorized Officer',
+      preparedByRole: c.var.user?.role || '',
+      preparedByUserId: c.var.user?.id || c.var.user?.email || '',
+      savedAt: new Date().toISOString(),
+    }, period)
+
+    if (!note || !note.rows.length) {
+      return c.json({ error: 'Payroll notes need at least one staff row before they can be saved.' }, 400)
+    }
+
+    await upsertSettings(c.env.APP_DB, getPayrollNoteSettingsKey(tenantId, period), note)
+    await addAudit(c.env.APP_DB, tenantId, {
+      action: 'payrollNoteSaved',
+      data: {
+        period,
+        by: c.var.user?.id || c.var.user?.email || '',
+        preparedByRole: note.preparedByRole,
+        rows: note.rows.length,
+      },
+    }).catch(() => {})
+
+    return c.json({ success: true, note })
+  } catch (error) {
+    return c.json({ error: error instanceof Error ? error.message : 'Could not save payroll notes.' }, 500)
+  }
 })
 
 app.get('/api/school/payroll/my-payslip', authenticate, async (c) => {

@@ -6,6 +6,7 @@ This package contains the Cloudflare Worker backend for the main Ndovera fronten
 
 - `/api/login` and settings-based authentication
 - library, attendance, classroom, conversation, tuck-shop, purchase, and exam endpoints
+- payroll endpoints for monthly sheets, staff account details, and saved payroll-note snapshots
 - R2-backed classroom file uploads
 - D1-backed application data for future remote usage
 - tenant subdomain website rendering, including hero media galleries, admissions content, and public news pages
