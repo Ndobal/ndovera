@@ -1,9 +1,19 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import {
+  ChatBubbleLeftRightIcon,
+  FaceSmileIcon,
+  LifebuoyIcon,
+  MagnifyingGlassIcon,
+  PaperAirplaneIcon,
+  ShieldCheckIcon,
+  UserGroupIcon,
+} from '@heroicons/react/24/outline';
 import StudentSectionShell from './StudentSectionShell';
-import { getStoredAuth } from '../../../features/auth/services/authApi';
+import { buildSelectedRoleHeader, getStoredAuth } from '../../../features/auth/services/authApi';
 
 const STUDENT_MESSAGING_INTENT_KEY = 'studentMessagingIntent';
+const QUICK_EMOJIS = ['😀', '👏', '🙏', '🔥', '👍', '🎉'];
 
 function uniqueIdentifiers(values) {
   return Array.from(new Set((values || []).map(value => String(value || '').trim()).filter(Boolean)));
@@ -13,6 +23,7 @@ function buildRequestInit(token, init = {}) {
   const nextHeaders = {
     ...(init.body ? { 'Content-Type': 'application/json' } : {}),
     ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    ...buildSelectedRoleHeader(),
     ...(init.headers || {}),
   };
 
@@ -26,7 +37,7 @@ function buildRequestInit(token, init = {}) {
 function prettifyIdentifier(identifier) {
   const value = String(identifier || '').trim();
   if (!value) return 'Conversation';
-  if (value === 'support') return 'School Support';
+  if (value === 'support') return 'Ndovera Helpdesk';
 
   const base = value.includes('@') ? value.split('@')[0] : value;
   return base
@@ -34,6 +45,38 @@ function prettifyIdentifier(identifier) {
     .replace(/\s+/g, ' ')
     .trim()
     .replace(/\b\w/g, letter => letter.toUpperCase());
+}
+
+function prettifyRole(roleKey) {
+  const normalized = String(roleKey || '').trim().toLowerCase();
+  if (!normalized) return 'School Contact';
+  if (normalized === 'hos') return 'Head Of School';
+  if (normalized === 'ict_manager') return 'ICT Manager';
+  if (normalized === 'classteacher') return 'Class Teacher';
+  if (normalized === 'examofficer') return 'Exam Officer';
+  if (normalized === 'sportsmaster') return 'Sports Master';
+
+  return normalized
+    .replace(/_/g, ' ')
+    .replace(/\b\w/g, letter => letter.toUpperCase());
+}
+
+function buildRoleKeys(person) {
+  const explicitRoles = Array.isArray(person?.roles)
+    ? person.roles
+    : String(person?.roles || '')
+      .split(',')
+      .map(value => value.trim())
+      .filter(Boolean);
+
+  return uniqueIdentifiers([person?.primaryRole, person?.role, ...explicitRoles].map(value => String(value || '').toLowerCase()));
+}
+
+function buildInitials(value) {
+  const parts = String(value || 'ND').trim().split(/\s+/).filter(Boolean);
+  if (parts.length === 0) return 'ND';
+  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+  return `${parts[0][0] || ''}${parts[1][0] || ''}`.toUpperCase();
 }
 
 function groupMessagesByDate(messages) {
@@ -61,29 +104,23 @@ function groupMessagesByDate(messages) {
   });
 }
 
-function normalizeTeacherContact(member) {
-  return {
-    id: String(member.id || member.email || member.displayId || ''),
-    name: String(member.name || member.email || 'Teacher'),
-    email: String(member.email || ''),
-    displayId: String(member.displayId || ''),
-    role: member.isClassTeacher ? 'Class Teacher' : 'Subject Teacher',
-    status: String(member.status || 'Active'),
-    isClassTeacher: Boolean(member.isClassTeacher),
-    identifiers: uniqueIdentifiers([member.id, member.email, member.displayId]),
-  };
-}
+function normalizeDirectoryContact(person) {
+  const roleKeys = buildRoleKeys(person);
+  const roleSummary = roleKeys.length ? roleKeys.map(prettifyRole).join(' • ') : 'School Contact';
 
-function normalizeStudentContact(member) {
   return {
-    id: String(member.id || member.email || member.displayId || ''),
-    name: String(member.name || member.email || 'Classmate'),
-    email: String(member.email || ''),
-    displayId: String(member.displayId || ''),
-    role: 'Classmate',
-    status: String(member.status || 'Active'),
-    isClassTeacher: false,
-    identifiers: uniqueIdentifiers([member.id, member.email, member.displayId]),
+    id: String(person?.id || person?.email || person?.displayId || '').trim(),
+    name: String(person?.name || person?.email || 'School Contact').trim(),
+    email: String(person?.email || '').trim(),
+    displayId: String(person?.displayId || person?.publicStudentId || '').trim(),
+    role: prettifyRole(roleKeys[0] || person?.role || 'contact'),
+    roleKeys,
+    roleSummary,
+    status: String(person?.status || 'Active').trim() || 'Active',
+    identifiers: uniqueIdentifiers([person?.id, person?.email, person?.displayId, person?.publicStudentId]),
+    isAdmin: roleKeys.some(roleKey => roleKey === 'owner' || roleKey === 'hos'),
+    isTeacher: roleKeys.includes('teacher') || roleKeys.includes('classteacher'),
+    isStudent: roleKeys.includes('student'),
   };
 }
 
@@ -112,37 +149,114 @@ async function requestJson(path, token, init = {}) {
   return json;
 }
 
-export default function StudentMessaging() {
+function contactMatchesQuery(contact, query) {
+  const normalizedQuery = String(query || '').trim().toLowerCase();
+  if (!normalizedQuery) return true;
+  const haystack = [
+    contact?.name,
+    contact?.email,
+    contact?.displayId,
+    contact?.role,
+    contact?.roleSummary,
+  ].map(value => String(value || '').toLowerCase()).join(' ');
+  return haystack.includes(normalizedQuery);
+}
+
+function getMessagingUiConfig(viewerRole) {
+  const normalizedRole = String(viewerRole || 'student').trim().toLowerCase();
+
+  if (normalizedRole === 'parent') {
+    return {
+      roleLabel: 'Parent',
+      title: 'Messaging',
+      subtitle: 'Message teachers, school admins, and helpdesk from one safe parent workspace.',
+      hubDescription: 'Recent chats, school support, school admins, and every teacher in one sidebar.',
+      emptyStateDescription: 'Pick a previous thread, chat with Ndovera Helpdesk, or message any teacher or school admin from the sidebar.',
+      emptyConversationCopy: 'No previous parent chat matches yet. Start with helpdesk, a school admin, or a teacher below.',
+      composerPlaceholder: 'Write a clear message to a teacher, school admin, or helpdesk...',
+    };
+  }
+
+  if (normalizedRole === 'teacher') {
+    return {
+      roleLabel: 'Teacher',
+      title: 'Messaging',
+      subtitle: 'A clean school chat workspace for students, parents, staff, school admins, and helpdesk support.',
+      hubDescription: 'Recent chats, school support, admins, parents, and student contacts in one sidebar.',
+      emptyStateDescription: 'Pick a previous thread, chat with Ndovera Helpdesk, or open a student, parent, staff, or admin contact from the sidebar.',
+      emptyConversationCopy: 'No previous teacher chat matches yet. Start with helpdesk, an admin, a parent, or a student below.',
+      composerPlaceholder: 'Write a clear message to a student, parent, staff member, admin, or helpdesk...',
+    };
+  }
+
+  return {
+    roleLabel: 'Student',
+    title: 'Messaging',
+    subtitle: 'A clean school chat workspace for classmates, teachers, school admins, and helpdesk support.',
+    hubDescription: 'Recent chats, school support, admins, and all contacts in one sidebar.',
+    emptyStateDescription: 'Pick a previous thread, chat with Ndovera Helpdesk, message school admins, or open any contact from the sidebar.',
+    emptyConversationCopy: 'No previous chat matches yet. Start with helpdesk, a school admin, or any contact below.',
+    composerPlaceholder: 'Write a clear message to your classmate, teacher, school admin, or helpdesk...',
+  };
+}
+
+function ConversationAvatar({ title, contactType = 'conversation' }) {
+  const palette = contactType === 'support'
+    ? 'border-[#1a5c38]/20 bg-[#1a5c38]/12 text-[#1a5c38] dark:border-[#00ffff]/25 dark:bg-[#00ffff]/12 dark:text-[#00ffff]'
+    : contactType === 'admin'
+      ? 'border-[#800000]/20 bg-[#800000]/12 text-[#800000] dark:border-[#bf00ff]/25 dark:bg-[#bf00ff]/12 dark:text-[#ffffff]'
+      : 'border-[#800020]/15 bg-white/70 text-[#800020] dark:border-[#bf00ff]/20 dark:bg-[#191970]/40 dark:text-[#ffffff]';
+
+  return (
+    <span className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border text-sm font-bold ${palette}`}>
+      {buildInitials(title)}
+    </span>
+  );
+}
+
+export default function StudentMessaging({
+  viewerRole = 'student',
+  title,
+  subtitle,
+  dashboardLabel,
+}) {
   const location = useLocation();
   const storedAuth = getStoredAuth();
   const authUser = storedAuth?.user || {};
   const token = storedAuth?.token || localStorage.getItem('token') || '';
   const me = authUser.id || authUser.email || localStorage.getItem('userId') || '';
-  const classroomId = authUser.classId || localStorage.getItem('classroomId') || '';
+  const normalizedViewerRole = String(viewerRole || 'student').trim().toLowerCase();
+  const uiConfig = useMemo(() => getMessagingUiConfig(normalizedViewerRole), [normalizedViewerRole]);
   const selfIdentifiers = useMemo(() => uniqueIdentifiers([me, authUser.email, authUser.displayId]), [authUser.displayId, authUser.email, me]);
 
   const supportContact = useMemo(() => ({
     id: 'support',
-    name: 'School Support',
-    role: 'Help Desk',
+    name: 'Ndovera Helpdesk',
+    role: 'School Support',
+    roleKeys: ['support'],
+    roleSummary: 'School Support • Help Desk',
     status: 'Available',
-    isClassTeacher: false,
     identifiers: ['support'],
+    isAdmin: false,
+    isTeacher: false,
+    isStudent: false,
   }), []);
 
-  const [teacherContacts, setTeacherContacts] = useState([]);
-  const [classmateContacts, setClassmateContacts] = useState([]);
+  const [directoryContacts, setDirectoryContacts] = useState([]);
   const [conversations, setConversations] = useState([]);
   const [activeConversationId, setActiveConversationId] = useState('');
   const [messages, setMessages] = useState([]);
   const [composer, setComposer] = useState('');
+  const [contactQuery, setContactQuery] = useState('');
   const [loadingContacts, setLoadingContacts] = useState(true);
   const [loadingConversations, setLoadingConversations] = useState(true);
   const [loadingMessages, setLoadingMessages] = useState(false);
   const [conversationsLoaded, setConversationsLoaded] = useState(false);
   const [actionError, setActionError] = useState('');
   const [pendingIntent, setPendingIntent] = useState(() => readStudentMessagingIntent());
+  const [emojiTrayOpen, setEmojiTrayOpen] = useState(false);
   const startConversationRef = useRef(null);
+  const contactSearchRef = useRef(null);
 
   async function refreshConversations(preferredConversationId) {
     if (!me) {
@@ -168,8 +282,8 @@ export default function StudentMessaging() {
     let ignore = false;
 
     async function loadContacts() {
-      if (!classroomId || !me) {
-        setTeacherContacts([]);
+      if (!me) {
+        setDirectoryContacts([]);
         setLoadingContacts(false);
         return;
       }
@@ -177,26 +291,29 @@ export default function StudentMessaging() {
       setLoadingContacts(true);
 
       try {
-        const payload = await requestJson(`/api/classrooms/${encodeURIComponent(classroomId)}/members`, token);
-        const members = payload.members || [];
-        const teachers = members
-          .filter(member => String(member.role || '').toLowerCase() === 'teacher')
-          .map(normalizeTeacherContact)
-          .sort((left, right) => Number(Boolean(right.isClassTeacher)) - Number(Boolean(left.isClassTeacher)) || left.name.localeCompare(right.name));
-        const classmates = members
-          .filter(member => String(member.role || '').toLowerCase() === 'student')
-          .map(normalizeStudentContact)
+        const payload = await requestJson('/api/people?limit=250', token);
+        const people = Array.isArray(payload?.people) ? payload.people : [];
+        const contacts = people
+          .map(normalizeDirectoryContact)
+          .filter(contact => contact.id)
           .filter(contact => !contact.identifiers.some(identifier => selfIdentifiers.includes(identifier)))
-          .sort((left, right) => left.name.localeCompare(right.name));
+          .filter(contact => (
+            normalizedViewerRole === 'parent'
+              ? contact.isAdmin || contact.isTeacher
+              : true
+          ))
+          .sort((left, right) => {
+            if (Number(right.isAdmin) !== Number(left.isAdmin)) return Number(right.isAdmin) - Number(left.isAdmin);
+            if (Number(right.isTeacher) !== Number(left.isTeacher)) return Number(right.isTeacher) - Number(left.isTeacher);
+            return left.name.localeCompare(right.name);
+          });
 
         if (!ignore) {
-          setTeacherContacts(teachers);
-          setClassmateContacts(classmates);
+          setDirectoryContacts(contacts);
         }
       } catch {
         if (!ignore) {
-          setTeacherContacts([]);
-          setClassmateContacts([]);
+          setDirectoryContacts([]);
         }
       } finally {
         if (!ignore) {
@@ -206,8 +323,10 @@ export default function StudentMessaging() {
     }
 
     loadContacts();
-    return () => { ignore = true; };
-  }, [classroomId, me, selfIdentifiers, supportContact, token]);
+    return () => {
+      ignore = true;
+    };
+  }, [me, normalizedViewerRole, selfIdentifiers, token]);
 
   useEffect(() => {
     let ignore = false;
@@ -297,31 +416,61 @@ export default function StudentMessaging() {
     };
   }, [activeConversationId, token]);
 
+  const adminContacts = useMemo(() => directoryContacts.filter(contact => contact.isAdmin), [directoryContacts]);
+
+  const filteredContactGroups = useMemo(() => {
+    const normalizedQuery = String(contactQuery || '').trim().toLowerCase();
+    const filterContacts = (contacts) => contacts.filter(contact => contactMatchesQuery(contact, normalizedQuery));
+
+    if (normalizedViewerRole === 'parent') {
+      return [
+        { key: 'admins', label: 'School Admin', contacts: filterContacts(adminContacts) },
+        { key: 'teachers', label: 'Teachers', contacts: filterContacts(directoryContacts.filter(contact => contact.isTeacher && !contact.isAdmin)) },
+      ].filter(group => group.contacts.length > 0);
+    }
+
+    if (normalizedViewerRole === 'teacher') {
+      return [
+        { key: 'admins', label: 'School Admin', contacts: filterContacts(adminContacts) },
+        { key: 'parents', label: 'Parents', contacts: filterContacts(directoryContacts.filter(contact => contact.roleKeys.includes('parent'))) },
+        { key: 'students', label: 'Students', contacts: filterContacts(directoryContacts.filter(contact => contact.isStudent)) },
+        { key: 'staff', label: 'Staff', contacts: filterContacts(directoryContacts.filter(contact => !contact.isAdmin && !contact.isStudent && !contact.roleKeys.includes('parent'))) },
+      ].filter(group => group.contacts.length > 0);
+    }
+
+    return [
+      { key: 'admins', label: 'School Admin', contacts: filterContacts(adminContacts) },
+      { key: 'teachers', label: 'Teachers', contacts: filterContacts(directoryContacts.filter(contact => contact.isTeacher && !contact.isAdmin)) },
+      { key: 'students', label: 'Students', contacts: filterContacts(directoryContacts.filter(contact => contact.isStudent)) },
+      { key: 'others', label: 'Other Contacts', contacts: filterContacts(directoryContacts.filter(contact => !contact.isAdmin && !contact.isTeacher && !contact.isStudent)) },
+    ].filter(group => group.contacts.length > 0);
+  }, [adminContacts, contactQuery, directoryContacts, normalizedViewerRole]);
+
   const contactLookup = useMemo(() => {
     const map = new Map();
     const selfProfile = {
       id: me,
       name: String(authUser.name || authUser.email || 'You'),
-      role: 'Student',
-      status: 'Active',
+      role: uiConfig.roleLabel,
+      roleSummary: uiConfig.roleLabel,
       identifiers: selfIdentifiers,
+      roleKeys: [normalizedViewerRole],
     };
 
     selfIdentifiers.forEach(identifier => map.set(identifier, selfProfile));
-    teacherContacts.forEach(contact => {
-      contact.identifiers.forEach(identifier => map.set(identifier, contact));
-    });
-    classmateContacts.forEach(contact => {
+    directoryContacts.forEach(contact => {
       contact.identifiers.forEach(identifier => map.set(identifier, contact));
     });
     supportContact.identifiers.forEach(identifier => map.set(identifier, supportContact));
 
     return map;
-  }, [authUser.email, authUser.name, classmateContacts, me, selfIdentifiers, supportContact, teacherContacts]);
+  }, [authUser.email, authUser.name, directoryContacts, me, normalizedViewerRole, selfIdentifiers, supportContact, uiConfig.roleLabel]);
 
-  const allContacts = useMemo(() => [...teacherContacts, ...classmateContacts, supportContact], [classmateContacts, supportContact, teacherContacts]);
+  const allContacts = useMemo(() => [supportContact, ...directoryContacts], [directoryContacts, supportContact]);
 
   const conversationCards = useMemo(() => {
+    const normalizedQuery = String(contactQuery || '').trim().toLowerCase();
+
     return (conversations || []).map(conversation => {
       const participants = Array.isArray(conversation.participants) ? conversation.participants.map(value => String(value || '')) : [];
       const otherParticipants = participants.filter(identifier => !selfIdentifiers.includes(identifier));
@@ -329,16 +478,38 @@ export default function StudentMessaging() {
         id: identifier,
         name: prettifyIdentifier(identifier),
         role: 'School Contact',
+        roleSummary: 'School Contact',
+        roleKeys: [],
       });
-
-      return {
+      const primaryProfile = otherProfiles[0] || null;
+      const title = String(conversation.subject || '').trim() || otherProfiles.map(profile => profile.name).join(', ') || 'Conversation';
+      const subtitle = otherProfiles.map(profile => profile.roleSummary || profile.role).filter(Boolean).join(' • ') || 'Direct message';
+      const lastUpdated = conversation.updated_at || conversation.updatedAt || conversation.created_at || conversation.createdAt || '';
+      const card = {
         ...conversation,
-        title: String(conversation.subject || '').trim() || otherProfiles.map(profile => profile.name).join(', ') || 'Conversation',
-        subtitle: otherProfiles.map(profile => profile.role).filter(Boolean).join(' • ') || 'Direct message',
-        lastUpdated: conversation.updated_at || conversation.updatedAt || conversation.created_at || conversation.createdAt || '',
+        title,
+        subtitle,
+        lastUpdated,
+        contactType: primaryProfile?.id === 'support'
+          ? 'support'
+          : primaryProfile?.roleKeys?.some(roleKey => roleKey === 'owner' || roleKey === 'hos')
+            ? 'admin'
+            : 'conversation',
       };
-    }).sort((left, right) => new Date(right.lastUpdated || 0).getTime() - new Date(left.lastUpdated || 0).getTime());
-  }, [contactLookup, conversations, selfIdentifiers]);
+
+      if (!normalizedQuery) return card;
+
+      const haystack = [
+        title,
+        subtitle,
+        conversation?.subject,
+        conversation?.preview,
+        conversation?.lastMessage,
+      ].map(value => String(value || '').toLowerCase()).join(' ');
+
+      return haystack.includes(normalizedQuery) ? card : null;
+    }).filter(Boolean).sort((left, right) => new Date(right.lastUpdated || 0).getTime() - new Date(left.lastUpdated || 0).getTime());
+  }, [contactLookup, contactQuery, conversations, selfIdentifiers]);
 
   const activeConversation = useMemo(
     () => conversationCards.find(conversation => conversation.id === activeConversationId) || null,
@@ -352,13 +523,13 @@ export default function StudentMessaging() {
   }
 
   function resolveParticipantRole(identifier) {
-    return contactLookup.get(String(identifier || ''))?.role || 'School Contact';
+    return contactLookup.get(String(identifier || ''))?.roleSummary || contactLookup.get(String(identifier || ''))?.role || 'School Contact';
   }
 
   async function startConversationWith(contact) {
     setActionError('');
 
-    const existingConversation = conversationCards.find(conversation => {
+    const existingConversation = conversations.find(conversation => {
       const participants = Array.isArray(conversation.participants) ? conversation.participants.map(value => String(value || '')) : [];
       const hasSelf = participants.some(identifier => selfIdentifiers.includes(identifier));
       const hasContact = participants.some(identifier => contact.identifiers.includes(identifier));
@@ -421,10 +592,14 @@ export default function StudentMessaging() {
           name: String(requestedContact.name || requestedContact.email || 'Conversation'),
           email: String(requestedContact.email || ''),
           displayId: String(requestedContact.displayId || ''),
-          role: String(requestedContact.role || 'Classmate'),
+          role: prettifyRole(requestedContact.role || 'contact'),
+          roleKeys: [String(requestedContact.role || 'contact').toLowerCase()],
+          roleSummary: prettifyRole(requestedContact.role || 'contact'),
           status: String(requestedContact.status || 'Active'),
-          isClassTeacher: false,
           identifiers: requestedIdentifiers,
+          isAdmin: false,
+          isTeacher: false,
+          isStudent: false,
         } : null);
 
     if (pendingIntent.composeDraft) {
@@ -455,6 +630,7 @@ export default function StudentMessaging() {
     setMessages(previous => [...previous, optimisticMessage]);
     setComposer('');
     setActionError('');
+    setEmojiTrayOpen(false);
 
     try {
       const payload = await requestJson(`/api/conversations/${encodeURIComponent(activeConversationId)}/messages`, token, {
@@ -463,12 +639,12 @@ export default function StudentMessaging() {
       });
 
       if (payload.message) {
-        setMessages(previous => previous.map(message => message.id === localId ? payload.message : message));
+        setMessages(previous => previous.map(message => (message.id === localId ? payload.message : message)));
       }
 
       await refreshConversations(activeConversationId);
     } catch (error) {
-      setMessages(previous => previous.map(message => message.id === localId ? { ...message, status: 'failed' } : message));
+      setMessages(previous => previous.map(message => (message.id === localId ? { ...message, status: 'failed' } : message)));
       setActionError(error instanceof Error ? error.message : 'Could not send the message.');
     }
   }
@@ -477,7 +653,7 @@ export default function StudentMessaging() {
     const message = messages.find(entry => entry.id === localId);
     if (!message || !activeConversationId) return;
 
-    setMessages(previous => previous.map(entry => entry.id === localId ? { ...entry, status: 'sending' } : entry));
+    setMessages(previous => previous.map(entry => (entry.id === localId ? { ...entry, status: 'sending' } : entry)));
 
     try {
       const payload = await requestJson(`/api/conversations/${encodeURIComponent(activeConversationId)}/messages`, token, {
@@ -486,12 +662,12 @@ export default function StudentMessaging() {
       });
 
       if (payload.message) {
-        setMessages(previous => previous.map(entry => entry.id === localId ? payload.message : entry));
+        setMessages(previous => previous.map(entry => (entry.id === localId ? payload.message : entry)));
       }
 
       await refreshConversations(activeConversationId);
     } catch (error) {
-      setMessages(previous => previous.map(entry => entry.id === localId ? { ...entry, status: 'failed' } : entry));
+      setMessages(previous => previous.map(entry => (entry.id === localId ? { ...entry, status: 'failed' } : entry)));
       setActionError(error instanceof Error ? error.message : 'Could not resend the message.');
     }
   }
@@ -503,170 +679,210 @@ export default function StudentMessaging() {
     }
   }
 
+  function appendEmoji(emoji) {
+    setComposer(current => `${current}${emoji}`);
+  }
+
   return (
-    <StudentSectionShell title="Messaging" subtitle="Chat with classmates, teachers, and school support from one place.">
-      <div className="grid grid-cols-1 xl:grid-cols-[320px_minmax(0,1fr)] gap-5">
-        <div className="space-y-4">
-          <section className="rounded-3xl border border-[#800000]/15 bg-[#f5deb3]/95 p-4 shadow-[0_18px_40px_rgba(128,0,0,0.08)] dark:border-[#bf00ff]/30 dark:bg-[#800000]/70">
-            <div className="flex items-start justify-between gap-3">
-              <div>
-                <h3 className="text-lg font-semibold text-[#800000] dark:text-[#0000ff]">People In Your Class</h3>
-                <p className="mt-1 text-sm text-[#191970] dark:text-[#39ff14]">Open a direct conversation with classmates, teachers, or school support.</p>
-              </div>
-              <span className="rounded-full bg-[#800000]/10 px-3 py-1 text-xs font-semibold text-[#800020] dark:bg-[#00ffff]/20 dark:text-[#bf00ff]">
-                {loadingContacts ? 'Loading' : `${teacherContacts.length + classmateContacts.length} contacts`}
+    <StudentSectionShell
+      title={title || uiConfig.title}
+      subtitle={subtitle || uiConfig.subtitle}
+      dashboardLabel={dashboardLabel || `${uiConfig.roleLabel} Dashboard`}
+      watermarkText={`${uiConfig.roleLabel} Messaging`}
+    >
+      <div className="grid min-h-[calc(100vh-12rem)] grid-cols-1 gap-5 xl:grid-cols-[340px_minmax(0,1fr)]">
+        <aside className="flex min-h-[42rem] flex-col overflow-hidden rounded-[2rem] border border-[#800000]/15 bg-[#f5deb3]/95 shadow-[0_22px_48px_rgba(128,0,0,0.08)] dark:border-[#bf00ff]/30 dark:bg-[#800000]/70">
+          <div className="border-b border-[#800000]/10 px-5 py-5 dark:border-[#bf00ff]/20">
+            <div className="flex items-center gap-3">
+              <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#1a5c38]/12 text-[#1a5c38] dark:bg-[#00ffff]/12 dark:text-[#00ffff]">
+                <ChatBubbleLeftRightIcon className="h-6 w-6" />
               </span>
+              <div>
+                <h2 className="text-xl font-semibold text-[#800000] dark:text-[#0000ff]">Chat Hub</h2>
+                <p className="mt-1 text-sm text-[#191970] dark:text-[#39ff14]">{uiConfig.hubDescription}</p>
+              </div>
             </div>
 
-            <div className="mt-4 space-y-3">
-              <div>
-                <div className="mb-2 flex items-center justify-between gap-3">
-                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#800020] dark:text-[#bf00ff]">Teachers</p>
-                  <span className="text-xs text-[#191970] dark:text-[#39ff14]">{teacherContacts.length}</span>
-                </div>
-              {teacherContacts.map(contact => (
-                <button
-                  key={contact.id}
-                  type="button"
-                  onClick={() => startConversationWith(contact)}
-                  className="flex w-full items-start justify-between rounded-2xl border border-[#800000]/10 bg-white/50 px-4 py-3 text-left transition hover:-translate-y-0.5 hover:border-[#1a5c38]/40 hover:shadow-[0_14px_30px_rgba(26,92,56,0.12)] dark:border-[#bf00ff]/25 dark:bg-[#191970]/35"
-                >
-                  <div>
-                    <div className="text-sm font-semibold text-[#800000] dark:text-[#ffffff]">{contact.name}</div>
-                    <div className="mt-1 text-xs text-[#800020] dark:text-[#bf00ff]">{contact.role}</div>
-                  </div>
-                  <span className="rounded-full bg-[#1a5c38] px-3 py-1 text-xs font-bold text-[#f5deb3] dark:bg-[#00ffff] dark:text-black">
-                    Chat
-                  </span>
-                </button>
-              ))}
+            <label className="mt-4 flex items-center gap-3 rounded-2xl border border-[#800000]/10 bg-white/70 px-4 py-3 dark:border-[#bf00ff]/20 dark:bg-[#191970]/35">
+              <MagnifyingGlassIcon className="h-5 w-5 text-[#800020] dark:text-[#bf00ff]" />
+              <input
+                ref={contactSearchRef}
+                value={contactQuery}
+                onChange={event => setContactQuery(event.target.value)}
+                placeholder="Search chats or contacts"
+                className="w-full bg-transparent text-sm text-[#191970] outline-none placeholder:text-[#800020]/65 dark:text-[#ffffff] dark:placeholder:text-[#bf00ff]/70"
+              />
+            </label>
+          </div>
 
-              {!loadingContacts && teacherContacts.length === 0 ? (
-                <div className="rounded-2xl border border-dashed border-[#800000]/20 px-4 py-4 text-sm text-[#191970] dark:border-[#bf00ff]/30 dark:text-[#39ff14]">
-                  No teachers are available for direct class messaging yet.
-                </div>
-              ) : null}
+          <div className="flex-1 overflow-y-auto px-4 py-4">
+            <div className="rounded-3xl border border-[#800000]/10 bg-white/55 p-4 dark:border-[#bf00ff]/20 dark:bg-[#191970]/35">
+              <div className="flex items-center gap-2">
+                <LifebuoyIcon className="h-5 w-5 text-[#1a5c38] dark:text-[#00ffff]" />
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#800020] dark:text-[#bf00ff]">Quick Channels</p>
               </div>
+              <div className="mt-3 space-y-2">
+                <button
+                  type="button"
+                  onClick={() => startConversationWith(supportContact)}
+                  className="flex w-full items-center gap-3 rounded-2xl border border-[#1a5c38]/15 bg-[#1a5c38]/8 px-3 py-3 text-left transition hover:-translate-y-0.5 hover:shadow-[0_14px_30px_rgba(26,92,56,0.10)] dark:border-[#00ffff]/20 dark:bg-[#00ffff]/10"
+                >
+                  <ConversationAvatar title={supportContact.name} contactType="support" />
+                  <div className="min-w-0">
+                    <p className="truncate text-sm font-semibold text-[#800000] dark:text-[#ffffff]">{supportContact.name}</p>
+                    <p className="truncate text-xs text-[#800020] dark:text-[#bf00ff]">{supportContact.roleSummary}</p>
+                  </div>
+                </button>
 
-              <div>
-                <div className="mb-2 flex items-center justify-between gap-3">
-                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#800020] dark:text-[#bf00ff]">Classmates</p>
-                  <span className="text-xs text-[#191970] dark:text-[#39ff14]">{classmateContacts.length}</span>
-                </div>
-
-                {classmateContacts.map(contact => (
+                {adminContacts.slice(0, 3).map(contact => (
                   <button
                     key={contact.id}
                     type="button"
                     onClick={() => startConversationWith(contact)}
-                    className="mb-3 flex w-full items-start justify-between rounded-2xl border border-[#800000]/10 bg-white/50 px-4 py-3 text-left transition hover:-translate-y-0.5 hover:border-[#1a5c38]/40 hover:shadow-[0_14px_30px_rgba(26,92,56,0.12)] dark:border-[#bf00ff]/25 dark:bg-[#191970]/35"
+                    className="flex w-full items-center gap-3 rounded-2xl border border-[#800000]/10 bg-[#fff7ea] px-3 py-3 text-left transition hover:-translate-y-0.5 hover:shadow-[0_14px_30px_rgba(128,0,0,0.10)] dark:border-[#bf00ff]/20 dark:bg-[#191970]/30"
                   >
-                    <div>
-                      <div className="text-sm font-semibold text-[#800000] dark:text-[#ffffff]">{contact.name}</div>
-                      <div className="mt-1 text-xs text-[#800020] dark:text-[#bf00ff]">{contact.role}{contact.displayId ? ` • ${contact.displayId}` : ''}</div>
+                    <ConversationAvatar title={contact.name} contactType="admin" />
+                    <div className="min-w-0">
+                      <p className="truncate text-sm font-semibold text-[#800000] dark:text-[#ffffff]">{contact.name}</p>
+                      <p className="truncate text-xs text-[#800020] dark:text-[#bf00ff]">{contact.roleSummary}</p>
                     </div>
-                    <span className="rounded-full bg-[#1a5c38] px-3 py-1 text-xs font-bold text-[#f5deb3] dark:bg-[#00ffff] dark:text-black">
-                      Chat
-                    </span>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-4 rounded-3xl border border-[#800000]/10 bg-white/55 p-4 dark:border-[#bf00ff]/20 dark:bg-[#191970]/35">
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2">
+                  <ShieldCheckIcon className="h-5 w-5 text-[#800020] dark:text-[#bf00ff]" />
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#800020] dark:text-[#bf00ff]">Previous Chats</p>
+                </div>
+                <span className="text-[11px] font-semibold text-[#800020] dark:text-[#bf00ff]">
+                  {loadingConversations ? 'Refreshing...' : `${conversationCards.length} thread${conversationCards.length === 1 ? '' : 's'}`}
+                </span>
+              </div>
+
+              <div className="mt-3 space-y-2">
+                {conversationCards.map(conversation => (
+                  <button
+                    key={conversation.id}
+                    type="button"
+                    onClick={() => setActiveConversationId(conversation.id)}
+                    className={`flex w-full items-start gap-3 rounded-2xl border px-3 py-3 text-left transition ${activeConversationId === conversation.id
+                      ? 'border-[#1a5c38]/35 bg-[#1a5c38]/10 dark:border-[#00ffff] dark:bg-[#00ffff]/10'
+                      : 'border-[#800000]/10 bg-[#fff8ee] hover:-translate-y-0.5 hover:shadow-[0_14px_28px_rgba(128,0,0,0.08)] dark:border-[#bf00ff]/20 dark:bg-[#120014]/55'
+                    }`}
+                  >
+                    <ConversationAvatar title={conversation.title} contactType={conversation.contactType} />
+                    <div className="min-w-0 flex-1">
+                      <p className="truncate text-sm font-semibold text-[#800000] dark:text-[#ffffff]">{conversation.title}</p>
+                      <p className="mt-1 truncate text-xs text-[#800020] dark:text-[#bf00ff]">{conversation.subtitle}</p>
+                      <p className="mt-2 truncate text-[11px] text-[#191970]/75 dark:text-[#39ff14]/80">
+                        {conversation.lastUpdated ? new Date(conversation.lastUpdated).toLocaleString() : 'No messages yet'}
+                      </p>
+                    </div>
                   </button>
                 ))}
 
-                {!loadingContacts && classmateContacts.length === 0 ? (
-                  <div className="rounded-2xl border border-dashed border-[#800000]/20 px-4 py-4 text-sm text-[#191970] dark:border-[#bf00ff]/30 dark:text-[#39ff14]">
-                    No classmates are available for direct messaging yet.
+                {!loadingConversations && conversationCards.length === 0 ? (
+                  <div className="rounded-2xl border border-dashed border-[#800000]/15 px-4 py-5 text-sm text-[#191970] dark:border-[#bf00ff]/25 dark:text-[#39ff14]">
+                    {uiConfig.emptyConversationCopy}
                   </div>
                 ) : null}
               </div>
-
-              <button
-                type="button"
-                onClick={() => startConversationWith(supportContact)}
-                className="flex w-full items-start justify-between rounded-2xl border border-[#800000]/10 bg-[#fff5e1] px-4 py-3 text-left transition hover:-translate-y-0.5 hover:border-[#1a5c38]/40 hover:shadow-[0_14px_30px_rgba(26,92,56,0.12)] dark:border-[#bf00ff]/25 dark:bg-[#191970]/35"
-              >
-                <div>
-                  <div className="text-sm font-semibold text-[#800000] dark:text-[#ffffff]">{supportContact.name}</div>
-                  <div className="mt-1 text-xs text-[#800020] dark:text-[#bf00ff]">{supportContact.role}</div>
-                </div>
-                <span className="rounded-full bg-[#1a5c38] px-3 py-1 text-xs font-bold text-[#f5deb3] dark:bg-[#00ffff] dark:text-black">
-                  Chat
-                </span>
-              </button>
             </div>
-          </section>
 
-          <section className="rounded-3xl border border-[#800000]/15 bg-[#f5deb3]/95 p-4 shadow-[0_18px_40px_rgba(25,25,112,0.08)] dark:border-[#bf00ff]/30 dark:bg-[#800000]/70">
-            <div className="flex items-center justify-between gap-3">
-              <div>
-                <h3 className="text-lg font-semibold text-[#800000] dark:text-[#0000ff]">Conversations</h3>
-                <p className="mt-1 text-sm text-[#191970] dark:text-[#39ff14]">Your current chats with classmates, teachers, and support appear here.</p>
+            <div className="mt-4 rounded-3xl border border-[#800000]/10 bg-white/55 p-4 dark:border-[#bf00ff]/20 dark:bg-[#191970]/35">
+              <div className="flex items-center gap-2">
+                <UserGroupIcon className="h-5 w-5 text-[#800020] dark:text-[#bf00ff]" />
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#800020] dark:text-[#bf00ff]">Contacts</p>
               </div>
-              <span className="text-xs font-semibold text-[#800020] dark:text-[#bf00ff]">{loadingConversations ? 'Refreshing...' : `${conversationCards.length} threads`}</span>
-            </div>
 
-            <div className="mt-4 space-y-3">
-              {conversationCards.map(conversation => (
-                <button
-                  key={conversation.id}
-                  type="button"
-                  onClick={() => setActiveConversationId(conversation.id)}
-                  className={`w-full rounded-2xl border px-4 py-3 text-left transition ${activeConversationId === conversation.id
-                    ? 'border-[#1a5c38] bg-[#1a5c38]/10 shadow-[0_14px_30px_rgba(26,92,56,0.12)] dark:border-[#00ffff] dark:bg-[#191970]/50'
-                    : 'border-[#800000]/10 bg-white/45 hover:border-[#800000]/25 dark:border-[#bf00ff]/20 dark:bg-[#191970]/30'
-                  }`}
-                >
-                  <div className="text-sm font-semibold text-[#800000] dark:text-[#ffffff]">{conversation.title}</div>
-                  <div className="mt-1 text-xs text-[#800020] dark:text-[#bf00ff]">{conversation.subtitle}</div>
-                  <div className="mt-2 text-[11px] text-[#191970]/80 dark:text-[#39ff14]/80">
-                    {conversation.lastUpdated ? new Date(conversation.lastUpdated).toLocaleString() : 'No messages yet'}
+              <div className="mt-3 space-y-4">
+                {loadingContacts ? (
+                  <p className="text-sm text-[#191970] dark:text-[#39ff14]">Loading school contacts...</p>
+                ) : filteredContactGroups.length === 0 ? (
+                  <div className="rounded-2xl border border-dashed border-[#800000]/15 px-4 py-5 text-sm text-[#191970] dark:border-[#bf00ff]/25 dark:text-[#39ff14]">
+                    No contacts match your search yet.
                   </div>
-                </button>
-              ))}
-
-              {!loadingConversations && conversationCards.length === 0 ? (
-                <div className="rounded-2xl border border-dashed border-[#800000]/20 px-4 py-6 text-sm text-[#191970] dark:border-[#bf00ff]/30 dark:text-[#39ff14]">
-                  Start with a classmate, teacher, or support card above to open your first conversation.
-                </div>
-              ) : null}
+                ) : filteredContactGroups.map(group => (
+                  <div key={group.key}>
+                    <div className="mb-2 flex items-center justify-between gap-3">
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#800020] dark:text-[#bf00ff]">{group.label}</p>
+                      <span className="text-[11px] text-[#191970] dark:text-[#39ff14]">{group.contacts.length}</span>
+                    </div>
+                    <div className="space-y-2">
+                      {group.contacts.map(contact => (
+                        <button
+                          key={contact.id}
+                          type="button"
+                          onClick={() => startConversationWith(contact)}
+                          className="flex w-full items-center gap-3 rounded-2xl border border-[#800000]/10 bg-[#fff8ee] px-3 py-3 text-left transition hover:-translate-y-0.5 hover:shadow-[0_12px_24px_rgba(128,0,0,0.08)] dark:border-[#bf00ff]/20 dark:bg-[#120014]/55"
+                        >
+                          <ConversationAvatar title={contact.name} contactType={contact.isAdmin ? 'admin' : 'conversation'} />
+                          <div className="min-w-0 flex-1">
+                            <p className="truncate text-sm font-semibold text-[#800000] dark:text-[#ffffff]">{contact.name}</p>
+                            <p className="truncate text-xs text-[#800020] dark:text-[#bf00ff]">
+                              {contact.roleSummary}{contact.displayId ? ` • ${contact.displayId}` : ''}
+                            </p>
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
-          </section>
-        </div>
+          </div>
+        </aside>
 
-        <section className="flex min-h-[38rem] flex-col rounded-[2rem] border border-[#800000]/15 bg-[#f5deb3] p-5 shadow-[0_26px_60px_rgba(128,0,0,0.10)] dark:border-[#bf00ff]/30 dark:bg-[#800000]/75">
+        <section className="flex min-h-[42rem] flex-col overflow-hidden rounded-[2rem] border border-[#800000]/15 bg-[#f5deb3] shadow-[0_26px_60px_rgba(128,0,0,0.10)] dark:border-[#bf00ff]/30 dark:bg-[#800000]/75">
           {!me ? (
-            <div className="flex flex-1 items-center justify-center rounded-[1.5rem] border border-dashed border-[#800000]/20 text-sm text-[#191970] dark:border-[#bf00ff]/35 dark:text-[#39ff14]">
+            <div className="flex flex-1 items-center justify-center px-6 text-sm text-[#191970] dark:text-[#39ff14]">
               Sign in again to load your messages.
             </div>
           ) : !activeConversation ? (
-            <div className="flex flex-1 flex-col items-center justify-center rounded-[1.5rem] border border-dashed border-[#800000]/20 bg-white/35 px-6 text-center dark:border-[#bf00ff]/35 dark:bg-[#191970]/35">
-              <h3 className="text-xl font-semibold text-[#800000] dark:text-[#0000ff]">Select A Conversation</h3>
-              <p className="mt-2 max-w-xl text-sm text-[#191970] dark:text-[#39ff14]">
-                Pick an existing thread or start a new chat with a classmate, teacher, or school support.
+            <div className="flex flex-1 flex-col items-center justify-center px-8 text-center">
+              <span className="flex h-16 w-16 items-center justify-center rounded-3xl bg-[#1a5c38]/12 text-[#1a5c38] dark:bg-[#00ffff]/12 dark:text-[#00ffff]">
+                <ChatBubbleLeftRightIcon className="h-8 w-8" />
+              </span>
+              <h3 className="mt-5 text-2xl font-semibold text-[#800000] dark:text-[#0000ff]">Open a school chat</h3>
+              <p className="mt-2 max-w-xl text-sm leading-6 text-[#191970] dark:text-[#39ff14]">
+                {uiConfig.emptyStateDescription}
               </p>
             </div>
           ) : (
             <>
-              <div className="flex items-start justify-between gap-4 border-b border-[#800000]/10 pb-4 dark:border-[#bf00ff]/20">
-                <div>
-                  <h3 className="text-2xl font-semibold text-[#800000] dark:text-[#0000ff]">{activeConversation.title}</h3>
-                  <p className="mt-1 text-sm text-[#191970] dark:text-[#39ff14]">{activeConversation.subtitle}</p>
-                </div>
-                <div className="rounded-full bg-[#1a5c38] px-4 py-2 text-xs font-bold text-[#f5deb3] dark:bg-[#00ffff] dark:text-black">
-                  Safe School Chat
+              <div className="border-b border-[#800000]/10 px-6 py-5 dark:border-[#bf00ff]/20">
+                <div className="flex items-start gap-4">
+                  <ConversationAvatar title={activeConversation.title} contactType={activeConversation.contactType} />
+                  <div className="min-w-0 flex-1">
+                    <div className="flex flex-wrap items-center gap-3">
+                      <h3 className="truncate text-2xl font-semibold text-[#800000] dark:text-[#0000ff]">{activeConversation.title}</h3>
+                      <span className="rounded-full bg-[#1a5c38] px-3 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-[#f5deb3] dark:bg-[#00ffff] dark:text-black">
+                        Safe School Chat
+                      </span>
+                    </div>
+                    <p className="mt-1 truncate text-sm text-[#191970] dark:text-[#39ff14]">{activeConversation.subtitle}</p>
+                    <p className="mt-2 text-[11px] text-[#800020] dark:text-[#bf00ff]">
+                      {activeConversation.lastUpdated ? `Updated ${new Date(activeConversation.lastUpdated).toLocaleString()}` : 'Direct school conversation'}
+                    </p>
+                  </div>
                 </div>
               </div>
 
-              <div className="mt-4 flex-1 overflow-y-auto rounded-[1.5rem] border border-[#800000]/10 bg-white/40 p-4 dark:border-[#bf00ff]/20 dark:bg-[#191970]/25">
+              <div className="flex-1 overflow-y-auto bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.45),transparent_42%)] px-6 py-5 dark:bg-[radial-gradient(circle_at_top_left,rgba(0,255,255,0.08),transparent_42%)]">
                 {loadingMessages ? (
                   <div className="text-sm text-[#191970] dark:text-[#39ff14]">Loading messages...</div>
                 ) : groupedMessages.length === 0 ? (
-                  <div className="flex h-full items-center justify-center text-sm text-[#191970] dark:text-[#39ff14]">
-                    No messages yet. Say hello to begin.
+                  <div className="flex h-full items-center justify-center rounded-[1.5rem] border border-dashed border-[#800000]/15 bg-white/35 px-6 text-sm text-[#191970] dark:border-[#bf00ff]/25 dark:bg-[#191970]/25 dark:text-[#39ff14]">
+                    No messages yet. Start the conversation from the composer below.
                   </div>
                 ) : (
-                  <div className="space-y-5">
+                  <div className="space-y-6">
                     {groupedMessages.map(group => (
                       <div key={group.dateKey}>
-                        <div className="mb-3 text-center text-xs font-semibold uppercase tracking-[0.2em] text-[#800020] dark:text-[#bf00ff]">
+                        <div className="mb-4 text-center text-[11px] font-semibold uppercase tracking-[0.22em] text-[#800020] dark:text-[#bf00ff]">
                           {group.label}
                         </div>
                         <div className="space-y-3">
@@ -676,19 +892,21 @@ export default function StudentMessaging() {
 
                             return (
                               <div key={message.id} className={`flex ${isOwn ? 'justify-end' : 'justify-start'}`}>
-                                <div className={`max-w-[78%] rounded-[1.4rem] border px-4 py-3 ${isOwn
-                                  ? 'border-[#1a5c38]/25 bg-[#1a5c38]/12 text-[#191970] dark:border-[#00ffff]/35 dark:bg-[#00ffff]/10 dark:text-[#ffffff]'
-                                  : 'border-[#800000]/15 bg-[#fff8ea] text-[#191970] dark:border-[#bf00ff]/25 dark:bg-[#191970]/45 dark:text-[#39ff14]'
+                                <div className={`max-w-[80%] rounded-[1.6rem] border px-4 py-3 shadow-sm ${isOwn
+                                  ? 'border-[#1a5c38]/20 bg-[#1a5c38]/12 text-[#191970] dark:border-[#00ffff]/25 dark:bg-[#00ffff]/10 dark:text-[#ffffff]'
+                                  : 'border-[#800000]/12 bg-[#fff7eb] text-[#191970] dark:border-[#bf00ff]/20 dark:bg-[#191970]/40 dark:text-[#39ff14]'
                                 }`}>
                                   <div className="text-xs font-semibold text-[#800020] dark:text-[#bf00ff]">
                                     {isOwn ? 'You' : resolveParticipantName(message.senderId)}
                                   </div>
-                                  <div className="mt-2 whitespace-pre-wrap text-sm leading-6">
-                                    {message.body}
-                                  </div>
-                                  <div className="mt-3 flex items-center justify-between gap-3 text-[11px] text-[#191970]/75 dark:text-[#39ff14]/80">
+                                  <div className="mt-2 whitespace-pre-wrap text-sm leading-6">{message.body}</div>
+                                  <div className="mt-3 flex items-center justify-between gap-4 text-[11px] text-[#191970]/75 dark:text-[#39ff14]/75">
                                     <span>{new Date(sentAt).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}</span>
-                                    <span>{isOwn ? (message.readAt ? 'Read' : message.status === 'sending' ? 'Sending...' : message.status === 'failed' ? 'Failed' : 'Sent') : resolveParticipantRole(message.senderId)}</span>
+                                    <span>
+                                      {isOwn
+                                        ? (message.readAt ? 'Read' : message.status === 'sending' ? 'Sending...' : message.status === 'failed' ? 'Failed' : 'Sent')
+                                        : resolveParticipantRole(message.senderId)}
+                                    </span>
                                   </div>
                                   {message.status === 'failed' ? (
                                     <button
@@ -710,30 +928,68 @@ export default function StudentMessaging() {
                 )}
               </div>
 
-              <div className="mt-4 rounded-[1.5rem] border border-[#800000]/10 bg-white/45 p-4 dark:border-[#bf00ff]/20 dark:bg-[#191970]/35">
+              <div className="border-t border-[#800000]/10 bg-white/40 px-6 py-5 dark:border-[#bf00ff]/20 dark:bg-[#191970]/25">
                 {actionError ? (
-                  <div className="mb-3 rounded-2xl border border-[#800000]/15 bg-[#fff3df] px-4 py-3 text-sm text-[#800000] dark:border-[#bf00ff]/25 dark:bg-[#2a0f3c] dark:text-[#ffffff]">
+                  <div className="mb-4 rounded-2xl border border-[#800000]/15 bg-[#fff3df] px-4 py-3 text-sm text-[#800000] dark:border-[#bf00ff]/25 dark:bg-[#2a0f3c] dark:text-[#ffffff]">
                     {actionError}
                   </div>
                 ) : null}
-                <textarea
-                  value={composer}
-                  onChange={event => setComposer(event.target.value)}
-                  onKeyDown={handleComposerKey}
-                  rows={3}
-                  placeholder="Write a clear message to your classmate, teacher, or school support..."
-                  className="w-full rounded-[1.2rem] border border-[#800000]/10 bg-[#fff9f0] px-4 py-3 text-sm text-[#191970] outline-none transition focus:border-[#1a5c38] focus:ring-2 focus:ring-[#1a5c38]/20 dark:border-[#bf00ff]/20 dark:bg-[#12001f] dark:text-[#39ff14] dark:focus:border-[#00ffff] dark:focus:ring-[#00ffff]/20"
-                />
-                <div className="mt-3 flex items-center justify-between gap-3">
-                  <p className="text-xs text-[#800020] dark:text-[#bf00ff]">Chats stay within your class roster and school support channels.</p>
-                  <button
-                    type="button"
-                    onClick={sendMessage}
-                    disabled={!composer.trim()}
-                    className="rounded-full bg-[#1a5c38] px-5 py-2 text-sm font-bold text-[#f5deb3] transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-[#00ffff] dark:text-black"
-                  >
-                    Send Message
-                  </button>
+
+                {emojiTrayOpen ? (
+                  <div className="mb-3 flex flex-wrap items-center gap-2">
+                    {QUICK_EMOJIS.map(emoji => (
+                      <button
+                        key={emoji}
+                        type="button"
+                        onClick={() => appendEmoji(emoji)}
+                        className="rounded-full border border-[#800000]/10 bg-[#fff8ee] px-3 py-2 text-lg transition hover:-translate-y-0.5 dark:border-[#bf00ff]/20 dark:bg-[#120014]/55"
+                      >
+                        {emoji}
+                      </button>
+                    ))}
+                  </div>
+                ) : null}
+
+                <div className="rounded-[1.6rem] border border-[#800000]/10 bg-[#fffaf3] p-3 dark:border-[#bf00ff]/20 dark:bg-[#120014]/70">
+                  <textarea
+                    value={composer}
+                    onChange={event => setComposer(event.target.value)}
+                    onKeyDown={handleComposerKey}
+                    rows={3}
+                    placeholder={uiConfig.composerPlaceholder}
+                    className="w-full resize-none bg-transparent px-2 py-2 text-sm text-[#191970] outline-none placeholder:text-[#800020]/65 dark:text-[#ffffff] dark:placeholder:text-[#bf00ff]/70"
+                  />
+                  <div className="mt-3 flex flex-wrap items-center justify-between gap-3 border-t border-[#800000]/10 pt-3 dark:border-[#bf00ff]/20">
+                    <div className="flex items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={() => setEmojiTrayOpen(current => !current)}
+                        className="flex h-10 w-10 items-center justify-center rounded-full border border-[#800000]/10 bg-white/75 text-[#800020] transition hover:border-[#1a5c38]/35 hover:text-[#1a5c38] dark:border-[#bf00ff]/20 dark:bg-[#191970]/35 dark:text-[#bf00ff] dark:hover:border-[#00ffff] dark:hover:text-[#00ffff]"
+                        aria-label="Toggle emojis"
+                      >
+                        <FaceSmileIcon className="h-5 w-5" />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => contactSearchRef.current?.focus()}
+                        className="flex h-10 w-10 items-center justify-center rounded-full border border-[#800000]/10 bg-white/75 text-[#800020] transition hover:border-[#1a5c38]/35 hover:text-[#1a5c38] dark:border-[#bf00ff]/20 dark:bg-[#191970]/35 dark:text-[#bf00ff] dark:hover:border-[#00ffff] dark:hover:text-[#00ffff]"
+                        aria-label="Open contacts"
+                      >
+                        <UserGroupIcon className="h-5 w-5" />
+                      </button>
+                      <p className="text-xs text-[#800020] dark:text-[#bf00ff]">Chats stay within your authenticated school network.</p>
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={sendMessage}
+                      disabled={!composer.trim()}
+                      className="inline-flex items-center gap-2 rounded-full bg-[#1a5c38] px-5 py-2.5 text-sm font-bold text-[#f5deb3] transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-[#00ffff] dark:text-black"
+                    >
+                      <PaperAirplaneIcon className="h-4 w-4" />
+                      Send Message
+                    </button>
+                  </div>
                 </div>
               </div>
             </>

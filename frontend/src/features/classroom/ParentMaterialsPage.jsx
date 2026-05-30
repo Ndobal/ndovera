@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import StudentSectionShell from '../../app/roles/student/StudentSectionShell';
 import { getLearningStudents, getMaterials } from './classroomService';
 import MaterialTypeThumbnail, { materialTypeLabel } from '../../shared/components/MaterialTypeThumbnail';
+import { resolveActiveParentChildId, writeActiveParentChildId } from '../../app/roles/parent/parentChildSelection';
 
 const MATERIAL_TABS = [
   { id: 'all', label: 'All' },
@@ -39,9 +40,7 @@ export default function ParentMaterialsPage() {
         const audience = response?.students || [];
         setStudents(audience);
         setSelectedStudentId(currentStudentId => (
-          audience.some(student => student.id === currentStudentId)
-            ? currentStudentId
-            : String(audience[0]?.id || '')
+          resolveActiveParentChildId(audience, currentStudentId)
         ));
       })
       .catch(err => {
@@ -106,6 +105,12 @@ export default function ParentMaterialsPage() {
     const nextType = String(material.type || '').toLowerCase() || 'document';
     return (subjectId === 'all' || nextSubjectId === subjectId) && (activeTab === 'all' || nextType === activeTab);
   }), [activeTab, materials, subjectId]);
+
+  useEffect(() => {
+    if (selectedStudentId) {
+      writeActiveParentChildId(selectedStudentId);
+    }
+  }, [selectedStudentId]);
 
   return (
     <StudentSectionShell

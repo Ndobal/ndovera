@@ -246,19 +246,30 @@ CREATE TABLE IF NOT EXISTS password_reset_tokens (
 
 CREATE TABLE IF NOT EXISTS question_bank (
   id TEXT PRIMARY KEY,
-  subject TEXT NOT NULL,
-  classLevel TEXT,
+  tenant_id TEXT,
+  subject TEXT,
+  class_level TEXT,
+  class_id TEXT,
+  subject_id TEXT,
+  topic TEXT,
   type TEXT NOT NULL DEFAULT 'mcq',
   prompt TEXT NOT NULL,
-  options TEXT,
-  answer TEXT,
+  normalized_prompt TEXT,
+  question_hash TEXT,
+  options_json TEXT,
+  answer_json TEXT,
   explanation TEXT,
-  imageUrl TEXT,
-  createdAt TEXT NOT NULL,
-  createdBy TEXT
+  image_url TEXT,
+  score REAL,
+  status TEXT,
+  source TEXT,
+  created_by TEXT,
+  metadata_json TEXT,
+  created_at TEXT NOT NULL,
+  updated_at TEXT NOT NULL
 );
 
-CREATE INDEX IF NOT EXISTS idx_question_bank_subject_classLevel ON question_bank(subject, classLevel);
+CREATE INDEX IF NOT EXISTS idx_question_bank_tenant_subject_class_level ON question_bank(tenant_id, subject, class_level);
 
 CREATE INDEX IF NOT EXISTS idx_audit_studentId_ts ON audit(studentId, ts DESC);
 CREATE INDEX IF NOT EXISTS idx_borrowings_studentId_borrowedAt ON borrowings(studentId, borrowedAt DESC);

@@ -1,18 +1,32 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import StudentSectionShell from './StudentSectionShell';
 import PracticeTab from '../../../features/classroom/practice';
-import { useAuraBalance } from '../../../features/auras/hooks/useAuraBalance';
+import { getAiAccess } from '../../../features/ai/services/aiTutorApi';
 
 export default function StudentPractice() {
-  // assume current student id accessible via auth/context
-  const studentId = localStorage.getItem('userId') || 'current_student';
-  const { balance } = useAuraBalance(studentId);
-  const [auraBalance, setAuraBalance] = useState(balance ?? 0);
+  const [auraBalance, setAuraBalance] = useState(0);
 
-  // keep local balance synced with hook result
-  React.useEffect(() => {
-    if (balance !== undefined) setAuraBalance(balance);
-  }, [balance]);
+  useEffect(() => {
+    let active = true;
+
+    async function loadAiBalance() {
+      try {
+        const data = await getAiAccess();
+        if (!active) return;
+        const nextBalance = Number(data?.access?.usage?.remainingFreeRequests || 0) + Number(data?.access?.wallet?.availableCredits || 0);
+        setAuraBalance(Number.isFinite(nextBalance) && nextBalance >= 0 ? nextBalance : 0);
+      } catch {
+        if (active) {
+          setAuraBalance(0);
+        }
+      }
+    }
+
+    loadAiBalance();
+    return () => {
+      active = false;
+    };
+  }, []);
 
   return (
     <StudentSectionShell

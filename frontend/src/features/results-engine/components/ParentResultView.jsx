@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { getParentResult } from '../service/resultEngineService';
 import ResultRecordViewer from './ResultRecordViewer';
+import { readActiveParentChildId, writeActiveParentChildId } from '../../../app/roles/parent/parentChildSelection';
 
 export default function ParentResultView() {
   const [result, setResult] = useState({ students: [], publications: [], documents: [], activeRecord: null, activeStudentId: '' });
-  const [activeChildId, setActiveChildId] = useState('');
+  const [activeChildId, setActiveChildId] = useState(() => readActiveParentChildId());
   const [selectedRecordId, setSelectedRecordId] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -21,6 +22,7 @@ export default function ParentResultView() {
         setResult(nextResult);
         setSelectedRecordId(nextResult.activeRecord?.id || '');
         if (nextResult.activeStudentId && nextResult.activeStudentId !== activeChildId) {
+          writeActiveParentChildId(nextResult.activeStudentId);
           setActiveChildId(nextResult.activeStudentId);
         }
       } catch (loadError) {
@@ -34,6 +36,12 @@ export default function ParentResultView() {
     return () => {
       cancelled = true;
     };
+  }, [activeChildId]);
+
+  useEffect(() => {
+    if (activeChildId) {
+      writeActiveParentChildId(activeChildId);
+    }
   }, [activeChildId]);
 
   return (
@@ -51,7 +59,10 @@ export default function ParentResultView() {
         <ResultRecordViewer
           students={result.students}
           activeStudentId={activeChildId || result.activeStudentId}
-          onSelectStudent={setActiveChildId}
+          onSelectStudent={(studentId) => {
+            writeActiveParentChildId(studentId);
+            setActiveChildId(studentId);
+          }}
           records={result.publications}
           selectedRecordId={selectedRecordId}
           onSelectRecord={setSelectedRecordId}

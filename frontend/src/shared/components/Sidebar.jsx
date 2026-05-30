@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import useFeatureFlags from '../hooks/useFeatureFlags';
@@ -105,13 +105,10 @@ export function getRoleSidebarItems(roleKey) {
   if (roleKey === 'parent') {
     return [
       { name: 'Overview', path: '/roles/parent' },
+      { name: 'Children', path: '/roles/parent/children' },
       { name: 'Classroom', path: '/roles/parent/classroom' },
       { name: 'Materials', path: '/roles/parent/materials' },
-      { name: 'Lesson Plans', path: '/roles/parent/lesson-plans' },
-      { name: 'Practice', path: '/roles/parent/practice' },
       { name: 'Live', path: '/roles/parent/live' },
-      { name: 'Children', path: '/roles/parent/children' },
-      { name: 'Performance', path: '/roles/parent/performance' },
       { name: 'Exams', path: '/roles/parent/exams' },
       { name: 'Results', path: '/roles/parent/results' },
       { name: 'Assignments', path: '/roles/parent/assignments' },
@@ -121,7 +118,7 @@ export function getRoleSidebarItems(roleKey) {
       { name: 'Ndovera AI', path: '/roles/parent/professor-vera' },
       { name: 'PTA Attendance', path: '/roles/parent/pta' },
       { name: 'Messaging', path: '/roles/parent/messaging' },
-      { name: 'Auras Wallet', path: '/roles/parent/auras' },
+      { name: 'Newsroom', path: '/roles/parent/newsroom' },
       { name: 'Settings', path: '/roles/parent/settings' },
       libEntry,
     ];
@@ -479,7 +476,9 @@ export default function Sidebar({ auth = null, mobileOpen = false, onClose = noo
   const inRoleMode = location.pathname.startsWith('/roles/');
   const roleKey = inRoleMode ? location.pathname.split('/')[2] : null;
   const { featureFlags } = useFeatureFlags();
-  const tenantBranding = auth?.user?.tenantId && auth?.user?.role !== 'ami' ? getTenantPwaInfo() : null;
+  const [tenantBranding, setTenantBranding] = useState(() => (
+    auth?.user?.tenantId && auth?.user?.role !== 'ami' ? getTenantPwaInfo() : null
+  ));
   const sidebarItemsRaw = inRoleMode && roleKey ? getRoleSidebarItems(roleKey) : defaultSidebarItems;
   const sidebarItemsWithAiAssistant = roleKey && staffAiEligibleRoles.has(roleKey) && !sidebarItemsRaw.some(item => item.path === `/roles/${roleKey}/ai-assistant`)
     ? (() => {
@@ -533,8 +532,28 @@ export default function Sidebar({ auth = null, mobileOpen = false, onClose = noo
       return true;
     });
   const nodeTitle = inRoleMode && roleKey ? roleLabels[roleKey] || 'Role Dashboard' : 'Institution Dashboard';
-  const schoolName = tenantBranding?.schoolName || 'NDOVERA';
-  const schoolLogoUrl = tenantBranding?.logoUrl || '';
+  const schoolName = tenantBranding?.schoolName || auth?.user?.schoolName || auth?.user?.tenantName || 'NDOVERA';
+  const schoolLogoUrl = tenantBranding?.logoUrl || auth?.user?.logoUrl || '';
+
+  useEffect(() => {
+    if (!auth?.user?.tenantId || auth?.user?.role === 'ami') {
+      setTenantBranding(null);
+      return undefined;
+    }
+
+    const syncTenantBranding = () => {
+      setTenantBranding(getTenantPwaInfo());
+    };
+
+    syncTenantBranding();
+    window.addEventListener('storage', syncTenantBranding);
+    window.addEventListener('ndovera:tenant-pwa-updated', syncTenantBranding);
+
+    return () => {
+      window.removeEventListener('storage', syncTenantBranding);
+      window.removeEventListener('ndovera:tenant-pwa-updated', syncTenantBranding);
+    };
+  }, [auth?.user?.role, auth?.user?.tenantId]);
 
   useEffect(() => {
     onClose();
@@ -563,7 +582,7 @@ export default function Sidebar({ auth = null, mobileOpen = false, onClose = noo
               <div className="flex items-center gap-3">
                 {schoolLogoUrl ? (
                   <div className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-2xl border border-slate-200/60 bg-white/80 p-1.5 dark:border-indigo-500/25 dark:bg-slate-950/40">
-                    <img src={schoolLogoUrl} alt={`${schoolName} logo`} className="h-full w-full object-contain" />
+                    <img src={schoolLogoUrl} alt={`${schoolName} logo`} className="h-full w-full animate-[spin_18s_linear_infinite] object-contain" />
                   </div>
                 ) : null}
                 <div className="font-black tracking-tighter text-xl text-indigo-700 dark:text-[#f5deb3]">{schoolName}</div>

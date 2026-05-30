@@ -11,6 +11,7 @@ This package contains the Cloudflare Worker backend for the main Ndovera fronten
 - D1-backed application data for future remote usage
 - tenant subdomain website rendering, including hero media galleries, admissions content, and public news pages
 - school newsroom APIs for drafting, reviewing, publishing, and uploading blog media
+- AI billing and access rules for staff, students, and parents, including parent-specific daily free-request overrides
 
 ## Worker Bindings
 
@@ -61,7 +62,7 @@ cd frontend/backend
 npm run deploy
 ```
 
-The Worker now serves the authenticated `/api/ai/tutor/ask` chat endpoint with the Cloudflare Workers AI binding, so redeploy the Worker whenever you change AI prompts, models, or access logic.
+The Worker now serves the authenticated `/api/ai/tutor/ask` chat endpoint with the Cloudflare Workers AI binding, so redeploy the Worker whenever you change AI prompts, models, or access logic. Parent AI access currently uses the teacher-side Worker path with `5` free requests per day before wallet credits are consumed.
 
 To enable NVIDIA DeepSeek for student Ndovera AI chat and Practice assistance, set the Worker secret before deploying:
 

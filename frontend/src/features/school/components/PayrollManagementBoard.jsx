@@ -21,6 +21,7 @@ const CARD = 'rounded-3xl border border-[#c9a96e]/40 bg-[#f5deb3] p-6 text-[#191
 const INNER = 'rounded-2xl border border-[#c9a96e]/30 bg-[#f0d090] p-4 dark:border-[#00ffff]/20 dark:bg-[#330014]/70';
 const BTN = 'rounded-2xl bg-[#1a5c38] px-5 py-2.5 text-sm font-bold text-[#f5deb3] transition-colors hover:bg-[#154a2e] disabled:cursor-not-allowed disabled:opacity-70 dark:bg-[#00ffff] dark:text-black dark:hover:bg-[#7df9ff]';
 const OUTLINE_BTN = 'rounded-2xl border border-[#800020]/30 bg-white/60 px-5 py-2.5 text-sm font-semibold text-[#800020] transition-colors hover:bg-white dark:border-[#bf00ff]/40 dark:bg-[#120014]/80 dark:text-[#bf00ff] dark:hover:bg-[#1f0022]';
+const ICON_BTN = 'inline-flex h-8 w-8 items-center justify-center rounded-full border border-[#800020]/30 bg-white/80 text-lg font-bold text-[#800020] transition-colors hover:bg-white dark:border-[#00ffff]/30 dark:bg-[#120014]/85 dark:text-[#00ffff] dark:hover:bg-[#1f0022]';
 const INPUT = 'w-full rounded-xl border border-[#c9a96e]/40 bg-white/80 px-3 py-2 text-sm text-[#191970] outline-none transition focus:border-[#800020] focus:ring-2 focus:ring-[#800020]/15 dark:border-[#00ffff]/20 dark:bg-[#120014]/80 dark:text-white dark:focus:border-[#00ffff] dark:focus:ring-[#00ffff]/20';
 const BADGE = 'inline-flex items-center rounded-full border border-[#800020]/15 bg-white/70 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-[#800020] dark:border-[#bf00ff]/25 dark:bg-[#1a001d]/80 dark:text-[#bf00ff]';
 const TH = 'border border-[#c9a96e]/30 bg-[#800020] p-3 text-left text-xs font-semibold uppercase tracking-[0.14em] text-[#f5deb3] dark:border-[#00ffff]/20 dark:bg-[#0000ff]/25 dark:text-white';
@@ -43,6 +44,19 @@ const DEFAULT_PAYROLL_SETTINGS = {
     { key: 'otherDeduction', label: 'Other Deductions', fixed: true },
   ],
 };
+
+const DEFAULT_EARNING_LABELS = new Map(DEFAULT_PAYROLL_SETTINGS.earningColumns.map(column => [column.key, column.label]));
+const DEFAULT_DEDUCTION_LABELS = new Map(DEFAULT_PAYROLL_SETTINGS.deductionColumns.map(column => [column.key, column.label]));
+const PAYROLL_IMPORT_FIELDS = [
+  { field: 'staffId', labels: ['Staff ID', 'Staff Id', 'Employee ID', 'Staff Number', 'ID'] },
+  { field: 'staffName', labels: ['Staff Name', 'Employee Name', 'Name'] },
+  { field: 'role', labels: ['Role', 'Staff Role'] },
+  { field: 'employmentCategory', labels: ['Employment Category', 'Employment Type', 'Category'] },
+  { field: 'paymentStatus', labels: ['Status', 'Payment Status'] },
+  { field: 'bankName', labels: ['Bank Name'] },
+  { field: 'accountName', labels: ['Account Name'] },
+  { field: 'accountNumber', labels: ['Account Number', 'Acct Number'] },
+];
 
 function formatNaira(value) {
   return `₦${Number(value || 0).toLocaleString()}`;
@@ -235,6 +249,241 @@ function buildPayslipDeductions(staffRow, settings) {
   ].filter(entry => entry.amount > 0);
 }
 
+function normalizeImportToken(value) {
+  return String(value || '')
+    .trim()
+    .toLowerCase()
+    .replace(/[_-]+/g, ' ')
+    .replace(/\s+/g, ' ');
+}
+
+function readImportedText(value) {
+  return String(value ?? '').trim();
+}
+
+function readImportedNumber(value) {
+  if (value === null || value === undefined || value === '') {
+    return null;
+  }
+
+  const sanitizedValue = String(value).replace(/,/g, '').trim();
+  if (!sanitizedValue) {
+    return null;
+  }
+
+  const parsedValue = Number(sanitizedValue);
+  return Number.isFinite(parsedValue) ? parsedValue : null;
+}
+
+function normalizeOptionValue(value, allowedValues = []) {
+  const normalizedValue = String(value || '').trim().toLowerCase().replace(/\s+/g, '');
+  return allowedValues.includes(normalizedValue) ? normalizedValue : '';
+}
+
+async function loadSpreadsheetModule() {
+  return import('xlsx');
+}
+
+function downloadBlob(blob, filename) {
+  if (typeof window === 'undefined') {
+    return;
+  }
+
+  const downloadUrl = window.URL.createObjectURL(blob);
+  const anchor = document.createElement('a');
+  anchor.href = downloadUrl;
+  anchor.download = filename;
+  anchor.click();
+  window.URL.revokeObjectURL(downloadUrl);
+}
+
+function buildPayrollTemplateColumns(settings) {
+  return [
+    { kind: 'field', field: 'displayId', label: 'Staff ID' },
+    { kind: 'field', field: 'name', label: 'Staff Name' },
+    { kind: 'field', field: 'role', label: 'Role' },
+    { kind: 'field', field: 'employmentCategory', label: 'Employment Category' },
+    { kind: 'field', field: 'paymentStatus', label: 'Status' },
+    { kind: 'field', field: 'bankName', label: 'Bank Name' },
+    { kind: 'field', field: 'accountName', label: 'Account Name' },
+    { kind: 'field', field: 'accountNumber', label: 'Account Number' },
+    ...settings.earningColumns.map(column => ({ kind: 'earning', key: column.key, label: column.label })),
+    ...settings.deductionColumns.map(column => ({ kind: 'deduction', key: column.key, label: column.label })),
+  ];
+}
+
+function buildPayrollImportLookup(settings) {
+  const lookup = new Map();
+
+  const register = (label, descriptor) => {
+    const token = normalizeImportToken(label);
+    if (!token || lookup.has(token)) {
+      return;
+    }
+
+    lookup.set(token, descriptor);
+  };
+
+  PAYROLL_IMPORT_FIELDS.forEach(({ field, labels }) => {
+    labels.forEach(label => register(label, { kind: 'field', field }));
+  });
+
+  settings.earningColumns.forEach((column) => {
+    const descriptor = { kind: 'earning', key: column.key };
+    register(column.label, descriptor);
+    register(column.key, descriptor);
+    register(DEFAULT_EARNING_LABELS.get(column.key), descriptor);
+  });
+
+  settings.deductionColumns.forEach((column) => {
+    const descriptor = { kind: 'deduction', key: column.key };
+    register(column.label, descriptor);
+    register(column.key, descriptor);
+    register(DEFAULT_DEDUCTION_LABELS.get(column.key), descriptor);
+  });
+
+  return lookup;
+}
+
+async function readPayrollWorkbook(file, settings) {
+  const XLSX = await loadSpreadsheetModule();
+  const workbook = XLSX.read(await file.arrayBuffer(), { type: 'array', raw: false });
+  const firstSheetName = workbook.SheetNames[0];
+
+  if (!firstSheetName) {
+    throw new Error('The selected workbook has no sheets.');
+  }
+
+  const sheetRows = XLSX.utils.sheet_to_json(workbook.Sheets[firstSheetName], {
+    header: 1,
+    defval: '',
+    raw: false,
+  });
+
+  if (!sheetRows.length) {
+    throw new Error('The selected workbook is empty.');
+  }
+
+  const lookup = buildPayrollImportLookup(settings);
+  const headerDescriptors = sheetRows[0].map(header => lookup.get(normalizeImportToken(header)) || null);
+  const recognizedColumns = headerDescriptors.filter(Boolean).length;
+
+  if (!recognizedColumns) {
+    throw new Error('No recognised payroll headings were found. Download the payroll template and use those headings.');
+  }
+
+  return sheetRows
+    .slice(1)
+    .map((cells) => {
+      const importedRow = {
+        staffId: '',
+        staffName: '',
+        employmentCategory: '',
+        paymentStatus: '',
+        bankName: '',
+        accountName: '',
+        accountNumber: '',
+        earnings: {},
+        deductions: {},
+      };
+
+      headerDescriptors.forEach((descriptor, index) => {
+        if (!descriptor) {
+          return;
+        }
+
+        const cellValue = cells[index];
+
+        if (descriptor.kind === 'field') {
+          const textValue = readImportedText(cellValue);
+          if (!textValue) {
+            return;
+          }
+
+          if (descriptor.field === 'paymentStatus') {
+            importedRow.paymentStatus = textValue;
+            return;
+          }
+
+          importedRow[descriptor.field] = textValue;
+          return;
+        }
+
+        const numericValue = readImportedNumber(cellValue);
+        if (numericValue === null) {
+          return;
+        }
+
+        if (descriptor.kind === 'earning') {
+          importedRow.earnings[descriptor.key] = numericValue;
+          return;
+        }
+
+        importedRow.deductions[descriptor.key] = numericValue;
+      });
+
+      return importedRow;
+    })
+    .filter(importedRow => importedRow.staffId || importedRow.staffName);
+}
+
+function applyImportedPayrollRow(row, importedRow) {
+  const allowancesMap = { ...row.allowancesMap };
+  const deductionsMap = { ...row.deductionsMap };
+
+  Object.entries(importedRow.earnings || {}).forEach(([key, value]) => {
+    allowancesMap[key] = Number(value || 0);
+  });
+
+  Object.entries(importedRow.deductions || {}).forEach(([key, value]) => {
+    deductionsMap[key] = Number(value || 0);
+  });
+
+  const nextEmploymentCategory = normalizeOptionValue(importedRow.employmentCategory, ['academic', 'administrative', 'support', 'contract']) || row.employmentCategory;
+  const nextPaymentStatus = normalizeOptionValue(importedRow.paymentStatus, ['pending', 'processing', 'paid', 'failed']) || row.paymentStatus;
+
+  return {
+    ...row,
+    employmentCategory: nextEmploymentCategory,
+    paymentStatus: nextPaymentStatus,
+    bankName: importedRow.bankName || row.bankName,
+    accountName: importedRow.accountName || row.accountName,
+    accountNumber: importedRow.accountNumber || row.accountNumber,
+    basicSalary: Object.prototype.hasOwnProperty.call(importedRow.earnings || {}, 'basicSalary')
+      ? Number(importedRow.earnings.basicSalary || 0)
+      : row.basicSalary,
+    allowancesMap,
+    housingAllowance: Number(allowancesMap.housingAllowance || 0),
+    transportAllowance: Number(allowancesMap.transportAllowance || 0),
+    bonus: Number(allowancesMap.bonus || 0),
+    deductionsMap,
+    tax: Number(deductionsMap.tax || 0),
+    pension: Number(deductionsMap.pension || 0),
+    otherDeduction: Number(deductionsMap.otherDeduction || 0),
+  };
+}
+
+function buildPayrollRowPayload(targetRow) {
+  return {
+    basicSalary: Number(targetRow.basicSalary || 0),
+    housingAllowance: Number(targetRow.housingAllowance || 0),
+    transportAllowance: Number(targetRow.transportAllowance || 0),
+    bonus: Number(targetRow.bonus || 0),
+    allowancesMap: targetRow.allowancesMap,
+    tax: Number(targetRow.tax || 0),
+    pension: Number(targetRow.pension || 0),
+    otherDeduction: Number(targetRow.otherDeduction || 0),
+    deductionsMap: targetRow.deductionsMap,
+    deductions: rowManualDeductions(targetRow),
+    status: targetRow.status,
+    paymentStatus: targetRow.paymentStatus,
+    employmentCategory: targetRow.employmentCategory,
+    bankName: targetRow.bankName,
+    accountName: targetRow.accountName,
+    accountNumber: targetRow.accountNumber,
+  };
+}
+
 function PayslipModal({ branding, monthLabel, staffRow, settings, contactInfo, onClose }) {
   const earnings = buildPayslipEarnings(staffRow, settings);
   const deductions = buildPayslipDeductions(staffRow, settings);
@@ -332,6 +581,7 @@ function PayrollManagementBoard({ canApprove = false }) {
   const [loading, setLoading] = useState(true);
   const [savingRowId, setSavingRowId] = useState('');
   const [savingSettings, setSavingSettings] = useState(false);
+  const [importingSheet, setImportingSheet] = useState(false);
   const [actionBusy, setActionBusy] = useState('');
   const [selectedPayslip, setSelectedPayslip] = useState(null);
   const [payrollNoteDraft, setPayrollNoteDraft] = useState('');
@@ -341,6 +591,7 @@ function PayrollManagementBoard({ canApprove = false }) {
   const [savingPayrollNote, setSavingPayrollNote] = useState(false);
   const [toast, setToast] = useState('');
   const toastTimeoutRef = useRef(null);
+  const importInputRef = useRef(null);
   const currentUser = useMemo(() => getStoredAuth()?.user || null, []);
   const currentUserRole = String(currentUser?.role || currentUser?.primaryRole || '').trim().toLowerCase();
   const canEditPayrollSettings = ['owner', 'hos'].includes(currentUserRole);
@@ -526,24 +777,7 @@ function PayrollManagementBoard({ canApprove = false }) {
     setSavingRowId(staffId);
 
     try {
-      await updatePayrollStaff(staffId, {
-        basicSalary: Number(targetRow.basicSalary || 0),
-        housingAllowance: Number(targetRow.housingAllowance || 0),
-        transportAllowance: Number(targetRow.transportAllowance || 0),
-        bonus: Number(targetRow.bonus || 0),
-        allowancesMap: targetRow.allowancesMap,
-        tax: Number(targetRow.tax || 0),
-        pension: Number(targetRow.pension || 0),
-        otherDeduction: Number(targetRow.otherDeduction || 0),
-        deductionsMap: targetRow.deductionsMap,
-        deductions: rowManualDeductions(targetRow),
-        status: targetRow.status,
-        paymentStatus: targetRow.paymentStatus,
-        employmentCategory: targetRow.employmentCategory,
-        bankName: targetRow.bankName,
-        accountName: targetRow.accountName,
-        accountNumber: targetRow.accountNumber,
-      });
+      await updatePayrollStaff(staffId, buildPayrollRowPayload(targetRow));
       showToast(`Saved ${targetRow.name}.`);
     } catch (error) {
       showToast(error.message || 'Could not save payroll row.');
@@ -653,6 +887,134 @@ function PayrollManagementBoard({ canApprove = false }) {
     }
   }
 
+  const handleDownloadTemplate = useCallback(async () => {
+    try {
+      const XLSX = await loadSpreadsheetModule();
+      const templateColumns = buildPayrollTemplateColumns(settingsForm);
+      const templateRows = rows.map((row) => templateColumns.map((column) => {
+        if (column.kind === 'field') {
+          return row[column.field] ?? '';
+        }
+
+        if (column.kind === 'earning') {
+          return getRowEarningValue(row, column.key);
+        }
+
+        return getRowDeductionValue(row, column.key);
+      }));
+
+      const fallbackTemplateRow = templateColumns.map((column) => {
+        if (column.kind === 'field') {
+          if (column.field === 'employmentCategory') return 'support';
+          if (column.field === 'paymentStatus') return 'pending';
+          return '';
+        }
+
+        return 0;
+      });
+
+      const workbook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(
+        workbook,
+        XLSX.utils.aoa_to_sheet([
+          templateColumns.map(column => column.label),
+          ...(templateRows.length ? templateRows : [fallbackTemplateRow]),
+        ]),
+        'Payroll Template',
+      );
+      XLSX.utils.book_append_sheet(
+        workbook,
+        XLSX.utils.aoa_to_sheet([
+          ['Ndovera Payroll Template'],
+          ['Period', period],
+          [],
+          ['How to use'],
+          ['1. Keep Staff ID unchanged so imported rows match the right staff records.'],
+          ['2. Update only editable columns in the Payroll Template sheet.'],
+          ['3. Gross, late charges, total deductions, and net pay are recalculated automatically after import.'],
+          ['4. If you rename earning or deduction headings, download a fresh template before importing again.'],
+          ['5. Upload accepts .xlsx, .xls, and .csv files.'],
+        ]),
+        'Instructions',
+      );
+
+      const workbookBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+      downloadBlob(
+        new Blob([workbookBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' }),
+        `ndovera_payroll_template_${period}.xlsx`,
+      );
+      showToast('Payroll Excel template downloaded.');
+    } catch (error) {
+      showToast(error.message || 'Could not download the payroll template.');
+    }
+  }, [period, rows, settingsForm, showToast]);
+
+  const handleImportSheet = useCallback(async (event) => {
+    const selectedFile = event.target.files?.[0];
+    event.target.value = '';
+
+    if (!selectedFile) {
+      return;
+    }
+
+    if (inputsLocked) {
+      showToast('Payroll is locked for this month. Unlock the sheet before importing another spreadsheet.');
+      return;
+    }
+
+    setImportingSheet(true);
+
+    try {
+      const importedRows = await readPayrollWorkbook(selectedFile, settingsForm);
+
+      if (!importedRows.length) {
+        throw new Error('No payroll rows were found in the uploaded spreadsheet.');
+      }
+
+      const rowsByStaffId = new Map(rows.map(row => [normalizeImportToken(row.displayId || row.id), row]));
+      const rowsByName = new Map(rows.map(row => [normalizeImportToken(row.name), row]));
+      const updatedRowsById = new Map();
+      let matchedRows = 0;
+      let skippedRows = 0;
+
+      importedRows.forEach((importedRow) => {
+        const matchedRow = rowsByStaffId.get(normalizeImportToken(importedRow.staffId))
+          || rowsByName.get(normalizeImportToken(importedRow.staffName));
+
+        if (!matchedRow) {
+          skippedRows += 1;
+          return;
+        }
+
+        updatedRowsById.set(matchedRow.id, applyImportedPayrollRow(matchedRow, importedRow));
+        matchedRows += 1;
+      });
+
+      if (!matchedRows) {
+        throw new Error('No uploaded rows matched the current payroll. Download the current template and keep the Staff ID column unchanged.');
+      }
+
+      const mergedRows = rows.map(row => updatedRowsById.get(row.id) || row);
+      setRows(mergedRows);
+
+      for (const updatedRow of mergedRows) {
+        if (!updatedRowsById.has(updatedRow.id)) {
+          continue;
+        }
+
+        await updatePayrollStaff(updatedRow.id, buildPayrollRowPayload(updatedRow));
+      }
+
+      showToast(
+        `Imported ${matchedRows} payroll row${matchedRows === 1 ? '' : 's'}${skippedRows ? `, skipped ${skippedRows} unmatched row${skippedRows === 1 ? '' : 's'}` : ''}.`,
+      );
+    } catch (error) {
+      showToast(error.message || 'Could not import the payroll spreadsheet.');
+    } finally {
+      setImportingSheet(false);
+    }
+  }, [inputsLocked, rows, settingsForm, showToast]);
+
   const monthLabel = formatPeriod(period);
   const payrollTotals = useMemo(() => {
     return rows.reduce(
@@ -684,38 +1046,6 @@ function PayrollManagementBoard({ canApprove = false }) {
           {toast}
         </div>
       ) : null}
-
-      <div className={CARD}>
-        <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-          <div>
-            <h2 className="text-2xl font-bold text-[#800000] dark:text-[#0000ff]">Payroll Management</h2>
-            <p className="mt-2 text-sm text-[#191970] dark:text-[#39ff14]">
-              Use the same spreadsheet-style flow as fees: break down earnings, review deductions, and print payslips.
-            </p>
-          </div>
-          <div className="flex flex-wrap gap-3">
-            <span className={BADGE}>{monthLabel}</span>
-            {submitted && !canApprove ? <span className={BADGE}>Pending Owner Approval</span> : null}
-            {approved ? <span className={BADGE}>Approved</span> : null}
-          </div>
-        </div>
-      </div>
-
-      <div className={CARD}>
-        <div className="flex flex-wrap items-center gap-3">
-          <span className={BADGE}>Owner</span>
-          <span className={BADGE}>Head Of School</span>
-          <span className={BADGE}>Accountant</span>
-          {canApprove ? <span className={BADGE}>Owner Approval Desk</span> : <span className={BADGE}>Submission Desk</span>}
-        </div>
-      </div>
-
-      <div className={CARD}>
-        <p className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">Payroll behavior</p>
-        <p className="mt-2 text-sm text-[#191970] dark:text-[#39ff14]">
-          Editing earnings or manual deductions recalculates gross and net. Lateness charges now flow in automatically from staff attendance late sign-ins for the current month.
-        </p>
-      </div>
 
       <div className="flex flex-wrap gap-2">
         {TABS.map((label, index) => (
@@ -751,36 +1081,33 @@ function PayrollManagementBoard({ canApprove = false }) {
           </div>
 
           <div className={CARD}>
-            {canEditPayrollSettings ? (
-              <div className="mb-4 flex flex-wrap items-center gap-3 border-b border-[#c9a96e]/30 pb-4 dark:border-[#00ffff]/15">
-                <span className={BADGE}>Editable Headings</span>
-                <button type="button" onClick={() => addCustomColumn('earningColumns')} className={OUTLINE_BTN}>Add Earning Heading</button>
-                <button type="button" onClick={() => addCustomColumn('deductionColumns')} className={OUTLINE_BTN}>Add Deduction Heading</button>
-                <button type="button" onClick={saveSettings} disabled={savingSettings} className={BTN}>
-                  {savingSettings ? 'Saving Headings...' : 'Save Heading Changes'}
-                </button>
-              </div>
-            ) : null}
-
             {loading ? (
               <p className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">Loading payroll sheet...</p>
             ) : rows.length === 0 ? (
               <p className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">No staff payroll rows found.</p>
             ) : (
-              <div className="overflow-x-auto">
+              <div className="max-h-[70vh] overflow-auto overscroll-contain rounded-2xl border border-[#c9a96e]/25 dark:border-[#00ffff]/15">
                 <table className="min-w-[2200px] w-full text-sm">
                   <thead>
                     <tr>
-                      <th className={TH}>S/N</th>
-                      <th className={TH}>Staff ID</th>
-                      <th className={TH}>Staff Name</th>
-                      <th className={TH}>Role</th>
-                      <th className={TH}>Employment Category</th>
-                      {settingsForm.earningColumns.map(column => (
-                        <th key={`earning-head-${column.key}`} className={TH}>
+                      <th className={`${TH} sticky top-0 z-20`}>S/N</th>
+                      <th className={`${TH} sticky top-0 z-20`}>Staff ID</th>
+                      <th className={`${TH} sticky top-0 z-20`}>Staff Name</th>
+                      <th className={`${TH} sticky top-0 z-20`}>Role</th>
+                      <th className={`${TH} sticky top-0 z-20`}>Employment Category</th>
+                      {settingsForm.earningColumns.map((column, index) => (
+                        <th key={`earning-head-${column.key}`} className={`${TH} sticky top-0 z-20`}>
                           {canEditPayrollSettings ? (
                             <div className="min-w-[140px] space-y-2">
-                              <span className="block text-[10px] uppercase tracking-[0.16em] text-[#f5deb3]/80">{column.fixed ? 'Standard' : 'Custom'} earning</span>
+                              <div className="flex items-start justify-between gap-2">
+                                <div>
+                                  {index === 0 ? <span className="block text-[10px] uppercase tracking-[0.16em] text-[#f5deb3]">Earnings</span> : null}
+                                  <span className="block text-[10px] uppercase tracking-[0.16em] text-[#f5deb3]/80">{column.fixed ? 'Standard' : 'Custom'} earning</span>
+                                </div>
+                                {index === 0 ? (
+                                  <button type="button" onClick={() => addCustomColumn('earningColumns')} className={ICON_BTN} title="Add earning heading" aria-label="Add earning heading">+</button>
+                                ) : null}
+                              </div>
                               <input
                                 type="text"
                                 value={column.label}
@@ -791,12 +1118,20 @@ function PayrollManagementBoard({ canApprove = false }) {
                           ) : column.label}
                         </th>
                       ))}
-                      <th className={TH}>Gross</th>
-                      {settingsForm.deductionColumns.map(column => (
-                        <th key={`deduction-head-${column.key}`} className={TH}>
+                      <th className={`${TH} sticky top-0 z-20`}>Gross</th>
+                      {settingsForm.deductionColumns.map((column, index) => (
+                        <th key={`deduction-head-${column.key}`} className={`${TH} sticky top-0 z-20`}>
                           {canEditPayrollSettings ? (
                             <div className="min-w-[140px] space-y-2">
-                              <span className="block text-[10px] uppercase tracking-[0.16em] text-[#f5deb3]/80">{column.fixed ? 'Standard' : 'Custom'} deduction</span>
+                              <div className="flex items-start justify-between gap-2">
+                                <div>
+                                  {index === 0 ? <span className="block text-[10px] uppercase tracking-[0.16em] text-[#f5deb3]">Deductions</span> : null}
+                                  <span className="block text-[10px] uppercase tracking-[0.16em] text-[#f5deb3]/80">{column.fixed ? 'Standard' : 'Custom'} deduction</span>
+                                </div>
+                                {index === 0 ? (
+                                  <button type="button" onClick={() => addCustomColumn('deductionColumns')} className={ICON_BTN} title="Add deduction heading" aria-label="Add deduction heading">+</button>
+                                ) : null}
+                              </div>
                               <input
                                 type="text"
                                 value={column.label}
@@ -807,11 +1142,11 @@ function PayrollManagementBoard({ canApprove = false }) {
                           ) : column.label}
                         </th>
                       ))}
-                      <th className={TH}>Late Charges</th>
-                      <th className={TH}>Total Deductions</th>
-                      <th className={TH}>Net Pay</th>
-                      <th className={TH}>Status</th>
-                      <th className={TH}>Payslip</th>
+                      <th className={`${TH} sticky top-0 z-20`}>Late Charges</th>
+                      <th className={`${TH} sticky top-0 z-20`}>Total Deductions</th>
+                      <th className={`${TH} sticky top-0 z-20`}>Net Pay</th>
+                      <th className={`${TH} sticky top-0 z-20`}>Status</th>
+                      <th className={`${TH} sticky top-0 z-20`}>Payslip</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -912,11 +1247,49 @@ function PayrollManagementBoard({ canApprove = false }) {
                 </table>
               </div>
             )}
+
+            <div className="mt-4 border-t border-[#c9a96e]/30 pt-4 dark:border-[#00ffff]/15">
+              <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+                <p className="text-xs font-semibold text-[#800020] dark:text-[#bf00ff]">
+                  Download the Excel template, update your own payroll offline, then upload it back here. Gross pay, late charges, total deductions, and net pay are recalculated automatically after import.
+                </p>
+                <div className="flex flex-wrap gap-3">
+                  <input
+                    ref={importInputRef}
+                    type="file"
+                    accept=".xlsx,.xls,.csv,text/csv"
+                    onChange={handleImportSheet}
+                    className="hidden"
+                  />
+                  <button
+                    type="button"
+                    onClick={handleDownloadTemplate}
+                    disabled={loading || importingSheet}
+                    className={OUTLINE_BTN}
+                  >
+                    Download Excel Template
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => importInputRef.current?.click()}
+                    disabled={loading || importingSheet || inputsLocked}
+                    className={OUTLINE_BTN}
+                  >
+                    {importingSheet ? 'Importing Payroll...' : 'Upload Payroll Excel'}
+                  </button>
+                  {canEditPayrollSettings ? (
+                    <button type="button" onClick={saveSettings} disabled={savingSettings} className={BTN}>
+                      {savingSettings ? 'Saving Headings...' : 'Save Heading Changes'}
+                    </button>
+                  ) : null}
+                </div>
+              </div>
+            </div>
           </div>
 
           <button
             onClick={handleApprovalAction}
-            disabled={actionBusy !== '' || approved || (!canApprove && submitted)}
+            disabled={importingSheet || actionBusy !== '' || approved || (!canApprove && submitted)}
             className={`${BTN} w-full py-4 text-base`}
           >
             {approved

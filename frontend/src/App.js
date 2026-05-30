@@ -36,7 +36,6 @@ import StudentMessaging from './app/roles/student/StudentMessaging';
 import StudentSettings from './app/roles/student/StudentSettings';
 import LessonPlanViewerPage from './features/lesson-plans/LessonPlanViewerPage';
 import RoleLibrary from './app/RoleLibrary';
-import TeacherMessaging from './app/roles/teacher/TeacherMessaging';
 import AmiInbox from './app/roles/ami/AmiInbox';
 import LoginPage from './features/auth/pages/LoginPage';
 import ChangePasswordPage from './features/auth/pages/ChangePasswordPage';
@@ -208,10 +207,11 @@ function AnimatedRoutes({ auth, onLogin }) {
         <Route path="/roles/teacher/resources" element={<Navigate to="/roles/teacher/library" replace />} />
         <Route path="/roles/student/tuck-shop" element={<RoleGuard auth={auth} expectedRole="student"><RouteTransition><StudentTuckShop /></RouteTransition></RoleGuard>} />
         <Route path="/roles/teacher/tuck-shop" element={<RoleGuard auth={auth} expectedRole="teacher"><RouteTransition><StaffTuckShop /></RouteTransition></RoleGuard>} />
-        <Route path="/roles/teacher/messaging" element={<RoleGuard auth={auth} expectedRole="teacher"><RouteTransition><TeacherMessaging /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/teacher/messaging" element={<RoleGuard auth={auth} expectedRole="teacher"><RouteTransition><StudentMessaging viewerRole="teacher" dashboardLabel="Teacher Dashboard" title="Messaging" subtitle="A clean school chat workspace for students, parents, staff, school admins, and helpdesk support." /></RouteTransition></RoleGuard>} />
         <Route path="/roles/classteacher/tuck-shop" element={<RoleGuard auth={auth} expectedRole="classteacher"><RouteTransition><StaffTuckShop /></RouteTransition></RoleGuard>} />
         <Route path="/roles/student/professor-vera" element={<RoleGuard auth={auth} expectedRole="student"><RouteTransition><StudentProfessorAura /></RouteTransition></RoleGuard>} />
         <Route path="/roles/student/messaging" element={<RoleGuard auth={auth} expectedRole="student"><RouteTransition><StudentMessaging /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/student/newsroom" element={<RoleGuard auth={auth} expectedRole="student"><RouteTransition><StudentDashboard /></RouteTransition></RoleGuard>} />
         <Route path="/roles/student/settings" element={<RoleGuard auth={auth} expectedRole="student"><RouteTransition><StudentSettings /></RouteTransition></RoleGuard>} />
         <Route path="/roles/parent/*" element={<RoleGuard auth={auth} expectedRole="parent"><RouteTransition><ParentDashboard /></RouteTransition></RoleGuard>} />
         <Route path="/roles/caregiver/*" element={<RoleGuard auth={auth} expectedRole="caregiver"><RouteTransition><OperationalRoleDashboard roleKey="caregiver" /></RouteTransition></RoleGuard>} />

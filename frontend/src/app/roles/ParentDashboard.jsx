@@ -6,13 +6,22 @@ import { ParentResultView } from '../../features/results-engine';
 import { ParentFarmingMode } from '../../features/auras';
 import ParentMaterialsPage from '../../features/classroom/ParentMaterialsPage';
 import ParentLearningBoard from '../../features/classroom/ParentLearningBoard';
-import LessonPlanViewerPage from '../../features/lesson-plans/LessonPlanViewerPage';
 import ParentFeesReceiptsPage from '../../features/school/components/ParentFeesReceiptsPage';
 import ParentSettings from './parent/ParentSettings';
 import useFeatureFlags from '../../shared/hooks/useFeatureFlags';
 import StudentProfessorAura from './student/StudentProfessorAura';
 import StudentTuckShop from './student/StudentTuckShop';
+import StudentMessaging from './student/StudentMessaging';
 import SchoolNewsroomPage from '../../features/school/components/SchoolNewsroomPage';
+import {
+  ParentAttendancePage,
+  ParentChildrenPage,
+  ParentClassroomPage,
+  ParentExamSchedulePage,
+  ParentLivePage,
+  ParentOverviewPage,
+  ParentPtaPage,
+} from './parent/ParentWorkspacePages';
 
 export default function ParentDashboard() {
   const location = useLocation();
@@ -24,10 +33,42 @@ export default function ParentDashboard() {
     return <SchoolNewsroomPage viewerRole="parent" dashboardLabel="Parent Dashboard" />;
   }
 
+  if (sectionKey === 'library') {
+    return <Navigate to="/roles/parent/library" replace />;
+  }
+
+  if (sectionKey === 'performance' || sectionKey === 'practice' || sectionKey === 'lesson-plans' || sectionKey === 'auras') {
+    return <Navigate to="/roles/parent" replace />;
+  }
+
   const section = parentConfig.sections[sectionKey];
 
   if (!section) {
     return <Navigate to="/roles/parent" replace />;
+  }
+
+  if (sectionKey === 'overview') {
+    return <ParentOverviewPage />;
+  }
+
+  if (sectionKey === 'children') {
+    return <ParentChildrenPage />;
+  }
+
+  if (sectionKey === 'classroom') {
+    return <ParentClassroomPage />;
+  }
+
+  if (sectionKey === 'live') {
+    return <ParentLivePage />;
+  }
+
+  if (sectionKey === 'exams') {
+    return <ParentExamSchedulePage />;
+  }
+
+  if (sectionKey === 'attendance') {
+    return <ParentAttendancePage />;
   }
 
   if (sectionKey === 'results') {
@@ -40,22 +81,6 @@ export default function ParentDashboard() {
 
   if (sectionKey === 'assignments') {
     return <ParentLearningBoard mode="assignments" />;
-  }
-
-  if (sectionKey === 'practice') {
-    return <ParentLearningBoard mode="practice" />;
-  }
-
-  if (sectionKey === 'lesson-plans') {
-    return (
-      <LessonPlanViewerPage
-        dashboardLabel="Parent Dashboard"
-        title="Lesson Plans"
-        subtitle="Review approved lesson plans that teachers have shared for your child."
-        watermarkText="Parent Lesson Plans"
-        emptyMessage="Approved lesson plans shared with parents will appear here automatically."
-      />
-    );
   }
 
   if (sectionKey === 'fees') {
@@ -86,6 +111,21 @@ export default function ParentDashboard() {
 
   if (sectionKey === 'settings') {
     return <ParentSettings />;
+  }
+
+  if (sectionKey === 'messaging') {
+    return (
+      <StudentMessaging
+        viewerRole="parent"
+        dashboardLabel="Parent Dashboard"
+        title="Messaging"
+        subtitle="Message teachers, school admins, and helpdesk from one safe parent workspace."
+      />
+    );
+  }
+
+  if (sectionKey === 'pta') {
+    return <ParentPtaPage />;
   }
 
   if (sectionKey === 'auras' && !featureFlags.aurasEnabled) {

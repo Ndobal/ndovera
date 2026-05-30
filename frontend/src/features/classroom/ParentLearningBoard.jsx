@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import StudentSectionShell from '../../app/roles/student/StudentSectionShell';
 import { getAssignments, getLearningStudents, getMaterials } from './classroomService';
+import { resolveActiveParentChildId, writeActiveParentChildId } from '../../app/roles/parent/parentChildSelection';
 
 const SHELL_CONFIG = {
   assignments: {
@@ -70,9 +71,7 @@ export default function ParentLearningBoard({ mode = 'assignments' }) {
         const nextStudents = Array.isArray(response?.students) ? response.students : [];
         setStudents(nextStudents);
         setSelectedStudentId(currentStudentId => (
-          nextStudents.some(student => student.id === currentStudentId)
-            ? currentStudentId
-            : String(nextStudents[0]?.id || '')
+          resolveActiveParentChildId(nextStudents, currentStudentId)
         ));
       })
       .catch(err => {
@@ -212,6 +211,12 @@ export default function ParentLearningBoard({ mode = 'assignments' }) {
       { label: 'Linked Child', value: selectedStudent ? 1 : 0 },
     ];
   }, [assignments, groupedSubjects.length, materials.length, mode, selectedStudent]);
+
+  useEffect(() => {
+    if (selectedStudentId) {
+      writeActiveParentChildId(selectedStudentId);
+    }
+  }, [selectedStudentId]);
 
   return (
     <StudentSectionShell

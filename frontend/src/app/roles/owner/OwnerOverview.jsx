@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { getMe, getMyTenant } from '../../../features/school/services/schoolApi';
 import SchoolAnnouncementsPanel from '../../../shared/components/SchoolAnnouncementsPanel';
 import MobileRoleOverviewNav from '../../../shared/components/MobileRoleOverviewNav';
+import { getTenantPwaInfo } from '../../../shared/hooks/useTenantPwaManifest';
 
 function StatusBadge({ label, value }) {
   const colors = {
@@ -33,6 +34,7 @@ export default function OwnerOverview({ auth }) {
   const [tenant, setTenant] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const tenantBranding = getTenantPwaInfo();
 
   useEffect(() => {
     setLoading(true);
@@ -65,16 +67,28 @@ export default function OwnerOverview({ auth }) {
     );
   }
 
+  const schoolName = tenant?.schoolName || tenant?.name || me?.schoolName || auth?.user?.schoolName || tenantBranding?.schoolName || 'NDOVERA';
+  const schoolLogoUrl = tenant?.branding?.logoUrl || tenant?.logoUrl || tenantBranding?.logoUrl || '';
+
   return (
     <div className="p-8 max-w-7xl mx-auto space-y-6">
       {/* Header */}
       <div className="rounded-3xl p-6 bg-[#f5deb3] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
-        <h1 className="text-2xl font-bold text-[#800000] dark:text-slate-100">
-          Owner Dashboard
-        </h1>
-        {tenant?.name && (
-          <p className="mt-1 text-[#191970] dark:text-slate-300 text-lg">{tenant.name}</p>
-        )}
+        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <div className="flex items-center gap-4">
+            <div className="flex h-16 w-16 items-center justify-center overflow-hidden rounded-3xl border border-[#c9a96e]/40 bg-white/80 p-2 dark:border-white/10 dark:bg-slate-950/40">
+              {schoolLogoUrl ? (
+                <img src={schoolLogoUrl} alt={`${schoolName} logo`} className="h-full w-full animate-[spin_18s_linear_infinite] object-contain" />
+              ) : (
+                <span className="text-2xl font-black text-[#800000] dark:text-slate-100">{schoolName.slice(0, 1)}</span>
+              )}
+            </div>
+            <div>
+              <h1 className="text-2xl font-bold text-[#800000] dark:text-slate-100">Owner Dashboard</h1>
+              <p className="mt-1 text-[#191970] dark:text-slate-300 text-lg">{schoolName}</p>
+            </div>
+          </div>
+        </div>
         {tenant && (
           <div className="mt-3 flex flex-wrap gap-2">
             <StatusBadge label="Payment" value={tenant.paymentStatus} />

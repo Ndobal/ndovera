@@ -8,13 +8,13 @@ import TeacherExams from './teacher/TeacherExams';
 import TeacherPayslip from './teacher/TeacherPayslip';
 import TeacherClassroom from '../../features/classroom/TeacherClassroom';
 import TeacherOverview from './teacher/TeacherOverview';
-import TeacherMessaging from './teacher/TeacherMessaging';
 import TeacherLessonPlansPage from '../../features/lesson-plans/TeacherLessonPlansPage';
 import TeacherReports from './teacher/TeacherReports';
 import TeacherAttendancePage from './teacher/TeacherAttendancePage';
 import StaffSettingsPage from './shared/StaffSettingsPage';
 import SchoolNewsroomPage from '../../features/school/components/SchoolNewsroomPage';
 import StaffAiAssistantPage from '../../features/ai/components/StaffAiAssistantPage';
+import StudentMessaging from './student/StudentMessaging';
 import useFeatureFlags from '../../shared/hooks/useFeatureFlags';
 
 export default function TeacherDashboard({ auth }) {
@@ -102,7 +102,14 @@ export default function TeacherDashboard({ auth }) {
   }
 
   if (sectionKey === 'messaging') {
-    return <TeacherMessaging auth={auth} />;
+    return (
+      <StudentMessaging
+        viewerRole="teacher"
+        dashboardLabel="Teacher Dashboard"
+        title="Messaging"
+        subtitle="A clean school chat workspace for students, parents, staff, school admins, and helpdesk support."
+      />
+    );
   }
 
   if (sectionKey === 'settings') {

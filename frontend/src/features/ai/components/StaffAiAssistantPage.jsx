@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { ArrowPathIcon, PaperAirplaneIcon } from '@heroicons/react/24/outline';
 import { askAiTutor, getAiAccess } from '../services/aiTutorApi';
+import { clearChatSession, readChatSession, writeChatSession } from '../services/chatSessionStorage';
 
 const currencyFormatter = new Intl.NumberFormat('en-NG', {
   style: 'currency',
@@ -24,7 +25,7 @@ function resolveSourceLabel(source) {
   if (source === 'free') return 'Free Daily Request';
   if (source === 'school_credits') return 'School Credit';
   if (source === 'individual_credits') return 'Individual Credit';
-  return 'Workers AI';
+  return 'Ndovera AI';
 }
 
 function resolveTopbarToneClasses(tone) {
@@ -63,9 +64,11 @@ function toApiMessages(messages) {
 }
 
 export default function StaffAiAssistantPage({ roleKey = 'teacher' }) {
+  const chatSessionKey = `staff-ai-assistant:${String(roleKey || 'teacher').trim().toLowerCase()}`;
+  const persistedChatSession = readChatSession(chatSessionKey, { messages: [] });
   const isTeachingRole = teachingRoleKeys.has(String(roleKey || '').trim().toLowerCase());
   const [accessPayload, setAccessPayload] = useState(null);
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState(() => Array.isArray(persistedChatSession.messages) ? persistedChatSession.messages : []);
   const [input, setInput] = useState('');
   const [loadingAccess, setLoadingAccess] = useState(true);
   const [asking, setAsking] = useState(false);
@@ -116,6 +119,17 @@ export default function StaffAiAssistantPage({ roleKey = 'teacher' }) {
   const quotaBlocked = access
     && Number(access.usage?.remainingFreeRequests || 0) <= 0
     && Number(access.wallet?.availableCredits || 0) <= 0;
+
+  useEffect(() => {
+    const persistedSession = readChatSession(chatSessionKey, { messages: [] });
+    setMessages(Array.isArray(persistedSession.messages) ? persistedSession.messages : []);
+    setInput('');
+    setError('');
+  }, [chatSessionKey]);
+
+  useEffect(() => {
+    writeChatSession(chatSessionKey, { messages });
+  }, [chatSessionKey, messages]);
 
   useEffect(() => {
     let active = true;
@@ -216,6 +230,7 @@ export default function StaffAiAssistantPage({ roleKey = 'teacher' }) {
     setMessages([]);
     setInput('');
     setError('');
+    clearChatSession(chatSessionKey);
   }
 
   return (

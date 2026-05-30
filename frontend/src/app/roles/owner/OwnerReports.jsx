@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { getAttendance } from '../../../features/school/services/schoolApi';
+import { getStudentAttendance } from '../../../features/school/services/schoolApi';
+
+const TODAY = new Date().toISOString().slice(0, 10);
 
 export default function OwnerReports({ auth }) {
   const [attendance, setAttendance] = useState(null);
@@ -9,7 +11,8 @@ export default function OwnerReports({ auth }) {
 
   useEffect(() => {
     setAttLoading(true);
-    getAttendance()
+    setAttError(null);
+    getStudentAttendance({ date: TODAY, limit: 120 })
       .then((data) => setAttendance(data))
       .catch((err) => setAttError(err.message))
       .finally(() => setAttLoading(false));
@@ -69,7 +72,7 @@ export default function OwnerReports({ auth }) {
             <p className="text-[#800020] dark:text-slate-400 text-sm">No attendance records available.</p>
           ) : (
             <p className="text-[#191970] dark:text-slate-300 text-sm">
-              {attRecords.length} attendance record{attRecords.length !== 1 ? 's' : ''} on file.
+              {attRecords.length} student attendance record{attRecords.length !== 1 ? 's' : ''} logged for today.
             </p>
           )}
         </div>

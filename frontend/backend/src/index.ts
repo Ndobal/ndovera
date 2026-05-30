@@ -3809,7 +3809,7 @@ async function runNvidiaStudentChat(env: Bindings, messages: AiConversationMessa
   const data = await response.json().catch(() => ({}))
 
   if (!response.ok) {
-    throw new Error(String(data?.error?.message || data?.message || 'NVIDIA student AI request failed.'))
+    throw new Error(String(data?.error?.message || data?.message || 'Ndovera AI request failed.'))
   }
 
   return extractOpenAiCompatibleText(data)
@@ -3832,7 +3832,11 @@ function canAccessAiCreditPayment(actor: Record<string, any>, payment: Record<st
 }
 
 async function buildAiAccessPayload(db: D1Database, actor: Record<string, any>) {
-  const access = await summarizeAiAccess(db, { tenantId: actor.tenantId, settingsKey: actor.settingsKey })
+  const access = await summarizeAiAccess(db, {
+    tenantId: actor.tenantId,
+    settingsKey: actor.settingsKey,
+    policyOverrides: getAiPolicyOverrides(actor),
+  })
   return {
     access,
     management: {
@@ -3842,6 +3846,14 @@ async function buildAiAccessPayload(db: D1Database, actor: Record<string, any>) 
       tenantId: actor.tenantId,
     },
   }
+}
+
+function getAiPolicyOverrides(actor: Record<string, any>) {
+  const normalizedRole = String(actor?.role || '').trim().toLowerCase()
+  if (normalizedRole === 'parent') {
+    return { dailyFreeRequests: 5 }
+  }
+  return undefined
 }
 
 async function createPendingTenantRegistration(c: any, payload: Record<string, any>) {
@@ -8888,7 +8900,11 @@ app.post('/api/ai/access/top-up/verify', authenticate, async (c) => {
     }
 
     if (payment.status === 'paid') {
-      const access = await summarizeAiAccess(c.env.APP_DB, { tenantId: payment.tenantId, settingsKey: payment.settingsKey })
+      const access = await summarizeAiAccess(c.env.APP_DB, {
+        tenantId: payment.tenantId,
+        settingsKey: payment.settingsKey,
+        policyOverrides: getAiPolicyOverrides(actor),
+      })
       return c.json({ success: true, verified: true, payment, access })
     }
 
@@ -8917,6 +8933,7 @@ app.post('/api/ai/access/top-up/verify', authenticate, async (c) => {
       settingsKey: payment.settingsKey,
       quantity: payment.quantity,
       target: payment.target,
+      policyOverrides: getAiPolicyOverrides(actor),
     })
 
     const updatedPayment = await saveAiPaymentRecord(c.env.APP_DB, txRef, {
@@ -8948,7 +8965,11 @@ app.post('/api/ai/tutor/ask', authenticate, async (c) => {
     }
 
     if (!OPEN_AI_CHAT_ROLES.has(normalizedRole) && !isAcademicOnlyPrompt(prompt)) {
-      const access = await summarizeAiAccess(c.env.APP_DB, { tenantId: actor.tenantId, settingsKey: actor.settingsKey })
+      const access = await summarizeAiAccess(c.env.APP_DB, {
+        tenantId: actor.tenantId,
+        settingsKey: actor.settingsKey,
+        policyOverrides: getAiPolicyOverrides(actor),
+      })
       return c.json({
         success: false,
         message: 'Ndovera AI responds only to academic questions. Please ask about a subject topic, problem, or exam review.',
@@ -8963,13 +8984,18 @@ app.post('/api/ai/tutor/ask', authenticate, async (c) => {
           reason: '',
           source: 'practice_aura',
           chargedCredits: 0,
-          access: await summarizeAiAccess(c.env.APP_DB, { tenantId: actor.tenantId, settingsKey: actor.settingsKey }),
+          access: await summarizeAiAccess(c.env.APP_DB, {
+            tenantId: actor.tenantId,
+            settingsKey: actor.settingsKey,
+            policyOverrides: getAiPolicyOverrides(actor),
+          }),
         }
       : await consumeAiAccess(c.env.APP_DB, {
           tenantId: actor.tenantId,
           settingsKey: actor.settingsKey,
           actorId: actor.actorId,
           actorName: actor.actorName,
+          policyOverrides: getAiPolicyOverrides(actor),
         })
 
     if (!consumption.allowed) {
@@ -8988,7 +9014,7 @@ app.post('/api/ai/tutor/ask', authenticate, async (c) => {
       if (!answer) {
         return c.json({
           success: false,
-          message: 'NVIDIA DeepSeek returned an empty response. Please try again.',
+          message: 'Ndovera AI returned an empty response. Please try again.',
           access: consumption.access,
         }, 502)
       }
@@ -8996,9 +9022,7 @@ app.post('/api/ai/tutor/ask', authenticate, async (c) => {
       if (!aiBinding || typeof aiBinding.run !== 'function') {
         return c.json({
           success: false,
-          message: NVIDIA_STUDENT_AI_ROLES.has(normalizedRole)
-            ? 'Student AI is not configured for this environment yet. Add NVIDIA_API_KEY or restore the Workers AI binding and redeploy the API worker.'
-            : 'Workers AI is not configured for this environment yet. Add the AI binding and redeploy the API worker.',
+          message: 'Ndovera AI is not configured for this environment yet. Reconnect the AI service and redeploy the API worker.',
           access: consumption.access,
         }, 503)
       }
@@ -9026,10 +9050,11 @@ app.post('/api/ai/tutor/ask', authenticate, async (c) => {
       chargedCredits: consumption.chargedCredits,
       access: consumption.access,
       mode,
-      provider: useNvidiaStudentModel ? 'nvidia-deepseek' : 'workers-ai',
+      provider: 'ndovera-ai',
     })
   } catch (error) {
-    return c.json({ success: false, message: error instanceof Error ? error.message : 'Could not process the AI request.' }, 500)
+    console.error('AI tutor request failed', error)
+    return c.json({ success: false, message: 'Ndovera AI could not complete that request right now. Please try again.' }, 500)
   }
 })
 
@@ -9098,8 +9123,19 @@ type DisplayIdConfig = {
 
 async function ensureUsersTable(db: D1Database) {
   await db.prepare(USERS_TABLE_SQL).run()
+  try { await db.exec('ALTER TABLE users ADD COLUMN tenantId TEXT') } catch {}
+  try { await db.exec('ALTER TABLE users ADD COLUMN passwordHash TEXT') } catch {}
+  try { await db.exec('ALTER TABLE users ADD COLUMN status TEXT') } catch {}
+  try { await db.exec('ALTER TABLE users ADD COLUMN createdAt TEXT') } catch {}
   try { await db.exec('ALTER TABLE users ADD COLUMN primary_role TEXT') } catch {}
   try { await db.exec('ALTER TABLE users ADD COLUMN employment_category TEXT') } catch {}
+  await db.exec(
+    `UPDATE users
+     SET primary_role = COALESCE(NULLIF(primary_role, ''), role),
+         status = COALESCE(NULLIF(status, ''), 'active'),
+         createdAt = COALESCE(NULLIF(createdAt, ''), strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))
+     WHERE 1 = 1`
+  ).catch(() => null)
   await runIndexStatements(db, [
     `CREATE INDEX IF NOT EXISTS idx_users_tenant_role_status_name ON users(tenantId, role, status, name)`,
     `CREATE INDEX IF NOT EXISTS idx_users_tenant_primary_role_status_name ON users(tenantId, primary_role, status, name)`,

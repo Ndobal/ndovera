@@ -24,7 +24,7 @@ const preferredPathsByRole = {
   teacher: ['/roles/teacher/classroom', '/roles/teacher/materials', '/roles/teacher/assignments', '/roles/teacher/lesson-plan', '/roles/teacher/messaging'],
   owner: ['/roles/owner/schools', '/roles/owner/finance', '/roles/owner/people', '/roles/owner/messaging', '/roles/owner/approvals'],
   hos: ['/roles/hos/people', '/roles/hos/academics', '/roles/hos/admissions', '/roles/hos/messaging', '/roles/hos/approvals'],
-  parent: ['/roles/parent/children', '/roles/parent/assignments', '/roles/parent/materials', '/roles/parent/messaging'],
+  parent: ['/roles/parent/children', '/roles/parent/materials', '/roles/parent/fees', '/roles/parent/messaging'],
 };
 
 function getItemIcon(name, path) {

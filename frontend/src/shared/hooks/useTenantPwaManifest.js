@@ -8,14 +8,14 @@ const TENANT_PWA_KEY = 'tenantPwaInfo';
  */
 export function storeTenantPwaInfo({ schoolName, logoUrl, subdomain }) {
   if (!schoolName && !logoUrl) return;
-  window.localStorage.setItem(
-    TENANT_PWA_KEY,
-    JSON.stringify({ schoolName: schoolName || '', logoUrl: logoUrl || '', subdomain: subdomain || '' })
-  );
+  const nextValue = { schoolName: schoolName || '', logoUrl: logoUrl || '', subdomain: subdomain || '' };
+  window.localStorage.setItem(TENANT_PWA_KEY, JSON.stringify(nextValue));
+  window.dispatchEvent(new CustomEvent('ndovera:tenant-pwa-updated', { detail: nextValue }));
 }
 
 export function clearTenantPwaInfo() {
   window.localStorage.removeItem(TENANT_PWA_KEY);
+  window.dispatchEvent(new CustomEvent('ndovera:tenant-pwa-updated', { detail: null }));
 }
 
 export function getTenantPwaInfo() {

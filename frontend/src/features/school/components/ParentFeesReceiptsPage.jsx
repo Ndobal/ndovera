@@ -8,6 +8,7 @@ import {
   getFeesPaymentDetails,
   submitFeePaymentClaim,
 } from '../services/schoolApi';
+import { resolveActiveParentChildId, writeActiveParentChildId } from '../../../app/roles/parent/parentChildSelection';
 
 const CARD = 'rounded-3xl border border-[#c9a96e]/40 bg-[#f5deb3] p-6 text-[#191970] shadow-sm dark:border-[#00ffff]/20 dark:bg-[#800000]/25 dark:text-[#39ff14] dark:backdrop-blur-xl';
 const INNER = 'rounded-2xl border border-[#c9a96e]/30 bg-[#f0d090] p-4 dark:border-[#00ffff]/20 dark:bg-[#330014]/70';
@@ -57,7 +58,7 @@ export default function ParentFeesReceiptsPage() {
         setReceipts(receiptResult?.receipts || []);
         setPaymentDetails(paymentDetailsResult?.paymentDetails || { bankName: '', accountName: '', accountNumber: '', paymentInstructions: '', paymentReferenceHint: '' });
         setClaims(claimResult?.claims || []);
-        setSelectedStudentId(current => (nextLedger.some(entry => entry.id === current) ? current : String(nextLedger[0]?.id || '')));
+        setSelectedStudentId(current => resolveActiveParentChildId(nextLedger, current));
       })
       .catch(loadError => {
         if (!cancelled) {
@@ -80,6 +81,18 @@ export default function ParentFeesReceiptsPage() {
   const selectedStudent = students.find(student => student.id === selectedStudentId) || students[0] || null;
   const studentReceipts = useMemo(() => receipts.filter(receipt => receipt.studentId === selectedStudent?.id), [receipts, selectedStudent?.id]);
   const studentClaims = useMemo(() => claims.filter(claim => claim.studentId === selectedStudent?.id), [claims, selectedStudent?.id]);
+  const receiptCountByStudentId = useMemo(() => receipts.reduce((map, receipt) => {
+    const studentId = String(receipt?.studentId || '');
+    if (!studentId) return map;
+    map.set(studentId, Number(map.get(studentId) || 0) + 1);
+    return map;
+  }, new Map()), [receipts]);
+  const claimCountByStudentId = useMemo(() => claims.reduce((map, claim) => {
+    const studentId = String(claim?.studentId || '');
+    if (!studentId) return map;
+    map.set(studentId, Number(map.get(studentId) || 0) + 1);
+    return map;
+  }, new Map()), [claims]);
 
   useEffect(() => {
     if (!selectedStudent) return;
@@ -88,6 +101,12 @@ export default function ParentFeesReceiptsPage() {
       amount: current.amount || String(Math.max(Number(selectedStudent.balance || 0), 0) || Number(selectedStudent.feeAmount || 0) || ''),
     }));
   }, [selectedStudent]);
+
+  useEffect(() => {
+    if (selectedStudentId) {
+      writeActiveParentChildId(selectedStudentId);
+    }
+  }, [selectedStudentId]);
 
   async function handleSubmitClaim() {
     if (!selectedStudent) return;
@@ -144,16 +163,47 @@ export default function ParentFeesReceiptsPage() {
         <section className={CARD}>
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#800020] dark:text-[#bf00ff]">Linked Child</p>
-              <p className="mt-2 text-xl font-bold text-[#800000] dark:text-white">{selectedStudent ? `${selectedStudent.name}${selectedStudent.className ? ` • ${selectedStudent.className}` : ''}` : 'No linked child yet'}</p>
-              <p className="mt-2 text-sm text-[#191970] dark:text-[#39ff14]">Fee reminders stay active while a balance remains open. Receipts below are generated from approved school fee payments.</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#800020] dark:text-[#bf00ff]">All Children This Term</p>
+              <p className="mt-2 text-xl font-bold text-[#800000] dark:text-white">Term fee sessions for every linked child</p>
+              <p className="mt-2 text-sm text-[#191970] dark:text-[#39ff14]">Open one child card to review balance, receipts, and payment claims without leaving the fees page.</p>
             </div>
-            <select value={selectedStudentId} onChange={event => setSelectedStudentId(event.target.value)} className="rounded-2xl border border-[#c9a96e]/40 bg-[#f0d090] px-4 py-3 text-sm text-[#191970] outline-none dark:border-[#00ffff]/20 dark:bg-[#120014]/80 dark:text-white">
-              {students.map(student => (
-                <option key={student.id} value={student.id}>{student.name}{student.className ? ` • ${student.className}` : ''}</option>
-              ))}
-            </select>
+            <span className={BADGE}>{students.length} Linked Child{students.length === 1 ? '' : 'ren'}</span>
           </div>
+
+          <div className="mt-5 space-y-3">
+            {students.map(student => {
+              const studentId = String(student.id || '');
+              const isOpen = studentId === String(selectedStudentId || '');
+              const receiptCount = Number(receiptCountByStudentId.get(studentId) || 0);
+              const claimCount = Number(claimCountByStudentId.get(studentId) || 0);
+
+              return (
+                <article key={student.id} className={INNER}>
+                  <button type="button" onClick={() => setSelectedStudentId(student.id)} className="flex w-full flex-wrap items-center justify-between gap-4 text-left">
+                    <div>
+                      <p className="text-lg font-bold text-[#191970] dark:text-white">{student.name}</p>
+                      <p className="mt-1 text-sm text-[#191970] dark:text-[#39ff14]">{student.className || 'Class pending'}{student.displayId ? ` • ${student.displayId}` : ''}</p>
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      <span className={BADGE}>Balance {formatNaira(student.balance)}</span>
+                      <span className={BADGE}>{receiptCount} Receipt{receiptCount === 1 ? '' : 's'}</span>
+                      <span className={BADGE}>{claimCount} Claim{claimCount === 1 ? '' : 's'}</span>
+                      <span className={BADGE}>{isOpen ? 'Open' : 'Open Session'}</span>
+                    </div>
+                  </button>
+
+                  {isOpen ? (
+                    <div className="mt-4 grid gap-3 md:grid-cols-3">
+                      <div className={`${CARD} !p-4`}><p className="text-sm font-semibold uppercase tracking-[0.14em] text-[#800020] dark:text-[#bf00ff]">Expected</p><p className="mt-2 text-2xl font-bold text-[#800000] dark:text-[#0000ff]">{formatNaira(student.feeAmount)}</p></div>
+                      <div className={`${CARD} !p-4`}><p className="text-sm font-semibold uppercase tracking-[0.14em] text-[#800020] dark:text-[#bf00ff]">Paid</p><p className="mt-2 text-2xl font-bold text-[#1a5c38] dark:text-[#00ffff]">{formatNaira(student.amountPaid)}</p></div>
+                      <div className={`${CARD} !p-4`}><p className="text-sm font-semibold uppercase tracking-[0.14em] text-[#800020] dark:text-[#bf00ff]">Status</p><p className="mt-2 text-sm font-bold text-[#191970] dark:text-white">{student.status || 'Not tracked'}</p></div>
+                    </div>
+                  ) : null}
+                </article>
+              );
+            })}
+          </div>
+
           {!loading && !students.length ? <p className="mt-4 text-sm text-[#800020] dark:text-[#bf00ff]">No linked child fees record is available yet.</p> : null}
           {error ? <p className="mt-4 text-sm text-[#800000] dark:text-rose-200">{error}</p> : null}
         </section>

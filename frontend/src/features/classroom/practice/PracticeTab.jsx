@@ -5,7 +5,10 @@ import PracticeSession from './components/PracticeSession';
 import SessionSummary from './components/SessionSummary';
 import { getPracticeQuestions } from '../../school/services/schoolApi';
 import { askAiTutor } from '../../ai/services/aiTutorApi';
+import { readChatSession, writeChatSession } from '../../ai/services/chatSessionStorage';
 import useFeatureFlags from '../../../shared/hooks/useFeatureFlags';
+
+const PRACTICE_CHAT_SESSION_KEY = 'practice-study-chat';
 
 function normalizePracticeAnswerIndex(question, options) {
   const normalizedAnswer = String(question.answer ?? '').trim().toLowerCase();
@@ -238,18 +241,40 @@ function PracticeAiChatPanel({
  * Pixel-perfect, calm, academic design with exam-grade security
  */
 export default function PracticeTab({ auraBalance = 0, setAuraBalance = () => {} }) {
+  const persistedPracticeChat = readChatSession(PRACTICE_CHAT_SESSION_KEY, {
+    selectedSubjectKey: '',
+    activeSubjectTab: 'questions',
+    aiChatsBySubject: {},
+  });
   const { featureFlags } = useFeatureFlags();
   const [practiceData, setPracticeData] = useState({ questions: [], topicPerformanceMap: {} });
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState('');
   const [view, setView] = useState('dashboard'); // 'dashboard' | 'session' | 'summary'
   const [selectedTopic, setSelectedTopic] = useState(null);
-  const [selectedSubjectKey, setSelectedSubjectKey] = useState('');
-  const [activeSubjectTab, setActiveSubjectTab] = useState('questions');
+  const [selectedSubjectKey, setSelectedSubjectKey] = useState(() => String(persistedPracticeChat.selectedSubjectKey || '').trim());
+  const [activeSubjectTab, setActiveSubjectTab] = useState(() => persistedPracticeChat.activeSubjectTab === 'chat' ? 'chat' : 'questions');
   const [aiPrompt, setAiPrompt] = useState('');
-  const [aiMessages, setAiMessages] = useState([]);
+  const [aiChatsBySubject, setAiChatsBySubject] = useState(() => (
+    persistedPracticeChat.aiChatsBySubject && typeof persistedPracticeChat.aiChatsBySubject === 'object'
+      ? persistedPracticeChat.aiChatsBySubject
+      : {}
+  ));
   const [aiLoading, setAiLoading] = useState(false);
   const [aiError, setAiError] = useState('');
+
+  const aiMessages = useMemo(
+    () => (selectedSubjectKey ? aiChatsBySubject[selectedSubjectKey] || [] : []),
+    [aiChatsBySubject, selectedSubjectKey],
+  );
+
+  useEffect(() => {
+    writeChatSession(PRACTICE_CHAT_SESSION_KEY, {
+      selectedSubjectKey,
+      activeSubjectTab,
+      aiChatsBySubject,
+    });
+  }, [activeSubjectTab, aiChatsBySubject, selectedSubjectKey]);
 
   const subjects = useMemo(() => {
     const subjectMap = new Map();
@@ -386,7 +411,6 @@ export default function PracticeTab({ auraBalance = 0, setAuraBalance = () => {}
     setView('dashboard');
     setActiveSubjectTab('questions');
     setAiPrompt('');
-    setAiMessages([]);
     setAiError('');
   };
 
@@ -482,7 +506,12 @@ export default function PracticeTab({ auraBalance = 0, setAuraBalance = () => {}
 
     try {
       const data = await askAiTutor({ prompt, mode, messages, surface: 'practice' });
-      setAuraBalance(prev => Math.max(0, prev - auraCost));
+      const updatedBalance = Number(data?.access?.usage?.remainingFreeRequests || 0) + Number(data?.access?.wallet?.availableCredits || 0);
+      if (Number.isFinite(updatedBalance) && updatedBalance >= 0) {
+        setAuraBalance(updatedBalance);
+      } else {
+        setAuraBalance(prev => Math.max(0, prev - auraCost));
+      }
       return String(data?.answer || '').trim();
     } catch (error) {
       setAiError(formatPracticeAiError(error));
@@ -498,12 +527,16 @@ export default function PracticeTab({ auraBalance = 0, setAuraBalance = () => {}
     const prompt = aiPrompt.trim();
     if (!prompt || auraBalance < 1 || aiLoading) return;
 
-    const history = aiMessages.map((message) => ({
+    const currentMessages = aiChatsBySubject[selectedSubject.key] || [];
+    const history = currentMessages.map((message) => ({
       role: message.role,
       content: message.content,
     }));
 
-    setAiMessages(prev => [...prev, { role: 'user', content: prompt }]);
+    setAiChatsBySubject((current) => ({
+      ...current,
+      [selectedSubject.key]: [...(current[selectedSubject.key] || []), { role: 'user', content: prompt }],
+    }));
     setAiPrompt('');
 
     const answer = await requestPracticeAi({
@@ -514,7 +547,10 @@ export default function PracticeTab({ auraBalance = 0, setAuraBalance = () => {}
     });
 
     if (answer) {
-      setAiMessages(prev => [...prev, { role: 'assistant', content: answer }]);
+      setAiChatsBySubject((current) => ({
+        ...current,
+        [selectedSubject.key]: [...(current[selectedSubject.key] || []), { role: 'assistant', content: answer }],
+      }));
     }
   };
 

@@ -34,10 +34,13 @@ If you are running the API locally, the frontend uses the proxy configured in `p
 - Fees, receipts, finance controls, and claims review.
 - Payroll now includes editable earning and deduction headings, staff account details, and saved monthly payroll-note print sheets with preview/export support.
 - Results, attendance, library, messaging, AI tutor, staff and teacher AI chat assistants, and Auras.
+- Parent surfaces now include overview analytics, linked-child switching shared across parent pages, classroom/live visibility, attendance, results, newsroom, and collapsible all-children fee sessions.
 - Student Ndovera AI chat and the subject-specific Practice AI study chat can route through NVIDIA DeepSeek v4 Flash via the backend Worker when `NVIDIA_API_KEY` is configured.
 - Student and parent Ndovera AI now keep the chat composer pinned at the bottom, keep the latest messages anchored at the bottom of the transcript, and collapse the large control panel into a mobile menu.
+- Parent Ndovera AI uses the teacher-side Worker model path with a parent-specific daily free-request cap of `5` before paid credits are required.
 - Student Practice now opens per-subject workspaces with separate `Questions` and `AI Study Chat` tabs; the question tab blends eligible practice items into one learner-facing stream without exposing internal source metadata.
 - Staff-facing dashboards now expose a ChatGPT-style AI Assistant page that talks to the authenticated Worker API, so teachers, HoS, accountants, and operational staff can keep a running chat in-role.
+- Teacher and parent messaging both reuse the student-style sidebar-first messaging workspace, with role-scoped contact groupings.
 - Tenant website editing for owner and ICT surfaces, including hero media galleries, CTA routing, and section content management.
 - Shared newsroom dashboard pages for student, parent, teacher, owner, HoS, accountant, and operational staff authoring and review flows.
 

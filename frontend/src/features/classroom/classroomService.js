@@ -71,22 +71,22 @@ export async function getPosts(classId) {
 
 export async function createPost(classId, payload) {
   const res = await apiFetch(`/api/classrooms/${classId}/stream`, { method: 'POST', headers: getAuthHeaders(), body: JSON.stringify(payload) });
-  return res.json();
+  return readJsonResponse(res);
 }
 
 export async function updatePost(classId, postId, payload) {
   const res = await apiFetch(`/api/classrooms/${classId}/stream/${postId}`, { method: 'PUT', headers: getAuthHeaders(), body: JSON.stringify(payload) });
-  return res.json();
+  return readJsonResponse(res);
 }
 
 export async function deletePost(classId, postId) {
   const res = await apiFetch(`/api/classrooms/${classId}/stream/${postId}`, { method: 'DELETE', headers: getAuthHeaders() });
-  return res.json();
+  return readJsonResponse(res);
 }
 
 export async function addPostComment(classId, postId, payload) {
   const res = await apiFetch(`/api/classrooms/${classId}/posts/${postId}/comments`, { method: 'POST', headers: getAuthHeaders(), body: JSON.stringify(payload) });
-  return res.json();
+  return readJsonResponse(res);
 }
 
 export async function getAssignments(classId) {
@@ -95,17 +95,17 @@ export async function getAssignments(classId) {
 
 export async function createAssignment(classId, payload) {
   const res = await apiFetch(`/api/classrooms/${classId}/assignments`, { method: 'POST', headers: getAuthHeaders(), body: JSON.stringify(payload) });
-  return res.json();
+  return readJsonResponse(res);
 }
 
 export async function updateAssignment(classId, assignmentId, payload) {
   const res = await apiFetch(`/api/classrooms/${classId}/assignments/${assignmentId}`, { method: 'PUT', headers: getAuthHeaders(), body: JSON.stringify(payload) });
-  return res.json();
+  return readJsonResponse(res);
 }
 
 export async function deleteAssignment(classId, assignmentId) {
   const res = await apiFetch(`/api/classrooms/${classId}/assignments/${assignmentId}`, { method: 'DELETE', headers: getAuthHeaders() });
-  return res.json();
+  return readJsonResponse(res);
 }
 
 export async function uploadAssignmentAsset(classId, payload) {
@@ -115,35 +115,38 @@ export async function uploadAssignmentAsset(classId, payload) {
   if (payload.title) formData.append('title', payload.title);
   const res = await apiFetch(`/api/classrooms/${classId}/assignment-assets/upload`, {
     method: 'POST',
-    headers: token ? { Authorization: `Bearer ${token}` } : {},
+    headers: {
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      ...buildSelectedRoleHeader(),
+    },
     body: formData,
   });
-  return res.json();
+  return readJsonResponse(res);
 }
 
 export async function submitAssignment(assignmentId, payload) {
   const res = await apiFetch(`/api/assignments/${assignmentId}/submit`, { method: 'POST', headers: getAuthHeaders(), body: JSON.stringify(payload) });
-  return res.json();
+  return readJsonResponse(res);
 }
 
 export async function getMySubmission(assignmentId) {
   const res = await apiFetch(`/api/assignments/${assignmentId}/my-submission`, { headers: getAuthHeaders() });
-  return res.json();
+  return readJsonResponse(res);
 }
 
 export async function getSubmissions(assignmentId) {
   const res = await apiFetch(`/api/assignments/${assignmentId}/submissions`, { headers: getAuthHeaders() });
-  return res.json();
+  return readJsonResponse(res);
 }
 
 export async function gradeSubmission(submissionId, payload) {
   const res = await apiFetch(`/api/submissions/${submissionId}/grade`, { method: 'POST', headers: getAuthHeaders(), body: JSON.stringify(payload) });
-  return res.json();
+  return readJsonResponse(res);
 }
 
 export async function recordAttendance(classId, payload) {
   const res = await apiFetch(`/api/classrooms/${classId}/attendance`, { method: 'POST', headers: getAuthHeaders(), body: JSON.stringify(payload) });
-  return res.json();
+  return readJsonResponse(res);
 }
 
 export async function getAttendance(classId, since) {
@@ -161,12 +164,12 @@ export async function getClassMembers(classId) {
 
 export async function addClassMember(classId, payload) {
   const res = await apiFetch(`/api/classrooms/${classId}/members`, { method: 'POST', headers: getAuthHeaders(), body: JSON.stringify(payload) });
-  return res.json();
+  return readJsonResponse(res);
 }
 
 export async function removeClassMember(classId, memberRole, userId) {
   const res = await apiFetch(`/api/classrooms/${classId}/members/${encodeURIComponent(memberRole)}/${encodeURIComponent(userId)}`, { method: 'DELETE', headers: getAuthHeaders() });
-  return res.json();
+  return readJsonResponse(res);
 }
 
 export async function getClassSubjects(classId) {
@@ -175,17 +178,17 @@ export async function getClassSubjects(classId) {
 
 export async function addMaterial(classId, payload) {
   const res = await apiFetch(`/api/classrooms/${classId}/materials`, { method: 'POST', headers: getAuthHeaders(), body: JSON.stringify(payload) });
-  return res.json();
+  return readJsonResponse(res);
 }
 
 export async function updateMaterial(classId, materialId, payload) {
   const res = await apiFetch(`/api/classrooms/${classId}/materials/${materialId}`, { method: 'PUT', headers: getAuthHeaders(), body: JSON.stringify(payload) });
-  return res.json();
+  return readJsonResponse(res);
 }
 
 export async function deleteMaterial(classId, materialId) {
   const res = await apiFetch(`/api/classrooms/${classId}/materials/${materialId}`, { method: 'DELETE', headers: getAuthHeaders() });
-  return res.json();
+  return readJsonResponse(res);
 }
 
 export async function getMaterials(classId, params = {}) {
@@ -225,30 +228,30 @@ export async function getLiveSessions(classId) {
 
 export async function startLiveSession(classId, payload) {
   const res = await apiFetch(`/api/classrooms/${classId}/live`, { method: 'POST', headers: getAuthHeaders(), body: JSON.stringify(payload) });
-  return res.json();
+  return readJsonResponse(res);
 }
 
 export async function endLiveSession(classId, sessionId) {
   const res = await apiFetch(`/api/classrooms/${classId}/live/${sessionId}/end`, { method: 'POST', headers: getAuthHeaders() });
-  return res.json();
+  return readJsonResponse(res);
 }
 
 export async function saveContent(classId, payload) {
   const res = await apiFetch('/api/save-content', { method: 'POST', headers: getAuthHeaders(), body: JSON.stringify({ classId, ...payload }) });
-  return res.json();
+  return readJsonResponse(res);
 }
 
 export async function getSubjectMembers(classId, subjectId) {
   const res = await apiFetch(`/api/classrooms/${classId}/subjects/${subjectId}/members`, { headers: getAuthHeaders() });
-  return res.json();
+  return readJsonResponse(res);
 }
 
 export async function removeStudentFromSubject(classId, subjectId, studentId) {
   const res = await apiFetch(`/api/classrooms/${classId}/subjects/${subjectId}/remove-student`, { method: 'POST', headers: getAuthHeaders(), body: JSON.stringify({ studentId }) });
-  return res.json();
+  return readJsonResponse(res);
 }
 
 export async function restoreStudentToSubject(classId, subjectId, studentId) {
   const res = await apiFetch(`/api/classrooms/${classId}/subjects/${subjectId}/remove-student/${studentId}`, { method: 'DELETE', headers: getAuthHeaders() });
-  return res.json();
+  return readJsonResponse(res);
 }

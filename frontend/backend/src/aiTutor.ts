@@ -25,6 +25,7 @@ type AiUsageRecord = {
 type AiActorAccessArgs = {
   tenantId?: string
   settingsKey: string
+  policyOverrides?: Partial<AiBillingPolicy>
 }
 
 type ConsumeAiAccessArgs = AiActorAccessArgs & {
@@ -194,6 +195,7 @@ export async function summarizeAiAccess(db: D1Database, args: AiActorAccessArgs)
   const normalizedSettingsKey = String(args.settingsKey || '').trim()
   const normalizedTenantId = String(args.tenantId || '').trim()
   const { policy } = await getResolvedAiBillingPolicy(db, normalizedTenantId)
+  const effectivePolicy = normalizeAiBillingPolicy({ ...policy, ...(args.policyOverrides || {}) }, policy)
   const usage = normalizedSettingsKey ? await getUsageRecord(db, normalizedSettingsKey) : mapUsageRecord(null)
   const userWallet = normalizedSettingsKey ? await getUserWallet(db, normalizedSettingsKey) : mapWalletRecord(null)
   const schoolWallet = normalizedTenantId ? await getSchoolWallet(db, normalizedTenantId) : mapWalletRecord(null)
@@ -201,16 +203,16 @@ export async function summarizeAiAccess(db: D1Database, args: AiActorAccessArgs)
   const usedToday = usage.dailyCounts[date] || 0
 
   return {
-    policy,
+    policy: effectivePolicy,
     usage: {
       date,
       usedToday,
-      remainingFreeRequests: Math.max(0, policy.dailyFreeRequests - usedToday),
-      dailyFreeRequests: policy.dailyFreeRequests,
+      remainingFreeRequests: Math.max(0, effectivePolicy.dailyFreeRequests - usedToday),
+      dailyFreeRequests: effectivePolicy.dailyFreeRequests,
     },
     wallet: {
-      activeScope: policy.billingModel,
-      availableCredits: policy.billingModel === 'school' ? schoolWallet.credits : userWallet.credits,
+      activeScope: effectivePolicy.billingModel,
+      availableCredits: effectivePolicy.billingModel === 'school' ? schoolWallet.credits : userWallet.credits,
       userCredits: userWallet.credits,
       schoolCredits: schoolWallet.credits,
     },
@@ -222,7 +224,7 @@ export async function consumeAiAccess(db: D1Database, args: ConsumeAiAccessArgs)
   const normalizedTenantId = String(args.tenantId || '').trim()
 
   if (!normalizedSettingsKey) {
-    const access = await summarizeAiAccess(db, { tenantId: normalizedTenantId, settingsKey: normalizedSettingsKey })
+    const access = await summarizeAiAccess(db, { tenantId: normalizedTenantId, settingsKey: normalizedSettingsKey, policyOverrides: args.policyOverrides })
     return {
       allowed: false,
       statusCode: 400,
@@ -233,7 +235,7 @@ export async function consumeAiAccess(db: D1Database, args: ConsumeAiAccessArgs)
     }
   }
 
-  const access = await summarizeAiAccess(db, { tenantId: normalizedTenantId, settingsKey: normalizedSettingsKey })
+  const access = await summarizeAiAccess(db, { tenantId: normalizedTenantId, settingsKey: normalizedSettingsKey, policyOverrides: args.policyOverrides })
   const date = todayKey()
 
   if (access.usage.remainingFreeRequests > 0) {
@@ -248,7 +250,7 @@ export async function consumeAiAccess(db: D1Database, args: ConsumeAiAccessArgs)
       reason: '',
       source: 'free',
       chargedCredits: 0,
-      access: await summarizeAiAccess(db, { tenantId: normalizedTenantId, settingsKey: normalizedSettingsKey }),
+      access: await summarizeAiAccess(db, { tenantId: normalizedTenantId, settingsKey: normalizedSettingsKey, policyOverrides: args.policyOverrides }),
     }
   }
 
@@ -286,7 +288,7 @@ export async function consumeAiAccess(db: D1Database, args: ConsumeAiAccessArgs)
       reason: '',
       source: 'school_credits',
       chargedCredits: access.policy.creditsPerRequest,
-      access: await summarizeAiAccess(db, { tenantId: normalizedTenantId, settingsKey: normalizedSettingsKey }),
+      access: await summarizeAiAccess(db, { tenantId: normalizedTenantId, settingsKey: normalizedSettingsKey, policyOverrides: args.policyOverrides }),
     }
   }
 
@@ -314,7 +316,7 @@ export async function consumeAiAccess(db: D1Database, args: ConsumeAiAccessArgs)
     reason: '',
     source: 'individual_credits',
     chargedCredits: access.policy.creditsPerRequest,
-    access: await summarizeAiAccess(db, { tenantId: normalizedTenantId, settingsKey: normalizedSettingsKey }),
+    access: await summarizeAiAccess(db, { tenantId: normalizedTenantId, settingsKey: normalizedSettingsKey, policyOverrides: args.policyOverrides }),
   }
 }
 
@@ -324,7 +326,7 @@ export async function grantAiCredits(db: D1Database, args: AiActorAccessArgs & {
   const quantity = clampInteger(args.quantity, 0, 1)
 
   if (!quantity) {
-    return summarizeAiAccess(db, { tenantId: normalizedTenantId, settingsKey: normalizedSettingsKey })
+    return summarizeAiAccess(db, { tenantId: normalizedTenantId, settingsKey: normalizedSettingsKey, policyOverrides: args.policyOverrides })
   }
 
   if (args.target === 'school') {
@@ -333,7 +335,7 @@ export async function grantAiCredits(db: D1Database, args: AiActorAccessArgs & {
     schoolWallet.totalPurchasedCredits += quantity
     schoolWallet.updatedAt = new Date().toISOString()
     await saveSchoolWallet(db, normalizedTenantId, schoolWallet)
-    return summarizeAiAccess(db, { tenantId: normalizedTenantId, settingsKey: normalizedSettingsKey })
+    return summarizeAiAccess(db, { tenantId: normalizedTenantId, settingsKey: normalizedSettingsKey, policyOverrides: args.policyOverrides })
   }
 
   const userWallet = await getUserWallet(db, normalizedSettingsKey)
@@ -341,7 +343,7 @@ export async function grantAiCredits(db: D1Database, args: AiActorAccessArgs & {
   userWallet.totalPurchasedCredits += quantity
   userWallet.updatedAt = new Date().toISOString()
   await saveUserWallet(db, normalizedSettingsKey, userWallet)
-  return summarizeAiAccess(db, { tenantId: normalizedTenantId, settingsKey: normalizedSettingsKey })
+  return summarizeAiAccess(db, { tenantId: normalizedTenantId, settingsKey: normalizedSettingsKey, policyOverrides: args.policyOverrides })
 }
 
 export function isAcademicOnlyPrompt(prompt: string) {

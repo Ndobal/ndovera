@@ -12,6 +12,23 @@ function createId(prefix: string) {
   return `${prefix}_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`
 }
 
+async function listTableColumns(db: D1Database, tableName: string) {
+  const rows = await db.prepare(`PRAGMA table_info(${tableName})`).all().catch(() => ({ results: [] }))
+  return new Set(
+    ((rows.results || []) as Record<string, any>[])
+      .map(row => String(row.name || '').trim().toLowerCase())
+      .filter(Boolean)
+  )
+}
+
+async function addColumnIfMissing(db: D1Database, tableName: string, columns: Set<string>, columnName: string, definition: string) {
+  if (columns.has(String(columnName || '').trim().toLowerCase())) return
+  try {
+    await db.exec(`ALTER TABLE ${tableName} ADD COLUMN ${definition}`)
+    columns.add(String(columnName || '').trim().toLowerCase())
+  } catch {}
+}
+
 function normalizeQuestionType(value: unknown) {
   const normalized = String(value || 'mcq')
     .trim()
@@ -256,19 +273,19 @@ const CBT_ATTEMPTS_DDL = `CREATE TABLE IF NOT EXISTS cbt_attempts (
 )`
 
 function mapQuestionRow(row: Record<string, any>) {
-  const options = parseJsonField(row.options_json, [] as string[])
-  const answer = parseJsonField(row.answer_json, row.answer_json || '')
+  const options = parseJsonField(row.options_json ?? row.options, [] as string[])
+  const answer = parseJsonField(row.answer_json ?? row.answer, (row.answer_json ?? row.answer) || '')
   const metadata = parseJsonField(row.metadata_json, {} as Record<string, any>)
   const type = normalizeQuestionType(row.type)
   const pairs = type === 'crossmatching' && Array.isArray(answer) ? answer : []
 
   return {
     id: row.id,
-    tenantId: row.tenant_id,
+    tenantId: row.tenant_id || '',
     subject: String(row.subject || metadata.subjectName || ''),
-    classLevel: String(row.class_level || ''),
-    classId: String(row.class_id || ''),
-    subjectId: String(row.subject_id || ''),
+    classLevel: String(row.class_level || row.classLevel || ''),
+    classId: String(row.class_id || row.classId || ''),
+    subjectId: String(row.subject_id || row.subjectId || ''),
     subjectName: String(metadata.subjectName || row.subject || ''),
     topic: String(row.topic || metadata.topic || ''),
     type,
@@ -278,13 +295,13 @@ function mapQuestionRow(row: Record<string, any>) {
     choices: options,
     answer,
     explanation: String(row.explanation || ''),
-    imageUrl: String(row.image_url || ''),
+    imageUrl: String(row.image_url || row.imageUrl || ''),
     score: Number(row.score || 1) > 0 ? Number(row.score || 1) : 1,
     status: String(row.status || 'approved'),
     source: String(row.source || 'manual'),
-    createdBy: String(row.created_by || ''),
-    createdAt: String(row.created_at || ''),
-    updatedAt: String(row.updated_at || ''),
+    createdBy: String(row.created_by || row.createdBy || ''),
+    createdAt: String(row.created_at || row.createdAt || ''),
+    updatedAt: String(row.updated_at || row.created_at || row.createdAt || ''),
     metadata,
     passage: String(metadata.passage || ''),
     pairs,
@@ -294,9 +311,19 @@ function mapQuestionRow(row: Record<string, any>) {
 }
 
 async function listCandidateQuestions(db: D1Database, tenantId: string, question: Record<string, any>) {
-  const rows = await db.prepare(
-    `SELECT * FROM question_bank WHERE tenant_id = ? AND type = ? ORDER BY updated_at DESC LIMIT 40`
-  ).bind(tenantId, question.type).all()
+  await ensureQuestionBankTables(db)
+  const columns = await listTableColumns(db, 'question_bank')
+  const orderExpression = columns.has('updated_at')
+    ? `COALESCE(NULLIF(updated_at, ''), NULLIF(created_at, ''), NULLIF(createdAt, ''), id)`
+    : columns.has('createdat')
+      ? 'createdAt'
+      : 'id'
+  const query = columns.has('tenant_id')
+    ? `SELECT * FROM question_bank WHERE (tenant_id = ? OR tenant_id IS NULL OR tenant_id = '') AND type = ? ORDER BY ${orderExpression} DESC LIMIT 40`
+    : `SELECT * FROM question_bank WHERE type = ? ORDER BY ${orderExpression} DESC LIMIT 40`
+  const rows = columns.has('tenant_id')
+    ? await db.prepare(query).bind(tenantId, question.type).all()
+    : await db.prepare(query).bind(question.type).all()
 
   return ((rows.results || []) as Record<string, any>[]).map(mapQuestionRow)
 }
@@ -457,12 +484,46 @@ export async function ensureQuestionBankTables(db: D1Database) {
   await db.prepare(CBT_EXAMS_DDL).run()
   await db.prepare(CBT_EXAM_QUESTIONS_DDL).run()
   await db.prepare(CBT_ATTEMPTS_DDL).run()
-  try { await db.exec('ALTER TABLE question_bank ADD COLUMN metadata_json TEXT') } catch {}
-  try { await db.exec('ALTER TABLE question_bank ADD COLUMN created_by TEXT') } catch {}
-  try { await db.exec('ALTER TABLE question_bank ADD COLUMN status TEXT') } catch {}
-  try { await db.exec('ALTER TABLE question_bank ADD COLUMN source TEXT') } catch {}
-  try { await db.exec('ALTER TABLE question_bank ADD COLUMN image_url TEXT') } catch {}
-  try { await db.exec('ALTER TABLE question_bank ADD COLUMN explanation TEXT') } catch {}
+  const questionBankColumns = await listTableColumns(db, 'question_bank')
+  await addColumnIfMissing(db, 'question_bank', questionBankColumns, 'tenant_id', 'tenant_id TEXT')
+  await addColumnIfMissing(db, 'question_bank', questionBankColumns, 'class_level', 'class_level TEXT')
+  await addColumnIfMissing(db, 'question_bank', questionBankColumns, 'class_id', 'class_id TEXT')
+  await addColumnIfMissing(db, 'question_bank', questionBankColumns, 'subject_id', 'subject_id TEXT')
+  await addColumnIfMissing(db, 'question_bank', questionBankColumns, 'topic', 'topic TEXT')
+  await addColumnIfMissing(db, 'question_bank', questionBankColumns, 'normalized_prompt', 'normalized_prompt TEXT')
+  await addColumnIfMissing(db, 'question_bank', questionBankColumns, 'question_hash', 'question_hash TEXT')
+  await addColumnIfMissing(db, 'question_bank', questionBankColumns, 'options_json', 'options_json TEXT')
+  await addColumnIfMissing(db, 'question_bank', questionBankColumns, 'answer_json', 'answer_json TEXT')
+  await addColumnIfMissing(db, 'question_bank', questionBankColumns, 'score', 'score REAL')
+  await addColumnIfMissing(db, 'question_bank', questionBankColumns, 'status', 'status TEXT')
+  await addColumnIfMissing(db, 'question_bank', questionBankColumns, 'source', 'source TEXT')
+  await addColumnIfMissing(db, 'question_bank', questionBankColumns, 'created_by', 'created_by TEXT')
+  await addColumnIfMissing(db, 'question_bank', questionBankColumns, 'metadata_json', 'metadata_json TEXT')
+  await addColumnIfMissing(db, 'question_bank', questionBankColumns, 'created_at', 'created_at TEXT')
+  await addColumnIfMissing(db, 'question_bank', questionBankColumns, 'updated_at', 'updated_at TEXT')
+  await addColumnIfMissing(db, 'question_bank', questionBankColumns, 'image_url', 'image_url TEXT')
+  await addColumnIfMissing(db, 'question_bank', questionBankColumns, 'explanation', 'explanation TEXT')
+
+  const legacyBackfills = [] as string[]
+  if (questionBankColumns.has('classlevel')) legacyBackfills.push(`class_level = COALESCE(NULLIF(class_level, ''), classLevel)`)
+  if (questionBankColumns.has('options')) legacyBackfills.push(`options_json = COALESCE(NULLIF(options_json, ''), options)`)
+  if (questionBankColumns.has('answer')) legacyBackfills.push(`answer_json = COALESCE(NULLIF(answer_json, ''), answer)`)
+  if (questionBankColumns.has('imageurl')) legacyBackfills.push(`image_url = COALESCE(NULLIF(image_url, ''), imageUrl)`)
+  if (questionBankColumns.has('createdby')) legacyBackfills.push(`created_by = COALESCE(NULLIF(created_by, ''), createdBy)`)
+  if (questionBankColumns.has('createdat')) {
+    legacyBackfills.push(`created_at = COALESCE(NULLIF(created_at, ''), createdAt)`)
+    legacyBackfills.push(`updated_at = COALESCE(NULLIF(updated_at, ''), NULLIF(created_at, ''), createdAt)`)
+  }
+  legacyBackfills.push(`normalized_prompt = COALESCE(NULLIF(normalized_prompt, ''), lower(trim(prompt)))`)
+  legacyBackfills.push(`question_hash = COALESCE(NULLIF(question_hash, ''), id)`)
+  legacyBackfills.push(`score = COALESCE(score, 1)`)
+  legacyBackfills.push(`status = COALESCE(NULLIF(status, ''), 'approved')`)
+  legacyBackfills.push(`source = COALESCE(NULLIF(source, ''), 'manual')`)
+  legacyBackfills.push(`metadata_json = COALESCE(NULLIF(metadata_json, ''), '{}')`)
+  legacyBackfills.push(`created_at = COALESCE(NULLIF(created_at, ''), strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`)
+  legacyBackfills.push(`updated_at = COALESCE(NULLIF(updated_at, ''), created_at)`)
+  await db.exec(`UPDATE question_bank SET ${legacyBackfills.join(', ')} WHERE 1=1`).catch(() => null)
+
   try { await db.exec('ALTER TABLE cbt_exams ADD COLUMN release_at TEXT') } catch {}
   try { await db.exec('ALTER TABLE cbt_exams ADD COLUMN settings_json TEXT') } catch {}
   try { await db.exec('ALTER TABLE cbt_exam_questions ADD COLUMN settings_json TEXT') } catch {}
@@ -473,9 +534,18 @@ export async function ensureQuestionBankTables(db: D1Database) {
 
 export async function listQuestionBankQuestions(db: D1Database, tenantId: string, filters: Record<string, any> = {}) {
   await ensureQuestionBankTables(db)
-  const rows = await db.prepare(
-    `SELECT * FROM question_bank WHERE tenant_id = ? ORDER BY updated_at DESC, created_at DESC`
-  ).bind(tenantId).all()
+  const columns = await listTableColumns(db, 'question_bank')
+  const orderExpression = columns.has('updated_at')
+    ? `COALESCE(NULLIF(updated_at, ''), NULLIF(created_at, ''), NULLIF(createdAt, ''), id)`
+    : columns.has('createdat')
+      ? 'createdAt'
+      : 'id'
+  const query = columns.has('tenant_id')
+    ? `SELECT * FROM question_bank WHERE tenant_id = ? OR tenant_id IS NULL OR tenant_id = '' ORDER BY ${orderExpression} DESC`
+    : `SELECT * FROM question_bank ORDER BY ${orderExpression} DESC`
+  const rows = columns.has('tenant_id')
+    ? await db.prepare(query).bind(tenantId).all()
+    : await db.prepare(query).all()
 
   return ((rows.results || []) as Record<string, any>[])
     .map(mapQuestionRow)

@@ -16,6 +16,13 @@ export default function TuckShopAiServicesPanel({ title = 'Added Services' }) {
 
   const access = accessPayload?.access || null;
   const canBuyIndividualCredits = access?.policy?.billingModel === 'individual' && Number(access?.policy?.pricePerCreditNaira || 0) > 0;
+  const creditPackOptions = useMemo(
+    () => [10, 25, 50, 100].map(quantity => ({
+      quantity,
+      total: Number(access?.policy?.pricePerCreditNaira || 0) * quantity,
+    })),
+    [access?.policy?.pricePerCreditNaira],
+  );
 
   useEffect(() => {
     let active = true;
@@ -124,8 +131,28 @@ export default function TuckShopAiServicesPanel({ title = 'Added Services' }) {
           <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[#800020] dark:text-[#bf00ff]">AI Credit Checkout</p>
           {canBuyIndividualCredits ? (
             <>
-              <label className="mt-3 block text-xs font-semibold uppercase tracking-[0.2em] text-[#800020] dark:text-[#bf00ff]">
-                Quantity
+              <div className="mt-3 grid gap-3 sm:grid-cols-2">
+                {creditPackOptions.map(pack => {
+                  const active = purchaseQuantity === pack.quantity;
+                  return (
+                    <button
+                      key={pack.quantity}
+                      type="button"
+                      onClick={() => setPurchaseQuantity(pack.quantity)}
+                      className={`rounded-3xl border px-4 py-4 text-left transition ${active
+                        ? 'border-[#1a5c38] bg-[#1a5c38]/12 dark:border-[#00ffff] dark:bg-[#00ffff]/12'
+                        : 'border-[#800000]/10 bg-[#fff8ea] dark:border-[#bf00ff]/20 dark:bg-[#120014]/70'
+                      }`}
+                    >
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#800020] dark:text-[#bf00ff]">Credit Pack</p>
+                      <p className="mt-2 text-2xl font-semibold text-[#800000] dark:text-white">{pack.quantity}</p>
+                      <p className="mt-1 text-sm text-[#191970] dark:text-[#39ff14]">{currencyFormatter.format(pack.total)}</p>
+                    </button>
+                  );
+                })}
+              </div>
+              <label className="mt-4 block text-xs font-semibold uppercase tracking-[0.2em] text-[#800020] dark:text-[#bf00ff]">
+                Custom Quantity
                 <input
                   type="number"
                   min="1"

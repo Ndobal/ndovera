@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import StudentSectionShell from './StudentSectionShell';
 import { askAiTutor, getAiAccess } from '../../../features/ai/services/aiTutorApi';
+import { readChatSession, writeChatSession } from '../../../features/ai/services/chatSessionStorage';
 
 const modes = ['Explain Mode', 'Practice Mode', 'Weak Area Mode', 'Exam Review Mode'];
 const currencyFormatter = new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN', maximumFractionDigits: 0 });
@@ -37,9 +38,16 @@ function StudentProfessorAura({
   tuckShopPath = '/roles/student/tuck-shop',
 }) {
   const navigate = useNavigate();
-  const [selectedMode, setSelectedMode] = useState(modes[0]);
+  const chatSessionKey = `student-professor-aura:${String(viewerRole || 'student').trim().toLowerCase()}`;
+  const persistedChatSession = readChatSession(chatSessionKey, {
+    selectedMode: modes[0],
+    messages: buildWelcomeMessage(viewerRole),
+  });
+  const [selectedMode, setSelectedMode] = useState(() => modes.includes(persistedChatSession.selectedMode) ? persistedChatSession.selectedMode : modes[0]);
   const [input, setInput] = useState('');
-  const [messages, setMessages] = useState(() => buildWelcomeMessage(viewerRole));
+  const [messages, setMessages] = useState(() => Array.isArray(persistedChatSession.messages) && persistedChatSession.messages.length
+    ? persistedChatSession.messages
+    : buildWelcomeMessage(viewerRole));
   const [accessPayload, setAccessPayload] = useState(null);
   const [loadingAccess, setLoadingAccess] = useState(true);
   const [asking, setAsking] = useState(false);
@@ -53,6 +61,24 @@ function StudentProfessorAura({
     () => messages.filter(message => message.role === 'assistant').length,
     [messages],
   );
+
+  useEffect(() => {
+    const nextSession = readChatSession(chatSessionKey, {
+      selectedMode: modes[0],
+      messages: buildWelcomeMessage(viewerRole),
+    });
+    setSelectedMode(modes.includes(nextSession.selectedMode) ? nextSession.selectedMode : modes[0]);
+    setMessages(Array.isArray(nextSession.messages) && nextSession.messages.length ? nextSession.messages : buildWelcomeMessage(viewerRole));
+    setInput('');
+    setError('');
+  }, [chatSessionKey, viewerRole]);
+
+  useEffect(() => {
+    writeChatSession(chatSessionKey, {
+      selectedMode,
+      messages,
+    });
+  }, [chatSessionKey, messages, selectedMode]);
 
   useEffect(() => {
     let active = true;

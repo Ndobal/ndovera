@@ -42,6 +42,7 @@ This workspace already includes build and deploy tasks:
 - Classroom, assignments, materials, live learning, lesson plans, and parent learning views.
 - Fees, receipts, claims, and finance management.
 - Results engine, attendance, library, messaging, AI tutor, staff and teacher Workers AI chat assistants, and Auras.
+- Parent dashboards now surface linked-child analytics, classroom visibility, live lesson notices, attendance, results, newsroom, collapsible fee sessions, and student-style messaging with teacher access.
 - Tenant public school websites rendered from the Worker, including full-screen hero media, auto-linked CTAs, gallery sections, and public news pages.
 - Tenant newsroom workflow where students, parents, teachers, and staff draft blog stories, reviewers clear them, and HoS or Owner publishes them.
 
