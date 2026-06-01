@@ -48,24 +48,44 @@ export default function SubjectsTab({ classId = '', subjects = [], canManage = f
     );
   }
 
+  const SUBJECT_PALETTES = [
+    { bg: '#013220', text: '#FFD700', badge: 'rgba(255,215,0,0.18)', badgeText: '#FFD700' },   // midnight green / gold
+    { bg: '#1a003a', text: '#ffffff', badge: 'rgba(255,255,255,0.15)', badgeText: '#ffffff' },  // midnight purple / white
+    { bg: '#001840', text: '#87CEEB', badge: 'rgba(135,206,235,0.18)', badgeText: '#87CEEB' },  // midnight blue / sky blue
+    { bg: '#004040', text: '#7FFFD4', badge: 'rgba(127,255,212,0.18)', badgeText: '#7FFFD4' },  // midnight teal / aquamarine
+    { bg: '#2d0030', text: '#FFB6C1', badge: 'rgba(255,182,193,0.18)', badgeText: '#FFB6C1' },  // midnight violet / pink
+    { bg: '#001f3f', text: '#00CFFF', badge: 'rgba(0,207,255,0.18)',   badgeText: '#00CFFF' },  // midnight navy / cyan
+    { bg: '#1c1a00', text: '#FFE066', badge: 'rgba(255,224,102,0.18)', badgeText: '#FFE066' },  // midnight olive / yellow
+    { bg: '#3d0000', text: '#FFA94D', badge: 'rgba(255,169,77,0.18)',  badgeText: '#FFA94D' },  // midnight maroon / orange
+  ];
+
   if (!selectedSubject) {
     return (
-      <div className="grid grid-cols-2 gap-3 p-1">
-        {subjects.map(subject => (
-          <button
-            key={subject.id}
-            onClick={() => { setActiveSubjectId(subject.id); setSubjectInnerTab('members'); setActionMsg(''); }}
-            className="text-left glass-surface rounded-3xl p-4 space-y-2 hover:border-indigo-300/40 border border-white/10 transition-colors"
-          >
-            <p className="text-base command-title neon-title truncate">{subject.name}</p>
-            {subject.teacherName && <p className="neon-subtle text-xs truncate">{subject.teacherName}</p>}
-            <div className="flex items-center gap-1 mt-1">
-              <span className="px-2 py-0.5 rounded-full text-xs bg-indigo-500/20 border border-indigo-300/30 text-indigo-200">
-                {subject.teacherId ? 'Assigned' : 'No teacher'}
-              </span>
-            </div>
-          </button>
-        ))}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 p-1">
+        {subjects.map((subject, idx) => {
+          const palette = SUBJECT_PALETTES[idx % SUBJECT_PALETTES.length];
+          return (
+            <button
+              key={subject.id}
+              onClick={() => { setActiveSubjectId(subject.id); setSubjectInnerTab('members'); setActionMsg(''); }}
+              style={{ backgroundColor: palette.bg, color: palette.text }}
+              className="text-left rounded-3xl p-4 space-y-2 transition-transform hover:scale-[1.03] hover:brightness-110 active:scale-100 border border-white/10 shadow-lg"
+            >
+              <p className="text-base font-black leading-tight truncate" style={{ color: palette.text }}>{subject.name}</p>
+              {subject.teacherName && (
+                <p className="text-xs font-semibold truncate opacity-80" style={{ color: palette.text }}>{subject.teacherName}</p>
+              )}
+              <div className="flex items-center gap-1 mt-1">
+                <span
+                  className="px-2 py-0.5 rounded-full text-xs font-bold border"
+                  style={{ background: palette.badge, color: palette.badgeText, borderColor: `${palette.badgeText}40` }}
+                >
+                  {subject.teacherId ? 'Assigned' : 'No teacher'}
+                </span>
+              </div>
+            </button>
+          );
+        })}
       </div>
     );
   }
