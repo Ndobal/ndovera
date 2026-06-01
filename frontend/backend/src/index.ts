@@ -10277,7 +10277,37 @@ app.get('/api/people', authenticate, async (c) => {
     ])
 
     const total = Number((countRow as any)?.total || 0)
-    const people = (await hydrateUserRecords(c.env.APP_DB, (dataRows.results || []) as Record<string, any>[])).filter(Boolean)
+    const pageRows = (dataRows.results || []) as Record<string, any>[]
+
+    // Light hydration: one bulk settings query, then pure-function mapping — zero per-row DB calls.
+    // Full hydrateUserRecords is avoided here because it calls ensureStudentPublicId,
+    // resolveSettingsIdentity, and generateDisplayId for every row, causing Worker CPU timeouts.
+    const settingsMap = await getSettingsMapForUserRows(c.env.APP_DB, pageRows)
+    const people = pageRows.filter(Boolean).map(row => {
+      const emailKey = String(row.email || '').trim()
+      const idKey = String(row.id || '').trim()
+      const settings = settingsMap.get(emailKey) || settingsMap.get(idKey) || null
+      const roleContext = buildRoleContext(settings || {}, row.role)
+      const profile = buildAdmissionProfileRecord(settings || {}, row)
+      const publicDisplayId = getPublicFacingUserId(settings || {}, roleContext.primaryRole)
+      return {
+        ...row,
+        role: roleContext.primaryRole,
+        primaryRole: roleContext.primaryRole,
+        roles: roleContext.rawRoles,
+        switchableRoles: roleContext.switchableRoles,
+        adminRoles: roleContext.adminRoles,
+        displayId: publicDisplayId || String(settings?.displayId || '').trim() || null,
+        publicStudentId: String(settings?.publicStudentId || '').trim() || null,
+        employmentCategory: deriveEmploymentCategory(roleContext.primaryRole, settings?.employmentCategory, roleContext.rawRoles),
+        phone: profile.phone || null,
+        classId: settings?.classId || null,
+        className: settings?.className || null,
+        avatar: profile.avatar || null,
+        avatarUrl: profile.avatar || null,
+        mustChangePassword: settings?.mustChangePassword === true,
+      }
+    })
 
     return c.json({
       success: true,
@@ -10286,7 +10316,7 @@ app.get('/api/people', authenticate, async (c) => {
     })
   } catch (error) {
     console.error('Failed to load people', error)
-    return c.json({ success: true, people: [], pagination: { page: 1, limit: BATCH_LIMIT_DEFAULT, total: 0, hasMore: false } })
+    return c.json({ success: false, people: [], pagination: { page: 1, limit: BATCH_LIMIT_DEFAULT, total: 0, hasMore: false } })
   }
 })
 
