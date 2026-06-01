@@ -9168,7 +9168,9 @@ async function ensureUsersTable(db: D1Database) {
      SET primary_role = COALESCE(NULLIF(primary_role, ''), role),
          status = COALESCE(NULLIF(status, ''), 'active'),
          createdAt = COALESCE(NULLIF(createdAt, ''), strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))
-     WHERE 1 = 1`
+     WHERE primary_role IS NULL OR primary_role = ''
+        OR status IS NULL OR status = ''
+        OR createdAt IS NULL OR createdAt = ''`
   ).catch(() => null)
   await runIndexStatements(db, [
     `CREATE INDEX IF NOT EXISTS idx_users_tenant_role_status_name ON users(tenantId, role, status, name)`,
@@ -10258,7 +10260,9 @@ app.get('/api/people', authenticate, async (c) => {
   const tenantId = c.var.user?.tenantId
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
   try {
-    await ensureUsersTable(c.env.APP_DB)
+    // ensureUsersTable intentionally omitted — it runs UPDATE users WHERE 1=1 on every call
+    // (a full-table migration rewrite) which alone causes Worker CPU timeouts. The table and
+    // indexes are guaranteed to exist from write paths (addPerson, login, etc.).
     const search = String(c.req.query('search') || '').trim().toLowerCase()
     const roleFilter = normalizeRole(c.req.query('role') || '')
     const page = Math.max(1, Number(c.req.query('page') || 1) || 1)
