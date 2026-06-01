@@ -6,6 +6,8 @@ import {
   resetPassword,
 } from '../../../features/school/services/schoolApi';
 
+const FILTER_TO_ROLE = { Teachers: 'teacher', Admin: 'admin', Students: 'student', Parents: 'parent' };
+
 const ROLES = ['admin', 'teacher', 'hos', 'accountant', 'student', 'parent', 'caregiver', 'librarian', 'classteacher', 'hod', 'hodassistant', 'principal', 'viceprincipal', 'headteacher', 'nurseryhead', 'storekeeper', 'tuckshopmanager', 'transport', 'hostel', 'cafeteria', 'clinic', 'ict', 'ict_manager', 'examofficer', 'sportsmaster', 'sanitation', 'growthpartner'];
 const FILTERS = ['All', 'Teachers', 'Admin', 'Students', 'Parents'];
 
@@ -915,20 +917,22 @@ export default function OwnerPeople() {
   const currentRoles = Array.isArray(currentUser?.roles) && currentUser.roles.length > 0 ? currentUser.roles : [currentUser?.role].filter(Boolean);
   const isAdmin = currentRoles.some(role => ['owner', 'hos'].includes(String(role || '').toLowerCase()));
 
-  const load = useCallback((nextPage = page, nextSearch = search) => {
+  const load = useCallback((nextPage = 1, nextSearch = '', nextFilter = 'All') => {
     setLoading(true);
-    getPeople({ page: nextPage, limit: 24, search: nextSearch })
+    setError(null);
+    const roleParam = FILTER_TO_ROLE[nextFilter] || '';
+    getPeople({ page: nextPage, limit: 24, search: nextSearch, ...(roleParam ? { role: roleParam } : {}) })
       .then(data => {
         setPeople(data?.people || []);
         setPagination(data?.pagination || { page: nextPage, limit: 24, total: 0, hasMore: false });
       })
-      .catch(err => setError(err.message))
+      .catch(err => setError(err?.message || 'Could not load people.'))
       .finally(() => setLoading(false));
-  }, [page, search]);
+  }, []); // stable — all params passed explicitly
 
   useEffect(() => {
-    load(page, search);
-  }, [load, page, search]);
+    load(page, search, filter);
+  }, [load, page, search, filter]);
 
   useEffect(() => {
     getMyTenant()
@@ -942,18 +946,18 @@ export default function OwnerPeople() {
   async function handleAdd(form) {
     await addPerson(form);
     setPage(1);
-    load(1, search);
+    load(1, search, filter);
   }
 
   async function handleResetPassword(person) {
     await resetPassword({ targetId: person.id, newPassword: DEFAULT_PASSWORD });
-    load(page, search); // refresh to update mustChangePassword badge
+    load(page, search, filter);
   }
 
   async function handleDeactivate(person) {
     if (!window.confirm(`Deactivate ${person.name}?`)) return;
     await deactivatePerson(person.id);
-    load(page, search);
+    load(page, search, filter);
   }
 
   async function handleRoleChange(person) {
@@ -962,22 +966,11 @@ export default function OwnerPeople() {
     await updatePersonRole(person.id, newRole);
     setChangingRole(null);
     setNewRole('');
-    load(page, search);
+    load(page, search, filter);
   }
 
-  const q = search.trim().toLowerCase();
-  const filtered = filterPeople(people, filter).filter(p => {
-    if (!q) return true;
-    return (
-      p.name?.toLowerCase().includes(q)
-      || p.email?.toLowerCase().includes(q)
-      || p.phone?.toLowerCase().includes(q)
-      || p.displayId?.toLowerCase().includes(q)
-      || p.role?.toLowerCase().includes(q)
-      || (Array.isArray(p.roles) && p.roles.some(role => role?.toLowerCase().includes(q)))
-      || p.id?.toLowerCase().includes(q)
-    );
-  });
+  // Filtering and search happen server-side; people is already the correct page
+  const filtered = people;
 
   return (
     <div className="p-8 max-w-7xl mx-auto space-y-6">

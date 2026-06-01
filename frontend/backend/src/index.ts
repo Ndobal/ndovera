@@ -10229,50 +10229,60 @@ app.get('/api/people', authenticate, async (c) => {
     const requestedLimit = Number(c.req.query('limit') || BATCH_LIMIT_DEFAULT)
     const limit = Math.max(1, Math.min(BATCH_LIMIT_MAX, Number.isFinite(requestedLimit) ? requestedLimit : BATCH_LIMIT_DEFAULT))
     const offset = (page - 1) * limit
-    const rows = await c.env.APP_DB.prepare(
-      `SELECT id, name, email, role, primary_role, employment_category, status, createdAt, tenantId
-       FROM users
-       WHERE tenantId = ? AND (status IS NULL OR status != 'inactive')
-       ORDER BY COALESCE(primary_role, role), name, email`
-    ).bind(tenantId).all()
 
-    let people = await hydrateUserRecords(c.env.APP_DB, (rows.results || []) as Record<string, any>[])
-
+    // Build role condition at SQL level so we never pull the full table into memory
+    const SQL_ADMIN_ROLES = [
+      'owner', 'hos', 'accountant', 'principal', 'viceprincipal', 'hod', 'hodassistant',
+      'headteacher', 'nurseryhead', 'storekeeper', 'tuckshopmanager', 'transport', 'hostel',
+      'cafeteria', 'clinic', 'ict', 'ict_manager', 'examofficer', 'sportsmaster', 'sanitation',
+      'librarian', 'admin', 'classteacher',
+    ]
+    let roleCondition = ''
+    const roleConditionParams: string[] = []
     if (roleFilter === 'teacher') {
-      people = people.filter(person => canTeach(person?.role, person?.roles))
-    } else if (roleFilter === 'staff') {
-      people = people.filter(person => isStaff(person?.role, person?.roles))
+      roleCondition = ` AND lower(trim(coalesce(primary_role, role, ''))) = 'teacher'`
+    } else if (roleFilter === 'student') {
+      roleCondition = ` AND lower(trim(coalesce(primary_role, role, ''))) = 'student'`
+    } else if (roleFilter === 'parent') {
+      roleCondition = ` AND lower(trim(coalesce(primary_role, role, ''))) = 'parent'`
+    } else if (roleFilter === 'admin' || roleFilter === 'staff') {
+      const placeholders = SQL_ADMIN_ROLES.map(() => '?').join(', ')
+      roleCondition = ` AND lower(trim(coalesce(primary_role, role, ''))) IN (${placeholders})`
+      roleConditionParams.push(...SQL_ADMIN_ROLES)
     } else if (roleFilter) {
-      people = people.filter(person => parseRoleList(person?.primaryRole, person?.role, person?.roles).includes(roleFilter))
+      roleCondition = ` AND lower(trim(coalesce(primary_role, role, ''))) = ?`
+      roleConditionParams.push(roleFilter)
     }
 
+    // Basic search on name/email at SQL level (displayId search handled post-hydration)
+    let searchCondition = ''
+    const searchConditionParams: string[] = []
     if (search) {
-      people = people.filter(person => {
-        const roles = parseRoleList(person?.primaryRole, person?.role, person?.roles).join(' ')
-        const haystack = [
-          person?.name,
-          person?.email,
-          person?.displayId,
-          person?.publicStudentId,
-          person?.primaryRole,
-          roles,
-          person?.employmentCategory,
-        ].map(value => String(value || '').trim().toLowerCase()).join(' ')
-        return haystack.includes(search)
-      })
+      searchCondition = ` AND (lower(coalesce(name,'')) LIKE ? OR lower(coalesce(email,'')) LIKE ?)`
+      searchConditionParams.push(`%${search}%`, `%${search}%`)
     }
 
-    const total = people.length
-    people = people.slice(offset, offset + limit)
+    const whereClause = `WHERE tenantId = ? AND (status IS NULL OR status != 'inactive')${roleCondition}${searchCondition}`
+    const whereParams: string[] = [tenantId, ...roleConditionParams, ...searchConditionParams]
+
+    const [countRow, dataRows] = await Promise.all([
+      c.env.APP_DB.prepare(`SELECT COUNT(*) as total FROM users ${whereClause}`)
+        .bind(...whereParams).first().catch(() => ({ total: 0 })),
+      c.env.APP_DB.prepare(
+        `SELECT id, name, email, role, primary_role, employment_category, status, createdAt, tenantId
+         FROM users ${whereClause}
+         ORDER BY COALESCE(primary_role, role), name, email
+         LIMIT ? OFFSET ?`
+      ).bind(...whereParams, limit, offset).all().catch(() => ({ results: [] })),
+    ])
+
+    const total = Number((countRow as any)?.total || 0)
+    const people = (await hydrateUserRecords(c.env.APP_DB, (dataRows.results || []) as Record<string, any>[])).filter(Boolean)
+
     return c.json({
       success: true,
       people,
-      pagination: {
-        page,
-        limit,
-        total,
-        hasMore: offset + people.length < total,
-      },
+      pagination: { page, limit, total, hasMore: offset + people.length < total },
     })
   } catch (error) {
     console.error('Failed to load people', error)
