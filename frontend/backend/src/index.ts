@@ -14445,7 +14445,7 @@ async function listPayrollAttendanceDeductionSummaries(
 }
 
 async function listTenantStaffRoster(db: D1Database, tenantId: string) {
-  await ensureUsersTable(db)
+  // ensureUsersTable intentionally omitted — it runs UPDATE users WHERE 1=1 on every call.
   const [userRows, settingRows] = await Promise.all([
     db.prepare(
     `SELECT id, name, email, role, primary_role, employment_category, status, createdAt, tenantId
@@ -14461,8 +14461,44 @@ async function listTenantStaffRoster(db: D1Database, tenantId: string) {
     ).bind(tenantId, tenantId).all().catch(() => ({ results: [] })),
   ])
 
-  const hydratedUsers = (await hydrateUserRecords(db, (userRows.results || []) as Record<string, any>[]))
-    .filter(Boolean) as Record<string, any>[]
+  // Build settings map from already-fetched settings rows — no extra DB queries.
+  const settingsMapForUsers = new Map<string, Record<string, any>>()
+  for (const sr of (settingRows.results || []) as Record<string, any>[]) {
+    const payload = parseHeaderJsonObject(sr.payload)
+    const key = String(sr.studentId || '').trim()
+    if (key) settingsMapForUsers.set(key.toLowerCase(), payload)
+  }
+
+  // Light hydration — zero additional DB calls (same pattern as /api/people list).
+  const hydratedUsers = ((userRows.results || []) as Record<string, any>[]).filter(Boolean).map(row => {
+    const emailKey = String(row.email || '').trim().toLowerCase()
+    const idKey = String(row.id || '').trim()
+    const settings = settingsMapForUsers.get(emailKey) || settingsMapForUsers.get(idKey) || null
+    const roleContext = buildRoleContext(settings || {}, row.role)
+    const profile = buildAdmissionProfileRecord(settings || {}, row)
+    const publicDisplayId = getPublicFacingUserId(settings || {}, roleContext.primaryRole)
+    return {
+      ...row,
+      role: roleContext.primaryRole,
+      primaryRole: roleContext.primaryRole,
+      roles: roleContext.rawRoles,
+      switchableRoles: roleContext.switchableRoles,
+      adminRoles: roleContext.adminRoles,
+      capabilities: roleContext.capabilities,
+      displayId: publicDisplayId || String(settings?.displayId || '').trim() || null,
+      publicStudentId: String(settings?.publicStudentId || '').trim() || null,
+      employmentCategory: deriveEmploymentCategory(roleContext.primaryRole, settings?.employmentCategory, roleContext.rawRoles),
+      phone: profile.phone || null,
+      classId: settings?.classId || null,
+      className: settings?.className || null,
+      avatar: profile.avatar || null,
+      avatarUrl: profile.avatar || null,
+      mustChangePassword: settings?.mustChangePassword === true,
+      bankName: (settings?.payrollBankDetails as any)?.bankName || null,
+      accountName: (settings?.payrollBankDetails as any)?.accountName || null,
+      accountNumber: (settings?.payrollBankDetails as any)?.accountNumber || null,
+    }
+  })
   const roster = new Map<string, Record<string, any>>()
 
   for (const person of hydratedUsers) {
