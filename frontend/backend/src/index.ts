@@ -4375,8 +4375,12 @@ async function buildWebsiteEnquiryNotificationItems(db: D1Database, tenantId: st
 }
 
 async function buildCriticalAuditNotificationItems(db: D1Database, tenantId: string, actorRole: string) {
+  // The `audit` table has no tenantId column so it cannot be filtered by tenant.
+  // Return empty rather than fire a query that returns wrong data.
   if (!['owner', 'hos'].includes(normalizeRole(actorRole))) return [] as Array<Record<string, any>>
+  return [] as Array<Record<string, any>>
 
+  // eslint-disable-next-line no-unreachable
   await ensureHeaderAuditTable(db)
   const rows = await db.prepare(
     'SELECT id, studentId, ts, action, data FROM audit WHERE studentId = ? ORDER BY ts DESC LIMIT 80'
@@ -7031,15 +7035,29 @@ app.get('/api/classrooms/:classroomId/assignments', authenticate, async (c) => {
     if (String(user.role || '').toLowerCase() === 'student') {
       const userIdentifier = user.id || user.email || user.sub || ''
       const resolvedUser = await resolveSettingsIdentity(c.env.APP_DB, userIdentifier)
-      const studentId = resolvedUser.userRow?.id || user.id || userIdentifier
-      const hydratedAssignments = await Promise.all(assignments.map(async assignment => {
-        const mySubmission = await getLatestSubmissionForStudent(c.env.APP_DB, String((assignment as any).id || ''), studentId).catch(() => null)
-        return {
-          ...assignment,
-          mySubmission,
-          studentStatus: mySubmission ? 'Submitted' : 'Pending',
+      const studentId = String(resolvedUser.userRow?.id || user.id || userIdentifier).trim()
+      // Batch: one query for all submissions instead of N per-assignment queries
+      const assignmentIds = assignments.map(a => String((a as any).id || '')).filter(Boolean)
+      let submissionMap = new Map<string, Record<string, any>>()
+      if (assignmentIds.length > 0 && studentId) {
+        const placeholders = assignmentIds.map(() => '?').join(', ')
+        const subRows = await c.env.APP_DB.prepare(
+          `SELECT id, assignmentId, studentId, content, submittedAt, grade, gradedAt, feedback
+           FROM submissions
+           WHERE studentId = ? AND assignmentId IN (${placeholders})
+           ORDER BY submittedAt DESC`
+        ).bind(studentId, ...assignmentIds).all().catch(() => ({ results: [] }))
+        for (const row of ((subRows.results || []) as Record<string, any>[])) {
+          const aid = String(row.assignmentId || '')
+          if (!submissionMap.has(aid)) {
+            submissionMap.set(aid, { ...row, content: (() => { try { return JSON.parse(row.content || '{}') } catch { return {} } })() })
+          }
         }
-      }))
+      }
+      const hydratedAssignments = assignments.map(assignment => {
+        const mySubmission = submissionMap.get(String((assignment as any).id || '')) || null
+        return { ...assignment, mySubmission, studentStatus: mySubmission ? 'Submitted' : 'Pending' }
+      })
       return c.json({ success: true, assignments: hydratedAssignments })
     }
 
@@ -7389,22 +7407,47 @@ async function listAccessibleLearningStudents(db: D1Database, user: Record<strin
   let students: Array<Record<string, any>> = []
 
   if (normalizedRole === 'student') {
-    const selfRow = await findUserByIdentifier(db, String(resolvedUser.userRow?.id || resolvedUser.settingsKey || userIdentifier || '')).catch(() => null)
-    const hydrated = await hydrateUserRecords(db, selfRow ? [selfRow] : [])
-    students = hydrated.filter(Boolean) as Array<Record<string, any>>
+    // Use already-resolved identity — no extra DB calls needed
+    const settings = resolvedUser.settings || {}
+    const studentId = String(resolvedUser.userRow?.id || resolvedUser.settingsKey || userIdentifier || '')
+    students = [{
+      id: studentId,
+      name: String(settings.name || resolvedUser.userRow?.name || ''),
+      email: String(resolvedUser.userRow?.email || settings.email || ''),
+      displayId: getPublicFacingUserId(settings, 'student') || String(settings.publicStudentId || ''),
+      classId: String(settings.classId || resolvedUser.userRow?.classId || ''),
+      className: String(settings.className || ''),
+    }]
   } else if (normalizedRole === 'parent' && tenantId) {
     await ensureParentStudentLinksTable(db)
     const parentIdentifiers = Array.from(new Set(collectResolvedIdentityIdentifiers(resolvedUser, user).filter(Boolean)))
     if (parentIdentifiers.length > 0) {
-      const placeholders = parentIdentifiers.map(() => '?').join(', ')
+      const parentPlaceholders = parentIdentifiers.map(() => '?').join(', ')
       const linkRows = await db.prepare(
-        `SELECT DISTINCT student_id FROM parent_student_links WHERE tenant_id = ? AND parent_id IN (${placeholders})`
+        `SELECT DISTINCT student_id FROM parent_student_links WHERE tenant_id = ? AND parent_id IN (${parentPlaceholders})`
       ).bind(tenantId, ...parentIdentifiers).all()
-      const linkedStudentRows = await Promise.all(
-        ((linkRows.results || []) as Record<string, any>[]).map(row => findUserByIdentifier(db, String(row.student_id || '')).catch(() => null))
-      )
-      const hydrated = await hydrateUserRecords(db, linkedStudentRows.filter(Boolean) as Record<string, any>[])
-      students = hydrated.filter(Boolean) as Array<Record<string, any>>
+      const studentIds = ((linkRows.results || []) as Record<string, any>[]).map(row => String(row.student_id || '')).filter(Boolean)
+      if (studentIds.length > 0) {
+        // Batch: one query for all student rows + one bulk settings query — no per-row DB calls
+        const idPlaceholders = studentIds.map(() => '?').join(', ')
+        const studentUserRows = await db.prepare(
+          `SELECT id, name, email, role, primary_role, tenantId FROM users WHERE tenantId = ? AND (id IN (${idPlaceholders}) OR email IN (${idPlaceholders}))`
+        ).bind(tenantId, ...studentIds, ...studentIds).all().catch(() => ({ results: [] }))
+        const settingsMap = await getSettingsMapForUserRows(db, (studentUserRows.results || []) as Record<string, any>[])
+        students = ((studentUserRows.results || []) as Record<string, any>[]).filter(Boolean).map(row => {
+          const emailKey = String(row.email || '').trim().toLowerCase()
+          const idKey = String(row.id || '').trim()
+          const settings = settingsMap.get(emailKey) || settingsMap.get(idKey) || null
+          return {
+            id: String(row.id || ''),
+            name: String(settings?.name || row.name || ''),
+            email: String(row.email || ''),
+            displayId: getPublicFacingUserId(settings || {}, 'student') || String(settings?.publicStudentId || ''),
+            classId: String(settings?.classId || ''),
+            className: String(settings?.className || ''),
+          }
+        })
+      }
     }
   }
 
