@@ -1019,7 +1019,7 @@ export default function OwnerPeople() {
           <p className="text-[#800000] dark:text-slate-100">{error}</p>
         ) : filtered.length === 0 ? (
           <p className="text-[#800020] dark:text-slate-400">
-            {q ? `No results for "${search}".` : 'No people found. Click + to add students, parents, or staff.'}
+            {search.trim() ? `No results for "${search}".` : 'No people found. Click + to add students, parents, or staff.'}
           </p>
         ) : (
           <>
