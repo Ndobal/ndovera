@@ -6670,38 +6670,77 @@ app.get('/api/classrooms/assigned', authenticate, async (c) => {
       classRows = Array.from(rowMap.values())
     }
 
-    const assignedClasses = await Promise.all(classRows.map(async row => {
+    // Batch all per-class queries so we fire O(1) queries regardless of class count,
+    // instead of the previous O(7N) pattern that breached D1 sub-request limits.
+    const classIds = classRows.map(row => String(row.id || '')).filter(Boolean)
+    const classIdPlaceholders = classIds.map(() => '?').join(', ')
+
+    const [
+      subjectAllRows,
+      membershipAllRows,
+      studentCountRows,
+      assignmentCountRows,
+      materialCountRows,
+      streamCountRows,
+    ] = classIds.length ? await Promise.all([
+      c.env.APP_DB.prepare(
+        `SELECT id, name, teacherId, classId FROM subjects WHERE tenantId = ? AND classId IN (${classIdPlaceholders}) ORDER BY classId, name`
+      ).bind(tenantId, ...classIds).all().catch(() => ({ results: [] })),
+      c.env.APP_DB.prepare(
+        `SELECT class_id, user_id FROM class_memberships WHERE class_id IN (${classIdPlaceholders}) AND tenant_id = ? AND membership_role = 'teacher'`
+      ).bind(...classIds, tenantId).all().catch(() => ({ results: [] })),
+      c.env.APP_DB.prepare(
+        `SELECT json_extract(payload, '$.classId') as classId, COUNT(*) as count
+         FROM settings
+         WHERE json_extract(payload, '$.tenantId') = ?
+           AND json_extract(payload, '$.role') = 'student'
+           AND json_extract(payload, '$.classId') IN (${classIdPlaceholders})
+           AND COALESCE(json_extract(payload, '$.status'), 'active') != 'inactive'
+         GROUP BY json_extract(payload, '$.classId')`
+      ).bind(tenantId, ...classIds).all().catch(() => ({ results: [] })),
+      c.env.APP_DB.prepare(
+        `SELECT classId, COUNT(*) as count FROM assignments WHERE classId IN (${classIdPlaceholders}) GROUP BY classId`
+      ).bind(...classIds).all().catch(() => ({ results: [] })),
+      c.env.APP_DB.prepare(
+        `SELECT classId, COUNT(*) as count FROM materials WHERE classId IN (${classIdPlaceholders}) GROUP BY classId`
+      ).bind(...classIds).all().catch(() => ({ results: [] })),
+      c.env.APP_DB.prepare(
+        `SELECT classId, COUNT(*) as count FROM posts WHERE classId IN (${classIdPlaceholders}) GROUP BY classId`
+      ).bind(...classIds).all().catch(() => ({ results: [] })),
+    ]) : [{ results: [] }, { results: [] }, { results: [] }, { results: [] }, { results: [] }, { results: [] }]
+
+    // Index batch results by classId for O(1) lookup
+    const subjectsByClass = new Map<string, Record<string, any>[]>()
+    for (const s of (subjectAllRows.results || []) as Record<string, any>[]) {
+      const cid = String(s.classId || '')
+      if (!subjectsByClass.has(cid)) subjectsByClass.set(cid, [])
+      subjectsByClass.get(cid)!.push(s)
+    }
+    const membershipsByClass = new Map<string, string[]>()
+    for (const m of (membershipAllRows.results || []) as Record<string, any>[]) {
+      const cid = String(m.class_id || '')
+      if (!membershipsByClass.has(cid)) membershipsByClass.set(cid, [])
+      membershipsByClass.get(cid)!.push(String(m.user_id || '').trim())
+    }
+    const countByClass = (rows: any[]) => {
+      const map = new Map<string, number>()
+      for (const r of rows as Record<string, any>[]) map.set(String(r.classId || ''), Number(r.count || 0))
+      return map
+    }
+    const studentCounts = countByClass(studentCountRows.results || [])
+    const assignmentCounts = countByClass(assignmentCountRows.results || [])
+    const materialCounts = countByClass(materialCountRows.results || [])
+    const streamCounts = countByClass(streamCountRows.results || [])
+    const subjectCounts = new Map<string, number>()
+    for (const [cid, rows] of subjectsByClass) subjectCounts.set(cid, rows.length)
+
+    const assignedClasses = classRows.map(row => {
       const classId = String(row.id || '')
       const isClassTeacher = matchesComparableIdentifier(row.classTeacherId, teacherIdentifiers)
       const canManageClassroom = isSupervisor || isClassTeacher
-      const classMembershipRows = await listClassMembershipIdentifiers(c.env.APP_DB, tenantId, classId, 'teacher').catch(() => [])
-      const [studentCountRow, subjectCountRow, assignmentCountRow, materialCountRow, streamCountRow, teacherSubjectRows] = await Promise.all([
-        c.env.APP_DB.prepare(
-          `SELECT COUNT(*) as count
-           FROM settings
-           WHERE json_extract(payload, '$.tenantId') = ?
-             AND json_extract(payload, '$.role') = 'student'
-             AND json_extract(payload, '$.classId') = ?
-             AND COALESCE(json_extract(payload, '$.status'), 'active') != 'inactive'`
-        ).bind(tenantId, classId).first().catch(() => ({ count: 0 })),
-        c.env.APP_DB.prepare(
-          `SELECT COUNT(*) as count FROM subjects WHERE tenantId = ? AND classId = ?`
-        ).bind(tenantId, classId).first().catch(() => ({ count: 0 })),
-        c.env.APP_DB.prepare(
-          `SELECT COUNT(*) as count FROM assignments WHERE classId = ?`
-        ).bind(classId).first().catch(() => ({ count: 0 })),
-        c.env.APP_DB.prepare(
-          `SELECT COUNT(*) as count FROM materials WHERE classId = ?`
-        ).bind(classId).first().catch(() => ({ count: 0 })),
-        c.env.APP_DB.prepare(
-          `SELECT COUNT(*) as count FROM posts WHERE classId = ?`
-        ).bind(classId).first().catch(() => ({ count: 0 })),
-        c.env.APP_DB.prepare(
-          `SELECT id, name, teacherId FROM subjects WHERE tenantId = ? AND classId = ? ORDER BY name`
-        ).bind(tenantId, classId).all().catch(() => ({ results: [] })),
-      ])
+      const extraTeacherIds = (membershipsByClass.get(classId) || []).filter(Boolean)
 
-      let subjectRows = ((teacherSubjectRows as any)?.results || []) as Record<string, any>[]
+      let subjectRows = subjectsByClass.get(classId) || []
       if (!isSupervisor) {
         if (isClassTeacher) {
           // Class teachers manage the whole class, so they see all subjects
@@ -6711,9 +6750,6 @@ app.get('/api/classrooms/assigned', authenticate, async (c) => {
       }
 
       const className = `${row.name}${row.arm ? ` ${row.arm}` : ''}`
-      const extraTeacherIds = classMembershipRows
-        .map(membership => String(membership.user_id || '').trim())
-        .filter(Boolean)
       return {
         id: classId,
         name: row.name,
@@ -6723,18 +6759,18 @@ app.get('/api/classrooms/assigned', authenticate, async (c) => {
         canManageClassroom,
         isSupervisor,
         teacherIds: Array.from(new Set([String(row.classTeacherId || '').trim(), ...extraTeacherIds].filter(Boolean))),
-        studentCount: Number((studentCountRow as any)?.count || 0),
-        subjectCount: Number((subjectCountRow as any)?.count || 0),
-        assignmentCount: Number((assignmentCountRow as any)?.count || 0),
-        materialCount: Number((materialCountRow as any)?.count || 0),
-        streamCount: Number((streamCountRow as any)?.count || 0),
+        studentCount: studentCounts.get(classId) || 0,
+        subjectCount: subjectCounts.get(classId) || 0,
+        assignmentCount: assignmentCounts.get(classId) || 0,
+        materialCount: materialCounts.get(classId) || 0,
+        streamCount: streamCounts.get(classId) || 0,
         subjects: subjectRows.map(subject => ({
           id: String(subject.id || ''),
           name: String(subject.name || ''),
           teacherId: String(subject.teacherId || ''),
         })),
       }
-    }))
+    })
 
     return c.json({ success: true, classes: assignedClasses })
   } catch (error) {
