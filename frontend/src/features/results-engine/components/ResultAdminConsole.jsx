@@ -108,6 +108,9 @@ export default function ResultAdminConsole({ analyticsMode = 'hos', roleTitle = 
   const [files, setFiles] = useState([]);
   const [fileStudentMap, setFileStudentMap] = useState({});
   const [uploadReport, setUploadReport] = useState(null);
+  // School-wide upload queue
+  const [schoolQueue, setSchoolQueue] = useState([]); // [{ batch, files, status, progress, report }]
+  const [queueRunning, setQueueRunning] = useState(false);
   const loader = analyticsMode === 'owner' ? getOwnerResultAnalytics : getHoSResultAnalytics;
 
   const loadConsole = useCallback(async (nextBatchKey = '', nextClassMap = {}) => {
@@ -282,6 +285,18 @@ export default function ResultAdminConsole({ analyticsMode = 'hos', roleTitle = 
                 className={activeTab === 'upload' ? RESULT_BUTTON : RESULT_SECONDARY_BUTTON}
               >
                 Bulk PDF Upload
+              </button>
+            )}
+            {data.canUploadDocuments && (
+              <button
+                type="button"
+                onClick={() => {
+                  setSchoolQueue(selectableBatches.map(b => ({ batch: b, files: [], status: 'idle', progress: 0, report: null })));
+                  setActiveTab('schoolUpload');
+                }}
+                className={activeTab === 'schoolUpload' ? RESULT_BUTTON : RESULT_SECONDARY_BUTTON}
+              >
+                School-Wide Upload
               </button>
             )}
           </div>
@@ -589,6 +604,167 @@ export default function ResultAdminConsole({ analyticsMode = 'hos', roleTitle = 
               </div>
             </section>
           )}
+        </>
+      )}
+
+      {activeTab === 'schoolUpload' && (
+        <>
+          <section className={`${RESULT_SURFACE} p-6 space-y-2`}>
+            <p className={`micro-label ${RESULT_LABEL}`}>School-Wide Upload</p>
+            <h2 className={`text-2xl command-title ${RESULT_HEADING}`}>Queue result PDFs for the whole school</h2>
+            <p className={`text-sm ${RESULT_BODY}`}>
+              Add PDFs to each class batch below. When ready, click <strong>Start Upload Queue</strong> — each batch uploads in order while the progress bar updates live. Already-uploaded PDFs are skipped automatically.
+            </p>
+          </section>
+
+          {/* Queue cards — one per batch */}
+          <div className="space-y-4">
+            {schoolQueue.map((item, idx) => {
+              const statusColors = {
+                idle: '',
+                uploading: 'border-amber-400/50 bg-amber-50/60 dark:bg-amber-500/10',
+                done: 'border-emerald-400/50 bg-emerald-50/60 dark:bg-emerald-500/10',
+                error: 'border-rose-400/50 bg-rose-50/60 dark:bg-rose-500/10',
+              };
+              return (
+                <section key={buildBatchKey(item.batch)} className={`${RESULT_SURFACE} p-5 space-y-4 ${statusColors[item.status] || ''}`}>
+                  <div className="flex flex-wrap items-center justify-between gap-3">
+                    <div>
+                      <p className={`micro-label ${RESULT_LABEL}`}>{item.batch.label}</p>
+                      <p className={`mt-1 text-xs ${RESULT_BODY}`}>{item.files.length} PDF{item.files.length !== 1 ? 's' : ''} queued</p>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      {item.status === 'done' && <span className="text-emerald-600 dark:text-emerald-400 text-xs font-bold uppercase tracking-widest">✓ Done</span>}
+                      {item.status === 'error' && <span className="text-rose-600 dark:text-rose-400 text-xs font-bold uppercase tracking-widest">✗ Error</span>}
+                      {item.status === 'uploading' && <span className="text-amber-700 dark:text-amber-300 text-xs font-bold uppercase tracking-widest animate-pulse">Uploading…</span>}
+                      {!queueRunning && item.status === 'idle' && (
+                        <label className={`${RESULT_SECONDARY_BUTTON} cursor-pointer text-xs`}>
+                          + Add PDFs
+                          <input
+                            type="file"
+                            multiple
+                            accept="application/pdf,.pdf"
+                            className="sr-only"
+                            onChange={e => {
+                              const chosen = Array.from(e.target.files || []);
+                              setSchoolQueue(prev => prev.map((q, i) => i === idx ? { ...q, files: [...q.files, ...chosen] } : q));
+                            }}
+                          />
+                        </label>
+                      )}
+                      {!queueRunning && item.status === 'idle' && item.files.length > 0 && (
+                        <button type="button" className={`${RESULT_SECONDARY_BUTTON} text-xs`}
+                          onClick={() => setSchoolQueue(prev => prev.map((q, i) => i === idx ? { ...q, files: [] } : q))}>
+                          Clear
+                        </button>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Animated progress bar */}
+                  {(item.status === 'uploading' || item.status === 'done' || item.status === 'error') && (
+                    <div className="space-y-1">
+                      <div className="h-2.5 rounded-full bg-[#e8d4a0] dark:bg-black/30 overflow-hidden">
+                        <div
+                          className={`h-full rounded-full transition-all duration-500 ${item.status === 'done' ? 'bg-emerald-500 dark:bg-emerald-400' : item.status === 'error' ? 'bg-rose-500' : 'bg-amber-500 dark:bg-amber-400 animate-pulse'}`}
+                          style={{ width: `${item.progress}%` }}
+                        />
+                      </div>
+                      <p className={`text-xs ${RESULT_BODY}`}>{item.progress}%</p>
+                    </div>
+                  )}
+
+                  {/* File list preview */}
+                  {item.files.length > 0 && item.status === 'idle' && (
+                    <div className="max-h-40 overflow-y-auto space-y-1">
+                      {item.files.map((f, fi) => (
+                        <p key={`${f.name}-${fi}`} className={`text-xs ${RESULT_BODY} truncate`}>📄 {f.name}</p>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Per-batch report */}
+                  {item.report && (
+                    <div className={`${RESULT_INNER_SURFACE} p-3 text-xs space-y-1`}>
+                      <p className={RESULT_LABEL}>Uploaded {item.report.summary?.uploadedCount || 0} · Skipped {item.report.summary?.skippedCount || 0} · Unmatched {item.report.summary?.unmatchedCount || 0}</p>
+                      {(item.report.missingStudents || []).length > 0 && (
+                        <p className={RESULT_BODY}>Missing: {item.report.missingStudents.map(s => s.name).join(', ')}</p>
+                      )}
+                    </div>
+                  )}
+                </section>
+              );
+            })}
+          </div>
+
+          {/* Queue controls */}
+          <section className={`${RESULT_SURFACE} p-5`}>
+            {(() => {
+              const totalFiles = schoolQueue.reduce((s, q) => s + q.files.length, 0);
+              const batchesWithFiles = schoolQueue.filter(q => q.files.length > 0 && q.status === 'idle');
+              const doneCount = schoolQueue.filter(q => q.status === 'done').length;
+              const totalQueued = schoolQueue.filter(q => q.files.length > 0 || q.status === 'done').length;
+              const overallPct = totalQueued > 0 ? Math.round((doneCount / totalQueued) * 100) : 0;
+
+              return (
+                <div className="space-y-4">
+                  {queueRunning && (
+                    <div className="space-y-1">
+                      <p className={`text-sm font-semibold ${RESULT_HEADING}`}>Overall progress — {doneCount} of {totalQueued} batches complete</p>
+                      <div className="h-3 rounded-full bg-[#e8d4a0] dark:bg-black/30 overflow-hidden">
+                        <div
+                          className="h-full rounded-full bg-[#1a5c38] dark:bg-[#00ffff] transition-all duration-700"
+                          style={{ width: `${overallPct}%` }}
+                        />
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="flex flex-wrap gap-3 items-center">
+                    <button
+                      type="button"
+                      disabled={queueRunning || batchesWithFiles.length === 0}
+                      className={RESULT_BUTTON}
+                      onClick={async () => {
+                        setQueueRunning(true);
+                        for (let i = 0; i < schoolQueue.length; i++) {
+                          const item = schoolQueue[i];
+                          if (item.files.length === 0 || item.status !== 'idle') continue;
+                          // Animate progress from 0 → 85 while uploading
+                          setSchoolQueue(prev => prev.map((q, idx) => idx === i ? { ...q, status: 'uploading', progress: 0 } : q));
+                          const ticker = setInterval(() => {
+                            setSchoolQueue(prev => prev.map((q, idx) => idx === i && q.progress < 85 ? { ...q, progress: Math.min(85, q.progress + 7) } : q));
+                          }, 400);
+                          try {
+                            const report = await uploadPublishedResultDocuments({ ...item.batch, files: item.files, fileStudentMap: {} });
+                            clearInterval(ticker);
+                            setSchoolQueue(prev => prev.map((q, idx) => idx === i ? { ...q, status: 'done', progress: 100, report: report || null } : q));
+                          } catch {
+                            clearInterval(ticker);
+                            setSchoolQueue(prev => prev.map((q, idx) => idx === i ? { ...q, status: 'error', progress: 100 } : q));
+                          }
+                        }
+                        setQueueRunning(false);
+                        loadConsole(selectedBatchKey, classMap);
+                      }}
+                    >
+                      {queueRunning ? 'Uploading…' : `Start Upload Queue (${batchesWithFiles.length} batch${batchesWithFiles.length !== 1 ? 'es' : ''} · ${totalFiles} file${totalFiles !== 1 ? 's' : ''})`}
+                    </button>
+
+                    {!queueRunning && (
+                      <button
+                        type="button"
+                        className={RESULT_SECONDARY_BUTTON}
+                        onClick={() => setSchoolQueue(selectableBatches.map(b => ({ batch: b, files: [], status: 'idle', progress: 0, report: null })))}
+                      >
+                        Reset Queue
+                      </button>
+                    )}
+                  </div>
+                </div>
+              );
+            })()}
+          </section>
         </>
       )}
     </div>

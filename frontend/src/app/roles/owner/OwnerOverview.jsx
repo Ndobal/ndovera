@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { getMe, getMyTenant } from '../../../features/school/services/schoolApi';
+import { getBranding, getMe, getMyTenant } from '../../../features/school/services/schoolApi';
 import SchoolAnnouncementsPanel from '../../../shared/components/SchoolAnnouncementsPanel';
 import MobileRoleOverviewNav from '../../../shared/components/MobileRoleOverviewNav';
 import { getTenantPwaInfo } from '../../../shared/hooks/useTenantPwaManifest';
@@ -32,16 +32,22 @@ const quickActions = [
 export default function OwnerOverview({ auth }) {
   const [me, setMe] = useState(null);
   const [tenant, setTenant] = useState(null);
+  const [branding, setBranding] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const tenantBranding = getTenantPwaInfo();
 
   useEffect(() => {
     setLoading(true);
-    Promise.all([getMe().catch(() => null), getMyTenant().catch(() => null)])
-      .then(([meData, tenantData]) => {
+    Promise.all([
+      getMe().catch(() => null),
+      getMyTenant().catch(() => null),
+      getBranding().catch(() => null),
+    ])
+      .then(([meData, tenantData, brandingData]) => {
         setMe(meData?.user || meData || null);
         setTenant(tenantData?.tenant || tenantData || null);
+        setBranding(brandingData?.branding || null);
       })
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
@@ -67,8 +73,8 @@ export default function OwnerOverview({ auth }) {
     );
   }
 
-  const schoolName = tenant?.schoolName || tenant?.name || me?.schoolName || auth?.user?.schoolName || tenantBranding?.schoolName || 'NDOVERA';
-  const schoolLogoUrl = tenant?.branding?.logoUrl || tenant?.logoUrl || tenantBranding?.logoUrl || '';
+  const schoolName = branding?.schoolName || tenant?.schoolName || tenant?.name || me?.schoolName || auth?.user?.schoolName || tenantBranding?.schoolName || 'My School';
+  const schoolLogoUrl = branding?.logoUrl || tenant?.branding?.logoUrl || tenant?.logoUrl || tenantBranding?.logoUrl || '';
 
   return (
     <div className="p-8 max-w-7xl mx-auto space-y-6">
