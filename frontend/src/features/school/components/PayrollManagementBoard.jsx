@@ -186,7 +186,7 @@ function rowManualDeductions(staffRow) {
 }
 
 function rowTotalDeductions(staffRow) {
-  return rowManualDeductions(staffRow) + Number(staffRow?.autoLateDeduction || 0);
+  return rowManualDeductions(staffRow) + Number(staffRow?.autoAttendanceDeduction ?? (Number(staffRow?.autoLateDeduction || 0) + Number(staffRow?.autoAbsenceDeduction || 0)));
 }
 
 function rowNet(staffRow) {
@@ -226,7 +226,13 @@ function buildPayrollRows(payrollEntries = []) {
         allowancesMap,
         deductionsMap,
         autoLateDeduction: Number(entry?.autoLateDeductions || 0),
+        autoAbsenceDeduction: Number(entry?.autoAbsenceDeductions || 0),
+        autoAttendanceDeduction: Number(entry?.autoAttendanceDeductions || (Number(entry?.autoLateDeductions || 0) + Number(entry?.autoAbsenceDeductions || 0))),
         lateChargeCount: Number(entry?.lateChargeCount || 0),
+        absenceChargeCount: Number(entry?.absenceChargeCount || 0),
+        approvedAbsenceDays: Number(entry?.approvedAbsenceDays || 0),
+        expectedAttendanceDays: Number(entry?.expectedAttendanceDays || 0),
+        recordedAttendanceDays: Number(entry?.recordedAttendanceDays || 0),
         status: entry?.status || 'Ready',
         paymentStatus: String(entry?.paymentStatus || 'pending').toLowerCase(),
         bankName: String(entry?.bankName || ''),
@@ -246,6 +252,7 @@ function buildPayslipDeductions(staffRow, settings) {
   return [
     ...settings.deductionColumns.map(column => ({ key: column.key, label: column.label, amount: getRowDeductionValue(staffRow, column.key) })),
     { key: 'lateCharges', label: 'Lateness Charges', amount: Number(staffRow?.autoLateDeduction || 0) },
+    { key: 'absenceCharges', label: 'Absenteeism Charges', amount: Number(staffRow?.autoAbsenceDeduction || 0) },
   ].filter(entry => entry.amount > 0);
 }
 
@@ -1022,6 +1029,7 @@ function PayrollManagementBoard({ canApprove = false }) {
         totals.gross += rowGross(row);
         totals.manualDeductions += rowManualDeductions(row);
         totals.autoLateDeductions += Number(row.autoLateDeduction || 0);
+        totals.autoAbsenceDeductions += Number(row.autoAbsenceDeduction || 0);
         totals.deductions += rowTotalDeductions(row);
         totals.net += rowNet(row);
         totals.count += 1;
@@ -1033,7 +1041,7 @@ function PayrollManagementBoard({ canApprove = false }) {
         });
         return totals;
       },
-      { gross: 0, manualDeductions: 0, autoLateDeductions: 0, deductions: 0, net: 0, count: 0, earnings: {}, deductionsByKey: {} },
+      { gross: 0, manualDeductions: 0, autoLateDeductions: 0, autoAbsenceDeductions: 0, deductions: 0, net: 0, count: 0, earnings: {}, deductionsByKey: {} },
     );
   }, [rows, settingsForm]);
 
@@ -1143,6 +1151,7 @@ function PayrollManagementBoard({ canApprove = false }) {
                         </th>
                       ))}
                       <th className={`${TH} sticky top-0 z-20`}>Late Charges</th>
+                      <th className={`${TH} sticky top-0 z-20`}>Absence Charges</th>
                       <th className={`${TH} sticky top-0 z-20`}>Total Deductions</th>
                       <th className={`${TH} sticky top-0 z-20`}>Net Pay</th>
                       <th className={`${TH} sticky top-0 z-20`}>Status</th>
@@ -1203,6 +1212,10 @@ function PayrollManagementBoard({ canApprove = false }) {
                           <p className="font-bold text-[#800000] dark:text-[#ff6bff]">{formatNaira(row.autoLateDeduction)}</p>
                           {row.lateChargeCount > 0 ? <p className="mt-1 text-xs text-[#800020] dark:text-[#bf00ff]">{row.lateChargeCount} late mark{row.lateChargeCount === 1 ? '' : 's'}</p> : <p className="mt-1 text-xs text-[#800020] dark:text-[#bf00ff]">Auto</p>}
                         </td>
+                        <td className={TD}>
+                          <p className="font-bold text-[#800000] dark:text-[#ff6bff]">{formatNaira(row.autoAbsenceDeduction)}</p>
+                          {row.absenceChargeCount > 0 ? <p className="mt-1 text-xs text-[#800020] dark:text-[#bf00ff]">{row.absenceChargeCount} unauthorized absence day{row.absenceChargeCount === 1 ? '' : 's'}</p> : <p className="mt-1 text-xs text-[#800020] dark:text-[#bf00ff]">Auto</p>}
+                        </td>
                         <td className={`${TD} font-bold text-[#800000] dark:text-[#ff6bff]`}>{formatNaira(rowTotalDeductions(row))}</td>
                         <td className={`${TD} font-bold text-[#1a5c38] dark:text-[#00ffff]`}>{formatNaira(rowNet(row))}</td>
                         <td className={TD}>
@@ -1238,6 +1251,7 @@ function PayrollManagementBoard({ canApprove = false }) {
                         <td key={`deduction-total-${column.key}`} className={TD}>{formatNaira(payrollTotals.deductionsByKey[column.key] || 0)}</td>
                       ))}
                       <td className={TD}>{formatNaira(payrollTotals.autoLateDeductions)}</td>
+                      <td className={TD}>{formatNaira(payrollTotals.autoAbsenceDeductions)}</td>
                       <td className={TD}>{formatNaira(payrollTotals.deductions)}</td>
                       <td className={TD}>{formatNaira(payrollTotals.net)}</td>
                       <td className={TD}>-</td>
@@ -1318,6 +1332,7 @@ function PayrollManagementBoard({ canApprove = false }) {
                   <p className="mt-1 text-sm capitalize text-[#800020] dark:text-[#bf00ff]">{row.role} · {row.employmentCategory} · {row.displayId}</p>
                   <p className="mt-2 text-sm text-[#191970] dark:text-[#39ff14]">Net pay {formatNaira(rowNet(row))}</p>
                   {row.autoLateDeduction > 0 ? <p className="mt-1 text-xs text-[#800020] dark:text-[#bf00ff]">Includes {formatNaira(row.autoLateDeduction)} lateness charge{row.lateChargeCount === 1 ? '' : 's'}.</p> : null}
+                  {row.autoAbsenceDeduction > 0 ? <p className="mt-1 text-xs text-[#800020] dark:text-[#bf00ff]">Includes {formatNaira(row.autoAbsenceDeduction)} absenteeism charge across {row.absenceChargeCount} unauthorized absence day{row.absenceChargeCount === 1 ? '' : 's'}.</p> : null}
                 </div>
                 <button onClick={() => setSelectedPayslip(row)} className={BTN}>View Payslip</button>
               </div>

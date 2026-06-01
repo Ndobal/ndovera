@@ -3,11 +3,18 @@ import StudentSectionShell from '../student/StudentSectionShell';
 import { getStoredAuth } from '../../../features/auth/services/authApi';
 import {
   getStaffAttendanceActivity,
+  getStaffAttendancePermissionRequests,
   getStaffAttendanceSettings,
+  submitStaffAttendancePermissionRequest,
   submitStaffAttendanceActivity,
   uploadStaffAttendanceFace,
 } from '../../../features/school/services/schoolApi';
 import { getAssignedClasses, getClassStudents, recordAttendance } from '../../../features/classroom/classroomService';
+import {
+  getQueuedStaffAttendanceActions,
+  queueStaffAttendanceAction,
+  removeQueuedStaffAttendanceAction,
+} from '../../../features/attendance/staffAttendanceQueue';
 
 const SURFACE = 'rounded-3xl border border-[#c9a96e]/40 bg-[#f5deb3] p-6 shadow-[0_18px_42px_rgba(128,0,0,0.08)] dark:border-[#bf00ff]/35 dark:bg-[#800000]/75 dark:shadow-[0_0_28px_rgba(191,0,255,0.18)]';
 const PANEL = 'rounded-2xl border border-[#c9a96e]/35 bg-[#fff8f0] p-4 dark:border-[#bf00ff]/25 dark:bg-black/20';
@@ -17,6 +24,7 @@ const INPUT = 'w-full rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] px-4 p
 const PRIMARY_BUTTON = 'rounded-2xl bg-[#1a5c38] px-4 py-2.5 text-sm font-bold text-[#f5deb3] transition-colors hover:bg-[#154a2e] disabled:cursor-not-allowed disabled:opacity-60 dark:bg-[#00ffff] dark:text-[#000000] dark:hover:bg-[#7dfcff]';
 const SECONDARY_BUTTON = 'rounded-2xl border border-[#800020]/30 bg-white/70 px-4 py-2.5 text-sm font-semibold text-[#800020] transition-colors hover:bg-white disabled:cursor-not-allowed disabled:opacity-60 dark:border-[#bf00ff]/35 dark:bg-black/25 dark:text-[#bf00ff] dark:hover:bg-[#140014]';
 const TODAY = new Date().toISOString().slice(0, 10);
+const ATTENDANCE_SETTINGS_CACHE_KEY = 'ndovera_staff_attendance_settings_v1';
 
 function formatDateTime(value) {
   if (!value) return 'Recent';
@@ -34,6 +42,56 @@ function monthStart(dateText = TODAY) {
     return TODAY.slice(0, 8) + '01';
   }
   return new Date(date.getFullYear(), date.getMonth(), 1).toISOString().slice(0, 10);
+}
+
+function readCachedStaffAttendanceSettings() {
+  if (typeof window === 'undefined') return null;
+  try {
+    const raw = window.localStorage.getItem(ATTENDANCE_SETTINGS_CACHE_KEY);
+    const parsed = JSON.parse(raw || 'null');
+    return parsed && typeof parsed === 'object' ? parsed : null;
+  } catch {
+    return null;
+  }
+}
+
+function writeCachedStaffAttendanceSettings(settings) {
+  if (typeof window === 'undefined' || !settings || typeof settings !== 'object') return;
+  try {
+    window.localStorage.setItem(ATTENDANCE_SETTINGS_CACHE_KEY, JSON.stringify(settings));
+  } catch {}
+}
+
+function isLikelyNetworkError(error) {
+  const message = String(error?.message || error || '').toLowerCase();
+  if (typeof window !== 'undefined' && window.navigator && window.navigator.onLine === false) {
+    return true;
+  }
+  return message.includes('failed to fetch') || message.includes('network') || message.includes('offline') || message.includes('load failed');
+}
+
+function readFileAsDataUrl(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(String(reader.result || ''));
+    reader.onerror = () => reject(new Error('Could not read the selected image.'));
+    reader.readAsDataURL(file);
+  });
+}
+
+function formatPermissionType(value) {
+  const normalized = String(value || 'absence').trim().toLowerCase();
+  if (normalized === 'late') return 'Late Arrival';
+  if (normalized === 'official') return 'Official Duty';
+  if (normalized === 'remote') return 'Remote Duty';
+  return 'Absence';
+}
+
+function permissionTone(status) {
+  const normalized = String(status || 'pending').trim().toLowerCase();
+  if (normalized === 'approved') return 'border-[#1a5c38]/25 bg-[#edf8f1] text-[#1a5c38] dark:border-[#00ffff]/30 dark:bg-[#002326] dark:text-[#00ffff]';
+  if (normalized === 'rejected') return 'border-red-400/35 bg-red-50 text-[#800000] dark:border-[#ff5f8d]/35 dark:bg-[#4a0014] dark:text-[#ffffff]';
+  return 'border-amber-400/35 bg-amber-50 text-amber-800 dark:border-amber-300/35 dark:bg-[#2d1a00] dark:text-amber-200';
 }
 
 function findLatestSignIn(events = []) {
@@ -189,8 +247,14 @@ export default function TeacherAttendancePage() {
   const [manualQrCode, setManualQrCode] = useState('');
   const [signInNote, setSignInNote] = useState('');
   const [faceImageUrl, setFaceImageUrl] = useState('');
+  const [faceImageDataUrl, setFaceImageDataUrl] = useState('');
   const [faceUploadLabel, setFaceUploadLabel] = useState('');
   const [faceUploading, setFaceUploading] = useState(false);
+  const [useSharedPhone, setUseSharedPhone] = useState(false);
+  const [scannerDismissedManually, setScannerDismissedManually] = useState(false);
+  const [queuedActions, setQueuedActions] = useState(() => getQueuedStaffAttendanceActions());
+  const [queueSyncing, setQueueSyncing] = useState(false);
+  const [isOnline, setIsOnline] = useState(() => (typeof window === 'undefined' ? true : window.navigator.onLine));
   const [managedClasses, setManagedClasses] = useState([]);
   const [selectedClassId, setSelectedClassId] = useState('');
   const [classStudents, setClassStudents] = useState([]);
@@ -207,6 +271,12 @@ export default function TeacherAttendancePage() {
   const [recordSummary, setRecordSummary] = useState({ signIns: 0, signOuts: 0, onTimeCount: 0, lateCount: 0, lateMinutes: 0, lateCharge: 0, totalCharges: 0 });
   const [recordsLoading, setRecordsLoading] = useState(false);
   const [recordsError, setRecordsError] = useState('');
+  const [permissionRequests, setPermissionRequests] = useState([]);
+  const [permissionLoading, setPermissionLoading] = useState(false);
+  const [permissionSubmitting, setPermissionSubmitting] = useState(false);
+  const [permissionMessage, setPermissionMessage] = useState('');
+  const [permissionError, setPermissionError] = useState('');
+  const [permissionForm, setPermissionForm] = useState({ requestType: 'absence', startDate: TODAY, endDate: TODAY, reason: '' });
 
   const latestSignIn = useMemo(() => findLatestSignIn(todayEvents), [todayEvents]);
   const attendanceClasses = useMemo(
@@ -214,6 +284,11 @@ export default function TeacherAttendancePage() {
     [managedClasses],
   );
   const signInTone = latestSignIn ? statusTone(latestSignIn.isLate) : 'border-[#c9a96e]/35 bg-[#fff8f0] text-[#191970] dark:border-[#bf00ff]/25 dark:bg-black/20 dark:text-[#39ff14]';
+  const queuedCount = queuedActions.length;
+
+  const refreshQueuedActions = useCallback(() => {
+    setQueuedActions(getQueuedStaffAttendanceActions());
+  }, []);
 
   const loadTodayActivity = useCallback(async () => {
     const response = await getStaffAttendanceActivity({ date: TODAY, limit: 8 });
@@ -228,11 +303,20 @@ export default function TeacherAttendancePage() {
     setSettingsLoading(true);
     try {
       const response = await getStaffAttendanceSettings();
-      setSettings(response?.settings || null);
+      const nextSettings = response?.settings || null;
+      setSettings(nextSettings);
+      writeCachedStaffAttendanceSettings(nextSettings);
       setSignInError('');
     } catch (error) {
-      setSettings(null);
-      setSignInError(error instanceof Error ? error.message : 'Could not load staff attendance settings.');
+      const cachedSettings = readCachedStaffAttendanceSettings();
+      if (cachedSettings) {
+        setSettings(cachedSettings);
+        setSignInError('');
+        setSignInMessage('Offline mode: using the last synced attendance policy. New attendance marks will queue for sync.');
+      } else {
+        setSettings(null);
+        setSignInError(error instanceof Error ? error.message : 'Could not load staff attendance settings.');
+      }
     } finally {
       setSettingsLoading(false);
     }
@@ -270,11 +354,92 @@ export default function TeacherAttendancePage() {
     }
   }, [recordsFrom, recordsTo]);
 
+  const loadPermissionRequests = useCallback(async () => {
+    setPermissionLoading(true);
+    setPermissionError('');
+    try {
+      const response = await getStaffAttendancePermissionRequests({ limit: 8 });
+      setPermissionRequests(response?.requests || []);
+    } catch (error) {
+      if (!isLikelyNetworkError(error)) {
+        setPermissionError(error instanceof Error ? error.message : 'Could not load attendance permission requests.');
+      }
+    } finally {
+      setPermissionLoading(false);
+    }
+  }, []);
+
+  const flushQueuedActions = useCallback(async () => {
+    if (typeof window === 'undefined' || !window.navigator.onLine) return;
+
+    const queuedEntries = getQueuedStaffAttendanceActions();
+    if (!queuedEntries.length) {
+      refreshQueuedActions();
+      return;
+    }
+
+    setQueueSyncing(true);
+    let syncedCount = 0;
+
+    for (const entry of queuedEntries) {
+      try {
+        await submitStaffAttendanceActivity(entry.payload);
+        removeQueuedStaffAttendanceAction(entry.id);
+        syncedCount += 1;
+      } catch (error) {
+        if (!isLikelyNetworkError(error)) {
+          setSignInError(error instanceof Error ? error.message : 'One queued attendance mark could not sync and needs review.');
+        }
+        break;
+      }
+    }
+
+    refreshQueuedActions();
+
+    if (syncedCount > 0) {
+      await loadTodayActivity().catch(() => null);
+      if (activeTab === 'records') {
+        await loadRecordRange().catch(() => null);
+      }
+      setSignInMessage(`${syncedCount} queued attendance mark${syncedCount === 1 ? '' : 's'} synced successfully.`);
+    }
+
+    setQueueSyncing(false);
+  }, [activeTab, loadRecordRange, loadTodayActivity, refreshQueuedActions]);
+
   useEffect(() => {
     loadSettings();
     loadTodayActivity();
     loadManagedClasses();
-  }, [loadManagedClasses, loadSettings, loadTodayActivity]);
+    loadPermissionRequests();
+    refreshQueuedActions();
+  }, [loadManagedClasses, loadPermissionRequests, loadSettings, loadTodayActivity, refreshQueuedActions]);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return undefined;
+
+    const handleConnectivityChange = () => setIsOnline(window.navigator.onLine);
+    window.addEventListener('online', handleConnectivityChange);
+    window.addEventListener('offline', handleConnectivityChange);
+    return () => {
+      window.removeEventListener('online', handleConnectivityChange);
+      window.removeEventListener('offline', handleConnectivityChange);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isOnline) {
+      flushQueuedActions();
+    }
+  }, [flushQueuedActions, isOnline]);
+
+  useEffect(() => {
+    if (activeTab !== 'sign-in') return;
+    if (latestSignIn) return;
+    if (!scannerDismissedManually) {
+      setScannerOpen(true);
+    }
+  }, [activeTab, latestSignIn, scannerDismissedManually]);
 
   useEffect(() => {
     if (activeTab !== 'records') return;
@@ -312,6 +477,16 @@ export default function TeacherAttendancePage() {
     };
   }, [selectedClassId]);
 
+  const queueSignInPayload = useCallback((payload, qrCodeValue) => {
+    queueStaffAttendanceAction(payload);
+    refreshQueuedActions();
+    setManualQrCode(String(qrCodeValue || payload?.qrCode || '').trim());
+    setScannerOpen(false);
+    setScannerDismissedManually(true);
+    setSignInError('');
+    setSignInMessage('You are offline. Attendance has been queued on this device and will sync automatically when internet returns.');
+  }, [refreshQueuedActions]);
+
   const submitSignIn = useCallback(async (qrCodeValue) => {
     const nextQrCode = String(qrCodeValue || manualQrCode || '').trim();
     if (!nextQrCode) {
@@ -319,8 +494,24 @@ export default function TeacherAttendancePage() {
       return;
     }
 
-    if (String(settings?.mode || 'qr') === 'face_qr' && !faceImageUrl) {
+    const requiresFaceCapture = String(settings?.mode || 'qr') === 'face_qr' || useSharedPhone;
+    if (requiresFaceCapture && !faceImageUrl && !faceImageDataUrl) {
       setSignInError('This school requires a face capture before QR sign-in. Upload a selfie and try again.');
+      return;
+    }
+
+    const payload = {
+      action: 'sign-in',
+      date: TODAY,
+      qrCode: nextQrCode,
+      faceImageUrl,
+      faceImageDataUrl: faceImageUrl ? '' : faceImageDataUrl,
+      notes: signInNote,
+      sharedPhone: useSharedPhone,
+    };
+
+    if (typeof window !== 'undefined' && window.navigator.onLine === false) {
+      queueSignInPayload(payload, nextQrCode);
       return;
     }
 
@@ -328,30 +519,29 @@ export default function TeacherAttendancePage() {
     setSignInError('');
     setSignInMessage('');
     try {
-      const response = await submitStaffAttendanceActivity({
-        action: 'sign-in',
-        date: TODAY,
-        qrCode: nextQrCode,
-        faceImageUrl,
-        notes: signInNote,
-      });
+      const response = await submitStaffAttendanceActivity(payload);
 
       const event = response?.event || null;
       await loadTodayActivity();
       setManualQrCode(nextQrCode);
       setScannerOpen(false);
+      setScannerDismissedManually(true);
       setSignInMessage(event?.isLate
-        ? `Signed in at ${formatDateTime(event?.createdAt)}. You are late by ${event?.lateMinutes || 0} minute${Number(event?.lateMinutes || 0) === 1 ? '' : 's'}${Number(event?.lateCharge || 0) > 0 ? ` and charged ${formatMoney(event?.lateCharge)}` : ''}.`
+        ? `Signed in at ${formatDateTime(event?.createdAt)}. You are late by ${event?.lateMinutes || 0} minute${Number(event?.lateMinutes || 0) === 1 ? '' : 's'}${Number(event?.lateCharge || 0) > 0 ? ` and charged ${formatMoney(event?.lateCharge)}` : event?.permissionStatus === 'approved' ? ' but no charge was applied because an approved permission request covers today.' : '.'}`
         : `Signed in successfully at ${formatDateTime(event?.createdAt)}. You are on time.`);
       if (activeTab === 'records') {
         loadRecordRange();
       }
     } catch (error) {
+      if (isLikelyNetworkError(error)) {
+        queueSignInPayload(payload, nextQrCode);
+        return;
+      }
       setSignInError(error instanceof Error ? error.message : 'Could not complete QR sign-in.');
     } finally {
       setSignInLoading(false);
     }
-  }, [activeTab, faceImageUrl, loadRecordRange, loadTodayActivity, manualQrCode, settings?.mode, signInNote]);
+  }, [activeTab, faceImageDataUrl, faceImageUrl, loadRecordRange, loadTodayActivity, manualQrCode, queueSignInPayload, settings?.mode, signInNote, useSharedPhone]);
 
   const handleScanDetect = useCallback((value) => {
     setManualQrCode(value);
@@ -365,16 +555,55 @@ export default function TeacherAttendancePage() {
     setFaceUploading(true);
     setSignInError('');
     try {
+      const dataUrl = await readFileAsDataUrl(file);
+      setFaceImageDataUrl(dataUrl);
+      setFaceUploadLabel(file.name);
+      if (typeof window !== 'undefined' && window.navigator.onLine === false) {
+        setFaceImageUrl('');
+        setSignInMessage('Face capture saved on this device. You can still mark attendance offline and it will sync later.');
+        return;
+      }
+
       const response = await uploadStaffAttendanceFace(file);
       setFaceImageUrl(String(response?.url || ''));
-      setFaceUploadLabel(file.name);
       setSignInMessage('Face capture uploaded. Continue with QR sign-in.');
     } catch (error) {
       setFaceImageUrl('');
-      setFaceUploadLabel('');
-      setSignInError(error instanceof Error ? error.message : 'Could not upload the face capture.');
+      if (isLikelyNetworkError(error)) {
+        setSignInMessage('Face capture saved locally. You can still mark attendance and it will sync when the internet returns.');
+      } else {
+        setFaceUploadLabel('');
+        setFaceImageDataUrl('');
+        setSignInError(error instanceof Error ? error.message : 'Could not upload the face capture.');
+      }
     } finally {
       setFaceUploading(false);
+    }
+  }
+
+  async function handlePermissionRequestSubmit(event) {
+    event.preventDefault();
+    if (!permissionForm.startDate || !permissionForm.endDate || permissionForm.endDate < permissionForm.startDate) {
+      setPermissionError('Choose a valid permission request date range.');
+      return;
+    }
+    if (!permissionForm.reason.trim()) {
+      setPermissionError('Explain why you need attendance permission.');
+      return;
+    }
+
+    setPermissionSubmitting(true);
+    setPermissionError('');
+    setPermissionMessage('');
+    try {
+      const response = await submitStaffAttendancePermissionRequest(permissionForm);
+      setPermissionRequests(current => [response?.request, ...current].filter(Boolean).slice(0, 8));
+      setPermissionForm({ requestType: 'absence', startDate: TODAY, endDate: TODAY, reason: '' });
+      setPermissionMessage('Attendance permission request submitted for HoS/Owner review.');
+    } catch (error) {
+      setPermissionError(error instanceof Error ? error.message : 'Could not submit the attendance permission request.');
+    } finally {
+      setPermissionSubmitting(false);
     }
   }
 
@@ -482,9 +711,19 @@ export default function TeacherAttendancePage() {
                             <p className="mt-2 text-lg font-black text-[#191970] dark:text-[#39ff14]">{settings?.lateAfterTime || '08:00'}</p>
                           </div>
                           <div className={PANEL}>
+                            <p className={LABEL}>Grace period</p>
+                            <p className="mt-2 text-lg font-black text-[#191970] dark:text-[#39ff14]">{Number(settings?.gracePeriodMinutes || 0)} min</p>
+                          </div>
+                          <div className={PANEL}>
                             <p className={LABEL}>Late penalty</p>
                             <p className="mt-2 text-lg font-black text-[#191970] dark:text-[#39ff14]">
                               {settings?.latePenaltyEnabled ? formatMoney(settings?.latePenaltyAmount || 0) : 'Disabled'}
+                            </p>
+                          </div>
+                          <div className={PANEL}>
+                            <p className={LABEL}>Absence penalty</p>
+                            <p className="mt-2 text-lg font-black text-[#191970] dark:text-[#39ff14]">
+                              {settings?.absencePenaltyEnabled ? `${formatMoney(settings?.absencePenaltyAmount || 0)}${settings?.payrollAutoDeductAbsence ? ' via payroll' : ''}` : 'Disabled'}
                             </p>
                           </div>
                         </div>
@@ -495,12 +734,44 @@ export default function TeacherAttendancePage() {
                   <div className={PANEL}>
                     <p className={LABEL}>Sign-in actions</p>
                     <div className="mt-4 flex flex-wrap gap-3">
-                      <button type="button" onClick={() => setScannerOpen(current => !current)} className={PRIMARY_BUTTON} disabled={signInLoading || settingsLoading}>
-                        {scannerOpen ? 'Close QR Scanner' : 'Open QR Scanner'}
+                      <button
+                        type="button"
+                        onClick={() => {
+                          if (!scannerOpen && !manualQrCode.trim()) {
+                            setScannerDismissedManually(false);
+                            setScannerOpen(true);
+                            return;
+                          }
+                          submitSignIn();
+                        }}
+                        className={PRIMARY_BUTTON}
+                        disabled={signInLoading || settingsLoading}
+                      >
+                        {signInLoading ? 'Marking Attendance...' : 'Mark Attendance'}
                       </button>
-                      <button type="button" onClick={() => submitSignIn()} className={SECONDARY_BUTTON} disabled={signInLoading || settingsLoading || !manualQrCode.trim()}>
-                        {signInLoading ? 'Signing In...' : 'Confirm Manual QR'}
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setScannerOpen(false);
+                          setScannerDismissedManually(true);
+                        }}
+                        className={SECONDARY_BUTTON}
+                        disabled={signInLoading || !scannerOpen}
+                      >
+                        Cancel
                       </button>
+                      {queuedCount > 0 ? (
+                        <button type="button" onClick={flushQueuedActions} className={SECONDARY_BUTTON} disabled={!isOnline || queueSyncing}>
+                          {queueSyncing ? 'Syncing...' : `Sync Queued (${queuedCount})`}
+                        </button>
+                      ) : null}
+                    </div>
+                    <div className={`mt-4 rounded-2xl border px-4 py-3 text-sm ${isOnline ? 'border-[#1a5c38]/25 bg-[#edf8f1] text-[#1a5c38] dark:border-[#00ffff]/30 dark:bg-[#002326] dark:text-[#00ffff]' : 'border-amber-400/35 bg-amber-50 text-amber-800 dark:border-amber-300/35 dark:bg-[#2d1a00] dark:text-amber-200'}`}>
+                      {isOnline
+                        ? queuedCount > 0
+                          ? `${queuedCount} attendance mark${queuedCount === 1 ? '' : 's'} waiting to sync from this device.`
+                          : 'This device is online. QR scanning can mark attendance immediately.'
+                        : 'This device is offline. New attendance marks will be queued and synced automatically when the internet returns.'}
                     </div>
                     <div className="mt-4 grid gap-4 md:grid-cols-2">
                       <label className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">
@@ -523,15 +794,23 @@ export default function TeacherAttendancePage() {
                       </label>
                     </div>
 
-                    {String(settings?.mode || 'qr') === 'face_qr' ? (
+                    <label className="mt-4 flex items-start gap-3 rounded-2xl border border-[#c9a96e]/35 bg-[#fff8f0] p-4 text-sm text-[#191970] dark:border-[#bf00ff]/25 dark:bg-black/20 dark:text-[#39ff14]">
+                      <input type="checkbox" checked={useSharedPhone} onChange={event => setUseSharedPhone(event.target.checked)} className="mt-1" />
+                      <span>
+                        <span className="block font-semibold text-[#800000] dark:text-[#ffffff]">Use colleague phone mode</span>
+                        <span className="mt-1 block">Enable this when you are signing in from another staff member&apos;s phone. NDOVERA will require a face capture and tag the attendance record as a shared-phone sign-in.</span>
+                      </span>
+                    </label>
+
+                    {String(settings?.mode || 'qr') === 'face_qr' || useSharedPhone ? (
                       <div className="mt-4 rounded-2xl border border-[#c9a96e]/35 bg-[#fff8f0] p-4 dark:border-[#bf00ff]/25 dark:bg-black/20">
                         <p className={LABEL}>Required face capture</p>
-                        <p className={`${BODY} mt-2`}>This school requires a face capture before QR sign-in. Upload a selfie from the current device, then scan the QR code.</p>
+                        <p className={`${BODY} mt-2`}>This school or shared-phone mode requires a face capture before QR sign-in. Upload a selfie from the current device, then scan the QR code.</p>
                         <label className="mt-4 block text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">
                           Face Capture
                           <input type="file" accept="image/*" capture="user" onChange={handleFaceCapture} className={`${INPUT} mt-2`} />
                         </label>
-                        <p className={`${BODY} mt-2`}>{faceUploading ? 'Uploading face capture...' : faceUploadLabel ? `Uploaded: ${faceUploadLabel}` : 'No face capture uploaded yet.'}</p>
+                        <p className={`${BODY} mt-2`}>{faceUploading ? 'Uploading face capture...' : faceUploadLabel ? `${faceImageUrl ? 'Uploaded' : 'Saved locally'}: ${faceUploadLabel}` : 'No face capture uploaded yet.'}</p>
                       </div>
                     ) : null}
 
@@ -553,12 +832,67 @@ export default function TeacherAttendancePage() {
                             <div>
                               <p className="text-sm font-bold">{event.isLate ? 'Late' : 'On Time'}</p>
                               <p className="mt-1 text-xs">{formatDateTime(event.createdAt)}</p>
+                              {event.sharedPhone ? <p className="mt-1 text-xs uppercase tracking-[0.14em]">Shared phone mode</p> : null}
                             </div>
                             <div className="text-right text-xs font-semibold uppercase tracking-[0.14em]">
                               <p>{event.lateMinutes ? `${event.lateMinutes} late min` : 'Present'}</p>
                               <p>{event.lateCharge ? formatMoney(event.lateCharge) : 'No charge'}</p>
                             </div>
                           </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className={PANEL}>
+                    <p className={LABEL}>Permission requests</p>
+                    <p className={`${BODY} mt-2`}>Ask HoS or Owner to approve absence, late arrival, official duty, or remote duty before the day is charged as unauthorized absenteeism.</p>
+                    <form onSubmit={handlePermissionRequestSubmit} className="mt-4 grid gap-4 md:grid-cols-2">
+                      <label className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">
+                        Request Type
+                        <select value={permissionForm.requestType} onChange={event => setPermissionForm(current => ({ ...current, requestType: event.target.value }))} className={`${INPUT} mt-2`}>
+                          <option value="absence">Absence</option>
+                          <option value="late">Late arrival</option>
+                          <option value="official">Official duty</option>
+                          <option value="remote">Remote duty</option>
+                        </select>
+                      </label>
+                      <label className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">
+                        Start Date
+                        <input type="date" value={permissionForm.startDate} onChange={event => setPermissionForm(current => ({ ...current, startDate: event.target.value, endDate: current.endDate < event.target.value ? event.target.value : current.endDate }))} className={`${INPUT} mt-2`} />
+                      </label>
+                      <label className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">
+                        End Date
+                        <input type="date" value={permissionForm.endDate} onChange={event => setPermissionForm(current => ({ ...current, endDate: event.target.value }))} className={`${INPUT} mt-2`} />
+                      </label>
+                      <label className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff] md:col-span-2">
+                        Reason
+                        <textarea value={permissionForm.reason} onChange={event => setPermissionForm(current => ({ ...current, reason: event.target.value }))} rows={3} className={`${INPUT} mt-2 min-h-[110px] resize-y`} placeholder="Explain why you need attendance permission for these dates" />
+                      </label>
+                      <div className="md:col-span-2 flex flex-wrap gap-3">
+                        <button type="submit" className={PRIMARY_BUTTON} disabled={permissionSubmitting}>
+                          {permissionSubmitting ? 'Submitting...' : 'Request Permission'}
+                        </button>
+                      </div>
+                    </form>
+
+                    {permissionMessage ? <div className="mt-4 rounded-2xl border border-[#1a5c38]/25 bg-[#edf8f1] px-4 py-3 text-sm text-[#1a5c38] dark:border-[#00ffff]/30 dark:bg-[#002326] dark:text-[#00ffff]">{permissionMessage}</div> : null}
+                    {permissionError ? <div className="mt-4 rounded-2xl border border-red-400/35 bg-red-50 px-4 py-3 text-sm text-[#800000] dark:border-[#ff5f8d]/35 dark:bg-[#4a0014] dark:text-[#ffffff]">{permissionError}</div> : null}
+
+                    <div className="mt-4 space-y-3">
+                      {permissionLoading ? <p className={BODY}>Loading your recent permission requests...</p> : null}
+                      {!permissionLoading && permissionRequests.length === 0 ? <p className={BODY}>No attendance permission requests submitted yet.</p> : null}
+                      {!permissionLoading && permissionRequests.map(request => (
+                        <div key={request.id} className={`${PANEL} ${permissionTone(request.status)}`}>
+                          <div className="flex flex-wrap items-start justify-between gap-3">
+                            <div>
+                              <p className="text-sm font-bold">{formatPermissionType(request.requestType)}</p>
+                              <p className="mt-1 text-xs">{request.startDate === request.endDate ? request.startDate : `${request.startDate} to ${request.endDate}`}</p>
+                            </div>
+                            <span className="rounded-full bg-white/70 px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] dark:bg-black/20">{request.status || 'pending'}</span>
+                          </div>
+                          <p className="mt-2 text-sm">{request.reason}</p>
+                          {request.decisionNote ? <p className="mt-2 text-xs">Decision note: {request.decisionNote}</p> : null}
                         </div>
                       ))}
                     </div>

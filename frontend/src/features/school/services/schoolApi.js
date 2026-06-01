@@ -300,6 +300,9 @@ export const getStaffAttendanceActivity = (params = {}) => {
 };
 export const submitStaffAttendanceActivity = (data) => req('/api/school/staff-attendance/activity', { method: 'POST', body: data });
 export const uploadStaffAttendanceFace = (file) => uploadFile('/api/school/staff-attendance/face-upload', file);
+export const getStaffAttendancePermissionRequests = (params = {}) => req(`/api/school/staff-attendance/permissions${buildQuery(params)}`);
+export const submitStaffAttendancePermissionRequest = (data) => req('/api/school/staff-attendance/permissions', { method: 'POST', body: data });
+export const reviewStaffAttendancePermissionRequest = (requestId, data) => req(`/api/school/staff-attendance/permissions/${encodeURIComponent(requestId)}/review`, { method: 'POST', body: data });
 export const getStudentAttendance = (dateOrFilters, classId) => {
   const params = new URLSearchParams();
 

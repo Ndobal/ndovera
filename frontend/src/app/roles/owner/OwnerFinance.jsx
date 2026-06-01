@@ -163,8 +163,13 @@ function AIAnalysisTab() {
   );
 }
 
-export default function OwnerFinance({ auth }) {
-  const [tab, setTab] = useState(0);
+export default function OwnerFinance({ auth, initialTab = 0 }) {
+  const [tab, setTab] = useState(Number.isFinite(initialTab) ? initialTab : 0);
+
+  useEffect(() => {
+    setTab(Number.isFinite(initialTab) ? initialTab : 0);
+  }, [initialTab]);
+
   return (
     <div className="p-8 max-w-7xl mx-auto space-y-6">
       <div className={CARD}><h1 className="text-2xl font-bold text-[#800000]">Finance</h1><p className="text-[#191970] mt-1 text-sm">Manage subscriptions, student fees, expenditure, and AI insights.</p></div>

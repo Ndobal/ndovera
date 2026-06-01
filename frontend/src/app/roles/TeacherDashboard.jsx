@@ -3,7 +3,7 @@ import { Navigate, useLocation } from 'react-router-dom';
 import RoleSectionPage from '../../shared/components/RoleSectionPage';
 import teacherConfig from './config/teacherConfig';
 import { TeacherCAScoreSheet } from '../../features/results-engine';
-import { StaffCashout } from '../../features/auras';
+import { AuraBalance, StaffCashout, StaffFarmingMode, TransactionLog } from '../../features/auras';
 import TeacherExams from './teacher/TeacherExams';
 import TeacherPayslip from './teacher/TeacherPayslip';
 import TeacherClassroom from '../../features/classroom/TeacherClassroom';
@@ -16,6 +16,35 @@ import SchoolNewsroomPage from '../../features/school/components/SchoolNewsroomP
 import StaffAiAssistantPage from '../../features/ai/components/StaffAiAssistantPage';
 import StudentMessaging from './student/StudentMessaging';
 import useFeatureFlags from '../../shared/hooks/useFeatureFlags';
+import { getStoredAuth } from '../../features/auth/services/authApi';
+
+function TeacherAurasWorkspace({ auth, title, subtitle }) {
+  const storedUser = auth?.user || getStoredAuth()?.user || {};
+  const staffId = String(storedUser.id || storedUser.email || 'current_staff');
+  const staffName = String(storedUser.name || storedUser.email || 'Staff');
+
+  return (
+    <div className="p-8 max-w-7xl mx-auto space-y-6">
+      <div className="rounded-3xl p-6 bg-[#f5deb3] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
+        <h1 className="text-2xl font-bold text-[#800000] dark:text-slate-100">{title}</h1>
+        <p className="text-[#191970] dark:text-slate-300 mt-1 text-sm">{subtitle}</p>
+      </div>
+
+      <div className="grid gap-6 xl:grid-cols-[340px_minmax(0,1fr)]">
+        <div className="space-y-6">
+          <AuraBalance userId={staffId} />
+          <div className="rounded-3xl border border-[#c9a96e]/40 bg-[#f5deb3] p-4 dark:border-white/10 dark:bg-slate-900/30">
+            <StaffFarmingMode staffId={staffId} staffName={staffName} />
+          </div>
+        </div>
+
+        <div className="rounded-3xl border border-[#c9a96e]/40 bg-[#f5deb3] p-6 dark:border-white/10 dark:bg-slate-900/30">
+          <TransactionLog userId={staffId} userRole="teacher" />
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function TeacherDashboard({ auth }) {
   const location = useLocation();
@@ -73,6 +102,10 @@ export default function TeacherDashboard({ auth }) {
     return <TeacherCAScoreSheet />;
   }
 
+  if (sectionKey === 'offline-ca') {
+    return <TeacherCAScoreSheet dashboardLabel="Teacher Dashboard" />;
+  }
+
   if (sectionKey === 'exams') {
     return <TeacherExams />;
   }
@@ -87,6 +120,10 @@ export default function TeacherDashboard({ auth }) {
 
   if (sectionKey === 'classroom') {
     return <TeacherClassroom initialTab="stream" />;
+  }
+
+  if (sectionKey === 'live') {
+    return <TeacherClassroom initialTab="live" lockedTab="live" />;
   }
 
   if (sectionKey === 'assignments') {
@@ -131,19 +168,29 @@ export default function TeacherDashboard({ auth }) {
     return <StaffAiAssistantPage roleKey="teacher" roleTitle={teacherConfig.roleTitle} />;
   }
 
+  if (sectionKey === 'auras') {
+    return (
+      <TeacherAurasWorkspace
+        auth={auth}
+        title="Auras"
+        subtitle="Review your live wallet balance, transaction history, and farming status instead of a static rewards placeholder."
+      />
+    );
+  }
+
+  if (sectionKey === 'farming') {
+    return (
+      <TeacherAurasWorkspace
+        auth={auth}
+        title="Farming Mode"
+        subtitle="Track your farming streak, eligibility, and wallet activity from the live Auras engine."
+      />
+    );
+  }
+
   if (sectionKey === 'cashout') {
     return <StaffCashout staffId="current_staff" staffName="Staff" balance={1240} farmingMode={{ enabled: featureFlags.farmingModeEnabled, activeMonths: featureFlags.farmingModeEnabled ? 2 : 0 }} />;
   }
 
-  return (
-    <RoleSectionPage
-      roleTitle={teacherConfig.roleTitle}
-      sectionTitle={section.title}
-      sectionSubtitle={section.subtitle}
-      watermark={teacherConfig.watermark}
-      metricCards={section.cards || []}
-      infoCards={section.panels || []}
-      theme="wheat"
-    />
-  );
+  return <Navigate to="/roles/teacher" replace />;
 }

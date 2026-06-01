@@ -1430,7 +1430,7 @@ export default function TeacherClassroom({
                           </div>
                           <div className="flex flex-wrap items-center gap-2">
                             {canManageSelectedClass && <button type="button" onClick={() => handleEditMaterial(material)} className="rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] px-4 py-2 text-sm font-semibold text-[#191970] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#ffffff]">Edit</button>}
-                            {canManageSelectedClass && <button type="button" onClick={() => handleDeleteMaterial(material)} className="rounded-2xl border border-[#800000]/25 bg-white/70 px-4 py-2 text-sm font-semibold text-[#800000] hover:bg-[#ffe8db] dark:border-[#ff5f8d]/35 dark:bg-black/20 dark:text-[#ffffff] dark:hover:bg-[#5a1024]">Delete</button>}
+                            {(canManageSelectedClass || [storedUser?.id, storedUser?.email, storedUser?.displayId].filter(Boolean).some(uid => uid && material.uploadedById && String(uid).toLowerCase() === String(material.uploadedById).toLowerCase())) && <button type="button" onClick={() => handleDeleteMaterial(material)} className="rounded-2xl border border-[#800000]/25 bg-white/70 px-4 py-2 text-sm font-semibold text-[#800000] hover:bg-[#ffe8db] dark:border-[#ff5f8d]/35 dark:bg-black/20 dark:text-[#ffffff] dark:hover:bg-[#5a1024]">Delete</button>}
                             {material.url ? (
                               <a href={material.url} target="_blank" rel="noreferrer" className="rounded-2xl bg-[#1a5c38] px-4 py-2 text-sm font-bold text-[#f5deb3] transition-colors hover:bg-[#154a2e] dark:bg-[#00ffff] dark:text-[#000000] dark:hover:bg-[#7dfcff]">
                                 Open Material

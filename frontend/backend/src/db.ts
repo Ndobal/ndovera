@@ -46,6 +46,7 @@ function mapMaterialRow(row: any) {
     visibility: String(metadata.visibility || ''),
     releaseAt: String(metadata.releaseAt || ''),
     uploadedByName: String(metadata.uploadedByName || row?.uploadedBy || ''),
+    uploadedById: String(metadata.uploadedById || ''),
   }
 }
 

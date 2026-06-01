@@ -6703,13 +6703,11 @@ app.get('/api/classrooms/assigned', authenticate, async (c) => {
 
       let subjectRows = ((teacherSubjectRows as any)?.results || []) as Record<string, any>[]
       if (!isSupervisor) {
-        subjectRows = subjectRows.filter(subjectRow => matchesComparableIdentifier(subjectRow.teacherId, teacherIdentifiers))
-      }
-      if (subjectRows.length === 0 && isClassTeacher && !isSupervisor) {
-        const fallbackSubjectRows = await c.env.APP_DB.prepare(
-          `SELECT id, name, teacherId FROM subjects WHERE tenantId = ? AND classId = ? ORDER BY name`
-        ).bind(tenantId, classId).all().catch(() => ({ results: [] }))
-        subjectRows = ((fallbackSubjectRows as any)?.results || []) as Record<string, any>[]
+        if (isClassTeacher) {
+          // Class teachers manage the whole class, so they see all subjects
+        } else {
+          subjectRows = subjectRows.filter(subjectRow => matchesComparableIdentifier(subjectRow.teacherId, teacherIdentifiers))
+        }
       }
 
       const className = `${row.name}${row.arm ? ` ${row.arm}` : ''}`
@@ -14239,6 +14237,133 @@ async function getPayrollLateChargeSummaryForIdentifiers(db: D1Database, tenantI
   }
 }
 
+function shiftIsoDate(value: string, dayOffset = 0) {
+  const parsed = new Date(`${String(value || '').trim()}T00:00:00Z`)
+  if (!Number.isFinite(parsed.getTime())) return ''
+  parsed.setUTCDate(parsed.getUTCDate() + Math.trunc(dayOffset || 0))
+  return parsed.toISOString().slice(0, 10)
+}
+
+function listWeekdayIsoDates(startDate: string, endDate: string) {
+  const start = new Date(`${String(startDate || '').trim()}T00:00:00Z`)
+  const end = new Date(`${String(endDate || '').trim()}T00:00:00Z`)
+  if (!Number.isFinite(start.getTime()) || !Number.isFinite(end.getTime()) || start.getTime() > end.getTime()) {
+    return [] as string[]
+  }
+
+  const dates: string[] = []
+  const cursor = new Date(start.getTime())
+  while (cursor.getTime() <= end.getTime()) {
+    const dayOfWeek = cursor.getUTCDay()
+    if (dayOfWeek !== 0 && dayOfWeek !== 6) {
+      dates.push(cursor.toISOString().slice(0, 10))
+    }
+    cursor.setUTCDate(cursor.getUTCDate() + 1)
+  }
+
+  return dates
+}
+
+async function listPayrollAttendanceDeductionSummaries(
+  db: D1Database,
+  tenantId: string,
+  period: string,
+  staffRoster: Record<string, any>[] = [],
+) {
+  const roster = Array.isArray(staffRoster) && staffRoster.length ? staffRoster : await listTenantStaffRoster(db, tenantId)
+  if (!tenantId || !roster.length) return [] as Array<Record<string, any>>
+
+  await ensureStaffAttendanceBaseTable(db)
+  await ensureStaffAttendancePermissionRequestsTable(db)
+
+  const settings = await getOrCreateStaffAttendanceSettings(db, tenantId)
+  const absencePenaltyEnabled = Boolean(Number(settings?.absence_penalty_enabled ?? 0))
+  const payrollAutoDeductAbsence = Boolean(Number(settings?.payroll_auto_deduct_absence ?? 0))
+  const configuredAmount = Number(settings?.absence_penalty_amount || 0)
+  const { startDate, endDate } = getPayrollPeriodBounds(period)
+  const inclusiveEndDate = shiftIsoDate(endDate, -1)
+  const today = new Date().toISOString().slice(0, 10)
+  const effectiveEndDate = inclusiveEndDate && inclusiveEndDate < today ? inclusiveEndDate : today
+
+  if (!effectiveEndDate || effectiveEndDate < startDate) {
+    return roster.map(staffMember => ({
+      staffId: String(staffMember?.id || staffMember?.email || '').trim(),
+      amount: 0,
+      count: 0,
+      approvedCount: 0,
+      expectedCount: 0,
+      workedCount: 0,
+      autoDeduct: absencePenaltyEnabled && payrollAutoDeductAbsence,
+    })).filter(summary => summary.staffId)
+  }
+
+  const [attendanceRows, permissionRows] = await Promise.all([
+    db.prepare(
+      `SELECT staff_id, date, status
+       FROM staff_attendance
+       WHERE tenant_id = ?
+         AND date >= ?
+         AND date <= ?`
+    ).bind(tenantId, startDate, effectiveEndDate).all().catch(() => ({ results: [] })),
+    db.prepare(
+      `SELECT staff_id, request_type, start_date, end_date, status
+       FROM staff_attendance_permission_requests
+       WHERE tenant_id = ?
+         AND status = 'approved'
+         AND start_date <= ?
+         AND end_date >= ?`
+    ).bind(tenantId, effectiveEndDate, startDate).all().catch(() => ({ results: [] })),
+  ])
+
+  const attendanceResults = (attendanceRows.results || []) as Record<string, any>[]
+  const permissionResults = (permissionRows.results || []) as Record<string, any>[]
+
+  return roster.map(staffMember => {
+    const identifiers = collectComparableIdentifiers([
+      staffMember?.id,
+      staffMember?.email,
+      staffMember?.displayId,
+    ])
+    const presentDates = new Set(
+      attendanceResults
+        .filter(row => matchesComparableIdentifier(row.staff_id, identifiers))
+        .filter(row => ['present', 'late'].includes(String(row.status || '').toLowerCase().trim()))
+        .map(row => String(row.date || '').trim())
+        .filter(Boolean),
+    )
+    const approvedDates = new Set<string>()
+    permissionResults.forEach(row => {
+      if (!matchesComparableIdentifier(row.staff_id, identifiers)) return
+      const permissionStart = String(row.start_date || '').trim()
+      const permissionEnd = String(row.end_date || permissionStart).trim()
+      if (!permissionStart || !permissionEnd) return
+      const boundedStart = permissionStart > startDate ? permissionStart : startDate
+      const boundedEnd = permissionEnd < effectiveEndDate ? permissionEnd : effectiveEndDate
+      listWeekdayIsoDates(boundedStart, boundedEnd).forEach(dateKey => approvedDates.add(dateKey))
+    })
+
+    const createdAtDate = normalizeIsoDateValue(staffMember?.createdAt)
+    const effectiveStartDate = createdAtDate && createdAtDate > startDate ? createdAtDate : startDate
+    const expectedDates = effectiveStartDate && effectiveStartDate <= effectiveEndDate
+      ? listWeekdayIsoDates(effectiveStartDate, effectiveEndDate)
+      : []
+    const unauthorizedAbsenceDates = expectedDates.filter(dateKey => !presentDates.has(dateKey) && !approvedDates.has(dateKey))
+    const amount = absencePenaltyEnabled && payrollAutoDeductAbsence
+      ? Number((unauthorizedAbsenceDates.length * configuredAmount).toFixed(2))
+      : 0
+
+    return {
+      staffId: String(staffMember?.id || staffMember?.email || '').trim(),
+      amount,
+      count: unauthorizedAbsenceDates.length,
+      approvedCount: approvedDates.size,
+      expectedCount: expectedDates.length,
+      workedCount: presentDates.size,
+      autoDeduct: absencePenaltyEnabled && payrollAutoDeductAbsence,
+    }
+  }).filter(summary => summary.staffId)
+}
+
 async function listTenantStaffRoster(db: D1Database, tenantId: string) {
   await ensureUsersTable(db)
   const [userRows, settingRows] = await Promise.all([
@@ -14388,8 +14513,9 @@ app.get('/api/school/payroll', authenticate, async (c) => {
     await ensurePayrollEntriesTable(c.env.APP_DB)
     const period = normalizePayrollPeriod(c.req.query('period'))
     const rows = await c.env.APP_DB.prepare(`SELECT * FROM payroll_entries WHERE tenant_id = ? AND period = ?`).bind(tenantId, period).all()
-    const lateChargeSummaries = await listPayrollLateChargeSummaries(c.env.APP_DB, tenantId, period)
     const staffRoster = await listTenantStaffRoster(c.env.APP_DB, tenantId)
+    const lateChargeSummaries = await listPayrollLateChargeSummaries(c.env.APP_DB, tenantId, period)
+    const attendanceDeductionSummaries = await listPayrollAttendanceDeductionSummaries(c.env.APP_DB, tenantId, period, staffRoster)
     const payrollSettings = normalizePayrollSettingsInput(await getSettings(c.env.APP_DB, `payroll_settings_${tenantId}`).catch(() => ({})))
     const payrollMap = new Map((rows.results || []).map((row: any) => [String(row.staff_id || '').trim(), row]))
     const payroll = staffRoster.map((staffMember: any) => {
@@ -14408,10 +14534,15 @@ app.get('/api/school/payroll', authenticate, async (c) => {
       const lateChargeSummary = lateChargeSummaries.find(summary => summary.staffId === String(staffMember.id || '').trim())
         || lateChargeSummaries.find(summary => summary.staffId === String(staffMember.email || '').trim())
         || { amount: 0, count: 0 }
+      const attendanceDeductionSummary = attendanceDeductionSummaries.find(summary => summary.staffId === String(staffMember.id || '').trim())
+        || attendanceDeductionSummaries.find(summary => summary.staffId === String(staffMember.email || '').trim())
+        || { amount: 0, count: 0, approvedCount: 0, expectedCount: 0, workedCount: 0, autoDeduct: false }
       const gross = Number(row?.gross || (basicSalary + sumPayrollNumericMapValues(allowances)))
       const manualDeductions = Number(row?.manual_deductions || sumPayrollNumericMapValues(deductionsMap))
       const autoLateDeductions = Number(lateChargeSummary.amount || 0)
-      const deductions = manualDeductions + autoLateDeductions
+      const autoAbsenceDeductions = Number(attendanceDeductionSummary.amount || 0)
+      const autoAttendanceDeductions = autoLateDeductions + autoAbsenceDeductions
+      const deductions = manualDeductions + autoAttendanceDeductions
       const paymentStatus = String(row?.payment_status || (String(row?.status || '').toLowerCase() === 'paid' ? 'paid' : 'pending')).toLowerCase()
 
       return {
@@ -14439,7 +14570,13 @@ app.get('/api/school/payroll', authenticate, async (c) => {
         deductionsMap,
         manualDeductions,
         autoLateDeductions,
+        autoAbsenceDeductions,
+        autoAttendanceDeductions,
         lateChargeCount: Number(lateChargeSummary.count || 0),
+        absenceChargeCount: Number(attendanceDeductionSummary.count || 0),
+        approvedAbsenceDays: Number(attendanceDeductionSummary.approvedCount || 0),
+        expectedAttendanceDays: Number(attendanceDeductionSummary.expectedCount || 0),
+        recordedAttendanceDays: Number(attendanceDeductionSummary.workedCount || 0),
         deductions,
         net: Number(gross - deductions),
         status: row?.status || 'Ready',
@@ -14453,7 +14590,7 @@ app.get('/api/school/payroll', authenticate, async (c) => {
     })
     const approved = payroll.some(p => p.approved)
     const submitted = payroll.some(p => p.submitted)
-    return c.json({ success: true, payroll, lateChargeSummaries, approved, submitted, period, settings: payrollSettings })
+    return c.json({ success: true, payroll, lateChargeSummaries, attendanceDeductionSummaries, approved, submitted, period, settings: payrollSettings })
   } catch { return c.json({ success: true, payroll: [], approved: false, submitted: false }) }
 })
 
@@ -14527,13 +14664,17 @@ app.put('/api/school/payroll/staff/:staffId', authenticate, async (c) => {
       || deriveEmploymentCategory(hydratedStaffUser?.role || existing?.role || '', hydratedStaffUser?.employmentCategory, hydratedStaffUser?.roles)
       || 'support'
     ).toLowerCase()
+    const staffRoster = await listTenantStaffRoster(c.env.APP_DB, tenantId)
     const lateChargeSummary = await getPayrollLateChargeSummaryForIdentifiers(
       c.env.APP_DB,
       tenantId,
       period,
       collectComparableIdentifiers([staffId, hydratedStaffUser?.email, hydratedStaffUser?.id]),
     )
-    const newNet = nextGross - (nextManualDed + Number(lateChargeSummary.amount || 0))
+    const attendanceDeductionSummary = (await listPayrollAttendanceDeductionSummaries(c.env.APP_DB, tenantId, period, staffRoster))
+      .find(summary => summary.staffId === String(staffId || '').trim())
+      || { amount: 0 }
+    const newNet = nextGross - (nextManualDed + Number(lateChargeSummary.amount || 0) + Number(attendanceDeductionSummary.amount || 0))
     await c.env.APP_DB.prepare(`INSERT OR REPLACE INTO payroll_entries (id, tenant_id, staff_id, period, basic_salary, allowances_json, deductions_json, gross, deductions, manual_deductions, net, status, payment_status, employment_category, bank_name, account_name, account_number, approved, submitted, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
       .bind(
         id,
@@ -14544,7 +14685,7 @@ app.put('/api/school/payroll/staff/:staffId', authenticate, async (c) => {
         JSON.stringify(nextAllowances),
         JSON.stringify(nextDeductionsMap),
         nextGross,
-        nextManualDed + Number(lateChargeSummary.amount || 0),
+        nextManualDed + Number(lateChargeSummary.amount || 0) + Number(attendanceDeductionSummary.amount || 0),
         nextManualDed,
         newNet,
         nextStatus,
@@ -14795,8 +14936,12 @@ async function ensureStaffAttendanceSettingsTable(db: D1Database) {
     require_qr_on_face INTEGER,
     active_qr_code TEXT,
     late_after_time TEXT,
+    grace_period_minutes INTEGER,
     late_penalty_enabled INTEGER,
     late_penalty_amount REAL,
+    absence_penalty_enabled INTEGER,
+    absence_penalty_amount REAL,
+    payroll_auto_deduct_absence INTEGER,
     qr_rotated_at TEXT,
     updated_by TEXT,
     created_at TEXT,
@@ -14804,8 +14949,12 @@ async function ensureStaffAttendanceSettingsTable(db: D1Database) {
   )`).run()
 
   try { await db.exec('ALTER TABLE staff_attendance_settings ADD COLUMN late_after_time TEXT') } catch {}
+  try { await db.exec('ALTER TABLE staff_attendance_settings ADD COLUMN grace_period_minutes INTEGER DEFAULT 0') } catch {}
   try { await db.exec('ALTER TABLE staff_attendance_settings ADD COLUMN late_penalty_enabled INTEGER DEFAULT 0') } catch {}
   try { await db.exec('ALTER TABLE staff_attendance_settings ADD COLUMN late_penalty_amount REAL DEFAULT 0') } catch {}
+  try { await db.exec('ALTER TABLE staff_attendance_settings ADD COLUMN absence_penalty_enabled INTEGER DEFAULT 0') } catch {}
+  try { await db.exec('ALTER TABLE staff_attendance_settings ADD COLUMN absence_penalty_amount REAL DEFAULT 0') } catch {}
+  try { await db.exec('ALTER TABLE staff_attendance_settings ADD COLUMN payroll_auto_deduct_absence INTEGER DEFAULT 0') } catch {}
 }
 
 async function ensureStaffAttendanceEventsTable(db: D1Database) {
@@ -14818,18 +14967,48 @@ async function ensureStaffAttendanceEventsTable(db: D1Database) {
     method TEXT,
     qr_code TEXT,
     face_image_url TEXT,
+    shared_phone INTEGER,
     is_late INTEGER,
     late_minutes INTEGER,
     late_charge REAL,
+    permission_request_id TEXT,
+    permission_status TEXT,
     notes TEXT,
     recorded_by TEXT,
     created_at TEXT,
     updated_at TEXT
   )`).run()
 
+  try { await db.exec('ALTER TABLE staff_attendance_events ADD COLUMN shared_phone INTEGER DEFAULT 0') } catch {}
   try { await db.exec('ALTER TABLE staff_attendance_events ADD COLUMN is_late INTEGER DEFAULT 0') } catch {}
   try { await db.exec('ALTER TABLE staff_attendance_events ADD COLUMN late_minutes INTEGER DEFAULT 0') } catch {}
   try { await db.exec('ALTER TABLE staff_attendance_events ADD COLUMN late_charge REAL DEFAULT 0') } catch {}
+  try { await db.exec('ALTER TABLE staff_attendance_events ADD COLUMN permission_request_id TEXT') } catch {}
+  try { await db.exec('ALTER TABLE staff_attendance_events ADD COLUMN permission_status TEXT') } catch {}
+}
+
+async function ensureStaffAttendancePermissionRequestsTable(db: D1Database) {
+  await db.prepare(`CREATE TABLE IF NOT EXISTS staff_attendance_permission_requests (
+    id TEXT PRIMARY KEY,
+    tenant_id TEXT,
+    staff_id TEXT,
+    request_type TEXT,
+    start_date TEXT,
+    end_date TEXT,
+    reason TEXT,
+    status TEXT,
+    decision_note TEXT,
+    requested_by TEXT,
+    reviewed_by TEXT,
+    reviewed_at TEXT,
+    created_at TEXT,
+    updated_at TEXT
+  )`).run()
+
+  await runIndexStatements(db, [
+    `CREATE INDEX IF NOT EXISTS idx_staff_attendance_permission_requests_tenant_staff_status ON staff_attendance_permission_requests(tenant_id, staff_id, status)`,
+    `CREATE INDEX IF NOT EXISTS idx_staff_attendance_permission_requests_tenant_dates ON staff_attendance_permission_requests(tenant_id, start_date, end_date)`,
+  ])
 }
 
 function canManageStaffAttendanceConfig(role: string) {
@@ -14849,16 +15028,38 @@ function normalizeStaffAttendanceCutoffTime(value: unknown, fallback = '08:00') 
   return /^\d{2}:\d{2}$/.test(normalized) ? normalized : fallback
 }
 
+function normalizeStaffAttendanceGraceMinutes(value: unknown, fallback = 0) {
+  const normalized = Math.max(0, Math.trunc(Number(value || fallback) || 0))
+  return Number.isFinite(normalized) ? normalized : fallback
+}
+
+function normalizeStaffAttendanceRequestType(value: unknown, fallback = 'absence') {
+  const normalized = String(value || fallback).trim().toLowerCase()
+  return ['absence', 'late', 'official', 'remote'].includes(normalized) ? normalized : fallback
+}
+
+function normalizeStaffAttendancePermissionStatus(value: unknown, fallback = 'pending') {
+  const normalized = String(value || fallback).trim().toLowerCase()
+  return ['pending', 'approved', 'rejected'].includes(normalized) ? normalized : fallback
+}
+
+function canReviewStaffAttendancePermissions(role: string) {
+  return ['owner', 'hos'].includes(String(role || '').toLowerCase().trim())
+}
+
 function buildStaffAttendanceLateMetrics(attendanceDate: string, recordedAt: string, settings: Record<string, any> | null) {
   const lateAfterTime = normalizeStaffAttendanceCutoffTime(settings?.late_after_time, '08:00')
+  const gracePeriodMinutes = normalizeStaffAttendanceGraceMinutes(settings?.grace_period_minutes, 0)
   const latePenaltyEnabled = Boolean(Number(settings?.late_penalty_enabled ?? 0))
   const configuredCharge = Number(settings?.late_penalty_amount || 0)
   const eventTimestamp = new Date(recordedAt).getTime()
   const cutoffTimestamp = new Date(`${attendanceDate}T${lateAfterTime}:00`).getTime()
+  const effectiveCutoffTimestamp = cutoffTimestamp + (gracePeriodMinutes * 60000)
 
-  if (!Number.isFinite(eventTimestamp) || !Number.isFinite(cutoffTimestamp) || eventTimestamp <= cutoffTimestamp) {
+  if (!Number.isFinite(eventTimestamp) || !Number.isFinite(effectiveCutoffTimestamp) || eventTimestamp <= effectiveCutoffTimestamp) {
     return {
       lateAfterTime,
+      gracePeriodMinutes,
       latePenaltyEnabled,
       latePenaltyAmount: configuredCharge,
       isLate: false,
@@ -14867,9 +15068,10 @@ function buildStaffAttendanceLateMetrics(attendanceDate: string, recordedAt: str
     }
   }
 
-  const lateMinutes = Math.max(0, Math.round((eventTimestamp - cutoffTimestamp) / 60000))
+  const lateMinutes = Math.max(0, Math.round((eventTimestamp - effectiveCutoffTimestamp) / 60000))
   return {
     lateAfterTime,
+    gracePeriodMinutes,
     latePenaltyEnabled,
     latePenaltyAmount: configuredCharge,
     isLate: lateMinutes > 0,
@@ -14888,8 +15090,12 @@ function mapStaffAttendanceSettings(row: Record<string, any> | null, includeSecr
       : 'Use this when staff sign in with the active school QR on their own phone or a school scanner.',
     requireQrOnFace: Boolean(Number(row?.require_qr_on_face ?? 1)),
     lateAfterTime: normalizeStaffAttendanceCutoffTime(row?.late_after_time, '08:00'),
+    gracePeriodMinutes: normalizeStaffAttendanceGraceMinutes(row?.grace_period_minutes, 0),
     latePenaltyEnabled: Boolean(Number(row?.late_penalty_enabled ?? 0)),
     latePenaltyAmount: Number(row?.late_penalty_amount || 0),
+    absencePenaltyEnabled: Boolean(Number(row?.absence_penalty_enabled ?? 0)),
+    absencePenaltyAmount: Number(row?.absence_penalty_amount || 0),
+    payrollAutoDeductAbsence: Boolean(Number(row?.payroll_auto_deduct_absence ?? 0)),
     qrRotatedAt: String(row?.qr_rotated_at || row?.updated_at || row?.created_at || ''),
     updatedAt: String(row?.updated_at || row?.created_at || ''),
   } as Record<string, any>
@@ -14911,14 +15117,67 @@ function mapStaffAttendanceEvent(row: Record<string, any>) {
     method: String(row.method || ''),
     qrCode: String(row.qr_code || ''),
     faceImageUrl: String(row.face_image_url || ''),
+    sharedPhone: Boolean(Number(row.shared_phone || 0)),
     isLate: Boolean(Number(row.is_late || 0)),
     lateMinutes: Number(row.late_minutes || 0),
     lateCharge: Number(row.late_charge || 0),
+    permissionRequestId: String(row.permission_request_id || ''),
+    permissionStatus: String(row.permission_status || ''),
     notes: String(row.notes || ''),
     recordedBy: String(row.recorded_by || ''),
     createdAt: String(row.created_at || ''),
     updatedAt: String(row.updated_at || row.created_at || ''),
   }
+}
+
+function mapStaffAttendancePermissionRequest(row: Record<string, any>) {
+  return {
+    id: String(row.id || ''),
+    tenantId: String(row.tenant_id || ''),
+    staffId: String(row.staff_id || ''),
+    requestType: normalizeStaffAttendanceRequestType(row.request_type, 'absence'),
+    startDate: String(row.start_date || ''),
+    endDate: String(row.end_date || row.start_date || ''),
+    reason: String(row.reason || ''),
+    status: normalizeStaffAttendancePermissionStatus(row.status, 'pending'),
+    decisionNote: String(row.decision_note || ''),
+    requestedBy: String(row.requested_by || ''),
+    reviewedBy: String(row.reviewed_by || ''),
+    reviewedAt: String(row.reviewed_at || ''),
+    createdAt: String(row.created_at || ''),
+    updatedAt: String(row.updated_at || row.created_at || ''),
+  }
+}
+
+function decodeBase64String(value: string) {
+  const normalized = String(value || '').replace(/\s+/g, '')
+  const binary = atob(normalized)
+  const bytes = new Uint8Array(binary.length)
+  for (let index = 0; index < binary.length; index += 1) {
+    bytes[index] = binary.charCodeAt(index)
+  }
+  return bytes
+}
+
+function parseImageDataUrl(value: unknown) {
+  const normalized = String(value || '').trim()
+  const match = normalized.match(/^data:(image\/[a-zA-Z0-9.+-]+);base64,(.+)$/)
+  if (!match) return null
+
+  return {
+    contentType: String(match[1] || 'image/jpeg').trim() || 'image/jpeg',
+    bytes: decodeBase64String(String(match[2] || '')),
+  }
+}
+
+async function storeStaffAttendanceFaceImageDataUrl(env: any, tenantId: string, staffId: string, dataUrl: unknown) {
+  const parsed = parseImageDataUrl(dataUrl)
+  if (!parsed) return ''
+
+  const extension = parsed.contentType.split('/').pop()?.split('+')[0] || 'jpg'
+  const key = `attendance/staff/${tenantId}/${staffId}/${Date.now()}.${extension}`
+  await env.UPLOADS.put(key, parsed.bytes, { httpMetadata: { contentType: parsed.contentType } })
+  return `https://ndovera.com/files/${key}`
 }
 
 async function getOrCreateStaffAttendanceSettings(db: D1Database, tenantId: string) {
@@ -14936,8 +15195,12 @@ async function getOrCreateStaffAttendanceSettings(db: D1Database, tenantId: stri
     require_qr_on_face: 1,
     active_qr_code: generateStaffAttendanceQrCode(tenantId),
     late_after_time: '08:00',
+    grace_period_minutes: 0,
     late_penalty_enabled: 0,
     late_penalty_amount: 0,
+    absence_penalty_enabled: 0,
+    absence_penalty_amount: 0,
+    payroll_auto_deduct_absence: 0,
     qr_rotated_at: timestamp,
     updated_by: 'system',
     created_at: timestamp,
@@ -14945,16 +15208,20 @@ async function getOrCreateStaffAttendanceSettings(db: D1Database, tenantId: stri
   }
 
   await db.prepare(
-    `INSERT INTO staff_attendance_settings (tenant_id, mode, require_qr_on_face, active_qr_code, late_after_time, late_penalty_enabled, late_penalty_amount, qr_rotated_at, updated_by, created_at, updated_at)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+    `INSERT INTO staff_attendance_settings (tenant_id, mode, require_qr_on_face, active_qr_code, late_after_time, grace_period_minutes, late_penalty_enabled, late_penalty_amount, absence_penalty_enabled, absence_penalty_amount, payroll_auto_deduct_absence, qr_rotated_at, updated_by, created_at, updated_at)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
   ).bind(
     seeded.tenant_id,
     seeded.mode,
     seeded.require_qr_on_face,
     seeded.active_qr_code,
     seeded.late_after_time,
+    seeded.grace_period_minutes,
     seeded.late_penalty_enabled,
     seeded.late_penalty_amount,
+    seeded.absence_penalty_enabled,
+    seeded.absence_penalty_amount,
+    seeded.payroll_auto_deduct_absence,
     seeded.qr_rotated_at,
     seeded.updated_by,
     seeded.created_at,
@@ -15023,23 +15290,31 @@ app.post('/api/school/staff-attendance/settings', authenticate, async (c) => {
   const mode = String(body?.mode || 'qr') === 'face_qr' ? 'face_qr' : 'qr'
   const requireQrOnFace = body?.requireQrOnFace === false ? 0 : 1
   const lateAfterTime = normalizeStaffAttendanceCutoffTime(body?.lateAfterTime, '08:00')
+  const gracePeriodMinutes = normalizeStaffAttendanceGraceMinutes(body?.gracePeriodMinutes, 0)
   const latePenaltyEnabled = body?.latePenaltyEnabled === true ? 1 : 0
   const latePenaltyAmount = Number(body?.latePenaltyAmount || 0)
+  const absencePenaltyEnabled = body?.absencePenaltyEnabled === true ? 1 : 0
+  const absencePenaltyAmount = Number(body?.absencePenaltyAmount || 0)
+  const payrollAutoDeductAbsence = body?.payrollAutoDeductAbsence === true ? 1 : 0
 
   try {
     const existing = await getOrCreateStaffAttendanceSettings(c.env.APP_DB, actor.tenantId)
     const timestamp = new Date().toISOString()
     await c.env.APP_DB.prepare(
-      `INSERT OR REPLACE INTO staff_attendance_settings (tenant_id, mode, require_qr_on_face, active_qr_code, late_after_time, late_penalty_enabled, late_penalty_amount, qr_rotated_at, updated_by, created_at, updated_at)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+      `INSERT OR REPLACE INTO staff_attendance_settings (tenant_id, mode, require_qr_on_face, active_qr_code, late_after_time, grace_period_minutes, late_penalty_enabled, late_penalty_amount, absence_penalty_enabled, absence_penalty_amount, payroll_auto_deduct_absence, qr_rotated_at, updated_by, created_at, updated_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
     ).bind(
       actor.tenantId,
       mode,
       requireQrOnFace,
       String(existing.active_qr_code || generateStaffAttendanceQrCode(actor.tenantId)),
       lateAfterTime,
+      gracePeriodMinutes,
       latePenaltyEnabled,
       Number.isFinite(latePenaltyAmount) && latePenaltyAmount > 0 ? latePenaltyAmount : 0,
+      absencePenaltyEnabled,
+      Number.isFinite(absencePenaltyAmount) && absencePenaltyAmount > 0 ? absencePenaltyAmount : 0,
+      payrollAutoDeductAbsence,
       String(existing.qr_rotated_at || timestamp),
       actor.actorName || actor.actorId,
       String(existing.created_at || timestamp),
@@ -15063,13 +15338,20 @@ app.post('/api/school/staff-attendance/settings/rotate-qr', authenticate, async 
     const timestamp = new Date().toISOString()
     const activeQrCode = generateStaffAttendanceQrCode(actor.tenantId)
     await c.env.APP_DB.prepare(
-      `INSERT OR REPLACE INTO staff_attendance_settings (tenant_id, mode, require_qr_on_face, active_qr_code, qr_rotated_at, updated_by, created_at, updated_at)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
+      `INSERT OR REPLACE INTO staff_attendance_settings (tenant_id, mode, require_qr_on_face, active_qr_code, late_after_time, grace_period_minutes, late_penalty_enabled, late_penalty_amount, absence_penalty_enabled, absence_penalty_amount, payroll_auto_deduct_absence, qr_rotated_at, updated_by, created_at, updated_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
     ).bind(
       actor.tenantId,
       String(existing.mode || 'qr'),
       Number(existing.require_qr_on_face ?? 1),
       activeQrCode,
+      normalizeStaffAttendanceCutoffTime(existing.late_after_time, '08:00'),
+      normalizeStaffAttendanceGraceMinutes(existing.grace_period_minutes, 0),
+      Number(existing.late_penalty_enabled ?? 0),
+      Number(existing.late_penalty_amount || 0),
+      Number(existing.absence_penalty_enabled ?? 0),
+      Number(existing.absence_penalty_amount || 0),
+      Number(existing.payroll_auto_deduct_absence ?? 0),
       timestamp,
       actor.actorName || actor.actorId,
       String(existing.created_at || timestamp),
@@ -15099,6 +15381,177 @@ app.post('/api/school/staff-attendance/face-upload', authenticate, async (c) => 
     return c.json({ success: true, url: `https://ndovera.com/files/${key}` })
   } catch {
     return c.json({ error: 'Upload failed.' }, 500)
+  }
+})
+
+app.get('/api/school/staff-attendance/permissions', authenticate, async (c) => {
+  const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
+  if (!actor.tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!canUseStaffAttendance(actor.role)) return c.json({ error: 'forbidden' }, 403)
+
+  const requestedStaffId = String(c.req.query('staffId') || '').trim()
+  const status = normalizeStaffAttendancePermissionStatus(c.req.query('status'), '')
+  const fromDate = normalizeIsoDateValue(c.req.query('from'))
+  const toDate = normalizeIsoDateValue(c.req.query('to'))
+  const rawLimit = Number(c.req.query('limit') || 40)
+  const limit = Number.isFinite(rawLimit) && rawLimit > 0 ? Math.min(200, Math.trunc(rawLimit)) : 40
+  const effectiveStaffId = canReviewStaffAttendancePermissions(actor.role) ? requestedStaffId : actor.actorId
+
+  if (!canReviewStaffAttendancePermissions(actor.role) && requestedStaffId && requestedStaffId !== actor.actorId) {
+    return c.json({ error: 'forbidden' }, 403)
+  }
+
+  try {
+    await ensureStaffAttendancePermissionRequestsTable(c.env.APP_DB)
+    let query = 'SELECT * FROM staff_attendance_permission_requests WHERE tenant_id = ?'
+    const params: Array<string | number> = [actor.tenantId]
+
+    if (effectiveStaffId) {
+      query += ' AND staff_id = ?'
+      params.push(effectiveStaffId)
+    }
+
+    if (status) {
+      query += ' AND status = ?'
+      params.push(status)
+    }
+
+    if (fromDate) {
+      query += ' AND end_date >= ?'
+      params.push(fromDate)
+    }
+
+    if (toDate) {
+      query += ' AND start_date <= ?'
+      params.push(toDate)
+    }
+
+    query += ' ORDER BY updated_at DESC, created_at DESC LIMIT ?'
+    params.push(limit)
+
+    const rows = await c.env.APP_DB.prepare(query).bind(...params).all()
+    return c.json({
+      success: true,
+      requests: ((rows.results || []) as Record<string, any>[]).map(mapStaffAttendancePermissionRequest),
+    })
+  } catch {
+    return c.json({ success: true, requests: [] })
+  }
+})
+
+app.post('/api/school/staff-attendance/permissions', authenticate, async (c) => {
+  const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
+  if (!actor.tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!canUseStaffAttendance(actor.role)) return c.json({ error: 'forbidden' }, 403)
+
+  const body = await c.req.json().catch(() => ({})) as Record<string, any>
+  const requestType = normalizeStaffAttendanceRequestType(body?.requestType, 'absence')
+  const startDate = normalizeIsoDateValue(body?.startDate || body?.date)
+  const endDate = normalizeIsoDateValue(body?.endDate || body?.startDate || body?.date)
+  const reason = String(body?.reason || '').trim().slice(0, 1200)
+
+  if (!startDate || !endDate || endDate < startDate) {
+    return c.json({ error: 'A valid start and end date are required.' }, 400)
+  }
+
+  if (!reason) {
+    return c.json({ error: 'Explain why you need attendance permission.' }, 400)
+  }
+
+  try {
+    await ensureStaffAttendancePermissionRequestsTable(c.env.APP_DB)
+    const timestamp = new Date().toISOString()
+    const requestId = `sap_${actor.tenantId}_${actor.actorId}_${Date.now()}`
+    await c.env.APP_DB.prepare(
+      `INSERT INTO staff_attendance_permission_requests (id, tenant_id, staff_id, request_type, start_date, end_date, reason, status, decision_note, requested_by, reviewed_by, reviewed_at, created_at, updated_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+    ).bind(
+      requestId,
+      actor.tenantId,
+      actor.actorId,
+      requestType,
+      startDate,
+      endDate,
+      reason,
+      'pending',
+      null,
+      actor.actorName || actor.actorId,
+      null,
+      null,
+      timestamp,
+      timestamp,
+    ).run()
+
+    return c.json({
+      success: true,
+      request: mapStaffAttendancePermissionRequest({
+        id: requestId,
+        tenant_id: actor.tenantId,
+        staff_id: actor.actorId,
+        request_type: requestType,
+        start_date: startDate,
+        end_date: endDate,
+        reason,
+        status: 'pending',
+        decision_note: '',
+        requested_by: actor.actorName || actor.actorId,
+        reviewed_by: '',
+        reviewed_at: '',
+        created_at: timestamp,
+        updated_at: timestamp,
+      }),
+    })
+  } catch {
+    return c.json({ error: 'Could not submit the attendance permission request.' }, 500)
+  }
+})
+
+app.post('/api/school/staff-attendance/permissions/:requestId/review', authenticate, async (c) => {
+  const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
+  if (!actor.tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!canReviewStaffAttendancePermissions(actor.role)) return c.json({ error: 'forbidden' }, 403)
+
+  const requestId = String(c.req.param('requestId') || '').trim()
+  const body = await c.req.json().catch(() => ({})) as Record<string, any>
+  const decision = normalizeStaffAttendancePermissionStatus(body?.decision, '')
+  const decisionNote = String(body?.decisionNote || body?.note || '').trim().slice(0, 1200)
+
+  if (!requestId || !['approved', 'rejected'].includes(decision)) {
+    return c.json({ error: 'A valid review decision is required.' }, 400)
+  }
+
+  try {
+    await ensureStaffAttendancePermissionRequestsTable(c.env.APP_DB)
+    const existing = await c.env.APP_DB.prepare(
+      `SELECT * FROM staff_attendance_permission_requests WHERE id = ? AND tenant_id = ? LIMIT 1`
+    ).bind(requestId, actor.tenantId).first() as Record<string, any> | null
+
+    if (!existing) {
+      return c.json({ error: 'Attendance permission request not found.' }, 404)
+    }
+
+    const timestamp = new Date().toISOString()
+    await c.env.APP_DB.prepare(
+      `UPDATE staff_attendance_permission_requests
+       SET status = ?, decision_note = ?, reviewed_by = ?, reviewed_at = ?, updated_at = ?
+       WHERE id = ? AND tenant_id = ?`
+    ).bind(
+      decision,
+      decisionNote || null,
+      actor.actorName || actor.actorId,
+      timestamp,
+      timestamp,
+      requestId,
+      actor.tenantId,
+    ).run()
+
+    const updated = await c.env.APP_DB.prepare(
+      `SELECT * FROM staff_attendance_permission_requests WHERE id = ? AND tenant_id = ? LIMIT 1`
+    ).bind(requestId, actor.tenantId).first() as Record<string, any> | null
+
+    return c.json({ success: true, request: mapStaffAttendancePermissionRequest(updated || existing) })
+  } catch {
+    return c.json({ error: 'Could not review the attendance permission request.' }, 500)
   }
 })
 
@@ -15169,7 +15622,9 @@ app.post('/api/school/staff-attendance/activity', authenticate, async (c) => {
   const action = String(body?.action || 'sign-in') === 'sign-out' ? 'sign-out' : 'sign-in'
   const attendanceDate = String(body?.date || new Date().toISOString().slice(0, 10)).trim()
   const qrCode = String(body?.qrCode || '').trim()
-  const faceImageUrl = String(body?.faceImageUrl || '').trim()
+  const sharedPhone = body?.sharedPhone === true || body?.sharedPhone === 'true' || body?.sharedPhone === 1
+  const faceImageDataUrl = String(body?.faceImageDataUrl || '').trim()
+  let faceImageUrl = String(body?.faceImageUrl || '').trim()
   const notes = String(body?.notes || '').trim()
 
   try {
@@ -15177,12 +15632,17 @@ app.post('/api/school/staff-attendance/activity', authenticate, async (c) => {
     const normalizedMode = String(settings.mode || 'qr') === 'face_qr' ? 'face_qr' : 'qr'
     const requireQrOnFace = Boolean(Number(settings.require_qr_on_face ?? 1))
     const activeQrCode = String(settings.active_qr_code || '')
+    const effectiveMode = normalizedMode === 'face_qr' || sharedPhone ? 'face_qr' : 'qr'
 
     if (!qrCode || qrCode !== activeQrCode) {
       return c.json({ error: 'The scanned QR code is not valid for this school.' }, 400)
     }
 
-    if (normalizedMode === 'face_qr') {
+    if (!faceImageUrl && faceImageDataUrl) {
+      faceImageUrl = await storeStaffAttendanceFaceImageDataUrl(c.env, actor.tenantId, actor.actorId, faceImageDataUrl)
+    }
+
+    if (effectiveMode === 'face_qr') {
       if (requireQrOnFace && !qrCode) {
         return c.json({ error: 'QR code is required for face attendance.' }, 400)
       }
@@ -15193,17 +15653,36 @@ app.post('/api/school/staff-attendance/activity', authenticate, async (c) => {
 
     await ensureStaffAttendanceEventsTable(c.env.APP_DB)
     await ensureStaffAttendanceBaseTable(c.env.APP_DB)
+    await ensureStaffAttendancePermissionRequestsTable(c.env.APP_DB)
 
     const timestamp = new Date().toISOString()
     const eventId = `sae_${actor.tenantId}_${actor.actorId}_${attendanceDate}_${action}`
-    const method = normalizedMode === 'face_qr' ? 'face_qr' : 'qr'
-    const lateMetrics = action === 'sign-in'
+    const method = sharedPhone ? 'shared_phone' : (effectiveMode === 'face_qr' ? 'face_qr' : 'qr')
+    const approvedPermission = await c.env.APP_DB.prepare(
+      `SELECT *
+       FROM staff_attendance_permission_requests
+       WHERE tenant_id = ?
+         AND staff_id = ?
+         AND status = 'approved'
+         AND start_date <= ?
+         AND end_date >= ?
+       ORDER BY updated_at DESC, created_at DESC
+       LIMIT 1`
+    ).bind(actor.tenantId, actor.actorId, attendanceDate, attendanceDate).first() as Record<string, any> | null
+    let lateMetrics = action === 'sign-in'
       ? buildStaffAttendanceLateMetrics(attendanceDate, timestamp, settings)
       : buildStaffAttendanceLateMetrics(attendanceDate, `${attendanceDate}T00:00:00`, settings)
 
+    if (approvedPermission && action === 'sign-in' && lateMetrics.isLate) {
+      lateMetrics = {
+        ...lateMetrics,
+        lateCharge: 0,
+      }
+    }
+
     await c.env.APP_DB.prepare(
-      `INSERT OR REPLACE INTO staff_attendance_events (id, tenant_id, staff_id, date, action, method, qr_code, face_image_url, is_late, late_minutes, late_charge, notes, recorded_by, created_at, updated_at)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+      `INSERT OR REPLACE INTO staff_attendance_events (id, tenant_id, staff_id, date, action, method, qr_code, face_image_url, shared_phone, is_late, late_minutes, late_charge, permission_request_id, permission_status, notes, recorded_by, created_at, updated_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
     ).bind(
       eventId,
       actor.tenantId,
@@ -15213,9 +15692,12 @@ app.post('/api/school/staff-attendance/activity', authenticate, async (c) => {
       method,
       qrCode,
       faceImageUrl || null,
+      sharedPhone ? 1 : 0,
       lateMetrics.isLate ? 1 : 0,
       lateMetrics.lateMinutes,
       lateMetrics.lateCharge,
+      String(approvedPermission?.id || '') || null,
+      approvedPermission ? 'approved' : null,
       notes || null,
       actor.actorName || actor.actorId,
       timestamp,
@@ -15249,9 +15731,12 @@ app.post('/api/school/staff-attendance/activity', authenticate, async (c) => {
         method,
         qr_code: qrCode,
         face_image_url: faceImageUrl,
+        shared_phone: sharedPhone ? 1 : 0,
         is_late: lateMetrics.isLate ? 1 : 0,
         late_minutes: lateMetrics.lateMinutes,
         late_charge: lateMetrics.lateCharge,
+        permission_request_id: String(approvedPermission?.id || '') || null,
+        permission_status: approvedPermission ? 'approved' : '',
         notes,
         recorded_by: actor.actorName || actor.actorId,
         created_at: timestamp,
