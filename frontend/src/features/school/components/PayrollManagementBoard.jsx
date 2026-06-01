@@ -601,7 +601,7 @@ function PayrollManagementBoard({ canApprove = false }) {
   const importInputRef = useRef(null);
   const currentUser = useMemo(() => getStoredAuth()?.user || null, []);
   const currentUserRole = String(currentUser?.role || currentUser?.primaryRole || '').trim().toLowerCase();
-  const canEditPayrollSettings = ['owner', 'hos'].includes(currentUserRole);
+  const canEditPayrollSettings = ['owner', 'hos', 'accountant'].includes(currentUserRole);
 
   const showToast = useCallback((message) => {
     setToast(message);
@@ -775,6 +775,18 @@ function PayrollManagementBoard({ canApprove = false }) {
     }));
   }
 
+  function removeCustomColumn(kind, key) {
+    const target = (settingsForm[kind] || []).find((column) => column.key === key);
+    if (!target || target.fixed) {
+      showToast('Standard headings cannot be removed.');
+      return;
+    }
+    setSettingsForm((current) => ({
+      ...current,
+      [kind]: current[kind].filter((column) => column.key !== key),
+    }));
+  }
+
   async function persistRow(staffId) {
     const targetRow = rows.find((row) => row.id === staffId);
     if (!targetRow) {
@@ -823,7 +835,7 @@ function PayrollManagementBoard({ canApprove = false }) {
 
   async function saveSettings() {
     if (!canEditPayrollSettings) {
-      showToast('Only the owner or head of school can save payroll headings.');
+      showToast('Only the owner, head of school, or accountant can save payroll headings.');
       return;
     }
 
@@ -1112,9 +1124,14 @@ function PayrollManagementBoard({ canApprove = false }) {
                                   {index === 0 ? <span className="block text-[10px] uppercase tracking-[0.16em] text-[#f5deb3]">Earnings</span> : null}
                                   <span className="block text-[10px] uppercase tracking-[0.16em] text-[#f5deb3]/80">{column.fixed ? 'Standard' : 'Custom'} earning</span>
                                 </div>
-                                {index === 0 ? (
-                                  <button type="button" onClick={() => addCustomColumn('earningColumns')} className={ICON_BTN} title="Add earning heading" aria-label="Add earning heading">+</button>
-                                ) : null}
+                                <div className="flex items-center gap-1">
+                                  {index === 0 ? (
+                                    <button type="button" onClick={() => addCustomColumn('earningColumns')} className={ICON_BTN} title="Add earning heading" aria-label="Add earning heading">+</button>
+                                  ) : null}
+                                  {!column.fixed ? (
+                                    <button type="button" onClick={() => removeCustomColumn('earningColumns', column.key)} className={ICON_BTN} title="Remove earning heading" aria-label="Remove earning heading">−</button>
+                                  ) : null}
+                                </div>
                               </div>
                               <input
                                 type="text"
@@ -1136,9 +1153,14 @@ function PayrollManagementBoard({ canApprove = false }) {
                                   {index === 0 ? <span className="block text-[10px] uppercase tracking-[0.16em] text-[#f5deb3]">Deductions</span> : null}
                                   <span className="block text-[10px] uppercase tracking-[0.16em] text-[#f5deb3]/80">{column.fixed ? 'Standard' : 'Custom'} deduction</span>
                                 </div>
-                                {index === 0 ? (
-                                  <button type="button" onClick={() => addCustomColumn('deductionColumns')} className={ICON_BTN} title="Add deduction heading" aria-label="Add deduction heading">+</button>
-                                ) : null}
+                                <div className="flex items-center gap-1">
+                                  {index === 0 ? (
+                                    <button type="button" onClick={() => addCustomColumn('deductionColumns')} className={ICON_BTN} title="Add deduction heading" aria-label="Add deduction heading">+</button>
+                                  ) : null}
+                                  {!column.fixed ? (
+                                    <button type="button" onClick={() => removeCustomColumn('deductionColumns', column.key)} className={ICON_BTN} title="Remove deduction heading" aria-label="Remove deduction heading">−</button>
+                                  ) : null}
+                                </div>
                               </div>
                               <input
                                 type="text"
@@ -1451,15 +1473,20 @@ function PayrollManagementBoard({ canApprove = false }) {
               </div>
               <div className="mt-4 space-y-3">
                 {settingsForm.earningColumns.map(column => (
-                  <label key={`earning-setting-${column.key}`} className="text-xs font-semibold uppercase tracking-[0.16em] text-[#800020] dark:text-[#bf00ff]">
-                    {column.fixed ? 'Standard Heading' : 'Custom Heading'}
-                    <input
-                      type="text"
-                      value={column.label}
-                      onChange={(event) => updateColumnLabel('earningColumns', column.key, event.target.value)}
-                      className={`${INPUT} mt-2`}
-                    />
-                  </label>
+                  <div key={`earning-setting-${column.key}`}>
+                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#800020] dark:text-[#bf00ff]">{column.fixed ? 'Standard Heading' : 'Custom Heading'}</p>
+                    <div className="mt-2 flex items-center gap-2">
+                      <input
+                        type="text"
+                        value={column.label}
+                        onChange={(event) => updateColumnLabel('earningColumns', column.key, event.target.value)}
+                        className={INPUT}
+                      />
+                      {!column.fixed ? (
+                        <button type="button" onClick={() => removeCustomColumn('earningColumns', column.key)} className={ICON_BTN} title="Remove earning heading" aria-label="Remove earning heading">−</button>
+                      ) : null}
+                    </div>
+                  </div>
                 ))}
               </div>
             </div>
@@ -1474,15 +1501,20 @@ function PayrollManagementBoard({ canApprove = false }) {
               </div>
               <div className="mt-4 space-y-3">
                 {settingsForm.deductionColumns.map(column => (
-                  <label key={`deduction-setting-${column.key}`} className="text-xs font-semibold uppercase tracking-[0.16em] text-[#800020] dark:text-[#bf00ff]">
-                    {column.fixed ? 'Standard Heading' : 'Custom Heading'}
-                    <input
-                      type="text"
-                      value={column.label}
-                      onChange={(event) => updateColumnLabel('deductionColumns', column.key, event.target.value)}
-                      className={`${INPUT} mt-2`}
-                    />
-                  </label>
+                  <div key={`deduction-setting-${column.key}`}>
+                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#800020] dark:text-[#bf00ff]">{column.fixed ? 'Standard Heading' : 'Custom Heading'}</p>
+                    <div className="mt-2 flex items-center gap-2">
+                      <input
+                        type="text"
+                        value={column.label}
+                        onChange={(event) => updateColumnLabel('deductionColumns', column.key, event.target.value)}
+                        className={INPUT}
+                      />
+                      {!column.fixed ? (
+                        <button type="button" onClick={() => removeCustomColumn('deductionColumns', column.key)} className={ICON_BTN} title="Remove deduction heading" aria-label="Remove deduction heading">−</button>
+                      ) : null}
+                    </div>
+                  </div>
                 ))}
               </div>
             </div>

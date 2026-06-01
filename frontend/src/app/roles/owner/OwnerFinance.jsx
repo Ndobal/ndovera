@@ -19,15 +19,12 @@ function SubscriptionTab() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [toast, setToast] = useState('');
   useEffect(() => { getMyTenant().then(setData).catch(e => setError(e.message)).finally(() => setLoading(false)); }, []);
-  function showToast(msg) { setToast(msg); setTimeout(() => setToast(''), 3000); }
   const tenant = data?.tenant; const payments = data?.payments || []; const quote = data?.quote;
   if (loading) return <div className={CARD}><p className="text-[#800020]">Loading...</p></div>;
   if (error) return <div className={CARD}><p className="text-[#800000]">{error}</p></div>;
   return (
     <div className="space-y-4">
-      {toast && <div className="fixed top-6 right-6 z-50 bg-[#1a5c38] text-[#f5deb3] font-bold px-5 py-3 rounded-2xl shadow-xl">{toast}</div>}
       <div className={CARD}><h2 className="text-lg font-bold text-[#800000] mb-4">Payment Summary</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <InfoRow label="Plan" value={quote?.planName || tenant?.planKey} />
@@ -48,12 +45,6 @@ function SubscriptionTab() {
               </div><StatusPill status={p.status} />
             </div>))}
           </div>}
-      </div>
-      <div className={CARD}><h2 className="text-lg font-bold text-[#800000] mb-4">Quick Actions</h2>
-        <div className="flex gap-3 flex-wrap">
-          <button onClick={() => showToast('Coming soon')} className={BTN}>View Invoice</button>
-          <button onClick={() => showToast('Coming soon')} className={BTN}>Update Payment Method</button>
-        </div>
       </div>
     </div>
   );
@@ -153,8 +144,19 @@ function AIAnalysisTab() {
       {loading && <div className={CARD}><div className="flex items-center gap-3"><div className="w-5 h-5 border-2 border-[#800020] border-t-transparent rounded-full animate-spin" /><p className="text-[#191970] text-sm">Analysing your financial data…</p></div></div>}
       {error && <div className={CARD}><p className="text-[#800000] text-sm">{error.includes('AI') || error.includes('key') ? 'AI analysis requires configuration. Please contact Ndovera support.' : error}</p></div>}
       {result && <div className="space-y-4">
-        {result.summary && <div className={CARD}><h3 className="font-bold text-[#800000] mb-2">Current Term Summary</h3><p className="text-[#191970] text-sm">{result.summary}</p></div>}
-        {result.comparison && <div className={CARD}><h3 className="font-bold text-[#800000] mb-2">Term Comparison</h3><p className="text-[#191970] text-sm">{result.comparison}</p></div>}
+        {result.metrics && <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className={CARD}><p className="text-xs text-[#800020] uppercase font-semibold">Collected</p><p className="text-xl font-bold text-emerald-700 mt-1">₦{Number(result.metrics.totalCollected || 0).toLocaleString()}</p><p className="text-xs text-[#191970] mt-0.5">{result.metrics.collectionRate || 0}% of expected</p></div>
+          <div className={CARD}><p className="text-xs text-[#800020] uppercase font-semibold">Outstanding</p><p className="text-xl font-bold text-red-700 mt-1">₦{Number(result.metrics.totalOutstanding || 0).toLocaleString()}</p><p className="text-xs text-[#191970] mt-0.5">{(result.metrics.unpaidCount || 0) + (result.metrics.partialCount || 0)} owing</p></div>
+          <div className={CARD}><p className="text-xs text-[#800020] uppercase font-semibold">Expenditure</p><p className="text-xl font-bold text-[#800000] mt-1">₦{Number(result.metrics.totalExpenditure || 0).toLocaleString()}</p><p className="text-xs text-[#191970] mt-0.5">Recorded</p></div>
+          <div className={CARD}><p className="text-xs text-[#800020] uppercase font-semibold">Net Position</p><p className={`text-xl font-bold mt-1 ${Number(result.metrics.netPosition || 0) >= 0 ? 'text-emerald-700' : 'text-red-700'}`}>₦{Math.abs(Number(result.metrics.netPosition || 0)).toLocaleString()}</p><p className="text-xs text-[#191970] mt-0.5">{Number(result.metrics.netPosition || 0) >= 0 ? 'Surplus' : 'Deficit'}</p></div>
+        </div>}
+        {result.summary && <div className={CARD}><h3 className="font-bold text-[#800000] mb-2">Current Term Summary{result.generatedBy === 'ai' ? <span className="ml-2 text-xs font-semibold text-[#1a5c38]">✦ AI</span> : null}</h3><p className="text-[#191970] text-sm whitespace-pre-line">{result.summary}</p></div>}
+        {result.comparison && <div className={CARD}><h3 className="font-bold text-[#800000] mb-2">Spending Comparison</h3><p className="text-[#191970] text-sm whitespace-pre-line">{result.comparison}</p></div>}
+        {result.debtors?.length > 0 && <div className={CARD}><h3 className="font-bold text-[#800000] mb-3">Outstanding Balances ({result.debtors.length})</h3>
+          <div className="overflow-x-auto"><table className="w-full text-sm"><thead><tr className="text-left text-[#800020] font-semibold border-b border-[#c9a96e]/40"><th className="pb-2 pr-4">Student</th><th className="pb-2 pr-4">Class</th><th className="pb-2 pr-4">Paid</th><th className="pb-2 pr-4">Owing</th><th className="pb-2">Status</th></tr></thead>
+            <tbody>{result.debtors.map((d, i) => (<tr key={d.studentId || i} className="border-b border-[#c9a96e]/20"><td className="py-2 pr-4 text-[#191970] font-semibold">{d.name}</td><td className="py-2 pr-4 text-[#191970]">{d.className || '—'}</td><td className="py-2 pr-4 text-[#191970]">₦{Number(d.amountPaid || 0).toLocaleString()}</td><td className="py-2 pr-4 text-red-700 font-semibold">₦{Number(d.balance || 0).toLocaleString()}</td><td className="py-2"><StatusPill status={d.status} /></td></tr>))}</tbody>
+          </table></div>
+        </div>}
         {result.suggestions?.length > 0 && <div className={CARD}><h3 className="font-bold text-[#800000] mb-3">Suggestions</h3>
           <ul className="space-y-2">{result.suggestions.map((s, i) => <li key={i} className={`${INNER} text-[#191970] text-sm flex items-start gap-2`}><span className="text-[#1a5c38] font-bold mt-0.5">→</span>{s}</li>)}</ul>
         </div>}

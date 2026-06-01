@@ -14972,7 +14972,7 @@ app.get('/api/school/payroll/settings', authenticate, async (c) => {
 })
 
 app.post('/api/school/payroll/settings', authenticate, async (c) => {
-  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos'])) return c.json({ error: 'forbidden' }, 403)
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos', 'accountant'])) return c.json({ error: 'forbidden' }, 403)
   const tenantId = c.var.user?.tenantId
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
   const payload = normalizePayrollSettingsInput(await c.req.json())
@@ -16098,19 +16098,259 @@ app.post('/api/school/attendance/ai-analysis', authenticate, async (c) => {
   }
 })
 
-app.post('/api/school/finance/ai-analysis', authenticate, async (c) => {
-  return c.json({
-    success: true,
-    analysis: {
-      summary: "Based on this term's data, your school has collected 67% of projected fees.",
-      comparison: "This is 12% higher than last term.",
-      suggestions: [
-        "Follow up with 8 students who have unpaid balances exceeding ₦50,000",
-        "Expenditure on utilities increased by 23% — consider an energy audit",
-        "On-track for end-of-term payroll with current collections",
-      ],
+const FINANCE_AI_VIEW_ROLES = ['owner', 'hos', 'accountant', 'admin']
+
+// Pulls a real, tenant-scoped finance snapshot (fees ledger debtors, expenditure,
+// payroll, current session) so the AI analysis runs on live data instead of mock copy.
+async function buildSchoolFinanceSnapshot(db: D1Database, currentUser: Record<string, any>) {
+  const feeView = await listVisibleFeeLedgerEntries(db, currentUser)
+  if (!feeView.tenantId) {
+    return { allowed: false, reason: 'no-tenant', tenantId: '', role: feeView.role } as const
+  }
+  if (!feeView.allowed || !FINANCE_AI_VIEW_ROLES.includes(feeView.role)) {
+    return { allowed: false, reason: 'forbidden', tenantId: feeView.tenantId, role: feeView.role } as const
+  }
+
+  const tenantId = feeView.tenantId
+  const ledger = feeView.ledger || []
+
+  const totalExpected = ledger.reduce((sum, entry) => sum + Number(entry.feeAmount || 0), 0)
+  const totalCollected = ledger.reduce((sum, entry) => sum + Number(entry.amountPaid || 0), 0)
+  const totalOutstanding = ledger.reduce((sum, entry) => sum + Number(entry.balance || 0), 0)
+  const collectionRate = totalExpected > 0 ? Math.round((totalCollected / totalExpected) * 100) : 0
+  const paidCount = ledger.filter(entry => String(entry.status) === 'Paid').length
+  const partialCount = ledger.filter(entry => String(entry.status) === 'Partial').length
+  const unpaidCount = ledger.filter(entry => String(entry.status) === 'Unpaid').length
+
+  const debtors = ledger
+    .filter(entry => Number(entry.balance || 0) > 0)
+    .sort((a, b) => Number(b.balance || 0) - Number(a.balance || 0))
+    .map(entry => ({
+      studentId: String(entry.studentId || ''),
+      name: String(entry.name || 'Student'),
+      className: String(entry.className || ''),
+      feeAmount: Number(entry.feeAmount || 0),
+      amountPaid: Number(entry.amountPaid || 0),
+      balance: Number(entry.balance || 0),
+      status: String(entry.status || ''),
+    }))
+
+  const now = new Date()
+  const thisMonthKey = now.toISOString().slice(0, 7)
+  const prevMonthKey = new Date(now.getFullYear(), now.getMonth() - 1, 1).toISOString().slice(0, 7)
+
+  let totalExpenditure = 0
+  let monthExpenditure = 0
+  let prevMonthExpenditure = 0
+  const categoryTotals: Record<string, number> = {}
+  try {
+    await db.prepare(`CREATE TABLE IF NOT EXISTS expenditures (id TEXT PRIMARY KEY, tenant_id TEXT, description TEXT, category TEXT, amount REAL, date TEXT, recorded_by TEXT, created_at TEXT)`).run()
+    const expRows = await db.prepare(`SELECT amount, category, date, created_at FROM expenditures WHERE tenant_id = ?`).bind(tenantId).all()
+    for (const row of ((expRows.results || []) as Record<string, any>[])) {
+      const amount = Number(row.amount || 0)
+      totalExpenditure += amount
+      const periodKey = String(row.date || row.created_at || '').slice(0, 7)
+      if (periodKey === thisMonthKey) monthExpenditure += amount
+      if (periodKey === prevMonthKey) prevMonthExpenditure += amount
+      const category = String(row.category || 'Other').trim() || 'Other'
+      categoryTotals[category] = (categoryTotals[category] || 0) + amount
+    }
+  } catch {}
+
+  let monthlyPayrollGross = 0
+  try {
+    await ensurePayrollEntriesTable(db)
+    const payRows = await db.prepare(`SELECT gross, basic_salary FROM payroll_entries WHERE tenant_id = ? AND period = ?`).bind(tenantId, thisMonthKey).all()
+    for (const row of ((payRows.results || []) as Record<string, any>[])) {
+      monthlyPayrollGross += Number(row.gross || row.basic_salary || 0)
+    }
+  } catch {}
+
+  const session = await getCurrentSchoolSessionSnapshot(db, tenantId)
+
+  return {
+    allowed: true as const,
+    tenantId,
+    role: feeView.role,
+    session,
+    debtors,
+    categoryTotals,
+    metrics: {
+      studentCount: ledger.length,
+      totalExpected,
+      totalCollected,
+      totalOutstanding,
+      collectionRate,
+      paidCount,
+      partialCount,
+      unpaidCount,
+      totalExpenditure,
+      monthExpenditure,
+      prevMonthExpenditure,
+      monthlyPayrollGross,
+      netPosition: totalCollected - totalExpenditure,
     },
-  })
+  }
+}
+
+type FinanceSnapshot = Extract<Awaited<ReturnType<typeof buildSchoolFinanceSnapshot>>, { allowed: true }>
+
+// Deterministic analysis that always names debtors + amounts, used as the AI fallback.
+function buildDeterministicFinanceAnalysis(snapshot: FinanceSnapshot) {
+  const m = snapshot.metrics
+  const periodLabel = [snapshot.session.termName, snapshot.session.sessionName].filter(Boolean).join(' • ') || 'the current term'
+  const owingCount = m.partialCount + m.unpaidCount
+  const topDebtors = snapshot.debtors.slice(0, 5)
+
+  const summaryParts = [
+    `For ${periodLabel}, the school has collected ${formatNairaAmount(m.totalCollected)} of ${formatNairaAmount(m.totalExpected)} in expected fees (${m.collectionRate}% collected) across ${m.studentCount} student${m.studentCount === 1 ? '' : 's'}.`,
+    owingCount > 0
+      ? `${formatNairaAmount(m.totalOutstanding)} is still outstanding from ${owingCount} student${owingCount === 1 ? '' : 's'} (${m.unpaidCount} unpaid, ${m.partialCount} part-paid).`
+      : 'All recorded fees have been fully collected.',
+  ]
+  if (topDebtors.length) {
+    summaryParts.push(`The largest balances are owed by ${topDebtors.map(d => `${d.name}${d.className ? ` (${d.className})` : ''} — ${formatNairaAmount(d.balance)}`).join('; ')}.`)
+  }
+  summaryParts.push(`Recorded expenditure stands at ${formatNairaAmount(m.totalExpenditure)}, leaving a net cash position of ${formatNairaAmount(m.netPosition)}.`)
+
+  let comparison: string
+  if (m.prevMonthExpenditure > 0) {
+    const change = Math.round(((m.monthExpenditure - m.prevMonthExpenditure) / m.prevMonthExpenditure) * 100)
+    const direction = change >= 0 ? 'higher' : 'lower'
+    comparison = `This month's expenditure (${formatNairaAmount(m.monthExpenditure)}) is ${Math.abs(change)}% ${direction} than last month (${formatNairaAmount(m.prevMonthExpenditure)}).`
+  } else {
+    comparison = `This month's recorded expenditure is ${formatNairaAmount(m.monthExpenditure)}. No expenditure was recorded last month for comparison.`
+  }
+
+  const suggestions: string[] = []
+  if (topDebtors.length) {
+    suggestions.push(`Follow up on outstanding fees, starting with ${topDebtors.slice(0, 3).map(d => `${d.name} (${formatNairaAmount(d.balance)})`).join(', ')}.`)
+  }
+  if (m.collectionRate < 80 && m.totalExpected > 0) {
+    suggestions.push(`Collection is at ${m.collectionRate}% — send fee reminders to the ${owingCount} student${owingCount === 1 ? '' : 's'} with balances to lift it above 80%.`)
+  }
+  const topCategory = Object.entries(snapshot.categoryTotals).sort((a, b) => b[1] - a[1])[0]
+  if (topCategory && topCategory[1] > 0) {
+    suggestions.push(`${topCategory[0]} is the biggest expenditure line at ${formatNairaAmount(topCategory[1])} — review it for savings.`)
+  }
+  if (m.monthlyPayrollGross > 0) {
+    const cover = m.monthlyPayrollGross > 0 ? Math.round((m.totalCollected / m.monthlyPayrollGross) * 100) : 0
+    suggestions.push(`Collected fees cover roughly ${cover}% of this month's ${formatNairaAmount(m.monthlyPayrollGross)} payroll obligation.`)
+  }
+  if (!suggestions.length) {
+    suggestions.push('Finances are healthy — keep recording expenditure and issuing receipts promptly to maintain a clean audit trail.')
+  }
+
+  return { summary: summaryParts.join(' '), comparison, suggestions }
+}
+
+function parseFinanceAiJson(raw: string) {
+  let text = String(raw || '').trim()
+  const fenced = text.match(/```(?:json)?\s*([\s\S]*?)```/i)
+  if (fenced) text = fenced[1].trim()
+  const start = text.indexOf('{')
+  const end = text.lastIndexOf('}')
+  if (start === -1 || end === -1 || end <= start) {
+    return { summary: text.slice(0, 1400), comparison: '', suggestions: [] as string[] }
+  }
+  try {
+    const obj = JSON.parse(text.slice(start, end + 1)) as Record<string, any>
+    const suggestions = Array.isArray(obj.suggestions)
+      ? obj.suggestions.map((s: unknown) => String(s || '').trim()).filter(Boolean).slice(0, 8)
+      : []
+    return {
+      summary: String(obj.summary || '').trim(),
+      comparison: String(obj.comparison || '').trim(),
+      suggestions,
+    }
+  } catch {
+    return { summary: text.slice(0, 1400), comparison: '', suggestions: [] as string[] }
+  }
+}
+
+// Generates the narrative with the same AI model that powers the teacher/staff assistant
+// (the Workers AI binding), with an optional NVIDIA key fallback. Returns null if no model
+// is configured so the deterministic analysis can take over.
+async function runFinanceAiNarrative(env: Bindings, snapshot: FinanceSnapshot) {
+  const m = snapshot.metrics
+  const topDebtors = snapshot.debtors.slice(0, 12)
+  const debtorLines = topDebtors.length
+    ? topDebtors.map((d, i) => `${i + 1}. ${d.name}${d.className ? ` (${d.className})` : ''} owes ${formatNairaAmount(d.balance)} of ${formatNairaAmount(d.feeAmount)} (${d.status})`).join('\n')
+    : 'None — all fees collected.'
+
+  const dataBlock = [
+    `Period: ${[snapshot.session.termName, snapshot.session.sessionName].filter(Boolean).join(' / ') || 'current term'}`,
+    `Students on the fee register: ${m.studentCount}`,
+    `Expected fees: ${formatNairaAmount(m.totalExpected)}`,
+    `Collected fees: ${formatNairaAmount(m.totalCollected)} (${m.collectionRate}%)`,
+    `Outstanding fees: ${formatNairaAmount(m.totalOutstanding)} from ${m.partialCount + m.unpaidCount} student(s) (${m.unpaidCount} unpaid, ${m.partialCount} part-paid)`,
+    `Total recorded expenditure: ${formatNairaAmount(m.totalExpenditure)}`,
+    `Expenditure this month: ${formatNairaAmount(m.monthExpenditure)}; last month: ${formatNairaAmount(m.prevMonthExpenditure)}`,
+    `Estimated payroll this month (gross): ${formatNairaAmount(m.monthlyPayrollGross)}`,
+    `Net cash position (collected minus expenditure): ${formatNairaAmount(m.netPosition)}`,
+  ].join('\n')
+
+  const systemPrompt = [
+    'You are Ndovera Finance AI, a precise school finance analyst.',
+    'Respond with ONLY valid minified JSON in this exact shape: {"summary": string, "comparison": string, "suggestions": string[]}.',
+    'Use only the real figures provided. All amounts are Nigerian Naira (₦).',
+    'In "summary", explicitly name the students with the largest outstanding balances and state how much each one owes.',
+    'In "comparison", compare this month and last month spending and comment on collection health.',
+    'In "suggestions", give 3-5 short, concrete finance actions. Be professional and specific. Do not invent numbers.',
+  ].join(' ')
+
+  const userPrompt = `School finance data:\n${dataBlock}\n\nStudents with outstanding balances (largest first):\n${debtorLines}`
+
+  const messages: AiConversationMessage[] = [
+    { role: 'system', content: systemPrompt },
+    { role: 'user', content: userPrompt },
+  ]
+
+  let raw = ''
+  if (env.AI && typeof env.AI.run === 'function') {
+    const result = await env.AI.run(WORKERS_AI_MODEL, { messages, max_tokens: 900, temperature: 0.4 })
+    raw = extractWorkersAiText(result)
+  } else if (String(env.NVIDIA_API_KEY || '').trim()) {
+    raw = await runNvidiaStudentChat(env, messages)
+  } else {
+    return null
+  }
+
+  if (!raw) return null
+  const parsed = parseFinanceAiJson(raw)
+  return parsed.summary ? parsed : null
+}
+
+app.post('/api/school/finance/ai-analysis', authenticate, async (c) => {
+  try {
+    const snapshot = await buildSchoolFinanceSnapshot(c.env.APP_DB, c.var.user || {})
+    if (!snapshot.allowed) {
+      return c.json({ error: snapshot.reason === 'no-tenant' ? 'No tenant.' : 'forbidden' }, snapshot.reason === 'no-tenant' ? 400 : 403)
+    }
+
+    const fallback = buildDeterministicFinanceAnalysis(snapshot)
+    let aiAnalysis: { summary: string; comparison: string; suggestions: string[] } | null = null
+    try {
+      aiAnalysis = await runFinanceAiNarrative(c.env, snapshot)
+    } catch (error) {
+      console.error('finance AI narrative failed', error)
+    }
+
+    return c.json({
+      success: true,
+      analysis: {
+        summary: aiAnalysis?.summary || fallback.summary,
+        comparison: aiAnalysis?.comparison || fallback.comparison,
+        suggestions: aiAnalysis?.suggestions?.length ? aiAnalysis.suggestions : fallback.suggestions,
+        debtors: snapshot.debtors.slice(0, 50),
+        metrics: snapshot.metrics,
+        generatedBy: aiAnalysis ? 'ai' : 'computed',
+      },
+    })
+  } catch (error) {
+    console.error('finance ai-analysis failed', error)
+    return c.json({ error: 'Could not analyse finances.' }, 500)
+  }
 })
 
 // ─── Public tenant data endpoint ─────────────────────────────────────────────

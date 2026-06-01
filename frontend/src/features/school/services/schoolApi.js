@@ -324,6 +324,10 @@ export const getAttendanceMonthlyReport = (params = {}) => req(`/api/school/atte
 export const runAttendanceAI = (payload = {}) => req('/api/school/attendance/ai-analysis', { method: 'POST', body: payload });
 export const runFinanceAI = () => req('/api/school/finance/ai-analysis', { method: 'POST' });
 
+// Tuck shop finance
+export const getTuckOrders = (placedBy) => req(`/api/tuck/orders${buildQuery(placedBy ? { placedBy } : {})}`);
+export const getTuckWeekly = (weeks = 8) => req(`/api/tuck/orders/weekly${buildQuery({ weeks })}`);
+
 // Results
 export const getResultTemplates = () => req('/api/results/templates');
 export const getResultSettings = () => req('/api/results/settings');
