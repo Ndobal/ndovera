@@ -118,6 +118,12 @@ type Bindings = {
 }
 
 const app = new Hono<{ Bindings: Bindings }>()
+
+// Module-level guard: ensure*Table functions are idempotent DDL. Running them on every
+// request burns D1 CPU budget needlessly (each has 3–8 DDL statements). Track which
+// tables have been initialised for this isolate lifetime so subsequent calls are free.
+// Cloudflare reuses isolates across requests, so this persists until the Worker is redeployed.
+const _initializedTables = new Set<string>()
 const AUTH_COOKIE_NAME = 'ndovera_token'
 const DEFAULT_AUTH_SESSION_SECONDS = 30 * 24 * 60 * 60
 const PASSWORD_RESET_TOKEN_TTL_MS = 30 * 60 * 1000
@@ -329,6 +335,8 @@ function mergeAdmissionProfileRecord(existingProfile: Record<string, any>, paylo
 }
 
 async function ensurePasswordResetTokensTable(db: D1Database) {
+  if (_initializedTables.has('password_reset_tokens')) return
+  _initializedTables.add('password_reset_tokens')
   await db.prepare(PASSWORD_RESET_TOKENS_DDL).run()
 }
 
@@ -1425,10 +1433,14 @@ const WEB_PUSH_SUBSCRIPTIONS_DDL = `CREATE TABLE IF NOT EXISTS web_push_subscrip
 const FEE_PAYMENT_APPROVER_ROLES = ['owner', 'hos', 'accountant']
 
 async function ensureFeesLedgerTable(db: D1Database) {
+  if (_initializedTables.has('fees_ledger')) return
+  _initializedTables.add('fees_ledger')
   await db.prepare(FEES_LEDGER_DDL).run()
 }
 
 async function ensureFeesConfigTable(db: D1Database) {
+  if (_initializedTables.has('fees_config')) return
+  _initializedTables.add('fees_config')
   await db.prepare(FEES_CONFIG_DDL).run()
   try { await db.exec('ALTER TABLE fees_config ADD COLUMN term TEXT') } catch {}
   try { await db.exec('ALTER TABLE fees_config ADD COLUMN sort_order INTEGER') } catch {}
@@ -1436,6 +1448,8 @@ async function ensureFeesConfigTable(db: D1Database) {
 }
 
 async function ensureFeesPaymentReceiptsTable(db: D1Database) {
+  if (_initializedTables.has('fees_payment_receipts')) return
+  _initializedTables.add('fees_payment_receipts')
   await db.prepare(FEES_PAYMENT_RECEIPTS_DDL).run()
   try { await db.exec('ALTER TABLE fees_payment_receipts ADD COLUMN student_display_id TEXT') } catch {}
   try { await db.exec('ALTER TABLE fees_payment_receipts ADD COLUMN payment_reference TEXT') } catch {}
@@ -1449,14 +1463,20 @@ async function ensureFeesPaymentReceiptsTable(db: D1Database) {
 }
 
 async function ensureFeesPaymentClaimsTable(db: D1Database) {
+  if (_initializedTables.has('fees_payment_claims')) return
+  _initializedTables.add('fees_payment_claims')
   await db.prepare(FEES_PAYMENT_CLAIMS_DDL).run()
 }
 
 async function ensureSchoolSessionsTable(db: D1Database) {
+  if (_initializedTables.has('school_sessions')) return
+  _initializedTables.add('school_sessions')
   await db.prepare(`CREATE TABLE IF NOT EXISTS school_sessions (id TEXT PRIMARY KEY, tenantId TEXT, session TEXT, term TEXT, startDate TEXT, endDate TEXT, createdAt TEXT)`).run()
 }
 
 async function ensureWebPushSubscriptionsTable(db: D1Database) {
+  if (_initializedTables.has('web_push_subscriptions')) return
+  _initializedTables.add('web_push_subscriptions')
   await db.prepare(WEB_PUSH_SUBSCRIPTIONS_DDL).run()
 }
 
@@ -4323,6 +4343,8 @@ function isHighPriorityAuditEvent(entry: Record<string, any> = {}) {
 }
 
 async function ensureHeaderAuditTable(db: D1Database) {
+  if (_initializedTables.has('header_audit')) return
+  _initializedTables.add('header_audit')
   await db.prepare(HEADER_AUDIT_DDL).run().catch(() => null)
 }
 
@@ -4564,10 +4586,14 @@ const WEBSITE_ENQUIRIES_DDL = `CREATE TABLE IF NOT EXISTS website_enquiries (
 )`
 
 async function ensureAdmissionApplicationsTable(db: D1Database) {
+  if (_initializedTables.has('admission_applications')) return
+  _initializedTables.add('admission_applications')
   await db.prepare(ADMISSION_APPLICATIONS_DDL).run()
 }
 
 async function ensureWebsiteEnquiriesTable(db: D1Database) {
+  if (_initializedTables.has('website_enquiries')) return
+  _initializedTables.add('website_enquiries')
   await db.prepare(WEBSITE_ENQUIRIES_DDL).run()
 }
 
@@ -7312,6 +7338,8 @@ app.post('/api/classrooms/:classroomId/assignment-assets/upload', authenticate, 
 })
 
 async function ensureClassroomSubjectsTable(db: D1Database) {
+  if (_initializedTables.has('classroom_subjects')) return
+  _initializedTables.add('classroom_subjects')
   await db.prepare(`CREATE TABLE IF NOT EXISTS subjects (id TEXT PRIMARY KEY, tenantId TEXT, name TEXT, classId TEXT, teacherId TEXT, createdAt TEXT)`).run()
   try { await db.exec('ALTER TABLE subjects ADD COLUMN tenantId TEXT') } catch {}
   try { await db.exec('ALTER TABLE subjects ADD COLUMN classId TEXT') } catch {}
@@ -7956,6 +7984,8 @@ app.post('/api/lesson-plans/:lessonPlanId/review', authenticate, async (c) => {
 })
 
 async function ensureSchoolStudentAttendanceTable(db: D1Database) {
+  if (_initializedTables.has('school_student_attendance')) return
+  _initializedTables.add('school_student_attendance')
   await db.prepare(`CREATE TABLE IF NOT EXISTS student_attendance_school (
     id TEXT PRIMARY KEY,
     tenant_id TEXT,
@@ -9148,6 +9178,8 @@ type DisplayIdConfig = {
 }
 
 async function ensureUsersTable(db: D1Database) {
+  if (_initializedTables.has('users')) return
+  _initializedTables.add('users')
   await db.prepare(USERS_TABLE_SQL).run()
   try { await db.exec('ALTER TABLE users ADD COLUMN tenantId TEXT') } catch {}
   try { await db.exec('ALTER TABLE users ADD COLUMN passwordHash TEXT') } catch {}
@@ -9173,6 +9205,8 @@ async function ensureUsersTable(db: D1Database) {
 }
 
 async function ensureUserRolesTable(db: D1Database) {
+  if (_initializedTables.has('user_roles')) return
+  _initializedTables.add('user_roles')
   await db.prepare(USER_ROLES_TABLE_SQL).run()
   await runIndexStatements(db, [
     `CREATE INDEX IF NOT EXISTS idx_user_roles_tenant_role_user ON user_roles(tenant_id, role, user_id)`,
@@ -9181,6 +9215,8 @@ async function ensureUserRolesTable(db: D1Database) {
 }
 
 async function ensureStudentPublicIdCounterTable(db: D1Database) {
+  if (_initializedTables.has('student_public_id_counter')) return
+  _initializedTables.add('student_public_id_counter')
   await db.prepare(STUDENT_PUBLIC_ID_COUNTERS_SQL).run()
 }
 
@@ -9359,10 +9395,14 @@ async function buildTenantQuoteForTenant(db: D1Database, tenant: any, discountCo
 }
 
 async function ensureParentStudentLinksTable(db: D1Database) {
+  if (_initializedTables.has('parent_student_links')) return
+  _initializedTables.add('parent_student_links')
   await db.prepare(PARENT_STUDENT_LINKS_SQL).run()
 }
 
 async function ensureClassesTable(db: D1Database) {
+  if (_initializedTables.has('classes')) return
+  _initializedTables.add('classes')
   await db.prepare(CLASSES_TABLE_SQL).run()
   await runIndexStatements(db, [
     `CREATE INDEX IF NOT EXISTS idx_classes_tenant_name_arm ON classes(tenantId, name, arm)`,
@@ -9371,6 +9411,8 @@ async function ensureClassesTable(db: D1Database) {
 }
 
 async function ensureSubjectsTable(db: D1Database) {
+  if (_initializedTables.has('subjects')) return
+  _initializedTables.add('subjects')
   await db.prepare(SUBJECTS_TABLE_SQL).run()
   try { await db.exec('ALTER TABLE subjects ADD COLUMN tenantId TEXT') } catch {}
   try { await db.exec('ALTER TABLE subjects ADD COLUMN classId TEXT') } catch {}
@@ -9384,6 +9426,8 @@ async function ensureSubjectsTable(db: D1Database) {
 }
 
 async function ensureClassMembershipsTable(db: D1Database) {
+  if (_initializedTables.has('class_memberships')) return
+  _initializedTables.add('class_memberships')
   await db.prepare(CLASS_MEMBERSHIPS_TABLE_SQL).run()
   await runIndexStatements(db, [
     `CREATE INDEX IF NOT EXISTS idx_class_memberships_tenant_class_role ON class_memberships(tenant_id, class_id, membership_role)`,
@@ -9655,6 +9699,8 @@ async function listActiveTenantPeopleWithProfiles(db: D1Database, tenantId: stri
 }
 
 async function ensureSchoolAwardsTable(db: D1Database) {
+  if (_initializedTables.has('school_awards')) return
+  _initializedTables.add('school_awards')
   await db.prepare(`CREATE TABLE IF NOT EXISTS school_awards (
     id TEXT PRIMARY KEY,
     tenant_id TEXT NOT NULL,
@@ -11594,6 +11640,8 @@ const BRANDING_SOCIAL_COLUMNS = [
 ] as const
 
 async function ensureBrandingTable(db: D1Database) {
+  if (_initializedTables.has('branding')) return
+  _initializedTables.add('branding')
   await db.prepare(INIT_BRANDING).run()
   for (const social of BRANDING_SOCIAL_COLUMNS) {
     await db.prepare(`ALTER TABLE tenant_branding ADD COLUMN ${social.column} TEXT`).run().catch(() => {})
@@ -11942,11 +11990,15 @@ const PLATFORM_SITE_SECTION_SEEDS = [
 ]
 
 async function ensureWebsiteSectionsTable(db: D1Database) {
+  if (_initializedTables.has('website_sections')) return
+  _initializedTables.add('website_sections')
   await db.prepare(INIT_WEBSITE_SECTIONS).run()
   await db.prepare(`ALTER TABLE website_sections ADD COLUMN metadata TEXT`).run().catch(() => {})
 }
 
 async function ensurePlatformSiteSectionsTable(db: D1Database) {
+  if (_initializedTables.has('platform_site_sections')) return
+  _initializedTables.add('platform_site_sections')
   await db.prepare(INIT_PLATFORM_SITE_SECTIONS).run()
   await db.prepare(`ALTER TABLE platform_site_sections ADD COLUMN metadata TEXT`).run().catch(() => {})
 
@@ -14081,6 +14133,8 @@ app.post('/api/school/expenditure', authenticate, async (c) => {
 })
 
 async function ensurePayrollEntriesTable(db: D1Database) {
+  if (_initializedTables.has('payroll_entries')) return
+  _initializedTables.add('payroll_entries')
   await db.prepare(`CREATE TABLE IF NOT EXISTS payroll_entries (id TEXT PRIMARY KEY, tenant_id TEXT, staff_id TEXT, period TEXT, basic_salary REAL, allowances_json TEXT, deductions_json TEXT, gross REAL, deductions REAL, manual_deductions REAL, net REAL, status TEXT, payment_status TEXT, employment_category TEXT, bank_name TEXT, account_name TEXT, account_number TEXT, approved INTEGER, submitted INTEGER, created_at TEXT, updated_at TEXT)`).run()
   try { await db.exec('ALTER TABLE payroll_entries ADD COLUMN submitted INTEGER DEFAULT 0') } catch {}
   try { await db.exec('ALTER TABLE payroll_entries ADD COLUMN manual_deductions REAL DEFAULT 0') } catch {}
@@ -15025,6 +15079,8 @@ app.get('/api/school/payroll/my-payslip', authenticate, async (c) => {
 
 // ─── Staff Attendance ─────────────────────────────────────────────────────────
 async function ensureStaffAttendanceBaseTable(db: D1Database) {
+  if (_initializedTables.has('staff_attendance_base')) return
+  _initializedTables.add('staff_attendance_base')
   await db.prepare(`CREATE TABLE IF NOT EXISTS staff_attendance (
     id TEXT PRIMARY KEY,
     tenant_id TEXT,
@@ -15037,6 +15093,8 @@ async function ensureStaffAttendanceBaseTable(db: D1Database) {
 }
 
 async function ensureStaffAttendanceSettingsTable(db: D1Database) {
+  if (_initializedTables.has('staff_attendance_settings')) return
+  _initializedTables.add('staff_attendance_settings')
   await db.prepare(`CREATE TABLE IF NOT EXISTS staff_attendance_settings (
     tenant_id TEXT PRIMARY KEY,
     mode TEXT,
@@ -15065,6 +15123,8 @@ async function ensureStaffAttendanceSettingsTable(db: D1Database) {
 }
 
 async function ensureStaffAttendanceEventsTable(db: D1Database) {
+  if (_initializedTables.has('staff_attendance_events')) return
+  _initializedTables.add('staff_attendance_events')
   await db.prepare(`CREATE TABLE IF NOT EXISTS staff_attendance_events (
     id TEXT PRIMARY KEY,
     tenant_id TEXT,
@@ -15095,6 +15155,8 @@ async function ensureStaffAttendanceEventsTable(db: D1Database) {
 }
 
 async function ensureStaffAttendancePermissionRequestsTable(db: D1Database) {
+  if (_initializedTables.has('staff_attendance_permission_requests')) return
+  _initializedTables.add('staff_attendance_permission_requests')
   await db.prepare(`CREATE TABLE IF NOT EXISTS staff_attendance_permission_requests (
     id TEXT PRIMARY KEY,
     tenant_id TEXT,
