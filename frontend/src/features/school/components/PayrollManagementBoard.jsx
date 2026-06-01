@@ -956,6 +956,8 @@ function PayrollManagementBoard({ canApprove = false }) {
     }
   }, [period, rows, settingsForm, showToast]);
 
+  const inputsLocked = approved || (!canApprove && submitted);
+
   const handleImportSheet = useCallback(async (event) => {
     const selectedFile = event.target.files?.[0];
     event.target.value = '';
@@ -1044,8 +1046,6 @@ function PayrollManagementBoard({ canApprove = false }) {
       { gross: 0, manualDeductions: 0, autoLateDeductions: 0, autoAbsenceDeductions: 0, deductions: 0, net: 0, count: 0, earnings: {}, deductionsByKey: {} },
     );
   }, [rows, settingsForm]);
-
-  const inputsLocked = approved || (!canApprove && submitted);
 
   return (
     <div className="space-y-6">

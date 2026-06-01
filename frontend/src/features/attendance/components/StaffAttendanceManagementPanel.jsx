@@ -94,6 +94,7 @@ export default function StaffAttendanceManagementPanel() {
   useEffect(() => {
     loadSettings();
     loadPermissionRequests();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

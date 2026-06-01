@@ -1,6 +1,5 @@
 import React from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
-import RoleSectionPage from '../../shared/components/RoleSectionPage';
 import operationalRoleConfigs from './config/operationalRoleConfigs';
 import WebsiteTab from './owner/tabs/WebsiteTab';
 import TeacherClassroom from '../../features/classroom/TeacherClassroom';

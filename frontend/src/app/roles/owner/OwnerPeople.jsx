@@ -36,7 +36,8 @@ function buildAvatarSrc(user) {
   return user?.avatarUrl || user?.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${seed}`;
 }
 
-function filterPeople(people, filter) {
+// filterPeople removed — filtering is now handled server-side via role param
+function _filterPeopleUnused(people, filter) {
   if (filter === 'Teachers') return people.filter(p => (p.roles || [p.role]).includes('teacher'));
   if (filter === 'Admin') return people.filter(p => (p.roles || [p.role]).some(role => ['owner', 'hos', 'accountant', 'principal', 'viceprincipal', 'hod', 'hodassistant', 'headteacher', 'nurseryhead', 'storekeeper', 'tuckshopmanager', 'transport', 'hostel', 'cafeteria', 'clinic', 'ict', 'ict_manager', 'examofficer', 'sportsmaster', 'sanitation', 'librarian', 'admin'].includes(role)));
   if (filter === 'Students') return people.filter(p => (p.roles || [p.role]).includes('student'));
