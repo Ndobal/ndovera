@@ -4392,84 +4392,76 @@ async function buildAuthenticatedHeader(c: any, roleKey: string) {
   const actorRole = normalizeRole(settings.role) || getActiveRole(currentUser) || roleKey
   const tenantId = settings.tenantId || settings.schoolId || resolvedUser.userRow?.tenantId || currentUser.tenantId
 
+  // Use raw identifiers only — skip resolveCanonicalUserIdentifier (saved 5-8 sequential DB calls).
   const rawIdentifiers = collectResolvedIdentityIdentifiers(resolvedUser, currentUser)
-  const canonicalIdentifiers = (await Promise.all(rawIdentifiers.map(identifier => resolveCanonicalUserIdentifier(c.env.APP_DB, identifier).catch(() => null))))
-    .filter(Boolean) as string[]
-  const comparableIdentifiers = collectComparableIdentifiers([...rawIdentifiers, ...canonicalIdentifiers])
-  const canonicalReaderId = String(await resolveCanonicalUserIdentifier(c.env.APP_DB, userIdentifier).catch(() => null) || rawIdentifiers[0] || userIdentifier).trim()
-  const readStates = canonicalReaderId ? await listConversationReadStates(c.env.APP_DB, canonicalReaderId) : {}
+  const comparableIdentifiers = collectComparableIdentifiers(rawIdentifiers)
+  const canonicalReaderId = String(rawIdentifiers[0] || userIdentifier).trim()
 
-  const conversations = (await getConversations(c.env.APP_DB)).filter(conversation => {
-    const participants = Array.isArray(conversation.participants) ? conversation.participants : []
-    return participants.some(participant => matchesComparableIdentifier(participant, comparableIdentifiers))
-  })
+  // Fire conversations, read-states, and all notification builders in one parallel batch.
+  const [allConversations, readStates, notificationBatch] = await Promise.all([
+    getConversations(c.env.APP_DB).catch(() => [] as any[]),
+    canonicalReaderId ? listConversationReadStates(c.env.APP_DB, canonicalReaderId).catch(() => ({} as Record<string, string>)) : Promise.resolve({} as Record<string, string>),
+    tenantId ? Promise.all([
+      buildFeeReminderNotificationItems(c.env.APP_DB, currentUser, actorRole).catch(() => [] as any[]),
+      buildFeePaymentClaimNotificationItems(c.env.APP_DB, currentUser, actorRole).catch(() => [] as any[]),
+      buildFeePaymentReceiptNotificationItems(c.env.APP_DB, currentUser, actorRole).catch(() => [] as any[]),
+      buildWebsiteEnquiryNotificationItems(c.env.APP_DB, tenantId, actorRole).catch(() => [] as any[]),
+      buildCriticalAuditNotificationItems(c.env.APP_DB, tenantId, actorRole).catch(() => [] as any[]),
+      listSchoolAnnouncements(c.env.APP_DB, tenantId, 8).catch(() => [] as any[]),
+    ]) : Promise.resolve([[], [], [], [], [], []] as any[][]),
+  ])
 
-  const conversationDetails = await Promise.all(conversations.slice(0, 24).map(async conversation => {
-    const messages = await getMessages(c.env.APP_DB, conversation.id)
-    const latestMessage = messages[messages.length - 1] || null
-    const lastReadAt = readStates[conversation.id] || ''
-    const participants = Array.isArray(conversation.participants) ? conversation.participants.map(value => String(value || '').trim()).filter(Boolean) : []
-    const counterpart = participants.find(participant => !matchesComparableIdentifier(participant, comparableIdentifiers)) || participants[0] || conversation.subject || 'Conversation'
-    const hasUnread = messages.some(message => {
-      const sender = (message as any).senderId || (message as any).sender_id
-      const sentAt = String((message as any).sentAt || (message as any).sent_at || '')
-      return !matchesComparableIdentifier(sender, comparableIdentifiers) && Boolean(sentAt) && (!lastReadAt || sentAt > lastReadAt)
+  // Build chat items from conversation metadata only — skip per-conversation getMessages calls
+  // (saved up to 24 DB round-trips). Use conversation updated_at for unread detection.
+  const userConversations = (allConversations as any[])
+    .filter(conversation => {
+      const participants = Array.isArray(conversation.participants) ? conversation.participants : []
+      return participants.some((participant: unknown) => matchesComparableIdentifier(participant, comparableIdentifiers))
     })
+    .sort((a: any, b: any) => String(b.updated_at || b.created_at || '').localeCompare(String(a.updated_at || a.created_at || '')))
+    .slice(0, 6)
 
+  const chatItems = userConversations.map((conversation: any) => {
+    const lastReadAt = (readStates as Record<string, string>)[conversation.id] || ''
+    const updatedAt = String(conversation.updated_at || conversation.created_at || '')
+    const hasUnread = Boolean(updatedAt && (!lastReadAt || updatedAt > lastReadAt))
+    const participants = (Array.isArray(conversation.participants) ? conversation.participants : []).map((v: unknown) => String(v || '').trim()).filter(Boolean)
+    const counterpart = participants.find((p: string) => !matchesComparableIdentifier(p, comparableIdentifiers)) || participants[0] || conversation.subject || 'Conversation'
     return {
       id: conversation.id,
-      title: conversation.subject || counterpart,
-      preview: clampPreview((latestMessage as any)?.body || ''),
-      time: formatHeaderTime((latestMessage as any)?.sentAt || (latestMessage as any)?.sent_at || conversation.updated_at),
+      sender: conversation.subject || counterpart,
+      preview: clampPreview(conversation.preview || conversation.last_message || ''),
+      time: formatHeaderTime(updatedAt),
       unread: hasUnread,
-      updatedAt: (latestMessage as any)?.sentAt || (latestMessage as any)?.sent_at || conversation.updated_at || conversation.created_at || '',
     }
-  }))
+  })
 
-  conversationDetails.sort((left, right) => String(right.updatedAt || '').localeCompare(String(left.updatedAt || '')))
-  const chatItems = conversationDetails.slice(0, 6).map(item => ({
-    id: item.id,
-    sender: item.title,
-    preview: item.preview,
-    time: item.time,
-    unread: item.unread,
-  }))
+  const [feeReminderItems, feeClaimItems, feeReceiptItems, websiteEnquiryItems, criticalAuditItems, announcements] = notificationBatch as any[][]
+  const announcementItems = (announcements || [])
+    .filter((announcement: any) => announcementTargetsRole(announcement.audienceRoles, actorRole))
+    .map((announcement: any) => ({
+      id: announcement.id,
+      title: announcement.title,
+      detail: clampPreview(announcement.body, 120),
+      sender: announcement.authorName || announcement.authorRole || 'School announcement',
+      time: formatHeaderTime(announcement.createdAt),
+      unread: true,
+      category: 'school_announcement',
+      sortAt: String(announcement.createdAt || ''),
+    }))
 
-  let notificationItems: Array<Record<string, any>> = []
-  if (tenantId) {
-    const feeReminderItems = await buildFeeReminderNotificationItems(c.env.APP_DB, currentUser, actorRole)
-    const feeClaimItems = await buildFeePaymentClaimNotificationItems(c.env.APP_DB, currentUser, actorRole)
-    const feeReceiptItems = await buildFeePaymentReceiptNotificationItems(c.env.APP_DB, currentUser, actorRole)
-    const websiteEnquiryItems = await buildWebsiteEnquiryNotificationItems(c.env.APP_DB, tenantId, actorRole)
-    const criticalAuditItems = await buildCriticalAuditNotificationItems(c.env.APP_DB, tenantId, actorRole)
-    const announcements = await listSchoolAnnouncements(c.env.APP_DB, tenantId, 8)
-    const announcementItems = announcements
-      .filter(announcement => announcementTargetsRole(announcement.audienceRoles, actorRole))
-      .map(announcement => ({
-        id: announcement.id,
-        title: announcement.title,
-        detail: clampPreview(announcement.body, 120),
-        sender: announcement.authorName || announcement.authorRole || 'School announcement',
-        time: formatHeaderTime(announcement.createdAt),
-        unread: true,
-        category: 'school_announcement',
-        sortAt: String(announcement.createdAt || ''),
-      }))
-
-      notificationItems = [
-        ...feeClaimItems,
-        ...feeReminderItems,
-        ...feeReceiptItems,
-        ...websiteEnquiryItems,
-        ...criticalAuditItems,
-        ...announcementItems,
-      ]
-        .sort((left, right) => String(right.sortAt || '').localeCompare(String(left.sortAt || '')))
-  }
+  const notificationItems = [
+    ...(feeClaimItems || []),
+    ...(feeReminderItems || []),
+    ...(feeReceiptItems || []),
+    ...(websiteEnquiryItems || []),
+    ...(criticalAuditItems || []),
+    ...announcementItems,
+  ].sort((left, right) => String(right.sortAt || '').localeCompare(String(left.sortAt || '')))
 
   return {
     auras: 0,
-    chats: chatItems.filter(item => item.unread).length,
+    chats: chatItems.filter((item: any) => item.unread).length,
     notifications: notificationItems.length,
     chatItems,
     notificationItems,
@@ -9329,7 +9321,6 @@ async function getResolvedFeatureFlags(db: D1Database, tenantId = '') {
 }
 
 async function getTenantUserCounts(db: D1Database, tenantId: string) {
-  await ensureUsersTable(db)
   const rows = await db.prepare(
     `SELECT role, COUNT(*) as count FROM users WHERE tenantId = ? AND (status IS NULL OR status != 'inactive') GROUP BY role`
   ).bind(tenantId).all()
