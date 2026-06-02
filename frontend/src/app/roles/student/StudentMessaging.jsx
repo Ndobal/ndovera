@@ -260,6 +260,7 @@ export default function StudentMessaging({
   const [emojiTrayOpen, setEmojiTrayOpen] = useState(false);
   const [stickerTrayOpen, setStickerTrayOpen] = useState(false);
   const [refreshTick, setRefreshTick] = useState(0);
+  const [profileContact, setProfileContact] = useState(null);
   const startConversationRef = useRef(null);
   const contactSearchRef = useRef(null);
   const messagesEndRef = useRef(null);
@@ -304,10 +305,12 @@ export default function StudentMessaging({
           .map(normalizeDirectoryContact)
           .filter(contact => contact.id)
           .filter(contact => !contact.identifiers.some(identifier => selfIdentifiers.includes(identifier)))
+          // School-wide chat = teachers, admins, students. Parents are excluded from the general chat
+          // (parents themselves only reach school admins/teachers + helpdesk).
           .filter(contact => (
             normalizedViewerRole === 'parent'
               ? contact.isAdmin || contact.isTeacher
-              : true
+              : !contact.roleKeys.includes('parent')
           ))
           .sort((left, right) => {
             if (Number(right.isAdmin) !== Number(left.isAdmin)) return Number(right.isAdmin) - Number(left.isAdmin);
@@ -709,6 +712,11 @@ export default function StudentMessaging({
     setRefreshTick(tick => tick + 1);
   }
 
+  function openProfile(identifier) {
+    const contact = contactLookup.get(String(identifier || '')) || null;
+    if (contact) setProfileContact(contact);
+  }
+
   async function sendSticker(sticker) {
     setStickerTrayOpen(false);
     if (!activeConversationId) return;
@@ -946,9 +954,9 @@ export default function StudentMessaging({
                             return (
                               <div key={message.id} className={`flex items-end gap-2 ${isOwn ? 'justify-end' : 'justify-start'}`}>
                                 {!isOwn ? (
-                                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[10px] font-bold text-white" style={{ backgroundColor: getChatAvatarColor(senderIdentifier) }}>
+                                  <button type="button" onClick={() => openProfile(senderIdentifier)} title="View details" className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[10px] font-bold text-white" style={{ backgroundColor: getChatAvatarColor(senderIdentifier) }}>
                                     {getChatInitials(senderName)}
-                                  </span>
+                                  </button>
                                 ) : null}
                                 <div className={`max-w-[80%] rounded-[1.6rem] border px-4 py-3 shadow-sm ${isOwn
                                   ? 'border-[#1a5c38]/20 bg-[#1a5c38]/12 text-[#191970] dark:border-[#00ffff]/25 dark:bg-[#00ffff]/10 dark:text-[#ffffff]'
@@ -1083,6 +1091,24 @@ export default function StudentMessaging({
           )}
         </section>
       </div>
+
+      {profileContact ? (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4" role="presentation" onClick={() => setProfileContact(null)}>
+          <div className="w-full max-w-sm rounded-3xl border border-[#800000]/20 bg-[#fff8ee] p-6 text-center shadow-2xl dark:border-[#bf00ff]/30 dark:bg-[#191970]" onClick={event => event.stopPropagation()}>
+            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full text-xl font-bold text-white" style={{ backgroundColor: getChatAvatarColor(profileContact.id) }}>
+              {getChatInitials(profileContact.name)}
+            </div>
+            <h3 className="mt-3 text-lg font-bold text-[#800000] dark:text-white">{profileContact.name}</h3>
+            <p className="mt-1 text-sm text-[#800020] dark:text-[#bf00ff]">{profileContact.roleSummary || profileContact.role}</p>
+            {profileContact.email ? <p className="mt-1 text-xs text-[#191970] dark:text-[#39ff14]">{profileContact.email}</p> : null}
+            {profileContact.displayId ? <p className="mt-1 text-xs text-[#191970]/70 dark:text-[#39ff14]/70">ID: {profileContact.displayId}</p> : null}
+            <div className="mt-4 flex justify-center gap-2">
+              <button type="button" onClick={() => { startConversationWith(profileContact); setProfileContact(null); }} className="rounded-2xl bg-[#1a5c38] px-4 py-2 text-sm font-bold text-[#f5deb3] dark:bg-[#00ffff] dark:text-black">Message</button>
+              <button type="button" onClick={() => setProfileContact(null)} className="rounded-2xl border border-[#800020]/20 px-4 py-2 text-sm font-bold text-[#800020] dark:border-[#bf00ff]/30 dark:text-[#bf00ff]">Close</button>
+            </div>
+          </div>
+        </div>
+      ) : null}
     </StudentSectionShell>
   );
 }

@@ -175,3 +175,62 @@ export async function uploadPublishedResultDocuments(payload = {}) {
     fileStudentMap: payload.fileStudentMap ? JSON.stringify(payload.fileStudentMap) : '',
   });
 }
+
+// Upload large PDF batches one chunk after another (sequential) so very large sets — up to thousands
+// of files — never go out in a single oversized request. Reports are merged and progress is reported.
+export async function uploadPublishedResultDocumentsSequential(payload = {}, options = {}) {
+  const files = Array.isArray(payload.files) ? payload.files : [];
+  const chunkSize = Math.max(1, Number(options.chunkSize || 5));
+  const onProgress = typeof options.onProgress === 'function' ? options.onProgress : () => {};
+  const fileStudentMap = payload.fileStudentMap || {};
+
+  const merged = {
+    success: true,
+    hasBlockingIssues: false,
+    summary: { matchedCount: 0, manualMappedCount: 0, uploadedCount: 0, skippedCount: 0, unmatchedCount: 0, missingStudentCount: 0 },
+    results: [],
+    missingStudents: [],
+  };
+
+  if (files.length === 0) {
+    onProgress(0, 0);
+    return merged;
+  }
+
+  let processed = 0;
+  for (let index = 0; index < files.length; index += chunkSize) {
+    const chunk = files.slice(index, index + chunkSize);
+    const chunkMap = {};
+    chunk.forEach(file => {
+      const key = `${file?.name || 'result.pdf'}::${file?.size || 0}`;
+      if (fileStudentMap[key]) chunkMap[key] = fileStudentMap[key];
+    });
+
+    // eslint-disable-next-line no-await-in-loop
+    const report = await uploadPublishedResultDocuments({
+      classId: payload.classId,
+      sessionName: payload.sessionName,
+      termName: payload.termName,
+      files: chunk,
+      fileStudentMap: chunkMap,
+    });
+
+    const summary = report?.summary || {};
+    ['matchedCount', 'manualMappedCount', 'uploadedCount', 'skippedCount', 'unmatchedCount'].forEach(key => {
+      merged.summary[key] += Number(summary[key] || 0);
+    });
+    if (Array.isArray(report?.results)) merged.results.push(...report.results);
+    if (report?.hasBlockingIssues) merged.hasBlockingIssues = true;
+    // The backend computes missing students against persisted documents, so the latest chunk's
+    // list reflects who is still outstanding after everything uploaded so far.
+    if (Array.isArray(report?.missingStudents)) {
+      merged.missingStudents = report.missingStudents;
+      merged.summary.missingStudentCount = report.missingStudents.length;
+    }
+
+    processed += chunk.length;
+    onProgress(processed, files.length);
+  }
+
+  return merged;
+}

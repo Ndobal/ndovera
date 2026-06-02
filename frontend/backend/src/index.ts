@@ -6631,7 +6631,7 @@ app.get('/api/classrooms/assigned', authenticate, async (c) => {
   const tenantId = resolvedUser.settings?.tenantId || resolvedUser.settings?.schoolId || resolvedUser.userRow?.tenantId || user.tenantId
   const normalizedRole = String(resolvedUser.settings?.role || resolvedUser.userRow?.role || user.role || '').trim().toLowerCase()
   const isSupervisor = isClassroomSupervisorRole(normalizedRole)
-  const teacherIdentifiers = collectComparableIdentifiers(collectResolvedIdentityIdentifiers(resolvedUser, user))
+  let teacherIdentifiers = collectComparableIdentifiers(collectResolvedIdentityIdentifiers(resolvedUser, user))
   const fallbackClassIds = Array.from(new Set([
     ...(Array.isArray(resolvedUser.settings?.classIds) ? resolvedUser.settings.classIds : []),
     resolvedUser.settings?.classId,
@@ -6645,6 +6645,25 @@ app.get('/api/classrooms/assigned', authenticate, async (c) => {
     await ensureClassesTable(c.env.APP_DB)
     await ensureSubjectsTable(c.env.APP_DB)
     await ensureClassMembershipsTable(c.env.APP_DB)
+
+    // A teacher may have more than one user row sharing the same email (duplicate accounts created via
+    // import vs. login). Subjects could be assigned to either id, so fold every same-email id into the
+    // teacher's identifier set — this is why "assigned but can't see" subjects happens.
+    if (!isSupervisor) {
+      const teacherEmails = teacherIdentifiers.filter(identifier => identifier.includes('@'))
+      if (teacherEmails.length) {
+        const emailPlaceholders = teacherEmails.map(() => '?').join(', ')
+        const duplicateRows = await c.env.APP_DB.prepare(
+          `SELECT id FROM users WHERE tenantId = ? AND lower(trim(coalesce(email, ''))) IN (${emailPlaceholders})`
+        ).bind(tenantId, ...teacherEmails).all().catch(() => ({ results: [] }))
+        const duplicateIds = ((duplicateRows.results || []) as Record<string, any>[])
+          .map(row => toComparableIdentifier(row.id))
+          .filter(Boolean)
+        if (duplicateIds.length) {
+          teacherIdentifiers = Array.from(new Set([...teacherIdentifiers, ...duplicateIds]))
+        }
+      }
+    }
 
     let classRows: Record<string, any>[] = []
     if (isSupervisor) {
