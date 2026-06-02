@@ -11,9 +11,12 @@ import {
 } from '@heroicons/react/24/outline';
 import StudentSectionShell from './StudentSectionShell';
 import { buildSelectedRoleHeader, getStoredAuth } from '../../../features/auth/services/authApi';
+import { CHAT_EMOJIS, CHAT_STICKERS, getChatInitials, getChatAvatarColor } from '../../../shared/constants/chatExtras';
 
 const STUDENT_MESSAGING_INTENT_KEY = 'studentMessagingIntent';
-const QUICK_EMOJIS = ['😀', '👏', '🙏', '🔥', '👍', '🎉'];
+const QUICK_EMOJIS = CHAT_EMOJIS;
+const CONTACT_POLL_INTERVAL_MS = 3600000;  // contact/thread list refreshes hourly; manual button for sooner
+const MESSAGE_POLL_INTERVAL_MS = 6000;     // quiet background sync of the open thread
 
 function uniqueIdentifiers(values) {
   return Array.from(new Set((values || []).map(value => String(value || '').trim()).filter(Boolean)));
@@ -255,8 +258,12 @@ export default function StudentMessaging({
   const [actionError, setActionError] = useState('');
   const [pendingIntent, setPendingIntent] = useState(() => readStudentMessagingIntent());
   const [emojiTrayOpen, setEmojiTrayOpen] = useState(false);
+  const [stickerTrayOpen, setStickerTrayOpen] = useState(false);
+  const [refreshTick, setRefreshTick] = useState(0);
   const startConversationRef = useRef(null);
   const contactSearchRef = useRef(null);
+  const messagesEndRef = useRef(null);
+  const messageSignatureRef = useRef('');
 
   async function refreshConversations(preferredConversationId) {
     if (!me) {
@@ -326,7 +333,7 @@ export default function StudentMessaging({
     return () => {
       ignore = true;
     };
-  }, [me, normalizedViewerRole, selfIdentifiers, token]);
+  }, [me, normalizedViewerRole, selfIdentifiers, token, refreshTick]);
 
   useEffect(() => {
     let ignore = false;
@@ -369,52 +376,67 @@ export default function StudentMessaging({
     }
 
     loadConversations();
-    const poll = window.setInterval(loadConversations, 12000);
+    const poll = window.setInterval(loadConversations, CONTACT_POLL_INTERVAL_MS);
     return () => {
       ignore = true;
       window.clearInterval(poll);
     };
-  }, [me, token]);
+  }, [me, token, refreshTick]);
 
   useEffect(() => {
     let ignore = false;
+    messageSignatureRef.current = '';
 
-    async function loadMessages() {
+    async function loadMessages({ silent = false } = {}) {
       if (!activeConversationId) {
         setMessages([]);
         setLoadingMessages(false);
         return;
       }
 
-      setLoadingMessages(true);
+      if (!silent) setLoadingMessages(true);
 
       try {
         const payload = await requestJson(`/api/conversations/${encodeURIComponent(activeConversationId)}/messages`, token);
-        if (!ignore) {
-          setMessages(payload.messages || []);
+        const nextMessages = payload.messages || [];
+        const lastMessage = nextMessages[nextMessages.length - 1] || {};
+        const signature = `${activeConversationId}:${nextMessages.length}:${lastMessage.id || ''}:${lastMessage.readAt || lastMessage.read_at || ''}`;
+        if (!ignore && (!silent || signature !== messageSignatureRef.current)) {
+          messageSignatureRef.current = signature;
+          setMessages(nextMessages);
         }
 
         await requestJson(`/api/conversations/${encodeURIComponent(activeConversationId)}/mark-read`, token, {
           method: 'POST',
         }).catch(() => null);
       } catch (error) {
-        if (!ignore) {
+        if (!ignore && !silent) {
           setActionError(error instanceof Error ? error.message : 'Could not load messages.');
         }
       } finally {
-        if (!ignore) {
+        if (!ignore && !silent) {
           setLoadingMessages(false);
         }
       }
     }
 
     loadMessages();
-    const poll = window.setInterval(loadMessages, 9000);
+    const poll = window.setInterval(() => {
+      if (document.visibilityState === 'hidden') return;
+      loadMessages({ silent: true });
+    }, MESSAGE_POLL_INTERVAL_MS);
     return () => {
       ignore = true;
       window.clearInterval(poll);
     };
   }, [activeConversationId, token]);
+
+  // Keep the newest message in view so the thread always reads bottom-anchored.
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ block: 'end' });
+    }
+  }, [messages, activeConversationId]);
 
   const adminContacts = useMemo(() => directoryContacts.filter(contact => contact.isAdmin), [directoryContacts]);
 
@@ -683,6 +705,25 @@ export default function StudentMessaging({
     setComposer(current => `${current}${emoji}`);
   }
 
+  function refreshLists() {
+    setRefreshTick(tick => tick + 1);
+  }
+
+  async function sendSticker(sticker) {
+    setStickerTrayOpen(false);
+    if (!activeConversationId) return;
+    try {
+      await requestJson(`/api/conversations/${encodeURIComponent(activeConversationId)}/messages`, token, {
+        method: 'POST',
+        body: JSON.stringify({ senderId: me, body: sticker }),
+      });
+      await refreshConversations(activeConversationId);
+      messageSignatureRef.current = '';
+    } catch (error) {
+      setActionError(error instanceof Error ? error.message : 'Could not send sticker.');
+    }
+  }
+
   return (
     <StudentSectionShell
       title={title || uiConfig.title}
@@ -703,16 +744,26 @@ export default function StudentMessaging({
               </div>
             </div>
 
-            <label className="mt-4 flex items-center gap-3 rounded-2xl border border-[#800000]/10 bg-white/70 px-4 py-3 dark:border-[#bf00ff]/20 dark:bg-[#191970]/35">
-              <MagnifyingGlassIcon className="h-5 w-5 text-[#800020] dark:text-[#bf00ff]" />
-              <input
-                ref={contactSearchRef}
-                value={contactQuery}
-                onChange={event => setContactQuery(event.target.value)}
-                placeholder="Search chats or contacts"
-                className="w-full bg-transparent text-sm text-[#191970] outline-none placeholder:text-[#800020]/65 dark:text-[#ffffff] dark:placeholder:text-[#bf00ff]/70"
-              />
-            </label>
+            <div className="mt-4 flex items-center gap-2">
+              <label className="flex flex-1 items-center gap-3 rounded-2xl border border-[#800000]/10 bg-white/70 px-4 py-3 dark:border-[#bf00ff]/20 dark:bg-[#191970]/35">
+                <MagnifyingGlassIcon className="h-5 w-5 text-[#800020] dark:text-[#bf00ff]" />
+                <input
+                  ref={contactSearchRef}
+                  value={contactQuery}
+                  onChange={event => setContactQuery(event.target.value)}
+                  placeholder="Search a name to chat with"
+                  className="w-full bg-transparent text-sm text-[#191970] outline-none placeholder:text-[#800020]/65 dark:text-[#ffffff] dark:placeholder:text-[#bf00ff]/70"
+                />
+              </label>
+              <button
+                type="button"
+                onClick={refreshLists}
+                className="shrink-0 rounded-2xl bg-[#1a5c38] px-3 py-3 text-xs font-bold text-[#f5deb3] dark:bg-[#00ffff] dark:text-black"
+                title="Refresh contacts"
+              >
+                {loadingContacts || loadingConversations ? '…' : '↻'}
+              </button>
+            </div>
           </div>
 
           <div className="flex-1 overflow-y-auto px-4 py-4">
@@ -887,17 +938,24 @@ export default function StudentMessaging({
                         </div>
                         <div className="space-y-3">
                           {group.items.map(message => {
-                            const isOwn = selfIdentifiers.includes(String(message.senderId || ''));
+                            const senderIdentifier = String(message.senderId || '');
+                            const isOwn = selfIdentifiers.includes(senderIdentifier);
                             const sentAt = message.sentAt || message.sent_at || message.createdAt || new Date().toISOString();
+                            const senderName = isOwn ? String(authUser.name || 'You') : resolveParticipantName(message.senderId);
 
                             return (
-                              <div key={message.id} className={`flex ${isOwn ? 'justify-end' : 'justify-start'}`}>
+                              <div key={message.id} className={`flex items-end gap-2 ${isOwn ? 'justify-end' : 'justify-start'}`}>
+                                {!isOwn ? (
+                                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[10px] font-bold text-white" style={{ backgroundColor: getChatAvatarColor(senderIdentifier) }}>
+                                    {getChatInitials(senderName)}
+                                  </span>
+                                ) : null}
                                 <div className={`max-w-[80%] rounded-[1.6rem] border px-4 py-3 shadow-sm ${isOwn
                                   ? 'border-[#1a5c38]/20 bg-[#1a5c38]/12 text-[#191970] dark:border-[#00ffff]/25 dark:bg-[#00ffff]/10 dark:text-[#ffffff]'
                                   : 'border-[#800000]/12 bg-[#fff7eb] text-[#191970] dark:border-[#bf00ff]/20 dark:bg-[#191970]/40 dark:text-[#39ff14]'
                                 }`}>
                                   <div className="text-xs font-semibold text-[#800020] dark:text-[#bf00ff]">
-                                    {isOwn ? 'You' : resolveParticipantName(message.senderId)}
+                                    {isOwn ? 'You' : senderName}
                                   </div>
                                   <div className="mt-2 whitespace-pre-wrap text-sm leading-6">{message.body}</div>
                                   <div className="mt-3 flex items-center justify-between gap-4 text-[11px] text-[#191970]/75 dark:text-[#39ff14]/75">
@@ -924,6 +982,7 @@ export default function StudentMessaging({
                         </div>
                       </div>
                     ))}
+                    <div ref={messagesEndRef} />
                   </div>
                 )}
               </div>
@@ -936,17 +995,36 @@ export default function StudentMessaging({
                 ) : null}
 
                 {emojiTrayOpen ? (
-                  <div className="mb-3 flex flex-wrap items-center gap-2">
-                    {QUICK_EMOJIS.map(emoji => (
-                      <button
-                        key={emoji}
-                        type="button"
-                        onClick={() => appendEmoji(emoji)}
-                        className="rounded-full border border-[#800000]/10 bg-[#fff8ee] px-3 py-2 text-lg transition hover:-translate-y-0.5 dark:border-[#bf00ff]/20 dark:bg-[#120014]/55"
-                      >
-                        {emoji}
-                      </button>
-                    ))}
+                  <div className="mb-3 max-h-44 overflow-y-auto rounded-2xl border border-[#800000]/10 bg-[#fff8ee] p-2 dark:border-[#bf00ff]/20 dark:bg-[#120014]/55">
+                    <div className="flex flex-wrap items-center gap-1">
+                      {QUICK_EMOJIS.map((emoji, index) => (
+                        <button
+                          key={`${emoji}-${index}`}
+                          type="button"
+                          onClick={() => appendEmoji(emoji)}
+                          className="rounded-lg px-1.5 py-1 text-xl transition hover:bg-[#1a5c38]/15"
+                        >
+                          {emoji}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                ) : null}
+
+                {stickerTrayOpen ? (
+                  <div className="mb-3 max-h-44 overflow-y-auto rounded-2xl border border-[#800000]/10 bg-[#fff8ee] p-2 dark:border-[#bf00ff]/20 dark:bg-[#120014]/55">
+                    <div className="grid grid-cols-6 gap-2 sm:grid-cols-8">
+                      {CHAT_STICKERS.map((sticker, index) => (
+                        <button
+                          key={`${sticker}-${index}`}
+                          type="button"
+                          onClick={() => sendSticker(sticker)}
+                          className="rounded-xl py-2 text-3xl transition hover:bg-[#1a5c38]/15"
+                        >
+                          {sticker}
+                        </button>
+                      ))}
+                    </div>
                   </div>
                 ) : null}
 
@@ -963,11 +1041,20 @@ export default function StudentMessaging({
                     <div className="flex items-center gap-2">
                       <button
                         type="button"
-                        onClick={() => setEmojiTrayOpen(current => !current)}
+                        onClick={() => { setEmojiTrayOpen(current => !current); setStickerTrayOpen(false); }}
                         className="flex h-10 w-10 items-center justify-center rounded-full border border-[#800000]/10 bg-white/75 text-[#800020] transition hover:border-[#1a5c38]/35 hover:text-[#1a5c38] dark:border-[#bf00ff]/20 dark:bg-[#191970]/35 dark:text-[#bf00ff] dark:hover:border-[#00ffff] dark:hover:text-[#00ffff]"
                         aria-label="Toggle emojis"
                       >
                         <FaceSmileIcon className="h-5 w-5" />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => { setStickerTrayOpen(current => !current); setEmojiTrayOpen(false); }}
+                        className="flex h-10 w-10 items-center justify-center rounded-full border border-[#800000]/10 bg-white/75 text-lg transition hover:border-[#1a5c38]/35 dark:border-[#bf00ff]/20 dark:bg-[#191970]/35"
+                        aria-label="Toggle stickers"
+                        title="Stickers"
+                      >
+                        🩷
                       </button>
                       <button
                         type="button"

@@ -239,6 +239,9 @@ export const submitSchoolNewsPost = (data) => req('/api/school/news/posts/submit
 export const reviewSchoolNewsPost = (postId, data) => req(`/api/school/news/posts/${postId}/review`, { method: 'POST', body: data });
 export const publishSchoolNewsPost = (postId) => req(`/api/school/news/posts/${postId}/publish`, { method: 'POST' });
 export const uploadSchoolNewsMedia = (file) => uploadFile('/api/school/news/upload', file);
+export const getSchoolNewsEngagement = (postId) => req(`/api/school/news/posts/${postId}/engagement`);
+export const reactToSchoolNewsPost = (postId, reaction) => req(`/api/school/news/posts/${postId}/engagement`, { method: 'POST', body: { kind: 'reaction', reaction } });
+export const commentOnSchoolNewsPost = (postId, body) => req(`/api/school/news/posts/${postId}/engagement`, { method: 'POST', body: { kind: 'comment', body } });
 export const getAdmissionsQueue = (params = {}) => req(`/api/school/admissions${buildQuery(params)}`);
 export const reviewAdmissionApplication = (applicationId, data) => req(`/api/school/admissions/${applicationId}/review`, { method: 'POST', body: data });
 export const getWebsiteEnquiries = (params = {}) => req(`/api/school/enquiries${buildQuery(params)}`);

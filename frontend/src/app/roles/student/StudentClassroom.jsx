@@ -21,6 +21,32 @@ import {
 const STREAM_EMOJIS = ['😀', '😂', '😍', '🔥', '👏', '🎉', '👍', '🙏', '💡', '📚', '💯', '🚀'];
 const STUDENT_MESSAGING_INTENT_KEY = 'studentMessagingIntent';
 
+// Subject card palettes — dark backgrounds with light text stay readable in both light and dark themes.
+const SUBJECT_PALETTES = [
+  { bg: '#013220', text: '#FFD700', badge: 'rgba(255,215,0,0.18)', badgeText: '#FFD700' },
+  { bg: '#1a003a', text: '#ffffff', badge: 'rgba(255,255,255,0.15)', badgeText: '#ffffff' },
+  { bg: '#001840', text: '#87CEEB', badge: 'rgba(135,206,235,0.18)', badgeText: '#87CEEB' },
+  { bg: '#004040', text: '#7FFFD4', badge: 'rgba(127,255,212,0.18)', badgeText: '#7FFFD4' },
+  { bg: '#2d0030', text: '#FFB6C1', badge: 'rgba(255,182,193,0.18)', badgeText: '#FFB6C1' },
+  { bg: '#001f3f', text: '#00CFFF', badge: 'rgba(0,207,255,0.18)', badgeText: '#00CFFF' },
+  { bg: '#1c1a00', text: '#FFE066', badge: 'rgba(255,224,102,0.18)', badgeText: '#FFE066' },
+  { bg: '#3d0000', text: '#FFA94D', badge: 'rgba(255,169,77,0.18)', badgeText: '#FFA94D' },
+];
+
+function isUsableMaterialUrl(url) {
+  const value = String(url || '').trim();
+  if (!value) return false;
+  // Only allow real, openable links — drop blob:/data: and bare text that was pasted as a "link".
+  return /^https?:\/\//i.test(value) || value.startsWith('/');
+}
+
+function isAudioMaterial(material) {
+  const type = String(material?.type || '').toLowerCase();
+  if (type === 'audio') return true;
+  const source = String(material?.url || material?.fileName || material?.title || '').toLowerCase();
+  return /\.(mp3|wav|ogg|m4a|aac)(\?|$)/.test(source);
+}
+
 function normalizeMemberIdentifier(value) {
   return String(value || '').trim().toLowerCase();
 }
@@ -111,6 +137,10 @@ export default function StudentClassroom() {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [activeTab, setActiveTab] = useState('stream');
   const [groupMode, setGroupMode] = useState('subject');
+  const [subjectDetailName, setSubjectDetailName] = useState('');
+  const [subjectDetailTab, setSubjectDetailTab] = useState('assignments');
+  const [materialSubjectFilter, setMaterialSubjectFilter] = useState('all');
+  const [assignmentSubjectFilter, setAssignmentSubjectFilter] = useState('all');
   const [joinedLiveId, setJoinedLiveId] = useState(null);
   const [micEnabled, setMicEnabled] = useState(true);
   const [cameraEnabled, setCameraEnabled] = useState(true);
@@ -438,6 +468,42 @@ export default function StudentClassroom() {
     return 'accent-amber';
   };
 
+  const renderMaterialCard = material => {
+    const usableUrl = isUsableMaterialUrl(material.url) ? material.url : '';
+    const audio = isAudioMaterial(material) && usableUrl;
+    return (
+      <div key={material.id} className="rounded-2xl border border-slate-200 dark:border-white/10 p-4 bg-white/70 dark:bg-slate-900/30 flex flex-wrap items-start justify-between gap-3">
+        <div className="flex min-w-0 flex-1 items-start gap-4">
+          <MaterialTypeThumbnail material={material} className="border-slate-200 dark:border-white/10" />
+          <div className="min-w-0 flex-1">
+            <div className="flex items-center gap-2 flex-wrap">
+              <p className="text-slate-900 dark:text-slate-100 font-semibold">{material.title}</p>
+              <span className="glass-chip px-3 py-1 rounded-full micro-label accent-emerald">{materialTypeLabel(material)}</span>
+            </div>
+            <p className="text-sm text-slate-600 dark:text-slate-300 mt-1">Subject: {materialSubjectName(material)}</p>
+            {(material.topic || material.weekLabel) && <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">{material.topic || 'Lesson note'}{material.weekLabel ? ` • ${material.weekLabel}` : ''}</p>}
+            {material.description && <p className="text-sm text-slate-700 dark:text-slate-300 mt-2 whitespace-pre-wrap">{material.description}</p>}
+            {audio && (
+              <audio controls preload="none" src={usableUrl} className="mt-3 w-full max-w-md">
+                Your browser does not support audio playback.
+              </audio>
+            )}
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">{material.uploadedAt ? new Date(material.uploadedAt).toLocaleString() : 'Recently uploaded'}{material.uploadedByName ? ` • ${material.uploadedByName}` : ''}</p>
+          </div>
+        </div>
+        {usableUrl && !audio ? (
+          <a href={usableUrl} target="_blank" rel="noreferrer" className="rounded-2xl bg-emerald-500/30 border border-emerald-300/40 px-4 py-2 text-sm font-semibold text-emerald-900 dark:text-white">
+            Open
+          </a>
+        ) : !usableUrl && !material.description ? (
+          <span className="rounded-2xl border border-slate-200 dark:border-white/10 px-4 py-2 text-sm font-semibold text-slate-600 dark:text-slate-200">
+            Teacher Note
+          </span>
+        ) : null}
+      </div>
+    );
+  };
+
   const tabButtonClass = tabKey => (
     activeTab === tabKey
       ? 'px-4 py-2 rounded-2xl font-semibold bg-[#800020] text-white border border-[#c27a8d] shadow-[0_12px_30px_rgba(128,0,32,0.28)]'
@@ -548,46 +614,35 @@ export default function StudentClassroom() {
         </div>
       )}
 
-      {activeTab === 'subjects' && (
+      {activeTab === 'subjects' && !subjectDetailName && (
         <div className="space-y-4">
-          <section className="glass-surface rounded-3xl p-5">
-            <h2 className="text-xl command-title neon-title">Subjects</h2>
-            <p className="neon-subtle mt-2">See each subject and the assignments your teachers created for it.</p>
-          </section>
-
-          <section className="space-y-3">
-            {subjectRows.map(subject => (
-              <div key={subject.topic} className="glass-surface rounded-3xl p-4">
-                <div className="flex items-center justify-between gap-2">
-                  <p className="text-slate-100 font-semibold">{subject.topic}</p>
-                  <span className="glass-chip px-3 py-1 rounded-full micro-label accent-indigo">{subject.count} item(s)</span>
-                </div>
-                <p className="text-sm neon-subtle mt-1">Next due: {subject.nextDue}</p>
-                <p className="micro-label mt-2 accent-emerald">Submitted: {subject.submittedCount}</p>
-                <div className="mt-3 space-y-2">
-                  {subject.items.map(task => {
-                    const assignmentType = formatAssignmentType(task);
-                    const assignmentStatus = task.mySubmission ? (task.mySubmission.grade != null || task.mySubmission.feedback ? 'Reviewed' : 'Submitted') : 'Pending';
-                    return (
-                      <button key={task.id} onClick={() => openTaskWorkspace(task.id)} className="w-full text-left rounded-2xl border border-white/10 p-4 bg-slate-900/30 hover:bg-indigo-500/10 transition-colors">
-                        <div className="flex items-center justify-between gap-2">
-                          <p className="text-slate-100 font-semibold">{task.title}</p>
-                          <span className={`micro-label ${typeClass(assignmentType)}`}>{assignmentType}</span>
-                        </div>
-                        <p className="text-sm neon-subtle mt-1">Due: {formatAssignmentDue(task.dueAt)}</p>
-                        <p className={`micro-label mt-2 ${statusClass(assignmentStatus)}`}>{assignmentStatus}</p>
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-            ))}
+          <div className="grid grid-cols-2 lg:grid-cols-6 gap-3">
+            {subjectRows.map((subject, idx) => {
+              const p = SUBJECT_PALETTES[idx % SUBJECT_PALETTES.length];
+              return (
+                <button
+                  key={subject.topic}
+                  onClick={() => { setSubjectDetailName(subject.topic); setSubjectDetailTab('assignments'); }}
+                  style={{ backgroundColor: p.bg, color: p.text }}
+                  className="text-left rounded-3xl p-4 space-y-2 transition-transform hover:scale-[1.03] hover:brightness-110 active:scale-100 border border-white/10 shadow-lg"
+                >
+                  <p className="text-sm font-black leading-tight" style={{ color: p.text }}>{subject.topic}</p>
+                  <span
+                    className="inline-block px-2 py-0.5 rounded-full text-xs font-bold border"
+                    style={{ background: p.badge, color: p.badgeText, borderColor: `${p.badgeText}40` }}
+                  >
+                    {subject.count} item(s)
+                  </span>
+                  <p className="text-xs opacity-80" style={{ color: p.text }}>Submitted: {subject.submittedCount}</p>
+                </button>
+              );
+            })}
             {subjectRows.length === 0 && (
-              <div className="glass-surface rounded-3xl p-4">
-                <p className="text-sm text-slate-300">No subject data available yet.</p>
+              <div className="col-span-full glass-surface rounded-3xl p-4">
+                <p className="text-sm text-slate-600 dark:text-slate-300">No subject data available yet.</p>
               </div>
             )}
-          </section>
+          </div>
 
           <section className="grid grid-cols-1 md:grid-cols-3 gap-3">
             <div className="glass-surface rounded-3xl p-4">
@@ -606,45 +661,114 @@ export default function StudentClassroom() {
         </div>
       )}
 
-      {activeTab === 'materials' && (
-        <section className="glass-surface rounded-3xl p-5">
-          <h2 className="text-xl command-title neon-title mb-4">Materials</h2>
+      {activeTab === 'subjects' && subjectDetailName && (() => {
+        const detailIdx = subjectRows.findIndex(s => s.topic === subjectDetailName);
+        const palette = SUBJECT_PALETTES[(detailIdx >= 0 ? detailIdx : 0) % SUBJECT_PALETTES.length];
+        const detailAssignments = tasks.filter(t => (String(t.subjectName || 'General Subject').trim() || 'General Subject') === subjectDetailName);
+        const detailMaterials = classroomMaterials.filter(m => materialSubjectName(m) === subjectDetailName);
+        return (
           <div className="space-y-3">
-            {classroomMaterials.map(material => (
-              <div key={material.id} className="rounded-2xl border border-white/10 p-4 bg-slate-900/30 flex flex-wrap items-start justify-between gap-3">
-                <div className="flex min-w-0 flex-1 items-start gap-4">
-                  <MaterialTypeThumbnail material={material} className="border-white/10 dark:border-white/10" />
-                  <div className="min-w-0 flex-1">
-                    <div className="flex items-center gap-2 flex-wrap">
-                    <p className="text-slate-100 font-semibold">{material.title}</p>
-                    <span className="glass-chip px-3 py-1 rounded-full micro-label accent-emerald">{materialTypeLabel(material)}</span>
-                    </div>
-                    <p className="text-sm neon-subtle mt-1">Subject: {materialSubjectName(material)}</p>
-                    {(material.topic || material.weekLabel) && <p className="text-xs text-slate-400 mt-2">{material.topic || 'Lesson note'}{material.weekLabel ? ` • ${material.weekLabel}` : ''}</p>}
-                    {material.description && <p className="text-sm text-slate-300 mt-2 whitespace-pre-wrap">{material.description}</p>}
-                    <p className="neon-subtle text-xs mt-2">{material.uploadedAt ? new Date(material.uploadedAt).toLocaleString() : 'Recently uploaded'}{material.uploadedByName ? ` • ${material.uploadedByName}` : ''}</p>
+            <div className="rounded-3xl p-5 flex flex-wrap items-center justify-between gap-3 shadow-lg border border-white/10" style={{ backgroundColor: palette.bg }}>
+              <div>
+                <p className="text-xs font-bold uppercase tracking-widest opacity-70" style={{ color: palette.text }}>Subject</p>
+                <h2 className="text-xl font-black mt-0.5" style={{ color: palette.text }}>{subjectDetailName}</h2>
+              </div>
+              <button
+                onClick={() => setSubjectDetailName('')}
+                className="px-4 py-2 rounded-2xl text-sm font-bold border border-white/20 hover:bg-white/10 transition-colors"
+                style={{ color: palette.text }}
+              >
+                ← All Subjects
+              </button>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-2">
+              {['assignments', 'materials'].map(tab => (
+                <button
+                  key={tab}
+                  onClick={() => setSubjectDetailTab(tab)}
+                  style={subjectDetailTab === tab ? { backgroundColor: palette.bg, color: palette.text, borderColor: `${palette.text}30` } : {}}
+                  className={`px-4 py-2 rounded-2xl text-sm font-semibold border transition-colors capitalize ${subjectDetailTab === tab ? 'border shadow-sm' : 'border-slate-200 dark:border-white/10 bg-white/60 dark:bg-slate-900/30 text-slate-700 dark:text-slate-200'}`}
+                >
+                  {tab}
+                  <span className="ml-1.5 text-xs opacity-70">({tab === 'assignments' ? detailAssignments.length : detailMaterials.length})</span>
+                </button>
+              ))}
+            </div>
+
+            {subjectDetailTab === 'assignments' && (
+              <section className="space-y-2">
+                {detailAssignments.map(task => {
+                  const assignmentType = formatAssignmentType(task);
+                  const assignmentStatus = task.mySubmission ? (task.mySubmission.grade != null || task.mySubmission.feedback ? 'Reviewed' : 'Submitted') : 'Pending';
+                  return (
+                    <button key={task.id} onClick={() => openTaskWorkspace(task.id)} className="w-full text-left rounded-2xl border border-slate-200 dark:border-white/10 p-4 bg-white/70 dark:bg-slate-900/30 hover:bg-indigo-500/10 transition-colors">
+                      <div className="flex items-center justify-between gap-2">
+                        <p className="text-slate-900 dark:text-slate-100 font-semibold">{task.title}</p>
+                        <span className={`micro-label ${typeClass(assignmentType)}`}>{assignmentType}</span>
+                      </div>
+                      <p className="text-sm text-slate-600 dark:text-slate-300 mt-1">Due: {formatAssignmentDue(task.dueAt)}</p>
+                      <p className={`micro-label mt-2 ${statusClass(assignmentStatus)}`}>{assignmentStatus}</p>
+                    </button>
+                  );
+                })}
+                {detailAssignments.length === 0 && (
+                  <div className="glass-surface rounded-3xl p-5 text-center">
+                    <p className="micro-label accent-amber">No assignments yet</p>
+                    <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">No assignments have been created for {subjectDetailName}.</p>
                   </div>
-                </div>
-                {material.url ? (
-                  <a href={material.url} target="_blank" rel="noreferrer" className="rounded-2xl bg-emerald-500/30 border border-emerald-300/40 px-4 py-2 text-sm font-semibold text-white">
-                    Open
-                  </a>
-                ) : (
-                  <span className="rounded-2xl border border-white/10 px-4 py-2 text-sm font-semibold text-slate-200">
-                    Teacher Note
-                  </span>
                 )}
-              </div>
-            ))}
-            {classroomMaterials.length === 0 && (
-              <div className="rounded-2xl border border-dashed border-white/10 p-4 bg-slate-900/20 text-center">
-                <p className="micro-label accent-amber">No materials yet</p>
-                <p className="mt-2 text-sm text-slate-300">Teacher-posted subject materials will show here automatically.</p>
-              </div>
+              </section>
+            )}
+
+            {subjectDetailTab === 'materials' && (
+              <section className="space-y-3">
+                {detailMaterials.map(renderMaterialCard)}
+                {detailMaterials.length === 0 && (
+                  <div className="glass-surface rounded-3xl p-5 text-center">
+                    <p className="micro-label accent-amber">No materials yet</p>
+                    <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">No materials have been posted for {subjectDetailName}.</p>
+                  </div>
+                )}
+              </section>
             )}
           </div>
-        </section>
-      )}
+        );
+      })()}
+
+      {activeTab === 'materials' && (() => {
+        const materialSubjects = Array.from(new Set(classroomMaterials.map(materialSubjectName))).sort((a, b) => a.localeCompare(b));
+        const visibleMaterials = materialSubjectFilter === 'all'
+          ? classroomMaterials
+          : classroomMaterials.filter(m => materialSubjectName(m) === materialSubjectFilter);
+        return (
+          <section className="glass-surface rounded-3xl p-5">
+            <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
+              <h2 className="text-xl command-title neon-title">Materials</h2>
+              <label className="flex items-center gap-2 text-sm">
+                <span className="micro-label neon-subtle">Subject</span>
+                <select
+                  value={materialSubjectFilter}
+                  onChange={e => setMaterialSubjectFilter(e.target.value)}
+                  className="rounded-xl border border-slate-300 dark:border-white/10 bg-white dark:bg-slate-900/60 px-3 py-1.5 text-sm text-slate-800 dark:text-slate-100"
+                >
+                  <option value="all">All subjects</option>
+                  {materialSubjects.map(name => <option key={name} value={name}>{name}</option>)}
+                </select>
+              </label>
+            </div>
+            <div className="space-y-3">
+              {visibleMaterials.map(renderMaterialCard)}
+              {visibleMaterials.length === 0 && (
+                <div className="rounded-2xl border border-dashed border-slate-300 dark:border-white/10 p-4 bg-slate-50 dark:bg-slate-900/20 text-center">
+                  <p className="micro-label accent-amber">No materials yet</p>
+                  <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">Teacher-posted subject materials will show here automatically.</p>
+                </div>
+              )}
+            </div>
+          </section>
+        );
+      })()}
 
       {activeTab === 'practice' && (
         <section className="glass-surface rounded-3xl p-5">
@@ -685,17 +809,35 @@ export default function StudentClassroom() {
         </section>
       )}
 
-      {activeTab === 'assignment' && (
+      {activeTab === 'assignment' && (() => {
+        const assignmentSubjects = Array.from(new Set(tasks.map(t => String(t.subjectName || 'General Subject').trim() || 'General Subject'))).sort((a, b) => a.localeCompare(b));
+        const filteredGroups = assignmentSubjectFilter === 'all'
+          ? groupedTasks
+          : groupedTasks
+              .map(group => ({ ...group, items: group.items.filter(t => (String(t.subjectName || 'General Subject').trim() || 'General Subject') === assignmentSubjectFilter) }))
+              .filter(group => group.items.length > 0);
+        return (
         <div className="space-y-4">
           <section className="glass-surface rounded-3xl p-4 flex flex-wrap items-center gap-2">
             <span className="micro-label neon-subtle mr-2">Group by</span>
             <button onClick={() => setGroupMode('subject')} className={groupMode === 'subject' ? 'glass-chip px-3 py-1 rounded-full micro-label accent-indigo' : 'px-3 py-1 rounded-full border border-white/10 micro-label'}>Subject</button>
             <button onClick={() => setGroupMode('format')} className={groupMode === 'format' ? 'glass-chip px-3 py-1 rounded-full micro-label accent-indigo' : 'px-3 py-1 rounded-full border border-white/10 micro-label'}>Format</button>
             <button onClick={() => setGroupMode('status')} className={groupMode === 'status' ? 'glass-chip px-3 py-1 rounded-full micro-label accent-indigo' : 'px-3 py-1 rounded-full border border-white/10 micro-label'}>Status</button>
+            <label className="flex items-center gap-2 text-sm ml-auto">
+              <span className="micro-label neon-subtle">Subject</span>
+              <select
+                value={assignmentSubjectFilter}
+                onChange={e => setAssignmentSubjectFilter(e.target.value)}
+                className="rounded-xl border border-slate-300 dark:border-white/10 bg-white dark:bg-slate-900/60 px-3 py-1.5 text-sm text-slate-800 dark:text-slate-100"
+              >
+                <option value="all">All subjects</option>
+                {assignmentSubjects.map(name => <option key={name} value={name}>{name}</option>)}
+              </select>
+            </label>
           </section>
 
           <section className="space-y-3">
-            {groupedTasks.map(group => (
+            {filteredGroups.map(group => (
               <div key={group.label} className="glass-surface rounded-3xl p-4">
                 <div className="flex items-center justify-between gap-2">
                   <p className="text-slate-100 font-semibold">{group.label}</p>
@@ -720,14 +862,15 @@ export default function StudentClassroom() {
                 </div>
               </div>
             ))}
-            {groupedTasks.length === 0 && (
+            {filteredGroups.length === 0 && (
               <div className="glass-surface rounded-3xl p-4">
-                <p className="text-sm text-slate-300">No assignments published for this class yet.</p>
+                <p className="text-sm text-slate-600 dark:text-slate-300">No assignments published for this class yet.</p>
               </div>
             )}
           </section>
         </div>
-      )}
+        );
+      })()}
 
       {activeTab === 'stream' && (
         <div className={`flex min-h-[70vh] flex-col gap-4 ${isMobile ? '-mx-4' : '-mx-8'}`}>

@@ -4,8 +4,22 @@ import { getMaterials } from '../classroomService';
 function typeIcon(type) {
   if (type === 'video') return '▶';
   if (type === 'image') return '🖼';
+  if (type === 'audio') return '🎧';
   if (type === 'link') return '🔗';
   return '📄';
+}
+
+function isUsableMaterialUrl(url) {
+  const value = String(url || '').trim();
+  if (!value) return false;
+  return /^https?:\/\//i.test(value) || value.startsWith('/');
+}
+
+function isAudioMaterial(material) {
+  const type = String(material?.type || '').toLowerCase();
+  if (type === 'audio') return true;
+  const source = String(material?.url || material?.fileName || material?.title || '').toLowerCase();
+  return /\.(mp3|wav|ogg|m4a|aac)(\?|$)/.test(source);
 }
 
 export default function MaterialsTab({ classId = '' }) {
@@ -46,24 +60,31 @@ export default function MaterialsTab({ classId = '' }) {
         </div>
       ) : (
         <div className="flex flex-wrap gap-3">
-          {filtered.map((item, i) => (
+          {filtered.map((item, i) => {
+            const usableUrl = isUsableMaterialUrl(item.url) ? item.url : '';
+            const audio = isAudioMaterial(item) && usableUrl;
+            return (
             <div key={item.id || i}
-              style={{ width: '150px', minHeight: '100px' }}
+              style={{ width: audio ? '260px' : '150px', minHeight: '100px' }}
               className="relative flex flex-col justify-between rounded-2xl border border-[#c9a96e]/40 bg-[#f0d090] p-3 shadow-sm overflow-hidden">
               {/* Type badge */}
               <div className="flex items-center gap-1 mb-1">
-                <span className="text-base leading-none">{typeIcon(item.type)}</span>
-                <span className="text-[10px] font-bold uppercase tracking-wide text-[#800020]">{item.type || 'doc'}</span>
+                <span className="text-base leading-none">{typeIcon(audio ? 'audio' : item.type)}</span>
+                <span className="text-[10px] font-bold uppercase tracking-wide text-[#800020]">{audio ? 'audio' : (item.type || 'doc')}</span>
               </div>
               {/* Title */}
               <p className="text-xs font-bold text-[#191970] leading-snug line-clamp-3 flex-1">{item.title || 'Untitled'}</p>
               {/* Subject */}
               {item.subjectName && <p className="text-[9px] font-bold text-[#800020] mt-1 truncate">{item.subjectName}</p>}
-              {!item.url && item.description ? <p className="mt-1 text-[10px] text-[#191970] line-clamp-3">{item.description}</p> : null}
+              {!usableUrl && item.description ? <p className="mt-1 text-[10px] text-[#191970] line-clamp-3">{item.description}</p> : null}
               {/* Open button */}
-              {item.url ? (
+              {audio ? (
+                <audio controls preload="none" src={usableUrl} className="mt-2 w-full">
+                  Your browser does not support audio playback.
+                </audio>
+              ) : usableUrl ? (
                 <a
-                  href={item.url}
+                  href={usableUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="mt-2 block text-center bg-[#1a5c38] hover:bg-[#154a2e] text-[#f5deb3] font-bold text-xs px-2 py-1.5 rounded-xl transition-colors"
@@ -80,7 +101,8 @@ export default function MaterialsTab({ classId = '' }) {
                 </button>
               )}
             </div>
-          ))}
+            );
+          })}
         </div>
       )}
 

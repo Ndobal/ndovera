@@ -13,6 +13,7 @@ import {
   submitPayroll,
   updatePayrollStaff,
 } from '../services/schoolApi';
+import { ArrowsPointingOutIcon, ArrowsPointingInIcon } from '@heroicons/react/24/outline';
 import PayrollAccountDetailsPanel from './PayrollAccountDetailsPanel';
 import PayrollBankNotePanel from './PayrollBankNotePanel';
 
@@ -577,6 +578,7 @@ function PayslipModal({ branding, monthLabel, staffRow, settings, contactInfo, o
 
 function PayrollManagementBoard({ canApprove = false }) {
   const [tab, setTab] = useState(0);
+  const [tableFullscreen, setTableFullscreen] = useState(false);
   const [rows, setRows] = useState([]);
   const [history, setHistory] = useState([]);
   const [settingsForm, setSettingsForm] = useState(() => normalizePayrollSettings(DEFAULT_PAYROLL_SETTINGS));
@@ -1106,8 +1108,24 @@ function PayrollManagementBoard({ canApprove = false }) {
             ) : rows.length === 0 ? (
               <p className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">No staff payroll rows found.</p>
             ) : (
-              <div className="max-h-[70vh] overflow-auto overscroll-contain rounded-2xl border border-[#c9a96e]/25 dark:border-[#00ffff]/15">
-                <table className="min-w-[2200px] w-full text-sm">
+              <>
+              <style>{'.ndv-fit-table{min-width:0!important;width:100%!important;table-layout:fixed;} .ndv-fit-table th,.ndv-fit-table td{padding:2px 4px!important;font-size:10px!important;} .ndv-fit-table input,.ndv-fit-table select,.ndv-fit-table button{font-size:10px!important;padding:1px 3px!important;}'}</style>
+              <div className="hidden lg:flex justify-end mb-2">
+                <button type="button" onClick={() => setTableFullscreen(true)} className="inline-flex items-center gap-1.5 rounded-xl border border-[#800020]/30 bg-white/60 px-3 py-1.5 text-xs font-semibold text-[#800020] hover:bg-white dark:border-[#bf00ff]/40 dark:bg-[#120014]/80 dark:text-[#bf00ff]">
+                  <ArrowsPointingOutIcon className="h-4 w-4" /> Fit to Screen
+                </button>
+              </div>
+              <div className={tableFullscreen
+                ? 'fixed inset-0 z-[60] overflow-auto bg-[#fff4df] p-4 dark:bg-[#1a0014]'
+                : 'max-h-[70vh] overflow-auto overscroll-contain rounded-2xl border border-[#c9a96e]/25 dark:border-[#00ffff]/15'}>
+                {tableFullscreen ? (
+                  <div className="sticky top-0 z-[70] mb-2 flex justify-end">
+                    <button type="button" onClick={() => setTableFullscreen(false)} className="inline-flex items-center gap-1.5 rounded-xl bg-[#800020] px-3 py-1.5 text-xs font-bold text-[#f5deb3]">
+                      <ArrowsPointingInIcon className="h-4 w-4" /> Exit Full Screen
+                    </button>
+                  </div>
+                ) : null}
+                <table className={tableFullscreen ? 'w-full text-sm ndv-fit-table' : 'min-w-[2200px] w-full text-sm'}>
                   <thead>
                     <tr>
                       <th className={`${TH} sticky top-0 z-20`}>S/N</th>
@@ -1282,6 +1300,7 @@ function PayrollManagementBoard({ canApprove = false }) {
                   </tbody>
                 </table>
               </div>
+              </>
             )}
 
             <div className="mt-4 border-t border-[#c9a96e]/30 pt-4 dark:border-[#00ffff]/15">

@@ -20,8 +20,22 @@ function typeLabel(type) {
 function materialIcon(type) {
   if (type === 'video') return '▶';
   if (type === 'image') return '🖼';
+  if (type === 'audio') return '🎧';
   if (type === 'link') return '🔗';
   return '📄';
+}
+
+function isUsableMaterialUrl(url) {
+  const value = String(url || '').trim();
+  if (!value) return false;
+  return /^https?:\/\//i.test(value) || value.startsWith('/');
+}
+
+function isAudioMaterial(material) {
+  const type = String(material?.type || '').toLowerCase();
+  if (type === 'audio') return true;
+  const source = String(material?.url || material?.fileName || material?.title || '').toLowerCase();
+  return /\.(mp3|wav|ogg|m4a|aac)(\?|$)/.test(source);
 }
 
 export default function SubjectsTab({ classId = '', subjects = [], canManage = false }) {
@@ -111,7 +125,7 @@ export default function SubjectsTab({ classId = '', subjects = [], canManage = f
   // ── Subject grid ─────────────────────────────────────────────────────────
   if (!selectedSubject) {
     return (
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 p-1">
+      <div className="grid grid-cols-2 lg:grid-cols-6 gap-3 p-1">
         {subjects.map((subject, idx) => {
           const p = SUBJECT_PALETTES[idx % SUBJECT_PALETTES.length];
           return (
@@ -271,24 +285,31 @@ export default function SubjectsTab({ classId = '', subjects = [], canManage = f
             </div>
           )}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {subjectMaterials.map(m => (
-              <div key={m.id} className="glass-surface rounded-3xl p-4 border border-white/10 flex flex-col gap-2">
+            {subjectMaterials.map(m => {
+              const usableUrl = isUsableMaterialUrl(m.url) ? m.url : '';
+              const audio = isAudioMaterial(m) && usableUrl;
+              return (
+              <div key={m.id} className="glass-surface rounded-3xl p-4 border border-slate-200 dark:border-white/10 flex flex-col gap-2">
                 <div className="flex items-center gap-2">
-                  <span className="text-lg">{materialIcon(m.type)}</span>
+                  <span className="text-lg">{materialIcon(audio ? 'audio' : m.type)}</span>
                   <span
                     className="text-xs font-bold px-2 py-0.5 rounded-full border uppercase"
                     style={{ background: palette.badge, color: palette.badgeText, borderColor: `${palette.badgeText}40` }}
                   >
-                    {m.type || 'doc'}
+                    {audio ? 'audio' : (m.type || 'doc')}
                   </span>
                 </div>
-                <p className="text-slate-100 font-bold text-sm leading-snug">{m.title || 'Untitled'}</p>
-                {m.topic && <p className="text-xs text-slate-400">{m.topic}{m.weekLabel ? ` · ${m.weekLabel}` : ''}</p>}
-                {m.description && !m.url && (
-                  <p className="text-xs text-slate-300 line-clamp-3">{m.description}</p>
+                <p className="text-slate-900 dark:text-slate-100 font-bold text-sm leading-snug">{m.title || 'Untitled'}</p>
+                {m.topic && <p className="text-xs text-slate-500 dark:text-slate-400">{m.topic}{m.weekLabel ? ` · ${m.weekLabel}` : ''}</p>}
+                {m.description && !usableUrl && (
+                  <p className="text-xs text-slate-700 dark:text-slate-300 line-clamp-3">{m.description}</p>
                 )}
-                {m.url ? (
-                  <a href={m.url} target="_blank" rel="noreferrer"
+                {audio ? (
+                  <audio controls preload="none" src={usableUrl} className="mt-2 w-full">
+                    Your browser does not support audio playback.
+                  </audio>
+                ) : usableUrl ? (
+                  <a href={usableUrl} target="_blank" rel="noreferrer"
                     className="mt-auto text-center text-xs font-bold px-3 py-1.5 rounded-xl transition-colors hover:brightness-110"
                     style={{ backgroundColor: palette.bg, color: palette.text, border: `1px solid ${palette.text}30` }}>
                     Open Material
@@ -302,7 +323,8 @@ export default function SubjectsTab({ classId = '', subjects = [], canManage = f
                   </button>
                 ) : null}
               </div>
-            ))}
+              );
+            })}
           </div>
         </section>
       )}

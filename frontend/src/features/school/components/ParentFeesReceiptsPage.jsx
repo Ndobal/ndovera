@@ -32,6 +32,7 @@ export default function ParentFeesReceiptsPage() {
   const [paymentDetails, setPaymentDetails] = useState({ bankName: '', accountName: '', accountNumber: '', paymentInstructions: '', paymentReferenceHint: '' });
   const [selectedStudentId, setSelectedStudentId] = useState('');
   const [selectedReceipt, setSelectedReceipt] = useState(null);
+  const [showAccountDetails, setShowAccountDetails] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [notice, setNotice] = useState('');
@@ -79,6 +80,14 @@ export default function ParentFeesReceiptsPage() {
 
   const students = useMemo(() => [...ledger].sort((left, right) => String(left?.name || '').localeCompare(String(right?.name || ''))), [ledger]);
   const selectedStudent = students.find(student => student.id === selectedStudentId) || students[0] || null;
+  const grandTotals = useMemo(() => students.reduce((totals, child) => {
+    const expected = Number(child?.feeAmount || 0);
+    const paid = Number(child?.amountPaid || 0);
+    totals.expected += expected;
+    totals.paid += paid;
+    totals.balance += Math.max(Number(child?.balance ?? (expected - paid)), 0);
+    return totals;
+  }, { expected: 0, paid: 0, balance: 0 }), [students]);
   const studentReceipts = useMemo(() => receipts.filter(receipt => receipt.studentId === selectedStudent?.id), [receipts, selectedStudent?.id]);
   const studentClaims = useMemo(() => claims.filter(claim => claim.studentId === selectedStudent?.id), [claims, selectedStudent?.id]);
   const receiptCountByStudentId = useMemo(() => receipts.reduce((map, receipt) => {
@@ -141,6 +150,12 @@ export default function ParentFeesReceiptsPage() {
     }
   }
 
+  function handlePayNow() {
+    // Online payment gateway (Paynow) is not configured yet — guide the parent to bank transfer + claim.
+    setShowAccountDetails(true);
+    setNotice('Online card/Paynow payment is coming soon. For now, transfer to the school account shown above, then submit an “I have paid” claim so finance can verify and issue your receipt.');
+  }
+
   function renderClaimStatus(status) {
     const normalizedStatus = String(status || 'pending').toLowerCase();
     if (normalizedStatus === 'verified') return 'Verified';
@@ -159,6 +174,60 @@ export default function ParentFeesReceiptsPage() {
 
       <div className="space-y-6">
         {notice ? <section className="rounded-2xl border border-[#1a5c38]/20 bg-[#e4f4e6] px-4 py-3 text-sm text-[#1a5c38] dark:border-[#00ffff]/20 dark:bg-[#03181a] dark:text-[#7df9ff]">{notice}</section> : null}
+
+        {/* Top bar: per-child fee totals, grand total, school account details, and payment actions. */}
+        <section className={CARD}>
+          <div className="flex flex-wrap items-start justify-between gap-4">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#800020] dark:text-[#bf00ff]">Fees Summary</p>
+              <h3 className="mt-2 text-2xl font-black text-[#800000] dark:text-white">Grand Total: {formatNaira(grandTotals.expected)}</h3>
+              <p className="mt-1 text-sm text-[#191970] dark:text-[#39ff14]">Paid {formatNaira(grandTotals.paid)} • Outstanding {formatNaira(grandTotals.balance)} across {students.length} child{students.length === 1 ? '' : 'ren'}</p>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              <button
+                type="button"
+                onClick={() => setShowAccountDetails(value => !value)}
+                className="rounded-2xl border border-[#800020]/30 bg-white/60 px-4 py-2.5 text-sm font-semibold text-[#800020] dark:border-[#bf00ff]/40 dark:bg-[#120014]/80 dark:text-[#bf00ff]"
+              >
+                {showAccountDetails ? 'Hide Account Details' : 'School Account Details'}
+              </button>
+              <button
+                type="button"
+                onClick={handlePayNow}
+                className="rounded-2xl bg-[#1a5c38] px-5 py-2.5 text-sm font-bold text-[#f5deb3] dark:bg-[#00ffff] dark:text-black"
+              >
+                Pay Now
+              </button>
+            </div>
+          </div>
+
+          <div className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+            {students.map(child => (
+              <button
+                key={child.id}
+                type="button"
+                onClick={() => setSelectedStudentId(child.id)}
+                className={`${INNER} flex items-center justify-between gap-3 text-left ${selectedStudent?.id === child.id ? 'ring-2 ring-[#1a5c38] dark:ring-[#00ffff]' : ''}`}
+              >
+                <span className="min-w-0">
+                  <span className="block truncate text-sm font-bold text-[#800000] dark:text-white">{child.name || 'Child'}</span>
+                  <span className="block text-xs text-[#800020] dark:text-[#bf00ff]">Outstanding {formatNaira(child.balance)}</span>
+                </span>
+                <span className="shrink-0 text-sm font-bold text-[#191970] dark:text-[#39ff14]">{formatNaira(child.feeAmount)}</span>
+              </button>
+            ))}
+            {students.length === 0 ? <p className="text-sm text-[#800020] dark:text-[#bf00ff]">No linked children yet.</p> : null}
+          </div>
+
+          {showAccountDetails ? (
+            <div className="mt-4 grid gap-2 sm:grid-cols-2">
+              <div className={`${INNER} flex items-center justify-between`}><span className="font-semibold text-[#800020] dark:text-[#bf00ff]">Bank</span><span className="font-bold text-[#191970] dark:text-white">{paymentDetails.bankName || 'Awaiting school update'}</span></div>
+              <div className={`${INNER} flex items-center justify-between`}><span className="font-semibold text-[#800020] dark:text-[#bf00ff]">Account Name</span><span className="font-bold text-[#191970] dark:text-white">{paymentDetails.accountName || 'Awaiting school update'}</span></div>
+              <div className={`${INNER} flex items-center justify-between`}><span className="font-semibold text-[#800020] dark:text-[#bf00ff]">Account Number</span><span className="font-bold text-[#191970] dark:text-white">{paymentDetails.accountNumber || 'Awaiting school update'}</span></div>
+              <div className={`${INNER} flex items-center justify-between`}><span className="font-semibold text-[#800020] dark:text-[#bf00ff]">Reference</span><span className="font-bold text-[#191970] dark:text-white">{paymentDetails.paymentReferenceHint || 'Use the student name'}</span></div>
+            </div>
+          ) : null}
+        </section>
 
         <section className={CARD}>
           <div className="flex flex-wrap items-center justify-between gap-4">

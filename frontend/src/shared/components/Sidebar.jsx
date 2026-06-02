@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import { XMarkIcon } from '@heroicons/react/24/outline';
+import { XMarkIcon, ChevronDoubleLeftIcon, ChevronDoubleRightIcon } from '@heroicons/react/24/outline';
 import useFeatureFlags from '../hooks/useFeatureFlags';
 import { getTenantPwaInfo } from '../hooks/useTenantPwaManifest';
 
@@ -18,35 +18,6 @@ const defaultSidebarItems = [
   { name: 'Class Teacher Tuck Shop', path: '/roles/classteacher/tuck-shop' },
   { name: 'Settings', path: '/settings' },
 ];
-
-const roleLabels = {
-  student: 'Student Dashboard',
-  parent: 'Parent Dashboard',
-  teacher: 'Teacher Dashboard',
-  admin: 'Admin Dashboard',
-  hos: 'HoS Dashboard',
-  accountant: 'Accountant Dashboard',
-  owner: 'Owner Dashboard',
-  librarian: 'Librarian Dashboard',
-  sanitation: 'Sanitation Dashboard',
-  tuckshopmanager: 'Tuck Shop Dashboard',
-  storekeeper: 'Store Dashboard',
-  transport: 'Transport Dashboard',
-  hostel: 'Hostel Dashboard',
-  cafeteria: 'Cafeteria Dashboard',
-  clinic: 'Clinic Dashboard',
-  ict: 'ICT Dashboard',
-  ict_manager: 'ICT Manager Dashboard',
-  classteacher: 'Class Teacher Dashboard',
-  hod: 'HOD Dashboard',
-  hodassistant: 'HOD Assistant Dashboard',
-  principal: 'Principal Dashboard',
-  headteacher: 'Head Teacher Dashboard',
-  nurseryhead: 'Nursery Head Dashboard',
-  examofficer: 'Exam Officer Dashboard',
-  sportsmaster: 'Sports Master Dashboard',
-  ami: 'Ami Dashboard',
-};
 
 const staffAiEligibleRoles = new Set([
   'hos',
@@ -533,9 +504,18 @@ export default function Sidebar({ auth = null, mobileOpen = false, onClose = noo
       if (!featureFlags.farmingModeEnabled && (normalizedPath.includes('/farming') || normalizedPath.includes('/cashout'))) return false;
       return true;
     });
-  const nodeTitle = inRoleMode && roleKey ? roleLabels[roleKey] || 'Role Dashboard' : 'Institution Dashboard';
   const schoolName = tenantBranding?.schoolName || auth?.user?.schoolName || auth?.user?.tenantName || 'NDOVERA';
   const schoolLogoUrl = tenantBranding?.logoUrl || auth?.user?.logoUrl || '';
+  const tenantSubdomain = tenantBranding?.subdomain || auth?.user?.subdomain || '';
+  const schoolWebsiteUrl = tenantSubdomain ? `https://${tenantSubdomain}.ndovera.com` : '';
+  const [collapsed, setCollapsed] = useState(() => {
+    try { return window.localStorage.getItem('ndovera:sidebarCollapsed') === '1'; } catch { return false; }
+  });
+  const toggleCollapsed = () => setCollapsed((prev) => {
+    const next = !prev;
+    try { window.localStorage.setItem('ndovera:sidebarCollapsed', next ? '1' : '0'); } catch { /* ignore */ }
+    return next;
+  });
 
   useEffect(() => {
     if (!auth?.user?.tenantId || auth?.user?.role === 'ami') {
@@ -571,25 +551,58 @@ export default function Sidebar({ auth = null, mobileOpen = false, onClose = noo
         aria-hidden={!mobileOpen}
       />
 
+      {collapsed ? (
+        <button
+          type="button"
+          onClick={toggleCollapsed}
+          className="hidden md:flex fixed left-0 top-24 z-50 items-center rounded-r-xl border border-l-0 border-slate-200/60 bg-white/90 p-2 text-slate-700 shadow-md transition-colors hover:bg-white dark:border-indigo-500/25 dark:bg-slate-900/90 dark:text-[#f5deb3]"
+          aria-label="Open sidebar"
+          title="Open sidebar"
+        >
+          <ChevronDoubleRightIcon className="h-5 w-5" />
+        </button>
+      ) : null}
+
       <aside
-        className={`fixed inset-y-0 left-0 z-50 w-72 max-w-[84vw] overflow-y-auto border-r border-slate-200/60 dark:border-indigo-500/20 frost-panel dashboard-bg dark:bg-transparent transform transition-transform duration-300 md:static md:z-auto md:w-64 md:max-w-none md:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 z-50 w-72 max-w-[84vw] overflow-y-auto border-r border-slate-200/60 dark:border-indigo-500/20 frost-panel dashboard-bg dark:bg-transparent transform transition-all duration-300 md:static md:z-auto md:max-w-none md:translate-x-0 ${
+          collapsed ? 'md:w-0 md:min-w-0 md:overflow-hidden md:border-0 md:opacity-0 md:pointer-events-none' : 'md:w-64'
+        } ${
           mobileOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
         aria-hidden={!mobileOpen}
       >
         <div className="p-6">
-          <div className="mb-4 flex items-start justify-between gap-3 md:block">
-            <div>
-              <p className="micro-label text-slate-500 dark:text-[#f5deb3] neon-subtle mb-2">{nodeTitle}</p>
-              <div className="flex items-center gap-3">
-                {schoolLogoUrl ? (
-                  <div className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-2xl border border-slate-200/60 bg-white/80 p-1.5 dark:border-indigo-500/25 dark:bg-slate-950/40">
-                    <img src={schoolLogoUrl} alt={`${schoolName} logo`} className="h-full w-full animate-[spin_18s_linear_infinite] object-contain" />
+          <div className="mb-4 flex items-start justify-between gap-3">
+            {(() => {
+              const brandInner = (
+                <>
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-slate-200/60 bg-white/80 p-1.5 dark:border-indigo-500/25 dark:bg-slate-950/40">
+                    {schoolLogoUrl ? (
+                      <img src={schoolLogoUrl} alt={`${schoolName} logo`} className="h-full w-full animate-[spin_18s_linear_infinite] object-contain" />
+                    ) : (
+                      <span className="text-lg font-black text-indigo-700 dark:text-[#f5deb3]">{String(schoolName).charAt(0).toUpperCase()}</span>
+                    )}
                   </div>
-                ) : null}
-                <div className="font-black tracking-tighter text-xl text-indigo-700 dark:text-[#f5deb3]">{schoolName}</div>
-              </div>
-            </div>
+                  <div className="font-black tracking-tighter text-xl text-indigo-700 dark:text-[#f5deb3]">{schoolName}</div>
+                </>
+              );
+              return schoolWebsiteUrl ? (
+                <a href={schoolWebsiteUrl} target="_blank" rel="noopener noreferrer" title={`Visit ${schoolName} website`} className="flex items-center gap-3 transition-opacity hover:opacity-80">
+                  {brandInner}
+                </a>
+              ) : (
+                <div className="flex items-center gap-3">{brandInner}</div>
+              );
+            })()}
+            <button
+              type="button"
+              onClick={toggleCollapsed}
+              className="hidden md:flex glass-chip p-2 rounded-xl text-slate-700 dark:text-[#f5deb3] hover:bg-white/70 dark:hover:bg-slate-700/60 transition-colors"
+              aria-label="Collapse sidebar"
+              title="Collapse sidebar"
+            >
+              <ChevronDoubleLeftIcon className="h-5 w-5" />
+            </button>
             <button
               type="button"
               onClick={onClose}
@@ -607,7 +620,7 @@ export default function Sidebar({ auth = null, mobileOpen = false, onClose = noo
                 <a
                   href={item.path}
                   onClick={onClose}
-                  className={`block px-6 py-3 rounded-2xl text-slate-700 dark:text-[#f5deb3] dark:font-bold hover:bg-emerald-50 hover:text-slate-900 dark:hover:bg-indigo-500/20 dark:hover:text-[#f5deb3] transition-colors${item.name === 'Overview' ? ' sidebar-overview' : ''}`}
+                  className={`block px-6 py-3 rounded-2xl text-slate-700 dark:text-white dark:font-bold hover:bg-emerald-50 hover:text-slate-900 dark:hover:bg-indigo-500/20 dark:hover:text-white transition-colors${item.name === 'Overview' ? ' sidebar-overview' : ''}`}
                 >
                   {item.name}
                 </a>
@@ -617,8 +630,8 @@ export default function Sidebar({ auth = null, mobileOpen = false, onClose = noo
                   onClick={onClose}
                   className={({ isActive }) =>
                     isActive
-                      ? `sidebar-item-active block px-6 py-3 rounded-2xl font-semibold dark:font-bold dark:text-[#f5deb3]${item.name === 'Overview' ? ' sidebar-overview' : ''}`
-                      : `block px-6 py-3 rounded-2xl text-slate-700 dark:text-[#f5deb3] dark:font-bold hover:bg-emerald-50 hover:text-slate-900 dark:hover:bg-indigo-500/20 dark:hover:text-[#f5deb3] transition-colors${item.name === 'Overview' ? ' sidebar-overview' : ''}`
+                      ? `sidebar-item-active block px-6 py-3 rounded-2xl font-semibold dark:font-bold dark:text-white${item.name === 'Overview' ? ' sidebar-overview' : ''}`
+                      : `block px-6 py-3 rounded-2xl text-slate-700 dark:text-white dark:font-bold hover:bg-emerald-50 hover:text-slate-900 dark:hover:bg-indigo-500/20 dark:hover:text-white transition-colors${item.name === 'Overview' ? ' sidebar-overview' : ''}`
                   }
                   end
                 >

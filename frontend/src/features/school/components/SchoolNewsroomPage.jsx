@@ -1,8 +1,11 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { getStoredAuth } from '../../auth/services/authApi';
 import {
+  commentOnSchoolNewsPost,
+  getSchoolNewsEngagement,
   getSchoolNewsPosts,
   publishSchoolNewsPost,
+  reactToSchoolNewsPost,
   reviewSchoolNewsPost,
   saveSchoolNewsPost,
   submitSchoolNewsPost,
@@ -11,6 +14,13 @@ import {
 
 const REVIEW_ROLES = new Set(['ict', 'ict_manager', 'hos', 'owner']);
 const PUBLISH_ROLES = new Set(['hos', 'owner']);
+const AUDIENCE_OPTIONS = [
+  { value: 'parents', label: 'Parents' },
+  { value: 'staff', label: 'Staff' },
+  { value: 'students', label: 'Students' },
+  { value: 'website', label: 'Website (public)' },
+];
+const NEWS_REACTIONS = ['👍', '❤️', '🎉', '👏', '😮'];
 const CARD = 'rounded-3xl border border-[#c9a96e]/40 bg-[#f5deb3] p-6 text-[#191970] shadow-sm';
 const INPUT = 'mt-1 w-full rounded-2xl border border-[#c9a96e]/40 bg-[#fff8ee] px-4 py-3 text-sm text-[#191970] outline-none focus:border-[#800020]';
 const BUTTON = 'rounded-full bg-[#1a5c38] px-5 py-3 text-sm font-bold text-[#f5deb3] transition hover:bg-[#154a2e]';
@@ -23,6 +33,7 @@ function createEmptyDraft(authorName) {
     excerpt: '',
     content: '',
     coverUrl: '',
+    audience: ['parents', 'staff', 'students'],
     authorName: authorName || 'Newsroom author',
   };
 }
@@ -73,6 +84,68 @@ function StoryCard({ post, actions = null, footer = null }) {
   );
 }
 
+function NewsEngagement({ postId }) {
+  const [data, setData] = useState({ views: 0, reactions: {}, comments: [] });
+  const [comment, setComment] = useState('');
+  const [busy, setBusy] = useState(false);
+
+  useEffect(() => {
+    let active = true;
+    getSchoolNewsEngagement(postId)
+      .then(result => { if (active) setData({ views: result?.views || 0, reactions: result?.reactions || {}, comments: result?.comments || [] }); })
+      .catch(() => {});
+    return () => { active = false; };
+  }, [postId]);
+
+  async function react(reaction) {
+    try {
+      const result = await reactToSchoolNewsPost(postId, reaction);
+      setData({ views: result?.views || 0, reactions: result?.reactions || {}, comments: result?.comments || [] });
+    } catch {}
+  }
+
+  async function sendComment() {
+    const body = comment.trim();
+    if (!body) return;
+    setBusy(true);
+    try {
+      const result = await commentOnSchoolNewsPost(postId, body);
+      setData({ views: result?.views || 0, reactions: result?.reactions || {}, comments: result?.comments || [] });
+      setComment('');
+    } catch {} finally { setBusy(false); }
+  }
+
+  const totalReactions = Object.values(data.reactions).reduce((sum, n) => sum + Number(n || 0), 0);
+
+  return (
+    <div className="mt-4 border-t border-[#c9a96e]/30 pt-4">
+      <div className="flex flex-wrap items-center gap-3 text-sm text-[#800020]">
+        <span className="font-semibold">👁 {data.views} views</span>
+        <span className="font-semibold">💬 {data.comments.length} comments</span>
+        <span className="font-semibold">⭐ {totalReactions} reactions</span>
+      </div>
+      <div className="mt-3 flex flex-wrap gap-2">
+        {NEWS_REACTIONS.map(reaction => (
+          <button key={reaction} type="button" onClick={() => react(reaction)} className="rounded-full border border-[#c9a96e]/40 bg-[#fff8ee] px-3 py-1 text-sm">
+            {reaction} {data.reactions[reaction] ? <span className="font-bold">{data.reactions[reaction]}</span> : null}
+          </button>
+        ))}
+      </div>
+      <div className="mt-3 space-y-2">
+        {data.comments.map(item => (
+          <div key={item.id} className="rounded-2xl bg-[#fff8ee] px-3 py-2 text-sm text-[#191970]">
+            <span className="font-bold">{item.authorName}: </span>{item.body}
+          </div>
+        ))}
+      </div>
+      <div className="mt-3 flex gap-2">
+        <input value={comment} onChange={event => setComment(event.target.value)} placeholder="Add a comment" className="flex-1 rounded-2xl border border-[#c9a96e]/40 bg-[#fff8ee] px-3 py-2 text-sm text-[#191970] outline-none" />
+        <button type="button" onClick={sendComment} disabled={busy} className="rounded-full bg-[#1a5c38] px-4 py-2 text-sm font-bold text-[#f5deb3]">{busy ? '...' : 'Post'}</button>
+      </div>
+    </div>
+  );
+}
+
 export default function SchoolNewsroomPage({
   viewerRole = 'teacher',
   dashboardLabel = 'School Dashboard',
@@ -84,6 +157,7 @@ export default function SchoolNewsroomPage({
   const authorName = user?.name || user?.email || 'Newsroom author';
   const canReview = REVIEW_ROLES.has(viewerRole);
   const canPublish = PUBLISH_ROLES.has(viewerRole);
+  const viewerChannel = viewerRole === 'parent' ? 'parents' : viewerRole === 'student' ? 'students' : 'staff';
   const fileRef = useRef(null);
   const [form, setForm] = useState(createEmptyDraft(authorName));
   const [mine, setMine] = useState([]);
@@ -211,6 +285,7 @@ export default function SchoolNewsroomPage({
       excerpt: post.excerpt || '',
       content: post.content || '',
       coverUrl: post.coverUrl || '',
+      audience: Array.isArray(post.audience) && post.audience.length ? post.audience : ['parents', 'staff', 'students'],
       authorName: post.authorName || authorName,
     });
     setMessage(`Editing ${post.title}.`);
@@ -222,7 +297,7 @@ export default function SchoolNewsroomPage({
       <section className={CARD}>
         <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#800020]">{dashboardLabel}</p>
         <h1 className="mt-3 text-3xl font-black text-[#800000]">{title}</h1>
-        <p className="mt-3 max-w-3xl text-sm leading-7 text-[#191970]">{subtitle}</p>
+        <p className="mt-3 max-w-3xl text-sm leading-7 text-[#191970]">{subtitle}{loading ? ' • Loading newsroom…' : ''}</p>
       </section>
 
       <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
@@ -264,6 +339,36 @@ export default function SchoolNewsroomPage({
               <label className="text-xs font-semibold uppercase tracking-[0.18em] text-[#800020]">Story</label>
               <textarea rows={10} value={form.content} onChange={event => setForm(current => ({ ...current, content: event.target.value }))} className={`${INPUT} resize-y`} placeholder="Write the full blog story here" />
             </div>
+            <div>
+              <label className="text-xs font-semibold uppercase tracking-[0.18em] text-[#800020]">Publish To</label>
+              <div className="mt-2 flex flex-wrap gap-2">
+                {AUDIENCE_OPTIONS.map(option => {
+                  const selected = (form.audience || []).includes(option.value);
+                  return (
+                    <button
+                      key={option.value}
+                      type="button"
+                      onClick={() => setForm(current => {
+                        const set = new Set(current.audience || []);
+                        if (set.has(option.value)) set.delete(option.value); else set.add(option.value);
+                        return { ...current, audience: Array.from(set) };
+                      })}
+                      className={`rounded-full px-4 py-2 text-sm font-bold transition ${selected ? 'bg-[#1a5c38] text-[#f5deb3]' : 'border border-[#c9a96e]/40 bg-[#fff8ee] text-[#800020]'}`}
+                    >
+                      {selected ? '✓ ' : ''}{option.label}
+                    </button>
+                  );
+                })}
+                <button
+                  type="button"
+                  onClick={() => setForm(current => ({ ...current, audience: ['parents', 'staff', 'students', 'website'] }))}
+                  className="rounded-full border border-[#800020]/30 bg-[#fff8ee] px-4 py-2 text-sm font-bold text-[#800020]"
+                >
+                  Everyone
+                </button>
+              </div>
+              <p className={`${MUTED} mt-2`}>Choose who sees this story. Website posts appear on your public site with reactions and comments.</p>
+            </div>
           </div>
 
           <div className="space-y-4 rounded-3xl border border-[#c9a96e]/40 bg-[#fff8ee] p-5">
@@ -285,29 +390,26 @@ export default function SchoolNewsroomPage({
         </div>
       </section>
 
-      <section className={CARD}>
-        <h2 className="text-2xl font-bold text-[#800000]">My Stories</h2>
-        <p className={`${MUTED} mt-2`}>Draft here, resubmit after changes are requested, and track where each story sits in the workflow.</p>
-        <div className="mt-5 space-y-4">
-          {loading ? <p className="text-sm text-[#800020]">Loading newsroom...</p> : null}
-          {!loading && mine.length === 0 ? <p className="text-sm text-[#800020]">No stories yet. Start with your first draft above.</p> : null}
-          {mine.map(post => (
-            <StoryCard
-              key={post.id}
-              post={post}
-              actions={post.status === 'published' ? null : <button type="button" onClick={() => startEditing(post)} className="rounded-full bg-[#191970] px-4 py-2 text-sm font-bold text-[#f5deb3]">Edit</button>}
-              footer={post.publishedAt ? <p className={`${MUTED} mt-4`}>Published {formatDate(post.publishedAt)}</p> : null}
-            />
-          ))}
-        </div>
-      </section>
+      {mine.length > 0 ? (
+        <section className={CARD}>
+          <h2 className="text-2xl font-bold text-[#800000]">My Stories</h2>
+          <div className="mt-5 space-y-4">
+            {mine.map(post => (
+              <StoryCard
+                key={post.id}
+                post={post}
+                actions={post.status === 'published' ? null : <button type="button" onClick={() => startEditing(post)} className="rounded-full bg-[#191970] px-4 py-2 text-sm font-bold text-[#f5deb3]">Edit</button>}
+                footer={post.publishedAt ? <p className={`${MUTED} mt-4`}>Published {formatDate(post.publishedAt)}</p> : null}
+              />
+            ))}
+          </div>
+        </section>
+      ) : null}
 
-      {canReview ? (
+      {canReview && reviewQueue.length > 0 ? (
         <section className={CARD}>
           <h2 className="text-2xl font-bold text-[#800000]">Review Queue</h2>
-          <p className={`${MUTED} mt-2`}>Dedicated reviewers move submitted stories forward or send them back with notes.</p>
           <div className="mt-5 space-y-4">
-            {reviewQueue.length === 0 ? <p className="text-sm text-[#800020]">No stories are waiting for review.</p> : null}
             {reviewQueue.map(post => (
               <StoryCard
                 key={post.id}
@@ -319,12 +421,10 @@ export default function SchoolNewsroomPage({
         </section>
       ) : null}
 
-      {canPublish ? (
+      {canPublish && publicationQueue.length > 0 ? (
         <section className={CARD}>
           <h2 className="text-2xl font-bold text-[#800000]">Publication Queue</h2>
-          <p className={`${MUTED} mt-2`}>Only HoS or Owner can push reviewed stories to the public tenant news page.</p>
           <div className="mt-5 space-y-4">
-            {publicationQueue.length === 0 ? <p className="text-sm text-[#800020]">No reviewed stories are waiting for publication.</p> : null}
             {publicationQueue.map(post => (
               <StoryCard
                 key={post.id}
@@ -336,16 +436,32 @@ export default function SchoolNewsroomPage({
         </section>
       ) : null}
 
-      <section className={CARD}>
-        <h2 className="text-2xl font-bold text-[#800000]">Published Stories</h2>
-        <p className={`${MUTED} mt-2`}>These already feed the tenant public news page.</p>
-        <div className="mt-5 space-y-4">
-          {published.length === 0 ? <p className="text-sm text-[#800020]">Nothing has been published yet.</p> : null}
-          {published.map(post => (
-            <StoryCard key={post.id} post={post} footer={<p className={`${MUTED} mt-4`}>Published {formatDate(post.publishedAt)}</p>} />
-          ))}
-        </div>
-      </section>
+      {(() => {
+        // Each viewer only sees published stories targeted to their channel; reviewers see everything.
+        const visiblePublished = canReview
+          ? published
+          : published.filter(post => !Array.isArray(post.audience) || post.audience.length === 0 || post.audience.includes(viewerChannel));
+        if (visiblePublished.length === 0) return null;
+        return (
+        <section className={CARD}>
+          <h2 className="text-2xl font-bold text-[#800000]">Published Stories</h2>
+          <div className="mt-5 space-y-4">
+            {visiblePublished.map(post => (
+              <StoryCard
+                key={post.id}
+                post={post}
+                footer={(
+                  <>
+                    <p className={`${MUTED} mt-4`}>Published {formatDate(post.publishedAt)}{Array.isArray(post.audience) && post.audience.length ? ` • ${post.audience.join(', ')}` : ''}</p>
+                    {Array.isArray(post.audience) && post.audience.includes('website') ? <NewsEngagement postId={post.id} /> : null}
+                  </>
+                )}
+              />
+            ))}
+          </div>
+        </section>
+        );
+      })()}
     </div>
   );
 }

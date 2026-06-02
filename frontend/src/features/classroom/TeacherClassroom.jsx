@@ -1345,6 +1345,7 @@ export default function TeacherClassroom({
                     <select value={materialType} onChange={e => setMaterialType(e.target.value)} className="rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] p-3 text-sm text-[#191970] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#ffffff]">
                       <option value="document">Document / Note</option>
                       <option value="video">Video</option>
+                      <option value="audio">Audio</option>
                       <option value="image">Image</option>
                       <option value="link">External Link</option>
                     </select>

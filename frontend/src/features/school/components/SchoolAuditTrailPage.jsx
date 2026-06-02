@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { getAuditLog } from '../services/schoolApi';
+import { getAuditLog, getPeople } from '../services/schoolApi';
 
 const SHELL = 'p-8 max-w-7xl mx-auto space-y-6';
 const SURFACE = 'rounded-3xl border border-[#c9a96e]/40 bg-[#f5deb3] p-6 shadow-[0_18px_42px_rgba(128,0,0,0.08)] dark:border-[#bf00ff]/35 dark:bg-[#800000]/75 dark:shadow-[0_0_28px_rgba(191,0,255,0.18)]';
@@ -31,6 +31,25 @@ function humanizeAction(value) {
   const text = String(value || 'event').replace(/([a-z])([A-Z])/g, '$1 $2').replace(/_/g, ' ');
   return text.charAt(0).toUpperCase() + text.slice(1);
 }
+
+function prettifyKey(value) {
+  const text = String(value || '')
+    .replace(/([a-z])([A-Z])/g, '$1 $2')
+    .replace(/_/g, ' ')
+    .trim();
+  if (!text) return '';
+  return text.charAt(0).toUpperCase() + text.slice(1).replace(/\bid\b/i, 'ID');
+}
+
+// Keys whose values are user/student/tenant identifiers we should resolve to a readable name.
+function looksLikeIdentifier(value) {
+  const text = String(value || '').trim();
+  if (!text) return false;
+  return /^(user|student|tenant|usr|stu)[_-]/i.test(text) || /^[A-Za-z0-9]+_\d{10,}/.test(text);
+}
+
+// Keys that are noisy/internal and add no value in the plain-text view.
+const HIDDEN_DETAIL_KEYS = new Set(['tenantid', 'tenant', 'id', 'ip', 'useragent', 'ua']);
 
 function getCategory(entry) {
   const actionText = String(entry?.action || '').toLowerCase();
@@ -69,11 +88,65 @@ export default function SchoolAuditTrailPage({
   subtitle = 'Critical school actions refresh automatically.',
 }) {
   const [events, setEvents] = useState([]);
+  const [people, setPeople] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState('all');
   const [lastUpdated, setLastUpdated] = useState('');
+
+  // Build a directory so audit IDs/emails display as readable names.
+  useEffect(() => {
+    let active = true;
+    getPeople({ limit: 500 })
+      .then(data => { if (active) setPeople(data?.people || []); })
+      .catch(() => {});
+    return () => { active = false; };
+  }, []);
+
+  const nameMap = useMemo(() => {
+    const map = new Map();
+    people.forEach(person => {
+      const name = String(person?.name || '').trim();
+      if (!name) return;
+      [person.id, person.email, person.displayId].forEach(key => {
+        const normalized = String(key || '').trim().toLowerCase();
+        if (normalized) map.set(normalized, name);
+      });
+    });
+    return map;
+  }, [people]);
+
+  const resolveName = useMemo(() => (value) => {
+    const raw = String(value || '').trim();
+    if (!raw) return raw;
+    return nameMap.get(raw.toLowerCase()) || raw;
+  }, [nameMap]);
+
+  // Convert an audit data object into readable label/value lines (no raw JSON, IDs resolved to names).
+  const buildDetailLines = useMemo(() => (data) => {
+    if (!data || typeof data !== 'object') return [];
+    return Object.entries(data)
+      .filter(([key, value]) => {
+        if (HIDDEN_DETAIL_KEYS.has(String(key).toLowerCase())) return false;
+        return value !== undefined && value !== null && value !== '';
+      })
+      .map(([key, value]) => {
+        let display;
+        if (Array.isArray(value)) {
+          display = value.map(item => (looksLikeIdentifier(item) ? resolveName(item) : String(item))).join(', ');
+        } else if (typeof value === 'object') {
+          display = Object.entries(value)
+            .map(([innerKey, innerValue]) => `${prettifyKey(innerKey)}: ${looksLikeIdentifier(innerValue) ? resolveName(innerValue) : innerValue}`)
+            .join(', ');
+        } else {
+          const text = String(value);
+          display = (looksLikeIdentifier(text) || text.includes('@')) ? resolveName(text) : text;
+        }
+        return { label: prettifyKey(key), value: display };
+      })
+      .filter(line => line.value !== '');
+  }, [resolveName]);
 
   useEffect(() => {
     let active = true;
@@ -188,14 +261,24 @@ export default function SchoolAuditTrailPage({
                     <h2 className="mt-1 text-lg font-bold text-[#800000] dark:text-[#ffffff]">{humanizeAction(event.action)}</h2>
                   </div>
                   <div className="flex flex-wrap items-center gap-2">
-                    <span className="rounded-full bg-[#1a5c38] px-3 py-1 text-xs font-bold uppercase tracking-[0.15em] text-[#f5deb3] dark:bg-[#00ffff] dark:text-[#000000]">{event.studentId || 'school'}</span>
+                    <span className="rounded-full bg-[#1a5c38] px-3 py-1 text-xs font-bold uppercase tracking-[0.15em] text-[#f5deb3] dark:bg-[#00ffff] dark:text-[#000000]">{resolveName(event.studentId) || 'School'}</span>
                     <span className="rounded-full border border-[#c9a96e]/45 bg-white/60 px-3 py-1 text-xs font-semibold uppercase tracking-[0.15em] text-[#800020] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#bf00ff]">{formatDateTime(event.ts)}</span>
                   </div>
                 </div>
-                {event.preview ? <p className={`${BODY} mt-3`}>{event.preview}</p> : null}
-                {event.data && Object.keys(event.data).length > 0 ? (
-                  <pre className="mt-3 overflow-x-auto rounded-2xl border border-[#c9a96e]/30 bg-[#f0d090] p-3 text-xs text-[#191970] dark:border-[#bf00ff]/25 dark:bg-black/30 dark:text-[#39ff14]">{JSON.stringify(event.data, null, 2)}</pre>
-                ) : null}
+                {(() => {
+                  const detailLines = buildDetailLines(event.data);
+                  if (detailLines.length === 0) return null;
+                  return (
+                    <dl className="mt-3 space-y-1">
+                      {detailLines.map((line, lineIndex) => (
+                        <div key={`${line.label}-${lineIndex}`} className="flex flex-wrap gap-x-2">
+                          <dt className="text-xs font-semibold uppercase tracking-[0.12em] text-[#800020] dark:text-[#bf00ff]">{line.label}:</dt>
+                          <dd className={`${BODY} text-sm`}>{line.value}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                  );
+                })()}
               </article>
             ))}
           </div>

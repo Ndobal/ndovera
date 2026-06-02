@@ -59,8 +59,10 @@ import {
 import {
   ensureNewsroomTables,
   getSchoolNewsPostById,
+  getSchoolNewsEngagement,
   listSchoolNewsPosts,
   publishSchoolNewsPost,
+  recordSchoolNewsEngagement,
   reviewSchoolNewsPost,
   saveSchoolNewsPost,
   submitSchoolNewsPost,
@@ -10800,6 +10802,62 @@ app.get('/api/public/fees-receipts/:receiptNo', async (c) => {
   }
 })
 
+// ─── Public school-news engagement (views, reactions, comments on the website) ──
+async function loadPublishedWebsitePost(env: Bindings, tenantId: string, postId: string) {
+  const post = await getSchoolNewsPostById(env.APP_DB, tenantId, postId)
+  if (!post || post.status !== 'published') return null
+  return post
+}
+
+app.get('/api/public/news/:tenantId/:postId/engagement', async (c) => {
+  try {
+    const tenantId = String(c.req.param('tenantId') || '').trim()
+    const postId = String(c.req.param('postId') || '').trim()
+    const post = await loadPublishedWebsitePost(c.env, tenantId, postId)
+    if (!post) return c.json({ success: false, error: 'not found' }, 404)
+    const engagement = await getSchoolNewsEngagement(c.env.APP_DB, tenantId, postId)
+    return c.json({ success: true, ...engagement })
+  } catch {
+    return c.json({ success: true, views: 0, reactions: {}, comments: [] })
+  }
+})
+
+app.post('/api/public/news/:tenantId/:postId/:action', async (c) => {
+  try {
+    const tenantId = String(c.req.param('tenantId') || '').trim()
+    const postId = String(c.req.param('postId') || '').trim()
+    const action = String(c.req.param('action') || '').trim()
+    const post = await loadPublishedWebsitePost(c.env, tenantId, postId)
+    if (!post) return c.json({ success: false, error: 'not found' }, 404)
+
+    const body = await c.req.json().catch(() => ({}))
+    if (action === 'view') {
+      const engagement = await recordSchoolNewsEngagement(c.env.APP_DB, { tenantId, postId, kind: 'view' })
+      return c.json({ success: true, ...engagement })
+    }
+    if (action === 'react') {
+      const reaction = String(body?.reaction || '👍').slice(0, 16)
+      const engagement = await recordSchoolNewsEngagement(c.env.APP_DB, { tenantId, postId, kind: 'reaction', reaction })
+      return c.json({ success: true, ...engagement })
+    }
+    if (action === 'comment') {
+      const text = String(body?.body || '').trim()
+      if (!text) return c.json({ success: false, error: 'Comment required.' }, 400)
+      const engagement = await recordSchoolNewsEngagement(c.env.APP_DB, {
+        tenantId,
+        postId,
+        kind: 'comment',
+        authorName: String(body?.authorName || 'Reader').slice(0, 120),
+        body: text,
+      })
+      return c.json({ success: true, ...engagement })
+    }
+    return c.json({ success: false, error: 'Unsupported action.' }, 400)
+  } catch {
+    return c.json({ success: false, error: 'Could not record engagement.' }, 500)
+  }
+})
+
 app.get('/api/public/results/:publicationId', async (c) => {
   try {
     const publicationId = String(c.req.param('publicationId') || '').trim()
@@ -12346,6 +12404,7 @@ app.post('/api/school/news/posts', authenticate, async (c) => {
       excerpt: payload.excerpt,
       content: payload.content,
       coverUrl: payload.coverUrl,
+      audience: payload.audience,
       authorId: actor.id,
       authorName: actor.name || actor.email || actor.id,
       authorRole: actor.role,
@@ -12377,6 +12436,7 @@ app.post('/api/school/news/posts/submit', authenticate, async (c) => {
       excerpt: payload.excerpt,
       content: payload.content,
       coverUrl: payload.coverUrl,
+      audience: payload.audience,
       authorId: actor.id,
       authorName: actor.name || actor.email || actor.id,
       authorRole: actor.role,
@@ -12428,6 +12488,54 @@ app.post('/api/school/news/posts/:id/publish', authenticate, async (c) => {
     return c.json({ success: true, post })
   } catch (error) {
     return c.json({ error: error instanceof Error ? error.message : 'Could not publish story.' }, 500)
+  }
+})
+
+// Engagement (views/reactions/comments) on published stories — shared with the public website.
+app.get('/api/school/news/posts/:id/engagement', authenticate, async (c) => {
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  try {
+    const engagement = await getSchoolNewsEngagement(c.env.APP_DB, tenantId, c.req.param('id'))
+    return c.json({ success: true, ...engagement })
+  } catch {
+    return c.json({ success: true, views: 0, reactions: {}, comments: [] })
+  }
+})
+
+app.post('/api/school/news/posts/:id/engagement', authenticate, async (c) => {
+  const tenantId = c.var.user?.tenantId
+  const actor = c.var.user || {}
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  try {
+    const post = await getSchoolNewsPostById(c.env.APP_DB, tenantId, c.req.param('id'))
+    if (!post || post.status !== 'published') return c.json({ error: 'not found' }, 404)
+    const payload = await c.req.json().catch(() => ({}))
+    const kind = String(payload.kind || '').trim()
+    if (kind === 'reaction') {
+      const engagement = await recordSchoolNewsEngagement(c.env.APP_DB, {
+        tenantId,
+        postId: post.id,
+        kind: 'reaction',
+        reaction: String(payload.reaction || '👍').slice(0, 16),
+      })
+      return c.json({ success: true, ...engagement })
+    }
+    if (kind === 'comment') {
+      const text = String(payload.body || '').trim()
+      if (!text) return c.json({ error: 'Comment required.' }, 400)
+      const engagement = await recordSchoolNewsEngagement(c.env.APP_DB, {
+        tenantId,
+        postId: post.id,
+        kind: 'comment',
+        authorName: actor.name || actor.email || 'Reader',
+        body: text,
+      })
+      return c.json({ success: true, ...engagement })
+    }
+    return c.json({ error: 'Unsupported engagement.' }, 400)
+  } catch {
+    return c.json({ error: 'Could not record engagement.' }, 500)
   }
 })
 
@@ -14921,7 +15029,7 @@ app.put('/api/school/payroll/staff/:staffId', authenticate, async (c) => {
 })
 
 app.post('/api/school/payroll/approve', authenticate, async (c) => {
-  if (!hasRequiredRole(c.var.user.role, ['owner'])) return c.json({ error: 'forbidden' }, 403)
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos'])) return c.json({ error: 'forbidden' }, 403)
   const tenantId = c.var.user?.tenantId
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
   const period = new Date().toISOString().slice(0, 7)
@@ -15067,6 +15175,10 @@ app.get('/api/school/payroll/my-payslip', authenticate, async (c) => {
     const tenant = tenantId ? await getTenantById(c.env.APP_DB, tenantId) : null
     const brandingRow = await c.env.APP_DB.prepare(`SELECT * FROM tenant_branding WHERE tenant_id = ?`).bind(tenantId).first() as any
     const rows = await c.env.APP_DB.prepare(`SELECT * FROM payroll_entries WHERE (staff_id = ? OR staff_id = ?) AND tenant_id = ? AND period = ? LIMIT 1`).bind(userId, settings?.email || userId, tenantId, period).first() as any
+    // Staff can only see a payslip once the owner/HoS has approved the payroll for the period.
+    if (rows && Number(rows.approved) !== 1) {
+      return c.json({ success: true, payslip: null, status: 'pending', message: 'Your payslip will be available once payroll is approved by the school leadership.' })
+    }
     const allowances = normalizePayrollNumericMap(rows?.allowances_json)
     const deductionsMap = normalizePayrollNumericMap(rows?.deductions_json)
     const basicSalary = Number(rows?.basic_salary || 0)
@@ -17186,14 +17298,88 @@ function renderSchoolHome(tenant: any, branding: any, sections: any[], events: a
   return baseHtml(schoolName, body)
 }
 
-function renderEventCard(e: any, options: { fullCopy?: boolean } = {}) {
+function renderEventCard(e: any, options: { fullCopy?: boolean; tenantId?: string } = {}) {
   const fullCopy = Boolean(options.fullCopy)
   const rawDescription = String(e.description || '')
   const previewText = fullCopy
     ? rawDescription
     : `${escHtml(rawDescription.slice(0, 150))}${rawDescription.length > 150 ? '...' : ''}`
   const media = e.mediaUrls?.[0] ? renderMedia(e.mediaUrls[0], e.title, '') : '<div class="placeholder-media">News</div>'
-  return `<article class="news-card"${e.id ? ` id="story-${escAttr(String(e.id || ''))}"` : ''}>${media}<div><p class="muted">${e.event_date ? new Date(e.event_date).toLocaleDateString('en-NG',{day:'numeric',month:'long',year:'numeric'}) : 'School update'}</p><h3>${escHtml(e.title)}</h3><p>${previewText}</p>${fullCopy ? '' : `<p style="margin-top:12px"><a class="btn-primary" href="/events${e.id ? `#story-${escAttr(String(e.id || ''))}` : ''}">Read More</a></p>`}</div></article>`
+  const engagement = fullCopy && e.id && options.tenantId ? renderNewsEngagementWidget(String(options.tenantId), String(e.id)) : ''
+  return `<article class="news-card"${e.id ? ` id="story-${escAttr(String(e.id || ''))}"` : ''}>${media}<div><p class="muted">${e.event_date ? new Date(e.event_date).toLocaleDateString('en-NG',{day:'numeric',month:'long',year:'numeric'}) : 'School update'}</p><h3>${escHtml(e.title)}</h3><p>${previewText}</p>${engagement}${fullCopy ? '' : `<p style="margin-top:12px"><a class="btn-primary" href="/events${e.id ? `#story-${escAttr(String(e.id || ''))}` : ''}">Read More</a></p>`}</div></article>`
+}
+
+function renderNewsEngagementWidget(tenantId: string, postId: string) {
+  return `<div class="news-engagement" data-tenant="${escAttr(tenantId)}" data-post="${escAttr(postId)}" style="margin-top:16px;border-top:1px solid rgba(0,0,0,0.12);padding-top:12px;">
+    <div class="ne-stats muted" style="display:flex;gap:14px;flex-wrap:wrap;font-weight:600;">
+      <span class="ne-views">👁 0 views</span>
+      <span class="ne-react-count">⭐ 0 reactions</span>
+      <span class="ne-comment-count">💬 0 comments</span>
+    </div>
+    <div class="ne-reactions" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;">
+      ${['👍','❤️','🎉','👏','😮'].map(r => `<button type="button" class="ne-react" data-reaction="${escAttr(r)}" style="border:1px solid rgba(0,0,0,0.15);background:#fff;border-radius:999px;padding:4px 12px;cursor:pointer;">${r} <span class="ne-react-n">0</span></button>`).join('')}
+    </div>
+    <div class="ne-comments" style="margin-top:12px;display:grid;gap:8px;"></div>
+    <form class="ne-comment-form" style="margin-top:10px;display:flex;gap:8px;">
+      <input class="ne-name" placeholder="Your name" style="flex:0 0 30%;border:1px solid rgba(0,0,0,0.15);border-radius:999px;padding:8px 12px;" />
+      <input class="ne-body" placeholder="Add a comment" required style="flex:1;border:1px solid rgba(0,0,0,0.15);border-radius:999px;padding:8px 12px;" />
+      <button type="submit" class="btn-primary" style="border:none;border-radius:999px;padding:8px 16px;cursor:pointer;">Post</button>
+    </form>
+  </div>`
+}
+
+function newsEngagementScript() {
+  return `<script>
+  (function () {
+    function render(el, data) {
+      el.querySelector('.ne-views').textContent = '👁 ' + (data.views || 0) + ' views';
+      var reactions = data.reactions || {};
+      var totalReactions = Object.keys(reactions).reduce(function (sum, key) { return sum + Number(reactions[key] || 0); }, 0);
+      el.querySelector('.ne-react-count').textContent = '⭐ ' + totalReactions + ' reactions';
+      el.querySelector('.ne-comment-count').textContent = '💬 ' + ((data.comments || []).length) + ' comments';
+      el.querySelectorAll('.ne-react').forEach(function (btn) {
+        var r = btn.getAttribute('data-reaction');
+        btn.querySelector('.ne-react-n').textContent = reactions[r] || 0;
+      });
+      var list = el.querySelector('.ne-comments');
+      list.innerHTML = (data.comments || []).map(function (c) {
+        return '<div style="background:#fff8ee;border-radius:14px;padding:8px 12px;"><strong>' + escapeHtml(c.authorName || 'Reader') + ':</strong> ' + escapeHtml(c.body || '') + '</div>';
+      }).join('');
+    }
+    function escapeHtml(s) {
+      return String(s == null ? '' : s).replace(/[&<>"']/g, function (m) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m];
+      });
+    }
+    document.querySelectorAll('.news-engagement').forEach(function (el) {
+      var tenant = el.getAttribute('data-tenant');
+      var post = el.getAttribute('data-post');
+      var base = '/api/public/news/' + encodeURIComponent(tenant) + '/' + encodeURIComponent(post);
+      fetch(base + '/view', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' })
+        .then(function (r) { return r.json(); })
+        .then(function (data) { if (data && data.success) render(el, data); })
+        .catch(function () {});
+      el.querySelectorAll('.ne-react').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          fetch(base + '/react', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ reaction: btn.getAttribute('data-reaction') }) })
+            .then(function (r) { return r.json(); })
+            .then(function (data) { if (data && data.success) render(el, data); })
+            .catch(function () {});
+        });
+      });
+      el.querySelector('.ne-comment-form').addEventListener('submit', function (event) {
+        event.preventDefault();
+        var name = el.querySelector('.ne-name').value;
+        var body = el.querySelector('.ne-body').value;
+        if (!body.trim()) return;
+        fetch(base + '/comment', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ authorName: name, body: body }) })
+          .then(function (r) { return r.json(); })
+          .then(function (data) { if (data && data.success) { render(el, data); el.querySelector('.ne-body').value = ''; } })
+          .catch(function () {});
+      });
+    });
+  }());
+  </script>`
 }
 
 function renderContentPage(tenant: any, branding: any, sections: any[], key: string, fallbackTitle: string, fallbackCopy: string) {
@@ -17350,7 +17536,7 @@ function renderEventsPage(tenant: any, branding: any, events: any[]) {
 
   const eventsHtml = events.length === 0
     ? `<div class="placeholder-media">No news posted yet. Check back soon.</div>`
-    : `<div class="cards">${events.map((e: any) => renderEventCard(e, { fullCopy: true })).join('')}</div>`
+    : `<div class="cards">${events.map((e: any) => renderEventCard(e, { fullCopy: true, tenantId: String(tenant.id || '') })).join('')}</div>`
 
   const body = `
   ${subdomainNavbar(schoolName, tenant.requestedSubdomain, logoUrl)}
@@ -17358,7 +17544,8 @@ function renderEventsPage(tenant: any, branding: any, events: any[]) {
   <main class="section">
     ${eventsHtml}
   </main>
-  ${subdomainFooter(schoolName, branding)}`
+  ${subdomainFooter(schoolName, branding)}
+  ${newsEngagementScript()}`
 
   return baseHtml(`News - ${schoolName}`, body)
 }
@@ -17488,7 +17675,7 @@ async function renderTenantWebsiteResponse(
       env.APP_DB.prepare(`SELECT * FROM tenant_branding WHERE tenant_id = ?`).bind(tenant.id).first() as Promise<any>,
       env.APP_DB.prepare(`SELECT * FROM website_sections WHERE tenant_id = ? ORDER BY section_key`).bind(tenant.id).all(),
       env.APP_DB.prepare(`SELECT * FROM school_events WHERE tenant_id = ? ORDER BY event_date DESC LIMIT 10`).bind(tenant.id).all(),
-      listSchoolNewsPosts(env.APP_DB, String(tenant.id || ''), { status: 'published' }),
+      listSchoolNewsPosts(env.APP_DB, String(tenant.id || ''), { status: 'published', channel: 'website' }),
     ])
 
     const branding = mapTenantBranding(tenant, brandingRow as any)

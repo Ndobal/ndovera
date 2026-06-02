@@ -1,8 +1,25 @@
 import React, { useEffect, useState } from 'react';
+import {
+  CreditCardIcon,
+  BanknotesIcon,
+  BuildingLibraryIcon,
+  InboxStackIcon,
+  ArrowTrendingDownIcon,
+  ChartBarIcon,
+  SparklesIcon,
+} from '@heroicons/react/24/outline';
 import FeesManagementBoard from '../../../features/school/components/FeesManagementBoard';
 import { getMyTenant, getExpenditure, addExpenditure, runFinanceAI, getFeesLedger } from '../../../features/school/services/schoolApi';
 
-const TABS = ['Subscription', 'Fees', 'Parent Payment Channels', 'Payment Claim Queue', 'Expenditure', 'Income & Expenditure', 'AI Analysis'];
+const TAB_META = [
+  { label: 'Subscription', short: 'Subscription', Icon: CreditCardIcon },
+  { label: 'Fees', short: 'Fees', Icon: BanknotesIcon },
+  { label: 'Parent Payment Channels', short: 'Channels', Icon: BuildingLibraryIcon },
+  { label: 'Payment Claim Queue', short: 'Claims', Icon: InboxStackIcon },
+  { label: 'Expenditure', short: 'Expenditure', Icon: ArrowTrendingDownIcon },
+  { label: 'Income & Expenditure', short: 'Income & Exp.', Icon: ChartBarIcon },
+  { label: 'AI Analysis', short: 'AI Analysis', Icon: SparklesIcon },
+];
 const CARD = 'rounded-3xl p-6 bg-[#f5deb3] border border-[#c9a96e]/40';
 const INNER = 'rounded-2xl p-4 bg-[#f0d090] border border-[#c9a96e]/30';
 const BTN = 'bg-[#1a5c38] hover:bg-[#154a2e] text-[#f5deb3] font-bold px-5 py-2.5 rounded-2xl text-sm transition-colors';
@@ -173,11 +190,24 @@ export default function OwnerFinance({ auth, initialTab = 0 }) {
   }, [initialTab]);
 
   return (
-    <div className="p-8 max-w-7xl mx-auto space-y-6">
-      <div className={CARD}><h1 className="text-2xl font-bold text-[#800000]">Finance</h1><p className="text-[#191970] mt-1 text-sm">Manage subscriptions, student fees, expenditure, and AI insights.</p></div>
-      <div className="sticky top-3 z-40 rounded-3xl border border-[#c9a96e]/40 bg-[#f5deb3]/95 p-3 shadow-sm backdrop-blur dark:border-[#00ffff]/20 dark:bg-[#800000]/75">
-        <div className="flex gap-2 overflow-x-auto pb-1 sm:flex-wrap">
-        {TABS.map((t, i) => <button key={t} onClick={() => setTab(i)} className={`shrink-0 px-5 py-2 rounded-2xl text-sm font-semibold transition-colors ${tab === i ? 'bg-[#800020] text-[#f5deb3]' : 'bg-[#f5deb3] text-[#800020] border border-[#c9a96e]/40 hover:bg-[#f0d090]'}`}>{t}</button>)}
+    <div className="p-4 md:p-8 max-w-7xl mx-auto space-y-5">
+      <div className="sticky top-0 z-40 -mx-4 md:mx-0 rounded-none md:rounded-2xl border-b md:border border-[#c9a96e]/40 bg-[#f5deb3]/95 px-3 py-2 shadow-sm backdrop-blur dark:border-[#00ffff]/20 dark:bg-[#800000]/80">
+        <div className="flex items-center gap-1.5 overflow-x-auto">
+        {TAB_META.map((t, i) => {
+          const active = tab === i;
+          const Icon = t.Icon;
+          return (
+            <button
+              key={t.label}
+              onClick={() => setTab(i)}
+              title={t.label}
+              className={`inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-xl px-3 py-1.5 text-sm font-semibold transition-colors ${active ? 'bg-[#800020] text-[#f5deb3] shadow-sm' : 'text-[#800020] hover:bg-[#f0d090] dark:text-[#f5deb3] dark:hover:bg-[#800000]/40'}`}
+            >
+              <Icon className="h-4 w-4 shrink-0" />
+              <span>{t.short}</span>
+            </button>
+          );
+        })}
         </div>
       </div>
       {tab === 0 && <SubscriptionTab />}

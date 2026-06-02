@@ -27,6 +27,7 @@ function extractContactInfo(sections = []) {
 
 export default function TeacherPayslip({ auth }) {
   const [payslip, setPayslip] = useState(null);
+  const [pendingMessage, setPendingMessage] = useState('');
   const [contactInfo, setContactInfo] = useState({ address: '', phone: '', email: '' });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -38,7 +39,12 @@ export default function TeacherPayslip({ auth }) {
     Promise.all([getMyPayslip(), getWebsiteSections().catch(() => ({ sections: [] }))])
       .then(([data, sectionsResult]) => {
         if (!active) return;
-        setPayslip(data?.payslip || data || null);
+        if (data && data.success && data.payslip === null) {
+          setPendingMessage(data.message || 'Your payslip will be available once payroll is approved by the school leadership.');
+          setPayslip(null);
+        } else {
+          setPayslip(data?.payslip || (data && data.gross !== undefined ? data : null));
+        }
         setContactInfo(extractContactInfo(sectionsResult?.sections || []));
       })
       .catch(err => {
@@ -56,6 +62,12 @@ export default function TeacherPayslip({ auth }) {
 
   if (loading) return <div className="p-8 max-w-3xl mx-auto"><div className={CARD}><p className="text-[#800020]">Loading payslip…</p></div></div>;
   if (error) return <div className="p-8 max-w-3xl mx-auto"><div className={CARD}><p className="text-[#800000] text-sm">{error}</p></div></div>;
+  if (pendingMessage) return (
+    <div className="p-8 max-w-3xl mx-auto space-y-6">
+      <div className={CARD}><h1 className="text-2xl font-bold text-[#800000]">My Payslip</h1><p className="text-[#191970] mt-1 text-sm">{month}</p></div>
+      <div className={CARD}><p className="text-sm font-semibold text-[#800020]">{pendingMessage}</p></div>
+    </div>
+  );
 
   const p = payslip || {};
   const gross = p.gross || 0;

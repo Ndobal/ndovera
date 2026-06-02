@@ -1,6 +1,17 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import JSZip from 'jszip';
 import QRCode from 'qrcode';
+import * as XLSX from 'xlsx';
+import {
+  BanknotesIcon,
+  ExclamationTriangleIcon,
+  UsersIcon,
+  ReceiptPercentIcon,
+  InboxArrowDownIcon,
+  AdjustmentsHorizontalIcon,
+  ArrowsPointingOutIcon,
+  ArrowsPointingInIcon,
+} from '@heroicons/react/24/outline';
 import FeeReceiptDialog from './FeeReceiptDialog';
 import {
   approveFeePaymentClaim,
@@ -464,12 +475,16 @@ function FeesManagementBoard({ initialFinanceTab = 'fees' }) {
   const [studentSearch, setStudentSearch] = useState('');
   const [feesExpanded, setFeesExpanded] = useState(true);
   const [feesOverviewOpen, setFeesOverviewOpen] = useState(false);
+  const [controlsOpen, setControlsOpen] = useState(false);
+  const [tableFullscreen, setTableFullscreen] = useState(false);
   const [paymentDetailsForm, setPaymentDetailsForm] = useState(createEmptyPaymentDetails());
   const [claims, setClaims] = useState([]);
   const [paymentDetailsSaving, setPaymentDetailsSaving] = useState(false);
   const [claimSavingId, setClaimSavingId] = useState('');
   const toastTimeoutRef = useRef(null);
   const autoSaveTimeoutRef = useRef(null);
+  const templateInputRef = useRef(null);
+  const [uploadingTemplate, setUploadingTemplate] = useState(false);
   const financeView = ['fees', 'channels', 'claims'].includes(initialFinanceTab) ? initialFinanceTab : 'fees';
 
   const showToast = useCallback((message) => {
@@ -1195,6 +1210,112 @@ function FeesManagementBoard({ initialFinanceTab = 'fees' }) {
     }
   }
 
+  // ── Per-student fee template: download a spreadsheet, fill each learner's fees + amount paid, re-upload ──
+  function handleDownloadFeeTemplate() {
+    if (!students.length) {
+      showToast('No students found to build a template.');
+      return;
+    }
+
+    const rows = students.map((student) => {
+      const row = {
+        'Student ID': getReadableStudentId(student.displayId, student.id),
+        'Student Name': student.name || '',
+        Class: student.className || '',
+      };
+      feeColumns.forEach((feeName) => {
+        row[feeName] = Number(student?.fees?.[feeName] || 0);
+      });
+      row['Amount Paid'] = Number(student?.amountPaid || 0);
+      return row;
+    });
+
+    const worksheet = XLSX.utils.json_to_sheet(rows);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Fees');
+    const filePart = sanitizeReceiptFilePart(`${branding?.schoolName || 'fees'}_${sessionLabel || 'session'}_${currentTerm || 'term'}`) || 'fees_template';
+    XLSX.writeFile(workbook, `${filePart}_template.xlsx`);
+    showToast('Fee template downloaded. Fill each learner\'s fees and amount paid, then upload it back.');
+  }
+
+  function findStudentForRow(row) {
+    const id = String(row['Student ID'] || row['StudentID'] || '').trim().toLowerCase();
+    const name = String(row['Student Name'] || row['Name'] || '').trim().toLowerCase();
+    return students.find((student) => {
+      const candidateIds = [student.displayId, student.id, getReadableStudentId(student.displayId, student.id)]
+        .map((value) => String(value || '').trim().toLowerCase());
+      if (id && candidateIds.includes(id)) return true;
+      if (name && String(student.name || '').trim().toLowerCase() === name) return true;
+      return false;
+    }) || null;
+  }
+
+  async function handleUploadFeeTemplate(event) {
+    const file = event.target.files?.[0];
+    if (file) {
+      setUploadingTemplate(true);
+      try {
+        const buffer = await file.arrayBuffer();
+        const workbook = XLSX.read(buffer, { type: 'array' });
+        const sheet = workbook.Sheets[workbook.SheetNames[0]];
+        const rows = XLSX.utils.sheet_to_json(sheet, { defval: 0 });
+
+        const updates = [];
+        rows.forEach((row) => {
+          const student = findStudentForRow(row);
+          if (!student) return;
+          const nextFees = { ...student.fees };
+          feeColumns.forEach((feeName) => {
+            if (row[feeName] !== undefined && row[feeName] !== '') {
+              nextFees[feeName] = Number(row[feeName] || 0);
+            }
+          });
+          const uploadedPaidRaw = row['Amount Paid'] ?? row['AmountPaid'] ?? student.amountPaid;
+          const uploadedPaid = Number(uploadedPaidRaw || 0);
+          updates.push({ id: student.id, fees: nextFees, amountPaid: uploadedPaid });
+        });
+
+        if (!updates.length) {
+          showToast('No matching students were found in the uploaded file.');
+          return;
+        }
+
+        // Reflect the per-student fees + payments in the grid.
+        setStudents((currentStudents) => currentStudents.map((student) => {
+          const update = updates.find((item) => item.id === student.id);
+          if (!update) return student;
+          return { ...student, fees: update.fees, amountPaid: update.amountPaid };
+        }));
+        setDirty(true);
+
+        // Persist payments (and each student's expected fee) into the ledger.
+        let recorded = 0;
+        for (const update of updates) {
+          const student = students.find((item) => item.id === update.id);
+          const recordedPaid = Number(student?.recordedAmountPaid || 0);
+          const delta = Number(update.amountPaid || 0) - recordedPaid;
+          const expected = feeColumns.reduce((sum, feeName) => sum + Number(update.fees[feeName] || 0), 0) + Number(student?.outstanding || 0);
+          if (delta > 0) {
+            try {
+              await markFeePaid(update.id, { amount: delta, paymentType: 'cash', feeAmount: expected });
+              recorded += 1;
+            } catch {
+              // continue with the rest of the roster
+            }
+          }
+        }
+
+        showToast(`Template imported for ${updates.length} student(s)${recorded ? `, ${recorded} payment update(s) recorded` : ''}. Review, then use Bulk Issue Receipts.`);
+        await loadBoard();
+      } catch (error) {
+        showToast(error.message || 'Could not read the uploaded template.');
+      } finally {
+        setUploadingTemplate(false);
+      }
+    }
+    if (templateInputRef.current) templateInputRef.current.value = '';
+  }
+
   const columnTotals = useMemo(() => {
     const totals = feeColumns.reduce((map, feeName) => ({ ...map, [feeName]: 0 }), {});
 
@@ -1216,12 +1337,46 @@ function FeesManagementBoard({ initialFinanceTab = 'fees' }) {
   }, [balance, calculateTotal, expectedAmount, feeColumns, filteredStudents]);
 
   const stickyStats = [
-    { label: 'Total Paid', value: formatNaira(columnTotals.paid) },
-    { label: 'Outstanding Balance', value: formatNaira(columnTotals.balance) },
-    { label: 'Students', value: String(filteredStudents.length) },
-    { label: 'Receipts Pending', value: String(actionableReceiptStudents.length) },
-    { label: 'Live Claims', value: String(pendingClaims.length) },
+    { label: 'Total Paid', value: formatNaira(columnTotals.paid), Icon: BanknotesIcon, tint: 'text-emerald-600', chip: 'bg-emerald-500/15' },
+    { label: 'Outstanding', value: formatNaira(columnTotals.balance), Icon: ExclamationTriangleIcon, tint: 'text-rose-600', chip: 'bg-rose-500/15' },
+    { label: 'Students', value: String(filteredStudents.length), Icon: UsersIcon, tint: 'text-indigo-600', chip: 'bg-indigo-500/15' },
+    { label: 'Receipts Pending', value: String(actionableReceiptStudents.length), Icon: ReceiptPercentIcon, tint: 'text-amber-600', chip: 'bg-amber-500/15' },
+    { label: 'Live Claims', value: String(pendingClaims.length), Icon: InboxArrowDownIcon, tint: 'text-sky-600', chip: 'bg-sky-500/15' },
   ];
+
+  const stickyTh = `${TH} sticky top-0 z-20`;
+  const tableShellClass = tableFullscreen
+    ? 'hidden lg:block fixed inset-0 z-[60] overflow-auto bg-[#fff4df] p-4 dark:bg-[#1a0014]'
+    : 'hidden lg:block max-h-[70vh] overflow-auto overscroll-contain rounded-2xl border border-[#c9a96e]/25 dark:border-[#00ffff]/15';
+  const tableClass = tableFullscreen ? 'w-full text-sm ndv-fit-table' : 'min-w-[2300px] w-full text-sm';
+
+  function buildInvoiceText(student) {
+    const lines = [
+      `${branding?.schoolName || 'School'} — Fee Invoice`,
+      `Student: ${student.name}${student.className ? ` (${student.className})` : ''}`,
+      [sessionLabel && `Session ${sessionLabel}`, currentTerm && `Term ${currentTerm}`].filter(Boolean).join(' • '),
+      '',
+      ...feeColumns.filter((feeName) => Number(student.fees?.[feeName] || 0) > 0).map((feeName) => `${feeName}: ${formatNaira(student.fees[feeName])}`),
+      Number(student.outstanding || 0) > 0 ? `Brought forward: ${formatNaira(student.outstanding)}` : '',
+      `Total: ${formatNaira(calculateTotal(student) + Number(student.outstanding || 0))}`,
+      Number(student.discount || 0) > 0 ? `Discount: ${student.discount}%` : '',
+      `Expected: ${formatNaira(expectedAmount(student))}`,
+      `Paid: ${formatNaira(student.amountPaid)}`,
+      `Balance: ${formatNaira(balance(student))}`,
+      '',
+      balance(student) > 0 ? 'Kindly complete the outstanding fee. Thank you.' : 'Fees fully paid. Thank you.',
+    ].filter((line) => line !== '');
+    return lines.join('\n');
+  }
+
+  function shareInvoiceWhatsApp(student) {
+    const raw = String(student.parentPhone || student.guardianPhone || student.phone || '').replace(/[^\d+]/g, '');
+    let digits = raw.replace(/\+/g, '');
+    if (raw && !raw.startsWith('+') && digits.startsWith('0')) digits = `234${digits.slice(1)}`;
+    const text = encodeURIComponent(buildInvoiceText(student));
+    const url = digits ? `https://wa.me/${digits}?text=${text}` : `https://wa.me/?text=${text}`;
+    window.open(url, '_blank', 'noopener,noreferrer');
+  }
 
   const claimQueuePanel = (
     <div className={CARD}>
@@ -1286,7 +1441,7 @@ function FeesManagementBoard({ initialFinanceTab = 'fees' }) {
 
   return (
     <div className="space-y-6">
-      <style>{'@media print { body * { visibility: hidden; } #fees-receipt-print, #fees-receipt-print * { visibility: visible; } #fees-receipt-print { position: absolute; inset: 0; margin: 0; padding: 32px; width: 100%; background: #f5deb3; } }'}</style>
+      <style>{'@media print { body * { visibility: hidden; } #fees-receipt-print, #fees-receipt-print * { visibility: visible; } #fees-receipt-print { position: absolute; inset: 0; margin: 0; padding: 32px; width: 100%; background: #f5deb3; } } .ndv-fit-table { min-width: 0 !important; width: 100% !important; table-layout: fixed; } .ndv-fit-table th, .ndv-fit-table td { padding: 2px 4px !important; font-size: 10px !important; } .ndv-fit-table input, .ndv-fit-table select, .ndv-fit-table button { font-size: 10px !important; padding: 1px 3px !important; } .ndv-fit-table .min-w-\\[160px\\] { min-width: 0 !important; }'}</style>
 
       {toast ? (
         <div className="fixed right-6 top-6 z-50 rounded-2xl bg-[#1a5c38] px-5 py-3 text-sm font-bold text-[#f5deb3] shadow-xl dark:bg-[#00ffff] dark:text-black">
@@ -1294,26 +1449,30 @@ function FeesManagementBoard({ initialFinanceTab = 'fees' }) {
         </div>
       ) : null}
 
-      <div className="sticky top-[96px] z-40 rounded-3xl border border-[#c9a96e]/40 bg-[#f5deb3]/95 p-3 shadow-sm backdrop-blur dark:border-[#00ffff]/20 dark:bg-[#800000]/75">
-        <div className="flex flex-col gap-3">
-          <div className="flex gap-3 overflow-x-auto pb-1">
-          {stickyStats.map((item) => (
-            <article key={item.label} className="min-h-[72px] min-w-[160px] shrink-0 rounded-2xl border border-[#c9a96e]/35 bg-[#f0d090]/80 px-4 py-3 dark:border-[#00ffff]/20 dark:bg-[#1f0022]/80">
-              <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-[#800020] dark:text-[#bf00ff]">{item.label}</p>
-              <h3 className="mt-2 text-base font-black text-[#800000] dark:text-white">{item.value}</h3>
-            </article>
-          ))}
-          </div>
-
+      <div className="sticky top-[72px] z-30 -mx-1 rounded-2xl border border-[#c9a96e]/40 bg-[#f5deb3]/95 p-2.5 shadow-sm backdrop-blur dark:border-[#00ffff]/20 dark:bg-[#800000]/80">
+        <div className="flex items-center gap-2 overflow-x-auto">
+          {stickyStats.map((item) => {
+            const Icon = item.Icon;
+            return (
+              <article key={item.label} className="flex shrink-0 items-center gap-2.5 rounded-xl border border-[#c9a96e]/30 bg-white/55 px-3 py-2 dark:border-[#00ffff]/15 dark:bg-[#1f0022]/70">
+                <span className={`flex h-8 w-8 items-center justify-center rounded-lg ${item.chip}`}>
+                  <Icon className={`h-4 w-4 ${item.tint}`} />
+                </span>
+                <div className="leading-tight">
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.1em] text-[#800020] dark:text-[#bf00ff]">{item.label}</p>
+                  <p className="text-sm font-black text-[#800000] dark:text-white">{item.value}</p>
+                </div>
+              </article>
+            );
+          })}
           {financeView === 'fees' ? (
-            <div className="flex flex-wrap gap-2">
-              <button onClick={() => setFeesOverviewOpen((current) => !current)} className={feesOverviewOpen ? BTN : OUTLINE_BTN}>
-                {feesOverviewOpen ? 'Hide Fee Overview' : 'Open Fee Overview'}
-              </button>
-              <button onClick={() => setFeesExpanded((current) => !current)} className={OUTLINE_BTN}>
-                {feesExpanded ? 'Collapse Fee Table' : 'Open Fee Table'}
-              </button>
-            </div>
+            <button
+              onClick={() => setControlsOpen((current) => !current)}
+              className={`ml-auto inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-xl border px-3 py-2 text-sm font-semibold transition-colors ${controlsOpen ? 'border-transparent bg-[#800020] text-[#f5deb3]' : 'border-[#800020]/30 bg-white/60 text-[#800020] hover:bg-white dark:border-[#bf00ff]/40 dark:bg-[#120014]/80 dark:text-[#bf00ff]'}`}
+            >
+              <AdjustmentsHorizontalIcon className="h-4 w-4" />
+              {controlsOpen ? 'Hide Tools' : 'Fee Tools'}
+            </button>
           ) : null}
         </div>
       </div>
@@ -1356,7 +1515,16 @@ function FeesManagementBoard({ initialFinanceTab = 'fees' }) {
 
       {financeView === 'fees' ? (
         <>
+          {controlsOpen ? (
           <div className={CARD}>
+            <div className="mb-4 flex flex-wrap gap-2">
+              <button onClick={() => setFeesOverviewOpen((current) => !current)} className={feesOverviewOpen ? BTN : OUTLINE_BTN}>
+                {feesOverviewOpen ? 'Hide Fee Overview' : 'Open Fee Overview'}
+              </button>
+              <button onClick={() => setFeesExpanded((current) => !current)} className={OUTLINE_BTN}>
+                {feesExpanded ? 'Collapse Fee Table' : 'Open Fee Table'}
+              </button>
+            </div>
             <div className="flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
               <div>
                 <h3 className="text-2xl font-bold text-[#800000] dark:text-[#0000ff]">Fees Ledger</h3>
@@ -1402,6 +1570,17 @@ function FeesManagementBoard({ initialFinanceTab = 'fees' }) {
               <button onClick={saveTemplate} disabled={savingTemplate} className={BTN}>
                 {savingTemplate ? 'Saving...' : dirty ? 'Save Template *' : 'Save Template'}
               </button>
+              <button onClick={handleDownloadFeeTemplate} className={OUTLINE_BTN}>Download Template</button>
+              <button onClick={() => templateInputRef.current?.click()} disabled={uploadingTemplate} className={OUTLINE_BTN}>
+                {uploadingTemplate ? 'Importing...' : 'Upload Filled Template'}
+              </button>
+              <input
+                ref={templateInputRef}
+                type="file"
+                accept=".xlsx,.xls,.csv"
+                className="hidden"
+                onChange={handleUploadFeeTemplate}
+              />
               <button onClick={handleBulkIssueReceipts} disabled={bulkIssuing || !actionableReceiptStudents.length} className={BTN}>
                 {bulkIssuing ? 'Issuing Receipts...' : `Bulk Issue Receipts (${actionableReceiptStudents.length})`}
               </button>
@@ -1410,6 +1589,7 @@ function FeesManagementBoard({ initialFinanceTab = 'fees' }) {
               </button>
             </div>
           </div>
+          ) : null}
 
           {feesOverviewOpen ? (
           <div className={CARD}>
@@ -1566,6 +1746,9 @@ function FeesManagementBoard({ initialFinanceTab = 'fees' }) {
                               ? receiptState.key === 'reissue' ? 'Reissuing...' : 'Issuing...'
                               : receiptState.label}
                           </button>
+                          <button onClick={() => shareInvoiceWhatsApp(student)} className="w-full rounded-2xl bg-[#25D366] px-5 py-2.5 text-sm font-bold text-white transition-colors hover:bg-[#1ebe5b]">
+                            Send Invoice on WhatsApp
+                          </button>
                           <p className="text-xs font-semibold text-[#800020] dark:text-[#bf00ff]">
                             {receiptState.latestReceipt ? `Latest: ${receiptState.latestReceipt.receiptNo}` : 'No official receipt yet.'}
                           </p>
@@ -1587,17 +1770,29 @@ function FeesManagementBoard({ initialFinanceTab = 'fees' }) {
                 </div>
                 ) : null}
 
-                <div className="hidden lg:block overflow-x-auto">
-                  <table className="min-w-[2300px] w-full text-sm">
+                <div className="hidden lg:flex justify-end mb-2">
+                  <button type="button" onClick={() => setTableFullscreen(true)} className="inline-flex items-center gap-1.5 rounded-xl border border-[#800020]/30 bg-white/60 px-3 py-1.5 text-xs font-semibold text-[#800020] hover:bg-white dark:border-[#bf00ff]/40 dark:bg-[#120014]/80 dark:text-[#bf00ff]">
+                    <ArrowsPointingOutIcon className="h-4 w-4" /> Fit to Screen
+                  </button>
+                </div>
+                <div className={tableShellClass}>
+                  {tableFullscreen ? (
+                    <div className="sticky top-0 z-[70] mb-2 flex justify-end">
+                      <button type="button" onClick={() => setTableFullscreen(false)} className="inline-flex items-center gap-1.5 rounded-xl bg-[#800020] px-3 py-1.5 text-xs font-bold text-[#f5deb3]">
+                        <ArrowsPointingInIcon className="h-4 w-4" /> Exit Full Screen
+                      </button>
+                    </div>
+                  ) : null}
+                  <table className={tableClass}>
                     <thead>
                       <tr>
-                        <th className={TH}>S/N</th>
-                        <th className={TH}>Student ID</th>
-                        <th className={TH}>Student Name</th>
-                        <th className={TH}>Class</th>
-                        <th className={TH}>Outstanding</th>
+                        <th className={stickyTh}>S/N</th>
+                        <th className={stickyTh}>Student ID</th>
+                        <th className={stickyTh}>Student Name</th>
+                        <th className={stickyTh}>Class</th>
+                        <th className={stickyTh}>Outstanding</th>
                         {feeColumns.map((feeName) => (
-                          <th key={feeName} className={TH}>
+                          <th key={feeName} className={stickyTh}>
                             <div className="flex min-w-[160px] items-center justify-between gap-2">
                               <span>{feeName}</span>
                               <div className="flex items-center gap-1">
@@ -1611,13 +1806,13 @@ function FeesManagementBoard({ initialFinanceTab = 'fees' }) {
                             </div>
                           </th>
                         ))}
-                        <th className={TH}>Total</th>
-                        <th className={TH}>Discount %</th>
-                        <th className={TH}>Expected Amount</th>
-                        <th className={TH}>Amount Paid</th>
-                        <th className={TH}>Balance</th>
-                        <th className={TH}>Remark</th>
-                        <th className={TH}>Receipt</th>
+                        <th className={stickyTh}>Total</th>
+                        <th className={stickyTh}>Discount %</th>
+                        <th className={stickyTh}>Expected Amount</th>
+                        <th className={stickyTh}>Amount Paid</th>
+                        <th className={stickyTh}>Balance</th>
+                        <th className={stickyTh}>Remark</th>
+                        <th className={stickyTh}>Receipt</th>
                       </tr>
                     </thead>
 
@@ -1702,6 +1897,9 @@ function FeesManagementBoard({ initialFinanceTab = 'fees' }) {
                                   {receiptIssuingId === student.id
                                     ? receiptState.key === 'reissue' ? 'Reissuing...' : 'Issuing...'
                                     : receiptState.label}
+                                </button>
+                                <button onClick={() => shareInvoiceWhatsApp(student)} title="Send invoice on WhatsApp" className="rounded-2xl bg-[#25D366] px-3 py-1.5 text-xs font-bold text-white hover:bg-[#1ebe5b]">
+                                  WhatsApp
                                 </button>
                                 {receiptState.latestReceipt ? (
                                   <p className="text-xs font-semibold text-[#800020] dark:text-[#bf00ff]">

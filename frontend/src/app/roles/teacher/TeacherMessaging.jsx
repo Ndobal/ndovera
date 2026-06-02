@@ -3,10 +3,23 @@ import { useLocation } from 'react-router-dom';
 import StudentSectionShell from '../student/StudentSectionShell';
 import { buildSelectedRoleHeader, getStoredAuth } from '../../../features/auth/services/authApi';
 import { getApiUrl } from '../../../config/apiBase';
+import { CHAT_EMOJIS, CHAT_STICKERS, getChatInitials, getChatAvatarColor } from '../../../shared/constants/chatExtras';
 
 const STAFF_MESSAGING_INTENT_KEY = 'staffMessagingIntent';
-const MESSAGE_POLL_INTERVAL_MS = 4500;
-const CONVERSATION_POLL_INTERVAL_MS = 9000;
+const MESSAGE_POLL_INTERVAL_MS = 6000;          // quiet background sync of the open thread
+const CONVERSATION_POLL_INTERVAL_MS = 3600000;  // contact list refreshes hourly; manual button for sooner
+const HELPDESK_CONTACT = {
+  id: 'ndovera-helpdesk',
+  name: 'Ndovera Helpdesk',
+  email: '',
+  displayId: '',
+  role: 'Support',
+  roleSummary: 'Ndovera Support',
+  roleKeys: ['support'],
+  status: 'Active',
+  identifiers: ['ndovera-helpdesk'],
+  isHelpdesk: true,
+};
 
 function uniqueValues(values) {
   return Array.from(new Set((values || []).map(value => String(value || '').trim()).filter(Boolean)));
@@ -186,6 +199,12 @@ function TeacherMessaging() {
 
   const latestActiveConversationIdRef = useRef('');
   const startConversationRef = useRef(null);
+  const messagesEndRef = useRef(null);
+  const messageSignatureRef = useRef('');
+
+  const [emojiOpen, setEmojiOpen] = useState(false);
+  const [stickerOpen, setStickerOpen] = useState(false);
+  const [profileContact, setProfileContact] = useState(null);
 
   const allContacts = useMemo(
     () => [...students, ...parents, ...staff],
@@ -214,24 +233,6 @@ function TeacherMessaging() {
     return lookup;
   }, [allContacts, authUser.displayId, authUser.email, authUser.name, selfIdentifiers, userId]);
 
-  const filteredContacts = useMemo(() => {
-    const query = normalizeText(contactQuery);
-    if (!query) {
-      return { students, parents, staff };
-    }
-
-    const matchContact = contact => {
-      const haystack = [contact.name, contact.email, contact.displayId, contact.roleSummary].map(normalizeText).join(' ');
-      return haystack.includes(query);
-    };
-
-    return {
-      students: students.filter(matchContact),
-      parents: parents.filter(matchContact),
-      staff: staff.filter(matchContact),
-    };
-  }, [contactQuery, parents, staff, students]);
-
   const conversationCards = useMemo(() => {
     return (conversations || []).map(conversation => {
       const participants = normalizeParticipants(conversation?.participants);
@@ -256,6 +257,54 @@ function TeacherMessaging() {
     () => conversationCards.find(conversation => conversation.id === activeConversationId) || null,
     [activeConversationId, conversationCards],
   );
+
+  // Unified, school-wide contact list (teachers, staff, students — parents excluded), ordered:
+  // Ndovera Helpdesk first, then by most recent conversation, then alphabetical.
+  const orderedContacts = useMemo(() => {
+    const chatPool = [...students, ...staff];
+    const withMeta = chatPool.map(contact => {
+      const conversation = conversationCards.find(card => (card.participants || []).some(identifier => (contact.identifiers || []).includes(identifier)));
+      return {
+        ...contact,
+        conversationId: conversation?.id || '',
+        lastUpdated: conversation?.lastUpdated || '',
+        hasConversation: Boolean(conversation),
+      };
+    });
+    withMeta.sort((left, right) => {
+      if (left.hasConversation && right.hasConversation) {
+        return new Date(right.lastUpdated || 0).getTime() - new Date(left.lastUpdated || 0).getTime();
+      }
+      if (left.hasConversation) return -1;
+      if (right.hasConversation) return 1;
+      return left.name.localeCompare(right.name);
+    });
+    const helpdeskConversation = conversationCards.find(card => (card.participants || []).includes('ndovera-helpdesk'));
+    const helpdesk = {
+      ...HELPDESK_CONTACT,
+      conversationId: helpdeskConversation?.id || '',
+      lastUpdated: helpdeskConversation?.lastUpdated || '',
+      hasConversation: Boolean(helpdeskConversation),
+    };
+    return [helpdesk, ...withMeta];
+  }, [conversationCards, staff, students]);
+
+  const visibleContacts = useMemo(() => {
+    const query = normalizeText(contactQuery);
+    if (!query) return orderedContacts;
+    return orderedContacts.filter(contact => [contact.name, contact.email, contact.displayId, contact.roleSummary]
+      .map(normalizeText)
+      .join(' ')
+      .includes(query));
+  }, [contactQuery, orderedContacts]);
+
+  const openContact = useCallback(contact => {
+    if (contact?.conversationId) {
+      setActiveConversationId(contact.conversationId);
+      return;
+    }
+    if (startConversationRef.current) startConversationRef.current(contact);
+  }, []);
 
   const groupedMessages = useMemo(() => groupMessagesByDate(messages), [messages]);
 
@@ -382,7 +431,14 @@ function TeacherMessaging() {
 
     try {
       const payload = await requestJson(`/api/conversations/${encodeURIComponent(targetConversationId)}/messages`, token);
-      setMessages(payload.messages || []);
+      const nextMessages = payload.messages || [];
+      const lastMessage = nextMessages[nextMessages.length - 1] || {};
+      const signature = `${targetConversationId}:${nextMessages.length}:${lastMessage.id || ''}:${lastMessage.readAt || lastMessage.read_at || ''}`;
+      // Quiet refresh: only re-render the thread when something actually changed, so reading is not disturbed.
+      if (!silent || signature !== messageSignatureRef.current) {
+        messageSignatureRef.current = signature;
+        setMessages(nextMessages);
+      }
 
       await requestJson(`/api/conversations/${encodeURIComponent(targetConversationId)}/mark-read`, token, {
         method: 'POST',
@@ -443,6 +499,13 @@ function TeacherMessaging() {
 
     loadMessages({ conversationId: activeConversationId });
   }, [activeConversationId, loadMessages]);
+
+  // Keep the newest message in view so the thread always reads bottom-anchored.
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ block: 'end' });
+    }
+  }, [messages, activeConversationId]);
 
   useEffect(() => {
     const requestedConversationId = String(location.state?.conversationId || '').trim();
@@ -595,117 +658,112 @@ function TeacherMessaging() {
     }
   }
 
+  function insertEmoji(emoji) {
+    setComposer(current => `${current}${emoji}`);
+  }
+
+  async function sendSticker(sticker) {
+    setStickerOpen(false);
+    if (!activeConversationId) return;
+    const localId = `local_${Date.now()}`;
+    const optimisticMessage = {
+      id: localId,
+      conversationId: activeConversationId,
+      senderId: userId,
+      body: sticker,
+      sentAt: new Date().toISOString(),
+      status: 'sending',
+    };
+    setMessages(previous => [...previous, optimisticMessage]);
+    try {
+      const payload = await requestJson(`/api/conversations/${encodeURIComponent(activeConversationId)}/messages`, token, {
+        method: 'POST',
+        body: JSON.stringify({ senderId: userId, body: sticker }),
+      });
+      if (payload.message) {
+        setMessages(previous => previous.map(message => message.id === localId ? payload.message : message));
+      } else {
+        setMessages(previous => previous.map(message => message.id === localId ? { ...message, status: 'failed' } : message));
+      }
+      await loadConversations({ preferredConversationId: activeConversationId, silent: true });
+    } catch {
+      setMessages(previous => previous.map(message => message.id === localId ? { ...message, status: 'failed' } : message));
+    }
+  }
+
+  function refreshLists() {
+    loadContacts();
+    loadConversations({ preferredConversationId: latestActiveConversationIdRef.current, silent: false });
+  }
+
   return (
-    <StudentSectionShell title="Messaging" subtitle="Live teacher messaging for students, parents, and staff.">
+    <StudentSectionShell title="Messaging" subtitle="School-wide chat for teachers, staff, and students.">
       <div className="grid grid-cols-1 gap-5 xl:grid-cols-[360px_minmax(0,1fr)]">
-        <div className="space-y-4">
-          <section className="rounded-3xl border border-[#800000]/15 bg-[#f5deb3]/95 p-4 shadow-[0_18px_40px_rgba(128,0,0,0.08)] dark:border-[#bf00ff]/30 dark:bg-[#800000]/70">
-            <div className="flex items-start justify-between gap-3">
-              <div>
-                <h3 className="text-lg font-semibold text-[#800000] dark:text-[#0000ff]">Choose Recipient</h3>
-                <p className="mt-1 text-sm leading-6 text-[#191970] dark:text-[#39ff14]">
-                  Start a conversation with live recipients instead of demo users.
-                </p>
-              </div>
-              <span className="rounded-full bg-[#800000]/10 px-3 py-1 text-xs font-semibold text-[#800020] dark:bg-[#00ffff]/20 dark:text-[#bf00ff]">
-                {loadingContacts ? 'Loading' : `${students.length + parents.length + staff.length} live contacts`}
-              </span>
-            </div>
+        <div className="flex max-h-[44rem] min-h-[40rem] flex-col rounded-3xl border border-[#800000]/15 bg-[#f5deb3]/95 p-4 shadow-[0_18px_40px_rgba(128,0,0,0.08)] dark:border-[#bf00ff]/30 dark:bg-[#800000]/70">
+          <div className="flex items-center justify-between gap-3">
+            <h3 className="text-lg font-semibold text-[#800000] dark:text-[#0000ff]">Chats</h3>
+            <button
+              type="button"
+              onClick={refreshLists}
+              className="rounded-full bg-[#1a5c38] px-3 py-1.5 text-xs font-bold text-[#f5deb3] dark:bg-[#00ffff] dark:text-black"
+            >
+              {loadingContacts || loadingConversations ? 'Refreshing…' : '↻ Refresh'}
+            </button>
+          </div>
 
-            <div className="mt-4">
-              <input
-                value={contactQuery}
-                onChange={event => setContactQuery(event.target.value)}
-                placeholder="Search by name, role, email, or ID"
-                className="w-full rounded-2xl border border-[#800000]/15 bg-white/70 px-4 py-3 text-sm text-[#191970] outline-none transition focus:border-[#1a5c38] focus:ring-4 focus:ring-[#1a5c38]/10 dark:border-[#bf00ff]/20 dark:bg-[#191970]/35 dark:text-[#ffffff]"
-              />
-            </div>
+          <div className="mt-3">
+            <input
+              value={contactQuery}
+              onChange={event => setContactQuery(event.target.value)}
+              placeholder="Search a name to chat with"
+              className="w-full rounded-2xl border border-[#800000]/15 bg-white/70 px-4 py-3 text-sm text-[#191970] outline-none transition focus:border-[#1a5c38] focus:ring-4 focus:ring-[#1a5c38]/10 dark:border-[#bf00ff]/20 dark:bg-[#191970]/35 dark:text-[#ffffff]"
+            />
+          </div>
 
-            <div className="mt-4 space-y-4">
-              {[
-                { key: 'students', label: 'Students', contacts: filteredContacts.students },
-                { key: 'parents', label: 'Parents', contacts: filteredContacts.parents },
-                { key: 'staff', label: 'Staff', contacts: filteredContacts.staff },
-              ].map(section => (
-                <div key={section.key}>
-                  <div className="mb-2 flex items-center justify-between gap-3">
-                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#800020] dark:text-[#bf00ff]">{section.label}</p>
-                    <span className="text-xs text-[#191970] dark:text-[#39ff14]">{section.contacts.length}</span>
-                  </div>
-
-                  <div className="space-y-2">
-                    {section.contacts.map(contact => (
-                      <button
-                        key={`${section.key}-${contact.id}`}
-                        type="button"
-                        onClick={() => startConversationWith(contact)}
-                        className="flex w-full items-start justify-between rounded-2xl border border-[#800000]/10 bg-white/55 px-4 py-3 text-left transition hover:-translate-y-0.5 hover:border-[#1a5c38]/40 hover:shadow-[0_14px_30px_rgba(26,92,56,0.12)] dark:border-[#bf00ff]/25 dark:bg-[#191970]/35"
-                      >
-                        <div className="min-w-0">
-                          <div className="truncate text-sm font-semibold text-[#800000] dark:text-[#ffffff]">{contact.name}</div>
-                          <div className="mt-1 text-xs text-[#800020] dark:text-[#bf00ff]">
-                            {contact.roleSummary}{contact.displayId ? ` • ${contact.displayId}` : ''}
-                          </div>
-                        </div>
-                        <span className="rounded-full bg-[#1a5c38] px-3 py-1 text-xs font-bold text-[#f5deb3] dark:bg-[#00ffff] dark:text-black">
-                          Chat
-                        </span>
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              ))}
-
-              {!loadingContacts && students.length + parents.length + staff.length === 0 ? (
-                <div className="rounded-2xl border border-dashed border-[#800000]/20 px-4 py-4 text-sm leading-6 text-[#191970] dark:border-[#bf00ff]/30 dark:text-[#39ff14]">
-                  No live recipients are available yet for this teacher account.
-                </div>
-              ) : null}
-            </div>
-          </section>
-
-          <section className="rounded-3xl border border-[#800000]/15 bg-[#f5deb3]/95 p-4 shadow-[0_18px_40px_rgba(25,25,112,0.08)] dark:border-[#bf00ff]/30 dark:bg-[#800000]/70">
-            <div className="flex items-center justify-between gap-3">
-              <div>
-                <h3 className="text-lg font-semibold text-[#800000] dark:text-[#0000ff]">Conversations</h3>
-                <p className="mt-1 text-sm leading-6 text-[#191970] dark:text-[#39ff14]">
-                  Background sync keeps threads fresh without obvious refresh flashes.
-                </p>
-              </div>
-              <span className="text-xs font-semibold text-[#800020] dark:text-[#bf00ff]">
-                {loadingConversations ? 'Refreshing...' : `${conversationCards.length} threads`}
-              </span>
-            </div>
-
-            <div className="mt-4 space-y-3">
-              {conversationCards.map(conversation => (
-                <button
-                  key={conversation.id}
-                  type="button"
-                  onClick={() => setActiveConversationId(conversation.id)}
-                  className={`w-full rounded-2xl border px-4 py-3 text-left transition ${activeConversationId === conversation.id
-                    ? 'border-[#1a5c38] bg-[#1a5c38]/10 shadow-[0_14px_30px_rgba(26,92,56,0.12)] dark:border-[#00ffff] dark:bg-[#191970]/50'
-                    : 'border-[#800000]/10 bg-white/45 hover:border-[#800000]/25 dark:border-[#bf00ff]/20 dark:bg-[#191970]/30'
+          {/* Contact sidebar scrolls on its own. */}
+          <div className="mt-3 flex-1 space-y-2 overflow-y-auto pr-1">
+            {visibleContacts.map(contact => {
+              const isActive = contact.conversationId && contact.conversationId === activeConversationId;
+              return (
+                <div
+                  key={contact.id}
+                  className={`flex w-full items-center gap-3 rounded-2xl border px-3 py-2.5 transition ${isActive
+                    ? 'border-[#1a5c38] bg-[#1a5c38]/10 dark:border-[#00ffff] dark:bg-[#191970]/50'
+                    : 'border-[#800000]/10 bg-white/55 hover:border-[#1a5c38]/40 dark:border-[#bf00ff]/25 dark:bg-[#191970]/35'
                   }`}
                 >
-                  <div className="text-sm font-semibold text-[#800000] dark:text-[#ffffff]">{conversation.title}</div>
-                  <div className="mt-1 text-xs text-[#800020] dark:text-[#bf00ff]">{conversation.subtitle}</div>
-                  <div className="mt-2 text-[11px] text-[#191970]/80 dark:text-[#39ff14]/80">
-                    {conversation.lastUpdated ? new Date(conversation.lastUpdated).toLocaleString() : 'No messages yet'}
-                  </div>
-                </button>
-              ))}
-
-              {!loadingConversations && conversationCards.length === 0 ? (
-                <div className="rounded-2xl border border-dashed border-[#800000]/20 px-4 py-6 text-sm leading-6 text-[#191970] dark:border-[#bf00ff]/30 dark:text-[#39ff14]">
-                  Start a conversation from the live recipient list.
+                  <button
+                    type="button"
+                    onClick={() => setProfileContact(contact)}
+                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-xs font-bold text-white"
+                    style={{ backgroundColor: contact.isHelpdesk ? '#800020' : getChatAvatarColor(contact.id) }}
+                    title="View details"
+                  >
+                    {contact.isHelpdesk ? '🛟' : getChatInitials(contact.name)}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => openContact(contact)}
+                    className="min-w-0 flex-1 text-left"
+                  >
+                    <div className="truncate text-sm font-semibold text-[#800000] dark:text-[#ffffff]">{contact.name}</div>
+                    <div className="truncate text-xs text-[#800020] dark:text-[#bf00ff]">
+                      {contact.roleSummary}{contact.hasConversation && contact.lastUpdated ? ` • ${new Date(contact.lastUpdated).toLocaleDateString()}` : ''}
+                    </div>
+                  </button>
                 </div>
-              ) : null}
-            </div>
-          </section>
+              );
+            })}
+
+            {!loadingContacts && visibleContacts.length <= 1 ? (
+              <div className="rounded-2xl border border-dashed border-[#800000]/20 px-4 py-4 text-sm leading-6 text-[#191970] dark:border-[#bf00ff]/30 dark:text-[#39ff14]">
+                No school contacts available yet.
+              </div>
+            ) : null}
+          </div>
         </div>
 
-        <section className="flex min-h-[40rem] flex-col rounded-[2rem] border border-[#800000]/15 bg-[#f5deb3] p-5 shadow-[0_26px_60px_rgba(128,0,0,0.10)] dark:border-[#bf00ff]/30 dark:bg-[#800000]/75">
+        <section className="flex max-h-[44rem] min-h-[40rem] flex-col rounded-[2rem] border border-[#800000]/15 bg-[#f5deb3] p-5 shadow-[0_26px_60px_rgba(128,0,0,0.10)] dark:border-[#bf00ff]/30 dark:bg-[#800000]/75">
           {actionError ? (
             <div className="mb-4 rounded-2xl border border-red-300/60 bg-red-50 px-4 py-3 text-sm font-semibold text-[#800000] dark:border-[#ff5f8d]/35 dark:bg-[#4a0014] dark:text-[#ffffff]">
               {actionError}
@@ -755,14 +813,20 @@ function TeacherMessaging() {
                             const isOwn = selfIdentifiers.includes(senderIdentifier);
                             const sentAt = message.sentAt || message.sent_at || message.createdAt || new Date().toISOString();
 
+                            const senderName = isOwn ? String(authUser.name || 'You') : resolveParticipantName(senderIdentifier);
                             return (
-                              <div key={message.id} className={`flex ${isOwn ? 'justify-end' : 'justify-start'}`}>
+                              <div key={message.id} className={`flex items-end gap-2 ${isOwn ? 'justify-end' : 'justify-start'}`}>
+                                {!isOwn ? (
+                                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[10px] font-bold text-white" style={{ backgroundColor: getChatAvatarColor(senderIdentifier) }}>
+                                    {getChatInitials(senderName)}
+                                  </span>
+                                ) : null}
                                 <div className={`max-w-[78%] rounded-[1.4rem] border px-4 py-3 ${isOwn
                                   ? 'border-[#1a5c38]/25 bg-[#1a5c38]/12 text-[#191970] dark:border-[#00ffff]/35 dark:bg-[#00ffff]/10 dark:text-[#ffffff]'
                                   : 'border-[#800000]/15 bg-[#fff8ea] text-[#191970] dark:border-[#bf00ff]/25 dark:bg-[#191970]/45 dark:text-[#39ff14]'
                                 }`}>
                                   <div className="text-xs font-semibold text-[#800020] dark:text-[#bf00ff]">
-                                    {isOwn ? 'You' : resolveParticipantName(senderIdentifier)}
+                                    {isOwn ? 'You' : senderName}
                                   </div>
                                   <div className="mt-2 whitespace-pre-wrap text-[15px] leading-7">
                                     {message.body}
@@ -791,31 +855,52 @@ function TeacherMessaging() {
                         </div>
                       </div>
                     ))}
+                    <div ref={messagesEndRef} />
                   </div>
                 )}
               </div>
 
+              {/* Composer stays fixed below the scrolling thread. */}
               <div className="mt-4 rounded-[1.5rem] border border-[#800000]/10 bg-white/55 p-4 dark:border-[#bf00ff]/20 dark:bg-[#191970]/35">
+                {emojiOpen ? (
+                  <div className="mb-3 max-h-44 overflow-y-auto rounded-2xl border border-[#800000]/10 bg-[#fff8ea] p-2 dark:border-[#bf00ff]/20 dark:bg-[#191970]/45">
+                    <div className="flex flex-wrap gap-1">
+                      {CHAT_EMOJIS.map((emoji, index) => (
+                        <button key={`${emoji}-${index}`} type="button" onClick={() => insertEmoji(emoji)} className="rounded-lg px-1.5 py-1 text-xl hover:bg-[#1a5c38]/15">{emoji}</button>
+                      ))}
+                    </div>
+                  </div>
+                ) : null}
+                {stickerOpen ? (
+                  <div className="mb-3 max-h-44 overflow-y-auto rounded-2xl border border-[#800000]/10 bg-[#fff8ea] p-2 dark:border-[#bf00ff]/20 dark:bg-[#191970]/45">
+                    <div className="grid grid-cols-6 gap-2 sm:grid-cols-8">
+                      {CHAT_STICKERS.map((sticker, index) => (
+                        <button key={`${sticker}-${index}`} type="button" onClick={() => sendSticker(sticker)} className="rounded-xl py-2 text-3xl hover:bg-[#1a5c38]/15">{sticker}</button>
+                      ))}
+                    </div>
+                  </div>
+                ) : null}
                 <div className="flex flex-col gap-3">
                   <textarea
                     value={composer}
                     onChange={event => setComposer(event.target.value)}
                     onKeyDown={handleComposerKey}
-                    rows={4}
+                    rows={3}
                     placeholder="Type your message here"
                     className="w-full rounded-2xl border border-[#800000]/15 bg-[#fff8ea] px-4 py-3 text-[15px] leading-7 text-[#191970] outline-none transition focus:border-[#1a5c38] focus:ring-4 focus:ring-[#1a5c38]/10 dark:border-[#bf00ff]/25 dark:bg-[#191970]/45 dark:text-[#ffffff]"
                   />
 
                   <div className="flex items-center justify-between gap-3">
-                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#800020] dark:text-[#bf00ff]">
-                      Press Enter to send. Shift + Enter for a new line.
-                    </p>
+                    <div className="flex items-center gap-2">
+                      <button type="button" onClick={() => { setEmojiOpen(open => !open); setStickerOpen(false); }} className="rounded-xl border border-[#800000]/15 bg-white/70 px-3 py-2 text-lg dark:border-[#bf00ff]/25 dark:bg-[#191970]/45" title="Emojis">😊</button>
+                      <button type="button" onClick={() => { setStickerOpen(open => !open); setEmojiOpen(false); }} className="rounded-xl border border-[#800000]/15 bg-white/70 px-3 py-2 text-lg dark:border-[#bf00ff]/25 dark:bg-[#191970]/45" title="Stickers">🩷</button>
+                    </div>
                     <button
                       type="button"
                       onClick={sendMessage}
                       className="rounded-2xl bg-[#1a5c38] px-5 py-3 text-sm font-bold text-[#f5deb3] transition hover:bg-[#154a2e] dark:bg-[#00ffff] dark:text-black dark:hover:bg-[#7dfcff]"
                     >
-                      Send Message
+                      Send
                     </button>
                   </div>
                 </div>
@@ -824,6 +909,24 @@ function TeacherMessaging() {
           )}
         </section>
       </div>
+
+      {profileContact ? (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4" onClick={() => setProfileContact(null)} role="presentation">
+          <div className="w-full max-w-sm rounded-3xl border border-[#800000]/20 bg-[#fff8ee] p-6 text-center shadow-2xl dark:border-[#bf00ff]/30 dark:bg-[#191970]" onClick={event => event.stopPropagation()}>
+            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full text-xl font-bold text-white" style={{ backgroundColor: profileContact.isHelpdesk ? '#800020' : getChatAvatarColor(profileContact.id) }}>
+              {profileContact.isHelpdesk ? '🛟' : getChatInitials(profileContact.name)}
+            </div>
+            <h3 className="mt-3 text-lg font-bold text-[#800000] dark:text-white">{profileContact.name}</h3>
+            <p className="mt-1 text-sm text-[#800020] dark:text-[#bf00ff]">{profileContact.roleSummary}</p>
+            {profileContact.email ? <p className="mt-1 text-xs text-[#191970] dark:text-[#39ff14]">{profileContact.email}</p> : null}
+            {profileContact.displayId ? <p className="mt-1 text-xs text-[#191970]/70 dark:text-[#39ff14]/70">ID: {profileContact.displayId}</p> : null}
+            <div className="mt-4 flex justify-center gap-2">
+              <button type="button" onClick={() => { openContact(profileContact); setProfileContact(null); }} className="rounded-2xl bg-[#1a5c38] px-4 py-2 text-sm font-bold text-[#f5deb3] dark:bg-[#00ffff] dark:text-black">Message</button>
+              <button type="button" onClick={() => setProfileContact(null)} className="rounded-2xl border border-[#800000]/20 px-4 py-2 text-sm font-bold text-[#800020] dark:border-[#bf00ff]/30 dark:text-[#bf00ff]">Close</button>
+            </div>
+          </div>
+        </div>
+      ) : null}
     </StudentSectionShell>
   );
 }
