@@ -14486,6 +14486,10 @@ async function listPayrollAttendanceDeductionSummaries(
   const attendanceResults = (attendanceRows.results || []) as Record<string, any>[]
   const permissionResults = (permissionRows.results || []) as Record<string, any>[]
 
+  // Public holidays and school breaks are not school days, so they must never be
+  // counted as unauthorized absences for payroll deductions.
+  const holidayDateSet = new Set(Array.from((await listTenantHolidayMap(db, tenantId, startDate, effectiveEndDate)).keys()))
+
   return roster.map(staffMember => {
     const identifiers = collectComparableIdentifiers([
       staffMember?.id,
@@ -14512,9 +14516,9 @@ async function listPayrollAttendanceDeductionSummaries(
 
     const createdAtDate = normalizeIsoDateValue(staffMember?.createdAt)
     const effectiveStartDate = createdAtDate && createdAtDate > startDate ? createdAtDate : startDate
-    const expectedDates = effectiveStartDate && effectiveStartDate <= effectiveEndDate
+    const expectedDates = (effectiveStartDate && effectiveStartDate <= effectiveEndDate
       ? listWeekdayIsoDates(effectiveStartDate, effectiveEndDate)
-      : []
+      : []).filter(dateKey => !holidayDateSet.has(dateKey))
     const unauthorizedAbsenceDates = expectedDates.filter(dateKey => !presentDates.has(dateKey) && !approvedDates.has(dateKey))
     const amount = absencePenaltyEnabled && payrollAutoDeductAbsence
       ? Number((unauthorizedAbsenceDates.length * configuredAmount).toFixed(2))
@@ -15957,6 +15961,323 @@ app.post('/api/school/staff-attendance/activity', authenticate, async (c) => {
     })
   } catch {
     return c.json({ error: 'Could not record staff attendance activity.' }, 500)
+  }
+})
+
+// ─── School Calendar & Public Holidays ───────────────────────────────────────
+
+const SCHOOL_CALENDAR_TYPES = new Set(['holiday', 'break', 'event', 'term_start', 'term_end'])
+// Fixed-date Nigerian public holidays (month-day). Variable holidays (Eid, Easter,
+// Good Friday) shift each year, so schools add those to their own calendar.
+const NIGERIA_FIXED_PUBLIC_HOLIDAYS: Array<{ monthDay: string; title: string }> = [
+  { monthDay: '01-01', title: "New Year's Day" },
+  { monthDay: '05-01', title: "Workers' Day" },
+  { monthDay: '05-27', title: "Children's Day" },
+  { monthDay: '06-12', title: 'Democracy Day' },
+  { monthDay: '10-01', title: 'Independence Day' },
+  { monthDay: '12-25', title: 'Christmas Day' },
+  { monthDay: '12-26', title: 'Boxing Day' },
+]
+
+async function ensureSchoolCalendarTable(db: D1Database) {
+  if (_initializedTables.has('school_calendar_events')) return
+  _initializedTables.add('school_calendar_events')
+  await db.prepare(`CREATE TABLE IF NOT EXISTS school_calendar_events (
+    id TEXT PRIMARY KEY,
+    tenant_id TEXT,
+    title TEXT,
+    type TEXT,
+    start_date TEXT,
+    end_date TEXT,
+    recurring_annual INTEGER DEFAULT 0,
+    source TEXT DEFAULT 'school',
+    created_by TEXT,
+    created_at TEXT,
+    updated_at TEXT
+  )`).run()
+  await runIndexStatements(db, [
+    `CREATE INDEX IF NOT EXISTS idx_school_calendar_tenant_dates ON school_calendar_events(tenant_id, start_date, end_date)`,
+  ])
+}
+
+function mapSchoolCalendarEvent(row: Record<string, any>) {
+  return {
+    id: String(row.id || ''),
+    title: String(row.title || ''),
+    type: String(row.type || 'event'),
+    startDate: String(row.start_date || ''),
+    endDate: String(row.end_date || row.start_date || ''),
+    recurringAnnual: Boolean(Number(row.recurring_annual || 0)),
+    source: String(row.source || 'school'),
+    createdBy: String(row.created_by || ''),
+    createdAt: String(row.created_at || ''),
+  }
+}
+
+function listIsoDatesInclusive(startDate: string, endDate: string, max = 400) {
+  const start = new Date(`${String(startDate || '').trim()}T00:00:00Z`)
+  const end = new Date(`${String(endDate || '').trim()}T00:00:00Z`)
+  if (!Number.isFinite(start.getTime()) || !Number.isFinite(end.getTime()) || start.getTime() > end.getTime()) {
+    return [] as string[]
+  }
+  const dates: string[] = []
+  const cursor = new Date(start.getTime())
+  let guard = 0
+  while (cursor.getTime() <= end.getTime() && guard < max) {
+    dates.push(cursor.toISOString().slice(0, 10))
+    cursor.setUTCDate(cursor.getUTCDate() + 1)
+    guard += 1
+  }
+  return dates
+}
+
+// Map of ISO date -> { title, type, source } for every NON-SCHOOL day (national public
+// holidays + school holidays/breaks) within [fromDate, toDate]. Used to label the calendar
+// and to ensure those dates are never counted as staff/student absences.
+async function listTenantHolidayMap(db: D1Database, tenantId: string, fromDate: string, toDate: string) {
+  const map = new Map<string, { title: string; type: string; source: string }>()
+  const from = String(fromDate || '').trim()
+  const to = String(toDate || '').trim()
+  if (!tenantId || !from || !to || from > to) return map
+
+  const startYear = Number(from.slice(0, 4))
+  const endYear = Number(to.slice(0, 4))
+
+  if (Number.isFinite(startYear) && Number.isFinite(endYear)) {
+    for (let year = startYear; year <= endYear; year += 1) {
+      for (const holiday of NIGERIA_FIXED_PUBLIC_HOLIDAYS) {
+        const dateKey = `${year}-${holiday.monthDay}`
+        if (dateKey >= from && dateKey <= to) {
+          map.set(dateKey, { title: holiday.title, type: 'holiday', source: 'national' })
+        }
+      }
+    }
+  }
+
+  await ensureSchoolCalendarTable(db)
+  const rows = await db.prepare(
+    `SELECT * FROM school_calendar_events WHERE tenant_id = ?`
+  ).bind(tenantId).all().catch(() => ({ results: [] }))
+
+  for (const row of ((rows.results || []) as Record<string, any>[])) {
+    const type = String(row.type || 'event').toLowerCase()
+    if (type !== 'holiday' && type !== 'break') continue
+    const title = String(row.title || (type === 'break' ? 'School Break' : 'Holiday'))
+    const recurringAnnual = Boolean(Number(row.recurring_annual || 0))
+    const rawStart = String(row.start_date || '').trim()
+    const rawEnd = String(row.end_date || rawStart).trim()
+    if (!rawStart) continue
+
+    if (recurringAnnual && Number.isFinite(startYear) && Number.isFinite(endYear)) {
+      const monthDayStart = rawStart.slice(5)
+      const monthDayEnd = (rawEnd || rawStart).slice(5)
+      for (let year = startYear; year <= endYear; year += 1) {
+        listIsoDatesInclusive(`${year}-${monthDayStart}`, `${year}-${monthDayEnd}`).forEach(dateKey => {
+          if (dateKey >= from && dateKey <= to) map.set(dateKey, { title, type, source: 'school' })
+        })
+      }
+    } else {
+      const boundedStart = rawStart > from ? rawStart : from
+      const boundedEnd = rawEnd < to ? rawEnd : to
+      listIsoDatesInclusive(boundedStart, boundedEnd).forEach(dateKey => map.set(dateKey, { title, type, source: 'school' }))
+    }
+  }
+
+  return map
+}
+
+app.get('/api/school/calendar', authenticate, async (c) => {
+  const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
+  if (!actor.tenantId) return c.json({ error: 'No tenant.' }, 400)
+  const year = new Date().getFullYear()
+  const from = String(c.req.query('from') || '').trim() || `${year}-01-01`
+  const to = String(c.req.query('to') || '').trim() || `${year}-12-31`
+  try {
+    await ensureSchoolCalendarTable(c.env.APP_DB)
+    const rows = await c.env.APP_DB.prepare(
+      `SELECT * FROM school_calendar_events WHERE tenant_id = ? ORDER BY start_date ASC`
+    ).bind(actor.tenantId).all().catch(() => ({ results: [] }))
+    const events = ((rows.results || []) as Record<string, any>[]).map(mapSchoolCalendarEvent)
+    const holidayMap = await listTenantHolidayMap(c.env.APP_DB, actor.tenantId, from, to)
+    const holidays = Array.from(holidayMap.entries())
+      .map(([date, info]) => ({ date, ...info }))
+      .sort((a, b) => a.date.localeCompare(b.date))
+    return c.json({ success: true, events, holidays, canManage: canManageStaffAttendanceConfig(actor.role) })
+  } catch {
+    return c.json({ success: true, events: [], holidays: [], canManage: false })
+  }
+})
+
+app.post('/api/school/calendar', authenticate, async (c) => {
+  const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
+  if (!actor.tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!canManageStaffAttendanceConfig(actor.role)) return c.json({ error: 'forbidden' }, 403)
+  const body = await c.req.json().catch(() => ({})) as Record<string, any>
+  const title = String(body?.title || '').trim().slice(0, 120)
+  const type = String(body?.type || 'holiday').toLowerCase()
+  const startDate = normalizeIsoDateValue(body?.startDate)
+  const endDate = normalizeIsoDateValue(body?.endDate) || startDate
+  const recurringAnnual = body?.recurringAnnual === true ? 1 : 0
+  if (!title || !SCHOOL_CALENDAR_TYPES.has(type) || !startDate) {
+    return c.json({ error: 'title, a valid type, and startDate are required.' }, 400)
+  }
+  if (endDate && endDate < startDate) return c.json({ error: 'endDate cannot be before startDate.' }, 400)
+  try {
+    await ensureSchoolCalendarTable(c.env.APP_DB)
+    const id = `cal_${actor.tenantId}_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`
+    const now = new Date().toISOString()
+    await c.env.APP_DB.prepare(
+      `INSERT INTO school_calendar_events (id, tenant_id, title, type, start_date, end_date, recurring_annual, source, created_by, created_at, updated_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?, 'school', ?, ?, ?)`
+    ).bind(id, actor.tenantId, title, type, startDate, endDate, recurringAnnual, actor.actorName || actor.actorId, now, now).run()
+    await addAudit(c.env.APP_DB, actor.tenantId, { action: 'schoolCalendarEventAdded', data: { id, title, type, startDate, endDate } }).catch(() => null)
+    return c.json({
+      success: true,
+      event: mapSchoolCalendarEvent({ id, tenant_id: actor.tenantId, title, type, start_date: startDate, end_date: endDate, recurring_annual: recurringAnnual, source: 'school', created_by: actor.actorName, created_at: now, updated_at: now }),
+    })
+  } catch {
+    return c.json({ error: 'Could not save calendar event.' }, 500)
+  }
+})
+
+app.delete('/api/school/calendar/:id', authenticate, async (c) => {
+  const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
+  if (!actor.tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!canManageStaffAttendanceConfig(actor.role)) return c.json({ error: 'forbidden' }, 403)
+  const id = c.req.param('id')
+  try {
+    await ensureSchoolCalendarTable(c.env.APP_DB)
+    await c.env.APP_DB.prepare(`DELETE FROM school_calendar_events WHERE id = ? AND tenant_id = ? AND source = 'school'`).bind(id, actor.tenantId).run()
+    return c.json({ success: true })
+  } catch {
+    return c.json({ error: 'Could not delete calendar event.' }, 500)
+  }
+})
+
+// ─── Class Timetable ─────────────────────────────────────────────────────────
+
+async function ensureTimetableTable(db: D1Database) {
+  if (_initializedTables.has('timetable_entries')) return
+  _initializedTables.add('timetable_entries')
+  await db.prepare(`CREATE TABLE IF NOT EXISTS timetable_entries (
+    id TEXT PRIMARY KEY,
+    tenant_id TEXT,
+    class_id TEXT,
+    day_of_week INTEGER,
+    period_index INTEGER,
+    start_time TEXT,
+    end_time TEXT,
+    subject_id TEXT,
+    subject_name TEXT,
+    teacher_id TEXT,
+    teacher_name TEXT,
+    is_break INTEGER DEFAULT 0,
+    label TEXT,
+    created_at TEXT,
+    updated_at TEXT
+  )`).run()
+  await runIndexStatements(db, [
+    `CREATE INDEX IF NOT EXISTS idx_timetable_tenant_class ON timetable_entries(tenant_id, class_id)`,
+    `CREATE INDEX IF NOT EXISTS idx_timetable_tenant_teacher ON timetable_entries(tenant_id, teacher_id)`,
+  ])
+}
+
+function mapTimetableEntry(row: Record<string, any>) {
+  return {
+    id: String(row.id || ''),
+    classId: String(row.class_id || ''),
+    dayOfWeek: Number(row.day_of_week || 1),
+    periodIndex: Number(row.period_index || 0),
+    startTime: String(row.start_time || ''),
+    endTime: String(row.end_time || ''),
+    subjectId: String(row.subject_id || ''),
+    subjectName: String(row.subject_name || ''),
+    teacherId: String(row.teacher_id || ''),
+    teacherName: String(row.teacher_name || ''),
+    isBreak: Boolean(Number(row.is_break || 0)),
+    label: String(row.label || ''),
+  }
+}
+
+app.get('/api/school/timetable', authenticate, async (c) => {
+  const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
+  if (!actor.tenantId) return c.json({ error: 'No tenant.' }, 400)
+  const role = actor.role
+  const mine = String(c.req.query('mine') || '').trim() === 'true'
+  let classId = String(c.req.query('classId') || '').trim()
+  const canManage = canManageStaffAttendanceConfig(role)
+  try {
+    await ensureTimetableTable(c.env.APP_DB)
+
+    if (role === 'student') {
+      classId = String(actor.resolvedUser?.settings?.classId || '').trim()
+      if (!classId) return c.json({ success: true, entries: [], scope: 'student', classId: '' })
+      const rows = await c.env.APP_DB.prepare(
+        `SELECT * FROM timetable_entries WHERE tenant_id = ? AND class_id = ? ORDER BY day_of_week, period_index`
+      ).bind(actor.tenantId, classId).all()
+      return c.json({ success: true, entries: ((rows.results || []) as Record<string, any>[]).map(mapTimetableEntry), classId, scope: 'student' })
+    }
+
+    if ((role === 'teacher' || role === 'classteacher') && (mine || !classId)) {
+      const rows = await c.env.APP_DB.prepare(
+        `SELECT * FROM timetable_entries WHERE tenant_id = ? AND teacher_id = ? ORDER BY day_of_week, period_index`
+      ).bind(actor.tenantId, actor.actorId).all()
+      return c.json({ success: true, entries: ((rows.results || []) as Record<string, any>[]).map(mapTimetableEntry), scope: 'teacher' })
+    }
+
+    if (!classId) {
+      return c.json({ success: true, entries: [], canManage, scope: 'manage', classId: '' })
+    }
+
+    const rows = await c.env.APP_DB.prepare(
+      `SELECT * FROM timetable_entries WHERE tenant_id = ? AND class_id = ? ORDER BY day_of_week, period_index`
+    ).bind(actor.tenantId, classId).all()
+    return c.json({ success: true, entries: ((rows.results || []) as Record<string, any>[]).map(mapTimetableEntry), classId, canManage, scope: 'manage' })
+  } catch {
+    return c.json({ success: true, entries: [] })
+  }
+})
+
+app.post('/api/school/timetable', authenticate, async (c) => {
+  const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
+  if (!actor.tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!canManageStaffAttendanceConfig(actor.role)) return c.json({ error: 'forbidden' }, 403)
+  const body = await c.req.json().catch(() => ({})) as Record<string, any>
+  const classId = String(body?.classId || '').trim()
+  if (!classId) return c.json({ error: 'classId is required.' }, 400)
+  const entries = Array.isArray(body?.entries) ? body.entries : []
+  try {
+    await ensureTimetableTable(c.env.APP_DB)
+    const now = new Date().toISOString()
+    const statements: D1PreparedStatement[] = [
+      c.env.APP_DB.prepare(`DELETE FROM timetable_entries WHERE tenant_id = ? AND class_id = ?`).bind(actor.tenantId, classId),
+    ]
+
+    entries.forEach((entry: Record<string, any>, index: number) => {
+      const dayOfWeek = Number(entry?.dayOfWeek || 0)
+      const periodIndex = Number(entry?.periodIndex ?? index)
+      const startTime = String(entry?.startTime || '').trim()
+      const endTime = String(entry?.endTime || '').trim()
+      const isBreak = entry?.isBreak === true ? 1 : 0
+      const subjectId = String(entry?.subjectId || '').trim()
+      const subjectName = String(entry?.subjectName || '').trim()
+      const teacherId = String(entry?.teacherId || '').trim()
+      const teacherName = String(entry?.teacherName || '').trim()
+      const label = String(entry?.label || '').trim()
+      if (!dayOfWeek || dayOfWeek < 1 || dayOfWeek > 7 || !startTime) return
+      if (!isBreak && !subjectName && !label) return
+      const id = `tt_${actor.tenantId}_${classId}_${dayOfWeek}_${periodIndex}_${Math.random().toString(36).slice(2, 7)}`
+      statements.push(c.env.APP_DB.prepare(
+        `INSERT INTO timetable_entries (id, tenant_id, class_id, day_of_week, period_index, start_time, end_time, subject_id, subject_name, teacher_id, teacher_name, is_break, label, created_at, updated_at)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+      ).bind(id, actor.tenantId, classId, dayOfWeek, periodIndex, startTime, endTime, subjectId, subjectName, teacherId, teacherName, isBreak, label, now, now))
+    })
+
+    await c.env.APP_DB.batch(statements)
+    await addAudit(c.env.APP_DB, actor.tenantId, { action: 'timetableSaved', data: { classId, count: statements.length - 1 } }).catch(() => null)
+    return c.json({ success: true, count: statements.length - 1 })
+  } catch {
+    return c.json({ error: 'Could not save timetable.' }, 500)
   }
 })
 

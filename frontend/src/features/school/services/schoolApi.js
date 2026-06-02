@@ -322,6 +322,15 @@ export const getStudentAttendance = (dateOrFilters, classId) => {
 export const markStudentAttendance = (data) => req('/api/school/student-attendance', { method: 'POST', body: data });
 export const getAttendanceMonthlyReport = (params = {}) => req(`/api/school/attendance/monthly-report${buildQuery(params)}`);
 export const runAttendanceAI = (payload = {}) => req('/api/school/attendance/ai-analysis', { method: 'POST', body: payload });
+
+// School calendar & holidays
+export const getSchoolCalendar = (params = {}) => req(`/api/school/calendar${buildQuery(params)}`);
+export const addCalendarEvent = (data) => req('/api/school/calendar', { method: 'POST', body: data });
+export const deleteCalendarEvent = (id) => req(`/api/school/calendar/${encodeURIComponent(id)}`, { method: 'DELETE' });
+
+// Class timetable
+export const getTimetable = (params = {}) => req(`/api/school/timetable${buildQuery(params)}`);
+export const saveTimetable = (data) => req('/api/school/timetable', { method: 'POST', body: data });
 export const runFinanceAI = () => req('/api/school/finance/ai-analysis', { method: 'POST' });
 
 // Tuck shop finance

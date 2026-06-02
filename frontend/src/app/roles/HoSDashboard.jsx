@@ -4,7 +4,7 @@ import { HoSResultAnalytics } from '../../features/results-engine';
 import RoleLibrary from '../RoleLibrary';
 import HoSOverview from './hos/HoSOverview';
 import HoSTeacherReview from './hos/HoSTeacherReview';
-import HoSTimetable from './hos/HoSTimetable';
+import TimetableBoard from '../../features/school/components/TimetableBoard';
 import HoSDiscipline from './hos/HoSDiscipline';
 import HoSExams from './hos/HoSExams';
 import HoSApprovals from './hos/HoSApprovals';
@@ -34,7 +34,7 @@ export default function HoSDashboard({ auth = null }) {
     case 'newsroom': return <SchoolNewsroomPage viewerRole="hos" dashboardLabel="HoS Dashboard" />;
     case 'teacher-review': return <HoSTeacherReview auth={auth} />;
     case 'ai-assistant': return <StaffAiAssistantPage roleKey="hos" roleTitle="Head of School Dashboard" />;
-    case 'timetable': return <HoSTimetable />;
+    case 'timetable': return <TimetableBoard />;
     case 'discipline': return <HoSDiscipline auth={auth} />;
     case 'audits': return <SchoolAuditTrailPage roleLabel="HoS dashboard" title="Live School Audit Trail" subtitle="Watch critical school actions in real time so leadership can trace who did what and when." />;
     case 'exams': return <HoSExams auth={auth} />;

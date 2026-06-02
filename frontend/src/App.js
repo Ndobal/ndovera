@@ -35,6 +35,7 @@ import StudentProfessorAura from './app/roles/student/StudentProfessorAura';
 import StudentMessaging from './app/roles/student/StudentMessaging';
 import StudentSettings from './app/roles/student/StudentSettings';
 import LessonPlanViewerPage from './features/lesson-plans/LessonPlanViewerPage';
+import TimetableViewer from './features/school/components/TimetableViewer';
 import RoleLibrary from './app/RoleLibrary';
 import AmiInbox from './app/roles/ami/AmiInbox';
 import LoginPage from './features/auth/pages/LoginPage';
@@ -201,6 +202,7 @@ function AnimatedRoutes({ auth, onLogin }) {
         <Route path="/roles/student/exams" element={<RoleGuard auth={auth} expectedRole="student"><RouteTransition><StudentExams /></RouteTransition></RoleGuard>} />
         <Route path="/roles/student/results" element={<RoleGuard auth={auth} expectedRole="student"><RouteTransition><StudentResults /></RouteTransition></RoleGuard>} />
         <Route path="/roles/student/attendance" element={<RoleGuard auth={auth} expectedRole="student"><RouteTransition><StudentAttendance /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/student/timetable" element={<RoleGuard auth={auth} expectedRole="student"><RouteTransition><TimetableViewer viewerRole="student" title="My Timetable" subtitle="Your weekly class schedule." /></RouteTransition></RoleGuard>} />
         {/* role-specific library view */}
         <Route path="/roles/:role/library" element={<RequireAuth auth={auth}><RouteTransition><RoleLibrary /></RouteTransition></RequireAuth>} />
         {/* teacher resource old path -> library redirect to new role path */}

@@ -14,6 +14,7 @@ import TeacherAttendancePage from './teacher/TeacherAttendancePage';
 import StaffSettingsPage from './shared/StaffSettingsPage';
 import SchoolNewsroomPage from '../../features/school/components/SchoolNewsroomPage';
 import StaffAiAssistantPage from '../../features/ai/components/StaffAiAssistantPage';
+import TimetableViewer from '../../features/school/components/TimetableViewer';
 import StudentMessaging from './student/StudentMessaging';
 import useFeatureFlags from '../../shared/hooks/useFeatureFlags';
 import { getStoredAuth } from '../../features/auth/services/authApi';
@@ -90,6 +91,10 @@ export default function TeacherDashboard({ auth }) {
 
   if (sectionKey === 'newsroom') {
     return <SchoolNewsroomPage viewerRole="teacher" dashboardLabel="Teacher Dashboard" />;
+  }
+
+  if (sectionKey === 'timetable') {
+    return <TimetableViewer viewerRole="teacher" title="My Timetable" subtitle="Your weekly teaching schedule across all classes." />;
   }
 
   const section = teacherConfig.sections[sectionKey];

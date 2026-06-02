@@ -3,13 +3,17 @@ import {
   getAttendanceMonthlyReport,
   getPeople,
   getStaffAttendance,
+  getStaffAttendanceActivity,
   markStaffAttendance,
   getStudentAttendance,
   getClasses,
+  getSchoolCalendar,
   runAttendanceAI,
 } from '../../../features/school/services/schoolApi';
+import SchoolCalendarBoard from '../../../features/school/components/SchoolCalendarBoard';
+import TimetableBoard from '../../../features/school/components/TimetableBoard';
 
-const TABS = ['Staff Attendance', 'Student Attendance', 'Monthly Report', 'AI Analysis'];
+const TABS = ['Staff Attendance', 'Student Attendance', 'School Calendar', 'Timetable', 'Monthly Report', 'AI Analysis'];
 const CARD = 'rounded-3xl p-6 bg-[#f5deb3] border border-[#c9a96e]/40';
 const INNER = 'rounded-2xl p-4 bg-[#f0d090] border border-[#c9a96e]/30';
 const BTN = 'bg-[#1a5c38] hover:bg-[#154a2e] text-[#f5deb3] font-bold px-5 py-2.5 rounded-2xl text-sm transition-colors';
@@ -60,44 +64,152 @@ function RecognitionCard({ title, description, recipient, badge }) {
   );
 }
 
+function formatClockTime(value) {
+  if (!value) return '—';
+  const parsed = new Date(value);
+  if (Number.isNaN(parsed.getTime())) return '—';
+  return parsed.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+}
+
+function ordinal(n) {
+  const s = ['th', 'st', 'nd', 'rd'];
+  const v = n % 100;
+  return `${n}${s[(v - 20) % 10] || s[v] || s[0]}`;
+}
+
 function StaffAttendanceTab() {
   const [date, setDate] = useState(TODAY);
   const [staff, setStaff] = useState([]);
+  const [events, setEvents] = useState([]);
   const [records, setRecords] = useState({});
+  const [holiday, setHoliday] = useState(null);
   const [loading, setLoading] = useState(true);
   const [toast, setToast] = useState('');
   function showToast(msg) { setToast(msg); setTimeout(() => setToast(''), 3000); }
-  useEffect(() => {
-    Promise.all([getPeople(), getStaffAttendance(date)])
-      .then(([p, a]) => {
-        setStaff((p?.people || []).filter(u => !['student', 'parent'].includes(u.role)));
+
+  function load() {
+    setLoading(true);
+    Promise.all([
+      getPeople(),
+      getStaffAttendance(date),
+      getStaffAttendanceActivity({ date, limit: 500 }).catch(() => ({ events: [] })),
+      getSchoolCalendar({ from: date, to: date }).catch(() => ({ holidays: [] })),
+    ])
+      .then(([p, a, activity, calendar]) => {
+        setStaff((p?.people || []).filter(u => !['student', 'parent', 'ami'].includes(String(u.role || '').toLowerCase())));
         const m = {}; (a?.records || []).forEach(r => { m[r.staffId || r.userId] = r.status; }); setRecords(m);
-      }).catch(() => {}).finally(() => setLoading(false));
-  }, [date]);
-  async function handleMark(staffId, status) {
-    try { await markStaffAttendance({ staffId, date, status }); setRecords(r => ({...r, [staffId]: status})); showToast(`Marked ${status}`); } catch (e) { showToast(e.message); }
+        setEvents((activity?.events || []).filter(ev => ev.action === 'sign-in'));
+        setHoliday((calendar?.holidays || []).find(h => h.date === date) || null);
+      })
+      .catch(() => {})
+      .finally(() => setLoading(false));
   }
-  const counts = staff.reduce((acc, s) => { const st = records[s.id]; acc[st || 'Unmarked'] = (acc[st || 'Unmarked'] || 0) + 1; return acc; }, {});
+  useEffect(load, [date]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  async function handleMark(staffId, status) {
+    try { await markStaffAttendance({ staffId, date, status }); setRecords(r => ({ ...r, [staffId]: status })); showToast(`Marked ${status}`); } catch (e) { showToast(e.message); }
+  }
+
+  const staffById = staff.reduce((acc, s) => { acc[s.id] = s; return acc; }, {});
+
+  // First sign-in per staff member, ordered by arrival time (earliest first).
+  const firstByStaff = new Map();
+  [...events]
+    .sort((a, b) => String(a.createdAt).localeCompare(String(b.createdAt)))
+    .forEach(ev => { if (!firstByStaff.has(ev.staffId)) firstByStaff.set(ev.staffId, ev); });
+  const arrivals = Array.from(firstByStaff.values());
+
+  const signedInIds = new Set(arrivals.map(ev => ev.staffId));
+  const notSignedIn = staff.filter(s => !signedInIds.has(s.id));
+  const onTimeCount = arrivals.filter(ev => !ev.isLate).length;
+  const lateCount = arrivals.filter(ev => ev.isLate).length;
+  const firstArrival = arrivals[0];
+  const firstStaff = firstArrival ? staffById[firstArrival.staffId] : null;
+
   return (
     <div className="space-y-4">
       {toast && <div className="fixed top-6 right-6 z-50 bg-[#1a5c38] text-[#f5deb3] font-bold px-5 py-3 rounded-2xl shadow-xl">{toast}</div>}
+
+      <div className={CARD}>
+        <div className="flex flex-wrap items-center gap-4">
+          <h2 className="text-lg font-bold text-[#800000]">Staff Attendance Summary</h2>
+          <input type="date" value={date} onChange={e => setDate(e.target.value)} className="rounded-xl border border-[#c9a96e]/40 p-2 text-[#191970] text-sm" />
+          <p className="text-xs text-[#191970]">Teaching and non-teaching staff, in order of arrival.</p>
+        </div>
+      </div>
+
+      {holiday ? (
+        <div className="rounded-3xl p-6 bg-[#fdeccb] border border-[#c9a96e]/50">
+          <p className="text-xs font-bold uppercase tracking-wide text-[#800020]">{holiday.type === 'break' ? 'School Break' : 'Public Holiday'}{holiday.source === 'national' ? ' · National' : ''}</p>
+          <p className="text-2xl font-bold text-[#800000] mt-1">{holiday.title}</p>
+          <p className="text-sm text-[#191970] mt-1">No attendance is required today. Staff are not marked absent on this day.</p>
+        </div>
+      ) : null}
+
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {[['Present', 'text-emerald-700'], ['Absent', 'text-red-700'], ['Late', 'text-amber-700'], ['Unmarked', 'text-[#191970]']].map(([k, cls]) => (
-          <div key={k} className={CARD}><p className="text-xs text-[#800020] uppercase font-semibold">{k}</p><p className={`text-2xl font-bold mt-1 ${cls}`}>{counts[k] || 0}</p></div>
-        ))}
+        <div className={CARD}><p className="text-xs text-[#800020] uppercase font-semibold">First In</p><p className="text-base font-bold text-emerald-700 mt-1 truncate">{firstStaff?.name || '—'}</p><p className="text-xs text-[#191970]">{firstArrival ? formatClockTime(firstArrival.createdAt) : 'No sign-ins yet'}</p></div>
+        <div className={CARD}><p className="text-xs text-[#800020] uppercase font-semibold">On Time</p><p className="text-2xl font-bold text-emerald-700 mt-1">{onTimeCount}</p></div>
+        <div className={CARD}><p className="text-xs text-[#800020] uppercase font-semibold">Late</p><p className="text-2xl font-bold text-amber-700 mt-1">{lateCount}</p></div>
+        <div className={CARD}><p className="text-xs text-[#800020] uppercase font-semibold">{holiday ? 'Not Required' : 'Not Signed In'}</p><p className="text-2xl font-bold text-[#191970] mt-1">{notSignedIn.length}</p></div>
       </div>
-      <div className={CARD}><div className="flex items-center gap-4 mb-4"><h2 className="text-lg font-bold text-[#800000]">Staff Attendance</h2><input type="date" value={date} onChange={e => setDate(e.target.value)} className="rounded-xl border border-[#c9a96e]/40 p-2 text-[#191970] text-sm" /></div>
-        {loading ? <p className="text-[#800020] text-sm">Loading...</p> :
-          <div className="space-y-2">{staff.map(s => (
-            <div key={s.id} className={`${INNER} flex items-center justify-between gap-3`}>
-              <div><p className="text-[#191970] font-medium">{s.name}</p><p className="text-xs text-[#800020]">{s.role}</p></div>
-              <div className="flex items-center gap-2">
-                {records[s.id] && <span className={`text-xs font-semibold ${statusColor(records[s.id])}`}>{records[s.id]}</span>}
-                <select value={records[s.id] || ''} onChange={e => e.target.value && handleMark(s.id, e.target.value)} className="rounded-xl border border-[#c9a96e]/40 p-1.5 text-[#191970] text-xs"><option value="">Mark…</option><option>Present</option><option>Absent</option><option>Late</option></select>
+
+      <div className={CARD}>
+        <h3 className="text-base font-bold text-[#800000] mb-3">Arrival Order</h3>
+        {loading ? <p className="text-[#800020] text-sm">Loading…</p> : arrivals.length === 0 ? <p className="text-[#800020] text-sm">No staff have signed in for this day yet.</p> : (
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="text-left text-[#800020] font-semibold border-b border-[#c9a96e]/40">
+                  <th className="pb-2 pr-4">#</th>
+                  <th className="pb-2 pr-4">Staff</th>
+                  <th className="pb-2 pr-4">Role</th>
+                  <th className="pb-2 pr-4">Time In</th>
+                  <th className="pb-2 pr-4">Method</th>
+                  <th className="pb-2">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {arrivals.map((ev, i) => {
+                  const member = staffById[ev.staffId];
+                  return (
+                    <tr key={ev.id || ev.staffId} className="border-b border-[#c9a96e]/20">
+                      <td className="py-2 pr-4 font-bold text-[#800000]">{i === 0 ? '🥇 1st' : ordinal(i + 1)}</td>
+                      <td className="py-2 pr-4 text-[#191970] font-semibold">{member?.name || ev.staffId}</td>
+                      <td className="py-2 pr-4 text-[#191970] capitalize">{member?.role || '—'}</td>
+                      <td className="py-2 pr-4 text-[#191970] font-mono">{formatClockTime(ev.createdAt)}</td>
+                      <td className="py-2 pr-4 text-[#191970] capitalize">{String(ev.method || '').replace(/_/g, ' ') || '—'}</td>
+                      <td className="py-2">{ev.isLate
+                        ? <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-700">Late{ev.lateMinutes ? ` · ${ev.lateMinutes}m` : ''}</span>
+                        : <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-700">On time</span>}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
+
+      {!loading && notSignedIn.length > 0 ? (
+        <div className={CARD}>
+          <h3 className="text-base font-bold text-[#800000] mb-1">{holiday ? 'Staff (attendance not required today)' : 'Not Signed In'}</h3>
+          <p className="text-xs text-[#191970] mb-3">{holiday ? 'These staff are not marked absent because today is a holiday/break.' : 'Staff who have not self-marked. You can record their status manually if needed.'}</p>
+          <div className="space-y-2">
+            {notSignedIn.map(s => (
+              <div key={s.id} className={`${INNER} flex items-center justify-between gap-3`}>
+                <div><p className="text-[#191970] font-medium">{s.name}</p><p className="text-xs text-[#800020] capitalize">{s.role}</p></div>
+                <div className="flex items-center gap-2">
+                  {records[s.id] && <span className={`text-xs font-semibold ${statusColor(records[s.id])}`}>{records[s.id]}</span>}
+                  {!holiday ? (
+                    <select value={records[s.id] || ''} onChange={e => e.target.value && handleMark(s.id, e.target.value)} className="rounded-xl border border-[#c9a96e]/40 p-1.5 text-[#191970] text-xs"><option value="">Mark…</option><option>Present</option><option>Absent</option><option>Late</option><option>Excused</option></select>
+                  ) : null}
+                </div>
               </div>
-            </div>))}
-          </div>}
-      </div>
+            ))}
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 }
@@ -365,8 +477,10 @@ export default function OwnerAttendance({ auth }) {
       <div className="flex flex-wrap gap-2">{TABS.map((t, i) => <button key={t} onClick={() => setTab(i)} className={`px-5 py-2 rounded-2xl text-sm font-semibold transition-colors ${tab === i ? 'bg-[#800020] text-[#f5deb3]' : 'bg-[#f5deb3] text-[#800020] border border-[#c9a96e]/40 hover:bg-[#f0d090]'}`}>{t}</button>)}</div>
       {tab === 0 && <StaffAttendanceTab />}
       {tab === 1 && <StudentAttendanceTab />}
-      {tab === 2 && <MonthlyReportTab month={month} />}
-      {tab === 3 && <AIAttendanceTab month={month} />}
+      {tab === 2 && <SchoolCalendarBoard />}
+      {tab === 3 && <TimetableBoard />}
+      {tab === 4 && <MonthlyReportTab month={month} />}
+      {tab === 5 && <AIAttendanceTab month={month} />}
     </div>
   );
 }
