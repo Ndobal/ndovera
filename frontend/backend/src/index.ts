@@ -5026,6 +5026,26 @@ function matchesComparableIdentifier(value: unknown, comparableIdentifiers: stri
   return normalizedValue !== '' && comparableIdentifiers.includes(normalizedValue)
 }
 
+// A class can have a primary (class) teacher plus assistant/co-teachers stored as class_memberships.
+// Co-teachers have the SAME rights as the primary, so management checks accept either.
+async function classHasMembershipTeacher(
+  db: D1Database,
+  tenantId: unknown,
+  classId: unknown,
+  comparableIdentifiers: string[],
+) {
+  const normalizedClassId = String(classId || '').trim()
+  if (!normalizedClassId || !comparableIdentifiers.length) return false
+  try {
+    const rows = await db.prepare(
+      `SELECT user_id FROM class_memberships WHERE tenant_id = ? AND class_id = ? AND membership_role = 'teacher'`
+    ).bind(String(tenantId || ''), normalizedClassId).all()
+    return ((rows.results || []) as Record<string, any>[]).some(row => matchesComparableIdentifier(row.user_id, comparableIdentifiers))
+  } catch {
+    return false
+  }
+}
+
 async function resolveCanonicalUserIdentifier(db: D1Database, identifier: unknown) {
   const raw = String(identifier || '').trim()
   if (!raw) return null
@@ -6779,9 +6799,11 @@ app.get('/api/classrooms/assigned', authenticate, async (c) => {
 
     const assignedClasses = classRows.map(row => {
       const classId = String(row.id || '')
-      const isClassTeacher = matchesComparableIdentifier(row.classTeacherId, teacherIdentifiers)
-      const canManageClassroom = isSupervisor || isClassTeacher
       const extraTeacherIds = (membershipsByClass.get(classId) || []).filter(Boolean)
+      // Assistant/co-teachers (class_membership teachers) share the class teacher's rights.
+      const isCoTeacher = extraTeacherIds.some(id => matchesComparableIdentifier(id, teacherIdentifiers))
+      const isClassTeacher = matchesComparableIdentifier(row.classTeacherId, teacherIdentifiers) || isCoTeacher
+      const canManageClassroom = isSupervisor || isClassTeacher
 
       let subjectRows = subjectsByClass.get(classId) || []
       if (!isSupervisor) {
@@ -7130,6 +7152,7 @@ app.post('/api/classrooms/:classroomId/assignments', authenticate, async (c) => 
     const canCreateForSubject = isAdmin
       || matchesComparableIdentifier(subjectRow.teacherId, teacherIdentifiers)
       || matchesComparableIdentifier(classRow.classTeacherId, teacherIdentifiers)
+      || await classHasMembershipTeacher(c.env.APP_DB, classRow.tenantId || tenantId, classRow.id, teacherIdentifiers)
     if (!canCreateForSubject) {
       return c.json({ success: false, message: 'You are not assigned to this subject.' }, 403)
     }
@@ -7555,6 +7578,7 @@ async function resolveClassroomLearningAccess(db: D1Database, user: Record<strin
   const subjectResults = ((subjectRows.results || []) as Record<string, any>[])
   const isElevatedViewer = LEARNING_MANAGER_ROLES.includes(normalizedRole)
   const isClassTeacher = matchesComparableIdentifier(classRow.classTeacherId, teacherIdentifiers)
+    || await classHasMembershipTeacher(db, tenantId, classRow.id, teacherIdentifiers)
   const isAssignedTeacher = subjectResults.some(subject => matchesComparableIdentifier(subject.teacherId, teacherIdentifiers))
 
   if (isElevatedViewer || isClassTeacher || isAssignedTeacher) {
@@ -7639,6 +7663,7 @@ async function resolveMaterialPublishingContext(db: D1Database, user: Record<str
   const canPublish = isSupervisor
     || matchesComparableIdentifier(subjectRow.teacherId, teacherIdentifiers)
     || matchesComparableIdentifier(classRow.classTeacherId, teacherIdentifiers)
+    || await classHasMembershipTeacher(db, tenantId, classRow.id, teacherIdentifiers)
   if (!canPublish) {
     return { ok: false, status: 403, message: 'You are not assigned to this subject.' }
   }
@@ -7671,6 +7696,7 @@ async function resolveClassroomModerationContext(db: D1Database, user: Record<st
 
   const isSupervisor = isClassroomSupervisorRole(normalizedRole)
   const isClassTeacher = matchesComparableIdentifier(classRow.classTeacherId, actorIdentifiers)
+    || await classHasMembershipTeacher(db, tenantId, classRow.id, actorIdentifiers)
 
   return {
     ok: true,
@@ -8102,6 +8128,7 @@ async function getSchoolClassroomContext(db: D1Database, tenantId: string, class
     { id: normalizedActorId },
   ))
   const isClassTeacher = matchesComparableIdentifier(classRow.classTeacherId, actorIdentifiers)
+    || await classHasMembershipTeacher(db, tenantId, classRow.id, actorIdentifiers)
 
   return {
     classRow,
@@ -13100,6 +13127,7 @@ app.post('/api/classrooms/:classroomId/subjects/:subjectId/remove-student', auth
     const isAdmin = hasRequiredRole(role, ['owner', 'hos', 'ict', 'ict_manager'])
     const teacherIdentifiers = collectComparableIdentifiers([actor.id, actor.email, actor.sub].filter(Boolean))
     const isClassTeacher = matchesComparableIdentifier(classRow.classTeacherId, teacherIdentifiers)
+      || await classHasMembershipTeacher(c.env.APP_DB, tenantId, classRow.id, teacherIdentifiers)
     if (!isAdmin && !isClassTeacher) return c.json({ error: 'forbidden' }, 403)
     const id = `excl_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`
     await c.env.APP_DB.prepare(
@@ -13131,6 +13159,7 @@ app.delete('/api/classrooms/:classroomId/subjects/:subjectId/remove-student/:stu
     const isAdmin = hasRequiredRole(role, ['owner', 'hos', 'ict', 'ict_manager'])
     const teacherIdentifiers = collectComparableIdentifiers([actor.id, actor.email, actor.sub].filter(Boolean))
     const isClassTeacher = matchesComparableIdentifier(classRow.classTeacherId, teacherIdentifiers)
+      || await classHasMembershipTeacher(c.env.APP_DB, tenantId, classRow.id, teacherIdentifiers)
     if (!isAdmin && !isClassTeacher) return c.json({ error: 'forbidden' }, 403)
     await c.env.APP_DB.prepare(
       `DELETE FROM subject_exclusions WHERE tenantId = ? AND subjectId = ? AND classId = ? AND studentId = ?`

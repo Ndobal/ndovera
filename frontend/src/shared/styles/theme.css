@@ -132,6 +132,15 @@
   border-color: #800020 !important;
 }
 
+/* Global sidebar: white + bold menu text — DARK MODE ONLY */
+.dark aside.frost-panel a,
+.dark aside.frost-panel .sidebar-item-active,
+.dark aside.frost-panel .micro-label,
+.dark aside.frost-panel .neon-subtle {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+}
+
 /* Reusable bottom navigation glass styles */
 .bottom-nav {
   @apply fixed left-0 right-0 bottom-0 z-40 border-t border-white/10 backdrop-blur-2xl; 

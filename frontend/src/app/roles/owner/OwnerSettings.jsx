@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useMemo, useState, useRef } from 'react';
-import { getMe, getClasses, addClass, getSubjects, addSubject, getSession, saveSession, getBranding, saveBranding, uploadLogo, getPeople, bulkAddSubjects, bulkAddSubjectsBySection, updateSubject, deleteSubject, updateClass, bulkUpdateClasses, deleteClass, bulkAssignSubjects } from '../../../features/school/services/schoolApi';
+import React, { useCallback, useEffect, useState, useRef } from 'react';
+import { getMe, getClasses, addClass, getSubjects, addSubject, getSession, saveSession, getBranding, saveBranding, uploadLogo, getPeople, bulkAddSubjectsBySection, updateSubject, deleteSubject, updateClass, bulkUpdateClasses, deleteClass } from '../../../features/school/services/schoolApi';
 import AdminPasswordReset from '../../../features/auth/components/AdminPasswordReset';
 import StaffAttendanceManagementPanel from '../../../features/attendance/components/StaffAttendanceManagementPanel';
 import WebsiteTab from './tabs/WebsiteTab';
@@ -168,7 +168,6 @@ function ClassesTab() {
   const [classes, setClasses] = useState([]);
   const [teachers, setTeachers] = useState([]);
   const [caregivers, setCaregivers] = useState([]);
-  const [subjects, setSubjects] = useState([]);
   const [form, setForm] = useState({ name: '', arm: '', classTeacherId: '', teacherIds: [], caregiverIds: [] });
   const [drafts, setDrafts] = useState({});
   const [dirtyClassIds, setDirtyClassIds] = useState([]);
@@ -179,18 +178,11 @@ function ClassesTab() {
   const [deletingClassId, setDeletingClassId] = useState('');
   const [error, setError] = useState('');
   const [statusMsg, setStatusMsg] = useState('');
-  const [bulkClassId, setBulkClassId] = useState(null);
-  const [bulkText, setBulkText] = useState('');
-  const [bulkSaving, setBulkSaving] = useState(false);
-  const [bulkMsg, setBulkMsg] = useState('');
   const [showQuickSetup, setShowQuickSetup] = useState(false);
   const [quickArms, setQuickArms] = useState('A,B,C');
   const [quickSelected, setQuickSelected] = useState([]);
   const [quickSaving, setQuickSaving] = useState(false);
   const [quickMsg, setQuickMsg] = useState('');
-
-  const teacherNameById = useMemo(() => Object.fromEntries(teachers.map(person => [person.id, person.name])), [teachers]);
-  const caregiverNameById = useMemo(() => Object.fromEntries(caregivers.map(person => [person.id, person.name])), [caregivers]);
 
   function buildDraft(cls) {
     return {
@@ -208,13 +200,11 @@ function ClassesTab() {
       getClasses(),
       getPeople({ role: 'teacher', limit: 200 }),
       getPeople({ role: 'caregiver', limit: 200 }),
-      getSubjects(),
-    ]).then(([classData, teacherData, caregiverData, subjectData]) => {
+    ]).then(([classData, teacherData, caregiverData]) => {
       const nextClasses = classData?.classes || [];
       setClasses(nextClasses);
       setTeachers(teacherData?.people || []);
       setCaregivers(caregiverData?.people || []);
-      setSubjects(subjectData?.subjects || []);
       setDrafts(Object.fromEntries(nextClasses.map(cls => [cls.id, buildDraft(cls)])));
       setDirtyClassIds([]);
     });
@@ -236,16 +226,24 @@ function ClassesTab() {
     markDirty(classId);
   }
 
-  function toggleMultiValue(classId, key, value) {
+  // Primary class teacher is always teacherIds[0]; the optional assistant/co-teacher is the other entry.
+  function assistantIdOf(draft) {
+    return (Array.isArray(draft?.teacherIds) ? draft.teacherIds : []).find(id => id && id !== draft.classTeacherId) || '';
+  }
+  function setPrimaryTeacher(classId, nextTeacherId) {
     updateDraft(classId, current => {
-      const values = Array.isArray(current[key]) ? current[key] : [];
-      const nextValues = values.includes(value) ? values.filter(item => item !== value) : [...values, value];
-      const nextDraft = { ...current, [key]: nextValues };
-      if (key === 'teacherIds' && current.classTeacherId && !nextValues.includes(current.classTeacherId)) {
-        nextDraft.classTeacherId = '';
-      }
-      return nextDraft;
+      const assistant = assistantIdOf(current);
+      return { ...current, classTeacherId: nextTeacherId, teacherIds: Array.from(new Set([nextTeacherId, assistant].filter(Boolean))) };
     });
+  }
+  function setAssistantTeacher(classId, nextAssistantId) {
+    updateDraft(classId, current => ({
+      ...current,
+      teacherIds: Array.from(new Set([current.classTeacherId, nextAssistantId].filter(Boolean))),
+    }));
+  }
+  function setCaregiver(classId, nextCaregiverId) {
+    updateDraft(classId, current => ({ ...current, caregiverIds: nextCaregiverId ? [nextCaregiverId] : [] }));
   }
 
   async function handleAdd(e) {
@@ -263,23 +261,6 @@ function ClassesTab() {
       setError(err.message);
     } finally {
       setSaving(false);
-    }
-  }
-
-  async function handleBulkAdd(classId) {
-    if (!bulkText.trim()) return;
-    setBulkSaving(true);
-    setBulkMsg('');
-    try {
-      const lines = bulkText.split(/[\n,]+/).map(value => value.trim()).filter(Boolean);
-      const result = await bulkAddSubjects(classId, { subjects: lines });
-      setBulkMsg(`Added ${result.added} subject(s).`);
-      setBulkText('');
-      await loadAll();
-    } catch (err) {
-      setBulkMsg(err.message);
-    } finally {
-      setBulkSaving(false);
     }
   }
 
@@ -447,20 +428,23 @@ function ClassesTab() {
       <div className="grid grid-cols-1 gap-3 xl:grid-cols-2">
         {classes.length === 0 ? <p className="text-[#800020] dark:text-slate-400 text-sm">No classes yet.</p> : classes.map(cls => {
           const draft = drafts[cls.id] || buildDraft(cls);
-          const classSubjects = subjects.filter(subject => subject.classId === cls.id);
+          const assistantId = assistantIdOf(draft);
+          const caregiverId = (Array.isArray(draft.caregiverIds) ? draft.caregiverIds : [])[0] || '';
           const isDirty = dirtyClassIds.includes(cls.id);
+          const FIELD = 'mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#f5deb3] dark:bg-slate-800 px-3 py-2 text-sm text-[#191970] dark:text-slate-100';
+          const LABEL = 'text-xs font-semibold uppercase text-[#800020] dark:text-slate-300';
 
           return (
-            <div key={cls.id} className={`rounded-2xl p-4 border space-y-3 ${isDirty ? 'border-[#1a5c38] bg-[#f0d090]' : 'border-[#c9a96e]/30 bg-[#f0d090] dark:bg-slate-800/40 dark:border-white/5'}`}>
+            <div key={cls.id} className={`rounded-2xl p-4 border space-y-3 ${isDirty ? 'border-[#1a5c38] bg-[#f0d090] dark:bg-slate-800/60' : 'border-[#c9a96e]/30 bg-[#f0d090] dark:bg-slate-800/40 dark:border-white/5'}`}>
               <div className="flex items-start justify-between gap-3">
                 <div className="grid flex-1 grid-cols-1 gap-3 md:grid-cols-2">
                   <div>
-                    <label className="text-xs font-semibold uppercase text-[#800020]">Class Name</label>
-                    <input value={draft.name} onChange={e => updateDraft(cls.id, current => ({ ...current, name: e.target.value }))} className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#f5deb3] px-3 py-2 text-sm text-[#191970]" />
+                    <label className={LABEL}>Class Name</label>
+                    <input value={draft.name} onChange={e => updateDraft(cls.id, current => ({ ...current, name: e.target.value }))} className={FIELD} />
                   </div>
                   <div>
-                    <label className="text-xs font-semibold uppercase text-[#800020]">Arm</label>
-                    <input value={draft.arm} onChange={e => updateDraft(cls.id, current => ({ ...current, arm: e.target.value }))} className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#f5deb3] px-3 py-2 text-sm text-[#191970]" />
+                    <label className={LABEL}>Arm</label>
+                    <input value={draft.arm} onChange={e => updateDraft(cls.id, current => ({ ...current, arm: e.target.value }))} className={FIELD} />
                   </div>
                 </div>
                 <div className="flex shrink-0 items-center gap-2">
@@ -471,81 +455,33 @@ function ClassesTab() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
+              <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
                 <div>
-                  <label className="text-xs font-semibold uppercase text-[#800020]">Primary Teacher</label>
-                  <select value={draft.classTeacherId} onChange={e => {
-                    const nextTeacherId = e.target.value;
-                    updateDraft(cls.id, current => ({
-                      ...current,
-                      classTeacherId: nextTeacherId,
-                      teacherIds: nextTeacherId && !current.teacherIds.includes(nextTeacherId) ? [...current.teacherIds, nextTeacherId] : current.teacherIds,
-                    }));
-                  }} className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#f5deb3] px-3 py-2 text-sm text-[#191970]">
+                  <label className={LABEL}>Primary Teacher (Class Teacher)</label>
+                  <select value={draft.classTeacherId} onChange={e => setPrimaryTeacher(cls.id, e.target.value)} className={FIELD}>
                     <option value="">— None —</option>
                     {teachers.map(teacher => <option key={teacher.id} value={teacher.id}>{teacher.name}</option>)}
                   </select>
                 </div>
                 <div>
-                  <p className="text-xs font-semibold uppercase text-[#800020]">Subjects</p>
-                  <div className="mt-1 flex flex-wrap gap-1">
-                    {classSubjects.length ? classSubjects.map(subject => (
-                      <span key={subject.id} className="rounded-full border border-[#c9a96e]/40 bg-[#f5deb3] px-2 py-0.5 text-xs text-[#191970]">{subject.name}</span>
-                    )) : <span className="text-xs text-[#800020]">No subjects yet.</span>}
-                  </div>
+                  <label className={LABEL}>Assistant / Co-Teacher</label>
+                  <select value={assistantId} onChange={e => setAssistantTeacher(cls.id, e.target.value)} className={FIELD}>
+                    <option value="">— None —</option>
+                    {teachers.filter(teacher => teacher.id !== draft.classTeacherId).map(teacher => <option key={teacher.id} value={teacher.id}>{teacher.name}</option>)}
+                  </select>
+                  <p className="mt-1 text-[11px] text-[#800020] dark:text-slate-400">Has the same rights as the primary teacher.</p>
+                </div>
+                <div>
+                  <label className={LABEL}>Caregiver (optional)</label>
+                  <select value={caregiverId} onChange={e => setCaregiver(cls.id, e.target.value)} className={FIELD}>
+                    <option value="">— None —</option>
+                    {caregivers.map(caregiver => <option key={caregiver.id} value={caregiver.id}>{caregiver.name}</option>)}
+                  </select>
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
-                <div className="rounded-2xl border border-[#c9a96e]/30 bg-[#f5deb3] p-3">
-                  <p className="text-xs font-semibold uppercase text-[#800020]">Teachers in This Class</p>
-                  <div className="mt-2 flex max-h-36 flex-wrap gap-2 overflow-y-auto">
-                    {teachers.map(teacher => (
-                      <button key={teacher.id} type="button" onClick={() => toggleMultiValue(cls.id, 'teacherIds', teacher.id)} className={`rounded-full px-3 py-1 text-xs font-semibold border ${draft.teacherIds.includes(teacher.id) ? 'bg-[#1a5c38] border-[#1a5c38] text-[#f5deb3]' : 'bg-white border-[#c9a96e]/40 text-[#800020]'}`}>
-                        {teacher.name}
-                      </button>
-                    ))}
-                  </div>
-                  {draft.teacherIds.length > 0 && (
-                    <p className="mt-2 text-xs text-[#191970]">Selected: {draft.teacherIds.map(id => teacherNameById[id] || id).join(', ')}</p>
-                  )}
-                </div>
-
-                <div className="rounded-2xl border border-[#c9a96e]/30 bg-[#f5deb3] p-3">
-                  <p className="text-xs font-semibold uppercase text-[#800020]">Caregivers</p>
-                  <div className="mt-2 flex max-h-36 flex-wrap gap-2 overflow-y-auto">
-                    {caregivers.map(caregiver => (
-                      <button key={caregiver.id} type="button" onClick={() => toggleMultiValue(cls.id, 'caregiverIds', caregiver.id)} className={`rounded-full px-3 py-1 text-xs font-semibold border ${draft.caregiverIds.includes(caregiver.id) ? 'bg-[#191970] border-[#191970] text-[#f5deb3]' : 'bg-white border-[#c9a96e]/40 text-[#800020]'}`}>
-                        {caregiver.name}
-                      </button>
-                    ))}
-                  </div>
-                  {draft.caregiverIds.length > 0 && (
-                    <p className="mt-2 text-xs text-[#191970]">Selected: {draft.caregiverIds.map(id => caregiverNameById[id] || id).join(', ')}</p>
-                  )}
-                </div>
-              </div>
-
-              {bulkClassId === cls.id ? (
-                <div className="space-y-2 rounded-2xl border border-[#c9a96e]/30 bg-[#f5deb3] p-3">
-                  <textarea value={bulkText} onChange={e => setBulkText(e.target.value)} rows={3} placeholder="One subject per line or comma-separated" className="w-full rounded-xl border border-[#c9a96e]/40 bg-white px-3 py-2 text-xs text-[#191970]" />
-                  {bulkMsg && <p className={`text-xs ${bulkMsg.includes('Added') ? 'text-[#1a5c38]' : 'text-red-600'}`}>{bulkMsg}</p>}
-                  <div className="flex gap-2">
-                    <button type="button" onClick={() => handleBulkAdd(cls.id)} disabled={bulkSaving} className="rounded-xl bg-[#1a5c38] px-3 py-2 text-xs font-bold text-[#f5deb3] disabled:opacity-60">
-                      {bulkSaving ? 'Adding...' : 'Add Subjects'}
-                    </button>
-                    <button type="button" onClick={() => { setBulkClassId(null); setBulkText(''); setBulkMsg(''); }} className="rounded-xl border border-[#c9a96e]/40 px-3 py-2 text-xs font-semibold text-[#800020]">
-                      Close
-                    </button>
-                  </div>
-                </div>
-              ) : (
-                <button type="button" onClick={() => { setBulkClassId(cls.id); setBulkMsg(''); }} className="rounded-xl border border-[#c9a96e]/40 bg-[#f5deb3] px-3 py-2 text-xs font-bold text-[#1a5c38]">
-                  Bulk Add Subjects
-                </button>
-              )}
-
-              <div className="flex flex-wrap justify-end gap-2">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <p className="text-[11px] text-[#800020] dark:text-slate-400">Manage this class's subjects in the <span className="font-semibold">Subjects</span> tab.</p>
                 <button type="button" onClick={() => handleSaveClass(cls.id)} disabled={savingClassId === cls.id} className="rounded-2xl bg-[#1a5c38] px-4 py-2 text-sm font-bold text-[#f5deb3] disabled:opacity-60">
                   {savingClassId === cls.id ? 'Saving...' : 'Save This Class'}
                 </button>
@@ -562,310 +498,210 @@ function SubjectsTab() {
   const [subjects, setSubjects] = useState([]);
   const [classes, setClasses] = useState([]);
   const [teachers, setTeachers] = useState([]);
-  const [form, setForm] = useState({ name: '', classId: '', teacherId: '' });
   const [loading, setLoading] = useState(true);
-  const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
-  const [editingId, setEditingId] = useState(null);
-  const [editForm, setEditForm] = useState({});
-  const [editSaving, setEditSaving] = useState(false);
-  // Section bulk form
-  const [sectionMode, setSectionMode] = useState(false);
+  const [expandedClassId, setExpandedClassId] = useState('');
+  const [newSubject, setNewSubject] = useState({}); // { [classId]: { name, teacherId } }
+  const [savingClassId, setSavingClassId] = useState('');
+  const [updatingSubjectId, setUpdatingSubjectId] = useState('');
+  const [showBulk, setShowBulk] = useState(false);
   const [sectionForm, setSectionForm] = useState({ sectionName: '', subjectsText: '', teacherId: '' });
   const [sectionSaving, setSectionSaving] = useState(false);
   const [sectionMsg, setSectionMsg] = useState('');
-  const [assignmentForm, setAssignmentForm] = useState({ mode: 'class', teacherId: '', classIds: [], sectionNames: [], subjectNames: [] });
-  const [assignmentSaving, setAssignmentSaving] = useState(false);
-  const [assignmentMsg, setAssignmentMsg] = useState('');
 
   function reload() {
     return Promise.all([getSubjects(), getClasses(), getPeople({ role: 'teacher', limit: 200 })]).then(([sd, cd, pd]) => {
-      setSubjects(sd?.subjects || []); setClasses(cd?.classes || []);
-      setTeachers(pd?.people || []);
+      setSubjects(sd?.subjects || []); setClasses(cd?.classes || []); setTeachers(pd?.people || []);
     });
   }
 
   useEffect(() => { reload().finally(() => setLoading(false)); }, []);
 
-  async function handleAdd(e) {
-    e.preventDefault(); if (!form.name) return; setSaving(true); setError('');
-    try { await addSubject(form); await reload(); setForm({ name: '', classId: '', teacherId: '' }); }
-    catch (err) { setError(err.message); } finally { setSaving(false); }
+  const draftFor = (classId) => newSubject[classId] || { name: '', teacherId: '' };
+
+  async function addSubjectsToClass(classId) {
+    const draft = draftFor(classId);
+    const names = String(draft.name || '').split(/[\n,]+/).map(value => value.trim()).filter(Boolean);
+    if (!names.length) return;
+    setSavingClassId(classId); setError('');
+    try {
+      for (const name of names) {
+        // eslint-disable-next-line no-await-in-loop
+        await addSubject({ name, classId, teacherId: draft.teacherId || '' });
+      }
+      await reload();
+      setNewSubject(current => ({ ...current, [classId]: { name: '', teacherId: draft.teacherId || '' } }));
+    } catch (err) { setError(err.message); } finally { setSavingClassId(''); }
   }
 
-  async function handleUpdate(id) {
-    setEditSaving(true);
-    try { await updateSubject(id, editForm); await reload(); setEditingId(null); }
-    catch {} finally { setEditSaving(false); }
+  async function changeSubjectTeacher(subjectId, teacherId) {
+    setUpdatingSubjectId(subjectId); setError('');
+    try { await updateSubject(subjectId, { teacherId }); await reload(); }
+    catch (err) { setError(err.message); } finally { setUpdatingSubjectId(''); }
+  }
+
+  async function changeSubjectClass(subjectId, classId) {
+    setUpdatingSubjectId(subjectId); setError('');
+    try { await updateSubject(subjectId, { classId }); await reload(); }
+    catch (err) { setError(err.message); } finally { setUpdatingSubjectId(''); }
   }
 
   async function handleDelete(id, name) {
-    if (!window.confirm(`Delete subject "${name}"?`)) return;
-    try { await deleteSubject(id); await reload(); } catch {}
+    if (!window.confirm(`Remove subject "${name}"?`)) return;
+    setError('');
+    try { await deleteSubject(id); await reload(); } catch (err) { setError(err.message); }
   }
 
   async function handleSectionBulk(e) {
     e.preventDefault(); setSectionSaving(true); setSectionMsg('');
     try {
       const lines = sectionForm.subjectsText.split('\n').map(l => l.trim()).filter(Boolean);
-      if (!sectionForm.sectionName || lines.length === 0) { setSectionMsg('Section name and at least one subject required.'); setSectionSaving(false); return; }
+      if (!sectionForm.sectionName || lines.length === 0) { setSectionMsg('Choose a section and add at least one subject.'); setSectionSaving(false); return; }
       const result = await bulkAddSubjectsBySection(sectionForm.sectionName, lines, sectionForm.teacherId || null);
       if (result?.success) { setSectionMsg(`Added ${result.added} subject(s) across ${result.classCount} class(es).`); await reload(); setSectionForm({ sectionName: '', subjectsText: '', teacherId: '' }); }
       else setSectionMsg(result?.error || 'Could not add subjects.');
     } catch (err) { setSectionMsg(err.message); } finally { setSectionSaving(false); }
   }
 
-  async function handleBulkAssignment(e) {
-    e.preventDefault();
-    if (!assignmentForm.teacherId || assignmentForm.subjectNames.length === 0) {
-      setAssignmentMsg('Choose a teacher and at least one subject.');
-      return;
-    }
+  if (loading) return <p className="text-[#800020] dark:text-slate-300">Loading...</p>;
 
-    if (assignmentForm.mode === 'class' && assignmentForm.classIds.length === 0) {
-      setAssignmentMsg('Choose at least one class.');
-      return;
-    }
+  const classLabel = (cls) => `${cls.name}${cls.arm ? ` ${cls.arm}` : ''}`;
+  const unassigned = subjects.filter(s => !s.classId);
 
-    if (assignmentForm.mode === 'section' && assignmentForm.sectionNames.length === 0) {
-      setAssignmentMsg('Choose at least one section.');
-      return;
-    }
+  const TEACHER_SELECT = 'rounded-xl border border-[#c9a96e]/40 bg-[#f5deb3] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-2 py-1 text-xs';
 
-    setAssignmentSaving(true);
-    setAssignmentMsg('');
-    try {
-      const result = await bulkAssignSubjects(assignmentForm);
-      setAssignmentMsg(`Updated ${result.updated} subject assignment(s).`);
-      await reload();
-    } catch (err) {
-      setAssignmentMsg(err.message);
-    } finally {
-      setAssignmentSaving(false);
-    }
+  function renderClassPanel(cls) {
+    const classSubjects = subjects.filter(s => s.classId === cls.id);
+    const open = expandedClassId === cls.id;
+    const draft = draftFor(cls.id);
+    return (
+      <div key={cls.id} className="rounded-2xl border border-[#c9a96e]/40 dark:border-white/10 overflow-hidden">
+        <button type="button" onClick={() => setExpandedClassId(open ? '' : cls.id)} className="w-full flex items-center justify-between gap-3 px-4 py-3 bg-[#f0d090] dark:bg-slate-800/40 text-left">
+          <span className="font-bold text-[#800000] dark:text-slate-100">{classLabel(cls)}</span>
+          <span className="flex items-center gap-2 text-xs font-semibold text-[#800020] dark:text-slate-300">
+            {classSubjects.length} subject{classSubjects.length === 1 ? '' : 's'}
+            <span aria-hidden>{open ? '▲' : '▼'}</span>
+          </span>
+        </button>
+        {open && (
+          <div className="p-4 space-y-3 bg-[#f5deb3] dark:bg-slate-900/30">
+            {classSubjects.length === 0 ? (
+              <p className="text-sm text-[#800020] dark:text-slate-400">No subjects yet. Add the first one below.</p>
+            ) : (
+              <div className="space-y-2">
+                {classSubjects.map(s => (
+                  <div key={s.id} className="flex flex-wrap items-center gap-2 rounded-xl border border-[#c9a96e]/30 dark:border-white/5 bg-[#f0d090] dark:bg-slate-800/40 px-3 py-2">
+                    <span className="flex-1 min-w-[120px] font-semibold text-[#191970] dark:text-slate-100">{s.name}</span>
+                    <select value={s.teacherId || ''} disabled={updatingSubjectId === s.id} onChange={e => changeSubjectTeacher(s.id, e.target.value)} className={TEACHER_SELECT}>
+                      <option value="">— No teacher —</option>
+                      {teachers.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
+                    </select>
+                    <button type="button" onClick={() => handleDelete(s.id, s.name)} className="rounded-xl border border-red-300 text-red-600 text-xs px-2 py-1 font-semibold hover:bg-red-50 dark:hover:bg-red-500/10">Remove</button>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            <div className="rounded-xl border border-dashed border-[#c9a96e]/50 dark:border-white/10 p-3 space-y-2">
+              <p className="text-xs font-semibold uppercase text-[#800020] dark:text-slate-300">Add subject(s) to {classLabel(cls)}</p>
+              <textarea value={draft.name} onChange={e => setNewSubject(current => ({ ...current, [cls.id]: { ...draft, name: e.target.value } }))} rows={2} placeholder={'One subject per line, e.g.\nMathematics\nEnglish Language'} className="w-full rounded-xl border border-[#c9a96e]/40 bg-white dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none" />
+              <div className="flex flex-wrap items-center gap-2">
+                <select value={draft.teacherId} onChange={e => setNewSubject(current => ({ ...current, [cls.id]: { ...draft, teacherId: e.target.value } }))} className="rounded-xl border border-[#c9a96e]/40 bg-[#f5deb3] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-2 py-1 text-sm">
+                  <option value="">— Teacher (optional) —</option>
+                  {teachers.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
+                </select>
+                <button type="button" onClick={() => addSubjectsToClass(cls.id)} disabled={savingClassId === cls.id} className="rounded-xl bg-[#1a5c38] text-[#f5deb3] font-bold px-4 py-1.5 text-sm disabled:opacity-60">
+                  {savingClassId === cls.id ? 'Adding...' : 'Add'}
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    );
   }
-
-  function className(classId) {
-    const c = classes.find(c => c.id === classId);
-    return c ? `${c.name}${c.arm ? ` ${c.arm}` : ''}` : null;
-  }
-
-  function teacherName(teacherId) {
-    const t = teachers.find(t => t.id === teacherId);
-    return t ? t.name : null;
-  }
-
-  if (loading) return <p className="text-[#800020]">Loading...</p>;
-
-  // Group by classId
-  const grouped = {};
-  const unassigned = [];
-  subjects.forEach(s => {
-    if (s.classId) { if (!grouped[s.classId]) grouped[s.classId] = []; grouped[s.classId].push(s); }
-    else unassigned.push(s);
-  });
-
-  const groups = [
-    ...Object.entries(grouped).map(([classId, subs]) => ({ label: className(classId) || classId, subs })),
-    ...(unassigned.length > 0 ? [{ label: 'Unassigned', subs: unassigned }] : []),
-  ];
-  const sectionOptions = [...new Set(classes.map(c => c.name).filter(Boolean))];
-  const subjectNameOptions = [...new Set(subjects.map(subject => subject.name).filter(Boolean))].sort((left, right) => left.localeCompare(right));
 
   return (
     <div className="space-y-4">
-      <form onSubmit={handleBulkAssignment} className="rounded-2xl border border-[#c9a96e]/40 bg-[#f0d090] p-4 space-y-3">
-        <div>
-          <p className="text-sm font-bold text-[#800000]">Easy Teacher Assignment</p>
-          <p className="text-xs text-[#191970] mt-1">Pick a teacher, choose one or more subjects, then apply the assignment to selected classes, a whole section, or the whole school.</p>
-        </div>
-        <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-4">
-          <div>
-            <label className="text-xs text-[#800020] uppercase font-semibold">Scope</label>
-            <select value={assignmentForm.mode} onChange={e => setAssignmentForm(current => ({ ...current, mode: e.target.value }))} className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#f5deb3] px-3 py-2 text-sm text-[#191970]">
-              <option value="class">Selected Classes</option>
-              <option value="section">Selected Sections</option>
-              <option value="school">Whole School</option>
-            </select>
-          </div>
-          <div>
-            <label className="text-xs text-[#800020] uppercase font-semibold">Teacher</label>
-            <select value={assignmentForm.teacherId} onChange={e => setAssignmentForm(current => ({ ...current, teacherId: e.target.value }))} className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#f5deb3] px-3 py-2 text-sm text-[#191970]">
-              <option value="">— Select Teacher —</option>
-              {teachers.map(teacher => <option key={teacher.id} value={teacher.id}>{teacher.name}</option>)}
-            </select>
-          </div>
-          <div className="xl:col-span-2">
-            <label className="text-xs text-[#800020] uppercase font-semibold">Subjects</label>
-            <div className="mt-1 flex flex-wrap gap-2 rounded-xl border border-[#c9a96e]/40 bg-[#f5deb3] p-3">
-              {subjectNameOptions.map(subjectName => (
-                <button key={subjectName} type="button" onClick={() => setAssignmentForm(current => ({
-                  ...current,
-                  subjectNames: current.subjectNames.includes(subjectName)
-                    ? current.subjectNames.filter(value => value !== subjectName)
-                    : [...current.subjectNames, subjectName],
-                }))} className={`rounded-full px-3 py-1 text-xs font-semibold border ${assignmentForm.subjectNames.includes(subjectName) ? 'bg-[#1a5c38] border-[#1a5c38] text-[#f5deb3]' : 'bg-white border-[#c9a96e]/40 text-[#800020]'}`}>
-                  {subjectName}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {assignmentForm.mode === 'class' && (
-          <div>
-            <label className="text-xs text-[#800020] uppercase font-semibold">Classes</label>
-            <div className="mt-1 flex flex-wrap gap-2 rounded-xl border border-[#c9a96e]/40 bg-[#f5deb3] p-3">
-              {classes.map(cls => {
-                const label = `${cls.name}${cls.arm ? ` ${cls.arm}` : ''}`;
-                return (
-                  <button key={cls.id} type="button" onClick={() => setAssignmentForm(current => ({
-                    ...current,
-                    classIds: current.classIds.includes(cls.id) ? current.classIds.filter(value => value !== cls.id) : [...current.classIds, cls.id],
-                  }))} className={`rounded-full px-3 py-1 text-xs font-semibold border ${assignmentForm.classIds.includes(cls.id) ? 'bg-[#191970] border-[#191970] text-[#f5deb3]' : 'bg-white border-[#c9a96e]/40 text-[#800020]'}`}>
-                    {label}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-        )}
-
-        {assignmentForm.mode === 'section' && (
-          <div>
-            <label className="text-xs text-[#800020] uppercase font-semibold">Sections</label>
-            <div className="mt-1 flex flex-wrap gap-2 rounded-xl border border-[#c9a96e]/40 bg-[#f5deb3] p-3">
-              {sectionOptions.map(sectionName => (
-                <button key={sectionName} type="button" onClick={() => setAssignmentForm(current => ({
-                  ...current,
-                  sectionNames: current.sectionNames.includes(sectionName) ? current.sectionNames.filter(value => value !== sectionName) : [...current.sectionNames, sectionName],
-                }))} className={`rounded-full px-3 py-1 text-xs font-semibold border ${assignmentForm.sectionNames.includes(sectionName) ? 'bg-[#191970] border-[#191970] text-[#f5deb3]' : 'bg-white border-[#c9a96e]/40 text-[#800020]'}`}>
-                  {sectionName}
-                </button>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {assignmentMsg && <p className={`text-sm font-semibold ${assignmentMsg.includes('Updated') ? 'text-[#1a5c38]' : 'text-red-600'}`}>{assignmentMsg}</p>}
-        <button type="submit" disabled={assignmentSaving} className="rounded-2xl bg-[#1a5c38] px-5 py-2 text-sm font-bold text-[#f5deb3] disabled:opacity-60">
-          {assignmentSaving ? 'Saving...' : 'Apply Assignment'}
-        </button>
-      </form>
-
-      {/* Mode toggle */}
-      <div className="flex gap-2">
-        <button type="button" onClick={() => setSectionMode(false)} className={`px-4 py-1.5 rounded-2xl border text-sm font-semibold transition-colors ${!sectionMode ? 'bg-[#1a5c38] border-[#1a5c38] text-[#f5deb3]' : 'bg-[#f0d090] border-[#c9a96e]/40 text-[#800020]'}`}>Single / Class</button>
-        <button type="button" onClick={() => setSectionMode(true)} className={`px-4 py-1.5 rounded-2xl border text-sm font-semibold transition-colors ${sectionMode ? 'bg-[#1a5c38] border-[#1a5c38] text-[#f5deb3]' : 'bg-[#f0d090] border-[#c9a96e]/40 text-[#800020]'}`}>Bulk by Section</button>
+      <div className="rounded-2xl border border-[#c9a96e]/40 dark:border-white/10 bg-[#f0d090] dark:bg-slate-800/40 p-4">
+        <p className="text-sm font-bold text-[#800000] dark:text-slate-100">Subjects by class</p>
+        <p className="text-xs text-[#800020] dark:text-slate-400 mt-1">Open a class to see its subjects, add new ones, and pick the teacher for each. Only one class is open at a time.</p>
       </div>
 
-      {sectionMode ? (
-        <form onSubmit={handleSectionBulk} className="space-y-3">
-          <div>
-            <label className="text-xs text-[#800020] dark:text-slate-400 uppercase font-semibold">Section Name (e.g. JSS 1)</label>
-            <select required value={sectionForm.sectionName} onChange={e => setSectionForm(f => ({ ...f, sectionName: e.target.value }))}
-              className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#f0d090] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none">
-              <option value="">— Choose Section —</option>
-              {[...new Set(classes.map(c => c.name))].sort().map(n => <option key={n} value={n}>{n}</option>)}
-            </select>
-            {sectionForm.sectionName && DEFAULT_SUBJECT_PRESETS[sectionForm.sectionName] && (
-              <button type="button"
-                onClick={() => setSectionForm(f => ({ ...f, subjectsText: DEFAULT_SUBJECT_PRESETS[sectionForm.sectionName] }))}
-                className="mt-1 text-xs font-semibold text-[#1a5c38] underline dark:text-[#00ffff]">
-                Load default subjects for {sectionForm.sectionName}
-              </button>
+      {error && <p className="text-red-600 dark:text-red-400 text-sm">{error}</p>}
+
+      <div className="space-y-2">
+        {classes.length === 0 ? (
+          <p className="text-[#800020] dark:text-slate-400 text-sm">No classes yet. Create classes in the Classes tab first.</p>
+        ) : classes.map(renderClassPanel)}
+
+        {unassigned.length > 0 && (
+          <div className="rounded-2xl border border-[#c9a96e]/40 dark:border-white/10 overflow-hidden">
+            <button type="button" onClick={() => setExpandedClassId(expandedClassId === '__unassigned' ? '' : '__unassigned')} className="w-full flex items-center justify-between gap-3 px-4 py-3 bg-[#f0d090] dark:bg-slate-800/40 text-left">
+              <span className="font-bold text-[#800000] dark:text-slate-100">Subjects not yet in a class</span>
+              <span className="flex items-center gap-2 text-xs font-semibold text-[#800020] dark:text-slate-300">{unassigned.length}<span aria-hidden>{expandedClassId === '__unassigned' ? '▲' : '▼'}</span></span>
+            </button>
+            {expandedClassId === '__unassigned' && (
+              <div className="p-4 space-y-2 bg-[#f5deb3] dark:bg-slate-900/30">
+                {unassigned.map(s => (
+                  <div key={s.id} className="flex flex-wrap items-center gap-2 rounded-xl border border-[#c9a96e]/30 dark:border-white/5 bg-[#f0d090] dark:bg-slate-800/40 px-3 py-2">
+                    <span className="flex-1 min-w-[120px] font-semibold text-[#191970] dark:text-slate-100">{s.name}</span>
+                    <select value="" disabled={updatingSubjectId === s.id} onChange={e => e.target.value && changeSubjectClass(s.id, e.target.value)} className={TEACHER_SELECT}>
+                      <option value="">Move to class…</option>
+                      {classes.map(c => <option key={c.id} value={c.id}>{classLabel(c)}</option>)}
+                    </select>
+                    <button type="button" onClick={() => handleDelete(s.id, s.name)} className="rounded-xl border border-red-300 text-red-600 text-xs px-2 py-1 font-semibold hover:bg-red-50 dark:hover:bg-red-500/10">Remove</button>
+                  </div>
+                ))}
+              </div>
             )}
           </div>
-          <div>
-            <label className="text-xs text-[#800020] dark:text-slate-400 uppercase font-semibold">Subjects (one per line)</label>
-            <textarea required value={sectionForm.subjectsText} onChange={e => setSectionForm(f => ({ ...f, subjectsText: e.target.value }))} rows={5}
-              className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#f0d090] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none"
-              placeholder={"Mathematics\nEnglish Language\nBasic Science"} />
-          </div>
-          <div>
-            <label className="text-xs text-[#800020] dark:text-slate-400 uppercase font-semibold">Default Teacher (optional)</label>
-            <select value={sectionForm.teacherId} onChange={e => setSectionForm(f => ({ ...f, teacherId: e.target.value }))}
-              className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#f0d090] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none">
-              <option value="">— None —</option>
-              {teachers.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
-            </select>
-          </div>
-          {sectionMsg && <p className={`text-sm font-semibold ${sectionMsg.includes('Added') ? 'text-[#1a5c38]' : 'text-red-600'}`}>{sectionMsg}</p>}
-          <button type="submit" disabled={sectionSaving} className="bg-[#1a5c38] hover:bg-[#154a2e] text-[#f5deb3] font-bold px-5 py-2 rounded-2xl text-sm transition-colors disabled:opacity-60">
-            {sectionSaving ? 'Adding...' : 'Add to All Section Arms'}
-          </button>
-        </form>
-      ) : (
-        <form onSubmit={handleAdd} className="flex flex-wrap gap-3 items-end">
-        <div className="flex-1 min-w-[140px]">
-          <label className="text-xs text-[#800020] dark:text-slate-400 uppercase font-semibold">Subject Name</label>
-          <input required value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#f0d090] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none" />
-        </div>
-        <div className="flex-1 min-w-[140px]">
-          <label className="text-xs text-[#800020] dark:text-slate-400 uppercase font-semibold">Assign to Class</label>
-          <select value={form.classId} onChange={e => setForm(f => ({ ...f, classId: e.target.value }))} className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#f0d090] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none">
-            <option value="">— None —</option>
-            {classes.map(c => <option key={c.id} value={c.id}>{c.name} {c.arm}</option>)}
-          </select>
-        </div>
-        <div className="flex-1 min-w-[140px]">
-          <label className="text-xs text-[#800020] dark:text-slate-400 uppercase font-semibold">Teacher</label>
-          <select value={form.teacherId} onChange={e => setForm(f => ({ ...f, teacherId: e.target.value }))} className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#f0d090] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none">
-            <option value="">— None —</option>
-            {teachers.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
-          </select>
-        </div>
-        <button type="submit" disabled={saving} className="bg-[#1a5c38] hover:bg-[#154a2e] text-[#f5deb3] font-bold px-5 py-2 rounded-2xl text-sm transition-colors disabled:opacity-60">+ Add</button>
-      </form>
-      )}
-      {!sectionMode && error && <p className="text-red-600 text-sm">{error}</p>}
+        )}
+      </div>
 
-      {groups.length === 0 ? (
-        <p className="text-[#800020] dark:text-slate-400 text-sm">No subjects yet.</p>
-      ) : groups.map(({ label, subs }) => (
-        <div key={label} className="space-y-2">
-          <p className="text-sm font-bold text-[#800000] uppercase">{label}</p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-            {subs.map(s => (
-              <div key={s.id} className="rounded-2xl p-3 bg-[#f0d090] dark:bg-slate-800/40 border border-[#c9a96e]/30 dark:border-white/5">
-                {editingId === s.id ? (
-                  <div className="space-y-2">
-                    <input value={editForm.name || ''} onChange={e => setEditForm(f => ({ ...f, name: e.target.value }))}
-                      className="w-full rounded-xl border border-[#c9a96e]/40 bg-[#f5deb3] text-[#191970] px-2 py-1 text-xs" placeholder="Subject name" />
-                    <select value={editForm.classId || ''} onChange={e => setEditForm(f => ({ ...f, classId: e.target.value }))}
-                      className="w-full rounded-xl border border-[#c9a96e]/40 bg-[#f5deb3] text-[#191970] px-2 py-1 text-xs">
-                      <option value="">— No Class —</option>
-                      {classes.map(c => <option key={c.id} value={c.id}>{c.name} {c.arm}</option>)}
-                    </select>
-                    <select value={editForm.teacherId || ''} onChange={e => setEditForm(f => ({ ...f, teacherId: e.target.value }))}
-                      className="w-full rounded-xl border border-[#c9a96e]/40 bg-[#f5deb3] text-[#191970] px-2 py-1 text-xs">
-                      <option value="">— No Teacher —</option>
-                      {teachers.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
-                    </select>
-                    <div className="flex gap-1">
-                      <button onClick={() => handleUpdate(s.id)} disabled={editSaving} className="flex-1 bg-[#1a5c38] text-[#f5deb3] font-bold text-xs py-1 rounded-xl disabled:opacity-60">Save</button>
-                      <button onClick={() => setEditingId(null)} className="text-[#800020] text-xs px-2">Cancel</button>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="flex items-start justify-between gap-2">
-                    <div>
-                      <p className="font-bold text-[#800000] text-sm">{s.name}</p>
-                      {s.teacherId && <p className="text-xs text-[#191970] mt-0.5">Teacher: <span className="font-semibold">{teacherName(s.teacherId) || s.teacherId}</span></p>}
-                    </div>
-                    <div className="flex gap-1 shrink-0">
-                      <button onClick={() => { setEditingId(s.id); setEditForm({ name: s.name, classId: s.classId || '', teacherId: s.teacherId || '' }); }}
-                        className="bg-[#1a5c38] text-[#f5deb3] text-xs px-2 py-1 rounded-xl font-bold">Edit</button>
-                      <button onClick={() => handleDelete(s.id, s.name)}
-                        className="border border-red-300 text-red-600 text-xs px-2 py-1 rounded-xl font-semibold hover:bg-red-50">Del</button>
-                    </div>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      ))}
+      {/* Advanced: add a whole section's subjects at once (collapsed by default) */}
+      <div className="rounded-2xl border border-[#c9a96e]/40 dark:border-white/10 overflow-hidden">
+        <button type="button" onClick={() => setShowBulk(v => !v)} className="w-full text-left px-4 py-3 text-sm font-semibold text-[#1a5c38] dark:text-[#00ffff] bg-[#f0d090]/60 dark:bg-slate-800/40">
+          {showBulk ? 'Hide bulk setup' : 'Bulk setup — add the same subjects to every arm of a section (optional)'}
+        </button>
+        {showBulk && (
+          <form onSubmit={handleSectionBulk} className="p-4 space-y-3 bg-[#f5deb3] dark:bg-slate-900/30">
+            <div>
+              <label className="text-xs text-[#800020] dark:text-slate-400 uppercase font-semibold">Section (e.g. JSS 1)</label>
+              <select required value={sectionForm.sectionName} onChange={e => setSectionForm(f => ({ ...f, sectionName: e.target.value }))}
+                className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#f0d090] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none">
+                <option value="">— Choose Section —</option>
+                {[...new Set(classes.map(c => c.name))].sort().map(n => <option key={n} value={n}>{n}</option>)}
+              </select>
+              {sectionForm.sectionName && DEFAULT_SUBJECT_PRESETS[sectionForm.sectionName] && (
+                <button type="button"
+                  onClick={() => setSectionForm(f => ({ ...f, subjectsText: DEFAULT_SUBJECT_PRESETS[sectionForm.sectionName] }))}
+                  className="mt-1 text-xs font-semibold text-[#1a5c38] underline dark:text-[#00ffff]">
+                  Load default subjects for {sectionForm.sectionName}
+                </button>
+              )}
+            </div>
+            <div>
+              <label className="text-xs text-[#800020] dark:text-slate-400 uppercase font-semibold">Subjects (one per line)</label>
+              <textarea required value={sectionForm.subjectsText} onChange={e => setSectionForm(f => ({ ...f, subjectsText: e.target.value }))} rows={5}
+                className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#f0d090] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none"
+                placeholder={"Mathematics\nEnglish Language\nBasic Science"} />
+            </div>
+            <div>
+              <label className="text-xs text-[#800020] dark:text-slate-400 uppercase font-semibold">Default Teacher (optional)</label>
+              <select value={sectionForm.teacherId} onChange={e => setSectionForm(f => ({ ...f, teacherId: e.target.value }))}
+                className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#f0d090] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none">
+                <option value="">— None —</option>
+                {teachers.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
+              </select>
+            </div>
+            {sectionMsg && <p className={`text-sm font-semibold ${sectionMsg.includes('Added') ? 'text-[#1a5c38]' : 'text-red-600'}`}>{sectionMsg}</p>}
+            <button type="submit" disabled={sectionSaving} className="bg-[#1a5c38] hover:bg-[#154a2e] text-[#f5deb3] font-bold px-5 py-2 rounded-2xl text-sm transition-colors disabled:opacity-60">
+              {sectionSaving ? 'Adding...' : 'Add to All Section Arms'}
+            </button>
+          </form>
+        )}
+      </div>
     </div>
   );
 }
