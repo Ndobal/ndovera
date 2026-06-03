@@ -16850,7 +16850,7 @@ app.get('/api/public/tenant/:subdomain', async (c) => {
     ])
     return c.json({
       success: true,
-      tenant: { schoolName: tenant.schoolName, subdomain: tenant.requestedSubdomain },
+      tenant: { id: tenant.id, schoolName: tenant.schoolName, subdomain: tenant.requestedSubdomain },
       branding: mapTenantBranding(tenant, brandingRow),
       sections: sectionsResult.results || [],
       events: (eventsResult.results || []).map((e: any) => ({ ...e, mediaUrls: JSON.parse(e.media_urls || '[]') })),
