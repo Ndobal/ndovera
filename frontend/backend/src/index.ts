@@ -5217,7 +5217,14 @@ async function finishLogin(c: any, payload: Record<string, any>) {
 app.use('*', cors({
   origin: (origin) => {
     if (!origin) return origin
-    if (origin === 'https://ndovera.com' || origin === 'https://www.ndovera.com' || origin.endsWith('.ndovera.com')) {
+    if (
+      origin === 'https://ndovera.com' ||
+      origin === 'https://www.ndovera.com' ||
+      origin.endsWith('.ndovera.com') ||
+      // Flutter web rebuild hosted on Cloudflare Pages (production + preview deploys).
+      origin === 'https://ndovera-flutter.pages.dev' ||
+      origin.endsWith('.ndovera-flutter.pages.dev')
+    ) {
       return origin
     }
     return ''
