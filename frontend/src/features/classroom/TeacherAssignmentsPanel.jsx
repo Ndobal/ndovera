@@ -1262,6 +1262,10 @@ export default function TeacherAssignmentsPanel({
 
           {assignments.map(assignment => {
             const summary = summarizeAssignment(assignment);
+            // A teacher can always manage assignments they created; class-wide
+            // moderators (class teacher/admin) can manage all. The backend sets
+            // `canManage` per assignment and also re-checks on edit/delete.
+            const canManageAssignment = canModerate || assignment.canManage === true;
             return (
               <article key={assignment.id} className={SUB_SURFACE}>
                 <div className="flex flex-wrap items-start justify-between gap-3">
@@ -1273,8 +1277,8 @@ export default function TeacherAssignmentsPanel({
                     <span className="inline-flex rounded-full bg-[#1a5c38] px-3 py-1 text-xs font-bold uppercase tracking-[0.15em] text-[#f5deb3] dark:bg-[#00ffff] dark:text-[#000000]">{summary.format}</span>
                     <button type="button" onClick={() => setViewingAssignment(assignment)} className={SECONDARY_BUTTON}>View</button>
                     <button type="button" onClick={() => setSubmissionsAssignment(assignment)} className="rounded-2xl border border-[#1a5c38]/50 bg-[#1a5c38]/10 px-4 py-2 text-sm font-bold text-[#1a5c38] hover:bg-[#1a5c38]/20 transition-colors">Submissions</button>
-                    {canModerate && <button type="button" onClick={() => handleEditAssignment(assignment)} className={SECONDARY_BUTTON}>Edit</button>}
-                    {canModerate && <button type="button" onClick={() => handleDeleteAssignment(assignment)} className={DANGER_BUTTON}>Delete</button>}
+                    {canManageAssignment && <button type="button" onClick={() => handleEditAssignment(assignment)} className={SECONDARY_BUTTON}>Edit</button>}
+                    {canManageAssignment && <button type="button" onClick={() => handleDeleteAssignment(assignment)} className={DANGER_BUTTON}>Delete</button>}
                   </div>
                 </div>
 

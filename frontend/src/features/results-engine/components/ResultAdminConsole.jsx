@@ -124,6 +124,8 @@ export default function ResultAdminConsole({ analyticsMode = 'hos', roleTitle = 
   const [files, setFiles] = useState([]);
   const [fileStudentMap, setFileStudentMap] = useState({});
   const [uploadReport, setUploadReport] = useState(null);
+  // Bulk upload mode: 'class' (one selected batch) or 'school' (every batch queued).
+  const [uploadMode, setUploadMode] = useState('class');
   // School-wide upload queue
   const [schoolQueue, setSchoolQueue] = useState([]); // [{ batch, files, status, progress, report }]
   const [queueRunning, setQueueRunning] = useState(false);
@@ -330,19 +332,7 @@ export default function ResultAdminConsole({ analyticsMode = 'hos', roleTitle = 
                 onClick={() => setActiveTab('upload')}
                 className={activeTab === 'upload' ? RESULT_BUTTON : RESULT_SECONDARY_BUTTON}
               >
-                Bulk PDF Upload
-              </button>
-            )}
-            {data.canUploadDocuments && (
-              <button
-                type="button"
-                onClick={() => {
-                  setSchoolQueue(selectableBatches.map(b => ({ batch: b, files: [], status: 'idle', progress: 0, report: null })));
-                  setActiveTab('schoolUpload');
-                }}
-                className={activeTab === 'schoolUpload' ? RESULT_BUTTON : RESULT_SECONDARY_BUTTON}
-              >
-                School-Wide Upload
+                Bulk Result Upload
               </button>
             )}
           </div>
@@ -477,10 +467,41 @@ export default function ResultAdminConsole({ analyticsMode = 'hos', roleTitle = 
 
       {activeTab === 'upload' && (
         <>
+          {/* Upload mode: one class at a time, or the whole school in a queue. */}
+          <section className={`${RESULT_SURFACE} p-4`}>
+            <p className={`micro-label ${RESULT_LABEL}`}>Bulk Result Upload</p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              <button
+                type="button"
+                onClick={() => setUploadMode('class')}
+                className={uploadMode === 'class' ? RESULT_BUTTON : RESULT_SECONDARY_BUTTON}
+              >
+                One Class
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setUploadMode('school');
+                  setSchoolQueue(prev => (prev.length ? prev : selectableBatches.map(b => ({ batch: b, files: [], status: 'idle', progress: 0, report: null }))));
+                }}
+                className={uploadMode === 'school' ? RESULT_BUTTON : RESULT_SECONDARY_BUTTON}
+              >
+                Whole School
+              </button>
+            </div>
+            <p className={`mt-2 text-sm ${RESULT_BODY}`}>
+              {uploadMode === 'class'
+                ? 'Pick one class / session / term, then upload its result PDFs. Each PDF is matched to a student one after another, PDFs already uploaded for that term are skipped as duplicates, and any unmatched students are listed afterward.'
+                : 'Add PDFs to each class below, then upload them one batch after another with a live progress bar. PDFs already uploaded for a term are skipped automatically.'}
+            </p>
+          </section>
+
+          {uploadMode === 'class' && (
+          <>
           <section className={`${RESULT_SURFACE} p-6 space-y-5`}>
             <div className="flex flex-wrap items-start justify-between gap-4">
               <div>
-                <p className={`micro-label ${RESULT_LABEL}`}>Bulk Result Upload</p>
+                <p className={`micro-label ${RESULT_LABEL}`}>Class-Based Upload</p>
                 <h2 className={`mt-2 text-2xl command-title ${RESULT_HEADING}`}>Upload full result PDFs for a selected batch</h2>
                 <p className={`mt-2 text-sm ${RESULT_BODY}`}>Use the student name and surname, display ID, student ID, or email in each PDF filename. Already uploaded PDFs are skipped automatically.</p>
               </div>
@@ -545,8 +566,8 @@ export default function ResultAdminConsole({ analyticsMode = 'hos', roleTitle = 
                       <p className={`mt-2 text-sm ${RESULT_BODY}`}>{files.length} PDFs ready for matching and upload.</p>
                       <div className="mt-3 space-y-2 max-h-56 overflow-y-auto">
                         {files.map(file => (
-                          <div key={`${file.name}-${file.size}`} className="rounded-2xl border border-white/10 bg-white/5 px-3 py-3 text-sm text-slate-100 space-y-2">
-                            <p>{file.name}</p>
+                          <div key={`${file.name}-${file.size}`} className={`${RESULT_INNER_SURFACE} px-3 py-3 text-sm space-y-2`}>
+                            <p className={RESULT_BODY}>{file.name}</p>
                             <select
                               value={fileStudentMap[buildUploadFileKey(file)] || ''}
                               onChange={event => setFileStudentMap(current => ({ ...current, [buildUploadFileKey(file)]: event.target.value }))}
@@ -606,7 +627,7 @@ export default function ResultAdminConsole({ analyticsMode = 'hos', roleTitle = 
                   <p className={`micro-label ${RESULT_LABEL}`}>Students Still Missing PDFs</p>
                   <div className="mt-3 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
                     {uploadReport.missingStudents.map(student => (
-                      <div key={student.id} className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                      <div key={student.id} className={`${RESULT_INNER_SURFACE} p-4`}>
                         <p className={`text-sm font-semibold ${RESULT_HEADING}`}>{student.name}</p>
                         <p className={`mt-2 text-xs ${RESULT_BODY}`}>{student.displayId || 'No display ID'}</p>
                         <p className={`mt-1 text-xs ${RESULT_BODY}`}>{student.className || 'Current class'}</p>
@@ -657,10 +678,10 @@ export default function ResultAdminConsole({ analyticsMode = 'hos', roleTitle = 
               </div>
             </section>
           )}
-        </>
-      )}
+          </>
+          )}
 
-      {activeTab === 'schoolUpload' && (
+          {uploadMode === 'school' && (
         <>
           <section className={`${RESULT_SURFACE} p-6 space-y-2`}>
             <p className={`micro-label ${RESULT_LABEL}`}>School-Wide Upload</p>
@@ -823,6 +844,8 @@ export default function ResultAdminConsole({ analyticsMode = 'hos', roleTitle = 
               );
             })()}
           </section>
+        </>
+          )}
         </>
       )}
     </div>

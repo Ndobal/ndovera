@@ -186,6 +186,60 @@ function buildFormState(settings = {}, suggestedSettings = {}) {
   };
 }
 
+// Kid-friendly editor: each entry is a labeled row with add/remove buttons,
+// instead of pipe-delimited text. Rows serialize back to the same text the
+// save logic already understands, so nothing downstream changes.
+function RowEditor({ title, help, rows, columns, addLabel, emptyRow, disabled, onChange }) {
+  function update(index, key, value) {
+    onChange(rows.map((row, idx) => (idx === index ? { ...row, [key]: value } : row)));
+  }
+  return (
+    <div className={`${RESULT_INNER_SURFACE} p-4`}>
+      <p className={`micro-label ${RESULT_LABEL}`}>{title}</p>
+      {help && <p className={`text-xs mt-1 ${RESULT_BODY}`}>{help}</p>}
+      <div className="mt-3 space-y-2">
+        {rows.length === 0 && <p className={`text-xs ${RESULT_BODY}`}>Nothing yet — tap “{addLabel}” to add the first one.</p>}
+        {rows.map((row, index) => (
+          <div key={index} className="flex flex-wrap items-end gap-2">
+            {columns.map(col => (
+              <label key={col.key} className="flex-1 min-w-[100px]">
+                <span className={`block text-[11px] font-semibold ${RESULT_LABEL}`}>{col.label}</span>
+                <input
+                  type={col.type || 'text'}
+                  inputMode={col.type === 'number' ? 'numeric' : undefined}
+                  disabled={disabled}
+                  value={row[col.key] ?? ''}
+                  placeholder={col.placeholder || ''}
+                  onChange={event => update(index, col.key, event.target.value)}
+                  className={`mt-1 ${RESULT_INPUT}`}
+                />
+              </label>
+            ))}
+            <button
+              type="button"
+              disabled={disabled}
+              onClick={() => onChange(rows.filter((_, idx) => idx !== index))}
+              className={`${RESULT_SECONDARY_BUTTON} px-3`}
+              aria-label="Remove"
+              title="Remove"
+            >
+              ✕
+            </button>
+          </div>
+        ))}
+      </div>
+      <button
+        type="button"
+        disabled={disabled}
+        onClick={() => onChange([...rows, { ...emptyRow }])}
+        className={`mt-3 ${RESULT_SECONDARY_BUTTON}`}
+      >
+        + {addLabel}
+      </button>
+    </div>
+  );
+}
+
 export default function ResultSettingsPanel({
   settings = {},
   templates = [],
@@ -196,10 +250,38 @@ export default function ResultSettingsPanel({
 }) {
   const [form, setForm] = useState(buildFormState(settings, suggestedSettings));
   const [previewTemplateKey, setPreviewTemplateKey] = useState('');
+  const [configOpen, setConfigOpen] = useState(true);
+  // Beginner-friendly row state, kept in sync with the text fields the save uses.
+  const [gradeRows, setGradeRows] = useState(() => parseLines(form.gradingScaleText, 'grading'));
+  const [ratingRows, setRatingRows] = useState(() => parseLines(form.ratingScaleText, 'value'));
+  const [affectiveRows, setAffectiveRows] = useState(() => parseLines(form.affectiveScaleText, 'value'));
+  const [caRows, setCaRows] = useState(() => parseCaComponentLines(form.caComponentsText));
 
   useEffect(() => {
-    setForm(buildFormState(settings, suggestedSettings));
+    const next = buildFormState(settings, suggestedSettings);
+    setForm(next);
+    setGradeRows(parseLines(next.gradingScaleText, 'grading'));
+    setRatingRows(parseLines(next.ratingScaleText, 'value'));
+    setAffectiveRows(parseLines(next.affectiveScaleText, 'value'));
+    setCaRows(parseCaComponentLines(next.caComponentsText));
   }, [settings, suggestedSettings]);
+
+  function applyGradeRows(rows) {
+    setGradeRows(rows);
+    setForm(current => ({ ...current, gradingScaleText: rows.map(r => `${r.minScore ?? ''}|${r.grade ?? ''}|${r.remark ?? ''}`).join('\n') }));
+  }
+  function applyRatingRows(rows) {
+    setRatingRows(rows);
+    setForm(current => ({ ...current, ratingScaleText: rows.map(r => `${r.value ?? ''}|${r.label ?? ''}`).join('\n') }));
+  }
+  function applyAffectiveRows(rows) {
+    setAffectiveRows(rows);
+    setForm(current => ({ ...current, affectiveScaleText: rows.map(r => `${r.value ?? ''}|${r.label ?? ''}`).join('\n') }));
+  }
+  function applyCaRows(rows) {
+    setCaRows(rows);
+    setForm(current => ({ ...current, caComponentsText: rows.map(r => `${r.maxScore ?? ''}|${r.label ?? ''}`).join('\n') }));
+  }
 
   useEffect(() => {
     setPreviewTemplateKey(current => {
@@ -296,65 +378,9 @@ export default function ResultSettingsPanel({
               )}
             </div>
 
-            <div className="grid grid-cols-1 xl:grid-cols-3 gap-4">
-              {templates.map(template => {
-                const isSelected = form.templateKey === template.key;
-                const isPreviewed = previewTemplateKey === template.key;
-                return (
-                  <article
-                    key={template.key}
-                    className={`${RESULT_INNER_SURFACE} p-4 border ${isSelected ? 'border-[#1a5c38] dark:border-[#00ffff]' : 'border-transparent'}`}
-                  >
-                    <div className="flex items-start justify-between gap-3">
-                      <div>
-                        <p className={`micro-label ${RESULT_LABEL}`}>{template.preview?.mood || 'Official'}</p>
-                        <h3 className={`mt-2 text-lg font-semibold ${RESULT_HEADING}`}>{template.name}</h3>
-                      </div>
-                      {isSelected && <span className={`rounded-full border px-3 py-1 text-xs font-semibold ${RESULT_LABEL}`}>Selected</span>}
-                    </div>
-                    <p className={`mt-3 text-sm ${RESULT_BODY}`}>{template.description}</p>
-                    <div className="mt-4 space-y-2">
-                      {(template.preview?.strengths || []).map(item => (
-                        <p key={`${template.key}-${item}`} className={`text-xs ${RESULT_BODY}`}>{item}</p>
-                      ))}
-                    </div>
-                    <div className="mt-4 flex flex-wrap gap-2">
-                      <button
-                        type="button"
-                        onClick={() => setPreviewTemplateKey(template.key)}
-                        className={RESULT_SECONDARY_BUTTON}
-                      >
-                        {isPreviewed ? 'Previewing' : 'Preview'}
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => downloadTemplatePreview(template, {
-                          schoolName: form.brandingSchoolName,
-                          reportTitle: form.brandingReportTitle,
-                          primaryColor: form.brandingPrimaryColor,
-                          accentColor: form.brandingAccentColor,
-                        })}
-                        className={RESULT_SECONDARY_BUTTON}
-                      >
-                        Download
-                      </button>
-                      <button
-                        type="button"
-                        disabled={!canManageSettings || saving}
-                        onClick={() => setForm(current => ({ ...current, templateKey: template.key }))}
-                        className={RESULT_BUTTON}
-                      >
-                        Use Template
-                      </button>
-                    </div>
-                  </article>
-                );
-              })}
-            </div>
-
             {previewTemplate && (
-              <div className="rounded-3xl border border-[#c9a96e]/45 bg-[#fff8f0] p-5 dark:border-[#bf00ff]/35 dark:bg-black/20">
-                <p className={`micro-label ${RESULT_LABEL}`}>Template Preview</p>
+              <div className="rounded-3xl border border-[#c9a96e]/45 bg-[#fff8f0] p-5 dark:border-white/10 dark:bg-slate-800/40">
+                <p className={`micro-label ${RESULT_LABEL}`}>Live Sample — {previewTemplate.name}</p>
                 <div
                   className="mt-4 rounded-3xl border border-white/10 p-5"
                   style={{
@@ -375,14 +401,23 @@ export default function ResultSettingsPanel({
                     </div>
                   </div>
                   <div className={`${RESULT_INNER_SURFACE} p-4`}>
-                    <p className={`micro-label ${RESULT_LABEL}`}>Sample Result Blocks</p>
-                    <div className="mt-3 grid grid-cols-3 gap-3">
-                      {['Average', 'Attendance', 'Grade'].map(label => (
-                        <div key={`${previewTemplate.key}-${label}`} className="rounded-2xl border border-white/10 bg-white/5 p-3">
-                          <p className={`text-xs ${RESULT_BODY}`}>{label}</p>
-                          <p className={`mt-2 text-lg font-black ${RESULT_HEADING}`}>{label === 'Grade' ? 'A' : label === 'Attendance' ? '96%' : '84%'}</p>
+                    <p className={`micro-label ${RESULT_LABEL}`}>Your grading &amp; CA (live)</p>
+                    <div className="mt-3 space-y-1">
+                      {gradeRows.filter(row => row.grade).length === 0 && (
+                        <p className={`text-xs ${RESULT_BODY}`}>Add grades in the configuration below to see them here.</p>
+                      )}
+                      {gradeRows.filter(row => row.grade).slice(0, 6).map((row, index) => (
+                        <div key={`grade-preview-${index}`} className={`flex justify-between text-sm ${RESULT_BODY}`}>
+                          <span className="font-semibold">{row.grade} <span className="opacity-70">{row.remark}</span></span>
+                          <span>from {row.minScore || 0}%</span>
                         </div>
                       ))}
+                      {caRows.filter(row => row.label).length > 0 && (
+                        <div className={`mt-2 pt-2 border-t border-[#c9a96e]/30 dark:border-white/10 flex justify-between text-sm ${RESULT_HEADING}`}>
+                          <span className="font-bold">CA total</span>
+                          <span className="font-bold">{caComponentTotal} / {toNumber(form.caMaxScore, 40)}</span>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -391,6 +426,19 @@ export default function ResultSettingsPanel({
           </section>
         )}
 
+        {/* Configuration — its own collapsible section, separate from the template. */}
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <p className={`micro-label ${RESULT_LABEL}`}>Configuration</p>
+            <p className={`text-xs mt-1 ${RESULT_BODY}`}>Set the score split, grading scale, CA components, ratings and affective areas. The live sample above updates as you change them.</p>
+          </div>
+          <button type="button" onClick={() => setConfigOpen(open => !open)} className={RESULT_SECONDARY_BUTTON}>
+            {configOpen ? 'Hide configuration' : 'Show configuration'}
+          </button>
+        </div>
+
+        {configOpen && (
+        <>
         <section className={`${RESULT_INNER_SURFACE} p-4 space-y-4`}>
           <div>
             <p className={`micro-label ${RESULT_LABEL}`}>Score Model</p>
@@ -432,55 +480,64 @@ export default function ResultSettingsPanel({
         </section>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          <label className="block">
-            <span className={`micro-label ${RESULT_LABEL}`}>Grading Scale</span>
-            <textarea
-              rows={6}
-              disabled={!canManageSettings || saving}
-              value={form.gradingScaleText}
-              onChange={event => setForm(current => ({ ...current, gradingScaleText: event.target.value }))}
-              className={`mt-2 ${RESULT_INPUT}`}
-            />
-            <p className={`text-xs mt-2 ${RESULT_BODY}`}>One line per grade: minimum score | grade | remark</p>
-          </label>
+          <RowEditor
+            title="Grading Scale"
+            help="Each grade: the lowest score that earns it, the grade name, and a short remark."
+            rows={gradeRows}
+            onChange={applyGradeRows}
+            disabled={!canManageSettings || saving}
+            addLabel="Add grade"
+            emptyRow={{ minScore: '', grade: '', remark: '' }}
+            columns={[
+              { key: 'minScore', label: 'From score', type: 'number', placeholder: '70' },
+              { key: 'grade', label: 'Grade', placeholder: 'A' },
+              { key: 'remark', label: 'Remark', placeholder: 'Excellent' },
+            ]}
+          />
 
-          <label className="block">
-            <span className={`micro-label ${RESULT_LABEL}`}>Rating Scale</span>
-            <textarea
-              rows={6}
-              disabled={!canManageSettings || saving}
-              value={form.ratingScaleText}
-              onChange={event => setForm(current => ({ ...current, ratingScaleText: event.target.value }))}
-              className={`mt-2 ${RESULT_INPUT}`}
-            />
-            <p className={`text-xs mt-2 ${RESULT_BODY}`}>One line per rating: value | label</p>
-          </label>
+          <RowEditor
+            title="Rating Scale"
+            help="Each rating: a number and what it means."
+            rows={ratingRows}
+            onChange={applyRatingRows}
+            disabled={!canManageSettings || saving}
+            addLabel="Add rating"
+            emptyRow={{ value: '', label: '' }}
+            columns={[
+              { key: 'value', label: 'Value', type: 'number', placeholder: '5' },
+              { key: 'label', label: 'Means', placeholder: 'Excellent' },
+            ]}
+          />
         </div>
 
-        <label className="block">
-          <span className={`micro-label ${RESULT_LABEL}`}>CA Components</span>
-          <textarea
-            rows={4}
-            disabled={!canManageSettings || saving}
-            value={form.caComponentsText}
-            onChange={event => setForm(current => ({ ...current, caComponentsText: event.target.value }))}
-            className={`mt-2 ${RESULT_INPUT}`}
-          />
-          <p className={`text-xs mt-2 ${RESULT_BODY}`}>One line per component: max score | label. The configured maxima must add up to the CA max score, currently {toNumber(form.caMaxScore, 40)}.</p>
-        </label>
+        <RowEditor
+          title="CA Components"
+          help={`Each CA piece: its name and how many marks it is worth. They must add up to the CA max score (currently ${toNumber(form.caMaxScore, 40)}); right now they total ${caComponentTotal}.`}
+          rows={caRows}
+          onChange={applyCaRows}
+          disabled={!canManageSettings || saving}
+          addLabel="Add CA component"
+          emptyRow={{ label: '', maxScore: '' }}
+          columns={[
+            { key: 'label', label: 'Name', placeholder: 'Test 1' },
+            { key: 'maxScore', label: 'Marks', type: 'number', placeholder: '20' },
+          ]}
+        />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          <label className="block">
-            <span className={`micro-label ${RESULT_LABEL}`}>Affective Scale</span>
-            <textarea
-              rows={6}
-              disabled={!canManageSettings || saving}
-              value={form.affectiveScaleText}
-              onChange={event => setForm(current => ({ ...current, affectiveScaleText: event.target.value }))}
-              className={`mt-2 ${RESULT_INPUT}`}
-            />
-            <p className={`text-xs mt-2 ${RESULT_BODY}`}>One line per affective score: value | label</p>
-          </label>
+          <RowEditor
+            title="Affective Scale"
+            help="Each level: a number and what it means (e.g. 5 = Excellent)."
+            rows={affectiveRows}
+            onChange={applyAffectiveRows}
+            disabled={!canManageSettings || saving}
+            addLabel="Add level"
+            emptyRow={{ value: '', label: '' }}
+            columns={[
+              { key: 'value', label: 'Value', type: 'number', placeholder: '5' },
+              { key: 'label', label: 'Means', placeholder: 'Excellent' },
+            ]}
+          />
 
           <div className="space-y-4">
             <label className="block">
@@ -587,6 +644,8 @@ export default function ResultSettingsPanel({
             </label>
           </div>
         </section>
+        </>
+        )}
 
         {canManageSettings && (
           <button

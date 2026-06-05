@@ -7111,20 +7111,34 @@ app.get('/api/classrooms/:classroomId/assignments', authenticate, async (c) => {
       return c.json({ success: true, assignments: hydratedAssignments })
     }
 
-    return c.json({ success: true, assignments })
+    // Teachers/admins: flag which assignments the viewer may edit/delete
+    // (creator, or class-wide moderator) so the UI can show controls correctly.
+    let moderation: any = null
+    try {
+      moderation = await resolveClassroomModerationContext(c.env.APP_DB, user, classroomId)
+    } catch {
+      moderation = null
+    }
+    const canManageClasswide = Boolean(moderation?.ok && moderation.canManageClasswide)
+    const actorIdentifiers: string[] = (moderation?.ok && moderation.actorIdentifiers) || []
+    const flaggedAssignments = assignments.map(assignment => ({
+      ...assignment,
+      canManage: canManageClasswide || matchesComparableIdentifier((assignment as any).createdBy, actorIdentifiers),
+    }))
+    return c.json({ success: true, assignments: flaggedAssignments })
   } catch (error) {
-    return c.json({ success: false, message: 'Server error', error }, 500)
+    return c.json({ success: false, message: 'Server error', error: String((error as Error)?.message || error) }, 500)
   }
 })
 
 app.post('/api/classrooms/:classroomId/assignments', authenticate, async (c) => {
   const classroomId = c.req.param('classroomId')
-  const payload = await c.req.json()
-  const { title, description, dueAt, subjectId, format, questions, metadata } = payload
-  if (!title || !subjectId) {
-    return c.json({ success: false, message: 'Title and subject are required' }, 400)
-  }
   try {
+    const payload = await c.req.json().catch(() => ({})) as Record<string, any>
+    const { title, description, dueAt, subjectId, format, questions, metadata } = payload
+    if (!title || !subjectId) {
+      return c.json({ success: false, message: 'Title and subject are required' }, 400)
+    }
     const user = c.var.user || {}
     const userIdentifier = user.id || user.email || user.sub || ''
     const resolvedUser = await resolveSettingsIdentity(c.env.APP_DB, userIdentifier)
@@ -7183,17 +7197,23 @@ app.post('/api/classrooms/:classroomId/assignments', authenticate, async (c) => 
     }
     const insertedAssignment = await createAssignment(c.env.APP_DB, newAssignment)
 
-    await syncQuestionUsagesForEngine(c.env.APP_DB, String(classRow.tenantId || tenantId || '').trim(), 'assignment', String(insertedAssignment.id || '').trim(), normalizedQuestions, {
-      classId: classroomId,
-      className: `${classRow.name}${classRow.arm ? ` ${classRow.arm}` : ''}`,
-      subjectId: String(subjectRow.id || ''),
-      subjectName: String(subjectRow.name || ''),
-      createdBy: teacherId,
-    })
+    // Secondary: index questions into the reuse/practice engine. This must never
+    // fail the assignment creation itself, so swallow any error here.
+    try {
+      await syncQuestionUsagesForEngine(c.env.APP_DB, String(classRow.tenantId || tenantId || '').trim(), 'assignment', String(insertedAssignment.id || '').trim(), normalizedQuestions, {
+        classId: classroomId,
+        className: `${classRow.name}${classRow.arm ? ` ${classRow.arm}` : ''}`,
+        subjectId: String(subjectRow.id || ''),
+        subjectName: String(subjectRow.name || ''),
+        createdBy: teacherId,
+      })
+    } catch (syncError) {
+      console.error('syncQuestionUsagesForEngine (assignment create) failed:', syncError)
+    }
 
     return c.json({ success: true, assignment: insertedAssignment }, 201)
   } catch (error) {
-    return c.json({ success: false, message: 'Server error', error }, 500)
+    return c.json({ success: false, message: 'Server error', error: String((error as Error)?.message || error) }, 500)
   }
 })
 
@@ -7229,24 +7249,28 @@ app.put('/api/classrooms/:classroomId/assignments/:assignmentId', authenticate, 
       dueAt: Object.prototype.hasOwnProperty.call(payload || {}, 'dueAt') ? (payload?.dueAt || null) : assignment.dueAt,
     })
 
-    await syncQuestionUsagesForEngine(
-      c.env.APP_DB,
-      context.tenantId,
-      'assignment',
-      assignmentId,
-      Array.isArray(updatedAssignment?.questions) ? updatedAssignment.questions : [],
-      {
-        classId: classroomId,
-        className: `${context.classRow.name}${context.classRow.arm ? ` ${context.classRow.arm}` : ''}`,
-        subjectId: String(updatedAssignment?.subjectId || ''),
-        subjectName: String(updatedAssignment?.subjectName || ''),
-        createdBy: String(updatedAssignment?.createdBy || context.actorId || ''),
-      },
-    )
+    try {
+      await syncQuestionUsagesForEngine(
+        c.env.APP_DB,
+        context.tenantId,
+        'assignment',
+        assignmentId,
+        Array.isArray(updatedAssignment?.questions) ? updatedAssignment.questions : [],
+        {
+          classId: classroomId,
+          className: `${context.classRow.name}${context.classRow.arm ? ` ${context.classRow.arm}` : ''}`,
+          subjectId: String(updatedAssignment?.subjectId || ''),
+          subjectName: String(updatedAssignment?.subjectName || ''),
+          createdBy: String(updatedAssignment?.createdBy || context.actorId || ''),
+        },
+      )
+    } catch (syncError) {
+      console.error('syncQuestionUsagesForEngine (assignment update) failed:', syncError)
+    }
 
     return c.json({ success: true, assignment: updatedAssignment })
   } catch (error) {
-    return c.json({ success: false, message: 'Server error', error }, 500)
+    return c.json({ success: false, message: 'Server error', error: String((error as Error)?.message || error) }, 500)
   }
 })
 
