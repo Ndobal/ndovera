@@ -8002,6 +8002,22 @@ app.put('/api/classrooms/:classroomId/materials/:materialId', authenticate, asyn
       metadata: updatedMetadata,
     })
 
+    // A topic typed/renamed on edit should persist like the create paths do.
+    const editedTopicName = String(updatedMetadata.topic || '').trim()
+    if (editedTopicName && subjectId) {
+      try {
+        await ensureClassTopic(c.env.APP_DB, {
+          tenantId: context.tenantId,
+          classId: classroomId,
+          subjectId,
+          name: editedTopicName,
+          createdBy: context.actorId,
+        })
+      } catch (topicError) {
+        console.error('ensureClassTopic (material edit) failed:', topicError)
+      }
+    }
+
     return c.json({ success: true, material: updatedMaterial })
   } catch (error) {
     return c.json({ success: false, message: 'Server error', error }, 500)
