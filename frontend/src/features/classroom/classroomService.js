@@ -108,6 +108,21 @@ export async function deleteAssignment(classId, assignmentId) {
   return readJsonResponse(res);
 }
 
+export async function getTopics(classId, subjectId = '') {
+  const query = subjectId ? `?subjectId=${encodeURIComponent(subjectId)}` : '';
+  return requestJson(`/api/classrooms/${classId}/topics${query}`, { headers: getAuthHeaders() });
+}
+
+export async function addTopic(classId, payload) {
+  const res = await apiFetch(`/api/classrooms/${classId}/topics`, { method: 'POST', headers: getAuthHeaders(), body: JSON.stringify(payload) });
+  return readJsonResponse(res);
+}
+
+export async function deleteTopic(classId, topicId) {
+  const res = await apiFetch(`/api/classrooms/${classId}/topics/${encodeURIComponent(topicId)}`, { method: 'DELETE', headers: getAuthHeaders() });
+  return readJsonResponse(res);
+}
+
 export async function uploadAssignmentAsset(classId, payload) {
   const token = localStorage.getItem('token');
   const formData = new FormData();

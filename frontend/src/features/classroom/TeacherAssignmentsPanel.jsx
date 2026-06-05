@@ -91,6 +91,7 @@ function buildFreshDraft(defaultClassId = '', defaultSubjectId = '') {
     title: '',
     description: '',
     dueAt: '',
+    topic: '',
     questions: [createQuestion('mcq')],
   };
 }
@@ -634,6 +635,21 @@ export default function TeacherAssignmentsPanel({
   const [importedFromText, setImportedFromText] = useState(false);
   const [successState, setSuccessState] = useState(null);
   const [draft, setDraft] = useState(buildFreshDraft(currentClassId || assignedClasses[0]?.id || ''));
+  const [composerTopics, setComposerTopics] = useState([]);
+
+  // Existing topics for the chosen subject — shown as suggestions; a new name
+  // typed here is auto-created on the server when the assignment is saved.
+  useEffect(() => {
+    if (!composerOpen || !draft.classId || !draft.subjectId) {
+      setComposerTopics([]);
+      return undefined;
+    }
+    let active = true;
+    svc.getTopics(draft.classId, draft.subjectId)
+      .then(data => { if (active) setComposerTopics(data?.topics || []); })
+      .catch(() => { if (active) setComposerTopics([]); });
+    return () => { active = false; };
+  }, [composerOpen, draft.classId, draft.subjectId]);
 
   const draftClass = useMemo(
     () => assignedClasses.find(classroom => classroom.id === draft.classId) || null,
@@ -998,6 +1014,7 @@ export default function TeacherAssignmentsPanel({
         title: assignmentTitle,
         description: draft.description.trim(),
         dueAt: draft.dueAt || null,
+        topic: String(draft.topic || '').trim(),
         subjectId: draft.subjectId,
         subjectName: draftSubject.name,
         format: inferAssignmentFormat(normalizedQuestions),
@@ -1432,6 +1449,20 @@ export default function TeacherAssignmentsPanel({
                       <label className={LABEL}>Due Date</label>
                       <input type="datetime-local" value={draft.dueAt} onChange={(event) => setDraftValue('dueAt', event.target.value)} className={`${INPUT} mt-2`} />
                     </div>
+                  </div>
+
+                  <div className="mt-4">
+                    <label className={LABEL}>Topic <span className="opacity-60 font-normal normal-case">(optional — groups this with related work; type a new one to create it)</span></label>
+                    <input
+                      list="composer-topic-options"
+                      value={draft.topic}
+                      onChange={(event) => setDraftValue('topic', event.target.value)}
+                      className={`${INPUT} mt-2`}
+                      placeholder="Pick an existing topic or type a new one"
+                    />
+                    <datalist id="composer-topic-options">
+                      {composerTopics.map(topic => <option key={topic.id || topic.name} value={topic.name} />)}
+                    </datalist>
                   </div>
 
                   <div className="mt-4">

@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getStoredAuth } from '../../../features/auth/services/authApi';
 import * as svc from '../../../features/classroom/classroomService';
+import { askAiTutor } from '../../../features/ai/services/aiTutorApi';
 import MaterialTypeThumbnail, { materialTypeLabel } from '../../../shared/components/MaterialTypeThumbnail';
 import {
   AcademicCapIcon,
@@ -161,6 +162,9 @@ export default function StudentClassroom() {
   const [liveSessions, setLiveSessions] = useState([]);
   const [classroomMaterials, setClassroomMaterials] = useState([]);
   const [classSubjects, setClassSubjects] = useState([]);
+  const [classTopics, setClassTopics] = useState([]);
+  const [selectedTopicName, setSelectedTopicName] = useState('');
+  const [aiExplain, setAiExplain] = useState({ open: false, loading: false, topic: '', text: '', error: '' });
   const [classMembers, setClassMembers] = useState([]);
   const [classroomLoading, setClassroomLoading] = useState(true);
   const [classroomLabel, setClassroomLabel] = useState(storedClassName || classroomId || 'Assigned Classroom');
@@ -180,7 +184,8 @@ export default function StudentClassroom() {
       fetch(`/api/classrooms/${classroomId}/members`, { headers }).then(r => r.ok ? r.json() : { members: [] }),
       svc.getClassSubjects(classroomId).catch(() => ({ subjects: [] })),
       svc.getLiveSessions(classroomId).catch(() => ({ sessions: [] })),
-    ]).then(([classRes, postsRes, assignRes, matRes, membersRes, subjectsRes, liveRes]) => {
+      svc.getTopics(classroomId).catch(() => ({ topics: [] })),
+    ]).then(([classRes, postsRes, assignRes, matRes, membersRes, subjectsRes, liveRes, topicsRes]) => {
       const resolvedClassName = classRes?.class?.name
         ? `${classRes.class.name}${classRes.class.arm ? ` ${classRes.class.arm}` : ''}`
         : (storedClassName || classroomId);
@@ -194,6 +199,7 @@ export default function StudentClassroom() {
       setTasks(assignRes.assignments || []);
       setClassroomMaterials(matRes.materials || []);
       setClassSubjects(classSubjectRows);
+      setClassTopics(topicsRes?.topics || []);
       setClassMembers(membersRes.members || []);
       setLiveSessions(liveRes.sessions || []);
     }).catch(() => {}).finally(() => setClassroomLoading(false));
@@ -456,6 +462,17 @@ export default function StudentClassroom() {
 
   const materialSubjectName = material => material.subjectName || material.metadata?.subjectName || 'General Material';
 
+  async function explainTopic(topicName, subjectName) {
+    setAiExplain({ open: true, loading: true, topic: topicName, text: '', error: '' });
+    try {
+      const prompt = `Explain the topic "${topicName}"${subjectName ? ` in ${subjectName}` : ''} for a student. Give a clear, simple explanation with the key points and a short example.`;
+      const data = await askAiTutor({ prompt, mode: 'explain', surface: 'practice' });
+      setAiExplain({ open: true, loading: false, topic: topicName, text: data?.answer || 'No explanation was returned. Please try again.', error: '' });
+    } catch (err) {
+      setAiExplain({ open: true, loading: false, topic: topicName, text: '', error: err?.message || 'Could not reach the AI tutor right now.' });
+    }
+  }
+
   const typeClass = taskType => {
     if (taskType === 'MCQ' || taskType === 'Short Answer') return 'accent-indigo';
     if (taskType === 'Essay' || taskType === 'Long Answer' || taskType === 'Comprehension') return 'accent-rose';
@@ -671,6 +688,23 @@ export default function StudentClassroom() {
         const palette = SUBJECT_PALETTES[(detailIdx >= 0 ? detailIdx : 0) % SUBJECT_PALETTES.length];
         const detailAssignments = tasks.filter(t => (String(t.subjectName || 'General Subject').trim() || 'General Subject') === subjectDetailName);
         const detailMaterials = classroomMaterials.filter(m => materialSubjectName(m) === subjectDetailName);
+        const detailSubjectId = String((classSubjects.find(s => String(s.name || '') === subjectDetailName) || {}).id || '');
+        const subjectTopics = (() => {
+          const map = new Map();
+          const ensure = raw => {
+            const name = String(raw || '').trim();
+            if (!name) return null;
+            const key = name.toLowerCase();
+            if (!map.has(key)) map.set(key, { name, assignments: 0, materials: 0 });
+            return map.get(key);
+          };
+          classTopics.filter(t => !detailSubjectId || String(t.subjectId || '') === detailSubjectId).forEach(t => ensure(t.name));
+          detailAssignments.forEach(t => { const entry = ensure(t.metadata?.topic); if (entry) entry.assignments += 1; });
+          detailMaterials.forEach(m => { const entry = ensure(m.topic); if (entry) entry.materials += 1; });
+          return Array.from(map.values()).sort((a, b) => a.name.localeCompare(b.name));
+        })();
+        const topicAssignments = detailAssignments.filter(t => String(t.metadata?.topic || '') === selectedTopicName);
+        const topicMaterials = detailMaterials.filter(m => String(m.topic || '') === selectedTopicName);
         return (
           <div className="space-y-3">
             <div className="rounded-3xl p-5 flex flex-wrap items-center justify-between gap-3 shadow-lg border border-white/10" style={{ backgroundColor: palette.bg }}>
@@ -688,15 +722,15 @@ export default function StudentClassroom() {
             </div>
 
             <div className="flex flex-wrap items-center gap-2">
-              {['assignments', 'materials'].map(tab => (
+              {['assignments', 'materials', 'topics'].map(tab => (
                 <button
                   key={tab}
-                  onClick={() => setSubjectDetailTab(tab)}
+                  onClick={() => { setSubjectDetailTab(tab); setSelectedTopicName(''); }}
                   style={subjectDetailTab === tab ? { backgroundColor: palette.bg, color: palette.text, borderColor: `${palette.text}30` } : {}}
-                  className={`px-4 py-2 rounded-2xl text-sm font-semibold border transition-colors capitalize ${subjectDetailTab === tab ? 'border shadow-sm' : 'border-slate-200 dark:border-white/10 bg-white/60 dark:bg-slate-900/30 text-slate-700 dark:text-slate-200'}`}
+                  className={`px-4 py-2 rounded-2xl text-sm font-semibold border transition-all duration-200 capitalize hover:-translate-y-0.5 ${subjectDetailTab === tab ? 'border shadow-sm' : 'border-slate-200 dark:border-white/10 bg-white/60 dark:bg-slate-900/30 text-slate-700 dark:text-slate-200'}`}
                 >
                   {tab}
-                  <span className="ml-1.5 text-xs opacity-70">({tab === 'assignments' ? detailAssignments.length : detailMaterials.length})</span>
+                  <span className="ml-1.5 text-xs opacity-70">({tab === 'assignments' ? detailAssignments.length : tab === 'materials' ? detailMaterials.length : subjectTopics.length})</span>
                 </button>
               ))}
             </div>
@@ -735,6 +769,74 @@ export default function StudentClassroom() {
                     <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">No materials have been posted for {subjectDetailName}.</p>
                   </div>
                 )}
+              </section>
+            )}
+
+            {subjectDetailTab === 'topics' && !selectedTopicName && (
+              <section className="space-y-3">
+                {subjectTopics.length === 0 && (
+                  <div className="glass-surface rounded-3xl p-5 text-center">
+                    <p className="micro-label accent-amber">No topics yet</p>
+                    <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">Your teacher hasn't added topics for {subjectDetailName} yet.</p>
+                  </div>
+                )}
+                <div className="grid grid-cols-2 lg:grid-cols-3 gap-3">
+                  {subjectTopics.map(topic => (
+                    <button
+                      key={topic.name}
+                      onClick={() => setSelectedTopicName(topic.name)}
+                      className="text-left rounded-2xl border border-slate-200 dark:border-white/10 p-4 bg-white/70 dark:bg-slate-900/30 hover:bg-indigo-500/10 transition-all duration-200 hover:-translate-y-0.5"
+                    >
+                      <p className="text-slate-900 dark:text-slate-100 font-semibold break-words">{topic.name}</p>
+                      <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">{topic.assignments} assignment{topic.assignments !== 1 ? 's' : ''} · {topic.materials} material{topic.materials !== 1 ? 's' : ''}</p>
+                    </button>
+                  ))}
+                </div>
+              </section>
+            )}
+
+            {subjectDetailTab === 'topics' && selectedTopicName && (
+              <section className="space-y-3">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <div className="flex items-center gap-2 min-w-0">
+                    <button onClick={() => setSelectedTopicName('')} className="px-3 py-1.5 rounded-2xl text-sm font-semibold border border-slate-200 dark:border-white/10 bg-white/60 dark:bg-slate-900/30 text-slate-700 dark:text-slate-200">← Topics</button>
+                    <h3 className="text-lg font-black text-slate-900 dark:text-slate-100 truncate">{selectedTopicName}</h3>
+                  </div>
+                  <button
+                    onClick={() => explainTopic(selectedTopicName, subjectDetailName)}
+                    className="px-4 py-2 rounded-2xl text-sm font-bold border border-indigo-300/40 bg-indigo-500/20 text-indigo-100 hover:bg-indigo-500/30 transition-all duration-200 hover:-translate-y-0.5 inline-flex items-center gap-1.5"
+                  >
+                    <LightBulbIcon className="w-4 h-4" /> Explain with AI
+                  </button>
+                </div>
+
+                <div>
+                  <p className="micro-label neon-subtle mb-2">Assignments</p>
+                  {topicAssignments.length === 0 && <p className="text-sm text-slate-500 dark:text-slate-400">No assignments tagged to this topic.</p>}
+                  <div className="space-y-2">
+                    {topicAssignments.map(task => {
+                      const assignmentType = formatAssignmentType(task);
+                      const assignmentStatus = task.mySubmission ? (task.mySubmission.grade != null || task.mySubmission.feedback ? 'Reviewed' : 'Submitted') : 'Pending';
+                      return (
+                        <button key={task.id} onClick={() => openTaskWorkspace(task.id)} className="w-full text-left rounded-2xl border border-slate-200 dark:border-white/10 p-3 bg-white/70 dark:bg-slate-900/30 hover:bg-indigo-500/10 transition-colors">
+                          <div className="flex items-center justify-between gap-2">
+                            <p className="text-slate-900 dark:text-slate-100 font-semibold break-words">{task.title}</p>
+                            <span className={`micro-label shrink-0 ${typeClass(assignmentType)}`}>{assignmentType}</span>
+                          </div>
+                          <p className={`micro-label mt-1 ${statusClass(assignmentStatus)}`}>{assignmentStatus}</p>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                <div>
+                  <p className="micro-label neon-subtle mb-2">Materials</p>
+                  {topicMaterials.length === 0 && <p className="text-sm text-slate-500 dark:text-slate-400">No materials tagged to this topic.</p>}
+                  <div className="space-y-3">
+                    {topicMaterials.map(renderMaterialCard)}
+                  </div>
+                </div>
               </section>
             )}
           </div>
@@ -1222,6 +1324,31 @@ export default function StudentClassroom() {
             })}
           </div>
         </nav>
+      )}
+
+      {aiExplain.open && (
+        <div className="fixed inset-0 z-50 flex items-end md:items-center justify-center bg-black/60 px-4 py-6" onClick={() => setAiExplain(state => ({ ...state, open: false }))}>
+          <div className="w-full max-w-2xl max-h-[85vh] overflow-y-auto rounded-3xl border border-white/10 bg-[#0d0d1a] p-6 shadow-2xl" onClick={event => event.stopPropagation()}>
+            <div className="flex items-start justify-between gap-3 mb-4">
+              <div className="flex items-center gap-2">
+                <LightBulbIcon className="w-6 h-6 text-amber-300" />
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-widest text-amber-300">Explain with AI</p>
+                  <h3 className="text-lg font-black text-white">{aiExplain.topic}</h3>
+                </div>
+              </div>
+              <button onClick={() => setAiExplain(state => ({ ...state, open: false }))} className="text-slate-400 hover:text-white text-lg font-bold">✕</button>
+            </div>
+            {aiExplain.loading && <p className="text-sm text-slate-300 animate-pulse">Asking Ndovera AI…</p>}
+            {aiExplain.error && <p className="text-sm text-rose-300">{aiExplain.error}</p>}
+            {!aiExplain.loading && !aiExplain.error && (
+              <div className="rounded-2xl bg-slate-900 p-4 text-sm leading-7 text-slate-200 whitespace-pre-wrap">{aiExplain.text}</div>
+            )}
+            {!aiExplain.loading && (
+              <button onClick={() => explainTopic(aiExplain.topic, subjectDetailName)} className="mt-4 px-4 py-2 rounded-2xl text-sm font-bold border border-indigo-300/40 bg-indigo-500/20 text-indigo-100 hover:bg-indigo-500/30">Ask again</button>
+            )}
+          </div>
+        </div>
       )}
 
       {profileMember && (

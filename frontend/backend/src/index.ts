@@ -7135,10 +7135,11 @@ app.post('/api/classrooms/:classroomId/assignments', authenticate, async (c) => 
   const classroomId = c.req.param('classroomId')
   try {
     const payload = await c.req.json().catch(() => ({})) as Record<string, any>
-    const { title, description, dueAt, subjectId, format, questions, metadata } = payload
+    const { title, description, dueAt, subjectId, format, questions, metadata, topic } = payload
     if (!title || !subjectId) {
       return c.json({ success: false, message: 'Title and subject are required' }, 400)
     }
+    const topicName = String(topic || (metadata && typeof metadata === 'object' ? metadata.topic : '') || '').trim()
     const user = c.var.user || {}
     const userIdentifier = user.id || user.email || user.sub || ''
     const resolvedUser = await resolveSettingsIdentity(c.env.APP_DB, userIdentifier)
@@ -7190,12 +7191,28 @@ app.post('/api/classrooms/:classroomId/assignments', authenticate, async (c) => 
       questions: normalizedQuestions,
       metadata: {
         ...(metadata && typeof metadata === 'object' ? metadata : {}),
+        ...(topicName ? { topic: topicName } : {}),
         questionCount: normalizedQuestions.length,
         className: `${classRow.name}${classRow.arm ? ` ${classRow.arm}` : ''}`,
       },
       createdBy: teacherId,
     }
     const insertedAssignment = await createAssignment(c.env.APP_DB, newAssignment)
+
+    // Persist the tagged topic so it appears alongside materials in the Subjects tab.
+    if (topicName) {
+      try {
+        await ensureClassTopic(c.env.APP_DB, {
+          tenantId: classRow.tenantId || tenantId,
+          classId: classroomId,
+          subjectId: String(subjectRow.id || ''),
+          name: topicName,
+          createdBy: teacherId,
+        })
+      } catch (topicError) {
+        console.error('ensureClassTopic (assignment create) failed:', topicError)
+      }
+    }
 
     // Secondary: index questions into the reuse/practice engine. This must never
     // fail the assignment creation itself, so swallow any error here.
@@ -7300,6 +7317,110 @@ app.delete('/api/classrooms/:classroomId/assignments/:assignmentId', authenticat
     return c.json({ success: true })
   } catch (error) {
     return c.json({ success: false, message: 'Server error', error }, 500)
+  }
+})
+
+// ─── Class topics ────────────────────────────────────────────────────────────
+// A topic groups assignments and materials within a subject. Topics persist even
+// when empty (created from the Subjects tab) and are auto-created when a teacher
+// tags an assignment or material with a new topic name.
+async function ensureClassTopicsTable(db: D1Database) {
+  await db.prepare(`CREATE TABLE IF NOT EXISTS class_topics (
+    id TEXT PRIMARY KEY,
+    tenant_id TEXT,
+    class_id TEXT,
+    subject_id TEXT,
+    name TEXT,
+    created_by TEXT,
+    created_at TEXT
+  )`).run()
+  await db.prepare(`CREATE UNIQUE INDEX IF NOT EXISTS class_topics_unique_idx ON class_topics(class_id, subject_id, name)`).run().catch(() => null)
+}
+
+async function ensureClassTopic(
+  db: D1Database,
+  params: { tenantId?: unknown; classId: unknown; subjectId: unknown; name: unknown; createdBy?: unknown },
+) {
+  const name = String(params.name || '').trim()
+  const classId = String(params.classId || '').trim()
+  const subjectId = String(params.subjectId || '').trim()
+  if (!name || !classId || !subjectId) return null
+  await ensureClassTopicsTable(db)
+  const existing = await db.prepare(
+    `SELECT id, name, subject_id FROM class_topics WHERE class_id = ? AND subject_id = ? AND lower(name) = lower(?) LIMIT 1`
+  ).bind(classId, subjectId, name).first() as Record<string, any> | null
+  if (existing) return existing
+  const id = `topic_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`
+  await db.prepare(
+    `INSERT INTO class_topics (id, tenant_id, class_id, subject_id, name, created_by, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)`
+  ).bind(id, String(params.tenantId || ''), classId, subjectId, name, String(params.createdBy || ''), new Date().toISOString()).run()
+  return { id, name, subject_id: subjectId }
+}
+
+app.get('/api/classrooms/:classroomId/topics', authenticate, async (c) => {
+  const classroomId = c.req.param('classroomId')
+  const subjectId = String(c.req.query('subjectId') || '').trim()
+  try {
+    await ensureClassTopicsTable(c.env.APP_DB)
+    const stmt = subjectId
+      ? c.env.APP_DB.prepare(`SELECT id, subject_id, name, created_at FROM class_topics WHERE class_id = ? AND subject_id = ? ORDER BY name`).bind(classroomId, subjectId)
+      : c.env.APP_DB.prepare(`SELECT id, subject_id, name, created_at FROM class_topics WHERE class_id = ? ORDER BY name`).bind(classroomId)
+    const rows = await stmt.all()
+    const topics = ((rows.results || []) as Record<string, any>[]).map(row => ({
+      id: String(row.id || ''),
+      subjectId: String(row.subject_id || ''),
+      name: String(row.name || ''),
+      createdAt: row.created_at || null,
+    }))
+    return c.json({ success: true, topics })
+  } catch (error) {
+    return c.json({ success: false, message: 'Could not load topics.', error: String((error as Error)?.message || error) }, 500)
+  }
+})
+
+app.post('/api/classrooms/:classroomId/topics', authenticate, async (c) => {
+  const classroomId = c.req.param('classroomId')
+  try {
+    const payload = await c.req.json().catch(() => ({})) as Record<string, any>
+    const subjectId = String(payload?.subjectId || '').trim()
+    const name = String(payload?.name || '').trim()
+    if (!subjectId || !name) {
+      return c.json({ success: false, message: 'Subject and topic name are required.' }, 400)
+    }
+    const context = await resolveClassroomModerationContext(c.env.APP_DB, c.var.user || {}, classroomId)
+    if (!context.ok) return c.json({ success: false, message: context.message }, context.status)
+    const subjectRow = await c.env.APP_DB.prepare(
+      `SELECT id, teacherId FROM subjects WHERE id = ? AND classId = ?`
+    ).bind(subjectId, classroomId).first() as Record<string, any> | null
+    const canAdd = context.canManageClasswide || (subjectRow && matchesComparableIdentifier(subjectRow.teacherId, context.actorIdentifiers))
+    if (!canAdd) return c.json({ success: false, message: 'You are not assigned to this subject.' }, 403)
+
+    const topic = await ensureClassTopic(c.env.APP_DB, { tenantId: context.tenantId, classId: classroomId, subjectId, name, createdBy: context.actorId })
+    return c.json({ success: true, topic: { id: topic?.id, name, subjectId } }, 201)
+  } catch (error) {
+    return c.json({ success: false, message: 'Could not add topic.', error: String((error as Error)?.message || error) }, 500)
+  }
+})
+
+app.delete('/api/classrooms/:classroomId/topics/:topicId', authenticate, async (c) => {
+  const classroomId = c.req.param('classroomId')
+  const topicId = c.req.param('topicId')
+  try {
+    const context = await resolveClassroomModerationContext(c.env.APP_DB, c.var.user || {}, classroomId)
+    if (!context.ok) return c.json({ success: false, message: context.message }, context.status)
+    await ensureClassTopicsTable(c.env.APP_DB)
+    if (!context.canManageClasswide) {
+      const row = await c.env.APP_DB.prepare(`SELECT subject_id FROM class_topics WHERE id = ? AND class_id = ?`).bind(topicId, classroomId).first() as Record<string, any> | null
+      const subjectRow = row
+        ? await c.env.APP_DB.prepare(`SELECT teacherId FROM subjects WHERE id = ? AND classId = ?`).bind(String(row.subject_id || ''), classroomId).first() as Record<string, any> | null
+        : null
+      const canDelete = subjectRow && matchesComparableIdentifier(subjectRow.teacherId, context.actorIdentifiers)
+      if (!canDelete) return c.json({ success: false, message: 'You are not allowed to delete this topic.' }, 403)
+    }
+    await c.env.APP_DB.prepare(`DELETE FROM class_topics WHERE id = ? AND class_id = ?`).bind(topicId, classroomId).run()
+    return c.json({ success: true })
+  } catch (error) {
+    return c.json({ success: false, message: 'Could not delete topic.', error: String((error as Error)?.message || error) }, 500)
   }
 })
 

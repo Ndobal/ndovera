@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { getAssignments, getMaterials, getSubjectMembers, removeStudentFromSubject, restoreStudentToSubject } from '../classroomService';
+import { addTopic, deleteTopic, getAssignments, getMaterials, getSubjectMembers, getTopics, removeStudentFromSubject, restoreStudentToSubject } from '../classroomService';
 
 const SUBJECT_PALETTES = [
   { bg: '#013220', text: '#FFD700', badge: 'rgba(255,215,0,0.18)',    badgeText: '#FFD700' },
@@ -51,6 +51,12 @@ export default function SubjectsTab({ classId = '', subjects = [], canManage = f
   const [allMaterials, setAllMaterials] = useState([]);
   const [materialsLoading, setMaterialsLoading] = useState(false);
 
+  // Topics
+  const [topics, setTopics] = useState([]);
+  const [topicsLoading, setTopicsLoading] = useState(false);
+  const [newTopicName, setNewTopicName] = useState('');
+  const [topicMsg, setTopicMsg] = useState('');
+
   // Members
   const [members, setMembers] = useState([]);
   const [membersLoading, setMembersLoading] = useState(false);
@@ -75,7 +81,41 @@ export default function SubjectsTab({ classId = '', subjects = [], canManage = f
       .then(d => setAllMaterials(d?.materials || []))
       .catch(() => setAllMaterials([]))
       .finally(() => setMaterialsLoading(false));
+    setTopicsLoading(true);
+    getTopics(classId, activeSubjectId)
+      .then(d => setTopics(d?.topics || []))
+      .catch(() => setTopics([]))
+      .finally(() => setTopicsLoading(false));
   }, [activeSubjectId, classId]);
+
+  async function handleAddTopic() {
+    const name = newTopicName.trim();
+    if (!name || !activeSubjectId) return;
+    setTopicMsg('');
+    try {
+      const res = await addTopic(classId, { subjectId: activeSubjectId, name });
+      if (res?.success) {
+        setNewTopicName('');
+        setTopicMsg('Topic added.');
+        const data = await getTopics(classId, activeSubjectId);
+        setTopics(data?.topics || []);
+      } else {
+        setTopicMsg(res?.message || 'Could not add topic.');
+      }
+    } catch {
+      setTopicMsg('Could not add topic.');
+    }
+  }
+
+  async function handleDeleteTopic(topicId) {
+    if (!window.confirm('Remove this topic? Tagged assignments and materials keep their content.')) return;
+    try {
+      await deleteTopic(classId, topicId);
+      setTopics(prev => prev.filter(t => t.id !== topicId));
+    } catch {
+      setTopicMsg('Could not remove topic.');
+    }
+  }
 
   // Load members when panel opens
   useEffect(() => {
@@ -156,6 +196,22 @@ export default function SubjectsTab({ classId = '', subjects = [], canManage = f
   const subjectAssignments = allAssignments.filter(a => String(a.subjectId || '') === activeSubjectId || String(a.subjectName || '') === selectedSubject.name);
   const subjectMaterials = allMaterials.filter(m => String(m.subjectId || '') === activeSubjectId || String(m.subjectName || '') === selectedSubject.name);
 
+  // Merge persisted topics with topics derived from tagged assignments/materials.
+  const topicCounts = (() => {
+    const map = new Map();
+    const ensure = rawName => {
+      const name = String(rawName || '').trim();
+      if (!name) return null;
+      const key = name.toLowerCase();
+      if (!map.has(key)) map.set(key, { id: '', name, assignments: 0, materials: 0 });
+      return map.get(key);
+    };
+    topics.forEach(t => { const entry = ensure(t.name); if (entry) entry.id = t.id; });
+    subjectAssignments.forEach(a => { const entry = ensure(a.metadata?.topic || a.topic); if (entry) entry.assignments += 1; });
+    subjectMaterials.forEach(m => { const entry = ensure(m.topic); if (entry) entry.materials += 1; });
+    return Array.from(map.values()).sort((x, y) => x.name.localeCompare(y.name));
+  })();
+
   return (
     <div className="space-y-3">
       {/* Header */}
@@ -181,7 +237,7 @@ export default function SubjectsTab({ classId = '', subjects = [], canManage = f
 
       {/* Tab bar */}
       <div className="flex flex-wrap items-center gap-2">
-        {['assignments', 'materials'].map(tab => (
+        {['assignments', 'materials', 'topics'].map(tab => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
@@ -194,6 +250,9 @@ export default function SubjectsTab({ classId = '', subjects = [], canManage = f
             )}
             {tab === 'materials' && !materialsLoading && (
               <span className="ml-1.5 text-xs opacity-70">({subjectMaterials.length})</span>
+            )}
+            {tab === 'topics' && !topicsLoading && (
+              <span className="ml-1.5 text-xs opacity-70">({topicCounts.length})</span>
             )}
           </button>
         ))}
@@ -325,6 +384,56 @@ export default function SubjectsTab({ classId = '', subjects = [], canManage = f
               </div>
               );
             })}
+          </div>
+        </section>
+      )}
+
+      {/* Topics tab */}
+      {activeTab === 'topics' && (
+        <section className="space-y-3">
+          {canManage && (
+            <div className="glass-surface rounded-3xl p-4 flex flex-wrap items-end gap-2">
+              <label className="flex-1 min-w-[180px]">
+                <span className="text-xs font-bold uppercase tracking-widest text-slate-400">New Topic</span>
+                <input
+                  value={newTopicName}
+                  onChange={e => setNewTopicName(e.target.value)}
+                  onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); handleAddTopic(); } }}
+                  placeholder="e.g. Photosynthesis"
+                  className="mt-1 w-full rounded-xl border border-white/10 bg-slate-900/40 px-3 py-2 text-sm text-slate-100 outline-none focus:border-indigo-400/50"
+                />
+              </label>
+              <button
+                type="button"
+                onClick={handleAddTopic}
+                disabled={!newTopicName.trim()}
+                className="px-4 py-2 rounded-2xl text-sm font-bold border border-white/20 transition-transform hover:-translate-y-0.5 disabled:opacity-50"
+                style={{ backgroundColor: palette.bg, color: palette.text }}
+              >
+                + Add Topic
+              </button>
+            </div>
+          )}
+          {topicMsg && <p className="text-xs px-3 py-1.5 rounded-xl bg-emerald-900/30 text-emerald-300 border border-emerald-500/30">{topicMsg}</p>}
+          {topicsLoading && <div className="glass-surface rounded-3xl p-4 text-slate-300 text-sm">Loading topics...</div>}
+          {!topicsLoading && topicCounts.length === 0 && (
+            <div className="glass-surface rounded-3xl p-5 text-center">
+              <p className="text-xs font-bold uppercase tracking-widest text-slate-400">No topics yet</p>
+              <p className="mt-2 text-slate-400 text-sm">Add a topic above, or tag one while creating an assignment or material. Students can open a topic to see its work and ask the AI to explain it.</p>
+            </div>
+          )}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {topicCounts.map(t => (
+              <div key={t.name} className="glass-surface rounded-3xl p-4 border border-white/10 flex items-start justify-between gap-2">
+                <div>
+                  <p className="text-slate-100 font-bold">{t.name}</p>
+                  <p className="text-xs text-slate-400 mt-1">{t.assignments} assignment{t.assignments !== 1 ? 's' : ''} · {t.materials} material{t.materials !== 1 ? 's' : ''}</p>
+                </div>
+                {canManage && t.id && (
+                  <button onClick={() => handleDeleteTopic(t.id)} className="text-xs bg-red-900/40 hover:bg-red-700/50 text-red-300 border border-red-500/30 px-3 py-1 rounded-xl font-semibold shrink-0">Remove</button>
+                )}
+              </div>
+            ))}
           </div>
         </section>
       )}
