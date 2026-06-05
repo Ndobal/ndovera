@@ -506,8 +506,8 @@ export default function StudentClassroom() {
 
   const tabButtonClass = tabKey => (
     activeTab === tabKey
-      ? 'px-4 py-2 rounded-2xl font-semibold bg-[#800020] text-white border border-[#c27a8d] shadow-[0_12px_30px_rgba(128,0,32,0.28)]'
-      : 'px-4 py-2 rounded-2xl font-semibold bg-[#800020] text-white border border-[#a64d68] hover:bg-[#670019] hover:border-[#d196a6] transition-colors'
+      ? 'inline-flex items-center gap-1.5 px-3.5 py-2 rounded-2xl font-semibold bg-[#800020] text-white border border-[#c27a8d] shadow-[0_12px_30px_rgba(128,0,32,0.28)] scale-105 transition-all duration-200'
+      : 'inline-flex items-center gap-1.5 px-3.5 py-2 rounded-2xl font-semibold bg-[#800020] text-white border border-[#a64d68] hover:bg-[#670019] hover:border-[#d196a6] hover:-translate-y-0.5 active:scale-95 transition-all duration-200'
   );
 
   const bottomTabs = [
@@ -592,25 +592,45 @@ export default function StudentClassroom() {
           <p className="neon-subtle text-sm">Loading classroom data…</p>
         </div>
       )}
-      <div className="flex items-center gap-3 mb-4">
-        <button
-          onClick={goBackToDashboard}
-          className="p-2 rounded-xl border border-slate-200 dark:border-cyan-300/20 bg-white/80 dark:bg-slate-800/45"
-          aria-label="Exit Classroom"
-        >
-          <ArrowLeftIcon className="w-5 h-5" />
-        </button>
-        <div>
-          <p className="micro-label neon-subtle">Classroom Mode</p>
-          <p className="font-semibold text-slate-800 dark:text-slate-100">{classroomLabel}</p>
+      <div className="flex items-center justify-between gap-3 mb-4">
+        <div className="flex items-center gap-3 min-w-0">
+          <button
+            onClick={goBackToDashboard}
+            className="p-2 rounded-xl border border-slate-200 dark:border-cyan-300/20 bg-white/80 dark:bg-slate-800/45 transition-transform hover:-translate-x-0.5"
+            aria-label="Exit Classroom"
+          >
+            <ArrowLeftIcon className="w-5 h-5" />
+          </button>
+          <div className="min-w-0">
+            <p className="micro-label neon-subtle">Classroom Mode</p>
+            <p className="font-semibold text-slate-800 dark:text-slate-100 truncate">{classroomLabel}</p>
+          </div>
+        </div>
+        <div className="flex items-center gap-2 shrink-0">
+          {[
+            { label: 'Due', value: statusCounts.pending, cls: 'accent-amber' },
+            { label: 'Submitted', value: statusCounts.submitted, cls: 'accent-emerald' },
+            { label: 'Reviewed', value: statusCounts.reviewed, cls: 'accent-indigo' },
+          ].map(stat => (
+            <div key={stat.label} className="glass-surface rounded-2xl px-2.5 py-1.5 text-center min-w-[58px] transition-transform hover:-translate-y-0.5">
+              <p className="micro-label neon-subtle text-[10px] leading-none">{stat.label}</p>
+              <p className={`text-lg md:text-xl command-title ${stat.cls} leading-none mt-1`}>{stat.value}</p>
+            </div>
+          ))}
         </div>
       </div>
 
       {!isMobile && (
         <div className="glass-surface rounded-3xl p-4 mb-4 flex flex-wrap gap-2">
-          {bottomTabs.map(tab => (
-            <button key={tab.key} className={tabButtonClass(tab.key)} onClick={() => setActiveTab(tab.key)}>{tab.label}</button>
-          ))}
+          {bottomTabs.map(tab => {
+            const Icon = tab.icon;
+            return (
+              <button key={tab.key} className={tabButtonClass(tab.key)} onClick={() => setActiveTab(tab.key)}>
+                {Icon && <Icon className="w-4 h-4" />}
+                <span>{tab.label}</span>
+              </button>
+            );
+          })}
         </div>
       )}
 
@@ -624,16 +644,16 @@ export default function StudentClassroom() {
                   key={subject.topic}
                   onClick={() => { setSubjectDetailName(subject.topic); setSubjectDetailTab('assignments'); }}
                   style={{ backgroundColor: p.bg, color: p.text }}
-                  className="text-left rounded-3xl p-4 space-y-2 transition-transform hover:scale-[1.03] hover:brightness-110 active:scale-100 border border-white/10 shadow-lg"
+                  className="flex flex-col text-left rounded-3xl p-3 gap-1.5 min-h-[112px] transition-transform duration-200 hover:scale-[1.03] hover:brightness-110 active:scale-95 border border-white/10 shadow-lg"
                 >
-                  <p className="text-sm font-black leading-tight" style={{ color: p.text }}>{subject.topic}</p>
+                  <p className="text-xs font-bold leading-snug break-words" style={{ color: p.text }}>{subject.topic}</p>
                   <span
-                    className="inline-block px-2 py-0.5 rounded-full text-xs font-bold border"
+                    className="inline-block self-start px-2 py-0.5 rounded-full text-[10px] font-bold border whitespace-nowrap"
                     style={{ background: p.badge, color: p.badgeText, borderColor: `${p.badgeText}40` }}
                   >
                     {subject.count} item(s)
                   </span>
-                  <p className="text-xs opacity-80" style={{ color: p.text }}>Submitted: {subject.submittedCount}</p>
+                  <p className="text-[10px] opacity-80 mt-auto" style={{ color: p.text }}>Submitted: {subject.submittedCount}</p>
                 </button>
               );
             })}
@@ -643,21 +663,6 @@ export default function StudentClassroom() {
               </div>
             )}
           </div>
-
-          <section className="grid grid-cols-1 md:grid-cols-3 gap-3">
-            <div className="glass-surface rounded-3xl p-4">
-              <p className="micro-label neon-subtle">Due</p>
-              <p className="text-2xl command-title accent-amber">{statusCounts.pending}</p>
-            </div>
-            <div className="glass-surface rounded-3xl p-4">
-              <p className="micro-label neon-subtle">Submitted</p>
-              <p className="text-2xl command-title accent-emerald">{statusCounts.submitted}</p>
-            </div>
-            <div className="glass-surface rounded-3xl p-4">
-              <p className="micro-label neon-subtle">Reviewed</p>
-              <p className="text-2xl command-title accent-indigo">{statusCounts.reviewed}</p>
-            </div>
-          </section>
         </div>
       )}
 
@@ -844,17 +849,18 @@ export default function StudentClassroom() {
                   <span className="micro-label accent-indigo">{group.items.length} assignment(s)</span>
                 </div>
 
-                <div className="mt-3 space-y-3">
+                <div className="mt-3 grid grid-cols-2 lg:grid-cols-4 gap-3">
                   {group.items.map(task => {
                     const assignmentType = formatAssignmentType(task);
                     const assignmentStatus = task.mySubmission ? (task.mySubmission.grade != null || task.mySubmission.feedback ? 'Reviewed' : 'Submitted') : 'Pending';
                     return (
-                      <button key={task.id} onClick={() => openTaskWorkspace(task.id)} className="w-full text-left rounded-2xl border border-white/10 p-4 bg-slate-900/30 hover:bg-indigo-500/10 transition-colors">
-                        <div className="flex items-center justify-between gap-2">
-                          <p className="text-slate-100 font-semibold">{task.title}</p>
-                          <span className={`micro-label ${typeClass(assignmentType)}`}>{assignmentType}</span>
+                      <button key={task.id} onClick={() => openTaskWorkspace(task.id)} className="h-full text-left rounded-2xl border border-white/10 p-3 bg-slate-900/30 hover:bg-indigo-500/10 transition-all duration-200 hover:-translate-y-0.5">
+                        <div className="flex items-start justify-between gap-1.5">
+                          <p className="text-sm text-slate-100 font-semibold break-words">{task.title}</p>
+                          <span className={`micro-label shrink-0 ${typeClass(assignmentType)}`}>{assignmentType}</span>
                         </div>
-                        <p className="text-sm neon-subtle mt-1">{task.subjectName || 'General Subject'} • Due: {formatAssignmentDue(task.dueAt)}</p>
+                        <p className="text-xs neon-subtle mt-1 break-words">{task.subjectName || 'General Subject'}</p>
+                        <p className="text-xs neon-subtle">Due: {formatAssignmentDue(task.dueAt)}</p>
                         <p className={`micro-label mt-2 ${statusClass(assignmentStatus)}`}>{assignmentStatus}</p>
                       </button>
                     );
@@ -1208,7 +1214,7 @@ export default function StudentClassroom() {
                 <button
                   key={tab.key}
                   onClick={() => setActiveTab(tab.key)}
-                  className={`min-w-[84px] flex flex-col items-center justify-center py-1 px-2 rounded-xl transition-colors ${active ? 'glass-chip bg-indigo-500/25 text-white border border-indigo-300/20' : 'text-slate-700 dark:text-slate-200 hover:bg-white/5 dark:hover:bg-slate-800/40'}`}>
+                  className={`min-w-[84px] flex flex-col items-center justify-center py-1 px-2 rounded-xl transition-all duration-200 active:scale-95 ${active ? 'glass-chip bg-indigo-500/25 text-white border border-indigo-300/20 scale-105' : 'text-slate-700 dark:text-slate-200 hover:bg-white/5 dark:hover:bg-slate-800/40 hover:-translate-y-0.5'}`}>
                   <Icon className="w-5 h-5" />
                   <span className="text-[10px] mt-1 neon-subtle">{tab.label}</span>
                 </button>
