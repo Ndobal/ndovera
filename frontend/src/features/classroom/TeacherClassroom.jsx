@@ -147,6 +147,7 @@ export default function TeacherClassroom({
   const [materialVisibility, setMaterialVisibility] = useState('student_parent');
   const [materialReleaseAt, setMaterialReleaseAt] = useState('');
   const [materialMessage, setMaterialMessage] = useState('');
+  const [materialTopicOptions, setMaterialTopicOptions] = useState([]);
   const [pendingMaterialFiles, setPendingMaterialFiles] = useState([]);
   const [liveSessions, setLiveSessions] = useState([]);
   const [liveSubjectId, setLiveSubjectId] = useState('');
@@ -346,6 +347,19 @@ export default function TeacherClassroom({
         : String(materialSubjects[0]?.id || '')
     ));
   }, [materialSubjects]);
+
+  // Suggest existing topics for the subject the material is being posted to.
+  useEffect(() => {
+    if (!classId || !materialSubjectId) {
+      setMaterialTopicOptions([]);
+      return undefined;
+    }
+    let active = true;
+    svc.getTopics(classId, materialSubjectId)
+      .then(data => { if (active) setMaterialTopicOptions(data?.topics || []); })
+      .catch(() => { if (active) setMaterialTopicOptions([]); });
+    return () => { active = false; };
+  }, [classId, materialSubjectId]);
 
   useEffect(() => {
     let cancelled = false;
@@ -1351,7 +1365,10 @@ export default function TeacherClassroom({
                     </select>
                     <input value={materialTitle} onChange={e => setMaterialTitle(e.target.value)} placeholder="Material title" className="rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] p-3 text-sm text-[#191970] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#ffffff]" />
                     <input value={materialUrl} onChange={e => setMaterialUrl(e.target.value)} placeholder="Paste a material link (optional). Leave blank for a lesson note." className="rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] p-3 text-sm text-[#191970] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#ffffff]" />
-                    <input value={materialTopic} onChange={e => setMaterialTopic(e.target.value)} placeholder="Topic or unit" className="rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] p-3 text-sm text-[#191970] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#ffffff]" />
+                    <input list="material-topic-options" value={materialTopic} onChange={e => setMaterialTopic(e.target.value)} placeholder="Topic — pick existing or type a new one" className="rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] p-3 text-sm text-[#191970] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#ffffff]" />
+                    <datalist id="material-topic-options">
+                      {materialTopicOptions.map(t => <option key={t.id || t.name} value={t.name} />)}
+                    </datalist>
                     <input value={materialWeekLabel} onChange={e => setMaterialWeekLabel(e.target.value)} placeholder="Week label" className="rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] p-3 text-sm text-[#191970] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#ffffff]" />
                     <select value={materialVisibility} onChange={e => setMaterialVisibility(e.target.value)} className="rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] p-3 text-sm text-[#191970] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#ffffff]">
                       <option value="student_parent">Students + Parents</option>

@@ -7927,6 +7927,20 @@ app.post('/api/classrooms/:classroomId/materials', authenticate, async (c) => {
       },
     }
     const insertedMaterial = await addMaterial(c.env.APP_DB, newMaterial)
+    const materialTopicName = String(topic || '').trim()
+    if (materialTopicName) {
+      try {
+        await ensureClassTopic(c.env.APP_DB, {
+          tenantId: publishContext.classRow.tenantId,
+          classId: classroomId,
+          subjectId: String(publishContext.subjectRow.id || ''),
+          name: materialTopicName,
+          createdBy: publishContext.teacherId,
+        })
+      } catch (topicError) {
+        console.error('ensureClassTopic (material create) failed:', topicError)
+      }
+    }
     return c.json({ success: true, material: insertedMaterial }, 201)
   } catch (error) {
     return c.json({ success: false, message: 'Server error', error }, 500)
@@ -8077,6 +8091,20 @@ app.post('/api/classrooms/:classroomId/materials/upload-multipart', authenticate
       },
     }
     const insertedMaterial = await addMaterial(c.env.APP_DB, newMaterial)
+    const materialTopicName = String(topic || '').trim()
+    if (materialTopicName) {
+      try {
+        await ensureClassTopic(c.env.APP_DB, {
+          tenantId: publishContext.classRow.tenantId,
+          classId: classroomId,
+          subjectId: String(publishContext.subjectRow.id || ''),
+          name: materialTopicName,
+          createdBy: publishContext.teacherId,
+        })
+      } catch (topicError) {
+        console.error('ensureClassTopic (material upload) failed:', topicError)
+      }
+    }
     return c.json({ success: true, material: insertedMaterial }, 201)
   } catch (error) {
     return c.json({ success: false, message: 'Server error', error }, 500)
