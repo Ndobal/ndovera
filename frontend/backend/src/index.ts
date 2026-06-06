@@ -17475,8 +17475,29 @@ function renderSchoolHome(tenant: any, branding: any, sections: any[], events: a
       </div>
     </section>` : ''
 
+  // Optional homepage flier pop-up (shown once per browser session; closeable).
+  const flyerPopupEnabled = Boolean(flyerUrl) && Boolean(parseMeta(flyer).popup)
+  const flyerPopupHtml = flyerPopupEnabled ? `
+    <div id="flier-popup" class="flier-popup-overlay" role="dialog" aria-modal="true" aria-label="School flier">
+      <div class="flier-popup-card">
+        <button type="button" class="flier-popup-close" aria-label="Close" onclick="(function(){var p=document.getElementById('flier-popup');if(p){p.style.display='none';}try{sessionStorage.setItem('flierPopupClosed','1');}catch(e){}})()">&times;</button>
+        ${renderMedia(flyerUrl, flyer?.title || 'School flier', 'flier-popup-media')}
+        <a class="flier-popup-cta" href="/admissions">Admission Details</a>
+      </div>
+    </div>
+    <style>
+      .flier-popup-overlay{position:fixed;inset:0;background:rgba(0,0,0,.72);display:flex;align-items:center;justify-content:center;z-index:9999;padding:16px;}
+      .flier-popup-card{position:relative;background:#fff;border-radius:18px;max-width:520px;width:100%;max-height:90vh;overflow:auto;padding:14px;box-shadow:0 24px 70px rgba(0,0,0,.45);animation:flierPopIn .25s ease-out;}
+      .flier-popup-card .flier-popup-media,.flier-popup-card img,.flier-popup-card video,.flier-popup-card iframe{display:block;width:100%;border-radius:12px;}
+      .flier-popup-cta{display:block;text-align:center;margin-top:10px;background:#800000;color:#f5deb3;padding:12px;border-radius:999px;text-decoration:none;font-weight:700;}
+      .flier-popup-close{position:absolute;top:8px;right:10px;border:none;background:rgba(0,0,0,.55);color:#fff;width:34px;height:34px;border-radius:50%;font-size:22px;line-height:1;cursor:pointer;z-index:2;}
+      @keyframes flierPopIn{from{opacity:0;transform:scale(.94);}to{opacity:1;transform:scale(1);}}
+    </style>
+    <script>(function(){try{if(sessionStorage.getItem('flierPopupClosed')==='1'){var p=document.getElementById('flier-popup');if(p)p.style.display='none';}}catch(e){}})();</script>` : ''
+
   const body = `
   ${subdomainNavbar(schoolName, tenant.requestedSubdomain, logoUrl)}
+  ${flyerPopupHtml}
   <section class="hero">
     ${heroBg}
     <div class="hero-content">
@@ -17661,10 +17682,24 @@ function renderAdmissionsPage(tenant: any, branding: any, sections: any[], optio
   const admissions = sectionByKey(sections, 'admissions')
   const flyer = sectionByKey(sections, 'admission_flyer')
   const flyerUrl = flyer?.image_url || parseMeta(flyer).flyerUrl
+  const docsSection = sectionByKey(sections, 'admission_documents')
+  const downloadDocuments = (Array.isArray(parseMeta(docsSection).documents) ? parseMeta(docsSection).documents : [])
+    .filter((doc: any) => doc && String(doc.url || '').trim())
+    .slice(0, 5)
+  const documentsHtml = downloadDocuments.length ? `
+    <section class="section">
+      <p class="section-kicker">Downloads</p>
+      <h2>${escHtml(docsSection?.title || 'Admission Documents')}</h2>
+      ${docsSection?.content ? `<p>${escHtml(docsSection.content)}</p>` : ''}
+      <div class="cards" style="display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin-top:18px;">
+        ${downloadDocuments.map((doc: any) => `<a class="info-card" href="${escAttr(String(doc.url))}" target="_blank" rel="noopener" download style="text-decoration:none;display:flex;align-items:center;gap:12px;"><span style="font-size:26px;">📄</span><span style="font-weight:700;color:#800000;">${escHtml(String(doc.title || 'Document'))}</span></a>`).join('')}
+      </div>
+    </section>` : ''
   const body = `
     ${subdomainNavbar(schoolName, tenant.requestedSubdomain, logoUrl)}
     <header class="page-hero"><p class="eyebrow">Admission</p><h1>${escHtml(admissions?.title || 'Begin Your Admission Journey')}</h1><p>${escHtml(admissions?.content || 'Discover the enrolment process, prepare your documents, and contact the school to begin.')}</p></header>
     ${flyerUrl ? `<section class="section"><div class="admission-flyer"><div class="copy"><p class="section-kicker">Admission Flyer</p><h2>${escHtml(flyer?.title || 'Admissions Now Open')}</h2><p>${escHtml(flyer?.content || 'Download or view the latest admission flyer.')}</p><div class="hero-actions"><a class="btn-primary" href="${escAttr(flyerUrl)}" target="_blank" rel="noopener">View Flyer</a></div></div>${renderMedia(flyerUrl, 'Admission flyer', '')}</div></section>` : ''}
+    ${documentsHtml}
     <section class="section alt">
       <div class="split" style="align-items:start;gap:24px;">
         <div class="info-card" style="padding:28px;">

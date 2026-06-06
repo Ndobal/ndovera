@@ -198,6 +198,7 @@ function SectionCard({ section, data, onSaved }) {
       address: meta.address || '',
       phone: meta.phone || '',
       email: meta.email || '',
+      popup: !!meta.popup,
     });
   }, [data, section.key]);
 
@@ -214,6 +215,7 @@ function SectionCard({ section, data, onSaved }) {
     phone: form.phone,
     email: form.email,
     flyerUrl: section.key === 'admission_flyer' ? form.imageUrl : undefined,
+    popup: section.key === 'admission_flyer' ? !!form.popup : undefined,
   }), [form, section.key, section.maxFiles]);
 
   async function uploadOne(file, appendToGallery = false) {
@@ -319,6 +321,13 @@ function SectionCard({ section, data, onSaved }) {
           {!section.multiple ? <MediaPreview url={form.imageUrl} label={section.label} /> : null}
         </div>
 
+        {section.key === 'admission_flyer' && (
+          <label className="flex items-start gap-2 text-sm text-[#191970] dark:text-slate-200 bg-[#fff8ee] dark:bg-slate-900/40 rounded-xl p-3 border border-[#c9a96e]/40 dark:border-white/10">
+            <input type="checkbox" checked={!!form.popup} onChange={e => setForm(f => ({ ...f, popup: e.target.checked }))} className="mt-0.5" />
+            <span>Show this flier as a pop-up on the homepage. Visitors see it when they arrive and can close it.</span>
+          </label>
+        )}
+
         <div>
           <label className={labelClass}>YouTube / Video URL</label>
           <input value={form.videoUrl} onChange={e => setForm(f => ({ ...f, videoUrl: e.target.value }))} className={inputClass} placeholder="https://www.youtube.com/watch?v=..." />
@@ -402,6 +411,111 @@ function SectionCard({ section, data, onSaved }) {
   );
 }
 
+function DocRow({ doc, idx, uploading, onTitle, onUpload, onRemove }) {
+  const ref = useRef();
+  const fileName = doc.url ? String(doc.url).split('/').pop() : '';
+  return (
+    <div className="rounded-xl border border-[#c9a96e]/40 dark:border-white/10 bg-[#fff8ee] dark:bg-slate-900/40 p-3 flex flex-wrap items-center gap-2">
+      <input value={doc.title} onChange={e => onTitle(e.target.value)} placeholder={`Document ${idx + 1} title (e.g. Prospectus)`} className="flex-1 min-w-[150px] rounded-lg border border-[#c9a96e]/40 dark:border-white/10 bg-white dark:bg-slate-800 px-2 py-1.5 text-sm text-[#191970] dark:text-slate-100" />
+      <button type="button" onClick={() => ref.current?.click()} disabled={uploading} className="bg-[#1a5c38] text-[#f5deb3] font-bold px-3 py-1.5 rounded-lg text-xs disabled:opacity-60">{uploading ? 'Uploading...' : doc.url ? 'Replace' : 'Upload'}</button>
+      <input ref={ref} type="file" accept="application/pdf,image/*,.doc,.docx" className="hidden" onChange={e => { onUpload(e.target.files?.[0]); e.target.value = ''; }} />
+      {doc.url ? <a href={doc.url} target="_blank" rel="noreferrer" className="text-xs text-[#1a5c38] dark:text-[#00ffff] underline truncate max-w-[150px]">{fileName}</a> : <span className="text-xs text-[#800020] dark:text-slate-400">No file yet</span>}
+      <button type="button" onClick={onRemove} className="text-xs text-red-600 font-semibold ml-auto">Remove</button>
+    </div>
+  );
+}
+
+function DocumentsCard({ data, onSaved }) {
+  const [sectionTitle, setSectionTitle] = useState('Admission Documents');
+  const [intro, setIntro] = useState('');
+  const [docs, setDocs] = useState([]);
+  const [uploadingIdx, setUploadingIdx] = useState(-1);
+  const [saving, setSaving] = useState(false);
+  const [msg, setMsg] = useState('');
+
+  useEffect(() => {
+    const meta = parseMeta(data?.metadata);
+    setSectionTitle(data?.title || 'Admission Documents');
+    setIntro(data?.content || '');
+    setDocs(Array.isArray(meta.documents) ? meta.documents.slice(0, 5).map(d => ({ title: d.title || '', url: d.url || '' })) : []);
+  }, [data]);
+
+  function setDoc(idx, patch) {
+    setDocs(list => list.map((d, i) => (i === idx ? { ...d, ...patch } : d)));
+  }
+
+  async function handleUpload(idx, file) {
+    if (!file) return;
+    setUploadingIdx(idx);
+    setMsg('');
+    try {
+      const result = await uploadSectionImage(file, 'admission_documents');
+      setDocs(list => list.map((d, i) => (i === idx ? { url: result.url, title: d.title || file.name.replace(/\.[^.]+$/, '') } : d)));
+    } catch (err) {
+      setMsg(err.message);
+    } finally {
+      setUploadingIdx(-1);
+    }
+  }
+
+  async function handleSave() {
+    setSaving(true);
+    setMsg('');
+    try {
+      const cleaned = docs
+        .filter(d => String(d.url || '').trim())
+        .slice(0, 5)
+        .map(d => ({ title: String(d.title || 'Document').trim() || 'Document', url: d.url }));
+      await saveWebsiteSection({ sectionKey: 'admission_documents', title: sectionTitle, content: intro, imageUrl: '', metadata: { documents: cleaned } });
+      setMsg('Saved.');
+      onSaved?.();
+    } catch (err) {
+      setMsg(err.message);
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  return (
+    <div className="rounded-2xl p-5 bg-[#f5deb3] dark:bg-slate-800/40 border border-[#c9a96e]/40 dark:border-white/10 space-y-4">
+      <div>
+        <p className="font-bold text-[#800000] dark:text-slate-100">Admission Documents (Downloads)</p>
+        <p className="text-xs text-[#800020] dark:text-slate-400">Add up to 5 files (PDF, Word, or image) that visitors can download from the Admissions page. Give each a clear title.</p>
+      </div>
+      <div>
+        <label className={labelClass}>Section Title</label>
+        <input value={sectionTitle} onChange={e => setSectionTitle(e.target.value)} className={inputClass} />
+      </div>
+      <div>
+        <label className={labelClass}>Intro (optional)</label>
+        <textarea rows={2} value={intro} onChange={e => setIntro(e.target.value)} className={`${inputClass} resize-none`} placeholder="e.g. Download our prospectus and admission form below." />
+      </div>
+      <div className="space-y-2">
+        {docs.map((doc, idx) => (
+          <DocRow
+            key={idx}
+            doc={doc}
+            idx={idx}
+            uploading={uploadingIdx === idx}
+            onTitle={t => setDoc(idx, { title: t })}
+            onUpload={f => handleUpload(idx, f)}
+            onRemove={() => setDocs(list => list.filter((_, i) => i !== idx))}
+          />
+        ))}
+        {docs.length < 5 && (
+          <button type="button" onClick={() => setDocs(list => (list.length >= 5 ? list : [...list, { title: '', url: '' }]))} className="text-xs font-bold text-[#1a5c38] dark:text-[#00ffff] underline">
+            + Add document ({docs.length}/5)
+          </button>
+        )}
+      </div>
+      {msg && <p className={`text-xs ${msg === 'Saved.' ? 'text-[#1a5c38]' : 'text-red-600'}`}>{msg}</p>}
+      <button type="button" onClick={handleSave} disabled={saving} className="bg-[#1a5c38] hover:bg-[#154a2e] text-[#f5deb3] font-bold px-5 py-2 rounded-xl text-sm transition-colors disabled:opacity-60">
+        {saving ? 'Saving...' : 'Save Documents'}
+      </button>
+    </div>
+  );
+}
+
 export default function WebsiteTab() {
   const [sections, setSections] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -444,6 +558,7 @@ export default function WebsiteTab() {
         {SECTION_KEYS.map(section => (
           <SectionCard key={section.key} section={section} data={getSectionData(section.key)} onSaved={load} />
         ))}
+        <DocumentsCard data={getSectionData('admission_documents')} onSaved={load} />
       </div>
     </div>
   );
