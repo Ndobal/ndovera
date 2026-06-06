@@ -3475,36 +3475,76 @@ function buildResultUploadMatchKeys(student: Record<string, any>) {
   ].filter(value => value.length >= 4 || value.includes('@'))))
 }
 
+function studentNameTokens(name: unknown) {
+  return String(name || '')
+    .trim()
+    .toLowerCase()
+    .split(/[^a-z0-9]+/g)
+    .filter(part => part.length >= 2)
+}
+
+// Match a student by full name when ALL of the student's name tokens appear in
+// the provided text (in any order). Returns a unique match or flags ambiguity.
+function matchStudentByFullName(rawName: string, students: Record<string, any>[]) {
+  const queryTokens = new Set(studentNameTokens(rawName))
+  if (queryTokens.size === 0) return { student: null as Record<string, any> | null, ambiguous: false }
+  const matches = students.filter(student => {
+    const tokens = studentNameTokens(student.name)
+    return tokens.length >= 2 && tokens.every(token => queryTokens.has(token))
+  })
+  if (matches.length > 1) {
+    const exact = matches.filter(student => studentNameTokens(student.name).length === queryTokens.size)
+    if (exact.length === 1) return { student: exact[0], ambiguous: false }
+    return { student: null, ambiguous: true }
+  }
+  if (matches.length === 1) return { student: matches[0], ambiguous: false }
+  return { student: null, ambiguous: false }
+}
+
 function matchResultUploadStudent(fileName: string, students: Record<string, any>[]) {
   const base = normalizeResultMatchKey(fileName.replace(/\.[^.]+$/, ''))
   const tokens = Array.from(new Set([
     base,
     ...base.split(/[^a-z0-9@]+/g).filter(Boolean),
-  ])).sort((left, right) => right.length - left.length)
+  ]))
   const tokenSet = new Set(tokens)
 
-  for (const token of tokens) {
+  // 1. Old student code — exact match on any token (codes are unique, any length).
+  const oldCodeMatches = students.filter(student =>
+    (Array.isArray(student.oldCodes) ? student.oldCodes : [])
+      .map(normalizeResultMatchKey)
+      .filter(Boolean)
+      .some((code: string) => tokenSet.has(code) || base === code),
+  )
+  if (oldCodeMatches.length === 1) return { student: oldCodeMatches[0], matchedBy: 'old-code', ambiguous: false }
+  if (oldCodeMatches.length > 1) return { student: null, matchedBy: 'old-code', ambiguous: true }
+
+  // 2. Student id / display id / email token match.
+  const sortedTokens = [...tokens].sort((left, right) => right.length - left.length)
+  for (const token of sortedTokens) {
     if (!token || (token.length < 4 && !token.includes('@'))) continue
     const matches = students.filter(student => buildResultUploadMatchKeys(student).includes(token))
     if (matches.length === 1) return { student: matches[0], matchedBy: token, ambiguous: false }
     if (matches.length > 1) return { student: null, matchedBy: token, ambiguous: true }
   }
 
+  // 3. Full name — every one of the student's name tokens present, in any order.
+  const fullNameMatches = students.filter(student => {
+    const parts = studentNameTokens(student.name)
+    return parts.length >= 2 && parts.every(part => tokenSet.has(part))
+  })
+  if (fullNameMatches.length === 1) return { student: fullNameMatches[0], matchedBy: 'full-name', ambiguous: false }
+  if (fullNameMatches.length > 1) return { student: null, matchedBy: 'full-name', ambiguous: true }
+
+  // 4. Looser name fallback (partial overlap / joined forms).
   const nameMatches = students.filter(student => {
-    const nameParts = String(student.name || '')
-      .trim()
-      .toLowerCase()
-      .split(/[^a-z0-9]+/g)
-      .filter(part => part.length >= 2)
-
+    const nameParts = studentNameTokens(student.name)
     if (nameParts.length < 2) return false
-
     const first = nameParts[0] || ''
     const last = nameParts[nameParts.length - 1] || ''
     const overlap = nameParts.filter(part => tokenSet.has(part)).length
     const fullJoined = nameParts.join('_')
     const fullCompact = nameParts.join('')
-
     return overlap >= 2
       || Boolean(fullJoined && base.includes(fullJoined))
       || Boolean(fullCompact && base.includes(fullCompact))
@@ -3515,11 +3555,69 @@ function matchResultUploadStudent(fileName: string, students: Record<string, any
         || base.includes(`${last}${first}`)
       ))
   })
-
   if (nameMatches.length === 1) return { student: nameMatches[0], matchedBy: 'student-name', ambiguous: false }
   if (nameMatches.length > 1) return { student: null, matchedBy: 'student-name', ambiguous: true }
 
   return { student: null, matchedBy: '', ambiguous: false }
+}
+
+// ─── Old student codes (migration identity tags) ─────────────────────────────
+const STUDENT_OLD_CODES_DDL = `CREATE TABLE IF NOT EXISTS student_old_codes (
+  id TEXT PRIMARY KEY,
+  tenant_id TEXT,
+  student_id TEXT,
+  code TEXT,
+  normalized_code TEXT,
+  created_at TEXT
+)`
+async function ensureStudentOldCodesTable(db: D1Database) {
+  await db.prepare(STUDENT_OLD_CODES_DDL).run()
+  await db.prepare(`CREATE UNIQUE INDEX IF NOT EXISTS student_old_codes_unique_idx ON student_old_codes(tenant_id, normalized_code)`).run().catch(() => null)
+}
+async function addStudentOldCode(db: D1Database, tenantId: string, studentId: string, code: string) {
+  const normalized = normalizeResultMatchKey(code)
+  if (!normalized || !studentId || !tenantId) return false
+  await ensureStudentOldCodesTable(db)
+  const existing = await db.prepare(`SELECT student_id FROM student_old_codes WHERE tenant_id = ? AND normalized_code = ?`).bind(tenantId, normalized).first() as Record<string, any> | null
+  if (existing) {
+    await db.prepare(`UPDATE student_old_codes SET student_id = ? WHERE tenant_id = ? AND normalized_code = ?`).bind(studentId, tenantId, normalized).run()
+    return true
+  }
+  await db.prepare(`INSERT INTO student_old_codes (id, tenant_id, student_id, code, normalized_code, created_at) VALUES (?, ?, ?, ?, ?, ?)`)
+    .bind(`oldcode_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`, tenantId, studentId, String(code).trim(), normalized, new Date().toISOString())
+    .run()
+  return true
+}
+async function getOldCodesByStudent(db: D1Database, tenantId: string) {
+  await ensureStudentOldCodesTable(db)
+  const rows = await db.prepare(`SELECT student_id, code FROM student_old_codes WHERE tenant_id = ?`).bind(tenantId).all()
+  const map = new Map<string, string[]>()
+  for (const row of ((rows.results || []) as Record<string, any>[])) {
+    const sid = String(row.student_id || '')
+    if (!sid) continue
+    if (!map.has(sid)) map.set(sid, [])
+    map.get(sid)!.push(String(row.code || ''))
+  }
+  return map
+}
+async function attachOldCodesToStudents(db: D1Database, tenantId: string, students: Array<Record<string, any>>) {
+  const map = await getOldCodesByStudent(db, tenantId)
+  return students.map(student => ({ ...student, oldCodes: map.get(String(student.id || '')) || [] }))
+}
+
+// Auto-create a session/term row when results are uploaded for a period that
+// does not exist yet (e.g. migrated past sessions). Uses an old timestamp so it
+// never overrides the school's actual current session ordering.
+async function ensureSessionTermExists(db: D1Database, tenantId: string, sessionName: unknown, termName: unknown) {
+  const session = String(sessionName || '').trim()
+  const term = String(termName || '').trim()
+  if (!tenantId || !session || !term) return
+  await db.prepare(`CREATE TABLE IF NOT EXISTS school_sessions (id TEXT PRIMARY KEY, tenantId TEXT, session TEXT, term TEXT, startDate TEXT, endDate TEXT, createdAt TEXT)`).run()
+  const existing = await db.prepare(`SELECT id FROM school_sessions WHERE tenantId = ? AND session = ? AND term = ? LIMIT 1`).bind(tenantId, session, term).first()
+  if (existing) return
+  await db.prepare(`INSERT INTO school_sessions (id, tenantId, session, term, startDate, endDate, createdAt) VALUES (?, ?, ?, ?, ?, ?, ?)`)
+    .bind(`session_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`, tenantId, session, term, '', '', '2000-01-01T00:00:00.000Z')
+    .run()
 }
 
 function buildTenantWebsite(c: any, schoolId: string, tenant?: any) {
@@ -13545,6 +13643,7 @@ app.post('/api/results/entries', authenticate, async (c) => {
   if (!access.canManageEntries) return c.json({ error: 'You are not allowed to enter scores for this class.' }, 403)
 
   const period = await resolveCurrentResultPeriod(c.env.APP_DB, access.tenantId, body.sessionName || body.session, body.termName || body.term)
+  await ensureSessionTermExists(c.env.APP_DB, access.tenantId, period.sessionName, period.termName)
   const storedSettings = await getResultSettings(c.env.APP_DB, access.tenantId)
   const settings = { ...storedSettings, ...normalizeResultSettingsInput(storedSettings) }
   const configurationError = validateResultSettings(settings)
@@ -13604,6 +13703,7 @@ app.post('/api/results/profiles', authenticate, async (c) => {
   if (!access.canManageProfiles) return c.json({ error: 'Only the class teacher, HoS, owner, or ICT manager can update class result profiles.' }, 403)
 
   const period = await resolveCurrentResultPeriod(c.env.APP_DB, access.tenantId, body.sessionName || body.session, body.termName || body.term)
+  await ensureSessionTermExists(c.env.APP_DB, access.tenantId, period.sessionName, period.termName)
   const storedSettings = await getResultSettings(c.env.APP_DB, access.tenantId)
   const settings = { ...storedSettings, ...normalizeResultSettingsInput(storedSettings) }
   const configurationError = validateResultSettings(settings)
@@ -13676,6 +13776,7 @@ app.post('/api/results/batch-status', authenticate, async (c) => {
   }
 
   const period = await resolveCurrentResultPeriod(c.env.APP_DB, access.tenantId, body.sessionName || body.session, body.termName || body.term)
+  await ensureSessionTermExists(c.env.APP_DB, access.tenantId, period.sessionName, period.termName)
   const storedSettings = await getResultSettings(c.env.APP_DB, access.tenantId)
   const settings = { ...storedSettings, ...normalizeResultSettingsInput(storedSettings) }
   if (status === 'submitted') {
@@ -13708,6 +13809,7 @@ app.post('/api/results/publish', authenticate, async (c) => {
   if (!access.classRow) return c.json({ error: 'Class not found.' }, 404)
 
   const period = await resolveCurrentResultPeriod(c.env.APP_DB, access.tenantId, body.sessionName || body.session, body.termName || body.term)
+  await ensureSessionTermExists(c.env.APP_DB, access.tenantId, period.sessionName, period.termName)
   const tenant = await getTenantById(c.env.APP_DB, access.tenantId)
   const tenantBranding = await getTenantSchoolBranding(c.env.APP_DB, tenant)
   const storedSettings = await getResultSettings(c.env.APP_DB, access.tenantId)
@@ -13866,6 +13968,52 @@ app.get('/api/results/records', authenticate, async (c) => {
   })
 })
 
+// Bulk-tag students with their old portal codes (name + code rows, sent in chunks).
+app.post('/api/students/old-codes/bulk', authenticate, async (c) => {
+  try {
+    const { role, tenant, forbidden } = await resolveTenantForActor(c)
+    if (forbidden || !hasRequiredRole(role, ['owner', 'hos', 'ict', 'ict_manager'])) return c.json({ success: false, error: 'forbidden' }, 403)
+    if (!tenant?.id) return c.json({ success: false, error: 'No tenant.' }, 400)
+
+    const payload = await c.req.json().catch(() => ({})) as Record<string, any>
+    const rows = Array.isArray(payload?.rows) ? payload.rows : []
+    if (rows.length === 0) return c.json({ success: false, message: 'No rows provided.' }, 400)
+
+    await ensureUsersTable(c.env.APP_DB)
+    const studentRows = await c.env.APP_DB.prepare(`SELECT id, name, email, role, status, createdAt FROM users WHERE tenantId = ? AND role = 'student'`).bind(tenant.id).all()
+    const hydrated = await hydrateUserRecords(c.env.APP_DB, (studentRows.results || []) as Record<string, any>[])
+    const students = hydrated.map(student => ({ id: String(student?.id || ''), name: String(student?.name || ''), email: String(student?.email || '') }))
+
+    const results: Array<Record<string, any>> = []
+    let tagged = 0
+    for (const row of rows) {
+      const name = String(row?.name || '').trim()
+      const code = String(row?.code || row?.oldCode || '').trim()
+      if (!name || !code) {
+        results.push({ name, code, status: 'invalid', message: 'Name and code are both required.' })
+        continue
+      }
+      const match = matchStudentByFullName(name, students)
+      if (match.ambiguous) {
+        results.push({ name, code, status: 'ambiguous', message: 'This name matched more than one student.' })
+        continue
+      }
+      if (!match.student) {
+        results.push({ name, code, status: 'unmatched', message: 'No student matched this name.' })
+        continue
+      }
+      // eslint-disable-next-line no-await-in-loop
+      await addStudentOldCode(c.env.APP_DB, tenant.id, String(match.student.id || ''), code)
+      tagged += 1
+      results.push({ name, code, status: 'tagged', studentId: match.student.id, studentName: match.student.name })
+    }
+
+    return c.json({ success: true, tagged, total: rows.length, results })
+  } catch (error) {
+    return c.json({ success: false, message: String((error as Error)?.message || 'Could not tag old student codes.') }, 500)
+  }
+})
+
 app.post('/api/results/documents/upload', authenticate, async (c) => {
   if (!hasRequiredRole(c.var.user.role, RESULT_DOCUMENT_UPLOADER_ROLES)) return c.json({ error: 'forbidden' }, 403)
   const { tenant } = await resolveTenantForActor(c)
@@ -13893,6 +14041,8 @@ app.post('/api/results/documents/upload', authenticate, async (c) => {
     formData.get('sessionName') || formData.get('session') || undefined,
     formData.get('termName') || formData.get('term') || undefined,
   )
+  // Migrated/past results: make sure the period exists in the school's sessions.
+  await ensureSessionTermExists(c.env.APP_DB, tenant.id, period.sessionName, period.termName)
 
   let students: Array<Record<string, any>> = []
   if (classId) {
@@ -13914,6 +14064,8 @@ app.post('/api/results/documents/upload', authenticate, async (c) => {
   }
 
   if (students.length === 0) return c.json({ error: 'No students were available for result distribution.' }, 400)
+  // Add each student's old portal codes so result PDFs can be matched by them.
+  students = await attachOldCodesToStudents(c.env.APP_DB, tenant.id, students)
 
   const existingDocuments = await listResultDocumentsForPeriod(c.env.APP_DB, tenant.id, period.sessionName, period.termName)
   const relevantStudentIds = new Set(students.map(student => String(student.id || '')).filter(Boolean))

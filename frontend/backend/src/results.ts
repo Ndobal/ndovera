@@ -445,6 +445,22 @@ export async function saveResultPublications(db: D1Database, params: { tenantId:
   return getResultBatch(db, params.tenantId, params.classId, params.sessionName, params.termName)
 }
 
+// Newest results first: newest session at the top, and within a session the
+// newest term (Term 3 → 2 → 1) on top — so each new term cascades above older ones.
+function resultTermRank(termName: unknown): number {
+  const value = String(termName || '').toLowerCase()
+  if (/(third|(^|[^0-9])3)/.test(value)) return 3
+  if (/(second|(^|[^0-9])2)/.test(value)) return 2
+  if (/(first|(^|[^0-9])1)/.test(value)) return 1
+  return 0
+}
+function compareResultPeriodDesc(a: { sessionName?: unknown; termName?: unknown }, b: { sessionName?: unknown; termName?: unknown }) {
+  const sessionA = String(a.sessionName || '')
+  const sessionB = String(b.sessionName || '')
+  if (sessionA !== sessionB) return sessionB.localeCompare(sessionA, undefined, { numeric: true })
+  return resultTermRank(b.termName) - resultTermRank(a.termName)
+}
+
 export async function listStudentResultPublications(db: D1Database, tenantId: string, studentId: string) {
   await ensureResultsTables(db)
   const rows = await db.prepare('SELECT * FROM result_publications WHERE tenant_id = ? AND student_id = ? ORDER BY published_at DESC, updated_at DESC').bind(tenantId, studentId).all()
@@ -458,7 +474,7 @@ export async function listStudentResultPublications(db: D1Database, tenantId: st
     approvedAt: row.approved_at,
     publishedAt: row.published_at,
     updatedAt: row.updated_at,
-  }))
+  })).sort(compareResultPeriodDesc)
 }
 
 export async function saveResultDocuments(db: D1Database, docs: Array<Record<string, any>>) {
@@ -486,7 +502,7 @@ export async function listStudentResultDocuments(db: D1Database, tenantId: strin
     uploadedBy: row.uploaded_by,
     uploadedAt: row.uploaded_at,
     metadata: parseJsonField(row.metadata_json, {} as Record<string, any>),
-  }))
+  })).sort(compareResultPeriodDesc)
 }
 
 export async function listResultDocumentsForPeriod(db: D1Database, tenantId: string, sessionName: string, termName: string) {

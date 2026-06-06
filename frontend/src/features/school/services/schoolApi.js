@@ -152,6 +152,7 @@ export const getExams = () => req('/api/exams');
 export const getOwnerSchools = () => req('/api/owner/schools');
 export const addPerson = (data) => req('/api/people', { method: 'POST', body: data });
 export const bulkImportPeople = (rows) => req('/api/people/bulk', { method: 'POST', body: { rows } });
+export const bulkTagOldStudentCodes = (rows) => req('/api/students/old-codes/bulk', { method: 'POST', body: { rows } });
 export const deactivatePerson = (userId) => req(`/api/people/${userId}`, { method: 'DELETE' });
 export const updatePersonRole = (userId, role) => req(`/api/people/${userId}/role`, { method: 'PUT', body: { role } });
 export const getClasses = () => req('/api/school/classes');

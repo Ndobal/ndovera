@@ -8,6 +8,7 @@ import {
   uploadPublishedResultDocumentsSequential,
 } from '../service/resultEngineService';
 import BroadsheetTable from './BroadsheetTable';
+import OldStudentCodesUpload from './OldStudentCodesUpload';
 import ResultSettingsPanel from './ResultSettingsPanel';
 import {
   RESULT_BODY,
@@ -335,9 +336,20 @@ export default function ResultAdminConsole({ analyticsMode = 'hos', roleTitle = 
                 Bulk Result Upload
               </button>
             )}
+            {data.canUploadDocuments && (
+              <button
+                type="button"
+                onClick={() => setActiveTab('oldCodes')}
+                className={activeTab === 'oldCodes' ? RESULT_BUTTON : RESULT_SECONDARY_BUTTON}
+              >
+                Old Student Codes
+              </button>
+            )}
           </div>
         </section>
       )}
+
+      {activeTab === 'oldCodes' && <OldStudentCodesUpload />}
 
       {activeTab === 'console' && (
         <>
