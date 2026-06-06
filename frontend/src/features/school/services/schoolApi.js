@@ -225,6 +225,9 @@ function buildQuery(params = {}) {
 
 export const uploadLogo = (file) => uploadFile('/api/school/logo', file);
 export const uploadProfileAvatar = (userId, file) => uploadFile(`/api/people/${encodeURIComponent(userId)}/avatar-upload`, file);
+export const getMonnifyAccount = () => req('/api/tenants/monnify/account');
+export const getMonnifyBanks = () => req('/api/tenants/monnify/banks');
+export const createMonnifyVirtualAccount = (data) => req('/api/tenants/monnify/reserved-account', { method: 'POST', body: data });
 export const getWebsiteSections = () => req('/api/school/website/sections');
 export const saveWebsiteSection = (data) => req('/api/school/website/sections', { method: 'POST', body: data });
 export const uploadSectionImage = (file, sectionKey) => uploadFile('/api/school/website/sections/upload', file, { sectionKey });
