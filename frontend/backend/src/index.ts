@@ -3604,6 +3604,23 @@ async function attachOldCodesToStudents(db: D1Database, tenantId: string, studen
   const map = await getOldCodesByStudent(db, tenantId)
   return students.map(student => ({ ...student, oldCodes: map.get(String(student.id || '')) || [] }))
 }
+async function getOldCodeRecordsByStudent(db: D1Database, tenantId: string) {
+  await ensureStudentOldCodesTable(db)
+  const rows = await db.prepare(`SELECT id, student_id, code FROM student_old_codes WHERE tenant_id = ? ORDER BY created_at DESC`).bind(tenantId).all()
+  const map = new Map<string, Array<{ id: string; code: string }>>()
+  for (const row of ((rows.results || []) as Record<string, any>[])) {
+    const sid = String(row.student_id || '')
+    if (!sid) continue
+    if (!map.has(sid)) map.set(sid, [])
+    map.get(sid)!.push({ id: String(row.id || ''), code: String(row.code || '') })
+  }
+  return map
+}
+async function removeStudentOldCode(db: D1Database, tenantId: string, codeId: string) {
+  if (!tenantId || !codeId) return
+  await ensureStudentOldCodesTable(db)
+  await db.prepare(`DELETE FROM student_old_codes WHERE tenant_id = ? AND id = ?`).bind(tenantId, codeId).run()
+}
 
 // Auto-create a session/term row when results are uploaded for a period that
 // does not exist yet (e.g. migrated past sessions). Uses an old timestamp so it
@@ -13966,6 +13983,58 @@ app.get('/api/results/records', authenticate, async (c) => {
       })),
     documents: hideSensitiveContent ? [] : documents,
   })
+})
+
+// Per-student old-code manager: list students with their tagged codes.
+app.get('/api/students/old-codes', authenticate, async (c) => {
+  try {
+    const { role, tenant, forbidden } = await resolveTenantForActor(c)
+    if (forbidden || !hasRequiredRole(role, ['owner', 'hos', 'ict', 'ict_manager'])) return c.json({ success: false, error: 'forbidden' }, 403)
+    if (!tenant?.id) return c.json({ success: false, error: 'No tenant.' }, 400)
+    await ensureUsersTable(c.env.APP_DB)
+    const studentRows = await c.env.APP_DB.prepare(`SELECT id, name, email, role, status, createdAt FROM users WHERE tenantId = ? AND role = 'student' ORDER BY name`).bind(tenant.id).all()
+    const hydrated = await hydrateUserRecords(c.env.APP_DB, (studentRows.results || []) as Record<string, any>[])
+    const codeMap = await getOldCodeRecordsByStudent(c.env.APP_DB, tenant.id)
+    const students = hydrated.map(student => ({
+      id: String(student?.id || ''),
+      name: String(student?.name || ''),
+      email: String(student?.email || ''),
+      displayId: String(student?.displayId || ''),
+      className: String(student?.className || ''),
+      codes: codeMap.get(String(student?.id || '')) || [],
+    }))
+    return c.json({ success: true, students })
+  } catch (error) {
+    return c.json({ success: false, message: String((error as Error)?.message || 'Could not load old codes.') }, 500)
+  }
+})
+
+app.post('/api/students/old-codes', authenticate, async (c) => {
+  try {
+    const { role, tenant, forbidden } = await resolveTenantForActor(c)
+    if (forbidden || !hasRequiredRole(role, ['owner', 'hos', 'ict', 'ict_manager'])) return c.json({ success: false, error: 'forbidden' }, 403)
+    if (!tenant?.id) return c.json({ success: false, error: 'No tenant.' }, 400)
+    const payload = await c.req.json().catch(() => ({})) as Record<string, any>
+    const studentId = String(payload?.studentId || '').trim()
+    const code = String(payload?.code || '').trim()
+    if (!studentId || !code) return c.json({ success: false, message: 'Student and code are required.' }, 400)
+    await addStudentOldCode(c.env.APP_DB, tenant.id, studentId, code)
+    return c.json({ success: true })
+  } catch (error) {
+    return c.json({ success: false, message: String((error as Error)?.message || 'Could not add code.') }, 500)
+  }
+})
+
+app.delete('/api/students/old-codes/:codeId', authenticate, async (c) => {
+  try {
+    const { role, tenant, forbidden } = await resolveTenantForActor(c)
+    if (forbidden || !hasRequiredRole(role, ['owner', 'hos', 'ict', 'ict_manager'])) return c.json({ success: false, error: 'forbidden' }, 403)
+    if (!tenant?.id) return c.json({ success: false, error: 'No tenant.' }, 400)
+    await removeStudentOldCode(c.env.APP_DB, tenant.id, c.req.param('codeId'))
+    return c.json({ success: true })
+  } catch (error) {
+    return c.json({ success: false, message: String((error as Error)?.message || 'Could not remove code.') }, 500)
+  }
 })
 
 // Bulk-tag students with their old portal codes (name + code rows, sent in chunks).

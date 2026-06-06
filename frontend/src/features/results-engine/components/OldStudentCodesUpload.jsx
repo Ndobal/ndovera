@@ -1,5 +1,10 @@
-import React, { useState } from 'react';
-import { bulkTagOldStudentCodes } from '../../school/services/schoolApi';
+import React, { useCallback, useEffect, useState } from 'react';
+import {
+  addStudentOldCode,
+  bulkTagOldStudentCodes,
+  getStudentOldCodes,
+  removeStudentOldCode,
+} from '../../school/services/schoolApi';
 import {
   RESULT_BODY,
   RESULT_BUTTON,
@@ -33,6 +38,45 @@ export default function OldStudentCodesUpload() {
   const [summary, setSummary] = useState(null);
   const [problems, setProblems] = useState([]);
   const [error, setError] = useState('');
+
+  // Per-student code manager
+  const [managerStudents, setManagerStudents] = useState([]);
+  const [managerLoading, setManagerLoading] = useState(true);
+  const [query, setQuery] = useState('');
+  const [addInputs, setAddInputs] = useState({});
+  const [managerMsg, setManagerMsg] = useState('');
+
+  const loadManager = useCallback(() => {
+    setManagerLoading(true);
+    getStudentOldCodes()
+      .then(data => setManagerStudents(data?.students || []))
+      .catch(() => {})
+      .finally(() => setManagerLoading(false));
+  }, []);
+  useEffect(() => { loadManager(); }, [loadManager]);
+
+  async function handleAddCode(studentId) {
+    const code = String(addInputs[studentId] || '').trim();
+    if (!code) return;
+    setManagerMsg('');
+    try {
+      await addStudentOldCode(studentId, code);
+      setAddInputs(current => ({ ...current, [studentId]: '' }));
+      loadManager();
+    } catch (err) {
+      setManagerMsg(err.message || 'Could not add code.');
+    }
+  }
+
+  async function handleRemoveCode(codeId) {
+    setManagerMsg('');
+    try {
+      await removeStudentOldCode(codeId);
+      loadManager();
+    } catch (err) {
+      setManagerMsg(err.message || 'Could not remove code.');
+    }
+  }
 
   function handleFile(event) {
     const file = event.target.files?.[0];
@@ -77,12 +121,21 @@ export default function OldStudentCodesUpload() {
       setError(err.message || 'Upload failed.');
     } finally {
       setRunning(false);
+      loadManager();
     }
   }
+
+  const trimmedQuery = query.trim().toLowerCase();
+  const managedStudents = managerStudents.filter(student => {
+    if (!trimmedQuery) return (student.codes || []).length > 0;
+    const haystack = `${student.name} ${student.email} ${student.className} ${(student.codes || []).map(c => c.code).join(' ')}`.toLowerCase();
+    return haystack.includes(trimmedQuery);
+  }).slice(0, 100);
 
   const pct = progress.total > 0 ? Math.round((progress.done / progress.total) * 100) : 0;
 
   return (
+    <div className="space-y-4">
     <section className={`${RESULT_SURFACE} p-6 space-y-4`}>
       <div>
         <p className={`micro-label ${RESULT_LABEL}`}>Migration</p>
@@ -149,5 +202,58 @@ export default function OldStudentCodesUpload() {
         </div>
       )}
     </section>
+
+    <section className={`${RESULT_SURFACE} p-6 space-y-3`}>
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <div>
+          <p className={`micro-label ${RESULT_LABEL}`}>Manage Tagged Codes</p>
+          <h3 className={`text-lg command-title ${RESULT_HEADING}`}>Students &amp; their old codes</h3>
+        </div>
+        <button type="button" onClick={loadManager} className={RESULT_SECONDARY_BUTTON}>Refresh</button>
+      </div>
+      <input
+        value={query}
+        onChange={event => setQuery(event.target.value)}
+        placeholder="Search a name, email, class or code… (search anyone to add a code)"
+        className={RESULT_INPUT}
+      />
+      {managerMsg && <p className="text-sm text-rose-600 dark:text-rose-400">{managerMsg}</p>}
+      {managerLoading ? (
+        <p className={`text-sm ${RESULT_BODY}`}>Loading…</p>
+      ) : managedStudents.length === 0 ? (
+        <p className={`text-sm ${RESULT_BODY}`}>{trimmedQuery ? 'No students match your search.' : 'No students have old codes yet. Upload above, or search a name to add one.'}</p>
+      ) : (
+        <div className="space-y-2 max-h-[28rem] overflow-y-auto">
+          {managedStudents.map(student => (
+            <div key={student.id} className={`${RESULT_INNER_SURFACE} p-3 flex flex-wrap items-center gap-2`}>
+              <div className="min-w-[150px] flex-1">
+                <p className={`text-sm font-semibold ${RESULT_HEADING}`}>{student.name}</p>
+                <p className={`text-xs ${RESULT_BODY}`}>{student.className || student.email || student.displayId || '—'}</p>
+              </div>
+              <div className="flex flex-wrap items-center gap-1.5">
+                {(student.codes || []).map(code => (
+                  <span key={code.id} className="inline-flex items-center gap-1 rounded-full border border-[#c9a96e]/45 bg-[#f0d090] dark:border-white/15 dark:bg-slate-800 px-2.5 py-0.5 text-xs font-semibold text-[#191970] dark:text-slate-100">
+                    {code.code}
+                    <button type="button" onClick={() => handleRemoveCode(code.id)} className="text-rose-600 dark:text-rose-400 font-bold leading-none" aria-label="Remove code">×</button>
+                  </span>
+                ))}
+                {(student.codes || []).length === 0 && <span className={`text-xs ${RESULT_BODY} opacity-70`}>No codes</span>}
+              </div>
+              <div className="flex items-center gap-1.5">
+                <input
+                  value={addInputs[student.id] || ''}
+                  onChange={event => setAddInputs(current => ({ ...current, [student.id]: event.target.value }))}
+                  onKeyDown={event => { if (event.key === 'Enter') { event.preventDefault(); handleAddCode(student.id); } }}
+                  placeholder="Add code"
+                  className="w-28 rounded-lg border border-[#c9a96e]/40 dark:border-white/15 bg-[#fffef9] dark:bg-slate-800 px-2 py-1 text-xs text-[#191970] dark:text-slate-100"
+                />
+                <button type="button" onClick={() => handleAddCode(student.id)} className={`${RESULT_SECONDARY_BUTTON} px-2.5 py-1 text-xs`}>Add</button>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </section>
+    </div>
   );
 }
