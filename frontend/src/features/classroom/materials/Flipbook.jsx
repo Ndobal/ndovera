@@ -38,13 +38,19 @@ function loadCss(href) {
   document.head.appendChild(element);
 }
 
+const CTRL_BTN = 'flex h-9 w-9 items-center justify-center rounded-full border border-[#c9a96e]/40 bg-white/85 text-sm font-bold text-[#800020] shadow transition hover:bg-white';
+
 export default function Flipbook({ url, onFallback }) {
+  const wrapperRef = useRef(null);
   const containerRef = useRef(null);
   const flipRef = useRef(null);
+  const thumbStripRef = useRef(null);
   const [status, setStatus] = useState('loading'); // loading | ready | error
   const [progress, setProgress] = useState({ done: 0, total: 0 });
+  const [pages, setPages] = useState([]);
   const [page, setPage] = useState(0);
-  const [pageCount, setPageCount] = useState(0);
+  const [showThumbs, setShowThumbs] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -54,6 +60,7 @@ export default function Flipbook({ url, onFallback }) {
       try {
         setStatus('loading');
         setProgress({ done: 0, total: 0 });
+        setPages([]);
         loadCss(PAGEFLIP_CSS);
         await Promise.all([loadScript(PDFJS_SRC), loadScript(PAGEFLIP_JS)]);
         if (cancelled) return;
@@ -85,6 +92,7 @@ export default function Flipbook({ url, onFallback }) {
           setProgress({ done: pageNumber, total });
         }
         if (cancelled || !containerRef.current) return;
+        setPages(images);
 
         // Let the modal settle so the flip engine measures a real container size.
         await new Promise(resolve => requestAnimationFrame(resolve));
@@ -103,14 +111,13 @@ export default function Flipbook({ url, onFallback }) {
           drawShadow: true,
           flippingTime: 700,
           usePortrait: true,
-          showCover: false,
+          showCover: true, // first page opens as a single right-hand cover, like a real book
           maxShadowOpacity: 0.5,
           mobileScrollSupport: true,
         });
         flip.loadFromImages(images);
         flip.on('flip', event => setPage(Number(event.data) || 0));
         flipRef.current = flip;
-        setPageCount(images.length);
         setStatus('ready');
       } catch {
         if (!cancelled) setStatus('error');
@@ -125,6 +132,38 @@ export default function Flipbook({ url, onFallback }) {
     };
   }, [url]);
 
+  // Track fullscreen state and nudge the flip engine to re-measure when it changes.
+  useEffect(() => {
+    function onFsChange() {
+      const active = document.fullscreenElement === wrapperRef.current;
+      setIsFullscreen(Boolean(document.fullscreenElement) && active);
+      window.setTimeout(() => window.dispatchEvent(new Event('resize')), 120);
+    }
+    document.addEventListener('fullscreenchange', onFsChange);
+    return () => document.removeEventListener('fullscreenchange', onFsChange);
+  }, []);
+
+  // Keep the active thumbnail in view.
+  useEffect(() => {
+    if (!showThumbs || !thumbStripRef.current) return;
+    const active = thumbStripRef.current.querySelector(`[data-thumb="${page}"]`);
+    if (active) active.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' });
+  }, [page, showThumbs]);
+
+  function toggleFullscreen() {
+    const element = wrapperRef.current;
+    if (!element) return;
+    if (document.fullscreenElement) {
+      document.exitFullscreen?.();
+    } else {
+      element.requestFullscreen?.();
+    }
+  }
+
+  function jumpToPage(index) {
+    try { flipRef.current?.flip?.(index); } catch {}
+  }
+
   if (status === 'error') {
     return (
       <div className="flex h-full w-full flex-col items-center justify-center gap-3 p-6 text-center text-sm text-[#191970]">
@@ -135,11 +174,19 @@ export default function Flipbook({ url, onFallback }) {
   }
 
   return (
-    <div className="relative flex h-full w-full flex-col">
+    <div ref={wrapperRef} className="relative flex h-full w-full flex-col bg-[#e9dcc0]">
       {status === 'loading' && (
-        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-2 bg-[#e9dcc0] text-sm text-[#191970]">
+        <div className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-2 bg-[#e9dcc0] text-sm text-[#191970]">
           <p className="font-semibold">Preparing flipbook…</p>
           {progress.total > 0 ? <p className="text-xs">{progress.done} / {progress.total} pages</p> : <p className="text-xs">Loading reader…</p>}
+        </div>
+      )}
+
+      {/* Floating controls (also available in fullscreen) */}
+      {status === 'ready' && (
+        <div className="absolute right-3 top-3 z-20 flex items-center gap-2">
+          <button type="button" className={CTRL_BTN} onClick={() => setShowThumbs(value => !value)} title="Toggle page thumbnails" aria-label="Toggle thumbnails">▦</button>
+          <button type="button" className={CTRL_BTN} onClick={toggleFullscreen} title={isFullscreen ? 'Exit fullscreen' : 'Fullscreen'} aria-label="Toggle fullscreen">{isFullscreen ? '✕' : '⛶'}</button>
         </div>
       )}
 
@@ -147,10 +194,30 @@ export default function Flipbook({ url, onFallback }) {
         <div ref={containerRef} className="h-full w-full" />
       </div>
 
+      {/* Thumbnail strip */}
+      {status === 'ready' && showThumbs && (
+        <div ref={thumbStripRef} className="flex max-h-28 shrink-0 items-center gap-2 overflow-x-auto border-t border-[#c9a96e]/30 bg-[#f5deb3]/95 px-3 py-2">
+          {pages.map((src, index) => (
+            <button
+              key={index}
+              type="button"
+              data-thumb={index}
+              onClick={() => jumpToPage(index)}
+              className={`relative shrink-0 overflow-hidden rounded-md border-2 transition ${index === page ? 'border-[#1a5c38]' : 'border-transparent hover:border-[#c9a96e]'}`}
+              title={`Page ${index + 1}`}
+            >
+              <img src={src} alt={`Page ${index + 1}`} className="h-20 w-auto" loading="lazy" />
+              <span className="absolute bottom-0 right-0 bg-black/55 px-1 text-[9px] font-bold text-white">{index + 1}</span>
+            </button>
+          ))}
+        </div>
+      )}
+
+      {/* Bottom navigation */}
       {status === 'ready' && (
-        <div className="flex items-center justify-center gap-3 border-t border-[#c9a96e]/30 bg-[#f5deb3] px-4 py-2">
+        <div className="flex shrink-0 items-center justify-center gap-3 border-t border-[#c9a96e]/30 bg-[#f5deb3] px-4 py-2">
           <button type="button" onClick={() => flipRef.current?.flipPrev?.()} className="rounded-xl border border-[#c9a96e]/40 bg-white/80 px-4 py-1.5 text-xs font-bold text-[#800020] transition hover:bg-white">‹ Prev</button>
-          <span className="text-xs font-semibold text-[#191970]">Page {Math.min(page + 1, pageCount)} / {pageCount}</span>
+          <span className="text-xs font-semibold text-[#191970]">Page {Math.min(page + 1, pages.length)} / {pages.length}</span>
           <button type="button" onClick={() => flipRef.current?.flipNext?.()} className="rounded-xl border border-[#c9a96e]/40 bg-white/80 px-4 py-1.5 text-xs font-bold text-[#800020] transition hover:bg-white">Next ›</button>
         </div>
       )}
