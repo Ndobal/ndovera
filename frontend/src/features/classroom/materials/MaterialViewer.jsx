@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import Flipbook from './Flipbook';
 
-// In-app reader for class materials. PDFs, images, video, audio and Office files open and are
-// readable inside the app (no forced download), with an explicit Download button as well.
+// In-app reader for class materials. PDFs open as a realistic page-flip flipbook, while images,
+// video, audio and Office files open inline too (no forced download), each with a Download button.
 
 function getMaterialKind(material) {
   const url = String(material?.url || '').trim();
@@ -21,6 +22,7 @@ const TOOLBAR_BTN = 'rounded-xl border border-[#c9a96e]/40 bg-white/80 px-3 py-1
 
 export default function MaterialViewer({ material, onClose }) {
   const [scale, setScale] = useState(1);
+  const [pdfMode, setPdfMode] = useState('flip'); // 'flip' (flipbook) | 'plain' (native reader)
 
   useEffect(() => {
     function onKey(event) { if (event.key === 'Escape') onClose(); }
@@ -33,8 +35,8 @@ export default function MaterialViewer({ material, onClose }) {
     };
   }, [onClose]);
 
-  // Reset zoom whenever a different material is opened.
-  useEffect(() => { setScale(1); }, [material?.id, material?.url]);
+  // Reset zoom and reader mode whenever a different material is opened.
+  useEffect(() => { setScale(1); setPdfMode('flip'); }, [material?.id, material?.url]);
 
   if (!material) return null;
 
@@ -90,7 +92,10 @@ export default function MaterialViewer({ material, onClose }) {
     }
 
     if (kind === 'pdf') {
-      // The browser's native PDF viewer gives zoom, page navigation, print and download controls.
+      if (pdfMode === 'flip') {
+        return <Flipbook url={url} onFallback={() => setPdfMode('plain')} />;
+      }
+      // Plain mode: the browser's native PDF viewer (zoom, page navigation, print).
       return (
         <iframe
           title={title}
@@ -137,6 +142,17 @@ export default function MaterialViewer({ material, onClose }) {
             <button type="button" className={TOOLBAR_BTN} onClick={() => setScale(value => Math.min(4, value + 0.25))} aria-label="Zoom in">+</button>
             <button type="button" className={TOOLBAR_BTN} onClick={() => setScale(1)}>Fit</button>
           </div>
+        ) : null}
+
+        {kind === 'pdf' ? (
+          <button
+            type="button"
+            className={TOOLBAR_BTN}
+            onClick={() => setPdfMode(mode => (mode === 'flip' ? 'plain' : 'flip'))}
+            title="Switch reading mode"
+          >
+            {pdfMode === 'flip' ? 'Plain reader' : 'Flipbook'}
+          </button>
         ) : null}
 
         {url ? (
