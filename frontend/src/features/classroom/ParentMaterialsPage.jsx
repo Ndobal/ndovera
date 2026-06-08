@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import StudentSectionShell from '../../app/roles/student/StudentSectionShell';
 import { getLearningStudents, getMaterials } from './classroomService';
 import MaterialTypeThumbnail, { materialTypeLabel } from '../../shared/components/MaterialTypeThumbnail';
+import MaterialViewer from './materials/MaterialViewer';
 import { resolveActiveParentChildId, writeActiveParentChildId } from '../../app/roles/parent/parentChildSelection';
 
 const MATERIAL_TABS = [
@@ -22,6 +23,7 @@ export default function ParentMaterialsPage() {
   const [students, setStudents] = useState([]);
   const [selectedStudentId, setSelectedStudentId] = useState('');
   const [materials, setMaterials] = useState([]);
+  const [activeMaterial, setActiveMaterial] = useState(null);
   const [activeTab, setActiveTab] = useState('all');
   const [subjectId, setSubjectId] = useState('all');
   const [loading, setLoading] = useState(true);
@@ -179,13 +181,13 @@ export default function ParentMaterialsPage() {
                       <p className="micro-label accent-indigo">Uploaded {formatUploadedAt(material.uploadedAt)}</p>
                       {material.uploadedByName && <p className="neon-subtle text-xs mt-1">By {material.uploadedByName}</p>}
                     </div>
-                    {material.url ? (
-                      <a href={material.url} target="_blank" rel="noreferrer" className="rounded-2xl bg-emerald-500/30 border border-emerald-300/40 px-4 py-2 text-sm font-semibold text-white">
-                        Open
-                      </a>
-                    ) : (
-                      <span className="rounded-2xl border border-white/10 px-4 py-2 text-sm font-semibold text-slate-100">Teacher Note</span>
-                    )}
+                    <button
+                      type="button"
+                      onClick={() => setActiveMaterial(material)}
+                      className="rounded-2xl bg-emerald-500/30 border border-emerald-300/40 px-4 py-2 text-sm font-semibold text-white transition hover:bg-emerald-500/40"
+                    >
+                      {material.url ? 'Open' : 'Read Note'}
+                    </button>
                   </div>
                 </article>
               ))}
@@ -200,6 +202,10 @@ export default function ParentMaterialsPage() {
           )}
         </section>
       </div>
+
+      {activeMaterial ? (
+        <MaterialViewer material={activeMaterial} onClose={() => setActiveMaterial(null)} />
+      ) : null}
     </StudentSectionShell>
   );
 }

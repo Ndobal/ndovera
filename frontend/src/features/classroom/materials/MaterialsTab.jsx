@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getMaterials } from '../classroomService';
+import MaterialViewer from './MaterialViewer';
 
 function typeIcon(type) {
   if (type === 'video') return '▶';
@@ -26,7 +27,7 @@ export default function MaterialsTab({ classId = '' }) {
   const [materials, setMaterials] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState('all');
-  const [activeNote, setActiveNote] = useState(null);
+  const [activeMaterial, setActiveMaterial] = useState(null);
 
   useEffect(() => {
     if (!classId) { setLoading(false); return; }
@@ -63,9 +64,10 @@ export default function MaterialsTab({ classId = '' }) {
           {filtered.map((item, i) => {
             const usableUrl = isUsableMaterialUrl(item.url) ? item.url : '';
             const audio = isAudioMaterial(item) && usableUrl;
+            const openLabel = audio ? 'Play' : usableUrl ? 'Open' : 'Read';
             return (
             <div key={item.id || i}
-              style={{ width: audio ? '260px' : '150px', minHeight: '100px' }}
+              style={{ width: '150px', minHeight: '100px' }}
               className="relative flex flex-col justify-between rounded-2xl border border-[#c9a96e]/40 bg-[#f0d090] p-3 shadow-sm overflow-hidden">
               {/* Type badge */}
               <div className="flex items-center gap-1 mb-1">
@@ -77,51 +79,22 @@ export default function MaterialsTab({ classId = '' }) {
               {/* Subject */}
               {item.subjectName && <p className="text-[9px] font-bold text-[#800020] mt-1 truncate">{item.subjectName}</p>}
               {!usableUrl && item.description ? <p className="mt-1 text-[10px] text-[#191970] line-clamp-3">{item.description}</p> : null}
-              {/* Open button */}
-              {audio ? (
-                <audio controls preload="none" src={usableUrl} className="mt-2 w-full">
-                  Your browser does not support audio playback.
-                </audio>
-              ) : usableUrl ? (
-                <a
-                  href={usableUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-2 block text-center bg-[#1a5c38] hover:bg-[#154a2e] text-[#f5deb3] font-bold text-xs px-2 py-1.5 rounded-xl transition-colors"
-                >
-                  Open
-                </a>
-              ) : (
-                <button
-                  type="button"
-                  onClick={() => setActiveNote(item)}
-                  className="mt-2 block w-full text-center bg-[#800020] hover:bg-[#5a0016] text-[#f5deb3] font-bold text-xs px-2 py-1.5 rounded-xl transition-colors"
-                >
-                  Read Note
-                </button>
-              )}
+              {/* Open inside the app (readable without leaving / downloading) */}
+              <button
+                type="button"
+                onClick={() => setActiveMaterial(item)}
+                className={`mt-2 block w-full text-center font-bold text-xs px-2 py-1.5 rounded-xl transition-colors text-[#f5deb3] ${usableUrl ? 'bg-[#1a5c38] hover:bg-[#154a2e]' : 'bg-[#800020] hover:bg-[#5a0016]'}`}
+              >
+                {openLabel}
+              </button>
             </div>
             );
           })}
         </div>
       )}
 
-      {activeNote ? (
-        <div className="fixed inset-0 z-50 flex items-end justify-center bg-[#191970]/55 p-4 md:items-center" onClick={() => setActiveNote(null)} role="presentation">
-          <div className="w-full max-w-xl rounded-[1.75rem] border border-[#c9a96e]/40 bg-[#fff8ee] p-5 shadow-[0_24px_70px_rgba(25,25,112,0.22)]" onClick={event => event.stopPropagation()} role="dialog" aria-modal="true" aria-label="Lesson note">
-            <div className="flex items-start justify-between gap-3">
-              <div>
-                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#800020]">Lesson Note</p>
-                <h3 className="mt-2 text-lg font-bold text-[#800000]">{activeNote.title || 'Untitled note'}</h3>
-                {activeNote.subjectName ? <p className="mt-1 text-xs font-semibold text-[#800020]">{activeNote.subjectName}</p> : null}
-              </div>
-              <button type="button" onClick={() => setActiveNote(null)} className="rounded-full border border-[#c9a96e]/40 px-3 py-1 text-xs font-bold text-[#800020]">Close</button>
-            </div>
-            <div className="mt-4 max-h-[60vh] overflow-y-auto rounded-2xl bg-white p-4 text-sm leading-7 text-[#191970] whitespace-pre-wrap">
-              {activeNote.description || 'No note content was added.'}
-            </div>
-          </div>
-        </div>
+      {activeMaterial ? (
+        <MaterialViewer material={activeMaterial} onClose={() => setActiveMaterial(null)} />
       ) : null}
     </div>
   );
