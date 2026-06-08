@@ -25,7 +25,8 @@ export default function MaterialViewer({ material, onClose }) {
   const [pdfMode, setPdfMode] = useState('flip'); // 'flip' (flipbook) | 'plain' (native reader)
 
   useEffect(() => {
-    function onKey(event) { if (event.key === 'Escape') onClose(); }
+    // Let Escape exit fullscreen first (browser default); only close the viewer when not fullscreen.
+    function onKey(event) { if (event.key === 'Escape' && !document.fullscreenElement) onClose(); }
     window.addEventListener('keydown', onKey);
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';

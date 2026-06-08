@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 // Realistic page-flip reader for PDFs (DearFlip-style). The PDF pages are rendered to images with
 // pdf.js and animated with StPageFlip. Both libraries are loaded from a CDN on demand so they never
@@ -150,7 +150,7 @@ export default function Flipbook({ url, onFallback }) {
     if (active) active.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' });
   }, [page, showThumbs]);
 
-  function toggleFullscreen() {
+  const toggleFullscreen = useCallback(() => {
     const element = wrapperRef.current;
     if (!element) return;
     if (document.fullscreenElement) {
@@ -158,11 +158,25 @@ export default function Flipbook({ url, onFallback }) {
     } else {
       element.requestFullscreen?.();
     }
-  }
+  }, []);
 
   function jumpToPage(index) {
     try { flipRef.current?.flip?.(index); } catch {}
   }
+
+  // Keyboard shortcuts: ← / → flip pages, F toggles fullscreen.
+  useEffect(() => {
+    if (status !== 'ready') return undefined;
+    function onKey(event) {
+      const tag = String(event.target?.tagName || '').toLowerCase();
+      if (tag === 'input' || tag === 'textarea' || event.target?.isContentEditable) return;
+      if (event.key === 'ArrowRight') { event.preventDefault(); flipRef.current?.flipNext?.(); }
+      else if (event.key === 'ArrowLeft') { event.preventDefault(); flipRef.current?.flipPrev?.(); }
+      else if (event.key === 'f' || event.key === 'F') { event.preventDefault(); toggleFullscreen(); }
+    }
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [status, toggleFullscreen]);
 
   if (status === 'error') {
     return (
@@ -219,6 +233,7 @@ export default function Flipbook({ url, onFallback }) {
           <button type="button" onClick={() => flipRef.current?.flipPrev?.()} className="rounded-xl border border-[#c9a96e]/40 bg-white/80 px-4 py-1.5 text-xs font-bold text-[#800020] transition hover:bg-white">‹ Prev</button>
           <span className="text-xs font-semibold text-[#191970]">Page {Math.min(page + 1, pages.length)} / {pages.length}</span>
           <button type="button" onClick={() => flipRef.current?.flipNext?.()} className="rounded-xl border border-[#c9a96e]/40 bg-white/80 px-4 py-1.5 text-xs font-bold text-[#800020] transition hover:bg-white">Next ›</button>
+          <span className="ml-2 hidden text-[10px] text-[#800020]/70 sm:inline">← → flip · F fullscreen</span>
         </div>
       )}
     </div>
