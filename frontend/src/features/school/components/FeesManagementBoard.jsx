@@ -247,15 +247,27 @@ function createConfigLookup(configs) {
       return lookup;
     }
 
-    const classKey = String(config?.classId || config?.class_id || '').trim() || '__all__';
-    const lookupKey = `${classKey}::${feeType.toLowerCase()}`;
+    const normalizedFee = feeType.toLowerCase();
+    // A set studentId is a per-student override; a blank one is the class-level default.
+    const studentId = String(config?.studentId || config?.student_id || '').trim();
 
-    if (lookup[lookupKey] === undefined) {
-      lookup[lookupKey] = Number(config?.amount || 0);
+    if (studentId) {
+      const studentKey = `${studentId}::${normalizedFee}`;
+      if (lookup.student[studentKey] === undefined) {
+        lookup.student[studentKey] = Number(config?.amount || 0);
+      }
+      return lookup;
+    }
+
+    const classKey = String(config?.classId || config?.class_id || '').trim() || '__all__';
+    const lookupKey = `${classKey}::${normalizedFee}`;
+
+    if (lookup.class[lookupKey] === undefined) {
+      lookup.class[lookupKey] = Number(config?.amount || 0);
     }
 
     return lookup;
-  }, {});
+  }, { student: {}, class: {} });
 }
 
 function filterConfigsForPeriod(configs = [], sessionName = '', termName = '') {
@@ -294,15 +306,25 @@ function createFeeColumns(configs) {
   return Array.from(new Set([...configuredColumns, ...DEFAULT_FEE_COLUMNS]));
 }
 
-function getConfiguredFeeAmount(classId, feeName, lookup) {
+function getConfiguredFeeAmount(classId, studentId, feeName, lookup) {
+  const normalizedFee = feeName.toLowerCase();
+  const studentKey = String(studentId || '').trim();
+
+  if (studentKey) {
+    const override = lookup.student[`${studentKey}::${normalizedFee}`];
+    if (override !== undefined) {
+      return Number(override || 0);
+    }
+  }
+
   const classKey = String(classId || '').trim() || '__all__';
-  const exact = lookup[`${classKey}::${feeName.toLowerCase()}`];
+  const exact = lookup.class[`${classKey}::${normalizedFee}`];
 
   if (exact !== undefined) {
     return Number(exact || 0);
   }
 
-  return Number(lookup[`__all__::${feeName.toLowerCase()}`] || 0);
+  return Number(lookup.class[`__all__::${normalizedFee}`] || 0);
 }
 
 function buildStudentRows({ students, ledger, classes, feeColumns, configs }) {
@@ -373,7 +395,7 @@ function buildStudentRows({ students, ledger, classes, feeColumns, configs }) {
     .map((student) => {
       const entry = ledgerMap[student.id] || null;
       const fees = feeColumns.reduce((map, feeName) => {
-        map[feeName] = getConfiguredFeeAmount(student.classId, feeName, feeLookup);
+        map[feeName] = getConfiguredFeeAmount(student.classId, student.id, feeName, feeLookup);
         return map;
       }, {});
 
@@ -418,22 +440,56 @@ function buildStudentRows({ students, ledger, classes, feeColumns, configs }) {
 
 function buildFeeSnapshotPayload({ students, feeColumns, sessionLabel, currentTerm }) {
   const payloads = [];
-  const seen = new Set();
 
+  // Group students by class so each fee heading gets a per-class default plus only the
+  // per-student overrides that differ from it. This keeps storage lean when "Apply Fee To All"
+  // is used (one class row, no overrides) while still allowing a different amount per student.
+  const studentsByClass = new Map();
   students.forEach((student) => {
-    feeColumns.forEach((feeName, index) => {
-      const classKey = String(student.classId || '').trim() || '__all__';
-      const uniqueKey = `${classKey}::${String(feeName || '').toLowerCase()}`;
-      if (seen.has(uniqueKey)) {
-        return;
-      }
+    const classKey = String(student.classId || '').trim();
+    if (!studentsByClass.has(classKey)) {
+      studentsByClass.set(classKey, []);
+    }
+    studentsByClass.get(classKey).push(student);
+  });
 
-      seen.add(uniqueKey);
+  feeColumns.forEach((feeName, index) => {
+    studentsByClass.forEach((classStudents) => {
+      // The most common amount in the class becomes the default; everyone else is an override.
+      const amountCounts = new Map();
+      classStudents.forEach((student) => {
+        const amount = Number(student?.fees?.[feeName] || 0);
+        amountCounts.set(amount, (amountCounts.get(amount) || 0) + 1);
+      });
+
+      let defaultAmount = 0;
+      let bestCount = -1;
+      amountCounts.forEach((count, amount) => {
+        if (count > bestCount) {
+          bestCount = count;
+          defaultAmount = amount;
+        }
+      });
+
       payloads.push({
         feeType: feeName,
-        classId: student.classId || '',
-        amount: Number(student?.fees?.[feeName] || 0),
+        classId: classStudents[0]?.classId || '',
+        studentId: '',
+        amount: defaultAmount,
         sortOrder: index,
+      });
+
+      classStudents.forEach((student) => {
+        const amount = Number(student?.fees?.[feeName] || 0);
+        if (amount !== defaultAmount) {
+          payloads.push({
+            feeType: feeName,
+            classId: student.classId || '',
+            studentId: student.id,
+            amount,
+            sortOrder: index,
+          });
+        }
       });
     });
   });
@@ -714,28 +770,21 @@ function FeesManagementBoard({ initialFinanceTab = 'fees' }) {
 
   function updateFee(studentId, feeName, value) {
     const nextValue = Number(value || 0);
-    const target = students.find((student) => student.id === studentId);
-    if (!target) {
-      return;
-    }
 
-    const targetClassKey = String(target.classId || target.id);
-
+    // Each student keeps an independent amount for every fee heading. Use "Apply Fee To All"
+    // when the heading should be the same for everyone.
     setStudents((currentStudents) =>
-      currentStudents.map((student) => {
-        const classKey = String(student.classId || student.id);
-        if (classKey !== targetClassKey) {
-          return student;
-        }
-
-        return {
-          ...student,
-          fees: {
-            ...student.fees,
-            [feeName]: nextValue,
-          },
-        };
-      }),
+      currentStudents.map((student) =>
+        student.id === studentId
+          ? {
+              ...student,
+              fees: {
+                ...student.fees,
+                [feeName]: nextValue,
+              },
+            }
+          : student,
+      ),
     );
     setDirty(true);
   }
@@ -1832,7 +1881,7 @@ function FeesManagementBoard({ initialFinanceTab = 'fees' }) {
                             <td className={TD}>
                               <div>
                                 <p className="font-semibold text-[#191970] dark:text-white">{student.className}</p>
-                                <p className="mt-1 text-xs text-[#800020] dark:text-[#bf00ff]">Class template</p>
+                                <p className="mt-1 text-xs text-[#800020] dark:text-[#bf00ff]">Per-student fees</p>
                               </div>
                             </td>
                             <td className={TD}>

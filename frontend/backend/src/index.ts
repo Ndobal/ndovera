@@ -1428,7 +1428,7 @@ async function getStudentFeeStatus(db: D1Database, tenantId: string, studentId: 
 }
 
 const FEES_LEDGER_DDL = `CREATE TABLE IF NOT EXISTS fees_ledger (id TEXT PRIMARY KEY, tenant_id TEXT, student_id TEXT, student_name TEXT, class_id TEXT, class_name TEXT, fee_amount REAL, amount_paid REAL, status TEXT, updated_at TEXT)`
-const FEES_CONFIG_DDL = `CREATE TABLE IF NOT EXISTS fees_config (id TEXT PRIMARY KEY, tenant_id TEXT, fee_type TEXT, class_id TEXT, amount REAL, session TEXT, term TEXT, sort_order INTEGER, created_at TEXT, updated_at TEXT)`
+const FEES_CONFIG_DDL = `CREATE TABLE IF NOT EXISTS fees_config (id TEXT PRIMARY KEY, tenant_id TEXT, fee_type TEXT, class_id TEXT, student_id TEXT, amount REAL, session TEXT, term TEXT, sort_order INTEGER, created_at TEXT, updated_at TEXT)`
 const FEES_PAYMENT_RECEIPTS_DDL = `CREATE TABLE IF NOT EXISTS fees_payment_receipts (id TEXT PRIMARY KEY, receipt_no TEXT, tenant_id TEXT, student_id TEXT, student_display_id TEXT, student_name TEXT, class_id TEXT, class_name TEXT, amount REAL, payment_type TEXT, payment_reference TEXT, fee_amount REAL, amount_paid_after REAL, balance_after REAL, status_after TEXT, recorded_by TEXT, verification_url TEXT, school_name TEXT, school_logo_url TEXT, session_name TEXT, term_name TEXT, receipt_kind TEXT, reissued_from_receipt_no TEXT, recorded_at TEXT)`
 const FEES_PAYMENT_CLAIMS_DDL = `CREATE TABLE IF NOT EXISTS fees_payment_claims (id TEXT PRIMARY KEY, tenant_id TEXT, student_id TEXT, student_name TEXT, class_id TEXT, class_name TEXT, claimant_user_id TEXT, claimant_name TEXT, claimant_role TEXT, amount REAL, payment_method TEXT, payer_name TEXT, payment_reference TEXT, payment_note TEXT, paid_at TEXT, status TEXT, account_name TEXT, account_number TEXT, bank_name TEXT, verified_by TEXT, verified_at TEXT, verification_note TEXT, receipt_id TEXT, receipt_no TEXT, created_at TEXT, updated_at TEXT)`
 const WEB_PUSH_SUBSCRIPTIONS_DDL = `CREATE TABLE IF NOT EXISTS web_push_subscriptions (id TEXT PRIMARY KEY, tenant_id TEXT, user_id TEXT, user_email TEXT, role_key TEXT, endpoint TEXT NOT NULL UNIQUE, p256dh TEXT, auth_secret TEXT, subscription_json TEXT, device_label TEXT, active INTEGER NOT NULL DEFAULT 1, created_at TEXT NOT NULL, updated_at TEXT NOT NULL, last_used_at TEXT)`
@@ -1447,6 +1447,7 @@ async function ensureFeesConfigTable(db: D1Database) {
   try { await db.exec('ALTER TABLE fees_config ADD COLUMN term TEXT') } catch {}
   try { await db.exec('ALTER TABLE fees_config ADD COLUMN sort_order INTEGER') } catch {}
   try { await db.exec('ALTER TABLE fees_config ADD COLUMN updated_at TEXT') } catch {}
+  try { await db.exec('ALTER TABLE fees_config ADD COLUMN student_id TEXT') } catch {}
 }
 
 async function ensureFeesPaymentReceiptsTable(db: D1Database) {
@@ -1529,6 +1530,7 @@ function mapFeeConfigRow(row: Record<string, any>) {
     tenantId: String(row.tenant_id || ''),
     feeType: String(row.fee_type || row.feeType || '').trim(),
     classId: String(row.class_id || row.classId || '').trim(),
+    studentId: String(row.student_id || row.studentId || '').trim(),
     amount: Number(row.amount || 0),
     session: String(row.session || '').trim(),
     term: String(row.term || '').trim(),
@@ -1633,10 +1635,13 @@ async function replaceFeesConfigSnapshot(db: D1Database, options: {
     if (!feeType) return
 
     const classId = String(config.classId || config.class_id || '').trim()
-    const key = `${classId || '__all__'}::${feeType.toLowerCase()}`
+    // A blank studentId means the row is the class-level default; a set studentId is a per-student override.
+    const studentId = String(config.studentId || config.student_id || '').trim()
+    const key = `${classId || '__all__'}::${studentId || '__all__'}::${feeType.toLowerCase()}`
     normalizedMap.set(key, {
       feeType,
       classId,
+      studentId,
       amount: Number(config.amount || 0),
       sortOrder: Number(config.sortOrder ?? config.sort_order ?? index),
     })
@@ -1648,24 +1653,28 @@ async function replaceFeesConfigSnapshot(db: D1Database, options: {
 
   const normalized = Array.from(normalizedMap.values()).sort((left, right) => Number(left.sortOrder || 0) - Number(right.sortOrder || 0))
 
-  for (const config of normalized) {
-    const id = [
-      'fc',
-      options.tenantId,
-      slugifyValue(sessionName || 'session').slice(0, 24) || 'session',
-      slugifyValue(termName || 'term').slice(0, 16) || 'term',
-      slugifyValue(config.classId || 'all').slice(0, 24) || 'all',
-      slugifyValue(config.feeType).slice(0, 40) || 'fee',
-    ].join('_')
+  const buildConfigId = (config: Record<string, any>) => [
+    'fc',
+    options.tenantId,
+    slugifyValue(sessionName || 'session').slice(0, 24) || 'session',
+    slugifyValue(termName || 'term').slice(0, 16) || 'term',
+    slugifyValue(config.classId || 'all').slice(0, 24) || 'all',
+    slugifyValue(config.studentId || 'all').slice(0, 32) || 'all',
+    slugifyValue(config.feeType).slice(0, 40) || 'fee',
+  ].join('_')
 
-    await db.prepare(
-      `INSERT OR REPLACE INTO fees_config (id, tenant_id, fee_type, class_id, amount, session, term, sort_order, created_at, updated_at)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, COALESCE((SELECT created_at FROM fees_config WHERE id = ?), ?), ?)`
+  // Per-student fees can produce many rows, so write them in batches instead of one await per row.
+  const statements = normalized.map((config) => {
+    const id = buildConfigId(config)
+    return db.prepare(
+      `INSERT OR REPLACE INTO fees_config (id, tenant_id, fee_type, class_id, student_id, amount, session, term, sort_order, created_at, updated_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, COALESCE((SELECT created_at FROM fees_config WHERE id = ?), ?), ?)`
     ).bind(
       id,
       options.tenantId,
       config.feeType,
       config.classId || null,
+      config.studentId || null,
       Number(config.amount || 0),
       sessionName,
       termName,
@@ -1673,21 +1682,19 @@ async function replaceFeesConfigSnapshot(db: D1Database, options: {
       id,
       now,
       now,
-    ).run()
+    )
+  })
+
+  for (let index = 0; index < statements.length; index += 40) {
+    await db.batch(statements.slice(index, index + 40))
   }
 
   return normalized.map((config) => ({
-    id: [
-      'fc',
-      options.tenantId,
-      slugifyValue(sessionName || 'session').slice(0, 24) || 'session',
-      slugifyValue(termName || 'term').slice(0, 16) || 'term',
-      slugifyValue(config.classId || 'all').slice(0, 24) || 'all',
-      slugifyValue(config.feeType).slice(0, 40) || 'fee',
-    ].join('_'),
+    id: buildConfigId(config),
     tenantId: options.tenantId,
     feeType: config.feeType,
     classId: config.classId,
+    studentId: config.studentId,
     amount: Number(config.amount || 0),
     session: sessionName,
     term: termName,
@@ -2551,6 +2558,7 @@ function requestPrefersHtml(c: any) {
 
 function buildFeesConfigLookup(configRows: Record<string, any>[] = []) {
   const feeLookup = {} as Record<string, number>
+  const studentFeeLookup = {} as Record<string, number>
   const feeTypes = new Set<string>()
 
   const orderedRows = [...configRows].sort((left, right) => {
@@ -2565,6 +2573,16 @@ function buildFeesConfigLookup(configRows: Record<string, any>[] = []) {
     if (!feeType) continue
 
     feeTypes.add(feeType)
+    const studentId = String(config.student_id || config.studentId || '').trim()
+
+    if (studentId) {
+      const studentKey = `${studentId}::${feeType.toLowerCase()}`
+      if (studentFeeLookup[studentKey] === undefined) {
+        studentFeeLookup[studentKey] = Number(config.amount || 0)
+      }
+      continue
+    }
+
     const classKey = String(config.class_id || config.classId || '').trim() || '__all__'
     const lookupKey = `${classKey}::${feeType.toLowerCase()}`
 
@@ -2575,16 +2593,29 @@ function buildFeesConfigLookup(configRows: Record<string, any>[] = []) {
 
   return {
     feeLookup,
+    studentFeeLookup,
     feeTypes: Array.from(feeTypes),
   }
 }
 
-function computeConfiguredFeeTotal(classId: unknown, feeTypes: string[], feeLookup: Record<string, number>) {
+function computeConfiguredFeeTotal(
+  classId: unknown,
+  studentId: unknown,
+  feeTypes: string[],
+  feeLookup: Record<string, number>,
+  studentFeeLookup: Record<string, number> = {},
+) {
   const classKey = String(classId || '').trim() || '__all__'
+  const studentKey = String(studentId || '').trim()
 
   return feeTypes.reduce((sum, feeType) => {
-    const exactKey = `${classKey}::${feeType.toLowerCase()}`
-    const fallbackKey = `__all__::${feeType.toLowerCase()}`
+    const normalizedFee = feeType.toLowerCase()
+    const studentOverride = studentKey ? studentFeeLookup[`${studentKey}::${normalizedFee}`] : undefined
+    if (studentOverride !== undefined) {
+      return sum + Number(studentOverride || 0)
+    }
+    const exactKey = `${classKey}::${normalizedFee}`
+    const fallbackKey = `__all__::${normalizedFee}`
     const amount = feeLookup[exactKey] !== undefined ? feeLookup[exactKey] : feeLookup[fallbackKey]
     return sum + Number(amount || 0)
   }, 0)
@@ -2685,7 +2716,7 @@ async function listVisibleFeeLedgerEntries(db: D1Database, currentUser: Record<s
     currentSession.sessionName,
     currentSession.termName,
   )
-  const { feeLookup, feeTypes } = buildFeesConfigLookup(activeConfigRows)
+  const { feeLookup, studentFeeLookup, feeTypes } = buildFeesConfigLookup(activeConfigRows)
 
   return {
     allowed: true,
@@ -2693,7 +2724,7 @@ async function listVisibleFeeLedgerEntries(db: D1Database, currentUser: Record<s
     role,
     ledger: students.map(student => {
       const ledgerRow = ledgerMap.get(String(student.id || '')) || null
-      const configuredFeeAmount = computeConfiguredFeeTotal(student.classId, feeTypes, feeLookup)
+      const configuredFeeAmount = computeConfiguredFeeTotal(student.classId, student.id, feeTypes, feeLookup, studentFeeLookup)
       const recordedFeeAmount = Number(ledgerRow?.fee_amount || 0)
       const feeAmount = recordedFeeAmount > 0 ? recordedFeeAmount : configuredFeeAmount
       const amountPaid = Number(ledgerRow?.amount_paid || 0)
@@ -14311,14 +14342,14 @@ app.post('/api/school/fees-config', authenticate, async (c) => {
   if (!hasRequiredRole(c.var.user.role, ['owner', 'hos', 'accountant'])) return c.json({ error: 'forbidden' }, 403)
   const tenantId = c.var.user?.tenantId
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
-  const { feeType, classId, amount, session, term, sortOrder } = await c.req.json()
+  const { feeType, classId, studentId, amount, session, term, sortOrder } = await c.req.json()
   if (amount === undefined || amount === null || amount === '') return c.json({ error: 'Amount required.' }, 400)
   const id = `fc_${tenantId}_${Date.now()}`
   try {
     await ensureFeesConfigTable(c.env.APP_DB)
     const timestamp = new Date().toISOString()
-    await c.env.APP_DB.prepare(`INSERT OR REPLACE INTO fees_config (id, tenant_id, fee_type, class_id, amount, session, term, sort_order, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
-      .bind(id, tenantId, feeType || 'Tuition', classId || null, Number(amount), normalizeFeeConfigPeriodValue(session), normalizeFeeConfigPeriodValue(term), Number(sortOrder || 0), timestamp, timestamp).run()
+    await c.env.APP_DB.prepare(`INSERT OR REPLACE INTO fees_config (id, tenant_id, fee_type, class_id, student_id, amount, session, term, sort_order, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
+      .bind(id, tenantId, feeType || 'Tuition', classId || null, String(studentId || '').trim() || null, Number(amount), normalizeFeeConfigPeriodValue(session), normalizeFeeConfigPeriodValue(term), Number(sortOrder || 0), timestamp, timestamp).run()
     return c.json({ success: true, id }, 201)
   } catch (err) { return c.json({ error: 'Could not save fees config.' }, 500) }
 })

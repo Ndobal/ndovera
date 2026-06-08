@@ -229,6 +229,9 @@ export default function ResultAdminConsole({ analyticsMode = 'hos', roleTitle = 
       await loadConsole(selectedBatchKey, classMap);
     } catch (saveError) {
       setError(saveError.message || 'Unable to save result settings.');
+      // Re-throw so the settings panel can surface the exact reason right next to the Save button,
+      // where the user is actually looking (the page-level banner is far above the form).
+      throw saveError;
     } finally {
       setSaving(false);
     }

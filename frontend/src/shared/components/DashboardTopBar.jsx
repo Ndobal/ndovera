@@ -199,18 +199,34 @@ export default function DashboardTopBar({ authUser = null, onLogout = () => {}, 
 
   useEffect(() => {
     let mounted = true;
+    let signature = '';
 
+    // Background polls only push new state when something actually changed, so the header
+    // bell/chat badges and dropdowns never re-render (blink) on identical refreshes.
     const load = async () => {
       const data = await getHeaderBarData(roleKey);
       if (!mounted) return;
+      const chatItems = data.chatItems || [];
+      const notificationItems = data.notificationItems || [];
+      const nextSignature = JSON.stringify({
+        c: data.chats ?? baseStats.chats,
+        n: data.notifications ?? baseStats.notifications,
+        ci: chatItems.map(item => `${item.id || ''}:${item.updatedAt || item.preview || ''}`),
+        ni: notificationItems.map(item => `${item.id || ''}:${item.createdAt || item.preview || ''}`),
+      });
+      if (nextSignature === signature) return;
+      signature = nextSignature;
       setChatsCount(data.chats ?? baseStats.chats);
       setNotificationsCount(data.notifications ?? baseStats.notifications);
-      setChatItems(data.chatItems || []);
-      setNotificationItems(data.notificationItems || []);
+      setChatItems(chatItems);
+      setNotificationItems(notificationItems);
     };
 
     load();
-    const timer = setInterval(load, 12000);
+    const timer = setInterval(() => {
+      if (typeof document !== 'undefined' && document.visibilityState === 'hidden') return;
+      load();
+    }, 12000);
 
     return () => {
       mounted = false;

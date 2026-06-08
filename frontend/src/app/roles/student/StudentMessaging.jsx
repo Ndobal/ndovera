@@ -15,7 +15,7 @@ import { CHAT_EMOJIS, CHAT_STICKERS, getChatInitials, getChatAvatarColor } from 
 
 const STUDENT_MESSAGING_INTENT_KEY = 'studentMessagingIntent';
 const QUICK_EMOJIS = CHAT_EMOJIS;
-const CONTACT_POLL_INTERVAL_MS = 3600000;  // contact/thread list refreshes hourly; manual button for sooner
+const CONTACT_POLL_INTERVAL_MS = 15000;    // silent background sync of the recent-chats list (no spinner, only swaps on change)
 const MESSAGE_POLL_INTERVAL_MS = 6000;     // quiet background sync of the open thread
 
 function uniqueIdentifiers(values) {
@@ -251,6 +251,10 @@ export default function StudentMessaging({
   const [messages, setMessages] = useState([]);
   const [composer, setComposer] = useState('');
   const [contactQuery, setContactQuery] = useState('');
+  // The full directory stays hidden until the user opens it (search or the contacts icon),
+  // then disappears again once they pick someone — like WhatsApp's "new chat" flow.
+  const [contactsOpen, setContactsOpen] = useState(false);
+  const [directoryQuery, setDirectoryQuery] = useState('');
   const [loadingContacts, setLoadingContacts] = useState(true);
   const [loadingConversations, setLoadingConversations] = useState(true);
   const [loadingMessages, setLoadingMessages] = useState(false);
@@ -265,6 +269,7 @@ export default function StudentMessaging({
   const contactSearchRef = useRef(null);
   const messagesEndRef = useRef(null);
   const messageSignatureRef = useRef('');
+  const conversationsSignatureRef = useRef('');
 
   async function refreshConversations(preferredConversationId) {
     if (!me) {
@@ -276,6 +281,9 @@ export default function StudentMessaging({
     const payload = await requestJson(`/api/conversations?userId=${encodeURIComponent(me)}`, token);
     const nextConversations = payload.conversations || [];
 
+    conversationsSignatureRef.current = nextConversations
+      .map(conversation => `${conversation.id}:${conversation.updated_at || conversation.updatedAt || ''}:${conversation.preview || conversation.lastMessage || ''}`)
+      .join('|');
     setConversations(nextConversations);
     setActiveConversationId(currentConversationId => {
       const nextId = preferredConversationId || currentConversationId;
@@ -341,7 +349,7 @@ export default function StudentMessaging({
   useEffect(() => {
     let ignore = false;
 
-    async function loadConversations() {
+    async function loadConversations({ silent = false } = {}) {
       if (!me) {
         setConversations([]);
         setActiveConversationId('');
@@ -350,28 +358,38 @@ export default function StudentMessaging({
         return;
       }
 
-      setLoadingConversations(true);
+      // Background polls stay silent: no spinner, and we only swap the list in when it
+      // actually changed, so the sidebar never flickers between identical states.
+      if (!silent) setLoadingConversations(true);
 
       try {
         const payload = await requestJson(`/api/conversations?userId=${encodeURIComponent(me)}`, token);
         const nextConversations = payload.conversations || [];
+        const signature = nextConversations
+          .map(conversation => `${conversation.id}:${conversation.updated_at || conversation.updatedAt || ''}:${conversation.preview || conversation.lastMessage || ''}`)
+          .join('|');
 
-        if (!ignore) {
+        if (!ignore && (!silent || signature !== conversationsSignatureRef.current)) {
+          conversationsSignatureRef.current = signature;
           setConversations(nextConversations);
           setActiveConversationId(currentConversationId => {
             if (currentConversationId && nextConversations.some(conversation => conversation.id === currentConversationId)) {
               return currentConversationId;
             }
-            return nextConversations[0]?.id || '';
+            // On mobile we keep the list view until the user opens a thread; only auto-open on wide screens.
+            if (!silent && typeof window !== 'undefined' && window.innerWidth >= 1280) {
+              return nextConversations[0]?.id || '';
+            }
+            return currentConversationId || '';
           });
-          setActionError('');
         }
+        if (!ignore && !silent) setActionError('');
       } catch (error) {
-        if (!ignore) {
+        if (!ignore && !silent) {
           setActionError(error instanceof Error ? error.message : 'Could not load conversations.');
         }
       } finally {
-        if (!ignore) {
+        if (!ignore && !silent) {
           setLoadingConversations(false);
           setConversationsLoaded(true);
         }
@@ -379,7 +397,10 @@ export default function StudentMessaging({
     }
 
     loadConversations();
-    const poll = window.setInterval(loadConversations, CONTACT_POLL_INTERVAL_MS);
+    const poll = window.setInterval(() => {
+      if (document.visibilityState === 'hidden') return;
+      loadConversations({ silent: true });
+    }, CONTACT_POLL_INTERVAL_MS);
     return () => {
       ignore = true;
       window.clearInterval(poll);
@@ -444,7 +465,7 @@ export default function StudentMessaging({
   const adminContacts = useMemo(() => directoryContacts.filter(contact => contact.isAdmin), [directoryContacts]);
 
   const filteredContactGroups = useMemo(() => {
-    const normalizedQuery = String(contactQuery || '').trim().toLowerCase();
+    const normalizedQuery = String(directoryQuery || '').trim().toLowerCase();
     const filterContacts = (contacts) => contacts.filter(contact => contactMatchesQuery(contact, normalizedQuery));
 
     if (normalizedViewerRole === 'parent') {
@@ -469,7 +490,7 @@ export default function StudentMessaging({
       { key: 'students', label: 'Students', contacts: filterContacts(directoryContacts.filter(contact => contact.isStudent)) },
       { key: 'others', label: 'Other Contacts', contacts: filterContacts(directoryContacts.filter(contact => !contact.isAdmin && !contact.isTeacher && !contact.isStudent)) },
     ].filter(group => group.contacts.length > 0);
-  }, [adminContacts, contactQuery, directoryContacts, normalizedViewerRole]);
+  }, [adminContacts, directoryQuery, directoryContacts, normalizedViewerRole]);
 
   const contactLookup = useMemo(() => {
     const map = new Map();
@@ -551,8 +572,19 @@ export default function StudentMessaging({
     return contactLookup.get(String(identifier || ''))?.roleSummary || contactLookup.get(String(identifier || ''))?.role || 'School Contact';
   }
 
+  function openDirectory() {
+    setContactsOpen(true);
+  }
+
+  function closeDirectory() {
+    setContactsOpen(false);
+    setDirectoryQuery('');
+  }
+
   async function startConversationWith(contact) {
     setActionError('');
+    // Picking a contact closes the directory again so the list never lingers on screen.
+    closeDirectory();
 
     const existingConversation = conversations.find(conversation => {
       const participants = Array.isArray(conversation.participants) ? conversation.participants.map(value => String(value || '')) : [];
@@ -732,42 +764,53 @@ export default function StudentMessaging({
     }
   }
 
+  const showSidebarOnMobile = !activeConversation;
+
   return (
     <StudentSectionShell
       title={title || uiConfig.title}
       subtitle={subtitle || uiConfig.subtitle}
       dashboardLabel={dashboardLabel || `${uiConfig.roleLabel} Dashboard`}
       watermarkText={`${uiConfig.roleLabel} Messaging`}
+      viewportLocked
     >
-      <div className="grid min-h-[calc(100vh-12rem)] grid-cols-1 gap-5 xl:grid-cols-[340px_minmax(0,1fr)]">
-        <aside className="flex min-h-[42rem] flex-col overflow-hidden rounded-[2rem] border border-[#800000]/15 bg-[#f5deb3]/95 shadow-[0_22px_48px_rgba(128,0,0,0.08)] dark:border-[#bf00ff]/30 dark:bg-[#800000]/70">
-          <div className="border-b border-[#800000]/10 px-5 py-5 dark:border-[#bf00ff]/20">
+      <div className="grid h-full min-h-0 grid-cols-1 gap-4 overflow-hidden xl:grid-cols-[340px_minmax(0,1fr)]">
+        <aside className={`${showSidebarOnMobile ? 'flex' : 'hidden'} min-h-0 flex-col overflow-hidden rounded-[2rem] border border-[#800000]/15 bg-[#f5deb3]/95 shadow-[0_22px_48px_rgba(128,0,0,0.08)] dark:border-[#bf00ff]/30 dark:bg-[#800000]/70 xl:flex`}>
+          <div className="border-b border-[#800000]/10 px-5 py-4 dark:border-[#bf00ff]/20">
             <div className="flex items-center gap-3">
-              <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#1a5c38]/12 text-[#1a5c38] dark:bg-[#00ffff]/12 dark:text-[#00ffff]">
+              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#1a5c38]/12 text-[#1a5c38] dark:bg-[#00ffff]/12 dark:text-[#00ffff]">
                 <ChatBubbleLeftRightIcon className="h-6 w-6" />
               </span>
-              <div>
-                <h2 className="text-xl font-semibold text-[#800000] dark:text-[#0000ff]">Chat Hub</h2>
-                <p className="mt-1 text-sm text-[#191970] dark:text-[#39ff14]">{uiConfig.hubDescription}</p>
+              <div className="min-w-0 flex-1">
+                <h2 className="text-lg font-semibold text-[#800000] dark:text-[#0000ff]">Chats</h2>
+                <p className="truncate text-xs text-[#191970] dark:text-[#39ff14]">{uiConfig.hubDescription}</p>
               </div>
+              <button
+                type="button"
+                onClick={openDirectory}
+                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#1a5c38] text-[#f5deb3] transition hover:brightness-110 dark:bg-[#00ffff] dark:text-black"
+                title="New chat — open contacts"
+                aria-label="Open contacts"
+              >
+                <UserGroupIcon className="h-5 w-5" />
+              </button>
             </div>
 
-            <div className="mt-4 flex items-center gap-2">
-              <label className="flex flex-1 items-center gap-3 rounded-2xl border border-[#800000]/10 bg-white/70 px-4 py-3 dark:border-[#bf00ff]/20 dark:bg-[#191970]/35">
+            <div className="mt-3 flex items-center gap-2">
+              <label className="flex flex-1 items-center gap-3 rounded-2xl border border-[#800000]/10 bg-white/70 px-4 py-2.5 dark:border-[#bf00ff]/20 dark:bg-[#191970]/35">
                 <MagnifyingGlassIcon className="h-5 w-5 text-[#800020] dark:text-[#bf00ff]" />
                 <input
-                  ref={contactSearchRef}
                   value={contactQuery}
                   onChange={event => setContactQuery(event.target.value)}
-                  placeholder="Search a name to chat with"
+                  placeholder="Search your chats"
                   className="w-full bg-transparent text-sm text-[#191970] outline-none placeholder:text-[#800020]/65 dark:text-[#ffffff] dark:placeholder:text-[#bf00ff]/70"
                 />
               </label>
               <button
                 type="button"
                 onClick={refreshLists}
-                className="shrink-0 rounded-2xl bg-[#1a5c38] px-3 py-3 text-xs font-bold text-[#f5deb3] dark:bg-[#00ffff] dark:text-black"
-                title="Refresh contacts"
+                className="shrink-0 rounded-2xl bg-[#1a5c38] px-3 py-2.5 text-xs font-bold text-[#f5deb3] dark:bg-[#00ffff] dark:text-black"
+                title="Refresh chats"
               >
                 {loadingContacts || loadingConversations ? '…' : '↻'}
               </button>
@@ -845,57 +888,22 @@ export default function StudentMessaging({
 
                 {!loadingConversations && conversationCards.length === 0 ? (
                   <div className="rounded-2xl border border-dashed border-[#800000]/15 px-4 py-5 text-sm text-[#191970] dark:border-[#bf00ff]/25 dark:text-[#39ff14]">
-                    {uiConfig.emptyConversationCopy}
+                    <p>{uiConfig.emptyConversationCopy}</p>
+                    <button
+                      type="button"
+                      onClick={openDirectory}
+                      className="mt-3 inline-flex items-center gap-2 rounded-2xl bg-[#1a5c38] px-4 py-2 text-xs font-bold text-[#f5deb3] dark:bg-[#00ffff] dark:text-black"
+                    >
+                      <UserGroupIcon className="h-4 w-4" /> Find someone to message
+                    </button>
                   </div>
                 ) : null}
-              </div>
-            </div>
-
-            <div className="mt-4 rounded-3xl border border-[#800000]/10 bg-white/55 p-4 dark:border-[#bf00ff]/20 dark:bg-[#191970]/35">
-              <div className="flex items-center gap-2">
-                <UserGroupIcon className="h-5 w-5 text-[#800020] dark:text-[#bf00ff]" />
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#800020] dark:text-[#bf00ff]">Contacts</p>
-              </div>
-
-              <div className="mt-3 space-y-4">
-                {loadingContacts ? (
-                  <p className="text-sm text-[#191970] dark:text-[#39ff14]">Loading school contacts...</p>
-                ) : filteredContactGroups.length === 0 ? (
-                  <div className="rounded-2xl border border-dashed border-[#800000]/15 px-4 py-5 text-sm text-[#191970] dark:border-[#bf00ff]/25 dark:text-[#39ff14]">
-                    No contacts match your search yet.
-                  </div>
-                ) : filteredContactGroups.map(group => (
-                  <div key={group.key}>
-                    <div className="mb-2 flex items-center justify-between gap-3">
-                      <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#800020] dark:text-[#bf00ff]">{group.label}</p>
-                      <span className="text-[11px] text-[#191970] dark:text-[#39ff14]">{group.contacts.length}</span>
-                    </div>
-                    <div className="space-y-2">
-                      {group.contacts.map(contact => (
-                        <button
-                          key={contact.id}
-                          type="button"
-                          onClick={() => startConversationWith(contact)}
-                          className="flex w-full items-center gap-3 rounded-2xl border border-[#800000]/10 bg-[#fff8ee] px-3 py-3 text-left transition hover:-translate-y-0.5 hover:shadow-[0_12px_24px_rgba(128,0,0,0.08)] dark:border-[#bf00ff]/20 dark:bg-[#120014]/55"
-                        >
-                          <ConversationAvatar title={contact.name} contactType={contact.isAdmin ? 'admin' : 'conversation'} />
-                          <div className="min-w-0 flex-1">
-                            <p className="truncate text-sm font-semibold text-[#800000] dark:text-[#ffffff]">{contact.name}</p>
-                            <p className="truncate text-xs text-[#800020] dark:text-[#bf00ff]">
-                              {contact.roleSummary}{contact.displayId ? ` • ${contact.displayId}` : ''}
-                            </p>
-                          </div>
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                ))}
               </div>
             </div>
           </div>
         </aside>
 
-        <section className="flex min-h-[42rem] flex-col overflow-hidden rounded-[2rem] border border-[#800000]/15 bg-[#f5deb3] shadow-[0_26px_60px_rgba(128,0,0,0.10)] dark:border-[#bf00ff]/30 dark:bg-[#800000]/75">
+        <section className={`${showSidebarOnMobile ? 'hidden' : 'flex'} min-h-0 flex-col overflow-hidden rounded-[2rem] border border-[#800000]/15 bg-[#f5deb3] shadow-[0_26px_60px_rgba(128,0,0,0.10)] dark:border-[#bf00ff]/30 dark:bg-[#800000]/75 xl:flex`}>
           {!me ? (
             <div className="flex flex-1 items-center justify-center px-6 text-sm text-[#191970] dark:text-[#39ff14]">
               Sign in again to load your messages.
@@ -909,11 +917,27 @@ export default function StudentMessaging({
               <p className="mt-2 max-w-xl text-sm leading-6 text-[#191970] dark:text-[#39ff14]">
                 {uiConfig.emptyStateDescription}
               </p>
+              <button
+                type="button"
+                onClick={openDirectory}
+                className="mt-5 inline-flex items-center gap-2 rounded-full bg-[#1a5c38] px-5 py-2.5 text-sm font-bold text-[#f5deb3] transition hover:brightness-110 dark:bg-[#00ffff] dark:text-black"
+              >
+                <UserGroupIcon className="h-5 w-5" /> Start a new chat
+              </button>
             </div>
           ) : (
             <>
-              <div className="border-b border-[#800000]/10 px-6 py-5 dark:border-[#bf00ff]/20">
-                <div className="flex items-start gap-4">
+              <div className="border-b border-[#800000]/10 px-5 py-4 dark:border-[#bf00ff]/20 md:px-6 md:py-5">
+                <div className="flex items-start gap-3 md:gap-4">
+                  <button
+                    type="button"
+                    onClick={() => setActiveConversationId('')}
+                    className="mt-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[#800000]/15 bg-white/70 text-lg font-bold text-[#800020] xl:hidden dark:border-[#bf00ff]/25 dark:bg-[#191970]/35 dark:text-[#bf00ff]"
+                    aria-label="Back to chats"
+                    title="Back to chats"
+                  >
+                    ‹
+                  </button>
                   <ConversationAvatar title={activeConversation.title} contactType={activeConversation.contactType} />
                   <div className="min-w-0 flex-1">
                     <div className="flex flex-wrap items-center gap-3">
@@ -1066,9 +1090,10 @@ export default function StudentMessaging({
                       </button>
                       <button
                         type="button"
-                        onClick={() => contactSearchRef.current?.focus()}
+                        onClick={openDirectory}
                         className="flex h-10 w-10 items-center justify-center rounded-full border border-[#800000]/10 bg-white/75 text-[#800020] transition hover:border-[#1a5c38]/35 hover:text-[#1a5c38] dark:border-[#bf00ff]/20 dark:bg-[#191970]/35 dark:text-[#bf00ff] dark:hover:border-[#00ffff] dark:hover:text-[#00ffff]"
                         aria-label="Open contacts"
+                        title="Open contacts"
                       >
                         <UserGroupIcon className="h-5 w-5" />
                       </button>
@@ -1091,6 +1116,94 @@ export default function StudentMessaging({
           )}
         </section>
       </div>
+
+      {contactsOpen ? (
+        <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/50 p-0 sm:items-center sm:p-4" role="presentation" onClick={closeDirectory}>
+          <div
+            className="flex max-h-[85vh] w-full max-w-lg flex-col overflow-hidden rounded-t-3xl border border-[#800000]/20 bg-[#f5deb3] shadow-2xl sm:rounded-3xl dark:border-[#bf00ff]/30 dark:bg-[#191970]"
+            onClick={event => event.stopPropagation()}
+          >
+            <div className="flex items-center gap-3 border-b border-[#800000]/10 px-5 py-4 dark:border-[#bf00ff]/20">
+              <UserGroupIcon className="h-6 w-6 text-[#1a5c38] dark:text-[#00ffff]" />
+              <div className="min-w-0 flex-1">
+                <h3 className="text-lg font-semibold text-[#800000] dark:text-[#0000ff]">New chat</h3>
+                <p className="truncate text-xs text-[#191970] dark:text-[#39ff14]">Search or pick a contact to start a conversation.</p>
+              </div>
+              <button
+                type="button"
+                onClick={closeDirectory}
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-[#800000]/15 text-[#800020] dark:border-[#bf00ff]/25 dark:text-[#bf00ff]"
+                aria-label="Close contacts"
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className="border-b border-[#800000]/10 px-5 py-3 dark:border-[#bf00ff]/20">
+              <label className="flex items-center gap-3 rounded-2xl border border-[#800000]/10 bg-white/70 px-4 py-2.5 dark:border-[#bf00ff]/20 dark:bg-[#191970]/35">
+                <MagnifyingGlassIcon className="h-5 w-5 text-[#800020] dark:text-[#bf00ff]" />
+                <input
+                  ref={contactSearchRef}
+                  value={directoryQuery}
+                  onChange={event => setDirectoryQuery(event.target.value)}
+                  placeholder="Search people by name, ID, or role"
+                  autoFocus
+                  className="w-full bg-transparent text-sm text-[#191970] outline-none placeholder:text-[#800020]/65 dark:text-[#ffffff] dark:placeholder:text-[#bf00ff]/70"
+                />
+              </label>
+            </div>
+
+            <div className="flex-1 overflow-y-auto px-5 py-4">
+              <button
+                type="button"
+                onClick={() => startConversationWith(supportContact)}
+                className="mb-4 flex w-full items-center gap-3 rounded-2xl border border-[#1a5c38]/15 bg-[#1a5c38]/8 px-3 py-3 text-left transition hover:-translate-y-0.5 dark:border-[#00ffff]/20 dark:bg-[#00ffff]/10"
+              >
+                <ConversationAvatar title={supportContact.name} contactType="support" />
+                <div className="min-w-0">
+                  <p className="truncate text-sm font-semibold text-[#800000] dark:text-[#ffffff]">{supportContact.name}</p>
+                  <p className="truncate text-xs text-[#800020] dark:text-[#bf00ff]">{supportContact.roleSummary}</p>
+                </div>
+              </button>
+
+              <div className="space-y-4">
+                {loadingContacts ? (
+                  <p className="text-sm text-[#191970] dark:text-[#39ff14]">Loading school contacts...</p>
+                ) : filteredContactGroups.length === 0 ? (
+                  <div className="rounded-2xl border border-dashed border-[#800000]/15 px-4 py-5 text-sm text-[#191970] dark:border-[#bf00ff]/25 dark:text-[#39ff14]">
+                    No contacts match your search yet.
+                  </div>
+                ) : filteredContactGroups.map(group => (
+                  <div key={group.key}>
+                    <div className="mb-2 flex items-center justify-between gap-3">
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#800020] dark:text-[#bf00ff]">{group.label}</p>
+                      <span className="text-[11px] text-[#191970] dark:text-[#39ff14]">{group.contacts.length}</span>
+                    </div>
+                    <div className="space-y-2">
+                      {group.contacts.map(contact => (
+                        <button
+                          key={contact.id}
+                          type="button"
+                          onClick={() => startConversationWith(contact)}
+                          className="flex w-full items-center gap-3 rounded-2xl border border-[#800000]/10 bg-[#fff8ee] px-3 py-3 text-left transition hover:-translate-y-0.5 hover:shadow-[0_12px_24px_rgba(128,0,0,0.08)] dark:border-[#bf00ff]/20 dark:bg-[#120014]/55"
+                        >
+                          <ConversationAvatar title={contact.name} contactType={contact.isAdmin ? 'admin' : 'conversation'} />
+                          <div className="min-w-0 flex-1">
+                            <p className="truncate text-sm font-semibold text-[#800000] dark:text-[#ffffff]">{contact.name}</p>
+                            <p className="truncate text-xs text-[#800020] dark:text-[#bf00ff]">
+                              {contact.roleSummary}{contact.displayId ? ` • ${contact.displayId}` : ''}
+                            </p>
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : null}
 
       {profileContact ? (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4" role="presentation" onClick={() => setProfileContact(null)}>

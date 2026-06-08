@@ -1,6 +1,7 @@
 export const classroomTabs = [
   { id: 'stream', label: 'Stream' },
   { id: 'subjects', label: 'Subjects' },
+  { id: 'timetable', label: 'Timetable' },
   { id: 'materials', label: 'Materials' },
   { id: 'practice', label: 'Practice' },
   { id: 'assignments', label: 'Assignments' },

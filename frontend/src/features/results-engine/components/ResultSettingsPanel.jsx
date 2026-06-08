@@ -290,6 +290,9 @@ export default function ResultSettingsPanel({
     });
   }, [form.templateKey, templates]);
 
+  const [saveError, setSaveError] = useState('');
+  const [saveMessage, setSaveMessage] = useState('');
+
   const caComponentEntries = parseCaComponentLines(form.caComponentsText);
   const caComponentTotal = caComponentEntries.reduce((sum, entry) => sum + Number(entry.maxScore || 0), 0);
   const scoreTotal = toNumber(form.caMaxScore, 0) + toNumber(form.examMaxScore, 0);
@@ -298,31 +301,53 @@ export default function ResultSettingsPanel({
     || templates[0]
     || null;
 
+  // Mirror the server-side save gate so the user sees exactly what is still blocking the save,
+  // right where the Save button is — instead of a generic failure scrolled far up the page.
+  const affectiveAreas = parseDomains(form.affectiveDomainsText);
+  const validationIssues = [];
+  if (!String(form.templateKey || '').trim()) validationIssues.push('Choose a result template.');
+  if (gradeRows.filter(row => String(row.grade || '').trim()).length === 0) validationIssues.push('Add at least one grade to the grading scale.');
+  if (ratingRows.filter(row => String(row.label || '').trim()).length === 0) validationIssues.push('Add at least one rating to the rating scale.');
+  if (affectiveRows.filter(row => String(row.label || '').trim()).length === 0) validationIssues.push('Add at least one level to the affective scale.');
+  if (affectiveAreas.length === 0) validationIssues.push('Add at least one affective area.');
+  if (affectiveAreas.length > 8) validationIssues.push('Affective areas can be at most 8.');
+  if (scoreTotal !== 100) validationIssues.push(`CA max + exam max must add up to 100 (currently ${scoreTotal}).`);
+  if (caComponentEntries.length === 0) validationIssues.push('Add at least one CA component.');
+  if (caComponentTotal !== toNumber(form.caMaxScore, 40)) validationIssues.push(`CA components must add up to the CA max score (${toNumber(form.caMaxScore, 40)}); they total ${caComponentTotal}.`);
+  if (!String(form.affectiveWriteUp || '').trim()) validationIssues.push('Add the affective write-up guide.');
+
   async function handleSubmit(event) {
     event.preventDefault();
+    setSaveError('');
+    setSaveMessage('');
     const existingMetadata = settings?.metadata && typeof settings.metadata === 'object' ? settings.metadata : {};
     const existingBranding = existingMetadata?.branding && typeof existingMetadata.branding === 'object' ? existingMetadata.branding : {};
-    await onSave({
-      templateKey: form.templateKey,
-      gradingScale: parseLines(form.gradingScaleText, 'grading'),
-      ratingScale: parseLines(form.ratingScaleText, 'value'),
-      affectiveScale: parseLines(form.affectiveScaleText, 'value'),
-      affectiveDomains: parseDomains(form.affectiveDomainsText),
-      metadata: {
-        ...existingMetadata,
-        affectiveWriteUp: form.affectiveWriteUp,
-        ratingDomains: parseDomains(form.ratingDomainsText),
-        caMaxScore: toNumber(form.caMaxScore, 40),
-        examMaxScore: toNumber(form.examMaxScore, 60),
-        caComponents: parseCaComponentLines(form.caComponentsText),
-        branding: {
-          ...existingBranding,
-          reportTitle: form.brandingReportTitle,
-          primaryColor: form.brandingPrimaryColor,
-          accentColor: form.brandingAccentColor,
+    try {
+      await onSave({
+        templateKey: form.templateKey,
+        gradingScale: parseLines(form.gradingScaleText, 'grading'),
+        ratingScale: parseLines(form.ratingScaleText, 'value'),
+        affectiveScale: parseLines(form.affectiveScaleText, 'value'),
+        affectiveDomains: parseDomains(form.affectiveDomainsText),
+        metadata: {
+          ...existingMetadata,
+          affectiveWriteUp: form.affectiveWriteUp,
+          ratingDomains: parseDomains(form.ratingDomainsText),
+          caMaxScore: toNumber(form.caMaxScore, 40),
+          examMaxScore: toNumber(form.examMaxScore, 60),
+          caComponents: parseCaComponentLines(form.caComponentsText),
+          branding: {
+            ...existingBranding,
+            reportTitle: form.brandingReportTitle,
+            primaryColor: form.brandingPrimaryColor,
+            accentColor: form.brandingAccentColor,
+          },
         },
-      },
-    });
+      });
+      setSaveMessage('Result settings saved. They will stay saved after a refresh.');
+    } catch (error) {
+      setSaveError(error?.message || 'Could not save result settings. Please fix the highlighted items and try again.');
+    }
   }
 
   return (
@@ -648,13 +673,35 @@ export default function ResultSettingsPanel({
         )}
 
         {canManageSettings && (
-          <button
-            type="submit"
-            disabled={saving}
-            className={RESULT_BUTTON}
-          >
-            {saving ? 'Saving settings...' : 'Save Result Settings'}
-          </button>
+          <div className="space-y-3">
+            {/* The live checklist is the most actionable, so it takes priority; a server-only
+                rejection shows next, and the success note only when everything is clear. */}
+            {validationIssues.length > 0 ? (
+              <div className="rounded-2xl border border-amber-300/45 bg-amber-100/70 px-4 py-3 text-sm text-[#800020] dark:border-amber-400/30 dark:bg-amber-500/10 dark:text-amber-100">
+                <p className="font-bold">Finish these before the settings can save:</p>
+                <ul className="mt-2 list-disc space-y-1 pl-5">
+                  {validationIssues.map(issue => (
+                    <li key={issue}>{issue}</li>
+                  ))}
+                </ul>
+              </div>
+            ) : saveError ? (
+              <div className="rounded-2xl border border-rose-300/40 bg-rose-100/70 px-4 py-3 text-sm font-semibold text-[#800020] dark:border-rose-400/30 dark:bg-rose-500/10 dark:text-rose-200">
+                {saveError}
+              </div>
+            ) : saveMessage ? (
+              <div className="rounded-2xl border border-emerald-300/40 bg-emerald-100/70 px-4 py-3 text-sm font-semibold text-[#1a5c38] dark:border-emerald-400/30 dark:bg-emerald-500/10 dark:text-emerald-200">
+                {saveMessage}
+              </div>
+            ) : null}
+            <button
+              type="submit"
+              disabled={saving}
+              className={RESULT_BUTTON}
+            >
+              {saving ? 'Saving settings...' : 'Save Result Settings'}
+            </button>
+          </div>
         )}
       </form>
     </section>

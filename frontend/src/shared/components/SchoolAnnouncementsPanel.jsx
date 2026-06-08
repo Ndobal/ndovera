@@ -56,8 +56,9 @@ export default function SchoolAnnouncementsPanel({
 
   useEffect(() => {
     let ignore = false;
+    let signature = '';
 
-    async function loadAnnouncements() {
+    async function loadAnnouncements({ silent = false } = {}) {
       if (!token) {
         if (!ignore) {
           setAnnouncements([]);
@@ -67,28 +68,36 @@ export default function SchoolAnnouncementsPanel({
         return;
       }
 
-      setLoading(true);
+      // Background polls stay silent: no spinner, and the list only swaps in when it
+      // actually changed, so the panel never blinks between identical refreshes.
+      if (!silent) setLoading(true);
 
       try {
         const payload = await requestJson('/api/announcements', token);
-        if (!ignore) {
-          setAnnouncements(payload.announcements || []);
+        const nextAnnouncements = payload.announcements || [];
+        const nextSignature = nextAnnouncements.map(item => `${item.id}:${item.createdAt || ''}`).join('|');
+        if (!ignore && (!silent || nextSignature !== signature)) {
+          signature = nextSignature;
+          setAnnouncements(nextAnnouncements);
           setCanCreate(Boolean(payload.canCreate));
-          setError('');
         }
+        if (!ignore && !silent) setError('');
       } catch (loadError) {
-        if (!ignore) {
+        if (!ignore && !silent) {
           setError(loadError instanceof Error ? loadError.message : 'Could not load announcements.');
         }
       } finally {
-        if (!ignore) {
+        if (!ignore && !silent) {
           setLoading(false);
         }
       }
     }
 
     loadAnnouncements();
-    const poll = window.setInterval(loadAnnouncements, 15000);
+    const poll = window.setInterval(() => {
+      if (document.visibilityState === 'hidden') return;
+      loadAnnouncements({ silent: true });
+    }, 15000);
     return () => {
       ignore = true;
       window.clearInterval(poll);

@@ -11,6 +11,7 @@ import AssignmentsTab from './assignments';
 import LiveTab from './live';
 import ClassmatesTab from './classmates';
 import TeachersTab from './teachers';
+import TimetableTab from './timetable/TimetableTab';
 import { getClassSubjects } from './classroomService';
 import { getStoredAuth } from '../auth/services/authApi';
 
@@ -34,6 +35,7 @@ export default function StudentClassroomExperience() {
   const renderActiveTab = () => {
     if (activeTab === 'stream') return <StreamTab />;
     if (activeTab === 'subjects') return <SubjectsTab classId={classId} subjects={subjects} canManage={false} />;
+    if (activeTab === 'timetable') return <TimetableTab />;
     if (activeTab === 'materials') return <MaterialsTab classId={classId} />;
     if (activeTab === 'practice') return <PracticeTab auraBalance={auraBalance} setAuraBalance={setAuraBalance} />;
     if (activeTab === 'assignments') return <AssignmentsTab classId={classId} />;
