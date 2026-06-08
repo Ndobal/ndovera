@@ -125,11 +125,16 @@ export default function ResultAdminConsole({ analyticsMode = 'hos', roleTitle = 
   const [files, setFiles] = useState([]);
   const [fileStudentMap, setFileStudentMap] = useState({});
   const [uploadReport, setUploadReport] = useState(null);
-  // Bulk upload mode: 'class' (one selected batch) or 'school' (every batch queued).
+  // Bulk upload mode: 'class' (one selected batch) or 'school' (whole school, no class).
   const [uploadMode, setUploadMode] = useState('class');
-  // School-wide upload queue
-  const [schoolQueue, setSchoolQueue] = useState([]); // [{ batch, files, status, progress, report }]
-  const [queueRunning, setQueueRunning] = useState(false);
+  // Whole-school upload: pick only session + term, drop every PDF, and the server matches each
+  // file to its student across all classes, processing them one chunk after another (queued).
+  const [schoolSession, setSchoolSession] = useState('');
+  const [schoolTerm, setSchoolTerm] = useState('');
+  const [schoolFiles, setSchoolFiles] = useState([]);
+  const [schoolUploading, setSchoolUploading] = useState(false);
+  const [schoolProgress, setSchoolProgress] = useState({ done: 0, total: 0 });
+  const [schoolReport, setSchoolReport] = useState(null);
   const loader = analyticsMode === 'owner' ? getOwnerResultAnalytics : getHoSResultAnalytics;
 
   const loadConsole = useCallback(async (nextBatchKey = '', nextClassMap = {}) => {
@@ -180,6 +185,7 @@ export default function ResultAdminConsole({ analyticsMode = 'hos', roleTitle = 
   }, [classMap, loadConsole, selectedBatchKey]);
 
   const batchOptions = Array.isArray(data?.batches) ? data.batches : [];
+  const schoolSessionOptions = collectSessionNames(sessionPayload, batchOptions);
   const selectableBatches = buildSelectableBatches(batchOptions, classMap, sessionPayload);
   const selectedBatch = selectableBatches.find(batch => buildBatchKey(batch) === selectedBatchKey) || data?.selectedBatch || null;
   const caComponents = Array.isArray(data?.settings?.metadata?.caComponents) ? data.settings.metadata.caComponents : [];
@@ -280,6 +286,43 @@ export default function ResultAdminConsole({ analyticsMode = 'hos', roleTitle = 
       setError(uploadError.message || 'Unable to upload result PDFs.');
     } finally {
       setUploading(false);
+    }
+  }
+
+  // Default the whole-school upload to the current session/term once they load.
+  useEffect(() => {
+    const currentSession = String(sessionPayload?.session?.session || '').trim();
+    const currentTerm = String(sessionPayload?.session?.term || '').trim();
+    if (currentSession) setSchoolSession(previous => previous || currentSession);
+    setSchoolTerm(previous => previous || currentTerm || STANDARD_TERMS[0]);
+  }, [sessionPayload]);
+
+  async function handleSchoolUpload() {
+    if (schoolFiles.length === 0) return;
+    if (!schoolSession || !schoolTerm) { setError('Choose the session and term before uploading.'); return; }
+    setSchoolUploading(true);
+    setSchoolProgress({ done: 0, total: schoolFiles.length });
+    setError('');
+    setMessage('');
+    setSchoolReport(null);
+    try {
+      // classId is left blank on purpose: the server matches each PDF to its student across
+      // every class, skips PDFs already uploaded for this term, and queues them one chunk at a time.
+      const response = await uploadPublishedResultDocumentsSequential(
+        { classId: '', sessionName: schoolSession, termName: schoolTerm, files: schoolFiles },
+        { chunkSize: 5, onProgress: (done, total) => setSchoolProgress({ done, total }) },
+      );
+      setSchoolReport(response || null);
+      setSchoolFiles([]);
+      if (response?.hasBlockingIssues) {
+        setError('Some PDFs could not be matched to a student. Matched PDFs were uploaded, duplicates were skipped, and the unmatched files / missing students are listed below.');
+      }
+      setMessage(`Whole-school upload complete for ${schoolSession} • ${schoolTerm}. ${response?.summary?.uploadedCount || 0} uploaded, ${response?.summary?.skippedCount || 0} skipped.`);
+      await loadConsole(selectedBatchKey, classMap);
+    } catch (uploadError) {
+      setError(uploadError.message || 'Unable to upload the school results.');
+    } finally {
+      setSchoolUploading(false);
     }
   }
 
@@ -495,10 +538,7 @@ export default function ResultAdminConsole({ analyticsMode = 'hos', roleTitle = 
               </button>
               <button
                 type="button"
-                onClick={() => {
-                  setUploadMode('school');
-                  setSchoolQueue(prev => (prev.length ? prev : selectableBatches.map(b => ({ batch: b, files: [], status: 'idle', progress: 0, report: null }))));
-                }}
+                onClick={() => setUploadMode('school')}
                 className={uploadMode === 'school' ? RESULT_BUTTON : RESULT_SECONDARY_BUTTON}
               >
                 Whole School
@@ -507,7 +547,7 @@ export default function ResultAdminConsole({ analyticsMode = 'hos', roleTitle = 
             <p className={`mt-2 text-sm ${RESULT_BODY}`}>
               {uploadMode === 'class'
                 ? 'Pick one class / session / term, then upload its result PDFs. Each PDF is matched to a student one after another, PDFs already uploaded for that term are skipped as duplicates, and any unmatched students are listed afterward.'
-                : 'Add PDFs to each class below, then upload them one batch after another with a live progress bar. PDFs already uploaded for a term are skipped automatically.'}
+                : 'Just choose the session and term, then drop in every result PDF for the whole school — no class needed. The system matches each PDF to its student across all classes and processes them one after another.'}
             </p>
           </section>
 
@@ -698,167 +738,131 @@ export default function ResultAdminConsole({ analyticsMode = 'hos', roleTitle = 
 
           {uploadMode === 'school' && (
         <>
-          <section className={`${RESULT_SURFACE} p-6 space-y-2`}>
-            <p className={`micro-label ${RESULT_LABEL}`}>School-Wide Upload</p>
-            <h2 className={`text-2xl command-title ${RESULT_HEADING}`}>Queue result PDFs for the whole school</h2>
-            <p className={`text-sm ${RESULT_BODY}`}>
-              Add PDFs to each class batch below. When ready, click <strong>Start Upload Queue</strong> — each batch uploads in order while the progress bar updates live. Already-uploaded PDFs are skipped automatically.
-            </p>
+          <section className={`${RESULT_SURFACE} p-6 space-y-4`}>
+            <div>
+              <p className={`micro-label ${RESULT_LABEL}`}>Whole-School Upload</p>
+              <h2 className={`mt-2 text-2xl command-title ${RESULT_HEADING}`}>Upload every result PDF for a term — no class needed</h2>
+              <p className={`mt-2 text-sm ${RESULT_BODY}`}>
+                Choose the session and term, then add all the result PDFs for the whole school. Each PDF is matched to its
+                student by the name and surname, display ID, student ID, email, or old portal code in the filename — across
+                every class. Files are processed one chunk after another, and PDFs already uploaded for this term are skipped.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-[1fr,1fr,auto] gap-4">
+              <label className="block">
+                <span className={`micro-label ${RESULT_LABEL}`}>Session</span>
+                <select value={schoolSession} onChange={event => setSchoolSession(event.target.value)} className={`mt-2 ${RESULT_INPUT}`}>
+                  {!schoolSessionOptions.length && <option value="">No session set yet</option>}
+                  {schoolSessionOptions.map(name => <option key={name} value={name}>{name}</option>)}
+                </select>
+              </label>
+              <label className="block">
+                <span className={`micro-label ${RESULT_LABEL}`}>Term</span>
+                <select value={schoolTerm} onChange={event => setSchoolTerm(event.target.value)} className={`mt-2 ${RESULT_INPUT}`}>
+                  {STANDARD_TERMS.map(term => <option key={term} value={term}>{term}</option>)}
+                </select>
+              </label>
+              <div className="flex items-end">
+                <label className={`${RESULT_SECONDARY_BUTTON} cursor-pointer`}>
+                  <span>Add Result PDFs</span>
+                  <input
+                    type="file"
+                    multiple
+                    accept="application/pdf,.pdf"
+                    className="sr-only"
+                    onChange={event => setSchoolFiles(previous => [...previous, ...Array.from(event.target.files || [])])}
+                  />
+                </label>
+              </div>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-3">
+              <button
+                type="button"
+                onClick={handleSchoolUpload}
+                disabled={schoolUploading || schoolFiles.length === 0 || !schoolSession || !schoolTerm}
+                className={RESULT_BUTTON}
+              >
+                {schoolUploading ? 'Uploading…' : `Upload ${schoolFiles.length} PDF${schoolFiles.length !== 1 ? 's' : ''} for ${schoolTerm || 'term'}`}
+              </button>
+              {!schoolUploading && schoolFiles.length > 0 && (
+                <button type="button" onClick={() => setSchoolFiles([])} className={RESULT_SECONDARY_BUTTON}>Clear files</button>
+              )}
+            </div>
+
+            {schoolUploading && schoolProgress.total > 0 && (
+              <div className="space-y-1">
+                <div className="h-2.5 rounded-full bg-[#e8d4a0] dark:bg-black/30 overflow-hidden">
+                  <div className="h-full rounded-full bg-[#1a5c38] dark:bg-[#00ffff] transition-all duration-300" style={{ width: `${Math.round((schoolProgress.done / schoolProgress.total) * 100)}%` }} />
+                </div>
+                <p className={`text-xs ${RESULT_BODY}`}>Processed {schoolProgress.done} of {schoolProgress.total} PDFs (one batch after another)…</p>
+              </div>
+            )}
+
+            {schoolFiles.length > 0 && !schoolUploading && (
+              <div className={`${RESULT_INNER_SURFACE} p-4`}>
+                <p className={`micro-label ${RESULT_LABEL}`}>{schoolFiles.length} PDF{schoolFiles.length !== 1 ? 's' : ''} ready</p>
+                <div className="mt-2 max-h-48 overflow-y-auto space-y-1">
+                  {schoolFiles.map((file, index) => (
+                    <p key={`${file.name}-${index}`} className={`text-xs ${RESULT_BODY} truncate`}>📄 {file.name}</p>
+                  ))}
+                </div>
+              </div>
+            )}
           </section>
 
-          {/* Queue cards — one per batch */}
-          <div className="space-y-4">
-            {schoolQueue.map((item, idx) => {
-              const statusColors = {
-                idle: '',
-                uploading: 'border-amber-400/50 bg-amber-50/60 dark:bg-amber-500/10',
-                done: 'border-emerald-400/50 bg-emerald-50/60 dark:bg-emerald-500/10',
-                error: 'border-rose-400/50 bg-rose-50/60 dark:bg-rose-500/10',
-              };
-              return (
-                <section key={buildBatchKey(item.batch)} className={`${RESULT_SURFACE} p-5 space-y-4 ${statusColors[item.status] || ''}`}>
-                  <div className="flex flex-wrap items-center justify-between gap-3">
-                    <div>
-                      <p className={`micro-label ${RESULT_LABEL}`}>{item.batch.label}</p>
-                      <p className={`mt-1 text-xs ${RESULT_BODY}`}>{item.files.length} PDF{item.files.length !== 1 ? 's' : ''} queued</p>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      {item.status === 'done' && <span className="text-emerald-600 dark:text-emerald-400 text-xs font-bold uppercase tracking-widest">✓ Done</span>}
-                      {item.status === 'error' && <span className="text-rose-600 dark:text-rose-400 text-xs font-bold uppercase tracking-widest">✗ Error</span>}
-                      {item.status === 'uploading' && <span className="text-amber-700 dark:text-amber-300 text-xs font-bold uppercase tracking-widest animate-pulse">Uploading…</span>}
-                      {!queueRunning && item.status === 'idle' && (
-                        <label className={`${RESULT_SECONDARY_BUTTON} cursor-pointer text-xs`}>
-                          + Add PDFs
-                          <input
-                            type="file"
-                            multiple
-                            accept="application/pdf,.pdf"
-                            className="sr-only"
-                            onChange={e => {
-                              const chosen = Array.from(e.target.files || []);
-                              setSchoolQueue(prev => prev.map((q, i) => i === idx ? { ...q, files: [...q.files, ...chosen] } : q));
-                            }}
-                          />
-                        </label>
-                      )}
-                      {!queueRunning && item.status === 'idle' && item.files.length > 0 && (
-                        <button type="button" className={`${RESULT_SECONDARY_BUTTON} text-xs`}
-                          onClick={() => setSchoolQueue(prev => prev.map((q, i) => i === idx ? { ...q, files: [] } : q))}>
-                          Clear
-                        </button>
-                      )}
-                    </div>
-                  </div>
+          {schoolReport && (
+            <section className={`${RESULT_SURFACE} p-6 space-y-5`}>
+              <div>
+                <p className={`micro-label ${RESULT_LABEL}`}>Upload Summary</p>
+                <h3 className={`mt-2 text-xl command-title ${RESULT_HEADING}`}>Matched, skipped, and missing across the school</h3>
+              </div>
 
-                  {/* Animated progress bar */}
-                  {(item.status === 'uploading' || item.status === 'done' || item.status === 'error') && (
-                    <div className="space-y-1">
-                      <div className="h-2.5 rounded-full bg-[#e8d4a0] dark:bg-black/30 overflow-hidden">
-                        <div
-                          className={`h-full rounded-full transition-all duration-500 ${item.status === 'done' ? 'bg-emerald-500 dark:bg-emerald-400' : item.status === 'error' ? 'bg-rose-500' : 'bg-amber-500 dark:bg-amber-400 animate-pulse'}`}
-                          style={{ width: `${item.progress}%` }}
-                        />
+              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-4">
+                <div className={`${RESULT_INNER_SURFACE} p-4`}><p className={`micro-label ${RESULT_LABEL}`}>Matched</p><p className={`mt-2 text-2xl font-black ${RESULT_HEADING}`}>{schoolReport?.summary?.matchedCount || 0}</p></div>
+                <div className={`${RESULT_INNER_SURFACE} p-4`}><p className={`micro-label ${RESULT_LABEL}`}>Uploaded</p><p className={`mt-2 text-2xl font-black ${RESULT_HEADING}`}>{schoolReport?.summary?.uploadedCount || 0}</p></div>
+                <div className={`${RESULT_INNER_SURFACE} p-4`}><p className={`micro-label ${RESULT_LABEL}`}>Skipped</p><p className={`mt-2 text-2xl font-black ${RESULT_HEADING}`}>{schoolReport?.summary?.skippedCount || 0}</p></div>
+                <div className={`${RESULT_INNER_SURFACE} p-4`}><p className={`micro-label ${RESULT_LABEL}`}>Unmatched</p><p className={`mt-2 text-2xl font-black ${RESULT_HEADING}`}>{schoolReport?.summary?.unmatchedCount || 0}</p></div>
+                <div className={`${RESULT_INNER_SURFACE} p-4`}><p className={`micro-label ${RESULT_LABEL}`}>Missing Students</p><p className={`mt-2 text-2xl font-black ${RESULT_HEADING}`}>{schoolReport?.summary?.missingStudentCount || 0}</p></div>
+              </div>
+
+              {(schoolReport?.missingStudents || []).length > 0 && (
+                <div className={`${RESULT_INNER_SURFACE} p-4`}>
+                  <p className={`micro-label ${RESULT_LABEL}`}>Students Still Missing PDFs</p>
+                  <div className="mt-3 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
+                    {schoolReport.missingStudents.map(student => (
+                      <div key={student.id} className={`${RESULT_INNER_SURFACE} p-4`}>
+                        <p className={`text-sm font-semibold ${RESULT_HEADING}`}>{student.name}</p>
+                        <p className={`mt-2 text-xs ${RESULT_BODY}`}>{student.displayId || 'No display ID'}</p>
+                        <p className={`mt-1 text-xs ${RESULT_BODY}`}>{student.className || 'Current class'}</p>
                       </div>
-                      <p className={`text-xs ${RESULT_BODY}`}>{item.progress}%</p>
-                    </div>
-                  )}
-
-                  {/* File list preview */}
-                  {item.files.length > 0 && item.status === 'idle' && (
-                    <div className="max-h-40 overflow-y-auto space-y-1">
-                      {item.files.map((f, fi) => (
-                        <p key={`${f.name}-${fi}`} className={`text-xs ${RESULT_BODY} truncate`}>📄 {f.name}</p>
-                      ))}
-                    </div>
-                  )}
-
-                  {/* Per-batch report */}
-                  {item.report && (
-                    <div className={`${RESULT_INNER_SURFACE} p-3 text-xs space-y-1`}>
-                      <p className={RESULT_LABEL}>Uploaded {item.report.summary?.uploadedCount || 0} · Skipped {item.report.summary?.skippedCount || 0} · Unmatched {item.report.summary?.unmatchedCount || 0}</p>
-                      {(item.report.missingStudents || []).length > 0 && (
-                        <p className={RESULT_BODY}>Missing: {item.report.missingStudents.map(s => s.name).join(', ')}</p>
-                      )}
-                    </div>
-                  )}
-                </section>
-              );
-            })}
-          </div>
-
-          {/* Queue controls */}
-          <section className={`${RESULT_SURFACE} p-5`}>
-            {(() => {
-              const totalFiles = schoolQueue.reduce((s, q) => s + q.files.length, 0);
-              const batchesWithFiles = schoolQueue.filter(q => q.files.length > 0 && q.status === 'idle');
-              const doneCount = schoolQueue.filter(q => q.status === 'done').length;
-              const totalQueued = schoolQueue.filter(q => q.files.length > 0 || q.status === 'done').length;
-              const overallPct = totalQueued > 0 ? Math.round((doneCount / totalQueued) * 100) : 0;
-
-              return (
-                <div className="space-y-4">
-                  {queueRunning && (
-                    <div className="space-y-1">
-                      <p className={`text-sm font-semibold ${RESULT_HEADING}`}>Overall progress — {doneCount} of {totalQueued} batches complete</p>
-                      <div className="h-3 rounded-full bg-[#e8d4a0] dark:bg-black/30 overflow-hidden">
-                        <div
-                          className="h-full rounded-full bg-[#1a5c38] dark:bg-[#00ffff] transition-all duration-700"
-                          style={{ width: `${overallPct}%` }}
-                        />
-                      </div>
-                    </div>
-                  )}
-
-                  <div className="flex flex-wrap gap-3 items-center">
-                    <button
-                      type="button"
-                      disabled={queueRunning || batchesWithFiles.length === 0}
-                      className={RESULT_BUTTON}
-                      onClick={async () => {
-                        setQueueRunning(true);
-                        for (let i = 0; i < schoolQueue.length; i++) {
-                          const item = schoolQueue[i];
-                          if (item.files.length === 0 || item.status !== 'idle') continue;
-                          setSchoolQueue(prev => prev.map((q, idx) => idx === i ? { ...q, status: 'uploading', progress: 0 } : q));
-                          try {
-                            // Upload this batch's PDFs sequentially (chunked) with real progress.
-                            // eslint-disable-next-line no-await-in-loop
-                            const report = await uploadPublishedResultDocumentsSequential(
-                              { ...item.batch, files: item.files, fileStudentMap: {} },
-                              {
-                                chunkSize: 5,
-                                onProgress: (done, total) => {
-                                  const pct = total > 0 ? Math.round((done / total) * 100) : 100;
-                                  setSchoolQueue(prev => prev.map((q, idx) => idx === i ? { ...q, progress: pct } : q));
-                                },
-                              },
-                            );
-                            setSchoolQueue(prev => prev.map((q, idx) => idx === i ? { ...q, status: 'done', progress: 100, report: report || null } : q));
-                          } catch {
-                            setSchoolQueue(prev => prev.map((q, idx) => idx === i ? { ...q, status: 'error', progress: 100 } : q));
-                          }
-                        }
-                        setQueueRunning(false);
-                        loadConsole(selectedBatchKey, classMap);
-                      }}
-                    >
-                      {queueRunning ? 'Uploading…' : `Start Upload Queue (${batchesWithFiles.length} batch${batchesWithFiles.length !== 1 ? 'es' : ''} · ${totalFiles} file${totalFiles !== 1 ? 's' : ''})`}
-                    </button>
-
-                    {!queueRunning && (
-                      <button
-                        type="button"
-                        className={RESULT_SECONDARY_BUTTON}
-                        onClick={() => setSchoolQueue(selectableBatches.map(b => ({ batch: b, files: [], status: 'idle', progress: 0, report: null })))}
-                      >
-                        Reset Queue
-                      </button>
-                    )}
+                    ))}
                   </div>
                 </div>
-              );
-            })()}
-          </section>
+              )}
+
+              {(schoolReport?.results || []).length > 0 && (
+                <div className={`${RESULT_INNER_SURFACE} p-4`}>
+                  <p className={`micro-label ${RESULT_LABEL}`}>File Processing Results</p>
+                  <div className="mt-3 space-y-3 max-h-[28rem] overflow-y-auto">
+                    {schoolReport.results.map(result => (
+                      <div key={`${result.fileName}-${result.studentId || result.message || result.status}`} className={`rounded-2xl border p-4 ${getUploadResultTone(result.status)}`}>
+                        <div className="flex flex-wrap items-center justify-between gap-3">
+                          <p className={`text-sm font-semibold ${RESULT_HEADING}`}>{result.fileName}</p>
+                          <span className={`rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] ${getBatchTone(result.status === 'ok' ? 'published' : result.status === 'skipped' ? 'submitted' : 'draft')}`}>
+                            {result.status}
+                          </span>
+                        </div>
+                        {result.studentName && <p className={`mt-2 text-sm ${RESULT_BODY}`}>{result.studentName}</p>}
+                        {result.message && <p className={`mt-2 text-xs ${RESULT_BODY}`}>{result.message}</p>}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </section>
+          )}
         </>
           )}
         </>
