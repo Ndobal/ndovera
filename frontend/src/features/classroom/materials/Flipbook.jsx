@@ -70,9 +70,15 @@ export default function Flipbook({ url, onFallback }) {
         if (!pdfjsLib || !PageFlipCtor) throw new Error('Flipbook engine unavailable');
         pdfjsLib.GlobalWorkerOptions.workerSrc = PDFJS_WORKER;
 
+        // Lower-end phones have far less memory, so render smaller/lighter pages there.
+        const isMobile = typeof window !== 'undefined' && Math.min(window.innerWidth, window.innerHeight) < 700;
+        const renderScale = isMobile ? 1.1 : 1.6;
+        const jpegQuality = isMobile ? 0.72 : 0.82;
+        const pageCap = isMobile ? 80 : MAX_PAGES;
+
         const pdf = await pdfjsLib.getDocument({ url }).promise;
         if (cancelled) return;
-        const total = Math.min(pdf.numPages, MAX_PAGES);
+        const total = Math.min(pdf.numPages, pageCap);
         setProgress({ done: 0, total });
 
         const images = [];
@@ -81,14 +87,14 @@ export default function Flipbook({ url, onFallback }) {
           if (cancelled) return;
           // eslint-disable-next-line no-await-in-loop
           const pdfPage = await pdf.getPage(pageNumber);
-          const viewport = pdfPage.getViewport({ scale: 1.5 });
+          const viewport = pdfPage.getViewport({ scale: renderScale });
           if (pageNumber === 1 && viewport.height > 0) ratio = viewport.width / viewport.height;
           const canvas = document.createElement('canvas');
           canvas.width = viewport.width;
           canvas.height = viewport.height;
           // eslint-disable-next-line no-await-in-loop
           await pdfPage.render({ canvasContext: canvas.getContext('2d'), viewport }).promise;
-          images.push(canvas.toDataURL('image/jpeg', 0.82));
+          images.push(canvas.toDataURL('image/jpeg', jpegQuality));
           setProgress({ done: pageNumber, total });
         }
         if (cancelled || !containerRef.current) return;

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import Flipbook from './Flipbook';
 
 // In-app reader for class materials. PDFs open as a realistic page-flip flipbook, while images,
@@ -127,7 +128,9 @@ export default function MaterialViewer({ material, onClose }) {
     );
   }
 
-  return (
+  // Render through a portal to <body> so the full-screen overlay is never clipped or mis-sized by
+  // a transformed / overflow-hidden / will-change ancestor (the classroom shell on mobile).
+  return createPortal(
     <div className="fixed inset-0 z-[60] flex flex-col bg-[#191970]/80 backdrop-blur-sm" role="dialog" aria-modal="true" aria-label={title}>
       {/* Toolbar */}
       <div className="flex flex-wrap items-center gap-2 border-b border-[#c9a96e]/30 bg-[#f5deb3] px-4 py-3">
@@ -183,6 +186,7 @@ export default function MaterialViewer({ material, onClose }) {
       <div className="min-h-0 flex-1 overflow-hidden bg-[#e9dcc0]">
         {renderBody()}
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }
