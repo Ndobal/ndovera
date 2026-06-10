@@ -1277,6 +1277,41 @@ async function listResultClassStudents(db: D1Database, tenantId: string, classRo
     }))
 }
 
+// Lightweight roster used only for matching result PDFs to students. It reads users, their settings
+// (batched), class names and is cheap regardless of school size — unlike hydrateUserRecords, which
+// does per-student work and made bulk uploads blow past the Worker subrequest/CPU limits (503s).
+async function listStudentsForResultMatching(db: D1Database, tenantId: string) {
+  await ensureUsersTable(db)
+  await ensureClassesTable(db)
+  const userResult = await db.prepare(
+    `SELECT id, name, email, role, status FROM users WHERE tenantId = ? AND role = 'student' ORDER BY name`
+  ).bind(tenantId).all()
+  const rows = (userResult.results || []) as Record<string, any>[]
+  if (!rows.length) return [] as Array<Record<string, any>>
+
+  const settingsMap = await getSettingsMapForUserRows(db, rows)
+  const classResult = await db.prepare(`SELECT id, name, arm FROM classes WHERE tenantId = ?`).bind(tenantId).all().catch(() => ({ results: [] }))
+  const classNameById = new Map<string, string>()
+  for (const classRow of (((classResult as any)?.results || []) as Record<string, any>[])) {
+    classNameById.set(String(classRow.id || ''), `${classRow.name || ''}${classRow.arm ? ` ${classRow.arm}` : ''}`.trim())
+  }
+
+  return rows.map(row => {
+    const settings = settingsMap.get(String(row.email || '').trim()) || settingsMap.get(String(row.id || '').trim()) || {}
+    const classId = String(settings.classId || settings.class_id || '').trim()
+    const displayId = String(getPublicFacingUserId(settings, 'student') || settings.publicStudentId || settings.displayId || '').trim()
+    return {
+      id: String(row.id || ''),
+      name: String(row.name || settings.name || ''),
+      email: String(row.email || ''),
+      displayId,
+      classId,
+      className: classNameById.get(classId) || '',
+      status: String(row.status || 'active'),
+    }
+  })
+}
+
 function clampResultScore(value: unknown, max: number) {
   const numeric = Number(value || 0)
   if (!Number.isFinite(numeric)) return 0
@@ -14144,23 +14179,16 @@ app.post('/api/results/documents/upload', authenticate, async (c) => {
   // Migrated/past results: make sure the period exists in the school's sessions.
   await ensureSessionTermExists(c.env.APP_DB, tenant.id, period.sessionName, period.termName)
 
+  // Use the lightweight matching roster (a few batched queries) instead of full hydration, which
+  // ran per-student work and made bulk uploads exceed the Worker subrequest/CPU limits (503s).
   let students: Array<Record<string, any>> = []
   if (classId) {
     const access = await resolveResultClassAccess(c.env.APP_DB, c.var.user || {}, classId)
     if (!access.classRow) return c.json({ error: 'Class not found.' }, 404)
-    students = await listResultClassStudents(c.env.APP_DB, tenant.id, access.classRow)
+    const roster = await listStudentsForResultMatching(c.env.APP_DB, tenant.id)
+    students = roster.filter(student => String(student.classId || '') === String(classId))
   } else {
-    await ensureUsersTable(c.env.APP_DB)
-    const rows = await c.env.APP_DB.prepare(`SELECT id, name, email, role, status, createdAt FROM users WHERE tenantId = ? AND role = 'student' ORDER BY name`).bind(tenant.id).all()
-    const hydrated = await hydrateUserRecords(c.env.APP_DB, (rows.results || []) as Record<string, any>[])
-    students = hydrated.map(student => ({
-      id: String(student?.id || ''),
-      name: String(student?.name || ''),
-      email: String(student?.email || ''),
-      displayId: String(student?.displayId || ''),
-      classId: String(student?.classId || ''),
-      className: String(student?.className || ''),
-    }))
+    students = await listStudentsForResultMatching(c.env.APP_DB, tenant.id)
   }
 
   if (students.length === 0) return c.json({ error: 'No students were available for result distribution.' }, 400)
@@ -14265,7 +14293,22 @@ app.post('/api/results/documents/upload', authenticate, async (c) => {
 
     const safeFileName = String(file.name || 'result.pdf').replace(/[^A-Za-z0-9_.-]+/g, '_')
     const key = `results/${normalizeResultDomainKey(tenant.id, 'tenant')}/${normalizeResultDomainKey(period.sessionName, 'session')}/${normalizeResultDomainKey(period.termName, 'term')}/${normalizeResultDomainKey(matched.student.id, 'student')}/${Date.now()}_${safeFileName}`
-    await c.env.UPLOADS.put(key, file.stream(), { httpMetadata: { contentType: file.type || 'application/pdf' } })
+    try {
+      await c.env.UPLOADS.put(key, file.stream(), { httpMetadata: { contentType: file.type || 'application/pdf' } })
+    } catch {
+      // A single storage hiccup must not fail the whole batch — flag this file and move on.
+      queuedStudentIds.delete(studentId)
+      coveredStudentIds.delete(studentId)
+      summary.skippedCount += 1
+      results.push({
+        fileName: file.name,
+        status: 'error',
+        studentId,
+        studentName: matched.student.name,
+        message: 'Storage error while saving this PDF. Please re-upload this file.',
+      })
+      continue
+    }
     const uploadedAt = new Date().toISOString()
 
     docsToSave.push({
@@ -14296,7 +14339,28 @@ app.post('/api/results/documents/upload', authenticate, async (c) => {
   }
 
   if (docsToSave.length > 0) {
-    await saveResultDocuments(c.env.APP_DB, docsToSave)
+    try {
+      await saveResultDocuments(c.env.APP_DB, docsToSave)
+    } catch {
+      // Files reached storage but recording them failed; report so the operator can retry this set.
+      const savedIds = new Set(docsToSave.map(doc => String(doc.studentId || '')))
+      results.forEach(result => {
+        if (result.status === 'ok' && savedIds.has(String(result.studentId || ''))) {
+          result.status = 'error'
+          result.message = 'Saved to storage but could not be recorded. Please re-upload this file.'
+        }
+      })
+      summary.uploadedCount = 0
+      return c.json({
+        success: false,
+        hasBlockingIssues: true,
+        sessionName: period.sessionName,
+        termName: period.termName,
+        results,
+        summary: { ...summary, missingStudentCount: 0 },
+        missingStudents: [],
+      })
+    }
   }
 
   const missingStudents = students

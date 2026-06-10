@@ -187,7 +187,7 @@ export async function uploadPublishedResultDocumentsSequential(payload = {}, opt
   const merged = {
     success: true,
     hasBlockingIssues: false,
-    summary: { matchedCount: 0, manualMappedCount: 0, uploadedCount: 0, skippedCount: 0, unmatchedCount: 0, missingStudentCount: 0 },
+    summary: { matchedCount: 0, manualMappedCount: 0, uploadedCount: 0, skippedCount: 0, unmatchedCount: 0, failedCount: 0, missingStudentCount: 0 },
     results: [],
     missingStudents: [],
   };
@@ -195,6 +195,29 @@ export async function uploadPublishedResultDocumentsSequential(payload = {}, opt
   if (files.length === 0) {
     onProgress(0, 0);
     return merged;
+  }
+
+  // Retry a chunk a few times on transient failures (e.g. a 503) before giving up on it, so one
+  // hiccup never aborts the whole run — the failed files are reported and the rest keep going.
+  async function uploadChunkWithRetry(chunk, chunkMap) {
+    let lastError = null;
+    for (let attempt = 0; attempt < 3; attempt += 1) {
+      try {
+        // eslint-disable-next-line no-await-in-loop
+        return await uploadPublishedResultDocuments({
+          classId: payload.classId,
+          sessionName: payload.sessionName,
+          termName: payload.termName,
+          files: chunk,
+          fileStudentMap: chunkMap,
+        });
+      } catch (error) {
+        lastError = error;
+        // eslint-disable-next-line no-await-in-loop
+        if (attempt < 2) await new Promise(resolve => setTimeout(resolve, 900 * (attempt + 1)));
+      }
+    }
+    throw lastError || new Error('Upload failed.');
   }
 
   let processed = 0;
@@ -206,20 +229,29 @@ export async function uploadPublishedResultDocumentsSequential(payload = {}, opt
       if (fileStudentMap[key]) chunkMap[key] = fileStudentMap[key];
     });
 
-    // eslint-disable-next-line no-await-in-loop
-    const report = await uploadPublishedResultDocuments({
-      classId: payload.classId,
-      sessionName: payload.sessionName,
-      termName: payload.termName,
-      files: chunk,
-      fileStudentMap: chunkMap,
-    });
+    let report = null;
+    try {
+      // eslint-disable-next-line no-await-in-loop
+      report = await uploadChunkWithRetry(chunk, chunkMap);
+    } catch (error) {
+      // Whole chunk failed after retries — mark each file failed with the reason and continue.
+      const reason = (error && error.message) ? error.message : 'Upload failed after several tries. Please re-upload these files.';
+      chunk.forEach(file => merged.results.push({ fileName: file?.name || 'result.pdf', status: 'error', message: reason }));
+      merged.summary.failedCount += chunk.length;
+      merged.hasBlockingIssues = true;
+      processed += chunk.length;
+      onProgress(processed, files.length);
+      continue;
+    }
 
     const summary = report?.summary || {};
     ['matchedCount', 'manualMappedCount', 'uploadedCount', 'skippedCount', 'unmatchedCount'].forEach(key => {
       merged.summary[key] += Number(summary[key] || 0);
     });
-    if (Array.isArray(report?.results)) merged.results.push(...report.results);
+    if (Array.isArray(report?.results)) {
+      merged.results.push(...report.results);
+      merged.summary.failedCount += report.results.filter(result => result?.status === 'error').length;
+    }
     if (report?.hasBlockingIssues) merged.hasBlockingIssues = true;
     // The backend computes missing students against persisted documents, so the latest chunk's
     // list reflects who is still outstanding after everything uploaded so far.
@@ -232,5 +264,6 @@ export async function uploadPublishedResultDocumentsSequential(payload = {}, opt
     onProgress(processed, files.length);
   }
 
+  merged.success = !merged.hasBlockingIssues;
   return merged;
 }

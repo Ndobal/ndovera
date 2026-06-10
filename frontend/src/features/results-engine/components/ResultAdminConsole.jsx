@@ -52,6 +52,30 @@ function getUploadResultTone(status = '') {
   return 'border-rose-300/35 bg-rose-100/70 dark:bg-rose-500/10';
 }
 
+// The files that did not go up (unmatched, ambiguous, wrong type, or a transient error) — shown
+// prominently with the reason so the operator can fix names and re-upload just those.
+function getFailedUploadResults(report) {
+  return (report?.results || []).filter(result => String(result?.status || '') === 'error');
+}
+
+function UploadFailureList({ report }) {
+  const failed = getFailedUploadResults(report);
+  if (!failed.length) return null;
+  return (
+    <div className="rounded-2xl border border-rose-300/40 bg-rose-100/70 p-4 dark:border-rose-400/30 dark:bg-rose-500/10">
+      <p className="text-sm font-bold text-[#800020] dark:text-rose-200">Not uploaded — {failed.length} file{failed.length === 1 ? '' : 's'} need attention</p>
+      <div className="mt-3 max-h-72 space-y-2 overflow-y-auto">
+        {failed.map((result, index) => (
+          <div key={`${result.fileName}-${index}`} className="rounded-xl border border-rose-300/40 bg-white/70 px-3 py-2 dark:border-rose-400/20 dark:bg-black/20">
+            <p className="text-sm font-semibold text-[#191970] dark:text-white">{result.fileName}</p>
+            <p className="mt-1 text-xs text-[#800020] dark:text-rose-200">{result.message || 'Could not be matched to a student.'}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function filterRecentDocumentsForBatch(documents = [], batch = null) {
   if (!batch) return [];
   return (Array.isArray(documents) ? documents : []).filter(document => (
@@ -273,13 +297,12 @@ export default function ResultAdminConsole({ analyticsMode = 'hos', roleTitle = 
       setUploadReport(response || null);
       setFiles([]);
       setFileStudentMap({});
-      if (response?.hasBlockingIssues) {
-        setError('Some PDFs could not be matched. Matched PDFs were uploaded, duplicates were skipped, and the missing students list is shown below.');
-        if (response?.summary?.uploadedCount || response?.summary?.skippedCount) {
-          setMessage(`${response.summary?.uploadedCount || 0} PDFs uploaded and ${response.summary?.skippedCount || 0} skipped.`);
-        }
-      } else {
-        setMessage(`Upload complete. ${response?.summary?.uploadedCount || 0} PDFs uploaded and ${response?.summary?.skippedCount || 0} skipped.`);
+      const uploaded = response?.summary?.uploadedCount || 0;
+      const skipped = response?.summary?.skippedCount || 0;
+      const failed = getFailedUploadResults(response).length;
+      setMessage(`✓ Upload complete — ${uploaded} uploaded${skipped ? `, ${skipped} already on file` : ''}${failed ? `, ${failed} need attention` : ''}.`);
+      if (failed > 0) {
+        setError(`${failed} file${failed === 1 ? '' : 's'} could not be uploaded — see “Not uploaded” below for the reason on each, fix the filename or pick the student, then re-upload just those.`);
       }
       await loadConsole(selectedBatchKey, classMap);
     } catch (uploadError) {
@@ -314,10 +337,14 @@ export default function ResultAdminConsole({ analyticsMode = 'hos', roleTitle = 
       );
       setSchoolReport(response || null);
       setSchoolFiles([]);
-      if (response?.hasBlockingIssues) {
-        setError('Some PDFs could not be matched to a student. Matched PDFs were uploaded, duplicates were skipped, and the unmatched files / missing students are listed below.');
+      const uploaded = response?.summary?.uploadedCount || 0;
+      const skipped = response?.summary?.skippedCount || 0;
+      const failed = getFailedUploadResults(response).length;
+      // Always confirm what went up; the list of failures (with reasons) shows below.
+      setMessage(`✓ Whole-school upload complete for ${schoolSession} • ${schoolTerm} — ${uploaded} uploaded${skipped ? `, ${skipped} already on file` : ''}${failed ? `, ${failed} need attention` : ''}.`);
+      if (failed > 0) {
+        setError(`${failed} file${failed === 1 ? '' : 's'} could not be uploaded — see “Not uploaded” below for the reason on each, fix the filename or pick the student, then re-upload just those.`);
       }
-      setMessage(`Whole-school upload complete for ${schoolSession} • ${schoolTerm}. ${response?.summary?.uploadedCount || 0} uploaded, ${response?.summary?.skippedCount || 0} skipped.`);
       await loadConsole(selectedBatchKey, classMap);
     } catch (uploadError) {
       setError(uploadError.message || 'Unable to upload the school results.');
@@ -611,7 +638,7 @@ export default function ResultAdminConsole({ analyticsMode = 'hos', roleTitle = 
                       <div className="h-2.5 rounded-full bg-[#e8d4a0] dark:bg-black/30 overflow-hidden">
                         <div className="h-full rounded-full bg-[#1a5c38] dark:bg-[#00ffff] transition-all duration-300" style={{ width: `${Math.round((uploadProgress.done / uploadProgress.total) * 100)}%` }} />
                       </div>
-                      <p className={`text-xs ${RESULT_BODY}`}>Uploaded {uploadProgress.done} of {uploadProgress.total} PDFs (one batch after another)…</p>
+                      <p className={`text-sm font-semibold ${RESULT_HEADING}`}>Uploading… {uploadProgress.done} of {uploadProgress.total} files processed</p>
                     </div>
                   )}
 
@@ -676,6 +703,8 @@ export default function ResultAdminConsole({ analyticsMode = 'hos', roleTitle = 
                 <div className={`${RESULT_INNER_SURFACE} p-4`}><p className={`micro-label ${RESULT_LABEL}`}>Unmatched</p><p className={`mt-2 text-2xl font-black ${RESULT_HEADING}`}>{uploadReport?.summary?.unmatchedCount || 0}</p></div>
                 <div className={`${RESULT_INNER_SURFACE} p-4`}><p className={`micro-label ${RESULT_LABEL}`}>Missing Students</p><p className={`mt-2 text-2xl font-black ${RESULT_HEADING}`}>{uploadReport?.summary?.missingStudentCount || 0}</p></div>
               </div>
+
+              <UploadFailureList report={uploadReport} />
 
               {(uploadReport?.missingStudents || []).length > 0 && (
                 <div className={`${RESULT_INNER_SURFACE} p-4`}>
@@ -796,7 +825,7 @@ export default function ResultAdminConsole({ analyticsMode = 'hos', roleTitle = 
                 <div className="h-2.5 rounded-full bg-[#e8d4a0] dark:bg-black/30 overflow-hidden">
                   <div className="h-full rounded-full bg-[#1a5c38] dark:bg-[#00ffff] transition-all duration-300" style={{ width: `${Math.round((schoolProgress.done / schoolProgress.total) * 100)}%` }} />
                 </div>
-                <p className={`text-xs ${RESULT_BODY}`}>Processed {schoolProgress.done} of {schoolProgress.total} PDFs (one batch after another)…</p>
+                <p className={`text-sm font-semibold ${RESULT_HEADING}`}>Uploading… {schoolProgress.done} of {schoolProgress.total} files processed</p>
               </div>
             )}
 
@@ -826,6 +855,8 @@ export default function ResultAdminConsole({ analyticsMode = 'hos', roleTitle = 
                 <div className={`${RESULT_INNER_SURFACE} p-4`}><p className={`micro-label ${RESULT_LABEL}`}>Unmatched</p><p className={`mt-2 text-2xl font-black ${RESULT_HEADING}`}>{schoolReport?.summary?.unmatchedCount || 0}</p></div>
                 <div className={`${RESULT_INNER_SURFACE} p-4`}><p className={`micro-label ${RESULT_LABEL}`}>Missing Students</p><p className={`mt-2 text-2xl font-black ${RESULT_HEADING}`}>{schoolReport?.summary?.missingStudentCount || 0}</p></div>
               </div>
+
+              <UploadFailureList report={schoolReport} />
 
               {(schoolReport?.missingStudents || []).length > 0 && (
                 <div className={`${RESULT_INNER_SURFACE} p-4`}>
