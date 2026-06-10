@@ -29,6 +29,7 @@ const PRIMARY_TABS = [
   { id: 'results', label: 'Results' },
   { id: 'assignments', label: 'Assignments' },
   { id: 'attendance', label: 'Attendance' },
+  { id: 'contacts', label: 'Contacts' },
   { id: 'ai', label: 'AI Progress Report' },
 ];
 
@@ -251,6 +252,29 @@ export default function StudentProfilePage({ studentId, studentName = 'Student',
           <Stat label="Absent" value={attendance.absent} accent="text-[#800020] dark:text-rose-300" />
           <Stat label="Excused" value={attendance.excused} />
           <Stat label="Days recorded" value={attendance.total} />
+        </div>
+      );
+    }
+
+    if (activeTab === 'contacts') {
+      const contacts = profile?.contacts || [];
+      if (contacts.length === 0) {
+        return <div className={`${CARD} text-sm text-[#191970] dark:text-slate-300`}>No messaging activity recorded for this student yet.</div>;
+      }
+      return (
+        <div className="space-y-3">
+          <p className="text-xs text-[#800020] dark:text-slate-300">Most frequently contacted people, by messages exchanged.</p>
+          {contacts.map((contact, index) => (
+            <div key={contact.id || index} className={`${CARD} flex items-center justify-between gap-3`}>
+              <div className="min-w-0">
+                <p className="font-bold text-[#191970] dark:text-white truncate">{contact.name}</p>
+                {contact.role ? <p className="text-xs text-[#800020] dark:text-slate-400 capitalize">{contact.role}</p> : null}
+              </div>
+              <span className="shrink-0 rounded-full bg-[#1a5c38]/15 px-3 py-1 text-xs font-bold text-[#1a5c38] dark:bg-[#00ffff]/15 dark:text-[#00ffff]">
+                {contact.messageCount} msg{contact.messageCount === 1 ? '' : 's'}
+              </span>
+            </div>
+          ))}
         </div>
       );
     }

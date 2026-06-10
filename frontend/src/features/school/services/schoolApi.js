@@ -296,6 +296,7 @@ export const getMyPayslip = () => req('/api/school/payroll/my-payslip');
 // Attendance
 export const getStaffAttendance = (date) => req(`/api/school/staff-attendance?date=${date}`);
 export const markStaffAttendance = (data) => req('/api/school/staff-attendance', { method: 'POST', body: data });
+export const getStaffAttendanceColleagues = () => req('/api/school/staff-attendance/colleagues');
 export const getStaffAttendanceSettings = () => req('/api/school/staff-attendance/settings');
 export const saveStaffAttendanceSettings = (data) => req('/api/school/staff-attendance/settings', { method: 'POST', body: data });
 export const rotateStaffAttendanceQr = () => req('/api/school/staff-attendance/settings/rotate-qr', { method: 'POST' });

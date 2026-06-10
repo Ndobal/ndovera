@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import StudentSectionShell from '../student/StudentSectionShell';
+import StudentProfilePage from '../../../features/students/components/StudentProfilePage';
 import { getLearningStudents, getLiveSessions, getPosts } from '../../../features/classroom/classroomService';
 import { getParentResult } from '../../../features/results-engine/service/resultEngineService';
 import {
@@ -369,6 +370,7 @@ export function ParentOverviewPage() {
 
 export function ParentChildrenPage() {
   const { students, selectedStudentId, setSelectedStudentId, loading, error } = useParentLearners();
+  const [viewStudent, setViewStudent] = useState(null);
 
   return (
     <StudentSectionShell
@@ -410,9 +412,14 @@ export function ParentChildrenPage() {
                   </Link>
                 ))}
               </div>
-              <button type="button" onClick={() => setSelectedStudentId(student.id)} className="mt-4 rounded-2xl bg-emerald-500/30 px-4 py-3 text-sm font-semibold text-white">
-                Set As Active Child
-              </button>
+              <div className="mt-4 grid grid-cols-2 gap-2">
+                <button type="button" onClick={() => setSelectedStudentId(student.id)} className="rounded-2xl bg-emerald-500/30 px-4 py-3 text-sm font-semibold text-white">
+                  Set As Active Child
+                </button>
+                <button type="button" onClick={() => setViewStudent(student)} className="rounded-2xl bg-indigo-500/30 px-4 py-3 text-sm font-semibold text-white">
+                  Full Profile
+                </button>
+              </div>
             </article>
           ))}
 
@@ -423,6 +430,14 @@ export function ParentChildrenPage() {
           ) : null}
         </section>
       </div>
+
+      {viewStudent ? (
+        <StudentProfilePage
+          studentId={viewStudent.id}
+          studentName={viewStudent.name || 'Child'}
+          onClose={() => setViewStudent(null)}
+        />
+      ) : null}
     </StudentSectionShell>
   );
 }

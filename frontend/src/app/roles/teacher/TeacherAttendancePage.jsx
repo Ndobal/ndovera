@@ -3,6 +3,7 @@ import StudentSectionShell from '../student/StudentSectionShell';
 import { getStoredAuth } from '../../../features/auth/services/authApi';
 import {
   getStaffAttendanceActivity,
+  getStaffAttendanceColleagues,
   getStaffAttendancePermissionRequests,
   getStaffAttendanceSettings,
   submitStaffAttendancePermissionRequest,
@@ -305,8 +306,19 @@ export default function TeacherAttendancePage() {
   const [faceUploadLabel, setFaceUploadLabel] = useState('');
   const [faceUploading, setFaceUploading] = useState(false);
   const [useSharedPhone, setUseSharedPhone] = useState(false);
+  const [colleagues, setColleagues] = useState([]);
+  const [targetStaffId, setTargetStaffId] = useState('');
   const [scannerDismissedManually, setScannerDismissedManually] = useState(false);
   const [queuedActions, setQueuedActions] = useState(() => getQueuedStaffAttendanceActions());
+
+  // Colleague list for "sign in for a friend".
+  useEffect(() => {
+    let cancelled = false;
+    getStaffAttendanceColleagues()
+      .then(data => { if (!cancelled) setColleagues(Array.isArray(data?.colleagues) ? data.colleagues : []); })
+      .catch(() => { if (!cancelled) setColleagues([]); });
+    return () => { cancelled = true; };
+  }, []);
   const [queueSyncing, setQueueSyncing] = useState(false);
   const [isOnline, setIsOnline] = useState(() => (typeof window === 'undefined' ? true : window.navigator.onLine));
   const [managedClasses, setManagedClasses] = useState([]);
@@ -548,9 +560,12 @@ export default function TeacherAttendancePage() {
       return;
     }
 
-    const requiresFaceCapture = String(settings?.mode || 'qr') === 'face_qr' || useSharedPhone;
+    const signingForColleague = Boolean(targetStaffId);
+    const requiresFaceCapture = String(settings?.mode || 'qr') === 'face_qr' || useSharedPhone || signingForColleague;
     if (requiresFaceCapture && !faceImageUrl && !faceImageDataUrl) {
-      setSignInError('This school requires a face capture before QR sign-in. Upload a selfie and try again.');
+      setSignInError(signingForColleague
+        ? 'Capture the colleague’s face (with the school QR) before signing them in.'
+        : 'This school requires a face capture before QR sign-in. Upload a selfie and try again.');
       return;
     }
 
@@ -561,7 +576,8 @@ export default function TeacherAttendancePage() {
       faceImageUrl,
       faceImageDataUrl: faceImageUrl ? '' : faceImageDataUrl,
       notes: signInNote,
-      sharedPhone: useSharedPhone,
+      sharedPhone: useSharedPhone || signingForColleague,
+      targetStaffId: targetStaffId || undefined,
     };
 
     if (typeof window !== 'undefined' && window.navigator.onLine === false) {
@@ -580,6 +596,7 @@ export default function TeacherAttendancePage() {
       setManualQrCode(nextQrCode);
       setScannerOpen(false);
       setScannerDismissedManually(true);
+      setTargetStaffId('');
       setSignInMessage(event?.isLate
         ? `Signed in at ${formatDateTime(event?.createdAt)}. You are late by ${event?.lateMinutes || 0} minute${Number(event?.lateMinutes || 0) === 1 ? '' : 's'}${Number(event?.lateCharge || 0) > 0 ? ` and charged ${formatMoney(event?.lateCharge)}` : event?.permissionStatus === 'approved' ? ' but no charge was applied because an approved permission request covers today.' : '.'}`
         : `Signed in successfully at ${formatDateTime(event?.createdAt)}. You are on time.`);
@@ -595,7 +612,7 @@ export default function TeacherAttendancePage() {
     } finally {
       setSignInLoading(false);
     }
-  }, [activeTab, faceImageDataUrl, faceImageUrl, loadRecordRange, loadTodayActivity, manualQrCode, queueSignInPayload, settings?.mode, signInNote, useSharedPhone]);
+  }, [activeTab, faceImageDataUrl, faceImageUrl, loadRecordRange, loadTodayActivity, manualQrCode, queueSignInPayload, settings?.mode, signInNote, targetStaffId, useSharedPhone]);
 
   const handleScanDetect = useCallback((value) => {
     setManualQrCode(value);
@@ -861,7 +878,18 @@ export default function TeacherAttendancePage() {
                       </span>
                     </label>
 
-                    {String(settings?.mode || 'qr') === 'face_qr' || useSharedPhone ? (
+                    <div className="mt-4 rounded-2xl border border-[#c9a96e]/35 bg-[#fff8f0] p-4 dark:border-[#bf00ff]/25 dark:bg-black/20">
+                      <p className={LABEL}>Sign in for a friend</p>
+                      <p className={`${BODY} mt-1`}>Marking attendance for a colleague who forgot their phone? Pick them, capture their face and scan the school QR — the record is tagged as marked by you.</p>
+                      <select value={targetStaffId} onChange={event => setTargetStaffId(event.target.value)} className={`${INPUT} mt-3`}>
+                        <option value="">Sign in myself</option>
+                        {colleagues.map(person => (
+                          <option key={person.id} value={person.id}>{person.name}{person.role ? ` • ${person.role}` : ''}</option>
+                        ))}
+                      </select>
+                    </div>
+
+                    {String(settings?.mode || 'qr') === 'face_qr' || useSharedPhone || targetStaffId ? (
                       <div className="mt-4 rounded-2xl border border-[#c9a96e]/35 bg-[#fff8f0] p-4 dark:border-[#bf00ff]/25 dark:bg-black/20">
                         <p className={LABEL}>Required face capture</p>
                         <p className={`${BODY} mt-2`}>This school or shared-phone mode requires a face capture before QR sign-in. Upload a selfie from the current device, then scan the QR code.</p>

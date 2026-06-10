@@ -14125,6 +14125,52 @@ async function resolveStudentProfileAccess(db: D1Database, actorUser: Record<str
   return { ok: canView, canManage, tenantId, role, actorId, actorName, student }
 }
 
+// Most-frequently-contacted people for a student, derived from conversations + message volume.
+async function buildStudentFrequentContacts(db: D1Database, student: Record<string, any>) {
+  try {
+    const identifiers = [student.id, student.email, student.displayId].map(value => String(value || '').trim()).filter(Boolean)
+    if (!identifiers.length) return [] as Array<Record<string, any>>
+
+    const likeClauses = identifiers.map(() => 'participants LIKE ?').join(' OR ')
+    const convResult = await db.prepare(
+      `SELECT id, participants FROM conversations WHERE ${likeClauses} ORDER BY updated_at DESC LIMIT 80`
+    ).bind(...identifiers.map(value => `%${value}%`)).all()
+    const conversations = ((convResult.results || []) as Record<string, any>[])
+      .map(row => ({ id: String(row.id || ''), participants: (() => { try { return JSON.parse(String(row.participants || '[]')).map((value: any) => String(value)) } catch { return [] as string[] } })() }))
+      .filter(conv => conv.id && conv.participants.some((value: string) => identifiers.includes(value)))
+    if (!conversations.length) return []
+
+    const convIds = conversations.map(conv => conv.id)
+    const idPlaceholders = convIds.map(() => '?').join(', ')
+    const msgResult = await db.prepare(
+      `SELECT conversation_id, COUNT(*) as n FROM messages WHERE conversation_id IN (${idPlaceholders}) GROUP BY conversation_id`
+    ).bind(...convIds).all().catch(() => ({ results: [] }))
+    const countByConv = new Map<string, number>()
+    for (const row of (((msgResult as any).results || []) as Record<string, any>[])) {
+      countByConv.set(String(row.conversation_id || ''), Number(row.n || 0))
+    }
+
+    const byContact = new Map<string, number>()
+    conversations.forEach(conv => {
+      const messages = countByConv.get(conv.id) || 0
+      conv.participants
+        .filter((value: string) => !identifiers.includes(value))
+        .forEach((other: string) => byContact.set(other, (byContact.get(other) || 0) + messages))
+    })
+
+    const top = Array.from(byContact.entries()).sort((left, right) => right[1] - left[1]).slice(0, 8)
+    const contacts: Array<Record<string, any>> = []
+    for (const [identifier, messageCount] of top) {
+      const row = await findUserByIdentifier(db, identifier).catch(() => null)
+      const name = String(row?.name || '').trim() || identifier.replace(/[_-]+/g, ' ').replace(/@.*/, '').trim() || 'Contact'
+      contacts.push({ id: identifier, name, role: String(row?.role || '').trim(), messageCount })
+    }
+    return contacts
+  } catch {
+    return [] as Array<Record<string, any>>
+  }
+}
+
 // Aggregate the data the profile shows (and feeds to the AI report). Every per-source query is
 // defensive so a missing/older table never breaks the whole profile.
 async function buildStudentProfileSnapshot(db: D1Database, tenantId: string, student: Record<string, any>) {
@@ -14177,6 +14223,7 @@ async function buildStudentProfileSnapshot(db: D1Database, tenantId: string, stu
     `SELECT * FROM student_records WHERE tenant_id = ? AND student_id = ? ORDER BY created_at DESC`
   ).bind(tenantId, sid).all().catch(() => ({ results: [] }))
   const records = (((recRows as any).results || []) as Record<string, any>[]).map(mapStudentRecordRow)
+  const contacts = await buildStudentFrequentContacts(db, student)
 
   return {
     results: {
@@ -14188,6 +14235,7 @@ async function buildStudentProfileSnapshot(db: D1Database, tenantId: string, stu
     assignments,
     attendance,
     records,
+    contacts,
   }
 }
 
@@ -16738,6 +16786,36 @@ app.get('/api/school/staff-attendance/activity', authenticate, async (c) => {
   }
 })
 
+// Resolve a colleague (any non-student/parent staff in the same tenant) for proxy sign-in.
+async function resolveStaffMemberForProxy(db: D1Database, tenantId: string, staffId: string) {
+  const row = await findUserByIdentifier(db, staffId).catch(() => null)
+  if (!row) return null
+  const hydrated = ((await hydrateUserRecords(db, [row]))[0]) as Record<string, any> | undefined
+  if (!hydrated || String(hydrated.tenantId || '') !== String(tenantId || '')) return null
+  const role = String(hydrated.role || '').toLowerCase()
+  if (['student', 'parent'].includes(role)) return null
+  return { id: String(hydrated.id || ''), name: String(hydrated.name || hydrated.email || staffId) }
+}
+
+// Colleague list for the "sign in for a friend" selector.
+app.get('/api/school/staff-attendance/colleagues', authenticate, async (c) => {
+  const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
+  if (!actor.tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!canUseStaffAttendance(actor.role)) return c.json({ error: 'forbidden' }, 403)
+  try {
+    await ensureUsersTable(c.env.APP_DB)
+    const rows = await c.env.APP_DB.prepare(
+      `SELECT id, name, email, role FROM users WHERE tenantId = ? AND (status IS NULL OR status != 'inactive') AND lower(coalesce(role,'')) NOT IN ('student','parent') ORDER BY name`
+    ).bind(actor.tenantId).all()
+    const colleagues = ((rows.results || []) as Record<string, any>[])
+      .map(row => ({ id: String(row.id || ''), name: String(row.name || row.email || 'Staff'), role: String(row.role || '') }))
+      .filter(person => person.id && String(person.id) !== String(actor.actorId))
+    return c.json({ success: true, colleagues })
+  } catch {
+    return c.json({ success: true, colleagues: [] })
+  }
+})
+
 app.post('/api/school/staff-attendance/activity', authenticate, async (c) => {
   const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
   if (!actor.tenantId) return c.json({ error: 'No tenant.' }, 400)
@@ -16751,20 +16829,35 @@ app.post('/api/school/staff-attendance/activity', authenticate, async (c) => {
   const faceImageDataUrl = String(body?.faceImageDataUrl || '').trim()
   let faceImageUrl = String(body?.faceImageUrl || '').trim()
   const notes = String(body?.notes || '').trim()
+  const targetStaffId = String(body?.targetStaffId || '').trim()
 
   try {
     const settings = await getOrCreateStaffAttendanceSettings(c.env.APP_DB, actor.tenantId)
     const normalizedMode = String(settings.mode || 'qr') === 'face_qr' ? 'face_qr' : 'qr'
     const requireQrOnFace = Boolean(Number(settings.require_qr_on_face ?? 1))
     const activeQrCode = String(settings.active_qr_code || '')
-    const effectiveMode = normalizedMode === 'face_qr' || sharedPhone ? 'face_qr' : 'qr'
+
+    // "Sign in for a friend": the signed-in staff marks a colleague's attendance. The colleague's
+    // face + the school QR are always required so it can't be abused for buddy-punching.
+    let subjectId = actor.actorId
+    let subjectName = actor.actorName || actor.actorId
+    let isProxy = false
+    if (targetStaffId && targetStaffId !== actor.actorId) {
+      const target = await resolveStaffMemberForProxy(c.env.APP_DB, actor.tenantId, targetStaffId)
+      if (!target) return c.json({ error: 'Could not find that colleague to sign in for.' }, 404)
+      subjectId = target.id
+      subjectName = target.name
+      isProxy = true
+    }
+
+    const effectiveMode = normalizedMode === 'face_qr' || sharedPhone || isProxy ? 'face_qr' : 'qr'
 
     if (!qrCode || qrCode !== activeQrCode) {
       return c.json({ error: 'The scanned QR code is not valid for this school.' }, 400)
     }
 
     if (!faceImageUrl && faceImageDataUrl) {
-      faceImageUrl = await storeStaffAttendanceFaceImageDataUrl(c.env, actor.tenantId, actor.actorId, faceImageDataUrl)
+      faceImageUrl = await storeStaffAttendanceFaceImageDataUrl(c.env, actor.tenantId, subjectId, faceImageDataUrl)
     }
 
     if (effectiveMode === 'face_qr') {
@@ -16781,8 +16874,8 @@ app.post('/api/school/staff-attendance/activity', authenticate, async (c) => {
     await ensureStaffAttendancePermissionRequestsTable(c.env.APP_DB)
 
     const timestamp = new Date().toISOString()
-    const eventId = `sae_${actor.tenantId}_${actor.actorId}_${attendanceDate}_${action}`
-    const method = sharedPhone ? 'shared_phone' : (effectiveMode === 'face_qr' ? 'face_qr' : 'qr')
+    const eventId = `sae_${actor.tenantId}_${subjectId}_${attendanceDate}_${action}`
+    const method = isProxy ? 'proxy_face_qr' : (sharedPhone ? 'shared_phone' : (effectiveMode === 'face_qr' ? 'face_qr' : 'qr'))
     const approvedPermission = await c.env.APP_DB.prepare(
       `SELECT *
        FROM staff_attendance_permission_requests
@@ -16793,7 +16886,7 @@ app.post('/api/school/staff-attendance/activity', authenticate, async (c) => {
          AND end_date >= ?
        ORDER BY updated_at DESC, created_at DESC
        LIMIT 1`
-    ).bind(actor.tenantId, actor.actorId, attendanceDate, attendanceDate).first() as Record<string, any> | null
+    ).bind(actor.tenantId, subjectId, attendanceDate, attendanceDate).first() as Record<string, any> | null
     let lateMetrics = action === 'sign-in'
       ? buildStaffAttendanceLateMetrics(attendanceDate, timestamp, settings)
       : buildStaffAttendanceLateMetrics(attendanceDate, `${attendanceDate}T00:00:00`, settings)
@@ -16811,13 +16904,13 @@ app.post('/api/school/staff-attendance/activity', authenticate, async (c) => {
     ).bind(
       eventId,
       actor.tenantId,
-      actor.actorId,
+      subjectId,
       attendanceDate,
       action,
       method,
       qrCode,
       faceImageUrl || null,
-      sharedPhone ? 1 : 0,
+      (sharedPhone || isProxy) ? 1 : 0,
       lateMetrics.isLate ? 1 : 0,
       lateMetrics.lateMinutes,
       lateMetrics.lateCharge,
@@ -16830,14 +16923,14 @@ app.post('/api/school/staff-attendance/activity', authenticate, async (c) => {
     ).run()
 
     if (action === 'sign-in') {
-      const summaryId = `sa_${actor.tenantId}_${actor.actorId}_${attendanceDate}`
+      const summaryId = `sa_${actor.tenantId}_${subjectId}_${attendanceDate}`
       await c.env.APP_DB.prepare(
         `INSERT OR REPLACE INTO staff_attendance (id, tenant_id, staff_id, date, status, recorded_by, created_at)
          VALUES (?, ?, ?, ?, ?, ?, ?)`
       ).bind(
         summaryId,
         actor.tenantId,
-        actor.actorId,
+        subjectId,
         attendanceDate,
         lateMetrics.isLate ? 'Late' : 'Present',
         actor.actorName || actor.actorId,
@@ -16850,13 +16943,14 @@ app.post('/api/school/staff-attendance/activity', authenticate, async (c) => {
       event: mapStaffAttendanceEvent({
         id: eventId,
         tenant_id: actor.tenantId,
-        staff_id: actor.actorId,
+        staff_id: subjectId,
+        subject_name: subjectName,
         date: attendanceDate,
         action,
         method,
         qr_code: qrCode,
         face_image_url: faceImageUrl,
-        shared_phone: sharedPhone ? 1 : 0,
+        shared_phone: (sharedPhone || isProxy) ? 1 : 0,
         is_late: lateMetrics.isLate ? 1 : 0,
         late_minutes: lateMetrics.lateMinutes,
         late_charge: lateMetrics.lateCharge,
