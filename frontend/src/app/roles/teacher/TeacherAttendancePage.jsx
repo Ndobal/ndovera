@@ -123,8 +123,31 @@ function MetricCard({ label, value, accent = 'text-[#191970] dark:text-[#39ff14]
   );
 }
 
+// jsQR is loaded on demand so the camera scanner works on browsers without the native
+// BarcodeDetector (iOS Safari, Firefox, most mobile browsers) — without bloating the bundle.
+const JSQR_SRC = 'https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js';
+function loadJsQr() {
+  return new Promise((resolve, reject) => {
+    if (window.jsQR) { resolve(window.jsQR); return; }
+    const existing = document.querySelector('script[data-jsqr="1"]');
+    if (existing) {
+      existing.addEventListener('load', () => resolve(window.jsQR));
+      existing.addEventListener('error', () => reject(new Error('jsQR failed to load')));
+      return;
+    }
+    const element = document.createElement('script');
+    element.src = JSQR_SRC;
+    element.async = true;
+    element.dataset.jsqr = '1';
+    element.addEventListener('load', () => resolve(window.jsQR));
+    element.addEventListener('error', () => reject(new Error('jsQR failed to load')));
+    document.head.appendChild(element);
+  });
+}
+
 function CameraScanner({ open, onDetect, disabled }) {
   const videoRef = useRef(null);
+  const canvasRef = useRef(null);
   const animationRef = useRef(null);
   const streamRef = useRef(null);
   const detectedRef = useRef(false);
@@ -153,23 +176,30 @@ function CameraScanner({ open, onDetect, disabled }) {
       return undefined;
     }
 
-    if (typeof window === 'undefined' || !window.BarcodeDetector || !window.navigator?.mediaDevices?.getUserMedia) {
-      setScannerError('Live camera QR scanning is not available in this browser. Use the manual QR entry field below.');
+    if (typeof window === 'undefined' || !window.navigator?.mediaDevices?.getUserMedia) {
+      setScannerError('This browser cannot open the camera. Use the manual QR entry field below.');
       stopScanner();
       return undefined;
     }
 
     let active = true;
-    let detector;
+    let detector = null;     // native BarcodeDetector when available
+    let jsQrFn = null;       // jsQR fallback otherwise
 
     async function startScanner() {
       setScannerError('');
       try {
-        detector = new window.BarcodeDetector({ formats: ['qr_code'] });
+        // Decode with the native detector when present; otherwise load jsQR.
+        if (window.BarcodeDetector) {
+          try { detector = new window.BarcodeDetector({ formats: ['qr_code'] }); } catch { detector = null; }
+        }
+        if (!detector) {
+          jsQrFn = await loadJsQr().catch(() => null);
+        }
+
+        // Always open the camera (works on iOS Safari/Firefox even without BarcodeDetector).
         const stream = await window.navigator.mediaDevices.getUserMedia({
-          video: {
-            facingMode: { ideal: 'environment' },
-          },
+          video: { facingMode: { ideal: 'environment' } },
           audio: false,
         });
 
@@ -185,11 +215,33 @@ function CameraScanner({ open, onDetect, disabled }) {
         }
         setScannerReady(true);
 
+        if (!detector && !jsQrFn) {
+          setScannerError('The camera is on, but live QR decoding is not supported here. Read the code and type it in Manual QR Entry below.');
+        }
+
         const scan = async () => {
           if (!active || !videoRef.current || detectedRef.current) return;
           try {
-            const barcodes = await detector.detect(videoRef.current);
-            const nextCode = String(barcodes?.[0]?.rawValue || '').trim();
+            let nextCode = '';
+            if (detector) {
+              const barcodes = await detector.detect(videoRef.current);
+              nextCode = String(barcodes?.[0]?.rawValue || '').trim();
+            } else if (jsQrFn) {
+              const video = videoRef.current;
+              const width = video.videoWidth;
+              const height = video.videoHeight;
+              if (width && height) {
+                if (!canvasRef.current) canvasRef.current = document.createElement('canvas');
+                const canvas = canvasRef.current;
+                canvas.width = width;
+                canvas.height = height;
+                const context = canvas.getContext('2d', { willReadFrequently: true });
+                context.drawImage(video, 0, 0, width, height);
+                const imageData = context.getImageData(0, 0, width, height);
+                const result = jsQrFn(imageData.data, width, height);
+                nextCode = String(result?.data || '').trim();
+              }
+            }
             if (nextCode) {
               detectedRef.current = true;
               stopScanner();
@@ -202,7 +254,9 @@ function CameraScanner({ open, onDetect, disabled }) {
 
         animationRef.current = window.requestAnimationFrame(scan);
       } catch (error) {
-        setScannerError(error instanceof Error ? error.message : 'Could not start the camera scanner.');
+        setScannerError(error?.name === 'NotAllowedError'
+          ? 'Camera permission was blocked. Allow camera access in your browser settings, then try again.'
+          : (error instanceof Error ? error.message : 'Could not start the camera.'));
         stopScanner();
       }
     }
@@ -220,10 +274,10 @@ function CameraScanner({ open, onDetect, disabled }) {
     <div className={PANEL}>
       <p className={LABEL}>Live QR Scanner</p>
       <div className="mt-3 overflow-hidden rounded-3xl border border-[#c9a96e]/35 bg-black/80">
-        <video ref={videoRef} muted playsInline className="h-72 w-full object-cover" />
+        <video ref={videoRef} muted playsInline autoPlay className="h-72 w-full object-cover" />
       </div>
       <p className={`${BODY} mt-3`}>
-        {scannerReady ? 'Point the camera at the active school QR code to sign in automatically.' : 'Preparing the camera scanner...'}
+        {scannerReady ? 'Point the camera at the active school QR code to sign in automatically.' : 'Preparing the camera...'}
       </p>
       {scannerError ? <p className="mt-2 text-sm text-[#800000] dark:text-rose-200">{scannerError}</p> : null}
     </div>
@@ -737,15 +791,20 @@ export default function TeacherAttendancePage() {
                       <button
                         type="button"
                         onClick={() => {
-                          if (!scannerOpen && !manualQrCode.trim()) {
-                            setScannerDismissedManually(false);
-                            setScannerOpen(true);
-                            return;
-                          }
-                          submitSignIn();
+                          setScannerDismissedManually(false);
+                          setScannerOpen(true);
                         }}
                         className={PRIMARY_BUTTON}
                         disabled={signInLoading || settingsLoading}
+                      >
+                        {scannerOpen ? '📷 Scanning… point at the QR' : '📷 Scan QR Code'}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => submitSignIn()}
+                        className={SECONDARY_BUTTON}
+                        disabled={signInLoading || settingsLoading || !manualQrCode.trim()}
+                        title={!manualQrCode.trim() ? 'Scan the QR code first, or type it in Manual QR Entry' : ''}
                       >
                         {signInLoading ? 'Marking Attendance...' : 'Mark Attendance'}
                       </button>

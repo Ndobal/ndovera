@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import QRCode from 'qrcode';
 import { getApiBase } from '../../../config/apiBase';
+import MaterialViewer from '../../classroom/materials/MaterialViewer';
 
 function normalizeBrandColor(value, fallback) {
   const color = String(value || '').trim();
@@ -40,12 +41,18 @@ function resolveRecordScoreModel(record = null) {
   };
 }
 
-function filterRecordDocuments(documents = [], record = null) {
-  if (!record) return [];
-  return (Array.isArray(documents) ? documents : []).filter(document => (
-    String(document?.sessionName || '') === String(record?.sessionName || '')
-      && String(document?.termName || '') === String(record?.termName || '')
-  ));
+// Group every uploaded result PDF by session + term so they always show — even when the school
+// only uploaded PDFs and never published a CA-score record (the common bulk-upload case).
+function groupDocumentsByPeriod(documents = []) {
+  const groups = new Map();
+  (Array.isArray(documents) ? documents : []).forEach(document => {
+    const sessionName = String(document?.sessionName || '').trim() || 'Session';
+    const termName = String(document?.termName || '').trim() || 'Term';
+    const key = `${sessionName}::${termName}`;
+    if (!groups.has(key)) groups.set(key, { sessionName, termName, items: [] });
+    groups.get(key).items.push(document);
+  });
+  return Array.from(groups.values()).sort((left, right) => `${right.sessionName} ${right.termName}`.localeCompare(`${left.sessionName} ${left.termName}`));
 }
 
 function buildVerificationLabel(url) {
@@ -77,10 +84,11 @@ export default function ResultRecordViewer({
 }) {
   const selectedRecord = records.find(record => record.id === selectedRecordId) || records[0] || null;
   const summary = selectedRecord?.summary || {};
-  const selectedDocuments = filterRecordDocuments(documents, selectedRecord);
+  const documentGroups = useMemo(() => groupDocumentsByPeriod(documents), [documents]);
   const branding = resolveRecordBranding(selectedRecord);
   const scoreModel = resolveRecordScoreModel(selectedRecord);
   const [qrDataUrl, setQrDataUrl] = useState('');
+  const [activeDocument, setActiveDocument] = useState(null);
 
   const verificationUrl = useMemo(() => {
     const existingUrl = String(selectedRecord?.verificationUrl || '').trim();
@@ -180,7 +188,7 @@ export default function ResultRecordViewer({
         </section>
       )}
 
-      {!lockedByFees && records.length === 0 && (
+      {!lockedByFees && records.length === 0 && documents.length === 0 && (
         <section className="glass-surface rounded-3xl p-6">
           <p className="micro-label accent-amber">No published records</p>
           <p className="mt-2 text-slate-200">{emptyMessage}</p>
@@ -350,29 +358,64 @@ export default function ResultRecordViewer({
               <p className="text-slate-200 mt-2">{summary.principalRemark || 'No principal remark yet.'}</p>
             </div>
           </section>
-
-          {selectedDocuments.length > 0 && (
-            <section className="result-record-print-surface glass-surface rounded-3xl p-6">
-              <h2 className="text-lg command-title neon-title mb-4">Uploaded PDFs</h2>
-              <div className="space-y-3">
-                {selectedDocuments.map(document => (
-                  <a
-                    key={document.id}
-                    href={document.fileUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="result-record-print-link block rounded-2xl border border-white/10 bg-slate-900/20 p-4 transition hover:bg-slate-900/35"
-                  >
-                    <p className="text-slate-100 font-semibold">{document.fileName}</p>
-                    <p className="text-xs text-slate-300 mt-1">Uploaded: {document.uploadedAt ? new Date(document.uploadedAt).toLocaleString() : '—'}</p>
-                  </a>
-                ))}
-              </div>
-            </section>
-          )}
           </section>
         </>
       )}
+
+      {/* Uploaded result PDFs always show (grouped by term), even when no CA record was published. */}
+      {!lockedByFees && documents.length > 0 && (
+        <section className="result-record-print-hide glass-surface rounded-3xl p-6 border border-white/10">
+          <h2 className="text-lg command-title neon-title mb-1">Uploaded Result Documents</h2>
+          <p className="text-xs text-slate-300 mb-4">Tap a result to read it in the app, or download it.</p>
+          <div className="space-y-5">
+            {documentGroups.map(group => (
+              <div key={`${group.sessionName}::${group.termName}`}>
+                <p className="micro-label accent-indigo mb-2">{group.termName} • {group.sessionName}</p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  {group.items.map(document => (
+                    <div key={document.id} className="rounded-2xl border border-white/10 bg-slate-900/20 p-4">
+                      <p className="text-slate-100 font-semibold truncate">{document.fileName}</p>
+                      <p className="text-xs text-slate-300 mt-1">Uploaded: {document.uploadedAt ? new Date(document.uploadedAt).toLocaleString() : '—'}</p>
+                      <div className="mt-3 flex flex-wrap gap-2">
+                        <button
+                          type="button"
+                          onClick={() => setActiveDocument(document)}
+                          className="rounded-xl bg-emerald-500/30 border border-emerald-300/40 px-3 py-1.5 text-xs font-bold text-white transition hover:bg-emerald-500/40"
+                        >
+                          Open result
+                        </button>
+                        <a
+                          href={document.fileUrl}
+                          download={document.fileName}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="rounded-xl border border-white/15 px-3 py-1.5 text-xs font-bold text-slate-100 transition hover:bg-slate-900/40"
+                        >
+                          Download
+                        </a>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {activeDocument ? (
+        <MaterialViewer
+          material={{
+            id: activeDocument.id,
+            url: activeDocument.fileUrl,
+            title: activeDocument.fileName,
+            fileName: activeDocument.fileName,
+            type: 'pdf',
+            subjectName: `${activeDocument.termName || 'Term'} • ${activeDocument.sessionName || 'Session'}`,
+          }}
+          onClose={() => setActiveDocument(null)}
+        />
+      ) : null}
     </div>
   );
 }
