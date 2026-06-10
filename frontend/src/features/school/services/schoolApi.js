@@ -355,6 +355,12 @@ export const updateResultBatchStatus = (data) => req('/api/results/batch-status'
 export const publishResultBatch = (data) => req('/api/results/publish', { method: 'POST', body: data });
 export const getResultOverview = () => req('/api/results/overview');
 export const getResultRecords = (studentId = '') => req(`/api/results/records${buildQuery(studentId ? { studentId } : {})}`);
+
+// Student 360° profile
+export const getStudentProfile = (studentId) => req(`/api/students/${encodeURIComponent(studentId)}/profile`, { skipOfflineCache: true });
+export const addStudentRecord = (studentId, data) => req(`/api/students/${encodeURIComponent(studentId)}/records`, { method: 'POST', body: data });
+export const deleteStudentRecord = (studentId, recordId) => req(`/api/students/${encodeURIComponent(studentId)}/records/${encodeURIComponent(recordId)}`, { method: 'DELETE' });
+export const generateStudentAiReport = (studentId) => req(`/api/students/${encodeURIComponent(studentId)}/ai-report`, { method: 'POST' });
 export const uploadResultDocuments = (files, extraFields = {}) => uploadFiles('/api/results/documents/upload', files, extraFields);
 export const getLearningStudents = () => req('/api/learning/students');
 export const getLessonPlans = (params = {}) => req(`/api/lesson-plans${buildQuery(params)}`);

@@ -14051,6 +14051,243 @@ app.get('/api/results/records', authenticate, async (c) => {
   })
 })
 
+// ─── Student 360° profile (results, assignments, attendance, records, AI report) ─────────────
+const STUDENT_RECORD_CATEGORIES = ['punishment', 'reward', 'comment', 'report', 'recommendation', 'scholarship', 'competition', 'note']
+const STUDENT_PROFILE_MANAGER_ROLES = ['owner', 'hos', 'ict', 'ict_manager', 'admin', 'teacher', 'classteacher', 'accountant', 'principal', 'viceprincipal', 'headteacher', 'nurseryhead', 'examofficer', 'hod', 'hodassistant']
+
+async function ensureStudentRecordsTable(db: D1Database) {
+  if (_initializedTables.has('student_records')) return
+  _initializedTables.add('student_records')
+  await db.prepare(`CREATE TABLE IF NOT EXISTS student_records (
+    id TEXT PRIMARY KEY,
+    tenant_id TEXT,
+    student_id TEXT,
+    category TEXT,
+    title TEXT,
+    detail TEXT,
+    metadata_json TEXT,
+    created_by TEXT,
+    created_by_name TEXT,
+    created_at TEXT
+  )`).run()
+  await runIndexStatements(db, [
+    `CREATE INDEX IF NOT EXISTS idx_student_records_student ON student_records(tenant_id, student_id, category)`,
+  ])
+}
+
+function mapStudentRecordRow(row: Record<string, any>) {
+  return {
+    id: String(row.id || ''),
+    category: String(row.category || 'note'),
+    title: String(row.title || ''),
+    detail: String(row.detail || ''),
+    metadata: parseJsonField(row.metadata_json, {} as Record<string, any>),
+    createdBy: String(row.created_by || ''),
+    createdByName: String(row.created_by_name || ''),
+    createdAt: String(row.created_at || ''),
+  }
+}
+
+// Decide who can see/manage a student's full profile: school staff (manage), the linked parent
+// (read), or the student themselves (read).
+async function resolveStudentProfileAccess(db: D1Database, actorUser: Record<string, any>, studentId: string) {
+  const userIdentifier = actorUser.id || actorUser.email || actorUser.sub || ''
+  const resolved = await resolveSettingsIdentity(db, userIdentifier)
+  const tenantId = resolved.settings?.tenantId || resolved.settings?.schoolId || resolved.userRow?.tenantId || actorUser.tenantId
+  const role = String(resolved.settings?.role || resolved.userRow?.role || actorUser.role || '').trim().toLowerCase()
+  const actorId = String(resolved.userRow?.id || resolved.settingsKey || userIdentifier || '').trim()
+  const actorName = String(resolved.settings?.name || resolved.userRow?.name || actorUser.name || actorId).trim()
+
+  const studentRow = await findUserByIdentifier(db, studentId).catch(() => null)
+  const student = ((await hydrateUserRecords(db, studentRow ? [studentRow] : []))[0]) as Record<string, any> | undefined
+  if (!student || String(student.tenantId || '') !== String(tenantId || '') || String(student.role || '').toLowerCase() !== 'student') {
+    return { ok: false, canManage: false, tenantId, role, actorId, actorName, student: null as Record<string, any> | null }
+  }
+
+  const canManage = STUDENT_PROFILE_MANAGER_ROLES.includes(role)
+  let canView = canManage
+  const actorIdentifiers = collectResolvedIdentityIdentifiers(resolved, actorUser).map(value => String(value || '').toLowerCase()).filter(Boolean)
+  if (!canView && role === 'student') {
+    canView = [student.id, student.email, student.displayId].some(value => actorIdentifiers.includes(String(value || '').toLowerCase()))
+  }
+  if (!canView && role === 'parent') {
+    await ensureParentStudentLinksTable(db)
+    const parentIds = collectResolvedIdentityIdentifiers(resolved, actorUser).filter(Boolean)
+    if (parentIds.length) {
+      const placeholders = parentIds.map(() => '?').join(', ')
+      const link = await db.prepare(
+        `SELECT 1 FROM parent_student_links WHERE tenant_id = ? AND student_id = ? AND parent_id IN (${placeholders}) LIMIT 1`
+      ).bind(tenantId, String(student.id || ''), ...parentIds).first().catch(() => null)
+      canView = Boolean(link)
+    }
+  }
+
+  return { ok: canView, canManage, tenantId, role, actorId, actorName, student }
+}
+
+// Aggregate the data the profile shows (and feeds to the AI report). Every per-source query is
+// defensive so a missing/older table never breaks the whole profile.
+async function buildStudentProfileSnapshot(db: D1Database, tenantId: string, student: Record<string, any>) {
+  const sid = String(student.id || '')
+  const classId = String(student.classId || '')
+
+  const [publications, documents] = await Promise.all([
+    listStudentResultPublications(db, tenantId, sid).catch(() => [] as Record<string, any>[]),
+    listStudentResultDocuments(db, tenantId, sid).catch(() => [] as Record<string, any>[]),
+  ])
+
+  let assignments = { total: 0, completed: 0, notDone: 0, graded: 0, averageScore: 0 }
+  try {
+    const totalRow = classId
+      ? await db.prepare(`SELECT COUNT(*) as n FROM assignments WHERE classId = ?`).bind(classId).first() as Record<string, any> | null
+      : null
+    const subResult = await db.prepare(`SELECT grade FROM submissions WHERE studentId = ?`).bind(sid).all()
+    const subs = (subResult.results || []) as Record<string, any>[]
+    const graded = subs.filter(row => row.grade !== null && row.grade !== undefined)
+    const total = Number(totalRow?.n || 0)
+    assignments = {
+      total,
+      completed: subs.length,
+      notDone: Math.max(total - subs.length, 0),
+      graded: graded.length,
+      averageScore: graded.length ? Math.round(graded.reduce((sum, row) => sum + Number(row.grade || 0), 0) / graded.length) : 0,
+    }
+  } catch {}
+
+  let attendance = { present: 0, absent: 0, late: 0, excused: 0, total: 0, rate: 0 }
+  try {
+    const rows = await db.prepare(
+      `SELECT lower(trim(coalesce(status, 'present'))) as st, COUNT(*) as n FROM student_attendance_school WHERE tenant_id = ? AND student_id = ? GROUP BY st`
+    ).bind(tenantId, sid).all()
+    let present = 0, absent = 0, late = 0, excused = 0
+    for (const row of ((rows.results || []) as Record<string, any>[])) {
+      const st = String(row.st || '')
+      const n = Number(row.n || 0)
+      if (st.includes('absent')) absent += n
+      else if (st.includes('late')) late += n
+      else if (st.includes('excus')) excused += n
+      else present += n
+    }
+    const total = present + absent + late + excused
+    attendance = { present, absent, late, excused, total, rate: total ? Math.round(((present + late) / total) * 100) : 0 }
+  } catch {}
+
+  await ensureStudentRecordsTable(db)
+  const recRows = await db.prepare(
+    `SELECT * FROM student_records WHERE tenant_id = ? AND student_id = ? ORDER BY created_at DESC`
+  ).bind(tenantId, sid).all().catch(() => ({ results: [] }))
+  const records = (((recRows as any).results || []) as Record<string, any>[]).map(mapStudentRecordRow)
+
+  return {
+    results: {
+      publicationCount: publications.length,
+      documentCount: documents.length,
+      latestTerm: String((publications[0] as any)?.termName || ''),
+      latestSession: String((publications[0] as any)?.sessionName || ''),
+    },
+    assignments,
+    attendance,
+    records,
+  }
+}
+
+app.get('/api/students/:studentId/profile', authenticate, async (c) => {
+  const studentId = String(c.req.param('studentId') || '').trim()
+  const access = await resolveStudentProfileAccess(c.env.APP_DB, c.var.user || {}, studentId)
+  if (!access.tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!access.ok || !access.student) return c.json({ error: 'forbidden' }, 403)
+
+  const snapshot = await buildStudentProfileSnapshot(c.env.APP_DB, access.tenantId, access.student)
+  return c.json({
+    success: true,
+    canManage: access.canManage,
+    student: {
+      id: String(access.student.id || ''),
+      name: String(access.student.name || ''),
+      email: String(access.student.email || ''),
+      displayId: String(access.student.displayId || ''),
+      classId: String(access.student.classId || ''),
+      className: String(access.student.className || ''),
+      avatar: String(access.student.avatar || access.student.avatarUrl || ''),
+      status: String(access.student.status || 'active'),
+    },
+    ...snapshot,
+    categories: STUDENT_RECORD_CATEGORIES,
+  })
+})
+
+app.post('/api/students/:studentId/records', authenticate, async (c) => {
+  const studentId = String(c.req.param('studentId') || '').trim()
+  const access = await resolveStudentProfileAccess(c.env.APP_DB, c.var.user || {}, studentId)
+  if (!access.tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!access.canManage || !access.student) return c.json({ error: 'forbidden' }, 403)
+
+  const body = await c.req.json().catch(() => ({})) as Record<string, any>
+  const category = String(body.category || '').trim().toLowerCase()
+  if (!STUDENT_RECORD_CATEGORIES.includes(category)) return c.json({ error: 'Invalid category.' }, 400)
+  const title = sanitizeProfileText(String(body.title || '').trim(), 200)
+  const detail = sanitizeProfileText(String(body.detail || '').trim(), 4000)
+  if (!title && !detail) return c.json({ error: 'Add a title or some detail.' }, 400)
+
+  await ensureStudentRecordsTable(c.env.APP_DB)
+  const id = `srec_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`
+  const now = new Date().toISOString()
+  await c.env.APP_DB.prepare(
+    `INSERT INTO student_records (id, tenant_id, student_id, category, title, detail, metadata_json, created_by, created_by_name, created_at)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+  ).bind(id, access.tenantId, String(access.student.id || ''), category, title, detail, JSON.stringify(body.metadata || {}), access.actorId, access.actorName, now).run()
+
+  return c.json({ success: true, record: { id, category, title, detail, metadata: body.metadata || {}, createdBy: access.actorId, createdByName: access.actorName, createdAt: now } }, 201)
+})
+
+app.delete('/api/students/:studentId/records/:recordId', authenticate, async (c) => {
+  const studentId = String(c.req.param('studentId') || '').trim()
+  const recordId = String(c.req.param('recordId') || '').trim()
+  const access = await resolveStudentProfileAccess(c.env.APP_DB, c.var.user || {}, studentId)
+  if (!access.tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!access.canManage || !access.student) return c.json({ error: 'forbidden' }, 403)
+  await ensureStudentRecordsTable(c.env.APP_DB)
+  await c.env.APP_DB.prepare(`DELETE FROM student_records WHERE tenant_id = ? AND student_id = ? AND id = ?`).bind(access.tenantId, String(access.student.id || ''), recordId).run()
+  return c.json({ success: true })
+})
+
+app.post('/api/students/:studentId/ai-report', authenticate, async (c) => {
+  const studentId = String(c.req.param('studentId') || '').trim()
+  const access = await resolveStudentProfileAccess(c.env.APP_DB, c.var.user || {}, studentId)
+  if (!access.tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!access.ok || !access.student) return c.json({ error: 'forbidden' }, 403)
+
+  const snapshot = await buildStudentProfileSnapshot(c.env.APP_DB, access.tenantId, access.student)
+  const recordLines = snapshot.records.slice(0, 30).map(record => `- [${record.category}] ${record.title}${record.detail ? `: ${record.detail}` : ''}`).join('\n') || '- none recorded'
+  const dataBlock = [
+    `Student: ${access.student.name} (${access.student.displayId || access.student.id})`,
+    `Class: ${access.student.className || 'Unassigned'}`,
+    `Results: ${snapshot.results.publicationCount} published record(s), ${snapshot.results.documentCount} uploaded result document(s). Latest: ${snapshot.results.latestTerm || '—'} ${snapshot.results.latestSession || ''}`.trim(),
+    `Assignments: ${snapshot.assignments.completed}/${snapshot.assignments.total} done, ${snapshot.assignments.notDone} outstanding, ${snapshot.assignments.graded} graded, average score ${snapshot.assignments.averageScore}%`,
+    `Attendance: present ${snapshot.attendance.present}, late ${snapshot.attendance.late}, absent ${snapshot.attendance.absent}, excused ${snapshot.attendance.excused} (rate ${snapshot.attendance.rate}%)`,
+    `Teacher/staff records:\n${recordLines}`,
+  ].join('\n')
+
+  const messages: any[] = [
+    { role: 'system', content: 'You are an experienced Nigerian school teacher writing a concise termly progress report for one student, for staff and parents. Be encouraging, specific and constructive. Use only the figures provided; do not invent data. Reply in plain text with clearly labelled sections: SUMMARY, STRENGTHS, AREAS TO IMPROVE, RECOMMENDATIONS.' },
+    { role: 'user', content: `Generate the progress report from this data:\n\n${dataBlock}` },
+  ]
+
+  let raw = ''
+  try {
+    if (c.env.AI && typeof c.env.AI.run === 'function') {
+      const result = await c.env.AI.run(WORKERS_AI_MODEL, { messages, max_tokens: 700, temperature: 0.5 })
+      raw = extractWorkersAiText(result)
+    } else if (String((c.env as any).NVIDIA_API_KEY || '').trim()) {
+      raw = await runNvidiaStudentChat(c.env, messages)
+    }
+  } catch {
+    raw = ''
+  }
+  if (!raw) return c.json({ error: 'The AI progress report is not available right now. Please try again shortly.' }, 503)
+  return c.json({ success: true, report: raw, generatedAt: new Date().toISOString() })
+})
+
 // Per-student old-code manager: list students with their tagged codes.
 app.get('/api/students/old-codes', authenticate, async (c) => {
   try {

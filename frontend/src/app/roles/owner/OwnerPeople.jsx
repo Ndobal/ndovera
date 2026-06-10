@@ -5,6 +5,7 @@ import {
   getClasses, getParents, getUserProfile, updateUserProfile, linkParentStudent, getMyTenant,
   resetPassword,
 } from '../../../features/school/services/schoolApi';
+import StudentProfilePage from '../../../features/students/components/StudentProfilePage';
 
 const FILTER_TO_ROLE = { Teachers: 'teacher', Admin: 'admin', Students: 'student', Parents: 'parent' };
 
@@ -43,6 +44,7 @@ function UserProfileModal({ userId, onClose, isAdmin, currentUserId }) {
   const [error, setError] = useState('');
   const [editing, setEditing] = useState(false);
   const [editForm, setEditForm] = useState({});
+  const [viewFullProfile, setViewFullProfile] = useState(false);
   const [saving, setSaving] = useState(false);
   const [saveMsg, setSaveMsg] = useState('');
   // second parent linking
@@ -132,9 +134,20 @@ function UserProfileModal({ userId, onClose, isAdmin, currentUserId }) {
             {canEdit && !editing && (
               <button onClick={() => setEditing(true)} className="bg-[#1a5c38] text-[#f5deb3] font-bold text-xs px-3 py-1.5 rounded-xl">Edit</button>
             )}
+            {profile?.role === 'student' && (
+              <button onClick={() => setViewFullProfile(true)} className="bg-[#800020] text-[#f5deb3] font-bold text-xs px-3 py-1.5 rounded-xl">View</button>
+            )}
             <button onClick={onClose} className="text-[#800020] dark:text-slate-400 text-xl font-bold hover:text-red-600">✕</button>
           </div>
         </div>
+
+        {viewFullProfile && profile?.id ? (
+          <StudentProfilePage
+            studentId={profile.id}
+            studentName={profile.name || 'Student'}
+            onClose={() => setViewFullProfile(false)}
+          />
+        ) : null}
 
         {loading && <p className="text-[#800020] dark:text-slate-400 text-sm">Loading...</p>}
         {error && <p className="text-red-600 text-sm">{error}</p>}
