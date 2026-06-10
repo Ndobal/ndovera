@@ -14440,7 +14440,13 @@ app.post('/api/results/documents/upload', authenticate, async (c) => {
   if (!tenant) return c.json({ error: 'Tenant not found.' }, 404)
 
   const actorId = String(c.var.user?.id || c.var.user?.email || c.var.user?.sub || '').trim()
-  const formData = await c.req.formData()
+  let formData: FormData
+  try {
+    formData = await c.req.formData()
+  } catch {
+    // A too-large/garbled multipart body would otherwise crash the Worker as a 503.
+    return c.json({ error: 'This upload batch was too large to process. The app will retry with fewer files.' }, 413)
+  }
   const files = formData.getAll('files').filter(item => item instanceof File) as File[]
   if (files.length === 0) return c.json({ error: 'Upload at least one PDF file.' }, 400)
   const rawFileStudentMap = String(formData.get('fileStudentMap') || '').trim()
@@ -14671,6 +14677,33 @@ app.post('/api/results/documents/upload', authenticate, async (c) => {
     },
     missingStudents,
   })
+})
+
+// Delete a single uploaded result PDF (staff only). Lets schools remove a wrong file and
+// re-upload — uploads already enforce one document per student/session/term, so this keeps
+// results clean without ever leaving duplicates.
+app.delete('/api/results/documents/:documentId', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, RESULT_DOCUMENT_UPLOADER_ROLES)) return c.json({ error: 'forbidden' }, 403)
+  const { tenant } = await resolveTenantForActor(c)
+  if (!tenant) return c.json({ error: 'Tenant not found.' }, 404)
+  const documentId = String(c.req.param('documentId') || '').trim()
+  if (!documentId) return c.json({ error: 'documentId required.' }, 400)
+  try {
+    await ensureResultsTables(c.env.APP_DB)
+    const row = await c.env.APP_DB.prepare(
+      `SELECT id, file_url FROM result_documents WHERE id = ? AND tenant_id = ?`
+    ).bind(documentId, tenant.id).first() as Record<string, any> | null
+    if (!row) return c.json({ error: 'Result document not found.' }, 404)
+    const fileUrl = String(row.file_url || '')
+    const key = fileUrl.replace(/^https?:\/\/[^/]+\/files\//, '')
+    if (key && key !== fileUrl) {
+      try { await c.env.UPLOADS.delete(key) } catch {}
+    }
+    await c.env.APP_DB.prepare(`DELETE FROM result_documents WHERE id = ? AND tenant_id = ?`).bind(documentId, tenant.id).run()
+    return c.json({ success: true })
+  } catch {
+    return c.json({ error: 'Could not delete the result document.' }, 500)
+  }
 })
 
 // ─── Fees Config ────────────────────────────────────────────────────────────

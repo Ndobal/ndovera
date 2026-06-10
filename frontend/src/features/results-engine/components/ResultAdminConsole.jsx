@@ -292,7 +292,7 @@ export default function ResultAdminConsole({ analyticsMode = 'hos', roleTitle = 
     try {
       const response = await uploadPublishedResultDocumentsSequential(
         { ...selectedBatch, files, fileStudentMap },
-        { chunkSize: 5, onProgress: (done, total) => setUploadProgress({ done, total }) },
+        { chunkSize: 3, onProgress: (done, total) => setUploadProgress({ done, total }) },
       );
       setUploadReport(response || null);
       setFiles([]);
@@ -333,7 +333,7 @@ export default function ResultAdminConsole({ analyticsMode = 'hos', roleTitle = 
       // every class, skips PDFs already uploaded for this term, and queues them one chunk at a time.
       const response = await uploadPublishedResultDocumentsSequential(
         { classId: '', sessionName: schoolSession, termName: schoolTerm, files: schoolFiles },
-        { chunkSize: 5, onProgress: (done, total) => setSchoolProgress({ done, total }) },
+        { chunkSize: 3, onProgress: (done, total) => setSchoolProgress({ done, total }) },
       );
       setSchoolReport(response || null);
       setSchoolFiles([]);

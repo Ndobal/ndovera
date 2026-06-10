@@ -262,6 +262,12 @@ export async function uploadPublishedResultDocumentsSequential(payload = {}, opt
 
     processed += chunk.length;
     onProgress(processed, files.length);
+
+    // Small breather between chunks so a burst of large uploads doesn't overload the Worker (503).
+    if (index + chunkSize < files.length) {
+      // eslint-disable-next-line no-await-in-loop
+      await new Promise(resolve => setTimeout(resolve, 200));
+    }
   }
 
   merged.success = !merged.hasBlockingIssues;

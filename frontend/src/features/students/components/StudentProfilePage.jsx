@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
 import {
   addStudentRecord,
+  deleteResultDocument,
   deleteStudentRecord,
   generateStudentAiReport,
   getResultRecords,
@@ -227,6 +228,12 @@ export default function StudentProfilePage({ studentId, studentName = 'Student',
           lockedByFees={Boolean(resultData?.lockedByFees)}
           feeStatus={resultData?.feeStatus || ''}
           emptyMessage="No published results or uploaded result documents for this student yet."
+          canManageDocuments={canManage}
+          onDeleteDocument={async (documentId) => {
+            await deleteResultDocument(documentId);
+            const data = await getResultRecords(studentId);
+            setResultData(data);
+          }}
         />
       );
     }

@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import QRCode from 'qrcode';
 import { getApiBase } from '../../../config/apiBase';
 import MaterialViewer from '../../classroom/materials/MaterialViewer';
+import Flipbook from '../../classroom/materials/Flipbook';
 
 function normalizeBrandColor(value, fallback) {
   const color = String(value || '').trim();
@@ -81,6 +82,8 @@ export default function ResultRecordViewer({
   lockedByFees = false,
   feeStatus = '',
   emptyMessage = 'No published result records are available yet.',
+  canManageDocuments = false,
+  onDeleteDocument = null,
 }) {
   const selectedRecord = records.find(record => record.id === selectedRecordId) || records[0] || null;
   const summary = selectedRecord?.summary || {};
@@ -89,6 +92,25 @@ export default function ResultRecordViewer({
   const scoreModel = resolveRecordScoreModel(selectedRecord);
   const [qrDataUrl, setQrDataUrl] = useState('');
   const [activeDocument, setActiveDocument] = useState(null);
+  const [previewDocId, setPreviewDocId] = useState('');
+  const [deletingId, setDeletingId] = useState('');
+
+  // Default the inline flipbook to the most recent uploaded document.
+  useEffect(() => {
+    if (!documents.length) { setPreviewDocId(''); return; }
+    setPreviewDocId(current => (documents.some(doc => doc.id === current) ? current : documents[0].id));
+  }, [documents]);
+
+  async function handleDeleteDocument(document) {
+    if (!onDeleteDocument) return;
+    if (typeof window !== 'undefined' && !window.confirm(`Delete "${document.fileName}"? This removes the uploaded result for this term.`)) return;
+    setDeletingId(document.id);
+    try {
+      await onDeleteDocument(document.id);
+    } finally {
+      setDeletingId('');
+    }
+  }
 
   const verificationUrl = useMemo(() => {
     const existingUrl = String(selectedRecord?.verificationUrl || '').trim();
@@ -173,7 +195,7 @@ export default function ResultRecordViewer({
               onClick={() => onSelectStudent(student.id)}
               className={activeStudentId === student.id
                 ? 'px-4 py-2 rounded-2xl bg-indigo-500/30 border border-indigo-300/40 text-white'
-                : 'px-4 py-2 rounded-2xl bg-slate-900/30 border border-white/10 text-slate-200'}
+                : 'px-4 py-2 rounded-2xl bg-white/70 dark:bg-slate-900/30 border border-[#c9a96e]/35 dark:border-white/10 text-[#191970] dark:text-slate-200'}
             >
               {student.name}
             </button>
@@ -182,16 +204,16 @@ export default function ResultRecordViewer({
       )}
 
       {lockedByFees && (
-        <section className="glass-surface rounded-3xl p-6">
-          <p className="text-slate-200">Result access is locked because the current fee status is {feeStatus || 'unpaid'}.</p>
+        <section className="border border-[#c9a96e]/45 bg-[#fff8f0] shadow-sm dark:border-white/10 dark:bg-slate-900/40 rounded-3xl p-6">
+          <p className="text-[#191970] dark:text-slate-200">Result access is locked because the current fee status is {feeStatus || 'unpaid'}.</p>
           <p className="micro-label mt-3 accent-rose">State: Locked by fees</p>
         </section>
       )}
 
       {!lockedByFees && records.length === 0 && documents.length === 0 && (
-        <section className="glass-surface rounded-3xl p-6">
+        <section className="border border-[#c9a96e]/45 bg-[#fff8f0] shadow-sm dark:border-white/10 dark:bg-slate-900/40 rounded-3xl p-6">
           <p className="micro-label accent-amber">No published records</p>
-          <p className="mt-2 text-slate-200">{emptyMessage}</p>
+          <p className="mt-2 text-[#191970] dark:text-slate-200">{emptyMessage}</p>
         </section>
       )}
 
@@ -206,7 +228,7 @@ export default function ResultRecordViewer({
                 onClick={() => onSelectRecord(record.id)}
                 className={selectedRecord.id === record.id
                   ? 'px-4 py-2 rounded-2xl bg-emerald-500/30 border border-emerald-300/40 text-white'
-                  : 'px-4 py-2 rounded-2xl bg-slate-900/30 border border-white/10 text-slate-200'}
+                  : 'px-4 py-2 rounded-2xl bg-white/70 dark:bg-slate-900/30 border border-[#c9a96e]/35 dark:border-white/10 text-[#191970] dark:text-slate-200'}
               >
                 {record.label}
               </button>
@@ -227,7 +249,7 @@ export default function ResultRecordViewer({
           </div>
 
           <section
-            className="result-record-print-gradient result-record-print-surface rounded-3xl p-6 border border-white/10 overflow-hidden"
+            className="result-record-print-gradient result-record-print-surface rounded-3xl p-6 border border-[#c9a96e]/35 dark:border-white/10 overflow-hidden"
             style={{
               background: `linear-gradient(135deg, ${branding.primaryColor} 0%, ${branding.accentColor} 100%)`,
             }}
@@ -256,23 +278,23 @@ export default function ResultRecordViewer({
           </section>
 
           <section className="result-record-print-page grid grid-cols-1 gap-4">
-          <section className="result-record-print-surface glass-surface rounded-3xl p-6 grid grid-cols-1 md:grid-cols-4 gap-4">
-            <div><p className="micro-label accent-indigo">Student</p><p className="text-slate-100 font-semibold mt-1">{selectedRecord.student?.name || 'Unavailable'}</p></div>
-            <div><p className="micro-label accent-emerald">Average</p><p className="text-slate-100 font-semibold mt-1">{summary.average || 0}%</p></div>
-            <div><p className="micro-label accent-amber">Grade</p><p className="text-slate-100 font-semibold mt-1">{summary.grade || '—'}</p></div>
-            <div><p className="micro-label accent-rose">Attendance</p><p className="text-slate-100 font-semibold mt-1">{summary.attendanceRate || 0}%</p></div>
+          <section className="result-record-print-surface border border-[#c9a96e]/45 bg-[#fff8f0] shadow-sm dark:border-white/10 dark:bg-slate-900/40 rounded-3xl p-6 grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div><p className="micro-label accent-indigo">Student</p><p className="text-[#191970] dark:text-slate-100 font-semibold mt-1">{selectedRecord.student?.name || 'Unavailable'}</p></div>
+            <div><p className="micro-label accent-emerald">Average</p><p className="text-[#191970] dark:text-slate-100 font-semibold mt-1">{summary.average || 0}%</p></div>
+            <div><p className="micro-label accent-amber">Grade</p><p className="text-[#191970] dark:text-slate-100 font-semibold mt-1">{summary.grade || '—'}</p></div>
+            <div><p className="micro-label accent-rose">Attendance</p><p className="text-[#191970] dark:text-slate-100 font-semibold mt-1">{summary.attendanceRate || 0}%</p></div>
           </section>
 
-          <section className="result-record-print-surface glass-surface rounded-3xl p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+          <section className="result-record-print-surface border border-[#c9a96e]/45 bg-[#fff8f0] shadow-sm dark:border-white/10 dark:bg-slate-900/40 rounded-3xl p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <p className="micro-label accent-indigo">Promotion Status</p>
-              <p className="text-slate-100 font-semibold mt-1">{summary.promotionStatus || 'Pending'}</p>
-              <p className="text-xs text-slate-300 mt-3">Position: {summary.position || '—'} of {summary.classSize || '—'}</p>
+              <p className="text-[#191970] dark:text-slate-100 font-semibold mt-1">{summary.promotionStatus || 'Pending'}</p>
+              <p className="text-xs text-[#6b5836] dark:text-slate-300 mt-3">Position: {summary.position || '—'} of {summary.classSize || '—'}</p>
             </div>
             <div>
               <p className="micro-label accent-amber">Approval Trail</p>
-              <p className="text-slate-100 text-sm mt-1">Published: {selectedRecord.publishedAt ? new Date(selectedRecord.publishedAt).toLocaleString() : '—'}</p>
-              <p className="text-slate-300 text-sm mt-2">Approved by: {selectedRecord.payload?.approvals?.approvedBy || 'HoS / Owner'}</p>
+              <p className="text-[#191970] dark:text-slate-100 text-sm mt-1">Published: {selectedRecord.publishedAt ? new Date(selectedRecord.publishedAt).toLocaleString() : '—'}</p>
+              <p className="text-[#6b5836] dark:text-slate-300 text-sm mt-2">Approved by: {selectedRecord.payload?.approvals?.approvedBy || 'HoS / Owner'}</p>
             </div>
           </section>
 
@@ -289,7 +311,7 @@ export default function ResultRecordViewer({
             </section>
           ) : null}
 
-          <div className="result-record-print-surface glass-surface rounded-3xl p-6 overflow-x-auto">
+          <div className="result-record-print-surface border border-[#c9a96e]/45 bg-[#fff8f0] shadow-sm dark:border-white/10 dark:bg-slate-900/40 rounded-3xl p-6 overflow-x-auto">
             <table className="w-full text-sm min-w-[620px]">
               <thead>
                 <tr className="text-left">
@@ -303,13 +325,13 @@ export default function ResultRecordViewer({
               </thead>
               <tbody>
                 {selectedRecord.subjects.map(row => (
-                  <tr key={`${selectedRecord.id}-${row.subjectId || row.subjectName}`} className="border-t border-white/10">
-                    <td className="py-3 pr-4 text-slate-100">{row.subjectName}</td>
+                  <tr key={`${selectedRecord.id}-${row.subjectId || row.subjectName}`} className="border-t border-[#c9a96e]/35 dark:border-white/10">
+                    <td className="py-3 pr-4 text-[#191970] dark:text-slate-100">{row.subjectName}</td>
                     <td className="py-3 pr-4 mono-metric">{row.caScore}</td>
                     <td className="py-3 pr-4 mono-metric">{row.examScore}</td>
                     <td className="py-3 pr-4 mono-metric">{row.total}</td>
                     <td className="py-3 pr-4 command-title accent-emerald">{row.grade}</td>
-                    <td className="py-3 text-slate-300">{row.remark || '—'}</td>
+                    <td className="py-3 text-[#6b5836] dark:text-slate-300">{row.remark || '—'}</td>
                   </tr>
                 ))}
               </tbody>
@@ -319,13 +341,13 @@ export default function ResultRecordViewer({
           {(selectedRecord.affective.length > 0 || selectedRecord.ratings.length > 0) && (
             <section className="grid grid-cols-1 lg:grid-cols-2 gap-4">
               {selectedRecord.affective.length > 0 && (
-                <div className="result-record-print-surface glass-surface rounded-3xl p-6">
+                <div className="result-record-print-surface border border-[#c9a96e]/45 bg-[#fff8f0] shadow-sm dark:border-white/10 dark:bg-slate-900/40 rounded-3xl p-6">
                   <h2 className="text-lg command-title neon-title mb-4">Affective Areas</h2>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {selectedRecord.affective.map(item => (
-                      <div key={`${selectedRecord.id}-${item.key}`} className="rounded-2xl border border-white/10 bg-slate-900/20 p-4">
+                      <div key={`${selectedRecord.id}-${item.key}`} className="rounded-2xl border border-[#c9a96e]/35 dark:border-white/10 bg-white/70 dark:bg-slate-900/20 p-4">
                         <p className="micro-label accent-indigo">{item.label}</p>
-                        <p className="text-slate-100 font-semibold mt-1">{item.score || '—'}</p>
+                        <p className="text-[#191970] dark:text-slate-100 font-semibold mt-1">{item.score || '—'}</p>
                       </div>
                     ))}
                   </div>
@@ -333,13 +355,13 @@ export default function ResultRecordViewer({
               )}
 
               {selectedRecord.ratings.length > 0 && (
-                <div className="result-record-print-surface glass-surface rounded-3xl p-6">
+                <div className="result-record-print-surface border border-[#c9a96e]/45 bg-[#fff8f0] shadow-sm dark:border-white/10 dark:bg-slate-900/40 rounded-3xl p-6">
                   <h2 className="text-lg command-title neon-title mb-4">Ratings</h2>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {selectedRecord.ratings.map(item => (
-                      <div key={`${selectedRecord.id}-${item.key}`} className="rounded-2xl border border-white/10 bg-slate-900/20 p-4">
+                      <div key={`${selectedRecord.id}-${item.key}`} className="rounded-2xl border border-[#c9a96e]/35 dark:border-white/10 bg-white/70 dark:bg-slate-900/20 p-4">
                         <p className="micro-label accent-amber">{item.label}</p>
-                        <p className="text-slate-100 font-semibold mt-1">{item.score || '—'}</p>
+                        <p className="text-[#191970] dark:text-slate-100 font-semibold mt-1">{item.score || '—'}</p>
                       </div>
                     ))}
                   </div>
@@ -348,14 +370,14 @@ export default function ResultRecordViewer({
             </section>
           )}
 
-          <section className="result-record-print-surface glass-surface rounded-3xl p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+          <section className="result-record-print-surface border border-[#c9a96e]/45 bg-[#fff8f0] shadow-sm dark:border-white/10 dark:bg-slate-900/40 rounded-3xl p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <p className="micro-label accent-indigo">Teacher Remark</p>
-              <p className="text-slate-200 mt-2">{summary.teacherRemark || 'No teacher remark yet.'}</p>
+              <p className="text-[#191970] dark:text-slate-200 mt-2">{summary.teacherRemark || 'No teacher remark yet.'}</p>
             </div>
             <div>
               <p className="micro-label accent-amber">Principal Remark</p>
-              <p className="text-slate-200 mt-2">{summary.principalRemark || 'No principal remark yet.'}</p>
+              <p className="text-[#191970] dark:text-slate-200 mt-2">{summary.principalRemark || 'No principal remark yet.'}</p>
             </div>
           </section>
           </section>
@@ -364,38 +386,46 @@ export default function ResultRecordViewer({
 
       {/* Uploaded result PDFs always show (grouped by term), even when no CA record was published. */}
       {!lockedByFees && documents.length > 0 && (
-        <section className="result-record-print-hide glass-surface rounded-3xl p-6 border border-white/10">
-          <h2 className="text-lg command-title neon-title mb-1">Uploaded Result Documents</h2>
-          <p className="text-xs text-slate-300 mb-4">Tap a result to read it in the app, or download it.</p>
-          <div className="space-y-5">
+        <section className="result-record-print-hide rounded-3xl border border-[#c9a96e]/45 bg-[#fff8f0] p-5 shadow-sm dark:border-white/10 dark:bg-slate-900/40 md:p-6">
+          <h2 className="mb-1 text-lg command-title text-[#800000] dark:text-white dark:neon-title">Uploaded Result Documents</h2>
+          <p className="mb-4 text-xs text-[#6b5836] dark:text-slate-300">Read each result as a flipbook, open it fullscreen, or download it.</p>
+          <div className="space-y-6">
             {documentGroups.map(group => (
               <div key={`${group.sessionName}::${group.termName}`}>
-                <p className="micro-label accent-indigo mb-2">{group.termName} • {group.sessionName}</p>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                  {group.items.map(document => (
-                    <div key={document.id} className="rounded-2xl border border-white/10 bg-slate-900/20 p-4">
-                      <p className="text-slate-100 font-semibold truncate">{document.fileName}</p>
-                      <p className="text-xs text-slate-300 mt-1">Uploaded: {document.uploadedAt ? new Date(document.uploadedAt).toLocaleString() : '—'}</p>
-                      <div className="mt-3 flex flex-wrap gap-2">
-                        <button
-                          type="button"
-                          onClick={() => setActiveDocument(document)}
-                          className="rounded-xl bg-emerald-500/30 border border-emerald-300/40 px-3 py-1.5 text-xs font-bold text-white transition hover:bg-emerald-500/40"
-                        >
-                          Open result
-                        </button>
-                        <a
-                          href={document.fileUrl}
-                          download={document.fileName}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="rounded-xl border border-white/15 px-3 py-1.5 text-xs font-bold text-slate-100 transition hover:bg-slate-900/40"
-                        >
-                          Download
-                        </a>
+                <p className="mb-2 micro-label accent-indigo text-[#800020] dark:text-[#bf00ff]">{group.termName} • {group.sessionName}</p>
+                <div className="space-y-4">
+                  {group.items.map(document => {
+                    const isActive = previewDocId === document.id;
+                    return (
+                      <div key={document.id} className="overflow-hidden rounded-2xl border border-[#c9a96e]/45 bg-white/85 dark:border-white/10 dark:bg-slate-900/30">
+                        <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#c9a96e]/35 px-4 py-3 dark:border-white/10">
+                          <p className="min-w-0 flex-1 truncate text-sm font-bold text-[#191970] dark:text-white">{document.fileName}</p>
+                          <div className="flex flex-wrap items-center gap-2">
+                            <button type="button" onClick={() => setActiveDocument(document)} className="rounded-xl bg-[#1a5c38] px-3 py-1.5 text-xs font-bold text-[#f5deb3] transition hover:bg-[#154a2e] dark:bg-[#00ffff] dark:text-black">
+                              Open fullscreen
+                            </button>
+                            <a href={document.fileUrl} download={document.fileName} target="_blank" rel="noreferrer" className="rounded-xl border border-[#c9a96e]/50 px-3 py-1.5 text-xs font-bold text-[#800020] transition hover:bg-white dark:border-white/15 dark:text-slate-100">
+                              Download
+                            </a>
+                            {canManageDocuments && onDeleteDocument ? (
+                              <button type="button" onClick={() => handleDeleteDocument(document)} disabled={deletingId === document.id} className="rounded-xl border border-rose-400/50 px-3 py-1.5 text-xs font-bold text-rose-600 transition hover:bg-rose-50 disabled:opacity-60 dark:text-rose-300 dark:hover:bg-rose-500/10">
+                                {deletingId === document.id ? 'Deleting…' : 'Delete'}
+                              </button>
+                            ) : null}
+                          </div>
+                        </div>
+                        <div className="h-[62vh] min-h-[360px] w-full bg-[#e9dcc0] dark:bg-slate-950">
+                          {isActive ? (
+                            <Flipbook url={document.fileUrl} onFallback={() => setActiveDocument(document)} />
+                          ) : (
+                            <button type="button" onClick={() => setPreviewDocId(document.id)} className="flex h-full w-full items-center justify-center text-sm font-bold text-[#800020] transition hover:bg-[#e0d0ad] dark:text-slate-200 dark:hover:bg-slate-900">
+                              ▦ Show flipbook preview
+                            </button>
+                          )}
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
             ))}
