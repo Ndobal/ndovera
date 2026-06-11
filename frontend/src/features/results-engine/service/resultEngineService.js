@@ -197,11 +197,15 @@ export async function uploadPublishedResultDocumentsSequential(payload = {}, opt
     return merged;
   }
 
-  // Retry a chunk a few times on transient failures (e.g. a 503) before giving up on it, so one
-  // hiccup never aborts the whole run — the failed files are reported and the rest keep going.
+  // Adaptive throttle: if the Worker pushes back (e.g. 503 after a burst of uploads), we slow the
+  // remaining chunks down so the run keeps going instead of failing the rest.
+  let cooldownMs = 250;
+
+  // Retry a chunk several times with growing backoff before giving up, so transient 503s recover
+  // and one hiccup never aborts the whole run — failed files are reported and the rest keep going.
   async function uploadChunkWithRetry(chunk, chunkMap) {
     let lastError = null;
-    for (let attempt = 0; attempt < 3; attempt += 1) {
+    for (let attempt = 0; attempt < 5; attempt += 1) {
       try {
         // eslint-disable-next-line no-await-in-loop
         return await uploadPublishedResultDocuments({
@@ -213,8 +217,9 @@ export async function uploadPublishedResultDocumentsSequential(payload = {}, opt
         });
       } catch (error) {
         lastError = error;
+        cooldownMs = Math.min(cooldownMs + 600, 4000);
         // eslint-disable-next-line no-await-in-loop
-        if (attempt < 2) await new Promise(resolve => setTimeout(resolve, 900 * (attempt + 1)));
+        if (attempt < 4) await new Promise(resolve => setTimeout(resolve, Math.min(1200 * (attempt + 1), 8000)));
       }
     }
     throw lastError || new Error('Upload failed.');
@@ -263,10 +268,11 @@ export async function uploadPublishedResultDocumentsSequential(payload = {}, opt
     processed += chunk.length;
     onProgress(processed, files.length);
 
-    // Small breather between chunks so a burst of large uploads doesn't overload the Worker (503).
+    // Breather between chunks (grows if the server pushed back) so sustained uploads don't 503.
     if (index + chunkSize < files.length) {
+      const waitMs = cooldownMs;
       // eslint-disable-next-line no-await-in-loop
-      await new Promise(resolve => setTimeout(resolve, 200));
+      await new Promise(resolve => setTimeout(resolve, waitMs));
     }
   }
 

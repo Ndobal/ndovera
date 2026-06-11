@@ -364,6 +364,7 @@ export const deleteStudentRecord = (studentId, recordId) => req(`/api/students/$
 export const generateStudentAiReport = (studentId) => req(`/api/students/${encodeURIComponent(studentId)}/ai-report`, { method: 'POST' });
 export const uploadResultDocuments = (files, extraFields = {}) => uploadFiles('/api/results/documents/upload', files, extraFields);
 export const deleteResultDocument = (documentId) => req(`/api/results/documents/${encodeURIComponent(documentId)}`, { method: 'DELETE' });
+export const getResultsUnpublished = (params = {}) => req(`/api/results/unpublished${buildQuery(params)}`, { skipOfflineCache: true });
 export const getLearningStudents = () => req('/api/learning/students');
 export const getLessonPlans = (params = {}) => req(`/api/lesson-plans${buildQuery(params)}`);
 export const saveLessonPlan = (data) => req('/api/lesson-plans', { method: 'POST', body: data });

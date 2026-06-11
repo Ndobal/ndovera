@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { getClasses, getSession } from '../../school/services/schoolApi';
+import { getClasses, getSession, getResultsUnpublished } from '../../school/services/schoolApi';
 import {
   approvePublishedResults,
   getHoSResultAnalytics,
@@ -159,6 +159,8 @@ export default function ResultAdminConsole({ analyticsMode = 'hos', roleTitle = 
   const [schoolUploading, setSchoolUploading] = useState(false);
   const [schoolProgress, setSchoolProgress] = useState({ done: 0, total: 0 });
   const [schoolReport, setSchoolReport] = useState(null);
+  const [unpublishedReport, setUnpublishedReport] = useState(null);
+  const [unpublishedLoading, setUnpublishedLoading] = useState(false);
   const loader = analyticsMode === 'owner' ? getOwnerResultAnalytics : getHoSResultAnalytics;
 
   const loadConsole = useCallback(async (nextBatchKey = '', nextClassMap = {}) => {
@@ -351,6 +353,33 @@ export default function ResultAdminConsole({ analyticsMode = 'hos', roleTitle = 
     } finally {
       setSchoolUploading(false);
     }
+  }
+
+  async function handleCheckUnpublished() {
+    if (!schoolSession || !schoolTerm) { setError('Choose the session and term first.'); return; }
+    setUnpublishedLoading(true);
+    setError('');
+    try {
+      const data = await getResultsUnpublished({ sessionName: schoolSession, termName: schoolTerm });
+      setUnpublishedReport(data);
+    } catch (checkError) {
+      setError(checkError.message || 'Could not load the unpublished list.');
+    } finally {
+      setUnpublishedLoading(false);
+    }
+  }
+
+  function downloadUnpublishedList() {
+    const rows = unpublishedReport?.missing || [];
+    const header = 'Student ID,Name,Class\n';
+    const body = rows.map(student => `${student.displayId || student.id},"${String(student.name || '').replace(/"/g, '""')}",${student.className || ''}`).join('\n');
+    const blob = new Blob([header + body], { type: 'text/csv;charset=utf-8' });
+    const url = window.URL.createObjectURL(blob);
+    const anchor = document.createElement('a');
+    anchor.href = url;
+    anchor.download = `unpublished_results_${schoolSession}_${schoolTerm}.csv`.replace(/[^\w.-]+/g, '_');
+    anchor.click();
+    window.URL.revokeObjectURL(url);
   }
 
   return (
@@ -839,6 +868,49 @@ export default function ResultAdminConsole({ analyticsMode = 'hos', roleTitle = 
                 </div>
               </div>
             )}
+          </section>
+
+          <section className={`${RESULT_SURFACE} p-6 space-y-4`}>
+            <div className="flex flex-wrap items-start justify-between gap-3">
+              <div>
+                <p className={`micro-label ${RESULT_LABEL}`}>Results Coverage</p>
+                <h3 className={`mt-2 text-xl command-title ${RESULT_HEADING}`}>Students whose results are not published</h3>
+                <p className={`mt-2 text-sm ${RESULT_BODY}`}>Lists every student in the school with no published record and no uploaded result for {schoolSession || 'the session'} • {schoolTerm || 'the term'}.</p>
+              </div>
+              <button type="button" onClick={handleCheckUnpublished} disabled={unpublishedLoading || !schoolSession || !schoolTerm} className={RESULT_BUTTON}>
+                {unpublishedLoading ? 'Checking…' : 'Check unpublished'}
+              </button>
+            </div>
+
+            {unpublishedReport ? (
+              <div className="space-y-3">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div className={`${RESULT_INNER_SURFACE} p-4`}><p className={`micro-label ${RESULT_LABEL}`}>Total students</p><p className={`mt-2 text-2xl font-black ${RESULT_HEADING}`}>{unpublishedReport.totalStudents || 0}</p></div>
+                  <div className={`${RESULT_INNER_SURFACE} p-4`}><p className={`micro-label ${RESULT_LABEL}`}>Published</p><p className={`mt-2 text-2xl font-black ${RESULT_HEADING}`}>{unpublishedReport.publishedCount || 0}</p></div>
+                  <div className={`${RESULT_INNER_SURFACE} p-4`}><p className={`micro-label ${RESULT_LABEL}`}>Not published</p><p className={`mt-2 text-2xl font-black ${RESULT_HEADING}`}>{(unpublishedReport.missing || []).length}</p></div>
+                </div>
+                {(unpublishedReport.missing || []).length > 0 ? (
+                  <>
+                    <div className="flex justify-end">
+                      <button type="button" onClick={downloadUnpublishedList} className={RESULT_SECONDARY_BUTTON}>Download CSV</button>
+                    </div>
+                    <div className={`${RESULT_INNER_SURFACE} p-4`}>
+                      <div className="grid max-h-[28rem] grid-cols-1 gap-3 overflow-y-auto md:grid-cols-2 xl:grid-cols-3">
+                        {unpublishedReport.missing.map(student => (
+                          <div key={student.id} className={`${RESULT_INNER_SURFACE} p-3`}>
+                            <p className={`text-sm font-semibold ${RESULT_HEADING}`}>{student.name || 'Unnamed student'}</p>
+                            <p className={`mt-1 text-xs ${RESULT_BODY}`}>{student.displayId || 'No display ID'}</p>
+                            <p className={`mt-1 text-xs ${RESULT_BODY}`}>{student.className || 'Unassigned'}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <p className={`text-sm ${RESULT_BODY}`}>Every student has a published or uploaded result for {unpublishedReport.sessionName} • {unpublishedReport.termName}. 🎉</p>
+                )}
+              </div>
+            ) : null}
           </section>
 
           {schoolReport && (

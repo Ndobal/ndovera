@@ -14486,11 +14486,15 @@ app.post('/api/results/documents/upload', authenticate, async (c) => {
   // Add each student's old portal codes so result PDFs can be matched by them.
   students = await attachOldCodesToStudents(c.env.APP_DB, tenant.id, students)
 
-  const existingDocuments = await listResultDocumentsForPeriod(c.env.APP_DB, tenant.id, period.sessionName, period.termName)
+  // Only the already-uploaded student ids are needed for dedup. Fetch just that column (the table
+  // grows with every upload, so SELECT * here got heavier each chunk and added to the 503 pressure).
+  const existingDocRows = await c.env.APP_DB.prepare(
+    `SELECT student_id FROM result_documents WHERE tenant_id = ? AND session_name = ? AND term_name = ?`
+  ).bind(tenant.id, period.sessionName, period.termName).all().catch(() => ({ results: [] }))
   const relevantStudentIds = new Set(students.map(student => String(student.id || '')).filter(Boolean))
   const alreadyUploadedStudentIds = new Set(
-    existingDocuments
-      .map(document => String(document.studentId || ''))
+    (((existingDocRows as any).results || []) as Record<string, any>[])
+      .map(row => String(row.student_id || ''))
       .filter(studentId => relevantStudentIds.has(studentId))
   )
   const queuedStudentIds = new Set<string>()
@@ -14703,6 +14707,50 @@ app.delete('/api/results/documents/:documentId', authenticate, async (c) => {
     return c.json({ success: true })
   } catch {
     return c.json({ error: 'Could not delete the result document.' }, 500)
+  }
+})
+
+// Students across the school (or one class) who have no published result AND no uploaded result
+// document for a given session + term — i.e. whose results are not yet published.
+app.get('/api/results/unpublished', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, RESULT_DOCUMENT_UPLOADER_ROLES.concat(RESULT_APPROVER_ROLES))) return c.json({ error: 'forbidden' }, 403)
+  const { tenant } = await resolveTenantForActor(c)
+  if (!tenant) return c.json({ error: 'Tenant not found.' }, 404)
+  const period = await resolveCurrentResultPeriod(
+    c.env.APP_DB,
+    tenant.id,
+    c.req.query('sessionName') || c.req.query('session') || undefined,
+    c.req.query('termName') || c.req.query('term') || undefined,
+  )
+  const classId = String(c.req.query('classId') || '').trim()
+  try {
+    await ensureResultsTables(c.env.APP_DB)
+    const roster = await listStudentsForResultMatching(c.env.APP_DB, tenant.id)
+    const students = classId ? roster.filter(student => String(student.classId || '') === classId) : roster
+
+    const [pubRows, docRows] = await Promise.all([
+      c.env.APP_DB.prepare(`SELECT student_id FROM result_publications WHERE tenant_id = ? AND session_name = ? AND term_name = ?`).bind(tenant.id, period.sessionName, period.termName).all().catch(() => ({ results: [] })),
+      c.env.APP_DB.prepare(`SELECT student_id FROM result_documents WHERE tenant_id = ? AND session_name = ? AND term_name = ?`).bind(tenant.id, period.sessionName, period.termName).all().catch(() => ({ results: [] })),
+    ])
+    const covered = new Set<string>()
+    for (const row of [...(((pubRows as any).results || []) as Record<string, any>[]), ...(((docRows as any).results || []) as Record<string, any>[])]) {
+      covered.add(String(row.student_id || ''))
+    }
+
+    const missing = students
+      .filter(student => !covered.has(String(student.id || '')))
+      .map(student => ({ id: String(student.id || ''), name: String(student.name || ''), displayId: String(student.displayId || ''), className: String(student.className || '') }))
+
+    return c.json({
+      success: true,
+      sessionName: period.sessionName,
+      termName: period.termName,
+      totalStudents: students.length,
+      publishedCount: students.length - missing.length,
+      missing,
+    })
+  } catch {
+    return c.json({ success: true, sessionName: period.sessionName, termName: period.termName, totalStudents: 0, publishedCount: 0, missing: [] })
   }
 })
 
