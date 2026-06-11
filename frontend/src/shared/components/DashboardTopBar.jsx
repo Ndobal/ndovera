@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import DidYouKnowCard from './DidYouKnowCard';
 import {
   BellIcon,
   BellAlertIcon,
@@ -445,6 +446,7 @@ export default function DashboardTopBar({ authUser = null, onLogout = () => {}, 
   }, [notificationPermission, roleKey]);
 
   return (
+    <>
     <header className="sticky top-0 z-40 px-4 md:px-6 py-3 border-b border-slate-200/70 dark:border-cyan-300/20 glass-surface">
       <div className="max-w-7xl mx-auto flex items-center justify-between gap-3 md:gap-4 relative">
         <div className="flex items-center gap-2 md:gap-3 min-w-0">
@@ -715,5 +717,13 @@ export default function DashboardTopBar({ authUser = null, onLogout = () => {}, 
         </>
       )}
     </header>
+      {typeof window !== 'undefined' && window.location.pathname.startsWith('/roles/') ? (
+        <div className="px-4 md:px-6">
+          <div className="mx-auto max-w-7xl pt-3">
+            <DidYouKnowCard />
+          </div>
+        </div>
+      ) : null}
+    </>
   );
 }

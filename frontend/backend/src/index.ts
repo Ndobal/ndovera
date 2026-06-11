@@ -9482,7 +9482,8 @@ app.post('/api/ai/tutor/ask', authenticate, async (c) => {
     const { prompt, mode, messages } = buildAiConversation(actor, payload)
     const normalizedRole = String(actor.role || '').trim().toLowerCase()
     const practiceSurface = NVIDIA_STUDENT_AI_ROLES.has(normalizedRole) && String(payload.surface || '').trim().toLowerCase() === 'practice'
-    const useNvidiaStudentModel = NVIDIA_STUDENT_AI_ROLES.has(normalizedRole) && Boolean(String(c.env.NVIDIA_API_KEY || '').trim())
+    // Students now use the same Workers AI model as teachers (no separate NVIDIA student model).
+    const useNvidiaStudentModel = false
 
     if (!prompt) {
       return c.json({ success: false, message: 'Prompt is required.' }, 400)
@@ -9580,6 +9581,80 @@ app.post('/api/ai/tutor/ask', authenticate, async (c) => {
     console.error('AI tutor request failed', error)
     return c.json({ success: false, message: 'Ndovera AI could not complete that request right now. Please try again.' }, 500)
   }
+})
+
+// ─── Daily "Did you know?" knowledge digest (AI-generated once per day, with history) ───────────
+async function ensureDailyFeedTable(db: D1Database) {
+  if (_initializedTables.has('daily_feed')) return
+  _initializedTables.add('daily_feed')
+  await db.prepare(`CREATE TABLE IF NOT EXISTS daily_feed (feed_date TEXT PRIMARY KEY, payload_json TEXT, created_at TEXT)`).run()
+}
+
+function parseDailyFeedJson(raw: string) {
+  try {
+    const match = String(raw || '').match(/\{[\s\S]*\}/)
+    const obj = JSON.parse(match ? match[0] : raw) as Record<string, any>
+    const headlines = (Array.isArray(obj.headlines) ? obj.headlines : []).slice(0, 10).map((item: Record<string, any>) => ({
+      category: String(item.category || 'General').trim() || 'General',
+      title: String(item.title || '').trim(),
+      summary: String(item.summary || '').trim(),
+      tip: String(item.tip || '').trim(),
+    })).filter((item: Record<string, any>) => item.title)
+    const didYouKnow = String(obj.didYouKnow || obj.did_you_know || '').trim()
+    if (!didYouKnow && headlines.length === 0) return null
+    return { didYouKnow, headlines }
+  } catch {
+    return null
+  }
+}
+
+async function generateDailyFeed(env: any, dateStr: string) {
+  const messages: any[] = [
+    { role: 'system', content: 'You are the editor of a daily knowledge digest for a school community (students, teachers and parents) in Nigeria and the wider world. Cover four areas: Education, Healthcare, Technology, and Career. Be accurate, positive and engaging. Reply with ONLY minified JSON of the shape {"didYouKnow": string, "headlines": [{"category": "Education"|"Healthcare"|"Technology"|"Career", "title": string, "summary": string, "tip": string}]}. Give one surprising, true "did you know" fact, and 6 headlines spread across the four areas, each with a 1-2 sentence summary and one short practical tip. Use evergreen developments and insights; do not invent specific breaking-news claims, dates or numbers you cannot stand behind.' },
+    { role: 'user', content: `Create the digest for ${dateStr}. Make the "did you know" genuinely surprising and the headlines varied and useful.` },
+  ]
+  let raw = ''
+  try {
+    if (env.AI && typeof env.AI.run === 'function') {
+      const result = await env.AI.run(WORKERS_AI_MODEL, { messages, max_tokens: 900, temperature: 0.7 })
+      raw = extractWorkersAiText(result)
+    }
+  } catch {
+    raw = ''
+  }
+  return parseDailyFeedJson(raw)
+}
+
+app.get('/api/feed/daily', authenticate, async (c) => {
+  await ensureDailyFeedTable(c.env.APP_DB)
+  const today = new Date().toISOString().slice(0, 10)
+  const requested = String(c.req.query('date') || '').trim()
+  const date = /^\d{4}-\d{2}-\d{2}$/.test(requested) ? requested : today
+
+  const row = await c.env.APP_DB.prepare(`SELECT payload_json FROM daily_feed WHERE feed_date = ?`).bind(date).first() as Record<string, any> | null
+  let payload = row ? parseJsonField(row.payload_json, null as any) : null
+
+  // Generate (and cache) lazily for today only.
+  if (!payload && date === today) {
+    payload = await generateDailyFeed(c.env, date)
+    if (payload) {
+      await c.env.APP_DB.prepare(`INSERT OR REPLACE INTO daily_feed (feed_date, payload_json, created_at) VALUES (?, ?, ?)`)
+        .bind(date, JSON.stringify(payload), new Date().toISOString()).run().catch(() => null)
+    }
+  }
+
+  if (!payload) return c.json({ success: true, date, didYouKnow: '', headlines: [] })
+  return c.json({ success: true, date, didYouKnow: String(payload.didYouKnow || ''), headlines: Array.isArray(payload.headlines) ? payload.headlines : [] })
+})
+
+app.get('/api/feed/history', authenticate, async (c) => {
+  await ensureDailyFeedTable(c.env.APP_DB)
+  const rows = await c.env.APP_DB.prepare(`SELECT feed_date, payload_json FROM daily_feed ORDER BY feed_date DESC LIMIT 30`).all().catch(() => ({ results: [] }))
+  const items = (((rows as any).results || []) as Record<string, any>[]).map(row => {
+    const payload = parseJsonField(row.payload_json, {} as Record<string, any>)
+    return { date: String(row.feed_date || ''), didYouKnow: String(payload.didYouKnow || ''), headlineCount: Array.isArray(payload.headlines) ? payload.headlines.length : 0 }
+  })
+  return c.json({ success: true, items })
 })
 
 app.post('/api/ai/review', (c) => {

@@ -11,6 +11,7 @@ import ExamCreator from './features/exams/ExamCreator';
 import AITutor from './app/AITutor';
 import Attendance from './app/Attendance';
 import Rewards from './app/Rewards';
+import NewsFeedPage from './shared/components/NewsFeedPage';
 import Settings from './app/Settings';
 import StudentDashboard from './app/roles/StudentDashboard';
 import ParentDashboard from './app/roles/ParentDashboard';
@@ -191,6 +192,7 @@ function AnimatedRoutes({ auth, onLogin }) {
         <Route path="/attendance" element={<RequireAuth auth={auth}><RouteTransition><Attendance /></RouteTransition></RequireAuth>} />
         <Route path="/rewards" element={<RequireAuth auth={auth}><RouteTransition><Rewards /></RouteTransition></RequireAuth>} />
         <Route path="/settings" element={<RequireAuth auth={auth}><RouteTransition><Settings /></RouteTransition></RequireAuth>} />
+        <Route path="/news" element={<RequireAuth auth={auth}><RouteTransition><NewsFeedPage /></RouteTransition></RequireAuth>} />
         <Route path="/roles/student" element={<RoleGuard auth={auth} expectedRole="student"><RouteTransition><StudentDashboard /></RouteTransition></RoleGuard>} />
         <Route path="/roles/student/classroom" element={<RoleGuard auth={auth} expectedRole="student"><RouteTransition><StudentClassroom /></RouteTransition></RoleGuard>} />
         <Route path="/roles/student/assignments" element={<RoleGuard auth={auth} expectedRole="student"><RouteTransition><StudentAssignments /></RouteTransition></RoleGuard>} />

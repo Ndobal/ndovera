@@ -53,8 +53,25 @@ function StudentProfessorAura({
   const [asking, setAsking] = useState(false);
   const [error, setError] = useState('');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
   const transcriptRef = useRef(null);
   const composerRef = useRef(null);
+  const containerRef = useRef(null);
+
+  // Fullscreen reading mode for the AI workspace (enter/exit).
+  useEffect(() => {
+    function onFsChange() { setIsFullscreen(Boolean(document.fullscreenElement)); }
+    document.addEventListener('fullscreenchange', onFsChange);
+    return () => document.removeEventListener('fullscreenchange', onFsChange);
+  }, []);
+
+  function toggleFullscreen() {
+    if (document.fullscreenElement) {
+      document.exitFullscreen?.();
+    } else {
+      containerRef.current?.requestFullscreen?.();
+    }
+  }
 
   const access = accessPayload?.access || null;
   const assistantReplyCount = useMemo(
@@ -225,7 +242,7 @@ function StudentProfessorAura({
       watermarkText="NDOVERA AI"
       diagonalWatermark
     >
-      <div className="flex h-full min-h-0 flex-col overflow-hidden rounded-[2rem] border border-[#800000]/15 bg-[#f5deb3]/95 shadow-[0_24px_54px_rgba(128,0,0,0.12)] dark:border-[#bf00ff]/30 dark:bg-[#800000]/72">
+      <div ref={containerRef} className="flex h-full min-h-0 flex-col overflow-hidden rounded-[2rem] border border-[#800000]/15 bg-[#f5deb3]/95 shadow-[0_24px_54px_rgba(128,0,0,0.12)] dark:border-[#bf00ff]/30 dark:bg-[#800000]/72">
         <header className="shrink-0 border-b border-[#800000]/10 bg-[#fff8ea]/90 backdrop-blur dark:border-[#bf00ff]/20 dark:bg-[#170018]/88">
           <div className="space-y-2 px-3 py-2.5 md:px-4">
             <div className="flex items-center justify-between gap-2">
@@ -236,6 +253,14 @@ function StudentProfessorAura({
                   className="inline-flex h-9 items-center rounded-2xl border border-[#800000]/20 px-3 text-xs font-semibold uppercase tracking-[0.16em] text-[#800000] md:hidden dark:border-[#bf00ff]/25 dark:text-white"
                 >
                   {mobileMenuOpen ? 'Close' : 'Menu'}
+                </button>
+                <button
+                  type="button"
+                  onClick={toggleFullscreen}
+                  aria-label="Toggle fullscreen"
+                  className="inline-flex h-9 items-center rounded-2xl border border-[#800000]/20 px-3 text-sm text-[#800000] md:hidden dark:border-[#00ffff]/25 dark:text-white"
+                >
+                  {isFullscreen ? '✕' : '⛶'}
                 </button>
                 <div className="min-w-0">
                   <p className="truncate text-[10px] font-semibold uppercase tracking-[0.22em] text-[#800020] dark:text-[#bf00ff]">{dashboardLabel}</p>
@@ -273,6 +298,13 @@ function StudentProfessorAura({
                   className="inline-flex h-8 items-center rounded-full border border-[#1a5c38]/25 bg-[#1a5c38]/10 px-3 text-xs font-semibold uppercase tracking-[0.16em] text-[#1a5c38] dark:border-[#00ffff]/25 dark:bg-[#00ffff]/10 dark:text-[#00ffff]"
                 >
                   Refill In Tuck Shop
+                </button>
+                <button
+                  type="button"
+                  onClick={toggleFullscreen}
+                  className="inline-flex h-8 items-center rounded-full border border-[#800000]/20 px-3 text-xs font-semibold uppercase tracking-[0.16em] text-[#800000] dark:border-[#00ffff]/25 dark:text-white"
+                >
+                  {isFullscreen ? '✕ Exit Fullscreen' : '⛶ Fullscreen'}
                 </button>
               </div>
 
@@ -354,10 +386,10 @@ function StudentProfessorAura({
           </div>
         </header>
 
-        <div className="grid min-h-0 flex-1 xl:grid-cols-[minmax(0,1fr)_340px]">
+        <div className={`grid min-h-0 flex-1 ${isFullscreen ? 'grid-cols-1' : 'xl:grid-cols-[minmax(0,1fr)_340px]'}`}>
           <section className="flex min-h-0 flex-col border-b border-[#800000]/10 xl:border-b-0 xl:border-r dark:border-[#bf00ff]/20">
             <div ref={transcriptRef} className="flex-1 overflow-y-auto px-4 py-5 md:px-6">
-              <div className="mx-auto flex min-h-full w-full max-w-4xl flex-col justify-end gap-4 pb-2">
+              <div className={`mx-auto flex min-h-full w-full flex-col justify-end gap-4 pb-2 ${isFullscreen ? 'max-w-5xl' : 'max-w-4xl'}`}>
                 {shouldRefillInTuckShop ? (
                   <div className="rounded-[1.75rem] border border-[#1a5c38]/20 bg-[#e4f4e6] px-5 py-4 text-sm text-[#1a5c38] dark:border-[#00ffff]/20 dark:bg-[#03181a] dark:text-[#7df9ff]">
                     <p className="font-semibold uppercase tracking-[0.18em]">AI Credits Exhausted</p>
@@ -377,7 +409,7 @@ function StudentProfessorAura({
                   const isAssistant = message.role === 'assistant';
                   return (
                     <div key={message.id} className={`flex ${isUser ? 'justify-end' : 'justify-start'}`}>
-                      <div className={`max-w-[88%] rounded-[1.75rem] px-4 py-3 shadow-sm ${isUser
+                      <div className={`rounded-[1.75rem] px-4 py-3 shadow-sm ${isUser ? 'max-w-[88%]' : 'w-full max-w-[96%]'} ${isUser
                         ? 'bg-[#1a5c38] text-[#f5deb3] dark:bg-[#00ffff] dark:text-black'
                         : 'border border-[#800000]/10 bg-white/70 text-[#191970] dark:border-[#bf00ff]/20 dark:bg-[#191970]/35 dark:text-white'
                       }`}>
@@ -386,7 +418,7 @@ function StudentProfessorAura({
                           {message.mode ? <span>{message.mode}</span> : null}
                           {isAssistant && message.source ? <span>{resolveSourceLabel(message.source)}</span> : null}
                         </div>
-                        <p className="mt-2 whitespace-pre-wrap text-sm leading-7">{message.text}</p>
+                        <p className="mt-2 whitespace-pre-wrap text-[15px] leading-8">{message.text}</p>
                         {isAssistant && message.chargedCredits > 0 ? (
                           <p className="mt-2 text-[11px] font-semibold uppercase tracking-[0.18em] opacity-80">
                             {message.chargedCredits} credit used for this answer.
@@ -443,7 +475,7 @@ function StudentProfessorAura({
             </div>
           </section>
 
-          <aside className="hidden min-h-0 flex-col gap-4 overflow-y-auto border-t border-[#800000]/10 bg-[#fff8ea]/55 p-4 xl:flex dark:border-[#bf00ff]/20 dark:bg-[#180013]/55">
+          <aside className={`min-h-0 flex-col gap-4 overflow-y-auto border-t border-[#800000]/10 bg-[#fff8ea]/55 p-4 dark:border-[#bf00ff]/20 dark:bg-[#180013]/55 ${isFullscreen ? 'hidden' : 'hidden xl:flex'}`}>
             <section className="rounded-[1.75rem] border border-[#800000]/10 bg-white/60 p-4 dark:border-[#bf00ff]/20 dark:bg-[#191970]/35">
               <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#800020] dark:text-[#bf00ff]">Current Mode</p>
               <h3 className="mt-2 text-xl font-semibold text-[#800000] dark:text-white">{selectedMode}</h3>
