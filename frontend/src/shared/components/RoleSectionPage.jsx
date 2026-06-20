@@ -1,5 +1,8 @@
 import React from 'react';
 import MobileRoleOverviewNav from './MobileRoleOverviewNav';
+import StaffSubmissionPanel from '../../features/submissions/StaffSubmissionPanel';
+
+const SUBMISSION_ROLES = ['teacher', 'hos', 'owner', 'admin'];
 
 const defaultTheme = {
   page: 'w-full max-w-7xl mx-auto overflow-x-hidden px-4 py-6 sm:px-6 lg:px-8',
@@ -25,28 +28,29 @@ const defaultTheme = {
   infoTag: 'micro-label mt-2',
 };
 
+// Royal-blue theme on white surfaces (formerly the wheat/burgundy palette).
 const wheatTheme = {
   page: 'w-full max-w-7xl mx-auto space-y-6 overflow-x-hidden px-4 py-6 sm:px-6 lg:px-8',
-  panel: 'rounded-3xl p-6 bg-[#f5deb3] border border-[#c9a96e]/40 shadow-[0_18px_45px_rgba(128,0,0,0.08)]',
-  eyebrow: 'text-xs font-semibold uppercase tracking-[0.24em] text-[#800020] mb-2',
-  title: 'text-3xl font-black tracking-tight text-[#800000] mb-2',
-  body: 'text-[#191970]',
+  panel: 'rounded-3xl p-6 bg-white border border-[#2447d8]/15 shadow-[0_18px_45px_rgba(20,33,91,0.08)]',
+  eyebrow: 'text-xs font-semibold uppercase tracking-[0.24em] text-[#2447d8] mb-2',
+  title: 'text-3xl font-black tracking-tight text-[#191970] mb-2',
+  body: 'text-slate-600',
   metricsWrap: 'relative',
   metricGrid: 'grid grid-cols-2 md:grid-cols-4 xl:grid-cols-6 gap-2.5',
-  metricCard: 'rounded-2xl min-h-[48px] px-3 py-2.5 text-left bg-[#fff8f0] border border-[#c9a96e]/40 shadow-[0_10px_24px_rgba(128,0,0,0.06)]',
-  metricLabel: 'text-[10px] font-semibold uppercase tracking-[0.18em] text-[#800020] mb-1',
+  metricCard: 'rounded-2xl min-h-[48px] px-3 py-2.5 text-left bg-white border border-[#2447d8]/15 shadow-[0_10px_24px_rgba(20,33,91,0.06)]',
+  metricLabel: 'text-[10px] font-semibold uppercase tracking-[0.18em] text-[#2447d8] mb-1',
   metricValue: 'text-base font-black text-[#191970] leading-tight',
-  emptyPanel: 'rounded-3xl p-5 bg-[#f5deb3] border border-[#c9a96e]/40 shadow-[0_12px_28px_rgba(128,0,0,0.06)]',
-  emptyLabel: 'text-xs font-semibold uppercase tracking-[0.22em] text-[#800020]',
-  emptyBody: 'mt-2 text-[#191970]',
-  watermark: 'pointer-events-none absolute inset-0 flex items-center justify-center text-5xl md:text-7xl font-black tracking-[0.6rem] text-[#800020]/10 select-none',
+  emptyPanel: 'rounded-3xl p-5 bg-white border border-[#2447d8]/15 shadow-[0_12px_28px_rgba(20,33,91,0.06)]',
+  emptyLabel: 'text-xs font-semibold uppercase tracking-[0.22em] text-[#2447d8]',
+  emptyBody: 'mt-2 text-slate-600',
+  watermark: 'pointer-events-none absolute inset-0 flex items-center justify-center text-5xl md:text-7xl font-black tracking-[0.6rem] text-[#2447d8]/10 select-none',
   infoGrid: 'grid grid-cols-1 xl:grid-cols-2 gap-6',
-  infoPanel: 'rounded-3xl p-6 bg-[#f5deb3] border border-[#c9a96e]/40 shadow-[0_12px_32px_rgba(128,0,0,0.08)]',
-  infoTitle: 'text-xl font-bold text-[#800000] mb-4',
+  infoPanel: 'rounded-3xl p-6 bg-white border border-[#2447d8]/15 shadow-[0_12px_32px_rgba(20,33,91,0.08)]',
+  infoTitle: 'text-xl font-bold text-[#191970] mb-4',
   infoList: 'space-y-3',
-  infoItem: 'rounded-2xl border border-[#c9a96e]/40 p-4 bg-[#fff8f0]',
+  infoItem: 'rounded-2xl border border-[#2447d8]/15 p-4 bg-slate-50',
   infoText: 'text-[#191970]',
-  infoTag: 'mt-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#800020]',
+  infoTag: 'mt-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#2447d8]',
 };
 
 export default function RoleSectionPage({
@@ -114,6 +118,10 @@ export default function RoleSectionPage({
           </section>
         ))}
       </div>
+
+      {SUBMISSION_ROLES.includes(String(mobileNavRoleKey || '').toLowerCase()) ? (
+        <StaffSubmissionPanel role={mobileNavRoleKey} />
+      ) : null}
 
       {showMobileRoleNav && mobileNavRoleKey ? <MobileRoleOverviewNav roleKey={mobileNavRoleKey} counts={mobileNavCounts} /> : null}
     </div>

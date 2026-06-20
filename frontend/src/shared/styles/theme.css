@@ -20,7 +20,7 @@
 }
 
 .sidebar-item-active {
-  @apply bg-emerald-50 text-emerald-700 border-r-4 border-emerald-600;
+  @apply bg-blue-50 text-blue-800 border-r-4 border-blue-700;
 }
 
 .glass-card {
@@ -90,13 +90,13 @@
   color: #ffffff !important;
 }
 
-/* Global dashboard background: Almond #EADDCA (light mode only) */
+/* Global dashboard background: clean white with a subtle royal-blue wash (light mode only) */
 .dashboard-bg {
-  background-color: #EADDCA;
+  background-color: #ffffff;
   background-image:
-    radial-gradient(circle at 10% 15%, rgba(180, 140, 100, 0.18), transparent 40%),
-    radial-gradient(circle at 88% 80%, rgba(200, 160, 110, 0.14), transparent 38%),
-    linear-gradient(160deg, #EADDCA 0%, #e0d0b8 100%);
+    radial-gradient(circle at 10% 15%, rgba(65, 105, 225, 0.06), transparent 40%),
+    radial-gradient(circle at 88% 80%, rgba(36, 71, 216, 0.05), transparent 38%),
+    linear-gradient(160deg, #ffffff 0%, #f4f7ff 100%);
   background-attachment: fixed;
 }
 
@@ -110,26 +110,26 @@
     linear-gradient(160deg, #020617 0%, #0f172a 100%) !important;
 }
 
-/* Global sidebar: Burgundy #800020, 50% larger text — LIGHT MODE ONLY */
+/* Global sidebar: Midnight blue #191970, 50% larger text — LIGHT MODE ONLY */
 :not(.dark) aside.frost-panel a,
 :not(.dark) aside.frost-panel .sidebar-item-active,
 :not(.dark) aside.frost-panel .micro-label,
 :not(.dark) aside.frost-panel .neon-subtle {
-  color: #800020 !important;
+  color: #191970 !important;
   font-size: 1.125rem !important;
   font-weight: 700 !important;
   text-shadow: none !important;
 }
 
 :not(.dark) aside.frost-panel a:hover {
-  color: #5a0016 !important;
-  background-color: rgba(128, 0, 32, 0.08) !important;
+  color: #2447d8 !important;
+  background-color: rgba(65, 105, 225, 0.08) !important;
 }
 
 :not(.dark) aside.frost-panel .sidebar-item-active {
-  color: #5a0016 !important;
-  background-color: rgba(128, 0, 32, 0.12) !important;
-  border-color: #800020 !important;
+  color: #ffffff !important;
+  background-color: #2447d8 !important;
+  border-color: #1b34a8 !important;
 }
 
 /* Global sidebar: white + bold menu text — DARK MODE ONLY */
@@ -344,22 +344,53 @@
   @apply absolute inset-0 rounded-full bg-rose-400 animate-ping;
 }
 
-/* Light-mode-only card and text helpers */
+/* Light-mode-only card and text helpers — royal-blue theme, white surfaces */
 :not(.dark) .wheat-card {
-  background-color: #f5deb3 !important;
-  border-color: rgba(180,140,60,0.35) !important;
-  color: inherit;
+  background-color: #ffffff !important;
+  border-color: rgba(65, 105, 225, 0.20) !important;
+  color: #1e293b;
+  box-shadow: 0 1px 2px rgba(20, 33, 91, 0.04), 0 10px 26px rgba(20, 33, 91, 0.05);
 }
-:not(.dark) .burgundy-text { color: #800020 !important; }
+/* burgundy-text now reads as midnight blue */
+:not(.dark) .burgundy-text { color: #191970 !important; }
 :not(.dark) .midnight-text { color: #191970 !important; }
 :not(.dark) .wheat-input {
-  background-color: #f5deb3 !important;
-  color: #000000 !important;
-  border-color: rgba(180,140,60,0.5) !important;
+  background-color: #ffffff !important;
+  color: #1e293b !important;
+  border-color: rgba(65, 105, 225, 0.30) !important;
 }
+/* burgundy-tab now reads as royal blue */
 :not(.dark) .burgundy-tab {
-  background-color: #800020 !important;
+  background-color: #2447d8 !important;
   color: #ffffff !important;
-  border-color: rgba(128,0,32,0.4) !important;
+  border-color: rgba(36, 71, 216, 0.4) !important;
 }
-:not(.dark) .burgundy-tab:hover { background-color: #670019 !important; }
+:not(.dark) .burgundy-tab:hover { background-color: #1b34a8 !important; }
+
+/* Headings render midnight blue in light mode */
+:not(.dark) h1,
+:not(.dark) h2,
+:not(.dark) h3,
+:not(.dark) h4,
+:not(.dark) h5,
+:not(.dark) h6 {
+  color: #191970;
+}
+
+/* Royal-blue primary accents in light mode (brand emerald/indigo -> royal blue) */
+:not(.dark) .bg-emerald-600,
+:not(.dark) .bg-emerald-700,
+:not(.dark) .bg-indigo-600,
+:not(.dark) .bg-indigo-700 {
+  background-color: #2447d8 !important;
+}
+:not(.dark) .hover\:bg-emerald-700:hover,
+:not(.dark) .hover\:bg-indigo-700:hover,
+:not(.dark) .hover\:bg-emerald-600:hover,
+:not(.dark) .hover\:bg-indigo-600:hover {
+  background-color: #1b34a8 !important;
+}
+:not(.dark) .text-indigo-600,
+:not(.dark) .text-indigo-500 {
+  color: #2447d8 !important;
+}

@@ -47,9 +47,16 @@ function SubscriptionTab() {
           <InfoRow label="Plan" value={quote?.planName || tenant?.planKey} />
           <InfoRow label="Setup Fee" value={quote?.setupFee ? `₦${quote.setupFee.toLocaleString()}` : null} />
           <div><p className="text-xs text-[#800020] uppercase font-semibold">Status</p><div className="mt-1"><StatusPill status={tenant?.paymentStatus} /></div></div>
-          <InfoRow label="User Fee/Term" value={(quote?.userFeePerTerm || quote?.studentFeePerTerm) ? `₦${(quote.userFeePerTerm || quote.studentFeePerTerm).toLocaleString()}/user` : null} />
-          <InfoRow label="Billable Users" value={tenant?.billableUserCount ?? tenant?.studentCount} />
-          <InfoRow label="Term Total" value={quote?.termTotal ? `₦${quote.termTotal.toLocaleString()}` : null} />
+          <InfoRow label="Student Fee/Term" value={(quote?.studentFeePerTerm || quote?.userFeePerTerm) ? `₦${(quote.studentFeePerTerm || quote.userFeePerTerm).toLocaleString()}/student` : null} />
+          <InfoRow label="Billable Students" value={tenant?.studentCount ?? tenant?.billableUserCount} />
+          <InfoRow label="Term Total" value={(() => {
+            // Billing is based on students only — never staff or parents.
+            const fee = Number(quote?.studentFeePerTerm || quote?.userFeePerTerm || 0);
+            const students = Number(tenant?.studentCount ?? tenant?.billableUserCount ?? 0);
+            const studentBasedTotal = fee > 0 && students > 0 ? fee * students : null;
+            const total = studentBasedTotal ?? quote?.termTotal;
+            return total ? `₦${Number(total).toLocaleString()}` : null;
+          })()} />
         </div>
       </div>
       <div className={CARD}><h2 className="text-lg font-bold text-[#800000] mb-4">Payment History</h2>

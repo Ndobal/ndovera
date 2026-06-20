@@ -9917,10 +9917,8 @@ async function getTenantUserCounts(db: D1Database, tenantId: string) {
     if (['student', 'teacher', 'parent', 'owner', 'ami'].includes(role)) return sum
     return sum + Number(count || 0)
   }, 0)
-  const billable = Object.entries(byRole).reduce((sum, [role, count]) => {
-    if (['owner', 'ami'].includes(role)) return sum
-    return sum + Number(count || 0)
-  }, 0)
+  // Billing is based on the number of STUDENTS only — never staff, teachers or parents.
+  const billable = students
 
   return {
     ...byRole,
