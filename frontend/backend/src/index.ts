@@ -92,6 +92,14 @@ import {
   saveAiPaymentRecord,
   summarizeAiAccess,
 } from './aiTutor'
+import {
+  monnifyConfigured,
+  listMonnifyBanks,
+  validateBankAccount,
+  createMonnifySubAccount,
+  createReservedAccount,
+  verifyMonnifySignature,
+} from './monnify'
 
 type Bindings = {
   APP_DB: D1Database
@@ -117,6 +125,11 @@ type Bindings = {
   WEB_PUSH_VAPID_PUBLIC_KEY?: string
   WEB_PUSH_VAPID_PRIVATE_KEY?: string
   WEB_PUSH_SUBJECT?: string
+  MONNIFY_BASE_URL?: string
+  MONNIFY_API_KEY?: string
+  MONNIFY_SECRET_KEY?: string
+  MONNIFY_CONTRACT_CODE?: string
+  MONNIFY_WALLET_ACCOUNT_NUMBER?: string
 }
 
 const app = new Hono<{ Bindings: Bindings }>()
@@ -6245,6 +6258,200 @@ app.get('/api/push/feed', authenticate, async (c) => {
     return c.json({ success: true, notification: buildLatestPushNotificationPayload(header.notificationItems || [], roleKey) })
   } catch {
     return c.json({ success: true, notification: null })
+  }
+})
+
+// ─── Monnify payments (reserved virtual accounts) ────────────────────────────
+const MONNIFY_ACCOUNTS_DDL = `CREATE TABLE IF NOT EXISTS monnify_accounts (
+  tenant_id TEXT PRIMARY KEY,
+  account_reference TEXT,
+  reservation_reference TEXT,
+  sub_account_code TEXT,
+  settlement_account_number TEXT,
+  settlement_bank_code TEXT,
+  settlement_bank_name TEXT,
+  settlement_account_name TEXT,
+  customer_name TEXT,
+  customer_email TEXT,
+  accounts_json TEXT,
+  status TEXT,
+  bvn_last4 TEXT,
+  nin_last4 TEXT,
+  created_at TEXT,
+  updated_at TEXT
+)`
+const MONNIFY_TX_DDL = `CREATE TABLE IF NOT EXISTS monnify_transactions (
+  id TEXT PRIMARY KEY,
+  tenant_id TEXT,
+  transaction_reference TEXT,
+  payment_reference TEXT,
+  amount_paid REAL,
+  paid_on TEXT,
+  payment_status TEXT,
+  customer_email TEXT,
+  customer_name TEXT,
+  account_reference TEXT,
+  raw_json TEXT,
+  created_at TEXT
+)`
+async function ensureMonnifyTables(db: D1Database) {
+  await db.prepare(MONNIFY_ACCOUNTS_DDL).run()
+  await db.prepare(MONNIFY_TX_DDL).run()
+}
+
+async function getMonnifyAccountRow(db: D1Database, tenantId: string) {
+  await ensureMonnifyTables(db)
+  return await db.prepare(`SELECT * FROM monnify_accounts WHERE tenant_id = ?`).bind(tenantId).first() as Record<string, any> | null
+}
+
+function mapMonnifyAccount(row: Record<string, any> | null) {
+  if (!row) return null
+  let accounts: any[] = []
+  try { accounts = JSON.parse(row.accounts_json || '[]') } catch { accounts = [] }
+  return {
+    accountReference: row.account_reference,
+    status: row.status,
+    accounts,
+    customerName: row.customer_name,
+    customerEmail: row.customer_email,
+    settlement: {
+      accountNumber: row.settlement_account_number,
+      bankCode: row.settlement_bank_code,
+      bankName: row.settlement_bank_name,
+      accountName: row.settlement_account_name,
+    },
+    bvnLast4: row.bvn_last4,
+    ninLast4: row.nin_last4,
+    updatedAt: row.updated_at,
+  }
+}
+
+app.get('/api/tenants/monnify/banks', authenticate, async (c) => {
+  const { role, forbidden } = await resolveTenantForActor(c)
+  if (forbidden || !hasRequiredRole(role, ['owner', 'hos'])) return c.json({ success: false, error: 'forbidden' }, 403)
+  if (!monnifyConfigured(c.env)) return c.json({ success: false, configured: false, message: 'Monnify is not configured yet.' }, 503)
+  try {
+    const banks = await listMonnifyBanks(c.env)
+    return c.json({ success: true, banks })
+  } catch (error) {
+    return c.json({ success: false, message: String((error as Error)?.message || 'Could not load banks.') }, 502)
+  }
+})
+
+app.get('/api/tenants/monnify/account', authenticate, async (c) => {
+  const { tenant, role, forbidden } = await resolveTenantForActor(c)
+  if (forbidden || !hasRequiredRole(role, ['owner', 'hos'])) return c.json({ success: false, error: 'forbidden' }, 403)
+  if (!tenant?.id) return c.json({ success: false, error: 'No tenant.' }, 400)
+  const row = await getMonnifyAccountRow(c.env.APP_DB, tenant.id)
+  return c.json({ success: true, configured: monnifyConfigured(c.env), account: mapMonnifyAccount(row) })
+})
+
+app.post('/api/tenants/monnify/reserved-account', authenticate, async (c) => {
+  const { tenant, role, forbidden } = await resolveTenantForActor(c)
+  if (forbidden || !hasRequiredRole(role, ['owner', 'hos'])) return c.json({ success: false, error: 'forbidden' }, 403)
+  if (!tenant?.id) return c.json({ success: false, error: 'No tenant.' }, 400)
+  if (!monnifyConfigured(c.env)) return c.json({ success: false, message: 'Monnify is not configured yet.' }, 503)
+  try {
+    const payload = await c.req.json().catch(() => ({})) as Record<string, any>
+    const accountName = String(payload.accountName || tenant.schoolName || '').trim()
+    const customerName = String(payload.customerName || accountName).trim()
+    const customerEmail = String(payload.customerEmail || '').trim().toLowerCase()
+    const bvn = String(payload.bvn || '').replace(/\D/g, '')
+    const nin = String(payload.nin || '').replace(/\D/g, '')
+    const settlementAccountNumber = String(payload.settlementAccountNumber || '').replace(/\D/g, '')
+    const settlementBankCode = String(payload.settlementBankCode || '').trim()
+
+    if (!accountName || !customerEmail || !settlementAccountNumber || !settlementBankCode) {
+      return c.json({ success: false, message: 'Account name, email, settlement bank and account number are required.' }, 400)
+    }
+    if (bvn.length !== 11 && nin.length !== 11) {
+      return c.json({ success: false, message: 'A valid 11-digit BVN or NIN is required to activate the account.' }, 400)
+    }
+
+    // 1. Validate the school's settlement account.
+    const validated = await validateBankAccount(c.env, settlementAccountNumber, settlementBankCode)
+    // 2. Create a Monnify sub-account so collections settle to the school's own bank.
+    const subAccount = await createMonnifySubAccount(c.env, { bankCode: settlementBankCode, accountNumber: settlementAccountNumber, email: customerEmail })
+    // 3. Create the reserved (virtual) account with KYC + 100% income split to the sub-account.
+    const reserved = await createReservedAccount(c.env, {
+      accountReference: `ndovera_${tenant.id}`,
+      accountName,
+      customerName,
+      customerEmail,
+      bvn: bvn || undefined,
+      nin: nin || undefined,
+      subAccountCode: subAccount.subAccountCode || undefined,
+    })
+
+    const now = new Date().toISOString()
+    await ensureMonnifyTables(c.env.APP_DB)
+    await c.env.APP_DB.prepare(
+      `INSERT OR REPLACE INTO monnify_accounts (tenant_id, account_reference, reservation_reference, sub_account_code, settlement_account_number, settlement_bank_code, settlement_bank_name, settlement_account_name, customer_name, customer_email, accounts_json, status, bvn_last4, nin_last4, created_at, updated_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, COALESCE((SELECT created_at FROM monnify_accounts WHERE tenant_id = ?), ?), ?)`
+    ).bind(
+      tenant.id,
+      reserved.accountReference,
+      reserved.reservationReference,
+      subAccount.subAccountCode || null,
+      settlementAccountNumber,
+      settlementBankCode,
+      String(payload.settlementBankName || '').trim() || null,
+      validated.accountName || null,
+      customerName,
+      customerEmail,
+      JSON.stringify(reserved.accounts || []),
+      reserved.status || 'PENDING',
+      bvn ? bvn.slice(-4) : null,
+      nin ? nin.slice(-4) : null,
+      tenant.id,
+      now,
+      now,
+    ).run()
+
+    const row = await getMonnifyAccountRow(c.env.APP_DB, tenant.id)
+    return c.json({ success: true, account: mapMonnifyAccount(row), validatedAccountName: validated.accountName })
+  } catch (error) {
+    return c.json({ success: false, message: String((error as Error)?.message || 'Could not create the virtual account.') }, 502)
+  }
+})
+
+// Monnify sends payment notifications here (signed with SHA-512 HMAC of the body).
+app.post('/api/public/monnify/webhook', async (c) => {
+  try {
+    const rawBody = await c.req.text()
+    const signature = c.req.header('monnify-signature') || ''
+    const valid = await verifyMonnifySignature(c.env, rawBody, signature)
+    if (!valid) return c.json({ success: false }, 401)
+
+    const payload = JSON.parse(rawBody || '{}') as Record<string, any>
+    const eventData = payload?.eventData || {}
+    const accountReference = String(eventData?.product?.reference || eventData?.accountReference || '').trim()
+    const tenantId = accountReference.startsWith('ndovera_') ? accountReference.slice('ndovera_'.length) : ''
+    const transactionReference = String(eventData?.transactionReference || '').trim()
+    const id = transactionReference ? `mtx_${transactionReference}` : `mtx_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`
+
+    await ensureMonnifyTables(c.env.APP_DB)
+    await c.env.APP_DB.prepare(
+      `INSERT OR REPLACE INTO monnify_transactions (id, tenant_id, transaction_reference, payment_reference, amount_paid, paid_on, payment_status, customer_email, customer_name, account_reference, raw_json, created_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+    ).bind(
+      id,
+      tenantId || null,
+      transactionReference,
+      String(eventData?.paymentReference || ''),
+      Number(eventData?.amountPaid || 0),
+      String(eventData?.paidOn || ''),
+      String(eventData?.paymentStatus || payload?.eventType || ''),
+      String(eventData?.customer?.email || ''),
+      String(eventData?.customer?.name || ''),
+      accountReference || null,
+      rawBody.slice(0, 8000),
+      new Date().toISOString(),
+    ).run()
+
+    return c.json({ success: true })
+  } catch {
+    return c.json({ success: true })
   }
 })
 

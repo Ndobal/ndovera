@@ -3,8 +3,9 @@ import { getMe } from '../../../features/school/services/schoolApi';
 import AdminPasswordReset from '../../../features/auth/components/AdminPasswordReset';
 import StaffAttendanceManagementPanel from '../../../features/attendance/components/StaffAttendanceManagementPanel';
 import WebsiteTab from '../owner/tabs/WebsiteTab';
+import MonnifyVirtualAccount from '../../../features/tenants/components/MonnifyVirtualAccount';
 
-const TABS = ['Profile & Security', 'Website', 'Attendance Management'];
+const TABS = ['Profile & Security', 'Website', 'Virtual Account', 'Attendance Management'];
 
 export default function HoSSettings({ auth }) {
   const [me, setMe] = useState(null);
@@ -60,6 +61,7 @@ export default function HoSSettings({ auth }) {
         <WebsiteTab />
       </div>
     ),
+    'Virtual Account': <MonnifyVirtualAccount />,
     'Attendance Management': <StaffAttendanceManagementPanel />,
   };
 
