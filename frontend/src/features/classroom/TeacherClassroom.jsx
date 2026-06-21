@@ -937,14 +937,14 @@ export default function TeacherClassroom({
                   key={classroom.id}
                   type="button"
                   onClick={() => handleSelectClass(classroom.id)}
-                  className="text-left rounded-3xl p-5 border transition-all duration-200 bg-[#f5deb3] border-[#c9a96e]/50 shadow-[0_18px_40px_rgba(128,0,0,0.08)] hover:-translate-y-0.5 hover:shadow-[0_22px_46px_rgba(128,0,0,0.12)] dark:bg-[#800000]/75 dark:border-[#bf00ff]/45 dark:shadow-[0_0_28px_rgba(191,0,255,0.22)] dark:hover:shadow-[0_0_36px_rgba(0,255,255,0.22)]"
+                  className="text-left rounded-3xl p-5 border transition-all duration-200 bg-[#b5e3f4] border-[#c9a96e]/50 shadow-[0_18px_40px_rgba(128,0,0,0.08)] hover:-translate-y-0.5 hover:shadow-[0_22px_46px_rgba(128,0,0,0.12)] dark:bg-[#800000]/75 dark:border-[#bf00ff]/45 dark:shadow-[0_0_28px_rgba(191,0,255,0.22)] dark:hover:shadow-[0_0_36px_rgba(0,255,255,0.22)]"
                 >
                   <div className="flex items-start justify-between gap-3">
                     <div>
                       <p className="text-lg font-semibold text-[#800000] dark:text-[#ffffff]">{classroom.className}</p>
                       <p className="mt-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#800020] dark:text-[#bf00ff]">{classroom.isClassTeacher ? 'Class Teacher' : classroom.isSupervisor ? 'Supervisor Access' : 'Subject Teacher'}</p>
                     </div>
-                    <span className="inline-flex items-center rounded-full bg-[#1a5c38] px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] text-[#f5deb3] dark:bg-[#00ffff] dark:text-[#000000]">Open Class</span>
+                    <span className="inline-flex items-center rounded-full bg-[#1a5c38] px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] text-[#b5e3f4] dark:bg-[#00ffff] dark:text-[#000000]">Open Class</span>
                   </div>
 
                   <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -969,14 +969,14 @@ export default function TeacherClassroom({
               ))}
             </div>
           ) : (
-            <div className="rounded-3xl border border-[#c9a96e]/45 bg-[#f5deb3] px-4 py-4 text-sm text-[#191970] dark:border-[#bf00ff]/35 dark:bg-[#800000]/70 dark:text-[#39ff14]">
+            <div className="rounded-3xl border border-[#c9a96e]/45 bg-[#b5e3f4] px-4 py-4 text-sm text-[#191970] dark:border-[#bf00ff]/35 dark:bg-[#800000]/70 dark:text-[#39ff14]">
               {classroomLoading ? 'Loading classes...' : (isSupervisorRole ? 'No classes are available for supervision yet.' : 'No classes assigned yet.')}
             </div>
           )}
           {classroomError && <p className="text-sm text-red-600 dark:text-[#ffffff] mt-2">{classroomError}</p>}
         </div>}
 
-        {!!selectedClass && <div className="mb-4 rounded-3xl border border-[#c9a96e]/45 bg-[#f5deb3] p-5 shadow-[0_18px_42px_rgba(128,0,0,0.08)] dark:border-[#bf00ff]/35 dark:bg-[#800000]/75 dark:shadow-[0_0_28px_rgba(191,0,255,0.18)]">
+        {!!selectedClass && <div className="mb-4 rounded-3xl border border-[#c9a96e]/45 bg-[#b5e3f4] p-5 shadow-[0_18px_42px_rgba(128,0,0,0.08)] dark:border-[#bf00ff]/35 dark:bg-[#800000]/75 dark:shadow-[0_0_28px_rgba(191,0,255,0.18)]">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#800020] dark:text-[#bf00ff]">Working In</p>
@@ -989,7 +989,7 @@ export default function TeacherClassroom({
               <button
                 type="button"
                 onClick={handleExitClass}
-                className="rounded-2xl bg-[#1a5c38] px-4 py-2 text-sm font-bold text-[#f5deb3] transition-colors hover:bg-[#154a2e] dark:bg-[#00ffff] dark:text-[#000000] dark:hover:bg-[#7dfcff]"
+                className="rounded-2xl bg-[#1a5c38] px-4 py-2 text-sm font-bold text-[#b5e3f4] transition-colors hover:bg-[#154a2e] dark:bg-[#00ffff] dark:text-[#000000] dark:hover:bg-[#7dfcff]"
               >
                 Exit Class
               </button>
@@ -999,12 +999,12 @@ export default function TeacherClassroom({
 
         {!!classId && !lockedTab && <div className="mb-4 overflow-x-hidden">
           <nav className="grid grid-cols-3 gap-2 sm:flex sm:flex-wrap">
-            <button className={`px-3 py-1 rounded-2xl border text-sm font-semibold transition-colors ${activeTab==='stream'?'bg-[#1a5c38] border-[#1a5c38] text-[#f5deb3] dark:bg-[#00ffff] dark:border-[#00ffff] dark:text-[#000000]':'bg-[#fff8f0] border-[#c9a96e]/45 text-[#191970] hover:bg-[#f2e1bf] dark:bg-black/20 dark:border-[#bf00ff]/35 dark:text-[#ffffff] dark:hover:bg-[#800000]/85'}`} onClick={()=>setActiveTab('stream')}>Stream</button>
-            <button className={`px-3 py-1 rounded-2xl border text-sm font-semibold transition-colors ${activeTab==='subjects'?'bg-[#1a5c38] border-[#1a5c38] text-[#f5deb3] dark:bg-[#00ffff] dark:border-[#00ffff] dark:text-[#000000]':'bg-[#fff8f0] border-[#c9a96e]/45 text-[#191970] hover:bg-[#f2e1bf] dark:bg-black/20 dark:border-[#bf00ff]/35 dark:text-[#ffffff] dark:hover:bg-[#800000]/85'}`} onClick={()=>setActiveTab('subjects')}>Subjects</button>
-            <button className={`px-3 py-1 rounded-2xl border text-sm font-semibold transition-colors ${activeTab==='assignments'?'bg-[#1a5c38] border-[#1a5c38] text-[#f5deb3] dark:bg-[#00ffff] dark:border-[#00ffff] dark:text-[#000000]':'bg-[#fff8f0] border-[#c9a96e]/45 text-[#191970] hover:bg-[#f2e1bf] dark:bg-black/20 dark:border-[#bf00ff]/35 dark:text-[#ffffff] dark:hover:bg-[#800000]/85'}`} onClick={()=>setActiveTab('assignments')}>Assignments</button>
-            <button className={`px-3 py-1 rounded-2xl border text-sm font-semibold transition-colors ${activeTab==='attendance'?'bg-[#1a5c38] border-[#1a5c38] text-[#f5deb3] dark:bg-[#00ffff] dark:border-[#00ffff] dark:text-[#000000]':'bg-[#fff8f0] border-[#c9a96e]/45 text-[#191970] hover:bg-[#f2e1bf] dark:bg-black/20 dark:border-[#bf00ff]/35 dark:text-[#ffffff] dark:hover:bg-[#800000]/85'}`} onClick={()=>setActiveTab('attendance')}>Attendance</button>
-            <button className={`px-3 py-1 rounded-2xl border text-sm font-semibold transition-colors ${activeTab==='materials'?'bg-[#1a5c38] border-[#1a5c38] text-[#f5deb3] dark:bg-[#00ffff] dark:border-[#00ffff] dark:text-[#000000]':'bg-[#fff8f0] border-[#c9a96e]/45 text-[#191970] hover:bg-[#f2e1bf] dark:bg-black/20 dark:border-[#bf00ff]/35 dark:text-[#ffffff] dark:hover:bg-[#800000]/85'}`} onClick={()=>setActiveTab('materials')}>Materials</button>
-            <button className={`px-3 py-1 rounded-2xl border text-sm font-semibold transition-colors ${activeTab==='live'?'bg-[#1a5c38] border-[#1a5c38] text-[#f5deb3] dark:bg-[#00ffff] dark:border-[#00ffff] dark:text-[#000000]':'bg-[#fff8f0] border-[#c9a96e]/45 text-[#191970] hover:bg-[#f2e1bf] dark:bg-black/20 dark:border-[#bf00ff]/35 dark:text-[#ffffff] dark:hover:bg-[#800000]/85'}`} onClick={()=>setActiveTab('live')}>Live</button>
+            <button className={`px-3 py-1 rounded-2xl border text-sm font-semibold transition-colors ${activeTab==='stream'?'bg-[#1a5c38] border-[#1a5c38] text-[#b5e3f4] dark:bg-[#00ffff] dark:border-[#00ffff] dark:text-[#000000]':'bg-[#fff8f0] border-[#c9a96e]/45 text-[#191970] hover:bg-[#f2e1bf] dark:bg-black/20 dark:border-[#bf00ff]/35 dark:text-[#ffffff] dark:hover:bg-[#800000]/85'}`} onClick={()=>setActiveTab('stream')}>Stream</button>
+            <button className={`px-3 py-1 rounded-2xl border text-sm font-semibold transition-colors ${activeTab==='subjects'?'bg-[#1a5c38] border-[#1a5c38] text-[#b5e3f4] dark:bg-[#00ffff] dark:border-[#00ffff] dark:text-[#000000]':'bg-[#fff8f0] border-[#c9a96e]/45 text-[#191970] hover:bg-[#f2e1bf] dark:bg-black/20 dark:border-[#bf00ff]/35 dark:text-[#ffffff] dark:hover:bg-[#800000]/85'}`} onClick={()=>setActiveTab('subjects')}>Subjects</button>
+            <button className={`px-3 py-1 rounded-2xl border text-sm font-semibold transition-colors ${activeTab==='assignments'?'bg-[#1a5c38] border-[#1a5c38] text-[#b5e3f4] dark:bg-[#00ffff] dark:border-[#00ffff] dark:text-[#000000]':'bg-[#fff8f0] border-[#c9a96e]/45 text-[#191970] hover:bg-[#f2e1bf] dark:bg-black/20 dark:border-[#bf00ff]/35 dark:text-[#ffffff] dark:hover:bg-[#800000]/85'}`} onClick={()=>setActiveTab('assignments')}>Assignments</button>
+            <button className={`px-3 py-1 rounded-2xl border text-sm font-semibold transition-colors ${activeTab==='attendance'?'bg-[#1a5c38] border-[#1a5c38] text-[#b5e3f4] dark:bg-[#00ffff] dark:border-[#00ffff] dark:text-[#000000]':'bg-[#fff8f0] border-[#c9a96e]/45 text-[#191970] hover:bg-[#f2e1bf] dark:bg-black/20 dark:border-[#bf00ff]/35 dark:text-[#ffffff] dark:hover:bg-[#800000]/85'}`} onClick={()=>setActiveTab('attendance')}>Attendance</button>
+            <button className={`px-3 py-1 rounded-2xl border text-sm font-semibold transition-colors ${activeTab==='materials'?'bg-[#1a5c38] border-[#1a5c38] text-[#b5e3f4] dark:bg-[#00ffff] dark:border-[#00ffff] dark:text-[#000000]':'bg-[#fff8f0] border-[#c9a96e]/45 text-[#191970] hover:bg-[#f2e1bf] dark:bg-black/20 dark:border-[#bf00ff]/35 dark:text-[#ffffff] dark:hover:bg-[#800000]/85'}`} onClick={()=>setActiveTab('materials')}>Materials</button>
+            <button className={`px-3 py-1 rounded-2xl border text-sm font-semibold transition-colors ${activeTab==='live'?'bg-[#1a5c38] border-[#1a5c38] text-[#b5e3f4] dark:bg-[#00ffff] dark:border-[#00ffff] dark:text-[#000000]':'bg-[#fff8f0] border-[#c9a96e]/45 text-[#191970] hover:bg-[#f2e1bf] dark:bg-black/20 dark:border-[#bf00ff]/35 dark:text-[#ffffff] dark:hover:bg-[#800000]/85'}`} onClick={()=>setActiveTab('live')}>Live</button>
           </nav>
         </div>}
 
@@ -1013,7 +1013,7 @@ export default function TeacherClassroom({
             <div className="flex min-h-[70vh] flex-col gap-4">
               <div className="flex-1 space-y-3">
                 {sortedPosts.length === 0 ? (
-                  <div className="rounded-3xl border border-[#c9a96e]/45 bg-[#f5deb3] px-4 py-4 text-sm text-[#191970] dark:border-[#bf00ff]/35 dark:bg-[#800000]/70 dark:text-[#39ff14]">
+                  <div className="rounded-3xl border border-[#c9a96e]/45 bg-[#b5e3f4] px-4 py-4 text-sm text-[#191970] dark:border-[#bf00ff]/35 dark:bg-[#800000]/70 dark:text-[#39ff14]">
                     No stream posts yet. New posts will appear here, with the newest update settling at the bottom.
                   </div>
                 ) : (
@@ -1029,7 +1029,7 @@ export default function TeacherClassroom({
                             <button
                               type="button"
                               onClick={() => setActiveStreamMenuId(currentId => currentId === post.id ? '' : post.id)}
-                              className="flex h-11 w-11 items-center justify-center rounded-full border border-[#c9a96e]/60 bg-[#f5deb3] text-sm font-bold text-[#191970] shadow-[0_10px_24px_rgba(25,25,112,0.08)] dark:border-[#bf00ff]/35 dark:bg-black/25 dark:text-[#ffffff]"
+                              className="flex h-11 w-11 items-center justify-center rounded-full border border-[#c9a96e]/60 bg-[#b5e3f4] text-sm font-bold text-[#191970] shadow-[0_10px_24px_rgba(25,25,112,0.08)] dark:border-[#bf00ff]/35 dark:bg-black/25 dark:text-[#ffffff]"
                               aria-label={`Open ${authorProfile.name} actions`}
                             >
                               {buildAvatarLabel(authorProfile.name)}
@@ -1046,7 +1046,7 @@ export default function TeacherClassroom({
                                       setActiveStreamMenuId('');
                                       setProfileMember(authorProfile);
                                     }}
-                                    className="rounded-2xl border border-[#c9a96e]/45 px-3 py-2 text-left text-sm font-semibold text-[#191970] hover:bg-[#f5deb3] dark:border-[#bf00ff]/35 dark:text-[#ffffff] dark:hover:bg-black/25"
+                                    className="rounded-2xl border border-[#c9a96e]/45 px-3 py-2 text-left text-sm font-semibold text-[#191970] hover:bg-[#b5e3f4] dark:border-[#bf00ff]/35 dark:text-[#ffffff] dark:hover:bg-black/25"
                                   >
                                     View Profile
                                   </button>
@@ -1099,7 +1099,7 @@ export default function TeacherClassroom({
                 )}
               </div>
 
-              <form onSubmit={handleCreatePost} className="sticky bottom-6 rounded-3xl border border-[#c9a96e]/45 bg-[#f5deb3] p-4 shadow-[0_20px_40px_rgba(128,0,0,0.12)] dark:border-[#bf00ff]/35 dark:bg-[#800000]/78 dark:shadow-[0_0_24px_rgba(191,0,255,0.18)]">
+              <form onSubmit={handleCreatePost} className="sticky bottom-6 rounded-3xl border border-[#c9a96e]/45 bg-[#b5e3f4] p-4 shadow-[0_20px_40px_rgba(128,0,0,0.12)] dark:border-[#bf00ff]/35 dark:bg-[#800000]/78 dark:shadow-[0_0_24px_rgba(191,0,255,0.18)]">
                 <textarea
                   value={draftContent}
                   onChange={event => {
@@ -1121,7 +1121,7 @@ export default function TeacherClassroom({
                       Emoji
                     </button>
                   </div>
-                  <button className="rounded-2xl bg-[#1a5c38] px-4 py-2 text-sm font-bold text-[#f5deb3] transition-colors hover:bg-[#154a2e] dark:bg-[#00ffff] dark:text-[#000000] dark:hover:bg-[#7dfcff]">Post</button>
+                  <button className="rounded-2xl bg-[#1a5c38] px-4 py-2 text-sm font-bold text-[#b5e3f4] transition-colors hover:bg-[#154a2e] dark:bg-[#00ffff] dark:text-[#000000] dark:hover:bg-[#7dfcff]">Post</button>
                 </div>
 
                 {streamEmojiOpen && (
@@ -1172,13 +1172,13 @@ export default function TeacherClassroom({
           {activeTab === 'attendance' && (
             <div className="space-y-4">
               {!canManageSelectedClass && (
-                <div className="rounded-3xl border border-[#c9a96e]/45 bg-[#f5deb3] px-4 py-4 text-sm text-[#191970] dark:border-[#bf00ff]/35 dark:bg-[#800000]/70 dark:text-[#39ff14]">
+                <div className="rounded-3xl border border-[#c9a96e]/45 bg-[#b5e3f4] px-4 py-4 text-sm text-[#191970] dark:border-[#bf00ff]/35 dark:bg-[#800000]/70 dark:text-[#39ff14]">
                   Only the assigned class teacher, HoS, owner, or another classroom supervisor can mark attendance for this class.
                 </div>
               )}
 
               {canManageSelectedClass && (
-                <div className="rounded-3xl border border-[#c9a96e]/45 bg-[#f5deb3] p-5 shadow-[0_18px_42px_rgba(128,0,0,0.08)] dark:border-[#bf00ff]/35 dark:bg-[#800000]/75 dark:shadow-[0_0_28px_rgba(191,0,255,0.18)]">
+                <div className="rounded-3xl border border-[#c9a96e]/45 bg-[#b5e3f4] p-5 shadow-[0_18px_42px_rgba(128,0,0,0.08)] dark:border-[#bf00ff]/35 dark:bg-[#800000]/75 dark:shadow-[0_0_28px_rgba(191,0,255,0.18)]">
                   <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
                     <div>
                       <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#800020] dark:text-[#bf00ff]">Live Attendance</p>
@@ -1201,7 +1201,7 @@ export default function TeacherClassroom({
                       <option value="Late">Late</option>
                       <option value="Excused">Excused</option>
                     </select>
-                    <button disabled={attendanceLoading || !students.length} className="rounded-2xl bg-[#1a5c38] px-4 py-3 text-sm font-bold text-[#f5deb3] transition-colors hover:bg-[#154a2e] disabled:opacity-60 disabled:cursor-not-allowed dark:bg-[#00ffff] dark:text-[#000000] dark:hover:bg-[#7dfcff]">
+                    <button disabled={attendanceLoading || !students.length} className="rounded-2xl bg-[#1a5c38] px-4 py-3 text-sm font-bold text-[#b5e3f4] transition-colors hover:bg-[#154a2e] disabled:opacity-60 disabled:cursor-not-allowed dark:bg-[#00ffff] dark:text-[#000000] dark:hover:bg-[#7dfcff]">
                       {attendanceLoading ? 'Recording…' : 'Record Attendance'}
                     </button>
                     <textarea value={attendanceNotes} onChange={e => setAttendanceNotes(e.target.value)} rows={3} placeholder="Optional note for this attendance mark" className="md:col-span-2 xl:col-span-4 rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] p-3 text-sm text-[#191970] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#ffffff]" />
@@ -1213,7 +1213,7 @@ export default function TeacherClassroom({
                 </div>
               )}
 
-              <div className="rounded-3xl border border-[#c9a96e]/45 bg-[#f5deb3] p-5 shadow-[0_18px_42px_rgba(128,0,0,0.08)] dark:border-[#bf00ff]/35 dark:bg-[#800000]/75 dark:shadow-[0_0_28px_rgba(191,0,255,0.18)]">
+              <div className="rounded-3xl border border-[#c9a96e]/45 bg-[#b5e3f4] p-5 shadow-[0_18px_42px_rgba(128,0,0,0.08)] dark:border-[#bf00ff]/35 dark:bg-[#800000]/75 dark:shadow-[0_0_28px_rgba(191,0,255,0.18)]">
                 <div className="mb-4 flex items-center justify-between gap-3">
                   <div>
                     <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#800020] dark:text-[#bf00ff]">Recorded Marks</p>
@@ -1235,7 +1235,7 @@ export default function TeacherClassroom({
                               <p className="font-semibold text-[#191970] dark:text-[#ffffff]">{student?.name || a.studentId}</p>
                               <p className="mt-1 text-xs font-semibold uppercase tracking-[0.16em] text-[#800020] dark:text-[#bf00ff]">{a.date}</p>
                             </div>
-                            <span className="rounded-full bg-[#1a5c38] px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] text-[#f5deb3] dark:bg-[#00ffff] dark:text-[#000000]">{a.status}</span>
+                            <span className="rounded-full bg-[#1a5c38] px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] text-[#b5e3f4] dark:bg-[#00ffff] dark:text-[#000000]">{a.status}</span>
                           </div>
                           {(a.notes || a.recordedBy) && (
                             <div className="mt-3 space-y-1 text-sm text-[#191970] dark:text-[#39ff14]">
@@ -1266,7 +1266,7 @@ export default function TeacherClassroom({
             return (
               <div className="space-y-4">
                 {canManageSelectedClass && (
-                  <div className="rounded-3xl border border-[#c9a96e]/45 bg-[#f5deb3] p-5 shadow-[0_18px_42px_rgba(128,0,0,0.08)] dark:border-[#bf00ff]/35 dark:bg-[#800000]/75">
+                  <div className="rounded-3xl border border-[#c9a96e]/45 bg-[#b5e3f4] p-5 shadow-[0_18px_42px_rgba(128,0,0,0.08)] dark:border-[#bf00ff]/35 dark:bg-[#800000]/75">
                     <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
                       <div>
                         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#800020] dark:text-[#bf00ff]">Class Roster</p>
@@ -1284,7 +1284,7 @@ export default function TeacherClassroom({
                           <div className="mt-2 space-y-2">
                             {groupedMembers[groupKey].length === 0 && <p className="text-xs text-[#191970] dark:text-[#ffffff]">None yet.</p>}
                             {groupedMembers[groupKey].map(member => (
-                              <div key={`${groupKey}-${member.id}`} className="flex items-center justify-between gap-2 rounded-2xl border border-[#c9a96e]/25 bg-[#f5deb3] px-3 py-2 dark:bg-[#35002b]">
+                              <div key={`${groupKey}-${member.id}`} className="flex items-center justify-between gap-2 rounded-2xl border border-[#c9a96e]/25 bg-[#b5e3f4] px-3 py-2 dark:bg-[#35002b]">
                                 <div className="min-w-0">
                                   <p className="truncate text-sm font-semibold text-[#191970] dark:text-[#ffffff]">{member.name}</p>
                                   <p className="truncate text-xs text-[#800020] dark:text-[#bf00ff]">{member.displayId || member.email || member.status}</p>
@@ -1315,12 +1315,12 @@ export default function TeacherClassroom({
                           {rosterCandidates
                             .filter(candidate => !currentMemberIds.has(normalizeMemberIdentifier(candidate.id)))
                             .map(candidate => (
-                              <div key={candidate.id} className="flex items-center justify-between gap-3 rounded-2xl border border-[#c9a96e]/35 bg-[#f5deb3] px-3 py-2 dark:border-[#bf00ff]/30 dark:bg-[#35002b]">
+                              <div key={candidate.id} className="flex items-center justify-between gap-3 rounded-2xl border border-[#c9a96e]/35 bg-[#b5e3f4] px-3 py-2 dark:border-[#bf00ff]/30 dark:bg-[#35002b]">
                                 <div className="min-w-0">
                                   <p className="truncate text-sm font-semibold text-[#191970] dark:text-[#ffffff]">{candidate.name}</p>
                                   <p className="truncate text-xs text-[#800020] dark:text-[#bf00ff]">{candidate.displayId || candidate.email || candidate.role}</p>
                                 </div>
-                                <button type="button" onClick={() => handleAddRosterMember(rosterRole, candidate.id)} className="rounded-2xl bg-[#1a5c38] px-3 py-2 text-xs font-bold text-[#f5deb3] dark:bg-[#00ffff] dark:text-[#000000]">
+                                <button type="button" onClick={() => handleAddRosterMember(rosterRole, candidate.id)} className="rounded-2xl bg-[#1a5c38] px-3 py-2 text-xs font-bold text-[#b5e3f4] dark:bg-[#00ffff] dark:text-[#000000]">
                                   Add
                                 </button>
                               </div>
@@ -1337,7 +1337,7 @@ export default function TeacherClassroom({
 
           {activeTab === 'materials' && (
             <div className="space-y-4">
-              <div className="rounded-3xl border border-[#c9a96e]/45 bg-[#f5deb3] p-5 shadow-[0_18px_42px_rgba(128,0,0,0.08)] dark:border-[#bf00ff]/35 dark:bg-[#800000]/75 dark:shadow-[0_0_28px_rgba(191,0,255,0.18)]">
+              <div className="rounded-3xl border border-[#c9a96e]/45 bg-[#b5e3f4] p-5 shadow-[0_18px_42px_rgba(128,0,0,0.08)] dark:border-[#bf00ff]/35 dark:bg-[#800000]/75 dark:shadow-[0_0_28px_rgba(191,0,255,0.18)]">
                 <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
                   <div>
                     <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#800020] dark:text-[#bf00ff]">Subject Materials</p>
@@ -1385,7 +1385,7 @@ export default function TeacherClassroom({
                         <input id="materialFile" type="file" multiple className="hidden" onChange={(e) => { const files = e.target.files; if (!files?.length) return; queueMaterialFiles(files); e.target.value = ''; }} />
                         Upload file
                       </label>
-                      <button className="rounded-2xl bg-[#1a5c38] px-4 py-3 text-sm font-bold text-[#f5deb3] transition-colors hover:bg-[#154a2e] dark:bg-[#00ffff] dark:text-[#000000] dark:hover:bg-[#7dfcff]">
+                      <button className="rounded-2xl bg-[#1a5c38] px-4 py-3 text-sm font-bold text-[#b5e3f4] transition-colors hover:bg-[#154a2e] dark:bg-[#00ffff] dark:text-[#000000] dark:hover:bg-[#7dfcff]">
                         {pendingMaterialFiles.length > 0
                           ? `Post ${pendingMaterialFiles.length} File${pendingMaterialFiles.length === 1 ? '' : 's'}`
                           : materialUrl.trim() ? 'Post Material' : 'Publish Lesson Note'}
@@ -1403,7 +1403,7 @@ export default function TeacherClassroom({
                           {pendingMaterialFiles.map(file => {
                             const fileKey = buildMaterialUploadKey(file);
                             return (
-                              <div key={fileKey} className="flex items-center gap-2 rounded-2xl border border-[#c9a96e]/35 bg-[#f5deb3] px-3 py-2 dark:border-[#bf00ff]/30 dark:bg-[#35002b]">
+                              <div key={fileKey} className="flex items-center gap-2 rounded-2xl border border-[#c9a96e]/35 bg-[#b5e3f4] px-3 py-2 dark:border-[#bf00ff]/30 dark:bg-[#35002b]">
                                 <span className="max-w-[180px] truncate text-sm font-semibold text-[#191970] dark:text-[#ffffff]">{file.name}</span>
                                 <button type="button" onClick={() => removePendingMaterialFile(fileKey)} className="rounded-xl border border-[#800000]/25 bg-white/70 px-2 py-1 text-xs font-semibold text-[#800000] hover:bg-[#ffe8db] dark:border-[#ff5f8d]/35 dark:bg-black/20 dark:text-[#ffffff] dark:hover:bg-[#5a1024]">
                                   Remove
@@ -1422,7 +1422,7 @@ export default function TeacherClassroom({
                 )}
               </div>
 
-              <div className="rounded-3xl border border-[#c9a96e]/45 bg-[#f5deb3] p-5 shadow-[0_18px_42px_rgba(128,0,0,0.08)] dark:border-[#bf00ff]/35 dark:bg-[#800000]/75 dark:shadow-[0_0_28px_rgba(191,0,255,0.18)]">
+              <div className="rounded-3xl border border-[#c9a96e]/45 bg-[#b5e3f4] p-5 shadow-[0_18px_42px_rgba(128,0,0,0.08)] dark:border-[#bf00ff]/35 dark:bg-[#800000]/75 dark:shadow-[0_0_28px_rgba(191,0,255,0.18)]">
                 <div className="mb-4 flex items-center justify-between gap-3">
                   <div>
                     <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#800020] dark:text-[#bf00ff]">Published Materials</p>
@@ -1452,7 +1452,7 @@ export default function TeacherClassroom({
                           <div className="flex flex-wrap items-center gap-2">
                             {canManageSelectedClass && <button type="button" onClick={() => handleEditMaterial(material)} className="rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] px-4 py-2 text-sm font-semibold text-[#191970] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#ffffff]">Edit</button>}
                             {(canManageSelectedClass || [storedUser?.id, storedUser?.email, storedUser?.displayId].filter(Boolean).some(uid => uid && material.uploadedById && String(uid).toLowerCase() === String(material.uploadedById).toLowerCase())) && <button type="button" onClick={() => handleDeleteMaterial(material)} className="rounded-2xl border border-[#800000]/25 bg-white/70 px-4 py-2 text-sm font-semibold text-[#800000] hover:bg-[#ffe8db] dark:border-[#ff5f8d]/35 dark:bg-black/20 dark:text-[#ffffff] dark:hover:bg-[#5a1024]">Delete</button>}
-                            <button type="button" onClick={() => setActiveMaterial(material)} className="rounded-2xl bg-[#1a5c38] px-4 py-2 text-sm font-bold text-[#f5deb3] transition-colors hover:bg-[#154a2e] dark:bg-[#00ffff] dark:text-[#000000] dark:hover:bg-[#7dfcff]">
+                            <button type="button" onClick={() => setActiveMaterial(material)} className="rounded-2xl bg-[#1a5c38] px-4 py-2 text-sm font-bold text-[#b5e3f4] transition-colors hover:bg-[#154a2e] dark:bg-[#00ffff] dark:text-[#000000] dark:hover:bg-[#7dfcff]">
                               {material.url ? 'Open Material' : 'Read Note'}
                             </button>
                           </div>
@@ -1467,7 +1467,7 @@ export default function TeacherClassroom({
 
           {activeTab === 'live' && (
             <div className="space-y-4">
-              <div className="rounded-3xl border border-[#c9a96e]/45 bg-[#f5deb3] p-5 shadow-[0_18px_42px_rgba(128,0,0,0.08)] dark:border-[#bf00ff]/35 dark:bg-[#800000]/75 dark:shadow-[0_0_28px_rgba(191,0,255,0.18)]">
+              <div className="rounded-3xl border border-[#c9a96e]/45 bg-[#b5e3f4] p-5 shadow-[0_18px_42px_rgba(128,0,0,0.08)] dark:border-[#bf00ff]/35 dark:bg-[#800000]/75 dark:shadow-[0_0_28px_rgba(191,0,255,0.18)]">
                 <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
                   <div>
                     <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#800020] dark:text-[#bf00ff]">Live Classroom</p>
@@ -1495,7 +1495,7 @@ export default function TeacherClassroom({
                       <option value="Audio Only">Audio Only</option>
                       <option value="Screen Share">Screen Share</option>
                     </select>
-                    <button disabled={liveLoading} className="rounded-2xl bg-[#1a5c38] px-4 py-3 text-sm font-bold text-[#f5deb3] transition-colors hover:bg-[#154a2e] disabled:opacity-60 disabled:cursor-not-allowed dark:bg-[#00ffff] dark:text-[#000000] dark:hover:bg-[#7dfcff]">
+                    <button disabled={liveLoading} className="rounded-2xl bg-[#1a5c38] px-4 py-3 text-sm font-bold text-[#b5e3f4] transition-colors hover:bg-[#154a2e] disabled:opacity-60 disabled:cursor-not-allowed dark:bg-[#00ffff] dark:text-[#000000] dark:hover:bg-[#7dfcff]">
                       {liveLoading ? 'Starting…' : 'Start Live Class'}
                     </button>
                   </form>
@@ -1506,7 +1506,7 @@ export default function TeacherClassroom({
                 )}
               </div>
 
-              <div className="rounded-3xl border border-[#c9a96e]/45 bg-[#f5deb3] p-5 shadow-[0_18px_42px_rgba(128,0,0,0.08)] dark:border-[#bf00ff]/35 dark:bg-[#800000]/75 dark:shadow-[0_0_28px_rgba(191,0,255,0.18)]">
+              <div className="rounded-3xl border border-[#c9a96e]/45 bg-[#b5e3f4] p-5 shadow-[0_18px_42px_rgba(128,0,0,0.08)] dark:border-[#bf00ff]/35 dark:bg-[#800000]/75 dark:shadow-[0_0_28px_rgba(191,0,255,0.18)]">
                 <div className="mb-4 flex items-center justify-between gap-3">
                   <div>
                     <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#800020] dark:text-[#bf00ff]">Live Session Feed</p>
@@ -1529,7 +1529,7 @@ export default function TeacherClassroom({
                               <p className="mt-2 text-sm text-[#191970] dark:text-[#39ff14]">Started {session.startedAt ? new Date(session.startedAt).toLocaleString() : 'Recently'}</p>
                             </div>
                             <div className="flex items-center gap-2">
-                              <span className={`rounded-full px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] ${isActive ? 'bg-[#1a5c38] text-[#f5deb3] dark:bg-[#00ffff] dark:text-[#000000]' : 'bg-[#fff8f0] text-[#800020] border border-[#c9a96e]/45 dark:bg-black/20 dark:text-[#bf00ff] dark:border-[#bf00ff]/35'}`}>
+                              <span className={`rounded-full px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] ${isActive ? 'bg-[#1a5c38] text-[#b5e3f4] dark:bg-[#00ffff] dark:text-[#000000]' : 'bg-[#fff8f0] text-[#800020] border border-[#c9a96e]/45 dark:bg-black/20 dark:text-[#bf00ff] dark:border-[#bf00ff]/35'}`}>
                                 {session.status || 'Live Now'}
                               </span>
                               {isActive && (
@@ -1561,22 +1561,22 @@ export default function TeacherClassroom({
                 <button
                   type="button"
                   onClick={() => setProfileMember(null)}
-                  className="rounded-2xl border border-[#c9a96e]/45 px-4 py-2 text-sm font-semibold text-[#191970] hover:bg-[#f5deb3] dark:border-[#bf00ff]/35 dark:text-[#ffffff] dark:hover:bg-black/25"
+                  className="rounded-2xl border border-[#c9a96e]/45 px-4 py-2 text-sm font-semibold text-[#191970] hover:bg-[#b5e3f4] dark:border-[#bf00ff]/35 dark:text-[#ffffff] dark:hover:bg-black/25"
                 >
                   Close
                 </button>
               </div>
 
               <div className="mt-6 grid grid-cols-1 gap-3 md:grid-cols-2">
-                <div className="rounded-2xl border border-[#c9a96e]/35 bg-[#f5deb3] p-4 dark:border-[#bf00ff]/30 dark:bg-black/20">
+                <div className="rounded-2xl border border-[#c9a96e]/35 bg-[#b5e3f4] p-4 dark:border-[#bf00ff]/30 dark:bg-black/20">
                   <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#800020] dark:text-[#bf00ff]">Display ID</p>
                   <p className="mt-2 text-sm text-[#191970] dark:text-[#ffffff]">{profileMember.displayId || 'Not shared'}</p>
                 </div>
-                <div className="rounded-2xl border border-[#c9a96e]/35 bg-[#f5deb3] p-4 dark:border-[#bf00ff]/30 dark:bg-black/20">
+                <div className="rounded-2xl border border-[#c9a96e]/35 bg-[#b5e3f4] p-4 dark:border-[#bf00ff]/30 dark:bg-black/20">
                   <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#800020] dark:text-[#bf00ff]">Class</p>
                   <p className="mt-2 text-sm text-[#191970] dark:text-[#ffffff]">{profileMember.className || classroomLabel}</p>
                 </div>
-                <div className="rounded-2xl border border-[#c9a96e]/35 bg-[#f5deb3] p-4 md:col-span-2 dark:border-[#bf00ff]/30 dark:bg-black/20">
+                <div className="rounded-2xl border border-[#c9a96e]/35 bg-[#b5e3f4] p-4 md:col-span-2 dark:border-[#bf00ff]/30 dark:bg-black/20">
                   <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#800020] dark:text-[#bf00ff]">School Email</p>
                   <p className="mt-2 text-sm text-[#191970] dark:text-[#ffffff]">{profileMember.email || 'Not shared'}</p>
                 </div>
@@ -1590,7 +1590,7 @@ export default function TeacherClassroom({
                       setProfileMember(null);
                       openChatWithMember(profileMember);
                     }}
-                    className="rounded-2xl bg-[#1a5c38] px-4 py-2 text-sm font-bold text-[#f5deb3] transition-colors hover:bg-[#154a2e] dark:bg-[#00ffff] dark:text-[#000000] dark:hover:bg-[#7dfcff]"
+                    className="rounded-2xl bg-[#1a5c38] px-4 py-2 text-sm font-bold text-[#b5e3f4] transition-colors hover:bg-[#154a2e] dark:bg-[#00ffff] dark:text-[#000000] dark:hover:bg-[#7dfcff]"
                   >
                     Send Private Message
                   </button>

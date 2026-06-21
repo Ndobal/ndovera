@@ -130,7 +130,7 @@ export default function ResultRecordViewer({
     QRCode.toDataURL(verificationUrl, {
       margin: 1,
       width: 220,
-      color: { dark: '#800000', light: '#f5deb3' },
+      color: { dark: '#800000', light: '#b5e3f4' },
     }).then(url => {
       if (!cancelled) setQrDataUrl(url);
     }).catch(() => {
@@ -299,7 +299,7 @@ export default function ResultRecordViewer({
           </section>
 
           {qrDataUrl ? (
-            <section className="result-record-print-surface rounded-3xl border border-[#c9a96e]/40 bg-[#f5deb3] p-6 text-center text-[#191970] shadow-[0_18px_42px_rgba(128,0,0,0.12)] dark:border-[#bf00ff]/35 dark:bg-[#800000]/75 dark:text-[#39ff14]">
+            <section className="result-record-print-surface rounded-3xl border border-[#c9a96e]/40 bg-[#b5e3f4] p-6 text-center text-[#191970] shadow-[0_18px_42px_rgba(128,0,0,0.12)] dark:border-[#bf00ff]/35 dark:bg-[#800000]/75 dark:text-[#39ff14]">
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#800020] dark:text-[#bf00ff]">Result Verification QR</p>
               <h3 className="mt-2 text-2xl font-black text-[#800000] dark:text-white">Scan To Verify This Published Result</h3>
               <p className="mt-2 text-sm text-[#191970] dark:text-[#39ff14]">The QR code is centered for printing so the full code remains clear on paper and PDF exports.</p>
@@ -401,7 +401,7 @@ export default function ResultRecordViewer({
                         <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#c9a96e]/35 px-4 py-3 dark:border-white/10">
                           <p className="min-w-0 flex-1 truncate text-sm font-bold text-[#191970] dark:text-white">{document.fileName}</p>
                           <div className="flex flex-wrap items-center gap-2">
-                            <button type="button" onClick={() => setActiveDocument(document)} className="rounded-xl bg-[#1a5c38] px-3 py-1.5 text-xs font-bold text-[#f5deb3] transition hover:bg-[#154a2e] dark:bg-[#00ffff] dark:text-black">
+                            <button type="button" onClick={() => setActiveDocument(document)} className="rounded-xl bg-[#1a5c38] px-3 py-1.5 text-xs font-bold text-[#b5e3f4] transition hover:bg-[#154a2e] dark:bg-[#00ffff] dark:text-black">
                               Open fullscreen
                             </button>
                             <a href={document.fileUrl} download={document.fileName} target="_blank" rel="noreferrer" className="rounded-xl border border-[#c9a96e]/50 px-3 py-1.5 text-xs font-bold text-[#800020] transition hover:bg-white dark:border-white/15 dark:text-slate-100">

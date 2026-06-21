@@ -12,9 +12,9 @@ import {
   weeklyCapacity,
 } from './timetableEngine';
 
-const CARD = 'rounded-3xl p-6 bg-[#f5deb3] border border-[#c9a96e]/40';
-const INNER = 'rounded-2xl p-4 bg-[#f0d090] border border-[#c9a96e]/30';
-const BTN = 'bg-[#1a5c38] hover:bg-[#154a2e] text-[#f5deb3] font-bold px-5 py-2.5 rounded-2xl text-sm transition-colors disabled:opacity-60';
+const CARD = 'rounded-3xl p-6 bg-[#b5e3f4] border border-[#c9a96e]/40';
+const INNER = 'rounded-2xl p-4 bg-[#ade1f4] border border-[#c9a96e]/30';
+const BTN = 'bg-[#1a5c38] hover:bg-[#154a2e] text-[#b5e3f4] font-bold px-5 py-2.5 rounded-2xl text-sm transition-colors disabled:opacity-60';
 const OUTLINE = 'rounded-2xl border border-[#800020]/30 bg-white/70 px-4 py-2 text-sm font-semibold text-[#800020] hover:bg-white';
 const SELECT = 'w-full rounded-lg border border-[#c9a96e]/40 bg-white/85 px-1.5 py-1 text-xs text-[#191970] outline-none focus:border-[#800020]';
 const TIME_INPUT = 'rounded-lg border border-[#c9a96e]/40 bg-white/85 px-2 py-1 text-xs text-[#191970] w-[84px]';
@@ -262,7 +262,7 @@ export default function TimetableBoard() {
 
   return (
     <div className="space-y-4">
-      {toast && <div className="fixed top-6 right-6 z-50 bg-[#1a5c38] text-[#f5deb3] font-bold px-5 py-3 rounded-2xl shadow-xl">{toast}</div>}
+      {toast && <div className="fixed top-6 right-6 z-50 bg-[#1a5c38] text-[#b5e3f4] font-bold px-5 py-3 rounded-2xl shadow-xl">{toast}</div>}
 
       <div className={CARD}>
         <div className="flex flex-wrap items-start justify-between gap-3">
@@ -433,9 +433,9 @@ export default function TimetableBoard() {
               <table className="w-full text-xs border-collapse" style={{ minWidth: 720 }}>
                 <thead>
                   <tr>
-                    <th className="border border-[#c9a96e]/40 bg-[#800020] text-[#f5deb3] p-2 text-left sticky left-0 z-10">Day</th>
+                    <th className="border border-[#c9a96e]/40 bg-[#800020] text-[#b5e3f4] p-2 text-left sticky left-0 z-10">Day</th>
                     {displayGrid.columns.map(column => (
-                      <th key={column.periodIndex} className={`border border-[#c9a96e]/40 p-2 text-center ${column.isBreak ? 'bg-[#a86b1f] text-[#fff3df]' : 'bg-[#800020] text-[#f5deb3]'}`}>
+                      <th key={column.periodIndex} className={`border border-[#c9a96e]/40 p-2 text-center ${column.isBreak ? 'bg-[#a86b1f] text-[#fff3df]' : 'bg-[#800020] text-[#b5e3f4]'}`}>
                         <div>{column.startTime}</div>
                         <div className="opacity-80">{column.endTime}</div>
                         {column.isBreak ? <div className="text-[10px] mt-0.5">{column.label}</div> : null}
@@ -446,7 +446,7 @@ export default function TimetableBoard() {
                 <tbody>
                   {TIMETABLE_DAYS.map(day => (
                     <tr key={day.n}>
-                      <td className="border border-[#c9a96e]/30 bg-[#f0d090] p-2 font-bold text-[#800000] sticky left-0 z-10">{day.short}</td>
+                      <td className="border border-[#c9a96e]/30 bg-[#ade1f4] p-2 font-bold text-[#800000] sticky left-0 z-10">{day.short}</td>
                       {displayGrid.columns.map(column => {
                         if (column.isBreak) {
                           return <td key={column.periodIndex} className="border border-[#c9a96e]/30 bg-[#f7e3b8] p-1 text-center text-[10px] font-semibold text-[#800020] uppercase">{column.label}</td>;

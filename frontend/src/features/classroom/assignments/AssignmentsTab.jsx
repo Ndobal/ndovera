@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { getAssignments, submitAssignment } from '../classroomService';
 
-const CARD = 'relative rounded-2xl border border-[#c9a96e]/40 bg-[#f5deb3] dark:bg-[#800000]/20 p-4 shadow-sm';
+const CARD = 'relative rounded-2xl border border-[#c9a96e]/40 bg-[#b5e3f4] dark:bg-[#800000]/20 p-4 shadow-sm';
 const LABEL = 'text-xs font-bold uppercase tracking-[0.15em] text-[#800020]';
 const TITLE = 'text-base font-bold text-[#800000]';
 const BODY = 'text-sm font-semibold text-[#191970]';
 const INPUT_CLS = 'w-full rounded-xl border border-[#c9a96e]/40 bg-white/80 dark:bg-slate-900 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none focus:border-[#800020] font-semibold';
-const BTN_PRIMARY = 'bg-[#1a5c38] hover:bg-[#154a2e] text-[#f5deb3] font-bold px-5 py-2 rounded-2xl text-sm transition-colors disabled:opacity-60';
-const BTN_SECONDARY = 'bg-[#f5deb3] border border-[#c9a96e]/40 text-[#800020] font-bold px-4 py-2 rounded-2xl text-sm hover:bg-[#efd4a0] transition-colors';
+const BTN_PRIMARY = 'bg-[#1a5c38] hover:bg-[#154a2e] text-[#b5e3f4] font-bold px-5 py-2 rounded-2xl text-sm transition-colors disabled:opacity-60';
+const BTN_SECONDARY = 'bg-[#b5e3f4] border border-[#c9a96e]/40 text-[#800020] font-bold px-4 py-2 rounded-2xl text-sm hover:bg-[#efd4a0] transition-colors';
 const REFRESH_INTERVAL_MS = 15000;
 
 function typeLabel(type) {
@@ -83,7 +83,7 @@ function SubmissionModal({ assignment, onClose, onSubmitted }) {
             </div>
           ) : (
             questions.map((q, i) => (
-              <div key={q.id || i} className="rounded-2xl border border-[#c9a96e]/30 bg-[#f0d090] p-4 space-y-2">
+              <div key={q.id || i} className="rounded-2xl border border-[#c9a96e]/30 bg-[#ade1f4] p-4 space-y-2">
                 <p className="text-sm font-bold text-[#800020] uppercase tracking-wide">{typeLabel(q.type)} — Q{i + 1}</p>
                 {q.passage && <p className="text-sm font-semibold text-[#800020] whitespace-pre-wrap">{q.passage}</p>}
                 <p className="font-bold text-[#191970] text-sm">{q.prompt || q.text || q.question}</p>
@@ -209,7 +209,7 @@ export default function AssignmentsTab({ classId = '' }) {
 
   if (loading) {
     return (
-      <section className="rounded-3xl border border-[#c9a96e]/40 bg-[#f5deb3] p-6 text-center">
+      <section className="rounded-3xl border border-[#c9a96e]/40 bg-[#b5e3f4] p-6 text-center">
         <p className="text-sm font-bold text-[#191970]">Loading assignments...</p>
       </section>
     );
@@ -217,7 +217,7 @@ export default function AssignmentsTab({ classId = '' }) {
 
   if (!classId) {
     return (
-      <section className="rounded-3xl border border-[#c9a96e]/40 bg-[#f5deb3] p-6 text-center">
+      <section className="rounded-3xl border border-[#c9a96e]/40 bg-[#b5e3f4] p-6 text-center">
         <p className={LABEL}>No Class Linked</p>
         <p className="mt-2 text-sm font-semibold text-[#191970]">Your account is not yet assigned to a class. Contact your school admin.</p>
       </section>
@@ -226,7 +226,7 @@ export default function AssignmentsTab({ classId = '' }) {
 
   if (assignments.length === 0) {
     return (
-      <section className="rounded-3xl border border-[#c9a96e]/40 bg-[#f5deb3] p-6 text-center">
+      <section className="rounded-3xl border border-[#c9a96e]/40 bg-[#b5e3f4] p-6 text-center">
         <p className={LABEL}>No Assignments Yet</p>
         <p className="mt-2 text-sm font-semibold text-[#191970]">Your teacher has not published any assignments yet. Check back later.</p>
       </section>
@@ -245,13 +245,13 @@ export default function AssignmentsTab({ classId = '' }) {
           <div key={assignment.id} className={CARD}>
             {/* Submitted badge */}
             {isSubmitted && (
-              <div className="absolute top-3 right-3 flex items-center gap-1 rounded-full bg-[#1a5c38] px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-[#f5deb3] shadow">
+              <div className="absolute top-3 right-3 flex items-center gap-1 rounded-full bg-[#1a5c38] px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-[#b5e3f4] shadow">
                 ✓ Submitted
               </div>
             )}
             {/* Graded badge (overlays submitted badge) */}
             {isGraded && (
-              <div className="absolute top-3 right-3 flex items-center gap-1 rounded-full bg-[#800020] px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-[#f5deb3] shadow">
+              <div className="absolute top-3 right-3 flex items-center gap-1 rounded-full bg-[#800020] px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-[#b5e3f4] shadow">
                 ★ Graded
               </div>
             )}
@@ -267,7 +267,7 @@ export default function AssignmentsTab({ classId = '' }) {
 
             {/* Grade display if marked */}
             {isGraded && (
-              <div className="mt-3 rounded-xl border border-[#c9a96e]/30 bg-[#f0d090] p-3">
+              <div className="mt-3 rounded-xl border border-[#c9a96e]/30 bg-[#ade1f4] p-3">
                 <p className="text-xs font-bold text-[#800020] uppercase tracking-wide mb-1">Your Result</p>
                 <p className="text-2xl font-bold text-[#1a5c38]">{displayGrade}<span className="text-sm font-semibold text-[#191970] ml-1">/ 100</span></p>
                 {sub.feedback && <p className="mt-1 text-sm font-semibold text-[#191970] italic">"{sub.feedback}"</p>}
@@ -276,7 +276,7 @@ export default function AssignmentsTab({ classId = '' }) {
 
             {/* Submission timestamp */}
             {isSubmitted && !isGraded && (
-              <div className="mt-3 rounded-xl border border-[#c9a96e]/30 bg-[#f0d090] p-3">
+              <div className="mt-3 rounded-xl border border-[#c9a96e]/30 bg-[#ade1f4] p-3">
                 <p className="text-xs font-semibold text-[#1a5c38]">
                   Submitted on {sub.submittedAt ? new Date(sub.submittedAt).toLocaleString() : '—'}
                 </p>

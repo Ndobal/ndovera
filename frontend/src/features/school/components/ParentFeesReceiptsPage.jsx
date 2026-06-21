@@ -10,10 +10,10 @@ import {
 } from '../services/schoolApi';
 import { resolveActiveParentChildId, writeActiveParentChildId } from '../../../app/roles/parent/parentChildSelection';
 
-const CARD = 'rounded-3xl border border-[#c9a96e]/40 bg-[#f5deb3] p-6 text-[#191970] shadow-sm dark:border-[#00ffff]/20 dark:bg-[#800000]/25 dark:text-[#39ff14] dark:backdrop-blur-xl';
-const INNER = 'rounded-2xl border border-[#c9a96e]/30 bg-[#f0d090] p-4 dark:border-[#00ffff]/20 dark:bg-[#330014]/70';
+const CARD = 'rounded-3xl border border-[#c9a96e]/40 bg-[#b5e3f4] p-6 text-[#191970] shadow-sm dark:border-[#00ffff]/20 dark:bg-[#800000]/25 dark:text-[#39ff14] dark:backdrop-blur-xl';
+const INNER = 'rounded-2xl border border-[#c9a96e]/30 bg-[#ade1f4] p-4 dark:border-[#00ffff]/20 dark:bg-[#330014]/70';
 const BADGE = 'inline-flex items-center rounded-full border border-[#800020]/20 bg-white/70 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-[#800020] dark:border-[#bf00ff]/40 dark:bg-[#120014]/80 dark:text-[#bf00ff]';
-const BTN = 'rounded-2xl bg-[#1a5c38] px-4 py-2 text-sm font-bold text-[#f5deb3] transition-colors hover:bg-[#154a2e] dark:bg-[#00ffff] dark:text-black dark:hover:bg-[#7df9ff]';
+const BTN = 'rounded-2xl bg-[#1a5c38] px-4 py-2 text-sm font-bold text-[#b5e3f4] transition-colors hover:bg-[#154a2e] dark:bg-[#00ffff] dark:text-black dark:hover:bg-[#7df9ff]';
 
 function formatNaira(value) {
   return `₦${Number(value || 0).toLocaleString()}`;
@@ -170,7 +170,7 @@ export default function ParentFeesReceiptsPage() {
       dashboardLabel="Parent Dashboard"
       watermarkText="Parent Fees"
     >
-      <style>{'@media print { body * { visibility: hidden; } #parent-fees-receipt-print, #parent-fees-receipt-print * { visibility: visible; } #parent-fees-receipt-print { position: absolute; inset: 0; margin: 0; padding: 32px; width: 100%; background: #f5deb3; } }'}</style>
+      <style>{'@media print { body * { visibility: hidden; } #parent-fees-receipt-print, #parent-fees-receipt-print * { visibility: visible; } #parent-fees-receipt-print { position: absolute; inset: 0; margin: 0; padding: 32px; width: 100%; background: #b5e3f4; } }'}</style>
 
       <div className="space-y-6">
         {notice ? <section className="rounded-2xl border border-[#1a5c38]/20 bg-[#e4f4e6] px-4 py-3 text-sm text-[#1a5c38] dark:border-[#00ffff]/20 dark:bg-[#03181a] dark:text-[#7df9ff]">{notice}</section> : null}
@@ -194,7 +194,7 @@ export default function ParentFeesReceiptsPage() {
               <button
                 type="button"
                 onClick={handlePayNow}
-                className="rounded-2xl bg-[#1a5c38] px-5 py-2.5 text-sm font-bold text-[#f5deb3] dark:bg-[#00ffff] dark:text-black"
+                className="rounded-2xl bg-[#1a5c38] px-5 py-2.5 text-sm font-bold text-[#b5e3f4] dark:bg-[#00ffff] dark:text-black"
               >
                 Pay Now
               </button>

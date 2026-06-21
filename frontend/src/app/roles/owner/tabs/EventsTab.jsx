@@ -61,7 +61,7 @@ function EventForm({ initial, onSave, onCancel }) {
         <label className="text-xs text-[#800020] dark:text-slate-400 uppercase font-semibold">Media (Photos &amp; Videos)</label>
         <div className="flex gap-2 items-center mt-1">
           <button type="button" onClick={() => fileRef.current?.click()} disabled={uploading}
-            className="bg-[#1a5c38] hover:bg-[#154a2e] text-[#f5deb3] font-bold px-4 py-1.5 rounded-xl text-xs transition-colors disabled:opacity-60">
+            className="bg-[#1a5c38] hover:bg-[#154a2e] text-[#b5e3f4] font-bold px-4 py-1.5 rounded-xl text-xs transition-colors disabled:opacity-60">
             {uploading ? 'Uploading…' : '📎 Upload Photos/Videos'}
           </button>
           <input ref={fileRef} type="file" accept="image/*,video/*" multiple className="hidden" onChange={handleMediaUpload} />
@@ -84,11 +84,11 @@ function EventForm({ initial, onSave, onCancel }) {
       {err && <p className="text-red-600 text-xs">{err}</p>}
       <div className="flex gap-2">
         <button type="submit" disabled={saving}
-          className="bg-[#1a5c38] hover:bg-[#154a2e] text-[#f5deb3] font-bold px-5 py-1.5 rounded-xl text-sm transition-colors disabled:opacity-60">
+          className="bg-[#1a5c38] hover:bg-[#154a2e] text-[#b5e3f4] font-bold px-5 py-1.5 rounded-xl text-sm transition-colors disabled:opacity-60">
           {saving ? 'Saving…' : 'Save Event'}
         </button>
         {onCancel && <button type="button" onClick={onCancel}
-          className="bg-[#f5deb3] border border-[#c9a96e]/40 text-[#800020] font-bold px-4 py-1.5 rounded-xl text-sm">Cancel</button>}
+          className="bg-[#b5e3f4] border border-[#c9a96e]/40 text-[#800020] font-bold px-4 py-1.5 rounded-xl text-sm">Cancel</button>}
       </div>
     </form>
   );
@@ -128,7 +128,7 @@ export default function EventsTab() {
       <div className="flex justify-between items-center">
         <p className="text-xs text-[#800020] dark:text-slate-400">Manage your school events. Photos and videos appear on the public events page.</p>
         <button onClick={() => { setShowAdd(true); setEditing(null); }}
-          className="bg-[#1a5c38] hover:bg-[#154a2e] text-[#f5deb3] font-bold px-4 py-2 rounded-2xl text-sm transition-colors">
+          className="bg-[#1a5c38] hover:bg-[#154a2e] text-[#b5e3f4] font-bold px-4 py-2 rounded-2xl text-sm transition-colors">
           + Add Event
         </button>
       </div>
@@ -143,14 +143,14 @@ export default function EventsTab() {
       {error && <p className="text-red-600 text-sm">{error}</p>}
 
       {events.length === 0 && !showAdd && (
-        <div className="rounded-2xl p-6 bg-[#f5deb3] dark:bg-slate-800/40 border border-dashed border-[#c9a96e]/60 text-center">
+        <div className="rounded-2xl p-6 bg-[#b5e3f4] dark:bg-slate-800/40 border border-dashed border-[#c9a96e]/60 text-center">
           <p className="text-[#800020] dark:text-slate-400 text-sm">No events yet. Add your first event.</p>
         </div>
       )}
 
       <div className="space-y-3">
         {events.map(ev => (
-          <div key={ev.id} className="rounded-2xl p-5 bg-[#f5deb3] dark:bg-slate-800/40 border border-[#c9a96e]/40 dark:border-white/10">
+          <div key={ev.id} className="rounded-2xl p-5 bg-[#b5e3f4] dark:bg-slate-800/40 border border-[#c9a96e]/40 dark:border-white/10">
             {editing?.id === ev.id ? (
               <>
                 <p className="font-bold text-[#800000] mb-3">Edit Event</p>
@@ -167,7 +167,7 @@ export default function EventsTab() {
                   </div>
                   <div className="flex gap-2 shrink-0">
                     <button onClick={() => { setEditing(ev); setShowAdd(false); }}
-                      className="text-xs bg-[#800020] text-[#f5deb3] font-bold px-3 py-1 rounded-xl hover:bg-[#600018]">Edit</button>
+                      className="text-xs bg-[#800020] text-[#b5e3f4] font-bold px-3 py-1 rounded-xl hover:bg-[#600018]">Edit</button>
                     <button onClick={() => handleDelete(ev.id)}
                       className="text-xs bg-red-700 text-white font-bold px-3 py-1 rounded-xl hover:bg-red-800">Delete</button>
                   </div>

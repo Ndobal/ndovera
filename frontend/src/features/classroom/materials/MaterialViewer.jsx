@@ -133,7 +133,7 @@ export default function MaterialViewer({ material, onClose }) {
   return createPortal(
     <div className="fixed inset-0 z-[60] flex flex-col bg-[#191970]/80 backdrop-blur-sm" role="dialog" aria-modal="true" aria-label={title}>
       {/* Toolbar */}
-      <div className="flex flex-wrap items-center gap-2 border-b border-[#c9a96e]/30 bg-[#f5deb3] px-4 py-3">
+      <div className="flex flex-wrap items-center gap-2 border-b border-[#c9a96e]/30 bg-[#b5e3f4] px-4 py-3">
         <div className="min-w-0 flex-1">
           <p className="truncate text-sm font-bold text-[#800000]">{title}</p>
           {material.subjectName ? <p className="truncate text-[11px] font-semibold text-[#800020]">{material.subjectName}</p> : null}
@@ -167,7 +167,7 @@ export default function MaterialViewer({ material, onClose }) {
               download={downloadName}
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-xl bg-[#1a5c38] px-3 py-1.5 text-xs font-bold text-[#f5deb3] transition hover:bg-[#154a2e]"
+              className="rounded-xl bg-[#1a5c38] px-3 py-1.5 text-xs font-bold text-[#b5e3f4] transition hover:bg-[#154a2e]"
             >
               Download
             </a>
@@ -176,7 +176,7 @@ export default function MaterialViewer({ material, onClose }) {
         <button
           type="button"
           onClick={onClose}
-          className="rounded-xl bg-[#800020] px-3 py-1.5 text-xs font-bold text-[#f5deb3] transition hover:bg-[#5a0016]"
+          className="rounded-xl bg-[#800020] px-3 py-1.5 text-xs font-bold text-[#b5e3f4] transition hover:bg-[#5a0016]"
         >
           Close
         </button>

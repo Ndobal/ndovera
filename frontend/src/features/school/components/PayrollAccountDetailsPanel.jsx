@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 
-const CARD = 'rounded-3xl border border-[#c9a96e]/40 bg-[#f5deb3] p-6 text-[#191970] shadow-sm dark:border-[#00ffff]/20 dark:bg-[#800000]/25 dark:text-[#39ff14] dark:backdrop-blur-xl';
+const CARD = 'rounded-3xl border border-[#c9a96e]/40 bg-[#b5e3f4] p-6 text-[#191970] shadow-sm dark:border-[#00ffff]/20 dark:bg-[#800000]/25 dark:text-[#39ff14] dark:backdrop-blur-xl';
 const BADGE = 'inline-flex items-center rounded-full border border-[#800020]/15 bg-white/70 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-[#800020] dark:border-[#bf00ff]/25 dark:bg-[#1a001d]/80 dark:text-[#bf00ff]';
 const INPUT = 'w-full rounded-xl border border-[#c9a96e]/40 bg-white/80 px-3 py-2 text-sm text-[#191970] outline-none transition focus:border-[#800020] focus:ring-2 focus:ring-[#800020]/15 dark:border-[#00ffff]/20 dark:bg-[#120014]/80 dark:text-white dark:focus:border-[#00ffff] dark:focus:ring-[#00ffff]/20';
 
@@ -50,13 +50,13 @@ export default function PayrollAccountDetailsPanel({
             <table className="min-w-[1400px] w-full text-sm">
               <thead>
                 <tr>
-                  <th className="border border-[#c9a96e]/30 bg-[#800020] p-3 text-left text-xs font-semibold uppercase tracking-[0.14em] text-[#f5deb3] dark:border-[#00ffff]/20 dark:bg-[#0000ff]/25 dark:text-white">S/N</th>
-                  <th className="border border-[#c9a96e]/30 bg-[#800020] p-3 text-left text-xs font-semibold uppercase tracking-[0.14em] text-[#f5deb3] dark:border-[#00ffff]/20 dark:bg-[#0000ff]/25 dark:text-white">Staff Name</th>
-                  <th className="border border-[#c9a96e]/30 bg-[#800020] p-3 text-left text-xs font-semibold uppercase tracking-[0.14em] text-[#f5deb3] dark:border-[#00ffff]/20 dark:bg-[#0000ff]/25 dark:text-white">Role</th>
-                  <th className="border border-[#c9a96e]/30 bg-[#800020] p-3 text-left text-xs font-semibold uppercase tracking-[0.14em] text-[#f5deb3] dark:border-[#00ffff]/20 dark:bg-[#0000ff]/25 dark:text-white">Bank Name</th>
-                  <th className="border border-[#c9a96e]/30 bg-[#800020] p-3 text-left text-xs font-semibold uppercase tracking-[0.14em] text-[#f5deb3] dark:border-[#00ffff]/20 dark:bg-[#0000ff]/25 dark:text-white">Account Name</th>
-                  <th className="border border-[#c9a96e]/30 bg-[#800020] p-3 text-left text-xs font-semibold uppercase tracking-[0.14em] text-[#f5deb3] dark:border-[#00ffff]/20 dark:bg-[#0000ff]/25 dark:text-white">Account Number</th>
-                  <th className="border border-[#c9a96e]/30 bg-[#800020] p-3 text-left text-xs font-semibold uppercase tracking-[0.14em] text-[#f5deb3] dark:border-[#00ffff]/20 dark:bg-[#0000ff]/25 dark:text-white">Net Pay</th>
+                  <th className="border border-[#c9a96e]/30 bg-[#800020] p-3 text-left text-xs font-semibold uppercase tracking-[0.14em] text-[#b5e3f4] dark:border-[#00ffff]/20 dark:bg-[#0000ff]/25 dark:text-white">S/N</th>
+                  <th className="border border-[#c9a96e]/30 bg-[#800020] p-3 text-left text-xs font-semibold uppercase tracking-[0.14em] text-[#b5e3f4] dark:border-[#00ffff]/20 dark:bg-[#0000ff]/25 dark:text-white">Staff Name</th>
+                  <th className="border border-[#c9a96e]/30 bg-[#800020] p-3 text-left text-xs font-semibold uppercase tracking-[0.14em] text-[#b5e3f4] dark:border-[#00ffff]/20 dark:bg-[#0000ff]/25 dark:text-white">Role</th>
+                  <th className="border border-[#c9a96e]/30 bg-[#800020] p-3 text-left text-xs font-semibold uppercase tracking-[0.14em] text-[#b5e3f4] dark:border-[#00ffff]/20 dark:bg-[#0000ff]/25 dark:text-white">Bank Name</th>
+                  <th className="border border-[#c9a96e]/30 bg-[#800020] p-3 text-left text-xs font-semibold uppercase tracking-[0.14em] text-[#b5e3f4] dark:border-[#00ffff]/20 dark:bg-[#0000ff]/25 dark:text-white">Account Name</th>
+                  <th className="border border-[#c9a96e]/30 bg-[#800020] p-3 text-left text-xs font-semibold uppercase tracking-[0.14em] text-[#b5e3f4] dark:border-[#00ffff]/20 dark:bg-[#0000ff]/25 dark:text-white">Account Number</th>
+                  <th className="border border-[#c9a96e]/30 bg-[#800020] p-3 text-left text-xs font-semibold uppercase tracking-[0.14em] text-[#b5e3f4] dark:border-[#00ffff]/20 dark:bg-[#0000ff]/25 dark:text-white">Net Pay</th>
                 </tr>
               </thead>
               <tbody>

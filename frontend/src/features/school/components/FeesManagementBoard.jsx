@@ -51,13 +51,13 @@ const PAYMENT_STATUS_FILTERS = [
   { value: 'unpaid', label: 'Not Paid At All' },
 ];
 
-const CARD = 'rounded-3xl border border-[#c9a96e]/40 bg-[#f5deb3] p-6 text-[#191970] shadow-sm dark:border-[#00ffff]/20 dark:bg-[#800000]/25 dark:text-[#39ff14] dark:backdrop-blur-xl';
-const INNER = 'rounded-2xl border border-[#c9a96e]/30 bg-[#f0d090] p-4 dark:border-[#00ffff]/20 dark:bg-[#330014]/70';
-const BTN = 'rounded-2xl bg-[#1a5c38] px-5 py-2.5 text-sm font-bold text-[#f5deb3] transition-colors hover:bg-[#154a2e] dark:bg-[#00ffff] dark:text-black dark:hover:bg-[#7df9ff]';
+const CARD = 'rounded-3xl border border-[#c9a96e]/40 bg-[#b5e3f4] p-6 text-[#191970] shadow-sm dark:border-[#00ffff]/20 dark:bg-[#800000]/25 dark:text-[#39ff14] dark:backdrop-blur-xl';
+const INNER = 'rounded-2xl border border-[#c9a96e]/30 bg-[#ade1f4] p-4 dark:border-[#00ffff]/20 dark:bg-[#330014]/70';
+const BTN = 'rounded-2xl bg-[#1a5c38] px-5 py-2.5 text-sm font-bold text-[#b5e3f4] transition-colors hover:bg-[#154a2e] dark:bg-[#00ffff] dark:text-black dark:hover:bg-[#7df9ff]';
 const OUTLINE_BTN = 'rounded-2xl border border-[#800020]/30 bg-white/60 px-5 py-2.5 text-sm font-semibold text-[#800020] transition-colors hover:bg-white dark:border-[#bf00ff]/40 dark:bg-[#120014]/80 dark:text-[#bf00ff] dark:hover:bg-[#1f0022]';
 const INPUT = 'w-full rounded-xl border border-[#c9a96e]/40 bg-white/80 px-3 py-2 text-sm text-[#191970] outline-none transition focus:border-[#800020] focus:ring-2 focus:ring-[#800020]/15 dark:border-[#00ffff]/20 dark:bg-[#120014]/80 dark:text-white dark:focus:border-[#00ffff] dark:focus:ring-[#00ffff]/20';
 const BADGE = 'inline-flex items-center rounded-full border border-[#800020]/15 bg-white/70 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-[#800020] dark:border-[#bf00ff]/25 dark:bg-[#1a001d]/80 dark:text-[#bf00ff]';
-const TH = 'border border-[#c9a96e]/30 bg-[#800020] p-3 text-left text-xs font-semibold uppercase tracking-[0.14em] text-[#f5deb3] dark:border-[#00ffff]/20 dark:bg-[#0000ff]/25 dark:text-white';
+const TH = 'border border-[#c9a96e]/30 bg-[#800020] p-3 text-left text-xs font-semibold uppercase tracking-[0.14em] text-[#b5e3f4] dark:border-[#00ffff]/20 dark:bg-[#0000ff]/25 dark:text-white';
 const TD = 'border border-[#c9a96e]/30 p-2 align-top dark:border-[#00ffff]/15';
 
 function formatNaira(value) {
@@ -119,7 +119,7 @@ async function buildReceiptExportDocument(receipt, fallbackBranding = {}) {
     ? await QRCode.toDataURL(receipt.verificationUrl, {
         margin: 1,
         width: 176,
-        color: { dark: '#800000', light: '#f5deb3' },
+        color: { dark: '#800000', light: '#b5e3f4' },
       }).catch(() => '')
     : '';
 
@@ -129,7 +129,7 @@ async function buildReceiptExportDocument(receipt, fallbackBranding = {}) {
   <meta charset="utf-8" />
   <title>${escapeReceiptHtml(receipt.receiptNo || 'School Fee Receipt')}</title>
   <style>
-    body { margin: 0; padding: 32px; background: #f5deb3; color: #191970; font-family: 'Segoe UI', sans-serif; }
+    body { margin: 0; padding: 32px; background: #b5e3f4; color: #191970; font-family: 'Segoe UI', sans-serif; }
     .card { max-width: 960px; margin: 0 auto; background: rgba(255,255,255,0.55); border: 1px solid rgba(128,0,32,0.15); border-radius: 28px; padding: 28px; }
     .header { display: flex; justify-content: space-between; gap: 24px; align-items: flex-start; }
     .brand { display: flex; gap: 16px; align-items: flex-start; }
@@ -139,7 +139,7 @@ async function buildReceiptExportDocument(receipt, fallbackBranding = {}) {
     .subtitle { margin-top: 10px; font-size: 14px; }
     .pill { display: inline-block; margin-left: 8px; padding: 8px 12px; border-radius: 999px; font-size: 11px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; }
     .pill-status { border: 1px solid rgba(128,0,32,0.2); background: rgba(255,255,255,0.75); color: #800020; }
-    .pill-number { background: #1a5c38; color: #f5deb3; }
+    .pill-number { background: #1a5c38; color: #b5e3f4; }
     .grid { display: grid; grid-template-columns: 1.3fr 0.7fr; gap: 20px; margin-top: 24px; }
     .details { display: grid; gap: 12px; }
     .row { display: flex; justify-content: space-between; gap: 16px; padding: 14px 16px; border-radius: 18px; background: rgba(255,248,240,0.85); border: 1px solid rgba(201,169,110,0.25); }
@@ -1490,15 +1490,15 @@ function FeesManagementBoard({ initialFinanceTab = 'fees' }) {
 
   return (
     <div className="space-y-6">
-      <style>{'@media print { body * { visibility: hidden; } #fees-receipt-print, #fees-receipt-print * { visibility: visible; } #fees-receipt-print { position: absolute; inset: 0; margin: 0; padding: 32px; width: 100%; background: #f5deb3; } } .ndv-fit-table { min-width: 0 !important; width: 100% !important; table-layout: fixed; } .ndv-fit-table th, .ndv-fit-table td { padding: 2px 4px !important; font-size: 10px !important; vertical-align: top; white-space: normal !important; word-break: break-word; overflow-wrap: anywhere; overflow: hidden; } .ndv-fit-table input, .ndv-fit-table select, .ndv-fit-table button { font-size: 10px !important; padding: 1px 3px !important; width: 100% !important; min-width: 0 !important; max-width: 100% !important; box-sizing: border-box; } .ndv-fit-table p { white-space: normal !important; word-break: break-word; overflow-wrap: anywhere; max-width: 100%; } .ndv-fit-table [class*="min-w-"] { min-width: 0 !important; }'}</style>
+      <style>{'@media print { body * { visibility: hidden; } #fees-receipt-print, #fees-receipt-print * { visibility: visible; } #fees-receipt-print { position: absolute; inset: 0; margin: 0; padding: 32px; width: 100%; background: #b5e3f4; } } .ndv-fit-table { min-width: 0 !important; width: 100% !important; table-layout: fixed; } .ndv-fit-table th, .ndv-fit-table td { padding: 2px 4px !important; font-size: 10px !important; vertical-align: top; white-space: normal !important; word-break: break-word; overflow-wrap: anywhere; overflow: hidden; } .ndv-fit-table input, .ndv-fit-table select, .ndv-fit-table button { font-size: 10px !important; padding: 1px 3px !important; width: 100% !important; min-width: 0 !important; max-width: 100% !important; box-sizing: border-box; } .ndv-fit-table p { white-space: normal !important; word-break: break-word; overflow-wrap: anywhere; max-width: 100%; } .ndv-fit-table [class*="min-w-"] { min-width: 0 !important; }'}</style>
 
       {toast ? (
-        <div className="fixed right-6 top-6 z-50 rounded-2xl bg-[#1a5c38] px-5 py-3 text-sm font-bold text-[#f5deb3] shadow-xl dark:bg-[#00ffff] dark:text-black">
+        <div className="fixed right-6 top-6 z-50 rounded-2xl bg-[#1a5c38] px-5 py-3 text-sm font-bold text-[#b5e3f4] shadow-xl dark:bg-[#00ffff] dark:text-black">
           {toast}
         </div>
       ) : null}
 
-      <div className="sticky top-[72px] z-30 -mx-1 rounded-2xl border border-[#c9a96e]/40 bg-[#f5deb3]/95 p-2.5 shadow-sm backdrop-blur dark:border-[#00ffff]/20 dark:bg-[#800000]/80">
+      <div className="sticky top-[72px] z-30 -mx-1 rounded-2xl border border-[#c9a96e]/40 bg-[#b5e3f4]/95 p-2.5 shadow-sm backdrop-blur dark:border-[#00ffff]/20 dark:bg-[#800000]/80">
         <div className="flex items-center gap-2 overflow-x-auto">
           {stickyStats.map((item) => {
             const Icon = item.Icon;
@@ -1517,7 +1517,7 @@ function FeesManagementBoard({ initialFinanceTab = 'fees' }) {
           {financeView === 'fees' ? (
             <button
               onClick={() => setControlsOpen((current) => !current)}
-              className={`ml-auto inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-xl border px-3 py-2 text-sm font-semibold transition-colors ${controlsOpen ? 'border-transparent bg-[#800020] text-[#f5deb3]' : 'border-[#800020]/30 bg-white/60 text-[#800020] hover:bg-white dark:border-[#bf00ff]/40 dark:bg-[#120014]/80 dark:text-[#bf00ff]'}`}
+              className={`ml-auto inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-xl border px-3 py-2 text-sm font-semibold transition-colors ${controlsOpen ? 'border-transparent bg-[#800020] text-[#b5e3f4]' : 'border-[#800020]/30 bg-white/60 text-[#800020] hover:bg-white dark:border-[#bf00ff]/40 dark:bg-[#120014]/80 dark:text-[#bf00ff]'}`}
             >
               <AdjustmentsHorizontalIcon className="h-4 w-4" />
               {controlsOpen ? 'Hide Tools' : 'Fee Tools'}
@@ -1827,7 +1827,7 @@ function FeesManagementBoard({ initialFinanceTab = 'fees' }) {
                 <div className={tableShellClass}>
                   {tableFullscreen ? (
                     <div className="sticky top-0 z-[70] mb-2 flex justify-end">
-                      <button type="button" onClick={() => setTableFullscreen(false)} className="inline-flex items-center gap-1.5 rounded-xl bg-[#800020] px-3 py-1.5 text-xs font-bold text-[#f5deb3]">
+                      <button type="button" onClick={() => setTableFullscreen(false)} className="inline-flex items-center gap-1.5 rounded-xl bg-[#800020] px-3 py-1.5 text-xs font-bold text-[#b5e3f4]">
                         <ArrowsPointingInIcon className="h-4 w-4" /> Exit Full Screen
                       </button>
                     </div>
@@ -1963,7 +1963,7 @@ function FeesManagementBoard({ initialFinanceTab = 'fees' }) {
                         );
                       })}
 
-                      <tr className="bg-[#f0d090] font-bold dark:bg-[#220022]">
+                      <tr className="bg-[#ade1f4] font-bold dark:bg-[#220022]">
                         <td colSpan={4} className={TD}>TOTAL</td>
                         <td className={TD}>{formatNaira(columnTotals.outstanding)}</td>
                         {feeColumns.map((feeName) => (

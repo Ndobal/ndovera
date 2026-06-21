@@ -91,7 +91,7 @@ export default function TuckShopAiServicesPanel({ title = 'Added Services' }) {
   }
 
   return (
-    <section className="rounded-[2rem] border border-[#800000]/15 bg-[#f5deb3]/95 p-5 shadow-[0_20px_44px_rgba(128,0,0,0.08)] dark:border-[#bf00ff]/30 dark:bg-[#800000]/68">
+    <section className="rounded-[2rem] border border-[#800000]/15 bg-[#b5e3f4]/95 p-5 shadow-[0_20px_44px_rgba(128,0,0,0.08)] dark:border-[#bf00ff]/30 dark:bg-[#800000]/68">
       <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
         <div className="max-w-2xl">
           <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#800020] dark:text-[#bf00ff]">{title}</p>
@@ -168,7 +168,7 @@ export default function TuckShopAiServicesPanel({ title = 'Added Services' }) {
                 type="button"
                 onClick={handleCheckout}
                 disabled={purchaseBusy}
-                className="mt-4 w-full rounded-2xl bg-[#1a5c38] px-5 py-3 text-sm font-bold text-[#f5deb3] transition hover:bg-[#154a2e] disabled:opacity-60 dark:bg-[#00ffff] dark:text-black dark:hover:bg-[#7dfcff]"
+                className="mt-4 w-full rounded-2xl bg-[#1a5c38] px-5 py-3 text-sm font-bold text-[#b5e3f4] transition hover:bg-[#154a2e] disabled:opacity-60 dark:bg-[#00ffff] dark:text-black dark:hover:bg-[#7dfcff]"
               >
                 {purchaseBusy ? 'Opening Checkout...' : 'Buy AI Credits'}
               </button>

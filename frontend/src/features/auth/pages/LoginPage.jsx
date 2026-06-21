@@ -15,7 +15,7 @@ export default function LoginPage({ onLogin }) {
   };
 
   return (
-    <div className="min-h-screen bg-[linear-gradient(180deg,#f5deb3_0%,#fff4df_48%,#f5deb3_100%)] px-4 py-4 text-[#191970] sm:px-6 sm:py-6 lg:px-8 dark:bg-[linear-gradient(180deg,#140014_0%,#1f0020_100%)] dark:text-[#39ff14]">
+    <div className="min-h-screen bg-[linear-gradient(180deg,#b5e3f4_0%,#fff4df_48%,#b5e3f4_100%)] px-4 py-4 text-[#191970] sm:px-6 sm:py-6 lg:px-8 dark:bg-[linear-gradient(180deg,#140014_0%,#1f0020_100%)] dark:text-[#39ff14]">
       <div className="mx-auto grid w-full max-w-6xl overflow-hidden rounded-[32px] border border-[#c9a96e]/45 bg-[#fff4df] shadow-[0_28px_100px_rgba(128,0,0,0.18)] lg:min-h-[calc(100vh-3rem)] lg:grid-cols-[0.96fr_1.04fr] dark:border-[#bf00ff]/35 dark:bg-[#800000]/40 dark:backdrop-blur-xl">
         <section className="relative min-h-[280px] overflow-hidden lg:min-h-full">
           <video
@@ -28,16 +28,16 @@ export default function LoginPage({ onLogin }) {
           />
           <div className="absolute inset-0 bg-[linear-gradient(160deg,rgba(128,0,0,0.78),rgba(25,25,112,0.52),rgba(26,92,56,0.5))] dark:bg-[linear-gradient(160deg,rgba(0,0,0,0.4),rgba(128,0,0,0.65),rgba(0,0,255,0.4))]" />
           <div className="relative flex h-full flex-col justify-between p-6 sm:p-8 lg:p-10 text-white">
-            <div className="inline-flex w-fit rounded-full border border-[#f5deb3]/35 bg-[#800000]/45 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.32em] text-[#f5deb3] backdrop-blur-sm dark:border-[#00ffff]/30 dark:bg-[#000000]/40 dark:text-[#00ffff]">
+            <div className="inline-flex w-fit rounded-full border border-[#b5e3f4]/35 bg-[#800000]/45 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.32em] text-[#b5e3f4] backdrop-blur-sm dark:border-[#00ffff]/30 dark:bg-[#000000]/40 dark:text-[#00ffff]">
               Secure School Operations
             </div>
 
             <div className="max-w-lg space-y-4 pb-2 lg:pb-4">
-              <p className="text-xs font-semibold uppercase tracking-[0.4em] text-[#f5deb3]">Welcome To NDOVERA</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.4em] text-[#b5e3f4]">Welcome To NDOVERA</p>
               <h1 className="text-4xl font-black leading-[1.02] tracking-tight text-white sm:text-5xl lg:text-[3.35rem]">
                 Powering School Management With Clarity And Control.
               </h1>
-              <p className="max-w-md text-sm leading-7 text-[#f5deb3] sm:text-base">
+              <p className="max-w-md text-sm leading-7 text-[#b5e3f4] sm:text-base">
                 Sign in to access your dashboard, review live school activity, and continue work from exactly where you stopped.
               </p>
             </div>

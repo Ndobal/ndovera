@@ -62,6 +62,8 @@ export default function TeacherCAScoreSheet({ dashboardLabel = 'Teacher Dashboar
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
+  const [activeTab, setActiveTab] = useState('sheet');
+  const [workflowOpen, setWorkflowOpen] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -247,14 +249,15 @@ export default function TeacherCAScoreSheet({ dashboardLabel = 'Teacher Dashboar
 
   return (
     <div className="p-8 max-w-7xl mx-auto space-y-6">
-      <section className={`${RESULT_SURFACE} p-6 flex flex-wrap items-center justify-between gap-3`}>
-        <div>
-          <p className={`micro-label ${RESULT_LABEL}`}>{dashboardLabel}</p>
-          <h1 className={`text-3xl command-title mt-2 ${RESULT_HEADING}`}>CA Score Sheet</h1>
-          <p className={`mt-2 max-w-3xl text-sm ${RESULT_BODY}`}>
-            NDOVERA source of truth for continuous assessment, exam entry, attendance-linked profiles, and approval workflow.
-            {sheet?.period ? ` ${sheet.period.termName || ''}${sheet.period.sessionName ? ` • ${sheet.period.sessionName}` : ''}` : ''}
-          </p>
+      <section className={`${RESULT_SURFACE} flex flex-wrap items-center justify-between gap-3 px-5 py-3`}>
+        <div className="flex min-w-0 items-center gap-3">
+          <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#2447d8] text-white">📊</span>
+          <div className="min-w-0">
+            <h1 className={`text-lg font-black leading-tight ${RESULT_HEADING}`}>CA Score Sheet</h1>
+            <p className={`truncate text-xs ${RESULT_BODY}`}>
+              {dashboardLabel}{sheet?.period ? ` • ${sheet.period.termName || ''}${sheet.period.sessionName ? ` ${sheet.period.sessionName}` : ''}` : ''}
+            </p>
+          </div>
         </div>
         <div className="flex flex-wrap items-center gap-2">
           <select value={classId} onChange={event => setClassId(event.target.value)} className={`${RESULT_INPUT} min-w-[220px]`}>
@@ -292,7 +295,7 @@ export default function TeacherCAScoreSheet({ dashboardLabel = 'Teacher Dashboar
       {message && <section className={`${RESULT_SURFACE} p-6 text-sm text-[#1a5c38] dark:text-[#00ffff] border-emerald-300/30 bg-emerald-100/70 dark:bg-[#800000]/70`}>{message}</section>}
 
       {sheet && !sheet.configurationReady && (
-        <section className={`${RESULT_SURFACE} p-6 text-sm text-[#800020] dark:text-[#39ff14] border-amber-300/30 bg-[#f0d090] dark:bg-[#800000]/70`}>
+        <section className={`${RESULT_SURFACE} p-6 text-sm text-[#800020] dark:text-[#39ff14] border-amber-300/30 bg-[#ade1f4] dark:bg-[#800000]/70`}>
           {sheet.configurationError || 'Result settings are incomplete. Owner, HoS, or ICT must configure template, grading, and affective scales before CA entry can be saved.'}
         </section>
       )}
@@ -307,25 +310,43 @@ export default function TeacherCAScoreSheet({ dashboardLabel = 'Teacher Dashboar
       )}
 
       {sheet && (
+        <div className={`${RESULT_SURFACE} flex gap-2 p-1.5`}>
+          {[{ key: 'sheet', label: 'Score Sheet', icon: '📝' }, { key: 'broadsheet', label: 'Broadsheet Ranking', icon: '🏆' }].map(t => (
+            <button
+              key={t.key}
+              type="button"
+              onClick={() => setActiveTab(t.key)}
+              className={`flex flex-1 items-center justify-center gap-2 rounded-2xl px-4 py-2.5 text-sm font-bold transition ${activeTab === t.key ? 'bg-[#2447d8] text-white shadow-lg shadow-[#2447d8]/25' : 'text-[#2447d8] hover:bg-white/60 dark:text-slate-200 dark:hover:bg-white/10'}`}
+            >
+              <span>{t.icon}</span><span className="whitespace-nowrap">{t.label}</span>
+            </button>
+          ))}
+        </div>
+      )}
+
+      {sheet && activeTab === 'sheet' && (
         <>
         <section className={`${RESULT_SURFACE} p-6 space-y-6`}>
-          <div className="flex flex-wrap items-start justify-between gap-4">
-            <div className="space-y-2">
-              <p className={`micro-label ${RESULT_LABEL}`}>Live Sheet Summary</p>
-              <div className="flex flex-wrap gap-2">
-                <span className={`rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] ${getBatchTone(sheet.published ? 'published' : sheet.submitted ? 'submitted' : 'draft')}`}>
-                  {sheet.published ? 'Published' : sheet.submitted ? 'Submitted' : 'Draft'}
-                </span>
-                <span className={`rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] ${getBatchTone(sheet.configurationReady ? 'published' : 'draft')}`}>
-                  {sheet.configurationReady ? 'Configured' : 'Configuration Needed'}
-                </span>
+          {/* Live Sheet Summary — compact card with animated icons */}
+          <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-[#7cc4e8]/40 bg-white px-4 py-2.5 dark:border-white/10 dark:bg-slate-800/50">
+            <div className="flex min-w-0 items-center gap-3">
+              <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#2447d8]/10 text-base text-[#2447d8] motion-safe:animate-pulse">📡</span>
+              <div className="min-w-0">
+                <p className={`micro-label ${RESULT_LABEL}`}>Live Sheet Summary</p>
+                <p className={`truncate text-sm font-semibold ${RESULT_HEADING}`}>
+                  {sheet.classroom?.className || 'Assigned class'} · {sheet.period?.termName || 'Term'}{sheet.period?.sessionName ? ` ${sheet.period.sessionName}` : ''}
+                </p>
               </div>
             </div>
-            <div className="text-right space-y-1">
-              <p className={`text-sm font-semibold ${RESULT_HEADING}`}>{sheet.classroom?.className || 'Assigned class'}</p>
-              <p className={`text-xs ${RESULT_BODY}`}>{sheet.period?.termName || 'Term'}{sheet.period?.sessionName ? ` • ${sheet.period.sessionName}` : ''}</p>
-              {sheet.publishedAt && <p className={`text-xs ${RESULT_BODY}`}>Published: {new Date(sheet.publishedAt).toLocaleString()}</p>}
-              <p className={`text-xs ${RESULT_BODY}`}>Approver: {sheet.hosApprovedBy || (sheet.hosApproved ? 'HoS / Owner' : 'Pending')}</p>
+            <div className="flex flex-wrap items-center gap-2">
+              <span className={`inline-flex items-center gap-1 rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] ${getBatchTone(sheet.published ? 'published' : sheet.submitted ? 'submitted' : 'draft')}`}>
+                <span className="motion-safe:animate-bounce">{sheet.published ? '✅' : sheet.submitted ? '📤' : '✏️'}</span>
+                {sheet.published ? 'Published' : sheet.submitted ? 'Submitted' : 'Draft'}
+              </span>
+              <span className={`inline-flex items-center gap-1 rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] ${getBatchTone(sheet.configurationReady ? 'published' : 'draft')}`}>
+                <span className="inline-block motion-safe:animate-spin" style={{ animationDuration: '4s' }}>{sheet.configurationReady ? '⚙️' : '⚠️'}</span>
+                {sheet.configurationReady ? 'Configured' : 'Setup'}
+              </span>
             </div>
           </div>
 
@@ -361,7 +382,7 @@ export default function TeacherCAScoreSheet({ dashboardLabel = 'Teacher Dashboar
               {caComponentDefinitions.length > 0 && (
                 <div className="mt-3 flex flex-wrap gap-2">
                   {caComponentDefinitions.map(component => (
-                    <span key={component.key} className={`rounded-full border border-[#c9a96e]/45 bg-[#f0d090] px-3 py-1 text-xs font-semibold ${RESULT_LABEL} dark:border-[#bf00ff]/35 dark:bg-black/20`}>
+                    <span key={component.key} className={`rounded-full border border-[#c9a96e]/45 bg-[#ade1f4] px-3 py-1 text-xs font-semibold ${RESULT_LABEL} dark:border-[#bf00ff]/35 dark:bg-black/20`}>
                       {component.label} ({component.maxScore})
                     </span>
                   ))}
@@ -369,15 +390,20 @@ export default function TeacherCAScoreSheet({ dashboardLabel = 'Teacher Dashboar
               )}
             </div>
             <div className={`${RESULT_INNER_SURFACE} p-4`}>
-              <p className={`micro-label ${RESULT_LABEL}`}>Workflow</p>
-              <div className="mt-3 grid gap-2">
-                {workflowSteps.map(step => (
-                  <div key={step.id} className={`rounded-2xl border px-3 py-3 ${getWorkflowTone(step.state)}`}>
-                    <p className="text-sm font-semibold">{step.label}</p>
-                    <p className="mt-1 text-xs opacity-90">{step.helper}</p>
-                  </div>
-                ))}
-              </div>
+              <button type="button" onClick={() => setWorkflowOpen(open => !open)} className="flex w-full items-center justify-between gap-2" aria-expanded={workflowOpen}>
+                <p className={`micro-label ${RESULT_LABEL}`}>Workflow</p>
+                <span className={`text-lg leading-none text-[#2447d8] transition-transform duration-200 ${workflowOpen ? 'rotate-180' : ''}`}>▾</span>
+              </button>
+              {workflowOpen && (
+                <div className="mt-3 grid gap-2">
+                  {workflowSteps.map(step => (
+                    <div key={step.id} className={`rounded-2xl border px-3 py-3 ${getWorkflowTone(step.state)}`}>
+                      <p className="text-sm font-semibold">{step.label}</p>
+                      <p className="mt-1 text-xs opacity-90">{step.helper}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
 
@@ -406,7 +432,9 @@ export default function TeacherCAScoreSheet({ dashboardLabel = 'Teacher Dashboar
         </>
       )}
 
-      {sheet && <BroadsheetTable rows={sheet.broadsheet} title="Broadsheet Ranking (Live Preview)" />}
+      {sheet && activeTab === 'broadsheet' && (
+        <BroadsheetTable rows={sheet.broadsheet} title="Broadsheet Ranking (Live Preview)" />
+      )}
     </div>
   );
 }

@@ -197,18 +197,18 @@ function AITutor() {
       ) : null}
 
       {notice ? (
-        <div className="rounded-3xl border border-[#1a5c38]/25 bg-[#f5deb3] px-5 py-4 text-sm font-semibold text-[#1a5c38] dark:border-[#00ffff]/35 dark:bg-[#191970]/45 dark:text-[#39ff14]">
+        <div className="rounded-3xl border border-[#1a5c38]/25 bg-[#b5e3f4] px-5 py-4 text-sm font-semibold text-[#1a5c38] dark:border-[#00ffff]/35 dark:bg-[#191970]/45 dark:text-[#39ff14]">
           {notice}
         </div>
       ) : null}
 
       <section className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
         {loading ? (
-          <div className="rounded-3xl border border-[#800000]/15 bg-[#f5deb3] px-5 py-6 text-sm text-[#191970] dark:border-[#bf00ff]/30 dark:bg-[#800000]/70 dark:text-[#39ff14]">
+          <div className="rounded-3xl border border-[#800000]/15 bg-[#b5e3f4] px-5 py-6 text-sm text-[#191970] dark:border-[#bf00ff]/30 dark:bg-[#800000]/70 dark:text-[#39ff14]">
             Loading AI access...
           </div>
         ) : summaryCards.map(card => (
-          <div key={card.label} className="rounded-3xl border border-[#800000]/15 bg-[#f5deb3] p-5 shadow-[0_18px_40px_rgba(128,0,0,0.08)] dark:border-[#bf00ff]/30 dark:bg-[#800000]/70">
+          <div key={card.label} className="rounded-3xl border border-[#800000]/15 bg-[#b5e3f4] p-5 shadow-[0_18px_40px_rgba(128,0,0,0.08)] dark:border-[#bf00ff]/30 dark:bg-[#800000]/70">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#800020] dark:text-[#bf00ff]">{card.label}</p>
             <p className="mt-3 text-2xl font-semibold text-[#800000] dark:text-[#ffffff]">{card.value}</p>
             <p className="mt-3 text-sm leading-6 text-[#191970] dark:text-[#39ff14]">{card.helper}</p>
@@ -217,7 +217,7 @@ function AITutor() {
       </section>
 
       <section className="grid grid-cols-1 gap-5 xl:grid-cols-[minmax(0,1.3fr)_minmax(360px,1fr)]">
-        <div className="rounded-[2rem] border border-[#800000]/15 bg-[#f5deb3] p-6 shadow-[0_22px_48px_rgba(128,0,0,0.10)] dark:border-[#bf00ff]/30 dark:bg-[#800000]/72">
+        <div className="rounded-[2rem] border border-[#800000]/15 bg-[#b5e3f4] p-6 shadow-[0_22px_48px_rgba(128,0,0,0.10)] dark:border-[#bf00ff]/30 dark:bg-[#800000]/72">
           <h2 className="text-2xl font-semibold text-[#800000] dark:text-[#0000ff]">Billing Rules</h2>
           <p className="mt-2 text-sm leading-6 text-[#191970] dark:text-[#39ff14]">
             Individual users receive 50 free AI requests every day. After that, the system charges either the user wallet or the school wallet based on the active billing model.
@@ -241,7 +241,7 @@ function AITutor() {
 
         {management.canManagePolicy ? (
           <div className="space-y-5">
-            <section className="rounded-[2rem] border border-[#800000]/15 bg-[#f5deb3] p-6 shadow-[0_22px_48px_rgba(25,25,112,0.08)] dark:border-[#bf00ff]/30 dark:bg-[#800000]/72">
+            <section className="rounded-[2rem] border border-[#800000]/15 bg-[#b5e3f4] p-6 shadow-[0_22px_48px_rgba(25,25,112,0.08)] dark:border-[#bf00ff]/30 dark:bg-[#800000]/72">
               <h2 className="text-2xl font-semibold text-[#800000] dark:text-[#0000ff]">Manage AI Billing</h2>
               <p className="mt-2 text-sm leading-6 text-[#191970] dark:text-[#39ff14]">
                 Configure whether AI is paid for by individual users or by the school, and set the live price per credit.
@@ -300,14 +300,14 @@ function AITutor() {
                   type="button"
                   onClick={handleSavePolicy}
                   disabled={savingPolicy}
-                  className="w-full rounded-2xl bg-[#1a5c38] px-5 py-3 text-sm font-bold text-[#f5deb3] transition hover:bg-[#154a2e] disabled:opacity-60 dark:bg-[#00ffff] dark:text-black dark:hover:bg-[#7dfcff]"
+                  className="w-full rounded-2xl bg-[#1a5c38] px-5 py-3 text-sm font-bold text-[#b5e3f4] transition hover:bg-[#154a2e] disabled:opacity-60 dark:bg-[#00ffff] dark:text-black dark:hover:bg-[#7dfcff]"
                 >
                   {savingPolicy ? 'Saving Policy...' : 'Save Billing Policy'}
                 </button>
               </div>
             </section>
 
-            <section className="rounded-[2rem] border border-[#800000]/15 bg-[#f5deb3] p-6 shadow-[0_22px_48px_rgba(128,0,0,0.08)] dark:border-[#bf00ff]/30 dark:bg-[#800000]/72">
+            <section className="rounded-[2rem] border border-[#800000]/15 bg-[#b5e3f4] p-6 shadow-[0_22px_48px_rgba(128,0,0,0.08)] dark:border-[#bf00ff]/30 dark:bg-[#800000]/72">
               <h2 className="text-2xl font-semibold text-[#800000] dark:text-[#0000ff]">Top Up School Credits</h2>
               <p className="mt-2 text-sm leading-6 text-[#191970] dark:text-[#39ff14]">
                 Use Flutterwave to fund the school wallet so extra AI requests continue after the daily free quota is finished.
@@ -328,7 +328,7 @@ function AITutor() {
                 type="button"
                 onClick={handleSchoolTopUp}
                 disabled={topUpBusy || !(access?.policy?.pricePerCreditNaira > 0)}
-                className="mt-4 w-full rounded-2xl bg-[#1a5c38] px-5 py-3 text-sm font-bold text-[#f5deb3] transition hover:bg-[#154a2e] disabled:opacity-60 dark:bg-[#00ffff] dark:text-black dark:hover:bg-[#7dfcff]"
+                className="mt-4 w-full rounded-2xl bg-[#1a5c38] px-5 py-3 text-sm font-bold text-[#b5e3f4] transition hover:bg-[#154a2e] disabled:opacity-60 dark:bg-[#00ffff] dark:text-black dark:hover:bg-[#7dfcff]"
               >
                 {topUpBusy ? 'Opening Checkout...' : 'Buy School Credits'}
               </button>

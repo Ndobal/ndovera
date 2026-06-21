@@ -19,7 +19,7 @@ import AdminLibrary from '../../features/library/AdminLibrary';
 function OperationalLiveWorkspace({ roleTitle, title, subtitle, showAnnouncements = false, children = null }) {
   return (
     <div className="p-8 max-w-7xl mx-auto space-y-6">
-      <div className="rounded-3xl p-6 bg-[#f5deb3] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
+      <div className="rounded-3xl p-6 bg-[#b5e3f4] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
         <h1 className="text-2xl font-bold text-[#800000] dark:text-slate-100">{title}</h1>
         <p className="text-[#191970] dark:text-slate-300 mt-1 text-sm">{subtitle}</p>
       </div>
@@ -66,7 +66,7 @@ export default function OperationalRoleDashboard({ roleKey }) {
         subtitle={section.subtitle}
         showAnnouncements={sectionKey === 'overview'}
       >
-        <div className="rounded-3xl p-6 bg-[#f5deb3] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
+        <div className="rounded-3xl p-6 bg-[#b5e3f4] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
           <AdminLibrary />
         </div>
       </OperationalLiveWorkspace>
@@ -110,16 +110,16 @@ export default function OperationalRoleDashboard({ roleKey }) {
   if (isIctSurface && sectionKey === 'settings') {
     return (
       <div className="p-8 max-w-7xl mx-auto space-y-6">
-        <div className="rounded-3xl p-6 bg-[#f5deb3] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
+        <div className="rounded-3xl p-6 bg-[#b5e3f4] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
           <h1 className="text-2xl font-bold text-[#800000] dark:text-slate-100">Settings</h1>
           <p className="text-[#191970] dark:text-slate-300 mt-1 text-sm">
             Manage public school website media, admissions content, and staff attendance sign-in policy.
           </p>
         </div>
-        <div className="rounded-3xl p-6 bg-[#f5deb3] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
+        <div className="rounded-3xl p-6 bg-[#b5e3f4] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
           <WebsiteTab />
         </div>
-        <div className="rounded-3xl p-6 bg-[#f5deb3] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
+        <div className="rounded-3xl p-6 bg-[#b5e3f4] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
           <StaffAttendanceManagementPanel />
         </div>
       </div>
@@ -150,7 +150,7 @@ export default function OperationalRoleDashboard({ roleKey }) {
         showAnnouncements={sectionKey === 'support'}
       >
         {sectionKey === 'access' ? (
-          <div className="rounded-3xl p-6 bg-[#f5deb3] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
+          <div className="rounded-3xl p-6 bg-[#b5e3f4] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
             <OwnerPeople />
           </div>
         ) : null}

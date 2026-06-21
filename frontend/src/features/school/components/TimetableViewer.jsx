@@ -2,9 +2,9 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { getTimetable, getClasses } from '../services/schoolApi';
 
 const PAGE = 'p-6 md:p-8 max-w-6xl mx-auto space-y-6';
-const HEADER = 'rounded-3xl p-6 bg-[#f5deb3] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10';
-const CARD = 'rounded-3xl p-5 bg-[#f5deb3] border border-[#c9a96e]/40 dark:border-white/10 dark:bg-slate-900/30';
-const INNER = 'rounded-2xl p-3 bg-[#f0d090] border border-[#c9a96e]/30';
+const HEADER = 'rounded-3xl p-6 bg-[#b5e3f4] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10';
+const CARD = 'rounded-3xl p-5 bg-[#b5e3f4] border border-[#c9a96e]/40 dark:border-white/10 dark:bg-slate-900/30';
+const INNER = 'rounded-2xl p-3 bg-[#ade1f4] border border-[#c9a96e]/30';
 
 const DAYS = [
   { n: 1, label: 'Monday' },

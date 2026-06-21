@@ -14,11 +14,11 @@ const FILTERS = ['All', 'Teachers', 'Admin', 'Students', 'Parents'];
 
 // Colour-coded role badges — each role gets a distinct colour
 const ROLE_COLORS = {
-  owner:         { bg: '#800000', text: '#f5deb3' },  // maroon
-  hos:           { bg: '#191970', text: '#f5deb3' },  // midnight blue
-  principal:     { bg: '#191970', text: '#f5deb3' },  // midnight blue
+  owner:         { bg: '#800000', text: '#b5e3f4' },  // maroon
+  hos:           { bg: '#191970', text: '#b5e3f4' },  // midnight blue
+  principal:     { bg: '#191970', text: '#b5e3f4' },  // midnight blue
   hod:           { bg: '#2d5a8e', text: '#dbeafe' },  // steel blue
-  teacher:       { bg: '#1a5c38', text: '#f5deb3' },  // night green
+  teacher:       { bg: '#1a5c38', text: '#b5e3f4' },  // night green
   classteacher:  { bg: '#2d6a4f', text: '#d1fae5' },  // forest green
   accountant:    { bg: '#b45309', text: '#fef3c7' },  // amber
   student:       { bg: '#1e40af', text: '#dbeafe' },  // blue
@@ -29,7 +29,7 @@ const ROLE_COLORS = {
 };
 
 function getRoleBadgeStyle(role) {
-  return ROLE_COLORS[role?.toLowerCase()] || { bg: '#800020', text: '#f5deb3' };
+  return ROLE_COLORS[role?.toLowerCase()] || { bg: '#800020', text: '#b5e3f4' };
 }
 
 function buildAvatarSrc(user) {
@@ -125,17 +125,17 @@ function UserProfileModal({ userId, onClose, isAdmin, currentUserId }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40" onClick={onClose}>
       <div
-        className="w-full max-w-lg rounded-3xl p-6 bg-[#f5deb3] dark:bg-slate-900 border border-[#c9a96e]/40 dark:border-white/10 shadow-xl overflow-y-auto max-h-[90vh]"
+        className="w-full max-w-lg rounded-3xl p-6 bg-[#b5e3f4] dark:bg-slate-900 border border-[#c9a96e]/40 dark:border-white/10 shadow-xl overflow-y-auto max-h-[90vh]"
         onClick={e => e.stopPropagation()}
       >
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-lg font-bold text-[#800000] dark:text-slate-100">User Profile</h2>
           <div className="flex gap-2 items-center">
             {canEdit && !editing && (
-              <button onClick={() => setEditing(true)} className="bg-[#1a5c38] text-[#f5deb3] font-bold text-xs px-3 py-1.5 rounded-xl">Edit</button>
+              <button onClick={() => setEditing(true)} className="bg-[#1a5c38] text-[#b5e3f4] font-bold text-xs px-3 py-1.5 rounded-xl">Edit</button>
             )}
             {profile?.role === 'student' && (
-              <button onClick={() => setViewFullProfile(true)} className="bg-[#800020] text-[#f5deb3] font-bold text-xs px-3 py-1.5 rounded-xl">View</button>
+              <button onClick={() => setViewFullProfile(true)} className="bg-[#800020] text-[#b5e3f4] font-bold text-xs px-3 py-1.5 rounded-xl">View</button>
             )}
             <button onClick={onClose} className="text-[#800020] dark:text-slate-400 text-xl font-bold hover:text-red-600">✕</button>
           </div>
@@ -163,7 +163,7 @@ function UserProfileModal({ userId, onClose, isAdmin, currentUserId }) {
             </div>
 
             {profile.displayId && (
-              <div className="inline-block px-3 py-1 rounded-full bg-[#800000] text-[#f5deb3] text-xs font-bold tracking-widest">
+              <div className="inline-block px-3 py-1 rounded-full bg-[#800000] text-[#b5e3f4] text-xs font-bold tracking-widest">
                 {profile.displayId}
               </div>
             )}
@@ -175,7 +175,7 @@ function UserProfileModal({ userId, onClose, isAdmin, currentUserId }) {
                   <input
                     value={editForm.name}
                     onChange={e => setEditForm(f => ({ ...f, name: e.target.value }))}
-                    className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#f0d090] text-[#191970] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1a5c38]"
+                    className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#ade1f4] text-[#191970] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1a5c38]"
                   />
                 </div>
                 <div>
@@ -183,7 +183,7 @@ function UserProfileModal({ userId, onClose, isAdmin, currentUserId }) {
                   <input
                     value={editForm.phone}
                     onChange={e => setEditForm(f => ({ ...f, phone: e.target.value }))}
-                    className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#f0d090] text-[#191970] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1a5c38]"
+                    className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#ade1f4] text-[#191970] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1a5c38]"
                   />
                 </div>
                 <div>
@@ -192,7 +192,7 @@ function UserProfileModal({ userId, onClose, isAdmin, currentUserId }) {
                     type="date"
                     value={editForm.dateOfBirth}
                     onChange={e => setEditForm(f => ({ ...f, dateOfBirth: e.target.value }))}
-                    className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#f0d090] text-[#191970] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1a5c38]"
+                    className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#ade1f4] text-[#191970] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1a5c38]"
                   />
                 </div>
                 <div>
@@ -200,7 +200,7 @@ function UserProfileModal({ userId, onClose, isAdmin, currentUserId }) {
                   <input
                     value={editForm.avatar}
                     onChange={e => setEditForm(f => ({ ...f, avatar: e.target.value }))}
-                    className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#f0d090] text-[#191970] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1a5c38]"
+                    className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#ade1f4] text-[#191970] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1a5c38]"
                   />
                 </div>
                 <div>
@@ -213,7 +213,7 @@ function UserProfileModal({ userId, onClose, isAdmin, currentUserId }) {
                     <select
                       value={editForm.classId}
                       onChange={e => setEditForm(f => ({ ...f, classId: e.target.value }))}
-                      className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#f0d090] text-[#191970] px-3 py-2 text-sm outline-none"
+                      className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#ade1f4] text-[#191970] px-3 py-2 text-sm outline-none"
                     >
                       <option value="">— Select Class —</option>
                       {classes.map(cl => <option key={cl.id} value={cl.id}>{cl.name}{cl.arm ? ` ${cl.arm}` : ''}</option>)}
@@ -223,7 +223,7 @@ function UserProfileModal({ userId, onClose, isAdmin, currentUserId }) {
                 {saveMsg && <p className={`text-sm ${saveMsg === 'Saved!' ? 'text-emerald-600' : 'text-red-600'}`}>{saveMsg}</p>}
                 <div className="flex gap-2 pt-1">
                   <button onClick={() => setEditing(false)} className="flex-1 border border-[#c9a96e]/40 text-[#800020] px-4 py-2 rounded-2xl text-sm font-semibold">Cancel</button>
-                  <button onClick={handleSave} disabled={saving} className="flex-1 bg-[#1a5c38] text-[#f5deb3] font-bold px-4 py-2 rounded-2xl text-sm disabled:opacity-60">
+                  <button onClick={handleSave} disabled={saving} className="flex-1 bg-[#1a5c38] text-[#b5e3f4] font-bold px-4 py-2 rounded-2xl text-sm disabled:opacity-60">
                     {saving ? 'Saving…' : 'Save'}
                   </button>
                 </div>
@@ -260,7 +260,7 @@ function UserProfileModal({ userId, onClose, isAdmin, currentUserId }) {
               <>
                 <div>
                   <p className="text-xs font-semibold uppercase text-[#800020] dark:text-slate-400 mb-2">School Record</p>
-                  <div className="rounded-2xl bg-[#f0d090] dark:bg-slate-800 px-4 py-3 text-sm text-[#191970] dark:text-slate-200">
+                  <div className="rounded-2xl bg-[#ade1f4] dark:bg-slate-800 px-4 py-3 text-sm text-[#191970] dark:text-slate-200">
                     {profile.currentClass
                       ? `Current class: ${profile.currentClass.name}${profile.currentClass.arm ? ` ${profile.currentClass.arm}` : ''}`
                       : 'No class record assigned yet.'}
@@ -276,7 +276,7 @@ function UserProfileModal({ userId, onClose, isAdmin, currentUserId }) {
                       {linkedParentsCount < 2 && (
                         <button
                           onClick={() => setShowLinkParent(v => !v)}
-                          className="bg-[#1a5c38] text-[#f5deb3] font-bold text-xs px-3 py-1 rounded-xl"
+                          className="bg-[#1a5c38] text-[#b5e3f4] font-bold text-xs px-3 py-1 rounded-xl"
                         >
                           + Link Parent
                         </button>
@@ -286,7 +286,7 @@ function UserProfileModal({ userId, onClose, isAdmin, currentUserId }) {
                     {profile.linkedParents?.length > 0 && (
                       <div className="space-y-1 mb-2">
                         {profile.linkedParents.map(p => (
-                          <div key={p.id} className="text-sm text-[#191970] dark:text-slate-200 bg-[#f0d090] dark:bg-slate-800 rounded-xl px-3 py-1.5 flex justify-between">
+                          <div key={p.id} className="text-sm text-[#191970] dark:text-slate-200 bg-[#ade1f4] dark:bg-slate-800 rounded-xl px-3 py-1.5 flex justify-between">
                             <span>{p.name}</span>
                             <span className="text-[#800020] text-xs">{p.email || p.phone || ''}{p.displayId ? ` · ${p.displayId}` : ''}</span>
                           </div>
@@ -295,18 +295,18 @@ function UserProfileModal({ userId, onClose, isAdmin, currentUserId }) {
                     )}
 
                     {showLinkParent && (
-                      <div className="rounded-2xl bg-[#f0d090] dark:bg-slate-800 px-4 py-3 space-y-2">
+                      <div className="rounded-2xl bg-[#ade1f4] dark:bg-slate-800 px-4 py-3 space-y-2">
                         <input
                           type="text"
                           placeholder="Search parent by name/email/phone…"
                           value={linkSearch}
                           onChange={e => setLinkSearch(e.target.value)}
-                          className="w-full rounded-xl border border-[#c9a96e]/40 bg-[#f5deb3] text-[#191970] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1a5c38]"
+                          className="w-full rounded-xl border border-[#c9a96e]/40 bg-[#b5e3f4] text-[#191970] px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1a5c38]"
                         />
                         <select
                           value={linkParentId}
                           onChange={e => setLinkParentId(e.target.value)}
-                          className="w-full rounded-xl border border-[#c9a96e]/40 bg-[#f5deb3] text-[#191970] px-3 py-2 text-sm outline-none"
+                          className="w-full rounded-xl border border-[#c9a96e]/40 bg-[#b5e3f4] text-[#191970] px-3 py-2 text-sm outline-none"
                         >
                           <option value="">— Select Parent —</option>
                           {filteredForLink.map(p => (
@@ -317,7 +317,7 @@ function UserProfileModal({ userId, onClose, isAdmin, currentUserId }) {
                         <button
                           onClick={handleLinkParent}
                           disabled={linking || !linkParentId}
-                          className="w-full bg-[#1a5c38] text-[#f5deb3] font-bold py-2 rounded-xl text-sm disabled:opacity-60"
+                          className="w-full bg-[#1a5c38] text-[#b5e3f4] font-bold py-2 rounded-xl text-sm disabled:opacity-60"
                         >
                           {linking ? 'Linking…' : 'Link Parent'}
                         </button>
@@ -331,7 +331,7 @@ function UserProfileModal({ userId, onClose, isAdmin, currentUserId }) {
                     <p className="text-xs font-semibold uppercase text-[#800020] dark:text-slate-400 mb-2">Children</p>
                     <div className="space-y-1">
                       {profile.linkedChildren.map(c => (
-                        <div key={c.id} className="text-sm text-[#191970] dark:text-slate-200 bg-[#f0d090] dark:bg-slate-800 rounded-xl px-3 py-1.5">
+                        <div key={c.id} className="text-sm text-[#191970] dark:text-slate-200 bg-[#ade1f4] dark:bg-slate-800 rounded-xl px-3 py-1.5">
                           {c.name}{c.displayId ? <span className="text-[#800020] font-mono text-xs ml-1">{c.displayId}</span> : null}
                         </div>
                       ))}
@@ -344,7 +344,7 @@ function UserProfileModal({ userId, onClose, isAdmin, currentUserId }) {
                     <p className="text-xs font-semibold uppercase text-[#800020] dark:text-slate-400 mb-2">Recent Attendance (last 5)</p>
                     <div className="space-y-1">
                       {profile.recentAttendance.slice(0, 5).map((a, i) => (
-                        <div key={i} className="text-xs text-[#191970] dark:text-slate-200 flex justify-between bg-[#f0d090] dark:bg-slate-800 rounded-xl px-3 py-1">
+                        <div key={i} className="text-xs text-[#191970] dark:text-slate-200 flex justify-between bg-[#ade1f4] dark:bg-slate-800 rounded-xl px-3 py-1">
                           <span>{a.date}</span>
                           <span className={a.status === 'present' ? 'text-emerald-600' : 'text-red-500'}>{a.status}</span>
                         </div>
@@ -358,7 +358,7 @@ function UserProfileModal({ userId, onClose, isAdmin, currentUserId }) {
                     <p className="text-xs font-semibold uppercase text-[#800020] dark:text-slate-400 mb-2">Recent Activity</p>
                     <div className="space-y-1">
                       {profile.activity.slice(0, 5).map(item => (
-                        <div key={item.id || `${item.action}-${item.ts}`} className="rounded-xl bg-[#f0d090] dark:bg-slate-800 px-3 py-2">
+                        <div key={item.id || `${item.action}-${item.ts}`} className="rounded-xl bg-[#ade1f4] dark:bg-slate-800 px-3 py-2">
                           <p className="text-sm font-semibold text-[#800000] dark:text-slate-100">{item.action || 'Record'}</p>
                           <p className="text-xs text-[#191970] dark:text-slate-300">{item.ts ? new Date(item.ts).toLocaleString() : '—'}</p>
                         </div>
@@ -438,7 +438,7 @@ function AddPersonModal({ onClose, onAdd }) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-      <div className="w-full max-w-md rounded-3xl p-6 bg-[#f5deb3] dark:bg-slate-900 border border-[#c9a96e]/40 dark:border-white/10 shadow-xl max-h-[90vh] overflow-y-auto">
+      <div className="w-full max-w-md rounded-3xl p-6 bg-[#b5e3f4] dark:bg-slate-900 border border-[#c9a96e]/40 dark:border-white/10 shadow-xl max-h-[90vh] overflow-y-auto">
         <h2 className="text-lg font-bold text-[#800000] dark:text-slate-100 mb-4">Add Person</h2>
         <form onSubmit={handleSubmit} className="space-y-3">
           {[['Name', 'name', 'text'], ['Email', 'email', 'email'], ['Password', 'password', 'password']].map(([label, key, type]) => (
@@ -449,7 +449,7 @@ function AddPersonModal({ onClose, onAdd }) {
                 value={form[key]}
                 onChange={e => setForm(f => ({ ...f, [key]: e.target.value }))}
                 required={key !== 'password'}
-                className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 dark:border-white/10 bg-[#f0d090] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1a5c38]"
+                className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 dark:border-white/10 bg-[#ade1f4] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1a5c38]"
               />
               {key === 'password' && (
                 <p className="mt-1 text-[11px] text-[#800020] dark:text-slate-400">
@@ -464,7 +464,7 @@ function AddPersonModal({ onClose, onAdd }) {
             <select
               value={form.role}
               onChange={e => setForm(f => ({ ...f, role: e.target.value }))}
-              className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 dark:border-white/10 bg-[#f0d090] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none"
+              className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 dark:border-white/10 bg-[#ade1f4] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none"
             >
               {ROLES.map(r => <option key={r} value={r}>{r}</option>)}
             </select>
@@ -482,7 +482,7 @@ function AddPersonModal({ onClose, onAdd }) {
                   <select
                     value={classId}
                     onChange={e => setClassId(e.target.value)}
-                    className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 dark:border-white/10 bg-[#f0d090] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none"
+                    className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 dark:border-white/10 bg-[#ade1f4] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none"
                   >
                     <option value="">— Select Class —</option>
                     {classes.map(cl => <option key={cl.id} value={cl.id}>{cl.name}{cl.arm ? ` ${cl.arm}` : ''}</option>)}
@@ -496,14 +496,14 @@ function AddPersonModal({ onClose, onAdd }) {
                   <button
                     type="button"
                     onClick={() => setForm(f => ({ ...f, parentOption: 'existing' }))}
-                    className={`flex-1 text-xs py-1.5 rounded-xl font-semibold border transition-colors ${form.parentOption === 'existing' ? 'bg-[#800020] text-[#f5deb3] border-[#800020]' : 'bg-[#f0d090] text-[#800020] border-[#c9a96e]/40'}`}
+                    className={`flex-1 text-xs py-1.5 rounded-xl font-semibold border transition-colors ${form.parentOption === 'existing' ? 'bg-[#800020] text-[#b5e3f4] border-[#800020]' : 'bg-[#ade1f4] text-[#800020] border-[#c9a96e]/40'}`}
                   >
                     Link Existing
                   </button>
                   <button
                     type="button"
                     onClick={() => setForm(f => ({ ...f, parentOption: 'new' }))}
-                    className={`flex-1 text-xs py-1.5 rounded-xl font-semibold border transition-colors ${form.parentOption === 'new' ? 'bg-[#800020] text-[#f5deb3] border-[#800020]' : 'bg-[#f0d090] text-[#800020] border-[#c9a96e]/40'}`}
+                    className={`flex-1 text-xs py-1.5 rounded-xl font-semibold border transition-colors ${form.parentOption === 'new' ? 'bg-[#800020] text-[#b5e3f4] border-[#800020]' : 'bg-[#ade1f4] text-[#800020] border-[#c9a96e]/40'}`}
                   >
                     Add New Parent
                   </button>
@@ -516,12 +516,12 @@ function AddPersonModal({ onClose, onAdd }) {
                       placeholder="Search by name or email..."
                       value={parentSearch}
                       onChange={e => setParentSearch(e.target.value)}
-                      className="w-full rounded-xl border border-[#c9a96e]/40 dark:border-white/10 bg-[#f0d090] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1a5c38] mb-1"
+                      className="w-full rounded-xl border border-[#c9a96e]/40 dark:border-white/10 bg-[#ade1f4] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1a5c38] mb-1"
                     />
                     <select
                       value={form.existingParentId}
                       onChange={e => setForm(f => ({ ...f, existingParentId: e.target.value }))}
-                      className="w-full rounded-xl border border-[#c9a96e]/40 dark:border-white/10 bg-[#f0d090] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none"
+                      className="w-full rounded-xl border border-[#c9a96e]/40 dark:border-white/10 bg-[#ade1f4] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none"
                     >
                       <option value="">— Select Parent —</option>
                       {filteredParents.map(p => (
@@ -540,7 +540,7 @@ function AddPersonModal({ onClose, onAdd }) {
                           type={type}
                           value={form[key]}
                           onChange={e => setForm(f => ({ ...f, [key]: e.target.value }))}
-                          className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 dark:border-white/10 bg-[#f0d090] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1a5c38]"
+                          className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 dark:border-white/10 bg-[#ade1f4] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1a5c38]"
                         />
                       </div>
                     ))}
@@ -553,7 +553,7 @@ function AddPersonModal({ onClose, onAdd }) {
           {error && <p className="text-red-600 text-sm">{error}</p>}
           <div className="flex gap-3 pt-2">
             <button type="button" onClick={onClose} className="flex-1 border border-[#c9a96e]/40 dark:border-white/10 text-[#800020] dark:text-slate-400 px-4 py-2 rounded-2xl text-sm font-semibold">Cancel</button>
-            <button type="submit" disabled={saving} className="flex-1 bg-[#1a5c38] hover:bg-[#154a2e] text-[#f5deb3] font-bold px-4 py-2 rounded-2xl text-sm transition-colors disabled:opacity-60">
+            <button type="submit" disabled={saving} className="flex-1 bg-[#1a5c38] hover:bg-[#154a2e] text-[#b5e3f4] font-bold px-4 py-2 rounded-2xl text-sm transition-colors disabled:opacity-60">
               {saving ? 'Saving...' : 'Add Person'}
             </button>
           </div>
@@ -647,7 +647,7 @@ function BulkImportModal({ onClose, onDone }) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40" onClick={onClose}>
-      <div className="w-full max-w-lg rounded-3xl p-6 bg-[#f5deb3] dark:bg-slate-900 border border-[#c9a96e]/40 dark:border-white/10 shadow-xl max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
+      <div className="w-full max-w-lg rounded-3xl p-6 bg-[#b5e3f4] dark:bg-slate-900 border border-[#c9a96e]/40 dark:border-white/10 shadow-xl max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-lg font-bold text-[#800000] dark:text-slate-100">Bulk Import Users</h2>
           <button onClick={onClose} className="text-[#800020] dark:text-slate-400 text-xl font-bold hover:text-red-600">✕</button>
@@ -655,12 +655,12 @@ function BulkImportModal({ onClose, onDone }) {
 
         <div className="space-y-4">
           {/* Template download */}
-          <div className="rounded-2xl bg-[#f0d090] dark:bg-slate-800 p-4 flex items-center justify-between gap-3">
+          <div className="rounded-2xl bg-[#ade1f4] dark:bg-slate-800 p-4 flex items-center justify-between gap-3">
             <div>
               <p className="text-xs font-bold text-[#800000] dark:text-slate-100 uppercase">Step 1: Download Template</p>
               <p className="text-xs text-[#191970] dark:text-slate-400 mt-0.5">Fill in name, email, role, optional password &amp; classId.</p>
             </div>
-            <button onClick={downloadCsvTemplate} className="shrink-0 bg-[#191970] hover:bg-[#111450] text-[#f5deb3] font-bold text-xs px-4 py-2 rounded-xl transition-colors">
+            <button onClick={downloadCsvTemplate} className="shrink-0 bg-[#191970] hover:bg-[#111450] text-[#b5e3f4] font-bold text-xs px-4 py-2 rounded-xl transition-colors">
               📥 Template
             </button>
           </div>
@@ -673,7 +673,7 @@ function BulkImportModal({ onClose, onDone }) {
               type="file"
               accept=".csv,text/csv"
               onChange={handleFile}
-              className="block w-full text-sm text-[#191970] dark:text-slate-300 file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:bg-[#800020] file:text-[#f5deb3] file:font-bold file:text-xs cursor-pointer"
+              className="block w-full text-sm text-[#191970] dark:text-slate-300 file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:bg-[#800020] file:text-[#b5e3f4] file:font-bold file:text-xs cursor-pointer"
             />
             {parseError && <p className="mt-1 text-red-600 text-xs">{parseError}</p>}
           </div>
@@ -685,7 +685,7 @@ function BulkImportModal({ onClose, onDone }) {
               <div className="overflow-x-auto rounded-xl border border-[#c9a96e]/40">
                 <table className="w-full text-xs">
                   <thead>
-                    <tr className="bg-[#f0d090] dark:bg-slate-800">
+                    <tr className="bg-[#ade1f4] dark:bg-slate-800">
                       {CSV_HEADERS.map(h => <th key={h} className="px-3 py-1.5 text-left text-[#800020] font-bold uppercase">{h}</th>)}
                     </tr>
                   </thead>
@@ -720,7 +720,7 @@ function BulkImportModal({ onClose, onDone }) {
               <button
                 onClick={handleImport}
                 disabled={importing || rows.length === 0}
-                className="flex-1 bg-[#1a5c38] hover:bg-[#154a2e] text-[#f5deb3] font-bold px-4 py-2 rounded-2xl text-sm transition-colors disabled:opacity-60"
+                className="flex-1 bg-[#1a5c38] hover:bg-[#154a2e] text-[#b5e3f4] font-bold px-4 py-2 rounded-2xl text-sm transition-colors disabled:opacity-60"
               >
                 {importing ? 'Importing…' : `Import ${rows.length} row${rows.length !== 1 ? 's' : ''}`}
               </button>
@@ -750,7 +750,7 @@ function ShareModal({ person, subdomain, onClose }) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40" onClick={onClose}>
-      <div className="w-full max-w-sm rounded-3xl p-6 bg-[#f5deb3] border border-[#c9a96e]/40 shadow-xl" onClick={e => e.stopPropagation()}>
+      <div className="w-full max-w-sm rounded-3xl p-6 bg-[#b5e3f4] border border-[#c9a96e]/40 shadow-xl" onClick={e => e.stopPropagation()}>
         <h2 className="text-lg font-bold text-[#800000] mb-4">Share Login Details</h2>
         <div className="space-y-2 text-sm text-[#191970] mb-4">
           <div><span className="text-[#800020] font-semibold text-xs uppercase">Login Link</span><p className="font-mono text-xs mt-0.5 break-all">{loginLink}</p></div>
@@ -762,7 +762,7 @@ function ShareModal({ person, subdomain, onClose }) {
           </div>
         </div>
         <div className="flex flex-col gap-2">
-          <button onClick={copyAll} className="w-full bg-[#1a5c38] text-[#f5deb3] font-bold py-2 rounded-2xl text-sm transition-colors hover:bg-[#154a2e]">
+          <button onClick={copyAll} className="w-full bg-[#1a5c38] text-[#b5e3f4] font-bold py-2 rounded-2xl text-sm transition-colors hover:bg-[#154a2e]">
             {copied ? '✓ Copied!' : '📋 Copy All'}
           </button>
           <button onClick={whatsapp} className="w-full bg-[#25D366] text-white font-bold py-2 rounded-2xl text-sm transition-colors hover:bg-[#1ebe5d]">
@@ -805,12 +805,12 @@ function PersonCard({ person: p, isAdmin, subdomain, onViewProfile, onDeactivate
   return (
     <>
       {showShare && <ShareModal person={p} subdomain={subdomain} onClose={() => setShowShare(false)} />}
-      <div className="rounded-2xl p-4 bg-[#f5deb3] border border-[#c9a96e]/40 shadow-sm flex flex-col gap-3">
+      <div className="rounded-2xl p-4 bg-[#b5e3f4] border border-[#c9a96e]/40 shadow-sm flex flex-col gap-3">
         {/* Header */}
         <div className="flex items-start justify-between gap-2">
           <div className="flex flex-col gap-1">
             {p.displayId && (
-              <span className="inline-block font-mono text-xs text-[#800000] bg-[#f0d090] px-2 py-0.5 rounded-full self-start">{p.displayId}</span>
+              <span className="inline-block font-mono text-xs text-[#800000] bg-[#ade1f4] px-2 py-0.5 rounded-full self-start">{p.displayId}</span>
             )}
             <button onClick={onViewProfile} className="text-left font-bold text-[#800000] hover:underline text-base leading-tight">
               {p.name || '—'}
@@ -824,7 +824,7 @@ function PersonCard({ person: p, isAdmin, subdomain, onViewProfile, onDeactivate
         {personRoles.length > 1 && (
           <div className="flex flex-wrap gap-1">
             {personRoles.map(roleKey => (
-              <span key={roleKey} className="rounded-full bg-[#f0d090] px-2 py-0.5 text-[11px] font-semibold capitalize text-[#800020]">
+              <span key={roleKey} className="rounded-full bg-[#ade1f4] px-2 py-0.5 text-[11px] font-semibold capitalize text-[#800020]">
                 {roleKey}
               </span>
             ))}
@@ -848,7 +848,7 @@ function PersonCard({ person: p, isAdmin, subdomain, onViewProfile, onDeactivate
         </div>
 
         {/* Password section — always visible so admin can share credentials */}
-        <div className="rounded-xl bg-[#f0d090] px-3 py-2 text-xs space-y-1">
+        <div className="rounded-xl bg-[#ade1f4] px-3 py-2 text-xs space-y-1">
           <div className="flex items-center justify-between gap-2">
             <span className="text-[#800020] font-semibold uppercase">Default Password</span>
             <button onClick={copyPassword} className="text-[#1a5c38] font-bold hover:underline">
@@ -866,18 +866,18 @@ function PersonCard({ person: p, isAdmin, subdomain, onViewProfile, onDeactivate
         {/* Role change */}
         {isAdmin && changingRole && (
           <div className="flex gap-1 items-center">
-            <select value={newRole} onChange={e => setNewRole(e.target.value)} className="flex-1 rounded-lg border border-[#c9a96e]/40 bg-[#f0d090] text-[#191970] px-2 py-1 text-xs">
+            <select value={newRole} onChange={e => setNewRole(e.target.value)} className="flex-1 rounded-lg border border-[#c9a96e]/40 bg-[#ade1f4] text-[#191970] px-2 py-1 text-xs">
               <option value="">Select additional role</option>
               {ROLES.map(r => <option key={r} value={r}>{r}</option>)}
             </select>
-            <button onClick={onSaveRole} className="bg-[#1a5c38] text-[#f5deb3] text-xs px-2 py-1 rounded-lg font-bold">Save</button>
+            <button onClick={onSaveRole} className="bg-[#1a5c38] text-[#b5e3f4] text-xs px-2 py-1 rounded-lg font-bold">Save</button>
             <button onClick={onCancelRole} className="text-[#800020] text-xs px-1">✕</button>
           </div>
         )}
 
         {/* Actions */}
         <div className="flex gap-2 flex-wrap">
-          <button onClick={() => setShowShare(true)} className="flex-1 bg-[#1a5c38] hover:bg-[#154a2e] text-[#f5deb3] font-bold text-xs py-1.5 px-3 rounded-xl transition-colors">
+          <button onClick={() => setShowShare(true)} className="flex-1 bg-[#1a5c38] hover:bg-[#154a2e] text-[#b5e3f4] font-bold text-xs py-1.5 px-3 rounded-xl transition-colors">
             📤 Share
           </button>
           {isAdmin && (
@@ -885,13 +885,13 @@ function PersonCard({ person: p, isAdmin, subdomain, onViewProfile, onDeactivate
               onClick={handleReset}
               disabled={resetting}
               title="Reset to default password — user must change on next sign in"
-              className="bg-[#800020] hover:bg-[#5c0018] text-[#f5deb3] text-xs px-3 py-1.5 rounded-xl font-bold transition-colors disabled:opacity-60"
+              className="bg-[#800020] hover:bg-[#5c0018] text-[#b5e3f4] text-xs px-3 py-1.5 rounded-xl font-bold transition-colors disabled:opacity-60"
             >
               {resetting ? '…' : '🔑 Reset'}
             </button>
           )}
           {isAdmin && !changingRole && (
-            <button onClick={onStartRoleChange} className="bg-[#1a5c38] hover:bg-[#154a2e] text-[#f5deb3] text-xs px-3 py-1.5 rounded-xl font-bold transition-colors">Add Role</button>
+            <button onClick={onStartRoleChange} className="bg-[#1a5c38] hover:bg-[#154a2e] text-[#b5e3f4] text-xs px-3 py-1.5 rounded-xl font-bold transition-colors">Add Role</button>
           )}
           {isAdmin && (
             <button onClick={onDeactivate} className="border border-red-300 text-red-600 text-xs px-3 py-1.5 rounded-xl font-semibold hover:bg-red-50 transition-colors">Off</button>
@@ -991,14 +991,14 @@ export default function OwnerPeople() {
         />
       )}
 
-      <div className="rounded-3xl p-6 bg-[#f5deb3] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10 flex items-start justify-between gap-4">
+      <div className="rounded-3xl p-6 bg-[#b5e3f4] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10 flex items-start justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-[#800000] dark:text-slate-100">People</h1>
           <p className="text-[#191970] dark:text-slate-300 mt-1 text-sm">Manage students, parents, and school staff with live profile records.</p>
         </div>
         <div className="flex gap-2 shrink-0">
-          <button onClick={() => setShowBulk(true)} title="Bulk import via CSV" className="h-12 px-4 flex items-center gap-1.5 bg-[#191970] hover:bg-[#111450] text-[#f5deb3] font-bold rounded-2xl text-sm transition-colors">📥 Import</button>
-          <button onClick={() => setShowAdd(true)} aria-label="Add person" className="h-12 w-12 flex items-center justify-center bg-[#1a5c38] hover:bg-[#154a2e] text-[#f5deb3] font-bold rounded-2xl text-2xl leading-none transition-colors">+</button>
+          <button onClick={() => setShowBulk(true)} title="Bulk import via CSV" className="h-12 px-4 flex items-center gap-1.5 bg-[#191970] hover:bg-[#111450] text-[#b5e3f4] font-bold rounded-2xl text-sm transition-colors">📥 Import</button>
+          <button onClick={() => setShowAdd(true)} aria-label="Add person" className="h-12 w-12 flex items-center justify-center bg-[#1a5c38] hover:bg-[#154a2e] text-[#b5e3f4] font-bold rounded-2xl text-2xl leading-none transition-colors">+</button>
         </div>
       </div>
 
@@ -1009,16 +1009,16 @@ export default function OwnerPeople() {
           value={search}
           onChange={e => { setSearch(e.target.value); setPage(1); }}
           placeholder="Search by name, email, phone, user ID…"
-          className="flex-1 rounded-2xl border border-[#c9a96e]/40 bg-[#f5deb3] dark:bg-slate-900/30 text-[#191970] dark:text-slate-100 px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-[#1a5c38] placeholder:text-[#800020]/50"
+          className="flex-1 rounded-2xl border border-[#c9a96e]/40 bg-[#b5e3f4] dark:bg-slate-900/30 text-[#191970] dark:text-slate-100 px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-[#1a5c38] placeholder:text-[#800020]/50"
         />
         <div className="flex gap-2 flex-wrap">
           {FILTERS.map(f => (
-            <button key={f} onClick={() => { setFilter(f); setPage(1); }} className={`px-4 py-2 rounded-2xl text-sm font-semibold border transition-colors ${filter === f ? 'bg-[#800020] text-[#f5deb3] border-[#800020]' : 'bg-[#f5deb3] text-[#800020] border-[#c9a96e]/40 dark:bg-slate-900/30 dark:text-slate-400 dark:border-white/10 hover:bg-[#efd4a0]'}`}>{f}</button>
+            <button key={f} onClick={() => { setFilter(f); setPage(1); }} className={`px-4 py-2 rounded-2xl text-sm font-semibold border transition-colors ${filter === f ? 'bg-[#800020] text-[#b5e3f4] border-[#800020]' : 'bg-[#b5e3f4] text-[#800020] border-[#c9a96e]/40 dark:bg-slate-900/30 dark:text-slate-400 dark:border-white/10 hover:bg-[#efd4a0]'}`}>{f}</button>
           ))}
         </div>
       </div>
 
-      <div className="rounded-3xl p-6 bg-[#f5deb3] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
+      <div className="rounded-3xl p-6 bg-[#b5e3f4] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
         {loading ? (
           <p className="text-[#800020] dark:text-slate-400">Loading...</p>
         ) : error ? (
@@ -1055,7 +1055,7 @@ export default function OwnerPeople() {
                 Previous
               </button>
               <p className="text-xs font-semibold uppercase text-[#800020]">Page {pagination.page || page}</p>
-              <button onClick={() => setPage(current => current + 1)} disabled={!pagination.hasMore || loading} className="rounded-2xl bg-[#1a5c38] px-4 py-2 text-sm font-bold text-[#f5deb3] disabled:opacity-50">
+              <button onClick={() => setPage(current => current + 1)} disabled={!pagination.hasMore || loading} className="rounded-2xl bg-[#1a5c38] px-4 py-2 text-sm font-bold text-[#b5e3f4] disabled:opacity-50">
                 Next
               </button>
             </div>

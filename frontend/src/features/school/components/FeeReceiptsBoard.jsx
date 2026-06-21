@@ -3,8 +3,8 @@ import { getFeeReceipts } from '../services/schoolApi';
 import FeeReceiptDialog from './FeeReceiptDialog';
 
 const PAGE = 'p-8 max-w-7xl mx-auto space-y-6';
-const HEADER = 'rounded-3xl p-6 bg-[#f5deb3] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10';
-const CARD = 'rounded-3xl p-6 bg-[#f5deb3] border border-[#c9a96e]/40 dark:border-white/10 dark:bg-slate-900/30';
+const HEADER = 'rounded-3xl p-6 bg-[#b5e3f4] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10';
+const CARD = 'rounded-3xl p-6 bg-[#b5e3f4] border border-[#c9a96e]/40 dark:border-white/10 dark:bg-slate-900/30';
 const INPUT = 'w-full rounded-xl border border-[#c9a96e]/40 bg-white/80 px-3 py-2 text-sm text-[#191970] outline-none focus:border-[#800020]';
 
 function formatNaira(value) {
@@ -89,7 +89,7 @@ export default function FeeReceiptsBoard() {
                       <td className="py-2 pr-4 text-emerald-700 font-semibold">{formatNaira(r.amount)}</td>
                       <td className="py-2 pr-4 text-[#191970]">{formatNaira(r.balanceAfter)}</td>
                       <td className="py-2 pr-4"><StatusPill status={r.statusAfter} /></td>
-                      <td className="py-2"><button onClick={() => setSelectedReceipt(r)} className="rounded-xl bg-[#1a5c38] hover:bg-[#154a2e] text-[#f5deb3] font-bold px-4 py-1.5 text-xs">View</button></td>
+                      <td className="py-2"><button onClick={() => setSelectedReceipt(r)} className="rounded-xl bg-[#1a5c38] hover:bg-[#154a2e] text-[#b5e3f4] font-bold px-4 py-1.5 text-xs">View</button></td>
                     </tr>
                   ))}
                 </tbody>

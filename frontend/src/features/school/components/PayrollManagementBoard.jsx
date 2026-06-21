@@ -18,14 +18,14 @@ import PayrollAccountDetailsPanel from './PayrollAccountDetailsPanel';
 import PayrollBankNotePanel from './PayrollBankNotePanel';
 
 const TABS = ['Payroll Sheet', 'Payslips', 'Account Details', 'Payroll Notes', 'History', 'Settings'];
-const CARD = 'rounded-3xl border border-[#c9a96e]/40 bg-[#f5deb3] p-6 text-[#191970] shadow-sm dark:border-[#00ffff]/20 dark:bg-[#800000]/25 dark:text-[#39ff14] dark:backdrop-blur-xl';
-const INNER = 'rounded-2xl border border-[#c9a96e]/30 bg-[#f0d090] p-4 dark:border-[#00ffff]/20 dark:bg-[#330014]/70';
-const BTN = 'rounded-2xl bg-[#1a5c38] px-5 py-2.5 text-sm font-bold text-[#f5deb3] transition-colors hover:bg-[#154a2e] disabled:cursor-not-allowed disabled:opacity-70 dark:bg-[#00ffff] dark:text-black dark:hover:bg-[#7df9ff]';
+const CARD = 'rounded-3xl border border-[#c9a96e]/40 bg-[#b5e3f4] p-6 text-[#191970] shadow-sm dark:border-[#00ffff]/20 dark:bg-[#800000]/25 dark:text-[#39ff14] dark:backdrop-blur-xl';
+const INNER = 'rounded-2xl border border-[#c9a96e]/30 bg-[#ade1f4] p-4 dark:border-[#00ffff]/20 dark:bg-[#330014]/70';
+const BTN = 'rounded-2xl bg-[#1a5c38] px-5 py-2.5 text-sm font-bold text-[#b5e3f4] transition-colors hover:bg-[#154a2e] disabled:cursor-not-allowed disabled:opacity-70 dark:bg-[#00ffff] dark:text-black dark:hover:bg-[#7df9ff]';
 const OUTLINE_BTN = 'rounded-2xl border border-[#800020]/30 bg-white/60 px-5 py-2.5 text-sm font-semibold text-[#800020] transition-colors hover:bg-white dark:border-[#bf00ff]/40 dark:bg-[#120014]/80 dark:text-[#bf00ff] dark:hover:bg-[#1f0022]';
 const ICON_BTN = 'inline-flex h-8 w-8 items-center justify-center rounded-full border border-[#800020]/30 bg-white/80 text-lg font-bold text-[#800020] transition-colors hover:bg-white dark:border-[#00ffff]/30 dark:bg-[#120014]/85 dark:text-[#00ffff] dark:hover:bg-[#1f0022]';
 const INPUT = 'w-full rounded-xl border border-[#c9a96e]/40 bg-white/80 px-3 py-2 text-sm text-[#191970] outline-none transition focus:border-[#800020] focus:ring-2 focus:ring-[#800020]/15 dark:border-[#00ffff]/20 dark:bg-[#120014]/80 dark:text-white dark:focus:border-[#00ffff] dark:focus:ring-[#00ffff]/20';
 const BADGE = 'inline-flex items-center rounded-full border border-[#800020]/15 bg-white/70 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-[#800020] dark:border-[#bf00ff]/25 dark:bg-[#1a001d]/80 dark:text-[#bf00ff]';
-const TH = 'border border-[#c9a96e]/30 bg-[#800020] p-3 text-left text-xs font-semibold uppercase tracking-[0.14em] text-[#f5deb3] dark:border-[#00ffff]/20 dark:bg-[#0000ff]/25 dark:text-white';
+const TH = 'border border-[#c9a96e]/30 bg-[#800020] p-3 text-left text-xs font-semibold uppercase tracking-[0.14em] text-[#b5e3f4] dark:border-[#00ffff]/20 dark:bg-[#0000ff]/25 dark:text-white';
 const TD = 'border border-[#c9a96e]/30 p-2 align-top dark:border-[#00ffff]/15';
 
 const DEFAULT_PAYROLL_SETTINGS = {
@@ -1064,7 +1064,7 @@ function PayrollManagementBoard({ canApprove = false }) {
   return (
     <div className="space-y-6">
       {toast ? (
-        <div className="fixed right-6 top-6 z-50 rounded-2xl bg-[#1a5c38] px-5 py-3 text-sm font-bold text-[#f5deb3] shadow-xl dark:bg-[#00ffff] dark:text-black">
+        <div className="fixed right-6 top-6 z-50 rounded-2xl bg-[#1a5c38] px-5 py-3 text-sm font-bold text-[#b5e3f4] shadow-xl dark:bg-[#00ffff] dark:text-black">
           {toast}
         </div>
       ) : null}
@@ -1120,7 +1120,7 @@ function PayrollManagementBoard({ canApprove = false }) {
                 : 'max-h-[70vh] overflow-auto overscroll-contain rounded-2xl border border-[#c9a96e]/25 dark:border-[#00ffff]/15'}>
                 {tableFullscreen ? (
                   <div className="sticky top-0 z-[70] mb-2 flex justify-end">
-                    <button type="button" onClick={() => setTableFullscreen(false)} className="inline-flex items-center gap-1.5 rounded-xl bg-[#800020] px-3 py-1.5 text-xs font-bold text-[#f5deb3]">
+                    <button type="button" onClick={() => setTableFullscreen(false)} className="inline-flex items-center gap-1.5 rounded-xl bg-[#800020] px-3 py-1.5 text-xs font-bold text-[#b5e3f4]">
                       <ArrowsPointingInIcon className="h-4 w-4" /> Exit Full Screen
                     </button>
                   </div>
@@ -1139,8 +1139,8 @@ function PayrollManagementBoard({ canApprove = false }) {
                             <div className="min-w-[140px] space-y-2">
                               <div className="flex items-start justify-between gap-2">
                                 <div>
-                                  {index === 0 ? <span className="block text-[10px] uppercase tracking-[0.16em] text-[#f5deb3]">Earnings</span> : null}
-                                  <span className="block text-[10px] uppercase tracking-[0.16em] text-[#f5deb3]/80">{column.fixed ? 'Standard' : 'Custom'} earning</span>
+                                  {index === 0 ? <span className="block text-[10px] uppercase tracking-[0.16em] text-[#b5e3f4]">Earnings</span> : null}
+                                  <span className="block text-[10px] uppercase tracking-[0.16em] text-[#b5e3f4]/80">{column.fixed ? 'Standard' : 'Custom'} earning</span>
                                 </div>
                                 <div className="flex items-center gap-1">
                                   {index === 0 ? (
@@ -1168,8 +1168,8 @@ function PayrollManagementBoard({ canApprove = false }) {
                             <div className="min-w-[140px] space-y-2">
                               <div className="flex items-start justify-between gap-2">
                                 <div>
-                                  {index === 0 ? <span className="block text-[10px] uppercase tracking-[0.16em] text-[#f5deb3]">Deductions</span> : null}
-                                  <span className="block text-[10px] uppercase tracking-[0.16em] text-[#f5deb3]/80">{column.fixed ? 'Standard' : 'Custom'} deduction</span>
+                                  {index === 0 ? <span className="block text-[10px] uppercase tracking-[0.16em] text-[#b5e3f4]">Deductions</span> : null}
+                                  <span className="block text-[10px] uppercase tracking-[0.16em] text-[#b5e3f4]/80">{column.fixed ? 'Standard' : 'Custom'} deduction</span>
                                 </div>
                                 <div className="flex items-center gap-1">
                                   {index === 0 ? (
@@ -1281,7 +1281,7 @@ function PayrollManagementBoard({ canApprove = false }) {
                       </tr>
                     ))}
 
-                    <tr className="bg-[#f0d090] font-bold dark:bg-[#220022]">
+                    <tr className="bg-[#ade1f4] font-bold dark:bg-[#220022]">
                       <td colSpan={5} className={TD}>TOTAL</td>
                       {settingsForm.earningColumns.map(column => (
                         <td key={`earning-total-${column.key}`} className={TD}>{formatNaira(payrollTotals.earnings[column.key] || 0)}</td>

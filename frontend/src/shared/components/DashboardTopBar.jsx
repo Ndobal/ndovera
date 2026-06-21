@@ -453,7 +453,7 @@ export default function DashboardTopBar({ authUser = null, onLogout = () => {}, 
           <button
             type="button"
             onClick={onToggleSidebar}
-            className="md:hidden glass-chip p-2 rounded-xl text-slate-700 dark:text-[#f5deb3] hover:bg-white/70 dark:hover:bg-slate-700/60 transition-colors"
+            className="md:hidden glass-chip p-2 rounded-xl text-slate-700 dark:text-[#b5e3f4] hover:bg-white/70 dark:hover:bg-slate-700/60 transition-colors"
             aria-label={isSidebarOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={isSidebarOpen}
           >
@@ -549,7 +549,7 @@ export default function DashboardTopBar({ authUser = null, onLogout = () => {}, 
                   <button
                     type="button"
                     onClick={requestDeviceNotifications}
-                    className="mt-3 rounded-2xl bg-[#1a5c38] px-4 py-2 text-sm font-bold text-[#f5deb3] dark:bg-[#00ffff] dark:text-[#000000]"
+                    className="mt-3 rounded-2xl bg-[#1a5c38] px-4 py-2 text-sm font-bold text-[#b5e3f4] dark:bg-[#00ffff] dark:text-[#000000]"
                   >
                     Allow Notifications
                   </button>
@@ -634,7 +634,7 @@ export default function DashboardTopBar({ authUser = null, onLogout = () => {}, 
                         type="button"
                         onClick={handleSendReply}
                         disabled={sendingChatReply || !chatDraft.trim()}
-                        className="flex-1 rounded-2xl bg-[#1a5c38] px-4 py-2 text-sm font-bold text-[#f5deb3] transition disabled:opacity-50 dark:bg-[#00ffff] dark:text-black"
+                        className="flex-1 rounded-2xl bg-[#1a5c38] px-4 py-2 text-sm font-bold text-[#b5e3f4] transition disabled:opacity-50 dark:bg-[#00ffff] dark:text-black"
                       >
                         <span className="inline-flex items-center gap-2">
                           <PaperAirplaneIcon className="w-4 h-4" />

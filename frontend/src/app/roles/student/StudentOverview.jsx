@@ -86,11 +86,11 @@ export default function StudentOverview() {
     >
       {data.displayId && (
         <div className="mb-4 flex items-center gap-3">
-          <span style={{ background: '#f5deb3', color: '#800020', fontWeight: 700, borderRadius: 8, padding: '2px 14px', fontSize: 13 }}>
+          <span style={{ background: '#b5e3f4', color: '#800020', fontWeight: 700, borderRadius: 8, padding: '2px 14px', fontSize: 13 }}>
             ID: {data.displayId}
           </span>
           {data.className && (
-            <span style={{ background: '#f5deb3', color: '#191970', fontWeight: 600, borderRadius: 8, padding: '2px 14px', fontSize: 13 }}>
+            <span style={{ background: '#b5e3f4', color: '#191970', fontWeight: 600, borderRadius: 8, padding: '2px 14px', fontSize: 13 }}>
               {data.className}
             </span>
           )}
@@ -123,7 +123,7 @@ export default function StudentOverview() {
             </p>
           </>
         ) : (
-          <div style={{ background: '#f5deb3', borderRadius: 16, padding: 24, textAlign: 'center' }}>
+          <div style={{ background: '#b5e3f4', borderRadius: 16, padding: 24, textAlign: 'center' }}>
             <p style={{ color: '#800000', fontWeight: 700, marginBottom: 8 }}>No metrics yet</p>
             <p style={{ color: '#191970', fontSize: 14 }}>Attendance, scores and assignment metrics will appear here once your teacher starts recording them.</p>
           </div>
@@ -131,14 +131,14 @@ export default function StudentOverview() {
       </div>
 
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
-        <section style={{ background: '#f5deb3', borderRadius: 16, padding: 24 }}>
+        <section style={{ background: '#b5e3f4', borderRadius: 16, padding: 24 }}>
           <h2 style={{ color: '#800000', fontWeight: 800, fontSize: 18, marginBottom: 16 }}>Quick Links</h2>
           <div className="grid grid-cols-2 gap-3">
             {data.quickLinks.map(link => (
               <a
                 key={link.name}
                 href={link.path}
-                style={{ background: '#1a5c38', color: '#f5deb3', fontWeight: 700, borderRadius: 10, padding: '12px 16px', textDecoration: 'none', textAlign: 'center', display: 'block' }}
+                style={{ background: '#1a5c38', color: '#b5e3f4', fontWeight: 700, borderRadius: 10, padding: '12px 16px', textDecoration: 'none', textAlign: 'center', display: 'block' }}
               >
                 {link.name}
               </a>
@@ -146,7 +146,7 @@ export default function StudentOverview() {
           </div>
         </section>
 
-        <section style={{ background: '#f5deb3', borderRadius: 16, padding: 24 }}>
+        <section style={{ background: '#b5e3f4', borderRadius: 16, padding: 24 }}>
           <h2 style={{ color: '#800000', fontWeight: 800, fontSize: 18, marginBottom: 16 }}>Notices</h2>
           {data.notices.length > 0 ? (
             <div className="space-y-3">
@@ -163,7 +163,7 @@ export default function StudentOverview() {
         </section>
       </div>
 
-      <section style={{ background: '#f5deb3', borderRadius: 16, padding: 24, marginTop: 24 }}>
+      <section style={{ background: '#b5e3f4', borderRadius: 16, padding: 24, marginTop: 24 }}>
         <h2 style={{ color: '#800000', fontWeight: 800, fontSize: 18, marginBottom: 16 }}>Learning Analytics</h2>
         {!hasClass ? (
           <p style={{ color: '#191970', fontSize: 14 }}>Your learning analytics will appear here once your class assignment is active.</p>

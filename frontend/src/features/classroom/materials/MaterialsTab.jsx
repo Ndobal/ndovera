@@ -46,7 +46,7 @@ export default function MaterialsTab({ classId = '' }) {
       <div className="flex flex-wrap gap-2">
         {types.map(t => (
           <button key={t} type="button" onClick={() => setFilter(t)}
-            className={`px-4 py-1.5 rounded-2xl border text-sm font-bold transition-colors capitalize ${filter === t ? 'bg-[#1a5c38] border-[#1a5c38] text-[#f5deb3]' : 'bg-[#f0d090] border-[#c9a96e]/40 text-[#191970]'}`}>
+            className={`px-4 py-1.5 rounded-2xl border text-sm font-bold transition-colors capitalize ${filter === t ? 'bg-[#1a5c38] border-[#1a5c38] text-[#b5e3f4]' : 'bg-[#ade1f4] border-[#c9a96e]/40 text-[#191970]'}`}>
             {t === 'all' ? 'All' : t}
           </button>
         ))}
@@ -55,7 +55,7 @@ export default function MaterialsTab({ classId = '' }) {
       {loading ? (
         <p className="text-sm font-bold text-[#191970]">Loading materials...</p>
       ) : filtered.length === 0 ? (
-        <div className="rounded-2xl border border-dashed border-[#c9a96e]/40 bg-[#f5deb3] p-5 text-center">
+        <div className="rounded-2xl border border-dashed border-[#c9a96e]/40 bg-[#b5e3f4] p-5 text-center">
           <p className="text-xs font-bold uppercase text-[#800020]">No materials published</p>
           <p className="mt-1 text-sm font-bold text-[#191970]">Your teacher has not uploaded any materials yet.</p>
         </div>
@@ -68,7 +68,7 @@ export default function MaterialsTab({ classId = '' }) {
             return (
             <div key={item.id || i}
               style={{ width: '150px', minHeight: '100px' }}
-              className="relative flex flex-col justify-between rounded-2xl border border-[#c9a96e]/40 bg-[#f0d090] p-3 shadow-sm overflow-hidden">
+              className="relative flex flex-col justify-between rounded-2xl border border-[#c9a96e]/40 bg-[#ade1f4] p-3 shadow-sm overflow-hidden">
               {/* Type badge */}
               <div className="flex items-center gap-1 mb-1">
                 <span className="text-base leading-none">{typeIcon(audio ? 'audio' : item.type)}</span>
@@ -83,7 +83,7 @@ export default function MaterialsTab({ classId = '' }) {
               <button
                 type="button"
                 onClick={() => setActiveMaterial(item)}
-                className={`mt-2 block w-full text-center font-bold text-xs px-2 py-1.5 rounded-xl transition-colors text-[#f5deb3] ${usableUrl ? 'bg-[#1a5c38] hover:bg-[#154a2e]' : 'bg-[#800020] hover:bg-[#5a0016]'}`}
+                className={`mt-2 block w-full text-center font-bold text-xs px-2 py-1.5 rounded-xl transition-colors text-[#b5e3f4] ${usableUrl ? 'bg-[#1a5c38] hover:bg-[#154a2e]' : 'bg-[#800020] hover:bg-[#5a0016]'}`}
               >
                 {openLabel}
               </button>

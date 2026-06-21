@@ -14,7 +14,7 @@ const Loader = () => {
           <img src={logoUrl} className="loader-logo loader-logo-center" alt="School Logo" style={{ borderRadius: '50%', objectFit: 'contain' }} />
         ) : (
           <div className="loader-logo loader-logo-center" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#800000', borderRadius: '50%' }}>
-            <span style={{ color: '#f5deb3', fontWeight: 900, fontSize: '28px', lineHeight: 1 }}>{initial}</span>
+            <span style={{ color: '#b5e3f4', fontWeight: 900, fontSize: '28px', lineHeight: 1 }}>{initial}</span>
           </div>
         )}
       </div>

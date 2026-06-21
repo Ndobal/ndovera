@@ -100,7 +100,7 @@ export default function LoginForm({ onSuccess }) {
               spellCheck={false}
               value={formState.id}
               onChange={handleChange}
-              className="w-full rounded-2xl border border-[#c9a96e]/45 bg-[#fffdf8] px-4 py-3 text-[#191970] outline-none transition focus:border-[#800000] focus:ring-4 focus:ring-[#f5deb3] dark:border-[#bf00ff]/40 dark:bg-[#2a001f]/70 dark:text-white dark:focus:border-[#00ffff] dark:focus:ring-[#00ffff]/20"
+              className="w-full rounded-2xl border border-[#c9a96e]/45 bg-[#fffdf8] px-4 py-3 text-[#191970] outline-none transition focus:border-[#800000] focus:ring-4 focus:ring-[#b5e3f4] dark:border-[#bf00ff]/40 dark:bg-[#2a001f]/70 dark:text-white dark:focus:border-[#00ffff] dark:focus:ring-[#00ffff]/20"
               placeholder="you@ndovera.com"
               required
             />
@@ -127,7 +127,7 @@ export default function LoginForm({ onSuccess }) {
                 spellCheck={false}
                 value={formState.password}
                 onChange={handleChange}
-                className="w-full rounded-2xl border border-[#c9a96e]/45 bg-[#fffdf8] px-4 py-3 pr-20 text-[#191970] outline-none transition focus:border-[#800000] focus:ring-4 focus:ring-[#f5deb3] dark:border-[#bf00ff]/40 dark:bg-[#2a001f]/70 dark:text-white dark:focus:border-[#00ffff] dark:focus:ring-[#00ffff]/20"
+                className="w-full rounded-2xl border border-[#c9a96e]/45 bg-[#fffdf8] px-4 py-3 pr-20 text-[#191970] outline-none transition focus:border-[#800000] focus:ring-4 focus:ring-[#b5e3f4] dark:border-[#bf00ff]/40 dark:bg-[#2a001f]/70 dark:text-white dark:focus:border-[#00ffff] dark:focus:ring-[#00ffff]/20"
                 placeholder="Enter your password"
                 required
               />
@@ -151,7 +151,7 @@ export default function LoginForm({ onSuccess }) {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="mt-5 w-full rounded-2xl bg-[#1a5c38] px-4 py-3 text-[#f5deb3] font-bold transition-colors hover:bg-[#154a2e] disabled:cursor-not-allowed disabled:opacity-70 dark:bg-[#00ffff] dark:text-black dark:hover:bg-[#7ffcff]"
+          className="mt-5 w-full rounded-2xl bg-[#1a5c38] px-4 py-3 text-[#b5e3f4] font-bold transition-colors hover:bg-[#154a2e] disabled:cursor-not-allowed disabled:opacity-70 dark:bg-[#00ffff] dark:text-black dark:hover:bg-[#7ffcff]"
         >
           {isSubmitting ? 'Signing in...' : 'Sign In'}
         </button>
@@ -160,7 +160,7 @@ export default function LoginForm({ onSuccess }) {
           <p className="text-sm text-[#191970] dark:text-[#39ff14]">Don't have an account?</p>
           <a
             href="/register-school"
-            className="mt-2 inline-block w-full rounded-2xl border border-[#800000] px-4 py-3 text-[#800020] font-semibold text-center transition-colors hover:bg-[#f5deb3] dark:border-[#bf00ff] dark:text-[#bf00ff] dark:hover:bg-[#2a001f]"
+            className="mt-2 inline-block w-full rounded-2xl border border-[#800000] px-4 py-3 text-[#800020] font-semibold text-center transition-colors hover:bg-[#b5e3f4] dark:border-[#bf00ff] dark:text-[#bf00ff] dark:hover:bg-[#2a001f]"
           >
             Register Your School
           </a>
@@ -191,7 +191,7 @@ export default function LoginForm({ onSuccess }) {
                   type="email"
                   value={resetEmail}
                   onChange={event => setResetEmail(event.target.value)}
-                  className="w-full rounded-2xl border border-[#c9a96e]/45 bg-[#fffdf8] px-4 py-3 text-[#191970] outline-none transition focus:border-[#800000] focus:ring-4 focus:ring-[#f5deb3] dark:border-[#bf00ff]/40 dark:bg-[#2a001f]/70 dark:text-white dark:focus:border-[#00ffff] dark:focus:ring-[#00ffff]/20"
+                  className="w-full rounded-2xl border border-[#c9a96e]/45 bg-[#fffdf8] px-4 py-3 text-[#191970] outline-none transition focus:border-[#800000] focus:ring-4 focus:ring-[#b5e3f4] dark:border-[#bf00ff]/40 dark:bg-[#2a001f]/70 dark:text-white dark:focus:border-[#00ffff] dark:focus:ring-[#00ffff]/20"
                   placeholder="you@ndovera.com"
                   required
                 />
@@ -212,7 +212,7 @@ export default function LoginForm({ onSuccess }) {
               <button
                 type="submit"
                 disabled={isResetSubmitting}
-                className="w-full rounded-2xl bg-[#1a5c38] px-4 py-3 font-bold text-[#f5deb3] transition hover:bg-[#154a2e] disabled:cursor-not-allowed disabled:opacity-70 dark:bg-[#00ffff] dark:text-black dark:hover:bg-[#7ffcff]"
+                className="w-full rounded-2xl bg-[#1a5c38] px-4 py-3 font-bold text-[#b5e3f4] transition hover:bg-[#154a2e] disabled:cursor-not-allowed disabled:opacity-70 dark:bg-[#00ffff] dark:text-black dark:hover:bg-[#7ffcff]"
               >
                 {isResetSubmitting ? 'Sending...' : 'Reset'}
               </button>

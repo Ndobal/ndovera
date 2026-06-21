@@ -2,9 +2,9 @@ import React, { useMemo, useRef, useState } from 'react';
 import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
 
-const CARD = 'rounded-3xl border border-[#c9a96e]/40 bg-[#f5deb3] p-6 text-[#191970] shadow-sm dark:border-[#00ffff]/20 dark:bg-[#800000]/25 dark:text-[#39ff14] dark:backdrop-blur-xl';
-const INNER = 'rounded-2xl border border-[#c9a96e]/30 bg-[#f0d090] p-4 dark:border-[#00ffff]/20 dark:bg-[#330014]/70';
-const BTN = 'rounded-2xl bg-[#1a5c38] px-5 py-2.5 text-sm font-bold text-[#f5deb3] transition-colors hover:bg-[#154a2e] disabled:cursor-not-allowed disabled:opacity-70 dark:bg-[#00ffff] dark:text-black dark:hover:bg-[#7df9ff]';
+const CARD = 'rounded-3xl border border-[#c9a96e]/40 bg-[#b5e3f4] p-6 text-[#191970] shadow-sm dark:border-[#00ffff]/20 dark:bg-[#800000]/25 dark:text-[#39ff14] dark:backdrop-blur-xl';
+const INNER = 'rounded-2xl border border-[#c9a96e]/30 bg-[#ade1f4] p-4 dark:border-[#00ffff]/20 dark:bg-[#330014]/70';
+const BTN = 'rounded-2xl bg-[#1a5c38] px-5 py-2.5 text-sm font-bold text-[#b5e3f4] transition-colors hover:bg-[#154a2e] disabled:cursor-not-allowed disabled:opacity-70 dark:bg-[#00ffff] dark:text-black dark:hover:bg-[#7df9ff]';
 const OUTLINE_BTN = 'rounded-2xl border border-[#800020]/30 bg-white/60 px-5 py-2.5 text-sm font-semibold text-[#800020] transition-colors hover:bg-white dark:border-[#bf00ff]/40 dark:bg-[#120014]/80 dark:text-[#bf00ff] dark:hover:bg-[#1f0022]';
 const INPUT = 'w-full rounded-xl border border-[#c9a96e]/40 bg-white/80 px-3 py-2 text-sm text-[#191970] outline-none transition focus:border-[#800020] focus:ring-2 focus:ring-[#800020]/15 dark:border-[#00ffff]/20 dark:bg-[#120014]/80 dark:text-white dark:focus:border-[#00ffff] dark:focus:ring-[#00ffff]/20';
 const BADGE = 'inline-flex items-center rounded-full border border-[#800020]/15 bg-white/70 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-[#800020] dark:border-[#bf00ff]/25 dark:bg-[#1a001d]/80 dark:text-[#bf00ff]';
@@ -277,7 +277,7 @@ export default function PayrollBankNotePanel({
                 </div>
               </div>
             </div>
-            <div className="rounded-2xl bg-[#f5deb3] px-4 py-3 text-right">
+            <div className="rounded-2xl bg-[#b5e3f4] px-4 py-3 text-right">
               <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#800020]">Period</p>
               <p className="mt-2 text-lg font-bold text-[#800000]">{monthLabel}</p>
               <p className="mt-2 text-xs text-slate-600">Generated {signatureDate}</p>
@@ -294,7 +294,7 @@ export default function PayrollBankNotePanel({
           <div className="mt-6 overflow-hidden rounded-3xl border border-slate-200">
             <table className="w-full border-collapse text-sm">
               <thead>
-                <tr className="bg-[#800020] text-[#f5deb3]">
+                <tr className="bg-[#800020] text-[#b5e3f4]">
                   <th className="px-3 py-3 text-left text-xs font-semibold uppercase tracking-[0.14em]">S/N</th>
                   <th className="px-3 py-3 text-left text-xs font-semibold uppercase tracking-[0.14em]">Staff Name</th>
                   <th className="px-3 py-3 text-left text-xs font-semibold uppercase tracking-[0.14em]">Role</th>
@@ -316,7 +316,7 @@ export default function PayrollBankNotePanel({
                     <td className="border-t border-slate-200 px-3 py-3 align-top font-bold text-[#1a5c38]">{formatNaira(row.net ?? row.computedNet ?? 0)}</td>
                   </tr>
                 ))}
-                <tr className="bg-[#f5deb3]">
+                <tr className="bg-[#b5e3f4]">
                   <td colSpan={6} className="border-t border-slate-200 px-3 py-3 text-right text-sm font-bold text-[#800000]">Total Net Pay</td>
                   <td className="border-t border-slate-200 px-3 py-3 text-sm font-bold text-[#1a5c38]">{formatNaira(totalNetPay)}</td>
                 </tr>

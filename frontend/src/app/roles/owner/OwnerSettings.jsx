@@ -43,7 +43,7 @@ function ProfileTab() {
   useEffect(() => { getMe().then(d => setMe(d?.user || d)).finally(() => setLoading(false)); }, []);
   return (
     <div className="space-y-6">
-      <div className="rounded-2xl p-5 bg-[#f0d090] dark:bg-slate-800/40 border border-[#c9a96e]/30 dark:border-white/5">
+      <div className="rounded-2xl p-5 bg-[#ade1f4] dark:bg-slate-800/40 border border-[#c9a96e]/30 dark:border-white/5">
         {loading ? <p className="text-[#800020]">Loading...</p> : me ? (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {[['Name', me.name], ['Email', me.email], ['Role', me.role]].map(([label, val]) => (
@@ -55,7 +55,7 @@ function ProfileTab() {
           </div>
         ) : <p className="text-[#800020]">No profile info.</p>}
       </div>
-      <div className="rounded-2xl p-5 bg-[#f0d090] dark:bg-slate-800/40 border border-[#c9a96e]/30 dark:border-white/5">
+      <div className="rounded-2xl p-5 bg-[#ade1f4] dark:bg-slate-800/40 border border-[#c9a96e]/30 dark:border-white/5">
         <h3 className="text-base font-semibold text-[#800000] dark:text-slate-100 mb-4">Password Reset</h3>
         <AdminPasswordReset />
       </div>
@@ -113,7 +113,7 @@ function BrandingTab() {
           {form.logoUrl && <img src={form.logoUrl} alt="Logo" className="h-16 w-16 rounded-xl object-contain border border-[#c9a96e]/40 bg-white" />}
           <div className="flex flex-col gap-1">
             <button type="button" onClick={() => fileRef.current?.click()} disabled={uploading}
-              className="bg-[#1a5c38] hover:bg-[#154a2e] text-[#f5deb3] font-bold px-5 py-2 rounded-2xl text-sm transition-colors disabled:opacity-60">
+              className="bg-[#1a5c38] hover:bg-[#154a2e] text-[#b5e3f4] font-bold px-5 py-2 rounded-2xl text-sm transition-colors disabled:opacity-60">
               {uploading ? 'Uploading…' : '📁 Upload Logo'}
             </button>
             <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={handleLogoUpload} />
@@ -130,7 +130,7 @@ function BrandingTab() {
         </div>
       ))}
 
-      <div className="rounded-2xl border border-[#c9a96e]/30 bg-[#f0d090]/50 p-4 dark:border-white/10 dark:bg-slate-900/20">
+      <div className="rounded-2xl border border-[#c9a96e]/30 bg-[#ade1f4]/50 p-4 dark:border-white/10 dark:bg-slate-900/20">
         <div className="mb-3">
           <p className="text-xs font-semibold uppercase text-[#800020] dark:text-slate-400">Social Media Links</p>
           <p className="mt-1 text-xs text-[#191970] dark:text-slate-300">Use a full profile URL, an @handle, or for WhatsApp a phone number or wa.me link.</p>
@@ -157,7 +157,7 @@ function BrandingTab() {
       </div>
 
       {msg && <p className={`text-sm ${msg.includes('!') ? 'text-emerald-700' : 'text-red-600'}`}>{msg}</p>}
-      <button type="submit" disabled={saving} className="bg-[#1a5c38] hover:bg-[#154a2e] text-[#f5deb3] font-bold px-6 py-2 rounded-2xl text-sm transition-colors disabled:opacity-60">
+      <button type="submit" disabled={saving} className="bg-[#1a5c38] hover:bg-[#154a2e] text-[#b5e3f4] font-bold px-6 py-2 rounded-2xl text-sm transition-colors disabled:opacity-60">
         {saving ? 'Saving...' : 'Save Branding'}
       </button>
     </form>
@@ -347,7 +347,7 @@ function ClassesTab() {
 
   return (
     <div className="space-y-4">
-      <div className="rounded-2xl border border-[#c9a96e]/40 bg-[#f0d090] dark:bg-slate-800/40 p-4 space-y-3">
+      <div className="rounded-2xl border border-[#c9a96e]/40 bg-[#ade1f4] dark:bg-slate-800/40 p-4 space-y-3">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
             <p className="text-sm font-bold text-[#800000] dark:text-slate-100">Quick Setup and Save-All</p>
@@ -357,7 +357,7 @@ function ClassesTab() {
             <button type="button" onClick={() => { setShowQuickSetup(value => !value); setQuickMsg(''); }} className="rounded-2xl border border-[#c9a96e]/40 px-4 py-2 text-xs font-semibold text-[#1a5c38]">
               {showQuickSetup ? 'Hide Quick Setup' : 'Show Quick Setup'}
             </button>
-            <button type="button" onClick={handleSaveAll} disabled={savingAll || dirtyClassIds.length === 0} className="rounded-2xl bg-[#1a5c38] px-4 py-2 text-xs font-bold text-[#f5deb3] disabled:opacity-60">
+            <button type="button" onClick={handleSaveAll} disabled={savingAll || dirtyClassIds.length === 0} className="rounded-2xl bg-[#1a5c38] px-4 py-2 text-xs font-bold text-[#b5e3f4] disabled:opacity-60">
               {savingAll ? 'Saving...' : `Save All Changes${dirtyClassIds.length ? ` (${dirtyClassIds.length})` : ''}`}
             </button>
           </div>
@@ -372,7 +372,7 @@ function ClassesTab() {
                     key={cls.value}
                     type="button"
                     onClick={() => setQuickSelected(current => selected ? current.filter(value => value !== cls.value) : [...current, cls.value])}
-                    className={`px-3 py-1 rounded-full text-xs font-semibold border ${selected ? 'bg-[#1a5c38] text-[#f5deb3] border-[#1a5c38]' : 'bg-[#f5deb3] text-[#800020] border-[#c9a96e]/40'}`}
+                    className={`px-3 py-1 rounded-full text-xs font-semibold border ${selected ? 'bg-[#1a5c38] text-[#b5e3f4] border-[#1a5c38]' : 'bg-[#b5e3f4] text-[#800020] border-[#c9a96e]/40'}`}
                   >
                     {cls.label}
                   </button>
@@ -382,9 +382,9 @@ function ClassesTab() {
             <div className="flex flex-wrap items-end gap-3">
               <div>
                 <label className="text-xs text-[#800020] dark:text-slate-400 uppercase font-semibold">Arms</label>
-                <input value={quickArms} onChange={e => setQuickArms(e.target.value)} className="mt-1 w-48 rounded-xl border border-[#c9a96e]/40 bg-[#f5deb3] px-3 py-2 text-sm text-[#191970]" placeholder="A,B,C" />
+                <input value={quickArms} onChange={e => setQuickArms(e.target.value)} className="mt-1 w-48 rounded-xl border border-[#c9a96e]/40 bg-[#b5e3f4] px-3 py-2 text-sm text-[#191970]" placeholder="A,B,C" />
               </div>
-              <button type="button" onClick={handleQuickSetup} disabled={quickSaving || quickSelected.length === 0} className="rounded-2xl bg-[#1a5c38] px-5 py-2 text-sm font-bold text-[#f5deb3] disabled:opacity-60">
+              <button type="button" onClick={handleQuickSetup} disabled={quickSaving || quickSelected.length === 0} className="rounded-2xl bg-[#1a5c38] px-5 py-2 text-sm font-bold text-[#b5e3f4] disabled:opacity-60">
                 {quickSaving ? 'Creating...' : 'Create Selected Classes'}
               </button>
             </div>
@@ -396,11 +396,11 @@ function ClassesTab() {
       <form onSubmit={handleAdd} className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-5">
         <div>
           <label className="text-xs text-[#800020] dark:text-slate-400 uppercase font-semibold">Class Name</label>
-          <input required value={form.name} onChange={e => setForm(current => ({ ...current, name: e.target.value }))} className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#f0d090] px-3 py-2 text-sm text-[#191970]" />
+          <input required value={form.name} onChange={e => setForm(current => ({ ...current, name: e.target.value }))} className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#ade1f4] px-3 py-2 text-sm text-[#191970]" />
         </div>
         <div>
           <label className="text-xs text-[#800020] dark:text-slate-400 uppercase font-semibold">Arm/Section</label>
-          <input value={form.arm} onChange={e => setForm(current => ({ ...current, arm: e.target.value }))} className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#f0d090] px-3 py-2 text-sm text-[#191970]" />
+          <input value={form.arm} onChange={e => setForm(current => ({ ...current, arm: e.target.value }))} className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#ade1f4] px-3 py-2 text-sm text-[#191970]" />
         </div>
         <div>
           <label className="text-xs text-[#800020] dark:text-slate-400 uppercase font-semibold">Primary Teacher</label>
@@ -411,13 +411,13 @@ function ClassesTab() {
               classTeacherId: nextTeacherId,
               teacherIds: nextTeacherId && !current.teacherIds.includes(nextTeacherId) ? [...current.teacherIds, nextTeacherId] : current.teacherIds,
             }));
-          }} className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#f0d090] px-3 py-2 text-sm text-[#191970]">
+          }} className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#ade1f4] px-3 py-2 text-sm text-[#191970]">
             <option value="">— None —</option>
             {teachers.map(teacher => <option key={teacher.id} value={teacher.id}>{teacher.name}</option>)}
           </select>
         </div>
         <div className="xl:col-span-2 flex items-end">
-          <button type="submit" disabled={saving} className="rounded-2xl bg-[#1a5c38] px-5 py-2 text-sm font-bold text-[#f5deb3] disabled:opacity-60">
+          <button type="submit" disabled={saving} className="rounded-2xl bg-[#1a5c38] px-5 py-2 text-sm font-bold text-[#b5e3f4] disabled:opacity-60">
             {saving ? 'Adding...' : 'Add Class'}
           </button>
         </div>
@@ -431,11 +431,11 @@ function ClassesTab() {
           const assistantId = assistantIdOf(draft);
           const caregiverId = (Array.isArray(draft.caregiverIds) ? draft.caregiverIds : [])[0] || '';
           const isDirty = dirtyClassIds.includes(cls.id);
-          const FIELD = 'mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#f5deb3] dark:bg-slate-800 px-3 py-2 text-sm text-[#191970] dark:text-slate-100';
+          const FIELD = 'mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#b5e3f4] dark:bg-slate-800 px-3 py-2 text-sm text-[#191970] dark:text-slate-100';
           const LABEL = 'text-xs font-semibold uppercase text-[#800020] dark:text-slate-300';
 
           return (
-            <div key={cls.id} className={`rounded-2xl p-4 border space-y-3 ${isDirty ? 'border-[#1a5c38] bg-[#f0d090] dark:bg-slate-800/60' : 'border-[#c9a96e]/30 bg-[#f0d090] dark:bg-slate-800/40 dark:border-white/5'}`}>
+            <div key={cls.id} className={`rounded-2xl p-4 border space-y-3 ${isDirty ? 'border-[#1a5c38] bg-[#ade1f4] dark:bg-slate-800/60' : 'border-[#c9a96e]/30 bg-[#ade1f4] dark:bg-slate-800/40 dark:border-white/5'}`}>
               <div className="flex items-start justify-between gap-3">
                 <div className="grid flex-1 grid-cols-1 gap-3 md:grid-cols-2">
                   <div>
@@ -448,7 +448,7 @@ function ClassesTab() {
                   </div>
                 </div>
                 <div className="flex shrink-0 items-center gap-2">
-                  {isDirty && <span className="rounded-full bg-[#1a5c38] px-3 py-1 text-[11px] font-bold uppercase text-[#f5deb3]">Unsaved</span>}
+                  {isDirty && <span className="rounded-full bg-[#1a5c38] px-3 py-1 text-[11px] font-bold uppercase text-[#b5e3f4]">Unsaved</span>}
                   <button type="button" onClick={() => handleDeleteClass(cls.id, `${cls.name}${cls.arm ? ` ${cls.arm}` : ''}`)} disabled={deletingClassId === cls.id} className="rounded-xl border border-red-300 px-3 py-2 text-xs font-semibold text-red-600 disabled:opacity-60">
                     {deletingClassId === cls.id ? 'Deleting...' : 'Delete'}
                   </button>
@@ -482,7 +482,7 @@ function ClassesTab() {
 
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <p className="text-[11px] text-[#800020] dark:text-slate-400">Manage this class's subjects in the <span className="font-semibold">Subjects</span> tab.</p>
-                <button type="button" onClick={() => handleSaveClass(cls.id)} disabled={savingClassId === cls.id} className="rounded-2xl bg-[#1a5c38] px-4 py-2 text-sm font-bold text-[#f5deb3] disabled:opacity-60">
+                <button type="button" onClick={() => handleSaveClass(cls.id)} disabled={savingClassId === cls.id} className="rounded-2xl bg-[#1a5c38] px-4 py-2 text-sm font-bold text-[#b5e3f4] disabled:opacity-60">
                   {savingClassId === cls.id ? 'Saving...' : 'Save This Class'}
                 </button>
               </div>
@@ -568,7 +568,7 @@ function SubjectsTab() {
   const classLabel = (cls) => `${cls.name}${cls.arm ? ` ${cls.arm}` : ''}`;
   const unassigned = subjects.filter(s => !s.classId);
 
-  const TEACHER_SELECT = 'rounded-xl border border-[#c9a96e]/40 bg-[#f5deb3] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-2 py-1 text-xs';
+  const TEACHER_SELECT = 'rounded-xl border border-[#c9a96e]/40 bg-[#b5e3f4] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-2 py-1 text-xs';
 
   function renderClassPanel(cls) {
     const classSubjects = subjects.filter(s => s.classId === cls.id);
@@ -576,7 +576,7 @@ function SubjectsTab() {
     const draft = draftFor(cls.id);
     return (
       <div key={cls.id} className="rounded-2xl border border-[#c9a96e]/40 dark:border-white/10 overflow-hidden">
-        <button type="button" onClick={() => setExpandedClassId(open ? '' : cls.id)} className="w-full flex items-center justify-between gap-3 px-4 py-3 bg-[#f0d090] dark:bg-slate-800/40 text-left">
+        <button type="button" onClick={() => setExpandedClassId(open ? '' : cls.id)} className="w-full flex items-center justify-between gap-3 px-4 py-3 bg-[#ade1f4] dark:bg-slate-800/40 text-left">
           <span className="font-bold text-[#800000] dark:text-slate-100">{classLabel(cls)}</span>
           <span className="flex items-center gap-2 text-xs font-semibold text-[#800020] dark:text-slate-300">
             {classSubjects.length} subject{classSubjects.length === 1 ? '' : 's'}
@@ -584,13 +584,13 @@ function SubjectsTab() {
           </span>
         </button>
         {open && (
-          <div className="p-4 space-y-3 bg-[#f5deb3] dark:bg-slate-900/30">
+          <div className="p-4 space-y-3 bg-[#b5e3f4] dark:bg-slate-900/30">
             {classSubjects.length === 0 ? (
               <p className="text-sm text-[#800020] dark:text-slate-400">No subjects yet. Add the first one below.</p>
             ) : (
               <div className="space-y-2">
                 {classSubjects.map(s => (
-                  <div key={s.id} className="flex flex-wrap items-center gap-2 rounded-xl border border-[#c9a96e]/30 dark:border-white/5 bg-[#f0d090] dark:bg-slate-800/40 px-3 py-2">
+                  <div key={s.id} className="flex flex-wrap items-center gap-2 rounded-xl border border-[#c9a96e]/30 dark:border-white/5 bg-[#ade1f4] dark:bg-slate-800/40 px-3 py-2">
                     <span className="flex-1 min-w-[120px] font-semibold text-[#191970] dark:text-slate-100">{s.name}</span>
                     <select value={s.teacherId || ''} disabled={updatingSubjectId === s.id} onChange={e => changeSubjectTeacher(s.id, e.target.value)} className={TEACHER_SELECT}>
                       <option value="">— No teacher —</option>
@@ -606,11 +606,11 @@ function SubjectsTab() {
               <p className="text-xs font-semibold uppercase text-[#800020] dark:text-slate-300">Add subject(s) to {classLabel(cls)}</p>
               <textarea value={draft.name} onChange={e => setNewSubject(current => ({ ...current, [cls.id]: { ...draft, name: e.target.value } }))} rows={2} placeholder={'One subject per line, e.g.\nMathematics\nEnglish Language'} className="w-full rounded-xl border border-[#c9a96e]/40 bg-white dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none" />
               <div className="flex flex-wrap items-center gap-2">
-                <select value={draft.teacherId} onChange={e => setNewSubject(current => ({ ...current, [cls.id]: { ...draft, teacherId: e.target.value } }))} className="rounded-xl border border-[#c9a96e]/40 bg-[#f5deb3] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-2 py-1 text-sm">
+                <select value={draft.teacherId} onChange={e => setNewSubject(current => ({ ...current, [cls.id]: { ...draft, teacherId: e.target.value } }))} className="rounded-xl border border-[#c9a96e]/40 bg-[#b5e3f4] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-2 py-1 text-sm">
                   <option value="">— Teacher (optional) —</option>
                   {teachers.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
                 </select>
-                <button type="button" onClick={() => addSubjectsToClass(cls.id)} disabled={savingClassId === cls.id} className="rounded-xl bg-[#1a5c38] text-[#f5deb3] font-bold px-4 py-1.5 text-sm disabled:opacity-60">
+                <button type="button" onClick={() => addSubjectsToClass(cls.id)} disabled={savingClassId === cls.id} className="rounded-xl bg-[#1a5c38] text-[#b5e3f4] font-bold px-4 py-1.5 text-sm disabled:opacity-60">
                   {savingClassId === cls.id ? 'Adding...' : 'Add'}
                 </button>
               </div>
@@ -623,7 +623,7 @@ function SubjectsTab() {
 
   return (
     <div className="space-y-4">
-      <div className="rounded-2xl border border-[#c9a96e]/40 dark:border-white/10 bg-[#f0d090] dark:bg-slate-800/40 p-4">
+      <div className="rounded-2xl border border-[#c9a96e]/40 dark:border-white/10 bg-[#ade1f4] dark:bg-slate-800/40 p-4">
         <p className="text-sm font-bold text-[#800000] dark:text-slate-100">Subjects by class</p>
         <p className="text-xs text-[#800020] dark:text-slate-400 mt-1">Open a class to see its subjects, add new ones, and pick the teacher for each. Only one class is open at a time.</p>
       </div>
@@ -637,14 +637,14 @@ function SubjectsTab() {
 
         {unassigned.length > 0 && (
           <div className="rounded-2xl border border-[#c9a96e]/40 dark:border-white/10 overflow-hidden">
-            <button type="button" onClick={() => setExpandedClassId(expandedClassId === '__unassigned' ? '' : '__unassigned')} className="w-full flex items-center justify-between gap-3 px-4 py-3 bg-[#f0d090] dark:bg-slate-800/40 text-left">
+            <button type="button" onClick={() => setExpandedClassId(expandedClassId === '__unassigned' ? '' : '__unassigned')} className="w-full flex items-center justify-between gap-3 px-4 py-3 bg-[#ade1f4] dark:bg-slate-800/40 text-left">
               <span className="font-bold text-[#800000] dark:text-slate-100">Subjects not yet in a class</span>
               <span className="flex items-center gap-2 text-xs font-semibold text-[#800020] dark:text-slate-300">{unassigned.length}<span aria-hidden>{expandedClassId === '__unassigned' ? '▲' : '▼'}</span></span>
             </button>
             {expandedClassId === '__unassigned' && (
-              <div className="p-4 space-y-2 bg-[#f5deb3] dark:bg-slate-900/30">
+              <div className="p-4 space-y-2 bg-[#b5e3f4] dark:bg-slate-900/30">
                 {unassigned.map(s => (
-                  <div key={s.id} className="flex flex-wrap items-center gap-2 rounded-xl border border-[#c9a96e]/30 dark:border-white/5 bg-[#f0d090] dark:bg-slate-800/40 px-3 py-2">
+                  <div key={s.id} className="flex flex-wrap items-center gap-2 rounded-xl border border-[#c9a96e]/30 dark:border-white/5 bg-[#ade1f4] dark:bg-slate-800/40 px-3 py-2">
                     <span className="flex-1 min-w-[120px] font-semibold text-[#191970] dark:text-slate-100">{s.name}</span>
                     <select value="" disabled={updatingSubjectId === s.id} onChange={e => e.target.value && changeSubjectClass(s.id, e.target.value)} className={TEACHER_SELECT}>
                       <option value="">Move to class…</option>
@@ -661,15 +661,15 @@ function SubjectsTab() {
 
       {/* Advanced: add a whole section's subjects at once (collapsed by default) */}
       <div className="rounded-2xl border border-[#c9a96e]/40 dark:border-white/10 overflow-hidden">
-        <button type="button" onClick={() => setShowBulk(v => !v)} className="w-full text-left px-4 py-3 text-sm font-semibold text-[#1a5c38] dark:text-[#00ffff] bg-[#f0d090]/60 dark:bg-slate-800/40">
+        <button type="button" onClick={() => setShowBulk(v => !v)} className="w-full text-left px-4 py-3 text-sm font-semibold text-[#1a5c38] dark:text-[#00ffff] bg-[#ade1f4]/60 dark:bg-slate-800/40">
           {showBulk ? 'Hide bulk setup' : 'Bulk setup — add the same subjects to every arm of a section (optional)'}
         </button>
         {showBulk && (
-          <form onSubmit={handleSectionBulk} className="p-4 space-y-3 bg-[#f5deb3] dark:bg-slate-900/30">
+          <form onSubmit={handleSectionBulk} className="p-4 space-y-3 bg-[#b5e3f4] dark:bg-slate-900/30">
             <div>
               <label className="text-xs text-[#800020] dark:text-slate-400 uppercase font-semibold">Section (e.g. JSS 1)</label>
               <select required value={sectionForm.sectionName} onChange={e => setSectionForm(f => ({ ...f, sectionName: e.target.value }))}
-                className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#f0d090] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none">
+                className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#ade1f4] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none">
                 <option value="">— Choose Section —</option>
                 {[...new Set(classes.map(c => c.name))].sort().map(n => <option key={n} value={n}>{n}</option>)}
               </select>
@@ -684,19 +684,19 @@ function SubjectsTab() {
             <div>
               <label className="text-xs text-[#800020] dark:text-slate-400 uppercase font-semibold">Subjects (one per line)</label>
               <textarea required value={sectionForm.subjectsText} onChange={e => setSectionForm(f => ({ ...f, subjectsText: e.target.value }))} rows={5}
-                className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#f0d090] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none"
+                className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#ade1f4] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none"
                 placeholder={"Mathematics\nEnglish Language\nBasic Science"} />
             </div>
             <div>
               <label className="text-xs text-[#800020] dark:text-slate-400 uppercase font-semibold">Default Teacher (optional)</label>
               <select value={sectionForm.teacherId} onChange={e => setSectionForm(f => ({ ...f, teacherId: e.target.value }))}
-                className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#f0d090] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none">
+                className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#ade1f4] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none">
                 <option value="">— None —</option>
                 {teachers.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
               </select>
             </div>
             {sectionMsg && <p className={`text-sm font-semibold ${sectionMsg.includes('Added') ? 'text-[#1a5c38]' : 'text-red-600'}`}>{sectionMsg}</p>}
-            <button type="submit" disabled={sectionSaving} className="bg-[#1a5c38] hover:bg-[#154a2e] text-[#f5deb3] font-bold px-5 py-2 rounded-2xl text-sm transition-colors disabled:opacity-60">
+            <button type="submit" disabled={sectionSaving} className="bg-[#1a5c38] hover:bg-[#154a2e] text-[#b5e3f4] font-bold px-5 py-2 rounded-2xl text-sm transition-colors disabled:opacity-60">
               {sectionSaving ? 'Adding...' : 'Add to All Section Arms'}
             </button>
           </form>
@@ -722,7 +722,7 @@ function SessionTab() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label className="text-xs text-[#800020] dark:text-slate-400 uppercase font-semibold">Current Session (e.g. 2025/2026)</label>
-          <input value={form.session || ''} onChange={e => setForm(f => ({ ...f, session: e.target.value }))} className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#f0d090] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none" />
+          <input value={form.session || ''} onChange={e => setForm(f => ({ ...f, session: e.target.value }))} className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#ade1f4] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none" />
         </div>
         <div>
           <label className="text-xs text-[#800020] dark:text-slate-400 uppercase font-semibold">Current Term</label>
@@ -736,15 +736,15 @@ function SessionTab() {
         </div>
         <div>
           <label className="text-xs text-[#800020] dark:text-slate-400 uppercase font-semibold">Term Start Date</label>
-          <input type="date" value={form.startDate || ''} onChange={e => setForm(f => ({ ...f, startDate: e.target.value }))} className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#f0d090] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none" />
+          <input type="date" value={form.startDate || ''} onChange={e => setForm(f => ({ ...f, startDate: e.target.value }))} className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#ade1f4] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none" />
         </div>
         <div>
           <label className="text-xs text-[#800020] dark:text-slate-400 uppercase font-semibold">Term End Date</label>
-          <input type="date" value={form.endDate || ''} onChange={e => setForm(f => ({ ...f, endDate: e.target.value }))} className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#f0d090] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none" />
+          <input type="date" value={form.endDate || ''} onChange={e => setForm(f => ({ ...f, endDate: e.target.value }))} className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#ade1f4] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none" />
         </div>
       </div>
       {msg && <p className={`text-sm ${msg === 'Saved!' ? 'text-emerald-700' : 'text-red-600'}`}>{msg}</p>}
-      <button type="submit" disabled={saving} className="bg-[#1a5c38] hover:bg-[#154a2e] text-[#f5deb3] font-bold px-6 py-2 rounded-2xl text-sm transition-colors disabled:opacity-60">
+      <button type="submit" disabled={saving} className="bg-[#1a5c38] hover:bg-[#154a2e] text-[#b5e3f4] font-bold px-6 py-2 rounded-2xl text-sm transition-colors disabled:opacity-60">
         {saving ? 'Saving...' : 'Save Session'}
       </button>
     </form>
@@ -756,16 +756,16 @@ export default function OwnerSettings({ auth }) {
   const tabContent = { Profile: <ProfileTab />, 'School Branding': <BrandingTab />, Website: <WebsiteTab />, Events: <EventsTab />, Classes: <ClassesTab />, Subjects: <SubjectsTab />, 'Sessions & Terms': <SessionTab />, 'Attendance Management': <StaffAttendanceManagementPanel /> };
   return (
     <div className="p-8 max-w-7xl mx-auto space-y-6">
-      <div className="rounded-3xl p-6 bg-[#f5deb3] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
+      <div className="rounded-3xl p-6 bg-[#b5e3f4] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
         <h1 className="text-2xl font-bold text-[#800000] dark:text-slate-100">Settings</h1>
         <p className="text-[#191970] dark:text-slate-300 mt-1 text-sm">Manage your profile, branding, classes, academic sessions, and staff attendance policy.</p>
       </div>
       <div className="flex gap-2 flex-wrap">
         {TABS.map(t => (
-          <button key={t} onClick={() => setTab(t)} className={`px-4 py-2 rounded-2xl text-sm font-semibold border transition-colors ${tab === t ? 'bg-[#800020] text-[#f5deb3] border-[#800020]' : 'bg-[#f5deb3] text-[#800020] border-[#c9a96e]/40 dark:bg-slate-900/30 dark:text-slate-400 dark:border-white/10 hover:bg-[#efd4a0]'}`}>{t}</button>
+          <button key={t} onClick={() => setTab(t)} className={`px-4 py-2 rounded-2xl text-sm font-semibold border transition-colors ${tab === t ? 'bg-[#800020] text-[#b5e3f4] border-[#800020]' : 'bg-[#b5e3f4] text-[#800020] border-[#c9a96e]/40 dark:bg-slate-900/30 dark:text-slate-400 dark:border-white/10 hover:bg-[#efd4a0]'}`}>{t}</button>
         ))}
       </div>
-      <div className="rounded-3xl p-6 bg-[#f5deb3] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
+      <div className="rounded-3xl p-6 bg-[#b5e3f4] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
         {tabContent[tab]}
       </div>
     </div>

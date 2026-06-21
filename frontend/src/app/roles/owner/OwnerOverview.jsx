@@ -56,7 +56,7 @@ export default function OwnerOverview({ auth }) {
   if (loading) {
     return (
       <div className="p-8 max-w-7xl mx-auto">
-        <div className="rounded-3xl p-6 bg-[#f5deb3] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
+        <div className="rounded-3xl p-6 bg-[#b5e3f4] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
           <p className="text-[#800020] dark:text-slate-400">Loading...</p>
         </div>
       </div>
@@ -66,7 +66,7 @@ export default function OwnerOverview({ auth }) {
   if (error) {
     return (
       <div className="p-8 max-w-7xl mx-auto">
-        <div className="rounded-3xl p-6 bg-[#f5deb3] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
+        <div className="rounded-3xl p-6 bg-[#b5e3f4] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
           <p className="text-[#800000] dark:text-slate-100">{error}</p>
         </div>
       </div>
@@ -79,7 +79,7 @@ export default function OwnerOverview({ auth }) {
   return (
     <div className="p-8 max-w-7xl mx-auto space-y-6">
       {/* Header */}
-      <div className="rounded-3xl p-6 bg-[#f5deb3] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
+      <div className="rounded-3xl p-6 bg-[#b5e3f4] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div className="flex items-center gap-4">
             <div className="flex h-16 w-16 items-center justify-center overflow-hidden rounded-3xl border border-[#c9a96e]/40 bg-white/80 p-2 dark:border-white/10 dark:bg-slate-950/40">
@@ -106,7 +106,7 @@ export default function OwnerOverview({ auth }) {
 
       {/* Onboarding notice */}
       {tenant && tenant.approvalStatus !== 'approved' && (
-        <div className="rounded-3xl p-6 bg-[#f5deb3] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
+        <div className="rounded-3xl p-6 bg-[#b5e3f4] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
           <h2 className="text-lg font-semibold text-[#800000] dark:text-slate-100 mb-1">Onboarding In Progress</h2>
           <p className="text-[#191970] dark:text-slate-300 text-sm">
             Your school is being set up. Once approved and payment confirmed, all features will be unlocked.
@@ -116,14 +116,14 @@ export default function OwnerOverview({ auth }) {
       )}
 
       {/* Quick Actions */}
-      <div className="rounded-3xl p-6 bg-[#f5deb3] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
+      <div className="rounded-3xl p-6 bg-[#b5e3f4] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
         <h2 className="text-lg font-semibold text-[#800000] dark:text-slate-100 mb-4">Quick Actions</h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {quickActions.map((a) => (
             <Link
               key={a.path}
               to={a.path}
-              className="bg-[#1a5c38] dark:bg-emerald-700 hover:bg-[#154a2e] dark:hover:bg-emerald-600 text-[#f5deb3] font-bold dark:text-white px-4 py-3 rounded-2xl text-center text-sm transition-colors"
+              className="bg-[#1a5c38] dark:bg-emerald-700 hover:bg-[#154a2e] dark:hover:bg-emerald-600 text-[#b5e3f4] font-bold dark:text-white px-4 py-3 rounded-2xl text-center text-sm transition-colors"
             >
               {a.label}
             </Link>
@@ -134,7 +134,7 @@ export default function OwnerOverview({ auth }) {
       <SchoolAnnouncementsPanel subtitle="Publish a school-wide owner update here. Students, parents, teachers, and staff will see it in their notification bell." />
 
       {/* School Info */}
-      <div className="rounded-3xl p-6 bg-[#f5deb3] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
+      <div className="rounded-3xl p-6 bg-[#b5e3f4] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
         <h2 className="text-lg font-semibold text-[#800000] dark:text-slate-100 mb-4">Your School</h2>
         {tenant || me ? (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

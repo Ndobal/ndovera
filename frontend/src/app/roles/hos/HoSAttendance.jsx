@@ -21,7 +21,7 @@ export default function HoSAttendance({ auth }) {
 
   return (
     <div className="p-8 max-w-7xl mx-auto space-y-6">
-      <div className="rounded-3xl p-6 bg-[#f5deb3] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
+      <div className="rounded-3xl p-6 bg-[#b5e3f4] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
         <h1 className="text-2xl font-bold text-[#800000] dark:text-slate-100">Attendance</h1>
         <p className="text-[#191970] dark:text-slate-300 mt-1 text-sm">
           School-wide attendance records.
@@ -35,8 +35,8 @@ export default function HoSAttendance({ auth }) {
             onClick={() => setFilter(s)}
             className={`px-4 py-2 rounded-2xl text-sm font-semibold border transition-colors capitalize ${
               filter === s
-                ? 'bg-[#800020] text-[#f5deb3] border-[#800020]'
-                : 'bg-[#f5deb3] text-[#800020] border-[#c9a96e]/40 hover:bg-[#efd4a0] dark:bg-slate-900/30 dark:text-slate-400 dark:border-white/10'
+                ? 'bg-[#800020] text-[#b5e3f4] border-[#800020]'
+                : 'bg-[#b5e3f4] text-[#800020] border-[#c9a96e]/40 hover:bg-[#efd4a0] dark:bg-slate-900/30 dark:text-slate-400 dark:border-white/10'
             }`}
           >
             {s}
@@ -44,7 +44,7 @@ export default function HoSAttendance({ auth }) {
         ))}
       </div>
 
-      <div className="rounded-3xl p-6 bg-[#f5deb3] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
+      <div className="rounded-3xl p-6 bg-[#b5e3f4] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
         {loading ? (
           <p className="text-[#800020] dark:text-slate-400">Loading...</p>
         ) : error ? (

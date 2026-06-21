@@ -699,13 +699,13 @@ function TeacherMessaging() {
   return (
     <StudentSectionShell title="Messaging" subtitle="School-wide chat for teachers, staff, and students.">
       <div className="grid grid-cols-1 gap-5 xl:grid-cols-[360px_minmax(0,1fr)]">
-        <div className="flex max-h-[44rem] min-h-[40rem] flex-col rounded-3xl border border-[#800000]/15 bg-[#f5deb3]/95 p-4 shadow-[0_18px_40px_rgba(128,0,0,0.08)] dark:border-[#bf00ff]/30 dark:bg-[#800000]/70">
+        <div className="flex max-h-[44rem] min-h-[40rem] flex-col rounded-3xl border border-[#800000]/15 bg-[#b5e3f4]/95 p-4 shadow-[0_18px_40px_rgba(128,0,0,0.08)] dark:border-[#bf00ff]/30 dark:bg-[#800000]/70">
           <div className="flex items-center justify-between gap-3">
             <h3 className="text-lg font-semibold text-[#800000] dark:text-[#0000ff]">Chats</h3>
             <button
               type="button"
               onClick={refreshLists}
-              className="rounded-full bg-[#1a5c38] px-3 py-1.5 text-xs font-bold text-[#f5deb3] dark:bg-[#00ffff] dark:text-black"
+              className="rounded-full bg-[#1a5c38] px-3 py-1.5 text-xs font-bold text-[#b5e3f4] dark:bg-[#00ffff] dark:text-black"
             >
               {loadingContacts || loadingConversations ? 'Refreshing…' : '↻ Refresh'}
             </button>
@@ -763,7 +763,7 @@ function TeacherMessaging() {
           </div>
         </div>
 
-        <section className="flex max-h-[44rem] min-h-[40rem] flex-col rounded-[2rem] border border-[#800000]/15 bg-[#f5deb3] p-5 shadow-[0_26px_60px_rgba(128,0,0,0.10)] dark:border-[#bf00ff]/30 dark:bg-[#800000]/75">
+        <section className="flex max-h-[44rem] min-h-[40rem] flex-col rounded-[2rem] border border-[#800000]/15 bg-[#b5e3f4] p-5 shadow-[0_26px_60px_rgba(128,0,0,0.10)] dark:border-[#bf00ff]/30 dark:bg-[#800000]/75">
           {actionError ? (
             <div className="mb-4 rounded-2xl border border-red-300/60 bg-red-50 px-4 py-3 text-sm font-semibold text-[#800000] dark:border-[#ff5f8d]/35 dark:bg-[#4a0014] dark:text-[#ffffff]">
               {actionError}
@@ -788,7 +788,7 @@ function TeacherMessaging() {
                   <h3 className="text-2xl font-semibold text-[#800000] dark:text-[#0000ff]">{activeConversation.title}</h3>
                   <p className="mt-1 text-sm leading-6 text-[#191970] dark:text-[#39ff14]">{activeConversation.subtitle}</p>
                 </div>
-                <div className="rounded-full bg-[#1a5c38] px-4 py-2 text-xs font-bold text-[#f5deb3] dark:bg-[#00ffff] dark:text-black">
+                <div className="rounded-full bg-[#1a5c38] px-4 py-2 text-xs font-bold text-[#b5e3f4] dark:bg-[#00ffff] dark:text-black">
                   Teacher Chat
                 </div>
               </div>
@@ -843,7 +843,7 @@ function TeacherMessaging() {
                                     <button
                                       type="button"
                                       onClick={() => retryMessage(message.id)}
-                                      className="mt-3 rounded-full bg-[#1a5c38] px-3 py-1 text-xs font-bold text-[#f5deb3] dark:bg-[#00ffff] dark:text-black"
+                                      className="mt-3 rounded-full bg-[#1a5c38] px-3 py-1 text-xs font-bold text-[#b5e3f4] dark:bg-[#00ffff] dark:text-black"
                                     >
                                       Retry
                                     </button>
@@ -898,7 +898,7 @@ function TeacherMessaging() {
                     <button
                       type="button"
                       onClick={sendMessage}
-                      className="rounded-2xl bg-[#1a5c38] px-5 py-3 text-sm font-bold text-[#f5deb3] transition hover:bg-[#154a2e] dark:bg-[#00ffff] dark:text-black dark:hover:bg-[#7dfcff]"
+                      className="rounded-2xl bg-[#1a5c38] px-5 py-3 text-sm font-bold text-[#b5e3f4] transition hover:bg-[#154a2e] dark:bg-[#00ffff] dark:text-black dark:hover:bg-[#7dfcff]"
                     >
                       Send
                     </button>
@@ -921,7 +921,7 @@ function TeacherMessaging() {
             {profileContact.email ? <p className="mt-1 text-xs text-[#191970] dark:text-[#39ff14]">{profileContact.email}</p> : null}
             {profileContact.displayId ? <p className="mt-1 text-xs text-[#191970]/70 dark:text-[#39ff14]/70">ID: {profileContact.displayId}</p> : null}
             <div className="mt-4 flex justify-center gap-2">
-              <button type="button" onClick={() => { openContact(profileContact); setProfileContact(null); }} className="rounded-2xl bg-[#1a5c38] px-4 py-2 text-sm font-bold text-[#f5deb3] dark:bg-[#00ffff] dark:text-black">Message</button>
+              <button type="button" onClick={() => { openContact(profileContact); setProfileContact(null); }} className="rounded-2xl bg-[#1a5c38] px-4 py-2 text-sm font-bold text-[#b5e3f4] dark:bg-[#00ffff] dark:text-black">Message</button>
               <button type="button" onClick={() => setProfileContact(null)} className="rounded-2xl border border-[#800000]/20 px-4 py-2 text-sm font-bold text-[#800020] dark:border-[#bf00ff]/30 dark:text-[#bf00ff]">Close</button>
             </div>
           </div>

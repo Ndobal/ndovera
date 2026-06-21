@@ -775,7 +775,7 @@ export default function StudentMessaging({
       viewportLocked
     >
       <div className="grid h-full min-h-0 grid-cols-1 gap-4 overflow-hidden xl:grid-cols-[340px_minmax(0,1fr)]">
-        <aside className={`${showSidebarOnMobile ? 'flex' : 'hidden'} min-h-0 flex-col overflow-hidden rounded-[2rem] border border-[#800000]/15 bg-[#f5deb3]/95 shadow-[0_22px_48px_rgba(128,0,0,0.08)] dark:border-[#bf00ff]/30 dark:bg-[#800000]/70 xl:flex`}>
+        <aside className={`${showSidebarOnMobile ? 'flex' : 'hidden'} min-h-0 flex-col overflow-hidden rounded-[2rem] border border-[#800000]/15 bg-[#b5e3f4]/95 shadow-[0_22px_48px_rgba(128,0,0,0.08)] dark:border-[#bf00ff]/30 dark:bg-[#800000]/70 xl:flex`}>
           <div className="border-b border-[#800000]/10 px-5 py-4 dark:border-[#bf00ff]/20">
             <div className="flex items-center gap-3">
               <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#1a5c38]/12 text-[#1a5c38] dark:bg-[#00ffff]/12 dark:text-[#00ffff]">
@@ -788,7 +788,7 @@ export default function StudentMessaging({
               <button
                 type="button"
                 onClick={openDirectory}
-                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#1a5c38] text-[#f5deb3] transition hover:brightness-110 dark:bg-[#00ffff] dark:text-black"
+                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#1a5c38] text-[#b5e3f4] transition hover:brightness-110 dark:bg-[#00ffff] dark:text-black"
                 title="New chat — open contacts"
                 aria-label="Open contacts"
               >
@@ -809,7 +809,7 @@ export default function StudentMessaging({
               <button
                 type="button"
                 onClick={refreshLists}
-                className="shrink-0 rounded-2xl bg-[#1a5c38] px-3 py-2.5 text-xs font-bold text-[#f5deb3] dark:bg-[#00ffff] dark:text-black"
+                className="shrink-0 rounded-2xl bg-[#1a5c38] px-3 py-2.5 text-xs font-bold text-[#b5e3f4] dark:bg-[#00ffff] dark:text-black"
                 title="Refresh chats"
               >
                 {loadingContacts || loadingConversations ? '…' : '↻'}
@@ -892,7 +892,7 @@ export default function StudentMessaging({
                     <button
                       type="button"
                       onClick={openDirectory}
-                      className="mt-3 inline-flex items-center gap-2 rounded-2xl bg-[#1a5c38] px-4 py-2 text-xs font-bold text-[#f5deb3] dark:bg-[#00ffff] dark:text-black"
+                      className="mt-3 inline-flex items-center gap-2 rounded-2xl bg-[#1a5c38] px-4 py-2 text-xs font-bold text-[#b5e3f4] dark:bg-[#00ffff] dark:text-black"
                     >
                       <UserGroupIcon className="h-4 w-4" /> Find someone to message
                     </button>
@@ -903,7 +903,7 @@ export default function StudentMessaging({
           </div>
         </aside>
 
-        <section className={`${showSidebarOnMobile ? 'hidden' : 'flex'} min-h-0 flex-col overflow-hidden rounded-[2rem] border border-[#800000]/15 bg-[#f5deb3] shadow-[0_26px_60px_rgba(128,0,0,0.10)] dark:border-[#bf00ff]/30 dark:bg-[#800000]/75 xl:flex`}>
+        <section className={`${showSidebarOnMobile ? 'hidden' : 'flex'} min-h-0 flex-col overflow-hidden rounded-[2rem] border border-[#800000]/15 bg-[#b5e3f4] shadow-[0_26px_60px_rgba(128,0,0,0.10)] dark:border-[#bf00ff]/30 dark:bg-[#800000]/75 xl:flex`}>
           {!me ? (
             <div className="flex flex-1 items-center justify-center px-6 text-sm text-[#191970] dark:text-[#39ff14]">
               Sign in again to load your messages.
@@ -920,7 +920,7 @@ export default function StudentMessaging({
               <button
                 type="button"
                 onClick={openDirectory}
-                className="mt-5 inline-flex items-center gap-2 rounded-full bg-[#1a5c38] px-5 py-2.5 text-sm font-bold text-[#f5deb3] transition hover:brightness-110 dark:bg-[#00ffff] dark:text-black"
+                className="mt-5 inline-flex items-center gap-2 rounded-full bg-[#1a5c38] px-5 py-2.5 text-sm font-bold text-[#b5e3f4] transition hover:brightness-110 dark:bg-[#00ffff] dark:text-black"
               >
                 <UserGroupIcon className="h-5 w-5" /> Start a new chat
               </button>
@@ -942,7 +942,7 @@ export default function StudentMessaging({
                   <div className="min-w-0 flex-1">
                     <div className="flex flex-wrap items-center gap-3">
                       <h3 className="truncate text-2xl font-semibold text-[#800000] dark:text-[#0000ff]">{activeConversation.title}</h3>
-                      <span className="rounded-full bg-[#1a5c38] px-3 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-[#f5deb3] dark:bg-[#00ffff] dark:text-black">
+                      <span className="rounded-full bg-[#1a5c38] px-3 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-[#b5e3f4] dark:bg-[#00ffff] dark:text-black">
                         Safe School Chat
                       </span>
                     </div>
@@ -1104,7 +1104,7 @@ export default function StudentMessaging({
                       type="button"
                       onClick={sendMessage}
                       disabled={!composer.trim()}
-                      className="inline-flex items-center gap-2 rounded-full bg-[#1a5c38] px-5 py-2.5 text-sm font-bold text-[#f5deb3] transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-[#00ffff] dark:text-black"
+                      className="inline-flex items-center gap-2 rounded-full bg-[#1a5c38] px-5 py-2.5 text-sm font-bold text-[#b5e3f4] transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-[#00ffff] dark:text-black"
                     >
                       <PaperAirplaneIcon className="h-4 w-4" />
                       Send Message
@@ -1120,7 +1120,7 @@ export default function StudentMessaging({
       {contactsOpen ? (
         <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/50 p-0 sm:items-center sm:p-4" role="presentation" onClick={closeDirectory}>
           <div
-            className="flex max-h-[85vh] w-full max-w-lg flex-col overflow-hidden rounded-t-3xl border border-[#800000]/20 bg-[#f5deb3] shadow-2xl sm:rounded-3xl dark:border-[#bf00ff]/30 dark:bg-[#191970]"
+            className="flex max-h-[85vh] w-full max-w-lg flex-col overflow-hidden rounded-t-3xl border border-[#800000]/20 bg-[#b5e3f4] shadow-2xl sm:rounded-3xl dark:border-[#bf00ff]/30 dark:bg-[#191970]"
             onClick={event => event.stopPropagation()}
           >
             <div className="flex items-center gap-3 border-b border-[#800000]/10 px-5 py-4 dark:border-[#bf00ff]/20">
@@ -1216,7 +1216,7 @@ export default function StudentMessaging({
             {profileContact.email ? <p className="mt-1 text-xs text-[#191970] dark:text-[#39ff14]">{profileContact.email}</p> : null}
             {profileContact.displayId ? <p className="mt-1 text-xs text-[#191970]/70 dark:text-[#39ff14]/70">ID: {profileContact.displayId}</p> : null}
             <div className="mt-4 flex justify-center gap-2">
-              <button type="button" onClick={() => { startConversationWith(profileContact); setProfileContact(null); }} className="rounded-2xl bg-[#1a5c38] px-4 py-2 text-sm font-bold text-[#f5deb3] dark:bg-[#00ffff] dark:text-black">Message</button>
+              <button type="button" onClick={() => { startConversationWith(profileContact); setProfileContact(null); }} className="rounded-2xl bg-[#1a5c38] px-4 py-2 text-sm font-bold text-[#b5e3f4] dark:bg-[#00ffff] dark:text-black">Message</button>
               <button type="button" onClick={() => setProfileContact(null)} className="rounded-2xl border border-[#800020]/20 px-4 py-2 text-sm font-bold text-[#800020] dark:border-[#bf00ff]/30 dark:text-[#bf00ff]">Close</button>
             </div>
           </div>

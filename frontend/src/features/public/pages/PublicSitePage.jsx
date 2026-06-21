@@ -509,7 +509,7 @@ function SectionHeading({ eyebrow, title, description, tone = 'default' }) {
 
   return (
     <div className="max-w-3xl space-y-3">
-      <p className={`text-xs font-semibold uppercase tracking-[0.34em] ${isInverse ? 'text-[#f5deb3]' : 'text-[#800020]'}`}>{eyebrow}</p>
+      <p className={`text-xs font-semibold uppercase tracking-[0.34em] ${isInverse ? 'text-[#b5e3f4]' : 'text-[#800020]'}`}>{eyebrow}</p>
       <h2 className={`text-3xl font-black tracking-tight sm:text-4xl ${isInverse ? 'text-[#f8f3eb]' : 'text-[#191970]'}`}>{title}</h2>
       {description ? <p className={`text-sm leading-7 sm:text-base ${isInverse ? 'text-[#e4ddcf]' : 'text-[#31416f]'}`}>{description}</p> : null}
     </div>
@@ -520,7 +520,7 @@ function PublicCard({ title, description, icon: Icon, to, revealDelay = 0 }) {
   const content = (
     <article data-reveal data-reveal-delay={revealDelay} className="public-reveal group flex h-full flex-col overflow-hidden rounded-[1.8rem] border border-[#c9a96e]/45 bg-[#fff8ef] p-5 shadow-[0_18px_36px_rgba(128,0,0,0.06)] transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_24px_42px_rgba(25,25,112,0.14)] sm:p-6">
       {Icon ? (
-        <div className="inline-flex rounded-2xl border border-[#c9a96e]/45 bg-[#f5deb3] p-3 text-[#800020]">
+        <div className="inline-flex rounded-2xl border border-[#c9a96e]/45 bg-[#b5e3f4] p-3 text-[#800020]">
           <Icon className="h-6 w-6" />
         </div>
       ) : null}
@@ -581,7 +581,7 @@ function MediaGallery({ section, eyebrow, title, description, tone = 'light' }) 
             key={`${url}-${index}`}
             data-reveal
             data-reveal-delay={(index % 4) + 1}
-            className={`public-reveal overflow-hidden rounded-[1.5rem] border border-[#c9a96e]/35 p-2 sm:p-3 ${isDark ? 'bg-white/5' : 'bg-[#f5deb3]/45'}`}
+            className={`public-reveal overflow-hidden rounded-[1.5rem] border border-[#c9a96e]/35 p-2 sm:p-3 ${isDark ? 'bg-white/5' : 'bg-[#b5e3f4]/45'}`}
           >
             <MediaFrame url={url} title={`${section.title} media ${index + 1}`} className="h-52 w-full rounded-[1.1rem] object-cover sm:h-56" />
           </article>
@@ -610,7 +610,7 @@ function PublicShell({ section, notice, children }) {
       <header className="sticky top-0 z-40 border-b border-[#c9a96e]/35 bg-[#fbf4e8]/92 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-4 sm:px-6 lg:gap-6 lg:px-8">
           <Link to="/" className="flex items-center gap-3">
-            <div className="flex h-12 w-12 items-center justify-center rounded-[1.25rem] border border-[#c9a96e]/45 bg-[#800020] text-sm font-black tracking-[0.18em] text-[#f5deb3] shadow-[0_14px_28px_rgba(128,0,32,0.18)]">
+            <div className="flex h-12 w-12 items-center justify-center rounded-[1.25rem] border border-[#c9a96e]/45 bg-[#800020] text-sm font-black tracking-[0.18em] text-[#b5e3f4] shadow-[0_14px_28px_rgba(128,0,32,0.18)]">
               ND
             </div>
             <div>
@@ -625,7 +625,7 @@ function PublicShell({ section, notice, children }) {
                 key={item.path}
                 to={item.path}
                 end={item.path === '/'}
-                className={({ isActive }) => `rounded-full px-3 py-2 transition ${isActive ? 'bg-[#800020] text-[#f5deb3]' : 'hover:bg-[#ead7b6] hover:text-[#800020]'}`}
+                className={({ isActive }) => `rounded-full px-3 py-2 transition ${isActive ? 'bg-[#800020] text-[#b5e3f4]' : 'hover:bg-[#ead7b6] hover:text-[#800020]'}`}
               >
                 {item.label}
               </NavLink>
@@ -636,7 +636,7 @@ function PublicShell({ section, notice, children }) {
             <Link to="/login" className="rounded-full border border-[#c9a96e]/45 bg-[#fff8ef] px-4 py-2 text-sm font-semibold text-[#191970] transition hover:border-[#1a5c38] hover:text-[#1a5c38]">
               Portal Login
             </Link>
-            <Link to="/register-school" className="rounded-full bg-[#1a5c38] px-4 py-2 text-sm font-semibold text-[#f5deb3] transition hover:bg-[#154a2e]">
+            <Link to="/register-school" className="rounded-full bg-[#1a5c38] px-4 py-2 text-sm font-semibold text-[#b5e3f4] transition hover:bg-[#154a2e]">
               Register School
             </Link>
           </div>
@@ -661,7 +661,7 @@ function PublicShell({ section, notice, children }) {
                     key={item.path}
                     to={item.path}
                     end={item.path === '/'}
-                    className={({ isActive }) => `rounded-2xl border px-4 py-3 text-sm font-semibold transition ${isActive ? 'border-[#800020] bg-[#800020] text-[#f5deb3]' : 'border-[#c9a96e]/45 bg-[#fff8ef] text-[#31416f] hover:border-[#800020] hover:text-[#800020]'}`}
+                    className={({ isActive }) => `rounded-2xl border px-4 py-3 text-sm font-semibold transition ${isActive ? 'border-[#800020] bg-[#800020] text-[#b5e3f4]' : 'border-[#c9a96e]/45 bg-[#fff8ef] text-[#31416f] hover:border-[#800020] hover:text-[#800020]'}`}
                   >
                     {item.label}
                   </NavLink>
@@ -671,7 +671,7 @@ function PublicShell({ section, notice, children }) {
                 <Link to="/login" className="rounded-full border border-[#c9a96e]/45 bg-[#fff8ef] px-5 py-3 text-center text-sm font-semibold text-[#191970] transition hover:border-[#1a5c38] hover:text-[#1a5c38]">
                   Portal Login
                 </Link>
-                <Link to="/register-school" className="rounded-full bg-[#1a5c38] px-5 py-3 text-center text-sm font-semibold text-[#f5deb3] transition hover:bg-[#154a2e]">
+                <Link to="/register-school" className="rounded-full bg-[#1a5c38] px-5 py-3 text-center text-sm font-semibold text-[#b5e3f4] transition hover:bg-[#154a2e]">
                   Register School
                 </Link>
               </div>
@@ -686,7 +686,7 @@ function PublicShell({ section, notice, children }) {
           <div className="absolute bottom-0 left-0 h-32 w-32 rounded-full bg-[#1a5c38]/10 blur-3xl" />
           <div className="relative grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-end lg:gap-10">
             <div className="space-y-5">
-              <p className="inline-flex rounded-full border border-[#c9a96e]/45 bg-[#f5deb3] px-4 py-2 text-xs font-semibold uppercase tracking-[0.34em] text-[#800020]">
+              <p className="inline-flex rounded-full border border-[#c9a96e]/45 bg-[#b5e3f4] px-4 py-2 text-xs font-semibold uppercase tracking-[0.34em] text-[#800020]">
                 {section.eyebrow}
               </p>
               <h1 className="max-w-3xl text-[2.65rem] font-black leading-[0.98] tracking-tight text-[#191970] sm:text-5xl lg:max-w-4xl lg:text-[4.2rem]">
@@ -696,7 +696,7 @@ function PublicShell({ section, notice, children }) {
                 {section.description}
               </p>
               <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-                <ActionLink to={section.metadata.buttonUrl || '/growth-partners'} className="rounded-full bg-[#800020] px-6 py-3 text-center text-sm font-semibold text-[#f5deb3] transition hover:bg-[#670019]">
+                <ActionLink to={section.metadata.buttonUrl || '/growth-partners'} className="rounded-full bg-[#800020] px-6 py-3 text-center text-sm font-semibold text-[#b5e3f4] transition hover:bg-[#670019]">
                   {section.metadata.buttonLabel || 'Explore NDOVERA'}
                 </ActionLink>
                 <ActionLink to={section.metadata.secondaryButtonUrl || '/tutor'} className="rounded-full border border-[#c9a96e]/45 bg-[#fff8ef] px-6 py-3 text-center text-sm font-semibold text-[#191970] transition hover:border-[#1a5c38] hover:text-[#1a5c38]">
@@ -707,7 +707,7 @@ function PublicShell({ section, notice, children }) {
 
             <div className="space-y-3 lg:pl-4">
               {heroMedia[0] ? (
-                <div data-reveal data-reveal-delay="1" className="public-reveal overflow-hidden rounded-[1.8rem] border border-[#c9a96e]/45 bg-[#f5deb3]/55 p-2 shadow-[0_24px_42px_rgba(128,0,32,0.08)]">
+                <div data-reveal data-reveal-delay="1" className="public-reveal overflow-hidden rounded-[1.8rem] border border-[#c9a96e]/45 bg-[#b5e3f4]/55 p-2 shadow-[0_24px_42px_rgba(128,0,32,0.08)]">
                   <MediaFrame url={heroMedia[0]} title={`${section.title} hero media`} className="h-56 w-full rounded-[1.35rem] object-cover sm:h-64 lg:h-72" />
                 </div>
               ) : null}
@@ -715,7 +715,7 @@ function PublicShell({ section, notice, children }) {
               {heroStats.length ? (
                 <div className="grid gap-3 sm:grid-cols-2">
                   {heroStats.map((metric, index) => (
-                    <div key={`${metric.label}-${metric.value}`} data-reveal data-reveal-delay={(index % 4) + 1} className="public-reveal min-h-[7.5rem] rounded-[1.7rem] border border-[#c9a96e]/45 bg-[#f5deb3] p-4">
+                    <div key={`${metric.label}-${metric.value}`} data-reveal data-reveal-delay={(index % 4) + 1} className="public-reveal min-h-[7.5rem] rounded-[1.7rem] border border-[#c9a96e]/45 bg-[#b5e3f4] p-4">
                       <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#800020]">{metric.label}</p>
                       <p className="mt-3 break-words text-2xl font-black text-[#191970] sm:text-3xl">{metric.value}</p>
                     </div>
@@ -724,7 +724,7 @@ function PublicShell({ section, notice, children }) {
               ) : heroPreviewCards.length ? (
                 <div className="grid gap-3 sm:grid-cols-2">
                   {heroPreviewCards.map((item, index) => (
-                    <div key={item.title} data-reveal data-reveal-delay={(index % 4) + 1} className="public-reveal min-h-[7.5rem] rounded-[1.7rem] border border-[#c9a96e]/45 bg-[#f5deb3] p-4">
+                    <div key={item.title} data-reveal data-reveal-delay={(index % 4) + 1} className="public-reveal min-h-[7.5rem] rounded-[1.7rem] border border-[#c9a96e]/45 bg-[#b5e3f4] p-4">
                       <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#800020]">{item.eyebrow || 'NDOVERA'}</p>
                       <p className="mt-3 text-lg font-black text-[#191970]">{item.title}</p>
                       <p className="mt-2 text-sm leading-6 text-[#31416f]">{item.description}</p>
@@ -748,17 +748,17 @@ function PublicShell({ section, notice, children }) {
           <Reveal as="section" className="rounded-[2.2rem] border border-[#c9a96e]/45 bg-[#191970] px-5 py-8 text-[#f8f3eb] shadow-[0_30px_80px_rgba(25,25,112,0.24)] sm:px-8 lg:px-10">
             <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
               <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#f5deb3]">Stay In Motion</p>
+                <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#b5e3f4]">Stay In Motion</p>
                 <h2 className="mt-3 text-3xl font-black tracking-tight">Move from public website to meaningful action.</h2>
                 <p className="mt-4 max-w-2xl text-sm leading-7 text-[#e4ddcf] sm:text-base">
                   Read the story, explore the pages, open the portal, or start school registration. The website should be a real public front door, not a dead-end splash screen.
                 </p>
               </div>
               <div className="flex flex-wrap gap-3 lg:justify-end">
-                <Link to="/login" className="rounded-full bg-[#f5deb3] px-5 py-3 text-sm font-semibold text-[#191970] transition hover:bg-[#f8e5c3]">
+                <Link to="/login" className="rounded-full bg-[#b5e3f4] px-5 py-3 text-sm font-semibold text-[#191970] transition hover:bg-[#f8e5c3]">
                   Open Portal Login
                 </Link>
-                <Link to="/register-school" className="rounded-full border border-[#f5deb3]/35 px-5 py-3 text-sm font-semibold text-[#f5deb3] transition hover:bg-white/10">
+                <Link to="/register-school" className="rounded-full border border-[#b5e3f4]/35 px-5 py-3 text-sm font-semibold text-[#b5e3f4] transition hover:bg-white/10">
                   Register A School
                 </Link>
               </div>
@@ -821,10 +821,10 @@ function HomePageBody({ section }) {
           />
         </Reveal>
         <Reveal className="rounded-[2rem] border border-[#c9a96e]/45 bg-[#800020] p-6 text-[#f8f3eb] shadow-[0_24px_60px_rgba(128,0,32,0.18)]" delay={2}>
-          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#f5deb3]">Public Website Structure</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#b5e3f4]">Public Website Structure</p>
           <div className="mt-5 grid gap-3 sm:grid-cols-2">
             {NAV_ITEMS.map((item, index) => (
-              <Link key={item.path} to={item.path} data-reveal data-reveal-delay={(index % 4) + 1} className="public-reveal rounded-2xl border border-[#f5deb3]/20 bg-white/5 px-4 py-3 text-sm font-semibold transition hover:bg-white/10">
+              <Link key={item.path} to={item.path} data-reveal data-reveal-delay={(index % 4) + 1} className="public-reveal rounded-2xl border border-[#b5e3f4]/20 bg-white/5 px-4 py-3 text-sm font-semibold transition hover:bg-white/10">
                 {item.label}
               </Link>
             ))}
@@ -833,7 +833,7 @@ function HomePageBody({ section }) {
       </section>
 
       <section className="grid gap-6 lg:grid-cols-[0.95fr_1.05fr]">
-        <Reveal className="rounded-[2rem] border border-[#c9a96e]/45 bg-[#f5deb3] p-6" delay={1}>
+        <Reveal className="rounded-[2rem] border border-[#c9a96e]/45 bg-[#b5e3f4] p-6" delay={1}>
           <SectionHeading
             eyebrow="Platform Coverage"
             title="From public trust to internal execution."
@@ -949,7 +949,7 @@ function PartnersPageBody({ section }) {
         ))}
       </section>
 
-      <Reveal as="section" className="rounded-[2rem] border border-[#c9a96e]/45 bg-[#f5deb3] p-6">
+      <Reveal as="section" className="rounded-[2rem] border border-[#c9a96e]/45 bg-[#b5e3f4] p-6">
         <SectionHeading
           eyebrow={section.metadata.spotlightEyebrow}
           title={section.metadata.spotlightTitle}
@@ -1034,12 +1034,12 @@ function PricingPageBody({ section, pricing, pricingError, isPricingLoading }) {
           />
           <div className="mt-6 grid gap-3 sm:grid-cols-2">
             <div className="rounded-[1.5rem] border border-white/10 bg-white/5 p-4">
-              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#f5deb3]">Due Now</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#b5e3f4]">Due Now</p>
               <p className="mt-3 text-xl font-black text-white">Onboarding fee only</p>
               <p className="mt-2 text-sm leading-6 text-[#d9e3ff]">Reserve the domain, create the owner account, and begin launch approval.</p>
             </div>
             <div className="rounded-[1.5rem] border border-white/10 bg-white/5 p-4">
-              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#f5deb3]">Subsequent Term</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#b5e3f4]">Subsequent Term</p>
               <p className="mt-3 text-xl font-black text-white">Live-user billing</p>
               <p className="mt-2 text-sm leading-6 text-[#d9e3ff]">The system uses active users so schools pay from real usage, not inflated estimates.</p>
             </div>
@@ -1068,7 +1068,7 @@ function PricingPageBody({ section, pricing, pricingError, isPricingLoading }) {
                 <p className="mt-3 text-sm leading-7 text-[#31416f]">{plan.description}</p>
               </div>
               {plan.manualPricing ? (
-                <span className="rounded-full border border-[#1a5c38]/25 bg-[#1a5c38] px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-[#f5deb3]">
+                <span className="rounded-full border border-[#1a5c38]/25 bg-[#1a5c38] px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-[#b5e3f4]">
                   Ami Priced
                 </span>
               ) : null}
@@ -1095,7 +1095,7 @@ function PricingPageBody({ section, pricing, pricingError, isPricingLoading }) {
             </div>
 
             <div className="mt-6 flex flex-wrap gap-3">
-              <ActionLink to="/register-school" className="rounded-full bg-[#800020] px-5 py-3 text-sm font-semibold text-[#f5deb3] transition hover:bg-[#670019]">
+              <ActionLink to="/register-school" className="rounded-full bg-[#800020] px-5 py-3 text-sm font-semibold text-[#b5e3f4] transition hover:bg-[#670019]">
                 Start Registration
               </ActionLink>
               <ActionLink to={plan.manualPricing ? '/growth-partners' : '/login'} className="rounded-full border border-[#c9a96e]/45 bg-white/70 px-5 py-3 text-sm font-semibold text-[#191970] transition hover:border-[#1a5c38] hover:text-[#1a5c38]">
@@ -1111,8 +1111,8 @@ function PricingPageBody({ section, pricing, pricingError, isPricingLoading }) {
               <p className="text-sm font-semibold text-[#800020]">Loading live pricing...</p>
               <div className="mt-5 space-y-3">
                 <div className="h-6 rounded-full bg-[#ead7b6]" />
-                <div className="h-20 rounded-[1.5rem] bg-[#f5deb3]/65" />
-                <div className="h-20 rounded-[1.5rem] bg-[#f5deb3]/45" />
+                <div className="h-20 rounded-[1.5rem] bg-[#b5e3f4]/65" />
+                <div className="h-20 rounded-[1.5rem] bg-[#b5e3f4]/45" />
               </div>
             </Reveal>
           ))
@@ -1175,7 +1175,7 @@ function EventsPageBody({ section }) {
         ))}
       </section>
 
-      <Reveal as="section" className="rounded-[2rem] border border-[#c9a96e]/45 bg-[#f5deb3] p-6">
+      <Reveal as="section" className="rounded-[2rem] border border-[#c9a96e]/45 bg-[#b5e3f4] p-6">
         <SectionHeading
           eyebrow={section.metadata.spotlightEyebrow}
           title={section.metadata.spotlightTitle}
@@ -1205,7 +1205,7 @@ function GalleryPageBody({ section }) {
 
       <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {section.metadata.cards.map((item, index) => (
-          <article key={item.title} data-reveal data-reveal-delay={(index % 4) + 1} className={`public-reveal overflow-hidden rounded-[1.8rem] border border-[#c9a96e]/45 p-5 shadow-[0_18px_36px_rgba(25,25,112,0.08)] sm:p-6 ${index % 2 === 0 ? 'bg-[#fff8ef]' : 'bg-[#f5deb3]'}`}>
+          <article key={item.title} data-reveal data-reveal-delay={(index % 4) + 1} className={`public-reveal overflow-hidden rounded-[1.8rem] border border-[#c9a96e]/45 p-5 shadow-[0_18px_36px_rgba(25,25,112,0.08)] sm:p-6 ${index % 2 === 0 ? 'bg-[#fff8ef]' : 'bg-[#b5e3f4]'}`}>
             <div className="h-28 rounded-[1.3rem] bg-[linear-gradient(135deg,rgba(128,0,32,0.14),rgba(25,25,112,0.08),rgba(26,92,56,0.14))] sm:h-32" />
             <h3 className="mt-4 break-words text-xl font-bold leading-tight text-[#191970]">{item.title}</h3>
             <p className="mt-3 break-words text-sm leading-7 text-[#31416f]">{item.description}</p>

@@ -1,16 +1,16 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import * as svc from './classroomService';
 
-const SURFACE = 'rounded-3xl border border-[#c9a96e]/45 bg-[#f5deb3] p-5 shadow-[0_18px_42px_rgba(128,0,0,0.08)] dark:border-[#bf00ff]/35 dark:bg-[#800000]/75 dark:shadow-[0_0_28px_rgba(191,0,255,0.18)]';
+const SURFACE = 'rounded-3xl border border-[#c9a96e]/45 bg-[#b5e3f4] p-5 shadow-[0_18px_42px_rgba(128,0,0,0.08)] dark:border-[#bf00ff]/35 dark:bg-[#800000]/75 dark:shadow-[0_0_28px_rgba(191,0,255,0.18)]';
 const SUB_SURFACE = 'rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] p-4 dark:border-[#bf00ff]/35 dark:bg-black/20';
 const LABEL = 'text-xs font-semibold uppercase tracking-[0.18em] text-[#800020] dark:text-[#bf00ff]';
 const TITLE = 'text-xl font-bold text-[#800000] dark:text-[#ffffff]';
 const BODY = 'text-sm text-[#191970] dark:text-[#39ff14]';
 const INPUT = 'w-full rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] px-4 py-3 text-sm text-[#191970] placeholder:text-[#800020]/65 focus:outline-none focus:ring-2 focus:ring-[#1a5c38] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#ffffff] dark:placeholder:text-[#39ff14]/55 dark:focus:ring-[#00ffff]';
-const PRIMARY_BUTTON = 'rounded-2xl bg-[#1a5c38] px-4 py-2 text-sm font-bold text-[#f5deb3] transition-colors hover:bg-[#154a2e] disabled:cursor-not-allowed disabled:opacity-60 dark:bg-[#00ffff] dark:text-[#000000] dark:hover:bg-[#7dfcff]';
+const PRIMARY_BUTTON = 'rounded-2xl bg-[#1a5c38] px-4 py-2 text-sm font-bold text-[#b5e3f4] transition-colors hover:bg-[#154a2e] disabled:cursor-not-allowed disabled:opacity-60 dark:bg-[#00ffff] dark:text-[#000000] dark:hover:bg-[#7dfcff]';
 const SECONDARY_BUTTON = 'rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] px-4 py-2 text-sm font-semibold text-[#191970] transition-colors hover:bg-[#f2e1bf] disabled:cursor-not-allowed disabled:opacity-60 dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#ffffff] dark:hover:bg-[#800000]/85';
 const DANGER_BUTTON = 'rounded-2xl border border-[#800000]/25 bg-white/70 px-3 py-2 text-sm font-semibold text-[#800000] transition-colors hover:bg-[#ffe8db] dark:border-[#ff5f8d]/35 dark:bg-black/20 dark:text-[#ffffff] dark:hover:bg-[#5a1024]';
-const FLOATING_ADD_BUTTON = 'fixed bottom-8 right-8 z-[70] flex h-14 w-14 items-center justify-center rounded-full bg-[#1a5c38] text-3xl font-bold text-[#f5deb3] shadow-[0_18px_40px_rgba(26,92,56,0.35)] transition-transform hover:scale-105 hover:bg-[#154a2e] dark:bg-[#00ffff] dark:text-[#000000] dark:shadow-[0_0_26px_rgba(0,255,255,0.35)] dark:hover:bg-[#7dfcff]';
+const FLOATING_ADD_BUTTON = 'fixed bottom-8 right-8 z-[70] flex h-14 w-14 items-center justify-center rounded-full bg-[#1a5c38] text-3xl font-bold text-[#b5e3f4] shadow-[0_18px_40px_rgba(26,92,56,0.35)] transition-transform hover:scale-105 hover:bg-[#154a2e] dark:bg-[#00ffff] dark:text-[#000000] dark:shadow-[0_0_26px_rgba(0,255,255,0.35)] dark:hover:bg-[#7dfcff]';
 
 const QUESTION_TYPE_OPTIONS = [
   { value: 'mcq', label: 'MCQ' },
@@ -487,7 +487,7 @@ function SubmissionsPanel({ assignment, onClose }) {
                       <p className="text-xs text-[#800020] font-semibold">Submitted: {sub.submittedAt ? new Date(sub.submittedAt).toLocaleString() : '—'}</p>
                     </div>
                     {isAlreadyGraded && (
-                      <span className="rounded-full bg-[#1a5c38] px-3 py-1 text-xs font-bold text-[#f5deb3]">Graded: {sub.grade}/100</span>
+                      <span className="rounded-full bg-[#1a5c38] px-3 py-1 text-xs font-bold text-[#b5e3f4]">Graded: {sub.grade}/100</span>
                     )}
                   </div>
                   {/* Show answers */}
@@ -496,7 +496,7 @@ function SubmissionsPanel({ assignment, onClose }) {
                       {questions.map((q, qi) => {
                         const ans = answers[q.id || qi];
                         return (
-                          <div key={q.id || qi} className="rounded-xl bg-[#f5deb3]/60 dark:bg-black/20 px-3 py-2">
+                          <div key={q.id || qi} className="rounded-xl bg-[#b5e3f4]/60 dark:bg-black/20 px-3 py-2">
                             <p className="text-xs font-bold text-[#800020]">Q{qi + 1}: {q.prompt || q.text}</p>
                             <p className="text-sm font-semibold text-[#191970] dark:text-slate-200">
                               {ans !== undefined && ans !== '' ? String(ans) : <span className="italic text-[#800020]">No answer</span>}
@@ -508,7 +508,7 @@ function SubmissionsPanel({ assignment, onClose }) {
                     </div>
                   ) : (
                     answers.response ? (
-                      <div className="rounded-xl bg-[#f5deb3]/60 dark:bg-black/20 px-3 py-2 mb-3">
+                      <div className="rounded-xl bg-[#b5e3f4]/60 dark:bg-black/20 px-3 py-2 mb-3">
                         <p className="text-xs font-bold text-[#800020] mb-1">Response</p>
                         <p className="text-sm font-semibold text-[#191970] dark:text-slate-200">{String(answers.response)}</p>
                       </div>
@@ -522,7 +522,7 @@ function SubmissionsPanel({ assignment, onClose }) {
                         type="number" min="0" max="100"
                         value={grading[sub.id]?.grade !== undefined ? grading[sub.id].grade : (isAlreadyGraded ? sub.grade : '')}
                         onChange={e => setGrading(prev => ({ ...prev, [sub.id]: { ...prev[sub.id], grade: e.target.value } }))}
-                        className="mt-1 w-24 rounded-xl border border-[#c9a96e]/40 bg-[#f5deb3] dark:bg-slate-900 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none"
+                        className="mt-1 w-24 rounded-xl border border-[#c9a96e]/40 bg-[#b5e3f4] dark:bg-slate-900 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none"
                         placeholder="0–100"
                       />
                     </div>
@@ -531,7 +531,7 @@ function SubmissionsPanel({ assignment, onClose }) {
                       <input
                         value={grading[sub.id]?.feedback !== undefined ? grading[sub.id].feedback : (sub.feedback || '')}
                         onChange={e => setGrading(prev => ({ ...prev, [sub.id]: { ...prev[sub.id], feedback: e.target.value } }))}
-                        className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#f5deb3] dark:bg-slate-900 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none"
+                        className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#b5e3f4] dark:bg-slate-900 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none"
                         placeholder="Well done! or areas to improve..."
                       />
                     </div>
@@ -539,7 +539,7 @@ function SubmissionsPanel({ assignment, onClose }) {
                       type="button"
                       onClick={() => handleGrade(sub)}
                       disabled={savingId === sub.id}
-                      className="bg-[#1a5c38] hover:bg-[#154a2e] text-[#f5deb3] font-bold px-4 py-2 rounded-2xl text-sm disabled:opacity-60"
+                      className="bg-[#1a5c38] hover:bg-[#154a2e] text-[#b5e3f4] font-bold px-4 py-2 rounded-2xl text-sm disabled:opacity-60"
                     >
                       {savingId === sub.id ? 'Saving...' : savedIds.includes(sub.id) ? '✓ Saved' : 'Save Grade'}
                     </button>
@@ -577,7 +577,7 @@ function AssignmentViewer({ assignment, onClose }) {
                   <p className={LABEL}>Question {index + 1} · {typeLabel(question.type)}</p>
                   <p className="mt-2 text-base font-semibold text-[#191970] dark:text-[#ffffff] whitespace-pre-wrap">{question.prompt || question.passage || '—'}</p>
                 </div>
-                <span className="rounded-full bg-[#1a5c38] px-3 py-1 text-xs font-bold text-[#f5deb3] dark:bg-[#00ffff] dark:text-[#000000]">{normalizeQuestionScore(question.score)} pt{normalizeQuestionScore(question.score) !== 1 ? 's' : ''}</span>
+                <span className="rounded-full bg-[#1a5c38] px-3 py-1 text-xs font-bold text-[#b5e3f4] dark:bg-[#00ffff] dark:text-[#000000]">{normalizeQuestionScore(question.score)} pt{normalizeQuestionScore(question.score) !== 1 ? 's' : ''}</span>
               </div>
               <QuestionImagePreview imageUrl={question.imageUrl} />
               {question.type === 'mcq' && Array.isArray(question.options) && (
@@ -600,7 +600,7 @@ function AssignmentViewer({ assignment, onClose }) {
                 </div>
               )}
               {(question.markingGuide || question.answer || question.acceptedAnswers) && (
-                <div className="mt-3 rounded-xl border border-[#c9a96e]/45 bg-[#f5deb3]/40 px-3 py-2 dark:border-[#bf00ff]/35 dark:bg-black/20">
+                <div className="mt-3 rounded-xl border border-[#c9a96e]/45 bg-[#b5e3f4]/40 px-3 py-2 dark:border-[#bf00ff]/35 dark:bg-black/20">
                   <p className={LABEL}>Answer / Guide</p>
                   <p className="mt-1 text-sm text-[#191970] dark:text-[#39ff14] whitespace-pre-wrap">{question.markingGuide || question.answer || (Array.isArray(question.acceptedAnswers) ? question.acceptedAnswers.join(', ') : question.acceptedAnswers) || '—'}</p>
                 </div>
@@ -1131,7 +1131,7 @@ export default function TeacherAssignmentsPanel({
                   if (file) uploadQuestionImage(question.id, file);
                   event.target.value = '';
                 }}
-                className={`${INPUT} mt-2 cursor-pointer file:mr-4 file:rounded-2xl file:border-0 file:bg-[#1a5c38] file:px-4 file:py-2 file:text-sm file:font-bold file:text-[#f5deb3] dark:file:bg-[#00ffff] dark:file:text-[#000000]`}
+                className={`${INPUT} mt-2 cursor-pointer file:mr-4 file:rounded-2xl file:border-0 file:bg-[#1a5c38] file:px-4 file:py-2 file:text-sm file:font-bold file:text-[#b5e3f4] dark:file:bg-[#00ffff] dark:file:text-[#000000]`}
               />
               {uploadingQuestionId === question.id && <p className="mt-2 text-sm text-[#1a5c38] dark:text-[#00ffff]">Uploading image...</p>}
             </div>
@@ -1154,7 +1154,7 @@ export default function TeacherAssignmentsPanel({
               <div className="mt-4 space-y-3">
                 {(question.options || []).map((option, optionIndex) => (
                   <div key={`${question.id}-option-${optionIndex}`} className="grid grid-cols-[auto,1fr] gap-3 items-center">
-                    <span className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-[#1a5c38] text-sm font-bold text-[#f5deb3] dark:bg-[#00ffff] dark:text-[#000000]">{getOptionLabel(optionIndex)}</span>
+                    <span className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-[#1a5c38] text-sm font-bold text-[#b5e3f4] dark:bg-[#00ffff] dark:text-[#000000]">{getOptionLabel(optionIndex)}</span>
                     <input
                       value={option}
                       onChange={(event) => updateOption(question.id, optionIndex, event.target.value)}
@@ -1291,7 +1291,7 @@ export default function TeacherAssignmentsPanel({
                     <p className={`${BODY} mt-2`}>{assignment.description || 'No teacher instructions added yet.'}</p>
                   </div>
                   <div className="flex flex-wrap gap-2 items-center">
-                    <span className="inline-flex rounded-full bg-[#1a5c38] px-3 py-1 text-xs font-bold uppercase tracking-[0.15em] text-[#f5deb3] dark:bg-[#00ffff] dark:text-[#000000]">{summary.format}</span>
+                    <span className="inline-flex rounded-full bg-[#1a5c38] px-3 py-1 text-xs font-bold uppercase tracking-[0.15em] text-[#b5e3f4] dark:bg-[#00ffff] dark:text-[#000000]">{summary.format}</span>
                     <button type="button" onClick={() => setViewingAssignment(assignment)} className={SECONDARY_BUTTON}>View</button>
                     <button type="button" onClick={() => setSubmissionsAssignment(assignment)} className="rounded-2xl border border-[#1a5c38]/50 bg-[#1a5c38]/10 px-4 py-2 text-sm font-bold text-[#1a5c38] hover:bg-[#1a5c38]/20 transition-colors">Submissions</button>
                     {canManageAssignment && <button type="button" onClick={() => handleEditAssignment(assignment)} className={SECONDARY_BUTTON}>Edit</button>}
@@ -1329,7 +1329,7 @@ export default function TeacherAssignmentsPanel({
               {[{ id: 'class', label: 'Class' }, { id: 'subject', label: 'Subject' }, { id: 'details', label: 'Assignment' }].map(step => {
                 const isActive = composerStep === step.id;
                 return (
-                  <span key={step.id} className={`rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-[0.15em] ${isActive ? 'bg-[#1a5c38] text-[#f5deb3] dark:bg-[#00ffff] dark:text-[#000000]' : 'border border-[#c9a96e]/45 text-[#800020] dark:border-[#bf00ff]/35 dark:text-[#bf00ff]'}`}>
+                  <span key={step.id} className={`rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-[0.15em] ${isActive ? 'bg-[#1a5c38] text-[#b5e3f4] dark:bg-[#00ffff] dark:text-[#000000]' : 'border border-[#c9a96e]/45 text-[#800020] dark:border-[#bf00ff]/35 dark:text-[#bf00ff]'}`}>
                     {step.label}
                   </span>
                 );
@@ -1352,7 +1352,7 @@ export default function TeacherAssignmentsPanel({
                           key={classroom.id}
                           type="button"
                           onClick={() => updateDraftClass(classroom.id)}
-                          className={`text-left rounded-3xl border p-4 transition-colors ${isSelected ? 'bg-[#1a5c38] text-[#f5deb3] border-[#1a5c38] dark:bg-[#00ffff] dark:text-[#000000] dark:border-[#00ffff]' : 'bg-[#fff8f0] border-[#c9a96e]/45 text-[#191970] hover:bg-[#f2e1bf] dark:bg-black/20 dark:border-[#bf00ff]/35 dark:text-[#ffffff] dark:hover:bg-[#800000]/85'}`}
+                          className={`text-left rounded-3xl border p-4 transition-colors ${isSelected ? 'bg-[#1a5c38] text-[#b5e3f4] border-[#1a5c38] dark:bg-[#00ffff] dark:text-[#000000] dark:border-[#00ffff]' : 'bg-[#fff8f0] border-[#c9a96e]/45 text-[#191970] hover:bg-[#f2e1bf] dark:bg-black/20 dark:border-[#bf00ff]/35 dark:text-[#ffffff] dark:hover:bg-[#800000]/85'}`}
                         >
                           <p className="text-lg font-bold">{classroom.className}</p>
                           <p className="mt-2 text-sm opacity-90">{classroom.subjects?.length || 0} assigned subject{classroom.subjects?.length === 1 ? '' : 's'}</p>
@@ -1381,7 +1381,7 @@ export default function TeacherAssignmentsPanel({
                           key={subject.id}
                           type="button"
                           onClick={() => setDraftValue('subjectId', subject.id)}
-                          className={`text-left rounded-3xl border p-4 transition-colors ${isSelected ? 'bg-[#1a5c38] text-[#f5deb3] border-[#1a5c38] dark:bg-[#00ffff] dark:text-[#000000] dark:border-[#00ffff]' : 'bg-[#fff8f0] border-[#c9a96e]/45 text-[#191970] hover:bg-[#f2e1bf] dark:bg-black/20 dark:border-[#bf00ff]/35 dark:text-[#ffffff] dark:hover:bg-[#800000]/85'}`}
+                          className={`text-left rounded-3xl border p-4 transition-colors ${isSelected ? 'bg-[#1a5c38] text-[#b5e3f4] border-[#1a5c38] dark:bg-[#00ffff] dark:text-[#000000] dark:border-[#00ffff]' : 'bg-[#fff8f0] border-[#c9a96e]/45 text-[#191970] hover:bg-[#f2e1bf] dark:bg-black/20 dark:border-[#bf00ff]/35 dark:text-[#ffffff] dark:hover:bg-[#800000]/85'}`}
                         >
                           <p className="text-lg font-bold">{subject.name}</p>
                           <p className="mt-2 text-sm opacity-90">Assigned subject</p>
@@ -1423,7 +1423,7 @@ export default function TeacherAssignmentsPanel({
                     <button
                       type="button"
                       onClick={() => setComposerMode('build')}
-                      className={`text-left rounded-3xl border p-4 transition-colors ${composerMode === 'build' ? 'bg-[#1a5c38] text-[#f5deb3] border-[#1a5c38] dark:bg-[#00ffff] dark:text-[#000000] dark:border-[#00ffff]' : 'bg-[#fff8f0] border-[#c9a96e]/45 text-[#191970] hover:bg-[#f2e1bf] dark:bg-black/20 dark:border-[#bf00ff]/35 dark:text-[#ffffff] dark:hover:bg-[#800000]/85'}`}
+                      className={`text-left rounded-3xl border p-4 transition-colors ${composerMode === 'build' ? 'bg-[#1a5c38] text-[#b5e3f4] border-[#1a5c38] dark:bg-[#00ffff] dark:text-[#000000] dark:border-[#00ffff]' : 'bg-[#fff8f0] border-[#c9a96e]/45 text-[#191970] hover:bg-[#f2e1bf] dark:bg-black/20 dark:border-[#bf00ff]/35 dark:text-[#ffffff] dark:hover:bg-[#800000]/85'}`}
                     >
                       <p className="text-lg font-bold">Build Question By Question</p>
                       <p className="mt-2 text-sm opacity-90">Create each question manually and set the score for each one.</p>
@@ -1431,7 +1431,7 @@ export default function TeacherAssignmentsPanel({
                     <button
                       type="button"
                       onClick={() => setComposerMode('import')}
-                      className={`text-left rounded-3xl border p-4 transition-colors ${composerMode === 'import' ? 'bg-[#1a5c38] text-[#f5deb3] border-[#1a5c38] dark:bg-[#00ffff] dark:text-[#000000] dark:border-[#00ffff]' : 'bg-[#fff8f0] border-[#c9a96e]/45 text-[#191970] hover:bg-[#f2e1bf] dark:bg-black/20 dark:border-[#bf00ff]/35 dark:text-[#ffffff] dark:hover:bg-[#800000]/85'}`}
+                      className={`text-left rounded-3xl border p-4 transition-colors ${composerMode === 'import' ? 'bg-[#1a5c38] text-[#b5e3f4] border-[#1a5c38] dark:bg-[#00ffff] dark:text-[#000000] dark:border-[#00ffff]' : 'bg-[#fff8f0] border-[#c9a96e]/45 text-[#191970] hover:bg-[#f2e1bf] dark:bg-black/20 dark:border-[#bf00ff]/35 dark:text-[#ffffff] dark:hover:bg-[#800000]/85'}`}
                     >
                       <p className="text-lg font-bold">Bulk Import By Copy And Paste</p>
                       <p className="mt-2 text-sm opacity-90">Paste structured questions, then review and score the imported questions before saving.</p>
@@ -1539,12 +1539,12 @@ export default function TeacherAssignmentsPanel({
       {successState && (
         <div className="fixed inset-0 z-[80] flex items-center justify-center bg-black/45 px-4 py-6 backdrop-blur-sm">
           <div className="w-full max-w-md rounded-[2rem] border border-[#1a5c38]/35 bg-[#edf8f1] p-6 text-center shadow-[0_24px_60px_rgba(26,92,56,0.28)] dark:border-[#00ffff]/35 dark:bg-[#002b2c]">
-            <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-[#1a5c38] text-4xl font-bold text-[#f5deb3] dark:bg-[#00ffff] dark:text-[#000000]">
+            <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-[#1a5c38] text-4xl font-bold text-[#b5e3f4] dark:bg-[#00ffff] dark:text-[#000000]">
               ✓
             </div>
             <h4 className="mt-4 text-2xl font-bold text-[#1a5c38] dark:text-[#00ffff]">{successState.title}</h4>
             <p className="mt-2 text-sm font-semibold text-[#191970] dark:text-[#ffffff]">{successState.message}</p>
-            <button type="button" onClick={() => setSuccessState(null)} className="mt-5 rounded-2xl bg-[#1a5c38] px-5 py-2 text-sm font-bold text-[#f5deb3] transition-colors hover:bg-[#154a2e] dark:bg-[#00ffff] dark:text-[#000000] dark:hover:bg-[#7dfcff]">Close</button>
+            <button type="button" onClick={() => setSuccessState(null)} className="mt-5 rounded-2xl bg-[#1a5c38] px-5 py-2 text-sm font-bold text-[#b5e3f4] transition-colors hover:bg-[#154a2e] dark:bg-[#00ffff] dark:text-[#000000] dark:hover:bg-[#7dfcff]">Close</button>
           </div>
         </div>
       )}

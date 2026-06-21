@@ -57,7 +57,7 @@ export function useTenantPwaManifest(auth) {
       scope: '/',
       icons,
       theme_color: '#191970',
-      background_color: '#f5deb3',
+      background_color: '#b5e3f4',
       display: 'standalone',
       display_override: ['standalone', 'minimal-ui'],
       orientation: 'portrait-primary',

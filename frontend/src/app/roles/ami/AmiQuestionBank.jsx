@@ -4,13 +4,13 @@ import { getApiBase } from '../../../config/apiBase';
 
 const apiBase = getApiBase('');
 
-const SURFACE = 'rounded-[2rem] border border-[#c9a96e]/40 bg-[#f5deb3] dark:bg-[#800000]/30 p-5 shadow-sm';
-const SUB_SURFACE = 'rounded-2xl border border-[#c9a96e]/30 bg-[#f0d090] dark:bg-[#800000]/20 p-4';
+const SURFACE = 'rounded-[2rem] border border-[#c9a96e]/40 bg-[#b5e3f4] dark:bg-[#800000]/30 p-5 shadow-sm';
+const SUB_SURFACE = 'rounded-2xl border border-[#c9a96e]/30 bg-[#ade1f4] dark:bg-[#800000]/20 p-4';
 const LABEL = 'text-xs font-semibold uppercase tracking-[0.15em] text-[#800020] dark:text-[#bf00ff]';
 const TITLE = 'text-xl font-bold text-[#800000] dark:text-[#0000ff]';
 const BODY = 'text-sm text-[#191970] dark:text-[#39ff14]';
-const INPUT = 'mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#f5deb3] dark:bg-slate-900 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none focus:border-[#800020]';
-const PRIMARY_BUTTON = 'bg-[#1a5c38] hover:bg-[#154a2e] text-[#f5deb3] font-bold px-5 py-2 rounded-2xl text-sm transition-colors disabled:opacity-60 dark:bg-[#00ffff] dark:text-black dark:hover:bg-[#00e5e5]';
+const INPUT = 'mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#b5e3f4] dark:bg-slate-900 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none focus:border-[#800020]';
+const PRIMARY_BUTTON = 'bg-[#1a5c38] hover:bg-[#154a2e] text-[#b5e3f4] font-bold px-5 py-2 rounded-2xl text-sm transition-colors disabled:opacity-60 dark:bg-[#00ffff] dark:text-black dark:hover:bg-[#00e5e5]';
 const DANGER_BUTTON = 'bg-red-600 hover:bg-red-700 text-white font-bold px-3 py-1.5 rounded-xl text-xs transition-colors';
 
 const QUESTION_TYPES = [
@@ -213,9 +213,9 @@ export default function AmiQuestionBank() {
             <div className="flex flex-wrap items-start justify-between gap-2">
               <div className="flex-1">
                 <div className="flex flex-wrap gap-2 mb-1">
-                  <span className="rounded-full bg-[#800020] px-2 py-0.5 text-[10px] font-bold uppercase text-[#f5deb3] dark:bg-[#bf00ff]">{q.subject}</span>
-                  {q.classLevel && <span className="rounded-full bg-[#191970] px-2 py-0.5 text-[10px] font-bold uppercase text-[#f5deb3] dark:bg-[#0000ff]">{q.classLevel}</span>}
-                  <span className="rounded-full bg-[#1a5c38] px-2 py-0.5 text-[10px] font-bold uppercase text-[#f5deb3] dark:bg-[#00ffff] dark:text-black">{QUESTION_TYPES.find(t => t.value === q.type)?.label || q.type}</span>
+                  <span className="rounded-full bg-[#800020] px-2 py-0.5 text-[10px] font-bold uppercase text-[#b5e3f4] dark:bg-[#bf00ff]">{q.subject}</span>
+                  {q.classLevel && <span className="rounded-full bg-[#191970] px-2 py-0.5 text-[10px] font-bold uppercase text-[#b5e3f4] dark:bg-[#0000ff]">{q.classLevel}</span>}
+                  <span className="rounded-full bg-[#1a5c38] px-2 py-0.5 text-[10px] font-bold uppercase text-[#b5e3f4] dark:bg-[#00ffff] dark:text-black">{QUESTION_TYPES.find(t => t.value === q.type)?.label || q.type}</span>
                 </div>
                 <p className="font-semibold text-[#800000] dark:text-[#ffffff] text-sm">{idx + 1}. {q.prompt}</p>
                 {q.imageUrl && <img src={q.imageUrl} alt="question" className="mt-2 max-h-32 rounded-xl object-contain" onError={e => { e.currentTarget.style.display = 'none'; }} />}

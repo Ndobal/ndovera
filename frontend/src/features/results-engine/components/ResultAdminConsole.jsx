@@ -467,7 +467,7 @@ export default function ResultAdminConsole({ analyticsMode = 'hos', roleTitle = 
           )}
 
           {data && !data.configurationReady && (
-            <section className={`${RESULT_SURFACE} p-6 border border-amber-300/30 bg-[#f0d090] dark:bg-[#800000]/70 text-[#800020] dark:text-[#39ff14] text-sm`}>
+            <section className={`${RESULT_SURFACE} p-6 border border-amber-300/30 bg-[#ade1f4] dark:bg-[#800000]/70 text-[#800020] dark:text-[#39ff14] text-sm`}>
               {data.configurationError || 'Result settings are incomplete. Configure the template and scales before CA entries can be accepted.'}
             </section>
           )}
@@ -513,7 +513,7 @@ export default function ResultAdminConsole({ analyticsMode = 'hos', roleTitle = 
                 <p className={`micro-label ${RESULT_LABEL}`}>Configured CA Components</p>
                 <div className="mt-3 flex flex-wrap gap-2">
                   {caComponents.map(component => (
-                    <span key={component.key} className={`rounded-full border border-[#c9a96e]/45 bg-[#f0d090] px-3 py-1 text-xs font-semibold ${RESULT_LABEL} dark:border-[#bf00ff]/35 dark:bg-black/20`}>
+                    <span key={component.key} className={`rounded-full border border-[#c9a96e]/45 bg-[#ade1f4] px-3 py-1 text-xs font-semibold ${RESULT_LABEL} dark:border-[#bf00ff]/35 dark:bg-black/20`}>
                       {component.label} ({component.maxScore})
                     </span>
                   ))}

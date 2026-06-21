@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { getApiUrl } from '../../config/apiBase';
 import { getStoredAuth } from '../../features/auth/services/authApi';
 
-const CARD = 'rounded-3xl p-6 bg-[#f5deb3] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10';
+const CARD = 'rounded-3xl p-6 bg-[#b5e3f4] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10';
 const INPUT = 'mt-2 w-full rounded-2xl border border-[#c9a96e]/45 bg-white/85 px-4 py-3 text-sm font-medium text-[#191970] outline-none transition focus:border-[#1a5c38] focus:ring-2 focus:ring-[#1a5c38]/20 dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#39ff14] dark:focus:border-[#00ffff] dark:focus:ring-[#00ffff]/20';
-const PRIMARY_BUTTON = 'inline-flex items-center justify-center rounded-2xl bg-[#1a5c38] px-4 py-3 text-sm font-bold text-[#f5deb3] transition hover:bg-[#154a2e] disabled:cursor-not-allowed disabled:opacity-60 dark:bg-[#00ffff] dark:text-[#000000] dark:hover:bg-[#6affff]';
+const PRIMARY_BUTTON = 'inline-flex items-center justify-center rounded-2xl bg-[#1a5c38] px-4 py-3 text-sm font-bold text-[#b5e3f4] transition hover:bg-[#154a2e] disabled:cursor-not-allowed disabled:opacity-60 dark:bg-[#00ffff] dark:text-[#000000] dark:hover:bg-[#6affff]';
 
 function buildRequestInit(token, init = {}) {
   const nextHeaders = {

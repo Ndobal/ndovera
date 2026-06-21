@@ -86,7 +86,7 @@ export default function AdminDashboard({ auth = null }) {
 
   return (
     <div className="p-8 max-w-7xl mx-auto space-y-6">
-      <section className="rounded-3xl border border-[#c9a96e]/40 bg-[#f5deb3] p-6 shadow-sm dark:border-cyan-300/20 dark:bg-slate-900/30">
+      <section className="rounded-3xl border border-[#c9a96e]/40 bg-[#b5e3f4] p-6 shadow-sm dark:border-cyan-300/20 dark:bg-slate-900/30">
         <p className="micro-label text-[#800020] dark:text-[#bf00ff]">Merged Admin Role</p>
         <h1 className="mt-2 text-3xl font-black text-[#800000] dark:text-[#0000ff]">Admin Workspace</h1>
         <p className="mt-3 max-w-3xl text-sm leading-6 text-[#191970] dark:text-[#39ff14]">
@@ -98,14 +98,14 @@ export default function AdminDashboard({ auth = null }) {
         {cards.map(card => (
           <article
             key={card.roleKey}
-            className="rounded-3xl border border-[#c9a96e]/40 bg-[#f5deb3] p-5 shadow-sm transition-transform hover:-translate-y-0.5 dark:border-cyan-300/20 dark:bg-slate-900/30"
+            className="rounded-3xl border border-[#c9a96e]/40 bg-[#b5e3f4] p-5 shadow-sm transition-transform hover:-translate-y-0.5 dark:border-cyan-300/20 dark:bg-slate-900/30"
           >
             <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#800020] dark:text-[#bf00ff]">Assigned Role</p>
             <h2 className="mt-3 text-2xl font-black text-[#800000] dark:text-[#0000ff]">{card.label}</h2>
             <p className="mt-3 text-sm leading-6 text-[#191970] dark:text-[#39ff14]">{card.description}</p>
             <Link
               to={card.path}
-              className="mt-5 inline-flex items-center rounded-2xl bg-[#1a5c38] px-4 py-2 text-sm font-bold text-[#f5deb3] transition-colors hover:bg-[#154a2e] dark:bg-[#00ffff] dark:text-black dark:hover:bg-[#7dfcff]"
+              className="mt-5 inline-flex items-center rounded-2xl bg-[#1a5c38] px-4 py-2 text-sm font-bold text-[#b5e3f4] transition-colors hover:bg-[#154a2e] dark:bg-[#00ffff] dark:text-black dark:hover:bg-[#7dfcff]"
             >
               Open dashboard
             </Link>

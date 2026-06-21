@@ -33,7 +33,7 @@ export default function HoSOverview({ auth }) {
 
   return (
     <div className="p-8 max-w-7xl mx-auto space-y-6">
-      <div className="rounded-3xl p-6 bg-[#f5deb3] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
+      <div className="rounded-3xl p-6 bg-[#b5e3f4] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
         <h1 className="text-2xl font-bold text-[#800000] dark:text-slate-100">
           Head of School Dashboard
         </h1>
@@ -43,11 +43,11 @@ export default function HoSOverview({ auth }) {
       </div>
 
       {loading ? (
-        <div className="rounded-3xl p-6 bg-[#f5deb3] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
+        <div className="rounded-3xl p-6 bg-[#b5e3f4] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
           <p className="text-[#800020] dark:text-slate-400">Loading...</p>
         </div>
       ) : error ? (
-        <div className="rounded-3xl p-6 bg-[#f5deb3] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
+        <div className="rounded-3xl p-6 bg-[#b5e3f4] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
           <p className="text-[#800000] dark:text-slate-100">{error}</p>
         </div>
       ) : (
@@ -69,14 +69,14 @@ export default function HoSOverview({ auth }) {
           </div>
 
           {/* Quick Links */}
-          <div className="rounded-3xl p-6 bg-[#f5deb3] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
+          <div className="rounded-3xl p-6 bg-[#b5e3f4] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
             <h2 className="text-lg font-semibold text-[#800000] dark:text-slate-100 mb-4">Quick Navigation</h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {quickLinks.map((l) => (
                 <Link
                   key={l.path}
                   to={l.path}
-                  className="bg-[#1a5c38] dark:bg-emerald-700 hover:bg-[#154a2e] dark:hover:bg-emerald-600 text-[#f5deb3] font-bold dark:text-white px-4 py-3 rounded-2xl text-center text-sm transition-colors"
+                  className="bg-[#1a5c38] dark:bg-emerald-700 hover:bg-[#154a2e] dark:hover:bg-emerald-600 text-[#b5e3f4] font-bold dark:text-white px-4 py-3 rounded-2xl text-center text-sm transition-colors"
                 >
                   {l.label}
                 </Link>

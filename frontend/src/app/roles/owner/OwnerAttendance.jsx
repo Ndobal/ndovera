@@ -14,9 +14,9 @@ import SchoolCalendarBoard from '../../../features/school/components/SchoolCalen
 import TimetableBoard from '../../../features/school/components/TimetableBoard';
 
 const TABS = ['Staff Attendance', 'Student Attendance', 'School Calendar', 'Timetable', 'Monthly Report', 'AI Analysis'];
-const CARD = 'rounded-3xl p-6 bg-[#f5deb3] border border-[#c9a96e]/40';
-const INNER = 'rounded-2xl p-4 bg-[#f0d090] border border-[#c9a96e]/30';
-const BTN = 'bg-[#1a5c38] hover:bg-[#154a2e] text-[#f5deb3] font-bold px-5 py-2.5 rounded-2xl text-sm transition-colors';
+const CARD = 'rounded-3xl p-6 bg-[#b5e3f4] border border-[#c9a96e]/40';
+const INNER = 'rounded-2xl p-4 bg-[#ade1f4] border border-[#c9a96e]/30';
+const BTN = 'bg-[#1a5c38] hover:bg-[#154a2e] text-[#b5e3f4] font-bold px-5 py-2.5 rounded-2xl text-sm transition-colors';
 const TODAY = new Date().toISOString().slice(0, 10);
 const CURRENT_MONTH = new Date().toISOString().slice(0, 7);
 
@@ -54,7 +54,7 @@ function RecognitionCard({ title, description, recipient, badge }) {
       <div className="min-w-0 flex-1">
         <div className="flex flex-wrap items-center gap-2">
           <h3 className="text-base font-bold text-[#800000]">{title}</h3>
-          {badge ? <span className="rounded-full bg-[#800020] px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-[#f5deb3]">{badge}</span> : null}
+          {badge ? <span className="rounded-full bg-[#800020] px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-[#b5e3f4]">{badge}</span> : null}
         </div>
         <p className="mt-1 text-sm font-semibold text-[#191970]">{recipient.name}</p>
         <p className="text-xs uppercase tracking-wide text-[#800020]">{recipient.role || 'user'}</p>
@@ -128,7 +128,7 @@ function StaffAttendanceTab() {
 
   return (
     <div className="space-y-4">
-      {toast && <div className="fixed top-6 right-6 z-50 bg-[#1a5c38] text-[#f5deb3] font-bold px-5 py-3 rounded-2xl shadow-xl">{toast}</div>}
+      {toast && <div className="fixed top-6 right-6 z-50 bg-[#1a5c38] text-[#b5e3f4] font-bold px-5 py-3 rounded-2xl shadow-xl">{toast}</div>}
 
       <div className={CARD}>
         <div className="flex flex-wrap items-center gap-4">
@@ -311,7 +311,7 @@ function MonthlyReportTab({ month }) {
             <h2 className="text-lg font-bold text-[#800000]">Monthly Attendance & Recognition</h2>
             <p className="mt-1 text-sm text-[#191970]">Leadership summary for {formatMonthLabel(month)} with birthdays, punctuality, activity, and risk tracking.</p>
           </div>
-          <span className="rounded-full bg-[#800020] px-3 py-1 text-xs font-bold uppercase tracking-wide text-[#f5deb3]">{formatMonthLabel(month)}</span>
+          <span className="rounded-full bg-[#800020] px-3 py-1 text-xs font-bold uppercase tracking-wide text-[#b5e3f4]">{formatMonthLabel(month)}</span>
         </div>
       </div>
 
@@ -462,7 +462,7 @@ export default function OwnerAttendance({ auth }) {
 
   return (
     <div className="p-8 max-w-7xl mx-auto space-y-6">
-      <div className="rounded-3xl p-6 bg-[#f5deb3] border border-[#c9a96e]/40">
+      <div className="rounded-3xl p-6 bg-[#b5e3f4] border border-[#c9a96e]/40">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>
             <h1 className="text-2xl font-bold text-[#800000]">Attendance</h1>
@@ -474,7 +474,7 @@ export default function OwnerAttendance({ auth }) {
           </div>
         </div>
       </div>
-      <div className="flex flex-wrap gap-2">{TABS.map((t, i) => <button key={t} onClick={() => setTab(i)} className={`px-5 py-2 rounded-2xl text-sm font-semibold transition-colors ${tab === i ? 'bg-[#800020] text-[#f5deb3]' : 'bg-[#f5deb3] text-[#800020] border border-[#c9a96e]/40 hover:bg-[#f0d090]'}`}>{t}</button>)}</div>
+      <div className="flex flex-wrap gap-2">{TABS.map((t, i) => <button key={t} onClick={() => setTab(i)} className={`px-5 py-2 rounded-2xl text-sm font-semibold transition-colors ${tab === i ? 'bg-[#800020] text-[#b5e3f4]' : 'bg-[#b5e3f4] text-[#800020] border border-[#c9a96e]/40 hover:bg-[#ade1f4]'}`}>{t}</button>)}</div>
       {tab === 0 && <StaffAttendanceTab />}
       {tab === 1 && <StudentAttendanceTab />}
       {tab === 2 && <SchoolCalendarBoard />}

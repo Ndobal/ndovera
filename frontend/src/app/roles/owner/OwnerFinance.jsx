@@ -20,9 +20,9 @@ const TAB_META = [
   { label: 'Income & Expenditure', short: 'Income & Exp.', Icon: ChartBarIcon },
   { label: 'AI Analysis', short: 'AI Analysis', Icon: SparklesIcon },
 ];
-const CARD = 'rounded-3xl p-6 bg-[#f5deb3] border border-[#c9a96e]/40';
-const INNER = 'rounded-2xl p-4 bg-[#f0d090] border border-[#c9a96e]/30';
-const BTN = 'bg-[#1a5c38] hover:bg-[#154a2e] text-[#f5deb3] font-bold px-5 py-2.5 rounded-2xl text-sm transition-colors';
+const CARD = 'rounded-3xl p-6 bg-[#b5e3f4] border border-[#c9a96e]/40';
+const INNER = 'rounded-2xl p-4 bg-[#ade1f4] border border-[#c9a96e]/30';
+const BTN = 'bg-[#1a5c38] hover:bg-[#154a2e] text-[#b5e3f4] font-bold px-5 py-2.5 rounded-2xl text-sm transition-colors';
 
 function InfoRow({ label, value }) {
   return <div><p className="text-xs text-[#800020] uppercase font-semibold">{label}</p><p className="text-[#191970] mt-1">{value || '—'}</p></div>;
@@ -96,7 +96,7 @@ function ExpenditureTab() {
   }
   return (
     <div className="space-y-4">
-      {toast && <div className="fixed top-6 right-6 z-50 bg-[#1a5c38] text-[#f5deb3] font-bold px-5 py-3 rounded-2xl shadow-xl">{toast}</div>}
+      {toast && <div className="fixed top-6 right-6 z-50 bg-[#1a5c38] text-[#b5e3f4] font-bold px-5 py-3 rounded-2xl shadow-xl">{toast}</div>}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className={CARD}><p className="text-xs text-[#800020] uppercase font-semibold">This Month</p><p className="text-2xl font-bold text-[#800000] mt-1">₦{monthlyTotal.toLocaleString()}</p><p className="text-xs text-[#191970] mt-0.5">Total Expenditure</p></div>
         <div className={`${CARD} flex items-center justify-end`}><button onClick={() => setShowModal(true)} className={BTN}>+ Add Expense</button></div>
@@ -137,8 +137,8 @@ function IncomeExpenditureTab() {
       </div>
       <div className={CARD}><h2 className="text-lg font-bold text-[#800000] mb-4">Income vs Expenditure</h2>
         <div className="space-y-3">
-          <div><p className="text-xs text-[#800020] font-semibold mb-1">Income</p><div className="h-8 rounded-full bg-[#f0d090] overflow-hidden"><div className="h-full bg-emerald-500 rounded-full transition-all" style={{ width: `${Math.round((totalIncome / maxVal) * 100)}%` }} /></div><p className="text-xs text-[#191970] mt-1">₦{totalIncome.toLocaleString()}</p></div>
-          <div><p className="text-xs text-[#800020] font-semibold mb-1">Expenditure</p><div className="h-8 rounded-full bg-[#f0d090] overflow-hidden"><div className="h-full bg-red-500 rounded-full transition-all" style={{ width: `${Math.round((totalExpenditure / maxVal) * 100)}%` }} /></div><p className="text-xs text-[#191970] mt-1">₦{totalExpenditure.toLocaleString()}</p></div>
+          <div><p className="text-xs text-[#800020] font-semibold mb-1">Income</p><div className="h-8 rounded-full bg-[#ade1f4] overflow-hidden"><div className="h-full bg-emerald-500 rounded-full transition-all" style={{ width: `${Math.round((totalIncome / maxVal) * 100)}%` }} /></div><p className="text-xs text-[#191970] mt-1">₦{totalIncome.toLocaleString()}</p></div>
+          <div><p className="text-xs text-[#800020] font-semibold mb-1">Expenditure</p><div className="h-8 rounded-full bg-[#ade1f4] overflow-hidden"><div className="h-full bg-red-500 rounded-full transition-all" style={{ width: `${Math.round((totalExpenditure / maxVal) * 100)}%` }} /></div><p className="text-xs text-[#191970] mt-1">₦{totalExpenditure.toLocaleString()}</p></div>
         </div>
       </div>
       <div className={CARD}><h2 className="text-lg font-bold text-[#800000] mb-3">Term Summary</h2>
@@ -198,7 +198,7 @@ export default function OwnerFinance({ auth, initialTab = 0 }) {
 
   return (
     <div className="p-4 md:p-8 max-w-7xl mx-auto space-y-5">
-      <div className="sticky top-0 z-40 -mx-4 md:mx-0 rounded-none md:rounded-2xl border-b md:border border-[#c9a96e]/40 bg-[#f5deb3]/95 px-3 py-2 shadow-sm backdrop-blur dark:border-[#00ffff]/20 dark:bg-[#800000]/80">
+      <div className="sticky top-0 z-40 -mx-4 md:mx-0 rounded-none md:rounded-2xl border-b md:border border-[#c9a96e]/40 bg-[#b5e3f4]/95 px-3 py-2 shadow-sm backdrop-blur dark:border-[#00ffff]/20 dark:bg-[#800000]/80">
         <div className="flex items-center gap-1.5 overflow-x-auto">
         {TAB_META.map((t, i) => {
           const active = tab === i;
@@ -208,7 +208,7 @@ export default function OwnerFinance({ auth, initialTab = 0 }) {
               key={t.label}
               onClick={() => setTab(i)}
               title={t.label}
-              className={`inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-xl px-3 py-1.5 text-sm font-semibold transition-colors ${active ? 'bg-[#800020] text-[#f5deb3] shadow-sm' : 'text-[#800020] hover:bg-[#f0d090] dark:text-[#f5deb3] dark:hover:bg-[#800000]/40'}`}
+              className={`inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-xl px-3 py-1.5 text-sm font-semibold transition-colors ${active ? 'bg-[#800020] text-[#b5e3f4] shadow-sm' : 'text-[#800020] hover:bg-[#ade1f4] dark:text-[#b5e3f4] dark:hover:bg-[#800000]/40'}`}
             >
               <Icon className="h-4 w-4 shrink-0" />
               <span>{t.short}</span>

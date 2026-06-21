@@ -188,7 +188,7 @@ export default function Flipbook({ url, onFallback }) {
     return (
       <div className="flex h-full w-full flex-col items-center justify-center gap-3 p-6 text-center text-sm text-[#191970]">
         <p>Could not open this file as a flipbook.</p>
-        <button type="button" onClick={onFallback} className="rounded-xl bg-[#1a5c38] px-4 py-2 text-xs font-bold text-[#f5deb3]">Open standard reader</button>
+        <button type="button" onClick={onFallback} className="rounded-xl bg-[#1a5c38] px-4 py-2 text-xs font-bold text-[#b5e3f4]">Open standard reader</button>
       </div>
     );
   }
@@ -216,7 +216,7 @@ export default function Flipbook({ url, onFallback }) {
 
       {/* Thumbnail strip */}
       {status === 'ready' && showThumbs && (
-        <div ref={thumbStripRef} className="flex max-h-28 shrink-0 items-center gap-2 overflow-x-auto border-t border-[#c9a96e]/30 bg-[#f5deb3]/95 px-3 py-2">
+        <div ref={thumbStripRef} className="flex max-h-28 shrink-0 items-center gap-2 overflow-x-auto border-t border-[#c9a96e]/30 bg-[#b5e3f4]/95 px-3 py-2">
           {pages.map((src, index) => (
             <button
               key={index}
@@ -235,7 +235,7 @@ export default function Flipbook({ url, onFallback }) {
 
       {/* Bottom navigation */}
       {status === 'ready' && (
-        <div className="flex shrink-0 items-center justify-center gap-3 border-t border-[#c9a96e]/30 bg-[#f5deb3] px-4 py-2">
+        <div className="flex shrink-0 items-center justify-center gap-3 border-t border-[#c9a96e]/30 bg-[#b5e3f4] px-4 py-2">
           <button type="button" onClick={() => flipRef.current?.flipPrev?.()} className="rounded-xl border border-[#c9a96e]/40 bg-white/80 px-4 py-1.5 text-xs font-bold text-[#800020] transition hover:bg-white">‹ Prev</button>
           <span className="text-xs font-semibold text-[#191970]">Page {Math.min(page + 1, pages.length)} / {pages.length}</span>
           <button type="button" onClick={() => flipRef.current?.flipNext?.()} className="rounded-xl border border-[#c9a96e]/40 bg-white/80 px-4 py-1.5 text-xs font-bold text-[#800020] transition hover:bg-white">Next ›</button>

@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { getSchoolCalendar, addCalendarEvent, deleteCalendarEvent } from '../services/schoolApi';
 
-const CARD = 'rounded-3xl p-6 bg-[#f5deb3] border border-[#c9a96e]/40';
-const INNER = 'rounded-2xl p-4 bg-[#f0d090] border border-[#c9a96e]/30';
-const BTN = 'bg-[#1a5c38] hover:bg-[#154a2e] text-[#f5deb3] font-bold px-5 py-2.5 rounded-2xl text-sm transition-colors disabled:opacity-60';
+const CARD = 'rounded-3xl p-6 bg-[#b5e3f4] border border-[#c9a96e]/40';
+const INNER = 'rounded-2xl p-4 bg-[#ade1f4] border border-[#c9a96e]/30';
+const BTN = 'bg-[#1a5c38] hover:bg-[#154a2e] text-[#b5e3f4] font-bold px-5 py-2.5 rounded-2xl text-sm transition-colors disabled:opacity-60';
 const INPUT = 'rounded-xl border border-[#c9a96e]/40 bg-white/80 p-2 text-[#191970] text-sm outline-none focus:border-[#800020]';
 
 const TYPE_OPTIONS = [
@@ -86,7 +86,7 @@ export default function SchoolCalendarBoard() {
 
   return (
     <div className="space-y-4">
-      {toast && <div className="fixed top-6 right-6 z-50 bg-[#1a5c38] text-[#f5deb3] font-bold px-5 py-3 rounded-2xl shadow-xl">{toast}</div>}
+      {toast && <div className="fixed top-6 right-6 z-50 bg-[#1a5c38] text-[#b5e3f4] font-bold px-5 py-3 rounded-2xl shadow-xl">{toast}</div>}
 
       <div className={CARD}>
         <div className="flex flex-wrap items-center justify-between gap-3">

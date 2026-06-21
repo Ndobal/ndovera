@@ -7,11 +7,11 @@ import {
   updateUserProfile,
 } from '../../school/services/schoolApi';
 
-const PANEL = 'rounded-3xl border border-[#c9a96e]/40 bg-[#f5deb3] p-6 text-[#191970] shadow-sm dark:border-[#00ffff]/20 dark:bg-[#800000]/25 dark:text-[#39ff14] dark:backdrop-blur-xl';
-const SECTION = 'rounded-2xl border border-[#c9a96e]/30 bg-[#f0d090] p-4 dark:border-[#00ffff]/20 dark:bg-[#330014]/70';
+const PANEL = 'rounded-3xl border border-[#c9a96e]/40 bg-[#b5e3f4] p-6 text-[#191970] shadow-sm dark:border-[#00ffff]/20 dark:bg-[#800000]/25 dark:text-[#39ff14] dark:backdrop-blur-xl';
+const SECTION = 'rounded-2xl border border-[#c9a96e]/30 bg-[#ade1f4] p-4 dark:border-[#00ffff]/20 dark:bg-[#330014]/70';
 const INPUT = 'mt-2 w-full rounded-2xl border border-[#c9a96e]/40 bg-white/80 px-4 py-3 text-sm text-[#191970] outline-none transition focus:border-[#800020] focus:ring-2 focus:ring-[#800020]/10 dark:border-[#00ffff]/20 dark:bg-[#120014]/80 dark:text-white dark:focus:border-[#00ffff] dark:focus:ring-[#00ffff]/20';
 const LABEL = 'text-sm font-semibold uppercase tracking-[0.12em] text-[#800020] dark:text-[#bf00ff]';
-const BTN = 'rounded-2xl bg-[#1a5c38] px-5 py-3 text-sm font-bold text-[#f5deb3] transition-colors hover:bg-[#154a2e] disabled:cursor-not-allowed disabled:opacity-60 dark:bg-[#00ffff] dark:text-black dark:hover:bg-[#7df9ff]';
+const BTN = 'rounded-2xl bg-[#1a5c38] px-5 py-3 text-sm font-bold text-[#b5e3f4] transition-colors hover:bg-[#154a2e] disabled:cursor-not-allowed disabled:opacity-60 dark:bg-[#00ffff] dark:text-black dark:hover:bg-[#7df9ff]';
 const NOTICE = 'rounded-2xl border border-[#1a5c38]/20 bg-[#e4f4e6] px-4 py-3 text-sm text-[#1a5c38] dark:border-[#00ffff]/20 dark:bg-[#03181a] dark:text-[#7df9ff]';
 const ERROR = 'rounded-2xl border border-[#800000]/20 bg-[#fff2ef] px-4 py-3 text-sm text-[#800000] dark:border-rose-300/20 dark:bg-[#24000d] dark:text-rose-200';
 

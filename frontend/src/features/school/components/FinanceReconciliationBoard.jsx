@@ -2,8 +2,8 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { getFeesLedger, getFeeReceipts, getFeePaymentClaims } from '../services/schoolApi';
 
 const PAGE = 'p-8 max-w-7xl mx-auto space-y-6';
-const HEADER = 'rounded-3xl p-6 bg-[#f5deb3] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10';
-const CARD = 'rounded-3xl p-6 bg-[#f5deb3] border border-[#c9a96e]/40 dark:border-white/10 dark:bg-slate-900/30';
+const HEADER = 'rounded-3xl p-6 bg-[#b5e3f4] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10';
+const CARD = 'rounded-3xl p-6 bg-[#b5e3f4] border border-[#c9a96e]/40 dark:border-white/10 dark:bg-slate-900/30';
 
 function formatNaira(value) {
   return `₦${Number(value || 0).toLocaleString()}`;

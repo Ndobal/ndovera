@@ -984,7 +984,7 @@ export default function StudentClassroom() {
         <div className={`flex min-h-[70vh] flex-col gap-4 ${isMobile ? '-mx-4' : '-mx-8'}`}>
           <div className="flex-1 space-y-4">
             {sortedStreamPosts.length === 0 && (
-              <section className="rounded-[1.75rem] border border-[#c9a96e]/45 bg-[#f5deb3] p-5 shadow-[0_14px_30px_rgba(128,0,0,0.08)]">
+              <section className="rounded-[1.75rem] border border-[#c9a96e]/45 bg-[#b5e3f4] p-5 shadow-[0_14px_30px_rgba(128,0,0,0.08)]">
                 <p className="micro-label text-[#800020]">No stream updates yet</p>
                 <p className="mt-2 text-sm text-[#191970]">Posts from teachers and classmates will appear here, with the newest updates settling at the bottom.</p>
               </section>
@@ -995,7 +995,7 @@ export default function StudentClassroom() {
               const postTimestamp = post?.createdAt || post?.updatedAt || new Date().toISOString();
 
               return (
-              <section key={post.id} className="rounded-[1.75rem] border border-[#c9a96e]/45 bg-[#f5deb3] p-5 shadow-[0_14px_30px_rgba(128,0,0,0.08)]">
+              <section key={post.id} className="rounded-[1.75rem] border border-[#c9a96e]/45 bg-[#b5e3f4] p-5 shadow-[0_14px_30px_rgba(128,0,0,0.08)]">
                 <div className="mb-3 flex items-start justify-between gap-3">
                   <div className="relative">
                     <button
@@ -1018,7 +1018,7 @@ export default function StudentClassroom() {
                               setActiveStreamMenuId('');
                               setProfileMember(authorProfile);
                             }}
-                            className="rounded-2xl border border-[#c9a96e]/45 px-3 py-2 text-left text-sm font-semibold text-[#191970] hover:bg-[#f5deb3]"
+                            className="rounded-2xl border border-[#c9a96e]/45 px-3 py-2 text-left text-sm font-semibold text-[#191970] hover:bg-[#b5e3f4]"
                           >
                             View Profile
                           </button>
@@ -1075,7 +1075,7 @@ export default function StudentClassroom() {
                     onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && addComment(post.id)}
                     disabled={!teacherSettings.commentsEnabled}
                     className="flex-1 rounded-2xl border border-[#c9a96e]/60 px-4 py-2 text-sm font-medium text-[#191970] placeholder:text-[#800020]/60"
-                    style={{ backgroundColor: '#f5deb3' }}
+                    style={{ backgroundColor: '#b5e3f4' }}
                     placeholder={teacherSettings.commentsEnabled ? 'Comment respectfully…' : 'Comments disabled by teacher'}
                   />
                   <button
@@ -1090,7 +1090,7 @@ export default function StudentClassroom() {
             );})}
           </div>
 
-          <section className={`sticky ${isMobile ? 'bottom-16' : 'bottom-0'} z-20 border border-[#c9a96e]/45 bg-[#f5deb3] p-3 shadow-[0_18px_40px_rgba(128,0,0,0.14)]`}>
+          <section className={`sticky ${isMobile ? 'bottom-16' : 'bottom-0'} z-20 border border-[#c9a96e]/45 bg-[#b5e3f4] p-3 shadow-[0_18px_40px_rgba(128,0,0,0.14)]`}>
             <div className="space-y-3">
               <textarea
                 value={streamInput}
@@ -1099,7 +1099,7 @@ export default function StudentClassroom() {
                 disabled={!teacherSettings.studentAnnouncementsEnabled}
                 rows={1}
                 className="h-[100px] min-h-[100px] w-full resize-none rounded-2xl border border-[#c9a96e]/60 px-4 py-3 text-sm font-medium text-[#191970] placeholder:text-[#800020]/60"
-                style={{ backgroundColor: '#f5deb3' }}
+                style={{ backgroundColor: '#b5e3f4' }}
                 placeholder={teacherSettings.studentAnnouncementsEnabled ? 'Post class announcement…' : 'Teacher has disabled student posts'}
               />
 
@@ -1129,7 +1129,7 @@ export default function StudentClassroom() {
                       key={emoji}
                       type="button"
                       onClick={() => appendEmojiToStream(emoji)}
-                      className="rounded-xl border border-[#c9a96e]/45 bg-[#f5deb3] px-3 py-2 text-lg"
+                      className="rounded-xl border border-[#c9a96e]/45 bg-[#b5e3f4] px-3 py-2 text-lg"
                     >
                       {emoji}
                     </button>

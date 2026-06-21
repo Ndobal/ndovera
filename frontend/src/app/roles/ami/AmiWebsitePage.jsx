@@ -313,7 +313,7 @@ function SectionEditor({ section, data, onSaved }) {
   }
 
   return (
-    <section className="rounded-3xl border border-[#c9a96e]/45 bg-[#f5deb3] p-5 shadow-[0_18px_40px_rgba(128,0,0,0.08)] dark:border-white/10 dark:bg-slate-900/40">
+    <section className="rounded-3xl border border-[#c9a96e]/45 bg-[#b5e3f4] p-5 shadow-[0_18px_40px_rgba(128,0,0,0.08)] dark:border-white/10 dark:bg-slate-900/40">
       <div>
         <p className="text-lg font-bold text-[#800000] dark:text-slate-100">{section.label}</p>
         <p className="mt-1 text-sm text-[#191970] dark:text-slate-300">{section.description}</p>
@@ -393,7 +393,7 @@ function SectionEditor({ section, data, onSaved }) {
         <div>
           <label className={labelClass}>Upload Picture / Video To R2</label>
           <div className="mt-1 flex flex-wrap items-center gap-3">
-            <button type="button" onClick={() => fileRef.current?.click()} disabled={uploading} className="rounded-2xl bg-[#1a5c38] px-4 py-2 text-sm font-bold text-[#f5deb3] transition hover:bg-[#154a2e] disabled:opacity-60">
+            <button type="button" onClick={() => fileRef.current?.click()} disabled={uploading} className="rounded-2xl bg-[#1a5c38] px-4 py-2 text-sm font-bold text-[#b5e3f4] transition hover:bg-[#154a2e] disabled:opacity-60">
               {uploading ? 'Uploading...' : section.allowMultipleMedia ? 'Upload Media' : 'Upload Main Media'}
             </button>
             <input ref={fileRef} type="file" accept="image/*,video/*" multiple={section.allowMultipleMedia} className="hidden" onChange={handleMediaUpload} />
@@ -436,7 +436,7 @@ function SectionEditor({ section, data, onSaved }) {
 
         {message ? <p className={`text-sm ${message === 'Saved.' || message === 'Upload complete.' ? 'text-[#1a5c38] dark:text-emerald-300' : 'text-red-600'}`}>{message}</p> : null}
 
-        <button type="submit" disabled={saving} className="rounded-2xl bg-[#800020] px-5 py-2.5 text-sm font-bold text-[#f5deb3] transition hover:bg-[#670019] disabled:opacity-60">
+        <button type="submit" disabled={saving} className="rounded-2xl bg-[#800020] px-5 py-2.5 text-sm font-bold text-[#b5e3f4] transition hover:bg-[#670019] disabled:opacity-60">
           {saving ? 'Saving...' : 'Save Section'}
         </button>
       </form>
@@ -470,7 +470,7 @@ export default function AmiWebsitePage() {
 
   return (
     <div className="p-8 mx-auto max-w-7xl space-y-6">
-      <section className="rounded-3xl border border-white/10 bg-[#f5deb3] p-6 shadow-[0_18px_40px_rgba(128,0,0,0.08)] dark:bg-slate-900/40">
+      <section className="rounded-3xl border border-white/10 bg-[#b5e3f4] p-6 shadow-[0_18px_40px_rgba(128,0,0,0.08)] dark:bg-slate-900/40">
         <p className="text-xs font-semibold uppercase tracking-[0.26em] text-[#800020] dark:text-slate-400">AMI Public Website</p>
         <h1 className="mt-3 text-3xl font-black tracking-tight text-[#800000] dark:text-slate-100">Manage the main NDOVERA website</h1>
         <p className="mt-3 max-w-4xl text-sm leading-7 text-[#191970] dark:text-slate-300">

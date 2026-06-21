@@ -21,9 +21,9 @@ const AUDIENCE_OPTIONS = [
   { value: 'website', label: 'Website (public)' },
 ];
 const NEWS_REACTIONS = ['👍', '❤️', '🎉', '👏', '😮'];
-const CARD = 'rounded-3xl border border-[#c9a96e]/40 bg-[#f5deb3] p-6 text-[#191970] shadow-sm';
+const CARD = 'rounded-3xl border border-[#c9a96e]/40 bg-[#b5e3f4] p-6 text-[#191970] shadow-sm';
 const INPUT = 'mt-1 w-full rounded-2xl border border-[#c9a96e]/40 bg-[#fff8ee] px-4 py-3 text-sm text-[#191970] outline-none focus:border-[#800020]';
-const BUTTON = 'rounded-full bg-[#1a5c38] px-5 py-3 text-sm font-bold text-[#f5deb3] transition hover:bg-[#154a2e]';
+const BUTTON = 'rounded-full bg-[#1a5c38] px-5 py-3 text-sm font-bold text-[#b5e3f4] transition hover:bg-[#154a2e]';
 const MUTED = 'text-sm text-[#800020]';
 
 function createEmptyDraft(authorName) {
@@ -48,10 +48,10 @@ function StatusBadge({ status }) {
   const normalized = String(status || 'draft').toLowerCase();
   const colors = {
     draft: 'bg-[#fff8ee] text-[#800020]',
-    submitted: 'bg-[#191970] text-[#f5deb3]',
-    reviewed: 'bg-[#1a5c38] text-[#f5deb3]',
-    changes_requested: 'bg-[#800000] text-[#f5deb3]',
-    published: 'bg-[#800020] text-[#f5deb3]',
+    submitted: 'bg-[#191970] text-[#b5e3f4]',
+    reviewed: 'bg-[#1a5c38] text-[#b5e3f4]',
+    changes_requested: 'bg-[#800000] text-[#b5e3f4]',
+    published: 'bg-[#800020] text-[#b5e3f4]',
   };
 
   return (
@@ -78,7 +78,7 @@ function StoryCard({ post, actions = null, footer = null }) {
       {post.coverUrl ? <img src={post.coverUrl} alt={post.title} className="mt-4 h-48 w-full rounded-3xl object-cover" /> : null}
       {post.excerpt ? <p className="mt-4 text-sm leading-7 text-[#191970]">{post.excerpt}</p> : null}
       <p className="mt-4 whitespace-pre-wrap text-sm leading-7 text-[#191970]">{post.content}</p>
-      {post.reviewNotes ? <div className="mt-4 rounded-2xl bg-[#f5deb3] px-4 py-3 text-sm text-[#800020]"><strong>Review notes:</strong> {post.reviewNotes}</div> : null}
+      {post.reviewNotes ? <div className="mt-4 rounded-2xl bg-[#b5e3f4] px-4 py-3 text-sm text-[#800020]"><strong>Review notes:</strong> {post.reviewNotes}</div> : null}
       {footer}
     </article>
   );
@@ -140,7 +140,7 @@ function NewsEngagement({ postId }) {
       </div>
       <div className="mt-3 flex gap-2">
         <input value={comment} onChange={event => setComment(event.target.value)} placeholder="Add a comment" className="flex-1 rounded-2xl border border-[#c9a96e]/40 bg-[#fff8ee] px-3 py-2 text-sm text-[#191970] outline-none" />
-        <button type="button" onClick={sendComment} disabled={busy} className="rounded-full bg-[#1a5c38] px-4 py-2 text-sm font-bold text-[#f5deb3]">{busy ? '...' : 'Post'}</button>
+        <button type="button" onClick={sendComment} disabled={busy} className="rounded-full bg-[#1a5c38] px-4 py-2 text-sm font-bold text-[#b5e3f4]">{busy ? '...' : 'Post'}</button>
       </div>
     </div>
   );
@@ -353,7 +353,7 @@ export default function SchoolNewsroomPage({
                         if (set.has(option.value)) set.delete(option.value); else set.add(option.value);
                         return { ...current, audience: Array.from(set) };
                       })}
-                      className={`rounded-full px-4 py-2 text-sm font-bold transition ${selected ? 'bg-[#1a5c38] text-[#f5deb3]' : 'border border-[#c9a96e]/40 bg-[#fff8ee] text-[#800020]'}`}
+                      className={`rounded-full px-4 py-2 text-sm font-bold transition ${selected ? 'bg-[#1a5c38] text-[#b5e3f4]' : 'border border-[#c9a96e]/40 bg-[#fff8ee] text-[#800020]'}`}
                     >
                       {selected ? '✓ ' : ''}{option.label}
                     </button>
@@ -384,7 +384,7 @@ export default function SchoolNewsroomPage({
             {error ? <p className="text-sm text-[#800000]">{error}</p> : null}
             <div className="flex flex-wrap gap-3">
               <button type="button" onClick={handleSave} disabled={saving} className={BUTTON}>{saving ? 'Saving...' : 'Save Draft'}</button>
-              <button type="button" onClick={handleSubmit} disabled={submitting} className="rounded-full bg-[#800020] px-5 py-3 text-sm font-bold text-[#f5deb3] transition hover:bg-[#600018]">{submitting ? 'Submitting...' : 'Submit For Review'}</button>
+              <button type="button" onClick={handleSubmit} disabled={submitting} className="rounded-full bg-[#800020] px-5 py-3 text-sm font-bold text-[#b5e3f4] transition hover:bg-[#600018]">{submitting ? 'Submitting...' : 'Submit For Review'}</button>
             </div>
           </div>
         </div>
@@ -398,7 +398,7 @@ export default function SchoolNewsroomPage({
               <StoryCard
                 key={post.id}
                 post={post}
-                actions={post.status === 'published' ? null : <button type="button" onClick={() => startEditing(post)} className="rounded-full bg-[#191970] px-4 py-2 text-sm font-bold text-[#f5deb3]">Edit</button>}
+                actions={post.status === 'published' ? null : <button type="button" onClick={() => startEditing(post)} className="rounded-full bg-[#191970] px-4 py-2 text-sm font-bold text-[#b5e3f4]">Edit</button>}
                 footer={post.publishedAt ? <p className={`${MUTED} mt-4`}>Published {formatDate(post.publishedAt)}</p> : null}
               />
             ))}
@@ -414,7 +414,7 @@ export default function SchoolNewsroomPage({
               <StoryCard
                 key={post.id}
                 post={post}
-                actions={<div className="flex flex-wrap gap-2"><button type="button" onClick={() => handleReview(post, 'approve')} className="rounded-full bg-[#1a5c38] px-4 py-2 text-sm font-bold text-[#f5deb3]">Approve</button><button type="button" onClick={() => handleReview(post, 'changes_requested')} className="rounded-full bg-[#800000] px-4 py-2 text-sm font-bold text-[#f5deb3]">Request Changes</button></div>}
+                actions={<div className="flex flex-wrap gap-2"><button type="button" onClick={() => handleReview(post, 'approve')} className="rounded-full bg-[#1a5c38] px-4 py-2 text-sm font-bold text-[#b5e3f4]">Approve</button><button type="button" onClick={() => handleReview(post, 'changes_requested')} className="rounded-full bg-[#800000] px-4 py-2 text-sm font-bold text-[#b5e3f4]">Request Changes</button></div>}
               />
             ))}
           </div>
@@ -429,7 +429,7 @@ export default function SchoolNewsroomPage({
               <StoryCard
                 key={post.id}
                 post={post}
-                actions={<button type="button" onClick={() => handlePublish(post)} className="rounded-full bg-[#800020] px-4 py-2 text-sm font-bold text-[#f5deb3]">Publish</button>}
+                actions={<button type="button" onClick={() => handlePublish(post)} className="rounded-full bg-[#800020] px-4 py-2 text-sm font-bold text-[#b5e3f4]">Publish</button>}
               />
             ))}
           </div>

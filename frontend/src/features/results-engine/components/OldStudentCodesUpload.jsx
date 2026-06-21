@@ -232,7 +232,7 @@ export default function OldStudentCodesUpload() {
               </div>
               <div className="flex flex-wrap items-center gap-1.5">
                 {(student.codes || []).map(code => (
-                  <span key={code.id} className="inline-flex items-center gap-1 rounded-full border border-[#c9a96e]/45 bg-[#f0d090] dark:border-white/15 dark:bg-slate-800 px-2.5 py-0.5 text-xs font-semibold text-[#191970] dark:text-slate-100">
+                  <span key={code.id} className="inline-flex items-center gap-1 rounded-full border border-[#c9a96e]/45 bg-[#ade1f4] dark:border-white/15 dark:bg-slate-800 px-2.5 py-0.5 text-xs font-semibold text-[#191970] dark:text-slate-100">
                     {code.code}
                     <button type="button" onClick={() => handleRemoveCode(code.id)} className="text-rose-600 dark:text-rose-400 font-bold leading-none" aria-label="Remove code">×</button>
                   </span>

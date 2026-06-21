@@ -235,7 +235,7 @@ export default function StaffAiAssistantPage({ roleKey = 'teacher' }) {
 
   return (
     <div className="mx-auto flex h-full min-h-0 w-full max-w-7xl flex-col overflow-hidden px-4 py-4 sm:px-6 lg:px-8">
-      <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-[2rem] border border-[#800000]/15 bg-[#f5deb3]/95 shadow-[0_24px_54px_rgba(128,0,0,0.12)] dark:border-[#bf00ff]/30 dark:bg-[#800000]/72">
+      <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-[2rem] border border-[#800000]/15 bg-[#b5e3f4]/95 shadow-[0_24px_54px_rgba(128,0,0,0.12)] dark:border-[#bf00ff]/30 dark:bg-[#800000]/72">
         <section className="flex min-h-0 flex-1 flex-col">
           <div ref={transcriptRef} className="flex-1 overflow-y-auto">
             <header className="sticky top-0 z-10 border-b border-[#800000]/10 bg-[#fff8ea]/92 backdrop-blur dark:border-[#bf00ff]/20 dark:bg-[#170018]/92">
@@ -265,7 +265,7 @@ export default function StaffAiAssistantPage({ roleKey = 'teacher' }) {
                   return (
                     <div key={message.id} className={`flex ${isUser ? 'justify-end' : 'justify-start'}`}>
                       <div className={`max-w-[92%] rounded-[1.75rem] px-4 py-3 shadow-sm sm:max-w-[82%] ${isUser
-                        ? 'bg-[#1a5c38] text-[#f5deb3] dark:bg-[#00ffff] dark:text-black'
+                        ? 'bg-[#1a5c38] text-[#b5e3f4] dark:bg-[#00ffff] dark:text-black'
                         : 'border border-[#800000]/10 bg-white/75 text-[#191970] dark:border-[#bf00ff]/20 dark:bg-[#191970]/35 dark:text-white'
                       }`}>
                         <div className="flex flex-wrap items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] opacity-80">
@@ -321,7 +321,7 @@ export default function StaffAiAssistantPage({ roleKey = 'teacher' }) {
                   <button
                     type="submit"
                     disabled={asking || loadingAccess || !input.trim() || quotaBlocked}
-                    className="inline-flex items-center gap-2 rounded-2xl bg-[#1a5c38] px-5 py-3 text-sm font-bold text-[#f5deb3] transition hover:bg-[#154a2e] disabled:opacity-60 dark:bg-[#00ffff] dark:text-black dark:hover:bg-[#7dfcff]"
+                    className="inline-flex items-center gap-2 rounded-2xl bg-[#1a5c38] px-5 py-3 text-sm font-bold text-[#b5e3f4] transition hover:bg-[#154a2e] disabled:opacity-60 dark:bg-[#00ffff] dark:text-black dark:hover:bg-[#7dfcff]"
                   >
                     <PaperAirplaneIcon className="h-4 w-4" />
                     {asking ? 'Thinking...' : 'Send'}

@@ -284,7 +284,7 @@ function SectionCard({ section, data, onSaved }) {
   const galleryUrls = getCombinedMediaUrls(form.imageUrl, form.mediaUrls, section.maxFiles || 0);
 
   return (
-    <div className="rounded-2xl p-5 bg-[#f5deb3] dark:bg-slate-800/40 border border-[#c9a96e]/40 dark:border-white/10 space-y-4">
+    <div className="rounded-2xl p-5 bg-[#b5e3f4] dark:bg-slate-800/40 border border-[#c9a96e]/40 dark:border-white/10 space-y-4">
       <div>
         <p className="font-bold text-[#800000] dark:text-slate-100">{section.label}</p>
         <p className="text-xs text-[#800020] dark:text-slate-400">{section.desc}</p>
@@ -311,7 +311,7 @@ function SectionCard({ section, data, onSaved }) {
         <div>
           <label className={labelClass}>{section.mediaLabel}</label>
           <div className="flex flex-wrap gap-2 items-center mt-1">
-            <button type="button" onClick={() => fileRef.current?.click()} disabled={uploading} className="bg-[#1a5c38] hover:bg-[#154a2e] text-[#f5deb3] font-bold px-4 py-1.5 rounded-xl text-xs transition-colors disabled:opacity-60">
+            <button type="button" onClick={() => fileRef.current?.click()} disabled={uploading} className="bg-[#1a5c38] hover:bg-[#154a2e] text-[#b5e3f4] font-bold px-4 py-1.5 rounded-xl text-xs transition-colors disabled:opacity-60">
               {uploading ? 'Uploading...' : section.multiple ? 'Upload Media' : 'Upload File'}
             </button>
             <input ref={fileRef} type="file" accept={section.accept || 'image/*,video/*'} multiple={!!section.multiple} className="hidden" onChange={handleMediaUpload} />
@@ -403,7 +403,7 @@ function SectionCard({ section, data, onSaved }) {
         )}
 
         {msg && <p className={`text-xs ${msg === 'Saved.' || msg === 'Upload complete.' ? 'text-[#1a5c38]' : 'text-red-600'}`}>{msg}</p>}
-        <button type="submit" disabled={saving} className="bg-[#1a5c38] hover:bg-[#154a2e] text-[#f5deb3] font-bold px-5 py-2 rounded-xl text-sm transition-colors disabled:opacity-60">
+        <button type="submit" disabled={saving} className="bg-[#1a5c38] hover:bg-[#154a2e] text-[#b5e3f4] font-bold px-5 py-2 rounded-xl text-sm transition-colors disabled:opacity-60">
           {saving ? 'Saving...' : 'Save Section'}
         </button>
       </form>
@@ -417,7 +417,7 @@ function DocRow({ doc, idx, uploading, onTitle, onUpload, onRemove }) {
   return (
     <div className="rounded-xl border border-[#c9a96e]/40 dark:border-white/10 bg-[#fff8ee] dark:bg-slate-900/40 p-3 flex flex-wrap items-center gap-2">
       <input value={doc.title} onChange={e => onTitle(e.target.value)} placeholder={`Document ${idx + 1} title (e.g. Prospectus)`} className="flex-1 min-w-[150px] rounded-lg border border-[#c9a96e]/40 dark:border-white/10 bg-white dark:bg-slate-800 px-2 py-1.5 text-sm text-[#191970] dark:text-slate-100" />
-      <button type="button" onClick={() => ref.current?.click()} disabled={uploading} className="bg-[#1a5c38] text-[#f5deb3] font-bold px-3 py-1.5 rounded-lg text-xs disabled:opacity-60">{uploading ? 'Uploading...' : doc.url ? 'Replace' : 'Upload'}</button>
+      <button type="button" onClick={() => ref.current?.click()} disabled={uploading} className="bg-[#1a5c38] text-[#b5e3f4] font-bold px-3 py-1.5 rounded-lg text-xs disabled:opacity-60">{uploading ? 'Uploading...' : doc.url ? 'Replace' : 'Upload'}</button>
       <input ref={ref} type="file" accept="application/pdf,image/*,.doc,.docx" className="hidden" onChange={e => { onUpload(e.target.files?.[0]); e.target.value = ''; }} />
       {doc.url ? <a href={doc.url} target="_blank" rel="noreferrer" className="text-xs text-[#1a5c38] dark:text-[#00ffff] underline truncate max-w-[150px]">{fileName}</a> : <span className="text-xs text-[#800020] dark:text-slate-400">No file yet</span>}
       <button type="button" onClick={onRemove} className="text-xs text-red-600 font-semibold ml-auto">Remove</button>
@@ -477,7 +477,7 @@ function DocumentsCard({ data, onSaved }) {
   }
 
   return (
-    <div className="rounded-2xl p-5 bg-[#f5deb3] dark:bg-slate-800/40 border border-[#c9a96e]/40 dark:border-white/10 space-y-4">
+    <div className="rounded-2xl p-5 bg-[#b5e3f4] dark:bg-slate-800/40 border border-[#c9a96e]/40 dark:border-white/10 space-y-4">
       <div>
         <p className="font-bold text-[#800000] dark:text-slate-100">Admission Documents (Downloads)</p>
         <p className="text-xs text-[#800020] dark:text-slate-400">Add up to 5 files (PDF, Word, or image) that visitors can download from the Admissions page. Give each a clear title.</p>
@@ -509,7 +509,7 @@ function DocumentsCard({ data, onSaved }) {
         )}
       </div>
       {msg && <p className={`text-xs ${msg === 'Saved.' ? 'text-[#1a5c38]' : 'text-red-600'}`}>{msg}</p>}
-      <button type="button" onClick={handleSave} disabled={saving} className="bg-[#1a5c38] hover:bg-[#154a2e] text-[#f5deb3] font-bold px-5 py-2 rounded-xl text-sm transition-colors disabled:opacity-60">
+      <button type="button" onClick={handleSave} disabled={saving} className="bg-[#1a5c38] hover:bg-[#154a2e] text-[#b5e3f4] font-bold px-5 py-2 rounded-xl text-sm transition-colors disabled:opacity-60">
         {saving ? 'Saving...' : 'Save Documents'}
       </button>
     </div>
@@ -538,7 +538,7 @@ export default function WebsiteTab() {
 
   return (
     <div className="space-y-5">
-      <div className="rounded-2xl p-5 bg-[#f5deb3] border border-[#c9a96e]/40">
+      <div className="rounded-2xl p-5 bg-[#b5e3f4] border border-[#c9a96e]/40">
         <h2 className="text-xl font-bold text-[#800000]">Public School Website</h2>
         <p className="mt-1 text-sm text-[#191970]">
           Manage the tenant school website sections, pages, pictures, videos, admission flyer, and homepage portal login content.

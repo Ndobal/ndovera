@@ -6,13 +6,13 @@ import {
   reviewWebsiteEnquiry,
 } from '../services/schoolApi';
 
-const SURFACE = 'rounded-3xl border border-[#c9a96e]/45 bg-[#f5deb3] p-5 shadow-[0_18px_42px_rgba(128,0,0,0.08)] dark:border-[#bf00ff]/35 dark:bg-[#800000]/75 dark:shadow-[0_0_28px_rgba(191,0,255,0.18)]';
+const SURFACE = 'rounded-3xl border border-[#c9a96e]/45 bg-[#b5e3f4] p-5 shadow-[0_18px_42px_rgba(128,0,0,0.08)] dark:border-[#bf00ff]/35 dark:bg-[#800000]/75 dark:shadow-[0_0_28px_rgba(191,0,255,0.18)]';
 const SUB_SURFACE = 'rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] p-4 dark:border-[#bf00ff]/35 dark:bg-black/20';
 const LABEL = 'text-xs font-semibold uppercase tracking-[0.18em] text-[#800020] dark:text-[#bf00ff]';
 const TITLE = 'text-2xl font-black text-[#800000] dark:text-[#ffffff]';
 const BODY = 'text-sm text-[#191970] dark:text-[#39ff14]';
 const INPUT = 'rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] px-4 py-3 text-sm text-[#191970] outline-none focus:ring-2 focus:ring-[#1a5c38] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#ffffff] dark:focus:ring-[#00ffff]';
-const PRIMARY_BUTTON = 'rounded-2xl bg-[#1a5c38] px-4 py-2 text-sm font-bold text-[#f5deb3] transition-colors hover:bg-[#154a2e] dark:bg-[#00ffff] dark:text-[#000000] dark:hover:bg-[#7dfcff]';
+const PRIMARY_BUTTON = 'rounded-2xl bg-[#1a5c38] px-4 py-2 text-sm font-bold text-[#b5e3f4] transition-colors hover:bg-[#154a2e] dark:bg-[#00ffff] dark:text-[#000000] dark:hover:bg-[#7dfcff]';
 const SECONDARY_BUTTON = 'rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] px-4 py-2 text-sm font-semibold text-[#191970] transition-colors hover:bg-[#f2e1bf] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#ffffff] dark:hover:bg-[#800000]/85';
 
 const STATUS_OPTIONS = ['', 'pending', 'reviewing', 'approved', 'waitlisted', 'rejected'];
@@ -251,7 +251,7 @@ export default function AdmissionsManagementBoard({
                   <p className={`${BODY} mt-2`}>Desired class: <strong>{details.desiredClass}</strong></p>
                 </div>
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="rounded-full bg-[#1a5c38] px-3 py-1 text-xs font-bold uppercase tracking-[0.15em] text-[#f5deb3] dark:bg-[#00ffff] dark:text-[#000000]">{prettifyStatus(application.status)}</span>
+                  <span className="rounded-full bg-[#1a5c38] px-3 py-1 text-xs font-bold uppercase tracking-[0.15em] text-[#b5e3f4] dark:bg-[#00ffff] dark:text-[#000000]">{prettifyStatus(application.status)}</span>
                   <span className="rounded-full border border-[#c9a96e]/45 bg-white/60 px-3 py-1 text-xs font-semibold uppercase tracking-[0.15em] text-[#800020] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#bf00ff]">{formatDateTime(application.createdAt)}</span>
                 </div>
               </div>
@@ -353,7 +353,7 @@ export default function AdmissionsManagementBoard({
                 <p className={`${BODY} mt-2`}>{details.subject}</p>
               </div>
               <div className="flex flex-wrap items-center gap-2">
-                <span className="rounded-full bg-[#1a5c38] px-3 py-1 text-xs font-bold uppercase tracking-[0.15em] text-[#f5deb3] dark:bg-[#00ffff] dark:text-[#000000]">{prettifyStatus(enquiry.status).replace(/_/g, ' ')}</span>
+                <span className="rounded-full bg-[#1a5c38] px-3 py-1 text-xs font-bold uppercase tracking-[0.15em] text-[#b5e3f4] dark:bg-[#00ffff] dark:text-[#000000]">{prettifyStatus(enquiry.status).replace(/_/g, ' ')}</span>
                 <span className="rounded-full border border-[#c9a96e]/45 bg-white/60 px-3 py-1 text-xs font-semibold uppercase tracking-[0.15em] text-[#800020] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#bf00ff]">{formatDateTime(enquiry.createdAt)}</span>
               </div>
             </div>

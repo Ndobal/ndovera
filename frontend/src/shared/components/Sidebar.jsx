@@ -1,11 +1,51 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import { XMarkIcon, ChevronDoubleLeftIcon, ChevronDoubleRightIcon } from '@heroicons/react/24/outline';
+import {
+  XMarkIcon, ChevronDoubleLeftIcon, ChevronDoubleRightIcon,
+  HomeIcon, AcademicCapIcon, DocumentTextIcon, ClipboardDocumentListIcon, ClipboardDocumentCheckIcon,
+  VideoCameraIcon, CalendarDaysIcon, ChatBubbleLeftRightIcon, BanknotesIcon, UserGroupIcon,
+  BuildingOffice2Icon, BookOpenIcon, BeakerIcon, SparklesIcon, Cog6ToothIcon, ChartBarIcon,
+  ShieldCheckIcon, TrophyIcon, TruckIcon, HomeModernIcon, HeartIcon, ShoppingBagIcon, BellIcon,
+  PencilSquareIcon, Squares2X2Icon, ArrowUpTrayIcon, BookmarkSquareIcon, CpuChipIcon, ScaleIcon,
+} from '@heroicons/react/24/outline';
 import useFeatureFlags from '../hooks/useFeatureFlags';
 import { getTenantPwaInfo } from '../hooks/useTenantPwaManifest';
 import StaffSubmissionPanel from '../../features/submissions/StaffSubmissionPanel';
 
 const noop = () => {};
+
+function getSidebarIcon(name, path) {
+  const t = `${String(name || '')} ${String(path || '')}`.toLowerCase();
+  if (t.includes('overview') || t.includes('dashboard')) return HomeIcon;
+  if (t.includes('library admin') || t.includes('library-admin')) return BookmarkSquareIcon;
+  if (t.includes('submit work')) return ArrowUpTrayIcon;
+  if (t.includes('classroom') || t.includes('class') || t.includes('academics')) return AcademicCapIcon;
+  if (t.includes('material') || t.includes('lesson') || t.includes('note')) return DocumentTextIcon;
+  if (t.includes('score') || t.includes('result') || t.includes('ca ') || t.includes('offline ca')) return ClipboardDocumentCheckIcon;
+  if (t.includes('assignment') || t.includes('approval') || t.includes('admission')) return ClipboardDocumentListIcon;
+  if (t.includes('exam') || t.includes('question')) return PencilSquareIcon;
+  if (t.includes('practice')) return BeakerIcon;
+  if (t.includes('live')) return VideoCameraIcon;
+  if (t.includes('timetable') || t.includes('attendance') || t.includes('schedule')) return CalendarDaysIcon;
+  if (t.includes('messag') || t.includes('chat') || t.includes('inbox') || t.includes('communication') || t.includes('newsroom')) return ChatBubbleLeftRightIcon;
+  if (t.includes('finance') || t.includes('fee') || t.includes('payroll') || t.includes('payslip') || t.includes('receipt') || t.includes('expense') || t.includes('reconcil')) return BanknotesIcon;
+  if (t.includes('people') || t.includes('staff') || t.includes('teacher') || t.includes('children') || t.includes('patient')) return UserGroupIcon;
+  if (t.includes('school') || t.includes('tenant')) return BuildingOffice2Icon;
+  if (t.includes('library')) return BookOpenIcon;
+  if (t.includes('ndovera ai') || t.includes('ai ') || t.includes('aura') || t.includes('professor')) return SparklesIcon;
+  if (t.includes('systems') || t.includes('ict') || t.includes('asset') || t.includes('access')) return CpuChipIcon;
+  if (t.includes('report') || t.includes('analytics')) return ChartBarIcon;
+  if (t.includes('security') || t.includes('audit') || t.includes('compliance') || t.includes('integrity')) return ShieldCheckIcon;
+  if (t.includes('discipline') || t.includes('behavior') || t.includes('policy') || t.includes('policies')) return ScaleIcon;
+  if (t.includes('reward') || t.includes('champion') || t.includes('team') || t.includes('event')) return TrophyIcon;
+  if (t.includes('route') || t.includes('fleet') || t.includes('transport')) return TruckIcon;
+  if (t.includes('hostel') || t.includes('room')) return HomeModernIcon;
+  if (t.includes('welfare') || t.includes('clinic') || t.includes('medication') || t.includes('hygiene')) return HeartIcon;
+  if (t.includes('tuck') || t.includes('shop') || t.includes('order') || t.includes('inventory') || t.includes('menu') || t.includes('sales') || t.includes('pricing')) return ShoppingBagIcon;
+  if (t.includes('notification') || t.includes('bell')) return BellIcon;
+  if (t.includes('setting')) return Cog6ToothIcon;
+  return Squares2X2Icon;
+}
 
 const defaultSidebarItems = [
   { name: 'Dashboard', path: '/' },
@@ -513,7 +553,8 @@ export default function Sidebar({ auth = null, mobileOpen = false, onClose = noo
       })()
     : sidebarItemsWithAiAssistant;
   const adminEntry = { name: 'Library Admin', path: '/library/admin' };
-  const adminRoles = new Set(['hos', 'admin', 'librarian', 'teacher']);
+  // Only library administrators may see Library Admin (removed from teachers / other staff).
+  const adminRoles = new Set(['admin', 'librarian']);
   const sidebarItems = ((roleKey && adminRoles.has(roleKey)) ? [...sidebarItemsWithNewsroom, adminEntry] : sidebarItemsWithNewsroom)
     .filter(item => {
       const normalizedPath = String(item.path || '').toLowerCase();
@@ -573,7 +614,7 @@ export default function Sidebar({ auth = null, mobileOpen = false, onClose = noo
         <button
           type="button"
           onClick={toggleCollapsed}
-          className="hidden md:flex fixed left-0 top-24 z-50 items-center rounded-r-xl border border-l-0 border-slate-200/60 bg-white/90 p-2 text-slate-700 shadow-md transition-colors hover:bg-white dark:border-indigo-500/25 dark:bg-slate-900/90 dark:text-[#f5deb3]"
+          className="hidden md:flex fixed left-0 top-24 z-50 items-center rounded-r-xl border border-l-0 border-slate-200/60 bg-white/90 p-2 text-slate-700 shadow-md transition-colors hover:bg-white dark:border-indigo-500/25 dark:bg-slate-900/90 dark:text-[#b5e3f4]"
           aria-label="Open sidebar"
           title="Open sidebar"
         >
@@ -598,10 +639,10 @@ export default function Sidebar({ auth = null, mobileOpen = false, onClose = noo
                     {schoolLogoUrl ? (
                       <img src={schoolLogoUrl} alt={`${schoolName} logo`} className="h-full w-full animate-[spin_18s_linear_infinite] object-contain" />
                     ) : (
-                      <span className="text-lg font-black text-indigo-700 dark:text-[#f5deb3]">{String(schoolName).charAt(0).toUpperCase()}</span>
+                      <span className="text-lg font-black text-indigo-700 dark:text-[#b5e3f4]">{String(schoolName).charAt(0).toUpperCase()}</span>
                     )}
                   </div>
-                  <div className="font-black tracking-tighter text-xl text-indigo-700 dark:text-[#f5deb3]">{schoolName}</div>
+                  <div className="font-black tracking-tighter text-xl text-indigo-700 dark:text-[#b5e3f4]">{schoolName}</div>
                 </>
               );
               return schoolWebsiteUrl ? (
@@ -615,7 +656,7 @@ export default function Sidebar({ auth = null, mobileOpen = false, onClose = noo
             <button
               type="button"
               onClick={toggleCollapsed}
-              className="hidden md:flex glass-chip p-2 rounded-xl text-slate-700 dark:text-[#f5deb3] hover:bg-white/70 dark:hover:bg-slate-700/60 transition-colors"
+              className="hidden md:flex glass-chip p-2 rounded-xl text-slate-700 dark:text-[#b5e3f4] hover:bg-white/70 dark:hover:bg-slate-700/60 transition-colors"
               aria-label="Collapse sidebar"
               title="Collapse sidebar"
             >
@@ -624,7 +665,7 @@ export default function Sidebar({ auth = null, mobileOpen = false, onClose = noo
             <button
               type="button"
               onClick={onClose}
-              className="md:hidden glass-chip p-2 rounded-xl text-slate-700 dark:text-[#f5deb3] hover:bg-white/70 dark:hover:bg-slate-700/60 transition-colors"
+              className="md:hidden glass-chip p-2 rounded-xl text-slate-700 dark:text-[#b5e3f4] hover:bg-white/70 dark:hover:bg-slate-700/60 transition-colors"
               aria-label="Close menu"
             >
               <XMarkIcon className="h-5 w-5" />
@@ -632,23 +673,29 @@ export default function Sidebar({ auth = null, mobileOpen = false, onClose = noo
           </div>
         </div>
         <ul className="pb-4">
-          {sidebarItems.map(item => (
-            <li key={item.path}>
+          {sidebarItems.map((item, index) => {
+            const Icon = getSidebarIcon(item.name, item.path);
+            const iconCls = 'h-5 w-5 shrink-0 transition-transform duration-200 group-hover:scale-110 group-hover:-rotate-6';
+            const rowBase = 'group flex items-center gap-3 px-5 py-2.5 rounded-2xl transition-all duration-200 hover:translate-x-1';
+            return (
+            <li key={item.path} className="motion-safe:opacity-0 motion-safe:animate-[sidebarItemIn_0.32s_ease-out_forwards]" style={{ animationDelay: `${Math.min(index * 28, 420)}ms` }}>
               {item.path === '#submit-work' ? (
                 <button
                   type="button"
                   onClick={() => { onClose(); setSubmitOpen(true); }}
-                  className="block w-full text-left px-6 py-3 rounded-2xl font-semibold text-[#2447d8] dark:text-white dark:font-bold hover:bg-blue-50 dark:hover:bg-indigo-500/20 transition-colors"
+                  className={`${rowBase} w-full text-left font-semibold text-[#2447d8] dark:text-white dark:font-bold hover:bg-blue-50 dark:hover:bg-indigo-500/20`}
                 >
-                  📤 {item.name}
+                  <Icon className={iconCls} />
+                  <span>{item.name}</span>
                 </button>
               ) : item.path.includes('#') ? (
                 <a
                   href={item.path}
                   onClick={onClose}
-                  className={`block px-6 py-3 rounded-2xl text-slate-700 dark:text-white dark:font-bold hover:bg-emerald-50 hover:text-slate-900 dark:hover:bg-indigo-500/20 dark:hover:text-white transition-colors${item.name === 'Overview' ? ' sidebar-overview' : ''}`}
+                  className={`${rowBase} text-slate-700 dark:text-white dark:font-bold hover:bg-emerald-50 hover:text-slate-900 dark:hover:bg-indigo-500/20 dark:hover:text-white${item.name === 'Overview' ? ' sidebar-overview' : ''}`}
                 >
-                  {item.name}
+                  <Icon className={iconCls} />
+                  <span>{item.name}</span>
                 </a>
               ) : (
                 <NavLink
@@ -656,16 +703,18 @@ export default function Sidebar({ auth = null, mobileOpen = false, onClose = noo
                   onClick={onClose}
                   className={({ isActive }) =>
                     isActive
-                      ? `sidebar-item-active block px-6 py-3 rounded-2xl font-semibold dark:font-bold dark:text-white${item.name === 'Overview' ? ' sidebar-overview' : ''}`
-                      : `block px-6 py-3 rounded-2xl text-slate-700 dark:text-white dark:font-bold hover:bg-emerald-50 hover:text-slate-900 dark:hover:bg-indigo-500/20 dark:hover:text-white transition-colors${item.name === 'Overview' ? ' sidebar-overview' : ''}`
+                      ? `sidebar-item-active ${rowBase} font-semibold dark:font-bold dark:text-white${item.name === 'Overview' ? ' sidebar-overview' : ''}`
+                      : `${rowBase} text-slate-700 dark:text-white dark:font-bold hover:bg-emerald-50 hover:text-slate-900 dark:hover:bg-indigo-500/20 dark:hover:text-white${item.name === 'Overview' ? ' sidebar-overview' : ''}`
                   }
                   end
                 >
-                  {item.name}
+                  <Icon className={iconCls} />
+                  <span>{item.name}</span>
                 </NavLink>
               )}
             </li>
-          ))}
+            );
+          })}
         </ul>
       </aside>
 

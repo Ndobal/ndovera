@@ -36,7 +36,7 @@ const PRIMARY_TABS = [
 
 const CARD = 'rounded-2xl border border-[#c9a96e]/40 bg-[#fff8f0] p-4 dark:border-white/10 dark:bg-slate-900/40';
 const INPUT = 'w-full rounded-xl border border-[#c9a96e]/45 bg-white/85 px-3 py-2 text-sm text-[#191970] outline-none focus:border-[#1a5c38] dark:border-white/15 dark:bg-black/20 dark:text-slate-100';
-const BTN = 'rounded-2xl bg-[#1a5c38] px-4 py-2 text-sm font-bold text-[#f5deb3] transition hover:bg-[#154a2e] disabled:opacity-60 dark:bg-[#00ffff] dark:text-black';
+const BTN = 'rounded-2xl bg-[#1a5c38] px-4 py-2 text-sm font-bold text-[#b5e3f4] transition hover:bg-[#154a2e] disabled:opacity-60 dark:bg-[#00ffff] dark:text-black';
 
 function Stat({ label, value, accent = 'text-[#800000] dark:text-white' }) {
   return (
@@ -315,7 +315,7 @@ export default function StudentProfilePage({ studentId, studentName = 'Student',
   return createPortal(
     <div className="fixed inset-0 z-[70] flex flex-col bg-[#fdf7ec] dark:bg-slate-950" role="dialog" aria-modal="true" aria-label={`${student.name} profile`}>
       {/* Header */}
-      <div className="flex items-center gap-3 border-b border-[#c9a96e]/40 bg-[#f5deb3] px-4 py-3 dark:border-white/10 dark:bg-slate-900/60">
+      <div className="flex items-center gap-3 border-b border-[#c9a96e]/40 bg-[#b5e3f4] px-4 py-3 dark:border-white/10 dark:bg-slate-900/60">
         {student.avatar ? (
           <img src={student.avatar} alt={student.name} className="h-12 w-12 rounded-2xl object-cover border border-[#c9a96e]/40" />
         ) : (
@@ -329,18 +329,18 @@ export default function StudentProfilePage({ studentId, studentName = 'Student',
             {[student.className, student.displayId].filter(Boolean).join(' • ') || 'Student profile'}
           </p>
         </div>
-        <button type="button" onClick={onClose} className="rounded-xl bg-[#800020] px-4 py-2 text-sm font-bold text-[#f5deb3] dark:bg-rose-500/80">Close</button>
+        <button type="button" onClick={onClose} className="rounded-xl bg-[#800020] px-4 py-2 text-sm font-bold text-[#b5e3f4] dark:bg-rose-500/80">Close</button>
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-2 overflow-x-auto border-b border-[#c9a96e]/30 bg-[#f5deb3]/60 px-4 py-2 dark:border-white/10 dark:bg-slate-900/40">
+      <div className="flex gap-2 overflow-x-auto border-b border-[#c9a96e]/30 bg-[#b5e3f4]/60 px-4 py-2 dark:border-white/10 dark:bg-slate-900/40">
         {allTabs.map(tab => (
           <button
             key={tab.id}
             type="button"
             onClick={() => setActiveTab(tab.id)}
             className={`shrink-0 rounded-2xl px-3 py-1.5 text-xs font-bold transition ${activeTab === tab.id
-              ? 'bg-[#1a5c38] text-[#f5deb3] dark:bg-[#00ffff] dark:text-black'
+              ? 'bg-[#1a5c38] text-[#b5e3f4] dark:bg-[#00ffff] dark:text-black'
               : 'bg-white/60 text-[#800020] dark:bg-slate-800/60 dark:text-slate-200'}`}
           >
             {tab.label}

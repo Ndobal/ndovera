@@ -120,7 +120,7 @@ export default function ParentResultView() {
               ))}
             </div>
 
-            <div className="mt-4 rounded-2xl border border-[#c9a96e]/30 bg-[#f0d090] p-3 text-sm dark:border-[#bf00ff]/20 dark:bg-black/20">
+            <div className="mt-4 rounded-2xl border border-[#c9a96e]/30 bg-[#ade1f4] p-3 text-sm dark:border-[#bf00ff]/20 dark:bg-black/20">
               <p className="font-bold text-[#800020] dark:text-[#bf00ff]">Pay into the school account</p>
               <p className="mt-1 text-[#191970] dark:text-white">{feesPaymentDetails.bankName || 'Bank: awaiting school update'}</p>
               <p className="text-[#191970] dark:text-white">{feesPaymentDetails.accountName || 'Account name: awaiting school update'}</p>
@@ -129,7 +129,7 @@ export default function ParentResultView() {
             </div>
 
             <div className="mt-4 flex flex-wrap gap-2">
-              <button type="button" onClick={() => { dismissFeesPopup(); navigate('/roles/parent/fees'); }} className="rounded-2xl bg-[#1a5c38] px-5 py-2.5 text-sm font-bold text-[#f5deb3] dark:bg-[#00ffff] dark:text-black">Go To Fees & Pay</button>
+              <button type="button" onClick={() => { dismissFeesPopup(); navigate('/roles/parent/fees'); }} className="rounded-2xl bg-[#1a5c38] px-5 py-2.5 text-sm font-bold text-[#b5e3f4] dark:bg-[#00ffff] dark:text-black">Go To Fees & Pay</button>
               <button type="button" onClick={dismissFeesPopup} className="rounded-2xl border border-[#800020]/30 px-5 py-2.5 text-sm font-bold text-[#800020] dark:border-[#bf00ff]/40 dark:text-[#bf00ff]">Close</button>
             </div>
           </div>

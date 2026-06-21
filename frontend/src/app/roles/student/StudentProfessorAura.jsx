@@ -242,7 +242,7 @@ function StudentProfessorAura({
       watermarkText="NDOVERA AI"
       diagonalWatermark
     >
-      <div ref={containerRef} className="flex h-full min-h-0 flex-col overflow-hidden rounded-[2rem] border border-[#800000]/15 bg-[#f5deb3]/95 shadow-[0_24px_54px_rgba(128,0,0,0.12)] dark:border-[#bf00ff]/30 dark:bg-[#800000]/72">
+      <div ref={containerRef} className="flex h-full min-h-0 flex-col overflow-hidden rounded-[2rem] border border-[#800000]/15 bg-[#b5e3f4]/95 shadow-[0_24px_54px_rgba(128,0,0,0.12)] dark:border-[#bf00ff]/30 dark:bg-[#800000]/72">
         <header className="shrink-0 border-b border-[#800000]/10 bg-[#fff8ea]/90 backdrop-blur dark:border-[#bf00ff]/20 dark:bg-[#170018]/88">
           <div className="space-y-2 px-3 py-2.5 md:px-4">
             <div className="flex items-center justify-between gap-2">
@@ -317,7 +317,7 @@ function StudentProfessorAura({
                       type="button"
                       onClick={() => handleModeSelect(mode)}
                       className={`inline-flex h-8 items-center rounded-full border px-3 text-xs font-semibold transition ${active
-                        ? 'border-[#1a5c38] bg-[#1a5c38] text-[#f5deb3] dark:border-[#00ffff] dark:bg-[#00ffff] dark:text-black'
+                        ? 'border-[#1a5c38] bg-[#1a5c38] text-[#b5e3f4] dark:border-[#00ffff] dark:bg-[#00ffff] dark:text-black'
                         : 'border-[#800000]/15 bg-white/55 text-[#800000] dark:border-[#bf00ff]/20 dark:bg-[#191970]/35 dark:text-white'
                       }`}
                     >
@@ -370,7 +370,7 @@ function StudentProfessorAura({
                         type="button"
                         onClick={() => handleModeSelect(mode)}
                         className={`rounded-2xl border px-3 py-2 text-left text-xs font-semibold transition ${active
-                          ? 'border-[#1a5c38] bg-[#1a5c38] text-[#f5deb3] dark:border-[#00ffff] dark:bg-[#00ffff] dark:text-black'
+                          ? 'border-[#1a5c38] bg-[#1a5c38] text-[#b5e3f4] dark:border-[#00ffff] dark:bg-[#00ffff] dark:text-black'
                           : 'border-[#800000]/15 bg-[#fff8ea]/75 text-[#800000] dark:border-[#bf00ff]/20 dark:bg-[#170018]/72 dark:text-white'
                         }`}
                       >
@@ -397,7 +397,7 @@ function StudentProfessorAura({
                     <button
                       type="button"
                       onClick={() => navigate(tuckShopPath)}
-                      className="mt-3 rounded-2xl bg-[#1a5c38] px-4 py-2 text-sm font-bold text-[#f5deb3] dark:bg-[#00ffff] dark:text-black"
+                      className="mt-3 rounded-2xl bg-[#1a5c38] px-4 py-2 text-sm font-bold text-[#b5e3f4] dark:bg-[#00ffff] dark:text-black"
                     >
                       Open Tuck Shop Refill
                     </button>
@@ -410,7 +410,7 @@ function StudentProfessorAura({
                   return (
                     <div key={message.id} className={`flex ${isUser ? 'justify-end' : 'justify-start'}`}>
                       <div className={`rounded-[1.75rem] px-4 py-3 shadow-sm ${isUser ? 'max-w-[88%]' : 'w-full max-w-[96%]'} ${isUser
-                        ? 'bg-[#1a5c38] text-[#f5deb3] dark:bg-[#00ffff] dark:text-black'
+                        ? 'bg-[#1a5c38] text-[#b5e3f4] dark:bg-[#00ffff] dark:text-black'
                         : 'border border-[#800000]/10 bg-white/70 text-[#191970] dark:border-[#bf00ff]/20 dark:bg-[#191970]/35 dark:text-white'
                       }`}>
                         <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] opacity-80">
@@ -465,7 +465,7 @@ function StudentProfessorAura({
                       type="button"
                       onClick={ask}
                       disabled={asking || loadingAccess || !input.trim() || shouldRefillInTuckShop}
-                      className="rounded-2xl bg-[#1a5c38] px-5 py-3 text-sm font-bold text-[#f5deb3] transition hover:bg-[#154a2e] disabled:opacity-60 dark:bg-[#00ffff] dark:text-black dark:hover:bg-[#7dfcff]"
+                      className="rounded-2xl bg-[#1a5c38] px-5 py-3 text-sm font-bold text-[#b5e3f4] transition hover:bg-[#154a2e] disabled:opacity-60 dark:bg-[#00ffff] dark:text-black dark:hover:bg-[#7dfcff]"
                     >
                       {asking ? 'Thinking...' : 'Ask Ndovera AI'}
                     </button>
@@ -492,7 +492,7 @@ function StudentProfessorAura({
               <button
                 type="button"
                 onClick={() => navigate(tuckShopPath)}
-                className="mt-4 w-full rounded-2xl bg-[#1a5c38] px-4 py-3 text-sm font-bold text-[#f5deb3] dark:bg-[#00ffff] dark:text-black"
+                className="mt-4 w-full rounded-2xl bg-[#1a5c38] px-4 py-3 text-sm font-bold text-[#b5e3f4] dark:bg-[#00ffff] dark:text-black"
               >
                 Open Tuck Shop
               </button>

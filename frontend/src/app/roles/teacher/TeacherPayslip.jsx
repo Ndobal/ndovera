@@ -1,18 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { getMyPayslip, getWebsiteSections } from '../../../features/school/services/schoolApi';
 
-const CARD = 'rounded-3xl p-6 bg-[#f5deb3] border border-[#c9a96e]/40';
-const INNER = 'rounded-2xl p-4 bg-[#f0d090] border border-[#c9a96e]/30';
-const BTN = 'bg-[#1a5c38] hover:bg-[#154a2e] text-[#f5deb3] font-bold px-5 py-2.5 rounded-2xl text-sm transition-colors';
-
 function parseMetadata(value) {
   if (!value) return {};
   if (typeof value === 'object') return value;
-  try {
-    return JSON.parse(value);
-  } catch {
-    return {};
-  }
+  try { return JSON.parse(value); } catch { return {}; }
 }
 
 function extractContactInfo(sections = []) {
@@ -25,6 +17,36 @@ function extractContactInfo(sections = []) {
   };
 }
 
+const ONES = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'];
+const TENS = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+function threeDigitsToWords(n) {
+  let str = '';
+  if (n >= 100) { str += `${ONES[Math.floor(n / 100)]} Hundred `; n %= 100; }
+  if (n >= 20) { str += `${TENS[Math.floor(n / 10)]} `; n %= 10; }
+  if (n > 0) str += `${ONES[n]} `;
+  return str.trim();
+}
+function numberToWords(value) {
+  let n = Math.floor(Number(value || 0));
+  if (n === 0) return 'Zero Naira Only';
+  const parts = [];
+  const scales = [['Billion', 1e9], ['Million', 1e6], ['Thousand', 1e3]];
+  for (const [name, factor] of scales) {
+    if (n >= factor) { parts.push(`${threeDigitsToWords(Math.floor(n / factor))} ${name}`); n %= factor; }
+  }
+  if (n > 0) parts.push(threeDigitsToWords(n));
+  return `${parts.join(' ').replace(/\s+/g, ' ').trim()} Naira Only`;
+}
+
+function Row({ label, value, strong, accent }) {
+  return (
+    <div className={`flex items-center justify-between px-3 py-2 text-sm ${strong ? 'font-bold' : ''}`}>
+      <span className={strong ? 'text-[#191970]' : 'text-slate-600'}>{label}</span>
+      <span className={accent || 'text-[#191970]'}>₦{Number(value || 0).toLocaleString()}</span>
+    </div>
+  );
+}
+
 export default function TeacherPayslip({ auth }) {
   const [payslip, setPayslip] = useState(null);
   const [pendingMessage, setPendingMessage] = useState('');
@@ -35,7 +57,6 @@ export default function TeacherPayslip({ auth }) {
 
   useEffect(() => {
     let active = true;
-
     Promise.all([getMyPayslip(), getWebsiteSections().catch(() => ({ sections: [] }))])
       .then(([data, sectionsResult]) => {
         if (!active) return;
@@ -47,25 +68,18 @@ export default function TeacherPayslip({ auth }) {
         }
         setContactInfo(extractContactInfo(sectionsResult?.sections || []));
       })
-      .catch(err => {
-        if (!active) return;
-        setError(err.message || 'Could not load your payslip.');
-      })
-      .finally(() => {
-        if (active) setLoading(false);
-      });
-
-    return () => {
-      active = false;
-    };
+      .catch(err => { if (active) setError(err.message || 'Could not load your payslip.'); })
+      .finally(() => { if (active) setLoading(false); });
+    return () => { active = false; };
   }, []);
 
-  if (loading) return <div className="p-8 max-w-3xl mx-auto"><div className={CARD}><p className="text-[#800020]">Loading payslip…</p></div></div>;
-  if (error) return <div className="p-8 max-w-3xl mx-auto"><div className={CARD}><p className="text-[#800000] text-sm">{error}</p></div></div>;
+  const shell = 'p-4 sm:p-8 max-w-3xl mx-auto';
+  if (loading) return <div className={shell}><div className="rounded-2xl bg-white p-6 shadow"><p className="text-[#191970]">Loading payslip…</p></div></div>;
+  if (error) return <div className={shell}><div className="rounded-2xl bg-white p-6 shadow"><p className="text-rose-700 text-sm">{error}</p></div></div>;
   if (pendingMessage) return (
-    <div className="p-8 max-w-3xl mx-auto space-y-6">
-      <div className={CARD}><h1 className="text-2xl font-bold text-[#800000]">My Payslip</h1><p className="text-[#191970] mt-1 text-sm">{month}</p></div>
-      <div className={CARD}><p className="text-sm font-semibold text-[#800020]">{pendingMessage}</p></div>
+    <div className={`${shell} space-y-4`}>
+      <h1 className="text-2xl font-extrabold text-[#191970]">My Payslip <span className="text-base font-medium text-slate-500">· {month}</span></h1>
+      <div className="rounded-2xl bg-white p-6 shadow"><p className="text-sm font-semibold text-[#191970]">{pendingMessage}</p></div>
     </div>
   );
 
@@ -73,86 +87,107 @@ export default function TeacherPayslip({ auth }) {
   const gross = p.gross || 0;
   const deductions = p.deductions || 0;
   const net = p.net ?? (gross - deductions);
-  const earnings = Array.isArray(p.earnings) && p.earnings.length
-    ? p.earnings
-    : [{ label: 'Basic Salary', amount: gross }];
-  const deductionBreakdown = Array.isArray(p.deductionBreakdown)
+  const earnings = Array.isArray(p.earnings) && p.earnings.length ? p.earnings : [{ label: 'Basic Salary', amount: gross }];
+  const deductionBreakdown = Array.isArray(p.deductionBreakdown) && p.deductionBreakdown.length
     ? p.deductionBreakdown
-    : [];
+    : [{ label: 'Total Deductions', amount: deductions }];
   const branding = p.branding && typeof p.branding === 'object' ? p.branding : {};
   const schoolName = branding.schoolName || p.schoolName || 'School';
   const logoUrl = branding.logoUrl || p.logoUrl || '';
   const tagline = branding.tagline || p.tagline || '';
   const website = branding.website || p.website || '';
-  const schoolInitials = schoolName
-    .split(' ')
-    .filter(Boolean)
-    .slice(0, 2)
-    .map(part => part[0]?.toUpperCase() || '')
-    .join('') || 'ND';
+  const schoolInitials = schoolName.split(' ').filter(Boolean).slice(0, 2).map(part => part[0]?.toUpperCase() || '').join('') || 'ND';
+  const staffName = p.name || auth?.user?.name || '—';
 
   return (
-    <div className="p-8 max-w-3xl mx-auto space-y-6">
-      <div className={CARD}><h1 className="text-2xl font-bold text-[#800000]">My Payslip</h1><p className="text-[#191970] mt-1 text-sm">{month}</p></div>
-      <div className={`${CARD} relative overflow-hidden`} id="payslip-print">
-        {logoUrl ? (
-          <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-[0.08]">
-            <img src={logoUrl} alt="School watermark" className="h-72 w-72 object-contain" />
-          </div>
-        ) : null}
+    <div className={`${shell} space-y-4`}>
+      <div className="flex items-center justify-between">
+        <h1 className="text-2xl font-extrabold text-[#191970]">My Payslip <span className="text-base font-medium text-slate-500">· {month}</span></h1>
+        <button onClick={() => window.print()} className="rounded-xl bg-[#2447d8] px-4 py-2 text-sm font-bold text-white shadow transition hover:bg-[#1b34a8]">🖨️ Print</button>
+      </div>
 
-        <div className="relative z-10 mb-6 flex items-start gap-4 border-b border-[#c9a96e]/40 pb-5">
+      {/* Payslip sheet */}
+      <div id="payslip-print" className="overflow-hidden rounded-2xl border border-[#7cc4e8]/50 bg-white shadow-[0_10px_40px_rgba(20,33,91,0.12)]">
+        {/* Header band */}
+        <div className="relative flex items-center gap-4 bg-gradient-to-r from-[#2447d8] to-[#1b34a8] px-5 py-4 text-white">
           {logoUrl ? (
-            <img src={logoUrl} alt={`${schoolName} logo`} className="h-20 w-20 rounded-3xl object-cover border border-[#c9a96e]/40 bg-white/70 p-2" />
+            <img src={logoUrl} alt={`${schoolName} logo`} className="h-16 w-16 rounded-2xl border border-white/30 bg-white/90 object-contain p-1.5" />
           ) : (
-            <div className="flex h-20 w-20 items-center justify-center rounded-3xl border border-[#c9a96e]/40 bg-[#f0d090] text-2xl font-black text-[#800000]">
-              {schoolInitials}
-            </div>
+            <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-white/30 bg-white/20 text-xl font-black">{schoolInitials}</div>
           )}
           <div className="min-w-0 flex-1">
-            <h2 className="text-2xl font-bold text-[#800000]">{schoolName}</h2>
-            {tagline ? <p className="mt-1 text-sm text-[#800020]">{tagline}</p> : null}
-            <p className="mt-2 text-sm text-[#191970]">Staff Payslip — {p.period || month}</p>
-            {contactInfo.address ? <p className="mt-2 text-sm text-[#191970]">{contactInfo.address}</p> : null}
-            <div className="mt-1 flex flex-wrap gap-x-4 gap-y-1 text-xs text-[#800020]">
+            <h2 className="truncate text-xl font-black">{schoolName}</h2>
+            {tagline ? <p className="truncate text-xs text-blue-100">{tagline}</p> : null}
+            <div className="mt-1 flex flex-wrap gap-x-3 gap-y-0.5 text-[11px] text-blue-100">
+              {contactInfo.address ? <span>{contactInfo.address}</span> : null}
               {contactInfo.phone ? <span>{contactInfo.phone}</span> : null}
               {contactInfo.email ? <span>{contactInfo.email}</span> : null}
               {website ? <span className="break-all">{website}</span> : null}
             </div>
           </div>
-        </div>
-        <div className={`${INNER} relative z-10 mb-4`}>
-          <div className="grid grid-cols-2 gap-3">
-            <div><p className="text-xs text-[#800020] uppercase font-semibold">Name</p><p className="text-[#191970] font-bold">{p.name || auth?.user?.name || '—'}</p></div>
-            <div><p className="text-xs text-[#800020] uppercase font-semibold">Staff ID</p><p className="text-[#191970]">{p.displayId || p.staffId || '—'}</p></div>
-            <div><p className="text-xs text-[#800020] uppercase font-semibold">Role</p><p className="text-[#191970]">{p.role || auth?.user?.role || 'teacher'}</p></div>
-            <div><p className="text-xs text-[#800020] uppercase font-semibold">Period</p><p className="text-[#191970]">{p.period || month}</p></div>
+          <div className="shrink-0 text-right">
+            <p className="text-xs uppercase tracking-[0.25em] text-blue-100">Payslip</p>
+            <p className="text-sm font-bold">{p.period || month}</p>
           </div>
         </div>
-        <div className={`${INNER} relative z-10 mb-4`}>
-          <p className="text-xs text-[#800020] uppercase font-semibold mb-3">Earnings</p>
-          <div className="space-y-1.5">
-            {earnings.map(entry => (
-              <div key={entry.key || entry.label} className="flex justify-between text-sm text-[#191970]"><span>{entry.label}</span><span>₦{Number(entry.amount || 0).toLocaleString()}</span></div>
+
+        <div className="p-5">
+          {/* Employee details */}
+          <div className="grid grid-cols-2 overflow-hidden rounded-xl border border-[#7cc4e8]/50 sm:grid-cols-4">
+            {[
+              ['Employee', staffName],
+              ['Staff ID', p.displayId || p.staffId || '—'],
+              ['Designation', p.role || auth?.user?.role || 'Teacher'],
+              ['Pay Period', p.period || month],
+            ].map(([k, v], i) => (
+              <div key={k} className={`p-3 ${i % 2 === 0 ? 'bg-[#cfecf7]/40' : 'bg-white'} border-b border-[#7cc4e8]/40`}>
+                <p className="text-[10px] font-bold uppercase tracking-wide text-[#2447d8]">{k}</p>
+                <p className="mt-0.5 truncate text-sm font-bold text-[#191970]">{v}</p>
+              </div>
             ))}
-            <div className="flex justify-between text-sm font-bold text-[#800000] border-t border-[#c9a96e]/40 pt-2 mt-2"><span>Gross Pay</span><span>₦{gross.toLocaleString()}</span></div>
           </div>
-        </div>
-        <div className={`${INNER} relative z-10 mb-4`}>
-          <p className="text-xs text-[#800020] uppercase font-semibold mb-3">Deductions</p>
-          <div className="space-y-1.5">
-            {deductionBreakdown.length ? deductionBreakdown.map(entry => (
-              <div key={entry.key || entry.label} className="flex justify-between text-sm text-[#191970]"><span>{entry.label}</span><span>₦{Number(entry.amount || 0).toLocaleString()}</span></div>
-            )) : <div className="flex justify-between text-sm text-[#191970]"><span>Total Deductions</span><span>₦{deductions.toLocaleString()}</span></div>}
-            <div className="flex justify-between text-sm font-bold text-red-700 border-t border-[#c9a96e]/40 pt-2 mt-2"><span>Total Deductions</span><span>₦{deductions.toLocaleString()}</span></div>
+
+          {/* Earnings & Deductions */}
+          <div className="mt-4 grid gap-4 sm:grid-cols-2">
+            <div className="overflow-hidden rounded-xl border border-[#7cc4e8]/50">
+              <div className="bg-[#2447d8] px-3 py-2 text-xs font-bold uppercase tracking-wide text-white">Earnings</div>
+              <div className="divide-y divide-[#7cc4e8]/30">
+                {earnings.map((e, i) => <Row key={e.key || e.label || i} label={e.label} value={e.amount} />)}
+              </div>
+              <div className="border-t-2 border-[#2447d8]/30 bg-[#cfecf7]/40"><Row label="Gross Pay" value={gross} strong accent="text-[#191970]" /></div>
+            </div>
+            <div className="overflow-hidden rounded-xl border border-[#7cc4e8]/50">
+              <div className="bg-rose-600 px-3 py-2 text-xs font-bold uppercase tracking-wide text-white">Deductions</div>
+              <div className="divide-y divide-[#7cc4e8]/30">
+                {deductionBreakdown.map((d, i) => <Row key={d.key || d.label || i} label={d.label} value={d.amount} />)}
+              </div>
+              <div className="border-t-2 border-rose-500/30 bg-rose-50"><Row label="Total Deductions" value={deductions} strong accent="text-rose-700" /></div>
+            </div>
           </div>
-        </div>
-        <div className={`${INNER} relative z-10 flex items-center justify-between`}>
-          <span className="text-lg font-bold text-[#800020]">NET PAY</span>
-          <span className="text-3xl font-bold text-[#1a5c38]">₦{net.toLocaleString()}</span>
+
+          {/* Net pay */}
+          <div className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-xl bg-gradient-to-r from-[#cfecf7] to-[#ade1f4] px-5 py-4">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-wide text-[#2447d8]">Net Pay</p>
+              <p className="text-[11px] text-slate-600">{numberToWords(net)}</p>
+            </div>
+            <p className="text-3xl font-black text-[#191970]">₦{Number(net).toLocaleString()}</p>
+          </div>
+
+          {/* Signatures */}
+          <div className="mt-8 grid grid-cols-2 gap-8">
+            {['Employee Signature', 'Authorised Signatory'].map(label => (
+              <div key={label} className="text-center">
+                <div className="mx-auto h-px w-4/5 bg-slate-400" />
+                <p className="mt-2 text-[11px] font-semibold uppercase tracking-wide text-slate-500">{label}</p>
+              </div>
+            ))}
+          </div>
+          <p className="mt-5 border-t border-dashed border-[#7cc4e8]/50 pt-3 text-center text-[11px] text-slate-500">
+            This is a computer-generated payslip from {schoolName}. Keep it for your records.
+          </p>
         </div>
       </div>
-      <button onClick={() => window.print()} className={BTN}>Print Payslip</button>
     </div>
   );
 }

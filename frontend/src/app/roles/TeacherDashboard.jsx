@@ -26,7 +26,7 @@ function TeacherAurasWorkspace({ auth, title, subtitle }) {
 
   return (
     <div className="p-8 max-w-7xl mx-auto space-y-6">
-      <div className="rounded-3xl p-6 bg-[#f5deb3] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
+      <div className="rounded-3xl p-6 bg-[#b5e3f4] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
         <h1 className="text-2xl font-bold text-[#800000] dark:text-slate-100">{title}</h1>
         <p className="text-[#191970] dark:text-slate-300 mt-1 text-sm">{subtitle}</p>
       </div>
@@ -34,12 +34,12 @@ function TeacherAurasWorkspace({ auth, title, subtitle }) {
       <div className="grid gap-6 xl:grid-cols-[340px_minmax(0,1fr)]">
         <div className="space-y-6">
           <AuraBalance userId={staffId} />
-          <div className="rounded-3xl border border-[#c9a96e]/40 bg-[#f5deb3] p-4 dark:border-white/10 dark:bg-slate-900/30">
+          <div className="rounded-3xl border border-[#c9a96e]/40 bg-[#b5e3f4] p-4 dark:border-white/10 dark:bg-slate-900/30">
             <StaffFarmingMode staffId={staffId} staffName={staffName} />
           </div>
         </div>
 
-        <div className="rounded-3xl border border-[#c9a96e]/40 bg-[#f5deb3] p-6 dark:border-white/10 dark:bg-slate-900/30">
+        <div className="rounded-3xl border border-[#c9a96e]/40 bg-[#b5e3f4] p-6 dark:border-white/10 dark:bg-slate-900/30">
           <TransactionLog userId={staffId} userRole="teacher" />
         </div>
       </div>

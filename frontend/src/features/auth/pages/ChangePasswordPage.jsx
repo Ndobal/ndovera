@@ -67,7 +67,7 @@ export default function ChangePasswordPage({ onLogin }) {
   }
 
   return (
-    <div className="min-h-screen bg-[#f5deb3] flex items-center justify-center px-4 py-8">
+    <div className="min-h-screen bg-[#b5e3f4] flex items-center justify-center px-4 py-8">
       <div className="w-full max-w-md rounded-3xl p-8 bg-white border border-[#c9a96e]/40 shadow-xl dark:bg-slate-900 dark:border-white/10">
         <div className="mb-6 text-center">
           <h1 className="text-2xl font-black text-[#800000] dark:text-slate-100">
@@ -91,7 +91,7 @@ export default function ChangePasswordPage({ onLogin }) {
                   value={currentPassword}
                   onChange={e => setCurrentPassword(e.target.value)}
                   required
-                  className="w-full rounded-xl border border-[#c9a96e]/40 dark:border-white/10 bg-[#f0d090] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-3 py-2 pr-10 text-sm outline-none focus:ring-2 focus:ring-[#1a5c38]"
+                  className="w-full rounded-xl border border-[#c9a96e]/40 dark:border-white/10 bg-[#ade1f4] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-3 py-2 pr-10 text-sm outline-none focus:ring-2 focus:ring-[#1a5c38]"
                   placeholder="Your current password"
                 />
                 <button type="button" onClick={() => setShowCurrent(v => !v)}
@@ -112,7 +112,7 @@ export default function ChangePasswordPage({ onLogin }) {
                 onChange={e => setNewPassword(e.target.value)}
                 required
                 minLength={8}
-                className="w-full rounded-xl border border-[#c9a96e]/40 dark:border-white/10 bg-[#f0d090] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-3 py-2 pr-10 text-sm outline-none focus:ring-2 focus:ring-[#1a5c38]"
+                className="w-full rounded-xl border border-[#c9a96e]/40 dark:border-white/10 bg-[#ade1f4] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-3 py-2 pr-10 text-sm outline-none focus:ring-2 focus:ring-[#1a5c38]"
                 placeholder="At least 8 characters"
               />
               <button type="button" onClick={() => setShowNew(v => !v)}
@@ -132,7 +132,7 @@ export default function ChangePasswordPage({ onLogin }) {
                 onChange={e => setConfirmPassword(e.target.value)}
                 required
                 minLength={8}
-                className="w-full rounded-xl border border-[#c9a96e]/40 dark:border-white/10 bg-[#f0d090] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-3 py-2 pr-10 text-sm outline-none focus:ring-2 focus:ring-[#1a5c38]"
+                className="w-full rounded-xl border border-[#c9a96e]/40 dark:border-white/10 bg-[#ade1f4] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-3 py-2 pr-10 text-sm outline-none focus:ring-2 focus:ring-[#1a5c38]"
                 placeholder="Repeat your new password"
               />
               <button type="button" onClick={() => setShowConfirm(v => !v)}
@@ -145,7 +145,7 @@ export default function ChangePasswordPage({ onLogin }) {
           <button
             type="submit"
             disabled={saving}
-            className="w-full bg-[#1a5c38] hover:bg-[#154a2e] text-[#f5deb3] font-bold px-4 py-3 rounded-2xl text-sm transition-colors disabled:opacity-60"
+            className="w-full bg-[#1a5c38] hover:bg-[#154a2e] text-[#b5e3f4] font-bold px-4 py-3 rounded-2xl text-sm transition-colors disabled:opacity-60"
           >
             {saving ? 'Saving...' : isForceChange ? 'Set Password & Continue' : 'Update Password'}
           </button>
