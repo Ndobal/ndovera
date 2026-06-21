@@ -19,6 +19,7 @@ import {
 import { getHeaderBarData } from '../../services/headerBarService';
 import { getRoleSidebarItems } from './Sidebar';
 import StaffSignIn from '../../features/attendance/components/StaffSignIn';
+import StaffSubmissionPanel from '../../features/submissions/StaffSubmissionPanel';
 
 const STAFF_ROLES = ['teacher', 'hos', 'owner', 'admin'];
 
@@ -80,6 +81,7 @@ export default function MobileRoleOverviewNav({ roleKey, counts = {} }) {
   const location = useLocation();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [signInOpen, setSignInOpen] = useState(false);
+  const [submitOpen, setSubmitOpen] = useState(false);
   const [headerCounts, setHeaderCounts] = useState({ chats: 0, notifications: 0 });
   const isStaff = STAFF_ROLES.includes(roleKey);
 
@@ -200,8 +202,8 @@ export default function MobileRoleOverviewNav({ roleKey, counts = {} }) {
 
       {drawerOpen ? (
         <div className="fixed inset-0 z-50 bg-slate-950/45 backdrop-blur-sm md:hidden" onClick={() => setDrawerOpen(false)} role="presentation">
-          <div className="absolute bottom-0 left-0 right-0 rounded-t-[2rem] border border-[#2447d8]/30 bg-white p-5 shadow-[0_-20px_60px_rgba(20,33,91,0.18)]" onClick={event => event.stopPropagation()} role="dialog" aria-modal="true" aria-label="More role actions">
-            <div className="mb-4 flex items-center justify-between gap-3">
+          <div className="absolute bottom-0 left-0 right-0 flex max-h-[82vh] flex-col rounded-t-[2rem] border border-[#2447d8]/30 bg-white shadow-[0_-20px_60px_rgba(20,33,91,0.18)]" onClick={event => event.stopPropagation()} role="dialog" aria-modal="true" aria-label="More role actions">
+            <div className="flex items-center justify-between gap-3 rounded-t-[2rem] border-b border-[#2447d8]/10 bg-white px-5 pb-3 pt-5">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#2447d8]">More Actions</p>
                 <h2 className="text-lg font-bold text-[#191970]">{roleKey.toUpperCase()} shortcuts</h2>
@@ -211,10 +213,23 @@ export default function MobileRoleOverviewNav({ roleKey, counts = {} }) {
               </button>
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-3 overflow-y-auto px-5 py-4 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
               {allItems.map(item => {
                 const Icon = getItemIcon(item.name, item.path);
                 const count = resolveCount(item);
+                if (item.path === '#submit-work') {
+                  return (
+                    <button
+                      key="submit-work"
+                      type="button"
+                      onClick={() => { setDrawerOpen(false); setSubmitOpen(true); }}
+                      className="flex items-center gap-3 rounded-2xl border border-[#2447d8] bg-[#2447d8] px-4 py-3 text-sm font-semibold text-white"
+                    >
+                      <span className="relative inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-white/20 text-white">📤</span>
+                      <span>Submit Work</span>
+                    </button>
+                  );
+                }
                 return (
                   <Link
                     key={item.path}
@@ -240,6 +255,19 @@ export default function MobileRoleOverviewNav({ roleKey, counts = {} }) {
       ) : null}
 
       {signInOpen ? <StaffSignIn onClose={() => setSignInOpen(false)} /> : null}
+
+      {submitOpen ? (
+        <div className="fixed inset-0 z-[120] flex items-end justify-center overflow-y-auto bg-slate-950/60 backdrop-blur-sm p-0 sm:items-center sm:p-4" onClick={() => setSubmitOpen(false)} role="presentation">
+          <div className="w-full max-w-lg" onClick={event => event.stopPropagation()}>
+            <div className="mb-2 flex justify-end">
+              <button type="button" onClick={() => setSubmitOpen(false)} className="rounded-full bg-white/90 p-2 text-[#191970] shadow">
+                <XMarkIcon className="h-5 w-5" />
+              </button>
+            </div>
+            <StaffSubmissionPanel role={roleKey} />
+          </div>
+        </div>
+      ) : null}
     </>
   );
 }

@@ -3,6 +3,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { XMarkIcon, ChevronDoubleLeftIcon, ChevronDoubleRightIcon } from '@heroicons/react/24/outline';
 import useFeatureFlags from '../hooks/useFeatureFlags';
 import { getTenantPwaInfo } from '../hooks/useTenantPwaManifest';
+import StaffSubmissionPanel from '../../features/submissions/StaffSubmissionPanel';
 
 const noop = () => {};
 
@@ -43,7 +44,23 @@ const staffAiEligibleRoles = new Set([
   'sportsmaster',
 ]);
 
+// Staff roles that can submit work (documents, PDFs, audios, exam questions).
+const SUBMISSION_ROLES = new Set([
+  'teacher', 'hos', 'owner', 'admin', 'accountant', 'librarian', 'ict', 'ict_manager',
+  'classteacher', 'hod', 'hodassistant', 'principal', 'headteacher', 'nurseryhead', 'examofficer', 'sportsmaster',
+]);
+
 export function getRoleSidebarItems(roleKey) {
+  const items = buildRoleSidebarItems(roleKey);
+  if (SUBMISSION_ROLES.has(roleKey) && !items.some(item => item.path === '#submit-work')) {
+    const settingsIndex = items.findIndex(item => String(item.path || '').endsWith('/settings'));
+    const insertAt = settingsIndex >= 0 ? settingsIndex : items.length;
+    return [...items.slice(0, insertAt), { name: 'Submit Work', path: '#submit-work' }, ...items.slice(insertAt)];
+  }
+  return items;
+}
+
+function buildRoleSidebarItems(roleKey) {
   // library entry lives inside each role context
   const libEntry = { name: 'Library', path: `/roles/${roleKey}/library` };
 
@@ -508,6 +525,7 @@ export default function Sidebar({ auth = null, mobileOpen = false, onClose = noo
   const schoolLogoUrl = tenantBranding?.logoUrl || auth?.user?.logoUrl || '';
   const tenantSubdomain = tenantBranding?.subdomain || auth?.user?.subdomain || '';
   const schoolWebsiteUrl = tenantSubdomain ? `https://${tenantSubdomain}.ndovera.com` : '';
+  const [submitOpen, setSubmitOpen] = useState(false);
   const [collapsed, setCollapsed] = useState(() => {
     try { return window.localStorage.getItem('ndovera:sidebarCollapsed') === '1'; } catch { return false; }
   });
@@ -616,7 +634,15 @@ export default function Sidebar({ auth = null, mobileOpen = false, onClose = noo
         <ul className="pb-4">
           {sidebarItems.map(item => (
             <li key={item.path}>
-              {item.path.includes('#') ? (
+              {item.path === '#submit-work' ? (
+                <button
+                  type="button"
+                  onClick={() => { onClose(); setSubmitOpen(true); }}
+                  className="block w-full text-left px-6 py-3 rounded-2xl font-semibold text-[#2447d8] dark:text-white dark:font-bold hover:bg-blue-50 dark:hover:bg-indigo-500/20 transition-colors"
+                >
+                  📤 {item.name}
+                </button>
+              ) : item.path.includes('#') ? (
                 <a
                   href={item.path}
                   onClick={onClose}
@@ -642,6 +668,19 @@ export default function Sidebar({ auth = null, mobileOpen = false, onClose = noo
           ))}
         </ul>
       </aside>
+
+      {submitOpen ? (
+        <div className="fixed inset-0 z-[120] flex items-end justify-center overflow-y-auto bg-slate-950/60 backdrop-blur-sm p-0 sm:items-center sm:p-4" onClick={() => setSubmitOpen(false)} role="presentation">
+          <div className="w-full max-w-lg" onClick={event => event.stopPropagation()}>
+            <div className="mb-2 flex justify-end">
+              <button type="button" onClick={() => setSubmitOpen(false)} className="rounded-full bg-white/90 p-2 text-[#191970] shadow">
+                <XMarkIcon className="h-5 w-5" />
+              </button>
+            </div>
+            <StaffSubmissionPanel role={roleKey} />
+          </div>
+        </div>
+      ) : null}
     </>
   );
 }

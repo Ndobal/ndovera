@@ -17,13 +17,14 @@ import {
   removeQueuedStaffAttendanceAction,
 } from '../../../features/attendance/staffAttendanceQueue';
 
-const SURFACE = 'rounded-3xl border border-[#c9a96e]/40 bg-[#f5deb3] p-6 shadow-[0_18px_42px_rgba(128,0,0,0.08)] dark:border-[#bf00ff]/35 dark:bg-[#800000]/75 dark:shadow-[0_0_28px_rgba(191,0,255,0.18)]';
-const PANEL = 'rounded-2xl border border-[#c9a96e]/35 bg-[#fff8f0] p-4 dark:border-[#bf00ff]/25 dark:bg-black/20';
-const LABEL = 'text-xs font-semibold uppercase tracking-[0.18em] text-[#800020] dark:text-[#bf00ff]';
+// Royal-blue theme on white surfaces (light), neon retained for dark mode.
+const SURFACE = 'rounded-3xl border border-[#2447d8]/15 bg-white p-6 shadow-[0_18px_42px_rgba(20,33,91,0.08)] dark:border-[#bf00ff]/35 dark:bg-[#800000]/75 dark:shadow-[0_0_28px_rgba(191,0,255,0.18)]';
+const PANEL = 'rounded-2xl border border-[#2447d8]/15 bg-slate-50 p-4 dark:border-[#bf00ff]/25 dark:bg-black/20';
+const LABEL = 'text-xs font-semibold uppercase tracking-[0.18em] text-[#2447d8] dark:text-[#bf00ff]';
 const BODY = 'text-sm text-[#191970] dark:text-[#39ff14]';
-const INPUT = 'w-full rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] px-4 py-3 text-sm text-[#191970] outline-none focus:ring-2 focus:ring-[#1a5c38] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#ffffff] dark:focus:ring-[#00ffff]';
-const PRIMARY_BUTTON = 'rounded-2xl bg-[#1a5c38] px-4 py-2.5 text-sm font-bold text-[#f5deb3] transition-colors hover:bg-[#154a2e] disabled:cursor-not-allowed disabled:opacity-60 dark:bg-[#00ffff] dark:text-[#000000] dark:hover:bg-[#7dfcff]';
-const SECONDARY_BUTTON = 'rounded-2xl border border-[#800020]/30 bg-white/70 px-4 py-2.5 text-sm font-semibold text-[#800020] transition-colors hover:bg-white disabled:cursor-not-allowed disabled:opacity-60 dark:border-[#bf00ff]/35 dark:bg-black/25 dark:text-[#bf00ff] dark:hover:bg-[#140014]';
+const INPUT = 'w-full rounded-2xl border border-[#2447d8]/25 bg-white px-4 py-3 text-sm text-[#191970] outline-none focus:ring-2 focus:ring-[#2447d8] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#ffffff] dark:focus:ring-[#00ffff]';
+const PRIMARY_BUTTON = 'rounded-2xl bg-[#2447d8] px-4 py-2.5 text-sm font-bold text-white transition-colors hover:bg-[#1b34a8] disabled:cursor-not-allowed disabled:opacity-60 dark:bg-[#00ffff] dark:text-[#000000] dark:hover:bg-[#7dfcff]';
+const SECONDARY_BUTTON = 'rounded-2xl border border-[#2447d8]/30 bg-white px-4 py-2.5 text-sm font-semibold text-[#2447d8] transition-colors hover:bg-blue-50 disabled:cursor-not-allowed disabled:opacity-60 dark:border-[#bf00ff]/35 dark:bg-black/25 dark:text-[#bf00ff] dark:hover:bg-[#140014]';
 const TODAY = new Date().toISOString().slice(0, 10);
 const ATTENDANCE_SETTINGS_CACHE_KEY = 'ndovera_staff_attendance_settings_v1';
 
@@ -720,30 +721,38 @@ export default function TeacherAttendancePage() {
     >
       <div className="space-y-6">
         <section className={SURFACE}>
-          <div className="flex flex-wrap items-start justify-between gap-4">
-            <div>
-              <p className={LABEL}>Teacher attendance workspace</p>
-              <h2 className="mt-2 text-3xl font-black text-[#800000] dark:text-[#ffffff]">Welcome, {teacherName}</h2>
-              <p className={`${BODY} mt-2 max-w-4xl`}>Choose what you want to do right now: sign yourself in, mark student attendance, or review your own sign-in records.</p>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {[
-                { key: 'sign-in', label: 'Sign In' },
-                { key: 'students', label: 'Mark Student Attendance' },
-                { key: 'records', label: 'My Records' },
-              ].map(tab => (
+          <p className={LABEL}>Teacher attendance workspace</p>
+          <h2 className="mt-2 text-2xl font-black text-[#191970] dark:text-[#ffffff] sm:text-3xl">Welcome, {teacherName}</h2>
+          <p className={`${BODY} mt-2 max-w-4xl`}>Choose a task: sign yourself in, mark student attendance, or review your own sign-in records.</p>
+        </section>
+
+        {/* Task tabs — organized for mobile and desktop */}
+        <div className="sticky top-0 z-20 -mx-1 rounded-2xl border border-[#2447d8]/15 bg-white/90 p-1.5 backdrop-blur-md dark:border-white/10 dark:bg-slate-900/90">
+          <div className="grid grid-cols-3 gap-1.5">
+            {[
+              { key: 'sign-in', label: 'Sign In', icon: '📲' },
+              { key: 'students', label: 'Mark Students', icon: '✓' },
+              { key: 'records', label: 'My Records', icon: '📋' },
+            ].map(tab => {
+              const active = activeTab === tab.key;
+              return (
                 <button
                   key={tab.key}
                   type="button"
                   onClick={() => setActiveTab(tab.key)}
-                  className={activeTab === tab.key ? PRIMARY_BUTTON : SECONDARY_BUTTON}
+                  className={`flex items-center justify-center gap-1.5 rounded-xl px-2 py-2.5 text-xs font-bold transition-all sm:text-sm ${
+                    active
+                      ? 'bg-[#2447d8] text-white shadow-lg shadow-[#2447d8]/25'
+                      : 'text-[#2447d8] hover:bg-blue-50 dark:text-slate-200 dark:hover:bg-white/10'
+                  }`}
                 >
-                  {tab.label}
+                  <span>{tab.icon}</span>
+                  <span className="whitespace-nowrap">{tab.label}</span>
                 </button>
-              ))}
-            </div>
+              );
+            })}
           </div>
-        </section>
+        </div>
 
         {activeTab === 'sign-in' ? (
           <div className="space-y-6">
@@ -850,7 +859,7 @@ export default function TeacherAttendancePage() {
                         : 'This device is offline. New attendance marks will be queued and synced automatically when the internet returns.'}
                     </div>
                     <div className="mt-4 grid gap-4 md:grid-cols-2">
-                      <label className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">
+                      <label className="text-sm font-semibold text-[#2447d8] dark:text-[#bf00ff]">
                         Manual QR Entry
                         <input
                           value={manualQrCode}
@@ -859,7 +868,7 @@ export default function TeacherAttendancePage() {
                           placeholder="Paste or type the QR code if camera scanning is unavailable"
                         />
                       </label>
-                      <label className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">
+                      <label className="text-sm font-semibold text-[#2447d8] dark:text-[#bf00ff]">
                         Optional Note
                         <input
                           value={signInNote}
@@ -873,7 +882,7 @@ export default function TeacherAttendancePage() {
                     <label className="mt-4 flex items-start gap-3 rounded-2xl border border-[#c9a96e]/35 bg-[#fff8f0] p-4 text-sm text-[#191970] dark:border-[#bf00ff]/25 dark:bg-black/20 dark:text-[#39ff14]">
                       <input type="checkbox" checked={useSharedPhone} onChange={event => setUseSharedPhone(event.target.checked)} className="mt-1" />
                       <span>
-                        <span className="block font-semibold text-[#800000] dark:text-[#ffffff]">Use colleague phone mode</span>
+                        <span className="block font-semibold text-[#191970] dark:text-[#ffffff]">Use colleague phone mode</span>
                         <span className="mt-1 block">Enable this when you are signing in from another staff member&apos;s phone. NDOVERA will require a face capture and tag the attendance record as a shared-phone sign-in.</span>
                       </span>
                     </label>
@@ -893,7 +902,7 @@ export default function TeacherAttendancePage() {
                       <div className="mt-4 rounded-2xl border border-[#c9a96e]/35 bg-[#fff8f0] p-4 dark:border-[#bf00ff]/25 dark:bg-black/20">
                         <p className={LABEL}>Required face capture</p>
                         <p className={`${BODY} mt-2`}>This school or shared-phone mode requires a face capture before QR sign-in. Upload a selfie from the current device, then scan the QR code.</p>
-                        <label className="mt-4 block text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">
+                        <label className="mt-4 block text-sm font-semibold text-[#2447d8] dark:text-[#bf00ff]">
                           Face Capture
                           <input type="file" accept="image/*" capture="user" onChange={handleFaceCapture} className={`${INPUT} mt-2`} />
                         </label>
@@ -935,7 +944,7 @@ export default function TeacherAttendancePage() {
                     <p className={LABEL}>Permission requests</p>
                     <p className={`${BODY} mt-2`}>Ask HoS or Owner to approve absence, late arrival, official duty, or remote duty before the day is charged as unauthorized absenteeism.</p>
                     <form onSubmit={handlePermissionRequestSubmit} className="mt-4 grid gap-4 md:grid-cols-2">
-                      <label className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">
+                      <label className="text-sm font-semibold text-[#2447d8] dark:text-[#bf00ff]">
                         Request Type
                         <select value={permissionForm.requestType} onChange={event => setPermissionForm(current => ({ ...current, requestType: event.target.value }))} className={`${INPUT} mt-2`}>
                           <option value="absence">Absence</option>
@@ -944,15 +953,15 @@ export default function TeacherAttendancePage() {
                           <option value="remote">Remote duty</option>
                         </select>
                       </label>
-                      <label className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">
+                      <label className="text-sm font-semibold text-[#2447d8] dark:text-[#bf00ff]">
                         Start Date
                         <input type="date" value={permissionForm.startDate} onChange={event => setPermissionForm(current => ({ ...current, startDate: event.target.value, endDate: current.endDate < event.target.value ? event.target.value : current.endDate }))} className={`${INPUT} mt-2`} />
                       </label>
-                      <label className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">
+                      <label className="text-sm font-semibold text-[#2447d8] dark:text-[#bf00ff]">
                         End Date
                         <input type="date" value={permissionForm.endDate} onChange={event => setPermissionForm(current => ({ ...current, endDate: event.target.value }))} className={`${INPUT} mt-2`} />
                       </label>
-                      <label className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff] md:col-span-2">
+                      <label className="text-sm font-semibold text-[#2447d8] dark:text-[#bf00ff] md:col-span-2">
                         Reason
                         <textarea value={permissionForm.reason} onChange={event => setPermissionForm(current => ({ ...current, reason: event.target.value }))} rows={3} className={`${INPUT} mt-2 min-h-[110px] resize-y`} placeholder="Explain why you need attendance permission for these dates" />
                       </label>
@@ -995,7 +1004,7 @@ export default function TeacherAttendancePage() {
             <div className="flex flex-wrap items-start justify-between gap-4">
               <div>
                 <p className={LABEL}>Student attendance</p>
-                <h2 className="mt-2 text-2xl font-black text-[#800000] dark:text-[#ffffff]">Mark Student Attendance</h2>
+                <h2 className="mt-2 text-2xl font-black text-[#191970] dark:text-[#ffffff]">Mark Student Attendance</h2>
                 <p className={`${BODY} mt-2 max-w-3xl`}>Choose your managed class, then record present, late, absent, or excused attendance for a student.</p>
               </div>
               <span className="rounded-full border border-[#800020]/20 bg-white/70 px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] text-[#800020] dark:border-[#bf00ff]/30 dark:bg-black/25 dark:text-[#bf00ff]">
@@ -1009,7 +1018,7 @@ export default function TeacherAttendancePage() {
               </div>
             ) : (
               <form onSubmit={handleStudentAttendanceSubmit} className="mt-5 grid gap-4 lg:grid-cols-2">
-                <label className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">
+                <label className="text-sm font-semibold text-[#2447d8] dark:text-[#bf00ff]">
                   Managed Class
                   <select value={selectedClassId} onChange={event => setSelectedClassId(event.target.value)} className={`${INPUT} mt-2`}>
                     {attendanceClasses.map(classroom => (
@@ -1017,7 +1026,7 @@ export default function TeacherAttendancePage() {
                     ))}
                   </select>
                 </label>
-                <label className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">
+                <label className="text-sm font-semibold text-[#2447d8] dark:text-[#bf00ff]">
                   Student
                   <select value={selectedStudentId} onChange={event => setSelectedStudentId(event.target.value)} className={`${INPUT} mt-2`}>
                     {classStudents.map(student => (
@@ -1025,11 +1034,11 @@ export default function TeacherAttendancePage() {
                     ))}
                   </select>
                 </label>
-                <label className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">
+                <label className="text-sm font-semibold text-[#2447d8] dark:text-[#bf00ff]">
                   Attendance Date
                   <input type="date" value={studentDate} onChange={event => setStudentDate(event.target.value)} className={`${INPUT} mt-2`} />
                 </label>
-                <label className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">
+                <label className="text-sm font-semibold text-[#2447d8] dark:text-[#bf00ff]">
                   Status
                   <select value={studentStatus} onChange={event => setStudentStatus(event.target.value)} className={`${INPUT} mt-2`}>
                     <option value="Present">Present</option>
@@ -1038,7 +1047,7 @@ export default function TeacherAttendancePage() {
                     <option value="Excused">Excused</option>
                   </select>
                 </label>
-                <label className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff] lg:col-span-2">
+                <label className="text-sm font-semibold text-[#2447d8] dark:text-[#bf00ff] lg:col-span-2">
                   Notes
                   <textarea value={studentNotes} onChange={event => setStudentNotes(event.target.value)} rows={4} className={`${INPUT} mt-2 min-h-[120px] resize-y`} placeholder="Optional note for the attendance record" />
                 </label>
@@ -1061,15 +1070,15 @@ export default function TeacherAttendancePage() {
               <div className="flex flex-wrap items-start justify-between gap-4">
                 <div>
                   <p className={LABEL}>Personal attendance history</p>
-                  <h2 className="mt-2 text-2xl font-black text-[#800000] dark:text-[#ffffff]">My Sign-In Records</h2>
+                  <h2 className="mt-2 text-2xl font-black text-[#191970] dark:text-[#ffffff]">My Sign-In Records</h2>
                   <p className={`${BODY} mt-2 max-w-3xl`}>Review each day you signed in, how many times you were on time or late, and how much was charged within the selected period.</p>
                 </div>
                 <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                  <label className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">
+                  <label className="text-sm font-semibold text-[#2447d8] dark:text-[#bf00ff]">
                     From
                     <input type="date" value={recordsFrom} onChange={event => setRecordsFrom(event.target.value)} className={`${INPUT} mt-2`} />
                   </label>
-                  <label className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">
+                  <label className="text-sm font-semibold text-[#2447d8] dark:text-[#bf00ff]">
                     To
                     <input type="date" value={recordsTo} onChange={event => setRecordsTo(event.target.value)} className={`${INPUT} mt-2`} />
                   </label>

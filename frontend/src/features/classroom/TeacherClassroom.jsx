@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import StudentSectionShell from '../../app/roles/student/StudentSectionShell';
+import MobileRoleOverviewNav from '../../shared/components/MobileRoleOverviewNav';
 import TeacherAssignmentsPanel from './TeacherAssignmentsPanel';
 import * as svc from './classroomService';
 import SubjectsTab from './subjects';
@@ -1613,6 +1614,7 @@ export default function TeacherClassroom({
           <MaterialViewer material={activeMaterial} onClose={() => setActiveMaterial(null)} />
         ) : null}
       </div>
+      <MobileRoleOverviewNav roleKey={currentRoleKey || 'teacher'} />
     </StudentSectionShell>
   );
 }
