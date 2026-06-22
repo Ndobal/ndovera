@@ -604,39 +604,49 @@ function PublicShell({ section, notice, children }) {
   }, [location.pathname]);
 
   return (
-    <div className="min-h-screen overflow-x-hidden bg-[#f6efe4] text-[#191970]">
-      <div className="fixed inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,rgba(128,0,32,0.12),transparent_30%),radial-gradient(circle_at_80%_20%,rgba(26,92,56,0.12),transparent_24%),linear-gradient(180deg,#fbf4e8_0%,#f6efe4_46%,#efe3d1_100%)]" />
+    <div className="min-h-screen overflow-x-hidden bg-white text-[#191970]">
+      {/* Utility bar */}
+      <div className="hidden bg-[#10133a] text-white lg:block">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-8 py-1.5 text-[11px] tracking-wide">
+          <span className="text-white/60">A modern website, school platform &amp; learning network</span>
+          <div className="flex items-center gap-5">
+            <Link to="/opportunities" className="text-white/75 transition hover:text-[#e3c98b]">Opportunities</Link>
+            <Link to="/events" className="text-white/75 transition hover:text-[#e3c98b]">Events</Link>
+            <Link to="/login" className="font-semibold text-[#e3c98b] transition hover:text-white">Portal Login →</Link>
+          </div>
+        </div>
+      </div>
 
-      <header className="sticky top-0 z-40 border-b border-[#c9a96e]/35 bg-[#fbf4e8]/92 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-4 sm:px-6 lg:gap-6 lg:px-8">
+      <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/95 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-6 lg:gap-6 lg:px-8">
           <Link to="/" className="flex items-center gap-3">
-            <div className="flex h-12 w-12 items-center justify-center rounded-[1.25rem] border border-[#c9a96e]/45 bg-[#800020] text-sm font-black tracking-[0.18em] text-[#b5e3f4] shadow-[0_14px_28px_rgba(128,0,32,0.18)]">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#191970] text-sm font-black tracking-[0.16em] text-white ring-2 ring-[#c9a96e]/60">
               ND
             </div>
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.34em] text-[#800020]">NDOVERA</p>
-              <p className="hidden text-sm text-[#31416f] sm:block">Website, platform, and learning network</p>
+              <p className="font-serif text-xl font-black leading-none tracking-tight text-[#191970]">NDOVERA</p>
+              <p className="mt-1 hidden text-[10px] font-semibold uppercase tracking-[0.28em] text-[#c9a96e] sm:block">Learn · Lead · Grow</p>
             </div>
           </Link>
 
-          <nav className="hidden flex-wrap items-center gap-2 text-sm font-semibold text-[#31416f] lg:flex">
+          <nav className="hidden items-center gap-0.5 xl:flex">
             {NAV_ITEMS.map(item => (
               <NavLink
                 key={item.path}
                 to={item.path}
                 end={item.path === '/'}
-                className={({ isActive }) => `rounded-full px-3 py-2 transition ${isActive ? 'bg-[#800020] text-[#b5e3f4]' : 'hover:bg-[#ead7b6] hover:text-[#800020]'}`}
+                className={({ isActive }) => `rounded-md px-3 py-2 text-[13px] font-semibold uppercase tracking-wide transition ${isActive ? 'text-[#2447d8]' : 'text-[#191970] hover:text-[#2447d8]'}`}
               >
                 {item.label}
               </NavLink>
             ))}
           </nav>
 
-          <div className="hidden items-center gap-3 lg:flex">
-            <Link to="/login" className="rounded-full border border-[#c9a96e]/45 bg-[#fff8ef] px-4 py-2 text-sm font-semibold text-[#191970] transition hover:border-[#1a5c38] hover:text-[#1a5c38]">
+          <div className="hidden items-center gap-2 lg:flex">
+            <Link to="/login" className="rounded-full border border-[#191970]/25 px-4 py-2 text-sm font-semibold text-[#191970] transition hover:border-[#2447d8] hover:text-[#2447d8]">
               Portal Login
             </Link>
-            <Link to="/register-school" className="rounded-full bg-[#1a5c38] px-4 py-2 text-sm font-semibold text-[#b5e3f4] transition hover:bg-[#154a2e]">
+            <Link to="/register-school" className="rounded-full bg-[#191970] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#2447d8]">
               Register School
             </Link>
           </div>
@@ -644,7 +654,7 @@ function PublicShell({ section, notice, children }) {
           <button
             type="button"
             onClick={() => setIsMobileMenuOpen(open => !open)}
-            className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-[#c9a96e]/45 bg-[#fff8ef] text-[#800020] shadow-[0_10px_24px_rgba(128,0,32,0.08)] transition hover:border-[#800020] hover:text-[#670019] lg:hidden"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-slate-200 bg-white text-[#191970] transition hover:border-[#2447d8] hover:text-[#2447d8] xl:hidden"
             aria-expanded={isMobileMenuOpen}
             aria-label={isMobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
           >
@@ -653,7 +663,7 @@ function PublicShell({ section, notice, children }) {
         </div>
 
         {isMobileMenuOpen ? (
-          <div className="border-t border-[#c9a96e]/35 bg-[#fbf4e8]/98 px-4 py-4 shadow-[0_20px_48px_rgba(25,25,112,0.08)] sm:px-6 lg:hidden">
+          <div className="border-t border-slate-200 bg-white px-4 py-4 shadow-lg sm:px-6 xl:hidden">
             <div className="mx-auto max-w-7xl space-y-4">
               <nav className="grid gap-2 sm:grid-cols-2">
                 {NAV_ITEMS.map(item => (
@@ -661,17 +671,17 @@ function PublicShell({ section, notice, children }) {
                     key={item.path}
                     to={item.path}
                     end={item.path === '/'}
-                    className={({ isActive }) => `rounded-2xl border px-4 py-3 text-sm font-semibold transition ${isActive ? 'border-[#800020] bg-[#800020] text-[#b5e3f4]' : 'border-[#c9a96e]/45 bg-[#fff8ef] text-[#31416f] hover:border-[#800020] hover:text-[#800020]'}`}
+                    className={({ isActive }) => `rounded-xl border px-4 py-3 text-sm font-semibold uppercase tracking-wide transition ${isActive ? 'border-[#191970] bg-[#191970] text-white' : 'border-slate-200 text-[#191970] hover:border-[#2447d8] hover:text-[#2447d8]'}`}
                   >
                     {item.label}
                   </NavLink>
                 ))}
               </nav>
               <div className="grid gap-3 sm:grid-cols-2">
-                <Link to="/login" className="rounded-full border border-[#c9a96e]/45 bg-[#fff8ef] px-5 py-3 text-center text-sm font-semibold text-[#191970] transition hover:border-[#1a5c38] hover:text-[#1a5c38]">
+                <Link to="/login" className="rounded-full border border-[#191970]/25 px-5 py-3 text-center text-sm font-semibold text-[#191970] transition hover:border-[#2447d8] hover:text-[#2447d8]">
                   Portal Login
                 </Link>
-                <Link to="/register-school" className="rounded-full bg-[#1a5c38] px-5 py-3 text-center text-sm font-semibold text-[#b5e3f4] transition hover:bg-[#154a2e]">
+                <Link to="/register-school" className="rounded-full bg-[#191970] px-5 py-3 text-center text-sm font-semibold text-white transition hover:bg-[#2447d8]">
                   Register School
                 </Link>
               </div>
@@ -680,63 +690,63 @@ function PublicShell({ section, notice, children }) {
         ) : null}
       </header>
 
-      <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-14">
-        <Reveal as="section" className="relative overflow-hidden rounded-[2.4rem] border border-[#c9a96e]/45 bg-[#fff8ef] px-5 py-7 shadow-[0_28px_80px_rgba(25,25,112,0.08)] sm:px-8 sm:py-10 lg:px-12 lg:py-14">
-          <div className="absolute right-0 top-0 h-40 w-40 rounded-full bg-[#800020]/10 blur-3xl" />
-          <div className="absolute bottom-0 left-0 h-32 w-32 rounded-full bg-[#1a5c38]/10 blur-3xl" />
-          <div className="relative grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-end lg:gap-10">
-            <div className="space-y-5">
-              <p className="inline-flex rounded-full border border-[#c9a96e]/45 bg-[#b5e3f4] px-4 py-2 text-xs font-semibold uppercase tracking-[0.34em] text-[#800020]">
-                {section.eyebrow}
-              </p>
-              <h1 className="max-w-3xl text-[2.65rem] font-black leading-[0.98] tracking-tight text-[#191970] sm:text-5xl lg:max-w-4xl lg:text-[4.2rem]">
-                {section.title}
-              </h1>
-              <p className="max-w-2xl text-base leading-8 text-[#31416f] sm:text-lg">
-                {section.description}
-              </p>
-              <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-                <ActionLink to={section.metadata.buttonUrl || '/growth-partners'} className="rounded-full bg-[#800020] px-6 py-3 text-center text-sm font-semibold text-[#b5e3f4] transition hover:bg-[#670019]">
-                  {section.metadata.buttonLabel || 'Explore NDOVERA'}
-                </ActionLink>
-                <ActionLink to={section.metadata.secondaryButtonUrl || '/tutor'} className="rounded-full border border-[#c9a96e]/45 bg-[#fff8ef] px-6 py-3 text-center text-sm font-semibold text-[#191970] transition hover:border-[#1a5c38] hover:text-[#1a5c38]">
-                  {section.metadata.secondaryButtonLabel || 'See Tutor Layer'}
-                </ActionLink>
-              </div>
-            </div>
-
-            <div className="space-y-3 lg:pl-4">
-              {heroMedia[0] ? (
-                <div data-reveal data-reveal-delay="1" className="public-reveal overflow-hidden rounded-[1.8rem] border border-[#c9a96e]/45 bg-[#b5e3f4]/55 p-2 shadow-[0_24px_42px_rgba(128,0,32,0.08)]">
-                  <MediaFrame url={heroMedia[0]} title={`${section.title} hero media`} className="h-56 w-full rounded-[1.35rem] object-cover sm:h-64 lg:h-72" />
-                </div>
-              ) : null}
-
-              {heroStats.length ? (
-                <div className="grid gap-3 sm:grid-cols-2">
-                  {heroStats.map((metric, index) => (
-                    <div key={`${metric.label}-${metric.value}`} data-reveal data-reveal-delay={(index % 4) + 1} className="public-reveal min-h-[7.5rem] rounded-[1.7rem] border border-[#c9a96e]/45 bg-[#b5e3f4] p-4">
-                      <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#800020]">{metric.label}</p>
-                      <p className="mt-3 break-words text-2xl font-black text-[#191970] sm:text-3xl">{metric.value}</p>
-                    </div>
-                  ))}
-                </div>
-              ) : heroPreviewCards.length ? (
-                <div className="grid gap-3 sm:grid-cols-2">
-                  {heroPreviewCards.map((item, index) => (
-                    <div key={item.title} data-reveal data-reveal-delay={(index % 4) + 1} className="public-reveal min-h-[7.5rem] rounded-[1.7rem] border border-[#c9a96e]/45 bg-[#b5e3f4] p-4">
-                      <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#800020]">{item.eyebrow || 'NDOVERA'}</p>
-                      <p className="mt-3 text-lg font-black text-[#191970]">{item.title}</p>
-                      <p className="mt-2 text-sm leading-6 text-[#31416f]">{item.description}</p>
-                    </div>
-                  ))}
-                </div>
-              ) : null}
+      {/* Full-bleed hero */}
+      <section className="relative isolate overflow-hidden">
+        {heroMedia[0] ? (
+          <MediaFrame url={heroMedia[0]} title={`${section.title} hero`} className="absolute inset-0 -z-10 h-full w-full object-cover" />
+        ) : null}
+        <div className={`absolute inset-0 -z-10 ${heroMedia[0] ? 'bg-gradient-to-br from-[#10133a]/92 via-[#191970]/82 to-[#2447d8]/68' : 'bg-gradient-to-br from-[#10133a] via-[#191970] to-[#2447d8]'}`} />
+        <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-28 lg:px-8 lg:py-36">
+          <div className="max-w-3xl">
+            <p className="inline-flex rounded-full border border-[#e3c98b]/50 bg-white/10 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.3em] text-[#e3c98b]">
+              {section.eyebrow}
+            </p>
+            <h1 className="mt-5 font-serif text-4xl font-black leading-[1.05] tracking-tight text-white sm:text-5xl lg:text-[4rem]">
+              {section.title}
+            </h1>
+            <p className="mt-5 max-w-2xl text-lg leading-8 text-white/85">
+              {section.description}
+            </p>
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+              <ActionLink to={section.metadata.buttonUrl || '/growth-partners'} className="rounded-full bg-[#e3c98b] px-7 py-3.5 text-center text-sm font-bold uppercase tracking-wide text-[#191970] transition hover:bg-white">
+                {section.metadata.buttonLabel || 'Explore NDOVERA'}
+              </ActionLink>
+              <ActionLink to={section.metadata.secondaryButtonUrl || '/tutor'} className="rounded-full border border-white/40 px-7 py-3.5 text-center text-sm font-bold uppercase tracking-wide text-white transition hover:bg-white/10">
+                {section.metadata.secondaryButtonLabel || 'See Tutor Layer'}
+              </ActionLink>
             </div>
           </div>
-        </Reveal>
+        </div>
+      </section>
 
-        <div className="mt-10 space-y-10">
+      {/* Stats / preview strip */}
+      {heroStats.length ? (
+        <section className="border-b border-slate-200 bg-[#f7f9ff]">
+          <div className="mx-auto grid max-w-7xl grid-cols-2 px-4 sm:px-6 md:grid-cols-4 lg:px-8">
+            {heroStats.slice(0, 4).map((metric, index) => (
+              <div key={`${metric.label}-${index}`} className="border-b border-slate-200 px-4 py-7 text-center md:border-b-0 md:border-l md:first:border-l-0">
+                <p className="font-serif text-3xl font-black text-[#191970] sm:text-4xl">{metric.value}</p>
+                <p className="mt-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#c9a96e]">{metric.label}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      ) : heroPreviewCards.length ? (
+        <section className="border-b border-slate-200 bg-[#f7f9ff]">
+          <div className="mx-auto grid max-w-7xl gap-4 px-4 py-8 sm:grid-cols-2 sm:px-6 lg:px-8">
+            {heroPreviewCards.map(item => (
+              <div key={item.title} className="rounded-2xl border border-slate-200 bg-white p-5">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#c9a96e]">{item.eyebrow || 'NDOVERA'}</p>
+                <p className="mt-2 font-serif text-lg font-black text-[#191970]">{item.title}</p>
+                <p className="mt-1 text-sm leading-6 text-[#31416f]">{item.description}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      <main className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
+        <div className="space-y-12">
           {notice ? (
             <Reveal as="section" className="rounded-[1.6rem] border border-[#c9a96e]/45 bg-[#fff8ef] px-5 py-4 text-sm leading-7 text-[#31416f] shadow-[0_12px_28px_rgba(25,25,112,0.06)]">
               {notice}
@@ -767,33 +777,44 @@ function PublicShell({ section, notice, children }) {
         </div>
       </main>
 
-      <footer className="border-t border-[#c9a96e]/35 bg-[#fbf4e8]">
-        <div className="mx-auto grid max-w-7xl gap-8 px-4 py-8 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:px-8">
+      <footer className="bg-[#10133a] text-white/75">
+        <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 lg:grid-cols-[1.2fr_0.8fr_0.8fr] lg:px-8">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.34em] text-[#800020]">NDOVERA</p>
-            <p className="mt-3 max-w-xl text-sm leading-7 text-[#31416f]">
-              A public website, school platform, and learning-support network designed to help schools operate with more structure and more visible progress.
+            <div className="flex items-center gap-3">
+              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/10 text-sm font-black tracking-[0.16em] text-white ring-2 ring-[#c9a96e]/50">ND</div>
+              <p className="font-serif text-2xl font-black text-white">NDOVERA</p>
+            </div>
+            <p className="mt-4 max-w-md text-sm leading-7 text-white/65">
+              A modern website, school platform, and learning-support network designed to help schools operate with more structure and visible progress.
             </p>
+            <div className="mt-5 flex flex-wrap gap-3">
+              <Link to="/register-school" className="rounded-full bg-[#e3c98b] px-5 py-2.5 text-sm font-bold text-[#191970] transition hover:bg-white">Register School</Link>
+              <Link to="/login" className="rounded-full border border-white/25 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-white/10">Portal Login</Link>
+            </div>
           </div>
-          <div className="grid gap-6 sm:grid-cols-2">
-            <div>
-              <p className="text-sm font-bold text-[#191970]">Explore</p>
-              <div className="mt-3 flex flex-col gap-2 text-sm text-[#31416f]">
-                {NAV_ITEMS.slice(0, footerSplitIndex).map(item => (
-                  <Link key={item.path} to={item.path} className="transition hover:text-[#800020]">{item.label}</Link>
-                ))}
-              </div>
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#e3c98b]">Explore</p>
+            <div className="mt-4 flex flex-col gap-2.5 text-sm">
+              {NAV_ITEMS.slice(0, footerSplitIndex).map(item => (
+                <Link key={item.path} to={item.path} className="text-white/70 transition hover:text-white">{item.label}</Link>
+              ))}
             </div>
-            <div>
-              <p className="text-sm font-bold text-[#191970]">Access</p>
-              <div className="mt-3 flex flex-col gap-2 text-sm text-[#31416f]">
-                {NAV_ITEMS.slice(footerSplitIndex).map(item => (
-                  <Link key={item.path} to={item.path} className="transition hover:text-[#800020]">{item.label}</Link>
-                ))}
-                <Link to="/login" className="transition hover:text-[#800020]">Portal Login</Link>
-                <Link to="/register-school" className="transition hover:text-[#800020]">Register School</Link>
-              </div>
+          </div>
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#e3c98b]">Access</p>
+            <div className="mt-4 flex flex-col gap-2.5 text-sm">
+              {NAV_ITEMS.slice(footerSplitIndex).map(item => (
+                <Link key={item.path} to={item.path} className="text-white/70 transition hover:text-white">{item.label}</Link>
+              ))}
+              <Link to="/login" className="text-white/70 transition hover:text-white">Portal Login</Link>
+              <Link to="/register-school" className="text-white/70 transition hover:text-white">Register School</Link>
             </div>
+          </div>
+        </div>
+        <div className="border-t border-white/10">
+          <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-4 py-5 text-xs text-white/45 sm:flex-row sm:px-6 lg:px-8">
+            <span>© {new Date().getFullYear()} Ndovera. All rights reserved.</span>
+            <span className="uppercase tracking-[0.2em]">Learn · Lead · Grow</span>
           </div>
         </div>
       </footer>
