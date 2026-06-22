@@ -446,15 +446,15 @@ async function sendZohoPasswordResetEmail(env: Bindings, payload: { to: string; 
   const safeResetUrl = escapePasswordResetHtml(payload.resetUrl)
   const emailBody = `
     <div style="font-family:Segoe UI,Arial,sans-serif;color:#191970;line-height:1.6;max-width:640px;margin:0 auto;padding:24px;background:#fff8ef;border:1px solid rgba(201,169,110,0.45);border-radius:24px;">
-      <p style="margin:0 0 12px;font-size:12px;font-weight:700;letter-spacing:0.28em;text-transform:uppercase;color:#800020;">NDOVERA</p>
+      <p style="margin:0 0 12px;font-size:12px;font-weight:700;letter-spacing:0.28em;text-transform:uppercase;color:#b08d2d;">NDOVERA</p>
       <h1 style="margin:0 0 16px;font-size:28px;line-height:1.1;color:#191970;">Reset your password</h1>
       <p style="margin:0 0 16px;">Hello ${recipientName},</p>
       <p style="margin:0 0 20px;">Use the button below to set a new password for your NDOVERA account.</p>
       <p style="margin:0 0 24px;">
-        <a href="${safeResetUrl}" style="display:inline-block;padding:14px 24px;border-radius:999px;background:#1a5c38;color:#f5deb3;text-decoration:none;font-weight:700;">Reset Password</a>
+        <a href="${safeResetUrl}" style="display:inline-block;padding:14px 24px;border-radius:999px;background:#1a5c38;color:#ffffff;text-decoration:none;font-weight:700;">Reset Password</a>
       </p>
       <p style="margin:0 0 10px;">If the button does not open, use this link:</p>
-      <p style="margin:0 0 18px;word-break:break-word;"><a href="${safeResetUrl}" style="color:#800020;">${safeResetUrl}</a></p>
+      <p style="margin:0 0 18px;word-break:break-word;"><a href="${safeResetUrl}" style="color:#b08d2d;">${safeResetUrl}</a></p>
       <p style="margin:0;font-size:14px;color:#31416f;">This link expires in 30 minutes.</p>
     </div>
   `.trim()
@@ -937,7 +937,7 @@ const RESULT_DEFAULT_BRANDING = {
   schoolName: '',
   reportTitle: 'Official Result Record',
   logoUrl: '',
-  primaryColor: '#800000',
+  primaryColor: '#14215b',
   accentColor: '#1a5c38',
 }
 
@@ -1864,11 +1864,11 @@ function renderPublicFeeReceiptVerificationHtml(options: {
     <style>
       :root {
         color-scheme: light;
-        --wheat: #f5deb3;
+        --wheat: #ffffff;
         --paper: #fff8f0;
-        --maroon: #800000;
+        --maroon: #14215b;
         --midnight: #191970;
-        --burgundy: #800020;
+        --burgundy: #b08d2d;
         --green: #1a5c38;
         --line: rgba(128, 0, 0, 0.16);
       }
@@ -1882,7 +1882,7 @@ function renderPublicFeeReceiptVerificationHtml(options: {
         background:
           radial-gradient(circle at top left, rgba(128, 0, 0, 0.08), transparent 38%),
           radial-gradient(circle at bottom right, rgba(26, 92, 56, 0.12), transparent 32%),
-          linear-gradient(160deg, #fffaf3 0%, #f5deb3 100%);
+          linear-gradient(160deg, #fffaf3 0%, #ffffff 100%);
         color: var(--midnight);
         display: flex;
         align-items: center;
@@ -1911,7 +1911,7 @@ function renderPublicFeeReceiptVerificationHtml(options: {
         font-weight: 700;
         letter-spacing: 0.28em;
         text-transform: uppercase;
-        color: #f5deb3;
+        color: #ffffff;
       }
 
       h1 {
@@ -2224,11 +2224,11 @@ function renderPublicResultVerificationHtml(options: {
     <style>
       :root {
         color-scheme: light;
-        --wheat: #f5deb3;
+        --wheat: #ffffff;
         --paper: #fff8f0;
         --maroon: ${branding.primaryColor};
         --midnight: #191970;
-        --burgundy: #800020;
+        --burgundy: #b08d2d;
         --green: ${branding.accentColor};
         --line: rgba(128, 0, 0, 0.16);
       }
@@ -2242,7 +2242,7 @@ function renderPublicResultVerificationHtml(options: {
         background:
           radial-gradient(circle at top left, rgba(128, 0, 0, 0.08), transparent 38%),
           radial-gradient(circle at bottom right, rgba(26, 92, 56, 0.12), transparent 32%),
-          linear-gradient(160deg, #fffaf3 0%, #f5deb3 100%);
+          linear-gradient(160deg, #fffaf3 0%, #ffffff 100%);
         color: var(--midnight);
         display: flex;
         align-items: center;
@@ -2271,7 +2271,7 @@ function renderPublicResultVerificationHtml(options: {
         font-weight: 700;
         letter-spacing: 0.28em;
         text-transform: uppercase;
-        color: #f5deb3;
+        color: #ffffff;
       }
 
       h1 {
@@ -17892,11 +17892,11 @@ function getBrandingSocialLinks(branding: any = {}) {
 
 function getSocialButtonStyle(key: string) {
   const shared = 'display:inline-flex;align-items:center;justify-content:center;padding:10px 14px;border-radius:999px;font-size:13px;font-weight:900;text-decoration:none;margin:0;'
-  if (key === 'facebook') return `${shared}background:#f5deb3;color:#800000;border:1px solid rgba(245,222,179,.4);`
-  if (key === 'instagram') return `${shared}background:#fff8ee;color:#800020;border:1px solid rgba(245,222,179,.35);`
-  if (key === 'tiktok') return `${shared}background:#111827;color:#f5deb3;border:1px solid rgba(245,222,179,.2);`
-  if (key === 'youtube') return `${shared}background:#800000;color:#f5deb3;border:1px solid rgba(245,222,179,.25);`
-  return `${shared}background:#1a5c38;color:#f5deb3;border:1px solid rgba(245,222,179,.2);`
+  if (key === 'facebook') return `${shared}background:#ffffff;color:#14215b;border:1px solid rgba(227,201,139,.4);`
+  if (key === 'instagram') return `${shared}background:#fff8ee;color:#b08d2d;border:1px solid rgba(227,201,139,.35);`
+  if (key === 'tiktok') return `${shared}background:#111827;color:#ffffff;border:1px solid rgba(227,201,139,.2);`
+  if (key === 'youtube') return `${shared}background:#14215b;color:#ffffff;border:1px solid rgba(227,201,139,.25);`
+  return `${shared}background:#1a5c38;color:#ffffff;border:1px solid rgba(227,201,139,.2);`
 }
 
 function toFacebookPagePluginUrl(url: string) {
@@ -17939,20 +17939,20 @@ function renderBrandingSocialEmbeds(branding: any = {}) {
 
   if (facebookEmbedUrl) {
     cards.push(`
-      <div style="flex:1 1 320px;min-width:280px;border:1px solid rgba(245,222,179,.18);border-radius:18px;padding:16px;background:rgba(255,255,255,.06);">
-        <p style="margin:0 0 10px;font-size:12px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#f5deb3;">Facebook Page</p>
+      <div style="flex:1 1 320px;min-width:280px;border:1px solid rgba(227,201,139,.18);border-radius:18px;padding:16px;background:rgba(255,255,255,.06);">
+        <p style="margin:0 0 10px;font-size:12px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#ffffff;">Facebook Page</p>
         <iframe src="${escAttr(facebookEmbedUrl)}" title="Facebook page preview" loading="lazy" style="width:100%;min-height:360px;border:0;border-radius:16px;background:#fff;"></iframe>
       </div>`)
   }
 
   if (youtubeSubscribeUrl || youtubeVideoEmbedUrl) {
     cards.push(`
-      <div style="flex:1 1 280px;min-width:280px;border:1px solid rgba(245,222,179,.18);border-radius:18px;padding:16px;background:rgba(255,255,255,.06);">
-        <p style="margin:0 0 10px;font-size:12px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#f5deb3;">YouTube</p>
+      <div style="flex:1 1 280px;min-width:280px;border:1px solid rgba(227,201,139,.18);border-radius:18px;padding:16px;background:rgba(255,255,255,.06);">
+        <p style="margin:0 0 10px;font-size:12px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#ffffff;">YouTube</p>
         ${youtubeSubscribeUrl
           ? `<iframe src="${escAttr(youtubeSubscribeUrl)}" title="YouTube subscribe" loading="lazy" style="width:100%;height:120px;border:0;border-radius:16px;background:#fff;"></iframe>`
           : `<iframe src="${escAttr(youtubeVideoEmbedUrl)}" title="YouTube video" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="width:100%;min-height:220px;border:0;border-radius:16px;background:#000;"></iframe>`}
-        <p style="margin:10px 0 0;font-size:12px;color:rgba(245,222,179,.82);">${youtubeSubscribeUrl ? 'Visitors can subscribe to the school channel directly from the site.' : 'Visitors can preview the school YouTube video without leaving the site.'}</p>
+        <p style="margin:10px 0 0;font-size:12px;color:rgba(227,201,139,.82);">${youtubeSubscribeUrl ? 'Visitors can subscribe to the school channel directly from the site.' : 'Visitors can preview the school YouTube video without leaving the site.'}</p>
       </div>`)
   }
 
@@ -17970,8 +17970,8 @@ function renderBrandingSocialLinks(
   if (!links.length && !embeds) return ''
 
   const panelStyle = options.panelStyle || 'margin-top:24px;'
-  const titleStyle = options.titleStyle || 'margin-bottom:10px;color:#f5deb3;font-size:20px;line-height:1.2;'
-  const noteStyle = options.noteStyle || 'margin-top:12px;font-size:13px;color:rgba(245,222,179,.82);max-width:560px;'
+  const titleStyle = options.titleStyle || 'margin-bottom:10px;color:#ffffff;font-size:20px;line-height:1.2;'
+  const noteStyle = options.noteStyle || 'margin-top:12px;font-size:13px;color:rgba(227,201,139,.82);max-width:560px;'
 
   return `
   <div style="${panelStyle}">
@@ -18155,7 +18155,7 @@ function renderLoginPanel(
       ${platformLoginUrl ? `
       <div class="tenant-login-form">
         <a href="${escAttr(platformLoginUrl)}" class="btn-primary" style="justify-content:center;width:100%;">Continue to Secure Portal</a>
-        <p style="font-size:13px;color:#800020;text-transform:none;line-height:1.6;">The portal opens on NDOVERA's secure dashboard host. When you sign out there, you will return to this school website.</p>
+        <p style="font-size:13px;color:#b08d2d;text-transform:none;line-height:1.6;">The portal opens on NDOVERA's secure dashboard host. When you sign out there, you will return to this school website.</p>
       </div>` : `
       <form class="tenant-login-form">
         <label>Email Address<input name="email" type="email" required placeholder="Enter your email"></label>
@@ -18223,7 +18223,7 @@ function baseHtml(title: string, body: string) {
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>${escHtml(title)}</title>
   <style>
-  *{box-sizing:border-box;margin:0;padding:0}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#191970;background:#fff8ee;line-height:1.6}a{color:inherit}.top-strip{height:34px;background:#191970;color:#f5deb3;display:flex;align-items:center;justify-content:flex-end;gap:22px;padding:0 32px;font-size:12px;font-weight:700}.top-strip a{text-decoration:none}.site-nav{background:#800000;color:#f5deb3;display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:76px;padding:12px 34px;position:sticky;top:0;z-index:100;box-shadow:0 10px 28px rgba(25,25,112,.16)}.brand-link{display:flex;align-items:center;gap:12px;text-decoration:none;font-size:18px;font-weight:900}.site-logo,.login-logo{height:48px;width:48px;border-radius:50%;object-fit:cover;border:2px solid #f5deb3}.logo-fallback{background:#f5deb3;color:#800000;display:flex;align-items:center;justify-content:center;font-weight:900}.nav-links{display:flex;align-items:center;gap:18px;flex-wrap:wrap}.nav-links a{text-decoration:none;font-size:13px;font-weight:800}.portal-link,.btn-primary{background:#1a5c38;color:#f5deb3!important;padding:10px 16px;border-radius:8px;text-decoration:none;font-weight:900;display:inline-flex}.btn-secondary{border:1px solid #f5deb3;color:#f5deb3;padding:10px 16px;border-radius:8px;text-decoration:none;font-weight:900;display:inline-flex}.hero{min-height:620px;background:#191970;color:#f5deb3;position:relative;overflow:hidden;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(320px,.75fr);gap:34px;align-items:center;padding:74px 7vw}.hero:before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(25,25,112,.92),rgba(128,0,0,.76),rgba(25,25,112,.36));z-index:1}.hero-bg{position:absolute;inset:0;background-position:center;background-size:cover;opacity:.62}.hero-content,.hero-login{position:relative;z-index:2}.eyebrow{color:#f5deb3;text-transform:uppercase;font-size:12px;font-weight:900;letter-spacing:.18em}.hero h1{font-size:clamp(36px,6vw,72px);line-height:1.02;max-width:820px;margin:14px 0 18px;letter-spacing:0}.hero p{font-size:18px;max-width:680px}.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}.section{padding:72px 7vw}.section.alt{background:#f5deb3}.section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:30px}.section h2,.page-title{color:#800000;font-size:clamp(28px,4vw,44px);line-height:1.1}.section-kicker{color:#800020;font-weight:900;text-transform:uppercase;font-size:12px;letter-spacing:.16em}.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,.85fr);gap:38px;align-items:center}.media-frame{width:100%;height:360px;object-fit:cover;border-radius:8px;border:1px solid rgba(128,0,32,.16);box-shadow:0 20px 50px rgba(25,25,112,.12);background:#f5deb3}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}.info-card,.news-card{background:#fff;border:1px solid rgba(128,0,32,.14);border-radius:8px;overflow:hidden;box-shadow:0 12px 28px rgba(25,25,112,.08)}.info-card{padding:22px}.info-card h3,.news-card h3{color:#800000;font-size:18px;margin-bottom:8px}.info-card p,.news-card p{color:#191970;font-size:14px}.news-card img,.news-card video{width:100%;height:190px;object-fit:cover;background:#f5deb3}.news-card>div{padding:18px}.admission-flyer{background:#800000;color:#f5deb3;border-radius:8px;display:grid;grid-template-columns:minmax(0,.75fr) minmax(300px,1fr);gap:0;overflow:hidden;box-shadow:0 24px 60px rgba(128,0,0,.2)}.admission-flyer .copy{padding:34px}.admission-flyer h2{color:#f5deb3}.admission-flyer img,.admission-flyer video{height:100%;min-height:320px;width:100%;object-fit:cover}.login-card{background:#fff;color:#191970;border-radius:8px;padding:24px;border:1px solid rgba(128,0,32,.16);box-shadow:0 24px 70px rgba(25,25,112,.18)}.login-heading{display:flex;gap:14px;align-items:center;margin-bottom:18px}.login-heading h2{color:#800000;font-size:22px;line-height:1.1}.login-heading p{font-size:13px;color:#800020}.tenant-login-form{display:grid;gap:12px}.tenant-login-form label{display:grid;gap:5px;color:#800020;font-size:12px;text-transform:uppercase;font-weight:900}.tenant-login-form input,.tenant-login-form textarea{border:1.5px solid rgba(128,0,32,.28);border-radius:8px;padding:11px 12px;color:#191970;background:#fff8ee;font:inherit;outline:none}.password-field{position:relative}.password-field input{padding-right:74px}.password-toggle{position:absolute;top:50%;right:8px;transform:translateY(-50%);background:transparent!important;color:#800020!important;border:0!important;padding:4px 8px!important;font-size:12px;font-weight:900;cursor:pointer}.tenant-login-form > button{background:#1a5c38;color:#f5deb3;border:0;border-radius:8px;padding:12px;font-weight:900;cursor:pointer}.login-error{display:none;background:#fef2f2;color:#800000;padding:9px 11px;border-radius:8px;font-size:13px;text-transform:none}.gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.gallery-grid img,.gallery-grid video{width:100%;height:210px;object-fit:cover;border-radius:8px;background:#f5deb3}.page-hero{background:#191970;color:#f5deb3;padding:70px 7vw}.page-hero h1{font-size:clamp(34px,5vw,58px);line-height:1.05}.page-hero p{max-width:760px;margin-top:12px}.site-footer{background:#191970;color:#f5deb3;padding:48px 7vw 24px;display:grid;grid-template-columns:1.3fr .7fr 1fr;gap:30px}.site-footer h3,.site-footer h4{color:#f5deb3;margin-bottom:10px}.site-footer a{display:block;color:#f5deb3;text-decoration:none;margin:4px 0}.footer-bottom{grid-column:1/-1;border-top:1px solid rgba(245,222,179,.25);padding-top:18px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-size:13px}.muted{color:#800020}.placeholder-media{height:260px;background:#800000;color:#f5deb3;display:flex;align-items:center;justify-content:center;border-radius:8px;font-weight:900}.hero{min-height:100svh;grid-template-columns:minmax(0,1.08fr) minmax(340px,.92fr);align-items:stretch;padding:96px 7vw 64px}.hero-content{display:flex;flex-direction:column;justify-content:center;padding-right:6px;position:relative;z-index:2}.hero-side{display:flex;flex-direction:column;gap:18px;justify-content:flex-end;min-width:0;position:relative;z-index:2}.hero-media-rail{display:flex;gap:14px;overflow-x:auto;padding:6px 2px 10px 0;scroll-snap-type:x mandatory;scrollbar-width:thin}.hero-media-card{flex:0 0 min(280px,78vw);scroll-snap-align:start;padding:10px;border-radius:24px;border:1px solid rgba(245,222,179,.2);background:rgba(255,248,238,.1);backdrop-filter:blur(10px)}.hero-media-frame{width:100%;height:250px;object-fit:cover;border-radius:18px;border:1px solid rgba(245,222,179,.18);background:#f5deb3;box-shadow:none}.hero-scroll-note{font-size:11px;font-weight:900;letter-spacing:.18em;text-transform:uppercase;color:rgba(245,222,179,.88);margin-bottom:8px}
+  *{box-sizing:border-box;margin:0;padding:0}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#191970;background:#fff8ee;line-height:1.6}a{color:inherit}h1,h2,h3,.brand-link,.page-title{font-family:Georgia,'Times New Roman',serif;letter-spacing:.01em}.top-strip{height:34px;background:#191970;color:#ffffff;display:flex;align-items:center;justify-content:flex-end;gap:22px;padding:0 32px;font-size:12px;font-weight:700}.top-strip a{text-decoration:none}.site-nav{background:#14215b;color:#ffffff;display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:76px;padding:12px 34px;position:sticky;top:0;z-index:100;box-shadow:0 10px 28px rgba(25,25,112,.16)}.brand-link{display:flex;align-items:center;gap:12px;text-decoration:none;font-size:18px;font-weight:900}.site-logo,.login-logo{height:48px;width:48px;border-radius:50%;object-fit:cover;border:2px solid #ffffff}.logo-fallback{background:#ffffff;color:#14215b;display:flex;align-items:center;justify-content:center;font-weight:900}.nav-links{display:flex;align-items:center;gap:18px;flex-wrap:wrap}.nav-links a{text-decoration:none;font-size:13px;font-weight:800}.portal-link,.btn-primary{background:#1a5c38;color:#ffffff!important;padding:11px 20px;border-radius:999px;text-decoration:none;font-weight:800;display:inline-flex;transition:filter .2s}.portal-link:hover,.btn-primary:hover{filter:brightness(1.08)}.btn-secondary{border:1.5px solid #14215b;color:#14215b;padding:11px 18px;border-radius:999px;text-decoration:none;font-weight:800;display:inline-flex}.hero .btn-secondary,.admission-flyer .btn-secondary,.page-hero .btn-secondary{color:#fff;border-color:rgba(255,255,255,.55)}.hero .btn-primary{background:#e3c98b;color:#14215b!important}.nav-links a{padding:8px 12px;border-radius:8px}.nav-links a:hover{background:rgba(255,255,255,.12)}.hero{min-height:620px;background:#191970;color:#ffffff;position:relative;overflow:hidden;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(320px,.75fr);gap:34px;align-items:center;padding:74px 7vw}.hero:before{content:'';position:absolute;inset:0;background:linear-gradient(120deg,rgba(16,19,58,.94),rgba(20,33,91,.82) 45%,rgba(36,71,216,.5));z-index:1}.hero-bg{position:absolute;inset:0;background-position:center;background-size:cover;opacity:.62}.hero-content,.hero-login{position:relative;z-index:2}.eyebrow{color:#e3c98b;text-transform:uppercase;font-size:12px;font-weight:900;letter-spacing:.18em}.hero h1{font-size:clamp(36px,6vw,72px);line-height:1.02;max-width:820px;margin:14px 0 18px;letter-spacing:0}.hero p{font-size:18px;max-width:680px}.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}.section{padding:72px 7vw}.section.alt{background:#f6f8ff}.section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:30px}.section h2,.page-title{color:#14215b;font-size:clamp(28px,4vw,44px);line-height:1.1}.section-kicker{color:#b08d2d;font-weight:900;text-transform:uppercase;font-size:12px;letter-spacing:.16em}.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,.85fr);gap:38px;align-items:center}.media-frame{width:100%;height:360px;object-fit:cover;border-radius:8px;border:1px solid rgba(20,33,91,.16);box-shadow:0 20px 50px rgba(25,25,112,.12);background:#ffffff}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}.info-card,.news-card{background:#fff;border:1px solid rgba(20,33,91,.14);border-radius:8px;overflow:hidden;box-shadow:0 12px 28px rgba(25,25,112,.08)}.info-card{padding:22px}.info-card h3,.news-card h3{color:#14215b;font-size:18px;margin-bottom:8px}.info-card p,.news-card p{color:#191970;font-size:14px}.news-card img,.news-card video{width:100%;height:190px;object-fit:cover;background:#ffffff}.news-card>div{padding:18px}.admission-flyer{background:#14215b;color:#ffffff;border-radius:8px;display:grid;grid-template-columns:minmax(0,.75fr) minmax(300px,1fr);gap:0;overflow:hidden;box-shadow:0 24px 60px rgba(20,33,91,.2)}.admission-flyer .copy{padding:34px}.admission-flyer h2{color:#ffffff}.admission-flyer img,.admission-flyer video{height:100%;min-height:320px;width:100%;object-fit:cover}.login-card{background:#fff;color:#191970;border-radius:8px;padding:24px;border:1px solid rgba(20,33,91,.16);box-shadow:0 24px 70px rgba(25,25,112,.18)}.login-heading{display:flex;gap:14px;align-items:center;margin-bottom:18px}.login-heading h2{color:#14215b;font-size:22px;line-height:1.1}.login-heading p{font-size:13px;color:#b08d2d}.tenant-login-form{display:grid;gap:12px}.tenant-login-form label{display:grid;gap:5px;color:#b08d2d;font-size:12px;text-transform:uppercase;font-weight:900}.tenant-login-form input,.tenant-login-form textarea{border:1.5px solid rgba(20,33,91,.28);border-radius:8px;padding:11px 12px;color:#191970;background:#fff8ee;font:inherit;outline:none}.password-field{position:relative}.password-field input{padding-right:74px}.password-toggle{position:absolute;top:50%;right:8px;transform:translateY(-50%);background:transparent!important;color:#b08d2d!important;border:0!important;padding:4px 8px!important;font-size:12px;font-weight:900;cursor:pointer}.tenant-login-form > button{background:#1a5c38;color:#ffffff;border:0;border-radius:8px;padding:12px;font-weight:900;cursor:pointer}.login-error{display:none;background:#fef2f2;color:#14215b;padding:9px 11px;border-radius:8px;font-size:13px;text-transform:none}.gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.gallery-grid img,.gallery-grid video{width:100%;height:210px;object-fit:cover;border-radius:8px;background:#ffffff}.page-hero{background:#191970;color:#ffffff;padding:70px 7vw}.page-hero h1{font-size:clamp(34px,5vw,58px);line-height:1.05}.page-hero p{max-width:760px;margin-top:12px}.site-footer{background:#191970;color:#ffffff;padding:48px 7vw 24px;display:grid;grid-template-columns:1.3fr .7fr 1fr;gap:30px}.site-footer h3,.site-footer h4{color:#ffffff;margin-bottom:10px}.site-footer a{display:block;color:#ffffff;text-decoration:none;margin:4px 0}.footer-bottom{grid-column:1/-1;border-top:1px solid rgba(227,201,139,.25);padding-top:18px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-size:13px}.muted{color:#b08d2d}.placeholder-media{height:260px;background:#14215b;color:#ffffff;display:flex;align-items:center;justify-content:center;border-radius:8px;font-weight:900}.hero{min-height:100svh;grid-template-columns:minmax(0,1.08fr) minmax(340px,.92fr);align-items:stretch;padding:96px 7vw 64px}.hero-content{display:flex;flex-direction:column;justify-content:center;padding-right:6px;position:relative;z-index:2}.hero-side{display:flex;flex-direction:column;gap:18px;justify-content:flex-end;min-width:0;position:relative;z-index:2}.hero-media-rail{display:flex;gap:14px;overflow-x:auto;padding:6px 2px 10px 0;scroll-snap-type:x mandatory;scrollbar-width:thin}.hero-media-card{flex:0 0 min(280px,78vw);scroll-snap-align:start;padding:10px;border-radius:24px;border:1px solid rgba(227,201,139,.2);background:rgba(255,248,238,.1);backdrop-filter:blur(10px)}.hero-media-frame{width:100%;height:250px;object-fit:cover;border-radius:18px;border:1px solid rgba(227,201,139,.18);background:#ffffff;box-shadow:none}.hero-scroll-note{font-size:11px;font-weight:900;letter-spacing:.18em;text-transform:uppercase;color:rgba(227,201,139,.88);margin-bottom:8px}
   @media(max-width:860px){.top-strip{justify-content:center}.site-nav{align-items:flex-start;flex-direction:column;padding:16px 20px}.nav-links{gap:12px}.hero,.split,.admission-flyer{grid-template-columns:1fr}.hero{min-height:auto;padding:64px 22px 52px}.hero-side{gap:14px}.hero-media-card{flex-basis:min(82vw,320px)}.hero-media-frame{height:220px}.section,.page-hero{padding:52px 22px}.section-head{align-items:flex-start;flex-direction:column}.gallery-grid{grid-template-columns:repeat(2,1fr)}.site-footer{grid-template-columns:1fr}.admission-flyer img,.admission-flyer video{min-height:240px}.media-frame{height:260px}}
   @media(max-width:520px){.gallery-grid{grid-template-columns:1fr}.nav-links a{font-size:12px}.hero h1{font-size:36px}.site-logo,.login-logo{height:42px;width:42px}}
   </style>
@@ -18290,7 +18290,7 @@ function renderSchoolHome(tenant: any, branding: any, sections: any[], events: a
       .flier-popup-overlay{position:fixed;inset:0;background:rgba(0,0,0,.72);display:flex;align-items:center;justify-content:center;z-index:9999;padding:16px;}
       .flier-popup-card{position:relative;background:#fff;border-radius:18px;max-width:520px;width:100%;max-height:90vh;overflow:auto;padding:14px;box-shadow:0 24px 70px rgba(0,0,0,.45);animation:flierPopIn .25s ease-out;}
       .flier-popup-card .flier-popup-media,.flier-popup-card img,.flier-popup-card video,.flier-popup-card iframe{display:block;width:100%;border-radius:12px;}
-      .flier-popup-cta{display:block;text-align:center;margin-top:10px;background:#800000;color:#f5deb3;padding:12px;border-radius:999px;text-decoration:none;font-weight:700;}
+      .flier-popup-cta{display:block;text-align:center;margin-top:10px;background:#14215b;color:#ffffff;padding:12px;border-radius:999px;text-decoration:none;font-weight:700;}
       .flier-popup-close{position:absolute;top:8px;right:10px;border:none;background:rgba(0,0,0,.55);color:#fff;width:34px;height:34px;border-radius:50%;font-size:22px;line-height:1;cursor:pointer;z-index:2;}
       @keyframes flierPopIn{from{opacity:0;transform:scale(.94);}to{opacity:1;transform:scale(1);}}
     </style>
@@ -18312,7 +18312,7 @@ function renderSchoolHome(tenant: any, branding: any, sections: any[], events: a
       ${renderBrandingSocialLinks(branding, {
         title: 'Follow Our Updates',
         note: 'These buttons open the school official social pages so visitors can like, follow, subscribe, or chat there.',
-        panelStyle: 'margin-top:26px;background:rgba(245,222,179,.12);border:1px solid rgba(245,222,179,.22);border-radius:18px;padding:18px 20px;max-width:640px;',
+        panelStyle: 'margin-top:26px;background:rgba(227,201,139,.12);border:1px solid rgba(227,201,139,.22);border-radius:18px;padding:18px 20px;max-width:640px;',
         includeEmbeds: true,
       })}
     </div>
@@ -18493,7 +18493,7 @@ function renderAdmissionsPage(tenant: any, branding: any, sections: any[], optio
       <h2>${escHtml(docsSection?.title || 'Admission Documents')}</h2>
       ${docsSection?.content ? `<p>${escHtml(docsSection.content)}</p>` : ''}
       <div class="cards" style="display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin-top:18px;">
-        ${downloadDocuments.map((doc: any) => `<a class="info-card" href="${escAttr(String(doc.url))}" target="_blank" rel="noopener" download style="text-decoration:none;display:flex;align-items:center;gap:12px;"><span style="font-size:26px;">📄</span><span style="font-weight:700;color:#800000;">${escHtml(String(doc.title || 'Document'))}</span></a>`).join('')}
+        ${downloadDocuments.map((doc: any) => `<a class="info-card" href="${escAttr(String(doc.url))}" target="_blank" rel="noopener" download style="text-decoration:none;display:flex;align-items:center;gap:12px;"><span style="font-size:26px;">📄</span><span style="font-weight:700;color:#14215b;">${escHtml(String(doc.title || 'Document'))}</span></a>`).join('')}
       </div>
     </section>` : ''
   const body = `
@@ -18511,38 +18511,38 @@ function renderAdmissionsPage(tenant: any, branding: any, sections: any[], optio
             <input type="hidden" name="tenantId" value="${escAttr(String(tenant.id || ''))}" />
             <input type="hidden" name="sourcePage" value="/admissions" />
             <div style="display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));">
-              <input type="text" name="studentName" placeholder="Student full name" required style="padding:12px 14px;border-radius:14px;border:1px solid rgba(128,0,0,0.15);font:inherit;" />
-              <input type="text" name="desiredClass" placeholder="Applying for class" required style="padding:12px 14px;border-radius:14px;border:1px solid rgba(128,0,0,0.15);font:inherit;" />
-              <select name="gender" style="padding:12px 14px;border-radius:14px;border:1px solid rgba(128,0,0,0.15);font:inherit;"><option value="">Gender</option><option value="Female">Female</option><option value="Male">Male</option></select>
-              <input type="date" name="dateOfBirth" style="padding:12px 14px;border-radius:14px;border:1px solid rgba(128,0,0,0.15);font:inherit;" />
+              <input type="text" name="studentName" placeholder="Student full name" required style="padding:12px 14px;border-radius:14px;border:1px solid rgba(20,33,91,0.15);font:inherit;" />
+              <input type="text" name="desiredClass" placeholder="Applying for class" required style="padding:12px 14px;border-radius:14px;border:1px solid rgba(20,33,91,0.15);font:inherit;" />
+              <select name="gender" style="padding:12px 14px;border-radius:14px;border:1px solid rgba(20,33,91,0.15);font:inherit;"><option value="">Gender</option><option value="Female">Female</option><option value="Male">Male</option></select>
+              <input type="date" name="dateOfBirth" style="padding:12px 14px;border-radius:14px;border:1px solid rgba(20,33,91,0.15);font:inherit;" />
             </div>
             <div style="display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));">
-              <input type="text" name="parentName" placeholder="Parent or guardian name" required style="padding:12px 14px;border-radius:14px;border:1px solid rgba(128,0,0,0.15);font:inherit;" />
-              <input type="email" name="parentEmail" placeholder="Parent email" required style="padding:12px 14px;border-radius:14px;border:1px solid rgba(128,0,0,0.15);font:inherit;" />
-              <input type="text" name="parentPhone" placeholder="Parent phone" style="padding:12px 14px;border-radius:14px;border:1px solid rgba(128,0,0,0.15);font:inherit;" />
-              <input type="text" name="relationship" placeholder="Relationship" style="padding:12px 14px;border-radius:14px;border:1px solid rgba(128,0,0,0.15);font:inherit;" />
+              <input type="text" name="parentName" placeholder="Parent or guardian name" required style="padding:12px 14px;border-radius:14px;border:1px solid rgba(20,33,91,0.15);font:inherit;" />
+              <input type="email" name="parentEmail" placeholder="Parent email" required style="padding:12px 14px;border-radius:14px;border:1px solid rgba(20,33,91,0.15);font:inherit;" />
+              <input type="text" name="parentPhone" placeholder="Parent phone" style="padding:12px 14px;border-radius:14px;border:1px solid rgba(20,33,91,0.15);font:inherit;" />
+              <input type="text" name="relationship" placeholder="Relationship" style="padding:12px 14px;border-radius:14px;border:1px solid rgba(20,33,91,0.15);font:inherit;" />
             </div>
-            <textarea name="address" rows="2" placeholder="Home address" style="padding:12px 14px;border-radius:14px;border:1px solid rgba(128,0,0,0.15);font:inherit;resize:vertical;"></textarea>
+            <textarea name="address" rows="2" placeholder="Home address" style="padding:12px 14px;border-radius:14px;border:1px solid rgba(20,33,91,0.15);font:inherit;resize:vertical;"></textarea>
             <div style="display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));">
-              <input type="text" name="previousSchool" placeholder="Previous school" style="padding:12px 14px;border-radius:14px;border:1px solid rgba(128,0,0,0.15);font:inherit;" />
-              <input type="text" name="strengths" placeholder="Academic strengths or interests" style="padding:12px 14px;border-radius:14px;border:1px solid rgba(128,0,0,0.15);font:inherit;" />
-              <input type="text" name="talents" placeholder="Talents and gifts" style="padding:12px 14px;border-radius:14px;border:1px solid rgba(128,0,0,0.15);font:inherit;" />
-              <input type="datetime-local" name="examDate" style="padding:12px 14px;border-radius:14px;border:1px solid rgba(128,0,0,0.15);font:inherit;" />
+              <input type="text" name="previousSchool" placeholder="Previous school" style="padding:12px 14px;border-radius:14px;border:1px solid rgba(20,33,91,0.15);font:inherit;" />
+              <input type="text" name="strengths" placeholder="Academic strengths or interests" style="padding:12px 14px;border-radius:14px;border:1px solid rgba(20,33,91,0.15);font:inherit;" />
+              <input type="text" name="talents" placeholder="Talents and gifts" style="padding:12px 14px;border-radius:14px;border:1px solid rgba(20,33,91,0.15);font:inherit;" />
+              <input type="datetime-local" name="examDate" style="padding:12px 14px;border-radius:14px;border:1px solid rgba(20,33,91,0.15);font:inherit;" />
             </div>
             <div style="display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));">
-              <input type="text" name="allergies" placeholder="Allergies" style="padding:12px 14px;border-radius:14px;border:1px solid rgba(128,0,0,0.15);font:inherit;" />
-              <input type="text" name="conditions" placeholder="Medical conditions" style="padding:12px 14px;border-radius:14px;border:1px solid rgba(128,0,0,0.15);font:inherit;" />
-              <input type="text" name="senNeeds" placeholder="SEN or learning support needs" style="padding:12px 14px;border-radius:14px;border:1px solid rgba(128,0,0,0.15);font:inherit;" />
-              <input type="text" name="registrationPlan" placeholder="Registration fee/payment note" style="padding:12px 14px;border-radius:14px;border:1px solid rgba(128,0,0,0.15);font:inherit;" />
+              <input type="text" name="allergies" placeholder="Allergies" style="padding:12px 14px;border-radius:14px;border:1px solid rgba(20,33,91,0.15);font:inherit;" />
+              <input type="text" name="conditions" placeholder="Medical conditions" style="padding:12px 14px;border-radius:14px;border:1px solid rgba(20,33,91,0.15);font:inherit;" />
+              <input type="text" name="senNeeds" placeholder="SEN or learning support needs" style="padding:12px 14px;border-radius:14px;border:1px solid rgba(20,33,91,0.15);font:inherit;" />
+              <input type="text" name="registrationPlan" placeholder="Registration fee/payment note" style="padding:12px 14px;border-radius:14px;border:1px solid rgba(20,33,91,0.15);font:inherit;" />
             </div>
-            <textarea name="medicalNotes" rows="3" placeholder="Medical notes, clinic follow-up needs, or special care instructions" style="padding:12px 14px;border-radius:14px;border:1px solid rgba(128,0,0,0.15);font:inherit;resize:vertical;"></textarea>
+            <textarea name="medicalNotes" rows="3" placeholder="Medical notes, clinic follow-up needs, or special care instructions" style="padding:12px 14px;border-radius:14px;border:1px solid rgba(20,33,91,0.15);font:inherit;resize:vertical;"></textarea>
             <div style="display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));">
-              <select name="transportRequired" style="padding:12px 14px;border-radius:14px;border:1px solid rgba(128,0,0,0.15);font:inherit;"><option value="">Transport needed?</option><option value="yes">Yes</option><option value="no">No</option></select>
-              <input type="text" name="transportArea" placeholder="Pick-up or route area" style="padding:12px 14px;border-radius:14px;border:1px solid rgba(128,0,0,0.15);font:inherit;" />
-              <select name="hostelRequired" style="padding:12px 14px;border-radius:14px;border:1px solid rgba(128,0,0,0.15);font:inherit;"><option value="">Hostel needed?</option><option value="yes">Yes</option><option value="no">No</option></select>
-              <input type="text" name="hostelNotes" placeholder="Hostel notes" style="padding:12px 14px;border-radius:14px;border:1px solid rgba(128,0,0,0.15);font:inherit;" />
+              <select name="transportRequired" style="padding:12px 14px;border-radius:14px;border:1px solid rgba(20,33,91,0.15);font:inherit;"><option value="">Transport needed?</option><option value="yes">Yes</option><option value="no">No</option></select>
+              <input type="text" name="transportArea" placeholder="Pick-up or route area" style="padding:12px 14px;border-radius:14px;border:1px solid rgba(20,33,91,0.15);font:inherit;" />
+              <select name="hostelRequired" style="padding:12px 14px;border-radius:14px;border:1px solid rgba(20,33,91,0.15);font:inherit;"><option value="">Hostel needed?</option><option value="yes">Yes</option><option value="no">No</option></select>
+              <input type="text" name="hostelNotes" placeholder="Hostel notes" style="padding:12px 14px;border-radius:14px;border:1px solid rgba(20,33,91,0.15);font:inherit;" />
             </div>
-            <button type="submit" style="border:none;border-radius:999px;padding:14px 20px;background:#800000;color:#f5deb3;font-weight:700;cursor:pointer;">Submit Admission Request</button>
+            <button type="submit" style="border:none;border-radius:999px;padding:14px 20px;background:#14215b;color:#ffffff;font-weight:700;cursor:pointer;">Submit Admission Request</button>
             <p id="website-admission-status" style="margin:0;font-size:14px;color:#191970;"></p>
           </form>
         </div>
@@ -18590,7 +18590,7 @@ function admissionFormScript() {
         form.reset();
       } catch (error) {
         status.textContent = error instanceof Error ? error.message : 'Could not submit the application right now.';
-        status.style.color = '#800000';
+        status.style.color = '#14215b';
       }
     });
   }());
@@ -18662,7 +18662,7 @@ function websiteEnquiryScript() {
         form.reset();
       } catch (error) {
         status.textContent = error instanceof Error ? error.message : 'Could not send your enquiry right now.';
-        status.style.color = '#800000';
+        status.style.color = '#14215b';
       }
     });
   }());
@@ -18688,12 +18688,12 @@ function renderContactPage(tenant: any, branding: any, sections: any[] = [], opt
           <form id="website-contact-form" style="display:grid;gap:12px;">
             <input type="hidden" name="tenantId" value="${escAttr(String(tenant.id || ''))}" />
             <input type="hidden" name="sourcePage" value="/contact" />
-            <input type="text" name="name" placeholder="Your full name" required style="padding:12px 14px;border-radius:14px;border:1px solid rgba(128,0,0,0.15);font:inherit;" />
-            <input type="email" name="email" placeholder="Your email address" required style="padding:12px 14px;border-radius:14px;border:1px solid rgba(128,0,0,0.15);font:inherit;" />
-            <input type="text" name="phone" placeholder="Phone number" style="padding:12px 14px;border-radius:14px;border:1px solid rgba(128,0,0,0.15);font:inherit;" />
-            <input type="text" name="subject" placeholder="What is this about?" style="padding:12px 14px;border-radius:14px;border:1px solid rgba(128,0,0,0.15);font:inherit;" />
-            <textarea name="message" rows="5" placeholder="Tell the school what you need help with." required style="padding:12px 14px;border-radius:14px;border:1px solid rgba(128,0,0,0.15);font:inherit;resize:vertical;"></textarea>
-            <button type="submit" style="border:none;border-radius:999px;padding:12px 18px;background:#800000;color:#f5deb3;font-weight:700;cursor:pointer;">Send Enquiry</button>
+            <input type="text" name="name" placeholder="Your full name" required style="padding:12px 14px;border-radius:14px;border:1px solid rgba(20,33,91,0.15);font:inherit;" />
+            <input type="email" name="email" placeholder="Your email address" required style="padding:12px 14px;border-radius:14px;border:1px solid rgba(20,33,91,0.15);font:inherit;" />
+            <input type="text" name="phone" placeholder="Phone number" style="padding:12px 14px;border-radius:14px;border:1px solid rgba(20,33,91,0.15);font:inherit;" />
+            <input type="text" name="subject" placeholder="What is this about?" style="padding:12px 14px;border-radius:14px;border:1px solid rgba(20,33,91,0.15);font:inherit;" />
+            <textarea name="message" rows="5" placeholder="Tell the school what you need help with." required style="padding:12px 14px;border-radius:14px;border:1px solid rgba(20,33,91,0.15);font:inherit;resize:vertical;"></textarea>
+            <button type="submit" style="border:none;border-radius:999px;padding:12px 18px;background:#14215b;color:#ffffff;font-weight:700;cursor:pointer;">Send Enquiry</button>
             <p id="website-contact-status" style="margin:0;font-size:14px;color:#191970;"></p>
           </form>
         </div>
@@ -18730,11 +18730,11 @@ function renderLoginPage(tenant: any, branding: any, options: { platformLoginUrl
 function renderTenantNotFoundHtml(requestedHost: string) {
   const safeHost = requestedHost || 'this school address'
   return baseHtml('School Not Found', `
-    <div style="min-height:100vh;background:#f5deb3;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;">
+    <div style="min-height:100vh;background:#ffffff;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;">
       <div>
-        <h1 style="color:#800000;font-size:32px;margin-bottom:16px;">School Not Found</h1>
+        <h1 style="color:#14215b;font-size:32px;margin-bottom:16px;">School Not Found</h1>
         <p style="color:#191970;font-size:16px;margin-bottom:24px;">No school is registered at <strong>${escHtml(safeHost)}</strong>.</p>
-        <a href="https://ndovera.com" style="background:#800000;color:#f5deb3;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:700;">← Back to Ndovera</a>
+        <a href="https://ndovera.com" style="background:#14215b;color:#ffffff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:700;">← Back to Ndovera</a>
       </div>
     </div>`)
 }
