@@ -214,6 +214,25 @@ function SectionEditor({ section, data, onSaved }) {
   const [uploading, setUploading] = useState(false);
   const [message, setMessage] = useState('');
   const fileRef = useRef(null);
+  const heroFileRef = useRef(null);
+
+  // Replace the primary/hero image directly (always overwrites imageUrl).
+  async function handleHeroUpload(event) {
+    const file = (event.target.files || [])[0];
+    if (!file) return;
+    setUploading(true);
+    setMessage('');
+    try {
+      const result = await uploadAmiWebsiteAsset(file, section.key);
+      setForm(current => ({ ...current, imageUrl: result.url }));
+      setMessage('Hero image uploaded — click "Save Section" to publish it.');
+    } catch (error) {
+      setMessage(error.message || 'Upload failed.');
+    } finally {
+      setUploading(false);
+      if (heroFileRef.current) heroFileRef.current.value = '';
+    }
+  }
 
   useEffect(() => {
     const meta = parseMeta(data?.metadata);
@@ -320,6 +339,39 @@ function SectionEditor({ section, data, onSaved }) {
       </div>
 
       <form onSubmit={handleSave} className="mt-5 space-y-4">
+        <div className="rounded-2xl border-2 border-dashed border-[#1a5c38]/50 bg-[#fff8ee]/80 p-4 dark:border-emerald-400/30 dark:bg-slate-800/50">
+          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#800020] dark:text-slate-300">
+            {section.key === 'home' ? 'Hero Image' : 'Main Image'}
+          </p>
+          <p className="mt-1 text-xs leading-5 text-[#191970] dark:text-slate-300">
+            {section.key === 'home'
+              ? 'The large background image on the NDOVERA homepage hero. Upload a new file to replace it, then click "Save Section".'
+              : 'The primary image shown on this page. Upload a new file to replace it.'}
+          </p>
+          {form.imageUrl ? (
+            <MediaPreview url={form.imageUrl} label={`${section.label} hero`} />
+          ) : (
+            <p className="mt-2 text-xs italic text-[#800020]/70 dark:text-slate-400">No image set — the hero currently shows a plain gradient.</p>
+          )}
+          <div className="mt-3 flex flex-wrap items-center gap-2">
+            <button type="button" onClick={() => heroFileRef.current?.click()} disabled={uploading}
+              className="rounded-2xl bg-[#1a5c38] px-4 py-2 text-sm font-bold text-[#b5e3f4] transition hover:bg-[#154a2e] disabled:opacity-60">
+              {uploading ? 'Uploading…' : form.imageUrl ? (section.key === 'home' ? 'Replace Hero Image' : 'Replace Image') : 'Upload Image'}
+            </button>
+            <input ref={heroFileRef} type="file" accept="image/*,video/*" className="hidden" onChange={handleHeroUpload} />
+            {form.imageUrl ? (
+              <button type="button" onClick={() => setForm(current => ({ ...current, imageUrl: '' }))}
+                className="rounded-2xl border border-[#800020]/30 px-4 py-2 text-sm font-semibold text-[#800020] transition hover:bg-[#800020]/5 dark:text-slate-200">
+                Remove
+              </button>
+            ) : null}
+          </div>
+          <label className="mt-3 block">
+            <span className={labelClass}>Or paste an image / video URL</span>
+            <input value={form.imageUrl} onChange={event => setForm(current => ({ ...current, imageUrl: event.target.value }))} className={inputClass} placeholder="https://…" />
+          </label>
+        </div>
+
         <div>
           <label className={labelClass}>Page Title</label>
           <input value={form.title} onChange={event => setForm(current => ({ ...current, title: event.target.value }))} className={inputClass} />
