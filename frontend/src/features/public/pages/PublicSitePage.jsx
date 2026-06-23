@@ -693,19 +693,19 @@ function PublicShell({ section, notice, children }) {
       {/* Full-bleed hero */}
       <section className="relative isolate overflow-hidden">
         {heroMedia[0] ? (
-          <MediaFrame url={heroMedia[0]} title={`${section.title} hero`} className="absolute inset-0 -z-10 h-full w-full object-cover brightness-[.78] saturate-[.95]" />
+          <MediaFrame url={heroMedia[0]} title={`${section.title} hero`} className="absolute inset-0 -z-10 h-full w-full object-cover brightness-[.45] saturate-[.9]" />
         ) : null}
-        <div className={`absolute inset-0 -z-10 ${heroMedia[0] ? 'bg-gradient-to-br from-[#04130b]/93 via-[#0c3a22]/89 to-[#10492b]/83' : 'bg-gradient-to-br from-[#04130b] via-[#0c3a22] to-[#1a5c38]'}`} />
-        {heroMedia[0] ? <div className="absolute inset-x-0 bottom-0 -z-10 h-2/5 bg-gradient-to-t from-[#04130b]/72 to-transparent" /> : null}
+        <div className={`absolute inset-0 -z-10 ${heroMedia[0] ? 'bg-gradient-to-br from-[#010804]/97 via-[#04190d]/95 to-[#072214]/92' : 'bg-gradient-to-br from-[#010804] via-[#04190d] to-[#0a2e1b]'}`} />
+        {heroMedia[0] ? <div className="absolute inset-x-0 bottom-0 -z-10 h-2/5 bg-gradient-to-t from-[#010804]/88 to-transparent" /> : null}
         <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-28 lg:px-8 lg:py-36">
           <div className="max-w-3xl">
-            <p className="inline-flex rounded-full border border-[#f6d36b]/55 bg-black/20 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.3em] text-[#f6d36b]">
+            <p className="inline-flex rounded-full border border-[#ffdf6b]/60 bg-black/30 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.3em] text-[#ffdf6b]">
               {section.eyebrow}
             </p>
-            <h1 className="mt-5 font-serif text-4xl font-black leading-[1.05] tracking-tight text-[#f6d36b] [text-shadow:0_2px_18px_rgba(0,0,0,0.6)] sm:text-5xl lg:text-[4rem]">
+            <h1 className="mt-5 font-serif text-4xl font-black leading-[1.05] tracking-tight text-[#ffd84a] [text-shadow:0_2px_18px_rgba(0,0,0,0.75)] sm:text-5xl lg:text-[4rem]">
               {section.title}
             </h1>
-            <p className="mt-5 max-w-2xl text-lg leading-8 text-[#f8e7b0] [text-shadow:0_1px_10px_rgba(0,0,0,0.55)]">
+            <p className="mt-5 max-w-2xl text-lg leading-8 text-[#ffeca6] [text-shadow:0_1px_12px_rgba(0,0,0,0.7)]">
               {section.description}
             </p>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
