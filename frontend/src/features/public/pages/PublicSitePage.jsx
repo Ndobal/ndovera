@@ -695,17 +695,17 @@ function PublicShell({ section, notice, children }) {
         {heroMedia[0] ? (
           <MediaFrame url={heroMedia[0]} title={`${section.title} hero`} className="absolute inset-0 -z-10 h-full w-full object-cover brightness-[.78] saturate-[.95]" />
         ) : null}
-        <div className={`absolute inset-0 -z-10 ${heroMedia[0] ? 'bg-gradient-to-br from-[#10133a]/92 via-[#191970]/87 to-[#191970]/82' : 'bg-gradient-to-br from-[#10133a] via-[#191970] to-[#2447d8]'}`} />
-        {heroMedia[0] ? <div className="absolute inset-x-0 bottom-0 -z-10 h-2/5 bg-gradient-to-t from-[#0b0e2e]/70 to-transparent" /> : null}
+        <div className={`absolute inset-0 -z-10 ${heroMedia[0] ? 'bg-gradient-to-br from-[#04130b]/93 via-[#0c3a22]/89 to-[#10492b]/83' : 'bg-gradient-to-br from-[#04130b] via-[#0c3a22] to-[#1a5c38]'}`} />
+        {heroMedia[0] ? <div className="absolute inset-x-0 bottom-0 -z-10 h-2/5 bg-gradient-to-t from-[#04130b]/72 to-transparent" /> : null}
         <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-28 lg:px-8 lg:py-36">
           <div className="max-w-3xl">
-            <p className="inline-flex rounded-full border border-[#e3c98b]/50 bg-white/10 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.3em] text-[#e3c98b]">
+            <p className="inline-flex rounded-full border border-[#f6d36b]/55 bg-black/20 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.3em] text-[#f6d36b]">
               {section.eyebrow}
             </p>
-            <h1 className="mt-5 font-serif text-4xl font-black leading-[1.05] tracking-tight text-white [text-shadow:0_2px_18px_rgba(0,0,0,0.55)] sm:text-5xl lg:text-[4rem]">
+            <h1 className="mt-5 font-serif text-4xl font-black leading-[1.05] tracking-tight text-[#f6d36b] [text-shadow:0_2px_18px_rgba(0,0,0,0.6)] sm:text-5xl lg:text-[4rem]">
               {section.title}
             </h1>
-            <p className="mt-5 max-w-2xl text-lg leading-8 text-white/90 [text-shadow:0_1px_10px_rgba(0,0,0,0.45)]">
+            <p className="mt-5 max-w-2xl text-lg leading-8 text-[#f8e7b0] [text-shadow:0_1px_10px_rgba(0,0,0,0.55)]">
               {section.description}
             </p>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
