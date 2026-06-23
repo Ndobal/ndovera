@@ -181,7 +181,7 @@ export default function StudentOverview() {
         )}
       </section>
 
-      <MobileRoleOverviewNav roleKey="student" counts={bottomNavCounts} />
+      {null}
     </StudentSectionShell>
   );
 }

@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import Loader from './shared/components/Loader';
 import Sidebar from './shared/components/Sidebar';
 import DashboardTopBar from './shared/components/DashboardTopBar';
+import MobileRoleOverviewNav from './shared/components/MobileRoleOverviewNav';
 import Classroom from './app/Classroom';
 import Assignments from './app/Assignments';
 import Exams from './app/Exams';
@@ -306,6 +307,9 @@ function AppWorkspace({ auth, onLogin, onLogout }) {
           />
         )}
         <AnimatedRoutes auth={auth} onLogin={onLogin} />
+        {inDashboardMode && !mobileClassroomMode ? (
+          <MobileRoleOverviewNav roleKey={location.pathname.split('/')[2] || 'student'} />
+        ) : null}
       </main>
     </div>
   );

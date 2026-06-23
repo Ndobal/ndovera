@@ -115,10 +115,17 @@ export default function SmartChatDashboard({
               {subtitle ? <p className="truncate text-[11px] text-slate-500 dark:text-slate-400">{subtitle}</p> : null}
             </div>
           </div>
-          <div className="flex items-center gap-2 overflow-x-auto">
-            {statusChips.slice(0, 3).map((c, i) => (
-              <span key={i} className={`hidden h-6 shrink-0 items-center rounded-full px-2.5 text-[10px] font-bold uppercase tracking-wide sm:inline-flex ${TONE[c.tone] || TONE.neutral}`}>{c.label}</span>
-            ))}
+          <div className="flex min-w-0 items-center gap-1.5">
+            <div className="flex items-center gap-1.5 overflow-x-auto">
+              {statusChips.slice(0, 3).map((c, i) => (
+                <span key={i} className={`inline-flex h-6 shrink-0 items-center rounded-full px-2.5 text-[10px] font-bold uppercase tracking-wide ${TONE[c.tone] || TONE.neutral}`}>{c.label}</span>
+              ))}
+            </div>
+            {onNewChat ? (
+              <button type="button" onClick={onNewChat} title="New chat" className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#2447d8]/10 text-[#2447d8] lg:hidden dark:text-blue-300">
+                <PlusIcon className="h-4 w-4" />
+              </button>
+            ) : null}
             {headerActions}
           </div>
         </header>

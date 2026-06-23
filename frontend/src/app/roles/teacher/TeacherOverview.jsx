@@ -277,11 +277,6 @@ export default function TeacherOverview() {
           </div>
         ))}
       </div>
-
-      <MobileRoleOverviewNav
-        roleKey="teacher"
-        counts={{ assignments: s.assignmentsInClasses, materials: s.materialsInClasses }}
-      />
     </div>
   );
 }

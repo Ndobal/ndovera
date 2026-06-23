@@ -116,7 +116,7 @@ export default function RoleSectionPage({
         ))}
       </div>
 
-      {showMobileRoleNav && mobileNavRoleKey ? <MobileRoleOverviewNav roleKey={mobileNavRoleKey} counts={mobileNavCounts} /> : null}
+      {/* Mobile bottom nav is rendered globally in AppWorkspace */}
     </div>
   );
 }

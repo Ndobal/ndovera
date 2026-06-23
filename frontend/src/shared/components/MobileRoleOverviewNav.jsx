@@ -1,7 +1,8 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import {
   AcademicCapIcon,
+  ArrowLeftIcon,
   BanknotesIcon,
   BuildingOffice2Icon,
   ChatBubbleLeftRightIcon,
@@ -9,6 +10,7 @@ import {
   Cog6ToothIcon,
   DocumentTextIcon,
   EllipsisHorizontalCircleIcon,
+  HomeIcon,
   PresentationChartBarIcon,
   QrCodeIcon,
   ShieldCheckIcon,
@@ -79,6 +81,7 @@ function buildPrimaryItems(roleKey, allItems) {
 
 export default function MobileRoleOverviewNav({ roleKey, counts = {} }) {
   const location = useLocation();
+  const navigate = useNavigate();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [signInOpen, setSignInOpen] = useState(false);
   const [submitOpen, setSubmitOpen] = useState(false);
@@ -108,15 +111,25 @@ export default function MobileRoleOverviewNav({ roleKey, counts = {} }) {
     };
   }, [roleKey]);
 
+  const homePath = `/roles/${roleKey}`;
   const navItems = useMemo(() => {
-    const items = primaryItems.slice(0, isStaff ? 3 : 4).map(item => ({ ...item, isMore: false, isSignIn: false }));
-    if (isStaff) items.push({ name: 'Sign in', path: '#signin', isSignIn: true });
-    items.push({ name: 'More', path: '#more', isMore: true });
+    const items = [
+      { name: 'Back', kind: 'back' },
+      { name: 'Home', kind: 'link', path: homePath },
+    ];
+    const quick = primaryItems
+      .filter(item => item.path !== homePath)
+      .slice(0, isStaff ? 1 : 2)
+      .map(item => ({ ...item, kind: 'link' }));
+    items.push(...quick);
+    if (isStaff) items.push({ name: 'Sign in', kind: 'signin' });
+    items.push({ name: 'More', kind: 'more' });
     return items;
-  }, [primaryItems, isStaff]);
+  }, [primaryItems, isStaff, homePath]);
 
   function resolveCount(item) {
-    if (item.isMore) return headerCounts.notifications;
+    if (item.kind === 'more') return headerCounts.notifications;
+    if (item.kind === 'back' || item.kind === 'signin') return 0;
     const name = String(item.name || '').toLowerCase();
     const path = String(item.path || '').toLowerCase();
 
@@ -142,16 +155,21 @@ export default function MobileRoleOverviewNav({ roleKey, counts = {} }) {
   return (
     <>
       <div className="h-24 md:hidden" />
-      <section className="bottom-nav bottom-nav--subtle light overflow-x-hidden px-2 py-2 md:hidden">
+      <section className="bottom-nav bottom-nav--subtle light overflow-x-hidden px-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] pt-2 md:hidden motion-safe:animate-[navUp_.3s_ease-out]">
         <div className="mx-auto grid w-full max-w-screen-sm grid-cols-5 gap-1.5 pb-1">
-          {navItems.map(item => {
-            const Icon = item.isMore ? EllipsisHorizontalCircleIcon : item.isSignIn ? QrCodeIcon : getItemIcon(item.name, item.path);
+          {navItems.map((item, index) => {
+            const Icon = item.kind === 'back' ? ArrowLeftIcon
+              : item.kind === 'more' ? EllipsisHorizontalCircleIcon
+              : item.kind === 'signin' ? QrCodeIcon
+              : item.path === homePath ? HomeIcon
+              : getItemIcon(item.name, item.path);
             const count = resolveCount(item);
-            const active = !item.isMore && !item.isSignIn && location.pathname === item.path;
+            const active = item.kind === 'link' && location.pathname === item.path;
+            const baseBtn = 'nav-button border transition-all duration-150 active:scale-90';
             const content = (
               <>
                 <span className="relative inline-flex items-center justify-center">
-                  <Icon className="h-5 w-5" />
+                  <Icon className="h-5 w-5 transition-transform group-active:scale-90" />
                   {count > 0 ? (
                     <span className="absolute -right-1 -top-1 inline-flex min-w-[18px] items-center justify-center rounded-full bg-[#2447d8] px-1.5 py-0.5 text-[10px] font-bold text-white">
                       {count > 99 ? '99+' : count}
@@ -162,37 +180,30 @@ export default function MobileRoleOverviewNav({ roleKey, counts = {} }) {
               </>
             );
 
-            if (item.isSignIn) {
+            if (item.kind === 'back') {
               return (
-                <button
-                  key="signin"
-                  type="button"
-                  onClick={() => setSignInOpen(true)}
-                  className="nav-button border border-[#2447d8] bg-[#2447d8] text-white"
-                >
-                  <span className="relative inline-flex items-center justify-center">
-                    <QrCodeIcon className="h-5 w-5" />
-                  </span>
+                <button key="back" type="button" onClick={() => navigate(-1)} className={`group ${baseBtn} border-[#2447d8]/20 bg-white/95 text-[#191970]`}>
+                  {content}
+                </button>
+              );
+            }
+            if (item.kind === 'signin') {
+              return (
+                <button key="signin" type="button" onClick={() => setSignInOpen(true)} className={`group ${baseBtn} border-[#2447d8] bg-[#2447d8] text-white`}>
+                  <span className="relative inline-flex items-center justify-center"><QrCodeIcon className="h-5 w-5 transition-transform group-active:scale-90" /></span>
                   <span className="label text-[10px] font-bold text-white">Sign in</span>
                 </button>
               );
             }
-
-            return item.isMore ? (
-              <button
-                key={item.name}
-                type="button"
-                onClick={() => setDrawerOpen(true)}
-                className="nav-button border border-[#2447d8]/20 bg-white/95 text-[#191970]"
-              >
-                {content}
-              </button>
-            ) : (
-              <Link
-                key={item.path}
-                to={item.path}
-                className={`nav-button border ${active ? 'active border-[#2447d8]/30 bg-[#2447d8]/10 text-[#2447d8]' : 'border-[#2447d8]/20 bg-white/95 text-[#191970]'}`}
-              >
+            if (item.kind === 'more') {
+              return (
+                <button key="more" type="button" onClick={() => setDrawerOpen(true)} className={`group ${baseBtn} border-[#2447d8]/20 bg-white/95 text-[#191970]`}>
+                  {content}
+                </button>
+              );
+            }
+            return (
+              <Link key={item.path || index} to={item.path} className={`group ${baseBtn} ${active ? 'active border-[#2447d8]/30 bg-[#2447d8]/10 text-[#2447d8]' : 'border-[#2447d8]/20 bg-white/95 text-[#191970]'}`}>
                 {content}
               </Link>
             );
@@ -206,7 +217,7 @@ export default function MobileRoleOverviewNav({ roleKey, counts = {} }) {
             <div className="flex items-center justify-between gap-3 rounded-t-[2rem] border-b border-[#2447d8]/10 bg-white px-5 pb-3 pt-5">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#2447d8]">More Actions</p>
-                <h2 className="text-lg font-bold text-[#191970]">{roleKey.toUpperCase()} shortcuts</h2>
+                <h2 className="text-lg font-bold text-[#191970]">{String(roleKey || 'Menu').toUpperCase()} shortcuts</h2>
               </div>
               <button type="button" onClick={() => setDrawerOpen(false)} className="rounded-full border border-[#2447d8]/30 p-2 text-[#2447d8]">
                 <XMarkIcon className="h-5 w-5" />

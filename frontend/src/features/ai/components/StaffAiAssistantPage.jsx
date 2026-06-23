@@ -100,7 +100,7 @@ export default function StaffAiAssistantPage({ roleKey = 'teacher' }) {
   function resetChat() { setMessages([]); setInput(''); setError(''); clearChatSession(chatSessionKey); }
 
   return (
-    <div className="mx-auto h-full min-h-0 w-full max-w-7xl p-3 sm:p-4 lg:p-6">
+    <div className="mx-auto h-full min-h-0 w-full max-w-7xl p-3 pb-24 sm:p-4 md:pb-4 lg:p-6">
       <SmartChatDashboard
         aiName="Ndovera AI"
         subtitle={isTeachingRole ? 'Your teaching assistant — lessons, marking, parent messages & more' : 'Your staff assistant — notices, reports, planning & drafting'}

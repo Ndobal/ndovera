@@ -85,7 +85,7 @@ export default function HoSOverview({ auth }) {
           </div>
 
           <SchoolAnnouncementsPanel subtitle="Publish a school-wide HoS update here. School users will receive it from the notification bell in their dashboards." />
-          <MobileRoleOverviewNav roleKey="hos" counts={{ approvals: 0 }} />
+          {null}
         </>
       )}
     </div>

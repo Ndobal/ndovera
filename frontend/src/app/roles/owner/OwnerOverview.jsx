@@ -156,7 +156,7 @@ export default function OwnerOverview({ auth }) {
         )}
       </div>
 
-      <MobileRoleOverviewNav roleKey="owner" counts={{ schools: tenant ? 1 : 0 }} />
+      {null}
     </div>
   );
 }

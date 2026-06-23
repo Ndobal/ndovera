@@ -336,7 +336,7 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
           </section>
         </div>
 
-        <MobileRoleOverviewNav roleKey="ami" counts={{ tenants: summary?.totalTenants }} />
+        {null}
       </div>
     );
   }

@@ -286,6 +286,12 @@
   to { opacity: 1; transform: translateX(0); }
 }
 
+/* Mobile bottom-nav slide-up entrance */
+@keyframes navUp {
+  from { transform: translateY(100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
 /* messaging glass text variants */
 .msg-no-bg {
   background: transparent !important;

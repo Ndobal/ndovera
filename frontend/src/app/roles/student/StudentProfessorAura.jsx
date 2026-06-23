@@ -153,7 +153,7 @@ function StudentProfessorAura({ viewerRole = 'student', dashboardLabel = 'Studen
 
   return (
     <StudentSectionShell title="Ndovera AI" subtitle="Academic-only study assistant." dashboardLabel={dashboardLabel} compact hideHeader viewportLocked watermarkText="NDOVERA AI" diagonalWatermark>
-      <div ref={containerRef} className="h-full min-h-0">
+      <div ref={containerRef} className="h-full min-h-0 pb-24 md:pb-0">
         <SmartChatDashboard
           aiName="Ndovera AI"
           subtitle={`${selectedMode} · academic study workspace`}

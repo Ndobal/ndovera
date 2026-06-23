@@ -1614,7 +1614,7 @@ export default function TeacherClassroom({
           <MaterialViewer material={activeMaterial} onClose={() => setActiveMaterial(null)} />
         ) : null}
       </div>
-      <MobileRoleOverviewNav roleKey={currentRoleKey || 'teacher'} />
+      {null}
     </StudentSectionShell>
   );
 }
