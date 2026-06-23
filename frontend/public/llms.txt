@@ -1,0 +1,27 @@
+# NDOVERA
+
+> NDOVERA is an all-in-one school management platform, public website builder, and learning-support network for schools, owners, heads of school, teachers, accountants, parents, and students. It is web-based and also available as a mobile app, and is used primarily by schools in Africa.
+
+NDOVERA helps schools run with more structure and visible progress. School owners get clearer visibility of daily operations; parents get trustworthy communication; teachers and students get focused learning tools; and each school gets a premium public website.
+
+## What NDOVERA includes
+- Role-based dashboards for owners, heads of school (HoS), teachers, accountants, parents and students.
+- Attendance with QR-code and face sign-in, twice-daily staff sign-in (morning compulsory) and penalty tracking.
+- A continuous-assessment (CA) and results engine with broadsheet ranking and an HoS approval/publish workflow.
+- Fees, receipts and payroll. Billing is charged per student only (never staff or parents).
+- A built-in AI assistant, "Ndovera AI", for teachers, staff and students.
+- A per-school public website builder (each school gets its own subdomain site).
+- Admissions, messaging, and document/exam-question submissions.
+- A Growth Partner program: marketers introduce NDOVERA to schools using a referral code/link and earn commission, plus discount codes.
+
+## Key pages
+- [About](https://ndovera.com/about): NDOVERA's mission, values and approach.
+- [Pricing](https://ndovera.com/pricing): per-student term pricing and setup plans.
+- [Ndovera AI Tutor](https://ndovera.com/tutor): the built-in AI learning assistant.
+- [Growth Partners](https://ndovera.com/growth-partners): referral/commission partner program.
+- [Opportunities](https://ndovera.com/opportunities): vacancies and ways to work with NDOVERA and member schools.
+- [Register a school](https://ndovera.com/register-school): onboard a school onto NDOVERA.
+
+## Contact
+- Website: https://ndovera.com
+- Portal login: https://ndovera.com/login
