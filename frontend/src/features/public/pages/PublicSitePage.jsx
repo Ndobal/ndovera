@@ -20,7 +20,7 @@ import {
   UserGroupIcon,
   XMarkIcon,
 } from '@heroicons/react/24/outline';
-import { getPublicPlatformSite, getPublicOpportunities } from '../services/publicSiteApi';
+import { getPublicPlatformSite, getPublicOpportunities, submitGrowthPartnerApplication } from '../services/publicSiteApi';
 import { getTenantPricing } from '../../tenants/services/tenantApi';
 
 const currencyFormatter = new Intl.NumberFormat('en-NG', {
@@ -1002,29 +1002,70 @@ function VisionPageBody({ section }) {
 }
 
 function PartnersPageBody({ section }) {
-  return (
-    <div className="space-y-8">
-      <section className="grid gap-4 lg:grid-cols-3">
-        {section.metadata.cards.map((item, index) => (
-          <PublicCard key={item.title} title={item.title} description={item.description} icon={UserGroupIcon} revealDelay={(index % 4) + 1} />
-        ))}
-      </section>
+  const heroImage = getSectionMedia(section)[0] || 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=70';
+  const [form, setForm] = useState({ name: '', email: '', phone: '', location: '', audience: '', motivation: '' });
+  const [submitting, setSubmitting] = useState(false);
+  const [done, setDone] = useState('');
+  const [error, setError] = useState('');
 
-      <Reveal as="section" className="rounded-[2rem] border border-[#c9a96e]/45 bg-[#b5e3f4] p-6">
-        <SectionHeading
-          eyebrow={section.metadata.spotlightEyebrow}
-          title={section.metadata.spotlightTitle}
-          description={section.metadata.spotlightDescription}
-        />
+  const field = 'mt-1 w-full rounded-xl border border-[#c9a96e]/50 bg-white px-3.5 py-2.5 text-sm text-[#191970] outline-none focus:border-[#191970] focus:ring-2 focus:ring-[#191970]/20';
+  const lbl = 'text-xs font-semibold uppercase tracking-[0.18em] text-[#800020]';
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+    if (!form.name.trim() || !form.email.trim() || !form.phone.trim()) { setError('Please add your name, email, and phone.'); return; }
+    setSubmitting(true); setError(''); setDone('');
+    try {
+      const data = await submitGrowthPartnerApplication(form);
+      setDone(data.message || 'Application received. We will reach out to you.');
+      setForm({ name: '', email: '', phone: '', location: '', audience: '', motivation: '' });
+    } catch (submitError) {
+      setError(submitError.message || 'Could not submit your application.');
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
+  return (
+    <section className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+      {/* Brief explanation + image */}
+      <Reveal className="space-y-5">
+        <img src={heroImage} alt="Become an NDOVERA Growth Partner" className="h-56 w-full rounded-[1.6rem] object-cover shadow-[0_18px_40px_rgba(25,25,112,0.18)]" />
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#c9a96e]">Growth Partners</p>
+          <h2 className="mt-2 font-serif text-3xl font-black text-[#191970]">Introduce schools to NDOVERA and earn.</h2>
+          <p className="mt-3 text-sm leading-7 text-[#31416f]">
+            Growth Partners are marketers who introduce NDOVERA to schools and organisations. You get a personal referral
+            code and link — when a school registers through you, you earn commission, plus a share of what each referred
+            school pays per term. You also get discount codes to share.
+          </p>
+          <ul className="mt-4 space-y-2 text-sm text-[#31416f]">
+            <li>• <b>30%</b> commission for your first 10 schools, <b>50%</b> after 10.</li>
+            <li>• <b>5%</b> of what each referred school pays per term.</li>
+            <li>• Track referrals &amp; earnings, and withdraw to your account.</li>
+          </ul>
+          <p className="mt-4 text-xs text-[#800020]">Apply below — the NDOVERA team reviews your application and activates your partner account.</p>
+        </div>
       </Reveal>
 
-      <MediaGallery
-        section={section}
-        eyebrow="Partner Proof"
-        title="Show the people, sessions, and collaboration behind the page."
-        description="Growth partner media can now sit directly inside the page instead of living only as static copy."
-      />
-    </div>
+      {/* Application form */}
+      <Reveal as="form" onSubmit={handleSubmit} className="rounded-[1.8rem] border border-[#c9a96e]/45 bg-[#fff8ef] p-6 shadow-[0_18px_40px_rgba(25,25,112,0.08)] sm:p-8" delay={1}>
+        <h3 className="font-serif text-2xl font-black text-[#191970]">Become a Growth Partner</h3>
+        <div className="mt-5 grid gap-4 sm:grid-cols-2">
+          <div className="sm:col-span-2"><label className={lbl}>Full name</label><input className={field} value={form.name} onChange={e => setForm(c => ({ ...c, name: e.target.value }))} /></div>
+          <div><label className={lbl}>Email</label><input type="email" className={field} value={form.email} onChange={e => setForm(c => ({ ...c, email: e.target.value }))} /></div>
+          <div><label className={lbl}>Phone</label><input className={field} value={form.phone} onChange={e => setForm(c => ({ ...c, phone: e.target.value }))} /></div>
+          <div><label className={lbl}>Location</label><input className={field} value={form.location} onChange={e => setForm(c => ({ ...c, location: e.target.value }))} /></div>
+          <div><label className={lbl}>Your audience / network</label><input className={field} value={form.audience} onChange={e => setForm(c => ({ ...c, audience: e.target.value }))} placeholder="e.g. school owners in Lagos" /></div>
+          <div className="sm:col-span-2"><label className={lbl}>Why do you want to partner?</label><textarea rows={4} className={`${field} resize-none`} value={form.motivation} onChange={e => setForm(c => ({ ...c, motivation: e.target.value }))} /></div>
+        </div>
+        {error ? <p className="mt-4 text-sm text-red-600">{error}</p> : null}
+        {done ? <p className="mt-4 rounded-xl bg-emerald-50 px-4 py-3 text-sm text-emerald-700">{done}</p> : null}
+        <button type="submit" disabled={submitting} className="mt-5 w-full rounded-full bg-[#191970] px-6 py-3 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-[#2447d8] disabled:opacity-60">
+          {submitting ? 'Submitting…' : 'Submit Application'}
+        </button>
+      </Reveal>
+    </section>
   );
 }
 

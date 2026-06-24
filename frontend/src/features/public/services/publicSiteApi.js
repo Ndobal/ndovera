@@ -68,6 +68,7 @@ async function uploadAsset(path, file, extraFields = {}) {
 
 export const getPublicPlatformSite = () => publicRequest('/api/public/platform-site');
 export const getPublicOpportunities = (tenantId) => publicRequest(`/api/public/opportunities${tenantId ? `?tenantId=${encodeURIComponent(tenantId)}` : ''}`);
+export const submitGrowthPartnerApplication = (data) => authedRequest('/api/public/growth-partner-applications', { method: 'POST', body: data });
 export const getManagedOpportunities = () => authedRequest('/api/opportunities/manage');
 export const createOpportunity = (data) => authedRequest('/api/opportunities', { method: 'POST', body: data });
 export const updateOpportunity = (id, data) => authedRequest(`/api/opportunities/${encodeURIComponent(id)}`, { method: 'PUT', body: data });

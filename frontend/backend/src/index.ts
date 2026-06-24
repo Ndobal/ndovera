@@ -12976,6 +12976,40 @@ app.delete('/api/opportunities/:id', authenticate, async (c) => {
   return c.json({ success: true })
 })
 
+// ---- Growth Partner applications (public intake; ami reviews/activates) ----
+const GROWTH_PARTNER_APPS_DDL = `CREATE TABLE IF NOT EXISTS growth_partner_applications (id TEXT PRIMARY KEY, name TEXT, email TEXT, phone TEXT, location TEXT, motivation TEXT, audience TEXT, status TEXT, created_at TEXT)`
+let _gpAppsReady = false
+async function ensureGrowthPartnerAppsTable(db: D1Database) {
+  if (_gpAppsReady) return
+  _gpAppsReady = true
+  await db.prepare(GROWTH_PARTNER_APPS_DDL).run()
+}
+
+app.post('/api/public/growth-partner-applications', async (c) => {
+  try {
+    await ensureGrowthPartnerAppsTable(c.env.APP_DB)
+    const body = await c.req.json().catch(() => ({}))
+    const name = String(body?.name || '').trim()
+    const email = String(body?.email || '').trim().toLowerCase()
+    const phone = String(body?.phone || '').trim()
+    if (!name || !email || !phone) return c.json({ error: 'Name, email and phone are required.' }, 400)
+    const id = `gpapp_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`
+    await c.env.APP_DB.prepare(
+      `INSERT INTO growth_partner_applications (id, name, email, phone, location, motivation, audience, status, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, 'pending', ?)`,
+    ).bind(id, name, email, phone, String(body?.location || ''), String(body?.motivation || ''), String(body?.audience || ''), new Date().toISOString()).run()
+    return c.json({ success: true, message: 'Application received. The NDOVERA team will review it and reach out to you.' }, 201)
+  } catch {
+    return c.json({ error: 'Could not submit application.' }, 500)
+  }
+})
+
+app.get('/api/ami/growth-partner-applications', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  await ensureGrowthPartnerAppsTable(c.env.APP_DB)
+  const rows = await c.env.APP_DB.prepare(`SELECT * FROM growth_partner_applications ORDER BY created_at DESC`).all()
+  return c.json({ success: true, applications: rows.results || [] })
+})
+
 // School events
 app.get('/api/school/events', authenticate, async (c) => {
   const tenantId = c.var.user?.tenantId
