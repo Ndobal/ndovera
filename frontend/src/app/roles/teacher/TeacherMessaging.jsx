@@ -201,6 +201,9 @@ function TeacherMessaging() {
   const startConversationRef = useRef(null);
   const messagesEndRef = useRef(null);
   const messageSignatureRef = useRef('');
+  const messageScrollRef = useRef(null);
+  const isNearBottomRef = useRef(true);
+  const renderedConversationRef = useRef('');
 
   const [emojiOpen, setEmojiOpen] = useState(false);
   const [stickerOpen, setStickerOpen] = useState(false);
@@ -500,10 +503,19 @@ function TeacherMessaging() {
     loadMessages({ conversationId: activeConversationId });
   }, [activeConversationId, loadMessages]);
 
-  // Keep the newest message in view so the thread always reads bottom-anchored.
+  // WhatsApp-style scroll: jump to the newest only when opening a conversation or
+  // when the reader is already near the bottom. A quiet background refresh must not
+  // yank someone down while they read older messages.
   useEffect(() => {
-    if (messagesEndRef.current) {
-      messagesEndRef.current.scrollIntoView({ block: 'end' });
+    const end = messagesEndRef.current;
+    if (!end) return;
+    const switched = renderedConversationRef.current !== activeConversationId;
+    renderedConversationRef.current = activeConversationId;
+    if (switched) {
+      end.scrollIntoView({ block: 'end' });
+      isNearBottomRef.current = true;
+    } else if (isNearBottomRef.current) {
+      end.scrollIntoView({ block: 'end', behavior: 'smooth' });
     }
   }, [messages, activeConversationId]);
 
@@ -793,7 +805,7 @@ function TeacherMessaging() {
                 </div>
               </div>
 
-              <div className="mt-4 flex-1 overflow-y-auto rounded-[1.5rem] border border-[#800000]/10 bg-white/45 p-4 dark:border-[#bf00ff]/20 dark:bg-[#191970]/25">
+              <div ref={messageScrollRef} onScroll={() => { const el = messageScrollRef.current; if (el) isNearBottomRef.current = el.scrollHeight - el.scrollTop - el.clientHeight < 140; }} className="mt-4 flex-1 overflow-y-auto rounded-[1.5rem] border border-[#800000]/10 bg-white/45 p-4 dark:border-[#bf00ff]/20 dark:bg-[#191970]/25">
                 {loadingMessages && messages.length === 0 ? (
                   <div className="text-sm text-[#191970] dark:text-[#39ff14]">Loading messages...</div>
                 ) : groupedMessages.length === 0 ? (

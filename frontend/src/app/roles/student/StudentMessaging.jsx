@@ -15,7 +15,7 @@ import { CHAT_EMOJIS, CHAT_STICKERS, getChatInitials, getChatAvatarColor } from 
 
 const STUDENT_MESSAGING_INTENT_KEY = 'studentMessagingIntent';
 const QUICK_EMOJIS = CHAT_EMOJIS;
-const CONTACT_POLL_INTERVAL_MS = 15000;    // silent background sync of the recent-chats list (no spinner, only swaps on change)
+const CONTACT_POLL_INTERVAL_MS = 60000;    // silent background sync of the recent-chats list (no spinner, only swaps on change)
 const MESSAGE_POLL_INTERVAL_MS = 6000;     // quiet background sync of the open thread
 
 function uniqueIdentifiers(values) {
@@ -270,6 +270,9 @@ export default function StudentMessaging({
   const messagesEndRef = useRef(null);
   const messageSignatureRef = useRef('');
   const conversationsSignatureRef = useRef('');
+  const messageScrollRef = useRef(null);
+  const isNearBottomRef = useRef(true);
+  const renderedConversationRef = useRef('');
 
   async function refreshConversations(preferredConversationId) {
     if (!me) {
@@ -455,10 +458,19 @@ export default function StudentMessaging({
     };
   }, [activeConversationId, token]);
 
-  // Keep the newest message in view so the thread always reads bottom-anchored.
+  // WhatsApp-style scroll: jump to the newest only when opening a conversation or
+  // when the reader is already near the bottom, so a quiet refresh never yanks the
+  // reader down while they read older messages.
   useEffect(() => {
-    if (messagesEndRef.current) {
-      messagesEndRef.current.scrollIntoView({ block: 'end' });
+    const end = messagesEndRef.current;
+    if (!end) return;
+    const switched = renderedConversationRef.current !== activeConversationId;
+    renderedConversationRef.current = activeConversationId;
+    if (switched) {
+      end.scrollIntoView({ block: 'end' });
+      isNearBottomRef.current = true;
+    } else if (isNearBottomRef.current) {
+      end.scrollIntoView({ block: 'end', behavior: 'smooth' });
     }
   }, [messages, activeConversationId]);
 
@@ -954,7 +966,7 @@ export default function StudentMessaging({
                 </div>
               </div>
 
-              <div className="flex-1 overflow-y-auto bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.45),transparent_42%)] px-6 py-5 dark:bg-[radial-gradient(circle_at_top_left,rgba(0,255,255,0.08),transparent_42%)]">
+              <div ref={messageScrollRef} onScroll={() => { const el = messageScrollRef.current; if (el) isNearBottomRef.current = el.scrollHeight - el.scrollTop - el.clientHeight < 140; }} className="flex-1 overflow-y-auto bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.45),transparent_42%)] px-6 py-5 dark:bg-[radial-gradient(circle_at_top_left,rgba(0,255,255,0.08),transparent_42%)]">
                 {loadingMessages ? (
                   <div className="text-sm text-[#191970] dark:text-[#39ff14]">Loading messages...</div>
                 ) : groupedMessages.length === 0 ? (

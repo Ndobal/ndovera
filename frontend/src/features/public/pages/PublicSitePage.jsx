@@ -599,7 +599,7 @@ function HeroSlides({ media }) {
 
   useEffect(() => {
     if (slides.length < 2) return undefined;
-    const timer = setInterval(() => setIndex(i => (i + 1) % slides.length), 5000);
+    const timer = setInterval(() => setIndex(i => (i + 1) % slides.length), 6500);
     return () => clearInterval(timer);
   }, [slides.length]);
 
@@ -608,7 +608,7 @@ function HeroSlides({ media }) {
   return (
     <div className="absolute inset-0 -z-10 overflow-hidden">
       <div
-        className="flex h-full w-full transition-transform duration-[1100ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
+        className="flex h-full w-full transition-transform duration-[2200ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
         style={{ transform: `translateX(-${index * 100}%)` }}
       >
         {slides.map((url, i) => (
