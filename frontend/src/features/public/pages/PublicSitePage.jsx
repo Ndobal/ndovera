@@ -591,6 +591,47 @@ function MediaGallery({ section, eyebrow, title, description, tone = 'light' }) 
   );
 }
 
+// Hero background carousel: images slide to the left, auto-advancing. The image
+// is held at ~30% visibility over a dark-green base so white hero text stays bold.
+function HeroSlides({ media }) {
+  const slides = Array.isArray(media) ? media.slice(0, 6) : [];
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    if (slides.length < 2) return undefined;
+    const timer = setInterval(() => setIndex(i => (i + 1) % slides.length), 5000);
+    return () => clearInterval(timer);
+  }, [slides.length]);
+
+  if (!slides.length) return null;
+
+  return (
+    <div className="absolute inset-0 -z-10 overflow-hidden">
+      <div
+        className="flex h-full w-full transition-transform duration-[1100ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
+        style={{ transform: `translateX(-${index * 100}%)` }}
+      >
+        {slides.map((url, i) => (
+          <div key={`${url}-${i}`} className="relative h-full w-full shrink-0 grow-0 basis-full">
+            <MediaFrame
+              url={url}
+              title={`NDOVERA hero ${i + 1}`}
+              className={`absolute inset-0 h-full w-full object-cover opacity-30 transition-transform duration-[6000ms] ease-out ${i === index ? 'scale-110' : 'scale-100'}`}
+            />
+          </div>
+        ))}
+      </div>
+      {slides.length > 1 ? (
+        <div className="absolute bottom-5 left-1/2 z-10 flex -translate-x-1/2 gap-2">
+          {slides.map((url, i) => (
+            <span key={`dot-${url}-${i}`} className={`h-1.5 rounded-full transition-all duration-500 ${i === index ? 'w-7 bg-[#e3c98b]' : 'w-1.5 bg-white/45'}`} />
+          ))}
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
 function PublicShell({ section, notice, children }) {
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -690,22 +731,20 @@ function PublicShell({ section, notice, children }) {
         ) : null}
       </header>
 
-      {/* Full-bleed hero */}
-      <section className="relative isolate overflow-hidden">
-        {heroMedia[0] ? (
-          <MediaFrame url={heroMedia[0]} title={`${section.title} hero`} className="absolute inset-0 -z-10 h-full w-full object-cover brightness-[.45] saturate-[.9]" />
-        ) : null}
-        <div className={`absolute inset-0 -z-10 ${heroMedia[0] ? 'bg-gradient-to-br from-[#010804]/97 via-[#04190d]/95 to-[#072214]/92' : 'bg-gradient-to-br from-[#010804] via-[#04190d] to-[#0a2e1b]'}`} />
-        {heroMedia[0] ? <div className="absolute inset-x-0 bottom-0 -z-10 h-2/5 bg-gradient-to-t from-[#010804]/88 to-transparent" /> : null}
+      {/* Full-bleed hero with sliding background carousel */}
+      <section className="relative isolate overflow-hidden bg-[#04190d]">
+        <HeroSlides media={heroMedia} />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-br from-[#010804]/72 via-[#04190d]/60 to-[#072214]/50" />
+        <div className="absolute inset-x-0 bottom-0 -z-10 h-2/5 bg-gradient-to-t from-[#010804]/72 to-transparent" />
         <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-28 lg:px-8 lg:py-36">
-          <div className="max-w-3xl">
-            <p className="inline-flex rounded-full border border-[#ffdf6b]/60 bg-black/30 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.3em] text-[#ffdf6b]">
+          <div className="max-w-3xl motion-safe:animate-[heroIn_.7s_ease-out]">
+            <p className="inline-flex rounded-full border border-white/40 bg-black/30 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.3em] text-white">
               {section.eyebrow}
             </p>
-            <h1 className="mt-5 font-serif text-4xl font-black leading-[1.05] tracking-tight text-[#ffd84a] [text-shadow:0_2px_18px_rgba(0,0,0,0.75)] sm:text-5xl lg:text-[4rem]">
+            <h1 className="mt-5 font-serif text-4xl font-black leading-[1.05] tracking-tight text-white [text-shadow:0_2px_18px_rgba(0,0,0,0.75)] sm:text-5xl lg:text-[4rem]">
               {section.title}
             </h1>
-            <p className="mt-5 max-w-2xl text-lg leading-8 text-[#ffeca6] [text-shadow:0_1px_12px_rgba(0,0,0,0.7)]">
+            <p className="mt-5 max-w-2xl text-lg leading-8 text-white/90 [text-shadow:0_1px_12px_rgba(0,0,0,0.7)]">
               {section.description}
             </p>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
