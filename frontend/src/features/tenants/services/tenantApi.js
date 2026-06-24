@@ -133,6 +133,13 @@ export function markTenantAsPaid(tenantId) {
   });
 }
 
+export function resetTenantOwnerPassword({ tenantId, email } = {}) {
+  return requestJson('/api/ami/reset-owner-password', {
+    method: 'POST',
+    body: { tenantId, email },
+  });
+}
+
 export function updateTenantDomain(tenantId, payload) {
 	return requestJson(`/api/ami/tenants/${encodeURIComponent(tenantId)}/domain`, {
 		method: 'POST',

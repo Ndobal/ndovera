@@ -5615,7 +5615,7 @@ app.post('/api/auth/forgot-password', async (c) => {
   const accountType = String(settings.accountType || '').trim().toLowerCase()
 
   if (!resolved.settings || !isEligibleSelfServeReset(role, accountType)) {
-    return c.json({ error: 'Contact your school admin for password reset.' }, 403)
+    return c.json({ error: 'Password reset by email is available to school owners only. If you are a staff member, parent, or student, please contact your school owner, ICT manager, or HOS for assistance.', selfServe: false }, 403)
   }
 
   try {
@@ -6755,6 +6755,52 @@ app.post('/api/admin/reset-password', authenticate, async (c) => {
     data: { by: c.var.user.name || getActiveRole(c.var.user), adminRole: getActiveRole(c.var.user) }
   })
   return c.json({ ok: true, message: 'Password reset to default. User must change on next sign in.' })
+})
+
+// Superadmin (ami) resets a school owner's password: issues a secure reset link,
+// emails it to the owner, and returns the link + a WhatsApp share URL so the ami
+// can also deliver it by WhatsApp.
+app.post('/api/ami/reset-owner-password', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  const body = await c.req.json().catch(() => ({}))
+  let ownerEmail = String(body?.email || '').trim().toLowerCase()
+  const tenantId = String(body?.tenantId || '').trim()
+
+  if (!ownerEmail && tenantId) {
+    const tRow = await c.env.APP_DB
+      .prepare(`SELECT owner_email FROM tenants WHERE id = ? OR requested_subdomain = ? LIMIT 1`)
+      .bind(tenantId, tenantId).first() as Record<string, any> | null
+    if (tRow?.owner_email) ownerEmail = String(tRow.owner_email).trim().toLowerCase()
+  }
+  if (!ownerEmail) return c.json({ error: 'Provide the owner email or tenantId.' }, 400)
+
+  const resolved = await resolveSettingsIdentity(c.env.APP_DB, ownerEmail)
+  const role = String(resolved.settings?.role || resolved.userRow?.role || resolved.userRow?.primary_role || '').trim().toLowerCase()
+  if (resolved.settings && role && role !== 'owner') {
+    return c.json({ error: 'That account is not a school owner.' }, 400)
+  }
+  const ownerName = String(resolved.settings?.name || resolved.userRow?.name || ownerEmail)
+
+  const issued = await createPasswordResetToken(c.env.APP_DB, ownerEmail, 'owner', {
+    requestedIp: c.req.header('CF-Connecting-IP') || c.req.header('x-forwarded-for') || '',
+    userAgent: c.req.header('User-Agent') || '',
+  })
+  const resetUrl = `${getPasswordResetBaseUrl(c.env)}?token=${encodeURIComponent(issued.token)}`
+
+  let emailed = false
+  let emailError = ''
+  try {
+    await sendZohoPasswordResetEmail(c.env, { to: ownerEmail, name: ownerName, resetUrl })
+    emailed = true
+  } catch (err) {
+    emailError = err instanceof Error ? err.message : 'Email delivery failed.'
+  }
+
+  const waText = `Hello ${ownerName}, here is your secure Ndovera password reset link (valid 30 minutes): ${resetUrl}`
+  const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(waText)}`
+
+  await addAudit(c.env.APP_DB, ownerEmail, { action: 'amiResetOwnerPassword', data: { by: c.var.user?.name || 'ami', emailed } }).catch(() => {})
+  return c.json({ success: true, email: ownerEmail, name: ownerName, resetUrl, whatsappUrl, emailed, emailError })
 })
 
 // Library

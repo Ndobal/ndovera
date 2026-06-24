@@ -7,6 +7,7 @@ import {
   getAmiTenants,
   initiateTenantPayment,
   markTenantAsPaid,
+  resetTenantOwnerPassword,
   restoreTenant,
   suspendTenant,
   upsertTenantAward,
@@ -158,6 +159,28 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
       cancelled = true;
     };
   }, [paymentRef]);
+
+  const [ownerReset, setOwnerReset] = useState(null);
+
+  const handleResetOwnerPassword = async tenant => {
+    setBusyAction(`reset-owner-${tenant.id}`);
+    setError('');
+    setNotice('');
+    setOwnerReset(null);
+    try {
+      const result = await resetTenantOwnerPassword({ tenantId: tenant.id, email: tenant.ownerEmail });
+      setOwnerReset({ tenantId: tenant.id, ...result });
+      setNotice(
+        result.emailed
+          ? `Reset link emailed to ${result.email}. You can also share it via WhatsApp below.`
+          : `Reset link generated for ${result.email}. Email could not be sent automatically — share the link via WhatsApp below.`,
+      );
+    } catch (resetError) {
+      setError(resetError.message || 'Could not reset owner password.');
+    } finally {
+      setBusyAction('');
+    }
+  };
 
   const runAction = async (actionKey, callback) => {
     setBusyAction(actionKey);
@@ -512,7 +535,52 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
                         Suspend Tenant
                       </button>
                     )}
+                    <button
+                      type="button"
+                      onClick={() => handleResetOwnerPassword(tenant)}
+                      disabled={busyAction === `reset-owner-${tenant.id}`}
+                      className="rounded-2xl border border-sky-400/40 px-4 py-3 font-semibold text-sky-700 dark:text-sky-200 disabled:opacity-40"
+                    >
+                      {busyAction === `reset-owner-${tenant.id}` ? 'Generating Link...' : 'Reset Owner Password'}
+                    </button>
                   </div>
+
+                  {ownerReset && ownerReset.tenantId === tenant.id ? (
+                    <div className="rounded-2xl border border-sky-400/40 bg-sky-50/70 p-4 text-sm dark:bg-sky-950/30">
+                      <p className="font-semibold text-sky-800 dark:text-sky-200">
+                        Password reset link for {ownerReset.name || ownerReset.email}
+                      </p>
+                      <p className="mt-1 break-all text-xs text-slate-600 dark:text-slate-300">{ownerReset.resetUrl}</p>
+                      <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
+                        {ownerReset.emailed ? 'Emailed to the owner. ' : 'Email not sent — share manually. '}
+                        Link is valid for 30 minutes; the owner sets a new password and signs in.
+                      </p>
+                      <div className="mt-3 flex flex-wrap gap-2">
+                        <a
+                          href={ownerReset.whatsappUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="rounded-2xl border border-emerald-400/50 px-4 py-2 font-semibold text-emerald-700 dark:text-emerald-200"
+                        >
+                          Share via WhatsApp
+                        </a>
+                        <button
+                          type="button"
+                          onClick={() => { navigator.clipboard?.writeText(ownerReset.resetUrl); setNotice('Reset link copied to clipboard.'); }}
+                          className="rounded-2xl border border-slate-400/40 px-4 py-2 font-semibold text-slate-700 dark:text-slate-200"
+                        >
+                          Copy Link
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setOwnerReset(null)}
+                          className="rounded-2xl border border-slate-400/30 px-4 py-2 font-semibold text-slate-500"
+                        >
+                          Dismiss
+                        </button>
+                      </div>
+                    </div>
+                  ) : null}
 
                   <div className="grid grid-cols-1 xl:grid-cols-[1.1fr_0.9fr] gap-4">
                     <div className="rounded-3xl border border-white/10 bg-slate-900/20 dark:bg-slate-900/30 p-4 space-y-3">
