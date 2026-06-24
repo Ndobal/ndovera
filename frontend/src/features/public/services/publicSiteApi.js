@@ -69,6 +69,13 @@ async function uploadAsset(path, file, extraFields = {}) {
 export const getPublicPlatformSite = () => publicRequest('/api/public/platform-site');
 export const getPublicOpportunities = (tenantId) => publicRequest(`/api/public/opportunities${tenantId ? `?tenantId=${encodeURIComponent(tenantId)}` : ''}`);
 export const submitGrowthPartnerApplication = (data) => authedRequest('/api/public/growth-partner-applications', { method: 'POST', body: data });
+export const getMyGrowthPartner = () => authedRequest('/api/growth-partner/me');
+export const saveGrowthPartnerBank = (data) => authedRequest('/api/growth-partner/bank', { method: 'POST', body: data });
+export const withdrawGrowthPartnerEarnings = (amount) => authedRequest('/api/growth-partner/withdraw', { method: 'POST', body: { amount } });
+export const resetReferralOwnerPassword = (tenantId) => authedRequest('/api/growth-partner/reset-referral-password', { method: 'POST', body: { tenantId } });
+export const getGrowthPartnerApplications = () => authedRequest('/api/ami/growth-partner-applications');
+export const getGrowthPartners = () => authedRequest('/api/ami/growth-partners');
+export const activateGrowthPartner = (data) => authedRequest('/api/ami/growth-partners/activate', { method: 'POST', body: data });
 export const getManagedOpportunities = () => authedRequest('/api/opportunities/manage');
 export const createOpportunity = (data) => authedRequest('/api/opportunities', { method: 'POST', body: data });
 export const updateOpportunity = (id, data) => authedRequest(`/api/opportunities/${encodeURIComponent(id)}`, { method: 'PUT', body: data });

@@ -4335,6 +4335,10 @@ async function verifyTenantPaymentForState(c: any, txRef: string, verifiedByRole
   const discountCode = updatedTenant.discountCode ? await resolveDiscountCode(c.env.APP_DB, updatedTenant.discountCode, updatedTenant.planKey) : null
   const quote = await buildTenantQuoteForTenant(c.env.APP_DB, updatedTenant, discountCode, plans)
 
+  if (paymentSucceeded) {
+    await accrueGrowthPartnerSignupCommission(c.env, String(tenant.id), Number(updatedTenant.setupFee || tenant.setupFee || quote.setupFee || 0))
+  }
+
   return {
     payment: updatedPayment,
     tenant: { ...updatedTenant, studentCount: quote.billableUserCount, billableUserCount: quote.billableUserCount, userCounts: quote.userCounts, websiteUrl: buildTenantWebsiteUrl(updatedTenant, c.env.TENANT_BASE_DOMAIN || DEFAULT_TENANT_BASE_DOMAIN) },
@@ -5448,7 +5452,9 @@ app.get('/api/tenants/pricing', async (c) => {
 
 app.post('/api/tenants/register', async (c) => {
   try {
-    const { tenant, quote } = await createPendingTenantRegistration(c, await c.req.json())
+    const registrationPayload = await c.req.json()
+    const { tenant, quote } = await createPendingTenantRegistration(c, registrationPayload)
+    await attachGrowthPartnerReferral(c.env, registrationPayload?.referralCode, tenant)
 
     return c.json({
       success: true,
@@ -5465,6 +5471,7 @@ app.post('/api/tenants/register-and-pay', async (c) => {
   try {
     const payload = await c.req.json()
     const { tenant, quote } = await createPendingTenantRegistration(c, payload)
+    await attachGrowthPartnerReferral(c.env, payload?.referralCode, tenant)
     const checkout = await initiateTenantCheckout(c, {
       tenant,
       quote,
@@ -5959,6 +5966,8 @@ app.post('/api/ami/tenants/:tenantId/mark-paid', authenticate, async (c) => {
     action: 'tenantMarkedPaid',
     data: { by: c.var.user.id || 'ami', manualOverride: true, markedAt: now },
   })
+
+  await accrueGrowthPartnerSignupCommission(c.env, tenantId, Number(tenant.setupFee || 0))
 
   return c.json({ success: true, tenant: updatedTenant })
 })
@@ -13008,6 +13017,221 @@ app.get('/api/ami/growth-partner-applications', authenticate, async (c) => {
   await ensureGrowthPartnerAppsTable(c.env.APP_DB)
   const rows = await c.env.APP_DB.prepare(`SELECT * FROM growth_partner_applications ORDER BY created_at DESC`).all()
   return c.json({ success: true, applications: rows.results || [] })
+})
+
+// ---- Growth Partner program (referrals, commissions, payouts) ----
+const GROWTH_PARTNERS_DDL = `CREATE TABLE IF NOT EXISTS growth_partners (id TEXT PRIMARY KEY, email TEXT UNIQUE, name TEXT, referral_code TEXT UNIQUE, status TEXT, bank_name TEXT, bank_code TEXT, account_number TEXT, account_name TEXT, created_at TEXT)`
+const GP_REFERRALS_DDL = `CREATE TABLE IF NOT EXISTS gp_referrals (id TEXT PRIMARY KEY, partner_id TEXT, tenant_id TEXT, school_name TEXT, created_at TEXT)`
+const GP_COMMISSIONS_DDL = `CREATE TABLE IF NOT EXISTS gp_commissions (id TEXT PRIMARY KEY, partner_id TEXT, tenant_id TEXT, kind TEXT, amount REAL, note TEXT, created_at TEXT)`
+const GP_WITHDRAWALS_DDL = `CREATE TABLE IF NOT EXISTS gp_withdrawals (id TEXT PRIMARY KEY, partner_id TEXT, amount REAL, status TEXT, reference TEXT, created_at TEXT)`
+let _gpReady = false
+async function ensureGrowthPartnerTables(db: D1Database) {
+  if (_gpReady) return
+  _gpReady = true
+  await db.prepare(GROWTH_PARTNERS_DDL).run()
+  await db.prepare(GP_REFERRALS_DDL).run()
+  await db.prepare(GP_COMMISSIONS_DDL).run()
+  await db.prepare(GP_WITHDRAWALS_DDL).run()
+}
+function gpReferralCode(name: string) {
+  const initials = String(name || '').replace(/[^a-zA-Z]/g, '').slice(0, 3).toUpperCase() || 'NDV'
+  return `${initials}${Math.random().toString(36).slice(2, 7).toUpperCase()}`
+}
+async function getPartnerByEmail(db: D1Database, email: string) {
+  await ensureGrowthPartnerTables(db)
+  return await db.prepare(`SELECT * FROM growth_partners WHERE email = ?`).bind(String(email || '').toLowerCase()).first() as any
+}
+async function getPartnerByCode(db: D1Database, code: string) {
+  await ensureGrowthPartnerTables(db)
+  return await db.prepare(`SELECT * FROM growth_partners WHERE referral_code = ?`).bind(String(code || '').toUpperCase()).first() as any
+}
+function mapPartner(row: any) {
+  if (!row) return null
+  return {
+    id: String(row.id), email: row.email, name: row.name, referralCode: row.referral_code, status: row.status || 'active',
+    bankName: row.bank_name || '', bankCode: row.bank_code || '', accountNumber: row.account_number || '', accountName: row.account_name || '',
+    createdAt: row.created_at || '',
+  }
+}
+async function summarizePartner(db: D1Database, partnerId: string) {
+  await ensureGrowthPartnerTables(db)
+  const referrals = ((await db.prepare(`SELECT * FROM gp_referrals WHERE partner_id = ? ORDER BY created_at DESC`).bind(partnerId).all()).results || []) as any[]
+  const commissions = ((await db.prepare(`SELECT * FROM gp_commissions WHERE partner_id = ?`).bind(partnerId).all()).results || []) as any[]
+  const withdrawals = ((await db.prepare(`SELECT * FROM gp_withdrawals WHERE partner_id = ? ORDER BY created_at DESC`).bind(partnerId).all()).results || []) as any[]
+  const totalEarned = commissions.reduce((s, r) => s + Number(r.amount || 0), 0)
+  const totalWithdrawn = withdrawals.filter(w => w.status !== 'failed').reduce((s, r) => s + Number(r.amount || 0), 0)
+  return {
+    referrals: referrals.map(r => ({ id: r.id, tenantId: r.tenant_id, schoolName: r.school_name, createdAt: r.created_at })),
+    referralCount: referrals.length,
+    totalEarned, totalWithdrawn, available: Math.max(0, totalEarned - totalWithdrawn),
+    commissions: commissions.map(r => ({ id: r.id, kind: r.kind, amount: Number(r.amount || 0), note: r.note, createdAt: r.created_at })),
+    withdrawals: withdrawals.map(w => ({ id: w.id, amount: Number(w.amount || 0), status: w.status, reference: w.reference, createdAt: w.created_at })),
+  }
+}
+// Attribute a school registration to a partner's referral code (link only; the
+// commission is accrued when onboarding payment is confirmed).
+async function attachGrowthPartnerReferral(env: Bindings, referralCode: string, tenant: any) {
+  try {
+    const code = String(referralCode || '').trim().toUpperCase()
+    if (!code || !tenant?.id) return
+    const partner = await getPartnerByCode(env.APP_DB, code)
+    if (!partner || partner.status !== 'active') return
+    const existing = await env.APP_DB.prepare(`SELECT id FROM gp_referrals WHERE tenant_id = ?`).bind(String(tenant.id)).first()
+    if (existing) return
+    await env.APP_DB.prepare(`INSERT INTO gp_referrals (id, partner_id, tenant_id, school_name, created_at) VALUES (?, ?, ?, ?, ?)`)
+      .bind(`gpref_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`, partner.id, String(tenant.id), String(tenant.schoolName || tenant.school_name || 'School'), new Date().toISOString()).run()
+  } catch {}
+}
+// Accrue the signup commission for a referred school once its onboarding payment
+// is confirmed: 30% of the setup fee for the partner's first 10 schools, 50% after.
+async function accrueGrowthPartnerSignupCommission(env: Bindings, tenantId: string, setupFeeNaira: number) {
+  try {
+    await ensureGrowthPartnerTables(env.APP_DB)
+    const ref = await env.APP_DB.prepare(`SELECT * FROM gp_referrals WHERE tenant_id = ?`).bind(String(tenantId)).first() as any
+    if (!ref) return
+    const already = await env.APP_DB.prepare(`SELECT id FROM gp_commissions WHERE tenant_id = ? AND kind = 'signup'`).bind(String(tenantId)).first()
+    if (already) return
+    const priorPaid = Number(((await env.APP_DB.prepare(
+      `SELECT COUNT(DISTINCT tenant_id) as n FROM gp_commissions WHERE partner_id = ? AND kind = 'signup'`,
+    ).bind(ref.partner_id).first()) as any)?.n || 0)
+    const rate = priorPaid < 10 ? 0.30 : 0.50
+    const amount = Math.round(Number(setupFeeNaira || 0) * rate)
+    if (amount <= 0) return
+    await env.APP_DB.prepare(`INSERT INTO gp_commissions (id, partner_id, tenant_id, kind, amount, note, created_at) VALUES (?, ?, ?, 'signup', ?, ?, ?)`)
+      .bind(`gpc_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`, ref.partner_id, String(tenantId), amount, `${Math.round(rate * 100)}% signup commission`, new Date().toISOString()).run()
+  } catch {}
+}
+
+// Ami activates a partner: provisions a growthpartner login + referral code.
+app.post('/api/ami/growth-partners/activate', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  await ensureGrowthPartnerTables(c.env.APP_DB)
+  const body = await c.req.json().catch(() => ({}))
+  const email = String(body?.email || '').trim().toLowerCase()
+  const name = String(body?.name || '').trim()
+  const applicationId = String(body?.applicationId || '').trim()
+  if (!email || !name) return c.json({ error: 'Name and email are required.' }, 400)
+
+  let partner = await getPartnerByEmail(c.env.APP_DB, email)
+  if (!partner) {
+    let code = gpReferralCode(name)
+    for (let i = 0; i < 5; i += 1) { if (!(await getPartnerByCode(c.env.APP_DB, code))) break; code = gpReferralCode(name) }
+    await c.env.APP_DB.prepare(`INSERT INTO growth_partners (id, email, name, referral_code, status, created_at) VALUES (?, ?, ?, ?, 'active', ?)`)
+      .bind(`gp_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`, email, name, code, new Date().toISOString()).run()
+    partner = await getPartnerByEmail(c.env.APP_DB, email)
+  }
+
+  // Provision a login (role growthpartner) with a default password the partner must change.
+  const defaultPassword = String(body?.password || '').trim() || 'NdoveraGP@123'
+  const existingSettings = await getSettings(c.env.APP_DB, email).catch(() => null)
+  const userSettings = await withHashedPassword({
+    ...(existingSettings || {}), email, name, role: 'growthpartner', primaryRole: 'growthpartner', roles: ['growthpartner'],
+    status: 'active', mustChangePassword: true, initialPassword: defaultPassword,
+  }, defaultPassword)
+  await ensureUsersTable(c.env.APP_DB)
+  await c.env.APP_DB.prepare(
+    `INSERT INTO users (id, email, name, role, primary_role, employment_category, tenantId, status, createdAt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+     ON CONFLICT(email) DO UPDATE SET name=excluded.name, role=excluded.role, primary_role=excluded.primary_role, status='active'`,
+  ).bind(createUserId(), email, name, 'growthpartner', 'growthpartner', 'growthpartner', '', 'active', new Date().toISOString()).run()
+  await upsertSettings(c.env.APP_DB, email, userSettings)
+
+  if (applicationId) {
+    await c.env.APP_DB.prepare(`UPDATE growth_partner_applications SET status = 'activated' WHERE id = ?`).bind(applicationId).run().catch(() => {})
+  }
+  return c.json({ success: true, partner: mapPartner(partner), defaultPassword })
+})
+
+app.get('/api/ami/growth-partners', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  await ensureGrowthPartnerTables(c.env.APP_DB)
+  const rows = ((await c.env.APP_DB.prepare(`SELECT * FROM growth_partners ORDER BY created_at DESC`).all()).results || []) as any[]
+  const partners = []
+  for (const row of rows) partners.push({ ...mapPartner(row), ...(await summarizePartner(c.env.APP_DB, String(row.id))) })
+  return c.json({ success: true, partners })
+})
+
+// Partner dashboard data.
+app.get('/api/growth-partner/me', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['growthpartner', 'ami'])) return c.json({ error: 'forbidden' }, 403)
+  const email = String(c.var.user?.email || c.var.user?.sub || '').trim().toLowerCase()
+  const partner = await getPartnerByEmail(c.env.APP_DB, email)
+  if (!partner) return c.json({ error: 'No growth partner profile found for this account.' }, 404)
+  const summary = await summarizePartner(c.env.APP_DB, String(partner.id))
+  const base = getPasswordResetBaseUrl(c.env).replace(/\/reset-password.*$/, '') || 'https://ndovera.com'
+  return c.json({ success: true, partner: mapPartner(partner), referralLink: `${base}/register-school?ref=${partner.referral_code}`, ...summary })
+})
+
+// Save bank details for payouts.
+app.post('/api/growth-partner/bank', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['growthpartner'])) return c.json({ error: 'forbidden' }, 403)
+  const email = String(c.var.user?.email || '').trim().toLowerCase()
+  const partner = await getPartnerByEmail(c.env.APP_DB, email)
+  if (!partner) return c.json({ error: 'No partner profile.' }, 404)
+  const body = await c.req.json().catch(() => ({}))
+  await c.env.APP_DB.prepare(`UPDATE growth_partners SET bank_name=?, bank_code=?, account_number=?, account_name=? WHERE id=?`)
+    .bind(String(body?.bankName || ''), String(body?.bankCode || ''), String(body?.accountNumber || ''), String(body?.accountName || ''), partner.id).run()
+  return c.json({ success: true })
+})
+
+// Withdraw available earnings instantly via Flutterwave Transfers.
+app.post('/api/growth-partner/withdraw', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['growthpartner'])) return c.json({ error: 'forbidden' }, 403)
+  const email = String(c.var.user?.email || '').trim().toLowerCase()
+  const partner = await getPartnerByEmail(c.env.APP_DB, email)
+  if (!partner) return c.json({ error: 'No partner profile.' }, 404)
+  const summary = await summarizePartner(c.env.APP_DB, String(partner.id))
+  const requested = Number((await c.req.json().catch(() => ({})))?.amount || 0)
+  const amount = requested > 0 ? Math.min(requested, summary.available) : summary.available
+  if (amount <= 0) return c.json({ error: 'No earnings available to withdraw.' }, 400)
+  if (!partner.account_number || !partner.bank_code) return c.json({ error: 'Add your bank account details before withdrawing.' }, 400)
+  if (!c.env.FLUTTERWAVE_SECRET_KEY) return c.json({ error: 'Payouts are not configured. Please contact NDOVERA.' }, 503)
+
+  const reference = `gpwd_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`
+  const wdId = `gpw_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`
+  await c.env.APP_DB.prepare(`INSERT INTO gp_withdrawals (id, partner_id, amount, status, reference, created_at) VALUES (?, ?, ?, 'pending', ?, ?)`)
+    .bind(wdId, partner.id, amount, reference, new Date().toISOString()).run()
+  try {
+    const res = await fetch(`${FLUTTERWAVE_BASE_URL}/transfers`, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${c.env.FLUTTERWAVE_SECRET_KEY}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        account_bank: partner.bank_code, account_number: partner.account_number, amount,
+        currency: 'NGN', reference, narration: 'NDOVERA Growth Partner earnings',
+        beneficiary_name: partner.account_name || partner.name,
+      }),
+    })
+    const data = await res.json().catch(() => ({})) as any
+    const ok = data?.status === 'success'
+    await c.env.APP_DB.prepare(`UPDATE gp_withdrawals SET status=? WHERE id=?`).bind(ok ? 'processing' : 'failed', wdId).run()
+    if (!ok) return c.json({ error: data?.message || 'Transfer could not be initiated.' }, 502)
+    return c.json({ success: true, amount, reference, message: 'Withdrawal initiated. Funds are on the way to your bank account.' })
+  } catch (err) {
+    await c.env.APP_DB.prepare(`UPDATE gp_withdrawals SET status='failed' WHERE id=?`).bind(wdId).run().catch(() => {})
+    return c.json({ error: 'Payout failed. Please try again later.' }, 502)
+  }
+})
+
+// A partner can reset the password of a school owner they referred.
+app.post('/api/growth-partner/reset-referral-password', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['growthpartner'])) return c.json({ error: 'forbidden' }, 403)
+  const email = String(c.var.user?.email || '').trim().toLowerCase()
+  const partner = await getPartnerByEmail(c.env.APP_DB, email)
+  if (!partner) return c.json({ error: 'No partner profile.' }, 404)
+  const tenantId = String((await c.req.json().catch(() => ({})))?.tenantId || '').trim()
+  if (!tenantId) return c.json({ error: 'tenantId is required.' }, 400)
+  const owns = await c.env.APP_DB.prepare(`SELECT id FROM gp_referrals WHERE partner_id = ? AND tenant_id = ?`).bind(partner.id, tenantId).first()
+  if (!owns) return c.json({ error: 'That school is not one of your referrals.' }, 403)
+  const tRow = await c.env.APP_DB.prepare(`SELECT owner_email FROM tenants WHERE id = ? LIMIT 1`).bind(tenantId).first() as any
+  const ownerEmail = String(tRow?.owner_email || '').trim().toLowerCase()
+  if (!ownerEmail) return c.json({ error: 'Owner email not found.' }, 404)
+  const issued = await createPasswordResetToken(c.env.APP_DB, ownerEmail, 'owner', {
+    requestedIp: c.req.header('CF-Connecting-IP') || '', userAgent: c.req.header('User-Agent') || '',
+  })
+  const resetUrl = `${getPasswordResetBaseUrl(c.env)}?token=${encodeURIComponent(issued.token)}`
+  let emailed = false
+  try { await sendZohoPasswordResetEmail(c.env, { to: ownerEmail, name: ownerEmail, resetUrl }); emailed = true } catch {}
+  const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(`Reset your Ndovera password (valid 30 minutes): ${resetUrl}`)}`
+  return c.json({ success: true, email: ownerEmail, resetUrl, whatsappUrl, emailed })
 })
 
 // School events

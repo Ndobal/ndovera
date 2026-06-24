@@ -741,7 +741,7 @@ function PublicShell({ section, notice, children }) {
             <p className="inline-flex rounded-full border border-[#ffd84a]/55 bg-black/30 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.3em] text-[#ffd84a]">
               {section.eyebrow}
             </p>
-            <h1 className="mt-5 font-serif text-4xl font-black leading-[1.05] tracking-tight text-white [text-shadow:0_2px_18px_rgba(0,0,0,0.75)] sm:text-5xl lg:text-[4rem]">
+            <h1 className="mt-5 font-serif text-4xl font-black leading-[1.05] tracking-tight !text-white [text-shadow:0_2px_18px_rgba(0,0,0,0.75)] sm:text-5xl lg:text-[4rem]">
               {section.title}
             </h1>
             <p className="mt-5 max-w-2xl text-lg leading-8 text-[#ffeca6] [text-shadow:0_1px_12px_rgba(0,0,0,0.7)]">
@@ -799,7 +799,7 @@ function PublicShell({ section, notice, children }) {
             <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#b5e3f4]">Stay In Motion</p>
-                <h2 className="mt-3 text-3xl font-black tracking-tight">Move from public website to meaningful action.</h2>
+                <h2 className="mt-3 text-3xl font-black tracking-tight !text-white">Move from public website to meaningful action.</h2>
                 <p className="mt-4 max-w-2xl text-sm leading-7 text-[#e4ddcf] sm:text-base">
                   Read the story, explore the pages, open the portal, or start school registration. The website should be a real public front door, not a dead-end splash screen.
                 </p>

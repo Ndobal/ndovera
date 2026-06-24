@@ -22,6 +22,7 @@ import HoSDashboard from './app/roles/HoSDashboard';
 import AccountantDashboard from './app/roles/AccountantDashboard';
 import AdminDashboard from './app/roles/AdminDashboard';
 import OwnerDashboard from './app/roles/OwnerDashboard';
+import GrowthPartnerDashboard from './app/roles/growthpartner/GrowthPartnerDashboard';
 import AmiDashboard from './app/roles/AmiDashboard';
 import OperationalRoleDashboard from './app/roles/OperationalRoleDashboard';
 import StudentClassroom from './app/roles/student/StudentClassroom';
@@ -226,6 +227,7 @@ function AnimatedRoutes({ auth, onLogin }) {
         <Route path="/roles/admin/*" element={<RoleGuard auth={auth} expectedRole="admin"><RouteTransition><AdminDashboard auth={auth} /></RouteTransition></RoleGuard>} />
         <Route path="/roles/accountant/*" element={<RoleGuard auth={auth} expectedRole="accountant"><RouteTransition><AccountantDashboard /></RouteTransition></RoleGuard>} />
         <Route path="/roles/owner/*" element={<RoleGuard auth={auth} expectedRole="owner"><RouteTransition><OwnerDashboard auth={auth} /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/growthpartner/*" element={<RoleGuard auth={auth} expectedRole="growthpartner"><RouteTransition><GrowthPartnerDashboard /></RouteTransition></RoleGuard>} />
         <Route path="/roles/librarian/*" element={<RoleGuard auth={auth} expectedRole="librarian"><RouteTransition><OperationalRoleDashboard roleKey="librarian" /></RouteTransition></RoleGuard>} />
         <Route path="/roles/sanitation/*" element={<RoleGuard auth={auth} expectedRole="sanitation"><RouteTransition><OperationalRoleDashboard roleKey="sanitation" /></RouteTransition></RoleGuard>} />
         <Route path="/roles/tuckshopmanager/*" element={<RoleGuard auth={auth} expectedRole="tuckshopmanager"><RouteTransition><OperationalRoleDashboard roleKey="tuckshopmanager" /></RouteTransition></RoleGuard>} />

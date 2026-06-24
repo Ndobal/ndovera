@@ -215,6 +215,7 @@ export default function SchoolRegistrationPage() {
     setSubmitError('');
 
     try {
+      const referralCode = (new URLSearchParams(location.search).get('ref') || '').trim();
       const result = await registerSchoolAndPay({
         schoolName: formState.schoolName.trim(),
         requestedSubdomain: formState.requestedSubdomain.trim(),
@@ -224,6 +225,7 @@ export default function SchoolRegistrationPage() {
         password: formState.password,
         planKey: formState.planKey,
         discountCode: formState.discountCode.trim(),
+        referralCode,
       });
 
       window.location.href = result.checkoutUrl;
