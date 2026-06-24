@@ -11118,13 +11118,44 @@ app.post('/api/public/website-enquiries', async (c) => {
   }
 })
 
+// Resolve chat participant/sender identifiers (internal id or email) to display
+// names so the UI can show names, never raw user IDs.
+async function buildParticipantNameMap(db: D1Database, identifiers: string[]): Promise<Record<string, string>> {
+  const ids = Array.from(new Set((identifiers || []).map(v => String(v || '').trim()).filter(Boolean)))
+  if (!ids.length) return {}
+  const map: Record<string, string> = {}
+  const chunkSize = 40
+  for (let i = 0; i < ids.length; i += chunkSize) {
+    const chunk = ids.slice(i, i + chunkSize)
+    const lowers = chunk.map(v => v.toLowerCase())
+    const ph = chunk.map(() => '?').join(',')
+    try {
+      const rows = await db.prepare(
+        `SELECT id, email, name FROM users WHERE id IN (${ph}) OR lower(email) IN (${ph})`,
+      ).bind(...chunk, ...lowers).all()
+      for (const row of ((rows.results || []) as any[])) {
+        const name = String(row.name || '').trim()
+        if (!name) continue
+        if (row.id) map[String(row.id)] = name
+        if (row.email) map[String(row.email).toLowerCase()] = name
+      }
+    } catch {}
+  }
+  return map
+}
+
 app.get('/api/conversations', authenticate, async (c) => {
   const { userId } = c.req.query()
   try {
     const actor = await resolveConversationActorContext(c.env.APP_DB, c.var.user || {}, String(userId || ''))
     const conversations = (await getConversations(c.env.APP_DB))
       .filter(conversation => conversationMatchesComparableIdentifiers(conversation, actor.comparableIdentifiers))
-    return c.json({ success: true, conversations })
+    const allParticipants: string[] = []
+    for (const conv of conversations) {
+      for (const p of (Array.isArray((conv as any).participants) ? (conv as any).participants : [])) allParticipants.push(String(p || ''))
+    }
+    const participantNames = await buildParticipantNameMap(c.env.APP_DB, allParticipants)
+    return c.json({ success: true, conversations, participantNames })
   } catch (err) {
     return c.json({ success: false, error: 'Could not fetch conversations' }, 500)
   }
@@ -11647,7 +11678,11 @@ app.get('/api/conversations/:id/messages', authenticate, async (c) => {
   const { id } = c.req.param()
   try {
     const messages = await getMessages(c.env.APP_DB, id)
-    return c.json({ success: true, messages })
+    const participantNames = await buildParticipantNameMap(
+      c.env.APP_DB,
+      (messages || []).map((m: any) => String(m.senderId || m.sender_id || '')),
+    )
+    return c.json({ success: true, messages, participantNames })
   } catch (err) {
     return c.json({ success: false, error: 'Could not fetch messages' }, 500)
   }

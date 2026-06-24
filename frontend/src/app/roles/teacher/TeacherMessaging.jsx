@@ -183,6 +183,7 @@ function TeacherMessaging() {
   const [conversations, setConversations] = useState([]);
   const [activeConversationId, setActiveConversationId] = useState('');
   const [messages, setMessages] = useState([]);
+  const [participantNames, setParticipantNames] = useState({});
   const [composer, setComposer] = useState('');
   const [loadingContacts, setLoadingContacts] = useState(true);
   const [loadingConversations, setLoadingConversations] = useState(true);
@@ -312,8 +313,16 @@ function TeacherMessaging() {
   const groupedMessages = useMemo(() => groupMessagesByDate(messages), [messages]);
 
   const resolveParticipantName = useCallback(identifier => {
-    return contactLookup.get(String(identifier || ''))?.name || prettifyIdentifier(identifier);
-  }, [contactLookup]);
+    const id = String(identifier || '').trim();
+    if (!id) return 'Conversation';
+    const fromContacts = contactLookup.get(id)?.name;
+    if (fromContacts) return fromContacts;
+    const fromServer = participantNames[id] || participantNames[id.toLowerCase()];
+    if (fromServer) return fromServer;
+    // Never expose a raw user ID: emails become a readable label, internal IDs fall back generically.
+    if (id.includes('@')) return prettifyIdentifier(id);
+    return 'School Member';
+  }, [contactLookup, participantNames]);
 
   const resolveParticipantRole = useCallback(identifier => {
     return contactLookup.get(String(identifier || ''))?.roleSummary || 'School Contact';
@@ -398,6 +407,7 @@ function TeacherMessaging() {
     try {
       const payload = await requestJson(`/api/conversations?userId=${encodeURIComponent(userId)}`, token);
       const nextConversations = payload.conversations || [];
+      if (payload.participantNames) setParticipantNames(current => ({ ...current, ...payload.participantNames }));
 
       setConversations(nextConversations);
       setActiveConversationId(currentConversationId => {
@@ -435,6 +445,7 @@ function TeacherMessaging() {
     try {
       const payload = await requestJson(`/api/conversations/${encodeURIComponent(targetConversationId)}/messages`, token);
       const nextMessages = payload.messages || [];
+      if (payload.participantNames) setParticipantNames(current => ({ ...current, ...payload.participantNames }));
       const lastMessage = nextMessages[nextMessages.length - 1] || {};
       const signature = `${targetConversationId}:${nextMessages.length}:${lastMessage.id || ''}:${lastMessage.readAt || lastMessage.read_at || ''}`;
       // Quiet refresh: only re-render the thread when something actually changed, so reading is not disturbed.

@@ -249,6 +249,7 @@ export default function StudentMessaging({
   const [conversations, setConversations] = useState([]);
   const [activeConversationId, setActiveConversationId] = useState('');
   const [messages, setMessages] = useState([]);
+  const [participantNames, setParticipantNames] = useState({});
   const [composer, setComposer] = useState('');
   const [contactQuery, setContactQuery] = useState('');
   // The full directory stays hidden until the user opens it (search or the contacts icon),
@@ -283,6 +284,7 @@ export default function StudentMessaging({
 
     const payload = await requestJson(`/api/conversations?userId=${encodeURIComponent(me)}`, token);
     const nextConversations = payload.conversations || [];
+    if (payload.participantNames) setParticipantNames(current => ({ ...current, ...payload.participantNames }));
 
     conversationsSignatureRef.current = nextConversations
       .map(conversation => `${conversation.id}:${conversation.updated_at || conversation.updatedAt || ''}:${conversation.preview || conversation.lastMessage || ''}`)
@@ -368,6 +370,7 @@ export default function StudentMessaging({
       try {
         const payload = await requestJson(`/api/conversations?userId=${encodeURIComponent(me)}`, token);
         const nextConversations = payload.conversations || [];
+    if (payload.participantNames) setParticipantNames(current => ({ ...current, ...payload.participantNames }));
         const signature = nextConversations
           .map(conversation => `${conversation.id}:${conversation.updated_at || conversation.updatedAt || ''}:${conversation.preview || conversation.lastMessage || ''}`)
           .join('|');
@@ -426,6 +429,7 @@ export default function StudentMessaging({
       try {
         const payload = await requestJson(`/api/conversations/${encodeURIComponent(activeConversationId)}/messages`, token);
         const nextMessages = payload.messages || [];
+        if (payload.participantNames) setParticipantNames(current => ({ ...current, ...payload.participantNames }));
         const lastMessage = nextMessages[nextMessages.length - 1] || {};
         const signature = `${activeConversationId}:${nextMessages.length}:${lastMessage.id || ''}:${lastMessage.readAt || lastMessage.read_at || ''}`;
         if (!ignore && (!silent || signature !== messageSignatureRef.current)) {
@@ -577,7 +581,15 @@ export default function StudentMessaging({
   const groupedMessages = useMemo(() => groupMessagesByDate(messages), [messages]);
 
   function resolveParticipantName(identifier) {
-    return contactLookup.get(String(identifier || ''))?.name || prettifyIdentifier(identifier);
+    const id = String(identifier || '').trim();
+    if (!id) return 'Conversation';
+    const fromContacts = contactLookup.get(id)?.name;
+    if (fromContacts) return fromContacts;
+    const fromServer = participantNames[id] || participantNames[id.toLowerCase()];
+    if (fromServer) return fromServer;
+    // Never expose a raw user ID: emails become a readable label, internal IDs fall back generically.
+    if (id.includes('@')) return prettifyIdentifier(id);
+    return 'School Member';
   }
 
   function resolveParticipantRole(identifier) {
