@@ -738,13 +738,13 @@ function PublicShell({ section, notice, children }) {
         <div className="absolute inset-x-0 bottom-0 -z-10 h-2/5 bg-gradient-to-t from-[#010804]/72 to-transparent" />
         <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-28 lg:px-8 lg:py-36">
           <div className="max-w-3xl motion-safe:animate-[heroIn_.7s_ease-out]">
-            <p className="inline-flex rounded-full border border-white/40 bg-black/30 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.3em] text-white">
+            <p className="inline-flex rounded-full border border-[#ffd84a]/55 bg-black/30 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.3em] text-[#ffd84a]">
               {section.eyebrow}
             </p>
             <h1 className="mt-5 font-serif text-4xl font-black leading-[1.05] tracking-tight text-white [text-shadow:0_2px_18px_rgba(0,0,0,0.75)] sm:text-5xl lg:text-[4rem]">
               {section.title}
             </h1>
-            <p className="mt-5 max-w-2xl text-lg leading-8 text-white/90 [text-shadow:0_1px_12px_rgba(0,0,0,0.7)]">
+            <p className="mt-5 max-w-2xl text-lg leading-8 text-[#ffeca6] [text-shadow:0_1px_12px_rgba(0,0,0,0.7)]">
               {section.description}
             </p>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
