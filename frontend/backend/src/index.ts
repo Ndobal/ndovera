@@ -12851,6 +12851,131 @@ app.post('/api/ami/website/sections/upload', authenticate, async (c) => {
   }
 })
 
+// ---- Opportunities / Vacancies ----
+const VACANCIES_DDL = `CREATE TABLE IF NOT EXISTS vacancies (id TEXT PRIMARY KEY, tenant_id TEXT, school_name TEXT, title TEXT, description TEXT, location TEXT, employment_type TEXT, department TEXT, apply_url TEXT, apply_email TEXT, deadline TEXT, status TEXT, created_by TEXT, created_at TEXT, updated_at TEXT)`
+let _vacanciesReady = false
+async function ensureVacanciesTable(db: D1Database) {
+  if (_vacanciesReady) return
+  _vacanciesReady = true
+  await db.prepare(VACANCIES_DDL).run()
+}
+function mapVacancyRow(row: any) {
+  return {
+    id: String(row.id),
+    tenantId: row.tenant_id || '',
+    schoolName: row.school_name || (row.tenant_id ? 'School' : 'NDOVERA'),
+    title: row.title || '',
+    description: row.description || '',
+    location: row.location || '',
+    employmentType: row.employment_type || '',
+    department: row.department || '',
+    applyUrl: row.apply_url || '',
+    applyEmail: row.apply_email || '',
+    deadline: row.deadline || '',
+    status: row.status || 'open',
+    createdAt: row.created_at || '',
+  }
+}
+
+// Public listing: ndovera.com shows ALL open vacancies (schools + NDOVERA); a
+// tenant site (?tenantId=) shows only that school's open vacancies.
+app.get('/api/public/opportunities', async (c) => {
+  try {
+    await ensureVacanciesTable(c.env.APP_DB)
+    const tenantId = String(c.req.query('tenantId') || '').trim()
+    const rows = tenantId
+      ? await c.env.APP_DB.prepare(`SELECT * FROM vacancies WHERE status = 'open' AND tenant_id = ? ORDER BY created_at DESC`).bind(tenantId).all()
+      : await c.env.APP_DB.prepare(`SELECT * FROM vacancies WHERE status = 'open' ORDER BY created_at DESC`).all()
+    return c.json({ success: true, vacancies: (rows.results || []).map(mapVacancyRow) })
+  } catch {
+    return c.json({ success: true, vacancies: [] })
+  }
+})
+
+// Dashboards (staff/parents/students): their school's vacancies + NDOVERA's.
+app.get('/api/opportunities', authenticate, async (c) => {
+  try {
+    await ensureVacanciesTable(c.env.APP_DB)
+    const tenantId = String(c.var.user?.tenantId || '').trim()
+    const rows = await c.env.APP_DB.prepare(
+      `SELECT * FROM vacancies WHERE status = 'open' AND (tenant_id = ? OR tenant_id IS NULL OR tenant_id = '') ORDER BY created_at DESC`,
+    ).bind(tenantId).all()
+    return c.json({ success: true, vacancies: (rows.results || []).map(mapVacancyRow) })
+  } catch {
+    return c.json({ success: true, vacancies: [] })
+  }
+})
+
+// Management list: owner/hos see their school's; ami sees all.
+app.get('/api/opportunities/manage', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos', 'ami'])) return c.json({ error: 'forbidden' }, 403)
+  await ensureVacanciesTable(c.env.APP_DB)
+  const isAmi = hasRequiredRole(c.var.user.role, ['ami'])
+  const tenantId = String(c.var.user?.tenantId || '').trim()
+  const rows = isAmi
+    ? await c.env.APP_DB.prepare(`SELECT * FROM vacancies ORDER BY created_at DESC`).all()
+    : await c.env.APP_DB.prepare(`SELECT * FROM vacancies WHERE tenant_id = ? ORDER BY created_at DESC`).bind(tenantId).all()
+  return c.json({ success: true, vacancies: (rows.results || []).map(mapVacancyRow) })
+})
+
+app.post('/api/opportunities', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos', 'ami'])) return c.json({ error: 'forbidden' }, 403)
+  await ensureVacanciesTable(c.env.APP_DB)
+  const body = await c.req.json().catch(() => ({}))
+  const isAmi = hasRequiredRole(c.var.user.role, ['ami'])
+  const tenantId = isAmi ? String(body?.tenantId || '').trim() : String(c.var.user?.tenantId || '').trim()
+  let schoolName = 'NDOVERA'
+  if (tenantId) {
+    const t = await getTenantById(c.env.APP_DB, tenantId).catch(() => null) as any
+    schoolName = t?.schoolName || 'School'
+  }
+  const title = String(body?.title || '').trim()
+  if (!title) return c.json({ error: 'Title is required.' }, 400)
+  const id = `vac_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`
+  const now = new Date().toISOString()
+  await c.env.APP_DB.prepare(
+    `INSERT INTO vacancies (id, tenant_id, school_name, title, description, location, employment_type, department, apply_url, apply_email, deadline, status, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+  ).bind(
+    id, tenantId || null, schoolName, title,
+    String(body?.description || ''), String(body?.location || ''), String(body?.employmentType || ''),
+    String(body?.department || ''), String(body?.applyUrl || ''), String(body?.applyEmail || ''),
+    String(body?.deadline || ''), String(body?.status || 'open'), String(c.var.user?.name || ''), now, now,
+  ).run()
+  return c.json({ success: true, id }, 201)
+})
+
+app.put('/api/opportunities/:id', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos', 'ami'])) return c.json({ error: 'forbidden' }, 403)
+  await ensureVacanciesTable(c.env.APP_DB)
+  const id = c.req.param('id')
+  const body = await c.req.json().catch(() => ({}))
+  const isAmi = hasRequiredRole(c.var.user.role, ['ami'])
+  const existing = await c.env.APP_DB.prepare(`SELECT * FROM vacancies WHERE id = ?`).bind(id).first() as any
+  if (!existing) return c.json({ error: 'Not found.' }, 404)
+  if (!isAmi && String(existing.tenant_id || '') !== String(c.var.user?.tenantId || '')) return c.json({ error: 'forbidden' }, 403)
+  await c.env.APP_DB.prepare(
+    `UPDATE vacancies SET title=?, description=?, location=?, employment_type=?, department=?, apply_url=?, apply_email=?, deadline=?, status=?, updated_at=? WHERE id=?`,
+  ).bind(
+    String(body?.title ?? existing.title), String(body?.description ?? existing.description), String(body?.location ?? existing.location),
+    String(body?.employmentType ?? existing.employment_type), String(body?.department ?? existing.department),
+    String(body?.applyUrl ?? existing.apply_url), String(body?.applyEmail ?? existing.apply_email),
+    String(body?.deadline ?? existing.deadline), String(body?.status ?? existing.status), new Date().toISOString(), id,
+  ).run()
+  return c.json({ success: true })
+})
+
+app.delete('/api/opportunities/:id', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos', 'ami'])) return c.json({ error: 'forbidden' }, 403)
+  await ensureVacanciesTable(c.env.APP_DB)
+  const id = c.req.param('id')
+  const isAmi = hasRequiredRole(c.var.user.role, ['ami'])
+  const existing = await c.env.APP_DB.prepare(`SELECT * FROM vacancies WHERE id = ?`).bind(id).first() as any
+  if (!existing) return c.json({ success: true })
+  if (!isAmi && String(existing.tenant_id || '') !== String(c.var.user?.tenantId || '')) return c.json({ error: 'forbidden' }, 403)
+  await c.env.APP_DB.prepare(`DELETE FROM vacancies WHERE id = ?`).bind(id).run()
+  return c.json({ success: true })
+})
+
 // School events
 app.get('/api/school/events', authenticate, async (c) => {
   const tenantId = c.var.user?.tenantId
@@ -18707,6 +18832,32 @@ function renderGalleryPage(tenant: any, branding: any, sections: any[]) {
   return baseHtml(`Gallery - ${schoolName}`, body)
 }
 
+function renderSchoolOpportunities(tenant: any, branding: any, vacancies: any[]) {
+  const schoolName = tenant.schoolName || 'Our School'
+  const logoUrl = branding?.logoUrl || null
+  const cardsHtml = (!vacancies || vacancies.length === 0)
+    ? `<div class="placeholder-media">No open vacancies at the moment. Please check back soon.</div>`
+    : `<div class="cards">${vacancies.map((v: any) => {
+        const apply = v.applyUrl ? escAttr(v.applyUrl) : (v.applyEmail ? `mailto:${escAttr(v.applyEmail)}` : '')
+        const meta = [v.employmentType, v.location, v.department].filter(Boolean).map((t: string) => `<span class="muted">${escHtml(t)}</span>`).join(' • ')
+        return `<div class="info-card">
+          <h3>${escHtml(v.title)}</h3>
+          ${meta ? `<p style="font-size:13px;margin-bottom:8px;">${meta}</p>` : ''}
+          ${v.description ? `<p style="white-space:pre-line;">${escHtml(v.description)}</p>` : ''}
+          ${v.deadline ? `<p class="muted" style="margin-top:8px;font-weight:700;">Apply by ${escHtml(v.deadline)}</p>` : ''}
+          ${apply ? `<p style="margin-top:12px;"><a class="btn-primary" href="${apply}" target="_blank" rel="noopener">Apply Now</a></p>` : ''}
+        </div>`
+      }).join('')}</div>`
+  const body = `
+  ${subdomainNavbar(schoolName, tenant.requestedSubdomain, logoUrl)}
+  <header class="page-hero"><p class="eyebrow">Opportunities</p><h1>Vacancies at ${escHtml(schoolName)}</h1><p>Current openings at our school. Apply directly using the links below.</p></header>
+  <main class="section">
+    ${cardsHtml}
+  </main>
+  ${subdomainFooter(schoolName, branding)}`
+  return baseHtml(`Opportunities - ${schoolName}`, body)
+}
+
 function renderEventsPage(tenant: any, branding: any, events: any[]) {
   const schoolName = tenant.schoolName || 'Our School'
   const logoUrl = branding?.logoUrl || null
@@ -18858,6 +19009,9 @@ async function renderTenantWebsiteResponse(
     const branding = mapTenantBranding(tenant, brandingRow as any)
     const sections = sectionsResult.results || []
     const events = (eventsResult.results || []).map((e: any) => ({ ...e, mediaUrls: JSON.parse(e.media_urls || '[]') }))
+    await ensureVacanciesTable(env.APP_DB)
+    const vacancyRows = await env.APP_DB.prepare(`SELECT * FROM vacancies WHERE status = 'open' AND tenant_id = ? ORDER BY created_at DESC`).bind(tenant.id).all()
+    const vacancies = (vacancyRows.results || []).map(mapVacancyRow)
     const publicNewsItems = newsPosts.length
       ? newsPosts.map((post: any) => ({
           id: post.id,
@@ -18877,6 +19031,7 @@ async function renderTenantWebsiteResponse(
     else if (path === '/gallery') html = renderGalleryPage(tenant, branding, sections)
     else if (path === '/events') html = renderEventsPage(tenant, branding, publicNewsItems)
     else if (path === '/contact') html = renderContactPage(tenant, branding, sections, options)
+    else if (path === '/opportunities') html = renderSchoolOpportunities(tenant, branding, vacancies)
     else html = renderSchoolHome(tenant, branding, sections, publicNewsItems, options)
 
     return new Response(html, { headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'public, max-age=60, stale-while-revalidate=300' } })

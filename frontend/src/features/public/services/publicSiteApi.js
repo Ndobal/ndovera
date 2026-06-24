@@ -67,6 +67,11 @@ async function uploadAsset(path, file, extraFields = {}) {
 }
 
 export const getPublicPlatformSite = () => publicRequest('/api/public/platform-site');
+export const getPublicOpportunities = (tenantId) => publicRequest(`/api/public/opportunities${tenantId ? `?tenantId=${encodeURIComponent(tenantId)}` : ''}`);
+export const getManagedOpportunities = () => authedRequest('/api/opportunities/manage');
+export const createOpportunity = (data) => authedRequest('/api/opportunities', { method: 'POST', body: data });
+export const updateOpportunity = (id, data) => authedRequest(`/api/opportunities/${encodeURIComponent(id)}`, { method: 'PUT', body: data });
+export const deleteOpportunity = (id) => authedRequest(`/api/opportunities/${encodeURIComponent(id)}`, { method: 'DELETE' });
 export const getAmiWebsiteSections = () => authedRequest('/api/ami/website/sections');
 export const saveAmiWebsiteSection = (data) => authedRequest('/api/ami/website/sections', { method: 'POST', body: data });
 export const uploadAmiWebsiteAsset = (file, sectionKey) => uploadAsset('/api/ami/website/sections/upload', file, { sectionKey });

@@ -20,7 +20,7 @@ import {
   UserGroupIcon,
   XMarkIcon,
 } from '@heroicons/react/24/outline';
-import { getPublicPlatformSite } from '../services/publicSiteApi';
+import { getPublicPlatformSite, getPublicOpportunities } from '../services/publicSiteApi';
 import { getTenantPricing } from '../../tenants/services/tenantApi';
 
 const currencyFormatter = new Intl.NumberFormat('en-NG', {
@@ -1196,29 +1196,61 @@ function PricingPageBody({ section, pricing, pricingError, isPricingLoading }) {
   );
 }
 
-function OpportunitiesPageBody({ section }) {
+function VacancyCard({ vacancy }) {
+  const apply = vacancy.applyUrl || (vacancy.applyEmail ? `mailto:${vacancy.applyEmail}` : '');
+  return (
+    <article data-reveal className="public-reveal flex flex-col rounded-[1.6rem] border border-[#c9a96e]/45 bg-[#fff8ef] p-6 shadow-[0_18px_36px_rgba(25,25,112,0.08)]">
+      <div className="flex flex-wrap items-center gap-2">
+        <span className="rounded-full bg-[#191970] px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-white">{vacancy.schoolName || 'NDOVERA'}</span>
+        {vacancy.employmentType ? <span className="rounded-full border border-[#191970]/25 px-3 py-1 text-[11px] font-semibold text-[#191970]">{vacancy.employmentType}</span> : null}
+        {vacancy.location ? <span className="text-xs font-semibold text-[#31416f]">📍 {vacancy.location}</span> : null}
+      </div>
+      <h3 className="mt-3 font-serif text-xl font-black leading-tight text-[#191970]">{vacancy.title}</h3>
+      {vacancy.department ? <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-[#c9a96e]">{vacancy.department}</p> : null}
+      {vacancy.description ? <p className="mt-3 whitespace-pre-line text-sm leading-7 text-[#31416f] line-clamp-6">{vacancy.description}</p> : null}
+      <div className="mt-auto flex items-center justify-between gap-3 pt-5">
+        {vacancy.deadline ? <span className="text-xs font-semibold text-[#800020]">Apply by {vacancy.deadline}</span> : <span />}
+        {apply ? (
+          <a href={apply} target="_blank" rel="noreferrer" className="rounded-full bg-[#e3c98b] px-5 py-2 text-xs font-bold uppercase tracking-wide text-[#191970] transition hover:bg-[#191970] hover:text-white">Apply</a>
+        ) : null}
+      </div>
+    </article>
+  );
+}
+
+function OpportunitiesPageBody() {
+  const [vacancies, setVacancies] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let cancelled = false;
+    getPublicOpportunities()
+      .then(data => { if (!cancelled) setVacancies(Array.isArray(data?.vacancies) ? data.vacancies : []); })
+      .catch(() => { if (!cancelled) setVacancies([]); })
+      .finally(() => { if (!cancelled) setLoading(false); });
+    return () => { cancelled = true; };
+  }, []);
+
   return (
     <div className="space-y-8">
-      <section className="grid gap-4 lg:grid-cols-2 xl:grid-cols-4">
-        {section.metadata.cards.map((item, index) => (
-          <PublicCard key={item.title} title={item.title} description={item.description} icon={item.icon} revealDelay={(index % 4) + 1} />
-        ))}
-      </section>
-
-      <Reveal as="section" className="rounded-[2rem] border border-[#c9a96e]/45 bg-[#fff8ef] p-6 shadow-[0_18px_40px_rgba(25,25,112,0.08)]">
-        <SectionHeading
-          eyebrow={section.metadata.spotlightEyebrow}
-          title={section.metadata.spotlightTitle}
-          description={section.metadata.spotlightDescription}
-        />
-      </Reveal>
-
-      <MediaGallery
-        section={section}
-        eyebrow="Opportunity Media"
-        title="Showcase the people and programmes behind the opportunity pages."
-        description="This page can now display partner sessions, product walkthroughs, and uploaded campaign visuals from R2."
+      <SectionHeading
+        eyebrow="Open Positions"
+        title="Current vacancies across NDOVERA and member schools"
+        description="Every open role posted by NDOVERA and the schools on our network. Apply directly from here."
       />
+
+      {loading ? (
+        <p className="text-sm text-[#31416f]">Loading vacancies…</p>
+      ) : vacancies.length ? (
+        <section className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+          {vacancies.map(vacancy => <VacancyCard key={vacancy.id} vacancy={vacancy} />)}
+        </section>
+      ) : (
+        <Reveal as="section" className="rounded-[2rem] border border-[#c9a96e]/45 bg-[#fff8ef] p-10 text-center">
+          <p className="font-serif text-2xl font-black text-[#191970]">No open vacancies right now</p>
+          <p className="mt-3 text-sm leading-7 text-[#31416f]">There are no positions open at the moment. Please check back soon — new roles from NDOVERA and member schools appear here as they open.</p>
+        </Reveal>
+      )}
     </div>
   );
 }

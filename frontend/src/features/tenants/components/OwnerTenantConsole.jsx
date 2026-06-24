@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { getMyTenant, initiateTenantPayment, verifyTenantPayment } from '../services/tenantApi';
+import OpportunitiesManager from '../../public/components/OpportunitiesManager';
 
 const currencyFormatter = new Intl.NumberFormat('en-NG', {
   style: 'currency',
@@ -270,6 +271,12 @@ export default function OwnerTenantConsole({ authUser = null, sectionKey = 'over
             )) : <p className="text-slate-400">No payment attempts yet.</p>}
           </div>
         </section>
+
+        {dashboardActive && (
+          <section className="mt-2">
+            <OpportunitiesManager />
+          </section>
+        )}
       </div>
     </div>
   );

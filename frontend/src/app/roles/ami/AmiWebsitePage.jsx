@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { getAmiWebsiteSections, saveAmiWebsiteSection, uploadAmiWebsiteAsset } from '../../../features/public/services/publicSiteApi';
+import OpportunitiesManager from '../../../features/public/components/OpportunitiesManager';
 
 const SECTION_DEFINITIONS = [
   {
@@ -532,6 +533,8 @@ export default function AmiWebsitePage() {
 
       {loading ? <p className="text-sm text-[#800020] dark:text-slate-400">Loading website sections...</p> : null}
       {error ? <p className="rounded-2xl border border-red-300/30 bg-red-50 px-4 py-3 text-sm text-red-600 dark:bg-red-950/30 dark:text-red-200">{error}</p> : null}
+
+      <OpportunitiesManager allowTenantField />
 
       <div className="grid gap-5 xl:grid-cols-2">
         {SECTION_DEFINITIONS.map(section => (
