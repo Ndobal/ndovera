@@ -76,6 +76,7 @@ export const resetReferralOwnerPassword = (tenantId) => authedRequest('/api/grow
 export const getGrowthPartnerApplications = () => authedRequest('/api/ami/growth-partner-applications');
 export const getGrowthPartners = () => authedRequest('/api/ami/growth-partners');
 export const activateGrowthPartner = (data) => authedRequest('/api/ami/growth-partners/activate', { method: 'POST', body: data });
+export const accrueGrowthPartnerTerm = (period) => authedRequest('/api/ami/growth-partners/accrue-term', { method: 'POST', body: { period } });
 export const getManagedOpportunities = () => authedRequest('/api/opportunities/manage');
 export const createOpportunity = (data) => authedRequest('/api/opportunities', { method: 'POST', body: data });
 export const updateOpportunity = (id, data) => authedRequest(`/api/opportunities/${encodeURIComponent(id)}`, { method: 'PUT', body: data });

@@ -3,6 +3,7 @@ import {
   getGrowthPartnerApplications,
   getGrowthPartners,
   activateGrowthPartner,
+  accrueGrowthPartnerTerm,
 } from '../services/publicSiteApi';
 
 const naira = new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN', maximumFractionDigits: 0 });
@@ -42,12 +43,37 @@ export default function GrowthPartnersAdmin() {
   }
 
   const activatedEmails = new Set(partners.map(p => String(p.email || '').toLowerCase()));
+  const [termPeriod, setTermPeriod] = useState('');
+
+  async function accrueTerm() {
+    const period = termPeriod.trim();
+    if (!period) { setMessage('Enter a term label first, e.g. "2025/2026 Term 1".'); return; }
+    if (!window.confirm(`Accrue the 5% term commission for all referred schools for "${period}"? (Safe to run once per term.)`)) return;
+    setBusy('term'); setMessage('');
+    try {
+      const r = await accrueGrowthPartnerTerm(period);
+      setMessage(`Term commissions accrued for ${r.accruedCount} schools (₦${(r.totalAmount || 0).toLocaleString()} total).`);
+      await load();
+    } catch (error) {
+      setMessage(error.message || 'Could not accrue term commissions.');
+    } finally {
+      setBusy('');
+    }
+  }
 
   return (
     <section className="rounded-3xl border border-[#c9a96e]/45 bg-[#b5e3f4] p-5 shadow-[0_18px_40px_rgba(128,0,0,0.08)] dark:border-white/10 dark:bg-slate-900/40">
       <p className="text-lg font-bold text-[#800000] dark:text-slate-100">Growth Partners</p>
-      <p className="mt-1 text-sm text-[#191970] dark:text-slate-300">Review applications and activate partners. Activation creates their login + referral code.</p>
+      <p className="mt-1 text-sm text-[#191970] dark:text-slate-300">Review applications and activate partners. Activation creates their login + referral code. A partner's referral code also works as a discount code — create a matching discount code to give referred schools a discount while still crediting the partner.</p>
       {message ? <p className="mt-3 rounded-xl bg-[#fff8ee] px-3 py-2 text-sm text-[#1a5c38] dark:bg-slate-800 dark:text-emerald-300">{message}</p> : null}
+
+      <div className="mt-4 flex flex-wrap items-end gap-2 rounded-2xl border border-[#c9a96e]/35 bg-[#fff8ee]/70 p-3 dark:border-white/10 dark:bg-slate-800/40">
+        <div>
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#800020]">Run 5% term payout accrual</p>
+          <input value={termPeriod} onChange={e => setTermPeriod(e.target.value)} placeholder="e.g. 2025/2026 Term 1" className="mt-1 rounded-xl border border-[#c9a96e]/40 bg-white px-3 py-2 text-sm text-[#191970] outline-none dark:bg-slate-800 dark:text-slate-100" />
+        </div>
+        <button type="button" onClick={accrueTerm} disabled={busy === 'term'} className="rounded-xl bg-[#1a5c38] px-4 py-2 text-sm font-bold text-[#b5e3f4] disabled:opacity-50">{busy === 'term' ? 'Accruing…' : 'Accrue term 5%'}</button>
+      </div>
 
       <div className="mt-5">
         <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#800020]">Pending applications</p>

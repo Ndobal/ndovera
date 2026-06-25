@@ -5454,7 +5454,7 @@ app.post('/api/tenants/register', async (c) => {
   try {
     const registrationPayload = await c.req.json()
     const { tenant, quote } = await createPendingTenantRegistration(c, registrationPayload)
-    await attachGrowthPartnerReferral(c.env, registrationPayload?.referralCode, tenant)
+    await attachGrowthPartnerReferral(c.env, registrationPayload?.referralCode || registrationPayload?.discountCode, tenant)
 
     return c.json({
       success: true,
@@ -5471,7 +5471,7 @@ app.post('/api/tenants/register-and-pay', async (c) => {
   try {
     const payload = await c.req.json()
     const { tenant, quote } = await createPendingTenantRegistration(c, payload)
-    await attachGrowthPartnerReferral(c.env, payload?.referralCode, tenant)
+    await attachGrowthPartnerReferral(c.env, payload?.referralCode || payload?.discountCode, tenant)
     const checkout = await initiateTenantCheckout(c, {
       tenant,
       quote,
@@ -13340,6 +13340,37 @@ app.get('/api/ami/growth-partners', authenticate, async (c) => {
   return c.json({ success: true, partners })
 })
 
+// Accrue the 5%-per-term commission across every referred (paid) school, based on
+// current billable students × per-term fee. Idempotent per term (Ami runs it each term).
+app.post('/api/ami/growth-partners/accrue-term', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  await ensureGrowthPartnerTables(c.env.APP_DB)
+  const body = await c.req.json().catch(() => ({}))
+  const period = String(body?.period || '').trim() || new Date().toISOString().slice(0, 7)
+  const note = `5% term commission (${period})`
+  const referrals = ((await c.env.APP_DB.prepare(`SELECT * FROM gp_referrals`).all()).results || []) as any[]
+  const { plans } = await getTenantPricingState(c.env.APP_DB)
+  let accruedCount = 0
+  let totalAmount = 0
+  for (const ref of referrals) {
+    const exists = await c.env.APP_DB.prepare(`SELECT id FROM gp_commissions WHERE tenant_id=? AND kind='term' AND note=?`).bind(ref.tenant_id, note).first()
+    if (exists) continue
+    const tenant = await getTenantById(c.env.APP_DB, String(ref.tenant_id)).catch(() => null)
+    if (!tenant || (tenant as any).paymentStatus !== 'paid') continue
+    let quote: any = null
+    try { quote = await buildTenantQuoteForTenant(c.env.APP_DB, tenant, null, plans) } catch { continue }
+    const billable = Number(quote?.billableUserCount || 0)
+    const perTerm = Number(quote?.studentFeePerTerm || (tenant as any)?.studentFeePerTerm || 0)
+    const amount = Math.round(billable * perTerm * 0.05)
+    if (amount <= 0) continue
+    await c.env.APP_DB.prepare(`INSERT INTO gp_commissions (id, partner_id, tenant_id, kind, amount, note, created_at) VALUES (?, ?, ?, 'term', ?, ?, ?)`)
+      .bind(`gpc_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`, ref.partner_id, String(ref.tenant_id), amount, note, new Date().toISOString()).run()
+    accruedCount += 1
+    totalAmount += amount
+  }
+  return c.json({ success: true, period, accruedCount, totalAmount })
+})
+
 // Partner dashboard data.
 app.get('/api/growth-partner/me', authenticate, async (c) => {
   if (!hasRequiredRole(c.var.user.role, ['growthpartner', 'ami'])) return c.json({ error: 'forbidden' }, 403)
@@ -16590,6 +16621,38 @@ async function listTenantStaffRoster(db: D1Database, tenantId: string) {
   })
 }
 
+// Outstanding store-keeper misplacement surcharges to deduct from a staff member's
+// salary this period (full amount for once-off, the installment portion otherwise).
+// Matched by user id / email / exact name. Settlement is recorded in the store module.
+async function listPayrollStoreSurchargeSummaries(db: D1Database, tenantId: string, staffRoster: any[]): Promise<Array<{ staffId: string; amount: number; count: number }>> {
+  let rows: any[] = []
+  try {
+    await ensureStoreTables(db)
+    rows = ((await db.prepare(`SELECT * FROM store_surcharges WHERE tenant_id = ? AND status = 'outstanding'`).bind(tenantId).all()).results || []) as any[]
+  } catch { rows = [] }
+  return (staffRoster || []).map((staff: any) => {
+    const sid = String(staff?.id || '').trim()
+    const semail = String(staff?.email || '').trim().toLowerCase()
+    const sname = String(staff?.name || '').trim().toLowerCase()
+    let amount = 0
+    let count = 0
+    for (const s of rows) {
+      const uid = String(s.user_id || '').trim()
+      const uname = String(s.user_name || '').trim().toLowerCase()
+      const match = (uid && (uid === sid || uid.toLowerCase() === semail)) || (uname && sname && uname === sname)
+      if (!match) continue
+      const outstanding = Math.max(0, Number(s.amount || 0) - Number(s.amount_paid || 0))
+      if (outstanding <= 0) continue
+      const perPeriod = String(s.mode) === 'installment' && Number(s.installments || 1) > 0
+        ? Math.min(outstanding, Math.round(Number(s.amount || 0) / Number(s.installments || 1)))
+        : outstanding
+      amount += perPeriod
+      count += 1
+    }
+    return { staffId: sid, amount, count }
+  })
+}
+
 // ─── Payroll ──────────────────────────────────────────────────────────────────
 app.get('/api/school/payroll', authenticate, async (c) => {
   if (!hasRequiredCapability(c.var.user.role, 'manage_payroll', c.var.user.roles)) return c.json({ error: 'forbidden' }, 403)
@@ -16602,6 +16665,7 @@ app.get('/api/school/payroll', authenticate, async (c) => {
     const staffRoster = await listTenantStaffRoster(c.env.APP_DB, tenantId)
     const lateChargeSummaries = await listPayrollLateChargeSummaries(c.env.APP_DB, tenantId, period)
     const attendanceDeductionSummaries = await listPayrollAttendanceDeductionSummaries(c.env.APP_DB, tenantId, period, staffRoster)
+    const storeSurchargeSummaries = await listPayrollStoreSurchargeSummaries(c.env.APP_DB, tenantId, staffRoster)
     const payrollSettings = normalizePayrollSettingsInput(await getSettings(c.env.APP_DB, `payroll_settings_${tenantId}`).catch(() => ({})))
     const payrollMap = new Map((rows.results || []).map((row: any) => [String(row.staff_id || '').trim(), row]))
     const payroll = staffRoster.map((staffMember: any) => {
@@ -16628,7 +16692,11 @@ app.get('/api/school/payroll', authenticate, async (c) => {
       const autoLateDeductions = Number(lateChargeSummary.amount || 0)
       const autoAbsenceDeductions = Number(attendanceDeductionSummary.amount || 0)
       const autoAttendanceDeductions = autoLateDeductions + autoAbsenceDeductions
-      const deductions = manualDeductions + autoAttendanceDeductions
+      const storeSurchargeSummary = storeSurchargeSummaries.find(s => s.staffId === String(staffMember.id || '').trim())
+        || storeSurchargeSummaries.find(s => s.staffId === String(staffMember.email || '').trim())
+        || { amount: 0, count: 0 }
+      const autoStoreSurcharge = Number(storeSurchargeSummary.amount || 0)
+      const deductions = manualDeductions + autoAttendanceDeductions + autoStoreSurcharge
       const paymentStatus = String(row?.payment_status || (String(row?.status || '').toLowerCase() === 'paid' ? 'paid' : 'pending')).toLowerCase()
 
       return {
@@ -16658,6 +16726,8 @@ app.get('/api/school/payroll', authenticate, async (c) => {
         autoLateDeductions,
         autoAbsenceDeductions,
         autoAttendanceDeductions,
+        autoStoreSurcharge,
+        storeSurchargeCount: Number(storeSurchargeSummary.count || 0),
         lateChargeCount: Number(lateChargeSummary.count || 0),
         absenceChargeCount: Number(attendanceDeductionSummary.count || 0),
         approvedAbsenceDays: Number(attendanceDeductionSummary.approvedCount || 0),
