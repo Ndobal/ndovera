@@ -19009,24 +19009,33 @@ function renderSchoolHome(tenant: any, branding: any, sections: any[], events: a
     </section>` : ''
 
   // Optional homepage flier pop-up (shown once per browser session; closeable).
-  const flyerPopupEnabled = Boolean(flyerUrl) && Boolean(parseMeta(flyer).popup)
+  // Supports 1–3 images (the school can upload several flier images that crossfade).
+  const flierImages = uniqueMediaUrls(flyerUrl, ...(Array.isArray(parseMeta(flyer).mediaUrls) ? parseMeta(flyer).mediaUrls : [])).slice(0, 3)
+  const flyerPopupEnabled = flierImages.length > 0 && Boolean(parseMeta(flyer).popup)
+  const flierPopupBody = flierImages.length <= 1
+    ? renderMedia(flierImages[0] || flyerUrl, flyer?.title || 'School flier', 'flier-popup-media')
+    : `<div class="flier-popup-rail">${flierImages.map((u: string, i: number) => `<div class="flier-popup-slide${i === 0 ? ' is-active' : ''}">${renderMedia(u, flyer?.title || 'School flier', 'flier-popup-slide-media')}</div>`).join('')}</div>`
   const flyerPopupHtml = flyerPopupEnabled ? `
     <div id="flier-popup" class="flier-popup-overlay" role="dialog" aria-modal="true" aria-label="School flier">
       <div class="flier-popup-card">
         <button type="button" class="flier-popup-close" aria-label="Close" onclick="(function(){var p=document.getElementById('flier-popup');if(p){p.style.display='none';}try{sessionStorage.setItem('flierPopupClosed','1');}catch(e){}})()">&times;</button>
-        ${renderMedia(flyerUrl, flyer?.title || 'School flier', 'flier-popup-media')}
-        <a class="flier-popup-cta" href="/admissions">Admission Details</a>
+        ${flierPopupBody}
+        <a class="flier-popup-cta" href="/admissions">Enroll Now</a>
       </div>
     </div>
     <style>
       .flier-popup-overlay{position:fixed;inset:0;background:rgba(0,0,0,.72);display:flex;align-items:center;justify-content:center;z-index:9999;padding:16px;}
       .flier-popup-card{position:relative;background:#fff;border-radius:18px;max-width:520px;width:100%;max-height:90vh;overflow:auto;padding:14px;box-shadow:0 24px 70px rgba(0,0,0,.45);animation:flierPopIn .25s ease-out;}
       .flier-popup-card .flier-popup-media,.flier-popup-card img,.flier-popup-card video,.flier-popup-card iframe{display:block;width:100%;border-radius:12px;}
-      .flier-popup-cta{display:block;text-align:center;margin-top:10px;background:#14215b;color:#ffffff;padding:12px;border-radius:999px;text-decoration:none;font-weight:700;}
+      .flier-popup-rail{position:relative;width:100%;aspect-ratio:3/4;border-radius:12px;overflow:hidden;}
+      .flier-popup-slide{position:absolute;inset:0;opacity:0;transition:opacity .6s ease;}
+      .flier-popup-slide.is-active{opacity:1;}
+      .flier-popup-slide img,.flier-popup-slide video,.flier-popup-slide iframe{width:100%;height:100%;object-fit:cover;}
+      .flier-popup-cta{display:block;text-align:center;margin-top:10px;background:#1a5c38;color:#ffffff;padding:12px;border-radius:999px;text-decoration:none;font-weight:700;}
       .flier-popup-close{position:absolute;top:8px;right:10px;border:none;background:rgba(0,0,0,.55);color:#fff;width:34px;height:34px;border-radius:50%;font-size:22px;line-height:1;cursor:pointer;z-index:2;}
       @keyframes flierPopIn{from{opacity:0;transform:scale(.94);}to{opacity:1;transform:scale(1);}}
     </style>
-    <script>(function(){try{if(sessionStorage.getItem('flierPopupClosed')==='1'){var p=document.getElementById('flier-popup');if(p)p.style.display='none';}}catch(e){}})();</script>` : ''
+    <script>(function(){try{if(sessionStorage.getItem('flierPopupClosed')==='1'){var p=document.getElementById('flier-popup');if(p)p.style.display='none';}}catch(e){}var s=document.querySelectorAll('#flier-popup .flier-popup-slide');if(s.length>1){var i=0;setInterval(function(){s[i].classList.remove('is-active');i=(i+1)%s.length;s[i].classList.add('is-active');},3000);}})();</script>` : ''
 
   const body = `
   ${subdomainNavbar(schoolName, tenant.requestedSubdomain, logoUrl)}

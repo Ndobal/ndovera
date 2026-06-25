@@ -5,6 +5,12 @@ import GrowthPartnersAdmin from '../../../features/public/components/GrowthPartn
 
 const SECTION_DEFINITIONS = [
   {
+    key: 'flier',
+    label: 'Flier / Advert Popup',
+    description: 'Shown as a popup when visitors first open ndovera.com. Upload 1–3 images and set the call-to-action button (label + link). Leave media empty to disable.',
+    allowMultipleMedia: true,
+  },
+  {
     key: 'home',
     label: 'Homepage',
     description: 'Main NDOVERA landing page with hero copy, CTAs, stats, and media.',

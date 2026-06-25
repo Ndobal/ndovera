@@ -591,6 +591,51 @@ function MediaGallery({ section, eyebrow, title, description, tone = 'light' }) 
   );
 }
 
+// First-visit advert/flier popup (once per browser session). Ami manages it via
+// the "Flier / Advert Popup" section; shows 1-3 images that crossfade, with a CTA.
+function FlierPopup({ flier }) {
+  const media = getSectionMedia(flier).slice(0, 3);
+  const [open, setOpen] = useState(false);
+  const [idx, setIdx] = useState(0);
+
+  useEffect(() => {
+    if (!media.length) return undefined;
+    try { if (sessionStorage.getItem('ndoveraFlierClosed') === '1') return undefined; } catch (e) { /* ignore */ }
+    const t = setTimeout(() => setOpen(true), 800);
+    return () => clearTimeout(t);
+  }, [media.length]);
+
+  useEffect(() => {
+    if (!open || media.length < 2) return undefined;
+    const t = setInterval(() => setIdx(i => (i + 1) % media.length), 3000);
+    return () => clearInterval(t);
+  }, [open, media.length]);
+
+  if (!open || !media.length) return null;
+
+  const ctaUrl = flier?.metadata?.buttonUrl || '';
+  const ctaLabel = flier?.metadata?.buttonLabel || 'Learn More';
+  function close() { setOpen(false); try { sessionStorage.setItem('ndoveraFlierClosed', '1'); } catch (e) { /* ignore */ } }
+
+  return (
+    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 p-4 motion-safe:animate-[heroIn_.4s_ease-out]" onClick={close}>
+      <div className="relative w-full max-w-lg overflow-hidden rounded-3xl bg-white shadow-2xl" onClick={e => e.stopPropagation()}>
+        <button type="button" onClick={close} aria-label="Close" className="absolute right-3 top-3 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-black/55 text-xl font-bold text-white hover:bg-black/75">×</button>
+        <div className="relative aspect-[4/5] w-full bg-[#04190d] sm:aspect-[4/3]">
+          {media.map((url, i) => (
+            <MediaFrame key={url} url={url} title={`NDOVERA flier ${i + 1}`} className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${i === idx ? 'opacity-100' : 'opacity-0'}`} />
+          ))}
+        </div>
+        {ctaUrl ? (
+          <div className="p-4 text-center">
+            <ActionLink to={ctaUrl} className="inline-block rounded-full bg-[#191970] px-8 py-3 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-[#2447d8]">{ctaLabel}</ActionLink>
+          </div>
+        ) : null}
+      </div>
+    </div>
+  );
+}
+
 // Hero background carousel: images slide to the left, auto-advancing. The image
 // is held at ~30% visibility over a dark-green base so white hero text stays bold.
 function HeroSlides({ media }) {
@@ -632,7 +677,7 @@ function HeroSlides({ media }) {
   );
 }
 
-function PublicShell({ section, notice, children }) {
+function PublicShell({ section, notice, children, flier }) {
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const heroStats = Array.isArray(section.metadata.stats) ? section.metadata.stats : [];
@@ -646,6 +691,7 @@ function PublicShell({ section, notice, children }) {
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-white text-[#191970]">
+      <FlierPopup flier={flier} />
       {/* Utility bar */}
       <div className="hidden bg-[#10133a] text-white lg:block">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-8 py-1.5 text-[11px] tracking-wide">
@@ -1479,5 +1525,5 @@ export default function PublicSitePage({ pageKey = 'home' }) {
   if (pageKey === 'events') body = <EventsPageBody section={section} />;
   if (pageKey === 'gallery') body = <GalleryPageBody section={section} />;
 
-  return <PublicShell section={section} notice={error}>{body}</PublicShell>;
+  return <PublicShell section={section} notice={error} flier={normalizeSection('flier', sectionsByKey.flier)}>{body}</PublicShell>;
 }
