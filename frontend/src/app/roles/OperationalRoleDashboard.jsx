@@ -15,6 +15,7 @@ import SchoolNewsroomPage from '../../features/school/components/SchoolNewsroomP
 import SchoolAuditTrailPage from '../../features/school/components/SchoolAuditTrailPage';
 import StaffAiAssistantPage from '../../features/ai/components/StaffAiAssistantPage';
 import AdminLibrary from '../../features/library/AdminLibrary';
+import StoreKeeperPanel from '../../features/school/components/StoreKeeperPanel';
 
 function OperationalLiveWorkspace({ roleTitle, title, subtitle, showAnnouncements = false, children = null }) {
   return (
@@ -68,6 +69,21 @@ export default function OperationalRoleDashboard({ roleKey }) {
       >
         <div className="rounded-3xl p-6 bg-[#b5e3f4] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
           <AdminLibrary />
+        </div>
+      </OperationalLiveWorkspace>
+    );
+  }
+
+  if (roleKey === 'storekeeper' && sectionKey !== 'settings') {
+    return (
+      <OperationalLiveWorkspace
+        roleTitle={roleTitle}
+        title={section.title}
+        subtitle={section.subtitle}
+        showAnnouncements={sectionKey === 'overview'}
+      >
+        <div className="rounded-3xl bg-[#b5e3f4] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
+          <StoreKeeperPanel />
         </div>
       </OperationalLiveWorkspace>
     );

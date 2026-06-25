@@ -299,6 +299,15 @@ export const getDailyAttendanceLog = (date) => req(`/api/school/daily-attendance
 export const getStaffDocuments = () => req('/api/school/staff-documents');
 export const uploadStaffDocument = (file, fields = {}) => uploadFile('/api/school/staff-documents/upload', file, fields);
 export const deleteStaffDocument = (id) => req(`/api/school/staff-documents/${encodeURIComponent(id)}`, { method: 'DELETE' });
+// Store keeper / inventory
+export const getStoreItems = () => req('/api/school/store/items');
+export const saveStoreItem = (data) => req('/api/school/store/items', { method: 'POST', body: data });
+export const deleteStoreItem = (id) => req(`/api/school/store/items/${encodeURIComponent(id)}`, { method: 'DELETE' });
+export const recordStoreMovement = (data) => req('/api/school/store/movement', { method: 'POST', body: data });
+export const getStoreMovements = () => req('/api/school/store/movements');
+export const recordStoreMisplacement = (data) => req('/api/school/store/misplacement', { method: 'POST', body: data });
+export const getStoreSurcharges = () => req('/api/school/store/surcharges');
+export const payStoreSurcharge = (id, amount) => req(`/api/school/store/surcharges/${encodeURIComponent(id)}/pay`, { method: 'POST', body: { amount } });
 export const markStaffAttendance = (data) => req('/api/school/staff-attendance', { method: 'POST', body: data });
 export const getStaffAttendanceColleagues = () => req('/api/school/staff-attendance/colleagues');
 export const getStaffAttendanceSettings = () => req('/api/school/staff-attendance/settings');

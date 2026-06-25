@@ -17921,6 +17921,144 @@ app.delete('/api/school/staff-documents/:id', authenticate, async (c) => {
   return c.json({ success: true })
 })
 
+// ---- Store keeper / inventory module ----
+const STORE_ITEMS_DDL = `CREATE TABLE IF NOT EXISTS store_items (id TEXT PRIMARY KEY, tenant_id TEXT, name TEXT, category TEXT, quantity REAL, unit TEXT, location TEXT, reorder_level REAL, notes TEXT, created_at TEXT, updated_at TEXT)`
+const STORE_MOVEMENTS_DDL = `CREATE TABLE IF NOT EXISTS store_movements (id TEXT PRIMARY KEY, tenant_id TEXT, item_id TEXT, item_name TEXT, type TEXT, quantity REAL, user_id TEXT, user_name TEXT, note TEXT, created_by TEXT, created_at TEXT)`
+const STORE_SURCHARGES_DDL = `CREATE TABLE IF NOT EXISTS store_surcharges (id TEXT PRIMARY KEY, tenant_id TEXT, item_id TEXT, item_name TEXT, user_id TEXT, user_name TEXT, amount REAL, mode TEXT, installments REAL, amount_paid REAL, status TEXT, note TEXT, created_by TEXT, created_at TEXT)`
+let _storeReady = false
+async function ensureStoreTables(db: D1Database) {
+  if (_storeReady) return
+  _storeReady = true
+  await db.prepare(STORE_ITEMS_DDL).run()
+  await db.prepare(STORE_MOVEMENTS_DDL).run()
+  await db.prepare(STORE_SURCHARGES_DDL).run()
+}
+const STORE_ROLES = ['storekeeper', 'owner', 'hos']
+
+app.get('/api/school/store/items', authenticate, async (c) => {
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!hasRequiredRole(c.var.user.role, STORE_ROLES)) return c.json({ error: 'forbidden' }, 403)
+  await ensureStoreTables(c.env.APP_DB)
+  const items = ((await c.env.APP_DB.prepare(`SELECT * FROM store_items WHERE tenant_id = ? ORDER BY name`).bind(tenantId).all()).results || []) as any[]
+  return c.json({ success: true, items: items.map(r => ({ id: r.id, name: r.name, category: r.category || '', quantity: Number(r.quantity || 0), unit: r.unit || '', location: r.location || '', reorderLevel: Number(r.reorder_level || 0), notes: r.notes || '', updatedAt: r.updated_at })) })
+})
+
+app.post('/api/school/store/items', authenticate, async (c) => {
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!hasRequiredRole(c.var.user.role, STORE_ROLES)) return c.json({ error: 'forbidden' }, 403)
+  await ensureStoreTables(c.env.APP_DB)
+  const b = await c.req.json().catch(() => ({}))
+  const name = String(b?.name || '').trim()
+  if (!name) return c.json({ error: 'Item name is required.' }, 400)
+  const now = new Date().toISOString()
+  if (b?.id) {
+    await c.env.APP_DB.prepare(`UPDATE store_items SET name=?, category=?, quantity=?, unit=?, location=?, reorder_level=?, notes=?, updated_at=? WHERE id=? AND tenant_id=?`)
+      .bind(name, String(b.category || ''), Number(b.quantity || 0), String(b.unit || ''), String(b.location || ''), Number(b.reorderLevel || 0), String(b.notes || ''), now, String(b.id), tenantId).run()
+    return c.json({ success: true, id: b.id })
+  }
+  const id = `sitem_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`
+  await c.env.APP_DB.prepare(`INSERT INTO store_items (id, tenant_id, name, category, quantity, unit, location, reorder_level, notes, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
+    .bind(id, tenantId, name, String(b.category || ''), Number(b.quantity || 0), String(b.unit || ''), String(b.location || ''), Number(b.reorderLevel || 0), String(b.notes || ''), now, now).run()
+  return c.json({ success: true, id }, 201)
+})
+
+app.delete('/api/school/store/items/:id', authenticate, async (c) => {
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!hasRequiredRole(c.var.user.role, STORE_ROLES)) return c.json({ error: 'forbidden' }, 403)
+  await ensureStoreTables(c.env.APP_DB)
+  await c.env.APP_DB.prepare(`DELETE FROM store_items WHERE id = ? AND tenant_id = ?`).bind(c.req.param('id'), tenantId).run()
+  return c.json({ success: true })
+})
+
+// Stock movement: in/out/issue/return adjust quantity and log who.
+app.post('/api/school/store/movement', authenticate, async (c) => {
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!hasRequiredRole(c.var.user.role, STORE_ROLES)) return c.json({ error: 'forbidden' }, 403)
+  await ensureStoreTables(c.env.APP_DB)
+  const b = await c.req.json().catch(() => ({}))
+  const itemId = String(b?.itemId || '').trim()
+  const type = String(b?.type || '').trim()
+  const qty = Number(b?.quantity || 0)
+  if (!itemId || !type || qty <= 0) return c.json({ error: 'itemId, type and a positive quantity are required.' }, 400)
+  const item = await c.env.APP_DB.prepare(`SELECT * FROM store_items WHERE id = ? AND tenant_id = ?`).bind(itemId, tenantId).first() as any
+  if (!item) return c.json({ error: 'Item not found.' }, 404)
+  const delta = (type === 'in' || type === 'return') ? qty : -qty
+  const nextQty = Math.max(0, Number(item.quantity || 0) + delta)
+  await c.env.APP_DB.prepare(`UPDATE store_items SET quantity=?, updated_at=? WHERE id=?`).bind(nextQty, new Date().toISOString(), itemId).run()
+  await c.env.APP_DB.prepare(`INSERT INTO store_movements (id, tenant_id, item_id, item_name, type, quantity, user_id, user_name, note, created_by, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
+    .bind(`smov_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`, tenantId, itemId, item.name, type, qty, String(b.userId || ''), String(b.userName || ''), String(b.note || ''), String(c.var.user?.name || ''), new Date().toISOString()).run()
+  return c.json({ success: true, quantity: nextQty })
+})
+
+app.get('/api/school/store/movements', authenticate, async (c) => {
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!hasRequiredRole(c.var.user.role, STORE_ROLES)) return c.json({ error: 'forbidden' }, 403)
+  await ensureStoreTables(c.env.APP_DB)
+  const rows = ((await c.env.APP_DB.prepare(`SELECT * FROM store_movements WHERE tenant_id = ? ORDER BY created_at DESC LIMIT 200`).bind(tenantId).all()).results || []) as any[]
+  return c.json({ success: true, movements: rows.map(r => ({ id: r.id, itemName: r.item_name, type: r.type, quantity: Number(r.quantity || 0), userName: r.user_name || '', note: r.note || '', createdAt: r.created_at })) })
+})
+
+// Misplacement: log it, and either require replacement or raise a salary surcharge.
+app.post('/api/school/store/misplacement', authenticate, async (c) => {
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!hasRequiredRole(c.var.user.role, STORE_ROLES)) return c.json({ error: 'forbidden' }, 403)
+  await ensureStoreTables(c.env.APP_DB)
+  const b = await c.req.json().catch(() => ({}))
+  const itemId = String(b?.itemId || '').trim()
+  const item = await c.env.APP_DB.prepare(`SELECT * FROM store_items WHERE id = ? AND tenant_id = ?`).bind(itemId, tenantId).first() as any
+  if (!item) return c.json({ error: 'Item not found.' }, 404)
+  const resolution = String(b?.resolution || 'replace').trim()
+  const userId = String(b?.userId || '').trim()
+  const userName = String(b?.userName || '').trim()
+  const qty = Number(b?.quantity || 1)
+  await c.env.APP_DB.prepare(`INSERT INTO store_movements (id, tenant_id, item_id, item_name, type, quantity, user_id, user_name, note, created_by, created_at) VALUES (?, ?, ?, ?, 'misplaced', ?, ?, ?, ?, ?, ?)`)
+    .bind(`smov_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`, tenantId, itemId, item.name, qty, userId, userName, String(b.note || ''), String(c.var.user?.name || ''), new Date().toISOString()).run()
+  if (resolution === 'surcharge') {
+    const amount = Number(b?.amount || 0)
+    if (amount <= 0) return c.json({ error: 'A surcharge amount is required.' }, 400)
+    const mode = String(b?.mode || 'once').trim()
+    const id = `ssur_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`
+    await c.env.APP_DB.prepare(`INSERT INTO store_surcharges (id, tenant_id, item_id, item_name, user_id, user_name, amount, mode, installments, amount_paid, status, note, created_by, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 0, 'outstanding', ?, ?, ?)`)
+      .bind(id, tenantId, itemId, item.name, userId, userName, amount, mode, Number(b?.installments || 1), String(b.note || ''), String(c.var.user?.name || ''), new Date().toISOString()).run()
+    return c.json({ success: true, surchargeId: id })
+  }
+  // replace: deduct the misplaced quantity from stock (it is gone until replaced)
+  const nextQty = Math.max(0, Number(item.quantity || 0) - qty)
+  await c.env.APP_DB.prepare(`UPDATE store_items SET quantity=?, updated_at=? WHERE id=?`).bind(nextQty, new Date().toISOString(), itemId).run()
+  return c.json({ success: true })
+})
+
+app.get('/api/school/store/surcharges', authenticate, async (c) => {
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!hasRequiredRole(c.var.user.role, STORE_ROLES)) return c.json({ error: 'forbidden' }, 403)
+  await ensureStoreTables(c.env.APP_DB)
+  const rows = ((await c.env.APP_DB.prepare(`SELECT * FROM store_surcharges WHERE tenant_id = ? ORDER BY created_at DESC`).bind(tenantId).all()).results || []) as any[]
+  return c.json({ success: true, surcharges: rows.map(r => ({ id: r.id, itemName: r.item_name, userName: r.user_name || '', amount: Number(r.amount || 0), mode: r.mode, installments: Number(r.installments || 1), amountPaid: Number(r.amount_paid || 0), status: r.status, note: r.note || '', createdAt: r.created_at })) })
+})
+
+// Record a payment toward a surcharge (replacement done, or salary installment deducted).
+app.post('/api/school/store/surcharges/:id/pay', authenticate, async (c) => {
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!hasRequiredRole(c.var.user.role, STORE_ROLES)) return c.json({ error: 'forbidden' }, 403)
+  await ensureStoreTables(c.env.APP_DB)
+  const id = c.req.param('id')
+  const row = await c.env.APP_DB.prepare(`SELECT * FROM store_surcharges WHERE id = ? AND tenant_id = ?`).bind(id, tenantId).first() as any
+  if (!row) return c.json({ error: 'Not found.' }, 404)
+  const pay = Number((await c.req.json().catch(() => ({})))?.amount || 0)
+  const nextPaid = Math.min(Number(row.amount || 0), Number(row.amount_paid || 0) + (pay > 0 ? pay : Number(row.amount || 0)))
+  const status = nextPaid >= Number(row.amount || 0) ? 'settled' : 'outstanding'
+  await c.env.APP_DB.prepare(`UPDATE store_surcharges SET amount_paid=?, status=? WHERE id=?`).bind(nextPaid, status, id).run()
+  return c.json({ success: true, amountPaid: nextPaid, status })
+})
+
 app.get('/api/school/timetable', authenticate, async (c) => {
   const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
   if (!actor.tenantId) return c.json({ error: 'No tenant.' }, 400)
