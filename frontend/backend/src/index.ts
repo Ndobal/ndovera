@@ -17857,6 +17857,70 @@ function mapTimetableEntry(row: Record<string, any>) {
   }
 }
 
+// ---- Staff shared document library (upload, browse, reuse) ----
+const STAFF_DOCUMENTS_DDL = `CREATE TABLE IF NOT EXISTS staff_documents (id TEXT PRIMARY KEY, tenant_id TEXT, title TEXT, category TEXT, description TEXT, file_url TEXT, file_name TEXT, file_type TEXT, uploaded_by TEXT, uploader_name TEXT, created_at TEXT)`
+let _staffDocsReady = false
+async function ensureStaffDocumentsTable(db: D1Database) {
+  if (_staffDocsReady) return
+  _staffDocsReady = true
+  await db.prepare(STAFF_DOCUMENTS_DDL).run()
+}
+const STAFF_DOC_ROLES = ['owner', 'hos', 'teacher', 'classteacher', 'hod', 'hodassistant', 'principal', 'headteacher', 'nurseryhead', 'examofficer', 'ict', 'ict_manager']
+
+app.get('/api/school/staff-documents', authenticate, async (c) => {
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!hasRequiredRole(c.var.user.role, STAFF_DOC_ROLES)) return c.json({ error: 'forbidden' }, 403)
+  await ensureStaffDocumentsTable(c.env.APP_DB)
+  const rows = await c.env.APP_DB.prepare(`SELECT * FROM staff_documents WHERE tenant_id = ? ORDER BY created_at DESC`).bind(tenantId).all()
+  const documents = ((rows.results || []) as any[]).map(r => ({
+    id: r.id, title: r.title, category: r.category || 'General', description: r.description || '',
+    fileUrl: r.file_url, fileName: r.file_name || '', fileType: r.file_type || '',
+    uploaderName: r.uploader_name || 'Staff', uploadedBy: r.uploaded_by, createdAt: r.created_at,
+  }))
+  return c.json({ success: true, documents })
+})
+
+app.post('/api/school/staff-documents/upload', authenticate, async (c) => {
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!hasRequiredRole(c.var.user.role, STAFF_DOC_ROLES)) return c.json({ error: 'forbidden' }, 403)
+  await ensureStaffDocumentsTable(c.env.APP_DB)
+  const formData = await c.req.formData()
+  const file = formData.get('file') as File
+  const title = String(formData.get('title') || '').trim()
+  const category = String(formData.get('category') || 'General').trim()
+  const description = String(formData.get('description') || '').trim()
+  if (!file) return c.json({ error: 'No file provided.' }, 400)
+  if (!title) return c.json({ error: 'A title is required.' }, 400)
+  try {
+    const ext = (file.name.split('.').pop() || 'bin').toLowerCase()
+    const key = `staff-documents/${tenantId}/${Date.now()}_${Math.random().toString(36).slice(2, 6)}.${ext}`
+    await c.env.UPLOADS.put(key, file.stream(), { httpMetadata: { contentType: file.type || 'application/octet-stream' } })
+    const fileUrl = `https://ndovera.com/files/${key}`
+    const id = `sdoc_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`
+    await c.env.APP_DB.prepare(
+      `INSERT INTO staff_documents (id, tenant_id, title, category, description, file_url, file_name, file_type, uploaded_by, uploader_name, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+    ).bind(id, tenantId, title, category, description, fileUrl, file.name, file.type || ext, String(c.var.user?.email || ''), String(c.var.user?.name || 'Staff'), new Date().toISOString()).run()
+    return c.json({ success: true, id, fileUrl }, 201)
+  } catch {
+    return c.json({ error: 'Upload failed.' }, 500)
+  }
+})
+
+app.delete('/api/school/staff-documents/:id', authenticate, async (c) => {
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  await ensureStaffDocumentsTable(c.env.APP_DB)
+  const id = c.req.param('id')
+  const row = await c.env.APP_DB.prepare(`SELECT * FROM staff_documents WHERE id = ? AND tenant_id = ?`).bind(id, tenantId).first() as any
+  if (!row) return c.json({ success: true })
+  const isOwnerOrHos = hasRequiredRole(c.var.user.role, ['owner', 'hos'])
+  if (!isOwnerOrHos && String(row.uploaded_by || '') !== String(c.var.user?.email || '')) return c.json({ error: 'forbidden' }, 403)
+  await c.env.APP_DB.prepare(`DELETE FROM staff_documents WHERE id = ?`).bind(id).run()
+  return c.json({ success: true })
+})
+
 app.get('/api/school/timetable', authenticate, async (c) => {
   const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
   if (!actor.tenantId) return c.json({ error: 'No tenant.' }, 400)

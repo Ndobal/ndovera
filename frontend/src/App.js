@@ -23,6 +23,7 @@ import AccountantDashboard from './app/roles/AccountantDashboard';
 import AdminDashboard from './app/roles/AdminDashboard';
 import OwnerDashboard from './app/roles/OwnerDashboard';
 import GrowthPartnerDashboard from './app/roles/growthpartner/GrowthPartnerDashboard';
+import StaffDocumentLibrary from './features/school/components/StaffDocumentLibrary';
 import AmiDashboard from './app/roles/AmiDashboard';
 import OperationalRoleDashboard from './app/roles/OperationalRoleDashboard';
 import StudentClassroom from './app/roles/student/StudentClassroom';
@@ -223,10 +224,13 @@ function AnimatedRoutes({ auth, onLogin }) {
         <Route path="/roles/parent/*" element={<RoleGuard auth={auth} expectedRole="parent"><RouteTransition><ParentDashboard /></RouteTransition></RoleGuard>} />
         <Route path="/roles/caregiver/*" element={<RoleGuard auth={auth} expectedRole="caregiver"><RouteTransition><OperationalRoleDashboard roleKey="caregiver" /></RouteTransition></RoleGuard>} />
         <Route path="/roles/teacher/classroom" element={<RoleGuard auth={auth} expectedRole="teacher"><RouteTransition><TeacherClassroom /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/teacher/resources" element={<RoleGuard auth={auth} expectedRole="teacher"><RouteTransition><StaffDocumentLibrary /></RouteTransition></RoleGuard>} />
         <Route path="/roles/teacher/*" element={<RoleGuard auth={auth} expectedRole="teacher"><RouteTransition><TeacherDashboard /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/hos/resources" element={<RoleGuard auth={auth} expectedRole="hos"><RouteTransition><StaffDocumentLibrary /></RouteTransition></RoleGuard>} />
         <Route path="/roles/hos/*" element={<RoleGuard auth={auth} expectedRole="hos"><RouteTransition><HoSDashboard /></RouteTransition></RoleGuard>} />
         <Route path="/roles/admin/*" element={<RoleGuard auth={auth} expectedRole="admin"><RouteTransition><AdminDashboard auth={auth} /></RouteTransition></RoleGuard>} />
         <Route path="/roles/accountant/*" element={<RoleGuard auth={auth} expectedRole="accountant"><RouteTransition><AccountantDashboard /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/owner/resources" element={<RoleGuard auth={auth} expectedRole="owner"><RouteTransition><StaffDocumentLibrary /></RouteTransition></RoleGuard>} />
         <Route path="/roles/owner/*" element={<RoleGuard auth={auth} expectedRole="owner"><RouteTransition><OwnerDashboard auth={auth} /></RouteTransition></RoleGuard>} />
         <Route path="/roles/growthpartner/*" element={<RoleGuard auth={auth} expectedRole="growthpartner"><RouteTransition><GrowthPartnerDashboard /></RouteTransition></RoleGuard>} />
         <Route path="/roles/librarian/*" element={<RoleGuard auth={auth} expectedRole="librarian"><RouteTransition><OperationalRoleDashboard roleKey="librarian" /></RouteTransition></RoleGuard>} />
