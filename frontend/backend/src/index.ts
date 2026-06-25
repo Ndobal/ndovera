@@ -17876,6 +17876,20 @@ app.get('/api/school/timetable', authenticate, async (c) => {
       return c.json({ success: true, entries: ((rows.results || []) as Record<string, any>[]).map(mapTimetableEntry), classId, scope: 'student' })
     }
 
+    if (role === 'parent' || role === 'student_parent') {
+      const linkRow = await c.env.APP_DB.prepare(
+        `SELECT student_id FROM parent_student_links WHERE tenant_id = ? AND (parent_id = ? OR parent_id = ?) ORDER BY created_at DESC LIMIT 1`,
+      ).bind(actor.tenantId, actor.actorId, String(actor.resolvedUser?.userRow?.email || actor.actorId)).first() as Record<string, any> | null
+      if (!linkRow?.student_id) return c.json({ success: true, entries: [], scope: 'parent', classId: '' })
+      const child = await resolveSettingsIdentity(c.env.APP_DB, String(linkRow.student_id))
+      const childClassId = String(child.settings?.classId || '').trim()
+      if (!childClassId) return c.json({ success: true, entries: [], scope: 'parent', classId: '' })
+      const rows = await c.env.APP_DB.prepare(
+        `SELECT * FROM timetable_entries WHERE tenant_id = ? AND class_id = ? ORDER BY day_of_week, period_index`,
+      ).bind(actor.tenantId, childClassId).all()
+      return c.json({ success: true, entries: ((rows.results || []) as Record<string, any>[]).map(mapTimetableEntry), classId: childClassId, scope: 'parent' })
+    }
+
     if ((role === 'teacher' || role === 'classteacher') && (mine || !classId)) {
       const rows = await c.env.APP_DB.prepare(
         `SELECT * FROM timetable_entries WHERE tenant_id = ? AND teacher_id = ? ORDER BY day_of_week, period_index`

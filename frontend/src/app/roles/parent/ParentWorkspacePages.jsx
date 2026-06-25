@@ -316,6 +316,7 @@ export function ParentOverviewPage() {
               {[
                 { label: 'View Materials', to: '/roles/parent/materials' },
                 { label: 'Check Assignments', to: '/roles/parent/assignments' },
+                { label: 'Class Timetable', to: '/roles/parent/timetable' },
                 { label: 'Open Results', to: '/roles/parent/results' },
                 { label: 'Review Fees', to: '/roles/parent/fees' },
                 { label: 'Open Messaging', to: '/roles/parent/messaging' },
