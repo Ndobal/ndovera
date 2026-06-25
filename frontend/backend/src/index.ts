@@ -14661,6 +14661,123 @@ app.post('/api/results/publish', authenticate, async (c) => {
   return c.json({ success: true, batch: publishedBatch, publishedCount: publications.length })
 })
 
+// ─── Background bulk results distribution (cron chunk processor) ──────────────
+const BULK_RESULTS_JOBS_DDL = `CREATE TABLE IF NOT EXISTS bulk_results_jobs (id TEXT PRIMARY KEY, tenant_id TEXT, session_name TEXT, term_name TEXT, class_ids_json TEXT, status TEXT, total INTEGER, cursor INTEGER, published_count INTEGER, failed_count INTEGER, errors_json TEXT, message TEXT, actor_name TEXT, created_by TEXT, created_at TEXT, updated_at TEXT)`
+let _bulkResultsReady = false
+async function ensureBulkResultsJobsTable(db: D1Database) {
+  if (_bulkResultsReady) return
+  _bulkResultsReady = true
+  await db.prepare(BULK_RESULTS_JOBS_DDL).run()
+}
+
+// Publish one class's results without a request context (used by the cron job).
+async function publishClassResultsBackground(env: Bindings, tenantId: string, classId: string, sessionInput: string, termInput: string, actorName: string): Promise<number> {
+  const classRow = await env.APP_DB.prepare(`SELECT id, name, arm FROM classes WHERE id = ? AND tenantId = ?`).bind(classId, tenantId).first() as any
+  if (!classRow) throw new Error('Class not found')
+  const period = await resolveCurrentResultPeriod(env.APP_DB, tenantId, sessionInput, termInput)
+  await ensureSessionTermExists(env.APP_DB, tenantId, period.sessionName, period.termName)
+  const tenant = await getTenantById(env.APP_DB, tenantId)
+  const tenantBranding = await getTenantSchoolBranding(env.APP_DB, tenant)
+  const storedSettings = await getResultSettings(env.APP_DB, tenantId)
+  const settings = attachTenantBrandingToResultSettings({ ...storedSettings, ...normalizeResultSettingsInput(storedSettings) }, tenantBranding)
+  const configErr = validateResultSettings(settings)
+  if (configErr) throw new Error(configErr)
+  const batch = await getResultBatch(env.APP_DB, tenantId, classId, period.sessionName, period.termName)
+  const [entries, profiles, students] = await Promise.all([
+    listResultEntries(env.APP_DB, batch.id),
+    listResultStudentProfiles(env.APP_DB, batch.id),
+    listResultClassStudents(env.APP_DB, tenantId, classRow),
+  ])
+  if (!entries.length) throw new Error('No CA score rows for this class')
+  const publications = buildPublishedResultPayloads({
+    students, entries, profiles, settings,
+    batch: { ...batch, sessionName: period.sessionName, termName: period.termName },
+    className: `${classRow.name}${classRow.arm ? ` ${classRow.arm}` : ''}`, actorName,
+  })
+  if (!publications.length) throw new Error('No publishable results generated')
+  await saveResultPublications(env.APP_DB, { tenantId, classId, sessionName: period.sessionName, termName: period.termName, actorId: '', templateKey: settings.templateKey, settingsSnapshot: settings, publications })
+  return publications.length
+}
+
+async function runBulkResultsJobChunk(env: Bindings, job: any): Promise<any> {
+  const classIds = (() => { try { return JSON.parse(job.class_ids_json || '[]') } catch { return [] } })() as string[]
+  const start = Number(job.cursor || 0)
+  const end = Math.min(start + 3, classIds.length)
+  let published = Number(job.published_count || 0)
+  let failed = Number(job.failed_count || 0)
+  const errors = (() => { try { return JSON.parse(job.errors_json || '[]') } catch { return [] } })() as any[]
+  for (let i = start; i < end; i += 1) {
+    try {
+      const n = await publishClassResultsBackground(env, String(job.tenant_id), classIds[i], job.session_name, job.term_name, job.actor_name || '')
+      published += n
+    } catch (err) {
+      failed += 1
+      if (errors.length < 200) errors.push({ classId: classIds[i], error: err instanceof Error ? err.message : 'error' })
+    }
+  }
+  const done = end >= classIds.length
+  const status = done ? 'done' : 'processing'
+  const message = done ? `Distribution complete: ${published} student results published across ${classIds.length - failed} classes, ${failed} classes failed.` : `Distributing… ${end}/${classIds.length} classes`
+  await env.APP_DB.prepare(`UPDATE bulk_results_jobs SET status=?, cursor=?, published_count=?, failed_count=?, errors_json=?, message=?, updated_at=? WHERE id=?`)
+    .bind(status, end, published, failed, JSON.stringify(errors.slice(0, 200)), message, new Date().toISOString(), job.id).run()
+  return { ...job, status, cursor: end, published_count: published, failed_count: failed, errors_json: JSON.stringify(errors) }
+}
+
+async function runDueBulkResultsJobs(env: Bindings) {
+  await ensureBulkResultsJobsTable(env.APP_DB)
+  let job = await env.APP_DB.prepare(`SELECT * FROM bulk_results_jobs WHERE status IN ('pending','processing') ORDER BY created_at ASC LIMIT 1`).first() as any
+  for (let k = 0; k < 3 && job && (job.status === 'pending' || job.status === 'processing'); k += 1) {
+    job = await runBulkResultsJobChunk(env, job)
+  }
+}
+
+app.post('/api/results/bulk-publish', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, RESULT_APPROVER_ROLES)) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  await ensureBulkResultsJobsTable(c.env.APP_DB)
+  const body = await c.req.json().catch(() => ({}))
+  let classIds: string[] = Array.isArray(body?.classIds) ? body.classIds.map((v: any) => String(v || '').trim()).filter(Boolean) : []
+  if (!classIds.length) {
+    const rows = ((await c.env.APP_DB.prepare(`SELECT id FROM classes WHERE tenantId = ?`).bind(tenantId).all()).results || []) as any[]
+    classIds = rows.map(r => String(r.id))
+  }
+  if (!classIds.length) return c.json({ error: 'No classes to publish.' }, 400)
+  const jobId = `brj_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`
+  const now = new Date().toISOString()
+  await c.env.APP_DB.prepare(`INSERT INTO bulk_results_jobs (id, tenant_id, session_name, term_name, class_ids_json, status, total, cursor, published_count, failed_count, errors_json, message, actor_name, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, 'pending', ?, 0, 0, 0, '[]', 'Queued — distributing results in the background.', ?, ?, ?, ?)`)
+    .bind(jobId, tenantId, String(body?.session || body?.sessionName || ''), String(body?.term || body?.termName || ''), JSON.stringify(classIds), classIds.length, String(c.var.user?.name || ''), String(c.var.user?.name || ''), now, now).run()
+  c.executionCtx?.waitUntil?.(runDueBulkResultsJobs(c.env).catch(() => {}))
+  return c.json({ success: true, jobId, total: classIds.length, message: 'Results are being distributed to students in the background — you can leave this page.' }, 201)
+})
+
+app.get('/api/results/bulk-jobs', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, RESULT_APPROVER_ROLES)) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  await ensureBulkResultsJobsTable(c.env.APP_DB)
+  const rows = ((await c.env.APP_DB.prepare(`SELECT * FROM bulk_results_jobs WHERE tenant_id = ? ORDER BY created_at DESC LIMIT 10`).bind(tenantId).all()).results || []) as any[]
+  return c.json({ success: true, jobs: rows.map(j => ({ id: j.id, status: j.status, total: Number(j.total || 0), processed: Number(j.cursor || 0), published: Number(j.published_count || 0), failed: Number(j.failed_count || 0), message: j.message || '', createdAt: j.created_at, errors: (() => { try { return JSON.parse(j.errors_json || '[]') } catch { return [] } })() })) })
+})
+
+app.post('/api/results/bulk-jobs/:id/retry', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, RESULT_APPROVER_ROLES)) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  await ensureBulkResultsJobsTable(c.env.APP_DB)
+  const job = await c.env.APP_DB.prepare(`SELECT * FROM bulk_results_jobs WHERE id = ? AND tenant_id = ?`).bind(c.req.param('id'), tenantId).first() as any
+  if (!job) return c.json({ error: 'Job not found.' }, 404)
+  const errors = (() => { try { return JSON.parse(job.errors_json || '[]') } catch { return [] } })() as any[]
+  const failedClassIds = errors.map(e => String(e.classId || '')).filter(Boolean)
+  if (!failedClassIds.length) return c.json({ error: 'No failed classes to retry.' }, 400)
+  const jobId = `brj_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`
+  const now = new Date().toISOString()
+  await c.env.APP_DB.prepare(`INSERT INTO bulk_results_jobs (id, tenant_id, session_name, term_name, class_ids_json, status, total, cursor, published_count, failed_count, errors_json, message, actor_name, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, 'pending', ?, 0, 0, 0, '[]', 'Retrying failed classes…', ?, ?, ?, ?)`)
+    .bind(jobId, tenantId, job.session_name, job.term_name, JSON.stringify(failedClassIds), failedClassIds.length, job.actor_name || '', String(c.var.user?.name || ''), now, now).run()
+  c.executionCtx?.waitUntil?.(runDueBulkResultsJobs(c.env).catch(() => {}))
+  return c.json({ success: true, jobId, total: failedClassIds.length })
+})
+
 app.get('/api/results/overview', authenticate, async (c) => {
   const { tenant } = await resolveTenantForActor(c)
   if (!tenant) return c.json({ error: 'Tenant not found.' }, 404)
@@ -19830,9 +19947,10 @@ app.delete('/api/question-bank/:id', authenticate, async (c) => {
 })
 
 export default {
-  // Cron-driven background job processor (bulk people import, etc.).
+  // Cron-driven background job processor (bulk people import, results distribution).
   async scheduled(_event: ScheduledEvent, env: Bindings, ctx: ExecutionContext): Promise<void> {
     ctx.waitUntil(runDueBulkPeopleJobs(env).catch(() => {}))
+    ctx.waitUntil(runDueBulkResultsJobs(env).catch(() => {}))
   },
   async fetch(request: Request, env: Bindings, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url)

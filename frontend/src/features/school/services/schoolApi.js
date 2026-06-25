@@ -370,6 +370,9 @@ export const saveResultEntries = (data) => req('/api/results/entries', { method:
 export const saveResultProfiles = (data) => req('/api/results/profiles', { method: 'POST', body: data });
 export const updateResultBatchStatus = (data) => req('/api/results/batch-status', { method: 'POST', body: data });
 export const publishResultBatch = (data) => req('/api/results/publish', { method: 'POST', body: data });
+export const bulkPublishResults = (data = {}) => req('/api/results/bulk-publish', { method: 'POST', body: data });
+export const getResultsBulkJobs = () => req('/api/results/bulk-jobs');
+export const retryResultsBulkJob = (id) => req(`/api/results/bulk-jobs/${encodeURIComponent(id)}/retry`, { method: 'POST' });
 export const getResultOverview = () => req('/api/results/overview');
 export const getResultRecords = (studentId = '') => req(`/api/results/records${buildQuery(studentId ? { studentId } : {})}`);
 

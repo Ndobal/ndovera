@@ -10,6 +10,7 @@ import {
 import BroadsheetTable from './BroadsheetTable';
 import OldStudentCodesUpload from './OldStudentCodesUpload';
 import ResultSettingsPanel from './ResultSettingsPanel';
+import ResultsDistributeBanner from './ResultsDistributeBanner';
 import {
   RESULT_BODY,
   RESULT_BUTTON,
@@ -394,6 +395,8 @@ export default function ResultAdminConsole({ analyticsMode = 'hos', roleTitle = 
           <div className={`${RESULT_INNER_SURFACE} p-4`}><p className={`micro-label ${RESULT_LABEL}`}>At Risk</p><p className={`text-2xl command-title mt-2 ${RESULT_HEADING}`}>{Number(data?.atRiskCount || 0)}</p></div>
         </div>
       </section>
+
+      <ResultsDistributeBanner session={selectedBatch?.sessionName || ''} term={selectedBatch?.termName || ''} />
 
       {error && <section className={`${RESULT_SURFACE} p-6 text-sm text-[#800020] dark:text-[#ffffff] border-rose-300/30 bg-rose-200/65 dark:bg-[#800000]/70`}>{error}</section>}
       {message && <section className={`${RESULT_SURFACE} p-6 text-sm text-[#1a5c38] dark:text-[#00ffff] border-emerald-300/30 bg-emerald-100/70 dark:bg-[#800000]/70`}>{message}</section>}
