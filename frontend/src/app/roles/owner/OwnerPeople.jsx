@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import {
   getPeople, addPerson, bulkImportPeople, deactivatePerson, updatePersonRole,
   getClasses, getParents, getUserProfile, updateUserProfile, linkParentStudent, getMyTenant,
-  resetPassword,
+  resetPassword, uploadBulkPeople, getBulkPeopleJobs, retryBulkPeopleJob,
 } from '../../../features/school/services/schoolApi';
 import StudentProfilePage from '../../../features/students/components/StudentProfilePage';
 
@@ -566,11 +566,11 @@ function AddPersonModal({ onClose, onAdd }) {
 const DEFAULT_PASSWORD = 'abcABC@123';
 
 // ─── CSV template columns ─────────────────────────────────────────────────────
-const CSV_HEADERS = ['name', 'email', 'role', 'password', 'className'];
+const CSV_HEADERS = ['name', 'email', 'role', 'password', 'className', 'parentName', 'parentPhone', 'parentEmail'];
 const CSV_EXAMPLE_ROWS = [
-  ['John Doe', 'john.doe@school.com', 'teacher', '', ''],
-  ['Jane Smith', 'jane.smith@school.com', 'student', '', 'JSS 1A'],
-  ['Mark Brown', 'mark.brown@school.com', 'parent', '', ''],
+  ['John Doe', 'john.doe@school.com', 'teacher', '', '', '', '', ''],
+  ['Jane Smith', 'jane.smith@school.com', 'student', '', 'JSS 1A', 'Mary Smith', '08012345678', 'mary.smith@mail.com'],
+  ['Mark Brown', 'mark.brown@school.com', 'parent', '', '', '', '', ''],
 ];
 
 function parseCsv(text) {
@@ -624,16 +624,8 @@ function BulkImportModal({ onClose, onDone }) {
     if (!rows.length) return;
     setImporting(true);
     try {
-      const chunks = [];
-      for (let index = 0; index < rows.length; index += 250) {
-        chunks.push(rows.slice(index, index + 250));
-      }
-      const mergedResults = [];
-      for (const chunk of chunks) {
-        const data = await bulkImportPeople(chunk);
-        mergedResults.push(...(data.results || []));
-      }
-      setResults(mergedResults);
+      const data = await uploadBulkPeople(rows);
+      setResults({ background: true, total: data.total || rows.length, message: data.message || 'People are being added in the background.' });
       onDone();
     } catch (err) {
       setParseError(err.message);
@@ -641,9 +633,6 @@ function BulkImportModal({ onClose, onDone }) {
       setImporting(false);
     }
   }
-
-  const okCount = results ? results.filter(r => r.status === 'ok').length : 0;
-  const errCount = results ? results.filter(r => r.status === 'error').length : 0;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40" onClick={onClose}>
@@ -706,11 +695,9 @@ function BulkImportModal({ onClose, onDone }) {
 
           {/* Results */}
           {results && (
-            <div className="space-y-2">
-              <p className="text-sm font-bold text-[#800000] dark:text-slate-100">Import complete: {okCount} added, {errCount} failed.</p>
-              {results.filter(r => r.status === 'error').map((r, i) => (
-                <p key={i} className="text-xs text-red-600">✗ {r.email}: {r.error}</p>
-              ))}
+            <div className="rounded-2xl bg-emerald-50 dark:bg-emerald-950/30 p-4">
+              <p className="text-sm font-bold text-emerald-700 dark:text-emerald-300">✓ {results.total} rows uploaded</p>
+              <p className="mt-1 text-xs text-[#191970] dark:text-slate-300">{results.message} You can close this and leave the page — a progress banner on the People page will show when it's done, and any failed rows can be retried.</p>
             </div>
           )}
 
@@ -902,6 +889,61 @@ function PersonCard({ person: p, isAdmin, subdomain, onViewProfile, onDeactivate
   );
 }
 
+// Persistent banner for background bulk-import jobs: polls status, shows progress
+// (survives leaving/returning to the page), and offers retry for failed rows.
+function BulkJobBanner() {
+  const [jobs, setJobs] = useState([]);
+
+  useEffect(() => {
+    let active = true;
+    async function load() {
+      try { const d = await getBulkPeopleJobs(); if (active) setJobs(d.jobs || []); } catch { /* ignore */ }
+    }
+    load();
+    const t = setInterval(load, 5000);
+    return () => { active = false; clearInterval(t); };
+  }, []);
+
+  const recent = jobs.filter(j => {
+    if (j.status === 'pending' || j.status === 'processing') return true;
+    const age = Date.now() - new Date(j.createdAt || 0).getTime();
+    return age < 1000 * 60 * 60 * 24; // keep finished jobs visible for 24h
+  }).slice(0, 2);
+
+  if (!recent.length) return null;
+
+  async function retry(id) {
+    try { await retryBulkPeopleJob(id); } catch { /* ignore */ }
+  }
+
+  return (
+    <div className="space-y-2">
+      {recent.map(job => {
+        const active = job.status === 'pending' || job.status === 'processing';
+        const pct = job.total ? Math.min(100, Math.round((job.processed / job.total) * 100)) : 0;
+        return (
+          <div key={job.id} className="rounded-2xl border border-[#c9a96e]/40 bg-[#ade1f4] dark:bg-slate-800 p-4">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <p className="text-sm font-bold text-[#191970] dark:text-slate-100">
+                {active ? '⏳ Bulk import in progress' : job.failed > 0 ? '⚠️ Bulk import finished with some failures' : '✓ Bulk import complete'} — {job.message}
+              </p>
+              {!active && job.failed > 0 ? (
+                <button onClick={() => retry(job.id)} className="shrink-0 rounded-xl bg-[#800020] px-3 py-1.5 text-xs font-bold text-white">Retry {job.failed} failed</button>
+              ) : null}
+            </div>
+            {active ? (
+              <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-white/50">
+                <div className="h-full bg-[#1a5c38] transition-all duration-500" style={{ width: `${pct}%` }} />
+              </div>
+            ) : null}
+            <p className="mt-1 text-xs text-[#4a5578] dark:text-slate-400">{job.processed}/{job.total} processed · {job.created} added · {job.skipped} skipped · {job.linked} parents linked · {job.failed} failed</p>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 export default function OwnerPeople() {
   const [people, setPeople] = useState([]);
   const [filter, setFilter] = useState('All');
@@ -1001,6 +1043,8 @@ export default function OwnerPeople() {
           <button onClick={() => setShowAdd(true)} aria-label="Add person" className="h-12 w-12 flex items-center justify-center bg-[#1a5c38] hover:bg-[#154a2e] text-[#b5e3f4] font-bold rounded-2xl text-2xl leading-none transition-colors">+</button>
         </div>
       </div>
+
+      <BulkJobBanner />
 
       {/* Search + filter row */}
       <div className="flex flex-col sm:flex-row gap-3">

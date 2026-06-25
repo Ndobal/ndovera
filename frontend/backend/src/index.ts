@@ -12029,6 +12029,196 @@ app.post('/api/people/bulk', authenticate, async (c) => {
   return c.json({ results })
 })
 
+// ─── Background bulk people import (R2 + cron chunk processor) ────────────────
+const BULK_PEOPLE_JOBS_DDL = `CREATE TABLE IF NOT EXISTS bulk_people_jobs (id TEXT PRIMARY KEY, tenant_id TEXT, r2_key TEXT, status TEXT, total INTEGER, cursor INTEGER, created_count INTEGER, skipped_count INTEGER, linked_count INTEGER, failed_count INTEGER, errors_json TEXT, message TEXT, created_by TEXT, created_at TEXT, updated_at TEXT)`
+let _bulkJobsReady = false
+async function ensureBulkPeopleJobsTable(db: D1Database) {
+  if (_bulkJobsReady) return
+  _bulkJobsReady = true
+  await db.prepare(BULK_PEOPLE_JOBS_DDL).run()
+}
+const BULK_PEOPLE_BATCH = 100
+
+// Create or skip a person, and create/link the parent. Skips re-creating an
+// existing person but still ensures the parent link (second-upload behaviour).
+async function processBulkPeopleRow(env: Bindings, tenantId: string, row: any, classLookup: Map<string, any>): Promise<{ created: boolean; linked: boolean }> {
+  const name = String(row?.name || '').trim()
+  const email = String(row?.email || '').trim().toLowerCase()
+  if (!name || !email) throw new Error('name and email are required')
+  const normalizedRole = normalizeRole(String(row?.role || 'student').trim() || 'student')
+  if (normalizedRole === 'owner') throw new Error('owner cannot be imported')
+
+  const existingSettings = await getSettings(env.APP_DB, email).catch(() => null)
+  const isNew = !existingSettings
+  let actualUserId = ''
+
+  if (isNew) {
+    const userId = createUserId()
+    const mergedRoles = parseRoleList(undefined, row?.roles, normalizedRole)
+    const primaryRole = mergedRoles[0] || normalizedRole
+    const displayId = await generateDisplayId(env.APP_DB, getDisplayIdConfig(primaryRole))
+    let selectedClass: any = null
+    if (normalizedRole === 'student') {
+      const classIdKey = String(row?.classId || '').trim().toLowerCase()
+      const classNameKey = String(row?.className || '').trim().toLowerCase()
+      selectedClass = classLookup.get(`id:${classIdKey}`) || classLookup.get(`name:${classNameKey}`) || null
+    }
+    const userSettings = await withHashedPassword({
+      email, name, role: primaryRole, primaryRole, roles: mergedRoles, tenantId, schoolId: tenantId,
+      status: 'active', mustChangePassword: true, displayId,
+      employmentCategory: deriveEmploymentCategory(primaryRole, undefined, mergedRoles),
+      ...(selectedClass ? { classId: selectedClass.id, className: selectedClass.name, classArm: selectedClass.arm } : {}),
+    }, String(row?.password || 'abcABC@123'))
+    await env.APP_DB.prepare(
+      `INSERT INTO users (id, email, name, role, primary_role, employment_category, tenantId, status, createdAt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) ON CONFLICT(email) DO UPDATE SET name=excluded.name, status='active'`,
+    ).bind(userId, email, name, primaryRole, primaryRole, deriveEmploymentCategory(primaryRole, undefined, mergedRoles), tenantId, 'active', new Date().toISOString()).run()
+    const saved = await env.APP_DB.prepare(`SELECT id FROM users WHERE email = ?`).bind(email).first() as any
+    actualUserId = String(saved?.id || userId)
+    const nextSettings = await ensureStudentPublicId(env.APP_DB, { tenantId, userId: actualUserId, settingsKey: email, settings: userSettings }) || userSettings
+    await upsertSettings(env.APP_DB, email, nextSettings)
+    await syncUserRoleRecords(env.APP_DB, { tenantId, userId: actualUserId, primaryRole, roles: mergedRoles })
+  } else {
+    const saved = await env.APP_DB.prepare(`SELECT id FROM users WHERE email = ?`).bind(email).first() as any
+    actualUserId = String(saved?.id || '')
+  }
+
+  let linked = false
+  const parentEmail = String(row?.parentEmail || '').trim().toLowerCase()
+  const parentName = String(row?.parentName || '').trim()
+  if (normalizedRole === 'student' && parentEmail && parentName && actualUserId) {
+    await ensureParentStudentLinksTable(env.APP_DB)
+    let parentId = String(((await env.APP_DB.prepare(`SELECT id FROM users WHERE email = ?`).bind(parentEmail).first()) as any)?.id || '')
+    if (!parentId) {
+      const parentUserId = createUserId()
+      const existingParentSettings = await getSettings(env.APP_DB, parentEmail).catch(() => null)
+      const parentDisplayId = existingParentSettings?.displayId || await generateDisplayId(env.APP_DB, getDisplayIdConfig('parent'))
+      const parentSettings = await withHashedPassword({
+        ...(existingParentSettings || {}), email: parentEmail, name: parentName, role: 'parent', primaryRole: 'parent',
+        tenantId, schoolId: tenantId, status: 'active', mustChangePassword: true, displayId: parentDisplayId,
+        phone: row?.parentPhone || null, employmentCategory: deriveEmploymentCategory('parent'),
+      }, 'abcABC@123')
+      await env.APP_DB.prepare(
+        `INSERT INTO users (id, email, name, role, primary_role, employment_category, tenantId, status, createdAt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) ON CONFLICT(email) DO UPDATE SET name=excluded.name, status='active'`,
+      ).bind(parentUserId, parentEmail, parentName, 'parent', 'parent', deriveEmploymentCategory('parent'), tenantId, 'active', new Date().toISOString()).run()
+      await upsertSettings(env.APP_DB, parentEmail, parentSettings)
+      parentId = String(((await env.APP_DB.prepare(`SELECT id FROM users WHERE email = ?`).bind(parentEmail).first()) as any)?.id || parentUserId)
+      await syncUserRoleRecords(env.APP_DB, { tenantId, userId: parentId, primaryRole: 'parent', roles: ['parent'] })
+    }
+    if (parentId) {
+      await env.APP_DB.prepare(`INSERT OR IGNORE INTO parent_student_links (id, parent_id, student_id, tenant_id, created_at) VALUES (?, ?, ?, ?, ?)`)
+        .bind(`link_${Date.now()}_${Math.random().toString(36).slice(2, 5)}`, parentId, actualUserId, tenantId, new Date().toISOString()).run()
+      linked = true
+    }
+  }
+  return { created: isNew, linked }
+}
+
+// Process one chunk of a job; returns the updated job row.
+async function runBulkPeopleJobChunk(env: Bindings, job: any): Promise<any> {
+  const obj = await env.UPLOADS.get(String(job.r2_key))
+  if (!obj) {
+    await env.APP_DB.prepare(`UPDATE bulk_people_jobs SET status='failed', message=?, updated_at=? WHERE id=?`).bind('Upload data not found.', new Date().toISOString(), job.id).run()
+    return { ...job, status: 'failed' }
+  }
+  const rows = JSON.parse(await obj.text()) as any[]
+  const tenantId = String(job.tenant_id)
+  const start = Number(job.cursor || 0)
+  const end = Math.min(start + BULK_PEOPLE_BATCH, rows.length)
+
+  const classRows = await env.APP_DB.prepare(`SELECT id, name, arm FROM classes WHERE tenantId = ?`).bind(tenantId).all().catch(() => ({ results: [] }))
+  const classLookup = new Map<string, any>()
+  for (const cr of ((classRows.results || []) as any[])) {
+    if (cr.id) classLookup.set(`id:${String(cr.id).toLowerCase()}`, cr)
+    if (cr.name) classLookup.set(`name:${String(cr.name).toLowerCase()}`, cr)
+    if (cr.name && cr.arm) classLookup.set(`name:${`${cr.name} ${cr.arm}`.toLowerCase()}`, cr)
+  }
+
+  let created = Number(job.created_count || 0)
+  let skipped = Number(job.skipped_count || 0)
+  let linked = Number(job.linked_count || 0)
+  let failed = Number(job.failed_count || 0)
+  const errors = (() => { try { return JSON.parse(job.errors_json || '[]') } catch { return [] } })() as any[]
+
+  for (let i = start; i < end; i += 1) {
+    try {
+      const r = await processBulkPeopleRow(env, tenantId, rows[i], classLookup)
+      if (r.created) created += 1; else skipped += 1
+      if (r.linked) linked += 1
+    } catch (err) {
+      failed += 1
+      if (errors.length < 200) errors.push({ row: i, email: rows[i]?.email || '', error: err instanceof Error ? err.message : 'error' })
+    }
+  }
+
+  const done = end >= rows.length
+  const status = done ? 'done' : 'processing'
+  const message = done ? `Import complete: ${created} added, ${skipped} skipped, ${linked} parents linked, ${failed} failed.` : `Importing… ${end}/${rows.length}`
+  await env.APP_DB.prepare(`UPDATE bulk_people_jobs SET status=?, cursor=?, created_count=?, skipped_count=?, linked_count=?, failed_count=?, errors_json=?, message=?, updated_at=? WHERE id=?`)
+    .bind(status, end, created, skipped, linked, failed, JSON.stringify(errors.slice(0, 200)), message, new Date().toISOString(), job.id).run()
+  return { ...job, status, cursor: end, created_count: created, skipped_count: skipped, linked_count: linked, failed_count: failed, errors_json: JSON.stringify(errors) }
+}
+
+async function runDueBulkPeopleJobs(env: Bindings) {
+  await ensureBulkPeopleJobsTable(env.APP_DB)
+  let job = await env.APP_DB.prepare(`SELECT * FROM bulk_people_jobs WHERE status IN ('pending','processing') ORDER BY created_at ASC LIMIT 1`).first() as any
+  for (let k = 0; k < 4 && job && (job.status === 'pending' || job.status === 'processing'); k += 1) {
+    job = await runBulkPeopleJobChunk(env, job)
+  }
+}
+
+app.post('/api/people/bulk-upload', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos', 'ict', 'ict_manager'])) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  await ensureBulkPeopleJobsTable(c.env.APP_DB)
+  const body = await c.req.json().catch(() => ({}))
+  const rows = Array.isArray(body?.rows) ? body.rows : []
+  if (!rows.length) return c.json({ error: 'No rows provided.' }, 400)
+  if (rows.length > 1000000) return c.json({ error: 'Maximum 1,000,000 rows per upload.' }, 400)
+  const jobId = `bpj_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`
+  const key = `bulk-people/${tenantId}/${jobId}.json`
+  await c.env.UPLOADS.put(key, JSON.stringify(rows), { httpMetadata: { contentType: 'application/json' } })
+  const now = new Date().toISOString()
+  await c.env.APP_DB.prepare(`INSERT INTO bulk_people_jobs (id, tenant_id, r2_key, status, total, cursor, created_count, skipped_count, linked_count, failed_count, errors_json, message, created_by, created_at, updated_at) VALUES (?, ?, ?, 'pending', ?, 0, 0, 0, 0, 0, '[]', 'Queued — processing will begin shortly.', ?, ?, ?)`)
+    .bind(jobId, tenantId, key, rows.length, String(c.var.user?.name || ''), now, now).run()
+  // Kick off the first chunk immediately so progress shows right away.
+  c.executionCtx?.waitUntil?.(runDueBulkPeopleJobs(c.env).catch(() => {}))
+  return c.json({ success: true, jobId, total: rows.length, message: 'Upload received. People are being added in the background — you can leave this page.' }, 201)
+})
+
+app.get('/api/people/bulk-jobs', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos', 'ict', 'ict_manager'])) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  await ensureBulkPeopleJobsTable(c.env.APP_DB)
+  const rows = ((await c.env.APP_DB.prepare(`SELECT * FROM bulk_people_jobs WHERE tenant_id = ? ORDER BY created_at DESC LIMIT 15`).bind(tenantId).all()).results || []) as any[]
+  return c.json({ success: true, jobs: rows.map(j => ({ id: j.id, status: j.status, total: Number(j.total || 0), processed: Number(j.cursor || 0), created: Number(j.created_count || 0), skipped: Number(j.skipped_count || 0), linked: Number(j.linked_count || 0), failed: Number(j.failed_count || 0), message: j.message || '', createdAt: j.created_at, errors: (() => { try { return JSON.parse(j.errors_json || '[]') } catch { return [] } })() })) })
+})
+
+app.post('/api/people/bulk-jobs/:id/retry', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos', 'ict', 'ict_manager'])) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  await ensureBulkPeopleJobsTable(c.env.APP_DB)
+  const job = await c.env.APP_DB.prepare(`SELECT * FROM bulk_people_jobs WHERE id = ? AND tenant_id = ?`).bind(c.req.param('id'), tenantId).first() as any
+  if (!job) return c.json({ error: 'Job not found.' }, 404)
+  const errors = (() => { try { return JSON.parse(job.errors_json || '[]') } catch { return [] } })() as any[]
+  if (!errors.length) return c.json({ error: 'No failed rows to retry.' }, 400)
+  const obj = await c.env.UPLOADS.get(String(job.r2_key))
+  if (!obj) return c.json({ error: 'Original upload data not found.' }, 404)
+  const allRows = JSON.parse(await obj.text()) as any[]
+  const failedRows = errors.map(e => allRows[e.row]).filter(Boolean)
+  if (!failedRows.length) return c.json({ error: 'No failed rows to retry.' }, 400)
+  const jobId = `bpj_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`
+  const key = `bulk-people/${tenantId}/${jobId}.json`
+  await c.env.UPLOADS.put(key, JSON.stringify(failedRows), { httpMetadata: { contentType: 'application/json' } })
+  const now = new Date().toISOString()
+  await c.env.APP_DB.prepare(`INSERT INTO bulk_people_jobs (id, tenant_id, r2_key, status, total, cursor, created_count, skipped_count, linked_count, failed_count, errors_json, message, created_by, created_at, updated_at) VALUES (?, ?, ?, 'pending', ?, 0, 0, 0, 0, 0, '[]', 'Retrying failed rows…', ?, ?, ?)`)
+    .bind(jobId, tenantId, key, failedRows.length, String(c.var.user?.name || ''), now, now).run()
+  c.executionCtx?.waitUntil?.(runDueBulkPeopleJobs(c.env).catch(() => {}))
+  return c.json({ success: true, jobId, total: failedRows.length })
+})
+
 app.delete('/api/people/:userId', authenticate, async (c) => {
   if (!hasRequiredRole(c.var.user.role, ['owner', 'hos', 'ict', 'ict_manager'])) return c.json({ error: 'forbidden' }, 403)
   const tenantId = c.var.user?.tenantId
@@ -19640,6 +19830,10 @@ app.delete('/api/question-bank/:id', authenticate, async (c) => {
 })
 
 export default {
+  // Cron-driven background job processor (bulk people import, etc.).
+  async scheduled(_event: ScheduledEvent, env: Bindings, ctx: ExecutionContext): Promise<void> {
+    ctx.waitUntil(runDueBulkPeopleJobs(env).catch(() => {}))
+  },
   async fetch(request: Request, env: Bindings, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url)
     const hostname = normalizeHostname(url.hostname)
