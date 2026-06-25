@@ -12,8 +12,9 @@ import {
 } from '../../../features/school/services/schoolApi';
 import SchoolCalendarBoard from '../../../features/school/components/SchoolCalendarBoard';
 import TimetableBoard from '../../../features/school/components/TimetableBoard';
+import DailyAttendanceLog from '../../../features/attendance/components/DailyAttendanceLog';
 
-const TABS = ['Staff Attendance', 'Student Attendance', 'School Calendar', 'Timetable', 'Monthly Report', 'AI Analysis'];
+const TABS = ['Daily Log', 'Staff Attendance', 'Student Attendance', 'School Calendar', 'Timetable', 'Monthly Report', 'AI Analysis'];
 const CARD = 'rounded-3xl p-6 bg-[#b5e3f4] border border-[#c9a96e]/40';
 const INNER = 'rounded-2xl p-4 bg-[#ade1f4] border border-[#c9a96e]/30';
 const BTN = 'bg-[#1a5c38] hover:bg-[#154a2e] text-[#b5e3f4] font-bold px-5 py-2.5 rounded-2xl text-sm transition-colors';
@@ -475,12 +476,13 @@ export default function OwnerAttendance({ auth }) {
         </div>
       </div>
       <div className="flex flex-wrap gap-2">{TABS.map((t, i) => <button key={t} onClick={() => setTab(i)} className={`px-5 py-2 rounded-2xl text-sm font-semibold transition-colors ${tab === i ? 'bg-[#800020] text-[#b5e3f4]' : 'bg-[#b5e3f4] text-[#800020] border border-[#c9a96e]/40 hover:bg-[#ade1f4]'}`}>{t}</button>)}</div>
-      {tab === 0 && <StaffAttendanceTab />}
-      {tab === 1 && <StudentAttendanceTab />}
-      {tab === 2 && <SchoolCalendarBoard />}
-      {tab === 3 && <TimetableBoard />}
-      {tab === 4 && <MonthlyReportTab month={month} />}
-      {tab === 5 && <AIAttendanceTab month={month} />}
+      {tab === 0 && <DailyAttendanceLog />}
+      {tab === 1 && <StaffAttendanceTab />}
+      {tab === 2 && <StudentAttendanceTab />}
+      {tab === 3 && <SchoolCalendarBoard />}
+      {tab === 4 && <TimetableBoard />}
+      {tab === 5 && <MonthlyReportTab month={month} />}
+      {tab === 6 && <AIAttendanceTab month={month} />}
     </div>
   );
 }

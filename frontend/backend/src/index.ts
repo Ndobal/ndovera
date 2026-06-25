@@ -17416,6 +17416,43 @@ async function resolveStaffMemberForProxy(db: D1Database, tenantId: string, staf
 }
 
 // Colleague list for the "sign in for a friend" selector.
+// Unified daily sign-in log: everyone (staff + students) who signed in on a date.
+app.get('/api/school/daily-attendance-log', authenticate, async (c) => {
+  const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
+  if (!actor.tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos', 'ict_manager', 'ict', 'principal', 'headteacher'])) {
+    return c.json({ error: 'forbidden' }, 403)
+  }
+  const date = String(c.req.query('date') || new Date().toISOString().slice(0, 10)).trim()
+  let staff: any[] = []
+  let students: any[] = []
+  try {
+    await ensureStaffAttendanceEventsTable(c.env.APP_DB)
+    const staffRows = await c.env.APP_DB.prepare(
+      `SELECT e.staff_id as id, e.created_at as ts, e.is_late as is_late, e.late_minutes as late_minutes, u.name as name, u.role as role
+       FROM staff_attendance_events e LEFT JOIN users u ON u.id = e.staff_id
+       WHERE e.tenant_id = ? AND e.action = 'sign-in' AND e.date = ? ORDER BY e.created_at ASC`,
+    ).bind(actor.tenantId, date).all()
+    staff = ((staffRows.results || []) as any[]).map(r => ({
+      id: String(r.id || ''), name: r.name || 'Staff member', role: r.role || 'staff', type: 'staff',
+      time: r.ts || '', late: Number(r.is_late || 0) === 1, lateMinutes: Number(r.late_minutes || 0),
+    }))
+  } catch {}
+  try {
+    const studentRows = await c.env.APP_DB.prepare(
+      `SELECT s.student_id as id, s.created_at as ts, s.status as status, u.name as name, c.name as class_name
+       FROM student_attendance_school s LEFT JOIN users u ON u.id = s.student_id LEFT JOIN classes c ON c.id = s.class_id
+       WHERE s.tenant_id = ? AND s.date = ? AND lower(COALESCE(s.status,'')) IN ('present','late','signed-in','signed_in','signedin')
+       ORDER BY s.created_at ASC`,
+    ).bind(actor.tenantId, date).all()
+    students = ((studentRows.results || []) as any[]).map(r => ({
+      id: String(r.id || ''), name: r.name || 'Student', role: 'student', type: 'student', className: r.class_name || '',
+      time: r.ts || '', late: String(r.status || '').toLowerCase() === 'late', status: r.status || 'present',
+    }))
+  } catch {}
+  return c.json({ success: true, date, staff, students, total: staff.length + students.length })
+})
+
 app.get('/api/school/staff-attendance/colleagues', authenticate, async (c) => {
   const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
   if (!actor.tenantId) return c.json({ error: 'No tenant.' }, 400)

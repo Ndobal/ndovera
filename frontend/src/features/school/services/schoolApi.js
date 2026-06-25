@@ -295,6 +295,7 @@ export const getMyPayslip = () => req('/api/school/payroll/my-payslip');
 
 // Attendance
 export const getStaffAttendance = (date) => req(`/api/school/staff-attendance?date=${date}`);
+export const getDailyAttendanceLog = (date) => req(`/api/school/daily-attendance-log?date=${encodeURIComponent(date)}`);
 export const markStaffAttendance = (data) => req('/api/school/staff-attendance', { method: 'POST', body: data });
 export const getStaffAttendanceColleagues = () => req('/api/school/staff-attendance/colleagues');
 export const getStaffAttendanceSettings = () => req('/api/school/staff-attendance/settings');
