@@ -144,6 +144,10 @@ export function getTenantAwardCandidates(tenantId) {
   return requestJson(`/api/ami/tenants/${encodeURIComponent(tenantId)}/award-candidates`);
 }
 
+export function getPlatformAnalytics() {
+  return requestJson('/api/ami/platform-analytics');
+}
+
 export function updateTenantDomain(tenantId, payload) {
 	return requestJson(`/api/ami/tenants/${encodeURIComponent(tenantId)}/domain`, {
 		method: 'POST',

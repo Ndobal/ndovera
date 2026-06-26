@@ -5834,6 +5834,42 @@ app.get('/api/ami/tenants', authenticate, async (c) => {
   })
 })
 
+// Privacy-safe platform overview for Ami: per-school COUNTS only (no personal data).
+// One aggregate query keeps it fast regardless of platform size.
+app.get('/api/ami/platform-analytics', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  await ensureUsersTable(c.env.APP_DB)
+  const tenants = await listTenants(c.env.APP_DB)
+  const rows = ((await c.env.APP_DB.prepare(
+    `SELECT tenantId, primary_role as role, status, COUNT(*) as n FROM users WHERE tenantId IS NOT NULL AND tenantId != '' GROUP BY tenantId, primary_role, status`,
+  ).all()).results || []) as any[]
+  const byTenant = new Map<string, any>()
+  for (const r of rows) {
+    const tid = String(r.tenantId || '')
+    if (!tid) continue
+    const role = String(r.role || '').toLowerCase()
+    const active = String(r.status || 'active').toLowerCase() === 'active'
+    const n = Number(r.n || 0)
+    const cur = byTenant.get(tid) || { staffActive: 0, staffInactive: 0, studentsActive: 0, studentsInactive: 0 }
+    if (role === 'student') { if (active) cur.studentsActive += n; else cur.studentsInactive += n }
+    else if (role !== 'parent') { if (active) cur.staffActive += n; else cur.staffInactive += n }
+    byTenant.set(tid, cur)
+  }
+  const schools = (tenants || []).map((t: any) => {
+    const counts = byTenant.get(String(t.id)) || { staffActive: 0, staffInactive: 0, studentsActive: 0, studentsInactive: 0 }
+    return { tenantId: t.id, schoolName: t.schoolName, ownerEmail: t.ownerEmail, status: t.status, approvalStatus: t.approvalStatus, ...counts }
+  })
+  const totals = schools.reduce((acc: any, s: any) => ({
+    schools: acc.schools + 1,
+    activeSchools: acc.activeSchools + (s.status === 'active' ? 1 : 0),
+    staffActive: acc.staffActive + s.staffActive,
+    staffInactive: acc.staffInactive + s.staffInactive,
+    studentsActive: acc.studentsActive + s.studentsActive,
+    studentsInactive: acc.studentsInactive + s.studentsInactive,
+  }), { schools: 0, activeSchools: 0, staffActive: 0, staffInactive: 0, studentsActive: 0, studentsInactive: 0 })
+  return c.json({ success: true, schools, totals })
+})
+
 // Lazy per-tenant award candidates (loaded only when Ami opens a school's awards).
 app.get('/api/ami/tenants/:tenantId/award-candidates', authenticate, async (c) => {
   if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
