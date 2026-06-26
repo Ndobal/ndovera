@@ -148,6 +148,19 @@ export function getPlatformAnalytics() {
   return requestJson('/api/ami/platform-analytics');
 }
 
+export function getSchoolAccessGrants() {
+  return requestJson('/api/ami/school-access');
+}
+export function requestSchoolAccess(tenantId, reason) {
+  return requestJson('/api/ami/school-access/request', { method: 'POST', body: { tenantId, reason } });
+}
+export function openSchoolAccess(id) {
+  return requestJson(`/api/ami/school-access/${encodeURIComponent(id)}/open`, { method: 'POST' });
+}
+export function revokeSchoolAccessGrant(id) {
+  return requestJson(`/api/ami/school-access/${encodeURIComponent(id)}/revoke`, { method: 'POST' });
+}
+
 export function updateTenantDomain(tenantId, payload) {
 	return requestJson(`/api/ami/tenants/${encodeURIComponent(tenantId)}/domain`, {
 		method: 'POST',

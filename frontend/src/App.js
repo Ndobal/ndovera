@@ -321,6 +321,24 @@ function AppWorkspace({ auth, onLogin, onLogout }) {
           <MobileRoleOverviewNav roleKey={location.pathname.split('/')[2] || 'student'} />
         ) : null}
       </main>
+      <ReturnToAmiBanner />
+    </div>
+  );
+}
+
+// When NDOVERA support (Ami) opens a school as its owner, show a way back to Ami.
+function ReturnToAmiBanner() {
+  const returnToken = typeof window !== 'undefined' ? window.localStorage.getItem('ami_return_token') : '';
+  if (!returnToken) return null;
+  function back() {
+    persistAuth({ token: returnToken, user: { role: 'ami', name: 'Ami' } }, {});
+    window.localStorage.removeItem('ami_return_token');
+    window.location.href = '/roles/ami';
+  }
+  return (
+    <div className="fixed inset-x-0 bottom-0 z-[200] flex flex-wrap items-center justify-between gap-2 bg-[#800020] px-4 py-2 text-sm text-white">
+      <span>You are managing this school as its owner (NDOVERA support session).</span>
+      <button type="button" onClick={back} className="rounded-lg bg-white px-3 py-1 text-xs font-bold text-[#800020]">Return to Ami</button>
     </div>
   );
 }

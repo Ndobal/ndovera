@@ -5870,6 +5870,119 @@ app.get('/api/ami/platform-analytics', authenticate, async (c) => {
   return c.json({ success: true, schools, totals })
 })
 
+// ─── Ami "request to manage a school" (owner-approved, revocable) ─────────────
+const SCHOOL_ACCESS_GRANTS_DDL = `CREATE TABLE IF NOT EXISTS school_access_grants (id TEXT PRIMARY KEY, tenant_id TEXT, requested_by TEXT, requester_name TEXT, reason TEXT, status TEXT, created_at TEXT, decided_at TEXT, expires_at TEXT)`
+let _sagReady = false
+async function ensureSchoolAccessGrantsTable(db: D1Database) {
+  if (_sagReady) return
+  _sagReady = true
+  await db.prepare(SCHOOL_ACCESS_GRANTS_DDL).run()
+}
+function mapAccessGrant(row: any) {
+  return {
+    id: row.id, tenantId: row.tenant_id, requestedBy: row.requested_by, requesterName: row.requester_name || 'Ami',
+    reason: row.reason || '', status: row.status, createdAt: row.created_at, decidedAt: row.decided_at, expiresAt: row.expires_at,
+    active: row.status === 'approved' && (!row.expires_at || new Date(row.expires_at).getTime() > Date.now()),
+  }
+}
+
+app.post('/api/ami/school-access/request', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  await ensureSchoolAccessGrantsTable(c.env.APP_DB)
+  const body = await c.req.json().catch(() => ({}))
+  const tenantId = String(body?.tenantId || '').trim()
+  if (!tenantId) return c.json({ error: 'tenantId is required.' }, 400)
+  const tenant = await getTenantById(c.env.APP_DB, tenantId)
+  if (!tenant) return c.json({ error: 'School not found.' }, 404)
+  const requestedBy = String(c.var.user?.email || c.var.user?.id || 'ami')
+  const existing = await c.env.APP_DB.prepare(`SELECT * FROM school_access_grants WHERE tenant_id = ? AND requested_by = ? AND status IN ('pending','approved') ORDER BY created_at DESC LIMIT 1`).bind(tenantId, requestedBy).first() as any
+  if (existing && mapAccessGrant(existing).active) return c.json({ success: true, grant: mapAccessGrant(existing) })
+  if (existing && existing.status === 'pending') return c.json({ success: true, grant: mapAccessGrant(existing) })
+  const id = `sag_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`
+  await c.env.APP_DB.prepare(`INSERT INTO school_access_grants (id, tenant_id, requested_by, requester_name, reason, status, created_at) VALUES (?, ?, ?, ?, ?, 'pending', ?)`)
+    .bind(id, tenantId, requestedBy, String(c.var.user?.name || 'Ami'), String(body?.reason || ''), new Date().toISOString()).run()
+  const grant = await c.env.APP_DB.prepare(`SELECT * FROM school_access_grants WHERE id = ?`).bind(id).first()
+  return c.json({ success: true, grant: mapAccessGrant(grant) }, 201)
+})
+
+app.get('/api/ami/school-access', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  await ensureSchoolAccessGrantsTable(c.env.APP_DB)
+  const requestedBy = String(c.var.user?.email || c.var.user?.id || 'ami')
+  const rows = ((await c.env.APP_DB.prepare(`SELECT * FROM school_access_grants WHERE requested_by = ? ORDER BY created_at DESC LIMIT 100`).bind(requestedBy).all()).results || []) as any[]
+  return c.json({ success: true, grants: rows.map(mapAccessGrant) })
+})
+
+// Issue an owner-scoped, short-lived session for an approved+active grant.
+app.post('/api/ami/school-access/:id/open', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  await ensureSchoolAccessGrantsTable(c.env.APP_DB)
+  const requestedBy = String(c.var.user?.email || c.var.user?.id || 'ami')
+  const grant = await c.env.APP_DB.prepare(`SELECT * FROM school_access_grants WHERE id = ? AND requested_by = ?`).bind(c.req.param('id'), requestedBy).first() as any
+  if (!grant) return c.json({ error: 'Request not found.' }, 404)
+  const mapped = mapAccessGrant(grant)
+  if (!mapped.active) return c.json({ error: 'This access has not been approved (or has expired/been revoked).' }, 403)
+  const tenant = await getTenantById(c.env.APP_DB, String(grant.tenant_id))
+  if (!tenant) return c.json({ error: 'School not found.' }, 404)
+  const ownerEmail = String((tenant as any).ownerEmail || '').trim().toLowerCase()
+  const resolved = await resolveSettingsIdentity(c.env.APP_DB, ownerEmail)
+  const ownerId = String(resolved.userRow?.id || ownerEmail)
+  const ownerName = String(resolved.settings?.name || resolved.userRow?.name || ownerEmail)
+  const grantExpiry = grant.expires_at ? new Date(grant.expires_at).getTime() : Date.now() + 2 * 60 * 60 * 1000
+  const exp = Math.floor(Math.min(Date.now() + 2 * 60 * 60 * 1000, grantExpiry) / 1000)
+  const token = await sign({
+    role: 'owner', roles: ['owner'], name: ownerName, id: ownerId, tenantId: String(grant.tenant_id),
+    impersonatedBy: requestedBy, exp,
+  }, c.env.JWT_SECRET)
+  await addAudit(c.env.APP_DB, String(grant.tenant_id), { action: 'amiOpenedSchool', data: { by: requestedBy, grantId: grant.id } }).catch(() => {})
+  return c.json({ success: true, token, role: 'owner', name: ownerName, tenantId: String(grant.tenant_id) })
+})
+
+app.post('/api/ami/school-access/:id/revoke', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  await ensureSchoolAccessGrantsTable(c.env.APP_DB)
+  const requestedBy = String(c.var.user?.email || c.var.user?.id || 'ami')
+  await c.env.APP_DB.prepare(`UPDATE school_access_grants SET status='revoked', decided_at=? WHERE id=? AND requested_by=?`).bind(new Date().toISOString(), c.req.param('id'), requestedBy).run()
+  return c.json({ success: true })
+})
+
+// Owner side: see and decide on access requests for their own school.
+app.get('/api/school/access-requests', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos'])) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  await ensureSchoolAccessGrantsTable(c.env.APP_DB)
+  const rows = ((await c.env.APP_DB.prepare(`SELECT * FROM school_access_grants WHERE tenant_id = ? ORDER BY created_at DESC LIMIT 50`).bind(tenantId).all()).results || []) as any[]
+  return c.json({ success: true, requests: rows.map(mapAccessGrant) })
+})
+
+app.post('/api/school/access-requests/:id/decide', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['owner'])) return c.json({ error: 'Only the school owner can approve access.' }, 403)
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  await ensureSchoolAccessGrantsTable(c.env.APP_DB)
+  const grant = await c.env.APP_DB.prepare(`SELECT * FROM school_access_grants WHERE id = ? AND tenant_id = ?`).bind(c.req.param('id'), tenantId).first() as any
+  if (!grant) return c.json({ error: 'Request not found.' }, 404)
+  const decision = String((await c.req.json().catch(() => ({})))?.decision || '').trim()
+  if (decision === 'approve') {
+    const hours = 24
+    await c.env.APP_DB.prepare(`UPDATE school_access_grants SET status='approved', decided_at=?, expires_at=? WHERE id=?`)
+      .bind(new Date().toISOString(), new Date(Date.now() + hours * 60 * 60 * 1000).toISOString(), grant.id).run()
+  } else {
+    await c.env.APP_DB.prepare(`UPDATE school_access_grants SET status='denied', decided_at=? WHERE id=?`).bind(new Date().toISOString(), grant.id).run()
+  }
+  return c.json({ success: true })
+})
+
+app.post('/api/school/access-requests/:id/revoke', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['owner'])) return c.json({ error: 'Only the school owner can revoke access.' }, 403)
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  await ensureSchoolAccessGrantsTable(c.env.APP_DB)
+  await c.env.APP_DB.prepare(`UPDATE school_access_grants SET status='revoked', decided_at=? WHERE id=? AND tenant_id=?`).bind(new Date().toISOString(), c.req.param('id'), tenantId).run()
+  return c.json({ success: true })
+})
+
 // Lazy per-tenant award candidates (loaded only when Ami opens a school's awards).
 app.get('/api/ami/tenants/:tenantId/award-candidates', authenticate, async (c) => {
   if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)

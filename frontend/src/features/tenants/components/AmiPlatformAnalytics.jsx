@@ -1,5 +1,12 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { getPlatformAnalytics } from '../services/tenantApi';
+import {
+  getPlatformAnalytics,
+  getSchoolAccessGrants,
+  requestSchoolAccess,
+  openSchoolAccess,
+  revokeSchoolAccessGrant,
+} from '../services/tenantApi';
+import { getStoredAuth, persistAuth } from '../../auth/services/authApi';
 
 function Stat({ label, value, accent }) {
   return (
@@ -14,14 +21,58 @@ export default function AmiPlatformAnalytics() {
   const [data, setData] = useState(null);
   const [error, setError] = useState('');
   const [query, setQuery] = useState('');
+  const [grants, setGrants] = useState([]);
+  const [busy, setBusy] = useState('');
+
+  async function loadGrants() {
+    try { const g = await getSchoolAccessGrants(); setGrants(g.grants || []); } catch { /* ignore */ }
+  }
 
   useEffect(() => {
     let active = true;
     getPlatformAnalytics()
       .then(res => { if (active) setData(res); })
       .catch(err => { if (active) setError(err.message || 'Could not load platform analytics.'); });
-    return () => { active = false; };
+    loadGrants();
+    const t = setInterval(loadGrants, 15000);
+    return () => { active = false; clearInterval(t); };
   }, []);
+
+  const grantByTenant = useMemo(() => {
+    const map = {};
+    for (const g of grants) {
+      const cur = map[g.tenantId];
+      // prefer an active/pending grant over older ones
+      if (!cur || g.active || (g.status === 'pending' && cur.status !== 'pending')) map[g.tenantId] = g;
+    }
+    return map;
+  }, [grants]);
+
+  async function requestAccess(tenantId) {
+    const reason = window.prompt('Reason for managing this school (the owner will see this):', 'Troubleshooting a reported issue');
+    if (reason == null) return;
+    setBusy(tenantId);
+    try { await requestSchoolAccess(tenantId, reason); await loadGrants(); } catch (e) { setError(e.message || 'Could not request access.'); } finally { setBusy(''); }
+  }
+
+  async function openSchool(grant) {
+    setBusy(grant.tenantId);
+    try {
+      const res = await openSchoolAccess(grant.id);
+      const current = getStoredAuth();
+      if (current?.token) window.localStorage.setItem('ami_return_token', current.token);
+      persistAuth({ token: res.token, user: { role: 'owner', name: res.name, tenantId: res.tenantId } }, {});
+      window.location.href = '/roles/owner';
+    } catch (e) {
+      setError(e.message || 'Could not open the school.');
+      setBusy('');
+    }
+  }
+
+  async function deactivate(grant) {
+    setBusy(grant.tenantId);
+    try { await revokeSchoolAccessGrant(grant.id); await loadGrants(); } catch (e) { setError(e.message || 'Could not deactivate.'); } finally { setBusy(''); }
+  }
 
   const totals = data?.totals || {};
   const schools = useMemo(() => {
@@ -64,6 +115,7 @@ export default function AmiPlatformAnalytics() {
                 <th className="px-3 py-2 text-center">Active students</th>
                 <th className="px-3 py-2 text-center">Inactive students</th>
                 <th className="px-3 py-2 text-center">Status</th>
+                <th className="px-3 py-2 text-center">Manage</th>
               </tr>
             </thead>
             <tbody>
@@ -80,9 +132,24 @@ export default function AmiPlatformAnalytics() {
                   <td className="px-3 py-2 text-center">
                     <span className={`rounded-full px-2.5 py-0.5 text-xs font-bold ${s.status === 'active' ? 'bg-emerald-500/15 text-emerald-300' : 'bg-white/10 text-white/60'}`}>{s.status || '—'}</span>
                   </td>
+                  <td className="px-3 py-2 text-center">
+                    {(() => {
+                      const g = grantByTenant[s.tenantId];
+                      if (g && g.active) {
+                        return (
+                          <div className="flex justify-center gap-1.5">
+                            <button type="button" disabled={busy === s.tenantId} onClick={() => openSchool(g)} className="rounded-lg bg-[#1a5c38] px-2.5 py-1 text-xs font-bold text-white disabled:opacity-50">Open</button>
+                            <button type="button" disabled={busy === s.tenantId} onClick={() => deactivate(g)} className="rounded-lg border border-white/20 px-2.5 py-1 text-xs font-semibold text-white/70 disabled:opacity-50">Off</button>
+                          </div>
+                        );
+                      }
+                      if (g && g.status === 'pending') return <span className="text-xs text-amber-300">Awaiting owner</span>;
+                      return <button type="button" disabled={busy === s.tenantId} onClick={() => requestAccess(s.tenantId)} className="rounded-lg border border-emerald-400/40 px-2.5 py-1 text-xs font-semibold text-emerald-300 disabled:opacity-50">Request</button>;
+                    })()}
+                  </td>
                 </tr>
               ))}
-              {!schools.length ? <tr><td colSpan={6} className="px-3 py-6 text-center text-white/50">No schools match your search.</td></tr> : null}
+              {!schools.length ? <tr><td colSpan={7} className="px-3 py-6 text-center text-white/50">No schools match your search.</td></tr> : null}
             </tbody>
           </table>
         )}

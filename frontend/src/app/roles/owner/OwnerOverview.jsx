@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getBranding, getMe, getMyTenant } from '../../../features/school/services/schoolApi';
 import SchoolAnnouncementsPanel from '../../../shared/components/SchoolAnnouncementsPanel';
+import SchoolAccessRequests from '../../../features/school/components/SchoolAccessRequests';
 import MobileRoleOverviewNav from '../../../shared/components/MobileRoleOverviewNav';
 import { getTenantPwaInfo } from '../../../shared/hooks/useTenantPwaManifest';
 
@@ -78,6 +79,7 @@ export default function OwnerOverview({ auth }) {
 
   return (
     <div className="p-8 max-w-7xl mx-auto space-y-6">
+      <SchoolAccessRequests />
       {/* Header */}
       <div className="rounded-3xl p-6 bg-[#b5e3f4] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">

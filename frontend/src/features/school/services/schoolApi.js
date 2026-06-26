@@ -299,6 +299,9 @@ export const getMyPayslip = () => req('/api/school/payroll/my-payslip');
 // Attendance
 export const getStaffAttendance = (date) => req(`/api/school/staff-attendance?date=${date}`);
 export const getDailyAttendanceLog = (date) => req(`/api/school/daily-attendance-log?date=${encodeURIComponent(date)}`);
+export const getSchoolAccessRequests = () => req('/api/school/access-requests');
+export const decideSchoolAccessRequest = (id, decision) => req(`/api/school/access-requests/${encodeURIComponent(id)}/decide`, { method: 'POST', body: { decision } });
+export const revokeSchoolAccessRequest = (id) => req(`/api/school/access-requests/${encodeURIComponent(id)}/revoke`, { method: 'POST' });
 export const getStaffDocuments = () => req('/api/school/staff-documents');
 export const uploadStaffDocument = (file, fields = {}) => uploadFile('/api/school/staff-documents/upload', file, fields);
 export const deleteStaffDocument = (id) => req(`/api/school/staff-documents/${encodeURIComponent(id)}`, { method: 'DELETE' });
