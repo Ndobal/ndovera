@@ -345,10 +345,35 @@ function App() {
     let cancelled = false;
     async function hydrateSession({ initial = false } = {}) {
       const stored = getStoredAuth();
+
+      // No local token (cleared storage, a fresh tab, or a tenant subdomain): fall
+      // back to the cross-subdomain .ndovera.com session cookie before declaring the
+      // user logged out, so an active session (e.g. Ami) persists across the platform
+      // as long as the 30-day sliding cookie is alive.
       if (!stored?.token) {
-        if (!cancelled) {
-          setAuth(null);
-          if (initial) setLoading(false);
+        if (hydrationInFlightRef.current) {
+          if (!cancelled && initial) setLoading(false);
+          return;
+        }
+        hydrationInFlightRef.current = true;
+        try {
+          const res = await fetch(getApiUrl('/api/users/me'), {
+            credentials: 'include',
+            headers: { ...buildSelectedRoleHeader() },
+          });
+          syncRefreshedToken(res);
+          const data = await res.json().catch(() => ({}));
+          const cookieToken = res.headers.get('X-Refresh-Token') || '';
+          if (res.ok && data?.user && cookieToken && !cancelled) {
+            setAuth(persistAuth({ token: cookieToken, user: data.user }, { preserveSelectedRole: true }));
+          } else if (!cancelled) {
+            setAuth(null);
+          }
+        } catch {
+          if (!cancelled) setAuth(null);
+        } finally {
+          hydrationInFlightRef.current = false;
+          if (!cancelled && initial) setLoading(false);
         }
         return;
       }
@@ -380,11 +405,33 @@ function App() {
           });
           syncRefreshedToken(res);
           if (res.status === 401) {
-            clearStoredAuth();
-            if (!cancelled) {
+            // The local token may be stale while the shared .ndovera.com cookie is
+            // still valid (e.g. signed in from another tab/device). Retry cookie-only
+            // before logging out, so the session stays persistent.
+            try {
+              const cookieRes = await fetch(getApiUrl('/api/users/me'), {
+                credentials: 'include',
+                headers: { ...buildSelectedRoleHeader() },
+              });
+              syncRefreshedToken(cookieRes);
+              const cookieData = await cookieRes.json().catch(() => ({}));
+              const cookieToken = cookieRes.headers.get('X-Refresh-Token') || '';
+              if (cookieRes.ok && cookieData?.user && cookieToken && !cancelled) {
+                setAuth(persistAuth({ token: cookieToken, user: cookieData.user }, { preserveSelectedRole: true }));
+                if (initial) setLoading(false);
+                return;
+              }
+            } catch { /* fall through */ }
+            // Only force a sign-out when first establishing the session. A 401 during
+            // a background focus/visibility refresh (transient edge/network blip) must
+            // NOT wipe an active session — that is what caused frequent logouts.
+            if (initial && !cancelled) {
+              clearStoredAuth();
               setAuth(null);
-              if (initial) setLoading(false);
+              setLoading(false);
               window.location.replace(getSignedOutRedirectPath());
+            } else if (!cancelled) {
+              setAuth(stored);
             }
             return;
           }
