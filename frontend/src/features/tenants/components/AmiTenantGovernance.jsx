@@ -8,6 +8,7 @@ import {
   initiateTenantPayment,
   markTenantAsPaid,
   resetTenantOwnerPassword,
+  getTenantAwardCandidates,
   restoreTenant,
   suspendTenant,
   upsertTenantAward,
@@ -95,6 +96,15 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
   const [discountForm, setDiscountForm] = useState(initialDiscountState);
   const [pricingForm, setPricingForm] = useState({ customPlanSetupFeeNaira: 50000 });
   const [awardForms, setAwardForms] = useState({});
+  const [lazyAwardCandidates, setLazyAwardCandidates] = useState({});
+
+  async function loadAwardCandidates(tenantId) {
+    if (!tenantId || lazyAwardCandidates[tenantId]) return;
+    try {
+      const res = await getTenantAwardCandidates(tenantId);
+      setLazyAwardCandidates(prev => ({ ...prev, [tenantId]: res?.candidates || [] }));
+    } catch { /* ignore — dropdown just stays empty */ }
+  }
   const [domainForms, setDomainForms] = useState({});
   const [busyAction, setBusyAction] = useState('');
   const [error, setError] = useState('');
@@ -272,7 +282,7 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
   const payments = governanceData?.payments || [];
   const discountCodes = governanceData?.discountCodes || [];
   const tenantAwards = governanceData?.tenantAwards || [];
-  const awardCandidatesByTenantId = governanceData?.awardCandidatesByTenantId || {};
+  const awardCandidatesByTenantId = { ...(governanceData?.awardCandidatesByTenantId || {}), ...lazyAwardCandidates };
   const summary = governanceData?.summary;
 
   const headerSection = (
@@ -597,8 +607,8 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
                         </select>
                         <input name="periodMonth" type="month" value={awardForm.periodMonth} onChange={event => handleAwardFormChange(tenant.id, event)} className="w-full rounded-2xl border border-white/10 bg-slate-900/20 px-4 py-3 text-slate-900 dark:text-amber-100" />
                       </div>
-                      <select name="userId" value={awardForm.userId} onChange={event => handleAwardFormChange(tenant.id, event)} className="w-full rounded-2xl border border-white/10 bg-slate-900/20 px-4 py-3 text-slate-900 dark:text-amber-100">
-                        <option value="">Select award recipient</option>
+                      <select name="userId" value={awardForm.userId} onFocus={() => loadAwardCandidates(tenant.id)} onChange={event => handleAwardFormChange(tenant.id, event)} className="w-full rounded-2xl border border-white/10 bg-slate-900/20 px-4 py-3 text-slate-900 dark:text-amber-100">
+                        <option value="">{awardCandidates.length ? 'Select award recipient' : 'Loading recipients…'}</option>
                         {awardCandidates.map(candidate => <option key={candidate.userId} value={candidate.userId}>{candidate.name} • {candidate.role || 'user'}</option>)}
                       </select>
                       <input name="awardTitle" value={awardForm.awardTitle} onChange={event => handleAwardFormChange(tenant.id, event)} placeholder="Award title" className="w-full rounded-2xl border border-white/10 bg-slate-900/20 px-4 py-3 text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-500" />

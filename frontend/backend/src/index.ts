@@ -353,14 +353,6 @@ async function createPasswordResetToken(
   const createdAt = new Date().toISOString()
   const expiresAt = new Date(Date.now() + PASSWORD_RESET_TOKEN_TTL_MS).toISOString()
 
-    await syncQuestionUsagesForEngine(c.env.APP_DB, String(classRow.tenantId || tenantId || '').trim(), 'assignment', String(insertedAssignment.id || ''), normalizedQuestions, {
-      classId: classroomId,
-      className: `${classRow.name}${classRow.arm ? ` ${classRow.arm}` : ''}`,
-      subjectId: String(subjectRow.id || ''),
-      subjectName: String(subjectRow.name || ''),
-      createdBy: teacherId,
-    })
-
   const rawToken = toBase64Url(crypto.getRandomValues(new Uint8Array(32)))
   const tokenHash = await sha256Hex(rawToken)
 
@@ -5816,11 +5808,10 @@ app.get('/api/ami/tenants', authenticate, async (c) => {
   const payments = await listTenantPayments(c.env.APP_DB)
   const discountCodes = await listTenantDiscountCodes(c.env.APP_DB, true)
   const tenantAwards = await listSchoolAwards(c.env.APP_DB, { limit: 240 })
-  const awardCandidatesEntries = await Promise.all(tenants.map(async tenant => {
-    const people = await listActiveTenantPeopleWithProfiles(c.env.APP_DB, tenant.id).catch(() => [])
-    return [tenant.id, people.map(person => buildAwardRecipientSnapshot(person))] as const
-  }))
-  const awardCandidatesByTenantId = Object.fromEntries(awardCandidatesEntries)
+  // Award candidates are loaded lazily per tenant (see the endpoint below) so the
+  // school list never fans out to load every tenant's people — that fan-out blew
+  // past the Worker subrequest limit and made the whole list fail ("offline").
+  const awardCandidatesByTenantId = {}
   const { pricingConfig, plans } = await getTenantPricingState(c.env.APP_DB)
   const summary = {
     totalTenants: tenants.length,
@@ -5841,6 +5832,14 @@ app.get('/api/ami/tenants', authenticate, async (c) => {
     pricingConfig,
     plans: serializeTenantPlans(plans),
   })
+})
+
+// Lazy per-tenant award candidates (loaded only when Ami opens a school's awards).
+app.get('/api/ami/tenants/:tenantId/award-candidates', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = c.req.param('tenantId')
+  const people = await listActiveTenantPeopleWithProfiles(c.env.APP_DB, tenantId).catch(() => [])
+  return c.json({ success: true, candidates: people.map(person => buildAwardRecipientSnapshot(person)) })
 })
 
 app.post('/api/ami/tenant-pricing', authenticate, async (c) => {

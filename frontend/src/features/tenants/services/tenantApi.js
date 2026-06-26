@@ -140,6 +140,10 @@ export function resetTenantOwnerPassword({ tenantId, email } = {}) {
   });
 }
 
+export function getTenantAwardCandidates(tenantId) {
+  return requestJson(`/api/ami/tenants/${encodeURIComponent(tenantId)}/award-candidates`);
+}
+
 export function updateTenantDomain(tenantId, payload) {
 	return requestJson(`/api/ami/tenants/${encodeURIComponent(tenantId)}/domain`, {
 		method: 'POST',
