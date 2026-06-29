@@ -440,22 +440,25 @@ function SubmissionsPanel({ assignment, onClose }) {
       .finally(() => setLoading(false));
   }, [assignment.id]);
 
+  const questions = Array.isArray(assignment.questions) ? assignment.questions : [];
+  // Grade against the assignment's real total (marks obtainable), never a fixed 100.
+  const totalScore = calculateTotalScore(questions) || Number(assignment?.totalScore || assignment?.metadata?.totalScore) || 100;
+
   async function handleGrade(sub) {
     const g = grading[sub.id];
-    if (!g || g.grade === '' || g.grade === undefined) { setMsg('Enter a grade (0-100) first.'); return; }
+    if (!g || g.grade === '' || g.grade === undefined) { setMsg(`Enter a grade (0–${totalScore}) first.`); return; }
+    const numericGrade = Math.max(0, Math.min(Number(g.grade) || 0, totalScore));
     setSavingId(sub.id); setMsg('');
     try {
-      const res = await svc.gradeSubmission(sub.id, { grade: Number(g.grade), feedback: g.feedback || '' });
+      const res = await svc.gradeSubmission(sub.id, { grade: numericGrade, feedback: g.feedback || '' });
       if (res?.success) {
         setSavedIds(prev => [...prev, sub.id]);
-        setSubmissions(prev => prev.map(s => s.id === sub.id ? { ...s, grade: Number(g.grade), feedback: g.feedback || '', gradedAt: res.gradedAt } : s));
+        setSubmissions(prev => prev.map(s => s.id === sub.id ? { ...s, grade: numericGrade, feedback: g.feedback || '', gradedAt: res.gradedAt } : s));
         setMsg('Grade saved!');
       } else { setMsg(res?.error || 'Could not save grade.'); }
     } catch (err) { setMsg(err.message || 'Error saving grade.'); }
     finally { setSavingId(null); }
   }
-
-  const questions = Array.isArray(assignment.questions) ? assignment.questions : [];
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/55 px-4 py-6 backdrop-blur-sm">
@@ -487,7 +490,7 @@ function SubmissionsPanel({ assignment, onClose }) {
                       <p className="text-xs text-[#800020] font-semibold">Submitted: {sub.submittedAt ? new Date(sub.submittedAt).toLocaleString() : '—'}</p>
                     </div>
                     {isAlreadyGraded && (
-                      <span className="rounded-full bg-[#1a5c38] px-3 py-1 text-xs font-bold text-[#b5e3f4]">Graded: {sub.grade}/100</span>
+                      <span className="rounded-full bg-[#1a5c38] px-3 py-1 text-xs font-bold text-[#b5e3f4]">Graded: {sub.grade}/{totalScore}</span>
                     )}
                   </div>
                   {/* Show answers */}
@@ -517,13 +520,13 @@ function SubmissionsPanel({ assignment, onClose }) {
                   {/* Grading form */}
                   <div className="flex flex-wrap gap-3 items-end mt-2">
                     <div>
-                      <label className={LABEL}>Score (0–100)</label>
+                      <label className={LABEL}>Score (0–{totalScore})</label>
                       <input
-                        type="number" min="0" max="100"
+                        type="number" min="0" max={totalScore}
                         value={grading[sub.id]?.grade !== undefined ? grading[sub.id].grade : (isAlreadyGraded ? sub.grade : '')}
                         onChange={e => setGrading(prev => ({ ...prev, [sub.id]: { ...prev[sub.id], grade: e.target.value } }))}
                         className="mt-1 w-24 rounded-xl border border-[#c9a96e]/40 bg-[#b5e3f4] dark:bg-slate-900 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none"
-                        placeholder="0–100"
+                        placeholder={`0–${totalScore}`}
                       />
                     </div>
                     <div className="flex-1 min-w-[160px]">
@@ -627,6 +630,7 @@ export default function TeacherAssignmentsPanel({
   const [composerOpen, setComposerOpen] = useState(false);
   const [composerStep, setComposerStep] = useState('class');
   const [composerMode, setComposerMode] = useState('build');
+  const [editingId, setEditingId] = useState(null);
   const [composerError, setComposerError] = useState('');
   const [composerNotice, setComposerNotice] = useState('');
   const [composerSaving, setComposerSaving] = useState(false);
@@ -666,6 +670,7 @@ export default function TeacherAssignmentsPanel({
     const initialSubjects = initialClass?.subjects || [];
     const initialSubjectId = assignedClasses.length <= 1 && initialSubjects.length === 1 ? initialSubjects[0].id : '';
 
+    setEditingId(null);
     setDraft(buildFreshDraft(initialClassId, initialSubjectId));
     setImportText('');
     setImportedFromText(false);
@@ -677,6 +682,33 @@ export default function TeacherAssignmentsPanel({
     setComposerOpen(true);
   }
 
+  // Open the composer pre-filled to edit an existing assignment (questions, marks,
+  // due date) — allowed at any time, including after the due date.
+  function openEditor(assignment) {
+    const classId = assignment.classId || currentClassId || assignedClasses[0]?.id || '';
+    const existingQuestions = Array.isArray(assignment.questions) && assignment.questions.length
+      ? assignment.questions
+      : [createQuestion('mcq')];
+    setEditingId(assignment.id);
+    setDraft({
+      classId,
+      subjectId: assignment.subjectId || '',
+      title: assignment.title || '',
+      description: assignment.description || '',
+      dueAt: assignment.dueAt ? formatDueDateInput(assignment.dueAt) : '',
+      topic: String(assignment.topic || assignment.metadata?.topic || '').trim(),
+      questions: existingQuestions,
+    });
+    setImportText('');
+    setImportedFromText(false);
+    setComposerMode('build');
+    setComposerError('');
+    setComposerNotice('');
+    setSuccessState(null);
+    setComposerStep('details');
+    setComposerOpen(true);
+  }
+
   function closeComposer() {
     setComposerOpen(false);
     setComposerSaving(false);
@@ -684,6 +716,7 @@ export default function TeacherAssignmentsPanel({
     setComposerNotice('');
     setImportText('');
     setImportedFromText(false);
+    setEditingId(null);
   }
 
   function setDraftValue(key, value) {
@@ -837,48 +870,12 @@ export default function TeacherAssignmentsPanel({
     }));
   }
 
-  async function handleEditAssignment(assignment) {
-    if (!currentClassId) {
-      setComposerError('Choose a class before editing this assignment.');
-      return;
-    }
-
+  // Open the full composer to edit the assignment's title, instructions, due date,
+  // questions and marks obtainable — allowed any time, including after the due date.
+  function handleEditAssignment(assignment) {
     setComposerError('');
     setComposerNotice('');
-
-    const nextTitle = window.prompt('Update assignment title', assignment.title || '');
-    if (nextTitle === null) return;
-    const normalizedTitle = nextTitle.trim();
-    if (!normalizedTitle) {
-      setComposerError('Assignment title is required.');
-      return;
-    }
-
-    const nextDescription = window.prompt('Update assignment instructions', assignment.description || '');
-    if (nextDescription === null) return;
-
-    const nextDueAt = window.prompt('Update due date/time in YYYY-MM-DDTHH:mm format. Leave blank to clear it.', formatDueDateInput(assignment.dueAt));
-    if (nextDueAt === null) return;
-
-    try {
-      const response = await svc.updateAssignment(currentClassId, assignment.id, {
-        title: normalizedTitle,
-        description: nextDescription.trim(),
-        dueAt: nextDueAt.trim(),
-      });
-
-      if (!response?.success) {
-        setComposerError(response?.message || 'Could not update this assignment.');
-        return;
-      }
-
-      setComposerNotice(`Updated ${normalizedTitle}.`);
-      if (viewingAssignment?.id === assignment.id) setViewingAssignment(response.assignment || null);
-      if (submissionsAssignment?.id === assignment.id) setSubmissionsAssignment(response.assignment || null);
-      onRefreshAssignments?.();
-    } catch (error) {
-      setComposerError(error instanceof Error ? error.message : 'Could not update this assignment.');
-    }
+    openEditor(assignment);
   }
 
   async function handleDeleteAssignment(assignment) {
@@ -1027,14 +1024,19 @@ export default function TeacherAssignmentsPanel({
         },
       };
 
-      const response = await svc.createAssignment(draft.classId, payload);
+      const wasEditing = Boolean(editingId);
+      const response = wasEditing
+        ? await svc.updateAssignment(draft.classId, editingId, payload)
+        : await svc.createAssignment(draft.classId, payload);
       if (!response?.success) {
-        throw new Error(response?.message || 'Could not create assignment.');
+        throw new Error(response?.message || (wasEditing ? 'Could not update assignment.' : 'Could not create assignment.'));
       }
 
       closeComposer();
 
-      if (isImportedAssignment) {
+      if (wasEditing) {
+        setSuccessState({ title: 'Assignment Updated', message: `${assignmentTitle} was updated successfully.` });
+      } else if (isImportedAssignment) {
         setSuccessState({
           title: 'Bulk Assignment Created',
           message: `${assignmentTitle} was created successfully.`,

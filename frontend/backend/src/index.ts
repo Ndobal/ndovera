@@ -7648,6 +7648,11 @@ app.put('/api/classrooms/:classroomId/assignments/:assignmentId', authenticate, 
       title: nextTitle,
       description: typeof payload?.description === 'string' ? payload.description.trim() : assignment.description,
       dueAt: Object.prototype.hasOwnProperty.call(payload || {}, 'dueAt') ? (payload?.dueAt || null) : assignment.dueAt,
+      // Allow editing questions / marks obtainable at any time, including after the due date.
+      ...(Array.isArray(payload?.questions) ? { questions: payload.questions } : {}),
+      ...(payload?.metadata && typeof payload.metadata === 'object' ? { metadata: payload.metadata } : {}),
+      ...(typeof payload?.format === 'string' ? { format: payload.format } : {}),
+      ...(typeof payload?.subjectId === 'string' ? { subjectId: payload.subjectId } : {}),
     })
 
     try {
