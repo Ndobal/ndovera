@@ -2753,7 +2753,11 @@ async function listVisibleFeeLedgerEntries(db: D1Database, currentUser: Record<s
       const ledgerRow = ledgerMap.get(String(student.id || '')) || null
       const configuredFeeAmount = computeConfiguredFeeTotal(student.classId, student.id, feeTypes, feeLookup, studentFeeLookup)
       const recordedFeeAmount = Number(ledgerRow?.fee_amount || 0)
-      const feeAmount = recordedFeeAmount > 0 ? recordedFeeAmount : configuredFeeAmount
+      // Expected fee follows the CURRENT fee configuration (source of truth) so that
+      // re-configuring fees updates the expected amount and balances even after a
+      // payment was recorded. The ledger snapshot is only a fallback when no fee is
+      // configured for the student/class.
+      const feeAmount = configuredFeeAmount > 0 ? configuredFeeAmount : recordedFeeAmount
       const amountPaid = Number(ledgerRow?.amount_paid || 0)
       const status = deriveFeeLedgerStatus(feeAmount, amountPaid, ledgerRow?.status)
       const balance = Math.max(feeAmount - amountPaid, 0)
