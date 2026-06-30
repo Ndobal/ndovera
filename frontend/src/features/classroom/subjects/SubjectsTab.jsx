@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { addTopic, deleteTopic, getAssignments, getMaterials, getSubjectMembers, getTopics, removeStudentFromSubject, restoreStudentToSubject } from '../classroomService';
 
 const SUBJECT_PALETTES = [
@@ -11,6 +12,10 @@ const SUBJECT_PALETTES = [
   { bg: '#1c1a00', text: '#FFE066', badge: 'rgba(255,224,102,0.18)', badgeText: '#FFE066' },
   { bg: '#3d0000', text: '#FFA94D', badge: 'rgba(255,169,77,0.18)',  badgeText: '#FFA94D' },
 ];
+
+// The three subject tabs are colour-coded: Assignments green, Materials black,
+// Topics midnight-purple (on a light chip so the text stays legible).
+const TAB_COLORS = { assignments: '#15803d', materials: '#111111', topics: '#2e1065' };
 
 function typeLabel(type) {
   const map = { mcq: 'MCQ', shortanswer: 'Short Answer', fillgaps: 'Fill Blanks', essay: 'Essay', comprehension: 'Comprehension', longanswer: 'Long Answer', crossmatching: 'Cross Match', mixed: 'Mixed', assignment: 'Task' };
@@ -38,7 +43,7 @@ function isAudioMaterial(material) {
   return /\.(mp3|wav|ogg|m4a|aac)(\?|$)/.test(source);
 }
 
-export default function SubjectsTab({ classId = '', subjects = [], canManage = false }) {
+export default function SubjectsTab({ classId = '', subjects = [], canManage = false, studentMode = false }) {
   const [activeSubjectId, setActiveSubjectId] = useState(null);
   const [activeTab, setActiveTab] = useState('assignments');
   const [showMembers, setShowMembers] = useState(false);
@@ -241,8 +246,8 @@ export default function SubjectsTab({ classId = '', subjects = [], canManage = f
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
-            style={activeTab === tab ? { backgroundColor: palette.bg, color: palette.text, borderColor: `${palette.text}30` } : {}}
-            className={`px-4 py-2 rounded-2xl text-sm font-semibold border transition-colors capitalize ${activeTab === tab ? 'border shadow-sm' : 'border-white/10 bg-slate-900/30 text-slate-200'}`}
+            style={{ backgroundColor: activeTab === tab ? '#ffffff' : 'rgba(255,255,255,0.85)', color: TAB_COLORS[tab], borderColor: `${TAB_COLORS[tab]}55` }}
+            className={`px-4 py-2 rounded-2xl text-sm font-bold border capitalize transition-transform ${activeTab === tab ? 'shadow-md scale-[1.04]' : 'opacity-80 hover:opacity-100'}`}
           >
             {tab}
             {tab === 'assignments' && !assignmentsLoading && (
@@ -308,28 +313,38 @@ export default function SubjectsTab({ classId = '', subjects = [], canManage = f
               <p className="mt-2 text-slate-400 text-sm">No assignments have been created for {selectedSubject.name}.</p>
             </div>
           )}
-          {subjectAssignments.map(a => (
-            <div key={a.id} className="glass-surface rounded-3xl p-4 space-y-2 border border-white/10">
-              <div className="flex flex-wrap items-start justify-between gap-2">
-                <div>
-                  <span
-                    className="inline-block px-2 py-0.5 rounded-full text-xs font-bold border mb-1"
-                    style={{ background: palette.badge, color: palette.badgeText, borderColor: `${palette.badgeText}40` }}
-                  >
-                    {typeLabel(a.format || a.type)}
-                  </span>
-                  <p className="text-slate-100 font-bold text-base">{a.title}</p>
-                  {a.description && <p className="text-slate-300 text-sm mt-1">{a.description}</p>}
+          {subjectAssignments.map(a => {
+            const inner = (
+              <>
+                <div className="flex flex-wrap items-start justify-between gap-2">
+                  <div>
+                    <span
+                      className="inline-block px-2 py-0.5 rounded-full text-xs font-bold border mb-1"
+                      style={{ background: palette.badge, color: palette.badgeText, borderColor: `${palette.badgeText}40` }}
+                    >
+                      {typeLabel(a.format || a.type)}
+                    </span>
+                    <p className="text-slate-100 font-bold text-base">{a.title}</p>
+                    {a.description && <p className="text-slate-300 text-sm mt-1">{a.description}</p>}
+                  </div>
+                  {a.dueAt && (
+                    <p className="text-xs text-slate-400 shrink-0">Due {new Date(a.dueAt).toLocaleDateString()}</p>
+                  )}
                 </div>
-                {a.dueAt && (
-                  <p className="text-xs text-slate-400 shrink-0">Due {new Date(a.dueAt).toLocaleDateString()}</p>
-                )}
-              </div>
-              {a.questions?.length > 0 && (
-                <p className="text-xs text-slate-400">{a.questions.length} question{a.questions.length !== 1 ? 's' : ''}</p>
-              )}
-            </div>
-          ))}
+                <div className="flex items-center justify-between gap-2">
+                  {a.questions?.length > 0 ? (
+                    <p className="text-xs text-slate-400">{a.questions.length} question{a.questions.length !== 1 ? 's' : ''}</p>
+                  ) : <span />}
+                  {studentMode && <span className="rounded-full bg-emerald-500/25 px-3 py-1 text-xs font-bold text-emerald-200">Start answering →</span>}
+                </div>
+              </>
+            );
+            return studentMode ? (
+              <Link key={a.id} to={`/roles/student/assignments/${a.id}`} className="block glass-surface rounded-3xl p-4 space-y-2 border border-white/10 transition hover:border-emerald-400/40 hover:bg-emerald-500/5">{inner}</Link>
+            ) : (
+              <div key={a.id} className="glass-surface rounded-3xl p-4 space-y-2 border border-white/10">{inner}</div>
+            );
+          })}
         </section>
       )}
 
