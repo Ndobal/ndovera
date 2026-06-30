@@ -51,6 +51,11 @@ export default function Flipbook({ url, onFallback }) {
   const [page, setPage] = useState(0);
   const [showThumbs, setShowThumbs] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [zoom, setZoom] = useState(1);
+
+  const adjustZoom = useCallback((delta) => {
+    setZoom(prev => Math.min(3, Math.max(0.6, Math.round((prev + delta) * 10) / 10)));
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
@@ -71,9 +76,10 @@ export default function Flipbook({ url, onFallback }) {
         pdfjsLib.GlobalWorkerOptions.workerSrc = PDFJS_WORKER;
 
         // Lower-end phones have far less memory, so render smaller/lighter pages there.
+        // Render at a higher scale so text is sharp and bold even before zooming.
         const isMobile = typeof window !== 'undefined' && Math.min(window.innerWidth, window.innerHeight) < 700;
-        const renderScale = isMobile ? 1.1 : 1.6;
-        const jpegQuality = isMobile ? 0.72 : 0.82;
+        const renderScale = isMobile ? 1.4 : 2.0;
+        const jpegQuality = isMobile ? 0.8 : 0.9;
         const pageCap = isMobile ? 80 : MAX_PAGES;
 
         const pdf = await pdfjsLib.getDocument({ url }).promise;
@@ -205,13 +211,18 @@ export default function Flipbook({ url, onFallback }) {
       {/* Floating controls (also available in fullscreen) */}
       {status === 'ready' && (
         <div className="absolute right-3 top-3 z-20 flex items-center gap-2">
+          <button type="button" className={CTRL_BTN} onClick={() => adjustZoom(-0.2)} title="Zoom out" aria-label="Zoom out">−</button>
+          <button type="button" className={`${CTRL_BTN} w-12 text-xs`} onClick={() => setZoom(1)} title="Reset zoom" aria-label="Reset zoom">{Math.round(zoom * 100)}%</button>
+          <button type="button" className={CTRL_BTN} onClick={() => adjustZoom(0.2)} title="Zoom in" aria-label="Zoom in">+</button>
           <button type="button" className={CTRL_BTN} onClick={() => setShowThumbs(value => !value)} title="Toggle page thumbnails" aria-label="Toggle thumbnails">▦</button>
           <button type="button" className={CTRL_BTN} onClick={toggleFullscreen} title={isFullscreen ? 'Exit fullscreen' : 'Fullscreen'} aria-label="Toggle fullscreen">{isFullscreen ? '✕' : '⛶'}</button>
         </div>
       )}
 
-      <div className="flex min-h-0 flex-1 items-center justify-center overflow-hidden p-2">
-        <div ref={containerRef} className="h-full w-full" />
+      <div className="min-h-0 flex-1 overflow-auto p-2">
+        <div className="flex h-full w-full items-center justify-center" style={{ zoom }}>
+          <div ref={containerRef} className="h-full w-full" />
+        </div>
       </div>
 
       {/* Thumbnail strip */}
