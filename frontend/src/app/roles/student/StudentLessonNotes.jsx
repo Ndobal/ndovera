@@ -12,6 +12,19 @@ const MATERIAL_TABS = [
   { id: 'link', label: 'Links' },
 ];
 
+const CARD_COLORS = [
+  'from-indigo-500/30 to-indigo-700/15 border-indigo-400/40',
+  'from-emerald-500/30 to-emerald-700/15 border-emerald-400/40',
+  'from-amber-500/30 to-amber-700/15 border-amber-400/40',
+  'from-rose-500/30 to-rose-700/15 border-rose-400/40',
+  'from-cyan-500/30 to-cyan-700/15 border-cyan-400/40',
+  'from-fuchsia-500/30 to-fuchsia-700/15 border-fuchsia-400/40',
+];
+function matColor(seed) {
+  const hash = String(seed || '').split('').reduce((acc, ch) => ((acc * 31) + ch.charCodeAt(0)) >>> 0, 7);
+  return CARD_COLORS[hash % CARD_COLORS.length];
+}
+
 function resolveCurrentClassroom(authUser) {
   return localStorage.getItem('classroomId') || authUser?.classId || '';
 }
@@ -121,34 +134,27 @@ export default function StudentLessonNotes() {
         {!loading && error && <p className="text-sm text-rose-300">{error}</p>}
 
         {!loading && !error && (
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
             {filteredMaterials.map(material => (
-              <article key={material.id} className="wheat-card rounded-3xl border border-white/10 overflow-hidden bg-slate-900/30 p-4 flex flex-col gap-4">
-                <div className="flex items-start gap-4">
-                  <MaterialTypeThumbnail material={material} className="border-white/10 dark:border-white/10" />
-                  <div className="min-w-0 flex-1">
-                    <p className="text-slate-100 font-semibold">{material.title}</p>
-                    <p className="neon-subtle text-sm mt-1">{material.subjectName || 'General Material'}</p>
-                    {(material.topic || material.weekLabel) && <p className="text-xs text-slate-400 mt-2">{material.topic || 'Lesson note'}{material.weekLabel ? ` • ${material.weekLabel}` : ''}</p>}
-                    {material.description && <p className="text-sm text-slate-300 mt-3 whitespace-pre-wrap">{material.description}</p>}
-                  </div>
-                  <span className="glass-chip px-3 py-1 rounded-full micro-label accent-emerald">{materialTypeLabel(material)}</span>
+              <a
+                key={material.id}
+                href={material.url}
+                target="_blank"
+                rel="noreferrer"
+                className={`flex min-h-[140px] flex-col justify-between gap-2 rounded-2xl border bg-gradient-to-br p-3 transition-transform hover:scale-[1.03] ${matColor(`${material.subjectName || ''}-${material.id}`)}`}
+              >
+                <div className="min-w-0">
+                  <span className="inline-block rounded-full bg-black/30 px-2 py-0.5 text-[9px] font-black uppercase tracking-wide text-white/85">{materialTypeLabel(material)}</span>
+                  <p className="mt-2 line-clamp-2 text-sm font-bold leading-snug text-white">{material.title}</p>
+                  <p className="mt-1 text-[10px] font-semibold uppercase tracking-wide text-white/65">{material.subjectName || 'General'}</p>
+                  {(material.topic || material.weekLabel) && <p className="mt-1 line-clamp-1 text-[10px] text-white/55">{material.topic || 'Lesson note'}{material.weekLabel ? ` • ${material.weekLabel}` : ''}</p>}
                 </div>
-
-                <div className="mt-auto flex items-center justify-between gap-3">
-                  <div>
-                    <p className="micro-label accent-indigo">Uploaded {formatUploadedAt(material.uploadedAt)}</p>
-                    {material.uploadedByName && <p className="neon-subtle text-xs mt-1">By {material.uploadedByName}</p>}
-                  </div>
-                  <a href={material.url} target="_blank" rel="noreferrer" className="rounded-2xl bg-emerald-500/30 border border-emerald-300/40 px-4 py-2 text-sm font-semibold text-white">
-                    Open
-                  </a>
-                </div>
-              </article>
+                <span className="rounded-xl bg-white/20 px-2 py-1 text-center text-[11px] font-black text-white">Open</span>
+              </a>
             ))}
 
             {filteredMaterials.length === 0 && (
-              <div className="wheat-card rounded-3xl border border-dashed border-white/10 bg-slate-900/20 p-5 text-center md:col-span-2 xl:col-span-3">
+              <div className="col-span-2 wheat-card rounded-3xl border border-dashed border-white/10 bg-slate-900/20 p-5 text-center sm:col-span-3 lg:col-span-4 xl:col-span-6">
                 <p className="micro-label accent-amber">No live materials</p>
                 <p className="mt-2 text-sm text-slate-300">Teacher-posted subject materials will appear here automatically for your class.</p>
               </div>

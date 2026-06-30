@@ -59,6 +59,18 @@ function hashText(value) {
   return String(value || '').split('').reduce((hash, character) => ((hash * 31) + character.charCodeAt(0)) >>> 0, 7);
 }
 
+const CARD_COLORS = [
+  'from-indigo-500/30 to-indigo-700/15 border-indigo-400/40',
+  'from-emerald-500/30 to-emerald-700/15 border-emerald-400/40',
+  'from-amber-500/30 to-amber-700/15 border-amber-400/40',
+  'from-rose-500/30 to-rose-700/15 border-rose-400/40',
+  'from-cyan-500/30 to-cyan-700/15 border-cyan-400/40',
+  'from-fuchsia-500/30 to-fuchsia-700/15 border-fuchsia-400/40',
+];
+function cardColor(seed) {
+  return CARD_COLORS[hashText(seed) % CARD_COLORS.length];
+}
+
 function buildShuffledMatchingChoices(question) {
   const pairs = Array.isArray(question?.pairs) ? question.pairs : [];
   const seed = hashText(question?.id || question?.prompt || 'matching');
@@ -555,31 +567,34 @@ export default function StudentAssignments() {
           )}
 
           {groupedAssignments.map(group => (
-            <section key={group.subjectName} className="glass-surface rounded-3xl p-6">
+            <section key={group.subjectName} className="glass-surface rounded-3xl p-5">
               <div className="flex items-center justify-between gap-3 mb-4">
-                <h2 className="text-xl command-title neon-title">{group.subjectName}</h2>
+                <h2 className="text-lg command-title neon-title">{group.subjectName}</h2>
                 <span className="glass-chip px-3 py-1 rounded-full micro-label accent-indigo">{group.items.length} assignment{group.items.length === 1 ? '' : 's'}</span>
               </div>
-              <div className="space-y-3">
-                {group.items.map(item => (
-                  <Link key={item.id} to={`/roles/student/assignments/${item.id}`} className="rounded-2xl border border-white/10 p-4 bg-slate-900/30 flex items-center justify-between gap-3 hover:bg-indigo-500/10 transition-colors">
-                    <div>
-                      <p className="text-slate-100 font-semibold">{item.title}</p>
-                      <p className="neon-subtle text-sm">Due {formatDueDate(item.dueAt)}</p>
-                      <p className="micro-label mt-2 accent-amber">{summarizeQuestionTypes(item.questions)}</p>
-                      <p className="micro-label mt-2 accent-emerald">Total Score {assignmentTotalScore(item.questions)}</p>
-                      {hasTeacherReview(item.mySubmission) && item.mySubmission?.grade != null && (
-                        <p className="micro-label mt-2 accent-indigo">Score {normalizeDisplayGrade(item.mySubmission.grade)}/{assignmentTotalScore(item.questions)}</p>
-                      )}
-                      {hasTeacherReview(item.mySubmission) && item.mySubmission?.feedback && (
-                        <p className="mt-2 text-sm text-slate-300">Remark available from teacher review.</p>
-                      )}
-                    </div>
-                    <span className={`glass-chip px-3 py-1 rounded-full micro-label ${hasTeacherReview(item.mySubmission) ? 'accent-indigo' : item.mySubmission ? 'accent-emerald' : 'accent-amber'}`}>
-                      {hasTeacherReview(item.mySubmission) ? 'Reviewed' : item.mySubmission ? 'Submitted' : 'Work on it'}
-                    </span>
-                  </Link>
-                ))}
+              <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
+                {group.items.map(item => {
+                  const total = assignmentTotalScore(item.questions);
+                  const reviewed = hasTeacherReview(item.mySubmission) && item.mySubmission?.grade != null;
+                  return (
+                    <Link
+                      key={item.id}
+                      to={`/roles/student/assignments/${item.id}`}
+                      className={`flex min-h-[118px] flex-col justify-between gap-2 rounded-2xl border bg-gradient-to-br p-3 transition-transform hover:scale-[1.03] ${cardColor(`${group.subjectName}-${item.id}`)}`}
+                    >
+                      <div>
+                        <p className="line-clamp-2 text-sm font-bold leading-snug text-white">{item.title}</p>
+                        <p className="mt-1 text-[10px] font-semibold uppercase tracking-wide text-white/65">Due {formatDueDate(item.dueAt)}</p>
+                      </div>
+                      <div className="flex items-center justify-between gap-1">
+                        <span className="text-[10px] font-bold text-white/70">Total {total}</span>
+                        <span className={`rounded-full px-2 py-0.5 text-[9px] font-black uppercase ${reviewed ? 'bg-indigo-400/40 text-white' : item.mySubmission ? 'bg-emerald-400/40 text-white' : 'bg-amber-400/45 text-white'}`}>
+                          {reviewed ? `${normalizeDisplayGrade(item.mySubmission.grade)}/${total}` : item.mySubmission ? 'Submitted' : 'Start'}
+                        </span>
+                      </div>
+                    </Link>
+                  );
+                })}
               </div>
             </section>
           ))}
