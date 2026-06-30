@@ -299,6 +299,12 @@ export const getMyPayslip = () => req('/api/school/payroll/my-payslip');
 // Attendance
 export const getStaffAttendance = (date) => req(`/api/school/staff-attendance?date=${date}`);
 export const getDailyAttendanceLog = (date) => req(`/api/school/daily-attendance-log?date=${encodeURIComponent(date)}`);
+export const getPromotionMap = () => req('/api/school/promotion-map');
+export const savePromotionMap = (data) => req('/api/school/promotion-map', { method: 'POST', body: data });
+export const runPromotion = () => req('/api/school/run-promotion', { method: 'POST' });
+export const getAlumni = () => req('/api/school/alumni');
+export const addAlumni = (data) => req('/api/school/alumni', { method: 'POST', body: data });
+export const deleteAlumni = (id) => req(`/api/school/alumni/${encodeURIComponent(id)}`, { method: 'DELETE' });
 export const getSchoolAccessRequests = () => req('/api/school/access-requests');
 export const decideSchoolAccessRequest = (id, decision) => req(`/api/school/access-requests/${encodeURIComponent(id)}/decide`, { method: 'POST', body: { decision } });
 export const revokeSchoolAccessRequest = (id) => req(`/api/school/access-requests/${encodeURIComponent(id)}/revoke`, { method: 'POST' });

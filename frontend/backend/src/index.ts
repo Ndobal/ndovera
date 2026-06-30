@@ -18455,6 +18455,128 @@ app.delete('/api/school/staff-documents/:id', authenticate, async (c) => {
   return c.json({ success: true })
 })
 
+// ---- Class promotion + Alumni community ----
+const ALUMNI_DDL = `CREATE TABLE IF NOT EXISTS alumni (id TEXT PRIMARY KEY, tenant_id TEXT, name TEXT, email TEXT, phone TEXT, graduation_year TEXT, last_class TEXT, source TEXT, status TEXT, created_at TEXT)`
+let _alumniReady = false
+async function ensureAlumniTable(db: D1Database) {
+  if (_alumniReady) return
+  _alumniReady = true
+  await db.prepare(ALUMNI_DDL).run()
+}
+const PROMO_ROLES = ['owner', 'hos']
+
+app.get('/api/school/promotion-map', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, PROMO_ROLES)) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  const settings = await getSettings(c.env.APP_DB, `promotion_map_${tenantId}`).catch(() => null)
+  return c.json({ success: true, map: settings?.map || {}, criteria: settings?.criteria || '' })
+})
+
+app.post('/api/school/promotion-map', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['owner'])) return c.json({ error: 'Only the owner can set the promotion flow.' }, 403)
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  const body = await c.req.json().catch(() => ({}))
+  await upsertSettings(c.env.APP_DB, `promotion_map_${tenantId}`, { map: body?.map || {}, criteria: String(body?.criteria || '') })
+  return c.json({ success: true })
+})
+
+// Promote every active student per the map; the class mapped to "alumni" graduates
+// its students into the alumni community.
+app.post('/api/school/run-promotion', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['owner'])) return c.json({ error: 'Only the owner can run promotion.' }, 403)
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  await ensureAlumniTable(c.env.APP_DB)
+  const settings = await getSettings(c.env.APP_DB, `promotion_map_${tenantId}`).catch(() => null)
+  const map = (settings?.map || {}) as Record<string, string>
+  if (!Object.keys(map).length) return c.json({ error: 'Set up the promotion flow first.' }, 400)
+  const classRows = ((await c.env.APP_DB.prepare(`SELECT id, name, arm FROM classes WHERE tenantId = ?`).bind(tenantId).all()).results || []) as any[]
+  const classById = new Map(classRows.map(r => [String(r.id), r]))
+  const session = await getCurrentSchoolSessionSnapshot(c.env.APP_DB, tenantId).catch(() => ({ sessionName: '' })) as any
+  const students = await listTenantActiveStudents(c.env.APP_DB, tenantId)
+  let promoted = 0
+  let graduated = 0
+  for (const student of students) {
+    const target = map[student.classId]
+    if (!target) continue
+    const settingsRow = await getSettings(c.env.APP_DB, student.email).catch(() => null)
+    if (target === 'alumni') {
+      await c.env.APP_DB.prepare(`INSERT INTO alumni (id, tenant_id, name, email, phone, graduation_year, last_class, source, status, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, 'promotion', 'active', ?)`)
+        .bind(`alum_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`, tenantId, student.name, student.email, String(settingsRow?.phone || ''), String(session.sessionName || ''), student.className, new Date().toISOString()).run()
+      await c.env.APP_DB.prepare(`UPDATE users SET status='alumni' WHERE id=? AND tenantId=?`).bind(student.id, tenantId).run().catch(() => {})
+      if (settingsRow) await upsertSettings(c.env.APP_DB, student.email, { ...settingsRow, status: 'alumni', classId: '', className: '' })
+      graduated += 1
+    } else {
+      const targetClass = classById.get(target)
+      if (!targetClass) continue
+      const className = String(targetClass.name || '')
+      const fullLabel = `${className}${targetClass.arm ? ` ${targetClass.arm}` : ''}`.trim()
+      if (settingsRow) await upsertSettings(c.env.APP_DB, student.email, { ...settingsRow, classId: target, className, classArm: targetClass.arm || null })
+      await c.env.APP_DB.prepare(`UPDATE users SET className=? WHERE id=? AND tenantId=?`).bind(fullLabel, student.id, tenantId).run().catch(() => {})
+      promoted += 1
+    }
+  }
+  await addAudit(c.env.APP_DB, tenantId, { action: 'runPromotion', data: { by: c.var.user?.name || 'owner', promoted, graduated } }).catch(() => {})
+  return c.json({ success: true, promoted, graduated })
+})
+
+app.get('/api/school/alumni', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, PROMO_ROLES)) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  await ensureAlumniTable(c.env.APP_DB)
+  const rows = ((await c.env.APP_DB.prepare(`SELECT * FROM alumni WHERE tenant_id = ? ORDER BY created_at DESC LIMIT 2000`).bind(tenantId).all()).results || []) as any[]
+  return c.json({ success: true, alumni: rows.map(r => ({ id: r.id, name: r.name, email: r.email, phone: r.phone, graduationYear: r.graduation_year, lastClass: r.last_class, source: r.source, status: r.status, createdAt: r.created_at })) })
+})
+
+app.post('/api/school/alumni', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, PROMO_ROLES)) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  await ensureAlumniTable(c.env.APP_DB)
+  const b = await c.req.json().catch(() => ({}))
+  // Approve a pending registrant, or add a new alumnus manually.
+  if (b?.id) {
+    await c.env.APP_DB.prepare(`UPDATE alumni SET status='active' WHERE id=? AND tenant_id=?`).bind(String(b.id), tenantId).run()
+    return c.json({ success: true, id: b.id })
+  }
+  if (!String(b?.name || '').trim()) return c.json({ error: 'Name is required.' }, 400)
+  const id = `alum_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`
+  await c.env.APP_DB.prepare(`INSERT INTO alumni (id, tenant_id, name, email, phone, graduation_year, last_class, source, status, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, 'manual', 'active', ?)`)
+    .bind(id, tenantId, String(b.name).trim(), String(b.email || ''), String(b.phone || ''), String(b.graduationYear || ''), String(b.lastClass || ''), new Date().toISOString()).run()
+  return c.json({ success: true, id }, 201)
+})
+
+app.delete('/api/school/alumni/:id', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, PROMO_ROLES)) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = c.var.user?.tenantId
+  await ensureAlumniTable(c.env.APP_DB)
+  await c.env.APP_DB.prepare(`DELETE FROM alumni WHERE id=? AND tenant_id=?`).bind(c.req.param('id'), tenantId).run()
+  return c.json({ success: true })
+})
+
+// Public: an old alumnus registers themselves (owner approves). tenantId identifies the school.
+app.get('/api/public/alumni-criteria', async (c) => {
+  const tenantId = String(c.req.query('tenantId') || '').trim()
+  if (!tenantId) return c.json({ success: true, criteria: '' })
+  const settings = await getSettings(c.env.APP_DB, `promotion_map_${tenantId}`).catch(() => null)
+  return c.json({ success: true, criteria: settings?.criteria || '' })
+})
+
+app.post('/api/public/alumni-register', async (c) => {
+  const b = await c.req.json().catch(() => ({}))
+  const tenantId = String(b?.tenantId || '').trim()
+  if (!tenantId || !String(b?.name || '').trim()) return c.json({ error: 'School and name are required.' }, 400)
+  const tenant = await getTenantById(c.env.APP_DB, tenantId)
+  if (!tenant) return c.json({ error: 'School not found.' }, 404)
+  await ensureAlumniTable(c.env.APP_DB)
+  await c.env.APP_DB.prepare(`INSERT INTO alumni (id, tenant_id, name, email, phone, graduation_year, last_class, source, status, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, 'register', 'pending', ?)`)
+    .bind(`alum_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`, tenantId, String(b.name).trim(), String(b.email || ''), String(b.phone || ''), String(b.graduationYear || ''), String(b.lastClass || ''), new Date().toISOString()).run()
+  return c.json({ success: true, message: 'Thank you — your alumni registration was submitted for approval.' }, 201)
+})
+
 // ---- Store keeper / inventory module ----
 const STORE_ITEMS_DDL = `CREATE TABLE IF NOT EXISTS store_items (id TEXT PRIMARY KEY, tenant_id TEXT, name TEXT, category TEXT, quantity REAL, unit TEXT, location TEXT, reorder_level REAL, notes TEXT, created_at TEXT, updated_at TEXT)`
 const STORE_MOVEMENTS_DDL = `CREATE TABLE IF NOT EXISTS store_movements (id TEXT PRIMARY KEY, tenant_id TEXT, item_id TEXT, item_name TEXT, type TEXT, quantity REAL, user_id TEXT, user_name TEXT, note TEXT, created_by TEXT, created_at TEXT)`
