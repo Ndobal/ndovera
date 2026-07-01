@@ -99,8 +99,8 @@ export async function getParentResult(studentId = '') {
   return getStudentResult(studentId);
 }
 
-export async function getResultSettings() {
-  return fetchResultSettings();
+export async function getResultSettings(section = '') {
+  return fetchResultSettings(section);
 }
 
 export async function saveResultConfiguration(payload = {}) {

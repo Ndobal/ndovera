@@ -58,6 +58,23 @@ const RESULT_SETTINGS_DDL = `CREATE TABLE IF NOT EXISTS result_settings (
   updated_at TEXT NOT NULL
 )`
 
+// Per-section overrides (Nursery / Primary / Secondary). A missing section row
+// falls back to the school-wide result_settings above, so existing schools are
+// unaffected until they configure a section.
+const RESULT_SETTINGS_SECTIONS_DDL = `CREATE TABLE IF NOT EXISTS result_settings_sections (
+  tenant_id TEXT,
+  section TEXT,
+  template_key TEXT,
+  grading_scale_json TEXT,
+  rating_scale_json TEXT,
+  affective_scale_json TEXT,
+  affective_domains_json TEXT,
+  metadata_json TEXT,
+  updated_by TEXT,
+  updated_at TEXT NOT NULL,
+  PRIMARY KEY (tenant_id, section)
+)`
+
 const RESULT_BATCHES_DDL = `CREATE TABLE IF NOT EXISTS result_batches (
   id TEXT PRIMARY KEY,
   tenant_id TEXT NOT NULL,
@@ -150,6 +167,7 @@ const RESULT_DOCUMENTS_DDL = `CREATE TABLE IF NOT EXISTS result_documents (
 
 export async function ensureResultsTables(db: D1Database) {
   await db.prepare(RESULT_SETTINGS_DDL).run()
+  await db.prepare(RESULT_SETTINGS_SECTIONS_DDL).run()
   await db.prepare(RESULT_BATCHES_DDL).run()
   await db.prepare(RESULT_ENTRIES_DDL).run()
   try { await db.exec('ALTER TABLE result_ca_entries ADD COLUMN ca_components_json TEXT') } catch {}
@@ -158,9 +176,7 @@ export async function ensureResultsTables(db: D1Database) {
   await db.prepare(RESULT_DOCUMENTS_DDL).run()
 }
 
-export async function getResultSettings(db: D1Database, tenantId: string) {
-  await ensureResultsTables(db)
-  const row = await db.prepare('SELECT * FROM result_settings WHERE tenant_id = ?').bind(tenantId).first() as Record<string, any> | null
+function mapResultSettingsRow(row: Record<string, any> | null, tenantId: string) {
   return row ? {
     tenantId: row.tenant_id,
     templateKey: String(row.template_key || ''),
@@ -184,15 +200,24 @@ export async function getResultSettings(db: D1Database, tenantId: string) {
   }
 }
 
-export async function saveResultSettings(db: D1Database, tenantId: string, settings: Record<string, any>, actorId: string) {
+// section '' = school-wide (default). A named section (nursery/primary/secondary)
+// returns its own overrides if configured, otherwise falls back to the school-wide row.
+export async function getResultSettings(db: D1Database, tenantId: string, section = '') {
+  await ensureResultsTables(db)
+  const sec = String(section || '').trim().toLowerCase()
+  if (sec) {
+    const sectionRow = await db.prepare('SELECT * FROM result_settings_sections WHERE tenant_id = ? AND section = ?').bind(tenantId, sec).first() as Record<string, any> | null
+    if (sectionRow) return { ...mapResultSettingsRow(sectionRow, tenantId), section: sec }
+  }
+  const row = await db.prepare('SELECT * FROM result_settings WHERE tenant_id = ?').bind(tenantId).first() as Record<string, any> | null
+  return { ...mapResultSettingsRow(row, tenantId), section: sec }
+}
+
+export async function saveResultSettings(db: D1Database, tenantId: string, settings: Record<string, any>, actorId: string, section = '') {
   await ensureResultsTables(db)
   const now = new Date().toISOString()
-  await db.prepare(
-    `INSERT OR REPLACE INTO result_settings
-     (tenant_id, template_key, grading_scale_json, rating_scale_json, affective_scale_json, affective_domains_json, metadata_json, updated_by, updated_at)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`
-  ).bind(
-    tenantId,
+  const sec = String(section || '').trim().toLowerCase()
+  const args = [
     String(settings.templateKey || ''),
     JSON.stringify(settings.gradingScale || []),
     JSON.stringify(settings.ratingScale || []),
@@ -201,7 +226,20 @@ export async function saveResultSettings(db: D1Database, tenantId: string, setti
     JSON.stringify(settings.metadata || {}),
     actorId,
     now,
-  ).run()
+  ]
+  if (sec) {
+    await db.prepare(
+      `INSERT OR REPLACE INTO result_settings_sections
+       (tenant_id, section, template_key, grading_scale_json, rating_scale_json, affective_scale_json, affective_domains_json, metadata_json, updated_by, updated_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+    ).bind(tenantId, sec, ...args).run()
+    return getResultSettings(db, tenantId, sec)
+  }
+  await db.prepare(
+    `INSERT OR REPLACE INTO result_settings
+     (tenant_id, template_key, grading_scale_json, rating_scale_json, affective_scale_json, affective_domains_json, metadata_json, updated_by, updated_at)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`
+  ).bind(tenantId, ...args).run()
   return getResultSettings(db, tenantId)
 }
 

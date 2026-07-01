@@ -169,7 +169,7 @@ function ClassesTab() {
   const [classes, setClasses] = useState([]);
   const [teachers, setTeachers] = useState([]);
   const [caregivers, setCaregivers] = useState([]);
-  const [form, setForm] = useState({ name: '', arm: '', classTeacherId: '', teacherIds: [], caregiverIds: [] });
+  const [form, setForm] = useState({ name: '', arm: '', section: '', classTeacherId: '', teacherIds: [], caregiverIds: [] });
   const [drafts, setDrafts] = useState({});
   const [dirtyClassIds, setDirtyClassIds] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -256,7 +256,7 @@ function ClassesTab() {
     try {
       await addClass(form);
       await loadAll();
-      setForm({ name: '', arm: '', classTeacherId: '', teacherIds: [], caregiverIds: [] });
+      setForm({ name: '', arm: '', section: '', classTeacherId: '', teacherIds: [], caregiverIds: [] });
       setStatusMsg('Class created.');
     } catch (err) {
       setError(err.message);
@@ -400,8 +400,17 @@ function ClassesTab() {
           <input required value={form.name} onChange={e => setForm(current => ({ ...current, name: e.target.value }))} className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#ade1f4] px-3 py-2 text-sm text-[#191970]" />
         </div>
         <div>
-          <label className="text-xs text-[#800020] dark:text-slate-400 uppercase font-semibold">Arm/Section</label>
+          <label className="text-xs text-[#800020] dark:text-slate-400 uppercase font-semibold">Arm</label>
           <input value={form.arm} onChange={e => setForm(current => ({ ...current, arm: e.target.value }))} className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#ade1f4] px-3 py-2 text-sm text-[#191970]" />
+        </div>
+        <div>
+          <label className="text-xs text-[#800020] dark:text-slate-400 uppercase font-semibold">School Section</label>
+          <select value={form.section} onChange={e => setForm(current => ({ ...current, section: e.target.value }))} className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#ade1f4] px-3 py-2 text-sm text-[#191970]">
+            <option value="">Auto-detect from name</option>
+            <option value="nursery">Nursery</option>
+            <option value="primary">Primary</option>
+            <option value="secondary">Secondary</option>
+          </select>
         </div>
         <div>
           <label className="text-xs text-[#800020] dark:text-slate-400 uppercase font-semibold">Primary Teacher</label>

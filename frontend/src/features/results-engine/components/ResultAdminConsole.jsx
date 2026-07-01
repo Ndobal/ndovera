@@ -4,6 +4,7 @@ import {
   approvePublishedResults,
   getHoSResultAnalytics,
   getOwnerResultAnalytics,
+  getResultSettings,
   saveResultConfiguration,
   uploadPublishedResultDocumentsSequential,
 } from '../service/resultEngineService';
@@ -141,6 +142,8 @@ export default function ResultAdminConsole({ analyticsMode = 'hos', roleTitle = 
   const [data, setData] = useState(null);
   const [sessionPayload, setSessionPayload] = useState({ session: null, history: [] });
   const [activeTab, setActiveTab] = useState('console');
+  const [activeSection, setActiveSection] = useState('');
+  const [sectionData, setSectionData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
@@ -182,6 +185,14 @@ export default function ResultAdminConsole({ analyticsMode = 'hos', roleTitle = 
       setLoading(false);
     }
   }, [loader]);
+
+  // Load result settings for the selected section (Nursery/Primary/Secondary),
+  // falling back to school-wide (section '') if the section has no overrides.
+  useEffect(() => {
+    let cancelled = false;
+    getResultSettings(activeSection).then(d => { if (!cancelled) setSectionData(d); }).catch(() => {});
+    return () => { cancelled = true; };
+  }, [activeSection]);
 
   useEffect(() => {
     let cancelled = false;
@@ -258,8 +269,9 @@ export default function ResultAdminConsole({ analyticsMode = 'hos', roleTitle = 
     setMessage('');
     try {
       await saveResultConfiguration(payload);
-      setMessage('Result settings saved. CA entry gate is now aligned with the configured template and scales.');
+      setMessage(`Result settings saved${payload?.section ? ` for the ${payload.section} section` : ''}. CA entry gate is now aligned with the configured template and scales.`);
       await loadConsole(selectedBatchKey, classMap);
+      getResultSettings(activeSection).then(setSectionData).catch(() => {});
     } catch (saveError) {
       setError(saveError.message || 'Unable to save result settings.');
       // Re-throw so the settings panel can surface the exact reason right next to the Save button,
@@ -458,14 +470,31 @@ export default function ResultAdminConsole({ analyticsMode = 'hos', roleTitle = 
 
       {activeTab === 'console' && (
         <>
-          {data && (
+          {(sectionData?.availableSections?.length > 1) && (
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-xs font-bold uppercase tracking-widest text-[#800020] dark:text-slate-400">Result settings for:</span>
+              {['', ...sectionData.availableSections].map(sec => (
+                <button
+                  key={sec || 'all'}
+                  type="button"
+                  onClick={() => setActiveSection(sec)}
+                  className={`rounded-2xl border px-4 py-1.5 text-sm font-bold capitalize transition ${activeSection === sec ? 'bg-[#191970] text-white border-[#191970]' : 'border-[#c9a96e]/40 bg-white/70 text-[#191970] dark:bg-slate-900/40 dark:text-slate-200'}`}
+                >
+                  {sec || 'School-wide'}
+                </button>
+              ))}
+            </div>
+          )}
+
+          {(sectionData || data) && (
             <ResultSettingsPanel
-              settings={data.settings}
-              templates={data.templates}
-              suggestedSettings={data.suggestedSettings}
-              canManageSettings={data.canManageSettings}
+              key={activeSection}
+              settings={(sectionData || data).settings}
+              templates={(sectionData || data).templates}
+              suggestedSettings={(sectionData || data).suggestedSettings}
+              canManageSettings={(sectionData || data).canManageSettings}
               saving={saving}
-              onSave={handleSaveSettings}
+              onSave={(payload) => handleSaveSettings({ ...payload, section: activeSection })}
             />
           )}
 

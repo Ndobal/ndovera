@@ -1220,7 +1220,7 @@ async function resolveResultClassAccess(db: D1Database, user: Record<string, any
   try { await db.exec('ALTER TABLE subjects ADD COLUMN teacherId TEXT') } catch {}
 
   const classRow = tenantId
-    ? await db.prepare(`SELECT id, tenantId, name, arm, classTeacherId FROM classes WHERE id = ? AND tenantId = ?`).bind(classId, tenantId).first() as Record<string, any> | null
+    ? await db.prepare(`SELECT id, tenantId, name, arm, classTeacherId, section FROM classes WHERE id = ? AND tenantId = ?`).bind(classId, tenantId).first() as Record<string, any> | null
     : null
   const subjectRowsResult = classRow
     ? await db.prepare(`SELECT id, name, teacherId FROM subjects WHERE tenantId = ? AND classId = ? ORDER BY name`).bind(tenantId, classId).all().catch(() => ({ results: [] }))
@@ -10157,6 +10157,7 @@ async function ensureClassesTable(db: D1Database) {
   if (_initializedTables.has('classes')) return
   _initializedTables.add('classes')
   await db.prepare(CLASSES_TABLE_SQL).run()
+  try { await db.exec('ALTER TABLE classes ADD COLUMN section TEXT') } catch {}
   await runIndexStatements(db, [
     `CREATE INDEX IF NOT EXISTS idx_classes_tenant_name_arm ON classes(tenantId, name, arm)`,
     `CREATE INDEX IF NOT EXISTS idx_classes_tenant_teacher ON classes(tenantId, classTeacherId)`,
@@ -13970,9 +13971,12 @@ app.post('/api/school/classes', authenticate, async (c) => {
   if (!hasRequiredRole(c.var.user.role, ['owner', 'hos'])) return c.json({ error: 'forbidden' }, 403)
   const tenantId = c.var.user?.tenantId
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
-  const { name, arm, classTeacherId, teacherIds, caregiverIds } = await c.req.json()
+  const { name, arm, classTeacherId, teacherIds, caregiverIds, section } = await c.req.json()
   if (!name) return c.json({ error: 'Class name is required.' }, 400)
   const id = `class_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`
+  const resolvedSection = ['nursery', 'primary', 'secondary'].includes(String(section || '').trim().toLowerCase())
+    ? String(section).trim().toLowerCase()
+    : deriveClassSection(String(name))
   try {
     await ensureClassesTable(c.env.APP_DB)
     await ensureClassMembershipsTable(c.env.APP_DB)
@@ -13980,7 +13984,7 @@ app.post('/api/school/classes', authenticate, async (c) => {
       requireTeachingCapability: true,
       label: 'Class teacher',
     })
-    await c.env.APP_DB.prepare(`INSERT INTO classes (id, tenantId, name, arm, classTeacherId, createdAt) VALUES (?, ?, ?, ?, ?, ?)`).bind(id, tenantId, name, arm || '', normalizedTeacherId, new Date().toISOString()).run()
+    await c.env.APP_DB.prepare(`INSERT INTO classes (id, tenantId, name, arm, classTeacherId, section, createdAt) VALUES (?, ?, ?, ?, ?, ?, ?)`).bind(id, tenantId, name, arm || '', normalizedTeacherId, resolvedSection, new Date().toISOString()).run()
     const normalizedTeacherIds = Array.from(new Set([
       normalizedTeacherId,
       ...((Array.isArray(teacherIds) ? teacherIds : []).map((value: unknown) => String(value || '').trim()).filter(Boolean)),
@@ -14539,19 +14543,49 @@ app.get('/api/results/templates', authenticate, async (c) => {
   return c.json({ success: true, templates: RESULT_TEMPLATE_CATALOG, suggestedSettings: getSuggestedResultSettings() })
 })
 
+// Classify a class into a school section from its name (used for section-based
+// result settings). Unlabelled classes default to 'primary'.
+function deriveClassSection(className: string): string {
+  const n = String(className || '').toLowerCase()
+  if (/(nursery|creche|cr[eè]che|\bkg\b|kindergarten|reception|pre[-\s]?(school|k|nursery)|playgroup|toddler)/.test(n)) return 'nursery'
+  if (/(\bjss?\b|js\s?[123]\b|\bsss?\b|ss\s?[123]\b|secondary|senior\s?sec|junior\s?sec|\bform\s?[1-6]\b)/.test(n)) return 'secondary'
+  if (/(primary|\bpry\b|\bbasic\b|\bgrade\b|elementary|\bstd\b|standard)/.test(n)) return 'primary'
+  return 'primary'
+}
+
+// Prefer the explicit class.section set at class creation; fall back to the name heuristic.
+function classSectionValue(row: any): string {
+  const explicit = String(row?.section || '').trim().toLowerCase()
+  if (['nursery', 'primary', 'secondary'].includes(explicit)) return explicit
+  return deriveClassSection(String(row?.name || ''))
+}
+
+async function getTenantAvailableSections(db: D1Database, tenantId: string): Promise<string[]> {
+  try {
+    const rows = ((await db.prepare(`SELECT DISTINCT name, section FROM classes WHERE tenantId = ?`).bind(tenantId).all()).results || []) as any[]
+    const set = new Set<string>()
+    for (const r of rows) set.add(classSectionValue(r))
+    return ['nursery', 'primary', 'secondary'].filter(s => set.has(s))
+  } catch { return [] }
+}
+
 app.get('/api/results/settings', authenticate, async (c) => {
   const { tenant } = await resolveTenantForActor(c)
   if (!tenant) return c.json({ error: 'Tenant not found.' }, 404)
 
-  const stored = await getResultSettings(c.env.APP_DB, tenant.id)
+  const section = String(c.req.query('section') || '').trim().toLowerCase()
+  const stored = await getResultSettings(c.env.APP_DB, tenant.id, section)
   const tenantBranding = await getTenantSchoolBranding(c.env.APP_DB, tenant)
   const settings = attachTenantBrandingToResultSettings({ ...stored, ...normalizeResultSettingsInput(stored) }, tenantBranding)
   const suggestedSettings = attachTenantBrandingToResultSettings(getSuggestedResultSettings(), tenantBranding)
   const configurationError = validateResultSettings(settings)
+  const availableSections = await getTenantAvailableSections(c.env.APP_DB, tenant.id)
 
   return c.json({
     success: true,
     settings,
+    section,
+    availableSections,
     templates: RESULT_TEMPLATE_CATALOG,
     suggestedSettings,
     configurationReady: !configurationError,
@@ -14566,11 +14600,13 @@ app.post('/api/results/settings', authenticate, async (c) => {
   if (!tenant) return c.json({ error: 'Tenant not found.' }, 404)
 
   const actorId = String(c.var.user?.id || c.var.user?.email || c.var.user?.sub || '').trim()
-  const normalized = normalizeResultSettingsInput(await c.req.json().catch(() => ({})))
+  const body = await c.req.json().catch(() => ({}))
+  const section = String((body as any)?.section || '').trim().toLowerCase()
+  const normalized = normalizeResultSettingsInput(body)
   const configurationError = validateResultSettings(normalized)
   if (configurationError) return c.json({ error: configurationError }, 400)
 
-  const saved = await saveResultSettings(c.env.APP_DB, tenant.id, normalized, actorId)
+  const saved = await saveResultSettings(c.env.APP_DB, tenant.id, normalized, actorId, section)
   const tenantBranding = await getTenantSchoolBranding(c.env.APP_DB, tenant)
   const settings = attachTenantBrandingToResultSettings({ ...saved, ...normalizeResultSettingsInput(saved) }, tenantBranding)
   return c.json({ success: true, settings, configurationReady: true, configurationError: '' })
@@ -14589,7 +14625,7 @@ app.get('/api/results/sheet', authenticate, async (c) => {
   const period = await resolveCurrentResultPeriod(c.env.APP_DB, access.tenantId, query.sessionName || query.session, query.termName || query.term)
   const tenant = await getTenantById(c.env.APP_DB, access.tenantId)
   const tenantBranding = await getTenantSchoolBranding(c.env.APP_DB, tenant)
-  const storedSettings = await getResultSettings(c.env.APP_DB, access.tenantId)
+  const storedSettings = await getResultSettings(c.env.APP_DB, access.tenantId, classSectionValue(access.classRow))
   const settings = attachTenantBrandingToResultSettings({ ...storedSettings, ...normalizeResultSettingsInput(storedSettings) }, tenantBranding)
   const configurationError = validateResultSettings(settings)
   const batch = await getResultBatch(c.env.APP_DB, access.tenantId, classId, period.sessionName, period.termName)
@@ -14642,7 +14678,7 @@ app.post('/api/results/entries', authenticate, async (c) => {
 
   const period = await resolveCurrentResultPeriod(c.env.APP_DB, access.tenantId, body.sessionName || body.session, body.termName || body.term)
   await ensureSessionTermExists(c.env.APP_DB, access.tenantId, period.sessionName, period.termName)
-  const storedSettings = await getResultSettings(c.env.APP_DB, access.tenantId)
+  const storedSettings = await getResultSettings(c.env.APP_DB, access.tenantId, classSectionValue(access.classRow))
   const settings = { ...storedSettings, ...normalizeResultSettingsInput(storedSettings) }
   const configurationError = validateResultSettings(settings)
   if (configurationError) return c.json({ error: configurationError }, 400)
@@ -14702,7 +14738,7 @@ app.post('/api/results/profiles', authenticate, async (c) => {
 
   const period = await resolveCurrentResultPeriod(c.env.APP_DB, access.tenantId, body.sessionName || body.session, body.termName || body.term)
   await ensureSessionTermExists(c.env.APP_DB, access.tenantId, period.sessionName, period.termName)
-  const storedSettings = await getResultSettings(c.env.APP_DB, access.tenantId)
+  const storedSettings = await getResultSettings(c.env.APP_DB, access.tenantId, classSectionValue(access.classRow))
   const settings = { ...storedSettings, ...normalizeResultSettingsInput(storedSettings) }
   const configurationError = validateResultSettings(settings)
   if (configurationError) return c.json({ error: configurationError }, 400)
@@ -14775,7 +14811,7 @@ app.post('/api/results/batch-status', authenticate, async (c) => {
 
   const period = await resolveCurrentResultPeriod(c.env.APP_DB, access.tenantId, body.sessionName || body.session, body.termName || body.term)
   await ensureSessionTermExists(c.env.APP_DB, access.tenantId, period.sessionName, period.termName)
-  const storedSettings = await getResultSettings(c.env.APP_DB, access.tenantId)
+  const storedSettings = await getResultSettings(c.env.APP_DB, access.tenantId, classSectionValue(access.classRow))
   const settings = { ...storedSettings, ...normalizeResultSettingsInput(storedSettings) }
   if (status === 'submitted') {
     const configurationError = validateResultSettings(settings)
@@ -14810,7 +14846,7 @@ app.post('/api/results/publish', authenticate, async (c) => {
   await ensureSessionTermExists(c.env.APP_DB, access.tenantId, period.sessionName, period.termName)
   const tenant = await getTenantById(c.env.APP_DB, access.tenantId)
   const tenantBranding = await getTenantSchoolBranding(c.env.APP_DB, tenant)
-  const storedSettings = await getResultSettings(c.env.APP_DB, access.tenantId)
+  const storedSettings = await getResultSettings(c.env.APP_DB, access.tenantId, classSectionValue(access.classRow))
   const settings = attachTenantBrandingToResultSettings({ ...storedSettings, ...normalizeResultSettingsInput(storedSettings) }, tenantBranding)
   const configurationError = validateResultSettings(settings)
   if (configurationError) return c.json({ error: configurationError }, 400)
@@ -14860,13 +14896,13 @@ async function ensureBulkResultsJobsTable(db: D1Database) {
 
 // Publish one class's results without a request context (used by the cron job).
 async function publishClassResultsBackground(env: Bindings, tenantId: string, classId: string, sessionInput: string, termInput: string, actorName: string): Promise<number> {
-  const classRow = await env.APP_DB.prepare(`SELECT id, name, arm FROM classes WHERE id = ? AND tenantId = ?`).bind(classId, tenantId).first() as any
+  const classRow = await env.APP_DB.prepare(`SELECT id, name, arm, section FROM classes WHERE id = ? AND tenantId = ?`).bind(classId, tenantId).first() as any
   if (!classRow) throw new Error('Class not found')
   const period = await resolveCurrentResultPeriod(env.APP_DB, tenantId, sessionInput, termInput)
   await ensureSessionTermExists(env.APP_DB, tenantId, period.sessionName, period.termName)
   const tenant = await getTenantById(env.APP_DB, tenantId)
   const tenantBranding = await getTenantSchoolBranding(env.APP_DB, tenant)
-  const storedSettings = await getResultSettings(env.APP_DB, tenantId)
+  const storedSettings = await getResultSettings(env.APP_DB, tenantId, classSectionValue(classRow))
   const settings = attachTenantBrandingToResultSettings({ ...storedSettings, ...normalizeResultSettingsInput(storedSettings) }, tenantBranding)
   const configErr = validateResultSettings(settings)
   if (configErr) throw new Error(configErr)

@@ -372,7 +372,7 @@ export const getTuckWeekly = (weeks = 8) => req(`/api/tuck/orders/weekly${buildQ
 
 // Results
 export const getResultTemplates = () => req('/api/results/templates');
-export const getResultSettings = () => req('/api/results/settings');
+export const getResultSettings = (section = '') => req(`/api/results/settings${section ? `?section=${encodeURIComponent(section)}` : ''}`);
 export const saveResultSettings = (data) => req('/api/results/settings', { method: 'POST', body: data });
 export const getResultSheet = (params = {}) => req(`/api/results/sheet${buildQuery(params)}`);
 export const saveResultEntries = (data) => req('/api/results/entries', { method: 'POST', body: data });
