@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { addTopic, deleteTopic, getAssignments, getMaterials, getSubjectMembers, getTopics, removeStudentFromSubject, restoreStudentToSubject } from '../classroomService';
+import { addTopic, deleteTopic, deleteAssignment, deleteMaterial, getAssignments, getMaterials, getSubjectMembers, getTopics, removeStudentFromSubject, restoreStudentToSubject } from '../classroomService';
 
 const SUBJECT_PALETTES = [
   { bg: '#013220', text: '#FFD700', badge: 'rgba(255,215,0,0.18)',    badgeText: '#FFD700' },
@@ -110,6 +110,18 @@ export default function SubjectsTab({ classId = '', subjects = [], canManage = f
     } catch {
       setTopicMsg('Could not add topic.');
     }
+  }
+
+  async function handleDeleteAssignment(id) {
+    if (!window.confirm('Delete this assignment? This cannot be undone.')) return;
+    try { await deleteAssignment(classId, id); setAllAssignments(prev => prev.filter(a => a.id !== id)); }
+    catch { setActionMsg('Could not delete assignment.'); }
+  }
+
+  async function handleDeleteMaterial(id) {
+    if (!window.confirm('Delete this material?')) return;
+    try { await deleteMaterial(classId, id); setAllMaterials(prev => prev.filter(m => m.id !== id)); }
+    catch { setActionMsg('Could not delete material.'); }
   }
 
   async function handleDeleteTopic(topicId) {
@@ -342,7 +354,14 @@ export default function SubjectsTab({ classId = '', subjects = [], canManage = f
             return studentMode ? (
               <Link key={a.id} to={`/roles/student/assignments/${a.id}`} className="block glass-surface rounded-3xl p-4 space-y-2 border border-white/10 transition hover:border-emerald-400/40 hover:bg-emerald-500/5">{inner}</Link>
             ) : (
-              <div key={a.id} className="glass-surface rounded-3xl p-4 space-y-2 border border-white/10">{inner}</div>
+              <div key={a.id} className="glass-surface rounded-3xl p-4 space-y-2 border border-white/10">
+                {inner}
+                {canManage && (
+                  <div className="flex justify-end pt-1">
+                    <button type="button" onClick={() => handleDeleteAssignment(a.id)} className="rounded-lg border border-red-500/30 px-3 py-1 text-xs font-semibold text-red-300 hover:bg-red-900/30">Delete</button>
+                  </div>
+                )}
+              </div>
             );
           })}
         </section>
@@ -396,6 +415,9 @@ export default function SubjectsTab({ classId = '', subjects = [], canManage = f
                     Read Note
                   </button>
                 ) : null}
+                {canManage && (
+                  <button type="button" onClick={() => handleDeleteMaterial(m.id)} className="mt-1 self-end rounded-lg border border-red-500/30 px-3 py-1 text-xs font-semibold text-red-300 hover:bg-red-900/30">Delete</button>
+                )}
               </div>
               );
             })}
