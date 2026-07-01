@@ -123,6 +123,11 @@ export async function deleteTopic(classId, topicId) {
   return readJsonResponse(res);
 }
 
+export async function reorderTopics(classId, orderedIds) {
+  const res = await apiFetch(`/api/classrooms/${classId}/topics/reorder`, { method: 'POST', headers: getAuthHeaders(), body: JSON.stringify({ orderedIds }) });
+  return readJsonResponse(res);
+}
+
 export async function uploadAssignmentAsset(classId, payload) {
   const token = localStorage.getItem('token');
   const formData = new FormData();

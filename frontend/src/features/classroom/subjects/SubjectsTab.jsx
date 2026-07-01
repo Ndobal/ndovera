@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { addTopic, deleteTopic, deleteAssignment, deleteMaterial, getAssignments, getMaterials, getSubjectMembers, getTopics, removeStudentFromSubject, restoreStudentToSubject } from '../classroomService';
+import { addTopic, deleteTopic, deleteAssignment, deleteMaterial, getAssignments, getMaterials, getSubjectMembers, getTopics, removeStudentFromSubject, restoreStudentToSubject, reorderTopics } from '../classroomService';
 
 const SUBJECT_PALETTES = [
   { bg: '#013220', text: '#FFD700', badge: 'rgba(255,215,0,0.18)',    badgeText: '#FFD700' },
@@ -124,6 +124,17 @@ export default function SubjectsTab({ classId = '', subjects = [], canManage = f
     catch { setActionMsg('Could not delete material.'); }
   }
 
+  async function handleMoveTopic(topicId, direction) {
+    const ids = topics.map(t => t.id);
+    const idx = ids.indexOf(topicId);
+    if (idx < 0) return;
+    const swap = direction === 'up' ? idx - 1 : idx + 1;
+    if (swap < 0 || swap >= ids.length) return;
+    [ids[idx], ids[swap]] = [ids[swap], ids[idx]];
+    setTopics(ids.map(id => topics.find(t => t.id === id)).filter(Boolean));
+    try { await reorderTopics(classId, ids); } catch { setTopicMsg('Could not save the new order.'); }
+  }
+
   async function handleDeleteTopic(topicId) {
     if (!window.confirm('Remove this topic? Tagged assignments and materials keep their content.')) return;
     try {
@@ -226,7 +237,13 @@ export default function SubjectsTab({ classId = '', subjects = [], canManage = f
     topics.forEach(t => { const entry = ensure(t.name); if (entry) entry.id = t.id; });
     subjectAssignments.forEach(a => { const entry = ensure(a.metadata?.topic || a.topic); if (entry) entry.assignments += 1; });
     subjectMaterials.forEach(m => { const entry = ensure(m.topic); if (entry) entry.materials += 1; });
-    return Array.from(map.values()).sort((x, y) => x.name.localeCompare(y.name));
+    const orderIndex = new Map();
+    topics.forEach((t, i) => orderIndex.set(String(t.name || '').trim().toLowerCase(), i));
+    return Array.from(map.values()).sort((x, y) => {
+      const xi = orderIndex.has(x.name.toLowerCase()) ? orderIndex.get(x.name.toLowerCase()) : 9999;
+      const yi = orderIndex.has(y.name.toLowerCase()) ? orderIndex.get(y.name.toLowerCase()) : 9999;
+      return xi !== yi ? xi - yi : x.name.localeCompare(y.name);
+    });
   })();
 
   return (
@@ -467,7 +484,11 @@ export default function SubjectsTab({ classId = '', subjects = [], canManage = f
                   <p className="text-xs text-slate-400 mt-1">{t.assignments} assignment{t.assignments !== 1 ? 's' : ''} · {t.materials} material{t.materials !== 1 ? 's' : ''}</p>
                 </div>
                 {canManage && t.id && (
-                  <button onClick={() => handleDeleteTopic(t.id)} className="text-xs bg-red-900/40 hover:bg-red-700/50 text-red-300 border border-red-500/30 px-3 py-1 rounded-xl font-semibold shrink-0">Remove</button>
+                  <div className="flex shrink-0 items-center gap-1">
+                    <button type="button" onClick={() => handleMoveTopic(t.id, 'up')} title="Move up" className="rounded-lg border border-white/15 px-2 py-1 text-xs text-slate-200 hover:bg-white/10">▲</button>
+                    <button type="button" onClick={() => handleMoveTopic(t.id, 'down')} title="Move down" className="rounded-lg border border-white/15 px-2 py-1 text-xs text-slate-200 hover:bg-white/10">▼</button>
+                    <button onClick={() => handleDeleteTopic(t.id)} className="text-xs bg-red-900/40 hover:bg-red-700/50 text-red-300 border border-red-500/30 px-3 py-1 rounded-xl font-semibold">Remove</button>
+                  </div>
                 )}
               </div>
             ))}

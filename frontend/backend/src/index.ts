@@ -7728,6 +7728,7 @@ async function ensureClassTopicsTable(db: D1Database) {
     created_at TEXT
   )`).run()
   await db.prepare(`CREATE UNIQUE INDEX IF NOT EXISTS class_topics_unique_idx ON class_topics(class_id, subject_id, name)`).run().catch(() => null)
+  try { await db.exec('ALTER TABLE class_topics ADD COLUMN sort_order INTEGER') } catch {}
 }
 
 async function ensureClassTopic(
@@ -7744,9 +7745,11 @@ async function ensureClassTopic(
   ).bind(classId, subjectId, name).first() as Record<string, any> | null
   if (existing) return existing
   const id = `topic_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`
+  const maxRow = await db.prepare(`SELECT MAX(sort_order) as m FROM class_topics WHERE class_id = ? AND subject_id = ?`).bind(classId, subjectId).first() as any
+  const nextOrder = Number(maxRow?.m || 0) + 1
   await db.prepare(
-    `INSERT INTO class_topics (id, tenant_id, class_id, subject_id, name, created_by, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)`
-  ).bind(id, String(params.tenantId || ''), classId, subjectId, name, String(params.createdBy || ''), new Date().toISOString()).run()
+    `INSERT INTO class_topics (id, tenant_id, class_id, subject_id, name, created_by, created_at, sort_order) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
+  ).bind(id, String(params.tenantId || ''), classId, subjectId, name, String(params.createdBy || ''), new Date().toISOString(), nextOrder).run()
   return { id, name, subject_id: subjectId }
 }
 
@@ -7756,8 +7759,8 @@ app.get('/api/classrooms/:classroomId/topics', authenticate, async (c) => {
   try {
     await ensureClassTopicsTable(c.env.APP_DB)
     const stmt = subjectId
-      ? c.env.APP_DB.prepare(`SELECT id, subject_id, name, created_at FROM class_topics WHERE class_id = ? AND subject_id = ? ORDER BY name`).bind(classroomId, subjectId)
-      : c.env.APP_DB.prepare(`SELECT id, subject_id, name, created_at FROM class_topics WHERE class_id = ? ORDER BY name`).bind(classroomId)
+      ? c.env.APP_DB.prepare(`SELECT id, subject_id, name, created_at FROM class_topics WHERE class_id = ? AND subject_id = ? ORDER BY COALESCE(sort_order, 999999), name`).bind(classroomId, subjectId)
+      : c.env.APP_DB.prepare(`SELECT id, subject_id, name, created_at FROM class_topics WHERE class_id = ? ORDER BY COALESCE(sort_order, 999999), name`).bind(classroomId)
     const rows = await stmt.all()
     const topics = ((rows.results || []) as Record<string, any>[]).map(row => ({
       id: String(row.id || ''),
@@ -7768,6 +7771,23 @@ app.get('/api/classrooms/:classroomId/topics', authenticate, async (c) => {
     return c.json({ success: true, topics })
   } catch (error) {
     return c.json({ success: false, message: 'Could not load topics.', error: String((error as Error)?.message || error) }, 500)
+  }
+})
+
+app.post('/api/classrooms/:classroomId/topics/reorder', authenticate, async (c) => {
+  const classroomId = c.req.param('classroomId')
+  const body = await c.req.json().catch(() => ({})) as any
+  const orderedIds = Array.isArray(body?.orderedIds) ? body.orderedIds.map((v: any) => String(v || '')).filter(Boolean) : []
+  if (!orderedIds.length) return c.json({ error: 'orderedIds required.' }, 400)
+  try {
+    await ensureClassTopicsTable(c.env.APP_DB)
+    for (let i = 0; i < orderedIds.length; i += 1) {
+      // eslint-disable-next-line no-await-in-loop
+      await c.env.APP_DB.prepare(`UPDATE class_topics SET sort_order = ? WHERE id = ? AND class_id = ?`).bind(i + 1, orderedIds[i], classroomId).run()
+    }
+    return c.json({ success: true })
+  } catch {
+    return c.json({ success: false, message: 'Could not reorder topics.' }, 500)
   }
 })
 
