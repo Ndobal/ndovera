@@ -45,6 +45,7 @@ This workspace already includes build and deploy tasks:
 - Question bank that saves submitted assignment and CBT questions individually, organises teacher drafts into topics with Workers AI, and feeds topic-based student practice; owners can block a teacher's bank reuse access (allowed by default).
 - Parent dashboards now surface linked-child analytics, classroom visibility, live lesson notices, attendance, results, newsroom, collapsible fee sessions, and student-style messaging with teacher access.
 - Tenant public school websites rendered from the Worker, including full-screen hero media, auto-linked CTAs, gallery sections, and public news pages.
+- Shared school website links now include Open Graph and Twitter preview metadata with the school's own uploaded logo (falling back to public website media).
 - Tenant newsroom workflow where students, parents, teachers, and staff draft blog stories, reviewers clear them, and HoS or Owner publishes them.
 
 ## Documentation Notes

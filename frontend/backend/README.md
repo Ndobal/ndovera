@@ -10,6 +10,7 @@ This package contains the Cloudflare Worker backend for the main Ndovera fronten
 - R2-backed classroom file uploads
 - D1-backed application data for future remote usage
 - tenant subdomain website rendering, including hero media galleries, admissions content, and public news pages
+- tenant social-link previews using Open Graph and Twitter metadata with the school branding logo or public media fallback
 - school newsroom APIs for drafting, reviewing, publishing, and uploading blog media
 - AI billing and access rules for staff, students, and parents, including parent-specific daily free-request overrides
 - Question-bank APIs that retain submitted assignment and CBT questions as individual records, apply AI-generated topic labels, provide topic-filtered practice questions, and let school owners allow or block teacher bank reuse.
