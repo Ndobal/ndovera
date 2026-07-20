@@ -229,6 +229,15 @@ const QUESTION_USAGE_DDL = `CREATE TABLE IF NOT EXISTS question_usage (
   created_at TEXT NOT NULL
 )`
 
+const QUESTION_BANK_ACCESS_DDL = `CREATE TABLE IF NOT EXISTS question_bank_teacher_access (
+  tenant_id TEXT NOT NULL,
+  teacher_id TEXT NOT NULL,
+  allowed INTEGER NOT NULL DEFAULT 1,
+  updated_by TEXT,
+  updated_at TEXT NOT NULL,
+  PRIMARY KEY (tenant_id, teacher_id)
+)`
+
 const CBT_EXAMS_DDL = `CREATE TABLE IF NOT EXISTS cbt_exams (
   id TEXT PRIMARY KEY,
   tenant_id TEXT NOT NULL,
@@ -481,6 +490,7 @@ function scoreQuestion(question: Record<string, any>, response: unknown) {
 export async function ensureQuestionBankTables(db: D1Database) {
   await db.prepare(QUESTION_BANK_DDL).run()
   await db.prepare(QUESTION_USAGE_DDL).run()
+  await db.prepare(QUESTION_BANK_ACCESS_DDL).run()
   await db.prepare(CBT_EXAMS_DDL).run()
   await db.prepare(CBT_EXAM_QUESTIONS_DDL).run()
   await db.prepare(CBT_ATTEMPTS_DDL).run()
@@ -532,6 +542,38 @@ export async function ensureQuestionBankTables(db: D1Database) {
   await db.prepare(`CREATE UNIQUE INDEX IF NOT EXISTS question_usage_unique_idx ON question_usage(question_id, engine_type, engine_id)`).run()
 }
 
+export async function getTeacherQuestionBankAccess(db: D1Database, tenantId: string, teacherId: string) {
+  await ensureQuestionBankTables(db)
+  const normalizedTeacherId = String(teacherId || '').trim()
+  if (!normalizedTeacherId) return { teacherId: '', allowed: true, configured: false }
+
+  const row = await db.prepare(
+    `SELECT allowed, updated_by, updated_at FROM question_bank_teacher_access WHERE tenant_id = ? AND teacher_id = ? LIMIT 1`
+  ).bind(tenantId, normalizedTeacherId).first() as Record<string, any> | null
+
+  return {
+    teacherId: normalizedTeacherId,
+    allowed: row ? Number(row.allowed) !== 0 : true,
+    configured: Boolean(row),
+    updatedBy: String(row?.updated_by || ''),
+    updatedAt: String(row?.updated_at || ''),
+  }
+}
+
+export async function setTeacherQuestionBankAccess(db: D1Database, tenantId: string, teacherId: string, allowed: boolean, updatedBy = '') {
+  await ensureQuestionBankTables(db)
+  const normalizedTeacherId = String(teacherId || '').trim()
+  if (!normalizedTeacherId) throw new Error('Teacher is required.')
+
+  const updatedAt = new Date().toISOString()
+  await db.prepare(
+    `INSERT OR REPLACE INTO question_bank_teacher_access (tenant_id, teacher_id, allowed, updated_by, updated_at)
+     VALUES (?, ?, ?, ?, ?)`
+  ).bind(tenantId, normalizedTeacherId, allowed ? 1 : 0, String(updatedBy || '').trim() || null, updatedAt).run()
+
+  return getTeacherQuestionBankAccess(db, tenantId, normalizedTeacherId)
+}
+
 export async function listQuestionBankQuestions(db: D1Database, tenantId: string, filters: Record<string, any> = {}) {
   await ensureQuestionBankTables(db)
   const columns = await listTableColumns(db, 'question_bank')
@@ -552,8 +594,9 @@ export async function listQuestionBankQuestions(db: D1Database, tenantId: string
     .filter(question => {
       if (filters.subject && normalizeComparableText(question.subject) !== normalizeComparableText(filters.subject)) return false
       if (filters.classLevel && normalizeComparableText(question.classLevel) !== normalizeComparableText(filters.classLevel)) return false
-      if (filters.classId && String(question.classId || '') !== String(filters.classId || '')) return false
+      if (filters.classId && question.classId && String(question.classId || '') !== String(filters.classId || '')) return false
       if (filters.subjectId && String(question.subjectId || '') !== String(filters.subjectId || '')) return false
+      if (filters.topic && normalizeComparableText(question.topic) !== normalizeComparableText(filters.topic)) return false
       if (filters.type && normalizeQuestionType(question.type) !== normalizeQuestionType(filters.type)) return false
       if (filters.status && normalizeComparableText(question.status) !== normalizeComparableText(filters.status)) return false
       return true
@@ -643,7 +686,7 @@ async function listAssignmentBackedPracticeQuestions(db: D1Database, tenantId: s
 
   const questions: Array<Record<string, any>> = []
   for (const row of ((rows.results || []) as Record<string, any>[])) {
-    if (filters.classId && String(row.class_id || '') !== String(filters.classId || '')) continue
+    if (filters.classId && row.class_id && String(row.class_id || '') !== String(filters.classId || '')) continue
     if (filters.subjectId && String(row.subject_id || '') !== String(filters.subjectId || '')) continue
 
     const rawQuestions = parseJsonField(row.question_payload, [] as Array<Record<string, any>>)
@@ -758,6 +801,25 @@ export async function deleteQuestionFromBank(db: D1Database, tenantId: string, q
   await db.prepare(`DELETE FROM question_bank WHERE tenant_id = ? AND id = ?`).bind(tenantId, questionId).run()
 }
 
+export async function updateQuestionBankTopics(db: D1Database, tenantId: string, updates: Array<Record<string, any>>) {
+  await ensureQuestionBankTables(db)
+  const now = new Date().toISOString()
+  const saved = [] as Array<Record<string, any>>
+
+  for (const update of Array.isArray(updates) ? updates : []) {
+    const questionId = String(update?.id || update?.questionId || '').trim()
+    const topic = String(update?.topic || '').trim()
+    if (!questionId || !topic) continue
+    await db.prepare(
+      `UPDATE question_bank SET topic = ?, updated_at = ? WHERE tenant_id = ? AND id = ?`
+    ).bind(topic, now, tenantId, questionId).run()
+    const question = await getQuestionBankQuestionById(db, tenantId, questionId)
+    if (question) saved.push(question)
+  }
+
+  return saved
+}
+
 export async function syncQuestionUsagesForEngine(db: D1Database, tenantId: string, engineType: string, engineId: string, questions: Array<Record<string, any>>, context: Record<string, any> = {}) {
   await ensureQuestionBankTables(db)
   await db.prepare(`DELETE FROM question_usage WHERE tenant_id = ? AND engine_type = ? AND engine_id = ?`).bind(tenantId, engineType, engineId).run()
@@ -767,6 +829,9 @@ export async function syncQuestionUsagesForEngine(db: D1Database, tenantId: stri
     const result = await saveQuestionToBank(db, tenantId, {
       ...context,
       ...rawQuestion,
+      topic: rawQuestion?.topic || context.topic || '',
+      subject: rawQuestion?.subject || rawQuestion?.subjectName || context.subject || context.subjectName || '',
+      subjectName: rawQuestion?.subjectName || rawQuestion?.subject || context.subjectName || context.subject || '',
       source: rawQuestion?.source || engineType,
       createdBy: rawQuestion?.createdBy || context.createdBy,
     })
@@ -834,6 +899,7 @@ export async function saveCbtExam(db: D1Database, input: Record<string, any>) {
       className: input.className,
       subjectId: input.subjectId,
       subjectName: input.subjectName,
+      topic: input.topic,
       createdBy: input.teacherId,
     },
   )
@@ -965,6 +1031,7 @@ export async function buildPracticeQuestionFeed(db: D1Database, tenantId: string
     listQuestionBankQuestions(db, tenantId, {
       classId: filters.classId,
       subjectId: filters.subjectId,
+      topic: filters.topic,
       status: 'approved',
     }),
     listAssignmentBackedPracticeQuestions(db, tenantId, {

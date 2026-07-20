@@ -398,6 +398,8 @@ export const getLessonPlans = (params = {}) => req(`/api/lesson-plans${buildQuer
 export const saveLessonPlan = (data) => req('/api/lesson-plans', { method: 'POST', body: data });
 export const reviewLessonPlan = (lessonPlanId, data) => req(`/api/lesson-plans/${lessonPlanId}/review`, { method: 'POST', body: data });
 export const getPracticeQuestions = (params = {}) => req(`/api/practice/questions${buildQuery(params)}`);
+export const getQuestionBankAccess = (teacherId = '') => req(`/api/question-bank/access${buildQuery(teacherId ? { teacherId } : {})}`);
+export const setQuestionBankAccess = (data) => req('/api/question-bank/access', { method: 'POST', body: data });
 export const getFeatureFlags = () => req('/api/feature-flags');
 
 // Daily "Did you know?" + news digest

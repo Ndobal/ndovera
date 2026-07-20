@@ -99,5 +99,12 @@ export async function deleteExam(examId) {
   });
 }
 
-const examService = { fetchExamList, startExam, submitExam };
+export async function organizeQuestionTopics(data) {
+  return req('/api/question-bank/organize', {
+    method: 'POST',
+    body: data,
+  });
+}
+
+const examService = { fetchExamList, startExam, submitExam, organizeQuestionTopics };
 export default examService;

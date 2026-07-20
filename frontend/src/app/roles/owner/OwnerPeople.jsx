@@ -1,9 +1,10 @@
 import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import {
-  getPeople, addPerson, bulkImportPeople, deactivatePerson, updatePersonRole,
+  getPeople, addPerson, deactivatePerson, updatePersonRole,
   getClasses, getParents, getUserProfile, updateUserProfile, linkParentStudent, getMyTenant,
   resetPassword, uploadBulkPeople, getBulkPeopleJobs, retryBulkPeopleJob,
+  getQuestionBankAccess, setQuestionBankAccess,
 } from '../../../features/school/services/schoolApi';
 import StudentProfilePage from '../../../features/students/components/StudentProfilePage';
 
@@ -100,10 +101,10 @@ function UserProfileModal({ userId, onClose, isAdmin, currentUserId }) {
   }
 
   async function handleLinkParent() {
-    if (!linkParentId) return;
+    if (!String(linkParentId || '').trim()) return;
     setLinking(true); setLinkMsg('');
     try {
-      await linkParentStudent({ parentId: linkParentId, studentId: userId });
+      await linkParentStudent({ parentId: String(linkParentId || '').trim(), studentId: String(userId || '').trim() });
       setLinkMsg('Parent linked!');
       setShowLinkParent(false);
       load();
@@ -117,6 +118,7 @@ function UserProfileModal({ userId, onClose, isAdmin, currentUserId }) {
     || p.email?.toLowerCase().includes(linkSearch.toLowerCase())
     || p.phone?.toLowerCase().includes(linkSearch.toLowerCase())
     || p.displayId?.toLowerCase().includes(linkSearch.toLowerCase())
+    || String(p.id || '').toLowerCase().includes(linkSearch.toLowerCase())
   );
 
   const canEdit = isAdmin || currentUserId === userId;
@@ -400,7 +402,7 @@ function AddPersonModal({ onClose, onAdd }) {
     || p.email?.toLowerCase().includes(parentSearch.toLowerCase())
     || p.phone?.toLowerCase().includes(parentSearch.toLowerCase())
     || p.displayId?.toLowerCase().includes(parentSearch.toLowerCase())
-    || p.id?.toLowerCase().includes(parentSearch.toLowerCase())
+    || String(p.id || '').toLowerCase().includes(parentSearch.toLowerCase())
   );
 
   async function handleSubmit(e) {
@@ -519,13 +521,13 @@ function AddPersonModal({ onClose, onAdd }) {
                       className="w-full rounded-xl border border-[#c9a96e]/40 dark:border-white/10 bg-[#ade1f4] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[#1a5c38] mb-1"
                     />
                     <select
-                      value={form.existingParentId}
-                      onChange={e => setForm(f => ({ ...f, existingParentId: e.target.value }))}
+                      value={String(form.existingParentId || '')}
+                      onChange={e => setForm(f => ({ ...f, existingParentId: String(e.target.value || '') }))}
                       className="w-full rounded-xl border border-[#c9a96e]/40 dark:border-white/10 bg-[#ade1f4] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none"
                     >
                       <option value="">— Select Parent —</option>
                       {filteredParents.map(p => (
-                        <option key={p.id} value={p.id}>{p.name} {p.email ? `(${p.email})` : ''}{p.phone ? ` · ${p.phone}` : ''}{p.displayId ? ` · ${p.displayId}` : ''}</option>
+                        <option key={String(p.id || p.email || p.name)} value={String(p.id || '')}>{p.name} {p.email ? `(${p.email})` : ''}{p.phone ? ` · ${p.phone}` : ''}{p.displayId ? ` · ${p.displayId}` : ''}</option>
                       ))}
                     </select>
                   </div>
@@ -762,13 +764,37 @@ function ShareModal({ person, subdomain, onClose }) {
   );
 }
 
-function PersonCard({ person: p, isAdmin, subdomain, onViewProfile, onDeactivate, onResetPassword, changingRole, newRole, setNewRole, onSaveRole, onCancelRole, onStartRoleChange }) {
+function PersonCard({ person: p, isAdmin, isOwner, subdomain, onViewProfile, onDeactivate, onResetPassword, changingRole, newRole, setNewRole, onSaveRole, onCancelRole, onStartRoleChange }) {
   const [showShare, setShowShare] = useState(false);
   const [copiedPw, setCopiedPw] = useState(false);
   const [resetting, setResetting] = useState(false);
   const [resetMsg, setResetMsg] = useState('');
+  const [questionBankAllowed, setQuestionBankAllowed] = useState(true);
+  const [loadingQuestionBankAccess, setLoadingQuestionBankAccess] = useState(false);
   const personRoles = Array.isArray(p.roles) && p.roles.length > 0 ? p.roles : [p.role].filter(Boolean);
   const roleBadge = getRoleBadgeStyle(p.role);
+  const isTeacher = personRoles.some(role => ['teacher', 'classteacher'].includes(String(role || '').toLowerCase()));
+
+  useEffect(() => {
+    if (!isOwner || !isTeacher || !p.id) return;
+    let active = true;
+    setLoadingQuestionBankAccess(true);
+    getQuestionBankAccess(p.id)
+      .then(data => { if (active) setQuestionBankAllowed(data?.access?.allowed !== false); })
+      .catch(() => {})
+      .finally(() => { if (active) setLoadingQuestionBankAccess(false); });
+    return () => { active = false; };
+  }, [isOwner, isTeacher, p.id]);
+
+  async function toggleQuestionBankAccess() {
+    setLoadingQuestionBankAccess(true);
+    try {
+      const data = await setQuestionBankAccess({ teacherId: p.id, allowed: !questionBankAllowed });
+      setQuestionBankAllowed(data?.access?.allowed !== false);
+    } finally {
+      setLoadingQuestionBankAccess(false);
+    }
+  }
 
   function copyPassword() {
     navigator.clipboard.writeText(DEFAULT_PASSWORD).then(() => { setCopiedPw(true); setTimeout(() => setCopiedPw(false), 2000); });
@@ -880,6 +906,16 @@ function PersonCard({ person: p, isAdmin, subdomain, onViewProfile, onDeactivate
           {isAdmin && !changingRole && (
             <button onClick={onStartRoleChange} className="bg-[#1a5c38] hover:bg-[#154a2e] text-[#b5e3f4] text-xs px-3 py-1.5 rounded-xl font-bold transition-colors">Add Role</button>
           )}
+          {isOwner && isTeacher && (
+            <button
+              onClick={toggleQuestionBankAccess}
+              disabled={loadingQuestionBankAccess}
+              title="Allow or block this teacher from reusing question-bank questions"
+              className={`text-xs px-3 py-1.5 rounded-xl font-bold transition-colors disabled:opacity-60 ${questionBankAllowed ? 'bg-[#191970] text-[#b5e3f4] hover:bg-[#111450]' : 'bg-[#800020] text-[#b5e3f4] hover:bg-[#5c0018]'}`}
+            >
+              {loadingQuestionBankAccess ? '…' : questionBankAllowed ? 'Bank: Allowed' : 'Bank: Blocked'}
+            </button>
+          )}
           {isAdmin && (
             <button onClick={onDeactivate} className="border border-red-300 text-red-600 text-xs px-3 py-1.5 rounded-xl font-semibold hover:bg-red-50 transition-colors">Off</button>
           )}
@@ -964,6 +1000,7 @@ export default function OwnerPeople() {
   const currentUserId = currentUser?.id || '';
   const currentRoles = Array.isArray(currentUser?.roles) && currentUser.roles.length > 0 ? currentUser.roles : [currentUser?.role].filter(Boolean);
   const isAdmin = currentRoles.some(role => ['owner', 'hos'].includes(String(role || '').toLowerCase()));
+  const isOwner = currentRoles.some(role => String(role || '').toLowerCase() === 'owner');
 
   const load = useCallback((nextPage = 1, nextSearch = '', nextFilter = 'All') => {
     setLoading(true);
@@ -1080,6 +1117,7 @@ export default function OwnerPeople() {
                   key={p.id}
                   person={p}
                   isAdmin={isAdmin}
+                  isOwner={isOwner}
                   subdomain={subdomain}
                   onViewProfile={() => setProfileUserId(p.id)}
                   onDeactivate={() => handleDeactivate(p)}

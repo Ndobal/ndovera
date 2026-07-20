@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { getBranding, getMe, getMyTenant } from '../../../features/school/services/schoolApi';
 import SchoolAnnouncementsPanel from '../../../shared/components/SchoolAnnouncementsPanel';
 import SchoolAccessRequests from '../../../features/school/components/SchoolAccessRequests';
-import MobileRoleOverviewNav from '../../../shared/components/MobileRoleOverviewNav';
 import { getTenantPwaInfo } from '../../../shared/hooks/useTenantPwaManifest';
 
 function StatusBadge({ label, value }) {

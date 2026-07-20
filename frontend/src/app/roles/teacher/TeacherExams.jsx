@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import TeacherSectionShell from './TeacherSectionShell';
-import { fetchExamList, fetchExamById, createExam, updateExam, deleteExam } from '../../../features/exams/service/examService';
+import { fetchExamList, fetchExamById, createExam, updateExam, deleteExam, organizeQuestionTopics } from '../../../features/exams/service/examService';
 import QuestionRenderer from '../../../features/exams/QuestionRenderer';
 import ErrorPanel from '../../../shared/components/ErrorPanel';
 
@@ -26,9 +26,12 @@ export default function TeacherExams({
   const [exams, setExams] = useState([]);
   const [title, setTitle] = useState('');
   const [windowLabel, setWindowLabel] = useState('');
+  const [subjectName, setSubjectName] = useState('');
+  const [topic, setTopic] = useState('');
   const [questions, setQuestions] = useState([buildEmptyQuestion('mcq')]);
   const [message, setMessage] = useState(null);
   const [editingId, setEditingId] = useState(null);
+  const [organizing, setOrganizing] = useState(false);
 
   const load = useCallback(async () => {
     try {
@@ -48,7 +51,7 @@ export default function TeacherExams({
 
   const handleSubmit = async () => {
     try {
-      const payload = { title, window: windowLabel, questions, mode };
+      const payload = { title, window: windowLabel, subjectName, topic, questions, mode };
       if (editingId) {
         await updateExam(editingId, payload);
         setMessage(mode === 'practice' ? 'Practice drill updated' : 'Exam updated');
@@ -58,6 +61,8 @@ export default function TeacherExams({
       }
       setTitle('');
       setWindowLabel('');
+      setSubjectName('');
+      setTopic('');
       setQuestions([buildEmptyQuestion('mcq')]);
       setEditingId(null);
       load();
@@ -73,6 +78,8 @@ export default function TeacherExams({
       setEditingId(full.id);
       setTitle(full.title || '');
       setWindowLabel(full.window || '');
+      setSubjectName(full.subjectName || '');
+      setTopic(full.questions?.find(question => question.topic)?.topic || '');
       if (full.questions && full.questions.length) {
         setQuestions(full.questions.map(q => ({ ...q })));
       } else {
@@ -82,6 +89,27 @@ export default function TeacherExams({
     } catch (err) {
       console.error('Failed to load exam for editing', err);
       setMessage(`Failed to load ${mode === 'practice' ? 'practice drill' : 'exam'} for editing`);
+    }
+  };
+
+  const handleOrganizeTopics = async () => {
+    const usableQuestions = questions.filter(question => String(question?.prompt || question?.text || '').trim());
+    if (!usableQuestions.length) {
+      setMessage('Add a question before using AI topic organisation.');
+      return;
+    }
+    setOrganizing(true);
+    try {
+      const data = await organizeQuestionTopics({ questions, subjectName });
+      const topicsByIndex = new Map((data?.suggestions || []).map(suggestion => [suggestion.index, suggestion.topic]));
+      setQuestions(current => current.map((question, index) => ({ ...question, topic: topicsByIndex.get(index) || question.topic || topic })));
+      const firstTopic = (data?.suggestions || [])[0]?.topic;
+      if (firstTopic && !topic) setTopic(firstTopic);
+      setMessage('AI organised the questions by topic.');
+    } catch (err) {
+      setMessage(`Could not organise topics: ${err.message || err}`);
+    } finally {
+      setOrganizing(false);
     }
   };
 
@@ -106,6 +134,10 @@ export default function TeacherExams({
       <div className="space-y-4">
         <div>
           <input placeholder={mode === 'practice' ? 'Practice title' : 'Exam title'} value={title} onChange={e=>setTitle(e.target.value)} className="w-full rounded-xl p-2 bg-slate-900/20 border border-white/10 text-slate-200" />
+        </div>
+        <div className="grid gap-3 sm:grid-cols-2">
+          <input placeholder="Subject (for question bank)" value={subjectName} onChange={e=>setSubjectName(e.target.value)} className="w-full rounded-xl p-2 bg-slate-900/20 border border-white/10 text-slate-200" />
+          <input placeholder="Topic (optional)" value={topic} onChange={e=>setTopic(e.target.value)} className="w-full rounded-xl p-2 bg-slate-900/20 border border-white/10 text-slate-200" />
         </div>
         <div>
           <input placeholder={mode === 'practice' ? 'Practice window or drill label' : 'Window description'} value={windowLabel} onChange={e=>setWindowLabel(e.target.value)} className="w-full rounded-xl p-2 bg-slate-900/20 border border-white/10 text-slate-200" />
@@ -136,6 +168,7 @@ export default function TeacherExams({
           <button onClick={()=>addQuestion('shortanswer')} className="px-3 py-1 rounded-lg bg-sky-500/30 text-sky-100">Add Short Answer</button>
           <button onClick={()=>addQuestion('crossmatching')} className="px-3 py-1 rounded-lg bg-indigo-500/30 text-indigo-100">Add Cross Matching</button>
           <button onClick={()=>addQuestion('essay')} className="px-3 py-1 rounded-lg bg-pink-500/30 text-pink-100">Add Essay</button>
+          <button onClick={handleOrganizeTopics} disabled={organizing} className="px-3 py-1 rounded-lg bg-violet-500/30 text-violet-100 disabled:opacity-60">{organizing ? 'Organising…' : 'AI Organise Topics'}</button>
         </div>
         <button onClick={handleSubmit} className="px-4 py-2 rounded-lg bg-indigo-500/30 text-indigo-100">Save {mode === 'practice' ? 'Practice Drill' : 'Exam'}</button>
       </div>

@@ -646,7 +646,7 @@ export default function ResultAdminConsole({ analyticsMode = 'hos', roleTitle = 
               <div>
                 <p className={`micro-label ${RESULT_LABEL}`}>Class-Based Upload</p>
                 <h2 className={`mt-2 text-2xl command-title ${RESULT_HEADING}`}>Upload full result PDFs for a selected batch</h2>
-                <p className={`mt-2 text-sm ${RESULT_BODY}`}>Use the student name and surname, display ID, student ID, or email in each PDF filename. Already uploaded PDFs are skipped automatically.</p>
+                <p className={`mt-2 text-sm ${RESULT_BODY}`}>Names match in any order. For duplicate names, add the student code/display ID.</p>
               </div>
               <select
                 value={selectedBatchKey}
@@ -731,9 +731,9 @@ export default function ResultAdminConsole({ analyticsMode = 'hos', roleTitle = 
                 <div className={`${RESULT_INNER_SURFACE} p-5`}>
                   <p className={`micro-label ${RESULT_LABEL}`}>Matching Rules</p>
                   <div className="mt-3 space-y-2">
-                    <p className={`text-sm ${RESULT_BODY}`}>Accepted matches: student ID, display ID, student email, or student name and surname.</p>
+                    <p className={`text-sm ${RESULT_BODY}`}>Names ignore case, extra spaces, and first/last order.</p>
                     <p className={`text-sm ${RESULT_BODY}`}>If a filename is weak, pick the student manually beside the file before upload.</p>
-                    <p className={`text-sm ${RESULT_BODY}`}>If a filename matches more than one student, that file is flagged and must be renamed.</p>
+                    <p className={`text-sm ${RESULT_BODY}`}>Duplicate names need the student code/display ID in the filename.</p>
                     <p className={`text-sm ${RESULT_BODY}`}>Students missing from the upload are listed after processing so the remaining PDFs can be prepared.</p>
                   </div>
                 </div>
@@ -833,9 +833,7 @@ export default function ResultAdminConsole({ analyticsMode = 'hos', roleTitle = 
               <p className={`micro-label ${RESULT_LABEL}`}>Whole-School Upload</p>
               <h2 className={`mt-2 text-2xl command-title ${RESULT_HEADING}`}>Upload every result PDF for a term — no class needed</h2>
               <p className={`mt-2 text-sm ${RESULT_BODY}`}>
-                Choose the session and term, then add all the result PDFs for the whole school. Each PDF is matched to its
-                student by the name and surname, display ID, student ID, email, or old portal code in the filename — across
-                every class. Files are processed one chunk after another, and PDFs already uploaded for this term are skipped.
+                Names match in any order. For duplicate names, add the student code/display ID or old code in the filename.
               </p>
             </div>
 

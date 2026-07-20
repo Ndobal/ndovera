@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { addTopic, deleteTopic, deleteAssignment, deleteMaterial, getAssignments, getMaterials, getSubjectMembers, getTopics, removeStudentFromSubject, restoreStudentToSubject, reorderTopics } from '../classroomService';
+import TeacherAssignmentsPanel from '../TeacherAssignmentsPanel';
 
 const SUBJECT_PALETTES = [
   { bg: '#013220', text: '#FFD700', badge: 'rgba(255,215,0,0.18)',    badgeText: '#FFD700' },
@@ -122,6 +123,10 @@ export default function SubjectsTab({ classId = '', subjects = [], canManage = f
     if (!window.confirm('Delete this material?')) return;
     try { await deleteMaterial(classId, id); setAllMaterials(prev => prev.filter(m => m.id !== id)); }
     catch { setActionMsg('Could not delete material.'); }
+  }
+
+  async function loadAssignments() {
+    try { const d = await getAssignments(classId); setAllAssignments(d?.assignments || []); } catch { /* ignore */ }
   }
 
   async function handleMoveTopic(topicId, direction) {
@@ -333,7 +338,17 @@ export default function SubjectsTab({ classId = '', subjects = [], canManage = f
       )}
 
       {/* Assignments tab */}
-      {activeTab === 'assignments' && (
+      {activeTab === 'assignments' && (canManage ? (
+        <TeacherAssignmentsPanel
+          assignedClasses={[{ id: classId, name: selectedSubject.name, subjects: [selectedSubject] }]}
+          currentClassId={classId}
+          currentClassName={selectedSubject.name}
+          assignments={subjectAssignments}
+          canModerate={canManage}
+          onRefreshAssignments={loadAssignments}
+          onSelectClass={() => {}}
+        />
+      ) : (
         <section className="space-y-3">
           {assignmentsLoading && <div className="glass-surface rounded-3xl p-4 text-slate-300 text-sm">Loading assignments...</div>}
           {!assignmentsLoading && subjectAssignments.length === 0 && (
@@ -382,7 +397,7 @@ export default function SubjectsTab({ classId = '', subjects = [], canManage = f
             );
           })}
         </section>
-      )}
+      ))}
 
       {/* Materials tab */}
       {activeTab === 'materials' && (

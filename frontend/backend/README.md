@@ -12,6 +12,7 @@ This package contains the Cloudflare Worker backend for the main Ndovera fronten
 - tenant subdomain website rendering, including hero media galleries, admissions content, and public news pages
 - school newsroom APIs for drafting, reviewing, publishing, and uploading blog media
 - AI billing and access rules for staff, students, and parents, including parent-specific daily free-request overrides
+- Question-bank APIs that retain submitted assignment and CBT questions as individual records, apply AI-generated topic labels, provide topic-filtered practice questions, and let school owners allow or block teacher bank reuse.
 
 ## Worker Bindings
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import MobileRoleOverviewNav from './MobileRoleOverviewNav';
 
 const defaultTheme = {
   page: 'w-full max-w-7xl mx-auto overflow-x-hidden px-4 py-6 sm:px-6 lg:px-8',

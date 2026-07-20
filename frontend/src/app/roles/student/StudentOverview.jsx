@@ -2,12 +2,6 @@ import React, { useEffect, useState } from 'react';
 import StudentSectionShell from './StudentSectionShell';
 import { getStudentDashboard } from '../../../services/roleDashboardService';
 import { getStoredAuth } from '../../../features/auth/services/authApi';
-import MobileRoleOverviewNav from '../../../shared/components/MobileRoleOverviewNav';
-
-function findMetricValue(metrics, pattern) {
-  const match = (metrics || []).find(metric => pattern.test(String(metric?.label || '')));
-  return match?.value || 0;
-}
 
 export default function StudentOverview() {
   const storedAuth = getStoredAuth();
@@ -74,11 +68,6 @@ export default function StudentOverview() {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const hasClass = !!(data.classId || data.className);
-  const bottomNavCounts = {
-    assignments: findMetricValue(data.metrics, /assign/i),
-    materials: findMetricValue(data.metrics, /material|resource/i),
-  };
-
   return (
     <StudentSectionShell
       title={`Welcome, ${data.studentName}`}

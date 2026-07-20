@@ -72,13 +72,16 @@ import {
   deleteCbtExam,
   deleteQuestionFromBank,
   getCbtExamById,
+  getTeacherQuestionBankAccess,
   listCbtExams,
   listQuestionBankQuestions,
   saveCbtExam,
   saveQuestionToBank,
+  setTeacherQuestionBankAccess,
   startCbtExam,
   submitCbtExamAttempt,
   syncQuestionUsagesForEngine,
+  updateQuestionBankTopics,
 } from './questionBank'
 import {
   AI_GLOBAL_SETTINGS_KEY,
@@ -3545,21 +3548,56 @@ function studentNameTokens(name: unknown) {
     .filter(part => part.length >= 2)
 }
 
+function canonicalNameTokenKey(tokens: string[]) {
+  return [...tokens].sort().join('|')
+}
+
+function firstLastNameKey(tokens: string[]) {
+  if (!tokens.length) return ''
+  const first = tokens[0] || ''
+  const last = tokens[tokens.length - 1] || ''
+  if (!first || !last) return ''
+  return [first, last].sort().join('|')
+}
+
 // Match a student by full name when ALL of the student's name tokens appear in
 // the provided text (in any order). Returns a unique match or flags ambiguity.
 function matchStudentByFullName(rawName: string, students: Record<string, any>[]) {
-  const queryTokens = new Set(studentNameTokens(rawName))
-  if (queryTokens.size === 0) return { student: null as Record<string, any> | null, ambiguous: false }
-  const matches = students.filter(student => {
+  const queryTokens = studentNameTokens(rawName)
+  if (queryTokens.length === 0) return { student: null as Record<string, any> | null, ambiguous: false }
+
+  const queryTokenSet = new Set(queryTokens)
+  const queryCanonical = canonicalNameTokenKey(queryTokens)
+  const queryFirstLast = firstLastNameKey(queryTokens)
+
+  // 1) Exact normalized token-set match (order-agnostic).
+  const exactMatches = students.filter(student => {
     const tokens = studentNameTokens(student.name)
-    return tokens.length >= 2 && tokens.every(token => queryTokens.has(token))
+    return tokens.length >= 2 && canonicalNameTokenKey(tokens) === queryCanonical
   })
-  if (matches.length > 1) {
-    const exact = matches.filter(student => studentNameTokens(student.name).length === queryTokens.size)
-    if (exact.length === 1) return { student: exact[0], ambiguous: false }
-    return { student: null, ambiguous: true }
+  if (exactMatches.length === 1) return { student: exactMatches[0], ambiguous: false }
+  if (exactMatches.length > 1) return { student: null, ambiguous: true }
+
+  // 2) First/last pair match supports "Adedamola Peter" <-> "Peter Adedamola".
+  if (queryFirstLast) {
+    const pairMatches = students.filter(student => {
+      const tokens = studentNameTokens(student.name)
+      return tokens.length >= 2 && firstLastNameKey(tokens) === queryFirstLast
+    })
+    if (pairMatches.length === 1) return { student: pairMatches[0], ambiguous: false }
+    if (pairMatches.length > 1) return { student: null, ambiguous: true }
   }
-  if (matches.length === 1) return { student: matches[0], ambiguous: false }
+
+  // 3) Backward-compatible fallback for partial imports where middle names may be omitted.
+  const broadMatches = students.filter(student => {
+    const tokens = studentNameTokens(student.name)
+    if (tokens.length < 2) return false
+    const overlap = tokens.filter(token => queryTokenSet.has(token)).length
+    return overlap >= 2
+  })
+  if (broadMatches.length === 1) return { student: broadMatches[0], ambiguous: false }
+  if (broadMatches.length > 1) return { student: null, ambiguous: true }
+
   return { student: null, ambiguous: false }
 }
 
@@ -3570,6 +3608,8 @@ function matchResultUploadStudent(fileName: string, students: Record<string, any
     ...base.split(/[^a-z0-9@]+/g).filter(Boolean),
   ]))
   const tokenSet = new Set(tokens)
+  const fileNameNameTokens = studentNameTokens(base)
+  const fileNameFirstLast = firstLastNameKey(fileNameNameTokens)
 
   // 1. Old student code — exact match on any token (codes are unique, any length).
   const oldCodeMatches = students.filter(student =>
@@ -3597,6 +3637,16 @@ function matchResultUploadStudent(fileName: string, students: Record<string, any
   })
   if (fullNameMatches.length === 1) return { student: fullNameMatches[0], matchedBy: 'full-name', ambiguous: false }
   if (fullNameMatches.length > 1) return { student: null, matchedBy: 'full-name', ambiguous: true }
+
+  // 3b. First+last name pair in any order, resilient to extra spaces/casing in file names.
+  if (fileNameFirstLast) {
+    const pairMatches = students.filter(student => {
+      const parts = studentNameTokens(student.name)
+      return parts.length >= 2 && firstLastNameKey(parts) === fileNameFirstLast
+    })
+    if (pairMatches.length === 1) return { student: pairMatches[0], matchedBy: 'name-pair', ambiguous: false }
+    if (pairMatches.length > 1) return { student: null, matchedBy: 'name-pair', ambiguous: true }
+  }
 
   // 4. Looser name fallback (partial overlap / joined forms).
   const nameMatches = students.filter(student => {
@@ -7610,6 +7660,7 @@ app.post('/api/classrooms/:classroomId/assignments', authenticate, async (c) => 
         className: `${classRow.name}${classRow.arm ? ` ${classRow.arm}` : ''}`,
         subjectId: String(subjectRow.id || ''),
         subjectName: String(subjectRow.name || ''),
+        topic: topicName,
         createdBy: teacherId,
       })
     } catch (syncError) {
@@ -7671,6 +7722,7 @@ app.put('/api/classrooms/:classroomId/assignments/:assignmentId', authenticate, 
           className: `${context.classRow.name}${context.classRow.arm ? ` ${context.classRow.arm}` : ''}`,
           subjectId: String(updatedAssignment?.subjectId || ''),
           subjectName: String(updatedAssignment?.subjectName || ''),
+          topic: String(updatedAssignment?.metadata?.topic || ''),
           createdBy: String(updatedAssignment?.createdBy || context.actorId || ''),
         },
       )
@@ -9455,6 +9507,7 @@ app.get('/api/practice/questions', authenticate, async (c) => {
     const practice = await buildPracticeQuestionFeed(c.env.APP_DB, tenantId, {
       classId: String(c.req.query('classId') || '').trim(),
       subjectId: String(c.req.query('subjectId') || '').trim(),
+      topic: String(c.req.query('topic') || '').trim(),
       studentId: String(c.req.query('studentId') || actor.actorId || '').trim(),
     })
     return c.json({
@@ -15503,7 +15556,7 @@ app.post('/api/students/old-codes/bulk', authenticate, async (c) => {
       }
       const match = matchStudentByFullName(name, students)
       if (match.ambiguous) {
-        results.push({ name, code, status: 'ambiguous', message: 'This name matched more than one student.' })
+        results.push({ name, code, status: 'ambiguous', message: 'This name matched more than one student. Enter the student code/display ID to differentiate learners with the same name.' })
         continue
       }
       if (!match.student) {
@@ -15628,7 +15681,7 @@ app.post('/api/results/documents/upload', authenticate, async (c) => {
 
     if (matched.ambiguous) {
       summary.ambiguousCount += 1
-      results.push({ fileName: file.name, status: 'error', message: 'Filename matched more than one student. Include the exact display ID, student email, or a clearer student name and surname.' })
+      results.push({ fileName: file.name, status: 'error', message: 'Filename matched more than one student. If students share the same name, include the student code/display ID (or old code) in the filename to differentiate them.' })
       continue
     }
     if (!matched.student) {
@@ -20285,6 +20338,107 @@ async function handleSubdomainRequest(request: Request, env: Bindings, subdomain
 
 // ─── Question Bank Endpoints ────────────────────────────────────────────────
 
+function isTeacherQuestionBankRole(role: unknown) {
+  return ['teacher', 'classteacher'].includes(String(role || '').trim().toLowerCase())
+}
+
+function parseAiTopicSuggestions(answer: string, allowedIndexes: Set<number>) {
+  try {
+    const json = String(answer || '').match(/\[[\s\S]*\]/)?.[0] || String(answer || '')
+    const items = JSON.parse(json)
+    if (!Array.isArray(items)) return []
+    return items
+      .map((item: Record<string, any>) => ({
+        index: Number(item?.index),
+        topic: String(item?.topic || '').trim(),
+      }))
+      .filter((item: Record<string, any>) => Number.isInteger(item.index) && allowedIndexes.has(item.index) && item.topic)
+  } catch {
+    return []
+  }
+}
+
+app.get('/api/question-bank/access', authenticate, async (c) => {
+  try {
+    const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
+    const tenantId = String(actor.tenantId || '').trim()
+    if (!tenantId) return c.json({ success: false, message: 'School context not found.' }, 400)
+    const requestedTeacherId = String(c.req.query('teacherId') || '').trim()
+    if (requestedTeacherId && String(actor.role || '').trim().toLowerCase() !== 'owner') {
+      return c.json({ success: false, message: 'Only the school owner can view another teacher\'s question-bank access.' }, 403)
+    }
+    const access = await getTeacherQuestionBankAccess(c.env.APP_DB, tenantId, requestedTeacherId || actor.actorId)
+    return c.json({ success: true, access })
+  } catch (error) {
+    return c.json({ success: false, message: 'Could not load question-bank access.', error }, 500)
+  }
+})
+
+app.post('/api/question-bank/access', authenticate, async (c) => {
+  try {
+    const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
+    if (String(actor.role || '').trim().toLowerCase() !== 'owner') {
+      return c.json({ success: false, message: 'Only the school owner can change teacher question-bank access.' }, 403)
+    }
+    const tenantId = String(actor.tenantId || '').trim()
+    const payload = await c.req.json().catch(() => ({})) as Record<string, any>
+    const teacherId = String(payload.teacherId || '').trim()
+    if (!tenantId || !teacherId) return c.json({ success: false, message: 'School and teacher are required.' }, 400)
+    const access = await setTeacherQuestionBankAccess(c.env.APP_DB, tenantId, teacherId, payload.allowed !== false, actor.actorId)
+    return c.json({ success: true, access })
+  } catch (error) {
+    return c.json({ success: false, message: 'Could not update question-bank access.', error }, 500)
+  }
+})
+
+app.post('/api/question-bank/organize', authenticate, async (c) => {
+  try {
+    const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
+    const tenantId = String(actor.tenantId || '').trim()
+    if (!tenantId || !canAuthorCbt(actor.role)) return c.json({ success: false, message: 'Forbidden' }, 403)
+    if (isTeacherQuestionBankRole(actor.role)) {
+      const access = await getTeacherQuestionBankAccess(c.env.APP_DB, tenantId, actor.actorId)
+      if (!access.allowed) return c.json({ success: false, message: 'Your school owner has disabled question-bank use for this account.' }, 403)
+    }
+
+    const payload = await c.req.json().catch(() => ({})) as Record<string, any>
+    const questions = (Array.isArray(payload.questions) ? payload.questions : []).slice(0, 50)
+      .map((question: Record<string, any>, index: number) => ({
+        index,
+        id: String(question?.id || '').trim(),
+        prompt: String(question?.prompt || question?.text || question?.question || '').trim(),
+        subject: String(question?.subject || question?.subjectName || payload.subject || payload.subjectName || '').trim(),
+      }))
+      .filter((question: Record<string, any>) => question.prompt)
+    if (!questions.length) return c.json({ success: false, message: 'Add at least one question before organising topics.' }, 400)
+    if (!c.env.AI || typeof c.env.AI.run !== 'function') return c.json({ success: false, message: 'Ndovera AI is not configured for this environment.' }, 503)
+
+    const aiResult = await c.env.AI.run(WORKERS_AI_MODEL, {
+      messages: [{
+        role: 'system',
+        content: 'You organise school assessment questions. Return ONLY a JSON array. For every input question return {"index": number, "topic": "short curriculum topic"}. Keep topics concise, specific, and suitable for the named subject.',
+      }, {
+        role: 'user',
+        content: JSON.stringify(questions.map((question: Record<string, any>) => ({ index: question.index, subject: question.subject, question: question.prompt }))),
+      }],
+      max_tokens: 700,
+      temperature: 0.2,
+    })
+    const suggestions = parseAiTopicSuggestions(extractWorkersAiText(aiResult), new Set(questions.map(question => question.index)))
+    if (!suggestions.length) return c.json({ success: false, message: 'Ndovera AI could not identify question topics. Try again.' }, 502)
+
+    if (payload.persist === true) {
+      const updates = suggestions
+        .map((suggestion: Record<string, any>) => ({ id: questions.find(question => question.index === suggestion.index)?.id, topic: suggestion.topic }))
+        .filter((update: Record<string, any>) => update.id)
+      await updateQuestionBankTopics(c.env.APP_DB, tenantId, updates)
+    }
+    return c.json({ success: true, suggestions })
+  } catch (error) {
+    return c.json({ success: false, message: 'Ndovera AI could not organise these questions right now.' }, 500)
+  }
+})
+
 app.get('/api/question-bank', authenticate, async (c) => {
   try {
     const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
@@ -20293,6 +20447,10 @@ app.get('/api/question-bank', authenticate, async (c) => {
     }
 
     const tenantId = String(actor.tenantId || 'global').trim()
+    if (isTeacherQuestionBankRole(actor.role)) {
+      const access = await getTeacherQuestionBankAccess(c.env.APP_DB, tenantId, actor.actorId)
+      if (!access.allowed) return c.json({ success: false, message: 'Your school owner has disabled question-bank use for this account.' }, 403)
+    }
     const questions = await listQuestionBankQuestions(c.env.APP_DB, tenantId, {
       subject: c.req.query('subject') || '',
       classLevel: c.req.query('classLevel') || '',

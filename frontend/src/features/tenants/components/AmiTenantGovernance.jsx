@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import AmiPlatformAnalytics from './AmiPlatformAnalytics';
-import MobileRoleOverviewNav from '../../../shared/components/MobileRoleOverviewNav';
 import {
   approveTenant,
   endDiscountCode,

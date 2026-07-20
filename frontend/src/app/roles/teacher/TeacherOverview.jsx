@@ -12,7 +12,6 @@ import {
   UsersIcon,
   VideoCameraIcon,
 } from '@heroicons/react/24/outline';
-import MobileRoleOverviewNav from '../../../shared/components/MobileRoleOverviewNav';
 import { getStoredAuth } from '../../../features/auth/services/authApi';
 import { getTeacherDashboard } from '../../../services/roleDashboardService';
 

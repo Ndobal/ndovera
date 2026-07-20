@@ -39,6 +39,7 @@ If you are running the API locally, the frontend uses the proxy configured in `p
 - Student and parent Ndovera AI now keep the chat composer pinned at the bottom, keep the latest messages anchored at the bottom of the transcript, and collapse the large control panel into a mobile menu.
 - Parent Ndovera AI uses the teacher-side Worker model path with a parent-specific daily free-request cap of `5` before paid credits are required.
 - Student Practice now opens per-subject workspaces with separate `Questions` and `AI Study Chat` tabs; the question tab blends eligible practice items into one learner-facing stream without exposing internal source metadata.
+- Every structured teacher assignment and CBT question is stored individually in the question bank. Teachers can use Ndovera AI to label draft questions by topic before saving; students then select a subject and topic for matching practice. Owners can allow or block bank reuse for each teacher from People, with access allowed by default.
 - Staff-facing dashboards now expose a ChatGPT-style AI Assistant page that talks to the authenticated Worker API, so teachers, HoS, accountants, and operational staff can keep a running chat in-role.
 - Teacher and parent messaging both reuse the student-style sidebar-first messaging workspace, with role-scoped contact groupings.
 - Tenant website editing for owner and ICT surfaces, including hero media galleries, CTA routing, and section content management.

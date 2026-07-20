@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import StudentSectionShell from './StudentSectionShell';
 import { getStoredAuth } from '../../../features/auth/services/authApi';
 import { getMaterials } from '../../../features/classroom/classroomService';
-import MaterialTypeThumbnail, { materialTypeLabel } from '../../../shared/components/MaterialTypeThumbnail';
+import { materialTypeLabel } from '../../../shared/components/MaterialTypeThumbnail';
 
 const MATERIAL_TABS = [
   { id: 'all', label: 'All' },
@@ -27,12 +27,6 @@ function matColor(seed) {
 
 function resolveCurrentClassroom(authUser) {
   return localStorage.getItem('classroomId') || authUser?.classId || '';
-}
-
-function formatUploadedAt(value) {
-  if (!value) return 'Recently uploaded';
-  const parsed = new Date(value);
-  return Number.isNaN(parsed.getTime()) ? value : parsed.toLocaleString();
 }
 
 export default function StudentLessonNotes() {

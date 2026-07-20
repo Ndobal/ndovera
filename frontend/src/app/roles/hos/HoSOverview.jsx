@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getAttendance, getMe } from '../../../features/school/services/schoolApi';
 import SchoolAnnouncementsPanel from '../../../shared/components/SchoolAnnouncementsPanel';
-import MobileRoleOverviewNav from '../../../shared/components/MobileRoleOverviewNav';
 
 const quickLinks = [
   { label: 'Academics', path: '/roles/hos/academics' },

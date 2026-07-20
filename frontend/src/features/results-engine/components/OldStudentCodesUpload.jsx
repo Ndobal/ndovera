@@ -141,9 +141,7 @@ export default function OldStudentCodesUpload() {
         <p className={`micro-label ${RESULT_LABEL}`}>Migration</p>
         <h2 className={`text-2xl command-title ${RESULT_HEADING}`}>Tag students with old portal codes</h2>
         <p className={`mt-2 text-sm ${RESULT_BODY}`}>
-          Paste or upload one student per line as <strong>Full Name, Old Code</strong>. Each name is matched to a student
-          (all of the names must match, in any order) and the old code is saved as a hidden identity tag. Result PDFs can
-          then be matched by the old code as well as by name, email or student ID.
+          Paste <strong>Full Name, Old Code</strong>. Names match in any order; duplicate names need the student code.
         </p>
       </div>
 
