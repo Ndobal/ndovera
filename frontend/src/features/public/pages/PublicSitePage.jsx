@@ -707,8 +707,8 @@ function PublicShell({ section, notice, children, flier }) {
       <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/95 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-6 lg:gap-6 lg:px-8">
           <Link to="/" className="flex items-center gap-3">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#191970] text-sm font-black tracking-[0.16em] text-white ring-2 ring-[#c9a96e]/60">
-              ND
+            <div className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-xl bg-white ring-2 ring-[#c9a96e]/60">
+              <img src="/android-chrome-512x512.png" alt="NDOVERA logo" className="h-full w-full object-contain p-1" />
             </div>
             <div>
               <p className="font-serif text-xl font-black leading-none tracking-tight text-[#191970]">NDOVERA</p>
@@ -867,7 +867,7 @@ function PublicShell({ section, notice, children, flier }) {
         <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 lg:grid-cols-[1.2fr_0.8fr_0.8fr] lg:px-8">
           <div>
             <div className="flex items-center gap-3">
-              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/10 text-sm font-black tracking-[0.16em] text-white ring-2 ring-[#c9a96e]/50">ND</div>
+              <div className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-xl bg-white ring-2 ring-[#c9a96e]/50"><img src="/android-chrome-512x512.png" alt="NDOVERA logo" className="h-full w-full object-contain p-1" /></div>
               <p className="font-serif text-2xl font-black text-white">NDOVERA</p>
             </div>
             <p className="mt-4 max-w-md text-sm leading-7 text-white/65">
