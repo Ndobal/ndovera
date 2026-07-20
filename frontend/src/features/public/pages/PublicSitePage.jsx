@@ -123,14 +123,6 @@ const VISION_HORIZONS = [
 
 const PARTNER_TRACKS = [
   {
-    title: 'School Groups',
-    description: 'Work with NDOVERA to help more schools move into stronger, more trusted systems.',
-  },
-  {
-    title: 'Rollout Partners',
-    description: 'Help schools launch well, train teams, and keep adoption strong after go-live.',
-  },
-  {
     title: 'Education Supporters And Investors',
     description: 'Back practical tools and services that help schools improve in visible ways.',
   },
@@ -955,12 +947,6 @@ function HomePageBody({ section }) {
         </div>
       </section>
 
-      <MediaGallery
-        section={section}
-        eyebrow="Public Media"
-        title="Website media that visitors can actually explore inside the site."
-        description="AMI can upload photos to R2 and add YouTube links so the NDOVERA website feels active, visual, and current without sending visitors away."
-      />
     </div>
   );
 }

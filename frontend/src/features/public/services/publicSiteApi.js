@@ -29,10 +29,12 @@ async function parseResponse(res, { requiresAuth = false } = {}) {
   return data;
 }
 
-async function publicRequest(path) {
+async function publicRequest(path, { method = 'GET', body } = {}) {
   const res = await fetch(getApiUrl(path), {
-    method: 'GET',
+    method,
     credentials: 'include',
+    headers: body ? { 'Content-Type': 'application/json' } : undefined,
+    body: body ? JSON.stringify(body) : undefined,
   });
   return parseResponse(res);
 }
@@ -68,7 +70,7 @@ async function uploadAsset(path, file, extraFields = {}) {
 
 export const getPublicPlatformSite = () => publicRequest('/api/public/platform-site');
 export const getPublicOpportunities = (tenantId) => publicRequest(`/api/public/opportunities${tenantId ? `?tenantId=${encodeURIComponent(tenantId)}` : ''}`);
-export const submitGrowthPartnerApplication = (data) => authedRequest('/api/public/growth-partner-applications', { method: 'POST', body: data });
+export const submitGrowthPartnerApplication = (data) => publicRequest('/api/public/growth-partner-applications', { method: 'POST', body: data });
 export const getMyGrowthPartner = () => authedRequest('/api/growth-partner/me');
 export const saveGrowthPartnerBank = (data) => authedRequest('/api/growth-partner/bank', { method: 'POST', body: data });
 export const withdrawGrowthPartnerEarnings = (amount) => authedRequest('/api/growth-partner/withdraw', { method: 'POST', body: { amount } });
