@@ -14,6 +14,7 @@ This package contains the Cloudflare Worker backend for the main Ndovera fronten
 - school newsroom APIs for drafting, reviewing, publishing, and uploading blog media
 - AI billing and access rules for staff, students, and parents, including parent-specific daily free-request overrides
 - Question-bank APIs that retain submitted assignment and CBT questions as individual records, apply AI-generated topic labels, provide topic-filtered practice questions, and let school owners allow or block teacher bank reuse.
+- AMI growth-partner APIs provide portfolio analytics and activities, manual paid-payout recording, and state, regional, national, or global representative appointments.
 
 ## Worker Bindings
 

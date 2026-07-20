@@ -44,6 +44,7 @@ If you are running the API locally, the frontend uses the proxy configured in `p
 - Teacher and parent messaging both reuse the student-style sidebar-first messaging workspace, with role-scoped contact groupings.
 - Tenant website editing for owner and ICT surfaces, including hero media galleries, CTA routing, and section content management.
 - Each school website link uses its uploaded branding logo as the social-media preview image, with a public website-media fallback.
+- AMI's Growth Partners panel shows all partner analytics and activities, allows manual payout recording, and manages state, regional, national, and global representative appointments.
 - Shared newsroom dashboard pages for student, parent, teacher, owner, HoS, accountant, and operational staff authoring and review flows.
 
 ## Working Rules

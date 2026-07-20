@@ -1,7 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { getAmiWebsiteSections, saveAmiWebsiteSection, uploadAmiWebsiteAsset } from '../../../features/public/services/publicSiteApi';
 import OpportunitiesManager from '../../../features/public/components/OpportunitiesManager';
-import GrowthPartnersAdmin from '../../../features/public/components/GrowthPartnersAdmin';
 
 const SECTION_DEFINITIONS = [
   {
@@ -506,6 +505,7 @@ function SectionEditor({ section, data, onSaved }) {
 
 export default function AmiWebsitePage() {
   const [sections, setSections] = useState([]);
+  const [activeTab, setActiveTab] = useState(SECTION_DEFINITIONS[0].key);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
@@ -527,6 +527,7 @@ export default function AmiWebsitePage() {
   }, []);
 
   const sectionsByKey = useMemo(() => Object.fromEntries((sections || []).map(section => [section.section_key, section])), [sections]);
+  const activeSection = SECTION_DEFINITIONS.find(section => section.key === activeTab) || SECTION_DEFINITIONS[0];
 
   return (
     <div className="p-8 mx-auto max-w-7xl space-y-6">
@@ -541,15 +542,32 @@ export default function AmiWebsitePage() {
       {loading ? <p className="text-sm text-[#800020] dark:text-slate-400">Loading website sections...</p> : null}
       {error ? <p className="rounded-2xl border border-red-300/30 bg-red-50 px-4 py-3 text-sm text-red-600 dark:bg-red-950/30 dark:text-red-200">{error}</p> : null}
 
-      <GrowthPartnersAdmin />
+      <section className="rounded-3xl border border-[#c9a96e]/45 bg-[#fff8ee] p-3 shadow-[0_12px_28px_rgba(128,0,0,0.06)] dark:border-white/10 dark:bg-slate-900/40">
+        <p className="px-2 pb-3 pt-1 text-xs font-semibold uppercase tracking-[0.2em] text-[#800020] dark:text-fuchsia-300">Website page tabs</p>
+        <div className="flex gap-2 overflow-x-auto pb-1">
+          {SECTION_DEFINITIONS.map(section => (
+            <button
+              key={section.key}
+              type="button"
+              onClick={() => setActiveTab(section.key)}
+              className={`shrink-0 rounded-xl px-4 py-2.5 text-sm font-bold transition ${activeTab === section.key ? 'bg-[#1a5c38] text-[#f5deb3] dark:bg-cyan-300 dark:text-black' : 'bg-white text-[#800020] hover:bg-[#f5deb3] dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700'}`}
+            >
+              {section.label}
+            </button>
+          ))}
+          <button
+            type="button"
+            onClick={() => setActiveTab('opportunity-listings')}
+            className={`shrink-0 rounded-xl px-4 py-2.5 text-sm font-bold transition ${activeTab === 'opportunity-listings' ? 'bg-[#1a5c38] text-[#f5deb3] dark:bg-cyan-300 dark:text-black' : 'bg-white text-[#800020] hover:bg-[#f5deb3] dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700'}`}
+          >
+            Opportunity Listings
+          </button>
+        </div>
+      </section>
 
-      <OpportunitiesManager allowTenantField />
-
-      <div className="grid gap-5 xl:grid-cols-2">
-        {SECTION_DEFINITIONS.map(section => (
-          <SectionEditor key={section.key} section={section} data={sectionsByKey[section.key]} onSaved={loadSections} />
-        ))}
-      </div>
+      {activeTab === 'opportunity-listings'
+        ? <OpportunitiesManager allowTenantField />
+        : <SectionEditor section={activeSection} data={sectionsByKey[activeSection.key]} onSaved={loadSections} />}
     </div>
   );
 }

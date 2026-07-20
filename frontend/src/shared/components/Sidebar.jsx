@@ -489,6 +489,7 @@ function buildRoleSidebarItems(roleKey) {
       { name: 'Overview', path: '/roles/ami' },
       { name: 'Tenants', path: '/roles/ami/tenants' },
       { name: 'Website', path: '/roles/ami/website' },
+      { name: 'Growth Partners', path: '/roles/ami/growth-partners' },
       { name: 'Question Bank', path: '/roles/ami/question-bank' },
       { name: 'Security', path: '/roles/ami/security' },
       { name: 'Policies', path: '/roles/ami/policies' },

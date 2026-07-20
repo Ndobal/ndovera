@@ -13445,6 +13445,7 @@ const GROWTH_PARTNERS_DDL = `CREATE TABLE IF NOT EXISTS growth_partners (id TEXT
 const GP_REFERRALS_DDL = `CREATE TABLE IF NOT EXISTS gp_referrals (id TEXT PRIMARY KEY, partner_id TEXT, tenant_id TEXT, school_name TEXT, created_at TEXT)`
 const GP_COMMISSIONS_DDL = `CREATE TABLE IF NOT EXISTS gp_commissions (id TEXT PRIMARY KEY, partner_id TEXT, tenant_id TEXT, kind TEXT, amount REAL, note TEXT, created_at TEXT)`
 const GP_WITHDRAWALS_DDL = `CREATE TABLE IF NOT EXISTS gp_withdrawals (id TEXT PRIMARY KEY, partner_id TEXT, amount REAL, status TEXT, reference TEXT, created_at TEXT)`
+const GP_REPRESENTATIVES_DDL = `CREATE TABLE IF NOT EXISTS gp_representative_appointments (partner_id TEXT PRIMARY KEY, level TEXT NOT NULL, territory TEXT, appointed_by TEXT, appointed_at TEXT NOT NULL)`
 let _gpReady = false
 async function ensureGrowthPartnerTables(db: D1Database) {
   if (_gpReady) return
@@ -13453,6 +13454,7 @@ async function ensureGrowthPartnerTables(db: D1Database) {
   await db.prepare(GP_REFERRALS_DDL).run()
   await db.prepare(GP_COMMISSIONS_DDL).run()
   await db.prepare(GP_WITHDRAWALS_DDL).run()
+  await db.prepare(GP_REPRESENTATIVES_DDL).run()
 }
 function gpReferralCode(name: string) {
   const initials = String(name || '').replace(/[^a-zA-Z]/g, '').slice(0, 3).toUpperCase() || 'NDV'
@@ -13479,6 +13481,7 @@ async function summarizePartner(db: D1Database, partnerId: string) {
   const referrals = ((await db.prepare(`SELECT * FROM gp_referrals WHERE partner_id = ? ORDER BY created_at DESC`).bind(partnerId).all()).results || []) as any[]
   const commissions = ((await db.prepare(`SELECT * FROM gp_commissions WHERE partner_id = ?`).bind(partnerId).all()).results || []) as any[]
   const withdrawals = ((await db.prepare(`SELECT * FROM gp_withdrawals WHERE partner_id = ? ORDER BY created_at DESC`).bind(partnerId).all()).results || []) as any[]
+  const representative = await db.prepare(`SELECT level, territory, appointed_at FROM gp_representative_appointments WHERE partner_id = ?`).bind(partnerId).first() as any
   const totalEarned = commissions.reduce((s, r) => s + Number(r.amount || 0), 0)
   const totalWithdrawn = withdrawals.filter(w => w.status !== 'failed').reduce((s, r) => s + Number(r.amount || 0), 0)
   return {
@@ -13487,7 +13490,33 @@ async function summarizePartner(db: D1Database, partnerId: string) {
     totalEarned, totalWithdrawn, available: Math.max(0, totalEarned - totalWithdrawn),
     commissions: commissions.map(r => ({ id: r.id, kind: r.kind, amount: Number(r.amount || 0), note: r.note, createdAt: r.created_at })),
     withdrawals: withdrawals.map(w => ({ id: w.id, amount: Number(w.amount || 0), status: w.status, reference: w.reference, createdAt: w.created_at })),
+    representative: representative ? { level: representative.level, territory: representative.territory || '', appointedAt: representative.appointed_at } : null,
   }
+}
+
+async function listGrowthPartnerActivities(db: D1Database) {
+  await ensureGrowthPartnerTables(db)
+  const rows = await db.prepare(`
+    SELECT r.id, r.partner_id AS partnerId, p.name AS partnerName, 'referral' AS type, 0 AS amount, 'Referred ' || r.school_name AS detail, r.created_at AS createdAt
+    FROM gp_referrals r JOIN growth_partners p ON p.id = r.partner_id
+    UNION ALL
+    SELECT c.id, c.partner_id AS partnerId, p.name AS partnerName, 'commission' AS type, c.amount AS amount, c.note AS detail, c.created_at AS createdAt
+    FROM gp_commissions c JOIN growth_partners p ON p.id = c.partner_id
+    UNION ALL
+    SELECT w.id, w.partner_id AS partnerId, p.name AS partnerName, 'payout' AS type, w.amount AS amount, w.status AS detail, w.created_at AS createdAt
+    FROM gp_withdrawals w JOIN growth_partners p ON p.id = w.partner_id
+    ORDER BY createdAt DESC
+    LIMIT 100
+  `).all()
+  return ((rows.results || []) as any[]).map(row => ({
+    id: row.id,
+    partnerId: row.partnerId,
+    partnerName: row.partnerName,
+    type: row.type,
+    amount: Number(row.amount || 0),
+    detail: row.detail || '',
+    createdAt: row.createdAt || '',
+  }))
 }
 // Attribute a school registration to a partner's referral code (link only; the
 // commission is accrued when onboarding payment is confirmed).
@@ -13568,7 +13597,47 @@ app.get('/api/ami/growth-partners', authenticate, async (c) => {
   const rows = ((await c.env.APP_DB.prepare(`SELECT * FROM growth_partners ORDER BY created_at DESC`).all()).results || []) as any[]
   const partners = []
   for (const row of rows) partners.push({ ...mapPartner(row), ...(await summarizePartner(c.env.APP_DB, String(row.id))) })
-  return c.json({ success: true, partners })
+  const analytics = partners.reduce((summary, partner: any) => ({
+    activePartners: summary.activePartners + (partner.status === 'active' ? 1 : 0),
+    referrals: summary.referrals + Number(partner.referralCount || 0),
+    totalEarned: summary.totalEarned + Number(partner.totalEarned || 0),
+    totalPaid: summary.totalPaid + Number(partner.totalWithdrawn || 0),
+    available: summary.available + Number(partner.available || 0),
+  }), { activePartners: 0, referrals: 0, totalEarned: 0, totalPaid: 0, available: 0 })
+  return c.json({ success: true, partners, analytics, activities: await listGrowthPartnerActivities(c.env.APP_DB) })
+})
+
+app.post('/api/ami/growth-partners/:partnerId/mark-paid', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  const partnerId = String(c.req.param('partnerId') || '').trim()
+  const partner = await c.env.APP_DB.prepare(`SELECT * FROM growth_partners WHERE id = ?`).bind(partnerId).first() as any
+  if (!partner) return c.json({ error: 'Growth partner not found.' }, 404)
+  const summary = await summarizePartner(c.env.APP_DB, partnerId)
+  const body = await c.req.json().catch(() => ({}))
+  const requested = Number(body?.amount || 0)
+  const amount = requested > 0 ? Math.min(requested, summary.available) : summary.available
+  if (amount <= 0) return c.json({ error: 'This growth partner has no unpaid earnings.' }, 400)
+  const reference = `gpmanual_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`
+  await c.env.APP_DB.prepare(`INSERT INTO gp_withdrawals (id, partner_id, amount, status, reference, created_at) VALUES (?, ?, ?, 'paid', ?, ?)`)
+    .bind(`gpw_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`, partnerId, amount, reference, new Date().toISOString()).run()
+  return c.json({ success: true, amount, reference, message: `${mapPartner(partner)?.name || 'Growth partner'} marked as paid.` })
+})
+
+app.post('/api/ami/growth-partners/:partnerId/representative', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  await ensureGrowthPartnerTables(c.env.APP_DB)
+  const partnerId = String(c.req.param('partnerId') || '').trim()
+  const partner = await c.env.APP_DB.prepare(`SELECT id FROM growth_partners WHERE id = ?`).bind(partnerId).first()
+  if (!partner) return c.json({ error: 'Growth partner not found.' }, 404)
+  const body = await c.req.json().catch(() => ({}))
+  const level = String(body?.level || '').trim().toLowerCase()
+  const territory = String(body?.territory || '').trim()
+  if (!['state', 'regional', 'national', 'global'].includes(level)) return c.json({ error: 'Choose state, regional, national, or global representative.' }, 400)
+  if ((level === 'state' || level === 'regional') && !territory) return c.json({ error: 'Enter the state or region this representative covers.' }, 400)
+  await c.env.APP_DB.prepare(`INSERT INTO gp_representative_appointments (partner_id, level, territory, appointed_by, appointed_at) VALUES (?, ?, ?, ?, ?)
+    ON CONFLICT(partner_id) DO UPDATE SET level = excluded.level, territory = excluded.territory, appointed_by = excluded.appointed_by, appointed_at = excluded.appointed_at`)
+    .bind(partnerId, level, territory, String(c.var.user?.email || c.var.user?.sub || 'ami'), new Date().toISOString()).run()
+  return c.json({ success: true, representative: { level, territory } })
 })
 
 // Accrue the 5%-per-term commission across every referred (paid) school, based on
