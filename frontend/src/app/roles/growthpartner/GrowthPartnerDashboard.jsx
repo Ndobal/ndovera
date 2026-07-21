@@ -1,7 +1,9 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
   getMyGrowthPartner,
   saveGrowthPartnerBank,
+  saveGrowthPartnerVerification,
+  uploadGrowthPartnerUtilityBill,
   withdrawGrowthPartnerEarnings,
   resetReferralOwnerPassword,
 } from '../../../features/public/services/publicSiteApi';
@@ -26,6 +28,9 @@ export default function GrowthPartnerDashboard() {
   const [notice, setNotice] = useState('');
   const [busy, setBusy] = useState('');
   const [bank, setBank] = useState({ bankName: '', bankCode: '', accountNumber: '', accountName: '' });
+  const [verification, setVerification] = useState({ nin: '' });
+  const [utilityBill, setUtilityBill] = useState(null);
+  const utilityBillInputRef = useRef(null);
   const [resetInfo, setResetInfo] = useState(null);
 
   const load = useCallback(async () => {
@@ -38,6 +43,7 @@ export default function GrowthPartnerDashboard() {
         accountNumber: result.partner?.accountNumber || '',
         accountName: result.partner?.accountName || '',
       });
+      setVerification({ nin: result.partner?.nin || '' });
       setError('');
     } catch (loadError) {
       setError(loadError.message || 'Could not load your partner dashboard.');
@@ -52,6 +58,23 @@ export default function GrowthPartnerDashboard() {
     try { await saveGrowthPartnerBank(bank); setNotice('Bank details saved.'); await load(); }
     catch (e) { setError(e.message || 'Could not save bank details.'); }
     finally { setBusy(''); }
+  }
+
+  async function saveVerification(event) {
+    event.preventDefault();
+    setBusy('verification'); setNotice(''); setError('');
+    try {
+      await saveGrowthPartnerVerification(verification);
+      if (utilityBill) await uploadGrowthPartnerUtilityBill(utilityBill);
+      setUtilityBill(null);
+      if (utilityBillInputRef.current) utilityBillInputRef.current.value = '';
+      setNotice('Identity and utility-bill details saved securely.');
+      await load();
+    } catch (e) {
+      setError(e.message || 'Could not save your verification details.');
+    } finally {
+      setBusy('');
+    }
   }
 
   async function withdraw() {
@@ -103,6 +126,28 @@ export default function GrowthPartnerDashboard() {
         <Stat label="Total earned" value={naira.format(data.totalEarned)} accent="text-emerald-300" />
         <Stat label="Withdrawn" value={naira.format(data.totalWithdrawn)} />
         <Stat label="Available" value={naira.format(data.available)} accent="text-emerald-300" />
+      </section>
+
+      <section className={card}>
+        <h2 className="text-xl font-bold">Identity and account verification</h2>
+        <p className="mt-2 text-sm text-white/60">Enter your 11-digit NIN and upload a recent utility bill before submitting or updating your payout account details. Files are visible only to you and AMI.</p>
+        <form onSubmit={saveVerification} className="mt-4 grid gap-3 sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto] sm:items-end">
+          <div>
+            <label className={lbl}>NIN</label>
+            <input inputMode="numeric" maxLength={11} className={input} value={verification.nin} onChange={e => setVerification({ nin: e.target.value.replace(/\D/g, '') })} placeholder="11-digit NIN" />
+          </div>
+          <div>
+            <label className={lbl}>Utility bill (PDF or image, up to 5 MB)</label>
+            <input ref={utilityBillInputRef} type="file" accept="application/pdf,image/jpeg,image/png,image/webp" className={`${input} file:mr-3 file:rounded-lg file:border-0 file:bg-emerald-400/20 file:px-2 file:py-1 file:text-xs file:font-bold file:text-emerald-100`} onChange={e => setUtilityBill(e.target.files?.[0] || null)} />
+          </div>
+          <button type="submit" disabled={busy === 'verification'} className="rounded-xl border border-emerald-400/50 px-5 py-2.5 text-sm font-bold text-emerald-200 disabled:opacity-40">
+            {busy === 'verification' ? 'Saving…' : 'Save verification'}
+          </button>
+        </form>
+        <div className="mt-3 flex flex-wrap gap-3 text-xs">
+          <span className={p.nin ? 'text-emerald-300' : 'text-amber-200'}>{p.nin ? 'NIN saved' : 'NIN needed'}</span>
+          {p.utilityBillUrl ? <a href={p.utilityBillUrl} target="_blank" rel="noreferrer" className="font-semibold text-sky-200 underline">View uploaded utility bill</a> : <span className="text-amber-200">Utility bill needed</span>}
+        </div>
       </section>
 
       <section className={card}>

@@ -73,6 +73,8 @@ export const getPublicOpportunities = (tenantId) => publicRequest(`/api/public/o
 export const submitGrowthPartnerApplication = (data) => publicRequest('/api/public/growth-partner-applications', { method: 'POST', body: data });
 export const getMyGrowthPartner = () => authedRequest('/api/growth-partner/me');
 export const saveGrowthPartnerBank = (data) => authedRequest('/api/growth-partner/bank', { method: 'POST', body: data });
+export const saveGrowthPartnerVerification = (data) => authedRequest('/api/growth-partner/verification', { method: 'POST', body: data });
+export const uploadGrowthPartnerUtilityBill = (file) => uploadAsset('/api/growth-partner/verification/utility-bill', file);
 export const withdrawGrowthPartnerEarnings = (amount) => authedRequest('/api/growth-partner/withdraw', { method: 'POST', body: { amount } });
 export const resetReferralOwnerPassword = (tenantId) => authedRequest('/api/growth-partner/reset-referral-password', { method: 'POST', body: { tenantId } });
 export const getGrowthPartnerApplications = () => authedRequest('/api/ami/growth-partner-applications');

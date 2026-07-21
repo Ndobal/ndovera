@@ -13441,20 +13441,27 @@ app.get('/api/ami/growth-partner-applications', authenticate, async (c) => {
 })
 
 // ---- Growth Partner program (referrals, commissions, payouts) ----
-const GROWTH_PARTNERS_DDL = `CREATE TABLE IF NOT EXISTS growth_partners (id TEXT PRIMARY KEY, email TEXT UNIQUE, name TEXT, referral_code TEXT UNIQUE, status TEXT, bank_name TEXT, bank_code TEXT, account_number TEXT, account_name TEXT, created_at TEXT)`
+const GROWTH_PARTNERS_DDL = `CREATE TABLE IF NOT EXISTS growth_partners (id TEXT PRIMARY KEY, email TEXT UNIQUE, name TEXT, referral_code TEXT UNIQUE, status TEXT, bank_name TEXT, bank_code TEXT, account_number TEXT, account_name TEXT, nin TEXT, utility_bill_key TEXT, created_at TEXT)`
 const GP_REFERRALS_DDL = `CREATE TABLE IF NOT EXISTS gp_referrals (id TEXT PRIMARY KEY, partner_id TEXT, tenant_id TEXT, school_name TEXT, created_at TEXT)`
 const GP_COMMISSIONS_DDL = `CREATE TABLE IF NOT EXISTS gp_commissions (id TEXT PRIMARY KEY, partner_id TEXT, tenant_id TEXT, kind TEXT, amount REAL, note TEXT, created_at TEXT)`
 const GP_WITHDRAWALS_DDL = `CREATE TABLE IF NOT EXISTS gp_withdrawals (id TEXT PRIMARY KEY, partner_id TEXT, amount REAL, status TEXT, reference TEXT, created_at TEXT)`
 const GP_REPRESENTATIVES_DDL = `CREATE TABLE IF NOT EXISTS gp_representative_appointments (partner_id TEXT PRIMARY KEY, level TEXT NOT NULL, territory TEXT, appointed_by TEXT, appointed_at TEXT NOT NULL)`
 let _gpReady = false
+async function ensureGrowthPartnerProfileColumns(db: D1Database) {
+  const rows = ((await db.prepare(`PRAGMA table_info(growth_partners)`).all()).results || []) as any[]
+  const columns = new Set(rows.map(row => String(row.name || '').toLowerCase()))
+  if (!columns.has('nin')) await db.prepare(`ALTER TABLE growth_partners ADD COLUMN nin TEXT`).run()
+  if (!columns.has('utility_bill_key')) await db.prepare(`ALTER TABLE growth_partners ADD COLUMN utility_bill_key TEXT`).run()
+}
 async function ensureGrowthPartnerTables(db: D1Database) {
   if (_gpReady) return
-  _gpReady = true
   await db.prepare(GROWTH_PARTNERS_DDL).run()
+  await ensureGrowthPartnerProfileColumns(db)
   await db.prepare(GP_REFERRALS_DDL).run()
   await db.prepare(GP_COMMISSIONS_DDL).run()
   await db.prepare(GP_WITHDRAWALS_DDL).run()
   await db.prepare(GP_REPRESENTATIVES_DDL).run()
+  _gpReady = true
 }
 function gpReferralCode(name: string) {
   const initials = String(name || '').replace(/[^a-zA-Z]/g, '').slice(0, 3).toUpperCase() || 'NDV'
@@ -13473,6 +13480,8 @@ function mapPartner(row: any) {
   return {
     id: String(row.id), email: row.email, name: row.name, referralCode: row.referral_code, status: row.status || 'active',
     bankName: row.bank_name || '', bankCode: row.bank_code || '', accountNumber: row.account_number || '', accountName: row.account_name || '',
+    nin: row.nin || '',
+    utilityBillUrl: row.utility_bill_key ? `/api/growth-partner/verification/utility-bill?partnerId=${encodeURIComponent(String(row.id))}` : '',
     createdAt: row.created_at || '',
   }
 }
@@ -13682,12 +13691,62 @@ app.get('/api/growth-partner/me', authenticate, async (c) => {
   return c.json({ success: true, partner: mapPartner(partner), referralLink: `${base}/register-school?ref=${partner.referral_code}`, ...summary })
 })
 
+app.post('/api/growth-partner/verification', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['growthpartner'])) return c.json({ error: 'forbidden' }, 403)
+  const email = String(c.var.user?.email || '').trim().toLowerCase()
+  const partner = await getPartnerByEmail(c.env.APP_DB, email)
+  if (!partner) return c.json({ error: 'No partner profile.' }, 404)
+  const body = await c.req.json().catch(() => ({}))
+  const nin = String(body?.nin || '').replace(/\D/g, '')
+  if (nin.length !== 11) return c.json({ error: 'Enter your 11-digit NIN.' }, 400)
+  await c.env.APP_DB.prepare(`UPDATE growth_partners SET nin = ? WHERE id = ?`).bind(nin, partner.id).run()
+  return c.json({ success: true })
+})
+
+app.post('/api/growth-partner/verification/utility-bill', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['growthpartner'])) return c.json({ error: 'forbidden' }, 403)
+  const email = String(c.var.user?.email || '').trim().toLowerCase()
+  const partner = await getPartnerByEmail(c.env.APP_DB, email)
+  if (!partner) return c.json({ error: 'No partner profile.' }, 404)
+  const formData = await c.req.formData()
+  const file = formData.get('file') as File
+  if (!file) return c.json({ error: 'Choose a utility bill to upload.' }, 400)
+  const allowedTypes = ['application/pdf', 'image/jpeg', 'image/png', 'image/webp']
+  if (!allowedTypes.includes(file.type)) return c.json({ error: 'Upload a PDF, JPG, PNG, or WEBP utility bill.' }, 400)
+  if (file.size > 5 * 1024 * 1024) return c.json({ error: 'Utility bills must be 5 MB or smaller.' }, 400)
+  const ext = file.name.split('.').pop()?.toLowerCase() || 'pdf'
+  const key = `growth-partner-verification/${partner.id}/utility-bill-${Date.now()}.${ext}`
+  await c.env.UPLOADS.put(key, file.stream(), { httpMetadata: { contentType: file.type } })
+  await c.env.APP_DB.prepare(`UPDATE growth_partners SET utility_bill_key = ? WHERE id = ?`).bind(key, partner.id).run()
+  return c.json({ success: true, utilityBillUrl: '/api/growth-partner/verification/utility-bill' })
+})
+
+app.get('/api/growth-partner/verification/utility-bill', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['growthpartner', 'ami'])) return c.json({ error: 'forbidden' }, 403)
+  const requestedPartnerId = String(c.req.query('partnerId') || '').trim()
+  const email = String(c.var.user?.email || '').trim().toLowerCase()
+  const partner = requestedPartnerId && hasRequiredRole(c.var.user.role, ['ami'])
+    ? await c.env.APP_DB.prepare(`SELECT * FROM growth_partners WHERE id = ?`).bind(requestedPartnerId).first() as any
+    : await getPartnerByEmail(c.env.APP_DB, email)
+  if (!partner?.utility_bill_key) return c.json({ error: 'No utility bill is available.' }, 404)
+  const file = await c.env.UPLOADS.get(String(partner.utility_bill_key))
+  if (!file) return c.json({ error: 'Utility bill file not found.' }, 404)
+  return new Response(file.body, {
+    headers: {
+      'Content-Type': file.httpMetadata?.contentType || 'application/octet-stream',
+      'Content-Disposition': 'inline; filename="utility-bill"',
+      'Cache-Control': 'private, no-store',
+    },
+  })
+})
+
 // Save bank details for payouts.
 app.post('/api/growth-partner/bank', authenticate, async (c) => {
   if (!hasRequiredRole(c.var.user.role, ['growthpartner'])) return c.json({ error: 'forbidden' }, 403)
   const email = String(c.var.user?.email || '').trim().toLowerCase()
   const partner = await getPartnerByEmail(c.env.APP_DB, email)
   if (!partner) return c.json({ error: 'No partner profile.' }, 404)
+  if (!partner.nin || !partner.utility_bill_key) return c.json({ error: 'Save your NIN and utility bill before adding payout-bank details.' }, 400)
   const body = await c.req.json().catch(() => ({}))
   await c.env.APP_DB.prepare(`UPDATE growth_partners SET bank_name=?, bank_code=?, account_number=?, account_name=? WHERE id=?`)
     .bind(String(body?.bankName || ''), String(body?.bankCode || ''), String(body?.accountNumber || ''), String(body?.accountName || ''), partner.id).run()

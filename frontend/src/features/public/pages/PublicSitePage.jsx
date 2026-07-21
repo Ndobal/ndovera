@@ -486,11 +486,11 @@ function ActionLink({ to, className, children }) {
   return <Link to={to} className={className}>{children}</Link>;
 }
 
-function Reveal({ as: Tag = 'div', className = '', delay = 0, children }) {
+function Reveal({ as: Tag = 'div', className = '', delay = 0, children, ...props }) {
   const revealClassName = ['public-reveal', className].filter(Boolean).join(' ');
 
   return (
-    <Tag data-reveal data-reveal-delay={delay} className={revealClassName}>
+    <Tag {...props} data-reveal data-reveal-delay={delay} className={revealClassName}>
       {children}
     </Tag>
   );
