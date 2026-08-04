@@ -439,6 +439,20 @@ function buildStudentRows({ students, ledger, classes, feeColumns, configs }) {
     });
 }
 
+async function getAllStudentsForFees() {
+  const limit = 200;
+  const firstPage = await getPeople({ role: 'student', page: 1, limit });
+  const people = [...(firstPage?.people || [])];
+  const totalPages = Math.ceil(Number(firstPage?.pagination?.total || people.length) / limit);
+
+  for (let page = 2; page <= totalPages; page += 1) {
+    const response = await getPeople({ role: 'student', page, limit });
+    people.push(...(response?.people || []));
+  }
+
+  return people;
+}
+
 function buildFeeSnapshotPayload({ students, feeColumns, sessionLabel, currentTerm }) {
   const payloads = [];
 
@@ -562,11 +576,11 @@ function FeesManagementBoard({ initialFinanceTab = 'fees' }) {
     setLoading(true);
 
     try {
-      const [ledgerResult, configResult, classResult, peopleResult, receiptResult, paymentDetailsResult, claimResult, sessionResult, brandingResult] = await Promise.all([
+      const [ledgerResult, configResult, classResult, people, receiptResult, paymentDetailsResult, claimResult, sessionResult, brandingResult] = await Promise.all([
         getFeesLedger(),
         getFeesConfig(),
         getClasses(),
-        getPeople(),
+        getAllStudentsForFees(),
         getFeeReceipts(),
         getFeesPaymentDetails(),
         getFeePaymentClaims(),
@@ -579,7 +593,7 @@ function FeesManagementBoard({ initialFinanceTab = 'fees' }) {
       const activeConfigs = filterConfigsForPeriod(allConfigs, currentSession?.session, currentSession?.term);
       const columns = createFeeColumns(activeConfigs);
       const nextStudents = buildStudentRows({
-        students: peopleResult?.people || [],
+        students: people,
         ledger: ledgerResult?.ledger || [],
         classes: classResult?.classes || [],
         feeColumns: columns,
