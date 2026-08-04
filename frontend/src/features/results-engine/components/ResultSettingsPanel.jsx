@@ -177,6 +177,7 @@ function buildFormState(settings = {}, suggestedSettings = {}) {
     caComponentsText: toCaComponentLines(source?.metadata?.caComponents || suggestedSettings?.metadata?.caComponents || []),
     caMaxScore: source?.metadata?.caMaxScore ?? suggestedSettings?.metadata?.caMaxScore ?? 40,
     examMaxScore: source?.metadata?.examMaxScore ?? suggestedSettings?.metadata?.examMaxScore ?? 60,
+    feeLockUnpaidResults: source?.metadata?.feeLockUnpaidResults === true,
     affectiveWriteUp: source?.metadata?.affectiveWriteUp || suggestedSettings?.metadata?.affectiveWriteUp || '',
     brandingSchoolName: branding.schoolName || '',
     brandingReportTitle: branding.reportTitle || '',
@@ -336,6 +337,7 @@ export default function ResultSettingsPanel({
           caMaxScore: toNumber(form.caMaxScore, 40),
           examMaxScore: toNumber(form.examMaxScore, 60),
           caComponents: parseCaComponentLines(form.caComponentsText),
+          feeLockUnpaidResults: form.feeLockUnpaidResults === true,
           branding: {
             ...existingBranding,
             reportTitle: form.brandingReportTitle,
@@ -464,6 +466,26 @@ export default function ResultSettingsPanel({
 
         {configOpen && (
         <>
+        <section className={`${RESULT_INNER_SURFACE} p-4 space-y-3`}>
+          <div>
+            <p className={`micro-label ${RESULT_LABEL}`}>Result Access</p>
+            <p className={`text-xs mt-2 ${RESULT_BODY}`}>Choose whether unpaid or partly paid fee records should block parent and student result viewing.</p>
+          </div>
+          <label className={`flex items-start gap-3 rounded-2xl border border-[#c9a96e]/35 bg-white/60 p-4 text-sm ${RESULT_BODY} dark:border-white/10 dark:bg-slate-900/35`}>
+            <input
+              type="checkbox"
+              disabled={!canManageSettings || saving}
+              checked={form.feeLockUnpaidResults}
+              onChange={event => setForm(current => ({ ...current, feeLockUnpaidResults: event.target.checked }))}
+              className="mt-1 h-4 w-4"
+            />
+            <span>
+              <span className={`block font-bold ${RESULT_HEADING}`}>Lock result access for unpaid fees</span>
+              <span className="mt-1 block">Off by default. When enabled, parents and students with unpaid or partly paid current fees see the fee notice instead of published result records.</span>
+            </span>
+          </label>
+        </section>
+
         <section className={`${RESULT_INNER_SURFACE} p-4 space-y-4`}>
           <div>
             <p className={`micro-label ${RESULT_LABEL}`}>Score Model</p>

@@ -113,9 +113,10 @@ export default function GrowthPartnerDashboard() {
           </div>
           <div className="flex gap-2">
             <button type="button" onClick={() => copy(data.referralLink)} className="rounded-xl bg-emerald-500 px-4 py-2 text-sm font-bold text-black">Copy link</button>
-            <button type="button" onClick={() => copy(p.referralCode)} className="rounded-xl border border-white/20 px-4 py-2 text-sm font-bold">Code: {p.referralCode}</button>
+            <button type="button" onClick={() => copy(p.discountCode || p.referralCode)} className="rounded-xl border border-white/20 px-4 py-2 text-sm font-bold">Discount: {p.discountCode || 'Loading…'}</button>
           </div>
         </div>
+        <p className="mt-3 text-xs text-emerald-200/80">This registration link automatically applies your discount code. School owners using it cannot replace it with another partner’s code.</p>
       </section>
 
       {notice ? <div className="rounded-2xl border border-emerald-400/30 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-100">{notice}</div> : null}

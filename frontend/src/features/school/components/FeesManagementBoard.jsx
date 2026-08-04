@@ -29,6 +29,7 @@ import {
   rejectFeePaymentClaim,
   saveFeesConfigSnapshot,
   saveFeesPaymentDetails,
+  saveSession,
 } from '../services/schoolApi';
 
 const DEFAULT_FEE_COLUMNS = [
@@ -537,6 +538,7 @@ function FeesManagementBoard({ initialFinanceTab = 'fees' }) {
   const [claims, setClaims] = useState([]);
   const [paymentDetailsSaving, setPaymentDetailsSaving] = useState(false);
   const [claimSavingId, setClaimSavingId] = useState('');
+  const [periodSaving, setPeriodSaving] = useState(false);
   const toastTimeoutRef = useRef(null);
   const autoSaveTimeoutRef = useRef(null);
   const templateInputRef = useRef(null);
@@ -747,7 +749,16 @@ function FeesManagementBoard({ initialFinanceTab = 'fees' }) {
 
   const pastSessionGroups = useMemo(() => {
     if (sessionHistory.length) {
-      return sessionHistory.filter((entry) => String(entry?.session || '') !== String(sessionLabel || ''));
+      return sessionHistory
+        .map((entry) => {
+          const entrySession = String(entry?.session || '');
+          const terms = (entry?.terms || []).filter((termItem) => (
+            entrySession !== String(sessionLabel || '')
+            || String(termItem?.term || '') !== String(currentTerm || '')
+          ));
+          return { ...entry, terms };
+        })
+        .filter((entry) => (entry.terms || []).length > 0);
     }
 
     const grouped = new Map();
@@ -766,7 +777,7 @@ function FeesManagementBoard({ initialFinanceTab = 'fees' }) {
       }
     });
     return Array.from(grouped.values());
-  }, [configArchive, sessionHistory, sessionLabel]);
+  }, [configArchive, currentTerm, sessionHistory, sessionLabel]);
 
   function updateFee(studentId, feeName, value) {
     const nextValue = Number(value || 0);
@@ -966,6 +977,50 @@ function FeesManagementBoard({ initialFinanceTab = 'fees' }) {
 
   async function saveTemplate() {
     await persistTemplateSnapshot({ silent: false });
+  }
+
+  async function startNewFeePeriod() {
+    const nextSession = window.prompt('Enter the new session', sessionLabel || getDefaultSessionLabel());
+    const normalizedSession = String(nextSession || '').trim();
+    if (!normalizedSession) {
+      return;
+    }
+
+    const nextTerm = window.prompt('Enter the new term', currentTerm || 'Term 1');
+    const normalizedTerm = String(nextTerm || '').trim();
+    if (!normalizedTerm) {
+      return;
+    }
+
+    const startDate = window.prompt('Term start date (YYYY-MM-DD, optional)', '');
+    if (startDate === null) {
+      return;
+    }
+
+    const endDate = window.prompt('Term end date (YYYY-MM-DD, optional)', '');
+    if (endDate === null) {
+      return;
+    }
+
+    setPeriodSaving(true);
+    try {
+      await saveSession({
+        session: normalizedSession,
+        term: normalizedTerm,
+        startDate: String(startDate || '').trim(),
+        endDate: String(endDate || '').trim(),
+      });
+      setSessionLabel(normalizedSession);
+      setCurrentTerm(normalizedTerm);
+      setDirty(false);
+      setLastTemplateSavedAt('');
+      showToast('New session/term created. Enter and save this period\'s fees.');
+      await loadBoard();
+    } catch (error) {
+      showToast(error.message || 'Could not create the new session/term.');
+    } finally {
+      setPeriodSaving(false);
+    }
   }
 
   useEffect(() => {
@@ -1619,6 +1674,9 @@ function FeesManagementBoard({ initialFinanceTab = 'fees' }) {
               <button onClick={saveTemplate} disabled={savingTemplate} className={BTN}>
                 {savingTemplate ? 'Saving...' : dirty ? 'Save Template *' : 'Save Template'}
               </button>
+              <button onClick={startNewFeePeriod} disabled={periodSaving} className={OUTLINE_BTN}>
+                {periodSaving ? 'Creating Period...' : 'Start New Session/Term'}
+              </button>
               <button onClick={handleDownloadFeeTemplate} className={OUTLINE_BTN}>Download Template</button>
               <button onClick={() => templateInputRef.current?.click()} disabled={uploadingTemplate} className={OUTLINE_BTN}>
                 {uploadingTemplate ? 'Importing...' : 'Upload Filled Template'}
@@ -1663,7 +1721,7 @@ function FeesManagementBoard({ initialFinanceTab = 'fees' }) {
                 <p className="mt-3 text-sm font-semibold text-[#191970] dark:text-[#39ff14]">Showing {filteredStudents.length} of {students.length} students in the current filtered view.</p>
                 <p className="mt-2 text-sm text-[#191970] dark:text-[#39ff14]">{dirty ? 'Unsaved fee changes are waiting for a template save.' : lastTemplateSavedAt ? `Template last saved ${formatAutoSaveTime(lastTemplateSavedAt)}.` : 'No saved fee snapshot yet.'}</p>
                 <p className="mt-3 text-sm text-[#191970] dark:text-[#39ff14]">
-                  Update the active period from school settings when the school moves to a new session or term.
+                  Start a new session or term when the school moves forward. Past fee templates, receipts, and published results stay recorded under their original periods.
                 </p>
               </div>
 

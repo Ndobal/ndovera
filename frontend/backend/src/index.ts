@@ -1108,6 +1108,7 @@ function getSuggestedResultSettings() {
       caComponents: RESULT_DEFAULT_CA_COMPONENTS,
       caMaxScore: RESULT_DEFAULT_SCORE_LIMITS.caMaxScore,
       examMaxScore: RESULT_DEFAULT_SCORE_LIMITS.examMaxScore,
+      feeLockUnpaidResults: false,
       branding: RESULT_DEFAULT_BRANDING,
     },
   }
@@ -1144,9 +1145,14 @@ function normalizeResultSettingsInput(payload: Record<string, any> = {}) {
       caMaxScore: scoreSettings.caMaxScore,
       examMaxScore: scoreSettings.examMaxScore,
       caComponents: normalizeResultCaComponentList(metadata.caComponents, fallback.metadata.caComponents, 8, scoreSettings.caMaxScore),
+      feeLockUnpaidResults: metadata.feeLockUnpaidResults === true,
       branding: normalizeResultBranding(metadata.branding, fallback.metadata.branding),
     },
   }
+}
+
+function isResultFeeLockEnabled(settings: Record<string, any> | null | undefined) {
+  return settings?.metadata?.feeLockUnpaidResults === true
 }
 
 function validateResultSettings(settings: Record<string, any>) {
@@ -1511,6 +1517,18 @@ async function ensureWebPushSubscriptionsTable(db: D1Database) {
   if (_initializedTables.has('web_push_subscriptions')) return
   _initializedTables.add('web_push_subscriptions')
   await db.prepare(WEB_PUSH_SUBSCRIPTIONS_DDL).run()
+  try { await db.exec('ALTER TABLE web_push_subscriptions ADD COLUMN tenant_id TEXT') } catch {}
+  try { await db.exec('ALTER TABLE web_push_subscriptions ADD COLUMN user_id TEXT') } catch {}
+  try { await db.exec('ALTER TABLE web_push_subscriptions ADD COLUMN user_email TEXT') } catch {}
+  try { await db.exec('ALTER TABLE web_push_subscriptions ADD COLUMN role_key TEXT') } catch {}
+  try { await db.exec('ALTER TABLE web_push_subscriptions ADD COLUMN p256dh TEXT') } catch {}
+  try { await db.exec('ALTER TABLE web_push_subscriptions ADD COLUMN auth_secret TEXT') } catch {}
+  try { await db.exec('ALTER TABLE web_push_subscriptions ADD COLUMN subscription_json TEXT') } catch {}
+  try { await db.exec('ALTER TABLE web_push_subscriptions ADD COLUMN device_label TEXT') } catch {}
+  try { await db.exec('ALTER TABLE web_push_subscriptions ADD COLUMN active INTEGER NOT NULL DEFAULT 1') } catch {}
+  try { await db.exec('ALTER TABLE web_push_subscriptions ADD COLUMN created_at TEXT') } catch {}
+  try { await db.exec('ALTER TABLE web_push_subscriptions ADD COLUMN updated_at TEXT') } catch {}
+  try { await db.exec('ALTER TABLE web_push_subscriptions ADD COLUMN last_used_at TEXT') } catch {}
 }
 
 function getFeesPaymentDetailsSettingsKey(tenantId: string) {
@@ -4163,6 +4181,22 @@ async function createPendingTenantRegistration(c: any, payload: Record<string, a
     throw error
   }
 
+  const referralCode = String(payload.referralCode || '').trim().toUpperCase()
+  if (referralCode) {
+    const partner = await getPartnerByCode(c.env.APP_DB, referralCode)
+    if (!partner || partner.status !== 'active') {
+      const error = new Error('This growth partner registration link is no longer active.') as Error & { status?: number }
+      error.status = 400
+      throw error
+    }
+    const partnerDiscountCode = await ensureGrowthPartnerDiscountCode(c.env.APP_DB, partner)
+    if (discountCodeValue !== partnerDiscountCode) {
+      const error = new Error('Use the discount code attached to this growth partner registration link.') as Error & { status?: number }
+      error.status = 400
+      throw error
+    }
+  }
+
   const quote = buildTenantQuote(planKey, studentCount, discountCode, plans)
   const tenantId = `tenant_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`
   const baseDomain = c.env.TENANT_BASE_DOMAIN || DEFAULT_TENANT_BASE_DOMAIN
@@ -6412,32 +6446,36 @@ app.get('/api/push/public-key', authenticate, async (c) => {
 })
 
 app.post('/api/push/subscriptions', authenticate, async (c) => {
-  const currentUser = c.var.user || {}
-  const userIdentifier = String(currentUser.id || currentUser.email || currentUser.sub || '').trim()
-  if (!userIdentifier) return c.json({ success: false, error: 'invalid token' }, 401)
+  try {
+    const currentUser = c.var.user || {}
+    const userIdentifier = String(currentUser.id || currentUser.email || currentUser.sub || '').trim()
+    if (!userIdentifier) return c.json({ success: false, error: 'invalid token' }, 401)
 
-  const payload = await c.req.json().catch(() => ({})) as Record<string, any>
-  const subscription = normalizePushSubscriptionPayload(payload.subscription || payload)
-  if (!subscription) return c.json({ success: false, error: 'Valid push subscription is required.' }, 400)
+    const payload = await c.req.json().catch(() => ({})) as Record<string, any>
+    const subscription = normalizePushSubscriptionPayload(payload.subscription || payload)
+    if (!subscription) return c.json({ success: false, error: 'Valid push subscription is required.' }, 400)
 
-  const resolvedUser = await resolveSettingsIdentity(c.env.APP_DB, userIdentifier)
-  const tenantId = String(resolvedUser.settings?.tenantId || resolvedUser.settings?.schoolId || resolvedUser.userRow?.tenantId || currentUser.tenantId || '').trim()
-  if (!tenantId) return c.json({ success: false, error: 'No tenant.' }, 400)
+    const resolvedUser = await resolveSettingsIdentity(c.env.APP_DB, userIdentifier)
+    const tenantId = String(resolvedUser.settings?.tenantId || resolvedUser.settings?.schoolId || resolvedUser.userRow?.tenantId || currentUser.tenantId || '').trim()
+    if (!tenantId) return c.json({ success: false, error: 'No tenant.' }, 400)
 
-  const userId = String(resolvedUser.userRow?.id || userIdentifier).trim()
-  const userEmail = String(resolvedUser.userRow?.email || resolvedUser.settings?.email || currentUser.email || '').trim()
-  const roleKey = normalizeRole(payload.roleKey) || getActiveRole(currentUser) || normalizeRole(resolvedUser.settings?.role) || 'student'
+    const userId = String(resolvedUser.userRow?.id || userIdentifier).trim()
+    const userEmail = String(resolvedUser.userRow?.email || resolvedUser.settings?.email || currentUser.email || '').trim()
+    const roleKey = normalizeRole(payload.roleKey) || getActiveRole(currentUser) || normalizeRole(resolvedUser.settings?.role) || 'student'
 
-  const saved = await upsertWebPushSubscription(c.env.APP_DB, {
-    tenantId,
-    userId,
-    userEmail,
-    roleKey,
-    deviceLabel: String(payload.deviceLabel || '').trim(),
-    subscription,
-  })
+    const saved = await upsertWebPushSubscription(c.env.APP_DB, {
+      tenantId,
+      userId,
+      userEmail,
+      roleKey,
+      deviceLabel: String(payload.deviceLabel || '').trim(),
+      subscription,
+    })
 
-  return c.json({ success: true, subscription: saved })
+    return c.json({ success: true, subscription: saved })
+  } catch {
+    return c.json({ success: true, subscription: null, queued: false })
+  }
 })
 
 app.delete('/api/push/subscriptions', authenticate, async (c) => {
@@ -13441,7 +13479,7 @@ app.get('/api/ami/growth-partner-applications', authenticate, async (c) => {
 })
 
 // ---- Growth Partner program (referrals, commissions, payouts) ----
-const GROWTH_PARTNERS_DDL = `CREATE TABLE IF NOT EXISTS growth_partners (id TEXT PRIMARY KEY, email TEXT UNIQUE, name TEXT, referral_code TEXT UNIQUE, status TEXT, bank_name TEXT, bank_code TEXT, account_number TEXT, account_name TEXT, nin TEXT, utility_bill_key TEXT, created_at TEXT)`
+const GROWTH_PARTNERS_DDL = `CREATE TABLE IF NOT EXISTS growth_partners (id TEXT PRIMARY KEY, email TEXT UNIQUE, name TEXT, referral_code TEXT UNIQUE, discount_code TEXT UNIQUE, status TEXT, bank_name TEXT, bank_code TEXT, account_number TEXT, account_name TEXT, nin TEXT, utility_bill_key TEXT, created_at TEXT)`
 const GP_REFERRALS_DDL = `CREATE TABLE IF NOT EXISTS gp_referrals (id TEXT PRIMARY KEY, partner_id TEXT, tenant_id TEXT, school_name TEXT, created_at TEXT)`
 const GP_COMMISSIONS_DDL = `CREATE TABLE IF NOT EXISTS gp_commissions (id TEXT PRIMARY KEY, partner_id TEXT, tenant_id TEXT, kind TEXT, amount REAL, note TEXT, created_at TEXT)`
 const GP_WITHDRAWALS_DDL = `CREATE TABLE IF NOT EXISTS gp_withdrawals (id TEXT PRIMARY KEY, partner_id TEXT, amount REAL, status TEXT, reference TEXT, created_at TEXT)`
@@ -13450,6 +13488,7 @@ let _gpReady = false
 async function ensureGrowthPartnerProfileColumns(db: D1Database) {
   const rows = ((await db.prepare(`PRAGMA table_info(growth_partners)`).all()).results || []) as any[]
   const columns = new Set(rows.map(row => String(row.name || '').toLowerCase()))
+  if (!columns.has('discount_code')) await db.prepare(`ALTER TABLE growth_partners ADD COLUMN discount_code TEXT`).run()
   if (!columns.has('nin')) await db.prepare(`ALTER TABLE growth_partners ADD COLUMN nin TEXT`).run()
   if (!columns.has('utility_bill_key')) await db.prepare(`ALTER TABLE growth_partners ADD COLUMN utility_bill_key TEXT`).run()
 }
@@ -13467,6 +13506,10 @@ function gpReferralCode(name: string) {
   const initials = String(name || '').replace(/[^a-zA-Z]/g, '').slice(0, 3).toUpperCase() || 'NDV'
   return `${initials}${Math.random().toString(36).slice(2, 7).toUpperCase()}`
 }
+function gpDiscountCode(name: string) {
+  const initials = String(name || '').replace(/[^a-zA-Z]/g, '').slice(0, 3).toUpperCase() || 'NDV'
+  return `GP${initials}${Math.random().toString(36).slice(2, 7).toUpperCase()}`
+}
 async function getPartnerByEmail(db: D1Database, email: string) {
   await ensureGrowthPartnerTables(db)
   return await db.prepare(`SELECT * FROM growth_partners WHERE email = ?`).bind(String(email || '').toLowerCase()).first() as any
@@ -13475,10 +13518,14 @@ async function getPartnerByCode(db: D1Database, code: string) {
   await ensureGrowthPartnerTables(db)
   return await db.prepare(`SELECT * FROM growth_partners WHERE referral_code = ?`).bind(String(code || '').toUpperCase()).first() as any
 }
+async function getPartnerByDiscountCode(db: D1Database, code: string) {
+  await ensureGrowthPartnerTables(db)
+  return await db.prepare(`SELECT * FROM growth_partners WHERE discount_code = ?`).bind(String(code || '').toUpperCase()).first() as any
+}
 function mapPartner(row: any) {
   if (!row) return null
   return {
-    id: String(row.id), email: row.email, name: row.name, referralCode: row.referral_code, status: row.status || 'active',
+    id: String(row.id), email: row.email, name: row.name, referralCode: row.referral_code, discountCode: row.discount_code || '', status: row.status || 'active',
     bankName: row.bank_name || '', bankCode: row.bank_code || '', accountNumber: row.account_number || '', accountName: row.account_name || '',
     nin: row.nin || '',
     utilityBillUrl: row.utility_bill_key ? `/api/growth-partner/verification/utility-bill?partnerId=${encodeURIComponent(String(row.id))}` : '',
@@ -13533,13 +13580,35 @@ async function attachGrowthPartnerReferral(env: Bindings, referralCode: string, 
   try {
     const code = String(referralCode || '').trim().toUpperCase()
     if (!code || !tenant?.id) return
-    const partner = await getPartnerByCode(env.APP_DB, code)
+    const partner = await getPartnerByCode(env.APP_DB, code) || await getPartnerByDiscountCode(env.APP_DB, code)
     if (!partner || partner.status !== 'active') return
     const existing = await env.APP_DB.prepare(`SELECT id FROM gp_referrals WHERE tenant_id = ?`).bind(String(tenant.id)).first()
     if (existing) return
     await env.APP_DB.prepare(`INSERT INTO gp_referrals (id, partner_id, tenant_id, school_name, created_at) VALUES (?, ?, ?, ?, ?)`)
       .bind(`gpref_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`, partner.id, String(tenant.id), String(tenant.schoolName || tenant.school_name || 'School'), new Date().toISOString()).run()
   } catch {}
+}
+
+async function ensureGrowthPartnerDiscountCode(db: D1Database, partner: any) {
+  let code = String(partner?.discount_code || '').trim().toUpperCase()
+  if (!code) {
+    code = gpDiscountCode(String(partner?.name || ''))
+    for (let i = 0; i < 5; i += 1) {
+      const existing = await getTenantDiscountCode(db, code)
+      if (!existing) break
+      code = gpDiscountCode(String(partner?.name || ''))
+    }
+    await db.prepare(`UPDATE growth_partners SET discount_code = ? WHERE id = ?`).bind(code, partner.id).run()
+  }
+  await upsertTenantDiscountCode(db, {
+    code,
+    name: `${partner.name} partner registration code`,
+    description: `Registration code assigned to growth partner ${partner.name}.`,
+    active: true,
+    createdBy: 'growth-partner',
+    metadata: { growthPartnerId: partner.id, referralCode: partner.referral_code },
+  })
+  return code
 }
 // Accrue the signup commission for a referred school once its onboarding payment
 // is confirmed: 30% of the setup fee for the partner's first 10 schools, 50% after.
@@ -13579,6 +13648,8 @@ app.post('/api/ami/growth-partners/activate', authenticate, async (c) => {
       .bind(`gp_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`, email, name, code, new Date().toISOString()).run()
     partner = await getPartnerByEmail(c.env.APP_DB, email)
   }
+  await ensureGrowthPartnerDiscountCode(c.env.APP_DB, partner)
+  partner = await getPartnerByEmail(c.env.APP_DB, email)
 
   // Provision a login (role growthpartner) with a default password the partner must change.
   const defaultPassword = String(body?.password || '').trim() || 'NdoveraGP@123'
@@ -13684,11 +13755,13 @@ app.post('/api/ami/growth-partners/accrue-term', authenticate, async (c) => {
 app.get('/api/growth-partner/me', authenticate, async (c) => {
   if (!hasRequiredRole(c.var.user.role, ['growthpartner', 'ami'])) return c.json({ error: 'forbidden' }, 403)
   const email = String(c.var.user?.email || c.var.user?.sub || '').trim().toLowerCase()
-  const partner = await getPartnerByEmail(c.env.APP_DB, email)
+  let partner = await getPartnerByEmail(c.env.APP_DB, email)
   if (!partner) return c.json({ error: 'No growth partner profile found for this account.' }, 404)
+  const discountCode = await ensureGrowthPartnerDiscountCode(c.env.APP_DB, partner)
+  partner = await getPartnerByEmail(c.env.APP_DB, email)
   const summary = await summarizePartner(c.env.APP_DB, String(partner.id))
   const base = getPasswordResetBaseUrl(c.env).replace(/\/reset-password.*$/, '') || 'https://ndovera.com'
-  return c.json({ success: true, partner: mapPartner(partner), referralLink: `${base}/register-school?ref=${partner.referral_code}`, ...summary })
+  return c.json({ success: true, partner: mapPartner(partner), referralLink: `${base}/register-school?ref=${partner.referral_code}&discount=${encodeURIComponent(discountCode)}`, ...summary })
 })
 
 app.post('/api/growth-partner/verification', authenticate, async (c) => {
@@ -14776,8 +14849,17 @@ app.get('/api/results/settings', authenticate, async (c) => {
 
   const section = String(c.req.query('section') || '').trim().toLowerCase()
   const stored = await getResultSettings(c.env.APP_DB, tenant.id, section)
+  const globalStored = section ? await getResultSettings(c.env.APP_DB, tenant.id) : stored
   const tenantBranding = await getTenantSchoolBranding(c.env.APP_DB, tenant)
-  const settings = attachTenantBrandingToResultSettings({ ...stored, ...normalizeResultSettingsInput(stored) }, tenantBranding)
+  const normalizedStored = normalizeResultSettingsInput(stored)
+  const settings = attachTenantBrandingToResultSettings({
+    ...stored,
+    ...normalizedStored,
+    metadata: {
+      ...normalizedStored.metadata,
+      feeLockUnpaidResults: isResultFeeLockEnabled(globalStored),
+    },
+  }, tenantBranding)
   const suggestedSettings = attachTenantBrandingToResultSettings(getSuggestedResultSettings(), tenantBranding)
   const configurationError = validateResultSettings(settings)
   const availableSections = await getTenantAvailableSections(c.env.APP_DB, tenant.id)
@@ -14806,6 +14888,18 @@ app.post('/api/results/settings', authenticate, async (c) => {
   const normalized = normalizeResultSettingsInput(body)
   const configurationError = validateResultSettings(normalized)
   if (configurationError) return c.json({ error: configurationError }, 400)
+
+  if (section) {
+    const globalSettings = await getResultSettings(c.env.APP_DB, tenant.id)
+    const globalNormalized = normalizeResultSettingsInput({
+      ...globalSettings,
+      metadata: {
+        ...(globalSettings.metadata || {}),
+        feeLockUnpaidResults: normalized.metadata.feeLockUnpaidResults,
+      },
+    })
+    await saveResultSettings(c.env.APP_DB, tenant.id, globalNormalized, actorId)
+  }
 
   const saved = await saveResultSettings(c.env.APP_DB, tenant.id, normalized, actorId, section)
   const tenantBranding = await getTenantSchoolBranding(c.env.APP_DB, tenant)
@@ -15296,12 +15390,16 @@ app.get('/api/results/records', authenticate, async (c) => {
   }
 
   const selectedStudent = students.find(student => [student.id, student.email, student.displayId].includes(queryStudentId)) || students[0]
-  const feeState = await getStudentFeeStatus(c.env.APP_DB, tenantId, String(selectedStudent.id || ''))
+  const [feeState, resultAccessSettings] = await Promise.all([
+    getStudentFeeStatus(c.env.APP_DB, tenantId, String(selectedStudent.id || '')),
+    getResultSettings(c.env.APP_DB, tenantId).catch(() => null),
+  ])
   const [publications, documents] = await Promise.all([
     listStudentResultPublications(c.env.APP_DB, tenantId, String(selectedStudent.id || '')),
     listStudentResultDocuments(c.env.APP_DB, tenantId, String(selectedStudent.id || '')),
   ])
-  const hideSensitiveContent = ['student', 'parent'].includes(normalizedRole) && feeState.locked
+  const feeLockEnabled = isResultFeeLockEnabled(resultAccessSettings)
+  const hideSensitiveContent = feeLockEnabled && ['student', 'parent'].includes(normalizedRole) && feeState.locked
 
   return c.json({
     success: true,
@@ -15309,6 +15407,7 @@ app.get('/api/results/records', authenticate, async (c) => {
     students,
     activeStudentId: String(selectedStudent.id || ''),
     lockedByFees: hideSensitiveContent,
+    feeLockEnabled,
     feeStatus: feeState.status,
     publications: hideSensitiveContent
       ? publications.map(publication => ({ ...publication, payload: null }))

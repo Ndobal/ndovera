@@ -15,6 +15,7 @@ This package contains the Cloudflare Worker backend for the main Ndovera fronten
 - AI billing and access rules for staff, students, and parents, including parent-specific daily free-request overrides
 - Question-bank APIs that retain submitted assignment and CBT questions as individual records, apply AI-generated topic labels, provide topic-filtered practice questions, and let school owners allow or block teacher bank reuse.
 - AMI growth-partner APIs provide portfolio analytics and activities, individual profile review, manual paid-payout recording, and state, regional, national, or global representative appointments. Partner-only verification APIs save an 11-digit NIN and securely serve uploaded utility bills to the partner or AMI.
+- Growth partner activation and dashboard APIs provision a unique registration discount code. Public registration validates that the code in a partner link is that partner's assigned code before creating the school and referral relationship.
 
 ## Worker Bindings
 

@@ -53,6 +53,8 @@ function PasswordField({ label, name, value, onChange, visible, onToggle, autoCo
 export default function SchoolRegistrationPage() {
   const location = useLocation();
   const paymentRef = useMemo(() => new URLSearchParams(location.search).get('payment_ref'), [location.search]);
+  const referralCode = useMemo(() => (new URLSearchParams(location.search).get('ref') || '').trim(), [location.search]);
+  const partnerDiscountCode = useMemo(() => (new URLSearchParams(location.search).get('discount') || '').trim().toUpperCase(), [location.search]);
   const [formState, setFormState] = useState(initialFormState);
   const [pricing, setPricing] = useState({ plans: [], quote: null, pricingConfig: null });
   const [pricingError, setPricingError] = useState('');
@@ -63,6 +65,12 @@ export default function SchoolRegistrationPage() {
   const [isVerifyingPayment, setIsVerifyingPayment] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  useEffect(() => {
+    if (referralCode && partnerDiscountCode) {
+      setFormState(current => ({ ...current, discountCode: partnerDiscountCode }));
+    }
+  }, [referralCode, partnerDiscountCode]);
 
   useEffect(() => {
     let cancelled = false;
@@ -215,7 +223,6 @@ export default function SchoolRegistrationPage() {
     setSubmitError('');
 
     try {
-      const referralCode = (new URLSearchParams(location.search).get('ref') || '').trim();
       const result = await registerSchoolAndPay({
         schoolName: formState.schoolName.trim(),
         requestedSubdomain: formState.requestedSubdomain.trim(),
@@ -424,7 +431,8 @@ export default function SchoolRegistrationPage() {
 
                   <label className="block space-y-2 md:col-span-2">
                     <span className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Discount Code</span>
-                    <input name="discountCode" value={formState.discountCode} onChange={handleChange} className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100" placeholder="Enter discount code if you have one" />
+                    <input name="discountCode" value={formState.discountCode} onChange={handleChange} disabled={Boolean(referralCode && partnerDiscountCode)} className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100 disabled:cursor-not-allowed disabled:bg-slate-100" placeholder="Enter discount code if you have one" />
+                    {referralCode && partnerDiscountCode ? <span className="mt-1 block text-xs font-semibold text-[#1a5c38]">Partner registration code applied and locked to this link.</span> : null}
                   </label>
                 </div>
 

@@ -47,6 +47,7 @@ This workspace already includes build and deploy tasks:
 - Tenant public school websites rendered from the Worker, including full-screen hero media, auto-linked CTAs, gallery sections, and public news pages.
 - Shared school website links now include Open Graph and Twitter preview metadata with the school's own uploaded logo (falling back to public website media).
 - AMI growth-partner controls show portfolio analytics and activity, individual partner profiles, manual partner payouts, and state, regional, national, or global representative appointments. Partners securely provide their NIN and utility bill before payout-account details are maintained.
+- Every active growth partner receives a distinct registration discount code and a shareable registration link. The link applies and locks that partner's code, and the API rejects substituted partner codes.
 - Tenant newsroom workflow where students, parents, teachers, and staff draft blog stories, reviewers clear them, and HoS or Owner publishes them.
 
 ## Documentation Notes
