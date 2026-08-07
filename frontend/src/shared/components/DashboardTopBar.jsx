@@ -249,18 +249,24 @@ export default function DashboardTopBar({ authUser = null, onLogout = () => {}, 
       installPromptRef.current = e;
       setInstallable(true);
     };
+    const installedHandler = () => {
+      installPromptRef.current = null;
+      setInstallable(false);
+    };
     window.addEventListener('beforeinstallprompt', handler);
-    window.addEventListener('appinstalled', () => setInstallable(false));
+    window.addEventListener('appinstalled', installedHandler);
     return () => {
       window.removeEventListener('beforeinstallprompt', handler);
+      window.removeEventListener('appinstalled', installedHandler);
     };
   }, []);
 
   async function handleInstall() {
     if (!installPromptRef.current) return;
-    installPromptRef.current.prompt();
-    const { outcome } = await installPromptRef.current.userChoice;
-    if (outcome === 'accepted') {
+    const deferredPrompt = installPromptRef.current;
+    await deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    if (outcome === 'accepted' || outcome === 'dismissed') {
       setInstallable(false);
       installPromptRef.current = null;
     }

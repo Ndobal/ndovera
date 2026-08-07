@@ -3058,6 +3058,7 @@ async function recordStudentFeePayment(db: D1Database, options: {
   verificationBaseUrl?: string
 }) {
   await ensureFeesLedgerTable(db)
+  await ensureFeesPaymentReceiptsTable(db)
 
   const existing = await db.prepare(
     `SELECT * FROM fees_ledger WHERE student_id = ? AND tenant_id = ?`
@@ -3077,6 +3078,9 @@ async function recordStudentFeePayment(db: D1Database, options: {
   const classId = String(hydratedStudent?.classId || existing?.class_id || '')
   const className = String(hydratedStudent?.className || existing?.class_name || '')
   const recordedAt = new Date().toISOString()
+  const receiptId = `fee_receipt_${options.tenantId}_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`
+  const receiptNo = buildFeeReceiptNumber(new Date(recordedAt))
+  const verificationUrl = buildFeeReceiptVerificationUrl(String(options.verificationBaseUrl || ''), receiptNo)
 
   if (existing) {
     await db.prepare(
