@@ -7341,6 +7341,8 @@ app.get('/api/classrooms/:classroomId', authenticate, async (c) => {
 app.get('/api/classrooms/:classroomId/stream', authenticate, async (c) => {
   const classroomId = c.req.param('classroomId')
   try {
+    const access = await resolveClassroomLearningAccess(c.env.APP_DB, c.var.user || {}, classroomId)
+    if (!access.ok) return c.json({ success: false, message: access.message }, access.status)
     const posts = await getPostsForClass(c.env.APP_DB, classroomId)
     return c.json({ success: true, posts })
   } catch (error) {
@@ -7351,6 +7353,8 @@ app.get('/api/classrooms/:classroomId/stream', authenticate, async (c) => {
 app.get('/api/classrooms/:classroomId/posts', authenticate, async (c) => {
   const classroomId = c.req.param('classroomId')
   try {
+    const access = await resolveClassroomLearningAccess(c.env.APP_DB, c.var.user || {}, classroomId)
+    if (!access.ok) return c.json({ success: false, message: access.message }, access.status)
     const posts = await getPostsForClass(c.env.APP_DB, classroomId)
     return c.json({ success: true, posts })
   } catch (error) {
