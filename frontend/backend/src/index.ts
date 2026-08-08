@@ -115,6 +115,9 @@ type Bindings = {
   TENANT_BASE_DOMAIN?: string
   ZOHO_MAIL_ACCOUNT_ID?: string
   ZOHO_MAIL_FROM_ADDRESS?: string
+  YOUTUBE_CLIENT_ID?: string
+  YOUTUBE_CLIENT_SECRET?: string
+  YOUTUBE_REDIRECT_URI?: string
   ZOHO_MAIL_CLIENT_ID?: string
   ZOHO_MAIL_CLIENT_SECRET?: string
   ZOHO_MAIL_REFRESH_TOKEN?: string
@@ -13984,6 +13987,335 @@ app.post('/api/school/branding', authenticate, async (c) => {
   }
 })
 
+// ---------------------------------------------------------------------------
+// Central YouTube channel
+//
+// One Google account (NDOVERA's own channel) is connected once by Ami. The refresh token is
+// stored server-side and every platform video upload uses it, so no school ever touches
+// Google credentials. Uploads are unlisted by default.
+// ---------------------------------------------------------------------------
+const YOUTUBE_SETTINGS_KEY = 'system:youtube-integration'
+const YOUTUBE_UPLOADS_DDL = `CREATE TABLE IF NOT EXISTS youtube_uploads (
+  id TEXT PRIMARY KEY, video_id TEXT, title TEXT, section_key TEXT,
+  size_bytes INTEGER, uploaded_by TEXT, created_at TEXT
+)`
+
+function getYouTubeRedirectUri(env: Bindings) {
+  const configured = String(env.YOUTUBE_REDIRECT_URI || '').trim()
+  return configured || 'https://ndovera.com/api/integrations/youtube/callback'
+}
+
+async function ensureYouTubeUploadsTable(db: D1Database) {
+  if (_initializedTables.has('youtube_uploads')) return
+  _initializedTables.add('youtube_uploads')
+  await db.prepare(YOUTUBE_UPLOADS_DDL).run()
+}
+
+async function countYouTubeUploadsToday(db: D1Database) {
+  try {
+    await ensureYouTubeUploadsTable(db)
+    // YouTube's quota resets at midnight US Pacific, which is 08:00 UTC.
+    const since = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString()
+    const row = await db.prepare(`SELECT COUNT(*) AS n FROM youtube_uploads WHERE created_at >= ?`).bind(since).first() as any
+    return Number(row?.n || 0)
+  } catch {
+    return 0
+  }
+}
+
+async function recordYouTubeUpload(db: D1Database, entry: Record<string, any>) {
+  await ensureYouTubeUploadsTable(db)
+  await db.prepare(
+    `INSERT INTO youtube_uploads (id, video_id, title, section_key, size_bytes, uploaded_by, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)`
+  ).bind(
+    `yt_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`,
+    entry.videoId, entry.title || '', entry.sectionKey || '',
+    Number(entry.sizeBytes || 0), entry.uploadedBy || '', new Date().toISOString(),
+  ).run()
+}
+
+async function getYouTubeConnectionStatus(env: Bindings) {
+  const credentialsSet = Boolean(String(env.YOUTUBE_CLIENT_ID || '').trim() && String(env.YOUTUBE_CLIENT_SECRET || '').trim())
+  const saved = await getSettings(env.APP_DB, YOUTUBE_SETTINGS_KEY).catch(() => null)
+  return {
+    credentialsSet,
+    connected: Boolean(saved?.refreshToken),
+    channelTitle: saved?.channelTitle || '',
+    connectedAt: saved?.connectedAt || null,
+    redirectUri: getYouTubeRedirectUri(env),
+  }
+}
+
+// Ami starts the connect flow; Google returns to the callback below.
+app.get('/api/integrations/youtube/connect', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  const clientId = String(c.env.YOUTUBE_CLIENT_ID || '').trim()
+  if (!clientId) return c.json({ error: 'Set the YOUTUBE_CLIENT_ID and YOUTUBE_CLIENT_SECRET secrets first.' }, 400)
+
+  const state = toBase64Url(crypto.getRandomValues(new Uint8Array(16)))
+  await upsertSettings(c.env.APP_DB, `${YOUTUBE_SETTINGS_KEY}:state`, { state, createdAt: new Date().toISOString() })
+
+  const url = new URL('https://accounts.google.com/o/oauth2/v2/auth')
+  url.searchParams.set('client_id', clientId)
+  url.searchParams.set('redirect_uri', getYouTubeRedirectUri(c.env))
+  url.searchParams.set('response_type', 'code')
+  url.searchParams.set('scope', 'https://www.googleapis.com/auth/youtube.upload https://www.googleapis.com/auth/youtube.readonly')
+  // Offline access with a forced consent screen is what returns a refresh token.
+  url.searchParams.set('access_type', 'offline')
+  url.searchParams.set('prompt', 'consent')
+  url.searchParams.set('state', state)
+
+  return c.json({ success: true, authUrl: url.toString() })
+})
+
+app.get('/api/integrations/youtube/callback', async (c) => {
+  const code = String(c.req.query('code') || '').trim()
+  const state = String(c.req.query('state') || '').trim()
+  if (!code) return c.html('<p>YouTube connection failed: no authorization code returned.</p>', 400)
+
+  const savedState = await getSettings(c.env.APP_DB, `${YOUTUBE_SETTINGS_KEY}:state`).catch(() => null)
+  if (!savedState?.state || savedState.state !== state) {
+    return c.html('<p>YouTube connection failed: the request could not be verified. Start again from the Media Manager.</p>', 400)
+  }
+
+  const tokenResponse = await fetch('https://oauth2.googleapis.com/token', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams({
+      code,
+      client_id: String(c.env.YOUTUBE_CLIENT_ID || ''),
+      client_secret: String(c.env.YOUTUBE_CLIENT_SECRET || ''),
+      redirect_uri: getYouTubeRedirectUri(c.env),
+      grant_type: 'authorization_code',
+    }),
+  })
+
+  const tokenData = await tokenResponse.json().catch(() => ({})) as Record<string, any>
+  if (!tokenResponse.ok || !tokenData.refresh_token) {
+    const detail = tokenData.error_description || tokenData.error || 'no refresh token returned'
+    return c.html(`<p>YouTube connection failed: ${escapePasswordResetHtml(String(detail))}</p>`, 400)
+  }
+
+  let channelTitle = ''
+  try {
+    const channelResponse = await fetch('https://www.googleapis.com/youtube/v3/channels?part=snippet&mine=true', {
+      headers: { Authorization: `Bearer ${tokenData.access_token}` },
+    })
+    const channelData = await channelResponse.json() as Record<string, any>
+    channelTitle = String(channelData?.items?.[0]?.snippet?.title || '')
+  } catch { /* the connection still works without the channel name */ }
+
+  await upsertSettings(c.env.APP_DB, YOUTUBE_SETTINGS_KEY, {
+    refreshToken: tokenData.refresh_token,
+    channelTitle,
+    connectedAt: new Date().toISOString(),
+  })
+  await upsertSettings(c.env.APP_DB, `${YOUTUBE_SETTINGS_KEY}:state`, {})
+
+  return c.html(`<!doctype html><meta charset="utf-8"><title>YouTube connected</title>
+    <div style="font-family:Segoe UI,Arial,sans-serif;padding:40px;color:#191970;">
+      <h1>YouTube connected</h1>
+      <p>${channelTitle ? `Channel: <strong>${escapePasswordResetHtml(channelTitle)}</strong>` : 'The NDOVERA channel is now connected.'}</p>
+      <p>You can close this tab and return to the Media Manager.</p>
+    </div>`)
+})
+
+async function getYouTubeAccessToken(env: Bindings) {
+  const saved = await getSettings(env.APP_DB, YOUTUBE_SETTINGS_KEY).catch(() => null)
+  const refreshToken = String(saved?.refreshToken || '').trim()
+  if (!refreshToken) throw new Error('YouTube is not connected. Connect the NDOVERA channel from the Media Manager first.')
+
+  const response = await fetch('https://oauth2.googleapis.com/token', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams({
+      client_id: String(env.YOUTUBE_CLIENT_ID || ''),
+      client_secret: String(env.YOUTUBE_CLIENT_SECRET || ''),
+      refresh_token: refreshToken,
+      grant_type: 'refresh_token',
+    }),
+  })
+
+  const data = await response.json().catch(() => ({})) as Record<string, any>
+  if (!response.ok || !data.access_token) {
+    throw new Error('The YouTube connection has expired. Reconnect the channel from the Media Manager.')
+  }
+  return String(data.access_token)
+}
+
+async function uploadVideoToYouTube(env: Bindings, file: File, meta: { title: string; description: string }) {
+  const accessToken = await getYouTubeAccessToken(env)
+  const metadata = {
+    snippet: { title: meta.title.slice(0, 100), description: meta.description.slice(0, 4900) },
+    // Unlisted: reachable from NDOVERA pages, not surfaced in YouTube search.
+    status: { privacyStatus: 'unlisted', selfDeclaredMadeForKids: false },
+  }
+
+  const boundary = `ndovera${Date.now()}`
+  const head = `--${boundary}\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n${JSON.stringify(metadata)}\r\n--${boundary}\r\nContent-Type: ${file.type || 'video/mp4'}\r\n\r\n`
+  const tail = `\r\n--${boundary}--\r\n`
+  const body = new Blob([head, await file.arrayBuffer(), tail])
+
+  const response = await fetch('https://www.googleapis.com/upload/youtube/v3/videos?uploadType=multipart&part=snippet,status', {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${accessToken}`, 'Content-Type': `multipart/related; boundary=${boundary}` },
+    body,
+  })
+
+  const data = await response.json().catch(() => ({})) as Record<string, any>
+  if (!response.ok || !data.id) {
+    throw new Error(data?.error?.message || 'YouTube rejected the upload.')
+  }
+
+  return {
+    videoId: String(data.id),
+    title: String(data?.snippet?.title || meta.title),
+    watchUrl: `https://www.youtube.com/watch?v=${data.id}`,
+    embedUrl: `https://www.youtube.com/embed/${data.id}`,
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Media limits
+//
+// School media goes to R2 and is billed by storage, so it is capped per school. Ami's own
+// videos go to the central YouTube channel instead, where the scarce resource is the daily
+// API quota rather than storage — hence a separate, smaller daily cap.
+// ---------------------------------------------------------------------------
+const MEDIA_SETTINGS_KEY = 'system:media-limits'
+
+const MEDIA_LIMIT_DEFAULTS = {
+  schoolMaxVideoMb: 50,
+  schoolMaxImageMb: 5,
+  schoolMaxVideosPerTenant: 10,
+  schoolMaxStorageMb: 500,
+  amiMaxVideoMb: 256,
+  // YouTube allows roughly six uploads a day on the default quota; stay under it.
+  amiMaxVideosPerDay: 5,
+}
+
+const MEDIA_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/gif']
+const MEDIA_VIDEO_TYPES = ['video/mp4', 'video/webm', 'video/quicktime', 'video/x-m4v', 'video/ogg']
+
+const TENANT_MEDIA_DDL = `CREATE TABLE IF NOT EXISTS tenant_media (
+  id TEXT PRIMARY KEY,
+  tenant_id TEXT,
+  kind TEXT,
+  r2_key TEXT,
+  url TEXT,
+  size_bytes INTEGER,
+  content_type TEXT,
+  uploaded_by TEXT,
+  created_at TEXT
+)`
+
+async function ensureTenantMediaTable(db: D1Database) {
+  if (_initializedTables.has('tenant_media')) return
+  _initializedTables.add('tenant_media')
+  await db.prepare(TENANT_MEDIA_DDL).run()
+  await db.prepare(`CREATE INDEX IF NOT EXISTS idx_tenant_media_tenant ON tenant_media (tenant_id, kind)`).run().catch(() => {})
+}
+
+async function getMediaLimits(db: D1Database) {
+  const saved = await getSettings(db, MEDIA_SETTINGS_KEY).catch(() => null)
+  const positive = (value: any, fallback: number) => {
+    const parsed = Number(value)
+    return Number.isFinite(parsed) && parsed > 0 ? Math.round(parsed) : fallback
+  }
+
+  return {
+    schoolMaxVideoMb: positive(saved?.schoolMaxVideoMb, MEDIA_LIMIT_DEFAULTS.schoolMaxVideoMb),
+    schoolMaxImageMb: positive(saved?.schoolMaxImageMb, MEDIA_LIMIT_DEFAULTS.schoolMaxImageMb),
+    schoolMaxVideosPerTenant: positive(saved?.schoolMaxVideosPerTenant, MEDIA_LIMIT_DEFAULTS.schoolMaxVideosPerTenant),
+    schoolMaxStorageMb: positive(saved?.schoolMaxStorageMb, MEDIA_LIMIT_DEFAULTS.schoolMaxStorageMb),
+    amiMaxVideoMb: positive(saved?.amiMaxVideoMb, MEDIA_LIMIT_DEFAULTS.amiMaxVideoMb),
+    amiMaxVideosPerDay: positive(saved?.amiMaxVideosPerDay, MEDIA_LIMIT_DEFAULTS.amiMaxVideosPerDay),
+    updatedAt: saved?.updatedAt || null,
+    updatedBy: saved?.updatedBy || null,
+  }
+}
+
+function classifyMediaFile(file: File) {
+  const type = String(file?.type || '').toLowerCase()
+  if (MEDIA_VIDEO_TYPES.includes(type) || type.startsWith('video/')) return 'video'
+  if (MEDIA_IMAGE_TYPES.includes(type) || type.startsWith('image/')) return 'image'
+  return ''
+}
+
+const megabytes = (bytes: number) => bytes / (1024 * 1024)
+
+async function getTenantMediaUsage(db: D1Database, tenantId: string, limits: Record<string, any>) {
+  await ensureTenantMediaTable(db)
+  const row = await db.prepare(
+    `SELECT COUNT(*) AS items,
+            SUM(CASE WHEN kind = 'video' THEN 1 ELSE 0 END) AS videos,
+            COALESCE(SUM(size_bytes), 0) AS bytes
+     FROM tenant_media WHERE tenant_id = ?`
+  ).bind(tenantId).first() as any
+
+  const usedBytes = Number(row?.bytes || 0)
+  return {
+    items: Number(row?.items || 0),
+    videos: Number(row?.videos || 0),
+    videoLimit: limits.schoolMaxVideosPerTenant,
+    usedMb: Math.round(megabytes(usedBytes) * 10) / 10,
+    storageLimitMb: limits.schoolMaxStorageMb,
+    maxVideoMb: limits.schoolMaxVideoMb,
+    maxImageMb: limits.schoolMaxImageMb,
+  }
+}
+
+async function listTenantMedia(db: D1Database, tenantId: string) {
+  await ensureTenantMediaTable(db)
+  const result = await db.prepare(
+    `SELECT id, kind, url, size_bytes, content_type, created_at FROM tenant_media WHERE tenant_id = ? ORDER BY created_at DESC LIMIT 200`
+  ).bind(tenantId).all()
+  return ((result.results || []) as any[]).map(row => ({
+    id: String(row.id),
+    kind: String(row.kind || ''),
+    url: String(row.url || ''),
+    sizeMb: Math.round(megabytes(Number(row.size_bytes || 0)) * 10) / 10,
+    contentType: String(row.content_type || ''),
+    createdAt: row.created_at,
+  }))
+}
+
+// Every rejection names the limit and what the school is currently using, so the message is
+// actionable rather than just "upload failed".
+async function checkSchoolMediaAllowance(db: D1Database, tenantId: string, file: File, limits: Record<string, any>) {
+  const kind = classifyMediaFile(file)
+  if (!kind) return { allowed: false, kind, reason: 'Upload an image (JPG, PNG, WEBP, GIF) or a video (MP4, WEBM, MOV).' }
+
+  const sizeMb = megabytes(Number(file.size || 0))
+  const sizeCap = kind === 'video' ? limits.schoolMaxVideoMb : limits.schoolMaxImageMb
+  if (sizeMb > sizeCap) {
+    return { allowed: false, kind, reason: `${kind === 'video' ? 'Videos' : 'Images'} must be ${sizeCap} MB or smaller. This file is ${sizeMb.toFixed(1)} MB.` }
+  }
+
+  const usage = await getTenantMediaUsage(db, tenantId, limits)
+  if (kind === 'video' && usage.videos >= limits.schoolMaxVideosPerTenant) {
+    return { allowed: false, kind, reason: `Your school has reached its limit of ${limits.schoolMaxVideosPerTenant} videos. Delete one to upload another.` }
+  }
+  if (usage.usedMb + sizeMb > limits.schoolMaxStorageMb) {
+    return { allowed: false, kind, reason: `This would exceed your ${limits.schoolMaxStorageMb} MB media allowance (${usage.usedMb} MB used). Delete some media first.` }
+  }
+
+  return { allowed: true, kind, reason: '' }
+}
+
+async function recordTenantMedia(db: D1Database, entry: Record<string, any>) {
+  await ensureTenantMediaTable(db)
+  await db.prepare(
+    `INSERT INTO tenant_media (id, tenant_id, kind, r2_key, url, size_bytes, content_type, uploaded_by, created_at)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`
+  ).bind(
+    `media_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
+    entry.tenantId, entry.kind, entry.key, entry.url,
+    Number(entry.sizeBytes || 0), entry.contentType || '', entry.uploadedBy || '',
+    new Date().toISOString(),
+  ).run()
+}
+
 // Logo file upload to R2
 app.post('/api/school/logo', authenticate, async (c) => {
   if (!hasRequiredRole(c.var.user.role, ['owner'])) return c.json({ error: 'forbidden' }, 403)
@@ -14032,20 +14364,67 @@ app.post('/api/school/website/sections', authenticate, async (c) => {
   }
 })
 
+// School media lives in R2, under limits Ami controls. Videos are the expensive case, so
+// they are capped both by size and by how many a school may keep.
 app.post('/api/school/website/sections/upload', authenticate, async (c) => {
-  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos', 'ict', 'ict_manager'])) return c.json({ error: 'forbidden' }, 403)
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos', 'ict'])) return c.json({ error: 'forbidden' }, 403)
   const tenantId = c.var.user?.tenantId
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
   const formData = await c.req.formData()
   const file = formData.get('file') as File
   const sectionKey = (formData.get('sectionKey') as string) || 'general'
   if (!file) return c.json({ error: 'No file provided.' }, 400)
+
+  const limits = await getMediaLimits(c.env.APP_DB)
+  const check = await checkSchoolMediaAllowance(c.env.APP_DB, tenantId, file, limits)
+  if (!check.allowed) return c.json({ error: check.reason }, 400)
+
   try {
     const ext = file.name.split('.').pop()?.toLowerCase() || 'jpg'
     const key = `website/${tenantId}/${sectionKey}/${Date.now()}.${ext}`
     await c.env.UPLOADS.put(key, file.stream(), { httpMetadata: { contentType: file.type } })
-    return c.json({ success: true, url: `https://ndovera.com/files/${key}` })
+    const url = `https://ndovera.com/files/${key}`
+    await recordTenantMedia(c.env.APP_DB, {
+      tenantId, kind: check.kind, key, url,
+      sizeBytes: Number(file.size || 0),
+      contentType: file.type || '',
+      uploadedBy: c.var.user?.id || c.var.user?.email || '',
+    })
+    return c.json({ success: true, url, usage: await getTenantMediaUsage(c.env.APP_DB, tenantId, limits) })
   } catch { return c.json({ error: 'Upload failed.' }, 500) }
+})
+
+app.get('/api/school/media/usage', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos', 'ict'])) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  const limits = await getMediaLimits(c.env.APP_DB)
+  return c.json({
+    success: true,
+    usage: await getTenantMediaUsage(c.env.APP_DB, tenantId, limits),
+    items: await listTenantMedia(c.env.APP_DB, tenantId),
+  })
+})
+
+// Removing media frees both a video slot and its storage, so a school can manage its own
+// allowance instead of asking Ami to raise the cap.
+app.post('/api/school/media/:mediaId/delete', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos', 'ict'])) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  const mediaId = String(c.req.param('mediaId') || '').trim()
+
+  await ensureTenantMediaTable(c.env.APP_DB)
+  const row = await c.env.APP_DB.prepare(
+    `SELECT * FROM tenant_media WHERE id = ? AND tenant_id = ?`
+  ).bind(mediaId, tenantId).first() as any
+  if (!row) return c.json({ error: 'Media not found.' }, 404)
+
+  await c.env.UPLOADS.delete(String(row.r2_key)).catch(() => {})
+  await c.env.APP_DB.prepare(`DELETE FROM tenant_media WHERE id = ?`).bind(mediaId).run()
+
+  const limits = await getMediaLimits(c.env.APP_DB)
+  return c.json({ success: true, usage: await getTenantMediaUsage(c.env.APP_DB, tenantId, limits) })
 })
 
 app.get('/api/public/platform-site', async (c) => {
@@ -14087,6 +14466,8 @@ app.post('/api/ami/website/sections', authenticate, async (c) => {
   }
 })
 
+// Ami's images stay in R2; Ami's videos go to the central YouTube channel so platform video
+// never consumes school storage. The daily cap keeps uploads inside the YouTube API quota.
 app.post('/api/ami/website/sections/upload', authenticate, async (c) => {
   if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
   const formData = await c.req.formData()
@@ -14094,14 +14475,85 @@ app.post('/api/ami/website/sections/upload', authenticate, async (c) => {
   const sectionKey = (formData.get('sectionKey') as string) || 'general'
   if (!file) return c.json({ error: 'No file provided.' }, 400)
 
+  const limits = await getMediaLimits(c.env.APP_DB)
+  const kind = classifyMediaFile(file)
+  if (!kind) return c.json({ error: 'Upload an image (JPG, PNG, WEBP, GIF) or a video (MP4, WEBM, MOV).' }, 400)
+
+  if (kind === 'video') {
+    const sizeMb = megabytes(Number(file.size || 0))
+    if (sizeMb > limits.amiMaxVideoMb) {
+      return c.json({ error: `Videos must be ${limits.amiMaxVideoMb} MB or smaller. This file is ${sizeMb.toFixed(1)} MB.` }, 400)
+    }
+
+    const uploadedToday = await countYouTubeUploadsToday(c.env.APP_DB)
+    if (uploadedToday >= limits.amiMaxVideosPerDay) {
+      return c.json({ error: `The daily limit of ${limits.amiMaxVideosPerDay} YouTube uploads has been reached. YouTube's API quota resets at midnight Pacific time.` }, 429)
+    }
+
+    try {
+      const video = await uploadVideoToYouTube(c.env, file, {
+        title: String(formData.get('title') || file.name || 'NDOVERA video'),
+        description: String(formData.get('description') || `Uploaded from NDOVERA (${sectionKey}).`),
+      })
+      await recordYouTubeUpload(c.env.APP_DB, {
+        videoId: video.videoId,
+        title: video.title,
+        sectionKey,
+        sizeBytes: Number(file.size || 0),
+        uploadedBy: c.var.user?.id || c.var.user?.email || 'ami',
+      })
+      return c.json({ success: true, kind: 'video', videoId: video.videoId, url: video.watchUrl, embedUrl: video.embedUrl })
+    } catch (error) {
+      return c.json({ error: error instanceof Error ? error.message : 'YouTube upload failed.' }, 502)
+    }
+  }
+
+  const sizeMb = megabytes(Number(file.size || 0))
+  if (sizeMb > limits.schoolMaxImageMb) {
+    return c.json({ error: `Images must be ${limits.schoolMaxImageMb} MB or smaller. This file is ${sizeMb.toFixed(1)} MB.` }, 400)
+  }
+
   try {
     const ext = file.name.split('.').pop()?.toLowerCase() || 'jpg'
     const key = `platform-site/${sectionKey}/${Date.now()}.${ext}`
     await c.env.UPLOADS.put(key, file.stream(), { httpMetadata: { contentType: file.type } })
-    return c.json({ success: true, url: `https://ndovera.com/files/${key}` })
+    return c.json({ success: true, kind: 'image', url: `https://ndovera.com/files/${key}` })
   } catch {
     return c.json({ error: 'Upload failed.' }, 500)
   }
+})
+
+app.get('/api/ami/media/limits', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  return c.json({
+    success: true,
+    limits: await getMediaLimits(c.env.APP_DB),
+    youtube: await getYouTubeConnectionStatus(c.env),
+    uploadedToday: await countYouTubeUploadsToday(c.env.APP_DB),
+  })
+})
+
+app.post('/api/ami/media/limits', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  const payload = await c.req.json().catch(() => ({}))
+  const current = await getMediaLimits(c.env.APP_DB)
+  const pick = (value: any, fallback: number) => {
+    const parsed = Number(value)
+    return Number.isFinite(parsed) && parsed > 0 ? Math.round(parsed) : fallback
+  }
+
+  await upsertSettings(c.env.APP_DB, MEDIA_SETTINGS_KEY, {
+    schoolMaxVideoMb: pick(payload.schoolMaxVideoMb, current.schoolMaxVideoMb),
+    schoolMaxImageMb: pick(payload.schoolMaxImageMb, current.schoolMaxImageMb),
+    schoolMaxVideosPerTenant: pick(payload.schoolMaxVideosPerTenant, current.schoolMaxVideosPerTenant),
+    schoolMaxStorageMb: pick(payload.schoolMaxStorageMb, current.schoolMaxStorageMb),
+    amiMaxVideoMb: pick(payload.amiMaxVideoMb, current.amiMaxVideoMb),
+    amiMaxVideosPerDay: pick(payload.amiMaxVideosPerDay, current.amiMaxVideosPerDay),
+    updatedAt: new Date().toISOString(),
+    updatedBy: c.var.user?.id || c.var.user?.email || 'ami',
+  })
+
+  return c.json({ success: true, limits: await getMediaLimits(c.env.APP_DB) })
 })
 
 // ---- Opportunities / Vacancies ----
