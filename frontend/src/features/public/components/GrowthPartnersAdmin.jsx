@@ -55,6 +55,12 @@ export default function GrowthPartnersAdmin() {
 
   const activatedEmails = new Set(partners.map(p => String(p.email || '').toLowerCase()));
   const [termPeriod, setTermPeriod] = useState('');
+  const [passwordIssue, setPasswordIssue] = useState(null);
+
+  function copyText(value) {
+    navigator.clipboard?.writeText(value);
+    setMessage('Copied to clipboard.');
+  }
 
   async function accrueTerm() {
     const period = termPeriod.trim();
@@ -103,7 +109,8 @@ export default function GrowthPartnersAdmin() {
     setBusy(`password-${partner.id}`); setMessage('');
     try {
       const result = await resetGrowthPartnerPassword(partner.id);
-      setMessage(`New password for ${partner.name} (${result.email}): ${result.password} — copy it now, it is shown only once. They must change it on first sign-in.`);
+      setPasswordIssue({ partner: partner.name, ...result });
+      setMessage(`New sign-in details issued for ${partner.name}. Share the password or the set-password link below — both are shown only once.`);
     } catch (error) {
       setMessage(error.message || 'Could not issue a new password.');
     } finally {
@@ -173,6 +180,34 @@ export default function GrowthPartnersAdmin() {
           ))}
         </div>
       </div>
+
+      {passwordIssue ? (
+        <div className="mt-4 rounded-2xl border border-[#800020]/35 bg-[#fff4f4] p-4 text-sm dark:border-fuchsia-300/30 dark:bg-slate-800/60">
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <p className="font-bold text-[#800020] dark:text-fuchsia-300">Sign-in details for {passwordIssue.partner}</p>
+            <button type="button" onClick={() => setPasswordIssue(null)} className="text-xs font-semibold text-[#4a5578] underline dark:text-slate-300">Dismiss</button>
+          </div>
+          <p className="mt-2 text-xs text-[#4a5578] dark:text-slate-400">{passwordIssue.email}</p>
+
+          <div className="mt-3 space-y-2">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-xs font-semibold uppercase tracking-wide text-[#4a5578] dark:text-slate-400">Password</span>
+              <code className="rounded-lg border border-[#c9a96e]/40 bg-white px-2 py-1 font-mono text-[#191970] dark:bg-slate-900 dark:text-amber-100">{passwordIssue.password}</code>
+              <button type="button" onClick={() => copyText(passwordIssue.password)} className="rounded-lg border border-[#191970]/30 px-3 py-1 text-xs font-semibold text-[#191970] dark:border-white/20 dark:text-slate-100">Copy</button>
+            </div>
+            {passwordIssue.setPasswordUrl ? (
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="text-xs font-semibold uppercase tracking-wide text-[#4a5578] dark:text-slate-400">Set-password link</span>
+                <span className="max-w-full break-all rounded-lg border border-[#c9a96e]/40 bg-white px-2 py-1 text-xs text-[#191970] dark:bg-slate-900 dark:text-amber-100">{passwordIssue.setPasswordUrl}</span>
+                <button type="button" onClick={() => copyText(passwordIssue.setPasswordUrl)} className="rounded-lg border border-[#191970]/30 px-3 py-1 text-xs font-semibold text-[#191970] dark:border-white/20 dark:text-slate-100">Copy</button>
+              </div>
+            ) : null}
+          </div>
+          <p className="mt-3 text-xs text-[#4a5578] dark:text-slate-400">
+            Send the link if you would rather not share a password. Either way the partner sets their own password before reaching the dashboard.
+          </p>
+        </div>
+      ) : null}
 
       <div className="mt-6">
         <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#800020]">Active partners</p>

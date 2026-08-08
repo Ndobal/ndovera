@@ -6603,8 +6603,13 @@ app.post('/api/ami/tenants/term-bills/generate', authenticate, async (c) => {
   const payload = await c.req.json().catch(() => ({}))
   const requestedSession = String(payload.session || '').trim()
   const requestedTerm = String(payload.term || '').trim()
+  // Anchors grace for schools whose term start is not recorded, or whose new term begins
+  // on a date they have not entered yet.
+  const requestedTermStart = normalizeTermStartValue(payload.termStartDate)
+  const onlyTenantId = String(payload.tenantId || '').trim()
   const nowIso = new Date().toISOString()
-  const tenants = await listTenants(c.env.APP_DB)
+  const allTenants = await listTenants(c.env.APP_DB)
+  const tenants = onlyTenantId ? allTenants.filter((tenant: any) => tenant.id === onlyTenantId) : allTenants
   const { plans } = await getTenantPricingState(c.env.APP_DB)
   const created: any[] = []
   const skipped: any[] = []
@@ -6641,7 +6646,9 @@ app.post('/api/ami/tenants/term-bills/generate', authenticate, async (c) => {
       continue
     }
 
-    const termStartedAt = (await getTenantCurrentTermStart(c.env.APP_DB, tenant.id)) || nowIso
+    // Explicit start wins, then the school's recorded term start, then today. Never a
+    // sentinel date, which would make the bill overdue the moment it is raised.
+    const termStartedAt = requestedTermStart || (await getTenantCurrentTermStart(c.env.APP_DB, tenant.id)) || nowIso
     await c.env.APP_DB.prepare(
       `INSERT INTO tenant_term_bills (id, tenant_id, session, term, billable_users, rate_cents, amount_cents, status, term_started_at, due_at, grace_until, created_at, updated_at)
        VALUES (?, ?, ?, ?, ?, ?, ?, 'unpaid', ?, ?, ?, ?, ?)`
@@ -6653,9 +6660,12 @@ app.post('/api/ami/tenants/term-bills/generate', authenticate, async (c) => {
     ).run()
 
     created.push({
+      tenantId: tenant.id,
       schoolName: tenant.schoolName,
       session, term, billableUsers,
+      ratePerUser: rateCents / KOBO_PER_NAIRA,
       amount: amountCents / KOBO_PER_NAIRA,
+      termStartedAt,
       graceUntil: addMonths(termStartedAt, TERM_GRACE_MONTHS),
     })
   }
@@ -10842,14 +10852,31 @@ async function attachTermBillingContext(db: D1Database, user: Record<string, any
   }
 }
 
-// When the school's current term began, used to anchor the term backstop.
+// Sessions created implicitly carry this sentinel timestamp rather than a real date.
+// Treating it as a term start would date a bill to the year 2000 and expire its grace
+// immediately, so it is never accepted as an anchor.
+const SESSION_SENTINEL_CUTOFF = '2001-01-01T00:00:00.000Z'
+
+function normalizeTermStartValue(value: unknown) {
+  const raw = String(value || '').trim()
+  if (!raw) return ''
+  // school_sessions.startDate is a plain YYYY-MM-DD; createdAt is a full ISO timestamp.
+  const iso = raw.length === 10 ? `${raw}T00:00:00.000Z` : raw
+  const parsed = new Date(iso)
+  if (Number.isNaN(parsed.getTime())) return ''
+  if (iso <= SESSION_SENTINEL_CUTOFF) return ''
+  return parsed.toISOString()
+}
+
+// When the school's current term began. The recorded term start date is authoritative;
+// the row's creation time is only a fallback for rows saved without one.
 async function getTenantCurrentTermStart(db: D1Database, tenantId: string) {
   try {
     await ensureSchoolSessionsTable(db)
     const row = await db.prepare(
-      `SELECT createdAt FROM school_sessions WHERE tenantId = ? ORDER BY createdAt DESC LIMIT 1`
+      `SELECT startDate, createdAt FROM school_sessions WHERE tenantId = ? ORDER BY createdAt DESC LIMIT 1`
     ).bind(tenantId).first() as Record<string, any> | null
-    return String(row?.createdAt || '')
+    return normalizeTermStartValue(row?.startDate) || normalizeTermStartValue(row?.createdAt)
   } catch {
     return ''
   }
@@ -14415,12 +14442,20 @@ app.post('/api/ami/growth-partners/:partnerId/reset-password', authenticate, asy
   ).bind(createUserId(), email, partner.name, 'growthpartner', 'growthpartner', 'growthpartner', '', 'active', new Date().toISOString()).run()
   await upsertSettings(c.env.APP_DB, email, userSettings)
 
+  // Ami can share either the temporary password or a link that lets the partner set their
+  // own password without a credential ever being sent around.
+  const issued = await createPasswordResetToken(c.env.APP_DB, email, 'growthpartner', {
+    requestedIp: c.req.header('cf-connecting-ip') || undefined,
+    userAgent: c.req.header('user-agent') || undefined,
+  }).catch(() => null)
+  const setPasswordUrl = issued ? `${getPasswordResetBaseUrl(c.env)}?token=${encodeURIComponent(issued.token)}` : ''
+
   await addAudit(c.env.APP_DB, email, {
     action: 'growthPartnerPasswordReset',
-    data: { by: c.var.user.id || c.var.user.email || 'ami', partnerId },
+    data: { by: c.var.user.id || c.var.user.email || 'ami', partnerId, setPasswordLinkIssued: Boolean(setPasswordUrl) },
   }).catch(() => {})
 
-  return c.json({ success: true, email, password })
+  return c.json({ success: true, email, password, setPasswordUrl })
 })
 
 app.post('/api/ami/growth-partners/:partnerId/representative', authenticate, async (c) => {

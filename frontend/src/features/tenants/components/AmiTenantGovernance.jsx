@@ -123,7 +123,7 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
   const [rateForms, setRateForms] = useState({});
   const [rolloutFeeNaira, setRolloutFeeNaira] = useState('');
   const [termBills, setTermBills] = useState([]);
-  const [billPeriod, setBillPeriod] = useState({ session: '', term: '' });
+  const [billPeriod, setBillPeriod] = useState({ session: '', term: '', termStartDate: '', tenantId: '' });
   const [busyAction, setBusyAction] = useState('');
   const [error, setError] = useState('');
   const [notice, setNotice] = useState('');
@@ -315,8 +315,12 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
       const result = await generateTermBills({
         session: billPeriod.session.trim(),
         term: billPeriod.term.trim(),
+        termStartDate: billPeriod.termStartDate.trim(),
+        tenantId: billPeriod.tenantId.trim(),
       });
-      setNotice(`Raised ${result.created.length} bill(s); skipped ${result.skipped.length}.`);
+      setNotice(result.created.length
+        ? `Raised ${result.created.length} bill(s): ${result.created.map(b => `${b.schoolName} ${currencyFormatter.format(b.amount)} (grace to ${new Date(b.graceUntil).toLocaleDateString()})`).join('; ')}. Skipped ${result.skipped.length}.`
+        : `No bills raised. Skipped ${result.skipped.length}: ${result.skipped.map(s => `${s.schoolName} — ${s.reason}`).join('; ')}`);
       await loadTermBills();
     });
   };
@@ -919,6 +923,19 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
                 <input value={billPeriod.term} onChange={e => setBillPeriod(c => ({ ...c, term: e.target.value }))} placeholder="Term (blank = each school's own)"
                   className="w-full rounded-2xl border border-white/10 bg-slate-900/20 dark:bg-slate-900/30 px-4 py-3 text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-500" />
               </div>
+              <label className="block space-y-1">
+                <span className="text-xs text-slate-500 dark:text-slate-400">Term start date — grace runs two months from here (blank = the school&apos;s recorded start)</span>
+                <input type="date" value={billPeriod.termStartDate} onChange={e => setBillPeriod(c => ({ ...c, termStartDate: e.target.value }))}
+                  className="w-full rounded-2xl border border-white/10 bg-slate-900/20 dark:bg-slate-900/30 px-4 py-3 text-slate-900 dark:text-amber-100" />
+              </label>
+              <label className="block space-y-1">
+                <span className="text-xs text-slate-500 dark:text-slate-400">Bill one school only (leave as All for every active school)</span>
+                <select value={billPeriod.tenantId} onChange={e => setBillPeriod(c => ({ ...c, tenantId: e.target.value }))}
+                  className="w-full rounded-2xl border border-white/10 bg-slate-900/20 dark:bg-slate-900/30 px-4 py-3 text-slate-900 dark:text-amber-100">
+                  <option value="">All active schools</option>
+                  {tenants.map(tenant => <option key={tenant.id} value={tenant.id}>{tenant.schoolName}</option>)}
+                </select>
+              </label>
               <button type="submit" disabled={busyAction === 'generate-bills'} className="w-full rounded-2xl bg-amber-500 px-4 py-3 font-semibold text-slate-950 disabled:opacity-60">
                 {busyAction === 'generate-bills' ? 'Raising...' : 'Raise this term\'s bills'}
               </button>
