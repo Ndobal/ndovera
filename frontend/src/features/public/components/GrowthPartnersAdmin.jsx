@@ -41,7 +41,9 @@ export default function GrowthPartnersAdmin() {
     setBusy(app.id || app.email); setMessage('');
     try {
       const result = await activateGrowthPartner({ email: app.email, name: app.name, applicationId: app.id });
-      setMessage(`Activated ${app.name}. Referral code ${result.partner?.referralCode}. Temporary password: ${result.defaultPassword} (they must change it on first login).`);
+      setMessage(result.defaultPassword
+        ? `Activated ${app.name}. Referral code ${result.partner?.referralCode}. Temporary password: ${result.defaultPassword} — copy it now, it is shown only once and they must change it on first login.`
+        : `Activated ${app.name}. Referral code ${result.partner?.referralCode}. They already set their own password, so it was left unchanged.`);
       await load();
     } catch (error) {
       setMessage(error.message || 'Could not activate partner.');

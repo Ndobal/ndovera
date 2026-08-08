@@ -7,6 +7,7 @@ import {
   withdrawGrowthPartnerEarnings,
   resetReferralOwnerPassword,
 } from '../../../features/public/services/publicSiteApi';
+import { changePassword, getStoredAuth, persistAuth } from '../../../features/auth/services/authApi';
 
 const naira = new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN', maximumFractionDigits: 0 });
 const card = 'rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur';
@@ -32,6 +33,7 @@ export default function GrowthPartnerDashboard() {
   const [utilityBill, setUtilityBill] = useState(null);
   const utilityBillInputRef = useRef(null);
   const [resetInfo, setResetInfo] = useState(null);
+  const [security, setSecurity] = useState({ currentPassword: '', newPassword: '', confirmPassword: '' });
 
   const load = useCallback(async () => {
     try {
@@ -89,6 +91,25 @@ export default function GrowthPartnerDashboard() {
     try { const r = await resetReferralOwnerPassword(tenantId); setResetInfo({ tenantId, ...r }); setNotice(r.emailed ? 'Reset link emailed to the owner.' : 'Reset link generated — share it below.'); }
     catch (e) { setError(e.message || 'Could not reset that owner password.'); }
     finally { setBusy(''); }
+  }
+
+  async function savePassword(event) {
+    event.preventDefault();
+    setNotice(''); setError('');
+    if (security.newPassword.length < 8) { setError('Your new password must be at least 8 characters.'); return; }
+    if (security.newPassword !== security.confirmPassword) { setError('The new passwords do not match.'); return; }
+    setBusy('password');
+    try {
+      const token = getStoredAuth()?.token;
+      if (!token) throw new Error('Your session has expired. Please sign in again.');
+      persistAuth(await changePassword({ currentPassword: security.currentPassword, newPassword: security.newPassword }, token));
+      setSecurity({ currentPassword: '', newPassword: '', confirmPassword: '' });
+      setNotice('Password updated. Use it the next time you sign in.');
+    } catch (e) {
+      setError(e.message || 'Could not update your password.');
+    } finally {
+      setBusy('');
+    }
   }
 
   function copy(text) { navigator.clipboard?.writeText(text); setNotice('Copied to clipboard.'); }
@@ -196,6 +217,30 @@ export default function GrowthPartnerDashboard() {
             ))}
           </div>
         ) : <p className="mt-3 text-sm text-white/60">No referrals yet. Share your link to get started.</p>}
+      </section>
+
+      <section className={card}>
+        <h2 className="text-xl font-bold">Profile security</h2>
+        <p className="mt-2 text-sm text-white/60">Change the password you use to sign in. Pick something only you know — at least 8 characters.</p>
+        <form onSubmit={savePassword} className="mt-4 grid gap-3 sm:grid-cols-3">
+          <div>
+            <label className={lbl}>Current password</label>
+            <input type="password" autoComplete="current-password" className={input} value={security.currentPassword} onChange={e => setSecurity(c => ({ ...c, currentPassword: e.target.value }))} />
+          </div>
+          <div>
+            <label className={lbl}>New password</label>
+            <input type="password" autoComplete="new-password" className={input} value={security.newPassword} onChange={e => setSecurity(c => ({ ...c, newPassword: e.target.value }))} />
+          </div>
+          <div>
+            <label className={lbl}>Confirm new password</label>
+            <input type="password" autoComplete="new-password" className={input} value={security.confirmPassword} onChange={e => setSecurity(c => ({ ...c, confirmPassword: e.target.value }))} />
+          </div>
+          <div className="sm:col-span-3">
+            <button type="submit" disabled={busy === 'password'} className="rounded-xl border border-white/20 px-5 py-2 text-sm font-bold disabled:opacity-40">
+              {busy === 'password' ? 'Updating…' : 'Update password'}
+            </button>
+          </div>
+        </form>
       </section>
     </div>
   );

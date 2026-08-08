@@ -13518,6 +13518,15 @@ function gpDiscountCode(name: string) {
   const initials = String(name || '').replace(/[^a-zA-Z]/g, '').slice(0, 3).toUpperCase() || 'NDV'
   return `GP${initials}${Math.random().toString(36).slice(2, 7).toUpperCase()}`
 }
+function gpPickChars(alphabet: string, count: number) {
+  const bytes = crypto.getRandomValues(new Uint8Array(count))
+  return Array.from(bytes, byte => alphabet[byte % alphabet.length]).join('')
+}
+// One-time sign-in password, unique per partner. Ambiguous characters (I, l, O, 0, 1) are left
+// out so Ami can read it off the screen to the partner without it being mistyped.
+function gpTempPassword() {
+  return `${gpPickChars('ABCDEFGHJKLMNPQRSTUVWXYZ', 3)}${gpPickChars('abcdefghijkmnpqrstuvwxyz', 4)}@${gpPickChars('23456789', 4)}`
+}
 async function getPartnerByEmail(db: D1Database, email: string) {
   await ensureGrowthPartnerTables(db)
   return await db.prepare(`SELECT * FROM growth_partners WHERE email = ?`).bind(String(email || '').toLowerCase()).first() as any
@@ -13659,13 +13668,21 @@ app.post('/api/ami/growth-partners/activate', authenticate, async (c) => {
   await ensureGrowthPartnerDiscountCode(c.env.APP_DB, partner)
   partner = await getPartnerByEmail(c.env.APP_DB, email)
 
-  // Provision a login (role growthpartner) with a default password the partner must change.
-  const defaultPassword = String(body?.password || '').trim() || 'NdoveraGP@123'
+  // Provision a login (role growthpartner). Every partner gets their own random temporary
+  // password, returned to Ami once below, and must change it on first sign-in. A partner who
+  // has already set their own password keeps it — re-activating must never lock them out.
   const existingSettings = await getSettings(c.env.APP_DB, email).catch(() => null)
-  const userSettings = await withHashedPassword({
+  const awaitingFirstLogin = !existingSettings?.passwordHash || existingSettings?.mustChangePassword === true
+  const defaultPassword = String(body?.password || '').trim() || (awaitingFirstLogin ? gpTempPassword() : '')
+  const baseSettings = {
     ...(existingSettings || {}), email, name, role: 'growthpartner', primaryRole: 'growthpartner', roles: ['growthpartner'],
-    status: 'active', mustChangePassword: true, initialPassword: defaultPassword,
-  }, defaultPassword)
+    status: 'active',
+  }
+  // `initialPassword` is dropped so no plain-text copy of the temporary password is left behind;
+  // verifyPasswordCandidate reads the PBKDF2 hash first, so first login still works.
+  const userSettings = defaultPassword
+    ? await withHashedPassword({ ...baseSettings, mustChangePassword: true, initialPassword: undefined }, defaultPassword)
+    : baseSettings
   await ensureUsersTable(c.env.APP_DB)
   await c.env.APP_DB.prepare(
     `INSERT INTO users (id, email, name, role, primary_role, employment_category, tenantId, status, createdAt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
@@ -13676,7 +13693,7 @@ app.post('/api/ami/growth-partners/activate', authenticate, async (c) => {
   if (applicationId) {
     await c.env.APP_DB.prepare(`UPDATE growth_partner_applications SET status = 'activated' WHERE id = ?`).bind(applicationId).run().catch(() => {})
   }
-  return c.json({ success: true, partner: mapPartner(partner), defaultPassword })
+  return c.json({ success: true, partner: mapPartner(partner), defaultPassword, passwordIssued: !!defaultPassword })
 })
 
 app.get('/api/ami/growth-partners', authenticate, async (c) => {
