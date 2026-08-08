@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { resetPasswordWithToken } from '../services/authApi';
 
 function EyeIcon({ open }) {
@@ -17,6 +17,7 @@ function EyeIcon({ open }) {
 
 export default function ResetPasswordPage() {
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
   const token = useMemo(() => searchParams.get('token') || '', [searchParams]);
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -49,9 +50,12 @@ export default function ResetPasswordPage() {
     setSaving(true);
     try {
       const data = await resetPasswordWithToken({ token, newPassword });
-      setSuccess(data.message || 'Password has been reset.');
+      setSuccess(`${data.message || 'Password has been reset.'} Taking you to sign in...`);
       setNewPassword('');
       setConfirmPassword('');
+      // The link is single-use, so send them straight to sign in rather than leaving a
+      // spent reset form on screen.
+      setTimeout(() => navigate('/login', { replace: true }), 1500);
     } catch (submitError) {
       setError(submitError.message || 'Could not reset password.');
     } finally {

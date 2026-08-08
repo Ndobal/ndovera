@@ -205,10 +205,16 @@ function getPasswordResetBaseUrl(env: Bindings) {
   return configured || 'https://ndovera.com/reset-password'
 }
 
+// Accounts that own their own credentials and have no school administrator to fall back on.
+// School staff and students are excluded on purpose: their school resets their passwords.
+// Growth partners are not members of any school, so they must be able to self-serve.
 function isEligibleSelfServeReset(role: unknown, accountType: unknown) {
   const normalizedRole = String(role || '').trim().toLowerCase()
   const normalizedAccountType = String(accountType || '').trim().toLowerCase()
-  return normalizedRole === 'owner' || normalizedRole === 'ami' || normalizedAccountType === 'superadmin'
+  return normalizedRole === 'owner'
+    || normalizedRole === 'ami'
+    || normalizedRole === 'growthpartner'
+    || normalizedAccountType === 'superadmin'
 }
 
 function toBase64Url(bytes: Uint8Array) {
