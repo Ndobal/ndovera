@@ -5,13 +5,10 @@ import StudentProfilePage from '../../../features/students/components/StudentPro
 import { getLearningStudents, getLiveSessions, getPosts } from '../../../features/classroom/classroomService';
 import { getParentResult } from '../../../features/results-engine/service/resultEngineService';
 import {
-  getMe,
   getExams,
   getFeeReceipts,
   getFeesLedger,
-  getPeople,
   getStudentAttendance,
-  linkParentStudent,
 } from '../../../features/school/services/schoolApi';
 import PTAAttendanceEngine from '../../../features/pta-attendance/PTAAttendanceEngine';
 import {
@@ -400,80 +397,8 @@ export function ParentOverviewPage() {
 }
 
 export function ParentChildrenPage() {
-  const { students, selectedStudentId, setSelectedStudentId, refreshStudents, loading, error } = useParentLearners();
-  const [parentUserId, setParentUserId] = useState('');
-  const [linkSearch, setLinkSearch] = useState('');
-  const [candidateStudents, setCandidateStudents] = useState([]);
-  const [candidateLoading, setCandidateLoading] = useState(false);
-  const [candidateError, setCandidateError] = useState('');
-  const [linkingStudentId, setLinkingStudentId] = useState('');
-  const [linkNotice, setLinkNotice] = useState('');
+  const { students, selectedStudentId, setSelectedStudentId, loading, error } = useParentLearners();
   const [viewStudent, setViewStudent] = useState(null);
-
-  useEffect(() => {
-    let cancelled = false;
-    getMe()
-      .then(response => {
-        if (cancelled) return;
-        const currentUser = response?.user || response || {};
-        setParentUserId(String(currentUser?.id || '').trim());
-      })
-      .catch(() => {
-        if (!cancelled) setParentUserId('');
-      });
-
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-
-  useEffect(() => {
-    let cancelled = false;
-    const timer = window.setTimeout(() => {
-      setCandidateLoading(true);
-      setCandidateError('');
-
-      getPeople({ role: 'student', search: linkSearch.trim(), limit: 12 })
-        .then(response => {
-          if (cancelled) return;
-          const nextStudents = Array.isArray(response?.people) ? response.people : [];
-          setCandidateStudents(nextStudents.filter(student => String(student?.role || student?.primaryRole || '').toLowerCase() === 'student'));
-        })
-        .catch(loadError => {
-          if (cancelled) return;
-          setCandidateStudents([]);
-          setCandidateError(loadError instanceof Error ? loadError.message : 'Could not load students to link.');
-        })
-        .finally(() => {
-          if (!cancelled) setCandidateLoading(false);
-        });
-    }, 250);
-
-    return () => {
-      cancelled = true;
-      window.clearTimeout(timer);
-    };
-  }, [linkSearch]);
-
-  async function handleLinkStudent(studentId) {
-    if (!parentUserId || !studentId) return;
-    setLinkingStudentId(studentId);
-    setLinkNotice('');
-    setCandidateError('');
-
-    try {
-      await linkParentStudent({ parentId: parentUserId, studentId });
-      setLinkNotice('Child linked successfully.');
-      setSelectedStudentId(studentId);
-      await refreshStudents();
-    } catch (linkError) {
-      setCandidateError(linkError instanceof Error ? linkError.message : 'Could not link this child.');
-    } finally {
-      setLinkingStudentId('');
-    }
-  }
-
-  const visibleCandidates = candidateStudents.filter(candidate => !students.some(student => String(student.id || '') === String(candidate.id || '')));
 
   return (
     <StudentSectionShell
@@ -483,63 +408,14 @@ export function ParentChildrenPage() {
       watermarkText="Parent Children"
     >
       <div className="space-y-6">
-        <section className="glass-surface rounded-3xl p-6 space-y-4">
-          <div className="flex flex-wrap items-center justify-between gap-4">
-            <div>
-              <p className="micro-label neon-subtle">Link Another Child</p>
-              <p className="mt-2 text-sm text-slate-300">Search by name, email, or display ID, then link the child directly to this parent account.</p>
-            </div>
-            <span className="glass-chip rounded-full px-3 py-1 micro-label accent-indigo">{students.length} linked</span>
-          </div>
-
-          <div className="grid gap-3 md:grid-cols-[1fr_auto]">
-            <input
-              value={linkSearch}
-              onChange={event => setLinkSearch(event.target.value)}
-              placeholder="Search children by name, email, or ID"
-              className="rounded-2xl border border-white/10 bg-slate-950/40 px-4 py-3 text-sm text-white outline-none"
-            />
-            <button
-              type="button"
-              onClick={() => setLinkSearch('')}
-              className="rounded-2xl border border-white/10 bg-slate-950/35 px-4 py-3 text-sm font-semibold text-slate-100"
-            >
-              Clear
-            </button>
-          </div>
-
-          {candidateLoading ? <p className="text-sm text-slate-300">Loading possible children...</p> : null}
-          {candidateError ? <p className="text-sm text-rose-200">{candidateError}</p> : null}
-          {linkNotice ? <p className="text-sm text-emerald-200">{linkNotice}</p> : null}
-
-          {visibleCandidates.length > 0 ? (
-            <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
-              {visibleCandidates.map(candidate => (
-                <article key={candidate.id} className={CARD}>
-                  <div className="flex items-start justify-between gap-3">
-                    <div>
-                      <h3 className="text-lg font-semibold text-slate-100">{candidate.name}</h3>
-                      <p className="mt-1 text-sm text-slate-300">{candidate.className || 'Class pending'}{candidate.displayId ? ` • ${candidate.displayId}` : ''}</p>
-                    </div>
-                    <span className="glass-chip rounded-full px-3 py-1 micro-label accent-emerald">Student</span>
-                  </div>
-                  <div className="mt-4 flex flex-wrap gap-2">
-                    <button
-                      type="button"
-                      onClick={() => handleLinkStudent(candidate.id)}
-                      disabled={linkingStudentId === candidate.id}
-                      className="rounded-2xl bg-emerald-500/30 px-4 py-2 text-sm font-semibold text-white disabled:opacity-60"
-                    >
-                      {linkingStudentId === candidate.id ? 'Linking…' : 'Link Child'}
-                    </button>
-                  </div>
-                </article>
-              ))}
-            </div>
-          ) : (
-            <p className="text-sm text-slate-300">{candidateLoading ? 'Searching children...' : 'No matching children found yet.'}</p>
-          )}
-        </section>
+        {!loading && students.length === 0 ? (
+          <section className="glass-surface rounded-3xl p-6">
+            <p className="micro-label neon-subtle">No Children Linked Yet</p>
+            <p className="mt-2 text-sm text-slate-300">
+              Your school links children to parent accounts. If a child of yours is missing, ask the school office to link them to this account.
+            </p>
+          </section>
+        ) : null}
 
         <ParentLearnerPicker
           students={students}

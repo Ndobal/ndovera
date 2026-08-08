@@ -261,6 +261,8 @@ export const updateClass = (classId, data) => req(`/api/school/classes/${classId
 export const getUserProfile = (userId) => req(`/api/people/${userId}`);
 export const updateUserProfile = (userId, data) => req(`/api/people/${userId}`, { method: 'PUT', body: data });
 export const linkParentStudent = (data) => req('/api/school/parent-student-link', { method: 'POST', body: data });
+export const unlinkParentStudent = (data) => req('/api/school/parent-student-unlink', { method: 'POST', body: data });
+export const getLinkOverview = () => req('/api/school/link-overview');
 
 // Fees
 export const getFeesConfig = () => req('/api/school/fees-config');

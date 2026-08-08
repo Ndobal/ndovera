@@ -13362,16 +13362,17 @@ app.post('/api/people/:userId/avatar-upload', authenticate, async (c) => {
   }
 })
 
+// Linking is a school-administration action. Parents used to be able to link themselves to
+// any student in the school, which handed them that child's results, fees and attendance —
+// so self-linking is no longer accepted here.
+const PARENT_LINK_ADMIN_ROLES = ['owner', 'hos', 'ict', 'ict_manager']
+
 app.post('/api/school/parent-student-link', authenticate, async (c) => {
-  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos', 'parent'])) return c.json({ error: 'forbidden' }, 403)
+  if (!hasRequiredRole(c.var.user.role, PARENT_LINK_ADMIN_ROLES)) return c.json({ error: 'forbidden' }, 403)
   const tenantId = c.var.user?.tenantId
-  const callerRole = c.var.user?.role
-  const callerId = c.var.user?.id
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
   const { parentId, studentId } = await c.req.json()
   if (!parentId || !studentId) return c.json({ error: 'parentId and studentId are required.' }, 400)
-  // parents can only link themselves
-  if (callerRole === 'parent' && callerId !== parentId) return c.json({ error: 'forbidden' }, 403)
   try {
     await ensureParentStudentLinksTable(c.env.APP_DB)
     // enforce max 2 parents per student
@@ -13393,6 +13394,94 @@ app.post('/api/school/parent-student-link', authenticate, async (c) => {
   } catch (err) {
     return c.json({ error: 'Could not create link.' }, 500)
   }
+})
+
+// Everything the linking screen needs in one call: every student with the parents attached
+// to them, and every parent with the children attached to them. Both directions come from
+// the same link rows, so the two views can never disagree.
+app.get('/api/school/link-overview', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, PARENT_LINK_ADMIN_ROLES)) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+
+  await ensureUsersTable(c.env.APP_DB)
+  await ensureParentStudentLinksTable(c.env.APP_DB)
+
+  const peopleRows = ((await c.env.APP_DB.prepare(
+    `SELECT id, name, email, role, primary_role, status FROM users
+     WHERE tenantId = ? AND lower(COALESCE(primary_role, role)) IN ('student', 'parent')
+       AND (status IS NULL OR status != 'inactive')
+     ORDER BY name COLLATE NOCASE`
+  ).bind(tenantId).all()).results || []) as any[]
+
+  const linkRows = ((await c.env.APP_DB.prepare(
+    `SELECT parent_id, student_id FROM parent_student_links WHERE tenant_id = ?`
+  ).bind(tenantId).all()).results || []) as any[]
+
+  const hydrated = await hydrateUserRecords(c.env.APP_DB, peopleRows)
+  const isStudent = (person: any) => String(person.primaryRole || person.role || '').toLowerCase() === 'student'
+
+  const byId = new Map<string, any>()
+  for (const person of hydrated) {
+    byId.set(String(person.id), {
+      id: String(person.id),
+      name: person.name || person.email || '',
+      email: person.email || '',
+      displayId: person.displayId || '',
+      className: person.className || '',
+      links: [] as any[],
+    })
+  }
+
+  for (const link of linkRows) {
+    const parent = byId.get(String(link.parent_id))
+    const student = byId.get(String(link.student_id))
+    if (!parent || !student) continue
+    parent.links.push({ id: student.id, name: student.name, displayId: student.displayId, className: student.className })
+    student.links.push({ id: parent.id, name: parent.name, email: parent.email })
+  }
+
+  const students: any[] = []
+  const parents: any[] = []
+  for (const person of hydrated) {
+    const entry = byId.get(String(person.id))
+    if (!entry) continue
+    if (isStudent(person)) students.push({ ...entry, parents: entry.links, links: undefined })
+    else parents.push({ ...entry, children: entry.links, links: undefined })
+  }
+
+  return c.json({
+    success: true,
+    students,
+    parents,
+    counts: {
+      students: students.length,
+      unlinkedStudents: students.filter(student => student.parents.length === 0).length,
+      parents: parents.length,
+      parentsWithoutChildren: parents.filter(parent => parent.children.length === 0).length,
+    },
+    maxParentsPerStudent: 2,
+  })
+})
+
+app.post('/api/school/parent-student-unlink', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, PARENT_LINK_ADMIN_ROLES)) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  const { parentId, studentId } = await c.req.json().catch(() => ({}))
+  if (!parentId || !studentId) return c.json({ error: 'parentId and studentId are required.' }, 400)
+
+  await ensureParentStudentLinksTable(c.env.APP_DB)
+  await c.env.APP_DB.prepare(
+    `DELETE FROM parent_student_links WHERE tenant_id = ? AND parent_id = ? AND student_id = ?`
+  ).bind(tenantId, parentId, studentId).run()
+
+  await addAudit(c.env.APP_DB, `tenant:${tenantId}`, {
+    action: 'parentStudentUnlinked',
+    data: { by: c.var.user.id || c.var.user.email || '', parentId, studentId },
+  }).catch(() => {})
+
+  return c.json({ success: true })
 })
 
 app.get('/api/people/:userId', authenticate, async (c) => {

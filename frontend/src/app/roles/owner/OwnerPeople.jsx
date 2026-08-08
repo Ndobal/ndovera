@@ -7,6 +7,7 @@ import {
   getQuestionBankAccess, setQuestionBankAccess,
 } from '../../../features/school/services/schoolApi';
 import StudentProfilePage from '../../../features/students/components/StudentProfilePage';
+import LinkStudentsPanel from '../../../features/school/components/LinkStudentsPanel';
 
 const FILTER_TO_ROLE = { Teachers: 'teacher', Admin: 'admin', Students: 'student', Parents: 'parent' };
 
@@ -1001,6 +1002,9 @@ export default function OwnerPeople() {
   const currentRoles = Array.isArray(currentUser?.roles) && currentUser.roles.length > 0 ? currentUser.roles : [currentUser?.role].filter(Boolean);
   const isAdmin = currentRoles.some(role => ['owner', 'hos'].includes(String(role || '').toLowerCase()));
   const isOwner = currentRoles.some(role => String(role || '').toLowerCase() === 'owner');
+  // Linking is available to the roles the backend accepts for it.
+  const canLinkPeople = currentRoles.some(role => ['owner', 'hos', 'ict', 'ict_manager'].includes(String(role || '').toLowerCase()));
+  const [tab, setTab] = useState('directory');
 
   const load = useCallback((nextPage = 1, nextSearch = '', nextFilter = 'All') => {
     setLoading(true);
@@ -1083,6 +1087,26 @@ export default function OwnerPeople() {
 
       <BulkJobBanner />
 
+      {canLinkPeople ? (
+        <div className="flex flex-wrap gap-2">
+          {[{ key: 'directory', label: 'Directory' }, { key: 'link', label: 'Link Students' }].map(item => (
+            <button
+              key={item.key}
+              onClick={() => setTab(item.key)}
+              className={`px-5 py-2.5 rounded-2xl text-sm font-bold border transition-colors ${
+                tab === item.key
+                  ? 'bg-[#191970] text-[#b5e3f4] border-[#191970]'
+                  : 'bg-[#b5e3f4] text-[#800020] border-[#c9a96e]/40 dark:bg-slate-900/30 dark:text-slate-300 dark:border-white/10 hover:bg-[#efd4a0]'
+              }`}
+            >
+              {item.label}
+            </button>
+          ))}
+        </div>
+      ) : null}
+
+      {tab === 'link' && canLinkPeople ? <LinkStudentsPanel /> : (
+      <>
       {/* Search + filter row */}
       <div className="flex flex-col sm:flex-row gap-3">
         <input
@@ -1144,6 +1168,8 @@ export default function OwnerPeople() {
           </>
         )}
       </div>
+      </>
+      )}
     </div>
   );
 }
