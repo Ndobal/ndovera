@@ -112,6 +112,22 @@ export function rolloutTenantRate(payload) {
   });
 }
 
+export function generateTermBills(payload = {}) {
+  return requestJson('/api/ami/tenants/term-bills/generate', { method: 'POST', body: payload });
+}
+
+export function getAmiTermBills() {
+  return requestJson('/api/ami/tenants/term-bills');
+}
+
+export function markTermBillPaid(billId, payload = {}) {
+  return requestJson(`/api/ami/tenants/term-bills/${encodeURIComponent(billId)}/mark-paid`, { method: 'POST', body: payload });
+}
+
+export function getMyTermBills() {
+  return requestJson('/api/tenants/term-bills');
+}
+
 export function upsertDiscountCode(payload) {
   return requestJson('/api/ami/discount-codes', {
     method: 'POST',

@@ -16,6 +16,9 @@ import {
   updateTenantPricing,
   setTenantRate,
   rolloutTenantRate,
+  generateTermBills,
+  getAmiTermBills,
+  markTermBillPaid,
   upsertDiscountCode,
   verifyTenantPayment,
 } from '../services/tenantApi';
@@ -119,6 +122,8 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
   const [domainForms, setDomainForms] = useState({});
   const [rateForms, setRateForms] = useState({});
   const [rolloutFeeNaira, setRolloutFeeNaira] = useState('');
+  const [termBills, setTermBills] = useState([]);
+  const [billPeriod, setBillPeriod] = useState({ session: '', term: '' });
   const [busyAction, setBusyAction] = useState('');
   const [error, setError] = useState('');
   const [notice, setNotice] = useState('');
@@ -291,6 +296,37 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
         ...current,
         [tenantId]: next,
       };
+    });
+  };
+
+  const loadTermBills = async () => {
+    try {
+      const result = await getAmiTermBills();
+      setTermBills(result.bills || []);
+    } catch { /* panel just stays empty */ }
+  };
+
+  useEffect(() => { loadTermBills(); }, []);
+
+  const handleGenerateTermBills = async event => {
+    event.preventDefault();
+    if (!window.confirm('Raise this term\'s bill for every active school? Schools already billed for the period are skipped.')) return;
+    await runAction('generate-bills', async () => {
+      const result = await generateTermBills({
+        session: billPeriod.session.trim(),
+        term: billPeriod.term.trim(),
+      });
+      setNotice(`Raised ${result.created.length} bill(s); skipped ${result.skipped.length}.`);
+      await loadTermBills();
+    });
+  };
+
+  const handleMarkBillPaid = async bill => {
+    if (!window.confirm(`Record ${currencyFormatter.format(bill.amount)} as paid for ${bill.session} ${bill.term}?`)) return;
+    await runAction(`bill-${bill.id}`, async () => {
+      await markTermBillPaid(bill.id);
+      setNotice('Term bill recorded as paid.');
+      await loadTermBills();
     });
   };
 
@@ -869,6 +905,55 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
                 {busyAction === 'rate-rollout' ? 'Queueing...' : 'Queue rate for existing schools'}
               </button>
             </form>
+          </section>
+
+          <section className="glass-surface rounded-3xl p-6 border border-white/10">
+            <h2 className="text-xl command-title neon-title mb-4">Term Billing</h2>
+            <form onSubmit={handleGenerateTermBills} className="space-y-3">
+              <div className="rounded-2xl bg-slate-900/20 dark:bg-slate-900/30 p-4 text-sm text-slate-600 dark:text-slate-300">
+                <p>Bills each active school for its active users at its own agreed rate. Grace runs to mid-term (two months from the term start). After that, owner, HoS, ICT manager, and ICT accounts lose dashboard access until the bill is settled — the school website stays live.</p>
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <input value={billPeriod.session} onChange={e => setBillPeriod(c => ({ ...c, session: e.target.value }))} placeholder="Session (blank = each school's own)"
+                  className="w-full rounded-2xl border border-white/10 bg-slate-900/20 dark:bg-slate-900/30 px-4 py-3 text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-500" />
+                <input value={billPeriod.term} onChange={e => setBillPeriod(c => ({ ...c, term: e.target.value }))} placeholder="Term (blank = each school's own)"
+                  className="w-full rounded-2xl border border-white/10 bg-slate-900/20 dark:bg-slate-900/30 px-4 py-3 text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-500" />
+              </div>
+              <button type="submit" disabled={busyAction === 'generate-bills'} className="w-full rounded-2xl bg-amber-500 px-4 py-3 font-semibold text-slate-950 disabled:opacity-60">
+                {busyAction === 'generate-bills' ? 'Raising...' : 'Raise this term\'s bills'}
+              </button>
+            </form>
+
+            <div className="mt-4 space-y-2">
+              {termBills.length === 0 ? <p className="text-sm text-slate-500 dark:text-slate-400">No term bills raised yet.</p> : null}
+              {termBills.slice(0, 12).map(bill => {
+                const overdue = bill.status !== 'paid' && bill.graceUntil && new Date(bill.graceUntil) <= new Date();
+                return (
+                  <div key={bill.id} className="rounded-2xl border border-white/10 bg-slate-900/20 p-3 text-sm">
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <div>
+                        <p className="font-semibold text-slate-800 dark:text-slate-100">{bill.session} {bill.term} • {currencyFormatter.format(bill.amount)}</p>
+                        <p className="text-xs text-slate-500 dark:text-slate-400">
+                          {bill.billableUsers} users × {currencyFormatter.format(bill.ratePerUser)}
+                          {bill.graceUntil ? ` • grace to ${new Date(bill.graceUntil).toLocaleDateString()}` : ''}
+                        </p>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className={`micro-label ${bill.status === 'paid' ? 'accent-cyan' : overdue ? 'accent-rose' : 'accent-indigo'}`}>
+                          {bill.status === 'paid' ? 'paid' : overdue ? 'overdue' : 'unpaid'}
+                        </span>
+                        {bill.status !== 'paid' ? (
+                          <button type="button" onClick={() => handleMarkBillPaid(bill)} disabled={busyAction === `bill-${bill.id}`}
+                            className="rounded-xl bg-emerald-500 px-3 py-2 text-xs font-bold text-slate-950 disabled:opacity-60">
+                            {busyAction === `bill-${bill.id}` ? 'Saving...' : 'Mark paid'}
+                          </button>
+                        ) : null}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </section>
 
           <section className="glass-surface rounded-3xl p-6 border border-white/10">

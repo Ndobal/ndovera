@@ -5608,7 +5608,7 @@ async function finishLogin(c: any, payload: Record<string, any>) {
     exp: Math.floor(Date.now() / 1000) + authSessionSeconds,
   }, c.env.JWT_SECRET)
 
-  const user = attachTenantContext(buildUserProfile(id, userRole, name, settings), tenant)
+  const user = await attachTermBillingContext(c.env.APP_DB, attachTenantContext(buildUserProfile(id, userRole, name, settings), tenant), userRole)
   if (mustChangePassword) (user as any).mustChangePassword = true
 
   const response = c.json({ success: true, token, user, id: user.id, role: user.role, name: user.name, ...(mustChangePassword ? { mustChangePassword: true } : {}) })
@@ -6592,6 +6592,106 @@ app.post('/api/ami/tenants/rate-rollout', authenticate, async (c) => {
   }).catch(() => {})
 
   return c.json({ success: true, newStudentFeePerTerm: studentFeeCents / KOBO_PER_NAIRA, queued, skipped })
+})
+
+// Raise this term's bill for every active school. Idempotent per school and period, so it
+// is safe for Ami to run more than once in a term.
+app.post('/api/ami/tenants/term-bills/generate', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  await ensureTermBillsTable(c.env.APP_DB)
+
+  const payload = await c.req.json().catch(() => ({}))
+  const requestedSession = String(payload.session || '').trim()
+  const requestedTerm = String(payload.term || '').trim()
+  const nowIso = new Date().toISOString()
+  const tenants = await listTenants(c.env.APP_DB)
+  const { plans } = await getTenantPricingState(c.env.APP_DB)
+  const created: any[] = []
+  const skipped: any[] = []
+
+  for (const tenant of tenants) {
+    if (tenant.status !== 'active' || tenant.paymentStatus !== 'paid') {
+      skipped.push({ schoolName: tenant.schoolName, reason: 'school is not active and paid' })
+      continue
+    }
+
+    // Prefer the school's own recorded session/term so the bill matches its calendar.
+    const snapshot = await getCurrentSchoolSessionSnapshot(c.env.APP_DB, tenant.id).catch(() => ({ sessionName: '', termName: '' }))
+    const session = requestedSession || snapshot.sessionName
+    const term = requestedTerm || snapshot.termName
+    if (!session || !term) {
+      skipped.push({ schoolName: tenant.schoolName, reason: 'no session or term recorded yet' })
+      continue
+    }
+
+    const existing = await c.env.APP_DB.prepare(
+      `SELECT id FROM tenant_term_bills WHERE tenant_id = ? AND session = ? AND term = ?`
+    ).bind(tenant.id, session, term).first()
+    if (existing) {
+      skipped.push({ schoolName: tenant.schoolName, reason: `already billed for ${session} ${term}` })
+      continue
+    }
+
+    const quote = await buildTenantQuoteForTenant(c.env.APP_DB, tenant, null, plans)
+    const billableUsers = Number(quote.billableUserCount || 0)
+    const rateCents = Number(quote.studentFeeCents || 0)
+    const amountCents = billableUsers * rateCents
+    if (amountCents <= 0) {
+      skipped.push({ schoolName: tenant.schoolName, reason: 'no billable active users' })
+      continue
+    }
+
+    const termStartedAt = (await getTenantCurrentTermStart(c.env.APP_DB, tenant.id)) || nowIso
+    await c.env.APP_DB.prepare(
+      `INSERT INTO tenant_term_bills (id, tenant_id, session, term, billable_users, rate_cents, amount_cents, status, term_started_at, due_at, grace_until, created_at, updated_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?, 'unpaid', ?, ?, ?, ?, ?)`
+    ).bind(
+      `bill_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
+      tenant.id, session, term, billableUsers, rateCents, amountCents,
+      termStartedAt, termStartedAt, addMonths(termStartedAt, TERM_GRACE_MONTHS) || termStartedAt,
+      nowIso, nowIso,
+    ).run()
+
+    created.push({
+      schoolName: tenant.schoolName,
+      session, term, billableUsers,
+      amount: amountCents / KOBO_PER_NAIRA,
+      graceUntil: addMonths(termStartedAt, TERM_GRACE_MONTHS),
+    })
+  }
+
+  await addAudit(c.env.APP_DB, TENANT_PRICING_SETTINGS_KEY, {
+    action: 'termBillsGenerated',
+    data: { by: c.var.user.id || 'ami', created: created.length, skipped: skipped.length },
+  }).catch(() => {})
+
+  return c.json({ success: true, created, skipped })
+})
+
+app.get('/api/ami/tenants/term-bills', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  return c.json({ success: true, bills: await listTenantTermBills(c.env.APP_DB) })
+})
+
+app.post('/api/ami/tenants/term-bills/:billId/mark-paid', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  await ensureTermBillsTable(c.env.APP_DB)
+  const billId = String(c.req.param('billId') || '').trim()
+  const payload = await c.req.json().catch(() => ({}))
+  const nowIso = new Date().toISOString()
+
+  const bill = await c.env.APP_DB.prepare(`SELECT * FROM tenant_term_bills WHERE id = ?`).bind(billId).first()
+  if (!bill) return c.json({ error: 'Term bill not found.' }, 404)
+
+  await c.env.APP_DB.prepare(
+    `UPDATE tenant_term_bills SET status = 'paid', paid_at = ?, paid_reference = ?, updated_at = ? WHERE id = ?`
+  ).bind(nowIso, String(payload.reference || 'ami-recorded'), nowIso, billId).run()
+
+  await addAudit(c.env.APP_DB, `tenant:${(bill as any).tenant_id}`, {
+    action: 'termBillMarkedPaid', data: { by: c.var.user.id || 'ami', billId },
+  }).catch(() => {})
+
+  return c.json({ success: true })
 })
 
 app.post('/api/ami/tenants/:tenantId/awards', authenticate, async (c) => {
@@ -10626,6 +10726,122 @@ function buildPinnedRateOverride(tenant: any) {
   }
 }
 
+// ---------------------------------------------------------------------------
+// Term billing
+//
+// A school is billed once per term for its active users. The bill falls due at the start of
+// the term and carries a grace period running to mid-term; past that, staff who administer
+// the school lose dashboard access until it is settled. The public school website is never
+// taken down for an unpaid bill — parents and applicants are not party to the dispute.
+// ---------------------------------------------------------------------------
+const TERM_BILLS_DDL = `CREATE TABLE IF NOT EXISTS tenant_term_bills (
+  id TEXT PRIMARY KEY,
+  tenant_id TEXT NOT NULL,
+  session TEXT,
+  term TEXT,
+  billable_users INTEGER,
+  rate_cents INTEGER,
+  amount_cents INTEGER,
+  status TEXT,
+  term_started_at TEXT,
+  due_at TEXT,
+  grace_until TEXT,
+  paid_at TEXT,
+  paid_reference TEXT,
+  created_at TEXT,
+  updated_at TEXT
+)`
+
+// Roles that administer the school. These are the accounts blocked when a term bill is
+// overdue, so teaching, learning, and parent access continue uninterrupted.
+const TERM_BILL_BLOCKED_ROLES = ['owner', 'hos', 'ict_manager', 'ict']
+
+// Grace runs from the start of the term to its midpoint. A term is at most four months,
+// so the midpoint is two months in.
+const TERM_GRACE_MONTHS = TERM_MAX_MONTHS / 2
+
+async function ensureTermBillsTable(db: D1Database) {
+  if (_initializedTables.has('tenant_term_bills')) return
+  _initializedTables.add('tenant_term_bills')
+  await db.prepare(TERM_BILLS_DDL).run()
+  await db.prepare(`CREATE UNIQUE INDEX IF NOT EXISTS idx_term_bills_period ON tenant_term_bills (tenant_id, session, term)`).run().catch(() => {})
+}
+
+function mapTermBillRow(row: any) {
+  const amountCents = Number(row.amount_cents || 0)
+  return {
+    id: String(row.id || ''),
+    tenantId: String(row.tenant_id || ''),
+    session: String(row.session || ''),
+    term: String(row.term || ''),
+    billableUsers: Number(row.billable_users || 0),
+    ratePerUser: Number(row.rate_cents || 0) / KOBO_PER_NAIRA,
+    amountCents,
+    amount: amountCents / KOBO_PER_NAIRA,
+    status: String(row.status || 'unpaid'),
+    termStartedAt: row.term_started_at || null,
+    dueAt: row.due_at || null,
+    graceUntil: row.grace_until || null,
+    paidAt: row.paid_at || null,
+    paidReference: row.paid_reference || null,
+    createdAt: row.created_at || null,
+  }
+}
+
+async function listTenantTermBills(db: D1Database, tenantId?: string) {
+  await ensureTermBillsTable(db)
+  const result = tenantId
+    ? await db.prepare(`SELECT * FROM tenant_term_bills WHERE tenant_id = ? ORDER BY created_at DESC`).bind(tenantId).all()
+    : await db.prepare(`SELECT * FROM tenant_term_bills ORDER BY created_at DESC LIMIT 500`).all()
+  return ((result.results || []) as any[]).map(mapTermBillRow)
+}
+
+// The single unpaid bill whose grace has run out, if any. Presence of one is what blocks
+// administrative access; a school with no bills is never blocked.
+async function getOverdueTermBill(db: D1Database, tenantId: string) {
+  if (!tenantId) return null
+  try {
+    await ensureTermBillsTable(db)
+    const nowIso = new Date().toISOString()
+    const row = await db.prepare(
+      `SELECT * FROM tenant_term_bills WHERE tenant_id = ? AND status != 'paid' AND grace_until IS NOT NULL AND grace_until <= ? ORDER BY grace_until ASC LIMIT 1`
+    ).bind(tenantId, nowIso).first()
+    return row ? mapTermBillRow(row) : null
+  } catch {
+    return null
+  }
+}
+
+function isTermBillBlockedRole(role: string) {
+  return TERM_BILL_BLOCKED_ROLES.includes(normalizeRole(role) || String(role || '').toLowerCase())
+}
+
+// Decorate a signed-in user with any overdue term bill. `termBillingBlocked` is only ever
+// true for the administrative roles; everyone else sees the notice without losing access.
+async function attachTermBillingContext(db: D1Database, user: Record<string, any>, role: string) {
+  const tenantId = String(user?.tenantId || user?.schoolId || '')
+  if (!tenantId) return user
+
+  const overdueBill = await getOverdueTermBill(db, tenantId)
+  if (!overdueBill) return user
+
+  const blocked = isTermBillBlockedRole(role)
+  return {
+    ...user,
+    termBilling: {
+      overdue: true,
+      blocked,
+      amount: overdueBill.amount,
+      session: overdueBill.session,
+      term: overdueBill.term,
+      graceEndedAt: overdueBill.graceUntil,
+      billId: overdueBill.id,
+    },
+    // Reuse the gate the console already respects for suspended schools.
+    ...(blocked ? { dashboardActive: false, termBillingBlocked: true } : {}),
+  }
+}
+
 // When the school's current term began, used to anchor the term backstop.
 async function getTenantCurrentTermStart(db: D1Database, tenantId: string) {
   try {
@@ -14345,6 +14561,25 @@ app.post('/api/growth-partner/discount', authenticate, async (c) => {
       setupFee: setupFeeCents === null ? null : setupFeeCents / KOBO_PER_NAIRA,
       studentFeePerTerm: studentFeeCents === null ? null : studentFeeCents / KOBO_PER_NAIRA,
     },
+  })
+})
+
+// A school's own term bills, so administrators can see exactly what is outstanding even
+// while their dashboard is blocked.
+app.get('/api/tenants/term-bills', authenticate, async (c) => {
+  const { tenant, forbidden } = await resolveTenantForActor(c)
+  if (forbidden) return c.json({ error: 'forbidden' }, 403)
+  if (!tenant) return c.json({ error: 'No school found for this account.' }, 404)
+
+  const bills = await listTenantTermBills(c.env.APP_DB, tenant.id)
+  const overdue = await getOverdueTermBill(c.env.APP_DB, tenant.id)
+
+  return c.json({
+    success: true,
+    bills,
+    overdue,
+    outstanding: bills.filter(bill => bill.status !== 'paid'),
+    blockedRoles: TERM_BILL_BLOCKED_ROLES,
   })
 })
 

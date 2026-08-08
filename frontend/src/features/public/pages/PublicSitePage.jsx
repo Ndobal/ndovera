@@ -669,7 +669,7 @@ function HeroSlides({ media }) {
   );
 }
 
-function PublicShell({ section, notice, children, flier }) {
+function PublicShell({ section, notice, children, flier, hideHero = false }) {
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const heroStats = Array.isArray(section.metadata.stats) ? section.metadata.stats : [];
@@ -770,6 +770,7 @@ function PublicShell({ section, notice, children, flier }) {
       </header>
 
       {/* Full-bleed hero with sliding background carousel */}
+      {hideHero ? null : (
       <section className="relative isolate overflow-hidden bg-[#04190d]">
         <HeroSlides media={heroMedia} />
         <div className="absolute inset-0 -z-10 bg-gradient-to-br from-[#010804]/72 via-[#04190d]/60 to-[#072214]/50" />
@@ -796,9 +797,10 @@ function PublicShell({ section, notice, children, flier }) {
           </div>
         </div>
       </section>
+      )}
 
       {/* Stats / preview strip */}
-      {heroStats.length ? (
+      {hideHero ? null : heroStats.length ? (
         <section className="border-b border-slate-200 bg-[#f7f9ff]">
           <div className="mx-auto grid max-w-7xl grid-cols-2 px-4 sm:px-6 md:grid-cols-4 lg:px-8">
             {heroStats.slice(0, 4).map((metric, index) => (
@@ -1337,27 +1339,34 @@ function PricingPageBody({ section, pricing, pricingError, isPricingLoading, dis
 
   return (
     <div className="space-y-8">
-      <Reveal as="section" className="overflow-hidden rounded-[2rem] border border-[#c9a96e]/45 bg-[#fff8ef] p-6 shadow-[0_18px_40px_rgba(25,25,112,0.08)] sm:p-8">
-        <div className="max-w-3xl space-y-4">
-          <p className="text-xs font-semibold uppercase tracking-[0.34em] text-[#800020]">{section.metadata.eyebrow || 'Pricing'}</p>
-          <h1 className="text-3xl font-black leading-tight tracking-tight text-[#191970] sm:text-5xl">
-            Transparent pricing.
-            <span className="block text-[#800020]">Built for your school&apos;s growth.</span>
-          </h1>
-          <p className="text-sm leading-7 text-[#31416f] sm:text-base">
-            Start with a simple onboarding fee. From the next {billingPeriod}, pay based on your school&apos;s actual active users.
-          </p>
-          <div className="flex flex-wrap gap-3 pt-1">
-            <ActionLink to="/register-school" className="rounded-full bg-[#800020] px-6 py-3 text-sm font-semibold text-[#b5e3f4] transition hover:bg-[#670019]">
-              Register Your School
-            </ActionLink>
-            <ActionLink to="/contact" className="rounded-full border border-[#c9a96e]/60 bg-white/70 px-6 py-3 text-sm font-semibold text-[#191970] transition hover:border-[#1a5c38] hover:text-[#1a5c38]">
-              Talk To Us
-            </ActionLink>
+      {/* The visual hero is intentionally absent here; this keeps the page from being
+          headless for screen readers and search engines. */}
+      <h1 className="sr-only">NDOVERA pricing</h1>
+
+      <Reveal as="section" className="rounded-[1.8rem] border border-[#c9a96e]/45 bg-[#fff8ef] p-6 shadow-[0_18px_40px_rgba(25,25,112,0.08)]">
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+          <div className="max-w-xl">
+            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#800020]">Discount Or Partner Code</p>
+            <h2 className="mt-2 text-xl font-black tracking-tight text-[#191970]">Have a code from Ami or a growth partner?</h2>
+            <p className="mt-2 text-sm leading-7 text-[#31416f]">
+              Enter it to see your school&apos;s actual prices. Opening a growth partner&apos;s link applies their code automatically.
+            </p>
           </div>
-          <p className="pt-1 text-xs font-semibold uppercase tracking-[0.16em] text-[#31416f]/70">
-            No hidden charges • Clear onboarding • Usage-based subsequent billing
-          </p>
+          <form
+            onSubmit={event => { event.preventDefault(); onApplyDiscount(); }}
+            className="flex w-full flex-wrap gap-3 lg:w-auto"
+          >
+            <input
+              value={discountInput}
+              onChange={event => onDiscountInputChange(event.target.value.toUpperCase())}
+              placeholder="Enter code"
+              aria-label="Discount or partner code"
+              className="min-w-[12rem] flex-1 rounded-2xl border border-[#c9a96e]/50 bg-white px-4 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-[#191970] outline-none transition focus:border-[#1a5c38]"
+            />
+            <button type="submit" className="rounded-2xl bg-[#191970] px-6 py-3 text-sm font-semibold text-[#f8f3eb] transition hover:bg-[#101047]">
+              Apply Code
+            </button>
+          </form>
         </div>
       </Reveal>
 
@@ -1480,33 +1489,6 @@ function PricingPageBody({ section, pricing, pricingError, isPricingLoading, dis
         </Reveal>
       ) : null}
 
-      <Reveal as="section" className="rounded-[1.8rem] border border-[#c9a96e]/45 bg-[#fff8ef] p-6 shadow-[0_18px_40px_rgba(25,25,112,0.08)]" delay={2}>
-        <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-          <div className="max-w-xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#800020]">Discount Or Partner Code</p>
-            <h3 className="mt-2 text-xl font-black tracking-tight text-[#191970]">Have a code from Ami or a growth partner?</h3>
-            <p className="mt-2 text-sm leading-7 text-[#31416f]">
-              Enter it to see your school&apos;s actual prices. Opening a growth partner&apos;s link applies their code automatically.
-            </p>
-          </div>
-          <form
-            onSubmit={event => { event.preventDefault(); onApplyDiscount(); }}
-            className="flex w-full flex-wrap gap-3 lg:w-auto"
-          >
-            <input
-              value={discountInput}
-              onChange={event => onDiscountInputChange(event.target.value.toUpperCase())}
-              placeholder="Enter code"
-              aria-label="Discount or partner code"
-              className="min-w-[12rem] flex-1 rounded-2xl border border-[#c9a96e]/50 bg-white px-4 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-[#191970] outline-none transition focus:border-[#1a5c38]"
-            />
-            <button type="submit" className="rounded-2xl bg-[#191970] px-6 py-3 text-sm font-semibold text-[#f8f3eb] transition hover:bg-[#101047]">
-              Apply Code
-            </button>
-          </form>
-        </div>
-      </Reveal>
-
       {plans.length ? (
         <PricingCalculator
           plans={plans}
@@ -1516,34 +1498,6 @@ function PricingPageBody({ section, pricing, pricingError, isPricingLoading, dis
           onChangeActiveUsers={handleChangeActiveUsers}
         />
       ) : null}
-
-      <section className="grid gap-4 lg:grid-cols-3">
-        {section.metadata.cards.map((item, index) => (
-          <PublicCard key={item.title} title={item.title} description={item.description} icon={item.icon} revealDelay={(index % 4) + 1} />
-        ))}
-      </section>
-
-      <Reveal as="section" className="rounded-[2rem] border border-[#c9a96e]/45 bg-[#191970] p-6 text-[#f8f3eb] shadow-[0_24px_60px_rgba(25,25,112,0.18)]" delay={1}>
-        <SectionHeading
-          eyebrow={section.metadata.mediaEyebrow || 'How Billing Works'}
-          title={section.metadata.mediaTitle || 'Pricing stays clear before and after onboarding.'}
-          description={section.metadata.mediaDescription || `Pay the onboarding fee first. From the next ${billingPeriod}, NDOVERA bills by active users so growth stays easier to understand.`}
-          tone="inverse"
-        />
-        <ol className="mt-6 grid gap-3 sm:grid-cols-3">
-          {[
-            { step: '01', title: 'Onboarding', body: 'Pay the onboarding fee at registration. Your domain is reserved and the owner account is created.' },
-            { step: '02', title: 'Launch', body: 'Ami reviews and approves the rollout, your school website goes live, and your team is set up.' },
-            { step: '03', title: `Active-user billing`, body: `From the next ${billingPeriod}, your bill is the active users recorded for that ${billingPeriod} × the per-user fee.` },
-          ].map(item => (
-            <li key={item.step} className="rounded-[1.5rem] border border-white/10 bg-white/5 p-5">
-              <p className="text-xs font-black tracking-[0.3em] text-[#c9a96e]">{item.step}</p>
-              <p className="mt-3 text-lg font-black text-white">{item.title}</p>
-              <p className="mt-2 text-sm leading-6 text-[#d9e3ff]">{item.body}</p>
-            </li>
-          ))}
-        </ol>
-      </Reveal>
 
       {plans.length > 1 ? (
         <Reveal as="section" className="rounded-[2rem] border border-[#c9a96e]/45 bg-[#fff8ef] p-6 shadow-[0_18px_40px_rgba(25,25,112,0.08)]" delay={2}>
@@ -1918,5 +1872,15 @@ export default function PublicSitePage({ pageKey = 'home' }) {
   if (pageKey === 'events') body = <EventsPageBody section={section} />;
   if (pageKey === 'gallery') body = <GalleryPageBody section={section} />;
 
-  return <PublicShell section={section} notice={error} flier={normalizeSection('flier', sectionsByKey.flier)}>{body}</PublicShell>;
+  // Pricing leads with the discount/partner code entry instead of the standard page hero.
+  return (
+    <PublicShell
+      section={section}
+      notice={error}
+      flier={normalizeSection('flier', sectionsByKey.flier)}
+      hideHero={pageKey === 'pricing'}
+    >
+      {body}
+    </PublicShell>
+  );
 }

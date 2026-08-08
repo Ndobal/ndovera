@@ -112,6 +112,7 @@ export default function OwnerTenantConsole({ authUser = null, sectionKey = 'over
   const payments = tenantData?.payments || [];
   const latestPayment = payments[0] || null;
   const dashboardActive = tenant?.status === 'active';
+  const termBilling = authUser?.termBilling || null;
 
   return (
     <div className="p-8 max-w-7xl mx-auto space-y-6">
@@ -139,7 +140,24 @@ export default function OwnerTenantConsole({ authUser = null, sectionKey = 'over
           </div>
         )}
 
-        {!dashboardActive && (
+        {termBilling?.overdue && (
+          <div className="mt-6 rounded-3xl border border-rose-400/40 bg-rose-500/10 p-5 space-y-3">
+            <p className="text-lg font-semibold text-black">
+              {termBilling.blocked
+                ? 'School administration is locked: this term\'s bill is overdue.'
+                : 'This term\'s bill is overdue.'}
+            </p>
+            <p className="text-sm text-black">
+              {currencyFormatter.format(termBilling.amount || 0)} for {termBilling.session} {termBilling.term}. The grace period ended{' '}
+              {termBilling.graceEndedAt ? new Date(termBilling.graceEndedAt).toLocaleDateString() : 'earlier this term'}.
+            </p>
+            <p className="text-sm text-black">
+              Owner, HoS, ICT manager, and ICT accounts stay locked until it is settled. Teachers, students, and parents keep working, and your school website stays online. Contact Ami to settle this bill.
+            </p>
+          </div>
+        )}
+
+        {!dashboardActive && !termBilling?.overdue && (
           <div className="mt-6 rounded-3xl border border-amber-400/30 bg-amber-500/10 p-5 space-y-3">
             <p className="text-lg font-semibold text-black">Owner dashboard is locked until onboarding is complete.</p>
             <ol className="space-y-2 text-sm text-black list-decimal list-inside">
