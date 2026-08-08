@@ -6,6 +6,7 @@ import {
   markGrowthPartnerPaid,
   appointGrowthPartnerRepresentative,
   accrueGrowthPartnerTerm,
+  resetGrowthPartnerPassword,
 } from '../services/publicSiteApi';
 
 const naira = new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN', maximumFractionDigits: 0 });
@@ -97,6 +98,19 @@ export default function GrowthPartnersAdmin() {
     }
   }
 
+  async function resetPassword(partner) {
+    if (!window.confirm(`Issue a new sign-in password for ${partner.name}? Their current password stops working immediately, and the new one is shown once.`)) return;
+    setBusy(`password-${partner.id}`); setMessage('');
+    try {
+      const result = await resetGrowthPartnerPassword(partner.id);
+      setMessage(`New password for ${partner.name} (${result.email}): ${result.password} — copy it now, it is shown only once. They must change it on first sign-in.`);
+    } catch (error) {
+      setMessage(error.message || 'Could not issue a new password.');
+    } finally {
+      setBusy('');
+    }
+  }
+
   async function appointRepresentative(partner) {
     const draft = getRepresentativeDraft(partner);
     if (!draft.level) { setMessage(`Choose a representative level for ${partner.name}.`); return; }
@@ -172,9 +186,14 @@ export default function GrowthPartnersAdmin() {
                   <p className="text-xs text-[#4a5578] dark:text-slate-400">{p.referralCount} referrals • earned {naira.format(p.totalEarned || 0)} • paid {naira.format(p.totalWithdrawn || 0)} • available {naira.format(p.available || 0)}</p>
                   {p.representative ? <p className="mt-1 text-xs font-semibold text-[#1a5c38] dark:text-emerald-300">{p.representative.level} representative{p.representative.territory ? ` · ${p.representative.territory}` : ''}</p> : null}
                 </div>
-                <button type="button" onClick={() => markPaid(p)} disabled={busy === `paid-${p.id}` || !p.available} className="rounded-xl bg-[#1a5c38] px-3 py-2 text-xs font-bold text-[#f5deb3] disabled:opacity-50 dark:bg-cyan-300 dark:text-black">
-                  {busy === `paid-${p.id}` ? 'Recording…' : `Mark paid ${naira.format(p.available || 0)}`}
-                </button>
+                <div className="flex flex-wrap gap-2">
+                  <button type="button" onClick={() => resetPassword(p)} disabled={busy === `password-${p.id}`} className="rounded-xl border border-[#800020]/40 px-3 py-2 text-xs font-bold text-[#800020] disabled:opacity-50 dark:border-fuchsia-300/40 dark:text-fuchsia-300">
+                    {busy === `password-${p.id}` ? 'Issuing…' : 'Issue sign-in password'}
+                  </button>
+                  <button type="button" onClick={() => markPaid(p)} disabled={busy === `paid-${p.id}` || !p.available} className="rounded-xl bg-[#1a5c38] px-3 py-2 text-xs font-bold text-[#f5deb3] disabled:opacity-50 dark:bg-cyan-300 dark:text-black">
+                    {busy === `paid-${p.id}` ? 'Recording…' : `Mark paid ${naira.format(p.available || 0)}`}
+                  </button>
+                </div>
               </div>
               <div className="mt-3 grid gap-2 sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto]">
                 <select value={getRepresentativeDraft(p).level} onChange={e => updateRepresentativeDraft(p, 'level', e.target.value)} className="rounded-xl border border-[#c9a96e]/40 bg-white px-3 py-2 text-xs text-[#191970] outline-none dark:border-white/10 dark:bg-slate-900 dark:text-white">

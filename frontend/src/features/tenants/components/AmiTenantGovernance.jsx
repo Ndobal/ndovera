@@ -14,6 +14,8 @@ import {
   upsertTenantAward,
   updateTenantDomain,
   updateTenantPricing,
+  setTenantRate,
+  rolloutTenantRate,
   upsertDiscountCode,
   verifyTenantPayment,
 } from '../services/tenantApi';
@@ -115,6 +117,8 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
     } catch { /* ignore — dropdown just stays empty */ }
   }
   const [domainForms, setDomainForms] = useState({});
+  const [rateForms, setRateForms] = useState({});
+  const [rolloutFeeNaira, setRolloutFeeNaira] = useState('');
   const [busyAction, setBusyAction] = useState('');
   const [error, setError] = useState('');
   const [notice, setNotice] = useState('');
@@ -287,6 +291,43 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
         ...current,
         [tenantId]: next,
       };
+    });
+  };
+
+  const updateRateForm = (tenantId, field, value) => {
+    setRateForms(current => ({ ...current, [tenantId]: { ...(current[tenantId] || {}), [field]: value } }));
+  };
+
+  const saveTenantRate = async tenant => {
+    const form = rateForms[tenant.id] || {};
+    const studentFeeNaira = Number(form.studentFeeNaira);
+    const setupFeeNaira = Number(form.setupFeeNaira);
+    if (!studentFeeNaira && !setupFeeNaira) {
+      setError('Enter a per-user fee or an onboarding fee for this school.');
+      return;
+    }
+
+    await runAction(`rate-${tenant.id}`, async () => {
+      const result = await setTenantRate(tenant.id, {
+        ...(studentFeeNaira ? { studentFeeNaira } : {}),
+        ...(setupFeeNaira ? { setupFeeNaira } : {}),
+      });
+      setRateForms(current => ({ ...current, [tenant.id]: {} }));
+      setNotice(result.applied
+        ? `${tenant.schoolName} now pays the new rate.`
+        : `${tenant.schoolName} keeps its current rate until its next term (or ${new Date(result.effectiveFrom).toLocaleDateString()}).`);
+    });
+  };
+
+  const handleRateRollout = async event => {
+    event.preventDefault();
+    const studentFeeNaira = Number(rolloutFeeNaira);
+    if (!studentFeeNaira) { setError('Enter the new per-user fee to roll out.'); return; }
+    if (!window.confirm(`Roll out ${currencyFormatter.format(studentFeeNaira)} per active user to every school on a lower rate? Each school keeps its current rate until its next term.`)) return;
+
+    await runAction('rate-rollout', async () => {
+      const result = await rolloutTenantRate({ studentFeeNaira });
+      setNotice(`Queued for ${result.queued.length} school(s); ${result.skipped.length} already at or above this rate. Each lands on that school's next term.`);
     });
   };
 
@@ -464,6 +505,38 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
                     <div className="rounded-2xl bg-slate-900/20 dark:bg-slate-900/30 p-4">
                       <p className="micro-label neon-subtle">Discount Code</p>
                       <p className="mt-2 text-slate-800 dark:text-slate-100 font-semibold">{tenant.discountCode || 'None'}</p>
+                    </div>
+                  </div>
+
+                  <div className="rounded-3xl border border-white/10 bg-slate-900/20 dark:bg-slate-900/30 p-4 space-y-3">
+                    <div>
+                      <p className="micro-label neon-subtle">This School&apos;s Rate</p>
+                      <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
+                        This school keeps its own agreed rate. A reduction applies immediately; an increase waits for its next term.
+                      </p>
+                      {tenant.pendingRate ? (
+                        <p className="mt-2 text-xs font-semibold text-amber-500">
+                          Pending: {currencyFormatter.format(tenant.pendingRate.studentFeePerTerm)} / user, from {new Date(tenant.pendingRate.effectiveFrom).toLocaleDateString()} or its next term, whichever is first.
+                        </p>
+                      ) : null}
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr_200px] gap-3">
+                      <input
+                        type="number" min="0" placeholder={`Per user / term (now ${currencyFormatter.format(tenant.studentFeePerTerm || 0)})`}
+                        value={(rateForms[tenant.id] || {}).studentFeeNaira || ''}
+                        onChange={event => updateRateForm(tenant.id, 'studentFeeNaira', event.target.value)}
+                        className="w-full rounded-2xl border border-white/10 bg-slate-900/20 px-4 py-3 text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-500"
+                      />
+                      <input
+                        type="number" min="0" placeholder="Onboarding fee (optional)"
+                        value={(rateForms[tenant.id] || {}).setupFeeNaira || ''}
+                        onChange={event => updateRateForm(tenant.id, 'setupFeeNaira', event.target.value)}
+                        className="w-full rounded-2xl border border-white/10 bg-slate-900/20 px-4 py-3 text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-500"
+                      />
+                      <button type="button" onClick={() => saveTenantRate(tenant)} disabled={busyAction === `rate-${tenant.id}`}
+                        className="rounded-2xl bg-emerald-500 px-4 py-3 font-semibold text-slate-950 disabled:opacity-60">
+                        {busyAction === `rate-${tenant.id}` ? 'Saving...' : 'Set school rate'}
+                      </button>
                     </div>
                   </div>
 
@@ -774,6 +847,26 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
 
               <button type="submit" disabled={busyAction === 'save-pricing'} className="w-full rounded-2xl bg-emerald-500 px-4 py-3 font-semibold text-slate-950 disabled:opacity-60">
                 {busyAction === 'save-pricing' ? 'Saving...' : 'Update Pricing'}
+              </button>
+              <p className="text-xs text-slate-500 dark:text-slate-400">
+                Saving here changes what <strong>new</strong> schools pay. Existing schools keep their agreed rate — use the rollout below to move them.
+              </p>
+            </form>
+          </section>
+
+          <section className="glass-surface rounded-3xl p-6 border border-white/10">
+            <h2 className="text-xl command-title neon-title mb-4">Roll Out A New Rate</h2>
+            <form onSubmit={handleRateRollout} className="space-y-3">
+              <div className="rounded-2xl bg-slate-900/20 dark:bg-slate-900/30 p-4 text-sm text-slate-600 dark:text-slate-300">
+                <p>Queues a new per-user fee for every school currently on a lower rate. Each school keeps what it pays now until it starts its next term — or at most five months (a term runs up to four months, plus at least one month of holiday), whichever comes first.</p>
+              </div>
+              <input
+                type="number" min="1" value={rolloutFeeNaira} onChange={event => setRolloutFeeNaira(event.target.value)}
+                placeholder="New per active user fee (NGN)"
+                className="w-full rounded-2xl border border-white/10 bg-slate-900/20 dark:bg-slate-900/30 px-4 py-3 text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-500"
+              />
+              <button type="submit" disabled={busyAction === 'rate-rollout'} className="w-full rounded-2xl bg-amber-500 px-4 py-3 font-semibold text-slate-950 disabled:opacity-60">
+                {busyAction === 'rate-rollout' ? 'Queueing...' : 'Queue rate for existing schools'}
               </button>
             </form>
           </section>

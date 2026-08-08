@@ -98,6 +98,20 @@ export function updateTenantPricing(payload) {
   });
 }
 
+export function setTenantRate(tenantId, payload) {
+  return requestJson(`/api/ami/tenants/${encodeURIComponent(tenantId)}/rate`, {
+    method: 'POST',
+    body: payload,
+  });
+}
+
+export function rolloutTenantRate(payload) {
+  return requestJson('/api/ami/tenants/rate-rollout', {
+    method: 'POST',
+    body: payload,
+  });
+}
+
 export function upsertDiscountCode(payload) {
   return requestJson('/api/ami/discount-codes', {
     method: 'POST',

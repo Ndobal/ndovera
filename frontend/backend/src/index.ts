@@ -6079,10 +6079,23 @@ app.get('/api/ami/tenants', authenticate, async (c) => {
     activeDiscountCodes: discountCodes.filter(discountCode => discountCode.active).length,
   }
 
+  // Surface any queued rate change so the console can show what a school moves to and when.
+  const tenantsWithRates = tenants.map((tenant: any) => {
+    const pending = getTenantPendingRate(tenant)
+    return {
+      ...tenant,
+      pendingRate: pending ? {
+        studentFeePerTerm: pending.studentFeeCents / KOBO_PER_NAIRA,
+        effectiveFrom: pending.effectiveFrom,
+        reason: pending.reason || 'pricing-change',
+      } : null,
+    }
+  })
+
   return c.json({
     success: true,
     summary,
-    tenants,
+    tenants: tenantsWithRates,
     payments,
     discountCodes,
     tenantAwards,
@@ -6484,6 +6497,101 @@ app.post('/api/ami/tenants/:tenantId/domain', authenticate, async (c) => {
       websiteUrl: buildTenantWebsiteUrl(updatedTenant, baseDomain),
     },
   })
+})
+
+// Set one school's own rate. A reduction is a favour to the school so it applies at once;
+// an increase waits for that school's next term like any other increase.
+app.post('/api/ami/tenants/:tenantId/rate', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = String(c.req.param('tenantId') || '').trim()
+  const tenant = await getTenantById(c.env.APP_DB, tenantId)
+  if (!tenant) return c.json({ error: 'School not found.' }, 404)
+
+  const payload = await c.req.json().catch(() => ({}))
+  const studentFeeCents = nairaToCents(payload.studentFeeNaira)
+  const setupFeeCents = nairaToCents(payload.setupFeeNaira)
+  if (!studentFeeCents && !setupFeeCents) {
+    return c.json({ error: 'Provide a per-user fee or an onboarding fee.' }, 400)
+  }
+
+  const actor = c.var.user.id || c.var.user.email || 'ami'
+  const nowIso = new Date().toISOString()
+  const currentStudentFeeCents = Number(tenant.studentFeeCents || 0)
+  const isIncrease = Boolean(studentFeeCents && currentStudentFeeCents > 0 && studentFeeCents > currentStudentFeeCents)
+
+  if (isIncrease) {
+    const termStart = await getTenantCurrentTermStart(c.env.APP_DB, tenantId)
+    const metadata = {
+      ...(tenant.metadata || {}),
+      pricing: {
+        ...((tenant.metadata || {}).pricing || {}),
+        pending: {
+          studentFeeCents,
+          ...(setupFeeCents ? { setupFeeCents } : {}),
+          setAt: nowIso,
+          setBy: actor,
+          reason: 'ami-adjustment',
+          effectiveFrom: computeTermBackstop(termStart || nowIso),
+        },
+      },
+    }
+    const updated = await updateTenant(c.env.APP_DB, tenantId, { metadata })
+    await addAudit(c.env.APP_DB, `tenant:${tenantId}`, {
+      action: 'tenantRateQueued', data: { by: actor, studentFeeCents, effectiveFrom: metadata.pricing.pending.effectiveFrom },
+    }).catch(() => {})
+    return c.json({ success: true, applied: false, tenant: updated, effectiveFrom: metadata.pricing.pending.effectiveFrom })
+  }
+
+  const updated = await updateTenant(c.env.APP_DB, tenantId, {
+    ...(studentFeeCents ? { studentFeeCents } : {}),
+    ...(setupFeeCents ? { setupFeeCents } : {}),
+  })
+  await addAudit(c.env.APP_DB, `tenant:${tenantId}`, {
+    action: 'tenantRateApplied', data: { by: actor, studentFeeCents, setupFeeCents, reason: 'ami-adjustment' },
+  }).catch(() => {})
+  return c.json({ success: true, applied: true, tenant: updated })
+})
+
+// Roll a new platform rate out to existing schools. Each school receives it as a pending
+// rate that lands on its own next term, so no school is repriced mid-term.
+app.post('/api/ami/tenants/rate-rollout', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  const payload = await c.req.json().catch(() => ({}))
+  const studentFeeCents = nairaToCents(payload.studentFeeNaira)
+  if (!studentFeeCents) return c.json({ error: 'Provide the new per-user fee.' }, 400)
+
+  const actor = c.var.user.id || c.var.user.email || 'ami'
+  const nowIso = new Date().toISOString()
+  const tenants = await listTenants(c.env.APP_DB)
+  const queued: any[] = []
+  const skipped: any[] = []
+
+  for (const tenant of tenants) {
+    const currentFee = Number(tenant.studentFeeCents || 0)
+    // Schools already at or above the new rate are left alone — this rolls out increases.
+    if (currentFee > 0 && currentFee >= studentFeeCents) {
+      skipped.push({ id: tenant.id, schoolName: tenant.schoolName, currentFee: currentFee / KOBO_PER_NAIRA })
+      continue
+    }
+
+    const termStart = await getTenantCurrentTermStart(c.env.APP_DB, tenant.id)
+    const effectiveFrom = computeTermBackstop(termStart || nowIso)
+    const metadata = {
+      ...(tenant.metadata || {}),
+      pricing: {
+        ...((tenant.metadata || {}).pricing || {}),
+        pending: { studentFeeCents, setAt: nowIso, setBy: actor, reason: 'global-increase', effectiveFrom },
+      },
+    }
+    await updateTenant(c.env.APP_DB, tenant.id, { metadata })
+    queued.push({ id: tenant.id, schoolName: tenant.schoolName, from: currentFee / KOBO_PER_NAIRA, effectiveFrom })
+  }
+
+  await addAudit(c.env.APP_DB, TENANT_PRICING_SETTINGS_KEY, {
+    action: 'tenantRateRollout', data: { by: actor, studentFeeCents, queued: queued.length, skipped: skipped.length },
+  }).catch(() => {})
+
+  return c.json({ success: true, newStudentFeePerTerm: studentFeeCents / KOBO_PER_NAIRA, queued, skipped })
 })
 
 app.post('/api/ami/tenants/:tenantId/awards', authenticate, async (c) => {
@@ -10468,9 +10576,131 @@ async function getTenantUserCounts(db: D1Database, tenantId: string) {
   }
 }
 
+// A school's rate is stamped onto its tenant row at registration and then belongs to that
+// school: later platform-wide changes arrive as a pending rate that waits for a new term.
+// The discount code is not re-applied here — its effect is already baked into the stamped
+// rate, so editing a code later cannot silently reprice a school that used it.
 async function buildTenantQuoteForTenant(db: D1Database, tenant: any, discountCode?: any, plans: Record<string, any> = TENANT_PLANS) {
   const counts = tenant?.id ? await getTenantUserCounts(db, tenant.id).catch(() => ({ billable: Number(tenant.studentCount || 0) })) : { billable: 0 }
-  return buildTenantQuote(tenant.planKey, Number((counts as any).billable || 0), discountCode, plans, counts as Record<string, number>)
+  const billable = Number((counts as any).billable || 0)
+
+  const effectiveTenant = tenant?.id ? await promoteTenantPendingRate(db, tenant) : tenant
+  const pinnedRate = buildPinnedRateOverride(effectiveTenant)
+
+  // No stamped rate (pre-pricing tenants) falls back to the live plan and its discount code.
+  const quote = pinnedRate
+    ? buildTenantQuote(effectiveTenant.planKey, billable, pinnedRate, plans, counts as Record<string, number>)
+    : buildTenantQuote(effectiveTenant.planKey, billable, discountCode, plans, counts as Record<string, number>)
+
+  const pending = getTenantPendingRate(effectiveTenant)
+  return {
+    ...quote,
+    ratePinnedToSchool: Boolean(pinnedRate),
+    pendingRate: pending ? {
+      studentFeePerTerm: pending.studentFeeCents / KOBO_PER_NAIRA,
+      effectiveFrom: pending.effectiveFrom,
+      reason: pending.reason || 'pricing-change',
+    } : null,
+  }
+}
+
+// The school's own stamped rate, shaped like a discount record so buildTenantQuote can
+// consume it through the override path it already supports.
+function buildPinnedRateOverride(tenant: any) {
+  const studentFeeCents = Number(tenant?.studentFeeCents || 0)
+  const setupFeeCents = Number(tenant?.setupFeeCents || 0)
+  if (studentFeeCents <= 0) return null
+
+  return {
+    code: tenant?.discountCode || 'SCHOOL_RATE',
+    name: 'Agreed school rate',
+    description: 'The rate agreed with this school.',
+    active: true,
+    setupFeeCents: setupFeeCents > 0 ? setupFeeCents : undefined,
+    studentFeeCents,
+    planScope: null,
+    startsAt: null,
+    endsAt: null,
+    maxRedemptions: null,
+    redemptionCount: 0,
+  }
+}
+
+// When the school's current term began, used to anchor the term backstop.
+async function getTenantCurrentTermStart(db: D1Database, tenantId: string) {
+  try {
+    await ensureSchoolSessionsTable(db)
+    const row = await db.prepare(
+      `SELECT createdAt FROM school_sessions WHERE tenantId = ? ORDER BY createdAt DESC LIMIT 1`
+    ).bind(tenantId).first() as Record<string, any> | null
+    return String(row?.createdAt || '')
+  } catch {
+    return ''
+  }
+}
+
+function getTenantPendingRate(tenant: any) {
+  const pending = tenant?.metadata?.pricing?.pending
+  if (!pending || !Number(pending.studentFeeCents)) return null
+  return pending
+}
+
+// A term runs at most four months and is followed by at least a month of holiday, so a new
+// term must have begun within five months. That bound is the backstop for a school that
+// stops recording its sessions — it cannot hold an old rate by neglecting its calendar.
+const TERM_MAX_MONTHS = 4
+const TERM_MIN_HOLIDAY_MONTHS = 1
+
+function addMonths(iso: string, months: number) {
+  const date = new Date(iso)
+  if (Number.isNaN(date.getTime())) return null
+  date.setMonth(date.getMonth() + months)
+  return date.toISOString()
+}
+
+function computeTermBackstop(fromIso: string) {
+  return addMonths(fromIso, TERM_MAX_MONTHS + TERM_MIN_HOLIDAY_MONTHS) || fromIso
+}
+
+// Promote a pending rate once the school has started a new term, or once the computed term
+// backstop has passed — whichever comes first.
+async function promoteTenantPendingRate(db: D1Database, tenant: any) {
+  const pending = getTenantPendingRate(tenant)
+  if (!pending) return tenant
+
+  const nowIso = new Date().toISOString()
+  let dueToNewTerm = false
+  try {
+    const row = await db.prepare(
+      `SELECT createdAt FROM school_sessions WHERE tenantId = ? ORDER BY createdAt DESC LIMIT 1`
+    ).bind(tenant.id).first() as Record<string, any> | null
+    const latestTermStart = String(row?.createdAt || '')
+    dueToNewTerm = Boolean(latestTermStart && pending.setAt && latestTermStart > pending.setAt)
+  } catch { /* no sessions table yet — the backstop still applies */ }
+
+  const dueToBackstop = Boolean(pending.effectiveFrom && nowIso >= pending.effectiveFrom)
+  if (!dueToNewTerm && !dueToBackstop) return tenant
+
+  const nextMetadata = { ...(tenant.metadata || {}) }
+  nextMetadata.pricing = {
+    ...(nextMetadata.pricing || {}),
+    pending: null,
+    lastAppliedAt: nowIso,
+    lastAppliedReason: dueToNewTerm ? 'new-term' : 'term-backstop',
+  }
+
+  const updated = await updateTenant(db, tenant.id, {
+    studentFeeCents: Number(pending.studentFeeCents),
+    ...(Number(pending.setupFeeCents) > 0 ? { setupFeeCents: Number(pending.setupFeeCents) } : {}),
+    metadata: nextMetadata,
+  })
+
+  await addAudit(db, `tenant:${tenant.id}`, {
+    action: 'tenantRateApplied',
+    data: { studentFeeCents: pending.studentFeeCents, reason: dueToNewTerm ? 'new-term' : 'term-backstop' },
+  }).catch(() => {})
+
+  return updated || tenant
 }
 
 async function ensureParentStudentLinksTable(db: D1Database) {
@@ -13933,6 +14163,48 @@ app.post('/api/ami/growth-partners/:partnerId/mark-paid', authenticate, async (c
   await c.env.APP_DB.prepare(`INSERT INTO gp_withdrawals (id, partner_id, amount, status, reference, created_at) VALUES (?, ?, ?, 'paid', ?, ?)`)
     .bind(`gpw_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`, partnerId, amount, reference, new Date().toISOString()).run()
   return c.json({ success: true, amount, reference, message: `${mapPartner(partner)?.name || 'Growth partner'} marked as paid.` })
+})
+
+// Issue a fresh sign-in password for a partner. Activation shows the temporary password once,
+// so this is how Ami recovers a partner who never received it or has been locked out.
+app.post('/api/ami/growth-partners/:partnerId/reset-password', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  await ensureGrowthPartnerTables(c.env.APP_DB)
+  const partnerId = String(c.req.param('partnerId') || '').trim()
+  const partner = await c.env.APP_DB.prepare(`SELECT * FROM growth_partners WHERE id = ?`).bind(partnerId).first() as any
+  if (!partner) return c.json({ error: 'Growth partner not found.' }, 404)
+
+  const email = String(partner.email || '').trim().toLowerCase()
+  if (!email) return c.json({ error: 'This partner has no email address on file.' }, 400)
+
+  const password = gpTempPassword()
+  const existingSettings = await getSettings(c.env.APP_DB, email).catch(() => null)
+  const userSettings = await withHashedPassword({
+    ...(existingSettings || {}),
+    email,
+    name: partner.name,
+    role: 'growthpartner',
+    primaryRole: 'growthpartner',
+    roles: ['growthpartner'],
+    status: 'active',
+    mustChangePassword: true,
+    initialPassword: undefined,
+  }, password)
+
+  // Re-assert the users row too, so a partner whose login was never provisioned gets one here.
+  await ensureUsersTable(c.env.APP_DB)
+  await c.env.APP_DB.prepare(
+    `INSERT INTO users (id, email, name, role, primary_role, employment_category, tenantId, status, createdAt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+     ON CONFLICT(email) DO UPDATE SET name=excluded.name, role=excluded.role, primary_role=excluded.primary_role, status='active'`,
+  ).bind(createUserId(), email, partner.name, 'growthpartner', 'growthpartner', 'growthpartner', '', 'active', new Date().toISOString()).run()
+  await upsertSettings(c.env.APP_DB, email, userSettings)
+
+  await addAudit(c.env.APP_DB, email, {
+    action: 'growthPartnerPasswordReset',
+    data: { by: c.var.user.id || c.var.user.email || 'ami', partnerId },
+  }).catch(() => {})
+
+  return c.json({ success: true, email, password })
 })
 
 app.post('/api/ami/growth-partners/:partnerId/representative', authenticate, async (c) => {
