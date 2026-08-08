@@ -12,7 +12,7 @@ import {
   uploadSchoolNewsMedia,
 } from '../services/schoolApi';
 
-const REVIEW_ROLES = new Set(['ict', 'ict_manager', 'hos', 'owner']);
+const REVIEW_ROLES = new Set(['ict', 'hos', 'owner']);
 const PUBLISH_ROLES = new Set(['hos', 'owner']);
 const AUDIENCE_OPTIONS = [
   { value: 'parents', label: 'Parents' },

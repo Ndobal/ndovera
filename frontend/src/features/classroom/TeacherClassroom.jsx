@@ -121,7 +121,7 @@ export default function TeacherClassroom({
   const storedAuth = getStoredAuth();
   const storedUser = storedAuth?.user || readStoredUser();
   const currentRoleKey = String(storedUser?.role || 'teacher').trim().toLowerCase() || 'teacher';
-  const isSupervisorRole = ['owner', 'hos', 'admin', 'ict', 'ict_manager', 'ami'].includes(currentRoleKey);
+  const isSupervisorRole = ['owner', 'hos', 'admin', 'ict', 'ami'].includes(currentRoleKey);
   const [classId, setClassId] = useState(() => readRememberedTeacherClassId());
   const [assignedClasses, setAssignedClasses] = useState([]);
   const [activeTab, setActiveTab] = useState(() => lockedTab || initialTab);
@@ -1254,7 +1254,7 @@ export default function TeacherClassroom({
           {activeTab === 'subjects' && (() => {
             const subjectsList = selectedClass?.subjects || [];
             const userRole = String(storedUser?.role || '').toLowerCase();
-            const canManage = selectedClass?.isClassTeacher || ['owner','hos','ict','ict_manager'].includes(userRole);
+            const canManage = selectedClass?.isClassTeacher || ['owner','hos','ict'].includes(userRole);
             const groupedMembers = {
               teachers: classMembers.filter(member => String(member.role || '').toLowerCase() === 'teacher'),
               caregivers: classMembers.filter(member => String(member.role || '').toLowerCase() === 'caregiver'),

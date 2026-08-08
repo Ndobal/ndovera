@@ -3,6 +3,7 @@ import { cors } from 'hono/cors'
 import { logger } from 'hono/logger'
 import { sign, verify } from '@tsndr/cloudflare-worker-jwt'
 import {
+  canonicalRole,
   canTeach,
   deriveCapabilities,
   deriveEmploymentCategory,
@@ -4052,7 +4053,6 @@ const OPEN_AI_CHAT_ROLES = new Set([
   'cafeteria',
   'clinic',
   'ict',
-  'ict_manager',
   'classteacher',
   'hod',
   'hodassistant',
@@ -4581,7 +4581,9 @@ function buildGenericHeader(_roleKey: string) {
 }
 
 function normalizeRole(value: unknown) {
-  return String(value || '').trim().toLowerCase()
+  // Canonicalises merged roles (ict_manager -> ict) so direct string comparisons agree
+  // with hasRequiredRole.
+  return canonicalRole(value)
 }
 
 const MERGED_ADMIN_ROLE_KEYS = new Set([

@@ -54,7 +54,7 @@ function prettifyRole(roleKey) {
   const normalized = String(roleKey || '').trim().toLowerCase();
   if (!normalized) return 'School Contact';
   if (normalized === 'hos') return 'Head Of School';
-  if (normalized === 'ict_manager') return 'ICT Manager';
+  if (normalized === 'ict') return 'ICT';
   if (normalized === 'classteacher') return 'Class Teacher';
   if (normalized === 'examofficer') return 'Exam Officer';
   if (normalized === 'sportsmaster') return 'Sports Master';

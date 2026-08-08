@@ -163,23 +163,37 @@ const ROLE_CAPABILITIES: Record<string, string[]> = {
   hod: ['teach_subjects', 'assign_classes', 'approve_results'],
   hodassistant: ['teach_subjects', 'assign_classes'],
   accountant: ['manage_payroll', 'manage_fees'],
-  ict: ['manage_users', 'assign_classes'],
-  ict_manager: ['manage_users', 'assign_classes', 'approve_results'],
+  // One ICT role: teaches like a teacher, and keeps everything both former ICT roles could do.
+  ict: ['teach_subjects', 'manage_users', 'assign_classes', 'approve_results'],
   examofficer: ['approve_results'],
   librarian: ['assign_classes'],
 }
 
-export function normalizeRoleValues(value: string | string[] | undefined | null) {
-  if (Array.isArray(value)) {
-    return value
-      .map(entry => String(entry || '').trim().toLowerCase())
-      .filter(Boolean)
-  }
+// ICT was split across two roles that did nearly the same job. They are now one role, and
+// the old key is folded into it wherever a role is read, so historical records and any
+// permission list still written against `ict_manager` keep working.
+const ROLE_ALIASES: Record<string, string> = {
+  ict_manager: 'ict',
+  ictmanager: 'ict',
+  'ict manager': 'ict',
+}
 
-  return String(value || '')
-    .split(',')
-    .map(entry => entry.trim().toLowerCase())
-    .filter(Boolean)
+export function canonicalRole(value: unknown) {
+  const normalized = String(value || '').trim().toLowerCase()
+  return ROLE_ALIASES[normalized] || normalized
+}
+
+export function normalizeRoleValues(value: string | string[] | undefined | null) {
+  const entries = Array.isArray(value)
+    ? value.map(entry => canonicalRole(entry))
+    : String(value || '').split(',').map(entry => canonicalRole(entry))
+
+  const seen = new Set<string>()
+  return entries.filter(entry => {
+    if (!entry || seen.has(entry)) return false
+    seen.add(entry)
+    return true
+  })
 }
 
 export function getUserRoles(...values: Array<string | string[] | undefined | null>) {
@@ -255,7 +269,7 @@ export function deriveEmploymentCategory(
   const roles = getUserRoles(userRole, extraRoles)
   if (roles.includes('contract')) return 'contract'
   if (canTeach(userRole, extraRoles)) return 'academic'
-  if (roles.some(role => ['owner', 'hos', 'admin', 'principal', 'viceprincipal', 'headteacher', 'nurseryhead', 'hod', 'hodassistant', 'accountant', 'ict', 'ict_manager', 'examofficer'].includes(role))) {
+  if (roles.some(role => ['owner', 'hos', 'admin', 'principal', 'viceprincipal', 'headteacher', 'nurseryhead', 'hod', 'hodassistant', 'accountant', 'ict', 'examofficer'].includes(role))) {
     return 'administrative'
   }
   return 'support'
@@ -265,7 +279,10 @@ export function hasRequiredRole(userRole: string | string[] | undefined, allowed
   const roles = getUserRoles(userRole)
   if (roles.length === 0) return false
   if (roles.includes('ami')) return true
-  if (roles.some(role => allowedRoles.includes(role))) return true
-  if (allowedRoles.includes('admin') && roles.some(role => MERGED_ADMIN_ROLE_KEYS.has(role))) return true
+  // The allowed list is canonicalised too, so a permission list still naming `ict_manager`
+  // continues to admit the merged ICT role.
+  const allowed = (allowedRoles || []).map(role => canonicalRole(role))
+  if (roles.some(role => allowed.includes(role))) return true
+  if (allowed.includes('admin') && roles.some(role => MERGED_ADMIN_ROLE_KEYS.has(role))) return true
   return false
 }

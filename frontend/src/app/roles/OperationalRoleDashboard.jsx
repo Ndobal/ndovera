@@ -37,10 +37,11 @@ function OperationalLiveWorkspace({ roleTitle, title, subtitle, showAnnouncement
 
 export default function OperationalRoleDashboard({ roleKey }) {
   const location = useLocation();
+  // ICT is a single role now; the old key still resolves so stale links keep working.
   const normalizedRoleKey = roleKey === 'ict_manager' ? 'ict' : roleKey;
   const isIctSurface = normalizedRoleKey === 'ict';
   const roleConfig = operationalRoleConfigs[normalizedRoleKey];
-  const roleTitle = roleKey === 'ict_manager' ? 'ICT Manager Dashboard' : roleConfig?.roleTitle;
+  const roleTitle = roleConfig?.roleTitle;
 
   if (!roleConfig) {
     return <Navigate to="/roles/student" replace />;

@@ -73,7 +73,7 @@ const staffAiEligibleRoles = new Set([
   'cafeteria',
   'clinic',
   'ict',
-  'ict_manager',
+  
   'classteacher',
   'hod',
   'hodassistant',
@@ -86,7 +86,7 @@ const staffAiEligibleRoles = new Set([
 
 // Staff roles that can submit work (documents, PDFs, audios, exam questions).
 const SUBMISSION_ROLES = new Set([
-  'teacher', 'hos', 'owner', 'admin', 'accountant', 'librarian', 'ict', 'ict_manager',
+  'teacher', 'hos', 'owner', 'admin', 'accountant', 'librarian', 'ict',
   'classteacher', 'hod', 'hodassistant', 'principal', 'headteacher', 'nurseryhead', 'examofficer', 'sportsmaster',
 ]);
 
@@ -358,7 +358,7 @@ function buildRoleSidebarItems(roleKey) {
     ];
   }
 
-  if (roleKey === 'ict' || roleKey === 'ict_manager') {
+  if (roleKey === 'ict') {
     return [
       { name: 'Overview', path: `/roles/${roleKey}` },
       { name: 'Results', path: `/roles/${roleKey}/results` },
@@ -541,7 +541,7 @@ export default function Sidebar({ auth = null, mobileOpen = false, onClose = noo
     'cafeteria',
     'clinic',
     'ict',
-    'ict_manager',
+    
     'classteacher',
     'hod',
     'hodassistant',

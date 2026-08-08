@@ -8,7 +8,7 @@ const CATEGORIES = [
 ];
 
 // Roles allowed to open exam-question submissions (besides the sender).
-const EXAM_PRIVILEGED = ['ict', 'ict_manager', 'ict manager', 'hos', 'owner', 'admin', 'super admin', 'superadmin'];
+const EXAM_PRIVILEGED = ['ict', 'hos', 'owner', 'admin', 'super admin', 'superadmin'];
 
 const STORE_KEY = 'ndovera:staff-submissions';
 

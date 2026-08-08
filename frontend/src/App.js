@@ -245,7 +245,8 @@ function AnimatedRoutes({ auth, onLogin }) {
         <Route path="/roles/cafeteria/*" element={<RoleGuard auth={auth} expectedRole="cafeteria"><RouteTransition><OperationalRoleDashboard roleKey="cafeteria" /></RouteTransition></RoleGuard>} />
         <Route path="/roles/clinic/*" element={<RoleGuard auth={auth} expectedRole="clinic"><RouteTransition><OperationalRoleDashboard roleKey="clinic" /></RouteTransition></RoleGuard>} />
         <Route path="/roles/ict/*" element={<RoleGuard auth={auth} expectedRole="ict"><RouteTransition><OperationalRoleDashboard roleKey="ict" /></RouteTransition></RoleGuard>} />
-        <Route path="/roles/ict_manager/*" element={<RoleGuard auth={auth} expectedRole="ict_manager"><RouteTransition><OperationalRoleDashboard roleKey="ict_manager" /></RouteTransition></RoleGuard>} />
+        {/* ICT merged into one role; keep the old path working for saved links. */}
+        <Route path="/roles/ict_manager/*" element={<Navigate to="/roles/ict" replace />} />
         <Route path="/roles/classteacher/*" element={<RoleGuard auth={auth} expectedRole="classteacher"><RouteTransition><OperationalRoleDashboard roleKey="classteacher" /></RouteTransition></RoleGuard>} />
         <Route path="/roles/hod/*" element={<RoleGuard auth={auth} expectedRole="hod"><RouteTransition><OperationalRoleDashboard roleKey="hod" /></RouteTransition></RoleGuard>} />
         <Route path="/roles/hodassistant/*" element={<RoleGuard auth={auth} expectedRole="hodassistant"><RouteTransition><OperationalRoleDashboard roleKey="hodassistant" /></RouteTransition></RoleGuard>} />

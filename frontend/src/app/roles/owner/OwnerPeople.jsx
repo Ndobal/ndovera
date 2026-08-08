@@ -11,7 +11,7 @@ import LinkStudentsPanel from '../../../features/school/components/LinkStudentsP
 
 const FILTER_TO_ROLE = { Teachers: 'teacher', Admin: 'admin', Students: 'student', Parents: 'parent' };
 
-const ROLES = ['admin', 'teacher', 'hos', 'accountant', 'student', 'parent', 'caregiver', 'librarian', 'classteacher', 'hod', 'hodassistant', 'principal', 'viceprincipal', 'headteacher', 'nurseryhead', 'storekeeper', 'tuckshopmanager', 'transport', 'hostel', 'cafeteria', 'clinic', 'ict', 'ict_manager', 'examofficer', 'sportsmaster', 'sanitation', 'growthpartner'];
+const ROLES = ['admin', 'teacher', 'hos', 'accountant', 'student', 'parent', 'caregiver', 'librarian', 'classteacher', 'hod', 'hodassistant', 'principal', 'viceprincipal', 'headteacher', 'nurseryhead', 'storekeeper', 'tuckshopmanager', 'transport', 'hostel', 'cafeteria', 'clinic', 'ict', 'examofficer', 'sportsmaster', 'sanitation', 'growthpartner'];
 const FILTERS = ['All', 'Teachers', 'Admin', 'Students', 'Parents'];
 
 // Colour-coded role badges — each role gets a distinct colour
@@ -1003,7 +1003,7 @@ export default function OwnerPeople() {
   const isAdmin = currentRoles.some(role => ['owner', 'hos'].includes(String(role || '').toLowerCase()));
   const isOwner = currentRoles.some(role => String(role || '').toLowerCase() === 'owner');
   // Linking is available to the roles the backend accepts for it.
-  const canLinkPeople = currentRoles.some(role => ['owner', 'hos', 'ict', 'ict_manager'].includes(String(role || '').toLowerCase()));
+  const canLinkPeople = currentRoles.some(role => ['owner', 'hos', 'ict'].includes(String(role || '').toLowerCase()));
   const [tab, setTab] = useState('directory');
 
   const load = useCallback((nextPage = 1, nextSearch = '', nextFilter = 'All') => {

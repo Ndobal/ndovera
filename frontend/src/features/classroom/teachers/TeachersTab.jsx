@@ -10,7 +10,7 @@ export default function TeachersTab({ classId = '' }) {
     getClassMembers(classId)
       .then(d => {
         const all = d?.members || [];
-        setTeachers(all.filter(m => ['teacher', 'classteacher', 'ict', 'ict_manager'].includes(String(m.role || '').toLowerCase())));
+        setTeachers(all.filter(m => ['teacher', 'classteacher', 'ict'].includes(String(m.role || '').toLowerCase())));
       })
       .catch(() => {})
       .finally(() => setLoading(false));
