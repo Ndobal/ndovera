@@ -6,6 +6,7 @@ import {
   uploadGrowthPartnerUtilityBill,
   withdrawGrowthPartnerEarnings,
   resetReferralOwnerPassword,
+  saveGrowthPartnerDiscount,
 } from '../../../features/public/services/publicSiteApi';
 import { changePassword, getStoredAuth, persistAuth } from '../../../features/auth/services/authApi';
 
@@ -34,6 +35,7 @@ export default function GrowthPartnerDashboard() {
   const utilityBillInputRef = useRef(null);
   const [resetInfo, setResetInfo] = useState(null);
   const [security, setSecurity] = useState({ currentPassword: '', newPassword: '', confirmPassword: '' });
+  const [offerForm, setOfferForm] = useState({ setupFeeNaira: '', studentFeeNaira: '' });
 
   const load = useCallback(async () => {
     try {
@@ -46,6 +48,10 @@ export default function GrowthPartnerDashboard() {
         accountName: result.partner?.accountName || '',
       });
       setVerification({ nin: result.partner?.nin || '' });
+      setOfferForm({
+        setupFeeNaira: result.offer?.setupFee ?? '',
+        studentFeeNaira: result.offer?.studentFeePerTerm ?? '',
+      });
       setError('');
     } catch (loadError) {
       setError(loadError.message || 'Could not load your partner dashboard.');
@@ -91,6 +97,24 @@ export default function GrowthPartnerDashboard() {
     try { const r = await resetReferralOwnerPassword(tenantId); setResetInfo({ tenantId, ...r }); setNotice(r.emailed ? 'Reset link emailed to the owner.' : 'Reset link generated — share it below.'); }
     catch (e) { setError(e.message || 'Could not reset that owner password.'); }
     finally { setBusy(''); }
+  }
+
+  async function saveOffer(event) {
+    event.preventDefault();
+    setBusy('offer'); setNotice(''); setError('');
+    try {
+      // Empty means "no override" — that fee falls back to the standard NDOVERA price.
+      await saveGrowthPartnerDiscount({
+        setupFeeNaira: offerForm.setupFeeNaira === '' ? null : Number(offerForm.setupFeeNaira),
+        studentFeeNaira: offerForm.studentFeeNaira === '' ? null : Number(offerForm.studentFeeNaira),
+      });
+      setNotice('Your registration code pricing has been updated.');
+      await load();
+    } catch (e) {
+      setError(e.message || 'Could not update your code pricing.');
+    } finally {
+      setBusy('');
+    }
   }
 
   async function savePassword(event) {
@@ -148,6 +172,46 @@ export default function GrowthPartnerDashboard() {
         <Stat label="Total earned" value={naira.format(data.totalEarned)} accent="text-emerald-300" />
         <Stat label="Withdrawn" value={naira.format(data.totalWithdrawn)} />
         <Stat label="Available" value={naira.format(data.available)} accent="text-emerald-300" />
+      </section>
+
+      <section className={card}>
+        <h2 className="text-xl font-bold">Your code pricing</h2>
+        <p className="mt-2 text-sm text-white/60">
+          Set the prices schools pay when they register through your link or code <span className="font-bold text-emerald-300">{p.discountCode || '—'}</span>.
+          Leave a field empty to charge the standard NDOVERA price. Your signup commission is a share of the onboarding fee actually paid, so a lower onboarding fee also lowers what you earn per school.
+        </p>
+        <form onSubmit={saveOffer} className="mt-4 grid gap-3 sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto] sm:items-end">
+          <div>
+            <label className={lbl}>Onboarding fee (₦)</label>
+            <input
+              type="number" min={data.offer?.minSetupFee || 0} max={data.offer?.standardSetupFee || undefined}
+              className={input} value={offerForm.setupFeeNaira}
+              onChange={e => setOfferForm(c => ({ ...c, setupFeeNaira: e.target.value }))}
+              placeholder={`Standard ${naira.format(data.offer?.standardSetupFee || 0)}`}
+            />
+            <p className="mt-1 text-xs text-white/45">Lowest allowed: {naira.format(data.offer?.minSetupFee || 0)}</p>
+          </div>
+          <div>
+            <label className={lbl}>Per active user / term (₦)</label>
+            <input
+              type="number" min={data.offer?.minStudentFeePerTerm || 0} max={data.offer?.standardStudentFeePerTerm || undefined}
+              className={input} value={offerForm.studentFeeNaira}
+              onChange={e => setOfferForm(c => ({ ...c, studentFeeNaira: e.target.value }))}
+              placeholder={`Standard ${naira.format(data.offer?.standardStudentFeePerTerm || 0)}`}
+            />
+            <p className="mt-1 text-xs text-white/45">Lowest allowed: {naira.format(data.offer?.minStudentFeePerTerm || 0)}</p>
+          </div>
+          <button type="submit" disabled={busy === 'offer'} className="rounded-xl border border-emerald-400/50 px-5 py-2.5 text-sm font-bold text-emerald-200 disabled:opacity-40">
+            {busy === 'offer' ? 'Saving…' : 'Save pricing'}
+          </button>
+        </form>
+        {data.pricingLink ? (
+          <div className="mt-4 flex flex-wrap items-center gap-2 text-xs">
+            <span className="text-white/55">Share your priced pricing page:</span>
+            <span className="break-all rounded-lg border border-white/15 bg-white/5 px-2 py-1 text-white/80">{data.pricingLink}</span>
+            <button type="button" onClick={() => copy(data.pricingLink)} className="rounded-lg border border-white/20 px-3 py-1 font-semibold">Copy</button>
+          </div>
+        ) : null}
       </section>
 
       <section className={card}>

@@ -1139,47 +1139,227 @@ function TutorPageBody({ section }) {
   );
 }
 
-function PricingPageBody({ section, pricing, pricingError, isPricingLoading }) {
+const PRICING_FAQS = [
+  {
+    question: 'What exactly do I pay today?',
+    answer: 'Only the onboarding fee for the plan you choose. It reserves your school domain, creates your owner account, and starts the launch approval with Ami. Nothing else is charged at registration.',
+  },
+  {
+    question: 'When does per-user billing start?',
+    answer: 'From your next term after launch. The first term you pay is the onboarding fee alone, which gives your school time to get set up before usage billing begins.',
+  },
+  {
+    question: 'Who counts as an active user?',
+    answer: 'A user with an active account in your school during the term being billed. Accounts you have not activated, or that you deactivate, are not counted, so you are never billed for names sitting unused in a list.',
+  },
+  {
+    question: 'What if my school grows mid-term?',
+    answer: 'Each term is billed on its own active-user count, so growth is reflected in the following term rather than through a mid-term change to what you already agreed.',
+  },
+  {
+    question: 'Where do discount codes come from?',
+    answer: 'Ami issues codes directly, and every growth partner has their own registration code and link. A valid code changes the onboarding fee, the per-user fee, or both, and the discounted figures are what you see on this page and at registration.',
+  },
+  {
+    question: 'How is the Custom plan priced?',
+    answer: 'Ami sets the onboarding fee for a Custom rollout after reviewing what your school needs. Per-user billing still follows the same active-user model.',
+  },
+];
+
+function PriceBlock({ label, amount, standardAmount, note, manualPricing }) {
+  const isDiscounted = typeof standardAmount === 'number' && standardAmount > amount;
+
+  return (
+    <div className="rounded-[1.5rem] border border-[#c9a96e]/35 bg-white/70 p-4">
+      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#800020]">{label}</p>
+      {manualPricing ? (
+        <p className="mt-3 text-2xl font-black leading-tight text-[#191970]">Custom</p>
+      ) : (
+        <div className="mt-3 flex flex-wrap items-baseline gap-2">
+          <p className="text-2xl font-black leading-tight text-[#191970]">{currencyFormatter.format(amount || 0)}</p>
+          {isDiscounted ? (
+            <p className="text-sm font-semibold text-[#800020] line-through decoration-[#800020]/50">{currencyFormatter.format(standardAmount)}</p>
+          ) : null}
+        </div>
+      )}
+      {note ? <p className="mt-2 text-xs font-semibold text-[#31416f]/75">{note}</p> : null}
+    </div>
+  );
+}
+
+// Estimator only. It multiplies the per-user fee the pricing service returned (already
+// discount-adjusted) by a user count the visitor picks — no rate is written in this file.
+function PricingCalculator({ plans, quoteFor, pricingConfig, activeUsers, onChangeActiveUsers }) {
+  const billingPeriod = pricingConfig?.billingPeriod || 'term';
+  const growthPlan = plans.find(plan => !plan.manualPricing) || plans[0];
+  if (!growthPlan) return null;
+
+  const step = 25;
+  const adjust = delta => onChangeActiveUsers(Math.max(0, Math.min(20000, activeUsers + delta)));
+
+  return (
+    <Reveal as="section" className="rounded-[2rem] border border-[#c9a96e]/45 bg-[#191970] p-6 text-[#f8f3eb] shadow-[0_24px_60px_rgba(25,25,112,0.18)]" delay={1}>
+      <SectionHeading
+        eyebrow="Estimate Your Term"
+        title="See what a term costs at your school's size."
+        description="Move the active-user count to the number of students and staff you expect to have live in the system."
+        tone="inverse"
+      />
+
+      <div className="mt-6 grid gap-5 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
+        <div className="rounded-[1.5rem] border border-white/10 bg-white/5 p-5">
+          <label htmlFor="pricing-active-users" className="text-xs font-semibold uppercase tracking-[0.22em] text-[#b5e3f4]">
+            Active users in your school
+          </label>
+          <div className="mt-4 flex items-center gap-3">
+            <button
+              type="button"
+              onClick={() => adjust(-step)}
+              aria-label={`Reduce active users by ${step}`}
+              className="h-11 w-11 flex-none rounded-full border border-white/25 text-xl font-black text-white transition hover:border-[#c9a96e] hover:text-[#c9a96e]"
+            >
+              −
+            </button>
+            <input
+              id="pricing-active-users"
+              type="number"
+              min="0"
+              max="20000"
+              value={activeUsers}
+              onChange={event => onChangeActiveUsers(Math.max(0, Math.min(20000, Number(event.target.value) || 0)))}
+              className="w-full rounded-2xl border border-white/20 bg-[#101047] px-4 py-3 text-center text-2xl font-black text-white outline-none transition focus:border-[#c9a96e]"
+            />
+            <button
+              type="button"
+              onClick={() => adjust(step)}
+              aria-label={`Increase active users by ${step}`}
+              className="h-11 w-11 flex-none rounded-full border border-white/25 text-xl font-black text-white transition hover:border-[#c9a96e] hover:text-[#c9a96e]"
+            >
+              +
+            </button>
+          </div>
+          <input
+            type="range"
+            min="0"
+            max="3000"
+            step={step}
+            value={Math.min(activeUsers, 3000)}
+            onChange={event => onChangeActiveUsers(Number(event.target.value))}
+            aria-label="Active users slider"
+            className="mt-5 w-full accent-[#c9a96e]"
+          />
+          <div className="mt-2 flex justify-between text-[11px] font-semibold uppercase tracking-[0.18em] text-[#b5e3f4]/70">
+            <span>0</span>
+            <span>3,000+</span>
+          </div>
+        </div>
+
+        <div className="grid gap-3 sm:grid-cols-2">
+          {plans.map(plan => {
+            const quote = quoteFor(plan);
+            const perUser = quote.userFeePerTerm;
+            const termTotal = perUser * activeUsers;
+
+            return (
+              <div key={plan.key} className="flex flex-col rounded-[1.5rem] border border-white/10 bg-white/5 p-5">
+                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#b5e3f4]">{plan.label}</p>
+                <dl className="mt-4 space-y-3 text-sm">
+                  <div className="flex items-baseline justify-between gap-3">
+                    <dt className="text-[#d9e3ff]">Onboarding</dt>
+                    <dd className="font-bold text-white">
+                      {plan.manualPricing ? 'Ami priced' : currencyFormatter.format(quote.setupFee)}
+                    </dd>
+                  </div>
+                  <div className="flex items-baseline justify-between gap-3">
+                    <dt className="text-[#d9e3ff]">{activeUsers.toLocaleString()} × {currencyFormatter.format(perUser)}</dt>
+                    <dd className="font-bold text-white">{currencyFormatter.format(termTotal)}</dd>
+                  </div>
+                </dl>
+                <div className="mt-4 border-t border-white/10 pt-4">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#b5e3f4]">Estimated {billingPeriod} bill</p>
+                  <p className="mt-2 text-2xl font-black text-[#c9a96e]">{currencyFormatter.format(termTotal)}</p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      <p className="mt-5 text-xs leading-6 text-[#b5e3f4]/80">
+        Estimate based on the current active-user rate. Actual billing is calculated from the active users recorded for the applicable {billingPeriod}, and the onboarding fee is charged once at registration.
+      </p>
+    </Reveal>
+  );
+}
+
+function PricingPageBody({ section, pricing, pricingError, isPricingLoading, discountInput, onDiscountInputChange, onApplyDiscount }) {
   const plans = Array.isArray(pricing?.plans) ? pricing.plans : [];
+  const quotes = pricing?.quotes || {};
+  const pricingConfig = pricing?.pricingConfig || null;
+  const discount = pricing?.discount || null;
+  const [activeUsers, setActiveUsers] = useState(pricingConfig?.calculatorDefaultUsers || 250);
+  const [hasAdjustedUsers, setHasAdjustedUsers] = useState(false);
+  const billingPeriod = pricingConfig?.billingPeriod || 'term';
+  const configuredDefaultUsers = pricingConfig?.calculatorDefaultUsers;
+
+  // Adopt Ami's configured starting point once pricing loads, but never overwrite a
+  // count the visitor has already set for themselves.
+  useEffect(() => {
+    if (!hasAdjustedUsers && Number(configuredDefaultUsers) > 0) {
+      setActiveUsers(Number(configuredDefaultUsers));
+    }
+  }, [configuredDefaultUsers, hasAdjustedUsers]);
+
+  const handleChangeActiveUsers = nextValue => {
+    setHasAdjustedUsers(true);
+    setActiveUsers(nextValue);
+  };
+
+  // Effective (discount-adjusted) figures come from the server quote; the plan record carries
+  // the standard price so a discounted card can show what was struck off.
+  const quoteFor = plan => {
+    const quote = quotes[plan.key] || {};
+    return {
+      setupFee: typeof quote.setupFee === 'number' ? quote.setupFee : (plan.setupFee || 0),
+      userFeePerTerm: typeof quote.userFeePerTerm === 'number'
+        ? quote.userFeePerTerm
+        : (typeof quote.studentFeePerTerm === 'number' ? quote.studentFeePerTerm : (plan.studentFeePerTerm || 0)),
+      discountApplied: Boolean(quote.discountApplied),
+    };
+  };
+
+  // A growth partner's code is always "applied" for attribution even when they have not
+  // priced it below standard, so only claim a discount when a figure actually drops.
+  const hasPriceReduction = plans.some(plan => {
+    const quote = quoteFor(plan);
+    return quote.setupFee < (plan.setupFee || 0) || quote.userFeePerTerm < (plan.studentFeePerTerm || 0);
+  });
 
   return (
     <div className="space-y-8">
-      <section className="grid gap-4 lg:grid-cols-3">
-        {section.metadata.cards.map((item, index) => (
-          <PublicCard key={item.title} title={item.title} description={item.description} icon={item.icon} revealDelay={(index % 4) + 1} />
-        ))}
-      </section>
-
-      <section className="grid gap-6 lg:grid-cols-[0.95fr_1.05fr]">
-        <Reveal className="rounded-[2rem] border border-[#c9a96e]/45 bg-[#fff8ef] p-6 shadow-[0_18px_40px_rgba(25,25,112,0.08)]" delay={1}>
-          <SectionHeading
-            eyebrow={section.metadata.spotlightEyebrow}
-            title={section.metadata.spotlightTitle}
-            description={section.metadata.spotlightDescription}
-          />
-        </Reveal>
-
-        <Reveal className="rounded-[2rem] border border-[#c9a96e]/45 bg-[#191970] p-6 text-[#f8f3eb] shadow-[0_24px_60px_rgba(25,25,112,0.18)]" delay={2}>
-          <SectionHeading
-            eyebrow={section.metadata.mediaEyebrow || 'How Billing Works'}
-            title={section.metadata.mediaTitle || 'Pricing stays clear before and after onboarding.'}
-            description={section.metadata.mediaDescription || 'Pay the onboarding fee first. From the next term, NDOVERA bills by active users so growth stays easier to understand.'}
-            tone="inverse"
-          />
-          <div className="mt-6 grid gap-3 sm:grid-cols-2">
-            <div className="rounded-[1.5rem] border border-white/10 bg-white/5 p-4">
-              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#b5e3f4]">Due Now</p>
-              <p className="mt-3 text-xl font-black text-white">Onboarding fee only</p>
-              <p className="mt-2 text-sm leading-6 text-[#d9e3ff]">Reserve the domain, create the owner account, and begin launch approval.</p>
-            </div>
-            <div className="rounded-[1.5rem] border border-white/10 bg-white/5 p-4">
-              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#b5e3f4]">Subsequent Term</p>
-              <p className="mt-3 text-xl font-black text-white">Live-user billing</p>
-              <p className="mt-2 text-sm leading-6 text-[#d9e3ff]">The system uses active users so schools pay from real usage, not inflated estimates.</p>
-            </div>
+      <Reveal as="section" className="overflow-hidden rounded-[2rem] border border-[#c9a96e]/45 bg-[#fff8ef] p-6 shadow-[0_18px_40px_rgba(25,25,112,0.08)] sm:p-8">
+        <div className="max-w-3xl space-y-4">
+          <p className="text-xs font-semibold uppercase tracking-[0.34em] text-[#800020]">{section.metadata.eyebrow || 'Pricing'}</p>
+          <h1 className="text-3xl font-black leading-tight tracking-tight text-[#191970] sm:text-5xl">
+            Transparent pricing.
+            <span className="block text-[#800020]">Built for your school&apos;s growth.</span>
+          </h1>
+          <p className="text-sm leading-7 text-[#31416f] sm:text-base">
+            Start with a simple onboarding fee. From the next {billingPeriod}, pay based on your school&apos;s actual active users.
+          </p>
+          <div className="flex flex-wrap gap-3 pt-1">
+            <ActionLink to="/register-school" className="rounded-full bg-[#800020] px-6 py-3 text-sm font-semibold text-[#b5e3f4] transition hover:bg-[#670019]">
+              Register Your School
+            </ActionLink>
+            <ActionLink to="/contact" className="rounded-full border border-[#c9a96e]/60 bg-white/70 px-6 py-3 text-sm font-semibold text-[#191970] transition hover:border-[#1a5c38] hover:text-[#1a5c38]">
+              Talk To Us
+            </ActionLink>
           </div>
-        </Reveal>
-      </section>
+          <p className="pt-1 text-xs font-semibold uppercase tracking-[0.16em] text-[#31416f]/70">
+            No hidden charges • Clear onboarding • Usage-based subsequent billing
+          </p>
+        </div>
+      </Reveal>
 
       {pricingError ? (
         <Reveal as="section" className="rounded-[1.6rem] border border-rose-200 bg-rose-50 px-5 py-4 text-sm leading-7 text-rose-700">
@@ -1187,57 +1367,98 @@ function PricingPageBody({ section, pricing, pricingError, isPricingLoading }) {
         </Reveal>
       ) : null}
 
+      {discount?.applied ? (
+        <Reveal as="section" className="rounded-[1.6rem] border border-[#1a5c38]/35 bg-[#f1f8f1] px-5 py-4" delay={1}>
+          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#1a5c38]">
+            {hasPriceReduction ? 'Discount Applied' : 'Code Active'}
+          </p>
+          <p className="mt-2 text-sm leading-7 text-[#1f3a2c]">
+            Code <span className="font-black">{discount.resolvedCode}</span> is active
+            {discount.partnerName ? <> through growth partner <span className="font-bold">{discount.partnerName}</span></> : null}
+            {hasPriceReduction
+              ? '. The prices below are the discounted prices your school will pay at registration.'
+              : '. Your registration will be credited to this code. The prices below are the prices your school will pay.'}
+          </p>
+        </Reveal>
+      ) : null}
+
+      {discount?.invalid ? (
+        <Reveal as="section" className="rounded-[1.6rem] border border-amber-300 bg-amber-50 px-5 py-4 text-sm leading-7 text-amber-800" delay={1}>
+          The code <span className="font-black">{discount.resolvedCode}</span> is not valid, has expired, or has reached its limit. Standard pricing is shown below.
+        </Reveal>
+      ) : null}
+
       <section className="grid gap-4 xl:grid-cols-2">
-        {plans.map((plan, index) => (
-          <Reveal
-            key={plan.key}
-            as="article"
-            className={`rounded-[2rem] border p-6 shadow-[0_18px_40px_rgba(25,25,112,0.08)] ${plan.manualPricing ? 'border-[#1a5c38]/35 bg-[#f1f8f1]' : 'border-[#c9a96e]/45 bg-[#fff8ef]'}`}
-            delay={(index % 4) + 1}
-          >
-            <div className="flex items-start justify-between gap-4">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#800020]">{plan.label}</p>
-                <h3 className="mt-3 text-2xl font-black tracking-tight text-[#191970]">{plan.manualPricing ? 'Custom rollout plan' : 'Standard school launch plan'}</h3>
-                <p className="mt-3 text-sm leading-7 text-[#31416f]">{plan.description}</p>
-              </div>
-              {plan.manualPricing ? (
-                <span className="rounded-full border border-[#1a5c38]/25 bg-[#1a5c38] px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-[#b5e3f4]">
-                  Ami Priced
-                </span>
-              ) : null}
-            </div>
+        {plans.map((plan, index) => {
+          const quote = quoteFor(plan);
+          const isRecommended = Boolean(plan.recommended);
 
-            <div className="mt-6 grid gap-3 sm:grid-cols-2">
-              <div className="rounded-[1.5rem] border border-[#c9a96e]/35 bg-white/70 p-4">
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#800020]">Onboarding Fee Due Now</p>
-                <p className="mt-3 text-2xl font-black text-[#191970]">{currencyFormatter.format(plan.setupFee || 0)}</p>
-              </div>
-              <div className="rounded-[1.5rem] border border-[#c9a96e]/35 bg-white/70 p-4">
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#800020]">User Fee / Subsequent Term</p>
-                <p className="mt-3 text-2xl font-black text-[#191970]">{currencyFormatter.format(plan.studentFeePerTerm || 0)}</p>
-              </div>
-            </div>
-
-            <div className="mt-6 space-y-3">
-              {(Array.isArray(plan.features) ? plan.features : []).map(feature => (
-                <div key={feature} className="flex items-start gap-3 rounded-[1.25rem] border border-[#c9a96e]/25 bg-white/60 px-4 py-3 text-sm leading-6 text-[#31416f]">
-                  <span className="mt-2 h-2.5 w-2.5 flex-none rounded-full bg-[#1a5c38]" />
-                  <span>{feature}</span>
+          return (
+            <Reveal
+              key={plan.key}
+              as="article"
+              className={`relative flex flex-col rounded-[2rem] border p-6 shadow-[0_18px_40px_rgba(25,25,112,0.08)] transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_28px_54px_rgba(25,25,112,0.16)] ${
+                isRecommended ? 'border-[#c9a96e] bg-[#fff8ef] ring-1 ring-[#c9a96e]/40' : 'border-[#1a5c38]/35 bg-[#f1f8f1]'
+              }`}
+              delay={(index % 4) + 1}
+            >
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#800020]">{plan.label}</p>
+                  <h3 className="mt-3 text-2xl font-black tracking-tight text-[#191970]">{plan.tagline || plan.label}</h3>
+                  <p className="mt-3 text-sm leading-7 text-[#31416f]">{plan.description}</p>
                 </div>
-              ))}
-            </div>
+                {plan.badge ? (
+                  <span className="flex-none rounded-full border border-[#1a5c38]/25 bg-[#1a5c38] px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-[#b5e3f4]">
+                    {plan.badge}
+                  </span>
+                ) : isRecommended ? (
+                  <span className="flex-none rounded-full bg-[#c9a96e] px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-[#191970]">
+                    Most Schools
+                  </span>
+                ) : null}
+              </div>
 
-            <div className="mt-6 flex flex-wrap gap-3">
-              <ActionLink to="/register-school" className="rounded-full bg-[#800020] px-5 py-3 text-sm font-semibold text-[#b5e3f4] transition hover:bg-[#670019]">
-                Start Registration
-              </ActionLink>
-              <ActionLink to={plan.manualPricing ? '/growth-partners' : '/login'} className="rounded-full border border-[#c9a96e]/45 bg-white/70 px-5 py-3 text-sm font-semibold text-[#191970] transition hover:border-[#1a5c38] hover:text-[#1a5c38]">
-                {plan.manualPricing ? 'Talk To Ami' : 'Open Portal'}
-              </ActionLink>
-            </div>
-          </Reveal>
-        ))}
+              <div className="mt-6 grid gap-3 sm:grid-cols-2">
+                <PriceBlock
+                  label={pricingConfig?.onboardingLabel || 'One-time onboarding'}
+                  amount={quote.setupFee}
+                  standardAmount={quote.discountApplied ? plan.setupFee : null}
+                  note="Due at registration"
+                  manualPricing={plan.manualPricing}
+                />
+                <PriceBlock
+                  label={pricingConfig?.userFeeLabel || `Per active user / ${billingPeriod}`}
+                  amount={quote.userFeePerTerm}
+                  standardAmount={quote.discountApplied ? plan.studentFeePerTerm : null}
+                  note={`Starts the ${billingPeriod} after launch`}
+                />
+              </div>
+
+              <div className="mt-6 space-y-2">
+                {(Array.isArray(plan.features) ? plan.features : []).map(feature => (
+                  <div key={feature} className="flex items-start gap-3 rounded-[1.25rem] border border-[#c9a96e]/25 bg-white/60 px-4 py-3 text-sm leading-6 text-[#31416f]">
+                    <span className="mt-1 flex-none font-black text-[#1a5c38]">✓</span>
+                    <span>{feature}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-6 flex flex-wrap gap-3 pt-2">
+                <ActionLink
+                  to={plan.ctaUrl || '/register-school'}
+                  className={`rounded-full px-6 py-3 text-sm font-semibold transition ${
+                    isRecommended
+                      ? 'bg-[#800020] text-[#b5e3f4] hover:bg-[#670019]'
+                      : 'border border-[#1a5c38]/40 bg-white/70 text-[#191970] hover:border-[#1a5c38] hover:text-[#1a5c38]'
+                  }`}
+                >
+                  {plan.ctaText || 'Start Registration'}
+                </ActionLink>
+              </div>
+            </Reveal>
+          );
+        })}
 
         {isPricingLoading && !plans.length ? (
           [1, 2].map(index => (
@@ -1258,6 +1479,159 @@ function PricingPageBody({ section, pricing, pricingError, isPricingLoading }) {
           Live pricing will appear here as soon as the pricing service responds.
         </Reveal>
       ) : null}
+
+      <Reveal as="section" className="rounded-[1.8rem] border border-[#c9a96e]/45 bg-[#fff8ef] p-6 shadow-[0_18px_40px_rgba(25,25,112,0.08)]" delay={2}>
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+          <div className="max-w-xl">
+            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#800020]">Discount Or Partner Code</p>
+            <h3 className="mt-2 text-xl font-black tracking-tight text-[#191970]">Have a code from Ami or a growth partner?</h3>
+            <p className="mt-2 text-sm leading-7 text-[#31416f]">
+              Enter it to see your school&apos;s actual prices. Opening a growth partner&apos;s link applies their code automatically.
+            </p>
+          </div>
+          <form
+            onSubmit={event => { event.preventDefault(); onApplyDiscount(); }}
+            className="flex w-full flex-wrap gap-3 lg:w-auto"
+          >
+            <input
+              value={discountInput}
+              onChange={event => onDiscountInputChange(event.target.value.toUpperCase())}
+              placeholder="Enter code"
+              aria-label="Discount or partner code"
+              className="min-w-[12rem] flex-1 rounded-2xl border border-[#c9a96e]/50 bg-white px-4 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-[#191970] outline-none transition focus:border-[#1a5c38]"
+            />
+            <button type="submit" className="rounded-2xl bg-[#191970] px-6 py-3 text-sm font-semibold text-[#f8f3eb] transition hover:bg-[#101047]">
+              Apply Code
+            </button>
+          </form>
+        </div>
+      </Reveal>
+
+      {plans.length ? (
+        <PricingCalculator
+          plans={plans}
+          quoteFor={quoteFor}
+          pricingConfig={pricingConfig}
+          activeUsers={activeUsers}
+          onChangeActiveUsers={handleChangeActiveUsers}
+        />
+      ) : null}
+
+      <section className="grid gap-4 lg:grid-cols-3">
+        {section.metadata.cards.map((item, index) => (
+          <PublicCard key={item.title} title={item.title} description={item.description} icon={item.icon} revealDelay={(index % 4) + 1} />
+        ))}
+      </section>
+
+      <Reveal as="section" className="rounded-[2rem] border border-[#c9a96e]/45 bg-[#191970] p-6 text-[#f8f3eb] shadow-[0_24px_60px_rgba(25,25,112,0.18)]" delay={1}>
+        <SectionHeading
+          eyebrow={section.metadata.mediaEyebrow || 'How Billing Works'}
+          title={section.metadata.mediaTitle || 'Pricing stays clear before and after onboarding.'}
+          description={section.metadata.mediaDescription || `Pay the onboarding fee first. From the next ${billingPeriod}, NDOVERA bills by active users so growth stays easier to understand.`}
+          tone="inverse"
+        />
+        <ol className="mt-6 grid gap-3 sm:grid-cols-3">
+          {[
+            { step: '01', title: 'Onboarding', body: 'Pay the onboarding fee at registration. Your domain is reserved and the owner account is created.' },
+            { step: '02', title: 'Launch', body: 'Ami reviews and approves the rollout, your school website goes live, and your team is set up.' },
+            { step: '03', title: `Active-user billing`, body: `From the next ${billingPeriod}, your bill is the active users recorded for that ${billingPeriod} × the per-user fee.` },
+          ].map(item => (
+            <li key={item.step} className="rounded-[1.5rem] border border-white/10 bg-white/5 p-5">
+              <p className="text-xs font-black tracking-[0.3em] text-[#c9a96e]">{item.step}</p>
+              <p className="mt-3 text-lg font-black text-white">{item.title}</p>
+              <p className="mt-2 text-sm leading-6 text-[#d9e3ff]">{item.body}</p>
+            </li>
+          ))}
+        </ol>
+      </Reveal>
+
+      {plans.length > 1 ? (
+        <Reveal as="section" className="rounded-[2rem] border border-[#c9a96e]/45 bg-[#fff8ef] p-6 shadow-[0_18px_40px_rgba(25,25,112,0.08)]" delay={2}>
+          <SectionHeading
+            eyebrow="Plan Comparison"
+            title="Growth or Custom, side by side."
+            description="Both plans bill the same way after launch. The difference is how your onboarding is priced and planned."
+          />
+          <div className="mt-6 overflow-x-auto">
+            <table className="w-full min-w-[34rem] border-collapse text-left text-sm">
+              <thead>
+                <tr className="border-b border-[#c9a96e]/40">
+                  <th scope="col" className="py-3 pr-4 text-xs font-semibold uppercase tracking-[0.18em] text-[#800020]">Detail</th>
+                  {plans.map(plan => (
+                    <th key={plan.key} scope="col" className="py-3 pr-4 text-base font-black text-[#191970]">{plan.label}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody className="text-[#31416f]">
+                <tr className="border-b border-[#c9a96e]/20">
+                  <th scope="row" className="py-3 pr-4 font-semibold">Onboarding fee</th>
+                  {plans.map(plan => (
+                    <td key={plan.key} className="py-3 pr-4 font-bold text-[#191970]">
+                      {plan.manualPricing ? 'Set by Ami' : currencyFormatter.format(quoteFor(plan).setupFee)}
+                    </td>
+                  ))}
+                </tr>
+                <tr className="border-b border-[#c9a96e]/20">
+                  <th scope="row" className="py-3 pr-4 font-semibold">Per active user / {billingPeriod}</th>
+                  {plans.map(plan => (
+                    <td key={plan.key} className="py-3 pr-4 font-bold text-[#191970]">{currencyFormatter.format(quoteFor(plan).userFeePerTerm)}</td>
+                  ))}
+                </tr>
+                <tr className="border-b border-[#c9a96e]/20">
+                  <th scope="row" className="py-3 pr-4 font-semibold">Ami review required</th>
+                  {plans.map(plan => (
+                    <td key={plan.key} className="py-3 pr-4">{plan.requiresManualReview ? 'Yes' : 'Standard approval'}</td>
+                  ))}
+                </tr>
+                <tr>
+                  <th scope="row" className="py-3 pr-4 align-top font-semibold">What is included</th>
+                  {plans.map(plan => (
+                    <td key={plan.key} className="py-3 pr-4 align-top">
+                      <ul className="space-y-1">
+                        {(Array.isArray(plan.features) ? plan.features : []).map(feature => (
+                          <li key={feature} className="flex gap-2"><span className="font-black text-[#1a5c38]">✓</span><span>{feature}</span></li>
+                        ))}
+                      </ul>
+                    </td>
+                  ))}
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </Reveal>
+      ) : null}
+
+      <Reveal as="section" className="rounded-[2rem] border border-[#c9a96e]/45 bg-[#fff8ef] p-6 shadow-[0_18px_40px_rgba(25,25,112,0.08)]" delay={1}>
+        <SectionHeading eyebrow="FAQ" title="Questions school owners ask before registering." />
+        <div className="mt-6 grid gap-3 lg:grid-cols-2">
+          {PRICING_FAQS.map(faq => (
+            <details key={faq.question} className="group rounded-[1.5rem] border border-[#c9a96e]/30 bg-white/70 px-5 py-4">
+              <summary className="cursor-pointer list-none text-sm font-bold text-[#191970] marker:hidden">
+                <span className="flex items-start justify-between gap-3">
+                  <span>{faq.question}</span>
+                  <span className="mt-0.5 flex-none font-black text-[#800020] transition group-open:rotate-45">+</span>
+                </span>
+              </summary>
+              <p className="mt-3 text-sm leading-7 text-[#31416f]">{faq.answer}</p>
+            </details>
+          ))}
+        </div>
+      </Reveal>
+
+      <Reveal as="section" className="rounded-[2rem] border border-[#c9a96e]/45 bg-[#191970] p-6 text-center text-[#f8f3eb] shadow-[0_24px_60px_rgba(25,25,112,0.18)] sm:p-8" delay={2}>
+        <h2 className="text-2xl font-black tracking-tight sm:text-3xl">Ready to bring your school online?</h2>
+        <p className="mx-auto mt-3 max-w-2xl text-sm leading-7 text-[#d9e3ff]">
+          Registration takes a few minutes. You pay the onboarding fee, Ami reviews your launch, and your school website goes live.
+        </p>
+        <div className="mt-6 flex flex-wrap justify-center gap-3">
+          <ActionLink to="/register-school" className="rounded-full bg-[#c9a96e] px-6 py-3 text-sm font-bold text-[#191970] transition hover:bg-[#b8975a]">
+            Register Your School
+          </ActionLink>
+          <ActionLink to="/contact" className="rounded-full border border-white/30 px-6 py-3 text-sm font-semibold text-[#f8f3eb] transition hover:border-[#c9a96e] hover:text-[#c9a96e]">
+            Talk To Us
+          </ActionLink>
+        </div>
+      </Reveal>
 
       <MediaGallery
         section={section}
@@ -1392,11 +1766,30 @@ function GalleryPageBody({ section }) {
 }
 
 export default function PublicSitePage({ pageKey = 'home' }) {
+  const pageLocation = useLocation();
   const [sections, setSections] = useState([]);
   const [error, setError] = useState('');
-  const [pricing, setPricing] = useState({ plans: [], pricingConfig: null });
+  const [pricing, setPricing] = useState({ plans: [], pricingConfig: null, quotes: {}, discount: null });
   const [pricingError, setPricingError] = useState('');
   const [isPricingLoading, setIsPricingLoading] = useState(false);
+
+  // A growth partner shares /pricing?ref=THEIRCODE (or a direct ?discount=CODE). Both are
+  // resolved server-side so this page prices a visit exactly as registration will.
+  const linkReferralCode = useMemo(
+    () => (new URLSearchParams(pageLocation.search).get('ref') || '').trim().toUpperCase(),
+    [pageLocation.search],
+  );
+  const linkDiscountCode = useMemo(
+    () => (new URLSearchParams(pageLocation.search).get('discount') || '').trim().toUpperCase(),
+    [pageLocation.search],
+  );
+  const [discountInput, setDiscountInput] = useState(linkDiscountCode);
+  const [appliedDiscountCode, setAppliedDiscountCode] = useState(linkDiscountCode);
+
+  useEffect(() => {
+    setDiscountInput(linkDiscountCode);
+    setAppliedDiscountCode(linkDiscountCode);
+  }, [linkDiscountCode]);
 
   useEffect(() => {
     let cancelled = false;
@@ -1425,19 +1818,21 @@ export default function PublicSitePage({ pageKey = 'home' }) {
     let cancelled = false;
     setIsPricingLoading(true);
 
-    getTenantPricing()
+    getTenantPricing({ discountCode: appliedDiscountCode, referralCode: linkReferralCode })
       .then(data => {
         if (!cancelled) {
           setPricing({
             plans: Array.isArray(data?.plans) ? data.plans : [],
             pricingConfig: data?.pricingConfig || null,
+            quotes: data?.quotes || {},
+            discount: data?.discount || null,
           });
           setPricingError('');
         }
       })
       .catch(loadError => {
         if (!cancelled) {
-          setPricing({ plans: [], pricingConfig: null });
+          setPricing({ plans: [], pricingConfig: null, quotes: {}, discount: null });
           setPricingError(loadError.message || 'Could not load live pricing right now.');
         }
       })
@@ -1450,7 +1845,7 @@ export default function PublicSitePage({ pageKey = 'home' }) {
     return () => {
       cancelled = true;
     };
-  }, [pageKey]);
+  }, [pageKey, appliedDiscountCode, linkReferralCode]);
 
   useEffect(() => {
     const nodes = Array.from(document.querySelectorAll('[data-reveal]'));
@@ -1506,7 +1901,19 @@ export default function PublicSitePage({ pageKey = 'home' }) {
   if (pageKey === 'vision') body = <VisionPageBody section={section} />;
   if (pageKey === 'partners') body = <PartnersPageBody section={section} />;
   if (pageKey === 'tutor') body = <TutorPageBody section={section} />;
-  if (pageKey === 'pricing') body = <PricingPageBody section={section} pricing={pricing} pricingError={pricingError} isPricingLoading={isPricingLoading} />;
+  if (pageKey === 'pricing') {
+    body = (
+      <PricingPageBody
+        section={section}
+        pricing={pricing}
+        pricingError={pricingError}
+        isPricingLoading={isPricingLoading}
+        discountInput={discountInput}
+        onDiscountInputChange={setDiscountInput}
+        onApplyDiscount={() => setAppliedDiscountCode(discountInput.trim().toUpperCase())}
+      />
+    );
+  }
   if (pageKey === 'opportunities') body = <OpportunitiesPageBody section={section} />;
   if (pageKey === 'events') body = <EventsPageBody section={section} />;
   if (pageKey === 'gallery') body = <GalleryPageBody section={section} />;

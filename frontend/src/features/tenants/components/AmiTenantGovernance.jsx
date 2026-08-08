@@ -94,7 +94,16 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
   const location = useLocation();
   const [governanceData, setGovernanceData] = useState(null);
   const [discountForm, setDiscountForm] = useState(initialDiscountState);
-  const [pricingForm, setPricingForm] = useState({ customPlanSetupFeeNaira: 50000 });
+  const [pricingForm, setPricingForm] = useState({
+    customPlanSetupFeeNaira: 50000,
+    growthSetupFeeNaira: 50000,
+    growthStudentFeeNaira: 1000,
+    growthFeatures: '',
+    customFeatures: '',
+    partnerMinSetupFeeNaira: 25000,
+    partnerMinStudentFeeNaira: 500,
+    calculatorDefaultUsers: 250,
+  });
   const [awardForms, setAwardForms] = useState({});
   const [lazyAwardCandidates, setLazyAwardCandidates] = useState({});
 
@@ -131,12 +140,25 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
     loadGovernanceData();
   }, []);
 
+  const pricingConfig = governanceData?.pricingConfig;
+
   useEffect(() => {
-    const nextValue = governanceData?.pricingConfig?.customPlanSetupFee;
-    if (typeof nextValue === 'number') {
-      setPricingForm({ customPlanSetupFeeNaira: nextValue });
-    }
-  }, [governanceData?.pricingConfig?.customPlanSetupFee]);
+    if (!pricingConfig) return;
+    const growth = pricingConfig.plans?.growth;
+    const custom = pricingConfig.plans?.custom;
+    const toNaira = cents => (typeof cents === 'number' ? cents / 100 : '');
+
+    setPricingForm({
+      customPlanSetupFeeNaira: typeof pricingConfig.customPlanSetupFee === 'number' ? pricingConfig.customPlanSetupFee : 50000,
+      growthSetupFeeNaira: toNaira(growth?.setupFeeCents),
+      growthStudentFeeNaira: toNaira(growth?.studentFeeCents),
+      growthFeatures: (growth?.features || []).join('\n'),
+      customFeatures: (custom?.features || []).join('\n'),
+      partnerMinSetupFeeNaira: toNaira(pricingConfig.partnerMinSetupFeeCents),
+      partnerMinStudentFeeNaira: toNaira(pricingConfig.partnerMinStudentFeeCents),
+      calculatorDefaultUsers: pricingConfig.calculatorDefaultUsers || 250,
+    });
+  }, [pricingConfig]);
 
   useEffect(() => {
     if (!paymentRef) {
@@ -270,11 +292,29 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
 
   const handleSavePricing = async event => {
     event.preventDefault();
+    // One feature per line, so features can be added or removed without a deployment.
+    const toFeatures = value => String(value || '').split('\n').map(line => line.trim()).filter(Boolean);
+
     await runAction('save-pricing', async () => {
       await updateTenantPricing({
-        customPlanSetupFeeNaira: pricingForm.customPlanSetupFeeNaira,
+        customPlanSetupFeeNaira: Number(pricingForm.customPlanSetupFeeNaira) || undefined,
+        partnerMinSetupFeeNaira: Number(pricingForm.partnerMinSetupFeeNaira) || undefined,
+        partnerMinStudentFeeNaira: Number(pricingForm.partnerMinStudentFeeNaira) || undefined,
+        calculatorDefaultUsers: Number(pricingForm.calculatorDefaultUsers) || undefined,
+        plans: {
+          growth: {
+            setupFeeNaira: Number(pricingForm.growthSetupFeeNaira) || undefined,
+            studentFeeNaira: Number(pricingForm.growthStudentFeeNaira) || undefined,
+            features: toFeatures(pricingForm.growthFeatures),
+          },
+          custom: {
+            setupFeeNaira: Number(pricingForm.customPlanSetupFeeNaira) || undefined,
+            studentFeeNaira: Number(pricingForm.growthStudentFeeNaira) || undefined,
+            features: toFeatures(pricingForm.customFeatures),
+          },
+        },
       });
-      setNotice('Custom onboarding fee updated.');
+      setNotice('Pricing updated. The pricing page and registration now use these values.');
     });
   };
 
@@ -673,23 +713,67 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
             <h2 className="text-xl command-title neon-title mb-4">Plan Pricing</h2>
             <form onSubmit={handleSavePricing} className="space-y-3">
               <div className="rounded-2xl bg-slate-900/20 dark:bg-slate-900/30 p-4 text-sm text-slate-600 dark:text-slate-300">
-                <p className="font-semibold text-slate-800 dark:text-blue-50">Custom Plan Onboarding Fee</p>
-                <p className="mt-2">This onboarding fee is Ami-managed and can be changed at any time before schools pay.</p>
-                {governanceData?.pricingConfig?.updatedAt && (
-                  <p className="mt-2 text-xs text-orange-600 dark:text-orange-50">Updated: {new Date(governanceData.pricingConfig.updatedAt).toLocaleString()}</p>
+                <p className="font-semibold text-slate-800 dark:text-blue-50">Live commercial values</p>
+                <p className="mt-2">These are the prices the public pricing page, the registration form, and every quote use. Saving takes effect immediately — no deployment needed.</p>
+                {pricingConfig?.updatedAt && (
+                  <p className="mt-2 text-xs text-orange-600 dark:text-orange-50">Updated: {new Date(pricingConfig.updatedAt).toLocaleString()}</p>
                 )}
               </div>
-              <input
-                name="customPlanSetupFeeNaira"
-                type="number"
-                min="1"
-                value={pricingForm.customPlanSetupFeeNaira}
-                onChange={handlePricingChange}
-                placeholder="Custom onboarding fee (NGN)"
-                className="w-full rounded-2xl border border-white/10 bg-slate-900/20 dark:bg-slate-900/30 px-4 py-3 text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-500"
-              />
+
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">Growth Plan (Standard)</p>
+              <div className="grid grid-cols-2 gap-3">
+                <label className="block space-y-1">
+                  <span className="text-xs text-slate-500 dark:text-slate-400">Onboarding fee (NGN)</span>
+                  <input name="growthSetupFeeNaira" type="number" min="1" value={pricingForm.growthSetupFeeNaira} onChange={handlePricingChange}
+                    className="w-full rounded-2xl border border-white/10 bg-slate-900/20 dark:bg-slate-900/30 px-4 py-3 text-slate-900 dark:text-amber-100" />
+                </label>
+                <label className="block space-y-1">
+                  <span className="text-xs text-slate-500 dark:text-slate-400">Per active user / term (NGN)</span>
+                  <input name="growthStudentFeeNaira" type="number" min="1" value={pricingForm.growthStudentFeeNaira} onChange={handlePricingChange}
+                    className="w-full rounded-2xl border border-white/10 bg-slate-900/20 dark:bg-slate-900/30 px-4 py-3 text-slate-900 dark:text-amber-100" />
+                </label>
+              </div>
+              <label className="block space-y-1">
+                <span className="text-xs text-slate-500 dark:text-slate-400">Growth features (one per line)</span>
+                <textarea name="growthFeatures" value={pricingForm.growthFeatures} onChange={handlePricingChange}
+                  className="w-full min-h-[110px] rounded-2xl border border-white/10 bg-slate-900/20 dark:bg-slate-900/30 px-4 py-3 text-slate-900 dark:text-amber-100" />
+              </label>
+
+              <p className="pt-1 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">Custom Plan (Ami Priced)</p>
+              <label className="block space-y-1">
+                <span className="text-xs text-slate-500 dark:text-slate-400">Custom onboarding fee (NGN)</span>
+                <input name="customPlanSetupFeeNaira" type="number" min="1" value={pricingForm.customPlanSetupFeeNaira} onChange={handlePricingChange}
+                  className="w-full rounded-2xl border border-white/10 bg-slate-900/20 dark:bg-slate-900/30 px-4 py-3 text-slate-900 dark:text-amber-100" />
+              </label>
+              <label className="block space-y-1">
+                <span className="text-xs text-slate-500 dark:text-slate-400">Custom features (one per line)</span>
+                <textarea name="customFeatures" value={pricingForm.customFeatures} onChange={handlePricingChange}
+                  className="w-full min-h-[110px] rounded-2xl border border-white/10 bg-slate-900/20 dark:bg-slate-900/30 px-4 py-3 text-slate-900 dark:text-amber-100" />
+              </label>
+
+              <p className="pt-1 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">Growth Partner Discount Floors</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">The lowest a partner may price their own registration code.</p>
+              <div className="grid grid-cols-2 gap-3">
+                <label className="block space-y-1">
+                  <span className="text-xs text-slate-500 dark:text-slate-400">Min onboarding fee (NGN)</span>
+                  <input name="partnerMinSetupFeeNaira" type="number" min="1" value={pricingForm.partnerMinSetupFeeNaira} onChange={handlePricingChange}
+                    className="w-full rounded-2xl border border-white/10 bg-slate-900/20 dark:bg-slate-900/30 px-4 py-3 text-slate-900 dark:text-amber-100" />
+                </label>
+                <label className="block space-y-1">
+                  <span className="text-xs text-slate-500 dark:text-slate-400">Min per-user fee (NGN)</span>
+                  <input name="partnerMinStudentFeeNaira" type="number" min="1" value={pricingForm.partnerMinStudentFeeNaira} onChange={handlePricingChange}
+                    className="w-full rounded-2xl border border-white/10 bg-slate-900/20 dark:bg-slate-900/30 px-4 py-3 text-slate-900 dark:text-amber-100" />
+                </label>
+              </div>
+
+              <label className="block space-y-1">
+                <span className="text-xs text-slate-500 dark:text-slate-400">Calculator starting user count</span>
+                <input name="calculatorDefaultUsers" type="number" min="1" value={pricingForm.calculatorDefaultUsers} onChange={handlePricingChange}
+                  className="w-full rounded-2xl border border-white/10 bg-slate-900/20 dark:bg-slate-900/30 px-4 py-3 text-slate-900 dark:text-amber-100" />
+              </label>
+
               <button type="submit" disabled={busyAction === 'save-pricing'} className="w-full rounded-2xl bg-emerald-500 px-4 py-3 font-semibold text-slate-950 disabled:opacity-60">
-                {busyAction === 'save-pricing' ? 'Saving...' : 'Update Custom Pricing'}
+                {busyAction === 'save-pricing' ? 'Saving...' : 'Update Pricing'}
               </button>
             </form>
           </section>

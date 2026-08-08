@@ -80,11 +80,19 @@ export default function SchoolRegistrationPage() {
         const data = await getTenantPricing({
           planKey: formState.planKey,
           discountCode: formState.discountCode,
+          referralCode,
         });
 
         if (!cancelled) {
           setPricing(data);
           setPricingError('');
+
+          // A partner link may carry only ?ref=. The pricing service resolves it to that
+          // partner's code, which registration must submit or the backend rejects the link.
+          const resolvedCode = data?.discount?.resolvedCode;
+          if (referralCode && resolvedCode && resolvedCode !== formState.discountCode) {
+            setFormState(current => ({ ...current, discountCode: resolvedCode }));
+          }
         }
       } catch (error) {
         if (!cancelled) {
@@ -97,7 +105,7 @@ export default function SchoolRegistrationPage() {
     return () => {
       cancelled = true;
     };
-  }, [formState.planKey, formState.discountCode]);
+  }, [formState.planKey, formState.discountCode, referralCode]);
 
   useEffect(() => {
     if (!paymentRef) {
@@ -431,8 +439,14 @@ export default function SchoolRegistrationPage() {
 
                   <label className="block space-y-2 md:col-span-2">
                     <span className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Discount Code</span>
-                    <input name="discountCode" value={formState.discountCode} onChange={handleChange} disabled={Boolean(referralCode && partnerDiscountCode)} className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100 disabled:cursor-not-allowed disabled:bg-slate-100" placeholder="Enter discount code if you have one" />
-                    {referralCode && partnerDiscountCode ? <span className="mt-1 block text-xs font-semibold text-[#1a5c38]">Partner registration code applied and locked to this link.</span> : null}
+                    <input name="discountCode" value={formState.discountCode} onChange={handleChange} disabled={Boolean(referralCode)} className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition focus:border-emerald-500 focus:ring-4 focus:ring-emerald-100 disabled:cursor-not-allowed disabled:bg-slate-100" placeholder="Enter discount code if you have one" />
+                    {referralCode && formState.discountCode ? <span className="mt-1 block text-xs font-semibold text-[#1a5c38]">Partner registration code applied and locked to this link.</span> : null}
+                    {!referralCode && pricing?.discount?.invalid ? (
+                      <span className="mt-1 block text-xs font-semibold text-amber-700">That code is not valid, has expired, or has reached its limit. Standard pricing is shown.</span>
+                    ) : null}
+                    {!referralCode && pricing?.discount?.applied ? (
+                      <span className="mt-1 block text-xs font-semibold text-[#1a5c38]">Code accepted. Your discounted prices are shown in the summary.</span>
+                    ) : null}
                   </label>
                 </div>
 
@@ -489,11 +503,21 @@ export default function SchoolRegistrationPage() {
                     <div className="grid grid-cols-2 gap-3">
                       <div className="rounded-3xl border border-slate-200 bg-slate-50 p-4">
                         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Onboarding Fee Due Now</p>
-                        <p className="mt-3 text-xl font-bold text-slate-950">{currencyFormatter.format(quote.totalDueNow)}</p>
+                        <div className="mt-3 flex flex-wrap items-baseline gap-2">
+                          <p className="text-xl font-bold text-slate-950">{currencyFormatter.format(quote.totalDueNow)}</p>
+                          {quote.discountApplied && selectedPlan.setupFee > quote.totalDueNow ? (
+                            <p className="text-sm font-semibold text-slate-500 line-through">{currencyFormatter.format(selectedPlan.setupFee)}</p>
+                          ) : null}
+                        </div>
                       </div>
                       <div className="rounded-3xl border border-slate-200 bg-slate-50 p-4">
                         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">User Fee / Subsequent Term</p>
-                        <p className="mt-3 text-xl font-bold text-slate-950">{currencyFormatter.format(quote.userFeePerTerm || quote.studentFeePerTerm)}</p>
+                        <div className="mt-3 flex flex-wrap items-baseline gap-2">
+                          <p className="text-xl font-bold text-slate-950">{currencyFormatter.format(quote.userFeePerTerm || quote.studentFeePerTerm)}</p>
+                          {quote.discountApplied && selectedPlan.studentFeePerTerm > (quote.userFeePerTerm || quote.studentFeePerTerm) ? (
+                            <p className="text-sm font-semibold text-slate-500 line-through">{currencyFormatter.format(selectedPlan.studentFeePerTerm)}</p>
+                          ) : null}
+                        </div>
                       </div>
                     </div>
 

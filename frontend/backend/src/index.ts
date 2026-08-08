@@ -523,8 +523,10 @@ const studentDashboardFallback = {
 
 const KOBO_PER_NAIRA = 100
 const FLUTTERWAVE_BASE_URL = 'https://api.flutterwave.com/v3'
+// Fallbacks only. The live commercial values are whatever Ami has saved under
+// TENANT_PRICING_SETTINGS_KEY; these apply to a database that has never been configured.
 const TENANT_BASE_SETUP_FEE_CENTS = 50000 * KOBO_PER_NAIRA
-const TENANT_BASE_STUDENT_FEE_CENTS = 500 * KOBO_PER_NAIRA
+const TENANT_BASE_STUDENT_FEE_CENTS = 1000 * KOBO_PER_NAIRA
 const DEFAULT_TENANT_BASE_DOMAIN = 'ndovera.com'
 const TENANT_PRICING_SETTINGS_KEY = 'system:tenant-pricing'
 
@@ -577,38 +579,130 @@ function buildPlatformAuthUrl(path: string, tenantReturnUrl = '') {
   return target.toString()
 }
 
+// Shipping defaults for a database Ami has never configured. Everything here is overridable
+// from the Ami pricing console so the commercial model can change without a deployment.
 const TENANT_PLANS: Record<string, any> = {
   growth: {
     key: 'growth',
     label: 'Growth',
+    tagline: 'Standard school rollout',
     description: 'Fast onboarding for growing schools that want a standard NDOVERA launch.',
     setupFeeCents: TENANT_BASE_SETUP_FEE_CENTS,
     studentFeeCents: TENANT_BASE_STUDENT_FEE_CENTS,
-    features: ['Owner portal', 'School website activation', 'Tenant governance support'],
+    features: [
+      'Owner portal',
+      'School website activation',
+      'Tenant governance support',
+      'Standard onboarding',
+      'School domain reservation',
+    ],
+    ctaText: 'Start Registration',
+    ctaUrl: '/register-school',
+    badge: '',
+    recommended: true,
+    visible: true,
+    displayOrder: 1,
   },
   custom: {
     key: 'custom',
     label: 'Custom',
+    tagline: 'Tailored school rollout',
     description: 'Custom rollout with an Ami-managed onboarding fee that can be adjusted at any time before payment.',
     setupFeeCents: TENANT_BASE_SETUP_FEE_CENTS,
     studentFeeCents: TENANT_BASE_STUDENT_FEE_CENTS,
-    features: ['Tailored onboarding', 'Custom rollout notes', 'Ami review required'],
+    features: [
+      'Tailored onboarding',
+      'Custom rollout planning',
+      'Dedicated review',
+      'Special requirements',
+      'Ami approval',
+    ],
+    ctaText: 'Talk To Ami',
+    ctaUrl: '/contact',
+    badge: 'Ami Priced',
+    recommended: false,
+    visible: true,
+    displayOrder: 2,
     requiresManualReview: true,
     manualPricing: true,
   },
 }
 
-async function getTenantPricingConfig(db: D1Database) {
-  const existing = await getSettings(db, TENANT_PRICING_SETTINGS_KEY)
-  const customPlanSetupFeeCents = Number(existing?.customPlanSetupFeeCents || 0)
+const TENANT_PLAN_KEYS = Object.keys(TENANT_PLANS)
+
+function positiveCents(value: any) {
+  const parsed = Number(value)
+  return Number.isFinite(parsed) && parsed > 0 ? Math.round(parsed) : null
+}
+
+function nairaToCents(value: any) {
+  const parsed = Number(value)
+  return Number.isFinite(parsed) && parsed > 0 ? Math.round(parsed * KOBO_PER_NAIRA) : null
+}
+
+// Drop keys the caller did not actually supply, so spreading an update over the current
+// config cannot blank a saved field back to its shipping default.
+function withoutEmptyKeys(source: Record<string, any>) {
+  const result: Record<string, any> = {}
+  for (const [key, value] of Object.entries(source || {})) {
+    if (value !== null && typeof value !== 'undefined' && value !== '') result[key] = value
+  }
+  return result
+}
+
+// Merge one saved plan override over its shipping default. Absent fields keep the default,
+// so a partially-filled console form never blanks out a plan.
+function mergePlanConfig(planKey: string, saved: Record<string, any> | null | undefined) {
+  const base = TENANT_PLANS[planKey]
+  const overrides = saved || {}
+  const features = Array.isArray(overrides.features)
+    ? overrides.features.map((feature: any) => String(feature || '').trim()).filter(Boolean)
+    : null
 
   return {
-    customPlanSetupFeeCents: Number.isFinite(customPlanSetupFeeCents) && customPlanSetupFeeCents > 0
-      ? Math.round(customPlanSetupFeeCents)
-      : TENANT_BASE_SETUP_FEE_CENTS,
-    customPlanSetupFee: (Number.isFinite(customPlanSetupFeeCents) && customPlanSetupFeeCents > 0
-      ? Math.round(customPlanSetupFeeCents)
-      : TENANT_BASE_SETUP_FEE_CENTS) / KOBO_PER_NAIRA,
+    ...base,
+    label: String(overrides.label || base.label),
+    tagline: String(overrides.tagline || base.tagline),
+    description: String(overrides.description || base.description),
+    setupFeeCents: positiveCents(overrides.setupFeeCents) ?? base.setupFeeCents,
+    studentFeeCents: positiveCents(overrides.studentFeeCents) ?? base.studentFeeCents,
+    features: features && features.length ? features : base.features,
+    ctaText: String(overrides.ctaText || base.ctaText),
+    ctaUrl: String(overrides.ctaUrl || base.ctaUrl),
+    badge: typeof overrides.badge === 'string' ? overrides.badge : base.badge,
+    recommended: typeof overrides.recommended === 'boolean' ? overrides.recommended : base.recommended,
+    visible: typeof overrides.visible === 'boolean' ? overrides.visible : base.visible,
+    displayOrder: Number.isFinite(Number(overrides.displayOrder)) ? Number(overrides.displayOrder) : base.displayOrder,
+  }
+}
+
+async function getTenantPricingConfig(db: D1Database) {
+  const existing = await getSettings(db, TENANT_PRICING_SETTINGS_KEY)
+  const savedPlans = (existing?.plans && typeof existing.plans === 'object') ? existing.plans : {}
+
+  // Pre-`plans` databases stored only the custom onboarding fee at the top level.
+  const legacyCustomSetupFeeCents = positiveCents(existing?.customPlanSetupFeeCents)
+  if (legacyCustomSetupFeeCents && !positiveCents(savedPlans.custom?.setupFeeCents)) {
+    savedPlans.custom = { ...(savedPlans.custom || {}), setupFeeCents: legacyCustomSetupFeeCents }
+  }
+
+  const plans: Record<string, any> = {}
+  for (const planKey of TENANT_PLAN_KEYS) plans[planKey] = mergePlanConfig(planKey, savedPlans[planKey])
+
+  return {
+    currency: String(existing?.currency || 'NGN'),
+    billingPeriod: String(existing?.billingPeriod || 'term'),
+    onboardingLabel: String(existing?.onboardingLabel || 'One-time onboarding'),
+    userFeeLabel: String(existing?.userFeeLabel || 'Per active user / term'),
+    calculatorDefaultUsers: Number(existing?.calculatorDefaultUsers) > 0 ? Math.round(Number(existing.calculatorDefaultUsers)) : 250,
+    // The lowest per-user fee a growth partner may set on their own code, so partner-led
+    // discounts cannot undercut the platform floor Ami has agreed to.
+    partnerMinStudentFeeCents: positiveCents(existing?.partnerMinStudentFeeCents) ?? TENANT_BASE_STUDENT_FEE_CENTS / 2,
+    partnerMinSetupFeeCents: positiveCents(existing?.partnerMinSetupFeeCents) ?? TENANT_BASE_SETUP_FEE_CENTS / 2,
+    plans,
+    // Retained so existing Ami console callers keep working.
+    customPlanSetupFeeCents: plans.custom.setupFeeCents,
+    customPlanSetupFee: plans.custom.setupFeeCents / KOBO_PER_NAIRA,
     updatedAt: existing?.updatedAt || null,
     updatedBy: existing?.updatedBy || null,
   }
@@ -616,43 +710,68 @@ async function getTenantPricingConfig(db: D1Database) {
 
 async function saveTenantPricingConfig(db: D1Database, updates: Record<string, any>, updatedBy: string) {
   const current = await getTenantPricingConfig(db)
-  const next = {
-    customPlanSetupFeeCents: typeof updates.customPlanSetupFeeCents === 'number' && updates.customPlanSetupFeeCents > 0
-      ? Math.round(updates.customPlanSetupFeeCents)
-      : current.customPlanSetupFeeCents,
-    updatedAt: new Date().toISOString(),
-    updatedBy,
+  const nextPlans: Record<string, any> = {}
+
+  for (const planKey of TENANT_PLAN_KEYS) {
+    const incoming = (updates.plans && typeof updates.plans === 'object') ? updates.plans[planKey] : null
+    // Persist the merged result, so the saved blob is always a complete plan definition.
+    nextPlans[planKey] = mergePlanConfig(planKey, { ...current.plans[planKey], ...withoutEmptyKeys(incoming || {}) })
   }
 
-  await upsertSettings(db, TENANT_PRICING_SETTINGS_KEY, next)
+  // Legacy single-field update path used by the existing Ami governance form.
+  const legacyCustomSetupFeeCents = positiveCents(updates.customPlanSetupFeeCents)
+  if (legacyCustomSetupFeeCents) nextPlans.custom.setupFeeCents = legacyCustomSetupFeeCents
+
+  await upsertSettings(db, TENANT_PRICING_SETTINGS_KEY, {
+    currency: String(updates.currency || current.currency),
+    billingPeriod: String(updates.billingPeriod || current.billingPeriod),
+    onboardingLabel: String(updates.onboardingLabel || current.onboardingLabel),
+    userFeeLabel: String(updates.userFeeLabel || current.userFeeLabel),
+    calculatorDefaultUsers: Number(updates.calculatorDefaultUsers) > 0
+      ? Math.round(Number(updates.calculatorDefaultUsers))
+      : current.calculatorDefaultUsers,
+    partnerMinStudentFeeCents: positiveCents(updates.partnerMinStudentFeeCents) ?? current.partnerMinStudentFeeCents,
+    partnerMinSetupFeeCents: positiveCents(updates.partnerMinSetupFeeCents) ?? current.partnerMinSetupFeeCents,
+    plans: nextPlans,
+    updatedAt: new Date().toISOString(),
+    updatedBy,
+  })
+
   return getTenantPricingConfig(db)
 }
 
 function buildTenantPlans(pricingConfig: Record<string, any>) {
-  return {
-    growth: {
-      ...TENANT_PLANS.growth,
-      manualPricing: false,
-    },
-    custom: {
-      ...TENANT_PLANS.custom,
-      setupFeeCents: pricingConfig.customPlanSetupFeeCents,
-      manualPricing: true,
-    },
+  const plans: Record<string, any> = {}
+  for (const planKey of TENANT_PLAN_KEYS) {
+    plans[planKey] = {
+      ...pricingConfig.plans[planKey],
+      manualPricing: Boolean(TENANT_PLANS[planKey].manualPricing),
+      requiresManualReview: Boolean(TENANT_PLANS[planKey].requiresManualReview),
+    }
   }
+  return plans
 }
 
 function serializeTenantPlans(plans: Record<string, any>) {
-  return Object.values(plans).map(plan => ({
-    key: plan.key,
-    label: plan.label,
-    description: plan.description,
-    setupFee: plan.setupFeeCents / KOBO_PER_NAIRA,
-    studentFeePerTerm: plan.studentFeeCents / KOBO_PER_NAIRA,
-    requiresManualReview: Boolean(plan.requiresManualReview),
-    features: plan.features,
-    manualPricing: Boolean(plan.manualPricing),
-  }))
+  return Object.values(plans)
+    .filter(plan => plan.visible !== false)
+    .sort((a, b) => Number(a.displayOrder || 0) - Number(b.displayOrder || 0))
+    .map(plan => ({
+      key: plan.key,
+      label: plan.label,
+      tagline: plan.tagline,
+      description: plan.description,
+      setupFee: plan.setupFeeCents / KOBO_PER_NAIRA,
+      studentFeePerTerm: plan.studentFeeCents / KOBO_PER_NAIRA,
+      requiresManualReview: Boolean(plan.requiresManualReview),
+      features: plan.features,
+      manualPricing: Boolean(plan.manualPricing),
+      ctaText: plan.ctaText,
+      ctaUrl: plan.ctaUrl,
+      badge: plan.badge,
+      recommended: Boolean(plan.recommended),
+      displayOrder: plan.displayOrder,
+    }))
 }
 
 async function getTenantPricingState(db: D1Database) {
@@ -660,6 +779,20 @@ async function getTenantPricingState(db: D1Database) {
   return {
     pricingConfig,
     plans: buildTenantPlans(pricingConfig),
+  }
+}
+
+// The public pricing page gets display settings only — the partner discount floors are
+// internal commercial limits and stay out of unauthenticated responses.
+function serializePublicPricingConfig(pricingConfig: Record<string, any>) {
+  return {
+    currency: pricingConfig.currency,
+    billingPeriod: pricingConfig.billingPeriod,
+    onboardingLabel: pricingConfig.onboardingLabel,
+    userFeeLabel: pricingConfig.userFeeLabel,
+    calculatorDefaultUsers: pricingConfig.calculatorDefaultUsers,
+    customPlanSetupFee: pricingConfig.customPlanSetupFee,
+    updatedAt: pricingConfig.updatedAt,
   }
 }
 
@@ -5518,19 +5651,52 @@ app.use('*', async (c, next) => {
 app.get('/api/tenants/pricing', async (c) => {
   const planKey = String(c.req.query('planKey') || '').toLowerCase()
   const billableUserCount = Number(c.req.query('billableUserCount') || c.req.query('studentCount') || 0)
-  const discountCodeValue = c.req.query('discountCode')
+  const requestedDiscountCode = String(c.req.query('discountCode') || '').trim().toUpperCase()
+  const referralCode = String(c.req.query('referralCode') || c.req.query('ref') || '').trim().toUpperCase()
   const { pricingConfig, plans } = await getTenantPricingState(c.env.APP_DB)
 
+  // A growth partner link carries ?ref=<referral code>. Resolve it to that partner's own
+  // discount code so the pricing page can price the visit the way registration will.
+  let discountCodeValue = requestedDiscountCode
+  let partnerName = ''
+  if (referralCode) {
+    const partner = await getPartnerByCode(c.env.APP_DB, referralCode).catch(() => null)
+    if (partner && partner.status === 'active') {
+      discountCodeValue = await ensureGrowthPartnerDiscountCode(c.env.APP_DB, partner)
+      partnerName = String(partner.name || '')
+    }
+  }
+
   const activeDiscountCode = await resolveDiscountCode(c.env.APP_DB, discountCodeValue, planKey || 'growth')
-  const quote = planKey && billableUserCount >= 0
-    ? buildTenantQuote(planKey, billableUserCount, activeDiscountCode, plans)
+  const safeUserCount = Number.isFinite(billableUserCount) && billableUserCount > 0 ? Math.round(billableUserCount) : 0
+
+  // One quote per visible plan so the calculator and comparison table never have to
+  // recompute money in the browser.
+  const quotes: Record<string, any> = {}
+  for (const plan of serializeTenantPlans(plans)) {
+    const planDiscount = await resolveDiscountCode(c.env.APP_DB, discountCodeValue, plan.key)
+    quotes[plan.key] = buildTenantQuote(plan.key, safeUserCount, planDiscount, plans)
+  }
+
+  const quote = planKey && plans[planKey]
+    ? buildTenantQuote(planKey, safeUserCount, activeDiscountCode, plans)
     : null
 
   return c.json({
     success: true,
     plans: serializeTenantPlans(plans),
-    pricingConfig,
+    pricingConfig: serializePublicPricingConfig(pricingConfig),
     quote,
+    quotes,
+    discount: {
+      requestedCode: requestedDiscountCode || null,
+      referralCode: referralCode || null,
+      resolvedCode: discountCodeValue || null,
+      partnerName: partnerName || null,
+      applied: Boolean(activeDiscountCode),
+      // Distinguishes "no code given" from "code given but unusable" for the UI.
+      invalid: Boolean(discountCodeValue) && !activeDiscountCode,
+    },
   })
 })
 
@@ -6088,14 +6254,53 @@ app.post('/api/ami/tenant-pricing', authenticate, async (c) => {
 
   const payload = await c.req.json().catch(() => ({}))
   const customPlanSetupFeeNaira = Number(payload.customPlanSetupFeeNaira || 0)
+  const hasPlanUpdates = payload.plans && typeof payload.plans === 'object'
 
-  if (!Number.isFinite(customPlanSetupFeeNaira) || customPlanSetupFeeNaira <= 0) {
+  // The legacy governance form posts only the custom onboarding fee; the pricing console
+  // posts a `plans` object. Accept either, but require at least one of them.
+  if (!hasPlanUpdates && (!Number.isFinite(customPlanSetupFeeNaira) || customPlanSetupFeeNaira <= 0)) {
     return c.json({ error: 'Provide a valid custom onboarding fee.' }, 400)
+  }
+
+  const updates: Record<string, any> = {
+    currency: payload.currency,
+    billingPeriod: payload.billingPeriod,
+    onboardingLabel: payload.onboardingLabel,
+    userFeeLabel: payload.userFeeLabel,
+    calculatorDefaultUsers: payload.calculatorDefaultUsers,
+    partnerMinSetupFeeCents: nairaToCents(payload.partnerMinSetupFeeNaira),
+    partnerMinStudentFeeCents: nairaToCents(payload.partnerMinStudentFeeNaira),
+  }
+
+  if (Number.isFinite(customPlanSetupFeeNaira) && customPlanSetupFeeNaira > 0) {
+    updates.customPlanSetupFeeCents = Math.round(customPlanSetupFeeNaira * KOBO_PER_NAIRA)
+  }
+
+  if (hasPlanUpdates) {
+    updates.plans = {}
+    for (const planKey of TENANT_PLAN_KEYS) {
+      const incoming = payload.plans[planKey]
+      if (!incoming || typeof incoming !== 'object') continue
+      updates.plans[planKey] = {
+        label: incoming.label,
+        tagline: incoming.tagline,
+        description: incoming.description,
+        setupFeeCents: nairaToCents(incoming.setupFeeNaira) ?? positiveCents(incoming.setupFeeCents),
+        studentFeeCents: nairaToCents(incoming.studentFeeNaira) ?? positiveCents(incoming.studentFeeCents),
+        features: incoming.features,
+        ctaText: incoming.ctaText,
+        ctaUrl: incoming.ctaUrl,
+        badge: incoming.badge,
+        recommended: incoming.recommended,
+        visible: incoming.visible,
+        displayOrder: incoming.displayOrder,
+      }
+    }
   }
 
   const pricingConfig = await saveTenantPricingConfig(
     c.env.APP_DB,
-    { customPlanSetupFeeCents: Math.round(customPlanSetupFeeNaira * KOBO_PER_NAIRA) },
+    updates,
     c.var.user.id || c.var.user.email || 'ami',
   )
 
@@ -6104,6 +6309,8 @@ app.post('/api/ami/tenant-pricing', authenticate, async (c) => {
     data: {
       by: c.var.user.id || c.var.user.email || 'ami',
       customPlanSetupFeeNaira: pricingConfig.customPlanSetupFee,
+      growthSetupFeeNaira: pricingConfig.plans.growth.setupFeeCents / KOBO_PER_NAIRA,
+      growthStudentFeeNaira: pricingConfig.plans.growth.studentFeeCents / KOBO_PER_NAIRA,
     },
   }).catch(() => {})
 
@@ -13786,7 +13993,87 @@ app.get('/api/growth-partner/me', authenticate, async (c) => {
   partner = await getPartnerByEmail(c.env.APP_DB, email)
   const summary = await summarizePartner(c.env.APP_DB, String(partner.id))
   const base = getPasswordResetBaseUrl(c.env).replace(/\/reset-password.*$/, '') || 'https://ndovera.com'
-  return c.json({ success: true, partner: mapPartner(partner), referralLink: `${base}/register-school?ref=${partner.referral_code}&discount=${encodeURIComponent(discountCode)}`, ...summary })
+  const { pricingConfig, plans } = await getTenantPricingState(c.env.APP_DB)
+  const codeRecord = await getTenantDiscountCode(c.env.APP_DB, discountCode)
+
+  return c.json({
+    success: true,
+    partner: mapPartner(partner),
+    referralLink: `${base}/register-school?ref=${partner.referral_code}&discount=${encodeURIComponent(discountCode)}`,
+    pricingLink: `${base}/pricing?ref=${partner.referral_code}`,
+    // What the partner's own code currently charges, and the floors they must stay above.
+    offer: {
+      code: discountCode,
+      setupFee: typeof codeRecord?.setupFeeCents === 'number' ? codeRecord.setupFeeCents / KOBO_PER_NAIRA : null,
+      studentFeePerTerm: typeof codeRecord?.studentFeeCents === 'number' ? codeRecord.studentFeeCents / KOBO_PER_NAIRA : null,
+      standardSetupFee: plans.growth.setupFeeCents / KOBO_PER_NAIRA,
+      standardStudentFeePerTerm: plans.growth.studentFeeCents / KOBO_PER_NAIRA,
+      minSetupFee: pricingConfig.partnerMinSetupFeeCents / KOBO_PER_NAIRA,
+      minStudentFeePerTerm: pricingConfig.partnerMinStudentFeeCents / KOBO_PER_NAIRA,
+    },
+    ...summary,
+  })
+})
+
+// A partner may discount their own registration code down to the Ami-set floor. Their signup
+// commission is a share of the onboarding fee actually paid, so discounting costs them too.
+app.post('/api/growth-partner/discount', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['growthpartner'])) return c.json({ error: 'forbidden' }, 403)
+  const email = String(c.var.user?.email || '').trim().toLowerCase()
+  const partner = await getPartnerByEmail(c.env.APP_DB, email)
+  if (!partner) return c.json({ error: 'No partner profile.' }, 404)
+  if (partner.status !== 'active') return c.json({ error: 'Your partner account is not active.' }, 403)
+
+  const body = await c.req.json().catch(() => ({}))
+  const code = await ensureGrowthPartnerDiscountCode(c.env.APP_DB, partner)
+  const { pricingConfig, plans } = await getTenantPricingState(c.env.APP_DB)
+  const existing = await getTenantDiscountCode(c.env.APP_DB, code)
+
+  // Clearing either field returns that fee to the standard plan price.
+  const clearSetupFee = body?.setupFeeNaira === null || body?.setupFeeNaira === ''
+  const clearStudentFee = body?.studentFeeNaira === null || body?.studentFeeNaira === ''
+  const setupFeeCents = clearSetupFee ? null : (nairaToCents(body?.setupFeeNaira) ?? existing?.setupFeeCents ?? null)
+  const studentFeeCents = clearStudentFee ? null : (nairaToCents(body?.studentFeeNaira) ?? existing?.studentFeeCents ?? null)
+
+  if (setupFeeCents !== null && setupFeeCents > plans.growth.setupFeeCents) {
+    return c.json({ error: 'Your onboarding fee cannot be higher than the standard price.' }, 400)
+  }
+  if (setupFeeCents !== null && setupFeeCents < pricingConfig.partnerMinSetupFeeCents) {
+    return c.json({ error: `The lowest onboarding fee you can offer is ${formatNairaAmount(pricingConfig.partnerMinSetupFeeCents / KOBO_PER_NAIRA)}.` }, 400)
+  }
+  if (studentFeeCents !== null && studentFeeCents > plans.growth.studentFeeCents) {
+    return c.json({ error: 'Your per-user fee cannot be higher than the standard price.' }, 400)
+  }
+  if (studentFeeCents !== null && studentFeeCents < pricingConfig.partnerMinStudentFeeCents) {
+    return c.json({ error: `The lowest per-user fee you can offer is ${formatNairaAmount(pricingConfig.partnerMinStudentFeeCents / KOBO_PER_NAIRA)}.` }, 400)
+  }
+
+  await upsertTenantDiscountCode(c.env.APP_DB, {
+    ...(existing || {}),
+    code,
+    name: `${partner.name} partner registration code`,
+    description: String(body?.description || existing?.description || `Registration code assigned to growth partner ${partner.name}.`),
+    active: true,
+    setupFeeCents,
+    studentFeeCents,
+    planScope: existing?.planScope || 'growth,custom',
+    createdBy: existing?.createdBy || 'growth-partner',
+    metadata: { ...(existing?.metadata || {}), growthPartnerId: partner.id, referralCode: partner.referral_code, lastEditedBy: 'growth-partner' },
+  })
+
+  await addAudit(c.env.APP_DB, `discount:${code}`, {
+    action: 'partnerDiscountUpdated',
+    data: { by: email, setupFeeCents, studentFeeCents },
+  }).catch(() => {})
+
+  return c.json({
+    success: true,
+    offer: {
+      code,
+      setupFee: setupFeeCents === null ? null : setupFeeCents / KOBO_PER_NAIRA,
+      studentFeePerTerm: studentFeeCents === null ? null : studentFeeCents / KOBO_PER_NAIRA,
+    },
+  })
 })
 
 app.post('/api/growth-partner/verification', authenticate, async (c) => {

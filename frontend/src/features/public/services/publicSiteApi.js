@@ -77,6 +77,7 @@ export const saveGrowthPartnerVerification = (data) => authedRequest('/api/growt
 export const uploadGrowthPartnerUtilityBill = (file) => uploadAsset('/api/growth-partner/verification/utility-bill', file);
 export const withdrawGrowthPartnerEarnings = (amount) => authedRequest('/api/growth-partner/withdraw', { method: 'POST', body: { amount } });
 export const resetReferralOwnerPassword = (tenantId) => authedRequest('/api/growth-partner/reset-referral-password', { method: 'POST', body: { tenantId } });
+export const saveGrowthPartnerDiscount = (data) => authedRequest('/api/growth-partner/discount', { method: 'POST', body: data });
 export const getGrowthPartnerApplications = () => authedRequest('/api/ami/growth-partner-applications');
 export const getGrowthPartners = () => authedRequest('/api/ami/growth-partners');
 export const activateGrowthPartner = (data) => authedRequest('/api/ami/growth-partners/activate', { method: 'POST', body: data });
