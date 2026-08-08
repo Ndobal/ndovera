@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { getAmiWebsiteSections, saveAmiWebsiteSection, uploadAmiWebsiteAsset } from '../../../features/public/services/publicSiteApi';
 import OpportunitiesManager from '../../../features/public/components/OpportunitiesManager';
+import AmiMediaSettings from './AmiMediaSettings';
 
 const SECTION_DEFINITIONS = [
   {
@@ -562,12 +563,21 @@ export default function AmiWebsitePage() {
           >
             Opportunity Listings
           </button>
+          <button
+            type="button"
+            onClick={() => setActiveTab('media-settings')}
+            className={`shrink-0 rounded-xl px-4 py-2.5 text-sm font-bold transition ${activeTab === 'media-settings' ? 'bg-[#1a5c38] text-[#f5deb3] dark:bg-cyan-300 dark:text-black' : 'bg-white text-[#800020] hover:bg-[#f5deb3] dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700'}`}
+          >
+            Media &amp; YouTube
+          </button>
         </div>
       </section>
 
-      {activeTab === 'opportunity-listings'
-        ? <OpportunitiesManager allowTenantField />
-        : <SectionEditor section={activeSection} data={sectionsByKey[activeSection.key]} onSaved={loadSections} />}
+      {activeTab === 'media-settings' ? <AmiMediaSettings /> : null}
+      {activeTab === 'opportunity-listings' ? <OpportunitiesManager allowTenantField /> : null}
+      {activeTab !== 'media-settings' && activeTab !== 'opportunity-listings'
+        ? <SectionEditor section={activeSection} data={sectionsByKey[activeSection.key]} onSaved={loadSections} />
+        : null}
     </div>
   );
 }

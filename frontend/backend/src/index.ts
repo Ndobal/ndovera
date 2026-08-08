@@ -14756,6 +14756,12 @@ function gpPickChars(alphabet: string, count: number) {
 function gpTempPassword() {
   return `${gpPickChars('ABCDEFGHJKLMNPQRSTUVWXYZ', 3)}${gpPickChars('abcdefghijkmnpqrstuvwxyz', 4)}@${gpPickChars('23456789', 4)}`
 }
+// The auth token carries `id` (the settings key, which for a growth partner is their email)
+// but no `email` claim, so resolving a partner from `user.email` alone always came up empty.
+function resolveActorEmail(user: Record<string, any> | undefined | null) {
+  return String(user?.email || user?.id || user?.sub || '').trim().toLowerCase()
+}
+
 async function getPartnerByEmail(db: D1Database, email: string) {
   await ensureGrowthPartnerTables(db)
   return await db.prepare(`SELECT * FROM growth_partners WHERE email = ?`).bind(String(email || '').toLowerCase()).first() as any
@@ -15058,7 +15064,7 @@ app.post('/api/ami/growth-partners/accrue-term', authenticate, async (c) => {
 // Partner dashboard data.
 app.get('/api/growth-partner/me', authenticate, async (c) => {
   if (!hasRequiredRole(c.var.user.role, ['growthpartner', 'ami'])) return c.json({ error: 'forbidden' }, 403)
-  const email = String(c.var.user?.email || c.var.user?.sub || '').trim().toLowerCase()
+  const email = resolveActorEmail(c.var.user)
   let partner = await getPartnerByEmail(c.env.APP_DB, email)
   if (!partner) return c.json({ error: 'No growth partner profile found for this account.' }, 404)
   const discountCode = await ensureGrowthPartnerDiscountCode(c.env.APP_DB, partner)
@@ -15091,7 +15097,7 @@ app.get('/api/growth-partner/me', authenticate, async (c) => {
 // commission is a share of the onboarding fee actually paid, so discounting costs them too.
 app.post('/api/growth-partner/discount', authenticate, async (c) => {
   if (!hasRequiredRole(c.var.user.role, ['growthpartner'])) return c.json({ error: 'forbidden' }, 403)
-  const email = String(c.var.user?.email || '').trim().toLowerCase()
+  const email = resolveActorEmail(c.var.user)
   const partner = await getPartnerByEmail(c.env.APP_DB, email)
   if (!partner) return c.json({ error: 'No partner profile.' }, 404)
   if (partner.status !== 'active') return c.json({ error: 'Your partner account is not active.' }, 403)
@@ -15169,7 +15175,7 @@ app.get('/api/tenants/term-bills', authenticate, async (c) => {
 
 app.post('/api/growth-partner/verification', authenticate, async (c) => {
   if (!hasRequiredRole(c.var.user.role, ['growthpartner'])) return c.json({ error: 'forbidden' }, 403)
-  const email = String(c.var.user?.email || '').trim().toLowerCase()
+  const email = resolveActorEmail(c.var.user)
   const partner = await getPartnerByEmail(c.env.APP_DB, email)
   if (!partner) return c.json({ error: 'No partner profile.' }, 404)
   const body = await c.req.json().catch(() => ({}))
@@ -15181,7 +15187,7 @@ app.post('/api/growth-partner/verification', authenticate, async (c) => {
 
 app.post('/api/growth-partner/verification/utility-bill', authenticate, async (c) => {
   if (!hasRequiredRole(c.var.user.role, ['growthpartner'])) return c.json({ error: 'forbidden' }, 403)
-  const email = String(c.var.user?.email || '').trim().toLowerCase()
+  const email = resolveActorEmail(c.var.user)
   const partner = await getPartnerByEmail(c.env.APP_DB, email)
   if (!partner) return c.json({ error: 'No partner profile.' }, 404)
   const formData = await c.req.formData()
@@ -15200,7 +15206,7 @@ app.post('/api/growth-partner/verification/utility-bill', authenticate, async (c
 app.get('/api/growth-partner/verification/utility-bill', authenticate, async (c) => {
   if (!hasRequiredRole(c.var.user.role, ['growthpartner', 'ami'])) return c.json({ error: 'forbidden' }, 403)
   const requestedPartnerId = String(c.req.query('partnerId') || '').trim()
-  const email = String(c.var.user?.email || '').trim().toLowerCase()
+  const email = resolveActorEmail(c.var.user)
   const partner = requestedPartnerId && hasRequiredRole(c.var.user.role, ['ami'])
     ? await c.env.APP_DB.prepare(`SELECT * FROM growth_partners WHERE id = ?`).bind(requestedPartnerId).first() as any
     : await getPartnerByEmail(c.env.APP_DB, email)
@@ -15219,7 +15225,7 @@ app.get('/api/growth-partner/verification/utility-bill', authenticate, async (c)
 // Save bank details for payouts.
 app.post('/api/growth-partner/bank', authenticate, async (c) => {
   if (!hasRequiredRole(c.var.user.role, ['growthpartner'])) return c.json({ error: 'forbidden' }, 403)
-  const email = String(c.var.user?.email || '').trim().toLowerCase()
+  const email = resolveActorEmail(c.var.user)
   const partner = await getPartnerByEmail(c.env.APP_DB, email)
   if (!partner) return c.json({ error: 'No partner profile.' }, 404)
   if (!partner.nin || !partner.utility_bill_key) return c.json({ error: 'Save your NIN and utility bill before adding payout-bank details.' }, 400)
@@ -15232,7 +15238,7 @@ app.post('/api/growth-partner/bank', authenticate, async (c) => {
 // Withdraw available earnings instantly via Flutterwave Transfers.
 app.post('/api/growth-partner/withdraw', authenticate, async (c) => {
   if (!hasRequiredRole(c.var.user.role, ['growthpartner'])) return c.json({ error: 'forbidden' }, 403)
-  const email = String(c.var.user?.email || '').trim().toLowerCase()
+  const email = resolveActorEmail(c.var.user)
   const partner = await getPartnerByEmail(c.env.APP_DB, email)
   if (!partner) return c.json({ error: 'No partner profile.' }, 404)
   const summary = await summarizePartner(c.env.APP_DB, String(partner.id))
@@ -15270,7 +15276,7 @@ app.post('/api/growth-partner/withdraw', authenticate, async (c) => {
 // A partner can reset the password of a school owner they referred.
 app.post('/api/growth-partner/reset-referral-password', authenticate, async (c) => {
   if (!hasRequiredRole(c.var.user.role, ['growthpartner'])) return c.json({ error: 'forbidden' }, 403)
-  const email = String(c.var.user?.email || '').trim().toLowerCase()
+  const email = resolveActorEmail(c.var.user)
   const partner = await getPartnerByEmail(c.env.APP_DB, email)
   if (!partner) return c.json({ error: 'No partner profile.' }, 404)
   const tenantId = String((await c.req.json().catch(() => ({})))?.tenantId || '').trim()

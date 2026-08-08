@@ -92,3 +92,6 @@ export const deleteOpportunity = (id) => authedRequest(`/api/opportunities/${enc
 export const getAmiWebsiteSections = () => authedRequest('/api/ami/website/sections');
 export const saveAmiWebsiteSection = (data) => authedRequest('/api/ami/website/sections', { method: 'POST', body: data });
 export const uploadAmiWebsiteAsset = (file, sectionKey) => uploadAsset('/api/ami/website/sections/upload', file, { sectionKey });
+export const getAmiMediaLimits = () => authedRequest('/api/ami/media/limits');
+export const saveAmiMediaLimits = (data) => authedRequest('/api/ami/media/limits', { method: 'POST', body: data });
+export const startYouTubeConnect = () => authedRequest('/api/integrations/youtube/connect');
