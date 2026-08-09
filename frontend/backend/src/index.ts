@@ -137,6 +137,9 @@ const AUTH_COOKIE_NAME = 'ndovera_token'
 const DEFAULT_AUTH_SESSION_SECONDS = 30 * 24 * 60 * 60
 const PASSWORD_RESET_TOKEN_TTL_MS = 30 * 60 * 1000
 const SCHOOL_ANNOUNCEMENT_CREATOR_ROLES = ['owner', 'hos', 'ict']
+// Accounts that exist at platform level rather than inside a school, so they legitimately
+// carry no tenant id.
+const PLATFORM_LEVEL_ROLES = ['ami', 'growthpartner']
 const PASSWORD_RESET_TOKENS_DDL = `CREATE TABLE IF NOT EXISTS password_reset_tokens (
   id TEXT PRIMARY KEY,
   email TEXT NOT NULL,
@@ -6897,11 +6900,16 @@ app.post('/api/push/subscriptions', authenticate, async (c) => {
 
     const resolvedUser = await resolveSettingsIdentity(c.env.APP_DB, userIdentifier)
     const tenantId = String(resolvedUser.settings?.tenantId || resolvedUser.settings?.schoolId || resolvedUser.userRow?.tenantId || currentUser.tenantId || '').trim()
-    if (!tenantId) return c.json({ success: false, error: 'No tenant.' }, 400)
+    const roleKey = normalizeRole(payload.roleKey) || getActiveRole(currentUser) || normalizeRole(resolvedUser.settings?.role) || 'student'
+
+    // Growth partners and Ami belong to the platform, not to a school, so an empty tenant is
+    // correct for them. For a school account it means the record is broken, and is an error.
+    if (!tenantId && !PLATFORM_LEVEL_ROLES.includes(roleKey)) {
+      return c.json({ success: false, error: 'No tenant.' }, 400)
+    }
 
     const userId = String(resolvedUser.userRow?.id || userIdentifier).trim()
     const userEmail = String(resolvedUser.userRow?.email || resolvedUser.settings?.email || currentUser.email || '').trim()
-    const roleKey = normalizeRole(payload.roleKey) || getActiveRole(currentUser) || normalizeRole(resolvedUser.settings?.role) || 'student'
 
     const saved = await upsertWebPushSubscription(c.env.APP_DB, {
       tenantId,
@@ -10353,8 +10361,10 @@ app.post('/api/ai/tutor/ask', authenticate, async (c) => {
 // ─── Daily "Did you know?" knowledge digest (AI-generated once per day, with history) ───────────
 async function ensureDailyFeedTable(db: D1Database) {
   if (_initializedTables.has('daily_feed')) return
-  _initializedTables.add('daily_feed')
+  // Mark ready only once the statement succeeds. Setting the flag first meant a single
+  // failed CREATE left the isolate believing the table existed, so every later query threw.
   await db.prepare(`CREATE TABLE IF NOT EXISTS daily_feed (feed_date TEXT PRIMARY KEY, payload_json TEXT, created_at TEXT)`).run()
+  _initializedTables.add('daily_feed')
 }
 
 function parseDailyFeedJson(raw: string) {
@@ -10375,24 +10385,96 @@ function parseDailyFeedJson(raw: string) {
   }
 }
 
+// Rotating themes. Asked only for "a surprising fact", the model returns its single most
+// probable answer every day — the immortal jellyfish, over and over. Steering it to a
+// different corner each day, and telling it what it has already used, breaks that loop.
+const DAILY_FEED_THEMES = [
+  'the human body and medicine',
+  'space, astronomy and the planets',
+  'African history and heritage',
+  'language, writing and communication',
+  'mathematics and numbers in daily life',
+  'engineering and how everyday things are built',
+  'agriculture, food and nutrition',
+  'the ocean, rivers and weather',
+  'computing, the internet and how software works',
+  'money, trade and how economies work',
+  'sport, movement and human performance',
+  'art, music and design',
+  'animals and plant life',
+  'inventions and the people behind them',
+]
+
+async function getRecentDidYouKnow(db: D1Database, limit = 20) {
+  try {
+    await ensureDailyFeedTable(db)
+    const rows = await db.prepare(
+      `SELECT payload_json FROM daily_feed ORDER BY feed_date DESC LIMIT ?`
+    ).bind(limit).all()
+    return (((rows as any).results || []) as Record<string, any>[])
+      .map(row => String(parseJsonField(row.payload_json, {} as any)?.didYouKnow || '').trim())
+      .filter(Boolean)
+  } catch {
+    return []
+  }
+}
+
 async function generateDailyFeed(env: any, dateStr: string) {
+  // Deterministic per date, so a retry on the same day stays on the same theme.
+  const dayNumber = Math.floor(Date.parse(`${dateStr}T00:00:00Z`) / 86400000)
+  const theme = DAILY_FEED_THEMES[Math.abs(dayNumber) % DAILY_FEED_THEMES.length]
+  const recentFacts = await getRecentDidYouKnow(env.APP_DB)
+  const avoidList = recentFacts.slice(0, 20).map(fact => `- ${fact.slice(0, 160)}`).join('\n')
+
   const messages: any[] = [
     { role: 'system', content: 'You are the editor of a daily knowledge digest for a school community (students, teachers and parents) in Nigeria and the wider world. Cover four areas: Education, Healthcare, Technology, and Career. Be accurate, positive and engaging. Reply with ONLY minified JSON of the shape {"didYouKnow": string, "headlines": [{"category": "Education"|"Healthcare"|"Technology"|"Career", "title": string, "summary": string, "tip": string}]}. Give one surprising, true "did you know" fact, and 6 headlines spread across the four areas, each with a 1-2 sentence summary and one short practical tip. Use evergreen developments and insights; do not invent specific breaking-news claims, dates or numbers you cannot stand behind.' },
-    { role: 'user', content: `Create the digest for ${dateStr}. Make the "did you know" genuinely surprising and the headlines varied and useful.` },
+    {
+      role: 'user',
+      content: [
+        `Create the digest for ${dateStr}.`,
+        `Draw today's "did you know" fact from this area: ${theme}.`,
+        avoidList
+          ? `These facts have already been used recently. Do NOT repeat any of them, or anything close to them:\n${avoidList}`
+          : '',
+        'Make the headlines varied and useful, and do not reuse a subject from the list above.',
+      ].filter(Boolean).join('\n\n'),
+    },
   ]
+
   let raw = ''
   try {
     if (env.AI && typeof env.AI.run === 'function') {
-      const result = await env.AI.run(WORKERS_AI_MODEL, { messages, max_tokens: 900, temperature: 0.7 })
+      const result = await env.AI.run(WORKERS_AI_MODEL, { messages, max_tokens: 900, temperature: 0.9 })
       raw = extractWorkersAiText(result)
     }
   } catch {
     raw = ''
   }
-  return parseDailyFeedJson(raw)
+
+  const parsed = parseDailyFeedJson(raw)
+  if (!parsed) return null
+
+  // Last line of defence: if the model repeated itself anyway, drop the fact rather than
+  // publish the same one a seventh time.
+  const normalize = (value: string) => value.toLowerCase().replace(/[^a-z0-9 ]/g, '').slice(0, 80)
+  const usedFact = normalize(parsed.didYouKnow)
+  if (usedFact && recentFacts.some(fact => normalize(fact) === usedFact)) {
+    parsed.didYouKnow = ''
+  }
+  return parsed.didYouKnow || parsed.headlines.length ? parsed : null
 }
 
 app.get('/api/feed/daily', authenticate, async (c) => {
+  // The digest is decorative. If anything in the pipeline fails, serve an empty feed rather
+  // than a 500 that shows up as a broken dashboard.
+  try {
+    return await buildDailyFeedResponse(c)
+  } catch {
+    return c.json({ success: true, date: new Date().toISOString().slice(0, 10), didYouKnow: '', headlines: [] })
+  }
+})
+
+async function buildDailyFeedResponse(c: any) {
   await ensureDailyFeedTable(c.env.APP_DB)
   const today = new Date().toISOString().slice(0, 10)
   const requested = String(c.req.query('date') || '').trim()
@@ -10412,7 +10494,7 @@ app.get('/api/feed/daily', authenticate, async (c) => {
 
   if (!payload) return c.json({ success: true, date, didYouKnow: '', headlines: [] })
   return c.json({ success: true, date, didYouKnow: String(payload.didYouKnow || ''), headlines: Array.isArray(payload.headlines) ? payload.headlines : [] })
-})
+}
 
 app.get('/api/feed/history', authenticate, async (c) => {
   await ensureDailyFeedTable(c.env.APP_DB)

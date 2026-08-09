@@ -94,8 +94,9 @@ export default function AmiMediaSettings() {
         {!youtube.credentialsSet ? (
           <div className="mt-4 rounded-2xl border border-amber-400/50 bg-amber-500/10 p-4 text-sm text-amber-900 dark:text-amber-200">
             <p className="font-bold">Google credentials are not set yet.</p>
-            <p className="mt-2">Set them on the API, then reload this page:</p>
-            <pre className="mt-2 overflow-x-auto rounded-xl bg-black/70 p-3 text-xs text-emerald-200">npx wrangler secret put YOUTUBE_CLIENT_ID
+            <p className="mt-2">Set them on the API, then reload this page. Run these from the Worker directory — one at a time, as each prompts for its value:</p>
+            <pre className="mt-2 overflow-x-auto rounded-xl bg-black/70 p-3 text-xs text-emerald-200">cd frontend/backend
+npx wrangler secret put YOUTUBE_CLIENT_ID
 npx wrangler secret put YOUTUBE_CLIENT_SECRET</pre>
             <p className="mt-2">Redirect URI to register in Google Cloud:</p>
             <code className="mt-1 block break-all rounded-lg bg-black/70 p-2 text-xs text-emerald-200">{youtube.redirectUri}</code>
