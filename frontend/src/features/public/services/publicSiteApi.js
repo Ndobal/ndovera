@@ -78,6 +78,12 @@ export const uploadGrowthPartnerUtilityBill = (file) => uploadAsset('/api/growth
 export const withdrawGrowthPartnerEarnings = (amount) => authedRequest('/api/growth-partner/withdraw', { method: 'POST', body: { amount } });
 export const resetReferralOwnerPassword = (tenantId) => authedRequest('/api/growth-partner/reset-referral-password', { method: 'POST', body: { tenantId } });
 export const saveGrowthPartnerDiscount = (data) => authedRequest('/api/growth-partner/discount', { method: 'POST', body: data });
+export const acknowledgePartnerPayout = (payoutId, remark) => authedRequest(`/api/growth-partner/payouts/${encodeURIComponent(payoutId)}/acknowledge`, { method: 'POST', body: { remark } });
+export const getConversations = () => authedRequest('/api/conversations');
+export const getConversationMessages = (id) => authedRequest(`/api/conversations/${encodeURIComponent(id)}/messages`);
+export const sendConversationMessage = (id, body) => authedRequest(`/api/conversations/${encodeURIComponent(id)}/messages`, { method: 'POST', body: { body } });
+export const initiatePartnerPayout = (partnerId, amount) => authedRequest(`/api/ami/growth-partners/${encodeURIComponent(partnerId)}/payouts/initiate`, { method: 'POST', body: { amount } });
+export const markPartnerPayoutPaid = (payoutId, remark) => authedRequest(`/api/ami/growth-partners/payouts/${encodeURIComponent(payoutId)}/mark-paid`, { method: 'POST', body: { remark } });
 export const getGrowthPartnerApplications = () => authedRequest('/api/ami/growth-partner-applications');
 export const getGrowthPartners = () => authedRequest('/api/ami/growth-partners');
 export const activateGrowthPartner = (data) => authedRequest('/api/ami/growth-partners/activate', { method: 'POST', body: data });

@@ -14803,6 +14803,18 @@ const GP_REFERRALS_DDL = `CREATE TABLE IF NOT EXISTS gp_referrals (id TEXT PRIMA
 const GP_COMMISSIONS_DDL = `CREATE TABLE IF NOT EXISTS gp_commissions (id TEXT PRIMARY KEY, partner_id TEXT, tenant_id TEXT, kind TEXT, amount REAL, note TEXT, created_at TEXT)`
 const GP_WITHDRAWALS_DDL = `CREATE TABLE IF NOT EXISTS gp_withdrawals (id TEXT PRIMARY KEY, partner_id TEXT, amount REAL, status TEXT, reference TEXT, created_at TEXT)`
 const GP_REPRESENTATIVES_DDL = `CREATE TABLE IF NOT EXISTS gp_representative_appointments (partner_id TEXT PRIMARY KEY, level TEXT NOT NULL, territory TEXT, appointed_by TEXT, appointed_at TEXT NOT NULL)`
+// One conversation per referred school, plus a single community thread every partner joins.
+const GP_CONVERSATIONS_DDL = `CREATE TABLE IF NOT EXISTS gp_conversations (
+  id TEXT PRIMARY KEY, kind TEXT, partner_id TEXT, tenant_id TEXT, title TEXT, created_at TEXT, updated_at TEXT
+)`
+const GP_MESSAGES_DDL = `CREATE TABLE IF NOT EXISTS gp_messages (
+  id TEXT PRIMARY KEY, conversation_id TEXT, sender_id TEXT, sender_name TEXT, sender_role TEXT,
+  body TEXT, created_at TEXT
+)`
+const GP_MESSAGE_READS_DDL = `CREATE TABLE IF NOT EXISTS gp_message_reads (
+  conversation_id TEXT, user_id TEXT, last_read_at TEXT, PRIMARY KEY (conversation_id, user_id)
+)`
+const GP_COMMUNITY_ID = 'gpconv_community'
 let _gpReady = false
 async function ensureGrowthPartnerProfileColumns(db: D1Database) {
   const rows = ((await db.prepare(`PRAGMA table_info(growth_partners)`).all()).results || []) as any[]
@@ -14819,7 +14831,29 @@ async function ensureGrowthPartnerTables(db: D1Database) {
   await db.prepare(GP_COMMISSIONS_DDL).run()
   await db.prepare(GP_WITHDRAWALS_DDL).run()
   await db.prepare(GP_REPRESENTATIVES_DDL).run()
+  await db.prepare(GP_CONVERSATIONS_DDL).run()
+  await db.prepare(GP_MESSAGES_DDL).run()
+  await db.prepare(GP_MESSAGE_READS_DDL).run()
+  // Payout lifecycle: processing -> awaiting_ack (Ami has paid) -> acknowledged (partner
+  // confirms receipt). Older rows written as 'paid' are treated as already settled.
+  for (const column of ['paid_at TEXT', 'paid_remark TEXT', 'acknowledged_at TEXT', 'ack_remark TEXT']) {
+    try { await db.exec(`ALTER TABLE gp_withdrawals ADD COLUMN ${column}`) } catch { /* already there */ }
+  }
   _gpReady = true
+}
+
+// 30% of the onboarding fee for a partner's first ten schools, 50% after that.
+const GP_TIER_THRESHOLD = 10
+function buildPartnerTier(referralCount: number) {
+  const reachedSecondTier = referralCount >= GP_TIER_THRESHOLD
+  return {
+    schools: referralCount,
+    threshold: GP_TIER_THRESHOLD,
+    currentRate: reachedSecondTier ? 0.5 : 0.3,
+    nextRate: reachedSecondTier ? null : 0.5,
+    schoolsToNextRate: reachedSecondTier ? 0 : Math.max(0, GP_TIER_THRESHOLD - referralCount),
+    label: reachedSecondTier ? 'Senior partner — 50% of onboarding' : 'Partner — 30% of onboarding',
+  }
 }
 function gpReferralCode(name: string) {
   const initials = String(name || '').replace(/[^a-zA-Z]/g, '').slice(0, 3).toUpperCase() || 'NDV'
@@ -14873,13 +14907,38 @@ async function summarizePartner(db: D1Database, partnerId: string) {
   const withdrawals = ((await db.prepare(`SELECT * FROM gp_withdrawals WHERE partner_id = ? ORDER BY created_at DESC`).bind(partnerId).all()).results || []) as any[]
   const representative = await db.prepare(`SELECT level, territory, appointed_at FROM gp_representative_appointments WHERE partner_id = ?`).bind(partnerId).first() as any
   const totalEarned = commissions.reduce((s, r) => s + Number(r.amount || 0), 0)
-  const totalWithdrawn = withdrawals.filter(w => w.status !== 'failed').reduce((s, r) => s + Number(r.amount || 0), 0)
+  const live = withdrawals.filter(w => w.status !== 'failed')
+  // Money Ami has sent but the partner has not yet confirmed. It is already committed, so it
+  // leaves `available` immediately — otherwise the same earnings could be paid out twice.
+  const awaitingAcknowledgement = live
+    .filter(w => String(w.status || '') === 'awaiting_ack')
+    .reduce((s, r) => s + Number(r.amount || 0), 0)
+  const totalWithdrawn = live.reduce((s, r) => s + Number(r.amount || 0), 0)
+  const settled = live
+    .filter(w => ['acknowledged', 'paid'].includes(String(w.status || '')))
+    .reduce((s, r) => s + Number(r.amount || 0), 0)
+
   return {
     referrals: referrals.map(r => ({ id: r.id, tenantId: r.tenant_id, schoolName: r.school_name, createdAt: r.created_at })),
     referralCount: referrals.length,
-    totalEarned, totalWithdrawn, available: Math.max(0, totalEarned - totalWithdrawn),
-    commissions: commissions.map(r => ({ id: r.id, kind: r.kind, amount: Number(r.amount || 0), note: r.note, createdAt: r.created_at })),
-    withdrawals: withdrawals.map(w => ({ id: w.id, amount: Number(w.amount || 0), status: w.status, reference: w.reference, createdAt: w.created_at })),
+    totalEarned,
+    totalWithdrawn,
+    settled,
+    awaitingAcknowledgement,
+    available: Math.max(0, totalEarned - totalWithdrawn),
+    tier: buildPartnerTier(referrals.length),
+    commissions: commissions.map(r => ({ id: r.id, kind: r.kind, amount: Number(r.amount || 0), note: r.note, createdAt: r.created_at, tenantId: r.tenant_id })),
+    withdrawals: withdrawals.map(w => ({
+      id: w.id,
+      amount: Number(w.amount || 0),
+      status: w.status,
+      reference: w.reference,
+      createdAt: w.created_at,
+      paidAt: w.paid_at || null,
+      paidRemark: w.paid_remark || '',
+      acknowledgedAt: w.acknowledged_at || null,
+      ackRemark: w.ack_remark || '',
+    })),
     representative: representative ? { level: representative.level, territory: representative.territory || '', appointedAt: representative.appointed_at } : null,
   }
 }
@@ -15253,6 +15312,253 @@ app.get('/api/tenants/term-bills', authenticate, async (c) => {
     outstanding: bills.filter(bill => bill.status !== 'paid'),
     blockedRoles: TERM_BILL_BLOCKED_ROLES,
   })
+})
+
+// ---------------------------------------------------------------------------
+// Partner payouts
+//
+// Ami initiates a payout, which reveals the partner's bank details and reserves the amount.
+// Ami pays externally and records it with a remark; the partner then confirms receipt. Once
+// Monnify is wired the middle step becomes automatic and the rest of the flow is unchanged.
+// ---------------------------------------------------------------------------
+app.post('/api/ami/growth-partners/:partnerId/payouts/initiate', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  await ensureGrowthPartnerTables(c.env.APP_DB)
+  const partnerId = String(c.req.param('partnerId') || '').trim()
+  const partner = await c.env.APP_DB.prepare(`SELECT * FROM growth_partners WHERE id = ?`).bind(partnerId).first() as any
+  if (!partner) return c.json({ error: 'Growth partner not found.' }, 404)
+  if (!partner.account_number) return c.json({ error: 'This partner has not added a payout account yet.' }, 400)
+
+  const summary = await summarizePartner(c.env.APP_DB, partnerId)
+  const body = await c.req.json().catch(() => ({}))
+  const requested = Number(body?.amount || 0)
+  const amount = requested > 0 ? Math.min(requested, summary.available) : summary.available
+  if (amount <= 0) return c.json({ error: 'This partner has no unpaid earnings.' }, 400)
+
+  const id = `gpw_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`
+  const reference = `gppay_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`
+  await c.env.APP_DB.prepare(
+    `INSERT INTO gp_withdrawals (id, partner_id, amount, status, reference, created_at) VALUES (?, ?, ?, 'processing', ?, ?)`
+  ).bind(id, partnerId, amount, reference, new Date().toISOString()).run()
+
+  return c.json({
+    success: true,
+    payout: { id, amount, reference, status: 'processing' },
+    // Shown to Ami so the transfer can be made now; never exposed to other partners.
+    bank: {
+      bankName: partner.bank_name || '',
+      bankCode: partner.bank_code || '',
+      accountNumber: partner.account_number || '',
+      accountName: partner.account_name || '',
+    },
+  })
+})
+
+app.post('/api/ami/growth-partners/payouts/:payoutId/mark-paid', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  await ensureGrowthPartnerTables(c.env.APP_DB)
+  const payoutId = String(c.req.param('payoutId') || '').trim()
+  const body = await c.req.json().catch(() => ({}))
+  const remark = String(body?.remark || '').trim()
+
+  const payout = await c.env.APP_DB.prepare(`SELECT * FROM gp_withdrawals WHERE id = ?`).bind(payoutId).first() as any
+  if (!payout) return c.json({ error: 'Payout not found.' }, 404)
+  if (String(payout.status) === 'acknowledged') return c.json({ error: 'This payout is already settled.' }, 400)
+
+  await c.env.APP_DB.prepare(
+    `UPDATE gp_withdrawals SET status = 'awaiting_ack', paid_at = ?, paid_remark = ? WHERE id = ?`
+  ).bind(new Date().toISOString(), remark, payoutId).run()
+
+  await addAudit(c.env.APP_DB, `gp:${payout.partner_id}`, {
+    action: 'partnerPayoutMarkedPaid', data: { by: c.var.user.id || 'ami', payoutId, amount: Number(payout.amount || 0), remark },
+  }).catch(() => {})
+
+  return c.json({ success: true, message: 'Recorded. The partner will be asked to confirm receipt.' })
+})
+
+app.post('/api/growth-partner/payouts/:payoutId/acknowledge', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['growthpartner'])) return c.json({ error: 'forbidden' }, 403)
+  const partner = await getPartnerByEmail(c.env.APP_DB, resolveActorEmail(c.var.user))
+  if (!partner) return c.json({ error: 'No partner profile.' }, 404)
+
+  const payoutId = String(c.req.param('payoutId') || '').trim()
+  const body = await c.req.json().catch(() => ({}))
+  const payout = await c.env.APP_DB.prepare(
+    `SELECT * FROM gp_withdrawals WHERE id = ? AND partner_id = ?`
+  ).bind(payoutId, partner.id).first() as any
+  if (!payout) return c.json({ error: 'Payout not found.' }, 404)
+  if (String(payout.status) !== 'awaiting_ack') return c.json({ error: 'This payout is not awaiting your confirmation.' }, 400)
+
+  await c.env.APP_DB.prepare(
+    `UPDATE gp_withdrawals SET status = 'acknowledged', acknowledged_at = ?, ack_remark = ? WHERE id = ?`
+  ).bind(new Date().toISOString(), String(body?.remark || '').trim(), payoutId).run()
+
+  await addAudit(c.env.APP_DB, `gp:${partner.id}`, {
+    action: 'partnerPayoutAcknowledged', data: { payoutId, amount: Number(payout.amount || 0) },
+  }).catch(() => {})
+
+  return c.json({ success: true, ...(await summarizePartner(c.env.APP_DB, String(partner.id))) })
+})
+
+// ---------------------------------------------------------------------------
+// Partner conversations
+// ---------------------------------------------------------------------------
+async function ensureCommunityConversation(db: D1Database) {
+  await ensureGrowthPartnerTables(db)
+  const existing = await db.prepare(`SELECT id FROM gp_conversations WHERE id = ?`).bind(GP_COMMUNITY_ID).first()
+  if (existing) return GP_COMMUNITY_ID
+  await db.prepare(
+    `INSERT INTO gp_conversations (id, kind, partner_id, tenant_id, title, created_at, updated_at) VALUES (?, 'community', '', '', ?, ?, ?)`
+  ).bind(GP_COMMUNITY_ID, 'Growth Partner Community', new Date().toISOString(), new Date().toISOString()).run()
+  return GP_COMMUNITY_ID
+}
+
+// One thread per referred school, created on demand so existing referrals get one too.
+async function ensureSchoolConversation(db: D1Database, partnerId: string, tenantId: string, schoolName: string) {
+  await ensureGrowthPartnerTables(db)
+  const existing = await db.prepare(
+    `SELECT id FROM gp_conversations WHERE kind = 'school' AND partner_id = ? AND tenant_id = ?`
+  ).bind(partnerId, tenantId).first() as any
+  if (existing?.id) return String(existing.id)
+
+  const id = `gpconv_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`
+  const now = new Date().toISOString()
+  await db.prepare(
+    `INSERT INTO gp_conversations (id, kind, partner_id, tenant_id, title, created_at, updated_at) VALUES (?, 'school', ?, ?, ?, ?, ?)`
+  ).bind(id, partnerId, tenantId, schoolName || 'Referred school', now, now).run()
+  return id
+}
+
+// Who may read or post in a conversation. School threads are limited to the partner who made
+// the referral, that school's administrators, and Ami.
+async function canAccessPartnerConversation(db: D1Database, user: Record<string, any>, conversation: any) {
+  const role = getActiveRole(user) || normalizeRole(user?.role)
+  if (role === 'ami') return true
+  if (String(conversation.kind) === 'community') return role === 'growthpartner'
+
+  if (role === 'growthpartner') {
+    const partner = await getPartnerByEmail(db, resolveActorEmail(user))
+    return Boolean(partner && String(partner.id) === String(conversation.partner_id))
+  }
+  if (['owner', 'hos', 'ict'].includes(role)) {
+    return String(user?.tenantId || '') === String(conversation.tenant_id)
+  }
+  return false
+}
+
+async function listConversationsForUser(db: D1Database, user: Record<string, any>) {
+  await ensureGrowthPartnerTables(db)
+  const role = getActiveRole(user) || normalizeRole(user?.role)
+  let rows: any[] = []
+
+  if (role === 'growthpartner') {
+    const partner = await getPartnerByEmail(db, resolveActorEmail(user))
+    if (!partner) return []
+    await ensureCommunityConversation(db)
+    // Make sure every referred school has a thread before listing.
+    const referrals = ((await db.prepare(`SELECT tenant_id, school_name FROM gp_referrals WHERE partner_id = ?`).bind(partner.id).all()).results || []) as any[]
+    for (const referral of referrals) {
+      await ensureSchoolConversation(db, String(partner.id), String(referral.tenant_id), String(referral.school_name || ''))
+    }
+    rows = ((await db.prepare(
+      `SELECT * FROM gp_conversations WHERE partner_id = ? OR kind = 'community' ORDER BY kind DESC, updated_at DESC`
+    ).bind(partner.id).all()).results || []) as any[]
+  } else if (role === 'ami') {
+    rows = ((await db.prepare(`SELECT * FROM gp_conversations ORDER BY updated_at DESC LIMIT 200`).all()).results || []) as any[]
+  } else if (['owner', 'hos', 'ict'].includes(role)) {
+    rows = ((await db.prepare(
+      `SELECT * FROM gp_conversations WHERE kind = 'school' AND tenant_id = ? ORDER BY updated_at DESC`
+    ).bind(String(user?.tenantId || '')).all()).results || []) as any[]
+  }
+
+  const userId = String(user?.id || '')
+  const result: any[] = []
+  for (const row of rows) {
+    const last = await db.prepare(
+      `SELECT sender_name, body, created_at FROM gp_messages WHERE conversation_id = ? ORDER BY created_at DESC LIMIT 1`
+    ).bind(row.id).first() as any
+    const read = await db.prepare(
+      `SELECT last_read_at FROM gp_message_reads WHERE conversation_id = ? AND user_id = ?`
+    ).bind(row.id, userId).first() as any
+    const unreadRow = await db.prepare(
+      `SELECT COUNT(*) AS n FROM gp_messages WHERE conversation_id = ? AND created_at > ? AND sender_id != ?`
+    ).bind(row.id, String(read?.last_read_at || '1970-01-01'), userId).first() as any
+
+    result.push({
+      id: String(row.id),
+      kind: String(row.kind),
+      title: String(row.title || ''),
+      tenantId: String(row.tenant_id || ''),
+      lastMessage: last ? { senderName: last.sender_name, body: last.body, createdAt: last.created_at } : null,
+      unread: Number(unreadRow?.n || 0),
+      updatedAt: row.updated_at,
+    })
+  }
+  return result
+}
+
+app.get('/api/conversations', authenticate, async (c) => {
+  return c.json({ success: true, conversations: await listConversationsForUser(c.env.APP_DB, c.var.user || {}) })
+})
+
+app.get('/api/conversations/:conversationId/messages', authenticate, async (c) => {
+  await ensureGrowthPartnerTables(c.env.APP_DB)
+  const conversationId = String(c.req.param('conversationId') || '').trim()
+  const conversation = await c.env.APP_DB.prepare(`SELECT * FROM gp_conversations WHERE id = ?`).bind(conversationId).first() as any
+  if (!conversation) return c.json({ error: 'Conversation not found.' }, 404)
+  if (!(await canAccessPartnerConversation(c.env.APP_DB, c.var.user || {}, conversation))) return c.json({ error: 'forbidden' }, 403)
+
+  const rows = ((await c.env.APP_DB.prepare(
+    `SELECT * FROM gp_messages WHERE conversation_id = ? ORDER BY created_at ASC LIMIT 300`
+  ).bind(conversationId).all()).results || []) as any[]
+
+  await c.env.APP_DB.prepare(
+    `INSERT INTO gp_message_reads (conversation_id, user_id, last_read_at) VALUES (?, ?, ?)
+     ON CONFLICT(conversation_id, user_id) DO UPDATE SET last_read_at = excluded.last_read_at`
+  ).bind(conversationId, String(c.var.user?.id || ''), new Date().toISOString()).run().catch(() => {})
+
+  return c.json({
+    success: true,
+    conversation: { id: conversationId, kind: conversation.kind, title: conversation.title },
+    messages: rows.map(row => ({
+      id: String(row.id),
+      senderId: String(row.sender_id || ''),
+      senderName: String(row.sender_name || ''),
+      senderRole: String(row.sender_role || ''),
+      body: String(row.body || ''),
+      createdAt: row.created_at,
+      mine: String(row.sender_id || '') === String(c.var.user?.id || ''),
+    })),
+  })
+})
+
+app.post('/api/conversations/:conversationId/messages', authenticate, async (c) => {
+  await ensureGrowthPartnerTables(c.env.APP_DB)
+  const conversationId = String(c.req.param('conversationId') || '').trim()
+  const conversation = await c.env.APP_DB.prepare(`SELECT * FROM gp_conversations WHERE id = ?`).bind(conversationId).first() as any
+  if (!conversation) return c.json({ error: 'Conversation not found.' }, 404)
+  if (!(await canAccessPartnerConversation(c.env.APP_DB, c.var.user || {}, conversation))) return c.json({ error: 'forbidden' }, 403)
+
+  const body = await c.req.json().catch(() => ({}))
+  const text = String(body?.body || '').trim()
+  if (!text) return c.json({ error: 'Type a message first.' }, 400)
+  if (text.length > 4000) return c.json({ error: 'Messages are limited to 4000 characters.' }, 400)
+
+  const now = new Date().toISOString()
+  await c.env.APP_DB.prepare(
+    `INSERT INTO gp_messages (id, conversation_id, sender_id, sender_name, sender_role, body, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)`
+  ).bind(
+    `gpmsg_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`,
+    conversationId,
+    String(c.var.user?.id || ''),
+    String(c.var.user?.name || 'User'),
+    getActiveRole(c.var.user) || '',
+    text,
+    now,
+  ).run()
+
+  await c.env.APP_DB.prepare(`UPDATE gp_conversations SET updated_at = ? WHERE id = ?`).bind(now, conversationId).run()
+  return c.json({ success: true })
 })
 
 app.post('/api/growth-partner/verification', authenticate, async (c) => {
