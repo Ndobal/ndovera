@@ -27,7 +27,7 @@ import {
   listSchoolAnnouncements, createSchoolAnnouncement,
   getTuckOrders, createTuckOrder, updateTuckOrder, getWeeklyTuckSummary,
   createTenant, getTenantById, getTenantByOwnerEmail, getTenantBySubdomain, getTenantByWebsiteHost,
-  listTenants, updateTenant, listTenantDiscountCodes, getTenantDiscountCode,
+  listTenants, updateTenant, listTenantDiscountCodes, getTenantDiscountCode, ensureTenantLocationColumns,
   upsertTenantDiscountCode, incrementTenantDiscountCodeRedemption,
   createTenantPayment, getTenantPaymentByTxRef, listTenantPayments,
   updateTenantPayment, getLiveSessionsForClass, createLiveSession, updateLiveSessionStatus,
@@ -13483,6 +13483,49 @@ app.post('/api/school/parent-student-link', authenticate, async (c) => {
   }
 })
 
+// Where the school is. Owners maintain it; Ami can set it for any school. It is what a
+// state or regional growth partner representative is matched against.
+app.post('/api/school/location', authenticate, async (c) => {
+  const { tenant, role, forbidden } = await resolveTenantForActor(c, String((await c.req.json().catch(() => ({})))?.tenantId || '') || undefined)
+  if (forbidden) return c.json({ error: 'forbidden' }, 403)
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos', 'ict', 'ami'])) return c.json({ error: 'forbidden' }, 403)
+  const targetTenant = tenant
+  if (!targetTenant) return c.json({ error: 'No school found for this account.' }, 404)
+
+  await ensureTenantLocationColumns(c.env.APP_DB)
+  const payload = await c.req.json().catch(() => ({}))
+  const clean = (value: unknown, max = 120) => sanitizeProfileText(String(value || '').trim(), max)
+  const updated = await updateTenant(c.env.APP_DB, targetTenant.id, {
+    country: clean(payload.country, 60),
+    state: clean(payload.state, 80),
+    localGovernmentArea: clean(payload.localGovernmentArea, 120),
+    city: clean(payload.city, 120),
+    addressLine: clean(payload.addressLine, 200),
+  })
+
+  await addAudit(c.env.APP_DB, `tenant:${targetTenant.id}`, {
+    action: 'schoolLocationUpdated', data: { by: c.var.user.id || '', role },
+  }).catch(() => {})
+
+  return c.json({ success: true, tenant: updated })
+})
+
+app.get('/api/school/location', authenticate, async (c) => {
+  const { tenant, forbidden } = await resolveTenantForActor(c)
+  if (forbidden) return c.json({ error: 'forbidden' }, 403)
+  if (!tenant) return c.json({ error: 'No school found for this account.' }, 404)
+  return c.json({
+    success: true,
+    location: {
+      country: tenant.country || '',
+      state: tenant.state || '',
+      localGovernmentArea: tenant.localGovernmentArea || '',
+      city: tenant.city || '',
+      addressLine: tenant.addressLine || '',
+    },
+  })
+})
+
 // Everything the linking screen needs in one call: every student with the parents attached
 // to them, and every parent with the children attached to them. Both directions come from
 // the same link rows, so the two views can never disagree.
@@ -15429,8 +15472,31 @@ async function ensureSchoolConversation(db: D1Database, partnerId: string, tenan
   return id
 }
 
+// A representative oversees schools in their territory: national and global cover every
+// school, state and regional match the school's recorded state. A school with no state on
+// file is only ever visible to national and global representatives.
+async function partnerRepresentsSchool(db: D1Database, partnerId: string, tenantId: string) {
+  if (!tenantId) return false
+  const appointment = await db.prepare(
+    `SELECT level, territory FROM gp_representative_appointments WHERE partner_id = ?`
+  ).bind(partnerId).first() as any
+  if (!appointment) return false
+
+  const level = String(appointment.level || '').toLowerCase()
+  if (level === 'national' || level === 'global') return true
+
+  const tenant = await getTenantById(db, tenantId)
+  if (!tenant) return false
+  const territory = String(appointment.territory || '').trim().toLowerCase()
+  if (!territory) return false
+  const schoolState = String(tenant.state || '').trim().toLowerCase()
+  const schoolRegion = String(tenant.localGovernmentArea || '').trim().toLowerCase()
+  return Boolean(schoolState && territory === schoolState) || Boolean(schoolRegion && territory === schoolRegion)
+}
+
 // Who may read or post in a conversation. School threads are limited to the partner who made
-// the referral, that school's administrators, and Ami.
+// the referral, any representative covering that school's territory, the school's
+// administrators, and Ami.
 async function canAccessPartnerConversation(db: D1Database, user: Record<string, any>, conversation: any) {
   const role = getActiveRole(user) || normalizeRole(user?.role)
   if (role === 'ami') return true
@@ -15438,7 +15504,9 @@ async function canAccessPartnerConversation(db: D1Database, user: Record<string,
 
   if (role === 'growthpartner') {
     const partner = await getPartnerByEmail(db, resolveActorEmail(user))
-    return Boolean(partner && String(partner.id) === String(conversation.partner_id))
+    if (!partner) return false
+    if (String(partner.id) === String(conversation.partner_id)) return true
+    return partnerRepresentsSchool(db, String(partner.id), String(conversation.tenant_id))
   }
   if (['owner', 'hos', 'ict'].includes(role)) {
     return String(user?.tenantId || '') === String(conversation.tenant_id)
@@ -15463,6 +15531,14 @@ async function listConversationsForUser(db: D1Database, user: Record<string, any
     rows = ((await db.prepare(
       `SELECT * FROM gp_conversations WHERE partner_id = ? OR kind = 'community' ORDER BY kind DESC, updated_at DESC`
     ).bind(partner.id).all()).results || []) as any[]
+
+    // A representative also sees the school threads inside their territory.
+    const others = ((await db.prepare(
+      `SELECT * FROM gp_conversations WHERE kind = 'school' AND partner_id != ? ORDER BY updated_at DESC LIMIT 200`
+    ).bind(partner.id).all()).results || []) as any[]
+    for (const row of others) {
+      if (await partnerRepresentsSchool(db, String(partner.id), String(row.tenant_id))) rows.push(row)
+    }
   } else if (role === 'ami') {
     rows = ((await db.prepare(`SELECT * FROM gp_conversations ORDER BY updated_at DESC LIMIT 200`).all()).results || []) as any[]
   } else if (['owner', 'hos', 'ict'].includes(role)) {

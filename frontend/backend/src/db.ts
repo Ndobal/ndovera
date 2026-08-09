@@ -71,6 +71,11 @@ function mapTenantRow(row: any) {
     studentFeeCents: Number(row.student_fee_cents || 0),
     studentFeePerTerm: Number(row.student_fee_cents || 0) / 100,
     currency: row.currency,
+    country: row.country || '',
+    state: row.state || '',
+    localGovernmentArea: row.local_government_area || '',
+    city: row.city || '',
+    addressLine: row.address_line || '',
     discountCode: row.discount_code,
     discountSnapshot: parseJsonField(row.discount_snapshot, null),
     metadata: parseJsonField(row.metadata, {}),
@@ -1097,6 +1102,18 @@ export async function createTenant(db: D1Database, tenant: any) {
   return getTenantById(db, tenant.id)
 }
 
+// Where the school is. Kept as free text plus a country code rather than a fixed list, so
+// the same fields work outside Nigeria — "state" covers state/province/region and
+// "localGovernmentArea" covers LGA, council, district or their local equivalent.
+let _tenantLocationReady = false
+export async function ensureTenantLocationColumns(db: D1Database) {
+  if (_tenantLocationReady) return
+  for (const column of ['country TEXT', 'state TEXT', 'local_government_area TEXT', 'city TEXT', 'address_line TEXT']) {
+    try { await db.exec(`ALTER TABLE tenants ADD COLUMN ${column}`) } catch { /* already present */ }
+  }
+  _tenantLocationReady = true
+}
+
 export async function getTenantById(db: D1Database, id: string) {
   const result = await db.prepare('SELECT * FROM tenants WHERE id = ?').bind(id).first()
   if (!result) return null
@@ -1150,6 +1167,11 @@ export async function updateTenant(db: D1Database, tenantId: string, changes: Re
     setupFeeCents: 'setup_fee_cents',
     studentFeeCents: 'student_fee_cents',
     currency: 'currency',
+    country: 'country',
+    state: 'state',
+    localGovernmentArea: 'local_government_area',
+    city: 'city',
+    addressLine: 'address_line',
     discountCode: 'discount_code',
     discountSnapshot: 'discount_snapshot',
     metadata: 'metadata',

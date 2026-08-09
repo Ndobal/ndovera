@@ -300,6 +300,9 @@ function AppWorkspace({ auth, onLogin, onLogout }) {
   }, [isMobile, isSidebarOpen]);
 
   const mobileClassroomMode = inStudentClassroom && isMobile;
+  // The growth partner workspace carries its own sidebar and mobile bottom bar, so the
+  // shared one would be a second, duplicate navigation.
+  const partnerWorkspace = location.pathname.startsWith('/roles/growthpartner');
 
   if (isPublicRoute) {
     return <AnimatedRoutes auth={auth} onLogin={onLogin} />;
@@ -307,13 +310,13 @@ function AppWorkspace({ auth, onLogin, onLogout }) {
 
   return (
     <div className="flex h-screen overflow-hidden text-slate-900 dark:text-slate-100 transition-colors duration-500 dashboard-bg dark:bg-slate-950">
-      {!mobileClassroomMode && <Sidebar mobileOpen={isSidebarOpen} onClose={handleCloseSidebar} />}
+      {!mobileClassroomMode && !partnerWorkspace && <Sidebar mobileOpen={isSidebarOpen} onClose={handleCloseSidebar} />}
       <main className={`flex-1 min-h-0 relative ${inStudentClassroom ? 'overflow-hidden' : 'overflow-y-auto overflow-x-hidden'} ${inDashboardMode && !inStudentClassroom ? 'pb-[calc(8rem+env(safe-area-inset-bottom))] scroll-pb-[calc(8rem+env(safe-area-inset-bottom))] md:pb-0 md:scroll-pb-0' : ''}`}>
         {inDashboardMode && !mobileClassroomMode && (
           <DashboardTopBar
             authUser={auth?.user}
             onLogout={onLogout}
-            onToggleSidebar={() => setIsSidebarOpen(open => !open)}
+            onToggleSidebar={partnerWorkspace ? null : () => setIsSidebarOpen(open => !open)}
             isSidebarOpen={isSidebarOpen}
           />
         )}

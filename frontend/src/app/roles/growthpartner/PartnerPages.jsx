@@ -549,8 +549,9 @@ export function ConversationsPage({ kind, title, subtitle, onUnreadChange }) {
   const [error, setError] = useState('');
   const endRef = useRef(null);
 
+  // 'all' is the Ami view: every partner thread plus the community in one list.
   const visible = useMemo(
-    () => conversations.filter(item => (kind === 'community' ? item.kind === 'community' : item.kind === 'school')),
+    () => conversations.filter(item => (kind === 'all' ? true : kind === 'community' ? item.kind === 'community' : item.kind === 'school')),
     [conversations, kind],
   );
 
@@ -617,7 +618,7 @@ export function ConversationsPage({ kind, title, subtitle, onUnreadChange }) {
           <section className={`${CARD} lg:max-h-[32rem] lg:overflow-y-auto`}>
             <p className={LABEL}>Conversations</p>
             {visible.length === 0 ? (
-              <div className="mt-3"><EmptyState>No conversations yet. One is created for each school you refer.</EmptyState></div>
+              <div className="mt-3"><EmptyState>No conversations yet. One is created for each school a partner refers.</EmptyState></div>
             ) : (
               <div className="mt-3 space-y-2">
                 {visible.map(item => (

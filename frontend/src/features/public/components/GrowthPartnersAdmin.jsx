@@ -8,6 +8,7 @@ import {
   accrueGrowthPartnerTerm,
   resetGrowthPartnerPassword,
 } from '../services/publicSiteApi';
+import { ConversationsPage } from '../../../app/roles/growthpartner/PartnerPages';
 
 const naira = new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN', maximumFractionDigits: 0 });
 
@@ -56,6 +57,7 @@ export default function GrowthPartnersAdmin() {
   const activatedEmails = new Set(partners.map(p => String(p.email || '').toLowerCase()));
   const [termPeriod, setTermPeriod] = useState('');
   const [passwordIssue, setPasswordIssue] = useState(null);
+  const [showConversations, setShowConversations] = useState(false);
 
   function copyText(value) {
     navigator.clipboard?.writeText(value);
@@ -208,6 +210,33 @@ export default function GrowthPartnersAdmin() {
           </p>
         </div>
       ) : null}
+
+      <div className="mt-6 rounded-2xl border border-[#c9a96e]/35 bg-[#fff8ee]/70 p-3 dark:border-white/10 dark:bg-slate-800/40">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <p className="text-sm font-bold text-[#14215b] dark:text-slate-100">Community and partner messages</p>
+            <p className="text-xs text-[#4a5578] dark:text-slate-400">
+              Post to every growth partner at once, or open any partner&apos;s conversation with a school they referred.
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={() => setShowConversations(open => !open)}
+            className="rounded-xl bg-[#14215b] px-4 py-2 text-xs font-bold text-[#f5deb3] dark:bg-cyan-300 dark:text-black"
+          >
+            {showConversations ? 'Hide messages' : 'Open messages'}
+          </button>
+        </div>
+        {showConversations ? (
+          <div className="mt-4">
+            <ConversationsPage
+              kind="all"
+              title="Growth partner messages"
+              subtitle="The community thread reaches every partner. School threads include the partner, that school's owner, HoS and ICT."
+            />
+          </div>
+        ) : null}
+      </div>
 
       <div className="mt-6">
         <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#800020]">Active partners</p>

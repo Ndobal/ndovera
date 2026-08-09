@@ -1,4 +1,6 @@
-var CACHE_NAME = 'ndovera-pwa-v4';
+// Bumped to v5 to discard caches that may hold an index.html pointing at hashed bundles
+// which no longer exist on the server — that mismatch is what produced a blank screen.
+var CACHE_NAME = 'ndovera-pwa-v5';
 var NOTIFICATION_STATE_CACHE = 'ndovera-notification-state-v1';
 var NOTIFICATION_STATE_KEY = '/__fee-reminder-state__';
 var PUSH_CONTEXT_KEY = '/__push-context__';
@@ -237,7 +239,14 @@ function shouldCacheResponse(request, response) {
   if (!response || !response.ok) return false;
   if (response.status === 206) return false;
   if (request.headers.get('range')) return false;
-  return response.type === 'basic';
+  if (response.type !== 'basic') return false;
+  // Never store page HTML. Each build stamps index.html with new hashed bundle names, so a
+  // cached copy from an earlier deploy asks for JavaScript that has since been replaced and
+  // the app renders nothing. Hashed assets are safe: their names change when they change.
+  if (request.mode === 'navigate') return false;
+  var contentType = response.headers.get('content-type') || '';
+  if (contentType.indexOf('text/html') !== -1) return false;
+  return true;
 }
 
 self.addEventListener('install', function (event) {
@@ -374,13 +383,9 @@ self.addEventListener('fetch', function (event) {
   event.respondWith(
     fetch(event.request)
       .then(function (response) {
-        if (isNavigationRequest && response && response.status === 404) {
-          return caches.match('/')
-            .then(function (cachedHome) {
-              return cachedHome || caches.match('/index.html') || response;
-            });
-        }
-
+        // A 404 on a deep link is answered by the host's SPA fallback, which is the current
+        // shell. Substituting a cached copy here served an older shell whose bundles were
+        // already gone, so the app booted to nothing. Pass the fresh response through.
         if (shouldCacheResponse(event.request, response)) {
           var responseCopy = response.clone();
           event.waitUntil(

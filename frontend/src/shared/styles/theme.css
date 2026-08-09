@@ -196,6 +196,56 @@
   box-shadow: 0 4px 16px rgba(15, 23, 42, 0.08);
 }
 
+/*
+ * Light-mode readability rescue.
+ *
+ * Large parts of the dashboard were authored against the dark theme and use the pale slate
+ * text utilities with no light-mode counterpart. Those sit on .glass-surface, which is white
+ * in light mode, so the text all but disappears — pale grey on white. There are well over a
+ * thousand such class usages across the app, so they are remapped here rather than edited
+ * one by one. Dark mode is untouched: these rules only apply when .dark is absent.
+ *
+ * If a genuinely dark panel ever needs pale text in light mode, add `keep-pale-text` to it.
+ */
+:not(.dark) .glass-surface :not(.keep-pale-text) > .text-slate-100,
+:not(.dark) .glass-surface :not(.keep-pale-text) > .text-slate-200,
+:not(.dark) .glass-surface .text-slate-100:not(.keep-pale-text),
+:not(.dark) .glass-surface .text-slate-200:not(.keep-pale-text),
+:not(.dark) .glass-chip .text-slate-100:not(.keep-pale-text),
+:not(.dark) .glass-chip .text-slate-200:not(.keep-pale-text) {
+  color: #14215b !important;
+}
+
+:not(.dark) .glass-surface .text-slate-300:not(.keep-pale-text),
+:not(.dark) .glass-surface .text-slate-400:not(.keep-pale-text),
+:not(.dark) .glass-chip .text-slate-300:not(.keep-pale-text),
+:not(.dark) .glass-chip .text-slate-400:not(.keep-pale-text) {
+  color: #47557a !important;
+}
+
+/* Same problem outside a glass card: page-level copy written for the dark theme. */
+:not(.dark) .dashboard-bg > main .text-slate-100:not(.keep-pale-text),
+:not(.dark) .dashboard-bg > main .text-slate-200:not(.keep-pale-text) {
+  color: #14215b !important;
+}
+
+:not(.dark) .dashboard-bg > main .text-slate-300:not(.keep-pale-text),
+:not(.dark) .dashboard-bg > main .text-slate-400:not(.keep-pale-text) {
+  color: #47557a !important;
+}
+
+/* Buttons and badges that paint their own dark background keep their pale text. */
+:not(.dark) [class*="bg-slate-9"] .text-slate-100,
+:not(.dark) [class*="bg-slate-8"] .text-slate-100,
+:not(.dark) [class*="bg-slate-9"] .text-slate-200,
+:not(.dark) [class*="bg-slate-8"] .text-slate-200,
+:not(.dark) [class*="bg-slate-9"] .text-slate-300,
+:not(.dark) [class*="bg-slate-8"] .text-slate-300,
+:not(.dark) [class*="bg-slate-9"] .text-slate-400,
+:not(.dark) [class*="bg-slate-8"] .text-slate-400 {
+  color: inherit;
+}
+
 .dark .glass-surface {
   @apply bg-slate-950/80 border border-white/5 backdrop-blur-2xl;
   box-shadow:
