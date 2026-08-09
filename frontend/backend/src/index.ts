@@ -15131,6 +15131,78 @@ app.get('/api/ami/growth-partners', authenticate, async (c) => {
   return c.json({ success: true, partners, analytics, activities: await listGrowthPartnerActivities(c.env.APP_DB) })
 })
 
+// Everything Ami needs to run one partner end to end: identity, sign-in state, verification,
+// payout account, earnings, referrals and the code they are selling on.
+app.get('/api/ami/growth-partners/:partnerId', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  await ensureGrowthPartnerTables(c.env.APP_DB)
+  const partnerId = String(c.req.param('partnerId') || '').trim()
+  const row = await c.env.APP_DB.prepare(`SELECT * FROM growth_partners WHERE id = ?`).bind(partnerId).first() as any
+  if (!row) return c.json({ error: 'Growth partner not found.' }, 404)
+
+  const partner = mapPartner(row)
+  const summary = await summarizePartner(c.env.APP_DB, partnerId)
+  const email = String(row.email || '').toLowerCase()
+  const settings = await getSettings(c.env.APP_DB, email).catch(() => null)
+  const discountCode = await ensureGrowthPartnerDiscountCode(c.env.APP_DB, row)
+  const codeRecord = await getTenantDiscountCode(c.env.APP_DB, discountCode)
+  const { pricingConfig, plans } = await getTenantPricingState(c.env.APP_DB)
+  const base = getPasswordResetBaseUrl(c.env).replace(/\/reset-password.*$/, '') || 'https://ndovera.com'
+
+  // Each referred school with the payment state that decides whether commission is due.
+  const referrals: any[] = []
+  for (const referral of summary.referrals) {
+    const tenant = await getTenantById(c.env.APP_DB, referral.tenantId).catch(() => null)
+    referrals.push({
+      ...referral,
+      status: tenant?.status || 'unknown',
+      paymentStatus: tenant?.paymentStatus || 'unknown',
+      approvalStatus: tenant?.approvalStatus || 'unknown',
+      state: tenant?.state || '',
+      localGovernmentArea: tenant?.localGovernmentArea || '',
+    })
+  }
+
+  return c.json({
+    success: true,
+    partner,
+    ...summary,
+    referrals,
+    login: {
+      email,
+      hasAccount: Boolean(settings?.passwordHash),
+      mustChangePassword: settings?.mustChangePassword === true,
+      lastPasswordChange: settings?.passwordUpdatedAt || null,
+      status: settings?.status || 'unknown',
+    },
+    verification: {
+      nin: partner.nin || '',
+      utilityBillUrl: partner.utilityBillUrl || '',
+      complete: Boolean(partner.nin && partner.utilityBillUrl),
+    },
+    payoutAccount: {
+      bankName: partner.bankName || '',
+      bankCode: partner.bankCode || '',
+      accountNumber: partner.accountNumber || '',
+      accountName: partner.accountName || '',
+      complete: Boolean(partner.accountNumber && partner.accountName),
+    },
+    offer: {
+      code: discountCode,
+      setupFee: typeof codeRecord?.setupFeeCents === 'number' ? codeRecord.setupFeeCents / KOBO_PER_NAIRA : null,
+      studentFeePerTerm: typeof codeRecord?.studentFeeCents === 'number' ? codeRecord.studentFeeCents / KOBO_PER_NAIRA : null,
+      standardSetupFee: plans.growth.setupFeeCents / KOBO_PER_NAIRA,
+      standardStudentFeePerTerm: plans.growth.studentFeeCents / KOBO_PER_NAIRA,
+      minSetupFee: pricingConfig.partnerMinSetupFeeCents / KOBO_PER_NAIRA,
+      minStudentFeePerTerm: pricingConfig.partnerMinStudentFeeCents / KOBO_PER_NAIRA,
+    },
+    links: {
+      referralLink: `${base}/register-school?ref=${partner.referralCode}&discount=${encodeURIComponent(discountCode)}`,
+      pricingLink: `${base}/pricing?ref=${partner.referralCode}`,
+    },
+  })
+})
+
 app.post('/api/ami/growth-partners/:partnerId/mark-paid', authenticate, async (c) => {
   if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
   const partnerId = String(c.req.param('partnerId') || '').trim()

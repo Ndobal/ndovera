@@ -90,6 +90,7 @@ export const activateGrowthPartner = (data) => authedRequest('/api/ami/growth-pa
 export const markGrowthPartnerPaid = (partnerId, amount) => authedRequest(`/api/ami/growth-partners/${encodeURIComponent(partnerId)}/mark-paid`, { method: 'POST', body: { amount } });
 export const appointGrowthPartnerRepresentative = (partnerId, data) => authedRequest(`/api/ami/growth-partners/${encodeURIComponent(partnerId)}/representative`, { method: 'POST', body: data });
 export const resetGrowthPartnerPassword = (partnerId) => authedRequest(`/api/ami/growth-partners/${encodeURIComponent(partnerId)}/reset-password`, { method: 'POST', body: {} });
+export const getGrowthPartnerDetail = (partnerId) => authedRequest(`/api/ami/growth-partners/${encodeURIComponent(partnerId)}`);
 export const accrueGrowthPartnerTerm = (period) => authedRequest('/api/ami/growth-partners/accrue-term', { method: 'POST', body: { period } });
 export const getManagedOpportunities = () => authedRequest('/api/opportunities/manage');
 export const createOpportunity = (data) => authedRequest('/api/opportunities', { method: 'POST', body: data });
