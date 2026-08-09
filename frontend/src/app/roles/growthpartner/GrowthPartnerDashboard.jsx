@@ -11,15 +11,15 @@ import {
 import { changePassword, getStoredAuth, persistAuth } from '../../../features/auth/services/authApi';
 
 const naira = new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN', maximumFractionDigits: 0 });
-const card = 'rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur';
-const input = 'mt-1 w-full rounded-xl border border-white/15 bg-white/10 px-3 py-2 text-sm text-white outline-none focus:ring-2 focus:ring-emerald-400/40';
-const lbl = 'text-xs font-semibold uppercase tracking-[0.18em] text-white/60';
+const card = 'rounded-3xl border border-[#c9a96e]/40 dark:border-white/10 bg-[#b5e3f4] dark:bg-slate-900/40 p-6 backdrop-blur';
+const input = 'mt-1 w-full rounded-xl border border-[#c9a96e]/40 dark:border-white/10 bg-white dark:bg-slate-900/50 px-3 py-2 text-sm text-[#191970] dark:text-slate-100 outline-none focus:ring-2 focus:ring-emerald-400/40';
+const lbl = 'text-xs font-semibold uppercase tracking-[0.18em] text-[#800020] dark:text-slate-400';
 
 function Stat({ label, value, accent }) {
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
-      <p className="text-xs font-semibold uppercase tracking-wide text-white/55">{label}</p>
-      <p className={`mt-2 text-2xl font-black ${accent || 'text-white'}`}>{value}</p>
+    <div className="rounded-2xl border border-[#c9a96e]/40 dark:border-white/10 bg-[#b5e3f4] dark:bg-slate-900/40 p-5">
+      <p className="text-xs font-semibold uppercase tracking-wide text-[#800020] dark:text-slate-400">{label}</p>
+      <p className={`mt-2 text-2xl font-black ${accent || 'text-[#191970] dark:text-slate-100'}`}>{value}</p>
     </div>
   );
 }
@@ -139,18 +139,18 @@ export default function GrowthPartnerDashboard() {
   function copy(text) { navigator.clipboard?.writeText(text); setNotice('Copied to clipboard.'); }
 
   if (error && !data) {
-    return <div className="p-8 text-white"><div className={card}><p className="text-rose-300">{error}</p></div></div>;
+    return <div className="p-8 text-[#191970] dark:text-slate-100"><div className={card}><p className="text-[#800020] dark:text-rose-300">{error}</p></div></div>;
   }
-  if (!data) return <div className="p-8 text-white/70">Loading your partner dashboard…</div>;
+  if (!data) return <div className="p-8 text-[#191970] dark:text-slate-300">Loading your partner dashboard…</div>;
 
   const p = data.partner || {};
 
   return (
-    <div className="mx-auto max-w-6xl space-y-6 p-6 text-white">
+    <div className="mx-auto max-w-6xl space-y-6 p-6 text-[#191970] dark:text-slate-100">
       <section className={card}>
-        <p className="text-xs font-semibold uppercase tracking-[0.26em] text-emerald-300">Growth Partner</p>
+        <p className="text-xs font-semibold uppercase tracking-[0.26em] text-[#1a5c38] dark:text-emerald-300">Growth Partner</p>
         <h1 className="mt-2 text-3xl font-black">Welcome, {p.name}</h1>
-        <p className="mt-2 text-white/70">Share your referral link. When a school registers and pays through it, you earn commission — 30% for your first 10 schools, 50% after that — plus a share of ongoing term payments.</p>
+        <p className="mt-2 text-[#191970] dark:text-slate-300">Share your referral link. When a school registers and pays through it, you earn commission — 30% for your first 10 schools, 50% after that — plus a share of ongoing term payments.</p>
         <div className="mt-4 grid gap-3 sm:grid-cols-[1fr_auto] sm:items-end">
           <div>
             <p className={lbl}>Your referral link</p>
@@ -158,26 +158,26 @@ export default function GrowthPartnerDashboard() {
           </div>
           <div className="flex gap-2">
             <button type="button" onClick={() => copy(data.referralLink)} className="rounded-xl bg-emerald-500 px-4 py-2 text-sm font-bold text-black">Copy link</button>
-            <button type="button" onClick={() => copy(p.discountCode || p.referralCode)} className="rounded-xl border border-white/20 px-4 py-2 text-sm font-bold">Discount: {p.discountCode || 'Loading…'}</button>
+            <button type="button" onClick={() => copy(p.discountCode || p.referralCode)} className="rounded-xl border border-[#191970]/25 dark:border-white/20 px-4 py-2 text-sm font-bold">Discount: {p.discountCode || 'Loading…'}</button>
           </div>
         </div>
-        <p className="mt-3 text-xs text-emerald-200/80">This registration link automatically applies your discount code. School owners using it cannot replace it with another partner’s code.</p>
+        <p className="mt-3 text-xs text-[#1a5c38] dark:text-emerald-200/80">This registration link automatically applies your discount code. School owners using it cannot replace it with another partner’s code.</p>
       </section>
 
-      {notice ? <div className="rounded-2xl border border-emerald-400/30 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-100">{notice}</div> : null}
-      {error ? <div className="rounded-2xl border border-rose-400/30 bg-rose-500/10 px-4 py-3 text-sm text-rose-100">{error}</div> : null}
+      {notice ? <div className="rounded-2xl border border-emerald-400/30 bg-emerald-500/10 px-4 py-3 text-sm text-[#1a5c38] dark:text-emerald-100">{notice}</div> : null}
+      {error ? <div className="rounded-2xl border border-rose-400/30 bg-rose-500/10 px-4 py-3 text-sm text-[#800020] dark:text-rose-200">{error}</div> : null}
 
       <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <Stat label="Schools referred" value={data.referralCount} />
-        <Stat label="Total earned" value={naira.format(data.totalEarned)} accent="text-emerald-300" />
+        <Stat label="Total earned" value={naira.format(data.totalEarned)} accent="text-[#1a5c38] dark:text-emerald-300" />
         <Stat label="Withdrawn" value={naira.format(data.totalWithdrawn)} />
-        <Stat label="Available" value={naira.format(data.available)} accent="text-emerald-300" />
+        <Stat label="Available" value={naira.format(data.available)} accent="text-[#1a5c38] dark:text-emerald-300" />
       </section>
 
       <section className={card}>
         <h2 className="text-xl font-bold">Your code pricing</h2>
-        <p className="mt-2 text-sm text-white/60">
-          Set the prices schools pay when they register through your link or code <span className="font-bold text-emerald-300">{p.discountCode || '—'}</span>.
+        <p className="mt-2 text-sm text-[#800020] dark:text-slate-400">
+          Set the prices schools pay when they register through your link or code <span className="font-bold text-[#1a5c38] dark:text-emerald-300">{p.discountCode || '—'}</span>.
           Leave a field empty to charge the standard NDOVERA price. Your signup commission is a share of the onboarding fee actually paid, so a lower onboarding fee also lowers what you earn per school.
         </p>
         <form onSubmit={saveOffer} className="mt-4 grid gap-3 sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto] sm:items-end">
@@ -189,7 +189,7 @@ export default function GrowthPartnerDashboard() {
               onChange={e => setOfferForm(c => ({ ...c, setupFeeNaira: e.target.value }))}
               placeholder={`Standard ${naira.format(data.offer?.standardSetupFee || 0)}`}
             />
-            <p className="mt-1 text-xs text-white/45">Lowest allowed: {naira.format(data.offer?.minSetupFee || 0)}</p>
+            <p className="mt-1 text-xs text-[#4a5578] dark:text-slate-400">Lowest allowed: {naira.format(data.offer?.minSetupFee || 0)}</p>
           </div>
           <div>
             <label className={lbl}>Per active user / term (₦)</label>
@@ -199,24 +199,24 @@ export default function GrowthPartnerDashboard() {
               onChange={e => setOfferForm(c => ({ ...c, studentFeeNaira: e.target.value }))}
               placeholder={`Standard ${naira.format(data.offer?.standardStudentFeePerTerm || 0)}`}
             />
-            <p className="mt-1 text-xs text-white/45">Lowest allowed: {naira.format(data.offer?.minStudentFeePerTerm || 0)}</p>
+            <p className="mt-1 text-xs text-[#4a5578] dark:text-slate-400">Lowest allowed: {naira.format(data.offer?.minStudentFeePerTerm || 0)}</p>
           </div>
-          <button type="submit" disabled={busy === 'offer'} className="rounded-xl border border-emerald-400/50 px-5 py-2.5 text-sm font-bold text-emerald-200 disabled:opacity-40">
+          <button type="submit" disabled={busy === 'offer'} className="rounded-xl border border-emerald-400/50 px-5 py-2.5 text-sm font-bold text-[#1a5c38] dark:text-emerald-200 disabled:opacity-40">
             {busy === 'offer' ? 'Saving…' : 'Save pricing'}
           </button>
         </form>
         {data.pricingLink ? (
           <div className="mt-4 flex flex-wrap items-center gap-2 text-xs">
-            <span className="text-white/55">Share your priced pricing page:</span>
-            <span className="break-all rounded-lg border border-white/15 bg-white/5 px-2 py-1 text-white/80">{data.pricingLink}</span>
-            <button type="button" onClick={() => copy(data.pricingLink)} className="rounded-lg border border-white/20 px-3 py-1 font-semibold">Copy</button>
+            <span className="text-[#800020] dark:text-slate-400">Share your priced pricing page:</span>
+            <span className="break-all rounded-lg border border-[#c9a96e]/40 dark:border-white/10 bg-[#b5e3f4] dark:bg-slate-900/40 px-2 py-1 text-[#191970] dark:text-slate-200">{data.pricingLink}</span>
+            <button type="button" onClick={() => copy(data.pricingLink)} className="rounded-lg border border-[#191970]/25 dark:border-white/20 px-3 py-1 font-semibold">Copy</button>
           </div>
         ) : null}
       </section>
 
       <section className={card}>
         <h2 className="text-xl font-bold">Identity and account verification</h2>
-        <p className="mt-2 text-sm text-white/60">Enter your 11-digit NIN and upload a recent utility bill before submitting or updating your payout account details. Files are visible only to you and AMI.</p>
+        <p className="mt-2 text-sm text-[#800020] dark:text-slate-400">Enter your 11-digit NIN and upload a recent utility bill before submitting or updating your payout account details. Files are visible only to you and AMI.</p>
         <form onSubmit={saveVerification} className="mt-4 grid gap-3 sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto] sm:items-end">
           <div>
             <label className={lbl}>NIN</label>
@@ -224,15 +224,15 @@ export default function GrowthPartnerDashboard() {
           </div>
           <div>
             <label className={lbl}>Utility bill (PDF or image, up to 5 MB)</label>
-            <input ref={utilityBillInputRef} type="file" accept="application/pdf,image/jpeg,image/png,image/webp" className={`${input} file:mr-3 file:rounded-lg file:border-0 file:bg-emerald-400/20 file:px-2 file:py-1 file:text-xs file:font-bold file:text-emerald-100`} onChange={e => setUtilityBill(e.target.files?.[0] || null)} />
+            <input ref={utilityBillInputRef} type="file" accept="application/pdf,image/jpeg,image/png,image/webp" className={`${input} file:mr-3 file:rounded-lg file:border-0 file:bg-emerald-400/20 file:px-2 file:py-1 file:text-xs file:font-bold file:text-[#1a5c38] dark:text-emerald-100`} onChange={e => setUtilityBill(e.target.files?.[0] || null)} />
           </div>
-          <button type="submit" disabled={busy === 'verification'} className="rounded-xl border border-emerald-400/50 px-5 py-2.5 text-sm font-bold text-emerald-200 disabled:opacity-40">
+          <button type="submit" disabled={busy === 'verification'} className="rounded-xl border border-emerald-400/50 px-5 py-2.5 text-sm font-bold text-[#1a5c38] dark:text-emerald-200 disabled:opacity-40">
             {busy === 'verification' ? 'Saving…' : 'Save verification'}
           </button>
         </form>
         <div className="mt-3 flex flex-wrap gap-3 text-xs">
-          <span className={p.nin ? 'text-emerald-300' : 'text-amber-200'}>{p.nin ? 'NIN saved' : 'NIN needed'}</span>
-          {p.utilityBillUrl ? <a href={p.utilityBillUrl} target="_blank" rel="noreferrer" className="font-semibold text-sky-200 underline">View uploaded utility bill</a> : <span className="text-amber-200">Utility bill needed</span>}
+          <span className={p.nin ? 'text-[#1a5c38] dark:text-emerald-300' : 'text-amber-200'}>{p.nin ? 'NIN saved' : 'NIN needed'}</span>
+          {p.utilityBillUrl ? <a href={p.utilityBillUrl} target="_blank" rel="noreferrer" className="font-semibold text-[#14215b] dark:text-sky-200 underline">View uploaded utility bill</a> : <span className="text-amber-200">Utility bill needed</span>}
         </div>
       </section>
 
@@ -243,13 +243,13 @@ export default function GrowthPartnerDashboard() {
             {busy === 'withdraw' ? 'Processing…' : `Withdraw ${naira.format(data.available)}`}
           </button>
         </div>
-        <p className="mt-2 text-sm text-white/60">Payouts go instantly to the bank account below via our secure gateway. Add your account first.</p>
+        <p className="mt-2 text-sm text-[#800020] dark:text-slate-400">Payouts go instantly to the bank account below via our secure gateway. Add your account first.</p>
         <form onSubmit={saveBank} className="mt-4 grid gap-3 sm:grid-cols-2">
           <div><label className={lbl}>Bank name</label><input className={input} value={bank.bankName} onChange={e => setBank(c => ({ ...c, bankName: e.target.value }))} /></div>
           <div><label className={lbl}>Bank code</label><input className={input} value={bank.bankCode} onChange={e => setBank(c => ({ ...c, bankCode: e.target.value }))} placeholder="e.g. 058" /></div>
           <div><label className={lbl}>Account number</label><input className={input} value={bank.accountNumber} onChange={e => setBank(c => ({ ...c, accountNumber: e.target.value }))} /></div>
           <div><label className={lbl}>Account name</label><input className={input} value={bank.accountName} onChange={e => setBank(c => ({ ...c, accountName: e.target.value }))} /></div>
-          <div className="sm:col-span-2"><button type="submit" disabled={busy === 'bank'} className="rounded-xl border border-white/20 px-5 py-2 text-sm font-bold disabled:opacity-40">{busy === 'bank' ? 'Saving…' : 'Save bank details'}</button></div>
+          <div className="sm:col-span-2"><button type="submit" disabled={busy === 'bank'} className="rounded-xl border border-[#191970]/25 dark:border-white/20 px-5 py-2 text-sm font-bold disabled:opacity-40">{busy === 'bank' ? 'Saving…' : 'Save bank details'}</button></div>
         </form>
       </section>
 
@@ -258,34 +258,34 @@ export default function GrowthPartnerDashboard() {
         {data.referrals?.length ? (
           <div className="mt-4 space-y-3">
             {data.referrals.map(ref => (
-              <div key={ref.id} className="rounded-2xl border border-white/10 bg-white/5 p-4">
+              <div key={ref.id} className="rounded-2xl border border-[#c9a96e]/40 dark:border-white/10 bg-[#b5e3f4] dark:bg-slate-900/40 p-4">
                 <div className="flex flex-wrap items-center justify-between gap-3">
                   <div>
                     <p className="font-semibold">{ref.schoolName}</p>
-                    <p className="text-xs text-white/50">Referred {ref.createdAt ? new Date(ref.createdAt).toLocaleDateString() : ''}</p>
+                    <p className="text-xs text-[#4a5578] dark:text-slate-400">Referred {ref.createdAt ? new Date(ref.createdAt).toLocaleDateString() : ''}</p>
                   </div>
-                  <button type="button" onClick={() => resetReferral(ref.tenantId)} disabled={busy === `reset-${ref.tenantId}`} className="rounded-xl border border-sky-400/40 px-4 py-2 text-xs font-semibold text-sky-200 disabled:opacity-40">
+                  <button type="button" onClick={() => resetReferral(ref.tenantId)} disabled={busy === `reset-${ref.tenantId}`} className="rounded-xl border border-sky-400/40 px-4 py-2 text-xs font-semibold text-[#14215b] dark:text-sky-200 disabled:opacity-40">
                     {busy === `reset-${ref.tenantId}` ? 'Generating…' : 'Reset owner password'}
                   </button>
                 </div>
                 {resetInfo && resetInfo.tenantId === ref.tenantId ? (
                   <div className="mt-3 rounded-xl border border-sky-400/30 bg-sky-500/10 p-3 text-xs">
-                    <p className="break-all text-white/80">{resetInfo.resetUrl}</p>
+                    <p className="break-all text-[#191970] dark:text-slate-200">{resetInfo.resetUrl}</p>
                     <div className="mt-2 flex flex-wrap gap-2">
-                      <a href={resetInfo.whatsappUrl} target="_blank" rel="noreferrer" className="rounded-lg border border-emerald-400/40 px-3 py-1.5 font-semibold text-emerald-200">Share via WhatsApp</a>
-                      <button type="button" onClick={() => copy(resetInfo.resetUrl)} className="rounded-lg border border-white/20 px-3 py-1.5 font-semibold">Copy link</button>
+                      <a href={resetInfo.whatsappUrl} target="_blank" rel="noreferrer" className="rounded-lg border border-emerald-400/40 px-3 py-1.5 font-semibold text-[#1a5c38] dark:text-emerald-200">Share via WhatsApp</a>
+                      <button type="button" onClick={() => copy(resetInfo.resetUrl)} className="rounded-lg border border-[#191970]/25 dark:border-white/20 px-3 py-1.5 font-semibold">Copy link</button>
                     </div>
                   </div>
                 ) : null}
               </div>
             ))}
           </div>
-        ) : <p className="mt-3 text-sm text-white/60">No referrals yet. Share your link to get started.</p>}
+        ) : <p className="mt-3 text-sm text-[#800020] dark:text-slate-400">No referrals yet. Share your link to get started.</p>}
       </section>
 
       <section className={card}>
         <h2 className="text-xl font-bold">Profile security</h2>
-        <p className="mt-2 text-sm text-white/60">Change the password you use to sign in. Pick something only you know — at least 8 characters.</p>
+        <p className="mt-2 text-sm text-[#800020] dark:text-slate-400">Change the password you use to sign in. Pick something only you know — at least 8 characters.</p>
         <form onSubmit={savePassword} className="mt-4 grid gap-3 sm:grid-cols-3">
           <div>
             <label className={lbl}>Current password</label>
@@ -300,7 +300,7 @@ export default function GrowthPartnerDashboard() {
             <input type="password" autoComplete="new-password" className={input} value={security.confirmPassword} onChange={e => setSecurity(c => ({ ...c, confirmPassword: e.target.value }))} />
           </div>
           <div className="sm:col-span-3">
-            <button type="submit" disabled={busy === 'password'} className="rounded-xl border border-white/20 px-5 py-2 text-sm font-bold disabled:opacity-40">
+            <button type="submit" disabled={busy === 'password'} className="rounded-xl border border-[#191970]/25 dark:border-white/20 px-5 py-2 text-sm font-bold disabled:opacity-40">
               {busy === 'password' ? 'Updating…' : 'Update password'}
             </button>
           </div>
