@@ -1,11 +1,12 @@
 import React, { useCallback, useEffect, useState, useRef } from 'react';
-import { getMe, getClasses, addClass, getSubjects, addSubject, getBranding, saveBranding, uploadLogo, getPeople, bulkAddSubjectsBySection, updateSubject, deleteSubject, updateClass, bulkUpdateClasses, deleteClass } from '../../../features/school/services/schoolApi';
+import { getMe, getClasses, addClass, getSubjects, bulkAddSubjects, getBranding, saveBranding, uploadLogo, getPeople, bulkAddSubjectsBySection, updateSubject, deleteSubject, updateClass, bulkUpdateClasses, deleteClass } from '../../../features/school/services/schoolApi';
 import AdminPasswordReset from '../../../features/auth/components/AdminPasswordReset';
 import StaffAttendanceManagementPanel from '../../../features/attendance/components/StaffAttendanceManagementPanel';
 import WebsiteTab from './tabs/WebsiteTab';
 import EventsTab from './tabs/EventsTab';
 import PromotionPanel from './PromotionPanel';
 import AcademicSessionsBoard from '../../../features/school/components/AcademicSessionsBoard';
+import SubjectPicker from '../../../features/school/components/SubjectPicker';
 import SessionRegisterBoard from '../../../features/school/components/SessionRegisterBoard';
 import PromotionBoard from '../../../features/school/components/PromotionBoard';
 import SchoolLocationForm from '../../../features/school/components/SchoolLocationForm';
@@ -520,6 +521,7 @@ function SubjectsTab() {
   const [updatingSubjectId, setUpdatingSubjectId] = useState('');
   const [showBulk, setShowBulk] = useState(false);
   const [sectionForm, setSectionForm] = useState({ sectionName: '', subjectsText: '', teacherId: '' });
+  const [sectionPreset, setSectionPreset] = useState(null);
   const [sectionSaving, setSectionSaving] = useState(false);
   const [sectionMsg, setSectionMsg] = useState('');
 
@@ -533,19 +535,22 @@ function SubjectsTab() {
 
   const draftFor = (classId) => newSubject[classId] || { name: '', teacherId: '' };
 
-  async function addSubjectsToClass(classId) {
+  async function addSubjectsToClass(classId, names) {
+    if (!names?.length) return;
     const draft = draftFor(classId);
-    const names = String(draft.name || '').split(/[\n,]+/).map(value => value.trim()).filter(Boolean);
-    if (!names.length) return;
     setSavingClassId(classId); setError('');
     try {
-      for (const name of names) {
-        // eslint-disable-next-line no-await-in-loop
-        await addSubject({ name, classId, teacherId: draft.teacherId || '' });
+      // One request for the whole selection: adding fifteen subjects used to be
+      // fifteen round trips, and any one of them failing left the class
+      // half-filled with no way to tell which had landed.
+      const result = await bulkAddSubjects(classId, { subjects: names, teacherId: draft.teacherId || '' });
+      if (result?.skipped) {
+        setError(`${result.added} added. ${result.skipped} ${result.skipped === 1 ? 'was' : 'were'} already on this class.`);
       }
       await reload();
       setNewSubject(current => ({ ...current, [classId]: { name: '', teacherId: draft.teacherId || '' } }));
-    } catch (err) { setError(err.message); } finally { setSavingClassId(''); }
+      return true;
+    } catch (err) { setError(err.message); return false; } finally { setSavingClassId(''); }
   }
 
   async function changeSubjectTeacher(subjectId, teacherId) {
@@ -566,21 +571,31 @@ function SubjectsTab() {
     try { await deleteSubject(id); await reload(); } catch (err) { setError(err.message); }
   }
 
-  async function handleSectionBulk(e) {
-    e.preventDefault(); setSectionSaving(true); setSectionMsg('');
+  async function handleSectionBulk(names) {
+    setSectionSaving(true); setSectionMsg('');
     try {
-      const lines = sectionForm.subjectsText.split('\n').map(l => l.trim()).filter(Boolean);
-      if (!sectionForm.sectionName || lines.length === 0) { setSectionMsg('Choose a section and add at least one subject.'); setSectionSaving(false); return; }
+      const lines = names.map(l => String(l || '').trim()).filter(Boolean);
+      if (!sectionForm.sectionName || lines.length === 0) { setSectionMsg('Choose a section and pick at least one subject.'); setSectionSaving(false); return false; }
       const result = await bulkAddSubjectsBySection(sectionForm.sectionName, lines, sectionForm.teacherId || null);
-      if (result?.success) { setSectionMsg(`Added ${result.added} subject(s) across ${result.classCount} class(es).`); await reload(); setSectionForm({ sectionName: '', subjectsText: '', teacherId: '' }); }
-      else setSectionMsg(result?.error || 'Could not add subjects.');
-    } catch (err) { setSectionMsg(err.message); } finally { setSectionSaving(false); }
+      if (result?.success) {
+        setSectionMsg(`Added ${result.added} subject(s) across ${result.classCount} class(es).`);
+        await reload();
+        setSectionForm({ sectionName: '', subjectsText: '', teacherId: '' });
+        setSectionPreset(null);
+        return true;
+      }
+      setSectionMsg(result?.error || 'Could not add subjects.');
+      return false;
+    } catch (err) { setSectionMsg(err.message); return false; } finally { setSectionSaving(false); }
   }
 
   if (loading) return <p className="text-[#800020] dark:text-slate-300">Loading...</p>;
 
   const classLabel = (cls) => `${cls.name}${cls.arm ? ` ${cls.arm}` : ''}`;
   const unassigned = subjects.filter(s => !s.classId);
+  // Every subject this school already teaches somewhere, offered first because
+  // it is what they will reach for again.
+  const schoolSubjectNames = Array.from(new Set(subjects.map(s => String(s.name || '').trim()).filter(Boolean)));
 
   const TEACHER_SELECT = 'rounded-xl border border-[#c9a96e]/40 bg-[#b5e3f4] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-2 py-1 text-xs';
 
@@ -618,16 +633,19 @@ function SubjectsTab() {
 
             <div className="rounded-xl border border-dashed border-[#c9a96e]/50 dark:border-white/10 p-3 space-y-2">
               <p className="text-xs font-semibold uppercase text-[#800020] dark:text-slate-300">Add subject(s) to {classLabel(cls)}</p>
-              <textarea value={draft.name} onChange={e => setNewSubject(current => ({ ...current, [cls.id]: { ...draft, name: e.target.value } }))} rows={2} placeholder={'One subject per line, e.g.\nMathematics\nEnglish Language'} className="w-full rounded-xl border border-[#c9a96e]/40 bg-white dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none" />
               <div className="flex flex-wrap items-center gap-2">
                 <select value={draft.teacherId} onChange={e => setNewSubject(current => ({ ...current, [cls.id]: { ...draft, teacherId: e.target.value } }))} className="rounded-xl border border-[#c9a96e]/40 bg-[#b5e3f4] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-2 py-1 text-sm">
-                  <option value="">— Teacher (optional) —</option>
+                  <option value="">— Teacher for these subjects (optional) —</option>
                   {teachers.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
                 </select>
-                <button type="button" onClick={() => addSubjectsToClass(cls.id)} disabled={savingClassId === cls.id} className="rounded-xl bg-[#1a5c38] text-[#b5e3f4] font-bold px-4 py-1.5 text-sm disabled:opacity-60">
-                  {savingClassId === cls.id ? 'Adding...' : 'Add'}
-                </button>
               </div>
+              <SubjectPicker
+                schoolSubjects={schoolSubjectNames}
+                existingSubjects={classSubjects.map(s => s.name)}
+                busy={savingClassId === cls.id}
+                onAdd={names => addSubjectsToClass(cls.id, names)}
+                addLabel="Add"
+              />
             </div>
           </div>
         )}
@@ -679,7 +697,7 @@ function SubjectsTab() {
           {showBulk ? 'Hide bulk setup' : 'Bulk setup — add the same subjects to every arm of a section (optional)'}
         </button>
         {showBulk && (
-          <form onSubmit={handleSectionBulk} className="p-4 space-y-3 bg-[#b5e3f4] dark:bg-slate-900/30">
+          <div className="p-4 space-y-3 bg-[#b5e3f4] dark:bg-slate-900/30">
             <div>
               <label className="text-xs text-[#800020] dark:text-slate-400 uppercase font-semibold">Section (e.g. JSS 1)</label>
               <select required value={sectionForm.sectionName} onChange={e => setSectionForm(f => ({ ...f, sectionName: e.target.value }))}
@@ -689,17 +707,23 @@ function SubjectsTab() {
               </select>
               {sectionForm.sectionName && DEFAULT_SUBJECT_PRESETS[sectionForm.sectionName] && (
                 <button type="button"
-                  onClick={() => setSectionForm(f => ({ ...f, subjectsText: DEFAULT_SUBJECT_PRESETS[sectionForm.sectionName] }))}
+                  onClick={() => setSectionPreset(DEFAULT_SUBJECT_PRESETS[sectionForm.sectionName].split('\n').map(s => s.trim()).filter(Boolean))}
                   className="mt-1 text-xs font-semibold text-[#1a5c38] underline dark:text-[#00ffff]">
-                  Load default subjects for {sectionForm.sectionName}
+                  Select the usual {sectionForm.sectionName} subjects
                 </button>
               )}
             </div>
             <div>
-              <label className="text-xs text-[#800020] dark:text-slate-400 uppercase font-semibold">Subjects (one per line)</label>
-              <textarea required value={sectionForm.subjectsText} onChange={e => setSectionForm(f => ({ ...f, subjectsText: e.target.value }))} rows={5}
-                className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#ade1f4] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none"
-                placeholder={"Mathematics\nEnglish Language\nBasic Science"} />
+              <label className="text-xs text-[#800020] dark:text-slate-400 uppercase font-semibold">Subjects</label>
+              <div className="mt-1">
+                <SubjectPicker
+                  schoolSubjects={schoolSubjectNames}
+                  presetNames={sectionPreset}
+                  busy={sectionSaving}
+                  onAdd={handleSectionBulk}
+                  addLabel="Add to every arm of this section —"
+                />
+              </div>
             </div>
             <div>
               <label className="text-xs text-[#800020] dark:text-slate-400 uppercase font-semibold">Default Teacher (optional)</label>
@@ -710,10 +734,7 @@ function SubjectsTab() {
               </select>
             </div>
             {sectionMsg && <p className={`text-sm font-semibold ${sectionMsg.includes('Added') ? 'text-[#1a5c38]' : 'text-red-600'}`}>{sectionMsg}</p>}
-            <button type="submit" disabled={sectionSaving} className="bg-[#1a5c38] hover:bg-[#154a2e] text-[#b5e3f4] font-bold px-5 py-2 rounded-2xl text-sm transition-colors disabled:opacity-60">
-              {sectionSaving ? 'Adding...' : 'Add to All Section Arms'}
-            </button>
-          </form>
+          </div>
         )}
       </div>
     </div>

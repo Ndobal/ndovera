@@ -18216,20 +18216,45 @@ app.post('/api/school/classes/:classId/subjects/bulk', authenticate, async (c) =
   const tenantId = c.var.user?.tenantId
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
   const classId = c.req.param('classId')
-  const { subjects } = await c.req.json()
+  const { subjects, teacherId } = await c.req.json()
   if (!Array.isArray(subjects) || subjects.length === 0) return c.json({ error: 'subjects array required.' }, 400)
   try {
     await ensureSubjectsTable(c.env.APP_DB)
+
+    // Picking from a list means picking things the class may already have, so a
+    // subject already on it is skipped rather than added twice. The teacher, when
+    // one is chosen, is resolved once for the whole batch.
+    const resolvedTeacherId = teacherId
+      ? await resolveAssignableStaffIdentifier(c.env.APP_DB, tenantId, teacherId, {
+        requireTeachingCapability: true,
+        label: 'Assigned teacher',
+      })
+      : null
+
+    const existingRows = await c.env.APP_DB.prepare(
+      `SELECT lower(trim(name)) AS name FROM subjects WHERE tenantId = ? AND classId = ?`
+    ).bind(tenantId, classId).all().catch(() => ({ results: [] }))
+    const taken = new Set(
+      ((existingRows.results || []) as Record<string, any>[]).map(row => String(row.name || ''))
+    )
+
     let added = 0
+    let skipped = 0
     for (const name of subjects) {
-      const trimmed = (name as string).trim()
+      const trimmed = String(name || '').trim()
       if (!trimmed) continue
+      const key = trimmed.toLowerCase()
+      if (taken.has(key)) {
+        skipped += 1
+        continue
+      }
+      taken.add(key)
       const id = `subject_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`
       await c.env.APP_DB.prepare(`INSERT INTO subjects (id, tenantId, name, classId, teacherId, createdAt) VALUES (?, ?, ?, ?, ?, ?)`)
-        .bind(id, tenantId, trimmed, classId, null, new Date().toISOString()).run()
+        .bind(id, tenantId, trimmed, classId, resolvedTeacherId, new Date().toISOString()).run()
       added++
     }
-    return c.json({ success: true, added }, 201)
+    return c.json({ success: true, added, skipped }, 201)
   } catch (err) {
     return c.json({ error: err instanceof Error ? err.message : 'Could not add subjects.' }, 500)
   }
