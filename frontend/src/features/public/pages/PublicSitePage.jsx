@@ -21,6 +21,7 @@ import {
   XMarkIcon,
 } from '@heroicons/react/24/outline';
 import { getPublicPlatformSite, getPublicOpportunities, submitGrowthPartnerApplication } from '../services/publicSiteApi';
+import { LEGAL_DOCUMENTS } from '../legalDocuments';
 import { getTenantPricing } from '../../tenants/services/tenantApi';
 
 const currencyFormatter = new Intl.NumberFormat('en-NG', {
@@ -669,7 +670,7 @@ function HeroSlides({ media }) {
   );
 }
 
-function PublicShell({ section, notice, children, flier, hideHero = false }) {
+export function PublicShell({ section, notice, children, flier, hideHero = false, hideCta = false }) {
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const heroStats = Array.isArray(section.metadata.stats) ? section.metadata.stats : [];
@@ -696,7 +697,7 @@ function PublicShell({ section, notice, children, flier, hideHero = false }) {
         </div>
       </div>
 
-      <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/95 backdrop-blur-xl">
+      <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/95 pt-[var(--safe-top)] backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-6 lg:gap-6 lg:px-8">
           <Link to="/" className="flex items-center gap-3">
             <div className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-xl bg-white ring-2 ring-[#c9a96e]/60">
@@ -835,6 +836,7 @@ function PublicShell({ section, notice, children, flier, hideHero = false }) {
 
           {children}
 
+          {hideCta ? null : (
           <Reveal as="section" className="rounded-[2.2rem] border border-[#c9a96e]/45 bg-[#191970] px-5 py-8 text-[#f8f3eb] shadow-[0_30px_80px_rgba(25,25,112,0.24)] sm:px-8 lg:px-10">
             <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
               <div>
@@ -854,11 +856,12 @@ function PublicShell({ section, notice, children, flier, hideHero = false }) {
               </div>
             </div>
           </Reveal>
+          )}
         </div>
       </main>
 
       <footer className="bg-[#10133a] text-white/75">
-        <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 lg:grid-cols-[1.2fr_0.8fr_0.8fr] lg:px-8">
+        <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 lg:grid-cols-[1.2fr_0.7fr_0.7fr_0.9fr] lg:px-8">
           <div>
             <div className="flex items-center gap-3">
               <div className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-xl bg-white ring-2 ring-[#c9a96e]/50"><img src="/android-chrome-512x512.png" alt="NDOVERA logo" className="h-full w-full object-contain p-1" /></div>
@@ -890,9 +893,17 @@ function PublicShell({ section, notice, children, flier, hideHero = false }) {
               <Link to="/register-school" className="text-white/70 transition hover:text-white">Register School</Link>
             </div>
           </div>
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#e3c98b]">Legal &amp; Trust</p>
+            <div className="mt-4 flex flex-col gap-2.5 text-sm">
+              {LEGAL_DOCUMENTS.map(doc => (
+                <Link key={doc.path} to={doc.path} className="text-white/70 transition hover:text-white">{doc.label}</Link>
+              ))}
+            </div>
+          </div>
         </div>
         <div className="border-t border-white/10">
-          <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-4 py-5 text-xs text-white/45 sm:flex-row sm:px-6 lg:px-8">
+          <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-4 pt-5 pb-[calc(1.25rem+var(--safe-bottom))] text-xs text-white/45 sm:flex-row sm:px-6 lg:px-8">
             <span>© {new Date().getFullYear()} Ndovera. All rights reserved.</span>
             <span className="uppercase tracking-[0.2em]">Learn · Lead · Grow</span>
           </div>
@@ -1078,7 +1089,12 @@ function PartnersPageBody({ section }) {
             <li>• <b>5%</b> of what each referred school pays per term.</li>
             <li>• Track referrals &amp; earnings, and withdraw to your account.</li>
           </ul>
-          <p className="mt-4 text-xs text-[#800020]">Apply below — the NDOVERA team reviews your application and activates your partner account.</p>
+          <p className="mt-4 rounded-xl border border-[#800020]/35 bg-[#fff3f3] px-3 py-2.5 text-xs leading-5 text-[#800020]">
+            <b>Tax notice:</b> commission is paid gross. NDOVERA does not deduct, withhold or remit tax for
+            growth partners. You are fully responsible for declaring your earnings and paying every tax owed
+            to the relevant authorities. See the <Link to="/terms" className="underline">Terms of Service</Link>.
+          </p>
+          <p className="mt-3 text-xs text-[#800020]">Apply below — the NDOVERA team reviews your application and activates your partner account.</p>
         </div>
       </Reveal>
 

@@ -123,7 +123,7 @@ export default function FarmingModeAds({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed bottom-0 left-0 right-0 z-40 bottom-nav bottom-nav--neon"
-            style={{ height: '140px' }} // Content shrinks by this much
+            style={{ height: 'calc(140px + var(--safe-bottom))' }} // Content shrinks by this much
           />
         )}
       </AnimatePresence>
@@ -136,7 +136,7 @@ export default function FarmingModeAds({
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 100, opacity: 0 }}
             transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-            className="fixed bottom-0 left-0 right-0 z-50 p-4 bottom-nav bottom-nav--neon"
+            className="fixed bottom-0 left-0 right-0 z-50 p-4 pb-[calc(1rem+var(--safe-bottom))] bottom-nav bottom-nav--neon"
           >
             <div
               className={`mx-auto max-w-2xl p-4 rounded-t-xl bg-gradient-to-r ${currentAd.color} shadow-2xl cursor-pointer hover:shadow-3xl transition-shadow`}

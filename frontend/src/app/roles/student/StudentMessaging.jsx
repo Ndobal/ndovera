@@ -1142,7 +1142,7 @@ export default function StudentMessaging({
       </div>
 
       {contactsOpen ? (
-        <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/50 p-0 sm:items-center sm:p-4" role="presentation" onClick={closeDirectory}>
+        <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/50 p-0 pb-[var(--safe-bottom)] sm:items-center sm:p-4 sm:pb-4" role="presentation" onClick={closeDirectory}>
           <div
             className="flex max-h-[85vh] w-full max-w-lg flex-col overflow-hidden rounded-t-3xl border border-[#800000]/20 bg-[#b5e3f4] shadow-2xl sm:rounded-3xl dark:border-[#bf00ff]/30 dark:bg-[#191970]"
             onClick={event => event.stopPropagation()}

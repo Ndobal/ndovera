@@ -257,7 +257,7 @@ export default function SchoolRegistrationPage() {
 
   if (paymentConfirmed) {
     return (
-      <div className="min-h-screen bg-white px-4 py-10 text-slate-900">
+      <div className="min-h-screen bg-white px-4 pt-[calc(2.5rem+var(--safe-top))] pb-[calc(2.5rem+var(--safe-bottom))] text-slate-900">
         <div className="mx-auto max-w-3xl rounded-[32px] border border-emerald-200 bg-white p-8 shadow-[0_24px_80px_rgba(15,23,42,0.08)]">
           <p className="text-xs font-semibold uppercase tracking-[0.28em] text-emerald-700">Onboarding Payment Confirmed</p>
           <h1 className="mt-4 text-4xl font-black tracking-tight text-slate-950">Your School Payment Has Been Received</h1>
@@ -307,7 +307,7 @@ export default function SchoolRegistrationPage() {
   }
 
   return (
-    <div className="h-screen overflow-y-auto bg-[linear-gradient(180deg,#ffffff_0%,#cfecf7_38%,#ecfdf5_100%)] px-4 py-10 text-slate-900">
+    <div className="h-screen overflow-y-auto bg-[linear-gradient(180deg,#ffffff_0%,#cfecf7_38%,#ecfdf5_100%)] px-4 pt-[calc(2.5rem+var(--safe-top))] pb-[calc(2.5rem+var(--safe-bottom))] text-slate-900">
       <div className="mx-auto max-w-6xl space-y-8">
         <section className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
           <div className="rounded-[32px] border border-slate-200 bg-white p-8 shadow-[0_24px_80px_rgba(15,23,42,0.08)]">
@@ -449,6 +449,14 @@ export default function SchoolRegistrationPage() {
                     ) : null}
                   </label>
                 </div>
+
+                <p className="pt-2 text-xs leading-6 text-slate-600">
+                  By paying, you agree on behalf of your school to the{' '}
+                  <Link to="/terms" className="font-semibold text-[#191970] underline">Terms of Service</Link> and the{' '}
+                  <Link to="/privacy" className="font-semibold text-[#191970] underline">Privacy Policy</Link>. Your school
+                  stays the controller of its own student, parent and staff records — see{' '}
+                  <Link to="/data-handling" className="font-semibold text-[#191970] underline">Data Handling</Link>.
+                </p>
 
                 <div className="flex flex-wrap items-center gap-3 pt-2">
                   <button type="button" onClick={() => setCurrentStep(1)} className="rounded-2xl border border-slate-300 px-5 py-3 font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-900">

@@ -78,6 +78,7 @@ const staffAiEligibleRoles = new Set([
   'hod',
   'hodassistant',
   'principal',
+  'viceprincipal',
   'headteacher',
   'nurseryhead',
   'examofficer',
@@ -87,7 +88,7 @@ const staffAiEligibleRoles = new Set([
 // Staff roles that can submit work (documents, PDFs, audios, exam questions).
 const SUBMISSION_ROLES = new Set([
   'teacher', 'hos', 'owner', 'admin', 'accountant', 'librarian', 'ict',
-  'classteacher', 'hod', 'hodassistant', 'principal', 'headteacher', 'nurseryhead', 'examofficer', 'sportsmaster',
+  'classteacher', 'hod', 'hodassistant', 'principal', 'viceprincipal', 'headteacher', 'nurseryhead', 'examofficer', 'sportsmaster',
 ]);
 
 export function getRoleSidebarItems(roleKey) {
@@ -121,6 +122,7 @@ function buildRoleSidebarItems(roleKey) {
       { name: 'Practice', path: '/roles/student/practice' },
       { name: 'Exams', path: '/roles/student/exams' },
       { name: 'Results', path: '/roles/student/results' },
+      { name: 'Championships', path: '/roles/student/championships' },
       { name: 'Timetable', path: '/roles/student/timetable' },
       { name: 'Attendance', path: '/roles/student/attendance' },
       { name: 'Tuck Shop', path: '/roles/student/tuck-shop' },
@@ -140,6 +142,7 @@ function buildRoleSidebarItems(roleKey) {
       { name: 'Live', path: '/roles/parent/live' },
       { name: 'Exams', path: '/roles/parent/exams' },
       { name: 'Results', path: '/roles/parent/results' },
+      { name: 'Championships', path: '/roles/parent/championships' },
       { name: 'Assignments', path: '/roles/parent/assignments' },
       { name: 'Attendance', path: '/roles/parent/attendance' },
       { name: 'Timetable', path: '/roles/parent/timetable' },
@@ -170,6 +173,7 @@ function buildRoleSidebarItems(roleKey) {
       { name: 'Lesson Plan', path: '/roles/teacher/lesson-plan' },
       { name: 'Resource Library', path: '/roles/teacher/resources' },
       { name: 'Exams', path: '/roles/teacher/exams' },
+      { name: 'Championships', path: '/roles/teacher/championships' },
       { name: 'Auras', path: '/roles/teacher/auras' },
       { name: 'AI Assistant', path: '/roles/teacher/ai-assistant' },
       { name: 'Messaging', path: '/roles/teacher/messaging' },
@@ -197,6 +201,7 @@ function buildRoleSidebarItems(roleKey) {
       { name: 'Discipline', path: '/roles/hos/discipline' },
       { name: 'Audit Trail', path: '/roles/hos/audits' },
       { name: 'Exams', path: '/roles/hos/exams' },
+      { name: 'Championships', path: '/roles/hos/championships' },
       { name: 'Approvals', path: '/roles/hos/approvals' },
       { name: 'Reports', path: '/roles/hos/reports' },
       { name: 'Messaging', path: '/roles/hos/messaging' },
@@ -208,6 +213,7 @@ function buildRoleSidebarItems(roleKey) {
   if (roleKey === 'accountant') {
     return [
       { name: 'Overview', path: '/roles/accountant' },
+      { name: 'Term Fees', path: '/roles/accountant/term-fees' },
       { name: 'Fees', path: '/roles/accountant/fees' },
       { name: 'Receipts', path: '/roles/accountant/receipts' },
       { name: 'Expenses', path: '/roles/accountant/expenses' },
@@ -231,6 +237,7 @@ function buildRoleSidebarItems(roleKey) {
       { name: 'Classroom', path: '/roles/owner/classroom' },
       { name: 'Attendance', path: '/roles/owner/attendance' },
       { name: 'Academics', path: '/roles/owner/academics' },
+      { name: 'Championships', path: '/roles/owner/championships' },
       { name: 'Resource Library', path: '/roles/owner/resources' },
       { name: 'Store Keeper', path: '/roles/owner/store' },
       { name: 'People', path: '/roles/owner/people' },
@@ -362,6 +369,7 @@ function buildRoleSidebarItems(roleKey) {
     return [
       { name: 'Overview', path: `/roles/${roleKey}` },
       { name: 'Results', path: `/roles/${roleKey}/results` },
+      { name: 'Championships', path: `/roles/${roleKey}/championships` },
       { name: 'People', path: `/roles/${roleKey}/people` },
       { name: 'Support', path: `/roles/${roleKey}/support` },
       { name: 'Systems', path: `/roles/${roleKey}/systems` },
@@ -378,6 +386,7 @@ function buildRoleSidebarItems(roleKey) {
     return [
       { name: 'Overview', path: '/roles/classteacher' },
       { name: 'Results', path: '/roles/classteacher/results' },
+      { name: 'Championships', path: '/roles/classteacher/championships' },
       { name: 'Attendance', path: '/roles/classteacher/attendance' },
       { name: 'Behavior', path: '/roles/classteacher/behavior' },
       { name: 'Assignments', path: '/roles/classteacher/assignments' },
@@ -426,6 +435,31 @@ function buildRoleSidebarItems(roleKey) {
       { name: 'Reports', path: '/roles/principal/reports' },
       { name: 'Settings', path: '/roles/principal/settings' },
       { name: 'Payslip', path: '/roles/principal/payslip' },
+      libEntry,
+    ];
+  }
+
+  if (roleKey === 'viceprincipal') {
+    return [
+      { name: 'Overview', path: '/roles/viceprincipal' },
+      { name: 'Academics', path: '/roles/viceprincipal/academics' },
+      { name: 'Discipline', path: '/roles/viceprincipal/discipline' },
+      { name: 'Staff', path: '/roles/viceprincipal/staff' },
+      { name: 'Messaging', path: '/roles/viceprincipal/messaging' },
+      { name: 'Reports', path: '/roles/viceprincipal/reports' },
+      { name: 'Settings', path: '/roles/viceprincipal/settings' },
+      { name: 'Payslip', path: '/roles/viceprincipal/payslip' },
+      libEntry,
+    ];
+  }
+
+  if (roleKey === 'caregiver') {
+    return [
+      { name: 'Overview', path: '/roles/caregiver' },
+      { name: 'My Classes', path: '/roles/caregiver/classes' },
+      { name: 'Welfare', path: '/roles/caregiver/welfare' },
+      { name: 'Messaging', path: '/roles/caregiver/messaging' },
+      { name: 'Settings', path: '/roles/caregiver/settings' },
       libEntry,
     ];
   }
@@ -490,6 +524,7 @@ function buildRoleSidebarItems(roleKey) {
       { name: 'Tenants', path: '/roles/ami/tenants' },
       { name: 'Website', path: '/roles/ami/website' },
       { name: 'Growth Partners', path: '/roles/ami/growth-partners' },
+      { name: 'Championships', path: '/roles/ami/championships' },
       { name: 'Question Bank', path: '/roles/ami/question-bank' },
       { name: 'Security', path: '/roles/ami/security' },
       { name: 'Policies', path: '/roles/ami/policies' },
@@ -546,6 +581,7 @@ export default function Sidebar({ auth = null, mobileOpen = false, onClose = noo
     'hod',
     'hodassistant',
     'principal',
+    'viceprincipal',
     'headteacher',
     'nurseryhead',
     'examofficer',
@@ -637,7 +673,7 @@ export default function Sidebar({ auth = null, mobileOpen = false, onClose = noo
         }`}
         aria-hidden={!mobileOpen}
       >
-        <div className="p-6">
+        <div className="px-6 pt-[calc(1.5rem+var(--safe-top))] pb-[calc(1.5rem+var(--safe-bottom))]">
           <div className="mb-4 flex items-start justify-between gap-3">
             {(() => {
               const brandInner = (
@@ -727,7 +763,7 @@ export default function Sidebar({ auth = null, mobileOpen = false, onClose = noo
 
       {submitOpen ? (
         <div className="fixed inset-0 z-[120] flex items-end justify-center overflow-y-auto bg-slate-950/60 backdrop-blur-sm p-0 sm:items-center sm:p-4" onClick={() => setSubmitOpen(false)} role="presentation">
-          <div className="w-full max-w-lg" onClick={event => event.stopPropagation()}>
+          <div className="w-full max-w-lg pb-[var(--safe-bottom)] sm:pb-0" onClick={event => event.stopPropagation()}>
             <div className="mb-2 flex justify-end">
               <button type="button" onClick={() => setSubmitOpen(false)} className="rounded-full bg-white/90 p-2 text-[#191970] shadow">
                 <XMarkIcon className="h-5 w-5" />

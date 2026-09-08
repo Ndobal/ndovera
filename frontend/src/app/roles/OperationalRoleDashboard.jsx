@@ -2,6 +2,7 @@ import React from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import operationalRoleConfigs from './config/operationalRoleConfigs';
 import WebsiteTab from './owner/tabs/WebsiteTab';
+import SchoolLocationForm from '../../features/school/components/SchoolLocationForm';
 import TeacherClassroom from '../../features/classroom/TeacherClassroom';
 import { ResultAdminConsole, TeacherCAScoreSheet } from '../../features/results-engine';
 import OwnerPeople from './owner/OwnerPeople';
@@ -16,6 +17,7 @@ import SchoolAuditTrailPage from '../../features/school/components/SchoolAuditTr
 import StaffAiAssistantPage from '../../features/ai/components/StaffAiAssistantPage';
 import AdminLibrary from '../../features/library/AdminLibrary';
 import StoreKeeperPanel from '../../features/school/components/StoreKeeperPanel';
+import RoleWithoutDashboard from '../../shared/components/RoleWithoutDashboard';
 
 function OperationalLiveWorkspace({ roleTitle, title, subtitle, showAnnouncements = false, children = null }) {
   return (
@@ -43,8 +45,10 @@ export default function OperationalRoleDashboard({ roleKey }) {
   const roleConfig = operationalRoleConfigs[normalizedRoleKey];
   const roleTitle = roleConfig?.roleTitle;
 
+  // Redirecting to another role's home would be bounced straight back here by
+  // its guard, and the two would trade redirects until the app rendered nothing.
   if (!roleConfig) {
-    return <Navigate to="/roles/student" replace />;
+    return <RoleWithoutDashboard roleKey={normalizedRoleKey} />;
   }
 
   const pathParts = location.pathname.split('/').filter(Boolean);
@@ -132,6 +136,9 @@ export default function OperationalRoleDashboard({ roleKey }) {
           <p className="text-[#191970] dark:text-slate-300 mt-1 text-sm">
             Manage public school website media, admissions content, and staff attendance sign-in policy.
           </p>
+        </div>
+        <div className="rounded-3xl p-6 bg-[#b5e3f4] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
+          <SchoolLocationForm />
         </div>
         <div className="rounded-3xl p-6 bg-[#b5e3f4] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
           <WebsiteTab />

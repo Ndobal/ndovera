@@ -11,7 +11,7 @@ export default function TeacherSectionShell({
   diagonalWatermark = false,
 }) {
   return (
-    <div className={`${compact ? 'p-4 md:p-5' : 'p-8'} max-w-7xl mx-auto relative ${viewportLocked ? 'h-[calc(100vh-4.5rem)] overflow-hidden flex flex-col' : ''}`}>
+    <div className={`${compact ? 'p-4 md:p-5' : 'p-8'} max-w-7xl mx-auto relative ${viewportLocked ? 'h-[calc(100vh-4.5rem-var(--safe-top)-var(--mobile-nav-clearance))] md:h-[calc(100vh-4.5rem-var(--safe-top))] overflow-hidden flex flex-col' : ''}`}>
       {watermarkText && (
         <p className={`pointer-events-none select-none absolute text-slate-300/20 dark:text-white/10 font-black tracking-[0.35rem] z-0 ${diagonalWatermark ? 'top-10 left-6 -rotate-12 text-lg md:text-2xl' : 'top-4 right-4 text-xs md:text-sm'}`}>
           {watermarkText}

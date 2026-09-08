@@ -1,19 +1,50 @@
-// Bumped to v5 to discard caches that may hold an index.html pointing at hashed bundles
-// which no longer exist on the server — that mismatch is what produced a blank screen.
-var CACHE_NAME = 'ndovera-pwa-v5';
+// Bumped to v7 to evict the precached HTML that v6 and earlier stored. Page HTML names
+// the hashed bundles of the deploy it came from, and the precache was only ever refreshed
+// when this constant changed — so after the next deploy an installed app could launch from
+// a shell asking for JavaScript that no longer exists, and render nothing at all. The
+// shell is now fetched fresh every time, and only assets whose names change with their
+// contents are kept.
+var CACHE_NAME = 'ndovera-pwa-v7';
 var NOTIFICATION_STATE_CACHE = 'ndovera-notification-state-v1';
 var NOTIFICATION_STATE_KEY = '/__fee-reminder-state__';
 var PUSH_CONTEXT_KEY = '/__push-context__';
 var PERIODIC_FEE_REMINDER_TAG = 'parent-fee-reminders';
+// Deliberately no HTML: see the note on CACHE_NAME. These are the files whose contents
+// never change behind their names.
 var APP_SHELL = [
-  '/',
-  '/index.html',
-  '/login',
-  '/register-school',
   '/manifest.json',
   '/android-chrome-192x192.png',
   '/android-chrome-512x512.png'
 ];
+
+// What an offline launch gets instead of a stale app. A page that says why it is empty
+// can be acted on; a white screen cannot.
+var OFFLINE_PAGE = [
+  '<!doctype html><html lang="en"><head><meta charset="utf-8">',
+  '<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">',
+  '<title>NDOVERA is offline</title>',
+  '<style>',
+  'body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;',
+  'background:#b5e3f4;color:#191970;font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif;padding:24px}',
+  '.card{max-width:26rem;text-align:center;background:#fff4df;border:1px solid rgba(201,169,110,.5);',
+  'border-radius:24px;padding:24px}h1{color:#800000;font-size:1.25rem;margin:0 0 8px}',
+  'p{margin:0 0 20px}button{background:#1a5c38;color:#b5e3f4;border:0;border-radius:16px;',
+  'padding:10px 22px;font-size:.95rem;font-weight:700}',
+  '@media (prefers-color-scheme: dark){body{background:#020617;color:#e2e8f0}',
+  '.card{background:rgba(15,23,42,.6);border-color:rgba(255,255,255,.1)}h1{color:#f1f5f9}}',
+  '</style></head><body><div class="card">',
+  '<h1>You are offline</h1>',
+  '<p>NDOVERA needs a connection to open. Reconnect and try again — nothing you saved is lost.</p>',
+  '<button onclick="location.reload()">Try again</button>',
+  '</div></body></html>'
+].join('');
+
+function offlineResponse() {
+  return new Response(OFFLINE_PAGE, {
+    status: 503,
+    headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' }
+  });
+}
 
 function readNotificationState() {
   return caches.open(NOTIFICATION_STATE_CACHE)
@@ -407,14 +438,13 @@ self.addEventListener('fetch', function (event) {
               return cachedResponse;
             }
 
+            // No cached shell to fall back on by design: the one we could keep would be
+            // from an older deploy, and would boot to nothing.
             if (isNavigationRequest) {
-              return caches.match('/')
-                .then(function (cachedHome) {
-                  return cachedHome || caches.match('/index.html');
-                });
+              return offlineResponse();
             }
 
-            return caches.match('/');
+            return Response.error();
           });
       })
   );

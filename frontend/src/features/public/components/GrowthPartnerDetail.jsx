@@ -127,6 +127,10 @@ export default function GrowthPartnerDetail({ partnerId, onClose }) {
       {/* Pay */}
       <div className={PANEL}>
         <p className={LABEL}>Pay this partner</p>
+        <p className="mt-2 rounded-xl border border-[#800020]/40 bg-[#fff3f3] px-3 py-2 text-xs leading-5 text-[#800020] dark:border-rose-400/30 dark:bg-rose-950/25 dark:text-rose-200">
+          Pay the full commission <b>gross</b>. NDOVERA does not withhold or remit tax for growth partners —
+          each partner is responsible for their own tax, and the partner workspace tells them so.
+        </p>
         {!canPay ? (
           <p className="mt-2 text-sm text-[#800020] dark:text-amber-200">
             {(data.available || 0) <= 0 ? 'Nothing available to pay right now.'

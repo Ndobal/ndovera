@@ -23,6 +23,7 @@ const roleOptions = [
   { label: 'HOD', path: '/roles/hod' },
   { label: 'HOD Assistant', path: '/roles/hodassistant' },
   { label: 'Principal', path: '/roles/principal' },
+  { label: 'Vice Principal', path: '/roles/viceprincipal' },
   { label: 'Head Teacher', path: '/roles/headteacher' },
   { label: 'Nursery Head', path: '/roles/nurseryhead' },
   { label: 'Exam Officer', path: '/roles/examofficer' },

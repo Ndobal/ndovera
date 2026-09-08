@@ -22,6 +22,14 @@ NDOVERA helps schools run with more structure and visible progress. School owner
 - [Opportunities](https://ndovera.com/opportunities): vacancies and ways to work with NDOVERA and member schools.
 - [Register a school](https://ndovera.com/register-school): onboard a school onto NDOVERA.
 
+## Legal and data handling
+- [Privacy Policy](https://ndovera.com/privacy): what NDOVERA collects, why, and who controls it. Each school is the data controller for its own student, parent and staff records; NDOVERA processes them on the school's instructions.
+- [Terms of Service](https://ndovera.com/terms): accounts, acceptable use, fees and per-term billing, growth-partner commission, and tax responsibility.
+- [Data Handling and Retention](https://ndovera.com/data-handling): what is stored and where, tenant separation, who can see what, retention periods, account closure, export and deletion.
+- [YouTube API Services Disclosure](https://ndovera.com/youtube-disclosure): the YouTube permissions NDOVERA requests, what it does and does not do with them, token storage, and how to disconnect.
+
 ## Contact
 - Website: https://ndovera.com
 - Portal login: https://ndovera.com/login
+- Support and privacy requests: support@ndovera.com
+- Billing: billing@ndovera.com

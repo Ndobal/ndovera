@@ -1,12 +1,16 @@
 import React, { useCallback, useEffect, useState, useRef } from 'react';
-import { getMe, getClasses, addClass, getSubjects, addSubject, getSession, saveSession, getBranding, saveBranding, uploadLogo, getPeople, bulkAddSubjectsBySection, updateSubject, deleteSubject, updateClass, bulkUpdateClasses, deleteClass } from '../../../features/school/services/schoolApi';
+import { getMe, getClasses, addClass, getSubjects, addSubject, getBranding, saveBranding, uploadLogo, getPeople, bulkAddSubjectsBySection, updateSubject, deleteSubject, updateClass, bulkUpdateClasses, deleteClass } from '../../../features/school/services/schoolApi';
 import AdminPasswordReset from '../../../features/auth/components/AdminPasswordReset';
 import StaffAttendanceManagementPanel from '../../../features/attendance/components/StaffAttendanceManagementPanel';
 import WebsiteTab from './tabs/WebsiteTab';
 import EventsTab from './tabs/EventsTab';
 import PromotionPanel from './PromotionPanel';
+import AcademicSessionsBoard from '../../../features/school/components/AcademicSessionsBoard';
+import SessionRegisterBoard from '../../../features/school/components/SessionRegisterBoard';
+import PromotionBoard from '../../../features/school/components/PromotionBoard';
+import SchoolLocationForm from '../../../features/school/components/SchoolLocationForm';
 
-const TABS = ['Profile', 'School Branding', 'Website', 'Events', 'Classes', 'Promotion', 'Subjects', 'Sessions & Terms', 'Attendance Management'];
+const TABS = ['Profile', 'School Location', 'School Branding', 'Website', 'Events', 'Classes', 'Promotion', 'Promotion Flow', 'Subjects', 'Sessions & Terms', 'Attendance Management'];
 
 const DEFAULT_CLASS_NAMES = [
   { label: 'Primary 1', value: 'Primary 1' },
@@ -716,54 +720,9 @@ function SubjectsTab() {
   );
 }
 
-function SessionTab() {
-  const [form, setForm] = useState({ session: '', term: 'Term 1', startDate: '', endDate: '' });
-  const [loading, setLoading] = useState(true);
-  const [saving, setSaving] = useState(false);
-  const [msg, setMsg] = useState('');
-  useEffect(() => { getSession().then(d => { if (d?.session) setForm(f => ({ ...f, ...d.session })); }).finally(() => setLoading(false)); }, []);
-  async function handleSave(e) {
-    e.preventDefault(); setSaving(true); setMsg('');
-    try { await saveSession(form); setMsg('Saved!'); } catch (err) { setMsg(err.message); } finally { setSaving(false); }
-  }
-  if (loading) return <p className="text-[#800020]">Loading...</p>;
-  return (
-    <form onSubmit={handleSave} className="space-y-4">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <label className="text-xs text-[#800020] dark:text-slate-400 uppercase font-semibold">Current Session (e.g. 2025/2026)</label>
-          <input value={form.session || ''} onChange={e => setForm(f => ({ ...f, session: e.target.value }))} className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#ade1f4] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none" />
-        </div>
-        <div>
-          <label className="text-xs text-[#800020] dark:text-slate-400 uppercase font-semibold">Current Term</label>
-          <div className="flex gap-3 mt-2">
-            {['Term 1', 'Term 2', 'Term 3'].map(t => (
-              <label key={t} className="flex items-center gap-1 text-sm text-[#191970] dark:text-slate-300 cursor-pointer">
-                <input type="radio" name="term" value={t} checked={form.term === t} onChange={e => setForm(f => ({ ...f, term: e.target.value }))} /> {t}
-              </label>
-            ))}
-          </div>
-        </div>
-        <div>
-          <label className="text-xs text-[#800020] dark:text-slate-400 uppercase font-semibold">Term Start Date</label>
-          <input type="date" value={form.startDate || ''} onChange={e => setForm(f => ({ ...f, startDate: e.target.value }))} className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#ade1f4] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none" />
-        </div>
-        <div>
-          <label className="text-xs text-[#800020] dark:text-slate-400 uppercase font-semibold">Term End Date</label>
-          <input type="date" value={form.endDate || ''} onChange={e => setForm(f => ({ ...f, endDate: e.target.value }))} className="mt-1 w-full rounded-xl border border-[#c9a96e]/40 bg-[#ade1f4] dark:bg-slate-800 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none" />
-        </div>
-      </div>
-      {msg && <p className={`text-sm ${msg === 'Saved!' ? 'text-emerald-700' : 'text-red-600'}`}>{msg}</p>}
-      <button type="submit" disabled={saving} className="bg-[#1a5c38] hover:bg-[#154a2e] text-[#b5e3f4] font-bold px-6 py-2 rounded-2xl text-sm transition-colors disabled:opacity-60">
-        {saving ? 'Saving...' : 'Save Session'}
-      </button>
-    </form>
-  );
-}
-
 export default function OwnerSettings({ auth }) {
   const [tab, setTab] = useState('Profile');
-  const tabContent = { Profile: <ProfileTab />, 'School Branding': <BrandingTab />, Website: <WebsiteTab />, Events: <EventsTab />, Classes: <ClassesTab />, Promotion: <PromotionPanel />, Subjects: <SubjectsTab />, 'Sessions & Terms': <SessionTab />, 'Attendance Management': <StaffAttendanceManagementPanel /> };
+  const tabContent = { Profile: <ProfileTab />, 'School Location': <SchoolLocationForm />, 'School Branding': <BrandingTab />, Website: <WebsiteTab />, Events: <EventsTab />, Classes: <ClassesTab />, Promotion: <PromotionBoard />, 'Class Register': <SessionRegisterBoard />, 'Promotion Flow': <PromotionPanel />, Subjects: <SubjectsTab />, 'Sessions & Terms': <AcademicSessionsBoard />, 'Attendance Management': <StaffAttendanceManagementPanel /> };
   return (
     <div className="p-8 max-w-7xl mx-auto space-y-6">
       <div className="rounded-3xl p-6 bg-[#b5e3f4] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">

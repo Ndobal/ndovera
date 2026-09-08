@@ -98,7 +98,7 @@ export default function FeeReceiptDialog({
             />
           </div>
 
-          <div className="sticky bottom-0 flex flex-wrap justify-end gap-3 border-t border-[#c9a96e]/35 bg-[#fff4df]/95 px-4 py-3 backdrop-blur sm:px-5 dark:border-[#bf00ff]/25 dark:bg-[#2a001f]/95">
+          <div className="sticky bottom-0 flex flex-wrap justify-end gap-3 border-t border-[#c9a96e]/35 bg-[#fff4df]/95 px-4 pt-3 pb-[calc(0.75rem+var(--safe-bottom))] backdrop-blur sm:px-5 dark:border-[#bf00ff]/25 dark:bg-[#2a001f]/95">
             <button type="button" onClick={() => shareReceiptOnWhatsApp(receipt)} className={WHATSAPP_BTN}>Share on WhatsApp</button>
             <button type="button" onClick={() => window.print()} className={ACTION_BTN}>Print Receipt</button>
             <button type="button" onClick={onClose} className={CLOSE_BTN}>Close Receipt</button>

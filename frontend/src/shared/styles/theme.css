@@ -181,6 +181,33 @@
   @apply bg-indigo-500/25 text-white border border-indigo-300/20 glass-chip;
 }
 
+
+/*
+ * Mobile bottom clearance.
+ *
+ * NDOVERA installs as a `display: standalone` PWA, so on Android 15+ and iOS the
+ * page is painted edge to edge and the system navigation bar / home indicator sits
+ * on top of the last strip of the viewport (and the status bar / notch on the first).
+ * `--safe-bottom` is that bottom strip, `--safe-top` the top one, and
+ * `--mobile-nav-clearance` adds the app's own fixed bottom navigation on top of it
+ * so page content and page-level action buttons can clear both.
+ *
+ * These depend on `viewport-fit=cover` in public/index.html — without it every
+ * env(safe-area-inset-*) resolves to 0 and the buttons end up under the system bar.
+ */
+:root {
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  /* Height of the mobile bottom navigation itself, excluding the system inset. */
+  --mobile-nav-height: 4.75rem;
+  --mobile-nav-clearance: calc(var(--mobile-nav-height) + var(--safe-bottom));
+}
+
+/* A bar pinned to the bottom of the viewport: keeps its buttons off the system bar. */
+.safe-bottom {
+  padding-bottom: max(0.5rem, var(--safe-bottom));
+}
+
 .dark .frost-hover:hover {
   @apply border-cyan-300/35;
   box-shadow: 0 14px 36px rgba(8, 47, 73, 0.4), 0 0 36px rgba(99, 102, 241, 0.24), inset 0 1px 0 rgba(186, 230, 253, 0.16);

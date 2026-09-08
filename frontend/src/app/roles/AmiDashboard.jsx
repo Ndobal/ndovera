@@ -10,6 +10,7 @@ import AmiSettingsPage from './ami/AmiSettingsPage';
 import AmiWebsitePage from './ami/AmiWebsitePage';
 import AmiQuestionBank from './ami/AmiQuestionBank';
 import AmiGrowthPartnersPage from './ami/AmiGrowthPartnersPage';
+import AmiChampionshipsPage from './ami/AmiChampionshipsPage';
 
 export default function AmiDashboard() {
   const location = useLocation();
@@ -28,6 +29,7 @@ export default function AmiDashboard() {
   if (sectionKey === 'reports')       return <AmiReportsPage />;
   if (sectionKey === 'website')       return <AmiWebsitePage />;
   if (sectionKey === 'growth-partners') return <AmiGrowthPartnersPage />;
+  if (sectionKey === 'championships') return <AmiChampionshipsPage />;
   if (sectionKey === 'settings')      return <AmiSettingsPage />;
   if (sectionKey === 'question-bank') return <AmiQuestionBank />;
 

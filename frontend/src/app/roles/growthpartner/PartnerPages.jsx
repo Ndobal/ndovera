@@ -11,7 +11,7 @@ import {
   sendConversationMessage,
 } from '../../../features/public/services/publicSiteApi';
 import { changePassword, getStoredAuth, persistAuth } from '../../../features/auth/services/authApi';
-import { CARD, INPUT, LABEL, BODY, MUTED, BTN_PRIMARY, BTN_SECONDARY, PageHeader, Stat, Notice, EmptyState, naira } from './partnerUi';
+import { CARD, INPUT, LABEL, BODY, MUTED, BTN_PRIMARY, BTN_SECONDARY, PageHeader, Stat, Notice, EmptyState, TaxNotice, naira } from './partnerUi';
 
 function copy(text, setNotice) {
   navigator.clipboard?.writeText(text);
@@ -184,6 +184,8 @@ export function EarningsPage({ data, reload }) {
         <Stat label="Awaiting your confirmation" value={naira.format(data.awaitingAcknowledgement || 0)} tone="text-[#800020] dark:text-fuchsia-300" />
         <Stat label="Settled" value={naira.format(data.settled || 0)} />
       </section>
+
+      <TaxNotice />
 
       <section className={CARD}>
         <h2 className="text-lg font-black text-[#191970] dark:text-slate-100">Payments</h2>
@@ -475,6 +477,7 @@ export function BankPage({ data, reload }) {
     <>
       <PageHeader title="Payout account" subtitle="Where Ami sends your earnings. Complete identity verification first." />
       <Notice notice={notice} error={error} />
+      <TaxNotice variant="short" />
       <form onSubmit={save} className={CARD}>
         <div className="grid gap-4 sm:grid-cols-2">
           <label className="block"><span className={LABEL}>Bank name</span>

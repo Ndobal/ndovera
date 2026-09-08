@@ -3,8 +3,9 @@ import { getMe } from '../../../features/school/services/schoolApi';
 import AdminPasswordReset from '../../../features/auth/components/AdminPasswordReset';
 import StaffAttendanceManagementPanel from '../../../features/attendance/components/StaffAttendanceManagementPanel';
 import WebsiteTab from '../owner/tabs/WebsiteTab';
+import SchoolLocationForm from '../../../features/school/components/SchoolLocationForm';
 
-const TABS = ['Profile & Security', 'Website', 'Attendance Management'];
+const TABS = ['Profile & Security', 'School Location', 'Website', 'Attendance Management'];
 
 export default function HoSSettings({ auth }) {
   const [me, setMe] = useState(null);
@@ -52,6 +53,11 @@ export default function HoSSettings({ auth }) {
           <h2 className="text-lg font-semibold text-[#800000] dark:text-slate-100 mb-4">Password Reset</h2>
           <AdminPasswordReset />
         </div>
+      </div>
+    ),
+    'School Location': (
+      <div className="rounded-3xl p-6 bg-[#b5e3f4] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
+        <SchoolLocationForm />
       </div>
     ),
     Website: (

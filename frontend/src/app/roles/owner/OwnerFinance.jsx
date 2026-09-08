@@ -9,11 +9,13 @@ import {
   SparklesIcon,
 } from '@heroicons/react/24/outline';
 import FeesManagementBoard from '../../../features/school/components/FeesManagementBoard';
+import TermFeesBoard from '../../../features/school/components/TermFeesBoard';
 import { getMyTenant, getExpenditure, addExpenditure, runFinanceAI, getFeesLedger } from '../../../features/school/services/schoolApi';
 
 const TAB_META = [
   { label: 'Subscription', short: 'Subscription', Icon: CreditCardIcon },
-  { label: 'Fees', short: 'Fees', Icon: BanknotesIcon },
+  { label: 'Term Fees', short: 'Term Fees', Icon: BanknotesIcon },
+  { label: 'Fees', short: 'Fee Template', Icon: BanknotesIcon },
   { label: 'Parent Payment Channels', short: 'Channels', Icon: BuildingLibraryIcon },
   { label: 'Payment Claim Queue', short: 'Claims', Icon: InboxStackIcon },
   { label: 'Expenditure', short: 'Expenditure', Icon: ArrowTrendingDownIcon },
@@ -189,11 +191,21 @@ function AIAnalysisTab() {
   );
 }
 
+// Callers may name the tab they want rather than counting positions, so adding a
+// tab never silently re-points someone else's link.
+function resolveTabIndex(requested) {
+  if (typeof requested === 'string') {
+    const found = TAB_META.findIndex(t => t.label === requested || t.short === requested);
+    return found >= 0 ? found : 0;
+  }
+  return Number.isFinite(requested) ? requested : 0;
+}
+
 export default function OwnerFinance({ auth, initialTab = 0 }) {
-  const [tab, setTab] = useState(Number.isFinite(initialTab) ? initialTab : 0);
+  const [tab, setTab] = useState(resolveTabIndex(initialTab));
 
   useEffect(() => {
-    setTab(Number.isFinite(initialTab) ? initialTab : 0);
+    setTab(resolveTabIndex(initialTab));
   }, [initialTab]);
 
   return (
@@ -218,12 +230,13 @@ export default function OwnerFinance({ auth, initialTab = 0 }) {
         </div>
       </div>
       {tab === 0 && <SubscriptionTab />}
-      {tab === 1 && <FeesTab initialFinanceTab="fees" />}
-      {tab === 2 && <FeesTab initialFinanceTab="channels" />}
-      {tab === 3 && <FeesTab initialFinanceTab="claims" />}
-      {tab === 4 && <ExpenditureTab />}
-      {tab === 5 && <IncomeExpenditureTab />}
-      {tab === 6 && <AIAnalysisTab />}
+      {tab === 1 && <TermFeesBoard />}
+      {tab === 2 && <FeesTab initialFinanceTab="fees" />}
+      {tab === 3 && <FeesTab initialFinanceTab="channels" />}
+      {tab === 4 && <FeesTab initialFinanceTab="claims" />}
+      {tab === 5 && <ExpenditureTab />}
+      {tab === 6 && <IncomeExpenditureTab />}
+      {tab === 7 && <AIAnalysisTab />}
     </div>
   );
 }

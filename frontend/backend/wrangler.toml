@@ -10,6 +10,11 @@ routes = [
 	{ pattern = "*.ndovera.com/*", zone_name = "ndovera.com" }
 ]
 
+# NOTE: this Worker runs on the Workers Free plan, which caps each request at 10ms
+# of CPU and does not allow [limits] cpu_ms to be set. Endpoints that fan out into
+# many D1 reads (the dashboard header especially) sit close to that ceiling, and
+# going over returns 503 rather than an application error.
+
 # Background job processor (bulk people import, results distribution) runs every minute.
 [triggers]
 crons = ["* * * * *"]

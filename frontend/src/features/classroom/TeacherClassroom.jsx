@@ -1098,7 +1098,7 @@ export default function TeacherClassroom({
                 )}
               </div>
 
-              <form onSubmit={handleCreatePost} className="sticky bottom-6 rounded-3xl border border-[#c9a96e]/45 bg-[#b5e3f4] p-4 shadow-[0_20px_40px_rgba(128,0,0,0.12)] dark:border-[#bf00ff]/35 dark:bg-[#800000]/78 dark:shadow-[0_0_24px_rgba(191,0,255,0.18)]">
+              <form onSubmit={handleCreatePost} className="sticky bottom-[calc(var(--mobile-nav-clearance)+0.5rem)] md:bottom-6 rounded-3xl border border-[#c9a96e]/45 bg-[#b5e3f4] p-4 shadow-[0_20px_40px_rgba(128,0,0,0.12)] dark:border-[#bf00ff]/35 dark:bg-[#800000]/78 dark:shadow-[0_0_24px_rgba(191,0,255,0.18)]">
                 <textarea
                   value={draftContent}
                   onChange={event => {

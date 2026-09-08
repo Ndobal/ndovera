@@ -6,6 +6,8 @@
     "deploy": "wrangler deploy",
     "dev": "wrangler dev",
     "build": "wrangler deploy --dry-run",
+    "test": "npm run test:build && node --test test/academic.test.mjs",
+    "test:build": "esbuild src/academicSessions.ts --bundle --format=esm --platform=neutral --outfile=test/build/academicSessions.mjs",
     "schema:remote": "wrangler d1 execute APP_DB --remote --file d1/schema.sql",
     "provision:superadmins": "node scripts/provision_superadmins.mjs",
     "provision:flutterwave": "node scripts/provision_flutterwave_keys.mjs",

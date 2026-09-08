@@ -5,6 +5,8 @@ import Loader from './shared/components/Loader';
 import Sidebar from './shared/components/Sidebar';
 import DashboardTopBar from './shared/components/DashboardTopBar';
 import MobileRoleOverviewNav from './shared/components/MobileRoleOverviewNav';
+import RoleWithoutDashboard from './shared/components/RoleWithoutDashboard';
+import AppErrorBoundary from './shared/components/AppErrorBoundary';
 import Classroom from './app/Classroom';
 import Assignments from './app/Assignments';
 import Exams from './app/Exams';
@@ -49,6 +51,11 @@ import ResetPasswordPage from './features/auth/pages/ResetPasswordPage';
 import SchoolRegistrationPage from './features/tenants/pages/SchoolRegistrationPage';
 import PublicHomePage from './features/public/pages/PublicHomePage';
 import PublicSitePage from './features/public/pages/PublicSitePage';
+import PublicLegalPage from './features/public/pages/PublicLegalPage';
+import PublicChampionshipsPage from './features/championships/pages/PublicChampionshipsPage';
+import PublicChampionshipDetailPage from './features/championships/pages/PublicChampionshipDetailPage';
+import ChampionshipCentre from './features/championships/ChampionshipCentre';
+import ChampionshipPromoCard from './features/championships/ChampionshipPromoCard';
 import { buildSelectedRoleHeader, clearStoredAuth, consumeTenantReturnUrlFromLocation, getSignedOutRedirectPath, getStoredAuth, persistAuth, syncRefreshedToken } from './features/auth/services/authApi';
 import { useTenantPwaManifest } from './shared/hooks/useTenantPwaManifest';
 import { getApiUrl } from './config/apiBase';
@@ -68,6 +75,17 @@ const PUBLIC_ROUTE_PATHS = new Set([
   '/events',
   '/events-gallery',
   '/gallery',
+  // Legal and compliance pages must stay publicly reachable — Google OAuth verification
+  // and school procurement both check them without an account.
+  '/privacy',
+  '/privacy-policy',
+  '/terms',
+  '/terms-of-service',
+  '/data-handling',
+  '/youtube-disclosure',
+  '/youtube',
+  '/contact',
+  '/championships',
   '/login',
   '/reset-password',
   '/register-school',
@@ -79,6 +97,15 @@ function normalizePublicPath(pathname) {
     return pathname.slice(0, -1);
   }
   return pathname;
+}
+
+// Public sections that have their own child pages, so an exact-path Set is not enough.
+const PUBLIC_ROUTE_PREFIXES = ['/championships/'];
+
+function isPublicRoutePath(pathname) {
+  const normalized = normalizePublicPath(pathname);
+  if (PUBLIC_ROUTE_PATHS.has(normalized)) return true;
+  return PUBLIC_ROUTE_PREFIXES.some(prefix => normalized.startsWith(prefix));
 }
 
 function getAccessibleRoles(auth) {
@@ -149,6 +176,7 @@ function RequireAuth({ auth, children }) {
 }
 
 function RoleGuard({ expectedRole, auth, children }) {
+  const location = useLocation();
   const authRole = getAuthenticatedRole(auth);
   const accessibleRoles = getAccessibleRoles(auth);
 
@@ -157,7 +185,13 @@ function RoleGuard({ expectedRole, auth, children }) {
   }
 
   if (!accessibleRoles.includes(expectedRole)) {
-    return <Navigate to={`/roles/${authRole}`} replace />;
+    const home = `/roles/${authRole}`;
+    // Sending someone to the page they are already on is an infinite redirect,
+    // and an infinite redirect is a blank screen. Say so instead.
+    if (location.pathname === home) {
+      return <RoleWithoutDashboard roleKey={authRole} />;
+    }
+    return <Navigate to={home} replace />;
   }
 
   return children;
@@ -184,6 +218,17 @@ function AnimatedRoutes({ auth, onLogin }) {
         <Route path="/events" element={<PublicSitePage pageKey="events" />} />
         <Route path="/events-gallery" element={<PublicSitePage pageKey="events" />} />
         <Route path="/gallery" element={<PublicSitePage pageKey="gallery" />} />
+        <Route path="/privacy" element={<PublicLegalPage docKey="privacy" />} />
+        <Route path="/privacy-policy" element={<Navigate to="/privacy" replace />} />
+        <Route path="/terms" element={<PublicLegalPage docKey="terms" />} />
+        <Route path="/terms-of-service" element={<Navigate to="/terms" replace />} />
+        <Route path="/data-handling" element={<PublicLegalPage docKey="data" />} />
+        <Route path="/youtube-disclosure" element={<PublicLegalPage docKey="youtube" />} />
+        <Route path="/youtube" element={<Navigate to="/youtube-disclosure" replace />} />
+        <Route path="/contact" element={<PublicLegalPage docKey="contact" />} />
+        <Route path="/championships" element={<PublicChampionshipsPage />} />
+        <Route path="/championships/:slug" element={<PublicChampionshipDetailPage />} />
+        <Route path="/roles/:role/championships" element={<RequireAuth auth={auth}><RouteTransition><ChampionshipCentre /></RouteTransition></RequireAuth>} />
         <Route path="/login" element={auth?.token ? <Navigate to={defaultAppRoute} replace /> : <LoginPage onLogin={onLogin} />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
         <Route path="/register-school" element={<SchoolRegistrationPage />} />
@@ -251,13 +296,19 @@ function AnimatedRoutes({ auth, onLogin }) {
         <Route path="/roles/hod/*" element={<RoleGuard auth={auth} expectedRole="hod"><RouteTransition><OperationalRoleDashboard roleKey="hod" /></RouteTransition></RoleGuard>} />
         <Route path="/roles/hodassistant/*" element={<RoleGuard auth={auth} expectedRole="hodassistant"><RouteTransition><OperationalRoleDashboard roleKey="hodassistant" /></RouteTransition></RoleGuard>} />
         <Route path="/roles/principal/*" element={<RoleGuard auth={auth} expectedRole="principal"><RouteTransition><OperationalRoleDashboard roleKey="principal" /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/viceprincipal/*" element={<RoleGuard auth={auth} expectedRole="viceprincipal"><RouteTransition><OperationalRoleDashboard roleKey="viceprincipal" /></RouteTransition></RoleGuard>} />
         <Route path="/roles/headteacher/*" element={<RoleGuard auth={auth} expectedRole="headteacher"><RouteTransition><OperationalRoleDashboard roleKey="headteacher" /></RouteTransition></RoleGuard>} />
         <Route path="/roles/nurseryhead/*" element={<RoleGuard auth={auth} expectedRole="nurseryhead"><RouteTransition><OperationalRoleDashboard roleKey="nurseryhead" /></RouteTransition></RoleGuard>} />
         <Route path="/roles/examofficer/*" element={<RoleGuard auth={auth} expectedRole="examofficer"><RouteTransition><OperationalRoleDashboard roleKey="examofficer" /></RouteTransition></RoleGuard>} />
         <Route path="/roles/sportsmaster/*" element={<RoleGuard auth={auth} expectedRole="sportsmaster"><RouteTransition><OperationalRoleDashboard roleKey="sportsmaster" /></RouteTransition></RoleGuard>} />
         <Route path="/roles/ami/messaging" element={<RoleGuard auth={auth} expectedRole="ami"><RouteTransition><AmiInbox /></RouteTransition></RoleGuard>} />
         <Route path="/roles/ami/*" element={<RoleGuard auth={auth} expectedRole="ami"><RouteTransition><AmiDashboard /></RouteTransition></RoleGuard>} />
-        <Route path="*" element={<Navigate to={defaultAppRoute} replace />} />
+        <Route
+          path="*"
+          element={location.pathname === defaultAppRoute
+            ? <RoleWithoutDashboard roleKey={authRole} />
+            : <Navigate to={defaultAppRoute} replace />}
+        />
       </Routes>
     </AnimatePresence>
   );
@@ -266,8 +317,7 @@ function AnimatedRoutes({ auth, onLogin }) {
 function AppWorkspace({ auth, onLogin, onLogout }) {
   const location = useLocation();
   useTenantPwaManifest(auth);
-  const normalizedPath = normalizePublicPath(location.pathname);
-  const isPublicRoute = PUBLIC_ROUTE_PATHS.has(normalizedPath);
+  const isPublicRoute = isPublicRoutePath(location.pathname);
   const inDashboardMode = location.pathname.startsWith('/roles/');
   const inStudentClassroom = location.pathname.startsWith('/roles/student/classroom');
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
@@ -311,7 +361,7 @@ function AppWorkspace({ auth, onLogin, onLogout }) {
   return (
     <div className="flex h-screen overflow-hidden text-slate-900 dark:text-slate-100 transition-colors duration-500 dashboard-bg dark:bg-slate-950">
       {!mobileClassroomMode && !partnerWorkspace && <Sidebar mobileOpen={isSidebarOpen} onClose={handleCloseSidebar} />}
-      <main className={`flex-1 min-h-0 relative ${inStudentClassroom ? 'overflow-hidden' : 'overflow-y-auto overflow-x-hidden'} ${inDashboardMode && !inStudentClassroom ? 'pb-[calc(8rem+env(safe-area-inset-bottom))] scroll-pb-[calc(8rem+env(safe-area-inset-bottom))] md:pb-0 md:scroll-pb-0' : ''}`}>
+      <main className={`flex-1 min-h-0 relative ${inStudentClassroom ? 'overflow-hidden' : 'overflow-y-auto overflow-x-hidden'} ${inDashboardMode && !inStudentClassroom ? 'pb-[calc(8rem+var(--safe-bottom))] scroll-pb-[calc(8rem+var(--safe-bottom))] md:pb-0 md:scroll-pb-0' : ''}`}>
         {inDashboardMode && !mobileClassroomMode && (
           <DashboardTopBar
             authUser={auth?.user}
@@ -320,6 +370,13 @@ function AppWorkspace({ auth, onLogin, onLogout }) {
             isSidebarOpen={isSidebarOpen}
           />
         )}
+        {/* Inline, dismissible and self-expiring. It sits in normal flow above the page so it
+            can never cover navigation or block a student reaching a lesson. */}
+        {inDashboardMode && !mobileClassroomMode ? (
+          <div className="px-4 pt-4 sm:px-6 lg:px-8">
+            <ChampionshipPromoCard />
+          </div>
+        ) : null}
         <AnimatedRoutes auth={auth} onLogin={onLogin} />
         {inDashboardMode && !mobileClassroomMode ? (
           <MobileRoleOverviewNav roleKey={location.pathname.split('/')[2] || 'student'} />
@@ -340,7 +397,7 @@ function ReturnToAmiBanner() {
     window.location.href = '/roles/ami';
   }
   return (
-    <div className="fixed inset-x-0 bottom-0 z-[200] flex flex-wrap items-center justify-between gap-2 bg-[#800020] px-4 py-2 text-sm text-white">
+    <div className="fixed inset-x-0 bottom-0 z-[200] flex flex-wrap items-center justify-between gap-2 bg-[#800020] px-4 pt-2 pb-[calc(0.5rem+var(--safe-bottom))] text-sm text-white">
       <span>You are managing this school as its owner (NDOVERA support session).</span>
       <button type="button" onClick={back} className="rounded-lg bg-white px-3 py-1 text-xs font-bold text-[#800020]">Return to Ami</button>
     </div>
@@ -507,9 +564,11 @@ function App() {
   };
 
   return (
-    <Router>
-      <AppWorkspace auth={auth} onLogin={handleLogin} onLogout={handleLogout} />
-    </Router>
+    <AppErrorBoundary>
+      <Router>
+        <AppWorkspace auth={auth} onLogin={handleLogin} onLogout={handleLogout} />
+      </Router>
+    </AppErrorBoundary>
   );
 }
 

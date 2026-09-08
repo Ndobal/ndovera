@@ -453,7 +453,7 @@ export default function DashboardTopBar({ authUser = null, onLogout = () => {}, 
 
   return (
     <>
-    <header className="sticky top-0 z-40 px-4 md:px-6 py-3 border-b border-slate-200/70 dark:border-cyan-300/20 glass-surface">
+    <header className="sticky top-0 z-40 px-4 md:px-6 pb-3 pt-[calc(0.75rem+var(--safe-top))] border-b border-slate-200/70 dark:border-cyan-300/20 glass-surface">
       <div className="max-w-7xl mx-auto flex items-center justify-between gap-3 md:gap-4 relative">
         <div className="flex items-center gap-2 md:gap-3 min-w-0">
           <button

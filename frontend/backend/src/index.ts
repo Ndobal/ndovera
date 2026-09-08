@@ -51,6 +51,51 @@ import {
   listResultDocumentsForPeriod,
 } from './results'
 import {
+  AcademicError,
+  FEE_ADMIN_ROLES,
+  PROMOTION_ADMIN_ROLES,
+  SESSION_ADMIN_ROLES,
+  activateSession,
+  activateTerm,
+  attachReceiptToPayment,
+  autoEnrolSession,
+  backfillOpeningBalances,
+  buildPromotionProposals,
+  cancelPromotionBatch,
+  closeTerm,
+  commitPromotionBatch,
+  createSession,
+  deleteBreak,
+  ensureAcademicTables,
+  generateTermAssessments,
+  getActiveSession,
+  getActiveTerm,
+  getCalendarPosition,
+  getCurrentAcademicPeriod,
+  getFeeDashboard,
+  getPromotionBatch,
+  getSessionDetail,
+  getStudentFinancialHistory,
+  lagosToday,
+  listAssessmentLines,
+  listPromotionAudit,
+  listPromotionBatches,
+  listSessionEnrollments,
+  listSessions,
+  listStudentEnrollmentHistory,
+  listStudentOutstanding,
+  moveEnrollments,
+  recordFeePayment,
+  runScheduledAcademicTransitions,
+  saveBreak,
+  saveTerms,
+  setSessionArchived,
+  syncMirrorToSession,
+  updatePromotionDecisions,
+  updateSession,
+  upsertEnrollment,
+} from './academicSessions'
+import {
   ensureLessonPlanTables,
   getLessonPlanById,
   listLessonPlans,
@@ -84,6 +129,76 @@ import {
   syncQuestionUsagesForEngine,
   updateQuestionBankTopics,
 } from './questionBank'
+import {
+  CHAMPIONSHIP_CATEGORIES,
+  STAGE_KINDS,
+  championshipAcceptsTenant,
+  countConfirmedRegistrations,
+  countTenantRegistrationsByChampionship,
+  createRegistration,
+  evaluateEligibility,
+  findRegistration,
+  findRegistrationsByUserIds,
+  getChampionshipById,
+  getChampionshipBySlug,
+  getPromotedChampionship,
+  listChampionships,
+  listRegistrationsForChampionship,
+  listRegistrationsForTenant,
+  listRegistrationsForUser,
+  listStages,
+  replaceStages,
+  saveChampionship,
+  setChampionshipStatus,
+} from './championships'
+import {
+  QUESTION_SUBMISSION_STATUSES,
+  QUESTION_TAGS,
+  createChampionshipSubmission,
+  createQuestionSubmission,
+  listChampionshipSubmissions,
+  listQuestionSubmissions,
+  markQuestionBanked,
+  moderateQuestionSubmission,
+  normalizeEssayCriteria,
+  reviewEssayWithAi,
+  saveSubmissionAiReport,
+  screenQuestionWithAi,
+  validateQuestionSubmission,
+} from './championshipContent'
+import {
+  APPEAL_STATUSES,
+  JUDGE_ROLES,
+  assignJudge,
+  buildRanking,
+  createAppeal,
+  decideAppeal,
+  filterScoresForJudge,
+  findJudge,
+  isResultLocked,
+  listAppeals,
+  listJudges,
+  listScoresForStage,
+  removeJudge,
+  saveJudgeScore,
+  setResultLock,
+} from './championshipJudging'
+import {
+  SPECIAL_BADGES,
+  addGalleryItem,
+  awardBadge,
+  badgeLabel,
+  badgesForPosition,
+  buildHallOfFame,
+  issueCertificate,
+  listBadgesForTenant,
+  listBadgesForUser,
+  listCertificatesForTenant,
+  listCertificatesForUser,
+  listGallery,
+  totalChampionshipPoints,
+  verifyCertificate,
+} from './championshipAwards'
 import {
   AI_GLOBAL_SETTINGS_KEY,
   consumeAiAccess,
@@ -1703,6 +1818,16 @@ async function saveFeesPaymentDetails(db: D1Database, tenantId: string, payload:
 }
 
 async function getCurrentSchoolSessionSnapshot(db: D1Database, tenantId: string) {
+  // The academic session engine is authoritative once a school has set one up;
+  // the old breadcrumb row still answers for schools that have not. This sits on
+  // hot read paths (the dashboard header polls it), so it must stay to plain
+  // reads — getCurrentAcademicPeriod already falls back to the breadcrumb, and
+  // creating tables here is what previously blew the CPU limit.
+  const period = await getCurrentAcademicPeriod(db, tenantId).catch(() => null)
+  if (period?.sessionName) {
+    return { sessionName: period.sessionName, termName: period.termName }
+  }
+
   await ensureSchoolSessionsTable(db)
   const row = await db.prepare(
     `SELECT session, term FROM school_sessions WHERE tenantId = ? ORDER BY createdAt DESC LIMIT 1`
@@ -2829,10 +2954,16 @@ async function listTenantActiveStudents(db: D1Database, tenantId: string) {
   await ensureUsersTable(db)
   await ensureClassesTable(db)
 
+  // Case-folded on purpose. Class lists match with lower(role), while this used to
+  // demand an exact 'student': a cohort imported as 'Student' showed up on every
+  // class register and in no promotion round, and the school had no way to see
+  // which children had been skipped or why.
   const rows = await db.prepare(
     `SELECT id, name, email, role, status, createdAt
      FROM users
-     WHERE tenantId = ? AND role = 'student' AND (status IS NULL OR status != 'inactive')
+     WHERE tenantId = ?
+       AND lower(trim(coalesce(role, ''))) = 'student'
+       AND lower(trim(coalesce(status, 'active'))) != 'inactive'
      ORDER BY name`
   ).bind(tenantId).all()
 
@@ -2859,6 +2990,46 @@ async function listTenantActiveStudents(db: D1Database, tenantId: string) {
     classId: String(student?.classId || ''),
     className: classMap.get(String(student?.classId || '')) || String(student?.className || ''),
   }))
+}
+
+const FEE_VIEWER_ROLES = ['owner', 'hos', 'accountant', 'admin', 'parent', 'student']
+
+/**
+ * Who is asking, and for which school — without loading anything they might ask
+ * about. Building the full fee view costs the tenant's entire student roster,
+ * the ledger and the fee template; callers that only need the role and tenant
+ * (staff-side claim and receipt lists) must not pay for that. The dashboard
+ * header polls those on a 10ms CPU budget.
+ */
+async function resolveFeeViewerContext(
+  db: D1Database,
+  currentUser: Record<string, any>,
+  known?: { tenantId?: string, role?: string },
+) {
+  // Callers that have already resolved the identity (the dashboard header does,
+  // for every request) pass it in rather than paying for the lookup twice.
+  if (known?.tenantId && known?.role) {
+    const role = normalizeRole(known.role)
+    return {
+      allowed: FEE_VIEWER_ROLES.includes(role),
+      tenantId: String(known.tenantId).trim(),
+      role,
+    }
+  }
+
+  const userIdentifier = String(currentUser.id || currentUser.email || currentUser.sub || '').trim()
+  const resolvedUser = userIdentifier
+    ? await resolveSettingsIdentity(db, userIdentifier)
+    : { settingsKey: '', settings: null, userRow: null }
+  const settings = resolvedUser.settings || {}
+  const tenantId = String(settings.tenantId || settings.schoolId || resolvedUser.userRow?.tenantId || currentUser.tenantId || '').trim()
+  const role = normalizeRole(settings.role) || getActiveRole(currentUser)
+
+  return {
+    allowed: Boolean(tenantId) && FEE_VIEWER_ROLES.includes(role),
+    tenantId,
+    role,
+  }
 }
 
 async function listVisibleFeeLedgerEntries(db: D1Database, currentUser: Record<string, any>) {
@@ -3061,25 +3232,38 @@ function mapFeePaymentClaimRow(row: Record<string, any>) {
   }
 }
 
-async function listVisibleFeePaymentClaims(db: D1Database, currentUser: Record<string, any>) {
-  const feeView = await listVisibleFeeLedgerEntries(db, currentUser)
-  if (!feeView.allowed || !feeView.tenantId) {
-    return { allowed: false, tenantId: feeView.tenantId, role: feeView.role, claims: [] as Array<Record<string, any>> }
+async function listVisibleFeePaymentClaims(
+  db: D1Database,
+  currentUser: Record<string, any>,
+  known?: { tenantId?: string, role?: string },
+) {
+  const viewer = await resolveFeeViewerContext(db, currentUser, known)
+  if (!viewer.allowed || !viewer.tenantId) {
+    return { allowed: false, tenantId: viewer.tenantId, role: viewer.role, claims: [] as Array<Record<string, any>> }
   }
 
   await ensureFeesPaymentClaimsTable(db)
 
-  if ([...FEE_PAYMENT_APPROVER_ROLES, 'admin'].includes(feeView.role)) {
+  // Staff see every claim in the school, so the query needs the tenant and
+  // nothing else — deliberately without building the fee view.
+  if ([...FEE_PAYMENT_APPROVER_ROLES, 'admin'].includes(viewer.role)) {
     const rows = await db.prepare(
       `SELECT * FROM fees_payment_claims WHERE tenant_id = ? ORDER BY updated_at DESC, created_at DESC LIMIT 200`
-    ).bind(feeView.tenantId).all().catch(() => ({ results: [] }))
+    ).bind(viewer.tenantId).all().catch(() => ({ results: [] }))
 
     return {
       allowed: true,
-      tenantId: feeView.tenantId,
-      role: feeView.role,
+      tenantId: viewer.tenantId,
+      role: viewer.role,
       claims: ((rows.results || []) as Record<string, any>[]).map(mapFeePaymentClaimRow),
     }
+  }
+
+  // A parent or student is scoped to their own children, which is what the fee
+  // view is for, so this branch still pays for it.
+  const feeView = await listVisibleFeeLedgerEntries(db, currentUser)
+  if (!feeView.allowed || !feeView.tenantId) {
+    return { allowed: false, tenantId: feeView.tenantId, role: feeView.role, claims: [] as Array<Record<string, any>> }
   }
 
   const studentIds = Array.from(new Set((feeView.ledger || []).map(entry => String(entry.studentId || '').trim()).filter(Boolean)))
@@ -3123,8 +3307,13 @@ async function buildFeePaymentReceiptNotificationItems(db: D1Database, currentUs
   }))
 }
 
-async function buildFeePaymentClaimNotificationItems(db: D1Database, currentUser: Record<string, any>, actorRole: string) {
-  const claimView = await listVisibleFeePaymentClaims(db, currentUser)
+async function buildFeePaymentClaimNotificationItems(
+  db: D1Database,
+  currentUser: Record<string, any>,
+  actorRole: string,
+  known?: { tenantId?: string, role?: string },
+) {
+  const claimView = await listVisibleFeePaymentClaims(db, currentUser, known)
   if (!claimView.allowed) {
     return [] as Array<Record<string, any>>
   }
@@ -3265,6 +3454,23 @@ async function recordStudentFeePayment(db: D1Database, options: {
     verificationUrl || null,
     recordedAt,
   ).run()
+
+  // Dual-write while the term-by-term fee cycle is rolled out: the assessment
+  // ledger is the record that matters, but this legacy running total still backs
+  // the existing fees board, so a payment taken through either route lands in
+  // both. Best effort — a school that has not set up sessions yet simply has no
+  // assessment for this to allocate against.
+  await recordFeePayment(db, {
+    tenantId: options.tenantId,
+    studentId: options.studentId,
+    studentName,
+    amount: paymentAmount,
+    paymentType: String(options.paymentType || 'cash'),
+    paymentReference: String(options.paymentReference || ''),
+    idempotencyKey: `legacy:${receiptId}`,
+    recordedBy: options.recordedBy,
+    recordedByName: options.recordedBy,
+  }).catch(() => null)
 
   return {
     amountPaid: newPaid,
@@ -4619,6 +4825,17 @@ function getPrimaryRole(settings: Record<string, any> = {}, fallbackRole: unknow
   return normalizeRole(settings.primaryRole || settings.primary_role || settings.role || fallbackRole)
 }
 
+// Roles that belong to the platform rather than to any school. An account holding one of these
+// must never carry a tenantId: it is not a member of a school, and a tenant-scoped endpoint
+// answering for it would be answering as a school it does not belong to.
+const PLATFORM_ONLY_ROLES = new Set(['ami'])
+
+function isPlatformOnlyRole(roles: unknown) {
+  const list = Array.isArray(roles) ? roles : [roles]
+  const normalized = list.map(role => normalizeRole(role)).filter(Boolean)
+  return normalized.length > 0 && normalized.every(role => PLATFORM_ONLY_ROLES.has(role))
+}
+
 function getPublicFacingUserId(settings: Record<string, any> = {}, role: unknown = '') {
   const normalizedRole = normalizeRole(role || settings.primaryRole || settings.primary_role || settings.role)
   if (normalizedRole === 'student') {
@@ -4847,7 +5064,9 @@ async function buildAuthenticatedHeader(c: any, roleKey: string) {
     canonicalReaderId ? listConversationReadStates(c.env.APP_DB, canonicalReaderId).catch(() => ({} as Record<string, string>)) : Promise.resolve({} as Record<string, string>),
     tenantId ? Promise.all([
       buildFeeReminderNotificationItems(c.env.APP_DB, currentUser, actorRole).catch(() => [] as any[]),
-      buildFeePaymentClaimNotificationItems(c.env.APP_DB, currentUser, actorRole).catch(() => [] as any[]),
+      // Identity is already resolved above; hand it over so the claim list does
+      // not repeat the lookup on every poll of this endpoint.
+      buildFeePaymentClaimNotificationItems(c.env.APP_DB, currentUser, actorRole, { tenantId, role: actorRole }).catch(() => [] as any[]),
       buildFeePaymentReceiptNotificationItems(c.env.APP_DB, currentUser, actorRole).catch(() => [] as any[]),
       buildWebsiteEnquiryNotificationItems(c.env.APP_DB, tenantId, actorRole).catch(() => [] as any[]),
       buildCriticalAuditNotificationItems(c.env.APP_DB, tenantId, actorRole).catch(() => [] as any[]),
@@ -5572,16 +5791,23 @@ async function finishLogin(c: any, payload: Record<string, any>) {
   const roleContext = buildRoleContext(settings, resolvedLogin.userRow?.role, requestedRole)
   const userRole = roleContext.selectedRole
   const name = settings.name || id
-  const tenantId = settings.tenantId || settings.schoolId
+
+  // Ami is a platform role, not a member of any school. Binding it to a tenant meant every
+  // tenant-scoped endpoint silently answered as whichever school the account happened to carry.
+  // Ami reaches school data through /api/ami/* routes, which take the tenant on the path.
+  const isPlatformRole = isPlatformOnlyRole(roleContext.rawRoles)
+  const tenantId = isPlatformRole ? '' : (settings.tenantId || settings.schoolId)
   settings = await ensureStudentPublicId(c.env.APP_DB, {
     tenantId,
     userId: resolvedLogin.userRow?.id,
     settingsKey: id,
     settings,
   }) || settings
-  const tenant = tenantId
-    ? await getTenantById(c.env.APP_DB, tenantId)
-    : await getTenantByOwnerEmail(c.env.APP_DB, id)
+  const tenant = isPlatformRole
+    ? null
+    : (tenantId
+      ? await getTenantById(c.env.APP_DB, tenantId)
+      : await getTenantByOwnerEmail(c.env.APP_DB, id))
 
   // Auto-generate displayId for old users who were created before the displayId system
   if (!settings.displayId) {
@@ -5594,7 +5820,15 @@ async function finishLogin(c: any, payload: Record<string, any>) {
 
   const mustChangePassword = settings.mustChangePassword === true
 
-  if (tenantId && resolvedLogin.userRow?.id) {
+  if (isPlatformRole && resolvedLogin.userRow?.id) {
+    // Keep the stored record tenant-free too, so a later login or list cannot re-derive a school.
+    await c.env.APP_DB.prepare(
+      `UPDATE users SET role = ?, primary_role = ?, tenantId = NULL WHERE id = ?`
+    ).bind(roleContext.primaryRole, roleContext.primaryRole, resolvedLogin.userRow.id).run().catch(() => null)
+    await c.env.APP_DB.prepare(
+      `DELETE FROM user_roles WHERE user_id = ?`
+    ).bind(String(resolvedLogin.userRow.id)).run().catch(() => null)
+  } else if (tenantId && resolvedLogin.userRow?.id) {
     const employmentCategory = deriveEmploymentCategory(roleContext.primaryRole, settings.employmentCategory, roleContext.rawRoles)
     await c.env.APP_DB.prepare(
       `UPDATE users
@@ -7369,16 +7603,74 @@ app.get('/api/dashboards/:roleKey', authenticate, async (c) => {
 })
 
 // Settings
+//
+// A settings row is a person's whole record — contact details, class, roles, tenant and the
+// password hash. These routes are keyed by email/ID and used to have no ownership check at all,
+// so any signed-in account could read or overwrite any other account on the platform. Access is
+// now: yourself, a school admin acting within their own school, or Ami.
+const SETTINGS_ADMIN_ROLES = ['owner', 'hos', 'ict', 'ict_manager', 'principal', 'viceprincipal']
+
+// Identity, tenancy and credentials are owned by their dedicated flows (role update, ownership
+// transfer, password reset). A generic settings write must never be able to move someone
+// between schools, grant itself a role, or replace a password hash.
+const SETTINGS_SERVER_OWNED_FIELDS = [
+  'tenantId', 'schoolId', 'role', 'roles', 'primaryRole', 'primary_role',
+  'passwordHash', 'initialPassword', 'publicStudentId', 'displayId', 'accountType',
+]
+
+async function resolveSettingsAccess(c: any, targetId: string) {
+  const user = c.var.user || {}
+  const actorRole = getActiveRole(user)
+  const actorTenantId = String(user.tenantId || '').trim()
+  const actorIdentifiers = collectComparableIdentifiers([user.id, user.email, user.sub])
+  const normalizedTarget = toComparableIdentifier(targetId)
+
+  if (hasRequiredRole(user.role, ['ami'])) return { allowed: true, existing: await getSettings(c.env.APP_DB, targetId).catch(() => null) }
+  if (normalizedTarget && actorIdentifiers.includes(normalizedTarget)) {
+    return { allowed: true, existing: await getSettings(c.env.APP_DB, targetId).catch(() => null) }
+  }
+
+  const existing = await getSettings(c.env.APP_DB, targetId).catch(() => null)
+  const targetTenantId = String(existing?.tenantId || existing?.schoolId || '').trim()
+
+  // Self-reference can also arrive as the settings key rather than the JWT id.
+  if (existing && actorIdentifiers.includes(toComparableIdentifier(existing.email))) {
+    return { allowed: true, existing }
+  }
+
+  if (!hasRequiredRole(actorRole, SETTINGS_ADMIN_ROLES)) return { allowed: false, existing }
+  if (!actorTenantId || !targetTenantId || actorTenantId !== targetTenantId) return { allowed: false, existing }
+  return { allowed: true, existing }
+}
+
 app.get('/api/settings/:id', authenticate, async (c) => {
   const id = c.req.param('id')
-  const settings = await getSettings(c.env.APP_DB, id)
-  return c.json(settings || null)
+  const { allowed, existing } = await resolveSettingsAccess(c, id)
+  if (!allowed) return c.json({ error: 'forbidden' }, 403)
+  if (!existing) return c.json(null)
+
+  // The password hash is never part of a settings read, even for the owner of the record.
+  const { passwordHash, initialPassword, ...safe } = existing as Record<string, any>
+  return c.json(safe)
 })
 
 app.post('/api/settings/:id', authenticate, async (c) => {
   const id = c.req.param('id')
-  const payload = await c.req.json()
-  await upsertSettings(c.env.APP_DB, id, payload)
+  const { allowed, existing } = await resolveSettingsAccess(c, id)
+  if (!allowed) return c.json({ error: 'forbidden' }, 403)
+
+  const payload = await c.req.json().catch(() => null) as Record<string, any> | null
+  if (!payload || typeof payload !== 'object' || Array.isArray(payload)) {
+    return c.json({ error: 'A settings object is required.' }, 400)
+  }
+
+  const next = { ...(existing || {}), ...payload }
+  for (const field of SETTINGS_SERVER_OWNED_FIELDS) {
+    if (existing && field in (existing as Record<string, any>)) next[field] = (existing as Record<string, any>)[field]
+    else delete next[field]
+  }
+
+  await upsertSettings(c.env.APP_DB, id, next)
   await addAudit(c.env.APP_DB, id, { action: 'upsertSettings', data: { by: c.var.user.name } })
   return c.json({ ok: true })
 })
@@ -7386,12 +7678,16 @@ app.post('/api/settings/:id', authenticate, async (c) => {
 // Audit
 app.get('/api/settings/:id/audit', authenticate, async (c) => {
   const id = c.req.param('id')
+  const { allowed } = await resolveSettingsAccess(c, id)
+  if (!allowed) return c.json({ error: 'forbidden' }, 403)
   const list = await getAuditForStudent(c.env.APP_DB, id)
   return c.json(list || [])
 })
 
 app.post('/api/settings/:id/audit', authenticate, async (c) => {
   const id = c.req.param('id')
+  const { allowed } = await resolveSettingsAccess(c, id)
+  if (!allowed) return c.json({ error: 'forbidden' }, 403)
   const entry = await c.req.json()
   const saved = await addAudit(c.env.APP_DB, id, entry)
   return c.json({ ok: true, entry: saved })
@@ -9271,8 +9567,9 @@ async function getSchoolClassroomContext(db: D1Database, tenantId: string, class
   }
 
   const normalizedActorId = String(actorId || '').trim()
-  const normalizedRole = String(actorRole || '').toLowerCase().trim()
-  const isElevatedViewer = ['owner', 'hos', 'admin'].includes(normalizedRole)
+  // Role checks go through hasRequiredRole so a merged admin role such as the
+  // single ICT role is admitted the same way it is everywhere else.
+  const isElevatedViewer = hasRequiredRole(actorRole, ['owner', 'hos', 'admin'])
   const resolvedActor = normalizedActorId ? await resolveSettingsIdentity(db, normalizedActorId).catch(() => null) : null
   const actorIdentifiers = collectComparableIdentifiers(collectResolvedIdentityIdentifiers(
     resolvedActor || { settingsKey: normalizedActorId, settings: null, userRow: null },
@@ -9519,14 +9816,14 @@ app.get('/api/classrooms/:classroomId/members', authenticate, async (c) => {
     }
 
     const normalizedRole = String(actor.role || '').toLowerCase().trim()
-    let canViewMembers = ['owner', 'hos', 'admin'].includes(normalizedRole)
+    let canViewMembers = hasRequiredRole(actor.role, ['owner', 'hos', 'admin'])
 
     if (!canViewMembers && normalizedRole === 'student') {
       const self = await resolveStudentAttendanceTarget(c.env.APP_DB, actor.tenantId, actor.actorId || actor.resolvedUser.settingsKey || '')
       canViewMembers = Boolean(self && String(self.classId || '') === classroomId)
     }
 
-    if (!canViewMembers && ['teacher', 'classteacher'].includes(normalizedRole)) {
+    if (!canViewMembers && canTeach(actor.role)) {
       const teacherIdentifiers = collectComparableIdentifiers(collectResolvedIdentityIdentifiers(
         actor.resolvedUser,
         { id: actor.actorId, email: actor.resolvedUser?.settings?.email, sub: actor.actorId },
@@ -10497,13 +10794,19 @@ async function buildDailyFeedResponse(c: any) {
 }
 
 app.get('/api/feed/history', authenticate, async (c) => {
-  await ensureDailyFeedTable(c.env.APP_DB)
-  const rows = await c.env.APP_DB.prepare(`SELECT feed_date, payload_json FROM daily_feed ORDER BY feed_date DESC LIMIT 30`).all().catch(() => ({ results: [] }))
-  const items = (((rows as any).results || []) as Record<string, any>[]).map(row => {
-    const payload = parseJsonField(row.payload_json, {} as Record<string, any>)
-    return { date: String(row.feed_date || ''), didYouKnow: String(payload.didYouKnow || ''), headlineCount: Array.isArray(payload.headlines) ? payload.headlines.length : 0 }
-  })
-  return c.json({ success: true, items })
+  // Same rule as the digest itself: this is decorative, so a table or parse failure must
+  // return an empty history rather than a 500 that breaks the news page.
+  try {
+    await ensureDailyFeedTable(c.env.APP_DB)
+    const rows = await c.env.APP_DB.prepare(`SELECT feed_date, payload_json FROM daily_feed ORDER BY feed_date DESC LIMIT 30`).all().catch(() => ({ results: [] }))
+    const items = (((rows as any).results || []) as Record<string, any>[]).map(row => {
+      const payload = parseJsonField(row.payload_json, {} as Record<string, any>)
+      return { date: String(row.feed_date || ''), didYouKnow: String(payload.didYouKnow || ''), headlineCount: Array.isArray(payload.headlines) ? payload.headlines.length : 0 }
+    })
+    return c.json({ success: true, items })
+  } catch {
+    return c.json({ success: true, items: [] })
+  }
 })
 
 app.post('/api/ai/review', (c) => {
@@ -10529,11 +10832,9 @@ const USER_ROLES_TABLE_SQL = `CREATE TABLE IF NOT EXISTS user_roles (
   updated_at TEXT NOT NULL,
   UNIQUE(tenant_id, user_id, role)
 )`
-const STUDENT_PUBLIC_ID_COUNTERS_SQL = `CREATE TABLE IF NOT EXISTS student_public_id_counters (
-  tenant_id TEXT PRIMARY KEY,
-  last_count INTEGER NOT NULL DEFAULT 0,
-  updated_at TEXT NOT NULL
-)`
+// student_public_id_counters (one row per tenant) is retired — student public IDs now come off
+// the shared platform sequence in user_id_counters. The table is left in the database as a
+// record of the old per-school counts; nothing reads it.
 const PARENT_STUDENT_LINKS_SQL = `CREATE TABLE IF NOT EXISTS parent_student_links (id TEXT PRIMARY KEY, parent_id TEXT, student_id TEXT, tenant_id TEXT, created_at TEXT)`
 const CLASSES_TABLE_SQL = `CREATE TABLE IF NOT EXISTS classes (id TEXT PRIMARY KEY, tenantId TEXT, name TEXT, arm TEXT, classTeacherId TEXT, createdAt TEXT)`
 const SUBJECTS_TABLE_SQL = `CREATE TABLE IF NOT EXISTS subjects (id TEXT PRIMARY KEY, tenantId TEXT, name TEXT, classId TEXT, teacherId TEXT, createdAt TEXT)`
@@ -10606,12 +10907,6 @@ async function ensureUserRolesTable(db: D1Database) {
   _initializedTables.add('user_roles')
 }
 
-async function ensureStudentPublicIdCounterTable(db: D1Database) {
-  if (_initializedTables.has('student_public_id_counter')) return
-  await db.prepare(STUDENT_PUBLIC_ID_COUNTERS_SQL).run()
-  _initializedTables.add('student_public_id_counter')
-}
-
 async function syncUserRoleRecords(
   db: D1Database,
   args: { tenantId: string, userId: string, primaryRole: string, roles: string[] },
@@ -10642,21 +10937,17 @@ async function syncUserRoleRecords(
   }
 }
 
+// Student public IDs run on ONE platform-wide sequence, not one per school: whichever school
+// enrols the next student takes the next number. A per-tenant counter handed the same
+// NS0000001 to the first student of every school, and because identity lookups resolve these
+// IDs globally, one school's student could be resolved as another's.
+const STUDENT_PUBLIC_ID_COUNTER_KEY = 'student-public'
+
 async function generateTenantStudentPublicId(db: D1Database, tenantId: string) {
   const normalizedTenantId = String(tenantId || '').trim()
   if (!normalizedTenantId) throw new Error('Tenant is required to generate a student public ID.')
 
-  await ensureStudentPublicIdCounterTable(db)
-  const now = new Date().toISOString()
-  const row = await db.prepare(
-    `SELECT last_count FROM student_public_id_counters WHERE tenant_id = ?`
-  ).bind(normalizedTenantId).first() as Record<string, any> | null
-  const next = Number(row?.last_count || 0) + 1
-  await db.prepare(
-    `INSERT INTO student_public_id_counters (tenant_id, last_count, updated_at)
-     VALUES (?, ?, ?)
-     ON CONFLICT(tenant_id) DO UPDATE SET last_count = excluded.last_count, updated_at = excluded.updated_at`
-  ).bind(normalizedTenantId, next, now).run()
+  const next = await claimNextCounterValue(db, STUDENT_PUBLIC_ID_COUNTER_KEY)
   return `NS${String(next).padStart(7, '0')}`
 }
 
@@ -10702,6 +10993,31 @@ async function ensureStudentPublicId(
 
 function hasOwnerRole(values: unknown[] = []) {
   return parseRoleList(...values).includes('owner')
+}
+
+// An email is a platform-wide identity: `users.email` is globally unique and a person has one
+// settings blob keyed by that email. So "add a person" for an email that already belongs to
+// another school does not create a second membership — the ON CONFLICT(email) upsert rewrites
+// that row's tenantId and overwrites the shared settings blob, silently moving the account.
+// That is exactly how Mighty School's owner ended up inside Genesis, taking every session they
+// opened with them. Refuse the write instead of stealing the account.
+async function assertEmailNotOwnedByAnotherTenant(db: D1Database, email: string, tenantId: string) {
+  const normalizedEmail = String(email || '').trim().toLowerCase()
+  const normalizedTenantId = String(tenantId || '').trim()
+  if (!normalizedEmail || !normalizedTenantId) return
+
+  const existing = await db.prepare(
+    `SELECT id, tenantId FROM users WHERE lower(email) = ? LIMIT 1`
+  ).bind(normalizedEmail).first() as Record<string, any> | null
+
+  const existingTenantId = String(existing?.tenantId || '').trim()
+  if (!existing || !existingTenantId || existingTenantId === normalizedTenantId) return
+
+  const otherTenant = await getTenantById(db, existingTenantId).catch(() => null)
+  const otherName = String(otherTenant?.schoolName || '').trim() || 'another school'
+  throw new Error(
+    `${normalizedEmail} already belongs to ${otherName}. One email can only belong to one school — use a different email address for this person.`
+  )
 }
 
 async function assertTenantOwnerAssignmentAllowed(
@@ -11103,23 +11419,34 @@ function getDisplayIdConfig(role: string): DisplayIdConfig {
   return { counterKey: 'tenant-staff', prefix: 'NS', digits: 6 }
 }
 
-async function generateDisplayId(db: D1Database, config: DisplayIdConfig): Promise<string> {
+// Claims the next value on a named sequence and returns it.
+//
+// This MUST stay a single statement. The previous SELECT-then-INSERT version read the current
+// count, added one, and wrote it back as two round trips: every row in a bulk import read the
+// same starting value and was handed the same number. That is how 52 students ended up sharing
+// NS0000084. `ON CONFLICT ... SET last_count = last_count + 1 RETURNING` increments and reads
+// atomically, so concurrent callers are serialised by the database.
+async function claimNextCounterValue(db: D1Database, counterKey: string): Promise<number> {
   await db.prepare(
     `CREATE TABLE IF NOT EXISTS user_id_counters (prefix TEXT PRIMARY KEY, last_count INTEGER NOT NULL DEFAULT 0)`
   ).run()
 
   const row = await db.prepare(
-    `SELECT last_count FROM user_id_counters WHERE prefix = ?`
-  ).bind(config.counterKey).first() as any
-
-  const next = Number(row?.last_count || 0) + 1
-
-  await db.prepare(
     `INSERT INTO user_id_counters (prefix, last_count)
-     VALUES (?, ?)
-     ON CONFLICT(prefix) DO UPDATE SET last_count = excluded.last_count`
-  ).bind(config.counterKey, next).run()
+     VALUES (?, 1)
+     ON CONFLICT(prefix) DO UPDATE SET last_count = user_id_counters.last_count + 1
+     RETURNING last_count`
+  ).bind(counterKey).first() as Record<string, any> | null
 
+  const next = Number(row?.last_count || 0)
+  if (!Number.isFinite(next) || next <= 0) {
+    throw new Error(`Could not claim an ID from the "${counterKey}" sequence.`)
+  }
+  return next
+}
+
+async function generateDisplayId(db: D1Database, config: DisplayIdConfig): Promise<string> {
+  const next = await claimNextCounterValue(db, config.counterKey)
   return `${config.prefix}${String(next).padStart(config.digits, '0')}`
 }
 
@@ -12058,9 +12385,46 @@ app.get('/api/approvals', authenticate, async (c) => {
 })
 
 // Attendance
+// Marking attendance is a staff action; students and parents get read access only.
+const ATTENDANCE_WRITE_ROLES = [
+  'owner', 'hos', 'ict', 'ict_manager', 'principal', 'viceprincipal', 'hod',
+  'headteacher', 'nurseryhead', 'teacher', 'classteacher', 'admin',
+]
+
+// attendance_records has no tenant column, so the caller's right to a record is established
+// through the student it belongs to. Without this check any signed-in account could read or
+// rewrite the attendance of any student in any school by passing their ID.
+async function resolveAttendanceStudentAccess(c: any, studentId: string) {
+  const user = c.var.user || {}
+  const normalizedStudentId = String(studentId || '').trim()
+  if (!normalizedStudentId) return { allowed: false }
+
+  if (hasRequiredRole(user.role, ['ami'])) return { allowed: true }
+
+  const actorTenantId = String(user.tenantId || '').trim()
+  if (!actorTenantId) return { allowed: false }
+
+  const student = await findUserByIdentifier(c.env.APP_DB, normalizedStudentId).catch(() => null)
+  const studentTenantId = String(student?.tenantId || '').trim()
+  if (!student || !studentTenantId || studentTenantId !== actorTenantId) return { allowed: false }
+
+  // A student may read their own record; a parent, theirs by link; staff, anyone in the school.
+  const actorIdentifiers = collectComparableIdentifiers([user.id, user.email, user.sub])
+  const isSelf = actorIdentifiers.includes(toComparableIdentifier(student.id))
+    || actorIdentifiers.includes(toComparableIdentifier(student.email))
+  if (isSelf) return { allowed: true, student }
+
+  const actorRole = getActiveRole(user)
+  if (String(actorRole || '').toLowerCase() === 'student') return { allowed: false }
+
+  return { allowed: true, student }
+}
+
 app.get('/api/attendance', authenticate, async (c) => {
   const { studentId, limit } = c.req.query()
   if (!studentId) return c.json({ success: false, error: 'Missing studentId' }, 400)
+  const { allowed } = await resolveAttendanceStudentAccess(c, String(studentId))
+  if (!allowed) return c.json({ success: false, error: 'forbidden' }, 403)
   try {
     const records = await getAttendance(c.env.APP_DB, studentId as string, Number(limit) || 365)
     return c.json({ success: true, records })
@@ -12072,6 +12436,9 @@ app.get('/api/attendance', authenticate, async (c) => {
 app.post('/api/attendance', authenticate, async (c) => {
   const { studentId, date, status, reason, recordedBy } = await c.req.json()
   if (!studentId || !date || !status) return c.json({ success: false, error: 'Missing fields' }, 400)
+  if (!hasRequiredRole(c.var.user.role, ATTENDANCE_WRITE_ROLES)) return c.json({ success: false, error: 'forbidden' }, 403)
+  const { allowed } = await resolveAttendanceStudentAccess(c, String(studentId))
+  if (!allowed) return c.json({ success: false, error: 'forbidden' }, 403)
   try {
     const result = await upsertAttendance(c.env.APP_DB, studentId, date, status, reason, recordedBy)
     return c.json({ success: true, ...result })
@@ -12083,6 +12450,17 @@ app.post('/api/attendance', authenticate, async (c) => {
 app.put('/api/attendance/:id', authenticate, async (c) => {
   const { id } = c.req.param()
   const { status, reason } = await c.req.json()
+  if (!hasRequiredRole(c.var.user.role, ATTENDANCE_WRITE_ROLES)) return c.json({ success: false, error: 'forbidden' }, 403)
+
+  // The record is addressed by its own ID here, so resolve it to a student before trusting it.
+  const record = await c.env.APP_DB.prepare(
+    `SELECT student_id FROM attendance_records WHERE id = ?`
+  ).bind(id).first() as Record<string, any> | null
+  if (!record) return c.json({ success: false, error: 'Record not found' }, 404)
+
+  const { allowed } = await resolveAttendanceStudentAccess(c, String(record.student_id || ''))
+  if (!allowed) return c.json({ success: false, error: 'forbidden' }, 403)
+
   try {
     await updateAttendance(c.env.APP_DB, id, status, reason)
     return c.json({ success: true })
@@ -12854,6 +13232,12 @@ app.post('/api/people', authenticate, async (c) => {
 
   if (normalizedRole === 'owner') return c.json({ error: 'Owner role can only be assigned during school setup or ownership transfer.' }, 400)
 
+  try {
+    await assertEmailNotOwnedByAnotherTenant(c.env.APP_DB, email, tenantId)
+  } catch (err) {
+    return c.json({ error: err instanceof Error ? err.message : 'That email belongs to another school.' }, 409)
+  }
+
   const userId = createUserId()
   const defaultPassword = password || 'abcABC@123'
   const existingSettings = await getSettings(c.env.APP_DB, email).catch(() => null)
@@ -13018,6 +13402,12 @@ app.post('/api/people/bulk', authenticate, async (c) => {
       const normalizedRole = normalizeRole(role)
       if (normalizedRole === 'owner') {
         results.push({ email: normalizedEmail, status: 'error', error: 'Owner role cannot be bulk imported.' })
+        continue
+      }
+      try {
+        await assertEmailNotOwnedByAnotherTenant(c.env.APP_DB, normalizedEmail, tenantId)
+      } catch (err) {
+        results.push({ email: normalizedEmail, status: 'error', error: err instanceof Error ? err.message : 'That email belongs to another school.' })
         continue
       }
       const mergedRoles = parseRoleList(existingSettings?.role, existingSettings?.roles, roles, normalizedRole)
@@ -14679,6 +15069,1378 @@ app.post('/api/ami/media/limits', authenticate, async (c) => {
   })
 
   return c.json({ success: true, limits: await getMediaLimits(c.env.APP_DB) })
+})
+
+// ---- NDOVERA Championships ----
+// One configurable engine for every competition. Ami configures; schools, parents, students
+// and independent participants consume. See src/championships.ts for the schema and logic.
+
+function championshipActor(c: any) {
+  const user = c.var.user || {}
+  return {
+    id: String(user.id || user.sub || user.email || ''),
+    name: String(user.name || ''),
+    tenantId: String(user.tenantId || ''),
+    role: user.role,
+  }
+}
+
+// Eligibility is judged on the stored profile, never on what the participant types, so an age
+// or class limit cannot be talked around at the point of entry.
+async function resolveChampionshipParticipant(c: any, actor: { id: string; tenantId: string }) {
+  const resolved = await resolveSettingsIdentity(c.env.APP_DB, actor.id).catch(() => null)
+  const settings = (resolved?.settings || {}) as Record<string, any>
+  const profile = (settings.profile || {}) as Record<string, any>
+  const tenant = actor.tenantId ? await getTenantById(c.env.APP_DB, actor.tenantId).catch(() => null) : null
+
+  // className is stored on settings; fall back to resolving it from classId when only the id
+  // was saved (older records) so a class-restricted championship still matches correctly.
+  let className = String(settings.className || '').trim()
+  const classId = String(settings.classId || '').trim()
+  if (!className && classId) {
+    const classRow = await c.env.APP_DB.prepare(`SELECT name, arm FROM classes WHERE id = ?`)
+      .bind(classId).first().catch(() => null) as Record<string, any> | null
+    className = String(classRow?.name || '').trim()
+  }
+
+  return {
+    participant: {
+      participantType: actor.tenantId ? 'student' : 'independent',
+      dateOfBirth: String(profile.dateOfBirth || ''),
+      classLevel: className,
+      tenantId: actor.tenantId,
+      state: String((tenant as any)?.state || ''),
+    },
+    profile,
+    tenant,
+  }
+}
+
+app.get('/api/ami/championships', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  try {
+    const championships = await listChampionships(c.env.APP_DB)
+    return c.json({ success: true, championships, categories: CHAMPIONSHIP_CATEGORIES, stageKinds: STAGE_KINDS })
+  } catch {
+    return c.json({ success: true, championships: [], categories: CHAMPIONSHIP_CATEGORIES, stageKinds: STAGE_KINDS })
+  }
+})
+
+app.get('/api/ami/championships/:id', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  const id = c.req.param('id')
+  const championship = await getChampionshipById(c.env.APP_DB, id)
+  if (!championship) return c.json({ error: 'Championship not found.' }, 404)
+  return c.json({
+    success: true,
+    championship,
+    stages: await listStages(c.env.APP_DB, id),
+    registrations: await listRegistrationsForChampionship(c.env.APP_DB, id),
+  })
+})
+
+app.post('/api/ami/championships', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  const actor = championshipActor(c)
+  try {
+    const payload = await c.req.json()
+    const championship = await saveChampionship(c.env.APP_DB, payload, actor.id)
+    if (!championship) return c.json({ error: 'Could not save this championship.' }, 500)
+
+    if (Array.isArray(payload.stages)) {
+      await replaceStages(c.env.APP_DB, championship.id, payload.stages)
+    }
+
+    await addAudit(c.env.APP_DB, `championship:${championship.id}`, {
+      action: payload.id ? 'championshipUpdated' : 'championshipCreated',
+      data: { by: actor.id, name: championship.name },
+    }).catch(() => null)
+
+    return c.json({ success: true, championship, stages: await listStages(c.env.APP_DB, championship.id) })
+  } catch (error) {
+    return c.json({ error: error instanceof Error ? error.message : 'Could not save this championship.' }, 400)
+  }
+})
+
+app.post('/api/ami/championships/:id/status', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  const actor = championshipActor(c)
+  const id = c.req.param('id')
+  try {
+    const { status } = await c.req.json()
+    const existing = await getChampionshipById(c.env.APP_DB, id)
+    if (!existing) return c.json({ error: 'Championship not found.' }, 404)
+
+    // Publishing is what makes a championship public and promotable, so make sure it is
+    // actually presentable first rather than shipping an empty page to the homepage.
+    if (status === 'published') {
+      const stages = await listStages(c.env.APP_DB, id)
+      if (!stages.length) return c.json({ error: 'Add at least one stage before publishing.' }, 400)
+      if (!existing.summary) return c.json({ error: 'Add a short summary before publishing — it is what the public page and promo card show.' }, 400)
+    }
+
+    const championship = await setChampionshipStatus(c.env.APP_DB, id, String(status || ''))
+    await addAudit(c.env.APP_DB, `championship:${id}`, {
+      action: 'championshipStatusChanged', data: { by: actor.id, status },
+    }).catch(() => null)
+    return c.json({ success: true, championship })
+  } catch (error) {
+    return c.json({ error: error instanceof Error ? error.message : 'Could not update the status.' }, 400)
+  }
+})
+
+app.get('/api/public/championships', async (c) => {
+  try {
+    const championships = await listChampionships(c.env.APP_DB, {
+      statuses: ['published', 'live', 'completed'],
+      category: String(c.req.query('category') || '').trim(),
+      mode: String(c.req.query('mode') || '').trim(),
+      scope: String(c.req.query('scope') || '').trim(),
+      freeOnly: String(c.req.query('free') || '') === '1',
+    })
+    return c.json({ success: true, championships, categories: CHAMPIONSHIP_CATEGORIES })
+  } catch {
+    return c.json({ success: true, championships: [], categories: CHAMPIONSHIP_CATEGORIES })
+  }
+})
+
+app.get('/api/public/championships/promo', async (c) => {
+  // Decorative by definition: never let a failure here surface as an error to the dashboard.
+  try {
+    const promo = await getPromotedChampionship(c.env.APP_DB)
+    return c.json({ success: true, promo })
+  } catch {
+    return c.json({ success: true, promo: null })
+  }
+})
+
+app.get('/api/public/championships/:slug', async (c) => {
+  try {
+    const championship = await getChampionshipBySlug(c.env.APP_DB, c.req.param('slug'))
+    if (!championship || championship.status === 'draft' || championship.status === 'archived') {
+      return c.json({ error: 'Championship not found.' }, 404)
+    }
+    const stages = (await listStages(c.env.APP_DB, championship.id)).filter(stage => stage.isPublic)
+    return c.json({
+      success: true,
+      championship,
+      stages,
+      registeredCount: await countConfirmedRegistrations(c.env.APP_DB, championship.id),
+    })
+  } catch {
+    return c.json({ error: 'Championship not found.' }, 404)
+  }
+})
+
+// What the signed-in user would need to enter this championship, and whether they can.
+app.get('/api/championships/:slug/eligibility', authenticate, async (c) => {
+  const actor = championshipActor(c)
+  const championship = await getChampionshipBySlug(c.env.APP_DB, c.req.param('slug'))
+  if (!championship) return c.json({ error: 'Championship not found.' }, 404)
+
+  const { participant } = await resolveChampionshipParticipant(c, actor)
+
+  const eligibility = evaluateEligibility(championship, participant, {
+    confirmedCount: await countConfirmedRegistrations(c.env.APP_DB, championship.id),
+  })
+
+  return c.json({
+    success: true,
+    championship,
+    eligibility,
+    participant,
+    existingRegistration: await findRegistration(c.env.APP_DB, championship.id, actor.id),
+  })
+})
+
+app.post('/api/championships/:slug/register', authenticate, async (c) => {
+  const actor = championshipActor(c)
+  const championship = await getChampionshipBySlug(c.env.APP_DB, c.req.param('slug'))
+  if (!championship) return c.json({ error: 'Championship not found.' }, 404)
+
+  const existing = await findRegistration(c.env.APP_DB, championship.id, actor.id)
+  if (existing) return c.json({ success: true, registration: existing, alreadyRegistered: true })
+
+  const payload = await c.req.json().catch(() => ({}))
+  const { participant, profile, tenant } = await resolveChampionshipParticipant(c, actor)
+
+  const eligibility = evaluateEligibility(championship, participant, {
+    confirmedCount: await countConfirmedRegistrations(c.env.APP_DB, championship.id),
+  })
+
+  if (!eligibility.eligible) {
+    return c.json({
+      error: eligibility.needsDateOfBirth
+        ? 'A date of birth is required before entering an age-restricted championship. Please complete the profile first.'
+        : eligibility.reasons[0] || 'You are not eligible for this championship.',
+      eligibility,
+    }, 400)
+  }
+
+  const registration = await createRegistration(c.env.APP_DB, championship, {
+    ...participant,
+    userId: actor.id,
+    participantName: actor.name || String(profile.fullName || ''),
+    schoolName: String((tenant as any)?.name || ''),
+    guardianName: String(payload.guardianName || ''),
+    guardianPhone: String(payload.guardianPhone || ''),
+    guardianEmail: String(payload.guardianEmail || ''),
+    contactEmail: String(profile.email || payload.contactEmail || ''),
+    contactPhone: String(profile.phone || payload.contactPhone || ''),
+    location: String((tenant as any)?.state || payload.location || ''),
+  }, actor.id)
+
+  await addAudit(c.env.APP_DB, `championship:${championship.id}`, {
+    action: 'championshipRegistered', data: { by: actor.id, registrationId: registration.id },
+  }).catch(() => null)
+
+  return c.json({ success: true, registration })
+})
+
+// Student Championship Centre (championship.md section 38). Entries are grouped the way the
+// student thinks about them — what is coming, what is running, what is finished — and each
+// carries its stage sequence so the dashboard can show the current stage and a countdown.
+app.get('/api/championships/mine', authenticate, async (c) => {
+  const actor = championshipActor(c)
+  try {
+    const registrations = await listRegistrationsForUser(c.env.APP_DB, actor.id)
+    const entries = []
+    for (const registration of registrations) {
+      const championship = await getChampionshipById(c.env.APP_DB, registration.championshipId)
+      if (!championship) continue
+      const stages = await listStages(c.env.APP_DB, championship.id).catch(() => [])
+      entries.push({
+        registration,
+        championship,
+        stages,
+        currentStage: resolveCurrentStage(stages),
+        group: groupChampionshipEntry(championship),
+      })
+    }
+
+    return c.json({
+      success: true,
+      entries,
+      groups: {
+        upcoming: entries.filter(entry => entry.group === 'upcoming').length,
+        active: entries.filter(entry => entry.group === 'active').length,
+        completed: entries.filter(entry => entry.group === 'completed').length,
+      },
+    })
+  } catch {
+    return c.json({ success: true, entries: [], groups: { upcoming: 0, active: 0, completed: 0 } })
+  }
+})
+
+// The stage a championship is currently in, judged by the clock. Stages carry optional
+// start/end times; the first one still running wins, otherwise the next one due.
+function resolveCurrentStage(stages: Array<Record<string, any>>) {
+  const now = Date.now()
+  const ordered = [...(stages || [])].sort((a, b) => Number(a.position || 0) - Number(b.position || 0))
+
+  for (const stage of ordered) {
+    const startsAt = stage.startsAt ? Date.parse(stage.startsAt) : NaN
+    const endsAt = stage.endsAt ? Date.parse(stage.endsAt) : NaN
+    const started = Number.isNaN(startsAt) || now >= startsAt
+    const ended = !Number.isNaN(endsAt) && now > endsAt
+    if (started && !ended) return stage
+  }
+
+  return ordered.find(stage => {
+    const startsAt = stage.startsAt ? Date.parse(stage.startsAt) : NaN
+    return !Number.isNaN(startsAt) && now < startsAt
+  }) || ordered[ordered.length - 1] || null
+}
+
+function groupChampionshipEntry(championship: Record<string, any>) {
+  const status = String(championship.status || '')
+  if (status === 'completed' || status === 'archived') return 'completed'
+  if (status === 'live') return 'active'
+
+  const competitionDate = championship.competitionDate ? Date.parse(championship.competitionDate) : NaN
+  if (!Number.isNaN(competitionDate) && Date.now() > competitionDate) return 'completed'
+  return 'upcoming'
+}
+
+// ─── Championship participation centres (championship.md sections 36–38) ─────────────────────
+//
+// Three audiences reach the same engine from different directions: a school entering its own
+// students, a parent entering their child, and a student looking at their own entries. All
+// three share one rule — eligibility is judged on the stored profile, and a registration is
+// only ever created for someone the caller is actually entitled to enter.
+
+const CHAMPIONSHIP_SCHOOL_ROLES = [
+  'owner', 'hos', 'ict', 'ict_manager', 'principal', 'viceprincipal', 'examofficer',
+  'headteacher', 'nurseryhead', 'teacher', 'classteacher', 'hod', 'admin',
+]
+
+// Builds the participant records the eligibility engine expects for a set of school students.
+// Date of birth lives in the settings profile, so this reads settings in one bulk query rather
+// than per student — a 200-student roster must not become 200 round trips.
+async function buildChampionshipCandidates(
+  db: D1Database,
+  tenantId: string,
+  studentRows: Record<string, any>[],
+  tenantState: string,
+) {
+  const settingsMap = await getSettingsMapForUserRows(db, studentRows)
+  const classIds = Array.from(new Set(studentRows.map(row => String(row.classId || '').trim()).filter(Boolean)))
+  const classMap = new Map<string, string>()
+
+  if (classIds.length > 0) {
+    const placeholders = classIds.map(() => '?').join(', ')
+    const classRows = await db.prepare(
+      `SELECT id, name, arm FROM classes WHERE tenantId = ? AND id IN (${placeholders})`
+    ).bind(tenantId, ...classIds).all().catch(() => ({ results: [] }))
+    for (const row of (((classRows as any).results || []) as Record<string, any>[])) {
+      classMap.set(String(row.id || ''), `${row.name || ''}${row.arm ? ` ${row.arm}` : ''}`.trim())
+    }
+  }
+
+  return studentRows.filter(Boolean).map(row => {
+    const emailKey = String(row.email || '').trim()
+    const idKey = String(row.id || '').trim()
+    const settings = settingsMap.get(emailKey) || settingsMap.get(idKey) || null
+    const profile = buildAdmissionProfileRecord(settings || {}, row)
+    const classId = String(settings?.classId || row.classId || '').trim()
+    const className = classMap.get(classId) || String(settings?.className || '').trim()
+
+    return {
+      id: idKey,
+      name: String(row.name || profile.name || ''),
+      email: String(row.email || ''),
+      displayId: getPublicFacingUserId(settings || {}, 'student') || '',
+      classId,
+      className,
+      dateOfBirth: String(profile.dateOfBirth || ''),
+      participant: {
+        participantType: 'student' as const,
+        dateOfBirth: String(profile.dateOfBirth || ''),
+        classLevel: className,
+        tenantId,
+        state: tenantState,
+      },
+    }
+  })
+}
+
+async function listTenantStudentRows(db: D1Database, tenantId: string) {
+  const rows = await db.prepare(
+    `SELECT id, name, email, role, primary_role, status, createdAt
+       FROM users
+      WHERE tenantId = ?
+        AND lower(trim(coalesce(primary_role, role, ''))) = 'student'
+        AND (status IS NULL OR status != 'inactive')
+      ORDER BY name COLLATE NOCASE`
+  ).bind(tenantId).all().catch(() => ({ results: [] }))
+  return (((rows as any).results || []) as Record<string, any>[])
+}
+
+// School Championship Centre: which competitions this school can enter, and how many of its
+// students are already in each.
+app.get('/api/school/championships', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, CHAMPIONSHIP_SCHOOL_ROLES)) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = String(c.var.user?.tenantId || '').trim()
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+
+  try {
+    const [all, counts, tenant] = await Promise.all([
+      listChampionships(c.env.APP_DB, { statuses: ['published', 'live', 'completed'] }),
+      countTenantRegistrationsByChampionship(c.env.APP_DB, tenantId),
+      getTenantById(c.env.APP_DB, tenantId).catch(() => null),
+    ])
+
+    const championships = all
+      .filter(championship => championshipAcceptsTenant(championship, tenantId))
+      .map(championship => ({
+        championship,
+        entries: counts.get(championship.id) || { total: 0, confirmed: 0, pendingPayment: 0 },
+      }))
+
+    return c.json({
+      success: true,
+      schoolName: String((tenant as any)?.schoolName || ''),
+      championships,
+      categories: CHAMPIONSHIP_CATEGORIES,
+    })
+  } catch {
+    return c.json({ success: true, schoolName: '', championships: [], categories: CHAMPIONSHIP_CATEGORIES })
+  }
+})
+
+// The roster screen: every active student with their eligibility verdict and whether they are
+// already entered, so an admin can see at a glance who can be nominated.
+app.get('/api/school/championships/:slug/roster', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, CHAMPIONSHIP_SCHOOL_ROLES)) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = String(c.var.user?.tenantId || '').trim()
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+
+  const championship = await getChampionshipBySlug(c.env.APP_DB, c.req.param('slug'))
+  if (!championship) return c.json({ error: 'Championship not found.' }, 404)
+  if (!championshipAcceptsTenant(championship, tenantId)) {
+    return c.json({ error: 'This championship is not open to your school.' }, 403)
+  }
+
+  const tenant = await getTenantById(c.env.APP_DB, tenantId).catch(() => null)
+  const studentRows = await listTenantStudentRows(c.env.APP_DB, tenantId)
+  const candidates = await buildChampionshipCandidates(
+    c.env.APP_DB, tenantId, studentRows, String((tenant as any)?.state || ''),
+  )
+
+  const [existing, confirmedCount] = await Promise.all([
+    findRegistrationsByUserIds(c.env.APP_DB, championship.id, candidates.map(entry => entry.id)),
+    countConfirmedRegistrations(c.env.APP_DB, championship.id),
+  ])
+
+  const students = candidates.map(entry => {
+    const registration = existing.get(entry.id) || null
+    const eligibility = evaluateEligibility(championship, entry.participant, { confirmedCount })
+    return {
+      id: entry.id,
+      name: entry.name,
+      displayId: entry.displayId,
+      className: entry.className,
+      dateOfBirth: entry.dateOfBirth,
+      registration,
+      eligible: eligibility.eligible,
+      needsDateOfBirth: eligibility.needsDateOfBirth,
+      reasons: eligibility.reasons,
+    }
+  })
+
+  return c.json({
+    success: true,
+    championship,
+    students,
+    summary: {
+      total: students.length,
+      eligible: students.filter(student => student.eligible && !student.registration).length,
+      registered: students.filter(student => student.registration).length,
+      needsDateOfBirth: students.filter(student => student.needsDateOfBirth).length,
+    },
+  })
+})
+
+// Nominate one or more students. Each is re-checked server-side; a student who fails
+// eligibility is reported back rather than silently skipped, and one bad row never fails
+// the rest of the batch.
+app.post('/api/school/championships/:slug/nominate', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, CHAMPIONSHIP_SCHOOL_ROLES)) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = String(c.var.user?.tenantId || '').trim()
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+
+  const championship = await getChampionshipBySlug(c.env.APP_DB, c.req.param('slug'))
+  if (!championship) return c.json({ error: 'Championship not found.' }, 404)
+  if (!championshipAcceptsTenant(championship, tenantId)) {
+    return c.json({ error: 'This championship is not open to your school.' }, 403)
+  }
+
+  const payload = await c.req.json().catch(() => ({})) as Record<string, any>
+  const requestedIds = Array.isArray(payload.studentIds)
+    ? payload.studentIds.map((id: unknown) => String(id || '').trim()).filter(Boolean)
+    : []
+  if (requestedIds.length === 0) return c.json({ error: 'Select at least one student.' }, 400)
+
+  const actor = championshipActor(c)
+  const tenant = await getTenantById(c.env.APP_DB, tenantId).catch(() => null)
+
+  // Only students that genuinely belong to this school are considered, so a crafted id
+  // cannot enter another school's student.
+  const studentRows = (await listTenantStudentRows(c.env.APP_DB, tenantId))
+    .filter(row => requestedIds.includes(String(row.id || '').trim()))
+  const candidates = await buildChampionshipCandidates(
+    c.env.APP_DB, tenantId, studentRows, String((tenant as any)?.state || ''),
+  )
+
+  const existing = await findRegistrationsByUserIds(c.env.APP_DB, championship.id, candidates.map(entry => entry.id))
+  const registered: any[] = []
+  const skipped: any[] = []
+
+  for (const requestedId of requestedIds) {
+    const entry = candidates.find(candidate => candidate.id === requestedId)
+    if (!entry) {
+      skipped.push({ id: requestedId, name: '', reason: 'This student is not in your school.' })
+      continue
+    }
+    if (existing.has(entry.id)) {
+      skipped.push({ id: entry.id, name: entry.name, reason: 'Already entered.' })
+      continue
+    }
+
+    // Re-counted each pass so a capped championship cannot be overfilled by one batch.
+    const confirmedCount = await countConfirmedRegistrations(c.env.APP_DB, championship.id)
+    const eligibility = evaluateEligibility(championship, entry.participant, { confirmedCount })
+    if (!eligibility.eligible) {
+      skipped.push({
+        id: entry.id,
+        name: entry.name,
+        reason: eligibility.needsDateOfBirth
+          ? 'A date of birth is needed on this student’s profile first.'
+          : (eligibility.reasons[0] || 'Not eligible.'),
+      })
+      continue
+    }
+
+    try {
+      const registration = await createRegistration(c.env.APP_DB, championship, {
+        ...entry.participant,
+        userId: entry.id,
+        participantName: entry.name,
+        classLevel: entry.className,
+        schoolName: String((tenant as any)?.schoolName || ''),
+        contactEmail: entry.email,
+        location: String((tenant as any)?.state || ''),
+      }, actor.id)
+      registered.push({ id: entry.id, name: entry.name, registration })
+    } catch {
+      skipped.push({ id: entry.id, name: entry.name, reason: 'Could not enter this student.' })
+    }
+  }
+
+  await addAudit(c.env.APP_DB, `championship:${championship.id}`, {
+    action: 'championshipSchoolNomination',
+    data: { by: actor.id, tenantId, registered: registered.length, skipped: skipped.length },
+  }).catch(() => null)
+
+  return c.json({ success: true, registered, skipped })
+})
+
+// Parent Championship Centre: the parent's own children, each with eligibility per championship.
+app.get('/api/parent/championships', authenticate, async (c) => {
+  const user = c.var.user || {}
+  try {
+    const audience = await listAccessibleLearningStudents(c.env.APP_DB, user)
+    const children = audience.students || []
+    const tenantId = String(user.tenantId || '').trim()
+    const tenant = tenantId ? await getTenantById(c.env.APP_DB, tenantId).catch(() => null) : null
+
+    const all = await listChampionships(c.env.APP_DB, { statuses: ['published', 'live'] })
+    const open = all.filter(championship => !tenantId || championshipAcceptsTenant(championship, tenantId))
+
+    const childRows = children.map((child: Record<string, any>) => ({
+      id: String(child.id || ''), name: String(child.name || ''), email: String(child.email || ''),
+      classId: String(child.classId || ''),
+    }))
+    const candidates = await buildChampionshipCandidates(
+      c.env.APP_DB, tenantId, childRows, String((tenant as any)?.state || ''),
+    )
+
+    const entries = []
+    for (const championship of open) {
+      const existing = await findRegistrationsByUserIds(c.env.APP_DB, championship.id, candidates.map(entry => entry.id))
+      const confirmedCount = await countConfirmedRegistrations(c.env.APP_DB, championship.id)
+      entries.push({
+        championship,
+        children: candidates.map(entry => {
+          const eligibility = evaluateEligibility(championship, entry.participant, { confirmedCount })
+          return {
+            id: entry.id,
+            name: entry.name,
+            className: entry.className,
+            registration: existing.get(entry.id) || null,
+            eligible: eligibility.eligible,
+            needsDateOfBirth: eligibility.needsDateOfBirth,
+            reasons: eligibility.reasons,
+          }
+        }),
+      })
+    }
+
+    return c.json({ success: true, children: candidates.map(({ participant, ...rest }) => rest), entries })
+  } catch {
+    return c.json({ success: true, children: [], entries: [] })
+  }
+})
+
+// A parent entering one of their own children. The child must be linked to this parent.
+app.post('/api/parent/championships/:slug/register-child', authenticate, async (c) => {
+  const user = c.var.user || {}
+  const actor = championshipActor(c)
+  const championship = await getChampionshipBySlug(c.env.APP_DB, c.req.param('slug'))
+  if (!championship) return c.json({ error: 'Championship not found.' }, 404)
+
+  const payload = await c.req.json().catch(() => ({})) as Record<string, any>
+  const childId = String(payload.childId || '').trim()
+  if (!childId) return c.json({ error: 'Select a child to register.' }, 400)
+
+  const audience = await listAccessibleLearningStudents(c.env.APP_DB, user)
+  const child = (audience.students || []).find((entry: Record<string, any>) => String(entry.id || '') === childId)
+  if (!child) return c.json({ error: 'That child is not linked to your account.' }, 403)
+
+  const existing = await findRegistration(c.env.APP_DB, championship.id, childId)
+  if (existing) return c.json({ success: true, registration: existing, alreadyRegistered: true })
+
+  const tenantId = String(user.tenantId || '').trim()
+  const tenant = tenantId ? await getTenantById(c.env.APP_DB, tenantId).catch(() => null) : null
+  const [entry] = await buildChampionshipCandidates(c.env.APP_DB, tenantId, [{
+    id: childId, name: String(child.name || ''), email: String(child.email || ''), classId: String(child.classId || ''),
+  }], String((tenant as any)?.state || ''))
+
+  const eligibility = evaluateEligibility(championship, entry.participant, {
+    confirmedCount: await countConfirmedRegistrations(c.env.APP_DB, championship.id),
+  })
+  if (!eligibility.eligible) {
+    return c.json({
+      error: eligibility.needsDateOfBirth
+        ? 'A date of birth is required on your child’s profile before entering an age-restricted championship.'
+        : (eligibility.reasons[0] || 'Your child is not eligible for this championship.'),
+      eligibility,
+    }, 400)
+  }
+
+  const registration = await createRegistration(c.env.APP_DB, championship, {
+    ...entry.participant,
+    userId: childId,
+    participantName: entry.name,
+    classLevel: entry.className,
+    schoolName: String((tenant as any)?.schoolName || ''),
+    guardianName: String(payload.guardianName || actor.name || ''),
+    guardianPhone: String(payload.guardianPhone || ''),
+    guardianEmail: String(payload.guardianEmail || ''),
+    contactEmail: entry.email,
+    location: String((tenant as any)?.state || ''),
+  }, actor.id)
+
+  await addAudit(c.env.APP_DB, `championship:${championship.id}`, {
+    action: 'championshipParentRegistration',
+    data: { by: actor.id, childId, registrationId: registration.id },
+  }).catch(() => null)
+
+  return c.json({ success: true, registration })
+})
+
+// ─── Championship content: question pool and written submissions (spec 13–15) ────────────────
+
+const CHAMPIONSHIP_QUESTION_ROLES = [
+  'owner', 'hos', 'ict', 'ict_manager', 'principal', 'viceprincipal', 'examofficer',
+  'hod', 'teacher', 'classteacher', 'headteacher', 'nurseryhead', 'admin',
+]
+
+// A school contributes a question. Deterministic validation runs first — a missing answer or
+// an answer that is not among the options is rejected outright, without spending an AI call.
+app.post('/api/school/championships/questions', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, CHAMPIONSHIP_QUESTION_ROLES)) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = String(c.var.user?.tenantId || '').trim()
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+
+  const payload = await c.req.json().catch(() => ({})) as Record<string, any>
+  const validated = validateQuestionSubmission(payload)
+  if (!validated.valid) return c.json({ error: validated.problems[0], problems: validated.problems }, 400)
+
+  const screening = await screenQuestionWithAi(
+    c.env,
+    { ...validated, subject: payload.subject, classLevel: payload.classLevel },
+    WORKERS_AI_MODEL,
+    extractWorkersAiText,
+  )
+
+  const result = await createQuestionSubmission(c.env.APP_DB, {
+    championshipId: String(payload.championshipId || ''),
+    tenantId,
+    submittedBy: String(c.var.user?.id || ''),
+    submitterName: String(c.var.user?.name || ''),
+    subject: String(payload.subject || ''),
+    classLevel: String(payload.classLevel || ''),
+    topic: String(payload.topic || ''),
+    difficulty: String(payload.difficulty || ''),
+    tags: Array.isArray(payload.tags) ? payload.tags : [],
+    exposureLockUntil: String(payload.exposureLockUntil || ''),
+    ...(payload.explanation ? { explanation: String(payload.explanation) } : {}),
+  } as any, validated, screening)
+
+  if (result.duplicate) {
+    return c.json({ error: 'This school has already submitted that question.', duplicate: true }, 409)
+  }
+
+  return c.json({ success: true, submission: result.submission, screening })
+})
+
+app.get('/api/school/championships/questions', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, CHAMPIONSHIP_QUESTION_ROLES)) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = String(c.var.user?.tenantId || '').trim()
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+
+  try {
+    const submissions = await listQuestionSubmissions(c.env.APP_DB, {
+      tenantId,
+      status: String(c.req.query('status') || '').trim(),
+    })
+    return c.json({ success: true, submissions, tags: QUESTION_TAGS, statuses: QUESTION_SUBMISSION_STATUSES })
+  } catch {
+    return c.json({ success: true, submissions: [], tags: QUESTION_TAGS, statuses: QUESTION_SUBMISSION_STATUSES })
+  }
+})
+
+// Moderation queue. Nothing reaches the usable bank without passing through here.
+app.get('/api/ami/championships/questions', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  try {
+    const submissions = await listQuestionSubmissions(c.env.APP_DB, {
+      status: String(c.req.query('status') || '').trim(),
+      championshipId: String(c.req.query('championshipId') || '').trim(),
+    })
+    return c.json({ success: true, submissions, tags: QUESTION_TAGS, statuses: QUESTION_SUBMISSION_STATUSES })
+  } catch {
+    return c.json({ success: true, submissions: [], tags: QUESTION_TAGS, statuses: QUESTION_SUBMISSION_STATUSES })
+  }
+})
+
+app.post('/api/ami/championships/questions/:id/moderate', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  const submissionId = String(c.req.param('id') || '').trim()
+  const payload = await c.req.json().catch(() => ({})) as Record<string, any>
+  const decision = String(payload.decision || '').trim() === 'approved' ? 'approved' : 'rejected'
+
+  const submission = await moderateQuestionSubmission(
+    c.env.APP_DB, submissionId, decision,
+    String(c.var.user?.id || ''), String(payload.note || ''),
+  )
+  if (!submission) return c.json({ error: 'Submission not found.' }, 404)
+
+  // Approving banks it into the contributing school's question bank, where the existing CBT
+  // and practice engines can already reach it. A bank failure leaves the row "approved" so it
+  // can be retried rather than being lost between the two tables.
+  let banked: Record<string, any> | null = null
+  if (decision === 'approved') {
+    try {
+      const saved = await saveQuestionToBank(c.env.APP_DB, submission.tenantId, {
+        subject: submission.subject,
+        classLevel: submission.classLevel,
+        topic: submission.topic,
+        type: submission.type,
+        prompt: submission.prompt,
+        options: submission.options,
+        answer: submission.answer,
+        explanation: submission.explanation,
+        source: 'championship',
+        createdBy: submission.submittedBy,
+      })
+      banked = (saved as any)?.question || null
+      if (banked?.id) await markQuestionBanked(c.env.APP_DB, submission.id, String(banked.id))
+    } catch {
+      banked = null
+    }
+  }
+
+  await addAudit(c.env.APP_DB, `championship:questions`, {
+    action: 'championshipQuestionModerated',
+    data: { by: c.var.user?.id, submissionId, decision, banked: Boolean(banked) },
+  }).catch(() => null)
+
+  return c.json({ success: true, submission, banked })
+})
+
+// A participant submits written work for a stage (essay, story, report). The AI report is
+// generated immediately as advisory input; it never sets a final mark.
+app.post('/api/championships/:slug/submissions', authenticate, async (c) => {
+  const actor = championshipActor(c)
+  const championship = await getChampionshipBySlug(c.env.APP_DB, c.req.param('slug'))
+  if (!championship) return c.json({ error: 'Championship not found.' }, 404)
+
+  const registration = await findRegistration(c.env.APP_DB, championship.id, actor.id)
+  if (!registration) return c.json({ error: 'You are not entered for this championship.' }, 403)
+  if (registration.status !== 'confirmed') {
+    return c.json({ error: 'Your entry is not confirmed yet, so a submission cannot be accepted.' }, 400)
+  }
+
+  const payload = await c.req.json().catch(() => ({})) as Record<string, any>
+  const content = String(payload.content || '').trim()
+  const fileUrl = String(payload.fileUrl || '').trim()
+  if (!content && !fileUrl) return c.json({ error: 'Write your entry or attach a file before submitting.' }, 400)
+
+  const submission = await createChampionshipSubmission(c.env.APP_DB, {
+    championshipId: championship.id,
+    stageId: String(payload.stageId || ''),
+    registrationId: registration.id,
+    userId: actor.id,
+    tenantId: actor.tenantId,
+    kind: String(payload.kind || 'essay'),
+    topic: String(payload.topic || ''),
+    content,
+    fileUrl,
+  })
+
+  // Reviewed inline so the participant sees confirmation immediately; a model outage simply
+  // leaves the submission unscreened for the human review team rather than failing the entry.
+  const criteria = normalizeEssayCriteria((championship as any).judgingCriteria)
+  const report = await reviewEssayWithAi(
+    c.env, { topic: submission.topic, content: submission.content, wordCount: submission.wordCount },
+    criteria, WORKERS_AI_MODEL, extractWorkersAiText,
+  )
+  if (report.screened) await saveSubmissionAiReport(c.env.APP_DB, submission.id, report).catch(() => null)
+
+  await addAudit(c.env.APP_DB, `championship:${championship.id}`, {
+    action: 'championshipSubmission',
+    data: { by: actor.id, submissionId: submission.id, version: submission.version },
+  }).catch(() => null)
+
+  // The AI report is withheld from the participant: section 9 keeps detailed scoring private
+  // until results are released, and showing it here would pre-empt the human review.
+  return c.json({
+    success: true,
+    submission: { ...submission, aiReport: null, aiTotal: 0 },
+    received: true,
+  })
+})
+
+app.get('/api/championships/:slug/my-submissions', authenticate, async (c) => {
+  const actor = championshipActor(c)
+  const championship = await getChampionshipBySlug(c.env.APP_DB, c.req.param('slug'))
+  if (!championship) return c.json({ error: 'Championship not found.' }, 404)
+
+  try {
+    const submissions = await listChampionshipSubmissions(c.env.APP_DB, {
+      championshipId: championship.id,
+      userId: actor.id,
+    })
+    // Own work is visible; the scoring attached to it is not, until results are released.
+    return c.json({
+      success: true,
+      submissions: submissions.map(submission => ({ ...submission, aiReport: null, aiTotal: 0 })),
+    })
+  } catch {
+    return c.json({ success: true, submissions: [] })
+  }
+})
+
+// ─── Championship judging, results and appeals (spec 16–20, 41–42) ───────────────────────────
+
+// Resolves the rubric a stage is judged against, falling back to the default essay rubric.
+function championshipCriteria(championship: Record<string, any>) {
+  return normalizeEssayCriteria((championship as any).judgingCriteria)
+}
+
+app.get('/api/ami/championships/:id/judges', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  const judges = await listJudges(c.env.APP_DB, String(c.req.param('id') || '')).catch(() => [])
+  return c.json({ success: true, judges, roles: JUDGE_ROLES })
+})
+
+app.post('/api/ami/championships/:id/judges', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  const championshipId = String(c.req.param('id') || '')
+  const payload = await c.req.json().catch(() => ({})) as Record<string, any>
+  const identifier = String(payload.userId || payload.email || '').trim()
+  if (!identifier) return c.json({ error: 'A judge account is required.' }, 400)
+
+  const person = await findUserByIdentifier(c.env.APP_DB, identifier).catch(() => null)
+  if (!person) return c.json({ error: 'No NDOVERA account matches that person.' }, 404)
+
+  const judge = await assignJudge(c.env.APP_DB, {
+    championshipId,
+    stageId: String(payload.stageId || ''),
+    userId: String(person.id || ''),
+    tenantId: String(person.tenantId || ''),
+    name: String(person.name || ''),
+    role: String(payload.role || 'judge'),
+    blind: payload.blind !== false,
+  })
+
+  await addAudit(c.env.APP_DB, `championship:${championshipId}`, {
+    action: 'championshipJudgeAssigned',
+    data: { by: c.var.user?.id, judgeId: person.id, role: payload.role || 'judge' },
+  }).catch(() => null)
+
+  return c.json({ success: true, judge })
+})
+
+app.delete('/api/ami/championships/:id/judges/:userId', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  const championshipId = String(c.req.param('id') || '')
+  await removeJudge(c.env.APP_DB, championshipId, String(c.req.query('stageId') || ''), String(c.req.param('userId') || ''))
+  await addAudit(c.env.APP_DB, `championship:${championshipId}`, {
+    action: 'championshipJudgeRemoved', data: { by: c.var.user?.id, judgeId: c.req.param('userId') },
+  }).catch(() => null)
+  return c.json({ success: true })
+})
+
+// championship.md §16: every participating school nominates a staff reviewer for the
+// competitions its students are in. The school picks the person; NDOVERA records the role.
+app.post('/api/school/championships/:slug/reviewer', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos', 'ict', 'ict_manager', 'principal'])) {
+    return c.json({ error: 'forbidden' }, 403)
+  }
+  const tenantId = String(c.var.user?.tenantId || '').trim()
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+
+  const championship = await getChampionshipBySlug(c.env.APP_DB, c.req.param('slug'))
+  if (!championship) return c.json({ error: 'Championship not found.' }, 404)
+
+  const payload = await c.req.json().catch(() => ({})) as Record<string, any>
+  const staffId = String(payload.userId || '').trim()
+  if (!staffId) return c.json({ error: 'Select a staff member.' }, 400)
+
+  // The nominee must be staff at this school — not a student, and not from elsewhere.
+  const staff = await c.env.APP_DB.prepare(
+    `SELECT id, name, email, role, primary_role FROM users
+      WHERE id = ? AND tenantId = ? AND (status IS NULL OR status != 'inactive')
+        AND lower(coalesce(primary_role, role, '')) NOT IN ('student', 'parent')`
+  ).bind(staffId, tenantId).first() as Record<string, any> | null
+  if (!staff) return c.json({ error: 'That person is not a staff member at your school.' }, 404)
+
+  const judge = await assignJudge(c.env.APP_DB, {
+    championshipId: championship.id,
+    stageId: String(payload.stageId || ''),
+    userId: String(staff.id || ''),
+    tenantId,
+    name: String(staff.name || ''),
+    role: 'school_reviewer',
+    blind: true,
+  })
+
+  await addAudit(c.env.APP_DB, `championship:${championship.id}`, {
+    action: 'championshipReviewerNominated',
+    data: { by: c.var.user?.id, tenantId, reviewerId: staff.id },
+  }).catch(() => null)
+
+  return c.json({ success: true, reviewer: judge })
+})
+
+// A judge's queue. Entries arrive anonymised (§17) — the identity of the writer is never in
+// this response, so blind judging cannot be undone by reading the network tab.
+app.get('/api/championships/:slug/judging/queue', authenticate, async (c) => {
+  const actor = championshipActor(c)
+  const championship = await getChampionshipBySlug(c.env.APP_DB, c.req.param('slug'))
+  if (!championship) return c.json({ error: 'Championship not found.' }, 404)
+
+  const stageId = String(c.req.query('stageId') || '')
+  const judge = await findJudge(c.env.APP_DB, championship.id, actor.id, stageId)
+  if (!judge && !hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+
+  const submissions = await listChampionshipSubmissions(c.env.APP_DB, {
+    championshipId: championship.id,
+    ...(stageId ? { stageId } : {}),
+    latestOnly: true,
+  })
+  const scores = await listScoresForStage(c.env.APP_DB, championship.id, stageId)
+  const visible = filterScoresForJudge(scores, actor.id)
+  const mine = new Map(visible.filter(score => score.judgeId === actor.id).map(score => [score.submissionId, score]))
+
+  const blind = judge ? judge.blind : true
+  return c.json({
+    success: true,
+    championship: { id: championship.id, slug: championship.slug, name: championship.name },
+    criteria: championshipCriteria(championship),
+    resultsLocked: await isResultLocked(c.env.APP_DB, championship.id, stageId),
+    queue: submissions.map(submission => ({
+      submissionId: submission.id,
+      anonymousCode: submission.anonymousCode,
+      topic: submission.topic,
+      content: submission.content,
+      wordCount: submission.wordCount,
+      version: submission.version,
+      submittedAt: submission.submittedAt,
+      // Blind judging hides who wrote it; a non-blind assignment may see the school.
+      participant: blind ? null : { userId: submission.userId, tenantId: submission.tenantId },
+      myScore: mine.get(submission.id) || null,
+      // Other judges' marks appear only once this judge has locked their own (§20).
+      otherScores: visible
+        .filter(score => score.submissionId === submission.id && score.judgeId !== actor.id)
+        .map(score => ({ judgeId: score.judgeId, percentage: score.percentage })),
+    })),
+  })
+})
+
+app.post('/api/championships/:slug/judging/:submissionId/score', authenticate, async (c) => {
+  const actor = championshipActor(c)
+  const championship = await getChampionshipBySlug(c.env.APP_DB, c.req.param('slug'))
+  if (!championship) return c.json({ error: 'Championship not found.' }, 404)
+
+  const payload = await c.req.json().catch(() => ({})) as Record<string, any>
+  const stageId = String(payload.stageId || '')
+  const isAmi = hasRequiredRole(c.var.user.role, ['ami'])
+  const judge = await findJudge(c.env.APP_DB, championship.id, actor.id, stageId)
+  if (!judge && !isAmi) return c.json({ error: 'forbidden' }, 403)
+
+  try {
+    const { score, wasOverride } = await saveJudgeScore(c.env.APP_DB, {
+      championshipId: championship.id,
+      stageId,
+      submissionId: String(c.req.param('submissionId') || ''),
+      judgeUserId: actor.id,
+      rawScores: payload.scores || {},
+      comment: String(payload.comment || ''),
+      lock: payload.lock !== false,
+      overrideReason: String(payload.overrideReason || ''),
+      // Only Ami may change a score once results are locked (§42).
+      allowOverride: isAmi && Boolean(payload.overrideReason),
+    }, championshipCriteria(championship))
+
+    if (wasOverride) {
+      await addAudit(c.env.APP_DB, `championship:${championship.id}`, {
+        action: 'championshipScoreOverridden',
+        data: {
+          by: actor.id, submissionId: c.req.param('submissionId'),
+          reason: String(payload.overrideReason || ''), previous: score.previousScores,
+        },
+      }).catch(() => null)
+    }
+
+    return c.json({ success: true, score })
+  } catch (error) {
+    return c.json({ error: error instanceof Error ? error.message : 'Could not save that score.' }, 400)
+  }
+})
+
+// Full standing with identities revealed — Ami only, and only for running the competition.
+app.get('/api/ami/championships/:id/ranking', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  const championshipId = String(c.req.param('id') || '')
+  const stageId = String(c.req.query('stageId') || '')
+
+  const submissions = await listChampionshipSubmissions(c.env.APP_DB, {
+    championshipId, ...(stageId ? { stageId } : {}), latestOnly: true,
+  })
+  const scores = await listScoresForStage(c.env.APP_DB, championshipId, stageId)
+  const ranking = buildRanking(
+    submissions.map(submission => ({
+      id: submission.id, anonymousCode: submission.anonymousCode,
+      userId: submission.userId, tenantId: submission.tenantId,
+    })),
+    scores,
+    { reveal: true },
+  )
+
+  // Names are attached after ranking so the ordering itself never depended on them.
+  const userIds = ranking.map(row => row.userId).filter(Boolean)
+  const names = new Map<string, string>()
+  if (userIds.length > 0) {
+    const placeholders = userIds.map(() => '?').join(', ')
+    const rows = await c.env.APP_DB.prepare(
+      `SELECT id, name FROM users WHERE id IN (${placeholders})`
+    ).bind(...userIds).all().catch(() => ({ results: [] }))
+    for (const row of (((rows as any).results || []) as Record<string, any>[])) {
+      names.set(String(row.id || ''), String(row.name || ''))
+    }
+  }
+
+  return c.json({
+    success: true,
+    resultsLocked: await isResultLocked(c.env.APP_DB, championshipId, stageId),
+    ranking: ranking.map(row => ({ ...row, participantName: names.get(row.userId) || '' })),
+  })
+})
+
+app.post('/api/ami/championships/:id/results/lock', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  const championshipId = String(c.req.param('id') || '')
+  const payload = await c.req.json().catch(() => ({})) as Record<string, any>
+  const stageId = String(payload.stageId || '')
+  const locked = payload.locked !== false
+
+  // Unlocking is the risky direction, so it carries a mandatory reason into the audit log.
+  if (!locked && !String(payload.reason || '').trim()) {
+    return c.json({ error: 'A reason is required to unlock results.' }, 400)
+  }
+
+  await setResultLock(c.env.APP_DB, championshipId, stageId, locked, String(c.var.user?.id || ''))
+  await addAudit(c.env.APP_DB, `championship:${championshipId}`, {
+    action: locked ? 'championshipResultsLocked' : 'championshipResultsUnlocked',
+    data: { by: c.var.user?.id, stageId, reason: String(payload.reason || '') },
+  }).catch(() => null)
+
+  return c.json({ success: true, locked })
+})
+
+// A participant contests an outcome (§41).
+app.post('/api/championships/:slug/appeals', authenticate, async (c) => {
+  const actor = championshipActor(c)
+  const championship = await getChampionshipBySlug(c.env.APP_DB, c.req.param('slug'))
+  if (!championship) return c.json({ error: 'Championship not found.' }, 404)
+
+  const registration = await findRegistration(c.env.APP_DB, championship.id, actor.id)
+  if (!registration) return c.json({ error: 'You are not entered for this championship.' }, 403)
+
+  const payload = await c.req.json().catch(() => ({})) as Record<string, any>
+  const reason = String(payload.reason || '').trim()
+  if (reason.length < 20) return c.json({ error: 'Please explain the appeal in a little more detail.' }, 400)
+
+  const appeal = await createAppeal(c.env.APP_DB, {
+    championshipId: championship.id,
+    stageId: String(payload.stageId || ''),
+    submissionId: String(payload.submissionId || ''),
+    registrationId: registration.id,
+    userId: actor.id,
+    tenantId: actor.tenantId,
+    reason,
+    evidenceUrl: String(payload.evidenceUrl || ''),
+  })
+
+  await addAudit(c.env.APP_DB, `championship:${championship.id}`, {
+    action: 'championshipAppealSubmitted', data: { by: actor.id, appealId: appeal.id },
+  }).catch(() => null)
+
+  return c.json({ success: true, appeal })
+})
+
+app.get('/api/championships/:slug/appeals/mine', authenticate, async (c) => {
+  const actor = championshipActor(c)
+  const championship = await getChampionshipBySlug(c.env.APP_DB, c.req.param('slug'))
+  if (!championship) return c.json({ error: 'Championship not found.' }, 404)
+  const appeals = await listAppeals(c.env.APP_DB, { championshipId: championship.id, userId: actor.id }).catch(() => [])
+  return c.json({ success: true, appeals })
+})
+
+app.get('/api/ami/championships/:id/appeals', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  const appeals = await listAppeals(c.env.APP_DB, {
+    championshipId: String(c.req.param('id') || ''),
+    status: String(c.req.query('status') || ''),
+  }).catch(() => [])
+  return c.json({ success: true, appeals, statuses: APPEAL_STATUSES })
+})
+
+app.post('/api/ami/championships/appeals/:appealId/decide', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  const payload = await c.req.json().catch(() => ({})) as Record<string, any>
+  const status = String(payload.status || '').trim()
+  if (!APPEAL_STATUSES.includes(status)) return c.json({ error: 'Unknown appeal status.' }, 400)
+  if (['accepted', 'rejected'].includes(status) && !String(payload.note || '').trim()) {
+    return c.json({ error: 'A decision needs an explanation the participant can read.' }, 400)
+  }
+
+  try {
+    const appeal = await decideAppeal(
+      c.env.APP_DB, String(c.req.param('appealId') || ''), status,
+      String(c.var.user?.id || ''), String(payload.note || ''),
+    )
+    if (!appeal) return c.json({ error: 'Appeal not found.' }, 404)
+
+    await addAudit(c.env.APP_DB, `championship:${appeal.championshipId}`, {
+      action: 'championshipAppealDecided',
+      data: { by: c.var.user?.id, appealId: appeal.id, status },
+    }).catch(() => null)
+
+    return c.json({ success: true, appeal })
+  } catch (error) {
+    return c.json({ error: error instanceof Error ? error.message : 'Could not record that decision.' }, 400)
+  }
+})
+
+// ─── Championship badges, certificates and Hall of Fame (spec 10, 29–31, 40) ─────────────────
+
+/**
+ * Turns a finished stage into permanent recognition.
+ *
+ * Idempotent by design: badges and certificates both de-duplicate on their natural key, so Ami
+ * can re-run this after a late appeal is accepted without giving anyone a second copy of the
+ * same award. It refuses to run while results are unlocked, because awarding from a standing
+ * that can still change is how a wrong winner ends up with a signed certificate.
+ */
+app.post('/api/ami/championships/:id/awards/generate', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  const championshipId = String(c.req.param('id') || '')
+  const payload = await c.req.json().catch(() => ({})) as Record<string, any>
+  const stageId = String(payload.stageId || '')
+
+  const championship = await getChampionshipById(c.env.APP_DB, championshipId)
+  if (!championship) return c.json({ error: 'Championship not found.' }, 404)
+
+  if (!(await isResultLocked(c.env.APP_DB, championshipId, stageId))) {
+    return c.json({ error: 'Lock the results for this stage before generating awards.' }, 400)
+  }
+
+  const submissions = await listChampionshipSubmissions(c.env.APP_DB, {
+    championshipId, ...(stageId ? { stageId } : {}), latestOnly: true,
+  })
+  const scores = await listScoresForStage(c.env.APP_DB, championshipId, stageId)
+  const ranking = buildRanking(
+    submissions.map(submission => ({
+      id: submission.id, anonymousCode: submission.anonymousCode,
+      userId: submission.userId, tenantId: submission.tenantId,
+    })),
+    scores,
+    { reveal: true },
+  )
+
+  const ranked = ranking.filter(row => row.position !== null)
+  const names = new Map<string, string>()
+  const userIds = ranking.map(row => row.userId).filter(Boolean)
+  if (userIds.length > 0) {
+    const placeholders = userIds.map(() => '?').join(', ')
+    const rows = await c.env.APP_DB.prepare(
+      `SELECT id, name FROM users WHERE id IN (${placeholders})`
+    ).bind(...userIds).all().catch(() => ({ results: [] }))
+    for (const row of (((rows as any).results || []) as Record<string, any>[])) {
+      names.set(String(row.id || ''), String(row.name || ''))
+    }
+  }
+
+  const CERTIFICATE_FOR_BADGE: Record<string, string> = {
+    winner: 'winner', finalist: 'finalist',
+    semi_finalist: 'semi_final', quarter_finalist: 'quarter_final',
+    participant: 'participation',
+  }
+
+  let badgesAwarded = 0
+  let certificatesIssued = 0
+
+  for (const row of ranking) {
+    if (!row.userId) continue
+    const recipientName = names.get(row.userId) || 'Participant'
+    const earned = badgesForPosition(row.position, ranked.length)
+
+    for (const badgeKey of earned) {
+      await awardBadge(c.env.APP_DB, {
+        championshipId,
+        championshipName: championship.name,
+        badgeKey,
+        recipientType: 'user',
+        userId: row.userId,
+        tenantId: row.tenantId,
+        recipientName,
+        awardedBy: String(c.var.user?.id || ''),
+      }).catch(() => null)
+      badgesAwarded += 1
+    }
+
+    // One certificate per participant: the highest thing they achieved, not one for every rung.
+    const topBadge = [...earned].reverse().find(badge => CERTIFICATE_FOR_BADGE[badge])
+    if (topBadge) {
+      await issueCertificate(c.env.APP_DB, String(c.env.JWT_SECRET || ''), {
+        championshipId,
+        championshipName: championship.name,
+        kind: CERTIFICATE_FOR_BADGE[topBadge],
+        awardLabel: badgeLabel(topBadge),
+        recipientType: 'user',
+        userId: row.userId,
+        tenantId: row.tenantId,
+        recipientName,
+        position: row.position,
+        issuedBy: String(c.var.user?.id || ''),
+      }).catch(() => null)
+      certificatesIssued += 1
+    }
+  }
+
+  await addAudit(c.env.APP_DB, `championship:${championshipId}`, {
+    action: 'championshipAwardsGenerated',
+    data: { by: c.var.user?.id, stageId, badgesAwarded, certificatesIssued },
+  }).catch(() => null)
+
+  return c.json({ success: true, badgesAwarded, certificatesIssued, ranked: ranked.length })
+})
+
+// A participant's permanent achievement record (§30, §38, §40).
+app.get('/api/championships/achievements/mine', authenticate, async (c) => {
+  const actor = championshipActor(c)
+  try {
+    const [badges, certificates] = await Promise.all([
+      listBadgesForUser(c.env.APP_DB, actor.id),
+      listCertificatesForUser(c.env.APP_DB, actor.id),
+    ])
+    return c.json({
+      success: true,
+      badges,
+      certificates,
+      points: totalChampionshipPoints(badges),
+    })
+  } catch {
+    return c.json({ success: true, badges: [], certificates: [], points: 0 })
+  }
+})
+
+// A school's own championship record — its badges, its students' certificates (§36).
+app.get('/api/school/championships/achievements', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, CHAMPIONSHIP_SCHOOL_ROLES)) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = String(c.var.user?.tenantId || '').trim()
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+
+  try {
+    const [schoolBadges, certificates] = await Promise.all([
+      listBadgesForTenant(c.env.APP_DB, tenantId),
+      listCertificatesForTenant(c.env.APP_DB, tenantId),
+    ])
+    return c.json({ success: true, schoolBadges, certificates })
+  } catch {
+    return c.json({ success: true, schoolBadges: [], certificates: [] })
+  }
+})
+
+// Public certificate verification (§31). Deliberately unauthenticated — the point is that
+// anyone holding a printed certificate can confirm it without an NDOVERA account.
+app.get('/api/public/certificates/:certificateNo', async (c) => {
+  try {
+    const result = await verifyCertificate(
+      c.env.APP_DB, String(c.env.JWT_SECRET || ''), String(c.req.param('certificateNo') || ''),
+    )
+    return c.json({ success: true, ...result })
+  } catch {
+    return c.json({ success: true, valid: false, reason: 'This certificate could not be verified.', certificate: null })
+  }
+})
+
+// Public gallery and Hall of Fame for a finished championship (§10).
+app.get('/api/public/championships/:slug/gallery', async (c) => {
+  try {
+    const championship = await getChampionshipBySlug(c.env.APP_DB, c.req.param('slug'))
+    if (!championship) return c.json({ error: 'Championship not found.' }, 404)
+
+    const [gallery, hallOfFame] = await Promise.all([
+      listGallery(c.env.APP_DB, championship.id),
+      buildHallOfFame(c.env.APP_DB, championship.id),
+    ])
+    return c.json({ success: true, championship, gallery, hallOfFame })
+  } catch {
+    return c.json({ success: true, championship: null, gallery: [], hallOfFame: null })
+  }
+})
+
+app.get('/api/public/hall-of-fame', async (c) => {
+  try {
+    return c.json({ success: true, hallOfFame: await buildHallOfFame(c.env.APP_DB) })
+  } catch {
+    return c.json({ success: true, hallOfFame: { winners: [], finalists: [], semiFinalists: [], quarterFinalists: [] } })
+  }
+})
+
+app.post('/api/ami/championships/:id/gallery', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  const payload = await c.req.json().catch(() => ({})) as Record<string, any>
+  const url = String(payload.url || '').trim()
+  if (!url) return c.json({ error: 'A media URL is required.' }, 400)
+
+  const id = await addGalleryItem(c.env.APP_DB, {
+    championshipId: String(c.req.param('id') || ''),
+    kind: String(payload.kind || 'photo'),
+    url,
+    caption: String(payload.caption || ''),
+    position: Number(payload.position || 0),
+    createdBy: String(c.var.user?.id || ''),
+  })
+  return c.json({ success: true, id })
+})
+
+app.post('/api/ami/championships/:id/badges', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  const championshipId = String(c.req.param('id') || '')
+  const payload = await c.req.json().catch(() => ({})) as Record<string, any>
+  const badgeKey = String(payload.badgeKey || '').trim()
+  if (!SPECIAL_BADGES.some(badge => badge.key === badgeKey)) {
+    return c.json({ error: 'Unknown badge.' }, 400)
+  }
+
+  const championship = await getChampionshipById(c.env.APP_DB, championshipId)
+  const recipientType = String(payload.recipientType || 'user') === 'school' ? 'school' : 'user'
+
+  await awardBadge(c.env.APP_DB, {
+    championshipId,
+    championshipName: String(championship?.name || ''),
+    badgeKey,
+    recipientType,
+    userId: String(payload.userId || ''),
+    tenantId: String(payload.tenantId || ''),
+    recipientName: String(payload.recipientName || ''),
+    note: String(payload.note || ''),
+    awardedBy: String(c.var.user?.id || ''),
+  })
+
+  await addAudit(c.env.APP_DB, `championship:${championshipId}`, {
+    action: 'championshipSpecialBadgeAwarded',
+    data: { by: c.var.user?.id, badgeKey, recipientType, userId: payload.userId, tenantId: payload.tenantId },
+  }).catch(() => null)
+
+  return c.json({ success: true })
 })
 
 // ---- Opportunities / Vacancies ----
@@ -21109,7 +22871,7 @@ app.get('/api/school/student-attendance', authenticate, async (c) => {
       }
       studentId = self.studentId
       classId = self.classId
-    } else if (['teacher', 'classteacher'].includes(actor.role)) {
+    } else if (canTeach(actor.role)) {
       if (!classId && studentId) {
         const studentTarget = await resolveStudentAttendanceTarget(c.env.APP_DB, actor.tenantId, studentId)
         classId = studentTarget?.classId || ''
@@ -21134,7 +22896,7 @@ app.get('/api/school/student-attendance', authenticate, async (c) => {
           return c.json({ error: 'Student does not belong to this class.' }, 400)
         }
       }
-    } else if (!['owner', 'hos', 'admin'].includes(actor.role)) {
+    } else if (!hasRequiredRole(actor.role, ['owner', 'hos', 'admin'])) {
       return c.json({ error: 'forbidden' }, 403)
     }
 
@@ -21156,7 +22918,7 @@ app.get('/api/school/student-attendance', authenticate, async (c) => {
 
 app.post('/api/school/student-attendance', authenticate, async (c) => {
   const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
-  if (!['teacher', 'classteacher'].includes(actor.role)) return c.json({ error: 'forbidden' }, 403)
+  if (!canTeach(actor.role)) return c.json({ error: 'forbidden' }, 403)
   if (!actor.tenantId) return c.json({ error: 'No tenant.' }, 400)
 
   const { studentId, date, status, classId, notes } = await c.req.json()
@@ -21206,7 +22968,7 @@ app.post('/api/school/student-attendance', authenticate, async (c) => {
 app.get('/api/school/attendance/monthly-report', authenticate, async (c) => {
   const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
   if (!actor.tenantId) return c.json({ error: 'No tenant.' }, 400)
-  if (!['owner', 'hos', 'admin'].includes(actor.role)) return c.json({ error: 'forbidden' }, 403)
+  if (!hasRequiredRole(actor.role, ['owner', 'hos', 'admin'])) return c.json({ error: 'forbidden' }, 403)
 
   try {
     const report = await buildMonthlyAttendanceReport(c.env.APP_DB, actor.tenantId, c.req.query('month') || undefined)
@@ -21219,7 +22981,7 @@ app.get('/api/school/attendance/monthly-report', authenticate, async (c) => {
 app.post('/api/school/attendance/ai-analysis', authenticate, async (c) => {
   const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
   if (!actor.tenantId) return c.json({ error: 'No tenant.' }, 400)
-  if (!['owner', 'hos', 'admin'].includes(actor.role)) return c.json({ error: 'forbidden' }, 403)
+  if (!hasRequiredRole(actor.role, ['owner', 'hos', 'admin'])) return c.json({ error: 'forbidden' }, 403)
 
   try {
     const body = await c.req.json().catch(() => ({})) as Record<string, any>
@@ -22544,6 +24306,8 @@ async function handleSubdomainRequest(request: Request, env: Bindings, subdomain
 
 // ─── Question Bank Endpoints ────────────────────────────────────────────────
 
+// Deliberately the rank-and-file teaching roles only: this gates the owner's
+// per-teacher question-bank toggle, which was never meant to apply to leadership.
 function isTeacherQuestionBankRole(role: unknown) {
   return ['teacher', 'classteacher'].includes(String(role || '').trim().toLowerCase())
 }
@@ -22715,11 +24479,980 @@ app.delete('/api/question-bank/:id', authenticate, async (c) => {
   }
 })
 
+
+/**
+ * Write a receipt for an allocated payment into the existing receipts table, so
+ * the receipts board, printing and public verification keep working unchanged.
+ * The session and term recorded are the ones the money actually settled, which
+ * is what makes a receipt for last term's arrears read correctly.
+ */
+async function issueAssessmentPaymentReceipt(db: D1Database, options: {
+  tenantId: string
+  studentId: string
+  student: Record<string, any> | null
+  payment: { id: string, amount: number, paymentType: string, paymentReference: string }
+  allocations: Array<{ sessionName: string, termName: string, amount: number, assessmentKind: string, outstandingAfter: number }>
+  verificationBaseUrl?: string
+}) {
+  await ensureFeesPaymentReceiptsTable(db)
+
+  const tenant = await getTenantById(db, options.tenantId).catch(() => null)
+  const branding = await getTenantSchoolBranding(db, tenant).catch(() => ({ schoolName: '', logoUrl: '' } as any))
+
+  // Report against the newest period the payment touched.
+  const primary = options.allocations[options.allocations.length - 1] || null
+  const settledTotal = options.allocations.reduce((total, item) => total + item.amount, 0)
+  const balanceAfter = options.allocations.reduce((total, item) => total + item.outstandingAfter, 0)
+  const carriesArrears = options.allocations.some(item => item.assessmentKind === 'opening_balance')
+    || options.allocations.length > 1
+
+  const recordedAt = new Date().toISOString()
+  const receiptId = `fee_receipt_${options.tenantId}_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`
+  const receiptNo = buildFeeReceiptNumber(new Date(recordedAt))
+  const verificationUrl = buildFeeReceiptVerificationUrl(String(options.verificationBaseUrl || ''), receiptNo)
+
+  await db.prepare(
+    `INSERT INTO fees_payment_receipts (id, receipt_no, tenant_id, student_id, student_display_id, student_name, class_id, class_name, amount, payment_type, payment_reference, fee_amount, amount_paid_after, balance_after, status_after, recorded_by, verification_url, school_name, school_logo_url, session_name, term_name, receipt_kind, recorded_at)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+  ).bind(
+    receiptId,
+    receiptNo,
+    options.tenantId,
+    options.studentId,
+    String(options.student?.displayId || '') || null,
+    String(options.student?.name || options.studentId),
+    String(options.student?.classId || '') || null,
+    String(options.student?.className || '') || null,
+    settledTotal,
+    options.payment.paymentType || 'cash',
+    options.payment.paymentReference || null,
+    settledTotal + balanceAfter,
+    settledTotal,
+    balanceAfter,
+    balanceAfter > 0 ? 'partial' : 'paid',
+    String(options.payment.id || ''),
+    verificationUrl || null,
+    String(branding?.schoolName || tenant?.schoolName || tenant?.name || 'NDOVERA School'),
+    String(branding?.logoUrl || ''),
+    String(primary?.sessionName || ''),
+    String(primary?.termName || ''),
+    carriesArrears ? 'arrears' : 'term',
+    recordedAt,
+  ).run()
+
+  return {
+    id: receiptId,
+    receiptNo,
+    amount: settledTotal,
+    balanceAfter,
+    sessionName: String(primary?.sessionName || ''),
+    termName: String(primary?.termName || ''),
+    verificationUrl,
+    recordedAt,
+    allocations: options.allocations,
+  }
+}
+
+/**
+ * The other half of the dual-write: a payment taken through the assessment
+ * ledger also advances the legacy running total, so the existing fees board and
+ * parent views stay accurate until every surface reads assessments directly.
+ */
+async function mirrorPaymentToLegacyLedger(db: D1Database, options: {
+  tenantId: string
+  studentId: string
+  studentName: string
+  amount: number
+}) {
+  await ensureFeesLedgerTable(db)
+
+  const existing = await db.prepare(
+    `SELECT * FROM fees_ledger WHERE student_id = ? AND tenant_id = ?`
+  ).bind(options.studentId, options.tenantId).first() as Record<string, any> | null
+
+  const timestamp = new Date().toISOString()
+
+  if (!existing) {
+    await db.prepare(
+      `INSERT INTO fees_ledger (id, tenant_id, student_id, student_name, fee_amount, amount_paid, status, updated_at)
+       VALUES (?, ?, ?, ?, 0, ?, ?, ?)`
+    ).bind(
+      `fl_${options.studentId}_${options.tenantId}`,
+      options.tenantId,
+      options.studentId,
+      options.studentName,
+      options.amount,
+      deriveFeeLedgerStatus(0, options.amount, ''),
+      timestamp,
+    ).run()
+    return
+  }
+
+  const newPaid = Number(existing.amount_paid || 0) + options.amount
+  await db.prepare(
+    `UPDATE fees_ledger SET amount_paid = ?, status = ?, updated_at = ? WHERE student_id = ? AND tenant_id = ?`
+  ).bind(
+    newPaid,
+    deriveFeeLedgerStatus(existing.fee_amount, newPaid, existing.status),
+    timestamp,
+    options.studentId,
+    options.tenantId,
+  ).run()
+}
+
+// ─── Academic sessions, terms, promotion and the term fee cycle ──────────────
+
+function academicActor(c: any) {
+  const user = c.var.user || {}
+  return {
+    tenantId: String(user.tenantId || '').trim(),
+    role: getActiveRole(user),
+    actorId: String(user.id || user.email || user.sub || '').trim(),
+    actorName: String(user.name || user.email || 'Staff').trim(),
+  }
+}
+
+function academicFailure(c: any, error: unknown, fallback: string) {
+  if (error instanceof AcademicError) {
+    return c.json({ error: error.message }, error.status as any)
+  }
+  return c.json({ error: fallback }, 500)
+}
+
+/** Email lookup for students, used to keep the settings mirror in step. */
+async function buildStudentEmailMap(db: D1Database, tenantId: string) {
+  const students = await listTenantActiveStudents(db, tenantId).catch(() => [] as any[])
+  return new Map<string, string>(students.map((student: any) => [String(student.id || ''), String(student.email || '')]))
+}
+
+app.get('/api/school/academic/overview', authenticate, async (c) => {
+  const { tenantId } = academicActor(c)
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+
+  try {
+    const sessions = await listSessions(c.env.APP_DB, tenantId)
+    const active = sessions.find(session => session.status === 'active') || null
+    const detail = active ? await getSessionDetail(c.env.APP_DB, tenantId, active.id) : null
+    const position = await getCalendarPosition(c.env.APP_DB, tenantId)
+
+    return c.json({
+      success: true,
+      sessions,
+      activeSession: active,
+      terms: detail?.terms || [],
+      breaks: detail?.breaks || [],
+      activeTerm: (detail?.terms || []).find(term => term.status === 'active') || null,
+      calendar: position,
+      today: lagosToday(),
+    })
+  } catch (error) {
+    return academicFailure(c, error, 'Could not load the academic calendar.')
+  }
+})
+
+app.get('/api/school/academic/sessions/:sessionId', authenticate, async (c) => {
+  const { tenantId } = academicActor(c)
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+
+  try {
+    const detail = await getSessionDetail(c.env.APP_DB, tenantId, c.req.param('sessionId'))
+    if (!detail) return c.json({ error: 'Session not found.' }, 404)
+
+    const enrollments = await listSessionEnrollments(c.env.APP_DB, {
+      tenantId,
+      sessionId: detail.session.id,
+    })
+
+    return c.json({
+      success: true,
+      ...detail,
+      enrollments,
+      enrollmentCount: enrollments.length,
+      // Students the roll-over could not place: a to-do for the office, since a
+      // student with no class is billed for nothing and sits on no register.
+      unplacedCount: enrollments.filter(row => row.status === 'active' && !row.classId).length,
+    })
+  } catch (error) {
+    return academicFailure(c, error, 'Could not load that session.')
+  }
+})
+
+app.post('/api/school/academic/sessions', authenticate, async (c) => {
+  const { tenantId, role, actorId, actorName } = academicActor(c)
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!hasRequiredRole(role, SESSION_ADMIN_ROLES)) return c.json({ error: 'forbidden' }, 403)
+
+  try {
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const detail = await createSession(c.env.APP_DB, {
+      tenantId,
+      name: body.name,
+      startDate: body.startDate,
+      endDate: body.endDate,
+      resumptionDate: body.resumptionDate,
+      autoActivate: body.autoActivate,
+      notes: body.notes,
+      terms: Array.isArray(body.terms) ? body.terms : [],
+      actorId,
+    })
+
+    await addAudit(c.env.APP_DB, tenantId, {
+      action: 'academicSessionCreated',
+      data: {
+        session: detail.session.name,
+        by: actorName,
+        enrolled: detail.enrolment?.enrolled || 0,
+        promoted: detail.enrolment?.promoted || 0,
+        graduated: detail.enrolment?.graduated || 0,
+      },
+    }).catch(() => null)
+
+    return c.json({ success: true, ...detail }, 201)
+  } catch (error) {
+    return academicFailure(c, error, 'Could not create the session.')
+  }
+})
+
+app.put('/api/school/academic/sessions/:sessionId', authenticate, async (c) => {
+  const { tenantId, role, actorId, actorName } = academicActor(c)
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!hasRequiredRole(role, SESSION_ADMIN_ROLES)) return c.json({ error: 'forbidden' }, 403)
+
+  try {
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const detail = await updateSession(c.env.APP_DB, {
+      tenantId,
+      sessionId: c.req.param('sessionId'),
+      name: body.name,
+      startDate: body.startDate,
+      endDate: body.endDate,
+      resumptionDate: body.resumptionDate,
+      autoActivate: body.autoActivate,
+      notes: body.notes,
+      actorId,
+    })
+
+    await addAudit(c.env.APP_DB, tenantId, {
+      action: 'academicSessionUpdated',
+      data: { session: detail.session.name, by: actorName },
+    }).catch(() => null)
+
+    return c.json({ success: true, ...detail })
+  } catch (error) {
+    return academicFailure(c, error, 'Could not update the session.')
+  }
+})
+
+app.post('/api/school/academic/sessions/:sessionId/activate', authenticate, async (c) => {
+  const { tenantId, role, actorId, actorName } = academicActor(c)
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!hasRequiredRole(role, SESSION_ADMIN_ROLES)) return c.json({ error: 'forbidden' }, 403)
+
+  try {
+    const result = await activateSession(c.env.APP_DB, {
+      tenantId,
+      sessionId: c.req.param('sessionId'),
+      actorId,
+      actorName,
+    })
+
+    // Bring the current-class mirror in line with the newly live session.
+    const emailById = await buildStudentEmailMap(c.env.APP_DB, tenantId)
+    const mirror = await syncMirrorToSession(c.env.APP_DB, {
+      tenantId,
+      sessionId: result.session.id,
+      studentEmailById: emailById,
+    }).catch(() => ({ synced: 0 }))
+
+    await addAudit(c.env.APP_DB, tenantId, {
+      action: 'academicSessionActivated',
+      data: {
+        session: result.session.name,
+        deactivated: result.deactivated?.name || '',
+        placementsApplied: mirror.synced,
+        enrolled: result.enrolment?.enrolled || 0,
+        promoted: result.enrolment?.promoted || 0,
+        graduated: result.enrolment?.graduated || 0,
+        by: actorName,
+      },
+    }).catch(() => null)
+
+    return c.json({ success: true, ...result, placementsApplied: mirror.synced })
+  } catch (error) {
+    return academicFailure(c, error, 'Could not activate the session.')
+  }
+})
+
+app.post('/api/school/academic/sessions/:sessionId/archive', authenticate, async (c) => {
+  const { tenantId, role, actorId } = academicActor(c)
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!hasRequiredRole(role, SESSION_ADMIN_ROLES)) return c.json({ error: 'forbidden' }, 403)
+
+  try {
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const session = await setSessionArchived(c.env.APP_DB, {
+      tenantId,
+      sessionId: c.req.param('sessionId'),
+      archived: body.archived !== false,
+      actorId,
+    })
+    return c.json({ success: true, session })
+  } catch (error) {
+    return academicFailure(c, error, 'Could not archive the session.')
+  }
+})
+
+app.put('/api/school/academic/sessions/:sessionId/terms', authenticate, async (c) => {
+  const { tenantId, role, actorName } = academicActor(c)
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!hasRequiredRole(role, SESSION_ADMIN_ROLES)) return c.json({ error: 'forbidden' }, 403)
+
+  try {
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const terms = await saveTerms(c.env.APP_DB, {
+      tenantId,
+      sessionId: c.req.param('sessionId'),
+      terms: Array.isArray(body.terms) ? body.terms : [],
+    })
+
+    await addAudit(c.env.APP_DB, tenantId, {
+      action: 'academicTermsSaved',
+      data: { sessionId: c.req.param('sessionId'), count: terms.length, by: actorName },
+    }).catch(() => null)
+
+    return c.json({ success: true, terms })
+  } catch (error) {
+    return academicFailure(c, error, 'Could not save the terms.')
+  }
+})
+
+app.post('/api/school/academic/terms/:termId/activate', authenticate, async (c) => {
+  const { tenantId, role, actorId, actorName } = academicActor(c)
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!hasRequiredRole(role, SESSION_ADMIN_ROLES)) return c.json({ error: 'forbidden' }, 403)
+
+  try {
+    const result = await activateTerm(c.env.APP_DB, { tenantId, termId: c.req.param('termId'), actorId })
+    await addAudit(c.env.APP_DB, tenantId, {
+      action: 'academicTermActivated',
+      data: { term: result.term.name, closed: result.closed?.name || '', by: actorName },
+    }).catch(() => null)
+    return c.json({ success: true, ...result })
+  } catch (error) {
+    return academicFailure(c, error, 'Could not activate the term.')
+  }
+})
+
+app.post('/api/school/academic/terms/:termId/close', authenticate, async (c) => {
+  const { tenantId, role, actorName } = academicActor(c)
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!hasRequiredRole(role, SESSION_ADMIN_ROLES)) return c.json({ error: 'forbidden' }, 403)
+
+  try {
+    const term = await closeTerm(c.env.APP_DB, { tenantId, termId: c.req.param('termId') })
+    await addAudit(c.env.APP_DB, tenantId, {
+      action: 'academicTermClosed',
+      data: { term: term.name, by: actorName },
+    }).catch(() => null)
+    return c.json({ success: true, term })
+  } catch (error) {
+    return academicFailure(c, error, 'Could not close the term.')
+  }
+})
+
+app.post('/api/school/academic/sessions/:sessionId/breaks', authenticate, async (c) => {
+  const { tenantId, role } = academicActor(c)
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!hasRequiredRole(role, SESSION_ADMIN_ROLES)) return c.json({ error: 'forbidden' }, 403)
+
+  try {
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const saved = await saveBreak(c.env.APP_DB, {
+      tenantId,
+      sessionId: c.req.param('sessionId'),
+      breakId: body.id,
+      termId: body.termId,
+      name: body.name,
+      breakType: body.breakType,
+      startDate: body.startDate,
+      endDate: body.endDate,
+      resumptionDate: body.resumptionDate,
+      notes: body.notes,
+    })
+    return c.json({ success: true, break: saved })
+  } catch (error) {
+    return academicFailure(c, error, 'Could not save the break.')
+  }
+})
+
+app.delete('/api/school/academic/breaks/:breakId', authenticate, async (c) => {
+  const { tenantId, role } = academicActor(c)
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!hasRequiredRole(role, SESSION_ADMIN_ROLES)) return c.json({ error: 'forbidden' }, 403)
+
+  try {
+    await deleteBreak(c.env.APP_DB, tenantId, c.req.param('breakId'))
+    return c.json({ success: true })
+  } catch (error) {
+    return academicFailure(c, error, 'Could not remove the break.')
+  }
+})
+
+// ─── Session enrollment ──────────────────────────────────────────────────────
+
+app.get('/api/school/academic/sessions/:sessionId/enrollments', authenticate, async (c) => {
+  const { tenantId } = academicActor(c)
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+
+  try {
+    const sessionId = c.req.param('sessionId')
+    const enrollments = await listSessionEnrollments(c.env.APP_DB, {
+      tenantId,
+      sessionId,
+      classId: String(c.req.query('classId') || '').trim() || undefined,
+      status: String(c.req.query('status') || '').trim() || undefined,
+    })
+
+    // A student who is on no register, or on one with no class, is invisible
+    // everywhere else in the app: no class list, no fee run, no result sheet.
+    // The register is the only place that can show the school who they are, so
+    // it reports them rather than leaving them to be noticed by accident.
+    const unfiltered = c.req.query('classId') || c.req.query('status')
+      ? await listSessionEnrollments(c.env.APP_DB, { tenantId, sessionId })
+      : enrollments
+    const enrolledIds = new Set(unfiltered.map(row => row.studentId))
+    const roster = await listTenantActiveStudents(c.env.APP_DB, tenantId).catch(() => [] as any[])
+
+    const unplaced = unfiltered
+      .filter(row => row.status === 'active' && !row.classId)
+      .map(row => ({
+        studentId: row.studentId,
+        studentName: row.studentName,
+        studentDisplayId: row.studentDisplayId,
+        reason: 'no-class',
+      }))
+
+    const offRegister = roster
+      .filter((student: any) => !enrolledIds.has(String(student.id || '')))
+      .map((student: any) => ({
+        studentId: String(student.id || ''),
+        studentName: String(student.name || ''),
+        studentDisplayId: String(student.displayId || ''),
+        classId: String(student.classId || ''),
+        className: String(student.className || ''),
+        reason: 'not-enrolled',
+      }))
+
+    return c.json({
+      success: true,
+      enrollments,
+      gaps: { unplaced, offRegister, total: unplaced.length + offRegister.length },
+      rosterCount: roster.length,
+      enrolledCount: unfiltered.length,
+    })
+  } catch (error) {
+    return academicFailure(c, error, 'Could not load the register.')
+  }
+})
+
+app.post('/api/school/academic/sessions/:sessionId/enrollments', authenticate, async (c) => {
+  const { tenantId, role, actorId, actorName } = academicActor(c)
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!hasRequiredRole(role, PROMOTION_ADMIN_ROLES)) return c.json({ error: 'forbidden' }, 403)
+
+  try {
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const studentId = String(body.studentId || '').trim()
+    if (!studentId) return c.json({ error: 'Pick a student.' }, 400)
+
+    const emailById = await buildStudentEmailMap(c.env.APP_DB, tenantId)
+    const studentRow = await findUserByIdentifier(c.env.APP_DB, studentId).catch(() => null)
+
+    const enrollment = await upsertEnrollment(c.env.APP_DB, {
+      tenantId,
+      sessionId: c.req.param('sessionId'),
+      studentId,
+      studentName: String(body.studentName || studentRow?.name || ''),
+      studentEmail: emailById.get(studentId) || String(studentRow?.email || ''),
+      studentDisplayId: String(body.studentDisplayId || ''),
+      classId: String(body.classId || ''),
+      status: body.status,
+      source: 'manual',
+      actorId,
+      actorName,
+    })
+
+    return c.json({ success: true, enrollment })
+  } catch (error) {
+    return academicFailure(c, error, 'Could not enrol that student.')
+  }
+})
+
+/**
+ * Roll the school's current students into a session on demand. Sessions fill
+ * their own register when they are created and again when they open, so this is
+ * for catching one up: students admitted since, or a session that predates the
+ * automatic register.
+ */
+app.post('/api/school/academic/sessions/:sessionId/auto-enrol', authenticate, async (c) => {
+  const { tenantId, role, actorId, actorName } = academicActor(c)
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!hasRequiredRole(role, PROMOTION_ADMIN_ROLES)) return c.json({ error: 'forbidden' }, 403)
+
+  try {
+    const sessionId = c.req.param('sessionId')
+    const enrolment = await autoEnrolSession(c.env.APP_DB, { tenantId, sessionId, actorId, actorName })
+
+    // The live session drives what everyone else sees. Sync whether or not anyone
+    // new was enrolled: this is also the button an owner reaches for when the
+    // class lists still show last session's children.
+    let placementsApplied = 0
+    const active = await getActiveSession(c.env.APP_DB, tenantId).catch(() => null)
+    if (active?.id === sessionId) {
+      const emailById = await buildStudentEmailMap(c.env.APP_DB, tenantId)
+      const mirror = await syncMirrorToSession(c.env.APP_DB, { tenantId, sessionId, studentEmailById: emailById })
+        .catch(() => ({ synced: 0 }))
+      placementsApplied = mirror.synced
+    }
+
+    if (enrolment.enrolled > 0) {
+      await addAudit(c.env.APP_DB, tenantId, {
+        action: 'academicSessionAutoEnrolled',
+        data: {
+          session: enrolment.sessionName,
+          enrolled: enrolment.enrolled,
+          promoted: enrolment.promoted,
+          graduated: enrolment.graduated,
+          by: actorName,
+        },
+      }).catch(() => null)
+    }
+
+    const enrollments = await listSessionEnrollments(c.env.APP_DB, { tenantId, sessionId })
+    return c.json({ success: true, enrolment, enrollments, placementsApplied })
+  } catch (error) {
+    return academicFailure(c, error, 'Could not fill the register.')
+  }
+})
+
+/**
+ * Move a group of students into one class within a session — the manual half of
+ * a promotion that lands a whole year group in one default class.
+ */
+app.post('/api/school/academic/sessions/:sessionId/enrollments/move', authenticate, async (c) => {
+  const { tenantId, role, actorId, actorName } = academicActor(c)
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!hasRequiredRole(role, PROMOTION_ADMIN_ROLES)) return c.json({ error: 'forbidden' }, 403)
+
+  try {
+    const sessionId = c.req.param('sessionId')
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const emailById = await buildStudentEmailMap(c.env.APP_DB, tenantId)
+
+    const result = await moveEnrollments(c.env.APP_DB, {
+      tenantId,
+      sessionId,
+      studentIds: Array.isArray(body.studentIds) ? body.studentIds : [],
+      classId: String(body.classId || ''),
+      status: body.status,
+      actorId,
+      actorName,
+      studentEmailById: emailById,
+    })
+
+    if (result.moved > 0) {
+      await addAudit(c.env.APP_DB, tenantId, {
+        action: 'academicEnrollmentsMoved',
+        data: {
+          session: result.sessionName,
+          moved: result.moved,
+          toClass: result.className,
+          by: actorName,
+        },
+      }).catch(() => null)
+    }
+
+    const enrollments = await listSessionEnrollments(c.env.APP_DB, { tenantId, sessionId })
+    return c.json({ success: true, ...result, enrollments })
+  } catch (error) {
+    return academicFailure(c, error, 'Could not move those students.')
+  }
+})
+
+app.get('/api/school/academic/students/:studentId/enrollments', authenticate, async (c) => {
+  const { tenantId } = academicActor(c)
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+
+  try {
+    const history = await listStudentEnrollmentHistory(c.env.APP_DB, tenantId, c.req.param('studentId'))
+    return c.json({ success: true, enrollments: history })
+  } catch (error) {
+    return academicFailure(c, error, 'Could not load that student history.')
+  }
+})
+
+// ─── Promotion ───────────────────────────────────────────────────────────────
+
+app.get('/api/school/promotion/batches', authenticate, async (c) => {
+  const { tenantId, role } = academicActor(c)
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!hasRequiredRole(role, PROMOTION_ADMIN_ROLES)) return c.json({ error: 'forbidden' }, 403)
+
+  try {
+    return c.json({ success: true, batches: await listPromotionBatches(c.env.APP_DB, tenantId) })
+  } catch (error) {
+    return academicFailure(c, error, 'Could not load promotion rounds.')
+  }
+})
+
+app.post('/api/school/promotion/batches', authenticate, async (c) => {
+  const { tenantId, role, actorId, actorName } = academicActor(c)
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!hasRequiredRole(role, PROMOTION_ADMIN_ROLES)) return c.json({ error: 'forbidden' }, 403)
+
+  try {
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const settings = await getSettings(c.env.APP_DB, `promotion_map_${tenantId}`).catch(() => null)
+    const students = await listTenantActiveStudents(c.env.APP_DB, tenantId)
+
+    const batch = await buildPromotionProposals(c.env.APP_DB, {
+      tenantId,
+      fromSessionId: String(body.fromSessionId || '').trim(),
+      toSessionId: String(body.toSessionId || '').trim(),
+      progressionMap: (settings?.map || {}) as Record<string, string>,
+      students: students.map((student: any) => ({
+        id: String(student.id || ''),
+        name: String(student.name || ''),
+        email: String(student.email || ''),
+        displayId: String(student.displayId || ''),
+        classId: String(student.classId || ''),
+      })),
+      actorId,
+      actorName,
+    })
+
+    return c.json({ success: true, ...batch }, 201)
+  } catch (error) {
+    return academicFailure(c, error, 'Could not draft the promotion round.')
+  }
+})
+
+app.get('/api/school/promotion/batches/:batchId', authenticate, async (c) => {
+  const { tenantId, role } = academicActor(c)
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!hasRequiredRole(role, PROMOTION_ADMIN_ROLES)) return c.json({ error: 'forbidden' }, 403)
+
+  try {
+    const batch = await getPromotionBatch(c.env.APP_DB, tenantId, c.req.param('batchId'))
+    if (!batch) return c.json({ error: 'Promotion round not found.' }, 404)
+    return c.json({ success: true, ...batch })
+  } catch (error) {
+    return academicFailure(c, error, 'Could not load that promotion round.')
+  }
+})
+
+app.patch('/api/school/promotion/batches/:batchId', authenticate, async (c) => {
+  const { tenantId, role, actorId, actorName } = academicActor(c)
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!hasRequiredRole(role, PROMOTION_ADMIN_ROLES)) return c.json({ error: 'forbidden' }, 403)
+
+  try {
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const result = await updatePromotionDecisions(c.env.APP_DB, {
+      tenantId,
+      batchId: c.req.param('batchId'),
+      updates: Array.isArray(body.updates) ? body.updates : [],
+      actorId,
+      actorName,
+    })
+    return c.json({ success: true, ...result })
+  } catch (error) {
+    return academicFailure(c, error, 'Could not update the promotion decisions.')
+  }
+})
+
+app.post('/api/school/promotion/batches/:batchId/commit', authenticate, async (c) => {
+  const { tenantId, role, actorId, actorName } = academicActor(c)
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!hasRequiredRole(role, PROMOTION_ADMIN_ROLES)) return c.json({ error: 'forbidden' }, 403)
+
+  try {
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const emailById = await buildStudentEmailMap(c.env.APP_DB, tenantId)
+
+    const result = await commitPromotionBatch(c.env.APP_DB, {
+      tenantId,
+      batchId: c.req.param('batchId'),
+      studentIds: Array.isArray(body.studentIds) ? body.studentIds.map((id: any) => String(id)) : undefined,
+      actorId,
+      actorName,
+      studentEmailById: emailById,
+    })
+
+    await addAudit(c.env.APP_DB, tenantId, {
+      action: 'promotionCommitted',
+      data: { session: result.session.name, enrolled: result.enrolled, by: actorName },
+    }).catch(() => null)
+
+    return c.json({ success: true, ...result })
+  } catch (error) {
+    return academicFailure(c, error, 'Could not commit the promotion.')
+  }
+})
+
+app.delete('/api/school/promotion/batches/:batchId', authenticate, async (c) => {
+  const { tenantId, role } = academicActor(c)
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!hasRequiredRole(role, PROMOTION_ADMIN_ROLES)) return c.json({ error: 'forbidden' }, 403)
+
+  try {
+    await cancelPromotionBatch(c.env.APP_DB, tenantId, c.req.param('batchId'))
+    return c.json({ success: true })
+  } catch (error) {
+    return academicFailure(c, error, 'Could not cancel the promotion round.')
+  }
+})
+
+app.get('/api/school/promotion/audit', authenticate, async (c) => {
+  const { tenantId, role } = academicActor(c)
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!hasRequiredRole(role, PROMOTION_ADMIN_ROLES)) return c.json({ error: 'forbidden' }, 403)
+
+  try {
+    const entries = await listPromotionAudit(c.env.APP_DB, {
+      tenantId,
+      studentId: String(c.req.query('studentId') || '').trim() || undefined,
+      batchId: String(c.req.query('batchId') || '').trim() || undefined,
+      limit: Number(c.req.query('limit') || 200),
+    })
+    return c.json({ success: true, entries })
+  } catch (error) {
+    return academicFailure(c, error, 'Could not load the promotion history.')
+  }
+})
+
+// ─── Term fee assessments ────────────────────────────────────────────────────
+
+app.get('/api/school/fees/assessments', authenticate, async (c) => {
+  const { tenantId, role } = academicActor(c)
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!hasRequiredRole(role, [...FEE_ADMIN_ROLES, 'admin', 'ict'])) return c.json({ error: 'forbidden' }, 403)
+
+  try {
+    const dashboard = await getFeeDashboard(c.env.APP_DB, {
+      tenantId,
+      termId: String(c.req.query('termId') || '').trim() || undefined,
+      classId: String(c.req.query('classId') || '').trim() || undefined,
+      status: String(c.req.query('status') || '').trim() || undefined,
+    })
+    return c.json({ success: true, ...dashboard })
+  } catch (error) {
+    return academicFailure(c, error, 'Could not load the fee assessments.')
+  }
+})
+
+app.post('/api/school/fees/assessments/generate', authenticate, async (c) => {
+  const { tenantId, role, actorId, actorName } = academicActor(c)
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!hasRequiredRole(role, FEE_ADMIN_ROLES)) return c.json({ error: 'forbidden' }, 403)
+
+  try {
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const activeTerm = await getActiveTerm(c.env.APP_DB, tenantId)
+    const termId = String(body.termId || activeTerm?.id || '').trim()
+    if (!termId) return c.json({ error: 'Open a term before generating fees.' }, 400)
+
+    const result = await generateTermAssessments(c.env.APP_DB, {
+      tenantId,
+      termId,
+      studentIds: Array.isArray(body.studentIds) ? body.studentIds.map((id: any) => String(id)) : undefined,
+      actorId,
+    })
+
+    await addAudit(c.env.APP_DB, tenantId, {
+      action: 'feeAssessmentsGenerated',
+      data: { ...result, by: actorName },
+    }).catch(() => null)
+
+    return c.json({ success: true, ...result })
+  } catch (error) {
+    return academicFailure(c, error, 'Could not generate the term fees.')
+  }
+})
+
+app.post('/api/school/fees/assessments/opening-balances', authenticate, async (c) => {
+  const { tenantId, role, actorId, actorName } = academicActor(c)
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!hasRequiredRole(role, ['owner'])) return c.json({ error: 'Only the owner can carry balances forward.' }, 403)
+
+  try {
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const activeTerm = await getActiveTerm(c.env.APP_DB, tenantId)
+    const termId = String(body.termId || activeTerm?.id || '').trim()
+    if (!termId) return c.json({ error: 'Open a term to carry the balances into.' }, 400)
+
+    const result = await backfillOpeningBalances(c.env.APP_DB, {
+      tenantId,
+      termId,
+      actorId,
+      dryRun: body.dryRun === true,
+    })
+
+    if (!result.dryRun) {
+      await addAudit(c.env.APP_DB, tenantId, {
+        action: 'feeOpeningBalancesCarried',
+        data: { count: result.carriedCount, total: result.carriedTotal, term: result.termName, by: actorName },
+      }).catch(() => null)
+    }
+
+    return c.json({ success: true, ...result })
+  } catch (error) {
+    return academicFailure(c, error, 'Could not carry the opening balances forward.')
+  }
+})
+
+app.get('/api/school/fees/students/:studentId/history', authenticate, async (c) => {
+  const { tenantId, role, actorId } = academicActor(c)
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+
+  const studentId = c.req.param('studentId')
+  const isStaff = hasRequiredRole(role, [...FEE_ADMIN_ROLES, 'admin', 'ict'])
+
+  // A parent or the student themselves may read their own position, nobody else's.
+  if (!isStaff) {
+    if (role === 'student' && actorId !== studentId) return c.json({ error: 'forbidden' }, 403)
+    if (role === 'parent') {
+      const link = await c.env.APP_DB.prepare(
+        `SELECT id FROM parent_student_links WHERE tenant_id = ? AND parent_id = ? AND student_id = ?`
+      ).bind(tenantId, actorId, studentId).first().catch(() => null)
+      if (!link) return c.json({ error: 'forbidden' }, 403)
+    }
+    if (role !== 'student' && role !== 'parent') return c.json({ error: 'forbidden' }, 403)
+  }
+
+  try {
+    const history = await getStudentFinancialHistory(c.env.APP_DB, tenantId, studentId)
+    return c.json({ success: true, ...history })
+  } catch (error) {
+    return academicFailure(c, error, 'Could not load that fee history.')
+  }
+})
+
+app.get('/api/school/fees/students/:studentId/outstanding', authenticate, async (c) => {
+  const { tenantId, role } = academicActor(c)
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!hasRequiredRole(role, [...FEE_ADMIN_ROLES, 'admin', 'ict'])) return c.json({ error: 'forbidden' }, 403)
+
+  try {
+    const outstanding = await listStudentOutstanding(c.env.APP_DB, tenantId, c.req.param('studentId'))
+    const withLines = await Promise.all(outstanding.map(async assessment => ({
+      ...assessment,
+      lines: await listAssessmentLines(c.env.APP_DB, tenantId, assessment.id),
+    })))
+    return c.json({
+      success: true,
+      outstanding: withLines,
+      totalOutstanding: withLines.reduce((total, item) => total + item.outstanding, 0),
+    })
+  } catch (error) {
+    return academicFailure(c, error, 'Could not load the outstanding charges.')
+  }
+})
+
+/**
+ * Record a payment against specific assessments and issue its receipt through
+ * the existing receipt system, so print, verification and the receipts board all
+ * keep working unchanged.
+ */
+app.post('/api/school/fees/students/:studentId/payments', authenticate, async (c) => {
+  const { tenantId, role, actorId, actorName } = academicActor(c)
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!hasRequiredRole(role, FEE_PAYMENT_APPROVER_ROLES)) return c.json({ error: 'forbidden' }, 403)
+
+  const studentId = c.req.param('studentId')
+
+  try {
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const studentRow = await findUserByIdentifier(c.env.APP_DB, studentId).catch(() => null)
+    const hydrated = (await hydrateUserRecords(c.env.APP_DB, studentRow ? [studentRow] : []))[0] as Record<string, any> | undefined
+
+    const result = await recordFeePayment(c.env.APP_DB, {
+      tenantId,
+      studentId,
+      studentName: String(hydrated?.name || body.studentName || studentId),
+      amount: Number(body.amount),
+      paymentType: String(body.paymentType || 'cash'),
+      paymentReference: String(body.paymentReference || ''),
+      note: String(body.note || ''),
+      claimId: String(body.claimId || ''),
+      idempotencyKey: String(body.idempotencyKey || ''),
+      allocations: Array.isArray(body.allocations) ? body.allocations : undefined,
+      recordedBy: actorId,
+      recordedByName: actorName,
+    })
+
+    if (result.duplicate) {
+      return c.json({ success: true, duplicate: true, ...result })
+    }
+
+    await mirrorPaymentToLegacyLedger(c.env.APP_DB, {
+      tenantId,
+      studentId,
+      studentName: String(hydrated?.name || studentId),
+      amount: result.payment.amount,
+    }).catch(() => null)
+
+    const receipt = await issueAssessmentPaymentReceipt(c.env.APP_DB, {
+      tenantId,
+      studentId,
+      student: hydrated || null,
+      payment: result.payment,
+      allocations: result.allocations,
+      verificationBaseUrl: new URL(c.req.url).origin,
+    }).catch(() => null)
+
+    if (receipt) {
+      await attachReceiptToPayment(c.env.APP_DB, {
+        tenantId,
+        paymentId: result.payment.id,
+        receiptId: receipt.id,
+        receiptNo: receipt.receiptNo,
+      }).catch(() => null)
+    }
+
+    await addAudit(c.env.APP_DB, tenantId, {
+      action: 'feePaymentAllocated',
+      data: {
+        studentId,
+        amount: result.payment.amount,
+        allocations: result.allocations.map(item => `${item.sessionName} ${item.termName}: ${item.amount}`),
+        receiptNo: receipt?.receiptNo || '',
+        by: actorName,
+      },
+    }).catch(() => null)
+
+    const stakeholderUserIds = await buildFeeStakeholderUserIds(c.env.APP_DB, tenantId, studentId).catch(() => [])
+    await sendWebPushToAudience(c.env.APP_DB, c.env, { tenantId, userIds: stakeholderUserIds }).catch(() => null)
+
+    return c.json({ success: true, ...result, receipt }, 201)
+  } catch (error) {
+    return academicFailure(c, error, 'Could not record the payment.')
+  }
+})
 export default {
-  // Cron-driven background job processor (bulk people import, results distribution).
+  // Cron-driven background job processor (bulk people import, results distribution,
+  // and the term/session transitions that must happen on their configured date
+  // whether or not anyone has the dashboard open).
   async scheduled(_event: ScheduledEvent, env: Bindings, ctx: ExecutionContext): Promise<void> {
     ctx.waitUntil(runDueBulkPeopleJobs(env).catch(() => {}))
     ctx.waitUntil(runDueBulkResultsJobs(env).catch(() => {}))
+
+    // Term and session transitions turn on calendar dates, so checking once an
+    // hour is ample. Running them on every minute-tick alongside the bulk jobs
+    // put this invocation over its CPU budget.
+    if (new Date().getUTCMinutes() === 0) {
+      ctx.waitUntil(runScheduledAcademicTransitions(env.APP_DB).catch(() => {}))
+    }
   },
   async fetch(request: Request, env: Bindings, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url)

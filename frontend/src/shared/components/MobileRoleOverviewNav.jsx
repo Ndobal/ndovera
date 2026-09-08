@@ -154,8 +154,8 @@ export default function MobileRoleOverviewNav({ roleKey, counts = {} }) {
 
   return (
     <>
-      <div className="h-24 md:hidden" />
-      <section className="bottom-nav bottom-nav--subtle light overflow-x-hidden px-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] pt-2 md:hidden motion-safe:animate-[navUp_.3s_ease-out]">
+      <div className="h-[calc(6rem+var(--safe-bottom))] md:hidden" />
+      <section className="bottom-nav bottom-nav--subtle light overflow-x-hidden px-2 pb-[max(0.5rem,var(--safe-bottom))] pt-2 md:hidden motion-safe:animate-[navUp_.3s_ease-out]">
         <div className="mx-auto grid w-full max-w-screen-sm grid-cols-5 gap-1.5 pb-1">
           {navItems.map((item, index) => {
             const Icon = item.kind === 'back' ? ArrowLeftIcon
@@ -224,7 +224,7 @@ export default function MobileRoleOverviewNav({ roleKey, counts = {} }) {
               </button>
             </div>
 
-            <div className="grid grid-cols-2 gap-3 overflow-y-auto px-5 py-4 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
+            <div className="grid grid-cols-2 gap-3 overflow-y-auto px-5 py-4 pb-[max(1.25rem,var(--safe-bottom))]">
               {allItems.map(item => {
                 const Icon = getItemIcon(item.name, item.path);
                 const count = resolveCount(item);
@@ -269,7 +269,7 @@ export default function MobileRoleOverviewNav({ roleKey, counts = {} }) {
 
       {submitOpen ? (
         <div className="fixed inset-0 z-[120] flex items-end justify-center overflow-y-auto bg-slate-950/60 backdrop-blur-sm p-0 sm:items-center sm:p-4" onClick={() => setSubmitOpen(false)} role="presentation">
-          <div className="w-full max-w-lg" onClick={event => event.stopPropagation()}>
+          <div className="w-full max-w-lg pb-[var(--safe-bottom)] sm:pb-0" onClick={event => event.stopPropagation()}>
             <div className="mb-2 flex justify-end">
               <button type="button" onClick={() => setSubmitOpen(false)} className="rounded-full bg-white/90 p-2 text-[#191970] shadow">
                 <XMarkIcon className="h-5 w-5" />

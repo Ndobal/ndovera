@@ -263,6 +263,8 @@ export const updateUserProfile = (userId, data) => req(`/api/people/${userId}`, 
 export const linkParentStudent = (data) => req('/api/school/parent-student-link', { method: 'POST', body: data });
 export const unlinkParentStudent = (data) => req('/api/school/parent-student-unlink', { method: 'POST', body: data });
 export const getLinkOverview = () => req('/api/school/link-overview');
+export const getSchoolLocation = () => req('/api/school/location');
+export const saveSchoolLocation = (data) => req('/api/school/location', { method: 'POST', body: data });
 
 // Fees
 export const getFeesConfig = () => req('/api/school/fees-config');
@@ -304,6 +306,58 @@ export const getDailyAttendanceLog = (date) => req(`/api/school/daily-attendance
 export const getPromotionMap = () => req('/api/school/promotion-map');
 export const savePromotionMap = (data) => req('/api/school/promotion-map', { method: 'POST', body: data });
 export const runPromotion = () => req('/api/school/run-promotion', { method: 'POST' });
+
+// Academic sessions, terms and breaks
+const enc = encodeURIComponent;
+export const getAcademicOverview = () => req('/api/school/academic/overview');
+export const getAcademicSession = (sessionId) => req(`/api/school/academic/sessions/${enc(sessionId)}`);
+export const createAcademicSession = (data) => req('/api/school/academic/sessions', { method: 'POST', body: data });
+export const updateAcademicSession = (sessionId, data) => req(`/api/school/academic/sessions/${enc(sessionId)}`, { method: 'PUT', body: data });
+export const activateAcademicSession = (sessionId) => req(`/api/school/academic/sessions/${enc(sessionId)}/activate`, { method: 'POST' });
+export const archiveAcademicSession = (sessionId, archived) => req(`/api/school/academic/sessions/${enc(sessionId)}/archive`, { method: 'POST', body: { archived } });
+export const saveAcademicTerms = (sessionId, terms) => req(`/api/school/academic/sessions/${enc(sessionId)}/terms`, { method: 'PUT', body: { terms } });
+export const activateAcademicTerm = (termId) => req(`/api/school/academic/terms/${enc(termId)}/activate`, { method: 'POST' });
+export const closeAcademicTerm = (termId) => req(`/api/school/academic/terms/${enc(termId)}/close`, { method: 'POST' });
+export const saveAcademicBreak = (sessionId, data) => req(`/api/school/academic/sessions/${enc(sessionId)}/breaks`, { method: 'POST', body: data });
+export const deleteAcademicBreak = (breakId) => req(`/api/school/academic/breaks/${enc(breakId)}`, { method: 'DELETE' });
+
+// Session enrollment
+export const getSessionEnrollments = (sessionId, params = {}) => {
+  const query = new URLSearchParams(Object.entries(params).filter(([, value]) => value)).toString();
+  return req(`/api/school/academic/sessions/${enc(sessionId)}/enrollments${query ? `?${query}` : ''}`);
+};
+export const saveSessionEnrollment = (sessionId, data) => req(`/api/school/academic/sessions/${enc(sessionId)}/enrollments`, { method: 'POST', body: data });
+// Catch a register up with the school roster: students admitted since the
+// session was drafted, or a session created before registers filled themselves.
+export const autoEnrolSession = (sessionId) => req(`/api/school/academic/sessions/${enc(sessionId)}/auto-enrol`, { method: 'POST' });
+// Move a group of students into one class within a session — the manual half of
+// a promotion that lands a whole year group in one default class.
+export const moveSessionEnrollments = (sessionId, { studentIds, classId, status }) =>
+  req(`/api/school/academic/sessions/${enc(sessionId)}/enrollments/move`, { method: 'POST', body: { studentIds, classId, status } });
+export const getStudentEnrollmentHistory = (studentId) => req(`/api/school/academic/students/${enc(studentId)}/enrollments`);
+
+// Promotion rounds
+export const getPromotionBatches = () => req('/api/school/promotion/batches');
+export const createPromotionBatch = (data) => req('/api/school/promotion/batches', { method: 'POST', body: data });
+export const getPromotionBatchDetail = (batchId) => req(`/api/school/promotion/batches/${enc(batchId)}`);
+export const updatePromotionBatch = (batchId, updates) => req(`/api/school/promotion/batches/${enc(batchId)}`, { method: 'PATCH', body: { updates } });
+export const commitPromotionBatch = (batchId, studentIds) => req(`/api/school/promotion/batches/${enc(batchId)}/commit`, { method: 'POST', body: studentIds ? { studentIds } : {} });
+export const cancelPromotionBatch = (batchId) => req(`/api/school/promotion/batches/${enc(batchId)}`, { method: 'DELETE' });
+export const getPromotionAudit = (params = {}) => {
+  const query = new URLSearchParams(Object.entries(params).filter(([, value]) => value)).toString();
+  return req(`/api/school/promotion/audit${query ? `?${query}` : ''}`);
+};
+
+// Term fee assessments
+export const getFeeAssessments = (params = {}) => {
+  const query = new URLSearchParams(Object.entries(params).filter(([, value]) => value)).toString();
+  return req(`/api/school/fees/assessments${query ? `?${query}` : ''}`);
+};
+export const generateFeeAssessments = (data) => req('/api/school/fees/assessments/generate', { method: 'POST', body: data });
+export const carryOpeningBalances = (data) => req('/api/school/fees/assessments/opening-balances', { method: 'POST', body: data });
+export const getStudentFeeHistory = (studentId) => req(`/api/school/fees/students/${enc(studentId)}/history`);
+export const getStudentFeeOutstanding = (studentId) => req(`/api/school/fees/students/${enc(studentId)}/outstanding`);
+export const recordStudentFeePayment = (studentId, data) => req(`/api/school/fees/students/${enc(studentId)}/payments`, { method: 'POST', body: data });
 export const getAlumni = () => req('/api/school/alumni');
 export const addAlumni = (data) => req('/api/school/alumni', { method: 'POST', body: data });
 export const deleteAlumni = (id) => req(`/api/school/alumni/${encodeURIComponent(id)}`, { method: 'DELETE' });

@@ -513,7 +513,7 @@ export default function SubjectsTab({ classId = '', subjects = [], canManage = f
 
       {/* Lesson note modal */}
       {activeNote && (
-        <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/60 p-4 md:items-center" onClick={() => setActiveNote(null)}>
+        <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/60 p-4 pb-[calc(1rem+var(--safe-bottom))] md:items-center md:pb-4" onClick={() => setActiveNote(null)}>
           <div className="w-full max-w-xl rounded-3xl border border-white/10 bg-[#0d0d1a] p-5 shadow-2xl" onClick={e => e.stopPropagation()}>
             <div className="flex items-start justify-between gap-3 mb-4">
               <div>

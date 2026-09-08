@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { getAmiWebsiteSections, saveAmiWebsiteSection, uploadAmiWebsiteAsset } from '../../../features/public/services/publicSiteApi';
 import OpportunitiesManager from '../../../features/public/components/OpportunitiesManager';
 import AmiMediaSettings from './AmiMediaSettings';
+import AmiLegalPage from './AmiLegalPage';
 
 const SECTION_DEFINITIONS = [
   {
@@ -570,12 +571,20 @@ export default function AmiWebsitePage() {
           >
             Media &amp; YouTube
           </button>
+          <button
+            type="button"
+            onClick={() => setActiveTab('legal')}
+            className={`shrink-0 rounded-xl px-4 py-2.5 text-sm font-bold transition ${activeTab === 'legal' ? 'bg-[#1a5c38] text-[#f5deb3] dark:bg-cyan-300 dark:text-black' : 'bg-white text-[#800020] hover:bg-[#f5deb3] dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700'}`}
+          >
+            Legal &amp; Policies
+          </button>
         </div>
       </section>
 
       {activeTab === 'media-settings' ? <AmiMediaSettings /> : null}
+      {activeTab === 'legal' ? <AmiLegalPage /> : null}
       {activeTab === 'opportunity-listings' ? <OpportunitiesManager allowTenantField /> : null}
-      {activeTab !== 'media-settings' && activeTab !== 'opportunity-listings'
+      {activeTab !== 'media-settings' && activeTab !== 'opportunity-listings' && activeTab !== 'legal'
         ? <SectionEditor section={activeSection} data={sectionsByKey[activeSection.key]} onSaved={loadSections} />
         : null}
     </div>

@@ -15,7 +15,7 @@ export default function LoginPage({ onLogin }) {
   };
 
   return (
-    <div className="min-h-screen bg-[linear-gradient(180deg,#b5e3f4_0%,#fff4df_48%,#b5e3f4_100%)] px-4 py-4 text-[#191970] sm:px-6 sm:py-6 lg:px-8 dark:bg-[linear-gradient(180deg,#140014_0%,#1f0020_100%)] dark:text-[#39ff14]">
+    <div className="min-h-screen bg-[linear-gradient(180deg,#b5e3f4_0%,#fff4df_48%,#b5e3f4_100%)] px-4 pt-[calc(1rem+var(--safe-top))] pb-[calc(1rem+var(--safe-bottom))] text-[#191970] sm:px-6 sm:pt-[calc(1.5rem+var(--safe-top))] sm:pb-[calc(1.5rem+var(--safe-bottom))] lg:px-8 dark:bg-[linear-gradient(180deg,#140014_0%,#1f0020_100%)] dark:text-[#39ff14]">
       <div className="mx-auto grid w-full max-w-6xl overflow-hidden rounded-[32px] border border-[#c9a96e]/45 bg-[#fff4df] shadow-[0_28px_100px_rgba(128,0,0,0.18)] lg:min-h-[calc(100vh-3rem)] lg:grid-cols-[0.96fr_1.04fr] dark:border-[#bf00ff]/35 dark:bg-[#800000]/40 dark:backdrop-blur-xl">
         <section className="relative min-h-[280px] overflow-hidden lg:min-h-full">
           <video

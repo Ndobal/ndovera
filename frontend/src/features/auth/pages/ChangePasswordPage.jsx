@@ -67,7 +67,7 @@ export default function ChangePasswordPage({ onLogin }) {
   }
 
   return (
-    <div className="min-h-screen bg-[#b5e3f4] flex items-center justify-center px-4 py-8">
+    <div className="min-h-screen bg-[#b5e3f4] flex items-center justify-center px-4 pt-[calc(2rem+var(--safe-top))] pb-[calc(2rem+var(--safe-bottom))]">
       <div className="w-full max-w-md rounded-3xl p-8 bg-white border border-[#c9a96e]/40 shadow-xl dark:bg-slate-900 dark:border-white/10">
         <div className="mb-6 text-center">
           <h1 className="text-2xl font-black text-[#800000] dark:text-slate-100">

@@ -66,7 +66,7 @@ export default function StaffSignIn({ onClose, onSignedIn }) {
   const session = currentSession();
 
   return (
-    <div className="fixed inset-0 z-[120] flex items-end justify-center bg-slate-950/70 backdrop-blur-sm sm:items-center">
+    <div className="fixed inset-0 z-[120] flex items-end justify-center bg-slate-950/70 backdrop-blur-sm pb-[var(--safe-bottom)] sm:items-center sm:pb-0">
       <AnimatePresence mode="wait">
         {view === 'menu' && (
           <SignInMenu

@@ -3,6 +3,7 @@ const accountantConfig = {
   watermark: 'ACCOUNTANT',
   sections: {
     overview: { title: 'Overview', subtitle: 'Control school income, expenses, and finance health.' },
+    'term-fees': { title: 'Term Fees', subtitle: "Raise this term's charges, take payments, and settle arrears." },
     fees: { title: 'Fee Management', subtitle: 'Manage tuition, transport, and other charges.' },
     receipts: { title: 'Receipts', subtitle: 'View and issue receipts for approved payments.' },
     'ai-assistant': { title: 'AI Assistant', subtitle: 'Chat with Workers AI for finance summaries, notices, and professional drafting support.' },

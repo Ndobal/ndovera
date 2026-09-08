@@ -36,7 +36,7 @@ export default function PartnerShell({ partnerName, unreadCount = 0, children })
 
   return (
     <div className="min-h-screen bg-[#fff8ee] dark:bg-slate-950">
-      <div className="mx-auto flex max-w-7xl gap-6 px-4 pb-28 pt-6 sm:px-6 lg:px-8 lg:pb-10">
+      <div className="mx-auto flex max-w-7xl gap-6 px-4 pb-[calc(7rem+var(--safe-bottom))] pt-6 sm:px-6 lg:px-8 lg:pb-10">
         <aside className="hidden w-64 shrink-0 lg:block">
           <div className="sticky top-6 rounded-3xl border border-[#c9a96e]/40 bg-[#b5e3f4] p-4 dark:border-white/10 dark:bg-slate-900/40">
             <p className="px-2 text-xs font-bold uppercase tracking-[0.22em] text-[#800020] dark:text-slate-400">Growth Partner</p>
@@ -59,7 +59,7 @@ export default function PartnerShell({ partnerName, unreadCount = 0, children })
       </div>
 
       {/* Mobile: three fixed destinations plus a tray for the rest. */}
-      <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-[#c9a96e]/40 bg-[#b5e3f4] pb-[env(safe-area-inset-bottom)] lg:hidden dark:border-white/10 dark:bg-slate-900">
+      <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-[#c9a96e]/40 bg-[#b5e3f4] pb-[max(0.25rem,var(--safe-bottom))] lg:hidden dark:border-white/10 dark:bg-slate-900">
         <div className="grid grid-cols-4">
           {PRIMARY.map(item => (
             <NavLink
@@ -101,7 +101,7 @@ export default function PartnerShell({ partnerName, unreadCount = 0, children })
             onClick={() => setTrayOpen(false)}
             className="fixed inset-0 z-40 bg-black/40 lg:hidden"
           />
-          <div className="fixed inset-x-0 bottom-[4.25rem] z-50 mx-3 rounded-3xl border border-[#c9a96e]/40 bg-[#fff8ee] p-3 shadow-2xl lg:hidden dark:border-white/10 dark:bg-slate-900">
+          <div className="fixed inset-x-0 bottom-[calc(4.25rem+var(--safe-bottom))] z-50 mx-3 rounded-3xl border border-[#c9a96e]/40 bg-[#fff8ee] p-3 shadow-2xl lg:hidden dark:border-white/10 dark:bg-slate-900">
             <div className="grid grid-cols-3 gap-2">
               {SECONDARY.map(item => (
                 <NavLink

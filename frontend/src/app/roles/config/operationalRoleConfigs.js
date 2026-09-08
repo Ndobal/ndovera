@@ -341,6 +341,58 @@ const operationalRoleConfigs = {
     },
   },
 
+  caregiver: {
+    roleTitle: 'Caregiver Dashboard',
+    watermark: 'CAREGIVER',
+    sections: {
+      overview: {
+        title: 'Overview',
+        subtitle: 'Care for the children in the classes you are assigned to.',
+        cards: [
+          { label: 'My Classes', value: '—', accent: 'accent-indigo' },
+          { label: 'Children Present', value: '—', accent: 'accent-emerald' },
+          { label: 'Welfare Notes', value: '—', accent: 'accent-amber' },
+          { label: 'Messages', value: '—', accent: 'accent-rose' },
+        ],
+        panels: [
+          { title: 'Today', items: [{ text: 'Check who is in and who is absent.', tag: 'Attendance', accent: 'accent-emerald' }, { text: 'Note anything a parent should hear about.', tag: 'Welfare', accent: 'accent-amber' }, { text: 'Hand over to the class teacher at close.', tag: 'Handover', accent: 'accent-indigo' }] },
+          { title: 'What This Role Covers', items: [{ text: 'The classes you have been assigned to.' }, { text: 'Daily care, welfare and handover notes.' }, { text: 'Teaching records stay with the class teacher.' }] },
+        ],
+      },
+      classes: { title: 'My Classes', subtitle: 'The classes you have been assigned to.', panels: [{ title: 'Class Care', items: [{ text: 'See the children in each class.' }, { text: 'Follow the day\u2019s routine and timings.' }, { text: 'Raise anything the class teacher should know.' }] }] },
+      welfare: { title: 'Welfare', subtitle: 'Day-to-day care notes and concerns.', panels: [{ title: 'Welfare Desk', items: [{ text: 'Record care notes for the day.' }, { text: 'Flag a child who needs the clinic.' }, { text: 'Escalate safeguarding concerns immediately.' }] }] },
+      messaging: { title: 'Messaging', subtitle: 'Keep staff and parents informed.', panels: [{ title: 'Messages', items: [{ text: 'Message the class teacher or head.' }, { text: 'Keep parent updates short and factual.' }, { text: 'Every message is logged.' }] }] },
+      settings: { title: 'Settings', subtitle: 'Manage your account and alerts.', panels: [{ title: 'Security', items: [{ text: 'Change your password.' }, { text: 'Review active sessions.' }, { text: 'Set notification preferences.' }] }] },
+    },
+  },
+
+  viceprincipal: {
+    roleTitle: 'Vice Principal Dashboard',
+    watermark: 'VICE PRINCIPAL',
+    sections: {
+      overview: {
+        title: 'Overview',
+        subtitle: 'Support the principal across academics and discipline.',
+        cards: [
+          { label: 'Open Cases', value: '—', accent: 'accent-rose' },
+          { label: 'Pending Approvals', value: '—', accent: 'accent-amber' },
+          { label: 'Staff Alerts', value: '—', accent: 'accent-indigo' },
+          { label: 'Attendance', value: '—', accent: 'accent-emerald' },
+        ],
+        panels: [
+          { title: 'Deputy Priority', items: [{ text: 'Clear the discipline cases delegated to you.', tag: 'Discipline', accent: 'accent-rose' }, { text: 'Check class coverage for absent staff.', tag: 'Cover', accent: 'accent-indigo' }, { text: 'Prepare the week\u2019s brief for the principal.', tag: 'Report', accent: 'accent-amber' }] },
+          { title: 'Scope', items: [{ text: 'Acts for the principal on academics and discipline.' }, { text: 'Finance controls remain with finance roles.' }, { text: 'All high-level actions are audited.' }] },
+        ],
+      },
+      academics: { title: 'Academic Oversight', subtitle: 'Keep teaching quality and coverage on track.', panels: [{ title: 'Academic Oversight', items: [{ text: 'Review class and section trends.' }, { text: 'Follow up on weak classes.' }, { text: 'Monitor curriculum coverage.' }] }] },
+      discipline: { title: 'Discipline', subtitle: 'Handle the cases delegated to you.', panels: [{ title: 'Discipline Desk', items: [{ text: 'Track cases and their resolutions.' }, { text: 'Record sanctions and outcomes.' }, { text: 'Escalate repeat incidents to the principal.' }] }] },
+      staff: { title: 'Staff Support', subtitle: 'Cover, punctuality and day-to-day staff matters.', panels: [{ title: 'Staff View', items: [{ text: 'Arrange cover for absent staff.' }, { text: 'Review punctuality and output.' }, { text: 'Escalate critical concerns.' }] }] },
+      messaging: { title: 'Messaging', subtitle: 'Send notices on the leadership team\u2019s behalf.', panels: [{ title: 'Messages', items: [{ text: 'Broadcast to staff, parents, and students.' }, { text: 'Use templates for formal notices.' }, { text: 'Keep communication logged.' }] }] },
+      reports: { title: 'Reports', subtitle: 'Prepare leadership reports and summaries.', panels: [{ title: 'Reports', items: [{ text: 'Discipline and welfare summary.' }, { text: 'Class coverage report.' }, { text: 'Term performance update.' }] }] },
+      settings: { title: 'Settings', subtitle: 'Manage profile and access security.', panels: [{ title: 'Security', items: [{ text: 'Change password and enable 2FA.' }, { text: 'Review active sessions.' }, { text: 'Manage alert preferences.' }] }] },
+    },
+  },
+
   principal: {
     roleTitle: 'Principal Dashboard',
     watermark: 'PRINCIPAL',
@@ -493,8 +545,9 @@ const operationalRoleConfigs = {
         ],
       },
       tenants: { title: 'Tenant Governance', subtitle: 'Manage tenant-level controls and states.', panels: [{ title: 'Tenant Controls', items: [{ text: 'View tenant health and usage.' }, { text: 'Suspend or restore tenant access.' }, { text: 'Apply global policy overrides.' }] }] },
-      website: { title: 'Website', subtitle: 'Manage the public NDOVERA corporate website.', panels: [{ title: 'Public Site Controls', items: [{ text: 'Edit homepage and public website pages.' }, { text: 'Upload website media to R2.' }, { text: 'Embed YouTube videos inside the public pages.' }] }] },
+      website: { title: 'Website', subtitle: 'Manage the public NDOVERA corporate website and its legal pages.', panels: [{ title: 'Public Site Controls', items: [{ text: 'Edit homepage and public website pages.' }, { text: 'Upload website media to R2.' }, { text: 'Embed YouTube videos inside the public pages.' }, { text: 'Publish the privacy policy, terms, data handling and YouTube disclosure.' }] }] },
       'growth-partners': { title: 'Growth Partners', subtitle: 'Monitor partner activity, payments, and representative appointments.', panels: [{ title: 'Partner Command', items: [{ text: 'Review referrals, commissions, and payout activity.' }, { text: 'Record manual partner payouts.' }, { text: 'Appoint state, regional, national, or global representatives.' }] }] },
+      championships: { title: 'Championships', subtitle: 'Create and run NDOVERA competitions from one configurable engine.', panels: [{ title: 'Championship Engine', items: [{ text: 'Create a championship and choose its category, format and scope.' }, { text: 'Build the stage sequence and set age, class and location eligibility.' }, { text: 'Publish to the public championships page and promote it once to each user.' }, { text: 'Review registrations for any competition.' }] }] },
       security: { title: 'Security Command', subtitle: 'Handle platform-wide security events.', panels: [{ title: 'Security Ops', items: [{ text: 'Review high-risk sign-in events.' }, { text: 'Trigger emergency containment.' }, { text: 'Audit privileged access actions.' }] }] },
       policies: { title: 'Policy Engine', subtitle: 'Create and roll out system policies.', panels: [{ title: 'Policy Management', items: [{ text: 'Draft and publish global policies.' }, { text: 'Set compliance checks per tenant.' }, { text: 'Track acceptance and violations.' }] }] },
       audits: { title: 'Audit Trail', subtitle: 'Monitor immutable logs for all critical actions.', panels: [{ title: 'Audit Reports', items: [{ text: 'Search by actor, action, and time.' }, { text: 'Export legal-grade audit logs.' }, { text: 'Flag suspicious activity patterns.' }] }] },

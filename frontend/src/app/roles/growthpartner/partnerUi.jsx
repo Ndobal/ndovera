@@ -48,3 +48,36 @@ export function Notice({ error, notice }) {
 export function EmptyState({ children }) {
   return <p className={`rounded-2xl border border-dashed border-[#c9a96e]/60 bg-white/50 px-4 py-6 text-center ${BODY} dark:bg-slate-900/30`}>{children}</p>;
 }
+
+// Growth partners are independent contractors, not employees. NDOVERA pays commission gross
+// and withholds nothing, so every screen where money is discussed says so plainly.
+export function TaxNotice({ variant = 'full' }) {
+  return (
+    <section className="rounded-3xl border-2 border-[#800020]/45 bg-[#fff3f3] p-5 dark:border-rose-400/35 dark:bg-rose-950/25 sm:p-6">
+      <div className="flex items-start gap-3">
+        <span aria-hidden="true" className="text-xl leading-none">⚠️</span>
+        <div className="min-w-0">
+          <h2 className="text-base font-black uppercase tracking-wide text-[#800020] dark:text-rose-200">
+            Tax is your own responsibility
+          </h2>
+          <p className={`mt-2 ${BODY}`}>
+            NDOVERA pays your commission <span className="font-bold">gross</span>. We do not deduct, withhold,
+            remit or file any tax on your behalf, and we do not issue tax clearance on your behalf.
+          </p>
+          {variant === 'full' ? (
+            <ul className={`mt-3 space-y-1.5 ${BODY}`}>
+              <li>• You are responsible for declaring everything you earn through NDOVERA.</li>
+              <li>• You are responsible for paying every tax, levy and contribution owed to the relevant authorities where you live and work.</li>
+              <li>• You are responsible for registering for tax and keeping your own records where the law requires it.</li>
+              <li>• You act as an independent contractor, not an NDOVERA employee.</li>
+            </ul>
+          ) : null}
+          <p className={`mt-3 ${MUTED}`}>
+            Your earnings statement on this page is the record to give your accountant. If you are unsure what
+            you owe, speak to a qualified tax adviser — NDOVERA cannot give tax advice.
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}

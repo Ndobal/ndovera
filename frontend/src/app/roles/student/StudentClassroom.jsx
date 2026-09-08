@@ -599,8 +599,8 @@ export default function StudentClassroom() {
     }), [classMembers, selfMemberIdentifiers]);
   const teacherMembers = classMembers.filter(member => String(member.role || '').toLowerCase() === 'teacher');
   const rootContainerClassName = activeTab === 'stream'
-    ? `h-full min-h-0 overflow-y-auto overflow-x-hidden overscroll-contain ${isMobile ? 'px-4 pb-[calc(8.5rem+env(safe-area-inset-bottom))] pt-4 scroll-pb-[calc(8.5rem+env(safe-area-inset-bottom))]' : 'px-8 py-8 pr-4'} max-w-none`
-    : `h-full min-h-0 overflow-y-auto overflow-x-hidden overscroll-contain ${isMobile ? 'p-4 pb-[calc(8.5rem+env(safe-area-inset-bottom))] scroll-pb-[calc(8.5rem+env(safe-area-inset-bottom))]' : 'p-8 pr-4'} max-w-5xl mx-auto`;
+    ? `h-full min-h-0 overflow-y-auto overflow-x-hidden overscroll-contain ${isMobile ? 'px-4 pb-[calc(8.5rem+var(--safe-bottom))] pt-4 scroll-pb-[calc(8.5rem+var(--safe-bottom))]' : 'px-8 py-8 pr-4'} max-w-none`
+    : `h-full min-h-0 overflow-y-auto overflow-x-hidden overscroll-contain ${isMobile ? 'p-4 pb-[calc(8.5rem+var(--safe-bottom))] scroll-pb-[calc(8.5rem+var(--safe-bottom))]' : 'p-8 pr-4'} max-w-5xl mx-auto`;
 
   return (
     <div className={rootContainerClassName}>
@@ -1307,7 +1307,7 @@ export default function StudentClassroom() {
       )}
 
       {isMobile && (
-        <nav className="fixed bottom-0 left-0 right-0 z-40 border-t border-white/10 frost-panel px-2 py-2">
+        <nav className="fixed bottom-0 left-0 right-0 z-40 border-t border-white/10 frost-panel px-2 pt-2 safe-bottom">
           <div className="flex items-stretch gap-1 overflow-x-auto no-scrollbar">
             {bottomTabs.map(tab => {
               const Icon = tab.icon;
@@ -1327,7 +1327,7 @@ export default function StudentClassroom() {
       )}
 
       {aiExplain.open && (
-        <div className="fixed inset-0 z-50 flex items-end md:items-center justify-center bg-black/60 px-4 py-6" onClick={() => setAiExplain(state => ({ ...state, open: false }))}>
+        <div className="fixed inset-0 z-50 flex items-end md:items-center justify-center bg-black/60 px-4 pt-6 pb-[calc(1.5rem+var(--safe-bottom))]" onClick={() => setAiExplain(state => ({ ...state, open: false }))}>
           <div className="w-full max-w-2xl max-h-[85vh] overflow-y-auto rounded-3xl border border-white/10 bg-[#0d0d1a] p-6 shadow-2xl" onClick={event => event.stopPropagation()}>
             <div className="flex items-start justify-between gap-3 mb-4">
               <div className="flex items-center gap-2">

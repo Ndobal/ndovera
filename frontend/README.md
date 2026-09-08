@@ -30,6 +30,16 @@ If you are running the API locally, the frontend uses the proxy configured in `p
 ## Main Feature Areas
 
 - Role dashboards for school leadership, staff, parents, and students.
+- Academic sessions and terms (Owner → Settings → Sessions & Terms): create sessions, configure the
+  three terms and the breaks between them, set a session or term to activate automatically on its
+  date, and archive past sessions. Only one session and one term can be active at a time.
+- Promotion (Owner → Settings → Promotion): draft a promotion round from the configured class
+  progression, review every proposal, override any student by hand, promote in bulk, and approve.
+  Nothing moves until the round is approved, and the previous session's records are left intact.
+  The class-progression map itself lives under Promotion Flow.
+- Term fees (Owner → Finance → Term Fees, Accountant → Term Fees): this term's charges alongside
+  arrears brought forward, per-student payment with explicit allocation across charges, receipts
+  through the existing receipt system, and a full financial history per student.
 - Classroom materials, assignments, parent learning views, and lesson plans.
 - Fees, receipts, finance controls, and claims review.
 - Payroll now includes editable earning and deduction headings, staff account details, and saved monthly payroll-note print sheets with preview/export support.

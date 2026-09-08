@@ -6,6 +6,7 @@ import SchoolNewsroomPage from '../../features/school/components/SchoolNewsroomP
 import PayrollManagementBoard from '../../features/school/components/PayrollManagementBoard';
 import StaffAiAssistantPage from '../../features/ai/components/StaffAiAssistantPage';
 import OwnerFinance from './owner/OwnerFinance';
+import TermFeesBoard from '../../features/school/components/TermFeesBoard';
 import FeesManagementBoard from '../../features/school/components/FeesManagementBoard';
 import FeeReceiptsBoard from '../../features/school/components/FeeReceiptsBoard';
 import FinanceReconciliationBoard from '../../features/school/components/FinanceReconciliationBoard';
@@ -43,7 +44,11 @@ export default function AccountantDashboard() {
   }
 
   if (sectionKey === 'overview') {
-    return <OwnerFinance initialTab={5} />;
+    return <OwnerFinance initialTab="Income & Expenditure" />;
+  }
+
+  if (sectionKey === 'term-fees') {
+    return <TermFeesBoard />;
   }
 
   if (sectionKey === 'fees') {
@@ -55,7 +60,7 @@ export default function AccountantDashboard() {
   }
 
   if (sectionKey === 'expenses') {
-    return <OwnerFinance initialTab={4} />;
+    return <OwnerFinance initialTab="Expenditure" />;
   }
 
   if (sectionKey === 'reconciliation') {
@@ -67,7 +72,7 @@ export default function AccountantDashboard() {
   }
 
   if (sectionKey === 'reports') {
-    return <OwnerFinance initialTab={5} />;
+    return <OwnerFinance initialTab="Income & Expenditure" />;
   }
 
   if (sectionKey === 'auras') {
