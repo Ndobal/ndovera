@@ -10,6 +10,7 @@ const roleOptions = [
   { label: 'Head of School', path: '/roles/hos' },
   { label: 'Accountant', path: '/roles/accountant' },
   { label: 'Owner', path: '/roles/owner' },
+  { label: 'Growth Partner', path: '/roles/growthpartner' },
   { label: 'Librarian', path: '/roles/librarian' },
   { label: 'Sanitation Officer', path: '/roles/sanitation' },
   { label: 'Tuck Shop Manager', path: '/roles/tuckshopmanager' },
@@ -35,7 +36,7 @@ function getRoleKeyFromPath(path) {
   return path.split('/')[2];
 }
 
-function normalizeRoles(values, fallbackRole = 'student') {
+function normalizeRoles(values, fallbackRole = '') {
   const roles = [];
   const seen = new Set();
 
@@ -46,67 +47,115 @@ function normalizeRoles(values, fallbackRole = 'student') {
     roles.push(normalized);
   };
 
-  if (Array.isArray(values)) {
-    values.forEach(appendRole);
-  } else {
-    appendRole(values);
-  }
-
-  if (roles.length === 0 && fallbackRole) {
-    appendRole(fallbackRole);
-  }
-
+  (Array.isArray(values) ? values : String(values || '').split(',')).forEach(appendRole);
+  if (!roles.length && fallbackRole) appendRole(fallbackRole);
   return roles;
 }
 
-export default function RoleSwitcher({ authUser = null }) {
+/**
+ * The roles this account may work as, and which one it is working as now.
+ *
+ * `switchableRoles` and nothing else. It is the server's own statement of what
+ * this account may switch into, and the only set the app honours end to end: the
+ * stored role is ignored unless it appears there, so every request would keep
+ * going out as the previous role. Offering anything wider makes a menu that
+ * changes the page but not who the user is — the new dashboard would load and
+ * then answer 403 to its own data. Roles the server merges under Admin
+ * (accountant, librarian, ICT and the rest) are reached by switching to Admin,
+ * which is how it hands them over; Ami opens other schools through its own
+ * support session rather than through this list.
+ */
+export function resolveRoleOptions(authUser) {
+  const currentUserRole = String(authUser?.role || '').trim().toLowerCase();
+  const switchable = new Set(normalizeRoles(authUser?.switchableRoles, currentUserRole));
+  const options = roleOptions.filter(option => switchable.has(getRoleKeyFromPath(option.path)));
+
+  let stored = '';
+  try {
+    stored = String(window.localStorage.getItem('selectedRole') || '').trim().toLowerCase();
+  } catch {
+    // A browser with site data blocked still gets a working switcher.
+    stored = '';
+  }
+
+  const known = key => options.some(option => getRoleKeyFromPath(option.path) === key);
+  const activeRole = (stored && known(stored) && stored)
+    || (known(currentUserRole) && currentUserRole)
+    || getRoleKeyFromPath(options[0]?.path || '')
+    || currentUserRole;
+
+  return { options, activeRole };
+}
+
+/**
+ * Switch the account into another of its roles.
+ *
+ * The stored role is what the app reads on its next render and what every API
+ * request carries in X-Selected-Role, so it is written before navigating —
+ * otherwise the new dashboard's first requests would still be made as the old
+ * role and its guard would bounce the user straight back.
+ */
+export function switchToRole(roleKey) {
+  try {
+    window.localStorage.setItem('selectedRole', roleKey);
+  } catch {
+    // Non-fatal: the route still changes, it just will not be remembered.
+  }
+}
+
+/**
+ * The role list inside the avatar menu. Renders nothing for the great majority
+ * of people, who hold exactly one role and should not be shown a choice.
+ */
+export default function RoleSwitcher({ authUser = null, onSwitch = () => {} }) {
   const navigate = useNavigate();
   const location = useLocation();
+  const { options, activeRole } = resolveRoleOptions(authUser);
 
-  const currentUserRole = authUser?.role || 'student';
-  const rawRoles = normalizeRoles(authUser?.roles, currentUserRole);
-  const switchableRoles = normalizeRoles(authUser?.switchableRoles, currentUserRole);
-  const canSwitchAllRoles = rawRoles.includes('ami') || currentUserRole === 'ami';
-  const availableOptions = canSwitchAllRoles
-    ? roleOptions
-    : roleOptions.filter(option => switchableRoles.includes(getRoleKeyFromPath(option.path)));
+  if (options.length <= 1) return null;
 
-  const storedSelectedRole = localStorage.getItem('selectedRole');
-  const selectedRole = storedSelectedRole && availableOptions.some(option => getRoleKeyFromPath(option.path) === storedSelectedRole)
-    ? storedSelectedRole
-    : (switchableRoles.includes(currentUserRole)
-      ? currentUserRole
-      : (switchableRoles.includes('admin') && normalizeRoles(authUser?.adminRoles).includes(currentUserRole)
-        ? 'admin'
-        : (switchableRoles[0] || currentUserRole)));
-  const selectedPath = `/roles/${selectedRole}`;
-  const currentPath = availableOptions.some(option => location.pathname === option.path || location.pathname.startsWith(`${option.path}/`))
-    ? (availableOptions.find(option => location.pathname === option.path || location.pathname.startsWith(`${option.path}/`))?.path || selectedPath)
-    : selectedPath;
+  // The role in the address bar wins while the user is inside it: it is where
+  // they actually are, whatever was last stored.
+  const pathRole = location.pathname.startsWith('/roles/')
+    ? location.pathname.split('/')[2] || ''
+    : '';
+  const current = options.some(option => getRoleKeyFromPath(option.path) === pathRole) ? pathRole : activeRole;
 
-  const handleSwitchRole = event => {
-    const nextPath = event.target.value;
-    const nextRole = getRoleKeyFromPath(nextPath);
-    localStorage.setItem('selectedRole', nextRole);
-    navigate(nextPath);
-  };
+  function choose(option) {
+    const roleKey = getRoleKeyFromPath(option.path);
+    switchToRole(roleKey);
+    onSwitch(roleKey);
+    navigate(option.path);
+  }
 
   return (
-    <div className="flex items-center gap-2">
-      <span className="micro-label neon-subtle hidden sm:inline">Switch Role</span>
-      <select
-        value={currentPath}
-        onChange={handleSwitchRole}
-        className="glass-chip text-slate-800 dark:text-slate-100 rounded-xl px-3 py-2 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-400"
-        aria-label="Switch dashboard role"
-        disabled={availableOptions.length <= 1}
-      >
-        {availableOptions.map(option => (
-          <option key={option.path} value={option.path}>
-            {option.label}
-          </option>
-        ))}
-      </select>
+    <div className="border-b border-slate-100 dark:border-slate-800">
+      <p className="px-4 pt-3 pb-1 text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
+        Switch role
+      </p>
+      <ul className="max-h-56 overflow-y-auto pb-2">
+        {options.map(option => {
+          const roleKey = getRoleKeyFromPath(option.path);
+          const isCurrent = roleKey === current;
+          return (
+            <li key={option.path}>
+              <button
+                type="button"
+                onClick={() => choose(option)}
+                aria-current={isCurrent ? 'true' : undefined}
+                className={`flex w-full items-center justify-between gap-2 px-4 py-2 text-left text-sm transition-colors ${
+                  isCurrent
+                    ? 'font-bold text-emerald-700 dark:text-emerald-300'
+                    : 'text-slate-700 hover:bg-emerald-100 hover:text-slate-900 dark:text-slate-200 dark:hover:bg-emerald-700/25 dark:hover:text-white'
+                }`}
+              >
+                <span>{option.label}</span>
+                {isCurrent ? <span aria-hidden="true">✓</span> : null}
+              </button>
+            </li>
+          );
+        })}
+      </ul>
     </div>
   );
 }

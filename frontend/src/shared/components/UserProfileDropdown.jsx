@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLocation, useNavigate } from 'react-router-dom';
 import ThemeToggle from './ThemeToggle';
+import RoleSwitcher from './RoleSwitcher';
 
 export default function UserProfileDropdown({ user = null, onLogout = () => {} }) {
   const navigate = useNavigate();
@@ -68,6 +69,8 @@ export default function UserProfileDropdown({ user = null, onLogout = () => {} }
                 <p className="text-xs micro-label text-slate-500 dark:text-slate-400">{displayRole.toUpperCase()}</p>
               </div>
             </div>
+            <RoleSwitcher authUser={user} onSwitch={() => setOpen(false)} />
+
             <ul className="py-2">
               <li>
                 <div className="flex items-center justify-between gap-3 px-4 py-2 text-sm text-slate-700 dark:text-slate-200">
