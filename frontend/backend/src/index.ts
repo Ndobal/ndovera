@@ -12287,21 +12287,34 @@ app.get('/api/people', authenticate, async (c) => {
       'cafeteria', 'clinic', 'ict', 'ict_manager', 'examofficer', 'sportsmaster', 'sanitation',
       'librarian', 'admin', 'classteacher',
     ]
+    // users.role and users.primary_role hold one role each — the person's main one.
+    // Every role beyond it lives in their settings payload, which is why someone
+    // made a teacher on top of an admin role vanished from every teacher picker in
+    // the app (subject assignment, class teacher) while still being shown as a
+    // teacher everywhere else. So a role filter asks both: the column, and the
+    // roles recorded against them.
+    //
+    // The settings lookup is by primary key, so it costs one indexed row per
+    // candidate rather than a scan. The LIKE is deliberately coarse — a payload
+    // could carry the word elsewhere — and is tightened after hydration below,
+    // where each person's real role list has been parsed.
+    const SECONDARY_ROLE_MATCH = ` OR EXISTS (
+        SELECT 1 FROM settings s
+        WHERE (s.studentId = users.email OR s.studentId = users.id)
+          AND lower(s.payload) LIKE ?
+      )`
+
     let roleCondition = ''
     const roleConditionParams: string[] = []
-    if (roleFilter === 'teacher') {
-      roleCondition = ` AND lower(trim(coalesce(primary_role, role, ''))) = 'teacher'`
-    } else if (roleFilter === 'student') {
-      roleCondition = ` AND lower(trim(coalesce(primary_role, role, ''))) = 'student'`
-    } else if (roleFilter === 'parent') {
-      roleCondition = ` AND lower(trim(coalesce(primary_role, role, ''))) = 'parent'`
-    } else if (roleFilter === 'admin' || roleFilter === 'staff') {
+    if (roleFilter === 'admin' || roleFilter === 'staff') {
+      // The staff group already spans every leadership and operations role, and
+      // widening 23 of them to a LIKE apiece would not fit the CPU budget.
       const placeholders = SQL_ADMIN_ROLES.map(() => '?').join(', ')
       roleCondition = ` AND lower(trim(coalesce(primary_role, role, ''))) IN (${placeholders})`
       roleConditionParams.push(...SQL_ADMIN_ROLES)
     } else if (roleFilter) {
-      roleCondition = ` AND lower(trim(coalesce(primary_role, role, ''))) = ?`
-      roleConditionParams.push(roleFilter)
+      roleCondition = ` AND (lower(trim(coalesce(primary_role, role, ''))) = ?${SECONDARY_ROLE_MATCH})`
+      roleConditionParams.push(roleFilter, `%"${roleFilter}"%`)
     }
 
     // Basic search on name/email at SQL level (displayId search handled post-hydration)
@@ -12333,7 +12346,7 @@ app.get('/api/people', authenticate, async (c) => {
     // Full hydrateUserRecords is avoided here because it calls ensureStudentPublicId,
     // resolveSettingsIdentity, and generateDisplayId for every row, causing Worker CPU timeouts.
     const settingsMap = await getSettingsMapForUserRows(c.env.APP_DB, pageRows)
-    const people = pageRows.filter(Boolean).map(row => {
+    const mapped = pageRows.filter(Boolean).map(row => {
       const emailKey = String(row.email || '').trim()
       const idKey = String(row.id || '').trim()
       const settings = settingsMap.get(emailKey) || settingsMap.get(idKey) || null
@@ -12359,10 +12372,17 @@ app.get('/api/people', authenticate, async (c) => {
       }
     })
 
+    // Drop anyone the coarse payload match pulled in who does not actually hold
+    // the requested role. `total` stays as the database counted it: a page that
+    // loses a row to this is better than one that hides a real teacher.
+    const people = roleFilter && roleFilter !== 'admin' && roleFilter !== 'staff'
+      ? mapped.filter(person => person.primaryRole === roleFilter || (person.roles || []).includes(roleFilter))
+      : mapped
+
     return c.json({
       success: true,
       people,
-      pagination: { page, limit, total, hasMore: offset + people.length < total },
+      pagination: { page, limit, total, hasMore: offset + mapped.length < total },
     })
   } catch (error) {
     console.error('Failed to load people', error)
