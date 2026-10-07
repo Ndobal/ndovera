@@ -1327,6 +1327,7 @@ export default function TeacherClassroom({
                 classId={classId}
                 subjects={subjectsList}
                 canManage={canManage}
+                myIdentifiers={[storedUser?.id, storedUser?.email]}
                 onManageMaterials={subjectId => {
                   if (subjectId) setMaterialSubjectId(String(subjectId));
                   setActiveTab('materials');

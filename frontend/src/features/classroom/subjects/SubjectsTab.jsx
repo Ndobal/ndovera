@@ -50,7 +50,7 @@ function isAudioMaterial(material) {
  * `onManageMaterials(subjectId)` lets the classroom open its Materials tab on this
  * subject when a teacher presses "+" beside Materials.
  */
-export default function SubjectsTab({ classId = '', subjects = [], canManage = false, studentMode = false, onManageMaterials = null }) {
+export default function SubjectsTab({ classId = '', subjects = [], canManage: canManageClass = false, myIdentifiers = [], studentMode = false, onManageMaterials = null }) {
   const [activeSubjectId, setActiveSubjectId] = useState(null);
   const [activeTab, setActiveTab] = useState('assignments');
   // "+" shortcuts: a new assignment opens the composer; a new topic focuses its box.
@@ -86,6 +86,10 @@ export default function SubjectsTab({ classId = '', subjects = [], canManage = f
   const selectedSubject = useMemo(() => subjects.find(s => s.id === activeSubjectId) || null, [activeSubjectId, subjects]);
   const paletteIdx = useMemo(() => subjects.findIndex(s => s.id === activeSubjectId), [activeSubjectId, subjects]);
   const palette = SUBJECT_PALETTES[(paletteIdx >= 0 ? paletteIdx : 0) % SUBJECT_PALETTES.length];
+  // The class teacher (and leadership) manage every subject; a subject teacher manages the subject they teach —
+  // its topics, assignments and materials. Removing pupils from a subject stays with the class teacher.
+  const myIds = useMemo(() => myIdentifiers.map(value => String(value || '').trim().toLowerCase()).filter(Boolean), [myIdentifiers]);
+  const canManage = canManageClass || Boolean(selectedSubject && myIds.includes(String(selectedSubject.teacherId || '').trim().toLowerCase()));
 
   // Load assignments + materials when subject is selected
   useEffect(() => {
@@ -383,7 +387,7 @@ export default function SubjectsTab({ classId = '', subjects = [], canManage = f
                   <p className="text-xs text-slate-400">{member.email}</p>
                   {member.excluded && <span className="text-xs text-red-400 font-semibold">Excluded</span>}
                 </div>
-                {canManage && (
+                {canManageClass && (
                   member.excluded
                     ? <button onClick={() => handleRestore(member.id)} className="text-xs bg-emerald-700/60 hover:bg-emerald-600/70 text-emerald-200 px-3 py-1 rounded-xl font-bold">Restore</button>
                     : <button onClick={() => handleRemove(member.id)} className="text-xs bg-red-900/40 hover:bg-red-700/50 text-red-300 border border-red-500/30 px-3 py-1 rounded-xl font-semibold">Remove</button>
