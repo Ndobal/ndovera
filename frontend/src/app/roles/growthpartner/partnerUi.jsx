@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const naira = new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN', maximumFractionDigits: 0 });
+export const naira = new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN', minimumFractionDigits: 0, maximumFractionDigits: 0 });
 
 // Dark text on light surfaces throughout — the app shell is light, so nothing here relies on
 // a dark background to stay readable.

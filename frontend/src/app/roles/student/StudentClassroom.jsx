@@ -1,9 +1,13 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import RichContent from '../../../shared/rich/RichContent';
 import { useNavigate } from 'react-router-dom';
 import { getStoredAuth } from '../../../features/auth/services/authApi';
 import * as svc from '../../../features/classroom/classroomService';
+import StreamThread, { AutoGrowTextarea } from '../../../features/classroom/stream/StreamThread';
 import { askAiTutor } from '../../../features/ai/services/aiTutorApi';
 import MaterialTypeThumbnail, { materialTypeLabel } from '../../../shared/components/MaterialTypeThumbnail';
+import TopicHub from '../../../features/classroom/topics/TopicHub';
+import AiAnswer from '../../../features/ai/AiAnswer';
 import {
   AcademicCapIcon,
   ArrowLeftIcon,
@@ -118,6 +122,7 @@ function normalizeStreamPost(post) {
   return {
     ...post,
     author: post?.authorName || post?.author || post?.authorId || 'Teacher',
+    isStudentPost: Boolean(post?.isStudentPost || post?.authorRole === 'student'),
     text: htmlToDisplayText(post?.text || post?.content || ''),
     comments: Array.isArray(post?.comments)
       ? post.comments.map(comment => ({
@@ -310,7 +315,6 @@ export default function StudentClassroom() {
     if (!teacherSettings.studentAnnouncementsEnabled) return;
     if (!streamInput.trim()) return;
     const token = localStorage.getItem('token');
-    const userId = localStorage.getItem('userId') || 'student';
     const headers = { 'Content-Type': 'application/json', ...(token ? { Authorization: `Bearer ${token}` } : {}) };
     const optimistic = {
       id: `stream-${Date.now()}`,
@@ -330,7 +334,7 @@ export default function StudentClassroom() {
         const res = await fetch(`/api/classrooms/${classroomId}/stream`, {
           method: 'POST',
           headers,
-          body: JSON.stringify({ text: optimistic.text, authorId: userId }),
+          body: JSON.stringify({ text: optimistic.text }),
         });
         const json = res.ok ? await res.json() : null;
         if (json && (json.post || json.id)) {
@@ -341,19 +345,18 @@ export default function StudentClassroom() {
     }
   };
 
-  const addComment = async (postId) => {
+  const addComment = async (postId, typedText) => {
     if (!teacherSettings.commentsEnabled) return;
-    const text = (commentInputs[postId] || '').trim();
+    const text = String(typedText ?? commentInputs[postId] ?? '').trim();
     if (!text) return;
-    const userId = localStorage.getItem('userId') || 'student';
-    const optimistic = { id: `cm-${Date.now()}`, user: 'You', text };
+    const optimistic = { id: `cm-${Date.now()}`, user: 'You', text, createdAt: new Date().toISOString() };
     setStreamPosts(prev => prev.map(post => (
       post.id === postId ? { ...post, comments: [...post.comments, optimistic] } : post
     )));
     setCommentInputs(prev => ({ ...prev, [postId]: '' }));
     if (classroomId) {
       try {
-        await svc.addPostComment(classroomId, postId, { text, authorId: userId });
+        await svc.addPostComment(classroomId, postId, { text });
       } catch { /* keep optimistic */ }
     }
   };
@@ -430,7 +433,7 @@ export default function StudentClassroom() {
       name: String(fallbackName || 'Class User'),
       email: String(fallbackEmail),
       displayId: String(post?.displayId || ''),
-      role: formatRoleLabel(post?.isStudentPost ? 'student' : 'teacher'),
+      role: post?.postedByLabel || formatRoleLabel(post?.authorRole || (post?.isStudentPost ? 'student' : 'teacher')),
       className: classroomLabel,
       status: 'Active',
       isSelf: false,
@@ -499,7 +502,7 @@ export default function StudentClassroom() {
             </div>
             <p className="text-sm text-slate-600 dark:text-slate-300 mt-1">Subject: {materialSubjectName(material)}</p>
             {(material.topic || material.weekLabel) && <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">{material.topic || 'Lesson note'}{material.weekLabel ? ` • ${material.weekLabel}` : ''}</p>}
-            {material.description && <p className="text-sm text-slate-700 dark:text-slate-300 mt-2 whitespace-pre-wrap">{material.description}</p>}
+            {material.description && <RichContent className="text-sm text-slate-700 dark:text-slate-300 mt-2" text={material.description} />}
             {audio && (
               <audio controls preload="none" src={usableUrl} className="mt-3 w-full max-w-md">
                 Your browser does not support audio playback.
@@ -703,6 +706,10 @@ export default function StudentClassroom() {
           detailMaterials.forEach(m => { const entry = ensure(m.topic); if (entry) entry.materials += 1; });
           return Array.from(map.values()).sort((a, b) => a.name.localeCompare(b.name));
         })();
+        // A saved topic opens its full learning page; a name that only exists as a tag keeps the simple list.
+        const selectedTopicRecord = selectedTopicName
+          ? classTopics.find(t => String(t.name || '').trim().toLowerCase() === selectedTopicName.trim().toLowerCase() && (!detailSubjectId || String(t.subjectId || '') === detailSubjectId))
+          : null;
         const topicAssignments = detailAssignments.filter(t => String(t.metadata?.topic || '') === selectedTopicName);
         const topicMaterials = detailMaterials.filter(m => String(m.topic || '') === selectedTopicName);
         return (
@@ -795,7 +802,11 @@ export default function StudentClassroom() {
               </section>
             )}
 
-            {subjectDetailTab === 'topics' && selectedTopicName && (
+            {subjectDetailTab === 'topics' && selectedTopicRecord && (
+              <TopicHub classId={classroomId} topicId={selectedTopicRecord.id} subjectName={subjectDetailName} onBack={() => setSelectedTopicName('')} />
+            )}
+
+            {subjectDetailTab === 'topics' && selectedTopicName && !selectedTopicRecord && (
               <section className="space-y-3">
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <div className="flex items-center gap-2 min-w-0">
@@ -982,7 +993,7 @@ export default function StudentClassroom() {
 
       {activeTab === 'stream' && (
         <div className={`flex min-h-[70vh] flex-col gap-4 ${isMobile ? '-mx-4' : '-mx-8'}`}>
-          <div className="flex-1 space-y-4">
+          <div className={`flex-1 ${isMobile ? 'space-y-3' : 'space-y-4'}`}>
             {sortedStreamPosts.length === 0 && (
               <section className="rounded-[1.75rem] border border-[#c9a96e]/45 bg-[#b5e3f4] p-5 shadow-[0_14px_30px_rgba(128,0,0,0.08)]">
                 <p className="micro-label text-[#800020]">No stream updates yet</p>
@@ -995,7 +1006,7 @@ export default function StudentClassroom() {
               const postTimestamp = post?.createdAt || post?.updatedAt || new Date().toISOString();
 
               return (
-              <section key={post.id} className="rounded-[1.75rem] border border-[#c9a96e]/45 bg-[#b5e3f4] p-5 shadow-[0_14px_30px_rgba(128,0,0,0.08)]">
+              <section key={post.id} className={`border border-[#c9a96e]/45 bg-[#b5e3f4] shadow-[0_14px_30px_rgba(128,0,0,0.08)] ${isMobile ? 'rounded-2xl p-3.5' : 'rounded-[1.75rem] p-5'}`}>
                 <div className="mb-3 flex items-start justify-between gap-3">
                   <div className="relative">
                     <button
@@ -1054,69 +1065,56 @@ export default function StudentClassroom() {
                     <div className="flex gap-2">
                       {post.pinned && <span className="rounded-full border border-[#c9a96e]/45 bg-[#fff8f0] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#800020]">Pinned</span>}
                       {post.isStudentPost && <span className="rounded-full border border-[#c9a96e]/45 bg-[#fff8f0] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#800020]">Student Post</span>}
+                      {post.postedByLabel && <span className="rounded-full bg-[#800020] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#b5e3f4]">Posted by {post.postedByLabel}</span>}
                     </div>
                   </div>
                 </div>
 
-                <p className="mb-3 whitespace-pre-wrap text-sm leading-7 text-[#191970]">{post.text}</p>
+                <p className="whitespace-pre-wrap break-words text-sm leading-7 text-[#191970]">{post.text}</p>
 
-                <div className="space-y-2 mb-3">
-                  {post.comments.map(comment => (
-                    <div key={comment.id} className="rounded-2xl border border-[#c9a96e]/35 bg-[#fff8f0] p-3">
-                      <p className="text-sm text-[#191970]"><span className="font-semibold text-[#800000]">{comment.user}:</span> {comment.text}</p>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="flex gap-2">
-                  <input
-                    value={commentInputs[post.id] || ''}
-                    onChange={(event) => setCommentInputs(prev => ({ ...prev, [post.id]: event.target.value }))}
-                    onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && addComment(post.id)}
-                    disabled={!teacherSettings.commentsEnabled}
-                    className="flex-1 rounded-2xl border border-[#c9a96e]/60 px-4 py-2 text-sm font-medium text-[#191970] placeholder:text-[#800020]/60"
-                    style={{ backgroundColor: '#b5e3f4' }}
-                    placeholder={teacherSettings.commentsEnabled ? 'Comment respectfully…' : 'Comments disabled by teacher'}
-                  />
-                  <button
-                    onClick={() => addComment(post.id)}
-                    disabled={!teacherSettings.commentsEnabled}
-                    className="rounded-2xl border border-[#1a5c38]/35 bg-[#1a5c38]/12 px-4 py-2 text-sm font-semibold text-[#191970] disabled:opacity-40"
-                  >
-                    Comment
-                  </button>
-                </div>
+                <StreamThread
+                  comments={post.comments}
+                  onSubmit={text => addComment(post.id, text)}
+                  disabled={!teacherSettings.commentsEnabled}
+                  placeholder="Comment respectfully…"
+                  disabledPlaceholder="Comments disabled by teacher"
+                />
               </section>
             );})}
           </div>
 
-          <section className={`sticky ${isMobile ? 'bottom-16' : 'bottom-0'} z-20 border border-[#c9a96e]/45 bg-[#b5e3f4] p-3 shadow-[0_18px_40px_rgba(128,0,0,0.14)]`}>
-            <div className="space-y-3">
-              <textarea
-                value={streamInput}
-                onChange={(event) => setStreamInput(event.target.value)}
-                onKeyDown={(e) => e.key === 'Enter' && !e.shiftKey && postAnnouncement()}
-                disabled={!teacherSettings.studentAnnouncementsEnabled}
-                rows={1}
-                className="h-[100px] min-h-[100px] w-full resize-none rounded-2xl border border-[#c9a96e]/60 px-4 py-3 text-sm font-medium text-[#191970] placeholder:text-[#800020]/60"
-                style={{ backgroundColor: '#b5e3f4' }}
-                placeholder={teacherSettings.studentAnnouncementsEnabled ? 'Post class announcement…' : 'Teacher has disabled student posts'}
-              />
-
-              <div className="flex flex-wrap items-center justify-end gap-3">
-                <div className="mr-auto flex flex-wrap items-center gap-2">
-                  <button
-                    type="button"
-                    onClick={() => setStreamEmojiOpen(open => !open)}
-                    className="rounded-2xl border border-[#c9a96e]/60 bg-[#fff8f0] px-4 py-2 text-sm font-semibold text-[#191970]"
-                  >
-                    Emoji
-                  </button>
-                </div>
+          <section className={`sticky ${isMobile ? 'bottom-16 p-2' : 'bottom-0 p-3'} z-20 border border-[#c9a96e]/45 bg-[#b5e3f4] shadow-[0_18px_40px_rgba(128,0,0,0.14)]`}>
+            <div className="space-y-2">
+              <div className="flex items-end gap-2">
+                <button
+                  type="button"
+                  onClick={() => setStreamEmojiOpen(open => !open)}
+                  aria-label="Emoji"
+                  title="Emoji"
+                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#c9a96e]/60 bg-[#fff8f0] text-lg"
+                >
+                  🙂
+                </button>
+                <AutoGrowTextarea
+                  value={streamInput}
+                  maxRows={6}
+                  onChange={(event) => setStreamInput(event.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                      e.preventDefault();
+                      postAnnouncement();
+                    }
+                  }}
+                  disabled={!teacherSettings.studentAnnouncementsEnabled}
+                  aria-label="Post to the class stream"
+                  className="min-w-0 flex-1 rounded-2xl border border-[#c9a96e]/60 px-4 py-2 text-sm font-medium leading-6 text-[#191970] placeholder:text-[#800020]/60"
+                  style={{ backgroundColor: '#b5e3f4' }}
+                  placeholder={teacherSettings.studentAnnouncementsEnabled ? 'Post class announcement…' : 'Teacher has disabled student posts'}
+                />
                 <button
                   onClick={postAnnouncement}
-                  disabled={!teacherSettings.studentAnnouncementsEnabled}
-                  className="rounded-2xl border border-[#1a5c38]/35 bg-[#1a5c38]/12 px-4 py-2 text-sm font-semibold text-[#191970] disabled:opacity-40"
+                  disabled={!teacherSettings.studentAnnouncementsEnabled || !streamInput.trim()}
+                  className="h-10 shrink-0 rounded-2xl border border-[#1a5c38]/35 bg-[#1a5c38] px-4 text-sm font-semibold text-[#b5e3f4] disabled:opacity-40"
                 >
                   Post
                 </button>
@@ -1342,7 +1340,7 @@ export default function StudentClassroom() {
             {aiExplain.loading && <p className="text-sm text-slate-300 animate-pulse">Asking Ndovera AI…</p>}
             {aiExplain.error && <p className="text-sm text-rose-300">{aiExplain.error}</p>}
             {!aiExplain.loading && !aiExplain.error && (
-              <div className="rounded-2xl bg-slate-900 p-4 text-sm leading-7 text-slate-200 whitespace-pre-wrap">{aiExplain.text}</div>
+              <div className="rounded-2xl bg-slate-900 p-4"><AiAnswer text={aiExplain.text} onDark /></div>
             )}
             {!aiExplain.loading && (
               <button onClick={() => explainTopic(aiExplain.topic, subjectDetailName)} className="mt-4 px-4 py-2 rounded-2xl text-sm font-bold border border-indigo-300/40 bg-indigo-500/20 text-indigo-100 hover:bg-indigo-500/30">Ask again</button>

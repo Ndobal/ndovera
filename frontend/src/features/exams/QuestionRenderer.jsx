@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import RichContent from '../../shared/rich/RichContent';
 import CrossMatching from './CrossMatching'
 
 // Lightweight QuestionRenderer using a factory/switch pattern
@@ -15,7 +16,7 @@ export default function QuestionRenderer({question, onChange}){
     case 'mcq':
       return (
         <div className="space-y-2">
-          <div className="font-medium">{local.prompt || question.prompt}</div>
+          <RichContent className="font-medium" text={local.prompt || question.prompt} />
           {(local.options||question.options||[]).map((opt, i)=> (
             <label key={i} className="flex items-center gap-3">
               <input type="radio" name={question.id} className="form-radio" />
@@ -32,7 +33,7 @@ export default function QuestionRenderer({question, onChange}){
     case 'shortanswer':
       return (
         <div>
-          <div className="font-medium">{local.prompt || question.prompt}</div>
+          <RichContent className="font-medium" text={local.prompt || question.prompt} />
           <input
             className="mt-2 w-full border rounded px-3 py-2"
             value={local.answer||''}
@@ -62,7 +63,7 @@ export default function QuestionRenderer({question, onChange}){
     case 'truefalse':
       return (
         <div>
-          <div className="font-medium">{local.prompt || question.prompt}</div>
+          <RichContent className="font-medium" text={local.prompt || question.prompt} />
           <div className="mt-2 flex gap-2">
             <button onClick={()=>update({answer: true})} className={`px-3 py-1 rounded ${local.answer===true?'bg-amber-400/80':''}`}>True</button>
             <button onClick={()=>update({answer: false})} className={`px-3 py-1 rounded ${local.answer===false?'bg-amber-400/80':''}`}>False</button>
@@ -73,7 +74,7 @@ export default function QuestionRenderer({question, onChange}){
     case 'crossmatching':
       return (
         <div>
-          <div className="font-medium">{local.prompt || question.prompt}</div>
+          <RichContent className="font-medium" text={local.prompt || question.prompt} />
           <CrossMatching
             left={local.left||question.left||[]}
             right={local.right||question.right||[]}
@@ -86,7 +87,7 @@ export default function QuestionRenderer({question, onChange}){
     case 'picture':
       return (
         <div>
-          <div className="font-medium">{local.prompt || question.prompt}</div>
+          <RichContent className="font-medium" text={local.prompt || question.prompt} />
           <input type="file" accept="image/*" className="mt-2" onChange={e=>{
             const file = e.target.files && e.target.files[0]
             if(!file) return
@@ -101,7 +102,7 @@ export default function QuestionRenderer({question, onChange}){
     case 'essay':
       return (
         <div>
-          <div className="font-medium">{local.prompt || question.prompt}</div>
+          <RichContent className="font-medium" text={local.prompt || question.prompt} />
           <textarea className="mt-2 w-full h-40 border rounded p-2" value={local.text||''} onChange={e=>{
             update({text: e.target.value})
           }} />

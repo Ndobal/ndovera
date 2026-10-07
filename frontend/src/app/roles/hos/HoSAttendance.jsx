@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getAttendance } from '../../../features/school/services/schoolApi';
+import { getStudentAttendance } from '../../../features/school/services/schoolApi';
 
 const STATUSES = ['All', 'present', 'absent', 'late'];
 
@@ -11,7 +11,8 @@ export default function HoSAttendance({ auth }) {
 
   useEffect(() => {
     setLoading(true);
-    getAttendance()
+    // School-wide register; /api/attendance is one student's record and needs a studentId.
+    getStudentAttendance({ limit: 1000 })
       .then((data) => setRecords(data?.records || data?.attendance || []))
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
@@ -72,7 +73,7 @@ export default function HoSAttendance({ auth }) {
                       <td className="py-2 pr-4 text-[#191970] dark:text-slate-300">{r.studentId || '—'}</td>
                       <td className="py-2 pr-4 text-[#191970] dark:text-slate-300 capitalize">{r.status || '—'}</td>
                       <td className="py-2 pr-4 text-[#191970] dark:text-slate-300">{r.date || '—'}</td>
-                      <td className="py-2 text-[#191970] dark:text-slate-300">{r.classroomId || '—'}</td>
+                      <td className="py-2 text-[#191970] dark:text-slate-300">{r.classId || r.classroomId || '—'}</td>
                     </tr>
                   ))}
                 </tbody>

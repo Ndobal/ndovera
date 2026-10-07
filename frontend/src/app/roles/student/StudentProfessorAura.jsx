@@ -6,7 +6,7 @@ import { askAiTutor, getAiAccess } from '../../../features/ai/services/aiTutorAp
 import { readChatSession, writeChatSession } from '../../../features/ai/services/chatSessionStorage';
 
 const modes = ['Explain Mode', 'Practice Mode', 'Weak Area Mode', 'Exam Review Mode'];
-const currencyFormatter = new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN', maximumFractionDigits: 0 });
+const currencyFormatter = new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN', minimumFractionDigits: 0, maximumFractionDigits: 0 });
 
 const modeDescriptions = {
   'Explain Mode': 'Break concepts down in simple steps.',

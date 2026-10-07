@@ -65,6 +65,22 @@ export async function getAssignedClasses() {
   return requestJson('/api/classrooms/assigned', { headers: getAuthHeaders() });
 }
 
+export async function getArchivedMaterials() {
+  return requestJson('/api/learning/materials/archive', { headers: getAuthHeaders() });
+}
+
+// Reuse references the original material and its stored file; `status` is
+// 'draft' (edit before students see it) or 'published'.
+export async function reuseArchivedMaterial(materialId, payload) {
+  return requestJson(`/api/learning/materials/${encodeURIComponent(materialId)}/reuse`, {
+    method: 'POST', headers: getAuthHeaders(), body: JSON.stringify(payload),
+  });
+}
+
+export async function getTeachingHistory() {
+  return requestJson('/api/learning/teaching-history', { headers: getAuthHeaders() });
+}
+
 export async function getPosts(classId) {
   return requestJson(`/api/classrooms/${classId}/stream`, { headers: getAuthHeaders() });
 }
@@ -118,8 +134,28 @@ export async function addTopic(classId, payload) {
   return readJsonResponse(res);
 }
 
-export async function deleteTopic(classId, topicId) {
-  const res = await apiFetch(`/api/classrooms/${classId}/topics/${encodeURIComponent(topicId)}`, { method: 'DELETE', headers: getAuthHeaders() });
+// Removing a topic never deletes its content. If it has any, the server answers
+// 409 with the counts until `contentAction` is 'move' (with targetTopicId) or 'unassign'.
+export async function deleteTopic(classId, topicId, { contentAction = '', targetTopicId = '' } = {}) {
+  const query = new URLSearchParams();
+  if (contentAction) query.set('contentAction', contentAction);
+  if (targetTopicId) query.set('targetTopicId', targetTopicId);
+  const suffix = query.toString() ? `?${query}` : '';
+  const res = await apiFetch(`/api/classrooms/${classId}/topics/${encodeURIComponent(topicId)}${suffix}`, { method: 'DELETE', headers: getAuthHeaders() });
+  return readJsonResponse(res);
+}
+
+export async function updateTopic(classId, topicId, payload) {
+  const res = await apiFetch(`/api/classrooms/${classId}/topics/${encodeURIComponent(topicId)}`, { method: 'PUT', headers: getAuthHeaders(), body: JSON.stringify(payload) });
+  return readJsonResponse(res);
+}
+
+export async function getTopicHub(classId, topicId, params = {}) {
+  return requestJson(`/api/classrooms/${classId}/topics/${encodeURIComponent(topicId)}/hub${buildQuery(params)}`, { headers: getAuthHeaders() });
+}
+
+export async function recordTopicProgress(classId, topicId, payload) {
+  const res = await apiFetch(`/api/classrooms/${classId}/topics/${encodeURIComponent(topicId)}/progress`, { method: 'POST', headers: getAuthHeaders(), body: JSON.stringify(payload) });
   return readJsonResponse(res);
 }
 
@@ -147,6 +183,11 @@ export async function uploadAssignmentAsset(classId, payload) {
 export async function submitAssignment(assignmentId, payload) {
   const res = await apiFetch(`/api/assignments/${assignmentId}/submit`, { method: 'POST', headers: getAuthHeaders(), body: JSON.stringify(payload) });
   return readJsonResponse(res);
+}
+
+/** Timed assessments: start (or resume) the attempt; the server returns the deadline. */
+export async function startAssignment(assignmentId) {
+  return requestJson(`/api/assignments/${assignmentId}/start`, { method: 'POST', headers: getAuthHeaders(), body: '{}' });
 }
 
 export async function getMySubmission(assignmentId) {
@@ -211,6 +252,18 @@ export async function deleteMaterial(classId, materialId) {
   return readJsonResponse(res);
 }
 
+// Publish a draft, hide a published material from students, or show it again.
+export async function setMaterialStatus(classId, materialId, status) {
+  const res = await apiFetch(`/api/classrooms/${classId}/materials/${encodeURIComponent(materialId)}/status`, {
+    method: 'POST', headers: getAuthHeaders(), body: JSON.stringify({ status }),
+  });
+  return readJsonResponse(res);
+}
+
+export async function getMaterialHistory(classId, materialId) {
+  return requestJson(`/api/classrooms/${classId}/materials/${encodeURIComponent(materialId)}/history`, { headers: getAuthHeaders() });
+}
+
 export async function getMaterials(classId, params = {}) {
   return requestJson(`/api/classrooms/${classId}/materials${buildQuery(params)}`, { headers: getAuthHeaders() });
 }
@@ -225,7 +278,7 @@ export async function uploadMaterial(classId, payload) {
   if (payload.file) {
     const fd = new FormData();
     fd.append('file', payload.file);
-    ['title', 'subjectId', 'description', 'type', 'topic', 'weekLabel', 'week', 'visibility', 'releaseAt'].forEach(key => {
+    ['title', 'subjectId', 'description', 'type', 'topic', 'weekLabel', 'week', 'visibility', 'releaseAt', 'status'].forEach(key => {
       if (payload[key]) fd.append(key, payload[key]);
     });
     const res = await apiFetch(`/api/classrooms/${classId}/materials/upload-multipart`, {
@@ -273,5 +326,19 @@ export async function removeStudentFromSubject(classId, subjectId, studentId) {
 
 export async function restoreStudentToSubject(classId, subjectId, studentId) {
   const res = await apiFetch(`/api/classrooms/${classId}/subjects/${subjectId}/remove-student/${studentId}`, { method: 'DELETE', headers: getAuthHeaders() });
+  return readJsonResponse(res);
+}
+
+// Class supervision (Owner / HOS). Join and exit change only the supervisor's
+// own workspace; they never assign or unassign a teacher.
+export async function setClassSupervision(classId, action) {
+  const res = await apiFetch(`/api/supervision/classes/${encodeURIComponent(classId)}/${action === 'exit' ? 'exit' : 'join'}`, {
+    method: 'POST', headers: getAuthHeaders(),
+  });
+  return readJsonResponse(res);
+}
+
+export async function setSupervisionPolicy(hosMode) {
+  const res = await apiFetch('/api/supervision/policy', { method: 'PUT', headers: getAuthHeaders(), body: JSON.stringify({ hosMode }) });
   return readJsonResponse(res);
 }

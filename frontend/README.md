@@ -2,6 +2,8 @@
 
 This package contains the React application for Ndovera's role-based dashboards and public onboarding flows.
 
+Materials pages show the current session and term; **Academic History** in the sidebar holds earlier terms and sessions. The lesson-note composer (`features/classroom/materials/StructuredMaterialEditor.jsx`) recognises structure as teachers type or paste and offers formatting without changing their words. Owner and HOS use the classroom page to join, enter and exit classes for supervision (`features/classroom/SupervisionClassPicker.jsx`).
+
 ## Structure
 
 - `src/app/` holds app bootstrapping and role dashboard entry points.

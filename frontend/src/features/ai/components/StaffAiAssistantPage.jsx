@@ -3,7 +3,7 @@ import { askAiTutor, getAiAccess } from '../services/aiTutorApi';
 import { clearChatSession, readChatSession, writeChatSession } from '../services/chatSessionStorage';
 import SmartChatDashboard from './SmartChatDashboard';
 
-const currencyFormatter = new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN', maximumFractionDigits: 0 });
+const currencyFormatter = new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN', minimumFractionDigits: 0, maximumFractionDigits: 0 });
 
 const teachingRoleKeys = new Set(['teacher', 'classteacher', 'hod', 'hodassistant', 'principal', 'headteacher', 'nurseryhead', 'examofficer', 'sportsmaster']);
 

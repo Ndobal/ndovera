@@ -1,5 +1,7 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import TopicHub from '../topics/TopicHub';
+import { RemoveTopicDialog, TopicEditorDialog } from '../topics/TopicDialogs';
 import { addTopic, deleteTopic, deleteAssignment, deleteMaterial, getAssignments, getMaterials, getSubjectMembers, getTopics, removeStudentFromSubject, restoreStudentToSubject, reorderTopics } from '../classroomService';
 import TeacherAssignmentsPanel from '../TeacherAssignmentsPanel';
 
@@ -44,9 +46,16 @@ function isAudioMaterial(material) {
   return /\.(mp3|wav|ogg|m4a|aac)(\?|$)/.test(source);
 }
 
-export default function SubjectsTab({ classId = '', subjects = [], canManage = false, studentMode = false }) {
+/**
+ * `onManageMaterials(subjectId)` lets the classroom open its Materials tab on this
+ * subject when a teacher presses "+" beside Materials.
+ */
+export default function SubjectsTab({ classId = '', subjects = [], canManage = false, studentMode = false, onManageMaterials = null }) {
   const [activeSubjectId, setActiveSubjectId] = useState(null);
   const [activeTab, setActiveTab] = useState('assignments');
+  // "+" shortcuts: a new assignment opens the composer; a new topic focuses its box.
+  const [composerSignal, setComposerSignal] = useState(0);
+  const newTopicInputRef = useRef(null);
   const [showMembers, setShowMembers] = useState(false);
 
   // Assignments
@@ -62,6 +71,10 @@ export default function SubjectsTab({ classId = '', subjects = [], canManage = f
   const [topicsLoading, setTopicsLoading] = useState(false);
   const [newTopicName, setNewTopicName] = useState('');
   const [topicMsg, setTopicMsg] = useState('');
+  // The topic page being viewed, and the topic dialogs.
+  const [openTopicId, setOpenTopicId] = useState('');
+  const [editingTopic, setEditingTopic] = useState(null);
+  const [removingTopic, setRemovingTopic] = useState(null);
 
   // Members
   const [members, setMembers] = useState([]);
@@ -76,6 +89,7 @@ export default function SubjectsTab({ classId = '', subjects = [], canManage = f
 
   // Load assignments + materials when subject is selected
   useEffect(() => {
+    setOpenTopicId('');
     if (!activeSubjectId || !classId) return;
     setAssignmentsLoading(true);
     setMaterialsLoading(true);
@@ -140,11 +154,26 @@ export default function SubjectsTab({ classId = '', subjects = [], canManage = f
     try { await reorderTopics(classId, ids); } catch { setTopicMsg('Could not save the new order.'); }
   }
 
+  async function reloadTopics() {
+    const data = await getTopics(classId, activeSubjectId).catch(() => null);
+    if (data?.topics) setTopics(data.topics);
+  }
+
+  // An empty topic goes straight away; one with content opens the move/unassign choice.
   async function handleDeleteTopic(topicId) {
-    if (!window.confirm('Remove this topic? Tagged assignments and materials keep their content.')) return;
+    const topic = topics.find(t => t.id === topicId);
+    if (!topic) return;
+    setTopicMsg('');
     try {
-      await deleteTopic(classId, topicId);
-      setTopics(prev => prev.filter(t => t.id !== topicId));
+      const response = await deleteTopic(classId, topicId);
+      if (response?.success) {
+        setTopics(prev => prev.filter(t => t.id !== topicId));
+        setTopicMsg(`Removed ${topic.name}.`);
+      } else if (response?.content) {
+        setRemovingTopic({ topic, content: response.content });
+      } else {
+        setTopicMsg(response?.message || 'Could not remove topic.');
+      }
     } catch {
       setTopicMsg('Could not remove topic.');
     }
@@ -175,6 +204,21 @@ export default function SubjectsTab({ classId = '', subjects = [], canManage = f
       setActionMsg('Student restored.');
       setMembers(prev => prev.map(m => m.id === studentId ? { ...m, excluded: false } : m));
     } catch { setActionMsg('Failed to restore.'); }
+  }
+
+  function handleAddShortcut(tab) {
+    if (tab === 'assignments') {
+      setActiveTab('assignments');
+      setComposerSignal(signal => signal + 1);
+    } else if (tab === 'materials') {
+      if (onManageMaterials) onManageMaterials(activeSubjectId);
+      else setActiveTab('materials');
+    } else {
+      setActiveTab('topics');
+      setOpenTopicId('');
+      // Wait for the Topics tab to render its input.
+      window.setTimeout(() => newTopicInputRef.current?.focus(), 0);
+    }
   }
 
   function openSubject(id) {
@@ -277,23 +321,36 @@ export default function SubjectsTab({ classId = '', subjects = [], canManage = f
       {/* Tab bar */}
       <div className="flex flex-wrap items-center gap-2">
         {['assignments', 'materials', 'topics'].map(tab => (
-          <button
-            key={tab}
-            onClick={() => setActiveTab(tab)}
-            style={{ backgroundColor: activeTab === tab ? '#ffffff' : 'rgba(255,255,255,0.85)', color: TAB_COLORS[tab], borderColor: `${TAB_COLORS[tab]}55` }}
-            className={`px-4 py-2 rounded-2xl text-sm font-bold border capitalize transition-transform ${activeTab === tab ? 'shadow-md scale-[1.04]' : 'opacity-80 hover:opacity-100'}`}
-          >
-            {tab}
-            {tab === 'assignments' && !assignmentsLoading && (
-              <span className="ml-1.5 text-xs opacity-70">({subjectAssignments.length})</span>
+          <div key={tab} className="flex items-stretch">
+            <button
+              onClick={() => setActiveTab(tab)}
+              style={{ backgroundColor: activeTab === tab ? '#ffffff' : 'rgba(255,255,255,0.85)', color: TAB_COLORS[tab], borderColor: `${TAB_COLORS[tab]}55` }}
+              className={`px-4 py-2 text-sm font-bold border capitalize transition-transform ${canManage ? 'rounded-l-2xl' : 'rounded-2xl'} ${activeTab === tab ? 'shadow-md scale-[1.04]' : 'opacity-80 hover:opacity-100'}`}
+            >
+              {tab}
+              {tab === 'assignments' && !assignmentsLoading && (
+                <span className="ml-1.5 text-xs opacity-70">({subjectAssignments.length})</span>
+              )}
+              {tab === 'materials' && !materialsLoading && (
+                <span className="ml-1.5 text-xs opacity-70">({subjectMaterials.length})</span>
+              )}
+              {tab === 'topics' && !topicsLoading && (
+                <span className="ml-1.5 text-xs opacity-70">({topicCounts.length})</span>
+              )}
+            </button>
+            {canManage && (
+              <button
+                type="button"
+                onClick={() => handleAddShortcut(tab)}
+                aria-label={`Add ${tab === 'assignments' ? 'an assignment' : tab === 'materials' ? 'a material' : 'a topic'} for ${selectedSubject.name}`}
+                title={tab === 'assignments' ? 'Create an assignment' : tab === 'materials' ? 'Post a material' : 'Add a topic'}
+                style={{ backgroundColor: TAB_COLORS[tab], borderColor: TAB_COLORS[tab] }}
+                className="-ml-px flex w-9 items-center justify-center rounded-r-2xl border text-lg font-black leading-none text-white transition hover:brightness-125"
+              >
+                +
+              </button>
             )}
-            {tab === 'materials' && !materialsLoading && (
-              <span className="ml-1.5 text-xs opacity-70">({subjectMaterials.length})</span>
-            )}
-            {tab === 'topics' && !topicsLoading && (
-              <span className="ml-1.5 text-xs opacity-70">({topicCounts.length})</span>
-            )}
-          </button>
+          </div>
         ))}
 
         {/* Members collapsed into a button */}
@@ -347,6 +404,7 @@ export default function SubjectsTab({ classId = '', subjects = [], canManage = f
           canModerate={canManage}
           onRefreshAssignments={loadAssignments}
           onSelectClass={() => {}}
+          openComposerSignal={composerSignal}
         />
       ) : (
         <section className="space-y-3">
@@ -457,14 +515,20 @@ export default function SubjectsTab({ classId = '', subjects = [], canManage = f
         </section>
       )}
 
+      {/* Topic page */}
+      {activeTab === 'topics' && openTopicId && (
+        <TopicHub classId={classId} topicId={openTopicId} subjectName={selectedSubject.name} onBack={() => { setOpenTopicId(''); reloadTopics(); }} />
+      )}
+
       {/* Topics tab */}
-      {activeTab === 'topics' && (
+      {activeTab === 'topics' && !openTopicId && (
         <section className="space-y-3">
           {canManage && (
             <div className="glass-surface rounded-3xl p-4 flex flex-wrap items-end gap-2">
               <label className="flex-1 min-w-[180px]">
                 <span className="text-xs font-bold uppercase tracking-widest text-slate-400">New Topic</span>
                 <input
+                  ref={newTopicInputRef}
                   value={newTopicName}
                   onChange={e => setNewTopicName(e.target.value)}
                   onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); handleAddTopic(); } }}
@@ -492,23 +556,44 @@ export default function SubjectsTab({ classId = '', subjects = [], canManage = f
             </div>
           )}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {topicCounts.map(t => (
+            {topicCounts.map(t => {
+              const saved = topics.find(topic => topic.id === t.id);
+              return (
               <div key={t.name} className="glass-surface rounded-3xl p-4 border border-white/10 flex items-start justify-between gap-2">
-                <div>
-                  <p className="text-slate-100 font-bold">{t.name}</p>
-                  <p className="text-xs text-slate-400 mt-1">{t.assignments} assignment{t.assignments !== 1 ? 's' : ''} · {t.materials} material{t.materials !== 1 ? 's' : ''}</p>
+                <div className="min-w-0">
+                  {t.id ? (
+                    <button type="button" onClick={() => setOpenTopicId(t.id)} className="text-left text-slate-100 font-bold hover:underline">{t.name}</button>
+                  ) : <p className="text-slate-100 font-bold">{t.name}</p>}
+                  <p className="text-xs text-slate-400 mt-1">
+                    {saved?.week ? `${saved.week} · ` : ''}{t.assignments} assignment{t.assignments !== 1 ? 's' : ''} · {t.materials} material{t.materials !== 1 ? 's' : ''}
+                    {canManage && saved?.status === 'draft' ? ' · Draft' : ''}
+                  </p>
+                  {t.id && <button type="button" onClick={() => setOpenTopicId(t.id)} className="mt-2 rounded-xl bg-[#c9a96e] px-3 py-1 text-xs font-bold text-[#191970]">Open topic ✨</button>}
                 </div>
                 {canManage && t.id && (
-                  <div className="flex shrink-0 items-center gap-1">
+                  <div className="flex shrink-0 flex-wrap items-center justify-end gap-1">
+                    <button type="button" onClick={() => saved && setEditingTopic(saved)} className="rounded-lg border border-white/15 px-2 py-1 text-xs text-slate-200 hover:bg-white/10">Edit</button>
                     <button type="button" onClick={() => handleMoveTopic(t.id, 'up')} title="Move up" className="rounded-lg border border-white/15 px-2 py-1 text-xs text-slate-200 hover:bg-white/10">▲</button>
                     <button type="button" onClick={() => handleMoveTopic(t.id, 'down')} title="Move down" className="rounded-lg border border-white/15 px-2 py-1 text-xs text-slate-200 hover:bg-white/10">▼</button>
                     <button onClick={() => handleDeleteTopic(t.id)} className="text-xs bg-red-900/40 hover:bg-red-700/50 text-red-300 border border-red-500/30 px-3 py-1 rounded-xl font-semibold">Remove</button>
                   </div>
                 )}
               </div>
-            ))}
+              );
+            })}
           </div>
         </section>
+      )}
+
+      {editingTopic && (
+        <TopicEditorDialog classId={classId} topic={editingTopic} onClose={() => setEditingTopic(null)}
+          onSaved={() => { setEditingTopic(null); setTopicMsg('Topic saved.'); reloadTopics(); loadAssignments(); }} />
+      )}
+      {removingTopic && (
+        <RemoveTopicDialog classId={classId} topic={removingTopic.topic} content={removingTopic.content}
+          otherTopics={topics.filter(t => t.id !== removingTopic.topic.id)}
+          onClose={() => setRemovingTopic(null)}
+          onRemoved={() => { setTopicMsg(`Removed ${removingTopic.topic.name}; its content was kept.`); setRemovingTopic(null); reloadTopics(); loadAssignments(); }} />
       )}
 
       {/* Lesson note modal */}

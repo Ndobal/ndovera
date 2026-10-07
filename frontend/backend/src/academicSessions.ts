@@ -14,6 +14,8 @@
 // UTC+1 all year, so a term configured to start on the 7th flips on the 7th in
 // Nigeria rather than at 01:00 local time.
 
+import { clearLiveAssignments, recordLiveAssignments, resetTeachingAssignmentsCache } from './teachingAssignments'
+
 const LAGOS_UTC_OFFSET_MINUTES = 60
 
 // Isolate-scoped, deliberately not keyed on the database instance: the Workers
@@ -24,6 +26,7 @@ let _tablesInitialized = false
 
 export function resetAcademicTablesCache() {
   _tablesInitialized = false
+  resetTeachingAssignmentsCache()
 }
 
 export const SESSION_STATUSES = ['upcoming', 'active', 'completed', 'archived']
@@ -987,6 +990,30 @@ export async function activateSession(db: D1Database, options: {
     return { session: target, deactivated: null, activatedTerm: await getActiveTerm(db, options.tenantId) }
   }
 
+  // Live schools may predate session registers. Capture the outgoing placement
+  // before promotion changes the current-class mirror, so material archives can
+  // continue authorizing access to the student's actual previous class.
+  const previous = await getActiveSession(db, options.tenantId)
+  let outgoingAssignmentsRecorded = false
+  if (previous) {
+    await autoEnrolSession(db, {
+      tenantId: options.tenantId,
+      sessionId: previous.id,
+      actorId: options.actorId,
+      actorName: options.actorName,
+      ensureTables: false,
+    })
+    // Who taught what last session goes on record before the slots are released.
+    outgoingAssignmentsRecorded = await recordLiveAssignments(db, {
+      tenantId: options.tenantId,
+      sessionId: previous.id,
+      sessionName: previous.name,
+    }).then(() => true, error => {
+      console.error('Recording outgoing teaching assignments failed', error)
+      return false
+    })
+  }
+
   // Opening a session on an empty register would empty the school. Anyone the
   // register is missing joins now, moved up a class per the progression flow;
   // anyone already on it — placed by hand, by a promotion round, or when the
@@ -999,7 +1026,6 @@ export async function activateSession(db: D1Database, options: {
     ensureTables: false,
   }).catch(() => null)
 
-  const previous = await getActiveSession(db, options.tenantId)
   const timestamp = nowIso()
   const statements: D1PreparedStatement[] = []
 
@@ -1049,11 +1075,23 @@ export async function activateSession(db: D1Database, options: {
 
   await db.batch(statements)
 
+  // Teacher assignments do not carry over: the new session starts with open
+  // slots for the school's administrators to fill. A school's first session
+  // keeps the assignments it was set up with — there is no earlier session for
+  // them to belong to.
+  const teacherAssignmentsReleased = outgoingAssignmentsRecorded
+    ? await clearLiveAssignments(db, options.tenantId).catch(error => {
+        console.error('Releasing teacher assignments failed', error)
+        return 0
+      })
+    : 0
+
   return {
     session: (await getSessionById(db, options.tenantId, options.sessionId))!,
     deactivated: previous,
     activatedTerm: activatedTermId ? await getTermById(db, options.tenantId, activatedTermId) : null,
     enrolment,
+    teacherAssignmentsReleased,
   }
 }
 
@@ -1351,7 +1389,6 @@ async function buildMirrorStatements(db: D1Database, options: {
 
   const leftSchool = ['graduated', 'withdrawn', 'transferred'].includes(options.status)
   const classId = leftSchool ? '' : options.classId
-  const label = leftSchool ? '' : `${options.className}${options.classArm ? ` ${options.classArm}` : ''}`.trim()
 
   // settings rows are keyed by the student's email for most of the school and by
   // their user id for the rest, and every class list in the app reads them with
@@ -1399,9 +1436,8 @@ async function buildMirrorStatements(db: D1Database, options: {
     ).bind(settingsKey, JSON.stringify(payload)))
   }
 
-  statements.push(db.prepare(
-    `UPDATE users SET className = ? WHERE id = ? AND tenantId = ?`
-  ).bind(label, options.studentId, options.tenantId))
+  // The class label lives in the settings payload above. Production `users` has
+  // no className column, so writing one there failed the whole batch.
 
   if (leftSchool) {
     statements.push(db.prepare(
@@ -1738,8 +1774,11 @@ type PriorPlacement = {
  */
 async function loadStudentRoster(db: D1Database, tenantId: string): Promise<RosterEntry[]> {
   const placeholders = LEFT_SCHOOL_USER_STATUSES.map(() => '?').join(', ')
+  // Only columns every deployed `users` table has. The class lives in the
+  // settings payload; production `users` has no className column, and asking for
+  // one made this query fail — which, swallowed below, enrolled nobody.
   const rows = await db.prepare(
-    `SELECT u.id AS id, u.name AS name, u.email AS email, u.className AS class_label,
+    `SELECT u.id AS id, u.name AS name, u.email AS email,
             COALESCE(s.payload, s2.payload) AS payload
      FROM users u
      LEFT JOIN settings s ON s.studentId = u.email
@@ -1747,7 +1786,10 @@ async function loadStudentRoster(db: D1Database, tenantId: string): Promise<Rost
      WHERE u.tenantId = ? AND LOWER(COALESCE(u.role, '')) = 'student'
        AND LOWER(COALESCE(NULLIF(TRIM(u.status), ''), 'active')) NOT IN (${placeholders})
      ORDER BY u.name`
-  ).bind(tenantId, ...LEFT_SCHOOL_USER_STATUSES).all().catch(() => ({ results: [] }))
+  ).bind(tenantId, ...LEFT_SCHOOL_USER_STATUSES).all().catch(error => {
+    console.error('Student roster query failed', error)
+    return { results: [] }
+  })
 
   const roster: RosterEntry[] = []
   for (const row of ((rows.results || []) as Record<string, any>[])) {
@@ -1763,7 +1805,7 @@ async function loadStudentRoster(db: D1Database, tenantId: string): Promise<Rost
       email: String(row.email || ''),
       displayId: String(payload.publicStudentId || payload.displayId || ''),
       classId: String(payload.classId || ''),
-      classLabel: String(row.class_label || payload.className || ''),
+      classLabel: String(payload.className || ''),
     })
   }
   return roster
@@ -2543,7 +2585,7 @@ export function resolveStudentFeeLines(options: {
   }
 }
 
-async function loadFeeConfigForPeriod(db: D1Database, options: {
+export async function loadFeeConfigForPeriod(db: D1Database, options: {
   tenantId: string
   sessionName: string
   termName: string
@@ -2653,6 +2695,13 @@ export async function generateTermAssessments(db: D1Database, options: {
     ((existingRows.results || []) as Record<string, any>[]).map(row => [String(row.student_id || ''), mapAssessmentRow(row)])
   )
 
+  // Students already billed this term through a published fee structure
+  // (finance.ts) are never billed a second time here.
+  const structureBilled = await db.prepare(
+    `SELECT DISTINCT student_id FROM fee_obligations WHERE tenant_id = ? AND term_id = ?`
+  ).bind(options.tenantId, options.termId).all().catch(() => ({ results: [] }))
+  const billedByStructures = new Set(((structureBilled.results || []) as Record<string, any>[]).map(row => String(row.student_id || '')))
+
   const timestamp = nowIso()
   const statements: D1PreparedStatement[] = []
   let created = 0
@@ -2660,6 +2709,10 @@ export async function generateTermAssessments(db: D1Database, options: {
   let skipped = 0
 
   for (const enrollment of targeted) {
+    if (billedByStructures.has(enrollment.studentId)) {
+      skipped += 1
+      continue
+    }
     const resolved = resolveStudentFeeLines({
       feeConfigRows,
       classId: enrollment.classId,

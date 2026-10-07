@@ -2,6 +2,8 @@
 
 Ndovera is a role-based school operating system with a React frontend and a Cloudflare Worker backend.
 
+Class materials belong to an academic session and term. Students and teachers land in the current term and find earlier terms and sessions under **Academic History**; teachers can edit, hide/show, delete (audited), reuse and view the history of their materials. Teacher assignments are made per session by administrators, and the Owner/HOS supervise classes without becoming their teachers. See `frontend/backend/README.md` for the model.
+
 ## Workspace Layout
 
 - `frontend/` contains the React application, public assets, and production build output.

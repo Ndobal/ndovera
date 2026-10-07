@@ -177,6 +177,8 @@ function buildFormState(settings = {}, suggestedSettings = {}) {
     caComponentsText: toCaComponentLines(source?.metadata?.caComponents || suggestedSettings?.metadata?.caComponents || []),
     caMaxScore: source?.metadata?.caMaxScore ?? suggestedSettings?.metadata?.caMaxScore ?? 40,
     examMaxScore: source?.metadata?.examMaxScore ?? suggestedSettings?.metadata?.examMaxScore ?? 60,
+    examScoreEntry: source?.metadata?.examScoreEntry === 'raw' ? 'raw' : 'convert',
+    examScoreDecimals: [0, 1, 2].includes(Number(source?.metadata?.examScoreDecimals)) && source?.metadata?.examScoreDecimals !== undefined ? Number(source.metadata.examScoreDecimals) : 1,
     feeLockUnpaidResults: source?.metadata?.feeLockUnpaidResults === true,
     affectiveWriteUp: source?.metadata?.affectiveWriteUp || suggestedSettings?.metadata?.affectiveWriteUp || '',
     brandingSchoolName: branding.schoolName || '',
@@ -336,6 +338,8 @@ export default function ResultSettingsPanel({
           ratingDomains: parseDomains(form.ratingDomainsText),
           caMaxScore: toNumber(form.caMaxScore, 40),
           examMaxScore: toNumber(form.examMaxScore, 60),
+          examScoreEntry: form.examScoreEntry === 'raw' ? 'raw' : 'convert',
+          examScoreDecimals: Number(form.examScoreDecimals),
           caComponents: parseCaComponentLines(form.caComponentsText),
           feeLockUnpaidResults: form.feeLockUnpaidResults === true,
           branding: {
@@ -517,6 +521,40 @@ export default function ResultSettingsPanel({
                 className={`mt-2 ${RESULT_INPUT}`}
               />
             </label>
+
+            <label className="block">
+              <span className={`micro-label ${RESULT_LABEL}`}>Exam scores from Ndovera exams</span>
+              <select
+                disabled={!canManageSettings || saving}
+                value={form.examScoreEntry}
+                onChange={event => setForm(current => ({ ...current, examScoreEntry: event.target.value }))}
+                className={`mt-2 ${RESULT_INPUT}`}
+              >
+                <option value="convert">Convert to the exam max score</option>
+                <option value="raw">Enter as obtained</option>
+              </select>
+              <span className={`mt-1 block text-xs ${RESULT_BODY}`}>
+                {form.examScoreEntry === 'raw'
+                  ? `The objective + theory total goes in as it is, never above ${form.examMaxScore}.`
+                  : `(Objective + theory) ÷ paper total × ${form.examMaxScore}. E.g. 59 + 30 = 89 of 100 → ${Math.round((89 / 100) * toNumber(form.examMaxScore, 60) * 10) / 10}.`}
+              </span>
+            </label>
+
+            {form.examScoreEntry !== 'raw' && (
+              <label className="block">
+                <span className={`micro-label ${RESULT_LABEL}`}>Round converted scores to</span>
+                <select
+                  disabled={!canManageSettings || saving}
+                  value={form.examScoreDecimals}
+                  onChange={event => setForm(current => ({ ...current, examScoreDecimals: event.target.value }))}
+                  className={`mt-2 ${RESULT_INPUT}`}
+                >
+                  <option value={0}>Whole numbers</option>
+                  <option value={1}>1 decimal place</option>
+                  <option value={2}>2 decimal places</option>
+                </select>
+              </label>
+            )}
 
             <div className={`${RESULT_INNER_SURFACE} p-4`}>
               <p className={`micro-label ${RESULT_LABEL}`}>Score Check</p>

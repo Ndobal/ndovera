@@ -83,7 +83,23 @@ export default function TeacherResultStudentCard({
           <tbody>
             {student.rows.map(row => (
               <tr key={`${student.id}-${row.subjectId}`} className={RESULT_TABLE_ROW}>
-                <td className={`py-3 px-3 font-semibold ${RESULT_HEADING}`}>{row.subjectName}</td>
+                <td className={`py-3 px-3 font-semibold ${RESULT_HEADING}`}>
+                  {row.subjectName}
+                  {row.override && (
+                    <span
+                      title={`Overridden by ${row.override.name || 'staff'}${row.override.at ? ` on ${new Date(row.override.at).toLocaleString()}` : ''}`}
+                      className="ml-2 inline-block rounded-full border border-amber-400/60 bg-amber-100 px-2 py-0.5 align-middle text-[10px] font-bold uppercase tracking-wide text-amber-800 dark:bg-amber-500/15 dark:text-amber-200"
+                    >
+                      {row.override.rank >= 2 ? 'HoS override' : 'Class teacher override'}
+                    </span>
+                  )}
+                  {row.editable === false && !row.heldAbove && (
+                    <span className={`block text-[10px] font-normal ${RESULT_BODY}`}>View only</span>
+                  )}
+                  {row.heldAbove && (
+                    <span className={`block text-[10px] font-normal ${RESULT_BODY}`}>Locked by a higher override</span>
+                  )}
+                </td>
                 {caComponentDefinitions.map(component => (
                   <td key={`${row.subjectId}-${component.key}`} className="py-3 px-3">
                     <input
@@ -92,7 +108,9 @@ export default function TeacherResultStudentCard({
                       max={component.maxScore}
                       value={row.caComponents?.[component.key] ?? ''}
                       onChange={event => onCaComponentChange(student.id, row.subjectId, component.key, event.target.value)}
-                      className={RESULT_INPUT}
+                      disabled={row.editable === false || (row.frozenKeys || []).includes(component.key) || (row.frozenKeys || []).includes('all')}
+                      title={(row.frozenKeys || []).includes(component.key) || (row.frozenKeys || []).includes('all') ? 'Handed in — locked until it is returned' : undefined}
+                      className={`${RESULT_INPUT} disabled:cursor-not-allowed disabled:opacity-60`}
                     />
                   </td>
                 ))}
@@ -104,7 +122,8 @@ export default function TeacherResultStudentCard({
                     max={scoreModel.examMaxScore}
                     value={row.exam}
                     onChange={event => onScoreChange(student.id, row.subjectId, 'exam', event.target.value)}
-                    className={RESULT_INPUT}
+                    disabled={row.editable === false}
+                    className={`${RESULT_INPUT} disabled:cursor-not-allowed disabled:opacity-60`}
                   />
                 </td>
                 <td className={`py-3 px-3 font-semibold ${RESULT_BODY}`}>{row.total}</td>

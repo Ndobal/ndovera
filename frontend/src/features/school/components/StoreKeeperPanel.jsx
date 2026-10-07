@@ -5,7 +5,7 @@ import {
   recordStoreMisplacement, getStoreSurcharges, payStoreSurcharge,
 } from '../services/schoolApi';
 
-const naira = new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN', maximumFractionDigits: 0 });
+const naira = new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN', minimumFractionDigits: 0, maximumFractionDigits: 0 });
 const input = 'w-full rounded-xl border border-[#c9a96e]/40 bg-white px-3 py-2 text-sm text-[#191970] outline-none focus:ring-2 focus:ring-[#1a5c38] dark:border-white/10 dark:bg-slate-800 dark:text-slate-100';
 const btn = 'rounded-xl bg-[#1a5c38] px-4 py-2 text-sm font-bold text-[#b5e3f4] transition hover:bg-[#154a2e] disabled:opacity-50';
 const chip = (active) => `rounded-full px-4 py-1.5 text-xs font-bold transition ${active ? 'bg-[#191970] text-white' : 'bg-[#191970]/10 text-[#191970] dark:bg-white/10 dark:text-slate-200'}`;

@@ -1,6 +1,17 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import AcademicHistory from './features/classroom/AcademicHistory';
+import TeacherSubmissionsPage from './features/submissions/TeacherSubmissionsPage';
+import SubmissionReviewPage from './features/submissions/SubmissionReviewPage';
+import TeacherCompliancePage from './features/compliance/TeacherCompliancePage';
+import ClassReportPage from './features/compliance/ClassReportPage';
+import StaffFilePage from './features/staff-file/StaffFilePage';
+import StudentFileRoute from './features/students/components/StudentFileRoute';
+import { ExamLetterheadPage } from './features/assessments/AiAssessmentStudio';
+import { AmiSchoolClosuresPage, ClosureGate, SchoolClosurePage } from './features/school/closure/SchoolClosure';
+import { MyStaffEvaluationsPage, StaffEvaluationAdminPage } from './features/evaluations/StaffEvaluationPages';
+import SchoolCalendarBoard from './features/school/components/SchoolCalendarBoard';
+import { PunctualityWinnerBanner, StaffPunctualityPage } from './features/attendance/punctuality/PunctualityPages';
 import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
-import { AnimatePresence, motion } from 'framer-motion';
 import Loader from './shared/components/Loader';
 import Sidebar from './shared/components/Sidebar';
 import DashboardTopBar from './shared/components/DashboardTopBar';
@@ -151,18 +162,12 @@ function getAuthenticatedRole(auth) {
   return switchableRoles[0] || auth?.user?.role || 'student';
 }
 
+// Pages fade in with a plain CSS animation. They used to go through framer-motion's
+// AnimatePresence in "wait" mode, where a new page stays invisible until the old one's
+// exit animation reports it finished; login changes the route twice at once, and on
+// some devices that hand-off never completed, leaving a blank screen after signing in.
 function RouteTransition({ children }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 10, scale: 0.995 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
-      exit={{ opacity: 0, y: -10, scale: 0.995 }}
-      transition={{ duration: 0.24, ease: 'easeOut' }}
-      className="h-full"
-    >
-      {children}
-    </motion.div>
-  );
+  return <div className="route-enter h-full">{children}</div>;
 }
 
 function RequireAuth({ auth, children }) {
@@ -184,6 +189,15 @@ function RoleGuard({ expectedRole, auth, children }) {
     return <Navigate to="/login" replace />;
   }
 
+  // Being on a role's dashboard means acting as that role. Without this, someone who holds
+  // two roles (a teacher who is also HOS) could open the HOS pages by link, refresh or the
+  // home redirect while every request still said "teacher" — and the server refused them
+  // ("forbidden") everywhere. Written before the page renders, so its first requests count.
+  if (accessibleRoles.includes(expectedRole) && authRole !== expectedRole
+    && Array.isArray(auth?.user?.switchableRoles) && auth.user.switchableRoles.includes(expectedRole)) {
+    try { window.localStorage.setItem('selectedRole', expectedRole); } catch { /* storage unavailable */ }
+  }
+
   if (!accessibleRoles.includes(expectedRole)) {
     const home = `/roles/${authRole}`;
     // Sending someone to the page they are already on is an infinite redirect,
@@ -203,7 +217,6 @@ function AnimatedRoutes({ auth, onLogin }) {
   const defaultAppRoute = auth?.token ? `/roles/${authRole}` : '/';
 
   return (
-    <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<PublicHomePage />} />
         <Route path="/about" element={<PublicSitePage pageKey="about" />} />
@@ -246,6 +259,26 @@ function AnimatedRoutes({ auth, onLogin }) {
         <Route path="/roles/student/classroom" element={<RoleGuard auth={auth} expectedRole="student"><RouteTransition><StudentClassroom /></RouteTransition></RoleGuard>} />
         <Route path="/roles/student/assignments" element={<RoleGuard auth={auth} expectedRole="student"><RouteTransition><StudentAssignments /></RouteTransition></RoleGuard>} />
         <Route path="/roles/student/assignments/:assignmentId" element={<RoleGuard auth={auth} expectedRole="student"><RouteTransition><StudentAssignments /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/student/academic-history" element={<RoleGuard auth={auth} expectedRole="student"><RouteTransition><AcademicHistory /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/owner/calendar" element={<RoleGuard auth={auth} expectedRole="owner"><RouteTransition><div className="mx-auto max-w-7xl p-4 sm:p-8"><SchoolCalendarBoard /></div></RouteTransition></RoleGuard>} />
+        <Route path="/roles/hos/calendar" element={<RoleGuard auth={auth} expectedRole="hos"><RouteTransition><div className="mx-auto max-w-7xl p-4 sm:p-8"><SchoolCalendarBoard /></div></RouteTransition></RoleGuard>} />
+        <Route path="/roles/owner/punctuality" element={<RoleGuard auth={auth} expectedRole="owner"><RouteTransition><StaffPunctualityPage dashboardLabel="Owner Dashboard" /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/hos/punctuality" element={<RoleGuard auth={auth} expectedRole="hos"><RouteTransition><StaffPunctualityPage dashboardLabel="Head of School" /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/teacher/staff-evaluation" element={<RoleGuard auth={auth} expectedRole="teacher"><RouteTransition><MyStaffEvaluationsPage dashboardLabel="Teacher Dashboard" /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/owner/staff-evaluation" element={<RoleGuard auth={auth} expectedRole="owner"><RouteTransition><StaffEvaluationAdminPage dashboardLabel="Owner Dashboard" /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/hos/staff-evaluation" element={<RoleGuard auth={auth} expectedRole="hos"><RouteTransition><StaffEvaluationAdminPage dashboardLabel="Head of School" /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/hos/evaluate-colleagues" element={<RoleGuard auth={auth} expectedRole="hos"><RouteTransition><MyStaffEvaluationsPage dashboardLabel="Head of School" /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/teacher/submissions" element={<RoleGuard auth={auth} expectedRole="teacher"><RouteTransition><TeacherSubmissionsPage /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/teacher/compliance" element={<RoleGuard auth={auth} expectedRole="teacher"><RouteTransition><TeacherCompliancePage /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/teacher/class-report" element={<RoleGuard auth={auth} expectedRole="teacher"><RouteTransition><ClassReportPage /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/teacher/ai-assessments" element={<AiAssessmentsRedirect />} />
+        <Route path="/roles/owner/exam-letterhead" element={<RoleGuard auth={auth} expectedRole="owner"><RouteTransition><ExamLetterheadPage dashboardLabel="Owner Dashboard" /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/hos/exam-letterhead" element={<RoleGuard auth={auth} expectedRole="hos"><RouteTransition><ExamLetterheadPage dashboardLabel="Head of School" /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/owner/submissions" element={<RoleGuard auth={auth} expectedRole="owner"><RouteTransition><SubmissionReviewPage dashboardLabel="Owner Dashboard" /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/hos/submissions" element={<RoleGuard auth={auth} expectedRole="hos"><RouteTransition><SubmissionReviewPage dashboardLabel="Head of School" /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/teacher/academic-history" element={<RoleGuard auth={auth} expectedRole="teacher"><RouteTransition><AcademicHistory role="teacher" /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/student/last-session" element={<Navigate to="/roles/student/academic-history" replace />} />
+        <Route path="/roles/teacher/last-session" element={<Navigate to="/roles/teacher/academic-history" replace />} />
         <Route path="/roles/student/materials" element={<RoleGuard auth={auth} expectedRole="student"><RouteTransition><StudentLessonNotes /></RouteTransition></RoleGuard>} />
         <Route path="/roles/student/lesson-notes" element={<Navigate to="/roles/student/materials" replace />} />
         <Route path="/roles/student/lesson-plans" element={<RoleGuard auth={auth} expectedRole="student"><RouteTransition><LessonPlanViewerPage /></RouteTransition></RoleGuard>} />
@@ -256,6 +289,9 @@ function AnimatedRoutes({ auth, onLogin }) {
         <Route path="/roles/student/timetable" element={<RoleGuard auth={auth} expectedRole="student"><RouteTransition><TimetableViewer viewerRole="student" title="My Timetable" subtitle="Your weekly class schedule." /></RouteTransition></RoleGuard>} />
         {/* role-specific library view */}
         <Route path="/roles/:role/library" element={<RequireAuth auth={auth}><RouteTransition><RoleLibrary /></RouteTransition></RequireAuth>} />
+        {/* One staff file, from any role's dashboard; the server decides what each viewer sees. */}
+        <Route path="/roles/:role/staff/:staffId" element={<RequireAuth auth={auth}><RouteTransition><StaffFilePage /></RouteTransition></RequireAuth>} />
+        <Route path="/roles/:role/students/:studentId" element={<RequireAuth auth={auth}><RouteTransition><StudentFileRoute /></RouteTransition></RequireAuth>} />
         {/* teacher resource old path -> library redirect to new role path */}
         <Route path="/roles/teacher/resources" element={<Navigate to="/roles/teacher/library" replace />} />
         <Route path="/roles/student/tuck-shop" element={<RoleGuard auth={auth} expectedRole="student"><RouteTransition><StudentTuckShop /></RouteTransition></RoleGuard>} />
@@ -302,6 +338,9 @@ function AnimatedRoutes({ auth, onLogin }) {
         <Route path="/roles/examofficer/*" element={<RoleGuard auth={auth} expectedRole="examofficer"><RouteTransition><OperationalRoleDashboard roleKey="examofficer" /></RouteTransition></RoleGuard>} />
         <Route path="/roles/sportsmaster/*" element={<RoleGuard auth={auth} expectedRole="sportsmaster"><RouteTransition><OperationalRoleDashboard roleKey="sportsmaster" /></RouteTransition></RoleGuard>} />
         <Route path="/roles/ami/messaging" element={<RoleGuard auth={auth} expectedRole="ami"><RouteTransition><AmiInbox /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/ami/school-closures" element={<RoleGuard auth={auth} expectedRole="ami"><RouteTransition><AmiSchoolClosuresPage /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/owner/school-closure" element={<RoleGuard auth={auth} expectedRole="owner"><RouteTransition><SchoolClosurePage dashboardLabel="Owner Dashboard" /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/hos/school-closure" element={<RoleGuard auth={auth} expectedRole="hos"><RouteTransition><SchoolClosurePage dashboardLabel="Head of School" /></RouteTransition></RoleGuard>} />
         <Route path="/roles/ami/*" element={<RoleGuard auth={auth} expectedRole="ami"><RouteTransition><AmiDashboard /></RouteTransition></RoleGuard>} />
         <Route
           path="*"
@@ -310,7 +349,6 @@ function AnimatedRoutes({ auth, onLogin }) {
             : <Navigate to={defaultAppRoute} replace />}
         />
       </Routes>
-    </AnimatePresence>
   );
 }
 
@@ -377,7 +415,13 @@ function AppWorkspace({ auth, onLogin, onLogout }) {
             <ChampionshipPromoCard />
           </div>
         ) : null}
-        <AnimatedRoutes auth={auth} onLogin={onLogin} />
+        {/* The month's punctuality winner, celebrated once for each member of staff. */}
+        {inDashboardMode && !['student', 'parent', 'growthpartner', 'ami'].includes(String(auth?.user?.activeRole || auth?.user?.role || '').toLowerCase()) ? (
+          <PunctualityWinnerBanner variant="celebration" />
+        ) : null}
+        {inDashboardMode ? (
+          <ClosureGate role={auth?.user?.activeRole || auth?.user?.role}><AnimatedRoutes auth={auth} onLogin={onLogin} /></ClosureGate>
+        ) : <AnimatedRoutes auth={auth} onLogin={onLogin} />}
         {inDashboardMode && !mobileClassroomMode ? (
           <MobileRoleOverviewNav roleKey={location.pathname.split('/')[2] || 'student'} />
         ) : null}
@@ -385,6 +429,14 @@ function AppWorkspace({ auth, onLogin, onLogout }) {
       <ReturnToAmiBanner />
     </div>
   );
+}
+
+// AI Assessments moved inside Ndovera AI; old links (and the topic hub) still land there.
+function AiAssessmentsRedirect() {
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  params.set('tab', 'assessment');
+  return <Navigate to={`/roles/teacher/ai-assistant?${params.toString()}`} replace />;
 }
 
 // When NDOVERA support (Ami) opens a school as its owner, show a way back to Ami.

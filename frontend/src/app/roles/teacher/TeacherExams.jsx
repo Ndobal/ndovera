@@ -3,6 +3,7 @@ import TeacherSectionShell from './TeacherSectionShell';
 import { fetchExamList, fetchExamById, createExam, updateExam, deleteExam, organizeQuestionTopics } from '../../../features/exams/service/examService';
 import QuestionRenderer from '../../../features/exams/QuestionRenderer';
 import ErrorPanel from '../../../shared/components/ErrorPanel';
+import ExamsHub from '../../../features/assessments/ExamsHub';
 
 function buildEmptyQuestion(type = 'mcq') {
   const templates = {
@@ -20,8 +21,8 @@ function buildEmptyQuestion(type = 'mcq') {
 
 export default function TeacherExams({
   mode = 'cbt',
-  title: sectionTitle = 'CBT Exams',
-  subtitle = 'Create and schedule computer-based tests.',
+  title: sectionTitle = 'Exams',
+  subtitle = 'Set exam papers with Ndovera AI or your own questions, then mark and post scores.',
 }) {
   const [exams, setExams] = useState([]);
   const [title, setTitle] = useState('');
@@ -127,6 +128,19 @@ export default function TeacherExams({
 
   return (
     <TeacherSectionShell title={sectionTitle} subtitle={subtitle}>
+      {mode !== 'practice' && <ExamsHub />}
+      {mode !== 'practice' ? (
+        <details className="mt-6 rounded-2xl border border-white/10 p-3">
+          <summary className="cursor-pointer text-sm font-bold">Quick CBT (older editor)</summary>
+          <div className="mt-3">{renderEditor()}</div>
+        </details>
+      ) : renderEditor()}
+    </TeacherSectionShell>
+  );
+
+  function renderEditor() {
+    return (
+    <>
       {message && <div className="mb-4 text-green-400">{message}</div>}
       {message && message.toLowerCase().startsWith('failed') && (
         <ErrorPanel title="Operation failed" message={message} onClose={() => setMessage(null)} />
@@ -187,6 +201,7 @@ export default function TeacherExams({
           ))}
         </ul>
       </div>
-    </TeacherSectionShell>
-  );
+    </>
+    );
+  }
 }

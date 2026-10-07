@@ -170,7 +170,19 @@ export default {
     // The homepage is served directly from assets but still needs its canonical set, so it
     // goes through the same rewrite path rather than being returned untouched.
     if (!isDocumentRequest || looksLikeStaticAsset) {
-      return env.ASSETS.fetch(request);
+      const asset = await env.ASSETS.fetch(request);
+      // A page opened before a deploy asks for build files that have since been replaced.
+      // Answering with the HTML fallback made browsers drop the styles silently (an
+      // unformatted app, unformatted prints); a plain 404 lets the page reload itself.
+      // Only a real miss counts: a 304 is the asset store confirming the browser's (or
+      // Cloudflare's) cached copy is current. Treating it as missing (`!asset.ok`) turned
+      // every revalidation of a cached bundle into a 404, and returning users got a blank page.
+      const missing = asset.status === 404
+        || (asset.status === 200 && /text\/html/i.test(asset.headers.get('content-type') || ''));
+      if (url.pathname.startsWith('/static/') && missing) {
+        return new Response('Not found', { status: 404, headers: { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'no-store' } });
+      }
+      return asset;
     }
 
     const path = normalizePath(url.pathname === '/index.html' ? '/' : url.pathname);
@@ -178,10 +190,18 @@ export default {
     const shellUrl = new URL(url.toString());
     if (shouldServeAppShell) shellUrl.pathname = '/index.html';
 
+    // The shell is always fetched unconditionally. Passing the browser's
+    // If-None-Match / If-Modified-Since through let the asset store answer 304 with
+    // no body, which this worker then re-labelled 200 — a blank page on reload.
+    const shellHeaders = new Headers(request.headers);
+    for (const name of ['if-none-match', 'if-modified-since', 'if-match', 'if-unmodified-since', 'if-range', 'range']) {
+      shellHeaders.delete(name);
+    }
     const appShellResponse = await env.ASSETS.fetch(new Request(shellUrl.toString(), {
       method: 'GET',
-      headers: request.headers,
+      headers: shellHeaders,
     }));
+    if (!appShellResponse.ok) return appShellResponse;
 
     const headers = new Headers(appShellResponse.headers);
     headers.delete('location');

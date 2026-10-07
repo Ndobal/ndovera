@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import Flipbook from './Flipbook';
+import StructuredMaterialView from './StructuredMaterialView';
+import RichContent from '../../../shared/rich/RichContent';
 
 // In-app reader for class materials. PDFs open as a realistic page-flip flipbook, while images,
 // video, audio and Office files open inline too (no forced download), each with a Download button.
@@ -50,9 +52,20 @@ export default function MaterialViewer({ material, onClose }) {
 
   function renderBody() {
     if (kind === 'note') {
+      if (material.blocks?.length) {
+        return (
+          <div className="h-full overflow-auto p-3">
+            <article className="mx-auto max-w-3xl rounded-2xl bg-white p-6 shadow">
+              <StructuredMaterialView blocks={material.blocks} />
+            </article>
+          </div>
+        );
+      }
       return (
-        <div className="mx-auto max-w-3xl rounded-2xl bg-white p-6 text-sm leading-7 text-[#191970] whitespace-pre-wrap shadow">
-          {material.description || 'No note content was added.'}
+        <div className="h-full overflow-auto p-3">
+          <article className="mx-auto max-w-3xl rounded-2xl bg-white p-6 text-[15px] text-[#191970] shadow">
+            {material.description ? <RichContent text={material.description} /> : 'No note content was added.'}
+          </article>
         </div>
       );
     }
@@ -136,7 +149,11 @@ export default function MaterialViewer({ material, onClose }) {
       <div className="flex flex-wrap items-center gap-2 border-b border-[#c9a96e]/30 bg-[#b5e3f4] px-4 py-3">
         <div className="min-w-0 flex-1">
           <p className="truncate text-sm font-bold text-[#800000]">{title}</p>
-          {material.subjectName ? <p className="truncate text-[11px] font-semibold text-[#800020]">{material.subjectName}</p> : null}
+          {material.subjectName || material.metadata?.postedByLabel ? (
+            <p className="truncate text-[11px] font-semibold text-[#800020]">
+              {[material.subjectName, material.metadata?.postedByLabel ? `Posted by ${material.metadata.postedByLabel}` : ''].filter(Boolean).join(' • ')}
+            </p>
+          ) : null}
         </div>
 
         {kind === 'image' ? (

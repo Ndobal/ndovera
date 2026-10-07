@@ -559,8 +559,8 @@ const operationalRoleConfigs = {
 };
 
 const staffAiAssistantSection = {
-  title: 'AI Assistant',
-  subtitle: 'Chat with Workers AI for drafting, summaries, planning, and day-to-day staff support.',
+  title: 'Ndovera AI',
+  subtitle: 'Chat with Ndovera AI for drafting, summaries, planning, and day-to-day staff support.',
   panels: [
     {
       title: 'AI Support',

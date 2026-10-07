@@ -1,14 +1,13 @@
 import React from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import OwnerTenantConsole from '../../features/tenants/components/OwnerTenantConsole';
-import { OwnerResultAnalytics } from '../../features/results-engine';
+import { SchoolClassResults } from '../../features/results-engine';
 import AdminLibrary from '../../features/library/AdminLibrary';
 import RoleLibrary from '../RoleLibrary';
 import OwnerOverview from './owner/OwnerOverview';
 import OwnerSchools from './owner/OwnerSchools';
 import OwnerFinance from './owner/OwnerFinance';
 import OwnerPeople from './owner/OwnerPeople';
-import OwnerCompliance from './owner/OwnerCompliance';
 import OwnerApprovals from './owner/OwnerApprovals';
 import OwnerReports from './owner/OwnerReports';
 import OwnerSettings from './owner/OwnerSettings';
@@ -19,6 +18,9 @@ import HoSMessaging from './hos/HoSMessaging';
 import AdmissionsManagementBoard from '../../features/school/components/AdmissionsManagementBoard';
 import SchoolAuditTrailPage from '../../features/school/components/SchoolAuditTrailPage';
 import SchoolNewsroomPage from '../../features/school/components/SchoolNewsroomPage';
+import UpcomingEventsCard from '../../features/school/components/UpcomingEventsCard';
+import { PunctualityWinnerBanner } from '../../features/attendance/punctuality/PunctualityPages';
+import ComplianceCentre from '../../features/compliance/ComplianceCentre';
 
 export default function OwnerDashboard({ auth = null }) {
   const location = useLocation();
@@ -31,12 +33,12 @@ export default function OwnerDashboard({ auth = null }) {
   }
 
   switch (sectionKey) {
-    case 'overview': return <OwnerOverview auth={auth} />;
+    case 'overview': return <><div className="mx-auto max-w-7xl space-y-4 px-4 pt-4 sm:px-8"><PunctualityWinnerBanner /><UpcomingEventsCard /></div><OwnerOverview auth={auth} /></>;
     case 'schools': return <OwnerSchools auth={auth} />;
     case 'finance': return <OwnerFinance auth={auth} />;
-    case 'academics': return <OwnerResultAnalytics />;
+    case 'academics': return <SchoolClassResults analyticsMode="owner" roleTitle="Owner Dashboard" />;
     case 'people': return <OwnerPeople auth={auth} />;
-    case 'compliance': return <OwnerCompliance auth={auth} />;
+    case 'compliance': return <ComplianceCentre dashboardLabel="Owner Dashboard" />;
     case 'audits': return <SchoolAuditTrailPage roleLabel="Owner dashboard" title="Live School Audit Trail" subtitle="Monitor the school's critical actions as they happen, including people, finance, admissions, and governance events." />;
     case 'approvals': return <OwnerApprovals auth={auth} />;
     case 'reports': return <OwnerReports auth={auth} />;

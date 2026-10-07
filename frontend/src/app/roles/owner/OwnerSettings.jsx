@@ -509,6 +509,52 @@ function ClassesTab() {
   );
 }
 
+// Renaming keeps the subject's id, so its results, assignments, materials,
+// attendance and teacher links all carry over and simply show the new name.
+function SubjectName({ subject, onRenamed }) {
+  const [editing, setEditing] = useState(false);
+  const [draft, setDraft] = useState(subject.name || '');
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState('');
+
+  async function save(event) {
+    event.preventDefault();
+    const name = draft.replace(/\s+/g, ' ').trim();
+    if (!name) { setError('Enter a subject name.'); return; }
+    if (name === subject.name) { setEditing(false); return; }
+    setBusy(true); setError('');
+    try {
+      await updateSubject(subject.id, { name });
+      setEditing(false);
+      await onRenamed();
+    } catch (err) {
+      setError(err.message || 'Could not rename this subject.');
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  if (!editing) {
+    return (
+      <span className="flex flex-1 min-w-[120px] items-center gap-2">
+        <span className="font-semibold text-[#191970] dark:text-slate-100">{subject.name}</span>
+        <button type="button" onClick={() => { setDraft(subject.name || ''); setError(''); setEditing(true); }}
+          className="rounded-lg px-1.5 py-0.5 text-[11px] font-semibold text-[#1a5c38] hover:underline dark:text-[#00ffff]">Rename</button>
+      </span>
+    );
+  }
+
+  return (
+    <form onSubmit={save} className="flex flex-1 min-w-[200px] flex-wrap items-center gap-2">
+      <input value={draft} onChange={e => setDraft(e.target.value)} disabled={busy} autoFocus aria-label={`New name for ${subject.name}`}
+        className="flex-1 min-w-[140px] rounded-xl border border-[#c9a96e]/40 bg-white px-2 py-1 text-sm text-[#191970] dark:bg-slate-800 dark:text-slate-100" />
+      <button type="submit" disabled={busy} className="rounded-xl bg-[#1a5c38] px-2 py-1 text-xs font-bold text-[#b5e3f4] disabled:opacity-60">{busy ? 'Saving…' : 'Save'}</button>
+      <button type="button" disabled={busy} onClick={() => setEditing(false)} className="rounded-xl px-2 py-1 text-xs font-semibold text-[#800020]">Cancel</button>
+      {error && <span role="alert" className="w-full text-xs font-semibold text-red-600">{error}</span>}
+    </form>
+  );
+}
+
 function SubjectsTab() {
   const [subjects, setSubjects] = useState([]);
   const [classes, setClasses] = useState([]);
@@ -620,7 +666,7 @@ function SubjectsTab() {
               <div className="space-y-2">
                 {classSubjects.map(s => (
                   <div key={s.id} className="flex flex-wrap items-center gap-2 rounded-xl border border-[#c9a96e]/30 dark:border-white/5 bg-[#ade1f4] dark:bg-slate-800/40 px-3 py-2">
-                    <span className="flex-1 min-w-[120px] font-semibold text-[#191970] dark:text-slate-100">{s.name}</span>
+                    <SubjectName subject={s} onRenamed={reload} />
                     <select value={s.teacherId || ''} disabled={updatingSubjectId === s.id} onChange={e => changeSubjectTeacher(s.id, e.target.value)} className={TEACHER_SELECT}>
                       <option value="">— No teacher —</option>
                       {teachers.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
@@ -677,7 +723,7 @@ function SubjectsTab() {
               <div className="p-4 space-y-2 bg-[#b5e3f4] dark:bg-slate-900/30">
                 {unassigned.map(s => (
                   <div key={s.id} className="flex flex-wrap items-center gap-2 rounded-xl border border-[#c9a96e]/30 dark:border-white/5 bg-[#ade1f4] dark:bg-slate-800/40 px-3 py-2">
-                    <span className="flex-1 min-w-[120px] font-semibold text-[#191970] dark:text-slate-100">{s.name}</span>
+                    <SubjectName subject={s} onRenamed={reload} />
                     <select value="" disabled={updatingSubjectId === s.id} onChange={e => e.target.value && changeSubjectClass(s.id, e.target.value)} className={TEACHER_SELECT}>
                       <option value="">Move to class…</option>
                       {classes.map(c => <option key={c.id} value={c.id}>{classLabel(c)}</option>)}

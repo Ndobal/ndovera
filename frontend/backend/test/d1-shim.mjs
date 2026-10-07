@@ -100,8 +100,8 @@ export function createLegacySchema(db) {
   db.db.exec(`
     CREATE TABLE settings (studentId TEXT PRIMARY KEY, payload TEXT NOT NULL);
     CREATE TABLE users (
-      id TEXT PRIMARY KEY, email TEXT UNIQUE, name TEXT, role TEXT,
-      tenantId TEXT, className TEXT, status TEXT, createdAt TEXT
+      id TEXT PRIMARY KEY, email TEXT UNIQUE, name TEXT, role TEXT, tenantId TEXT,
+      passwordHash TEXT, status TEXT, createdAt TEXT, primary_role TEXT, employment_category TEXT
     );
     CREATE TABLE classes (id TEXT PRIMARY KEY, tenantId TEXT, name TEXT, arm TEXT, classTeacherId TEXT, createdAt TEXT);
     CREATE TABLE class_memberships (

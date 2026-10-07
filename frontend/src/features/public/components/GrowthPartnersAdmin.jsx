@@ -11,7 +11,7 @@ import {
 import { ConversationsPage } from '../../../app/roles/growthpartner/PartnerPages';
 import GrowthPartnerDetail from './GrowthPartnerDetail';
 
-const naira = new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN', maximumFractionDigits: 0 });
+const naira = new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN', minimumFractionDigits: 0, maximumFractionDigits: 0 });
 
 export default function GrowthPartnersAdmin() {
   const [applications, setApplications] = useState([]);

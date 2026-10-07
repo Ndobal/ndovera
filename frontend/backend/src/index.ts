@@ -1,4 +1,115 @@
 import { Hono } from 'hono'
+import { backfillMaterialSessions, currentMaterialContext, isCurrentMaterial, materialArchivePlacements, provisionalSessionId, provisionalSessionName, studentCanAccessArchivedMaterial } from './materialSessions'
+import { ensureMaterialsTable, mapMaterialRow, getCurrentMaterialCounts } from './db'
+import {
+  blocksToPlainText, canTransitionMaterial, ensureBaselineVersion, listMaterialAudit, listMaterialHistory,
+  materialStatus, recordMaterialAudit, recordMaterialVersion, sanitizeMaterialBlocks, type MaterialStatus,
+} from './materialLifecycle'
+import {
+  COMPLIANCE_KINDS,
+  KIND_LABELS as COMPLIANCE_KIND_LABELS,
+  FREQUENCIES as COMPLIANCE_FREQUENCIES,
+  SECTIONS as COMPLIANCE_SECTIONS,
+  SCHOOL_WIDE_ROLES,
+  ComplianceError,
+  type Section as ComplianceSection,
+  listRules as listComplianceRules,
+  getRule as getComplianceRule,
+  saveRule as saveComplianceRule,
+  setRuleActive as setComplianceRuleActive,
+  getComplianceSettings,
+  saveComplianceSettings,
+  viewerSections,
+  rulePeriods as complianceRulePeriods,
+  periodAt as complianceRulePeriodAt,
+  evaluateItem as evaluateComplianceItem,
+  assignmentsForRule as assignmentsForComplianceRule,
+  teacherSections as complianceTeacherSections,
+  teacherItems as complianceTeacherItems,
+  teacherHistory as complianceTeacherHistory,
+  summarize as summarizeCompliance,
+  listAudit as listComplianceAudit,
+  loadVerifications as loadComplianceVerifications,
+  loadFines as loadComplianceFines,
+  normalizeFiles as normalizeComplianceFiles,
+  recordVerification as recordComplianceVerification,
+  decideFine as decideComplianceFine,
+  QUESTION_TYPES as CLASS_REPORT_QUESTION_TYPES,
+  getReportTemplate as getClassReportTemplate,
+  saveReportTemplate as saveClassReportTemplate,
+  getClassReport,
+  findClassReport,
+  listClassReports,
+  saveClassReportDraft,
+  submitClassReport,
+  storeAiSummary as storeClassReportAiSummary,
+  buildClassReportPrompt,
+} from './compliance'
+import {
+  StaffFileError,
+  RECORD_CATEGORIES as STAFF_RECORD_CATEGORIES,
+  RECORD_LABELS as STAFF_RECORD_LABELS,
+  TASK_RATINGS as STAFF_TASK_RATINGS,
+  REPORT_STATUSES as STAFF_REPORT_STATUSES,
+  REWARD_TYPES as STAFF_REWARD_TYPES,
+  DEFAULT_REVIEW_CRITERIA as STAFF_REVIEW_CRITERIA,
+  staffFilePermissions,
+  canSeeRecord as canSeeStaffRecord,
+  listStaffAudit,
+  listStaffRecords,
+  getStaffRecord,
+  addStaffRecord,
+  staffRecordHistory,
+  listLoans as listStaffLoans,
+  getLoan as getStaffLoan,
+  createLoan as createStaffLoan,
+  decideLoan as decideStaffLoan,
+  addRepayment as addStaffLoanRepayment,
+  confirmRepayment as confirmStaffLoanRepayment,
+  adjustLoan as adjustStaffLoan,
+  createTask as createStaffTask,
+  listTasks as listStaffTasks,
+  getAssignment as getStaffTaskAssignment,
+  updateTaskProgress as updateStaffTaskProgress,
+  evaluateTask as evaluateStaffTask,
+  addPerformanceReview,
+  listPerformanceReviews,
+  fileReport as fileStaffReport,
+  listReports as listStaffReports,
+  getReport as getStaffReport,
+  updateReportStatus as updateStaffReportStatus,
+  respondToReport as respondToStaffReport,
+  addReward as addStaffReward,
+  listRewards as listStaffRewards,
+  getReward as getStaffReward,
+  timelineFrom as staffTimelineFrom,
+} from './staffFile'
+import {
+  ALL_STUDENT_RECORD_CATEGORIES,
+  relationFor,
+  studentFileAccess,
+  canSeeCategory as canSeeStudentCategory,
+  canAddCategory as canAddStudentCategory,
+  canSeeRecord as canSeeStudentRecord,
+  studentOverview as studentProfileOverview,
+} from './studentFile'
+import { carryForwardAssignments, listSessionAssignments, listTeachingHistory, loadLiveAssignments, recordLiveAssignments } from './teachingAssignments'
+import { SubjectRenameError, listSubjectRenames, renameSubject } from './subjectRename'
+import {
+  TopicError, buildTeacherNotesContext, ensureTopicHubTables, getTopic, getTopicProgress, isQuizAssignment, listTopicContent,
+  listTopics, recordTopicAudit, recordTopicProgress, removeTopic, updateTopic,
+} from './topicHub'
+import {
+  SubmissionError, buildAiReviewPrompt, computeExpectations, createSubmission as createTeacherSubmission, decideSubmission, deleteSubmission, editSubmission,
+  getSubmission, getSubmissionHistory, getSubmissionPolicy, listSubmissions, saveSubmissionPolicy, startReview, submissionTypes,
+  submitSubmission, ensureSubmissionTables, recordSubmissionAudit,
+} from './teacherSubmissions'
+import {
+  EvaluationError, buildEvaluationSummaryPrompt, closeEvaluation, getEvaluation, getEvaluationResults, getReviewerAssignments,
+  listEvaluations, listSchoolStaff, saveEvaluation, saveEvaluationSummary, submitResponse,
+} from './staffEvaluations'
+import { ensurePunctualityTables, loadSignIns, mapAward, monthRange, pickPunctualityWinners, summarisePunctuality, workingDays } from './staffPunctuality'
+import { SUPERVISION_ROLES, SUPERVISOR_LABELS, exitClass, getHosMode, joinClass, listSupervisedClassIds, setHosMode, supervisorMayIntervene } from './classSupervision'
 import { cors } from 'hono/cors'
 import { logger } from 'hono/logger'
 import { sign, verify } from '@tsndr/cloudflare-worker-jwt'
@@ -49,6 +160,21 @@ import {
   listStudentResultDocuments,
   listRecentResultDocuments,
   listResultDocumentsForPeriod,
+  writeResultEntries,
+  listResultEntryAudit,
+  getResultExamPeriod,
+  setResultExamPeriod,
+  countPublishedResultBatches,
+  clearPracticeResults,
+  PRACTICE_PERIOD_KEY,
+  PRACTICE_SESSION_LABEL,
+  PRACTICE_TERM_LABEL,
+  listCaSubmissions,
+  listCaSubmissionsForPeriod,
+  getCaSubmission,
+  frozenCaComponents,
+  submitCaComponent,
+  reviewCaSubmission,
 } from './results'
 import {
   AcademicError,
@@ -74,6 +200,7 @@ import {
   getCurrentAcademicPeriod,
   getFeeDashboard,
   getPromotionBatch,
+  getSessionById,
   getSessionDetail,
   getStudentFinancialHistory,
   lagosToday,
@@ -82,6 +209,9 @@ import {
   listPromotionBatches,
   listSessionEnrollments,
   listSessions,
+  listTerms,
+  loadFeeConfigForPeriod,
+  getTermById,
   listStudentEnrollmentHistory,
   listStudentOutstanding,
   moveEnrollments,
@@ -211,6 +341,33 @@ import {
   saveAiPaymentRecord,
   summarizeAiAccess,
 } from './aiTutor'
+import {
+  FinanceError, addAdjustment, cancelObligation, ensureFinanceTables, financeDashboard, money, getObligationHistory, getStructure, getStudentAccount,
+  issueBills, listFinanceAudit, listStructures, mapClaim, previewCopy, recordPayment, reversePayment, reviewClaim,
+  saveStructure, searchArchives, setOptIns, setStructureStatus, submitClaim,
+} from './finance'
+import {
+  ASSESSMENT_PROFILES, AssessmentError, BLOOM_LEVELS, DIFFICULTIES, TYPE_LABELS, autoBloom, autoMark, clampInt, markingSchemeMarkdown, paperMarkdown,
+  stripAnswersForStudent, toClassroomQuestions,
+} from './assessmentEngine'
+import { applyPaper, isSecondaryClass, masterQuestions, paperCode, personalise, planPaper, type PaperRecord } from './paperVariants'
+import {
+  AiRunner, Assessment, aiReview, approveBlueprint, auditFor, createAssessment, ensureAiAssessmentTables, generateNext, getAssessment, getLetterhead, getOwnAssessment,
+  getVersionSnapshot, importAssessment, listAssessments, listVersions, mapAssessment, pendingSlots, regenerateQuestion, saveLetterhead, saveTeacherEdits, setStatus,
+} from './aiAssessments'
+import { AI_IMPORT_SYSTEM, importFromAiReply, needsAiHelp, parsePaperText, toAssessmentInput } from './paperImport'
+import {
+  MODE_LABELS, SittingError, deleteSitting, getSitting, getSittingForAssessment, insertSitting, listMarks, listSittings, markPosted, saveMarks,
+  scoreSettingsFrom, sheetScore, sittingPhase, updateSittingSchedule, validateSchedule, type Sitting,
+} from './examSittings'
+import {
+  CLOSURE_CATEGORIES, ClosureError, acknowledgeClosure, dueClosures, forgetTenantClosure, getActiveClosure, isTenantClosed, listClosureHistory,
+  listClosuresForAdmin, markExecuted, markReopened, requestClosure, revokeClosure,
+} from './schoolClosure'
+import {
+  Enrollment, TermRef, accountSummaries, addStudentCharge, adjustStudent, billStudents, canEditFees, getFeeSettings, getTermGrid, getTermLock,
+  listFeeTerms, lockTerm, resolveClassMove, saveFeeSettings, saveTermGrid, studentStatement, unbilledStudents, unlockTerm,
+} from './feeEngine'
 
 type Bindings = {
   APP_DB: D1Database
@@ -582,17 +739,21 @@ async function sendZohoPasswordResetEmail(env: Bindings, payload: { to: string; 
     </div>
   `.trim()
 
-  const response = await fetch(`https://mail.zoho.com/api/accounts/${encodeURIComponent(accountId)}/messages`, {
+  await postZohoMessage(env, { accountId, fromAddress, accessToken, to: payload.to, subject: 'NDOVERA password reset', html: emailBody })
+}
+
+async function postZohoMessage(env: Bindings, message: { accountId: string, fromAddress: string, accessToken: string, to: string, subject: string, html: string }) {
+  const response = await fetch(`https://mail.zoho.com/api/accounts/${encodeURIComponent(message.accountId)}/messages`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Zoho-oauthtoken ${accessToken}`,
+      Authorization: `Zoho-oauthtoken ${message.accessToken}`,
     },
     body: JSON.stringify({
-      fromAddress,
-      toAddress: payload.to,
-      subject: 'NDOVERA password reset',
-      content: emailBody,
+      fromAddress: message.fromAddress,
+      toAddress: message.to,
+      subject: message.subject,
+      content: message.html,
       mailFormat: 'html',
       encoding: 'UTF-8',
     }),
@@ -602,6 +763,43 @@ async function sendZohoPasswordResetEmail(env: Bindings, payload: { to: string; 
     const errorText = await response.text().catch(() => '')
     throw new Error(errorText || 'Zoho email request failed.')
   }
+}
+
+/**
+ * Send one transactional email through Zoho Mail to several people (one
+ * message each, so addresses are never shared). Returns who it reached.
+ */
+async function sendZohoEmail(env: Bindings, payload: { to: string[], subject: string, html: string }) {
+  const accountId = String(env.ZOHO_MAIL_ACCOUNT_ID || '').trim()
+  const fromAddress = String(env.ZOHO_MAIL_FROM_ADDRESS || '').trim()
+  if (!accountId || !fromAddress) throw new Error('ZOHO_MAIL_ACCOUNT_ID and ZOHO_MAIL_FROM_ADDRESS must be set.')
+  const recipients = [...new Set(payload.to.map(address => String(address || '').trim().toLowerCase()).filter(address => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(address)))]
+  if (!recipients.length) return { sent: [] as string[], failed: [] as string[] }
+  const accessToken = await getZohoAccessToken(env)
+  const sent: string[] = []
+  const failed: string[] = []
+  for (const to of recipients) {
+    try {
+      await postZohoMessage(env, { accountId, fromAddress, accessToken, to, subject: payload.subject, html: payload.html })
+      sent.push(to)
+    } catch (error) {
+      console.error('Zoho email failed', to, error)
+      failed.push(to)
+    }
+  }
+  return { sent, failed }
+}
+
+/** Ndovera's branded email layout. `paragraphs` are plain text; they are escaped here. */
+function ndoveraEmailHtml(heading: string, paragraphs: string[], footer = '') {
+  const body = paragraphs.map(text => `<p style="margin:0 0 14px;">${escapePasswordResetHtml(text).replace(/\n/g, '<br>')}</p>`).join('')
+  return `
+    <div style="font-family:Segoe UI,Arial,sans-serif;color:#191970;line-height:1.6;max-width:640px;margin:0 auto;padding:24px;background:#fff8ef;border:1px solid rgba(201,169,110,0.45);border-radius:24px;">
+      <p style="margin:0 0 12px;font-size:12px;font-weight:700;letter-spacing:0.28em;text-transform:uppercase;color:#b08d2d;">NDOVERA</p>
+      <h1 style="margin:0 0 16px;font-size:24px;line-height:1.2;color:#800000;">${escapePasswordResetHtml(heading)}</h1>
+      ${body}
+      ${footer ? `<p style="margin:16px 0 0;font-size:13px;color:#31416f;">${escapePasswordResetHtml(footer)}</p>` : ''}
+    </div>`.trim()
 }
 
 // R2 file proxy — serves uploaded files at /files/:key
@@ -1407,6 +1605,9 @@ function normalizeResultSettingsInput(payload: Record<string, any> = {}) {
       examMaxScore: scoreSettings.examMaxScore,
       caComponents: normalizeResultCaComponentList(metadata.caComponents, fallback.metadata.caComponents, 8, scoreSettings.caMaxScore),
       feeLockUnpaidResults: metadata.feeLockUnpaidResults === true,
+      // Exam scores from Ndovera exams: converted to the exam maximum (default) or entered as obtained.
+      examScoreEntry: metadata.examScoreEntry === 'raw' ? 'raw' : 'convert',
+      examScoreDecimals: [0, 1, 2].includes(Number(metadata.examScoreDecimals)) && metadata.examScoreDecimals !== '' && metadata.examScoreDecimals !== null && metadata.examScoreDecimals !== undefined ? Number(metadata.examScoreDecimals) : 1,
       branding: normalizeResultBranding(metadata.branding, fallback.metadata.branding),
     },
   }
@@ -1462,15 +1663,61 @@ function sumResultEntryCaComponents(componentScores: Record<string, any> = {}, c
   )
 }
 
-async function resolveCurrentResultPeriod(db: D1Database, tenantId: string, requestedSessionName?: unknown, requestedTermName?: unknown) {
+/**
+ * The results period a request means. Prefer stable ids (`sessionId`, `termId`
+ * from academic_sessions / academic_terms): names are display values and can
+ * change. Result batches are still stored by name, so ids are resolved to the
+ * school's own session and term names here; an id from another school, or one
+ * that does not exist, is rejected rather than guessed at.
+ */
+class ResultPeriodError extends Error {}
+
+async function resolveCurrentResultPeriod(
+  db: D1Database,
+  tenantId: string,
+  requestedSessionName?: unknown,
+  requestedTermName?: unknown,
+  requestedIds: { sessionId?: unknown, termId?: unknown } = {},
+) {
+  const sessionId = String(requestedIds.sessionId || '').trim()
+  const termId = String(requestedIds.termId || '').trim()
+  if ([requestedSessionName, requestedTermName].some(value => String(value || '').trim() === PRACTICE_PERIOD_KEY)) {
+    throw new ResultPeriodError('Practice results can only be opened from the practice sheet.')
+  }
+  let idSessionName = ''
+  let idTermName = ''
+  if (sessionId) {
+    const row = await db.prepare(`SELECT name FROM academic_sessions WHERE id = ? AND tenant_id = ?`).bind(sessionId, tenantId).first().catch(() => null) as Record<string, any> | null
+    if (!row) throw new ResultPeriodError('That academic session was not found for this school.')
+    idSessionName = String(row.name || '')
+  }
+  if (termId) {
+    const row = await db.prepare(`SELECT name, session_id FROM academic_terms WHERE id = ? AND tenant_id = ?`).bind(termId, tenantId).first().catch(() => null) as Record<string, any> | null
+    if (!row || (sessionId && String(row.session_id) !== sessionId)) throw new ResultPeriodError('That term was not found in this academic session.')
+    idTermName = String(row.name || '')
+  }
+
+  // Nothing requested: new work follows the academic calendar when the school
+  // has one, so it is keyed by ids. Without one, the older session record still
+  // decides. Batches already saved under other names are untouched.
+  const named = Boolean(String(requestedSessionName || '').trim() || String(requestedTermName || '').trim())
+  if (!sessionId && !termId && !named && tenantId) {
+    const calendar = await getCurrentAcademicPeriod(db, tenantId).catch(() => null)
+    if (calendar?.configured && calendar.sessionName && calendar.termName) {
+      return { sessionId: calendar.sessionId, termId: calendar.termId, sessionName: calendar.sessionName, termName: calendar.termName }
+    }
+  }
+
   await db.prepare(`CREATE TABLE IF NOT EXISTS school_sessions (id TEXT PRIMARY KEY, tenantId TEXT, session TEXT, term TEXT, startDate TEXT, endDate TEXT, createdAt TEXT)`).run()
   const current = tenantId
     ? await db.prepare(`SELECT session, term FROM school_sessions WHERE tenantId = ? ORDER BY createdAt DESC LIMIT 1`).bind(tenantId).first() as Record<string, any> | null
     : null
 
   return {
-    sessionName: String(requestedSessionName || current?.session || 'Current Session').trim(),
-    termName: String(requestedTermName || current?.term || 'Term 1').trim() || 'Term 1',
+    sessionId,
+    termId,
+    sessionName: String(idSessionName || requestedSessionName || current?.session || 'Current Session').trim(),
+    termName: String(idTermName || requestedTermName || current?.term || 'Term 1').trim() || 'Term 1',
   }
 }
 
@@ -1480,7 +1727,7 @@ async function resolveResultClassAccess(db: D1Database, user: Record<string, any
   const tenantId = resolvedUser.settings?.tenantId || resolvedUser.settings?.schoolId || resolvedUser.userRow?.tenantId || user.tenantId
   const actorId = String(resolvedUser.userRow?.id || resolvedUser.userRow?.email || resolvedUser.settingsKey || userIdentifier || '').trim()
   const actorName = String(resolvedUser.settings?.name || resolvedUser.userRow?.name || user.name || actorId).trim()
-  const normalizedRole = String(resolvedUser.settings?.role || resolvedUser.userRow?.role || user.role || '').trim().toLowerCase()
+  const normalizedRole = resolveEffectiveRole(resolvedUser, user)
   const teacherIdentifiers = collectComparableIdentifiers(collectResolvedIdentityIdentifiers(resolvedUser, user))
 
   await ensureClassesTable(db)
@@ -1514,6 +1761,10 @@ async function resolveResultClassAccess(db: D1Database, user: Record<string, any
     allowedSubjectRows,
     isClassTeacher,
     isElevatedManager,
+    teacherIdentifiers,
+    // Who may change whose score rows: HoS/owner (and ICT) over everyone, the
+    // class teacher over the class's subject teachers, a subject teacher only their own.
+    overrideRank: isElevatedManager ? 2 : isClassTeacher ? 1 : 0,
     canManageEntries: Boolean(classRow) && (isElevatedManager || isClassTeacher || allowedSubjectRows.length > 0),
     canManageProfiles: Boolean(classRow) && (isElevatedManager || isClassTeacher),
   }
@@ -3023,7 +3274,9 @@ async function resolveFeeViewerContext(
     : { settingsKey: '', settings: null, userRow: null }
   const settings = resolvedUser.settings || {}
   const tenantId = String(settings.tenantId || settings.schoolId || resolvedUser.userRow?.tenantId || currentUser.tenantId || '').trim()
-  const role = normalizeRole(settings.role) || getActiveRole(currentUser)
+  // The role in use (validated against the roles held), not the stored primary role:
+  // an HOS who is also a teacher is stored as a teacher.
+  const role = resolveEffectiveRole(resolvedUser, currentUser)
 
   return {
     allowed: Boolean(tenantId) && FEE_VIEWER_ROLES.includes(role),
@@ -3039,7 +3292,9 @@ async function listVisibleFeeLedgerEntries(db: D1Database, currentUser: Record<s
     : { settingsKey: '', settings: null, userRow: null }
   const settings = resolvedUser.settings || {}
   const tenantId = String(settings.tenantId || settings.schoolId || resolvedUser.userRow?.tenantId || currentUser.tenantId || '').trim()
-  const role = normalizeRole(settings.role) || getActiveRole(currentUser)
+  // The role in use (validated against the roles held), not the stored primary role:
+  // an HOS who is also a teacher is stored as a teacher.
+  const role = resolveEffectiveRole(resolvedUser, currentUser)
 
   if (!tenantId) {
     return { allowed: false, tenantId: '', role, ledger: [] as Array<Record<string, any>> }
@@ -4247,7 +4502,17 @@ async function resolveAiActor(db: D1Database, user: Record<string, any>) {
 
 function canManageAiBilling(role: string) {
   const normalized = String(role || '').trim().toLowerCase()
-  return ['owner', 'ami'].includes(normalized)
+  return ['owner', 'hos', 'ami'].includes(normalized)
+}
+
+/** Parse a stored JSON column, falling back when it is empty or not JSON. */
+function parseJsonField<T>(value: unknown, fallback: T): T {
+  if (typeof value !== 'string' || !value) return fallback
+  try {
+    return JSON.parse(value) as T
+  } catch {
+    return fallback
+  }
 }
 
 const WORKERS_AI_MODEL = '@cf/meta/llama-3.1-8b-instruct-fast'
@@ -4295,6 +4560,24 @@ function normalizeAiConversationMessages(raw: unknown): AiConversationMessage[] 
     .slice(-12) as AiConversationMessage[]
 }
 
+// The app renders answers itself (frontend src/features/ai/aiContent.js), so the
+// model writes in this small, predictable format and the interface decides how
+// it looks. Keep the two in step.
+const AI_ANSWER_FORMAT = [
+  'Format every answer for an on-screen study page:',
+  'start with a short "# Title" line when the answer is more than two sentences;',
+  'use "## " for each section; "- " for bullet points; "1. " for steps in order;',
+  'put a key term on its own line as "Definition: ..."; worked examples as "Example: ...";',
+  'the main thing to remember as "Key point: ..."; common mistakes as "Warning: ...";',
+  'formulas as "Formula: ..."; questions for the learner as "Practice question: ..." with any options as bullets under it;',
+  'use a Markdown pipe table (with a header row and a |---| separator) wherever it helps compare items or present data.',
+  'Write all mathematics in LaTeX: inside a sentence as \\( ... \\), on its own line as $$ ... $$ —',
+  'for example $$\\text{Percentage Change} = \\frac{\\text{New Value} - \\text{Old Value}}{\\text{Old Value}} \\times 100$$ —',
+  'using \\frac for fractions, ^{ } for powers, _{ } for subscripts, \\times, \\div, \\le, \\ge, \\sqrt{ }, \\sum and \\Delta. Never write a fraction as (a / b) in plain text.',
+  'When writing lesson notes, follow this order: headings, short paragraphs, tables, equations, examples, worked solutions (numbered steps), key points, then revision questions.',
+  'Do not use HTML. Keep paragraphs short. A relevant emoji at the start of a bullet is welcome for younger learners.',
+].join(' ')
+
 function buildAiSystemPrompt(actor: Record<string, any>, mode: string) {
   const role = String(actor?.role || '').trim().toLowerCase()
   const actorName = String(actor?.actorName || 'staff member').trim()
@@ -4308,6 +4591,7 @@ function buildAiSystemPrompt(actor: Record<string, any>, mode: string) {
       'If the request is not academic, briefly redirect the user to ask an academic question instead.',
       'Do not claim to submit assignments, change records, or take actions inside Ndovera.',
       'Keep answers structured, clear, and age-appropriate.',
+      AI_ANSWER_FORMAT,
     ].join(' ')
   }
 
@@ -4318,6 +4602,7 @@ function buildAiSystemPrompt(actor: Record<string, any>, mode: string) {
     'Do not claim to perform actions inside Ndovera, send messages, publish records, or change data.',
     'If the request is unsafe, illegal, sexually explicit, hateful, or harmful, refuse briefly and redirect to a safe alternative.',
     'Prefer direct, practical answers with bullets or short steps when useful.',
+    AI_ANSWER_FORMAT,
   ].join(' ')
 }
 
@@ -4442,7 +4727,7 @@ function canAccessAiCreditPayment(actor: Record<string, any>, payment: Record<st
   if (normalizedRole === 'ami') return true
 
   if (String(payment?.target || '').trim().toLowerCase() === 'school') {
-    return normalizedRole === 'owner' && String(actor?.tenantId || '').trim() === String(payment?.tenantId || '').trim()
+    return ['owner', 'hos'].includes(normalizedRole) && String(actor?.tenantId || '').trim() === String(payment?.tenantId || '').trim()
   }
 
   const actorSettingsKey = String(actor?.settingsKey || '').trim().toLowerCase()
@@ -4880,6 +5165,27 @@ function getActiveRole(user: Record<string, any> | null | undefined) {
   return normalizeRole(user?.activeRole || user?.selectedRole || user?.role) || 'student'
 }
 
+/**
+ * The role a request acts as. A person holding several roles (say teacher and
+ * HOS) picks one in the role switcher, carried as X-Selected-Role. That choice
+ * counts only while their current stored roles still include it, so switching
+ * works, a header can never grant a role, and a removed role stops at once.
+ * Reading the stored primary role instead made a teacher acting as HOS look
+ * like a teacher and refused them HOS pages.
+ */
+function resolveEffectiveRole(resolved: { settings?: Record<string, any> | null, userRow?: Record<string, any> | null } | null | undefined, user: Record<string, any> = {}) {
+  const settings = resolved?.settings || {}
+  const storedRole = resolved?.userRow?.role || (resolved?.settings || resolved?.userRow ? '' : user.role)
+  // The switcher's choice counts when the person's stored roles hold it today, even if their
+  // login token was issued before that role was given.
+  const requested = normalizeRole(user?.requestedRole || '')
+  if (requested) {
+    const chosen = buildRoleContext(settings, storedRole, requested)
+    if (chosen.selectedRole === requested) return requested
+  }
+  return buildRoleContext(settings, storedRole, getActiveRole(user)).selectedRole
+}
+
 function canCreateSchoolAnnouncements(role: unknown) {
   return SCHOOL_ANNOUNCEMENT_CREATOR_ROLES.includes(normalizeRole(role))
 }
@@ -5041,6 +5347,29 @@ async function buildCriticalAuditNotificationItems(db: D1Database, tenantId: str
     }))
 }
 
+/**
+ * School closures: Ndovera admins see every pending closure; the school's Owner
+ * and Head of School see their own countdown. Reads only — no tables created here.
+ */
+async function buildClosureNotificationItems(db: D1Database, tenantId: string, role: string) {
+  const isAmi = normalizeRole(role) === 'ami'
+  if (!isAmi && !(tenantId && ['owner', 'hos'].includes(normalizeRole(role)))) return []
+  const rows = isAmi
+    ? await db.prepare(`SELECT * FROM school_closure_requests WHERE status = 'pending' ORDER BY effective_at LIMIT 20`).all().catch(() => ({ results: [] }))
+    : await db.prepare(`SELECT * FROM school_closure_requests WHERE tenant_id = ? AND status = 'pending' LIMIT 1`).bind(tenantId).all().catch(() => ({ results: [] }))
+  return ((rows.results || []) as Record<string, any>[]).map(row => ({
+    id: `school-closure:${row.id}`,
+    title: isAmi ? `School closure requested: ${row.school_name || row.tenant_id}` : 'This school is scheduled to close',
+    detail: clampPreview(isAmi ? `${row.requested_by_name || 'The owner'} — ${row.reason}` : `Closes ${new Date(row.effective_at).toUTCString()} unless the owner revokes it.`, 140),
+    sender: isAmi ? 'School closure' : 'Ndovera',
+    time: formatHeaderTime(row.requested_at),
+    unread: !row.acknowledged_at,
+    category: 'school_closure',
+    actionUrl: isAmi ? '/roles/ami/school-closures' : `/roles/${normalizeRole(role)}/school-closure`,
+    sortAt: String(row.requested_at || ''),
+  }))
+}
+
 async function buildAuthenticatedHeader(c: any, roleKey: string) {
   const currentUser = c.var.user || {}
   const userIdentifier = currentUser.id || currentUser.email || currentUser.sub || ''
@@ -5050,7 +5379,7 @@ async function buildAuthenticatedHeader(c: any, roleKey: string) {
 
   const resolvedUser = await resolveSettingsIdentity(c.env.APP_DB, userIdentifier)
   const settings = resolvedUser.settings || {}
-  const actorRole = normalizeRole(settings.role) || getActiveRole(currentUser) || roleKey
+  const actorRole = resolveEffectiveRole(resolvedUser, currentUser) || roleKey
   const tenantId = settings.tenantId || settings.schoolId || resolvedUser.userRow?.tenantId || currentUser.tenantId
 
   // Use raw identifiers only — skip resolveCanonicalUserIdentifier (saved 5-8 sequential DB calls).
@@ -5113,7 +5442,13 @@ async function buildAuthenticatedHeader(c: any, roleKey: string) {
       sortAt: String(announcement.createdAt || ''),
     }))
 
+  const [closureItems, complianceItems] = await Promise.all([
+    buildClosureNotificationItems(c.env.APP_DB, String(tenantId || ''), actorRole).catch(() => [] as any[]),
+    buildComplianceNotificationItems(c.env.APP_DB, String(tenantId || ''), canonicalReaderId, actorRole).catch(() => [] as any[]),
+  ])
   const notificationItems = [
+    ...closureItems,
+    ...complianceItems,
     ...(feeClaimItems || []),
     ...(feeReminderItems || []),
     ...(feeReceiptItems || []),
@@ -5991,6 +6326,9 @@ app.post('/api/tenants/register-and-pay', async (c) => {
 })
 
 // Authenticate middleware
+// Paths a member of a closed school may still reach: who am I, and why is it closed.
+const CLOSED_SCHOOL_ALLOWED_PATHS = new Set(['/api/users/me', '/api/school/closure', '/api/auth/logout', '/api/logout'])
+
 async function authenticate(c: any, next: any) {
   const auth = c.req.header('Authorization')
   const cookieToken = getCookieValue(c.req.header('Cookie'), AUTH_COOKIE_NAME)
@@ -6004,16 +6342,37 @@ async function authenticate(c: any, next: any) {
   try {
     const authSessionSeconds = resolveAuthSessionSeconds(c.env)
     const { payload } = await verify(token, c.env.JWT_SECRET)
-    const roleContext = buildRoleContext({ role: payload.role, roles: payload.roles }, payload.role, c.req.header('X-Selected-Role'))
+    let roleContext = buildRoleContext({ role: payload.role, roles: payload.roles }, payload.role, c.req.header('X-Selected-Role'))
+    // A role given after this token was issued (a teacher made HOS, say): the token does not
+    // list it, so every role check would refuse them until they signed in again. When the
+    // role switcher asks for a role the token lacks, the person's stored roles decide — read
+    // once, and only then. A header can still never grant a role nobody gave them.
+    const requestedRole = normalizeRole(c.req.header('X-Selected-Role') || '')
+    if (requestedRole && roleContext.selectedRole !== requestedRole) {
+      const stored = await resolveSettingsIdentity(c.env.APP_DB, String(payload.id || payload.email || payload.sub || '')).catch(() => null)
+      if (stored && (stored.settings || stored.userRow)) {
+        const current = buildRoleContext(stored.settings || {}, stored.userRow?.role, requestedRole)
+        if (current.selectedRole === requestedRole) roleContext = current
+      }
+    }
     const authenticatedUser = {
       ...payload,
       activeRole: roleContext.selectedRole,
+      // The role chosen in the role switcher. The login token may predate a role given since
+      // (e.g. a teacher made HOS); resolveEffectiveRole checks it against the stored roles.
+      requestedRole: normalizeRole(c.req.header('X-Selected-Role') || ''),
       role: roleContext.rawRoles,
       roles: roleContext.rawRoles,
       switchableRoles: roleContext.switchableRoles,
       adminRoles: roleContext.adminRoles,
     }
     c.set('user', authenticatedUser)
+    // A closed school: nobody in it can use Ndovera until Ndovera reopens it.
+    const closedTenantId = String(payload.tenantId || '').trim()
+    if (closedTenantId && !roleContext.rawRoles.includes('ami') && !CLOSED_SCHOOL_ALLOWED_PATHS.has(new URL(c.req.url).pathname)
+      && await isTenantClosed(c.env.APP_DB, closedTenantId).catch(() => false)) {
+      return c.json({ success: false, code: 'SCHOOL_CLOSED', message: 'This school has closed on Ndovera. Contact the school or Ndovera support.' }, 403)
+    }
     await next()
     // Sliding expiry: issue a fresh token on every authenticated request
     // so the session stays alive as long as the user keeps using the app
@@ -6649,6 +7008,13 @@ app.post('/api/ami/tenants/:tenantId/restore', authenticate, async (c) => {
     action: 'tenantRestored',
     data: { by: c.var.user.id || 'ami' },
   })
+  // Restoring also reopens a school that its owner closed.
+  const closureBefore = await getActiveClosure(c.env.APP_DB, tenantId).catch(() => null)
+  if (tenant.status === 'closed' || closureBefore?.status === 'executed') {
+    await markReopened(c.env.APP_DB, tenantId, String(c.var.user.name || c.var.user.id || 'Ndovera admin')).catch(() => null)
+    await addAudit(c.env.APP_DB, tenantId, { action: 'schoolReopened', data: { by: c.var.user.id || 'ami' } }).catch(() => null)
+    if (closureBefore) inBackground(c, emailClosureAlert(c.env, closureBefore, 'reopened', String(c.var.user.name || 'An Ndovera admin')))
+  }
 
   return c.json({ success: true, tenant: updatedTenant })
 })
@@ -7299,7 +7665,7 @@ app.get('/api/dashboards/:roleKey', authenticate, async (c) => {
 
         const [assignmentCountRow, materialCountRow, classmateCountRow, attendanceCountRow] = await Promise.all([
           c.env.APP_DB.prepare(`SELECT COUNT(*) as count FROM assignments WHERE classId = ?`).bind(settings.classId).first().catch(() => ({ count: 0 })),
-          c.env.APP_DB.prepare(`SELECT COUNT(*) as count FROM materials WHERE classId = ?`).bind(settings.classId).first().catch(() => ({ count: 0 })),
+          getMaterialsForClass(c.env.APP_DB, settings.classId).then(materials => ({ count: materials.filter(isStudentVisibleMaterial).length })),
           c.env.APP_DB.prepare(
             `SELECT COUNT(*) as count
              FROM settings
@@ -7402,6 +7768,8 @@ app.get('/api/dashboards/:roleKey', authenticate, async (c) => {
 
         const today = new Date().toISOString().slice(0, 10)
 
+        const sessionMaterialCounts = await getCurrentMaterialCounts(c.env.APP_DB, tenantId)
+        const materialCountByClass = new Map(sessionMaterialCounts.results.map(row => [String(row.classId), Number(row.count)]))
         classes = await Promise.all(classRows.map(async row => {
           const classId = String(row.id || '')
           const isClassTeacher = matchesComparableIdentifier(row.classTeacherId, teacherIdentifiers)
@@ -7420,9 +7788,7 @@ app.get('/api/dashboards/:roleKey', authenticate, async (c) => {
             c.env.APP_DB.prepare(
               `SELECT COUNT(*) as count FROM assignments WHERE classId = ?`
             ).bind(classId).first().catch(() => ({ count: 0 })),
-            c.env.APP_DB.prepare(
-              `SELECT COUNT(*) as count FROM materials WHERE classId = ?`
-            ).bind(classId).first().catch(() => ({ count: 0 })),
+            Promise.resolve({ count: materialCountByClass.get(classId) || 0 }),
             c.env.APP_DB.prepare(
               `SELECT id, name, teacherId FROM subjects WHERE tenantId = ? AND classId = ? ORDER BY name`
             ).bind(tenantId, classId).all().catch(() => ({ results: [] })),
@@ -7876,7 +8242,7 @@ app.get('/api/classrooms/assigned', authenticate, async (c) => {
   const userIdentifier = user.id || user.email || user.sub || ''
   const resolvedUser = await resolveSettingsIdentity(c.env.APP_DB, userIdentifier)
   const tenantId = resolvedUser.settings?.tenantId || resolvedUser.settings?.schoolId || resolvedUser.userRow?.tenantId || user.tenantId
-  const normalizedRole = String(resolvedUser.settings?.role || resolvedUser.userRow?.role || user.role || '').trim().toLowerCase()
+  const normalizedRole = resolveEffectiveRole(resolvedUser, user)
   const isSupervisor = isClassroomSupervisorRole(normalizedRole)
   let teacherIdentifiers = collectComparableIdentifiers(collectResolvedIdentityIdentifiers(resolvedUser, user))
   const fallbackClassIds = Array.from(new Set([
@@ -7991,9 +8357,7 @@ app.get('/api/classrooms/assigned', authenticate, async (c) => {
       c.env.APP_DB.prepare(
         `SELECT classId, COUNT(*) as count FROM assignments WHERE classId IN (${classIdPlaceholders}) GROUP BY classId`
       ).bind(...classIds).all().catch(() => ({ results: [] })),
-      c.env.APP_DB.prepare(
-        `SELECT classId, COUNT(*) as count FROM materials WHERE classId IN (${classIdPlaceholders}) GROUP BY classId`
-      ).bind(...classIds).all().catch(() => ({ results: [] })),
+      getCurrentMaterialCounts(c.env.APP_DB, tenantId),
       c.env.APP_DB.prepare(
         `SELECT classId, COUNT(*) as count FROM posts WHERE classId IN (${classIdPlaceholders}) GROUP BY classId`
       ).bind(...classIds).all().catch(() => ({ results: [] })),
@@ -8024,13 +8388,18 @@ app.get('/api/classrooms/assigned', authenticate, async (c) => {
     const subjectCounts = new Map<string, number>()
     for (const [cid, rows] of subjectsByClass) subjectCounts.set(cid, rows.length)
 
+    const supervisorCanIntervene = isSupervisor ? await supervisorMayIntervene(c.env.APP_DB, String(tenantId), normalizedRole) : false
+    const supervisedClassIds = (SUPERVISION_ROLES as readonly string[]).includes(normalizedRole)
+      ? new Set(await listSupervisedClassIds(c.env.APP_DB, String(tenantId), String(userIdentifier)))
+      : null
+
     const assignedClasses = classRows.map(row => {
       const classId = String(row.id || '')
       const extraTeacherIds = (membershipsByClass.get(classId) || []).filter(Boolean)
       // Assistant/co-teachers (class_membership teachers) share the class teacher's rights.
       const isCoTeacher = extraTeacherIds.some(id => matchesComparableIdentifier(id, teacherIdentifiers))
       const isClassTeacher = matchesComparableIdentifier(row.classTeacherId, teacherIdentifiers) || isCoTeacher
-      const canManageClassroom = isSupervisor || isClassTeacher
+      const canManageClassroom = (isSupervisor && supervisorCanIntervene) || isClassTeacher
 
       let subjectRows = subjectsByClass.get(classId) || []
       if (!isSupervisor) {
@@ -8050,6 +8419,7 @@ app.get('/api/classrooms/assigned', authenticate, async (c) => {
         isClassTeacher,
         canManageClassroom,
         isSupervisor,
+        supervisionJoined: supervisedClassIds ? supervisedClassIds.has(classId) : false,
         teacherIds: Array.from(new Set([String(row.classTeacherId || '').trim(), ...extraTeacherIds].filter(Boolean))),
         studentCount: studentCounts.get(classId) || 0,
         subjectCount: subjectCounts.get(classId) || 0,
@@ -8064,7 +8434,16 @@ app.get('/api/classrooms/assigned', authenticate, async (c) => {
       }
     })
 
-    return c.json({ success: true, classes: assignedClasses })
+    return c.json({
+      success: true,
+      classes: assignedClasses,
+      supervision: supervisedClassIds ? {
+        role: normalizedRole,
+        label: SUPERVISOR_LABELS[normalizedRole] || '',
+        canIntervene: supervisorCanIntervene,
+        hosMode: await getHosMode(c.env.APP_DB, String(tenantId)),
+      } : null,
+    })
   } catch (error) {
     console.error('Failed to load assigned classes', error)
     return c.json({ success: false, error: 'Could not load assigned classes.' }, 500)
@@ -8102,68 +8481,128 @@ app.get('/api/classrooms/:classroomId/posts', authenticate, async (c) => {
   }
 })
 
+/**
+ * Who may write in a class stream, and as whom. The author always comes from
+ * the signed-in identity — never from the request body — and the class must
+ * belong to the writer's own school.
+ *
+ *   * the class's own teachers (class teacher, co-teacher, any subject teacher);
+ *   * school leadership as supervisors, labelled as such (a view-only HOS cannot);
+ *   * students enrolled in the class;
+ *   * parents read the stream but do not post in it.
+ */
+async function resolveStreamWriter(db: D1Database, user: Record<string, any>, classroomId: string) {
+  const access = await resolveClassroomLearningAccess(db, user, classroomId)
+  if (!access.ok) return { ok: false as const, status: access.status, message: access.message }
+
+  const resolved = await resolveSettingsIdentity(db, user.id || user.email || user.sub || '')
+  const identifiers = collectComparableIdentifiers(collectResolvedIdentityIdentifiers(resolved, user))
+  const role = String(access.role || getActiveRole(user) || '').toLowerCase()
+  const tenantId = String(access.classRow.tenantId || access.tenantId)
+  const authorId = String(user.id || user.email || user.sub || '').trim()
+  const authorName = String(resolved.settings?.name || resolved.userRow?.name || user.name || authorId).trim()
+  if (!authorId) return { ok: false as const, status: 401, message: 'Sign in again to post.' }
+
+  if (!access.canManage) {
+    if (role !== 'student') return { ok: false as const, status: 403, message: 'Only the class, its teachers and school leadership can post here.' }
+    return { ok: true as const, authorId, authorName, authorRole: 'student', postedByLabel: '' }
+  }
+
+  const teachesHere = matchesComparableIdentifier(access.classRow.classTeacherId, identifiers)
+    || await classHasMembershipTeacher(db, tenantId, access.classRow.id, identifiers)
+    || Boolean(await db.prepare(`SELECT 1 FROM subjects WHERE classId = ? AND (tenantId = ? OR tenantId IS NULL OR tenantId = '')
+        AND lower(trim(teacherId)) IN (SELECT value FROM json_each(?)) LIMIT 1`)
+      .bind(access.classRow.id, tenantId, JSON.stringify(identifiers)).first().catch(() => null))
+  if (teachesHere) return { ok: true as const, authorId, authorName, authorRole: role || 'teacher', postedByLabel: '' }
+
+  // Holding a teaching role somewhere else in the school is not enough.
+  const supervisoryLabel = SUPERVISOR_LABELS[role]
+  if (!supervisoryLabel) return { ok: false as const, status: 403, message: 'You do not teach this class.' }
+  if (!await supervisorMayIntervene(db, tenantId, role)) {
+    return { ok: false as const, status: 403, message: 'School policy gives the Head of School view-only access to classes.' }
+  }
+  return { ok: true as const, authorId, authorName, authorRole: role, postedByLabel: supervisoryLabel }
+}
+
 app.post('/api/classrooms/:classroomId/stream', authenticate, async (c) => {
   const classroomId = c.req.param('classroomId')
-  const body = await c.req.json()
+  const body = await c.req.json().catch(() => ({}))
   const content = String(body?.content || body?.text || '').trim()
-  const authorId = String(body?.authorId || c.var.user?.id || 'user-teacher-1').trim()
   if (!content) {
     return c.json({ success: false, message: 'Content is required' }, 400)
   }
   try {
-    const newPost = {
+    const writer = await resolveStreamWriter(c.env.APP_DB, c.var.user || {}, classroomId)
+    if (!writer.ok) return c.json({ success: false, message: writer.message }, writer.status as any)
+    const insertedPost = await createPost(c.env.APP_DB, {
       classId: classroomId,
-      authorId,
+      authorId: writer.authorId,
+      authorName: writer.authorName,
+      authorRole: writer.authorRole,
+      postedByLabel: writer.postedByLabel,
       content,
-    }
-    const insertedPost = await createPost(c.env.APP_DB, newPost)
+    })
     return c.json({ success: true, post: insertedPost }, 201)
   } catch (error) {
-    return c.json({ success: false, message: 'Server error', error }, 500)
+    console.error('Stream post failed', error)
+    return c.json({ success: false, message: 'Server error' }, 500)
   }
 })
 
 app.post('/api/classrooms/:classroomId/posts', authenticate, async (c) => {
   const classroomId = c.req.param('classroomId')
-  const body = await c.req.json()
+  const body = await c.req.json().catch(() => ({}))
   const content = String(body?.content || body?.text || '').trim()
-  const authorId = String(body?.authorId || c.var.user?.id || 'user-teacher-1').trim()
   if (!content) {
     return c.json({ success: false, message: 'Content is required' }, 400)
   }
   try {
-    const newPost = {
+    const writer = await resolveStreamWriter(c.env.APP_DB, c.var.user || {}, classroomId)
+    if (!writer.ok) return c.json({ success: false, message: writer.message }, writer.status as any)
+    const insertedPost = await createPost(c.env.APP_DB, {
       classId: classroomId,
-      authorId,
+      authorId: writer.authorId,
+      authorName: writer.authorName,
+      authorRole: writer.authorRole,
+      postedByLabel: writer.postedByLabel,
       content,
-    }
-    const insertedPost = await createPost(c.env.APP_DB, newPost)
+    })
     return c.json({ success: true, post: insertedPost }, 201)
   } catch (error) {
-    return c.json({ success: false, message: 'Server error', error }, 500)
+    console.error('Stream post failed', error)
+    return c.json({ success: false, message: 'Server error' }, 500)
   }
 })
 
 app.post('/api/classrooms/:classroomId/posts/:postId/comments', authenticate, async (c) => {
+  const classroomId = c.req.param('classroomId')
   const postId = c.req.param('postId')
-  const body = await c.req.json()
+  const body = await c.req.json().catch(() => ({}))
   const text = String(body?.text || body?.content || '').trim()
-  const authorId = String(body?.authorId || c.var.user?.id || c.var.user?.email || '').trim()
-  const authorName = String(c.var.user?.name || authorId || 'Teacher').trim()
 
   if (!text) {
     return c.json({ success: false, message: 'Comment text is required.' }, 400)
   }
 
   try {
+    const writer = await resolveStreamWriter(c.env.APP_DB, c.var.user || {}, classroomId)
+    if (!writer.ok) return c.json({ success: false, message: writer.message }, writer.status as any)
+    // The post must belong to the class the writer was authorised for.
+    const post = await getPostById(c.env.APP_DB, postId)
+    if (!post || String(post.classId || '') !== String(classroomId || '')) {
+      return c.json({ success: false, message: 'Post not found.' }, 404)
+    }
     const comment = await addPostComment(c.env.APP_DB, postId, {
       text,
-      authorId,
-      user: authorName,
+      authorId: writer.authorId,
+      user: writer.authorName,
+      authorRole: writer.authorRole,
+      postedByLabel: writer.postedByLabel,
     })
     return c.json({ success: true, comment }, 201)
   } catch (error) {
-    return c.json({ success: false, message: error instanceof Error ? error.message : 'Could not add comment.' }, 500)
+    console.error('Stream comment failed', error)
+    return c.json({ success: false, message: 'Could not add comment.' }, 500)
   }
 })
 
@@ -8188,7 +8627,8 @@ app.put('/api/classrooms/:classroomId/stream/:postId', authenticate, async (c) =
       return c.json({ success: false, message: 'Post not found.' }, 404)
     }
 
-    const canManagePost = context.canManageClasswide || matchesComparableIdentifier(post.authorId, context.actorIdentifiers)
+    const canManagePost = !context.supervisorViewOnly
+      && (context.canManageClasswide || matchesComparableIdentifier(post.authorId, context.actorIdentifiers))
     if (!canManagePost) {
       return c.json({ success: false, message: 'You are not allowed to edit this post.' }, 403)
     }
@@ -8215,7 +8655,8 @@ app.delete('/api/classrooms/:classroomId/stream/:postId', authenticate, async (c
       return c.json({ success: false, message: 'Post not found.' }, 404)
     }
 
-    const canManagePost = context.canManageClasswide || matchesComparableIdentifier(post.authorId, context.actorIdentifiers)
+    const canManagePost = !context.supervisorViewOnly
+      && (context.canManageClasswide || matchesComparableIdentifier(post.authorId, context.actorIdentifiers))
     if (!canManagePost) {
       return c.json({ success: false, message: 'You are not allowed to delete this post.' }, 403)
     }
@@ -8300,13 +8741,41 @@ app.get('/api/classrooms/:classroomId/subjects', authenticate, async (c) => {
   }
 })
 
+/** A student's own paper of a unique-per-student assessment (with answers — strip before showing). */
+function studentPaperQuestions(assignment: Record<string, any>, studentId: string) {
+  if (!assignment?.metadata?.uniquePerStudent || !studentId || !Array.isArray(assignment.questions)) return null
+  return personalise(assignment.questions, `${assignment.id}:${studentId}`).questions
+}
+
+/** Scheduled work stays hidden from learners until it opens. */
+function isNotYetOpen(assignment: Record<string, any>) {
+  const opensAt = String(assignment?.metadata?.opensAt || '')
+  return Boolean(opensAt) && opensAt > new Date().toISOString()
+}
+
 app.get('/api/classrooms/:classroomId/assignments', authenticate, async (c) => {
   const classroomId = c.req.param('classroomId')
   try {
-    const assignments = await getAssignmentsForClass(c.env.APP_DB, classroomId)
     const user = c.var.user || {}
+    const reader = await resolveSettingsIdentity(c.env.APP_DB, String(user.id || user.email || user.sub || ''))
+    const readerTenant = String(reader.settings?.tenantId || reader.settings?.schoolId || reader.userRow?.tenantId || user.tenantId || '').trim()
+    const classTenantRow = await c.env.APP_DB.prepare(`SELECT tenantId FROM classes WHERE id = ?`).bind(classroomId).first().catch(() => null) as Record<string, any> | null
+    if (classTenantRow && readerTenant && String(classTenantRow.tenantId || '') && String(classTenantRow.tenantId) !== readerTenant && normalizeRole(user.role) !== 'ami') {
+      return c.json({ success: false, message: 'Class not found.' }, 404)
+    }
+    const allAssignments = (await getAssignmentsForClass(c.env.APP_DB, classroomId))
+      .filter(assignment => !(assignment as any)?.metadata?.examSittingId || (assignment as any)?.metadata?.reviewReleased)
+    const learnerRole = ['student', 'parent', 'student_parent'].includes(resolveEffectiveRole(reader, user))
+    const learnerView = (list: any[]) => list
+      .filter(assignment => !isNotYetOpen(assignment))
+      .map(assignment => {
+        // Unique papers: anyone who is not the student reads the master paper (no number templates).
+        const shown = assignment?.metadata?.uniquePerStudent && Array.isArray(assignment.questions) ? { ...assignment, questions: masterQuestions(assignment.questions) } : assignment
+        return shown?.metadata?.answersReleased ? shown : { ...shown, questions: stripAnswersForStudent(shown.questions) }
+      })
+    const assignments = learnerRole ? learnerView(allAssignments) : allAssignments
 
-    if (String(user.role || '').toLowerCase() === 'student') {
+    if (String(user.role || '').toLowerCase() === 'student' || resolveEffectiveRole(reader, user) === 'student') {
       const userIdentifier = user.id || user.email || user.sub || ''
       const resolvedUser = await resolveSettingsIdentity(c.env.APP_DB, userIdentifier)
       const studentId = String(resolvedUser.userRow?.id || user.id || userIdentifier).trim()
@@ -8330,7 +8799,9 @@ app.get('/api/classrooms/:classroomId/assignments', authenticate, async (c) => {
       }
       const hydratedAssignments = assignments.map(assignment => {
         const mySubmission = submissionMap.get(String((assignment as any).id || '')) || null
-        return { ...assignment, mySubmission, studentStatus: mySubmission ? 'Submitted' : 'Pending' }
+        const own = studentPaperQuestions(allAssignments.find(item => String((item as any).id) === String((assignment as any).id)) || assignment, studentId)
+        const questions = own ? ((assignment as any)?.metadata?.answersReleased ? own : stripAnswersForStudent(own)) : (assignment as any).questions
+        return { ...assignment, questions, mySubmission, studentStatus: mySubmission ? 'Submitted' : 'Pending' }
       })
       return c.json({ success: true, assignments: hydratedAssignments })
     }
@@ -8345,7 +8816,10 @@ app.get('/api/classrooms/:classroomId/assignments', authenticate, async (c) => {
     }
     const canManageClasswide = Boolean(moderation?.ok && moderation.canManageClasswide)
     const actorIdentifiers: string[] = (moderation?.ok && moderation.actorIdentifiers) || []
-    const flaggedAssignments = assignments.map(assignment => ({
+    // Anyone who cannot manage this class (a parent, a teacher from another class)
+    // reads it as a learner would: no answer keys, nothing before it opens.
+    const visible = moderation?.ok ? assignments : learnerView(assignments)
+    const flaggedAssignments = visible.map(assignment => ({
       ...assignment,
       canManage: canManageClasswide || matchesComparableIdentifier((assignment as any).createdBy, actorIdentifiers),
     }))
@@ -8395,12 +8869,14 @@ app.post('/api/classrooms/:classroomId/assignments', authenticate, async (c) => 
 
     const userRole = String((user as any).role || '').toLowerCase()
     const isAdmin = ['owner', 'hos', 'ict', 'ict_manager', 'ami'].includes(userRole)
-    const canCreateForSubject = isAdmin
-      || matchesComparableIdentifier(subjectRow.teacherId, teacherIdentifiers)
+    const isAssignedHere = matchesComparableIdentifier(subjectRow.teacherId, teacherIdentifiers)
       || matchesComparableIdentifier(classRow.classTeacherId, teacherIdentifiers)
       || await classHasMembershipTeacher(c.env.APP_DB, classRow.tenantId || tenantId, classRow.id, teacherIdentifiers)
-    if (!canCreateForSubject) {
+    if (!isAssignedHere && !isAdmin) {
       return c.json({ success: false, message: 'You are not assigned to this subject.' }, 403)
+    }
+    if (!isAssignedHere && !await supervisorMayIntervene(c.env.APP_DB, String(classRow.tenantId || tenantId), userRole)) {
+      return c.json({ success: false, message: 'School policy gives the Head of School view-only access to classes.' }, 403)
     }
 
     const normalizedQuestions = Array.isArray(questions) ? questions : []
@@ -8418,6 +8894,7 @@ app.post('/api/classrooms/:classroomId/assignments', authenticate, async (c) => 
         ...(topicName ? { topic: topicName } : {}),
         questionCount: normalizedQuestions.length,
         className: `${classRow.name}${classRow.arm ? ` ${classRow.arm}` : ''}`,
+        ...supervisoryAttribution(isAssignedHere ? '' : userRole),
       },
       createdBy: teacherId,
     }
@@ -8556,6 +9033,7 @@ app.delete('/api/classrooms/:classroomId/assignments/:assignmentId', authenticat
 // when empty (created from the Subjects tab) and are auto-created when a teacher
 // tags an assignment or material with a new topic name.
 async function ensureClassTopicsTable(db: D1Database) {
+  await ensureTopicHubTables(db)
   await db.prepare(`CREATE TABLE IF NOT EXISTS class_topics (
     id TEXT PRIMARY KEY,
     tenant_id TEXT,
@@ -8591,24 +9069,37 @@ async function ensureClassTopic(
   return { id, name, subject_id: subjectId }
 }
 
+// ─── Topics: the learning hub of a subject ───────────────────────────────────
+// See topicHub.ts. Reading needs access to the class (students see published
+// topics only); changing needs to teach the subject or manage the class, and
+// every change is audited.
+
+async function resolveTopicEditor(db: D1Database, user: Record<string, any>, classroomId: string, subjectId: string) {
+  // A school's very first topic must find the table already there.
+  await ensureTopicHubTables(db)
+  const context = await resolveClassroomModerationContext(db, user, classroomId)
+  if (!context.ok) return { ok: false as const, status: (context as any).status || 404, message: (context as any).message || 'Class not found.' }
+  if ((context as any).supervisorViewOnly) return { ok: false as const, status: 403, message: 'School policy gives the Head of School view-only access to classes.' }
+  const subjectRow = subjectId
+    ? await db.prepare(`SELECT id, teacherId FROM subjects WHERE id = ? AND classId = ?`).bind(subjectId, classroomId).first() as Record<string, any> | null
+    : null
+  if (subjectId && !subjectRow) return { ok: false as const, status: 404, message: 'Subject not found for this class.' }
+  const allowed = context.canManageClasswide || Boolean(subjectRow && matchesComparableIdentifier(subjectRow.teacherId, context.actorIdentifiers))
+  if (!allowed) return { ok: false as const, status: 403, message: 'You do not teach this subject.' }
+  return { ok: true as const, tenantId: String(context.tenantId), actorId: String(context.actorId), actorName: String(user.name || user.email || context.actorId) }
+}
+
 app.get('/api/classrooms/:classroomId/topics', authenticate, async (c) => {
   const classroomId = c.req.param('classroomId')
   const subjectId = String(c.req.query('subjectId') || '').trim()
   try {
-    await ensureClassTopicsTable(c.env.APP_DB)
-    const stmt = subjectId
-      ? c.env.APP_DB.prepare(`SELECT id, subject_id, name, created_at FROM class_topics WHERE class_id = ? AND subject_id = ? ORDER BY COALESCE(sort_order, 999999), name`).bind(classroomId, subjectId)
-      : c.env.APP_DB.prepare(`SELECT id, subject_id, name, created_at FROM class_topics WHERE class_id = ? ORDER BY COALESCE(sort_order, 999999), name`).bind(classroomId)
-    const rows = await stmt.all()
-    const topics = ((rows.results || []) as Record<string, any>[]).map(row => ({
-      id: String(row.id || ''),
-      subjectId: String(row.subject_id || ''),
-      name: String(row.name || ''),
-      createdAt: row.created_at || null,
-    }))
+    const access = await resolveClassroomLearningAccess(c.env.APP_DB, c.var.user || {}, classroomId)
+    if (!access.ok) return c.json({ success: false, message: access.message }, access.status)
+    const topics = await listTopics(c.env.APP_DB, classroomId, subjectId, { publishedOnly: !access.canManage })
     return c.json({ success: true, topics })
   } catch (error) {
-    return c.json({ success: false, message: 'Could not load topics.', error: String((error as Error)?.message || error) }, 500)
+    console.error('Topic list failed', error)
+    return c.json({ success: false, message: 'Could not load topics.' }, 500)
   }
 })
 
@@ -8618,13 +9109,23 @@ app.post('/api/classrooms/:classroomId/topics/reorder', authenticate, async (c) 
   const orderedIds = Array.isArray(body?.orderedIds) ? body.orderedIds.map((v: any) => String(v || '')).filter(Boolean) : []
   if (!orderedIds.length) return c.json({ error: 'orderedIds required.' }, 400)
   try {
-    await ensureClassTopicsTable(c.env.APP_DB)
+    await ensureTopicHubTables(c.env.APP_DB)
+    const rows = await c.env.APP_DB.prepare(`SELECT id, subject_id FROM class_topics WHERE class_id = ? AND id IN (SELECT value FROM json_each(?))`)
+      .bind(classroomId, JSON.stringify(orderedIds)).all()
+    const subjectIds = [...new Set(((rows.results || []) as Record<string, any>[]).map(row => String(row.subject_id || '')))]
+    if (((rows.results || []) as unknown[]).length !== orderedIds.length || subjectIds.length !== 1) {
+      return c.json({ success: false, message: 'Reorder the topics of one subject at a time.' }, 400)
+    }
+    const editor = await resolveTopicEditor(c.env.APP_DB, c.var.user || {}, classroomId, subjectIds[0])
+    if (!editor.ok) return c.json({ success: false, message: editor.message }, editor.status as any)
     for (let i = 0; i < orderedIds.length; i += 1) {
       // eslint-disable-next-line no-await-in-loop
       await c.env.APP_DB.prepare(`UPDATE class_topics SET sort_order = ? WHERE id = ? AND class_id = ?`).bind(i + 1, orderedIds[i], classroomId).run()
     }
+    await recordTopicAudit(c.env.APP_DB, { tenantId: editor.tenantId, classId: classroomId, subjectId: subjectIds[0], topicId: orderedIds[0], action: 'reordered', actorId: editor.actorId, actorName: editor.actorName, after: orderedIds })
     return c.json({ success: true })
-  } catch {
+  } catch (error) {
+    console.error('Topic reorder failed', error)
     return c.json({ success: false, message: 'Could not reorder topics.' }, 500)
   }
 })
@@ -8634,44 +9135,250 @@ app.post('/api/classrooms/:classroomId/topics', authenticate, async (c) => {
   try {
     const payload = await c.req.json().catch(() => ({})) as Record<string, any>
     const subjectId = String(payload?.subjectId || '').trim()
-    const name = String(payload?.name || '').trim()
+    const name = String(payload?.name || '').replace(/\s+/g, ' ').trim()
     if (!subjectId || !name) {
       return c.json({ success: false, message: 'Subject and topic name are required.' }, 400)
     }
-    const context = await resolveClassroomModerationContext(c.env.APP_DB, c.var.user || {}, classroomId)
-    if (!context.ok) return c.json({ success: false, message: context.message }, context.status)
-    const subjectRow = await c.env.APP_DB.prepare(
-      `SELECT id, teacherId FROM subjects WHERE id = ? AND classId = ?`
-    ).bind(subjectId, classroomId).first() as Record<string, any> | null
-    const canAdd = context.canManageClasswide || (subjectRow && matchesComparableIdentifier(subjectRow.teacherId, context.actorIdentifiers))
-    if (!canAdd) return c.json({ success: false, message: 'You are not assigned to this subject.' }, 403)
+    const editor = await resolveTopicEditor(c.env.APP_DB, c.var.user || {}, classroomId, subjectId)
+    if (!editor.ok) return c.json({ success: false, message: editor.message }, editor.status as any)
 
-    const topic = await ensureClassTopic(c.env.APP_DB, { tenantId: context.tenantId, classId: classroomId, subjectId, name, createdBy: context.actorId })
-    return c.json({ success: true, topic: { id: topic?.id, name, subjectId } }, 201)
+    const existing = await c.env.APP_DB.prepare(`SELECT id FROM class_topics WHERE class_id = ? AND subject_id = ? AND lower(name) = lower(?)`).bind(classroomId, subjectId, name).first()
+    if (existing) return c.json({ success: false, message: `This subject already has a topic called "${name}".` }, 409)
+    const created = await ensureClassTopic(c.env.APP_DB, { tenantId: editor.tenantId, classId: classroomId, subjectId, name, createdBy: editor.actorId })
+    const topicId = String(created?.id || '')
+    const topic = await updateTopic(c.env.APP_DB, {
+      tenantId: editor.tenantId, classId: classroomId, topicId,
+      changes: {
+        description: payload.description, week: payload.week, objectives: payload.objectives,
+        termId: payload.termId || (await currentMaterialContext(c.env.APP_DB, editor.tenantId)).termId,
+        status: payload.status === 'draft' ? 'draft' : 'published',
+      },
+      actorId: editor.actorId, actorName: editor.actorName,
+    })
+    await recordTopicAudit(c.env.APP_DB, { tenantId: editor.tenantId, classId: classroomId, subjectId, topicId, action: 'created', actorId: editor.actorId, actorName: editor.actorName, after: topic })
+    return c.json({ success: true, topic }, 201)
   } catch (error) {
-    return c.json({ success: false, message: 'Could not add topic.', error: String((error as Error)?.message || error) }, 500)
+    if (error instanceof TopicError) return c.json({ success: false, message: error.message }, error.status as any)
+    console.error('Topic create failed', error)
+    return c.json({ success: false, message: 'Could not add topic.' }, 500)
+  }
+})
+
+app.put('/api/classrooms/:classroomId/topics/:topicId', authenticate, async (c) => {
+  const classroomId = c.req.param('classroomId')
+  try {
+    const topic = await getTopic(c.env.APP_DB, classroomId, c.req.param('topicId'))
+    if (!topic) return c.json({ success: false, message: 'Topic not found.' }, 404)
+    const editor = await resolveTopicEditor(c.env.APP_DB, c.var.user || {}, classroomId, topic.subjectId)
+    if (!editor.ok) return c.json({ success: false, message: editor.message }, editor.status as any)
+    const payload = await c.req.json().catch(() => ({})) as Record<string, any>
+    const changes = Object.fromEntries(['name', 'description', 'week', 'objectives', 'termId', 'status'].filter(key => key in payload).map(key => [key, payload[key]]))
+    const updated = await updateTopic(c.env.APP_DB, { tenantId: editor.tenantId, classId: classroomId, topicId: topic.id, changes, actorId: editor.actorId, actorName: editor.actorName })
+    return c.json({ success: true, topic: updated })
+  } catch (error) {
+    if (error instanceof TopicError) return c.json({ success: false, message: error.message }, error.status as any)
+    console.error('Topic update failed', error)
+    return c.json({ success: false, message: 'Could not update topic.' }, 500)
   }
 })
 
 app.delete('/api/classrooms/:classroomId/topics/:topicId', authenticate, async (c) => {
   const classroomId = c.req.param('classroomId')
-  const topicId = c.req.param('topicId')
   try {
-    const context = await resolveClassroomModerationContext(c.env.APP_DB, c.var.user || {}, classroomId)
-    if (!context.ok) return c.json({ success: false, message: context.message }, context.status)
-    await ensureClassTopicsTable(c.env.APP_DB)
-    if (!context.canManageClasswide) {
-      const row = await c.env.APP_DB.prepare(`SELECT subject_id FROM class_topics WHERE id = ? AND class_id = ?`).bind(topicId, classroomId).first() as Record<string, any> | null
-      const subjectRow = row
-        ? await c.env.APP_DB.prepare(`SELECT teacherId FROM subjects WHERE id = ? AND classId = ?`).bind(String(row.subject_id || ''), classroomId).first() as Record<string, any> | null
-        : null
-      const canDelete = subjectRow && matchesComparableIdentifier(subjectRow.teacherId, context.actorIdentifiers)
-      if (!canDelete) return c.json({ success: false, message: 'You are not allowed to delete this topic.' }, 403)
-    }
-    await c.env.APP_DB.prepare(`DELETE FROM class_topics WHERE id = ? AND class_id = ?`).bind(topicId, classroomId).run()
-    return c.json({ success: true })
+    const topic = await getTopic(c.env.APP_DB, classroomId, c.req.param('topicId'))
+    if (!topic) return c.json({ success: false, message: 'Topic not found.' }, 404)
+    const editor = await resolveTopicEditor(c.env.APP_DB, c.var.user || {}, classroomId, topic.subjectId)
+    if (!editor.ok) return c.json({ success: false, message: editor.message }, editor.status as any)
+    const result = await removeTopic(c.env.APP_DB, {
+      tenantId: editor.tenantId, classId: classroomId, topicId: topic.id,
+      contentAction: String(c.req.query('contentAction') || ''), targetTopicId: String(c.req.query('targetTopicId') || ''),
+      actorId: editor.actorId, actorName: editor.actorName,
+    })
+    return c.json({ success: true, content: result.content, movedTo: result.movedTo?.id || null })
   } catch (error) {
-    return c.json({ success: false, message: 'Could not delete topic.', error: String((error as Error)?.message || error) }, 500)
+    if (error instanceof TopicError) return c.json({ success: false, message: error.message, ...error.details }, error.status as any)
+    console.error('Topic removal failed', error)
+    return c.json({ success: false, message: 'Could not remove topic.' }, 500)
+  }
+})
+
+/** Everything filed under a topic, for its learning-hub page. */
+app.get('/api/classrooms/:classroomId/topics/:topicId/hub', authenticate, async (c) => {
+  const classroomId = c.req.param('classroomId')
+  try {
+    const access = await resolveClassroomLearningAccess(c.env.APP_DB, c.var.user || {}, classroomId, String(c.req.query('studentId') || ''))
+    if (!access.ok) return c.json({ success: false, message: access.message }, access.status)
+    const topic = await getTopic(c.env.APP_DB, classroomId, c.req.param('topicId'))
+    if (!topic || (!access.canManage && topic.status !== 'published')) return c.json({ success: false, message: 'Topic not found.' }, 404)
+
+    const content = await listTopicContent(c.env.APP_DB, topic)
+    const materials = content.materials.map(mapMaterialRow)
+      .filter(material => material.status !== 'deleted')
+      .filter(material => access.canManage || canAudienceSeeMaterial(material, access.role))
+    const assignments = content.assignments.flatMap(row => {
+      let metadata: Record<string, any> = {}
+      try { metadata = typeof row.metadata === 'string' ? JSON.parse(row.metadata) : (row.metadata || {}) } catch {}
+      if (!access.canManage && isNotYetOpen({ metadata })) return []
+      return [{
+        id: String(row.id), title: String(row.title || ''), description: String(row.description || ''), dueAt: row.dueAt || null,
+        format: String(row.format || ''), isQuiz: isQuizAssignment({ ...row, metadata }), createdAt: row.createdAt || null,
+        postedByLabel: String(metadata.postedByLabel || ''),
+      }]
+    })
+
+    let progress = null
+    const student = access.selectedStudent
+    if (student) {
+      progress = await getTopicProgress(c.env.APP_DB, {
+        topicId: topic.id,
+        studentIds: [student.id, student.email, student.displayId].map(value => String(value || '')).filter(Boolean),
+        materialIds: materials.map(material => String(material.id)),
+        assignments: content.assignments,
+      })
+    }
+    return c.json({ success: true, topic, materials, assignments, progress, canManage: access.canManage })
+  } catch (error) {
+    console.error('Topic hub failed', error)
+    return c.json({ success: false, message: 'Could not load this topic.' }, 500)
+  }
+})
+
+/** A student's own activity on a topic: opened, studied with the AI, viewed a material. */
+app.post('/api/classrooms/:classroomId/topics/:topicId/progress', authenticate, async (c) => {
+  const classroomId = c.req.param('classroomId')
+  try {
+    const access = await resolveClassroomLearningAccess(c.env.APP_DB, c.var.user || {}, classroomId)
+    if (!access.ok) return c.json({ success: false, message: access.message }, access.status)
+    if (access.role !== 'student' || !access.selectedStudent) return c.json({ success: true, recorded: false })
+    const topic = await getTopic(c.env.APP_DB, classroomId, c.req.param('topicId'))
+    if (!topic || topic.status !== 'published') return c.json({ success: false, message: 'Topic not found.' }, 404)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const event = String(body.event || '')
+    if (!['opened', 'studied', 'material_viewed'].includes(event)) return c.json({ success: false, message: 'Unknown progress event.' }, 400)
+    await recordTopicProgress(c.env.APP_DB, {
+      tenantId: String(access.classRow.tenantId || access.tenantId), topicId: topic.id,
+      studentId: String(access.selectedStudent.id), event, materialId: String(body.materialId || ''),
+    })
+    return c.json({ success: true, recorded: true })
+  } catch (error) {
+    console.error('Topic progress failed', error)
+    return c.json({ success: false, message: 'Could not record progress.' }, 500)
+  }
+})
+
+/**
+ * The learning context for "Study with Ndovera AI": school, class, subject,
+ * topic and term, plus the teacher's own notes for the topic — marked as the
+ * teacher's so the model never passes its own wording off as theirs.
+ */
+async function buildTopicStudyContext(db: D1Database, user: Record<string, any>, topicContext: Record<string, any>) {
+  const classId = String(topicContext?.classId || '').trim()
+  const topicId = String(topicContext?.topicId || '').trim()
+  if (!classId || !topicId) return null
+  const access = await resolveClassroomLearningAccess(db, user, classId)
+  if (!access.ok) throw new TopicError(access.message, access.status)
+  const topic = await getTopic(db, classId, topicId)
+  if (!topic || (!access.canManage && topic.status !== 'published')) throw new TopicError('Topic not found.', 404)
+  const tenantId = String(access.classRow.tenantId || access.tenantId)
+  const [subject, tenant, period, content] = await Promise.all([
+    db.prepare(`SELECT name FROM subjects WHERE id = ? AND classId = ?`).bind(topic.subjectId, classId).first().catch(() => null) as Promise<Record<string, any> | null>,
+    getTenantById(db, tenantId).catch(() => null),
+    describeMaterialContext(db, tenantId).catch(() => null),
+    listTopicContent(db, topic),
+  ])
+  const materials = content.materials.map(mapMaterialRow)
+    .filter(material => material.status === 'published' && canAudienceSeeMaterial(material, 'student'))
+  const notes = buildTeacherNotesContext(materials)
+  const className = `${access.classRow.name || ''}${access.classRow.arm ? ` ${access.classRow.arm}` : ''}`.trim()
+  const lines = [
+    'LEARNING CONTEXT — the student opened this from their class, so every message in this conversation is about this topic unless they clearly ask about something else.',
+    `School: ${tenant?.schoolName || 'their school'}. Class: ${className}. Subject: ${subject?.name || 'the subject'}. Topic: ${topic.name}.${period?.termName ? ` Term: ${period.termName}.` : ''}`,
+    topic.description ? `Topic overview from the teacher: ${topic.description}` : '',
+    topic.objectives.length ? `Learning objectives set by the teacher: ${topic.objectives.join('; ')}` : '',
+    'Pitch explanations at the level of a student in this class.',
+    notes
+      ? `TEACHER-PROVIDED NOTES (written by the class teacher; use them as the primary source):\n<<<\n${notes}\n>>>\nWhen you quote or summarise these notes, say they are from the teacher's notes. When you add your own explanation or examples, present them as extra explanation, not as the teacher's words. Never rewrite the teacher's notes and present the changed version as theirs. If your explanation would contradict the notes, follow the notes and suggest the student asks their teacher.`
+      : 'The teacher has not added notes to this topic yet, so everything you say is your own explanation; say so briefly at the start of your first answer.',
+  ].filter(Boolean)
+  return {
+    system: lines.join('\n'),
+    summary: { topicId: topic.id, topicName: topic.name, subjectName: String(subject?.name || ''), className, termName: String(period?.termName || ''), hasTeacherNotes: Boolean(notes) },
+    studentId: access.role === 'student' ? String(access.selectedStudent?.id || '') : '',
+    tenantId,
+  }
+}
+
+
+// ─── Timed assessments ───────────────────────────────────────────────────────
+// A timed assessment (metadata.durationMinutes > 0) starts when the student
+// opens it: the server records the start and the deadline, the page counts
+// down and submits at zero, and the server refuses work handed in after the
+// deadline plus a short grace for network delay. The clock is the server's.
+
+const TIMED_GRACE_MS = 2 * 60 * 1000
+
+async function ensureAttemptTable(db: D1Database) {
+  await db.prepare(`CREATE TABLE IF NOT EXISTS assignment_attempts (
+    id TEXT PRIMARY KEY, assignment_id TEXT NOT NULL, student_id TEXT NOT NULL,
+    started_at TEXT NOT NULL, deadline TEXT NOT NULL, submitted_at TEXT
+  )`).run()
+  await db.prepare(`CREATE INDEX IF NOT EXISTS idx_assignment_attempts ON assignment_attempts(assignment_id, student_id, started_at)`).run()
+}
+
+function timedMinutes(assignment: Record<string, any>) {
+  return Math.max(0, Number(assignment?.metadata?.durationMinutes) || 0)
+}
+
+async function openAttempt(db: D1Database, assignmentId: string, studentId: string) {
+  await ensureAttemptTable(db)
+  return await db.prepare(`SELECT * FROM assignment_attempts WHERE assignment_id = ? AND student_id = ? AND submitted_at IS NULL ORDER BY started_at DESC LIMIT 1`)
+    .bind(assignmentId, studentId).first() as Record<string, any> | null
+}
+
+async function resolveStudentForAssignment(c: any, assignmentId: string) {
+  const user = c.var.user || {}
+  const userIdentifier = user.id || user.email || user.sub || ''
+  const resolvedUser = await resolveSettingsIdentity(c.env.APP_DB, userIdentifier)
+  const studentId = String(resolvedUser.userRow?.id || user.id || userIdentifier)
+  const assignment = await getAssignmentById(c.env.APP_DB, assignmentId) as Record<string, any> | null
+  if (!assignment) return { error: c.json({ success: false, message: 'Assignment not found.' }, 404) }
+  const classIds = [resolvedUser.settings?.classId, user.classId, resolvedUser.userRow?.classId].map(value => String(value || '').trim()).filter(Boolean)
+  if (classIds.length && assignment.classId && !classIds.includes(String(assignment.classId))) return { error: c.json({ success: false, message: 'You are not assigned to this class assignment.' }, 403) }
+  return { studentId, assignment }
+}
+
+/** Start (or resume) a timed attempt. Returns the server's deadline. */
+app.post('/api/assignments/:assignmentId/start', authenticate, async (c) => {
+  try {
+    const assignmentId = c.req.param('assignmentId')
+    const resolved = await resolveStudentForAssignment(c, assignmentId)
+    if ('error' in resolved) return resolved.error
+    const { studentId, assignment } = resolved
+    const minutes = timedMinutes(assignment)
+    if (!minutes) return c.json({ success: true, timed: false })
+    if (isNotYetOpen(assignment)) return c.json({ success: false, message: 'This assessment has not opened yet.' }, 403)
+    const meta = assignment.metadata || {}
+    const now = new Date()
+    if (meta.closesAt && now.toISOString() > String(meta.closesAt) && meta.latePolicy === 'reject') return c.json({ success: false, message: 'This assessment has closed.' }, 403)
+    const existing = await openAttempt(c.env.APP_DB, assignmentId, studentId)
+    if (existing && Date.parse(existing.deadline) + TIMED_GRACE_MS > now.getTime()) {
+      return c.json({ success: true, timed: true, startedAt: existing.started_at, deadline: existing.deadline, serverNow: now.toISOString(), resumed: true })
+    }
+    if (Number(meta.attempts) > 0) {
+      const used = await c.env.APP_DB.prepare(`SELECT COUNT(*) AS n FROM submissions WHERE assignmentId = ? AND studentId = ?`).bind(assignmentId, studentId).first().catch(() => ({ n: 0 })) as Record<string, any>
+      if (Number(used?.n || 0) >= Number(meta.attempts)) return c.json({ success: false, message: `You have used all ${meta.attempts} attempt${Number(meta.attempts) === 1 ? '' : 's'}.` }, 409)
+    }
+    let deadline = new Date(now.getTime() + minutes * 60 * 1000).toISOString()
+    // A closing time that comes first ends the attempt early — unless late work is accepted.
+    if (meta.closesAt && String(meta.closesAt) < deadline && meta.latePolicy === 'reject') deadline = String(meta.closesAt)
+    // An unfinished attempt whose time ran out is closed so a fresh one can start.
+    if (existing) await c.env.APP_DB.prepare(`UPDATE assignment_attempts SET submitted_at = ? WHERE id = ?`).bind('expired', existing.id).run()
+    await c.env.APP_DB.prepare(`INSERT INTO assignment_attempts (id, assignment_id, student_id, started_at, deadline) VALUES (?, ?, ?, ?, ?)`)
+      .bind(`att-${crypto.randomUUID()}`, assignmentId, studentId, now.toISOString(), deadline).run()
+    return c.json({ success: true, timed: true, startedAt: now.toISOString(), deadline, serverNow: now.toISOString(), resumed: false })
+  } catch (error) {
+    console.error('Could not start the assessment', error)
+    return c.json({ success: false, message: 'Could not start the assessment.' }, 500)
   }
 })
 
@@ -8702,13 +9409,47 @@ app.post('/api/assignments/:assignmentId/submit', authenticate, async (c) => {
     }
 
     const answers = payload?.answers && typeof payload.answers === 'object' ? payload.answers : {}
+    const meta = ((assignment as any).metadata || {}) as Record<string, any>
+    const now = new Date().toISOString()
+    if (isNotYetOpen(assignment as any)) return c.json({ success: false, message: 'This assessment has not opened yet.' }, 403)
+    let late = false
+    if (meta.closesAt && now > String(meta.closesAt)) {
+      if (meta.latePolicy === 'reject') return c.json({ success: false, message: 'This assessment has closed.' }, 403)
+      late = meta.latePolicy !== 'accept'
+    }
+    if (Number(meta.attempts) > 0) {
+      const used = await c.env.APP_DB.prepare(`SELECT COUNT(*) AS n FROM submissions WHERE assignmentId = ? AND studentId = ?`).bind(assignmentId, studentId).first().catch(() => ({ n: 0 })) as Record<string, any>
+      if (Number(used?.n || 0) >= Number(meta.attempts)) return c.json({ success: false, message: `You have used all ${meta.attempts} attempt${Number(meta.attempts) === 1 ? '' : 's'}.` }, 409)
+    }
+    // Timed: the attempt must have been started, and the server's deadline holds.
+    let overtime = false
+    let attemptId = ''
+    if (timedMinutes(assignment as any) > 0) {
+      const attempt = await openAttempt(c.env.APP_DB, assignmentId, String(studentId))
+      if (!attempt) return c.json({ success: false, message: 'Start the assessment before submitting it.' }, 409)
+      attemptId = String(attempt.id)
+      if (Date.now() > Date.parse(attempt.deadline) + TIMED_GRACE_MS) {
+        if (meta.latePolicy === 'reject') {
+          await c.env.APP_DB.prepare(`UPDATE assignment_attempts SET submitted_at = ? WHERE id = ?`).bind('expired', attemptId).run()
+          return c.json({ success: false, message: 'Time ran out for this attempt.' }, 403)
+        }
+        overtime = true
+      }
+    }
+    // Objective questions are marked on the server, from the answer key the student never receives.
+    const paper = meta.uniquePerStudent && Array.isArray((assignment as any).questions) ? planPaper((assignment as any).questions, `${assignmentId}:${studentId}`) : null
+    const markedQuestions = paper ? applyPaper((assignment as any).questions, paper) : ((assignment as any).questions || [])
+    const marking = meta.autoMark ? autoMark(markedQuestions, answers) : null
     const submission = await createSubmission(c.env.APP_DB, {
       assignmentId,
       studentId,
-      content: { answers },
+      // The paper record (order, option order, numbers) lets the teacher see exactly what this student answered.
+      content: { answers, ...(paper ? { paper } : {}), ...(marking ? { autoMark: marking } : {}), ...(late ? { late: true } : {}), ...(overtime ? { overtime: true } : {}) },
+      ...(marking && marking.pending === 0 ? { grade: marking.score, gradedAt: now, feedback: `Marked automatically: ${marking.score}/${marking.max}.${late ? ' Submitted late.' : ''}${overtime ? ' Submitted after the time limit.' : ''}` } : {}),
     })
+    if (attemptId) await c.env.APP_DB.prepare(`UPDATE assignment_attempts SET submitted_at = ? WHERE id = ?`).bind(now, attemptId).run()
 
-    return c.json({ success: true, submission }, 201)
+    return c.json({ success: true, submission, ...(marking ? { score: marking.pending === 0 ? marking.score : null, maxScore: marking.max, awaitingTeacher: marking.pending } : {}) }, 201)
   } catch (error) {
     return c.json({ success: false, message: 'Could not submit assignment.', error }, 500)
   }
@@ -8747,6 +9488,18 @@ app.get('/api/assignments/:assignmentId/submissions', authenticate, async (c) =>
       ...s,
       content: s.content ? (() => { try { return JSON.parse(s.content) } catch { return {} } })() : {},
     }))
+    const assignment = await getAssignmentById(db, assignmentId).catch(() => null) as Record<string, any> | null
+    if (assignment?.metadata?.uniquePerStudent && Array.isArray(assignment.questions)) {
+      const moderation = await resolveClassroomModerationContext(db, c.var.user || {}, String(assignment.classId || '')).catch(() => null) as Record<string, any> | null
+      const canSeeKeys = Boolean(moderation?.ok) && (moderation?.canManageClasswide || matchesComparableIdentifier(assignment.createdBy, moderation?.actorIdentifiers || []))
+      if (canSeeKeys) {
+        for (const submission of submissions as Record<string, any>[]) {
+          const record = (submission.content?.paper as PaperRecord | undefined) || planPaper(assignment.questions, `${assignmentId}:${submission.studentId}`)
+          submission.paperQuestions = applyPaper(assignment.questions, record)
+          submission.paperCode = paperCode(record.seed)
+        }
+      }
+    }
     return c.json({ success: true, submissions })
   } catch (error) {
     return c.json({ success: false, message: 'Could not fetch submissions.', error }, 500)
@@ -8850,7 +9603,7 @@ async function listAccessibleLearningStudents(db: D1Database, user: Record<strin
   const userIdentifier = user.id || user.email || user.sub || ''
   const resolvedUser = await resolveSettingsIdentity(db, userIdentifier)
   const tenantId = resolvedUser.settings?.tenantId || resolvedUser.settings?.schoolId || resolvedUser.userRow?.tenantId || user.tenantId
-  const normalizedRole = String(resolvedUser.settings?.role || resolvedUser.userRow?.role || user.role || '').trim().toLowerCase()
+  const normalizedRole = resolveEffectiveRole(resolvedUser, user)
   let students: Array<Record<string, any>> = []
 
   if (normalizedRole === 'student') {
@@ -8959,7 +9712,7 @@ async function resolveClassroomLearningAccess(db: D1Database, user: Record<strin
   const userIdentifier = user.id || user.email || user.sub || ''
   const resolvedUser = await resolveSettingsIdentity(db, userIdentifier)
   const tenantId = resolvedUser.settings?.tenantId || resolvedUser.settings?.schoolId || resolvedUser.userRow?.tenantId || user.tenantId
-  const normalizedRole = String(resolvedUser.settings?.role || resolvedUser.userRow?.role || user.role || '').trim().toLowerCase()
+  const normalizedRole = resolveEffectiveRole(resolvedUser, user)
 
   await ensureClassesTable(db)
   await ensureClassroomSubjectsTable(db)
@@ -9039,7 +9792,7 @@ async function resolveMaterialPublishingContext(db: D1Database, user: Record<str
   const userIdentifier = user.id || user.email || user.sub || ''
   const resolvedUser = await resolveSettingsIdentity(db, userIdentifier)
   const tenantId = resolvedUser.settings?.tenantId || resolvedUser.settings?.schoolId || resolvedUser.userRow?.tenantId || user.tenantId
-  const normalizedRole = String(resolvedUser.settings?.role || resolvedUser.userRow?.role || user.role || '').trim().toLowerCase()
+  const normalizedRole = resolveEffectiveRole(resolvedUser, user)
   const isSupervisor = isClassroomSupervisorRole(normalizedRole)
   const teacherIdentifiers = collectComparableIdentifiers(collectResolvedIdentityIdentifiers(resolvedUser, user))
   const teacherId = String(resolvedUser.userRow?.id || resolvedUser.userRow?.email || resolvedUser.settingsKey || user.id || '').trim()
@@ -9063,12 +9816,15 @@ async function resolveMaterialPublishingContext(db: D1Database, user: Record<str
     return { ok: false, status: 404, message: 'Subject not found for this class.' }
   }
 
-  const canPublish = isSupervisor
-    || matchesComparableIdentifier(subjectRow.teacherId, teacherIdentifiers)
+  const isAssignedHere = matchesComparableIdentifier(subjectRow.teacherId, teacherIdentifiers)
     || matchesComparableIdentifier(classRow.classTeacherId, teacherIdentifiers)
     || await classHasMembershipTeacher(db, tenantId, classRow.id, teacherIdentifiers)
-  if (!canPublish) {
-    return { ok: false, status: 403, message: 'You are not assigned to this subject.' }
+  // Supervisors publish as supervisors, never as the class teacher.
+  if (!isAssignedHere) {
+    if (!isSupervisor) return { ok: false, status: 403, message: 'You are not assigned to this subject.' }
+    if (!await supervisorMayIntervene(db, String(tenantId), normalizedRole)) {
+      return { ok: false, status: 403, message: 'School policy gives the Head of School view-only access to classes.' }
+    }
   }
 
   return {
@@ -9076,6 +9832,7 @@ async function resolveMaterialPublishingContext(db: D1Database, user: Record<str
     teacherId,
     subjectRow,
     classRow,
+    supervisoryRole: isAssignedHere ? '' : normalizedRole,
     uploadedByName: String(resolvedUser.settings?.name || resolvedUser.userRow?.name || user.name || teacherId),
   }
 }
@@ -9084,7 +9841,7 @@ async function resolveClassroomModerationContext(db: D1Database, user: Record<st
   const userIdentifier = user.id || user.email || user.sub || ''
   const resolvedUser = await resolveSettingsIdentity(db, userIdentifier)
   const tenantId = resolvedUser.settings?.tenantId || resolvedUser.settings?.schoolId || resolvedUser.userRow?.tenantId || user.tenantId
-  const normalizedRole = String(resolvedUser.settings?.role || resolvedUser.userRow?.role || user.role || '').trim().toLowerCase()
+  const normalizedRole = resolveEffectiveRole(resolvedUser, user)
   const actorIdentifiers = collectComparableIdentifiers(collectResolvedIdentityIdentifiers(resolvedUser, user))
   const actorId = String(resolvedUser.userRow?.id || resolvedUser.userRow?.email || resolvedUser.settingsKey || user.id || '').trim()
 
@@ -9097,9 +9854,13 @@ async function resolveClassroomModerationContext(db: D1Database, user: Record<st
     return { ok: false, status: 404, message: 'Class not found.' }
   }
 
-  const isSupervisor = isClassroomSupervisorRole(normalizedRole)
   const isClassTeacher = matchesComparableIdentifier(classRow.classTeacherId, actorIdentifiers)
     || await classHasMembershipTeacher(db, tenantId, classRow.id, actorIdentifiers)
+  const hasSupervisoryRole = isClassroomSupervisorRole(normalizedRole)
+  // A view-only HOS sees the class but cannot change it, whoever wrote the content.
+  const supervisorViewOnly = hasSupervisoryRole && !isClassTeacher
+    && !await supervisorMayIntervene(db, String(tenantId), normalizedRole)
+  const isSupervisor = hasSupervisoryRole && !supervisorViewOnly
 
   return {
     ok: true,
@@ -9110,6 +9871,8 @@ async function resolveClassroomModerationContext(db: D1Database, user: Record<st
     normalizedRole,
     isSupervisor,
     isClassTeacher,
+    supervisorViewOnly,
+    supervisoryRole: hasSupervisoryRole && !isClassTeacher ? normalizedRole : '',
     canManageClasswide: isSupervisor || isClassTeacher,
   }
 }
@@ -9123,6 +9886,2167 @@ app.get('/api/learning/students', authenticate, async (c) => {
   }
 })
 
+// ─── Staff punctuality: daily log, reports and the monthly award ─────────────
+// See staffPunctuality.ts. Reports are for school leadership; the published
+// award is shown to every member of staff in the school.
+
+const PUNCTUALITY_VIEWER_ROLES = ['owner', 'hos', 'ict', 'admin']
+
+/** The date range for a report period, in school calendar dates. */
+async function punctualityRange(db: D1Database, tenantId: string, period: string, anchor: string) {
+  const date = /^\d{4}-\d{2}-\d{2}$/.test(anchor) ? anchor : lagosToday()
+  if (period === 'day') return { from: date, to: date, label: date }
+  if (period === 'week') {
+    const day = new Date(`${date}T00:00:00Z`)
+    const monday = new Date(day.getTime() - ((day.getUTCDay() + 6) % 7) * 86400000).toISOString().slice(0, 10)
+    const friday = new Date(Date.parse(`${monday}T00:00:00Z`) + 4 * 86400000).toISOString().slice(0, 10)
+    return { from: monday, to: friday, label: `Week of ${monday}` }
+  }
+  if (period === 'term') {
+    const current = await getCurrentAcademicPeriod(db, tenantId).catch(() => null)
+    if (current?.term?.startDate) return { from: current.term.startDate, to: current.term.endDate, label: `${current.sessionName} · ${current.termName}` }
+  }
+  const month = date.slice(0, 7)
+  return { ...monthRange(month), label: month }
+}
+
+async function buildPunctualityReport(db: D1Database, tenantId: string, from: string, to: string) {
+  const [staff, signIns, closedMap] = await Promise.all([
+    listSchoolStaff(db, tenantId),
+    loadSignIns(db, tenantId, from, to),
+    listTenantHolidayMap(db, tenantId, from, to).catch(() => new Map()),
+  ])
+  const days = workingDays(from, to, new Set([...closedMap.keys()]))
+  return summarisePunctuality({ staff, signIns, days, today: lagosToday() })
+}
+
+app.get('/api/school/staff-punctuality', authenticate, async (c) => {
+  try {
+    const actor = await resolveCalendarManager(c.env.APP_DB, c.var.user || {})
+    if (!actor.tenantId) return c.json({ success: false, message: 'No school.' }, 400)
+    if (!hasRequiredRole(actor.role, PUNCTUALITY_VIEWER_ROLES)) return c.json({ success: false, message: 'forbidden' }, 403)
+    const period = ['day', 'week', 'month', 'term'].includes(String(c.req.query('period'))) ? String(c.req.query('period')) : 'day'
+    const range = await punctualityRange(c.env.APP_DB, actor.tenantId, period, String(c.req.query('date') || ''))
+    const staff = await buildPunctualityReport(c.env.APP_DB, actor.tenantId, range.from, range.to)
+    return c.json({ success: true, period, range, staff })
+  } catch (error) {
+    console.error('Punctuality report failed', error)
+    return c.json({ success: false, message: 'Could not build the punctuality report.' }, 500)
+  }
+})
+
+/** The month's computed winners, and the award if it has been published. */
+app.get('/api/school/staff-punctuality/winner', authenticate, async (c) => {
+  try {
+    const actor = await resolveCalendarManager(c.env.APP_DB, c.var.user || {})
+    if (!hasRequiredRole(actor.role, PUNCTUALITY_VIEWER_ROLES)) return c.json({ success: false, message: 'forbidden' }, 403)
+    const month = /^\d{4}-\d{2}$/.test(String(c.req.query('month'))) ? String(c.req.query('month')) : lagosToday().slice(0, 7)
+    const range = monthRange(month)
+    const staff = await buildPunctualityReport(c.env.APP_DB, actor.tenantId, range.from, range.to)
+    await ensurePunctualityTables(c.env.APP_DB)
+    const award = await c.env.APP_DB.prepare(`SELECT * FROM staff_punctuality_awards WHERE tenant_id = ? AND month = ?`).bind(actor.tenantId, month).first() as Record<string, any> | null
+    return c.json({ success: true, month, winners: pickPunctualityWinners(staff), ranking: staff.slice(0, 10), award: mapAward(award), monthComplete: range.to < lagosToday() })
+  } catch (error) {
+    console.error('Punctuality winner failed', error)
+    return c.json({ success: false, message: 'Could not work out the winner.' }, 500)
+  }
+})
+
+/** Publish the month's award. Winners must be the computed winners (ties included). */
+app.post('/api/school/staff-punctuality/awards', authenticate, async (c) => {
+  try {
+    const actor = await resolveCalendarManager(c.env.APP_DB, c.var.user || {})
+    if (!['owner', 'hos'].includes(actor.role)) return c.json({ success: false, message: 'Only the Owner or Head of School can publish the award.' }, 403)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const month = /^\d{4}-\d{2}$/.test(String(body.month)) ? String(body.month) : ''
+    if (!month) return c.json({ success: false, message: 'Choose a month.' }, 400)
+    const range = monthRange(month)
+    const winners = pickPunctualityWinners(await buildPunctualityReport(c.env.APP_DB, actor.tenantId, range.from, range.to))
+    if (!winners.length) return c.json({ success: false, message: 'No one qualifies for this month yet.' }, 400)
+    const badgeLabel = String(body.badgeLabel || 'Most Punctual Staff').trim().slice(0, 60)
+    await ensurePunctualityTables(c.env.APP_DB)
+    const now = new Date().toISOString()
+    await c.env.APP_DB.prepare(`INSERT INTO staff_punctuality_awards (id, tenant_id, month, winners_json, badge_label, badge_icon, message, published_by, published_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+      ON CONFLICT(tenant_id, month) DO UPDATE SET winners_json = excluded.winners_json, badge_label = excluded.badge_label, badge_icon = excluded.badge_icon, message = excluded.message, published_by = excluded.published_by, published_at = excluded.published_at`)
+      .bind(`punct-${crypto.randomUUID()}`, actor.tenantId, month,
+        JSON.stringify(winners.map(row => ({ staffId: row.staffId, name: row.name, punctualityRate: row.punctualityRate, onTimeDays: row.onTimeDays, workingDays: row.workingDays, averageArrival: row.averageArrival }))),
+        badgeLabel, String(body.badgeIcon || '🏆').slice(0, 8), String(body.message || '').trim().slice(0, 500), actor.actorName || actor.actorId, now).run()
+    await addAudit(c.env.APP_DB, actor.tenantId, { action: 'punctualityAwardPublished', data: { month, winners: winners.map(row => row.name), by: actor.actorName } }).catch(() => null)
+    const award = await c.env.APP_DB.prepare(`SELECT * FROM staff_punctuality_awards WHERE tenant_id = ? AND month = ?`).bind(actor.tenantId, month).first() as Record<string, any>
+    return c.json({ success: true, award: mapAward(award) })
+  } catch (error) {
+    console.error('Punctuality award failed', error)
+    return c.json({ success: false, message: 'Could not publish the award.' }, 500)
+  }
+})
+
+/** The latest published award, for every member of staff in the school. */
+app.get('/api/school/staff-punctuality/award', authenticate, async (c) => {
+  try {
+    const actor = await resolveCalendarManager(c.env.APP_DB, c.var.user || {})
+    if (!actor.tenantId || ['student', 'parent'].includes(actor.role)) return c.json({ success: true, award: null })
+    await ensurePunctualityTables(c.env.APP_DB)
+    const row = await c.env.APP_DB.prepare(`SELECT * FROM staff_punctuality_awards WHERE tenant_id = ? ORDER BY month DESC LIMIT 1`).bind(actor.tenantId).first() as Record<string, any> | null
+    return c.json({ success: true, award: mapAward(row) })
+  } catch {
+    return c.json({ success: true, award: null })
+  }
+})
+
+// ─── Staff evaluation (peer review) ──────────────────────────────────────────
+// See staffEvaluations.ts. The Owner and HOS run exercises; staff answer for
+// colleagues; results never identify who said what.
+
+async function resolveEvaluationActor(db: D1Database, user: Record<string, any>) {
+  const resolved = await resolveSettingsIdentity(db, String(user.id || user.email || user.sub || ''))
+  const tenantId = String(resolved.settings?.tenantId || resolved.settings?.schoolId || resolved.userRow?.tenantId || user.tenantId || '')
+  const role = resolveEffectiveRole(resolved, user)
+  const staff = tenantId ? await listSchoolStaff(db, tenantId) : []
+  const identifiers = collectComparableIdentifiers(collectResolvedIdentityIdentifiers(resolved, user))
+  const me = staff.find(person => identifiers.includes(person.id.toLowerCase()) || identifiers.includes(person.email.toLowerCase())) || null
+  return { tenantId, role, staff, me, actorId: String(resolved.userRow?.id || user.id || ''), isAdmin: ['owner', 'hos'].includes(role) }
+}
+
+function evaluationFailure(c: any, error: unknown, fallback: string) {
+  if (error instanceof EvaluationError) return c.json({ success: false, message: error.message }, error.status as any)
+  console.error(fallback, error)
+  return c.json({ success: false, message: fallback }, 500)
+}
+
+app.get('/api/staff-evaluations', authenticate, async (c) => {
+  try {
+    const actor = await resolveEvaluationActor(c.env.APP_DB, c.var.user || {})
+    if (!actor.isAdmin) return c.json({ success: false, message: 'forbidden' }, 403)
+    const evaluations = await listEvaluations(c.env.APP_DB, actor.tenantId)
+    const withCompletion = []
+    for (const evaluation of evaluations) {
+      // eslint-disable-next-line no-await-in-loop
+      const results = await getEvaluationResults(c.env.APP_DB, evaluation, actor.staff)
+      withCompletion.push({ ...evaluation, completion: results.completion })
+    }
+    return c.json({ success: true, evaluations: withCompletion, staff: actor.staff.map(person => ({ id: person.id, name: person.name, roles: person.roles })) })
+  } catch (error) {
+    return evaluationFailure(c, error, 'Could not load staff evaluations.')
+  }
+})
+
+app.post('/api/staff-evaluations', authenticate, async (c) => {
+  try {
+    const actor = await resolveEvaluationActor(c.env.APP_DB, c.var.user || {})
+    if (!actor.isAdmin) return c.json({ success: false, message: 'forbidden' }, 403)
+    const evaluation = await saveEvaluation(c.env.APP_DB, { tenantId: actor.tenantId, input: await c.req.json().catch(() => ({})), actorId: actor.actorId })
+    await addAudit(c.env.APP_DB, actor.tenantId, { action: 'staffEvaluationCreated', data: { id: evaluation.id, title: evaluation.title, by: actor.actorId } }).catch(() => null)
+    return c.json({ success: true, evaluation }, 201)
+  } catch (error) {
+    return evaluationFailure(c, error, 'Could not create the evaluation.')
+  }
+})
+
+app.put('/api/staff-evaluations/:id', authenticate, async (c) => {
+  try {
+    const actor = await resolveEvaluationActor(c.env.APP_DB, c.var.user || {})
+    if (!actor.isAdmin) return c.json({ success: false, message: 'forbidden' }, 403)
+    const evaluation = await saveEvaluation(c.env.APP_DB, { tenantId: actor.tenantId, id: c.req.param('id'), input: await c.req.json().catch(() => ({})), actorId: actor.actorId })
+    await addAudit(c.env.APP_DB, actor.tenantId, { action: 'staffEvaluationUpdated', data: { id: evaluation.id, closesAt: evaluation.closesAt, by: actor.actorId } }).catch(() => null)
+    return c.json({ success: true, evaluation })
+  } catch (error) {
+    return evaluationFailure(c, error, 'Could not update the evaluation.')
+  }
+})
+
+app.post('/api/staff-evaluations/:id/close', authenticate, async (c) => {
+  try {
+    const actor = await resolveEvaluationActor(c.env.APP_DB, c.var.user || {})
+    if (!actor.isAdmin) return c.json({ success: false, message: 'forbidden' }, 403)
+    const evaluation = await closeEvaluation(c.env.APP_DB, actor.tenantId, c.req.param('id'))
+    if (!evaluation) return c.json({ success: false, message: 'Evaluation not found.' }, 404)
+    return c.json({ success: true, evaluation })
+  } catch (error) {
+    return evaluationFailure(c, error, 'Could not close the evaluation.')
+  }
+})
+
+app.get('/api/staff-evaluations/:id/results', authenticate, async (c) => {
+  try {
+    const actor = await resolveEvaluationActor(c.env.APP_DB, c.var.user || {})
+    if (!actor.isAdmin) return c.json({ success: false, message: 'forbidden' }, 403)
+    const evaluation = await getEvaluation(c.env.APP_DB, actor.tenantId, c.req.param('id'))
+    if (!evaluation) return c.json({ success: false, message: 'Evaluation not found.' }, 404)
+    return c.json({ success: true, evaluation, ...await getEvaluationResults(c.env.APP_DB, evaluation, actor.staff) })
+  } catch (error) {
+    return evaluationFailure(c, error, 'Could not load the results.')
+  }
+})
+
+app.post('/api/staff-evaluations/:id/results/:staffId/ai-summary', authenticate, async (c) => {
+  try {
+    const actor = await resolveEvaluationActor(c.env.APP_DB, c.var.user || {})
+    if (!actor.isAdmin) return c.json({ success: false, message: 'forbidden' }, 403)
+    const evaluation = await getEvaluation(c.env.APP_DB, actor.tenantId, c.req.param('id'))
+    if (!evaluation) return c.json({ success: false, message: 'Evaluation not found.' }, 404)
+    const results = await getEvaluationResults(c.env.APP_DB, evaluation, actor.staff)
+    const staffResult = results.staff.find(item => item.staffId === c.req.param('staffId'))
+    if (!staffResult) return c.json({ success: false, message: 'Staff member not found in this evaluation.' }, 404)
+    if (!staffResult.responses) return c.json({ success: false, message: 'There are no responses to summarise yet.' }, 400)
+    if (!c.env.AI || typeof c.env.AI.run !== 'function') return c.json({ success: false, message: 'Ndovera AI is not available right now.' }, 503)
+    const prompt = buildEvaluationSummaryPrompt(staffResult.name, evaluation.scale, staffResult)
+    const text = extractWorkersAiText(await c.env.AI.run(WORKERS_AI_MODEL, { messages: [{ role: 'system', content: prompt.system }, { role: 'user', content: prompt.user }], max_tokens: 600, temperature: 0.2 }))
+    if (!text) return c.json({ success: false, message: 'Ndovera AI returned an empty summary. Please try again.' }, 502)
+    await saveEvaluationSummary(c.env.APP_DB, { tenantId: actor.tenantId, evaluationId: evaluation.id, staffId: staffResult.staffId, summary: text, responseCount: staffResult.responses, actorId: actor.actorId })
+    return c.json({ success: true, summary: { text, responseCount: staffResult.responses, generatedAt: new Date().toISOString() } })
+  } catch (error) {
+    return evaluationFailure(c, error, 'Could not summarise the feedback.')
+  }
+})
+
+/** For any member of staff: the evaluations they are asked to complete, and for whom. */
+app.get('/api/staff-evaluations-mine', authenticate, async (c) => {
+  try {
+    const actor = await resolveEvaluationActor(c.env.APP_DB, c.var.user || {})
+    if (!actor.me) return c.json({ success: true, evaluations: [] })
+    const all = await listEvaluations(c.env.APP_DB, actor.tenantId)
+    const mine = []
+    for (const evaluation of all.filter(item => item.status !== 'closed')) {
+      // eslint-disable-next-line no-await-in-loop
+      const colleagues = await getReviewerAssignments(c.env.APP_DB, evaluation, actor.staff, actor.me)
+      if (colleagues && colleagues.length) mine.push({ ...evaluation, colleagues })
+    }
+    return c.json({ success: true, evaluations: mine })
+  } catch (error) {
+    return evaluationFailure(c, error, 'Could not load your evaluations.')
+  }
+})
+
+app.post('/api/staff-evaluations/:id/responses', authenticate, async (c) => {
+  try {
+    const actor = await resolveEvaluationActor(c.env.APP_DB, c.var.user || {})
+    if (!actor.me) return c.json({ success: false, message: 'Only school staff take part in staff evaluations.' }, 403)
+    const evaluation = await getEvaluation(c.env.APP_DB, actor.tenantId, c.req.param('id'))
+    if (!evaluation) return c.json({ success: false, message: 'Evaluation not found.' }, 404)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    await submitResponse(c.env.APP_DB, { tenantId: actor.tenantId, evaluation, staff: actor.staff, reviewer: actor.me, subjectId: String(body.subjectId || ''), answers: body.answers || {} })
+    return c.json({ success: true }, 201)
+  } catch (error) {
+    return evaluationFailure(c, error, 'Could not save your review.')
+  }
+})
+
+// ─── Teacher work submission and review ──────────────────────────────────────
+// See teacherSubmissions.ts. Teachers submit work for the classes and subjects
+// they teach; Owner, HOS and any reviewer roles the school names review it.
+// Everything stays inside the school.
+
+async function resolveSubmissionActor(db: D1Database, user: Record<string, any>) {
+  const resolved = await resolveSettingsIdentity(db, String(user.id || user.email || user.sub || ''))
+  const tenantId = String(resolved.settings?.tenantId || resolved.settings?.schoolId || resolved.userRow?.tenantId || user.tenantId || '')
+  const role = resolveEffectiveRole(resolved, user)
+  const id = String(resolved.userRow?.id || resolved.userRow?.email || resolved.settingsKey || user.id || '').trim()
+  const name = String(resolved.settings?.name || resolved.userRow?.name || user.name || id)
+  return { tenantId, actor: { id, name, role }, resolved }
+}
+
+async function canReviewSubmissions(db: D1Database, tenantId: string, role: string, policy: Awaited<ReturnType<typeof getSubmissionPolicy>>) {
+  if (role === 'owner') return true
+  // "View only" supervision limits changing class content, not reviewing teachers' submitted work.
+  if (role === 'hos') return true
+  return policy.reviewerRoles.includes(role)
+}
+
+function submissionFailure(c: any, error: unknown, fallback: string) {
+  if (error instanceof SubmissionError) return c.json({ success: false, message: error.message }, error.status as any)
+  console.error(fallback, error)
+  return c.json({ success: false, message: fallback }, 500)
+}
+
+/** Where new work lands: the running session and term, with their names. */
+async function submissionPeriod(db: D1Database, tenantId: string) {
+  const period = await getCurrentAcademicPeriod(db, tenantId).catch(() => null)
+  return {
+    sessionId: String(period?.sessionId || ''), sessionName: String(period?.sessionName || ''),
+    termId: String(period?.termId || ''), termName: String(period?.termName || ''),
+    termStart: String(period?.term?.startDate || ''), termEnd: String(period?.term?.endDate || ''),
+  }
+}
+
+/** A teacher may submit only for a class and subject they actually teach. */
+async function resolveSubmissionClass(db: D1Database, user: Record<string, any>, classId: string, subjectId: string) {
+  const context = await resolveMaterialPublishingContext(db, user, classId, subjectId)
+  if (!context.ok) throw new SubmissionError(context.message || 'Class not found.', context.status || 404)
+  if (context.supervisoryRole) throw new SubmissionError('Submit work for the classes and subjects you teach.', 403)
+  return {
+    classId: String(context.classRow.id), className: `${context.classRow.name}${context.classRow.arm ? ` ${context.classRow.arm}` : ''}`,
+    subjectId: String(context.subjectRow.id), subjectName: String(context.subjectRow.name || ''),
+  }
+}
+
+app.get('/api/teacher-submissions/config', authenticate, async (c) => {
+  try {
+    const { tenantId, actor } = await resolveSubmissionActor(c.env.APP_DB, c.var.user || {})
+    if (!tenantId) return c.json({ success: false, message: 'No school.' }, 400)
+    const policy = await getSubmissionPolicy(c.env.APP_DB, tenantId)
+    return c.json({
+      success: true,
+      types: submissionTypes(policy),
+      policy,
+      period: await submissionPeriod(c.env.APP_DB, tenantId),
+      canReview: await canReviewSubmissions(c.env.APP_DB, tenantId, actor.role, policy),
+      canConfigure: ['owner', 'hos'].includes(actor.role),
+    })
+  } catch (error) {
+    return submissionFailure(c, error, 'Could not load submission settings.')
+  }
+})
+
+app.put('/api/teacher-submissions/config', authenticate, async (c) => {
+  try {
+    const { tenantId, actor } = await resolveSubmissionActor(c.env.APP_DB, c.var.user || {})
+    if (!['owner', 'hos'].includes(actor.role)) return c.json({ success: false, message: 'Only the Owner or Head of School can change submission rules.' }, 403)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const policy = await saveSubmissionPolicy(c.env.APP_DB, tenantId, body, actor.id)
+    await addAudit(c.env.APP_DB, tenantId, { action: 'submissionPolicyUpdated', data: { by: actor.name, policy } }).catch(() => null)
+    return c.json({ success: true, policy, types: submissionTypes(policy) })
+  } catch (error) {
+    return submissionFailure(c, error, 'Could not save submission settings.')
+  }
+})
+
+app.post('/api/teacher-submissions/upload', authenticate, async (c) => {
+  try {
+    const { tenantId } = await resolveSubmissionActor(c.env.APP_DB, c.var.user || {})
+    if (!tenantId) return c.json({ success: false, message: 'No school.' }, 400)
+    const form = await c.req.formData()
+    const file = form.get('file') as File | null
+    if (!file || typeof file === 'string') return c.json({ success: false, message: 'Choose a file.' }, 400)
+    if (file.size > 50 * 1024 * 1024) return c.json({ success: false, message: 'Files must be 50 MB or smaller.' }, 413)
+    const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_').slice(-120)
+    const key = `teacher-submissions/${crypto.randomUUID()}/${safeName}`
+    await c.env.UPLOADS.put(key, file.stream(), { httpMetadata: { contentType: file.type || 'application/octet-stream' } })
+    return c.json({ success: true, file: { name: file.name, url: `https://ndovera.com/files/${key}`, type: file.type || '', size: file.size } }, 201)
+  } catch (error) {
+    return submissionFailure(c, error, 'Could not upload that file.')
+  }
+})
+
+app.get('/api/teacher-submissions/mine', authenticate, async (c) => {
+  try {
+    const { tenantId, actor } = await resolveSubmissionActor(c.env.APP_DB, c.var.user || {})
+    const query = c.req.query()
+    const submissions = await listSubmissions(c.env.APP_DB, tenantId, { ...query, teacherId: actor.id })
+    return c.json({ success: true, submissions })
+  } catch (error) {
+    return submissionFailure(c, error, 'Could not load your submissions.')
+  }
+})
+
+/** The current materials, topics and previously approved work for what is being prepared. */
+app.get('/api/teacher-submissions/resources', authenticate, async (c) => {
+  try {
+    const { tenantId, actor } = await resolveSubmissionActor(c.env.APP_DB, c.var.user || {})
+    const classId = String(c.req.query('classId') || '')
+    const subjectId = String(c.req.query('subjectId') || '')
+    await resolveSubmissionClass(c.env.APP_DB, c.var.user || {}, classId, subjectId)
+    const [materials, topics, approved] = await Promise.all([
+      getMaterialsForClass(c.env.APP_DB, classId).then(items => items.filter(item => item.subjectId === subjectId)),
+      listTopics(c.env.APP_DB, classId, subjectId),
+      listSubmissions(c.env.APP_DB, tenantId, { classId, subjectId, status: 'approved', type: c.req.query('type') || '' }),
+    ])
+    return c.json({
+      success: true,
+      materials: materials.map(item => ({ id: item.id, title: item.title, url: item.url, type: item.type, description: item.description, blocks: item.blocks, topic: item.topic })),
+      topics,
+      previousApproved: approved.slice(0, 20).map(item => ({ id: item.id, title: item.title, typeLabel: item.typeLabel, periodLabel: item.periodLabel, termName: item.termName, teacherName: item.teacherName, mine: item.teacherId.toLowerCase() === actor.id.toLowerCase(), content: item.content, files: item.files })),
+    })
+  } catch (error) {
+    return submissionFailure(c, error, 'Could not load resources.')
+  }
+})
+
+app.post('/api/teacher-submissions', authenticate, async (c) => {
+  try {
+    const { tenantId, actor } = await resolveSubmissionActor(c.env.APP_DB, c.var.user || {})
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    if (body.type === 'exam_questions') return c.json({ success: false, message: 'Exam questions are prepared on the Exams page — with Ndovera AI, typed, pasted or uploaded — so Ndovera can turn them into a CBT and a print-ready paper. Open Exams to submit them.', useExamsPage: true }, 400)
+    const target = await resolveSubmissionClass(c.env.APP_DB, c.var.user || {}, String(body.classId || ''), String(body.subjectId || ''))
+    const policy = await getSubmissionPolicy(c.env.APP_DB, tenantId)
+    const submission = await createTeacherSubmission(c.env.APP_DB, { tenantId, actor, policy, context: { ...(await submissionPeriod(c.env.APP_DB, tenantId)), ...target }, input: body })
+    return c.json({ success: true, submission }, 201)
+  } catch (error) {
+    return submissionFailure(c, error, 'Could not save this submission.')
+  }
+})
+
+/** Several weeks at once — each stays its own submission for review. */
+app.post('/api/teacher-submissions/bulk', authenticate, async (c) => {
+  try {
+    const { tenantId, actor } = await resolveSubmissionActor(c.env.APP_DB, c.var.user || {})
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const items = Array.isArray(body.items) ? body.items : []
+    if (!items.length || items.length > 20) return c.json({ success: false, message: 'Submit between 1 and 20 items at once.' }, 400)
+    if (body.type === 'exam_questions') return c.json({ success: false, message: 'Exam questions are prepared on the Exams page — with Ndovera AI, typed, pasted or uploaded — so Ndovera can turn them into a CBT and a print-ready paper. Open Exams to submit them.', useExamsPage: true }, 400)
+    const target = await resolveSubmissionClass(c.env.APP_DB, c.var.user || {}, String(body.classId || ''), String(body.subjectId || ''))
+    const policy = await getSubmissionPolicy(c.env.APP_DB, tenantId)
+    const period = await submissionPeriod(c.env.APP_DB, tenantId)
+    const batchId = `batch-${crypto.randomUUID()}`
+    const results = []
+    for (const item of items) {
+      try {
+        // eslint-disable-next-line no-await-in-loop
+        const submission = await createTeacherSubmission(c.env.APP_DB, {
+          tenantId, actor, policy, batchId, context: { ...period, ...target },
+          input: { ...item, type: body.type, otherLabel: body.otherLabel, submit: body.submit },
+        })
+        results.push({ ok: true, weekNumber: submission.weekNumber, submission })
+      } catch (error) {
+        results.push({ ok: false, weekNumber: item?.weekNumber ?? null, message: error instanceof SubmissionError ? error.message : 'Could not save this item.' })
+      }
+    }
+    return c.json({ success: results.some(result => result.ok), batchId, results }, 201)
+  } catch (error) {
+    return submissionFailure(c, error, 'Could not save these submissions.')
+  }
+})
+
+app.get('/api/teacher-submissions/review', authenticate, async (c) => {
+  try {
+    const { tenantId, actor } = await resolveSubmissionActor(c.env.APP_DB, c.var.user || {})
+    const policy = await getSubmissionPolicy(c.env.APP_DB, tenantId)
+    if (!await canReviewSubmissions(c.env.APP_DB, tenantId, actor.role, policy) && !['owner', 'hos'].includes(actor.role)) {
+      return c.json({ success: false, message: 'forbidden' }, 403)
+    }
+    const query = c.req.query()
+    const period = await submissionPeriod(c.env.APP_DB, tenantId)
+    // Which work to list: everything (default — older terms and work saved before the
+    // calendar was set up included), this session, or this term. Dates narrow it further.
+    const scope = ['term', 'session', 'all'].includes(String(query.scope)) ? String(query.scope) : 'all'
+    const filters = {
+      ...query,
+      sessionId: query.sessionId || (scope !== 'all' ? period.sessionId : ''),
+      termId: query.termId || (scope === 'term' ? period.termId : ''),
+      excludeDrafts: true,
+    }
+    const classId = String(query.classId || '')
+
+    // Without a class, a per-class overview; reviewers then open one class at a time.
+    if (!classId) {
+      const all = await listSubmissions(c.env.APP_DB, tenantId, filters)
+      const classes = new Map<string, Record<string, any>>()
+      for (const item of all) {
+        const entry = classes.get(item.classId) || { classId: item.classId, className: item.className, total: 0, awaitingReview: 0, returned: 0, approved: 0 }
+        entry.total += 1
+        if (['submitted', 'resubmitted', 'under_review'].includes(item.status)) entry.awaitingReview += 1
+        if (item.status === 'returned') entry.returned += 1
+        if (item.status === 'approved') entry.approved += 1
+        classes.set(item.classId, entry)
+      }
+      return c.json({ success: true, period, scope, classes: [...classes.values()].sort((a, b) => a.className.localeCompare(b.className)) })
+    }
+
+    const classRow = await c.env.APP_DB.prepare(`SELECT id FROM classes WHERE id = ? AND tenantId = ?`).bind(classId, tenantId).first()
+    if (!classRow) return c.json({ success: false, message: 'Class not found.' }, 404)
+    const submissions = await listSubmissions(c.env.APP_DB, tenantId, filters)
+    const live = (await loadLiveAssignments(c.env.APP_DB, tenantId)).filter(item => item.role === 'subject' && item.classId === classId)
+    const names = await c.env.APP_DB.prepare(`SELECT id, email, name FROM users WHERE tenantId = ?`).bind(tenantId).all().catch(() => ({ results: [] }))
+    const nameOf = (id: string) => ((names.results || []) as Record<string, any>[]).find(row => [row.id, row.email].some(value => String(value || '').toLowerCase() === id.toLowerCase()))?.name || id
+    const expectations = period.termStart
+      ? computeExpectations({
+        policy, termStart: period.termStart, termEnd: period.termEnd, today: lagosToday(),
+        assignments: live.map(item => ({ classId: item.classId, className: item.className, subjectId: item.subjectId, subjectName: item.subjectName, teacherId: item.teacherId, teacherName: String(nameOf(item.teacherId)) })),
+        submissions: await listSubmissions(c.env.APP_DB, tenantId, { classId, sessionId: filters.sessionId, termId: filters.termId }),
+      })
+      : { missing: [], late: [] }
+    // "Not submitted" and missing/late work are about the current term, whatever is listed.
+    const termSubmissions = period.termId ? await listSubmissions(c.env.APP_DB, tenantId, { classId, sessionId: period.sessionId, termId: period.termId, excludeDrafts: true }) : submissions
+    const submittedTeachers = new Set(termSubmissions.map(item => item.teacherId.toLowerCase()))
+    return c.json({
+      success: true, period, scope, policy: { reviewMode: policy.reviewMode, maxScore: policy.maxScore, requirements: policy.requirements },
+      submissions,
+      summary: {
+        submittedTeachers: [...submittedTeachers],
+        notSubmittedTeachers: [...new Set(live.map(item => item.teacherId).filter(id => !submittedTeachers.has(id.toLowerCase())))].map(id => ({ teacherId: id, teacherName: nameOf(id) })),
+        missing: expectations.missing, late: expectations.late,
+        awaitingReview: submissions.filter(item => ['submitted', 'resubmitted', 'under_review'].includes(item.status)).length,
+        returnedAwaitingResubmission: submissions.filter(item => item.status === 'returned').length,
+        approved: submissions.filter(item => item.status === 'approved').length,
+      },
+    })
+  } catch (error) {
+    return submissionFailure(c, error, 'Could not load submissions for review.')
+  }
+})
+
+async function loadSubmissionForViewer(db: D1Database, user: Record<string, any>, id: string) {
+  const { tenantId, actor } = await resolveSubmissionActor(db, user)
+  const submission = await getSubmission(db, tenantId, id)
+  if (!submission) throw new SubmissionError('Submission not found.', 404)
+  const policy = await getSubmissionPolicy(db, tenantId)
+  const isOwner = submission.teacherId.toLowerCase() === actor.id.toLowerCase()
+  const isReviewer = await canReviewSubmissions(db, tenantId, actor.role, policy)
+  const canView = isOwner || isReviewer || ['owner', 'hos'].includes(actor.role)
+  if (!canView) throw new SubmissionError('Submission not found.', 404)
+  return { tenantId, actor, submission, policy, isOwner, isReviewer }
+}
+
+app.get('/api/teacher-submissions/:id', authenticate, async (c) => {
+  try {
+    const { tenantId, actor, submission, policy, isOwner, isReviewer } = await loadSubmissionForViewer(c.env.APP_DB, c.var.user || {}, c.req.param('id'))
+    const history = await getSubmissionHistory(c.env.APP_DB, tenantId, submission.id)
+    let examPaper = null
+    if (submission.type === 'exam_questions') {
+      const linked = await findAssessmentBySubmission(c.env.APP_DB, tenantId, submission.id)
+      if (linked) {
+        const split = paperSplit(linked)
+        const sitting = await getSittingForAssessment(c.env.APP_DB, tenantId, linked.id)
+        examPaper = {
+          assessmentId: linked.id, className: linked.className, subjectName: linked.subjectName, durationMinutes: linked.config.durationMinutes,
+          objectiveCount: split.objective.length, objectiveMarks: split.objectiveMarks, theoryCount: split.theory.length, theoryMarks: split.theoryMarks, paperTotal: split.paperTotal,
+          secondary: isSecondaryClass(linked.className), sitting: sitting ? sittingSummary(sitting) : null,
+        }
+      }
+    }
+    return c.json({ success: true, submission, ...history, examPaper, permissions: { isOwner, isReviewer, reviewMode: policy.reviewMode, maxScore: policy.maxScore, canScheduleExam: ['owner', 'hos'].includes(actor.role) } })
+  } catch (error) {
+    return submissionFailure(c, error, 'Could not load this submission.')
+  }
+})
+
+app.put('/api/teacher-submissions/:id', authenticate, async (c) => {
+  try {
+    const { tenantId, actor } = await resolveSubmissionActor(c.env.APP_DB, c.var.user || {})
+    const policy = await getSubmissionPolicy(c.env.APP_DB, tenantId)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const submission = await editSubmission(c.env.APP_DB, { tenantId, id: c.req.param('id'), actor, policy, input: body })
+    return c.json({ success: true, submission })
+  } catch (error) {
+    return submissionFailure(c, error, 'Could not update this submission.')
+  }
+})
+
+app.post('/api/teacher-submissions/:id/submit', authenticate, async (c) => {
+  try {
+    const { tenantId, actor } = await resolveSubmissionActor(c.env.APP_DB, c.var.user || {})
+    return c.json({ success: true, submission: await submitSubmission(c.env.APP_DB, { tenantId, id: c.req.param('id'), actor }) })
+  } catch (error) {
+    return submissionFailure(c, error, 'Could not submit this work.')
+  }
+})
+
+app.delete('/api/teacher-submissions/:id', authenticate, async (c) => {
+  try {
+    const { tenantId, actor } = await resolveSubmissionActor(c.env.APP_DB, c.var.user || {})
+    const policy = await getSubmissionPolicy(c.env.APP_DB, tenantId)
+    await deleteSubmission(c.env.APP_DB, { tenantId, id: c.req.param('id'), actor, policy })
+    return c.json({ success: true })
+  } catch (error) {
+    return submissionFailure(c, error, 'Could not delete this submission.')
+  }
+})
+
+app.post('/api/teacher-submissions/:id/start-review', authenticate, async (c) => {
+  try {
+    const { tenantId, actor, isReviewer } = await loadSubmissionForViewer(c.env.APP_DB, c.var.user || {}, c.req.param('id'))
+    if (!isReviewer) return c.json({ success: false, message: 'You are not a reviewer for this school.' }, 403)
+    return c.json({ success: true, submission: await startReview(c.env.APP_DB, { tenantId, id: c.req.param('id'), actor }) })
+  } catch (error) {
+    return submissionFailure(c, error, 'Could not start the review.')
+  }
+})
+
+app.post('/api/teacher-submissions/:id/decision', authenticate, async (c) => {
+  try {
+    const { tenantId, actor, policy, isReviewer } = await loadSubmissionForViewer(c.env.APP_DB, c.var.user || {}, c.req.param('id'))
+    if (!isReviewer) return c.json({ success: false, message: 'You are not a reviewer for this school.' }, 403)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    // An exam paper from Ndovera: approving it also decides how it is written (print or CBT) and when.
+    const before = await getSubmission(c.env.APP_DB, tenantId, c.req.param('id'))
+    const linked = body.decision === 'approve' && before?.type === 'exam_questions' ? await findAssessmentBySubmission(c.env.APP_DB, tenantId, before.id) : null
+    if (linked && !['owner', 'hos'].includes(actor.role) && body.delivery?.mode && body.delivery.mode !== 'print') throw new SittingError('Only the Head of School or Owner can schedule a CBT exam.', 403)
+    const plan = linked ? checkSittingPlan(linked, body.delivery) : null
+    const submission = await decideSubmission(c.env.APP_DB, { tenantId, id: c.req.param('id'), actor, policy, decision: body.decision, feedback: body.feedback, score: body.score })
+    let sitting = null
+    if (linked && plan) {
+      const finalised = linked.status === 'submitted' ? await setStatus(c.env.APP_DB, linked, { status: 'finalised' }, actor, 'FINAL — Approved', `Approved by ${actor.name}: ${MODE_LABELS[plan.schedule.mode]}${plan.schedule.opensAt ? `, ${plan.schedule.opensAt} – ${plan.schedule.closesAt}` : ''}`) : linked
+      sitting = sittingSummary(await createSittingFor(c.env.APP_DB, finalised, plan, { id: actor.id, name: actor.name }, submission.id))
+    }
+    return c.json({ success: true, submission, ...(sitting ? { sitting } : {}) })
+  } catch (error) {
+    if (error instanceof SittingError) return c.json({ success: false, message: error.message }, error.status as any)
+    return submissionFailure(c, error, 'Could not record the review.')
+  }
+})
+
+/** AI preliminary review: advice shown to the reviewer, never a decision. */
+app.post('/api/teacher-submissions/:id/ai-review', authenticate, async (c) => {
+  try {
+    const { tenantId, actor, submission, policy, isReviewer } = await loadSubmissionForViewer(c.env.APP_DB, c.var.user || {}, c.req.param('id'))
+    if (!isReviewer) return c.json({ success: false, message: 'You are not a reviewer for this school.' }, 403)
+    if (!submission.content.trim()) return c.json({ success: false, message: 'There is no text to review — the AI cannot read attached files. Review the files yourself.' }, 400)
+    if (!c.env.AI || typeof c.env.AI.run !== 'function') return c.json({ success: false, message: 'Ndovera AI is not available right now.' }, 503)
+    const result = await c.env.AI.run(WORKERS_AI_MODEL, {
+      messages: [
+        { role: 'system', content: buildAiReviewPrompt(submission, policy.aiCriteria) },
+        { role: 'user', content: `${submission.title}\n\n${submission.content.slice(0, 12000)}` },
+      ],
+      max_tokens: 700,
+      temperature: 0.2,
+    })
+    const text = extractWorkersAiText(result)
+    if (!text) return c.json({ success: false, message: 'Ndovera AI returned an empty review. Please try again.' }, 502)
+    const aiReview = { text, criteria: policy.aiCriteria, version: submission.version, createdAt: new Date().toISOString(), requestedBy: actor.name }
+    await c.env.APP_DB.prepare(`UPDATE teacher_submissions SET ai_review_json = ? WHERE id = ? AND tenant_id = ?`).bind(JSON.stringify(aiReview), submission.id, tenantId).run()
+    await recordSubmissionAudit(c.env.APP_DB, { tenantId, submissionId: submission.id, action: 'ai_review', actor, statusBefore: submission.status, statusAfter: submission.status, version: submission.version })
+    return c.json({ success: true, aiReview })
+  } catch (error) {
+    return submissionFailure(c, error, 'Could not run the AI review.')
+  }
+})
+
+// ─── Teacher Submissions & Compliance ────────────────────────────────────────
+// See compliance.ts. Owner and HOS configure; section heads (Nursery Head,
+// Headteacher, Principal by default) oversee the teachers of their sections;
+// teachers see only their own requirements.
+
+async function resolveComplianceViewer(c: any) {
+  const { tenantId, actor } = await resolveSubmissionActor(c.env.APP_DB, c.var.user || {})
+  if (!tenantId) throw new ComplianceError('No school.', 400)
+  const settings = await getComplianceSettings(c.env.APP_DB, tenantId)
+  const scope = viewerSections([actor.role], settings)
+  return {
+    tenantId, actor, settings, scope,
+    canConfigure: SCHOOL_WIDE_ROLES.includes(actor.role),
+    canOversee: scope === 'all' || scope.length > 0,
+    canDecideFines: SCHOOL_WIDE_ROLES.includes(actor.role),
+  }
+}
+
+function complianceFailure(c: any, error: unknown, fallback: string) {
+  if (error instanceof ComplianceError) return c.json({ success: false, message: error.message }, error.status as any)
+  console.error(fallback, error)
+  return c.json({ success: false, message: fallback }, 500)
+}
+
+/** Everything the engine needs for one school, read once per request. */
+async function loadComplianceWorld(db: D1Database, tenantId: string, options: { teacherIds?: string[] } = {}) {
+  const [rules, staff, assignments, classRows, period] = await Promise.all([
+    listComplianceRules(db, tenantId),
+    listSchoolStaff(db, tenantId),
+    loadLiveAssignments(db, tenantId),
+    // SELECT *: older databases have no section column, and the name decides then.
+    db.prepare(`SELECT * FROM classes WHERE tenantId = ?`).bind(tenantId).all().then(result => (result.results || []) as Record<string, any>[]).catch(() => [] as Record<string, any>[]),
+    getCurrentAcademicPeriod(db, tenantId).catch(() => null),
+  ])
+  const classSections = new Map<string, ComplianceSection>(classRows.map(row => [String(row.id), classSectionValue(row) as ComplianceSection]))
+  const term = { id: String(period?.termId || ''), startDate: String(period?.term?.startDate || ''), endDate: String(period?.term?.endDate || '') }
+  const teachingIds = new Set(assignments.map(item => String(item.teacherId || '').trim().toLowerCase()))
+  const wanted = options.teacherIds ? new Set(options.teacherIds.map(id => id.toLowerCase())) : null
+  const teachers = staff
+    .filter(person => teachingIds.has(person.id.toLowerCase()) || teachingIds.has(person.email.toLowerCase()))
+    .filter(person => !wanted || wanted.has(person.id.toLowerCase()) || wanted.has(person.email.toLowerCase()))
+    .sort((a, b) => a.name.localeCompare(b.name))
+
+  // Evidence from the start of the term (or the earliest rule) up to today.
+  const today = lagosToday()
+  const from = [term.startDate, ...rules.map(rule => rule.startsOn)].filter(Boolean).sort()[0] || new Date(Date.now() - 120 * 86400000).toISOString().slice(0, 10)
+  await ensureSchoolStudentAttendanceTable(db)
+  const [registerRows, submissions, classReports, verifications, fines, caSubmissions, caComponentKeys] = await Promise.all([
+    db.prepare(`SELECT class_id, date, MAX(COALESCE(updated_at, created_at)) AS at FROM student_attendance_school WHERE tenant_id = ? AND date >= ? AND date <= ? GROUP BY class_id, date`)
+      .bind(tenantId, from, today).all().then(result => (result.results || []) as Record<string, any>[]).catch(() => [] as Record<string, any>[]),
+    listSubmissions(db, tenantId, { from }),
+    listClassReports(db, tenantId, {}),
+    loadComplianceVerifications(db, tenantId, rules.map(rule => rule.id)),
+    loadComplianceFines(db, tenantId),
+    period?.sessionName && period?.termName && rules.some(rule => rule.kind === 'ca_scores')
+      ? listCaSubmissionsForPeriod(db, tenantId, String(period.sessionName), String(period.termName)).catch(() => [])
+      : Promise.resolve([]),
+    rules.some(rule => rule.kind === 'ca_scores') ? schoolCaComponents(db, tenantId).then(list => list.map(item => item.key)) : Promise.resolve([] as string[]),
+  ])
+  const register = new Map<string, Map<string, string>>()
+  for (const row of registerRows) {
+    const byDate = register.get(String(row.class_id)) || new Map<string, string>()
+    byDate.set(String(row.date).slice(0, 10), String(row.at || ''))
+    register.set(String(row.class_id), byDate)
+  }
+  const evidence = {
+    register,
+    submissions: submissions.map(item => ({
+      teacherId: item.teacherId, classId: item.classId, subjectId: item.subjectId, type: item.type, status: item.status, weekNumber: item.weekNumber,
+      firstSubmittedAt: item.firstSubmittedAt, approvedAt: item.status === 'approved' ? item.reviewedAt : null, termId: item.termId,
+    })),
+    classReports: classReports.map(report => ({ teacherId: report.teacherId, classId: report.classId, periodKey: report.periodKey, status: report.status, submittedAt: report.submittedAt })),
+    verifications,
+    fines,
+    caSubmissions: caSubmissions.map(item => ({ classId: item.classId, subjectId: item.subjectId, componentKey: item.componentKey, status: item.status, submittedAt: item.submittedAt })),
+    caComponentKeys,
+  }
+  return { rules, staff, teachers, assignments, classSections, term, evidence, today }
+}
+
+/** The school's C.A. components (CA 1, CA 2…) from its result settings. */
+async function schoolCaComponents(db: D1Database, tenantId: string) {
+  const stored = await getResultSettings(db, tenantId).catch(() => ({ metadata: {} } as Record<string, any>))
+  const settings = { ...stored, ...normalizeResultSettingsInput(stored) }
+  const scoreSettings = normalizeResultScoreSettings(settings.metadata, RESULT_DEFAULT_SCORE_LIMITS)
+  return normalizeResultCaComponentList(settings.metadata?.caComponents, RESULT_DEFAULT_CA_COMPONENTS, 8, scoreSettings.caMaxScore)
+    .map(component => ({ key: String(component.key), label: String(component.label || component.key) }))
+}
+
+function teacherInScope(world: Awaited<ReturnType<typeof loadComplianceWorld>>, teacher: { id: string, email: string, name: string, roles: string[] }, scope: ComplianceSection[] | 'all') {
+  if (scope === 'all') return true
+  return complianceTeacherSections(teacher, world.assignments, world.classSections).some(section => scope.includes(section))
+}
+
+function describeTeacher(world: Awaited<ReturnType<typeof loadComplianceWorld>>, teacher: { id: string, email: string, name: string, roles: string[] }) {
+  return { id: teacher.id, name: teacher.name, email: teacher.email, sections: complianceTeacherSections(teacher, world.assignments, world.classSections) }
+}
+
+app.get('/api/compliance/config', authenticate, async (c) => {
+  try {
+    const viewer = await resolveComplianceViewer(c)
+    const rules = await listComplianceRules(c.env.APP_DB, viewer.tenantId, { includeInactive: viewer.canConfigure })
+    return c.json({
+      success: true,
+      rules, kinds: COMPLIANCE_KINDS.map(kind => ({ key: kind, label: COMPLIANCE_KIND_LABELS[kind] })), frequencies: COMPLIANCE_FREQUENCIES, sections: COMPLIANCE_SECTIONS,
+      caComponents: await schoolCaComponents(c.env.APP_DB, viewer.tenantId).catch(() => []),
+      settings: viewer.settings,
+      permissions: { canConfigure: viewer.canConfigure, canOversee: viewer.canOversee, canVerify: viewer.canOversee, canDecideFines: viewer.canDecideFines, scope: viewer.scope },
+    })
+  } catch (error) {
+    return complianceFailure(c, error, 'Could not load submission requirements.')
+  }
+})
+
+app.post('/api/compliance/rules', authenticate, async (c) => {
+  try {
+    const viewer = await resolveComplianceViewer(c)
+    if (!viewer.canConfigure) return c.json({ success: false, message: 'Only the Owner or Head of School can set submission requirements.' }, 403)
+    const rule = await saveComplianceRule(c.env.APP_DB, { tenantId: viewer.tenantId, input: await c.req.json().catch(() => ({})), actor: viewer.actor })
+    return c.json({ success: true, rule }, 201)
+  } catch (error) {
+    return complianceFailure(c, error, 'Could not save this requirement.')
+  }
+})
+
+app.put('/api/compliance/rules/:id', authenticate, async (c) => {
+  try {
+    const viewer = await resolveComplianceViewer(c)
+    if (!viewer.canConfigure) return c.json({ success: false, message: 'Only the Owner or Head of School can set submission requirements.' }, 403)
+    const rule = await saveComplianceRule(c.env.APP_DB, { tenantId: viewer.tenantId, id: c.req.param('id'), input: await c.req.json().catch(() => ({})), actor: viewer.actor })
+    return c.json({ success: true, rule })
+  } catch (error) {
+    return complianceFailure(c, error, 'Could not save this requirement.')
+  }
+})
+
+app.post('/api/compliance/rules/:id/active', authenticate, async (c) => {
+  try {
+    const viewer = await resolveComplianceViewer(c)
+    if (!viewer.canConfigure) return c.json({ success: false, message: 'Only the Owner or Head of School can set submission requirements.' }, 403)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    await setComplianceRuleActive(c.env.APP_DB, { tenantId: viewer.tenantId, id: c.req.param('id'), active: Boolean(body.active), actor: viewer.actor })
+    return c.json({ success: true })
+  } catch (error) {
+    return complianceFailure(c, error, 'Could not update this requirement.')
+  }
+})
+
+app.put('/api/compliance/settings', authenticate, async (c) => {
+  try {
+    const viewer = await resolveComplianceViewer(c)
+    if (!viewer.canConfigure) return c.json({ success: false, message: 'Only the Owner or Head of School can change who oversees each section.' }, 403)
+    const settings = await saveComplianceSettings(c.env.APP_DB, viewer.tenantId, await c.req.json().catch(() => ({})), viewer.actor)
+    return c.json({ success: true, settings })
+  } catch (error) {
+    return complianceFailure(c, error, 'Could not save these settings.')
+  }
+})
+
+function complianceDate(value: unknown) {
+  const date = String(value || '')
+  return /^\d{4}-\d{2}-\d{2}$/.test(date) ? date : lagosToday()
+}
+
+/** The teacher's own "My Submissions" card and page. */
+app.get('/api/compliance/mine', authenticate, async (c) => {
+  try {
+    const viewer = await resolveComplianceViewer(c)
+    const world = await loadComplianceWorld(c.env.APP_DB, viewer.tenantId)
+    const me = world.staff.find(person => [person.id, person.email].some(value => value.toLowerCase() === viewer.actor.id.toLowerCase()))
+    if (!me) return c.json({ success: true, items: [], history: [], attention: 0 })
+    const date = complianceDate(c.req.query('date'))
+    const now = new Date().toISOString()
+    const items = complianceTeacherItems({ rules: world.rules, teacher: me, assignments: world.assignments, classSections: world.classSections, evidence: world.evidence, term: world.term, date, now })
+    const history = complianceTeacherHistory({ rules: world.rules, teacher: me, assignments: world.assignments, classSections: world.classSections, evidence: world.evidence, term: world.term, now })
+    return c.json({ success: true, date, items, history, attention: items.filter(item => !['complete', 'late'].includes(item.status)).length })
+  } catch (error) {
+    return complianceFailure(c, error, 'Could not load your submissions.')
+  }
+})
+
+/** The Heads' reporting centre: totals, then a teacher × requirement matrix. */
+app.get('/api/compliance/overview', authenticate, async (c) => {
+  try {
+    const viewer = await resolveComplianceViewer(c)
+    if (!viewer.canOversee) return c.json({ success: false, message: 'forbidden' }, 403)
+    const query = c.req.query()
+    const date = complianceDate(query.date)
+    const now = new Date().toISOString()
+    const world = await loadComplianceWorld(c.env.APP_DB, viewer.tenantId)
+    const section = String(query.section || '')
+    const teacherFilter = String(query.teacherId || '').toLowerCase()
+    const kindFilter = String(query.kind || '')
+    const statusFilter = String(query.status || '')
+    let rows = world.teachers
+      .filter(teacher => teacherInScope(world, teacher, viewer.scope))
+      .filter(teacher => !section || complianceTeacherSections(teacher, world.assignments, world.classSections).includes(section as ComplianceSection))
+      .filter(teacher => !teacherFilter || [teacher.id, teacher.email].some(value => value.toLowerCase() === teacherFilter))
+      .map(teacher => ({
+        teacher: describeTeacher(world, teacher),
+        items: complianceTeacherItems({ rules: world.rules, teacher, assignments: world.assignments, classSections: world.classSections, evidence: world.evidence, term: world.term, date, now })
+          .filter(item => !kindFilter || item.kind === kindFilter),
+      }))
+    if (statusFilter) {
+      rows = rows.filter(row => row.items.some(item => statusFilter === 'late' ? item.status === 'late' || Boolean(item.fine) : item.status === statusFilter))
+    }
+    const termWeekOne = world.term.startDate ? Date.parse(world.term.startDate) : null
+    const weekNumber = termWeekOne ? Math.floor((Date.parse(date) - termWeekOne) / (7 * 86400000)) + 1 : null
+    return c.json({
+      success: true, date, weekLabel: weekNumber && weekNumber > 0 ? `Week ${weekNumber}` : date,
+      summary: summarizeCompliance(rows),
+      columns: world.rules.map(rule => ({ ruleId: rule.id, name: rule.name, kind: rule.kind })),
+      rows,
+      permissions: { canVerify: true, canDecideFines: viewer.canDecideFines, canConfigure: viewer.canConfigure },
+    })
+  } catch (error) {
+    return complianceFailure(c, error, 'Could not load the compliance overview.')
+  }
+})
+
+/** One teacher in full: this period's items with what is missing, the weekly history and the audit. */
+app.get('/api/compliance/teachers/:teacherId', authenticate, async (c) => {
+  try {
+    const viewer = await resolveComplianceViewer(c)
+    const teacherId = c.req.param('teacherId')
+    const isSelf = teacherId.toLowerCase() === viewer.actor.id.toLowerCase()
+    const world = await loadComplianceWorld(c.env.APP_DB, viewer.tenantId)
+    const teacher = world.staff.find(person => [person.id, person.email].some(value => value.toLowerCase() === teacherId.toLowerCase()))
+    if (!teacher) return c.json({ success: false, message: 'Teacher not found.' }, 404)
+    if (!isSelf && !(viewer.canOversee && teacherInScope(world, teacher, viewer.scope))) return c.json({ success: false, message: 'forbidden' }, 403)
+    const date = complianceDate(c.req.query('date'))
+    const now = new Date().toISOString()
+    const args = { rules: world.rules, teacher, assignments: world.assignments, classSections: world.classSections, evidence: world.evidence, term: world.term, now }
+    return c.json({
+      success: true, date, teacher: describeTeacher(world, teacher),
+      items: complianceTeacherItems({ ...args, date }),
+      history: complianceTeacherHistory(args),
+      audit: viewer.canOversee ? await listComplianceAudit(c.env.APP_DB, viewer.tenantId, { teacherId: teacher.id }) : [],
+    })
+  } catch (error) {
+    return complianceFailure(c, error, 'Could not load this teacher.')
+  }
+})
+
+async function resolveComplianceTarget(c: any, viewer: Awaited<ReturnType<typeof resolveComplianceViewer>>, body: Record<string, any>, { allowSelf = false } = {}) {
+  const rule = await getComplianceRule(c.env.APP_DB, viewer.tenantId, String(body.ruleId || ''))
+  if (!rule) throw new ComplianceError('Requirement not found.', 404)
+  const world = await loadComplianceWorld(c.env.APP_DB, viewer.tenantId)
+  const teacherId = String(body.teacherId || (allowSelf ? viewer.actor.id : ''))
+  const teacher = world.staff.find(person => [person.id, person.email].some(value => value.toLowerCase() === teacherId.toLowerCase()))
+  if (!teacher) throw new ComplianceError('Teacher not found.', 404)
+  const isSelf = [teacher.id, teacher.email].some(value => value.toLowerCase() === viewer.actor.id.toLowerCase())
+  if (!(allowSelf && isSelf) && !(viewer.canOversee && teacherInScope(world, teacher, viewer.scope))) throw new ComplianceError('You do not oversee this teacher.', 403)
+  // The period must be one this rule really has, and the unit one the teacher really owes.
+  const periodKey = String(body.periodKey || '')
+  // Periods that have started, plus the coming month so a Head can confirm work handed in early.
+  const until = new Date(Date.parse(`${world.today}T00:00:00Z`) + 31 * 86400000).toISOString().slice(0, 10)
+  const periods = complianceRulePeriods(rule, world.term, until)
+  const period = periods.find(item => item.key === periodKey)
+  if (!period) throw new ComplianceError('That period is not part of this requirement.')
+  const item = evaluateComplianceItem({ rule, period, teacher, assignments: assignmentsForComplianceRule(rule, world.assignments, world.classSections), evidence: world.evidence, now: new Date().toISOString(), termId: world.term.id })
+  if (!item) throw new ComplianceError('This teacher has nothing due for this requirement.')
+  return { rule, world, teacher, period, item, isSelf }
+}
+
+/** A Head marks work done outside Ndovera as submitted (or withdraws that), or uploads it on the teacher's behalf. */
+app.post('/api/compliance/verify', authenticate, async (c) => {
+  try {
+    const viewer = await resolveComplianceViewer(c)
+    if (!viewer.canOversee) return c.json({ success: false, message: 'Only a Head who oversees this teacher can verify submissions.' }, 403)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const { rule, teacher, period, item } = await resolveComplianceTarget(c, viewer, body)
+    const unitKey = String(body.unitKey || '')
+    if (!item.units.some(unit => unit.key === unitKey)) throw new ComplianceError('Choose which item to mark.')
+    const onBehalf = Boolean(body.onBehalf)
+    if (!body.revoke && rule.method === 'ndovera' && !onBehalf) throw new ComplianceError('This requirement is only completed through Ndovera. Upload it on the teacher\'s behalf instead.')
+    if (onBehalf && !normalizeComplianceFiles(body.files).length) throw new ComplianceError('Attach the work you are submitting on the teacher\'s behalf.')
+    await recordComplianceVerification(c.env.APP_DB, {
+      tenantId: viewer.tenantId, ruleId: rule.id, periodKey: period.key, teacherId: teacher.id, unitKey, actor: viewer.actor,
+      status: body.revoke ? 'revoked' : 'verified', source: onBehalf ? 'upload' : 'manual', onBehalf, note: body.note, files: body.files,
+    })
+    return c.json({ success: true })
+  } catch (error) {
+    return complianceFailure(c, error, 'Could not record this verification.')
+  }
+})
+
+/** A teacher uploads evidence (a diary photo, for example) where the school has enabled it. */
+app.post('/api/compliance/evidence', authenticate, async (c) => {
+  try {
+    const viewer = await resolveComplianceViewer(c)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const { rule, teacher, period, item, isSelf } = await resolveComplianceTarget(c, viewer, { ...body, teacherId: viewer.actor.id }, { allowSelf: true })
+    if (!isSelf) throw new ComplianceError('Upload evidence for your own requirements.', 403)
+    if (!rule.evidenceUpload) throw new ComplianceError('This requirement is verified by a Head; uploads are not enabled for it.')
+    const unitKey = String(body.unitKey || item.units[0]?.key || '')
+    if (!item.units.some(unit => unit.key === unitKey)) throw new ComplianceError('Choose which item this evidence is for.')
+    if (!normalizeComplianceFiles(body.files).length) throw new ComplianceError('Attach at least one file or photo.')
+    await recordComplianceVerification(c.env.APP_DB, {
+      tenantId: viewer.tenantId, ruleId: rule.id, periodKey: period.key, teacherId: teacher.id, unitKey, actor: viewer.actor,
+      status: 'verified', source: 'upload', onBehalf: false, note: body.note, files: body.files,
+    })
+    return c.json({ success: true })
+  } catch (error) {
+    return complianceFailure(c, error, 'Could not upload this evidence.')
+  }
+})
+
+/** Penalties are only ever proposed by Ndovera; the Owner or HOS decides. */
+app.post('/api/compliance/fines', authenticate, async (c) => {
+  try {
+    const viewer = await resolveComplianceViewer(c)
+    if (!viewer.canDecideFines) return c.json({ success: false, message: 'Only the Owner or Head of School can approve, waive or adjust penalties.' }, 403)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const { rule, teacher, period, item } = await resolveComplianceTarget(c, viewer, body)
+    if (!item.fine) throw new ComplianceError('No penalty applies to this item.')
+    const fine = await decideComplianceFine(c.env.APP_DB, {
+      tenantId: viewer.tenantId, ruleId: rule.id, periodKey: period.key, teacherId: teacher.id, decision: body.decision, amount: body.amount, reason: body.reason, proposed: rule.fineAmount, actor: viewer.actor,
+    })
+    return c.json({ success: true, fine })
+  } catch (error) {
+    return complianceFailure(c, error, 'Could not record this decision.')
+  }
+})
+
+app.get('/api/compliance/audit', authenticate, async (c) => {
+  try {
+    const viewer = await resolveComplianceViewer(c)
+    if (!viewer.canOversee) return c.json({ success: false, message: 'forbidden' }, 403)
+    return c.json({ success: true, audit: await listComplianceAudit(c.env.APP_DB, viewer.tenantId, { teacherId: String(c.req.query('teacherId') || '') }) })
+  } catch (error) {
+    return complianceFailure(c, error, 'Could not load the audit trail.')
+  }
+})
+
+// Weekly class reports: the school's questionnaire, the teacher's answers, and an AI write-up of them.
+
+app.get('/api/compliance/class-report-template', authenticate, async (c) => {
+  try {
+    const viewer = await resolveComplianceViewer(c)
+    return c.json({ success: true, questions: await getClassReportTemplate(c.env.APP_DB, viewer.tenantId), questionTypes: CLASS_REPORT_QUESTION_TYPES, canEdit: viewer.canConfigure })
+  } catch (error) {
+    return complianceFailure(c, error, 'Could not load the class report questions.')
+  }
+})
+
+app.put('/api/compliance/class-report-template', authenticate, async (c) => {
+  try {
+    const viewer = await resolveComplianceViewer(c)
+    if (!viewer.canConfigure) return c.json({ success: false, message: 'Only the Owner or Head of School can edit the class report questions.' }, 403)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    return c.json({ success: true, questions: await saveClassReportTemplate(c.env.APP_DB, viewer.tenantId, body.questions, viewer.actor) })
+  } catch (error) {
+    return complianceFailure(c, error, 'Could not save the class report questions.')
+  }
+})
+
+/** The period a class report belongs to: the class-report rule's period if there is one, else the week. */
+function classReportPeriod(world: Awaited<ReturnType<typeof loadComplianceWorld>>, date: string) {
+  const rule = world.rules.find(item => item.kind === 'class_report')
+  const period = rule ? complianceRulePeriodAt(rule, world.term, date) : null
+  if (period) return { key: period.key, label: period.label, dueAt: period.dueAt }
+  const monday = new Date(Date.parse(`${date}T00:00:00Z`) - (((new Date(`${date}T00:00:00Z`).getUTCDay() + 6) % 7) * 86400000)).toISOString().slice(0, 10)
+  return { key: `week:${monday}`, label: `Week of ${monday}`, dueAt: '' }
+}
+
+async function classTeacherClasses(db: D1Database, world: Awaited<ReturnType<typeof loadComplianceWorld>>, actorId: string) {
+  const id = actorId.toLowerCase()
+  const me = world.staff.find(person => [person.id, person.email].some(value => value.toLowerCase() === id))
+  const keys = new Set([id, String(me?.email || '').toLowerCase(), String(me?.id || '').toLowerCase()].filter(Boolean))
+  return [...new Map(world.assignments.filter(item => item.role === 'class_teacher' && keys.has(String(item.teacherId).toLowerCase())).map(item => [item.classId, { id: item.classId, name: item.className }])).values()]
+}
+
+app.get('/api/compliance/class-report', authenticate, async (c) => {
+  try {
+    const viewer = await resolveComplianceViewer(c)
+    const world = await loadComplianceWorld(c.env.APP_DB, viewer.tenantId)
+    const classes = await classTeacherClasses(c.env.APP_DB, world, viewer.actor.id)
+    if (!classes.length) return c.json({ success: true, classes: [], report: null, questions: [], students: [], period: null })
+    const classId = classes.some(item => item.id === c.req.query('classId')) ? String(c.req.query('classId')) : classes[0].id
+    const period = classReportPeriod(world, complianceDate(c.req.query('date')))
+    const [report, questions, studentRows] = await Promise.all([
+      findClassReport(c.env.APP_DB, viewer.tenantId, period.key, classId, viewer.actor.id),
+      getClassReportTemplate(c.env.APP_DB, viewer.tenantId),
+      c.env.APP_DB.prepare(`SELECT id, name, arm, classTeacherId FROM classes WHERE id = ? AND tenantId = ?`).bind(classId, viewer.tenantId).first()
+        .then(row => (row ? listResultClassStudents(c.env.APP_DB, viewer.tenantId, row as Record<string, any>) : [])).catch(() => []),
+    ])
+    return c.json({
+      success: true, classes, classId, period, questions: report?.questions?.length ? report.questions : questions, report,
+      students: (studentRows as Array<Record<string, any>>).map(student => ({ id: String(student.id), name: String(student.name || '') })),
+    })
+  } catch (error) {
+    return complianceFailure(c, error, 'Could not load the class report.')
+  }
+})
+
+app.put('/api/compliance/class-report', authenticate, async (c) => {
+  try {
+    const viewer = await resolveComplianceViewer(c)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const world = await loadComplianceWorld(c.env.APP_DB, viewer.tenantId)
+    const target = (await classTeacherClasses(c.env.APP_DB, world, viewer.actor.id)).find(item => item.id === String(body.classId || ''))
+    if (!target) return c.json({ success: false, message: 'Class reports are written by the class teacher.' }, 403)
+    const period = classReportPeriod(world, complianceDate(body.date))
+    const existing = await findClassReport(c.env.APP_DB, viewer.tenantId, period.key, target.id, viewer.actor.id)
+    const report = await saveClassReportDraft(c.env.APP_DB, {
+      tenantId: viewer.tenantId, periodKey: period.key, periodLabel: period.label, classId: target.id, className: target.name, teacher: viewer.actor,
+      questions: existing?.questions?.length ? existing.questions : await getClassReportTemplate(c.env.APP_DB, viewer.tenantId), answers: body.answers, summary: body.summary,
+    })
+    return c.json({ success: true, report })
+  } catch (error) {
+    return complianceFailure(c, error, 'Could not save the class report.')
+  }
+})
+
+app.post('/api/compliance/class-report/:id/ai-summary', authenticate, async (c) => {
+  try {
+    const viewer = await resolveComplianceViewer(c)
+    const report = await getClassReport(c.env.APP_DB, viewer.tenantId, c.req.param('id'))
+    if (!report || report.teacherId.toLowerCase() !== viewer.actor.id.toLowerCase()) return c.json({ success: false, message: 'Report not found.' }, 404)
+    if (report.status === 'submitted') return c.json({ success: false, message: 'This report has already been submitted.' }, 409)
+    if (!c.env.AI || typeof c.env.AI.run !== 'function') return c.json({ success: false, message: 'Ndovera AI is not available right now. You can write the summary yourself.' }, 503)
+    const classRow = await c.env.APP_DB.prepare(`SELECT id, name, arm, classTeacherId FROM classes WHERE id = ? AND tenantId = ?`).bind(report.classId, viewer.tenantId).first() as Record<string, any> | null
+    const students = classRow ? await listResultClassStudents(c.env.APP_DB, viewer.tenantId, classRow) : []
+    const prompt = buildClassReportPrompt(report, new Map(students.map(student => [String(student.id), String(student.name || '')])))
+    const result = await c.env.AI.run(WORKERS_AI_MODEL, { messages: [{ role: 'system', content: prompt.system }, { role: 'user', content: prompt.user }], max_tokens: 900, temperature: 0.2 })
+    const text = extractWorkersAiText(result)
+    if (!text) return c.json({ success: false, message: 'Ndovera AI returned an empty report. Please try again.' }, 502)
+    await storeClassReportAiSummary(c.env.APP_DB, viewer.tenantId, report.id, text)
+    return c.json({ success: true, report: await getClassReport(c.env.APP_DB, viewer.tenantId, report.id) })
+  } catch (error) {
+    return complianceFailure(c, error, 'Could not generate the report.')
+  }
+})
+
+app.post('/api/compliance/class-report/:id/submit', authenticate, async (c) => {
+  try {
+    const viewer = await resolveComplianceViewer(c)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    return c.json({ success: true, report: await submitClassReport(c.env.APP_DB, { tenantId: viewer.tenantId, id: c.req.param('id'), teacher: viewer.actor, summary: body.summary }) })
+  } catch (error) {
+    return complianceFailure(c, error, 'Could not submit the class report.')
+  }
+})
+
+/** Heads read submitted reports: the teacher's own answers alongside the write-up. */
+app.get('/api/compliance/class-reports', authenticate, async (c) => {
+  try {
+    const viewer = await resolveComplianceViewer(c)
+    if (!viewer.canOversee) return c.json({ success: false, message: 'forbidden' }, 403)
+    const world = await loadComplianceWorld(c.env.APP_DB, viewer.tenantId)
+    const reports = (await listClassReports(c.env.APP_DB, viewer.tenantId, { classId: String(c.req.query('classId') || ''), teacherId: String(c.req.query('teacherId') || ''), submittedOnly: true }))
+      .filter(report => viewer.scope === 'all' || viewer.scope.includes(world.classSections.get(report.classId) as ComplianceSection))
+    return c.json({ success: true, reports })
+  } catch (error) {
+    return complianceFailure(c, error, 'Could not load class reports.')
+  }
+})
+
+/**
+ * Reminders in the header. Teachers see their own items due within a day and
+ * anything overdue; the Owner and HOS get one weekly summary (cached for an
+ * hour, as the header is polled). Nothing runs for a school with no rules.
+ */
+async function buildComplianceNotificationItems(db: D1Database, tenantId: string, actorId: string, role: string) {
+  if (!tenantId) return []
+  const ruleCount = await db.prepare(`SELECT COUNT(*) AS count FROM compliance_rules WHERE tenant_id = ? AND active = 1`).bind(tenantId).first().catch(() => null) as Record<string, any> | null
+  if (!Number(ruleCount?.count || 0)) return []
+  const now = new Date().toISOString()
+  const normalized = normalizeRole(role)
+  if (SCHOOL_WIDE_ROLES.includes(normalized)) {
+    const cacheKey = `compliance_summary:${tenantId}`
+    const cached = await getSettings(db, cacheKey).catch(() => null) as Record<string, any> | null
+    let summary = cached && Date.now() - Date.parse(String(cached.computedAt || 0)) < 3600_000 ? cached.summary : null
+    if (!summary) {
+      const world = await loadComplianceWorld(db, tenantId)
+      const rows = world.teachers.map(teacher => ({ items: complianceTeacherItems({ rules: world.rules, teacher, assignments: world.assignments, classSections: world.classSections, evidence: world.evidence, term: world.term, date: world.today, now }) }))
+      summary = summarizeCompliance(rows)
+      await upsertSettings(db, cacheKey, { summary, computedAt: now }).catch(() => null)
+    }
+    if (!summary?.teachers) return []
+    return [{
+      id: `compliance-summary:${lagosToday()}`,
+      title: 'Weekly submission summary',
+      detail: `${summary.fullyCompliant}/${summary.teachers} teachers compliant · ${summary.partial} partial · ${summary.outstanding} outstanding`,
+      sender: 'Teacher Submissions', time: formatHeaderTime(now), unread: summary.outstanding > 0, category: 'compliance',
+      actionUrl: `/roles/${normalized}/compliance`, sortAt: now,
+    }]
+  }
+  if (!['teacher', 'classteacher'].includes(normalized)) return []
+  const world = await loadComplianceWorld(db, tenantId)
+  const me = world.staff.find(person => [person.id, person.email].some(value => value.toLowerCase() === actorId.toLowerCase()))
+  if (!me) return []
+  const args = { rules: world.rules, teacher: me, assignments: world.assignments, classSections: world.classSections, evidence: world.evidence, term: world.term, now }
+  const items = complianceTeacherItems({ ...args, date: world.today })
+  // Last week's outstanding work is still worth a reminder this week.
+  const lastWeek = complianceTeacherItems({ ...args, date: new Date(Date.parse(`${world.today}T00:00:00Z`) - 7 * 86400000).toISOString().slice(0, 10) })
+  const soon = items.filter(item => item.status === 'pending' && Date.parse(item.dueAt) - Date.now() <= 24 * 3600_000)
+  const overdue = [...new Map([...items, ...lastWeek].filter(item => item.status === 'missing' || item.status === 'partial').map(item => [`${item.ruleId}|${item.periodKey}`, item])).values()]
+    .sort((a, b) => b.dueAt.localeCompare(a.dueAt))
+  const out = []
+  if (soon.length) {
+    out.push({
+      id: `compliance-due:${lagosToday()}`, title: `${soon.length} submission${soon.length === 1 ? '' : 's'} due soon`,
+      detail: soon.map(item => `${item.ruleName} by ${new Date(item.dueAt).toLocaleString('en-GB', { weekday: 'short', hour: 'numeric', minute: '2-digit', timeZone: 'Africa/Lagos' })}`).join(' · '),
+      sender: 'My Submissions', time: formatHeaderTime(now), unread: true, category: 'compliance', actionUrl: '/roles/teacher/compliance', sortAt: now,
+    })
+  }
+  for (const item of overdue.slice(0, 3)) {
+    out.push({
+      id: `compliance-overdue:${item.ruleId}:${item.periodKey}`, title: `${item.ruleName} is overdue`,
+      detail: clampPreview(`Missing: ${item.missing.join(', ')}`, 140),
+      sender: 'My Submissions', time: formatHeaderTime(item.dueAt), unread: true, category: 'compliance', actionUrl: '/roles/teacher/compliance', sortAt: item.dueAt,
+    })
+  }
+  return out
+}
+
+// ─── Digital Staff Office File ───────────────────────────────────────────────
+// See staffFile.ts. Every request resolves who is looking at whose file first;
+// each tab then returns only what that viewer may see.
+
+async function staffSectionsOf(db: D1Database, tenantId: string, person: { id: string, email: string }) {
+  const [assignments, classRows] = await Promise.all([
+    loadLiveAssignments(db, tenantId),
+    db.prepare(`SELECT * FROM classes WHERE tenantId = ?`).bind(tenantId).all().then(result => (result.results || []) as Record<string, any>[]).catch(() => [] as Record<string, any>[]),
+  ])
+  const sections = new Map(classRows.map(row => [String(row.id), classSectionValue(row) as ComplianceSection]))
+  const keys = new Set([person.id.toLowerCase(), person.email.toLowerCase()])
+  const mine = assignments.filter(item => keys.has(String(item.teacherId || '').toLowerCase()))
+  return {
+    sections: [...new Set(mine.map(item => sections.get(item.classId)).filter(Boolean))] as ComplianceSection[],
+    teaching: mine.map(item => ({ role: item.role, classId: item.classId, className: item.className, subjectId: item.subjectId, subjectName: item.subjectName })),
+  }
+}
+
+async function resolveStaffFile(c: any, staffId: string) {
+  const resolvedActor = await resolveSubmissionActor(c.env.APP_DB, c.var.user || {})
+  const { tenantId } = resolvedActor
+  if (!tenantId) throw new StaffFileError('No school.', 400)
+  // Administrative staff (the Accountant, for one) act under the umbrella "admin"
+  // role; their own stored role is what decides their access to a staff file.
+  const storedRole = normalizeRole(resolvedActor.resolved?.userRow?.role || resolvedActor.resolved?.settings?.role || '')
+  const actor = resolvedActor.actor.role === 'admin' && storedRole ? { ...resolvedActor.actor, role: storedRole } : resolvedActor.actor
+  const staff = await listSchoolStaff(c.env.APP_DB, tenantId)
+  // "me" opens the viewer's own file, so a menu link needs no id.
+  const target = String(staffId || '') === 'me' ? actor.id : String(staffId || '')
+  const person = staff.find(item => [item.id, item.email].some(value => value.toLowerCase() === target.toLowerCase()))
+  if (!person) throw new StaffFileError('Staff member not found.', 404)
+  const isSelf = [person.id, person.email].some(value => value.toLowerCase() === actor.id.toLowerCase())
+  const { sections, teaching } = await staffSectionsOf(c.env.APP_DB, tenantId, person)
+  const scope = viewerSections([actor.role], await getComplianceSettings(c.env.APP_DB, tenantId))
+  const oversees = scope !== 'all' && sections.some(section => scope.includes(section))
+  const permissions = staffFilePermissions({ id: actor.id, name: actor.name, role: actor.role, isSelf, oversees })
+  if (!permissions.view) throw new StaffFileError('You do not have access to this staff file.', 403)
+  return { tenantId, actor, person, staff, permissions, isSelf, sections, teaching }
+}
+
+function staffFileFailure(c: any, error: unknown, fallback: string) {
+  if (error instanceof StaffFileError || error instanceof ComplianceError) return c.json({ success: false, message: error.message }, error.status as any)
+  console.error(fallback, error)
+  return c.json({ success: false, message: fallback }, 500)
+}
+
+function requireStaffFile(allowed: boolean, message = 'You do not have access to this part of the file.') {
+  if (!allowed) throw new StaffFileError(message, 403)
+}
+
+/** Staff sign-ins for the current term (or the last 90 days). */
+async function staffAttendanceSummary(db: D1Database, tenantId: string, person: { id: string, email: string }) {
+  const period = await getCurrentAcademicPeriod(db, tenantId).catch(() => null)
+  const from = String(period?.term?.startDate || new Date(Date.now() - 90 * 86400000).toISOString().slice(0, 10))
+  const rows = await db.prepare(`SELECT date, action, is_late, late_minutes, created_at FROM staff_attendance_events WHERE tenant_id = ? AND lower(staff_id) IN (lower(?), lower(?)) AND date >= ? ORDER BY date DESC`)
+    .bind(tenantId, person.id, person.email, from).all().then(result => (result.results || []) as Record<string, any>[]).catch(() => [] as Record<string, any>[])
+  const signIns = rows.filter(row => /in/i.test(String(row.action || '')))
+  const days = new Set(signIns.map(row => String(row.date)))
+  const lateDays = new Set(signIns.filter(row => Number(row.is_late)).map(row => String(row.date)))
+  const today = lagosToday()
+  let schoolDays = 0
+  for (let day = from; day <= today && schoolDays < 400; day = new Date(Date.parse(`${day}T00:00:00Z`) + 86400000).toISOString().slice(0, 10)) {
+    const weekday = new Date(`${day}T00:00:00Z`).getUTCDay()
+    if (weekday >= 1 && weekday <= 5) schoolDays += 1
+  }
+  return {
+    from, daysPresent: days.size, schoolDays, rate: schoolDays ? Math.min(100, Math.round((days.size / schoolDays) * 100)) : null,
+    lateDays: lateDays.size, recent: rows.slice(0, 30).map(row => ({ date: row.date, action: row.action, late: Boolean(Number(row.is_late)), lateMinutes: Number(row.late_minutes || 0) })),
+  }
+}
+
+async function staffProfileBasics(db: D1Database, tenantId: string, person: { id: string, email: string, name: string, roles: string[] }) {
+  const resolved = await resolveSettingsIdentity(db, person.email || person.id).catch(() => null)
+  const settings = (resolved?.settings || {}) as Record<string, any>
+  const userRow = (resolved?.userRow || {}) as Record<string, any>
+  return {
+    id: person.id, name: person.name, email: person.email, roles: person.roles,
+    displayId: String(getPublicFacingUserId(settings, person.roles[0] || 'teacher') || settings.displayId || ''),
+    avatar: String(settings.avatar || settings.avatarUrl || ''), phone: String(settings.phone || ''),
+    position: String(settings.position || settings.jobTitle || ''), department: String(settings.department || ''),
+    status: String(userRow.status || settings.status || 'active'), employedOn: String(settings.employmentDate || settings.dateEmployed || userRow.createdAt || '').slice(0, 10),
+  }
+}
+
+app.get('/api/staff-file/:staffId', authenticate, async (c) => {
+  try {
+    const file = await resolveStaffFile(c, c.req.param('staffId'))
+    const db = c.env.APP_DB
+    const { tenantId, person, permissions } = file
+    const [profile, tasks, reviews, loans, rewards, audit, attendance] = await Promise.all([
+      staffProfileBasics(db, tenantId, person),
+      permissions.tasks ? listStaffTasks(db, tenantId, person.id) : Promise.resolve([]),
+      permissions.reviews ? listPerformanceReviews(db, tenantId, person.id, false) : Promise.resolve([]),
+      permissions.loans ? listStaffLoans(db, tenantId, person.id) : Promise.resolve([]),
+      listStaffRewards(db, tenantId, person.id),
+      listStaffAudit(db, tenantId, person.id, 120),
+      permissions.attendance ? staffAttendanceSummary(db, tenantId, person) : Promise.resolve(null),
+    ])
+    // This week's submissions, for teachers.
+    let submissions: { done: number, total: number, items: any[] } | null = null
+    if (permissions.submissions && file.teaching.length) {
+      const world = await loadComplianceWorld(db, tenantId, { teacherIds: [person.id] })
+      const teacher = world.teachers[0]
+      if (teacher && world.rules.length) {
+        const items = complianceTeacherItems({ rules: world.rules, teacher, assignments: world.assignments, classSections: world.classSections, evidence: world.evidence, term: world.term, date: world.today, now: new Date().toISOString() })
+        submissions = { done: items.filter(item => item.status === 'complete' || item.status === 'late').length, total: items.length, items }
+      }
+    }
+    const openTasks = tasks.filter(task => task.status !== 'completed')
+    const activeLoan = loans.find(loan => loan.status === 'active')
+    const attention: Array<{ level: 'red' | 'orange' | 'yellow', text: string }> = []
+    for (const item of submissions?.items || []) {
+      if (item.status === 'missing' || item.status === 'partial') attention.push({ level: 'red', text: `${item.ruleName}${item.missing.length ? ` — ${item.missing.slice(0, 3).join(', ')} missing` : ''}` })
+    }
+    for (const task of openTasks) {
+      if (task.dueOn && task.dueOn <= new Date(Date.now() + 2 * 86400000).toISOString().slice(0, 10)) attention.push({ level: 'orange', text: `Task — ${task.title} due ${task.dueOn}` })
+    }
+    for (const loan of loans) if (loan.awaitingConfirmation > 0) attention.push({ level: 'yellow', text: `Loan ${loan.number} — instalment awaiting payment confirmation` })
+    if (file.isSelf) {
+      const reports = await listStaffReports(db, tenantId, person.id, { asSubject: true, revealReporter: false })
+      for (const report of reports) if (report.status === 'response_requested' && !report.staffResponse) attention.push({ level: 'red', text: `Report (${report.category}) — your response is requested` })
+    }
+    return c.json({
+      success: true, profile, sections: file.sections, teaching: file.teaching, permissions,
+      overview: {
+        submissions: submissions ? { done: submissions.done, total: submissions.total } : null,
+        attendanceRate: attendance?.rate ?? null,
+        openTasks: openTasks.length,
+        latestReview: reviews[0] ? { periodLabel: reviews[0].periodLabel, overall: reviews[0].overall } : null,
+        loanOutstanding: permissions.loans ? loans.filter(loan => loan.status === 'active').reduce((sum, loan) => sum + loan.outstanding, 0) : null,
+        nextLoanPayment: activeLoan?.nextPaymentOn || null,
+        rewards: rewards.length,
+        badges: rewards.slice(0, 6).map(reward => ({ badge: reward.badge, title: reward.title })),
+      },
+      attention,
+      activity: staffTimelineFrom(audit, permissions).slice(0, 12),
+    })
+  } catch (error) {
+    return staffFileFailure(c, error, 'Could not open this staff file.')
+  }
+})
+
+app.get('/api/staff-file/:staffId/records', authenticate, async (c) => {
+  try {
+    const { tenantId, person, permissions } = await resolveStaffFile(c, c.req.param('staffId'))
+    const records = (await listStaffRecords(c.env.APP_DB, tenantId, person.id)).filter(record => canSeeStaffRecord(record, permissions))
+    return c.json({
+      success: true, records,
+      categories: STAFF_RECORD_CATEGORIES.filter(category => permissions.addPrivate || !permissions.categoriesHidden.includes(category)).map(category => ({ key: category, label: STAFF_RECORD_LABELS[category] })),
+      canAdd: permissions.addRecords || permissions.addPrivate, canAddOwnContacts: permissions.addOwnContactRecords,
+      // The Accountant adds private records only.
+      visibilities: permissions.addRecords ? permissions.visibilities : permissions.addPrivate ? ['private'] : [],
+    })
+  } catch (error) {
+    return staffFileFailure(c, error, 'Could not load these records.')
+  }
+})
+
+function canWriteStaffRecord(permissions: ReturnType<typeof staffFilePermissions>, category: string, visibility: string) {
+  if (visibility === 'private') return permissions.addPrivate
+  if (permissions.addRecords) return permissions.visibilities.includes(visibility as any) || (category === 'salary' && permissions.readRestrictedSalary)
+  // Staff keep their own contact details current; everything else is management's.
+  return permissions.addOwnContactRecords && ['emergency_contact', 'next_of_kin'].includes(category) && visibility === 'staff'
+}
+
+app.post('/api/staff-file/:staffId/records', authenticate, async (c) => {
+  try {
+    const { tenantId, person, permissions, actor } = await resolveStaffFile(c, c.req.param('staffId'))
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const visibility = body.visibility || (body.category === 'salary' ? 'restricted' : ['disciplinary', 'note'].includes(body.category) ? 'management' : 'staff')
+    requireStaffFile(canWriteStaffRecord(permissions, String(body.category || ''), visibility), 'You cannot add this kind of record.')
+    const record = await addStaffRecord(c.env.APP_DB, { tenantId, staffId: person.id, input: { ...body, visibility }, actor })
+    return c.json({ success: true, record }, 201)
+  } catch (error) {
+    return staffFileFailure(c, error, 'Could not add this record.')
+  }
+})
+
+app.put('/api/staff-file/:staffId/records/:recordId', authenticate, async (c) => {
+  try {
+    const { tenantId, person, permissions, actor } = await resolveStaffFile(c, c.req.param('staffId'))
+    const current = await getStaffRecord(c.env.APP_DB, tenantId, c.req.param('recordId'))
+    if (!current || current.staffId.toLowerCase() !== person.id.toLowerCase() || !canSeeStaffRecord(current, permissions)) throw new StaffFileError('Record not found.', 404)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const next = { ...current, ...body, category: current.category }
+    requireStaffFile(canWriteStaffRecord(permissions, current.category, next.visibility), 'You cannot change this record.')
+    const record = await addStaffRecord(c.env.APP_DB, { tenantId, staffId: person.id, input: next, actor, supersedesId: current.id })
+    return c.json({ success: true, record })
+  } catch (error) {
+    return staffFileFailure(c, error, 'Could not update this record.')
+  }
+})
+
+app.get('/api/staff-file/:staffId/records/:recordId/history', authenticate, async (c) => {
+  try {
+    const { tenantId, person, permissions } = await resolveStaffFile(c, c.req.param('staffId'))
+    const versions = (await staffRecordHistory(c.env.APP_DB, tenantId, c.req.param('recordId')))
+      .filter(record => record.staffId.toLowerCase() === person.id.toLowerCase() && canSeeStaffRecord(record, permissions))
+    if (!versions.length) throw new StaffFileError('Record not found.', 404)
+    return c.json({ success: true, versions })
+  } catch (error) {
+    return staffFileFailure(c, error, 'Could not load the record history.')
+  }
+})
+
+// Loans
+
+app.get('/api/staff-file/:staffId/loans', authenticate, async (c) => {
+  try {
+    const { tenantId, person, permissions } = await resolveStaffFile(c, c.req.param('staffId'))
+    requireStaffFile(permissions.loans)
+    return c.json({ success: true, loans: await listStaffLoans(c.env.APP_DB, tenantId, person.id), canManage: permissions.manageLoans, canApply: permissions.applyForLoan })
+  } catch (error) {
+    return staffFileFailure(c, error, 'Could not load loans.')
+  }
+})
+
+app.post('/api/staff-file/:staffId/loans', authenticate, async (c) => {
+  try {
+    const { tenantId, person, permissions, actor } = await resolveStaffFile(c, c.req.param('staffId'))
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const existing = Boolean(body.existing)
+    requireStaffFile(existing ? permissions.manageLoans : permissions.applyForLoan, existing ? 'Only the Owner, HOS or Accountant can record an existing loan.' : 'Apply for a loan from your own staff file.')
+    const loan = await createStaffLoan(c.env.APP_DB, { tenantId, staffId: person.id, input: body, actor, existing })
+    return c.json({ success: true, loan }, 201)
+  } catch (error) {
+    return staffFileFailure(c, error, 'Could not save this loan.')
+  }
+})
+
+async function resolveLoanFile(c: any) {
+  const { tenantId } = await resolveSubmissionActor(c.env.APP_DB, c.var.user || {})
+  const loan = await getStaffLoan(c.env.APP_DB, tenantId, c.req.param('loanId'))
+  if (!loan) throw new StaffFileError('Loan not found.', 404)
+  const file = await resolveStaffFile(c, loan.staffId)
+  requireStaffFile(file.permissions.loans)
+  return { ...file, loan }
+}
+
+app.get('/api/staff-loans/:loanId', authenticate, async (c) => {
+  try {
+    const { loan, profile } = await resolveLoanFile(c).then(async file => ({ ...file, profile: await staffProfileBasics(c.env.APP_DB, file.tenantId, file.person) }))
+    return c.json({ success: true, loan, staff: { name: profile.name, displayId: profile.displayId } })
+  } catch (error) {
+    return staffFileFailure(c, error, 'Could not load this loan.')
+  }
+})
+
+app.post('/api/staff-loans/:loanId/decision', authenticate, async (c) => {
+  try {
+    const { tenantId, permissions, actor, loan } = await resolveLoanFile(c)
+    requireStaffFile(permissions.manageLoans, 'Only the Owner, HOS or Accountant can decide on a loan.')
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    return c.json({ success: true, loan: await decideStaffLoan(c.env.APP_DB, { tenantId, loanId: loan.id, decision: body.decision, note: body.note, issuedOn: body.issuedOn, nextPaymentOn: body.nextPaymentOn, actor }) })
+  } catch (error) {
+    return staffFileFailure(c, error, 'Could not record this decision.')
+  }
+})
+
+app.post('/api/staff-loans/:loanId/payments', authenticate, async (c) => {
+  try {
+    const { tenantId, permissions, actor, loan, isSelf } = await resolveLoanFile(c)
+    // Management records a verified payment directly; the staff member's "I have paid" waits for confirmation.
+    const confirmed = permissions.manageLoans && !isSelf
+    requireStaffFile(confirmed || isSelf)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    return c.json({ success: true, loan: await addStaffLoanRepayment(c.env.APP_DB, { tenantId, loanId: loan.id, input: body, actor, confirmed }) }, 201)
+  } catch (error) {
+    return staffFileFailure(c, error, 'Could not record this payment.')
+  }
+})
+
+app.post('/api/staff-loans/:loanId/payments/:transactionId/confirm', authenticate, async (c) => {
+  try {
+    const { tenantId, permissions, actor, loan, isSelf } = await resolveLoanFile(c)
+    requireStaffFile(permissions.manageLoans && !isSelf, 'A payment is confirmed by the Accountant, HOS or Owner — not by the borrower.')
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    return c.json({ success: true, loan: await confirmStaffLoanRepayment(c.env.APP_DB, { tenantId, loanId: loan.id, transactionId: c.req.param('transactionId'), confirm: body.confirm !== false, note: body.note, actor }) })
+  } catch (error) {
+    return staffFileFailure(c, error, 'Could not confirm this payment.')
+  }
+})
+
+app.post('/api/staff-loans/:loanId/adjust', authenticate, async (c) => {
+  try {
+    const { tenantId, permissions, actor, loan, isSelf } = await resolveLoanFile(c)
+    requireStaffFile(permissions.manageLoans && !isSelf, 'Only the Owner, HOS or Accountant can adjust or waive a loan.')
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    return c.json({ success: true, loan: await adjustStaffLoan(c.env.APP_DB, { tenantId, loanId: loan.id, type: body.type, amount: body.amount, reason: body.reason, actor }) })
+  } catch (error) {
+    return staffFileFailure(c, error, 'Could not adjust this loan.')
+  }
+})
+
+// Tasks
+
+app.get('/api/staff-file/:staffId/tasks', authenticate, async (c) => {
+  try {
+    const { tenantId, person, permissions, isSelf } = await resolveStaffFile(c, c.req.param('staffId'))
+    requireStaffFile(permissions.tasks)
+    return c.json({ success: true, tasks: await listStaffTasks(c.env.APP_DB, tenantId, person.id), canAssign: permissions.assignTasks && !isSelf, canUpdate: isSelf, ratings: STAFF_TASK_RATINGS })
+  } catch (error) {
+    return staffFileFailure(c, error, 'Could not load tasks.')
+  }
+})
+
+app.post('/api/staff-tasks', authenticate, async (c) => {
+  try {
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const staffIds: string[] = (Array.isArray(body.staffIds) ? body.staffIds : [body.staffId]).map((value: unknown) => String(value || '')).filter(Boolean)
+    if (!staffIds.length) throw new StaffFileError('Choose who the task is for.')
+    let tenantId = ''
+    let actor: { id: string, name: string, role: string } | null = null
+    const resolvedIds: string[] = []
+    for (const staffId of staffIds) {
+      // eslint-disable-next-line no-await-in-loop
+      const file = await resolveStaffFile(c, staffId)
+      requireStaffFile(file.permissions.assignTasks && !file.isSelf, `You cannot assign tasks to ${file.person.name}.`)
+      tenantId = file.tenantId
+      actor = file.actor
+      resolvedIds.push(file.person.id)
+    }
+    const id = await createStaffTask(c.env.APP_DB, { tenantId, input: body, staffIds: resolvedIds, actor: actor! })
+    return c.json({ success: true, taskId: id }, 201)
+  } catch (error) {
+    return staffFileFailure(c, error, 'Could not assign this task.')
+  }
+})
+
+async function resolveTaskFile(c: any) {
+  const { tenantId } = await resolveSubmissionActor(c.env.APP_DB, c.var.user || {})
+  const assignment = await getStaffTaskAssignment(c.env.APP_DB, tenantId, c.req.param('assignmentId'))
+  if (!assignment) throw new StaffFileError('Task not found.', 404)
+  return { ...(await resolveStaffFile(c, assignment.staffId)), assignment }
+}
+
+app.post('/api/staff-tasks/:assignmentId/progress', authenticate, async (c) => {
+  try {
+    const { tenantId, actor, isSelf, assignment } = await resolveTaskFile(c)
+    requireStaffFile(isSelf, 'Only the person the task is assigned to can update its progress.')
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    return c.json({ success: true, task: await updateStaffTaskProgress(c.env.APP_DB, { tenantId, assignmentId: assignment.id, input: body, actor }) })
+  } catch (error) {
+    return staffFileFailure(c, error, 'Could not update this task.')
+  }
+})
+
+app.post('/api/staff-tasks/:assignmentId/evaluate', authenticate, async (c) => {
+  try {
+    const { tenantId, actor, isSelf, permissions, assignment } = await resolveTaskFile(c)
+    requireStaffFile(permissions.assignTasks && !isSelf, 'Only management can mark a task completed.')
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    return c.json({ success: true, task: await evaluateStaffTask(c.env.APP_DB, { tenantId, assignmentId: assignment.id, input: body, actor }) })
+  } catch (error) {
+    return staffFileFailure(c, error, 'Could not evaluate this task.')
+  }
+})
+
+// Reviews: formal performance reviews here; peer reviews summarised from Staff Evaluation.
+
+app.get('/api/staff-file/:staffId/reviews', authenticate, async (c) => {
+  try {
+    const { tenantId, person, permissions, staff } = await resolveStaffFile(c, c.req.param('staffId'))
+    requireStaffFile(permissions.reviews)
+    const formal = await listPerformanceReviews(c.env.APP_DB, tenantId, person.id, permissions.writeReviews)
+    const peer: Array<Record<string, any>> = []
+    for (const evaluation of (await listEvaluations(c.env.APP_DB, tenantId)).slice(0, 10)) {
+      // eslint-disable-next-line no-await-in-loop
+      const results = await getEvaluationResults(c.env.APP_DB, evaluation, staff).catch(() => null) as any
+      const mine = (results?.staff || []).find((entry: any) => [person.id, person.email].some(value => String(entry.staffId || '').toLowerCase() === value.toLowerCase()))
+      if (mine && Number(mine.responses || 0) > 0) peer.push({ evaluationId: evaluation.id, title: evaluation.title, periodLabel: (evaluation as any).periodLabel || '', responses: mine.responses, average: mine.overall })
+    }
+    return c.json({ success: true, formal, peer, criteria: STAFF_REVIEW_CRITERIA, canWrite: permissions.writeReviews })
+  } catch (error) {
+    return staffFileFailure(c, error, 'Could not load reviews.')
+  }
+})
+
+app.post('/api/staff-file/:staffId/reviews', authenticate, async (c) => {
+  try {
+    const { tenantId, person, permissions, actor, isSelf } = await resolveStaffFile(c, c.req.param('staffId'))
+    requireStaffFile(permissions.writeReviews && !isSelf, 'Only the Owner or HOS records formal performance reviews.')
+    const id = await addPerformanceReview(c.env.APP_DB, { tenantId, staffId: person.id, input: await c.req.json().catch(() => ({})), actor })
+    return c.json({ success: true, id }, 201)
+  } catch (error) {
+    return staffFileFailure(c, error, 'Could not save this review.')
+  }
+})
+
+// Reports about staff
+
+app.get('/api/staff-file/:staffId/reports', authenticate, async (c) => {
+  try {
+    const { tenantId, person, permissions, isSelf } = await resolveStaffFile(c, c.req.param('staffId'))
+    requireStaffFile(permissions.reports)
+    const reports = await listStaffReports(c.env.APP_DB, tenantId, person.id, { asSubject: isSelf && !permissions.investigateReports, revealReporter: permissions.seeReporterIdentity && !isSelf })
+    return c.json({ success: true, reports, statuses: STAFF_REPORT_STATUSES, canInvestigate: permissions.investigateReports && !isSelf, canRespond: isSelf })
+  } catch (error) {
+    return staffFileFailure(c, error, 'Could not load reports.')
+  }
+})
+
+/** Any member of staff (or the Owner/HOS) may raise a concern about a colleague. */
+app.post('/api/staff-file/:staffId/reports', authenticate, async (c) => {
+  try {
+    const { tenantId, actor } = await resolveSubmissionActor(c.env.APP_DB, c.var.user || {})
+    const staff = await listSchoolStaff(c.env.APP_DB, tenantId)
+    const person = staff.find(item => [item.id, item.email].some(value => value.toLowerCase() === c.req.param('staffId').toLowerCase()))
+    if (!person) throw new StaffFileError('Staff member not found.', 404)
+    const isStaff = staff.some(item => [item.id, item.email].some(value => value.toLowerCase() === actor.id.toLowerCase())) || SCHOOL_WIDE_ROLES.includes(actor.role)
+    requireStaffFile(isStaff, 'Reports about staff are filed by staff of the school.')
+    const id = await fileStaffReport(c.env.APP_DB, { tenantId, staffId: person.id, input: await c.req.json().catch(() => ({})), actor })
+    return c.json({ success: true, id }, 201)
+  } catch (error) {
+    return staffFileFailure(c, error, 'Could not file this report.')
+  }
+})
+
+async function resolveReportFile(c: any) {
+  const { tenantId } = await resolveSubmissionActor(c.env.APP_DB, c.var.user || {})
+  const report = await getStaffReport(c.env.APP_DB, tenantId, c.req.param('reportId'))
+  if (!report) throw new StaffFileError('Report not found.', 404)
+  return { ...(await resolveStaffFile(c, String(report.staff_id))), report }
+}
+
+app.post('/api/staff-reports/:reportId/status', authenticate, async (c) => {
+  try {
+    const { tenantId, actor, permissions, isSelf, report } = await resolveReportFile(c)
+    requireStaffFile(permissions.investigateReports && !isSelf, 'Only the Owner or HOS handle reports about staff.')
+    await updateStaffReportStatus(c.env.APP_DB, { tenantId, reportId: String(report.id), input: await c.req.json().catch(() => ({})), actor })
+    return c.json({ success: true })
+  } catch (error) {
+    return staffFileFailure(c, error, 'Could not update this report.')
+  }
+})
+
+app.post('/api/staff-reports/:reportId/respond', authenticate, async (c) => {
+  try {
+    const { tenantId, actor, report } = await resolveReportFile(c)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    await respondToStaffReport(c.env.APP_DB, { tenantId, reportId: String(report.id), response: body.response, actor })
+    return c.json({ success: true })
+  } catch (error) {
+    return staffFileFailure(c, error, 'Could not save your response.')
+  }
+})
+
+// Rewards
+
+app.get('/api/staff-file/:staffId/rewards', authenticate, async (c) => {
+  try {
+    const { tenantId, person, permissions, isSelf } = await resolveStaffFile(c, c.req.param('staffId'))
+    return c.json({ success: true, rewards: await listStaffRewards(c.env.APP_DB, tenantId, person.id), types: STAFF_REWARD_TYPES, canGive: permissions.giveRewards && !isSelf })
+  } catch (error) {
+    return staffFileFailure(c, error, 'Could not load rewards.')
+  }
+})
+
+app.post('/api/staff-file/:staffId/rewards', authenticate, async (c) => {
+  try {
+    const { tenantId, person, permissions, actor, isSelf } = await resolveStaffFile(c, c.req.param('staffId'))
+    requireStaffFile(permissions.giveRewards && !isSelf, 'Awards are given by school leadership.')
+    const id = await addStaffReward(c.env.APP_DB, { tenantId, staffId: person.id, input: await c.req.json().catch(() => ({})), actor })
+    return c.json({ success: true, id }, 201)
+  } catch (error) {
+    return staffFileFailure(c, error, 'Could not give this award.')
+  }
+})
+
+app.get('/api/staff-rewards/:rewardId/certificate', authenticate, async (c) => {
+  try {
+    const { tenantId } = await resolveSubmissionActor(c.env.APP_DB, c.var.user || {})
+    const reward = await getStaffReward(c.env.APP_DB, tenantId, c.req.param('rewardId'))
+    if (!reward) throw new StaffFileError('Award not found.', 404)
+    const { person } = await resolveStaffFile(c, reward.staffId)
+    const tenant = await getTenantById(c.env.APP_DB, tenantId)
+    const branding = await getTenantSchoolBranding(c.env.APP_DB, tenant)
+    return c.json({ success: true, reward, staff: { name: person.name }, school: { name: String((branding as any)?.schoolName || (tenant as any)?.school_name || ''), logoUrl: String((branding as any)?.logoUrl || '') } })
+  } catch (error) {
+    return staffFileFailure(c, error, 'Could not load this certificate.')
+  }
+})
+
+// Submissions, attendance, payroll and the audit trail
+
+app.get('/api/staff-file/:staffId/submissions', authenticate, async (c) => {
+  try {
+    const { tenantId, person, permissions } = await resolveStaffFile(c, c.req.param('staffId'))
+    requireStaffFile(permissions.submissions)
+    const world = await loadComplianceWorld(c.env.APP_DB, tenantId, { teacherIds: [person.id] })
+    const teacher = world.teachers[0]
+    const now = new Date().toISOString()
+    const args = teacher ? { rules: world.rules, teacher, assignments: world.assignments, classSections: world.classSections, evidence: world.evidence, term: world.term, now } : null
+    const work = await listSubmissions(c.env.APP_DB, tenantId, { teacherId: person.id, excludeDrafts: true })
+    return c.json({
+      success: true,
+      items: args ? complianceTeacherItems({ ...args, date: world.today }) : [],
+      history: args ? complianceTeacherHistory(args) : [],
+      work: work.slice(0, 60).map(item => ({ id: item.id, title: item.title, typeLabel: item.typeLabel, className: item.className, subjectName: item.subjectName, periodLabel: item.periodLabel, status: item.status, submittedAt: item.submittedAt })),
+    })
+  } catch (error) {
+    return staffFileFailure(c, error, 'Could not load submissions.')
+  }
+})
+
+app.get('/api/staff-file/:staffId/attendance', authenticate, async (c) => {
+  try {
+    const { tenantId, person, permissions } = await resolveStaffFile(c, c.req.param('staffId'))
+    requireStaffFile(permissions.attendance)
+    return c.json({ success: true, attendance: await staffAttendanceSummary(c.env.APP_DB, tenantId, person) })
+  } catch (error) {
+    return staffFileFailure(c, error, 'Could not load attendance.')
+  }
+})
+
+app.get('/api/staff-file/:staffId/finance', authenticate, async (c) => {
+  try {
+    const { tenantId, person, permissions } = await resolveStaffFile(c, c.req.param('staffId'))
+    requireStaffFile(permissions.payroll, 'Payroll is visible to the staff member, the Owner and the Accountant.')
+    await ensurePayrollEntriesTable(c.env.APP_DB)
+    const rows = await c.env.APP_DB.prepare(`SELECT period, gross, deductions, net, status, payment_status FROM payroll_entries WHERE tenant_id = ? AND lower(staff_id) IN (lower(?), lower(?)) ORDER BY period DESC LIMIT 24`)
+      .bind(tenantId, person.id, person.email).all().catch(() => ({ results: [] }))
+    return c.json({ success: true, payroll: ((rows.results || []) as Record<string, any>[]).map(row => ({ period: row.period, gross: Number(row.gross || 0), deductions: Number(row.deductions || 0), net: Number(row.net || 0), status: row.status || '', paymentStatus: row.payment_status || '' })) })
+  } catch (error) {
+    return staffFileFailure(c, error, 'Could not load payroll.')
+  }
+})
+
+app.get('/api/staff-file/:staffId/audit', authenticate, async (c) => {
+  try {
+    const { tenantId, person, permissions, isSelf } = await resolveStaffFile(c, c.req.param('staffId'))
+    requireStaffFile(permissions.investigateReports && !isSelf, 'The full audit trail is for the Owner and HOS.')
+    const audit = await listStaffAudit(c.env.APP_DB, tenantId, person.id)
+    // The HOS sees the trail of what they may see; owner-only records stay with the Owner.
+    return c.json({ success: true, audit: permissions.visibilities.includes('restricted') ? audit : audit.filter(entry => entry.after?.visibility !== 'restricted' && entry.before?.visibility !== 'restricted') })
+  } catch (error) {
+    return staffFileFailure(c, error, 'Could not load the audit trail.')
+  }
+})
+
+/** A staff list for "open a file" pickers and for assigning tasks to several people. */
+app.get('/api/staff-directory', authenticate, async (c) => {
+  try {
+    const { tenantId, actor } = await resolveSubmissionActor(c.env.APP_DB, c.var.user || {})
+    if (!tenantId) throw new StaffFileError('No school.', 400)
+    const staff = await listSchoolStaff(c.env.APP_DB, tenantId)
+    const isStaff = staff.some(item => [item.id, item.email].some(value => value.toLowerCase() === actor.id.toLowerCase()))
+    requireStaffFile(isStaff || SCHOOL_WIDE_ROLES.includes(actor.role))
+    return c.json({ success: true, staff: staff.map(item => ({ id: item.id, name: item.name, roles: item.roles })).sort((a, b) => a.name.localeCompare(b.name)) })
+  } catch (error) {
+    return staffFileFailure(c, error, 'Could not load the staff list.')
+  }
+})
+
+// ─── Staff emails: submission reminders, the weekly summary, punctuality tips ─
+// Sent by the scheduler between 7 and 10 a.m. Lagos time: one school per tick,
+// each school once a day. Every email is logged, so nobody gets the same one twice.
+
+const STAFF_EMAIL_LOG_DDL = `CREATE TABLE IF NOT EXISTS staff_email_log (id TEXT PRIMARY KEY, tenant_id TEXT NOT NULL, recipient TEXT NOT NULL, kind TEXT NOT NULL, ref_key TEXT NOT NULL, sent_at TEXT NOT NULL, UNIQUE(tenant_id, recipient, kind, ref_key))`
+const STAFF_EMAIL_RUNS_DDL = `CREATE TABLE IF NOT EXISTS staff_email_runs (tenant_id TEXT NOT NULL, run_date TEXT NOT NULL, finished_at TEXT, PRIMARY KEY (tenant_id, run_date))`
+
+// A teacher late on this many school days in the last fortnight gets the tips email (at most once a fortnight).
+const PUNCTUALITY_LATE_DAYS = 3
+
+function escapeEmailHtml(value: unknown) {
+  return String(value ?? '').replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char] || char))
+}
+
+function staffEmailShell(schoolName: string, title: string, body: string) {
+  return `<div style="font-family:Arial,Helvetica,sans-serif;max-width:560px;margin:0 auto;color:#191970">
+    <p style="font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#800020">${escapeEmailHtml(schoolName)} · Ndovera</p>
+    <h2 style="color:#800000;margin:8px 0 16px">${escapeEmailHtml(title)}</h2>
+    ${body}
+    <p style="font-size:12px;color:#555;margin-top:24px">You are receiving this because you are a member of staff at ${escapeEmailHtml(schoolName)} on Ndovera.</p>
+  </div>`
+}
+
+/** Send once per recipient, kind and reference; returns whether it went. */
+async function sendStaffEmailOnce(env: Bindings, entry: { tenantId: string, recipient: string, kind: string, refKey: string, subject: string, html: string }) {
+  const recipient = entry.recipient.trim().toLowerCase()
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(recipient)) return false
+  const already = await env.APP_DB.prepare(`SELECT 1 FROM staff_email_log WHERE tenant_id = ? AND recipient = ? AND kind = ? AND ref_key = ?`)
+    .bind(entry.tenantId, recipient, entry.kind, entry.refKey).first().catch(() => null)
+  if (already) return false
+  const result = await sendZohoEmail(env, { to: [recipient], subject: entry.subject, html: entry.html })
+  if (!result.sent.length) return false
+  await env.APP_DB.prepare(`INSERT OR IGNORE INTO staff_email_log (id, tenant_id, recipient, kind, ref_key, sent_at) VALUES (?, ?, ?, ?, ?, ?)`)
+    .bind(`semail-${crypto.randomUUID()}`, entry.tenantId, recipient, entry.kind, entry.refKey, new Date().toISOString()).run()
+  return true
+}
+
+const PUNCTUALITY_TIPS = [
+  'Lay out your clothes, bag and lesson materials the night before.',
+  'Set two alarms, the second fifteen minutes after the first, and keep the phone across the room.',
+  'Plan to arrive fifteen minutes before sign-in; traffic and rain then cost you nothing.',
+  'Check your route the evening before and have a back-up if your usual transport is late.',
+  'Keep a simple breakfast you can eat on the way on very busy mornings.',
+  'If something keeps making you late — transport, a school run, health — talk to your Head of School; a small change to your arrangements can help.',
+]
+
+async function runStaffEmailsForTenant(env: Bindings, tenantId: string, now: Date) {
+  const db = env.APP_DB
+  const tenant = await getTenantById(db, tenantId).catch(() => null)
+  const schoolName = String((tenant as any)?.school_name || (tenant as any)?.schoolName || 'Your school')
+  const today = lagosToday()
+  const sent = { reminders: 0, summaries: 0, punctuality: 0 }
+
+  const ruleCount = await db.prepare(`SELECT COUNT(*) AS count FROM compliance_rules WHERE tenant_id = ? AND active = 1`).bind(tenantId).first().catch(() => null) as Record<string, any> | null
+  if (Number(ruleCount?.count || 0) > 0) {
+    const world = await loadComplianceWorld(db, tenantId)
+    const nowIso = now.toISOString()
+    const lastWeek = new Date(Date.parse(`${today}T00:00:00Z`) - 7 * 86400000).toISOString().slice(0, 10)
+
+    // Teachers: what is due in the next day, and what is outstanding.
+    for (const teacher of world.teachers) {
+      const args = { rules: world.rules, teacher, assignments: world.assignments, classSections: world.classSections, evidence: world.evidence, term: world.term, now: nowIso }
+      const items = [...complianceTeacherItems({ ...args, date: today }), ...complianceTeacherItems({ ...args, date: lastWeek })]
+      const unique = [...new Map(items.map(item => [`${item.ruleId}|${item.periodKey}`, item])).values()]
+      const soon = unique.filter(item => item.status === 'pending' && Date.parse(item.dueAt) - now.getTime() <= 24 * 3600_000)
+      const overdue = unique.filter(item => item.status === 'missing' || item.status === 'partial')
+      if (!soon.length && !overdue.length) continue
+      const line = (item: typeof unique[number]) => `<li><strong>${escapeEmailHtml(item.ruleName)}</strong> — due ${escapeEmailHtml(new Date(item.dueAt).toLocaleString('en-GB', { weekday: 'long', hour: 'numeric', minute: '2-digit', timeZone: 'Africa/Lagos' }))}${item.missing.length ? `<br><span style="color:#800020">Missing: ${escapeEmailHtml(item.missing.join(', '))}</span>` : ''}</li>`
+      const body = [
+        `<p>Dear ${escapeEmailHtml(teacher.name)},</p>`,
+        soon.length ? `<p>Due within the next day:</p><ul>${soon.map(line).join('')}</ul>` : '',
+        overdue.length ? `<p>Outstanding:</p><ul>${overdue.map(line).join('')}</ul>` : '',
+        '<p>Open <strong>My Submissions</strong> in Ndovera to see exactly what is left. Work you do in Ndovera is counted automatically.</p>',
+      ].join('')
+      // eslint-disable-next-line no-await-in-loop
+      if (await sendStaffEmailOnce(env, { tenantId, recipient: teacher.email, kind: 'compliance_digest', refKey: today, subject: `${overdue.length ? 'Outstanding submissions' : 'Submissions due soon'} — ${schoolName}`, html: staffEmailShell(schoolName, 'Your submissions', body) })) sent.reminders += 1
+    }
+
+    // The Owner and HOS: one summary each Monday, for the week just ended.
+    if (new Date(`${today}T00:00:00Z`).getUTCDay() === 1) {
+      const rows = world.teachers.map(teacher => ({ teacher, items: complianceTeacherItems({ rules: world.rules, teacher, assignments: world.assignments, classSections: world.classSections, evidence: world.evidence, term: world.term, date: lastWeek, now: nowIso }) }))
+      const summary = summarizeCompliance(rows)
+      const outstanding = rows.filter(row => row.items.some(item => item.status === 'missing' || item.status === 'partial')).map(row => row.teacher.name)
+      const body = `<p>Week ending ${escapeEmailHtml(lastWeek)}:</p><ul>
+        <li><strong>${summary.fullyCompliant}/${summary.teachers}</strong> teachers fully compliant</li>
+        <li>${summary.partial} partial · ${summary.outstanding} outstanding · ${summary.late} late submissions</li>
+        <li>Proposed penalties: ₦${Number(summary.proposedPenalties).toLocaleString('en-NG')}</li></ul>
+        ${outstanding.length ? `<p>Outstanding: ${escapeEmailHtml(outstanding.slice(0, 15).join(', '))}${outstanding.length > 15 ? '…' : ''}</p>` : ''}
+        <p>Open <strong>Submissions &amp; Compliance</strong> in Ndovera for the full picture.</p>`
+      for (const leader of world.staff.filter(person => person.roles.some(role => SCHOOL_WIDE_ROLES.includes(role)))) {
+        // eslint-disable-next-line no-await-in-loop
+        if (await sendStaffEmailOnce(env, { tenantId, recipient: leader.email, kind: 'compliance_weekly', refKey: lastWeek, subject: `Weekly submission summary — ${schoolName}`, html: staffEmailShell(schoolName, 'Weekly submission summary', body) })) sent.summaries += 1
+      }
+    }
+  }
+
+  // Punctuality: staff often late in the last fortnight get practical tips, at most once a fortnight.
+  const since = new Date(Date.parse(`${today}T00:00:00Z`) - 14 * 86400000).toISOString().slice(0, 10)
+  const lateRows = await db.prepare(`SELECT lower(staff_id) AS staff_id, COUNT(DISTINCT date) AS days FROM staff_attendance_events WHERE tenant_id = ? AND date >= ? AND is_late = 1 GROUP BY lower(staff_id)`)
+    .bind(tenantId, since).all().then(result => (result.results || []) as Record<string, any>[]).catch(() => [] as Record<string, any>[])
+  const frequent = lateRows.filter(row => Number(row.days || 0) >= PUNCTUALITY_LATE_DAYS)
+  if (frequent.length) {
+    const staff = await listSchoolStaff(db, tenantId)
+    for (const row of frequent) {
+      const person = staff.find(item => [item.id, item.email].some(value => value.toLowerCase() === String(row.staff_id)))
+      if (!person) continue
+      // eslint-disable-next-line no-await-in-loop
+      const recent = await db.prepare(`SELECT 1 FROM staff_email_log WHERE tenant_id = ? AND recipient = ? AND kind = 'punctuality_tips' AND sent_at >= ?`)
+        .bind(tenantId, person.email.toLowerCase(), new Date(now.getTime() - 14 * 86400000).toISOString()).first().catch(() => null)
+      if (recent) continue
+      const body = `<p>Dear ${escapeEmailHtml(person.name)},</p>
+        <p>Our records show you signed in late on ${Number(row.days)} days in the last two weeks. Being on time sets the tone for your pupils and your colleagues, so here are a few things that help:</p>
+        <ul>${PUNCTUALITY_TIPS.map(tip => `<li>${escapeEmailHtml(tip)}</li>`).join('')}</ul>
+        <p>Thank you for everything you do for the school.</p>`
+      // eslint-disable-next-line no-await-in-loop
+      if (await sendStaffEmailOnce(env, { tenantId, recipient: person.email, kind: 'punctuality_tips', refKey: today, subject: `A few tips for getting to school on time — ${schoolName}`, html: staffEmailShell(schoolName, 'Getting to school on time', body) })) sent.punctuality += 1
+    }
+  }
+  return sent
+}
+
+async function runDueStaffEmails(env: Bindings, now = new Date()) {
+  const lagosHour = (now.getUTCHours() + 1) % 24
+  if (lagosHour < 7 || lagosHour >= 10) return null
+  if (!String(env.ZOHO_MAIL_ACCOUNT_ID || '').trim()) return null
+  await env.APP_DB.prepare(STAFF_EMAIL_LOG_DDL).run()
+  await env.APP_DB.prepare(STAFF_EMAIL_RUNS_DDL).run()
+  const today = lagosToday()
+  const next = await env.APP_DB.prepare(`SELECT id FROM tenants WHERE id NOT IN (SELECT tenant_id FROM staff_email_runs WHERE run_date = ?) ORDER BY id LIMIT 1`).bind(today).first().catch(() => null) as Record<string, any> | null
+  if (!next?.id) return null
+  // Claim the school first, so a failure is not retried every minute.
+  await env.APP_DB.prepare(`INSERT OR IGNORE INTO staff_email_runs (tenant_id, run_date) VALUES (?, ?)`).bind(String(next.id), today).run()
+  const sent = await runStaffEmailsForTenant(env, String(next.id), now)
+  await env.APP_DB.prepare(`UPDATE staff_email_runs SET finished_at = ? WHERE tenant_id = ? AND run_date = ?`).bind(new Date().toISOString(), String(next.id), today).run()
+  return { tenantId: String(next.id), ...sent }
+}
+
+// ─── Teaching materials: lifecycle, academic history and reuse ───────────────
+// See materialLifecycle.ts for the status model and materialSessions.ts for the
+// session/term context that separates current work from academic history.
+
+function canAudienceSeeMaterial(material: Record<string, any>, role: string) {
+  return material.status === 'published'
+    && isLearningContentReleased(material.releaseAt || material.metadata?.releaseAt)
+    && canRoleSeeLearningContent(role, normalizeLearningVisibility(material.visibility || material.metadata?.visibility, 'student_parent'))
+}
+
+function isStudentVisibleMaterial(material: Record<string, any>) {
+  return canAudienceSeeMaterial(material, 'student')
+}
+
+/** Content a supervisor posts says so, rather than reading as the class teacher's. */
+function supervisoryAttribution(supervisoryRole: unknown) {
+  const role = String(supervisoryRole || '')
+  return role ? { postedByRole: role, postedByLabel: SUPERVISOR_LABELS[role] || 'School leadership' } : {}
+}
+
+function normalizeRequestedMaterialStatus(value: unknown) {
+  return String(value || '').trim().toLowerCase() === 'draft' ? 'draft' : 'published'
+}
+
+/** Keep the teacher's raw text as `description`; blocks are only its formatting. */
+function materialContentFields(description: unknown, blocks: unknown) {
+  const sanitized = sanitizeMaterialBlocks(blocks)
+  const text = String(description || '').trim()
+  return { description: text || blocksToPlainText(sanitized), blocks: sanitized }
+}
+
+async function describeMaterialContext(db: D1Database, tenantId: string) {
+  const context = await currentMaterialContext(db, tenantId)
+  const [session, term] = await Promise.all([
+    db.prepare(`SELECT name FROM academic_sessions WHERE tenant_id = ? AND id = ?`).bind(tenantId, context.sessionId).first().catch(() => null) as Promise<Record<string, any> | null>,
+    context.termId
+      ? db.prepare(`SELECT name FROM academic_terms WHERE tenant_id = ? AND id = ?`).bind(tenantId, context.termId).first().catch(() => null) as Promise<Record<string, any> | null>
+      : Promise.resolve(null),
+  ])
+  return {
+    ...context,
+    sessionName: String(session?.name || provisionalSessionName(context.sessionId) || ''),
+    termName: String(term?.name || ''),
+  }
+}
+
+async function recordMaterialCreation(db: D1Database, tenantId: string, material: Record<string, any>, actor: { id: string, name: string }, action: string, details: Record<string, any> = {}) {
+  try {
+    await recordMaterialVersion(db, tenantId, material as any, actor)
+    await recordMaterialAudit(db, { tenantId, material: material as any, action, actor, statusAfter: material.status, details })
+  } catch (error) {
+    console.error('Recording material history failed', error)
+  }
+}
+
+/** Keep the session's teaching ledger current before an assignment is replaced. */
+async function syncTeachingLedger(db: D1Database, tenantId: string) {
+  try {
+    const active = await getActiveSession(db, tenantId)
+    const sessionId = active?.id || provisionalSessionId(lagosToday())
+    await recordLiveAssignments(db, { tenantId, sessionId, sessionName: active?.name || provisionalSessionName(sessionId) })
+  } catch (error) {
+    console.error('Teaching ledger sync failed', error)
+  }
+}
+
+async function resolveMaterialManagement(db: D1Database, user: Record<string, any>, classroomId: string, materialId: string, verb: string) {
+  const context = await resolveClassroomModerationContext(db, user, classroomId)
+  if (!context.ok) return { ok: false as const, status: (context as any).status || 404, message: (context as any).message || 'Class not found.' }
+  if ((context as any).supervisorViewOnly) {
+    return { ok: false as const, status: 403, message: 'School policy gives the Head of School view-only access to classes.' }
+  }
+
+  const material = await getMaterialById(db, materialId)
+  if (!material || String(material.classId || '') !== String(classroomId || '') || material.status === 'deleted') {
+    return { ok: false as const, status: 404, message: 'Material not found.' }
+  }
+
+  const subjectId = String(material.subjectId || '').trim()
+  const publishContext = subjectId
+    ? await resolveMaterialPublishingContext(db, user, classroomId, subjectId)
+    : { ok: false }
+  const canManage = context.canManageClasswide
+    || matchesComparableIdentifier(material.uploadedById, context.actorIdentifiers || [])
+    || Boolean((publishContext as any)?.ok)
+  if (!canManage) return { ok: false as const, status: 403, message: `You are not allowed to ${verb} this material.` }
+
+  const isTeacherHere = context.isClassTeacher || ((publishContext as any)?.ok && !(publishContext as any)?.supervisoryRole)
+  return {
+    ok: true as const,
+    tenantId: String(context.tenantId || ''),
+    material,
+    actor: {
+      id: String(context.actorId || ''),
+      name: String((publishContext as any)?.uploadedByName || user.name || user.email || context.actorId || 'Staff'),
+      role: String(context.normalizedRole || ''),
+      supervisory: !isTeacherHere && Boolean(context.supervisoryRole),
+    },
+  }
+}
+
+/**
+ * Academic History. Students get the classes they were actually in; teachers get
+ * their own work, plus published materials for the subjects they are assigned
+ * to now, so a teacher taking over a class can build on what it used before.
+ * Everything stays inside the viewer's school.
+ */
+async function listAcademicHistoryMaterials(db: D1Database, user: Record<string, any>) {
+  const resolved = await resolveSettingsIdentity(db, user.id || user.email || user.sub || '')
+  const tenantId = String(resolved.settings?.tenantId || resolved.settings?.schoolId || resolved.userRow?.tenantId || user.tenantId || '')
+  const role = getActiveRole(user)
+  if (!tenantId || !['student', 'teacher'].includes(role)) return { materials: [], canReuse: false, current: null }
+  await ensureMaterialsTable(db)
+  await backfillMaterialSessions(db, tenantId)
+  const current = await describeMaterialContext(db, tenantId)
+  const identifiers = collectComparableIdentifiers(collectResolvedIdentityIdentifiers(resolved, user))
+
+  let placements: Array<Record<string, any>> = []
+  let currentClassId = ''
+  let assignedSubjectIds: string[] = []
+  let audienceFilter = ''
+  let bindings: string[] = []
+
+  if (role === 'teacher') {
+    if (!identifiers.length) return { materials: [], canReuse: true, current }
+    const assigned = await db.prepare(`SELECT id FROM subjects WHERE tenantId = ? AND lower(trim(teacherId)) IN (SELECT value FROM json_each(?))`)
+      .bind(tenantId, JSON.stringify(identifiers)).all().catch(() => ({ results: [] }))
+    assignedSubjectIds = ((assigned.results || []) as Record<string, any>[]).map(row => String(row.id))
+    audienceFilter = `(lower(trim(json_extract(m.metadata, '$.uploadedById'))) IN (SELECT value FROM json_each(?))
+      OR json_extract(m.metadata, '$.subjectId') IN (SELECT value FROM json_each(?)))`
+    bindings = [JSON.stringify(identifiers), JSON.stringify(assignedSubjectIds)]
+  } else {
+    const audience = await listAccessibleLearningStudents(db, user)
+    const student = audience.students[0]
+    if (!student) return { materials: [], canReuse: false, current }
+    placements = await materialArchivePlacements(db, tenantId, String(student.id))
+    currentClassId = String(student.classId || '')
+    const classIds = [...new Set([currentClassId, ...placements.map(placement => String(placement.class_id))].filter(Boolean))]
+    if (!classIds.length) return { materials: [], canReuse: false, current }
+    audienceFilter = `m.classId IN (SELECT value FROM json_each(?))`
+    bindings = [JSON.stringify(classIds)]
+  }
+
+  const rows = await db.prepare(`SELECT m.*, s.name AS academicSessionName, t.name AS academicTermName,
+      c.name AS archiveClassName, c.arm AS archiveClassArm
+    FROM materials m JOIN classes c ON c.id = m.classId
+    LEFT JOIN academic_sessions s ON s.id = json_extract(m.metadata, '$.academicSessionId') AND s.tenant_id = c.tenantId
+    LEFT JOIN academic_terms t ON t.id = json_extract(m.metadata, '$.academicTermId') AND t.tenant_id = c.tenantId
+    WHERE c.tenantId = ? AND ${audienceFilter}
+    ORDER BY s.start_date DESC, t.sequence DESC, m.uploadedAt DESC`).bind(tenantId, ...bindings).all()
+
+  const materials = ((rows.results || []) as Record<string, any>[]).map(mapMaterialRow).flatMap(material => {
+    if (material.status === 'deleted' || isCurrentMaterial(material, current)) return []
+    if (role === 'teacher') {
+      const own = matchesComparableIdentifier(material.uploadedById, identifiers)
+      // A colleague's drafts, hidden work and private teacher resources stay theirs.
+      if (!own && (material.status !== 'published' || material.audience === 'teacher_only')) return []
+      return [{ ...material, sharedFromAssignment: !own }]
+    }
+    if (!studentCanAccessArchivedMaterial(material, placements, { classId: currentClassId, sessionId: current.sessionId })) return []
+    return isStudentVisibleMaterial(material) ? [material] : []
+  }).map(material => ({
+    ...material,
+    academicSessionName: material.academicSessionName || provisionalSessionName(material.academicSessionId) || 'Earlier materials',
+    academicTermName: material.academicTermName || '',
+    archiveClassName: `${material.archiveClassName || ''}${material.archiveClassArm ? ` ${material.archiveClassArm}` : ''}`.trim(),
+  }))
+  return { materials, canReuse: role === 'teacher', current }
+}
+
+app.get('/api/learning/materials/archive', authenticate, async (c) => {
+  try {
+    return c.json({ success: true, ...await listAcademicHistoryMaterials(c.env.APP_DB, c.var.user || {}) })
+  } catch (error) {
+    console.error('Material archive failed', error)
+    return c.json({ success: false, message: 'Could not load archived materials.' }, 500)
+  }
+})
+
+app.get('/api/learning/teaching-history', authenticate, async (c) => {
+  const user = c.var.user || {}
+  try {
+    const resolved = await resolveSettingsIdentity(c.env.APP_DB, user.id || user.email || user.sub || '')
+    const tenantId = String(resolved.settings?.tenantId || resolved.settings?.schoolId || resolved.userRow?.tenantId || user.tenantId || '')
+    if (!tenantId) return c.json({ success: true, assignments: [], current: null })
+    await syncTeachingLedger(c.env.APP_DB, tenantId)
+    const current = await describeMaterialContext(c.env.APP_DB, tenantId)
+    const identifiers = collectComparableIdentifiers(collectResolvedIdentityIdentifiers(resolved, user))
+    const assignments = await listTeachingHistory(c.env.APP_DB, tenantId, identifiers)
+    return c.json({
+      success: true,
+      current,
+      assignments: assignments.map(row => ({
+        id: row.id,
+        sessionId: row.session_id,
+        sessionName: row.session_name || provisionalSessionName(String(row.session_id)) || '',
+        current: row.session_id === current.sessionId && !row.ended_at,
+        role: row.role,
+        classId: row.class_id,
+        className: row.class_name,
+        subjectId: row.subject_id,
+        subjectName: row.subject_name,
+        endedAt: row.ended_at,
+      })),
+    })
+  } catch (error) {
+    console.error('Teaching history failed', error)
+    return c.json({ success: false, message: 'Could not load your teaching history.' }, 500)
+  }
+})
+
+/**
+ * Reuse references the original rather than copying it: the new row points at
+ * the same stored file, records where it came from, and starts its own version
+ * history in the current session. Editing it never touches the original.
+ */
+app.post('/api/learning/materials/:materialId/reuse', authenticate, async (c) => {
+  const user = c.var.user || {}
+  try {
+    const original = await getMaterialById(c.env.APP_DB, c.req.param('materialId'))
+    if (!original || original.status === 'deleted') return c.json({ success: false, message: 'Material not found.' }, 404)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const target = await resolveMaterialPublishingContext(c.env.APP_DB, user, String(body.classId || ''), String(body.subjectId || ''))
+    if (!target.ok) return c.json({ success: false, message: target.message }, target.status as any)
+
+    const source = await resolveClassroomModerationContext(c.env.APP_DB, user, String(original.classId || ''))
+    if (!source.ok || String(source.tenantId) !== String(target.classRow.tenantId)) {
+      return c.json({ success: false, message: 'Material not found.' }, 404)
+    }
+    const own = matchesComparableIdentifier(original.uploadedById, source.actorIdentifiers || [])
+    const sourceAccess = own || source.canManageClasswide
+      || (original.subjectId && (await resolveMaterialPublishingContext(c.env.APP_DB, user, String(original.classId), String(original.subjectId))).ok)
+    const shareable = own || (original.status === 'published' && original.audience !== 'teacher_only')
+    if (!sourceAccess || !shareable) return c.json({ success: false, message: 'Material not found.' }, 404)
+
+    const tenantId = String(target.classRow.tenantId)
+    const status = normalizeRequestedMaterialStatus(body.status)
+    const { status: _s, version: _v, publishedAt: _p, hiddenAt: _h, deletedAt: _d, deletedById: _di, deletedByName: _dn,
+      statusBeforeDelete: _sb, academicSessionId: _as, academicTermId: _at, postedByRole: _pr, postedByLabel: _pl, ...carried } = original.metadata || {}
+    const material = await addMaterial(c.env.APP_DB, {
+      classId: target.classRow.id,
+      title: original.title,
+      url: original.url,
+      uploadedBy: target.uploadedByName,
+      metadata: {
+        ...carried,
+        subjectId: target.subjectRow.id,
+        subjectName: target.subjectRow.name,
+        uploadedById: target.teacherId,
+        uploadedByName: target.uploadedByName,
+        className: `${target.classRow.name}${target.classRow.arm ? ` ${target.classRow.arm}` : ''}`,
+        releaseAt: '',
+        status,
+        reusedFromId: original.id,
+        originalMaterialId: original.metadata?.originalMaterialId || original.id,
+        ...supervisoryAttribution(target.supervisoryRole),
+      },
+    })
+    const actor = { id: target.teacherId, name: target.uploadedByName, role: String(target.supervisoryRole || 'teacher'), supervisory: Boolean(target.supervisoryRole) }
+    await recordMaterialCreation(c.env.APP_DB, tenantId, material, actor, 'reused', { fromMaterialId: original.id, sharedFile: Boolean(original.url) })
+    await recordMaterialAudit(c.env.APP_DB, { tenantId, material: original as any, action: 'reused_elsewhere', actor, details: { toMaterialId: material.id, toClassId: material.classId } }).catch(() => null)
+    if (material.topic) {
+      await ensureClassTopic(c.env.APP_DB, { tenantId, classId: material.classId, subjectId: String(target.subjectRow.id), name: material.topic, createdBy: target.teacherId }).catch(() => null)
+    }
+    return c.json({ success: true, material }, 201)
+  } catch (error) {
+    console.error('Material reuse failed', error)
+    return c.json({ success: false, message: 'Could not reuse this material.' }, 500)
+  }
+})
+
+/** School leadership's view of the material audit trail, deletions included. */
+app.get('/api/learning/materials/audit', authenticate, async (c) => {
+  const user = c.var.user || {}
+  if (!hasRequiredRole(getActiveRole(user), SESSION_ADMIN_ROLES)) return c.json({ success: false, message: 'forbidden' }, 403)
+  const tenantId = String(user.tenantId || '').trim()
+  if (!tenantId) return c.json({ success: false, message: 'No tenant.' }, 400)
+  try {
+    const entries = await listMaterialAudit(c.env.APP_DB, tenantId, {
+      action: String(c.req.query('action') || '') || undefined,
+      supervisoryOnly: c.req.query('supervisory') === '1',
+      limit: Number(c.req.query('limit') || 200),
+    })
+    return c.json({ success: true, entries })
+  } catch (error) {
+    console.error('Material audit failed', error)
+    return c.json({ success: false, message: 'Could not load the material audit trail.' }, 500)
+  }
+})
+
+// ─── Class supervision (Owner / HOS) ─────────────────────────────────────────
+// Joining and exiting only change which classes sit in a supervisor's
+// workspace. They never create or end a teacher assignment, and the class must
+// belong to the supervisor's own school.
+
+function supervisionActor(c: any) {
+  const user = c.var.user || {}
+  return {
+    tenantId: String(user.tenantId || '').trim(),
+    role: getActiveRole(user),
+    userId: String(user.id || user.email || user.sub || '').trim(),
+  }
+}
+
+app.get('/api/supervision/policy', authenticate, async (c) => {
+  const actor = supervisionActor(c)
+  if (!actor.tenantId) return c.json({ success: false, message: 'No tenant.' }, 400)
+  return c.json({ success: true, hosMode: await getHosMode(c.env.APP_DB, actor.tenantId) })
+})
+
+app.put('/api/supervision/policy', authenticate, async (c) => {
+  const actor = supervisionActor(c)
+  if (!actor.tenantId) return c.json({ success: false, message: 'No tenant.' }, 400)
+  if (actor.role !== 'owner') return c.json({ success: false, message: 'Only the School Owner can change supervision policy.' }, 403)
+  const body = await c.req.json().catch(() => ({})) as Record<string, any>
+  const hosMode = await setHosMode(c.env.APP_DB, actor.tenantId, body.hosMode === 'view' ? 'view' : 'intervene', actor.userId)
+  await addAudit(c.env.APP_DB, actor.tenantId, { action: 'supervisionPolicyChanged', data: { hosMode, by: actor.userId } }).catch(() => null)
+  return c.json({ success: true, hosMode })
+})
+
+app.post('/api/supervision/classes/:classId/:action', authenticate, async (c) => {
+  const actor = supervisionActor(c)
+  const action = c.req.param('action')
+  if (!actor.tenantId) return c.json({ success: false, message: 'No tenant.' }, 400)
+  if (!(SUPERVISION_ROLES as readonly string[]).includes(actor.role)) return c.json({ success: false, message: 'Only the School Owner or Head of School can supervise classes.' }, 403)
+  if (!['join', 'exit'].includes(action)) return c.json({ success: false, message: 'Not found.' }, 404)
+  const classRow = await c.env.APP_DB.prepare(`SELECT id FROM classes WHERE id = ? AND tenantId = ?`).bind(c.req.param('classId'), actor.tenantId).first()
+  if (!classRow) return c.json({ success: false, message: 'Class not found.' }, 404)
+  try {
+    const options = { tenantId: actor.tenantId, userId: actor.userId, role: actor.role, classId: String(classRow.id) }
+    const changed = action === 'join' ? await joinClass(c.env.APP_DB, options) : await exitClass(c.env.APP_DB, options)
+    return c.json({ success: true, changed })
+  } catch (error) {
+    console.error('Class supervision change failed', error)
+    return c.json({ success: false, message: 'Could not update your supervised classes.' }, 500)
+  }
+})
+
 app.get('/api/classrooms/:classroomId/materials', authenticate, async (c) => {
   const classroomId = c.req.param('classroomId')
   const requestedStudentId = String(c.req.query('studentId') || '').trim()
@@ -9132,14 +12056,11 @@ app.get('/api/classrooms/:classroomId/materials', authenticate, async (c) => {
 
     let materials = await getMaterialsForClass(c.env.APP_DB, classroomId)
     if (!access.canManage) {
-      materials = materials.filter(material => {
-        const visibility = normalizeLearningVisibility(material.visibility || material.metadata?.visibility, 'student_parent')
-        return isLearningContentReleased(material.releaseAt || material.metadata?.releaseAt)
-          && canRoleSeeLearningContent(access.role, visibility)
-      })
+      materials = materials.filter(material => canAudienceSeeMaterial(material, access.role))
     }
+    const academicContext = await describeMaterialContext(c.env.APP_DB, String(access.classRow.tenantId || access.tenantId))
 
-    return c.json({ success: true, materials, students: access.students || [], activeStudentId: String(access.selectedStudent?.id || '') })
+    return c.json({ success: true, materials, academicContext, students: access.students || [], activeStudentId: String(access.selectedStudent?.id || '') })
   } catch (error) {
     return c.json({ success: false, message: 'Server error', error }, 500)
   }
@@ -9147,7 +12068,7 @@ app.get('/api/classrooms/:classroomId/materials', authenticate, async (c) => {
 
 app.post('/api/classrooms/:classroomId/materials', authenticate, async (c) => {
   const classroomId = c.req.param('classroomId')
-  const { title, url, subjectId, description, type, topic, week, weekLabel, visibility, releaseAt } = await c.req.json()
+  const { title, url, subjectId, description, blocks, type, topic, week, weekLabel, visibility, releaseAt, status } = await c.req.json()
   if (!title || !subjectId) {
     return c.json({ success: false, message: 'Title and subject are required.' }, 400)
   }
@@ -9157,6 +12078,7 @@ app.post('/api/classrooms/:classroomId/materials', authenticate, async (c) => {
       return c.json({ success: false, message: publishContext.message }, publishContext.status)
     }
 
+    const content = materialContentFields(description, blocks)
     const newMaterial = {
       classId: classroomId,
       title,
@@ -9165,7 +12087,8 @@ app.post('/api/classrooms/:classroomId/materials', authenticate, async (c) => {
       metadata: {
         subjectId: String(publishContext.subjectRow.id || ''),
         subjectName: String(publishContext.subjectRow.name || ''),
-        description: String(description || '').trim(),
+        description: content.description,
+        blocks: content.blocks,
         topic: String(topic || '').trim(),
         weekLabel: String(weekLabel || week || '').trim(),
         visibility: normalizeLearningVisibility(visibility, 'student_parent'),
@@ -9175,9 +12098,14 @@ app.post('/api/classrooms/:classroomId/materials', authenticate, async (c) => {
         uploadedById: publishContext.teacherId,
         className: `${publishContext.classRow.name}${publishContext.classRow.arm ? ` ${publishContext.classRow.arm}` : ''}`,
         source: url ? 'link' : 'note',
+        status: normalizeRequestedMaterialStatus(status),
+        ...supervisoryAttribution(publishContext.supervisoryRole),
       },
     }
     const insertedMaterial = await addMaterial(c.env.APP_DB, newMaterial)
+    await recordMaterialCreation(c.env.APP_DB, String(publishContext.classRow.tenantId), insertedMaterial,
+      { id: publishContext.teacherId, name: publishContext.uploadedByName, role: String(publishContext.supervisoryRole || 'teacher'), supervisory: Boolean(publishContext.supervisoryRole) },
+      insertedMaterial.status === 'draft' ? 'drafted' : 'published')
     const materialTopicName = String(topic || '').trim()
     if (materialTopicName) {
       try {
@@ -9209,60 +12137,62 @@ app.put('/api/classrooms/:classroomId/materials/:materialId', authenticate, asyn
   }
 
   try {
-    const context = await resolveClassroomModerationContext(c.env.APP_DB, c.var.user || {}, classroomId)
-    if (!context.ok) {
-      return c.json({ success: false, message: context.message }, context.status)
-    }
-
-    const material = await getMaterialById(c.env.APP_DB, materialId)
-    if (!material || String(material.classId || '') !== String(classroomId || '')) {
-      return c.json({ success: false, message: 'Material not found.' }, 404)
-    }
-
+    const managed = await resolveMaterialManagement(c.env.APP_DB, c.var.user || {}, classroomId, materialId, 'edit')
+    if (!managed.ok) return c.json({ success: false, message: managed.message }, managed.status as any)
+    const { material, tenantId, actor } = managed
     const subjectId = String(payload?.subjectId || material.subjectId || '').trim()
-    const publishContext = subjectId
-      ? await resolveMaterialPublishingContext(c.env.APP_DB, c.var.user || {}, classroomId, subjectId)
-      : { ok: false }
-    const canManageMaterial = context.canManageClasswide
-      || matchesComparableIdentifier(material.uploadedById, context.actorIdentifiers)
-      || Boolean((publishContext as any)?.ok)
+    const has = (key: string) => Object.prototype.hasOwnProperty.call(payload || {}, key)
 
-    if (!canManageMaterial) {
-      return c.json({ success: false, message: 'You are not allowed to edit this material.' }, 403)
-    }
-
+    const content = has('blocks') || has('description')
+      ? materialContentFields(has('description') ? payload.description : material.description, has('blocks') ? payload.blocks : material.blocks)
+      : { description: material.description, blocks: material.blocks }
     const updatedMetadata = {
       ...(material.metadata && typeof material.metadata === 'object' ? material.metadata : {}),
-      description: typeof payload?.description === 'string' ? payload.description.trim() : material.description,
+      description: content.description,
+      blocks: content.blocks,
       topic: typeof payload?.topic === 'string' ? payload.topic.trim() : material.topic,
       weekLabel: typeof payload?.weekLabel === 'string' ? payload.weekLabel.trim() : material.weekLabel,
-      visibility: Object.prototype.hasOwnProperty.call(payload || {}, 'visibility')
+      visibility: has('visibility')
         ? normalizeLearningVisibility(payload?.visibility, material.visibility || 'student_parent')
         : material.visibility,
-      releaseAt: Object.prototype.hasOwnProperty.call(payload || {}, 'releaseAt')
+      releaseAt: has('releaseAt')
         ? normalizeLearningReleaseAt(payload?.releaseAt)
         : normalizeLearningReleaseAt(material.releaseAt),
-      type: Object.prototype.hasOwnProperty.call(payload || {}, 'type')
+      type: has('type')
         ? normalizeMaterialType(payload?.type, inferMaterialType(String(payload?.url || material.url || '')))
         : normalizeMaterialType(material.type, inferMaterialType(String(material.url || ''))),
+      version: Number(material.version || 1) + 1,
+      editedAt: new Date().toISOString(),
+      editedByName: actor.name,
     }
+    const nextUrl = has('url') ? String(payload?.url || '').trim() || null : material.url
 
-    const updatedMaterial = await updateMaterial(c.env.APP_DB, materialId, {
-      title: nextTitle,
-      url: Object.prototype.hasOwnProperty.call(payload || {}, 'url') ? String(payload?.url || '').trim() || null : material.url,
-      metadata: updatedMetadata,
+    // Version history: a material from before history existed gets its original
+    // wording recorded as version 1 before the first change lands.
+    await ensureBaselineVersion(c.env.APP_DB, tenantId, material as any)
+    const updatedMaterial = await updateMaterial(c.env.APP_DB, materialId, { title: nextTitle, url: nextUrl, metadata: updatedMetadata })
+    const changed = ['title', 'url', 'description', 'blocks', 'topic', 'weekLabel', 'visibility', 'releaseAt', 'type'].filter(key => {
+      const before = key === 'title' ? material.title : key === 'url' ? material.url : (material.metadata || {})[key]
+      const after = key === 'title' ? nextTitle : key === 'url' ? nextUrl : (updatedMetadata as Record<string, any>)[key]
+      return JSON.stringify(before ?? '') !== JSON.stringify(after ?? '')
     })
+    try {
+      await recordMaterialVersion(c.env.APP_DB, tenantId, updatedMaterial as any, actor)
+      await recordMaterialAudit(c.env.APP_DB, { tenantId, material: updatedMaterial as any, action: 'edited', actor, statusBefore: material.status, statusAfter: material.status, details: { changed } })
+    } catch (error) {
+      console.error('Recording material edit failed', error)
+    }
 
     // A topic typed/renamed on edit should persist like the create paths do.
     const editedTopicName = String(updatedMetadata.topic || '').trim()
     if (editedTopicName && subjectId) {
       try {
         await ensureClassTopic(c.env.APP_DB, {
-          tenantId: context.tenantId,
+          tenantId,
           classId: classroomId,
           subjectId,
           name: editedTopicName,
-          createdBy: context.actorId,
+          createdBy: actor.id,
         })
       } catch (topicError) {
         console.error('ensureClassTopic (material edit) failed:', topicError)
@@ -9275,37 +12205,89 @@ app.put('/api/classrooms/:classroomId/materials/:materialId', authenticate, asyn
   }
 })
 
+/** Publish a draft, hide a published material from students, or show it again. */
+app.post('/api/classrooms/:classroomId/materials/:materialId/status', authenticate, async (c) => {
+  const classroomId = c.req.param('classroomId')
+  const materialId = c.req.param('materialId')
+  const body = await c.req.json().catch(() => ({})) as Record<string, any>
+  const next = String(body.status || '').trim().toLowerCase() as MaterialStatus
+  if (!['draft', 'published', 'hidden'].includes(next)) {
+    return c.json({ success: false, message: 'Choose draft, published or hidden.' }, 400)
+  }
+  try {
+    const managed = await resolveMaterialManagement(c.env.APP_DB, c.var.user || {}, classroomId, materialId, 'change')
+    if (!managed.ok) return c.json({ success: false, message: managed.message }, managed.status as any)
+    const { material, tenantId, actor } = managed
+    const current = materialStatus(material.metadata)
+    if (current === next) return c.json({ success: true, material })
+    if (!canTransitionMaterial(current, next)) {
+      return c.json({ success: false, message: `A ${current} material cannot be moved to ${next}.` }, 409)
+    }
+    const timestamp = new Date().toISOString()
+    const updated = await updateMaterial(c.env.APP_DB, materialId, {
+      metadata: {
+        ...material.metadata,
+        status: next,
+        ...(next === 'hidden' ? { hiddenAt: timestamp } : {}),
+        ...(next === 'published' ? { publishedAt: material.metadata?.publishedAt || timestamp, lastPublishedAt: timestamp } : {}),
+      },
+    })
+    const action = next === 'hidden' ? 'hidden' : next === 'draft' ? 'unpublished' : current === 'hidden' ? 'shown' : 'published'
+    await recordMaterialAudit(c.env.APP_DB, { tenantId, material: updated as any, action, actor, statusBefore: current, statusAfter: next })
+      .catch(error => console.error('Recording material status failed', error))
+    return c.json({ success: true, material: updated })
+  } catch (error) {
+    console.error('Material status change failed', error)
+    return c.json({ success: false, message: 'Could not update this material.' }, 500)
+  }
+})
+
+app.get('/api/classrooms/:classroomId/materials/:materialId/history', authenticate, async (c) => {
+  try {
+    const managed = await resolveMaterialManagement(c.env.APP_DB, c.var.user || {}, c.req.param('classroomId'), c.req.param('materialId'), 'view the history of')
+    if (!managed.ok) return c.json({ success: false, message: managed.message }, managed.status as any)
+    const history = await listMaterialHistory(c.env.APP_DB, managed.tenantId, managed.material.id)
+    return c.json({ success: true, material: managed.material, ...history })
+  } catch (error) {
+    console.error('Material history failed', error)
+    return c.json({ success: false, message: 'Could not load this material history.' }, 500)
+  }
+})
+
 app.delete('/api/classrooms/:classroomId/materials/:materialId', authenticate, async (c) => {
   const classroomId = c.req.param('classroomId')
   const materialId = c.req.param('materialId')
 
   try {
-    const context = await resolveClassroomModerationContext(c.env.APP_DB, c.var.user || {}, classroomId)
-    if (!context.ok) {
-      return c.json({ success: false, message: context.message }, context.status)
-    }
+    const managed = await resolveMaterialManagement(c.env.APP_DB, c.var.user || {}, classroomId, materialId, 'delete')
+    if (!managed.ok) return c.json({ success: false, message: managed.message }, managed.status as any)
+    const { material, tenantId, actor } = managed
 
-    const material = await getMaterialById(c.env.APP_DB, materialId)
-    if (!material || String(material.classId || '') !== String(classroomId || '')) {
-      return c.json({ success: false, message: 'Material not found.' }, 404)
-    }
-
-    const subjectId = String(material.subjectId || '').trim()
-    const publishContext = subjectId
-      ? await resolveMaterialPublishingContext(c.env.APP_DB, c.var.user || {}, classroomId, subjectId)
-      : { ok: false }
-    const canManageMaterial = context.canManageClasswide
-      || matchesComparableIdentifier(material.uploadedById, context.actorIdentifiers)
-      || Boolean((publishContext as any)?.ok)
-
-    if (!canManageMaterial) {
-      return c.json({ success: false, message: 'You are not allowed to delete this material.' }, 403)
-    }
-
-    await deleteMaterial(c.env.APP_DB, materialId)
+    // The audit record is written first: a deletion that cannot be recorded does not happen.
+    await recordMaterialAudit(c.env.APP_DB, {
+      tenantId,
+      material: material as any,
+      action: 'deleted',
+      actor,
+      statusBefore: material.status,
+      statusAfter: 'deleted',
+      details: {
+        url: material.url || '',
+        type: material.type,
+        topic: material.topic,
+        weekLabel: material.weekLabel,
+        visibility: material.visibility,
+        releaseAt: material.releaseAt,
+        uploadedAt: material.uploadedAt,
+        uploadedByName: material.uploadedByName,
+        reusedFromId: material.reusedFromId,
+      },
+    })
+    await deleteMaterial(c.env.APP_DB, materialId, actor)
     return c.json({ success: true })
   } catch (error) {
-    return c.json({ success: false, message: 'Server error', error }, 500)
+    console.error('Material delete failed', error)
+    return c.json({ success: false, message: 'Server error' }, 500)
   }
 })
 
@@ -9322,6 +12304,9 @@ app.post('/api/classrooms/:classroomId/materials/upload-multipart', authenticate
   const weekLabel = String(formData.get('weekLabel') || formData.get('week') || '').trim()
   const visibility = normalizeLearningVisibility(formData.get('visibility'), 'student_parent')
   const releaseAt = normalizeLearningReleaseAt(formData.get('releaseAt'))
+  const status = normalizeRequestedMaterialStatus(formData.get('status'))
+  let blocks: unknown = []
+  try { blocks = JSON.parse(String(formData.get('blocks') || '[]')) } catch {}
   if (!title || !file || !subjectId) {
     return c.json({ success: false, message: 'Title, file, and subject are required.' }, 400)
   }
@@ -9336,6 +12321,7 @@ app.post('/api/classrooms/:classroomId/materials/upload-multipart', authenticate
       httpMetadata: { contentType: file.type }
     })
     const url = `https://ndovera.com/files/${fileName}` // Assuming custom domain
+    const content = materialContentFields(description, blocks)
     const newMaterial = {
       classId: classroomId,
       title,
@@ -9344,7 +12330,8 @@ app.post('/api/classrooms/:classroomId/materials/upload-multipart', authenticate
       metadata: {
         subjectId: String(publishContext.subjectRow.id || ''),
         subjectName: String(publishContext.subjectRow.name || ''),
-        description,
+        description: content.description,
+        blocks: content.blocks,
         topic,
         weekLabel,
         visibility,
@@ -9355,9 +12342,14 @@ app.post('/api/classrooms/:classroomId/materials/upload-multipart', authenticate
         className: `${publishContext.classRow.name}${publishContext.classRow.arm ? ` ${publishContext.classRow.arm}` : ''}`,
         source: 'upload',
         contentType: file.type || 'application/octet-stream',
+        status,
+        ...supervisoryAttribution(publishContext.supervisoryRole),
       },
     }
     const insertedMaterial = await addMaterial(c.env.APP_DB, newMaterial)
+    await recordMaterialCreation(c.env.APP_DB, String(publishContext.classRow.tenantId), insertedMaterial,
+      { id: publishContext.teacherId, name: publishContext.uploadedByName, role: String(publishContext.supervisoryRole || 'teacher'), supervisory: Boolean(publishContext.supervisoryRole) },
+      insertedMaterial.status === 'draft' ? 'drafted' : 'published')
     const materialTopicName = String(topic || '').trim()
     if (materialTopicName) {
       try {
@@ -9385,7 +12377,7 @@ app.get('/api/lesson-plans', authenticate, async (c) => {
   const userIdentifier = currentUser.id || currentUser.email || currentUser.sub || ''
   const resolvedUser = await resolveSettingsIdentity(c.env.APP_DB, userIdentifier)
   const tenantId = resolvedUser.settings?.tenantId || resolvedUser.settings?.schoolId || resolvedUser.userRow?.tenantId || currentUser.tenantId
-  const normalizedRole = getActiveRole(currentUser)
+  const normalizedRole = resolveEffectiveRole(resolvedUser, currentUser)
   if (!tenantId) return c.json({ success: false, message: 'No tenant.' }, 400)
 
   try {
@@ -9483,7 +12475,8 @@ app.post('/api/lesson-plans', authenticate, async (c) => {
 })
 
 app.post('/api/lesson-plans/:lessonPlanId/review', authenticate, async (c) => {
-  if (!hasRequiredRole(c.var.user.role, LEARNING_REVIEWER_ROLES)) return c.json({ error: 'forbidden' }, 403)
+  const reviewer = await resolveSettingsIdentity(c.env.APP_DB, String(c.var.user?.id || c.var.user?.email || c.var.user?.sub || ''))
+  if (!hasRequiredRole(c.var.user.role, LEARNING_REVIEWER_ROLES) && !LEARNING_REVIEWER_ROLES.includes(resolveEffectiveRole(reviewer, c.var.user || {}))) return c.json({ error: 'forbidden' }, 403)
 
   const lessonPlanId = String(c.req.param('lessonPlanId') || '').trim()
   const body = await c.req.json().catch(() => ({}))
@@ -9958,6 +12951,7 @@ app.post('/api/classrooms/:classroomId/members', authenticate, async (c) => {
         ...existingMembershipRows.map(row => String(row.user_id || '').trim()).filter(Boolean),
         userId,
       ]))
+      if (memberRole === 'teacher') await syncTeachingLedger(c.env.APP_DB, actor.tenantId)
       await replaceClassMemberships(c.env.APP_DB, actor.tenantId, classroomId, memberRole as 'teacher' | 'caregiver', nextUserIds)
     }
 
@@ -10000,6 +12994,7 @@ app.delete('/api/classrooms/:classroomId/members/:memberRole/:userId', authentic
       const nextUserIds = existingMembershipRows
         .map(row => String(row.user_id || '').trim())
         .filter(value => value && value !== userId)
+      if (memberRole === 'teacher') await syncTeachingLedger(c.env.APP_DB, actor.tenantId)
       await replaceClassMemberships(c.env.APP_DB, actor.tenantId, classroomId, memberRole as 'teacher' | 'caregiver', nextUserIds)
       if (memberRole === 'teacher' && String(classroom.classRow.classTeacherId || '').trim() === userId) {
         await c.env.APP_DB.prepare(
@@ -10128,8 +13123,10 @@ app.get('/api/exams/:id', authenticate, async (c) => {
     if (!canViewCbtExam(actor, c.var.user || {}, exam)) {
       return c.json({ success: false, message: 'You are not allowed to view this exam.' }, 403)
     }
-
-    return c.json({ success: true, exam })
+    // Only its author and leadership see the answers; everyone else gets the questions alone.
+    const authorIds = collectComparableIdentifiers(collectResolvedIdentityIdentifiers(actor.resolvedUser, c.var.user || {}))
+    const isAuthor = canManageCbt(actor.role) || (canAuthorCbt(actor.role) && matchesComparableIdentifier(exam.teacherId, authorIds))
+    return c.json({ success: true, exam: isAuthor ? exam : { ...exam, questions: stripAnswersForStudent(exam.questions) } })
   } catch (error) {
     return c.json({ success: false, message: 'Server error', error }, 500)
   }
@@ -10245,7 +13242,8 @@ app.post('/api/exams/:id/submit', authenticate, async (c) => {
     const result = await submitCbtExamAttempt(c.env.APP_DB, {
       tenantId,
       examId: exam.id,
-      studentId: String(payload.userId || actor.actorId || '').trim(),
+      // Students submit as themselves; staff testing an exam may name the attempt.
+      studentId: String((canAuthorCbt(actor.role) ? payload.userId : '') || actor.actorId || '').trim(),
       answers: payload.answers && typeof payload.answers === 'object' ? payload.answers : {},
     })
     return c.json({ success: true, result })
@@ -10553,6 +13551,18 @@ app.post('/api/ai/tutor/ask', authenticate, async (c) => {
     const aiBinding = c.env.AI
     const { prompt, mode, messages } = buildAiConversation(actor, payload)
     const normalizedRole = String(actor.role || '').trim().toLowerCase()
+    // Study with Ndovera AI: the topic's context rides along with every turn,
+    // so follow-ups ("give me another example") stay on the topic.
+    let topicStudy: Awaited<ReturnType<typeof buildTopicStudyContext>> = null
+    if (payload.topicContext) {
+      try {
+        topicStudy = await buildTopicStudyContext(c.env.APP_DB, c.var.user || {}, payload.topicContext)
+      } catch (error) {
+        if (error instanceof TopicError) return c.json({ success: false, message: error.message }, error.status as any)
+        throw error
+      }
+      if (topicStudy) messages.splice(1, 0, { role: 'system', content: topicStudy.system })
+    }
     const practiceSurface = NVIDIA_STUDENT_AI_ROLES.has(normalizedRole) && String(payload.surface || '').trim().toLowerCase() === 'practice'
     // Students now use the same Workers AI model as teachers (no separate NVIDIA student model).
     const useNvidiaStudentModel = false
@@ -10561,7 +13571,7 @@ app.post('/api/ai/tutor/ask', authenticate, async (c) => {
       return c.json({ success: false, message: 'Prompt is required.' }, 400)
     }
 
-    if (!OPEN_AI_CHAT_ROLES.has(normalizedRole) && !isAcademicOnlyPrompt(prompt)) {
+    if (!OPEN_AI_CHAT_ROLES.has(normalizedRole) && !topicStudy && !isAcademicOnlyPrompt(prompt)) {
       const access = await summarizeAiAccess(c.env.APP_DB, {
         tenantId: actor.tenantId,
         settingsKey: actor.settingsKey,
@@ -10640,6 +13650,10 @@ app.post('/api/ai/tutor/ask', authenticate, async (c) => {
       }
     }
 
+    if (topicStudy?.studentId) {
+      await recordTopicProgress(c.env.APP_DB, { tenantId: topicStudy.tenantId, topicId: topicStudy.summary.topicId, studentId: topicStudy.studentId, event: 'studied' }).catch(() => null)
+    }
+
     return c.json({
       success: true,
       answer,
@@ -10648,6 +13662,7 @@ app.post('/api/ai/tutor/ask', authenticate, async (c) => {
       access: consumption.access,
       mode,
       provider: 'ndovera-ai',
+      ...(topicStudy ? { topic: topicStudy.summary } : {}),
     })
   } catch (error) {
     console.error('AI tutor request failed', error)
@@ -11018,6 +14033,28 @@ async function assertEmailNotOwnedByAnotherTenant(db: D1Database, email: string,
   throw new Error(
     `${normalizedEmail} already belongs to ${otherName}. One email can only belong to one school — use a different email address for this person.`
   )
+}
+
+/**
+ * Appointing a Head of School is the Owner's alone. The HOS can do everything
+ * else the Owner can, but cannot appoint (or replace) an HOS, and neither can
+ * ICT. Applies to giving anyone the HOS role and to changing the role of anyone
+ * who already holds it. Role-holding is read from current stored settings.
+ */
+class HosAppointmentError extends Error {}
+
+async function actorIsSchoolOwner(db: D1Database, user: Record<string, any>) {
+  const resolved = await resolveSettingsIdentity(db, String(user.id || user.email || user.sub || ''))
+  const context = buildRoleContext(resolved.settings || {}, resolved.userRow?.role || '', '')
+  return context.rawRoles.includes('owner')
+}
+
+async function assertHosAppointmentAllowed(db: D1Database, user: Record<string, any>, nextRoles: unknown[], currentRoles: unknown[] = []) {
+  const touchesHos = parseRoleList(...nextRoles).includes('hos') || parseRoleList(...currentRoles).includes('hos')
+  if (!touchesHos) return
+  if (!await actorIsSchoolOwner(db, user)) {
+    throw new HosAppointmentError('Only the School Owner can appoint or change a Head of School.')
+  }
 }
 
 async function assertTenantOwnerAssignmentAllowed(
@@ -12928,7 +15965,7 @@ app.get('/api/school/admissions', authenticate, async (c) => {
     const userIdentifier = user.id || user.email || user.sub || ''
     const resolvedUser = await resolveSettingsIdentity(c.env.APP_DB, userIdentifier)
     const tenantId = String(resolvedUser.settings?.tenantId || resolvedUser.settings?.schoolId || resolvedUser.userRow?.tenantId || user.tenantId || '').trim()
-    const role = String(resolvedUser.settings?.role || resolvedUser.userRow?.role || user.role || '').trim().toLowerCase()
+    const role = resolveEffectiveRole(resolvedUser, user)
     const requestedChannel = String(c.req.query('channel') || '').trim().toLowerCase()
     const requestedStatus = normalizeAdmissionStatus(c.req.query('status'), '')
 
@@ -12967,7 +16004,7 @@ app.post('/api/school/admissions/:applicationId/review', authenticate, async (c)
     const userIdentifier = user.id || user.email || user.sub || ''
     const resolvedUser = await resolveSettingsIdentity(c.env.APP_DB, userIdentifier)
     const tenantId = String(resolvedUser.settings?.tenantId || resolvedUser.settings?.schoolId || resolvedUser.userRow?.tenantId || user.tenantId || '').trim()
-    const role = String(resolvedUser.settings?.role || resolvedUser.userRow?.role || user.role || '').trim().toLowerCase()
+    const role = resolveEffectiveRole(resolvedUser, user)
 
     if (!tenantId || !['owner', 'hos', 'admin', 'ict', 'ict_manager', 'ami'].includes(role)) {
       return c.json({ success: false, message: 'forbidden' }, 403)
@@ -13018,7 +16055,7 @@ app.get('/api/school/enquiries', authenticate, async (c) => {
     const userIdentifier = user.id || user.email || user.sub || ''
     const resolvedUser = await resolveSettingsIdentity(c.env.APP_DB, userIdentifier)
     const tenantId = String(resolvedUser.settings?.tenantId || resolvedUser.settings?.schoolId || resolvedUser.userRow?.tenantId || user.tenantId || '').trim()
-    const role = String(resolvedUser.settings?.role || resolvedUser.userRow?.role || user.role || '').trim().toLowerCase()
+    const role = resolveEffectiveRole(resolvedUser, user)
     const requestedStatus = normalizeWebsiteEnquiryStatus(c.req.query('status'), '')
 
     if (!tenantId || !['owner', 'hos', 'admin', 'ict', 'ict_manager', 'ami'].includes(role)) {
@@ -13049,7 +16086,7 @@ app.post('/api/school/enquiries/:enquiryId/review', authenticate, async (c) => {
     const userIdentifier = user.id || user.email || user.sub || ''
     const resolvedUser = await resolveSettingsIdentity(c.env.APP_DB, userIdentifier)
     const tenantId = String(resolvedUser.settings?.tenantId || resolvedUser.settings?.schoolId || resolvedUser.userRow?.tenantId || user.tenantId || '').trim()
-    const role = String(resolvedUser.settings?.role || resolvedUser.userRow?.role || user.role || '').trim().toLowerCase()
+    const role = resolveEffectiveRole(resolvedUser, user)
 
     if (!tenantId || !['owner', 'hos', 'admin', 'ict', 'ict_manager', 'ami'].includes(role)) {
       return c.json({ success: false, message: 'forbidden' }, 403)
@@ -13267,6 +16304,7 @@ app.post('/api/people', authenticate, async (c) => {
 
   try {
     await assertTenantOwnerAssignmentAllowed(c.env.APP_DB, tenantId, [primaryRole, mergedRoles])
+    await assertHosAppointmentAllowed(c.env.APP_DB, c.var.user || {}, [primaryRole, mergedRoles])
     await ensureUsersTable(c.env.APP_DB)
     const userSettings = await withHashedPassword({
       ...(existingSettings || {}),
@@ -13369,6 +16407,7 @@ app.post('/api/people', authenticate, async (c) => {
     const hydratedSaved = await hydrateUserRecord(c.env.APP_DB, saved || { id: userId, email, name, role: primaryRole, status: 'active' })
     return c.json({ success: true, user: hydratedSaved }, 201)
   } catch (err) {
+    if (err instanceof HosAppointmentError) return c.json({ error: err.message }, 403)
     return c.json({ error: err instanceof Error ? err.message : 'Could not create person.' }, 500)
   }
 })
@@ -13442,6 +16481,7 @@ app.post('/api/people/bulk', authenticate, async (c) => {
       }
 
       await assertTenantOwnerAssignmentAllowed(c.env.APP_DB, tenantId, [primaryRole, mergedRoles])
+      await assertHosAppointmentAllowed(c.env.APP_DB, c.var.user || {}, [primaryRole, mergedRoles])
       const userSettings = await withHashedPassword({
         ...(existingSettings || {}),
         email: normalizedEmail,
@@ -13635,6 +16675,10 @@ app.post('/api/people/bulk-upload', authenticate, async (c) => {
   const rows = Array.isArray(body?.rows) ? body.rows : []
   if (!rows.length) return c.json({ error: 'No rows provided.' }, 400)
   if (rows.length > 1000000) return c.json({ error: 'Maximum 1,000,000 rows per upload.' }, 400)
+  // The job runs later without the uploader, so the HOS rule is checked now.
+  if (rows.some((row: any) => parseRoleList(row?.role, row?.roles).includes('hos')) && !await actorIsSchoolOwner(c.env.APP_DB, c.var.user || {})) {
+    return c.json({ error: 'Only the School Owner can appoint a Head of School. Remove HOS rows from this upload.' }, 403)
+  }
   const jobId = `bpj_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`
   const key = `bulk-people/${tenantId}/${jobId}.json`
   await c.env.UPLOADS.put(key, JSON.stringify(rows), { httpMetadata: { contentType: 'application/json' } })
@@ -13716,6 +16760,8 @@ app.put('/api/people/:userId/role', authenticate, async (c) => {
     const mergedRoles = parseRoleList(settings?.primaryRole, settings?.role, settings?.roles, normalizedRole)
     const primaryRole = getPrimaryRole(settings || existingUser || {}, mergedRoles[0] || normalizedRole) || normalizedRole
     await assertTenantOwnerAssignmentAllowed(c.env.APP_DB, tenantId, [primaryRole, mergedRoles], userId)
+    await assertHosAppointmentAllowed(c.env.APP_DB, c.var.user || {}, [primaryRole, mergedRoles],
+      [existingUser?.role, existingUser?.primary_role, settings?.role, settings?.primaryRole, settings?.roles])
     const employmentCategory = deriveEmploymentCategory(primaryRole, settings?.employmentCategory || existingUser?.employment_category, mergedRoles)
     await c.env.APP_DB.prepare(`UPDATE users SET role=?, primary_role=?, employment_category=? WHERE id=? AND tenantId=?`).bind(primaryRole, primaryRole, employmentCategory, userId, tenantId).run()
     if (existingUser?.email) {
@@ -13727,6 +16773,7 @@ app.put('/api/people/:userId/role', authenticate, async (c) => {
     await addAudit(c.env.APP_DB, tenantId, { action: 'personRoleUpdated', data: { by: c.var.user.id, userId, role: normalizedRole, roles: mergedRoles } })
     return c.json({ success: true })
   } catch (err) {
+    if (err instanceof HosAppointmentError) return c.json({ error: err.message }, 403)
     return c.json({ error: 'Could not update role.' }, 500)
   }
 })
@@ -14510,7 +17557,7 @@ app.get('/api/school/branding', authenticate, async (c) => {
 })
 
 app.post('/api/school/branding', authenticate, async (c) => {
-  if (!hasRequiredRole(c.var.user.role, ['owner'])) return c.json({ error: 'forbidden' }, 403)
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos'])) return c.json({ error: 'forbidden' }, 403)
   const { tenant } = await resolveTenantForActor(c)
   if (!tenant) return c.json({ error: 'Tenant not found.' }, 404)
   const { tagline, website, logoUrl, facebook, instagram, tiktok, youtube, whatsapp } = await c.req.json()
@@ -14853,7 +17900,7 @@ async function recordTenantMedia(db: D1Database, entry: Record<string, any>) {
 
 // Logo file upload to R2
 app.post('/api/school/logo', authenticate, async (c) => {
-  if (!hasRequiredRole(c.var.user.role, ['owner'])) return c.json({ error: 'forbidden' }, 403)
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos'])) return c.json({ error: 'forbidden' }, 403)
   const { tenant } = await resolveTenantForActor(c)
   if (!tenant) return c.json({ error: 'Tenant not found.' }, 404)
   const formData = await c.req.formData()
@@ -18029,6 +21076,7 @@ app.put('/api/school/classes/:classId', authenticate, async (c) => {
       : undefined
     if (normalizedTeacherId !== undefined) { sets.push('classTeacherId = ?'); vals.push(normalizedTeacherId) }
     if (sets.length === 0) return c.json({ error: 'Nothing to update.' }, 400)
+    if (classTeacherId !== undefined || teacherIds !== undefined) await syncTeachingLedger(c.env.APP_DB, tenantId)
     vals.push(classId, tenantId)
     await c.env.APP_DB.prepare(`UPDATE classes SET ${sets.join(', ')} WHERE id = ? AND tenantId = ?`).bind(...vals).run()
 
@@ -18076,6 +21124,7 @@ app.put('/api/school/classes', authenticate, async (c) => {
   if (!rows.length) return c.json({ error: 'classes array required.' }, 400)
 
   const results: Array<{ id: string, status: 'ok' | 'error', error?: string }> = []
+  await syncTeachingLedger(c.env.APP_DB, tenantId)
   for (const row of rows) {
     const classId = String(row?.id || '').trim()
     if (!classId) {
@@ -18164,6 +21213,7 @@ app.delete('/api/school/classes/:classId', authenticate, async (c) => {
       await upsertSettings(c.env.APP_DB, String(row.studentId || ''), payload)
     }
 
+    await syncTeachingLedger(c.env.APP_DB, tenantId)
     await replaceClassMemberships(c.env.APP_DB, tenantId, classId, 'teacher', [])
     await replaceClassMemberships(c.env.APP_DB, tenantId, classId, 'caregiver', [])
     await c.env.APP_DB.prepare(`DELETE FROM subjects WHERE tenantId = ? AND classId = ?`).bind(tenantId, classId).run().catch(() => null)
@@ -18271,9 +21321,21 @@ app.put('/api/school/subjects/:subjectId', authenticate, async (c) => {
     const existingSubject = await c.env.APP_DB.prepare(`SELECT * FROM subjects WHERE id = ? AND tenantId = ?`).bind(subjectId, tenantId).first() as Record<string, any> | null
     if (!existingSubject) return c.json({ error: 'Subject not found.' }, 404)
 
+    // A rename keeps the subject's id and every record linked to it; see subjectRename.ts.
+    let renamed = false
+    if (name !== undefined && String(name || '').replace(/\s+/g, ' ').trim() !== String(existingSubject.name || '')) {
+      const result = await renameSubject(c.env.APP_DB, {
+        tenantId,
+        subjectId,
+        name,
+        actorId: String(c.var.user?.id || ''),
+        actorName: String(c.var.user?.name || ''),
+      })
+      renamed = result.renamed
+    }
+
     const sets: string[] = []
     const vals: unknown[] = []
-    if (name !== undefined) { sets.push('name = ?'); vals.push(name) }
     const normalizedClassId = classId !== undefined
       ? (String(classId || '').trim() || null)
       : (String(existingSubject.classId || '').trim() || null)
@@ -18288,13 +21350,25 @@ app.put('/api/school/subjects/:subjectId', authenticate, async (c) => {
     }
     if (classId !== undefined) { sets.push('classId = ?'); vals.push(normalizedClassId) }
     if (teacherId !== undefined) { sets.push('teacherId = ?'); vals.push(normalizedTeacherId) }
-    if (sets.length === 0) return c.json({ error: 'Nothing to update.' }, 400)
+    if (sets.length === 0) {
+      if (renamed || name !== undefined) return c.json({ success: true, renamed })
+      return c.json({ error: 'Nothing to update.' }, 400)
+    }
+    if (teacherId !== undefined || classId !== undefined) await syncTeachingLedger(c.env.APP_DB, tenantId)
     vals.push(subjectId, tenantId)
     await c.env.APP_DB.prepare(`UPDATE subjects SET ${sets.join(', ')} WHERE id = ? AND tenantId = ?`).bind(...vals).run()
-    return c.json({ success: true })
+    return c.json({ success: true, renamed })
   } catch (err) {
+    if (err instanceof SubjectRenameError) return c.json({ error: err.message }, err.status as any)
     return c.json({ error: err instanceof Error ? err.message : 'Could not update subject.' }, 500)
   }
+})
+
+app.get('/api/school/subjects/:subjectId/renames', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos', 'ict', 'ict_manager'])) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  return c.json({ success: true, renames: await listSubjectRenames(c.env.APP_DB, tenantId, c.req.param('subjectId')) })
 })
 
 app.delete('/api/school/subjects/:subjectId', authenticate, async (c) => {
@@ -18303,6 +21377,7 @@ app.delete('/api/school/subjects/:subjectId', authenticate, async (c) => {
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
   const subjectId = c.req.param('subjectId')
   try {
+    await syncTeachingLedger(c.env.APP_DB, tenantId)
     await c.env.APP_DB.prepare(`DELETE FROM subjects WHERE id = ? AND tenantId = ?`).bind(subjectId, tenantId).run()
     return c.json({ success: true })
   } catch (err) {
@@ -18415,6 +21490,7 @@ app.post('/api/school/subjects/assignments/bulk', authenticate, async (c) => {
     const subjectIds = ((targetRows.results || []) as Record<string, any>[]).map(row => String(row.id || '').trim()).filter(Boolean)
     if (!subjectIds.length) return c.json({ error: 'No matching subject records were found.' }, 404)
 
+    await syncTeachingLedger(c.env.APP_DB, tenantId)
     for (const subjectId of subjectIds) {
       await c.env.APP_DB.prepare(
         `UPDATE subjects SET teacherId = ? WHERE id = ? AND tenantId = ?`
@@ -18659,6 +21735,104 @@ app.post('/api/results/settings', authenticate, async (c) => {
   return c.json({ success: true, settings, configurationReady: true, configurationError: '' })
 })
 
+// ─── Practice results and the exam period ────────────────────────────────────
+//
+// Every class has a practice score sheet that runs on the real engine, so staff
+// can learn entry, review, submission, publishing and what students will see.
+// It stays open until the HoS/owner activates exams for the current term, and
+// comes back once those exams have ended and the term's results are published.
+
+type ResultPeriod = { sessionId: string, termId: string, sessionName: string, termName: string }
+
+const PRACTICE_SAMPLE_STUDENTS = ['Adaeze Okafor', 'Babatunde Adeyemi', 'Chiamaka Eze', 'Daniel Musa', 'Esther Bello']
+const PRACTICE_SAMPLE_SUBJECTS = ['English Language', 'Mathematics', 'Basic Science']
+
+class ResultWorkspaceError extends Error {
+  constructor(message: string, readonly status: 400 | 409 = 400) { super(message) }
+}
+
+async function resolveResultPracticeState(db: D1Database, tenantId: string) {
+  let currentPeriod: ResultPeriod | null = null
+  try { currentPeriod = await resolveCurrentResultPeriod(db, tenantId) } catch { currentPeriod = null }
+  const examPeriod = currentPeriod
+    ? await getResultExamPeriod(db, tenantId, currentPeriod.sessionName, currentPeriod.termName)
+    : { sessionName: '', termName: '', status: 'none' as const, activatedBy: null, activatedAt: null, endedBy: null, endedAt: null }
+  const label = currentPeriod ? `${currentPeriod.termName} ${currentPeriod.sessionName}`.trim() : 'this term'
+  let practiceAvailable = true
+  let practiceReason = ''
+  if (examPeriod.status === 'active') {
+    practiceAvailable = false
+    practiceReason = `Exams are active for ${label}. Practice results come back once the exams end and results are published.`
+  } else if (examPeriod.status === 'ended' && currentPeriod && await countPublishedResultBatches(db, tenantId, currentPeriod.sessionName, currentPeriod.termName) === 0) {
+    practiceAvailable = false
+    practiceReason = `Exams have ended for ${label}. Practice results come back once this term's results are published.`
+  }
+  return { currentPeriod, examPeriod, practiceAvailable, practiceReason }
+}
+
+async function listClassSubjectExclusions(db: D1Database, tenantId: string, classId: string) {
+  const rows = await db.prepare(`SELECT subjectId, studentId FROM subject_exclusions WHERE tenantId = ? AND classId = ?`)
+    .bind(tenantId, classId).all().then(result => (result.results || []) as Record<string, any>[]).catch(() => [] as Record<string, any>[])
+  const bySubject: Record<string, string[]> = {}
+  for (const row of rows) (bySubject[String(row.subjectId)] ||= []).push(String(row.studentId))
+  return bySubject
+}
+
+/**
+ * The period, roster and subjects a results request works on: the real term,
+ * or the class's practice sheet when `mode` is 'practice'. A practice sheet for
+ * a class with no students (or, for the class teacher, no subjects) gets a small
+ * sample so every school can try the whole flow.
+ */
+async function resolveResultWorkspace(db: D1Database, access: Awaited<ReturnType<typeof resolveResultClassAccess>>, input: Record<string, any>) {
+  const practice = String(input.mode || '').trim().toLowerCase() === 'practice'
+  let period: ResultPeriod
+  if (practice) {
+    const state = await resolveResultPracticeState(db, access.tenantId)
+    if (!state.practiceAvailable) throw new ResultWorkspaceError(state.practiceReason, 409)
+    period = { sessionId: '', termId: '', sessionName: PRACTICE_PERIOD_KEY, termName: PRACTICE_PERIOD_KEY }
+  } else {
+    try {
+      period = await resolveCurrentResultPeriod(db, access.tenantId, input.sessionName || input.session, input.termName || input.term, { sessionId: input.sessionId, termId: input.termId })
+    } catch (error) {
+      if (error instanceof ResultPeriodError) throw new ResultWorkspaceError(error.message)
+      throw error
+    }
+  }
+
+  const classRow = access.classRow as Record<string, any>
+  const className = `${classRow.name}${classRow.arm ? ` ${classRow.arm}` : ''}`
+  let students = await listResultClassStudents(db, access.tenantId, classRow)
+  let subjectRows = access.allowedSubjectRows
+  let sampleRoster = false
+  if (practice && !students.length) {
+    sampleRoster = true
+    students = PRACTICE_SAMPLE_STUDENTS.map((name, index) => ({
+      id: `practice-student-${index + 1}`, name, email: '', displayId: `PRACTICE-${String(index + 1).padStart(3, '0')}`,
+      classId: String(classRow.id || ''), className, status: 'active',
+    }))
+  }
+  if (practice && !access.subjectRows.length && access.canManageProfiles) {
+    sampleRoster = true
+    subjectRows = PRACTICE_SAMPLE_SUBJECTS.map((name, index) => ({ id: `practice-subject-${index + 1}`, name, teacherId: '' }))
+  }
+
+  return {
+    practice,
+    period,
+    displayPeriod: practice ? { ...period, sessionName: PRACTICE_SESSION_LABEL, termName: PRACTICE_TERM_LABEL } : period,
+    className,
+    students,
+    subjectRows,
+    sampleRoster,
+  }
+}
+
+function resultWorkspaceFailure(c: any, error: unknown) {
+  if (error instanceof ResultWorkspaceError) return c.json({ error: error.message, practiceLocked: error.status === 409 }, error.status)
+  throw error
+}
+
 app.get('/api/results/sheet', authenticate, async (c) => {
   const query = c.req.query()
   const classId = String(query.classId || '').trim()
@@ -18667,45 +21841,74 @@ app.get('/api/results/sheet', authenticate, async (c) => {
   const access = await resolveResultClassAccess(c.env.APP_DB, c.var.user || {}, classId)
   if (!access.tenantId) return c.json({ error: 'No tenant.' }, 400)
   if (!access.classRow) return c.json({ error: 'Class not found.' }, 404)
-  if (!access.canManageEntries && !access.isElevatedManager) return c.json({ error: 'forbidden' }, 403)
+  const sectionHead = await isSectionHeadForClass(c.env.APP_DB, access.tenantId, access.normalizedRole, access.classRow)
+  if (!access.canManageEntries && !access.isElevatedManager && !sectionHead) return c.json({ error: 'forbidden' }, 403)
 
-  const period = await resolveCurrentResultPeriod(c.env.APP_DB, access.tenantId, query.sessionName || query.session, query.termName || query.term)
+  let workspace
+  try {
+    workspace = await resolveResultWorkspace(c.env.APP_DB, access, query)
+  } catch (error) {
+    return resultWorkspaceFailure(c, error)
+  }
+  const { period, practice } = workspace
+  const practiceState = await resolveResultPracticeState(c.env.APP_DB, access.tenantId)
   const tenant = await getTenantById(c.env.APP_DB, access.tenantId)
   const tenantBranding = await getTenantSchoolBranding(c.env.APP_DB, tenant)
   const storedSettings = await getResultSettings(c.env.APP_DB, access.tenantId, classSectionValue(access.classRow))
   const settings = attachTenantBrandingToResultSettings({ ...storedSettings, ...normalizeResultSettingsInput(storedSettings) }, tenantBranding)
   const configurationError = validateResultSettings(settings)
   const batch = await getResultBatch(c.env.APP_DB, access.tenantId, classId, period.sessionName, period.termName)
-  const [entries, profiles, students] = await Promise.all([
+  const [entries, profiles, exclusions, caSubmissions] = await Promise.all([
     listResultEntries(c.env.APP_DB, batch.id),
     listResultStudentProfiles(c.env.APP_DB, batch.id),
-    listResultClassStudents(c.env.APP_DB, access.tenantId, access.classRow),
+    listClassSubjectExclusions(c.env.APP_DB, access.tenantId, classId),
+    listCaSubmissions(c.env.APP_DB, batch.id),
   ])
+  const canSubmit = access.canManageProfiles || RESULT_APPROVER_ROLES.includes(access.normalizedRole)
 
   return c.json({
     success: true,
-    period,
+    mode: practice ? 'practice' : 'live',
+    period: workspace.displayPeriod,
+    currentPeriod: practiceState.currentPeriod,
+    examPeriod: practiceState.examPeriod,
+    practice: {
+      available: practiceState.practiceAvailable,
+      reason: practiceState.practiceReason,
+      sampleRoster: workspace.sampleRoster,
+    },
     settings,
     configurationReady: !configurationError,
     configurationError,
     templates: RESULT_TEMPLATE_CATALOG,
     classroom: {
       id: String(access.classRow.id || ''),
-      className: `${access.classRow.name}${access.classRow.arm ? ` ${access.classRow.arm}` : ''}`,
+      className: workspace.className,
       isClassTeacher: access.isClassTeacher,
     },
     permissions: {
       canManageEntries: access.canManageEntries,
       canManageProfiles: access.canManageProfiles,
-      canSubmit: access.canManageProfiles || RESULT_APPROVER_ROLES.includes(access.normalizedRole),
-      canPublish: RESULT_APPROVER_ROLES.includes(access.normalizedRole),
+      canSubmit,
+      // In practice anyone who can submit may also try publishing; nothing reaches students.
+      canPublish: RESULT_APPROVER_ROLES.includes(access.normalizedRole) || (practice && canSubmit),
+      canPreview: true,
+      canManageExamPeriod: RESULT_APPROVER_ROLES.includes(access.normalizedRole),
+      overrideRank: access.overrideRank,
+      // C.A. hand-in: section heads approve for their section; the HoS/Owner give final approval.
+      canReviewCa: sectionHead || RESULT_APPROVER_ROLES.includes(access.normalizedRole),
+      canApproveCa: RESULT_APPROVER_ROLES.includes(access.normalizedRole),
+      canEditApprovedCa: RESULT_APPROVER_ROLES.includes(access.normalizedRole),
     },
-    subjects: access.allowedSubjectRows.map(subject => ({
+    caSubmissions,
+    subjects: workspace.subjectRows.map(subject => ({
       id: String(subject.id || ''),
       name: String(subject.name || ''),
       teacherId: String(subject.teacherId || ''),
+      ownSubject: !String(subject.teacherId || '').trim() || matchesComparableIdentifier(subject.teacherId, access.teacherIdentifiers),
     })),
-    students,
+    exclusions,
+    students: workspace.students,
     batch,
     entries,
     profiles,
@@ -18723,16 +21926,22 @@ app.post('/api/results/entries', authenticate, async (c) => {
   if (!access.classRow) return c.json({ error: 'Class not found.' }, 404)
   if (!access.canManageEntries) return c.json({ error: 'You are not allowed to enter scores for this class.' }, 403)
 
-  const period = await resolveCurrentResultPeriod(c.env.APP_DB, access.tenantId, body.sessionName || body.session, body.termName || body.term)
-  await ensureSessionTermExists(c.env.APP_DB, access.tenantId, period.sessionName, period.termName)
+  let workspace
+  try {
+    workspace = await resolveResultWorkspace(c.env.APP_DB, access, body)
+  } catch (error) {
+    return resultWorkspaceFailure(c, error)
+  }
+  const { period } = workspace
+  if (!workspace.practice) await ensureSessionTermExists(c.env.APP_DB, access.tenantId, period.sessionName, period.termName)
   const storedSettings = await getResultSettings(c.env.APP_DB, access.tenantId, classSectionValue(access.classRow))
   const settings = { ...storedSettings, ...normalizeResultSettingsInput(storedSettings) }
   const configurationError = validateResultSettings(settings)
   if (configurationError) return c.json({ error: configurationError }, 400)
 
-  const students = await listResultClassStudents(c.env.APP_DB, access.tenantId, access.classRow)
-  const allowedStudentIds = new Set(students.map(student => String(student.id || '')))
-  const allowedSubjects = new Map(access.allowedSubjectRows.map(subject => [String(subject.id || ''), subject]))
+  const allowedStudentIds = new Set(workspace.students.map(student => String(student.id || '')))
+  const allowedSubjects = new Map(workspace.subjectRows.map(subject => [String(subject.id || ''), subject]))
+  const exclusions = await listClassSubjectExclusions(c.env.APP_DB, access.tenantId, classId)
   const scoreSettings = normalizeResultScoreSettings(settings.metadata, RESULT_DEFAULT_SCORE_LIMITS)
   const caComponents = normalizeResultCaComponentList(settings.metadata?.caComponents, RESULT_DEFAULT_CA_COMPONENTS, 8, scoreSettings.caMaxScore)
   const rows = Array.isArray(body.rows) ? body.rows : []
@@ -18741,14 +21950,17 @@ app.post('/api/results/entries', authenticate, async (c) => {
       const subject = allowedSubjects.get(String(row.subjectId || ''))
       const studentId = String(row.studentId || '')
       if (!subject || !allowedStudentIds.has(studentId)) return null
+      if ((exclusions[String(subject.id || '')] || []).includes(studentId)) return null
 
       const componentScores = normalizeResultEntryCaComponents(row.caComponents, caComponents, row.caScore, scoreSettings.caMaxScore)
+      const subjectTeacherId = String(subject.teacherId || '').trim()
 
       return {
         studentId,
         subjectId: String(subject.id || ''),
         subjectName: String(subject.name || ''),
-        teacherId: String(subject.teacherId || access.actorId || ''),
+        teacherId: String(subjectTeacherId || access.actorId || ''),
+        ownSubject: !subjectTeacherId || matchesComparableIdentifier(subjectTeacherId, access.teacherIdentifiers),
         caComponents: componentScores,
         caScore: sumResultEntryCaComponents(componentScores, caComponents, scoreSettings.caMaxScore),
         examScore: clampResultScore(row.examScore, scoreSettings.examMaxScore),
@@ -18758,7 +21970,11 @@ app.post('/api/results/entries', authenticate, async (c) => {
 
   if (normalizedRows.length === 0) return c.json({ error: 'No valid score rows were provided.' }, 400)
 
-  const batch = await upsertResultEntries(c.env.APP_DB, {
+  let written
+  try {
+    written = await writeResultEntries(c.env.APP_DB, {
+    sessionId: period.sessionId,
+    termId: period.termId,
     tenantId: access.tenantId,
     classId,
     sessionName: period.sessionName,
@@ -18767,9 +21983,15 @@ app.post('/api/results/entries', authenticate, async (c) => {
     templateKey: settings.templateKey,
     settingsSnapshot: settings,
     rows: normalizedRows,
-  })
+    writer: { name: access.actorName, role: access.normalizedRole, rank: access.overrideRank, reason: String(body.reason || '').trim() },
+    frozen: frozenCaComponents(await listCaSubmissions(c.env.APP_DB, (await getResultBatch(c.env.APP_DB, access.tenantId, classId, period.sessionName, period.termName)).id)),
+    frozenOverride: RESULT_APPROVER_ROLES.includes(access.normalizedRole),
+    })
+  } catch (error) {
+    return c.json({ error: error instanceof Error ? error.message : 'Could not save these scores.' }, 409)
+  }
 
-  return c.json({ success: true, batch, savedRows: normalizedRows.length })
+  return c.json({ success: true, batch: written.batch, savedRows: written.saved, overrides: written.overrides, locked: written.locked })
 })
 
 app.post('/api/results/profiles', authenticate, async (c) => {
@@ -18783,15 +22005,20 @@ app.post('/api/results/profiles', authenticate, async (c) => {
   if (!access.classRow) return c.json({ error: 'Class not found.' }, 404)
   if (!access.canManageProfiles) return c.json({ error: 'Only the class teacher, HoS, owner, or ICT manager can update class result profiles.' }, 403)
 
-  const period = await resolveCurrentResultPeriod(c.env.APP_DB, access.tenantId, body.sessionName || body.session, body.termName || body.term)
-  await ensureSessionTermExists(c.env.APP_DB, access.tenantId, period.sessionName, period.termName)
+  let workspace
+  try {
+    workspace = await resolveResultWorkspace(c.env.APP_DB, access, body)
+  } catch (error) {
+    return resultWorkspaceFailure(c, error)
+  }
+  const { period } = workspace
+  if (!workspace.practice) await ensureSessionTermExists(c.env.APP_DB, access.tenantId, period.sessionName, period.termName)
   const storedSettings = await getResultSettings(c.env.APP_DB, access.tenantId, classSectionValue(access.classRow))
   const settings = { ...storedSettings, ...normalizeResultSettingsInput(storedSettings) }
   const configurationError = validateResultSettings(settings)
   if (configurationError) return c.json({ error: configurationError }, 400)
 
-  const students = await listResultClassStudents(c.env.APP_DB, access.tenantId, access.classRow)
-  const allowedStudentIds = new Set(students.map(student => String(student.id || '')))
+  const allowedStudentIds = new Set(workspace.students.map(student => String(student.id || '')))
   const affectiveDomains = normalizeResultDomainList(settings.affectiveDomains, RESULT_DEFAULT_AFFECTIVE_DOMAINS, 8)
   const ratingDomains = normalizeResultDomainList(settings.metadata?.ratingDomains, RESULT_DEFAULT_RATING_DOMAINS, 8)
   const affectiveMax = Math.max(...settings.affectiveScale.map((entry: any) => Number(entry.value || 0)), 5)
@@ -18830,6 +22057,8 @@ app.post('/api/results/profiles', authenticate, async (c) => {
   if (normalizedRows.length === 0) return c.json({ error: 'No valid student profile rows were provided.' }, 400)
 
   const batch = await upsertResultStudentProfiles(c.env.APP_DB, {
+    sessionId: period.sessionId,
+    termId: period.termId,
     tenantId: access.tenantId,
     classId,
     sessionName: period.sessionName,
@@ -18847,7 +22076,10 @@ app.post('/api/results/batch-status', authenticate, async (c) => {
   const body = await c.req.json().catch(() => ({}))
   const classId = String(body.classId || '').trim()
   const status = String(body.status || '').trim().toLowerCase()
-  if (!classId || !['draft', 'submitted'].includes(status)) return c.json({ error: 'classId and a valid status are required.' }, 400)
+  const practiceMode = String(body.mode || '').trim().toLowerCase() === 'practice'
+  // A practice batch may also be marked published, to walk through the release step.
+  const allowed = practiceMode ? ['draft', 'submitted', 'published'] : ['draft', 'submitted']
+  if (!classId || !allowed.includes(status)) return c.json({ error: 'classId and a valid status are required.' }, 400)
 
   const access = await resolveResultClassAccess(c.env.APP_DB, c.var.user || {}, classId)
   if (!access.tenantId) return c.json({ error: 'No tenant.' }, 400)
@@ -18856,11 +22088,17 @@ app.post('/api/results/batch-status', authenticate, async (c) => {
     return c.json({ error: 'Only the class teacher, HoS, or owner can submit this batch.' }, 403)
   }
 
-  const period = await resolveCurrentResultPeriod(c.env.APP_DB, access.tenantId, body.sessionName || body.session, body.termName || body.term)
-  await ensureSessionTermExists(c.env.APP_DB, access.tenantId, period.sessionName, period.termName)
+  let workspace
+  try {
+    workspace = await resolveResultWorkspace(c.env.APP_DB, access, body)
+  } catch (error) {
+    return resultWorkspaceFailure(c, error)
+  }
+  const { period } = workspace
+  if (!workspace.practice) await ensureSessionTermExists(c.env.APP_DB, access.tenantId, period.sessionName, period.termName)
   const storedSettings = await getResultSettings(c.env.APP_DB, access.tenantId, classSectionValue(access.classRow))
   const settings = { ...storedSettings, ...normalizeResultSettingsInput(storedSettings) }
-  if (status === 'submitted') {
+  if (status !== 'draft') {
     const configurationError = validateResultSettings(settings)
     if (configurationError) return c.json({ error: configurationError }, 400)
   }
@@ -18871,12 +22109,217 @@ app.post('/api/results/batch-status', authenticate, async (c) => {
     sessionName: period.sessionName,
     termName: period.termName,
     actorId: access.actorId,
-    status: status as 'draft' | 'submitted',
+    status: status as 'draft' | 'submitted' | 'published',
     templateKey: settings.templateKey,
     settingsSnapshot: settings,
   })
 
   return c.json({ success: true, batch })
+})
+
+/** Whether a section head (principal, headteacher, nursery head by default) oversees this class's section. */
+async function isSectionHeadForClass(db: D1Database, tenantId: string, role: string, classRow: Record<string, any> | null) {
+  if (!classRow || !tenantId) return false
+  const scope = viewerSections([role], await getComplianceSettings(db, tenantId))
+  return scope !== 'all' && scope.includes(classSectionValue(classRow) as ComplianceSection)
+}
+
+/** A subject teacher (or the class teacher) hands in a C.A. for review. */
+app.post('/api/results/ca-submissions', authenticate, async (c) => {
+  const body = await c.req.json().catch(() => ({})) as Record<string, any>
+  const classId = String(body.classId || '').trim()
+  const access = await resolveResultClassAccess(c.env.APP_DB, c.var.user || {}, classId)
+  if (!access.tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!access.classRow) return c.json({ error: 'Class not found.' }, 404)
+  let workspace
+  try {
+    workspace = await resolveResultWorkspace(c.env.APP_DB, access, body)
+  } catch (error) {
+    return resultWorkspaceFailure(c, error)
+  }
+  const subject = workspace.subjectRows.find(item => String(item.id) === String(body.subjectId || ''))
+  if (!subject) return c.json({ error: 'Hand in C.A. for a subject you teach in this class.' }, 403)
+  const components = await schoolCaComponents(c.env.APP_DB, access.tenantId)
+  const componentKey = String(body.componentKey || '').trim()
+  const component = componentKey === 'all' ? { key: 'all', label: 'All C.A.' } : components.find(item => item.key === componentKey)
+  if (!component) return c.json({ error: 'Choose which C.A. you are handing in.' }, 400)
+
+  // Every student who takes the subject needs a score row before it can be handed in.
+  const { period } = workspace
+  const batch = await getResultBatch(c.env.APP_DB, access.tenantId, classId, period.sessionName, period.termName)
+  const entries = (await listResultEntries(c.env.APP_DB, batch.id)).filter(entry => entry.subjectId === String(subject.id))
+  const excluded = new Set((await listClassSubjectExclusions(c.env.APP_DB, access.tenantId, classId))[String(subject.id)] || [])
+  const missing = workspace.students.filter(student => !excluded.has(String(student.id)) && !entries.some(entry => entry.studentId === String(student.id)))
+  if (missing.length) return c.json({ error: `Enter scores for every student first. Missing: ${missing.slice(0, 6).map(student => student.name).join(', ')}${missing.length > 6 ? '…' : ''}.` }, 400)
+  const keys = component.key === 'all' ? components.map(item => item.key) : [component.key]
+  if (entries.length && entries.every(entry => keys.every(key => Number(entry.caComponents?.[key] || 0) === 0))) {
+    return c.json({ error: `Every score for ${component.label} is zero. Enter the scores before handing them in.` }, 400)
+  }
+  try {
+    const submission = await submitCaComponent(c.env.APP_DB, {
+      tenantId: access.tenantId, batchId: batch.id, classId, sessionName: period.sessionName, termName: period.termName,
+      subjectId: String(subject.id), subjectName: String(subject.name || ''), componentKey: component.key, componentLabel: component.label,
+      teacher: { id: access.actorId, name: access.actorName },
+    })
+    return c.json({ success: true, submission }, 201)
+  } catch (error) {
+    return c.json({ error: error instanceof Error ? error.message : 'Could not hand in these scores.' }, 409)
+  }
+})
+
+app.post('/api/results/ca-submissions/:id/review', authenticate, async (c) => {
+  const { tenantId } = await resolveSubmissionActor(c.env.APP_DB, c.var.user || {})
+  const submission = await getCaSubmission(c.env.APP_DB, tenantId, c.req.param('id'))
+  if (!submission) return c.json({ error: 'Submission not found.' }, 404)
+  const access = await resolveResultClassAccess(c.env.APP_DB, c.var.user || {}, submission.classId)
+  if (!access.classRow) return c.json({ error: 'Class not found.' }, 404)
+  const finalApprover = RESULT_APPROVER_ROLES.includes(access.normalizedRole)
+  const sectionHead = await isSectionHeadForClass(c.env.APP_DB, access.tenantId, access.normalizedRole, access.classRow)
+  if (!finalApprover && !sectionHead) return c.json({ error: 'Only the section head, HoS or Owner can review C.A. scores.' }, 403)
+  const body = await c.req.json().catch(() => ({})) as Record<string, any>
+  try {
+    const reviewed = await reviewCaSubmission(c.env.APP_DB, { tenantId, id: submission.id, action: String(body.action || ''), note: body.note, actor: { name: access.actorName }, finalApprover })
+    await addAudit(c.env.APP_DB, tenantId, { action: 'caSubmissionReviewed', data: { submissionId: submission.id, subject: submission.subjectName, component: submission.componentLabel, action: body.action, note: body.note || '', by: access.actorName } }).catch(() => null)
+    return c.json({ success: true, submission: reviewed })
+  } catch (error) {
+    return c.json({ error: error instanceof Error ? error.message : 'Could not review these scores.' }, 409)
+  }
+})
+
+// What each student will see once this class is published, computed by the same
+// engine from the current CA score sheet. Nothing is saved or sent to students.
+app.get('/api/results/preview', authenticate, async (c) => {
+  const query = c.req.query()
+  const classId = String(query.classId || '').trim()
+  if (!classId) return c.json({ error: 'classId is required.' }, 400)
+
+  const access = await resolveResultClassAccess(c.env.APP_DB, c.var.user || {}, classId)
+  if (!access.tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!access.classRow) return c.json({ error: 'Class not found.' }, 404)
+  if (!access.canManageEntries && !access.isElevatedManager) return c.json({ error: 'forbidden' }, 403)
+
+  let workspace
+  try {
+    workspace = await resolveResultWorkspace(c.env.APP_DB, access, query)
+  } catch (error) {
+    return resultWorkspaceFailure(c, error)
+  }
+  const { period, displayPeriod, practice } = workspace
+  const tenant = await getTenantById(c.env.APP_DB, access.tenantId)
+  const tenantBranding = await getTenantSchoolBranding(c.env.APP_DB, tenant)
+  const storedSettings = await getResultSettings(c.env.APP_DB, access.tenantId, classSectionValue(access.classRow))
+  const settings = attachTenantBrandingToResultSettings({ ...storedSettings, ...normalizeResultSettingsInput(storedSettings) }, tenantBranding)
+  const configurationError = validateResultSettings(settings)
+  if (configurationError) return c.json({ error: configurationError }, 400)
+
+  const batch = await getResultBatch(c.env.APP_DB, access.tenantId, classId, period.sessionName, period.termName)
+  const [entries, profiles] = await Promise.all([
+    listResultEntries(c.env.APP_DB, batch.id),
+    listResultStudentProfiles(c.env.APP_DB, batch.id),
+  ])
+  const publications = buildPublishedResultPayloads({
+    students: workspace.students,
+    entries,
+    profiles,
+    settings,
+    batch: { ...batch, sessionName: displayPeriod.sessionName, termName: displayPeriod.termName },
+    className: workspace.className,
+    actorName: 'Awaiting HoS approval',
+  })
+  const studentId = String(query.studentId || '').trim()
+  const records = publications
+    .filter(item => !studentId || item.studentId === studentId)
+    .map(item => ({
+      id: `preview_${item.studentId}`,
+      batchId: batch.id,
+      sessionName: displayPeriod.sessionName,
+      termName: displayPeriod.termName,
+      payload: { ...item.payload, preview: true, practice },
+      publishedAt: '',
+    }))
+
+  return c.json({
+    success: true,
+    mode: practice ? 'practice' : 'live',
+    period: displayPeriod,
+    batchStatus: batch.status,
+    students: publications.map(item => ({ id: item.studentId, name: String(item.payload?.student?.name || '') })),
+    publications: records,
+  })
+})
+
+app.get('/api/results/audit', authenticate, async (c) => {
+  const query = c.req.query()
+  const classId = String(query.classId || '').trim()
+  if (!classId) return c.json({ error: 'classId is required.' }, 400)
+
+  const access = await resolveResultClassAccess(c.env.APP_DB, c.var.user || {}, classId)
+  if (!access.tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!access.classRow) return c.json({ error: 'Class not found.' }, 404)
+  if (!access.canManageEntries && !access.isElevatedManager) return c.json({ error: 'forbidden' }, 403)
+
+  let workspace
+  try {
+    workspace = await resolveResultWorkspace(c.env.APP_DB, access, query)
+  } catch (error) {
+    return resultWorkspaceFailure(c, error)
+  }
+  const batch = await getResultBatch(c.env.APP_DB, access.tenantId, classId, workspace.period.sessionName, workspace.period.termName)
+  // A subject teacher sees what was changed in their own subjects.
+  const visibleSubjects = access.overrideRank > 0 ? null : new Set(access.allowedSubjectRows.map(subject => String(subject.id || '')))
+  const names = new Map(workspace.students.map(student => [String(student.id || ''), String(student.name || '')]))
+  const logs = (await listResultEntryAudit(c.env.APP_DB, batch.id))
+    .filter(log => !visibleSubjects || visibleSubjects.has(String(log.subjectId)))
+    .map(log => ({ ...log, studentName: names.get(String(log.studentId)) || String(log.studentId) }))
+
+  return c.json({ success: true, logs })
+})
+
+app.get('/api/results/exam-period', authenticate, async (c) => {
+  const tenantId = String(c.var.user?.tenantId || '')
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  const state = await resolveResultPracticeState(c.env.APP_DB, tenantId)
+  return c.json({ success: true, ...state, canManage: hasRequiredRole(c.var.user.role, RESULT_APPROVER_ROLES) })
+})
+
+app.post('/api/results/exam-period', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, RESULT_APPROVER_ROLES)) return c.json({ error: 'Only the HoS or owner can open or close the exam period.' }, 403)
+  const tenantId = String(c.var.user?.tenantId || '')
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  const body = await c.req.json().catch(() => ({}))
+  const action = String(body.action || '').trim().toLowerCase()
+  if (!['activate', 'end'].includes(action)) return c.json({ error: 'action must be activate or end.' }, 400)
+
+  const state = await resolveResultPracticeState(c.env.APP_DB, tenantId)
+  if (!state.currentPeriod) return c.json({ error: 'Set up the current session and term first.' }, 400)
+  if (action === 'end' && state.examPeriod.status !== 'active') return c.json({ error: 'Exams are not active for this term.' }, 409)
+  if (action === 'activate' && state.examPeriod.status === 'active') return c.json({ error: 'Exams are already active for this term.' }, 409)
+
+  await setResultExamPeriod(c.env.APP_DB, {
+    tenantId,
+    sessionName: state.currentPeriod.sessionName,
+    termName: state.currentPeriod.termName,
+    status: action === 'activate' ? 'active' : 'ended',
+    actorName: String(c.var.user?.name || c.var.user?.email || c.var.user?.id || ''),
+  })
+  // Practice sheets are cleared when real exams begin, so nobody mixes them up.
+  if (action === 'activate') await clearPracticeResults(c.env.APP_DB, tenantId)
+
+  return c.json({ success: true, ...(await resolveResultPracticeState(c.env.APP_DB, tenantId)), canManage: true })
+})
+
+app.post('/api/results/practice/reset', authenticate, async (c) => {
+  const body = await c.req.json().catch(() => ({}))
+  const classId = String(body.classId || '').trim()
+  if (!classId) return c.json({ error: 'classId is required.' }, 400)
+  const access = await resolveResultClassAccess(c.env.APP_DB, c.var.user || {}, classId)
+  if (!access.tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!access.classRow) return c.json({ error: 'Class not found.' }, 404)
+  if (!access.canManageProfiles) return c.json({ error: 'Only the class teacher, HoS or owner can reset the practice sheet.' }, 403)
+  const state = await resolveResultPracticeState(c.env.APP_DB, access.tenantId)
+  if (!state.practiceAvailable) return c.json({ error: state.practiceReason, practiceLocked: true }, 409)
+  await clearPracticeResults(c.env.APP_DB, access.tenantId, classId)
+  return c.json({ success: true })
 })
 
 app.post('/api/results/publish', authenticate, async (c) => {
@@ -18889,7 +22332,13 @@ app.post('/api/results/publish', authenticate, async (c) => {
   if (!access.tenantId) return c.json({ error: 'No tenant.' }, 400)
   if (!access.classRow) return c.json({ error: 'Class not found.' }, 404)
 
-  const period = await resolveCurrentResultPeriod(c.env.APP_DB, access.tenantId, body.sessionName || body.session, body.termName || body.term)
+  let period
+  try {
+    period = await resolveCurrentResultPeriod(c.env.APP_DB, access.tenantId, body.sessionName || body.session, body.termName || body.term, { sessionId: body.sessionId, termId: body.termId })
+  } catch (error) {
+    if (error instanceof ResultPeriodError) return c.json({ error: error.message }, 400)
+    throw error
+  }
   await ensureSessionTermExists(c.env.APP_DB, access.tenantId, period.sessionName, period.termName)
   const tenant = await getTenantById(c.env.APP_DB, access.tenantId)
   const tenantBranding = await getTenantSchoolBranding(c.env.APP_DB, tenant)
@@ -19172,7 +22621,7 @@ app.get('/api/results/records', authenticate, async (c) => {
 })
 
 // ─── Student 360° profile (results, assignments, attendance, records, AI report) ─────────────
-const STUDENT_RECORD_CATEGORIES = ['punishment', 'reward', 'comment', 'report', 'recommendation', 'scholarship', 'competition', 'note']
+const STUDENT_RECORD_CATEGORIES = ALL_STUDENT_RECORD_CATEGORIES
 const STUDENT_PROFILE_MANAGER_ROLES = ['owner', 'hos', 'ict', 'ict_manager', 'admin', 'teacher', 'classteacher', 'accountant', 'principal', 'viceprincipal', 'headteacher', 'nurseryhead', 'examofficer', 'hod', 'hodassistant']
 
 async function ensureStudentRecordsTable(db: D1Database) {
@@ -19214,35 +22663,45 @@ async function resolveStudentProfileAccess(db: D1Database, actorUser: Record<str
   const userIdentifier = actorUser.id || actorUser.email || actorUser.sub || ''
   const resolved = await resolveSettingsIdentity(db, userIdentifier)
   const tenantId = resolved.settings?.tenantId || resolved.settings?.schoolId || resolved.userRow?.tenantId || actorUser.tenantId
-  const role = String(resolved.settings?.role || resolved.userRow?.role || actorUser.role || '').trim().toLowerCase()
+  let role = resolveEffectiveRole(resolved, actorUser)
+  // The Accountant and other administrative staff act under the umbrella "admin" role.
+  const storedRole = normalizeRole(resolved.userRow?.role || resolved.settings?.role || '')
+  if (role === 'admin' && storedRole) role = storedRole
   const actorId = String(resolved.userRow?.id || resolved.settingsKey || userIdentifier || '').trim()
   const actorName = String(resolved.settings?.name || resolved.userRow?.name || actorUser.name || actorId).trim()
+  const denied = { ok: false, canManage: false, tenantId, role, actorId, actorName, student: null as Record<string, any> | null, access: studentFileAccess('none') }
 
   const studentRow = await findUserByIdentifier(db, studentId).catch(() => null)
   const student = ((await hydrateUserRecords(db, studentRow ? [studentRow] : []))[0]) as Record<string, any> | undefined
-  if (!student || String(student.tenantId || '') !== String(tenantId || '') || String(student.role || '').toLowerCase() !== 'student') {
-    return { ok: false, canManage: false, tenantId, role, actorId, actorName, student: null as Record<string, any> | null }
-  }
+  if (!student || String(student.tenantId || '') !== String(tenantId || '') || String(student.role || '').toLowerCase() !== 'student') return denied
 
-  const canManage = STUDENT_PROFILE_MANAGER_ROLES.includes(role)
-  let canView = canManage
   const actorIdentifiers = collectResolvedIdentityIdentifiers(resolved, actorUser).map(value => String(value || '').toLowerCase()).filter(Boolean)
-  if (!canView && role === 'student') {
-    canView = [student.id, student.email, student.displayId].some(value => actorIdentifiers.includes(String(value || '').toLowerCase()))
-  }
-  if (!canView && role === 'parent') {
+  const isSelf = role === 'student' && [student.id, student.email, student.displayId].some(value => actorIdentifiers.includes(String(value || '').toLowerCase()))
+  let isLinkedParent = false
+  if (role === 'parent') {
     await ensureParentStudentLinksTable(db)
     const parentIds = collectResolvedIdentityIdentifiers(resolved, actorUser).filter(Boolean)
     if (parentIds.length) {
       const placeholders = parentIds.map(() => '?').join(', ')
-      const link = await db.prepare(
+      isLinkedParent = Boolean(await db.prepare(
         `SELECT 1 FROM parent_student_links WHERE tenant_id = ? AND student_id = ? AND parent_id IN (${placeholders}) LIMIT 1`
-      ).bind(tenantId, String(student.id || ''), ...parentIds).first().catch(() => null)
-      canView = Boolean(link)
+      ).bind(tenantId, String(student.id || ''), ...parentIds).first().catch(() => null))
     }
   }
-
-  return { ok: canView, canManage, tenantId, role, actorId, actorName, student }
+  // A teacher's access follows their teaching: the class teacher of the student's class, or a teacher of that class.
+  let isClassTeacher = false
+  let teachesClass = false
+  const classId = String(student.classId || '')
+  if (classId && ['teacher', 'classteacher'].includes(role)) {
+    const live = (await loadLiveAssignments(db, String(tenantId || ''))).filter(item => item.classId === classId && actorIdentifiers.includes(String(item.teacherId || '').toLowerCase()))
+    isClassTeacher = live.some(item => item.role === 'class_teacher' || item.role === 'co_teacher')
+    teachesClass = live.length > 0
+  }
+  const access = studentFileAccess(relationFor({ role, isSelf, isLinkedParent, isClassTeacher, teachesClass }))
+  if (!access.view) return denied
+  // "canManage" keeps its old meaning for older screens: staff who may record against the student.
+  const canManage = Object.values(access.groups).some(group => group.add)
+  return { ok: true, canManage, tenantId, role, actorId, actorName, student, access }
 }
 
 // Most-frequently-contacted people for a student, derived from conversations + message volume.
@@ -19351,6 +22810,7 @@ async function buildStudentProfileSnapshot(db: D1Database, tenantId: string, stu
       documentCount: documents.length,
       latestTerm: String((publications[0] as any)?.termName || ''),
       latestSession: String((publications[0] as any)?.sessionName || ''),
+      latestAverage: (publications[0] as any)?.payload?.summary?.average == null ? null : Number((publications[0] as any).payload.summary.average),
     },
     assignments,
     attendance,
@@ -19359,28 +22819,89 @@ async function buildStudentProfileSnapshot(db: D1Database, tenantId: string, stu
   }
 }
 
+async function studentGuardians(db: D1Database, tenantId: string, studentId: string) {
+  await ensureParentStudentLinksTable(db)
+  const links = await db.prepare(`SELECT parent_id, created_at FROM parent_student_links WHERE tenant_id = ? AND student_id = ?`).bind(tenantId, studentId).all().catch(() => ({ results: [] }))
+  const guardians: Array<Record<string, any>> = []
+  for (const link of ((links.results || []) as Record<string, any>[])) {
+    // eslint-disable-next-line no-await-in-loop
+    const row = await findUserByIdentifier(db, String(link.parent_id || '')).catch(() => null)
+    // eslint-disable-next-line no-await-in-loop
+    const parent = row ? ((await hydrateUserRecords(db, [row]))[0] as Record<string, any>) : null
+    guardians.push({
+      id: String(parent?.id || link.parent_id), name: String(parent?.name || link.parent_id), email: String(parent?.email || ''), phone: String(parent?.phone || ''),
+      relationship: String(parent?.relationship || 'Parent / guardian'), linkedAt: link.created_at || null,
+    })
+  }
+  return guardians
+}
+
+/** The chronological file: what happened to this student, newest first, from what the viewer may see. */
+function studentTimeline(options: { records: Array<Record<string, any>>, payments: Array<Record<string, any>>, publications: Array<Record<string, any>> }) {
+  const events: Array<{ at: string, text: string, type: string }> = []
+  for (const record of options.records) events.push({ at: record.createdAt, text: `${record.category.charAt(0).toUpperCase()}${record.category.slice(1)}: ${record.title || record.detail.slice(0, 80)}`, type: record.category })
+  for (const payment of options.payments) if (payment.status !== 'reversed' && Number(payment.amount) > 0) events.push({ at: String(payment.recordedAt || payment.paidOn || ''), text: `Fee payment of ₦${Number(payment.amount).toLocaleString('en-NG')} received`, type: 'payment' })
+  for (const publication of options.publications) events.push({ at: String(publication.publishedAt || ''), text: `Result published: ${publication.termName} ${publication.sessionName}`, type: 'result' })
+  return events.filter(event => event.at).sort((a, b) => b.at.localeCompare(a.at)).slice(0, 60)
+}
+
 app.get('/api/students/:studentId/profile', authenticate, async (c) => {
   const studentId = String(c.req.param('studentId') || '').trim()
   const access = await resolveStudentProfileAccess(c.env.APP_DB, c.var.user || {}, studentId)
   if (!access.tenantId) return c.json({ error: 'No tenant.' }, 400)
   if (!access.ok || !access.student) return c.json({ error: 'forbidden' }, 403)
 
-  const snapshot = await buildStudentProfileSnapshot(c.env.APP_DB, access.tenantId, access.student)
+  const db = c.env.APP_DB
+  const rights = access.access
+  const sid = String(access.student.id || '')
+  const snapshot = await buildStudentProfileSnapshot(db, access.tenantId, access.student)
+  const records = snapshot.records.filter(record => canSeeStudentRecord(rights, record))
+  const [guardians, account, publications] = await Promise.all([
+    rights.guardians.view ? studentGuardians(db, access.tenantId, sid) : Promise.resolve([]),
+    rights.fees.view ? financePeriod(db, access.tenantId).then(period => getStudentAccount(db, { tenantId: access.tenantId, studentId: sid, current: period })).catch(() => null) : Promise.resolve(null),
+    rights.results.view ? listStudentResultPublications(db, access.tenantId, sid).catch(() => [] as Record<string, any>[]) : Promise.resolve([] as Record<string, any>[]),
+  ])
+  const student = access.student
   return c.json({
     success: true,
     canManage: access.canManage,
+    relation: rights.relation,
+    permissions: rights,
     student: {
-      id: String(access.student.id || ''),
-      name: String(access.student.name || ''),
-      email: String(access.student.email || ''),
-      displayId: String(access.student.displayId || ''),
-      classId: String(access.student.classId || ''),
-      className: String(access.student.className || ''),
-      avatar: String(access.student.avatar || access.student.avatarUrl || ''),
-      status: String(access.student.status || 'active'),
+      id: sid,
+      name: String(student.name || ''),
+      email: String(student.email || ''),
+      displayId: String(student.displayId || ''),
+      classId: String(student.classId || ''),
+      className: String(student.className || ''),
+      avatar: String(student.avatar || student.avatarUrl || ''),
+      status: String(student.status || 'active'),
     },
-    ...snapshot,
-    categories: STUDENT_RECORD_CATEGORIES,
+    personal: rights.personal.view ? {
+      dateOfBirth: String(student.dateOfBirth || ''), gender: String(student.gender || ''), address: String(student.address || ''),
+      phone: String(student.phone || ''), admittedOn: String(student.admissionDate || student.createdAt || '').slice(0, 10), religion: String(student.religion || ''),
+      stateOfOrigin: String(student.stateOfOrigin || ''), nationality: String(student.nationality || ''),
+    } : null,
+    guardians,
+    fees: account ? { totals: account.totals, current: account.current, previousOutstanding: account.previousOutstanding } : null,
+    payments: account ? account.payments : [],
+    receipts: account ? account.receipts.map(receipt => ({ id: receipt.id, receiptNo: receipt.receiptNo, status: receipt.status, createdAt: receipt.createdAt })) : [],
+    overview: studentProfileOverview({
+      latestAverage: rights.results.view ? (snapshot.results as any).latestAverage ?? null : null,
+      attendanceRate: rights.attendance.view && snapshot.attendance.total ? snapshot.attendance.rate : null,
+      outstandingFees: account ? account.totals.totalOutstanding : null,
+      records, assignments: rights.academic.view ? snapshot.assignments : null,
+    }),
+    results: rights.results.view ? snapshot.results : null,
+    assignments: rights.academic.view ? snapshot.assignments : null,
+    attendance: rights.attendance.view ? snapshot.attendance : null,
+    records,
+    contacts: rights.personal.add ? snapshot.contacts : [],
+    timeline: studentTimeline({ records, payments: account ? account.payments : [], publications }),
+    categories: STUDENT_RECORD_CATEGORIES.filter(category => canSeeStudentCategory(rights, category)),
+    addableCategories: STUDENT_RECORD_CATEGORIES.filter(category => canAddStudentCategory(rights, category)),
+    // Anything can be added as a private record by those allowed to.
+    privateCategories: rights.addPrivate ? STUDENT_RECORD_CATEGORIES : [],
   })
 })
 
@@ -19388,14 +22909,24 @@ app.post('/api/students/:studentId/records', authenticate, async (c) => {
   const studentId = String(c.req.param('studentId') || '').trim()
   const access = await resolveStudentProfileAccess(c.env.APP_DB, c.var.user || {}, studentId)
   if (!access.tenantId) return c.json({ error: 'No tenant.' }, 400)
-  if (!access.canManage || !access.student) return c.json({ error: 'forbidden' }, 403)
+  if (!access.ok || !access.student) return c.json({ error: 'forbidden' }, 403)
 
   const body = await c.req.json().catch(() => ({})) as Record<string, any>
   const category = String(body.category || '').trim().toLowerCase()
   if (!STUDENT_RECORD_CATEGORIES.includes(category)) return c.json({ error: 'Invalid category.' }, 400)
+  const isPrivate = body.private === true
+  if (isPrivate ? !access.access.addPrivate : !canAddStudentCategory(access.access, category)) {
+    return c.json({ error: isPrivate ? 'Only the HoS, Owner or Accountant can add private records.' : 'You cannot add this kind of record for this student.' }, 403)
+  }
   const title = sanitizeProfileText(String(body.title || '').trim(), 200)
   const detail = sanitizeProfileText(String(body.detail || '').trim(), 4000)
   if (!title && !detail) return c.json({ error: 'Add a title or some detail.' }, 400)
+  const metadata = {
+    ...(body.metadata && typeof body.metadata === 'object' ? body.metadata : {}),
+    ...(Array.isArray(body.files) ? { files: normalizeComplianceFiles(body.files) } : {}),
+    ...(category === 'disciplinary' ? { status: 'open' } : {}),
+    ...(isPrivate ? { visibility: 'private' } : {}),
+  }
 
   await ensureStudentRecordsTable(c.env.APP_DB)
   const id = `srec_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`
@@ -19403,9 +22934,35 @@ app.post('/api/students/:studentId/records', authenticate, async (c) => {
   await c.env.APP_DB.prepare(
     `INSERT INTO student_records (id, tenant_id, student_id, category, title, detail, metadata_json, created_by, created_by_name, created_at)
      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
-  ).bind(id, access.tenantId, String(access.student.id || ''), category, title, detail, JSON.stringify(body.metadata || {}), access.actorId, access.actorName, now).run()
+  ).bind(id, access.tenantId, String(access.student.id || ''), category, title, detail, JSON.stringify(metadata), access.actorId, access.actorName, now).run()
 
-  return c.json({ success: true, record: { id, category, title, detail, metadata: body.metadata || {}, createdBy: access.actorId, createdByName: access.actorName, createdAt: now } }, 201)
+  return c.json({ success: true, record: { id, category, title, detail, metadata, createdBy: access.actorId, createdByName: access.actorName, createdAt: now } }, 201)
+})
+
+/** Move a record along (a disciplinary case closed, for example); the earlier states are kept on it. */
+app.put('/api/students/:studentId/records/:recordId', authenticate, async (c) => {
+  const studentId = String(c.req.param('studentId') || '').trim()
+  const access = await resolveStudentProfileAccess(c.env.APP_DB, c.var.user || {}, studentId)
+  if (!access.tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!access.ok || !access.student) return c.json({ error: 'forbidden' }, 403)
+  await ensureStudentRecordsTable(c.env.APP_DB)
+  const row = await c.env.APP_DB.prepare(`SELECT * FROM student_records WHERE tenant_id = ? AND student_id = ? AND id = ?`).bind(access.tenantId, String(access.student.id || ''), c.req.param('recordId')).first() as Record<string, any> | null
+  if (!row) return c.json({ error: 'Record not found.' }, 404)
+  const record = mapStudentRecordRow(row)
+  const mayChange = record.metadata?.visibility === 'private' ? access.access.addPrivate : canAddStudentCategory(access.access, record.category)
+  if (!mayChange) return c.json({ error: 'You cannot change this record.' }, 403)
+  const body = await c.req.json().catch(() => ({})) as Record<string, any>
+  const status = sanitizeProfileText(String(body.status || '').trim(), 40)
+  const note = sanitizeProfileText(String(body.note || '').trim(), 1000)
+  if (!status && !note) return c.json({ error: 'Give a status or a note.' }, 400)
+  const now = new Date().toISOString()
+  const metadata = {
+    ...record.metadata,
+    ...(status ? { status } : {}),
+    history: [...(Array.isArray(record.metadata.history) ? record.metadata.history : []), { at: now, by: access.actorName, status: status || record.metadata.status || '', note }],
+  }
+  await c.env.APP_DB.prepare(`UPDATE student_records SET metadata_json = ? WHERE id = ?`).bind(JSON.stringify(metadata), record.id).run()
+  return c.json({ success: true, record: { ...record, metadata } })
 })
 
 app.delete('/api/students/:studentId/records/:recordId', authenticate, async (c) => {
@@ -19413,9 +22970,10 @@ app.delete('/api/students/:studentId/records/:recordId', authenticate, async (c)
   const recordId = String(c.req.param('recordId') || '').trim()
   const access = await resolveStudentProfileAccess(c.env.APP_DB, c.var.user || {}, studentId)
   if (!access.tenantId) return c.json({ error: 'No tenant.' }, 400)
-  if (!access.canManage || !access.student) return c.json({ error: 'forbidden' }, 403)
+  if (!access.ok || !access.student || !access.access.deleteRecords) return c.json({ error: 'forbidden' }, 403)
   await ensureStudentRecordsTable(c.env.APP_DB)
   await c.env.APP_DB.prepare(`DELETE FROM student_records WHERE tenant_id = ? AND student_id = ? AND id = ?`).bind(access.tenantId, String(access.student.id || ''), recordId).run()
+  await addAudit(c.env.APP_DB, access.tenantId, { action: 'studentRecordDeleted', data: { studentId: String(access.student.id || ''), recordId, by: access.actorName } }).catch(() => null)
   return c.json({ success: true })
 })
 
@@ -19423,10 +22981,11 @@ app.post('/api/students/:studentId/ai-report', authenticate, async (c) => {
   const studentId = String(c.req.param('studentId') || '').trim()
   const access = await resolveStudentProfileAccess(c.env.APP_DB, c.var.user || {}, studentId)
   if (!access.tenantId) return c.json({ error: 'No tenant.' }, 400)
-  if (!access.ok || !access.student) return c.json({ error: 'forbidden' }, 403)
+  if (!access.ok || !access.student || !access.access.aiReport.view) return c.json({ error: 'forbidden' }, 403)
 
   const snapshot = await buildStudentProfileSnapshot(c.env.APP_DB, access.tenantId, access.student)
-  const recordLines = snapshot.records.slice(0, 30).map(record => `- [${record.category}] ${record.title}${record.detail ? `: ${record.detail}` : ''}`).join('\n') || '- none recorded'
+  // Private records never go into the AI report, which teachers can read.
+  const recordLines = snapshot.records.filter(record => record.metadata?.visibility !== 'private' && canSeeStudentRecord(access.access, record)).slice(0, 30).map(record => `- [${record.category}] ${record.title}${record.detail ? `: ${record.detail}` : ''}`).join('\n') || '- none recorded'
   const dataBlock = [
     `Student: ${access.student.name} (${access.student.displayId || access.student.id})`,
     `Class: ${access.student.className || 'Unassigned'}`,
@@ -19952,7 +23511,7 @@ app.get('/api/school/fees/payment-details', authenticate, async (c) => {
   const resolvedUser = userIdentifier
     ? await resolveSettingsIdentity(c.env.APP_DB, userIdentifier)
     : { settings: null, userRow: null }
-  const role = normalizeRole(resolvedUser.settings?.role || getActiveRole(currentUser))
+  const role = resolveEffectiveRole(resolvedUser, currentUser)
   const tenantId = String(resolvedUser.settings?.tenantId || resolvedUser.settings?.schoolId || resolvedUser.userRow?.tenantId || currentUser.tenantId || '').trim()
 
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
@@ -19963,7 +23522,8 @@ app.get('/api/school/fees/payment-details', authenticate, async (c) => {
 })
 
 app.post('/api/school/fees/payment-details', authenticate, async (c) => {
-  if (!hasRequiredRole(c.var.user.role, [...FEE_PAYMENT_APPROVER_ROLES, 'admin'])) return c.json({ error: 'forbidden' }, 403)
+  const detailsActor = await resolveCalendarManager(c.env.APP_DB, c.var.user || {})
+  if (!hasRequiredRole(detailsActor.role, [...FEE_PAYMENT_APPROVER_ROLES, 'admin'])) return c.json({ error: 'forbidden' }, 403)
   const tenantId = c.var.user?.tenantId
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
 
@@ -20086,7 +23646,7 @@ app.post('/api/school/fees/payment-claims', authenticate, async (c) => {
 })
 
 app.post('/api/school/fees/payment-claims/:claimId/approve', authenticate, async (c) => {
-  if (!hasRequiredRole(c.var.user.role, [...FEE_PAYMENT_APPROVER_ROLES, 'admin'])) return c.json({ error: 'forbidden' }, 403)
+  if (!hasRequiredRole((await resolveCalendarManager(c.env.APP_DB, c.var.user || {})).role, [...FEE_PAYMENT_APPROVER_ROLES, 'admin'])) return c.json({ error: 'forbidden' }, 403)
   const tenantId = c.var.user?.tenantId
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
 
@@ -20169,7 +23729,7 @@ app.post('/api/school/fees/payment-claims/:claimId/approve', authenticate, async
 })
 
 app.post('/api/school/fees/payment-claims/:claimId/reject', authenticate, async (c) => {
-  if (!hasRequiredRole(c.var.user.role, [...FEE_PAYMENT_APPROVER_ROLES, 'admin'])) return c.json({ error: 'forbidden' }, 403)
+  if (!hasRequiredRole((await resolveCalendarManager(c.env.APP_DB, c.var.user || {})).role, [...FEE_PAYMENT_APPROVER_ROLES, 'admin'])) return c.json({ error: 'forbidden' }, 403)
   const tenantId = c.var.user?.tenantId
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
 
@@ -20227,7 +23787,7 @@ app.post('/api/school/fees/payment-claims/:claimId/reject', authenticate, async 
 })
 
 app.post('/api/school/fees/:studentId/pay', authenticate, async (c) => {
-  if (!hasRequiredRole(c.var.user.role, FEE_PAYMENT_APPROVER_ROLES)) return c.json({ error: 'forbidden' }, 403)
+  if (!hasRequiredRole((await resolveCalendarManager(c.env.APP_DB, c.var.user || {})).role, FEE_PAYMENT_APPROVER_ROLES)) return c.json({ error: 'forbidden' }, 403)
   const tenantId = c.var.user?.tenantId
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
   const studentId = c.req.param('studentId')
@@ -20256,7 +23816,7 @@ app.post('/api/school/fees/:studentId/pay', authenticate, async (c) => {
 })
 
 app.post('/api/school/fees/:studentId/issue-receipt', authenticate, async (c) => {
-  if (!hasRequiredRole(c.var.user.role, FEE_PAYMENT_APPROVER_ROLES)) return c.json({ error: 'forbidden' }, 403)
+  if (!hasRequiredRole((await resolveCalendarManager(c.env.APP_DB, c.var.user || {})).role, FEE_PAYMENT_APPROVER_ROLES)) return c.json({ error: 'forbidden' }, 403)
   const tenantId = c.var.user?.tenantId
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
 
@@ -22274,6 +25834,12 @@ async function ensureSchoolCalendarTable(db: D1Database) {
     created_at TEXT,
     updated_at TEXT
   )`).run()
+  // Events carry times, an audience, a reminder and a cancellation record; a
+  // cancelled event stays on file and is excluded everywhere it would show.
+  for (const column of ['start_time TEXT', 'end_time TEXT', 'description TEXT', 'location TEXT', 'audience_json TEXT', 'reminder_minutes INTEGER',
+    'status TEXT', 'cancelled_at TEXT', 'cancelled_by TEXT', 'cancel_reason TEXT', 'updated_by TEXT']) {
+    try { await db.exec(`ALTER TABLE school_calendar_events ADD COLUMN ${column}`) } catch {}
+  }
   await runIndexStatements(db, [
     `CREATE INDEX IF NOT EXISTS idx_school_calendar_tenant_dates ON school_calendar_events(tenant_id, start_date, end_date)`,
   ])
@@ -22281,17 +25847,49 @@ async function ensureSchoolCalendarTable(db: D1Database) {
 }
 
 function mapSchoolCalendarEvent(row: Record<string, any>) {
+  let audience: Record<string, any> = { everyone: true, roles: [], classIds: [] }
+  try { audience = { ...audience, ...(row.audience_json ? JSON.parse(String(row.audience_json)) : {}) } } catch {}
   return {
     id: String(row.id || ''),
     title: String(row.title || ''),
     type: String(row.type || 'event'),
     startDate: String(row.start_date || ''),
     endDate: String(row.end_date || row.start_date || ''),
+    startTime: String(row.start_time || ''),
+    endTime: String(row.end_time || ''),
+    description: String(row.description || ''),
+    location: String(row.location || ''),
+    audience,
+    reminderMinutes: row.reminder_minutes == null ? null : Number(row.reminder_minutes),
+    status: String(row.status || 'published'),
+    cancelledAt: row.cancelled_at || null,
+    cancelReason: String(row.cancel_reason || ''),
     recurringAnnual: Boolean(Number(row.recurring_annual || 0)),
     source: String(row.source || 'school'),
     createdBy: String(row.created_by || ''),
     createdAt: String(row.created_at || ''),
   }
+}
+
+const CALENDAR_AUDIENCE_ROLES = new Set(['staff', 'parent', 'student'])
+const CALENDAR_REMINDERS = new Set([0, 15, 60, 1440, 10080])
+
+function normalizeCalendarTime(value: unknown) {
+  const text = String(value || '').trim()
+  return /^([01]\d|2[0-3]):[0-5]\d$/.test(text) ? text : ''
+}
+
+function normalizeCalendarAudience(value: any) {
+  const roles = (Array.isArray(value?.roles) ? value.roles : []).map((role: unknown) => String(role || '').toLowerCase()).filter((role: string) => CALENDAR_AUDIENCE_ROLES.has(role))
+  const classIds = (Array.isArray(value?.classIds) ? value.classIds : []).map((id: unknown) => String(id || '').trim()).filter(Boolean).slice(0, 200)
+  return { everyone: !roles.length && !classIds.length, roles, classIds }
+}
+
+/** Calendar managers act as their chosen role, checked against the roles they hold. */
+async function resolveCalendarManager(db: D1Database, user: Record<string, any>) {
+  const actor = await resolveSchoolAttendanceActor(db, user)
+  const role = resolveEffectiveRole(actor.resolvedUser, user)
+  return { ...actor, role, canManage: canManageStaffAttendanceConfig(role) }
 }
 
 function listIsoDatesInclusive(startDate: string, endDate: string, max = 400) {
@@ -22336,7 +25934,7 @@ async function listTenantHolidayMap(db: D1Database, tenantId: string, fromDate: 
 
   await ensureSchoolCalendarTable(db)
   const rows = await db.prepare(
-    `SELECT * FROM school_calendar_events WHERE tenant_id = ?`
+    `SELECT * FROM school_calendar_events WHERE tenant_id = ? AND COALESCE(status, 'published') != 'cancelled'`
   ).bind(tenantId).all().catch(() => ({ results: [] }))
 
   for (const row of ((rows.results || []) as Record<string, any>[])) {
@@ -22367,7 +25965,7 @@ async function listTenantHolidayMap(db: D1Database, tenantId: string, fromDate: 
 }
 
 app.get('/api/school/calendar', authenticate, async (c) => {
-  const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
+  const actor = await resolveCalendarManager(c.env.APP_DB, c.var.user || {})
   if (!actor.tenantId) return c.json({ error: 'No tenant.' }, 400)
   const year = new Date().getFullYear()
   const from = String(c.req.query('from') || '').trim() || `${year}-01-01`
@@ -22375,62 +25973,152 @@ app.get('/api/school/calendar', authenticate, async (c) => {
   try {
     await ensureSchoolCalendarTable(c.env.APP_DB)
     const rows = await c.env.APP_DB.prepare(
-      `SELECT * FROM school_calendar_events WHERE tenant_id = ? ORDER BY start_date ASC`
+      `SELECT * FROM school_calendar_events WHERE tenant_id = ? ORDER BY start_date ASC, start_time ASC`
     ).bind(actor.tenantId).all().catch(() => ({ results: [] }))
-    const events = ((rows.results || []) as Record<string, any>[]).map(mapSchoolCalendarEvent)
+    // Managers see everything, cancelled events included; everyone else sees what is addressed to them.
+    let events = ((rows.results || []) as Record<string, any>[]).map(mapSchoolCalendarEvent)
+    if (!actor.canManage) {
+      const audience = await resolveCalendarAudience(c.env.APP_DB, c.var.user || {}, actor.role)
+      events = events.filter(event => event.status !== 'cancelled' && calendarEventReaches(event, audience))
+    }
     const holidayMap = await listTenantHolidayMap(c.env.APP_DB, actor.tenantId, from, to)
     const holidays = Array.from(holidayMap.entries())
       .map(([date, info]) => ({ date, ...info }))
       .sort((a, b) => a.date.localeCompare(b.date))
-    return c.json({ success: true, events, holidays, canManage: canManageStaffAttendanceConfig(actor.role) })
+    return c.json({ success: true, events, holidays, canManage: actor.canManage })
   } catch {
     return c.json({ success: true, events: [], holidays: [], canManage: false })
   }
 })
 
-app.post('/api/school/calendar', authenticate, async (c) => {
-  const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
-  if (!actor.tenantId) return c.json({ error: 'No tenant.' }, 400)
-  if (!canManageStaffAttendanceConfig(actor.role)) return c.json({ error: 'forbidden' }, 403)
-  const body = await c.req.json().catch(() => ({})) as Record<string, any>
+/** Who a calendar viewer is: staff, parent or student, and the classes that concern them. */
+async function resolveCalendarAudience(db: D1Database, user: Record<string, any>, role: string) {
+  if (role === 'student' || role === 'parent') {
+    const learning = await listAccessibleLearningStudents(db, user).catch(() => ({ students: [] as any[] }))
+    return { group: role, classIds: learning.students.map((student: any) => String(student.classId || '')).filter(Boolean) }
+  }
+  return { group: 'staff', classIds: [] as string[] }
+}
+
+function calendarEventReaches(event: ReturnType<typeof mapSchoolCalendarEvent>, audience: { group: string, classIds: string[] }) {
+  if (event.audience.everyone) return true
+  const roleOk = !event.audience.roles.length || event.audience.roles.includes(audience.group)
+  // Class targeting narrows students and parents; staff see school events addressed to staff.
+  const classOk = !event.audience.classIds.length || audience.group === 'staff' || audience.classIds.some(id => event.audience.classIds.includes(id))
+  return roleOk && classOk
+}
+
+/** Upcoming events for the signed-in user's dashboard, with reminders that are due. */
+app.get('/api/school/calendar/upcoming', authenticate, async (c) => {
+  try {
+    const actor = await resolveCalendarManager(c.env.APP_DB, c.var.user || {})
+    if (!actor.tenantId) return c.json({ success: true, events: [] })
+    await ensureSchoolCalendarTable(c.env.APP_DB)
+    const days = Math.min(120, Math.max(1, Number(c.req.query('days') || 30)))
+    const today = lagosToday()
+    const until = new Date(Date.parse(`${today}T00:00:00Z`) + days * 86400000).toISOString().slice(0, 10)
+    const rows = await c.env.APP_DB.prepare(`SELECT * FROM school_calendar_events WHERE tenant_id = ? AND COALESCE(status, 'published') != 'cancelled'
+      AND COALESCE(end_date, start_date) >= ? AND start_date <= ? ORDER BY start_date ASC, start_time ASC LIMIT 50`).bind(actor.tenantId, today, until).all()
+    const audience = await resolveCalendarAudience(c.env.APP_DB, c.var.user || {}, actor.role)
+    const now = Date.now()
+    const events = ((rows.results || []) as Record<string, any>[]).map(mapSchoolCalendarEvent)
+      .filter(event => calendarEventReaches(event, audience))
+      .map(event => {
+        // Lagos is UTC+1 all year.
+        const startsAt = Date.parse(`${event.startDate}T${event.startTime || '08:00'}:00+01:00`)
+        const reminderDue = event.reminderMinutes != null && now >= startsAt - event.reminderMinutes * 60000 && now < startsAt
+        return { ...event, reminderDue }
+      })
+    return c.json({ success: true, events })
+  } catch (error) {
+    console.error('Upcoming calendar failed', error)
+    return c.json({ success: true, events: [] })
+  }
+})
+
+function readCalendarEventInput(body: Record<string, any>) {
   const title = String(body?.title || '').trim().slice(0, 120)
-  const type = String(body?.type || 'holiday').toLowerCase()
+  const type = String(body?.type || 'event').toLowerCase()
   const startDate = normalizeIsoDateValue(body?.startDate)
   const endDate = normalizeIsoDateValue(body?.endDate) || startDate
-  const recurringAnnual = body?.recurringAnnual === true ? 1 : 0
-  if (!title || !SCHOOL_CALENDAR_TYPES.has(type) || !startDate) {
-    return c.json({ error: 'title, a valid type, and startDate are required.' }, 400)
+  if (!title || !SCHOOL_CALENDAR_TYPES.has(type) || !startDate) throw new Error('title, a valid type, and startDate are required.')
+  if (endDate && endDate < startDate) throw new Error('endDate cannot be before startDate.')
+  const startTime = normalizeCalendarTime(body?.startTime)
+  const endTime = normalizeCalendarTime(body?.endTime)
+  if (startTime && endTime && startDate === endDate && endTime <= startTime) throw new Error('The end time must be after the start time.')
+  const reminder = body?.reminderMinutes === '' || body?.reminderMinutes == null ? null : Number(body.reminderMinutes)
+  if (reminder != null && !CALENDAR_REMINDERS.has(reminder)) throw new Error('Choose a reminder from the list.')
+  return {
+    title, type, startDate, endDate, startTime, endTime, reminder,
+    description: String(body?.description || '').trim().slice(0, 2000),
+    location: String(body?.location || '').trim().slice(0, 160),
+    audience: normalizeCalendarAudience(body?.audience),
+    recurringAnnual: body?.recurringAnnual === true ? 1 : 0,
   }
-  if (endDate && endDate < startDate) return c.json({ error: 'endDate cannot be before startDate.' }, 400)
+}
+
+app.post('/api/school/calendar', authenticate, async (c) => {
+  const actor = await resolveCalendarManager(c.env.APP_DB, c.var.user || {})
+  if (!actor.tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!actor.canManage) return c.json({ error: 'forbidden' }, 403)
+  let input: ReturnType<typeof readCalendarEventInput>
+  try { input = readCalendarEventInput(await c.req.json().catch(() => ({}))) } catch (error) { return c.json({ error: (error as Error).message }, 400) }
   try {
     await ensureSchoolCalendarTable(c.env.APP_DB)
     const id = `cal_${actor.tenantId}_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`
     const now = new Date().toISOString()
     await c.env.APP_DB.prepare(
-      `INSERT INTO school_calendar_events (id, tenant_id, title, type, start_date, end_date, recurring_annual, source, created_by, created_at, updated_at)
-       VALUES (?, ?, ?, ?, ?, ?, ?, 'school', ?, ?, ?)`
-    ).bind(id, actor.tenantId, title, type, startDate, endDate, recurringAnnual, actor.actorName || actor.actorId, now, now).run()
-    await addAudit(c.env.APP_DB, actor.tenantId, { action: 'schoolCalendarEventAdded', data: { id, title, type, startDate, endDate } }).catch(() => null)
-    return c.json({
-      success: true,
-      event: mapSchoolCalendarEvent({ id, tenant_id: actor.tenantId, title, type, start_date: startDate, end_date: endDate, recurring_annual: recurringAnnual, source: 'school', created_by: actor.actorName, created_at: now, updated_at: now }),
-    })
+      `INSERT INTO school_calendar_events (id, tenant_id, title, type, start_date, end_date, start_time, end_time, description, location, audience_json, reminder_minutes, status, recurring_annual, source, created_by, created_at, updated_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'published', ?, 'school', ?, ?, ?)`
+    ).bind(id, actor.tenantId, input.title, input.type, input.startDate, input.endDate, input.startTime || null, input.endTime || null, input.description || null, input.location || null,
+      JSON.stringify(input.audience), input.reminder, input.recurringAnnual, actor.actorName || actor.actorId, now, now).run()
+    await addAudit(c.env.APP_DB, actor.tenantId, { action: 'schoolCalendarEventAdded', data: { id, title: input.title, type: input.type, startDate: input.startDate, endDate: input.endDate, audience: input.audience, by: actor.actorName } }).catch(() => null)
+    const row = await c.env.APP_DB.prepare(`SELECT * FROM school_calendar_events WHERE id = ?`).bind(id).first() as Record<string, any>
+    return c.json({ success: true, event: mapSchoolCalendarEvent(row) })
   } catch {
     return c.json({ error: 'Could not save calendar event.' }, 500)
   }
 })
 
-app.delete('/api/school/calendar/:id', authenticate, async (c) => {
-  const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
+app.put('/api/school/calendar/:id', authenticate, async (c) => {
+  const actor = await resolveCalendarManager(c.env.APP_DB, c.var.user || {})
   if (!actor.tenantId) return c.json({ error: 'No tenant.' }, 400)
-  if (!canManageStaffAttendanceConfig(actor.role)) return c.json({ error: 'forbidden' }, 403)
-  const id = c.req.param('id')
+  if (!actor.canManage) return c.json({ error: 'forbidden' }, 403)
+  let input: ReturnType<typeof readCalendarEventInput>
+  try { input = readCalendarEventInput(await c.req.json().catch(() => ({}))) } catch (error) { return c.json({ error: (error as Error).message }, 400) }
   try {
     await ensureSchoolCalendarTable(c.env.APP_DB)
-    await c.env.APP_DB.prepare(`DELETE FROM school_calendar_events WHERE id = ? AND tenant_id = ? AND source = 'school'`).bind(id, actor.tenantId).run()
+    const before = await c.env.APP_DB.prepare(`SELECT * FROM school_calendar_events WHERE id = ? AND tenant_id = ? AND source = 'school'`).bind(c.req.param('id'), actor.tenantId).first() as Record<string, any> | null
+    if (!before) return c.json({ error: 'Event not found.' }, 404)
+    if (before.status === 'cancelled') return c.json({ error: 'A cancelled event cannot be edited.' }, 409)
+    await c.env.APP_DB.prepare(`UPDATE school_calendar_events SET title = ?, type = ?, start_date = ?, end_date = ?, start_time = ?, end_time = ?, description = ?, location = ?, audience_json = ?, reminder_minutes = ?, recurring_annual = ?, updated_by = ?, updated_at = ?
+      WHERE id = ? AND tenant_id = ?`).bind(input.title, input.type, input.startDate, input.endDate, input.startTime || null, input.endTime || null, input.description || null, input.location || null,
+      JSON.stringify(input.audience), input.reminder, input.recurringAnnual, actor.actorName || actor.actorId, new Date().toISOString(), before.id, actor.tenantId).run()
+    const after = await c.env.APP_DB.prepare(`SELECT * FROM school_calendar_events WHERE id = ?`).bind(before.id).first() as Record<string, any>
+    await addAudit(c.env.APP_DB, actor.tenantId, { action: 'schoolCalendarEventEdited', data: { id: before.id, before: mapSchoolCalendarEvent(before), after: mapSchoolCalendarEvent(after), by: actor.actorName } }).catch(() => null)
+    return c.json({ success: true, event: mapSchoolCalendarEvent(after) })
+  } catch {
+    return c.json({ error: 'Could not update calendar event.' }, 500)
+  }
+})
+
+// Cancelling keeps the event on record (and in the audit trail) instead of deleting it.
+app.delete('/api/school/calendar/:id', authenticate, async (c) => {
+  const actor = await resolveCalendarManager(c.env.APP_DB, c.var.user || {})
+  if (!actor.tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!actor.canManage) return c.json({ error: 'forbidden' }, 403)
+  try {
+    await ensureSchoolCalendarTable(c.env.APP_DB)
+    const before = await c.env.APP_DB.prepare(`SELECT * FROM school_calendar_events WHERE id = ? AND tenant_id = ? AND source = 'school'`).bind(c.req.param('id'), actor.tenantId).first() as Record<string, any> | null
+    if (!before) return c.json({ error: 'Event not found.' }, 404)
+    const reason = String(c.req.query('reason') || '').trim().slice(0, 300)
+    const now = new Date().toISOString()
+    await c.env.APP_DB.prepare(`UPDATE school_calendar_events SET status = 'cancelled', cancelled_at = ?, cancelled_by = ?, cancel_reason = ?, updated_at = ? WHERE id = ? AND tenant_id = ?`)
+      .bind(now, actor.actorName || actor.actorId, reason || null, now, before.id, actor.tenantId).run()
+    await addAudit(c.env.APP_DB, actor.tenantId, { action: 'schoolCalendarEventCancelled', data: { id: before.id, title: before.title, startDate: before.start_date, reason, by: actor.actorName } }).catch(() => null)
     return c.json({ success: true })
   } catch {
-    return c.json({ error: 'Could not delete calendar event.' }, 500)
+    return c.json({ error: 'Could not cancel calendar event.' }, 500)
   }
 })
 
@@ -22454,6 +26142,27 @@ async function ensureTimetableTable(db: D1Database) {
     label TEXT,
     created_at TEXT,
     updated_at TEXT
+  )`).run()
+  // timetable_entries is the published timetable everyone reads. Changes are
+  // prepared as a draft and published; every publish is kept as a version.
+  await db.prepare(`CREATE TABLE IF NOT EXISTS timetable_drafts (
+    tenant_id TEXT NOT NULL,
+    class_id TEXT NOT NULL,
+    entries_json TEXT NOT NULL,
+    updated_by TEXT,
+    updated_at TEXT NOT NULL,
+    PRIMARY KEY (tenant_id, class_id)
+  )`).run()
+  await db.prepare(`CREATE TABLE IF NOT EXISTS timetable_versions (
+    id TEXT PRIMARY KEY,
+    tenant_id TEXT NOT NULL,
+    class_id TEXT NOT NULL,
+    version INTEGER NOT NULL,
+    entries_json TEXT NOT NULL,
+    published_by TEXT,
+    published_at TEXT NOT NULL,
+    note TEXT,
+    UNIQUE(tenant_id, class_id, version)
   )`).run()
   await runIndexStatements(db, [
     `CREATE INDEX IF NOT EXISTS idx_timetable_tenant_class ON timetable_entries(tenant_id, class_id)`,
@@ -22562,7 +26271,7 @@ app.get('/api/school/promotion-map', authenticate, async (c) => {
 })
 
 app.post('/api/school/promotion-map', authenticate, async (c) => {
-  if (!hasRequiredRole(c.var.user.role, ['owner'])) return c.json({ error: 'Only the owner can set the promotion flow.' }, 403)
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos'])) return c.json({ error: 'Only the owner or head of school can set the promotion flow.' }, 403)
   const tenantId = c.var.user?.tenantId
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
   const body = await c.req.json().catch(() => ({}))
@@ -22573,7 +26282,7 @@ app.post('/api/school/promotion-map', authenticate, async (c) => {
 // Promote every active student per the map; the class mapped to "alumni" graduates
 // its students into the alumni community.
 app.post('/api/school/run-promotion', authenticate, async (c) => {
-  if (!hasRequiredRole(c.var.user.role, ['owner'])) return c.json({ error: 'Only the owner can run promotion.' }, 403)
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos'])) return c.json({ error: 'Only the owner or head of school can run promotion.' }, 403)
   const tenantId = c.var.user?.tenantId
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
   await ensureAlumniTable(c.env.APP_DB)
@@ -22803,13 +26512,92 @@ app.post('/api/school/store/surcharges/:id/pay', authenticate, async (c) => {
   return c.json({ success: true, amountPaid: nextPaid, status })
 })
 
+type TimetableEntryInput = { dayOfWeek: number, periodIndex: number, startTime: string, endTime: string, subjectId: string, subjectName: string, teacherId: string, teacherName: string, isBreak: number, label: string }
+
+/** Keep only well-formed timetable rows, in the shape they are stored. */
+function normalizeTimetableEntries(entries: unknown): TimetableEntryInput[] {
+  return (Array.isArray(entries) ? entries : []).flatMap((entry: any, index: number) => {
+    const dayOfWeek = Number(entry?.dayOfWeek || 0)
+    const startTime = String(entry?.startTime || '').trim()
+    const isBreak = entry?.isBreak === true || entry?.isBreak === 1 ? 1 : 0
+    const subjectName = String(entry?.subjectName || '').trim()
+    const label = String(entry?.label || '').trim()
+    if (!dayOfWeek || dayOfWeek < 1 || dayOfWeek > 7 || !startTime) return []
+    if (!isBreak && !subjectName && !label) return []
+    return [{
+      dayOfWeek, periodIndex: Number(entry?.periodIndex ?? index), startTime, endTime: String(entry?.endTime || '').trim(),
+      subjectId: String(entry?.subjectId || '').trim(), subjectName, teacherId: String(entry?.teacherId || '').trim(),
+      teacherName: String(entry?.teacherName || '').trim(), isBreak, label,
+    }]
+  })
+}
+
+/** Timetable managers act as their chosen role, checked against the roles they hold. */
+async function resolveTimetableActor(db: D1Database, user: Record<string, any>) {
+  const actor = await resolveSchoolAttendanceActor(db, user)
+  const role = resolveEffectiveRole(actor.resolvedUser, user)
+  return { ...actor, role, canManage: canManageStaffAttendanceConfig(role) }
+}
+
+/** A teacher booked in two classes at overlapping times on the same day. */
+async function findTimetableClashes(db: D1Database, tenantId: string, classId: string, entries: TimetableEntryInput[]) {
+  const others = await db.prepare(`SELECT e.*, c.name AS class_name, c.arm AS class_arm FROM timetable_entries e LEFT JOIN classes c ON c.id = e.class_id
+    WHERE e.tenant_id = ? AND e.class_id != ? AND COALESCE(e.teacher_id, '') != '' AND COALESCE(e.is_break, 0) = 0`).bind(tenantId, classId).all()
+  const overlaps = (a: TimetableEntryInput, b: Record<string, any>) => {
+    const aEnd = a.endTime || a.startTime
+    const bEnd = String(b.end_time || b.start_time)
+    return a.startTime < bEnd && String(b.start_time) < aEnd || a.startTime === String(b.start_time)
+  }
+  const clashes: Array<Record<string, any>> = []
+  for (const entry of entries.filter(item => item.teacherId && !item.isBreak)) {
+    for (const other of (others.results || []) as Record<string, any>[]) {
+      if (String(other.teacher_id).toLowerCase() === entry.teacherId.toLowerCase() && Number(other.day_of_week) === entry.dayOfWeek && overlaps(entry, other)) {
+        clashes.push({ teacherName: entry.teacherName || entry.teacherId, dayOfWeek: entry.dayOfWeek, startTime: entry.startTime, otherClass: `${other.class_name || other.class_id}${other.class_arm ? ` ${other.class_arm}` : ''}`, otherSubject: other.subject_name })
+      }
+    }
+  }
+  return clashes
+}
+
+/** Make a set of entries the published timetable for a class, keeping it as a new version. */
+async function publishTimetable(db: D1Database, options: { tenantId: string, classId: string, entries: TimetableEntryInput[], actorName: string, note?: string }) {
+  const now = new Date().toISOString()
+  const latest = await db.prepare(`SELECT MAX(version) AS v FROM timetable_versions WHERE tenant_id = ? AND class_id = ?`).bind(options.tenantId, options.classId).first() as Record<string, any> | null
+  const version = Number(latest?.v || 0) + 1
+  const statements: D1PreparedStatement[] = [
+    db.prepare(`DELETE FROM timetable_entries WHERE tenant_id = ? AND class_id = ?`).bind(options.tenantId, options.classId),
+    ...options.entries.map(entry => db.prepare(
+      `INSERT INTO timetable_entries (id, tenant_id, class_id, day_of_week, period_index, start_time, end_time, subject_id, subject_name, teacher_id, teacher_name, is_break, label, created_at, updated_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+    ).bind(`tt_${options.tenantId}_${options.classId}_${entry.dayOfWeek}_${entry.periodIndex}_${crypto.randomUUID().slice(0, 8)}`, options.tenantId, options.classId,
+      entry.dayOfWeek, entry.periodIndex, entry.startTime, entry.endTime, entry.subjectId, entry.subjectName, entry.teacherId, entry.teacherName, entry.isBreak, entry.label, now, now)),
+    db.prepare(`INSERT INTO timetable_versions (id, tenant_id, class_id, version, entries_json, published_by, published_at, note) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`)
+      .bind(`ttver-${crypto.randomUUID()}`, options.tenantId, options.classId, version, JSON.stringify(options.entries), options.actorName || null, now, options.note || null),
+    db.prepare(`DELETE FROM timetable_drafts WHERE tenant_id = ? AND class_id = ?`).bind(options.tenantId, options.classId),
+  ]
+  await db.batch(statements)
+  await addAudit(db, options.tenantId, { action: 'timetablePublished', data: { classId: options.classId, version, count: options.entries.length, note: options.note || '', by: options.actorName } }).catch(() => null)
+  return version
+}
+
+async function describePublishedTimetable(db: D1Database, tenantId: string, classId: string) {
+  const [published, draft] = await Promise.all([
+    db.prepare(`SELECT version, published_by, published_at FROM timetable_versions WHERE tenant_id = ? AND class_id = ? ORDER BY version DESC LIMIT 1`).bind(tenantId, classId).first().catch(() => null) as Promise<Record<string, any> | null>,
+    db.prepare(`SELECT updated_by, updated_at FROM timetable_drafts WHERE tenant_id = ? AND class_id = ?`).bind(tenantId, classId).first().catch(() => null) as Promise<Record<string, any> | null>,
+  ])
+  return {
+    published: published ? { version: Number(published.version), publishedBy: published.published_by || '', publishedAt: published.published_at } : null,
+    draft: draft ? { updatedBy: draft.updated_by || '', updatedAt: draft.updated_at } : null,
+  }
+}
+
 app.get('/api/school/timetable', authenticate, async (c) => {
-  const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
+  const actor = await resolveTimetableActor(c.env.APP_DB, c.var.user || {})
   if (!actor.tenantId) return c.json({ error: 'No tenant.' }, 400)
   const role = actor.role
   const mine = String(c.req.query('mine') || '').trim() === 'true'
   let classId = String(c.req.query('classId') || '').trim()
-  const canManage = canManageStaffAttendanceConfig(role)
+  const canManage = actor.canManage
   try {
     await ensureTimetableTable(c.env.APP_DB)
 
@@ -22850,53 +26638,113 @@ app.get('/api/school/timetable', authenticate, async (c) => {
     const rows = await c.env.APP_DB.prepare(
       `SELECT * FROM timetable_entries WHERE tenant_id = ? AND class_id = ? ORDER BY day_of_week, period_index`
     ).bind(actor.tenantId, classId).all()
-    return c.json({ success: true, entries: ((rows.results || []) as Record<string, any>[]).map(mapTimetableEntry), classId, canManage, scope: 'manage' })
+    const status = canManage ? await describePublishedTimetable(c.env.APP_DB, actor.tenantId, classId) : { published: null, draft: null }
+    return c.json({ success: true, entries: ((rows.results || []) as Record<string, any>[]).map(mapTimetableEntry), classId, canManage, scope: 'manage', ...status })
   } catch {
     return c.json({ success: true, entries: [] })
   }
 })
 
 app.post('/api/school/timetable', authenticate, async (c) => {
-  const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
+  const actor = await resolveTimetableActor(c.env.APP_DB, c.var.user || {})
   if (!actor.tenantId) return c.json({ error: 'No tenant.' }, 400)
-  if (!canManageStaffAttendanceConfig(actor.role)) return c.json({ error: 'forbidden' }, 403)
+  if (!actor.canManage) return c.json({ error: 'forbidden' }, 403)
   const body = await c.req.json().catch(() => ({})) as Record<string, any>
   const classId = String(body?.classId || '').trim()
   if (!classId) return c.json({ error: 'classId is required.' }, 400)
-  const entries = Array.isArray(body?.entries) ? body.entries : []
   try {
     await ensureTimetableTable(c.env.APP_DB)
-    const now = new Date().toISOString()
-    const statements: D1PreparedStatement[] = [
-      c.env.APP_DB.prepare(`DELETE FROM timetable_entries WHERE tenant_id = ? AND class_id = ?`).bind(actor.tenantId, classId),
-    ]
-
-    entries.forEach((entry: Record<string, any>, index: number) => {
-      const dayOfWeek = Number(entry?.dayOfWeek || 0)
-      const periodIndex = Number(entry?.periodIndex ?? index)
-      const startTime = String(entry?.startTime || '').trim()
-      const endTime = String(entry?.endTime || '').trim()
-      const isBreak = entry?.isBreak === true ? 1 : 0
-      const subjectId = String(entry?.subjectId || '').trim()
-      const subjectName = String(entry?.subjectName || '').trim()
-      const teacherId = String(entry?.teacherId || '').trim()
-      const teacherName = String(entry?.teacherName || '').trim()
-      const label = String(entry?.label || '').trim()
-      if (!dayOfWeek || dayOfWeek < 1 || dayOfWeek > 7 || !startTime) return
-      if (!isBreak && !subjectName && !label) return
-      const id = `tt_${actor.tenantId}_${classId}_${dayOfWeek}_${periodIndex}_${Math.random().toString(36).slice(2, 7)}`
-      statements.push(c.env.APP_DB.prepare(
-        `INSERT INTO timetable_entries (id, tenant_id, class_id, day_of_week, period_index, start_time, end_time, subject_id, subject_name, teacher_id, teacher_name, is_break, label, created_at, updated_at)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
-      ).bind(id, actor.tenantId, classId, dayOfWeek, periodIndex, startTime, endTime, subjectId, subjectName, teacherId, teacherName, isBreak, label, now, now))
-    })
-
-    await c.env.APP_DB.batch(statements)
-    await addAudit(c.env.APP_DB, actor.tenantId, { action: 'timetableSaved', data: { classId, count: statements.length - 1 } }).catch(() => null)
-    return c.json({ success: true, count: statements.length - 1 })
+    const classRow = await c.env.APP_DB.prepare(`SELECT id FROM classes WHERE id = ? AND tenantId = ?`).bind(classId, actor.tenantId).first()
+    if (!classRow) return c.json({ error: 'Class not found.' }, 404)
+    const entries = normalizeTimetableEntries(body?.entries)
+    const version = await publishTimetable(c.env.APP_DB, { tenantId: actor.tenantId, classId, entries, actorName: actor.actorName || actor.actorId, note: String(body?.note || '') })
+    return c.json({ success: true, count: entries.length, version })
   } catch {
     return c.json({ error: 'Could not save timetable.' }, 500)
   }
+})
+
+app.get('/api/school/timetable/draft', authenticate, async (c) => {
+  const actor = await resolveTimetableActor(c.env.APP_DB, c.var.user || {})
+  if (!actor.canManage) return c.json({ error: 'forbidden' }, 403)
+  const classId = String(c.req.query('classId') || '').trim()
+  await ensureTimetableTable(c.env.APP_DB)
+  const row = await c.env.APP_DB.prepare(`SELECT * FROM timetable_drafts WHERE tenant_id = ? AND class_id = ?`).bind(actor.tenantId, classId).first() as Record<string, any> | null
+  let entries: unknown[] = []
+  try { entries = JSON.parse(String(row?.entries_json || '[]')) } catch {}
+  const status = await describePublishedTimetable(c.env.APP_DB, actor.tenantId, classId)
+  return c.json({ success: true, draft: row ? { entries, updatedBy: row.updated_by || '', updatedAt: row.updated_at } : null, published: status.published })
+})
+
+/** Save changes without showing them to anyone yet. */
+app.put('/api/school/timetable/draft', authenticate, async (c) => {
+  const actor = await resolveTimetableActor(c.env.APP_DB, c.var.user || {})
+  if (!actor.tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!actor.canManage) return c.json({ error: 'forbidden' }, 403)
+  const body = await c.req.json().catch(() => ({})) as Record<string, any>
+  const classId = String(body?.classId || '').trim()
+  await ensureTimetableTable(c.env.APP_DB)
+  const classRow = await c.env.APP_DB.prepare(`SELECT id FROM classes WHERE id = ? AND tenantId = ?`).bind(classId, actor.tenantId).first()
+  if (!classRow) return c.json({ error: 'Class not found.' }, 404)
+  const entries = normalizeTimetableEntries(body?.entries)
+  await c.env.APP_DB.prepare(`INSERT INTO timetable_drafts (tenant_id, class_id, entries_json, updated_by, updated_at) VALUES (?, ?, ?, ?, ?)
+    ON CONFLICT(tenant_id, class_id) DO UPDATE SET entries_json = excluded.entries_json, updated_by = excluded.updated_by, updated_at = excluded.updated_at`)
+    .bind(actor.tenantId, classId, JSON.stringify(entries), actor.actorName || actor.actorId, new Date().toISOString()).run()
+  return c.json({ success: true, count: entries.length })
+})
+
+/** Publish the draft (or the entries sent). Teacher clashes stop it unless confirmed. */
+app.post('/api/school/timetable/publish', authenticate, async (c) => {
+  const actor = await resolveTimetableActor(c.env.APP_DB, c.var.user || {})
+  if (!actor.tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!actor.canManage) return c.json({ error: 'forbidden' }, 403)
+  const body = await c.req.json().catch(() => ({})) as Record<string, any>
+  const classId = String(body?.classId || '').trim()
+  await ensureTimetableTable(c.env.APP_DB)
+  const classRow = await c.env.APP_DB.prepare(`SELECT id FROM classes WHERE id = ? AND tenantId = ?`).bind(classId, actor.tenantId).first()
+  if (!classRow) return c.json({ error: 'Class not found.' }, 404)
+  let source: unknown = body?.entries
+  if (!Array.isArray(source)) {
+    const draft = await c.env.APP_DB.prepare(`SELECT entries_json FROM timetable_drafts WHERE tenant_id = ? AND class_id = ?`).bind(actor.tenantId, classId).first() as Record<string, any> | null
+    if (!draft) return c.json({ error: 'There is no draft to publish.' }, 400)
+    try { source = JSON.parse(String(draft.entries_json)) } catch { source = [] }
+  }
+  const entries = normalizeTimetableEntries(source)
+  const clashes = await findTimetableClashes(c.env.APP_DB, actor.tenantId, classId, entries)
+  if (clashes.length && body?.allowClashes !== true) {
+    return c.json({ success: false, message: 'Some teachers would be in two classes at once.', clashes }, 409)
+  }
+  const version = await publishTimetable(c.env.APP_DB, { tenantId: actor.tenantId, classId, entries, actorName: actor.actorName || actor.actorId, note: String(body?.note || '').slice(0, 300) })
+  return c.json({ success: true, version, count: entries.length, clashes })
+})
+
+app.get('/api/school/timetable/versions', authenticate, async (c) => {
+  const actor = await resolveTimetableActor(c.env.APP_DB, c.var.user || {})
+  if (!actor.canManage) return c.json({ error: 'forbidden' }, 403)
+  await ensureTimetableTable(c.env.APP_DB)
+  const rows = await c.env.APP_DB.prepare(`SELECT id, version, published_by, published_at, note, entries_json FROM timetable_versions WHERE tenant_id = ? AND class_id = ? ORDER BY version DESC LIMIT 50`)
+    .bind(actor.tenantId, String(c.req.query('classId') || '')).all()
+  return c.json({
+    success: true,
+    versions: ((rows.results || []) as Record<string, any>[]).map(row => {
+      let entries: unknown[] = []
+      try { entries = JSON.parse(String(row.entries_json || '[]')) } catch {}
+      return { id: row.id, version: Number(row.version), publishedBy: row.published_by || '', publishedAt: row.published_at, note: row.note || '', entries }
+    }),
+  })
+})
+
+/** Bring an earlier version back as the draft, to review and republish. */
+app.post('/api/school/timetable/versions/:id/restore', authenticate, async (c) => {
+  const actor = await resolveTimetableActor(c.env.APP_DB, c.var.user || {})
+  if (!actor.canManage) return c.json({ error: 'forbidden' }, 403)
+  await ensureTimetableTable(c.env.APP_DB)
+  const row = await c.env.APP_DB.prepare(`SELECT * FROM timetable_versions WHERE id = ? AND tenant_id = ?`).bind(c.req.param('id'), actor.tenantId).first() as Record<string, any> | null
+  if (!row) return c.json({ error: 'Version not found.' }, 404)
+  await c.env.APP_DB.prepare(`INSERT INTO timetable_drafts (tenant_id, class_id, entries_json, updated_by, updated_at) VALUES (?, ?, ?, ?, ?)
+    ON CONFLICT(tenant_id, class_id) DO UPDATE SET entries_json = excluded.entries_json, updated_by = excluded.updated_by, updated_at = excluded.updated_at`)
+    .bind(actor.tenantId, row.class_id, row.entries_json, actor.actorName || actor.actorId, new Date().toISOString()).run()
+  return c.json({ success: true, classId: row.class_id, version: Number(row.version) })
 })
 
 // ─── Student Attendance (school-level) ───────────────────────────────────────
@@ -22908,8 +26756,13 @@ app.get('/api/school/student-attendance', authenticate, async (c) => {
     const requestedStudentId = String(c.req.query('studentId') || '').trim()
     let classId = String(c.req.query('classId') || '').trim()
     let studentId = requestedStudentId
+    // Leadership reads school-wide. Checked before the teaching branch, since an
+    // HOS who also teaches would otherwise be asked for a single class.
+    const isSchoolLeadership = hasRequiredRole(resolveEffectiveRole(actor.resolvedUser, c.var.user || {}), ['owner', 'hos', 'admin'])
 
-    if (actor.role === 'student') {
+    if (isSchoolLeadership) {
+      // classId and studentId stay optional filters within the school.
+    } else if (actor.role === 'student') {
       const self = await resolveStudentAttendanceTarget(c.env.APP_DB, actor.tenantId, actor.actorId || actor.resolvedUser.settingsKey || '')
       if (!self) {
         return c.json({ error: 'Student record not found.' }, 404)
@@ -24340,6 +28193,13 @@ async function renderTenantWebsiteResponse(
 
 async function handleSubdomainRequest(request: Request, env: Bindings, subdomain: string, url: URL, requestedHost = ''): Promise<Response> {
   const tenant = await getTenantBySubdomain(env.APP_DB, subdomain)
+  if (tenant && tenant.status === 'closed') {
+    const name = String(tenant.schoolName || 'This school').replace(/[<>&"]/g, '')
+    return new Response(`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${name}</title></head>
+      <body style="font-family:Arial,sans-serif;background:#f6f1e7;color:#191970;display:flex;min-height:100vh;align-items:center;justify-content:center;margin:0;padding:24px">
+      <main style="max-width:520px;text-align:center"><h1 style="color:#800000">${name}</h1><p>This school has closed and is no longer using Ndovera.</p>
+      <p>Parents and staff with questions should contact the school directly, or Ndovera support.</p></main></body></html>`, { status: 410, headers: { 'Content-Type': 'text/html; charset=utf-8' } })
+  }
   if (!tenant) {
     return new Response(renderTenantNotFoundHtml(requestedHost || `${subdomain}.${env.TENANT_BASE_DOMAIN || DEFAULT_TENANT_BASE_DOMAIN}`), {
       headers: { 'Content-Type': 'text/html' },
@@ -24379,8 +28239,8 @@ app.get('/api/question-bank/access', authenticate, async (c) => {
     const tenantId = String(actor.tenantId || '').trim()
     if (!tenantId) return c.json({ success: false, message: 'School context not found.' }, 400)
     const requestedTeacherId = String(c.req.query('teacherId') || '').trim()
-    if (requestedTeacherId && String(actor.role || '').trim().toLowerCase() !== 'owner') {
-      return c.json({ success: false, message: 'Only the school owner can view another teacher\'s question-bank access.' }, 403)
+    if (requestedTeacherId && !hasRequiredRole(actor.role, ['owner', 'hos'])) {
+      return c.json({ success: false, message: 'Only the school owner or head of school can view another teacher\'s question-bank access.' }, 403)
     }
     const access = await getTeacherQuestionBankAccess(c.env.APP_DB, tenantId, requestedTeacherId || actor.actorId)
     return c.json({ success: true, access })
@@ -24392,8 +28252,8 @@ app.get('/api/question-bank/access', authenticate, async (c) => {
 app.post('/api/question-bank/access', authenticate, async (c) => {
   try {
     const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
-    if (String(actor.role || '').trim().toLowerCase() !== 'owner') {
-      return c.json({ success: false, message: 'Only the school owner can change teacher question-bank access.' }, 403)
+    if (!hasRequiredRole(actor.role, ['owner', 'hos'])) {
+      return c.json({ success: false, message: 'Only the school owner or head of school can change teacher question-bank access.' }, 403)
     }
     const tenantId = String(actor.tenantId || '').trim()
     const payload = await c.req.json().catch(() => ({})) as Record<string, any>
@@ -24818,6 +28678,7 @@ app.post('/api/school/academic/sessions/:sessionId/activate', authenticate, asyn
         enrolled: result.enrolment?.enrolled || 0,
         promoted: result.enrolment?.promoted || 0,
         graduated: result.enrolment?.graduated || 0,
+        teacherAssignmentsReleased: result.teacherAssignmentsReleased || 0,
         by: actorName,
       },
     }).catch(() => null)
@@ -24825,6 +28686,56 @@ app.post('/api/school/academic/sessions/:sessionId/activate', authenticate, asyn
     return c.json({ success: true, ...result, placementsApplied: mirror.synced })
   } catch (error) {
     return academicFailure(c, error, 'Could not activate the session.')
+  }
+})
+
+// Teacher assignments are per session. These let the school see who taught what
+// in any session and, for the running one, confirm last session's assignments
+// explicitly instead of having them carried over silently.
+app.get('/api/school/academic/sessions/:sessionId/teaching-assignments', authenticate, async (c) => {
+  const { tenantId, role } = academicActor(c)
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!hasRequiredRole(role, SESSION_ADMIN_ROLES)) return c.json({ error: 'forbidden' }, 403)
+
+  try {
+    const session = await getSessionById(c.env.APP_DB, tenantId, c.req.param('sessionId'))
+    if (!session) return c.json({ error: 'Session not found.' }, 404)
+    if (session.status === 'active') await syncTeachingLedger(c.env.APP_DB, tenantId)
+    const assignments = await listSessionAssignments(c.env.APP_DB, tenantId, session.id)
+    return c.json({ success: true, session, assignments })
+  } catch (error) {
+    return academicFailure(c, error, 'Could not load teaching assignments.')
+  }
+})
+
+app.post('/api/school/academic/sessions/:sessionId/teaching-assignments/carry-forward', authenticate, async (c) => {
+  const { tenantId, role, actorName } = academicActor(c)
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!hasRequiredRole(role, SESSION_ADMIN_ROLES)) return c.json({ error: 'forbidden' }, 403)
+
+  try {
+    const from = await getSessionById(c.env.APP_DB, tenantId, c.req.param('sessionId'))
+    const active = await getActiveSession(c.env.APP_DB, tenantId)
+    if (!from) return c.json({ error: 'Session not found.' }, 404)
+    if (!active || active.id === from.id) return c.json({ error: 'Choose a previous session to copy assignments from.' }, 400)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const assignmentIds = (Array.isArray(body.assignmentIds) ? body.assignmentIds : []).map((value: unknown) => String(value || '')).filter(Boolean)
+    if (!assignmentIds.length) return c.json({ error: 'Select at least one assignment.' }, 400)
+
+    await syncTeachingLedger(c.env.APP_DB, tenantId)
+    const result = await carryForwardAssignments(c.env.APP_DB, { tenantId, fromSessionId: from.id, assignmentIds })
+    for (const classId of result.classTeacherClassIds) {
+      const classRow = await c.env.APP_DB.prepare(`SELECT * FROM classes WHERE id = ? AND tenantId = ?`).bind(classId, tenantId).first() as Record<string, any> | null
+      if (classRow) await syncTeacherClassAssignment(c.env.APP_DB, tenantId, classRow, null).catch(() => null)
+    }
+    await syncTeachingLedger(c.env.APP_DB, tenantId)
+    await addAudit(c.env.APP_DB, tenantId, {
+      action: 'teachingAssignmentsConfirmed',
+      data: { from: from.name, to: active.name, applied: result.applied, requested: result.requested, by: actorName },
+    }).catch(() => null)
+    return c.json({ success: true, applied: result.applied, skipped: result.requested - result.applied })
+  } catch (error) {
+    return academicFailure(c, error, 'Could not assign those teachers.')
   }
 })
 
@@ -25276,6 +29187,1836 @@ app.get('/api/school/promotion/audit', authenticate, async (c) => {
   }
 })
 
+// ─── Ndovera AI assessments (assessmentEngine.ts, aiAssessments.ts) ──────────
+// Quizzes, assignments, tests and exams generated from the teacher's topics and
+// notes. Nothing is published automatically: the teacher reviews, edits and
+// approves, then posts/schedules it to the class or submits an exam through the
+// school's existing exam-question submission path.
+
+// Stronger model for writing assessments; falls back to the default one.
+const ASSESSMENT_AI_MODEL = '@cf/meta/llama-3.3-70b-instruct-fp8-fast'
+
+function assessmentAiRunner(env: Record<string, any>): AiRunner {
+  return async (messages, options) => {
+    if (!env.AI || typeof env.AI.run !== 'function') throw new AssessmentError('Ndovera AI is not available right now.', 503)
+    const run = async (model: string) => {
+      const result = await env.AI.run(model, { messages, max_tokens: options.maxTokens, temperature: options.temperature })
+      const response = (result as any)?.response
+      return response && typeof response === 'object' ? JSON.stringify(response) : extractWorkersAiText(result)
+    }
+    // Each generation step must finish well inside Cloudflare's 100-second request
+    // limit: if the large model is slow, the step falls back to the faster one.
+    const timeout = new Promise<never>((_, reject) => setTimeout(() => reject(new Error('assessment model timeout')), 55_000))
+    try { return await Promise.race([run(ASSESSMENT_AI_MODEL), timeout]) } catch { return run(WORKERS_AI_MODEL) }
+  }
+}
+
+function assessmentFailure(c: any, error: unknown, fallback: string) {
+  if (error instanceof AssessmentError) return c.json({ success: false, message: error.message }, error.status as any)
+  if (error instanceof SubmissionError) return c.json({ success: false, message: error.message }, error.status as any)
+  console.error(fallback, error)
+  return c.json({ success: false, message: fallback }, 500)
+}
+
+async function resolveAssessmentActor(c: any) {
+  const actor = await resolveCalendarManager(c.env.APP_DB, c.var.user || {})
+  if (!actor.tenantId) throw new AssessmentError('No school.', 400)
+  return { tenantId: actor.tenantId, actor: { id: actor.actorId, name: actor.actorName || actor.actorId, role: actor.role } }
+}
+
+/** The teacher must teach this subject in this class (or supervise with intervention rights). */
+async function resolveAssessmentClass(c: any, classId: string, subjectId: string) {
+  const context = await resolveMaterialPublishingContext(c.env.APP_DB, c.var.user || {}, classId, subjectId)
+  if (!context.ok) throw new AssessmentError(context.message || 'Class not found.', (context.status || 404) as number)
+  return {
+    classId: String(context.classRow.id), className: `${context.classRow.name}${context.classRow.arm ? ` ${context.classRow.arm}` : ''}`,
+    subjectId: String(context.subjectRow.id), subjectName: String(context.subjectRow.name || ''), tenantId: String(context.classRow.tenantId),
+  }
+}
+
+/** The teacher's own topics and notes, which ground every question. */
+async function buildAssessmentContext(db: D1Database, assessment: { classId: string, subjectId: string, config: Record<string, any> }) {
+  const ids: string[] = assessment.config.topicIds || []
+  const source = String(assessment.config.source || 'combination')
+  const parts: string[] = []
+  let budget = 9000
+  for (const topicId of ids.slice(0, 12)) {
+    const topic = await getTopic(db, assessment.classId, topicId).catch(() => null)
+    if (!topic || topic.subjectId !== assessment.subjectId) continue
+    const header = [`TOPIC: ${topic.name}`, topic.description ? `About: ${topic.description}` : '', topic.objectives?.length ? `Objectives: ${topic.objectives.join('; ')}` : ''].filter(Boolean).join('\n')
+    let notes = ''
+    if (source !== 'curriculum' && source !== 'topics') {
+      const content = await listTopicContent(db, topic).catch(() => ({ materials: [], assignments: [] }))
+      const materials = (content.materials || []).map(mapMaterialRow).filter((material: any) => material.status !== 'deleted' && material.status !== 'hidden')
+      notes = buildTeacherNotesContext(materials, Math.max(800, Math.floor(budget / Math.max(1, ids.length))))
+    }
+    const piece = [header, notes ? `Teacher's notes:\n${notes}` : ''].filter(Boolean).join('\n')
+    parts.push(piece.slice(0, budget))
+    budget -= piece.length
+    if (budget <= 0) break
+  }
+  return parts.join('\n\n')
+}
+
+function assessmentView(assessment: Assessment) {
+  return { ...assessment, pending: pendingSlots(assessment).length, audit: assessment.questions.length ? auditFor(assessment) : null }
+}
+
+app.get('/api/ai-assessments/options', authenticate, async (c) => {
+  try {
+    const target = await resolveAssessmentClass(c, String(c.req.query('classId') || ''), String(c.req.query('subjectId') || ''))
+    const topics = await listTopics(c.env.APP_DB, target.classId, target.subjectId)
+    return c.json({
+      success: true, ...target,
+      topics: topics.map(topic => ({ id: topic.id, name: topic.name, status: topic.status })),
+      profiles: Object.entries(ASSESSMENT_PROFILES).map(([key, profile]) => ({ key, label: profile.label, mcqOptions: profile.mcqOptions, bloom: profile.bloom, sections: profile.sections })),
+      typeLabels: TYPE_LABELS, bloomLevels: BLOOM_LEVELS,
+      autoBloom: Object.fromEntries(DIFFICULTIES.map(difficulty => [difficulty, autoBloom('school', difficulty, target.className)])),
+    })
+  } catch (error) {
+    return assessmentFailure(c, error, 'Could not load assessment options.')
+  }
+})
+
+app.get('/api/ai-assessments', authenticate, async (c) => {
+  try {
+    const { tenantId, actor } = await resolveAssessmentActor(c)
+    const assessments = await listAssessments(c.env.APP_DB, tenantId, { createdBy: actor.id, classId: c.req.query('classId') || undefined, subjectId: c.req.query('subjectId') || undefined })
+    return c.json({ success: true, assessments })
+  } catch (error) {
+    return assessmentFailure(c, error, 'Could not load your assessments.')
+  }
+})
+
+app.post('/api/ai-assessments', authenticate, async (c) => {
+  try {
+    const { tenantId, actor } = await resolveAssessmentActor(c)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const target = await resolveAssessmentClass(c, String(body.classId || ''), String(body.subjectId || ''))
+    if (target.tenantId !== tenantId) throw new AssessmentError('Class not found.', 404)
+    // Topic names come from the school's own topics, never from the request.
+    const topics = await listTopics(c.env.APP_DB, target.classId, target.subjectId)
+    const chosen = topics.filter(topic => (Array.isArray(body.topicIds) ? body.topicIds : []).includes(topic.id))
+    const period = await getCurrentAcademicPeriod(c.env.APP_DB, tenantId).catch(() => null)
+    const assessment = await createAssessment(c.env.APP_DB, {
+      tenantId, actor, ...target, sessionName: period?.sessionName || '', termName: period?.termName || '',
+      input: { ...body, topicIds: chosen.map(topic => topic.id), topicNames: chosen.map(topic => topic.name) },
+    })
+    return c.json({ success: true, assessment: assessmentView(assessment) }, 201)
+  } catch (error) {
+    return assessmentFailure(c, error, 'Could not start the assessment.')
+  }
+})
+
+app.get('/api/ai-assessments/:id', authenticate, async (c) => {
+  try {
+    const { tenantId, actor } = await resolveAssessmentActor(c)
+    const assessment = await getAssessment(c.env.APP_DB, tenantId, c.req.param('id'))
+    if (!assessment) return c.json({ success: false, message: 'Assessment not found.' }, 404)
+    // The marking scheme lives here, so only its author and school leadership may open it.
+    if (assessment.createdBy !== actor.id && !['owner', 'hos'].includes(actor.role)) return c.json({ success: false, message: 'Assessment not found.' }, 404)
+    const synced = await syncExamSubmission(c.env.APP_DB, assessment, actor)
+    return c.json({ success: true, assessment: assessmentView(synced), canEdit: synced.createdBy === actor.id })
+  } catch (error) {
+    return assessmentFailure(c, error, 'Could not load the assessment.')
+  }
+})
+
+app.put('/api/ai-assessments/:id/blueprint', authenticate, async (c) => {
+  try {
+    const { tenantId, actor } = await resolveAssessmentActor(c)
+    const assessment = await getOwnAssessment(c.env.APP_DB, tenantId, c.req.param('id'), actor)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    return c.json({ success: true, assessment: assessmentView(await approveBlueprint(c.env.APP_DB, assessment, body.blueprint, actor)) })
+  } catch (error) {
+    return assessmentFailure(c, error, 'Could not save the blueprint.')
+  }
+})
+
+app.post('/api/ai-assessments/:id/generate-next', authenticate, async (c) => {
+  try {
+    const { tenantId, actor } = await resolveAssessmentActor(c)
+    const assessment = await getOwnAssessment(c.env.APP_DB, tenantId, c.req.param('id'), actor)
+    const context = await buildAssessmentContext(c.env.APP_DB, assessment)
+    const result = await generateNext(c.env.APP_DB, assessment, { runAi: assessmentAiRunner(c.env), context, actor })
+    return c.json({ success: true, done: result.done, remaining: result.remaining, assessment: assessmentView(result.assessment) })
+  } catch (error) {
+    return assessmentFailure(c, error, 'Could not write the next questions.')
+  }
+})
+
+app.post('/api/ai-assessments/:id/regenerate', authenticate, async (c) => {
+  try {
+    const { tenantId, actor } = await resolveAssessmentActor(c)
+    const assessment = await getOwnAssessment(c.env.APP_DB, tenantId, c.req.param('id'), actor)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const context = await buildAssessmentContext(c.env.APP_DB, assessment)
+    const saved = await regenerateQuestion(c.env.APP_DB, assessment, { questionId: body.questionId ? String(body.questionId) : undefined, slot: body.slot !== undefined ? Number(body.slot) : undefined }, { runAi: assessmentAiRunner(c.env), context, actor, instruction: String(body.instruction || '').slice(0, 300) })
+    return c.json({ success: true, assessment: assessmentView(saved) })
+  } catch (error) {
+    return assessmentFailure(c, error, 'Could not regenerate the question.')
+  }
+})
+
+app.put('/api/ai-assessments/:id', authenticate, async (c) => {
+  try {
+    const { tenantId, actor } = await resolveAssessmentActor(c)
+    const assessment = await getOwnAssessment(c.env.APP_DB, tenantId, c.req.param('id'), actor)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const result = await saveTeacherEdits(c.env.APP_DB, assessment, body, actor)
+    return c.json({ success: true, assessment: assessmentView(result.assessment), problems: result.problems })
+  } catch (error) {
+    return assessmentFailure(c, error, 'Could not save your changes.')
+  }
+})
+
+app.post('/api/ai-assessments/:id/review', authenticate, async (c) => {
+  try {
+    const { tenantId, actor } = await resolveAssessmentActor(c)
+    const assessment = await getOwnAssessment(c.env.APP_DB, tenantId, c.req.param('id'), actor)
+    if (!assessment.questions.length) throw new AssessmentError('There are no questions to review yet.')
+    const review = await aiReview(c.env.APP_DB, assessment, { runAi: assessmentAiRunner(c.env), actor })
+    return c.json({ success: true, review, audit: auditFor(assessment) })
+  } catch (error) {
+    return assessmentFailure(c, error, 'Could not run the review.')
+  }
+})
+
+app.get('/api/ai-assessments/:id/versions', authenticate, async (c) => {
+  try {
+    const { tenantId, actor } = await resolveAssessmentActor(c)
+    const assessment = await getAssessment(c.env.APP_DB, tenantId, c.req.param('id'))
+    if (!assessment || (assessment.createdBy !== actor.id && !['owner', 'hos'].includes(actor.role))) return c.json({ success: false, message: 'Assessment not found.' }, 404)
+    const version = Number(c.req.query('version') || 0)
+    if (version) return c.json({ success: true, snapshot: await getVersionSnapshot(c.env.APP_DB, tenantId, assessment.id, version) })
+    return c.json({ success: true, versions: await listVersions(c.env.APP_DB, tenantId, assessment.id) })
+  } catch (error) {
+    return assessmentFailure(c, error, 'Could not load the version history.')
+  }
+})
+
+/** Quiz / assignment / test: post now or schedule into the classroom. */
+app.post('/api/ai-assessments/:id/post', authenticate, async (c) => {
+  try {
+    const { tenantId, actor } = await resolveAssessmentActor(c)
+    const assessment = await getOwnAssessment(c.env.APP_DB, tenantId, c.req.param('id'), actor)
+    if (assessment.kind === 'exam' && assessment.status !== 'finalised') throw new AssessmentError('An examination goes online only after it has been approved.')
+    if (!['draft', 'finalised'].includes(assessment.status)) throw new AssessmentError('This assessment has already been posted.', 409)
+    if (pendingSlots(assessment).length) throw new AssessmentError('Some questions have not been written yet.', 409)
+    const audit = auditFor(assessment)
+    if (audit.checks.some(check => check.key === 'validity' && check.status === 'fail')) throw new AssessmentError('Fix or delete the invalid questions before posting.', 409)
+    const target = await resolveAssessmentClass(c, assessment.classId, assessment.subjectId)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const iso = (value: unknown) => { const date = new Date(String(value || '')); return Number.isFinite(date.getTime()) ? date.toISOString() : '' }
+    const scheduled = body.mode === 'schedule'
+    const opensAt = scheduled ? iso(body.opensAt) : new Date().toISOString()
+    const closesAt = iso(body.closesAt)
+    if (scheduled && !opensAt) throw new AssessmentError('Choose when it opens.')
+    if (closesAt && opensAt && closesAt <= opensAt) throw new AssessmentError('The closing time must be after the opening time.')
+    const delivery = {
+      mode: scheduled ? 'scheduled' : 'now', opensAt, closesAt: closesAt || null,
+      durationMinutes: clampInt(body.durationMinutes ?? assessment.config.durationMinutes, 0, 600, 0),
+      attempts: clampInt(body.attempts, 1, 10, 1),
+      latePolicy: ['reject', 'accept_marked_late', 'accept'].includes(String(body.latePolicy)) ? body.latePolicy : 'accept_marked_late',
+      autoMark: body.autoMark !== false,
+      // Secondary-school exams give every student their own paper unless the teacher turns it off.
+      uniquePerStudent: body.uniquePerStudent === undefined ? assessment.kind === 'exam' && isSecondaryClass(assessment.className || assessment.config.classLevel) : body.uniquePerStudent === true,
+    }
+    // Unique papers keep the number templates, filled in per student; otherwise everyone sees the master paper.
+    const questions = toClassroomQuestions(delivery.uniquePerStudent ? assessment.questions : masterQuestions(assessment.questions))
+    const assignment = await createAssignment(c.env.APP_DB, {
+      classId: target.classId, title: assessment.title,
+      description: String(body.description || `${assessment.questions.length} questions · ${audit.totalMarks} marks${delivery.durationMinutes ? ` · ${delivery.durationMinutes} minutes` : ''}`).slice(0, 2000),
+      dueAt: delivery.closesAt, subjectId: target.subjectId, subjectName: target.subjectName,
+      format: assessment.kind === 'quiz' ? 'quiz' : 'mixed', questions,
+      metadata: {
+        kind: assessment.kind === 'quiz' ? 'quiz' : assessment.kind, aiAssessmentId: assessment.id, aiAssessmentVersion: assessment.version + 1,
+        ...(assessment.config.topicNames.length === 1 ? { topic: assessment.config.topicNames[0] } : {}), topics: assessment.config.topicNames,
+        opensAt: delivery.opensAt, closesAt: delivery.closesAt, durationMinutes: delivery.durationMinutes, attempts: delivery.attempts,
+        latePolicy: delivery.latePolicy, autoMark: delivery.autoMark, answersReleased: false, totalMarks: audit.totalMarks,
+        ...(delivery.uniquePerStudent ? { uniquePerStudent: true } : {}),
+        questionCount: questions.length, className: target.className, standard: assessment.config.standard,
+      },
+      createdBy: actor.id,
+    })
+    const saved = await setStatus(c.env.APP_DB, assessment, { status: scheduled ? 'scheduled' : 'posted', delivery, postedAssignmentId: String(assignment.id) }, actor,
+      scheduled ? 'Scheduled' : 'Posted', scheduled ? `Opens ${opensAt}${closesAt ? `, closes ${closesAt}` : ''}` : 'Posted to the class')
+    return c.json({ success: true, assignment, assessment: assessmentView(saved) })
+  } catch (error) {
+    return assessmentFailure(c, error, 'Could not post the assessment.')
+  }
+})
+
+/** After the assessment, the teacher releases answers and marking guides to students. */
+app.post('/api/ai-assessments/:id/release-answers', authenticate, async (c) => {
+  try {
+    const { tenantId, actor } = await resolveAssessmentActor(c)
+    const assessment = await getOwnAssessment(c.env.APP_DB, tenantId, c.req.param('id'), actor)
+    if (!assessment.postedAssignmentId) throw new AssessmentError('This assessment has not been posted.', 409)
+    const assignment = await getAssignmentById(c.env.APP_DB, assessment.postedAssignmentId) as Record<string, any> | null
+    if (!assignment) throw new AssessmentError('The posted assignment was not found.', 404)
+    await updateAssignment(c.env.APP_DB, assessment.postedAssignmentId, { metadata: { ...(assignment.metadata || {}), answersReleased: true, answersReleasedAt: new Date().toISOString() } })
+    return c.json({ success: true })
+  } catch (error) {
+    return assessmentFailure(c, error, 'Could not release the answers.')
+  }
+})
+
+/**
+ * Printed unique papers. mode=versions: versions A, B, C… (count 2–8), each with its own key.
+ * mode=students: one paper per student in the class, with their name and their own key.
+ * Teachers only — every paper carries its answers for the keys.
+ */
+app.get('/api/ai-assessments/:id/papers', authenticate, async (c) => {
+  try {
+    const { tenantId, actor } = await resolveAssessmentActor(c)
+    const assessment = await getOwnAssessment(c.env.APP_DB, tenantId, c.req.param('id'), actor)
+    if (pendingSlots(assessment).length) throw new AssessmentError('Some questions have not been written yet.', 409)
+    if (!assessment.questions.length) throw new AssessmentError('There are no questions yet.', 409)
+    const base = `${assessment.id}:v${assessment.version}`
+    const paperFor = (seed: string, extra: Record<string, unknown>) => {
+      const { record, questions } = personalise(assessment.questions, seed)
+      return { ...extra, code: paperCode(record.seed), questions }
+    }
+    if (c.req.query('mode') === 'students') {
+      const students = await listStudentsForClass(c.env.APP_DB, tenantId, assessment.classId)
+      if (!students.length) throw new AssessmentError('No students were found in this class.', 404)
+      return c.json({ success: true, mode: 'students', papers: students.map(student => paperFor(`${base}:s:${student.id}`, { label: student.name || student.email, studentId: student.id, studentName: student.name || student.email, admissionNo: student.displayId || '' })) })
+    }
+    const count = clampInt(c.req.query('count'), 2, 8, 4)
+    const labels = 'ABCDEFGH'.slice(0, count).split('')
+    return c.json({ success: true, mode: 'versions', papers: labels.map(label => paperFor(`${base}:version:${label}`, { label: `Version ${label}`, version: label })) })
+  } catch (error) {
+    return assessmentFailure(c, error, 'Could not prepare the papers.')
+  }
+})
+
+// ─── Teacher's own papers: typed, pasted or uploaded (paperImport.ts) ─────────
+
+/** Text from an uploaded PDF or Word file, read by Workers AI. */
+async function fileToText(env: Record<string, any>, file: File) {
+  if (!env.AI || typeof env.AI.toMarkdown !== 'function') throw new AssessmentError('Ndovera cannot read this file here. Open it, copy the questions and paste them instead.', 503)
+  const result = await env.AI.toMarkdown([{ name: file.name || 'paper', blob: new Blob([await file.arrayBuffer()], { type: file.type || 'application/octet-stream' }) }])
+  const first = Array.isArray(result) ? result[0] : result
+  if (!first || first.format === 'error' || !String(first.data || '').trim()) throw new AssessmentError('No text could be read from this file. A scanned paper is a picture of text — type or paste the questions instead.', 422)
+  return String(first.data)
+}
+
+/** Read a paper; when the layout is too unusual, Ndovera AI reads it (in pieces) and the result is checked the same way. */
+async function readPaper(env: Record<string, any>, text: string) {
+  const parsed = parsePaperText(text)
+  if (!needsAiHelp(parsed, text) || !env.AI || typeof env.AI.run !== 'function') return { result: parsed, usedAi: false }
+  const runAi = assessmentAiRunner(env)
+  const pieces: string[] = []
+  let piece = ''
+  for (const line of text.split('\n')) {
+    if (piece.length + line.length > 6000 && piece) { pieces.push(piece); piece = '' }
+    piece += `${line}\n`
+  }
+  if (piece.trim()) pieces.push(piece)
+  const questions: any[] = []
+  for (const chunk of pieces.slice(0, 6)) {
+    const reply = await runAi([{ role: 'system', content: AI_IMPORT_SYSTEM }, { role: 'user', content: chunk }], { maxTokens: 3500, temperature: 0.1 })
+    questions.push(...importFromAiReply(reply, text).questions)
+  }
+  if (!questions.length) return { result: parsed, usedAi: false }
+  // Renumber per section after joining the pieces.
+  const result = importFromAiReply(JSON.stringify(questions.map(question => ({ ...question, answer: question.answerIndex >= 0 ? 'ABCDE'[question.answerIndex] : '' }))), text)
+  return { result, usedAi: true }
+}
+
+/**
+ * Turn a typed, pasted or uploaded paper into an exam the teacher can check, edit,
+ * print and submit for approval. Multipart (file = PDF or Word) or JSON (text).
+ */
+app.post('/api/ai-assessments/import', authenticate, async (c) => {
+  try {
+    const { tenantId, actor } = await resolveAssessmentActor(c)
+    const contentType = String(c.req.header('content-type') || '')
+    let body: Record<string, any> = {}
+    let text = ''
+    let sourceName = ''
+    if (contentType.includes('multipart/form-data')) {
+      const form = await c.req.formData()
+      for (const key of ['classId', 'subjectId', 'title', 'durationMinutes', 'kind']) body[key] = String(form.get(key) || '')
+      const file = form.get('file') as File | null
+      if (!file || typeof file === 'string') throw new AssessmentError('Choose a Word or PDF file.')
+      if (file.size > 15 * 1024 * 1024) throw new AssessmentError('The file must be 15 MB or smaller.', 413)
+      if (!/\.(pdf|docx|odt|txt|md)$/i.test(file.name)) throw new AssessmentError('Upload a Word (.docx) or PDF file — or paste the questions.')
+      sourceName = file.name
+      text = /\.(txt|md)$/i.test(file.name) ? await file.text() : await fileToText(c.env, file)
+    } else {
+      body = await c.req.json().catch(() => ({})) as Record<string, any>
+      text = String(body.text || '')
+      sourceName = String(body.sourceName || '')
+    }
+    if (text.trim().length < 20) throw new AssessmentError('Paste or upload the questions first.')
+    const target = await resolveAssessmentClass(c, String(body.classId || ''), String(body.subjectId || ''))
+    if (target.tenantId !== tenantId) throw new AssessmentError('Class not found.', 404)
+    const { result, usedAi } = await readPaper(c.env, text.slice(0, 60000))
+    if (!result.questions.length) throw new AssessmentError('No numbered questions were found. Number each question (1., 2., 3. …) and write the options as A. B. C. D.', 422)
+    const converted = toAssessmentInput(result)
+    const period = await getCurrentAcademicPeriod(c.env.APP_DB, tenantId).catch(() => null)
+    const kind = ['exam', 'test', 'quiz', 'assignment'].includes(String(body.kind)) ? String(body.kind) : 'exam'
+    const { assessment, problems } = await importAssessment(c.env.APP_DB, {
+      tenantId, actor, ...target, sessionName: period?.sessionName || '', termName: period?.termName || '',
+      input: { kind, standard: 'school', title: String(body.title || '').trim() || `${target.subjectName} Examination`, durationMinutes: Number(body.durationMinutes) || 120, mcqOptions: converted.mcqOptions, delivery: 'printable', source: 'curriculum' },
+      questions: converted.questions, blueprint: converted.blueprint,
+      label: sourceName ? 'Uploaded by teacher' : 'Typed by teacher',
+      summary: `${converted.questions.length} questions read${sourceName ? ` from ${sourceName}` : ''}${usedAi ? ' with Ndovera AI' : ''}`,
+    })
+    return c.json({ success: true, assessment: assessmentView(assessment), warnings: result.warnings, problems, usedAi }, 201)
+  } catch (error) {
+    return assessmentFailure(c, error, 'Could not read the paper.')
+  }
+})
+
+/** Ndovera AI drafts the marking guides the teacher has not written yet. The teacher reviews them like any edit. */
+app.post('/api/ai-assessments/:id/draft-schemes', authenticate, async (c) => {
+  try {
+    const { tenantId, actor } = await resolveAssessmentActor(c)
+    const assessment = await getOwnAssessment(c.env.APP_DB, tenantId, c.req.param('id'), actor)
+    const missing = assessment.questions.filter(question => !['mcq', 'truefalse'].includes(question.type) && (question.parts?.length
+      ? question.parts.some(part => !part.answer && !part.markingPoints.length)
+      : !question.answer && !question.markingPoints.length)).slice(0, 6)
+    if (!missing.length) return c.json({ success: true, assessment: assessmentView(assessment), drafted: 0, remaining: 0 })
+    const runAi = assessmentAiRunner(c.env)
+    const reply = await runAi([
+      { role: 'system', content: `You are an experienced ${assessment.subjectName} examiner for ${assessment.className}. Write the marking guide for each question: the expected answer and the marking points a teacher awards marks for, matching the marks given. Return ONLY a JSON array: [{"id":"","answer":"","markingPoints":[""],"parts":[{"answer":"","markingPoints":[""]}]}] — "parts" in the same order as the question's parts, or [] when it has none. Use LaTeX \\( \\) for formulas.` },
+      { role: 'user', content: missing.map(question => [`id: ${question.id} (${question.marks} marks)`, question.prompt, ...(question.parts || []).map(part => `(${part.label}) ${part.prompt} [${part.marks} marks]`)].join('\n')).join('\n\n---\n\n') },
+    ], { maxTokens: 3000, temperature: 0.2 })
+    let drafts: any[] = []
+    try { const body = String(reply).replace(/^```(?:json)?\s*/i, '').replace(/\s*```\s*$/, ''); drafts = JSON.parse(body.slice(body.indexOf('['), body.lastIndexOf(']') + 1)) } catch { drafts = [] }
+    let drafted = 0
+    const list = (value: unknown) => (Array.isArray(value) ? value : []).map(item => String(item || '').trim()).filter(Boolean).slice(0, 10)
+    const questions = assessment.questions.map(question => {
+      const draft = drafts.find(item => item && String(item.id) === question.id)
+      if (!draft || !missing.includes(question)) return question
+      drafted += 1
+      return {
+        ...question,
+        answer: question.answer || String(draft.answer || '').trim(),
+        markingPoints: question.markingPoints.length ? question.markingPoints : list(draft.markingPoints),
+        ...(question.parts?.length ? { parts: question.parts.map((part, index) => (part.answer || part.markingPoints.length ? part : { ...part, answer: String(draft.parts?.[index]?.answer || '').trim(), markingPoints: list(draft.parts?.[index]?.markingPoints) })) } : {}),
+      }
+    })
+    if (!drafted) throw new AssessmentError('Ndovera AI could not draft the marking guides this time. Try again, or write them yourself.', 502)
+    const result = await saveTeacherEdits(c.env.APP_DB, assessment, { questions }, actor)
+    return c.json({ success: true, assessment: assessmentView(result.assessment), drafted, remaining: Math.max(0, missing.length - drafted) })
+  } catch (error) {
+    return assessmentFailure(c, error, 'Could not draft the marking guides.')
+  }
+})
+
+// ─── Exam sittings (examSittings.ts) ─────────────────────────────────────────
+
+const OBJECTIVE_QUESTION_TYPES = new Set(['mcq', 'truefalse', 'fill'])
+
+/** What the paper is worth, split into its computer-marked and teacher-marked parts. */
+function paperSplit(assessment: Assessment) {
+  const objective = assessment.questions.filter(question => OBJECTIVE_QUESTION_TYPES.has(question.type))
+  const objectiveMarks = objective.reduce((sum, question) => sum + question.marks, 0)
+  const paperTotal = auditFor(assessment).examMarks
+  return { objective, theory: assessment.questions.filter(question => !OBJECTIVE_QUESTION_TYPES.has(question.type)), objectiveMarks, theoryMarks: Math.max(0, paperTotal - objectiveMarks), paperTotal }
+}
+
+async function findAssessmentBySubmission(db: D1Database, tenantId: string, submissionId: string) {
+  await ensureAiAssessmentTables(db)
+  const row = await db.prepare(`SELECT * FROM ai_assessments WHERE tenant_id = ? AND submission_id = ? ORDER BY updated_at DESC LIMIT 1`).bind(tenantId, submissionId).first() as Record<string, any> | null
+  return row ? mapAssessment(row) : null
+}
+
+/** Check everything about a sitting before anything is approved. */
+function checkSittingPlan(assessment: Assessment, delivery: unknown) {
+  const schedule = validateSchedule((delivery && typeof delivery === 'object' ? delivery : { mode: 'print' }) as Record<string, any>)
+  const split = paperSplit(assessment)
+  if (schedule.mode === 'cbt_objective' && !split.objective.length) throw new SittingError('This paper has no objective questions. Choose "Printed paper" or "CBT (whole paper)".')
+  if (schedule.mode === 'cbt_objective' && !split.theory.length) throw new SittingError('This paper has no theory section to print. Choose "CBT (whole paper)".')
+  return { schedule, split }
+}
+
+/** Create (or replace, if nobody has started it) the sitting for an approved paper. */
+async function createSittingFor(db: D1Database, assessment: Assessment, plan: ReturnType<typeof checkSittingPlan>, approver: { id: string, name: string }, submissionId = '') {
+  const existing = await getSittingForAssessment(db, assessment.tenantId, assessment.id)
+  if (existing) {
+    const started = existing.assignmentId ? await db.prepare(`SELECT COUNT(*) AS n FROM submissions WHERE assignmentId = ?`).bind(existing.assignmentId).first().catch(() => ({ n: 0 })) as Record<string, any> : { n: 0 }
+    if (existing.status === 'posted' || Number(started?.n || 0) > 0 || sittingPhase(existing) === 'open') throw new SittingError('This paper is already being written or has been marked; it cannot be set up again.', 409)
+    if (existing.assignmentId) await deleteAssignment(db, existing.assignmentId)
+    await deleteSitting(db, existing)
+  }
+  const { schedule, split } = plan
+  const id = `sit-${crypto.randomUUID()}`
+  let assignmentId = ''
+  if (schedule.mode !== 'print') {
+    const written = schedule.mode === 'cbt' ? assessment.questions : split.objective
+    const questions = toClassroomQuestions(schedule.uniquePerStudent ? written : masterQuestions(written))
+    const assignment = await createAssignment(db, {
+      id: `assign-exam-${crypto.randomUUID()}`, classId: assessment.classId, title: assessment.title,
+      description: `Examination · ${written.length} questions${schedule.mode === 'cbt_objective' ? ' (objectives; theory on paper)' : ''} · ${schedule.durationMinutes} minutes`,
+      dueAt: schedule.closesAt, subjectId: assessment.subjectId, subjectName: assessment.subjectName, format: 'mixed', questions,
+      metadata: {
+        kind: 'exam', examSittingId: id, aiAssessmentId: assessment.id, opensAt: schedule.opensAt, closesAt: schedule.closesAt, durationMinutes: schedule.durationMinutes,
+        attempts: 1, latePolicy: 'reject', autoMark: true, answersReleased: false, totalMarks: written.reduce((sum, question) => sum + question.marks, 0),
+        questionCount: questions.length, className: assessment.className, ...(schedule.uniquePerStudent ? { uniquePerStudent: true } : {}),
+      },
+      createdBy: assessment.createdBy,
+    })
+    assignmentId = String(assignment.id)
+  }
+  return insertSitting(db, {
+    id, tenantId: assessment.tenantId, assessmentId: assessment.id, submissionId, classId: assessment.classId, className: assessment.className,
+    subjectId: assessment.subjectId, subjectName: assessment.subjectName, title: assessment.title, sessionName: assessment.sessionName, termName: assessment.termName,
+    mode: schedule.mode, opensAt: schedule.opensAt, closesAt: schedule.closesAt, durationMinutes: schedule.durationMinutes, uniquePerStudent: schedule.uniquePerStudent,
+    assignmentId, objectiveMarks: split.objectiveMarks, theoryMarks: split.theoryMarks, paperTotal: split.paperTotal, teacherId: assessment.createdBy,
+    approvedBy: approver.id, approvedByName: approver.name,
+  })
+}
+
+function sittingFailure(c: any, error: unknown, fallback: string) {
+  if (error instanceof SittingError) return c.json({ success: false, message: error.message }, error.status as any)
+  return assessmentFailure(c, error, fallback)
+}
+
+function sittingSummary(sitting: Sitting) {
+  return { ...sitting, phase: sittingPhase(sitting), modeLabel: MODE_LABELS[sitting.mode] }
+}
+
+/** Who may mark a sitting: the paper's teacher, the subject's teacher, the class teacher, and school leadership. */
+async function resolveSittingMarker(c: any, sittingId: string) {
+  const base = await resolveAssessmentActor(c)
+  const sitting = await getSitting(c.env.APP_DB, base.tenantId, sittingId)
+  if (!sitting) throw new SittingError('Exam not found.', 404)
+  const access = await resolveResultClassAccess(c.env.APP_DB, c.var.user || {}, sitting.classId)
+  if (!access.classRow) throw new SittingError('Exam not found.', 404)
+  const teachesIt = access.allowedSubjectRows.some(subject => String(subject.id) === sitting.subjectId)
+  if (!(sitting.teacherId === base.actor.id || teachesIt || access.isElevatedManager)) throw new SittingError('Exam not found.', 404)
+  return { ...base, sitting, access, classRow: access.classRow as Record<string, any> }
+}
+
+/** Each student's CBT result for a sitting: their submission, objective score and own paper. */
+async function cbtResults(db: D1Database, sitting: Sitting) {
+  const out = new Map<string, Record<string, any>>()
+  if (!sitting.assignmentId) return out
+  const assignment = await getAssignmentById(db, sitting.assignmentId) as Record<string, any> | null
+  const rows = await db.prepare(`SELECT id, studentId, content, submittedAt FROM submissions WHERE assignmentId = ? ORDER BY submittedAt ASC`).bind(sitting.assignmentId).all().catch(() => ({ results: [] }))
+  for (const row of ((rows as any).results || []) as Record<string, any>[]) {
+    const content = (() => { try { return JSON.parse(String(row.content || '{}')) } catch { return {} } })()
+    const record = content.paper as PaperRecord | undefined
+    const questions = assignment && Array.isArray(assignment.questions) ? (record ? applyPaper(assignment.questions, record) : assignment.questions) : []
+    out.set(String(row.studentId), { submissionId: row.id, submittedAt: row.submittedAt, objective: Number(content.autoMark?.score ?? 0), answers: content.answers || {}, questions, paperCode: record ? paperCode(record.seed) : '' })
+  }
+  return out
+}
+
+async function sittingScoring(db: D1Database, tenantId: string, classRow: Record<string, any>) {
+  const storedSettings = await getResultSettings(db, tenantId, classSectionValue(classRow))
+  const settings = { ...storedSettings, ...normalizeResultSettingsInput(storedSettings) }
+  const limits = normalizeResultScoreSettings(settings.metadata, RESULT_DEFAULT_SCORE_LIMITS)
+  return { settings, limits, scoring: scoreSettingsFrom(settings.metadata, limits.examMaxScore) }
+}
+
+/** A student's two marks: in CBT the computer's objective score stands; printed papers take the teacher's. */
+function marksFor(sitting: Sitting, saved: { objective: number | null, theory: number | null } | undefined, written: Record<string, any> | undefined) {
+  const objective = sitting.mode === 'print' ? (saved?.objective ?? null) : (written ? Number(written.objective) : null)
+  return { objective, theory: saved?.theory ?? null }
+}
+
+/**
+ * Head of School / Owner: every exam paper teachers have submitted or had approved, to download.
+ * status = approved | submitted | all. Ndovera papers come whole (questions, marks, marking
+ * schemes); older "Exam Questions" submissions come with their text and attached files.
+ */
+app.get('/api/exam-papers', authenticate, async (c) => {
+  try {
+    const { tenantId, actor } = await resolveAssessmentActor(c)
+    if (!['owner', 'hos'].includes(actor.role)) throw new AssessmentError('Only the Head of School or Owner can download exam papers.', 403)
+    const status = ['approved', 'submitted', 'all'].includes(String(c.req.query('status'))) ? String(c.req.query('status')) : 'approved'
+    const classId = String(c.req.query('classId') || '')
+    await ensureAiAssessmentTables(c.env.APP_DB)
+    const wanted = status === 'approved' ? ['finalised', 'posted', 'scheduled'] : status === 'submitted' ? ['submitted'] : ['submitted', 'finalised', 'posted', 'scheduled']
+    const rows = await c.env.APP_DB.prepare(`SELECT * FROM ai_assessments WHERE tenant_id = ? AND kind = 'exam' AND status IN (${wanted.map(() => '?').join(', ')}) ${classId ? 'AND class_id = ?' : ''} ORDER BY class_name, subject_name, updated_at DESC`)
+      .bind(tenantId, ...wanted, ...(classId ? [classId] : [])).all()
+    const papers = ((rows.results || []) as Record<string, any>[]).map(mapAssessment).map(assessment => ({ ...assessmentView(assessment), questions: masterQuestions(assessment.questions) }))
+    const linked = new Set(papers.map(paper => paper.submissionId).filter(Boolean))
+    const legacyStatuses = status === 'approved' ? ['approved'] : status === 'submitted' ? ['submitted', 'resubmitted', 'under_review'] : ['approved', 'submitted', 'resubmitted', 'under_review']
+    const legacy = (await listSubmissions(c.env.APP_DB, tenantId, { type: 'exam_questions', classId, excludeDrafts: true }))
+      .filter(item => legacyStatuses.includes(item.status) && !linked.has(item.id))
+      .map(item => ({ id: item.id, title: item.title, className: item.className, subjectName: item.subjectName, teacherName: item.teacherName, status: item.status, sessionName: item.sessionName, termName: item.termName, submittedAt: item.submittedAt, content: item.content, files: item.files }))
+    return c.json({ success: true, status, papers, legacy })
+  } catch (error) {
+    return assessmentFailure(c, error, 'Could not load the exam papers.')
+  }
+})
+
+/** Leadership sees every sitting; teachers see the ones they set or teach. */
+app.get('/api/exam-sittings', authenticate, async (c) => {
+  try {
+    const { tenantId, actor } = await resolveAssessmentActor(c)
+    const all = await listSittings(c.env.APP_DB, tenantId, { classId: c.req.query('classId') || undefined })
+    let visible = all
+    if (!['owner', 'hos', 'ict_manager'].includes(actor.role)) {
+      const mine: Sitting[] = []
+      const checked = new Map<string, Set<string>>()
+      for (const sitting of all) {
+        if (sitting.teacherId === actor.id) { mine.push(sitting); continue }
+        if (!checked.has(sitting.classId)) {
+          const access = await resolveResultClassAccess(c.env.APP_DB, c.var.user || {}, sitting.classId)
+          checked.set(sitting.classId, new Set(access.isElevatedManager ? access.subjectRows.map(row => String(row.id)) : access.allowedSubjectRows.map(row => String(row.id))))
+        }
+        if (checked.get(sitting.classId)!.has(sitting.subjectId)) mine.push(sitting)
+      }
+      visible = mine
+    }
+    return c.json({ success: true, sittings: visible.map(sittingSummary), canSchedule: ['owner', 'hos'].includes(actor.role) })
+  } catch (error) {
+    return sittingFailure(c, error, 'Could not load the exams.')
+  }
+})
+
+/** The HOS (or Owner) moves a CBT that has not opened yet. */
+app.put('/api/exam-sittings/:id/schedule', authenticate, async (c) => {
+  try {
+    const { tenantId, actor } = await resolveAssessmentActor(c)
+    if (!['owner', 'hos'].includes(actor.role)) throw new SittingError('Only the Head of School or Owner can change an exam time.', 403)
+    const sitting = await getSitting(c.env.APP_DB, tenantId, c.req.param('id'))
+    if (!sitting) throw new SittingError('Exam not found.', 404)
+    if (sitting.mode === 'print') throw new SittingError('A printed paper has no CBT time.')
+    if (sittingPhase(sitting) !== 'scheduled') throw new SittingError('This exam has already opened; its time can no longer be changed.', 409)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const schedule = validateSchedule({ ...body, mode: sitting.mode })
+    const saved = await updateSittingSchedule(c.env.APP_DB, sitting, schedule)
+    if (saved.assignmentId) {
+      const assignment = await getAssignmentById(c.env.APP_DB, saved.assignmentId) as Record<string, any> | null
+      if (assignment) await updateAssignment(c.env.APP_DB, saved.assignmentId, { dueAt: schedule.closesAt, metadata: { ...(assignment.metadata || {}), opensAt: schedule.opensAt, closesAt: schedule.closesAt, durationMinutes: schedule.durationMinutes } })
+    }
+    return c.json({ success: true, sitting: sittingSummary(saved) })
+  } catch (error) {
+    return sittingFailure(c, error, 'Could not change the exam time.')
+  }
+})
+
+async function resolveExamStudent(c: any) {
+  const user = c.var.user || {}
+  const resolved = await resolveSettingsIdentity(c.env.APP_DB, String(user.id || user.email || user.sub || ''))
+  return {
+    tenantId: String(resolved.settings?.tenantId || resolved.settings?.schoolId || resolved.userRow?.tenantId || user.tenantId || ''),
+    studentId: String(resolved.userRow?.id || user.id || ''),
+    classId: String(resolved.settings?.classId || user.classId || '').trim(),
+    isStudent: resolveEffectiveRole(resolved, user) === 'student',
+  }
+}
+
+async function hasWritten(db: D1Database, assignmentId: string, studentId: string) {
+  const done = await db.prepare(`SELECT COUNT(*) AS n FROM submissions WHERE assignmentId = ? AND studentId = ?`).bind(assignmentId, studentId).first().catch(() => ({ n: 0 })) as Record<string, any>
+  return Number(done?.n || 0) > 0
+}
+
+/** Students: CBT exams for their class — coming up, or open now and not yet written. Written ones are gone. */
+app.get('/api/exam-sittings/student', authenticate, async (c) => {
+  try {
+    const student = await resolveExamStudent(c)
+    if (!student.tenantId || !student.classId || !student.isStudent) return c.json({ success: true, exams: [] })
+    const sittings = (await listSittings(c.env.APP_DB, student.tenantId, { classId: student.classId })).filter(sitting => sitting.mode !== 'print' && sitting.assignmentId)
+    const exams = []
+    for (const sitting of sittings) {
+      const phase = sittingPhase(sitting)
+      if (phase !== 'scheduled' && phase !== 'open') continue
+      if (await hasWritten(c.env.APP_DB, sitting.assignmentId, student.studentId)) continue
+      exams.push({ id: sitting.id, title: sitting.title, subjectName: sitting.subjectName, opensAt: sitting.opensAt, closesAt: sitting.closesAt, durationMinutes: sitting.durationMinutes, phase, theoryOnPaper: sitting.mode === 'cbt_objective' })
+    }
+    exams.sort((a, b) => a.opensAt.localeCompare(b.opensAt))
+    return c.json({ success: true, exams, serverNow: new Date().toISOString() })
+  } catch (error) {
+    return sittingFailure(c, error, 'Could not load your exams.')
+  }
+})
+
+/** Students: their own paper, only while the exam is open and only until they submit. Never with answers. */
+app.get('/api/exam-sittings/:id/paper', authenticate, async (c) => {
+  try {
+    const student = await resolveExamStudent(c)
+    const sitting = await getSitting(c.env.APP_DB, student.tenantId, c.req.param('id'))
+    if (!sitting || !sitting.assignmentId || sitting.classId !== student.classId || !student.isStudent) throw new SittingError('Exam not found.', 404)
+    const phase = sittingPhase(sitting)
+    if (phase === 'scheduled') throw new SittingError('This exam has not opened yet.', 403)
+    if (phase !== 'open') throw new SittingError('This exam has closed.', 403)
+    if (await hasWritten(c.env.APP_DB, sitting.assignmentId, student.studentId)) throw new SittingError('You have already written this exam.', 409)
+    const assignment = await getAssignmentById(c.env.APP_DB, sitting.assignmentId) as Record<string, any> | null
+    if (!assignment) throw new SittingError('Exam not found.', 404)
+    const own = studentPaperQuestions(assignment, student.studentId)
+    const questions = stripAnswersForStudent(own || masterQuestions(assignment.questions || []))
+    return c.json({
+      success: true,
+      exam: { id: sitting.id, title: sitting.title, subjectName: sitting.subjectName, closesAt: sitting.closesAt, durationMinutes: sitting.durationMinutes, theoryOnPaper: sitting.mode === 'cbt_objective' },
+      assignment: { id: assignment.id, metadata: { durationMinutes: sitting.durationMinutes } }, questions,
+    })
+  } catch (error) {
+    return sittingFailure(c, error, 'Could not open the exam.')
+  }
+})
+
+/** Teacher's marking sheet: every student, their CBT objective score, the theory marks entered, and the score-sheet score. */
+app.get('/api/exam-sittings/:id/marking', authenticate, async (c) => {
+  try {
+    const { sitting, access, classRow } = await resolveSittingMarker(c, c.req.param('id'))
+    const { scoring } = await sittingScoring(c.env.APP_DB, String(access.tenantId), classRow)
+    const [students, marks, cbt] = await Promise.all([listResultClassStudents(c.env.APP_DB, String(access.tenantId), classRow), listMarks(c.env.APP_DB, sitting.id), cbtResults(c.env.APP_DB, sitting)])
+    const rows = students.map(student => {
+      const written = cbt.get(student.id)
+      const { objective, theory } = marksFor(sitting, marks.get(student.id), written)
+      const has = objective !== null || theory !== null
+      return {
+        studentId: student.id, studentName: student.name, admissionNo: student.displayId,
+        wroteCbt: Boolean(written), submittedAt: written?.submittedAt || '', paperCode: written?.paperCode || '',
+        objective, theory, ...(has ? sheetScore(objective, theory, sitting.paperTotal, scoring) : { total: null, score: null }),
+        // Whole-paper CBT: the teacher reads the typed theory answers here.
+        ...(sitting.mode === 'cbt' && written ? { answers: written.answers, questions: written.questions } : {}),
+      }
+    })
+    return c.json({ success: true, sitting: sittingSummary(sitting), scoring, rows })
+  } catch (error) {
+    return sittingFailure(c, error, 'Could not load the marking sheet.')
+  }
+})
+
+app.put('/api/exam-sittings/:id/marks', authenticate, async (c) => {
+  try {
+    const { sitting, access, actor, classRow } = await resolveSittingMarker(c, c.req.param('id'))
+    if (['open', 'scheduled'].includes(sittingPhase(sitting))) throw new SittingError('Mark the exam after it closes.', 409)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const students = await listResultClassStudents(c.env.APP_DB, String(access.tenantId), classRow)
+    const saved = await saveMarks(c.env.APP_DB, sitting, Array.isArray(body.rows) ? body.rows : [], new Set(students.map(student => student.id)), actor.id)
+    return c.json({ success: true, saved })
+  } catch (error) {
+    return sittingFailure(c, error, 'Could not save the marks.')
+  }
+})
+
+/**
+ * Post the scores: each student's exam score goes into the exam column of the CA score sheet
+ * (their CA marks are kept), and the paper moves to their Assignments tab for review with
+ * their answers, the correct answers and the marking guide.
+ */
+app.post('/api/exam-sittings/:id/post', authenticate, async (c) => {
+  try {
+    const { sitting, access, actor, classRow } = await resolveSittingMarker(c, c.req.param('id'))
+    if (['open', 'scheduled'].includes(sittingPhase(sitting))) throw new SittingError('Post scores after the exam closes.', 409)
+    const tenantId = String(access.tenantId)
+    const subject = access.subjectRows.find(row => String(row.id) === sitting.subjectId)
+    if (!subject) throw new SittingError('This subject is no longer in the class.', 404)
+    let period
+    try {
+      period = await resolveCurrentResultPeriod(c.env.APP_DB, tenantId, sitting.sessionName || undefined, sitting.termName || undefined, {})
+    } catch (error) {
+      throw new SittingError(error instanceof Error ? error.message : 'Set up the current session and term before posting scores.')
+    }
+    const { settings, limits, scoring } = await sittingScoring(c.env.APP_DB, tenantId, classRow)
+    const configurationError = validateResultSettings(settings)
+    if (configurationError) throw new SittingError(configurationError)
+    const caComponents = normalizeResultCaComponentList(settings.metadata?.caComponents, RESULT_DEFAULT_CA_COMPONENTS, 8, limits.caMaxScore)
+    const [students, marks, cbt] = await Promise.all([listResultClassStudents(c.env.APP_DB, tenantId, classRow), listMarks(c.env.APP_DB, sitting.id), cbtResults(c.env.APP_DB, sitting)])
+    if (sitting.theoryMarks > 0 && c.req.query('confirm') !== 'missing-theory') {
+      const missing = students.filter(student => marksFor(sitting, marks.get(student.id), cbt.get(student.id)).objective !== null && marks.get(student.id)?.theory == null)
+      if (missing.length) {
+        return c.json({ success: false, needsConfirmation: true, message: `${missing.length} student${missing.length === 1 ? ' has' : 's have'} no theory mark yet: ${missing.slice(0, 8).map(student => student.name).join(', ')}${missing.length > 8 ? '…' : ''}. Post anyway, counting their theory as 0?` }, 409)
+      }
+    }
+    // Keep every student's CA marks; only the exam column changes.
+    await ensureSessionTermExists(c.env.APP_DB, tenantId, period.sessionName, period.termName)
+    const batch = await getResultBatch(c.env.APP_DB, tenantId, sitting.classId, period.sessionName, period.termName)
+    const existing = new Map((await listResultEntries(c.env.APP_DB, batch.id)).filter(entry => entry.subjectId === sitting.subjectId).map(entry => [entry.studentId, entry]))
+    const rows: Array<Record<string, any>> = []
+    const posted: Array<{ studentId: string, total: number, score: number, theory: number | null, objective: number | null }> = []
+    for (const student of students) {
+      const { objective, theory } = marksFor(sitting, marks.get(student.id), cbt.get(student.id))
+      if (objective === null && theory === null) continue // absent: left for the teacher
+      const { total, score } = sheetScore(objective, theory, sitting.paperTotal, scoring)
+      const before = existing.get(student.id)
+      const componentScores = normalizeResultEntryCaComponents(before?.caComponents, caComponents, before?.caScore, limits.caMaxScore)
+      rows.push({
+        studentId: student.id, subjectId: sitting.subjectId, subjectName: String(subject.name || sitting.subjectName), teacherId: String(subject.teacherId || actor.id),
+        caComponents: componentScores, caScore: sumResultEntryCaComponents(componentScores, caComponents, limits.caMaxScore), examScore: score,
+      })
+      posted.push({ studentId: student.id, total, score, theory, objective })
+    }
+    if (!rows.length) throw new SittingError('There are no marks to post yet.')
+    try {
+      await upsertResultEntries(c.env.APP_DB, {
+        sessionId: period.sessionId, termId: period.termId, tenantId, classId: sitting.classId,
+        sessionName: period.sessionName, termName: period.termName, actorId: actor.id, templateKey: settings.templateKey, settingsSnapshot: settings, rows,
+      })
+    } catch (error) {
+      throw new SittingError(error instanceof Error ? error.message : 'Could not write to the score sheet.', 409)
+    }
+    // Review: the whole paper (theory and its marking guide too) moves to the Assignments tab, answers released.
+    if (sitting.assignmentId) {
+      const assignment = await getAssignmentById(c.env.APP_DB, sitting.assignmentId) as Record<string, any> | null
+      const assessment = await getAssessment(c.env.APP_DB, tenantId, sitting.assessmentId)
+      if (assignment) {
+        const reviewQuestions = assessment ? toClassroomQuestions(sitting.uniquePerStudent ? assessment.questions : masterQuestions(assessment.questions)) : assignment.questions
+        await updateAssignment(c.env.APP_DB, sitting.assignmentId, { questions: reviewQuestions, metadata: { ...(assignment.metadata || {}), answersReleased: true, answersReleasedAt: new Date().toISOString(), reviewReleased: true, totalMarks: sitting.paperTotal } })
+      }
+      for (const entry of posted) {
+        const written = cbt.get(entry.studentId)
+        if (!written) continue
+        await c.env.APP_DB.prepare(`UPDATE submissions SET grade = ?, gradedAt = ?, feedback = ? WHERE id = ?`).bind(
+          entry.total, new Date().toISOString(),
+          `Exam: objectives ${entry.objective ?? 0}/${sitting.objectiveMarks}${sitting.theoryMarks ? ` + theory ${entry.theory ?? 0}/${sitting.theoryMarks}` : ''} = ${entry.total}/${sitting.paperTotal}. Score sheet: ${entry.score}/${scoring.examMaxScore}.`,
+          written.submissionId).run()
+      }
+    }
+    const saved = await markPosted(c.env.APP_DB, sitting, actor.id)
+    return c.json({ success: true, sitting: sittingSummary(saved), posted: posted.length, scoring })
+  } catch (error) {
+    return sittingFailure(c, error, 'Could not post the scores.')
+  }
+})
+
+function assessmentSubmissionContent(original: Assessment) {
+  const assessment = { ...original, questions: masterQuestions(original.questions) }
+  const meta = { title: `${assessment.title}${assessment.sessionName ? ` — ${assessment.sessionName}` : ''}${assessment.termName ? ` ${assessment.termName}` : ''}` }
+  return [
+    paperMarkdown(assessment.questions, assessment.blueprint, { ...meta, instructions: '' }),
+    '\n\n---\n\n',
+    markingSchemeMarkdown(assessment.questions, meta),
+    `\n\n---\n\n*Ndovera AI assessment ${assessment.id}, version ${assessment.version}. ${assessment.config.durationMinutes ? `Duration: ${assessment.config.durationMinutes} minutes.` : ''}*`,
+  ].join('')
+}
+
+/** Exams go through the school's existing exam-question submission and approval path. */
+app.post('/api/ai-assessments/:id/submit-exam', authenticate, async (c) => {
+  try {
+    const { tenantId, actor } = await resolveAssessmentActor(c)
+    const assessment = await getOwnAssessment(c.env.APP_DB, tenantId, c.req.param('id'), actor)
+    if (pendingSlots(assessment).length) throw new AssessmentError('Some questions have not been written yet.', 409)
+    const audit = auditFor(assessment)
+    if (audit.checks.some(check => (check.key === 'validity' || check.key === 'scheme') && check.status === 'fail')) throw new AssessmentError('Every question needs a valid answer and marking scheme before the paper can be submitted.', 409)
+    const target = await resolveSubmissionClass(c.env.APP_DB, c.var.user || {}, assessment.classId, assessment.subjectId)
+    const subActor = { id: actor.id, name: actor.name, role: actor.role }
+    const policy = await getSubmissionPolicy(c.env.APP_DB, tenantId)
+    const content = assessmentSubmissionContent(assessment)
+    let submission
+    if (assessment.submissionId) {
+      // Resubmitting after corrections: the same submission gets the new version.
+      submission = await editSubmission(c.env.APP_DB, { tenantId, id: assessment.submissionId, actor: subActor, policy, input: { title: assessment.title, content } })
+      if (submission.status === 'returned' || submission.status === 'draft') submission = await submitSubmission(c.env.APP_DB, { tenantId, id: assessment.submissionId, actor: subActor })
+    } else {
+      submission = await createTeacherSubmission(c.env.APP_DB, {
+        tenantId, actor: subActor, policy, context: { ...(await submissionPeriod(c.env.APP_DB, tenantId)), ...target },
+        input: { type: 'exam_questions', title: assessment.title, content, periodLabel: assessment.termName || '' },
+      })
+    }
+    const saved = await setStatus(c.env.APP_DB, assessment, { status: 'submitted', submissionId: submission.id }, actor, 'Submitted', `Submitted as exam questions for approval (submission version ${submission.version || 1})`)
+    return c.json({ success: true, submission, assessment: assessmentView(saved) })
+  } catch (error) {
+    return assessmentFailure(c, error, 'Could not submit the examination.')
+  }
+})
+
+/** Reflect the review outcome (returned for corrections / approved) in the assessment's own history. */
+async function syncExamSubmission(db: D1Database, assessment: Assessment, actor: { id: string, name: string, role: string }) {
+  if (!assessment.submissionId || assessment.status !== 'submitted') return assessment
+  const submission = await getSubmission(db, assessment.tenantId, assessment.submissionId).catch(() => null)
+  if (!submission) return assessment
+  if (submission.status === 'returned') {
+    return setStatus(db, assessment, { status: 'draft' }, actor, 'Returned for corrections', `${submission.reviewedByName ? `${submission.reviewedByName}: ` : ''}${submission.feedback || 'The reviewer asked for corrections.'}`.slice(0, 500))
+  }
+  if (submission.status === 'approved') {
+    return setStatus(db, assessment, { status: 'finalised' }, actor, 'FINAL — Approved', `Approved for printing${submission.reviewedByName ? ` by ${submission.reviewedByName}` : ''}`)
+  }
+  return assessment
+}
+
+app.get('/api/school/exam-letterhead', authenticate, async (c) => {
+  try {
+    const { tenantId } = await resolveAssessmentActor(c)
+    const tenant = await getTenantById(c.env.APP_DB, tenantId).catch(() => null) as Record<string, any> | null
+    // The school's own branding logo (Website & Branding) heads every paper unless the letterhead sets another.
+    const branding = await getTenantSchoolBranding(c.env.APP_DB, tenant).catch(() => null)
+    // The school's colours as set for its result sheets.
+    const resultBranding = await getResultSettings(c.env.APP_DB, tenantId).then(stored => mergeResultBrandingWithTenant(normalizeResultSettingsInput(stored)?.metadata?.branding || stored?.metadata?.branding, branding || {})).catch(() => null)
+    const letterhead = await getLetterhead(c.env.APP_DB, tenantId, {
+      schoolName: String(tenant?.schoolName || ''), logoUrl: String(branding?.logoUrl || ''),
+      primaryColor: resultBranding?.primaryColor, accentColor: resultBranding?.accentColor,
+      contact: String(branding?.website || '').replace(/^https?:\/\//, ''),
+    })
+    const { actor } = await resolveAssessmentActor(c)
+    return c.json({ success: true, letterhead, canEdit: ['owner', 'hos', 'admin', 'examofficer', 'ict'].includes(actor.role) })
+  } catch (error) {
+    return assessmentFailure(c, error, 'Could not load the exam letterhead.')
+  }
+})
+
+app.put('/api/school/exam-letterhead', authenticate, async (c) => {
+  try {
+    const { tenantId, actor } = await resolveAssessmentActor(c)
+    if (!['owner', 'hos', 'admin', 'examofficer', 'ict'].includes(actor.role)) return c.json({ success: false, message: 'Only school administrators can change the exam letterhead.' }, 403)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    return c.json({ success: true, letterhead: await saveLetterhead(c.env.APP_DB, tenantId, body, actor) })
+  } catch (error) {
+    return assessmentFailure(c, error, 'Could not save the exam letterhead.')
+  }
+})
+
+// ─── School closure (schoolClosure.ts) ───────────────────────────────────────
+// The Owner — never the Head of School — asks to close the school; Ndovera
+// admins are alerted at once; the Owner has 72 hours to revoke; then the
+// scheduled job closes the school. Nothing is deleted; Ndovera can reopen it.
+
+function closureFailure(c: any, error: unknown, fallback: string) {
+  if (error instanceof ClosureError) return c.json({ success: false, message: error.message }, error.status as any)
+  console.error(fallback, error)
+  return c.json({ success: false, message: fallback }, 500)
+}
+
+async function resolveClosureActor(c: any) {
+  const actor = await resolveCalendarManager(c.env.APP_DB, c.var.user || {})
+  return { tenantId: actor.tenantId, role: actor.role, actor: { id: actor.actorId, name: actor.actorName || actor.actorId } }
+}
+
+/** Everyone who must hear about a school's closure: Ndovera admins, and the school's owner. */
+async function closureRecipients(db: D1Database, tenantId: string, env: Bindings) {
+  const amiRows = await db.prepare(`SELECT email FROM users WHERE LOWER(COALESCE(role, '')) = 'ami' AND LOWER(COALESCE(NULLIF(TRIM(status), ''), 'active')) = 'active'`).all().catch(() => ({ results: [] }))
+  const ndovera = [
+    ...((amiRows.results || []) as Record<string, any>[]).map(row => String(row.email || '')),
+    ...String((env as any).NDOVERA_ALERT_EMAIL || '').split(','),
+  ]
+  const tenant = await getTenantById(db, tenantId).catch(() => null) as Record<string, any> | null
+  const ownerRows = await db.prepare(`SELECT email FROM users WHERE tenantId = ? AND LOWER(COALESCE(role, '')) = 'owner'`).bind(tenantId).all().catch(() => ({ results: [] }))
+  const owners = [String(tenant?.ownerEmail || ''), ...((ownerRows.results || []) as Record<string, any>[]).map(row => String(row.email || ''))]
+  return { ndovera, owners, schoolName: String(tenant?.schoolName || tenantId) }
+}
+
+type ClosureEvent = 'requested' | 'revoked' | 'executed' | 'reopened'
+
+/**
+ * Email the closure news through Zoho Mail. Never throws: the closure itself
+ * must not depend on mail delivery. Each send is noted in the school's audit trail.
+ */
+async function emailClosureAlert(env: Bindings, closure: Record<string, any>, event: ClosureEvent, actorName = '') {
+  try {
+    const { ndovera, owners, schoolName } = await closureRecipients(env.APP_DB, String(closure.tenantId), env)
+    const when = (value: string) => (value ? new Date(value).toUTCString() : '')
+    const lines: Record<ClosureEvent, { subject: string, heading: string, admin: string[], owner: string[] }> = {
+      requested: {
+        subject: `School closure requested: ${schoolName}`,
+        heading: `${schoolName} has asked to close`,
+        admin: [`${closure.requestedByName || 'The owner'} asked to close ${schoolName} on Ndovera.`, `Reason (${closure.category}): ${closure.reason}`, `It will close on ${when(closure.effectiveAt)} unless the owner revokes it. Review it in Ami → School Closures.`],
+        owner: [`You asked to close ${schoolName} on Ndovera.`, `Reason: ${closure.reason}`, `The school will close on ${when(closure.effectiveAt)}. Until then you can revoke this from Close School on your dashboard. If you did not make this request, revoke it and contact Ndovera immediately.`],
+      },
+      revoked: {
+        subject: `School closure revoked: ${schoolName}`,
+        heading: `${schoolName} is staying open`,
+        admin: [`${actorName || 'The owner'} revoked the closure of ${schoolName}.`, closure.revokeNote ? `Note: ${closure.revokeNote}` : ''],
+        owner: [`The closure of ${schoolName} has been revoked. The school stays open on Ndovera.`],
+      },
+      executed: {
+        subject: `School closed: ${schoolName}`,
+        heading: `${schoolName} has closed`,
+        admin: [`The 72 hours have passed and ${schoolName} is now closed on Ndovera. Its website is offline and its members cannot sign in.`, `Requested by ${closure.requestedByName || 'the owner'}. Reason: ${closure.reason}`, 'Records are kept. Reopen it from Ami → School Closures if needed.'],
+        owner: [`${schoolName} is now closed on Ndovera. Its website is offline and staff, students and parents can no longer sign in.`, 'All records are kept. Contact Ndovera if the school needs to reopen.'],
+      },
+      reopened: {
+        subject: `School reopened: ${schoolName}`,
+        heading: `${schoolName} has reopened`,
+        admin: [`${actorName || 'An Ndovera admin'} reopened ${schoolName}.`],
+        owner: [`${schoolName} has been reopened on Ndovera. Staff, students and parents can sign in again.`],
+      },
+    }
+    const text = lines[event]
+    const footer = 'This is an automatic message from Ndovera about a school closure.'
+    const [toAdmins, toOwners] = await Promise.all([
+      sendZohoEmail(env, { to: ndovera, subject: text.subject, html: ndoveraEmailHtml(text.heading, text.admin.filter(Boolean), footer) }),
+      sendZohoEmail(env, { to: owners, subject: text.subject, html: ndoveraEmailHtml(text.heading, text.owner.filter(Boolean), footer) }),
+    ])
+    await addAudit(env.APP_DB, String(closure.tenantId), { action: 'schoolClosureEmailed', data: { event, sent: [...toAdmins.sent, ...toOwners.sent].length, failed: [...toAdmins.failed, ...toOwners.failed] } }).catch(() => null)
+  } catch (error) {
+    console.error('Closure email failed', error)
+    await addAudit(env.APP_DB, String(closure.tenantId), { action: 'schoolClosureEmailFailed', data: { event, error: String((error as Error)?.message || error).slice(0, 300) } }).catch(() => null)
+  }
+}
+
+function inBackground(c: any, work: Promise<unknown>) {
+  try { c.executionCtx.waitUntil(work) } catch { work.catch(() => null) }
+}
+
+/** Close every school whose 72-hour window has ended. Exported for the cron job and tests. */
+async function runDueSchoolClosures(db: D1Database, now = new Date(), env?: Bindings) {
+  const due = await dueClosures(db, now)
+  for (const closure of due) {
+    const tenant = await getTenantById(db, closure.tenantId).catch(() => null)
+    if (!tenant) continue
+    if (!(await markExecuted(db, closure.id, now))) continue
+    await updateTenant(db, closure.tenantId, { status: 'closed', websiteStatus: 'inactive', suspendedAt: now.toISOString() })
+    forgetTenantClosure(closure.tenantId)
+    await addAudit(db, closure.tenantId, { action: 'schoolClosed', data: { closureId: closure.id, requestedBy: closure.requestedByName, reason: closure.reason, category: closure.category } }).catch(() => null)
+    if (env) await emailClosureAlert(env, closure, 'executed')
+  }
+  return due.length
+}
+
+app.get('/api/school/closure', authenticate, async (c) => {
+  try {
+    const { tenantId, role } = await resolveClosureActor(c)
+    if (!tenantId) return c.json({ success: true, closure: null })
+    const tenant = await getTenantById(c.env.APP_DB, tenantId).catch(() => null)
+    const closure = await getActiveClosure(c.env.APP_DB, tenantId)
+    // Everyone learns that the school is closing or closed; only leadership sees the reason and history.
+    const leader = ['owner', 'hos'].includes(role)
+    return c.json({
+      success: true,
+      schoolName: tenant?.schoolName || '',
+      closed: tenant?.status === 'closed',
+      closure: closure ? (leader ? closure : { status: closure.status, effectiveAt: closure.effectiveAt, executedAt: closure.executedAt }) : null,
+      history: role === 'owner' ? await listClosureHistory(c.env.APP_DB, tenantId) : [],
+      canRequest: role === 'owner',
+      categories: CLOSURE_CATEGORIES,
+    })
+  } catch (error) {
+    return closureFailure(c, error, 'Could not load the closure status.')
+  }
+})
+
+app.post('/api/school/closure', authenticate, async (c) => {
+  try {
+    const { tenantId, role, actor } = await resolveClosureActor(c)
+    if (role !== 'owner') return c.json({ success: false, message: 'Only the school owner can close the school.' }, 403)
+    const tenant = await getTenantById(c.env.APP_DB, tenantId)
+    if (!tenant) return c.json({ success: false, message: 'School not found.' }, 404)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const closure = await requestClosure(c.env.APP_DB, { tenantId, schoolName: String(tenant.schoolName || ''), actor, category: body.category, reason: body.reason, confirmName: body.confirmName })
+    await addAudit(c.env.APP_DB, tenantId, { action: 'schoolClosureRequested', data: { closureId: closure.id, by: actor.name, category: closure.category, reason: closure.reason, effectiveAt: closure.effectiveAt } }).catch(() => null)
+    inBackground(c, emailClosureAlert(c.env, closure, 'requested'))
+    return c.json({ success: true, closure }, 201)
+  } catch (error) {
+    return closureFailure(c, error, 'Could not schedule the closure.')
+  }
+})
+
+app.post('/api/school/closure/revoke', authenticate, async (c) => {
+  try {
+    const { tenantId, role, actor } = await resolveClosureActor(c)
+    if (role !== 'owner') return c.json({ success: false, message: 'Only the school owner can revoke the closure.' }, 403)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const closure = await revokeClosure(c.env.APP_DB, { tenantId, actor, note: body.note })
+    await addAudit(c.env.APP_DB, tenantId, { action: 'schoolClosureRevoked', data: { closureId: closure.id, by: actor.name, note: closure.revokeNote } }).catch(() => null)
+    inBackground(c, emailClosureAlert(c.env, closure, 'revoked', actor.name))
+    return c.json({ success: true, closure })
+  } catch (error) {
+    return closureFailure(c, error, 'Could not revoke the closure.')
+  }
+})
+
+app.get('/api/ami/school-closures', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  try {
+    return c.json({ success: true, closures: await listClosuresForAdmin(c.env.APP_DB) })
+  } catch (error) {
+    return closureFailure(c, error, 'Could not load school closures.')
+  }
+})
+
+app.post('/api/ami/school-closures/:id/acknowledge', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  try {
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const closure = await acknowledgeClosure(c.env.APP_DB, { id: c.req.param('id'), actor: { id: String(c.var.user.id || ''), name: String(c.var.user.name || c.var.user.id || 'Ndovera admin') }, note: body.note })
+    return c.json({ success: true, closure })
+  } catch (error) {
+    return closureFailure(c, error, 'Could not acknowledge the closure.')
+  }
+})
+
+// ─── Fees & billing (finance.ts) ─────────────────────────────────────────────
+// Fee structures per session → term → class, per-student obligations, explicit
+// payment allocation, adjustments, reversals, receipts, claims, archives and the
+// finance dashboard. Owner, Head of School and Accountant manage it; parents
+// and students see only their own accounts. Every query is scoped to the
+// caller's school. Bills raised by the earlier assessment system stay put and
+// show on the same ledger.
+
+const FINANCE_VIEW_ROLES = ['owner', 'hos', 'accountant', 'admin']
+
+async function resolveFinanceActor(c: any) {
+  const actor = await resolveCalendarManager(c.env.APP_DB, c.var.user || {})
+  // The accountant sits inside the merged Admin role; for fees they act as accountant.
+  let role = actor.role
+  if (role === 'admin' && buildRoleContext(actor.resolvedUser?.settings || {}, actor.resolvedUser?.userRow?.role).rawRoles.includes('accountant')) role = 'accountant'
+  return {
+    tenantId: actor.tenantId,
+    role,
+    actor: { id: actor.actorId, name: actor.actorName || actor.actorId },
+    email: String(actor.resolvedUser?.userRow?.email || c.var.user?.email || '').trim(),
+  }
+}
+
+type FinanceCtx = Awaited<ReturnType<typeof resolveFinanceActor>>
+
+function financeFailure(c: any, error: unknown, fallback: string) {
+  if (error instanceof FinanceError) return c.json({ success: false, message: error.message, ...error.details }, error.status as any)
+  if (error instanceof AcademicError) return c.json({ success: false, message: error.message }, error.status as any)
+  console.error(fallback, error)
+  return c.json({ success: false, message: fallback }, 500)
+}
+
+/** The billing period every finance screen works in: the active session and term. */
+async function financePeriod(db: D1Database, tenantId: string) {
+  const current = await getCurrentAcademicPeriod(db, tenantId)
+  return {
+    sessionId: current.sessionId, sessionName: current.sessionName, termId: current.termId, termName: current.termName,
+    termStart: current.term?.startDate || '', termEnd: current.term?.endDate || '', configured: Boolean(current.configured && current.termId),
+  }
+}
+
+/** Students the caller may see the account of: their children (parent) or themselves (student). Null for everyone else. */
+async function financeStudentsFor(db: D1Database, ctx: FinanceCtx) {
+  if (ctx.role === 'student') return [ctx.actor.id]
+  if (ctx.role === 'parent' || ctx.role === 'student_parent') {
+    const rows = await db.prepare(`SELECT DISTINCT student_id FROM parent_student_links WHERE tenant_id = ? AND (parent_id = ? OR parent_id = ?)`)
+      .bind(ctx.tenantId, ctx.actor.id, ctx.email || ctx.actor.id).all().catch(() => ({ results: [] }))
+    return ((rows.results || []) as Record<string, any>[]).map(row => String(row.student_id))
+  }
+  return null
+}
+
+async function financeStudentName(db: D1Database, studentId: string) {
+  const row = await findUserByIdentifier(db, studentId).catch(() => null) as Record<string, any> | null
+  const hydrated = (await hydrateUserRecords(db, row ? [row] : []).catch(() => []))[0] as Record<string, any> | undefined
+  return String(hydrated?.name || row?.name || studentId)
+}
+
+/** Finance staff see students of their own school only; parents and students only their own. */
+async function financeStudentAllowed(c: any, ctx: FinanceCtx, studentId: string) {
+  if (hasRequiredRole(ctx.role, FINANCE_VIEW_ROLES)) {
+    const row = await findUserByIdentifier(c.env.APP_DB, studentId).catch(() => null) as Record<string, any> | null
+    const identity = row ? await resolveSettingsIdentity(c.env.APP_DB, String(row.id || studentId)).catch(() => null) : null
+    const tenant = String(identity?.settings?.tenantId || row?.tenantId || '').trim()
+    if (tenant) return tenant === ctx.tenantId
+    const charged = await c.env.APP_DB.prepare(`SELECT 1 FROM fee_obligations WHERE tenant_id = ? AND student_id = ? LIMIT 1`).bind(ctx.tenantId, studentId).first().catch(() => null)
+    return Boolean(charged)
+  }
+  const own = await financeStudentsFor(c.env.APP_DB, ctx)
+  return Boolean(own?.includes(studentId))
+}
+
+app.get('/api/school/finance/context', authenticate, async (c) => {
+  try {
+    const ctx = await resolveFinanceActor(c)
+    if (!ctx.tenantId) return c.json({ success: false, message: 'No school.' }, 400)
+    if (!hasRequiredRole(ctx.role, FINANCE_VIEW_ROLES)) return c.json({ success: false, message: 'forbidden' }, 403)
+    const db = c.env.APP_DB
+    await ensureFinanceTables(db)
+    const sessions = await listSessions(db, ctx.tenantId).catch(() => [] as any[])
+    const withTerms = []
+    for (const session of sessions as any[]) {
+      const terms = await listTerms(db, ctx.tenantId, session.id).catch(() => [] as any[])
+      withTerms.push({ id: session.id, name: session.name, status: session.status, terms: terms.map((term: any) => ({ id: term.id, name: term.name, status: term.status, startDate: term.startDate, endDate: term.endDate })) })
+    }
+    const classes = await db.prepare(`SELECT id, name, arm FROM classes WHERE tenantId = ? ORDER BY name, arm`).bind(ctx.tenantId).all().catch(() => ({ results: [] }))
+    return c.json({
+      success: true,
+      period: await financePeriod(db, ctx.tenantId),
+      sessions: withTerms,
+      classes: ((classes.results || []) as Record<string, any>[]).map(row => ({ id: row.id, name: [row.name, row.arm].filter(Boolean).join(' ') })),
+      canManage: hasRequiredRole(ctx.role, FEE_ADMIN_ROLES),
+      canRecordPayments: hasRequiredRole(ctx.role, FEE_PAYMENT_APPROVER_ROLES),
+      canCancel: ['owner', 'hos'].includes(ctx.role),
+    })
+  } catch (error) {
+    return financeFailure(c, error, 'Could not load the finance workspace.')
+  }
+})
+
+app.get('/api/school/finance/structures', authenticate, async (c) => {
+  try {
+    const ctx = await resolveFinanceActor(c)
+    if (!hasRequiredRole(ctx.role, FINANCE_VIEW_ROLES)) return c.json({ success: false, message: 'forbidden' }, 403)
+    const structures = await listStructures(c.env.APP_DB, ctx.tenantId, { sessionId: c.req.query('sessionId') || undefined, termId: c.req.query('termId') || undefined, classId: c.req.query('classId') || undefined })
+    return c.json({ success: true, structures })
+  } catch (error) {
+    return financeFailure(c, error, 'Could not load the fee structures.')
+  }
+})
+
+app.get('/api/school/finance/structures/:id/copy-preview', authenticate, async (c) => {
+  try {
+    const ctx = await resolveFinanceActor(c)
+    if (!hasRequiredRole(ctx.role, FEE_ADMIN_ROLES)) return c.json({ success: false, message: 'forbidden' }, 403)
+    return c.json({ success: true, ...(await previewCopy(c.env.APP_DB, ctx.tenantId, c.req.param('id'))) })
+  } catch (error) {
+    return financeFailure(c, error, 'Could not load that fee structure.')
+  }
+})
+
+app.post('/api/school/finance/structures', authenticate, async (c) => {
+  try {
+    const ctx = await resolveFinanceActor(c)
+    if (!hasRequiredRole(ctx.role, FEE_ADMIN_ROLES)) return c.json({ success: false, message: 'forbidden' }, 403)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const db = c.env.APP_DB
+    const term = await getTermById(db, ctx.tenantId, String(body.termId || ''))
+    if (!term) return c.json({ success: false, message: 'Choose a term of your school.' }, 400)
+    const session = await getSessionById(db, ctx.tenantId, term.sessionId)
+    const classRow = await db.prepare(`SELECT id, name, arm FROM classes WHERE id = ? AND tenantId = ?`).bind(String(body.classId || ''), ctx.tenantId).first() as Record<string, any> | null
+    if (!session || !classRow) return c.json({ success: false, message: 'Choose a class of your school.' }, 400)
+    if (body.copiedFromId && !(await getStructure(db, ctx.tenantId, String(body.copiedFromId)))) return c.json({ success: false, message: 'The structure being copied was not found.' }, 404)
+    const structure = await saveStructure(db, {
+      tenantId: ctx.tenantId, actor: ctx.actor, items: body.items, copiedFromId: body.copiedFromId ? String(body.copiedFromId) : undefined,
+      period: { sessionId: session.id, sessionName: session.name, termId: term.id, termName: term.name, classId: String(classRow.id), className: [classRow.name, classRow.arm].filter(Boolean).join(' ') },
+    })
+    return c.json({ success: true, structure })
+  } catch (error) {
+    return financeFailure(c, error, 'Could not save the fee structure.')
+  }
+})
+
+app.put('/api/school/finance/structures/:id', authenticate, async (c) => {
+  try {
+    const ctx = await resolveFinanceActor(c)
+    if (!hasRequiredRole(ctx.role, FEE_ADMIN_ROLES)) return c.json({ success: false, message: 'forbidden' }, 403)
+    const existing = await getStructure(c.env.APP_DB, ctx.tenantId, c.req.param('id'))
+    if (!existing) return c.json({ success: false, message: 'Fee structure not found.' }, 404)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const structure = await saveStructure(c.env.APP_DB, { tenantId: ctx.tenantId, actor: ctx.actor, id: existing.id, items: body.items, period: existing })
+    return c.json({ success: true, structure })
+  } catch (error) {
+    return financeFailure(c, error, 'Could not save the fee structure.')
+  }
+})
+
+app.post('/api/school/finance/structures/:id/status', authenticate, async (c) => {
+  try {
+    const ctx = await resolveFinanceActor(c)
+    if (!hasRequiredRole(ctx.role, FEE_ADMIN_ROLES)) return c.json({ success: false, message: 'forbidden' }, 403)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const structure = await setStructureStatus(c.env.APP_DB, { tenantId: ctx.tenantId, id: c.req.param('id'), status: String(body.status || ''), actor: ctx.actor })
+    return c.json({ success: true, structure })
+  } catch (error) {
+    return financeFailure(c, error, 'Could not change the fee structure.')
+  }
+})
+
+app.get('/api/school/finance/items/:itemId/optins', authenticate, async (c) => {
+  try {
+    const ctx = await resolveFinanceActor(c)
+    if (!hasRequiredRole(ctx.role, FINANCE_VIEW_ROLES)) return c.json({ success: false, message: 'forbidden' }, 403)
+    await ensureFinanceTables(c.env.APP_DB)
+    const rows = await c.env.APP_DB.prepare(`SELECT student_id FROM fee_item_optins WHERE item_id = ? AND tenant_id = ?`).bind(c.req.param('itemId'), ctx.tenantId).all()
+    return c.json({ success: true, studentIds: ((rows.results || []) as Record<string, any>[]).map(row => row.student_id) })
+  } catch (error) {
+    return financeFailure(c, error, 'Could not load who takes this item.')
+  }
+})
+
+app.post('/api/school/finance/items/:itemId/optins', authenticate, async (c) => {
+  try {
+    const ctx = await resolveFinanceActor(c)
+    if (!hasRequiredRole(ctx.role, FEE_ADMIN_ROLES)) return c.json({ success: false, message: 'forbidden' }, 403)
+    await ensureFinanceTables(c.env.APP_DB)
+    const owned = await c.env.APP_DB.prepare(`SELECT id FROM fee_structure_items WHERE id = ? AND tenant_id = ?`).bind(c.req.param('itemId'), ctx.tenantId).first()
+    if (!owned) return c.json({ success: false, message: 'Fee item not found.' }, 404)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    await setOptIns(c.env.APP_DB, { tenantId: ctx.tenantId, itemId: c.req.param('itemId'), studentIds: Array.isArray(body.studentIds) ? body.studentIds.map(String) : [] })
+    return c.json({ success: true })
+  } catch (error) {
+    return financeFailure(c, error, 'Could not save who takes this item.')
+  }
+})
+
+/** The students a structure bills: everyone on the class register for that session. */
+app.get('/api/school/finance/structures/:id/students', authenticate, async (c) => {
+  try {
+    const ctx = await resolveFinanceActor(c)
+    if (!hasRequiredRole(ctx.role, FINANCE_VIEW_ROLES)) return c.json({ success: false, message: 'forbidden' }, 403)
+    const structure = await getStructure(c.env.APP_DB, ctx.tenantId, c.req.param('id'))
+    if (!structure) return c.json({ success: false, message: 'Fee structure not found.' }, 404)
+    const enrollments = await listSessionEnrollments(c.env.APP_DB, { tenantId: ctx.tenantId, sessionId: structure.sessionId, classId: structure.classId, status: 'active' })
+    return c.json({ success: true, students: enrollments.map(row => ({ studentId: row.studentId, studentName: row.studentName })) })
+  } catch (error) {
+    return financeFailure(c, error, 'Could not load the class register.')
+  }
+})
+
+app.post('/api/school/finance/structures/:id/issue', authenticate, async (c) => {
+  try {
+    const ctx = await resolveFinanceActor(c)
+    if (!hasRequiredRole(ctx.role, FEE_ADMIN_ROLES)) return c.json({ success: false, message: 'forbidden' }, 403)
+    const db = c.env.APP_DB
+    const structure = await getStructure(db, ctx.tenantId, c.req.param('id'))
+    if (!structure) return c.json({ success: false, message: 'Fee structure not found.' }, 404)
+    await autoEnrolSession(db, { tenantId: ctx.tenantId, sessionId: structure.sessionId, actorId: ctx.actor.id }).catch(() => null)
+    const enrollments = await listSessionEnrollments(db, { tenantId: ctx.tenantId, sessionId: structure.sessionId, classId: structure.classId, status: 'active' })
+    if (!enrollments.length) return c.json({ success: false, message: `No students are on the ${structure.className} register for ${structure.sessionName}.` }, 400)
+    // Students the earlier system already billed for this term are not billed again.
+    const legacy = await db.prepare(`SELECT DISTINCT student_id FROM fee_assessments WHERE tenant_id = ? AND term_id = ? AND assessment_kind = 'term'`).bind(ctx.tenantId, structure.termId).all().catch(() => ({ results: [] }))
+    const result = await issueBills(db, {
+      tenantId: ctx.tenantId, structureId: structure.id, actor: ctx.actor,
+      students: enrollments.map(row => ({ studentId: row.studentId, studentName: row.studentName })),
+      legacyBilledStudentIds: new Set(((legacy.results || []) as Record<string, any>[]).map(row => String(row.student_id))),
+    })
+    return c.json({ success: true, ...result })
+  } catch (error) {
+    return financeFailure(c, error, 'Could not issue the bills.')
+  }
+})
+
+app.get('/api/school/finance/dashboard', authenticate, async (c) => {
+  try {
+    const ctx = await resolveFinanceActor(c)
+    if (!hasRequiredRole(ctx.role, FINANCE_VIEW_ROLES)) return c.json({ success: false, message: 'forbidden' }, 403)
+    const period = await financePeriod(c.env.APP_DB, ctx.tenantId)
+    const metrics = await financeDashboard(c.env.APP_DB, ctx.tenantId, period, { classId: c.req.query('classId') || undefined, feeItem: c.req.query('feeItem') || undefined })
+    return c.json({ success: true, period, ...metrics })
+  } catch (error) {
+    return financeFailure(c, error, 'Could not load the finance dashboard.')
+  }
+})
+
+app.get('/api/school/finance/archives', authenticate, async (c) => {
+  try {
+    const ctx = await resolveFinanceActor(c)
+    if (!hasRequiredRole(ctx.role, FINANCE_VIEW_ROLES)) return c.json({ success: false, message: 'forbidden' }, 403)
+    return c.json({ success: true, ...(await searchArchives(c.env.APP_DB, ctx.tenantId, c.req.query())) })
+  } catch (error) {
+    return financeFailure(c, error, 'Could not search the fee archives.')
+  }
+})
+
+app.get('/api/school/finance/audit', authenticate, async (c) => {
+  try {
+    const ctx = await resolveFinanceActor(c)
+    if (!hasRequiredRole(ctx.role, ['owner', 'hos', 'accountant'])) return c.json({ success: false, message: 'forbidden' }, 403)
+    return c.json({ success: true, entries: await listFinanceAudit(c.env.APP_DB, ctx.tenantId, { studentId: c.req.query('studentId') || undefined, limit: Number(c.req.query('limit') || 200) }) })
+  } catch (error) {
+    return financeFailure(c, error, 'Could not load the finance audit trail.')
+  }
+})
+
+/** Find students for the payments desk: this session's register, by name. */
+app.get('/api/school/finance/students', authenticate, async (c) => {
+  try {
+    const ctx = await resolveFinanceActor(c)
+    if (!hasRequiredRole(ctx.role, FINANCE_VIEW_ROLES)) return c.json({ success: false, message: 'forbidden' }, 403)
+    const period = await financePeriod(c.env.APP_DB, ctx.tenantId)
+    const q = String(c.req.query('q') || '').trim().toLowerCase()
+    const enrollments = period.sessionId ? await listSessionEnrollments(c.env.APP_DB, { tenantId: ctx.tenantId, sessionId: period.sessionId, classId: c.req.query('classId') || undefined }) : []
+    const students = enrollments.filter(row => !q || String(row.studentName || '').toLowerCase().includes(q) || String(row.studentId).toLowerCase().includes(q)).slice(0, 100)
+    return c.json({ success: true, students: students.map(row => ({ studentId: row.studentId, studentName: row.studentName, classId: row.classId, className: row.className })) })
+  } catch (error) {
+    return financeFailure(c, error, 'Could not search students.')
+  }
+})
+
+app.get('/api/school/finance/students/:studentId/account', authenticate, async (c) => {
+  try {
+    const ctx = await resolveFinanceActor(c)
+    if (!ctx.tenantId) return c.json({ success: false, message: 'No school.' }, 400)
+    const studentId = c.req.param('studentId')
+    if (!(await financeStudentAllowed(c, ctx, studentId))) return c.json({ success: false, message: 'forbidden' }, 403)
+    const period = await financePeriod(c.env.APP_DB, ctx.tenantId)
+    const account = await getStudentAccount(c.env.APP_DB, { tenantId: ctx.tenantId, studentId, current: period })
+    return c.json({ success: true, period, studentId, studentName: await financeStudentName(c.env.APP_DB, studentId), ...account })
+  } catch (error) {
+    return financeFailure(c, error, 'Could not load this account.')
+  }
+})
+
+app.get('/api/school/finance/obligations/:id/history', authenticate, async (c) => {
+  try {
+    const ctx = await resolveFinanceActor(c)
+    const id = c.req.param('id')
+    await ensureFinanceTables(c.env.APP_DB)
+    const owner = id.startsWith('legacy:')
+      ? await c.env.APP_DB.prepare(`SELECT student_id FROM fee_assessments WHERE id = ? AND tenant_id = ?`).bind(id.slice(7), ctx.tenantId).first() as Record<string, any> | null
+      : await c.env.APP_DB.prepare(`SELECT student_id FROM fee_obligations WHERE id = ? AND tenant_id = ?`).bind(id, ctx.tenantId).first() as Record<string, any> | null
+    if (!owner) return c.json({ success: false, message: 'Charge not found.' }, 404)
+    if (!(await financeStudentAllowed(c, ctx, String(owner.student_id)))) return c.json({ success: false, message: 'forbidden' }, 403)
+    return c.json({ success: true, ...(await getObligationHistory(c.env.APP_DB, ctx.tenantId, id)) })
+  } catch (error) {
+    return financeFailure(c, error, 'Could not load the history of this charge.')
+  }
+})
+
+app.post('/api/school/finance/obligations/:id/adjustments', authenticate, async (c) => {
+  try {
+    const ctx = await resolveFinanceActor(c)
+    if (!hasRequiredRole(ctx.role, FEE_ADMIN_ROLES)) return c.json({ success: false, message: 'forbidden' }, 403)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const obligation = await addAdjustment(c.env.APP_DB, { tenantId: ctx.tenantId, obligationId: c.req.param('id'), kind: String(body.kind || ''), amount: body.amount, reason: body.reason, actor: ctx.actor })
+    return c.json({ success: true, obligation })
+  } catch (error) {
+    return financeFailure(c, error, 'Could not record the adjustment.')
+  }
+})
+
+app.post('/api/school/finance/obligations/:id/cancel', authenticate, async (c) => {
+  try {
+    const ctx = await resolveFinanceActor(c)
+    if (!['owner', 'hos'].includes(ctx.role)) return c.json({ success: false, message: 'Only the Owner or Head of School can cancel a charge.' }, 403)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const obligation = await cancelObligation(c.env.APP_DB, { tenantId: ctx.tenantId, obligationId: c.req.param('id'), reason: body.reason, actor: ctx.actor })
+    return c.json({ success: true, obligation })
+  } catch (error) {
+    return financeFailure(c, error, 'Could not cancel the charge.')
+  }
+})
+
+app.post('/api/school/finance/students/:studentId/payments', authenticate, async (c) => {
+  try {
+    const ctx = await resolveFinanceActor(c)
+    if (!hasRequiredRole(ctx.role, FEE_PAYMENT_APPROVER_ROLES)) return c.json({ success: false, message: 'forbidden' }, 403)
+    const studentId = c.req.param('studentId')
+    if (!(await financeStudentAllowed(c, ctx, studentId))) return c.json({ success: false, message: 'forbidden' }, 403)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const db = c.env.APP_DB
+    if (body.claimId) {
+      await ensureFinanceTables(db)
+      const claim = await db.prepare(`SELECT student_id FROM finance_claims WHERE id = ? AND tenant_id = ?`).bind(String(body.claimId), ctx.tenantId).first() as Record<string, any> | null
+      if (!claim || claim.student_id !== studentId) return c.json({ success: false, message: 'That claim is not for this student.' }, 400)
+    }
+    const period = await financePeriod(db, ctx.tenantId)
+    const studentName = await financeStudentName(db, studentId)
+    const result = await recordPayment(db, {
+      tenantId: ctx.tenantId, actor: ctx.actor, studentId, studentName,
+      amount: body.amount, method: body.method, reference: body.reference, payerName: body.payerName, paidOn: body.paidOn, note: body.note,
+      allocations: Array.isArray(body.allocations) ? body.allocations : undefined,
+      selectedObligationIds: Array.isArray(body.selectedObligationIds) ? body.selectedObligationIds.map(String) : undefined,
+      claimId: body.claimId ? String(body.claimId) : undefined, idempotencyKey: body.idempotencyKey,
+      period: { sessionName: period.sessionName, termName: period.termName },
+    })
+    if (!result.duplicate) {
+      // Keeps the older fee summaries (dashboards, report cards) in step.
+      await mirrorPaymentToLegacyLedger(db, { tenantId: ctx.tenantId, studentId, studentName, amount: Number(body.amount) || 0 }).catch(() => null)
+    }
+    return c.json({ success: true, ...result })
+  } catch (error) {
+    return financeFailure(c, error, 'Could not record the payment.')
+  }
+})
+
+app.post('/api/school/finance/payments/:id/reverse', authenticate, async (c) => {
+  try {
+    const ctx = await resolveFinanceActor(c)
+    if (!['owner', 'hos', 'accountant'].includes(ctx.role)) return c.json({ success: false, message: 'forbidden' }, 403)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    return c.json({ success: true, ...(await reversePayment(c.env.APP_DB, { tenantId: ctx.tenantId, paymentId: c.req.param('id'), reason: body.reason, actor: ctx.actor })) })
+  } catch (error) {
+    return financeFailure(c, error, 'Could not reverse the payment.')
+  }
+})
+
+app.get('/api/school/finance/claims', authenticate, async (c) => {
+  try {
+    const ctx = await resolveFinanceActor(c)
+    if (!ctx.tenantId) return c.json({ success: true, claims: [], canReview: false })
+    await ensureFinanceTables(c.env.APP_DB)
+    const status = String(c.req.query('status') || '')
+    const statusSql = status === 'open' ? ` AND status IN ('submitted', 'under_review')` : status ? ' AND status = ?' : ''
+    const statusArgs = status && status !== 'open' ? [status] : []
+    if (hasRequiredRole(ctx.role, FINANCE_VIEW_ROLES)) {
+      const rows = await c.env.APP_DB.prepare(`SELECT * FROM finance_claims WHERE tenant_id = ?${statusSql} ORDER BY created_at DESC LIMIT 500`).bind(ctx.tenantId, ...statusArgs).all()
+      return c.json({ success: true, claims: ((rows.results || []) as Record<string, any>[]).map(mapClaim), canReview: hasRequiredRole(ctx.role, FEE_PAYMENT_APPROVER_ROLES) })
+    }
+    const students = await financeStudentsFor(c.env.APP_DB, ctx) || []
+    if (!students.length) return c.json({ success: true, claims: [], canReview: false })
+    const rows = await c.env.APP_DB.prepare(`SELECT * FROM finance_claims WHERE tenant_id = ? AND student_id IN (${students.map(() => '?').join(',')})${statusSql} ORDER BY created_at DESC LIMIT 200`).bind(ctx.tenantId, ...students, ...statusArgs).all()
+    return c.json({ success: true, claims: ((rows.results || []) as Record<string, any>[]).map(mapClaim), canReview: false })
+  } catch (error) {
+    return financeFailure(c, error, 'Could not load the claims.')
+  }
+})
+
+app.post('/api/school/finance/claims/:id/review', authenticate, async (c) => {
+  try {
+    const ctx = await resolveFinanceActor(c)
+    if (!hasRequiredRole(ctx.role, FEE_PAYMENT_APPROVER_ROLES)) return c.json({ success: false, message: 'forbidden' }, 403)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const claim = await reviewClaim(c.env.APP_DB, { tenantId: ctx.tenantId, claimId: c.req.param('id'), action: String(body.action || ''), note: body.note, actor: ctx.actor })
+    return c.json({ success: true, claim })
+  } catch (error) {
+    return financeFailure(c, error, 'Could not update the claim.')
+  }
+})
+
+/** Parent / student: the accounts they may see, with totals. */
+app.get('/api/school/finance/my-accounts', authenticate, async (c) => {
+  try {
+    const ctx = await resolveFinanceActor(c)
+    if (!ctx.tenantId) return c.json({ success: true, accounts: [] })
+    const students = await financeStudentsFor(c.env.APP_DB, ctx)
+    if (!students) return c.json({ success: false, message: 'This page is for parents and students.' }, 403)
+    const period = await financePeriod(c.env.APP_DB, ctx.tenantId)
+    const accounts = []
+    for (const studentId of students) {
+      accounts.push({ studentId, studentName: await financeStudentName(c.env.APP_DB, studentId), ...(await getStudentAccount(c.env.APP_DB, { tenantId: ctx.tenantId, studentId, current: period })) })
+    }
+    return c.json({ success: true, period, accounts })
+  } catch (error) {
+    return financeFailure(c, error, 'Could not load your fees.')
+  }
+})
+
+app.post('/api/school/finance/my-claims', authenticate, async (c) => {
+  try {
+    const ctx = await resolveFinanceActor(c)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const studentId = String(body.studentId || '')
+    const students = await financeStudentsFor(c.env.APP_DB, ctx)
+    if (!students?.includes(studentId)) return c.json({ success: false, message: 'forbidden' }, 403)
+    const claim = await submitClaim(c.env.APP_DB, {
+      tenantId: ctx.tenantId, studentId, studentName: await financeStudentName(c.env.APP_DB, studentId), claimant: ctx.actor,
+      amount: body.amount, method: body.method, reference: body.reference, paidAt: body.paidAt, note: body.note,
+      obligationIds: Array.isArray(body.obligationIds) ? body.obligationIds.map(String) : [],
+    })
+    return c.json({ success: true, claim })
+  } catch (error) {
+    return financeFailure(c, error, 'Could not submit the claim.')
+  }
+})
+
+// ─── Simple fees (feeEngine.ts) ──────────────────────────────────────────────
+// The everyday fee screens: a term's fees as one table (reuse last term, edit,
+// save, lock), student accounts with one balance each, payments with no
+// allocation choices, and per-student charges and discounts. Changing official
+// fees follows the Owner's "who can change fees" setting; recording payments
+// does not.
+
+async function simpleFeeContext(c: any, termId?: string) {
+  const ctx = await resolveFinanceActor(c)
+  if (!ctx.tenantId) throw new FinanceError('No school.', 400)
+  const db = c.env.APP_DB
+  const period = await financePeriod(db, ctx.tenantId)
+  const wanted = String(termId || period.termId || '')
+  const termRow = wanted ? await getTermById(db, ctx.tenantId, wanted) : null
+  const session = termRow ? await getSessionById(db, ctx.tenantId, termRow.sessionId) : null
+  // "Outstanding Fee" is what was unpaid when the term began, so the term needs a
+  // start. Without a valid date, the moment its fees were first billed stands in.
+  let startDate = /^\d{4}-\d{2}-\d{2}/.test(String(termRow?.startDate || '')) && String(termRow?.startDate) >= '2001-01-01' ? String(termRow?.startDate) : ''
+  if (termRow && !startDate) {
+    const firstBill = await db.prepare(`SELECT MIN(created_at) AS at FROM fee_obligations WHERE tenant_id = ? AND term_id = ? AND structure_id IS NOT NULL`).bind(ctx.tenantId, termRow.id).first().catch(() => null) as Record<string, any> | null
+    startDate = String(firstBill?.at || '')
+  }
+  const term = termRow && session ? { id: termRow.id, name: termRow.name, sessionId: session.id, sessionName: session.name, startDate } : null
+  const classRows = await db.prepare(`SELECT id, name, arm FROM classes WHERE tenantId = ? ORDER BY name, arm`).bind(ctx.tenantId).all().catch(() => ({ results: [] }))
+  const classes = ((classRows.results || []) as Record<string, any>[]).map(row => ({ id: String(row.id), name: [row.name, row.arm].filter(Boolean).join(' ') }))
+  const settings = await getFeeSettings(db, ctx.tenantId)
+  return { ...ctx, db, period, term, classes, settings, canEditFees: canEditFees(settings, ctx.role) }
+}
+
+async function termEnrollments(db: D1Database, tenantId: string, sessionId: string, actorId = '') {
+  if (!sessionId) return [] as Enrollment[]
+  await autoEnrolSession(db, { tenantId, sessionId, actorId }).catch(() => null)
+  const rows = await listSessionEnrollments(db, { tenantId, sessionId, status: 'active' })
+  return rows.map(row => ({ studentId: row.studentId, studentName: row.studentName || '', classId: row.classId || '', className: [row.className, row.classArm].filter(Boolean).join(' ') }))
+}
+
+function requireTerm(term: TermRef | null): TermRef {
+  if (!term) throw new FinanceError('Open a term in Academic Sessions first — fees are set per term.', 400)
+  return term
+}
+
+/** Dashboard: the four numbers, or the setup prompt when this term has no fees yet. */
+app.get('/api/school/finance/simple/overview', authenticate, async (c) => {
+  try {
+    const context = await simpleFeeContext(c)
+    if (!hasRequiredRole(context.role, FINANCE_VIEW_ROLES)) return c.json({ success: false, message: 'forbidden' }, 403)
+    const term = context.term
+    if (!term) return c.json({ success: true, period: context.period, configured: false, noTerm: true, canEditFees: context.canEditFees })
+    const grid = await getTermGrid(context.db, context.tenantId, term, context.classes)
+    const reuse = (await listFeeTerms(context.db, context.tenantId)).filter(option => option.termId !== term.id)
+    const enrollments = await termEnrollments(context.db, context.tenantId, term.sessionId, context.actor.id)
+    const accounts = grid.configured ? await accountSummaries(context.db, context.tenantId, { termId: term.id, termStart: term.startDate }, enrollments) : []
+    const expected = money(accounts.reduce((sum, account) => sum + account.totalPayable, 0))
+    const collected = money(accounts.reduce((sum, account) => sum + account.paid, 0))
+    const outstanding = money(accounts.reduce((sum, account) => sum + Math.max(account.balance, 0), 0))
+    const unbilled = grid.lock.locked ? (await unbilledStudents(context.db, context.tenantId, term.id, enrollments)).length : 0
+    return c.json({
+      success: true, period: context.period, term, configured: grid.configured, locked: grid.lock.locked, lock: grid.lock,
+      cards: { expected, collected, outstanding, collectionRate: expected > 0 ? Math.round((collected / expected) * 1000) / 10 : 0 },
+      counts: { students: accounts.filter(account => account.status !== 'not_billed').length, owing: accounts.filter(account => account.balance > 0).length, unbilled, classMoves: accounts.filter(account => account.classMove).length },
+      reuse: reuse.slice(0, 6), canEditFees: context.canEditFees, canRecordPayments: hasRequiredRole(context.role, FEE_PAYMENT_APPROVER_ROLES),
+    })
+  } catch (error) {
+    return financeFailure(c, error, 'Could not load the fees dashboard.')
+  }
+})
+
+/** A term's fee table (any term — used to reuse an earlier term). */
+app.get('/api/school/finance/simple/grid', authenticate, async (c) => {
+  try {
+    const context = await simpleFeeContext(c, c.req.query('termId'))
+    if (!hasRequiredRole(context.role, FINANCE_VIEW_ROLES)) return c.json({ success: false, message: 'forbidden' }, 403)
+    const term = requireTerm(context.term)
+    const grid = await getTermGrid(context.db, context.tenantId, term, context.classes)
+    const terms = []
+    for (const session of await listSessions(context.db, context.tenantId).catch(() => [] as any[])) {
+      for (const item of await listTerms(context.db, context.tenantId, session.id).catch(() => [] as any[])) terms.push({ id: item.id, name: item.name, sessionName: session.name, status: item.status })
+    }
+    return c.json({ success: true, grid, terms, reuse: (await listFeeTerms(context.db, context.tenantId)).filter(option => option.termId !== term.id), settings: context.settings, canEditFees: context.canEditFees })
+  } catch (error) {
+    return financeFailure(c, error, 'Could not load the fees.')
+  }
+})
+
+/** The school's saved fee template (Fee Template tab), shaped as a fee table. */
+app.get('/api/school/finance/simple/template', authenticate, async (c) => {
+  try {
+    const context = await simpleFeeContext(c, c.req.query('termId'))
+    if (!hasRequiredRole(context.role, FINANCE_VIEW_ROLES)) return c.json({ success: false, message: 'forbidden' }, 403)
+    const term = requireTerm(context.term)
+    let rows = await loadFeeConfigForPeriod(context.db, { tenantId: context.tenantId, sessionName: term.sessionName, termName: term.name }).catch(() => [] as any[])
+    if (!rows.length) {
+      // Fall back to the most recent template saved for any term.
+      const latest = await context.db.prepare(`SELECT session, term FROM fees_config WHERE tenant_id = ? ORDER BY updated_at DESC LIMIT 1`).bind(context.tenantId).first().catch(() => null) as Record<string, any> | null
+      if (latest) rows = await loadFeeConfigForPeriod(context.db, { tenantId: context.tenantId, sessionName: String(latest.session || ''), termName: String(latest.term || '') }).catch(() => [] as any[])
+    }
+    const columns: string[] = []
+    const amounts: Record<string, Record<string, number>> = {}
+    for (const row of rows as Record<string, any>[]) {
+      if (row.studentId || row.student_id) continue
+      const name = String(row.feeType || row.fee_type || '').trim()
+      const classId = String(row.classId || row.class_id || '')
+      if (!name || !classId) continue
+      if (!columns.includes(name)) columns.push(name)
+      amounts[classId] = { ...(amounts[classId] || {}), [name]: money(row.amount) }
+    }
+    return c.json({ success: true, columns: columns.map(name => ({ name, required: true, frequency: 'term' })), rows: context.classes.map(klass => ({ classId: klass.id, amounts: amounts[klass.id] || {} })), found: columns.length > 0 })
+  } catch (error) {
+    return financeFailure(c, error, 'Could not load the saved template.')
+  }
+})
+
+app.put('/api/school/finance/simple/grid', authenticate, async (c) => {
+  try {
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const context = await simpleFeeContext(c, body.termId)
+    if (!context.canEditFees) return c.json({ success: false, message: `Only ${context.settings.editors.map(role => ({ owner: 'the Owner', hos: 'the Head of School', accountant: 'the Accountant' } as Record<string, string>)[role]).join(', ')} can change fees.` }, 403)
+    const term = requireTerm(context.term)
+    const result = await saveTermGrid(context.db, { tenantId: context.tenantId, actor: context.actor, term, classes: context.classes, input: { columns: body.columns || [], rows: body.rows || [] }, changeMode: body.changeMode })
+    return c.json({ success: true, ...result, grid: await getTermGrid(context.db, context.tenantId, term, context.classes) })
+  } catch (error) {
+    return financeFailure(c, error, 'Could not save the fees.')
+  }
+})
+
+app.post('/api/school/finance/simple/lock', authenticate, async (c) => {
+  try {
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const context = await simpleFeeContext(c, body.termId)
+    if (!context.canEditFees) return c.json({ success: false, message: 'You cannot lock or unlock fees.' }, 403)
+    const term = requireTerm(context.term)
+    if (body.unlock) return c.json({ success: true, lock: await unlockTerm(context.db, { tenantId: context.tenantId, actor: context.actor, term, reason: body.reason }) })
+    const enrollments = await termEnrollments(context.db, context.tenantId, term.sessionId, context.actor.id)
+    const legacy = await context.db.prepare(`SELECT DISTINCT student_id FROM fee_assessments WHERE tenant_id = ? AND term_id = ? AND assessment_kind = 'term'`).bind(context.tenantId, term.id).all().catch(() => ({ results: [] }))
+    const result = await lockTerm(context.db, { tenantId: context.tenantId, actor: context.actor, term, enrollments, legacyBilledStudentIds: new Set(((legacy.results || []) as Record<string, any>[]).map(row => String(row.student_id))) })
+    return c.json({ success: true, ...result, lock: await getTermLock(context.db, context.tenantId, term.id) })
+  } catch (error) {
+    return financeFailure(c, error, 'Could not lock the fees.')
+  }
+})
+
+app.get('/api/school/finance/simple/settings', authenticate, async (c) => {
+  try {
+    const context = await simpleFeeContext(c)
+    if (!hasRequiredRole(context.role, FINANCE_VIEW_ROLES)) return c.json({ success: false, message: 'forbidden' }, 403)
+    return c.json({ success: true, settings: context.settings, canChange: context.role === 'owner' })
+  } catch (error) {
+    return financeFailure(c, error, 'Could not load the fee settings.')
+  }
+})
+
+app.put('/api/school/finance/simple/settings', authenticate, async (c) => {
+  try {
+    const context = await simpleFeeContext(c)
+    if (context.role !== 'owner') return c.json({ success: false, message: 'Only the Owner decides who can change fees.' }, 403)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    return c.json({ success: true, settings: await saveFeeSettings(context.db, context.tenantId, String(body.feeEditMode || ''), context.actor) })
+  } catch (error) {
+    return financeFailure(c, error, 'Could not save the fee settings.')
+  }
+})
+
+app.get('/api/school/finance/simple/accounts', authenticate, async (c) => {
+  try {
+    const context = await simpleFeeContext(c)
+    if (!hasRequiredRole(context.role, FINANCE_VIEW_ROLES)) return c.json({ success: false, message: 'forbidden' }, 403)
+    const term = requireTerm(context.term)
+    const enrollments = await termEnrollments(context.db, context.tenantId, term.sessionId, context.actor.id)
+    let accounts = await accountSummaries(context.db, context.tenantId, { termId: term.id, termStart: term.startDate }, enrollments)
+    const q = String(c.req.query('q') || '').trim().toLowerCase()
+    const classId = String(c.req.query('classId') || '')
+    const status = String(c.req.query('status') || '')
+    if (q) accounts = accounts.filter(account => account.studentName.toLowerCase().includes(q) || account.studentId.toLowerCase().includes(q))
+    if (classId) accounts = accounts.filter(account => account.classId === classId)
+    if (status === 'owing') accounts = accounts.filter(account => account.balance > 0)
+    else if (status) accounts = accounts.filter(account => account.status === status)
+    accounts.sort((a, b) => a.className.localeCompare(b.className) || a.studentName.localeCompare(b.studentName))
+    return c.json({ success: true, term, accounts: accounts.map(({ outstandingSources, ...rest }) => rest) })
+  } catch (error) {
+    return financeFailure(c, error, 'Could not load student accounts.')
+  }
+})
+
+async function simpleStudent(context: Awaited<ReturnType<typeof simpleFeeContext>>, studentId: string) {
+  const term = requireTerm(context.term)
+  const enrollments = await termEnrollments(context.db, context.tenantId, term.sessionId)
+  const enrollment = enrollments.find(item => item.studentId === studentId)
+  const owned = enrollment || await context.db.prepare(`SELECT 1 FROM fee_obligations WHERE tenant_id = ? AND student_id = ? LIMIT 1`).bind(context.tenantId, studentId).first()
+  if (!owned) throw new FinanceError('Student not found in this school.', 404)
+  return { term, enrollment: enrollment || { studentId, studentName: await financeStudentName(context.db, studentId), classId: '', className: '' } }
+}
+
+app.get('/api/school/finance/simple/accounts/:studentId', authenticate, async (c) => {
+  try {
+    const context = await simpleFeeContext(c)
+    if (!hasRequiredRole(context.role, FINANCE_VIEW_ROLES)) return c.json({ success: false, message: 'forbidden' }, 403)
+    const { term, enrollment } = await simpleStudent(context, c.req.param('studentId'))
+    const statement = await studentStatement(context.db, context.tenantId, enrollment.studentId, { termId: term.id, termStart: term.startDate })
+    const [summary] = await accountSummaries(context.db, context.tenantId, { termId: term.id, termStart: term.startDate }, [enrollment])
+    const account = await getStudentAccount(context.db, { tenantId: context.tenantId, studentId: enrollment.studentId, current: context.period })
+    const unbilled = (await unbilledStudents(context.db, context.tenantId, term.id, [enrollment])).length > 0
+    const grid = unbilled ? await getTermGrid(context.db, context.tenantId, term, context.classes) : null
+    const standardFee = grid ? Object.values(grid.rows.find(row => row.classId === enrollment.classId)?.amounts || {}).reduce((sum, value) => sum + Number(value || 0), 0) : 0
+    return c.json({
+      success: true, term, student: enrollment, statement, classMove: summary?.classMove || null,
+      receipts: account.receipts, payments: account.payments, unbilled, standardFee,
+      canRecordPayments: hasRequiredRole(context.role, FEE_PAYMENT_APPROVER_ROLES), canAdjust: hasRequiredRole(context.role, FEE_ADMIN_ROLES),
+    })
+  } catch (error) {
+    return financeFailure(c, error, 'Could not load this account.')
+  }
+})
+
+app.post('/api/school/finance/simple/accounts/:studentId/pay', authenticate, async (c) => {
+  try {
+    const context = await simpleFeeContext(c)
+    if (!hasRequiredRole(context.role, FEE_PAYMENT_APPROVER_ROLES)) return c.json({ success: false, message: 'forbidden' }, 403)
+    const { enrollment } = await simpleStudent(context, c.req.param('studentId'))
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    if (body.claimId) {
+      const claim = await context.db.prepare(`SELECT student_id FROM finance_claims WHERE id = ? AND tenant_id = ?`).bind(String(body.claimId), context.tenantId).first().catch(() => null) as Record<string, any> | null
+      if (!claim || claim.student_id !== enrollment.studentId) return c.json({ success: false, message: 'That claim is not for this student.' }, 400)
+    }
+    const result = await recordPayment(context.db, {
+      tenantId: context.tenantId, actor: context.actor, studentId: enrollment.studentId, studentName: enrollment.studentName,
+      amount: body.amount, method: body.method, reference: body.reference, payerName: body.payerName, paidOn: body.paidOn, note: body.note,
+      idempotencyKey: body.idempotencyKey, payOldestFirst: true, period: { sessionName: context.period.sessionName, termName: context.period.termName },
+      claimId: body.claimId ? String(body.claimId) : undefined,
+    })
+    if (!result.duplicate) await mirrorPaymentToLegacyLedger(context.db, { tenantId: context.tenantId, studentId: enrollment.studentId, studentName: enrollment.studentName, amount: Number(body.amount) || 0 }).catch(() => null)
+    return c.json({ success: true, ...result })
+  } catch (error) {
+    return financeFailure(c, error, 'Could not record the payment.')
+  }
+})
+
+app.post('/api/school/finance/simple/accounts/:studentId/charge', authenticate, async (c) => {
+  try {
+    const context = await simpleFeeContext(c)
+    if (!hasRequiredRole(context.role, FEE_ADMIN_ROLES)) return c.json({ success: false, message: 'forbidden' }, 403)
+    const { term, enrollment } = await simpleStudent(context, c.req.param('studentId'))
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    return c.json({ success: true, ...(await addStudentCharge(context.db, { tenantId: context.tenantId, actor: context.actor, term, student: enrollment, description: body.description, amount: body.amount, reason: body.reason })) })
+  } catch (error) {
+    return financeFailure(c, error, 'Could not add the charge.')
+  }
+})
+
+app.post('/api/school/finance/simple/accounts/:studentId/adjust', authenticate, async (c) => {
+  try {
+    const context = await simpleFeeContext(c)
+    if (!hasRequiredRole(context.role, FEE_ADMIN_ROLES)) return c.json({ success: false, message: 'forbidden' }, 403)
+    const { term, enrollment } = await simpleStudent(context, c.req.param('studentId'))
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    return c.json({ success: true, ...(await adjustStudent(context.db, { tenantId: context.tenantId, actor: context.actor, studentId: enrollment.studentId, termId: term.id, kind: String(body.kind || ''), amount: body.amount, reason: body.reason })) })
+  } catch (error) {
+    return financeFailure(c, error, 'Could not record the adjustment.')
+  }
+})
+
+app.post('/api/school/finance/simple/accounts/:studentId/class-move', authenticate, async (c) => {
+  try {
+    const context = await simpleFeeContext(c)
+    if (!hasRequiredRole(context.role, FEE_ADMIN_ROLES)) return c.json({ success: false, message: 'forbidden' }, 403)
+    const { term, enrollment } = await simpleStudent(context, c.req.param('studentId'))
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const [summary] = await accountSummaries(context.db, context.tenantId, { termId: term.id, termStart: term.startDate }, [enrollment])
+    if (!summary?.classMove) throw new FinanceError('There is no class change to settle for this student.', 409)
+    return c.json({ success: true, ...(await resolveClassMove(context.db, { tenantId: context.tenantId, actor: context.actor, term, student: enrollment, fromClassId: summary.classMove.fromClassId, decision: String(body.decision || ''), note: body.note })) })
+  } catch (error) {
+    return financeFailure(c, error, 'Could not settle the class change.')
+  }
+})
+
+/** New students: create their fee accounts at their class's standard fees. */
+app.post('/api/school/finance/simple/bill-new', authenticate, async (c) => {
+  try {
+    const context = await simpleFeeContext(c)
+    if (!hasRequiredRole(context.role, FEE_ADMIN_ROLES)) return c.json({ success: false, message: 'forbidden' }, 403)
+    const term = requireTerm(context.term)
+    const lock = await getTermLock(context.db, context.tenantId, term.id)
+    if (!lock.locked) throw new FinanceError('Lock this term\'s fees first; locking creates every student\'s account.', 409)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const enrollments = await termEnrollments(context.db, context.tenantId, term.sessionId, context.actor.id)
+    let students = await unbilledStudents(context.db, context.tenantId, term.id, enrollments)
+    if (Array.isArray(body.studentIds) && body.studentIds.length) students = students.filter(student => body.studentIds.includes(student.studentId))
+    return c.json({ success: true, ...(await billStudents(context.db, { tenantId: context.tenantId, actor: context.actor, term, students })), students: students.length })
+  } catch (error) {
+    return financeFailure(c, error, 'Could not create the fee accounts.')
+  }
+})
+
+/** This term's payments, newest first, with totals by method. */
+app.get('/api/school/finance/simple/payments', authenticate, async (c) => {
+  try {
+    const context = await simpleFeeContext(c)
+    if (!hasRequiredRole(context.role, FINANCE_VIEW_ROLES)) return c.json({ success: false, message: 'forbidden' }, 403)
+    const term = requireTerm(context.term)
+    await ensureFinanceTables(context.db)
+    const from = String(c.req.query('from') || term.startDate || '0000')
+    const to = String(c.req.query('to') || '9999')
+    const rows = await context.db.prepare(`SELECT id, student_id, student_name, amount, payment_type, payment_reference, receipt_no, recorded_by_name, recorded_at, paid_on, status, reversal_of
+      FROM fee_payments WHERE tenant_id = ? AND COALESCE(paid_on, substr(recorded_at, 1, 10)) >= ? AND COALESCE(paid_on, substr(recorded_at, 1, 10)) <= ? ORDER BY recorded_at DESC LIMIT 1000`).bind(context.tenantId, from, to).all().catch(() => ({ results: [] }))
+    const q = String(c.req.query('q') || '').trim().toLowerCase()
+    const payments = ((rows.results || []) as Record<string, any>[])
+      .filter(row => !q || String(row.student_name || '').toLowerCase().includes(q) || String(row.receipt_no || '').toLowerCase().includes(q) || String(row.payment_reference || '').toLowerCase().includes(q))
+      .map(row => ({ id: row.id, studentId: row.student_id, studentName: row.student_name || '', amount: money(row.amount), method: row.payment_type || '', reference: row.payment_reference || '', receiptNo: row.receipt_no || '', recordedBy: row.recorded_by_name || '', date: row.paid_on || String(row.recorded_at || '').slice(0, 10), status: row.reversal_of ? 'reversal' : row.status || 'confirmed' }))
+    const byMethod: Record<string, number> = {}
+    for (const payment of payments) if (payment.status !== 'reversal') byMethod[payment.method] = money((byMethod[payment.method] || 0) + (payment.status === 'reversed' ? 0 : payment.amount))
+    const total = money(payments.filter(payment => payment.status === 'confirmed').reduce((sum, payment) => sum + payment.amount, 0))
+    return c.json({ success: true, term, payments, byMethod, total })
+  } catch (error) {
+    return financeFailure(c, error, 'Could not load payments.')
+  }
+})
+
+/** Reports: by class, by fee item, and the owing list — all from the same account figures. */
+app.get('/api/school/finance/simple/reports', authenticate, async (c) => {
+  try {
+    const context = await simpleFeeContext(c)
+    if (!hasRequiredRole(context.role, FINANCE_VIEW_ROLES)) return c.json({ success: false, message: 'forbidden' }, 403)
+    const term = requireTerm(context.term)
+    const enrollments = await termEnrollments(context.db, context.tenantId, term.sessionId, context.actor.id)
+    const accounts = await accountSummaries(context.db, context.tenantId, { termId: term.id, termStart: term.startDate }, enrollments)
+    const byClass = new Map<string, { className: string, students: number, expected: number, collected: number, outstanding: number, owing: number }>()
+    for (const account of accounts) {
+      if (account.status === 'not_billed') continue
+      const row = byClass.get(account.className) || { className: account.className, students: 0, expected: 0, collected: 0, outstanding: 0, owing: 0 }
+      row.students += 1
+      row.expected = money(row.expected + account.totalPayable)
+      row.collected = money(row.collected + account.paid)
+      row.outstanding = money(row.outstanding + Math.max(account.balance, 0))
+      if (account.balance > 0) row.owing += 1
+      byClass.set(account.className, row)
+    }
+    const owing = accounts.filter(account => account.balance > 0).sort((a, b) => b.balance - a.balance).map(({ outstandingSources, ...rest }) => rest)
+    const metrics = await financeDashboard(context.db, context.tenantId, { sessionId: term.sessionId, termId: term.id, termStart: term.startDate }).catch(() => null)
+    return c.json({ success: true, term, byClass: [...byClass.values()].sort((a, b) => a.className.localeCompare(b.className)), byItem: metrics?.byItem || [], owing })
+  } catch (error) {
+    return financeFailure(c, error, 'Could not build the reports.')
+  }
+})
+
 // ─── Term fee assessments ────────────────────────────────────────────────────
 
 app.get('/api/school/fees/assessments', authenticate, async (c) => {
@@ -25328,7 +31069,7 @@ app.post('/api/school/fees/assessments/generate', authenticate, async (c) => {
 app.post('/api/school/fees/assessments/opening-balances', authenticate, async (c) => {
   const { tenantId, role, actorId, actorName } = academicActor(c)
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
-  if (!hasRequiredRole(role, ['owner'])) return c.json({ error: 'Only the owner can carry balances forward.' }, 403)
+  if (!hasRequiredRole(role, ['owner', 'hos'])) return c.json({ error: 'Only the owner or head of school can carry balances forward.' }, 403)
 
   try {
     const body = await c.req.json().catch(() => ({})) as Record<string, any>
@@ -25491,12 +31232,18 @@ export default {
   async scheduled(_event: ScheduledEvent, env: Bindings, ctx: ExecutionContext): Promise<void> {
     ctx.waitUntil(runDueBulkPeopleJobs(env).catch(() => {}))
     ctx.waitUntil(runDueBulkResultsJobs(env).catch(() => {}))
+    // School closures fall due by the minute (72 hours after the request); a cheap indexed check.
+    ctx.waitUntil(runDueSchoolClosures(env.APP_DB, new Date(), env).catch(error => console.error('School closure job failed', error)))
 
     // Term and session transitions turn on calendar dates, so checking once an
     // hour is ample. Running them on every minute-tick alongside the bulk jobs
     // put this invocation over its CPU budget.
     if (new Date().getUTCMinutes() === 0) {
       ctx.waitUntil(runScheduledAcademicTransitions(env.APP_DB).catch(() => {}))
+    }
+    // Staff emails (submission reminders, weekly summary, punctuality tips): one school every other minute, mornings only.
+    if (new Date().getUTCMinutes() % 2 === 0) {
+      ctx.waitUntil(runDueStaffEmails(env).catch(error => console.error('Staff emails failed', error)))
     }
   },
   async fetch(request: Request, env: Bindings, ctx: ExecutionContext): Promise<Response> {
@@ -25535,7 +31282,18 @@ export default {
         spaTarget.protocol = 'https:'
         spaTarget.port = ''
         const spaResponse = await fetch(new Request(spaTarget.toString(), request))
-        return new Response(spaResponse.body, { status: spaResponse.status, headers: spaResponse.headers })
+        const contentType = spaResponse.headers.get('content-type') || ''
+        // A build file that no longer exists (the page was opened before a deploy) is a clean
+        // 404, so the page can reload itself instead of silently losing its styles.
+        // A 304 is Pages confirming the browser's cached copy is current — not a missing file.
+        const missingBuildFile = spaResponse.status === 404 || (spaResponse.status === 200 && /text\/html/i.test(contentType))
+        if (url.pathname.startsWith('/static/') && missingBuildFile) {
+          return new Response('Not found', { status: 404, headers: { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'no-store' } })
+        }
+        const headers = new Headers(spaResponse.headers)
+        // The app page names this deploy's files; it must never be served from a cache.
+        if (/text\/html/i.test(contentType)) headers.set('Cache-Control', 'no-cache, no-store, must-revalidate')
+        return new Response(spaResponse.body, { status: spaResponse.status, headers })
       }
 
       if (!isPlatformHost(hostname, baseDomain)) {

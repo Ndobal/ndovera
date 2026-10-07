@@ -1,3 +1,6 @@
+import { backfillMaterialSessions, currentMaterialContext, isCurrentMaterial, MATERIAL_ARCHIVE_CUTOFF } from './materialSessions'
+import { materialAudience, materialStatus } from './materialLifecycle'
+
 export interface Bindings {
   APP_DB: D1Database
   SESSIONS: KVNamespace
@@ -29,7 +32,7 @@ function resolveMaterialType(url: string | null | undefined, metadata: Record<st
   return 'document'
 }
 
-function mapMaterialRow(row: any) {
+export function mapMaterialRow(row: any) {
   const metadata = row?.metadata && typeof row.metadata === 'object'
     ? row.metadata as Record<string, any>
     : parseJsonField(row?.metadata, {} as Record<string, any>)
@@ -47,6 +50,13 @@ function mapMaterialRow(row: any) {
     releaseAt: String(metadata.releaseAt || ''),
     uploadedByName: String(metadata.uploadedByName || row?.uploadedBy || ''),
     uploadedById: String(metadata.uploadedById || ''),
+    status: materialStatus(metadata),
+    audience: materialAudience(metadata.visibility),
+    version: Number(metadata.version || 1),
+    blocks: Array.isArray(metadata.blocks) ? metadata.blocks : [],
+    academicSessionId: String(metadata.academicSessionId || ''),
+    academicTermId: String(metadata.academicTermId || ''),
+    reusedFromId: String(metadata.reusedFromId || ''),
   }
 }
 
@@ -216,7 +226,9 @@ async function ensureAuditTable(db: D1Database) {
 
 export async function addAudit(db: D1Database, studentId: string, entry: any) {
   await ensureAuditTable(db)
-  const id = entry.id || `audit-${Date.now()}`
+  // A timestamp alone collided when two entries landed in the same millisecond,
+  // and callers ignore audit failures — so the second entry was silently lost.
+  const id = entry.id || `audit-${Date.now()}-${crypto.randomUUID().slice(0, 8)}`
   const ts = entry.ts || new Date().toISOString()
   const action = entry.action || 'unknown'
   const data = JSON.stringify(entry.data || {})
@@ -324,7 +336,10 @@ async function ensureSubmissionsTable(db: D1Database) {
   )`).run()
 }
 
+let _postsTableReady = false
+
 async function ensurePostsTable(db: D1Database) {
+  if (_postsTableReady) return
   await db.prepare(`CREATE TABLE IF NOT EXISTS posts (
     id TEXT PRIMARY KEY,
     classId TEXT,
@@ -334,10 +349,19 @@ async function ensurePostsTable(db: D1Database) {
     comments TEXT,
     createdAt TEXT
   )`).run()
-  try { await db.exec('ALTER TABLE posts ADD COLUMN comments TEXT') } catch {}
+  // authorRole/postedByLabel say in what capacity a post was written, so a
+  // School Owner's announcement never reads as the class teacher's.
+  for (const column of ['comments', 'authorName', 'authorRole', 'postedByLabel']) {
+    try { await db.exec(`ALTER TABLE posts ADD COLUMN ${column} TEXT`) } catch {}
+  }
+  _postsTableReady = true
 }
 
-async function ensureMaterialsTable(db: D1Database) {
+export function resetPostsTableCache() {
+  _postsTableReady = false
+}
+
+export async function ensureMaterialsTable(db: D1Database) {
   await db.prepare(`CREATE TABLE IF NOT EXISTS materials (
     id TEXT PRIMARY KEY,
     classId TEXT,
@@ -382,7 +406,7 @@ export async function getClassById(db: D1Database, id: string) {
 
 export async function getPostsForClass(db: D1Database, classId: string, limit = 100) {
   await ensurePostsTable(db)
-  const result = await db.prepare('SELECT id, classId, authorId, content, attachments, comments, createdAt FROM posts WHERE classId = ? ORDER BY createdAt DESC LIMIT ?').bind(classId, limit).all()
+  const result = await db.prepare('SELECT id, classId, authorId, authorName, authorRole, postedByLabel, content, attachments, comments, createdAt FROM posts WHERE classId = ? ORDER BY createdAt DESC LIMIT ?').bind(classId, limit).all()
   return result.results.map(r => ({
     ...r,
     attachments: parseJsonField(r.attachments, [] as any[]),
@@ -396,13 +420,19 @@ export async function createPost(db: D1Database, post: any) {
   const createdAt = new Date().toISOString()
   const attachments = JSON.stringify(post.attachments || [])
   const comments = JSON.stringify(post.comments || [])
-  await db.prepare('INSERT INTO posts(id, classId, authorId, content, attachments, comments, createdAt) VALUES(?, ?, ?, ?, ?, ?, ?)').bind(id, post.classId, post.authorId, post.content || null, attachments, comments, createdAt).run()
-  return { id, classId: post.classId, authorId: post.authorId, content: post.content, attachments: post.attachments || [], comments: post.comments || [], createdAt }
+  const authorship = {
+    authorName: post.authorName || null,
+    authorRole: post.authorRole || null,
+    postedByLabel: post.postedByLabel || null,
+  }
+  await db.prepare('INSERT INTO posts(id, classId, authorId, authorName, authorRole, postedByLabel, content, attachments, comments, createdAt) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)')
+    .bind(id, post.classId, post.authorId, authorship.authorName, authorship.authorRole, authorship.postedByLabel, post.content || null, attachments, comments, createdAt).run()
+  return { id, classId: post.classId, authorId: post.authorId, ...authorship, content: post.content, attachments: post.attachments || [], comments: post.comments || [], createdAt }
 }
 
 export async function getPostById(db: D1Database, postId: string) {
   await ensurePostsTable(db)
-  const row = await db.prepare('SELECT id, classId, authorId, content, attachments, comments, createdAt FROM posts WHERE id = ?').bind(postId).first()
+  const row = await db.prepare('SELECT id, classId, authorId, authorName, authorRole, postedByLabel, content, attachments, comments, createdAt FROM posts WHERE id = ?').bind(postId).first()
   if (!row) return null
   return {
     ...row,
@@ -448,6 +478,8 @@ export async function addPostComment(db: D1Database, postId: string, comment: an
     id: comment.id || `comment-${Date.now()}`,
     user: comment.user || comment.authorId || 'Teacher',
     authorId: comment.authorId || null,
+    ...(comment.authorRole ? { authorRole: comment.authorRole } : {}),
+    ...(comment.postedByLabel ? { postedByLabel: comment.postedByLabel } : {}),
     text: comment.text || '',
     createdAt: comment.createdAt || new Date().toISOString(),
   }
@@ -611,17 +643,61 @@ export async function createSubmission(db: D1Database, submission: any) {
   }
 }
 
-export async function getMaterialsForClass(db: D1Database, classId: string) {
+/**
+ * A class's materials in the current academic context. Deleted materials never
+ * appear; `includeArchive` adds earlier terms and sessions for callers that
+ * group history themselves.
+ */
+export async function getMaterialsForClass(db: D1Database, classId: string, options: { includeArchive?: boolean } = {}) {
   await ensureMaterialsTable(db)
+  const classroom = await db.prepare('SELECT tenantId FROM classes WHERE id = ?').bind(classId).first<{ tenantId: string }>()
+  if (!classroom?.tenantId) return []
+  await backfillMaterialSessions(db, classroom.tenantId)
   const result = await db.prepare('SELECT id, classId, title, url, metadata, uploadedAt, uploadedBy FROM materials WHERE classId = ? ORDER BY uploadedAt DESC').bind(classId).all()
-  return result.results.map(mapMaterialRow)
+  const materials = result.results.map(mapMaterialRow).filter(material => material.status !== 'deleted')
+  if (options.includeArchive) return materials
+  const context = await currentMaterialContext(db, classroom.tenantId)
+  return materials.filter(material => isCurrentMaterial(material, context))
+}
+
+/** Per-class counts of current materials; `studentVisible` counts only what students can open. */
+export async function getCurrentMaterialCounts(db: D1Database, tenantId: string, options: { studentVisible?: boolean } = {}) {
+  await ensureMaterialsTable(db)
+  await backfillMaterialSessions(db, tenantId)
+  const context = await currentMaterialContext(db, tenantId)
+  const status = `COALESCE(json_extract(m.metadata, '$.status'), 'published')`
+  const audienceFilter = options.studentVisible
+    ? `AND ${status} = 'published' AND COALESCE(json_extract(m.metadata, '$.visibility'), '') != 'teacher'`
+    : `AND ${status} != 'deleted'`
+  return db.prepare(`SELECT m.classId, COUNT(*) AS count FROM materials m
+    JOIN classes c ON c.id = m.classId WHERE c.tenantId = ?
+    AND json_extract(m.metadata, '$.academicSessionId') = ?
+    AND (? = '' OR COALESCE(json_extract(m.metadata, '$.academicTermId'), '') IN ('', ?))
+    AND substr(m.uploadedAt, 1, 10) >= ? ${audienceFilter}
+    GROUP BY m.classId`).bind(tenantId, context.sessionId, context.termId, context.termId, MATERIAL_ARCHIVE_CUTOFF).all()
 }
 
 export async function addMaterial(db: D1Database, mat: any) {
   await ensureMaterialsTable(db)
-  const id = mat.id || `mat-${Date.now()}`
+  const id = mat.id || `mat-${crypto.randomUUID()}`
   const uploadedAt = new Date().toISOString()
-  const metadata = mat.metadata && typeof mat.metadata === 'object' ? mat.metadata : {}
+  const classroom = await db.prepare('SELECT tenantId FROM classes WHERE id = ?').bind(mat.classId).first<{ tenantId: string }>()
+  if (!classroom?.tenantId) throw new Error('Class not found')
+  const context = await currentMaterialContext(db, classroom.tenantId)
+  const requested = mat.metadata && typeof mat.metadata === 'object' ? mat.metadata : {}
+  const status = requested.status === 'draft' ? 'draft' : 'published'
+  const metadata = {
+    ...requested,
+    // The server decides where new work lands; a client cannot back-date it.
+    academicSessionId: context.sessionId,
+    academicTermId: context.termId,
+    status,
+    version: 1,
+    publishedAt: status === 'published' ? uploadedAt : '',
+  }
+  delete (metadata as Record<string, any>).hiddenAt
+  delete (metadata as Record<string, any>).deletedAt
+  delete (metadata as Record<string, any>).deletedBy
   await db.prepare('INSERT INTO materials(id, classId, title, url, metadata, uploadedAt, uploadedBy) VALUES(?, ?, ?, ?, ?, ?, ?)').bind(id, mat.classId, mat.title || null, mat.url || null, JSON.stringify(metadata), uploadedAt, mat.uploadedBy || null).run()
   return mapMaterialRow({
     id,
@@ -672,10 +748,20 @@ export async function updateMaterial(db: D1Database, materialId: string, changes
   })
 }
 
-export async function deleteMaterial(db: D1Database, materialId: string) {
-  await ensureMaterialsTable(db)
-  await db.prepare('DELETE FROM materials WHERE id = ?').bind(materialId).run()
-  return true
+/** Soft delete: the row and any shared file stay for the audit trail and other reuses. */
+export async function deleteMaterial(db: D1Database, materialId: string, actor: { id?: string, name?: string } = {}) {
+  const existing = await getMaterialById(db, materialId)
+  if (!existing) return null
+  return updateMaterial(db, materialId, {
+    metadata: {
+      ...existing.metadata,
+      status: 'deleted',
+      statusBeforeDelete: existing.status,
+      deletedAt: new Date().toISOString(),
+      deletedById: actor.id || '',
+      deletedByName: actor.name || '',
+    },
+  })
 }
 
 export async function getAttendanceForClass(db: D1Database, classId: string, sinceDate?: string) {

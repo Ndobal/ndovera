@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import RichContent from '../../shared/rich/RichContent';
 import { listSchoolChampionshipQuestions, submitChampionshipQuestion } from './services/championshipApi';
 import { BODY, BTN_PRIMARY, BTN_SECONDARY, CARD, INPUT, LABEL, MUTED, PANEL } from './championshipUi';
 
@@ -236,7 +237,7 @@ export default function SchoolQuestionPool() {
             {submissions.map(submission => (
               <div key={submission.id} className="rounded-xl border border-[#c9a96e]/40 bg-white/70 px-4 py-3 dark:border-white/10 dark:bg-slate-900/50">
                 <div className="flex flex-wrap items-start justify-between gap-2">
-                  <p className="min-w-0 flex-1 font-bold text-[#191970] dark:text-slate-100">{submission.prompt}</p>
+                  <RichContent className="min-w-0 flex-1 font-bold text-[#191970] dark:text-slate-100" text={submission.prompt} />
                   <span className={`rounded-full px-3 py-1 text-xs font-bold ${STATUS_TONE[submission.status] || STATUS_TONE.submitted}`}>
                     {STATUS_LABEL[submission.status] || submission.status}
                   </span>

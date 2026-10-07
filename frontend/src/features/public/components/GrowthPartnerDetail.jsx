@@ -7,7 +7,7 @@ import {
   markPartnerPayoutPaid,
 } from '../services/publicSiteApi';
 
-const naira = new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN', maximumFractionDigits: 0 });
+const naira = new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN', minimumFractionDigits: 0, maximumFractionDigits: 0 });
 
 const PANEL = 'rounded-2xl border border-[#c9a96e]/40 bg-[#fff8ee] p-4 dark:border-white/10 dark:bg-slate-900/50';
 const LABEL = 'text-[10px] font-bold uppercase tracking-[0.16em] text-[#800020] dark:text-fuchsia-300';

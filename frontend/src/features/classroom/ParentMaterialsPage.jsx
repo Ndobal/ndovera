@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import RichContent from '../../shared/rich/RichContent';
 import StudentSectionShell from '../../app/roles/student/StudentSectionShell';
 import { getLearningStudents, getMaterials } from './classroomService';
 import MaterialTypeThumbnail, { materialTypeLabel } from '../../shared/components/MaterialTypeThumbnail';
@@ -171,7 +172,7 @@ export default function ParentMaterialsPage() {
                       {(material.topic || material.weekLabel) && (
                         <p className="text-xs text-slate-400 mt-2">{material.topic || 'Lesson note'}{material.weekLabel ? ` • ${material.weekLabel}` : ''}</p>
                       )}
-                      {material.description && <p className="text-sm text-slate-300 mt-3 whitespace-pre-wrap">{material.description}</p>}
+                      {material.description && <RichContent className="text-sm text-slate-300 mt-3" text={material.description} />}
                     </div>
                     <span className="glass-chip px-3 py-1 rounded-full micro-label accent-emerald">{materialTypeLabel(material)}</span>
                   </div>

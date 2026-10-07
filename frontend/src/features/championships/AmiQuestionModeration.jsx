@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import RichContent from '../../shared/rich/RichContent';
 import { listAmiChampionshipQuestions, moderateChampionshipQuestion } from './services/championshipApi';
 import { BODY, BTN_PRIMARY, BTN_SECONDARY, CARD, INPUT, LABEL, MUTED, PANEL } from './championshipUi';
 
@@ -31,7 +32,7 @@ function QuestionCard({ submission, onDecide, busyId }) {
   return (
     <article className={PANEL}>
       <div className="flex flex-wrap items-start justify-between gap-3">
-        <p className="min-w-0 flex-1 font-bold text-[#191970] dark:text-slate-100">{submission.prompt}</p>
+        <RichContent className="min-w-0 flex-1 font-bold text-[#191970] dark:text-slate-100" text={submission.prompt} />
         {submission.aiVerdict ? (
           <span className={`rounded-full px-3 py-1 text-xs font-bold ${VERDICT_TONE[submission.aiVerdict] || VERDICT_TONE.flag}`}>
             AI: {submission.aiVerdict}

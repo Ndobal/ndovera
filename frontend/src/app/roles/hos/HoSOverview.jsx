@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { getAttendance, getMe } from '../../../features/school/services/schoolApi';
+import { getMe, getStudentAttendance } from '../../../features/school/services/schoolApi';
 import SchoolAnnouncementsPanel from '../../../shared/components/SchoolAnnouncementsPanel';
 
 const quickLinks = [
@@ -20,7 +20,7 @@ export default function HoSOverview({ auth }) {
     setLoading(true);
     Promise.all([
       getMe().catch(() => null),
-      getAttendance().catch(() => null),
+      getStudentAttendance({ limit: 1000 }).catch(() => null),
     ])
       .then(([meData, attData]) => {
         setMe(meData?.user || meData || null);

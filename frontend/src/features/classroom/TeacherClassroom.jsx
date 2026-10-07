@@ -4,8 +4,12 @@ import StudentSectionShell from '../../app/roles/student/StudentSectionShell';
 import TeacherAssignmentsPanel from './TeacherAssignmentsPanel';
 import * as svc from './classroomService';
 import SubjectsTab from './subjects';
-import MaterialTypeThumbnail, { materialTypeLabel } from '../../shared/components/MaterialTypeThumbnail';
 import MaterialViewer from './materials/MaterialViewer';
+import StructuredMaterialEditor from './materials/StructuredMaterialEditor';
+import TeacherMaterialList from './materials/TeacherMaterialList';
+import SupervisionClassPicker from './SupervisionClassPicker';
+import StreamThread, { AutoGrowTextarea } from './stream/StreamThread';
+import MaterialBatchList from './materials/MaterialBatchList';
 import { getStoredAuth } from '../auth/services/authApi';
 import { getPeople } from '../school/services/schoolApi';
 
@@ -96,12 +100,6 @@ function formatVisibilityLabel(value) {
   }
 }
 
-function formatReleaseLabel(value) {
-  if (!value) return 'Immediate release';
-  const parsed = new Date(value);
-  return Number.isNaN(parsed.getTime()) ? value : `Releases ${parsed.toLocaleString()}`;
-}
-
 function buildMaterialUploadKey(file) {
   return `${String(file?.name || 'file')}:${Number(file?.size || 0)}:${Number(file?.lastModified || 0)}`;
 }
@@ -124,6 +122,8 @@ export default function TeacherClassroom({
   const isSupervisorRole = ['owner', 'hos', 'admin', 'ict', 'ami'].includes(currentRoleKey);
   const [classId, setClassId] = useState(() => readRememberedTeacherClassId());
   const [assignedClasses, setAssignedClasses] = useState([]);
+  // Owner/HOS: supervisory access, kept apart from teacher assignment.
+  const [supervision, setSupervision] = useState(null);
   const [activeTab, setActiveTab] = useState(() => lockedTab || initialTab);
   const [posts, setPosts] = useState([]);
   const [draftContent, setDraftContent] = useState('');
@@ -144,13 +144,18 @@ export default function TeacherClassroom({
   const [materialTitle, setMaterialTitle] = useState('');
   const [materialUrl, setMaterialUrl] = useState('');
   const [materialDescription, setMaterialDescription] = useState('');
+  const [materialBlocks, setMaterialBlocks] = useState([]);
+  const [materialContext, setMaterialContext] = useState(null);
+  const materialStatusRef = useRef('published');
   const [materialTopic, setMaterialTopic] = useState('');
   const [materialWeekLabel, setMaterialWeekLabel] = useState('');
   const [materialVisibility, setMaterialVisibility] = useState('student_parent');
   const [materialReleaseAt, setMaterialReleaseAt] = useState('');
   const [materialMessage, setMaterialMessage] = useState('');
   const [materialTopicOptions, setMaterialTopicOptions] = useState([]);
-  const [pendingMaterialFiles, setPendingMaterialFiles] = useState([]);
+  // Files queued for upload, each with its own title, note and result.
+  const [materialBatch, setMaterialBatch] = useState([]);
+  const [batchUploading, setBatchUploading] = useState(false);
   const [liveSessions, setLiveSessions] = useState([]);
   const [liveSubjectId, setLiveSubjectId] = useState('');
   const [liveTopic, setLiveTopic] = useState('');
@@ -173,6 +178,7 @@ export default function TeacherClassroom({
   const classroomLabel = selectedClass?.className || storedUser?.className || classId || 'Assigned Classroom';
   const materialSubjects = useMemo(() => selectedClass?.subjects || [], [selectedClass?.subjects]);
   const selectedMaterialSubject = materialSubjects.find(subject => subject.id === materialSubjectId) || materialSubjects[0] || null;
+  const pendingBatchCount = materialBatch.filter(item => item.status !== 'uploaded').length;
   const selectedLiveSubject = materialSubjects.find(subject => subject.id === liveSubjectId) || materialSubjects[0] || null;
   const isChoosingClass = !classId;
   const canManageSelectedClass = Boolean(selectedClass?.canManageClassroom || selectedClass?.isClassTeacher);
@@ -213,6 +219,7 @@ export default function TeacherClassroom({
 
         const classes = data?.classes || [];
         setAssignedClasses(classes);
+        setSupervision(data?.supervision || null);
 
         if (classes.length === 0) {
           setClassroomError(isSupervisorRole ? 'No classes are available for supervision yet.' : 'No classes have been assigned to this teacher yet.');
@@ -251,16 +258,17 @@ export default function TeacherClassroom({
     }
 
     const rememberedClassId = readRememberedTeacherClassId();
-    const rememberedMatch = assignedClasses.find(classroom => classroom.id === rememberedClassId)?.id || '';
+    const openable = supervision ? assignedClasses.filter(classroom => classroom.supervisionJoined) : assignedClasses;
+    const rememberedMatch = openable.find(classroom => classroom.id === rememberedClassId)?.id || '';
     const fallbackClassId = rememberedMatch
-      || ((lockedTab || isSupervisorRole || assignedClasses.length === 1) ? String(assignedClasses[0]?.id || '') : '');
+      || (!supervision && (lockedTab || isSupervisorRole || assignedClasses.length === 1) ? String(assignedClasses[0]?.id || '') : '');
 
     if (!fallbackClassId) return;
 
     setClassId(fallbackClassId);
     window.localStorage.setItem('teacherClassroomId', fallbackClassId);
     window.localStorage.setItem('classroomId', fallbackClassId);
-  }, [assignedClasses, classId, classroomLoading, isSupervisorRole, lockedTab]);
+  }, [assignedClasses, classId, classroomLoading, isSupervisorRole, lockedTab, supervision]);
 
   useEffect(() => {
     if (!classId) {
@@ -280,7 +288,7 @@ export default function TeacherClassroom({
       setMaterialVisibility('student_parent');
       setMaterialReleaseAt('');
       setMaterialMessage('');
-      setPendingMaterialFiles([]);
+      setMaterialBatch([]);
       setUploadProgress({});
       setLiveSessions([]);
       setLiveTopic('');
@@ -295,7 +303,7 @@ export default function TeacherClassroom({
     window.localStorage.setItem('classroomId', classId);
     svc.getPosts(classId).then(r => { if (r && r.success) setPosts(r.posts || []); }).catch(()=>{});
     svc.getAssignments(classId).then(r => { if (r && r.success) setAssignments(r.assignments || []); }).catch(()=>{});
-    svc.getMaterials(classId).then(r => { if (r && r.success) setMaterials(r.materials || []); }).catch(()=>{});
+    svc.getMaterials(classId).then(r => { if (r && r.success) { setMaterials(r.materials || []); setMaterialContext(r.academicContext || null); } }).catch(()=>{});
     svc.getAttendance(classId).then(r => { if (r && r.success) setAttendance(r.attendance || []); }).catch(()=>{});
     svc.getLiveSessions(classId).then(r => { if (r && r.success) setLiveSessions(r.sessions || []); }).catch(()=>{});
     svc.getClassMembers(classId).then(r => { if (r && r.success) setClassMembers(r.members || []); }).catch(() => setClassMembers([]));
@@ -367,7 +375,7 @@ export default function TeacherClassroom({
     let cancelled = false;
 
     async function searchRosterCandidates() {
-      if (!canManageSelectedClass || activeTab !== 'subjects' || !rosterSearch.trim()) {
+      if (!canManageSelectedClass || activeTab !== 'members' || !rosterSearch.trim()) {
         setRosterCandidates([]);
         return;
       }
@@ -395,7 +403,7 @@ export default function TeacherClassroom({
     if (!classId) return;
     svc.getPosts(classId).then(r => { if (r && r.success) setPosts(r.posts || []); }).catch(()=>{});
     svc.getAssignments(classId).then(r => { if (r && r.success) setAssignments(r.assignments || []); }).catch(()=>{});
-    svc.getMaterials(classId).then(r => { if (r && r.success) setMaterials(r.materials || []); }).catch(()=>{});
+    svc.getMaterials(classId).then(r => { if (r && r.success) { setMaterials(r.materials || []); setMaterialContext(r.academicContext || null); } }).catch(()=>{});
     svc.getAttendance(classId).then(r => { if (r && r.success) setAttendance(r.attendance || []); }).catch(()=>{});
     svc.getLiveSessions(classId).then(r => { if (r && r.success) setLiveSessions(r.sessions || []); }).catch(()=>{});
     svc.getClassMembers(classId).then(r => { if (r && r.success) setClassMembers(r.members || []); }).catch(() => setClassMembers([]));
@@ -427,6 +435,15 @@ export default function TeacherClassroom({
 
     setRosterMessage(`${member.name} removed from the class.`);
     loadAll();
+  }
+
+  async function handleAddComment(postId, text) {
+    const response = await svc.addPostComment(classId, postId, { text });
+    if (!response?.success) throw new Error(response?.message || 'Could not add your comment.');
+    const comment = response.comment || { id: `cm-${Date.now()}`, user: 'You', text, createdAt: new Date().toISOString() };
+    setPosts(current => current.map(post => (
+      post.id === postId ? { ...post, comments: [...(Array.isArray(post.comments) ? post.comments : []), comment] } : post
+    )));
   }
 
   async function handleCreatePost(e) {
@@ -557,7 +574,7 @@ export default function TeacherClassroom({
       name: String(fallbackName || 'Class User'),
       email: String(fallbackEmail),
       displayId: String(post?.displayId || ''),
-      role: formatRoleLabel(post?.isStudentPost ? 'student' : 'teacher'),
+      role: post?.postedByLabel || formatRoleLabel(post?.authorRole || (post?.isStudentPost ? 'student' : 'teacher')),
       className: classroomLabel,
       status: 'Active',
       isSelf: false,
@@ -565,25 +582,39 @@ export default function TeacherClassroom({
   }
 
   // Upload with progress using XMLHttpRequest (to support progress events)
-  function resetMaterialComposer() {
+  // keepBatch leaves the batch's per-file results on screen after posting.
+  function resetMaterialComposer({ keepBatch = false } = {}) {
     setMaterialTitle('');
     setMaterialUrl('');
     setMaterialDescription('');
+    setMaterialBlocks([]);
     setMaterialTopic('');
     setMaterialWeekLabel('');
     setMaterialVisibility('student_parent');
     setMaterialReleaseAt('');
-    setPendingMaterialFiles([]);
-    setUploadProgress({});
+    if (!keepBatch) {
+      setMaterialBatch([]);
+      setUploadProgress({});
+    }
   }
 
   function queueMaterialFiles(fileList) {
     const nextFiles = Array.from(fileList || []).filter(Boolean);
     if (nextFiles.length === 0) return;
 
-    setPendingMaterialFiles(currentFiles => {
-      const existingKeys = new Set(currentFiles.map(buildMaterialUploadKey));
-      return [...currentFiles, ...nextFiles.filter(file => !existingKeys.has(buildMaterialUploadKey(file)))];
+    setMaterialBatch(current => {
+      const existingKeys = new Set(current.map(item => item.key));
+      const added = nextFiles
+        .filter(file => !existingKeys.has(buildMaterialUploadKey(file)))
+        .map(file => ({
+          key: buildMaterialUploadKey(file),
+          file,
+          title: String(file.name || '').replace(/\.[^.]+$/, ''),
+          description: '',
+          status: 'queued',
+          error: '',
+        }));
+      return [...current, ...added];
     });
 
     setUploadProgress(currentProgress => {
@@ -597,15 +628,15 @@ export default function TeacherClassroom({
       return nextProgress;
     });
 
-    if (!materialTitle.trim() && nextFiles.length === 1) {
-      setMaterialTitle(String(nextFiles[0]?.name || '').replace(/\.[^.]+$/, ''));
-    }
+    setMaterialMessage(`${nextFiles.length} file${nextFiles.length === 1 ? '' : 's'} ready. Adjust each title if you like, then post.`);
+  }
 
-    setMaterialMessage(`${nextFiles.length} file${nextFiles.length === 1 ? '' : 's'} ready. Click Post Material to publish.`);
+  function updateBatchItem(key, patch) {
+    setMaterialBatch(current => current.map(item => (item.key === key ? { ...item, ...patch } : item)));
   }
 
   function removePendingMaterialFile(fileKey) {
-    setPendingMaterialFiles(currentFiles => currentFiles.filter(file => buildMaterialUploadKey(file) !== fileKey));
+    setMaterialBatch(current => current.filter(item => item.key !== fileKey));
     setUploadProgress(currentProgress => {
       const nextProgress = { ...currentProgress };
       delete nextProgress[fileKey];
@@ -643,6 +674,8 @@ export default function TeacherClassroom({
       if (nextWeekLabel) fd.append('weekLabel', nextWeekLabel);
       if (nextVisibility) fd.append('visibility', nextVisibility);
       if (nextReleaseAt) fd.append('releaseAt', nextReleaseAt);
+      fd.append('status', materialStatusRef.current);
+      if (overrides.useBlocks && materialBlocks.length) fd.append('blocks', JSON.stringify(materialBlocks));
 
       xhr.open('POST', url, true);
       if (token) xhr.setRequestHeader('Authorization', `Bearer ${token}`);
@@ -656,7 +689,9 @@ export default function TeacherClassroom({
 
       xhr.onload = () => {
         try {
+          // A proxy or size limit can answer with a page rather than JSON.
           const json = JSON.parse(xhr.responseText || '{}');
+          if (!json?.success && !json?.message) json.message = xhr.status === 413 ? 'This file is too large to upload.' : `Upload failed (HTTP ${xhr.status}).`;
           const uploadKey = buildMaterialUploadKey(file);
           setUploadProgress(prev => ({ ...prev, [uploadKey]: json?.success ? 100 : 0 }));
           resolve(json);
@@ -675,6 +710,38 @@ export default function TeacherClassroom({
     });
   }
 
+  async function uploadBatchItem(item, { useBlocks = false } = {}) {
+    updateBatchItem(item.key, { status: 'uploading', error: '' });
+    try {
+      const ownNote = String(item.description || '').trim();
+      const response = await uploadFileWithProgress(item.file, {
+        title: String(item.title || '').trim() || String(item.file.name || '').replace(/\.[^.]+$/, ''),
+        description: ownNote || materialDescription,
+        useBlocks: useBlocks && !ownNote,
+      });
+      if (response?.success) {
+        updateBatchItem(item.key, { status: 'uploaded' });
+        return true;
+      }
+      updateBatchItem(item.key, { status: 'failed', error: response?.message || 'The server did not accept this file.' });
+    } catch (error) {
+      updateBatchItem(item.key, { status: 'failed', error: error?.message === 'Upload failed' ? 'Upload failed — check your connection and retry.' : (error?.message || 'Upload failed.') });
+    }
+    return false;
+  }
+
+  async function retryBatchItem(key) {
+    const item = materialBatch.find(entry => entry.key === key);
+    if (!item || !classId) return;
+    setBatchUploading(true);
+    const ok = await uploadBatchItem(item);
+    setBatchUploading(false);
+    if (ok) {
+      loadAll();
+      setMaterialMessage(`Posted ${String(item.title || item.file.name).trim()}.`);
+    }
+  }
+
   async function handleCreateMaterial(event) {
     event.preventDefault();
 
@@ -683,42 +750,30 @@ export default function TeacherClassroom({
       return;
     }
 
-    if (pendingMaterialFiles.length > 0) {
+    const pendingItems = materialBatch.filter(item => item.status !== 'uploaded');
+    if (pendingItems.length > 0) {
+      // One request per file, so one failure never takes the others down with it.
+      setBatchUploading(true);
       let uploadedCount = 0;
-      const failedFiles = [];
-
-      for (const file of pendingMaterialFiles) {
-        try {
-          const response = await uploadFileWithProgress(file, {
-            title: pendingMaterialFiles.length === 1 && materialTitle.trim()
-              ? materialTitle.trim()
-              : String(file.name || '').replace(/\.[^.]+$/, ''),
-          });
-
-          if (response?.success) {
-            uploadedCount += 1;
-          } else {
-            failedFiles.push(file);
-          }
-        } catch {
-          failedFiles.push(file);
-        }
+      for (const item of pendingItems) {
+        if (await uploadBatchItem(item, { useBlocks: materialBatch.length === 1 })) uploadedCount += 1;
       }
+      setBatchUploading(false);
 
       if (uploadedCount > 0) {
         loadAll();
       }
 
-      if (failedFiles.length === 0) {
+      const failedCount = pendingItems.length - uploadedCount;
+      if (failedCount === 0) {
         setMaterialMessage(`Posted ${uploadedCount} material${uploadedCount === 1 ? '' : 's'} to ${selectedMaterialSubject.name}.`);
-        resetMaterialComposer();
+        resetMaterialComposer({ keepBatch: true });
         return;
       }
 
-      setPendingMaterialFiles(failedFiles);
       setMaterialMessage(uploadedCount > 0
-        ? `Posted ${uploadedCount} material${uploadedCount === 1 ? '' : 's'}. ${failedFiles.length} file${failedFiles.length === 1 ? '' : 's'} still need attention.`
-        : 'Could not post the selected files right now.');
+        ? `Posted ${uploadedCount} material${uploadedCount === 1 ? '' : 's'}. ${failedCount} file${failedCount === 1 ? '' : 's'} failed — use Retry beside each.`
+        : `None of the files were posted. Use Retry beside each file.`);
       return;
     }
 
@@ -732,11 +787,13 @@ export default function TeacherClassroom({
       url: materialUrl.trim(),
       subjectId: selectedMaterialSubject.id,
       description: materialDescription.trim(),
+      blocks: materialBlocks,
       topic: materialTopic.trim(),
       weekLabel: materialWeekLabel.trim(),
       visibility: materialVisibility,
       releaseAt: materialReleaseAt,
       type: materialType,
+      status: materialStatusRef.current,
     });
 
     if (!response?.success) {
@@ -744,54 +801,10 @@ export default function TeacherClassroom({
       return;
     }
 
-    setMaterialMessage(`Posted ${materialTitle.trim()} to ${selectedMaterialSubject.name}.`);
+    setMaterialMessage(materialStatusRef.current === 'draft'
+      ? `Saved ${materialTitle.trim()} as a draft. Students will not see it until you publish it.`
+      : `Posted ${materialTitle.trim()} to ${selectedMaterialSubject.name}.`);
     resetMaterialComposer();
-    loadAll();
-  }
-
-  async function handleEditMaterial(material) {
-    if (!classId || !material?.id) return;
-
-    const nextTitle = window.prompt('Update material title', material.title || '');
-    if (nextTitle === null) return;
-    const normalizedTitle = nextTitle.trim();
-    if (!normalizedTitle) {
-      setMaterialMessage('Material title is required.');
-      return;
-    }
-
-    const nextDescription = window.prompt('Update material description', material.description || '');
-    if (nextDescription === null) return;
-
-    const nextUrl = window.prompt('Update material link. Leave blank to keep it as a teacher note.', material.url || '');
-    if (nextUrl === null) return;
-
-    const response = await svc.updateMaterial(classId, material.id, {
-      title: normalizedTitle,
-      description: nextDescription.trim(),
-      url: nextUrl.trim(),
-    });
-
-    if (!response?.success) {
-      setMaterialMessage(response?.message || 'Could not update this material right now.');
-      return;
-    }
-
-    setMaterialMessage(`Updated ${normalizedTitle}.`);
-    loadAll();
-  }
-
-  async function handleDeleteMaterial(material) {
-    if (!classId || !material?.id) return;
-    if (!window.confirm(`Delete ${material.title || 'this material'}?`)) return;
-
-    const response = await svc.deleteMaterial(classId, material.id);
-    if (!response?.success) {
-      setMaterialMessage(response?.message || 'Could not delete this material right now.');
-      return;
-    }
-
-    setMaterialMessage(`Deleted ${material.title || 'material'}.`);
     loadAll();
   }
 
@@ -927,7 +940,17 @@ export default function TeacherClassroom({
     >
       <div id="devMarker" style={{display: 'none'}}>DEV_BUILD: teacher-classroom-20260304</div>
       <div className="p-4">
-        {isChoosingClass && <div className="mb-6">
+        {isChoosingClass && supervision && (
+          <SupervisionClassPicker
+            classes={assignedClasses}
+            supervision={supervision}
+            onEnter={handleSelectClass}
+            onClassesChange={setAssignedClasses}
+            onPolicyChange={hosMode => setSupervision(current => ({ ...current, hosMode }))}
+          />
+        )}
+
+        {isChoosingClass && !supervision && <div className="mb-6">
           <label className="block text-sm font-medium text-[#800000] dark:text-[#0000ff] mb-3">{isSupervisorRole ? 'Available Classes' : 'Assigned Classes'}</label>
           {assignedClasses.length > 0 ? (
             <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
@@ -978,8 +1001,14 @@ export default function TeacherClassroom({
         {!!selectedClass && <div className="mb-4 rounded-3xl border border-[#c9a96e]/45 bg-[#b5e3f4] p-5 shadow-[0_18px_42px_rgba(128,0,0,0.08)] dark:border-[#bf00ff]/35 dark:bg-[#800000]/75 dark:shadow-[0_0_28px_rgba(191,0,255,0.18)]">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#800020] dark:text-[#bf00ff]">Working In</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#800020] dark:text-[#bf00ff]">{supervision && !selectedClass.isClassTeacher ? 'Supervising' : 'Working In'}</p>
               <p className="text-lg font-semibold text-[#800000] dark:text-[#ffffff] mt-1">{selectedClass.className}</p>
+              {supervision && !selectedClass.isClassTeacher && (
+                <p className="mt-1 text-xs font-semibold text-[#800020] dark:text-[#bf00ff]">
+                  As {supervision.label} — not this class's teacher.{' '}
+                  {supervision.canIntervene ? 'Content you post is labelled as yours and every change is recorded.' : 'View only, by school policy.'}
+                </p>
+              )}
             </div>
             <div className="flex flex-wrap gap-2 items-center">
               <span className="rounded-full bg-[#fff8f0] px-3 py-1 text-xs font-semibold uppercase tracking-[0.15em] text-[#800020] border border-[#c9a96e]/45 dark:bg-black/20 dark:border-[#bf00ff]/35 dark:text-[#bf00ff]">Students {selectedClass.studentCount}</span>
@@ -990,8 +1019,31 @@ export default function TeacherClassroom({
                 onClick={handleExitClass}
                 className="rounded-2xl bg-[#1a5c38] px-4 py-2 text-sm font-bold text-[#b5e3f4] transition-colors hover:bg-[#154a2e] dark:bg-[#00ffff] dark:text-[#000000] dark:hover:bg-[#7dfcff]"
               >
-                Exit Class
+                {supervision ? 'Back to classes' : 'Exit Class'}
               </button>
+              {supervision && (
+                <button
+                  type="button"
+                  onClick={() => navigate(`/roles/${currentRoleKey}/submissions?classId=${encodeURIComponent(selectedClass.id)}`)}
+                  className="rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] px-4 py-2 text-sm font-semibold text-[#191970] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#ffffff]"
+                >
+                  Teacher submissions
+                </button>
+              )}
+              {supervision && selectedClass.supervisionJoined && (
+                <button
+                  type="button"
+                  onClick={async () => {
+                    const response = await svc.setClassSupervision(selectedClass.id, 'exit').catch(() => null);
+                    if (!response?.success) return;
+                    setAssignedClasses(current => current.map(item => (item.id === selectedClass.id ? { ...item, supervisionJoined: false } : item)));
+                    handleExitClass();
+                  }}
+                  className="rounded-2xl border border-[#800000]/25 bg-white/70 px-4 py-2 text-sm font-semibold text-[#800000] dark:border-[#ff5f8d]/35 dark:bg-black/20 dark:text-[#ffffff]"
+                >
+                  Exit Class
+                </button>
+              )}
             </div>
           </div>
         </div>}
@@ -1000,6 +1052,7 @@ export default function TeacherClassroom({
           <nav className="grid grid-cols-3 gap-2 sm:flex sm:flex-wrap">
             <button className={`px-3 py-1 rounded-2xl border text-sm font-semibold transition-colors ${activeTab==='stream'?'bg-[#1a5c38] border-[#1a5c38] text-[#b5e3f4] dark:bg-[#00ffff] dark:border-[#00ffff] dark:text-[#000000]':'bg-[#fff8f0] border-[#c9a96e]/45 text-[#191970] hover:bg-[#f2e1bf] dark:bg-black/20 dark:border-[#bf00ff]/35 dark:text-[#ffffff] dark:hover:bg-[#800000]/85'}`} onClick={()=>setActiveTab('stream')}>Stream</button>
             <button className={`px-3 py-1 rounded-2xl border text-sm font-semibold transition-colors ${activeTab==='subjects'?'bg-[#1a5c38] border-[#1a5c38] text-[#b5e3f4] dark:bg-[#00ffff] dark:border-[#00ffff] dark:text-[#000000]':'bg-[#fff8f0] border-[#c9a96e]/45 text-[#191970] hover:bg-[#f2e1bf] dark:bg-black/20 dark:border-[#bf00ff]/35 dark:text-[#ffffff] dark:hover:bg-[#800000]/85'}`} onClick={()=>setActiveTab('subjects')}>Subjects</button>
+            <button className={`px-3 py-1 rounded-2xl border text-sm font-semibold transition-colors ${activeTab==='members'?'bg-[#1a5c38] border-[#1a5c38] text-[#b5e3f4] dark:bg-[#00ffff] dark:border-[#00ffff] dark:text-[#000000]':'bg-[#fff8f0] border-[#c9a96e]/45 text-[#191970] hover:bg-[#f2e1bf] dark:bg-black/20 dark:border-[#bf00ff]/35 dark:text-[#ffffff] dark:hover:bg-[#800000]/85'}`} onClick={()=>setActiveTab('members')}>Members</button>
             <button className={`px-3 py-1 rounded-2xl border text-sm font-semibold transition-colors ${activeTab==='assignments'?'bg-[#1a5c38] border-[#1a5c38] text-[#b5e3f4] dark:bg-[#00ffff] dark:border-[#00ffff] dark:text-[#000000]':'bg-[#fff8f0] border-[#c9a96e]/45 text-[#191970] hover:bg-[#f2e1bf] dark:bg-black/20 dark:border-[#bf00ff]/35 dark:text-[#ffffff] dark:hover:bg-[#800000]/85'}`} onClick={()=>setActiveTab('assignments')}>Assignments</button>
             <button className={`px-3 py-1 rounded-2xl border text-sm font-semibold transition-colors ${activeTab==='attendance'?'bg-[#1a5c38] border-[#1a5c38] text-[#b5e3f4] dark:bg-[#00ffff] dark:border-[#00ffff] dark:text-[#000000]':'bg-[#fff8f0] border-[#c9a96e]/45 text-[#191970] hover:bg-[#f2e1bf] dark:bg-black/20 dark:border-[#bf00ff]/35 dark:text-[#ffffff] dark:hover:bg-[#800000]/85'}`} onClick={()=>setActiveTab('attendance')}>Attendance</button>
             <button className={`px-3 py-1 rounded-2xl border text-sm font-semibold transition-colors ${activeTab==='materials'?'bg-[#1a5c38] border-[#1a5c38] text-[#b5e3f4] dark:bg-[#00ffff] dark:border-[#00ffff] dark:text-[#000000]':'bg-[#fff8f0] border-[#c9a96e]/45 text-[#191970] hover:bg-[#f2e1bf] dark:bg-black/20 dark:border-[#bf00ff]/35 dark:text-[#ffffff] dark:hover:bg-[#800000]/85'}`} onClick={()=>setActiveTab('materials')}>Materials</button>
@@ -1009,7 +1062,7 @@ export default function TeacherClassroom({
 
         {!!classId && <div onDrop={handleDrop} onDragOver={handleDragOver}>
           {activeTab === 'stream' && (
-            <div className="flex min-h-[70vh] flex-col gap-4">
+            <div className="flex min-h-[70vh] flex-col gap-3 sm:gap-4">
               <div className="flex-1 space-y-3">
                 {sortedPosts.length === 0 ? (
                   <div className="rounded-3xl border border-[#c9a96e]/45 bg-[#b5e3f4] px-4 py-4 text-sm text-[#191970] dark:border-[#bf00ff]/35 dark:bg-[#800000]/70 dark:text-[#39ff14]">
@@ -1022,8 +1075,8 @@ export default function TeacherClassroom({
                     const postText = htmlToDisplayText(post?.content || post?.text || '');
 
                     return (
-                      <div key={post.id} className="rounded-2xl border border-[#c9a96e]/35 bg-[#fff8f0] p-4 dark:border-[#bf00ff]/30 dark:bg-black/20">
-                        <div className="flex items-start gap-4">
+                      <div key={post.id} className="rounded-2xl border border-[#c9a96e]/35 bg-[#fff8f0] p-3 sm:p-4 dark:border-[#bf00ff]/30 dark:bg-black/20">
+                        <div className="flex items-start gap-3 sm:gap-4">
                           <div className="relative">
                             <button
                               type="button"
@@ -1081,6 +1134,7 @@ export default function TeacherClassroom({
                               <div>
                                 <p className="text-sm font-semibold text-[#191970] dark:text-[#ffffff]">{authorProfile.name}</p>
                                 <p className="mt-1 text-xs font-semibold uppercase tracking-[0.16em] text-[#800020] dark:text-[#bf00ff]">{authorProfile.role}{authorProfile.displayId ? ` • ${authorProfile.displayId}` : ''}</p>
+                                {post.postedByLabel && <span className="mt-1 inline-block rounded-full bg-[#800020] px-2 py-0.5 text-[11px] font-bold text-[#b5e3f4]">Posted by {post.postedByLabel}</span>}
                               </div>
                               <div className="flex flex-wrap items-center justify-end gap-2">
                                 <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#800020] dark:text-[#bf00ff]">{new Date(postTimestamp).toLocaleString()}</p>
@@ -1089,7 +1143,15 @@ export default function TeacherClassroom({
                               </div>
                             </div>
 
-                            <p className="mt-3 whitespace-pre-wrap text-sm leading-7 text-[#191970] dark:text-[#ffffff]">{postText}</p>
+                            <p className="mt-3 whitespace-pre-wrap break-words text-sm leading-7 text-[#191970] dark:text-[#ffffff]">{postText}</p>
+
+                            <StreamThread
+                              tone="teacher"
+                              comments={Array.isArray(post.comments) ? post.comments : []}
+                              onSubmit={text => handleAddComment(post.id, text)}
+                              formatText={htmlToDisplayText}
+                              placeholder="Reply to this post…"
+                            />
                           </div>
                         </div>
                       </div>
@@ -1098,33 +1160,38 @@ export default function TeacherClassroom({
                 )}
               </div>
 
-              <form onSubmit={handleCreatePost} className="sticky bottom-[calc(var(--mobile-nav-clearance)+0.5rem)] md:bottom-6 rounded-3xl border border-[#c9a96e]/45 bg-[#b5e3f4] p-4 shadow-[0_20px_40px_rgba(128,0,0,0.12)] dark:border-[#bf00ff]/35 dark:bg-[#800000]/78 dark:shadow-[0_0_24px_rgba(191,0,255,0.18)]">
-                <textarea
-                  value={draftContent}
-                  onChange={event => {
-                    setDraftContent(event.target.value);
-                    scheduleSave(event.target.value);
-                  }}
-                  rows={4}
-                  placeholder="Post an update to your class stream..."
-                  className="w-full rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] p-3 text-sm text-[#191970] outline-none focus:ring-2 focus:ring-[#1a5c38] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#ffffff] dark:focus:ring-[#00ffff]"
-                />
-
-                <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <button
-                      type="button"
-                      onClick={() => setStreamEmojiOpen(open => !open)}
-                      className="rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] px-4 py-2 text-sm font-semibold text-[#191970] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#ffffff]"
-                    >
-                      Emoji
-                    </button>
-                  </div>
-                  <button className="rounded-2xl bg-[#1a5c38] px-4 py-2 text-sm font-bold text-[#b5e3f4] transition-colors hover:bg-[#154a2e] dark:bg-[#00ffff] dark:text-[#000000] dark:hover:bg-[#7dfcff]">Post</button>
+              <form onSubmit={handleCreatePost} className="sticky bottom-[calc(var(--mobile-nav-clearance)+0.5rem)] md:bottom-6 rounded-3xl border border-[#c9a96e]/45 bg-[#b5e3f4] p-2 sm:p-3 shadow-[0_20px_40px_rgba(128,0,0,0.12)] dark:border-[#bf00ff]/35 dark:bg-[#800000]/78 dark:shadow-[0_0_24px_rgba(191,0,255,0.18)]">
+                <div className="flex items-end gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setStreamEmojiOpen(open => !open)}
+                    aria-label="Emoji"
+                    title="Emoji"
+                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#c9a96e]/45 bg-[#fff8f0] text-lg dark:border-[#bf00ff]/35 dark:bg-black/20"
+                  >
+                    🙂
+                  </button>
+                  <AutoGrowTextarea
+                    value={draftContent}
+                    maxRows={8}
+                    onChange={event => {
+                      setDraftContent(event.target.value);
+                      scheduleSave(event.target.value);
+                    }}
+                    aria-label="Post to the class stream"
+                    placeholder="Post an update to your class stream..."
+                    className="min-w-0 flex-1 rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] px-3 py-2 text-sm leading-6 text-[#191970] outline-none focus:ring-2 focus:ring-[#1a5c38] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#ffffff] dark:focus:ring-[#00ffff]"
+                  />
+                  <button
+                    disabled={!draftContent.trim()}
+                    className="h-10 shrink-0 rounded-2xl bg-[#1a5c38] px-4 text-sm font-bold text-[#b5e3f4] transition-colors hover:bg-[#154a2e] disabled:opacity-40 dark:bg-[#00ffff] dark:text-[#000000] dark:hover:bg-[#7dfcff]"
+                  >
+                    Post
+                  </button>
                 </div>
 
                 {streamEmojiOpen && (
-                  <div className="mt-3 flex flex-wrap gap-2 rounded-2xl border border-[#c9a96e]/35 bg-[#fff8f0] p-3 dark:border-[#bf00ff]/30 dark:bg-black/20">
+                  <div className="mt-2 flex flex-wrap gap-2 rounded-2xl border border-[#c9a96e]/35 bg-[#fff8f0] p-3 dark:border-[#bf00ff]/30 dark:bg-black/20">
                     {STREAM_EMOJIS.map(emoji => (
                       <button
                         key={emoji}
@@ -1255,6 +1322,21 @@ export default function TeacherClassroom({
             const subjectsList = selectedClass?.subjects || [];
             const userRole = String(storedUser?.role || '').toLowerCase();
             const canManage = selectedClass?.isClassTeacher || ['owner','hos','ict'].includes(userRole);
+            return (
+              <SubjectsTab
+                classId={classId}
+                subjects={subjectsList}
+                canManage={canManage}
+                onManageMaterials={subjectId => {
+                  if (subjectId) setMaterialSubjectId(String(subjectId));
+                  setActiveTab('materials');
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
+              />
+            );
+          })()}
+
+          {activeTab === 'members' && (() => {
             const groupedMembers = {
               teachers: classMembers.filter(member => String(member.role || '').toLowerCase() === 'teacher'),
               caregivers: classMembers.filter(member => String(member.role || '').toLowerCase() === 'caregiver'),
@@ -1264,12 +1346,12 @@ export default function TeacherClassroom({
 
             return (
               <div className="space-y-4">
-                {canManageSelectedClass && (
+                {(
                   <div className="rounded-3xl border border-[#c9a96e]/45 bg-[#b5e3f4] p-5 shadow-[0_18px_42px_rgba(128,0,0,0.08)] dark:border-[#bf00ff]/35 dark:bg-[#800000]/75">
                     <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
                       <div>
-                        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#800020] dark:text-[#bf00ff]">Class Roster</p>
-                        <p className="mt-1 text-lg font-semibold text-[#800000] dark:text-[#ffffff]">Add or remove teachers, students, and caregivers</p>
+                        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#800020] dark:text-[#bf00ff]">Class Members</p>
+                        <p className="mt-1 text-lg font-semibold text-[#800000] dark:text-[#ffffff]">{canManageSelectedClass ? 'Add or remove teachers, students, and caregivers' : 'Teachers, students, and caregivers in this class'}</p>
                       </div>
                       <span className="rounded-full bg-[#fff8f0] px-3 py-1 text-xs font-semibold uppercase tracking-[0.15em] text-[#800020] border border-[#c9a96e]/45 dark:bg-black/20 dark:border-[#bf00ff]/35 dark:text-[#bf00ff]">
                         {classMembers.length} members
@@ -1288,9 +1370,11 @@ export default function TeacherClassroom({
                                   <p className="truncate text-sm font-semibold text-[#191970] dark:text-[#ffffff]">{member.name}</p>
                                   <p className="truncate text-xs text-[#800020] dark:text-[#bf00ff]">{member.displayId || member.email || member.status}</p>
                                 </div>
-                                <button type="button" onClick={() => handleRemoveRosterMember(member)} className="rounded-xl border border-red-300 px-3 py-1 text-xs font-semibold text-red-600">
-                                  Remove
-                                </button>
+                                {canManageSelectedClass && (
+                                  <button type="button" onClick={() => handleRemoveRosterMember(member)} className="rounded-xl border border-red-300 px-3 py-1 text-xs font-semibold text-red-600">
+                                    Remove
+                                  </button>
+                                )}
                               </div>
                             ))}
                           </div>
@@ -1298,7 +1382,7 @@ export default function TeacherClassroom({
                       ))}
                     </div>
 
-                    <div className="mt-4 rounded-2xl border border-[#c9a96e]/35 bg-[#fff8f0] p-4 dark:border-[#bf00ff]/30 dark:bg-black/20">
+                    {canManageSelectedClass && <div className="mt-4 rounded-2xl border border-[#c9a96e]/35 bg-[#fff8f0] p-4 dark:border-[#bf00ff]/30 dark:bg-black/20">
                       <div className="grid grid-cols-1 gap-3 md:grid-cols-[180px,1fr]">
                         <select value={rosterRole} onChange={e => setRosterRole(e.target.value)} className="rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] p-3 text-sm text-[#191970] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#ffffff]">
                           <option value="student">Student</option>
@@ -1326,10 +1410,9 @@ export default function TeacherClassroom({
                             ))}
                         </div>
                       )}
-                    </div>
+                    </div>}
                   </div>
                 )}
-                <SubjectsTab classId={classId} subjects={subjectsList} canManage={canManage} />
               </div>
             );
           })()}
@@ -1347,7 +1430,11 @@ export default function TeacherClassroom({
                   </span>
                 </div>
 
-                {materialSubjects.length === 0 ? (
+                {supervision && !supervision.canIntervene && !selectedClass?.isClassTeacher ? (
+                  <div className="rounded-2xl border border-[#c9a96e]/35 bg-[#fff8f0] p-4 text-sm text-[#191970] dark:border-[#bf00ff]/30 dark:bg-black/20 dark:text-[#39ff14]">
+                    View only — the school's policy lets the Head of School review this class's materials but not change them.
+                  </div>
+                ) : materialSubjects.length === 0 ? (
                   <div className="rounded-2xl border border-[#c9a96e]/35 bg-[#fff8f0] p-4 text-sm text-[#191970] dark:border-[#bf00ff]/30 dark:bg-black/20 dark:text-[#39ff14]">
                     Add subjects to this class before posting materials. Students only see materials tied to their class subjects.
                   </div>
@@ -1378,15 +1465,27 @@ export default function TeacherClassroom({
                       <option value="teacher">Teacher Only</option>
                     </select>
                     <input value={materialReleaseAt} onChange={e => setMaterialReleaseAt(e.target.value)} type="datetime-local" className="rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] p-3 text-sm text-[#191970] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#ffffff]" />
-                    <textarea value={materialDescription} onChange={e => setMaterialDescription(e.target.value)} rows={4} placeholder="Paste the lesson note here, or add the guidance students should read before opening the material." className="md:col-span-2 xl:col-span-4 rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] p-3 text-sm text-[#191970] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#ffffff]" />
+                    <div className="md:col-span-2 xl:col-span-4">
+                      <StructuredMaterialEditor
+                        value={materialDescription}
+                        onChange={setMaterialDescription}
+                        blocks={materialBlocks}
+                        onBlocksChange={setMaterialBlocks}
+                        rows={6}
+                        placeholder="Type or paste the lesson note. Ndovera recognises topics, headings, definitions, examples, notes, lists, exercises and assignments, and offers to format them."
+                      />
+                    </div>
                     <div className="md:col-span-2 xl:col-span-4 flex flex-wrap gap-3 items-center">
                       <label className="inline-flex cursor-pointer items-center rounded-2xl bg-[#fff8f0] px-4 py-3 text-sm font-semibold text-[#191970] border border-[#c9a96e]/45 dark:bg-black/20 dark:border-[#bf00ff]/35 dark:text-[#ffffff]">
                         <input id="materialFile" type="file" multiple className="hidden" onChange={(e) => { const files = e.target.files; if (!files?.length) return; queueMaterialFiles(files); e.target.value = ''; }} />
-                        Upload file
+                        Add files (or drag them here)
                       </label>
-                      <button className="rounded-2xl bg-[#1a5c38] px-4 py-3 text-sm font-bold text-[#b5e3f4] transition-colors hover:bg-[#154a2e] dark:bg-[#00ffff] dark:text-[#000000] dark:hover:bg-[#7dfcff]">
-                        {pendingMaterialFiles.length > 0
-                          ? `Post ${pendingMaterialFiles.length} File${pendingMaterialFiles.length === 1 ? '' : 's'}`
+                      <button type="submit" onClick={() => { materialStatusRef.current = 'draft'; }} className="rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] px-4 py-3 text-sm font-bold text-[#191970] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#ffffff]">
+                        Save as draft
+                      </button>
+                      <button type="submit" onClick={() => { materialStatusRef.current = 'published'; }} className="rounded-2xl bg-[#1a5c38] px-4 py-3 text-sm font-bold text-[#b5e3f4] transition-colors hover:bg-[#154a2e] dark:bg-[#00ffff] dark:text-[#000000] dark:hover:bg-[#7dfcff]">
+                        {pendingBatchCount > 0
+                          ? (batchUploading ? 'Uploading…' : `Post ${pendingBatchCount} File${pendingBatchCount === 1 ? '' : 's'}`)
                           : materialUrl.trim() ? 'Post Material' : 'Publish Lesson Note'}
                       </button>
                       {selectedMaterialSubject && (
@@ -1395,24 +1494,18 @@ export default function TeacherClassroom({
                         </span>
                       )}
                     </div>
-                    {pendingMaterialFiles.length > 0 && (
-                      <div className="md:col-span-2 xl:col-span-4 rounded-2xl border border-[#c9a96e]/35 bg-[#fff8f0] p-3 dark:border-[#bf00ff]/30 dark:bg-black/20">
-                        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#800020] dark:text-[#bf00ff]">Queued files</p>
-                        <div className="mt-3 flex flex-wrap gap-2">
-                          {pendingMaterialFiles.map(file => {
-                            const fileKey = buildMaterialUploadKey(file);
-                            return (
-                              <div key={fileKey} className="flex items-center gap-2 rounded-2xl border border-[#c9a96e]/35 bg-[#b5e3f4] px-3 py-2 dark:border-[#bf00ff]/30 dark:bg-[#35002b]">
-                                <span className="max-w-[180px] truncate text-sm font-semibold text-[#191970] dark:text-[#ffffff]">{file.name}</span>
-                                <button type="button" onClick={() => removePendingMaterialFile(fileKey)} className="rounded-xl border border-[#800000]/25 bg-white/70 px-2 py-1 text-xs font-semibold text-[#800000] hover:bg-[#ffe8db] dark:border-[#ff5f8d]/35 dark:bg-black/20 dark:text-[#ffffff] dark:hover:bg-[#5a1024]">
-                                  Remove
-                                </button>
-                              </div>
-                            );
-                          })}
-                        </div>
-                      </div>
-                    )}
+                    <div className="md:col-span-2 xl:col-span-4">
+                      <MaterialBatchList
+                        heading={[selectedMaterialSubject?.name, materialWeekLabel.trim()].filter(Boolean).join(' · ')}
+                        items={materialBatch}
+                        progress={uploadProgress}
+                        busy={batchUploading}
+                        onChange={updateBatchItem}
+                        onRemove={removePendingMaterialFile}
+                        onRetry={retryBatchItem}
+                        onClearFinished={() => setMaterialBatch(current => current.filter(item => item.status !== 'uploaded'))}
+                      />
+                    </div>
                   </form>
                 )}
 
@@ -1424,42 +1517,24 @@ export default function TeacherClassroom({
               <div className="rounded-3xl border border-[#c9a96e]/45 bg-[#b5e3f4] p-5 shadow-[0_18px_42px_rgba(128,0,0,0.08)] dark:border-[#bf00ff]/35 dark:bg-[#800000]/75 dark:shadow-[0_0_28px_rgba(191,0,255,0.18)]">
                 <div className="mb-4 flex items-center justify-between gap-3">
                   <div>
-                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#800020] dark:text-[#bf00ff]">Published Materials</p>
-                    <p className="mt-1 text-lg font-semibold text-[#800000] dark:text-[#ffffff]">Latest uploads and links</p>
+                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#800020] dark:text-[#bf00ff]">This Term's Materials</p>
+                    <p className="mt-1 text-lg font-semibold text-[#800000] dark:text-[#ffffff]">Drafts, published and hidden</p>
                   </div>
                   <span className="rounded-full bg-[#fff8f0] px-3 py-1 text-xs font-semibold uppercase tracking-[0.15em] text-[#800020] border border-[#c9a96e]/45 dark:bg-black/20 dark:border-[#bf00ff]/35 dark:text-[#bf00ff]">Items {materials.length}</span>
                 </div>
 
-                {materials.length === 0 ? (
-                  <p className="text-sm text-[#191970] dark:text-[#39ff14]">No materials have been posted for this class yet.</p>
-                ) : (
-                  <div className="space-y-3">
-                    {materials.map(material => (
-                      <div key={material.id} className="rounded-2xl border border-[#c9a96e]/35 bg-[#fff8f0] p-4 dark:border-[#bf00ff]/30 dark:bg-black/20">
-                        <div className="flex flex-wrap items-start justify-between gap-4">
-                          <div className="flex min-w-0 flex-1 items-start gap-4">
-                            <MaterialTypeThumbnail material={material} />
-                            <div className="min-w-0 flex-1">
-                            <p className="font-semibold text-[#191970] dark:text-[#ffffff]">{material.title}</p>
-                            <p className="mt-1 text-xs font-semibold uppercase tracking-[0.16em] text-[#800020] dark:text-[#bf00ff]">{material.subjectName || 'General Material'} • {materialTypeLabel(material)}</p>
-                            {(material.topic || material.weekLabel) && <p className="mt-2 text-xs text-[#800020] dark:text-[#bf00ff]">{material.topic || 'Lesson note'}{material.weekLabel ? ` • ${material.weekLabel}` : ''}</p>}
-                            {material.description && <p className="mt-2 text-sm whitespace-pre-wrap text-[#191970] dark:text-[#39ff14]">{material.description}</p>}
-                            <p className="mt-2 text-xs text-[#800020] dark:text-[#bf00ff]">{formatVisibilityLabel(material.visibility)} • {formatReleaseLabel(material.releaseAt)}</p>
-                            <p className="mt-2 text-xs text-[#800020] dark:text-[#bf00ff]">{material.uploadedAt ? new Date(material.uploadedAt).toLocaleString() : 'Recently uploaded'}{material.uploadedByName ? ` • ${material.uploadedByName}` : ''}</p>
-                          </div>
-                          </div>
-                          <div className="flex flex-wrap items-center gap-2">
-                            {canManageSelectedClass && <button type="button" onClick={() => handleEditMaterial(material)} className="rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] px-4 py-2 text-sm font-semibold text-[#191970] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#ffffff]">Edit</button>}
-                            {(canManageSelectedClass || [storedUser?.id, storedUser?.email, storedUser?.displayId].filter(Boolean).some(uid => uid && material.uploadedById && String(uid).toLowerCase() === String(material.uploadedById).toLowerCase())) && <button type="button" onClick={() => handleDeleteMaterial(material)} className="rounded-2xl border border-[#800000]/25 bg-white/70 px-4 py-2 text-sm font-semibold text-[#800000] hover:bg-[#ffe8db] dark:border-[#ff5f8d]/35 dark:bg-black/20 dark:text-[#ffffff] dark:hover:bg-[#5a1024]">Delete</button>}
-                            <button type="button" onClick={() => setActiveMaterial(material)} className="rounded-2xl bg-[#1a5c38] px-4 py-2 text-sm font-bold text-[#b5e3f4] transition-colors hover:bg-[#154a2e] dark:bg-[#00ffff] dark:text-[#000000] dark:hover:bg-[#7dfcff]">
-                              {material.url ? 'Open Material' : 'Read Note'}
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
+                <TeacherMaterialList
+                  classId={classId}
+                  materials={materials}
+                  classes={assignedClasses}
+                  academicContext={materialContext}
+                  canManage={material => canManageSelectedClass || [storedUser?.id, storedUser?.email, storedUser?.displayId]
+                    .filter(Boolean)
+                    .some(uid => material.uploadedById && String(uid).toLowerCase() === String(material.uploadedById).toLowerCase())}
+                  onChanged={loadAll}
+                  onOpen={setActiveMaterial}
+                  onMessage={setMaterialMessage}
+                />
               </div>
             </div>
           )}
@@ -1583,6 +1658,19 @@ export default function TeacherClassroom({
 
               {!profileMember.isSelf && (
                 <div className="mt-6 flex flex-wrap gap-2">
+                  {profileMember.id && String(profileMember.role || '').toLowerCase() !== 'parent' && String(profileMember.role || '').toLowerCase() !== 'caregiver' && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const isStudent = String(profileMember.role || '').toLowerCase() === 'student';
+                        setProfileMember(null);
+                        navigate(`/roles/${currentRoleKey}/${isStudent ? 'students' : 'staff'}/${encodeURIComponent(profileMember.id)}`);
+                      }}
+                      className="rounded-2xl border border-[#c9a96e]/45 bg-[#b5e3f4] px-4 py-2 text-sm font-bold text-[#191970] dark:border-[#bf00ff]/35 dark:bg-black/20 dark:text-[#ffffff]"
+                    >
+                      {String(profileMember.role || '').toLowerCase() === 'student' ? 'Open student file' : 'Open staff file'}
+                    </button>
+                  )}
                   <button
                     type="button"
                     onClick={() => {

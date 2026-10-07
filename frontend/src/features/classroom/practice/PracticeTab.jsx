@@ -7,6 +7,7 @@ import { getPracticeQuestions } from '../../school/services/schoolApi';
 import { askAiTutor } from '../../ai/services/aiTutorApi';
 import { readChatSession, writeChatSession } from '../../ai/services/chatSessionStorage';
 import useFeatureFlags from '../../../shared/hooks/useFeatureFlags';
+import AiAnswer from '../../ai/AiAnswer';
 
 const PRACTICE_CHAT_SESSION_KEY = 'practice-study-chat';
 
@@ -190,7 +191,7 @@ function PracticeAiChatPanel({
           return (
             <div key={`${message.role}-${index}`} className={`flex ${isUser ? 'justify-end' : 'justify-start'}`}>
               <div className={`max-w-[85%] rounded-3xl px-4 py-3 text-sm leading-6 shadow-sm ${isUser ? 'border border-indigo-300/30 bg-indigo-500/20 text-indigo-50' : 'border border-white/10 bg-slate-900/40 text-slate-100'}`}>
-                <p className="whitespace-pre-wrap">{message.content}</p>
+                {message.role === 'assistant' ? <AiAnswer text={message.content} onDark /> : <p className="whitespace-pre-wrap">{message.content}</p>}
               </div>
             </div>
           );

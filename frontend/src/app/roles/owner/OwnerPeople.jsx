@@ -140,6 +140,9 @@ function UserProfileModal({ userId, onClose, isAdmin, currentUserId }) {
             {profile?.role === 'student' && (
               <button onClick={() => setViewFullProfile(true)} className="bg-[#800020] text-[#b5e3f4] font-bold text-xs px-3 py-1.5 rounded-xl">View</button>
             )}
+            {profile?.id && !['student', 'parent'].includes(profile?.role) && (
+              <Link to={`/roles/${window.location.pathname.split('/')[2] || 'owner'}/staff/${encodeURIComponent(profile.id)}`} className="bg-[#800020] text-[#b5e3f4] font-bold text-xs px-3 py-1.5 rounded-xl">Open staff file</Link>
+            )}
             <button onClick={onClose} className="text-[#800020] dark:text-slate-400 text-xl font-bold hover:text-red-600">✕</button>
           </div>
         </div>

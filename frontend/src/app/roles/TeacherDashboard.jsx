@@ -13,11 +13,14 @@ import TeacherReports from './teacher/TeacherReports';
 import TeacherAttendancePage from './teacher/TeacherAttendancePage';
 import StaffSettingsPage from './shared/StaffSettingsPage';
 import SchoolNewsroomPage from '../../features/school/components/SchoolNewsroomPage';
-import StaffAiAssistantPage from '../../features/ai/components/StaffAiAssistantPage';
+import NdoveraAiPage from '../../features/ai/components/NdoveraAiPage';
 import TimetableViewer from '../../features/school/components/TimetableViewer';
 import StudentMessaging from './student/StudentMessaging';
 import useFeatureFlags from '../../shared/hooks/useFeatureFlags';
 import { getStoredAuth } from '../../features/auth/services/authApi';
+import UpcomingEventsCard from '../../features/school/components/UpcomingEventsCard';
+import { PunctualityWinnerBanner } from '../../features/attendance/punctuality/PunctualityPages';
+import { MySubmissionsCard } from '../../features/compliance/TeacherCompliancePage';
 
 function TeacherAurasWorkspace({ auth, title, subtitle }) {
   const storedUser = auth?.user || getStoredAuth()?.user || {};
@@ -86,7 +89,7 @@ export default function TeacherDashboard({ auth }) {
   }
 
   if (sectionKey === 'overview') {
-    return <TeacherOverview />;
+    return <><div className="mx-auto max-w-7xl space-y-4 px-4 pt-4 sm:px-8"><PunctualityWinnerBanner /><MySubmissionsCard /><UpcomingEventsCard /></div><TeacherOverview /></>;
   }
 
   if (sectionKey === 'newsroom') {
@@ -170,7 +173,7 @@ export default function TeacherDashboard({ auth }) {
   }
 
   if (sectionKey === 'ai-assistant') {
-    return <StaffAiAssistantPage roleKey="teacher" roleTitle={teacherConfig.roleTitle} />;
+    return <NdoveraAiPage roleKey="teacher" roleTitle={teacherConfig.roleTitle} />;
   }
 
   if (sectionKey === 'auras') {

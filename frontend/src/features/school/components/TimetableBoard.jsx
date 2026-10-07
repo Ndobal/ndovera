@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { getClasses, getSubjects, getPeople, getTimetable, saveTimetable } from '../services/schoolApi';
+import { getClasses, getSubjects, getPeople, getTimetable, getTimetableDraft, saveTimetableDraft, publishTimetable, getTimetableVersions, restoreTimetableVersion } from '../services/schoolApi';
 import {
   SECTION_DEFAULTS,
   SECTION_ORDER,
@@ -43,6 +43,11 @@ export default function TimetableBoard() {
   const [savingOne, setSavingOne] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [toast, setToast] = useState('');
+  // What students and teachers see is the published version; edits stay a draft until published.
+  const [statusByClass, setStatusByClass] = useState({});
+  const [publishing, setPublishing] = useState(false);
+  const [pendingClashes, setPendingClashes] = useState(null);
+  const [history, setHistory] = useState(null);
 
   function showToast(message) { setToast(message); window.setTimeout(() => setToast(''), 3200); }
 
@@ -98,10 +103,15 @@ export default function TimetableBoard() {
     if (!selectedClassId || gridByClass[selectedClassId]) return;
     let ignore = false;
     getTimetable({ classId: selectedClassId })
-      .then(data => {
+      .then(async data => {
         if (ignore) return;
-        setCanManage(data?.canManage !== false);
-        setGridByClass(current => ({ ...current, [selectedClassId]: data?.entries || [] }));
+        const manage = data?.canManage !== false;
+        setCanManage(manage);
+        // A manager picks up where they left off: the draft if there is one, otherwise what is published.
+        const draft = manage ? await getTimetableDraft(selectedClassId).catch(() => null) : null;
+        if (ignore) return;
+        setStatusByClass(current => ({ ...current, [selectedClassId]: { published: data?.published || null, draft: draft?.draft ? { updatedAt: draft.draft.updatedAt, updatedBy: draft.draft.updatedBy } : null } }));
+        setGridByClass(current => ({ ...current, [selectedClassId]: draft?.draft?.entries || data?.entries || [] }));
       })
       .catch(() => { if (!ignore) setGridByClass(current => ({ ...current, [selectedClassId]: [] })); });
     return () => { ignore = true; };
@@ -184,7 +194,62 @@ export default function TimetableBoard() {
 
   async function persistClass(classId) {
     const entries = gridByClass[classId] || [];
-    await saveTimetable({ classId, entries });
+    await saveTimetableDraft({ classId, entries });
+    setStatusByClass(current => ({ ...current, [classId]: { ...(current[classId] || {}), draft: { updatedAt: new Date().toISOString(), updatedBy: 'you' } } }));
+  }
+
+  async function refreshStatus(classId) {
+    const data = await getTimetable({ classId }).catch(() => null);
+    setStatusByClass(current => ({ ...current, [classId]: { published: data?.published || null, draft: null } }));
+  }
+
+  /** Publish classes; any teacher clashes come back for confirmation instead of going live. */
+  async function publishClasses(classIds, { allowClashes = false } = {}) {
+    setPublishing(true);
+    const clashes = [];
+    let published = 0;
+    try {
+      for (const classId of classIds) {
+        try {
+          // eslint-disable-next-line no-await-in-loop
+          await publishTimetable({ classId, entries: gridByClass[classId] || [], allowClashes });
+          published += 1;
+          // eslint-disable-next-line no-await-in-loop
+          await refreshStatus(classId);
+        } catch (error) {
+          if (error.status === 409 && error.data?.clashes) {
+            const cls = classes.find(item => String(item.id) === String(classId));
+            clashes.push(...error.data.clashes.map(clash => ({ ...clash, classId, className: cls ? classLabel(cls) : classId })));
+          } else {
+            throw error;
+          }
+        }
+      }
+      if (clashes.length) setPendingClashes({ classIds: [...new Set(clashes.map(clash => clash.classId))], clashes });
+      showToast(clashes.length ? `Published ${published}; ${clashes.length} clash${clashes.length === 1 ? '' : 'es'} need a decision.` : `Published ${published} timetable${published === 1 ? '' : 's'}. Students and teachers now see ${published === 1 ? 'it' : 'them'}.`);
+    } catch (error) {
+      showToast(error.message || 'Could not publish.');
+    } finally {
+      setPublishing(false);
+    }
+  }
+
+  async function openHistory() {
+    if (!selectedClassId) return;
+    const data = await getTimetableVersions(selectedClassId).catch(error => { showToast(error.message); return null; });
+    if (data) setHistory(data.versions || []);
+  }
+
+  async function restoreVersion(version) {
+    try {
+      await restoreTimetableVersion(version.id);
+      setGridByClass(current => ({ ...current, [selectedClassId]: version.entries || [] }));
+      setStatusByClass(current => ({ ...current, [selectedClassId]: { ...(current[selectedClassId] || {}), draft: { updatedAt: new Date().toISOString(), updatedBy: 'you' } } }));
+      setHistory(null);
+      showToast(`Version ${version.version} is now your draft. Publish it to make it live again.`);
+    } catch (error) {
+      showToast(error.message || 'Could not restore that version.');
+    }
   }
 
   async function handleSaveAll() {
@@ -198,7 +263,7 @@ export default function TimetableBoard() {
         await persistClass(classId);
         saved += 1;
       }
-      showToast(`Saved timetables for ${saved} class${saved === 1 ? '' : 'es'}.`);
+      showToast(`Saved drafts for ${saved} class${saved === 1 ? '' : 'es'}. Publish when ready — until then everyone sees the current published timetable.`);
     } catch (error) {
       showToast(error.message || `Saved ${saved}, then hit an error.`);
     } finally {
@@ -211,7 +276,7 @@ export default function TimetableBoard() {
     setSavingOne(true);
     try {
       await persistClass(selectedClassId);
-      showToast(`Saved ${selectedClass ? classLabel(selectedClass) : 'class'} timetable.`);
+      showToast(`Saved a draft for ${selectedClass ? classLabel(selectedClass) : 'this class'}. It is not visible until you publish it.`);
     } catch (error) {
       showToast(error.message || 'Could not save this class.');
     } finally {
@@ -262,6 +327,38 @@ export default function TimetableBoard() {
 
   return (
     <div className="space-y-4">
+      {pendingClashes ? (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#191970]/60 p-4" role="dialog" aria-modal="true" aria-label="Timetable clashes">
+          <div className="w-full max-w-lg rounded-3xl bg-[#b5e3f4] p-5">
+            <h3 className="text-lg font-bold text-[#800000]">Teachers booked twice</h3>
+            <ul className="mt-2 max-h-64 list-disc overflow-auto pl-5 text-sm text-[#191970]">
+              {pendingClashes.clashes.map((clash, index) => <li key={index}>{clash.className}: {clash.teacherName} at {clash.startTime} on day {clash.dayOfWeek} is also with {clash.otherClass} ({clash.otherSubject})</li>)}
+            </ul>
+            <div className="mt-4 flex flex-wrap gap-2">
+              <button type="button" onClick={() => setPendingClashes(null)} className={BTN}>Go back and fix</button>
+              <button type="button" onClick={() => { const ids = pendingClashes.classIds; setPendingClashes(null); publishClasses(ids, { allowClashes: true }); }} className={OUTLINE}>Publish anyway</button>
+            </div>
+          </div>
+        </div>
+      ) : null}
+      {history ? (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#191970]/60 p-4" role="dialog" aria-modal="true" aria-label="Timetable history">
+          <div className="w-full max-w-lg rounded-3xl bg-[#b5e3f4] p-5">
+            <h3 className="text-lg font-bold text-[#800000]">Published versions</h3>
+            {history.length === 0 ? <p className="mt-2 text-sm text-[#191970]">Nothing has been published for this class yet.</p> : (
+              <ul className="mt-2 max-h-72 space-y-2 overflow-auto">
+                {history.map(version => (
+                  <li key={version.id} className="flex flex-wrap items-center gap-2 rounded-2xl bg-white/70 px-3 py-2 text-sm text-[#191970]">
+                    <span className="flex-1">Version {version.version} · {new Date(version.publishedAt).toLocaleString()}{version.publishedBy ? ` · ${version.publishedBy}` : ''}{version.note ? ` · ${version.note}` : ''}</span>
+                    <button type="button" onClick={() => restoreVersion(version)} className="text-xs font-bold text-[#1a5c38] hover:underline">Restore as draft</button>
+                  </li>
+                ))}
+              </ul>
+            )}
+            <button type="button" onClick={() => setHistory(null)} className={`${OUTLINE} mt-4`}>Close</button>
+          </div>
+        </div>
+      ) : null}
       {toast && <div className="fixed top-6 right-6 z-50 bg-[#1a5c38] text-[#b5e3f4] font-bold px-5 py-3 rounded-2xl shadow-xl">{toast}</div>}
 
       <div className={CARD}>
@@ -277,7 +374,8 @@ export default function TimetableBoard() {
             <div className="flex flex-wrap items-center gap-2">
               <button onClick={() => setSettingsOpen(open => !open)} className={OUTLINE}>{settingsOpen ? 'Hide period times' : 'Period times'}</button>
               <button onClick={handleGenerate} disabled={generating} className={BTN}>{generating ? 'Generating…' : 'Auto-generate (clash-free)'}</button>
-              <button onClick={handleSaveAll} disabled={savingAll} className={BTN}>{savingAll ? 'Saving…' : 'Save all classes'}</button>
+              <button onClick={handleSaveAll} disabled={savingAll} className={OUTLINE}>{savingAll ? 'Saving…' : 'Save all as drafts'}</button>
+              <button onClick={() => publishClasses(Object.keys(gridByClass).filter(classId => (gridByClass[classId] || []).length))} disabled={publishing} className={BTN}>{publishing ? 'Publishing…' : 'Publish all classes'}</button>
             </div>
           ) : null}
         </div>
@@ -427,8 +525,22 @@ export default function TimetableBoard() {
           <div className={CARD}>
             <div className="flex items-center justify-between gap-2 mb-3">
               <h3 className="text-sm font-bold uppercase tracking-wide text-[#800020]">{selectedClass ? classLabel(selectedClass) : ''} Timetable</h3>
-              {canManage ? <button onClick={handleSaveOne} disabled={savingOne} className={BTN}>{savingOne ? 'Saving…' : 'Save this class'}</button> : null}
+              {canManage ? (
+                <div className="flex flex-wrap gap-2">
+                  <button onClick={openHistory} className={OUTLINE}>History</button>
+                  <button onClick={handleSaveOne} disabled={savingOne} className={OUTLINE}>{savingOne ? 'Saving…' : 'Save draft'}</button>
+                  <button onClick={() => publishClasses([selectedClassId])} disabled={publishing} className={BTN}>{publishing ? 'Publishing…' : 'Publish'}</button>
+                </div>
+              ) : null}
             </div>
+            {canManage && statusByClass[selectedClassId] ? (
+              <p className="mb-3 text-xs text-[#191970]">
+                {statusByClass[selectedClassId].published
+                  ? `Published: version ${statusByClass[selectedClassId].published.version}, ${new Date(statusByClass[selectedClassId].published.publishedAt).toLocaleString()}${statusByClass[selectedClassId].published.publishedBy ? ` by ${statusByClass[selectedClassId].published.publishedBy}` : ''}.`
+                  : 'Not published yet.'}
+                {statusByClass[selectedClassId].draft ? ' You are editing an unpublished draft — students and teachers still see the published version.' : ''}
+              </p>
+            ) : null}
             <div className="overflow-x-auto">
               <table className="w-full text-xs border-collapse" style={{ minWidth: 720 }}>
                 <thead>

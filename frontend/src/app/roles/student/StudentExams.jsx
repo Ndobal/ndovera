@@ -5,6 +5,7 @@ import { useExamEngine } from '../../../features/exams/hooks/useExamEngine';
 import ExamList from '../../../features/exams/components/ExamList';
 import ExamSession from '../../../features/exams/components/ExamSession';
 import ExamSummary from '../../../features/exams/components/ExamSummary';
+import StudentExamRoom from '../../../features/assessments/StudentExamRoom';
 
 export default function StudentExams() {
   const userId = localStorage.getItem('userId') || '';
@@ -34,8 +35,13 @@ export default function StudentExams() {
         <ErrorPanel title="Exam Error" message={error.message} onClose={() => { /* let hook clear error if needed */ }} />
       )}
 
-      {!currentExam && !result && (
-        <ExamList exams={examList} onStart={beginExam} />
+      {!currentExam && !result && <StudentExamRoom />}
+
+      {!currentExam && !result && examList?.length > 0 && (
+        <div className="mt-6">
+          <h3 className="mb-2 text-sm font-bold uppercase tracking-wide text-slate-400">Practice CBTs</h3>
+          <ExamList exams={examList} onStart={beginExam} />
+        </div>
       )}
 
       {currentExam && !result && (

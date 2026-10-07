@@ -7,12 +7,14 @@ import { ParentFarmingMode } from '../../features/auras';
 import ParentMaterialsPage from '../../features/classroom/ParentMaterialsPage';
 import ParentLearningBoard from '../../features/classroom/ParentLearningBoard';
 import ParentFeesReceiptsPage from '../../features/school/components/ParentFeesReceiptsPage';
+import ParentFeesPage from '../../features/finance/ParentFeesPage';
 import ParentSettings from './parent/ParentSettings';
 import useFeatureFlags from '../../shared/hooks/useFeatureFlags';
 import StudentProfessorAura from './student/StudentProfessorAura';
 import StudentTuckShop from './student/StudentTuckShop';
 import StudentMessaging from './student/StudentMessaging';
 import SchoolNewsroomPage from '../../features/school/components/SchoolNewsroomPage';
+import UpcomingEventsCard from '../../features/school/components/UpcomingEventsCard';
 import {
   ParentAttendancePage,
   ParentChildrenPage,
@@ -48,7 +50,7 @@ export default function ParentDashboard() {
   }
 
   if (sectionKey === 'overview') {
-    return <ParentOverviewPage />;
+    return <><div className="mx-auto max-w-7xl px-4 pt-4 sm:px-8"><UpcomingEventsCard /></div><ParentOverviewPage /></>;
   }
 
   if (sectionKey === 'children') {
@@ -84,7 +86,7 @@ export default function ParentDashboard() {
   }
 
   if (sectionKey === 'fees') {
-    return <ParentFeesReceiptsPage />;
+    return <ParentFeesPage fallback={<ParentFeesReceiptsPage />} />;
   }
 
   if (sectionKey === 'tuck-shop') {

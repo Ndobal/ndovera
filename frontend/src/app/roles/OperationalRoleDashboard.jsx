@@ -18,6 +18,9 @@ import StaffAiAssistantPage from '../../features/ai/components/StaffAiAssistantP
 import AdminLibrary from '../../features/library/AdminLibrary';
 import StoreKeeperPanel from '../../features/school/components/StoreKeeperPanel';
 import RoleWithoutDashboard from '../../shared/components/RoleWithoutDashboard';
+import ComplianceCentre from '../../features/compliance/ComplianceCentre';
+
+const SECTION_HEAD_ROLES = ['principal', 'viceprincipal', 'headteacher', 'nurseryhead'];
 
 function OperationalLiveWorkspace({ roleTitle, title, subtitle, showAnnouncements = false, children = null }) {
   return (
@@ -56,6 +59,11 @@ export default function OperationalRoleDashboard({ roleKey }) {
 
   if (sectionKey === 'newsroom') {
     return <SchoolNewsroomPage viewerRole={roleKey} dashboardLabel={roleTitle} />;
+  }
+
+  // Section heads oversee their own teachers' submissions.
+  if (sectionKey === 'compliance' && SECTION_HEAD_ROLES.includes(normalizedRoleKey)) {
+    return <ComplianceCentre dashboardLabel={roleTitle} />;
   }
 
   const section = roleConfig.sections[sectionKey];

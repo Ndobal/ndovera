@@ -9,12 +9,15 @@ import {
   SparklesIcon,
 } from '@heroicons/react/24/outline';
 import FeesManagementBoard from '../../../features/school/components/FeesManagementBoard';
-import TermFeesBoard from '../../../features/school/components/TermFeesBoard';
+import SimpleFees from '../../../features/finance/simple/SimpleFees';
 import { getMyTenant, getExpenditure, addExpenditure, runFinanceAI, getFeesLedger } from '../../../features/school/services/schoolApi';
 
+// Fees & Billing is the everyday fee screen (set a term's fees, balances,
+// payments). The older Term Fees board is no longer listed; its bills appear on
+// student accounts as earlier records.
 const TAB_META = [
+  { label: 'Fees & Billing', short: 'Fees & Billing', Icon: BanknotesIcon },
   { label: 'Subscription', short: 'Subscription', Icon: CreditCardIcon },
-  { label: 'Term Fees', short: 'Term Fees', Icon: BanknotesIcon },
   { label: 'Fees', short: 'Fee Template', Icon: BanknotesIcon },
   { label: 'Parent Payment Channels', short: 'Channels', Icon: BuildingLibraryIcon },
   { label: 'Payment Claim Queue', short: 'Claims', Icon: InboxStackIcon },
@@ -229,8 +232,8 @@ export default function OwnerFinance({ auth, initialTab = 0 }) {
         })}
         </div>
       </div>
-      {tab === 0 && <SubscriptionTab />}
-      {tab === 1 && <TermFeesBoard />}
+      {tab === 0 && <SimpleFees />}
+      {tab === 1 && <SubscriptionTab />}
       {tab === 2 && <FeesTab initialFinanceTab="fees" />}
       {tab === 3 && <FeesTab initialFinanceTab="channels" />}
       {tab === 4 && <FeesTab initialFinanceTab="claims" />}

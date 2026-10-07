@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getExams } from '../../../features/school/services/schoolApi';
+import ExamSittingsBoard from '../../../features/assessments/ExamSittingsBoard';
+import ExamPapersDownload from '../../../features/assessments/ExamPapersDownload';
 
 export default function HoSExams({ auth }) {
   const [exams, setExams] = useState([]);
@@ -30,6 +32,14 @@ export default function HoSExams({ auth }) {
       </div>
 
       <div className="rounded-3xl p-6 bg-[#b5e3f4] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
+        <h2 className="mb-2 text-lg font-bold text-[#800000] dark:text-slate-100">Download exam papers</h2>
+        <ExamPapersDownload />
+        <h2 className="mb-2 mt-6 text-lg font-bold text-[#800000] dark:text-slate-100">Approved exam papers</h2>
+        <ExamSittingsBoard />
+      </div>
+
+      <div className="rounded-3xl p-6 bg-[#b5e3f4] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
+        <h2 className="mb-2 text-lg font-bold text-[#800000] dark:text-slate-100">Other exams</h2>
         {loading ? (
           <p className="text-[#800020] dark:text-slate-400">Loading...</p>
         ) : error ? (

@@ -69,7 +69,31 @@
       "offers": { "@type": "Offer", "category": "SaaS", "url": "https://ndovera.com/pricing" }
     }
     </script>
-  </head>
+    <script>
+    // A page opened before a deploy can ask for build files that no longer exist: styles
+    // vanish or a screen will not load. Reload once (at most every 30 seconds) to pick up
+    // the current build, instead of running half-styled.
+    (function () {
+      function reloadOnce() {
+        try {
+          var last = Number(sessionStorage.getItem('ndv-stale-reload') || 0);
+          if (Date.now() - last < 30000) return;
+          sessionStorage.setItem('ndv-stale-reload', String(Date.now()));
+        } catch (e) { /* storage unavailable: still reload */ }
+        window.location.reload();
+      }
+      window.addEventListener('error', function (event) {
+        var target = event && event.target;
+        var url = target && (target.href || target.src) || '';
+        if ((target && (target.tagName === 'LINK' || target.tagName === 'SCRIPT')) && url.indexOf('/static/') !== -1) reloadOnce();
+      }, true);
+      window.addEventListener('unhandledrejection', function (event) {
+        var reason = event && event.reason;
+        if (reason && (reason.name === 'ChunkLoadError' || /Loading (CSS )?chunk/i.test(String(reason.message || '')))) reloadOnce();
+      });
+    })();
+  </script>
+</head>
   <body>
     <noscript>
       <main style="max-width:820px;margin:0 auto;padding:32px;font-family:Georgia,serif;color:#191970;line-height:1.6">

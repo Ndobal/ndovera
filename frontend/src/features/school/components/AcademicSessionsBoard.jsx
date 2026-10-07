@@ -4,6 +4,7 @@ import {
   activateAcademicSession, archiveAcademicSession, saveAcademicTerms, activateAcademicTerm,
   closeAcademicTerm, saveAcademicBreak, deleteAcademicBreak, autoEnrolSession,
 } from '../services/schoolApi';
+import SessionTeachingAssignments from './SessionTeachingAssignments';
 
 const CARD = 'rounded-3xl p-5 sm:p-6 bg-[#b5e3f4] border border-[#c9a96e]/40 dark:border-white/10 dark:bg-slate-900/40';
 const INNER = 'rounded-2xl border border-[#c9a96e]/30 bg-[#ade1f4]/60 p-3 dark:border-white/10 dark:bg-slate-800/40';
@@ -216,14 +217,14 @@ export default function AcademicSessionsBoard() {
   async function handleActivate(session) {
     const current = overview?.activeSession;
     const message = current && current.id !== session.id
-      ? `Activate ${session.name}? ${current.name} will be closed, and every student's class will follow their ${session.name} placement.`
+      ? `Activate ${session.name}? ${current.name} will be closed, and every student's class will follow their ${session.name} placement. Teacher assignments are recorded under ${current.name} and do not carry over — you will assign teachers for ${session.name}.`
       : `Activate ${session.name}?`;
     if (!window.confirm(message)) return;
 
     await run(
       `activate-${session.id}`,
       () => activateAcademicSession(session.id),
-      (result) => `${result.session.name} is now the active session${result.placementsApplied ? `, and ${result.placementsApplied} placements were applied.` : '.'}`,
+      (result) => `${result.session.name} is now the active session${result.placementsApplied ? `, and ${result.placementsApplied} placements were applied.` : '.'}${result.teacherAssignmentsReleased ? ` ${result.teacherAssignmentsReleased} teacher assignments from ${result.deactivated?.name || 'last session'} are kept in its history; assign this session's teachers below.` : ''}`,
     )();
   }
 
@@ -307,6 +308,8 @@ export default function AcademicSessionsBoard() {
           <p className="text-xs font-semibold text-[#4a5578] dark:text-slate-400">Today in Lagos: {formatDate(today)}</p>
         </div>
       </section>
+
+      <SessionTeachingAssignments activeSession={overview?.activeSession || null} sessions={sessions} />
 
       {/* Session list */}
       <section className={CARD}>

@@ -432,7 +432,10 @@ self.addEventListener('fetch', function (event) {
         return response;
       })
       .catch(function () {
+        // A failed cache lookup must not escape either: a rejected respondWith() is what
+        // the browser reports as "the FetchEvent ... resulted in a network error response".
         return caches.match(event.request)
+          .catch(function () { return undefined; })
           .then(function (cachedResponse) {
             if (cachedResponse) {
               return cachedResponse;
@@ -446,6 +449,10 @@ self.addEventListener('fetch', function (event) {
 
             return Response.error();
           });
+      })
+      .catch(function () {
+        // A page navigation always ends on a page, never on a network error.
+        return isNavigationRequest ? offlineResponse() : Response.error();
       })
   );
 });

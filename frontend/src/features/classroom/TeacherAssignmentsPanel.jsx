@@ -493,10 +493,11 @@ function SubmissionsPanel({ assignment, onClose }) {
                       <span className="rounded-full bg-[#1a5c38] px-3 py-1 text-xs font-bold text-[#b5e3f4]">Graded: {sub.grade}/{totalScore}</span>
                     )}
                   </div>
-                  {/* Show answers */}
-                  {questions.length > 0 ? (
+                  {/* Show answers — on a unique paper, against this student's own questions and key */}
+                  {sub.paperCode && <p className="mb-1 text-xs font-bold text-[#800020]">Unique paper · code {sub.paperCode} · questions below are as this student saw them</p>}
+                  {(sub.paperQuestions || questions).length > 0 ? (
                     <div className="space-y-1 mb-3">
-                      {questions.map((q, qi) => {
+                      {(sub.paperQuestions || questions).map((q, qi) => {
                         const ans = answers[q.id || qi];
                         return (
                           <div key={q.id || qi} className="rounded-xl bg-[#b5e3f4]/60 dark:bg-black/20 px-3 py-2">
@@ -624,6 +625,8 @@ export default function TeacherAssignmentsPanel({
   canModerate = false,
   onRefreshAssignments,
   onSelectClass,
+  // Changing this number opens the composer (the Subjects tab's "+" shortcut).
+  openComposerSignal = 0,
 }) {
   const [viewingAssignment, setViewingAssignment] = useState(null);
   const [submissionsAssignment, setSubmissionsAssignment] = useState(null);
@@ -681,6 +684,12 @@ export default function TeacherAssignmentsPanel({
     setComposerStep(assignedClasses.length > 1 ? 'class' : initialSubjects.length > 1 ? 'subject' : 'details');
     setComposerOpen(true);
   }
+  useEffect(() => {
+    if (openComposerSignal > 0) openComposer();
+    // Only a new signal should open it.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [openComposerSignal]);
+
 
   // Open the composer pre-filled to edit an existing assignment (questions, marks,
   // due date) — allowed at any time, including after the due date.

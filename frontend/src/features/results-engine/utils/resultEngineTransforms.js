@@ -171,17 +171,37 @@ function normalizePublication(publication) {
   };
 }
 
-function buildSubjectRows(entries = [], gradingScale = [], settings = {}) {
+/**
+ * One row per subject the student has a score in, plus an empty row for every
+ * subject this user may fill in (unless the student was removed from it), so a
+ * subject teacher can start entering scores before any exist. Rows outside the
+ * user's subjects stay visible but read-only, and a row overridden by someone
+ * of higher standing is read-only too.
+ */
+function buildSubjectRows(entries = [], gradingScale = [], settings = {}, context = {}) {
   const scoreModel = resolveResultScoreModel(settings);
   const caComponentDefinitions = normalizeCaComponentDefinitions(settings);
-  return entries
+  const editableSubjects = Array.isArray(context.editableSubjects) ? context.editableSubjects : [];
+  const editableIds = new Set(editableSubjects.map(subject => String(subject?.id || '')));
+  const myRank = Number(context.overrideRank || 0);
+  const byId = new Map(entries.map(entry => [String(entry?.subjectId || ''), entry]));
+  editableSubjects.forEach(subject => {
+    const subjectId = String(subject?.id || '');
+    if (byId.has(subjectId) || (context.excludedSubjectIds || new Set()).has(subjectId)) return;
+    byId.set(subjectId, { subjectId, subjectName: String(subject?.name || ''), caComponents: {}, caScore: 0, examScore: 0 });
+  });
+
+  return [...byId.values()]
     .map(entry => {
       const caComponents = normalizeCaComponentScores(entry?.caComponents, caComponentDefinitions, entry?.caScore, scoreModel.caMaxScore);
       const ca = computeCaFromComponents(caComponents, caComponentDefinitions, entry?.caScore, scoreModel.caMaxScore);
       const exam = clampNumber(entry?.examScore, 0, scoreModel.examMaxScore);
       const total = clampNumber(ca + exam, 0, scoreModel.totalMaxScore);
+      const subjectId = String(entry?.subjectId || '');
+      const overrideRank = Number(entry?.overrideRank || 0);
+      const heldAbove = overrideRank > myRank;
       return {
-        subjectId: String(entry?.subjectId || ''),
+        subjectId,
         subjectName: String(entry?.subjectName || ''),
         caComponents,
         ca,
@@ -190,6 +210,14 @@ function buildSubjectRows(entries = [], gradingScale = [], settings = {}) {
         total,
         grade: computeGrade(total, gradingScale),
         remark: computeRemark(total, gradingScale),
+        editable: editableIds.has(subjectId) && !heldAbove,
+        heldAbove,
+        override: overrideRank > 0 ? {
+          rank: overrideRank,
+          name: String(entry?.overrideName || ''),
+          role: String(entry?.overrideRole || ''),
+          at: entry?.overrideAt || '',
+        } : null,
       };
     })
     .sort((left, right) => left.subjectName.localeCompare(right.subjectName));
@@ -206,9 +234,27 @@ export function normalizeTeacherSheetResponse(data = {}) {
     entryMap.get(studentId).push(entry);
   });
 
+  const editableSubjects = Array.isArray(data?.subjects) ? data.subjects : [];
+  const caSubmissions = Array.isArray(data?.caSubmissions) ? data.caSubmissions : [];
+  // C.A. handed in (and not returned) is frozen for teachers; the HoS/Owner may still correct it, with a reason.
+  const frozenBySubject = new Map();
+  if (!data?.permissions?.canEditApprovedCa) {
+    caSubmissions.filter(item => item.status !== 'returned').forEach(item => {
+      const keys = frozenBySubject.get(item.subjectId) || new Set();
+      keys.add(item.componentKey);
+      frozenBySubject.set(item.subjectId, keys);
+    });
+  }
+  const exclusions = data?.exclusions && typeof data.exclusions === 'object' ? data.exclusions : {};
+  const overrideRank = Number(data?.permissions?.overrideRank || 0);
+
   const students = (Array.isArray(data?.students) ? data.students : []).map(student => {
     const studentId = String(student?.id || '');
-    const rows = buildSubjectRows(entryMap.get(studentId) || [], gradingScale, data?.settings || {});
+    const excludedSubjectIds = new Set(Object.entries(exclusions)
+      .filter(([, studentIds]) => Array.isArray(studentIds) && studentIds.map(String).includes(studentId))
+      .map(([subjectId]) => subjectId));
+    const rows = buildSubjectRows(entryMap.get(studentId) || [], gradingScale, data?.settings || {}, { editableSubjects, excludedSubjectIds, overrideRank })
+      .map(row => ({ ...row, frozenKeys: [...(frozenBySubject.get(row.subjectId) || [])] }));
     const average = rows.length ? Math.round(rows.reduce((sum, row) => sum + row.total, 0) / rows.length) : 0;
     const profile = profileMap.get(studentId) || {};
     return {
@@ -228,6 +274,10 @@ export function normalizeTeacherSheetResponse(data = {}) {
 
   const batchStatus = String(data?.batch?.status || 'draft');
   return recomputeTeacherSheet({
+    mode: data?.mode === 'practice' ? 'practice' : 'live',
+    practice: data?.practice || { available: true, reason: '', sampleRoster: false },
+    examPeriod: data?.examPeriod || { status: 'none' },
+    currentPeriod: data?.currentPeriod || null,
     classId: String(data?.classroom?.id || ''),
     classroom: data?.classroom || {},
     period: data?.period || {},
@@ -237,6 +287,7 @@ export function normalizeTeacherSheetResponse(data = {}) {
     configurationError: String(data?.configurationError || ''),
     permissions: data?.permissions || {},
     subjects: Array.isArray(data?.subjects) ? data.subjects : [],
+    caSubmissions,
     batch: data?.batch || {},
     status: batchStatus,
     published: batchStatus === 'published',
@@ -253,7 +304,7 @@ export function normalizeTeacherSheetResponse(data = {}) {
 export function buildEntryPayload(sheet = {}) {
   const scoreModel = resolveResultScoreModel(sheet?.settings);
   return (Array.isArray(sheet?.students) ? sheet.students : []).flatMap(student =>
-    (Array.isArray(student?.rows) ? student.rows : []).map(row => ({
+    (Array.isArray(student?.rows) ? student.rows : []).filter(row => row.editable !== false).map(row => ({
       studentId: student.id,
       subjectId: row.subjectId,
       caComponents: row.caComponents || {},

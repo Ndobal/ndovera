@@ -1,0 +1,58 @@
+/* Ndovera rich academic text: one look for notes, AI answers, quizzes and papers. */
+
+.ndv-rich { line-height: 1.7; overflow-wrap: anywhere; }
+.ndv-rich > * + * { margin-top: 0.75em; }
+.ndv-rich h1 { font-size: 1.5em; font-weight: 900; color: #800000; line-height: 1.25; }
+.ndv-rich h2 { font-size: 1.3em; font-weight: 800; color: #800020; line-height: 1.3; }
+.ndv-rich h3 { font-size: 1.15em; font-weight: 800; color: #800000; }
+.ndv-rich h4 { font-size: 1.02em; font-weight: 800; color: #1a5c38; }
+.ndv-rich h5, .ndv-rich h6 { font-weight: 700; }
+.ndv-rich strong { font-weight: 800; }
+.ndv-rich em { font-style: italic; }
+.ndv-rich ul { list-style: disc; padding-left: 1.5em; }
+.ndv-rich ol { list-style: decimal; padding-left: 1.5em; }
+.ndv-rich li + li { margin-top: 0.25em; }
+.ndv-rich li > ul, .ndv-rich li > ol { margin-top: 0.25em; }
+.ndv-rich blockquote {
+  border-left: 4px solid #c9a96e; background: #fff6e0; padding: 0.6em 1em; border-radius: 0.5em; color: #191970;
+}
+.ndv-rich code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.9em; background: rgba(25, 25, 112, 0.07); padding: 0.1em 0.35em; border-radius: 0.3em; }
+.ndv-rich pre { background: #0f172a; color: #e2e8f0; padding: 0.8em 1em; border-radius: 0.6em; overflow-x: auto; }
+.ndv-rich pre code { background: none; padding: 0; color: inherit; }
+.ndv-rich img { max-width: 100%; height: auto; border-radius: 0.5em; margin: 0.5em auto; display: block; }
+.ndv-rich hr { border: 0; border-top: 1px solid rgba(201, 169, 110, 0.6); }
+.ndv-rich a { color: #800020; text-decoration: underline; }
+
+.ndv-rich .ndv-table { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0.75em 0; }
+.ndv-rich table { border-collapse: collapse; min-width: 50%; font-size: 0.95em; background: #fff; }
+.ndv-rich th, .ndv-rich td { border: 1px solid #c9a96e; padding: 0.45em 0.75em; vertical-align: top; text-align: left; }
+.ndv-rich th { background: #f6ecd8; color: #800000; font-weight: 800; }
+.ndv-rich tr:nth-child(even) td { background: #fffaf0; }
+.ndv-rich th[align="center"], .ndv-rich td[align="center"] { text-align: center; }
+.ndv-rich th[align="right"], .ndv-rich td[align="right"] { text-align: right; }
+
+.ndv-rich .katex-display { overflow-x: auto; overflow-y: hidden; padding: 0.35em 0; margin: 0.6em 0; }
+.ndv-rich .katex { font-size: 1.08em; }
+
+.ndv-rich-inline > * + * { margin-top: 0; }
+.ndv-rich-inline .katex-display { display: inline-block; margin: 0; padding: 0; }
+
+.dark .ndv-rich table { background: transparent; }
+.dark .ndv-rich th { background: rgba(255, 255, 255, 0.08); color: #fff; }
+.dark .ndv-rich tr:nth-child(even) td { background: rgba(255, 255, 255, 0.03); }
+.dark .ndv-rich blockquote { background: rgba(255, 255, 255, 0.06); color: inherit; }
+
+@media print {
+  .ndv-rich .ndv-table { overflow: visible; }
+  .ndv-rich table { page-break-inside: auto; }
+  .ndv-rich tr { page-break-inside: avoid; }
+  .ndv-rich th { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .ndv-rich .katex-display { overflow: visible; }
+  .ndv-rich h1, .ndv-rich h2, .ndv-rich h3 { page-break-after: avoid; }
+}
+.ndv-rich-ondark strong { color: #fff; }
+
+/* Figures drawn by Ndovera (figures.js): centred, never split across printed pages. */
+.ndv-rich .ndv-figure { margin: 0.75em auto; text-align: center; break-inside: avoid; page-break-inside: avoid; }
+.ndv-rich .ndv-figure svg { display: inline-block; max-width: 100%; height: auto; }
+.ndv-rich .ndv-figure-error { color: #b91c1c; font-size: 0.85em; font-style: italic; }

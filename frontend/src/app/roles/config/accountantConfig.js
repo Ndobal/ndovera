@@ -3,10 +3,11 @@ const accountantConfig = {
   watermark: 'ACCOUNTANT',
   sections: {
     overview: { title: 'Overview', subtitle: 'Control school income, expenses, and finance health.' },
+    billing: { title: 'Fees & Billing', subtitle: 'Fee structures, student accounts, payments, claims and archives for the active billing period.' },
     'term-fees': { title: 'Term Fees', subtitle: "Raise this term's charges, take payments, and settle arrears." },
     fees: { title: 'Fee Management', subtitle: 'Manage tuition, transport, and other charges.' },
     receipts: { title: 'Receipts', subtitle: 'View and issue receipts for approved payments.' },
-    'ai-assistant': { title: 'AI Assistant', subtitle: 'Chat with Workers AI for finance summaries, notices, and professional drafting support.' },
+    'ai-assistant': { title: 'Ndovera AI', subtitle: 'Chat with Ndovera AI for finance summaries, notices, and professional drafting support.' },
     expenses: { title: 'Expenses', subtitle: 'Track school spending and approvals.' },
     payroll: { title: 'Payroll', subtitle: 'Process staff salary and payroll reports.' },
     reconciliation: { title: 'Reconciliation', subtitle: 'Match bank records with platform transactions.' },

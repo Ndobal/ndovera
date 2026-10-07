@@ -3,6 +3,8 @@ import { Link, Navigate, useParams } from 'react-router-dom';
 import StudentSectionShell from './StudentSectionShell';
 import { getStoredAuth } from '../../../features/auth/services/authApi';
 import { getAssignments, submitAssignment } from '../../../features/classroom/classroomService';
+import RichContent from '../../../shared/rich/RichContent';
+import { CountdownBar, useTimedAttempt } from '../../../features/classroom/assignments/TimedAttempt';
 
 const REFRESH_INTERVAL_MS = 15000;
 
@@ -254,7 +256,7 @@ function AssignmentQuestion({ question, value, onChange, index }) {
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <p className="micro-label accent-amber">Question {index + 1}</p>
-          <p className="mt-1 text-slate-100 font-semibold">{question.prompt || 'Question'}</p>
+          <RichContent className="mt-1 text-slate-100 font-semibold ndv-rich-ondark" text={question.prompt || 'Question'} />
         </div>
         <div className="flex flex-wrap gap-2">
           <span className="glass-chip px-3 py-1 rounded-full micro-label accent-indigo">{typeLabel(question.type)}</span>
@@ -265,7 +267,7 @@ function AssignmentQuestion({ question, value, onChange, index }) {
       {question.passage && (
         <div className="rounded-2xl border border-white/10 p-4 bg-slate-800/40">
           <p className="micro-label accent-amber mb-2">Passage</p>
-          <p className="text-slate-200 whitespace-pre-wrap">{question.passage}</p>
+          <RichContent className="text-slate-200" text={question.passage} />
         </div>
       )}
 
@@ -283,7 +285,7 @@ function AssignmentQuestion({ question, value, onChange, index }) {
                 checked={value === option}
                 onChange={() => onChange(question.id, option)}
               />
-              <span>{String.fromCharCode(65 + index)}. {option}</span>
+              <span>{String.fromCharCode(65 + index)}. <RichContent inline text={option} /></span>
             </label>
           ))}
         </div>
@@ -327,6 +329,7 @@ function AssignmentDetail({ assignment, onSubmissionSaved }) {
   const submissionAnswers = useMemo(() => assignment?.mySubmission?.content?.answers || {}, [assignment?.mySubmission?.content?.answers]);
   const [answers, setAnswers] = useState(submissionAnswers);
   const [submitting, setSubmitting] = useState(false);
+  const submittingRef = useRef(false);
   const [notice, setNotice] = useState('');
   const [error, setError] = useState('');
   const reviewed = hasTeacherReview(assignment?.mySubmission);
@@ -343,6 +346,8 @@ function AssignmentDetail({ assignment, onSubmissionSaved }) {
   };
 
   const handleSubmit = async () => {
+    if (submittingRef.current) return;
+    submittingRef.current = true;
     setSubmitting(true);
     setNotice('');
     setError('');
@@ -356,12 +361,23 @@ function AssignmentDetail({ assignment, onSubmissionSaved }) {
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Could not submit assignment.');
     } finally {
+      submittingRef.current = false;
       setSubmitting(false);
     }
   };
+  // A timed assessment starts its clock when opened, unless it has already been handed in.
+  const latestSubmit = useRef(handleSubmit);
+  latestSubmit.current = handleSubmit;
+  const [retake, setRetake] = useState(false);
+  useEffect(() => { setRetake(false); }, [assignment?.id, assignment?.mySubmission?.submittedAt]);
+  const timedWork = Number(assignment?.metadata?.durationMinutes) > 0;
+  const attempt = useTimedAttempt(assignment, { enabled: !assignment?.mySubmission || retake, onTimeUp: () => latestSubmit.current() });
+  // Viewing a finished timed attempt never starts the clock; a new attempt is a deliberate choice.
+  const locked = (attempt.timed && !attempt.ready) || (timedWork && Boolean(assignment?.mySubmission) && !retake);
 
   return (
     <div className="space-y-4">
+      <CountdownBar attempt={attempt} onDark />
       <Link to="/roles/student/assignments" className="inline-block glass-chip rounded-full px-4 py-2 micro-label accent-indigo">Back to assignments</Link>
 
       <section className="glass-surface rounded-3xl p-6">
@@ -416,7 +432,7 @@ function AssignmentDetail({ assignment, onSubmissionSaved }) {
       {error && <section className="rounded-3xl border border-rose-400/30 p-4 bg-rose-500/10 text-rose-100">{error}</section>}
       {notice && <section className="rounded-3xl border border-emerald-300/30 p-4 bg-emerald-500/10 text-emerald-100">{notice}</section>}
 
-      <section className="space-y-4">
+      {!locked && <section className="space-y-4">
         {(assignment.questions || []).map((question, index) => (
           <AssignmentQuestion
             key={question.id}
@@ -426,17 +442,19 @@ function AssignmentDetail({ assignment, onSubmissionSaved }) {
             index={index}
           />
         ))}
-      </section>
+      </section>}
 
       <section className="glass-surface rounded-3xl p-6 flex flex-wrap items-center justify-between gap-3">
         <p className="text-slate-200">Save your answers by submitting this assignment when you are done.</p>
-        <button
+        {timedWork && assignment.mySubmission && !retake ? (
+          <button onClick={() => setRetake(true)} className="px-5 py-2 rounded-2xl bg-emerald-500/30 border border-emerald-300/40 text-white font-semibold">Start another attempt</button>
+        ) : <button
           onClick={handleSubmit}
-          disabled={submitting}
+          disabled={submitting || locked}
           className="px-5 py-2 rounded-2xl bg-emerald-500/30 border border-emerald-300/40 text-white font-semibold disabled:opacity-60"
         >
           {submitting ? 'Submitting...' : assignment.mySubmission ? 'Resubmit Assignment' : 'Submit Assignment'}
-        </button>
+        </button>}
       </section>
     </div>
   );

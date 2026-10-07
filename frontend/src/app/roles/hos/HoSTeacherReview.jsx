@@ -26,6 +26,19 @@ export default function HoSTeacherReview({ auth }) {
         </p>
       </div>
 
+      {/* Staff evaluation lives on its own pages: start one here; staff then review colleagues from
+          "Staff Evaluation" in their own menu, and results come back to Staff Evaluation. */}
+      <div className="grid gap-4 md:grid-cols-2">
+        <a href="/roles/hos/staff-evaluation" className="block rounded-3xl border border-[#1a5c38]/40 bg-[#e8f5ee] p-5 hover:ring-2 hover:ring-[#1a5c38]/40 dark:bg-slate-900/40">
+          <p className="font-bold text-[#1a5c38] dark:text-emerald-300">Start or manage a staff evaluation →</p>
+          <p className="mt-1 text-sm text-[#191970] dark:text-slate-300">Set the questions and rating scale, who reviews and who is reviewed (all staff, chosen roles or named people) and the dates it is open. Results show averages and comments — never who said what.</p>
+        </a>
+        <a href="/roles/hos/evaluate-colleagues" className="block rounded-3xl border border-[#c9a96e]/40 bg-white p-5 hover:ring-2 hover:ring-[#800020]/30 dark:bg-slate-900/40">
+          <p className="font-bold text-[#800000] dark:text-slate-100">Evaluate colleagues yourself →</p>
+          <p className="mt-1 text-sm text-[#191970] dark:text-slate-300">Fill in the reviews assigned to you. Teachers do theirs from <strong>Staff Evaluation</strong> in their own menu once an evaluation is open.</p>
+        </a>
+      </div>
+
       {loading ? (
         <div className="rounded-3xl p-6 bg-[#b5e3f4] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
           <p className="text-[#800020] dark:text-slate-400">Loading...</p>

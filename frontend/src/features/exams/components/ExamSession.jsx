@@ -1,4 +1,5 @@
 import React from 'react';
+import RichContent from '../../../shared/rich/RichContent';
 
 function normalizeQuestionType(value) {
   return String(value || 'mcq').trim().toLowerCase();
@@ -24,7 +25,7 @@ export default function ExamSession({ questions, answers, onAnswerChange }) {
       {questions.map(q => (
         <div key={q.id} className="rounded-xl border border-white/10 p-4 bg-slate-900/20">
           {q.passage && <p className="text-sm text-slate-300 whitespace-pre-wrap mb-3">{q.passage}</p>}
-          <p className="text-slate-100 font-medium mb-2">{q.text || q.prompt}</p>
+          <RichContent className="text-slate-100 font-medium mb-2" text={q.text || q.prompt} />
           {q.imageUrl && (
             <img src={q.imageUrl} alt="Question" className="mb-3 max-h-56 rounded-xl border border-white/10 object-contain" />
           )}

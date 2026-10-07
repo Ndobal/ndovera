@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { getAttendance } from '../../../features/school/services/schoolApi';
+import { getStudentAttendance } from '../../../features/school/services/schoolApi';
 
 export default function HoSReports({ auth }) {
   const [attendance, setAttendance] = useState(null);
@@ -9,7 +9,7 @@ export default function HoSReports({ auth }) {
 
   useEffect(() => {
     setAttLoading(true);
-    getAttendance()
+    getStudentAttendance({ limit: 1000 })
       .then((data) => setAttendance(data))
       .catch((err) => setAttError(err.message))
       .finally(() => setAttLoading(false));

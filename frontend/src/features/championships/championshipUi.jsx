@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const naira = new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN', maximumFractionDigits: 0 });
+export const naira = new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN', minimumFractionDigits: 0, maximumFractionDigits: 0 });
 
 export const CARD = 'rounded-3xl border border-[#c9a96e]/40 bg-[#b5e3f4] p-5 sm:p-6 dark:border-white/10 dark:bg-slate-900/40';
 export const PANEL = 'rounded-2xl border border-[#c9a96e]/40 bg-white/75 p-4 dark:border-white/10 dark:bg-slate-900/50';

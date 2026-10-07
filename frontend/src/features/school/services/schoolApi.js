@@ -100,7 +100,11 @@ async function req(path, opts = {}) {
         }
       }
 
-      throw new Error(readErrorMessage(data));
+      // The body travels with the error so callers can show details (e.g. timetable clashes).
+      const failure = new Error(readErrorMessage(data));
+      failure.data = data;
+      failure.status = res.status;
+      throw failure;
     }
 
     if (cacheKey) {
@@ -335,6 +339,11 @@ export const autoEnrolSession = (sessionId) => req(`/api/school/academic/session
 export const moveSessionEnrollments = (sessionId, { studentIds, classId, status }) =>
   req(`/api/school/academic/sessions/${enc(sessionId)}/enrollments/move`, { method: 'POST', body: { studentIds, classId, status } });
 export const getStudentEnrollmentHistory = (studentId) => req(`/api/school/academic/students/${enc(studentId)}/enrollments`);
+// Teacher assignments per session. A new session starts with none; the school
+// assigns teachers, optionally by confirming chosen rows from a previous session.
+export const getSessionTeachingAssignments = (sessionId) => req(`/api/school/academic/sessions/${enc(sessionId)}/teaching-assignments`, { skipOfflineCache: true });
+export const carryForwardTeachingAssignments = (fromSessionId, assignmentIds) =>
+  req(`/api/school/academic/sessions/${enc(fromSessionId)}/teaching-assignments/carry-forward`, { method: 'POST', body: { assignmentIds } });
 
 // Promotion rounds
 export const getPromotionBatches = () => req('/api/school/promotion/batches');
@@ -415,11 +424,20 @@ export const runAttendanceAI = (payload = {}) => req('/api/school/attendance/ai-
 // School calendar & holidays
 export const getSchoolCalendar = (params = {}) => req(`/api/school/calendar${buildQuery(params)}`);
 export const addCalendarEvent = (data) => req('/api/school/calendar', { method: 'POST', body: data });
-export const deleteCalendarEvent = (id) => req(`/api/school/calendar/${encodeURIComponent(id)}`, { method: 'DELETE' });
+// Cancelling keeps the event on record; the reason is shown to managers and logged.
+export const deleteCalendarEvent = (id, reason = '') => req(`/api/school/calendar/${encodeURIComponent(id)}${reason ? `?reason=${encodeURIComponent(reason)}` : ''}`, { method: 'DELETE' });
+export const updateCalendarEvent = (id, data) => req(`/api/school/calendar/${encodeURIComponent(id)}`, { method: 'PUT', body: data });
+export const getUpcomingCalendar = (days = 30) => req(`/api/school/calendar/upcoming?days=${days}`, { skipOfflineCache: true });
 
 // Class timetable
 export const getTimetable = (params = {}) => req(`/api/school/timetable${buildQuery(params)}`);
 export const saveTimetable = (data) => req('/api/school/timetable', { method: 'POST', body: data });
+// Timetable changes are drafted, then published; every publish is kept as a version.
+export const getTimetableDraft = (classId) => req(`/api/school/timetable/draft?classId=${enc(classId)}`, { skipOfflineCache: true });
+export const saveTimetableDraft = (data) => req('/api/school/timetable/draft', { method: 'PUT', body: data });
+export const publishTimetable = (data) => req('/api/school/timetable/publish', { method: 'POST', body: data });
+export const getTimetableVersions = (classId) => req(`/api/school/timetable/versions?classId=${enc(classId)}`, { skipOfflineCache: true });
+export const restoreTimetableVersion = (versionId) => req(`/api/school/timetable/versions/${enc(versionId)}/restore`, { method: 'POST' });
 export const runFinanceAI = () => req('/api/school/finance/ai-analysis', { method: 'POST' });
 
 // Tuck shop finance
@@ -430,11 +448,19 @@ export const getTuckWeekly = (weeks = 8) => req(`/api/tuck/orders/weekly${buildQ
 export const getResultTemplates = () => req('/api/results/templates');
 export const getResultSettings = (section = '') => req(`/api/results/settings${section ? `?section=${encodeURIComponent(section)}` : ''}`);
 export const saveResultSettings = (data) => req('/api/results/settings', { method: 'POST', body: data });
-export const getResultSheet = (params = {}) => req(`/api/results/sheet${buildQuery(params)}`);
+// The practice sheet is never served from the offline cache: once exams lock it, a stale copy must not reappear.
+export const getResultSheet = (params = {}) => req(`/api/results/sheet${buildQuery(params)}`, { skipOfflineCache: params.mode === 'practice' });
 export const saveResultEntries = (data) => req('/api/results/entries', { method: 'POST', body: data });
 export const saveResultProfiles = (data) => req('/api/results/profiles', { method: 'POST', body: data });
 export const updateResultBatchStatus = (data) => req('/api/results/batch-status', { method: 'POST', body: data });
 export const publishResultBatch = (data) => req('/api/results/publish', { method: 'POST', body: data });
+export const handInCaScores = (data) => req('/api/results/ca-submissions', { method: 'POST', body: data });
+export const reviewCaScores = (id, data) => req(`/api/results/ca-submissions/${encodeURIComponent(id)}/review`, { method: 'POST', body: data });
+export const getResultPreview = (params = {}) => req(`/api/results/preview${buildQuery(params)}`, { skipOfflineCache: true });
+export const getResultAudit = (params = {}) => req(`/api/results/audit${buildQuery(params)}`, { skipOfflineCache: true });
+export const getResultExamPeriod = () => req('/api/results/exam-period', { skipOfflineCache: true });
+export const setResultExamPeriod = (action) => req('/api/results/exam-period', { method: 'POST', body: { action } });
+export const resetPracticeResults = (classId) => req('/api/results/practice/reset', { method: 'POST', body: { classId } });
 export const bulkPublishResults = (data = {}) => req('/api/results/bulk-publish', { method: 'POST', body: data });
 export const getResultsBulkJobs = () => req('/api/results/bulk-jobs');
 export const retryResultsBulkJob = (id) => req(`/api/results/bulk-jobs/${encodeURIComponent(id)}/retry`, { method: 'POST' });
@@ -445,6 +471,7 @@ export const getResultRecords = (studentId = '') => req(`/api/results/records${b
 export const getStudentProfile = (studentId) => req(`/api/students/${encodeURIComponent(studentId)}/profile`, { skipOfflineCache: true });
 export const addStudentRecord = (studentId, data) => req(`/api/students/${encodeURIComponent(studentId)}/records`, { method: 'POST', body: data });
 export const deleteStudentRecord = (studentId, recordId) => req(`/api/students/${encodeURIComponent(studentId)}/records/${encodeURIComponent(recordId)}`, { method: 'DELETE' });
+export const updateStudentRecord = (studentId, recordId, data) => req(`/api/students/${encodeURIComponent(studentId)}/records/${encodeURIComponent(recordId)}`, { method: 'PUT', body: data });
 export const generateStudentAiReport = (studentId) => req(`/api/students/${encodeURIComponent(studentId)}/ai-report`, { method: 'POST' });
 export const uploadResultDocuments = (files, extraFields = {}) => uploadFiles('/api/results/documents/upload', files, extraFields);
 export const deleteResultDocument = (documentId) => req(`/api/results/documents/${encodeURIComponent(documentId)}`, { method: 'DELETE' });

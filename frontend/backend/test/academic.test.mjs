@@ -65,8 +65,8 @@ async function seedSchool(db) {
     { id: 'stu_david', name: 'David Okon', email: 'david@school.test', classId: 'class_p3' },
   ]
   for (const student of students) {
-    await db.prepare('INSERT INTO users (id, email, name, role, tenantId, className, status, createdAt) VALUES (?, ?, ?, ?, ?, ?, ?, ?)')
-      .bind(student.id, student.email, student.name, 'student', TENANT, 'Primary 3 A', 'active', now).run()
+    await db.prepare('INSERT INTO users (id, email, name, role, tenantId, status, createdAt) VALUES (?, ?, ?, ?, ?, ?, ?)')
+      .bind(student.id, student.email, student.name, 'student', TENANT, 'active', now).run()
     await db.prepare('INSERT INTO settings (studentId, payload) VALUES (?, ?)')
       .bind(student.email, JSON.stringify({ classId: student.classId, className: 'Primary 3', role: 'student', tenantId: TENANT })).run()
   }
@@ -487,7 +487,8 @@ test('promoting into the live session moves the current-class mirror', async () 
   assert.equal(payload.classId, 'class_p4')
   assert.equal(payload.className, 'Primary 4')
 
-  const userRow = await db.prepare('SELECT className FROM users WHERE id = ?').bind('stu_john').first()
+  const mirror = JSON.parse((await db.prepare('SELECT payload FROM settings WHERE studentId = ?').bind('john@school.test').first()).payload)
+  const userRow = { className: [mirror.className, mirror.classArm].filter(Boolean).join(' ') }
   assert.equal(userRow.className, 'Primary 4 A')
   db.close()
 })
@@ -526,8 +527,9 @@ test('drafting the next session moves every returning student up a class', async
   // the live view has not moved a single child.
   const current = await academic.listSessionEnrollments(db, { tenantId: TENANT, sessionId: from.session.id })
   assert.ok(current.every(row => row.status === 'active'))
-  const userRow = await db.prepare('SELECT className FROM users WHERE id = ?').bind('stu_john').first()
-  assert.equal(userRow.className, 'Primary 3 A')
+  const mirror = JSON.parse((await db.prepare('SELECT payload FROM settings WHERE studentId = ?').bind('john@school.test').first()).payload)
+  const userRow = { className: [mirror.className, mirror.classArm].filter(Boolean).join(' ') }
+  assert.deepEqual([mirror.classId, userRow.className], ['class_p3', 'Primary 3'])
   db.close()
 })
 
@@ -550,7 +552,8 @@ test('opening the new session hands the old register over and moves the school',
   assert.ok(previous.every(row => row.status === 'promoted'))
   assert.ok(previous.every(row => row.classId === 'class_p3'))
 
-  const userRow = await db.prepare('SELECT className FROM users WHERE id = ?').bind('stu_john').first()
+  const mirror = JSON.parse((await db.prepare('SELECT payload FROM settings WHERE studentId = ?').bind('john@school.test').first()).payload)
+  const userRow = { className: [mirror.className, mirror.classArm].filter(Boolean).join(' ') }
   assert.equal(userRow.className, 'Primary 4 A')
 
   // The class register the teacher opens follows the same move.
@@ -639,8 +642,8 @@ test('a student admitted after the session opened joins its register', async () 
   await academic.activateSession(db, { tenantId: TENANT, sessionId: detail.session.id })
 
   const now = new Date().toISOString()
-  await db.prepare('INSERT INTO users (id, email, name, role, tenantId, className, status, createdAt) VALUES (?, ?, ?, ?, ?, ?, ?, ?)')
-    .bind('stu_new', 'zara@school.test', 'Zara Ali', 'student', TENANT, 'Primary 4 A', 'active', now).run()
+  await db.prepare('INSERT INTO users (id, email, name, role, tenantId, status, createdAt) VALUES (?, ?, ?, ?, ?, ?, ?)')
+    .bind('stu_new', 'zara@school.test', 'Zara Ali', 'student', TENANT, 'active', now).run()
   await db.prepare('INSERT INTO settings (studentId, payload) VALUES (?, ?)')
     .bind('zara@school.test', JSON.stringify({ classId: 'class_p4', className: 'Primary 4' })).run()
 

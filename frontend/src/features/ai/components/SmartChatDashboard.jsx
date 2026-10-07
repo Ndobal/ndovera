@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { PaperAirplaneIcon, PlusIcon, SparklesIcon, MicrophoneIcon, PaperClipIcon } from '@heroicons/react/24/outline';
+import AiAnswer from '../AiAnswer';
 
 const TONE = {
   free: 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-300',
@@ -155,7 +156,7 @@ export default function SmartChatDashboard({
                 return (
                   <div key={message.id} className={`flex items-end gap-2.5 ${isUser ? 'justify-end' : 'justify-start'}`}>
                     {!isUser ? <Avatar small /> : null}
-                    <div className={`max-w-[84%] rounded-2xl px-4 py-2.5 text-sm leading-7 shadow-sm ${isUser
+                    <div className={`${isUser ? 'max-w-[84%]' : 'min-w-0 max-w-[92%] sm:max-w-[84%]'} rounded-2xl px-4 py-2.5 text-sm leading-7 shadow-sm ${isUser
                       ? 'rounded-br-md bg-gradient-to-br from-[#2447d8] to-[#1b34a8] text-white'
                       : 'rounded-bl-md border border-[#7cc4e8]/40 bg-[#cfecf7]/30 text-[#191970] dark:border-white/10 dark:bg-slate-800 dark:text-slate-100'}`}>
                       {!isUser ? (
@@ -164,7 +165,7 @@ export default function SmartChatDashboard({
                           {renderMeta ? renderMeta(message) : null}
                         </p>
                       ) : null}
-                      <p className="whitespace-pre-wrap">{message.text}</p>
+                      {isUser ? <p className="whitespace-pre-wrap">{message.text}</p> : <AiAnswer text={message.text} blocks={message.blocks} />}
                     </div>
                   </div>
                 );

@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { getAssignments, submitAssignment } from '../classroomService';
+import RichContent from '../../../shared/rich/RichContent';
+import { CountdownBar, useTimedAttempt } from './TimedAttempt';
 
 const CARD = 'relative rounded-2xl border border-[#c9a96e]/40 bg-[#b5e3f4] dark:bg-[#800000]/20 p-4 shadow-sm';
 const LABEL = 'text-xs font-bold uppercase tracking-[0.15em] text-[#800020]';
@@ -33,9 +35,13 @@ function SubmissionModal({ assignment, onClose, onSubmitted }) {
   const [textAnswer, setTextAnswer] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
+  const formRef = useRef(null);
+  // Timed work: submit whatever has been answered when the clock reaches zero.
+  const attempt = useTimedAttempt(assignment, { onTimeUp: () => formRef.current?.requestSubmit?.() });
 
   async function handleSubmit(e) {
     e.preventDefault();
+    if (submitting) return;
     setSubmitting(true); setError('');
     try {
       const payload = questions.length > 0
@@ -68,7 +74,8 @@ function SubmissionModal({ assignment, onClose, onSubmitted }) {
           <button type="button" onClick={onClose} className="ml-2 text-[#800020] font-bold text-xl leading-none">✕</button>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <CountdownBar attempt={attempt} />
+        {attempt.timed && !attempt.ready ? null : <form ref={formRef} onSubmit={handleSubmit} noValidate={attempt.timed} className="space-y-4 mt-3">
           {questions.length === 0 ? (
             <div>
               <label className={LABEL}>Your Response</label>
@@ -85,15 +92,15 @@ function SubmissionModal({ assignment, onClose, onSubmitted }) {
             questions.map((q, i) => (
               <div key={q.id || i} className="rounded-2xl border border-[#c9a96e]/30 bg-[#ade1f4] p-4 space-y-2">
                 <p className="text-sm font-bold text-[#800020] uppercase tracking-wide">{typeLabel(q.type)} — Q{i + 1}</p>
-                {q.passage && <p className="text-sm font-semibold text-[#800020] whitespace-pre-wrap">{q.passage}</p>}
-                <p className="font-bold text-[#191970] text-sm">{q.prompt || q.text || q.question}</p>
+                {q.passage && <RichContent className="text-sm font-semibold text-[#800020]" text={q.passage} />}
+                <RichContent className="font-bold text-[#191970] text-sm" text={q.prompt || q.text || q.question} />
                 {q.imageUrl && <img src={q.imageUrl} alt="" className="max-h-48 rounded-xl object-contain" onError={e => { e.currentTarget.style.display = 'none'; }} />}
                 {q.type === 'mcq' && Array.isArray(q.options) && (
                   <div className="space-y-1.5 mt-1">
                     {q.options.map((opt, oi) => (
                       <label key={oi} className={`flex items-center gap-2 rounded-xl border px-3 py-2 cursor-pointer transition-colors ${answers[q.id || i] === opt ? 'border-[#1a5c38] bg-[#1a5c38]/10' : 'border-[#c9a96e]/30 bg-white/70'}`}>
                         <input type="radio" name={q.id || String(i)} checked={answers[q.id || i] === opt} onChange={() => setAnswers(a => ({ ...a, [q.id || i]: opt }))} className="accent-[#1a5c38]" />
-                        <span className="text-sm font-semibold text-[#191970]">{String.fromCharCode(65 + oi)}. {opt}</span>
+                        <span className="text-sm font-semibold text-[#191970]">{String.fromCharCode(65 + oi)}. <RichContent inline text={opt} /></span>
                       </label>
                     ))}
                   </div>
@@ -124,7 +131,7 @@ function SubmissionModal({ assignment, onClose, onSubmitted }) {
             </button>
             <button type="button" onClick={onClose} className={BTN_SECONDARY}>Cancel</button>
           </div>
-        </form>
+        </form>}
       </div>
     </div>
   );

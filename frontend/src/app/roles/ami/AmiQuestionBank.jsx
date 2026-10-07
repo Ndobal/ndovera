@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import RichContent from '../../../shared/rich/RichContent';
 import { getStoredAuth } from '../../../features/auth/services/authApi';
 import { getApiBase } from '../../../config/apiBase';
 
@@ -217,7 +218,7 @@ export default function AmiQuestionBank() {
                   {q.classLevel && <span className="rounded-full bg-[#191970] px-2 py-0.5 text-[10px] font-bold uppercase text-[#b5e3f4] dark:bg-[#0000ff]">{q.classLevel}</span>}
                   <span className="rounded-full bg-[#1a5c38] px-2 py-0.5 text-[10px] font-bold uppercase text-[#b5e3f4] dark:bg-[#00ffff] dark:text-black">{QUESTION_TYPES.find(t => t.value === q.type)?.label || q.type}</span>
                 </div>
-                <p className="font-semibold text-[#800000] dark:text-[#ffffff] text-sm">{idx + 1}. {q.prompt}</p>
+                <div className="flex gap-1 font-semibold text-[#800000] dark:text-[#ffffff] text-sm"><span>{idx + 1}.</span><RichContent text={q.prompt} /></div>
                 {q.imageUrl && <img src={q.imageUrl} alt="question" className="mt-2 max-h-32 rounded-xl object-contain" onError={e => { e.currentTarget.style.display = 'none'; }} />}
                 {q.options && Array.isArray(q.options) && (
                   <ul className="mt-1 space-y-0.5">

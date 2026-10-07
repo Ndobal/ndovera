@@ -1,4 +1,11 @@
 import {
+  handInCaScores,
+  reviewCaScores,
+  getResultAudit,
+  getResultExamPeriod,
+  getResultPreview,
+  resetPracticeResults,
+  setResultExamPeriod,
   getResultOverview as fetchResultOverview,
   getResultRecords as fetchResultRecords,
   getResultSettings as fetchResultSettings,
@@ -31,63 +38,104 @@ function resolveSelectedBatch(batches = [], filters = {}) {
   return exactMatch || batches[0];
 }
 
+// Every sheet call carries the mode it was opened in, so practice never touches the real term.
+function sheetRequest(sheet = {}, extra = {}) {
+  return {
+    classId: sheet.classId,
+    sessionName: sheet.period?.sessionName,
+    termName: sheet.period?.termName,
+    mode: sheet.mode === 'practice' ? 'practice' : undefined,
+    ...extra,
+  };
+}
+
 export async function getTeacherScoreSheet(params = {}) {
   const data = await fetchResultSheet(params);
   return normalizeTeacherSheetResponse(data);
 }
 
-export async function saveTeacherScoreSheet(sheet = {}) {
-  const payload = {
-    classId: sheet.classId,
-    sessionName: sheet.period?.sessionName,
-    termName: sheet.period?.termName,
-    rows: buildEntryPayload(sheet),
+export async function saveTeacherScoreSheet(sheet = {}, { reason = '' } = {}) {
+  const payload = sheetRequest(sheet);
+  const report = await saveResultEntries({ ...payload, reason, rows: buildEntryPayload(sheet) });
+  const next = await getTeacherScoreSheet(payload);
+  return {
+    ...next,
+    lastSave: {
+      savedRows: Number(report?.savedRows || 0),
+      overrides: Number(report?.overrides || 0),
+      locked: Array.isArray(report?.locked) ? report.locked : [],
+    },
   };
-  await saveResultEntries(payload);
-  return getTeacherScoreSheet(payload);
 }
 
 export async function saveTeacherProfiles(sheet = {}) {
-  const payload = {
-    classId: sheet.classId,
-    sessionName: sheet.period?.sessionName,
-    termName: sheet.period?.termName,
-    rows: buildProfilePayload(sheet),
-  };
-  await saveResultProfiles(payload);
+  const payload = sheetRequest(sheet);
+  await saveResultProfiles({ ...payload, rows: buildProfilePayload(sheet) });
   return getTeacherScoreSheet(payload);
 }
 
 export async function submitTeacherResults(sheet = {}) {
-  const payload = {
-    classId: sheet.classId,
-    sessionName: sheet.period?.sessionName,
-    termName: sheet.period?.termName,
-    status: 'submitted',
-  };
-  await updateResultBatchStatus(payload);
+  const payload = sheetRequest(sheet);
+  await updateResultBatchStatus({ ...payload, status: 'submitted' });
   return getTeacherScoreSheet(payload);
 }
 
 export async function reopenTeacherResults(sheet = {}) {
-  const payload = {
-    classId: sheet.classId,
-    sessionName: sheet.period?.sessionName,
-    termName: sheet.period?.termName,
-    status: 'draft',
-  };
-  await updateResultBatchStatus(payload);
+  const payload = sheetRequest(sheet);
+  await updateResultBatchStatus({ ...payload, status: 'draft' });
   return getTeacherScoreSheet(payload);
 }
 
 export async function approvePublishedResults(sheet = {}) {
-  const payload = {
-    classId: sheet.classId,
-    sessionName: sheet.period?.sessionName,
-    termName: sheet.period?.termName,
-  };
+  const payload = sheetRequest(sheet);
   await publishResultBatch(payload);
   return getTeacherScoreSheet(payload);
+}
+
+// Practice only: walks the release step without sending anything to students.
+export async function publishPracticeResults(sheet = {}) {
+  const payload = sheetRequest(sheet);
+  await updateResultBatchStatus({ ...payload, status: 'published' });
+  return getTeacherScoreSheet(payload);
+}
+
+export async function resetPracticeSheet(sheet = {}) {
+  await resetPracticeResults(sheet.classId);
+  return getTeacherScoreSheet(sheetRequest(sheet));
+}
+
+// What students will see once published, built by the same engine from the current sheet.
+export async function getTeacherResultPreview(sheet = {}) {
+  const data = await getResultPreview(sheetRequest(sheet));
+  return {
+    ...normalizeResultRecordsResponse(data),
+    batchStatus: String(data?.batchStatus || ''),
+    practice: data?.mode === 'practice',
+  };
+}
+
+export async function getTeacherResultAudit(sheet = {}) {
+  const data = await getResultAudit(sheetRequest(sheet));
+  return Array.isArray(data?.logs) ? data.logs : [];
+}
+
+// C.A. hand-in: the teacher hands in one C.A. for a subject; heads approve or return it.
+export async function handInCa(sheet = {}, subjectId, componentKey) {
+  await handInCaScores(sheetRequest(sheet, { subjectId, componentKey }));
+  return getTeacherScoreSheet(sheetRequest(sheet));
+}
+
+export async function reviewCa(sheet = {}, submissionId, action, note = '') {
+  await reviewCaScores(submissionId, { action, note });
+  return getTeacherScoreSheet(sheetRequest(sheet));
+}
+
+export async function getExamPeriodState() {
+  return getResultExamPeriod();
+}
+
+export async function changeExamPeriod(action) {
+  return setResultExamPeriod(action);
 }
 
 export async function getStudentResult(studentId = '') {

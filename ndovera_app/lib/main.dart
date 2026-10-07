@@ -3,6 +3,7 @@ import 'package:flutter_web_plugins/url_strategy.dart';
 
 import 'router.dart';
 import 'theme/app_theme.dart';
+import 'widgets/ndovera_splash_loader.dart';
 
 /// App-wide light/dark theme controller, toggled from the nav bar.
 final ThemeController themeController = ThemeController();
@@ -27,6 +28,7 @@ class NdoveraApp extends StatelessWidget {
           darkTheme: AppTheme.dark(),
           themeMode: mode,
           routerConfig: appRouter,
+          builder: (context, child) => NdoveraSplashGate(child: child ?? const SizedBox.shrink()),
         );
       },
     );

@@ -6,6 +6,7 @@ import { StudentFarmingMode } from '../../features/auras';
 import RoleSectionPage from '../../shared/components/RoleSectionPage';
 import useFeatureFlags from '../../shared/hooks/useFeatureFlags';
 import SchoolNewsroomPage from '../../features/school/components/SchoolNewsroomPage';
+import UpcomingEventsCard from '../../features/school/components/UpcomingEventsCard';
 
 export default function StudentDashboard() {
   const location = useLocation();
@@ -41,5 +42,5 @@ export default function StudentDashboard() {
     return <Navigate to="/roles/student" replace />;
   }
 
-  return <StudentOverview />;
+  return <><div className="mx-auto max-w-7xl px-4 pt-4 sm:px-8"><UpcomingEventsCard /></div><StudentOverview /></>;
 }

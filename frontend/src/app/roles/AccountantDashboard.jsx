@@ -6,7 +6,7 @@ import SchoolNewsroomPage from '../../features/school/components/SchoolNewsroomP
 import PayrollManagementBoard from '../../features/school/components/PayrollManagementBoard';
 import StaffAiAssistantPage from '../../features/ai/components/StaffAiAssistantPage';
 import OwnerFinance from './owner/OwnerFinance';
-import TermFeesBoard from '../../features/school/components/TermFeesBoard';
+import SimpleFees from '../../features/finance/simple/SimpleFees';
 import FeesManagementBoard from '../../features/school/components/FeesManagementBoard';
 import FeeReceiptsBoard from '../../features/school/components/FeeReceiptsBoard';
 import FinanceReconciliationBoard from '../../features/school/components/FinanceReconciliationBoard';
@@ -47,8 +47,9 @@ export default function AccountantDashboard() {
     return <OwnerFinance initialTab="Income & Expenditure" />;
   }
 
-  if (sectionKey === 'term-fees') {
-    return <TermFeesBoard />;
+  // Term Fees now opens the same simple Fees & Billing screen.
+  if (sectionKey === 'billing' || sectionKey === 'term-fees') {
+    return <div className="mx-auto max-w-7xl p-4 md:p-8"><SimpleFees /></div>;
   }
 
   if (sectionKey === 'fees') {
