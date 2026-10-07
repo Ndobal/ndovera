@@ -368,6 +368,19 @@ import {
   Enrollment, TermRef, accountSummaries, addStudentCharge, adjustStudent, billStudents, canEditFees, getFeeSettings, getTermGrid, getTermLock,
   listFeeTerms, lockTerm, resolveClassMove, saveFeeSettings, saveTermGrid, studentStatement, unbilledStudents, unlockTerm,
 } from './feeEngine'
+import {
+  CurriculumError, EXAM_CATALOG, addCurriculumTopics, addSpecTopics, autoMapSpec, curriculaForSchool, curriculumImportPrompt, deleteCurriculum,
+  deleteCurriculumTopic, deleteExamSpec, deleteSpecTopic, examGrounding, examOptionsFor, examSpecImportPrompt, extractJsonArray, getCurriculum,
+  getCurriculumTopicsByIds, getExamSpec, getPlatformMaterialAi, getSchoolMaterialAi, importChunk, listCurricula, listCurriculumTopics, listExamSpecs,
+  listSpecTopics, mappingsForSpec, normalizeClassLevel, parseCsv, readinessFor, resolveTopic, saveCurriculum, saveExamSpec, saveMaterialAiConfig,
+  setCurriculumStatus, setExamSpecStatus, setMapping, subjectKey, updateCurriculumTopic, updateSpecTopic,
+} from './curriculumLibrary'
+import type { Evidence } from './curriculumLibrary'
+import {
+  CONTENT_OPTIONS, LENGTHS, MATERIAL_KINDS, MaterialAiError, cleanTeacherBlocks, createDraft, defaultOptionsFor, examLabelsOf, generateSection, getOwnDraft,
+  imagePrompt, listDrafts, parseReview, planSections, reviewPrompt, saveDraft, toMaterialBlocks, validateDraft,
+} from './materialGenerator'
+import type { Draft, Grounding, Length, MaterialKind } from './materialGenerator'
 
 type Bindings = {
   APP_DB: D1Database
@@ -9271,6 +9284,38 @@ app.post('/api/classrooms/:classroomId/topics/:topicId/progress', authenticate, 
  * topic and term, plus the teacher's own notes for the topic — marked as the
  * teacher's so the model never passes its own wording off as theirs.
  */
+/**
+ * The same grounding the teacher's material was written from: the curriculum
+ * objectives for this topic and any examination the teacher prepared it for.
+ * Taken from the teacher's Ndovera AI materials in the topic, else from
+ * where the topic sits in the school's curriculum.
+ */
+async function topicCurriculumGrounding(db: D1Database, tenantId: string, options: { className: string, subjectName: string, topicName: string, materials: Array<Record<string, any>> }) {
+  const aiMeta = options.materials.map(material => material.metadata?.ai).filter(Boolean) as Array<Record<string, any>>
+  let curriculumIds = [...new Set(aiMeta.flatMap(meta => (meta.curriculum || []).map((item: any) => String(item.id))))].filter(Boolean)
+  if (!curriculumIds.length && options.subjectName) {
+    const resolution = await resolveTopic(db, { tenantId, subject: options.subjectName, topic: options.topicName, classLabel: options.className })
+    if (resolution.status === 'matched' && resolution.match) curriculumIds = [resolution.match.id]
+  }
+  const curriculum = await getCurriculumTopicsByIds(db, curriculumIds)
+  const examKeys = [...new Set(aiMeta.flatMap(meta => (meta.exams || []).map((exam: any) => String(exam.key))))].filter(Boolean)
+  const exams = examKeys.length ? await examGrounding(db, { examKeys, subject: options.subjectName, topic: options.topicName, curriculumTopicIds: curriculum.map(row => row.id) }) : []
+  const lines: string[] = []
+  for (const row of curriculum) {
+    lines.push(`CURRICULUM (the school's curriculum, ${row.classLabel} ${row.subject}${row.theme ? ` › ${row.theme}` : ''} › ${row.topic}) — keep explanations within it:`)
+    if (row.subtopics.length) lines.push(`Subtopics: ${row.subtopics.join('; ')}`)
+    if (row.objectives.length) lines.push(`Learning objectives: ${row.objectives.join('; ')}`)
+    if (row.competencies.length) lines.push(`Expected competencies: ${row.competencies.join('; ')}`)
+  }
+  for (const exam of exams) {
+    if (!exam.spec) { lines.push(`EXAMINATION: the teacher is preparing the class for ${exam.label}. Ndovera holds no specification for it, so do not claim what the official syllabus contains.`); continue }
+    lines.push(`EXAMINATION: the teacher is preparing the class for ${exam.spec.name} ${exam.spec.subject} (${exam.spec.version}).${exam.spec.calculator ? ` Calculator: ${exam.spec.calculator}.` : ''}`)
+    for (const item of exam.topics.slice(0, 6)) lines.push(`- ${item.area ? `${item.area} › ` : ''}${item.topic}${item.objectives.length ? `: ${item.objectives.join('; ')}` : ''}`)
+  }
+  if (exams.length) lines.push(`Practice questions you write are ${exams.map(exam => exam.label.replace(/\s*\(.*\)$/, '')).join('/')}-style practice: never say a question is from a past paper or a particular year.`)
+  return { lines, exams: exams.map(exam => exam.label), curriculumChecked: curriculum.length > 0 }
+}
+
 async function buildTopicStudyContext(db: D1Database, user: Record<string, any>, topicContext: Record<string, any>) {
   const classId = String(topicContext?.classId || '').trim()
   const topicId = String(topicContext?.topicId || '').trim()
@@ -9290,23 +9335,633 @@ async function buildTopicStudyContext(db: D1Database, user: Record<string, any>,
     .filter(material => material.status === 'published' && canAudienceSeeMaterial(material, 'student'))
   const notes = buildTeacherNotesContext(materials)
   const className = `${access.classRow.name || ''}${access.classRow.arm ? ` ${access.classRow.arm}` : ''}`.trim()
+  const grounding = await topicCurriculumGrounding(db, tenantId, { className, subjectName: String(subject?.name || ''), topicName: topic.name, materials }).catch(error => {
+    console.error('Topic curriculum grounding failed', error)
+    return { lines: [] as string[], exams: [] as string[], curriculumChecked: false }
+  })
   const lines = [
     'LEARNING CONTEXT — the student opened this from their class, so every message in this conversation is about this topic unless they clearly ask about something else.',
     `School: ${tenant?.schoolName || 'their school'}. Class: ${className}. Subject: ${subject?.name || 'the subject'}. Topic: ${topic.name}.${period?.termName ? ` Term: ${period.termName}.` : ''}`,
     topic.description ? `Topic overview from the teacher: ${topic.description}` : '',
     topic.objectives.length ? `Learning objectives set by the teacher: ${topic.objectives.join('; ')}` : '',
     'Pitch explanations at the level of a student in this class.',
+    ...grounding.lines,
     notes
       ? `TEACHER-PROVIDED NOTES (written by the class teacher; use them as the primary source):\n<<<\n${notes}\n>>>\nWhen you quote or summarise these notes, say they are from the teacher's notes. When you add your own explanation or examples, present them as extra explanation, not as the teacher's words. Never rewrite the teacher's notes and present the changed version as theirs. If your explanation would contradict the notes, follow the notes and suggest the student asks their teacher.`
       : 'The teacher has not added notes to this topic yet, so everything you say is your own explanation; say so briefly at the start of your first answer.',
   ].filter(Boolean)
   return {
     system: lines.join('\n'),
-    summary: { topicId: topic.id, topicName: topic.name, subjectName: String(subject?.name || ''), className, termName: String(period?.termName || ''), hasTeacherNotes: Boolean(notes) },
+    summary: { topicId: topic.id, topicName: topic.name, subjectName: String(subject?.name || ''), className, termName: String(period?.termName || ''), hasTeacherNotes: Boolean(notes), curriculumChecked: grounding.curriculumChecked, exams: grounding.exams },
     studentId: access.role === 'student' ? String(access.selectedStudent?.id || '') : '',
     tenantId,
   }
 }
+
+
+// ─── Ndovera AI — Prepare Material, and the Curriculum & Exam Library ───────
+// curriculumLibrary.ts holds the curricula and examination specifications;
+// materialGenerator.ts plans, writes, checks and converts the material.
+
+const MATERIAL_IMAGE_MODEL = '@cf/black-forest-labs/flux-1-schnell'
+
+function materialAiFailure(c: any, error: unknown, fallback: string) {
+  if (error instanceof MaterialAiError || error instanceof CurriculumError || error instanceof AssessmentError) return c.json({ success: false, message: error.message }, (error as any).status as any)
+  console.error(fallback, error)
+  return c.json({ success: false, message: fallback }, 500)
+}
+
+/** The teacher, the class they publish to and the subject — the same rule as posting any material. */
+async function resolveMaterialAiTarget(c: any, classId: string, subjectId: string) {
+  const { tenantId, actor } = await resolveAssessmentActor(c)
+  const target = await resolveAssessmentClass(c, classId, subjectId)
+  if (target.tenantId !== tenantId) throw new MaterialAiError('Class not found.', 404)
+  return { tenantId, actor, target }
+}
+
+app.get('/api/material-ai/options', authenticate, async (c) => {
+  try {
+    const { tenantId, target } = await resolveMaterialAiTarget(c, String(c.req.query('classId') || ''), String(c.req.query('subjectId') || ''))
+    const classLevel = normalizeClassLevel(target.className)
+    const [settings, curricula, exams, topics] = await Promise.all([
+      getSchoolMaterialAi(c.env.APP_DB, tenantId), curriculaForSchool(c.env.APP_DB, tenantId),
+      examOptionsFor(c.env.APP_DB, target.subjectName, target.className), listTopics(c.env.APP_DB, target.classId, target.subjectId),
+    ])
+    return c.json({
+      success: true, ...target, classLevel,
+      levels: ['NUR1', 'NUR2', 'NUR3', 'PRY1', 'PRY2', 'PRY3', 'PRY4', 'PRY5', 'PRY6', 'JSS1', 'JSS2', 'JSS3', 'SS1', 'SS2', 'SS3'].map(key => normalizeClassLevel(key.replace('NUR', 'Nursery ').replace('PRY', 'Primary ').replace('JSS', 'JSS ').replace(/^SS/, 'SS '))),
+      kinds: MATERIAL_KINDS, lengths: LENGTHS, contentOptions: CONTENT_OPTIONS,
+      kindDefaults: Object.fromEntries(MATERIAL_KINDS.map(kind => [kind.key, defaultOptionsFor(kind.key)])),
+      settings: { tables: settings.tables, formulae: settings.formulae, graphs: settings.graphs, images: settings.images, maxImages: settings.maxImages },
+      curricula: curricula.map(item => ({ id: item.id, name: item.name, owner: item.owner, version: item.version })),
+      exams, topics: topics.map(topic => ({ id: topic.id, name: topic.name })),
+    })
+  } catch (error) {
+    return materialAiFailure(c, error, 'Could not load Ndovera AI material options.')
+  }
+})
+
+/** Where the topic sits in the school's curriculum, before anything is written. */
+app.post('/api/material-ai/resolve', authenticate, async (c) => {
+  try {
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const { tenantId, target } = await resolveMaterialAiTarget(c, String(body.classId || ''), String(body.subjectId || ''))
+    const topic = String(body.topic || '').trim().slice(0, 200)
+    if (!topic) throw new MaterialAiError('Enter the topic you want to teach.')
+    // The level: what the teacher picked, '' for "let Ndovera find it".
+    const levelLabel = body.classLevel === undefined ? target.className : String(body.classLevel || '')
+    const resolution = await resolveTopic(c.env.APP_DB, { tenantId, subject: target.subjectName, topic, classLabel: levelLabel })
+    const examLevel = resolution.match?.classLabel || levelLabel || target.className
+    const exams = await examOptionsFor(c.env.APP_DB, target.subjectName, examLevel)
+    return c.json({ success: true, resolution, exams })
+  } catch (error) {
+    return materialAiFailure(c, error, 'Could not check the curriculum.')
+  }
+})
+
+app.get('/api/material-ai/drafts', authenticate, async (c) => {
+  try {
+    const { tenantId, actor } = await resolveAssessmentActor(c)
+    return c.json({ success: true, drafts: await listDrafts(c.env.APP_DB, tenantId, actor.id, String(c.req.query('classId') || '')) })
+  } catch (error) {
+    return materialAiFailure(c, error, 'Could not load your drafts.')
+  }
+})
+
+/**
+ * Start a draft. levelDecision says how the curriculum check was settled:
+ * matched | use_found | keep | progressive | ungrounded.
+ */
+app.post('/api/material-ai/drafts', authenticate, async (c) => {
+  try {
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const { tenantId, actor, target } = await resolveMaterialAiTarget(c, String(body.classId || ''), String(body.subjectId || ''))
+    const topic = String(body.topic || '').trim().slice(0, 200)
+    if (!topic) throw new MaterialAiError('Enter the topic you want to teach.')
+    const kind = (MATERIAL_KINDS.find(item => item.key === body.kind)?.key || 'study_note') as MaterialKind
+    const length = (['short', 'detailed', 'comprehensive'].includes(body.length) ? body.length : 'detailed') as Length
+    const allOptions = Object.values(CONTENT_OPTIONS).flat().map(([key]) => key as string)
+    const options = Array.isArray(body.options) ? body.options.map(String).filter((key: string) => allOptions.includes(key)) : defaultOptionsFor(kind)
+    const decision = ['matched', 'use_found', 'keep', 'progressive', 'ungrounded'].includes(body.levelDecision) ? String(body.levelDecision) : 'matched'
+
+    // The curriculum rows come from the library, never from the request.
+    const allowedCurricula = new Set((await curriculaForSchool(c.env.APP_DB, tenantId)).map(item => item.id))
+    const curriculumRows = decision === 'ungrounded' ? [] : (await getCurriculumTopicsByIds(c.env.APP_DB, (Array.isArray(body.curriculumTopicIds) ? body.curriculumTopicIds : []).map(String)))
+      .filter(row => allowedCurricula.has(row.curriculumId))
+    const curricula = await listCurricula(c.env.APP_DB, { tenantId })
+    const names = new Map(curricula.map(item => [item.id, item.name]))
+    const levelLabel = body.classLevel === undefined ? target.className : String(body.classLevel || '')
+    const classLevel = normalizeClassLevel(decision === 'keep' || !curriculumRows.length ? (levelLabel || target.className) : curriculumRows[0].classLabel)
+
+    const examKeys: string[] = (Array.isArray(body.exams) ? body.exams : []).map((key: unknown) => String(key)).filter((key: string) => key && key !== 'normal' && key !== 'school' && key !== 'custom').slice(0, 4)
+    const offered = new Set((await examOptionsFor(c.env.APP_DB, target.subjectName, classLevel.label || target.className)).map(option => option.key))
+    const refused = examKeys.filter(key => !offered.has(key))
+    if (refused.length) throw new MaterialAiError(`${refused.map(key => key.toUpperCase()).join(', ')} does not apply to ${target.subjectName}${classLevel.label ? ` at ${classLevel.label}` : ''}.`)
+    const exams = await examGrounding(c.env.APP_DB, { examKeys, subject: target.subjectName, topic, curriculumTopicIds: curriculumRows.map(row => row.id) })
+    const grounding: Grounding = {
+      status: curriculumRows.length ? 'curriculum' : 'ungrounded', levelDecision: decision === 'keep' ? 'keep' : curriculumRows.length ? decision : 'ungrounded', classLevel,
+      curriculum: curriculumRows.map(row => ({ id: row.id, curriculumId: row.curriculumId, curriculumName: names.get(row.curriculumId) || '', classLabel: row.classLabel, subject: row.subject, theme: row.theme, topic: row.topic, subtopics: row.subtopics, objectives: row.objectives, competencies: row.competencies })),
+      exams: exams.map(exam => ({ key: exam.key, label: exam.label, spec: exam.spec, topics: exam.topics })),
+      customExam: Array.isArray(body.exams) && body.exams.includes('custom') ? String(body.customExam || '').trim().slice(0, 80) : '',
+      schoolExam: Array.isArray(body.exams) && body.exams.includes('school'),
+      notes: [],
+    }
+    const sections = planSections({
+      kind, length, options, hasExams: exams.length > 0 || Boolean(grounding.customExam),
+      subtopics: [...new Set(curriculumRows.flatMap(row => row.subtopics))].slice(0, 12),
+      progressiveLevels: decision === 'progressive' ? curriculumRows.map(row => row.classLabel) : [],
+    })
+    const draft = await createDraft(c.env.APP_DB, {
+      tenantId, classId: target.classId, subjectId: target.subjectId, className: target.className, subjectName: target.subjectName, topic, kind, length, options,
+      request: { exams: body.exams || [], classLevel: levelLabel, levelDecision: decision }, grounding, sections, actor,
+    })
+    return c.json({ success: true, draft }, 201)
+  } catch (error) {
+    return materialAiFailure(c, error, 'Could not start the material.')
+  }
+})
+
+app.get('/api/material-ai/drafts/:id', authenticate, async (c) => {
+  try {
+    const { tenantId, actor } = await resolveAssessmentActor(c)
+    return c.json({ success: true, draft: await getOwnDraft(c.env.APP_DB, tenantId, c.req.param('id'), actor) })
+  } catch (error) {
+    return materialAiFailure(c, error, 'Could not load the draft.')
+  }
+})
+
+app.delete('/api/material-ai/drafts/:id', authenticate, async (c) => {
+  try {
+    const { tenantId, actor } = await resolveAssessmentActor(c)
+    const draft = await getOwnDraft(c.env.APP_DB, tenantId, c.req.param('id'), actor)
+    await saveDraft(c.env.APP_DB, draft, { status: 'discarded' })
+    return c.json({ success: true })
+  } catch (error) {
+    return materialAiFailure(c, error, 'Could not discard the draft.')
+  }
+})
+
+/** Draw the illustrations a section asked for, within the school's limit. */
+/** `deadline`: stop starting new drawings after this time, so the request stays inside Cloudflare's 100 seconds; the rest are drawn next time. */
+async function drawDraftImages(env: Record<string, any>, draft: Draft, settings: { images: boolean, maxImages: number }, onlyIndex?: number, deadline = Infinity) {
+  if (!settings.images || !env.AI || typeof env.AI.run !== 'function' || !env.UPLOADS) return draft
+  let used = draft.imagesUsed
+  const blocks = [...draft.blocks]
+  const drawnCount = () => blocks.filter(block => block.type === 'image' && block.url).length
+  for (let index = 0; index < blocks.length; index += 1) {
+    const block = blocks[index]
+    if (block.type !== 'image' || (onlyIndex === undefined ? block.url || block.status === 'failed' : index !== onlyIndex)) continue
+    if (drawnCount() >= settings.maxImages && !block.url) { blocks[index] = { ...block, status: 'limit' }; continue }
+    if (Date.now() > deadline) continue
+    try {
+      const result = await Promise.race([
+        env.AI.run(MATERIAL_IMAGE_MODEL, { prompt: imagePrompt(block, { subject: draft.subjectName, className: draft.className }), steps: 4 }),
+        new Promise((_, reject) => setTimeout(() => reject(new Error('image timeout')), 25_000)),
+      ]) as Record<string, any>
+      const base64 = String(result?.image || '')
+      if (!base64) throw new Error('no image')
+      const bytes = Uint8Array.from(atob(base64), ch => ch.charCodeAt(0))
+      const key = `material-ai/${draft.tenantId}/${draft.id}/${crypto.randomUUID()}.jpg`
+      await env.UPLOADS.put(key, bytes, { httpMetadata: { contentType: 'image/jpeg' } })
+      blocks[index] = { ...block, url: `/files/${key}`, assetKey: key, status: 'drawn' }
+      used += 1
+    } catch (error) {
+      console.error('Material illustration failed', error)
+      blocks[index] = { ...block, status: 'failed' }
+    }
+  }
+  return { ...draft, blocks, imagesUsed: used }
+}
+
+function validationFor(draft: Draft) {
+  return validateDraft({ blocks: draft.blocks, grounding: draft.grounding, sections: draft.sections, options: draft.options, examLabels: examLabelsOf(draft.grounding) })
+}
+
+/** Write the next section. Call until `remaining` is 0. */
+app.post('/api/material-ai/drafts/:id/next', authenticate, async (c) => {
+  try {
+    const { tenantId, actor } = await resolveAssessmentActor(c)
+    let draft = await getOwnDraft(c.env.APP_DB, tenantId, c.req.param('id'), actor)
+    const settings = await getSchoolMaterialAi(c.env.APP_DB, tenantId)
+    const started = Date.now()
+    const result = await generateSection(draft, { runAi: assessmentAiRunner(c.env), settings })
+    draft = await drawDraftImages(c.env, result.draft, settings, undefined, started + 60_000)
+    const remaining = draft.sections.filter(section => section.status === 'pending').length
+    draft = await saveDraft(c.env.APP_DB, draft, { blocks: draft.blocks, sections: draft.sections, imagesUsed: draft.imagesUsed, status: draft.status, validation: remaining ? null : validationFor(draft) })
+    return c.json({ success: true, draft, section: result.section, remaining, done: remaining === 0 })
+  } catch (error) {
+    return materialAiFailure(c, error, 'Ndovera AI could not write this section.')
+  }
+})
+
+app.post('/api/material-ai/drafts/:id/sections/:key/regenerate', authenticate, async (c) => {
+  try {
+    const { tenantId, actor } = await resolveAssessmentActor(c)
+    let draft = await getOwnDraft(c.env.APP_DB, tenantId, c.req.param('id'), actor)
+    if (!draft.sections.some(section => section.key === c.req.param('key'))) throw new MaterialAiError('Section not found.', 404)
+    if (draft.status === 'published') throw new MaterialAiError('This material is already published. Edit it from your materials list.', 409)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const settings = await getSchoolMaterialAi(c.env.APP_DB, tenantId)
+    const started = Date.now()
+    const result = await generateSection(draft, { runAi: assessmentAiRunner(c.env), settings, sectionKey: c.req.param('key'), instruction: String(body.instruction || '').slice(0, 400) })
+    if (result.section?.status === 'failed') throw new MaterialAiError(`Ndovera AI could not rewrite "${result.section.title}". Try again, or edit it yourself.`, 502)
+    draft = await drawDraftImages(c.env, result.draft, settings, undefined, started + 60_000)
+    draft = await saveDraft(c.env.APP_DB, draft, { blocks: draft.blocks, sections: draft.sections, imagesUsed: draft.imagesUsed, status: draft.status, validation: validationFor(draft) })
+    return c.json({ success: true, draft })
+  } catch (error) {
+    return materialAiFailure(c, error, 'Could not rewrite the section.')
+  }
+})
+
+/** The teacher's edits to the draft. */
+app.put('/api/material-ai/drafts/:id/blocks', authenticate, async (c) => {
+  try {
+    const { tenantId, actor } = await resolveAssessmentActor(c)
+    let draft = await getOwnDraft(c.env.APP_DB, tenantId, c.req.param('id'), actor)
+    if (draft.status === 'published') throw new MaterialAiError('This material is already published. Edit it from your materials list.', 409)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const settings = await getSchoolMaterialAi(c.env.APP_DB, tenantId)
+    const blocks = cleanTeacherBlocks(body.blocks, draft, settings)
+    const topic = String(body.title || draft.topic).trim().slice(0, 200) || draft.topic
+    draft = { ...draft, blocks, topic }
+    draft = await saveDraft(c.env.APP_DB, draft, { blocks, topic, validation: validationFor(draft) })
+    return c.json({ success: true, draft })
+  } catch (error) {
+    return materialAiFailure(c, error, 'Could not save your changes.')
+  }
+})
+
+app.post('/api/material-ai/drafts/:id/images/:index', authenticate, async (c) => {
+  try {
+    const { tenantId, actor } = await resolveAssessmentActor(c)
+    let draft = await getOwnDraft(c.env.APP_DB, tenantId, c.req.param('id'), actor)
+    const index = Number(c.req.param('index'))
+    if (draft.blocks[index]?.type !== 'image') throw new MaterialAiError('That block is not an illustration.', 404)
+    const settings = await getSchoolMaterialAi(c.env.APP_DB, tenantId)
+    if (!settings.images) throw new MaterialAiError('AI illustrations are switched off for your school.', 403)
+    const drawn = draft.blocks.filter((block, position) => block.type === 'image' && block.url && position !== index).length
+    if (drawn >= settings.maxImages) throw new MaterialAiError(`Your school allows ${settings.maxImages} illustration(s) per material.`, 409)
+    const blocks = [...draft.blocks]
+    blocks[index] = { ...blocks[index], url: '', status: 'pending' }
+    draft = await drawDraftImages(c.env, { ...draft, blocks }, settings, index)
+    if (draft.blocks[index].status !== 'drawn') throw new MaterialAiError('Ndovera AI could not draw this illustration. Try again, or remove it.', 502)
+    draft = await saveDraft(c.env.APP_DB, draft, { blocks: draft.blocks, imagesUsed: draft.imagesUsed, validation: validationFor(draft) })
+    return c.json({ success: true, draft })
+  } catch (error) {
+    return materialAiFailure(c, error, 'Could not draw the illustration.')
+  }
+})
+
+/** A second opinion from Ndovera AI, on top of the automatic checks. */
+app.post('/api/material-ai/drafts/:id/review', authenticate, async (c) => {
+  try {
+    const { tenantId, actor } = await resolveAssessmentActor(c)
+    let draft = await getOwnDraft(c.env.APP_DB, tenantId, c.req.param('id'), actor)
+    if (!draft.blocks.length) throw new MaterialAiError('There is nothing to review yet.')
+    const reply = await assessmentAiRunner(c.env)(reviewPrompt(draft), { maxTokens: 1200, temperature: 0.1 })
+    const review = parseReview(reply, draft.blocks.length)
+    draft = await saveDraft(c.env.APP_DB, draft, { review, validation: validationFor(draft) })
+    return c.json({ success: true, draft })
+  } catch (error) {
+    return materialAiFailure(c, error, 'Ndovera AI could not review the material.')
+  }
+})
+
+/** Save into the class's materials, as a draft or published. The teacher is the publisher. */
+app.post('/api/material-ai/drafts/:id/publish', authenticate, async (c) => {
+  try {
+    const { tenantId, actor } = await resolveAssessmentActor(c)
+    const draft = await getOwnDraft(c.env.APP_DB, tenantId, c.req.param('id'), actor)
+    if (draft.status === 'published' && draft.materialId) throw new MaterialAiError('This material is already in your materials.', 409)
+    if (draft.sections.some(section => section.status === 'pending')) throw new MaterialAiError('Let Ndovera AI finish writing before publishing.', 409)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const validation = validationFor(draft)
+    const status = body.status === 'draft' ? 'draft' : 'published'
+    if (status === 'published' && !validation.ok && !body.acknowledgeChecks) {
+      return c.json({ success: false, needsAcknowledgement: true, validation, message: 'Some checks failed. Fix them, or confirm you have reviewed the material and publish anyway.' }, 409)
+    }
+    const publishContext = await resolveMaterialPublishingContext(c.env.APP_DB, c.var.user || {}, draft.classId, draft.subjectId)
+    if (!publishContext.ok) throw new MaterialAiError(publishContext.message || 'You cannot post to this class.', (publishContext.status || 403) as number)
+    const examLabels = examLabelsOf(draft.grounding)
+    const blocks = sanitizeMaterialBlocks(toMaterialBlocks(draft.blocks, examLabels, draft.sections))
+    const kindLabel = MATERIAL_KINDS.find(item => item.key === draft.kind)?.label || 'Material'
+    const title = String(body.title || '').trim().slice(0, 200) || `${draft.topic} — ${kindLabel}`
+    const material = await addMaterial(c.env.APP_DB, {
+      classId: draft.classId, title, url: null, uploadedBy: publishContext.uploadedByName,
+      metadata: {
+        subjectId: String(publishContext.subjectRow.id || ''), subjectName: String(publishContext.subjectRow.name || ''),
+        description: blocksToPlainText(blocks), blocks, topic: draft.topic, weekLabel: String(body.weekLabel || '').trim().slice(0, 60),
+        visibility: normalizeLearningVisibility(body.visibility, 'student_parent'), releaseAt: normalizeLearningReleaseAt(body.releaseAt), type: 'document',
+        uploadedByName: publishContext.uploadedByName, uploadedById: publishContext.teacherId,
+        className: `${publishContext.classRow.name}${publishContext.classRow.arm ? ` ${publishContext.classRow.arm}` : ''}`,
+        source: 'ndovera_ai', status,
+        ai: {
+          draftId: draft.id, kind: draft.kind, kindLabel, generatedAt: draft.createdAt, reviewedBy: actor.name,
+          label: `Prepared with Ndovera AI · reviewed by ${actor.name}`,
+          curriculumChecked: draft.grounding.curriculum.length > 0,
+          curriculum: draft.grounding.curriculum.map(topic => ({ id: topic.id, curriculumName: topic.curriculumName, classLabel: topic.classLabel, topic: topic.topic })),
+          exams: draft.grounding.exams.map(exam => ({ key: exam.key, label: exam.label, grounded: Boolean(exam.spec), specId: exam.spec?.id || '', version: exam.spec?.version || '' })),
+          customExam: draft.grounding.customExam,
+        },
+        ...supervisoryAttribution(publishContext.supervisoryRole),
+      },
+    })
+    await recordMaterialCreation(c.env.APP_DB, tenantId, material, { id: publishContext.teacherId, name: publishContext.uploadedByName }, status === 'draft' ? 'drafted' : 'published', { source: 'ndovera_ai', draftId: draft.id })
+    await ensureClassTopic(c.env.APP_DB, { tenantId, classId: draft.classId, subjectId: draft.subjectId, name: draft.topic, createdBy: publishContext.teacherId }).catch(error => console.error('ensureClassTopic (AI material) failed', error))
+    await saveDraft(c.env.APP_DB, draft, { status: 'published', materialId: String(material.id), validation })
+    return c.json({ success: true, material }, 201)
+  } catch (error) {
+    return materialAiFailure(c, error, 'Could not publish the material.')
+  }
+})
+
+// ─── The library: Ndovera's (Ami) and a school's own ────────────────────────
+
+/** Ami manages Ndovera's library (tenant ''); a school's Owner/HoS manage the school's own curricula. */
+async function resolveLibraryEditor(c: any, scope: 'ndovera' | 'school') {
+  if (scope === 'ndovera') {
+    if (!hasRequiredRole(c.var.user.role, ['ami'])) throw new CurriculumError('Only Ndovera can change the Ndovera library.', 403)
+    return { tenantId: '', actor: { id: String(c.var.user.id || c.var.user.email || 'ami'), name: String(c.var.user.name || 'Ndovera'), role: 'ami' } }
+  }
+  const { tenantId, actor } = await resolveSubmissionActor(c.env.APP_DB, c.var.user || {})
+  if (!tenantId) throw new CurriculumError('No school.', 400)
+  if (!SCHOOL_WIDE_ROLES.includes(actor.role)) throw new CurriculumError('Only the Owner or Head of School can manage the school\'s curriculum.', 403)
+  return { tenantId, actor }
+}
+
+for (const [prefix, scope] of [['/api/ami/curricula', 'ndovera'], ['/api/school/curricula', 'school']] as const) {
+  app.get(prefix, authenticate, async (c) => {
+    try {
+      const editor = await resolveLibraryEditor(c, scope)
+      const all = await listCurricula(c.env.APP_DB, { tenantId: editor.tenantId, includeDrafts: true, ndoveraOnly: scope === 'ndovera' })
+      return c.json({ success: true, curricula: scope === 'school' ? all.filter(item => item.tenantId === editor.tenantId) : all })
+    } catch (error) { return materialAiFailure(c, error, 'Could not load curricula.') }
+  })
+  app.post(prefix, authenticate, async (c) => {
+    try {
+      const editor = await resolveLibraryEditor(c, scope)
+      return c.json({ success: true, curriculum: await saveCurriculum(c.env.APP_DB, await c.req.json().catch(() => ({})), editor) }, 201)
+    } catch (error) { return materialAiFailure(c, error, 'Could not create the curriculum.') }
+  })
+  app.put(`${prefix}/:id`, authenticate, async (c) => {
+    try {
+      const editor = await resolveLibraryEditor(c, scope)
+      return c.json({ success: true, curriculum: await saveCurriculum(c.env.APP_DB, await c.req.json().catch(() => ({})), { ...editor, id: c.req.param('id') }) })
+    } catch (error) { return materialAiFailure(c, error, 'Could not save the curriculum.') }
+  })
+  app.post(`${prefix}/:id/status`, authenticate, async (c) => {
+    try {
+      const editor = await resolveLibraryEditor(c, scope)
+      const body = await c.req.json().catch(() => ({})) as Record<string, any>
+      return c.json({ success: true, curriculum: await setCurriculumStatus(c.env.APP_DB, c.req.param('id'), String(body.status || ''), editor.tenantId) })
+    } catch (error) { return materialAiFailure(c, error, 'Could not change the curriculum status.') }
+  })
+  app.delete(`${prefix}/:id`, authenticate, async (c) => {
+    try {
+      const editor = await resolveLibraryEditor(c, scope)
+      await deleteCurriculum(c.env.APP_DB, c.req.param('id'), editor.tenantId)
+      return c.json({ success: true })
+    } catch (error) { return materialAiFailure(c, error, 'Could not delete the curriculum.') }
+  })
+  const owned = async (c: any) => {
+    const editor = await resolveLibraryEditor(c, scope)
+    const curriculum = await getCurriculum(c.env.APP_DB, c.req.param('id'))
+    if (!curriculum || curriculum.tenantId !== editor.tenantId) throw new CurriculumError('Curriculum not found.', 404)
+    return { editor, curriculum }
+  }
+  app.get(`${prefix}/:id/topics`, authenticate, async (c) => {
+    try {
+      const { curriculum } = await owned(c)
+      const topics = await listCurriculumTopics(c.env.APP_DB, curriculum.id, { subjectKey: c.req.query('subject') ? subjectKey(c.req.query('subject')) : '', classKey: String(c.req.query('classKey') || '') })
+      return c.json({ success: true, curriculum, topics })
+    } catch (error) { return materialAiFailure(c, error, 'Could not load the topics.') }
+  })
+  app.post(`${prefix}/:id/topics`, authenticate, async (c) => {
+    try {
+      const { curriculum } = await owned(c)
+      const body = await c.req.json().catch(() => ({})) as Record<string, any>
+      const rows = Array.isArray(body.rows) ? body.rows : body.csv ? parseCsv(String(body.csv)) : [body]
+      const defaults = { subject: String(body.subject || ''), class: String(body.classLabel || '') }
+      const result = await addCurriculumTopics(c.env.APP_DB, curriculum.id, rows.map((row: Record<string, any>) => ({ ...(defaults.subject ? { subject: defaults.subject } : {}), ...(defaults.class ? { class: defaults.class } : {}), ...row })))
+      return c.json({ success: true, ...result })
+    } catch (error) { return materialAiFailure(c, error, 'Could not add the topics.') }
+  })
+  /** Syllabus text, one chunk per call: Ndovera AI restructures it, Ami reviews the rows before publishing. */
+  app.post(`${prefix}/:id/import-text`, authenticate, async (c) => {
+    try {
+      const { curriculum } = await owned(c)
+      const body = await c.req.json().catch(() => ({})) as Record<string, any>
+      const text = String(body.text || '').slice(0, 400_000)
+      const { chunk, next } = importChunk(text, Math.max(0, Number(body.offset) || 0))
+      if (!chunk.trim()) return c.json({ success: true, added: 0, rejected: [], next, done: true, total: text.length })
+      const reply = await assessmentAiRunner(c.env)(curriculumImportPrompt(chunk, { subject: String(body.subject || ''), classLabel: String(body.classLabel || '') }), { maxTokens: 3500, temperature: 0.1 })
+      const rows = extractJsonArray(reply).map((row: Record<string, any>) => ({ ...(body.subject && !row.subject ? { subject: body.subject } : {}), ...(body.classLabel && !row.class ? { class: body.classLabel } : {}), ...row }))
+      const result = await addCurriculumTopics(c.env.APP_DB, curriculum.id, rows)
+      return c.json({ success: true, ...result, next, done: next >= text.length, total: text.length })
+    } catch (error) { return materialAiFailure(c, error, 'Ndovera AI could not read this part of the document.') }
+  })
+  app.put(`${prefix}/:id/topics/:topicId`, authenticate, async (c) => {
+    try {
+      const { curriculum } = await owned(c)
+      await updateCurriculumTopic(c.env.APP_DB, curriculum.id, c.req.param('topicId'), await c.req.json().catch(() => ({})))
+      return c.json({ success: true })
+    } catch (error) { return materialAiFailure(c, error, 'Could not save the topic.') }
+  })
+  app.delete(`${prefix}/:id/topics/:topicId`, authenticate, async (c) => {
+    try {
+      const { curriculum } = await owned(c)
+      await deleteCurriculumTopic(c.env.APP_DB, curriculum.id, c.req.param('topicId'))
+      return c.json({ success: true })
+    } catch (error) { return materialAiFailure(c, error, 'Could not delete the topic.') }
+  })
+}
+
+// Examination specifications are Ndovera's alone: one authoritative copy for every school.
+app.get('/api/ami/exam-specs', authenticate, async (c) => {
+  try {
+    await resolveLibraryEditor(c, 'ndovera')
+    return c.json({ success: true, specs: await listExamSpecs(c.env.APP_DB, { includeDrafts: true }), catalog: EXAM_CATALOG })
+  } catch (error) { return materialAiFailure(c, error, 'Could not load examination specifications.') }
+})
+app.post('/api/ami/exam-specs', authenticate, async (c) => {
+  try {
+    const { actor } = await resolveLibraryEditor(c, 'ndovera')
+    return c.json({ success: true, spec: await saveExamSpec(c.env.APP_DB, await c.req.json().catch(() => ({})), { actor }) }, 201)
+  } catch (error) { return materialAiFailure(c, error, 'Could not create the specification.') }
+})
+app.put('/api/ami/exam-specs/:id', authenticate, async (c) => {
+  try {
+    const { actor } = await resolveLibraryEditor(c, 'ndovera')
+    return c.json({ success: true, spec: await saveExamSpec(c.env.APP_DB, await c.req.json().catch(() => ({})), { actor, id: c.req.param('id') }) })
+  } catch (error) { return materialAiFailure(c, error, 'Could not save the specification.') }
+})
+app.post('/api/ami/exam-specs/:id/status', authenticate, async (c) => {
+  try {
+    await resolveLibraryEditor(c, 'ndovera')
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    return c.json({ success: true, spec: await setExamSpecStatus(c.env.APP_DB, c.req.param('id'), String(body.status || '')) })
+  } catch (error) { return materialAiFailure(c, error, 'Could not change the status.') }
+})
+app.delete('/api/ami/exam-specs/:id', authenticate, async (c) => {
+  try {
+    await resolveLibraryEditor(c, 'ndovera')
+    await deleteExamSpec(c.env.APP_DB, c.req.param('id'))
+    return c.json({ success: true })
+  } catch (error) { return materialAiFailure(c, error, 'Could not delete the specification.') }
+})
+app.get('/api/ami/exam-specs/:id/topics', authenticate, async (c) => {
+  try {
+    await resolveLibraryEditor(c, 'ndovera')
+    const spec = await getExamSpec(c.env.APP_DB, c.req.param('id'))
+    if (!spec) throw new CurriculumError('Specification not found.', 404)
+    const [topics, mappings] = await Promise.all([listSpecTopics(c.env.APP_DB, spec.id), mappingsForSpec(c.env.APP_DB, spec.id)])
+    return c.json({ success: true, spec, topics, mappings })
+  } catch (error) { return materialAiFailure(c, error, 'Could not load the specification.') }
+})
+app.post('/api/ami/exam-specs/:id/topics', authenticate, async (c) => {
+  try {
+    await resolveLibraryEditor(c, 'ndovera')
+    const spec = await getExamSpec(c.env.APP_DB, c.req.param('id'))
+    if (!spec) throw new CurriculumError('Specification not found.', 404)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const rows = Array.isArray(body.rows) ? body.rows : body.csv ? parseCsv(String(body.csv)) : [body]
+    return c.json({ success: true, ...(await addSpecTopics(c.env.APP_DB, spec.id, rows)) })
+  } catch (error) { return materialAiFailure(c, error, 'Could not add the topics.') }
+})
+app.post('/api/ami/exam-specs/:id/import-text', authenticate, async (c) => {
+  try {
+    await resolveLibraryEditor(c, 'ndovera')
+    const spec = await getExamSpec(c.env.APP_DB, c.req.param('id'))
+    if (!spec) throw new CurriculumError('Specification not found.', 404)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const text = String(body.text || '').slice(0, 400_000)
+    const { chunk, next } = importChunk(text, Math.max(0, Number(body.offset) || 0))
+    if (!chunk.trim()) return c.json({ success: true, added: 0, rejected: [], next, done: true, total: text.length })
+    const reply = await assessmentAiRunner(c.env)(examSpecImportPrompt(chunk, spec.subject), { maxTokens: 3500, temperature: 0.1 })
+    const result = await addSpecTopics(c.env.APP_DB, spec.id, extractJsonArray(reply))
+    return c.json({ success: true, ...result, next, done: next >= text.length, total: text.length })
+  } catch (error) { return materialAiFailure(c, error, 'Ndovera AI could not read this part of the syllabus.') }
+})
+app.put('/api/ami/exam-specs/:id/topics/:topicId', authenticate, async (c) => {
+  try {
+    await resolveLibraryEditor(c, 'ndovera')
+    await updateSpecTopic(c.env.APP_DB, c.req.param('id'), c.req.param('topicId'), await c.req.json().catch(() => ({})))
+    return c.json({ success: true })
+  } catch (error) { return materialAiFailure(c, error, 'Could not save the topic.') }
+})
+app.delete('/api/ami/exam-specs/:id/topics/:topicId', authenticate, async (c) => {
+  try {
+    await resolveLibraryEditor(c, 'ndovera')
+    await deleteSpecTopic(c.env.APP_DB, c.req.param('id'), c.req.param('topicId'))
+    return c.json({ success: true })
+  } catch (error) { return materialAiFailure(c, error, 'Could not delete the topic.') }
+})
+/** Link the specification's topics to Ndovera's published curricula automatically (manual links are kept). */
+app.post('/api/ami/exam-specs/:id/automap', authenticate, async (c) => {
+  try {
+    await resolveLibraryEditor(c, 'ndovera')
+    const curricula = await listCurricula(c.env.APP_DB, { ndoveraOnly: true, includeDrafts: true })
+    const result = await autoMapSpec(c.env.APP_DB, c.req.param('id'), curricula.filter(item => item.status !== 'archived').map(item => item.id))
+    return c.json({ success: true, ...result, mappings: await mappingsForSpec(c.env.APP_DB, c.req.param('id')) })
+  } catch (error) { return materialAiFailure(c, error, 'Could not map the specification.') }
+})
+app.post('/api/ami/exam-map', authenticate, async (c) => {
+  try {
+    const { actor } = await resolveLibraryEditor(c, 'ndovera')
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    await setMapping(c.env.APP_DB, String(body.curriculumTopicId || ''), String(body.specTopicId || ''), body.linked !== false, actor)
+    return c.json({ success: true })
+  } catch (error) { return materialAiFailure(c, error, 'Could not change the link.') }
+})
+app.get('/api/ami/material-ai/settings', authenticate, async (c) => {
+  try {
+    await resolveLibraryEditor(c, 'ndovera')
+    return c.json({ success: true, settings: await getPlatformMaterialAi(c.env.APP_DB) })
+  } catch (error) { return materialAiFailure(c, error, 'Could not load the settings.') }
+})
+app.put('/api/ami/material-ai/settings', authenticate, async (c) => {
+  try {
+    const { actor } = await resolveLibraryEditor(c, 'ndovera')
+    return c.json({ success: true, settings: await saveMaterialAiConfig(c.env.APP_DB, 'platform', await c.req.json().catch(() => ({})), actor) })
+  } catch (error) { return materialAiFailure(c, error, 'Could not save the settings.') }
+})
+
+/** A school's choices: which curricula its teachers are grounded in, and what Ndovera AI may produce (within Ndovera's limits). */
+app.get('/api/school/material-ai/settings', authenticate, async (c) => {
+  try {
+    const { tenantId } = await resolveLibraryEditor(c, 'school')
+    const [settings, curricula] = await Promise.all([getSchoolMaterialAi(c.env.APP_DB, tenantId), listCurricula(c.env.APP_DB, { tenantId })])
+    return c.json({ success: true, settings, curricula })
+  } catch (error) { return materialAiFailure(c, error, 'Could not load the settings.') }
+})
+app.put('/api/school/material-ai/settings', authenticate, async (c) => {
+  try {
+    const { tenantId, actor } = await resolveLibraryEditor(c, 'school')
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const available = new Set((await listCurricula(c.env.APP_DB, { tenantId })).map(item => item.id))
+    await saveMaterialAiConfig(c.env.APP_DB, `tenant:${tenantId}`, { ...body, curriculumIds: (Array.isArray(body.curriculumIds) ? body.curriculumIds : []).map(String).filter((id: string) => available.has(id)) }, actor)
+    return c.json({ success: true, settings: await getSchoolMaterialAi(c.env.APP_DB, tenantId) })
+  } catch (error) { return materialAiFailure(c, error, 'Could not save the settings.') }
+})
+
+// ─── Exam Readiness ──────────────────────────────────────────────────────────
+
+/** Marked work for one student in one subject: title, topic and percentage. */
+async function readinessEvidence(db: D1Database, classId: string, subjectId: string, studentIds: string[]) {
+  const assignments = await db.prepare(`SELECT * FROM assignments WHERE classId = ? AND subjectId = ?`).bind(classId, subjectId).all().catch(() => ({ results: [] }))
+  const byId = new Map(((assignments.results || []) as Record<string, any>[]).map(row => [String(row.id), row]))
+  if (!byId.size || !studentIds.length) return []
+  const rows = await db.prepare(`SELECT assignmentId, grade, content, gradedAt, submittedAt FROM submissions WHERE grade IS NOT NULL AND assignmentId IN (SELECT value FROM json_each(?))
+    AND lower(studentId) IN (SELECT lower(value) FROM json_each(?))`).bind(JSON.stringify([...byId.keys()]), JSON.stringify(studentIds)).all().catch(() => ({ results: [] }))
+  const evidence: Evidence[] = []
+  for (const row of (rows.results || []) as Record<string, any>[]) {
+    const assignment = byId.get(String(row.assignmentId))
+    if (!assignment) continue
+    const metadata = parseJsonField(assignment.metadata, {}) as Record<string, any>
+    const content = parseJsonField(row.content, {}) as Record<string, any>
+    const questions = parseJsonField(assignment.questionPayload, []) as Array<Record<string, any>>
+    const questionMarks = Array.isArray(questions) ? questions.reduce((sum, question) => sum + (Number(question?.marks) || 0), 0) : 0
+    const max = Number(content?.autoMark?.max) || Number(metadata.totalMarks) || questionMarks || Number(metadata.maxScore) || 100
+    const percent = Math.max(0, Math.min(100, Math.round((Number(row.grade) / max) * 100)))
+    if (!Number.isFinite(percent)) continue
+    evidence.push({ title: String(assignment.title || ''), topic: String(metadata.topic || metadata.topicName || ''), percent, at: String(row.gradedAt || row.submittedAt || '') })
+  }
+  return evidence
+}
+
+app.get('/api/exam-readiness', authenticate, async (c) => {
+  try {
+    const classId = String(c.req.query('classId') || '')
+    const access = await resolveClassroomLearningAccess(c.env.APP_DB, c.var.user || {}, classId, String(c.req.query('studentId') || ''))
+    if (!access.ok) return c.json({ success: false, message: access.message }, access.status)
+    const student = access.selectedStudent
+    if (!student) return c.json({ success: false, message: 'Choose a student.' }, 400)
+    const className = `${access.classRow.name || ''}${access.classRow.arm ? ` ${access.classRow.arm}` : ''}`.trim()
+    const subjects = ((await c.env.APP_DB.prepare(`SELECT id, name FROM subjects WHERE classId = ? ORDER BY name`).bind(classId).all().catch(() => ({ results: [] }))).results || []) as Record<string, any>[]
+    // Only examinations Ndovera holds a specification for: readiness is measured, never guessed.
+    const options: Array<{ subjectId: string, subjectName: string, exams: Array<{ key: string, label: string, specId: string, version: string }> }> = []
+    for (const subject of subjects) {
+      const exams = (await examOptionsFor(c.env.APP_DB, String(subject.name || ''), className)).filter(exam => exam.grounded)
+      options.push({ subjectId: String(subject.id), subjectName: String(subject.name || ''), exams: exams.map(exam => ({ key: exam.key, label: exam.label, specId: exam.specId, version: exam.version })) })
+    }
+    const subjectId = String(c.req.query('subjectId') || '')
+    const examKey = String(c.req.query('exam') || '')
+    let readiness = null
+    if (subjectId && examKey) {
+      const choice = options.find(option => option.subjectId === subjectId)
+      const exam = choice?.exams.find(item => item.key === examKey)
+      if (!choice || !exam) return c.json({ success: false, message: 'Ndovera has no specification for that examination and subject yet.' }, 404)
+      const [spec, specTopics, evidence] = await Promise.all([
+        getExamSpec(c.env.APP_DB, exam.specId), listSpecTopics(c.env.APP_DB, exam.specId),
+        readinessEvidence(c.env.APP_DB, classId, subjectId, [student.id, student.email, student.displayId].filter(Boolean).map(String)),
+      ])
+      readiness = { exam: { ...exam, name: spec?.name || exam.label, subject: choice.subjectName }, ...readinessFor(specTopics, evidence) }
+    }
+    return c.json({ success: true, student: { id: String(student.id || ''), name: String(student.name || '') }, className, options, readiness })
+  } catch (error) {
+    return materialAiFailure(c, error, 'Could not work out exam readiness.')
+  }
+})
 
 
 // ─── Timed assessments ───────────────────────────────────────────────────────

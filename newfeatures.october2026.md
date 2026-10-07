@@ -1230,4 +1230,471 @@ Tests: `richText.test.js`.
 
 The government of a country implements a fiscal policy to stimulate economic growth. The following data shows the impact of the policy on different macroeconomic variables: | Variable | Before Policy | After Policy | | --- | --- | --- | | GDP | 100 | 120 | | Inflation | 2% | 4% | | Unemployment | 5% | 4% | What can be inferred about the effectiveness of the fiscal policy? tables are still not properly resolved in the exam questions
 
+✅ FIXED (7 Oct 2026): tables in questions now draw however they are written — one line with or without a |---| row, "--" rules, rows joined by a literal 
+, a table glued to the sentences around it, and inside options/marking points. The practice-session and submission views that showed questions as plain text now render them too. Tests: `richText.test.js` (every shape of the fiscal-policy question).
 
+
+### N17. Ndovera AI — Prepare Material (curriculum- and examination-aware) — ✅ DONE AND COMPLETED (7 Oct 2026)
+- Materials → "✨ Prepare with Ndovera AI" (/roles/teacher/materials and the classroom Materials tab): 12 kinds of material; subject, topic and an optional curriculum level; length; Advanced Settings (content, visuals, assessment). Unfinished drafts can be continued.
+- Curriculum & Examination Library (Ami: /roles/ami/curriculum; schools: /roles/owner|hos/curriculum): curricula as class → subject → theme → topic → subtopics → objectives → competencies; examination specifications per exam and subject (body, version, effective dates, papers, marks, duration, calculator, practical, assessment objectives, skills, question types, source) with topics by area; curriculum ↔ exam cross-mapping (automatic, editable). Rows come from CSV or from pasted syllabus text that Ndovera AI only restructures; nothing is used until published. A school chooses which curricula its teachers use and can switch off tables/formulae/graphs/illustrations or lower the illustration limit, never above Ndovera's.
+- Curriculum Resolver before anything is written: found in the chosen class; a mismatch ("not found under Primary 4 … found under SS 2" → Use SS 2 objectives | Keep Primary 4 | Choose another topic); several levels (Fractions: Primary 3/4/5 → pick one or progressive material across levels); not found / no curriculum → continue labelled "not curriculum-checked".
+- Examinations are subject- and level-aware (no IELTS/TOEFL for Chemistry, no WAEC for Primary 4), several can be combined, and each says whether a specification is on file; without one the material is "general exam-style" and its coverage is marked unverified. The model receives the actual stored records (objectives, papers, question types, calculator rules), not "prepare this for WAEC".
+- Written section by section as structured blocks (heading, paragraph, definition, list, LaTeX formula, worked example, table, graph data drawn by Ndovera, AI illustration, exam tip, common mistake, summary, practice question with answer/solution/marking guide, flashcard, activity); every block checked as it arrives. Questions are labelled "WAEC/NECO-style Practice Question", never past questions.
+- Validator: curriculum-objective coverage, level, examination claims, arithmetic in worked examples and solutions, objective answers among their options, illustrations drawn; plus "Ask Ndovera AI to review". Teacher previews, edits each block with a live preview, moves/removes blocks, regenerates a section with an instruction, redraws illustrations, then saves as draft or publishes (failed checks need the teacher's confirmation). Students see "Prepared with Ndovera AI · reviewed by <teacher>"; answers stay hidden until the student asks.
+- Students: "Study with Ndovera AI" on a topic is grounded in the same curriculum objectives and examination specification. Exam Readiness (/roles/student/exam-readiness): per-area readiness from marked work only, areas requiring attention (with "Practise with Ndovera AI"), and what is not yet assessed.
+- Note: Flutter (ndovera_app) has only the public pages and login; teachers and students use the web app, which renders these blocks natively.
+Tests: `material-ai.test.mjs`, `PrepareMaterial.test.jsx`, `ExamReadinessPage.test.jsx`, `StructuredMaterialView.test.jsx`.
+
+New update 1 (the request above, kept for reference)
+Yes. This should become a major part of the Ndovera Materials system, but I would design it as more than a simple “Generate Note” button. It should be a Curriculum- and Examination-Aware AI Material Generator.
+The important principle is: the teacher chooses what they want to teach; Ndovera determines what the learner actually needs to know, based first on the uploaded Ndovera curricula and then on the selected examination requirements.
+Ndovera AI — Prepare Material
+Inside Materials, add:
+✨ Prepare with Ndovera AI
+
+When clicked, open a material-generation wizard.
+1. What are you preparing?
+The teacher selects:
+- Lesson Note
+- Student Study Note
+- Revision Material
+- Examination Preparation
+- Worksheet
+- Practice Questions
+- Mock Examination
+- Topic Summary
+- Teacher Guide
+- Flashcards
+- Worked Examples
+- Practical/Lab Guide
+Then:
+Section → Class → Subject → Topic
+For example:
+Secondary → SS2 → Mathematics → Quadratic Equations
+
+But Class should be optional.
+If the teacher simply enters:
+Subject: Mathematics
+Topic: Quadratic Equations
+
+Ndovera should search the uploaded curricula to determine:
+“Quadratic Equations is primarily covered under SS2 Mathematics in the selected Nigerian curriculum.”
+
+It can then automatically select the correct curriculum location.
+2. Curriculum Intelligence
+This is where the existing Ndovera Curriculum module becomes extremely important.
+The AI should not rely on its general knowledge to decide curriculum coverage when Ndovera has an uploaded curriculum.
+The hierarchy should be:
+Teacher's instruction
+        ↓
+Selected school curriculum
+        ↓
+Ndovera uploaded curriculum database
+        ↓
+Class
+        ↓
+Subject
+        ↓
+Topic
+        ↓
+Subtopics
+        ↓
+Learning objectives
+        ↓
+Expected competencies
+        ↓
+Examination requirements
+        ↓
+Generate material
+
+Suppose a Primary 4 teacher accidentally chooses:
+Primary 4 → Mathematics → Simultaneous Equations
+
+but the school's uploaded curriculum places it in a higher class.
+Ndovera should detect this before generating and show something such as:
+Curriculum mismatch detected
+“Simultaneous Equations” was not found under Primary 4 Mathematics in the curriculum currently used by your school.
+It was found under SS2 Mathematics.
+Use SS2 curriculum objectives | Keep Primary 4 | Choose another topic
+
+That prevents the AI from blindly generating inappropriate material.
+3. Examination Preparation Mode
+Add:
+Preparing students for an examination?
+Teacher can choose:
+- Normal Curriculum
+- WAEC
+- NECO
+- National Common Entrance
+- BECE/Junior Secondary examinations
+- IGCSE
+- SAT
+- IELTS
+- TOEFL
+- School Examination
+- Custom Examination
+And critically, allow multiple examinations where appropriate.
+For example:
+☑ WAEC
+☑ NECO
+☐ IGCSE
+
+Ndovera can then generate one SS3 Chemistry material that prepares students for the overlapping WAEC and NECO requirements.
+But examinations must also be subject-aware. IELTS and TOEFL should not appear as preparation options for Chemistry, for example.
+4. Examination Coverage Must Be Stored, Not Guessed
+I recommend extending your curriculum database to include an Examination Specification Library.
+For each examination:
+Examination
+ ├── Examination body
+ ├── Country/system
+ ├── Qualification
+ ├── Current specification/version
+ ├── Subjects/papers
+ ├── Syllabus
+ ├── Topic coverage
+ ├── Objectives
+ ├── Assessment objectives
+ ├── Question types
+ ├── Paper structure
+ ├── Marks
+ ├── Duration
+ ├── Practical requirements
+ ├── Calculator rules
+ ├── Required skills
+ └── Source/version/effective dates
+
+So Ndovera is not merely prompted:
+“Prepare this for WAEC.”
+
+Instead, the backend retrieves the actual relevant records for:
+WAEC → Mathematics → relevant syllabus version → topic → objectives → expected competencies → assessment requirements.
+
+Those records are supplied to the AI as grounding context.
+This is particularly important because examination specifications can change.
+5. Material Settings
+Give teachers a simple mode initially:
+Quick Generate
+Class:          SS3
+Subject:        Mathematics
+Topic:          Trigonometry
+
+Prepare for:
+☑ WAEC
+☑ NECO
+
+Material:
+Student Study Note
+
+Length:
+○ Short
+● Detailed
+○ Comprehensive
+
+[ Generate with Ndovera AI ]
+
+Then an Advanced Settings section for teachers who want more control.
+They can enable:
+Content
+☑ Explanation
+☑ Definitions
+☑ Key concepts
+☑ Worked examples
+☑ Real-life examples
+☑ Common mistakes
+☑ Examination tips
+☑ Summary
+
+Visuals
+☑ Images / illustrations
+☑ Diagrams
+☑ Tables
+☑ Graphs
+☑ Charts
+☑ Formulae / equations
+
+Assessment
+☑ Practice questions
+☑ Objective questions
+☑ Theory questions
+☑ Structured questions
+☑ Past-question-style practice
+☑ Answers
+☑ Detailed solutions
+☑ Marking guide
+
+Ndovera decides when each selected feature is pedagogically appropriate.
+Checking "graphs" should not mean the AI randomly inserts graphs everywhere.
+6. Native Rich Materials
+This is particularly important for your existing Materials feature.
+Do not have Ndovera AI return one huge Markdown string.
+The response should be structured into content blocks:
+{
+  "title": "Quadratic Equations",
+  "class": "SS2",
+  "subject": "Mathematics",
+  "sections": [
+    {
+      "type": "heading",
+      "content": "Introduction"
+    },
+    {
+      "type": "paragraph",
+      "content": "..."
+    },
+    {
+      "type": "formula",
+      "latex": "ax^2 + bx + c = 0"
+    },
+    {
+      "type": "worked_example",
+      "question": "...",
+      "steps": []
+    },
+    {
+      "type": "graph",
+      "data": {}
+    },
+    {
+      "type": "table",
+      "columns": [],
+      "rows": []
+    },
+    {
+      "type": "image",
+      "assetId": "..."
+    }
+  ]
+}
+
+This solves one of the problems you previously identified with Ndovera AI formatting.
+Flutter renders each block using the appropriate component instead of displaying raw **, ###, tables, formulas, etc.
+7. Formulae
+For Mathematics, Physics, Chemistry and related subjects, Ndovera should support proper mathematical notation.
+For example:
+\[
+x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}
+\]
+Not:
+x = (-b +- sqrt(b^2 - 4ac))/2a
+
+The AI should return LaTeX/structured mathematical expressions, which Flutter renders using a mathematics renderer.
+8. Graphs and Charts
+For a graph, don't ask the LLM to create a picture of a graph.
+Have Ndovera AI return structured graph data:
+{
+  "type": "graph",
+  "graphType": "line",
+  "title": "Graph of y = x²",
+  "xLabel": "x",
+  "yLabel": "y",
+  "points": [
+    [-3, 9],
+    [-2, 4],
+    [-1, 1],
+    [0, 0],
+    [1, 1],
+    [2, 4],
+    [3, 9]
+  ]
+}
+
+Flutter renders the graph natively.
+That makes it sharp, responsive, printable and mathematically accurate.
+9. AI-Generated Educational Images
+Images are different.
+When the material actually benefits from an illustration, the generation pipeline can request one.
+For example:
+Biology → Human Heart
+
+Ndovera could generate an appropriate educational illustration and insert it into the material.
+But images should be optional because they cost more AI resources than text.
+The administrator should therefore be able to configure:
+AI Material Generation
+
+Text generation              Enabled
+Tables                       Enabled
+Formulae                     Enabled
+Graphs                       Enabled
+AI images                    Enabled
+
+Maximum generated images
+per material:                4
+
+You can eventually price AI generation according to resource usage.
+10. Examination Intelligence
+This is where Ndovera can become particularly useful.
+Suppose the teacher requests:
+SS3 Mathematics → Trigonometry → WAEC
+
+Ndovera shouldn't simply produce a generic trigonometry lesson.
+It should retrieve the relevant curriculum and examination specification and build the material around:
+Curriculum Coverage
+What students are expected to understand.
+Prerequisite Knowledge
+What students should already know.
+Core Teaching
+Concepts, explanations, formulae, diagrams and worked examples.
+Exam Focus
+Skills and forms of application relevant to the selected specification.
+Common Errors
+Typical conceptual mistakes.
+Progressive Practice
+Easy → Intermediate → Examination standard → Challenging.
+Assessment
+Objective and structured/theory questions where appropriate.
+Solutions
+Detailed solutions and marking guidance.
+11. Don't Claim AI Questions Are Past Questions
+There is an important distinction.
+Ndovera should label generated questions:
+WAEC-style Practice Question
+
+rather than:
+WAEC 2025 Question
+
+unless an authentic, licensed/authorized question source actually exists in Ndovera.
+This protects the integrity of the platform and avoids pretending generated questions are official examination questions.
+12. Automatic Curriculum Discovery
+Your idea about unspecified classes should be implemented as a Curriculum Resolver.
+Teacher enters:
+Subject: Biology
+Topic: Mendelian Inheritance
+
+Backend searches:
+School curriculum
+      ↓
+Biology
+      ↓
+all classes
+      ↓
+topics/subtopics
+      ↓
+semantic similarity
+
+It might return:
+Best match
+
+Class: SS3
+Subject: Biology
+Curriculum Topic: Heredity
+Subtopic: Mendelian inheritance
+
+Confidence: 96%
+
+Then the generator receives the actual curriculum objectives, not just the words "Mendelian inheritance."
+13. Handle Topics That Appear Across Several Classes
+This will happen frequently.
+For example, "Fractions" could occur at multiple Primary levels with increasing difficulty.
+So Ndovera should not simply find the first occurrence.
+It should return:
+This topic appears at several curriculum levels.
+
+Primary 3 — Introduction to fractions
+Primary 4 — Equivalent fractions
+Primary 5 — Operations involving fractions
+Primary 6 — Fractions in problem solving
+
+If the teacher selected Primary 5, use the Primary 5 objectives.
+If no class was selected, Ndovera can ask the teacher to select the intended level or offer Generate Progressive Material Across Levels.
+14. Curriculum + Examination Cross-Mapping
+I would add another backend entity:
+CurriculumExamMapping
+
+For example:
+Nigerian Curriculum
+SS3
+Mathematics
+Trigonometry
+        │
+        ├──── WAEC Mathematics
+        │       ├── objective X
+        │       └── competency Y
+        │
+        └──── NECO Mathematics
+                ├── objective A
+                └── competency B
+
+This lets Ndovera know:
+What the school curriculum requires and what the examination specification expects.
+
+That is much more powerful than a generic AI prompt.
+15. Student Version
+Once the teacher generates and publishes the material, students should see:
+Study with Ndovera AI
+
+Because you already want topics connected to Ndovera AI, the student's AI should receive the same grounding:
+Student
+   ↓
+Class
+   ↓
+Subject
+   ↓
+Topic
+   ↓
+Published teacher material
+   +
+Ndovera curriculum
+   +
+Selected examination specification
+   ↓
+Ndovera AI Tutor
+
+A student could then ask:
+"I don't understand completing the square."
+
+Ndovera knows the student's class, current topic, curriculum objectives and examination being prepared for.
+16. Add an Exam Readiness Mode
+This could become one of Ndovera's strongest student features.
+For example:
+WAEC Mathematics Readiness
+
+Ndovera compares the student's progress against the examination specification:
+Number & Numeration       █████████░  91%
+Algebra                   ███████░░░  74%
+Geometry                  ████████░░  83%
+Trigonometry              █████░░░░░  52%
+Statistics                ███████░░░  71%
+
+Then:
+Areas requiring attention
+Trigonometric identities
+Bearings
+Probability
+
+The AI can then generate targeted materials and practice around those gaps.
+This should be based on actual student performance data—not merely AI guesses.
+Recommended architecture
+I would therefore make the feature:
+                 NDOVERA AI MATERIAL ENGINE
+                           │
+          ┌────────────────┼────────────────┐
+          ↓                ↓                ↓
+     Curriculum       Examination       Teacher
+       Engine            Engine          Settings
+          │                │                │
+          └────────────────┼────────────────┘
+                           ↓
+                    Context Builder
+                           ↓
+                    Ndovera AI Gateway
+                           ↓
+                  Structured Material
+                           ↓
+       ┌────────┬─────────┼─────────┬─────────┐
+       ↓        ↓         ↓         ↓         ↓
+      Text   Formulae   Tables    Graphs    Images
+       └────────┴─────────┼─────────┴─────────┘
+                          ↓
+                     AI Validator
+                          ↓
+                     Teacher Preview
+                          ↓
+                  Edit / Regenerate
+                          ↓
+                        Publish
+                          ↓
+                       Students
+
+The AI Validator is important. Before a generated note reaches students, Ndovera should automatically check that the generated material covers the retrieved objectives, uses the correct educational level, contains no unsupported examination claims, and that generated answers are internally consistent where they can be programmatically verified.
+Most importantly, the teacher remains the publisher. AI generates the draft; the teacher reviews, edits and approves it.
+This turns your existing Materials area into a proper Ndovera Curriculum & Examination Preparation Engine, rather than simply adding another AI button.

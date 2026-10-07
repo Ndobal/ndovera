@@ -19,6 +19,17 @@ export const BLOCK_TYPES = [
   { value: 'list', label: 'List' },
   { value: 'exercise', label: 'Exercise / Activity' },
   { value: 'assignment', label: 'Assignment' },
+  // Blocks written by Ndovera AI (Prepare with Ndovera AI).
+  { value: 'formula', label: 'Formula' },
+  { value: 'table', label: 'Table' },
+  { value: 'figure', label: 'Graph / diagram' },
+  { value: 'image', label: 'Illustration' },
+  { value: 'worked_example', label: 'Worked example' },
+  { value: 'exam_tip', label: 'Exam tip' },
+  { value: 'common_mistake', label: 'Common mistake' },
+  { value: 'summary', label: 'Summary' },
+  { value: 'question', label: 'Practice question' },
+  { value: 'flashcard', label: 'Flashcard' },
 ];
 
 const LIST_ITEM = /^\s*(?:(\d{1,3}|[a-zA-Z]|[ivxIVX]{1,5})[.):]?|[-*•‣◦–])\s+(\S.*)$/;

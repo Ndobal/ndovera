@@ -20,6 +20,8 @@ export type MaterialStatus = typeof MATERIAL_STATUSES[number]
 export const MATERIAL_BLOCK_TYPES = [
   'topic', 'subtopic', 'heading', 'subheading', 'paragraph', 'definition',
   'example', 'note', 'list', 'exercise', 'assignment',
+  // Prepared with Ndovera AI (materialGenerator.ts): typed, and still carrying rich text.
+  'formula', 'table', 'figure', 'image', 'worked_example', 'exam_tip', 'common_mistake', 'summary', 'question', 'flashcard',
 ] as const
 
 const STATUS_TRANSITIONS: Record<MaterialStatus, MaterialStatus[]> = {
@@ -54,7 +56,9 @@ export function sanitizeMaterialBlocks(value: unknown) {
       ? (raw as any).items.slice(0, 200).map((item: unknown) => String(item || '').slice(0, 4000)).filter(Boolean)
       : []
     if (!text.trim() && !items.length) return []
-    return [{ type, text, ...(items.length ? { items, ordered: Boolean((raw as any).ordered) } : {}) }]
+    // A practice question's answer or a flashcard's back, shown to students only when they choose to see it.
+    const answer = (type === 'question' || type === 'flashcard') ? String((raw as any).answer || '').slice(0, 12000) : ''
+    return [{ type, text, ...(items.length ? { items, ordered: Boolean((raw as any).ordered) } : {}), ...(answer.trim() ? { answer } : {}) }]
   })
 }
 

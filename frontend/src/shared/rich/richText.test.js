@@ -135,3 +135,38 @@ test('one-line tables without spaces, and ordinary multi-line tables, are both l
   const multi = 'Intro\n\n| A | B |\n| --- | --- |\n| 1 | 2 |';
   expect(normalizeTables(multi)).toBe(multi);
 });
+
+// N16 follow-up: the fiscal-policy question still showed pipes. Every way a model writes such a table must draw,
+// with the question text before and after it kept.
+describe('exam-question tables in every shape the AI writes them', () => {
+  const before = 'The following data shows the impact of the policy on different macroeconomic variables:';
+  const after = 'What can be inferred about the effectiveness of the fiscal policy?';
+  const BS = String.fromCharCode(92);
+  const shapes = {
+    'one line with a rule row': '| Variable | Before Policy | After Policy | | --- | --- | --- | | GDP | 100 | 120 | | Inflation | 2% | 4% |',
+    'one line, two-dash rule': '| Variable | Before Policy | After Policy | | -- | -- | -- | | GDP | 100 | 120 | | Inflation | 2% | 4% |',
+    'one line, no rule row': '| Variable | Before Policy | After Policy | | GDP | 100 | 120 | | Inflation | 2% | 4% |',
+    'rows joined by a literal backslash-n': ['| Variable | Before Policy | After Policy |', '| --- | --- | --- |', '| GDP | 100 | 120 |', '| Inflation | 2% | 4% |'].join(`${BS}n`),
+    'lines glued to the sentences': ['| Variable | Before Policy | After Policy |', '| --- | --- | --- |', '| GDP | 100 | 120 |', '| Inflation | 2% | 4% |'].join('\n'),
+  };
+  for (const [shape, table] of Object.entries(shapes)) {
+    test(shape, () => {
+      const html = renderRichText(`${before} ${table} ${after}`);
+      expect(html).toContain('<th>Before Policy</th>');
+      expect((html.match(/<tr>/g) || []).length).toBe(3);
+      expect(html).toContain('<td>Inflation</td>');
+      expect(html).toContain(before);
+      expect(html).toContain(after);
+      expect(html).not.toMatch(/\| *GDP/);
+    });
+  }
+
+  test('an option holding a table draws it even when rendered inline', () => {
+    expect(renderRichText(`See: ${shapes['one line with a rule row']}`, { inline: true })).toContain('<table>');
+  });
+
+  test('an empty cell in a real multi-line table and a stray pipe in prose are left alone', () => {
+    expect((renderRichText('| a | b | c |\n| --- | --- | --- |\n| 1 | | 3 |').match(/<td>/g) || []).length).toBe(3);
+    expect(renderRichText('Use a | b | | c | d for OR.')).not.toContain('<table>');
+  });
+});

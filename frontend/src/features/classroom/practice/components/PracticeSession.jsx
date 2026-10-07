@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import RichContent from '../../../../shared/rich/RichContent';
 
 function emptyResponseForQuestion(question) {
   const type = String(question?.type || question?.responseType || 'mcq').trim().toLowerCase();
@@ -130,9 +131,7 @@ export default function PracticeSession({
       <div className="glass-surface rounded-3xl p-6 space-y-6">
         {/* Question Text */}
         <div className="space-y-4">
-          <h2 className="text-lg font-medium text-slate-100 leading-relaxed">
-            {question.text}
-          </h2>
+          <RichContent as="h2" className="text-lg font-medium text-slate-100 leading-relaxed ndv-rich-ondark" text={question.text} />
 
           {/* Question Image (if available) */}
           {question.imageUrl && (

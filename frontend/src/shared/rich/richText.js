@@ -116,7 +116,34 @@ const PIPE_ROW = /^\s*\|.*\|\s*$/;
 const RULE_ROW = /^\s*\|?\s*:?-{2,}:?\s*(\|\s*:?-{2,}:?\s*)*\|?\s*$/;
 const cellCount = line => line.trim().replace(/^\||\|$/g, '').split('|').length;
 
-const INLINE_RULE = /\|(?:[ \t]*:?-{3,}:?[ \t]*\|)+/;
+const INLINE_RULE = /\|(?:[ \t]*:?-{2,}:?[ \t]*\|)+/;
+// "| 120 | | Inflation |": an empty cell between two rows of a table written on one line.
+const INLINE_ROW_BREAK = /\S[ \t]*\|[ \t]+\|[ \t]*\S/;
+
+/**
+ * A one-line table with no |---| row: "…: | Variable | Before | After | | GDP | 100 | 120 | | CPI | 2 | 4 | What…".
+ * Empty cells split it into rows; it is a table only when there are at least two
+ * rows, every row has the same number (two or more) of non-empty cells.
+ */
+function unfoldRulelessTable(line) {
+  if (/^\s*\|.*\|\s*$/.test(line) && !INLINE_ROW_BREAK.test(line)) return line;
+  const first = line.indexOf('|');
+  const last = line.lastIndexOf('|');
+  if (first < 0 || last <= first) return line;
+  const cells = line.slice(first + 1, last).split('|').map(cell => cell.trim());
+  const rows = [[]];
+  for (const cell of cells) {
+    if (cell) rows[rows.length - 1].push(cell);
+    else if (rows[rows.length - 1].length) rows.push([]);
+  }
+  if (!rows[rows.length - 1].length) rows.pop();
+  const columns = rows[0].length;
+  if (rows.length < 2 || columns < 2 || rows.some(row => row.length !== columns)) return line;
+  const prefix = line.slice(0, first).trim();
+  const suffix = line.slice(last + 1).trim();
+  const [header, ...body] = rows.map(row => `| ${row.join(' | ')} |`);
+  return [...(prefix ? [prefix, ''] : []), header, `|${' --- |'.repeat(columns)}`, ...body, ...(suffix ? ['', suffix] : [])].join('\n');
+}
 
 /**
  * A whole table written on one line, as pasted exam questions and some AI output
@@ -128,7 +155,7 @@ const INLINE_RULE = /\|(?:[ \t]*:?-{3,}:?[ \t]*\|)+/;
 function unfoldInlineTable(line) {
   const rule = INLINE_RULE.exec(line);
   if (!rule) return line;
-  const columns = (rule[0].match(/-{3,}/g) || []).length;
+  const columns = (rule[0].match(/-{2,}/g) || []).length;
   const before = line.slice(0, rule.index).replace(/[ \t]+$/, '');
   if (!before.endsWith('|')) return line;
   // The header: the last `columns` cells before the rule row.
@@ -162,6 +189,51 @@ function unfoldInlineTable(line) {
   return [...(prefix ? [prefix, ''] : []), header.trim(), ruleRow, ...rows, ...(suffix ? ['', suffix] : [])].join('\n');
 }
 
+/** Index just past the `count`-th pipe of `line` at or after `from`, or -1. */
+function afterPipes(line, count, from = 0) {
+  let cursor = from;
+  for (let pipe = 0; pipe < count; pipe += 1) {
+    const at = line.indexOf('|', cursor);
+    if (at < 0) return -1;
+    cursor = at + 1;
+  }
+  return cursor;
+}
+
+/**
+ * A table laid out over lines but glued to the sentences around it:
+ *   "The data shows: | V | B | C |" / "| --- | --- | --- |" / "| GDP | 1 | 2 | What can…"
+ * The sentence before goes above the table and the one after below it.
+ */
+function gluedTableLines(lines) {
+  const out = [];
+  let columns = 0;
+  lines.forEach((line, index) => {
+    const next = lines[index + 1] || '';
+    if (RULE_ROW.test(next) && next.includes('|') && !PIPE_ROW.test(line) && /\|\s*$/.test(line)) {
+      const count = cellCount(next);
+      let start = line.length;
+      for (let pipe = 0; pipe <= count && start >= 0; pipe += 1) start = line.lastIndexOf('|', start - 1);
+      if (start > 0) {
+        out.push(line.slice(0, start).trim(), '', line.slice(start).trim());
+        columns = 0;
+        return;
+      }
+    }
+    if (RULE_ROW.test(line) && line.includes('|')) columns = cellCount(line);
+    else if (columns && /^\s*\|/.test(line) && !PIPE_ROW.test(line)) {
+      const end = afterPipes(line, columns + 1);
+      if (end > 0 && line.slice(end).trim()) {
+        out.push(line.slice(0, end).trim(), '', line.slice(end).trim());
+        columns = 0;
+        return;
+      }
+    } else if (!PIPE_ROW.test(line)) columns = 0;
+    out.push(line);
+  });
+  return out;
+}
+
 /**
  * Repair tables the way AI models and pasted text often write them, so they draw:
  *   • a whole table on one line ("| a | b | | --- | --- | | 1 | 2 |");
@@ -171,10 +243,15 @@ function unfoldInlineTable(line) {
  */
 export function normalizeTables(source) {
   let text = String(source || '');
-  // "| a | b |\n| c | d |" written with a backslash-n between rows (not LaTeX such as \nu: only next to a pipe).
-  if (/\|\s*\\n\s*\|/.test(text)) text = text.replace(/\|[ \t]*\\n[ \t]*(?=\|)/g, '|\n').replace(/([^\\\n|])\\n[ \t]*(?=\|)/g, '$1\n').replace(/(\|)[ \t]*\\n(?=\s*[^|\s])/g, '$1\n');
+  // "| a | b |\n| c | d |" written with a backslash-n between rows (not LaTeX such as \nu: only next to a pipe):
+  // folded into the one-line form, which keeps the sentence before and after the table.
+  if (/\|\s*\\n\s*\|/.test(text)) text = text.replace(/\|[ \t]*\\n[ \t]*(?=\|)/g, '| ').replace(/([^\\\n|])\\n[ \t]*(?=\|)/g, '$1 ').replace(/(\|)[ \t]*\\n(?=\s*[^|\s])/g, '$1 ');
   if (INLINE_RULE.test(text)) text = text.split('\n').map(unfoldInlineTable).join('\n');
-  const lines = text.split('\n');
+  // Only lone lines: a row of a table already laid out over several lines may legitimately have an empty cell.
+  if (INLINE_ROW_BREAK.test(text)) {
+    text = text.split('\n').map((line, index, all) => (PIPE_ROW.test(all[index - 1] || '') || PIPE_ROW.test(all[index + 1] || '') ? line : unfoldRulelessTable(line))).join('\n');
+  }
+  const lines = gluedTableLines(text.split('\n'));
   const out = [];
   for (let index = 0; index < lines.length; index += 1) {
     const line = lines[index];
@@ -192,10 +269,12 @@ export function normalizeTables(source) {
   return out.join('\n');
 }
 
-export function renderRichText(source, { inline = false, linearMath = false } = {}) {
+export function renderRichText(source, { inline: requestedInline = false, linearMath = false } = {}) {
   const raw = String(source || '').replace(/\r\n?/g, '\n');
   if (!raw.trim()) return '';
   const { text, figures } = splitFigures(raw);
+  // An option or marking point that carries a table is laid out as a block, so the table draws.
+  const inline = requestedInline && !/(^|\n)\s*\|.*\|\s*\n\s*\|/.test(normalizeTables(text));
   const math = [];
   const prepared = extractMath(inline ? text : tabsToTables(normalizeTables(text)), math);
   const html = inline

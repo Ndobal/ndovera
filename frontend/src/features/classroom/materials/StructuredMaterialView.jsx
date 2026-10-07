@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import RichContent from '../../../shared/rich/RichContent';
+import { Flashcard } from '../../material-ai/AiBlocks';
 
 // Renders a structured lesson note. Presentation (case, spacing, callouts) lives
 // here in the styles; the stored text is exactly what the teacher wrote.
@@ -10,7 +11,32 @@ const CALLOUTS = {
   note: { label: 'Note', className: 'border-[#c9a96e] bg-[#fff6e0]' },
   exercise: { label: 'Exercise / Activity', className: 'border-[#800020] bg-[#fdeef2]' },
   assignment: { label: 'Assignment', className: 'border-[#800000] bg-[#fbe9e4]' },
+  worked_example: { label: 'Worked example', className: 'border-[#191970] bg-[#eef0ff]' },
+  exam_tip: { label: 'Exam tip', className: 'border-[#191970] bg-[#eef0ff]' },
+  common_mistake: { label: 'Common mistake', className: 'border-rose-500 bg-rose-50' },
+  summary: { label: 'Summary', className: 'border-[#800000] bg-[#fbe9e4]' },
 };
+
+// A practice question from Ndovera AI: options lettered, the answer only when the student asks.
+function QuestionBlock({ block }) {
+  const [shown, setShown] = useState(false);
+  return (
+    <section className="rounded-2xl border border-[#c9a96e]/45 bg-white p-4" aria-label="Practice question">
+      <RichContent text={block.text} />
+      {block.items?.length > 0 && (
+        <ol className="mt-2 space-y-1 text-sm">
+          {block.items.map((item, index) => <li key={index} className="flex gap-2"><span className="font-bold">{String.fromCharCode(65 + index)}.</span><RichContent inline text={item} /></li>)}
+        </ol>
+      )}
+      {block.answer && (
+        <div className="mt-2">
+          <button type="button" className="text-xs font-bold text-[#1a5c38] underline" onClick={() => setShown(value => !value)}>{shown ? 'Hide answer' : 'Show answer'}</button>
+          {shown && <RichContent text={block.answer} className="mt-2 rounded-xl bg-[#e8f5ee] p-3 text-sm" />}
+        </div>
+      )}
+    </section>
+  );
+}
 
 function Items({ block }) {
   if (!block.items?.length) return null;
@@ -62,6 +88,17 @@ export default function StructuredMaterialView({ blocks, className = '' }) {
             );
           case 'paragraph':
             return <RichContent key={index} text={block.text} />;
+          // Formulae, tables, graphs and illustrations carry their content as rich text, drawn natively.
+          case 'formula':
+            return <RichContent key={index} text={block.text} className="rounded-xl bg-white/70 p-2 text-center" />;
+          case 'table':
+          case 'figure':
+          case 'image':
+            return <RichContent key={index} text={block.text} className="text-center [&_table]:text-left" />;
+          case 'question':
+            return <QuestionBlock key={index} block={block} />;
+          case 'flashcard':
+            return <Flashcard key={index} front={block.text} back={block.answer || ''} />;
           default: {
             const callout = CALLOUTS[group.type];
             if (!callout) return <RichContent key={index} text={block.text} />;

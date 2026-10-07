@@ -10,6 +10,7 @@ import TeacherMaterialList from './materials/TeacherMaterialList';
 import SupervisionClassPicker from './SupervisionClassPicker';
 import StreamThread, { AutoGrowTextarea } from './stream/StreamThread';
 import MaterialBatchList from './materials/MaterialBatchList';
+import PrepareMaterialPanel from '../material-ai/PrepareMaterial';
 import { getStoredAuth } from '../auth/services/authApi';
 import { getPeople } from '../school/services/schoolApi';
 
@@ -1430,6 +1431,10 @@ export default function TeacherClassroom({
                     Visibility controlled per material
                   </span>
                 </div>
+
+                {!(supervision && !supervision.canIntervene && !selectedClass?.isClassTeacher) && materialSubjects.length > 0 && (
+                  <PrepareMaterialPanel classId={classId} subjects={materialSubjects} defaultSubjectId={materialSubjectId} onPublished={loadAll} />
+                )}
 
                 {supervision && !supervision.canIntervene && !selectedClass?.isClassTeacher ? (
                   <div className="rounded-2xl border border-[#c9a96e]/35 bg-[#fff8f0] p-4 text-sm text-[#191970] dark:border-[#bf00ff]/30 dark:bg-black/20 dark:text-[#39ff14]">

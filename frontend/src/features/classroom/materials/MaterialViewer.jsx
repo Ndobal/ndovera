@@ -154,6 +154,14 @@ export default function MaterialViewer({ material, onClose }) {
               {[material.subjectName, material.metadata?.postedByLabel ? `Posted by ${material.metadata.postedByLabel}` : ''].filter(Boolean).join(' • ')}
             </p>
           ) : null}
+          {material.metadata?.ai?.label ? (
+            <p className="truncate text-[11px] font-semibold text-[#1a5c38]" title={[
+              material.metadata.ai.curriculumChecked ? `Curriculum: ${(material.metadata.ai.curriculum || []).map(item => `${item.classLabel} ${item.topic}`).join('; ')}` : 'Not curriculum-checked',
+              (material.metadata.ai.exams || []).length ? `Prepared for ${(material.metadata.ai.exams || []).map(exam => `${exam.label}${exam.grounded ? '' : ' (no specification on file)'}`).join(', ')}` : '',
+            ].filter(Boolean).join(' · ')}>
+              ✨ {material.metadata.ai.label}
+            </p>
+          ) : null}
         </div>
 
         {kind === 'image' ? (

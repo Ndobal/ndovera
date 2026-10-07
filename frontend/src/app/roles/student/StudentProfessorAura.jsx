@@ -44,7 +44,8 @@ function StudentProfessorAura({ viewerRole = 'student', dashboardLabel = 'Studen
   const chatSessionKey = `student-professor-aura:${String(viewerRole || 'student').trim().toLowerCase()}`;
   const persisted = readChatSession(chatSessionKey, { selectedMode: modes[0], messages: buildWelcomeMessage(viewerRole) });
   const [selectedMode, setSelectedMode] = useState(() => modes.includes(persisted.selectedMode) ? persisted.selectedMode : modes[0]);
-  const [input, setInput] = useState('');
+  // Exam Readiness links here with a ready-made request; the student still chooses to send it.
+  const [input, setInput] = useState(() => { try { return new URLSearchParams(window.location.search).get('prompt') || ''; } catch { return ''; } });
   const [messages, setMessages] = useState(() => Array.isArray(persisted.messages) && persisted.messages.length ? persisted.messages : buildWelcomeMessage(viewerRole));
   const [accessPayload, setAccessPayload] = useState(null);
   const [loadingAccess, setLoadingAccess] = useState(true);
