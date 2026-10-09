@@ -119,7 +119,16 @@ export default function TeacherDashboard({ auth }) {
   }
 
   if (sectionKey === 'practice') {
-    return <TeacherExams mode="practice" title="Practice Drills" subtitle="Create live practice drills from the question bank instead of placeholder demo data." />;
+    // Practice is no longer set by teachers: students practise from the question bank, which
+    // gathers every question teachers give (assignments, notes, tests, submitted work).
+    return (
+      <div className="mx-auto max-w-3xl p-8">
+        <div className="rounded-3xl border border-[#c9a96e]/40 bg-white p-6 text-[#191970] shadow-sm dark:border-white/10 dark:bg-slate-900/70 dark:text-slate-100">
+          <h1 className="text-2xl font-black">Practice is now automatic</h1>
+          <p className="mt-2 text-sm">Every question you give — in assignments, notes, materials, tests and submitted work — goes into the question bank, and your students practise from it in their Practice Arena. Exam questions stay hidden until after the exam. There is nothing to set up here.</p>
+        </div>
+      </div>
+    );
   }
 
   if (sectionKey === 'attendance') {

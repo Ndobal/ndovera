@@ -131,6 +131,13 @@ async function saveProgress(db: D1Database, assessment: Assessment, patch: { que
   return (await getAssessment(db, assessment.tenantId, assessment.id))!
 }
 
+/** Regenerate the whole set: the old questions stay in version history; every slot is written again. */
+export async function resetQuestions(db: D1Database, assessment: Assessment, actor: Actor) {
+  if (!['draft', 'finalised'].includes(assessment.status)) throw new AssessmentError('This assessment has already been posted or submitted. Make a copy to write a new set.', 409)
+  if (assessment.kind === 'exam' && !assessment.blueprintApproved) throw new AssessmentError('Approve the exam blueprint first.', 409)
+  return saveVersion(db, assessment, { questions: [], failed: [], review: null, status: 'draft' }, actor, 'Regenerating', `The whole set (${assessment.questions.length} question(s)) is being written again`)
+}
+
 export async function listVersions(db: D1Database, tenantId: string, assessmentId: string) {
   await ensureAiAssessmentTables(db)
   const rows = await db.prepare(`SELECT version, label, change_summary, changed_by_name, created_at FROM ai_assessment_versions WHERE tenant_id = ? AND assessment_id = ? ORDER BY version DESC`).bind(tenantId, assessmentId).all()

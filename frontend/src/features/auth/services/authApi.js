@@ -420,6 +420,8 @@ export function clearStoredAuth() {
 		window.sessionStorage.setItem(SIGNED_OUT_TENANT_REDIRECT_KEY, `https://${tenantSubdomain}.ndovera.com`);
 	}
 
+	// Data kept for offline reading belongs to the person signing out; clear it from this device.
+	try { navigator.serviceWorker?.controller?.postMessage({ type: 'CLEAR_USER_CACHE' }); } catch {}
 	window.localStorage.removeItem(AUTH_TOKEN_KEY);
 	window.localStorage.removeItem(AUTH_USER_KEY);
 	window.localStorage.removeItem(AUTH_PROFILE_SYNC_KEY);

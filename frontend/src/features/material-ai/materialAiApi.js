@@ -40,6 +40,7 @@ export const createMaterialDraft = body => request('/api/material-ai/drafts', { 
 export const getMaterialDraft = draftId => request(`/api/material-ai/drafts/${id(draftId)}`);
 export const discardMaterialDraft = draftId => request(`/api/material-ai/drafts/${id(draftId)}`, { method: 'DELETE' });
 export const generateNextSection = draftId => request(`/api/material-ai/drafts/${id(draftId)}/next`, { method: 'POST' });
+export const regenerateWholeMaterial = draftId => request(`/api/material-ai/drafts/${id(draftId)}/regenerate-all`, { method: 'POST' });
 export const regenerateSection = (draftId, key, instruction) => request(`/api/material-ai/drafts/${id(draftId)}/sections/${id(key)}/regenerate`, { method: 'POST', body: { instruction } });
 export const saveDraftBlocks = (draftId, blocks, title) => request(`/api/material-ai/drafts/${id(draftId)}/blocks`, { method: 'PUT', body: { blocks, title } });
 export const redrawImage = (draftId, index) => request(`/api/material-ai/drafts/${id(draftId)}/images/${index}`, { method: 'POST' });

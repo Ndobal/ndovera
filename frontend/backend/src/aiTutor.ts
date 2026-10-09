@@ -51,7 +51,7 @@ export type AiAccessSummary = {
 
 export const DEFAULT_AI_BILLING_POLICY: AiBillingPolicy = {
   billingModel: 'individual',
-  dailyFreeRequests: 50,
+  dailyFreeRequests: 10,
   pricePerCreditNaira: 0,
   creditsPerRequest: 1,
 }
@@ -298,8 +298,8 @@ export async function consumeAiAccess(db: D1Database, args: ConsumeAiAccessArgs)
       allowed: false,
       statusCode: 402,
       reason: access.policy.pricePerCreditNaira > 0
-        ? `Your 50 free AI requests for today are used up. Buy more credits at N${access.policy.pricePerCreditNaira} per credit to continue.`
-        : 'Your 50 free AI requests for today are used up and AI credit pricing has not been configured yet.',
+        ? `Your ${access.policy.dailyFreeRequests} free AI requests for today are used up. Buy an AI credit bundle to continue.`
+        : `Your ${access.policy.dailyFreeRequests} free AI requests for today are used up. Buy an AI credit bundle to continue.`,
       source: 'blocked',
       chargedCredits: 0,
       access,
@@ -438,4 +438,72 @@ export async function saveAiPaymentRecord(db: D1Database, txRef: string, payment
   const next = mapAiPaymentRecord({ ...payment, txRef, updatedAt: new Date().toISOString() }, txRef)
   await upsertSettings(db, key, next)
   return getAiPaymentRecord(db, txRef)
+}
+// ─── Free use per role, credit bundles, and spending credits on generation ────
+
+/** Free Ndovera AI requests a day: 10 for students, 3 for everyone else (staff and parents). */
+export const FREE_DAILY_REQUESTS = { student: 10, other: 3 } as const
+
+export function freeRequestsForRole(role: string) {
+  return String(role || '').trim().toLowerCase() === 'student' ? FREE_DAILY_REQUESTS.student : FREE_DAILY_REQUESTS.other
+}
+
+/** 1 credit is worth ₦1 of Ndovera AI. Bigger bundles carry bonus credits. */
+export const AI_CREDIT_BUNDLES = [
+  { key: 'starter', label: 'Starter', credits: 500, bonus: 0, priceNaira: 500, blurb: '5 assignments or 10 sets of notes' },
+  { key: 'standard', label: 'Standard', credits: 1000, bonus: 200, priceNaira: 1000, blurb: 'Most popular — 20% bonus credits', popular: true },
+  { key: 'pro', label: 'Pro', credits: 2500, bonus: 750, priceNaira: 2500, blurb: '30% bonus — a term of exams and notes' },
+  { key: 'school', label: 'School Pack', credits: 10000, bonus: 4000, priceNaira: 10000, blurb: '40% bonus — for the whole staff (school wallet)', schoolOnly: true },
+] as const
+
+export function findCreditBundle(key: unknown) {
+  return AI_CREDIT_BUNDLES.find(bundle => bundle.key === String(key || '').trim().toLowerCase()) || null
+}
+
+/**
+ * Take `credits` from the person's wallet, or (if short) from the school's.
+ * Returns which wallet paid, or null when neither holds enough.
+ */
+export async function spendAiCredits(db: D1Database, args: { settingsKey: string, tenantId: string, credits: number }) {
+  const credits = clampInteger(args.credits, 0, 0)
+  if (!credits) return { paidBy: 'none' as const, balance: 0 }
+  const settingsKey = String(args.settingsKey || '').trim()
+  const tenantId = String(args.tenantId || '').trim()
+  if (settingsKey) {
+    const wallet = await getUserWallet(db, settingsKey)
+    if (wallet.credits >= credits) {
+      wallet.credits -= credits
+      wallet.updatedAt = new Date().toISOString()
+      const saved = await saveUserWallet(db, settingsKey, wallet)
+      return { paidBy: 'individual' as const, balance: saved.credits }
+    }
+  }
+  if (tenantId) {
+    const wallet = await getSchoolWallet(db, tenantId)
+    if (wallet.credits >= credits) {
+      wallet.credits -= credits
+      wallet.updatedAt = new Date().toISOString()
+      const saved = await saveSchoolWallet(db, tenantId, wallet)
+      return { paidBy: 'school' as const, balance: saved.credits }
+    }
+  }
+  return null
+}
+
+/** Give credits back (a charge recorded twice by a race). */
+export async function refundAiCredits(db: D1Database, args: { settingsKey: string, tenantId: string, credits: number, paidBy: 'individual' | 'school' }) {
+  if (args.paidBy === 'school') {
+    const wallet = await getSchoolWallet(db, args.tenantId)
+    wallet.credits += clampInteger(args.credits, 0, 0)
+    await saveSchoolWallet(db, args.tenantId, wallet)
+  } else {
+    const wallet = await getUserWallet(db, args.settingsKey)
+    wallet.credits += clampInteger(args.credits, 0, 0)
+    await saveUserWallet(db, args.settingsKey, wallet)
+  }
+}
+
+export async function creditBalances(db: D1Database, settingsKey: string, tenantId: string) {
+  const [user, school] = await Promise.all([getUserWallet(db, settingsKey), tenantId ? getSchoolWallet(db, tenantId) : Promise.resolve(mapWalletRecord(null))])
+  return { credits: user.credits, schoolCredits: school.credits }
 }

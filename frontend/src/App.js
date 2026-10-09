@@ -6,6 +6,7 @@ import TeacherCompliancePage from './features/compliance/TeacherCompliancePage';
 import ClassReportPage from './features/compliance/ClassReportPage';
 import CurriculumLibraryPage from './features/material-ai/CurriculumLibraryPage';
 import ExamReadinessPage from './features/material-ai/ExamReadinessPage';
+import OfflineNotesPage from './features/offline-notes/OfflineNotesPage';
 import StaffFilePage from './features/staff-file/StaffFilePage';
 import StudentFileRoute from './features/students/components/StudentFileRoute';
 import { ExamLetterheadPage } from './features/assessments/AiAssessmentStudio';
@@ -277,6 +278,7 @@ function AnimatedRoutes({ auth, onLogin }) {
         <Route path="/roles/owner/curriculum" element={<RoleGuard auth={auth} expectedRole="owner"><RouteTransition><CurriculumLibraryPage scope="school" /></RouteTransition></RoleGuard>} />
         <Route path="/roles/hos/curriculum" element={<RoleGuard auth={auth} expectedRole="hos"><RouteTransition><CurriculumLibraryPage scope="school" /></RouteTransition></RoleGuard>} />
         <Route path="/roles/student/exam-readiness" element={<RoleGuard auth={auth} expectedRole="student"><RouteTransition><ExamReadinessPage /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/student/offline-notes" element={<RoleGuard auth={auth} expectedRole="student"><RouteTransition><OfflineNotesPage /></RouteTransition></RoleGuard>} />
         <Route path="/roles/owner/exam-letterhead" element={<RoleGuard auth={auth} expectedRole="owner"><RouteTransition><ExamLetterheadPage dashboardLabel="Owner Dashboard" /></RouteTransition></RoleGuard>} />
         <Route path="/roles/hos/exam-letterhead" element={<RoleGuard auth={auth} expectedRole="hos"><RouteTransition><ExamLetterheadPage dashboardLabel="Head of School" /></RouteTransition></RoleGuard>} />
         <Route path="/roles/owner/submissions" element={<RoleGuard auth={auth} expectedRole="owner"><RouteTransition><SubmissionReviewPage dashboardLabel="Owner Dashboard" /></RouteTransition></RoleGuard>} />

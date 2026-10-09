@@ -2,9 +2,10 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { getAssignedClasses } from '../classroom/classroomService';
 import {
-  BLOOM, BLOOM_LABELS, KIND_LABELS, STATUS_LABELS, approveAssessmentBlueprint, createAiAssessment, generateNextQuestions, getAiAssessment,
+  BLOOM, BLOOM_LABELS, KIND_LABELS, STATUS_LABELS, approveAssessmentBlueprint, createAiAssessment, generateNextQuestions, getAiAssessment, regenerateWholeAssessment,
   getAssessmentOptions, getExamLetterhead, listMyAssessments, saveExamLetterhead,
 } from './assessmentsApi';
+import AiCreditsBar, { needsCredits } from '../ai-credits/AiCredits';
 import AssessmentWorkspace from './AssessmentWorkspace';
 import PaperStructureEditor from './PaperStructureEditor';
 import { Letterhead } from './PaperPreview';
@@ -202,17 +203,17 @@ function BlueprintEditor({ assessment, onApproved }) {
 }
 
 function GenerationProgress({ assessment, onDone }) {
-  const [state, setState] = useState({ written: assessment.questions.length, total: assessment.slots.length, error: '' });
+  const [state, setState] = useState({ written: assessment.questions.length, total: assessment.slots.length, error: '', shortfall: null });
   const stopped = useRef(false);
   const run = useCallback(async () => {
-    setState(previous => ({ ...previous, error: '' }));
+    setState(previous => ({ ...previous, error: '', shortfall: null }));
     try {
       for (let guard = 0; guard < 60 && !stopped.current; guard += 1) {
         const result = await generateNextQuestions(assessment.id);
-        setState({ written: result.assessment.questions.length, total: result.assessment.slots.length, error: '' });
+        setState({ written: result.assessment.questions.length, total: result.assessment.slots.length, error: '', shortfall: null });
         if (result.done) { onDone(result.assessment); return; }
       }
-    } catch (err) { setState(previous => ({ ...previous, error: err.message })); }
+    } catch (err) { setState(previous => ({ ...previous, error: err.message, shortfall: needsCredits(err) ? err.data : null })); }
   }, [assessment.id, onDone]);
   useEffect(() => { stopped.current = false; run(); return () => { stopped.current = true; }; }, [run]);
   const percent = state.total ? Math.round((state.written / state.total) * 100) : 0;
@@ -220,9 +221,10 @@ function GenerationProgress({ assessment, onDone }) {
     <section className={`${CARD} space-y-3`} aria-live="polite">
       <h2 className="text-xl font-black text-[#800000] dark:text-white">Ndovera AI is writing your {KIND_LABELS[assessment.kind].toLowerCase()}…</h2>
       <p className="text-sm text-[#191970] dark:text-slate-300">From your topics and notes, a few questions at a time. Each one is checked before it is kept.</p>
+      <AiCreditsBar kind={assessment.kind === 'exam' ? 'exam' : 'assignment'} shortfall={state.shortfall} onRetry={run} />
       <div className="h-4 w-full overflow-hidden rounded-full bg-white"><div className="h-full bg-[#1a5c38] transition-all" style={{ width: `${percent}%` }} /></div>
       <p className="text-sm font-bold text-[#191970] dark:text-white">{state.written} of {state.total} questions written</p>
-      {state.error && <div className="flex items-center gap-2"><p role="alert" className="flex-1 text-sm font-semibold text-rose-700">{state.error}</p><button type="button" className={PRIMARY} onClick={run}>Try again</button></div>}
+      {state.error && !state.shortfall && <div className="flex items-center gap-2"><p role="alert" className="flex-1 text-sm font-semibold text-rose-700">{state.error}</p><button type="button" className={PRIMARY} onClick={run}>Try again</button></div>}
     </section>
   );
 }
@@ -344,6 +346,15 @@ export default function AiAssessmentStudio() {
       {view === 'create' && (classes ? (classes.length ? <SetupForm classes={classes} prefill={prefill} onCreated={afterCreate} onCancel={() => setView('home')} /> : <p>No classes with subjects are assigned to you yet.</p>) : <p role="status">Loading your classes…</p>)}
       {view === 'blueprint' && current && <BlueprintEditor assessment={current} onApproved={next => { setCurrent(next); setView('generate'); }} />}
       {view === 'generate' && current && <GenerationProgress assessment={current} onDone={onGenerated} />}
+      {view === 'workspace' && current && ['draft', 'finalised'].includes(current.status) && current.canEdit !== false && (
+        <div className="ndv-no-print flex flex-wrap items-center gap-3 rounded-2xl bg-white/70 px-4 py-3 text-sm text-[#191970] dark:bg-slate-900/60 dark:text-slate-200">
+          <span className="flex-1">Not happy with the whole set? Ndovera AI can write it all again for half the credits; this version stays in the history.</span>
+          <button type="button" className={SECONDARY} onClick={async () => {
+            if (!window.confirm('Write the whole set again? It uses half the credits of a new set.')) return;
+            try { const result = await regenerateWholeAssessment(current.id); setCurrent(result.assessment); setView('generate'); } catch (err) { setError(err.message); }
+          }}>↻ Regenerate whole set</button>
+        </div>
+      )}
       {view === 'workspace' && current && <AssessmentWorkspace key={current.id} initial={current} letterhead={letterhead || {}} onBack={() => { setView('home'); setCurrent(null); loadList(); }} />}
       {view === 'letterhead' && letterhead && (
         <>

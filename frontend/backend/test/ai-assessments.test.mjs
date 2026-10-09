@@ -141,7 +141,7 @@ async function call(db, person, method, path, body, ai) {
   const token = await sign({ id, role, roles: [role], tenantId, name: id, exp: Math.floor(Date.now() / 1000) + 600 }, SECRET)
   const response = await worker.fetch(new Request(`https://ndovera.com${path}`, {
     method, headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' }, body: body ? JSON.stringify(body) : undefined,
-  }), { APP_DB: db, JWT_SECRET: SECRET, AI: ai || fakeModel([]) }, { waitUntil() {}, passThroughOnException() {} })
+  }), { APP_DB: db, JWT_SECRET: SECRET, AI: ai || fakeModel([]), AI_PAY_START: '2999-01-01T00:00:00Z' }, { waitUntil() {}, passThroughOnException() {} })
   return { status: response.status, body: await response.json().catch(() => ({})) }
 }
 

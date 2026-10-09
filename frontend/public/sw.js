@@ -4,7 +4,21 @@
 // a shell asking for JavaScript that no longer exists, and render nothing at all. The
 // shell is now fetched fresh every time, and only assets whose names change with their
 // contents are kept.
-var CACHE_NAME = 'ndovera-pwa-v7';
+var CACHE_NAME = 'ndovera-pwa-v8';
+// Offline-first, restored safely (v8). The app shell IS kept again — but only together
+// with every script and stylesheet it names, stored as one unit after all of them have
+// downloaded. Online, a page always comes fresh from the network; the kept shell is used
+// only when there is no network, and it can never point at bundles that are not kept.
+var SHELL_CACHE = 'ndovera-shell-v1';
+var SHELL_KEY = '/__ndovera_shell__';
+// Data the app has read (GET /api), per signed-in person, for reading offline.
+var API_CACHE = 'ndovera-api-v1';
+// Materials, images and PDFs once opened (/files/), readable offline afterwards.
+var FILES_CACHE = 'ndovera-files-v1';
+var API_CACHE_LIMIT = 400;
+var FILES_CACHE_LIMIT = 200;
+// Never kept: sign-in, payments, AI (always live), push and anything with a secret in it.
+var API_NEVER_CACHE = /^\/api\/(auth|login|logout|ai\/|ai-pay|push|payments?|flutterwave|tenants\/register|password|reset|uploads?)/i;
 var NOTIFICATION_STATE_CACHE = 'ndovera-notification-state-v1';
 var NOTIFICATION_STATE_KEY = '/__fee-reminder-state__';
 var PUSH_CONTEXT_KEY = '/__push-context__';
@@ -280,11 +294,167 @@ function shouldCacheResponse(request, response) {
   return true;
 }
 
+function assetPathsOf(html) {
+  var paths = [];
+  var pattern = /(?:src|href)=["'](\/static\/[^"']+)["']/g;
+  var match = pattern.exec(html);
+  while (match) {
+    if (paths.indexOf(match[1]) === -1) paths.push(match[1]);
+    match = pattern.exec(html);
+  }
+  return paths;
+}
+
+/** Keep a shell only once every asset it names is kept with it. */
+function keepShell(html) {
+  var assets = assetPathsOf(html);
+  if (!assets.length) return Promise.resolve(false);
+  return caches.open(CACHE_NAME).then(function (cache) {
+    return Promise.all(assets.map(function (path) {
+      return cache.match(path).then(function (found) {
+        if (found) return true;
+        return fetch(path, { credentials: 'same-origin' }).then(function (response) {
+          if (!response || !response.ok) throw new Error('asset ' + path);
+          return cache.put(path, response);
+        });
+      });
+    })).then(function () {
+      return caches.open(SHELL_CACHE).then(function (shellCache) {
+        return shellCache.put(SHELL_KEY, new Response(html, {
+          headers: { 'Content-Type': 'text/html; charset=utf-8', 'X-Ndovera-Assets': JSON.stringify(assets) }
+        }));
+      });
+    }).then(function () {
+      // Bundles from earlier deploys that this shell no longer names can go.
+      return cache.keys().then(function (requests) {
+        return Promise.all(requests.map(function (request) {
+          var path = new URL(request.url).pathname;
+          if (path.indexOf('/static/') === 0 && assets.indexOf(path) === -1) return cache.delete(request);
+          return null;
+        }));
+      });
+    }).then(function () { return true; });
+  }).catch(function () { return false; });
+}
+
+/** The kept shell, if every asset it names is still kept. */
+function keptShell() {
+  return caches.open(SHELL_CACHE).then(function (shellCache) {
+    return shellCache.match(SHELL_KEY);
+  }).then(function (shell) {
+    if (!shell) return null;
+    var assets = [];
+    try { assets = JSON.parse(shell.headers.get('X-Ndovera-Assets') || '[]'); } catch (error) { assets = []; }
+    return caches.open(CACHE_NAME).then(function (cache) {
+      return Promise.all(assets.map(function (path) { return cache.match(path); }));
+    }).then(function (found) {
+      return found.every(Boolean) ? shell : null;
+    });
+  }).catch(function () { return null; });
+}
+
+function trimCache(name, limit) {
+  return caches.open(name).then(function (cache) {
+    return cache.keys().then(function (keys) {
+      if (keys.length <= limit) return null;
+      return Promise.all(keys.slice(0, keys.length - limit).map(function (key) { return cache.delete(key); }));
+    });
+  }).catch(function () { return null; });
+}
+
+function hashText(text) {
+  var hash = 5381;
+  for (var i = 0; i < text.length; i += 1) hash = ((hash << 5) + hash + text.charCodeAt(i)) | 0;
+  return (hash >>> 0).toString(36);
+}
+
+/** API answers are kept per person: the key carries a hash of who asked. */
+function apiCacheKey(request) {
+  var auth = request.headers.get('Authorization') || '';
+  var role = request.headers.get('X-Selected-Role') || '';
+  var url = new URL(request.url);
+  url.searchParams.set('__ndv_user', hashText(auth + '|' + role));
+  return new Request(url.toString(), { method: 'GET' });
+}
+
+function withOfflineHeader(response) {
+  var headers = new Headers(response.headers);
+  headers.set('X-Ndovera-Offline', '1');
+  return response.blob().then(function (body) {
+    return new Response(body, { status: response.status, statusText: response.statusText, headers: headers });
+  });
+}
+
+/** Network first; when there is no network (or it is very slow and a copy is kept), the kept copy. */
+function apiNetworkFirst(event) {
+  var request = event.request;
+  var key = apiCacheKey(request);
+  var network = fetch(request).then(function (response) {
+    var type = response.headers.get('content-type') || '';
+    if (response.ok && response.status === 200 && type.indexOf('application/json') !== -1 && !request.headers.get('X-No-Offline-Cache')) {
+      var copy = response.clone();
+      event.waitUntil(caches.open(API_CACHE).then(function (cache) { return cache.put(key, copy); }).then(function () { return trimCache(API_CACHE, API_CACHE_LIMIT); }));
+    }
+    return response;
+  });
+  var slow = new Promise(function (resolve) { setTimeout(resolve, 9000); }).then(function () {
+    return caches.open(API_CACHE).then(function (cache) { return cache.match(key); }).then(function (kept) {
+      if (!kept) return network;
+      return withOfflineHeader(kept);
+    });
+  });
+  return Promise.race([network, slow]).catch(function () {
+    return caches.open(API_CACHE).then(function (cache) { return cache.match(key); }).then(function (kept) {
+      if (kept) return withOfflineHeader(kept);
+      return new Response(JSON.stringify({ success: false, offline: true, message: 'You are offline and this has not been opened on this device before.' }), {
+        status: 503, headers: { 'Content-Type': 'application/json', 'X-Ndovera-Offline': '1' }
+      });
+    });
+  });
+}
+
+/** Files: the kept copy straight away (refreshed in the background), else the network, kept for next time. */
+function filesStaleWhileRevalidate(event) {
+  var request = event.request;
+  return caches.open(FILES_CACHE).then(function (cache) {
+    return cache.match(request).then(function (kept) {
+      var network = fetch(request).then(function (response) {
+        var type = response.headers.get('content-type') || '';
+        if (response.ok && response.status === 200 && type.indexOf('video/') !== 0 && type.indexOf('audio/') !== 0) {
+          var copy = response.clone();
+          event.waitUntil(cache.put(request, copy).then(function () { return trimCache(FILES_CACHE, FILES_CACHE_LIMIT); }));
+        }
+        return response;
+      });
+      if (kept) {
+        event.waitUntil(network.catch(function () { return null; }));
+        return kept;
+      }
+      return network;
+    });
+  });
+}
+
+self.addEventListener('sync', function (event) {
+  if (event.tag === 'ndovera-outbox') {
+    // The connection is back: ask any open app window to send what it queued offline.
+    event.waitUntil(clients.matchAll({ type: 'window', includeUncontrolled: true }).then(function (clientList) {
+      clientList.forEach(function (client) { client.postMessage({ type: 'flush-outbox' }); });
+    }));
+  }
+});
+
 self.addEventListener('install', function (event) {
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(function (cache) {
         return cache.addAll(APP_SHELL);
+      })
+      .then(function () {
+        // Keep the current shell (and its bundles) from the start, for the first offline launch.
+        return fetch('/', { cache: 'no-store', credentials: 'same-origin' })
+          .then(function (response) { return response.ok ? response.text().then(keepShell) : null; })
+          .catch(function () { return null; });
       })
       .then(function () {
         return self.skipWaiting();
@@ -300,7 +470,7 @@ self.addEventListener('activate', function (event) {
     caches.keys()
       .then(function (cacheKeys) {
         return Promise.all(cacheKeys.map(function (cacheKey) {
-          if (cacheKey !== CACHE_NAME) {
+          if ([CACHE_NAME, SHELL_CACHE, API_CACHE, FILES_CACHE, NOTIFICATION_STATE_CACHE].indexOf(cacheKey) === -1) {
             return caches.delete(cacheKey);
           }
           return null;
@@ -315,6 +485,13 @@ self.addEventListener('activate', function (event) {
 self.addEventListener('message', function (event) {
   if (event.data && event.data.type === 'SKIP_WAITING') {
     self.skipWaiting();
+    return;
+  }
+
+  // Signing out: nobody else on this device may read the kept data.
+  if (event.data && event.data.type === 'CLEAR_USER_CACHE') {
+    var clearing = Promise.all([caches.delete(API_CACHE)]);
+    if (event.waitUntil) event.waitUntil(clearing);
     return;
   }
 
@@ -407,16 +584,58 @@ self.addEventListener('fetch', function (event) {
   var isNavigationRequest = event.request.mode === 'navigate';
   if (requestUrl.origin !== self.location.origin) return;
 
-  if (requestUrl.pathname.indexOf('/api/') === 0 || requestUrl.pathname.indexOf('/files/') === 0) {
+  if (requestUrl.pathname.indexOf('/api/') === 0) {
+    if (API_NEVER_CACHE.test(requestUrl.pathname) || requestUrl.pathname.indexOf('/stream') !== -1) return;
+    event.respondWith(apiNetworkFirst(event));
+    return;
+  }
+
+  if (requestUrl.pathname.indexOf('/files/') === 0) {
+    event.respondWith(filesStaleWhileRevalidate(event));
+    return;
+  }
+
+  if (isNavigationRequest) {
+    // Online: always the fresh page (and keep it, with its bundles, for offline launches).
+    // Offline: the kept shell — only if every bundle it names is kept too.
+    event.respondWith(
+      fetch(event.request)
+        .then(function (response) {
+          var type = response.headers.get('content-type') || '';
+          if (response.ok && type.indexOf('text/html') !== -1) {
+            var copy = response.clone();
+            event.waitUntil(copy.text().then(keepShell));
+          }
+          return response;
+        })
+        .catch(function () {
+          return keptShell().then(function (shell) { return shell || offlineResponse(); });
+        })
+        .catch(function () { return offlineResponse(); })
+    );
+    return;
+  }
+
+  // Hashed build files never change behind their names: the kept copy first.
+  if (requestUrl.pathname.indexOf('/static/') === 0) {
+    event.respondWith(
+      caches.match(event.request).then(function (kept) {
+        if (kept) return kept;
+        return fetch(event.request).then(function (response) {
+          if (shouldCacheResponse(event.request, response)) {
+            var copy = response.clone();
+            event.waitUntil(caches.open(CACHE_NAME).then(function (cache) { return cache.put(event.request, copy); }).catch(function () { return null; }));
+          }
+          return response;
+        });
+      }).catch(function () { return Response.error(); })
+    );
     return;
   }
 
   event.respondWith(
     fetch(event.request)
       .then(function (response) {
-        // A 404 on a deep link is answered by the host's SPA fallback, which is the current
-        // shell. Substituting a cached copy here served an older shell whose bundles were
-        // already gone, so the app booted to nothing. Pass the fresh response through.
         if (shouldCacheResponse(event.request, response)) {
           var responseCopy = response.clone();
           event.waitUntil(
@@ -432,27 +651,14 @@ self.addEventListener('fetch', function (event) {
         return response;
       })
       .catch(function () {
-        // A failed cache lookup must not escape either: a rejected respondWith() is what
-        // the browser reports as "the FetchEvent ... resulted in a network error response".
         return caches.match(event.request)
           .catch(function () { return undefined; })
           .then(function (cachedResponse) {
-            if (cachedResponse) {
-              return cachedResponse;
-            }
-
-            // No cached shell to fall back on by design: the one we could keep would be
-            // from an older deploy, and would boot to nothing.
-            if (isNavigationRequest) {
-              return offlineResponse();
-            }
-
-            return Response.error();
+            return cachedResponse || Response.error();
           });
       })
       .catch(function () {
-        // A page navigation always ends on a page, never on a network error.
-        return isNavigationRequest ? offlineResponse() : Response.error();
+        return Response.error();
       })
   );
 });

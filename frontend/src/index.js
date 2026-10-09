@@ -4,6 +4,10 @@ import { createRoot } from 'react-dom/client';
 import App from './App';
 import './index.css';
 import './shared/styles/theme.css';
+import { startOutbox } from './shared/offline/outbox';
+// Senders for work done offline (they register themselves with the outbox).
+import './features/attendance/staffAttendanceQueue';
+import './features/practice-arena/practiceApi';
 
 function getAndroidMajorVersion() {
   const match = navigator.userAgent.match(/Android\s([0-9]+)/i);
@@ -68,6 +72,9 @@ if ('serviceWorker' in navigator && shouldEnablePwa()) {
       .catch(() => null);
   });
 }
+
+// Offline-first: whatever was done without a connection syncs on its own, from any page.
+startOutbox();
 
 const container = document.getElementById('root');
 const root = createRoot(container);

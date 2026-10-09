@@ -330,7 +330,10 @@ import {
   verifyCertificate,
 } from './championshipAwards'
 import {
+  AI_CREDIT_BUNDLES,
   AI_GLOBAL_SETTINGS_KEY,
+  findCreditBundle,
+  freeRequestsForRole,
   consumeAiAccess,
   getAiPaymentRecord,
   getResolvedAiBillingPolicy,
@@ -353,7 +356,7 @@ import {
 import { applyPaper, isSecondaryClass, masterQuestions, paperCode, personalise, planPaper, type PaperRecord } from './paperVariants'
 import {
   AiRunner, Assessment, aiReview, approveBlueprint, auditFor, createAssessment, ensureAiAssessmentTables, generateNext, getAssessment, getLetterhead, getOwnAssessment,
-  getVersionSnapshot, importAssessment, listAssessments, listVersions, mapAssessment, pendingSlots, regenerateQuestion, saveLetterhead, saveTeacherEdits, setStatus,
+  getVersionSnapshot, importAssessment, listAssessments, listVersions, mapAssessment, pendingSlots, regenerateQuestion, resetQuestions, saveLetterhead, saveTeacherEdits, setStatus,
 } from './aiAssessments'
 import { AI_IMPORT_SYSTEM, importFromAiReply, needsAiHelp, parsePaperText, toAssessmentInput } from './paperImport'
 import {
@@ -381,6 +384,15 @@ import {
   imagePrompt, listDrafts, parseReview, planSections, reviewPrompt, saveDraft, toMaterialBlocks, validateDraft,
 } from './materialGenerator'
 import type { Draft, Grounding, Length, MaterialKind } from './materialGenerator'
+import { ImportError, MAX_PDF_BYTES, createJob, getJob, listJobs, runDueImports, runImportStep, setJobStatus, workersAiPdfToText } from './libraryImports'
+import { PACK_SIZE, GLOBAL_TENANT, MODES as PRACTICE_MODES, PracticeError, buildPack, classifyLegacyQuestions, getProfile, leaderboard, practiceStudent, practiceSubjects, recentAttempts, recordAttempt } from './practiceArena'
+import { HarvestError, MAX_DOC_BYTES, ensureHarvestTables, getNote, listDocuments, listNotes, queueDocument, runDocumentStep, runHarvestTick, setDocumentStatus } from './harvester'
+import type { HarvestDeps } from './harvester'
+import { levelOf, labelOfRank, normalizeSection } from './levels'
+import { quantReasoningGrade, quantReasoningRunner } from './quantReasoning'
+import { findAnswer, rawAi, rememberAnswer, withKnowledgePool } from './knowledgePool'
+import { AI_PAY_START, AiPayError, chargeGeneration, kindOfAssessment, kindOfMaterial, latestRegeneration, walletSummary } from './aiPay'
+import type { ChargeInput } from './aiPay'
 
 type Bindings = {
   APP_DB: D1Database
@@ -4768,12 +4780,9 @@ async function buildAiAccessPayload(db: D1Database, actor: Record<string, any>) 
   }
 }
 
+/** Free Ndovera AI a day: 10 requests for students, 3 for staff and parents; credits after that. */
 function getAiPolicyOverrides(actor: Record<string, any>) {
-  const normalizedRole = String(actor?.role || '').trim().toLowerCase()
-  if (normalizedRole === 'parent') {
-    return { dailyFreeRequests: 5 }
-  }
-  return undefined
+  return { dailyFreeRequests: freeRequestsForRole(String(actor?.role || '')) }
 }
 
 async function createPendingTenantRegistration(c: any, payload: Record<string, any>) {
@@ -9366,7 +9375,8 @@ async function buildTopicStudyContext(db: D1Database, user: Record<string, any>,
 const MATERIAL_IMAGE_MODEL = '@cf/black-forest-labs/flux-1-schnell'
 
 function materialAiFailure(c: any, error: unknown, fallback: string) {
-  if (error instanceof MaterialAiError || error instanceof CurriculumError || error instanceof AssessmentError) return c.json({ success: false, message: error.message }, (error as any).status as any)
+  if (error instanceof AiPayError) return c.json({ success: false, message: error.message, ...error.details }, error.status as any)
+  if (error instanceof MaterialAiError || error instanceof CurriculumError || error instanceof AssessmentError || error instanceof ImportError) return c.json({ success: false, message: error.message }, (error as any).status as any)
   console.error(fallback, error)
   return c.json({ success: false, message: fallback }, 500)
 }
@@ -9542,9 +9552,14 @@ app.post('/api/material-ai/drafts/:id/next', authenticate, async (c) => {
   try {
     const { tenantId, actor } = await resolveAssessmentActor(c)
     let draft = await getOwnDraft(c.env.APP_DB, tenantId, c.req.param('id'), actor)
+    // Paid once per material, on its first section (₦50 notes; question sets as assessments; free before 20 Oct 2026).
+    if (draft.sections.some(section => section.status === 'pending')) {
+      const kindLabel = MATERIAL_KINDS.find(item => item.key === draft.kind)?.label || 'Material'
+      await chargeTeacherGeneration(c, { tenantId, userId: actor.id, kind: kindOfMaterial(draft.kind), refKey: `material:${draft.id}`, label: `${kindLabel}: ${draft.topic} — ${draft.subjectName}` })
+    }
     const settings = await getSchoolMaterialAi(c.env.APP_DB, tenantId)
     const started = Date.now()
-    const result = await generateSection(draft, { runAi: assessmentAiRunner(c.env), settings })
+    const result = await generateSection(draft, { runAi: await generationRunner(c.env, `material:${draft.id}:regen:`), settings })
     draft = await drawDraftImages(c.env, result.draft, settings, undefined, started + 60_000)
     const remaining = draft.sections.filter(section => section.status === 'pending').length
     draft = await saveDraft(c.env.APP_DB, draft, { blocks: draft.blocks, sections: draft.sections, imagesUsed: draft.imagesUsed, status: draft.status, validation: remaining ? null : validationFor(draft) })
@@ -9563,13 +9578,29 @@ app.post('/api/material-ai/drafts/:id/sections/:key/regenerate', authenticate, a
     const body = await c.req.json().catch(() => ({})) as Record<string, any>
     const settings = await getSchoolMaterialAi(c.env.APP_DB, tenantId)
     const started = Date.now()
-    const result = await generateSection(draft, { runAi: assessmentAiRunner(c.env), settings, sectionKey: c.req.param('key'), instruction: String(body.instruction || '').slice(0, 400) })
+    const result = await generateSection(draft, { runAi: assessmentAiRunner({ ...c.env, AI: rawAi(c.env.AI) }), settings, sectionKey: c.req.param('key'), instruction: String(body.instruction || '').slice(0, 400) })
     if (result.section?.status === 'failed') throw new MaterialAiError(`Ndovera AI could not rewrite "${result.section.title}". Try again, or edit it yourself.`, 502)
     draft = await drawDraftImages(c.env, result.draft, settings, undefined, started + 60_000)
     draft = await saveDraft(c.env.APP_DB, draft, { blocks: draft.blocks, sections: draft.sections, imagesUsed: draft.imagesUsed, status: draft.status, validation: validationFor(draft) })
     return c.json({ success: true, draft })
   } catch (error) {
     return materialAiFailure(c, error, 'Could not rewrite the section.')
+  }
+})
+
+/** Write the whole material again (half price): every section goes back to pending. */
+app.post('/api/material-ai/drafts/:id/regenerate-all', authenticate, async (c) => {
+  try {
+    const { tenantId, actor } = await resolveAssessmentActor(c)
+    const draft = await getOwnDraft(c.env.APP_DB, tenantId, c.req.param('id'), actor)
+    if (draft.status === 'published') throw new MaterialAiError('This material is already published. Prepare a new one instead.', 409)
+    const kindLabel = MATERIAL_KINDS.find(item => item.key === draft.kind)?.label || 'Material'
+    const charge = await chargeTeacherGeneration(c, { tenantId, userId: actor.id, kind: kindOfMaterial(draft.kind), regenerate: true, refKey: `material:${draft.id}:regen:${Date.now()}`, label: `Regenerate: ${kindLabel}: ${draft.topic} — ${draft.subjectName}` })
+    await chargeTeacherGeneration(c, { tenantId, userId: actor.id, kind: kindOfMaterial(draft.kind), refKey: `material:${draft.id}`, label: `${kindLabel}: ${draft.topic} — ${draft.subjectName}`, at: new Date(0) })
+    const saved = await saveDraft(c.env.APP_DB, draft, { blocks: [], sections: draft.sections.map(section => ({ ...section, status: 'pending' as const })), imagesUsed: 0, validation: null, review: null, status: 'generating' })
+    return c.json({ success: true, draft: saved, charge })
+  } catch (error) {
+    return materialAiFailure(c, error, 'Could not start writing the material again.')
   }
 })
 
@@ -9677,6 +9708,55 @@ app.post('/api/material-ai/drafts/:id/publish', authenticate, async (c) => {
 
 // ─── The library: Ndovera's (Ami) and a school's own ────────────────────────
 
+function libraryImportDeps(env: Record<string, any>) {
+  return { db: env.APP_DB as D1Database, bucket: env.UPLOADS, pdfToText: workersAiPdfToText(env.AI), runAi: assessmentAiRunner(env) }
+}
+
+/** Store an uploaded PDF and queue it; the first step starts straight away, the cron does the rest. */
+async function acceptLibraryPdf(c: any, target: { tenantId: string, actor: { id: string, name: string }, targetType: 'curriculum' | 'exam_spec', targetId: string, targetName: string }) {
+  const form = await c.req.formData().catch(() => null)
+  const file = form?.get('file') as File | null
+  if (!file || typeof file === 'string') throw new ImportError('Choose a PDF to upload.')
+  if (!/pdf$/i.test(file.type || '') && !/\.pdf$/i.test(file.name || '')) throw new ImportError('Only PDF files can be imported this way.')
+  if (file.size > MAX_PDF_BYTES) throw new ImportError(`The PDF is larger than ${Math.round(MAX_PDF_BYTES / 1024 / 1024)} MB.`)
+  if (!c.env.UPLOADS) throw new ImportError('File storage is not available right now.', 503)
+  const key = `library-imports/${target.tenantId || 'ndovera'}/${crypto.randomUUID()}.pdf`
+  await c.env.UPLOADS.put(key, await file.arrayBuffer(), { httpMetadata: { contentType: 'application/pdf' } })
+  const job = await createJob(c.env.APP_DB, {
+    ...target, fileKey: key, fileName: String(file.name || 'document.pdf').slice(0, 200), fileSize: file.size,
+    defaults: { subject: String(form?.get('subject') || '').slice(0, 120), classLabel: String(form?.get('classLabel') || '').slice(0, 60) },
+  })
+  try { c.executionCtx?.waitUntil?.(runImportStep(libraryImportDeps(c.env), job.id).catch(error => console.error('Library import step failed', error))) } catch {}
+  return job
+}
+
+/** Whose imports the viewer sees: Ndovera's for Ami, the school's for its Owner/HoS. */
+async function libraryImportScope(c: any) {
+  if (hasRequiredRole(c.var.user.role, ['ami'])) return ''
+  const { tenantId } = await resolveLibraryEditor(c, 'school')
+  return tenantId
+}
+
+app.get('/api/library-imports', authenticate, async (c) => {
+  try {
+    const tenantId = await libraryImportScope(c)
+    return c.json({ success: true, jobs: await listJobs(c.env.APP_DB, tenantId) })
+  } catch (error) { return materialAiFailure(c, error, 'Could not load imports.') }
+})
+
+app.post('/api/library-imports/:id/:action', authenticate, async (c) => {
+  try {
+    const tenantId = await libraryImportScope(c)
+    const job = await getJob(c.env.APP_DB, c.req.param('id'))
+    if (!job || job.tenantId !== tenantId) throw new ImportError('Import not found.', 404)
+    const action = c.req.param('action')
+    // "step": the open page lends a hand; the lock keeps it from clashing with the cron.
+    if (action === 'step') return c.json({ success: true, job: (await runImportStep(libraryImportDeps(c.env), job.id)) || job })
+    if (!['pause', 'resume', 'cancel'].includes(action)) throw new ImportError('Unknown action.', 404)
+    return c.json({ success: true, job: await setJobStatus(c.env.APP_DB, job, action as 'pause' | 'resume' | 'cancel') })
+  } catch (error) { return materialAiFailure(c, error, 'Could not change the import.') }
+})
+
 /** Ami manages Ndovera's library (tenant ''); a school's Owner/HoS manage the school's own curricula. */
 async function resolveLibraryEditor(c: any, scope: 'ndovera' | 'school') {
   if (scope === 'ndovera') {
@@ -9745,6 +9825,14 @@ for (const [prefix, scope] of [['/api/ami/curricula', 'ndovera'], ['/api/school/
       const result = await addCurriculumTopics(c.env.APP_DB, curriculum.id, rows.map((row: Record<string, any>) => ({ ...(defaults.subject ? { subject: defaults.subject } : {}), ...(defaults.class ? { class: defaults.class } : {}), ...row })))
       return c.json({ success: true, ...result })
     } catch (error) { return materialAiFailure(c, error, 'Could not add the topics.') }
+  })
+  /** A PDF: stored now, read in the background by the cron (the uploader can close the page). */
+  app.post(`${prefix}/:id/import-pdf`, authenticate, async (c) => {
+    try {
+      const { editor, curriculum } = await owned(c)
+      const job = await acceptLibraryPdf(c, { tenantId: editor.tenantId, actor: editor.actor, targetType: 'curriculum', targetId: curriculum.id, targetName: curriculum.name })
+      return c.json({ success: true, job }, 202)
+    } catch (error) { return materialAiFailure(c, error, 'Could not upload the PDF.') }
   })
   /** Syllabus text, one chunk per call: Ndovera AI restructures it, Ami reviews the rows before publishing. */
   app.post(`${prefix}/:id/import-text`, authenticate, async (c) => {
@@ -9827,6 +9915,15 @@ app.post('/api/ami/exam-specs/:id/topics', authenticate, async (c) => {
     const rows = Array.isArray(body.rows) ? body.rows : body.csv ? parseCsv(String(body.csv)) : [body]
     return c.json({ success: true, ...(await addSpecTopics(c.env.APP_DB, spec.id, rows)) })
   } catch (error) { return materialAiFailure(c, error, 'Could not add the topics.') }
+})
+app.post('/api/ami/exam-specs/:id/import-pdf', authenticate, async (c) => {
+  try {
+    const { actor } = await resolveLibraryEditor(c, 'ndovera')
+    const spec = await getExamSpec(c.env.APP_DB, c.req.param('id'))
+    if (!spec) throw new CurriculumError('Specification not found.', 404)
+    const job = await acceptLibraryPdf(c, { tenantId: '', actor, targetType: 'exam_spec', targetId: spec.id, targetName: `${spec.name} — ${spec.subject}` })
+    return c.json({ success: true, job }, 202)
+  } catch (error) { return materialAiFailure(c, error, 'Could not upload the PDF.') }
 })
 app.post('/api/ami/exam-specs/:id/import-text', authenticate, async (c) => {
   try {
@@ -13964,6 +14061,269 @@ app.get('/api/practice/questions', authenticate, async (c) => {
   }
 })
 
+// ─── Practice Arena (practiceArena.ts): questions from the bank, no AI calls ───
+
+function practiceFailure(c: any, error: unknown, fallback: string) {
+  if (error instanceof PracticeError || error instanceof HarvestError) return c.json({ success: false, message: error.message }, error.status as any)
+  console.error(fallback, error)
+  return c.json({ success: false, message: fallback }, 500)
+}
+
+async function resolvePracticeStudent(c: any) {
+  const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
+  if (!hasRequiredRole(actor.role, ['student'])) throw new PracticeError('Practice is for students. Teachers\' questions reach it through the question bank.', 403)
+  if (!actor.tenantId) throw new PracticeError('School context not found.', 400)
+  const classId = String(actor.resolvedUser?.settings?.classId || (c.var.user || {}).classId || '').trim()
+  return practiceStudent(c.env.APP_DB, { tenantId: actor.tenantId, studentId: actor.actorId, studentName: actor.actorName, classId })
+}
+
+app.get('/api/practice-arena/home', authenticate, async (c) => {
+  try {
+    const student = await resolvePracticeStudent(c)
+    const [profile, subjects, recent, board] = await Promise.all([
+      getProfile(c.env.APP_DB, student.studentId), practiceSubjects(c.env.APP_DB, student), recentAttempts(c.env.APP_DB, student.studentId, 8), leaderboard(c.env.APP_DB, student, 'class'),
+    ])
+    return c.json({
+      success: true, student: { name: student.studentName, className: student.className, level: student.rank !== null ? labelOfRank(student.rank) : '', section: student.section },
+      profile, subjects, recent, leaderboard: board, modes: PRACTICE_MODES,
+    })
+  } catch (error) { return practiceFailure(c, error, 'Could not load practice.') }
+})
+
+/** A subject's pack, answers included, so quizzes can be played and marked offline. */
+app.get('/api/practice-arena/pack', authenticate, async (c) => {
+  try {
+    const student = await resolvePracticeStudent(c)
+    const size = Math.max(10, Math.min(120, Number(c.req.query('size')) || PACK_SIZE))
+    return c.json({ success: true, pack: await buildPack(c.env.APP_DB, student, String(c.req.query('subject') || '').trim(), size) })
+  } catch (error) { return practiceFailure(c, error, 'Could not prepare questions.') }
+})
+
+/** One attempt, or a batch synced from the offline outbox. */
+app.post('/api/practice-arena/attempts', authenticate, async (c) => {
+  try {
+    const student = await resolvePracticeStudent(c)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    if (Array.isArray(body.attempts)) {
+      const results = []
+      for (const attempt of body.attempts.slice(0, 25)) {
+        try { results.push({ id: attempt?.id, ok: true, ...(await recordAttempt(c.env.APP_DB, student, attempt)) }) } catch (error) {
+          results.push({ id: attempt?.id, ok: false, message: error instanceof Error ? error.message : 'Could not save.' })
+        }
+      }
+      return c.json({ success: true, results, profile: await getProfile(c.env.APP_DB, student.studentId) })
+    }
+    return c.json({ success: true, ...(await recordAttempt(c.env.APP_DB, student, body as any)) })
+  } catch (error) { return practiceFailure(c, error, 'Could not save the quiz.') }
+})
+
+app.get('/api/practice-arena/leaderboard', authenticate, async (c) => {
+  try {
+    const student = await resolvePracticeStudent(c)
+    return c.json({ success: true, leaderboard: await leaderboard(c.env.APP_DB, student, c.req.query('scope') === 'school' ? 'school' : 'class') })
+  } catch (error) { return practiceFailure(c, error, 'Could not load the leaderboard.') }
+})
+
+// ─── Ndovera notes (harvester.ts): a formatted copy of every material, readable offline ───
+
+/** The classes whose notes the viewer may read: a student's own; a parent's children's; staff, a class they can view. */
+async function notesClassIds(c: any) {
+  const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
+  if (!actor.tenantId) throw new HarvestError('School context not found.', 400)
+  const requested = String(c.req.query('classId') || '').trim()
+  if (hasRequiredRole(actor.role, ['student'])) {
+    const own = String(actor.resolvedUser?.settings?.classId || '').trim()
+    return { tenantId: actor.tenantId, classIds: own ? [own] : [], staff: false }
+  }
+  if (hasRequiredRole(actor.role, ['parent'])) {
+    const children = await listParentChildrenForNotes(c.env.APP_DB, actor)
+    return { tenantId: actor.tenantId, classIds: requested ? children.filter(id => id === requested) : children, staff: false }
+  }
+  if (!requested) return { tenantId: actor.tenantId, classIds: [], staff: true }
+  const context = await getSchoolClassroomContext(c.env.APP_DB, actor.tenantId, requested, actor.actorId, actor.role)
+  if (!context.canView) throw new HarvestError('You cannot view this class.', 403)
+  return { tenantId: actor.tenantId, classIds: [requested], staff: true }
+}
+
+async function listParentChildrenForNotes(db: D1Database, actor: Record<string, any>) {
+  const settings = actor.resolvedUser?.settings || {}
+  const children = [...(Array.isArray(settings.children) ? settings.children : []), ...(Array.isArray(settings.linkedStudents) ? settings.linkedStudents : [])]
+  const classIds = new Set<string>(children.map((child: any) => String(child?.classId || '')).filter(Boolean))
+  for (const child of children.slice(0, 10)) {
+    const id = String(child?.id || child?.studentId || child?.email || '').trim()
+    if (!id || child?.classId) continue
+    const row = await db.prepare(`SELECT payload FROM settings WHERE studentId = ?`).bind(id).first().catch(() => null) as Record<string, any> | null
+    const classId = (() => { try { return String(JSON.parse(String(row?.payload || '{}')).classId || '') } catch { return '' } })()
+    if (classId) classIds.add(classId)
+  }
+  return Array.from(classIds)
+}
+
+app.get('/api/ndovera-notes', authenticate, async (c) => {
+  try {
+    const scope = await notesClassIds(c)
+    return c.json({ success: true, notes: await listNotes(c.env.APP_DB, { tenantId: scope.tenantId, classIds: scope.classIds, includeHidden: scope.staff }) })
+  } catch (error) { return practiceFailure(c, error, 'Could not load notes.') }
+})
+
+app.get('/api/ndovera-notes/:materialId', authenticate, async (c) => {
+  try {
+    const scope = await notesClassIds(c)
+    const note = await getNote(c.env.APP_DB, scope.tenantId, c.req.param('materialId'))
+    const visible = note && (scope.staff ? true : scope.classIds.includes(String(note.class_id)) && (!note.release_at || String(note.release_at) <= new Date().toISOString()) && /student/.test(String(note.visibility || 'student')))
+    // Staff opening a single note by material id still need the class.
+    if (note && scope.staff && !scope.classIds.length) {
+      const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
+      const context = await getSchoolClassroomContext(c.env.APP_DB, actor.tenantId, String(note.class_id), actor.actorId, actor.role)
+      if (!context.canView) throw new HarvestError('Note not found.', 404)
+    }
+    if (!note || !visible) throw new HarvestError('This note is not ready yet. Ndovera prepares a copy within a few minutes of a material being added.', 404)
+    return c.json({ success: true, note: { materialId: note.material_id, title: note.title, subjectName: note.subject_name, topic: note.topic, markdown: note.markdown, words: Number(note.word_count || 0), sourceUrl: note.source_url, updatedAt: note.updated_at } })
+  } catch (error) { return practiceFailure(c, error, 'Could not load the note.') }
+})
+
+// ─── Ndovera's question bank: Ami uploads question documents with a section ───
+
+function requireAmi(c: any) {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) throw new HarvestError('Only Ndovera can manage Ndovera\'s question bank.', 403)
+  return { id: String(c.var.user.id || c.var.user.email || 'ami'), name: String(c.var.user.name || 'Ndovera') }
+}
+
+function harvestDeps(env: Record<string, any>): HarvestDeps {
+  return {
+    db: env.APP_DB, bucket: env.UPLOADS || null,
+    toText: env.AI && typeof env.AI.toMarkdown === 'function' ? async (bytes, fileName, contentType) => {
+      const result = await env.AI.toMarkdown([{ name: fileName || 'document', blob: new Blob([bytes], { type: contentType || 'application/octet-stream' }) }])
+      const first = Array.isArray(result) ? result[0] : result
+      if (!first || first.format === 'error') throw new HarvestError(String(first?.error || 'The document could not be read.'), 422)
+      return String(first.data || '')
+    } : null,
+    runAi: env.AI && typeof env.AI.run === 'function' ? assessmentAiRunner(env) : null,
+  }
+}
+
+app.post('/api/ami/question-bank/import', authenticate, async (c) => {
+  try {
+    const actor = requireAmi(c)
+    const form = await c.req.formData().catch(() => null)
+    const file = form?.get('file') as File | null
+    if (!file || typeof file === 'string') throw new HarvestError('Choose a document to upload.')
+    if (!/\.(pdf|docx?|odt|rtf|txt|md|html?)$/i.test(file.name || '')) throw new HarvestError('Upload a PDF, Word, text or HTML document.')
+    if (file.size > MAX_DOC_BYTES) throw new HarvestError(`The document is larger than ${Math.round(MAX_DOC_BYTES / 1024 / 1024)} MB.`)
+    const section = normalizeSection(form?.get('section'))
+    if (!section) throw new HarvestError('Choose the section these questions are for (Nursery, Primary, Junior Secondary or Senior Secondary).')
+    const subject = String(form?.get('subject') || '').trim().slice(0, 120)
+    if (!subject) throw new HarvestError('Enter the subject.')
+    const classLevel = String(form?.get('classLevel') || '').trim().slice(0, 40)
+    const level = classLevel ? levelOf(classLevel) : null
+    if (classLevel && (!level || level.section !== section)) throw new HarvestError(`${classLevel} is not in the ${section === 'junior' ? 'Junior Secondary' : section === 'senior' ? 'Senior Secondary' : section === 'primary' ? 'Primary' : 'Nursery'} section.`)
+    const releaseRaw = String(form?.get('releaseAt') || '').trim()
+    const releaseAt = releaseRaw && Number.isFinite(Date.parse(releaseRaw)) && Date.parse(releaseRaw) > Date.now() ? new Date(Date.parse(releaseRaw)).toISOString() : null
+    if (!c.env.UPLOADS) throw new HarvestError('File storage is not available right now.', 503)
+    const key = `question-bank/ndovera/${crypto.randomUUID()}-${String(file.name || 'questions').replace(/[^A-Za-z0-9._-]+/g, '_').slice(0, 80)}`
+    await c.env.UPLOADS.put(key, await file.arrayBuffer(), { httpMetadata: { contentType: file.type || 'application/octet-stream' } })
+    const document = await queueDocument(c.env.APP_DB, {
+      tenantId: GLOBAL_TENANT, originType: 'ami_upload', originId: key, fileKey: key, fileName: String(file.name || 'questions').slice(0, 200), contentType: file.type || '',
+      makeNote: false, questionsExpected: true, createdBy: actor.id, createdByName: actor.name,
+      defaults: { tenantId: GLOBAL_TENANT, subject, subjectId: '', classId: '', classLevel: level ? labelOfRank(level.rank) : '', section, rank: level?.rank ?? null, topic: String(form?.get('topic') || '').trim().slice(0, 200), originType: 'ami_upload', originId: key, releaseAt, createdBy: actor.id },
+    })
+    // Read it now; the cron finishes anything left.
+    try { c.executionCtx?.waitUntil?.(runDocumentStep(harvestDeps(c.env), document.id).catch(error => console.error('Question document step failed', error))) } catch {}
+    return c.json({ success: true, document }, 202)
+  } catch (error) { return practiceFailure(c, error, 'Could not upload the document.') }
+})
+
+app.get('/api/ami/question-bank/imports', authenticate, async (c) => {
+  try {
+    requireAmi(c)
+    return c.json({ success: true, documents: await listDocuments(c.env.APP_DB, { tenantId: GLOBAL_TENANT, originType: 'ami_upload' }) })
+  } catch (error) { return practiceFailure(c, error, 'Could not load uploads.') }
+})
+
+app.post('/api/ami/question-bank/imports/:id/:action', authenticate, async (c) => {
+  try {
+    requireAmi(c)
+    const action = c.req.param('action')
+    // "step": the open page lends a hand; the lock keeps it from clashing with the cron.
+    if (action === 'step') {
+      const done = await runDocumentStep(harvestDeps(c.env), c.req.param('id'))
+      const [document] = (await listDocuments(c.env.APP_DB, { tenantId: GLOBAL_TENANT, originType: 'ami_upload' }, 60)).filter(item => item.id === c.req.param('id'))
+      return c.json({ success: true, document: document || done })
+    }
+    if (action !== 'retry' && action !== 'cancel') throw new HarvestError('Unknown action.', 404)
+    return c.json({ success: true, document: await setDocumentStatus(c.env.APP_DB, c.req.param('id'), GLOBAL_TENANT, action) })
+  } catch (error) { return practiceFailure(c, error, 'Could not change the upload.') }
+})
+
+/** How the harvester is doing, and a manual nudge for Ami. */
+app.get('/api/ami/harvest', authenticate, async (c) => {
+  try {
+    requireAmi(c)
+    await ensureHarvestTables(c.env.APP_DB)
+    const db = c.env.APP_DB
+    const [bank, pending, notes, sources, documents, state] = await Promise.all([
+      db.prepare(`SELECT COUNT(*) AS total, SUM(CASE WHEN playable = 1 THEN 1 ELSE 0 END) AS playable, SUM(CASE WHEN release_at > ? THEN 1 ELSE 0 END) AS held, SUM(CASE WHEN answer_source = 'ai' THEN 1 ELSE 0 END) AS ai_keys FROM question_bank`).bind(new Date().toISOString()).first(),
+      db.prepare(`SELECT COUNT(*) AS n FROM question_bank WHERE answer_source = 'pending'`).first(),
+      db.prepare(`SELECT COUNT(*) AS n FROM ndovera_notes`).first(),
+      db.prepare(`SELECT source_type, COUNT(*) AS n, SUM(questions) AS questions FROM harvest_log GROUP BY source_type`).all(),
+      db.prepare(`SELECT status, COUNT(*) AS n FROM harvest_documents GROUP BY status`).all(),
+      db.prepare(`SELECT key, value, updated_at FROM harvest_state`).all(),
+    ])
+    return c.json({ success: true, bank: { total: Number((bank as any)?.total || 0), playable: Number((bank as any)?.playable || 0), heldUntilAfterExam: Number((bank as any)?.held || 0), aiAnswerKeys: Number((bank as any)?.ai_keys || 0), awaitingKeys: Number((pending as any)?.n || 0) },
+      notes: Number((notes as any)?.n || 0), sources: sources.results || [], documents: documents.results || [], state: state.results || [] })
+  } catch (error) { return practiceFailure(c, error, 'Could not load the harvester status.') }
+})
+
+app.post('/api/ami/harvest/run', authenticate, async (c) => {
+  try {
+    requireAmi(c)
+    return c.json({ success: true, report: await runHarvestTick(harvestDeps(c.env), { pageSize: 15, documentSteps: 2 }) })
+  } catch (error) { return practiceFailure(c, error, 'The harvester could not run.') }
+})
+
+// ─── Paying for Ndovera AI generation (aiPay.ts) ───────────────────────────────
+
+function aiPayStart(env: Record<string, any>) {
+  return String(env.AI_PAY_START || AI_PAY_START)
+}
+
+async function chargeTeacherGeneration(c: any, input: Omit<ChargeInput, 'startsAt' | 'settingsKey'>) {
+  // Credits live in the AI wallet, keyed the way the AI tutor keys them.
+  const aiActor = await resolveAiActor(c.env.APP_DB, c.var.user || {})
+  return chargeGeneration(c.env.APP_DB, { ...input, settingsKey: aiActor.settingsKey, startsAt: aiPayStart(c.env) })
+}
+
+/**
+ * The AI runner for writing a set. After a whole-set regeneration the prompt asks
+ * for a new version, so the knowledge pool does not hand back the old one.
+ */
+async function generationRunner(env: Record<string, any>, regenPrefix: string): Promise<AiRunner> {
+  const base = assessmentAiRunner(env)
+  const round = await latestRegeneration(env.APP_DB, regenPrefix)
+  if (!round) return base
+  return (messages, options) => base(messages.map((message, index) => index === 0 && message.role === 'system'
+    ? { ...message, content: `${message.content}\n\nThis is a fresh version (${round}): write different questions and wording from any earlier version.` }
+    : message), options)
+}
+
+/** Credits, prices and bundles for a teacher (or anyone) about to generate with Ndovera AI. */
+app.get('/api/ai-pay/wallet', authenticate, async (c) => {
+  try {
+    const { tenantId, actor } = await resolveAssessmentActor(c)
+    const aiActor = await resolveAiActor(c.env.APP_DB, c.var.user || {})
+    return c.json({ success: true, wallet: { ...(await walletSummary(c.env.APP_DB, { tenantId, userId: actor.id, settingsKey: aiActor.settingsKey }, aiPayStart(c.env))), canFundSchool: canManageAiBilling(actor.role) } })
+  } catch (error) {
+    if (error instanceof AssessmentError) return c.json({ success: false, message: error.message }, error.status as any)
+    console.error('AI wallet failed', error)
+    return c.json({ success: false, message: 'Could not load your AI credits.' }, 500)
+  }
+})
+
+app.get('/api/ai/credit-bundles', authenticate, async (c) => {
+  const actor = await resolveAiActor(c.env.APP_DB, c.var.user || {})
+  return c.json({ success: true, bundles: AI_CREDIT_BUNDLES, creditValueNaira: 1, freeDailyRequests: freeRequestsForRole(actor.role), canBuyForSchool: canManageAiBilling(actor.role) })
+})
+
 // Purchase and package (in-memory books)
 const books = [
   { id: 'book-ndovera-about', price: 0 },
@@ -14056,7 +14416,11 @@ app.post('/api/ai/access/top-up/initiate', authenticate, async (c) => {
     const actor = await resolveAiActor(c.env.APP_DB, c.var.user || {})
     const payload = await c.req.json().catch(() => ({})) as Record<string, any>
     const target = String(payload.target || 'individual').trim().toLowerCase() === 'school' ? 'school' : 'individual'
-    const quantity = Math.max(1, Math.floor(Number(payload.quantity) || 0))
+    // A credit bundle: its credits (with bonus) for its price.
+    const bundle = payload.bundle ? findCreditBundle(payload.bundle) : null
+    if (payload.bundle && !bundle) return c.json({ success: false, message: 'That credit bundle does not exist.' }, 400)
+    if (bundle && 'schoolOnly' in bundle && bundle.schoolOnly && target !== 'school') return c.json({ success: false, message: 'The School Pack is bought into the school AI wallet by the Owner or Head of School.' }, 400)
+    const quantity = bundle ? bundle.credits + bundle.bonus : Math.max(1, Math.floor(Number(payload.quantity) || 0))
 
     if (!quantity) {
       return c.json({ success: false, message: 'A positive credit quantity is required.' }, 400)
@@ -14071,11 +14435,11 @@ app.post('/api/ai/access/top-up/initiate', authenticate, async (c) => {
     }
 
     const { policy } = await getResolvedAiBillingPolicy(c.env.APP_DB, actor.tenantId)
-    if (policy.pricePerCreditNaira <= 0) {
-      return c.json({ success: false, message: 'AI credit pricing has not been configured yet.' }, 400)
+    if (!bundle && policy.pricePerCreditNaira <= 0) {
+      return c.json({ success: false, message: 'Choose an AI credit bundle.' }, 400)
     }
 
-    const amountNaira = Number((quantity * policy.pricePerCreditNaira).toFixed(2))
+    const amountNaira = bundle ? bundle.priceNaira : Number((quantity * policy.pricePerCreditNaira).toFixed(2))
     const txRef = `ai_${target}_${String(actor.actorId || actor.settingsKey || 'user').replace(/[^a-zA-Z0-9_-]/g, '_')}_${Date.now()}`
 
     await saveAiPaymentRecord(c.env.APP_DB, txRef, {
@@ -14105,8 +14469,8 @@ app.post('/api/ai/access/top-up/initiate', authenticate, async (c) => {
         phone_number: actor.phone || undefined,
       },
       customizations: {
-        title: 'NDOVERA AI Credits',
-        description: `${quantity} AI credits for ${target === 'school' ? 'school-sponsored AI access' : 'personal AI access'}`,
+        title: bundle ? `NDOVERA AI Credits — ${bundle.label}` : 'NDOVERA AI Credits',
+        description: `${quantity.toLocaleString()} AI credits for ${target === 'school' ? 'the school staff' : 'your Ndovera AI'}`,
       },
     }
 
@@ -14239,6 +14603,20 @@ app.post('/api/ai/tutor/ask', authenticate, async (c) => {
       }, 400)
     }
 
+    // Ndovera's pool of knowledge first: a single question already answered (in any wording) costs nothing.
+    const poolContext = `${NVIDIA_STUDENT_AI_ROLES.has(normalizedRole) ? 'learner' : 'staff'}:${topicStudy?.summary?.topicId || ''}:${mode}`
+    const singleQuestion = !Array.isArray(payload.messages) || payload.messages.filter((message: any) => message?.role === 'user').length <= 1
+    if (singleQuestion) {
+      const pooled = await findAnswer(c.env.APP_DB, prompt, poolContext).catch(() => null)
+      if (pooled) {
+        return c.json({
+          success: true, answer: pooled, source: 'knowledge_pool', chargedCredits: 0, mode, provider: 'ndovera-ai',
+          access: await summarizeAiAccess(c.env.APP_DB, { tenantId: actor.tenantId, settingsKey: actor.settingsKey, policyOverrides: getAiPolicyOverrides(actor) }),
+          ...(topicStudy ? { topic: topicStudy.summary } : {}),
+        })
+      }
+    }
+
     const consumption = practiceSurface
       ? {
           allowed: true,
@@ -14308,6 +14686,7 @@ app.post('/api/ai/tutor/ask', authenticate, async (c) => {
     if (topicStudy?.studentId) {
       await recordTopicProgress(c.env.APP_DB, { tenantId: topicStudy.tenantId, topicId: topicStudy.summary.topicId, studentId: topicStudy.studentId, event: 'studied' }).catch(() => null)
     }
+    if (singleQuestion && answer) await rememberAnswer(c.env.APP_DB, prompt, answer, poolContext).catch(() => null)
 
     return c.json({
       success: true,
@@ -25581,6 +25960,8 @@ async function ensureStaffAttendanceSettingsTable(db: D1Database) {
   _initializedTables.add('staff_attendance_settings')
 }
 
+const STAFF_QR_HISTORY_DDL = `CREATE TABLE IF NOT EXISTS staff_attendance_qr_history (tenant_id TEXT NOT NULL, qr_code TEXT NOT NULL, valid_until TEXT NOT NULL, PRIMARY KEY (tenant_id, qr_code))`
+
 async function ensureStaffAttendanceEventsTable(db: D1Database) {
   if (_initializedTables.has('staff_attendance_events')) return
   await db.prepare(`CREATE TABLE IF NOT EXISTS staff_attendance_events (
@@ -25610,6 +25991,7 @@ async function ensureStaffAttendanceEventsTable(db: D1Database) {
   try { await db.exec('ALTER TABLE staff_attendance_events ADD COLUMN late_charge REAL DEFAULT 0') } catch {}
   try { await db.exec('ALTER TABLE staff_attendance_events ADD COLUMN permission_request_id TEXT') } catch {}
   try { await db.exec('ALTER TABLE staff_attendance_events ADD COLUMN permission_status TEXT') } catch {}
+  try { await db.exec('ALTER TABLE staff_attendance_events ADD COLUMN captured_offline INTEGER DEFAULT 0') } catch {}
   _initializedTables.add('staff_attendance_events')
 }
 
@@ -25965,6 +26347,11 @@ app.post('/api/school/staff-attendance/settings/rotate-qr', authenticate, async 
     const existing = await getOrCreateStaffAttendanceSettings(c.env.APP_DB, actor.tenantId)
     const timestamp = new Date().toISOString()
     const activeQrCode = generateStaffAttendanceQrCode(actor.tenantId)
+    // Marks made offline with the old code before this moment still sync.
+    if (existing.active_qr_code) {
+      await c.env.APP_DB.prepare(STAFF_QR_HISTORY_DDL).run()
+      await c.env.APP_DB.prepare(`INSERT OR REPLACE INTO staff_attendance_qr_history (tenant_id, qr_code, valid_until) VALUES (?, ?, ?)`).bind(actor.tenantId, String(existing.active_qr_code), timestamp).run()
+    }
     await c.env.APP_DB.prepare(
       `INSERT OR REPLACE INTO staff_attendance_settings (tenant_id, mode, require_qr_on_face, active_qr_code, late_after_time, grace_period_minutes, late_penalty_enabled, late_penalty_amount, absence_penalty_enabled, absence_penalty_amount, payroll_auto_deduct_absence, qr_rotated_at, updated_by, created_at, updated_at)
        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
@@ -26322,6 +26709,12 @@ app.post('/api/school/staff-attendance/activity', authenticate, async (c) => {
   let faceImageUrl = String(body?.faceImageUrl || '').trim()
   const notes = String(body?.notes || '').trim()
   const targetStaffId = String(body?.targetStaffId || '').trim()
+  // A mark queued offline carries the moment it was made; it counts from then, not from when it reached Ndovera
+  // (up to three days back, never in the future).
+  const capturedMs = Date.parse(String(body?.capturedAt || ''))
+  const receivedMs = Date.now()
+  const hasCapture = Number.isFinite(capturedMs) && capturedMs <= receivedMs + 2 * 60 * 1000 && receivedMs - capturedMs <= 72 * 3600 * 1000
+  const capturedOffline = hasCapture && receivedMs - capturedMs > 60 * 1000
 
   try {
     const settings = await getOrCreateStaffAttendanceSettings(c.env.APP_DB, actor.tenantId)
@@ -26344,7 +26737,14 @@ app.post('/api/school/staff-attendance/activity', authenticate, async (c) => {
 
     const effectiveMode = normalizedMode === 'face_qr' || sharedPhone || isProxy ? 'face_qr' : 'qr'
 
-    if (!qrCode || qrCode !== activeQrCode) {
+    let qrValid = Boolean(qrCode) && qrCode === activeQrCode
+    if (!qrValid && qrCode && hasCapture) {
+      // The QR was rotated after this mark was made (offline): the code it was made with still counts.
+      await c.env.APP_DB.prepare(STAFF_QR_HISTORY_DDL).run()
+      const previous = await c.env.APP_DB.prepare(`SELECT valid_until FROM staff_attendance_qr_history WHERE tenant_id = ? AND qr_code = ?`).bind(actor.tenantId, qrCode).first() as Record<string, any> | null
+      qrValid = Boolean(previous) && Date.parse(String(previous?.valid_until || '')) >= capturedMs
+    }
+    if (!qrValid) {
       return c.json({ error: 'The scanned QR code is not valid for this school.' }, 400)
     }
 
@@ -26365,8 +26765,13 @@ app.post('/api/school/staff-attendance/activity', authenticate, async (c) => {
     await ensureStaffAttendanceBaseTable(c.env.APP_DB)
     await ensureStaffAttendancePermissionRequestsTable(c.env.APP_DB)
 
-    const timestamp = new Date().toISOString()
+    const timestamp = new Date(hasCapture ? Math.min(capturedMs, receivedMs) : receivedMs).toISOString()
     const eventId = `sae_${actor.tenantId}_${subjectId}_${attendanceDate}_${action}`
+    // A mark sent twice (a queued copy and a retry) keeps the earliest sign-in and the latest sign-out.
+    const existingEvent = await c.env.APP_DB.prepare(`SELECT * FROM staff_attendance_events WHERE id = ?`).bind(eventId).first() as Record<string, any> | null
+    if (existingEvent && (action === 'sign-in' ? String(existingEvent.created_at || '') <= timestamp : String(existingEvent.created_at || '') >= timestamp)) {
+      return c.json({ success: true, duplicate: true, event: mapStaffAttendanceEvent({ ...existingEvent, subject_name: subjectName }) })
+    }
     const method = isProxy ? 'proxy_face_qr' : (sharedPhone ? 'shared_phone' : (effectiveMode === 'face_qr' ? 'face_qr' : 'qr'))
     const approvedPermission = await c.env.APP_DB.prepare(
       `SELECT *
@@ -26391,8 +26796,8 @@ app.post('/api/school/staff-attendance/activity', authenticate, async (c) => {
     }
 
     await c.env.APP_DB.prepare(
-      `INSERT OR REPLACE INTO staff_attendance_events (id, tenant_id, staff_id, date, action, method, qr_code, face_image_url, shared_phone, is_late, late_minutes, late_charge, permission_request_id, permission_status, notes, recorded_by, created_at, updated_at)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+      `INSERT OR REPLACE INTO staff_attendance_events (id, tenant_id, staff_id, date, action, method, qr_code, face_image_url, shared_phone, is_late, late_minutes, late_charge, permission_request_id, permission_status, notes, recorded_by, created_at, updated_at, captured_offline)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
     ).bind(
       eventId,
       actor.tenantId,
@@ -26411,7 +26816,8 @@ app.post('/api/school/staff-attendance/activity', authenticate, async (c) => {
       notes || null,
       actor.actorName || actor.actorId,
       timestamp,
-      timestamp,
+      new Date(receivedMs).toISOString(),
+      capturedOffline ? 1 : 0,
     ).run()
 
     if (action === 'sign-in') {
@@ -26451,8 +26857,9 @@ app.post('/api/school/staff-attendance/activity', authenticate, async (c) => {
         notes,
         recorded_by: actor.actorName || actor.actorId,
         created_at: timestamp,
-        updated_at: timestamp,
+        updated_at: new Date(receivedMs).toISOString(),
       }),
+      capturedOffline,
     })
   } catch {
     return c.json({ error: 'Could not record staff attendance activity.' }, 500)
@@ -29014,6 +29421,8 @@ app.post('/api/question-bank', authenticate, async (c) => {
       ...body,
       createdBy: actor.actorId,
     })
+    // Ready for practice straight away: subject, section and level worked out now (Ami may name the section).
+    if (result.question?.id) await classifyLegacyQuestions(c.env.APP_DB, 1, String(result.question.id), String(body.section || '')).catch(error => console.error('Classify question failed', error))
     return c.json({ success: true, question: result.question, deduplicated: result.deduplicated, similarMatches: result.similarMatches }, result.deduplicated ? 200 : 201)
   } catch (error) {
     return c.json({ success: false, message: 'Server error', error }, 500)
@@ -29867,6 +30276,7 @@ function assessmentAiRunner(env: Record<string, any>): AiRunner {
 }
 
 function assessmentFailure(c: any, error: unknown, fallback: string) {
+  if (error instanceof AiPayError) return c.json({ success: false, message: error.message, ...error.details }, error.status as any)
   if (error instanceof AssessmentError) return c.json({ success: false, message: error.message }, error.status as any)
   if (error instanceof SubmissionError) return c.json({ success: false, message: error.message }, error.status as any)
   console.error(fallback, error)
@@ -29992,8 +30402,14 @@ app.post('/api/ai-assessments/:id/generate-next', authenticate, async (c) => {
   try {
     const { tenantId, actor } = await resolveAssessmentActor(c)
     const assessment = await getOwnAssessment(c.env.APP_DB, tenantId, c.req.param('id'), actor)
+    // Quantitative Reasoning in a Primary class is written by Ndovera's own engine: no AI, no credits, answers computed.
+    const qrGrade = quantReasoningGrade(assessment.subjectName, assessment.className)
+    // Otherwise the set is paid for once, on its first step (100 credits assignments/quizzes/tests, 200 exams; free before 20 Oct 2026).
+    if (!qrGrade && pendingSlots(assessment).length) {
+      await chargeTeacherGeneration(c, { tenantId, userId: actor.id, kind: kindOfAssessment(assessment.kind), refKey: `assessment:${assessment.id}`, label: `${assessment.title} — ${assessment.subjectName}${assessment.className ? `, ${assessment.className}` : ''}` })
+    }
     const context = await buildAssessmentContext(c.env.APP_DB, assessment)
-    const result = await generateNext(c.env.APP_DB, assessment, { runAi: assessmentAiRunner(c.env), context, actor })
+    const result = await generateNext(c.env.APP_DB, assessment, { runAi: qrGrade ? quantReasoningRunner(qrGrade) : await generationRunner(c.env, `assessment:${assessment.id}:regen:`), context, actor })
     return c.json({ success: true, done: result.done, remaining: result.remaining, assessment: assessmentView(result.assessment) })
   } catch (error) {
     return assessmentFailure(c, error, 'Could not write the next questions.')
@@ -30006,10 +30422,28 @@ app.post('/api/ai-assessments/:id/regenerate', authenticate, async (c) => {
     const assessment = await getOwnAssessment(c.env.APP_DB, tenantId, c.req.param('id'), actor)
     const body = await c.req.json().catch(() => ({})) as Record<string, any>
     const context = await buildAssessmentContext(c.env.APP_DB, assessment)
-    const saved = await regenerateQuestion(c.env.APP_DB, assessment, { questionId: body.questionId ? String(body.questionId) : undefined, slot: body.slot !== undefined ? Number(body.slot) : undefined }, { runAi: assessmentAiRunner(c.env), context, actor, instruction: String(body.instruction || '').slice(0, 300) })
+    const saved = await regenerateQuestion(c.env.APP_DB, assessment, { questionId: body.questionId ? String(body.questionId) : undefined, slot: body.slot !== undefined ? Number(body.slot) : undefined }, { runAi: quantReasoningGrade(assessment.subjectName, assessment.className) ? quantReasoningRunner(quantReasoningGrade(assessment.subjectName, assessment.className)!) : assessmentAiRunner({ ...c.env, AI: rawAi(c.env.AI) }), context, actor, instruction: String(body.instruction || '').slice(0, 300) })
     return c.json({ success: true, assessment: assessmentView(saved) })
   } catch (error) {
     return assessmentFailure(c, error, 'Could not regenerate the question.')
+  }
+})
+
+/** Write the whole set again (half price). The old set stays in version history. */
+app.post('/api/ai-assessments/:id/regenerate-all', authenticate, async (c) => {
+  try {
+    const { tenantId, actor } = await resolveAssessmentActor(c)
+    const assessment = await getOwnAssessment(c.env.APP_DB, tenantId, c.req.param('id'), actor)
+    if (!['draft', 'finalised'].includes(assessment.status)) throw new AssessmentError('This assessment has already been posted or submitted. Make a copy to write a new set.', 409)
+    // Quantitative Reasoning (Primary) is written by Ndovera's engine and is free to regenerate.
+    const free = Boolean(quantReasoningGrade(assessment.subjectName, assessment.className))
+    const charge = free ? { charged: false, free: true, credits: 0 } : await chargeTeacherGeneration(c, { tenantId, userId: actor.id, kind: kindOfAssessment(assessment.kind), regenerate: true, refKey: `assessment:${assessment.id}:regen:${Date.now()}`, label: `Regenerate: ${assessment.title} — ${assessment.subjectName}` })
+    // The first writing counts as paid (so the next steps are not charged again).
+    if (!free) await chargeTeacherGeneration(c, { tenantId, userId: actor.id, kind: kindOfAssessment(assessment.kind), refKey: `assessment:${assessment.id}`, label: `${assessment.title} — ${assessment.subjectName}`, at: new Date(0) })
+    const reset = await resetQuestions(c.env.APP_DB, assessment, actor)
+    return c.json({ success: true, assessment: assessmentView(reset), charge })
+  } catch (error) {
+    return assessmentFailure(c, error, 'Could not start regenerating the set.')
   }
 })
 
@@ -31880,13 +32314,24 @@ app.post('/api/school/fees/students/:studentId/payments', authenticate, async (c
     return academicFailure(c, error, 'Could not record the payment.')
   }
 })
+/** Every AI call looks in Ndovera's pool of knowledge first (knowledgePool.ts); KNOWLEDGE_POOL=off turns it off. */
+function withPooledEnv<T extends Record<string, any>>(env: T): T {
+  if (!env || !env.AI || (env as any).KNOWLEDGE_POOL === 'off' || (env.AI as any).__pooled || !env.APP_DB) return env
+  return { ...env, AI: withKnowledgePool(env.AI, env.APP_DB) }
+}
+
 export default {
   // Cron-driven background job processor (bulk people import, results distribution,
   // and the term/session transitions that must happen on their configured date
   // whether or not anyone has the dashboard open).
-  async scheduled(_event: ScheduledEvent, env: Bindings, ctx: ExecutionContext): Promise<void> {
+  async scheduled(_event: ScheduledEvent, rawEnv: Bindings, ctx: ExecutionContext): Promise<void> {
+    const env = withPooledEnv(rawEnv)
     ctx.waitUntil(runDueBulkPeopleJobs(env).catch(() => {}))
+    // The harvester: new questions into the bank within a minute, a full sweep after midnight, Ndovera notes, answer keys.
+    ctx.waitUntil(runHarvestTick(harvestDeps(env as any)).catch(error => console.error('Harvester failed', error)))
     ctx.waitUntil(runDueBulkResultsJobs(env).catch(() => {}))
+    // Curriculum / syllabus PDFs, read a piece at a time whether or not the uploader is online.
+    ctx.waitUntil(runDueImports(libraryImportDeps(env as any)).catch(error => console.error('Library imports failed', error)))
     // School closures fall due by the minute (72 hours after the request); a cheap indexed check.
     ctx.waitUntil(runDueSchoolClosures(env.APP_DB, new Date(), env).catch(error => console.error('School closure job failed', error)))
 
@@ -31901,7 +32346,8 @@ export default {
       ctx.waitUntil(runDueStaffEmails(env).catch(error => console.error('Staff emails failed', error)))
     }
   },
-  async fetch(request: Request, env: Bindings, ctx: ExecutionContext): Promise<Response> {
+  async fetch(request: Request, rawEnv: Bindings, ctx: ExecutionContext): Promise<Response> {
+    const env = withPooledEnv(rawEnv)
     const url = new URL(request.url)
     const hostname = normalizeHostname(url.hostname)
     const baseDomain = env.TENANT_BASE_DOMAIN || DEFAULT_TENANT_BASE_DOMAIN

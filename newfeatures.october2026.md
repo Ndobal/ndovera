@@ -1698,3 +1698,473 @@ I would therefore make the feature:
 The AI Validator is important. Before a generated note reaches students, Ndovera should automatically check that the generated material covers the retrieved objectives, uses the correct educational level, contains no unsupported examination claims, and that generated answers are internally consistent where they can be programmatically verified.
 Most importantly, the teacher remains the publisher. AI generates the draft; the teacher reviews, edits and approves it.
 This turns your existing Materials area into a proper Ndovera Curriculum & Examination Preparation Engine, rather than simply adding another AI button.
+
+
+
+
+
+
+
+### N18. Practice from the question bank, the question harvester, offline-first, Ndovera notes, AI credits — ✅ DONE AND COMPLETED (8 Oct 2026)
+- Practice Arena (students: /roles/student/practice and the classroom Practice tab): quizzes from the question bank only — no AI call is made, so it works from today, free. A student practises their own section up to their own level (JSS 3 → JSS 1–3, JSS 2 → JSS 1–2), from every teacher's questions in the school and Ndovera's bank. Modes: Quick Fire, Timed Blitz (XP × 1.25), Exam Simulation (objectives + theory/comprehension, timed), Mistake Fixer, Build Your Own (types, length, timer). Types: MCQ, true/false, short answer, fill-in, matching, comprehension, essay (self-marked against the model answer). Gamified: XP, levels and titles, daily streak, daily XP goal, combo bonus, 12 badges, the class leaderboard for the week. Marked instantly on the device and again by Ndovera (the bank decides XP; an attempt is counted once).
+- Practice removed from the teacher dashboard (an old link explains why).
+- The harvester (scraper): every minute it picks up new/changed assignments, Ndovera AI assessments, materials and submitted work (exam/test papers, lesson notes) — typed text and uploaded PDF/Word files — into the question bank with subject, section and level; every night at midnight (Lagos) a full sweep re-checks everything. Exam questions are held until 6 hours after the exam sitting closes (else the end of term, else 4 months); open homework until it is due. Questions without an answer key get one from Ndovera AI once, and it is stored.
+- Ndovera notes: the harvester makes a well-formatted Ndovera copy of every material (blocks, typed text, or uploaded PDF/Word — tidied, and laid out by Ndovera AI without changing a word when it had no structure). Students: /roles/student/offline-notes — open once online, or "Save all for offline", then read with no internet.
+- Ami uploads question documents (PDF, Word, text) in Ndovera's Question Bank with a section (Nursery, Primary, Junior Secondary, Senior Secondary) and optional class level, subject, topic and hold-until date; read in the background with progress. Manual questions also take a section. Harvester status and "Run now" are on the same page.
+- Ndovera's pool of knowledge: every Ndovera AI answer is stored and every AI call looks there first (the same request → the stored answer; a student's question asked before in other words → the stored answer, no network call). Regenerating always asks afresh.
+- Offline-first restored: the service worker keeps the app shell again (only together with every bundle it names, so the old blank-screen bug cannot return), keeps data the app has read per signed-in person, keeps opened files, and clears kept data on sign-out. An app-wide outbox (IndexedDB) holds work done offline — practice quizzes and staff sign-ins — and sends it by itself on reconnect (Background Sync, every 30 s, and on returning to the app); an item Ndovera refuses is kept as "needs review" and never blocks the rest.
+- Offline staff sign-in made reliable: a queued sign-in counts from when it was made (not when it synced — no false lateness or charges); a QR rotated meanwhile still accepts the code it was made with; a repeated mark keeps the earliest sign-in; queued marks live in IndexedDB (a face photo can no longer overflow storage and lose the mark); timeouts and server errors queue instead of failing; marks sync from any page.
+- AI credits (no direct money payments): from 20 October 2026, Ndovera AI generation by teachers uses AI credits — 100 per assignment/quiz/test, 200 per examination, 50 per set of student notes (per subject); regenerating the whole set costs half. Charged once per set, from the teacher's credits, else the school's. Before 20 Oct it is free and the cost is shown. Credit bundles (1 credit = ₦1): Starter 500, Standard 1,000 + 200 bonus, Pro 2,500 + 750 bonus, School Pack 10,000 + 4,000 bonus (school wallet).
+- Free Ndovera AI a day: 10 requests for students, 3 for staff and parents; then credits.
+Tests: `practice-harvest.test.mjs` (backend, end to end), `engine.test.js`, `PracticeArena.test.jsx`.
+
+New features 5 (the request above, kept for reference)
+remove practice from the teachers dashboard: let the students practice come from the notes, questions, assignments given by teachers acrosss all the related classes and subjects. for example, a jss 3 student should have practice qustions from jss 1 to jss 3, a jss 2 should be from jss 1 to 2. and so on. Practice are questions from the question bank
+
+all questions submitted into indovera whether in notes, or assignments, etc or even uploaed or submitted qorks
+create a scrapper that scrapes through the entire system once at midnight to scrape all questions submitted as uploads(whether document or pdf) and stores them with the right struture to the question bank. let all the questions in the system be immediately added to the question bank.
+let the practice be quiz it can take any structure like (mcq, shortanswers, true/false, comprehension, essay writing, etc) timed, etc
+Where questions are submitted as exam questions, dont use them until after the exam
+where there are no answer key provided let the ai provide the answer key in the quizes but these answers are stored so that they dont need to be added all the time.
+
+all ai generated content should be stored so that when an ai call is maded, it forst searcheds this pool of knowledge before making the network call to search the web
+
+
+Let the scrapper we built above scrape every material and make an ndovera copy as notes so that students without internet can access these notes when they were first loaded and directly from ndovera remember it has to be well formateed
+
+check for offline staff signing in to work so that it is relaiable and does not fail
+
+check, we have lost our offline forst architecture lets restore it so that everything that should be done offline can be done offline including practice
+
+
+Ai use for exam questions, quizes, assignment, etc by teachers should be gated from 20th of October so that they pay N100 for assignmnet, N200 for exam questions per subject and for students notes N50 per subject. regenerating the whole set should cost half the price.
+
+Also asked (8 Oct): students practise from the bank without AI calls from today; Ndovera uploads question documents with a section; no direct money payments — credits only, with credit bundles; free AI 10 a day for students, 3 for staff/parents. All done (N18).
+
+
+
+New Features
+New Module: WhatsApp Notifications, Messaging Credits and Automated Parent Reminders
+I recommend building a centralised WhatsApp Communication and Notification Engine for Ndovera. This will allow schools to automatically inform parents about school fees, outstanding balances, payment receipts, published results, assignments and other important school activities.
+The module should operate with 100 complimentary WhatsApp message units per school, per term, with the ability to purchase additional units whenever necessary.
+The most important design principle is that schools should not need to send routine notifications manually. Once an authorised school officer performs an action, such as publishing results or confirming payment, Ndovera should automatically prepare and dispatch the appropriate notification.
+1. How the notification system will work
+School activity occurs
+Fees published, payment confirmed, results released or assignment posted
+
+Ndovera Notification Engine
+Checks parent preferences, event rules, message eligibility and available units
+
+Official WhatsApp Business Platform
+Sends approved templates and tracks delivery status
+
+Parent
+Receives the notification
+
+School
+Views delivery and credit usage
+
+
+
+Ndovera should integrate with the official WhatsApp Business Platform through Meta's Cloud API or an authorised WhatsApp Business Solution Provider. This provides controlled sending, approved message templates, delivery reports and a more reliable infrastructure than WhatsApp Web automation.
+Delivery can never be absolutely guaranteed: parents may have invalid numbers, block messages or experience connectivity problems. The system should therefore track delivery outcomes and provide fallback notifications.
+2. Notifications to implement
+Notification	Trigger	Recipient
+New term fees	Term bills are published	Parent/guardian
+Fee reminder	Every 14 days while eligible fees remain unpaid	Parent/guardian
+Payment receipt	Payment is verified and receipt generated	Paying parent/guardian
+Fee clearance	Account is fully settled	Parent/guardian
+Results available	Results are officially published	Parent/guardian
+New assignment	Teacher publishes assignment	Parent/guardian
+Assignment deadline	Approaching submission deadline	Parent/guardian
+Important school notice	Authorised staff publish notice	Selected parents
+All automatic notifications must be configurable by the school, subject to the platform's consent, message policy and credit rules.
+3. Complimentary 100 messages per term
+Each active school receives 100 complimentary message units when a new term is activated.
+EXAMPLE SCHOOL MESSAGE WALLET
+72 / 100 units
+Complimentary balance remaining
+
+
+
+Free used
+28
+
+
+Purchased
+0
+
+
+Total available
+72
+
+
+
+Illustrative wallet display. Figures are examples, not live Ndovera data.
+Wallet rules
+1. Allocate 100 complimentary units only once for each unique school, academic session and term.
+2. Count one message unit for each recipient-message dispatch, not for each notification event.
+3. Send to 50 parents = up to 50 units, even when the same template is used.
+4. Consume complimentary units before purchased units.
+5. Unused complimentary units expire at the end of the applicable term.
+6. Purchased units should carry forward to subsequent terms, subject to clearly disclosed purchase terms.
+7. Do not issue another 100 units simply because a school switches its active term backwards and forwards.
+8. Every credit allocation, purchase, reservation, deduction, refund or adjustment must have an auditable ledger entry.
+9. Schools should never be allowed to manipulate wallet balances directly.
+A unit should represent a defined billable notification entitlement. Because WhatsApp provider pricing may differ by message category, country and provider, Ndovera's administrators must configure how message units translate into actual delivery costs.
+For simplicity, Ndovera could initially charge one unit per standard template notification, provided the pricing model covers its costs.
+4. Purchasing additional WhatsApp units
+The school owner should be able to purchase units from the Ndovera wallet using Flutterwave.
+Buy WhatsApp Units
+Illustrative pricing
+
+100message units₦1,500
+250message units₦3,500
+500message units₦6,500
+1000message units₦12,000
+
+
+[ ] Enable automatic wallet top-up
+Selected package
+250 units
+
+Total
+₦3,500
+
+
+Design purchase implementation This is a UI concept, not an active checkout. Package prices must be approved by the platform administrator.
+Automatic top-up must be optional and explicitly authorised by the school owner. It also requires a supported recurring-payment mechanism, a maximum spend limit, receipts, and the ability to disable it.
+5. Automated school fee reminders every two weeks
+This is one of the most important functions of the module.
+The system should check the school's active term and find students whose accounts still show outstanding fees.
+Reminder conditions
+A reminder is eligible when:
+- The student has a positive, verified outstanding fee balance.
+- The guardian has consented to WhatsApp notifications.
+- At least 14 days have passed since the previous qualifying fee reminder, or the school's configured initial reminder date has arrived.
+- The account is not marked as disputed, temporarily exempted or under an approved reminder pause.
+- The school has sufficient message units.
+- The message is within the permitted sending window and uses an approved WhatsApp template.
+For Ndovera's existing fee structure, the outstanding balance must include the student's carried-forward arrears as well as current-term charges, less payments and approved adjustments. The reminder should use the same authoritative balance shown in the student's fee account.
+Example schedule
+Assuming term bills are published on 5 October 2026 and the school enables reminders immediately:
+1. 5 October 2026
+   Initial fee notification sent after bills are published
+2. 19 October 2026
+   First 14-day reminder, if a balance remains
+3. 2 November 2026
+   Second reminder, only to eligible accounts
+4. 16 November 2026
+   Third reminder, using the latest verified balance
+5. 30 November 2026
+   Fourth reminder if the account is still outstanding
+
+If a parent settles the full amount before the next reminder, Ndovera should automatically remove that account from the reminder queue.
+If the parent makes a partial payment, the next reminder should reflect the reduced balance.
+Sample WhatsApp fee reminder
+School Fees Reminder
+Sample parent notification
+
+
+Dear Parent/Guardian,
+This is a friendly reminder that your child's school fee account has an outstanding balance.
+Student: Daniel James
+Class: JHS 2
+Term: First Term, 2026/2027
+Outstanding Balance: ₦45,000
+Kindly make payment through the school's approved payment channel.
+Thank you for your cooperation.
+Genesis International School
+10:30 AM 
+
+Sample data only. The actual message should use approved templates and verified billing records.
+6. Receipt availability notifications
+Immediately after a payment is successfully verified and posted to the correct student account, Ndovera should generate the receipt.
+Only after the receipt is stored successfully should the notification event be created.
+Example:
+Dear Parent, we confirm receipt of your payment of ₦25,000 for Daniel James. Receipt No: GIS-2026-0042. Your updated outstanding balance is ₦20,000. Please log in to your Ndovera parent portal to view or download your receipt. Thank you.
+
+The message must not be triggered merely because a parent clicks I have paid or submits an unverified payment claim.
+Where the school manually records cash, transfer or POS payments, the payment must follow the school's configured approval procedure before a receipt notification is dispatched.
+For security, the receipt link should open an authenticated parent portal. Avoid publicly accessible links containing financial records.
+7. Result publication notifications
+When the school publishes examination results, Ndovera should automatically notify the parents of affected students.
+The teacher entering marks should not trigger a notification. Notifications should only occur after the result has passed all configured approval stages and has officially been published.
+Example:
+Dear Parent/Guardian, the First Term 2026/2027 examination results for your child, Daniel James (JHS 2), are now available on Ndovera. Kindly log in to your parent portal to view the result. Thank you. — Genesis International School.
+
+Important rules:
+- Only notify parents whose children have published results.
+- Do not send examination scores or sensitive result details directly in WhatsApp messages by default.
+- If a result is withdrawn or unpublished, invalidate its access link and avoid notifying parents again until it is republished.
+- Use a publication version to prevent duplicate notifications.
+- Allow the owner or Head of School to decide whether results are released immediately or after a scheduled publication time.
+8. Assignment notifications
+When a teacher publishes an assignment in the Classroom module, Ndovera should identify the affected class, subject and students.
+The parent notification should include the subject, assignment title, due date and a secure link to the assignment.
+Example:
+Dear Parent, a new Mathematics assignment titled "Linear Equations" has been posted for JHS 2. Submission deadline: 12 October 2026. Kindly encourage your child to complete the assignment on time. View details in Ndovera.
+
+However, notifying every parent immediately for every single assignment may exhaust the 100 free units very quickly.
+I recommend introducing assignment notification batching.
+For example, if a teacher posts Mathematics, English and Basic Science assignments on the same day, the system can combine them into one WhatsApp notification per parent.
+A school can choose between immediate notification and a daily assignment digest.
+9. Message usage optimisation
+Consider a school with 300 students, each having one primary parent contact.
+ILLUSTRATIVE TERM MESSAGE DEMAND
+
+0200400600800Fee bills4 fee remindersReceiptsResultsAssignment digests
+
+
+
+
+
+
+
+
+
+Illustrative quantities assuming one recipient per student and all notifications enabled.
+
+
+
+
+
+Estimated total
+1,900 units
+
+Complimentary allocation
+100 units
+
+Additional units required
+1,800 units
+
+
+This example shows why 100 complimentary messages should be treated as a starter allowance rather than a guarantee of full-term coverage.
+To help schools control costs, Ndovera should provide:
+- A projected message requirement for the remaining term.
+- A low-balance warning at configurable thresholds, such as 50, 20 and 10 units.
+- A notification preference screen for each message category.
+- Daily assignment digests instead of separate notifications.
+- One combined fee reminder per parent where multiple children attend the same school, if appropriately configured.
+- Free in-app notifications and optional email fallback when WhatsApp units are exhausted.
+A school should also be able to reserve a minimum number of units for high-priority fee receipts and results notifications.
+10. School administration interface
+The Ndovera school dashboard should have a new navigation section:
+Communication → WhatsApp Notifications
+WhatsApp Notifications
+First Term · 2026/2027
+
+Available units
+72
+
+
+Delivered
+26
+
+
+Pending
+2
+
+
+Failed
+0
+
+
+
+
+Automatic notifications
+New term fees
+When school bills are published
+
+[x] 
+
+Outstanding fee reminders
+Every 14 days
+
+[x] 
+
+Payment receipts
+After verification
+
+[x] 
+
+Published results
+After official release
+
+[x] 
+
+Assignment digest
+Daily summary
+
+[x] 
+
+Use these settings in implementation plan Interactive UI concept; settings are not connected to a live school.
+The complete section should contain tabs for Overview, Notification Settings, Message History, Scheduled Messages, Wallet, Purchase History, Delivery Reports and Parent Contacts.
+11. Technical architecture for Ndovera
+Since Ndovera already uses Flutter and Cloudflare infrastructure, the notification system should be implemented as a separate backend service.
+Recommended technology
+Component	Implementation
+School frontend	Flutter
+API/backend	Cloudflare Workers
+Database	Cloudflare D1
+Message queue	Cloudflare Queues
+Scheduled reminders	Cloudflare Cron Triggers
+Receipts	Cloudflare R2
+Provider	Meta WhatsApp Cloud API
+Payments	Flutterwave
+Secrets	Cloudflare Secrets
+Authentication	Existing Ndovera authentication and RBAC
+Monitoring	Cloudflare observability and internal delivery logs
+Suggested database structure
+Core database tables
+All school-specific records must include a trusted school/tenant identifier.
+whatsapp_wallets	Current wallet balances and school association
+wallet_transactions	Immutable credit, debit, reservation and refund records
+message_packages	Admin-configured unit packages and prices
+message_purchases	Flutterwave payment and verification records
+notification_templates	Approved WhatsApp template names, categories and versions
+notification_preferences	School and guardian communication preferences
+notification_events	Source events such as results published
+notification_deliveries	Recipient, provider ID, status and timestamps
+fee_reminder_state	Last reminder, next eligibility and reminder pauses
+notification_outbox	Reliable events waiting for processing
+provider_webhook_events	Deduplicated provider status events
+
+12. Event-driven implementation
+Ndovera should not send WhatsApp messages directly inside the same HTTP request that publishes a result or confirms a fee payment.
+Instead, use an event-driven workflow:
+1. The authorised school action updates the appropriate business record.
+2. The backend records a notification event in an outbox as part of the same database transaction.
+3. A background dispatcher processes the outbox and places eligible deliveries in Cloudflare Queues.
+4. The notification worker checks guardian consent, recipient validity, message settings, duplicate-event protection and wallet balance.
+5. It atomically reserves the necessary message unit.
+6. The worker submits the approved template to the WhatsApp provider.
+7. The provider response and subsequent delivery webhooks update the delivery record.
+8. Wallet reservations are finalised or released according to the documented billing and failure policy.
+The outbox pattern prevents the system from silently losing notification events when a queue operation temporarily fails.
+13. Fee reminder scheduler
+Use a Cloudflare Cron Trigger to run the fee reminder scheduler daily. The scheduler must not blindly message every debtor each day.
+Its job is to determine which accounts have become eligible for the 14-day reminder.
+A safe processing sequence is:
+DAILY FEE REMINDER SCHEDULER
+
+1. Find active school terms.
+
+2. Find students with outstanding balances.
+
+3. Exclude:
+   - Fully paid accounts
+   - Paused or disputed accounts
+   - Parents without valid WhatsApp consent
+   - Accounts not yet due for a reminder
+
+4. Calculate the latest verified balance.
+
+5. Check the last qualifying reminder date.
+
+6. If 14 days have elapsed:
+   - Create a unique reminder event
+   - Check the school's messaging settings
+   - Check available wallet units
+   - Reserve units
+   - Queue approved WhatsApp template
+
+7. Record the outcome.
+
+8. Update the next reminder eligibility
+   according to the delivery policy.
+
+9. Produce a school notification report.
+
+
+A failed send must not incorrectly count as a successful reminder. The system should distinguish between queued, submitted, sent, delivered, read, failed and unknown outcomes.
+14. Credit reservation and deduction
+Credit deduction must be protected against concurrency problems.
+For example, if a school has five units remaining and ten messages are processed simultaneously, the system must not allow ten successful reservations.
+Use a D1 transaction with an atomic conditional balance update and a unique wallet transaction identifier.
+A robust implementation should maintain:
+- available_units
+- reserved_units
+- consumed_units
+- complimentary_units
+- purchased_units
+The wallet ledger remains the audit authority, while summary balances are transactionally maintained projections.
+Retries must reuse the original delivery and reservation identity rather than consuming a second unit.
+Provider submission timeouts require special handling: Ndovera should not assume a message failed simply because the HTTP response was lost. Such attempts should enter a reconciliation state to avoid duplicate WhatsApp messages.
+15. Security and privacy requirements
+This module handles student, parent and financial information, so it should follow Ndovera's zero-trust design.
+Required safeguards:
+- Validate the school identity from authenticated server-side context, never from an untrusted request body.
+- Enforce tenant isolation on every database query.
+- Limit message-purchase access to the owner or explicitly authorised roles.
+- Allow teachers to trigger only permitted assignment events, not arbitrary mass messaging.
+- Verify Flutterwave transactions server-side before crediting units.
+- Validate provider webhook signatures.
+- Encrypt or appropriately protect sensitive parent contact information.
+- Use only school-approved, consented parent contacts.
+- Maintain consent timestamps, source, scope and withdrawal records.
+- Provide a clear WhatsApp opt-out process.
+- Do not reveal sensitive student results or detailed financial information in public links.
+- Use idempotency keys to prevent repeated credit allocations and duplicate dispatches.
+- Apply rate limits, anti-spam rules and audit logging.
+- Follow applicable Nigerian data protection requirements and WhatsApp Business Messaging policies.
+For a parent with multiple children, Ndovera should only combine notifications where that guardian is authorised to receive information about all the included children.
+16. Ndovera Super Admin controls
+The platform Super Admin needs a dedicated WhatsApp Management module.
+It should provide control over complimentary allocations, package prices, provider configuration, message categories, template approval, platform-wide usage and school-level wallet activity.
+The Super Admin should also be able to:
+- Allocate promotional units to selected schools.
+- Suspend abusive messaging without disabling the entire school account.
+- Configure whether unused purchased units expire.
+- Review payment and wallet reconciliation discrepancies.
+- Set maximum daily messaging limits.
+- Monitor provider costs and message-delivery performance.
+- Inspect failed notification reasons without exposing unnecessary student information.
+- Configure automatic warnings for schools running low on units.
+Any manual wallet adjustment must require an authorised administrator, a reason and an immutable audit entry.
+17. Delivery failure and insufficient balance handling
+When a school runs out of units, Ndovera should not silently discard important notifications.
+Instead:
+1. Mark the notification as awaiting_credits.
+2. Notify the school owner through the in-app dashboard.
+3. Retain the notification for a defined period.
+4. Allow purchased units to fund pending messages automatically if the school enables this.
+5. Recheck whether each notification is still relevant before dispatching it.
+For example, if a parent has already paid all outstanding fees while a fee reminder was waiting for credits, the reminder must be cancelled rather than sent later.
+Receipt and result notifications can remain pending longer, but their links and underlying permissions must be revalidated before sending.
+A successful WhatsApp API submission is not the same as confirmed delivery. Ndovera must report the actual state received from the provider and should not promise guaranteed delivery.
+18. Recommended implementation phases
+
+Phase 1 — Wallet and credit infrastructure
+Build the 100-unit term allocation, purchased-unit ledger, message packages, Flutterwave integration and wallet dashboard.
+
+
+
+
+Phase 2 — WhatsApp provider integration
+Connect approved templates, consent records, secure webhook processing, queue workers, retry logic and delivery reporting.
+
+
+
+
+Phase 3 — School fee and receipt notifications
+Integrate fee publication, verified payments, receipt generation and automated 14-day outstanding-fee reminders.
+
+
+
+
+Phase 4 — Academic notifications
+Integrate approved result publication, assignment posting, daily digests and deadline reminders.
+
+
+
+
+Phase 5 — Production readiness
+Implement Super Admin controls, concurrency tests, tenant-isolation tests, provider failure simulations, spending safeguards, reconciliation and monitoring.
+
+
+
+Final product decisions I recommend
+Ndovera should provide 100 free WhatsApp units per school per term, support purchased units that carry forward, send fee reminders at 14-day intervals, notify parents after verified receipts and published results, and combine assignment notifications into daily digests where appropriate.
+I would also make in-app notifications free and unlimited under reasonable anti-abuse limits, while WhatsApp notifications use the credit wallet. That way, parents can still receive information in Ndovera even when a school's WhatsApp balance is exhausted.
+This approach makes the communication system a practical service for schools, creates an additional revenue stream for Ndovera, and reduces the administrative burden on school staff without sacrificing billing accuracy, privacy or delivery transparency.

@@ -33,6 +33,7 @@ export const createAiAssessment = payload => request('/api/ai-assessments', { me
 export const getAiAssessment = assessmentId => request(`/api/ai-assessments/${id(assessmentId)}`);
 export const approveAssessmentBlueprint = (assessmentId, blueprint) => request(`/api/ai-assessments/${id(assessmentId)}/blueprint`, { method: 'PUT', body: { blueprint } });
 export const generateNextQuestions = assessmentId => request(`/api/ai-assessments/${id(assessmentId)}/generate-next`, { method: 'POST', body: {} });
+export const regenerateWholeAssessment = assessmentId => request(`/api/ai-assessments/${id(assessmentId)}/regenerate-all`, { method: 'POST', body: {} });
 export const regenerateAssessmentQuestion = (assessmentId, payload) => request(`/api/ai-assessments/${id(assessmentId)}/regenerate`, { method: 'POST', body: payload });
 export const saveAssessmentEdits = (assessmentId, payload) => request(`/api/ai-assessments/${id(assessmentId)}`, { method: 'PUT', body: payload });
 export const reviewAssessment = assessmentId => request(`/api/ai-assessments/${id(assessmentId)}/review`, { method: 'POST', body: {} });

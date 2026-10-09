@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import AiCreditsBar, { needsCredits } from '../ai-credits/AiCredits';
 import { createPortal } from 'react-dom';
 import { AiBlockEditor, AiBlockView, BLOCK_LABELS } from './AiBlocks';
 import * as api from './materialAiApi';
@@ -262,7 +263,9 @@ function Workspace({ initialDraft, onPublished, onDiscarded }) {
   const [instruction, setInstruction] = useState({});
   const [publish, setPublish] = useState({ title: '', weekLabel: '', visibility: 'student_parent' });
   const [needsAck, setNeedsAck] = useState(false);
+  const [shortfall, setShortfall] = useState(null);
   const running = useRef(false);
+  const creditKind = draft.kind === 'mock_exam' ? 'exam' : ['practice_questions', 'worksheet'].includes(draft.kind) ? 'assignment' : 'notes';
   const pending = draft.sections.filter(section => section.status === 'pending').length;
   const examLabels = useMemo(() => [...(draft.grounding?.exams || []).map(exam => exam.label.replace(/\s*\(.*\)$/, '')), ...(draft.grounding?.customExam ? [draft.grounding.customExam] : [])], [draft.grounding]);
   const questionLabel = examLabels.length ? `${examLabels.join('/')}-style Practice Question` : 'Practice Question';
@@ -273,13 +276,17 @@ function Workspace({ initialDraft, onPublished, onDiscarded }) {
     if (running.current) return;
     running.current = true;
     setError('');
+    setShortfall(null);
     try {
       for (let guard = 0; guard < 30; guard += 1) {
         const result = await api.generateNextSection(draft.id);
         accept(result.draft);
         if (result.done) break;
       }
-    } catch (err) { setError(`${err.message} You can continue where it stopped.`); } finally { running.current = false; setBusy(''); }
+    } catch (err) {
+      if (needsCredits(err)) setShortfall(err.data || {});
+      else setError(`${err.message} You can continue where it stopped.`);
+    } finally { running.current = false; setBusy(''); }
   }, [accept, draft.id]);
 
   useEffect(() => { if (pending > 0) { setBusy('writing'); writeAll(); } }, []); // eslint-disable-line react-hooks/exhaustive-deps
@@ -311,6 +318,13 @@ function Workspace({ initialDraft, onPublished, onDiscarded }) {
             </li>
           ))}
         </ol>
+        {(pending > 0 || shortfall) && <div className="mt-3"><AiCreditsBar kind={creditKind} shortfall={shortfall} onRetry={() => { setBusy('writing'); writeAll(); }} /></div>}
+        {pending === 0 && draft.status !== 'published' && (
+          <button type="button" className="mt-3 text-sm font-bold text-[#800020] underline" disabled={Boolean(busy)} onClick={() => {
+            if (!window.confirm('Write the whole material again? It uses half the credits of a new one.')) return;
+            act('regenerate', async () => { const result = await api.regenerateWholeMaterial(draft.id); accept(result.draft); setBusy('writing'); running.current = false; await writeAll(); });
+          }}>↻ Regenerate the whole material (half the credits)</button>
+        )}
         {pending > 0 && (
           <div className="mt-3 flex items-center gap-3 text-sm text-[#191970]" role="status">
             {busy === 'writing' ? <span>Ndovera AI is writing — {draft.sections.length - pending} of {draft.sections.length} sections done…</span> : <button type="button" className={PRIMARY} onClick={() => { setBusy('writing'); writeAll(); }}>Continue writing</button>}

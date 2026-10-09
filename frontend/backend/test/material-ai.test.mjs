@@ -147,7 +147,7 @@ function caller(db, ai = fakeModel(), uploads = fakeBucket()) {
     const token = await sign({ id, role, roles: [role], tenantId, name: id, exp: Math.floor(Date.now() / 1000) + 600 }, SECRET)
     const response = await worker.fetch(new Request(`https://ndovera.com${path}`, {
       method, headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' }, body: body ? JSON.stringify(body) : undefined,
-    }), { APP_DB: db, JWT_SECRET: SECRET, AI: ai, UPLOADS: uploads }, { waitUntil() {}, passThroughOnException() {} })
+    }), { APP_DB: db, JWT_SECRET: SECRET, AI: ai, UPLOADS: uploads, AI_PAY_START: '2999-01-01T00:00:00Z' }, { waitUntil() {}, passThroughOnException() {} })
     return { status: response.status, body: await response.json().catch(() => ({})) }
   }
 }
@@ -384,4 +384,115 @@ test('Exam Readiness comes from marked work against the specification, and says 
   assert.deepEqual(result.notAssessed.map(item => item.topic), ['Probability'])
   assert.equal(result.unmatched, 1)
   assert.equal((await call('student', 'GET', '/api/exam-readiness?classId=ss2a&subjectId=math&exam=neco')).status, 404)
+})
+
+// ─── PDF imports, read in the background by the cron ─────────────────────────
+
+/** The model stand-in plus Workers AI's PDF reader returning `pdfText`; the model is busy for the first `busyCalls` calls. */
+function pdfModel(pdfText, { busyCalls = 0 } = {}) {
+  const base = fakeModel()
+  let busy = busyCalls
+  return {
+    toMarkdown: async files => [{ name: files[0].name, format: 'markdown', data: pdfText }],
+    run: async (model, input) => {
+      if (busy > 0) { busy -= 1; throw new Error('model busy') }
+      return base.run(model, input)
+    },
+  }
+}
+
+async function postFile(db, env, person, path, file, fields = {}) {
+  const [id, , role, tenantId] = PEOPLE[person]
+  const token = await sign({ id, role, roles: [role], tenantId, name: id, exp: Math.floor(Date.now() / 1000) + 600 }, SECRET)
+  const form = new FormData()
+  form.append('file', file.blob, file.name)
+  for (const [key, value] of Object.entries(fields)) form.append(key, value)
+  const response = await worker.fetch(new Request(`https://ndovera.com${path}`, { method: 'POST', headers: { Authorization: `Bearer ${token}` }, body: form }),
+    { APP_DB: db, JWT_SECRET: SECRET, ...env }, { waitUntil() {}, passThroughOnException() {} })
+  return { status: response.status, body: await response.json().catch(() => ({})) }
+}
+const PDF = { blob: new Blob([Buffer.from('%PDF-1.7 fake')], { type: 'application/pdf' }), name: 'syllabus.pdf' }
+
+/** One cron tick, waiting for everything it started. */
+async function cronTick(db, env) {
+  const pending = []
+  await worker.scheduled({ cron: '* * * * *', scheduledTime: Date.now() }, { APP_DB: db, JWT_SECRET: SECRET, ...env }, { waitUntil: promise => pending.push(promise), passThroughOnException() {} })
+  await Promise.allSettled(pending)
+}
+
+const LONG_SYLLABUS = Array.from({ length: 30 }, (_, i) => `Page ${i + 1}\nSS 2 Chemistry — Topic ${i + 1}: Chemical equilibrium part ${i + 1}. Objectives: state Le Chatelier's principle and apply it to industrial processes. ${'Detail '.repeat(60)}`).join('\n')
+
+test('a PDF is read a piece at a time by the cron, with nobody online, and its progress is visible throughout', async () => {
+  const db = await setup()
+  const uploads = fakeBucket()
+  const env = { AI: pdfModel(LONG_SYLLABUS), UPLOADS: uploads }
+  const call = caller(db, env.AI, uploads)
+  const created = await call('ami', 'POST', '/api/ami/curricula', { name: 'NERDC Chemistry' })
+  const curriculumId = created.body.curriculum.id
+  assert.equal((await postFile(db, env, 'teacher', `/api/ami/curricula/${curriculumId}/import-pdf`, PDF)).status, 403)
+  const uploaded = await postFile(db, env, 'ami', `/api/ami/curricula/${curriculumId}/import-pdf`, PDF, { subject: 'Chemistry', classLabel: 'SS 2' })
+  assert.equal(uploaded.status, 202, JSON.stringify(uploaded.body))
+  assert.equal(uploaded.body.job.fileName, 'syllabus.pdf')
+  const jobId = uploaded.body.job.id
+
+  // From here on, only the cron works: no requests from the uploader.
+  const seen = []
+  const jobNow = async () => (await call('ami', 'GET', '/api/library-imports')).body.jobs.find(item => item.id === jobId)
+  for (let tick = 0; tick < 20; tick += 1) {
+    await cronTick(db, env)
+    const job = await jobNow()
+    seen.push(job.percent)
+    if (job.status === 'done') break
+  }
+  const job = await jobNow()
+  assert.equal(job.status, 'done', JSON.stringify(job))
+  assert.equal(job.percent, 100)
+  assert.ok(job.total > 5000 * 2, 'long enough to need several steps')
+  assert.ok(seen.every((value, index) => index === 0 || value >= seen[index - 1]), `progress only moves forward: ${seen}`)
+  assert.ok(job.added >= 3, `rows added: ${job.added}`)
+  const topics = await call('ami', 'GET', `/api/ami/curricula/${curriculumId}/topics`)
+  assert.equal(topics.body.topics.length, job.added)
+  // Page numbers are stripped before the model sees the text.
+  assert.ok(!/^Page \d+$/m.test(String(uploads.store.get(`library-imports/${jobId}.txt`).value)))
+  // A school sees only its own imports; a teacher sees none.
+  assert.deepEqual((await call('owner', 'GET', '/api/library-imports')).body.jobs, [])
+  assert.equal((await call('teacher', 'GET', '/api/library-imports')).status, 403)
+})
+
+test('a scanned PDF is reported, a busy model is retried, and imports can be paused and resumed', async () => {
+  const db = await setup()
+  const uploads = fakeBucket()
+  let env = { AI: pdfModel('   '), UPLOADS: uploads }
+  let call = caller(db, env.AI, uploads)
+  const created = await call('owner', 'POST', '/api/school/curricula', { name: 'Genesis scheme' })
+  const curriculumId = created.body.curriculum.id
+  const jobs = async () => (await call('owner', 'GET', '/api/library-imports')).body.jobs
+  const scanned = await postFile(db, env, 'owner', `/api/school/curricula/${curriculumId}/import-pdf`, PDF)
+  await cronTick(db, env)
+  const failed = (await jobs()).find(item => item.id === scanned.body.job.id)
+  assert.equal(failed.status, 'failed')
+  assert.match(failed.error, /scanned/)
+
+  // The model is busy for two calls: the job waits and carries on by itself.
+  env = { AI: pdfModel(LONG_SYLLABUS, { busyCalls: 2 }), UPLOADS: uploads }
+  call = caller(db, env.AI, uploads)
+  const uploaded = await postFile(db, env, 'owner', `/api/school/curricula/${curriculumId}/import-pdf`, PDF, { subject: 'Chemistry', classLabel: 'SS 2' })
+  const id = uploaded.body.job.id
+
+  // Paused: the cron leaves it alone.
+  assert.equal((await call('owner', 'POST', `/api/library-imports/${id}/pause`)).body.job.status, 'paused')
+  await cronTick(db, env)
+  let job = (await jobs()).find(item => item.id === id)
+  assert.deepEqual([job.status, job.offset], ['paused', 0])
+  assert.equal((await call('owner', 'POST', `/api/library-imports/${id}/resume`)).body.job.status, 'processing', 'the PDF was already read on upload; it carries on from the text')
+  for (let tick = 0; tick < 20 && job.status !== 'done'; tick += 1) {
+    await cronTick(db, env)
+    job = (await jobs()).find(item => item.id === id)
+  }
+  assert.equal(job.status, 'done', JSON.stringify(job))
+  assert.equal(job.error, '')
+  // The open page can also push a step; a finished job just reports itself.
+  assert.equal((await call('owner', 'POST', `/api/library-imports/${id}/step`)).body.job.status, 'done')
+  // Only PDFs.
+  assert.equal((await postFile(db, env, 'owner', `/api/school/curricula/${curriculumId}/import-pdf`, { blob: new Blob(['hello'], { type: 'text/plain' }), name: 'notes.txt' })).status, 400)
 })

@@ -6,7 +6,7 @@ import ClassroomTopBar from './ClassroomTopBar';
 import StreamTab from './stream';
 import SubjectsTab from './subjects';
 import MaterialsTab from './materials';
-import PracticeTab from './practice';
+import PracticeArena from '../practice-arena';
 import AssignmentsTab from './assignments';
 import LiveTab from './live';
 import ClassmatesTab from './classmates';
@@ -17,7 +17,6 @@ import { getStoredAuth } from '../auth/services/authApi';
 
 export default function StudentClassroomExperience() {
   const [activeTab, setActiveTab] = useState('stream');
-  const [auraBalance, setAuraBalance] = useState(0);
   const [subjects, setSubjects] = useState([]);
   const shortClassName = (liveSessionSeed.className || 'Live Classroom').split(' - ')[0];
 
@@ -37,7 +36,7 @@ export default function StudentClassroomExperience() {
     if (activeTab === 'subjects') return <SubjectsTab classId={classId} subjects={subjects} canManage={false} studentMode />;
     if (activeTab === 'timetable') return <TimetableTab />;
     if (activeTab === 'materials') return <MaterialsTab classId={classId} />;
-    if (activeTab === 'practice') return <PracticeTab auraBalance={auraBalance} setAuraBalance={setAuraBalance} />;
+    if (activeTab === 'practice') return <PracticeArena />;
     if (activeTab === 'assignments') return <AssignmentsTab classId={classId} />;
     if (activeTab === 'live') return <LiveTab />;
     if (activeTab === 'classmates') return <ClassmatesTab classId={classId} />;

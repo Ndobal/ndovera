@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import RichContent from '../../../shared/rich/RichContent';
 import { getStoredAuth } from '../../../features/auth/services/authApi';
 import { getApiBase } from '../../../config/apiBase';
+import AmiQuestionUploads, { SECTIONS } from './AmiQuestionUploads';
 
 const apiBase = getApiBase('');
 
@@ -38,7 +39,7 @@ async function apiFetch(path, options = {}) {
   return data;
 }
 
-const EMPTY_FORM = { subject: '', classLevel: '', type: 'mcq', prompt: '', options: ['', '', '', ''], answer: '', explanation: '', imageUrl: '' };
+const EMPTY_FORM = { subject: '', section: 'junior', classLevel: '', type: 'mcq', prompt: '', options: ['', '', '', ''], answer: '', explanation: '', imageUrl: '' };
 
 export default function AmiQuestionBank() {
   const [questions, setQuestions] = useState([]);
@@ -69,6 +70,7 @@ export default function AmiQuestionBank() {
     try {
       const payload = {
         subject: form.subject,
+        section: form.section,
         classLevel: form.classLevel || null,
         type: form.type,
         prompt: form.prompt,
@@ -97,7 +99,7 @@ export default function AmiQuestionBank() {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h2 className={TITLE}>Question Bank</h2>
-          <p className={`${BODY} mt-1`}>Manage default questions available to all teachers and students.</p>
+          <p className={`${BODY} mt-1`}>Ndovera's questions for every school. Students practise them by section, at their level and the levels below — no AI needed.</p>
         </div>
         <button type="button" onClick={() => { setShowForm(v => !v); setSaveMsg(''); }} className={PRIMARY_BUTTON}>
           {showForm ? 'Cancel' : '+ Add Question'}
@@ -113,10 +115,16 @@ export default function AmiQuestionBank() {
               <input required value={form.subject} onChange={e => setForm(f => ({ ...f, subject: e.target.value }))} className={INPUT} placeholder="e.g. Mathematics" />
             </div>
             <div>
+              <label className={LABEL}>Section *</label>
+              <select required value={form.section} onChange={e => setForm(f => ({ ...f, section: e.target.value, classLevel: '' }))} className={INPUT}>
+                {SECTIONS.map(section => <option key={section.key} value={section.key}>{section.label}</option>)}
+              </select>
+            </div>
+            <div>
               <label className={LABEL}>Class Level</label>
               <select value={form.classLevel} onChange={e => setForm(f => ({ ...f, classLevel: e.target.value }))} className={INPUT}>
-                <option value="">— All levels —</option>
-                {SUBJECT_LEVELS.map(l => <option key={l} value={l}>{l}</option>)}
+                <option value="">— Whole section —</option>
+                {(SECTIONS.find(section => section.key === form.section)?.levels || []).map(l => <option key={l} value={l}>{l}</option>)}
               </select>
             </div>
             <div>
@@ -178,6 +186,8 @@ export default function AmiQuestionBank() {
           <button type="submit" disabled={saving} className={PRIMARY_BUTTON}>{saving ? 'Saving...' : 'Save Question'}</button>
         </form>
       )}
+
+      <AmiQuestionUploads surface={SURFACE} label={LABEL} input={INPUT} primary={PRIMARY_BUTTON} body={BODY} onImported={() => reload().catch(() => null)} />
 
       {/* Filters */}
       <div className={SUB_SURFACE + ' flex flex-wrap gap-3 items-end'}>

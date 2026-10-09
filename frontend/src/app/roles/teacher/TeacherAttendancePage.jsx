@@ -12,9 +12,12 @@ import {
 } from '../../../features/school/services/schoolApi';
 import { getAssignedClasses, getClassStudents, recordAttendance } from '../../../features/classroom/classroomService';
 import {
+  flushStaffAttendanceQueue,
   getQueuedStaffAttendanceActions,
   queueStaffAttendanceAction,
   removeQueuedStaffAttendanceAction,
+  retryQueuedStaffAttendanceAction,
+  subscribeToStaffAttendanceQueue,
 } from '../../../features/attendance/staffAttendanceQueue';
 
 // Royal-blue theme on white surfaces (light), neon retained for dark mode.
@@ -69,7 +72,9 @@ function isLikelyNetworkError(error) {
   if (typeof window !== 'undefined' && window.navigator && window.navigator.onLine === false) {
     return true;
   }
-  return message.includes('failed to fetch') || message.includes('network') || message.includes('offline') || message.includes('load failed');
+  // No response at all, a timeout, or a server that is down: keep the mark and send it later.
+  if (Number(error?.status || 0) >= 500 || Number(error?.status || 0) === 429) return true;
+  return message.includes('failed to fetch') || message.includes('network') || message.includes('offline') || message.includes('load failed') || message.includes('timeout') || message.includes('timed out');
 }
 
 function readFileAsDataUrl(file) {
@@ -310,7 +315,7 @@ export default function TeacherAttendancePage() {
   const [colleagues, setColleagues] = useState([]);
   const [targetStaffId, setTargetStaffId] = useState('');
   const [scannerDismissedManually, setScannerDismissedManually] = useState(false);
-  const [queuedActions, setQueuedActions] = useState(() => getQueuedStaffAttendanceActions());
+  const [queuedActions, setQueuedActions] = useState([]);
 
   // Colleague list for "sign in for a friend".
   useEffect(() => {
@@ -351,10 +356,11 @@ export default function TeacherAttendancePage() {
     [managedClasses],
   );
   const signInTone = latestSignIn ? statusTone(latestSignIn.isLate) : 'border-[#c9a96e]/35 bg-[#fff8f0] text-[#191970] dark:border-[#bf00ff]/25 dark:bg-black/20 dark:text-[#39ff14]';
-  const queuedCount = queuedActions.length;
+  const queuedCount = queuedActions.filter(entry => entry.status !== 'needs_review').length;
+  const reviewActions = queuedActions.filter(entry => entry.status === 'needs_review');
 
   const refreshQueuedActions = useCallback(() => {
-    setQueuedActions(getQueuedStaffAttendanceActions());
+    getQueuedStaffAttendanceActions().then(setQueuedActions).catch(() => null);
   }, []);
 
   const loadTodayActivity = useCallback(async () => {
@@ -438,41 +444,30 @@ export default function TeacherAttendancePage() {
 
   const flushQueuedActions = useCallback(async () => {
     if (typeof window === 'undefined' || !window.navigator.onLine) return;
-
-    const queuedEntries = getQueuedStaffAttendanceActions();
-    if (!queuedEntries.length) {
-      refreshQueuedActions();
-      return;
-    }
-
     setQueueSyncing(true);
-    let syncedCount = 0;
-
-    for (const entry of queuedEntries) {
-      try {
-        await submitStaffAttendanceActivity(entry.payload);
-        removeQueuedStaffAttendanceAction(entry.id);
-        syncedCount += 1;
-      } catch (error) {
-        if (!isLikelyNetworkError(error)) {
-          setSignInError(error instanceof Error ? error.message : 'One queued attendance mark could not sync and needs review.');
+    try {
+      // The outbox sends every queued mark; one Ndovera refuses is kept for review and does not hold up the rest.
+      const result = await flushStaffAttendanceQueue();
+      refreshQueuedActions();
+      if (result.sent > 0) {
+        await loadTodayActivity().catch(() => null);
+        if (activeTab === 'records') {
+          await loadRecordRange().catch(() => null);
         }
-        break;
+        setSignInMessage(`${result.sent} queued attendance mark${result.sent === 1 ? '' : 's'} synced successfully.`);
       }
-    }
-
-    refreshQueuedActions();
-
-    if (syncedCount > 0) {
-      await loadTodayActivity().catch(() => null);
-      if (activeTab === 'records') {
-        await loadRecordRange().catch(() => null);
+      if (result.failed > 0) {
+        setSignInError(`${result.failed} queued attendance mark${result.failed === 1 ? '' : 's'} could not be accepted. See "Needs review" below.`);
       }
-      setSignInMessage(`${syncedCount} queued attendance mark${syncedCount === 1 ? '' : 's'} synced successfully.`);
+    } finally {
+      setQueueSyncing(false);
     }
-
-    setQueueSyncing(false);
   }, [activeTab, loadRecordRange, loadTodayActivity, refreshQueuedActions]);
+
+  // Marks can sync from any page (the app-wide outbox); keep this page's view current.
+  useEffect(() => subscribeToStaffAttendanceQueue(items => {
+    setQueuedActions(items.map(item => ({ id: item.id, queuedAt: item.createdAt, payload: item.payload, status: item.status, error: item.error })));
+  }), []);
 
   useEffect(() => {
     loadSettings();
@@ -544,8 +539,8 @@ export default function TeacherAttendancePage() {
     };
   }, [selectedClassId]);
 
-  const queueSignInPayload = useCallback((payload, qrCodeValue) => {
-    queueStaffAttendanceAction(payload);
+  const queueSignInPayload = useCallback(async (payload, qrCodeValue) => {
+    await queueStaffAttendanceAction(payload);
     refreshQueuedActions();
     setManualQrCode(String(qrCodeValue || payload?.qrCode || '').trim());
     setScannerOpen(false);
@@ -572,6 +567,8 @@ export default function TeacherAttendancePage() {
 
     const payload = {
       action: 'sign-in',
+      // The moment of signing in: if this has to wait offline, Ndovera still records this time.
+      capturedAt: new Date().toISOString(),
       date: TODAY,
       qrCode: nextQrCode,
       faceImageUrl,
@@ -582,7 +579,7 @@ export default function TeacherAttendancePage() {
     };
 
     if (typeof window !== 'undefined' && window.navigator.onLine === false) {
-      queueSignInPayload(payload, nextQrCode);
+      await queueSignInPayload(payload, nextQrCode);
       return;
     }
 
@@ -606,7 +603,7 @@ export default function TeacherAttendancePage() {
       }
     } catch (error) {
       if (isLikelyNetworkError(error)) {
-        queueSignInPayload(payload, nextQrCode);
+        await queueSignInPayload(payload, nextQrCode);
         return;
       }
       setSignInError(error instanceof Error ? error.message : 'Could not complete QR sign-in.');
@@ -858,6 +855,20 @@ export default function TeacherAttendancePage() {
                           : 'This device is online. QR scanning can mark attendance immediately.'
                         : 'This device is offline. New attendance marks will be queued and synced automatically when the internet returns.'}
                     </div>
+                    {reviewActions.length > 0 ? (
+                      <div className="mt-3 rounded-2xl border border-red-300 bg-red-50 px-4 py-3 text-sm text-red-800 dark:border-red-400/40 dark:bg-red-950/30 dark:text-red-200">
+                        <p className="font-bold">Needs review</p>
+                        {reviewActions.map(entry => (
+                          <div key={entry.id} className="mt-2 flex flex-wrap items-center justify-between gap-2">
+                            <span>{entry.payload?.date} · {new Date(entry.payload?.capturedAt || entry.queuedAt).toLocaleTimeString()} — {entry.error}</span>
+                            <span className="flex gap-2">
+                              <button type="button" className={SECONDARY_BUTTON} onClick={() => retryQueuedStaffAttendanceAction(entry.id)}>Try again</button>
+                              <button type="button" className={SECONDARY_BUTTON} onClick={() => removeQueuedStaffAttendanceAction(entry.id).then(refreshQueuedActions)}>Discard</button>
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    ) : null}
                     <div className="mt-4 grid gap-4 md:grid-cols-2">
                       <label className="text-sm font-semibold text-[#2447d8] dark:text-[#bf00ff]">
                         Manual QR Entry

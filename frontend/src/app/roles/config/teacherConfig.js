@@ -44,20 +44,6 @@ const teacherConfig = {
         { title: 'Quality Checks', items: [{ text: 'Review file clarity and completeness.' }, { text: 'Replace outdated references quickly.' }, { text: 'Pin high-priority materials.' }] },
       ],
     },
-    practice: {
-      title: 'Practice',
-      subtitle: 'Assign drills and monitor weak-topic reinforcement.',
-      cards: [
-        { label: 'Practice Sets', value: '21', accent: 'accent-indigo' },
-        { label: 'Avg Completion', value: '81%', accent: 'accent-emerald' },
-        { label: 'Weak Topics', value: '6', accent: 'accent-amber' },
-        { label: 'AI Requests', value: '39', accent: 'accent-rose' },
-      ],
-      panels: [
-        { title: 'Drill Assignment', items: [{ text: 'Push topic drills to selected classes.' }, { text: 'Set timed or untimed practice.' }, { text: 'Auto-group students by mastery level.' }] },
-        { title: 'Practice Analytics', items: [{ text: 'Inspect common errors by topic.' }, { text: 'Recommend reteach points.' }, { text: 'Export intervention list.' }] },
-      ],
-    },
     attendance: { title: 'Attendance', subtitle: 'Mark present, absent, late, or excused.', panels: [{ title: 'Attendance Rules', items: [{ text: 'Cannot change archived attendance.' }, { text: 'Every change is logged.' }, { text: 'Class teacher can review overrides.' }] }] },
     scores: { title: 'Subject Scores (CA)', subtitle: 'Enter and review CA scores by subject.', panels: [{ title: 'CA Entry', items: [{ text: 'Only assigned teacher can enter scores.' }, { text: 'See missing-score highlights.' }, { text: 'Class teacher can override if needed.' }] }] },
     'offline-ca': { title: 'Offline CA Entry', subtitle: 'Download sheet, fill offline, and upload safely.', panels: [{ title: 'Offline Flow', items: [{ text: 'Download template.' }, { text: 'Fill scores offline.' }, { text: 'Upload and validate with logs.' }] }] },

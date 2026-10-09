@@ -1,39 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import StudentSectionShell from './StudentSectionShell';
-import PracticeTab from '../../../features/classroom/practice';
-import { getAiAccess } from '../../../features/ai/services/aiTutorApi';
+import PracticeArena from '../../../features/practice-arena';
 
+// Practice comes from the question bank — every question your teachers have
+// given across your classes so far, and Ndovera's own bank — with no AI calls,
+// so it is free and works offline once a subject is saved on the device.
 export default function StudentPractice() {
-  const [auraBalance, setAuraBalance] = useState(0);
-
-  useEffect(() => {
-    let active = true;
-
-    async function loadAiBalance() {
-      try {
-        const data = await getAiAccess();
-        if (!active) return;
-        const nextBalance = Number(data?.access?.usage?.remainingFreeRequests || 0) + Number(data?.access?.wallet?.availableCredits || 0);
-        setAuraBalance(Number.isFinite(nextBalance) && nextBalance >= 0 ? nextBalance : 0);
-      } catch {
-        if (active) {
-          setAuraBalance(0);
-        }
-      }
-    }
-
-    loadAiBalance();
-    return () => {
-      active = false;
-    };
-  }, []);
-
   return (
     <StudentSectionShell
-      title="Practice"
-      subtitle="Choose a subject, solve mixed questions, and study with AI."
+      title="Practice Arena"
+      subtitle="Quizzes from your teachers' questions and Ndovera's bank. Earn XP, keep your streak, climb the leaderboard — online or offline."
     >
-      <PracticeTab auraBalance={auraBalance} setAuraBalance={setAuraBalance} />
+      <PracticeArena />
     </StudentSectionShell>
   );
 }

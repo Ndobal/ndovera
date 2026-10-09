@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import { BundlePicker } from '../features/ai-credits/AiCredits';
 import { useLocation } from 'react-router-dom';
 import CommandPageShell from '../shared/components/CommandPageShell';
 import {
@@ -23,10 +24,11 @@ function AITutor() {
   const [policyForm, setPolicyForm] = useState({
     scope: 'tenant',
     billingModel: 'individual',
-    dailyFreeRequests: 50,
+    dailyFreeRequests: 10,
     pricePerCreditNaira: 0,
   });
   const [schoolCreditQuantity, setSchoolCreditQuantity] = useState(50);
+  const [showBundles, setShowBundles] = useState(false);
 
   const access = accessPayload?.access || null;
   const management = useMemo(() => accessPayload?.management || {}, [accessPayload]);
@@ -44,7 +46,7 @@ function AITutor() {
           ...current,
           scope: data.management?.role === 'ami' ? current.scope : 'tenant',
           billingModel: data.access?.policy?.billingModel || 'individual',
-          dailyFreeRequests: data.access?.policy?.dailyFreeRequests || 50,
+          dailyFreeRequests: data.access?.policy?.dailyFreeRequests || 10,
           pricePerCreditNaira: data.access?.policy?.pricePerCreditNaira || 0,
         }));
         setError('');
@@ -100,7 +102,7 @@ function AITutor() {
       {
         label: 'Free Requests Remaining',
         value: `${access.usage.remainingFreeRequests}/${access.usage.dailyFreeRequests}`,
-        helper: 'Each account gets 50 free AI requests per day before wallet credits are used.',
+        helper: 'Students get 10 free AI requests a day; staff and parents get 3. After that, AI credits are used.',
       },
       {
         label: 'Current Billing Mode',
@@ -146,7 +148,7 @@ function AITutor() {
         scope: management.role === 'ami' ? policyForm.scope : 'tenant',
         tenantId: management.tenantId,
         billingModel: policyForm.billingModel,
-        dailyFreeRequests: Number(policyForm.dailyFreeRequests) || 50,
+        dailyFreeRequests: Number(policyForm.dailyFreeRequests) || 10,
         pricePerCreditNaira: Number(policyForm.pricePerCreditNaira) || 0,
       });
       await refreshAccessWithMessage('AI billing policy updated successfully.');
@@ -184,7 +186,7 @@ function AITutor() {
         description="Live AI quota, wallet, and payment control for individual billing or school-sponsored access."
         live
         chips={[
-          { label: '50 Free Daily', accent: 'accent-emerald' },
+          { label: '10 Free Daily (students) · 3 (staff)', accent: 'accent-emerald' },
           { label: 'Credits', accent: 'accent-amber' },
           { label: 'School Or Individual', accent: 'accent-indigo' },
         ]}
@@ -220,20 +222,20 @@ function AITutor() {
         <div className="rounded-[2rem] border border-[#800000]/15 bg-[#b5e3f4] p-6 shadow-[0_22px_48px_rgba(128,0,0,0.10)] dark:border-[#bf00ff]/30 dark:bg-[#800000]/72">
           <h2 className="text-2xl font-semibold text-[#800000] dark:text-[#0000ff]">Billing Rules</h2>
           <p className="mt-2 text-sm leading-6 text-[#191970] dark:text-[#39ff14]">
-            Individual users receive 50 free AI requests every day. After that, the system charges either the user wallet or the school wallet based on the active billing model.
+            Students receive 10 free AI requests a day and staff and parents 3. After that, AI credits are used — from the user's wallet or the school's, by the active billing model. Credits come in bundles (1 credit = ₦1 of Ndovera AI).
           </p>
 
           <div className="mt-5 grid gap-4 md:grid-cols-2">
             <div className="rounded-3xl border border-[#800000]/10 bg-white/55 p-5 dark:border-[#bf00ff]/20 dark:bg-[#191970]/35">
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#800020] dark:text-[#bf00ff]">Individual Billing</p>
               <p className="mt-3 text-sm leading-6 text-[#191970] dark:text-[#39ff14]">
-                The learner uses 50 free requests per day first, then personal credits are consumed one request at a time.
+                The learner uses the free daily requests first (10 for students, 3 for staff and parents), then personal credits are used.
               </p>
             </div>
             <div className="rounded-3xl border border-[#800000]/10 bg-white/55 p-5 dark:border-[#bf00ff]/20 dark:bg-[#191970]/35">
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#800020] dark:text-[#bf00ff]">School Sponsored</p>
               <p className="mt-3 text-sm leading-6 text-[#191970] dark:text-[#39ff14]">
-                The learner still gets 50 free daily requests, but extra usage draws from the school wallet instead of the user wallet.
+                The learner still gets the free daily requests, but extra usage draws from the school wallet instead of the user wallet.
               </p>
             </div>
           </div>
@@ -310,8 +312,10 @@ function AITutor() {
             <section className="rounded-[2rem] border border-[#800000]/15 bg-[#b5e3f4] p-6 shadow-[0_22px_48px_rgba(128,0,0,0.08)] dark:border-[#bf00ff]/30 dark:bg-[#800000]/72">
               <h2 className="text-2xl font-semibold text-[#800000] dark:text-[#0000ff]">Top Up School Credits</h2>
               <p className="mt-2 text-sm leading-6 text-[#191970] dark:text-[#39ff14]">
-                Use Flutterwave to fund the school wallet so extra AI requests continue after the daily free quota is finished.
+                Fund the school wallet with an AI credit bundle (1 credit = ₦1 of Ndovera AI) so staff keep using Ndovera AI after the free daily requests.
               </p>
+              <button type="button" onClick={() => setShowBundles(true)} className="mt-4 w-full rounded-2xl bg-gradient-to-r from-indigo-600 to-fuchsia-600 px-5 py-3 text-sm font-black text-white">⚡ Choose a credit bundle</button>
+              {showBundles ? <BundlePicker canFundSchool onClose={() => setShowBundles(false)} /> : null}
 
               <div className="mt-5">
                 <label className="mb-2 block text-xs font-semibold uppercase tracking-[0.2em] text-[#800020] dark:text-[#bf00ff]">Credit Quantity</label>
