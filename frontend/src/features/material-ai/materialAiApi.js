@@ -77,5 +77,26 @@ export const savePlatformMaterialAi = body => request('/api/ami/material-ai/sett
 export const getSchoolMaterialAi = () => request('/api/school/material-ai/settings');
 export const saveSchoolMaterialAi = body => request('/api/school/material-ai/settings', { method: 'PUT', body });
 
+// PDF imports into the library: stored on upload, read in the background by the Worker's cron.
+async function upload(path, file, fields = {}) {
+  const form = new FormData();
+  form.append('file', file);
+  Object.entries(fields).forEach(([key, value]) => { if (value) form.append(key, value); });
+  const auth = headers();
+  delete auth['Content-Type']; // the browser sets the multipart boundary
+  const response = await fetch(getApiUrl(path), { method: 'POST', credentials: 'include', headers: auth, body: form });
+  const data = await response.json().catch(() => ({}));
+  if (!response.ok || data.success === false) {
+    const error = new Error(data.message || data.error || 'Upload failed.');
+    error.status = response.status;
+    throw error;
+  }
+  return data;
+}
+export const importCurriculumPdf = (scope, curriculumId, file, fields) => upload(`${base(scope)}/${id(curriculumId)}/import-pdf`, file, fields);
+export const importExamSpecPdf = (specId, file) => upload(`/api/ami/exam-specs/${id(specId)}/import-pdf`, file);
+export const listLibraryImports = () => request('/api/library-imports');
+export const libraryImportAction = (jobId, action) => request(`/api/library-imports/${id(jobId)}/${id(action)}`, { method: 'POST' });
+
 // Students and parents.
 export const getExamReadiness = params => request(`/api/exam-readiness${query(params)}`);

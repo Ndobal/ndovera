@@ -62,6 +62,93 @@ function TextImport({ label, onChunk, extraFields = null }) {
   );
 }
 
+const JOB_LABEL = { queued: 'Waiting', reading: 'Reading the PDF', processing: 'Reading with Ndovera AI', paused: 'Paused', failed: 'Stopped', cancelled: 'Cancelled', done: 'Done' };
+const JOB_TONE = { done: 'text-emerald-700', failed: 'text-rose-700', cancelled: 'text-slate-500', paused: 'text-amber-700' };
+const POLL_MS = 4000;
+
+/**
+ * PDF imports and their progress. The Worker's cron reads them whether or not
+ * this page is open; while it is open, the page lends a hand one step at a time
+ * (the job's lock keeps the two from clashing). With targetId, only that
+ * curriculum's or specification's imports are shown.
+ */
+export function ImportJobs({ targetId = '', onProgress, refreshKey = 0, className = '' }) {
+  const [jobs, setJobs] = useState([]);
+  const [error, setError] = useState('');
+  const seen = React.useRef('');
+  const load = useCallback(() => api.listLibraryImports().then(result => {
+    const list = (result.jobs || []).filter(job => !targetId || job.targetId === targetId);
+    setJobs(list);
+    const signature = list.map(job => `${job.id}:${job.added}:${job.status}`).join('|');
+    if (seen.current && signature !== seen.current) onProgress?.();
+    seen.current = signature;
+    return list;
+  }).catch(() => []), [targetId, onProgress]);
+  useEffect(() => { load(); }, [load, refreshKey]);
+  const active = jobs.find(job => job.active);
+  useEffect(() => {
+    if (!active) return undefined;
+    let cancelled = false;
+    const timer = setTimeout(async () => {
+      await api.libraryImportAction(active.id, 'step').catch(() => null);
+      if (!cancelled) load();
+    }, POLL_MS);
+    return () => { cancelled = true; clearTimeout(timer); };
+  }, [active, load]);
+  const act = (job, action) => api.libraryImportAction(job.id, action).then(load).then(() => setError('')).catch(err => setError(err.message));
+  if (!jobs.length) return null;
+  return (
+    <div className={`space-y-2 ${className}`} aria-live="polite">
+      <p className={LABEL}>PDF imports</p>
+      {error && <p role="alert" className="text-sm text-rose-700">{error}</p>}
+      <ul className="space-y-2">
+        {jobs.map(job => (
+          <li key={job.id} className="rounded-xl border border-[#c9a96e]/30 p-3 text-sm text-[#191970] dark:text-slate-200">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="flex-1 font-semibold">{job.fileName}{targetId ? '' : <span className="font-normal text-slate-500"> → {job.targetName}</span>}</span>
+              <span className={`text-xs font-bold ${JOB_TONE[job.status] || 'text-[#1a5c38]'}`}>{JOB_LABEL[job.status] || job.status}{job.active ? ` · ${job.percent}%` : ''}</span>
+              {job.active && <button type="button" className="text-xs font-semibold underline" onClick={() => act(job, 'pause')}>Pause</button>}
+              {['paused', 'failed'].includes(job.status) && <button type="button" className="text-xs font-semibold underline" onClick={() => act(job, 'resume')}>Resume</button>}
+              {!['done', 'cancelled'].includes(job.status) && <button type="button" className="text-xs font-semibold text-rose-700 underline" onClick={() => { if (window.confirm('Cancel this import? Rows already added stay.')) act(job, 'cancel'); }}>Cancel</button>}
+            </div>
+            {job.active && <div className="mt-2 h-2 overflow-hidden rounded-full bg-[#c9a96e]/25"><div className="h-full rounded-full bg-[#1a5c38] transition-all dark:bg-[#00ffff]" style={{ width: `${job.percent}%` }} /></div>}
+            <p className="mt-1 text-xs">{job.added} row(s) added{job.rejected ? ` · ${job.rejected} skipped (no topic/subject/class)` : ''}{job.error ? ` · ${job.error}` : ''}</p>
+          </li>
+        ))}
+      </ul>
+      {active && <p className="text-xs text-slate-500">You can leave this page; Ndovera carries on reading in the background.</p>}
+    </div>
+  );
+}
+
+/** Upload a PDF; it is stored at once and read in the background. */
+function PdfImport({ label, onUpload, extraFields = null }) {
+  const [file, setFile] = useState(null);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState('');
+  const input = React.useRef(null);
+  async function send() {
+    setBusy(true);
+    setError('');
+    try {
+      await onUpload(file);
+      setFile(null);
+      if (input.current) input.current.value = '';
+    } catch (err) { setError(err.message); }
+    setBusy(false);
+  }
+  return (
+    <div className="space-y-2">
+      <p className={LABEL}>{label}</p>
+      <p className="text-xs text-[#191970]">A text PDF of the official document (up to 25 MB). Ndovera reads it in the background and only restructures it into rows; you review them before publishing. Scanned images cannot be read.</p>
+      {extraFields}
+      <input ref={input} type="file" accept="application/pdf,.pdf" onChange={event => setFile(event.target.files?.[0] || null)} />
+      <button type="button" className={PRIMARY} disabled={!file || busy} onClick={send}>{busy ? 'Uploading…' : 'Upload and read'}</button>
+      {error && <p role="alert" className="text-sm text-rose-700">{error}</p>}
+    </div>
+  );
+}
+
 function CsvImport({ label, columns, onImport }) {
   const [csv, setCsv] = useState('');
   return (
@@ -106,7 +193,15 @@ function CurriculumEditor({ scope, curriculum, onBack, onChanged }) {
   const [editing, setEditing] = useState(null);
   const [adding, setAdding] = useState(null);
   const [importDefaults, setImportDefaults] = useState({ subject: '', classLabel: '' });
+  const [uploads, setUploads] = useState(0);
   const load = useCallback(() => api.listCurriculumTopics(scope, curriculum.id).then(result => setTopics(result.topics || [])).catch(() => setTopics([])), [scope, curriculum.id]);
+  const imported = useCallback(() => { load(); onChanged(); }, [load, onChanged]);
+  const defaultFields = (
+    <div className="grid grid-cols-2 gap-2">
+      <input className={FIELD} placeholder="Subject, if the text does not say" value={importDefaults.subject} onChange={event => setImportDefaults(current => ({ ...current, subject: event.target.value }))} />
+      <input className={FIELD} placeholder="Class, if the text does not say" value={importDefaults.classLabel} onChange={event => setImportDefaults(current => ({ ...current, classLabel: event.target.value }))} />
+    </div>
+  );
   useEffect(() => { load(); }, [load]);
   const subjects = [...new Set(topics.map(topic => topic.subject))].sort();
   const classes = [...new Map(topics.map(topic => [topic.classKey, topic])).values()].sort((a, b) => a.classOrder - b.classOrder);
@@ -157,8 +252,11 @@ function CurriculumEditor({ scope, curriculum, onBack, onChanged }) {
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         <div className={INNER}><CsvImport label="Import a CSV" columns="class,subject,theme,topic,subtopics,objectives,competencies,term,week" onImport={csv => run(async () => { const result = await api.addCurriculumTopics(scope, curriculum.id, { csv }); load(); onChanged(); if (result.rejected.length) throw new Error(`${result.added} added; ${result.rejected.length} skipped: ${result.rejected.slice(0, 3).map(item => `row ${item.index + 2} (${item.problems.join(', ')})`).join('; ')}`); return true; }, 'Imported.')} /></div>
         <div className={INNER}>
-          <TextImport label="Paste curriculum text" onChunk={async (text, offset) => { const result = await api.importCurriculumText(scope, curriculum.id, { text, offset, ...importDefaults }); load(); onChanged(); return result; }}
-            extraFields={<div className="grid grid-cols-2 gap-2"><input className={FIELD} placeholder="Subject, if the text does not say" value={importDefaults.subject} onChange={event => setImportDefaults(current => ({ ...current, subject: event.target.value }))} /><input className={FIELD} placeholder="Class, if the text does not say" value={importDefaults.classLabel} onChange={event => setImportDefaults(current => ({ ...current, classLabel: event.target.value }))} /></div>} />
+          <TextImport label="Paste curriculum text" onChunk={async (text, offset) => { const result = await api.importCurriculumText(scope, curriculum.id, { text, offset, ...importDefaults }); load(); onChanged(); return result; }} extraFields={defaultFields} />
+        </div>
+        <div className={`${INNER} space-y-4 lg:col-span-2`}>
+          <PdfImport label="Upload the curriculum PDF" extraFields={defaultFields} onUpload={async file => { await api.importCurriculumPdf(scope, curriculum.id, file, importDefaults); setUploads(count => count + 1); }} />
+          <ImportJobs targetId={curriculum.id} onProgress={imported} refreshKey={uploads} />
         </div>
       </div>
     </div>
@@ -198,6 +296,7 @@ function CurriculaManager({ scope }) {
         ))}
       </ul>
       {!curricula.length && <p className="text-sm text-[#191970]">No curricula yet.</p>}
+      <ImportJobs className={INNER} onProgress={load} />
     </div>
   );
 }
@@ -239,7 +338,9 @@ function SpecEditor({ spec, catalog, onBack, onChanged }) {
   const [data, setData] = useState({ topics: [], mappings: [] });
   const [form, setForm] = useState(null);
   const [topic, setTopic] = useState({ area: '', topic: '', objectives: '' });
+  const [uploads, setUploads] = useState(0);
   const load = useCallback(() => api.getExamSpecTopics(spec.id).then(setData).catch(() => {}), [spec.id]);
+  const imported = useCallback(() => { load(); onChanged(); }, [load, onChanged]);
   useEffect(() => { load(); }, [load]);
   const links = id => data.mappings.filter(mapping => mapping.specTopicId === id);
   const setStatus = status => run(async () => { await api.setExamSpecStatus(spec.id, status); onChanged(); }, `Marked ${status}.`);
@@ -283,6 +384,10 @@ function SpecEditor({ spec, catalog, onBack, onChanged }) {
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         <div className={INNER}><CsvImport label="Import topics (CSV)" columns="area,topic,objectives,skills,questionTypes" onImport={csv => run(async () => { await api.addExamSpecTopics(spec.id, { csv }); load(); onChanged(); return true; }, 'Imported.')} /></div>
         <div className={INNER}><TextImport label="Paste syllabus text" onChunk={async (text, offset) => { const result = await api.importExamSpecText(spec.id, { text, offset }); load(); onChanged(); return result; }} /></div>
+        <div className={`${INNER} space-y-4 lg:col-span-2`}>
+          <PdfImport label="Upload the syllabus PDF" onUpload={async file => { await api.importExamSpecPdf(spec.id, file); setUploads(count => count + 1); }} />
+          <ImportJobs targetId={spec.id} onProgress={imported} refreshKey={uploads} />
+        </div>
       </div>
     </div>
   );
@@ -310,6 +415,7 @@ function ExamSpecsManager() {
           </button></li>
         ))}
       </ul>
+      <ImportJobs className={INNER} onProgress={load} />
     </div>
   );
 }
