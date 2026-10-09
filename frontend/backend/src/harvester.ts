@@ -25,6 +25,7 @@ import { levelOf } from './levels'
 import { ensurePracticeTables, upsertBankQuestions, classifyLegacyQuestions, bankType, normalizeText, GLOBAL_TENANT } from './practiceArena'
 import type { BankInput } from './practiceArena'
 import { seedQuantReasoningBank } from './quantReasoning'
+import { seedVerbalReasoningBank } from './verbalReasoning'
 
 export type AiRunner = (messages: Array<{ role: string, content: string }>, options: { maxTokens: number, temperature: number }) => Promise<string>
 export type HarvestDeps = {
@@ -679,9 +680,11 @@ async function incrementalStep(deps: HarvestDeps, pageSize: number) {
 export async function runHarvestTick(deps: HarvestDeps, options: { pageSize?: number, documentSteps?: number, answerKeys?: number } = {}) {
   await ensureHarvestTables(deps.db)
   const pageSize = options.pageSize ?? 8
-  const report = { incremental: 0, sweep: 0, documents: 0, answerKeys: 0, classified: 0, sweepStarted: false, quantReasoning: 0 }
+  const report = { incremental: 0, sweep: 0, documents: 0, answerKeys: 0, classified: 0, sweepStarted: false, quantReasoning: 0, verbalReasoning: 0 }
   // Ndovera's Quantitative Reasoning questions (Primary 1–6), one class a run until all are in.
   report.quantReasoning = await seedQuantReasoningBank(deps.db, key => getState(deps.db, key), (key, value) => setState(deps.db, key, value)).catch(() => 0)
+  // And Verbal Reasoning (1,000 per class), a slice a run.
+  report.verbalReasoning = await seedVerbalReasoningBank(deps.db, key => getState(deps.db, key), (key, value) => setState(deps.db, key, value)).catch(() => 0)
   report.incremental = await incrementalStep(deps, pageSize)
   report.sweepStarted = await maybeStartSweep(deps)
   report.sweep = await sweepStep(deps, pageSize)

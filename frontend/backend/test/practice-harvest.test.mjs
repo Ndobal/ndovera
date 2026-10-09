@@ -71,7 +71,7 @@ async function setup() {
     INSERT INTO classes (id, tenantId, name, arm) VALUES ('jss1a', 'school-a', 'JSS 1', 'A'), ('jss2a', 'school-a', 'JSS 2', 'A'), ('jss3a', 'school-a', 'JSS 3', 'A'), ('pry4', 'school-a', 'Primary 4', 'Gold');
     INSERT INTO subjects VALUES ('m1', 'school-a', 'Mathematics', 'jss1a', 't-math', 'x'), ('m2', 'school-a', 'Mathematics', 'jss2a', 't-math', 'x'),
       ('m3', 'school-a', 'General Mathematics', 'jss3a', 't-math', 'x'), ('mp', 'school-a', 'Maths', 'pry4', 't-math', 'x'), ('bs2', 'school-a', 'Basic Science', 'jss2a', 't-math', 'x'),
-      ('qr4', 'school-a', 'Quantitative Reasoning', 'pry4', 't-math', 'x');
+      ('qr4', 'school-a', 'Quantitative Reasoning', 'pry4', 't-math', 'x'), ('vr4', 'school-a', 'Verbal Reasoning', 'pry4', 't-math', 'x');
     CREATE TABLE assignments (id TEXT PRIMARY KEY, classId TEXT, title TEXT, description TEXT, dueAt TEXT, createdAt TEXT, subjectId TEXT, subjectName TEXT, format TEXT, questionPayload TEXT, metadata TEXT, createdBy TEXT, updatedAt TEXT);
     CREATE TABLE materials (id TEXT PRIMARY KEY, classId TEXT, title TEXT, url TEXT, metadata TEXT, uploadedAt TEXT, uploadedBy TEXT);
   `)
@@ -194,6 +194,11 @@ test('the harvester fills the bank from teachers\' work; practice follows the cl
   assert.ok(qr && qr.questions > 100, JSON.stringify(homeP.body.subjects))
   assert.equal(qr.levels, 'Primary 1 – Primary 4')
   assert.equal(home2.body.subjects.find(subject => subject.key === 'quantitative-reasoning'), undefined, 'JSS pupils do not get Primary QR')
+  // And Verbal Reasoning, a slice of the 1,000-item class banks a run, Primary 1 first.
+  const vr = homeP.body.subjects.find(subject => subject.key === 'verbal-reasoning')
+  assert.ok(vr && vr.questions > 500, JSON.stringify(homeP.body.subjects))
+  assert.match(vr.levels, /^Primary 1/)
+  assert.equal(home2.body.subjects.find(subject => subject.key === 'verbal-reasoning'), undefined, 'JSS pupils do not get Primary VR')
   // Teachers do not practise.
   assert.equal((await call(db, 'maths', 'GET', '/api/practice-arena/home', null, noAi)).status, 403)
 
@@ -431,6 +436,73 @@ test('Quantitative Reasoning in Primary is written by the Ndovera engine: no AI 
     assert.equal(question.options[question.answerIndex], question.answer)
   }
   // No credits held, and none needed.
+  assert.equal((await call(db, 'maths', 'GET', '/api/ai-pay/wallet', null, paid)).body.wallet.credits, 0)
+  assert.equal((await call(db, 'maths', 'POST', `/api/ai-assessments/${created.body.assessment.id}/regenerate-all`, {}, paid)).status, 200)
+})
+
+test('Verbal Reasoning in Primary comes from the 1,000-item class banks: no AI call, no credits, every key known', async () => {
+  const { bankForGrade, topicsForGrade, verbalReasoningGrade, vrBankQuestions, vrDistractors, promptOf, encodeWord, BANK_SIZE } = await import('./build/verbalReasoning.mjs')
+  const { seededRandom } = await import('./build/quantReasoning.mjs')
+  assert.deepEqual(topicsForGrade(1), ['alphabet', 'alphabeticalOrder', 'opposites', 'oddOneOut'])
+  assert.deepEqual(topicsForGrade(6), ['alphabet', 'alphabeticalOrder', 'opposites', 'oddOneOut', 'synonyms', 'analogies', 'letterCodes'])
+  assert.equal(verbalReasoningGrade('Verbal Reasoning', 'Primary 2'), 2)
+  assert.equal(verbalReasoningGrade('Verbal Aptitude', 'JSS 1'), null)
+  assert.equal(encodeWord('ZOO', 1), 'APP')
+
+  // The class banks, as in the Worksheet Studio's README table.
+  const expected = { 1: [40, 110, 0], 2: [40, 110, 0], 3: [80, 200, 0], 4: [80, 200, 48], 5: [80, 270, 144], 6: [80, 270, 144] }
+  const random = seededRandom(11)
+  for (let grade = 1; grade <= 6; grade += 1) {
+    const bank = bankForGrade(grade)
+    assert.equal(bank.length, BANK_SIZE)
+    assert.equal(new Set(bank.map(item => item.id)).size, BANK_SIZE)
+    const count = topic => bank.filter(item => item.topic === topic).length
+    const words = bank.filter(item => ['opposites', 'synonyms', 'oddOneOut', 'analogies'].includes(item.topic)).length
+    assert.deepEqual([words, count('alphabet'), count('letterCodes')], expected[grade], `Primary ${grade}`)
+    assert.ok(bank.every(item => topicsForGrade(grade).includes(item.topic)))
+    for (const item of bank) {
+      if (item.topic === 'alphabeticalOrder') assert.equal(item.answer, [...item.choices].sort()[0])
+      if (item.choices.length) assert.ok(item.choices.includes(item.answer), item.id)
+      // Extra options are never a second right answer.
+      const wrong = vrDistractors(item, 3, random)
+      assert.ok(!wrong.includes(item.answer), item.id)
+      if (item.topic === 'alphabeticalOrder') assert.ok(wrong.every(word => word > item.answer), item.id)
+      if (item.topic === 'oddOneOut') assert.deepEqual([...wrong].sort(), item.choices.filter(word => word !== item.answer).sort())
+    }
+  }
+  const code = bankForGrade(5).find(item => item.id === 'vr1:letterCodes|CAT/2')
+  assert.equal(code.answer, 'ECV')
+  assert.match(promptOf(code), /\*\*DOG\*\* → \*\*FQI\*\*/, 'CAT is not its own worked example')
+
+  // An item the classes share is laid out the same for each class, so the bank keeps one copy.
+  const shared = id => [1, 6].map(grade => vrBankQuestions(grade).find(question => question.originId === id))
+  const [p1, p6] = shared('vr1:opposites|Choose the opposite of hot.')
+  assert.deepEqual(p1.options, p6.options)
+  assert.equal(p1.prompt, 'Choose the opposite of hot.', 'the words are the options, not repeated in the prompt')
+
+  const db = await setup()
+  const calls = { keys: 0, generate: 0, other: 0 }
+  const paid = { AI: fakeModel(calls), AI_PAY_START: '2020-01-01T00:00:00Z' }
+  const created = await call(db, 'maths', 'POST', '/api/ai-assessments', { classId: 'pry4', subjectId: 'vr4', kind: 'test', standard: 'school', questionCount: 8, totalMarks: 8, types: ['mcq', 'short', 'truefalse'] }, paid)
+  assert.equal(created.status, 201, JSON.stringify(created.body))
+  let result
+  for (let i = 0; i < 10; i += 1) {
+    result = await call(db, 'maths', 'POST', `/api/ai-assessments/${created.body.assessment.id}/generate-next`, {}, paid)
+    assert.equal(result.status, 200, JSON.stringify(result.body))
+    if (result.body.done) break
+  }
+  const questions = result.body.assessment.questions
+  assert.equal(questions.length, 8)
+  assert.equal(calls.generate + calls.other, 0, 'no AI call was made')
+  const ids = new Set()
+  for (const question of questions) {
+    assert.ok(!ids.has(question.prompt + (question.options || []).join()), 'no question twice in a set')
+    ids.add(question.prompt + (question.options || []).join())
+    if (question.type === 'mcq') {
+      assert.equal(question.options.length, 4)
+      assert.equal(question.options[question.answerIndex], question.answer)
+    }
+  }
   assert.equal((await call(db, 'maths', 'GET', '/api/ai-pay/wallet', null, paid)).body.wallet.credits, 0)
   assert.equal((await call(db, 'maths', 'POST', `/api/ai-assessments/${created.body.assessment.id}/regenerate-all`, {}, paid)).status, 200)
 })

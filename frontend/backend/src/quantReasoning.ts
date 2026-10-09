@@ -188,18 +188,21 @@ function asAssessmentQuestion(type: string, topicName: string, grade: number, op
  */
 export function quantReasoningRunner(grade: number): AiRunner {
   return async (messages) => {
-    const user = String(messages[messages.length - 1]?.content || '')
     const random = seededRandom((Date.now() ^ Math.floor(Math.random() * 1e9)) >>> 0)
     const seen = new Set<string>()
-    const lines = [...user.matchAll(/^\d+\. type "(\w+)", topic "([^"]*)", (\d+) mark[^\n]*/gm)]
-    const items = lines.map((match, index) => {
-      const [line, type, topic] = match
-      const parts = Number(line.match(/exactly (\d+) parts/)?.[1] || 0)
-      const optionCount = Number(line.match(/exactly (\d+) options/)?.[1] || line.match(/(\d+) options/)?.[1] || 4)
-      return asAssessmentQuestion(type, topic, grade, optionCount, parts, random, seen, index)
-    })
+    const items = requestedSlots(messages).map((slot, index) => asAssessmentQuestion(slot.type, slot.topic, grade, slot.optionCount, slot.parts, random, seen, index))
     return JSON.stringify(items)
   }
+}
+
+/** The slots the assessment engine asked for (type, topic, parts, options), read from its prompt. */
+export function requestedSlots(messages: Array<{ content?: unknown }>) {
+  const user = String(messages[messages.length - 1]?.content || '')
+  return [...user.matchAll(/^\d+\. type "(\w+)", topic "([^"]*)", (\d+) mark[^\n]*/gm)].map(([line, type, topic]) => ({
+    type, topic,
+    parts: Number(line.match(/exactly (\d+) parts/)?.[1] || 0),
+    optionCount: Number(line.match(/exactly (\d+) options/)?.[1] || line.match(/(\d+) options/)?.[1] || 4),
+  }))
 }
 
 /** Questions for Ndovera's practice bank: a level's worth, per topic. */

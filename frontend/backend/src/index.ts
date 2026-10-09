@@ -390,6 +390,7 @@ import { HarvestError, MAX_DOC_BYTES, ensureHarvestTables, getNote, listDocument
 import type { HarvestDeps } from './harvester'
 import { levelOf, labelOfRank, normalizeSection } from './levels'
 import { quantReasoningGrade, quantReasoningRunner } from './quantReasoning'
+import { verbalReasoningGrade, verbalReasoningRunner } from './verbalReasoning'
 import { findAnswer, rawAi, rememberAnswer, withKnowledgePool } from './knowledgePool'
 import { AI_PAY_START, AiPayError, chargeGeneration, kindOfAssessment, kindOfMaterial, latestRegeneration, walletSummary } from './aiPay'
 import type { ChargeInput } from './aiPay'
@@ -30398,18 +30399,26 @@ app.put('/api/ai-assessments/:id/blueprint', authenticate, async (c) => {
   }
 })
 
+/** Quantitative and Verbal Reasoning in a Primary class are written by Ndovera's own engines: no AI, no credits, answers known. */
+function reasoningEngineRunner(assessment: { subjectName: string, className?: string }) {
+  const quant = quantReasoningGrade(assessment.subjectName, assessment.className)
+  if (quant) return quantReasoningRunner(quant)
+  const verbal = verbalReasoningGrade(assessment.subjectName, assessment.className)
+  return verbal ? verbalReasoningRunner(verbal) : null
+}
+
 app.post('/api/ai-assessments/:id/generate-next', authenticate, async (c) => {
   try {
     const { tenantId, actor } = await resolveAssessmentActor(c)
     const assessment = await getOwnAssessment(c.env.APP_DB, tenantId, c.req.param('id'), actor)
-    // Quantitative Reasoning in a Primary class is written by Ndovera's own engine: no AI, no credits, answers computed.
-    const qrGrade = quantReasoningGrade(assessment.subjectName, assessment.className)
+    // Quantitative/Verbal Reasoning in a Primary class is written by Ndovera's own engines: no AI, no credits.
+    const engine = reasoningEngineRunner(assessment)
     // Otherwise the set is paid for once, on its first step (100 credits assignments/quizzes/tests, 200 exams; free before 20 Oct 2026).
-    if (!qrGrade && pendingSlots(assessment).length) {
+    if (!engine && pendingSlots(assessment).length) {
       await chargeTeacherGeneration(c, { tenantId, userId: actor.id, kind: kindOfAssessment(assessment.kind), refKey: `assessment:${assessment.id}`, label: `${assessment.title} — ${assessment.subjectName}${assessment.className ? `, ${assessment.className}` : ''}` })
     }
     const context = await buildAssessmentContext(c.env.APP_DB, assessment)
-    const result = await generateNext(c.env.APP_DB, assessment, { runAi: qrGrade ? quantReasoningRunner(qrGrade) : await generationRunner(c.env, `assessment:${assessment.id}:regen:`), context, actor })
+    const result = await generateNext(c.env.APP_DB, assessment, { runAi: engine || await generationRunner(c.env, `assessment:${assessment.id}:regen:`), context, actor })
     return c.json({ success: true, done: result.done, remaining: result.remaining, assessment: assessmentView(result.assessment) })
   } catch (error) {
     return assessmentFailure(c, error, 'Could not write the next questions.')
@@ -30422,7 +30431,7 @@ app.post('/api/ai-assessments/:id/regenerate', authenticate, async (c) => {
     const assessment = await getOwnAssessment(c.env.APP_DB, tenantId, c.req.param('id'), actor)
     const body = await c.req.json().catch(() => ({})) as Record<string, any>
     const context = await buildAssessmentContext(c.env.APP_DB, assessment)
-    const saved = await regenerateQuestion(c.env.APP_DB, assessment, { questionId: body.questionId ? String(body.questionId) : undefined, slot: body.slot !== undefined ? Number(body.slot) : undefined }, { runAi: quantReasoningGrade(assessment.subjectName, assessment.className) ? quantReasoningRunner(quantReasoningGrade(assessment.subjectName, assessment.className)!) : assessmentAiRunner({ ...c.env, AI: rawAi(c.env.AI) }), context, actor, instruction: String(body.instruction || '').slice(0, 300) })
+    const saved = await regenerateQuestion(c.env.APP_DB, assessment, { questionId: body.questionId ? String(body.questionId) : undefined, slot: body.slot !== undefined ? Number(body.slot) : undefined }, { runAi: reasoningEngineRunner(assessment) || assessmentAiRunner({ ...c.env, AI: rawAi(c.env.AI) }), context, actor, instruction: String(body.instruction || '').slice(0, 300) })
     return c.json({ success: true, assessment: assessmentView(saved) })
   } catch (error) {
     return assessmentFailure(c, error, 'Could not regenerate the question.')
@@ -30435,8 +30444,8 @@ app.post('/api/ai-assessments/:id/regenerate-all', authenticate, async (c) => {
     const { tenantId, actor } = await resolveAssessmentActor(c)
     const assessment = await getOwnAssessment(c.env.APP_DB, tenantId, c.req.param('id'), actor)
     if (!['draft', 'finalised'].includes(assessment.status)) throw new AssessmentError('This assessment has already been posted or submitted. Make a copy to write a new set.', 409)
-    // Quantitative Reasoning (Primary) is written by Ndovera's engine and is free to regenerate.
-    const free = Boolean(quantReasoningGrade(assessment.subjectName, assessment.className))
+    // Quantitative/Verbal Reasoning (Primary) is written by Ndovera's engines and is free to regenerate.
+    const free = Boolean(reasoningEngineRunner(assessment))
     const charge = free ? { charged: false, free: true, credits: 0 } : await chargeTeacherGeneration(c, { tenantId, userId: actor.id, kind: kindOfAssessment(assessment.kind), regenerate: true, refKey: `assessment:${assessment.id}:regen:${Date.now()}`, label: `Regenerate: ${assessment.title} — ${assessment.subjectName}` })
     // The first writing counts as paid (so the next steps are not charged again).
     if (!free) await chargeTeacherGeneration(c, { tenantId, userId: actor.id, kind: kindOfAssessment(assessment.kind), refKey: `assessment:${assessment.id}`, label: `${assessment.title} — ${assessment.subjectName}`, at: new Date(0) })
