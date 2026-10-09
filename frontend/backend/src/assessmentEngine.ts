@@ -373,6 +373,20 @@ export type QuestionPart = { label: string, prompt: string, marks: number, answe
 
 const newId = () => `q-${crypto.randomUUID().slice(0, 12)}`
 
+/**
+ * "The following table shows…" with no table: the question cannot be answered.
+ * Material counts as included when there is a Markdown table, a figure block, or
+ * a few lines of data after the words that introduce it.
+ */
+export function missingMaterial(source: string) {
+  const mention = /\b(?:the\s+)?(?:following|given|below|above)\s+(?:data|table|graph|chart|diagram|figure|information|results|values)\b|\b(?:data|table|graph|chart|diagram|figure)\s+(?:below|above)\b/i.exec(source)
+  if (!mention) return false
+  if (/\|[^\n]*\|/.test(source) || /```figure/.test(source) || /!\[[^\]]*\]\(/.test(source)) return false
+  const after = source.slice(mention.index + mention[0].length)
+  // Data written out in the sentence ("Wire A has 10 V and 2 A, while…") or on following lines.
+  return (after.match(/\d/g) || []).length < 3 && after.split('\n').filter(line => line.trim()).length < 3
+}
+
 /** Validate and tidy one question, from the model or from the teacher. Returns problems instead of throwing. */
 export function normalizeQuestion(raw: any, slot: Partial<Slot>, optionCount = 4): { question: Question, problems: string[] } {
   const type = (QUESTION_TYPES as readonly string[]).includes(String(raw?.type)) ? raw.type as QuestionType : (slot.type || 'short')
@@ -405,10 +419,14 @@ export function normalizeQuestion(raw: any, slot: Partial<Slot>, optionCount = 4
   const totalMarks = clampInt(raw?.marks ?? slot.marks, 0, 100, slot.marks || 1)
   // Parts: as many as the plan asks for, their marks adding up to the question's.
   let parts: QuestionPart[] = (Array.isArray(raw?.parts) ? raw.parts : []).slice(0, PART_LABELS.length).map((part: any, index: number) => ({
-    label: PART_LABELS[index], prompt: text(part?.prompt ?? part?.question ?? part, 4000), marks: clampInt(part?.marks, 0, 100, 0),
+    label: PART_LABELS[index], prompt: text(typeof part === 'string' ? part : (part?.prompt ?? part?.question ?? part?.text), 4000), marks: clampInt(part?.marks, 0, 100, 0),
     answer: text(part?.expectedAnswer ?? part?.answer, 4000), markingPoints: list(part?.markingPoints ?? part?.markScheme, 10),
   })).filter((part: QuestionPart) => part.prompt.length >= 3)
   if (slot.parts && parts.length !== slot.parts) problems.push(`Needs parts (a)–(${PART_LABELS[slot.parts - 1]}).`)
+  // Models often put the marking scheme on the question, one point per part: give each part its own.
+  if (parts.length && parts.some(part => !part.answer && !part.markingPoints.length) && markingPoints.length === parts.length) {
+    parts = parts.map((part, index) => (part.answer || part.markingPoints.length ? part : { ...part, markingPoints: [markingPoints[index]] }))
+  }
   if (parts.length) {
     const sum = parts.reduce((total, part) => total + part.marks, 0)
     if (sum !== totalMarks) {
@@ -419,6 +437,8 @@ export function normalizeQuestion(raw: any, slot: Partial<Slot>, optionCount = 4
   }
   // A question made only of parts — "1. (a) Define work. (b) …" — needs no stem of its own.
   if (prompt.length < 8 && !parts.length) problems.push('The question text is missing.')
+  // Only for Ndovera AI: a teacher's question may point to a diagram on the printed paper.
+  if (raw?.source !== 'teacher' && missingMaterial([prompt,...parts.map(part => part.prompt)].join('\n'))) problems.push('The question refers to data, a table or a diagram that it does not include.')
   for (const issue of figureProblems([prompt, ...parts.map(part => part.prompt)].join('\n'))) problems.push(issue)
   for (const issue of templateProblems({ prompt, options, answer, markingPoints, parts })) problems.push(`Number template ${issue}`)
   const question: Question = {
@@ -752,12 +772,16 @@ const FIGURE_SUBJECTS = /math|physics|chemistry|biology|geograph|economic|statis
 
 export function buildGenerationPrompt(options: {
   config: AssessmentConfig, slots: Slot[], subjectName: string, className: string, context: string, existingPrompts: string[],
+  /** Why the previous reply for these slots was turned down, so the retry can put it right. */
+  corrections?: string[],
 }) {
   const profile = ASSESSMENT_PROFILES[options.config.standard] || ASSESSMENT_PROFILES.school
   const system = [
     `You are an experienced ${profile.label} examiner and ${options.subjectName} teacher writing an assessment for ${options.className}.`,
     `Standard: ${profile.style}`,
     `Use these command words where they fit: ${profile.commandWords.join(', ')}.`,
+    'Set questions in a Nigerian context: Nigerian names, places and everyday situations, and money in Naira (₦), never dollars or pounds.',
+    'Every question must be complete on its own: if it refers to data, a table, a graph or a diagram, include it in the question. Work out every answer step by step before writing it, and check that the key or expected answer really follows from the numbers given.',
     'Higher-order questions must not just turn a sentence from the notes into a question: use unfamiliar scenarios, data or tables to interpret, short case studies, calculations, comparisons and source-based tasks that make students transfer what they learnt.',
     'Write mathematics in LaTeX inside \\( \\) or $$ $$. Use Markdown tables for data: a blank line before the table, a header row, then a |---|---| line, one row per line (real line breaks, written as \\n in the JSON string), every row starting and ending with |. Language must suit the class level.',
     FIGURE_GUIDE,
@@ -769,7 +793,7 @@ export function buildGenerationPrompt(options: {
   const slotLines = options.slots.map((slot, index) => {
     const instruction = TYPE_INSTRUCTIONS[slot.type].replace('{N}', String(profile.mcqOptions))
     const parts = slot.parts
-      ? ` It has parts (a)–(${'abcdefgh'[slot.parts - 1]}): give "prompt" as the shared stem (scenario, data or figure) and "parts": [{"prompt","marks","expectedAnswer","markingPoints"}] — exactly ${slot.parts} parts whose marks add up to ${slot.marks}, rising in demand from (a) to the last part.`
+      ? ` It has parts (a)–(${'abcdefgh'[slot.parts - 1]}): give "prompt" as the shared stem (scenario, data or figure) and "parts": [{"prompt","marks","expectedAnswer","markingPoints"}] — exactly ${slot.parts} parts whose marks add up to ${slot.marks}, rising in demand from (a) to the last part. Every part object must carry its own sub-question in "prompt" and its own "markingPoints"; do not put the parts' marking scheme on the question.`
       : ''
     return `${index + 1}. type "${slot.type}", topic "${slot.topic}", ${slot.marks} mark(s), Bloom level "${slot.bloom}" — the student must ${BLOOM_GUIDE[slot.bloom]}.${parts} Include ${instruction}`
   })
@@ -778,14 +802,41 @@ export function buildGenerationPrompt(options: {
     options.config.instructions ? `Teacher's instructions: ${options.config.instructions}` : '',
     options.existingPrompts.length ? `Do not repeat or closely paraphrase these existing questions:\n${options.existingPrompts.slice(-30).map(prompt => `- ${prompt.slice(0, 160)}`).join('\n')}` : '',
     `Write ${options.slots.length} question(s):\n${slotLines.join('\n')}`,
+    options.corrections?.length ? `Your previous reply could not be used. Put these right:\n${options.corrections.map(note => `- ${note}`).join('\n')}` : '',
     'Each object: {"type", "prompt", "options"?, "answerIndex"?, "parts"?, "expectedAnswer"?, "markingPoints": [], "alternatives": [], "workingSteps": [], "rubric": [], "marks", "bloom", "topic", "commandWord", "difficulty"}.',
   ].filter(Boolean).join('\n\n')
   return { system, user }
 }
 
-/** Pull the JSON array out of a model reply, tolerating fences, prose and trailing commas. */
+// LaTeX commands that begin with a letter JSON would read as an escape (\b \f \n \r \t \u):
+// "\times" must stay "\times", not become a tab and "imes".
+const LATEX_ON_JSON_ESCAPE = /^(?:b(?:eta|ar|inom|oxed|egin|ig|ot|ullet)|f(?:rac|box|orall)|n(?:eq|e|u|ot|abla|leq|geq|eg|ewline)|r(?:ight(?:arrow)?|ho|angle|m|ceil|floor)|t(?:imes|ext(?:bf|it)?|heta|an|au|frac|o|op|riangle|ilde|heref)|u(?:nderline|parrow|nderbrace|psilon|nion))(?![A-Za-z])/
+
+/**
+ * Models write LaTeX inside JSON strings with single backslashes: "\(x\)" is not
+ * valid JSON at all, and "\frac" or "\times" parse as a form feed or a tab. Double
+ * every backslash that is not a real JSON escape, leaving "\\", "\"" and "\n"
+ * (newline before ordinary text) alone.
+ */
+export function repairLatexEscapes(source: string) {
+  let out = ''
+  for (let index = 0; index < source.length; index += 1) {
+    const char = source[index]
+    if (char !== '\\') { out += char; continue }
+    const next = source[index + 1] ?? ''
+    if (next === '\\') { out += '\\\\'; index += 1; continue }
+    const rest = source.slice(index + 1, index + 16)
+    const realEscape = next === '"' || next === '/'
+      || (next === 'u' && /^u[0-9a-fA-F]{4}/.test(rest) && !LATEX_ON_JSON_ESCAPE.test(rest))
+      || ('bfnrt'.includes(next) && next !== '' && !LATEX_ON_JSON_ESCAPE.test(rest))
+    out += realEscape ? char : '\\\\'
+  }
+  return out
+}
+
+/** Pull the JSON array out of a model reply, tolerating fences, prose, trailing commas and unescaped LaTeX. */
 export function parseQuestionsJson(reply: string): any[] {
-  const source = String(reply || '').trim().replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '').trim()
+  const source = repairLatexEscapes(String(reply || '').trim().replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '').trim())
   const attempts = [source]
   const start = source.indexOf('[')
   const end = source.lastIndexOf(']')

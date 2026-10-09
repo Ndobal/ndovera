@@ -30419,7 +30419,18 @@ app.post('/api/ai-assessments/:id/generate-next', authenticate, async (c) => {
     }
     const context = await buildAssessmentContext(c.env.APP_DB, assessment)
     const result = await generateNext(c.env.APP_DB, assessment, { runAi: engine || await generationRunner(c.env, `assessment:${assessment.id}:regen:`), context, actor })
-    return c.json({ success: true, done: result.done, remaining: result.remaining, assessment: assessmentView(result.assessment) })
+    // A live check (Oct 2026) found about 1 in 8 higher-order AI questions with a flawed key or missing
+    // information, which the moderator pass mostly catches: run it as soon as the set is written, so the
+    // teacher sees the flags beside the questions. Bounded, so the step stays inside the request limit.
+    let written = result.assessment
+    if (result.done && !engine && written.questions.length) {
+      const review = await Promise.race([
+        aiReview(c.env.APP_DB, written, { runAi: assessmentAiRunner(c.env), actor }),
+        new Promise<null>(resolve => setTimeout(() => resolve(null), 25_000)),
+      ]).catch(() => null)
+      if (review) written = { ...written, review }
+    }
+    return c.json({ success: true, done: result.done, remaining: result.remaining, assessment: assessmentView(written) })
   } catch (error) {
     return assessmentFailure(c, error, 'Could not write the next questions.')
   }

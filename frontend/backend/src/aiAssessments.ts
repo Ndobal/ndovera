@@ -236,23 +236,26 @@ export async function generateNext(db: D1Database, assessment: Assessment, optio
   })
   const accepted: Question[] = []
   let leftover = batch
+  let corrections: string[] = []
   // Two tries for this batch; anything still invalid is marked failed for the teacher to regenerate or write.
   for (let attempt = 0; attempt < 2 && leftover.length; attempt += 1) {
     let reply = ''
     try {
-      reply = await options.runAi([{ role: 'system', content: prompt.system }, { role: 'user', content: attempt === 0 ? prompt.user : buildGenerationPrompt({ config: assessment.config, slots: leftover, subjectName: assessment.subjectName, className: assessment.className, context: options.context, existingPrompts: [...assessment.questions, ...accepted].map(question => question.prompt) }).user }], { maxTokens: tokensFor(leftover), temperature: 0.6 })
+      reply = await options.runAi([{ role: 'system', content: prompt.system }, { role: 'user', content: attempt === 0 ? prompt.user : buildGenerationPrompt({ config: assessment.config, slots: leftover, subjectName: assessment.subjectName, className: assessment.className, context: options.context, existingPrompts: [...assessment.questions, ...accepted].map(question => question.prompt), corrections }).user }], { maxTokens: tokensFor(leftover), temperature: 0.6 })
     } catch (error) {
       if (attempt === 1) throw new AssessmentError('Ndovera AI is busy right now. Try again in a moment.', 503)
       continue
     }
     const items = parseQuestionsJson(reply)
     const stillMissing: Slot[] = []
+    corrections = items.length ? [] : ['Reply with a valid JSON array only, one object per question.']
     leftover.forEach((slot, index) => {
       const raw = items[index]
       if (!raw) { stillMissing.push(slot); return }
       // The plan, not the model, decides type, marks, level and section.
       const { question, problems } = normalizeQuestion({ ...raw, type: slot.type, marks: slot.marks, section: slot.section }, slot, optionCountFor(assessment.config))
-      if (problems.length) { stillMissing.push(slot); return }
+      // The retry is asked for the slots still missing, in order: number the notes the same way.
+      if (problems.length) { stillMissing.push(slot); corrections.push(`Question ${stillMissing.length} (${slot.type}, ${slot.topic}): ${problems.join(' ')}`); return }
       accepted.push({ ...question, bloom: slot.bloom, topic: question.topic || slot.topic, slot: slot.index })
     })
     leftover = stillMissing

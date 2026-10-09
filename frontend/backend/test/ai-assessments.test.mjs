@@ -506,3 +506,37 @@ test('an approved secondary-school exam can be sat online, and gets unique paper
   assert.equal(posted.status, 200, JSON.stringify(posted.body))
   assert.equal(posted.body.assignment.metadata.uniquePerStudent, true)
 })
+
+test('live-model fixes: LaTeX in JSON, a scheme given on the question for its parts, and questions missing their data', () => {
+  // The model writes "\(" and "\times" with one backslash: not valid JSON, or a tab and "imes".
+  const reply = String.raw`[{"type":"mcq","prompt":"Solve \(2x + 5 = 11\). Then find \(5 \times 3\) and \(\frac{1}{2} \neq 2\).\nShow working.","options":["3","4","5","6"],"answerIndex":0,"markingPoints":["\\(x = 3\\)"]}]`
+  const [item] = engine.parseQuestionsJson(reply)
+  assert.ok(item, 'the reply parses')
+  assert.equal(item.prompt, String.raw`Solve \(2x + 5 = 11\). Then find \(5 \times 3\) and \(\frac{1}{2} \neq 2\).` + '\nShow working.')
+  assert.equal(item.markingPoints[0], String.raw`\(x = 3\)`, 'an already-escaped backslash is kept as it is')
+  assert.deepEqual(engine.parseQuestionsJson(String.raw`[{"prompt":"Tab\there, quote \" and é"}]`)[0].prompt, 'Tab\there, quote " and é')
+
+  // Parts with no scheme of their own, one marking point per part on the question.
+  const slot = { index: 0, type: 'structured', marks: 5, parts: 2, section: 'B', bloom: 'apply', topic: 'Circuits' }
+  const raw = { type: 'structured', prompt: 'A 12 V battery is connected to a 4 Ω resistor.', parts: [{ prompt: 'Calculate the current.', marks: 2 }, { prompt: 'Calculate the power.', marks: 3 }], markingPoints: ['I = V/R = 3 A', 'P = VI = 36 W'] }
+  const fixed = engine.normalizeQuestion(raw, slot)
+  assert.deepEqual(fixed.problems, [])
+  assert.deepEqual(fixed.question.parts.map(part => part.markingPoints), [['I = V/R = 3 A'], ['P = VI = 36 W']])
+  // Parts that are only marks are not turned into "[object Object]".
+  const marksOnly = engine.normalizeQuestion({ ...raw, parts: [{ marks: 2, part: 'a' }, { marks: 3, part: 'b' }] }, slot)
+  assert.ok(marksOnly.problems.some(problem => /parts/.test(problem)))
+  assert.ok(!JSON.stringify(marksOnly.question).includes('[object Object]'))
+
+  // "The following data…" with no data is sent back; with a table or written-out data it is fine.
+  assert.equal(engine.missingMaterial('The following data shows the amounts of A and B. Which statement is true?'), true)
+  assert.equal(engine.missingMaterial('The following table shows results:\n\n| x | y |\n| --- | --- |\n| 1 | 2 |'), false)
+  assert.equal(engine.missingMaterial('Analyse the following data: Wire A has 10 V and 2 A, Wire B has 15 V and 3 A.'), false)
+  const mcq = { type: 'mcq', prompt: 'The following data shows the amount of substance of A and B. Which is true?', options: ['a', 'b', 'c', 'd'], answerIndex: 0 }
+  assert.ok(engine.normalizeQuestion(mcq, { index: 0, type: 'mcq', marks: 1 }).problems.some(problem => /does not include/.test(problem)))
+  assert.deepEqual(engine.normalizeQuestion({ ...mcq, source: 'teacher' }, { index: 0, type: 'mcq', marks: 1 }).problems, [], 'a teacher may point to a printed diagram')
+
+  // The retry is told what was wrong.
+  const prompt = engine.buildGenerationPrompt({ config: engine.normalizeConfig({ kind: 'quiz' }), slots: [{ ...slot, type: 'mcq', parts: undefined }], subjectName: 'Physics', className: 'SS 2', context: '', existingPrompts: [], corrections: ['Question 1 (mcq, Circuits): Needs exactly 4 options.'] })
+  assert.match(prompt.user, /could not be used[\s\S]*Needs exactly 4 options/)
+  assert.match(prompt.system, /Naira/)
+})

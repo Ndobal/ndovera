@@ -1,0 +1,9 @@
+# Local only: `npx wrangler dev -c scripts/ai-quality-probe/wrangler.toml`. Never deploy this.
+name = "ndovera-ai-quality-probe"
+main = "probe.ts"
+compatibility_date = "2024-09-23"
+compatibility_flags = ["nodejs_compat"]
+workers_dev = false
+
+[ai]
+binding = "AI"
