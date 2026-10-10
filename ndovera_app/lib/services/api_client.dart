@@ -47,6 +47,16 @@ class ApiClient {
     return _parse(res);
   }
 
+  Future<Map<String, dynamic>> putJson(String path, Map<String, dynamic> body) async {
+    final res = await _client.put(_uri(path), headers: _headers(), body: jsonEncode(body));
+    return _parse(res);
+  }
+
+  Future<Map<String, dynamic>> patchJson(String path, Map<String, dynamic> body) async {
+    final res = await _client.patch(_uri(path), headers: _headers(), body: jsonEncode(body));
+    return _parse(res);
+  }
+
   Map<String, dynamic> _parse(http.Response res) {
     Map<String, dynamic> data;
     try {
@@ -55,7 +65,7 @@ class ApiClient {
     } catch (_) {
       data = const {};
     }
-    if (res.statusCode < 200 || res.statusCode >= 300) {
+    if (res.statusCode < 200 || res.statusCode >= 300 || data['success'] == false) {
       final msg = (data['error'] ?? data['message'] ?? 'Request failed (${res.statusCode}).').toString();
       throw ApiException(msg, statusCode: res.statusCode);
     }

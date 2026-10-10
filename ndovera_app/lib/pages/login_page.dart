@@ -320,7 +320,14 @@ class WelcomePage extends StatelessWidget {
                         color: Theme.of(context).textTheme.bodyMedium?.color?.withValues(alpha: 0.7),
                       ),
                 ),
-                const SizedBox(height: 28),
+                const SizedBox(height: 20),
+                if (u != null && ['owner', 'hos', 'accountant', 'admin', 'bursar'].contains(u.role))
+                  FilledButton.icon(onPressed: () => context.go('/notifications/school'), icon: const Icon(Icons.campaign), label: const Text('Parent notifications')),
+                if (u != null && u.role == 'parent')
+                  FilledButton.icon(onPressed: () => context.go('/notifications'), icon: const Icon(Icons.notifications), label: const Text('Notifications')),
+                if (u != null && u.role == 'ami')
+                  FilledButton.icon(onPressed: () => context.go('/notifications/admin'), icon: const Icon(Icons.campaign), label: const Text('Communications')),
+                const SizedBox(height: 8),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

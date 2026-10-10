@@ -5,6 +5,9 @@ import SubmissionReviewPage from './features/submissions/SubmissionReviewPage';
 import TeacherCompliancePage from './features/compliance/TeacherCompliancePage';
 import ClassReportPage from './features/compliance/ClassReportPage';
 import CurriculumLibraryPage from './features/material-ai/CurriculumLibraryPage';
+import NotificationsCenter from './features/communications/NotificationsCenter';
+import AmiCommunications from './features/communications/AmiCommunications';
+import ParentNotifications from './features/communications/ParentNotifications';
 import ExamReadinessPage from './features/material-ai/ExamReadinessPage';
 import OfflineNotesPage from './features/offline-notes/OfflineNotesPage';
 import StaffFilePage from './features/staff-file/StaffFilePage';
@@ -276,6 +279,8 @@ function AnimatedRoutes({ auth, onLogin }) {
         <Route path="/roles/teacher/class-report" element={<RoleGuard auth={auth} expectedRole="teacher"><RouteTransition><ClassReportPage /></RouteTransition></RoleGuard>} />
         <Route path="/roles/teacher/ai-assessments" element={<AiAssessmentsRedirect />} />
         <Route path="/roles/owner/curriculum" element={<RoleGuard auth={auth} expectedRole="owner"><RouteTransition><CurriculumLibraryPage scope="school" /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/owner/communications" element={<RoleGuard auth={auth} expectedRole="owner"><RouteTransition><NotificationsCenter /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/hos/communications" element={<RoleGuard auth={auth} expectedRole="hos"><RouteTransition><NotificationsCenter /></RouteTransition></RoleGuard>} />
         <Route path="/roles/hos/curriculum" element={<RoleGuard auth={auth} expectedRole="hos"><RouteTransition><CurriculumLibraryPage scope="school" /></RouteTransition></RoleGuard>} />
         <Route path="/roles/student/exam-readiness" element={<RoleGuard auth={auth} expectedRole="student"><RouteTransition><ExamReadinessPage /></RouteTransition></RoleGuard>} />
         <Route path="/roles/student/offline-notes" element={<RoleGuard auth={auth} expectedRole="student"><RouteTransition><OfflineNotesPage /></RouteTransition></RoleGuard>} />
@@ -309,6 +314,7 @@ function AnimatedRoutes({ auth, onLogin }) {
         <Route path="/roles/student/messaging" element={<RoleGuard auth={auth} expectedRole="student"><RouteTransition><StudentMessaging /></RouteTransition></RoleGuard>} />
         <Route path="/roles/student/newsroom" element={<RoleGuard auth={auth} expectedRole="student"><RouteTransition><StudentDashboard /></RouteTransition></RoleGuard>} />
         <Route path="/roles/student/settings" element={<RoleGuard auth={auth} expectedRole="student"><RouteTransition><StudentSettings /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/parent/notifications" element={<RoleGuard auth={auth} expectedRole="parent"><RouteTransition><ParentNotifications /></RouteTransition></RoleGuard>} />
         <Route path="/roles/parent/timetable" element={<RoleGuard auth={auth} expectedRole="parent"><RouteTransition><TimetableViewer viewerRole="parent" title="Class Timetable" subtitle="Your child's weekly class schedule." /></RouteTransition></RoleGuard>} />
         <Route path="/roles/parent/*" element={<RoleGuard auth={auth} expectedRole="parent"><RouteTransition><ParentDashboard /></RouteTransition></RoleGuard>} />
         <Route path="/roles/caregiver/*" element={<RoleGuard auth={auth} expectedRole="caregiver"><RouteTransition><OperationalRoleDashboard roleKey="caregiver" /></RouteTransition></RoleGuard>} />
@@ -319,6 +325,7 @@ function AnimatedRoutes({ auth, onLogin }) {
         <Route path="/roles/hos/store" element={<RoleGuard auth={auth} expectedRole="hos"><RouteTransition><StoreKeeperPanel /></RouteTransition></RoleGuard>} />
         <Route path="/roles/hos/*" element={<RoleGuard auth={auth} expectedRole="hos"><RouteTransition><HoSDashboard /></RouteTransition></RoleGuard>} />
         <Route path="/roles/admin/*" element={<RoleGuard auth={auth} expectedRole="admin"><RouteTransition><AdminDashboard auth={auth} /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/accountant/communications" element={<RoleGuard auth={auth} expectedRole="accountant"><RouteTransition><NotificationsCenter /></RouteTransition></RoleGuard>} />
         <Route path="/roles/accountant/*" element={<RoleGuard auth={auth} expectedRole="accountant"><RouteTransition><AccountantDashboard /></RouteTransition></RoleGuard>} />
         <Route path="/roles/owner/resources" element={<RoleGuard auth={auth} expectedRole="owner"><RouteTransition><StaffDocumentLibrary /></RouteTransition></RoleGuard>} />
         <Route path="/roles/owner/store" element={<RoleGuard auth={auth} expectedRole="owner"><RouteTransition><StoreKeeperPanel /></RouteTransition></RoleGuard>} />
@@ -345,6 +352,7 @@ function AnimatedRoutes({ auth, onLogin }) {
         <Route path="/roles/examofficer/*" element={<RoleGuard auth={auth} expectedRole="examofficer"><RouteTransition><OperationalRoleDashboard roleKey="examofficer" /></RouteTransition></RoleGuard>} />
         <Route path="/roles/sportsmaster/*" element={<RoleGuard auth={auth} expectedRole="sportsmaster"><RouteTransition><OperationalRoleDashboard roleKey="sportsmaster" /></RouteTransition></RoleGuard>} />
         <Route path="/roles/ami/messaging" element={<RoleGuard auth={auth} expectedRole="ami"><RouteTransition><AmiInbox /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/ami/communications" element={<RoleGuard auth={auth} expectedRole="ami"><RouteTransition><AmiCommunications /></RouteTransition></RoleGuard>} />
         <Route path="/roles/ami/curriculum" element={<RoleGuard auth={auth} expectedRole="ami"><RouteTransition><CurriculumLibraryPage scope="ami" /></RouteTransition></RoleGuard>} />
         <Route path="/roles/ami/school-closures" element={<RoleGuard auth={auth} expectedRole="ami"><RouteTransition><AmiSchoolClosuresPage /></RouteTransition></RoleGuard>} />
         <Route path="/roles/owner/school-closure" element={<RoleGuard auth={auth} expectedRole="owner"><RouteTransition><SchoolClosurePage dashboardLabel="Owner Dashboard" /></RouteTransition></RoleGuard>} />
