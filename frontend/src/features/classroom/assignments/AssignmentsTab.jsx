@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { getAssignments, submitAssignment } from '../classroomService';
 import RichContent from '../../../shared/rich/RichContent';
 import { CountdownBar, useTimedAttempt } from './TimedAttempt';
+import { subscribeChanges } from '../../../shared/offline/changeWatcher';
 
 const CARD = 'relative rounded-2xl border border-[#c9a96e]/40 bg-[#b5e3f4] dark:bg-[#800000]/20 p-4 shadow-sm';
 const LABEL = 'text-xs font-bold uppercase tracking-[0.15em] text-[#800020]';
@@ -10,7 +11,6 @@ const BODY = 'text-sm font-semibold text-[#191970]';
 const INPUT_CLS = 'w-full rounded-xl border border-[#c9a96e]/40 bg-white/80 dark:bg-slate-900 text-[#191970] dark:text-slate-100 px-3 py-2 text-sm outline-none focus:border-[#800020] font-semibold';
 const BTN_PRIMARY = 'bg-[#1a5c38] hover:bg-[#154a2e] text-[#b5e3f4] font-bold px-5 py-2 rounded-2xl text-sm transition-colors disabled:opacity-60';
 const BTN_SECONDARY = 'bg-[#b5e3f4] border border-[#c9a96e]/40 text-[#800020] font-bold px-4 py-2 rounded-2xl text-sm hover:bg-[#efd4a0] transition-colors';
-const REFRESH_INTERVAL_MS = 15000;
 
 function typeLabel(type) {
   const map = {
@@ -198,15 +198,13 @@ export default function AssignmentsTab({ classId = '' }) {
       }
     };
 
-    const intervalId = window.setInterval(handleRefresh, REFRESH_INTERVAL_MS);
-    window.addEventListener('focus', handleRefresh);
-    document.addEventListener('visibilitychange', handleRefresh);
+    // Re-read when something changed in the school (changeWatcher also checks when the page
+    // comes back into view), instead of every 15 s and on every focus.
+    const unsubscribe = subscribeChanges(kinds => { if (kinds.includes('tenant')) handleRefresh(); });
 
     return () => {
       isActive = false;
-      window.clearInterval(intervalId);
-      window.removeEventListener('focus', handleRefresh);
-      document.removeEventListener('visibilitychange', handleRefresh);
+      unsubscribe();
     };
   }, [classId]);
 

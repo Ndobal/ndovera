@@ -385,12 +385,33 @@ function withOfflineHeader(response) {
   });
 }
 
-/** Network first; when there is no network (or it is very slow and a copy is kept), the kept copy. */
+/** Tell the open pages whether Ndovera answered (so they can show or hide the "saved copy" banner). */
+var lastServerStatus = 'ok';
+function reportServerStatus(status) {
+  if (status === lastServerStatus) return;
+  lastServerStatus = status;
+  self.clients.matchAll({ includeUncontrolled: true, type: 'window' }).then(function (clients) {
+    clients.forEach(function (client) { client.postMessage({ type: 'server-status', status: status }); });
+  }).catch(function () { return null; });
+}
+
+/**
+ * Network first; when there is no network, it is very slow, or Ndovera is down or refusing
+ * (502/503/504 — e.g. the database at its daily limit), the kept copy. A busy server is treated
+ * exactly like being offline: what was already loaded stays readable.
+ */
 function apiNetworkFirst(event) {
   var request = event.request;
   var key = apiCacheKey(request);
   var network = fetch(request).then(function (response) {
     var type = response.headers.get('content-type') || '';
+    if (response.status === 502 || response.status === 503 || response.status === 504) {
+      reportServerStatus('unavailable');
+      return caches.open(API_CACHE).then(function (cache) { return cache.match(key); }).then(function (kept) {
+        return kept ? withOfflineHeader(kept) : response;
+      });
+    }
+    if (response.status < 500) reportServerStatus('ok');
     if (response.ok && response.status === 200 && type.indexOf('application/json') !== -1 && !request.headers.get('X-No-Offline-Cache')) {
       var copy = response.clone();
       event.waitUntil(caches.open(API_CACHE).then(function (cache) { return cache.put(key, copy); }).then(function () { return trimCache(API_CACHE, API_CACHE_LIMIT); }));

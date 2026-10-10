@@ -391,6 +391,7 @@ import type { HarvestDeps } from './harvester'
 import { levelOf, labelOfRank, normalizeSection } from './levels'
 import { quantReasoningGrade, quantReasoningRunner } from './quantReasoning'
 import { verbalReasoningGrade, verbalReasoningRunner } from './verbalReasoning'
+import { bumpStamps, changesSharedState, readStamps, tenantScope, userScope } from './changeStamps'
 import { findAnswer, rawAi, rememberAnswer, withKnowledgePool } from './knowledgePool'
 import { AI_PAY_START, AiPayError, chargeGeneration, kindOfAssessment, kindOfMaterial, latestRegeneration, walletSummary } from './aiPay'
 import type { ChargeInput } from './aiPay'
@@ -434,6 +435,16 @@ app.onError((error, c) => {
   }
   console.error('Unhandled error', error)
   return c.json({ success: false, error: 'Something went wrong.' }, 500)
+})
+
+// Anything done in a school that others may need to see moves the school's change stamp, so
+// browsers re-read only then (changeStamps.ts). Personal actions are left out there.
+app.use('/api/*', async (c, next) => {
+  await next()
+  const tenantId = String((c.var as any)?.user?.tenantId || '').trim()
+  if (!tenantId || !changesSharedState(c.req.method, new URL(c.req.url).pathname, c.res.status)) return
+  const bump = bumpStamps(c.env.APP_DB, [tenantScope(tenantId)]).catch(error => console.error('Change stamp not moved', error))
+  try { c.executionCtx.waitUntil(bump) } catch { await bump }
 })
 
 // Module-level guard: ensure*Table functions are idempotent DDL. Running them on every
@@ -7541,15 +7552,42 @@ async function ensureReadIndexes(db: D1Database) {
 
 // The header (bell and chat badges) is polled by every open tab. Building it reads the school's
 // students, fee ledger, receipts, fee set-up and conversations; uncached, it was most of the
-// database reads that hit the daily D1 limit (Oct 2026). It is kept for 45 seconds per person
-// and role in the edge cache, which costs no database reads at all.
-const HEADER_CACHE_SECONDS = 45
+// database reads that hit the daily D1 limit (Oct 2026). It is now kept in the edge cache under
+// the school's and the person's change stamps: while nothing changes, a check costs the few
+// primary-key reads of the stamps and nothing else. Time-based items (a fee falling overdue)
+// still refresh when the cached copy expires.
+const HEADER_CACHE_SECONDS = 600
+const canonicalUserIds = new Map<string, string>()
+
+/** The stamps that decide whether a person's view is stale: their school's and their own. */
+async function stampScopesFor(c: any) {
+  const user = c.var.user || {}
+  const who = String(user.id || user.email || user.sub || '').trim().toLowerCase()
+  let canonical = canonicalUserIds.get(who)
+  if (who && canonical === undefined) {
+    const row = await findUserByIdentifier(c.env.APP_DB, who).catch(() => null)
+    canonical = String(row?.id || '').trim().toLowerCase()
+    canonicalUserIds.set(who, canonical)
+  }
+  return [tenantScope(String(user.tenantId || '')), userScope(who), canonical ? userScope(canonical) : ''].filter(scope => scope && !scope.endsWith(':'))
+}
+
+async function changeVersions(c: any) {
+  const stamps = await readStamps(c.env.APP_DB, await stampScopesFor(c))
+  const user = c.var.user || {}
+  const tenant = stamps[tenantScope(String(user.tenantId || ''))] || 0
+  const personal = Object.entries(stamps).filter(([scope]) => scope.startsWith('user:')).reduce((sum, [, version]) => sum + version, 0)
+  return { tenant, user: personal, stamp: `${tenant}.${personal}` }
+}
+
 async function cachedAuthenticatedHeader(c: any, roleKey: string) {
   const user = c.var.user || {}
   const who = String(user.id || user.email || user.sub || '').trim().toLowerCase()
   const cache = typeof caches !== 'undefined' ? (caches as any).default : null
   if (!cache || !who) return buildAuthenticatedHeader(c, roleKey)
-  const key = new Request(`https://header-cache.ndovera.internal/${encodeURIComponent(who)}/${encodeURIComponent(roleKey)}/${encodeURIComponent(String(getActiveRole(user) || ''))}`)
+  const versions = await changeVersions(c).catch(() => null)
+  if (!versions) return buildAuthenticatedHeader(c, roleKey)
+  const key = new Request(`https://header-cache.ndovera.internal/${encodeURIComponent(who)}/${encodeURIComponent(roleKey)}/${encodeURIComponent(String(getActiveRole(user) || ''))}/${versions.stamp}`)
   const hit = await cache.match(key).catch(() => null)
   if (hit) return hit.json()
   const header = await buildAuthenticatedHeader(c, roleKey)
@@ -7557,6 +7595,13 @@ async function cachedAuthenticatedHeader(c: any, roleKey: string) {
   try { c.executionCtx?.waitUntil?.(cache.put(key, response).catch(() => {})) } catch {}
   return header
 }
+
+/** Has anything changed? Browsers ask this, and fetch real data only when a stamp moved. */
+app.get('/api/changes', authenticate, async (c) => {
+  const versions = await changeVersions(c)
+  c.header('Cache-Control', 'no-store')
+  return c.json({ success: true, ...versions })
+})
 
 app.get('/api/header/:roleKey', authenticate, async (c) => {
   const roleKey = c.req.param('roleKey')
@@ -10219,9 +10264,22 @@ app.post('/api/assignments/:assignmentId/submit', authenticate, async (c) => {
     const answers = payload?.answers && typeof payload.answers === 'object' ? payload.answers : {}
     const meta = ((assignment as any).metadata || {}) as Record<string, any>
     const now = new Date().toISOString()
+    // Work done while Ndovera could not be reached waits in the device's outbox. It counts from
+    // when the student pressed submit (at most 72 hours back), and the same copy arriving
+    // twice is one submission.
+    const clientSubmissionId = String(payload?.clientSubmissionId || '').trim().slice(0, 80)
+    if (clientSubmissionId) {
+      const existing = await c.env.APP_DB.prepare(`SELECT id FROM submissions WHERE assignmentId = ? AND studentId = ? AND json_extract(content, '$.clientSubmissionId') = ? LIMIT 1`)
+        .bind(assignmentId, studentId, clientSubmissionId).first().catch(() => null) as Record<string, any> | null
+      if (existing) return c.json({ success: true, duplicate: true, submission: await getLatestSubmissionForStudent(c.env.APP_DB, assignmentId, studentId) })
+    }
+    const capturedMs = Date.parse(String(payload?.capturedAt || ''))
+    const offlineAt = clientSubmissionId && Number.isFinite(capturedMs) && capturedMs <= Date.now() + 60_000 && Date.now() - capturedMs <= 72 * 3600_000
+      ? new Date(Math.min(capturedMs, Date.now())).toISOString() : ''
+    const effectiveNow = offlineAt || now
     if (isNotYetOpen(assignment as any)) return c.json({ success: false, message: 'This assessment has not opened yet.' }, 403)
     let late = false
-    if (meta.closesAt && now > String(meta.closesAt)) {
+    if (meta.closesAt && effectiveNow > String(meta.closesAt)) {
       if (meta.latePolicy === 'reject') return c.json({ success: false, message: 'This assessment has closed.' }, 403)
       late = meta.latePolicy !== 'accept'
     }
@@ -10236,7 +10294,7 @@ app.post('/api/assignments/:assignmentId/submit', authenticate, async (c) => {
       const attempt = await openAttempt(c.env.APP_DB, assignmentId, String(studentId))
       if (!attempt) return c.json({ success: false, message: 'Start the assessment before submitting it.' }, 409)
       attemptId = String(attempt.id)
-      if (Date.now() > Date.parse(attempt.deadline) + TIMED_GRACE_MS) {
+      if (Date.parse(effectiveNow) > Date.parse(attempt.deadline) + TIMED_GRACE_MS) {
         if (meta.latePolicy === 'reject') {
           await c.env.APP_DB.prepare(`UPDATE assignment_attempts SET submitted_at = ? WHERE id = ?`).bind('expired', attemptId).run()
           return c.json({ success: false, message: 'Time ran out for this attempt.' }, 403)
@@ -10252,7 +10310,8 @@ app.post('/api/assignments/:assignmentId/submit', authenticate, async (c) => {
       assignmentId,
       studentId,
       // The paper record (order, option order, numbers) lets the teacher see exactly what this student answered.
-      content: { answers, ...(paper ? { paper } : {}), ...(marking ? { autoMark: marking } : {}), ...(late ? { late: true } : {}), ...(overtime ? { overtime: true } : {}) },
+      content: { answers, ...(paper ? { paper } : {}), ...(marking ? { autoMark: marking } : {}), ...(late ? { late: true } : {}), ...(overtime ? { overtime: true } : {}),
+        ...(clientSubmissionId ? { clientSubmissionId } : {}), ...(offlineAt ? { submittedOfflineAt: offlineAt } : {}) },
       ...(marking && marking.pending === 0 ? { grade: marking.score, gradedAt: now, feedback: `Marked automatically: ${marking.score}/${marking.max}.${late ? ' Submitted late.' : ''}${overtime ? ' Submitted after the time limit.' : ''}` } : {}),
     })
     if (attemptId) await c.env.APP_DB.prepare(`UPDATE assignment_attempts SET submitted_at = ? WHERE id = ?`).bind(now, attemptId).run()

@@ -22,6 +22,7 @@ import {
   UserGroupIcon,
   VideoCameraIcon,
 } from '@heroicons/react/24/outline';
+import { subscribeChanges } from '../../../shared/offline/changeWatcher';
 
 const STREAM_EMOJIS = ['😀', '😂', '😍', '🔥', '👏', '🎉', '👍', '🙏', '💡', '📚', '💯', '🚀'];
 const STUDENT_MESSAGING_INTENT_KEY = 'studentMessagingIntent';
@@ -210,10 +211,11 @@ export default function StudentClassroom() {
     }).catch(() => {}).finally(() => setClassroomLoading(false));
   }, [classroomId, storedClassName]);
 
-  // Poll stream every 15 s so all users see new posts without full reload
+  // New posts appear without a reload: the stream is re-read when something changed in the
+  // school (changeWatcher), instead of every 15 s whether or not anything had.
   useEffect(() => {
     if (!classroomId) return;
-    const poll = setInterval(() => {
+    const refresh = () => {
       Promise.all([
         fetch(`/api/classrooms/${classroomId}/stream`, { headers: localStorage.getItem('token') ? { Authorization: `Bearer ${localStorage.getItem('token')}` } : {} }).then(r => r.ok ? r.json() : null),
         svc.getLiveSessions(classroomId).catch(() => null),
@@ -232,8 +234,8 @@ export default function StudentClassroom() {
           setLiveSessions(liveJson.sessions || []);
         }
       }).catch(() => {});
-    }, 15000);
-    return () => clearInterval(poll);
+    };
+    return subscribeChanges(kinds => { if (kinds.includes('tenant')) refresh(); });
   }, [classroomId]);
 
   useEffect(() => {

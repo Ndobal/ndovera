@@ -73,7 +73,8 @@ const RULES = {
   examQuestions: { name: 'First Term Examination Questions', kind: 'exam_questions', appliesTo: ['secondary'], frequency: 'once', dueDate: day(10), dueTime: '16:00', method: 'either' },
   register: { name: 'Register', kind: 'register', appliesTo: ['all'], frequency: 'weekly', dueWeekday: 5, dueTime: '16:00', method: 'either' },
   diary: { name: 'Diary', kind: 'diary', appliesTo: ['all'], frequency: 'weekly', dueWeekday: 5, dueTime: '16:00', method: 'manual' },
-  classReport: { name: 'Weekly Class Report', kind: 'class_report', appliesTo: ['all'], frequency: 'weekly', dueWeekday: 5, dueTime: '16:00', method: 'ndovera' },
+  // Due at the very end of the week, so the test passes whichever day it runs (it once failed every Saturday).
+  classReport: { name: 'Weekly Class Report', kind: 'class_report', appliesTo: ['all'], frequency: 'weekly', dueWeekday: 0, dueTime: '23:59', method: 'ndovera' },
 }
 
 async function createRules(db) {

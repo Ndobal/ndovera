@@ -5,8 +5,8 @@ import { getStoredAuth } from '../../../features/auth/services/authApi';
 import { getAssignments, submitAssignment } from '../../../features/classroom/classroomService';
 import RichContent from '../../../shared/rich/RichContent';
 import { CountdownBar, useTimedAttempt } from '../../../features/classroom/assignments/TimedAttempt';
+import { subscribeChanges } from '../../../shared/offline/changeWatcher';
 
-const REFRESH_INTERVAL_MS = 15000;
 
 function getCurrentClassId() {
   const storedAuth = getStoredAuth();
@@ -514,15 +514,13 @@ export default function StudentAssignments() {
       }
     };
 
-    const intervalId = window.setInterval(handleRefresh, REFRESH_INTERVAL_MS);
-    window.addEventListener('focus', handleRefresh);
-    document.addEventListener('visibilitychange', handleRefresh);
+    // Re-read when something changed in the school (changeWatcher also checks when the page
+    // comes back into view), instead of every 15 s and on every focus.
+    const unsubscribe = subscribeChanges(kinds => { if (kinds.includes('tenant')) handleRefresh(); });
 
     return () => {
       isActive = false;
-      window.clearInterval(intervalId);
-      window.removeEventListener('focus', handleRefresh);
-      document.removeEventListener('visibilitychange', handleRefresh);
+      unsubscribe();
     };
   }, []);
 

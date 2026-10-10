@@ -12,6 +12,8 @@ import {
   PaperAirplaneIcon,
 } from '@heroicons/react/24/outline';
 import UserProfileDropdown from './UserProfileDropdown';
+import ConnectionBanner from '../offline/ConnectionBanner';
+import { subscribeChanges } from '../offline/changeWatcher';
 import {
   getConversationMessages,
   getHeaderBarData,
@@ -224,13 +226,18 @@ export default function DashboardTopBar({ authUser = null, onLogout = () => {}, 
     };
 
     load();
+    // Re-read only when something changed in the school or in this person's messages
+    // (changeWatcher asks the server's change stamps, a couple of tiny reads). A slow
+    // refresh still picks up time-based items such as a fee falling overdue.
+    const unsubscribe = subscribeChanges(() => load());
     const timer = setInterval(() => {
       if (typeof document !== 'undefined' && document.visibilityState === 'hidden') return;
       load();
-    }, 60000); // each poll costs database reads for the whole school; badges may lag a minute
+    }, 5 * 60 * 1000);
 
     return () => {
       mounted = false;
+      unsubscribe();
       clearInterval(timer);
     };
   }, [roleKey, baseStats]);
@@ -738,6 +745,7 @@ export default function DashboardTopBar({ authUser = null, onLogout = () => {}, 
           </aside>
         </>
       )}
+      <ConnectionBanner />
     </header>
       {typeof window !== 'undefined' && window.location.pathname.startsWith('/roles/') ? (
         <div className="px-4 md:px-6">

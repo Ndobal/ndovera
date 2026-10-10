@@ -3,10 +3,11 @@ import { useLocation } from 'react-router-dom';
 import StudentSectionShell from '../student/StudentSectionShell';
 import { buildSelectedRoleHeader, getStoredAuth } from '../../../features/auth/services/authApi';
 import { getApiUrl } from '../../../config/apiBase';
+import { checkNow, subscribeChanges } from '../../../shared/offline/changeWatcher';
 import { CHAT_EMOJIS, CHAT_STICKERS, getChatInitials, getChatAvatarColor } from '../../../shared/constants/chatExtras';
 
 const STAFF_MESSAGING_INTENT_KEY = 'staffMessagingIntent';
-const MESSAGE_POLL_INTERVAL_MS = 6000;          // quiet background sync of the open thread
+const MESSAGE_POLL_INTERVAL_MS = 6000;          // how often an open thread asks whether anything changed
 const CONVERSATION_POLL_INTERVAL_MS = 3600000;  // contact list refreshes hourly; manual button for sooner
 const HELPDESK_CONTACT = {
   id: 'ndovera-helpdesk',
@@ -449,14 +450,19 @@ function TeacherMessaging() {
       const lastMessage = nextMessages[nextMessages.length - 1] || {};
       const signature = `${targetConversationId}:${nextMessages.length}:${lastMessage.id || ''}:${lastMessage.readAt || lastMessage.read_at || ''}`;
       // Quiet refresh: only re-render the thread when something actually changed, so reading is not disturbed.
-      if (!silent || signature !== messageSignatureRef.current) {
+      const changed = signature !== messageSignatureRef.current;
+      if (!silent || changed) {
         messageSignatureRef.current = signature;
         setMessages(nextMessages);
       }
 
-      await requestJson(`/api/conversations/${encodeURIComponent(targetConversationId)}/mark-read`, token, {
-        method: 'POST',
-      }).catch(() => null);
+      // Only when something new arrived: marking read moves this person's change stamp,
+      // and doing it on every check would make the thread reload itself forever.
+      if (changed) {
+        await requestJson(`/api/conversations/${encodeURIComponent(targetConversationId)}/mark-read`, token, {
+          method: 'POST',
+        }).catch(() => null);
+      }
     } catch (error) {
       if (!silent) {
         setActionError(error instanceof Error ? error.message : 'Could not load messages.');
@@ -483,10 +489,17 @@ function TeacherMessaging() {
       loadConversations({ preferredConversationId: latestActiveConversationIdRef.current, silent: true });
     }, CONVERSATION_POLL_INTERVAL_MS);
 
+    // An open thread asks the change stamps often (a couple of tiny reads) and is re-read,
+    // with the conversation list, only when this person's messages changed.
     const messagePoll = window.setInterval(() => {
-      if (document.visibilityState === 'hidden') return;
-      loadMessages({ silent: true });
+      if (document.visibilityState === 'hidden' || !latestActiveConversationIdRef.current) return;
+      checkNow();
     }, MESSAGE_POLL_INTERVAL_MS);
+    const unsubscribe = subscribeChanges(kinds => {
+      if (!kinds.includes('user')) return;
+      loadMessages({ silent: true });
+      loadConversations({ preferredConversationId: latestActiveConversationIdRef.current, silent: true });
+    });
 
     const handleResume = () => {
       if (document.visibilityState === 'hidden') return;
@@ -500,6 +513,7 @@ function TeacherMessaging() {
     return () => {
       window.clearInterval(conversationPoll);
       window.clearInterval(messagePoll);
+      unsubscribe();
       window.removeEventListener('focus', handleResume);
       document.removeEventListener('visibilitychange', handleResume);
     };

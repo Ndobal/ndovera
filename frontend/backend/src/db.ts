@@ -1,5 +1,6 @@
 import { backfillMaterialSessions, currentMaterialContext, isCurrentMaterial, MATERIAL_ARCHIVE_CUTOFF } from './materialSessions'
 import { materialAudience, materialStatus } from './materialLifecycle'
+import { bumpStamps, userScope } from './changeStamps'
 
 export interface Bindings {
   APP_DB: D1Database
@@ -918,6 +919,8 @@ export async function sendMessage(db: D1Database, conversationId: string, sender
   const now = new Date().toISOString()
   await db.prepare('INSERT INTO messages(id, conversation_id, sender_id, body, metadata, sent_at) VALUES(?, ?, ?, ?, ?, ?)').bind(msgId, conversationId, senderId, body, JSON.stringify(metadata || {}), now).run()
   await db.prepare('UPDATE conversations SET updated_at = ? WHERE id = ?').bind(now, conversationId).run()
+  // The participants' chat badges and open threads refresh only because this moved (changeStamps.ts).
+  await bumpStamps(db, parseJsonField<string[]>(conv.participants, []).map(participant => userScope(String(participant)))).catch(() => null)
   return { id: msgId, conversationId, senderId, body, metadata: metadata || {}, sentAt: now }
 }
 
@@ -952,6 +955,8 @@ export async function listConversationReadStates(db: D1Database, userId: string)
 
 export async function markMessagesRead(db: D1Database, conversationId: string, readerId?: string, readerIdentifiers: string[] = []) {
   await ensureConversationReadsTable(db)
+  // The reader's unread count changes: their header is rebuilt on its next check.
+  await bumpStamps(db, [readerId, ...readerIdentifiers].filter(Boolean).map(identifier => userScope(String(identifier)))).catch(() => null)
 
   const now = new Date().toISOString()
   const normalizedReaderId = String(readerId || '').trim()

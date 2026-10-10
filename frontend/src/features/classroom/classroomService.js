@@ -1,5 +1,7 @@
 import { getApiUrl } from '../../config/apiBase';
 import { buildSelectedRoleHeader } from '../auth/services/authApi';
+import { enqueue, isRetryable, registerSender } from '../../shared/offline/outbox';
+import { isServerUnavailable, setConnectionStatus } from '../../shared/offline/changeWatcher';
 
 function apiFetch(path, options) {
   return fetch(getApiUrl(path), options);
@@ -180,9 +182,44 @@ export async function uploadAssignmentAsset(classId, payload) {
   return readJsonResponse(res);
 }
 
-export async function submitAssignment(assignmentId, payload) {
-  const res = await apiFetch(`/api/assignments/${assignmentId}/submit`, { method: 'POST', headers: getAuthHeaders(), body: JSON.stringify(payload) });
+async function postSubmission(assignmentId, body) {
+  const res = await apiFetch(`/api/assignments/${assignmentId}/submit`, { method: 'POST', headers: getAuthHeaders(), body: JSON.stringify(body) });
+  if (isServerUnavailable(res.status)) throw Object.assign(new Error('Ndovera is very busy right now.'), { status: res.status });
   return readJsonResponse(res);
+}
+
+// Sent from the outbox when Ndovera is back. A refusal (closed, out of attempts) comes back as
+// success:false and is kept as "needs review" with the reason; the server ignores a repeat.
+registerSender('assignment-submit', async ({ assignmentId, body }) => {
+  const result = await postSubmission(assignmentId, body);
+  if (!result?.success) throw Object.assign(new Error(result?.message || 'Ndovera could not accept this submission.'), { status: 422 });
+  return result;
+});
+
+/**
+ * Submit work. When Ndovera cannot be reached — no network, or the server is down or refusing
+ * (502/503/504) — the submission is kept on the device and sent by itself when Ndovera is back;
+ * it counts from now. Refusals (closed, attempts used) are returned as usual.
+ */
+export async function submitAssignment(assignmentId, payload) {
+  const body = {
+    ...payload,
+    clientSubmissionId: payload?.clientSubmissionId || `sub_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 10)}`,
+    capturedAt: payload?.capturedAt || new Date().toISOString(),
+  };
+  try {
+    return await postSubmission(assignmentId, body);
+  } catch (error) {
+    if (!isRetryable(error)) throw error;
+    await enqueue('assignment-submit', { assignmentId, body }, { label: 'Assignment submission' });
+    setConnectionStatus(typeof navigator !== 'undefined' && navigator.onLine === false ? 'offline' : 'unavailable');
+    return {
+      success: true,
+      queued: true,
+      message: 'Saved on this device. It will be sent automatically when Ndovera is back, and counts from now.',
+      submission: { assignmentId, status: 'queued', queued: true, submittedAt: body.capturedAt, content: { answers: body.answers || {} } },
+    };
+  }
 }
 
 /** Timed assessments: start (or resume) the attempt; the server returns the deadline. */

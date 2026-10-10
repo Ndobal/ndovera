@@ -12,11 +12,11 @@ import {
 import StudentSectionShell from './StudentSectionShell';
 import { buildSelectedRoleHeader, getStoredAuth } from '../../../features/auth/services/authApi';
 import { CHAT_EMOJIS, CHAT_STICKERS, getChatInitials, getChatAvatarColor } from '../../../shared/constants/chatExtras';
+import { checkNow, subscribeChanges } from '../../../shared/offline/changeWatcher';
 
 const STUDENT_MESSAGING_INTENT_KEY = 'studentMessagingIntent';
 const QUICK_EMOJIS = CHAT_EMOJIS;
-const CONTACT_POLL_INTERVAL_MS = 60000;    // silent background sync of the recent-chats list (no spinner, only swaps on change)
-const MESSAGE_POLL_INTERVAL_MS = 6000;     // quiet background sync of the open thread
+const MESSAGE_POLL_INTERVAL_MS = 6000;     // how often an open thread asks whether anything changed
 
 function uniqueIdentifiers(values) {
   return Array.from(new Set((values || []).map(value => String(value || '').trim()).filter(Boolean)));
@@ -403,13 +403,13 @@ export default function StudentMessaging({
     }
 
     loadConversations();
-    const poll = window.setInterval(() => {
-      if (document.visibilityState === 'hidden') return;
-      loadConversations({ silent: true });
-    }, CONTACT_POLL_INTERVAL_MS);
+    // Re-read the list only when this person's messages changed (changeWatcher), not on a timer.
+    const unsubscribe = subscribeChanges(kinds => {
+      if (kinds.includes('user')) loadConversations({ silent: true });
+    });
     return () => {
       ignore = true;
-      window.clearInterval(poll);
+      unsubscribe();
     };
   }, [me, token, refreshTick]);
 
@@ -432,14 +432,19 @@ export default function StudentMessaging({
         if (payload.participantNames) setParticipantNames(current => ({ ...current, ...payload.participantNames }));
         const lastMessage = nextMessages[nextMessages.length - 1] || {};
         const signature = `${activeConversationId}:${nextMessages.length}:${lastMessage.id || ''}:${lastMessage.readAt || lastMessage.read_at || ''}`;
-        if (!ignore && (!silent || signature !== messageSignatureRef.current)) {
+        const changed = signature !== messageSignatureRef.current;
+        if (!ignore && (!silent || changed)) {
           messageSignatureRef.current = signature;
           setMessages(nextMessages);
         }
 
-        await requestJson(`/api/conversations/${encodeURIComponent(activeConversationId)}/mark-read`, token, {
-          method: 'POST',
-        }).catch(() => null);
+        // Only when something new arrived: marking read moves this person's change stamp,
+        // and doing it on every check would make the thread reload itself forever.
+        if (changed) {
+          await requestJson(`/api/conversations/${encodeURIComponent(activeConversationId)}/mark-read`, token, {
+            method: 'POST',
+          }).catch(() => null);
+        }
       } catch (error) {
         if (!ignore && !silent) {
           setActionError(error instanceof Error ? error.message : 'Could not load messages.');
@@ -452,12 +457,18 @@ export default function StudentMessaging({
     }
 
     loadMessages();
+    // While a thread is open, ask the change stamps often (a couple of tiny reads) and
+    // re-read the thread only when this person's messages changed.
+    const unsubscribe = subscribeChanges(kinds => {
+      if (kinds.includes('user')) loadMessages({ silent: true });
+    });
     const poll = window.setInterval(() => {
-      if (document.visibilityState === 'hidden') return;
-      loadMessages({ silent: true });
+      if (document.visibilityState === 'hidden' || !activeConversationId) return;
+      checkNow();
     }, MESSAGE_POLL_INTERVAL_MS);
     return () => {
       ignore = true;
+      unsubscribe();
       window.clearInterval(poll);
     };
   }, [activeConversationId, token]);

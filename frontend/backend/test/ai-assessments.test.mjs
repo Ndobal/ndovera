@@ -540,3 +540,41 @@ test('live-model fixes: LaTeX in JSON, a scheme given on the question for its pa
   assert.match(prompt.user, /could not be used[\s\S]*Needs exactly 4 options/)
   assert.match(prompt.system, /Naira/)
 })
+
+test('work done while Ndovera was unreachable counts from when it was submitted, once; posting work moves the change stamp', async () => {
+  const db = await setup()
+  const ai = fakeModel([])
+  const topic = await topicWithNotes(db, 'Scarcity')
+  const before = (await call(db, 'student', 'GET', '/api/changes')).body
+  assert.equal(before.success, true)
+
+  const created = await call(db, 'teacher', 'POST', '/api/ai-assessments', { classId: 'ss2a', subjectId: 'econ', kind: 'quiz', questionCount: 2, totalMarks: 2, types: ['mcq'], topicIds: [topic.id] }, ai)
+  const done = await generateAll(db, created.body.assessment.id, ai)
+  const posted = await call(db, 'teacher', 'POST', `/api/ai-assessments/${done.id}/post`, { mode: 'now', durationMinutes: 10, attempts: 1, latePolicy: 'reject' })
+  assert.equal(posted.status, 200, JSON.stringify(posted.body))
+  await new Promise(resolve => setTimeout(resolve, 20)) // the stamp moves after the response
+  const after = (await call(db, 'student', 'GET', '/api/changes')).body
+  assert.ok(after.tenant > before.tenant, 'posting work tells everyone in the school something changed')
+  const unchanged = (await call(db, 'student', 'GET', '/api/changes')).body
+  assert.equal(unchanged.tenant, after.tenant, 'reading changes nothing')
+
+  // Started, submitted while the server was down; it arrives after the deadline has passed.
+  const assignmentId = posted.body.assignment.id
+  const started = await call(db, 'student', 'POST', `/api/assignments/${assignmentId}/start`)
+  assert.equal(started.body.timed, true)
+  // Pressed 6 minutes ago, before the deadline 4 minutes ago (well beyond the 2-minute grace now).
+  const pressedAt = new Date(Date.now() - 6 * 60000).toISOString()
+  await db.prepare(`UPDATE assignment_attempts SET deadline = ? WHERE submitted_at IS NULL`).bind(new Date(Date.now() - 4 * 60000).toISOString()).run()
+  const queued = { answers: {}, clientSubmissionId: 'sub_offline_1', capturedAt: pressedAt }
+  const first = await call(db, 'student', 'POST', `/api/assignments/${assignmentId}/submit`, queued)
+  assert.equal(first.status, 201, JSON.stringify(first.body))
+  assert.equal(first.body.submission.content.submittedOfflineAt, pressedAt)
+  assert.ok(!first.body.submission.content.overtime, 'it was submitted in time')
+  // The outbox sends it again (the first answer was lost): still one submission.
+  const again = await call(db, 'student', 'POST', `/api/assignments/${assignmentId}/submit`, queued)
+  assert.equal(again.body.duplicate, true)
+  assert.equal((await db.prepare(`SELECT COUNT(*) AS n FROM submissions WHERE assignmentId = ?`).bind(assignmentId).first()).n, 1)
+  // A claimed time far in the past is not believed.
+  const stale = await call(db, 'student', 'POST', `/api/assignments/${assignmentId}/submit`, { answers: {}, clientSubmissionId: 'sub_old', capturedAt: '2026-01-01T00:00:00Z' })
+  assert.equal(stale.status, 409, 'attempts used; and an old time would not have counted anyway')
+})
