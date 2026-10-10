@@ -71,10 +71,14 @@ export async function ensureEngineTables(db: D1Database) {
       id TEXT PRIMARY KEY, tenant_id TEXT NOT NULL, type TEXT NOT NULL, scope TEXT NOT NULL, facts TEXT, link TEXT, dedupe_key TEXT NOT NULL,
       status TEXT NOT NULL DEFAULT 'new', created_by TEXT, created_at TEXT NOT NULL, processed_at TEXT, UNIQUE(tenant_id, dedupe_key))`,
     `CREATE INDEX IF NOT EXISTS idx_comm_events_status ON comm_events(status, created_at)`,
+    `CREATE INDEX IF NOT EXISTS idx_comm_events_tenant ON comm_events(tenant_id, created_at)`,
+    // One row: when the next piece of work falls due (NULL: nothing to do). The minute tick reads only this.
+    `CREATE TABLE IF NOT EXISTS comm_work (id TEXT PRIMARY KEY, next_due_at TEXT)`,
     `CREATE TABLE IF NOT EXISTS comm_batches (
       id TEXT PRIMARY KEY, tenant_id TEXT NOT NULL, event_id TEXT NOT NULL UNIQUE, type TEXT NOT NULL, policy TEXT NOT NULL, status TEXT NOT NULL,
       counts TEXT, requirement TEXT, shortfall TEXT, expires_at TEXT, created_at TEXT NOT NULL, updated_at TEXT NOT NULL)`,
     `CREATE INDEX IF NOT EXISTS idx_comm_batches_waiting ON comm_batches(tenant_id, status, created_at)`,
+    `CREATE INDEX IF NOT EXISTS idx_comm_batches_status ON comm_batches(status)`,
     `CREATE TABLE IF NOT EXISTS comm_deliveries (
       id TEXT PRIMARY KEY, tenant_id TEXT NOT NULL, batch_id TEXT NOT NULL, event_id TEXT NOT NULL, guardian_id TEXT NOT NULL, channel TEXT NOT NULL,
       address TEXT, student_ids TEXT, units INTEGER NOT NULL DEFAULT 0, status TEXT NOT NULL, financial TEXT NOT NULL DEFAULT 'none',
@@ -115,7 +119,9 @@ export async function recordEvent(db: D1Database, input: { tenantId: string, typ
   const id = newId('cev')
   const result = await db.prepare(`INSERT OR IGNORE INTO comm_events (id, tenant_id, type, scope, facts, link, dedupe_key, status, created_by, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, 'new', ?, ?)`)
     .bind(id, input.tenantId, input.type, JSON.stringify(input.scope), JSON.stringify(input.facts || {}), input.link || '', input.dedupeKey.slice(0, 300), input.actor || 'system', nowIso()).run()
-  return Number(result.meta?.changes) ? id : null
+  if (!Number(result.meta?.changes)) return null
+  await markWorkDue(db, nowIso())
+  return id
 }
 
 // ─── 2. Recipients ──────────────────────────────────────────────────────────
@@ -295,7 +301,8 @@ export async function admitBatch(deps: CommDeps, batchId: string): Promise<strin
   const tenantId = String(batch.tenant_id)
   const at = nowIso()
   // Free work never waits for units.
-  await db.prepare(`UPDATE comm_deliveries SET status = 'queued', next_attempt_at = ?, updated_at = ? WHERE batch_id = ? AND status = 'planned' AND units = 0`).bind(at, at, batchId).run()
+  const freed = await db.prepare(`UPDATE comm_deliveries SET status = 'queued', next_attempt_at = ?, updated_at = ? WHERE batch_id = ? AND status = 'planned' AND units = 0`).bind(at, at, batchId).run()
+  if (Number(freed.meta?.changes)) await markWorkDue(db, at)
   const paid = ((await db.prepare(`SELECT id, channel, units FROM comm_deliveries WHERE batch_id = ? AND status IN ('planned', 'awaiting_credits') AND units > 0`).bind(batchId).all()).results || []) as Array<{ id: string, channel: Channel, units: number }>
   if (!paid.length) {
     await db.prepare(`UPDATE comm_batches SET status = 'funded', shortfall = NULL, updated_at = ? WHERE id = ?`).bind(at, batchId).run()
@@ -330,6 +337,7 @@ export async function admitBatch(deps: CommDeps, batchId: string): Promise<strin
     ],
   })
   if (result.ok) {
+    await markWorkDue(db, at)
     await refreshCreditPause(deps, tenantId)
     return 'funded'
   }
@@ -477,7 +485,7 @@ async function sendDelivery(deps: CommDeps, row: Record<string, any>) {
     } catch (error) {
       await recordAttempt(db, row.id, attempt, { outcome: 'retry', error: String((error as Error)?.message || error).slice(0, 300) })
       if (attempt >= MAX_ATTEMPTS) { await releaseReservation(db, row.tenant_id, row.id, 'failed'); await finish('failed', { error: 'Email could not be sent.', financial: row.financial === 'reserved' ? 'released' : row.financial }) }
-      else await finish('queued', { next_attempt_at: new Date(Date.now() + backoff(attempt)).toISOString() })
+      else { const next = new Date(Date.now() + backoff(attempt)).toISOString(); await finish('queued', { next_attempt_at: next }); await markWorkDue(db, next) }
     }
     return
   }
@@ -507,7 +515,9 @@ async function sendDelivery(deps: CommDeps, row: Record<string, any>) {
     await releaseReservation(db, row.tenant_id, row.id, 'rejected')
     await finish('failed', { error: outcome.error || 'Refused by the provider.', financial: 'released' })
   } else if (outcome.outcome === 'retry' && attempt < MAX_ATTEMPTS) {
-    await finish('queued', { error: outcome.error || null, next_attempt_at: new Date(Date.now() + backoff(attempt)).toISOString() })
+    const next = new Date(Date.now() + backoff(attempt)).toISOString()
+    await finish('queued', { error: outcome.error || null, next_attempt_at: next })
+    await markWorkDue(db, next)
   } else if (outcome.outcome === 'retry') {
     await releaseReservation(db, row.tenant_id, row.id, 'gave up')
     await finish('failed', { error: outcome.error || 'The provider stayed busy.', financial: 'released' })
@@ -697,7 +707,7 @@ export async function processNewEvents(deps: CommDeps, limit = 10) {
   const rows = ((await db.prepare(`SELECT * FROM comm_events WHERE status = 'new' ORDER BY created_at ASC LIMIT ?`).bind(limit).all()).results || []) as Record<string, any>[]
   for (const row of rows) {
     // Claim it first, so two ticks never plan the same event.
-    const claim = await db.prepare(`UPDATE comm_events SET status = 'planning' WHERE id = ? AND status = 'new'`).bind(row.id).run()
+    const claim = await db.prepare(`UPDATE comm_events SET status = 'planning', processed_at = ? WHERE id = ? AND status = 'new'`).bind(nowIso(), row.id).run()
     if (!Number(claim.meta?.changes)) continue
     try {
       await createBatch(deps, mapEvent(row))
@@ -709,10 +719,48 @@ export async function processNewEvents(deps: CommDeps, limit = 10) {
   return rows.length
 }
 
-export async function commTick(deps: CommDeps) {
-  await processNewEvents(deps)
-  await dispatchDue(deps)
-  if ((deps.now?.() || new Date()).getUTCMinutes() % 10 === 0) await reconcile(deps)
+/** Note that work falls due at a moment (keeps the earliest). */
+export async function markWorkDue(db: D1Database, atIso: string) {
+  await db.prepare(`INSERT INTO comm_work (id, next_due_at) VALUES ('main', ?) ON CONFLICT(id) DO UPDATE SET next_due_at = CASE WHEN comm_work.next_due_at IS NULL OR excluded.next_due_at < comm_work.next_due_at THEN excluded.next_due_at ELSE comm_work.next_due_at END`)
+    .bind(atIso).run()
+}
+
+/** When the next work falls due, worked out from the queue itself (never lost to a race on the marker). */
+async function recomputeWorkDue(db: D1Database, moreNow: boolean) {
+  const at = nowIso()
+  let next: string | null = moreNow ? at : null
+  if (!next) {
+    const fresh = await db.prepare(`SELECT 1 FROM comm_events WHERE status = 'new' LIMIT 1`).first()
+    if (fresh) next = at
+  }
+  if (!next) {
+    const row = await db.prepare(`SELECT MIN(COALESCE(next_attempt_at, '')) AS due FROM comm_deliveries WHERE status = 'queued'`).first() as { due: string | null } | null
+    if (row?.due !== null && row?.due !== undefined) next = row.due || at
+  }
+  await db.prepare(`INSERT INTO comm_work (id, next_due_at) VALUES ('main', ?) ON CONFLICT(id) DO UPDATE SET next_due_at = excluded.next_due_at`).bind(next).run()
+}
+
+/**
+ * The minute tick (and the in-request kick). While nothing is due it reads one row and
+ * stops: no queue to pay for and no scans while idle. When work is due it plans new
+ * events, sends what is due, and works out the next due time from the queue.
+ */
+export async function commTick(deps: CommDeps, options: { force?: boolean } = {}) {
+  const { db } = deps
+  await ensureEngineTables(db)
+  const now = deps.now?.() || new Date()
+  const marker = await db.prepare(`SELECT next_due_at FROM comm_work WHERE id = 'main'`).first() as { next_due_at: string | null } | null
+  const due = options.force || Boolean(marker?.next_due_at && marker.next_due_at <= now.toISOString())
+  if (due) {
+    // Events left half-planned by a Worker that stopped go back to the queue.
+    await db.prepare(`UPDATE comm_events SET status = 'new' WHERE status = 'planning' AND processed_at < ?`).bind(new Date(now.getTime() - 10 * 60_000).toISOString()).run()
+    const planned = await processNewEvents(deps)
+    const sent = await dispatchDue(deps)
+    await recomputeWorkDue(db, planned >= 10 || sent >= DISPATCH_PER_TICK)
+  }
+  // Settling stale reservations and silent acceptances: hourly is plenty.
+  if (now.getUTCMinutes() === 0) await reconcile(deps)
+  return due
 }
 
 // ─── Reading it back (school screens) ───────────────────────────────────────

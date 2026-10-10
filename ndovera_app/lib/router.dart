@@ -25,6 +25,7 @@ final GoRouter appRouter = GoRouter(
     GoRoute(path: '/notifications/school', builder: (_, _) => const SchoolNotificationsPage()),
     GoRoute(path: '/notifications', builder: (_, _) => const ParentNotificationsPage()),
     GoRoute(path: '/notifications/admin', builder: (_, _) => const SuperAdminCommunicationsPage()),
+    GoRoute(path: '/notifications/classes', builder: (_, _) => const TeacherNotificationsPage()),
 
     // Tenant school site.
     GoRoute(path: '/tenant', builder: (_, _) => const TenantHomePage()),

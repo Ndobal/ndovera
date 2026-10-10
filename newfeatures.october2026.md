@@ -1757,7 +1757,9 @@ Also asked (8 Oct): students practise from the bank without AI calls from today;
 - WhatsApp: Meta Cloud API templates (signed status webhook settles units). SMS: PayHos (it returns no message id, so SMS shows as "accepted", never "delivered"). Email: Zoho. Unknown outcomes go to Super Admin reconciliation, never resent blindly.
 - Screens: web (Owner/HoS/bursar Parent Notifications; Super Admin Communications; parent Notifications) and Flutter (the same three).
 - To switch on WhatsApp and SMS: set the secrets META_WHATSAPP_TOKEN, META_WHATSAPP_PHONE_NUMBER_ID, META_APP_SECRET, META_WEBHOOK_VERIFY_TOKEN, PAYHOS_API_KEY, PAYHOS_SENDER_ID, FLUTTERWAVE_WEBHOOK_HASH; register the webhooks (/api/webhooks/communications/meta, /api/webhooks/payments/flutterwave); create the nine WhatsApp templates in Meta and mark them approved in Super Admin → Communications.
-- Not done: Cloudflare Queues and a Durable Object coordinator (the minute cron and database constraints do the job); per-teacher delivery views; legacy-only fee accounts (no v2 obligations) are not reminded.
+- Sending without extra Cloudflare cost (10 Oct 2026): notifications are planned and sent inside the request that caused them; the minute tick is only a safety net that reads one row while nothing is due (no Cloudflare Queue to pay for, no scans while idle). Reminders and summaries run every 30 minutes for schools that turned notifications on only. No Durable Object is needed: the database's constraints already stop two sends spending the same units.
+- Teachers: Parent Notifications for my classes (web and Flutter) — how parents were told about their classes' assignments, summaries, deadlines and results, as counts; no parent details, no fees; read when opened.
+- Not done: legacy-only fee accounts (no Fees & Billing v2 charges) are not reminded.
 
 The current specification is `messaging whatsapp.md` (9 Oct 2026): ₦15.20 per WhatsApp unit, ₦8.00 per SMS segment, 10 free units of each per school per term, email free, in-app free. It replaces the earlier request below (100 units, ₦15), kept for reference.
 

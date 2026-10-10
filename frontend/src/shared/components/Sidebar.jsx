@@ -166,6 +166,7 @@ function buildRoleSidebarItems(roleKey) {
       { name: 'Overview', path: '/roles/teacher' },
       { name: 'Classroom', path: '/roles/teacher/classroom' },
       { name: 'Materials', path: '/roles/teacher/materials' },
+      { name: 'Parent Notifications', path: '/roles/teacher/notifications' },
       { name: 'Academic History', path: '/roles/teacher/academic-history' },
       { name: 'My Staff File', path: '/roles/teacher/staff/me' },
       { name: 'My Submissions', path: '/roles/teacher/compliance' },

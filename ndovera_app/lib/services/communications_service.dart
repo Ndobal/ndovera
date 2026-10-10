@@ -22,6 +22,9 @@ class CommunicationsService {
     return (started['checkoutUrl'] ?? '').toString();
   }
 
+  // Teachers: their own classes, counts only (read when opened).
+  Future<Map<String, dynamic>> classNotifications() async => await _api.getJson('/api/communications/my-classes');
+
   // Parents
   Future<List<InboxItem>> inbox() async => ((await _api.getJson('/api/communications/inbox'))['items'] as List? ?? []).map((e) => InboxItem.fromJson((e as Map).cast<String, dynamic>())).toList();
   Future<void> markAllRead() => _api.postJson('/api/communications/inbox/read', {'ids': <String>[]});

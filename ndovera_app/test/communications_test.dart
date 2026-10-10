@@ -61,4 +61,13 @@ void main() {
     await tester.scrollUntilVisible(find.text('Pay with Flutterwave'), 300);
     expect(find.text('Pay with Flutterwave'), findsOneWidget);
   });
+
+  testWidgets('a teacher sees counts for their own class', (tester) async {
+    final body = {'success': true, 'classes': ['JSS 1 A'], 'notifications': [{'id': 'e1', 'type': 'assignment', 'title': 'Fractions', 'classes': ['JSS 1 A'], 'families': 30, 'channels': {'inapp': {'delivered': 30}, 'whatsapp': {'delivered': 20, 'failed': 1}}}]};
+    final client = ApiClient(client: MockClient((req) async => http.Response(jsonEncode(body), 200, headers: {'content-type': 'application/json; charset=utf-8'})), baseUrl: 'https://test.local');
+    await tester.pumpWidget(MaterialApp(home: TeacherNotificationsPage(service: CommunicationsService(client))));
+    await tester.pumpAndSettle();
+    expect(find.text('New assignment: Fractions'), findsOneWidget);
+    expect(find.text('WhatsApp: 20 of 21 sent · 1 failed'), findsOneWidget);
+  });
 }

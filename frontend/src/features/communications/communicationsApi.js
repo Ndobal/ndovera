@@ -43,6 +43,9 @@ export const startPurchase = purchaseId => request('/api/communications/purchase
 export const checkPurchase = purchaseId => request(`/api/communications/purchases/${id(purchaseId)}`);
 export const listPurchases = () => request('/api/communications/purchases');
 
+// Teachers (their own classes; counts only)
+export const getClassNotifications = () => request('/api/communications/my-classes');
+
 // Parents
 export const getInbox = () => request('/api/communications/inbox');
 export const markInboxRead = ids => request('/api/communications/inbox/read', { method: 'POST', body: { ids } });

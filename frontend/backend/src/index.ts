@@ -32546,7 +32546,10 @@ async function notifyParents(env: Bindings, input: { tenantId: string, type: Eve
   try {
     const section = PARENT_LINKS[input.type]
     const link = `${await commPortalBase(env, input.tenantId)}/roles/parent${section ? `/${section}` : ''}`
-    return await recordEvent(env.APP_DB, { ...input, link })
+    const id = await recordEvent(env.APP_DB, { ...input, link })
+    // Sent straight away, inside the request that caused it (free); the minute tick is only a safety net.
+    if (id) await commTick(commDeps(env)).catch(error => console.error('Notification send deferred to the tick', error))
+    return id
   } catch (error) {
     console.error('Parent notification not recorded', input.type, error)
     return null
@@ -32615,7 +32618,9 @@ app.post('/api/communications/batches/:id/admit', authenticate, async (c) => {
     await ensureEngineTables(c.env.APP_DB)
     const batch = await c.env.APP_DB.prepare(`SELECT id FROM comm_batches WHERE id = ? AND tenant_id = ?`).bind(c.req.param('id'), tenantId).first()
     if (!batch) throw new CommError('Batch not found.', 404)
-    return c.json({ success: true, status: await admitBatch(commDeps(c.env), c.req.param('id')) })
+    const status = await admitBatch(commDeps(c.env), c.req.param('id'))
+    if (status === 'funded') await commTick(commDeps(c.env)).catch(() => null)
+    return c.json({ success: true, status })
   } catch (error) { return commFailure(c, error, 'Could not re-check the batch.') }
 })
 
@@ -32688,6 +32693,81 @@ app.post('/api/communications/designations', authenticate, async (c) => {
   } catch (error) { return commFailure(c, error, 'Could not save the notification parent.') }
 })
 
+// Teachers: how notifications about their own classes went — counts only, no parent details,
+// read when the page is opened (no polling). Fee notifications are not shown to teachers.
+const TEACHER_VISIBLE_EVENTS = ['assignment', 'assignment_digest', 'deadline', 'results']
+
+app.get('/api/communications/my-classes', authenticate, async (c) => {
+  try {
+    const db = c.env.APP_DB
+    const { tenantId, actor, resolved } = await resolveSubmissionActor(db, c.var.user || {})
+    if (!tenantId) throw new CommError('No school.', 400)
+    if (['student', 'parent'].includes(actor.role)) throw new CommError('Only staff can see class notifications.', 403)
+    await ensureEngineTables(db)
+    const ids = Array.from(new Set([actor.id, resolved?.userRow?.id, resolved?.userRow?.email, c.var.user?.id, c.var.user?.email].map(value => String(value || '').trim().toLowerCase()).filter(Boolean)))
+    if (!ids.length) return c.json({ success: true, classes: [], notifications: [] })
+    const marks = ids.map(() => '?').join(', ')
+    // Class teacher, subject teacher or class member: each looked up on its own, so one missing
+    // source never hides the others.
+    const sources = [
+      [`SELECT id FROM classes WHERE tenantId = ? AND lower(trim(coalesce(classTeacherId, ''))) IN (${marks})`, tenantId],
+      [`SELECT classId AS id FROM subjects WHERE tenantId = ? AND lower(trim(coalesce(teacherId, ''))) IN (${marks})`, tenantId],
+      [`SELECT class_id AS id FROM class_memberships WHERE tenant_id = ? AND membership_role = 'teacher' AND lower(trim(coalesce(user_id, ''))) IN (${marks})`, tenantId],
+    ] as const
+    const classIds = new Set<string>()
+    for (const [sql, tenant] of sources) {
+      for (const row of ((await db.prepare(sql).bind(tenant, ...ids).all().catch(() => ({ results: [] }))).results || []) as Array<{ id: string }>) if (row.id) classIds.add(String(row.id))
+    }
+    const classes = classIds.size
+      ? ((await db.prepare(`SELECT id, name, arm FROM classes WHERE tenantId = ? AND id IN (${Array.from(classIds).map(() => '?').join(', ')})`).bind(tenantId, ...classIds).all()).results || []) as Array<Record<string, string>>
+      : []
+    const mine = new Map(classes.map(row => [String(row.id), `${row.name}${row.arm ? ` ${row.arm}` : ''}`]))
+    if (!mine.size) return c.json({ success: true, classes: [], notifications: [] })
+    const since = new Date(Date.now() - 30 * 86400_000).toISOString()
+    const events = ((await db.prepare(`SELECT id, type, scope, facts, created_at FROM comm_events WHERE tenant_id = ? AND created_at >= ? AND type IN (${TEACHER_VISIBLE_EVENTS.map(() => '?').join(', ')}) ORDER BY created_at DESC LIMIT 300`)
+      .bind(tenantId, since, ...TEACHER_VISIBLE_EVENTS).all()).results || []) as Array<Record<string, any>>
+    const parse = (value: unknown) => { try { return JSON.parse(String(value || '{}')) } catch { return {} } }
+    // Deadline reminders name students; their assignment says which class they belong to.
+    const assignmentIds = events.map(event => String(parse(event.facts).assignmentId || '')).filter(Boolean)
+    const assignmentClass = new Map<string, string>()
+    for (let start = 0; start < assignmentIds.length; start += 90) {
+      const slice = assignmentIds.slice(start, start + 90)
+      for (const row of ((await db.prepare(`SELECT id, classId FROM assignments WHERE id IN (${slice.map(() => '?').join(', ')})`).bind(...slice).all()).results || []) as Array<Record<string, string>>) assignmentClass.set(String(row.id), String(row.classId))
+    }
+    const relevant = events.map(event => {
+      const scope = parse(event.scope)
+      const facts = parse(event.facts)
+      const classIds: string[] = scope.kind === 'class' ? (scope.classIds || []).map(String) : facts.assignmentId ? [assignmentClass.get(String(facts.assignmentId)) || ''] : []
+      const own = classIds.filter(id => mine.has(id))
+      return own.length ? { id: String(event.id), type: String(event.type), title: String(facts.title || ''), term: String(facts.term || ''), createdAt: String(event.created_at), classes: own.map(id => mine.get(id)) } : null
+    }).filter(Boolean) as Array<Record<string, any>>
+    const counts = new Map<string, Record<string, Record<string, number>>>()
+    const batches = new Map<string, Record<string, any>>()
+    const eventIds = relevant.map(item => item.id)
+    for (let start = 0; start < eventIds.length; start += 90) {
+      const slice = eventIds.slice(start, start + 90)
+      const placeholders = slice.map(() => '?').join(', ')
+      for (const row of ((await db.prepare(`SELECT event_id, channel, status, COUNT(*) AS n FROM comm_deliveries WHERE event_id IN (${placeholders}) GROUP BY event_id, channel, status`).bind(...slice).all()).results || []) as Array<Record<string, any>>) {
+        const byChannel = counts.get(row.event_id) || {}
+        byChannel[row.channel] = { ...(byChannel[row.channel] || {}), [row.status]: Number(row.n) }
+        counts.set(row.event_id, byChannel)
+      }
+      for (const row of ((await db.prepare(`SELECT event_id, status, counts FROM comm_batches WHERE event_id IN (${placeholders})`).bind(...slice).all()).results || []) as Array<Record<string, any>>) batches.set(String(row.event_id), { status: row.status, counts: parse(row.counts) })
+    }
+    return c.json({
+      success: true,
+      classes: Array.from(mine.values()),
+      notifications: relevant.map(item => ({
+        ...item,
+        families: batches.get(item.id)?.counts?.recipients || 0,
+        notReachable: batches.get(item.id)?.counts?.excludedReasons || {},
+        batchStatus: batches.get(item.id)?.status || 'waiting',
+        channels: counts.get(item.id) || {},
+      })),
+    })
+  } catch (error) { return commFailure(c, error, 'Could not load class notifications.') }
+})
+
 // Buying units: a server-owned quote, a Flutterwave checkout, and a server-side verification.
 app.post('/api/communications/purchases/quote', authenticate, async (c) => {
   try {
@@ -32720,7 +32800,10 @@ app.post('/api/communications/purchases', authenticate, async (c) => {
 async function verifyCommPurchase(c: any, env: Bindings, txRef: string) {
   const data = (await verifyFlutterwavePayment(c, txRef))?.data || {}
   const result = await settlePurchase(env.APP_DB, txRef, { status: String(data.status || ''), txRef: String(data.tx_ref || ''), amount: Number(data.amount || 0), currency: String(data.currency || ''), transactionId: String(data.id || ''), tenantId: data.meta?.tenantId ? String(data.meta.tenantId) : undefined })
-  if (result.credited) await readmitWaiting(commDeps(env), result.purchase.tenantId).catch(error => console.error('Re-admission failed', error))
+  if (result.credited) {
+    await readmitWaiting(commDeps(env), result.purchase.tenantId).catch(error => console.error('Re-admission failed', error))
+    await commTick(commDeps(env)).catch(() => null)
+  }
   return result
 }
 
@@ -32807,6 +32890,7 @@ app.post('/api/super-admin/communications/grants', authenticate, async (c) => {
     const results = await giftUnits(c.env.APP_DB, body as any, amiActor(c), async id => Boolean(await getTenantById(c.env.APP_DB, id)))
     // A big enough gift resumes waiting work through the same check as a purchase.
     for (const result of results) if (result.status === 'granted') await readmitWaiting(commDeps(c.env), result.tenantId).catch(() => null)
+    await commTick(commDeps(c.env)).catch(() => null)
     return c.json({ success: true, results }, 201)
   } catch (error) { return commFailure(c, error, 'Could not allocate the units.') }
 })
@@ -32985,12 +33069,15 @@ const nowIsoString = () => new Date().toISOString()
 async function runCommunications(env: Bindings) {
   const deps = commDeps(env)
   await commTick(deps)
-  const minute = new Date().getUTCMinutes()
-  if (minute % 5 !== 0) return
-  const tenants = ((await env.APP_DB.prepare(`SELECT id FROM tenants WHERE status = 'active' LIMIT 500`).all().catch(() => ({ results: [] }))).results || []) as Array<{ id: string }>
+  const clock = new Date()
+  const minute = clock.getUTCMinutes()
+  // Reminders, summaries and deadlines: every half hour, and only for schools that turned
+  // notifications on (a few rows), never a sweep of every school every few minutes.
+  if (minute !== 0 && minute !== 30) return
+  const tenants = ((await env.APP_DB.prepare(`SELECT tenant_id AS id FROM comm_settings WHERE json_extract(payload, '$.active') = 1 LIMIT 1000`).all().catch(() => ({ results: [] }))).results || []) as Array<{ id: string }>
   for (const { id: tenantId } of tenants) {
     try {
-      if (minute === 5) {
+      if (clock.getUTCHours() === 0 && minute === 0) {
         const term = await getActiveTerm(env.APP_DB, tenantId).catch(() => null)
         if (term) await ensureTermAllowance(env.APP_DB, tenantId, { sessionId: term.sessionId, termId: term.id, endDate: term.endDate })
       }

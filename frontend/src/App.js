@@ -8,6 +8,7 @@ import CurriculumLibraryPage from './features/material-ai/CurriculumLibraryPage'
 import NotificationsCenter from './features/communications/NotificationsCenter';
 import AmiCommunications from './features/communications/AmiCommunications';
 import ParentNotifications from './features/communications/ParentNotifications';
+import TeacherNotifications from './features/communications/TeacherNotifications';
 import ExamReadinessPage from './features/material-ai/ExamReadinessPage';
 import OfflineNotesPage from './features/offline-notes/OfflineNotesPage';
 import StaffFilePage from './features/staff-file/StaffFilePage';
@@ -274,6 +275,7 @@ function AnimatedRoutes({ auth, onLogin }) {
         <Route path="/roles/owner/staff-evaluation" element={<RoleGuard auth={auth} expectedRole="owner"><RouteTransition><StaffEvaluationAdminPage dashboardLabel="Owner Dashboard" /></RouteTransition></RoleGuard>} />
         <Route path="/roles/hos/staff-evaluation" element={<RoleGuard auth={auth} expectedRole="hos"><RouteTransition><StaffEvaluationAdminPage dashboardLabel="Head of School" /></RouteTransition></RoleGuard>} />
         <Route path="/roles/hos/evaluate-colleagues" element={<RoleGuard auth={auth} expectedRole="hos"><RouteTransition><MyStaffEvaluationsPage dashboardLabel="Head of School" /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/teacher/notifications" element={<RoleGuard auth={auth} expectedRole="teacher"><RouteTransition><TeacherNotifications /></RouteTransition></RoleGuard>} />
         <Route path="/roles/teacher/submissions" element={<RoleGuard auth={auth} expectedRole="teacher"><RouteTransition><TeacherSubmissionsPage /></RouteTransition></RoleGuard>} />
         <Route path="/roles/teacher/compliance" element={<RoleGuard auth={auth} expectedRole="teacher"><RouteTransition><TeacherCompliancePage /></RouteTransition></RoleGuard>} />
         <Route path="/roles/teacher/class-report" element={<RoleGuard auth={auth} expectedRole="teacher"><RouteTransition><ClassReportPage /></RouteTransition></RoleGuard>} />

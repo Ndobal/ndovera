@@ -184,7 +184,7 @@ test('pause policy: 12 parents and 10 WhatsApp units send no WhatsApp at all; fr
   const again = await call(db, 'ami', 'POST', '/api/super-admin/communications/grants', { tenantIds: ['school-a'], channel: 'whatsapp', units: 1, reason: 'Goodwill', idempotencyKey: 'g-small' })
   assert.equal(again.body.results[0].status, 'already_granted', 'an idempotent retry gives nothing twice')
   await call(db, 'ami', 'POST', '/api/super-admin/communications/grants', { tenantIds: ['school-a'], channel: 'whatsapp', units: 1, reason: 'Top up', idempotencyKey: 'g-2' })
-  assert.equal(db.db.prepare(`SELECT status FROM comm_batches`).get().status, 'funded')
+  assert.ok(['funded', 'done'].includes(db.db.prepare(`SELECT status FROM comm_batches`).get().status), 'funded — and already sent within the gift request')
   await tick(db)
   assert.equal(sent.whatsapp.length, 12, 'each parent once, on WhatsApp')
   assert.equal(sent.whatsapp[0].template.name, 'ndovera_school_notice')
@@ -307,4 +307,40 @@ test('withdrawn consent and missing phones are excluded and reported, never coun
   assert.equal(preview.inapp, 3, 'in-app reaches every authorised parent')
   // Parent 2 withdrew WhatsApp; SMS could reach them, but this school only pauses (no SMS fallback).
   assert.deepEqual(preview.excluded, { sms_fallback_off: 1, no_valid_phone: 1 })
+})
+
+test('a notification is sent within the request that caused it; while idle the minute tick reads only one row', async () => {
+  const db = await setup({ parents: 3 })
+  await call(db, 'owner', 'PATCH', '/api/communications/settings', { active: true })
+  await tick(db)
+  assert.equal(db.db.prepare(`SELECT next_due_at FROM comm_work WHERE id = 'main'`).get()?.next_due_at ?? null, null, 'nothing due')
+  await call(db, 'owner', 'POST', '/api/communications/notices', { title: 'Open day', idempotencyKey: 'kick-1' })
+  // No tick: the in-app notices went out with the request.
+  assert.equal(db.db.prepare(`SELECT COUNT(*) AS n FROM comm_deliveries WHERE channel = 'inapp' AND status = 'delivered'`).get().n, 3)
+  assert.equal(db.db.prepare(`SELECT next_due_at FROM comm_work WHERE id = 'main'`).get().next_due_at, null, 'and nothing is left due')
+  const parentInbox = db.db.prepare(`SELECT COUNT(*) AS n FROM comm_inbox WHERE user_id = 'p-01'`).get().n
+  assert.equal(parentInbox, 1)
+})
+
+test('teachers see how notifications about their own classes went — counts only, never fees or other classes', async () => {
+  const db = await setup({ parents: 2 })
+  db.db.exec(`UPDATE classes SET classTeacherId = 't-1' WHERE id = 'jss1'; INSERT INTO classes (id, tenantId, name, arm) VALUES ('jss2', 'school-a', 'JSS 2', 'A');`)
+  await call(db, 'owner', 'PATCH', '/api/communications/settings', { active: true, assignmentMode: 'each' })
+  await call(db, 'owner', 'GET', '/api/communications/overview') // creates the notification tables, as opening the page does
+  const insert = db.db.prepare(`INSERT INTO comm_events (id, tenant_id, type, scope, facts, link, dedupe_key, status, created_by, created_at) VALUES (?, 'school-a', ?, ?, ?, '', ?, 'new', 'test', ?)`)
+  const now = new Date().toISOString()
+  insert.run('ev-mine', 'assignment', JSON.stringify({ kind: 'class', classIds: ['jss1'] }), JSON.stringify({ title: 'Fractions worksheet' }), 'd1', now)
+  insert.run('ev-other', 'assignment', JSON.stringify({ kind: 'class', classIds: ['jss2'] }), JSON.stringify({ title: 'Not mine' }), 'd2', now)
+  insert.run('ev-fee', 'fee_reminder', JSON.stringify({ kind: 'students', studentIds: ['s-01'] }), JSON.stringify({}), 'd3', now)
+  db.db.exec(`INSERT INTO comm_work (id, next_due_at) VALUES ('main', '2020-01-01T00:00:00Z') ON CONFLICT(id) DO UPDATE SET next_due_at = excluded.next_due_at`)
+  await tick(db)
+  const view = await call(db, 'teacher', 'GET', '/api/communications/my-classes')
+  assert.equal(view.status, 200, JSON.stringify(view.body))
+  assert.deepEqual(view.body.classes, ['JSS 1 A'])
+  assert.deepEqual(view.body.notifications.map(item => item.title), ['Fractions worksheet'])
+  const mine = view.body.notifications[0]
+  assert.equal(mine.families, 2)
+  assert.equal(mine.channels.inapp.delivered, 2)
+  assert.ok(!JSON.stringify(view.body).includes('p-0'), 'no parent identities')
+  assert.equal((await call(db, 'teacher', 'GET', '/api/communications/overview')).status, 403, 'and still no wallets or buying')
 })

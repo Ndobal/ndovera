@@ -398,3 +398,70 @@ class _SuperAdminCommunicationsPageState extends State<SuperAdminCommunicationsP
         ),
       );
 }
+
+// ─── Teacher: notifications about my classes ───────────────────────────────
+
+class TeacherNotificationsPage extends StatefulWidget {
+  const TeacherNotificationsPage({super.key, this.service});
+  final CommunicationsService? service;
+  @override
+  State<TeacherNotificationsPage> createState() => _TeacherNotificationsPageState();
+}
+
+class _TeacherNotificationsPageState extends State<TeacherNotificationsPage> {
+  late final CommunicationsService _service = widget.service ?? CommunicationsService();
+  Map<String, dynamic>? _data;
+  static const _labels = {'assignment': 'New assignment', 'assignment_digest': 'Daily assignment summary', 'deadline': 'Deadline reminder', 'results': 'Results published'};
+  static const _done = ['delivered', 'read', 'sent', 'accepted'];
+
+  @override
+  void initState() {
+    super.initState();
+    _load();
+  }
+
+  Future<void> _load() async {
+    try {
+      final data = await _service.classNotifications();
+      if (mounted) setState(() => _data = data);
+    } catch (error) {
+      if (mounted) _snack(context, error.toString());
+    }
+  }
+
+  String _line(String channel, Map statuses) {
+    final counts = statuses.map((k, v) => MapEntry(k.toString(), (v as num).toInt()));
+    final total = counts.values.fold<int>(0, (a, b) => a + b);
+    final done = _done.fold<int>(0, (a, s) => a + (counts[s] ?? 0));
+    final failed = counts['failed'] ?? 0;
+    return '${channelLabels[channel] ?? channel}: $done of $total sent${failed > 0 ? ' · $failed failed' : ''}';
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final data = _data;
+    final classes = ((data?['classes'] as List?) ?? []).map((e) => e.toString()).toList();
+    final items = ((data?['notifications'] as List?) ?? []).cast<Map>();
+    return Scaffold(
+      appBar: AppBar(title: const Text('Parent notifications'), actions: [IconButton(onPressed: _load, icon: const Icon(Icons.refresh), tooltip: 'Refresh')]),
+      body: data == null
+          ? const Center(child: CircularProgressIndicator())
+          : ListView(padding: const EdgeInsets.all(16), children: [
+              if (classes.isEmpty) const Text('You are not set as the teacher of any class yet.'),
+              if (classes.isNotEmpty && items.isEmpty) Text('No notifications about ${classes.join(', ')} in the last 30 days.'),
+              for (final item in items)
+                Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(12),
+                    child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                      Text('${_labels[item['type']] ?? item['type']}${(item['title'] ?? '').toString().isNotEmpty ? ': ${item['title']}' : ''}', style: const TextStyle(fontWeight: FontWeight.bold, color: Brand.maroon)),
+                      Text('${((item['classes'] as List?) ?? []).join(', ')} · ${item['families']} families', style: const TextStyle(fontSize: 12, color: Colors.black54)),
+                      const SizedBox(height: 4),
+                      for (final entry in ((item['channels'] as Map?) ?? {}).entries) Text(_line(entry.key.toString(), entry.value as Map)),
+                    ]),
+                  ),
+                ),
+            ]),
+    );
+  }
+}
