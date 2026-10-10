@@ -937,11 +937,16 @@ function BulkJobBanner() {
   useEffect(() => {
     let active = true;
     async function load() {
-      try { const d = await getBulkPeopleJobs(); if (active) setJobs(d.jobs || []); } catch { /* ignore */ }
+      try { const d = await getBulkPeopleJobs(); if (active) setJobs(d.jobs || []); return (d.jobs || []).some(j => j.status === 'pending' || j.status === 'processing'); } catch { return false; }
     }
-    load();
-    const t = setInterval(load, 5000);
-    return () => { active = false; clearInterval(t); };
+    // Poll quickly only while a job is running; otherwise every 30 seconds (each poll reads the database).
+    let t;
+    const tick = async () => {
+      const busy = await load();
+      if (active) t = setTimeout(tick, busy ? 5000 : 30000);
+    };
+    tick();
+    return () => { active = false; clearTimeout(t); };
   }, []);
 
   const recent = jobs.filter(j => {

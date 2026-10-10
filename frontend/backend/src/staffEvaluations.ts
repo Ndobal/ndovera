@@ -184,7 +184,9 @@ export type StaffMember = { id: string, email: string, name: string, roles: stri
 
 /** Staff of the school: everyone whose roles are not student, parent or platform roles. */
 export async function listSchoolStaff(db: D1Database, tenantId: string): Promise<StaffMember[]> {
-  const rows = await db.prepare(`SELECT u.id, u.email, u.name, u.role, s.payload FROM users u LEFT JOIN settings s ON lower(s.studentId) = lower(u.email)
+  // `s.studentId IN (email, lower(email))` uses the settings primary key. `lower(s.studentId) = …`
+  // could not, and scanned every settings row for every staff member (~49,000 rows a call, Oct 2026).
+  const rows = await db.prepare(`SELECT u.id, u.email, u.name, u.role, s.payload FROM users u LEFT JOIN settings s ON s.studentId IN (u.email, lower(u.email))
     WHERE u.tenantId = ? AND COALESCE(u.status, 'active') != 'inactive'`).bind(tenantId).all().catch(() => ({ results: [] }))
   return ((rows.results || []) as Record<string, any>[]).map(row => {
     const payload = parse(row.payload, {} as Record<string, any>)

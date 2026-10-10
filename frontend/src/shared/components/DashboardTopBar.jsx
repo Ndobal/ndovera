@@ -227,7 +227,7 @@ export default function DashboardTopBar({ authUser = null, onLogout = () => {}, 
     const timer = setInterval(() => {
       if (typeof document !== 'undefined' && document.visibilityState === 'hidden') return;
       load();
-    }, 12000);
+    }, 60000); // each poll costs database reads for the whole school; badges may lag a minute
 
     return () => {
       mounted = false;
@@ -415,21 +415,37 @@ export default function DashboardTopBar({ authUser = null, onLogout = () => {}, 
     const delivered = readDeliveredNotifications();
     let changed = false;
 
+    // Android Chrome forbids `new Notification()` ("Illegal constructor") and only allows
+    // ServiceWorkerRegistration.showNotification. Thrown inside this effect, that error took
+    // the whole dashboard down on phones (Oct 2026). Use the service worker when there is one,
+    // and never let a device alert break the page.
+    const show = async (title, options) => {
+      try {
+        const registration = 'serviceWorker' in navigator ? await navigator.serviceWorker.getRegistration() : null;
+        if (registration?.showNotification) {
+          await registration.showNotification(title, options);
+          return;
+        }
+        const popup = new window.Notification(title, options);
+        popup.onclick = () => {
+          window.focus();
+          popup.close();
+        };
+      } catch {
+        // No device alert on this browser; the in-app bell still shows it.
+      }
+    };
+
     deviceNotificationItems.forEach((item) => {
       const deliveryKey = `${item.id}:${item.reminderSlotKey || 'current'}`;
       if (delivered[deliveryKey]) {
         return;
       }
 
-      const popup = new window.Notification(item.title || 'School reminder', {
+      show(item.title || 'School reminder', {
         body: item.detail || item.preview || '',
         tag: deliveryKey,
       });
-
-      popup.onclick = () => {
-        window.focus();
-        popup.close();
-      };
 
       delivered[deliveryKey] = new Date().toISOString();
       changed = true;

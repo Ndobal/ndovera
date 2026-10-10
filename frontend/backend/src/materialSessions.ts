@@ -40,8 +40,10 @@ export function isRealMaterialSession(sessionId: string) {
 export type MaterialContext = { sessionId: string, termId: string }
 
 // Backfill runs on read paths, so it is throttled per isolate: new materials are
-// stamped on insert, and only historic or provisional rows ever need it.
-const BACKFILL_INTERVAL_MS = 5 * 60 * 1000
+// stamped on insert, and only historic or provisional rows ever need it. Each run
+// scans all of a school's materials three times, and every isolate keeps its own
+// timer, so at 5 minutes it ran constantly (~450,000 rows read a week, Oct 2026).
+const BACKFILL_INTERVAL_MS = 6 * 60 * 60 * 1000
 const _lastBackfill = new Map<string, number>()
 
 export function resetMaterialBackfillCache() {

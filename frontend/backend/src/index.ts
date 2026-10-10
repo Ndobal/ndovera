@@ -426,6 +426,16 @@ type Bindings = {
 
 const app = new Hono<{ Bindings: Bindings }>()
 
+// A database that refuses reads is "try again", never a guessed role or an empty page.
+app.onError((error, c) => {
+  if (error instanceof DatabaseUnavailableError || /exceeded|limit.*(reads|rows)|D1_ERROR.*overloaded/i.test(String((error as any)?.message || ''))) {
+    console.error('Database unavailable', (error as any)?.cause || error)
+    return c.json({ success: false, error: 'Ndovera is very busy right now. Please try again in a few minutes.', retryable: true }, 503)
+  }
+  console.error('Unhandled error', error)
+  return c.json({ success: false, error: 'Something went wrong.' }, 500)
+})
+
 // Module-level guard: ensure*Table functions are idempotent DDL. Running them on every
 // request burns D1 CPU budget needlessly (each has 3–8 DDL statements). Track which
 // tables have been initialised for this isolate lifetime so subsequent calls are free.
@@ -5955,9 +5965,22 @@ async function findUserByIdentifier(db: D1Database, identifier: string) {
   }
 }
 
+/**
+ * The database refused a read (for example the daily rows-read limit): not the same as
+ * "no such person". Treating it as "not found" sent people in with a fallback role — a
+ * teacher seen as a student (Oct 2026) — so it is raised and answered with 503 instead.
+ */
+class DatabaseUnavailableError extends Error {
+  constructor(cause: unknown) {
+    super('Ndovera is very busy right now. Please try again in a few minutes.')
+    this.cause = cause
+  }
+}
+
 async function resolveSettingsIdentity(db: D1Database, identifier: string) {
   const raw = String(identifier || '').trim()
-  const userRow = raw ? await findUserByIdentifier(db, raw).catch(() => null) : null
+  let failure: unknown = null
+  const userRow = raw ? await findUserByIdentifier(db, raw).catch(error => { failure = error; return null }) : null
   const keys = [
     userRow?.email,
     userRow?.id,
@@ -5967,11 +5990,12 @@ async function resolveSettingsIdentity(db: D1Database, identifier: string) {
 
   const uniqueKeys = Array.from(new Set(keys))
   for (const key of uniqueKeys) {
-    const settings = await getSettings(db, key).catch(() => null)
+    const settings = await getSettings(db, key).catch(error => { failure = error; return null })
     if (settings) {
       return { settingsKey: key, settings, userRow }
     }
   }
+  if (failure) throw new DatabaseUnavailableError(failure)
 
   return {
     settingsKey: userRow?.email || userRow?.id || raw,
@@ -7497,10 +7521,47 @@ app.get('/api/schools/:schoolId/website', async (c) => {
   return c.json({ success: true, school: website, website, ...website })
 })
 
+// Indexes for the queries that read the most rows (D1 insights, Oct 2026): without them each
+// school's fee and chat look-ups scanned every school's rows. Also in d1/read-indexes.sql.
+// Created from the minute cron, once per isolate; IF NOT EXISTS makes a repeat free.
+const READ_INDEXES = [
+  `CREATE INDEX IF NOT EXISTS idx_fees_config_tenant ON fees_config(tenant_id, session, term)`,
+  `CREATE INDEX IF NOT EXISTS idx_fees_ledger_tenant_student ON fees_ledger(tenant_id, student_id)`,
+  `CREATE INDEX IF NOT EXISTS idx_fees_receipts_tenant_student ON fees_payment_receipts(tenant_id, student_id, recorded_at)`,
+  `CREATE INDEX IF NOT EXISTS idx_conversation_reads_user ON conversation_reads(user_id)`,
+  `CREATE INDEX IF NOT EXISTS idx_school_sessions_tenant_created ON school_sessions(tenantId, createdAt)`,
+  `CREATE INDEX IF NOT EXISTS idx_settings_lower_key ON settings(lower(studentId))`,
+]
+let readIndexesReady = false
+async function ensureReadIndexes(db: D1Database) {
+  if (readIndexesReady) return
+  for (const sql of READ_INDEXES) await db.prepare(sql).run().catch(error => console.error('Index not created', sql, error))
+  readIndexesReady = true
+}
+
+// The header (bell and chat badges) is polled by every open tab. Building it reads the school's
+// students, fee ledger, receipts, fee set-up and conversations; uncached, it was most of the
+// database reads that hit the daily D1 limit (Oct 2026). It is kept for 45 seconds per person
+// and role in the edge cache, which costs no database reads at all.
+const HEADER_CACHE_SECONDS = 45
+async function cachedAuthenticatedHeader(c: any, roleKey: string) {
+  const user = c.var.user || {}
+  const who = String(user.id || user.email || user.sub || '').trim().toLowerCase()
+  const cache = typeof caches !== 'undefined' ? (caches as any).default : null
+  if (!cache || !who) return buildAuthenticatedHeader(c, roleKey)
+  const key = new Request(`https://header-cache.ndovera.internal/${encodeURIComponent(who)}/${encodeURIComponent(roleKey)}/${encodeURIComponent(String(getActiveRole(user) || ''))}`)
+  const hit = await cache.match(key).catch(() => null)
+  if (hit) return hit.json()
+  const header = await buildAuthenticatedHeader(c, roleKey)
+  const response = new Response(JSON.stringify(header), { headers: { 'Content-Type': 'application/json', 'Cache-Control': `max-age=${HEADER_CACHE_SECONDS}` } })
+  try { c.executionCtx?.waitUntil?.(cache.put(key, response).catch(() => {})) } catch {}
+  return header
+}
+
 app.get('/api/header/:roleKey', authenticate, async (c) => {
   const roleKey = c.req.param('roleKey')
   try {
-    return c.json(await buildAuthenticatedHeader(c, roleKey))
+    return c.json(await cachedAuthenticatedHeader(c, roleKey))
   } catch {
     return c.json(headerFallbackByRole[roleKey] || buildGenericHeader(roleKey))
   }
@@ -7561,6 +7622,7 @@ app.delete('/api/push/subscriptions', authenticate, async (c) => {
 app.get('/api/push/feed', authenticate, async (c) => {
   const roleKey = normalizeRole(c.req.query('roleKey') || getActiveRole(c.var.user) || 'student') || 'student'
   try {
+    // Not cached: a push signal has just been sent, so the newest notification must be read now.
     const header = await buildAuthenticatedHeader(c, roleKey)
     return c.json({ success: true, notification: buildLatestPushNotificationPayload(header.notificationItems || [], roleKey) })
   } catch {
@@ -7758,16 +7820,15 @@ app.get('/api/dashboards/:roleKey', authenticate, async (c) => {
         if (teacherIdentifiers.length) {
           const identifierPlaceholders = teacherIdentifiers.map(() => '?').join(', ')
           const assignedClassRows = await c.env.APP_DB.prepare(
-            `SELECT DISTINCT c.id, c.name, c.arm, c.classTeacherId
-             FROM classes c
-             LEFT JOIN subjects s ON s.classId = c.id AND s.tenantId = c.tenantId
-             WHERE c.tenantId = ?
-               AND (
-                 lower(trim(coalesce(c.classTeacherId, ''))) IN (${identifierPlaceholders})
-                 OR lower(trim(coalesce(s.teacherId, ''))) IN (${identifierPlaceholders})
-               )
-             ORDER BY c.name, c.arm`
-          ).bind(tenantId, ...teacherIdentifiers, ...teacherIdentifiers).all()
+            // A union of per-table look-ups: joining every class to every subject first read
+            // classes × subjects rows on each call (~5,000, Oct 2026).
+            `SELECT id, name, arm, classTeacherId FROM classes
+             WHERE tenantId = ? AND id IN (
+               SELECT id FROM classes WHERE tenantId = ? AND lower(trim(coalesce(classTeacherId, ''))) IN (${identifierPlaceholders})
+               UNION SELECT classId FROM subjects WHERE tenantId = ? AND lower(trim(coalesce(teacherId, ''))) IN (${identifierPlaceholders})
+             )
+             ORDER BY name, arm`
+          ).bind(tenantId, tenantId, ...teacherIdentifiers, tenantId, ...teacherIdentifiers).all()
           classRows = (assignedClassRows.results || []) as Record<string, any>[]
         }
 
@@ -8313,21 +8374,15 @@ app.get('/api/classrooms/assigned', authenticate, async (c) => {
     } else if (teacherIdentifiers.length) {
       const identifierPlaceholders = teacherIdentifiers.map(() => '?').join(', ')
       const assignedClassRows = await c.env.APP_DB.prepare(
-        `SELECT DISTINCT c.id, c.name, c.arm, c.classTeacherId
-         FROM classes c
-         LEFT JOIN subjects s ON s.classId = c.id AND s.tenantId = c.tenantId
-         LEFT JOIN class_memberships cm
-           ON cm.class_id = c.id
-          AND cm.tenant_id = c.tenantId
-          AND cm.membership_role = 'teacher'
-         WHERE c.tenantId = ?
-           AND (
-             lower(trim(coalesce(c.classTeacherId, ''))) IN (${identifierPlaceholders})
-             OR lower(trim(coalesce(s.teacherId, ''))) IN (${identifierPlaceholders})
-             OR lower(trim(coalesce(cm.user_id, ''))) IN (${identifierPlaceholders})
-           )
-         ORDER BY c.name, c.arm`
-      ).bind(tenantId, ...teacherIdentifiers, ...teacherIdentifiers, ...teacherIdentifiers).all()
+        // A union of per-table look-ups rather than classes × subjects × memberships (Oct 2026).
+        `SELECT id, name, arm, classTeacherId FROM classes
+         WHERE tenantId = ? AND id IN (
+           SELECT id FROM classes WHERE tenantId = ? AND lower(trim(coalesce(classTeacherId, ''))) IN (${identifierPlaceholders})
+           UNION SELECT classId FROM subjects WHERE tenantId = ? AND lower(trim(coalesce(teacherId, ''))) IN (${identifierPlaceholders})
+           UNION SELECT class_id FROM class_memberships WHERE tenant_id = ? AND membership_role = 'teacher' AND lower(trim(coalesce(user_id, ''))) IN (${identifierPlaceholders})
+         )
+         ORDER BY name, arm`
+      ).bind(tenantId, tenantId, ...teacherIdentifiers, tenantId, ...teacherIdentifiers, tenantId, ...teacherIdentifiers).all()
       classRows = (assignedClassRows.results || []) as Record<string, any>[]
     }
 
@@ -13360,7 +13415,7 @@ async function listStudentsForClass(db: D1Database, tenantId: string, classroomI
   const rows = await db.prepare(
     `SELECT u.id, u.name, u.email, u.role, u.status, u.createdAt, s.payload
      FROM users u
-     LEFT JOIN settings s ON (s.studentId = u.email OR s.studentId = u.id)
+     LEFT JOIN settings s ON s.studentId IN (u.email, u.id)
      WHERE u.tenantId = ?
        AND lower(u.role) = 'student'
        AND (u.status IS NULL OR u.status != 'inactive')
@@ -14967,12 +15022,16 @@ async function syncUserRoleRecords(
   const roles = Array.from(new Set((args.roles || []).map(role => normalizeRole(role)).filter(Boolean)))
   if (!tenantId || !userId) return
 
-  await ensureUserRolesTable(db)
-  await db.prepare(`DELETE FROM user_roles WHERE tenant_id = ? AND user_id = ?`).bind(tenantId, userId).run()
+  // Never leave someone with no roles: with nothing to delete-and-replace, keep what is there.
+  if (!roles.length) return
 
+  await ensureUserRolesTable(db)
   const timestamp = new Date().toISOString()
-  for (const role of roles) {
-    await db.prepare(
+  // One transaction: a delete followed by separate inserts could stop half-way (for example when
+  // the database refuses writes) and leave the person with no roles — seen as a student.
+  await db.batch([
+    db.prepare(`DELETE FROM user_roles WHERE tenant_id = ? AND user_id = ?`).bind(tenantId, userId),
+    ...roles.map(role => db.prepare(
       `INSERT OR REPLACE INTO user_roles (id, tenant_id, user_id, role, is_primary, created_at, updated_at)
        VALUES (?, ?, ?, ?, ?, ?, ?)`
     ).bind(
@@ -14983,8 +15042,8 @@ async function syncUserRoleRecords(
       role === primaryRole ? 1 : 0,
       timestamp,
       timestamp,
-    ).run()
-  }
+    )),
+  ])
 }
 
 // Student public IDs run on ONE platform-wide sequence, not one per school: whichever school
@@ -32346,6 +32405,7 @@ export default {
   // whether or not anyone has the dashboard open).
   async scheduled(_event: ScheduledEvent, rawEnv: Bindings, ctx: ExecutionContext): Promise<void> {
     const env = withPooledEnv(rawEnv)
+    ctx.waitUntil(ensureReadIndexes(env.APP_DB))
     ctx.waitUntil(runDueBulkPeopleJobs(env).catch(() => {}))
     // The harvester: new questions into the bank within a minute, a full sweep after midnight, Ndovera notes, answer keys.
     ctx.waitUntil(runHarvestTick(harvestDeps(env as any)).catch(error => console.error('Harvester failed', error)))
