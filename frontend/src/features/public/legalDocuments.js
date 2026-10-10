@@ -577,6 +577,8 @@ below reaches a person.
 
 ## General and support
 
+**Phone:** +234 812 888 2800
+
 **Email:** support@ndovera.com
 
 Use this for anything about your school account, a fault in the platform, help getting

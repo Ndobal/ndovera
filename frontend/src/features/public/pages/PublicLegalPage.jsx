@@ -141,7 +141,8 @@ export default function PublicLegalPage({ docKey = 'privacy' }) {
           <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#800020]">Still Have A Question?</p>
           <h2 className="mt-2 font-serif text-2xl font-black text-[#191970]">Ask a person, not a form.</h2>
           <p className="mt-3 max-w-2xl text-sm leading-7 text-[#31416f]">
-            Email <a className="font-bold underline" href="mailto:support@ndovera.com">support@ndovera.com</a> and a
+            Call <a className="font-bold underline" href="tel:+2348128882800">+234 812 888 2800</a> or email{' '}
+            <a className="font-bold underline" href="mailto:support@ndovera.com">support@ndovera.com</a> and a
             member of the NDOVERA team will answer. School account holders can also use the messaging area inside the app.
           </p>
           <div className="mt-5 flex flex-wrap gap-3">

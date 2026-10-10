@@ -871,6 +871,10 @@ export function PublicShell({ section, notice, children, flier, hideHero = false
             <p className="mt-4 max-w-md text-sm leading-7 text-white/65">
               A modern website, school platform, and learning-support network designed to help schools operate with more structure and visible progress.
             </p>
+            <p className="mt-3 text-sm text-white/75">
+              Call <a href="tel:+2348128882800" className="font-semibold text-white underline-offset-2 hover:underline">+234 812 888 2800</a>
+              {' · '}<a href="mailto:support@ndovera.com" className="font-semibold text-white underline-offset-2 hover:underline">support@ndovera.com</a>
+            </p>
             <div className="mt-5 flex flex-wrap gap-3">
               <Link to="/register-school" className="rounded-full bg-[#e3c98b] px-5 py-2.5 text-sm font-bold text-[#191970] transition hover:bg-white">Register School</Link>
               <Link to="/login" className="rounded-full border border-white/25 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-white/10">Portal Login</Link>

@@ -43,6 +43,13 @@ class SiteFooter extends StatelessWidget {
                 _link(context, 'Sign In', '/login'),
               ],
             ),
+            if (!poweredByOnly) ...[
+              const SizedBox(height: 16),
+              SelectableText(
+                'Call +234 812 888 2800  ·  support@ndovera.com',
+                style: TextStyle(color: Colors.white.withValues(alpha: 0.85)),
+              ),
+            ],
             const SizedBox(height: 24),
             Divider(color: Colors.white.withValues(alpha: 0.2)),
             const SizedBox(height: 16),
