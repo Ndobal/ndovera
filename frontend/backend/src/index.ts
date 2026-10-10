@@ -392,6 +392,16 @@ import { levelOf, labelOfRank, normalizeSection } from './levels'
 import { quantReasoningGrade, quantReasoningRunner } from './quantReasoning'
 import { verbalReasoningGrade, verbalReasoningRunner } from './verbalReasoning'
 import { bumpStamps, changesSharedState, readStamps, tenantScope, userScope } from './changeStamps'
+import {
+  CommError, createQuote, getPlatformConfig, giftUnits, isChannel, ledgerFor, listGifts, listGrants, listPurchases, getPurchase, priceSchedule, reverseGift,
+  schedulePrice, setPlatformConfig, settlePurchase, startCheckout, walletSummary, ensureTermAllowance, CHANNELS,
+} from './commCredits'
+import { EVENT_TYPES, getSettings as getCommSettings, listInbox, listTemplates, markInboxRead, setConsent, setDesignation, setTemplate, updateSettings as updateCommSettings, normalizePhone, type EventType } from './commMessages'
+import {
+  admitBatch, applyWhatsAppStatuses, commTick, deliveryHistory, overview as commOverview, previewEvent, readmitWaiting, recordEvent, resolveUnknown,
+  scheduleAssignmentDigest, scheduleDeadlineReminders, scheduleFeeReminders, ensureEngineTables, type CommDeps, type CommEvent, type Scope,
+} from './commEngine'
+import { parseMetaStatuses, verifyMetaSignature } from './commAdapters'
 import { findAnswer, rawAi, rememberAnswer, withKnowledgePool } from './knowledgePool'
 import { AI_PAY_START, AiPayError, chargeGeneration, kindOfAssessment, kindOfMaterial, latestRegeneration, walletSummary } from './aiPay'
 import type { ChargeInput } from './aiPay'
@@ -423,6 +433,14 @@ type Bindings = {
   WEB_PUSH_VAPID_PUBLIC_KEY?: string
   WEB_PUSH_VAPID_PRIVATE_KEY?: string
   WEB_PUSH_SUBJECT?: string
+  // Parent notifications (N20): Meta WhatsApp Cloud API, PayHos SMS, Flutterwave webhooks.
+  META_WHATSAPP_TOKEN?: string
+  META_WHATSAPP_PHONE_NUMBER_ID?: string
+  META_APP_SECRET?: string
+  META_WEBHOOK_VERIFY_TOKEN?: string
+  PAYHOS_API_KEY?: string
+  PAYHOS_SENDER_ID?: string
+  FLUTTERWAVE_WEBHOOK_HASH?: string
 }
 
 const app = new Hono<{ Bindings: Bindings }>()
@@ -445,6 +463,20 @@ app.use('/api/*', async (c, next) => {
   if (!tenantId || !changesSharedState(c.req.method, new URL(c.req.url).pathname, c.res.status)) return
   const bump = bumpStamps(c.env.APP_DB, [tenantScope(tenantId)]).catch(error => console.error('Change stamp not moved', error))
   try { c.executionCtx.waitUntil(bump) } catch { await bump }
+})
+
+// School events → parent notifications (COMM_HOOKS, defined with the notification routes below).
+app.use('/api/*', async (c, next) => {
+  const startedAt = new Date(Date.now() - 1000).toISOString()
+  await next()
+  if (c.req.method !== 'POST' || c.res.status >= 400) return
+  const path = new URL(c.req.url).pathname
+  for (const hook of COMM_HOOKS) {
+    const match = path.match(hook.pattern)
+    if (!match) continue
+    const work = hook.run(c, match, startedAt).catch(error => console.error('Notification hook failed', path, error))
+    try { c.executionCtx.waitUntil(work) } catch { await work }
+  }
 })
 
 // Module-level guard: ensure*Table functions are idempotent DDL. Running them on every
@@ -23569,6 +23601,8 @@ async function publishClassResultsBackground(env: Bindings, tenantId: string, cl
   })
   if (!publications.length) throw new Error('No publishable results generated')
   await saveResultPublications(env.APP_DB, { tenantId, classId, sessionName: period.sessionName, termName: period.termName, actorId: '', templateKey: settings.templateKey, settingsSnapshot: settings, publications })
+  // Parents hear once the results are actually visible (once per class and term).
+  await notifyParents(env, { tenantId, type: 'results', scope: { kind: 'class', classIds: [classId] }, facts: { term: period.termName }, dedupeKey: `results:${classId}:${period.sessionName}:${period.termName}` })
   return publications.length
 }
 
@@ -32458,6 +32492,537 @@ function withPooledEnv<T extends Record<string, any>>(env: T): T {
   return { ...env, AI: withKnowledgePool(env.AI, env.APP_DB) }
 }
 
+// ─── Parent notifications (N20): WhatsApp, SMS, email and in-app, with message units ───
+// Spec: `messaging whatsapp.md`. Credits: commCredits.ts; words: commMessages.ts;
+// events, batches and sending: commEngine.ts; providers: commAdapters.ts.
+
+const COMM_SETTINGS_ROLES = ['owner', 'hos']
+const COMM_BUYER_ROLES = ['owner', 'hos', 'accountant', 'admin', 'bursar']
+const COMM_VIEW_ROLES = [...COMM_BUYER_ROLES, 'principal', 'headteacher']
+const PARENT_LINKS: Partial<Record<EventType, string>> = { fee_bill: 'fees', fee_reminder: 'fees', receipt: 'fees', fee_cleared: 'fees', results: 'results', assignment: 'assignments', assignment_digest: 'assignments', deadline: 'assignments' }
+
+const escapeCommHtml = (value: string) => String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char] as string)
+
+async function commPortalBase(env: Bindings, tenantId: string) {
+  return buildTenantWebsiteUrl(await getTenantById(env.APP_DB, tenantId), env.TENANT_BASE_DOMAIN || DEFAULT_TENANT_BASE_DOMAIN)
+}
+
+async function studentBalanceKobo(env: Bindings, tenantId: string, studentId: string) {
+  const period = await financePeriod(env.APP_DB, tenantId)
+  const account = await getStudentAccount(env.APP_DB, { tenantId, studentId, current: period })
+  return Math.round(Number(account?.totals?.totalOutstanding || 0) * 100)
+}
+
+/** Is the news still true when it is about to be sent? Settled fees and withdrawn work are not announced. */
+async function commEventStillValid(env: Bindings, event: CommEvent) {
+  const studentId = event.scope.kind === 'students' && event.scope.studentIds.length === 1 ? event.scope.studentIds[0] : ''
+  if (event.type === 'fee_reminder' && studentId) return (await studentBalanceKobo(env, event.tenantId, studentId).catch(() => 1)) > 0
+  if (event.type === 'fee_cleared' && studentId) return (await studentBalanceKobo(env, event.tenantId, studentId).catch(() => 0)) <= 0
+  if ((event.type === 'assignment' || event.type === 'deadline') && event.facts.assignmentId) {
+    return Boolean(await env.APP_DB.prepare(`SELECT 1 FROM assignments WHERE id = ?`).bind(String(event.facts.assignmentId)).first().catch(() => true))
+  }
+  return true
+}
+
+function commDeps(env: Bindings): CommDeps {
+  return {
+    db: env.APP_DB,
+    whatsapp: { token: String(env.META_WHATSAPP_TOKEN || ''), phoneNumberId: String(env.META_WHATSAPP_PHONE_NUMBER_ID || '') },
+    sms: { apiKey: String(env.PAYHOS_API_KEY || ''), senderId: String(env.PAYHOS_SENDER_ID || '') },
+    sendEmail: env.ZOHO_MAIL_ACCOUNT_ID ? async (to, subject, html) => { await sendZohoEmail(env, { to: [to], subject, html }) } : null,
+    portalBase: tenantId => commPortalBase(env, tenantId),
+    schoolName: async tenantId => String((await getTenantById(env.APP_DB, tenantId))?.schoolName || 'Your school'),
+    balanceKobo: (tenantId, studentId) => studentBalanceKobo(env, tenantId, studentId),
+    stillValid: event => commEventStillValid(env, event),
+    notifyOwner: async (tenantId, subject, text) => {
+      const tenant = await getTenantById(env.APP_DB, tenantId)
+      if (tenant?.ownerEmail && env.ZOHO_MAIL_ACCOUNT_ID) await sendZohoEmail(env, { to: [String(tenant.ownerEmail)], subject, html: `<p>${escapeCommHtml(text)}</p><p><a href="${escapeCommHtml(await commPortalBase(env, tenantId))}/roles/owner/communications">Open Notifications</a></p>` })
+    },
+  }
+}
+
+/** Record a notification for a school event, with the parent-portal link for its kind. Never breaks the caller. */
+async function notifyParents(env: Bindings, input: { tenantId: string, type: EventType, scope: Scope, facts?: Record<string, any>, dedupeKey: string, actor?: string }) {
+  try {
+    const section = PARENT_LINKS[input.type]
+    const link = `${await commPortalBase(env, input.tenantId)}/roles/parent${section ? `/${section}` : ''}`
+    return await recordEvent(env.APP_DB, { ...input, link })
+  } catch (error) {
+    console.error('Parent notification not recorded', input.type, error)
+    return null
+  }
+}
+
+async function commSchool(c: any, roles: string[]) {
+  const { tenantId, actor } = await resolveSubmissionActor(c.env.APP_DB, c.var.user || {})
+  if (!tenantId) throw new CommError('No school.', 400)
+  if (!roles.includes(actor.role)) throw new CommError('You do not have access to school notifications.', 403)
+  return { tenantId, actor }
+}
+
+function commFailure(c: any, error: unknown, fallback: string) {
+  if (error instanceof CommError) return c.json({ success: false, message: error.message, ...error.details }, error.status as any)
+  console.error(fallback, error)
+  return c.json({ success: false, message: fallback }, 500)
+}
+
+const isAmi = (c: any) => hasRequiredRole(c.var.user?.role, ['ami'])
+const amiActor = (c: any) => ({ id: String(c.var.user?.id || c.var.user?.email || 'ami'), name: String(c.var.user?.name || 'Ndovera') })
+
+function scopeFromInput(input: any): Scope {
+  if (input?.kind === 'class' && Array.isArray(input.classIds) && input.classIds.length) return { kind: 'class', classIds: input.classIds.map(String).slice(0, 200) }
+  if (input?.kind === 'students' && Array.isArray(input.studentIds) && input.studentIds.length) return { kind: 'students', studentIds: input.studentIds.map(String).slice(0, 5000) }
+  return { kind: 'school' }
+}
+
+// School: Communication → Notifications.
+app.get('/api/communications/overview', authenticate, async (c) => {
+  try {
+    const { tenantId, actor } = await commSchool(c, COMM_VIEW_ROLES)
+    const term = await getActiveTerm(c.env.APP_DB, tenantId).catch(() => null)
+    if (term) await ensureTermAllowance(c.env.APP_DB, tenantId, { sessionId: term.sessionId, termId: term.id, endDate: term.endDate }).catch(() => [])
+    const [data, prices, config, templates] = await Promise.all([commOverview(c.env.APP_DB, tenantId), priceSchedule(c.env.APP_DB), getPlatformConfig(c.env.APP_DB), listTemplates(c.env.APP_DB)])
+    return c.json({
+      success: true, ...data, prices, packages: config.packages, minimumPurchase: config.minimumPurchase,
+      providers: { whatsapp: Boolean(c.env.META_WHATSAPP_TOKEN && c.env.META_WHATSAPP_PHONE_NUMBER_ID), sms: Boolean(c.env.PAYHOS_API_KEY && c.env.PAYHOS_SENDER_ID), email: Boolean(c.env.ZOHO_MAIL_ACCOUNT_ID) },
+      templatesApproved: templates.filter(item => item.status === 'approved').map(item => item.eventType),
+      canChangeSettings: COMM_SETTINGS_ROLES.includes(actor.role), canBuy: COMM_BUYER_ROLES.includes(actor.role),
+    })
+  } catch (error) { return commFailure(c, error, 'Could not load notifications.') }
+})
+
+app.patch('/api/communications/settings', authenticate, async (c) => {
+  try {
+    const { tenantId, actor } = await commSchool(c, COMM_SETTINGS_ROLES)
+    const settings = await updateCommSettings(c.env.APP_DB, tenantId, await c.req.json().catch(() => ({})), actor.name)
+    return c.json({ success: true, settings })
+  } catch (error) { return commFailure(c, error, 'Could not save the settings.') }
+})
+
+app.post('/api/communications/batches/preview', authenticate, async (c) => {
+  try {
+    const { tenantId } = await commSchool(c, COMM_VIEW_ROLES)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const type = EVENT_TYPES.includes(body.type) ? body.type as EventType : 'notice'
+    return c.json({ success: true, preview: await previewEvent(commDeps(c.env), { tenantId, type, scope: scopeFromInput(body.scope), facts: body.facts || {} }) })
+  } catch (error) { return commFailure(c, error, 'Could not preview the notification.') }
+})
+
+/** Re-check a waiting batch now (after a top-up). Never bypasses the wallet: it is admitted whole or not at all. */
+app.post('/api/communications/batches/:id/admit', authenticate, async (c) => {
+  try {
+    const { tenantId } = await commSchool(c, COMM_BUYER_ROLES)
+    await ensureEngineTables(c.env.APP_DB)
+    const batch = await c.env.APP_DB.prepare(`SELECT id FROM comm_batches WHERE id = ? AND tenant_id = ?`).bind(c.req.param('id'), tenantId).first()
+    if (!batch) throw new CommError('Batch not found.', 404)
+    return c.json({ success: true, status: await admitBatch(commDeps(c.env), c.req.param('id')) })
+  } catch (error) { return commFailure(c, error, 'Could not re-check the batch.') }
+})
+
+/** A notice to parents from the school (the announcement board also sends one). */
+app.post('/api/communications/notices', authenticate, async (c) => {
+  try {
+    const { tenantId, actor } = await commSchool(c, COMM_SETTINGS_ROLES)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const title = String(body.title || '').trim().slice(0, 120)
+    if (!title) throw new CommError('Give the notice a title.')
+    const id = await notifyParents(c.env, { tenantId, type: 'notice', scope: scopeFromInput(body.scope), facts: { title }, dedupeKey: `notice:${String(body.idempotencyKey || crypto.randomUUID()).slice(0, 80)}`, actor: actor.name })
+    return c.json({ success: true, eventId: id, queued: Boolean(id) }, 201)
+  } catch (error) { return commFailure(c, error, 'Could not send the notice.') }
+})
+
+app.get('/api/communications/deliveries', authenticate, async (c) => {
+  try {
+    const { tenantId } = await commSchool(c, COMM_VIEW_ROLES)
+    return c.json({ success: true, deliveries: await deliveryHistory(c.env.APP_DB, tenantId, { channel: c.req.query('channel') || '', status: c.req.query('status') || '' }) })
+  } catch (error) { return commFailure(c, error, 'Could not load the delivery history.') }
+})
+
+app.get('/api/communications/wallets', authenticate, async (c) => {
+  try {
+    const { tenantId } = await commSchool(c, COMM_VIEW_ROLES)
+    const [wallet, grants, ledger] = await Promise.all([walletSummary(c.env.APP_DB, tenantId), listGrants(c.env.APP_DB, tenantId), ledgerFor(c.env.APP_DB, tenantId)])
+    return c.json({ success: true, wallet, grants, ledger })
+  } catch (error) { return commFailure(c, error, 'Could not load the wallets.') }
+})
+
+app.get('/api/communications/contacts', authenticate, async (c) => {
+  try {
+    const { tenantId } = await commSchool(c, COMM_SETTINGS_ROLES)
+    await ensureEngineTables(c.env.APP_DB)
+    const rows = ((await c.env.APP_DB.prepare(`SELECT u.id, u.name, u.email, s.payload,
+        (SELECT COUNT(*) FROM parent_student_links l WHERE l.parent_id = u.id AND l.tenant_id = ?) AS children
+      FROM users u LEFT JOIN settings s ON s.studentId IN (u.email, lower(u.email))
+      WHERE u.tenantId = ? AND lower(u.role) = 'parent' AND (u.status IS NULL OR u.status != 'inactive') ORDER BY u.name LIMIT 2000`).bind(tenantId, tenantId).all()).results || []) as Record<string, any>[]
+    const consents = ((await c.env.APP_DB.prepare(`SELECT guardian_id, channel, status FROM comm_consents WHERE tenant_id = ?`).bind(tenantId).all()).results || []) as Record<string, string>[]
+    const contacts = rows.map(row => {
+      let payload: Record<string, any> = {}
+      try { payload = JSON.parse(String(row.payload || '{}')) } catch {}
+      const raw = payload.phone ?? payload.profile?.phone ?? ''
+      return {
+        id: String(row.id), name: String(row.name || ''), email: String(row.email || ''), phone: String(raw || ''), phoneValid: Boolean(normalizePhone(raw)), children: Number(row.children || 0),
+        consent: Object.fromEntries(consents.filter(item => item.guardian_id === String(row.id)).map(item => [item.channel, item.status])),
+      }
+    })
+    return c.json({ success: true, contacts, summary: { total: contacts.length, invalidPhones: contacts.filter(item => !item.phoneValid).length, noChildren: contacts.filter(item => !item.children).length } })
+  } catch (error) { return commFailure(c, error, 'Could not load contacts.') }
+})
+
+app.post('/api/communications/contacts/:guardianId/consent', authenticate, async (c) => {
+  try {
+    const { tenantId, actor } = await commSchool(c, COMM_SETTINGS_ROLES)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    await setConsent(c.env.APP_DB, tenantId, c.req.param('guardianId'), body.channel, body.status, 'school', actor.name)
+    return c.json({ success: true })
+  } catch (error) { return commFailure(c, error, 'Could not save the choice.') }
+})
+
+app.post('/api/communications/designations', authenticate, async (c) => {
+  try {
+    const { tenantId, actor } = await commSchool(c, COMM_SETTINGS_ROLES)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const link = await c.env.APP_DB.prepare(`SELECT 1 FROM parent_student_links WHERE tenant_id = ? AND student_id = ? AND parent_id = ?`).bind(tenantId, String(body.studentId || ''), String(body.guardianId || '')).first()
+    if (!link) throw new CommError('That parent is not linked to that student.')
+    await setDesignation(c.env.APP_DB, tenantId, String(body.studentId), String(body.guardianId), actor.name)
+    return c.json({ success: true })
+  } catch (error) { return commFailure(c, error, 'Could not save the notification parent.') }
+})
+
+// Buying units: a server-owned quote, a Flutterwave checkout, and a server-side verification.
+app.post('/api/communications/purchases/quote', authenticate, async (c) => {
+  try {
+    const { tenantId, actor } = await commSchool(c, COMM_BUYER_ROLES)
+    return c.json({ success: true, quote: await createQuote(c.env.APP_DB, tenantId, await c.req.json().catch(() => ({})), actor) }, 201)
+  } catch (error) { return commFailure(c, error, 'Could not prepare the quote.') }
+})
+
+app.post('/api/communications/purchases', authenticate, async (c) => {
+  try {
+    const { tenantId, actor } = await commSchool(c, COMM_BUYER_ROLES)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const tenant = await getTenantById(c.env.APP_DB, tenantId)
+    const base = String(c.env.FLUTTERWAVE_REDIRECT_BASE_URL || 'https://ndovera.com').replace(/\/$/, '')
+    const purchase = await startCheckout(c.env.APP_DB, tenantId, String(body.purchaseId || ''), async (quote, txRef) => {
+      const response = await createFlutterwavePayment(c, {
+        tx_ref: txRef, amount: (quote.amountKobo / 100).toFixed(2), currency: 'NGN',
+        redirect_url: `${base}/roles/${encodeURIComponent(actor.role === 'hos' ? 'hos' : 'owner')}/communications?purchase=${encodeURIComponent(quote.id)}`,
+        customer: { email: String(tenant?.ownerEmail || c.var.user?.email || ''), name: String(tenant?.schoolName || actor.name) },
+        customizations: { title: `${quote.units} ${quote.channel === 'sms' ? 'SMS' : quote.channel === 'whatsapp' ? 'WhatsApp' : 'email'} units`, description: `Ndovera parent notification units for ${tenant?.schoolName || 'your school'}` },
+        meta: { tenantId, purchaseId: quote.id, kind: 'comm_units' },
+      })
+      return String(response.data.link)
+    })
+    return c.json({ success: true, purchase, checkoutUrl: purchase.checkoutUrl })
+  } catch (error) { return commFailure(c, error, error instanceof Error && !(error instanceof CommError) ? error.message : 'Could not start the payment.') }
+})
+
+/** Credits only after Flutterwave itself confirms the payment (never from the browser's return). */
+async function verifyCommPurchase(c: any, env: Bindings, txRef: string) {
+  const data = (await verifyFlutterwavePayment(c, txRef))?.data || {}
+  const result = await settlePurchase(env.APP_DB, txRef, { status: String(data.status || ''), txRef: String(data.tx_ref || ''), amount: Number(data.amount || 0), currency: String(data.currency || ''), transactionId: String(data.id || ''), tenantId: data.meta?.tenantId ? String(data.meta.tenantId) : undefined })
+  if (result.credited) await readmitWaiting(commDeps(env), result.purchase.tenantId).catch(error => console.error('Re-admission failed', error))
+  return result
+}
+
+app.get('/api/communications/purchases/:id', authenticate, async (c) => {
+  try {
+    const { tenantId } = await commSchool(c, COMM_BUYER_ROLES)
+    let purchase = await getPurchase(c.env.APP_DB, tenantId, c.req.param('id'))
+    if (purchase.status === 'pending' && purchase.txRef) purchase = (await verifyCommPurchase(c, c.env, purchase.txRef).catch(() => ({ purchase }))).purchase
+    return c.json({ success: true, purchase })
+  } catch (error) { return commFailure(c, error, 'Could not check the payment.') }
+})
+
+app.get('/api/communications/purchases', authenticate, async (c) => {
+  try {
+    const { tenantId } = await commSchool(c, COMM_BUYER_ROLES)
+    return c.json({ success: true, purchases: await listPurchases(c.env.APP_DB, tenantId) })
+  } catch (error) { return commFailure(c, error, 'Could not load purchases.') }
+})
+
+// Parents: their in-app notifications and their own channel choices.
+async function commParent(c: any) {
+  const { tenantId, actor } = await resolveSubmissionActor(c.env.APP_DB, c.var.user || {})
+  if (!tenantId || !actor.id) throw new CommError('No school.', 400)
+  return { tenantId, userId: actor.id }
+}
+
+app.get('/api/communications/inbox', authenticate, async (c) => {
+  try {
+    const { tenantId, userId } = await commParent(c)
+    return c.json({ success: true, items: await listInbox(c.env.APP_DB, tenantId, userId) })
+  } catch (error) { return commFailure(c, error, 'Could not load notifications.') }
+})
+
+app.post('/api/communications/inbox/read', authenticate, async (c) => {
+  try {
+    const { tenantId, userId } = await commParent(c)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    await markInboxRead(c.env.APP_DB, tenantId, userId, Array.isArray(body.ids) ? body.ids.map(String) : [])
+    return c.json({ success: true })
+  } catch (error) { return commFailure(c, error, 'Could not update notifications.') }
+})
+
+app.get('/api/communications/my-choices', authenticate, async (c) => {
+  try {
+    const { tenantId, userId } = await commParent(c)
+    await ensureEngineTables(c.env.APP_DB)
+    const rows = ((await c.env.APP_DB.prepare(`SELECT channel, status FROM comm_consents WHERE tenant_id = ? AND guardian_id = ?`).bind(tenantId, userId).all()).results || []) as Record<string, string>[]
+    const settings = await getCommSettings(c.env.APP_DB, tenantId)
+    return c.json({ success: true, choices: Object.fromEntries(rows.map(row => [row.channel, row.status])), schoolConfirmedConsent: settings.consentConfirmed })
+  } catch (error) { return commFailure(c, error, 'Could not load your choices.') }
+})
+
+app.put('/api/communications/my-choices', authenticate, async (c) => {
+  try {
+    const { tenantId, userId } = await commParent(c)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    for (const channel of ['whatsapp', 'sms', 'email']) {
+      if (body[channel] === 'granted' || body[channel] === 'withdrawn') await setConsent(c.env.APP_DB, tenantId, userId, channel, body[channel], 'parent', userId)
+    }
+    return c.json({ success: true })
+  } catch (error) { return commFailure(c, error, 'Could not save your choices.') }
+})
+
+// Super Admin → Communications.
+app.get('/api/super-admin/communications/schools', authenticate, async (c) => {
+  if (!isAmi(c)) return c.json({ success: false, message: 'forbidden' }, 403)
+  try {
+    const tenants = ((await c.env.APP_DB.prepare(`SELECT id, school_name AS name, status FROM tenants ORDER BY school_name LIMIT 1000`).all()).results || []) as Record<string, any>[]
+    const schools = []
+    for (const tenant of tenants) schools.push({ id: String(tenant.id), name: String(tenant.name || tenant.id), status: tenant.status, wallet: await walletSummary(c.env.APP_DB, String(tenant.id)) })
+    return c.json({ success: true, schools })
+  } catch (error) { return commFailure(c, error, 'Could not load school wallets.') }
+})
+
+app.get('/api/super-admin/communications/grants', authenticate, async (c) => {
+  if (!isAmi(c)) return c.json({ success: false, message: 'forbidden' }, 403)
+  try { return c.json({ success: true, grants: await listGifts(c.env.APP_DB, { tenantId: c.req.query('tenantId') || '' }) }) } catch (error) { return commFailure(c, error, 'Could not load gifts.') }
+})
+
+app.post('/api/super-admin/communications/grants', authenticate, async (c) => {
+  if (!isAmi(c)) return c.json({ success: false, message: 'forbidden' }, 403)
+  try {
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const results = await giftUnits(c.env.APP_DB, body as any, amiActor(c), async id => Boolean(await getTenantById(c.env.APP_DB, id)))
+    // A big enough gift resumes waiting work through the same check as a purchase.
+    for (const result of results) if (result.status === 'granted') await readmitWaiting(commDeps(c.env), result.tenantId).catch(() => null)
+    return c.json({ success: true, results }, 201)
+  } catch (error) { return commFailure(c, error, 'Could not allocate the units.') }
+})
+
+app.post('/api/super-admin/communications/grants/:id/reverse', authenticate, async (c) => {
+  if (!isAmi(c)) return c.json({ success: false, message: 'forbidden' }, 403)
+  try { return c.json({ success: true, ...(await reverseGift(c.env.APP_DB, c.req.param('id'), await c.req.json().catch(() => ({})), amiActor(c))) }) } catch (error) { return commFailure(c, error, 'Could not reverse the gift.') }
+})
+
+app.get('/api/super-admin/communications/prices', authenticate, async (c) => {
+  if (!isAmi(c)) return c.json({ success: false, message: 'forbidden' }, 403)
+  return c.json({ success: true, prices: await priceSchedule(c.env.APP_DB), config: await getPlatformConfig(c.env.APP_DB) })
+})
+
+app.post('/api/super-admin/communications/prices', authenticate, async (c) => {
+  if (!isAmi(c)) return c.json({ success: false, message: 'forbidden' }, 403)
+  try { return c.json({ success: true, prices: await schedulePrice(c.env.APP_DB, await c.req.json().catch(() => ({})), amiActor(c).name) }) } catch (error) { return commFailure(c, error, 'Could not schedule the price.') }
+})
+
+app.put('/api/super-admin/communications/config', authenticate, async (c) => {
+  if (!isAmi(c)) return c.json({ success: false, message: 'forbidden' }, 403)
+  try { return c.json({ success: true, config: await setPlatformConfig(c.env.APP_DB, await c.req.json().catch(() => ({})), amiActor(c).name) }) } catch (error) { return commFailure(c, error, 'Could not save.') }
+})
+
+app.get('/api/super-admin/communications/templates', authenticate, async (c) => {
+  if (!isAmi(c)) return c.json({ success: false, message: 'forbidden' }, 403)
+  return c.json({ success: true, templates: await listTemplates(c.env.APP_DB), providers: { whatsapp: Boolean(c.env.META_WHATSAPP_TOKEN && c.env.META_WHATSAPP_PHONE_NUMBER_ID), webhook: Boolean(c.env.META_APP_SECRET && c.env.META_WEBHOOK_VERIFY_TOKEN), sms: Boolean(c.env.PAYHOS_API_KEY && c.env.PAYHOS_SENDER_ID), email: Boolean(c.env.ZOHO_MAIL_ACCOUNT_ID), payments: Boolean(c.env.FLUTTERWAVE_SECRET_KEY), paymentWebhook: Boolean(c.env.FLUTTERWAVE_WEBHOOK_HASH) } })
+})
+
+app.put('/api/super-admin/communications/templates/:eventType', authenticate, async (c) => {
+  if (!isAmi(c)) return c.json({ success: false, message: 'forbidden' }, 403)
+  try { return c.json({ success: true, templates: await setTemplate(c.env.APP_DB, c.req.param('eventType'), await c.req.json().catch(() => ({})), amiActor(c).name) }) } catch (error) { return commFailure(c, error, 'Could not save the template.') }
+})
+
+app.get('/api/super-admin/communications/reconciliation', authenticate, async (c) => {
+  if (!isAmi(c)) return c.json({ success: false, message: 'forbidden' }, 403)
+  await ensureEngineTables(c.env.APP_DB)
+  const rows = ((await c.env.APP_DB.prepare(`SELECT d.id, d.tenant_id AS tenantId, t.school_name AS schoolName, d.channel, d.status, d.financial, d.units, d.error, d.provider_id AS providerId, d.updated_at AS updatedAt
+    FROM comm_deliveries d LEFT JOIN tenants t ON t.id = d.tenant_id WHERE d.status = 'unknown' OR d.financial = 'reconciliation_required' ORDER BY d.updated_at DESC LIMIT 300`).all()).results || [])
+  const blocked = ((await c.env.APP_DB.prepare(`SELECT b.tenant_id AS tenantId, t.school_name AS schoolName, COUNT(*) AS batches FROM comm_batches b LEFT JOIN tenants t ON t.id = b.tenant_id WHERE b.status = 'awaiting_credits' GROUP BY b.tenant_id`).all()).results || [])
+  return c.json({ success: true, unknown: rows, blocked })
+})
+
+app.post('/api/super-admin/communications/deliveries/:id/resolve', authenticate, async (c) => {
+  if (!isAmi(c)) return c.json({ success: false, message: 'forbidden' }, 403)
+  try {
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    if (!['sent', 'not_sent'].includes(body.decision)) throw new CommError('Choose sent or not sent.')
+    await resolveUnknown(c.env.APP_DB, c.req.param('id'), body.decision, amiActor(c).name)
+    return c.json({ success: true })
+  } catch (error) { return commFailure(c, error, error instanceof Error ? error.message : 'Could not resolve.') }
+})
+
+// Webhooks: signed, deduplicated, and never trusted for money without asking the provider.
+app.get('/api/webhooks/communications/meta', async (c) => {
+  const verify = String(c.env.META_WEBHOOK_VERIFY_TOKEN || '')
+  if (verify && c.req.query('hub.mode') === 'subscribe' && c.req.query('hub.verify_token') === verify) return c.text(String(c.req.query('hub.challenge') || ''))
+  return c.text('forbidden', 403)
+})
+
+app.post('/api/webhooks/communications/meta', async (c) => {
+  const raw = await c.req.text()
+  if (!(await verifyMetaSignature(String(c.env.META_APP_SECRET || ''), raw, c.req.header('X-Hub-Signature-256')))) return c.text('invalid signature', 401)
+  let body: unknown = null
+  try { body = JSON.parse(raw) } catch { return c.text('bad body', 400) }
+  const applied = await applyWhatsAppStatuses(c.env.APP_DB, parseMetaStatuses(body))
+  return c.json({ success: true, applied })
+})
+
+app.post('/api/webhooks/payments/flutterwave', async (c) => {
+  const expected = String(c.env.FLUTTERWAVE_WEBHOOK_HASH || '')
+  if (!expected || c.req.header('verif-hash') !== expected) return c.text('forbidden', 401)
+  const body = await c.req.json().catch(() => ({})) as Record<string, any>
+  const txRef = String(body?.data?.tx_ref || body?.txRef || '')
+  // Only message-unit purchases are handled here; the payload is a hint — Flutterwave is asked directly.
+  if (!txRef.startsWith('comm_')) return c.json({ success: true, ignored: true })
+  try {
+    const result = await verifyCommPurchase(c, c.env, txRef)
+    return c.json({ success: true, credited: result.credited })
+  } catch (error) {
+    console.error('Flutterwave webhook failed', error)
+    return c.json({ success: false }, 500)
+  }
+})
+
+// School events → parent notifications. Recorded after the request succeeds, from what it
+// changed, so the fee, results and assignment code stays as it is. Each is recorded once.
+type CommHook = { method: string, pattern: RegExp, run: (c: any, match: RegExpMatchArray, startedAt: string) => Promise<void> }
+
+async function receiptAndClearance(c: any, tenantId: string, studentId: string, amount: number, paymentKey: string) {
+  if (!studentId || !paymentKey) return
+  await notifyParents(c.env, { tenantId, type: 'receipt', scope: { kind: 'students', studentIds: [studentId] }, facts: { amountKobo: Math.round(Math.max(0, amount) * 100) }, dedupeKey: `receipt:${paymentKey}` })
+  const balance = await studentBalanceKobo(c.env, tenantId, studentId).catch(() => null)
+  if (balance !== null && balance <= 0) {
+    const term = await getActiveTerm(c.env.APP_DB, tenantId).catch(() => null)
+    await notifyParents(c.env, { tenantId, type: 'fee_cleared', scope: { kind: 'students', studentIds: [studentId] }, facts: { term: term?.name || '' }, dedupeKey: `cleared:${studentId}:${term?.id || 'current'}` })
+  }
+}
+
+const COMM_HOOKS: CommHook[] = [
+  // Bills published: the families whose bills this request created.
+  ...[/^\/api\/school\/finance\/simple\/lock$/, /^\/api\/school\/finance\/structures\/[^/]+\/issue$/, /^\/api\/school\/finance\/simple\/bill-new$/].map(pattern => ({
+    method: 'POST', pattern, run: async (c: any, _match: RegExpMatchArray, startedAt: string) => {
+      const body = await c.req.json().catch(() => ({})) as Record<string, any>
+      if (body.unlock) return
+      const tenantId = String(c.var.user?.tenantId || '')
+      const rows = ((await c.env.APP_DB.prepare(`SELECT DISTINCT student_id, term_name FROM fee_obligations WHERE tenant_id = ? AND created_at >= ? AND status <> 'cancelled'`).bind(tenantId, startedAt).all().catch(() => ({ results: [] }))).results || []) as Array<Record<string, string>>
+      const studentIds = Array.from(new Set(rows.map(row => String(row.student_id)).filter(Boolean)))
+      if (studentIds.length) await notifyParents(c.env, { tenantId, type: 'fee_bill', scope: { kind: 'students', studentIds }, facts: { term: rows[0]?.term_name || '' }, dedupeKey: `fee_bill:${startedAt}:${studentIds.length}` })
+    },
+  })),
+  // A payment posted (or a claim approved): the receipt, then "fully paid" if it is.
+  ...[/^\/api\/school\/finance\/students\/([^/]+)\/payments$/, /^\/api\/school\/finance\/simple\/accounts\/([^/]+)\/pay$/].map(pattern => ({
+    method: 'POST', pattern, run: async (c: any, match: RegExpMatchArray) => {
+      const response = await c.res.clone().json().catch(() => ({})) as Record<string, any>
+      if (response.duplicate) return
+      const body = await c.req.json().catch(() => ({})) as Record<string, any>
+      await receiptAndClearance(c, String(c.var.user?.tenantId || ''), decodeURIComponent(match[1]), Number(body.amount) || 0, String(response.paymentId || response.receipt?.id || ''))
+    },
+  })),
+  {
+    method: 'POST', pattern: /^\/api\/school\/finance\/claims\/[^/]+\/review$/, run: async (c: any) => {
+      const claim = ((await c.res.clone().json().catch(() => ({}))) as Record<string, any>).claim || {}
+      if (!['approved', 'verified', 'accepted'].includes(String(claim.status || ''))) return
+      await receiptAndClearance(c, String(c.var.user?.tenantId || ''), String(claim.studentId || ''), Number(claim.amount) || 0, String(claim.paymentId || claim.id || ''))
+    },
+  },
+  {
+    method: 'POST', pattern: /^\/api\/school\/fees\/payment-claims\/([^/]+)\/approve$/, run: async (c: any, match: RegExpMatchArray) => {
+      const row = await c.env.APP_DB.prepare(`SELECT tenant_id, student_id, amount, receipt_no FROM fees_payment_claims WHERE id = ?`).bind(decodeURIComponent(match[1])).first() as Record<string, any> | null
+      if (row) await receiptAndClearance(c, String(row.tenant_id), String(row.student_id), Number(row.amount) || 0, String(row.receipt_no || match[1]))
+    },
+  },
+  {
+    method: 'POST', pattern: /^\/api\/school\/fees\/students\/([^/]+)\/payments$/, run: async (c: any, match: RegExpMatchArray) => {
+      const response = await c.res.clone().json().catch(() => ({})) as Record<string, any>
+      const body = await c.req.json().catch(() => ({})) as Record<string, any>
+      const key = String(response.receipt?.receiptNo || response.receipt?.receipt_no || response.receiptNo || response.receipt?.id || '')
+      await receiptAndClearance(c, String(c.var.user?.tenantId || ''), decodeURIComponent(match[1]), Number(body.amount) || 0, key)
+    },
+  },
+  // Results published for a class (bulk publishing notifies from its background job).
+  {
+    method: 'POST', pattern: /^\/api\/results\/publish$/, run: async (c: any) => {
+      const body = await c.req.json().catch(() => ({})) as Record<string, any>
+      const classId = String(body.classId || '').trim()
+      const term = String(body.termName || body.term || '')
+      if (classId) await notifyParents(c.env, { tenantId: String(c.var.user?.tenantId || ''), type: 'results', scope: { kind: 'class', classIds: [classId] }, facts: { term }, dedupeKey: `results:${classId}:${body.sessionName || body.session || ''}:${term}` })
+    },
+  },
+  // A notice on the school board meant for parents.
+  {
+    method: 'POST', pattern: /^\/api\/announcements$/, run: async (c: any) => {
+      const body = await c.req.json().catch(() => ({})) as Record<string, any>
+      const audience = Array.isArray(body.audienceRoles) ? body.audienceRoles.map(String) : ['all']
+      if (!audience.includes('all') && !audience.includes('parent')) return
+      const announcement = ((await c.res.clone().json().catch(() => ({}))) as Record<string, any>).announcement || {}
+      await notifyParents(c.env, { tenantId: String(c.var.user?.tenantId || ''), type: 'notice', scope: { kind: 'school' }, facts: { title: String(body.title || '').slice(0, 120) }, dedupeKey: `notice:${announcement.id || crypto.randomUUID()}` })
+    },
+  },
+  // New work for a class, when the school sends each one (the default is the daily summary).
+  {
+    method: 'POST', pattern: /^\/api\/classrooms\/([^/]+)\/assignments$/, run: async (c: any, match: RegExpMatchArray) => {
+      const assignment = ((await c.res.clone().json().catch(() => ({}))) as Record<string, any>).assignment || {}
+      const meta = assignment.metadata || {}
+      if (!assignment.id || meta.status === 'draft' || (meta.opensAt && String(meta.opensAt) > nowIsoString())) return
+      await notifyParents(c.env, { tenantId: String(c.var.user?.tenantId || ''), type: 'assignment', scope: { kind: 'class', classIds: [decodeURIComponent(match[1])] }, facts: { title: String(assignment.title || ''), subject: String(assignment.subjectName || ''), dueAt: assignment.dueAt || '', assignmentId: String(assignment.id) }, dedupeKey: `assignment:${assignment.id}` })
+    },
+  },
+]
+
+const nowIsoString = () => new Date().toISOString()
+
+
+/** Every minute: plan new events, send what is due, settle, and the daily schedules per school. */
+async function runCommunications(env: Bindings) {
+  const deps = commDeps(env)
+  await commTick(deps)
+  const minute = new Date().getUTCMinutes()
+  if (minute % 5 !== 0) return
+  const tenants = ((await env.APP_DB.prepare(`SELECT id FROM tenants WHERE status = 'active' LIMIT 500`).all().catch(() => ({ results: [] }))).results || []) as Array<{ id: string }>
+  for (const { id: tenantId } of tenants) {
+    try {
+      if (minute === 5) {
+        const term = await getActiveTerm(env.APP_DB, tenantId).catch(() => null)
+        if (term) await ensureTermAllowance(env.APP_DB, tenantId, { sessionId: term.sessionId, termId: term.id, endDate: term.endDate })
+      }
+      await scheduleFeeReminders(deps, tenantId, async () => {
+        const term = await getActiveTerm(env.APP_DB, tenantId).catch(() => null)
+        const rows = ((await env.APP_DB.prepare(`SELECT DISTINCT student_id FROM fee_obligations WHERE tenant_id = ? AND balance > 0 AND status <> 'cancelled'`).bind(tenantId).all().catch(() => ({ results: [] }))).results || []) as Array<{ student_id: string }>
+        return rows.map(row => ({ studentId: String(row.student_id), termName: term?.name || '' }))
+      })
+      await scheduleAssignmentDigest(deps, tenantId, async localDate => {
+        const since = new Date(`${localDate}T00:00:00+01:00`).toISOString()
+        const rows = ((await env.APP_DB.prepare(`SELECT a.classId, a.title, a.subjectName, a.metadata FROM assignments a JOIN classes c ON c.id = a.classId WHERE c.tenantId = ? AND a.createdAt >= ?`).bind(tenantId, since).all().catch(() => ({ results: [] }))).results || []) as Array<Record<string, any>>
+        return rows.filter(row => { try { return JSON.parse(String(row.metadata || '{}')).status !== 'draft' } catch { return true } }).map(row => ({ classId: String(row.classId), title: String(row.title || ''), subject: String(row.subjectName || '') }))
+      })
+      await scheduleDeadlineReminders(deps, tenantId, async untilIso => {
+        const nowIso = new Date().toISOString()
+        const due = ((await env.APP_DB.prepare(`SELECT a.id, a.classId, a.title, a.dueAt FROM assignments a JOIN classes c ON c.id = a.classId WHERE c.tenantId = ? AND a.dueAt > ? AND a.dueAt <= ?`).bind(tenantId, nowIso, untilIso).all().catch(() => ({ results: [] }))).results || []) as Array<Record<string, any>>
+        const out = []
+        if (!due.length) return out
+        const students = ((await env.APP_DB.prepare(`SELECT u.id, s.payload FROM users u LEFT JOIN settings s ON s.studentId IN (u.email, lower(u.email)) WHERE u.tenantId = ? AND lower(u.role) = 'student'`).bind(tenantId).all()).results || []) as Array<Record<string, any>>
+        for (const item of due) {
+          const inClass = students.filter(row => { try { return JSON.parse(String(row.payload || '{}')).classId === item.classId } catch { return false } }).map(row => String(row.id))
+          const submitted = new Set((((await env.APP_DB.prepare(`SELECT DISTINCT studentId FROM submissions WHERE assignmentId = ?`).bind(item.id).all().catch(() => ({ results: [] }))).results || []) as Array<{ studentId: string }>).map(row => String(row.studentId)))
+          out.push({ assignmentId: String(item.id), title: String(item.title || ''), dueAt: String(item.dueAt), pendingStudentIds: inClass.filter(id => !submitted.has(id)) })
+        }
+        return out
+      })
+    } catch (error) {
+      console.error('Scheduled notifications failed', tenantId, error)
+    }
+  }
+}
+
 export default {
   // Cron-driven background job processor (bulk people import, results distribution,
   // and the term/session transitions that must happen on their configured date
@@ -32465,6 +33030,8 @@ export default {
   async scheduled(_event: ScheduledEvent, rawEnv: Bindings, ctx: ExecutionContext): Promise<void> {
     const env = withPooledEnv(rawEnv)
     ctx.waitUntil(ensureReadIndexes(env.APP_DB))
+    // Parent notifications: plan, send, settle; daily reminders and summaries per school.
+    ctx.waitUntil(runCommunications(env).catch(error => console.error('Notifications failed', error)))
     ctx.waitUntil(runDueBulkPeopleJobs(env).catch(() => {}))
     // The harvester: new questions into the bank within a minute, a full sweep after midnight, Ndovera notes, answer keys.
     ctx.waitUntil(runHarvestTick(harvestDeps(env as any)).catch(error => console.error('Harvester failed', error)))
