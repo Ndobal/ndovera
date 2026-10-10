@@ -1743,8 +1743,8 @@ Also asked (8 Oct): students practise from the bank without AI calls from today;
 
 
 
-### N19. Unfinished work finished: curriculum PDF imports, Verbal Reasoning, live AI quality check — ✅ BUILT (9 Oct 2026), ⏳ NOT YET DEPLOYED
-- N18 committed. N18 and N19 are built and tested but not yet deployed to ndovera.com (deploying needs your go-ahead in Claude Code). AI credits start on 20 Oct 2026, so deploy before then.
+### N19. Unfinished work finished: curriculum PDF imports, Verbal Reasoning, live AI quality check — ✅ DONE AND COMPLETED (deployed 10 Oct 2026)
+- N18 and N19 deployed to ndovera.com on 10 Oct 2026, with the database-read fixes (the 9 Oct outage: D1's daily rows-read limit), change stamps (pages re-read only when something changed), offline mode when Ndovera is busy (saved copies, queued submissions), and the Android notification crash fix.
 - Curriculum & Examination Library: upload the official PDF on a curriculum (Ami, or a school's Owner/HoS) or an examination specification (Ami). It is read in the background; each import's progress is shown, the open page helps it along, topics refresh as rows arrive, and imports can be paused, resumed or cancelled.
 - Verbal Reasoning (Primary 1–6) from the 1,000-item class banks (ported from the Verbal Reasoning Worksheet Studio): for Verbal Reasoning in a Primary class, quizzes/tests/assignments/exams come from the bank (no AI, no credits, every key known), and Ndovera's practice bank fills itself 250 items a minute, Primary 1 first.
 - Live check of Ndovera AI questions against the real model (six subjects and levels). Fixed: LaTeX made whole batches fail or corrupted "	imes"/"rac"; structured questions lost their parts; retries now say what was wrong; questions citing data they do not include are sent back; Nigerian context with money in Naira; the AI moderator review now runs as soon as a set is written. Result: 44/44 questions written (was 32/44).
