@@ -111,6 +111,7 @@ function Settings({ data, onSaved, run }) {
     <div className="space-y-4">
       {!data.canChangeSettings && <p className="text-sm text-[#191970]">Only the Owner or Head of School can change these settings.</p>}
       <div className={`${INNER} grid grid-cols-1 gap-2 md:grid-cols-2`}>
+        {toggle('active', 'Parent notifications are on', 'Off: nothing is sent to parents.')}
         {toggle('whatsappEnabled', 'WhatsApp')}
         {toggle('smsEnabled', 'SMS')}
         {toggle('emailEnabled', 'Email', 'Free to your school.')}
@@ -296,6 +297,15 @@ export default function NotificationsCenter() {
         <div className="mt-3 flex flex-wrap gap-2" role="tablist">{tabs.map(([key, label]) => <button key={key} type="button" role="tab" aria-selected={tab === key} className={tab === key ? PRIMARY : SECONDARY} onClick={() => setTab(key)}>{label}</button>)}</div>
       </div>
       {notice}
+      {!data.settings.active && (
+        <div className="rounded-2xl border border-[#c9a96e] bg-[#fff8f0] p-4 text-sm text-[#191970] dark:bg-slate-800 dark:text-slate-200">
+          <p className="font-bold text-[#800000] dark:text-white">Parent notifications are off for your school.</p>
+          <p className="mt-1">Nothing is sent to parents until you turn them on. Check your parents' phone numbers and email addresses under Contacts & consent first. Email and in-app notifications are free; WhatsApp and SMS use units.</p>
+          {data.canChangeSettings
+            ? <button type="button" className={`${PRIMARY} mt-2`} onClick={() => run(async () => { await api.saveSettings({ active: true }); await load(); }, 'Parent notifications are on.')}>Turn on parent notifications</button>
+            : <p className="mt-1 text-xs">Ask the Owner or Head of School to turn them on.</p>}
+        </div>
+      )}
       {tab === 'overview' && <Overview data={data} run={run} onRecheck={async batchId => { await api.recheckBatch(batchId); await load(); }} />}
       {tab === 'settings' && <Settings data={data} run={run} onSaved={load} />}
       {tab === 'buy' && <BuyUnits data={data} run={run} />}

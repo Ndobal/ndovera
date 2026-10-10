@@ -143,10 +143,23 @@ test('a new term grants exactly 10 WhatsApp and 10 SMS units once; switching ter
   assert.equal((await call(db, 'teacher', 'GET', '/api/communications/overview')).status, 403)
 })
 
+test('nothing is sent until the school turns parent notifications on', async () => {
+  const db = await setup({ parents: 2 })
+  await approveTemplates(db)
+  const before = await call(db, 'owner', 'POST', '/api/communications/notices', { title: 'Hello', idempotencyKey: 'off-1' })
+  assert.equal(before.body.queued, false)
+  await tick(db)
+  assert.equal(db.db.prepare(`SELECT COUNT(*) AS n FROM comm_deliveries`).get().n, 0)
+  assert.equal((await call(db, 'owner', 'GET', '/api/communications/overview')).body.settings.active, false)
+  assert.equal((await call(db, 'teacher', 'PATCH', '/api/communications/settings', { active: true })).status, 403)
+  await call(db, 'owner', 'PATCH', '/api/communications/settings', { active: true })
+  assert.equal((await call(db, 'owner', 'POST', '/api/communications/notices', { title: 'Hello', idempotencyKey: 'on-1' })).body.queued, true)
+})
+
 test('pause policy: 12 parents and 10 WhatsApp units send no WhatsApp at all; free channels go ahead; a big enough gift resumes it', async () => {
   const db = await setup({ parents: 12 })
   await approveTemplates(db)
-  await call(db, 'owner', 'PATCH', '/api/communications/settings', { consentConfirmed: true })
+  await call(db, 'owner', 'PATCH', '/api/communications/settings', { active: true, consentConfirmed: true })
   await call(db, 'owner', 'GET', '/api/communications/overview')
 
   const preview = await call(db, 'owner', 'POST', '/api/communications/batches/preview', { type: 'notice', scope: { kind: 'school' }, facts: { title: 'Mid-term break' } })
@@ -195,8 +208,8 @@ test('pause policy: 12 parents and 10 WhatsApp units send no WhatsApp at all; fr
 test('SMS for the remainder: WhatsApp for those the units cover, SMS for the rest — held whole until SMS covers all of the rest', async () => {
   const db = await setup({ parents: 12 })
   await approveTemplates(db)
-  assert.equal((await call(db, 'owner', 'PATCH', '/api/communications/settings', { consentConfirmed: true, shortagePolicy: 'SMS_FOR_REMAINDER' })).status, 400, 'the SMS cost must be acknowledged')
-  await call(db, 'owner', 'PATCH', '/api/communications/settings', { consentConfirmed: true, shortagePolicy: 'SMS_FOR_REMAINDER', acknowledgeSmsCost: true })
+  assert.equal((await call(db, 'owner', 'PATCH', '/api/communications/settings', { active: true, consentConfirmed: true, shortagePolicy: 'SMS_FOR_REMAINDER' })).status, 400, 'the SMS cost must be acknowledged')
+  await call(db, 'owner', 'PATCH', '/api/communications/settings', { active: true, consentConfirmed: true, shortagePolicy: 'SMS_FOR_REMAINDER', acknowledgeSmsCost: true })
   await call(db, 'owner', 'GET', '/api/communications/overview')
   // 10 WhatsApp + 10 SMS units for 12 parents: 10 by WhatsApp, 2 by SMS — funded.
   await call(db, 'owner', 'POST', '/api/communications/notices', { title: 'Sports day', idempotencyKey: 'n-sms' })
@@ -286,7 +299,7 @@ test('the last units cannot be reserved twice; expired units fund nothing; only 
 test('withdrawn consent and missing phones are excluded and reported, never counted as notified', async () => {
   const db = await setup({ parents: 3 })
   await approveTemplates(db)
-  await call(db, 'owner', 'PATCH', '/api/communications/settings', { consentConfirmed: true })
+  await call(db, 'owner', 'PATCH', '/api/communications/settings', { active: true, consentConfirmed: true })
   db.db.prepare(`UPDATE settings SET payload = json_set(payload, '$.phone', 'not a phone') WHERE studentId = 'p03@a.test'`).run()
   assert.equal((await call(db, 'owner', 'POST', '/api/communications/contacts/p-02/consent', { channel: 'whatsapp', status: 'withdrawn' })).status, 200)
   const preview = (await call(db, 'owner', 'POST', '/api/communications/batches/preview', { type: 'notice', scope: { kind: 'school' } })).body.preview

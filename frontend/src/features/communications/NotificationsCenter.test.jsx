@@ -11,7 +11,7 @@ jest.mock('./communicationsApi', () => {
 const wallet = (spendable, extra = {}) => ({ spendable, reserved: 0, termAllowance: spendable, gifts: 0, purchased: 0, used: 0, expiring: [], ...extra });
 const OVERVIEW = {
   success: true,
-  settings: { shortagePolicy: 'PAUSE_BATCH', whatsappEnabled: true, smsEnabled: true, emailEnabled: true, consentConfirmed: true, guardianMode: 'designated', assignmentMode: 'digest', digestTime: '17:00', deadlineHoursBefore: 24, reminderIntervalDays: 14, initialReminderDate: '', events: { notice: true }, pauses: { whatsapp: ['credits'] } },
+  settings: { active: true, shortagePolicy: 'PAUSE_BATCH', whatsappEnabled: true, smsEnabled: true, emailEnabled: true, consentConfirmed: true, guardianMode: 'designated', assignmentMode: 'digest', digestTime: '17:00', deadlineHoursBefore: 24, reminderIntervalDays: 14, initialReminderDate: '', events: { notice: true }, pauses: { whatsapp: ['credits'] } },
   wallet: { whatsapp: wallet(10), sms: wallet(10), email: wallet(0) },
   waiting: [{ id: 'b1', type: 'notice', label: 'School notice', shortfall: { whatsapp: 110 }, counts: { recipients: 120 }, createdAt: '2026-10-10T09:00:00Z' }],
   warnings: ['WhatsApp sending paused. This school notice needs 120 units; 10 are available. Buy 110 units for ₦1,672. Email and in-app notifications remain active.'],
@@ -60,4 +60,12 @@ test('buying units gets a server quote, then hands over to Flutterwave', async (
   fireEvent.click(screen.getByRole('button', { name: 'Pay with Flutterwave' }));
   await waitFor(() => expect(assign).toHaveBeenCalledWith('https://checkout.flutterwave.test/pay'));
   expect(api.quoteUnits).toHaveBeenCalledWith({ channel: 'whatsapp', units: 100 });
+});
+
+test('while notifications are off the school is told so and can turn them on', async () => {
+  api.getOverview.mockResolvedValue({ ...OVERVIEW, settings: { ...OVERVIEW.settings, active: false } });
+  render(<NotificationsCenter />);
+  expect(await screen.findByText('Parent notifications are off for your school.')).toBeInTheDocument();
+  fireEvent.click(screen.getByRole('button', { name: 'Turn on parent notifications' }));
+  await waitFor(() => expect(api.saveSettings).toHaveBeenCalledWith({ active: true }));
 });

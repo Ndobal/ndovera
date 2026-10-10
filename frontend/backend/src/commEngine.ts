@@ -109,7 +109,8 @@ export async function recordEvent(db: D1Database, input: { tenantId: string, typ
   if (!input.tenantId) return null
   await ensureEngineTables(db)
   const settings = await getSettings(db, input.tenantId)
-  if (!settings.events[input.type]) return null
+  // Nothing is sent until the school turns parent notifications on.
+  if (!settings.active || !settings.events[input.type]) return null
   if (input.type === 'assignment' && settings.assignmentMode !== 'each') return null
   const id = newId('cev')
   const result = await db.prepare(`INSERT OR IGNORE INTO comm_events (id, tenant_id, type, scope, facts, link, dedupe_key, status, created_by, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, 'new', ?, ?)`)
@@ -611,7 +612,7 @@ async function claimRun(db: D1Database, tenantId: string, kind: string, runDate:
 export async function scheduleFeeReminders(deps: CommDeps, tenantId: string, loadAccounts: () => Promise<Array<{ studentId: string, termName?: string }>>) {
   const { db } = deps
   const settings = await getSettings(db, tenantId)
-  if (!settings.events.fee_reminder || !deps.balanceKobo) return 0
+  if (!settings.active || !settings.events.fee_reminder || !deps.balanceKobo) return 0
   const now = (deps.now?.() || new Date())
   const clock = localClock(now, settings.timezone)
   if (clock.time < '08:00' || !(await claimRun(db, tenantId, 'fee_reminders', clock.date))) return 0
@@ -650,7 +651,7 @@ async function firstReminderAfterBill(db: D1Database, tenantId: string, studentI
 export async function scheduleAssignmentDigest(deps: CommDeps, tenantId: string, loadAssignments: (localDate: string) => Promise<Array<{ classId: string, title: string, subject?: string }>>) {
   const { db } = deps
   const settings = await getSettings(db, tenantId)
-  if (settings.assignmentMode !== 'digest' || !settings.events.assignment_digest) return 0
+  if (!settings.active || settings.assignmentMode !== 'digest' || !settings.events.assignment_digest) return 0
   const clock = localClock(deps.now?.() || new Date(), settings.timezone)
   if (clock.time < settings.digestTime || !(await claimRun(db, tenantId, 'assignment_digest', clock.date))) return 0
   const assignmentsToday = await loadAssignments(clock.date)
@@ -675,7 +676,7 @@ export async function scheduleAssignmentDigest(deps: CommDeps, tenantId: string,
 export async function scheduleDeadlineReminders(deps: CommDeps, tenantId: string, loadDue: (untilIso: string) => Promise<Array<{ assignmentId: string, title: string, dueAt: string, pendingStudentIds: string[] }>>) {
   const { db } = deps
   const settings = await getSettings(db, tenantId)
-  if (!settings.events.deadline || !settings.deadlineHoursBefore) return 0
+  if (!settings.active || !settings.events.deadline || !settings.deadlineHoursBefore) return 0
   const now = deps.now?.() || new Date()
   const clock = localClock(now, settings.timezone)
   if (clock.time < settings.digestTime || !(await claimRun(db, tenantId, 'deadline_reminders', clock.date))) return 0

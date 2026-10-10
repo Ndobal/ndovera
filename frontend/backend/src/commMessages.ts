@@ -18,6 +18,8 @@ export type ShortagePolicy = 'PAUSE_BATCH' | 'SMS_FOR_REMAINDER'
 
 export type CommSettings = {
   tenantId: string
+  /** Off until the school's Owner or HoS turns parent notifications on. */
+  active: boolean
   whatsappEnabled: boolean
   smsEnabled: boolean
   emailEnabled: boolean
@@ -40,6 +42,7 @@ export type CommSettings = {
 }
 
 export const DEFAULT_SETTINGS: Omit<CommSettings, 'tenantId'> = {
+  active: false,
   whatsappEnabled: true,
   smsEnabled: true,
   emailEnabled: true,
@@ -100,6 +103,7 @@ async function writeSettings(db: D1Database, settings: CommSettings) {
 export async function updateSettings(db: D1Database, tenantId: string, input: Record<string, any>, actor: string) {
   const current = await getSettings(db, tenantId)
   const next: CommSettings = { ...current }
+  next.active = pickBool(input.active, current.active)
   next.whatsappEnabled = pickBool(input.whatsappEnabled, current.whatsappEnabled)
   next.smsEnabled = pickBool(input.smsEnabled, current.smsEnabled)
   next.emailEnabled = pickBool(input.emailEnabled, current.emailEnabled)

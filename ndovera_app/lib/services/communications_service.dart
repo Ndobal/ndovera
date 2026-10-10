@@ -86,14 +86,14 @@ class WaitingBatch {
 }
 
 class CommOverview {
-  CommOverview({required this.wallets, required this.prices, required this.waiting, required this.warnings, required this.policy, required this.paused, required this.canChangeSettings, required this.canBuy, required this.packages, required this.consentConfirmed});
+  CommOverview({required this.active, required this.wallets, required this.prices, required this.waiting, required this.warnings, required this.policy, required this.paused, required this.canChangeSettings, required this.canBuy, required this.packages, required this.consentConfirmed});
   final Map<String, Wallet> wallets;
   final Map<String, int> prices; // kobo per unit; 0 = free
   final List<WaitingBatch> waiting;
   final List<String> warnings;
   final String policy;
   final Map<String, List<String>> paused;
-  final bool canChangeSettings, canBuy, consentConfirmed;
+  final bool active, canChangeSettings, canBuy, consentConfirmed;
   final List<int> packages;
 
   factory CommOverview.fromJson(Map<String, dynamic> json) {
@@ -101,6 +101,7 @@ class CommOverview {
     final prices = (json['prices'] as Map? ?? {}).cast<String, dynamic>();
     final settings = (json['settings'] as Map? ?? {}).cast<String, dynamic>();
     return CommOverview(
+      active: settings['active'] == true,
       wallets: {for (final c in ['whatsapp', 'sms', 'email']) c: Wallet.fromJson(((wallet[c] as Map?) ?? {}).cast<String, dynamic>())},
       prices: {
         for (final c in ['whatsapp', 'sms', 'email'])

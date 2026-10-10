@@ -11,7 +11,7 @@ import 'package:ndovera_app/services/communications_service.dart';
 
 const overview = {
   'success': true,
-  'settings': {'shortagePolicy': 'PAUSE_BATCH', 'consentConfirmed': true, 'pauses': {'whatsapp': ['credits']}},
+  'settings': {'active': true, 'shortagePolicy': 'PAUSE_BATCH', 'consentConfirmed': true, 'pauses': {'whatsapp': ['credits']}},
   'wallet': {
     'whatsapp': {'spendable': 10, 'reserved': 0, 'used': 3, 'termAllowance': 10, 'gifts': 0, 'purchased': 0},
     'sms': {'spendable': 10, 'reserved': 0, 'used': 0, 'termAllowance': 10, 'gifts': 0, 'purchased': 0},
@@ -43,6 +43,7 @@ void main() {
     expect(data.prices['email'], 0);
     expect(data.waiting.single.shortfall['whatsapp'], 110);
     expect(data.paused['whatsapp'], ['credits']);
+    expect(data.active, isTrue);
   });
 
   test('a refusal from the server is an error, not a silent success', () async {

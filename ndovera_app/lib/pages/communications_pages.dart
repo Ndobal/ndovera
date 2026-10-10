@@ -102,6 +102,19 @@ class _SchoolNotificationsPageState extends State<SchoolNotificationsPage> {
               : RefreshIndicator(
                   onRefresh: _load,
                   child: ListView(padding: const EdgeInsets.all(16), children: [
+                    Card(
+                      color: data.active ? null : const Color(0xFFFFF8F0),
+                      child: SwitchListTile(
+                        title: Text(data.active ? 'Parent notifications are on' : 'Parent notifications are off'),
+                        subtitle: Text(data.active ? 'Parents are told automatically.' : "Nothing is sent to parents until you turn them on. Check parents' phone numbers first."),
+                        value: data.active,
+                        onChanged: data.canChangeSettings
+                            ? (on) async {
+                                try { await _service.saveSettings({'active': on}); await _load(); } catch (error) { if (context.mounted) _snack(context, error.toString()); }
+                              }
+                            : null,
+                      ),
+                    ),
                     for (final warning in data.warnings)
                       Container(
                         margin: const EdgeInsets.only(bottom: 12),
