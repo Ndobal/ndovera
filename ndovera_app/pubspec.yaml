@@ -41,6 +41,8 @@ dependencies:
   http: ^1.6.0
   shared_preferences: ^2.5.5
   url_launcher: ^6.3.2
+  ndovera_birthdays:
+    path: ../ndovera_birthdays
 
 dev_dependencies:
   flutter_test:

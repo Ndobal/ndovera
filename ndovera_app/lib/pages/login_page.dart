@@ -323,6 +323,8 @@ class WelcomePage extends StatelessWidget {
                 const SizedBox(height: 20),
                 if (u != null && ['owner', 'hos', 'accountant', 'admin', 'bursar'].contains(u.role))
                   FilledButton.icon(onPressed: () => context.go('/notifications/school'), icon: const Icon(Icons.campaign), label: const Text('Parent notifications')),
+                if (u != null && (u.tenantId ?? '').isNotEmpty && u.role != 'ami')
+                  OutlinedButton.icon(onPressed: () => context.go('/birthdays'), icon: const Icon(Icons.cake), label: const Text('Birthdays')),
                 if (u != null && u.role == 'teacher')
                   FilledButton.icon(onPressed: () => context.go('/notifications/classes'), icon: const Icon(Icons.campaign), label: const Text('Parent notifications for my classes')),
                 if (u != null && u.role == 'parent')

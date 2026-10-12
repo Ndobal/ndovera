@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 
+import 'pages/birthdays_page.dart';
 import 'pages/communications_pages.dart';
 import 'pages/growth_partners_page.dart';
 import 'pages/home_page.dart';
@@ -26,6 +27,7 @@ final GoRouter appRouter = GoRouter(
     GoRoute(path: '/notifications', builder: (_, _) => const ParentNotificationsPage()),
     GoRoute(path: '/notifications/admin', builder: (_, _) => const SuperAdminCommunicationsPage()),
     GoRoute(path: '/notifications/classes', builder: (_, _) => const TeacherNotificationsPage()),
+    GoRoute(path: '/birthdays', builder: (_, _) => const BirthdaysPage()),
 
     // Tenant school site.
     GoRoute(path: '/tenant', builder: (_, _) => const TenantHomePage()),
