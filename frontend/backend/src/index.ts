@@ -402,6 +402,11 @@ import {
   scheduleAssignmentDigest, scheduleDeadlineReminders, scheduleFeeReminders, ensureEngineTables, type CommDeps, type CommEvent, type Scope,
 } from './commEngine'
 import { parseMetaStatuses, verifyMetaSignature } from './commAdapters'
+import {
+  BirthdayError, cardSvg, celebrationDetail, consentStatus as birthdayConsentStatus, decideWish, getSettings as getBirthdaySettings, listWishes, memories as birthdayMemories,
+  moderationQueue, reportWish, runDueBirthdays, saveSettings as saveBirthdaySettings, sendWish, setConsent as setBirthdayConsent, suggestion as birthdaySuggestion, todayFeed,
+  type BirthdayDeps, type Viewer as BirthdayViewer,
+} from './birthdays'
 import { findAnswer, rawAi, rememberAnswer, withKnowledgePool } from './knowledgePool'
 import { AI_PAY_START, AiPayError, chargeGeneration, kindOfAssessment, kindOfMaterial, latestRegeneration, walletSummary } from './aiPay'
 import type { ChargeInput } from './aiPay'
@@ -6306,7 +6311,7 @@ app.use('*', cors({
   },
   allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowHeaders: ['Content-Type', 'Authorization'],
-  exposeHeaders: ['X-Refresh-Token'],
+  exposeHeaders: ['X-Refresh-Token', 'X-School-Id'],
   credentials: true,
 }))
 
@@ -33110,6 +33115,106 @@ async function runCommunications(env: Bindings) {
   }
 }
 
+// ─── Birthday celebrations (ndovera_birthdays/README.md) ────────────────────
+// Every response names the verified school (X-School-Id) and is never cached.
+
+const BIRTHDAY_ADMIN_ROLES = ['owner', 'hos']
+
+async function birthdayViewer(c: any): Promise<BirthdayViewer> {
+  const { tenantId, actor } = await resolveSubmissionActor(c.env.APP_DB, c.var.user || {})
+  if (!tenantId) throw new BirthdayError('No school.', 403)
+  return { schoolId: tenantId, userId: String(actor.id), name: String(actor.name || ''), role: String(actor.role || '') }
+}
+
+function birthdayHeaders(c: any, viewer: BirthdayViewer) {
+  c.header('X-School-Id', viewer.schoolId)
+  c.header('Cache-Control', 'private, no-store')
+}
+
+function birthdayFailure(c: any, error: unknown) {
+  c.header('Cache-Control', 'private, no-store')
+  if (error instanceof BirthdayError) return c.json({ success: false, message: error.message }, error.status as any)
+  console.error('Birthdays failed', error)
+  return c.json({ success: false, message: 'Birthday service unavailable. Please try again.' }, 500)
+}
+
+function birthdayDeps(env: Bindings): BirthdayDeps {
+  return {
+    db: env.APP_DB,
+    schoolName: async schoolId => String((await getTenantById(env.APP_DB, schoolId))?.schoolName || 'Our school'),
+    // One short text call per birthday per year (stored); the written library covers any failure.
+    runAi: env.AI ? async prompt => extractWorkersAiText(await (env.AI as any).run(WORKERS_AI_MODEL, { messages: [{ role: 'user', content: prompt }], max_tokens: 90, temperature: 0.8 })) : null,
+  }
+}
+
+const birthdayRoute = (handler: (c: any, viewer: BirthdayViewer) => Promise<any>) => async (c: any) => {
+  try {
+    const viewer = await birthdayViewer(c)
+    birthdayHeaders(c, viewer)
+    return await handler(c, viewer)
+  } catch (error) { return birthdayFailure(c, error) }
+}
+
+app.get('/api/birthdays/today', authenticate, birthdayRoute(async (c, viewer) => c.json({ items: await todayFeed(c.env.APP_DB, viewer) })))
+app.get('/api/birthdays/memories', authenticate, birthdayRoute(async (c, viewer) => c.json({ items: await birthdayMemories(c.env.APP_DB, viewer) })))
+
+app.get('/api/birthdays/settings', authenticate, birthdayRoute(async (c, viewer) => {
+  if (!BIRTHDAY_ADMIN_ROLES.includes(viewer.role)) throw new BirthdayError('Only the Owner or Head of School can change birthday settings.', 403)
+  return c.json(await getBirthdaySettings(c.env.APP_DB, viewer.schoolId))
+}))
+app.put('/api/birthdays/settings', authenticate, birthdayRoute(async (c, viewer) => {
+  if (!BIRTHDAY_ADMIN_ROLES.includes(viewer.role)) throw new BirthdayError('Only the Owner or Head of School can change birthday settings.', 403)
+  return c.json(await saveBirthdaySettings(c.env.APP_DB, viewer.schoolId, await c.req.json().catch(() => ({})), viewer.name))
+}))
+
+app.get('/api/birthdays/moderation', authenticate, birthdayRoute(async (c, viewer) => c.json({ items: await moderationQueue(c.env.APP_DB, viewer) })))
+app.post('/api/birthdays/wishes/:wishId/decision', authenticate, birthdayRoute(async (c, viewer) => {
+  const body = await c.req.json().catch(() => ({})) as Record<string, any>
+  return c.json(await decideWish(c.env.APP_DB, viewer, c.req.param('wishId'), body.decision))
+}))
+
+// Consent: staff choose for themselves; a student's comes from them or a linked parent (or the school).
+app.get('/api/birthdays/my-consent', authenticate, birthdayRoute(async (c, viewer) => {
+  const status = await birthdayConsentStatus(c.env.APP_DB, viewer.schoolId, viewer.userId)
+  const kind = viewer.role === 'student' ? 'student' : 'staff'
+  let children: Array<{ id: string, name: string, celebrate: boolean }> = []
+  if (viewer.role === 'parent') {
+    const rows = ((await c.env.APP_DB.prepare(`SELECT l.student_id, u.name FROM parent_student_links l JOIN users u ON u.id = l.student_id WHERE l.tenant_id = ? AND l.parent_id = ?`).bind(viewer.schoolId, viewer.userId).all()).results || []) as Array<Record<string, string>>
+    children = await Promise.all(rows.map(async row => ({ id: String(row.student_id), name: String(row.name || ''), celebrate: (await birthdayConsentStatus(c.env.APP_DB, viewer.schoolId, String(row.student_id))) === 'granted' })))
+  }
+  return c.json({ celebrate: kind === 'staff' ? status !== 'withdrawn' : status === 'granted', kind, children })
+}))
+app.put('/api/birthdays/my-consent', authenticate, birthdayRoute(async (c, viewer) => {
+  const body = await c.req.json().catch(() => ({})) as Record<string, any>
+  return c.json({ status: await setBirthdayConsent(c.env.APP_DB, viewer.schoolId, viewer.userId, body.celebrate === true, viewer.name) })
+}))
+app.put('/api/birthdays/consent/:studentId', authenticate, birthdayRoute(async (c, viewer) => {
+  const studentId = c.req.param('studentId')
+  const linked = viewer.role === 'parent' && await c.env.APP_DB.prepare(`SELECT 1 FROM parent_student_links WHERE tenant_id = ? AND parent_id = ? AND student_id = ?`).bind(viewer.schoolId, viewer.userId, studentId).first()
+  if (!linked && !BIRTHDAY_ADMIN_ROLES.includes(viewer.role)) throw new BirthdayError("Only the student's parent or the school can change this.", 403)
+  const student = await c.env.APP_DB.prepare(`SELECT 1 FROM users WHERE id = ? AND tenantId = ?`).bind(studentId, viewer.schoolId).first()
+  if (!student) throw new BirthdayError('Student not found.', 404)
+  const body = await c.req.json().catch(() => ({})) as Record<string, any>
+  return c.json({ status: await setBirthdayConsent(c.env.APP_DB, viewer.schoolId, studentId, body.celebrate === true, viewer.name) })
+}))
+
+app.get('/api/birthdays/:id', authenticate, birthdayRoute(async (c, viewer) => c.json(await celebrationDetail(c.env.APP_DB, viewer, c.req.param('id')))))
+app.get('/api/birthdays/:id/card', authenticate, birthdayRoute(async (c, viewer) => {
+  const svg = await cardSvg({ ...birthdayDeps(c.env), bucket: c.env.UPLOADS as any }, viewer, c.req.param('id'))
+  return c.body(svg, 200, { 'Content-Type': 'image/svg+xml; charset=utf-8', 'X-School-Id': viewer.schoolId, 'Cache-Control': 'private, no-store', 'Content-Security-Policy': "default-src 'none'; img-src data:; style-src 'unsafe-inline'" })
+}))
+app.get('/api/birthdays/:id/wishes', authenticate, birthdayRoute(async (c, viewer) => c.json({ items: await listWishes(c.env.APP_DB, viewer, c.req.param('id')) })))
+app.post('/api/birthdays/:id/wishes', authenticate, birthdayRoute(async (c, viewer) => c.json(await sendWish(c.env.APP_DB, viewer, c.req.param('id'), await c.req.json().catch(() => ({}))))))
+app.post('/api/birthdays/:id/suggestions', authenticate, birthdayRoute(async (c, viewer) => {
+  const detail = await celebrationDetail(c.env.APP_DB, viewer, c.req.param('id'))
+  if (!detail.canSendWish) throw new BirthdayError('You cannot send a wish here.', 403)
+  const body = await c.req.json().catch(() => ({})) as Record<string, any>
+  // Written suggestions, rotated: no AI call (and no cost) per click.
+  return c.json({ message: birthdaySuggestion(body.style, detail.allowedStyles as string[], Date.now()) })
+}))
+app.post('/api/birthdays/:id/wishes/:wishId/report', authenticate, birthdayRoute(async (c, viewer) => c.json(await reportWish(c.env.APP_DB, viewer, c.req.param('id'), c.req.param('wishId'), await c.req.json().catch(() => ({}))))))
+
+
 export default {
   // Cron-driven background job processor (bulk people import, results distribution,
   // and the term/session transitions that must happen on their configured date
@@ -33119,6 +33224,8 @@ export default {
     ctx.waitUntil(ensureReadIndexes(env.APP_DB))
     // Parent notifications: plan, send, settle; daily reminders and summaries per school.
     ctx.waitUntil(runCommunications(env).catch(error => console.error('Notifications failed', error)))
+    // Birthdays: each enabled school's day is checked every quarter hour (one indexed query when none are enabled).
+    if (new Date().getUTCMinutes() % 15 === 0) ctx.waitUntil(runDueBirthdays(birthdayDeps(env)).catch(error => console.error('Birthdays failed', error)))
     ctx.waitUntil(runDueBulkPeopleJobs(env).catch(() => {}))
     // The harvester: new questions into the bank within a minute, a full sweep after midnight, Ndovera notes, answer keys.
     ctx.waitUntil(runHarvestTick(harvestDeps(env as any)).catch(error => console.error('Harvester failed', error)))

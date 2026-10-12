@@ -9,6 +9,7 @@ import NotificationsCenter from './features/communications/NotificationsCenter';
 import AmiCommunications from './features/communications/AmiCommunications';
 import ParentNotifications from './features/communications/ParentNotifications';
 import TeacherNotifications from './features/communications/TeacherNotifications';
+import BirthdaysPage from './features/birthdays/BirthdaysPage';
 import ExamReadinessPage from './features/material-ai/ExamReadinessPage';
 import OfflineNotesPage from './features/offline-notes/OfflineNotesPage';
 import StaffFilePage from './features/staff-file/StaffFilePage';
@@ -248,6 +249,7 @@ function AnimatedRoutes({ auth, onLogin }) {
         <Route path="/contact" element={<PublicLegalPage docKey="contact" />} />
         <Route path="/championships" element={<PublicChampionshipsPage />} />
         <Route path="/championships/:slug" element={<PublicChampionshipDetailPage />} />
+        <Route path="/roles/:role/birthdays" element={<RequireAuth auth={auth}><RouteTransition><BirthdaysPage /></RouteTransition></RequireAuth>} />
         <Route path="/roles/:role/championships" element={<RequireAuth auth={auth}><RouteTransition><ChampionshipCentre /></RouteTransition></RequireAuth>} />
         <Route path="/login" element={auth?.token ? <Navigate to={defaultAppRoute} replace /> : <LoginPage onLogin={onLogin} />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />

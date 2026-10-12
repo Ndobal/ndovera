@@ -13,6 +13,7 @@ import {
 } from '@heroicons/react/24/outline';
 import UserProfileDropdown from './UserProfileDropdown';
 import ConnectionBanner from '../offline/ConnectionBanner';
+import BirthdayStrip from '../../features/birthdays/BirthdayStrip';
 import { subscribeChanges } from '../offline/changeWatcher';
 import {
   getConversationMessages,
@@ -746,6 +747,7 @@ export default function DashboardTopBar({ authUser = null, onLogout = () => {}, 
         </>
       )}
       <ConnectionBanner />
+      {roleKey !== 'ami' && <BirthdayStrip roleKey={roleKey} />}
     </header>
       {typeof window !== 'undefined' && window.location.pathname.startsWith('/roles/') ? (
         <div className="px-4 md:px-6">
