@@ -367,6 +367,7 @@ import {
   CLOSURE_CATEGORIES, ClosureError, acknowledgeClosure, dueClosures, forgetTenantClosure, getActiveClosure, isTenantClosed, listClosureHistory,
   listClosuresForAdmin, markExecuted, markReopened, requestClosure, revokeClosure,
 } from './schoolClosure'
+import { botGate } from './botPolicy.js'
 import {
   Enrollment, TermRef, accountSummaries, addStudentCharge, adjustStudent, billStudents, canEditFees, getFeeSettings, getTermGrid, getTermLock,
   gridFromFeeConfig, listFeeTerms, lockTerm, resolveClassMove, saveFeeSettings, saveTermGrid, studentStatement, unbilledStudents, unlockTerm,
@@ -33420,6 +33421,13 @@ export default {
     }
   },
   async fetch(request: Request, rawEnv: Bindings, ctx: ExecutionContext): Promise<Response> {
+    // Bots other than the search and AI crawlers we welcome are turned away here, before
+    // any database read; welcome crawlers only reach public pages (see botPolicy.js).
+    // BOT_GATE = "off" in wrangler.toml switches it off without a code change.
+    if ((rawEnv as any).BOT_GATE === 'on') {
+      const blocked = botGate(request)
+      if (blocked) return blocked
+    }
     const env = withPooledEnv(rawEnv)
     const url = new URL(request.url)
     const hostname = normalizeHostname(url.hostname)

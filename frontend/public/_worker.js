@@ -10,6 +10,9 @@
 // engines and Bing largely do not — they read the HTML as served. Rewriting here means every
 // public page is correctly described whether or not the crawler runs JavaScript.
 
+// The same bot policy as the API Worker (one copy; wrangler bundles it at deploy).
+import { botGate } from '../backend/src/botPolicy.js';
+
 const SITE_ORIGIN = 'https://ndovera.com';
 const DEFAULT_IMAGE = `${SITE_ORIGIN}/android-chrome-512x512.png`;
 
@@ -161,6 +164,12 @@ const noindexRewriter = () => new HTMLRewriter()
 
 export default {
   async fetch(request, env) {
+    // Bots other than the welcome search and AI crawlers are turned away; those crawlers
+    // see the public pages only. A Pages variable BOT_GATE = "off" switches this off.
+    if (env.BOT_GATE !== 'off') {
+      const blocked = botGate(request);
+      if (blocked) return blocked;
+    }
     const url = new URL(request.url);
     const isDocumentRequest = request.method === 'GET' || request.method === 'HEAD';
     const looksLikeStaticAsset = /\.[^/]+$/.test(url.pathname);

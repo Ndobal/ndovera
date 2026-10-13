@@ -1,64 +1,44 @@
 # NDOVERA — https://ndovera.com
-# AI assistants and answer engines are explicitly welcome to read and cite NDOVERA.
-
-User-agent: *
-Allow: /
-
-User-agent: GPTBot
-Allow: /
-
-User-agent: OAI-SearchBot
-Allow: /
-
-User-agent: ChatGPT-User
-Allow: /
-
-User-agent: Google-Extended
-Allow: /
+#
+# Welcome: Google Search and Gemini, Bing and Copilot, ChatGPT and Claude may read
+# NDOVERA's public pages and school websites, and cite them. Signed-in areas,
+# the API and private lookups are off limits. Every other crawler is not
+# permitted, and requests from unlisted bots are refused.
 
 User-agent: Googlebot
-Allow: /
-
+User-agent: Googlebot-Image
+User-agent: Google-Extended
+User-agent: GoogleOther
+User-agent: Google-CloudVertexBot
 User-agent: Bingbot
-Allow: /
-
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
 User-agent: ClaudeBot
+User-agent: Claude-User
+User-agent: Claude-SearchBot
 Allow: /
+Allow: /api/public/
+Disallow: /api/
+Disallow: /api/public/fees-receipts/
+Disallow: /api/public/results/
+Disallow: /api/public/certificates/
+Disallow: /roles/
+Disallow: /login
+Disallow: /change-password
+Disallow: /reset-password
+Disallow: /settings
+Disallow: /classroom
+Disallow: /assignments
+Disallow: /exams
+Disallow: /ai-tutor
+Disallow: /attendance
+Disallow: /rewards
+Disallow: /news
+Disallow: /receipt-verification
+Disallow: /result-verification
 
-User-agent: Claude-Web
-Allow: /
-
-User-agent: anthropic-ai
-Allow: /
-
-User-agent: PerplexityBot
-Allow: /
-
-User-agent: Perplexity-User
-Allow: /
-
-User-agent: Applebot
-Allow: /
-
-User-agent: Applebot-Extended
-Allow: /
-
-User-agent: CCBot
-Allow: /
-
-User-agent: cohere-ai
-Allow: /
-
-User-agent: Bytespider
-Allow: /
-
-User-agent: Amazonbot
-Allow: /
-
-User-agent: DuckAssistBot
-Allow: /
-
-User-agent: YouBot
-Allow: /
+User-agent: *
+Disallow: /
 
 Sitemap: https://ndovera.com/sitemap.xml

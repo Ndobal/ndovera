@@ -23,6 +23,43 @@ Ndovera separates academic history from current operation. A new term or session
 
 Run `npm test` for academic, material, assignment-ledger, supervision, stream-security, role-permission and subject-rename coverage (the last runs requests through the bundled Worker against the D1 shim).
 
+## Bots and crawlers
+
+[botPolicy.js](./src/botPolicy.js) runs first in both this Worker (school sites, custom domains, `/api`) and the ndovera.com Pages worker (`../public/_worker.js`):
+
+- **People and the NDOVERA apps** (browsers, the Flutter app's `Dart/… (dart:io)`) are never affected.
+- **Welcome crawlers** — Google (Search, Gemini), Bing/Copilot, ChatGPT, Claude, and link-preview fetchers (WhatsApp, Facebook, X, LinkedIn, Telegram, Slack, Discord) — may `GET` public pages, school websites, `/files/*` and `/api/public/*` (not receipts, results or certificates). The app, sign-in pages and the rest of the API answer 403.
+- **Every other bot**, scraper or script answers 403 before any database read. `/robots.txt`, `/api/webhooks/*` and the YouTube OAuth callback always get through.
+- Switch off: `BOT_GATE = "off"` in `wrangler.toml` (API Worker), or a Pages variable `BOT_GATE = off` (ndovera.com).
+
+User-Agents can be faked, and a blocked request still counts as a Worker request. To stop bots before the Workers run, add this Cloudflare WAF custom rule (Security → WAF → Custom rules → Action: **Block**), which also checks that a crawler claiming to be Google, Bing, OpenAI or Anthropic really is one (`cf.client.bot`, verified by Cloudflare):
+
+```
+(
+  http.user_agent eq ""
+  or lower(http.user_agent) contains "bot" or lower(http.user_agent) contains "crawl"
+  or lower(http.user_agent) contains "spider" or lower(http.user_agent) contains "scrap"
+  or lower(http.user_agent) contains "python" or lower(http.user_agent) contains "curl/"
+  or lower(http.user_agent) contains "wget" or lower(http.user_agent) contains "headless"
+  or lower(http.user_agent) contains "httpclient" or lower(http.user_agent) contains "go-http-client"
+)
+and not (cf.client.bot and (
+  lower(http.user_agent) contains "google" or lower(http.user_agent) contains "bingbot"
+  or lower(http.user_agent) contains "bingpreview" or lower(http.user_agent) contains "adidxbot"
+  or lower(http.user_agent) contains "gptbot" or lower(http.user_agent) contains "oai-searchbot"
+  or lower(http.user_agent) contains "chatgpt" or lower(http.user_agent) contains "claude"
+  or lower(http.user_agent) contains "twitterbot" or lower(http.user_agent) contains "linkedinbot"
+  or lower(http.user_agent) contains "telegrambot" or lower(http.user_agent) contains "slackbot"
+  or lower(http.user_agent) contains "discordbot"
+))
+and not lower(http.user_agent) contains "cubot"
+and not starts_with(http.request.uri.path, "/api/webhooks/")
+and not starts_with(http.request.uri.path, "/api/integrations/youtube/callback")
+and http.request.uri.path ne "/robots.txt"
+```
+
+Leave "Block AI bots" off (it blocks GPTBot and ClaudeBot), and do not enable Bot Fight Mode without testing the mobile app: it cannot be skipped for `/api` on the free plan.
+
 ## What It Handles
 
 - `/api/login` and settings-based authentication
