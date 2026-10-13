@@ -1325,10 +1325,24 @@ export async function listSessionEnrollments(db: D1Database, options: {
     filters.push('status = ?')
     bindings.push(options.status)
   }
+  const read = (where: string[], args: unknown[]) => db.prepare(
+    `SELECT * FROM session_enrollments WHERE ${where.join(' AND ')} ORDER BY class_name, student_name`
+  ).bind(...args).all()
 
-  const rows = await db.prepare(
-    `SELECT * FROM session_enrollments WHERE ${filters.join(' AND ')} ORDER BY class_name, student_name`
-  ).bind(...bindings).all()
+  // "Active" means still at the school. A student turned off (or otherwise gone)
+  // after being enrolled keeps an active row until someone edits the register, so
+  // their account decides: they leave fee lists, class lists and promotion at
+  // once, and come back by themselves if they are restored.
+  let rows
+  if (options.status === 'active') {
+    const left = LEFT_SCHOOL_USER_STATUSES.map(() => '?').join(', ')
+    const leaver = `LOWER(COALESCE(NULLIF(TRIM(u.status), ''), 'active')) IN (${left})`
+    rows = await read(
+      [...filters, `student_id NOT IN (SELECT u.id FROM users u WHERE u.tenantId = ? AND ${leaver} UNION SELECT u.email FROM users u WHERE u.tenantId = ? AND u.email IS NOT NULL AND ${leaver})`],
+      [...bindings, options.tenantId, ...LEFT_SCHOOL_USER_STATUSES, options.tenantId, ...LEFT_SCHOOL_USER_STATUSES],
+    ).catch(() => null)
+  }
+  if (!rows) rows = await read(filters, bindings)
 
   return ((rows.results || []) as Record<string, any>[]).map(mapEnrollmentRow)
 }

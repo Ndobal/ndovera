@@ -315,6 +315,10 @@ export async function issueBills(db: D1Database, options: {
   tenantId: string, structureId: string, actor: Actor,
   students: Array<{ studentId: string, studentName: string }>,
   legacyBilledStudentIds: Set<string>,
+  // A student's own amount for an item, when it differs from the class's (0: they do not pay it).
+  amountFor?: (studentId: string, itemName: string) => number | undefined,
+  // Items only some students in the class pay (the class amount is nothing).
+  extraItems?: (studentId: string) => Array<{ name: string, amount: number, frequency: string }>,
 }) {
   const structure = await getStructure(db, options.tenantId, options.structureId)
   if (!structure) throw new FinanceError('Fee structure not found.', 404)
@@ -328,8 +332,21 @@ export async function issueBills(db: D1Database, options: {
   for (const student of options.students) {
     // The earlier system already billed this student for this term: never bill twice.
     if (options.legacyBilledStudentIds.has(student.studentId)) { skippedLegacy.push(student.studentName || student.studentId); continue }
+    const lines: Array<{ id: string | null, name: string, amount: number, frequency: string }> = []
     for (const item of structure.items) {
+      const own = options.amountFor?.(student.studentId, item.name)
+      if (own !== undefined) {
+        if (own > 0) lines.push({ id: item.id, name: item.name, amount: own, frequency: item.frequency })
+        continue
+      }
       if (!item.required && !optedIn.has(`${item.id}|${student.studentId}`)) continue
+      lines.push({ id: item.id, name: item.name, amount: item.amount, frequency: item.frequency })
+    }
+    const named = new Set(structure.items.map(item => item.name.toLowerCase()))
+    for (const extra of options.extraItems?.(student.studentId) || []) {
+      if (extra.amount > 0 && !named.has(extra.name.toLowerCase())) lines.push({ id: null, name: extra.name, amount: extra.amount, frequency: extra.frequency || 'term' })
+    }
+    for (const item of lines) {
       const scope = item.frequency === 'annual' ? `session:${structure.sessionId}` : item.frequency === 'once' ? 'once' : `term:${structure.termId}`
       const billKey = `${student.studentId}|${scope}|${item.name.toLowerCase()}`
       const derived = deriveObligation(item.amount, 0, false, 0, false)

@@ -220,3 +220,114 @@ test('a term without a usable start date still splits Outstanding correctly, usi
   // 35,000 carried in from Third Term; the 50,000 paid this term counts as paid, not as a smaller outstanding.
   assert.deepEqual([ada.outstanding, ada.termFee, ada.totalPayable, ada.paid, ada.balance], [35000, 160000, 195000, 50000, 145000])
 })
+
+test('last term on the earlier Fee Template is reused exactly — class fees and every student-specific fee — then saved and billed as this term', async () => {
+  const { call, db } = await setup()
+  const now = new Date().toISOString()
+  // Third Term 2025/2026 lived in the Fee Template: JSS 1 pays 100,000 tuition + 5,000 PTA;
+  // ADA was on 80,000 tuition and no PTA; BOLA's own row equals the class amount (not special).
+  db.db.exec(`INSERT INTO fees_config (id, tenant_id, fee_type, class_id, student_id, amount, session, term, sort_order, updated_at) VALUES
+    ('f1', 'school-a', 'Tuition', 'jss1', NULL, 100000, '2025/2026', 'Third Term', 0, '${now}'),
+    ('f2', 'school-a', 'PTA', 'jss1', NULL, 5000, '2025/2026', 'Third Term', 1, '${now}'),
+    ('f3', 'school-a', 'Tuition', NULL, 'ada', 80000, '2025/2026', 'Third Term', 0, '${now}'),
+    ('f4', 'school-a', 'PTA', NULL, 'ada', 0, '2025/2026', 'Third Term', 1, '${now}'),
+    ('f5', 'school-a', 'Tuition', NULL, 'bola', 100000, '2025/2026', 'Third Term', 0, '${now}'),
+    ('f6', 'school-a', 'Transport', NULL, 'bola', 30000, '2025/2026', 'Third Term', 2, '${now}')`)
+
+  const overview = (await call('hos', 'GET', '/api/school/finance/simple/overview')).body
+  assert.deepEqual(overview.reuse.map(option => [option.sessionName, option.termName, option.origin]), [['2025/2026', 'Third Term', 'template']])
+  const source = (await call('hos', 'GET', '/api/school/finance/simple/source?termId=t26-1&from=t25-3')).body
+  assert.equal(source.found, true)
+  assert.deepEqual(source.rows.find(row => row.classId === 'jss1').amounts, { Tuition: 100000, PTA: 5000 })
+  const own = Object.fromEntries(source.students.map(row => [row.studentId, row.amounts]))
+  assert.deepEqual(own, { ada: { Tuition: 80000, PTA: 0 }, bola: { Transport: 30000 } })
+
+  // Edit (ADA now 85,000) and save as First Term's fees, carrying the student-specific fees.
+  const students = source.students.map(row => (row.studentId === 'ada' ? { ...row, amounts: { ...row.amounts, Tuition: 85000 } } : row))
+  const saved = await call('hos', 'PUT', '/api/school/finance/simple/grid', { termId: 't26-1', columns: source.columns, rows: source.rows, students })
+  assert.equal(saved.status, 200, JSON.stringify(saved.body))
+  const grid = (await call('hos', 'GET', '/api/school/finance/simple/grid?termId=t26-1')).body
+  assert.ok(grid.grid.columns.some(column => column.name === 'Transport'), 'an item only one student pays keeps its column')
+  assert.equal(grid.grid.students.length, 2)
+
+  await call('hos', 'POST', '/api/school/finance/simple/lock', { termId: 't26-1' })
+  const accounts = (await call('bursar', 'GET', '/api/school/finance/simple/accounts')).body.accounts
+  assert.equal(account(accounts, 'ada').termFee, 85000)
+  assert.equal(account(accounts, 'bola').termFee, 135000)
+
+  // A change to a billed student's own fee asks first, then is applied with a reason.
+  const changed = students.map(row => (row.studentId === 'bola' ? { ...row, amounts: { Transport: 20000 } } : row))
+  await call('hos', 'POST', '/api/school/finance/simple/lock', { termId: 't26-1', unlock: true, reason: 'transport' })
+  const asked = await call('hos', 'PUT', '/api/school/finance/simple/grid', { termId: 't26-1', columns: source.columns, rows: source.rows, students: changed })
+  assert.deepEqual([asked.status, asked.body.affectedStudents], [409, 1])
+  assert.equal((await call('hos', 'PUT', '/api/school/finance/simple/grid', { termId: 't26-1', columns: source.columns, rows: source.rows, students: changed, changeMode: 'adjust_existing' })).status, 200)
+  const bola = account((await call('bursar', 'GET', '/api/school/finance/simple/accounts')).body.accounts, 'bola')
+  assert.equal(bola.totalPayable, 125000)
+})
+
+test('reusing fees can write off earlier debts instead of carrying them in, and every write-off is recorded', async () => {
+  const { call, db } = await setup()
+  await lastTerm(call)
+  await call('bursar', 'POST', '/api/school/finance/simple/accounts/ada/pay', { amount: 125000 })
+  backdate(db)
+  const before = (await call('owner', 'GET', '/api/school/finance/simple/grid?termId=t26-1')).body
+  assert.deepEqual(before.earlierDebts, { students: 2, total: 195000 })
+  assert.equal((await call('owner', 'PUT', '/api/school/finance/simple/grid', { termId: 't26-1', ...GRID, debtMode: 'write_off' })).status, 200)
+  const locked = await call('owner', 'POST', '/api/school/finance/simple/lock', { termId: 't26-1' })
+  assert.deepEqual(locked.body.writtenOff, { students: 2, amount: 195000 })
+  const ada = account((await call('bursar', 'GET', '/api/school/finance/simple/accounts')).body.accounts, 'ada')
+  assert.deepEqual([ada.outstanding, ada.totalPayable], [0, 160000])
+  const audit = db.db.prepare(`SELECT COUNT(*) AS n FROM finance_audit WHERE action = 'debts_written_off'`).get()
+  assert.equal(audit.n, 1)
+  // Once written off, the choice cannot quietly flip back.
+  await call('owner', 'POST', '/api/school/finance/simple/lock', { termId: 't26-1', unlock: true, reason: 'x' })
+  assert.equal((await call('owner', 'PUT', '/api/school/finance/simple/grid', { termId: 't26-1', ...GRID, debtMode: 'carry' })).status, 409)
+})
+
+test('a student turned off leaves the fee list and class register at once; still-owing leavers are one filter away', async () => {
+  const { call, db } = await setup()
+  await call('owner', 'PUT', '/api/school/finance/simple/grid', { termId: 't26-1', ...GRID })
+  await call('owner', 'POST', '/api/school/finance/simple/lock', { termId: 't26-1' })
+  db.db.exec(`UPDATE users SET status = 'inactive' WHERE id = 'bola'`)
+  const list = (await call('bursar', 'GET', '/api/school/finance/simple/accounts')).body.accounts
+  assert.deepEqual(list.map(item => item.studentId).sort(), ['ada', 'chi'])
+  const left = (await call('bursar', 'GET', '/api/school/finance/simple/accounts?status=left')).body.accounts
+  assert.deepEqual(left.map(item => [item.studentId, item.left]), [['bola', true]])
+  db.db.exec(`UPDATE users SET status = 'active' WHERE id = 'bola'`)
+  assert.equal((await call('bursar', 'GET', '/api/school/finance/simple/accounts')).body.accounts.length, 3)
+})
+
+test('class fees: a student in a class with an empty row is still billed their own amounts', async () => {
+  const { call } = await setup()
+  const rows = [{ classId: 'jss1', amounts: {} }, { classId: 'jss2', amounts: { Tuition: 140000 } }]
+  const saved = await call('owner', 'PUT', '/api/school/finance/simple/grid', { termId: 't26-1', columns: [{ name: 'Tuition' }], rows, students: [{ studentId: 'ada', amounts: { Tuition: 50000 } }] })
+  assert.equal(saved.status, 200, JSON.stringify(saved.body))
+  await call('owner', 'POST', '/api/school/finance/simple/lock', { termId: 't26-1' })
+  const accounts = (await call('bursar', 'GET', '/api/school/finance/simple/accounts')).body.accounts
+  assert.equal(account(accounts, 'ada').termFee, 50000)
+  assert.equal(account(accounts, 'bola').status, 'not_billed') // JSS 1 pays nothing as a class
+})
+
+test('individual student fees: each student pays only what is entered for them; class rows are just starting amounts', async () => {
+  const { call } = await setup()
+  const saved = await call('hos', 'PUT', '/api/school/finance/simple/grid', {
+    termId: 't26-1', feeMode: 'student', ...GRID,
+    students: [{ studentId: 'ada', amounts: { Tuition: 120000, Books: 20000 } }, { studentId: 'bola', amounts: { Tuition: 90000 } }],
+  })
+  assert.equal(saved.status, 200, JSON.stringify(saved.body))
+  const grid = (await call('hos', 'GET', '/api/school/finance/simple/grid?termId=t26-1')).body.grid
+  assert.equal(grid.feeMode, 'student')
+  await call('hos', 'POST', '/api/school/finance/simple/lock', { termId: 't26-1' })
+  const accounts = (await call('bursar', 'GET', '/api/school/finance/simple/accounts')).body.accounts
+  assert.deepEqual([account(accounts, 'ada').termFee, account(accounts, 'bola').termFee], [140000, 90000])
+  assert.equal(account(accounts, 'chi').status, 'not_billed') // nothing entered for CHI yet
+})
+
+test('reusing a term brings its settings and lists students who were not at the school then, for their fees to be entered', async () => {
+  const { call, db } = await setup()
+  db.db.exec(`UPDATE users SET createdAt = '2026-05-01T08:00:00.000Z' WHERE id IN ('ada', 'bola'); UPDATE users SET createdAt = '2026-09-02T08:00:00.000Z' WHERE id = 'chi'`)
+  await call('owner', 'PUT', '/api/school/finance/simple/grid', { termId: 't25-3', feeMode: 'student', ...GRID, students: [{ studentId: 'ada', amounts: { Tuition: 100000 } }] })
+  const source = (await call('owner', 'GET', '/api/school/finance/simple/source?termId=t26-1&from=t25-3')).body
+  assert.equal(source.feeMode, 'student')
+  assert.deepEqual(source.newStudents.map(student => student.studentId), ['chi'])
+})

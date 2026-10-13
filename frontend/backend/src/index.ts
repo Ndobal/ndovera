@@ -369,7 +369,7 @@ import {
 } from './schoolClosure'
 import {
   Enrollment, TermRef, accountSummaries, addStudentCharge, adjustStudent, billStudents, canEditFees, getFeeSettings, getTermGrid, getTermLock,
-  listFeeTerms, lockTerm, resolveClassMove, saveFeeSettings, saveTermGrid, studentStatement, unbilledStudents, unlockTerm,
+  gridFromFeeConfig, listFeeTerms, lockTerm, resolveClassMove, saveFeeSettings, saveTermGrid, studentStatement, unbilledStudents, unlockTerm,
 } from './feeEngine'
 import {
   CurriculumError, EXAM_CATALOG, addCurriculumTopics, addSpecTopics, autoMapSpec, curriculaForSchool, curriculumImportPrompt, deleteCurriculum,
@@ -17924,13 +17924,67 @@ app.delete('/api/people/:userId', authenticate, async (c) => {
     if (existingUser?.email) {
       const settings = await getSettings(c.env.APP_DB, existingUser.email).catch(() => null)
       if (settings) {
-        await upsertSettings(c.env.APP_DB, existingUser.email, { ...settings, status: 'inactive' })
+        await upsertSettings(c.env.APP_DB, existingUser.email, { ...settings, status: 'inactive', deactivatedAt: new Date().toISOString(), deactivatedBy: c.var.user?.name || c.var.user?.id || '' })
       }
     }
     await addAudit(c.env.APP_DB, tenantId, { action: 'personDeactivated', data: { by: c.var.user.id, userId } })
     return c.json({ success: true })
   } catch (err) {
     return c.json({ error: 'Could not deactivate person.' }, 500)
+  }
+})
+
+// Statuses that mean a student is no longer at the school (see academicSessions).
+const PAST_STUDENT_STATUSES = ['inactive', 'alumni', 'graduated', 'withdrawn', 'transferred', 'archived']
+
+/** Students who have been turned off or have left, for the Owner/HOS to review and restore. */
+app.get('/api/people/past-students', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos', 'ict', 'ict_manager'])) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  try {
+    await ensureUsersTable(c.env.APP_DB)
+    const rows = await c.env.APP_DB.prepare(
+      `SELECT id, name, email, role, status, createdAt FROM users
+       WHERE tenantId = ? AND lower(COALESCE(role, '')) = 'student' AND lower(trim(COALESCE(status, ''))) IN (${PAST_STUDENT_STATUSES.map(() => '?').join(', ')})
+       ORDER BY name LIMIT 2000`
+    ).bind(tenantId, ...PAST_STUDENT_STATUSES).all()
+    const pageRows = (rows.results || []) as Record<string, any>[]
+    const settingsMap = await getSettingsMapForUserRows(c.env.APP_DB, pageRows)
+    const students = pageRows.map(row => {
+      const settings = settingsMap.get(String(row.email || '').trim()) || settingsMap.get(String(row.id || '').trim()) || {}
+      return {
+        id: row.id, name: row.name || settings.name || row.email || row.id, email: row.email || '', status: String(row.status || 'inactive'),
+        className: settings.className || '', displayId: settings.publicStudentId || settings.displayId || '',
+        leftAt: settings.deactivatedAt || null, leftBy: settings.deactivatedBy || '',
+      }
+    })
+    return c.json({ success: true, students })
+  } catch (err) {
+    return c.json({ error: 'Could not load past students.' }, 500)
+  }
+})
+
+/** Bring a past student back: they can sign in again and rejoin the register, fee lists and classes. */
+app.post('/api/people/:userId/restore', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos', 'ict', 'ict_manager'])) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = c.var.user?.tenantId
+  const userId = c.req.param('userId')
+  try {
+    await ensureUsersTable(c.env.APP_DB)
+    const existingUser = await c.env.APP_DB.prepare(`SELECT id, email, status FROM users WHERE id = ? AND tenantId = ?`).bind(userId, tenantId).first() as any
+    if (!existingUser) return c.json({ error: 'Person not found.' }, 404)
+    await c.env.APP_DB.prepare(`UPDATE users SET status = 'active' WHERE id = ? AND tenantId = ?`).bind(userId, tenantId).run()
+    const settingsKey = existingUser.email || existingUser.id
+    const settings = await getSettings(c.env.APP_DB, settingsKey).catch(() => null)
+    if (settings) {
+      const { deactivatedAt, deactivatedBy, ...rest } = settings as Record<string, any>
+      await upsertSettings(c.env.APP_DB, settingsKey, { ...rest, status: 'active', restoredAt: new Date().toISOString() })
+    }
+    await addAudit(c.env.APP_DB, tenantId, { action: 'personRestored', data: { by: c.var.user.id, userId, previousStatus: existingUser.status || '' } })
+    return c.json({ success: true })
+  } catch (err) {
+    return c.json({ error: 'Could not restore this person.' }, 500)
   }
 })
 
@@ -31999,7 +32053,7 @@ app.get('/api/school/finance/simple/overview', authenticate, async (c) => {
     return c.json({
       success: true, period: context.period, term, configured: grid.configured, locked: grid.lock.locked, lock: grid.lock,
       cards: { expected, collected, outstanding, collectionRate: expected > 0 ? Math.round((collected / expected) * 1000) / 10 : 0 },
-      counts: { students: accounts.filter(account => account.status !== 'not_billed').length, owing: accounts.filter(account => account.balance > 0).length, unbilled, classMoves: accounts.filter(account => account.classMove).length },
+      counts: { students: accounts.filter(account => !account.left && account.status !== 'not_billed').length, owing: accounts.filter(account => !account.left && account.balance > 0).length, unbilled, classMoves: accounts.filter(account => account.classMove).length },
       reuse: reuse.slice(0, 6), canEditFees: context.canEditFees, canRecordPayments: hasRequiredRole(context.role, FEE_PAYMENT_APPROVER_ROLES),
     })
   } catch (error) {
@@ -32018,7 +32072,19 @@ app.get('/api/school/finance/simple/grid', authenticate, async (c) => {
     for (const session of await listSessions(context.db, context.tenantId).catch(() => [] as any[])) {
       for (const item of await listTerms(context.db, context.tenantId, session.id).catch(() => [] as any[])) terms.push({ id: item.id, name: item.name, sessionName: session.name, status: item.status })
     }
-    return c.json({ success: true, grid, terms, reuse: (await listFeeTerms(context.db, context.tenantId)).filter(option => option.termId !== term.id), settings: context.settings, canEditFees: context.canEditFees })
+    // The register (for adding a student-specific fee) and what students owe from earlier terms.
+    const enrollments = await termEnrollments(context.db, context.tenantId, term.sessionId, context.actor.id)
+    let earlierDebts = null
+    if (!grid.lock.locked) {
+      const accounts = await accountSummaries(context.db, context.tenantId, { termId: term.id, termStart: term.startDate }, enrollments)
+      const owing = accounts.filter(account => !account.left && account.outstanding > 0)
+      earlierDebts = { students: owing.length, total: money(owing.reduce((sum, account) => sum + account.outstanding, 0)) }
+    }
+    return c.json({
+      success: true, grid, terms, reuse: (await listFeeTerms(context.db, context.tenantId)).filter(option => option.termId !== term.id),
+      students: enrollments.map(row => ({ studentId: row.studentId, studentName: row.studentName, classId: row.classId, className: row.className })),
+      earlierDebts, settings: context.settings, canEditFees: context.canEditFees,
+    })
   } catch (error) {
     return financeFailure(c, error, 'Could not load the fees.')
   }
@@ -32052,13 +32118,111 @@ app.get('/api/school/finance/simple/template', authenticate, async (c) => {
   }
 })
 
+/**
+ * Another term's fees, ready to edit as this term's: the class table and every
+ * student-specific fee, exactly as they were. Fees set up here are copied as
+ * they are; a term run on the earlier Fee Template is read from it. Nothing is
+ * saved until the school presses Save.
+ */
+app.get('/api/school/finance/simple/source', authenticate, async (c) => {
+  try {
+    const context = await simpleFeeContext(c, c.req.query('termId'))
+    if (!hasRequiredRole(context.role, FINANCE_VIEW_ROLES)) return c.json({ success: false, message: 'forbidden' }, 403)
+    const target = requireTerm(context.term)
+    const db = context.db
+    let source: TermRef | null = null
+    let sourceEnd = ''
+    const fromId = String(c.req.query('from') || '').trim()
+    if (fromId) {
+      const termRow = await getTermById(db, context.tenantId, fromId)
+      const session = termRow ? await getSessionById(db, context.tenantId, termRow.sessionId) : null
+      if (termRow && session) source = { id: termRow.id, name: termRow.name, sessionId: session.id, sessionName: session.name }
+      sourceEnd = /^\d{4}-\d{2}-\d{2}/.test(String(termRow?.endDate || '')) ? `${String(termRow?.endDate).slice(0, 10)}T23:59:59.999Z` : ''
+    }
+    let feeMode = 'class'
+    const register = await termEnrollments(db, context.tenantId, target.sessionId, context.actor.id)
+    const names = new Map(register.map(row => [row.studentId, row.studentName]))
+    let table: { columns: Array<{ name: string, required: boolean, frequency: string }>, rows: Array<{ classId: string, amounts: Record<string, number> }>, students: Array<{ studentId: string, studentName: string, amounts: Record<string, number> }> } | null = null
+    let origin = ''
+    let label = ''
+    if (source && (await listStructures(db, context.tenantId, { termId: source.id })).length) {
+      const grid = await getTermGrid(db, context.tenantId, source, context.classes)
+      table = { columns: grid.columns, rows: grid.rows.map(row => ({ classId: row.classId, amounts: row.amounts })), students: grid.students }
+      feeMode = grid.feeMode
+      origin = 'fees'
+      label = `${source.sessionName} ${source.name}`
+    }
+    if (!table) {
+      // The earlier Fee Template: the chosen term's, or the most recently saved one.
+      let period = source ? { sessionName: source.sessionName, termName: source.name, sessionId: source.sessionId } : null
+      if (!period) {
+        const latest = await db.prepare(`SELECT session, term FROM fees_config WHERE tenant_id = ? ORDER BY updated_at DESC LIMIT 1`).bind(context.tenantId).first().catch(() => null) as Record<string, any> | null
+        if (latest) {
+          const match = await db.prepare(`SELECT s.id FROM academic_sessions s WHERE s.tenant_id = ? AND lower(trim(s.name)) = lower(trim(?)) LIMIT 1`).bind(context.tenantId, String(latest.session || '')).first().catch(() => null) as Record<string, any> | null
+          period = { sessionName: String(latest.session || ''), termName: String(latest.term || ''), sessionId: String(match?.id || '') }
+          const termMatch = match ? await db.prepare(`SELECT end_date FROM academic_terms WHERE tenant_id = ? AND session_id = ? AND lower(trim(name)) = lower(trim(?)) LIMIT 1`).bind(context.tenantId, match.id, period.termName).first().catch(() => null) as Record<string, any> | null : null
+          if (/^\d{4}-\d{2}-\d{2}/.test(String(termMatch?.end_date || ''))) sourceEnd = `${String(termMatch!.end_date).slice(0, 10)}T23:59:59.999Z`
+        }
+      }
+      const configRows = period ? await loadFeeConfigForPeriod(db, { tenantId: context.tenantId, sessionName: period.sessionName, termName: period.termName }).catch(() => [] as any[]) : []
+      if (period && configRows.length) {
+        // A student's own amounts were written against the class they were in then.
+        const studentClass = new Map(register.map(row => [row.studentId, row.classId]))
+        if (period.sessionId && period.sessionId !== target.sessionId) {
+          for (const row of await listSessionEnrollments(db, { tenantId: context.tenantId, sessionId: period.sessionId }).catch(() => [] as any[])) {
+            if (row.classId) studentClass.set(row.studentId, row.classId)
+          }
+        }
+        table = gridFromFeeConfig(configRows as Record<string, any>[], context.classes, studentClass, names)
+        origin = 'template'
+        label = `${period.sessionName} ${period.termName}`.trim()
+      }
+    }
+    if (!table) return c.json({ success: true, found: false })
+    // Students who have left are not carried into the new term.
+    const students = table.students.filter(row => names.has(row.studentId)).map(row => ({ ...row, studentName: names.get(row.studentId) || row.studentName }))
+
+    // Students who were not at the school that term: listed for the school to enter their fees.
+    // Known from that term: anyone on its register, billed for it, with their own fees then,
+    // or whose account existed by the time it ended.
+    const known = new Set<string>(table.students.map(row => row.studentId))
+    if (source) {
+      const [enrolled, billedThen, legacyThen] = await Promise.all([
+        db.prepare(`SELECT student_id FROM session_enrollments WHERE tenant_id = ? AND session_id = ?${sourceEnd ? ' AND created_at <= ?' : ''}`).bind(context.tenantId, source.sessionId, ...(sourceEnd ? [sourceEnd] : [])).all().catch(() => ({ results: [] })),
+        db.prepare(`SELECT DISTINCT student_id FROM fee_obligations WHERE tenant_id = ? AND term_id = ?`).bind(context.tenantId, source.id).all().catch(() => ({ results: [] })),
+        db.prepare(`SELECT DISTINCT student_id FROM fee_assessments WHERE tenant_id = ? AND term_id = ?`).bind(context.tenantId, source.id).all().catch(() => ({ results: [] })),
+      ])
+      for (const row of [...(enrolled.results || []), ...(billedThen.results || []), ...(legacyThen.results || [])] as Record<string, any>[]) known.add(String(row.student_id))
+    }
+    if (sourceEnd) {
+      const accounts = await db.prepare(`SELECT id, createdAt FROM users WHERE tenantId = ? AND lower(COALESCE(role, '')) = 'student'`).bind(context.tenantId).all().catch(() => ({ results: [] }))
+      for (const row of (accounts.results || []) as Record<string, any>[]) {
+        // No creation date: assume they were here rather than flag the whole school.
+        if (!row.createdAt || String(row.createdAt) <= sourceEnd) known.add(String(row.id))
+      }
+    } else if (!source) {
+      // Nothing says when that template's term was: do not guess who is new.
+      register.forEach(row => known.add(row.studentId))
+    }
+    const newStudents = register.filter(row => !known.has(row.studentId)).map(row => ({ studentId: row.studentId, studentName: row.studentName, classId: row.classId, className: row.className }))
+
+    return c.json({ success: true, found: true, origin, label, feeMode, columns: table.columns, rows: table.rows, students, newStudents, leftOut: table.students.length - students.length })
+  } catch (error) {
+    return financeFailure(c, error, 'Could not load those fees.')
+  }
+})
+
 app.put('/api/school/finance/simple/grid', authenticate, async (c) => {
   try {
     const body = await c.req.json().catch(() => ({})) as Record<string, any>
     const context = await simpleFeeContext(c, body.termId)
     if (!context.canEditFees) return c.json({ success: false, message: `Only ${context.settings.editors.map(role => ({ owner: 'the Owner', hos: 'the Head of School', accountant: 'the Accountant' } as Record<string, string>)[role]).join(', ')} can change fees.` }, 403)
     const term = requireTerm(context.term)
-    const result = await saveTermGrid(context.db, { tenantId: context.tenantId, actor: context.actor, term, classes: context.classes, input: { columns: body.columns || [], rows: body.rows || [] }, changeMode: body.changeMode })
+    const result = await saveTermGrid(context.db, {
+      tenantId: context.tenantId, actor: context.actor, term, classes: context.classes,
+      input: { columns: body.columns || [], rows: body.rows || [], ...(Array.isArray(body.students) ? { students: body.students } : {}) },
+      changeMode: body.changeMode, ...(body.debtMode ? { debtMode: String(body.debtMode) } : {}), ...(body.feeMode ? { feeMode: String(body.feeMode) } : {}),
+    })
     return c.json({ success: true, ...result, grid: await getTermGrid(context.db, context.tenantId, term, context.classes) })
   } catch (error) {
     return financeFailure(c, error, 'Could not save the fees.')
@@ -32114,8 +32278,14 @@ app.get('/api/school/finance/simple/accounts', authenticate, async (c) => {
     const status = String(c.req.query('status') || '')
     if (q) accounts = accounts.filter(account => account.studentName.toLowerCase().includes(q) || account.studentId.toLowerCase().includes(q))
     if (classId) accounts = accounts.filter(account => account.classId === classId)
-    if (status === 'owing') accounts = accounts.filter(account => account.balance > 0)
-    else if (status) accounts = accounts.filter(account => account.status === status)
+    // Students who have left (turned off, withdrawn) stay out of the everyday list;
+    // the ones still owing are one filter away, because the debt is still real.
+    if (status === 'left') accounts = accounts.filter(account => account.left)
+    else {
+      accounts = accounts.filter(account => !account.left)
+      if (status === 'owing') accounts = accounts.filter(account => account.balance > 0)
+      else if (status) accounts = accounts.filter(account => account.status === status)
+    }
     accounts.sort((a, b) => a.className.localeCompare(b.className) || a.studentName.localeCompare(b.studentName))
     return c.json({ success: true, term, accounts: accounts.map(({ outstandingSources, ...rest }) => rest) })
   } catch (error) {
@@ -32142,7 +32312,10 @@ app.get('/api/school/finance/simple/accounts/:studentId', authenticate, async (c
     const account = await getStudentAccount(context.db, { tenantId: context.tenantId, studentId: enrollment.studentId, current: context.period })
     const unbilled = (await unbilledStudents(context.db, context.tenantId, term.id, [enrollment])).length > 0
     const grid = unbilled ? await getTermGrid(context.db, context.tenantId, term, context.classes) : null
-    const standardFee = grid ? Object.values(grid.rows.find(row => row.classId === enrollment.classId)?.amounts || {}).reduce((sum, value) => sum + Number(value || 0), 0) : 0
+    // What this student would be billed: their own amounts, otherwise (by class) their class's.
+    const classAmounts = grid?.rows.find(row => row.classId === enrollment.classId)?.amounts || {}
+    const ownAmounts = (grid?.students.find(row => row.studentId === enrollment.studentId)?.amounts || {}) as Record<string, number>
+    const standardFee = grid ? grid.columns.reduce((sum, column) => sum + Number(ownAmounts[column.name] ?? (grid.feeMode === 'student' ? 0 : (classAmounts as Record<string, number>)[column.name]) ?? 0), 0) : 0
     return c.json({
       success: true, term, student: enrollment, statement, classMove: summary?.classMove || null,
       receipts: account.receipts, payments: account.payments, unbilled, standardFee,

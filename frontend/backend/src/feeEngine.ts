@@ -38,8 +38,118 @@ export async function ensureFeeEngineTables(db: D1Database) {
     `CREATE TABLE IF NOT EXISTS finance_settings (tenant_id TEXT PRIMARY KEY, fee_edit_mode TEXT NOT NULL DEFAULT 'all', updated_by TEXT, updated_at TEXT)`,
     `CREATE TABLE IF NOT EXISTS fee_term_locks (tenant_id TEXT NOT NULL, term_id TEXT NOT NULL, locked INTEGER NOT NULL DEFAULT 0, locked_by TEXT, locked_at TEXT, unlocked_by TEXT, unlocked_at TEXT, PRIMARY KEY (tenant_id, term_id))`,
     `CREATE TABLE IF NOT EXISTS fee_class_moves (tenant_id TEXT NOT NULL, student_id TEXT NOT NULL, term_id TEXT NOT NULL, from_class_id TEXT, to_class_id TEXT NOT NULL, decision TEXT NOT NULL, note TEXT, decided_by TEXT, decided_at TEXT NOT NULL, PRIMARY KEY (tenant_id, student_id, term_id, to_class_id))`,
+    // A student's own amount for an item this term, in place of their class's (0: they do not pay it).
+    `CREATE TABLE IF NOT EXISTS fee_student_amounts (tenant_id TEXT NOT NULL, term_id TEXT NOT NULL, student_id TEXT NOT NULL, student_name TEXT, item TEXT NOT NULL, amount REAL NOT NULL DEFAULT 0, updated_by TEXT, updated_at TEXT, PRIMARY KEY (tenant_id, term_id, student_id, item))`,
+    // Per term: how fees are set (by class, or each student's own) and what happens
+    // to debts from earlier terms when this term's accounts are created.
+    `CREATE TABLE IF NOT EXISTS fee_term_settings (tenant_id TEXT NOT NULL, term_id TEXT NOT NULL, debt_mode TEXT NOT NULL DEFAULT 'carry', fee_mode TEXT NOT NULL DEFAULT 'class', decided_by TEXT, decided_at TEXT, written_off_at TEXT, written_off_amount REAL, written_off_students INTEGER, PRIMARY KEY (tenant_id, term_id))`,
   ]) await db.prepare(statement).run()
+  await db.prepare(`ALTER TABLE fee_term_settings ADD COLUMN fee_mode TEXT NOT NULL DEFAULT 'class'`).run().catch(() => null)
   _ready = true
+}
+
+/**
+ * How a term's fees are set:
+ *   class   — each class pays its row; students listed separately pay their own amounts instead.
+ *   student — every student pays only what is entered for them; class rows are starting amounts.
+ */
+export const FEE_MODES = ['class', 'student'] as const
+
+// ─── Students who pay differently from their class ───────────────────────────
+
+/** Per student: item (lower-case) → their own amount for this term. */
+export type StudentAmounts = Map<string, { studentName: string, amounts: Map<string, { name: string, amount: number }> }>
+
+export async function loadStudentAmounts(db: D1Database, tenantId: string, termId: string): Promise<StudentAmounts> {
+  await ensureFeeEngineTables(db)
+  const rows = await db.prepare(`SELECT * FROM fee_student_amounts WHERE tenant_id = ? AND term_id = ?`).bind(tenantId, termId).all()
+  const out: StudentAmounts = new Map()
+  for (const row of (rows.results || []) as Record<string, any>[]) {
+    const studentId = String(row.student_id)
+    const entry = out.get(studentId) || { studentName: '', amounts: new Map() }
+    entry.studentName = entry.studentName || String(row.student_name || '')
+    entry.amounts.set(String(row.item).toLowerCase(), { name: String(row.item), amount: money(row.amount) })
+    out.set(studentId, entry)
+  }
+  return out
+}
+
+/** The issueBills hooks that apply each student's own amounts (and, by student, nothing else). */
+function studentBilling(students: StudentAmounts, feeMode = 'class') {
+  return {
+    amountFor: (studentId: string, item: string) => students.get(studentId)?.amounts.get(item.toLowerCase())?.amount ?? (feeMode === 'student' ? 0 : undefined),
+    extraItems: (studentId: string) => [...(students.get(studentId)?.amounts.values() || [])].map(entry => ({ name: entry.name, amount: entry.amount, frequency: 'term' })),
+  }
+}
+
+function studentRowsOut(students: StudentAmounts) {
+  return [...students].map(([studentId, entry]) => ({ studentId, studentName: entry.studentName, amounts: Object.fromEntries([...entry.amounts.values()].map(item => [item.name, item.amount])) }))
+}
+
+// ─── Debts from earlier terms: carry them in, or write them off ──────────────
+
+export async function getDebtSettings(db: D1Database, tenantId: string, termId: string) {
+  await ensureFeeEngineTables(db)
+  const row = await db.prepare(`SELECT * FROM fee_term_settings WHERE tenant_id = ? AND term_id = ?`).bind(tenantId, termId).first() as Record<string, any> | null
+  return {
+    mode: row?.debt_mode === 'write_off' ? 'write_off' : 'carry', feeMode: row?.fee_mode === 'student' ? 'student' : 'class',
+    decidedBy: row?.decided_by || '', decidedAt: row?.decided_at || null,
+    writtenOffAt: row?.written_off_at || null, writtenOffAmount: money(row?.written_off_amount), writtenOffStudents: Number(row?.written_off_students || 0),
+  }
+}
+
+async function saveFeeMode(db: D1Database, tenantId: string, term: TermRef, feeMode: string, actor: Actor) {
+  const before = await getDebtSettings(db, tenantId, term.id)
+  if (before.feeMode === feeMode) return
+  const now = new Date().toISOString()
+  await db.batch([
+    db.prepare(`INSERT INTO fee_term_settings (tenant_id, term_id, fee_mode, decided_by, decided_at) VALUES (?, ?, ?, ?, ?) ON CONFLICT(tenant_id, term_id) DO UPDATE SET fee_mode = excluded.fee_mode, decided_by = excluded.decided_by, decided_at = excluded.decided_at`).bind(tenantId, term.id, feeMode, actor.name, now),
+    auditStatement(db, tenantId, { actor, action: 'term_fee_mode_set', sessionId: term.sessionId, termId: term.id, oldValue: before.feeMode, newValue: feeMode }),
+  ])
+}
+
+async function saveDebtMode(db: D1Database, tenantId: string, term: TermRef, mode: string, actor: Actor) {
+  const before = await getDebtSettings(db, tenantId, term.id)
+  if (before.mode === mode) return
+  if (before.writtenOffAt) throw new FinanceError(`Earlier debts were already written off for ${term.name}; that cannot be undone here.`, 409)
+  const now = new Date().toISOString()
+  await db.batch([
+    db.prepare(`INSERT INTO fee_term_settings (tenant_id, term_id, debt_mode, decided_by, decided_at) VALUES (?, ?, ?, ?, ?) ON CONFLICT(tenant_id, term_id) DO UPDATE SET debt_mode = excluded.debt_mode, decided_by = excluded.decided_by, decided_at = excluded.decided_at`).bind(tenantId, term.id, mode, actor.name, now),
+    auditStatement(db, tenantId, { actor, action: 'term_debt_mode_set', sessionId: term.sessionId, termId: term.id, oldValue: before.mode, newValue: mode }),
+  ])
+}
+
+/**
+ * Clear every balance owed from earlier terms for these students, each one
+ * recorded: new-system charges get a waiver adjustment, earlier-system term
+ * bills are marked waived. Credits (money held for a student) are kept.
+ */
+export async function writeOffEarlierDebts(db: D1Database, options: { tenantId: string, actor: Actor, term: TermRef, studentIds: string[] }) {
+  const reason = `Outstanding debts written off when ${options.term.sessionName} ${options.term.name} fees were set`
+  const now = new Date().toISOString()
+  let amount = 0
+  const students = new Set<string>()
+  // D1 allows 100 bound values per query.
+  for (let index = 0; index < options.studentIds.length; index += 80) {
+    const ledger = await loadLedger(db, options.tenantId, options.studentIds.slice(index, index + 80))
+    for (const charge of ledger.charges) {
+      if (charge.termId === options.term.id || ['cancelled', 'waived'].includes(charge.status) || !(charge.balance > 0)) continue
+      if (charge.source === 'obligation') {
+        await addAdjustment(db, { tenantId: options.tenantId, obligationId: charge.id, kind: 'waiver', amount: 0, reason, actor: options.actor })
+      } else {
+        await db.prepare(`UPDATE fee_assessments SET status = 'waived', notes = TRIM(COALESCE(notes, '') || ' ' || ?), updated_at = ? WHERE tenant_id = ? AND id = ?`).bind(reason, now, options.tenantId, (charge as any).legacyAssessmentId).run()
+      }
+      amount = money(amount + charge.balance)
+      students.add(String(charge.studentId))
+    }
+  }
+  await db.batch([
+    db.prepare(`INSERT INTO fee_term_settings (tenant_id, term_id, debt_mode, decided_by, decided_at, written_off_at, written_off_amount, written_off_students) VALUES (?, ?, 'write_off', ?, ?, ?, ?, ?)
+      ON CONFLICT(tenant_id, term_id) DO UPDATE SET debt_mode = 'write_off', written_off_at = excluded.written_off_at, written_off_amount = COALESCE(fee_term_settings.written_off_amount, 0) + excluded.written_off_amount, written_off_students = COALESCE(fee_term_settings.written_off_students, 0) + excluded.written_off_students`)
+      .bind(options.tenantId, options.term.id, options.actor.name, now, now, amount, students.size),
+    auditStatement(db, options.tenantId, { actor: options.actor, action: 'debts_written_off', sessionId: options.term.sessionId, termId: options.term.id, newValue: { students: students.size, amount }, reason }),
+  ])
+  return { students: students.size, amount }
 }
 
 export async function getFeeSettings(db: D1Database, tenantId: string) {
@@ -89,51 +199,184 @@ export async function getTermGrid(db: D1Database, tenantId: string, term: TermRe
       columns.push({ name: item.name, required: item.required, frequency: item.frequency })
     }
   }
+  const students = await loadStudentAmounts(db, tenantId, term.id)
+  // An item only some students pay still needs its column.
+  for (const entry of students.values()) {
+    for (const item of entry.amounts.values()) {
+      if (seen.has(item.name.toLowerCase())) continue
+      seen.add(item.name.toLowerCase())
+      columns.push({ name: item.name, required: true, frequency: 'term' })
+    }
+  }
   const byClass = new Map(structures.map(structure => [structure.classId, structure]))
   const rows = classes.map(klass => {
     const structure = byClass.get(klass.id)
     const amounts: Record<string, number> = {}
-    for (const item of structure?.items || []) amounts[item.name] = item.amount
+    // A class keeps every item on file (so its students can pay their own); 0 shows as blank.
+    for (const item of structure?.items || []) if (item.amount > 0) amounts[item.name] = item.amount
     return { classId: klass.id, className: klass.name, structureId: structure?.id || '', status: structure?.status || 'none', amounts }
   })
   const billed = await db.prepare(`SELECT COUNT(DISTINCT student_id) AS n FROM fee_obligations WHERE tenant_id = ? AND term_id = ? AND structure_id IS NOT NULL AND status != 'cancelled'`).bind(tenantId, term.id).first() as Record<string, any>
+  const settings = await getDebtSettings(db, tenantId, term.id)
   return {
-    term, columns, rows, configured: structures.length > 0,
+    term, columns, rows, students: studentRowsOut(students), configured: structures.length > 0, feeMode: settings.feeMode,
     lock: await getTermLock(db, tenantId, term.id),
+    debt: settings,
     billedStudents: Number(billed?.n || 0),
   }
 }
 
-/** Terms that already have fees, newest first — the "reuse" choices. */
+/**
+ * Terms whose fees can be reused, newest first: terms set up here, and terms
+ * whose fees live in the earlier Fee Template (where most schools' last term is).
+ */
 export async function listFeeTerms(db: D1Database, tenantId: string) {
   await ensureFeeEngineTables(db)
-  const rows = await db.prepare(`SELECT s.term_id, s.term_name, s.session_id, s.session_name, MAX(s.updated_at) AS updated_at, COUNT(*) AS classes, t.start_date
-    FROM fee_structures s LEFT JOIN academic_terms t ON t.id = s.term_id WHERE s.tenant_id = ? GROUP BY s.term_id, s.term_name, s.session_id, s.session_name, t.start_date
-    ORDER BY COALESCE(t.start_date, MAX(s.updated_at)) DESC`).bind(tenantId).all().catch(() => ({ results: [] }))
-  return ((rows.results || []) as Record<string, any>[]).map(row => ({ termId: row.term_id, termName: row.term_name, sessionId: row.session_id, sessionName: row.session_name, classes: Number(row.classes || 0) }))
+  const [terms, structured, template] = await Promise.all([
+    db.prepare(`SELECT t.id, t.name, t.session_id, s.name AS session_name FROM academic_terms t JOIN academic_sessions s ON s.id = t.session_id
+      WHERE t.tenant_id = ? ORDER BY s.start_date DESC, t.sequence DESC`).bind(tenantId).all().catch(() => ({ results: [] })),
+    db.prepare(`SELECT term_id, COUNT(*) AS classes FROM fee_structures WHERE tenant_id = ? GROUP BY term_id`).bind(tenantId).all().catch(() => ({ results: [] })),
+    db.prepare(`SELECT lower(trim(session)) AS session, lower(trim(term)) AS term, COUNT(DISTINCT class_id) AS classes FROM fees_config WHERE tenant_id = ? AND COALESCE(trim(term), '') != '' GROUP BY 1, 2`).bind(tenantId).all().catch(() => ({ results: [] })),
+  ])
+  const classesByTerm = new Map(((structured.results || []) as Record<string, any>[]).map(row => [String(row.term_id), Number(row.classes || 0)]))
+  const templateTerms = new Map(((template.results || []) as Record<string, any>[]).map(row => [`${row.session}|${row.term}`, Number(row.classes || 0)]))
+  const out: Array<{ termId: string, termName: string, sessionId: string, sessionName: string, classes: number, origin: 'fees' | 'template' }> = []
+  for (const row of (terms.results || []) as Record<string, any>[]) {
+    const base = { termId: String(row.id), termName: String(row.name), sessionId: String(row.session_id), sessionName: String(row.session_name) }
+    const templateKey = `${base.sessionName.trim().toLowerCase()}|${base.termName.trim().toLowerCase()}`
+    if (classesByTerm.has(base.termId)) out.push({ ...base, classes: classesByTerm.get(base.termId)!, origin: 'fees' })
+    else if (templateTerms.has(templateKey)) out.push({ ...base, classes: templateTerms.get(templateKey)!, origin: 'template' })
+  }
+  return out
 }
 
-type GridInput = { columns: Array<{ name: string, required?: boolean, frequency?: string }>, rows: Array<{ classId: string, amounts: Record<string, unknown> }> }
-
-/** What saving this table would change for students already billed. */
-async function billedImpact(db: D1Database, tenantId: string, termId: string, plan: Map<string, Map<string, number>>, existing: Map<string, NonNullable<Awaited<ReturnType<typeof getStructure>>>>) {
-  const changes: Array<{ classId: string, className: string, structureId: string, item: string, from: number, to: number, students: number }> = []
-  for (const [classId, structure] of existing) {
-    const next = plan.get(classId) || new Map<string, number>()
-    const names = new Set([...structure.items.map(item => item.name), ...next.keys()])
-    for (const name of names) {
-      const before = structure.items.find(item => item.name === name)?.amount ?? 0
-      const after = next.get(name) ?? 0
-      if (money(before) === money(after)) continue
-      const billed = await db.prepare(`SELECT COUNT(DISTINCT student_id) AS n FROM fee_obligations WHERE tenant_id = ? AND structure_id = ? AND lower(fee_item) = lower(?) AND status != 'cancelled'`).bind(tenantId, structure.id, name).first() as Record<string, any>
-      // A new item counts as affecting everyone already billed for this class.
-      const students = before === 0
-        ? Number((await db.prepare(`SELECT COUNT(DISTINCT student_id) AS n FROM fee_obligations WHERE tenant_id = ? AND structure_id = ? AND status != 'cancelled'`).bind(tenantId, structure.id).first() as Record<string, any>)?.n || 0)
-        : Number(billed?.n || 0)
-      if (students) changes.push({ classId, className: structure.className, structureId: structure.id, item: name, from: money(before), to: money(after), students })
-    }
+/**
+ * The earlier Fee Template for one term, as a fee table. A student's own row
+ * replaces their class's amount, and a class row replaces the all-classes one
+ * (as the earlier system read them). Only amounts that differ from what the
+ * student's class paid become student-specific fees; the rest follow the class.
+ */
+export function gridFromFeeConfig(configRows: Array<Record<string, any>>, classes: ClassRef[], studentClass: Map<string, string>, studentNames: Map<string, string>) {
+  const ordered = [...configRows].sort((a, b) => Number(a.sort_order ?? 0) - Number(b.sort_order ?? 0))
+  const columns: Array<{ name: string, required: boolean, frequency: string }> = []
+  const names = new Map<string, string>()
+  const all = new Map<string, number>()
+  const byClass = new Map<string, Map<string, number>>()
+  const byStudent = new Map<string, Map<string, number>>()
+  for (const row of ordered) {
+    const name = String(row.fee_type || row.feeType || '').replace(/\s+/g, ' ').trim()
+    if (!name) continue
+    const key = name.toLowerCase()
+    if (!names.has(key)) { names.set(key, name); columns.push({ name, required: true, frequency: 'term' }) }
+    const amount = money(row.amount)
+    const studentId = String(row.student_id || row.studentId || '').trim()
+    const classId = String(row.class_id || row.classId || '').trim()
+    const target = studentId ? byStudent : classId ? byClass : null
+    if (!target) { all.set(key, amount); continue }
+    const id = studentId || classId
+    const map = target.get(id) || new Map<string, number>()
+    map.set(key, amount)
+    target.set(id, map)
   }
-  return changes
+  const classAmount = (classId: string, key: string) => byClass.get(classId)?.get(key) ?? all.get(key)
+  const rows = classes.map(klass => {
+    const amounts: Record<string, number> = {}
+    for (const [key, name] of names) {
+      const amount = classAmount(klass.id, key)
+      if (amount) amounts[name] = amount
+    }
+    return { classId: klass.id, amounts }
+  })
+  const students: Array<{ studentId: string, studentName: string, amounts: Record<string, number> }> = []
+  for (const [studentId, items] of byStudent) {
+    const classId = studentClass.get(studentId) || ''
+    const amounts: Record<string, number> = {}
+    for (const [key, amount] of items) {
+      const usual = classId ? classAmount(classId, key) : undefined
+      if (usual === undefined ? amount > 0 : money(usual) !== amount) amounts[names.get(key)!] = amount
+    }
+    if (Object.keys(amounts).length) students.push({ studentId, studentName: studentNames.get(studentId) || studentId, amounts })
+  }
+  return { columns, rows, students }
+}
+
+type GridInput = {
+  columns: Array<{ name: string, required?: boolean, frequency?: string }>,
+  rows: Array<{ classId: string, amounts: Record<string, unknown> }>,
+  // Left out: the term's student-specific fees stay as they are.
+  students?: Array<{ studentId: string, studentName?: string, amounts: Record<string, unknown> }>,
+}
+
+type Structure = NonNullable<Awaited<ReturnType<typeof getStructure>>>
+type BilledAction =
+  | { kind: 'adjust', obligation: ReturnType<typeof mapObligation>, label: string, from: number, to: number }
+  | { kind: 'add', studentId: string, studentName: string, structureId: string }
+
+/**
+ * What saving would change for students already billed this term, charge by
+ * charge. Each student's amount for an item is their own if they have one,
+ * otherwise their class's — before and after the save.
+ */
+async function billedChanges(db: D1Database, tenantId: string, termId: string, s: {
+  plan: Map<string, Map<string, number>>, existing: Map<string, Structure>, oldStudents: StudentAmounts, newStudents: StudentAmounts,
+  oldMode: string, newMode: string,
+}) {
+  const rows = await db.prepare(`SELECT * FROM fee_obligations WHERE tenant_id = ? AND term_id = ? AND structure_id IS NOT NULL AND status != 'cancelled'`).bind(tenantId, termId).all()
+  const obligations = ((rows.results || []) as Record<string, any>[]).map(mapObligation)
+  // By student, a class's row is only a starting point: nobody pays it unless it is entered for them.
+  const oldClass = (classId: string, key: string) => (s.oldMode === 'student' ? 0 : s.existing.get(classId)?.items.find(item => item.name.toLowerCase() === key)?.amount ?? 0)
+  const newClass = (classId: string, key: string) => {
+    if (s.newMode === 'student') return 0
+    const next = s.plan.get(classId)
+    // A class left out of the table keeps its fees.
+    if (!next) return s.existing.get(classId)?.items.find(item => item.name.toLowerCase() === key)?.amount ?? 0
+    for (const [name, amount] of next) if (name.toLowerCase() === key) return amount
+    return 0
+  }
+  const amount = (students: StudentAmounts, classFor: (classId: string, key: string) => number, studentId: string, classId: string, key: string) =>
+    students.get(studentId)?.amounts.get(key)?.amount ?? classFor(classId, key)
+  const own = (studentId: string, key: string) => s.oldStudents.get(studentId)?.amounts.has(key) || s.newStudents.get(studentId)?.amounts.has(key)
+
+  const actions: BilledAction[] = []
+  const grouped = new Map<string, { classId: string, className: string, item: string, from: number, to: number, students: number }>()
+  const note = (classId: string, label: string, item: string, from: number, to: number) => {
+    const key = `${label}|${item.toLowerCase()}|${from}|${to}`
+    const entry = grouped.get(key) || { classId, className: label, item, from, to, students: 0 }
+    entry.students += 1
+    grouped.set(key, entry)
+  }
+  const billed = new Map<string, { studentName: string, classId: string, className: string, structureId: string, items: Set<string> }>()
+  for (const obligation of obligations) {
+    const studentId = String(obligation.studentId)
+    const key = String(obligation.feeItem).toLowerCase()
+    const entry = billed.get(studentId) || { studentName: obligation.studentName, classId: obligation.classId, className: obligation.className, structureId: obligation.structureId, items: new Set<string>() }
+    entry.items.add(key)
+    billed.set(studentId, entry)
+    const from = money(amount(s.oldStudents, oldClass, studentId, obligation.classId, key))
+    const to = money(amount(s.newStudents, newClass, studentId, obligation.classId, key))
+    if (from === to) continue
+    const label = own(studentId, key) ? obligation.studentName || studentId : obligation.className
+    actions.push({ kind: 'adjust', obligation, label, from, to })
+    note(obligation.classId, label, obligation.feeItem, from, to)
+  }
+  // Items a billed student did not pay before and now does.
+  for (const [studentId, entry] of billed) {
+    const candidates = new Map<string, string>()
+    if (s.newMode !== 'student') for (const [name] of s.plan.get(entry.classId) || []) candidates.set(name.toLowerCase(), name)
+    for (const item of s.newStudents.get(studentId)?.amounts.values() || []) candidates.set(item.name.toLowerCase(), item.name)
+    let adds = false
+    for (const [key, name] of candidates) {
+      if (entry.items.has(key)) continue
+      const from = money(amount(s.oldStudents, oldClass, studentId, entry.classId, key))
+      const to = money(amount(s.newStudents, newClass, studentId, entry.classId, key))
+      if (from !== 0 || to <= 0) continue
+      adds = true
+      note(entry.classId, own(studentId, key) ? entry.studentName || studentId : entry.className, name, 0, to)
+    }
+    if (adds) actions.push({ kind: 'add', studentId, studentName: entry.studentName, structureId: entry.structureId })
+  }
+  const affected = new Set(actions.map(action => action.kind === 'add' ? action.studentId : String(action.obligation.studentId)))
+  return { impact: [...grouped.values()], actions, affected: affected.size }
 }
 
 /**
@@ -143,7 +386,7 @@ async function billedImpact(db: D1Database, tenantId: string, termId: string, pl
  * `future_only` (only students billed from now on pay the new amounts).
  */
 export async function saveTermGrid(db: D1Database, options: {
-  tenantId: string, actor: Actor, term: TermRef, classes: ClassRef[], input: GridInput, changeMode?: string, enrollments?: Enrollment[],
+  tenantId: string, actor: Actor, term: TermRef, classes: ClassRef[], input: GridInput, changeMode?: string, enrollments?: Enrollment[], debtMode?: string, feeMode?: string,
 }) {
   await ensureFeeEngineTables(db)
   const lock = await getTermLock(db, options.tenantId, options.term.id)
@@ -167,28 +410,53 @@ export async function saveTermGrid(db: D1Database, options: {
     }
     plan.set(row.classId, amounts)
   }
+  if (options.debtMode !== undefined && !['carry', 'write_off'].includes(String(options.debtMode))) throw new FinanceError('Choose whether to carry or write off earlier debts.')
+  if (options.feeMode !== undefined && !(FEE_MODES as readonly string[]).includes(String(options.feeMode))) throw new FinanceError('Choose class fees or individual student fees.')
+  const oldMode = (await getDebtSettings(db, options.tenantId, options.term.id)).feeMode
+  const newMode = options.feeMode ? String(options.feeMode) : oldMode
 
-  const existingList = (await listStructures(db, options.tenantId, { termId: options.term.id })).filter(Boolean) as NonNullable<Awaited<ReturnType<typeof getStructure>>>[]
+  // Student-specific fees: a blank cell means "same as the class".
+  const oldStudents = await loadStudentAmounts(db, options.tenantId, options.term.id)
+  let studentPlan: StudentAmounts | null = null
+  if (Array.isArray(options.input.students)) {
+    studentPlan = new Map()
+    for (const row of options.input.students) {
+      const studentId = String(row?.studentId || '').trim().slice(0, 200)
+      if (!studentId) continue
+      const amounts = new Map<string, { name: string, amount: number }>()
+      for (const column of columns) {
+        const raw = row.amounts?.[column.name]
+        if (raw === undefined || raw === null || String(raw).trim() === '') continue
+        const amount = money(raw)
+        if (amount < 0) throw new FinanceError(`${row.studentName || studentId}: ${column.name} cannot be negative.`)
+        amounts.set(column.name.toLowerCase(), { name: column.name, amount })
+      }
+      if (amounts.size) studentPlan.set(studentId, { studentName: String(row.studentName || oldStudents.get(studentId)?.studentName || '').slice(0, 200), amounts })
+    }
+  }
+  const newStudents = studentPlan || oldStudents
+
+  const existingList = (await listStructures(db, options.tenantId, { termId: options.term.id })).filter(Boolean) as Structure[]
   const existing = new Map(existingList.map(structure => [structure.classId, structure]))
-  const impact = await billedImpact(db, options.tenantId, options.term.id, plan, existing)
+  const { impact, actions, affected } = await billedChanges(db, options.tenantId, options.term.id, { plan, existing, oldStudents, newStudents, oldMode, newMode })
   if (impact.length && !['adjust_existing', 'future_only'].includes(String(options.changeMode))) {
-    const students = new Set<string>()
-    const affected = await db.prepare(`SELECT DISTINCT student_id FROM fee_obligations WHERE tenant_id = ? AND term_id = ? AND structure_id IN (${impact.map(() => '?').join(',')}) AND status != 'cancelled'`).bind(options.tenantId, options.term.id, ...impact.map(change => change.structureId)).all()
-    for (const row of (affected.results || []) as Record<string, any>[]) students.add(String(row.student_id))
-    throw new FinanceError(`${students.size} student${students.size === 1 ? ' has' : 's have'} already been billed. Choose what should happen to them.`, 409, { needsDecision: true, affectedStudents: students.size, changes: impact })
+    throw new FinanceError(`${affected} student${affected === 1 ? ' has' : 's have'} already been billed. Choose what should happen to them.`, 409, { needsDecision: true, affectedStudents: affected, changes: impact })
   }
 
-  const columnFor = new Map(columns.map(column => [column.name, column]))
+  // Every class keeps every item on file, at 0 where the class does not pay it,
+  // so a student in any class — even one whose row is empty — can be billed
+  // their own amounts. A 0 item is never billed to anyone without their own amount.
+  const someoneHasOwnFees = newMode === 'student' || newStudents.size > 0
   let saved = 0
   for (const [classId, amounts] of plan) {
     const klass = classMap.get(classId)!
     const current = existing.get(classId)
-    const items = [...amounts.entries()].map(([name, amount]) => ({ name, amount, required: columnFor.get(name)?.required ?? true, frequency: columnFor.get(name)?.frequency || 'term' }))
-    if (!items.length && !current) continue
-    if (!items.length && current) {
-      // Emptying a class: keep the structure (its bills stay), with no items for new students.
-      continue
-    }
+    if (!amounts.size && !current && !someoneHasOwnFees) continue
+    const items = columns.map(column => {
+      const amount = amounts.get(column.name) || 0
+      return { name: column.name, amount, required: amount > 0 ? column.required : false, frequency: column.frequency }
+    })
+    if (!items.length) continue
     if (current && current.status === 'closed') throw new FinanceError(`${klass.name}'s fees for ${options.term.name} are closed.`, 409)
     await saveStructure(db, {
       tenantId: options.tenantId, actor: options.actor, id: current?.id, items,
@@ -197,39 +465,53 @@ export async function saveTermGrid(db: D1Database, options: {
     saved += 1
   }
 
+  if (studentPlan) {
+    const now = new Date().toISOString()
+    const statements: D1PreparedStatement[] = [db.prepare(`DELETE FROM fee_student_amounts WHERE tenant_id = ? AND term_id = ?`).bind(options.tenantId, options.term.id)]
+    for (const [studentId, entry] of studentPlan) {
+      for (const item of entry.amounts.values()) {
+        statements.push(db.prepare(`INSERT INTO fee_student_amounts (tenant_id, term_id, student_id, student_name, item, amount, updated_by, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`)
+          .bind(options.tenantId, options.term.id, studentId, entry.studentName || null, item.name, item.amount, options.actor.name || null, now))
+      }
+    }
+    // One batch is one transaction; large schools are split into chunks.
+    for (let index = 0; index < statements.length; index += 80) await db.batch(statements.slice(index, index + 80))
+  }
+  if (options.debtMode) await saveDebtMode(db, options.tenantId, options.term, String(options.debtMode), options.actor)
+  if (newMode !== oldMode) await saveFeeMode(db, options.tenantId, options.term, newMode, options.actor)
+
   // Students already billed: apply the decision, every change audited.
   let adjusted = 0
-  if (impact.length && options.changeMode === 'adjust_existing') {
-    for (const change of impact) {
-      const reason = `Fee change for ${change.className}: ${change.item} ${change.from} → ${change.to}`
-      if (change.from === 0) {
-        // A new item: bill it to everyone already billed in this class.
-        const students = await db.prepare(`SELECT DISTINCT student_id, student_name FROM fee_obligations WHERE tenant_id = ? AND structure_id = ? AND status != 'cancelled'`).bind(options.tenantId, change.structureId).all()
-        const structure = await getStructure(db, options.tenantId, change.structureId)
-        if (structure?.status === 'published') {
-          const result = await issueBills(db, { tenantId: options.tenantId, structureId: change.structureId, actor: options.actor, students: ((students.results || []) as Record<string, any>[]).map(row => ({ studentId: String(row.student_id), studentName: String(row.student_name || '') })), legacyBilledStudentIds: new Set() })
-          adjusted += result.issued
-        }
+  if (actions.length && options.changeMode === 'adjust_existing') {
+    const additions = new Map<string, Array<{ studentId: string, studentName: string }>>()
+    for (const action of actions) {
+      if (action.kind === 'add') {
+        additions.set(action.structureId, [...(additions.get(action.structureId) || []), { studentId: action.studentId, studentName: action.studentName }])
         continue
       }
-      const rows = await db.prepare(`SELECT * FROM fee_obligations WHERE tenant_id = ? AND structure_id = ? AND lower(fee_item) = lower(?) AND status != 'cancelled'`).bind(options.tenantId, change.structureId, change.item).all()
-      for (const row of (rows.results || []) as Record<string, any>[]) {
-        const obligation = mapObligation(row)
-        if (change.to === 0) {
-          // An item removed: cancel unpaid charges; paid ones are credited back instead.
-          if (obligation.amountPaid === 0) await cancelObligation(db, { tenantId: options.tenantId, obligationId: obligation.id, reason, actor: options.actor })
-          else await addAdjustment(db, { tenantId: options.tenantId, obligationId: obligation.id, kind: 'credit', amount: obligation.netAmount, reason, actor: options.actor })
-        } else {
-          const delta = money(change.to - change.from)
-          await addAdjustment(db, { tenantId: options.tenantId, obligationId: obligation.id, kind: delta > 0 ? 'debit' : 'credit', amount: Math.abs(delta), reason, actor: options.actor })
-        }
-        adjusted += 1
+      const { obligation, label, from, to } = action
+      const reason = `Fee change for ${label}: ${obligation.feeItem} ${from} → ${to}`
+      if (to === 0) {
+        // An item removed: cancel unpaid charges; paid ones are credited back instead.
+        if (obligation.amountPaid === 0) await cancelObligation(db, { tenantId: options.tenantId, obligationId: obligation.id, reason, actor: options.actor })
+        else await addAdjustment(db, { tenantId: options.tenantId, obligationId: obligation.id, kind: 'credit', amount: obligation.netAmount, reason, actor: options.actor })
+      } else {
+        const delta = money(to - from)
+        await addAdjustment(db, { tenantId: options.tenantId, obligationId: obligation.id, kind: delta > 0 ? 'debit' : 'credit', amount: Math.abs(delta), reason, actor: options.actor })
       }
+      adjusted += 1
+    }
+    // New items for students already billed: bill what they do not have yet.
+    for (const [structureId, students] of additions) {
+      const structure = await getStructure(db, options.tenantId, structureId)
+      if (structure?.status !== 'published') continue
+      const result = await issueBills(db, { tenantId: options.tenantId, structureId, actor: options.actor, students, legacyBilledStudentIds: new Set(), ...studentBilling(newStudents, newMode) })
+      adjusted += result.issued
     }
   }
   await auditStatement(db, options.tenantId, {
     actor: options.actor, action: 'term_fees_saved', sessionId: options.term.sessionId, termId: options.term.id,
-    newValue: { classes: saved, columns: columns.map(column => column.name), changesToBilled: impact, decision: options.changeMode || null, adjustedCharges: adjusted },
+    newValue: { classes: saved, columns: columns.map(column => column.name), feeMode: newMode, studentSpecific: newStudents.size, changesToBilled: impact, decision: options.changeMode || null, adjustedCharges: adjusted },
   }).run()
   return { saved, adjusted, impact }
 }
@@ -242,6 +524,8 @@ export async function lockTerm(db: D1Database, options: { tenantId: string, acto
   await ensureFeeEngineTables(db)
   const structures = (await listStructures(db, options.tenantId, { termId: options.term.id })).filter(Boolean) as NonNullable<Awaited<ReturnType<typeof getStructure>>>[]
   if (!structures.length) throw new FinanceError(`Set up ${options.term.name} fees before locking them.`)
+  const debt = await getDebtSettings(db, options.tenantId, options.term.id)
+  const own = studentBilling(await loadStudentAmounts(db, options.tenantId, options.term.id), debt.feeMode)
   let issued = 0
   const students = new Set<string>()
   for (const structure of structures) {
@@ -249,16 +533,20 @@ export async function lockTerm(db: D1Database, options: { tenantId: string, acto
     if (structure.status === 'draft') await setStructureStatus(db, { tenantId: options.tenantId, id: structure.id, status: 'published', actor: options.actor })
     const inClass = options.enrollments.filter(enrollment => enrollment.classId === structure.classId)
     if (!inClass.length) continue
-    const result = await issueBills(db, { tenantId: options.tenantId, structureId: structure.id, actor: options.actor, students: inClass, legacyBilledStudentIds: options.legacyBilledStudentIds })
+    const result = await issueBills(db, { tenantId: options.tenantId, structureId: structure.id, actor: options.actor, students: inClass, legacyBilledStudentIds: options.legacyBilledStudentIds, ...own })
     issued += result.issued
     inClass.forEach(enrollment => { if (!options.legacyBilledStudentIds.has(enrollment.studentId)) students.add(enrollment.studentId) })
   }
+  // The school chose to start this term clean: earlier debts are written off, each one recorded.
+  const writtenOff = debt.mode === 'write_off'
+    ? await writeOffEarlierDebts(db, { tenantId: options.tenantId, actor: options.actor, term: options.term, studentIds: options.enrollments.map(enrollment => enrollment.studentId) })
+    : null
   const now = new Date().toISOString()
   await db.batch([
     db.prepare(`INSERT INTO fee_term_locks (tenant_id, term_id, locked, locked_by, locked_at) VALUES (?, ?, 1, ?, ?) ON CONFLICT(tenant_id, term_id) DO UPDATE SET locked = 1, locked_by = excluded.locked_by, locked_at = excluded.locked_at`).bind(options.tenantId, options.term.id, options.actor.name, now),
-    auditStatement(db, options.tenantId, { actor: options.actor, action: 'term_fees_locked', sessionId: options.term.sessionId, termId: options.term.id, newValue: { students: students.size, charges: issued } }),
+    auditStatement(db, options.tenantId, { actor: options.actor, action: 'term_fees_locked', sessionId: options.term.sessionId, termId: options.term.id, newValue: { students: students.size, charges: issued, debtMode: debt.mode, writtenOff } }),
   ])
-  return { students: students.size, charges: issued }
+  return { students: students.size, charges: issued, writtenOff }
 }
 
 export async function unlockTerm(db: D1Database, options: { tenantId: string, actor: Actor, term: TermRef, reason?: unknown }) {
@@ -286,15 +574,21 @@ export async function unbilledStudents(db: D1Database, tenantId: string, termId:
 export async function billStudents(db: D1Database, options: { tenantId: string, actor: Actor, term: TermRef, students: Enrollment[] }) {
   const structures = (await listStructures(db, options.tenantId, { termId: options.term.id })).filter(Boolean) as NonNullable<Awaited<ReturnType<typeof getStructure>>>[]
   const byClass = new Map(structures.map(structure => [structure.classId, structure]))
+  const debt = await getDebtSettings(db, options.tenantId, options.term.id)
+  const own = studentBilling(await loadStudentAmounts(db, options.tenantId, options.term.id), debt.feeMode)
   let created = 0
   const noFees: string[] = []
+  const billed: string[] = []
   for (const student of options.students) {
     const structure = byClass.get(student.classId)
     if (!structure || !structure.items.length) { noFees.push(student.studentName || student.studentId); continue }
     if (structure.status === 'draft') await setStructureStatus(db, { tenantId: options.tenantId, id: structure.id, status: 'published', actor: options.actor })
-    const result = await issueBills(db, { tenantId: options.tenantId, structureId: structure.id, actor: options.actor, students: [student], legacyBilledStudentIds: new Set() })
+    const result = await issueBills(db, { tenantId: options.tenantId, structureId: structure.id, actor: options.actor, students: [student], legacyBilledStudentIds: new Set(), ...own })
     created += result.issued
+    billed.push(student.studentId)
   }
+  // Late joiners follow the term's choice about earlier debts, like everyone else.
+  if (debt.mode === 'write_off' && billed.length) await writeOffEarlierDebts(db, { tenantId: options.tenantId, actor: options.actor, term: options.term, studentIds: billed })
   return { created, noFees }
 }
 
@@ -396,7 +690,7 @@ export async function accountSummaries(db: D1Database, tenantId: string, period:
     const charges = byStudent.get(enrollment.studentId) || []
     const billedClass = charges.find(charge => charge.termId === period.termId && charge.structured && charge.status !== 'cancelled')?.classId || ''
     const moved = Boolean(billedClass && enrollment.classId && billedClass !== enrollment.classId && !decided.has(`${enrollment.studentId}|${enrollment.classId}`))
-    return { ...enrollment, ...summarise(charges, ledger, period.termId, termStart), classMove: moved ? { fromClassId: billedClass, toClassId: enrollment.classId } : null }
+    return { ...enrollment, ...summarise(charges, ledger, period.termId, termStart), classMove: moved ? { fromClassId: billedClass, toClassId: enrollment.classId } : null, left: false }
   })
   // Students no longer on this term's register but still owing.
   for (const [studentId, charges] of byStudent) {
@@ -404,7 +698,7 @@ export async function accountSummaries(db: D1Database, tenantId: string, period:
     const summary = summarise(charges, ledger, period.termId, termStart)
     if (summary.balance === 0) continue
     const last = charges[charges.length - 1]
-    out.push({ studentId, studentName: last?.studentName || studentId, classId: last?.classId || '', className: last?.className ? `${last.className} (left)` : 'Left the register', ...summary, classMove: null })
+    out.push({ studentId, studentName: last?.studentName || studentId, classId: last?.classId || '', className: last?.className ? `${last.className} (left)` : 'Left the register', ...summary, classMove: null, left: true })
   }
   return out
 }

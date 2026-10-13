@@ -29,6 +29,8 @@ const id = value => encodeURIComponent(value);
 export const getFeesOverview = () => request('/api/school/finance/simple/overview');
 export const getTermGrid = termId => request(`/api/school/finance/simple/grid${q({ termId })}`);
 export const getSavedTemplate = termId => request(`/api/school/finance/simple/template${q({ termId })}`);
+/** Another term's fees (or, with no `from`, the latest saved Fee Template) shaped for this term's table. */
+export const getFeeSource = (termId, from) => request(`/api/school/finance/simple/source${q({ termId, from })}`);
 export const saveTermGrid = payload => request('/api/school/finance/simple/grid', { method: 'PUT', body: payload });
 export const lockTermFees = (termId, unlock = false, reason = '') => request('/api/school/finance/simple/lock', { method: 'POST', body: { termId, unlock, reason } });
 export const getFeeSettings = () => request('/api/school/finance/simple/settings');
@@ -84,6 +86,13 @@ export function bulkEdit(rows, column, mode, value) {
     return { ...row, amounts: { ...row.amounts, [column]: next } };
   });
 }
+
+/** A student's total: their own amount where they have one, otherwise their class's. */
+export const studentTotal = (student, classRow, columns) => columns.reduce((sum, column) => {
+  const own = student.amounts?.[column.name];
+  const value = own === undefined || own === null || own === '' ? classRow?.amounts?.[column.name] : own;
+  return sum + (Number(value) || 0);
+}, 0);
 
 /** Lines for the preview: each class whose amount changes. */
 export function previewChanges(before, after, column) {

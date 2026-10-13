@@ -29,11 +29,11 @@ function Dashboard({ overview, go, onSetup, onPay, onChanged }) {
       <section className="space-y-4 rounded-3xl border-2 border-[#1a5c38] bg-[#e8f5ee] p-6 text-[#191970]">
         <div>
           <h2 className="text-2xl font-black text-[#1a5c38]">Set up {overview.term.name} fees</h2>
-          <p className="mt-1 text-sm">You haven't set fees for this term.{last ? ` Reuse last term's fees and make any changes — it usually takes less than 2 minutes.` : ''}</p>
+          <p className="mt-1 text-sm">You haven't set fees for this term.{last ? ` Reuse ${last.sessionName} ${last.termName}'s fees exactly — class fees and students who pay differently — then change what changed and choose whether to carry or write off earlier debts.` : ''}</p>
         </div>
         {overview.canEditFees ? (
           <div className="flex flex-wrap gap-3">
-            {last && <button type="button" className={`${PRIMARY} text-base`} onClick={() => onSetup({ type: 'reuse', termId: last.termId })}>Reuse {last.termName} Fees <span className="ml-1 rounded-full bg-white/20 px-2 text-xs">Recommended</span></button>}
+            {last && <button type="button" className={`${PRIMARY} text-base`} onClick={() => onSetup({ type: 'reuse', termId: last.termId })}>Reuse {last.sessionName} {last.termName} Fees <span className="ml-1 rounded-full bg-white/20 px-2 text-xs">Recommended</span></button>}
             <button type="button" className={SECONDARY} onClick={() => onSetup({ type: 'new' })}>Start New</button>
             <button type="button" className={SECONDARY} onClick={() => onSetup({ type: 'template' })}>Use Saved Template</button>
             {overview.reuse?.slice(1, 4).map(option => <button key={option.termId} type="button" className={SECONDARY} onClick={() => onSetup({ type: 'reuse', termId: option.termId })}>Reuse {option.sessionName} {option.termName}</button>)}
@@ -136,10 +136,10 @@ function Reports({ term }) {
       </section>
       <section className={CARD}>
         <div className="mb-2 flex flex-wrap items-center gap-2"><h3 className="flex-1 font-black text-[#800000] dark:text-white">Students owing ({data.owing.length})</h3>
-          <button type="button" className={SECONDARY} onClick={() => downloadCsv(`fees-owing-${term?.name || ''}.csv`, [['Student', 'Class', 'Total Payable', 'Paid', 'Balance'], ...data.owing.map(row => [row.studentName, row.className, row.totalPayable, row.paid, row.balance])])}>Download CSV</button></div>
+          <button type="button" className={SECONDARY} onClick={() => downloadCsv(`fees-owing-${term?.name || ''}.csv`, [['S/N', 'Student', 'Class', 'Total Payable', 'Paid', 'Balance'], ...data.owing.map((row, index) => [index + 1, row.studentName, row.className, row.totalPayable, row.paid, row.balance])])}>Download CSV</button></div>
         <div className="overflow-x-auto"><table className="w-full min-w-[600px] text-sm text-[#191970] dark:text-slate-200">
-          <thead><tr><th className={TH}>Student</th><th className={TH}>Class</th><th className={`${TH} text-right`}>Payable</th><th className={`${TH} text-right`}>Paid</th><th className={`${TH} text-right`}>Balance</th><th className={TH}>Status</th></tr></thead>
-          <tbody>{data.owing.map(row => <tr key={row.studentId} className="border-t border-[#c9a96e]/30"><td className="p-2 font-semibold">{row.studentName}</td><td className="p-2">{row.className}</td><td className="p-2 text-right">{naira(row.totalPayable)}</td><td className="p-2 text-right">{naira(row.paid)}</td><td className="p-2 text-right font-black">{naira(row.balance)}</td><td className="p-2"><StatusChip status={row.status} /></td></tr>)}</tbody>
+          <thead><tr><th className={`${TH} w-10 text-right`}>S/N</th><th className={TH}>Student</th><th className={TH}>Class</th><th className={`${TH} text-right`}>Payable</th><th className={`${TH} text-right`}>Paid</th><th className={`${TH} text-right`}>Balance</th><th className={TH}>Status</th></tr></thead>
+          <tbody>{data.owing.map((row, index) => <tr key={row.studentId} className="border-t border-[#c9a96e]/30"><td className="p-2 text-right tabular-nums">{index + 1}</td><td className="p-2 font-semibold">{row.studentName}</td><td className="p-2">{row.className}</td><td className="p-2 text-right">{naira(row.totalPayable)}</td><td className="p-2 text-right">{naira(row.paid)}</td><td className="p-2 text-right font-black">{naira(row.balance)}</td><td className="p-2"><StatusChip status={row.status} /></td></tr>)}</tbody>
         </table></div>
       </section>
       {data.byItem?.length > 0 && (

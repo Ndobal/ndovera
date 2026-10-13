@@ -339,19 +339,21 @@ export function getStoredAuth() {
 		return null;
 	}
 
-	if (tokenChanged) {
-		window.localStorage.removeItem('selectedRole');
-	}
-
 	if (cookieToken && cookieToken !== localToken) {
 		window.localStorage.setItem(AUTH_TOKEN_KEY, cookieToken);
 	} else if (!localToken) {
 		window.localStorage.setItem(AUTH_TOKEN_KEY, token);
 	}
 
+	// The server re-issues the cookie on every request (sliding expiry), so a cookie that
+	// differs from the stored token is usually the same person's newer token. Only a
+	// different person forgets the chosen role: clearing it on every refresh sent a
+	// teacher-and-HOS account's next requests out as "teacher", and the HOS pages they
+	// went back to answered "forbidden" until the page was reloaded.
 	const identityMismatch = Boolean(tokenChanged && storedUser && tokenPayload && !userMatchesTokenPayload(storedUser, tokenPayload));
 	if (identityMismatch) {
 		window.localStorage.removeItem(AUTH_USER_KEY);
+		window.localStorage.removeItem('selectedRole');
 	}
 
 	const user = mergeStoredUserWithToken(identityMismatch ? null : storedUser, tokenPayload);

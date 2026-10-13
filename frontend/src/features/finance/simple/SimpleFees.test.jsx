@@ -7,7 +7,7 @@ import * as api from './simpleFeesApi';
 
 jest.mock('./simpleFeesApi', () => {
   const actual = jest.requireActual('./simpleFeesApi');
-  return { ...actual, getTermGrid: jest.fn(), getSavedTemplate: jest.fn(), saveTermGrid: jest.fn(), lockTermFees: jest.fn(), recordSimplePayment: jest.fn(), listAccounts: jest.fn() };
+  return { ...actual, getTermGrid: jest.fn(), getSavedTemplate: jest.fn(), getFeeSource: jest.fn(), saveTermGrid: jest.fn(), lockTermFees: jest.fn(), recordSimplePayment: jest.fn(), listAccounts: jest.fn() };
 });
 
 const rows = [
@@ -28,13 +28,23 @@ const term = { id: 't2', name: 'Second Term', sessionName: '2026/2027' };
 const emptyGrid = { grid: { term, columns: [], rows: rows.map(row => ({ ...row, amounts: {} })), configured: false, lock: { locked: false }, billedStudents: 0 }, terms: [{ id: 't2', name: 'Second Term', sessionName: '2026/2027' }], settings: { editors: ['owner'] }, canEditFees: true };
 const lastTerm = { grid: { term: { id: 't1', name: 'First Term', sessionName: '2026/2027' }, columns: [{ name: 'Tuition', required: true, frequency: 'term' }, { name: 'Books', required: true, frequency: 'term' }], rows, configured: true, lock: { locked: true }, billedStudents: 2 } };
 
-test('reuse last term: the table arrives filled in, +10% with preview, then Save', async () => {
-  api.getTermGrid.mockImplementation(id => Promise.resolve(id === 't1' ? lastTerm : emptyGrid));
+test('reuse last term: both tables arrive exactly as they were, +10% with preview, debts written off, then Save', async () => {
+  api.getTermGrid.mockResolvedValue({ ...emptyGrid, students: [{ studentId: 'ada', studentName: 'Ada Obi', classId: 'p1', className: 'Primary 1' }], earlierDebts: { students: 3, total: 90000 } });
+  api.getFeeSource.mockResolvedValue({
+    found: true, label: '2025/2026 Third Term', columns: lastTerm.grid.columns, rows: rows.map(({ classId, amounts }) => ({ classId, amounts })),
+    students: [{ studentId: 'ada', studentName: 'Ada Obi', amounts: { Tuition: 60000 } }], leftOut: 1,
+  });
   api.saveTermGrid.mockResolvedValue({ saved: 2, adjusted: 0 });
   render(<FeeSetup initialTermId="t2" initialSource={{ type: 'reuse', termId: 't1' }} canEdit />);
-  expect(await screen.findByText(/Copied from 2026\/2027 First Term/)).toBeTruthy();
+  expect(await screen.findByText(/Copied 2025\/2026 Third Term exactly: class fees and 1 student who pays differently, set by class/)).toBeTruthy();
+  expect(api.getFeeSource).toHaveBeenCalledWith('t2', 't1');
   expect(screen.getByLabelText('Primary 1 Tuition').value).toBe('100000');
   expect(screen.getByText('₦115,000')).toBeTruthy(); // row total
+  // Ada pays her own tuition; her books follow the class (shown faintly).
+  expect(screen.getByLabelText('Ada Obi Tuition').value).toBe('60000');
+  expect(screen.getByLabelText('Ada Obi Books').placeholder).toBe('15000');
+  expect(screen.getByText('₦75,000')).toBeTruthy();
+  fireEvent.click(screen.getByLabelText(/Write off outstanding debts/));
 
   fireEvent.click(screen.getByRole('button', { name: /Tuition/ }));
   const dialog = screen.getByRole('dialog', { name: 'Edit Tuition' });
@@ -49,6 +59,36 @@ test('reuse last term: the table arrives filled in, +10% with preview, then Save
   const payload = api.saveTermGrid.mock.calls[0][0];
   expect(payload.termId).toBe('t2');
   expect(payload.rows.find(row => row.classId === 'p1').amounts).toEqual({ Tuition: 110000, Books: 15000 });
+  expect(payload.students).toEqual([{ studentId: 'ada', studentName: 'Ada Obi', amounts: { Tuition: 60000 } }]);
+  expect(payload.debtMode).toBe('write_off');
+  expect(payload.feeMode).toBe('class');
+});
+
+test('reuse brings the term\'s settings, and students new since then are listed for their fees; by student, nobody pays the class row', async () => {
+  const register = [
+    { studentId: 'ada', studentName: 'Ada Obi', classId: 'p1', className: 'Primary 1' },
+    { studentId: 'kene', studentName: 'Kene Ude', classId: 'n1', className: 'Nursery 1' },
+  ];
+  api.getTermGrid.mockResolvedValue({ ...emptyGrid, students: register, earlierDebts: { students: 0, total: 0 } });
+  api.getFeeSource.mockResolvedValue({
+    found: true, label: '2025/2026 Third Term', feeMode: 'student', columns: lastTerm.grid.columns, rows: rows.map(({ classId, amounts }) => ({ classId, amounts })),
+    students: [{ studentId: 'ada', studentName: 'Ada Obi', amounts: { Tuition: 90000 } }], newStudents: [register[1]], leftOut: 0,
+  });
+  api.saveTermGrid.mockClear().mockResolvedValue({ saved: 2, adjusted: 0 });
+  render(<FeeSetup initialTermId="t2" initialSource={{ type: 'reuse', termId: 't1' }} canEdit />);
+  expect(await screen.findByText(/set for each student/)).toBeTruthy();
+  expect(screen.getByLabelText(/Individual student fees/).checked).toBe(true);
+  expect(screen.getByText('NEW')).toBeTruthy();
+  // By student the class row is not a fallback: Kene starts with nothing.
+  expect(screen.getByLabelText('Kene Ude Tuition').placeholder).toBe('—');
+  fireEvent.click(screen.getByRole('button', { name: /Fill empty cells from class amounts/ }));
+  expect(screen.getByLabelText('Kene Ude Tuition').value).toBe('80000');
+  expect(screen.getByLabelText('Ada Obi Tuition').value).toBe('90000'); // filled cells are kept
+  fireEvent.click(screen.getByRole('button', { name: 'Save Fees' }));
+  await waitFor(() => expect(api.saveTermGrid).toHaveBeenCalled());
+  const payload = api.saveTermGrid.mock.calls[0][0];
+  expect(payload.feeMode).toBe('student');
+  expect(payload.students.find(student => student.studentId === 'kene').amounts).toEqual({ Tuition: 80000, Books: 10000 });
 });
 
 test('changing fees after billing asks what should happen to students already billed', async () => {

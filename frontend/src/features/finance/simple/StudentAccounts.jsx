@@ -269,18 +269,20 @@ export default function StudentAccounts({ classes, initialStudentId, onChanged }
           <option value="">All Classes</option>{classes.map(item => <option key={item.id} value={item.id}>{item.name}</option>)}
         </select>
         <select aria-label="Status" className={`${FIELD} max-w-[12rem]`} value={filters.status} onChange={event => setFilters(previous => ({ ...previous, status: event.target.value }))}>
-          <option value="">Everyone</option><option value="owing">Owing</option><option value="unpaid">Unpaid</option><option value="part_payment">Part Payment</option><option value="paid">Paid</option><option value="overpaid">Overpaid</option><option value="not_billed">No account yet</option>
+          <option value="">Everyone</option><option value="owing">Owing</option><option value="unpaid">Unpaid</option><option value="part_payment">Part Payment</option><option value="paid">Paid</option><option value="overpaid">Overpaid</option><option value="not_billed">No account yet</option><option value="left">Past students still owing</option>
         </select>
+        {data?.accounts?.length > 0 && <p className="self-center text-sm font-bold text-[#191970] dark:text-slate-200">{data.accounts.length} student{data.accounts.length === 1 ? '' : 's'}</p>}
       </section>
       {error && <p role="alert" className="font-semibold text-rose-700">{error}</p>}
       <section className={CARD}>
         {!data ? <p role="status">Loading…</p> : !data.accounts.length ? <p className="text-sm text-[#191970] dark:text-slate-300">No students match.</p> : (
           <div className="overflow-x-auto">
             <table className="w-full min-w-[860px] text-sm text-[#191970] dark:text-slate-200">
-              <thead><tr><th className={TH}>Student</th><th className={TH}>Class</th><th className={`${TH} text-right`}>Term Fee</th><th className={`${TH} text-right`}>Outstanding</th><th className={`${TH} text-right`}>Total Payable</th><th className={`${TH} text-right`}>Paid</th><th className={`${TH} text-right`}>Balance</th><th className={TH}>Status</th><th className={TH}><span className="sr-only">Open</span></th></tr></thead>
+              <thead><tr><th className={`${TH} w-10 text-right`}>S/N</th><th className={TH}>Student</th><th className={TH}>Class</th><th className={`${TH} text-right`}>Term Fee</th><th className={`${TH} text-right`}>Outstanding</th><th className={`${TH} text-right`}>Total Payable</th><th className={`${TH} text-right`}>Paid</th><th className={`${TH} text-right`}>Balance</th><th className={TH}>Status</th><th className={TH}><span className="sr-only">Open</span></th></tr></thead>
               <tbody>
-                {data.accounts.map(account => (
+                {data.accounts.map((account, index) => (
                   <tr key={account.studentId} className="border-t border-[#c9a96e]/30 hover:bg-white/50">
+                    <td className="p-2 text-right tabular-nums text-[#191970]/70 dark:text-slate-400">{index + 1}</td>
                     <td className="p-2 font-semibold">{account.studentName}{account.classMove ? <span className="ml-1 text-xs text-sky-700">(moved class)</span> : null}</td>
                     <td className="p-2">{account.className}</td>
                     <td className="p-2 text-right">{naira(account.termFee)}</td>
