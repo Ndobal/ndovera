@@ -217,6 +217,13 @@ test('reviewers also find work handed in elsewhere: Lesson Plans page plans, sav
   // The reviewer can read the draft.
   assert.equal((await call(db, 'hos', 'GET', `/api/teacher-submissions/${draft.body.submission.id}`)).status, 200)
 
+  // An exam set on the Exams page shows too.
+  db.db.exec(`CREATE TABLE IF NOT EXISTS cbt_exams (id TEXT PRIMARY KEY, tenant_id TEXT NOT NULL, class_id TEXT, class_name TEXT, subject_id TEXT, subject_name TEXT, teacher_id TEXT, teacher_name TEXT, title TEXT NOT NULL, window_label TEXT, duration_minutes INTEGER, instructions TEXT, mode TEXT NOT NULL, status TEXT NOT NULL, release_at TEXT, settings_json TEXT, created_at TEXT NOT NULL, updated_at TEXT NOT NULL);
+    INSERT INTO cbt_exams (id, tenant_id, class_id, class_name, subject_id, subject_name, teacher_id, teacher_name, title, mode, status, created_at, updated_at) VALUES ('cbt1', 'school-a', 'p5', 'Primary 5', 'math', 'Mathematics', 't-math', 'Name t-math', 'First Term Mathematics Exam', 'cbt', 'published', '${new Date().toISOString()}', '${new Date().toISOString()}')`)
+  const withExam = (await call(db, 'hos', 'GET', '/api/teacher-submissions/review?classId=p5')).body
+  assert.deepEqual(withExam.exams.map(item => [item.title, item.source]), [['First Term Mathematics Exam', 'exams_page']])
+  assert.equal((await call(db, 'hos', 'GET', '/api/teacher-submissions/review')).body.classes.find(item => item.classId === 'p5').exams, 1)
+
   // The class is removed later: its work is still reachable.
   db.db.exec(`DELETE FROM classes WHERE id = 'p5'`)
   const after = await call(db, 'owner', 'GET', '/api/teacher-submissions/review?classId=p5')

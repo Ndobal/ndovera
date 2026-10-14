@@ -45,24 +45,33 @@ export async function loadHome() {
   return { ...kept, offline: true };
 }
 
-/** A subject's questions: fresh when online (and kept for offline play), else the kept pack. */
-export async function loadPack(subjectKey, { refresh = true } = {}) {
+const packKey = (subjectKey, difficulty) => key(`pack:${subjectKey}${difficulty ? `:${difficulty}` : ''}`);
+
+/**
+ * A subject's questions at a difficulty (simple, intermediate, external; '' for all):
+ * fresh when online (and kept for offline play), else the kept pack. `needsMore` says
+ * the subject has too few and Ndovera AI can prepare more.
+ */
+export async function loadPack(subjectKey, { refresh = true, difficulty = '' } = {}) {
   if (refresh && isOnline()) {
     try {
-      const data = await request(`/api/practice-arena/pack?subject=${encodeURIComponent(subjectKey)}&size=80`);
-      await setItem(key(`pack:${subjectKey}`), { ...data.pack, savedAt: Date.now() });
-      return { ...data.pack, offline: false };
+      const data = await request(`/api/practice-arena/pack?subject=${encodeURIComponent(subjectKey)}&size=80${difficulty ? `&difficulty=${difficulty}` : ''}`);
+      if (data.pack.questions.length) await setItem(packKey(subjectKey, difficulty), { ...data.pack, savedAt: Date.now() });
+      return { ...data.pack, needsMore: Boolean(data.needsMore), offline: false };
     } catch (error) {
       if (error.status && error.status < 500) throw error;
     }
   }
-  const kept = await getItem(key(`pack:${subjectKey}`));
+  const kept = await getItem(packKey(subjectKey, difficulty));
   if (!kept) throw Object.assign(new Error('These questions are not on this device yet. Connect to the internet to download them.'), { offline: true });
   return { ...kept, offline: true };
 }
 
+/** Ask Ndovera AI to write practice questions for a subject that has too few (no credits). */
+export const generateQuestions = (subjectKey, difficulty) => request('/api/practice-arena/generate', { method: 'POST', body: { subject: subjectKey, difficulty } });
+
 export async function packSavedAt(subjectKey) {
-  const kept = await getItem(key(`pack:${subjectKey}`));
+  const kept = await getItem(packKey(subjectKey, ''));
   return kept?.savedAt || null;
 }
 
@@ -86,4 +95,4 @@ export async function pendingAttempts() {
   return (await listOutbox(ATTEMPT_KIND)).filter(item => item.status === 'queued').length;
 }
 
-export const getLeaderboard = (scope = 'class') => request(`/api/practice-arena/leaderboard?scope=${scope}`);
+export const getLeaderboard = (scope = 'class', subject = '') => request(`/api/practice-arena/leaderboard?scope=${scope}${subject ? `&subject=${encodeURIComponent(subject)}` : ''}`);

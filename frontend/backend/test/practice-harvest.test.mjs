@@ -206,9 +206,10 @@ test('the harvester fills the bank from teachers\' work; practice follows the cl
   const held = db.db.prepare(`SELECT prompt, release_at FROM question_bank WHERE prompt LIKE 'EXAM:%' OR prompt LIKE 'HOMEWORK:%'`).all()
   assert.equal(held.length, 2)
   assert.ok(held.every(row => row.release_at > now()))
-  // Once the exam is over, they come in.
+  // Once the exam is over, they come in (packs at once; the subject's count with the nightly recount).
   db.db.prepare(`UPDATE question_bank SET release_at = ? WHERE prompt LIKE 'EXAM:%'`).run(daysFromNow(-1))
-  assert.equal((await call(db, 'jss2', 'GET', '/api/practice-arena/home', null, noAi)).body.subjects.find(subject => subject.key === 'mathematics').questions, 4)
+  const afterExam = await call(db, 'jss2', 'GET', '/api/practice-arena/pack?subject=mathematics', null, noAi)
+  assert.ok(afterExam.body.pack.questions.some(question => /^EXAM:/.test(question.prompt)))
 
   // Ndovera copies of the materials, formatted, for the class.
   const notes = await call(db, 'jss2', 'GET', '/api/ndovera-notes', null, noAi)
@@ -295,6 +296,8 @@ test('Ami uploads a question document for a section and level; it reaches only s
   assert.equal(rows.length, 3)
   assert.ok(rows.every(row => row.section === 'junior' && row.level_rank === 8 && row.playable === 1))
 
+  // Students practise the subjects their class offers: JSS 2 and JSS 3 take English, Primary 4 here does not.
+  db.db.exec(`INSERT INTO subjects VALUES ('en2', 'school-a', 'English Language', 'jss2a', 't-math', 'x'), ('en3', 'school-a', 'English', 'jss3a', 't-math', 'x')`)
   const english = home => home.body.subjects.find(subject => subject.key === 'english')
   assert.equal(english(await call(db, 'jss2', 'GET', '/api/practice-arena/home')).questions, 3)
   assert.equal(english(await call(db, 'jss3', 'GET', '/api/practice-arena/home')).questions, 3)
@@ -505,4 +508,101 @@ test('Verbal Reasoning in Primary comes from the 1,000-item class banks: no AI c
   }
   assert.equal((await call(db, 'maths', 'GET', '/api/ai-pay/wallet', null, paid)).body.wallet.credits, 0)
   assert.equal((await call(db, 'maths', 'POST', `/api/ai-assessments/${created.body.assessment.id}/regenerate-all`, {}, paid)).status, 200)
+})
+
+
+test('practice is shared across schools and subject names, by difficulty; Ndovera AI fills gaps from topics within limits; leaderboards per subject', async () => {
+  PEOPLE.bstudent = ['s-b', 'b@b.test', 'student', 'school-b', { classId: 'b-jss2' }]
+  const db = await setup()
+  db.db.exec(`
+    INSERT INTO tenants VALUES ('school-b', 'Bright Future College');
+    INSERT INTO classes (id, tenantId, name, arm) VALUES ('b-jss2', 'school-b', 'JSS 2', '');
+    INSERT INTO subjects VALUES ('bm', 'school-b', 'Mathematics (Core)', 'b-jss2', 't-b', 'x'), ('bc', 'school-b', 'Civic Education', 'b-jss2', 't-b', 'x');
+  `)
+  await seedTeachersWork(db)
+  const calls = { keys: 0, generate: 0, other: 0, match: 0 }
+  // A model that writes practice questions and matches subject names.
+  const model = {
+    run: async (_model, input) => {
+      const system = String(input.messages?.[0]?.content || '')
+      const user = String(input.messages?.[input.messages.length - 1]?.content || '')
+      if (/match school subject names/i.test(system)) {
+        calls.match += 1
+        const asked = JSON.parse(user.match(/New subjects \(key: how a school wrote it\): (\{.*\})/)[1])
+        return { response: JSON.stringify(Object.fromEntries(Object.keys(asked).map(key => [key, /^mathematics/.test(key) ? 'mathematics' : key]))) }
+      }
+      const slots = [...user.matchAll(/^\d+\. type "(\w+)", topic "([^"]+)", (\d+) mark/gm)]
+      if (slots.length) {
+        calls.generate += 1
+        return { response: JSON.stringify(slots.map(([, , topic], index) => ({ prompt: `Gen ${calls.generate}.${index}: which is true of ${topic}?`, options: ['Right', `No ${index}a`, `No ${index}b`, `No ${index}c`], answerIndex: 0, workingSteps: ['Because.'] }))) }
+      }
+      calls.keys += 1
+      const ids = [...user.matchAll(/^ID: (\S+)/gm)].map(match => match[1])
+      return { response: JSON.stringify(ids.map(id => ({ id, answer: 'Abuja' }))) }
+    },
+  }
+  const env = { AI: model, UPLOADS: memoryBucket() }
+  for (let i = 0; i < 4; i += 1) await cronTick(db, env)
+
+  // "Mathematics (Core)" is not matched yet: nothing from school A.
+  let home = await call(db, 'bstudent', 'GET', '/api/practice-arena/home', null, env)
+  assert.equal(home.status, 200, JSON.stringify(home.body))
+  assert.deepEqual(home.body.difficulties.map(level => level.key), ['simple', 'intermediate', 'external'])
+  assert.match(home.body.difficulties[2].label, /BECE/)
+  assert.equal(home.body.subjects.find(subject => subject.name === 'Mathematics (Core)').questions, 0)
+  // Ndovera AI matches it to Mathematics; now school A's JSS 1 work reaches school B's JSS 2.
+  assert.equal((await call(db, 'ami', 'POST', '/api/ami/practice/match-subjects', {}, env)).status, 200)
+  assert.ok(calls.match >= 1)
+  home = await call(db, 'bstudent', 'GET', '/api/practice-arena/home', null, env)
+  const maths = home.body.subjects.find(subject => subject.name === 'Mathematics (Core)')
+  assert.equal(maths.key, 'mathematics')
+  assert.equal(maths.questions, 3)
+  const pack = await call(db, 'bstudent', 'GET', '/api/practice-arena/pack?subject=mathematics&difficulty=intermediate', null, env)
+  assert.ok(pack.body.pack.questions.some(question => question.prompt === 'What is 2 + 2?'))
+  assert.equal(pack.body.needsMore, true, 'fewer than enough: the app asks Ndovera AI for more')
+
+  // External examination: none yet.
+  const external = await call(db, 'bstudent', 'GET', '/api/practice-arena/pack?subject=mathematics&difficulty=external', null, env)
+  assert.deepEqual([external.body.pack.questions.length, external.body.needsMore], [0, true])
+
+  // No topics anywhere for Civic Education: the student is told to have topics added; nothing is generated.
+  const civic = await call(db, 'bstudent', 'POST', '/api/practice-arena/generate', { subject: 'civic-education', difficulty: 'simple' }, env)
+  assert.equal(civic.body.needsTopics, true)
+  assert.match(civic.body.message, /teacher to add/)
+  assert.equal(calls.generate, 0)
+
+  // Maths has a topic in the class: Ndovera AI writes external-standard questions into Ndovera's bank.
+  db.db.exec(`INSERT INTO class_topics (id, tenant_id, class_id, subject_id, name, created_by, created_at) VALUES ('tp1', 'school-b', 'b-jss2', 'bm', 'Fractions', 't-b', '${now()}')`)
+  const made = await call(db, 'bstudent', 'POST', '/api/practice-arena/generate', { subject: 'mathematics', difficulty: 'external' }, env)
+  assert.equal(made.status, 200, JSON.stringify(made.body))
+  assert.deepEqual([made.body.added, made.body.topic], [8, 'Fractions'])
+  const stored = db.db.prepare(`SELECT tenant_id, difficulty, section, level_rank, subject_key, origin_type FROM question_bank WHERE origin_type = 'ndovera_ai_practice'`).all()
+  assert.equal(stored.length, 8)
+  assert.ok(stored.every(row => row.tenant_id === 'global' && row.difficulty === 'external' && row.section === 'junior' && row.level_rank === 8 && row.subject_key === 'mathematics'))
+  const externalNow = await call(db, 'bstudent', 'GET', '/api/practice-arena/pack?subject=mathematics&difficulty=external', null, env)
+  assert.equal(externalNow.body.pack.questions.length, 8)
+  // ...and they serve school A's JSS 2 as well (same subject, same level).
+  const shared = await call(db, 'jss2', 'GET', '/api/practice-arena/pack?subject=mathematics&difficulty=external', null, env)
+  assert.equal(shared.body.pack.questions.length, 8)
+  assert.equal((await call(db, 'jss2', 'GET', '/api/practice-arena/home', null, env)).body.subjects.find(subject => subject.key === 'mathematics').byDifficulty.external, 8)
+
+  // Daily limit per student: four generations, then a friendly no.
+  for (let i = 0; i < 3; i += 1) assert.ok((await call(db, 'bstudent', 'POST', '/api/practice-arena/generate', { subject: 'mathematics', difficulty: 'simple' }, env)).body.added > 0)
+  const limited = await call(db, 'bstudent', 'POST', '/api/practice-arena/generate', { subject: 'mathematics', difficulty: 'simple' }, env)
+  assert.deepEqual([limited.body.added, limited.body.limited], [0, 'student'])
+
+  // A quiz from another school's questions is marked and earns XP; leaderboards are per subject.
+  const question = externalNow.body.pack.questions[0]
+  const attempt = await call(db, 'bstudent', 'POST', '/api/practice-arena/attempts', { id: 'attempt-b-000001', subjectKey: 'mathematics', subjectName: 'Mathematics', mode: 'quick', answers: [{ questionId: question.id, response: question.correctIndex }] }, env)
+  assert.equal(attempt.status, 200, JSON.stringify(attempt.body))
+  assert.equal(attempt.body.attempt.correct, 1)
+  const board = await call(db, 'bstudent', 'GET', '/api/practice-arena/leaderboard?subject=mathematics', null, env)
+  assert.equal(board.body.leaderboard.entries.length, 1)
+  const other = await call(db, 'bstudent', 'GET', '/api/practice-arena/leaderboard?subject=civic-education', null, env)
+  assert.equal(other.body.leaderboard.entries.length, 0)
+
+  // The nightly recount agrees with the running counts.
+  assert.equal((await call(db, 'ami', 'POST', '/api/ami/practice/recount', {}, env)).status, 200)
+  assert.equal((await call(db, 'bstudent', 'GET', '/api/practice-arena/home', null, env)).body.subjects.find(subject => subject.key === 'mathematics').byDifficulty.external, 8)
+  delete PEOPLE.bstudent
 })

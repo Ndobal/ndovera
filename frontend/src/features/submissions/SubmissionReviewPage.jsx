@@ -176,7 +176,7 @@ export default function SubmissionReviewPage({ dashboardLabel = 'Dashboard' }) {
               <button key={item.id} type="button" onClick={() => setSearchParams(selected ? {} : { classId: item.id })}
                 className={`rounded-2xl px-4 py-2 text-left text-sm font-bold ${selected ? 'bg-[#800020] text-[#b5e3f4]' : 'bg-white text-[#191970]'}`}>
                 {item.className || item.name}
-                {summary ? <span className="block text-[11px] font-semibold opacity-80">{summary.awaitingReview} awaiting · {summary.approved} approved{summary.drafts ? ` · ${summary.drafts} not sent` : ''}</span> : <span className="block text-[11px] font-semibold opacity-60">No submissions</span>}
+                {summary ? <span className="block text-[11px] font-semibold opacity-80">{summary.awaitingReview} awaiting · {summary.approved} approved{summary.drafts ? ` · ${summary.drafts} not sent` : ''}{summary.exams ? ` · ${summary.exams} exam${summary.exams === 1 ? '' : 's'}` : ''}</span> : <span className="block text-[11px] font-semibold opacity-60">No submissions</span>}
               </button>
             );
           })}
@@ -250,6 +250,23 @@ export default function SubmissionReviewPage({ dashboardLabel = 'Dashboard' }) {
                     <span className="font-semibold">{item.title}</span>
                     <span className="text-xs text-[#800020]">{[item.subjectName, item.teacherName, item.periodLabel].filter(Boolean).join(' · ')}</span>
                     <StatusBadge status={item.status} />
+                    <span className="text-xs text-slate-500">{item.submittedAt ? new Date(item.submittedAt).toLocaleString() : ''}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {board.exams?.length > 0 && (
+            <section className={`${CARD} space-y-2`} aria-label="Exams set on the Exams page">
+              <h2 className="text-base font-black text-[#800000] dark:text-white">Exams set on the Exams page ({board.exams.length})</h2>
+              <p className="text-xs text-[#191970] dark:text-slate-300">Teachers set these on their Exams page, which keeps its own list. Open Exams to read or run them — nothing needs to be resubmitted.</p>
+              <ul className="space-y-1">
+                {board.exams.map(item => (
+                  <li key={item.id} className="flex flex-wrap items-center gap-2 rounded-xl bg-white px-3 py-2 text-sm text-[#191970] dark:bg-slate-900 dark:text-slate-100">
+                    <span className="font-semibold">{item.title}</span>
+                    <span className="text-xs text-[#800020]">{[item.subjectName, item.teacherName].filter(Boolean).join(' · ')}</span>
+                    {item.status ? <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs font-bold capitalize text-slate-700">{item.status}</span> : null}
                     <span className="text-xs text-slate-500">{item.submittedAt ? new Date(item.submittedAt).toLocaleString() : ''}</span>
                   </li>
                 ))}

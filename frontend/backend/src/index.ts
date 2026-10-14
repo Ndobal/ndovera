@@ -386,7 +386,8 @@ import {
 } from './materialGenerator'
 import type { Draft, Grounding, Length, MaterialKind } from './materialGenerator'
 import { ImportError, MAX_PDF_BYTES, createJob, getJob, listJobs, runDueImports, runImportStep, setJobStatus, workersAiPdfToText } from './libraryImports'
-import { PACK_SIZE, GLOBAL_TENANT, MODES as PRACTICE_MODES, PracticeError, buildPack, classifyLegacyQuestions, getProfile, leaderboard, practiceStudent, practiceSubjects, recentAttempts, recordAttempt } from './practiceArena'
+import { PACK_SIZE, GLOBAL_TENANT, MODES as PRACTICE_MODES, PracticeError, buildPack, classifyLegacyQuestions, getProfile, leaderboard, normalizeDifficulty, practiceStudent, practiceSubjects, recentAttempts, recordAttempt } from './practiceArena'
+import { DIFFICULTIES as PRACTICE_DIFFICULTIES, GENERATION_LIMITS, externalExamFor, generatePracticeQuestions, mapNewSubjects, offeredSubjects, rebuildBankCounts } from './practiceBank'
 import { HarvestError, MAX_DOC_BYTES, ensureHarvestTables, getNote, listDocuments, listNotes, queueDocument, runDocumentStep, runHarvestTick, setDocumentStatus } from './harvester'
 import type { HarvestDeps } from './harvester'
 import { levelOf, labelOfRank, normalizeSection } from './levels'
@@ -11265,7 +11266,8 @@ app.post('/api/teacher-submissions/bulk', authenticate, async (c) => {
 /**
  * Work teachers handed in that the main list leaves out, so reviewers find it without
  * asking anyone to resubmit: plans submitted on the older Lesson Plans page (a separate
- * store) and work saved but never sent (status draft). Read-only here.
+ * store), exams set on the Exams page (CBT exams), and work saved but never sent
+ * (status draft). Read-only here.
  */
 async function workFoundElsewhere(db: D1Database, tenantId: string, filters: { classId?: string, from?: string, to?: string, since?: string, sessionId?: string, termId?: string }) {
   const inRange = (at: string) => {
@@ -11285,7 +11287,16 @@ async function workFoundElsewhere(db: D1Database, tenantId: string, filters: { c
     }))
   const drafts = (await listSubmissions(db, tenantId, { classId: filters.classId, sessionId: filters.sessionId, termId: filters.termId, status: 'draft', from: filters.from, to: filters.to }))
     .filter(item => inRange(item.createdAt))
-  return { lessonPlans: plans, drafts }
+  const examRows = await db.prepare(`SELECT id, class_id, class_name, subject_id, subject_name, teacher_id, teacher_name, title, status, created_at, updated_at FROM cbt_exams
+      WHERE tenant_id = ?${filters.classId ? ' AND class_id = ?' : ''} AND COALESCE(status, '') NOT IN ('deleted', 'archived') ORDER BY created_at DESC LIMIT 300`)
+    .bind(tenantId, ...(filters.classId ? [filters.classId] : [])).all().catch(() => ({ results: [] }))
+  const exams = ((examRows.results || []) as Record<string, any>[])
+    .filter(row => row.class_id && inRange(String(row.created_at || '')))
+    .map(row => ({
+      id: String(row.id), source: 'exams_page', classId: String(row.class_id), className: String(row.class_name || ''), subjectId: String(row.subject_id || ''), subjectName: String(row.subject_name || ''),
+      teacherId: String(row.teacher_id || ''), teacherName: String(row.teacher_name || ''), title: String(row.title || 'Exam'), status: String(row.status || ''), submittedAt: String(row.created_at || ''),
+    }))
+  return { lessonPlans: plans, drafts, exams }
 }
 
 app.get('/api/teacher-submissions/review', authenticate, async (c) => {
@@ -11322,9 +11333,10 @@ app.get('/api/teacher-submissions/review', authenticate, async (c) => {
       }
       const since = scope === 'term' ? period.termStart : ''
       const elsewhere = await workFoundElsewhere(c.env.APP_DB, tenantId, { from: query.from, to: query.to, since, sessionId: filters.sessionId, termId: filters.termId })
-      for (const item of [...elsewhere.lessonPlans, ...elsewhere.drafts]) {
+      for (const item of [...elsewhere.lessonPlans, ...elsewhere.drafts, ...elsewhere.exams]) {
         const entry = classes.get(item.classId) || { classId: item.classId, className: item.className, total: 0, awaitingReview: 0, returned: 0, approved: 0 }
-        if (item.status === 'draft') entry.drafts = (entry.drafts || 0) + 1
+        if ((item as any).source === 'exams_page') entry.exams = (entry.exams || 0) + 1
+        else if (item.status === 'draft') entry.drafts = (entry.drafts || 0) + 1
         else {
           entry.fromLessonPlans = (entry.fromLessonPlans || 0) + 1
           if (item.status === 'submitted') entry.awaitingReview += 1
@@ -11339,7 +11351,7 @@ app.get('/api/teacher-submissions/review', authenticate, async (c) => {
     const elsewhere = await workFoundElsewhere(c.env.APP_DB, tenantId, { classId, from: query.from, to: query.to, since: scope === 'term' ? period.termStart : '', sessionId: filters.sessionId, termId: filters.termId })
     // A class removed or renamed since still shows the work filed under it.
     const classRow = await c.env.APP_DB.prepare(`SELECT id FROM classes WHERE id = ? AND tenantId = ?`).bind(classId, tenantId).first()
-    if (!classRow && !submissions.length && !elsewhere.lessonPlans.length && !elsewhere.drafts.length) return c.json({ success: false, message: 'Class not found.' }, 404)
+    if (!classRow && !submissions.length && !elsewhere.lessonPlans.length && !elsewhere.drafts.length && !elsewhere.exams.length) return c.json({ success: false, message: 'Class not found.' }, 404)
     const live = (await loadLiveAssignments(c.env.APP_DB, tenantId)).filter(item => item.role === 'subject' && item.classId === classId)
     const names = await c.env.APP_DB.prepare(`SELECT id, email, name FROM users WHERE tenantId = ?`).bind(tenantId).all().catch(() => ({ results: [] }))
     const nameOf = (id: string) => ((names.results || []) as Record<string, any>[]).find(row => [row.id, row.email].some(value => String(value || '').toLowerCase() === id.toLowerCase()))?.name || id
@@ -11355,7 +11367,7 @@ app.get('/api/teacher-submissions/review', authenticate, async (c) => {
     const submittedTeachers = new Set([...termSubmissions, ...elsewhere.lessonPlans.filter(item => !period.termStart || String(item.submittedAt).slice(0, 10) >= period.termStart)].map(item => String(item.teacherId).toLowerCase()))
     return c.json({
       success: true, period, scope, policy: { reviewMode: policy.reviewMode, maxScore: policy.maxScore, requirements: policy.requirements },
-      submissions, lessonPlans: elsewhere.lessonPlans, drafts: elsewhere.drafts,
+      submissions, lessonPlans: elsewhere.lessonPlans, drafts: elsewhere.drafts, exams: elsewhere.exams,
       summary: {
         submittedTeachers: [...submittedTeachers],
         notSubmittedTeachers: [...new Set(live.map(item => item.teacherId).filter(id => !submittedTeachers.has(id.toLowerCase())))].map(id => ({ teacherId: id, teacherName: nameOf(id) })),
@@ -14323,17 +14335,65 @@ async function resolvePracticeStudent(c: any) {
   return practiceStudent(c.env.APP_DB, { tenantId: actor.tenantId, studentId: actor.actorId, studentName: actor.actorName, classId })
 }
 
+/** The difficulties a student can choose: Simple, Intermediate and (except in Nursery) their section's external examination. */
+function practiceDifficulties(section: string) {
+  const exam = externalExamFor(section)
+  return PRACTICE_DIFFICULTIES.filter(level => level.key !== 'external' || exam).map(level => ({ key: level.key, label: level.key === 'external' && exam ? `External examination (${exam.name})` : level.label }))
+}
+
 app.get('/api/practice-arena/home', authenticate, async (c) => {
   try {
     const student = await resolvePracticeStudent(c)
-    const [profile, subjects, recent, board] = await Promise.all([
-      getProfile(c.env.APP_DB, student.studentId), practiceSubjects(c.env.APP_DB, student), recentAttempts(c.env.APP_DB, student.studentId, 8), leaderboard(c.env.APP_DB, student, 'class'),
+    // Subjects are what the class offers (questions from every school, however they name it).
+    // A class with no subjects set up falls back to its own school's question bank.
+    const offered = await offeredSubjects(c.env.APP_DB, student)
+    const [profile, recent, board] = await Promise.all([
+      getProfile(c.env.APP_DB, student.studentId), recentAttempts(c.env.APP_DB, student.studentId, 8), leaderboard(c.env.APP_DB, student, 'class'),
     ])
+    const subjects = offered.length
+      ? offered.map(subject => ({ key: subject.key, name: subject.name, questions: subject.questions, byDifficulty: subject.byDifficulty, types: {}, levels: subject.levels, mastery: null, quizzes: 0 }))
+      : student.section
+        // No subjects set up for the class: the subjects the shared bank has for this section.
+        ? ((await c.env.APP_DB.prepare(`SELECT subject_key, SUM(total) AS n FROM practice_bank_counts WHERE section = ? AND level_rank <= ? GROUP BY subject_key ORDER BY n DESC LIMIT 24`).bind(student.section, student.rank).all().catch(() => ({ results: [] }))).results as Record<string, any>[] || [])
+          .map(row => ({ key: String(row.subject_key), name: String(row.subject_key).replace(/-/g, ' ').replace(/\b\w/g, ch => ch.toUpperCase()), questions: Number(row.n || 0), byDifficulty: {}, types: {}, levels: '', mastery: null, quizzes: 0 }))
+        : await practiceSubjects(c.env.APP_DB, student)
+    // Mastery from the student's own quizzes.
+    if (subjects.length) {
+      const mastery = await c.env.APP_DB.prepare(`SELECT subject_key, SUM(correct) AS correct, SUM(total) AS total, COUNT(*) AS quizzes FROM practice_attempts WHERE student_id = ? GROUP BY subject_key`).bind(student.studentId).all().catch(() => ({ results: [] }))
+      const bySubject = new Map(((mastery.results || []) as Record<string, any>[]).map(row => [String(row.subject_key), row]))
+      for (const subject of subjects as any[]) {
+        const row = bySubject.get(subject.key)
+        if (row && Number(row.total)) { subject.mastery = Math.round((Number(row.correct) / Number(row.total)) * 100); subject.quizzes = Number(row.quizzes) }
+      }
+    }
     return c.json({
       success: true, student: { name: student.studentName, className: student.className, level: student.rank !== null ? labelOfRank(student.rank) : '', section: student.section },
-      profile, subjects, recent, leaderboard: board, modes: PRACTICE_MODES,
+      profile, subjects, recent, leaderboard: board, modes: PRACTICE_MODES, difficulties: practiceDifficulties(student.section),
+      canGenerate: Boolean(student.section && student.rank !== null), enoughQuestions: GENERATION_LIMITS.enoughQuestions,
     })
   } catch (error) { return practiceFailure(c, error, 'Could not load practice.') }
+})
+
+async function practiceSubjectFor(c: any, student: Awaited<ReturnType<typeof resolvePracticeStudent>>, key: string) {
+  const subject = (await offeredSubjects(c.env.APP_DB, student)).find(item => item.key === key || item.keys.includes(key))
+  return subject || { key, keys: [key], name: key.replace(/-/g, ' '), subjectId: '', questions: 0, byDifficulty: {} }
+}
+
+/** Ndovera AI writes practice questions for a subject that has too few (no credits; daily limits). */
+app.post('/api/practice-arena/generate', authenticate, async (c) => {
+  try {
+    const student = await resolvePracticeStudent(c)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const subject = await practiceSubjectFor(c, student, String(body.subject || '').trim())
+    const result = await generatePracticeQuestions(c.env.APP_DB, { student, subject, difficulty: String(body.difficulty || ''), runAi: assessmentAiRunner(c.env) })
+    const message = result.needsTopics
+      ? `${subject.name} has no topics yet, so Ndovera AI cannot prepare questions for it. Ask your ${subject.name} teacher to add this term's topics to your class (Classroom → Topics); questions follow as soon as they do.`
+      : result.busy ? 'Ndovera AI is already preparing questions for this subject. Try again in a minute.'
+        : result.limited === 'student' ? `You have asked Ndovera AI for new questions ${GENERATION_LIMITS.perStudentPerDay} times today. Practise what is here; more can be prepared tomorrow.`
+          : result.limited === 'platform' ? 'Ndovera AI has prepared as many practice questions as it can today. Try again tomorrow.'
+            : result.added ? `Ndovera AI prepared ${result.added} new question${result.added === 1 ? '' : 's'} on ${result.topic}.` : 'Ndovera AI could not prepare usable questions this time. Try again.'
+    return c.json({ success: true, ...result, message })
+  } catch (error) { return practiceFailure(c, error, 'Could not prepare questions.') }
 })
 
 /** A subject's pack, answers included, so quizzes can be played and marked offline. */
@@ -14341,7 +14401,12 @@ app.get('/api/practice-arena/pack', authenticate, async (c) => {
   try {
     const student = await resolvePracticeStudent(c)
     const size = Math.max(10, Math.min(120, Number(c.req.query('size')) || PACK_SIZE))
-    return c.json({ success: true, pack: await buildPack(c.env.APP_DB, student, String(c.req.query('subject') || '').trim(), size) })
+    const subject = await practiceSubjectFor(c, student, String(c.req.query('subject') || '').trim())
+    const difficulty = normalizeDifficulty(c.req.query('difficulty'))
+    const pack = await buildPack(c.env.APP_DB, student, subject.key, size, { keys: subject.keys, difficulty, subjectName: subject.name })
+    // Too few questions: the app asks Ndovera AI for more, then fetches the pack again.
+    const canGenerate = Boolean(student.section && student.rank !== null)
+    return c.json({ success: true, pack, needsMore: canGenerate && pack.questions.length < GENERATION_LIMITS.enoughQuestions })
   } catch (error) { return practiceFailure(c, error, 'Could not prepare questions.') }
 })
 
@@ -14366,7 +14431,9 @@ app.post('/api/practice-arena/attempts', authenticate, async (c) => {
 app.get('/api/practice-arena/leaderboard', authenticate, async (c) => {
   try {
     const student = await resolvePracticeStudent(c)
-    return c.json({ success: true, leaderboard: await leaderboard(c.env.APP_DB, student, c.req.query('scope') === 'school' ? 'school' : 'class') })
+    const subjectKey = String(c.req.query('subject') || '').trim()
+    const keys = subjectKey ? (await practiceSubjectFor(c, student, subjectKey)).keys : []
+    return c.json({ success: true, leaderboard: await leaderboard(c.env.APP_DB, student, c.req.query('scope') === 'school' ? 'school' : 'class', keys) })
   } catch (error) { return practiceFailure(c, error, 'Could not load the leaderboard.') }
 })
 
@@ -14502,6 +14569,22 @@ app.post('/api/ami/question-bank/imports/:id/:action', authenticate, async (c) =
 })
 
 /** How the harvester is doing, and a manual nudge for Ami. */
+/** Ami: recount the shared practice bank now (it is also recounted nightly). */
+app.post('/api/ami/practice/recount', authenticate, async (c) => {
+  try {
+    requireAmi(c)
+    return c.json({ success: true, ...(await rebuildBankCounts(c.env.APP_DB)) })
+  } catch (error) { return practiceFailure(c, error, 'Could not recount the practice bank.') }
+})
+
+/** Ami: match new subject names now (it also runs nightly). */
+app.post('/api/ami/practice/match-subjects', authenticate, async (c) => {
+  try {
+    requireAmi(c)
+    return c.json({ success: true, ...(await mapNewSubjects(c.env.APP_DB, assessmentAiRunner(c.env))) })
+  } catch (error) { return practiceFailure(c, error, 'Could not match subjects.') }
+})
+
 app.get('/api/ami/harvest', authenticate, async (c) => {
   try {
     requireAmi(c)
@@ -33679,6 +33762,15 @@ export default {
     if (new Date().getUTCMinutes() === 0) {
       ctx.waitUntil(runScheduledAcademicTransitions(env.APP_DB).catch(() => {}))
     }
+    // The shared practice bank: subject counts rebuilt nightly (02:10 Lagos), then new subject
+    // names matched by Ndovera AI (02:20). Also rebuilt within the hour if the counts are empty.
+    const at = new Date()
+    if (at.getUTCHours() === 1 && at.getUTCMinutes() === 10) ctx.waitUntil(rebuildBankCounts(env.APP_DB).catch(error => console.error('Practice counts failed', error)))
+    else if (at.getUTCMinutes() === 40) {
+      ctx.waitUntil(env.APP_DB.prepare(`SELECT 1 FROM practice_bank_counts LIMIT 1`).first()
+        .then(row => (row ? null : rebuildBankCounts(env.APP_DB))).catch(() => rebuildBankCounts(env.APP_DB).catch(() => null)))
+    }
+    if (at.getUTCHours() === 1 && at.getUTCMinutes() === 20) ctx.waitUntil(mapNewSubjects(env.APP_DB, assessmentAiRunner(env)).catch(error => console.error('Subject matching failed', error)))
     // Staff emails (submission reminders, weekly summary, punctuality tips): one school every other minute, mornings only.
     if (new Date().getUTCMinutes() % 2 === 0) {
       ctx.waitUntil(runDueStaffEmails(env).catch(error => console.error('Staff emails failed', error)))

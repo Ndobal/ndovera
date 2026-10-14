@@ -1,14 +1,15 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { MODES, TYPE_LABELS, buildQuiz, estimateXp, levelForXp, newAttemptId } from './engine';
-import { loadHome, loadPack, packSavedAt, pendingAttempts, saveAttempt } from './practiceApi';
+import { generateQuestions, getLeaderboard, loadHome, loadPack, packSavedAt, pendingAttempts, saveAttempt } from './practiceApi';
 import { subscribe } from '../../shared/offline/outbox';
 import { isOnline, requestPersistentStorage } from '../../shared/offline/offlineStore';
 import QuizPlayer from './QuizPlayer';
 import QuizResults from './QuizResults';
 
-// Practice Arena: quizzes from the question bank (questions from the student's
-// teachers across their classes so far, and Ndovera's bank), no AI involved.
+// Practice Arena: quizzes on the subjects the student's class offers, from questions
+// set in every Ndovera school and Ndovera's bank, at the difficulty they choose.
+// Where a subject has too few, Ndovera AI prepares more (free to the student).
 // Works offline once a subject's questions are on the device.
 
 const CARD_GRADIENTS = [
@@ -71,9 +72,12 @@ function Hero({ profile, student, offline, waiting }) {
   );
 }
 
-function ModePicker({ subject, onStart, onClose, busy }) {
+const DEFAULT_DIFFICULTIES = [{ key: 'simple', label: 'Simple' }, { key: 'intermediate', label: 'Intermediate' }];
+
+function ModePicker({ subject, difficulties = DEFAULT_DIFFICULTIES, onStart, onClose, busy }) {
   const [custom, setCustom] = useState({ types: ['mcq', 'truefalse', 'shortanswer'], count: 15, minutes: 0 });
   const [mode, setMode] = useState('quick');
+  const [difficulty, setDifficulty] = useState('intermediate');
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-50 grid place-items-end bg-black/50 p-0 sm:place-items-center sm:p-4" role="dialog" aria-modal="true" aria-label={`Practise ${subject.name}`}>
       <motion.div initial={{ y: 60 }} animate={{ y: 0 }} exit={{ y: 60 }} className="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-t-[2rem] bg-white p-5 shadow-2xl sm:rounded-[2rem] dark:bg-slate-900">
@@ -84,6 +88,17 @@ function ModePicker({ subject, onStart, onClose, busy }) {
           </div>
           <button type="button" onClick={onClose} className="rounded-xl px-3 py-1 text-xl text-slate-500 hover:bg-slate-100 dark:hover:bg-white/10" aria-label="Close">✕</button>
         </div>
+        <fieldset className="mb-4">
+          <legend className="mb-2 text-xs font-black uppercase tracking-wide text-slate-500">Level</legend>
+          <div className="flex flex-wrap gap-2" role="radiogroup" aria-label="Level">
+            {difficulties.map(level => (
+              <button key={level.key} type="button" role="radio" aria-checked={difficulty === level.key} onClick={() => setDifficulty(level.key)}
+                className={`rounded-full border-2 px-4 py-1.5 text-sm font-black ${difficulty === level.key ? 'border-indigo-500 bg-indigo-600 text-white' : 'border-slate-300 text-slate-700 dark:border-white/20 dark:text-slate-200'}`}>
+                {level.label}
+              </button>
+            ))}
+          </div>
+        </fieldset>
         <div className="grid gap-3 sm:grid-cols-2">
           {MODES.map(item => (
             <button key={item.key} type="button" onClick={() => setMode(item.key)} aria-pressed={mode === item.key}
@@ -117,8 +132,8 @@ function ModePicker({ subject, onStart, onClose, busy }) {
             </div>
           </div>
         ) : null}
-        <button type="button" disabled={busy} onClick={() => onStart(mode, custom)} className="mt-5 w-full rounded-2xl bg-gradient-to-r from-indigo-600 to-fuchsia-600 py-4 text-lg font-black text-white shadow-lg disabled:opacity-60">
-          {busy ? 'Getting your questions…' : 'Start ▶'}
+        <button type="button" disabled={Boolean(busy)} onClick={() => onStart(mode, custom, difficulty)} className="mt-5 w-full rounded-2xl bg-gradient-to-r from-indigo-600 to-fuchsia-600 py-4 text-lg font-black text-white shadow-lg disabled:opacity-60">
+          {busy ? (typeof busy === 'string' ? busy : 'Getting your questions…') : 'Start ▶'}
         </button>
       </motion.div>
     </motion.div>
@@ -136,6 +151,15 @@ export default function PracticeArena() {
   const [saved, setSaved] = useState({});
   const [waiting, setWaiting] = useState(0);
   const [notice, setNotice] = useState('');
+  // Leaderboards are per subject (or all), for the class or the whole school.
+  const [board, setBoard] = useState({ subject: '', scope: 'class', data: null });
+
+  useEffect(() => {
+    if (tab !== 'leaderboard' || (!board.subject && board.scope === 'class') || !isOnline()) { setBoard(current => (current.data ? { ...current, data: null } : current)); return undefined; }
+    let live = true;
+    getLeaderboard(board.scope, board.subject).then(data => { if (live) setBoard(current => ({ ...current, data: data.leaderboard })); }).catch(() => null);
+    return () => { live = false; };
+  }, [tab, board.subject, board.scope]);
 
   const refresh = useCallback(async () => {
     try {
@@ -161,14 +185,25 @@ export default function PracticeArena() {
     return () => { unsubscribe(); window.removeEventListener('online', onOnline); };
   }, [refresh]);
 
-  const start = useCallback(async (modeKey, custom) => {
+  const start = useCallback(async (modeKey, custom, difficulty) => {
     if (!picker) return;
     setBusy(true);
     try {
-      const pack = await loadPack(picker.key);
+      let pack = await loadPack(picker.key, { difficulty });
+      // Too few questions at this level: Ndovera AI prepares more, then the pack is fetched again.
+      if (pack.needsMore && isOnline() && home?.canGenerate) {
+        setBusy('Ndovera AI is preparing your questions…');
+        try {
+          const made = await generateQuestions(picker.key, difficulty);
+          if (made.added) pack = await loadPack(picker.key, { difficulty });
+          else if (!pack.questions.length) { setNotice(made.message); return; }
+        } catch (makeError) {
+          if (!pack.questions.length) { setNotice(makeError.message); return; }
+        }
+      }
       const quiz = buildQuiz(pack, modeKey, custom);
       if (!quiz.questions.length) {
-        setNotice(modeKey === 'mistakes' ? 'No missed questions yet — try another mode.' : 'No questions of that kind for this subject yet. Try another mode.');
+        setNotice(modeKey === 'mistakes' ? 'No missed questions yet — try another mode.' : 'No questions of that kind for this subject yet. Try another mode or level.');
         return;
       }
       setSaved(current => ({ ...current, [picker.key]: pack.savedAt || Date.now() }));
@@ -180,7 +215,7 @@ export default function PracticeArena() {
     } finally {
       setBusy(false);
     }
-  }, [picker]);
+  }, [picker, home]);
 
   const finish = useCallback(async ({ results, startedAt, finishedAt }) => {
     const current = game;
@@ -229,6 +264,7 @@ export default function PracticeArena() {
 
   const profile = home?.profile;
   const subjects = home?.subjects || [];
+  const boardEntries = board.data?.entries || (!board.subject && board.scope === 'class' ? home?.leaderboard?.entries : []) || [];
   return (
     <div className="space-y-5">
       {error && !home ? (
@@ -256,7 +292,7 @@ export default function PracticeArena() {
               <motion.article key={subject.key} whileHover={{ y: -4 }} className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm dark:border-white/10 dark:bg-slate-900/70">
                 <div className={`bg-gradient-to-br ${CARD_GRADIENTS[index % CARD_GRADIENTS.length]} p-4 text-white`}>
                   <h3 className="text-lg font-black">{subject.name}</h3>
-                  <p className="text-xs text-white/85">{subject.questions} questions{subject.levels ? ` · ${subject.levels}` : ''}</p>
+                  <p className="text-xs text-white/85">{subject.questions ? `${subject.questions} questions${subject.levels ? ` · ${subject.levels}` : ''}` : home.canGenerate ? 'New — Ndovera AI prepares questions when you start' : 'No questions yet'}</p>
                 </div>
                 <div className="space-y-3 p-4">
                   <div>
@@ -285,7 +321,7 @@ export default function PracticeArena() {
           <div className="rounded-3xl border border-dashed border-slate-300 p-8 text-center dark:border-white/20">
             <p className="text-4xl" aria-hidden="true">📚</p>
             <p className="mt-2 font-black text-slate-800 dark:text-white">No practice questions yet</p>
-            <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">Questions from your teachers' assignments, notes and tests — and from Ndovera's bank — appear here automatically.</p>
+            <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">Your class's subjects appear here once your school has set them up. Questions come from teachers in every Ndovera school and from Ndovera's bank.</p>
           </div>
         )
       ) : null}
@@ -303,10 +339,19 @@ export default function PracticeArena() {
 
       {home && tab === 'leaderboard' ? (
         <section className="rounded-3xl border border-slate-200 bg-white p-4 dark:border-white/10 dark:bg-slate-900/70">
-          <h3 className="mb-3 font-black text-slate-900 dark:text-white">This week in {home.student?.className || 'your class'}</h3>
-          {(home.leaderboard?.entries || []).length ? (
+          <div className="mb-3 flex flex-wrap items-center gap-2">
+            <h3 className="flex-1 font-black text-slate-900 dark:text-white">This week in {board.scope === 'school' ? 'your school' : home.student?.className || 'your class'}{board.subject ? ` · ${subjects.find(subject => subject.key === board.subject)?.name || ''}` : ''}</h3>
+            <select aria-label="Leaderboard subject" value={board.subject} onChange={event => setBoard(current => ({ ...current, subject: event.target.value }))} className="rounded-xl border border-slate-300 bg-white px-3 py-1.5 text-sm font-semibold text-slate-800 dark:border-white/20 dark:bg-slate-900 dark:text-slate-100">
+              <option value="">All subjects</option>
+              {subjects.map(subject => <option key={subject.key} value={subject.key}>{subject.name}</option>)}
+            </select>
+            <select aria-label="Leaderboard group" value={board.scope} onChange={event => setBoard(current => ({ ...current, scope: event.target.value }))} className="rounded-xl border border-slate-300 bg-white px-3 py-1.5 text-sm font-semibold text-slate-800 dark:border-white/20 dark:bg-slate-900 dark:text-slate-100">
+              <option value="class">My class</option><option value="school">My school</option>
+            </select>
+          </div>
+          {(boardEntries || []).length ? (
             <ol className="space-y-2">
-              {home.leaderboard.entries.map(entry => (
+              {boardEntries.map(entry => (
                 <li key={`${entry.rank}-${entry.name}`} className={`flex items-center gap-3 rounded-2xl px-3 py-2 ${entry.you ? 'bg-indigo-50 ring-2 ring-indigo-400 dark:bg-indigo-500/15' : 'bg-slate-50 dark:bg-white/5'}`}>
                   <span className="w-8 text-center text-lg font-black">{['🥇', '🥈', '🥉'][entry.rank - 1] || entry.rank}</span>
                   <span className="flex-1 font-semibold text-slate-800 dark:text-slate-100">{entry.name}{entry.you ? ' (you)' : ''}</span>
@@ -318,7 +363,7 @@ export default function PracticeArena() {
         </section>
       ) : null}
 
-      <AnimatePresence>{picker ? <ModePicker subject={picker} busy={busy} onClose={() => setPicker(null)} onStart={start} /> : null}</AnimatePresence>
+      <AnimatePresence>{picker ? <ModePicker subject={picker} difficulties={home?.difficulties} busy={busy} onClose={() => setPicker(null)} onStart={start} /> : null}</AnimatePresence>
     </div>
   );
 }

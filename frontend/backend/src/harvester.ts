@@ -22,7 +22,7 @@
 import { parsePaperText, needsAiHelp, AI_IMPORT_SYSTEM, importFromAiReply } from './paperImport'
 import type { ImportedQuestion } from './paperImport'
 import { levelOf } from './levels'
-import { ensurePracticeTables, upsertBankQuestions, classifyLegacyQuestions, bankType, normalizeText, GLOBAL_TENANT } from './practiceArena'
+import { ensurePracticeTables, upsertBankQuestions, classifyLegacyQuestions, bankType, normalizeText, GLOBAL_TENANT, countNewlyPlayable } from './practiceArena'
 import type { BankInput } from './practiceArena'
 import { seedQuantReasoningBank } from './quantReasoning'
 import { seedVerbalReasoningBank } from './verbalReasoning'
@@ -599,6 +599,7 @@ export async function fillAnswerKeys(deps: HarvestDeps, limit = 6) {
   try { answers = JSON.parse(text.slice(text.indexOf('['), text.lastIndexOf(']') + 1)) } catch { answers = [] }
   const byId = new Map((Array.isArray(answers) ? answers : []).map(item => [String(item?.id || ''), item]))
   const statements: D1PreparedStatement[] = []
+  const nowPlayable: Array<Record<string, any>> = []
   const stamp = new Date().toISOString()
   for (const row of rows) {
     const item = byId.get(String(row.id))
@@ -623,8 +624,10 @@ export async function fillAnswerKeys(deps: HarvestDeps, limit = 6) {
     }
     statements.push(db.prepare(`UPDATE question_bank SET type = ?, answer_json = ?, explanation = COALESCE(NULLIF(explanation, ''), ?), answer_source = 'ai', playable = 1, updated_at = ? WHERE id = ?`)
       .bind(newType, JSON.stringify(storedAnswer), String(item.explanation || '').slice(0, 1500), stamp, row.id))
+    nowPlayable.push(row)
   }
   if (statements.length) await db.batch(statements)
+  await countNewlyPlayable(db, nowPlayable)
   return statements.length
 }
 
