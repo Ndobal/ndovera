@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import {
   XMarkIcon, ChevronDoubleLeftIcon, ChevronDoubleRightIcon,
   HomeIcon, AcademicCapIcon, DocumentTextIcon, ClipboardDocumentListIcon, ClipboardDocumentCheckIcon,
   VideoCameraIcon, CalendarDaysIcon, ChatBubbleLeftRightIcon, BanknotesIcon, UserGroupIcon,
   BuildingOffice2Icon, BookOpenIcon, BeakerIcon, SparklesIcon, Cog6ToothIcon, ChartBarIcon,
   ShieldCheckIcon, TrophyIcon, TruckIcon, HomeModernIcon, HeartIcon, ShoppingBagIcon, BellIcon,
-  PencilSquareIcon, Squares2X2Icon, ArrowUpTrayIcon, BookmarkSquareIcon, CpuChipIcon, ScaleIcon,
+  PencilSquareIcon, Squares2X2Icon, ArrowUpTrayIcon, BookmarkSquareIcon, CpuChipIcon, ScaleIcon, MagnifyingGlassIcon,
 } from '@heroicons/react/24/outline';
+import { buildSearchIndex, searchIndex } from './sidebarSearch';
 import useFeatureFlags from '../hooks/useFeatureFlags';
 import { getTenantPwaInfo } from '../hooks/useTenantPwaManifest';
 import StaffSubmissionPanel from '../../features/submissions/StaffSubmissionPanel';
@@ -666,6 +667,25 @@ export default function Sidebar({ auth = null, mobileOpen = false, onClose = noo
   const tenantSubdomain = tenantBranding?.subdomain || auth?.user?.subdomain || '';
   const schoolWebsiteUrl = tenantSubdomain ? `https://${tenantSubdomain}.ndovera.com` : '';
   const [submitOpen, setSubmitOpen] = useState(false);
+  // Search: any page or Settings section, by the words people use; a direct link to it.
+  const navigate = useNavigate();
+  const [query, setQuery] = useState('');
+  const searchRef = useRef(null);
+  const searchIndexEntries = useMemo(() => buildSearchIndex(roleKey, sidebarItems), [roleKey, sidebarItems]);
+  const results = useMemo(() => searchIndex(searchIndexEntries, query), [searchIndexEntries, query]);
+  const openResult = entry => { setQuery(''); onClose(); navigate(entry.path); };
+  useEffect(() => {
+    // "/" anywhere (not while typing) jumps to the search box.
+    const onKey = event => {
+      if (event.key !== '/' || event.ctrlKey || event.metaKey || event.altKey) return;
+      const tag = String(event.target?.tagName || '').toLowerCase();
+      if (['input', 'textarea', 'select'].includes(tag) || event.target?.isContentEditable) return;
+      event.preventDefault();
+      searchRef.current?.focus();
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
   const [collapsed, setCollapsed] = useState(() => {
     try { return window.localStorage.getItem('ndovera:sidebarCollapsed') === '1'; } catch { return false; }
   });
@@ -771,6 +791,40 @@ export default function Sidebar({ auth = null, mobileOpen = false, onClose = noo
             </button>
           </div>
         </div>
+        <div className="px-4 pb-3">
+          <label className="flex items-center gap-2 rounded-2xl border border-slate-200/70 bg-white/80 px-3 py-2 focus-within:ring-2 focus-within:ring-indigo-400 dark:border-indigo-500/25 dark:bg-slate-950/40">
+            <MagnifyingGlassIcon className="h-4 w-4 shrink-0 text-slate-500 dark:text-slate-300" aria-hidden="true" />
+            <input
+              ref={searchRef}
+              type="search"
+              value={query}
+              onChange={event => setQuery(event.target.value)}
+              onKeyDown={event => {
+                if (event.key === 'Enter' && results[0]) { event.preventDefault(); openResult(results[0]); }
+                if (event.key === 'Escape') { setQuery(''); event.currentTarget.blur(); }
+              }}
+              placeholder="Search… (press /)"
+              aria-label="Search the app"
+              className="w-full bg-transparent text-sm text-slate-800 outline-none placeholder:text-slate-400 dark:text-white"
+            />
+          </label>
+        </div>
+        {query.trim() ? (
+          <div className="px-3 pb-4" role="region" aria-label="Search results">
+            {results.length ? (
+              <ul className="space-y-1">
+                {results.map(entry => (
+                  <li key={entry.path}>
+                    <button type="button" onClick={() => openResult(entry)} className="w-full rounded-2xl px-3 py-2 text-left transition hover:bg-emerald-50 dark:hover:bg-indigo-500/20">
+                      <span className="block text-sm font-semibold text-slate-800 dark:text-white">{entry.name}</span>
+                      <span className="block text-[11px] text-slate-500 dark:text-slate-400">{entry.section}</span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            ) : <p className="px-3 text-sm text-slate-500 dark:text-slate-300">Nothing found for “{query}”. Try another word — e.g. fees, receipt, class, results.</p>}
+          </div>
+        ) : (
         <ul className="pb-4">
           {sidebarItems.map((item, index) => {
             const Icon = getSidebarIcon(item.name, item.path);
@@ -815,6 +869,7 @@ export default function Sidebar({ auth = null, mobileOpen = false, onClose = noo
             );
           })}
         </ul>
+        )}
       </aside>
 
       {submitOpen ? (

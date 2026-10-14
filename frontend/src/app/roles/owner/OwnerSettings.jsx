@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 import { getMe, getClasses, addClass, getSubjects, bulkAddSubjects, getBranding, saveBranding, uploadLogo, getPeople, bulkAddSubjectsBySection, updateSubject, deleteSubject, updateClass, bulkUpdateClasses, deleteClass } from '../../../features/school/services/schoolApi';
 import AdminPasswordReset from '../../../features/auth/components/AdminPasswordReset';
 import StaffAttendanceManagementPanel from '../../../features/attendance/components/StaffAttendanceManagementPanel';
@@ -11,7 +12,13 @@ import SessionRegisterBoard from '../../../features/school/components/SessionReg
 import PromotionBoard from '../../../features/school/components/PromotionBoard';
 import SchoolLocationForm from '../../../features/school/components/SchoolLocationForm';
 
-const TABS = ['Profile', 'School Location', 'School Branding', 'Website', 'Events', 'Classes', 'Promotion', 'Promotion Flow', 'Subjects', 'Sessions & Terms', 'Attendance Management'];
+// Settings sections, grouped; every one (Class Register included) can be opened directly with ?tab=.
+const TAB_GROUPS = [
+  ['School', ['Profile', 'School Location', 'School Branding', 'Website', 'Events']],
+  ['Academic', ['Classes', 'Class Register', 'Subjects', 'Sessions & Terms', 'Promotion', 'Promotion Flow']],
+  ['Staff', ['Attendance Management']],
+];
+const TABS = TAB_GROUPS.flatMap(([, tabs]) => tabs);
 
 const DEFAULT_CLASS_NAMES = [
   { label: 'Primary 1', value: 'Primary 1' },
@@ -788,7 +795,11 @@ function SubjectsTab() {
 }
 
 export default function OwnerSettings({ auth }) {
-  const [tab, setTab] = useState('Profile');
+  const location = useLocation();
+  const requestedTab = (() => { try { return new URLSearchParams(location.search).get('tab') || ''; } catch { return ''; } })();
+  const [tab, setTab] = useState(TABS.includes(requestedTab) ? requestedTab : 'Profile');
+  // A link (e.g. from the sidebar search) to another section opens it.
+  useEffect(() => { if (TABS.includes(requestedTab)) setTab(requestedTab); }, [requestedTab]);
   const tabContent = { Profile: <ProfileTab />, 'School Location': <SchoolLocationForm />, 'School Branding': <BrandingTab />, Website: <WebsiteTab />, Events: <EventsTab />, Classes: <ClassesTab />, Promotion: <PromotionBoard />, 'Class Register': <SessionRegisterBoard />, 'Promotion Flow': <PromotionPanel />, Subjects: <SubjectsTab />, 'Sessions & Terms': <AcademicSessionsBoard />, 'Attendance Management': <StaffAttendanceManagementPanel /> };
   return (
     <div className="p-8 max-w-7xl mx-auto space-y-6">
@@ -796,9 +807,14 @@ export default function OwnerSettings({ auth }) {
         <h1 className="text-2xl font-bold text-[#800000] dark:text-slate-100">Settings</h1>
         <p className="text-[#191970] dark:text-slate-300 mt-1 text-sm">Manage your profile, branding, classes, academic sessions, and staff attendance policy.</p>
       </div>
-      <div className="flex gap-2 flex-wrap">
-        {TABS.map(t => (
-          <button key={t} onClick={() => setTab(t)} className={`px-4 py-2 rounded-2xl text-sm font-semibold border transition-colors ${tab === t ? 'bg-[#800020] text-[#b5e3f4] border-[#800020]' : 'bg-[#b5e3f4] text-[#800020] border-[#c9a96e]/40 dark:bg-slate-900/30 dark:text-slate-400 dark:border-white/10 hover:bg-[#efd4a0]'}`}>{t}</button>
+      <div className="space-y-2">
+        {TAB_GROUPS.map(([group, tabs]) => (
+          <div key={group} className="flex flex-wrap items-center gap-2">
+            <span className="w-20 shrink-0 text-xs font-bold uppercase tracking-wide text-[#800020] dark:text-slate-400">{group}</span>
+            {tabs.map(t => (
+              <button key={t} onClick={() => setTab(t)} className={`px-4 py-2 rounded-2xl text-sm font-semibold border transition-colors ${tab === t ? 'bg-[#800020] text-[#b5e3f4] border-[#800020]' : 'bg-[#b5e3f4] text-[#800020] border-[#c9a96e]/40 dark:bg-slate-900/30 dark:text-slate-400 dark:border-white/10 hover:bg-[#efd4a0]'}`}>{t}</button>
+            ))}
+          </div>
         ))}
       </div>
       <div className="rounded-3xl p-6 bg-[#b5e3f4] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
