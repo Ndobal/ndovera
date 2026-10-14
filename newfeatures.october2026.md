@@ -2198,22 +2198,22 @@ From the `ndovera_birthdays` package (spec, tables and Flutter client).
 - Not done: the spec's AI-generated background artwork (by choice: Ndovera-drawn designs cost nothing); visual-similarity fingerprints beyond distinct design families.
 
 
-### N22. Fees: autosave, a "record payment" column, report tabs by class, accounts for every student — ⏳ BUILT AND PUSHED (14 Oct 2026), NOT DEPLOYED YET
+### N22. Fees: autosave, a "record payment" column, report tabs by class, accounts for every student — ✅ DEPLOYED (14 Oct 2026)
 From feature22222222.md (items 1–5).
 - Fee Setup saves itself as a draft 3 seconds after typing stops. Cost: one database row write per save (no audit row per autosave) — about 100–150 writes for a 30-minute session, against 100,000 free a day. No extra money.
 - Student Accounts has a Record payment column (amount, method, Enter) for the Owner, Head of School and Accountant; a receipt is issued as from the form.
 - Reports has its own tabs: Class summary, Class fees (what each class pays per item), Class by class (each student, totals, CSV, print), Students owing (filter by class), By fee item.
 - Publishing names anyone left without an account (no fees entered); students who join later get their account automatically when a fee manager opens Fees.
 
-### N23. No lesson plans for students; offline notes read aloud — ⏳ BUILT AND PUSHED (14 Oct 2026), NOT DEPLOYED YET
+### N23. No lesson plans for students; offline notes read aloud — ✅ DEPLOYED (14 Oct 2026)
 - Lesson Plans removed from the student sidebar, page and API.
 - Offline notes have a Listen button using the device's own voices (works offline with installed voices), with speed and voice choice.
 
-### N24. People search (HoS) and missing teacher submissions — ⏳ BUILT AND PUSHED (14 Oct 2026), NOT DEPLOYED YET
+### N24. People search (HoS) and missing teacher submissions — ✅ DEPLOYED (14 Oct 2026)
 - People search waits for typing to pause and ignores late answers to older searches, so the list no longer jumps or shows the wrong people first.
 - Production had only 1 row in Teacher Submissions (6 Oct). The review board now also lists work handed in elsewhere: plans from the older Lesson Plans page, exams set on the Exams page, and work saved but never submitted, plus classes renamed or removed since. Not covered: C.A. score sheets (they have their own hand-in page).
 
-### N25. Practice from every school's questions, by subject and level; Ndovera AI fills gaps — ⏳ BUILT AND PUSHED (14 Oct 2026), NOT DEPLOYED YET
+### N25. Practice from every school's questions, by subject and level; Ndovera AI fills gaps — ✅ DEPLOYED (14 Oct 2026)
 - Students practise the subjects their class offers, from approved questions set in every Ndovera school, within their section (Nursery, Primary, JSS, SS) and up to their level; exam questions stay hidden until after the exam.
 - Ndovera AI matches subject names across schools nightly ("Maths", "Mathematics (Core)" → Mathematics; Further Mathematics stays separate).
 - Students choose only the level: Simple, Intermediate, External examination (Common Entrance / BECE / WAEC-NECO by section).
@@ -2221,12 +2221,12 @@ From feature22222222.md (items 1–5).
 - Leaderboards per subject, for the class or the school.
 - Open question: Primary is Primary 1–6 / Grade 1–6 on the ladder; a school whose primary ends at Grade 5 would need its Grade 6 named JSS 1.
 
-### N26. Clubs — ⏳ BUILT (14 Oct 2026), NOT DEPLOYED YET
+### N26. Clubs — ✅ DEPLOYED (14 Oct 2026)
 - Owner / HoS / admin create and run any club; teachers start clubs and become patrons; students join when added (one by one or a whole class); a student can be made club leader.
 - Patrons post notes (class-note formatting, saved on the device for offline reading, read aloud), videos (upload up to 200 MB or a YouTube link), images, documents, links, announcements, assignments (written answer and/or files, marked with feedback) and quizzes (multiple choice, true/false, short answer; marked at once; answers hidden until handed in).
 - Clubs in the sidebar for students, teachers, HoS, Owner and other staff.
 
-### N27. Practice passes, examination standards, JAMB, and the night builder — ⏳ BUILT (14 Oct 2026), NOT DEPLOYED YET
+### N27. Practice passes, examination standards, JAMB, and the night builder — ✅ DEPLOYED (14 Oct 2026)
 Your rules, as agreed after review (the original "₦300 when AI is used" could not be applied fairly, since students cannot see which questions AI wrote):
 - Free: 1 subject a term (Simple and Intermediate), changeable once a term; the first subject a student opens becomes it.
 - Subject Pass ₦300 (a term) · All Subjects ₦1,500 (a term) · Common Entrance ₦2,000 · BECE ₦3,000 · WAEC/NECO ₦3,000 · JAMB UTME ₦3,000 (Use of English + 3 chosen subjects, 180-question 2-hour CBT mock) · SS3 Super Pack (WAEC/NECO + JAMB) ₦5,000 · exam passes last 12 months · schools buy for a whole class at 30% off; parents buy for each child.
