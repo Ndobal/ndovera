@@ -368,6 +368,9 @@ import {
   listClosuresForAdmin, markExecuted, markReopened, requestClosure, revokeClosure,
 } from './schoolClosure'
 import { botGate } from './botPolicy.js'
+import { matchClass } from './classMatch'
+import type { SchoolClass } from './classMatch'
+import { CLASS_CHANGE_ROLES, classHistory, isStudentPayload, monitorClassPins } from './classPins'
 import {
   Enrollment, TermRef, accountSummaries, addStudentCharge, adjustStudent, billStudents, canEditFees, getFeeSettings, getTermGrid, getTermLock,
   discardFeeDraft, getFeeDraft, gridFromFeeConfig, listFeeTerms, loadStudentAmounts, lockTerm, saveFeeDraft, resolveClassMove, saveFeeSettings, saveTermGrid, studentStatement, studentsWithFees, unbilledStudents, unlockTerm,
@@ -13958,12 +13961,15 @@ app.post('/api/classrooms/:classroomId/members', authenticate, async (c) => {
         schoolId: actor.tenantId,
         status: 'active',
       }
+      if (baseSettings.classId && baseSettings.classId !== classroomId && !hasRequiredRole(actor.role, CLASS_CHANGE_ROLES)) {
+        return c.json({ success: false, message: 'This student is in another class. Only the Owner, Head of School or ICT can move them.' }, 403)
+      }
       await upsertSettings(c.env.APP_DB, settingsKey, {
         ...baseSettings,
         classId: classroomId,
         className: classroom.classRow.name,
         classArm: classroom.classRow.arm || '',
-      })
+      }, { by: actor.actorId, byName: actor.actorName, role: actor.role, reason: 'roster' })
     } else {
       const existingMembershipRows = await listClassMembershipIdentifiers(c.env.APP_DB, actor.tenantId, classroomId, memberRole as 'teacher' | 'caregiver')
       const nextUserIds = Array.from(new Set([
@@ -13999,6 +14005,10 @@ app.delete('/api/classrooms/:classroomId/members/:memberRole/:userId', authentic
     if (!userId) return c.json({ success: false, message: 'User not found.' }, 404)
 
     if (memberRole === 'student') {
+      // Taking a student out of their class leaves them with none: only those who may move students do it, on record.
+      if (!hasRequiredRole(actor.role, CLASS_CHANGE_ROLES)) {
+        return c.json({ success: false, message: 'Only the Owner, Head of School or ICT can take a student out of their class. Move them to their new class instead.' }, 403)
+      }
       const resolved = await resolveSettingsIdentity(c.env.APP_DB, userId)
       const settingsKey = resolved.settingsKey || resolved.userRow?.email || userId
       if (resolved.settings && String(resolved.settings.classId || '') === classroomId) {
@@ -14006,7 +14016,7 @@ app.delete('/api/classrooms/:classroomId/members/:memberRole/:userId', authentic
         delete nextSettings.classId
         delete nextSettings.className
         delete nextSettings.classArm
-        await upsertSettings(c.env.APP_DB, settingsKey, nextSettings)
+        await upsertSettings(c.env.APP_DB, settingsKey, nextSettings, { by: actor.actorId, byName: actor.actorName, role: actor.role, reason: 'roster' })
       }
     } else if (memberRole === 'teacher' || memberRole === 'caregiver') {
       const existingMembershipRows = await listClassMembershipIdentifiers(c.env.APP_DB, actor.tenantId, classroomId, memberRole as 'teacher' | 'caregiver')
@@ -18214,19 +18224,11 @@ app.post('/api/people/bulk', authenticate, async (c) => {
   await ensureClassesTable(c.env.APP_DB)
   await ensureClassMembershipsTable(c.env.APP_DB)
 
-  const results: Array<{ email: string; status: 'ok' | 'error'; error?: string }> = []
+  const results: Array<{ email: string; status: 'ok' | 'error'; error?: string; warning?: string }> = []
   const classRows = await c.env.APP_DB.prepare(
     `SELECT id, name, arm FROM classes WHERE tenantId = ?`
   ).bind(tenantId).all().catch(() => ({ results: [] }))
-  const classLookup = new Map<string, Record<string, any>>()
-  for (const classRow of ((classRows.results || []) as Record<string, any>[])) {
-    const classId = String(classRow.id || '').trim()
-    const className = String(classRow.name || '').trim()
-    const fullLabel = `${className}${classRow.arm ? ` ${classRow.arm}` : ''}`.trim()
-    if (classId) classLookup.set(`id:${classId.toLowerCase()}`, classRow)
-    if (className) classLookup.set(`name:${className.toLowerCase()}`, classRow)
-    if (fullLabel) classLookup.set(`name:${fullLabel.toLowerCase()}`, classRow)
-  }
+  const schoolClasses = ((classRows.results || []) as Record<string, any>[]).map(row => ({ id: String(row.id), name: String(row.name || ''), arm: row.arm || null }))
 
   for (const row of rows) {
     const { name, email, role, roles, password, className, classId } = row
@@ -18254,11 +18256,18 @@ app.post('/api/people/bulk', authenticate, async (c) => {
       const primaryRole = getPrimaryRole(existingSettings || {}, mergedRoles[0] || normalizedRole) || normalizedRole
       const displayId = existingSettings?.displayId || await generateDisplayId(c.env.APP_DB, getDisplayIdConfig(primaryRole))
 
+      // The sheet's class, however it is written; one that cannot be matched is reported, never dropped in silence.
       let selectedClass: Record<string, any> | null = null
+      let classWarning = ''
       if (normalizedRole === 'student' && (classId || className)) {
-        const classIdKey = String(classId || '').trim().toLowerCase()
-        const classNameKey = String(className || '').trim().toLowerCase()
-        selectedClass = classLookup.get(`id:${classIdKey}`) || classLookup.get(`name:${classNameKey}`) || null
+        const match = matchClass(schoolClasses, { classId, className })
+        selectedClass = match.klass
+        if (!match.klass) classWarning = `Added without a class: ${match.reason}. Assign it in Settings → Class Register.`
+      }
+      // No student joins without a class: a new one whose class is missing or not recognised is not added.
+      if (normalizedRole === 'student' && !String(existingSettings?.classId || '').trim() && !selectedClass) {
+        results.push({ email: normalizedEmail, status: 'error', error: classId || className ? `Not added: ${classWarning.replace(/^Added without a class: /, '').replace(/\. Assign it in Settings → Class Register\.$/, '')}. Fix the class so it matches one of the school's classes.` : 'Not added: a student needs a class.' })
+        continue
       }
 
       await assertTenantOwnerAssignmentAllowed(c.env.APP_DB, tenantId, [primaryRole, mergedRoles])
@@ -18300,13 +18309,13 @@ app.post('/api/people/bulk', authenticate, async (c) => {
         primaryRole,
         roles: mergedRoles,
       })
-      results.push({ email: normalizedEmail, status: 'ok' })
+      results.push({ email: normalizedEmail, status: 'ok', ...(classWarning ? { warning: classWarning } : {}) })
     } catch (err) {
       results.push({ email: email || '?', status: 'error', error: err instanceof Error ? err.message : 'unknown error' })
     }
   }
 
-  await addAudit(c.env.APP_DB, tenantId, { action: 'bulkImport', data: { by: c.var.user.id, total: rows.length, ok: results.filter(r => r.status === 'ok').length } })
+  await addAudit(c.env.APP_DB, tenantId, { action: 'bulkImport', data: { by: c.var.user.id, total: rows.length, ok: results.filter(r => r.status === 'ok').length, withoutClass: results.filter(r => r.warning).length } })
   return c.json({ results })
 })
 
@@ -18322,7 +18331,7 @@ const BULK_PEOPLE_BATCH = 100
 
 // Create or skip a person, and create/link the parent. Skips re-creating an
 // existing person but still ensures the parent link (second-upload behaviour).
-async function processBulkPeopleRow(env: Bindings, tenantId: string, row: any, classLookup: Map<string, any>): Promise<{ created: boolean; linked: boolean }> {
+async function processBulkPeopleRow(env: Bindings, tenantId: string, row: any, schoolClasses: SchoolClass[]): Promise<{ created: boolean; linked: boolean; placed?: boolean; classWarning?: string }> {
   const name = String(row?.name || '').trim()
   const email = String(row?.email || '').trim().toLowerCase()
   if (!name || !email) throw new Error('name and email are required')
@@ -18332,18 +18341,25 @@ async function processBulkPeopleRow(env: Bindings, tenantId: string, row: any, c
   const existingSettings = await getSettings(env.APP_DB, email).catch(() => null)
   const isNew = !existingSettings
   let actualUserId = ''
+  // The sheet's class, however it is written. Unmatched classes are reported, never dropped in silence.
+  let selectedClass: SchoolClass | null = null
+  let classWarning = ''
+  let placed = false
+  if (normalizedRole === 'student' && (row?.classId || row?.className)) {
+    const match = matchClass(schoolClasses, { classId: row?.classId, className: row?.className })
+    selectedClass = match.klass
+    if (!match.klass) classWarning = `${name}: added without a class — ${match.reason}. Assign it in Settings → Class Register.`
+  }
+  // No student joins without a class: a new student whose class is missing or not recognised is not added.
+  if (normalizedRole === 'student' && isNew && !selectedClass) {
+    throw new Error(row?.classId || row?.className ? `not added — ${classWarning.split(' — ')[1]?.replace(/\. Assign it in Settings → Class Register\.$/, '') || 'class not recognised'}. Make the class match one of the school's classes and upload again.` : 'not added — a student needs a class. Add the class column and upload again.')
+  }
 
   if (isNew) {
     const userId = createUserId()
     const mergedRoles = parseRoleList(undefined, row?.roles, normalizedRole)
     const primaryRole = mergedRoles[0] || normalizedRole
     const displayId = await generateDisplayId(env.APP_DB, getDisplayIdConfig(primaryRole))
-    let selectedClass: any = null
-    if (normalizedRole === 'student') {
-      const classIdKey = String(row?.classId || '').trim().toLowerCase()
-      const classNameKey = String(row?.className || '').trim().toLowerCase()
-      selectedClass = classLookup.get(`id:${classIdKey}`) || classLookup.get(`name:${classNameKey}`) || null
-    }
     const userSettings = await withHashedPassword({
       email, name, role: primaryRole, primaryRole, roles: mergedRoles, tenantId, schoolId: tenantId,
       status: 'active', mustChangePassword: true, displayId,
@@ -18361,6 +18377,13 @@ async function processBulkPeopleRow(env: Bindings, tenantId: string, row: any, c
   } else {
     const saved = await env.APP_DB.prepare(`SELECT id FROM users WHERE email = ?`).bind(email).first() as any
     actualUserId = String(saved?.id || '')
+    // Someone already here with no class: the sheet's class places them (uploading the
+    // original sheet again restores lost placements). A class they already have is never changed.
+    if (selectedClass && normalizedRole === 'student' && !String(existingSettings?.classId || '').trim()
+      && String(existingSettings?.tenantId || existingSettings?.schoolId || tenantId) === tenantId) {
+      await upsertSettings(env.APP_DB, email, { ...existingSettings, classId: selectedClass.id, className: selectedClass.name, classArm: selectedClass.arm || null })
+      placed = true
+    }
   }
 
   let linked = false
@@ -18391,7 +18414,7 @@ async function processBulkPeopleRow(env: Bindings, tenantId: string, row: any, c
       linked = true
     }
   }
-  return { created: isNew, linked }
+  return { created: isNew, linked, placed, ...(classWarning ? { classWarning } : {}) }
 }
 
 // Process one chunk of a job; returns the updated job row.
@@ -18407,24 +18430,23 @@ async function runBulkPeopleJobChunk(env: Bindings, job: any): Promise<any> {
   const end = Math.min(start + BULK_PEOPLE_BATCH, rows.length)
 
   const classRows = await env.APP_DB.prepare(`SELECT id, name, arm FROM classes WHERE tenantId = ?`).bind(tenantId).all().catch(() => ({ results: [] }))
-  const classLookup = new Map<string, any>()
-  for (const cr of ((classRows.results || []) as any[])) {
-    if (cr.id) classLookup.set(`id:${String(cr.id).toLowerCase()}`, cr)
-    if (cr.name) classLookup.set(`name:${String(cr.name).toLowerCase()}`, cr)
-    if (cr.name && cr.arm) classLookup.set(`name:${`${cr.name} ${cr.arm}`.toLowerCase()}`, cr)
-  }
+  const schoolClasses = ((classRows.results || []) as any[]).map(cr => ({ id: String(cr.id), name: String(cr.name || ''), arm: cr.arm || null }))
 
   let created = Number(job.created_count || 0)
   let skipped = Number(job.skipped_count || 0)
   let linked = Number(job.linked_count || 0)
   let failed = Number(job.failed_count || 0)
   const errors = (() => { try { return JSON.parse(job.errors_json || '[]') } catch { return [] } })() as any[]
+  let placedExisting = 0
+  let withoutClass = errors.filter(entry => entry?.warning).length
 
   for (let i = start; i < end; i += 1) {
     try {
-      const r = await processBulkPeopleRow(env, tenantId, rows[i], classLookup)
+      const r = await processBulkPeopleRow(env, tenantId, rows[i], schoolClasses)
       if (r.created) created += 1; else skipped += 1
       if (r.linked) linked += 1
+      if (r.placed) placedExisting += 1
+      if (r.classWarning) { withoutClass += 1; if (errors.length < 200) errors.push({ row: i, email: rows[i]?.email || '', error: r.classWarning, warning: true }) }
     } catch (err) {
       failed += 1
       if (errors.length < 200) errors.push({ row: i, email: rows[i]?.email || '', error: err instanceof Error ? err.message : 'error' })
@@ -18433,7 +18455,9 @@ async function runBulkPeopleJobChunk(env: Bindings, job: any): Promise<any> {
 
   const done = end >= rows.length
   const status = done ? 'done' : 'processing'
-  const message = done ? `Import complete: ${created} added, ${skipped} skipped, ${linked} parents linked, ${failed} failed.` : `Importing… ${end}/${rows.length}`
+  const message = done
+    ? `Import complete: ${created} added, ${skipped} already here (those without a class were placed in the sheet's class), ${linked} parents linked, ${failed} failed.${withoutClass ? ` ${withoutClass} student(s) have no class — their class on the sheet did not match; assign them in Settings → Class Register.` : ''}`
+    : `Importing… ${end}/${rows.length}`
   await env.APP_DB.prepare(`UPDATE bulk_people_jobs SET status=?, cursor=?, created_count=?, skipped_count=?, linked_count=?, failed_count=?, errors_json=?, message=?, updated_at=? WHERE id=?`)
     .bind(status, end, created, skipped, linked, failed, JSON.stringify(errors.slice(0, 200)), message, new Date().toISOString(), job.id).run()
   return { ...job, status, cursor: end, created_count: created, skipped_count: skipped, linked_count: linked, failed_count: failed, errors_json: JSON.stringify(errors) }
@@ -18492,7 +18516,7 @@ app.post('/api/people/bulk-jobs/:id/retry', authenticate, async (c) => {
   const obj = await c.env.UPLOADS.get(String(job.r2_key))
   if (!obj) return c.json({ error: 'Original upload data not found.' }, 404)
   const allRows = JSON.parse(await obj.text()) as any[]
-  const failedRows = errors.map(e => allRows[e.row]).filter(Boolean)
+  const failedRows = errors.filter(e => !e.warning).map(e => allRows[e.row]).filter(Boolean)
   if (!failedRows.length) return c.json({ error: 'No failed rows to retry.' }, 400)
   const jobId = `bpj_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`
   const key = `bulk-people/${tenantId}/${jobId}.json`
@@ -18659,23 +18683,27 @@ app.put('/api/people/:userId', authenticate, async (c) => {
     if (payload.address !== undefined) updates.address = profileUpdates.address || null
     if (payload.relationship !== undefined) updates.relationship = profileUpdates.relationship || null
 
-    if (payload.classId !== undefined && access.isAdminEdit) {
-      // resolve class name for classId
-      try {
-        await ensureClassesTable(c.env.APP_DB)
-        const classId = String(payload.classId || '').trim()
-        const cls = await c.env.APP_DB.prepare(`SELECT id, name, arm FROM classes WHERE id = ? AND tenantId = ?`).bind(classId, tenantId).first() as any
-        updates.classId = classId || null
-        updates.className = classId ? (cls ? `${cls.name}${cls.arm ? ` ${cls.arm}` : ''}` : classId) : null
-      } catch {
-        updates.classId = String(payload.classId || '').trim() || null
+    // A class is changed only to another real class of this school, and only by the Owner, Head of
+    // School or ICT. An empty class field (a form whose class list had not loaded) changes nothing.
+    let classChange: any = null
+    const requestedClassId = String(payload.classId ?? '').trim()
+    if (payload.classId !== undefined && access.isAdminEdit && requestedClassId && requestedClassId !== String(settings?.classId || '')) {
+      if (isStudentPayload(settings) && settings?.classId && !hasRequiredRole(c.var.user.role, CLASS_CHANGE_ROLES)) {
+        return c.json({ error: 'Only the Owner, Head of School or ICT can move a student to another class.' }, 403)
       }
+      await ensureClassesTable(c.env.APP_DB)
+      const cls = await c.env.APP_DB.prepare(`SELECT id, name, arm FROM classes WHERE id = ? AND tenantId = ?`).bind(requestedClassId, tenantId).first() as any
+      if (!cls) return c.json({ error: 'That class was not found in this school.' }, 404)
+      updates.classId = cls.id
+      updates.className = cls.name
+      updates.classArm = cls.arm || null
+      classChange = { by: String(c.var.user?.id || ''), byName: String(c.var.user?.name || ''), role: String(c.var.user?.role || ''), reason: 'manual' }
     }
 
     updates.profile = profileUpdates
 
     if (Object.keys(updates).length > 0) {
-      await upsertSettings(c.env.APP_DB, settingsKey, { ...settings, ...updates })
+      await upsertSettings(c.env.APP_DB, settingsKey, { ...settings, ...updates }, classChange)
     }
     await addAudit(c.env.APP_DB, tenantId, { action: 'personUpdated', data: { by: c.var.user?.id, userId: existingUser.id || userId, fields: Object.keys(updates) } })
     return c.json({ success: true })
@@ -23025,6 +23053,30 @@ app.put('/api/school/classes', authenticate, async (c) => {
   return c.json({ success: true, results })
 })
 
+/** Every class change for the school's students (or one student): moved, placed, blocked, restored — who and when. */
+app.get('/api/school/class-history', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos', 'ict', 'ict_manager'])) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  const entries = await classHistory(c.env.APP_DB, tenantId, { studentId: String(c.req.query('studentId') || ''), outcome: String(c.req.query('outcome') || ''), limit: Number(c.req.query('limit')) || 200 })
+  const names = new Map<string, string>()
+  const ids = Array.from(new Set(entries.map(entry => String(entry.student_id))))
+  for (let index = 0; index < ids.length; index += 90) {
+    const slice = ids.slice(index, index + 90)
+    const rows = await c.env.APP_DB.prepare(`SELECT id, name FROM users WHERE id IN (${slice.map(() => '?').join(',')})`).bind(...slice).all().catch(() => ({ results: [] }))
+    for (const row of (rows.results || []) as Record<string, any>[]) names.set(String(row.id), String(row.name || ''))
+  }
+  return c.json({ success: true, entries: entries.map(entry => ({ ...entry, student_name: names.get(String(entry.student_id)) || entry.student_id })) })
+})
+
+/** Run the class monitor now for this school (it also runs every night). */
+app.post('/api/school/class-monitor/run', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos', 'ict', 'ict_manager'])) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  return c.json({ success: true, ...(await monitorClassPins(c.env.APP_DB, { tenantId })) })
+})
+
 app.delete('/api/school/classes/:classId', authenticate, async (c) => {
   if (!hasRequiredRole(c.var.user.role, ['owner', 'hos'])) return c.json({ error: 'forbidden' }, 403)
   const tenantId = c.var.user?.tenantId
@@ -23040,12 +23092,21 @@ app.delete('/api/school/classes/:classId', authenticate, async (c) => {
     const settingsRows = await c.env.APP_DB.prepare(
       `SELECT studentId, payload FROM settings WHERE json_extract(payload, '$.tenantId') = ? AND json_extract(payload, '$.classId') = ?`
     ).bind(tenantId, classId).all().catch(() => ({ results: [] }))
+    // A class with students in it is not deleted: that would leave every one of them with no
+    // class (off every class list, fee run and result sheet). Move them first.
+    const inClass = ((settingsRows.results || []) as Record<string, any>[]).filter(row => {
+      const payload = parseHeaderJsonObject(row.payload)
+      return String(payload.role || 'student').toLowerCase() === 'student' && !['alumni', 'withdrawn', 'transferred', 'inactive'].includes(String(payload.status || '').toLowerCase())
+    })
+    if (inClass.length) {
+      return c.json({ error: `${existingClass.name}${existingClass.arm ? ` ${existingClass.arm}` : ''} still has ${inClass.length} student${inClass.length === 1 ? '' : 's'}. Move them to another class first (Settings → Class Register), then delete it.`, students: inClass.length }, 409)
+    }
     for (const row of ((settingsRows.results || []) as Record<string, any>[])) {
       const payload = parseHeaderJsonObject(row.payload)
       delete payload.classId
       delete payload.className
       delete payload.classArm
-      await upsertSettings(c.env.APP_DB, String(row.studentId || ''), payload)
+      await upsertSettings(c.env.APP_DB, String(row.studentId || ''), payload, { by: String(c.var.user?.id || ''), byName: String(c.var.user?.name || ''), role: String(c.var.user?.role || ''), reason: 'class-deleted' })
     }
 
     await syncTeachingLedger(c.env.APP_DB, tenantId)
@@ -28168,14 +28229,14 @@ app.post('/api/school/run-promotion', authenticate, async (c) => {
       await c.env.APP_DB.prepare(`INSERT INTO alumni (id, tenant_id, name, email, phone, graduation_year, last_class, source, status, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, 'promotion', 'active', ?)`)
         .bind(`alum_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`, tenantId, student.name, student.email, String(settingsRow?.phone || ''), String(session.sessionName || ''), student.className, new Date().toISOString()).run()
       await c.env.APP_DB.prepare(`UPDATE users SET status='alumni' WHERE id=? AND tenantId=?`).bind(student.id, tenantId).run().catch(() => {})
-      if (settingsRow) await upsertSettings(c.env.APP_DB, student.email, { ...settingsRow, status: 'alumni', classId: '', className: '' })
+      if (settingsRow) await upsertSettings(c.env.APP_DB, student.email, { ...settingsRow, status: 'alumni', classId: '', className: '' }, { by: String(c.var.user?.id || ''), byName: String(c.var.user?.name || ''), role: String(c.var.user?.role || ''), reason: 'graduation' })
       graduated += 1
     } else {
       const targetClass = classById.get(target)
       if (!targetClass) continue
       const className = String(targetClass.name || '')
       const fullLabel = `${className}${targetClass.arm ? ` ${targetClass.arm}` : ''}`.trim()
-      if (settingsRow) await upsertSettings(c.env.APP_DB, student.email, { ...settingsRow, classId: target, className, classArm: targetClass.arm || null })
+      if (settingsRow) await upsertSettings(c.env.APP_DB, student.email, { ...settingsRow, classId: target, className, classArm: targetClass.arm || null }, { by: String(c.var.user?.id || ''), byName: String(c.var.user?.name || ''), role: String(c.var.user?.role || ''), reason: 'promotion' })
       await c.env.APP_DB.prepare(`UPDATE users SET className=? WHERE id=? AND tenantId=?`).bind(fullLabel, student.id, tenantId).run().catch(() => {})
       promoted += 1
     }
@@ -34189,6 +34250,8 @@ export default {
       ctx.waitUntil(rebuildBankCounts(env.APP_DB).catch(error => console.error('Practice counts failed', error)))
       ctx.waitUntil(rebuildExamStock(env.APP_DB).catch(error => console.error('Exam stock failed', error)))
     }
+    // Class pins: every student keeps their class unless it was changed on record (02:30 Lagos).
+    if (at.getUTCHours() === 1 && at.getUTCMinutes() === 30) ctx.waitUntil(monitorClassPins(env.APP_DB).then(result => { if (result.restored) console.warn('Class monitor restored placements', result) }).catch(error => console.error('Class monitor failed', error)))
     // The night builder: new questions and quality checks, 00:00–04:00 Lagos, within Ami's nightly budget.
     if (inBuildWindow(at)) ctx.waitUntil(runBuilderTick(env.APP_DB, assessmentAiRunner(env), { at }).catch(error => console.error('Practice builder failed', error)))
     else if (at.getUTCMinutes() === 40) {

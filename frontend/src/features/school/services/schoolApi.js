@@ -152,6 +152,9 @@ export const getAttendance = () => req('/api/attendance');
 export const resetPassword = (payload) => req('/api/admin/reset-password', { method: 'POST', body: payload });
 export const getApprovals = () => req('/api/approvals');
 export const getPeople = (params = {}) => req(`/api/people${buildQuery(params)}`);
+/** Every class change for students: moved, placed, blocked, restored — who and when. */
+export const getClassHistory = (params = {}) => req(`/api/school/class-history${buildQuery(params)}`);
+export const runClassMonitor = () => req('/api/school/class-monitor/run', { method: 'POST' });
 export const getExams = () => req('/api/exams');
 export const getOwnerSchools = () => req('/api/owner/schools');
 export const addPerson = (data) => req('/api/people', { method: 'POST', body: data });

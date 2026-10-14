@@ -1,6 +1,8 @@
 import { backfillMaterialSessions, currentMaterialContext, isCurrentMaterial, MATERIAL_ARCHIVE_CUTOFF } from './materialSessions'
 import { materialAudience, materialStatus } from './materialLifecycle'
 import { bumpStamps, userScope } from './changeStamps'
+import { guardStudentClass } from './classPins'
+import type { ClassChange } from './classPins'
 
 export interface Bindings {
   APP_DB: D1Database
@@ -212,9 +214,15 @@ export async function getSettings(db: D1Database, studentId: string) {
   }
 }
 
-export async function upsertSettings(db: D1Database, studentId: string, payload: any) {
+/**
+ * Save a settings record. A student's class only changes with `classChange` (a move by the
+ * Owner, Head of School or ICT, a promotion, …) or when they had none; any other write keeps
+ * their class (classPins.ts), so no path can strip a student of their class by accident.
+ */
+export async function upsertSettings(db: D1Database, studentId: string, payload: any, classChange?: ClassChange | null) {
   await ensureSettingsTable(db)
-  const str = JSON.stringify(payload)
+  const guarded = payload && typeof payload === 'object' ? await guardStudentClass(db, studentId, payload, classChange) : payload
+  const str = JSON.stringify(guarded)
   await db.prepare('INSERT INTO settings(studentId, payload) VALUES(?, ?) ON CONFLICT(studentId) DO UPDATE SET payload = excluded.payload').bind(studentId, str).run()
   return true
 }

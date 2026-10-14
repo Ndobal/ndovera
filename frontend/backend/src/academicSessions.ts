@@ -14,6 +14,8 @@
 // UTC+1 all year, so a term configured to start on the 7th flips on the 7th in
 // Nigeria rather than at 01:00 local time.
 
+import { classEventStatements, ensureClassPinTables } from './classPins'
+import type { ClassChange } from './classPins'
 import { clearLiveAssignments, recordLiveAssignments, resetTeachingAssignmentsCache } from './teachingAssignments'
 
 const LAGOS_UTC_OFFSET_MINUTES = 60
@@ -1397,6 +1399,8 @@ async function buildMirrorStatements(db: D1Database, options: {
   className: string
   classArm: string
   status: string
+  /** Who moved them, when it is a person (the Class Register); otherwise the session itself. */
+  change?: ClassChange
 }) {
   const statements: D1PreparedStatement[] = []
   const timestamp = nowIso()
@@ -1440,6 +1444,17 @@ async function buildMirrorStatements(db: D1Database, options: {
   }
 
   if (settingsKey) {
+    // Recorded and pinned (classPins.ts): a move made here is a promotion, a rollover, or the office's move.
+    const before = String(payload.classId || '').trim()
+    if (before !== String(classId || '').trim() && (classId || before)) {
+      await ensureClassPinTables(db)
+      statements.push(...classEventStatements(db, {
+        tenantId: options.tenantId, studentId: options.studentId, settingsKey,
+        from: { id: before, name: payload.className, arm: payload.classArm }, to: { id: classId, name: options.className, arm: options.classArm },
+        outcome: !before ? 'placed' : classId ? 'changed' : 'cleared',
+        change: options.change || { by: 'system', role: 'system', reason: leftSchool ? (options.status === 'graduated' ? 'graduation' : 'left') : 'session' },
+      }))
+    }
     payload.classId = classId
     payload.className = leftSchool ? '' : options.className
     payload.classArm = leftSchool ? null : (options.classArm || null)
@@ -1562,6 +1577,7 @@ export async function upsertEnrollment(db: D1Database, options: {
       className: klass?.name || '',
       classArm: klass?.arm || '',
       status,
+      change: { by: options.actorId || 'system', byName: (options as any).actorName || '', role: 'office', reason: 'session' },
     }))
   }
 
@@ -1652,6 +1668,7 @@ export async function moveEnrollments(db: D1Database, options: {
         className: klass?.name || '',
         classArm: klass?.arm || '',
         status,
+        change: { by: options.actorId || 'system', byName: (options as any).actorName || '', role: 'office', reason: 'session' },
       }))
     }
 
@@ -2432,6 +2449,7 @@ export async function commitPromotionBatch(db: D1Database, options: {
         className: target?.name || '',
         classArm: target?.arm || '',
         status,
+        change: { by: (options as any).actorId || 'system', byName: (options as any).actorName || '', role: 'office', reason: status === 'graduated' ? 'graduation' : 'promotion' },
       }))
     }
   }

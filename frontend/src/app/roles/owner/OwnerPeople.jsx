@@ -1047,6 +1047,14 @@ function BulkJobBanner() {
               </div>
             ) : null}
             <p className="mt-1 text-xs text-[#4a5578] dark:text-slate-400">{job.processed}/{job.total} processed · {job.created} added · {job.skipped} skipped · {job.linked} parents linked · {job.failed} failed</p>
+            {!active && (job.errors || []).length ? (
+              <details className="mt-2 text-xs text-[#191970] dark:text-slate-200">
+                <summary className="cursor-pointer font-bold">Rows that need attention ({job.errors.length})</summary>
+                <ul className="mt-1 max-h-48 space-y-0.5 overflow-y-auto">
+                  {job.errors.map((entry, index) => <li key={index}>Row {Number(entry.row) + 2}{entry.email ? ` (${entry.email})` : ''}: {entry.error}</li>)}
+                </ul>
+              </details>
+            ) : null}
           </div>
         );
       })}

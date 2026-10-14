@@ -64,11 +64,15 @@ export function levelOf(name: unknown): Level | null {
 
   if (/\bcreche\b|\bplaygroup\b/.test(text)) return make(-3)
   if (/\bpre[\s-]?nursery\b/.test(text)) return make(-2)
+  // "Pre-School 1", "Pre-School 2": the two nursery years.
+  const preschool = after(/\bpre[\s-]?school\b/)
+  if (preschool !== null) return make(preschool >= 2 ? 0 : -1)
   const nursery = after(/\bnursery\b/)
   if (nursery !== null) return make(nursery >= 2 ? 0 : -1)
   if (/\bnursery\b|\breception\b|\bkg\b|\bkindergarten\b/.test(text)) return make(0)
 
-  const senior = after(/\b(?:s\.?s\.?s|s\.?s|s\.?h\.?s|senior\s+secondary(?:\s+school)?|senior)\s*/)
+  // "SH 1" and "Senior High 1" are how some schools write SS 1.
+  const senior = after(/\b(?:s\.?s\.?s|s\.?s|s\.?h\.?s|s\.?h|senior\s+high|senior\s+secondary(?:\s+school)?|senior)\s*/)
   if (senior !== null && senior >= 1 && senior <= 3) return make(9 + senior)
   const junior = after(/\b(?:j\.?s\.?s|j\.?s|j\.?h\.?s|junior\s+secondary(?:\s+school)?|junior)\s*/)
   if (junior !== null && junior >= 1 && junior <= 3) return make(6 + junior)

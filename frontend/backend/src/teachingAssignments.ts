@@ -134,6 +134,7 @@ export async function clearLiveAssignments(db: D1Database, tenantId: string) {
     db.prepare(`UPDATE settings SET payload = json_remove(payload, '$.classId', '$.className', '$.classArm')
       WHERE json_valid(payload) AND json_extract(payload, '$.tenantId') = ?
         AND lower(COALESCE(json_extract(payload, '$.role'), '')) NOT IN ('', 'student', 'parent')
+        AND lower(COALESCE(json_extract(payload, '$.roles'), '')) NOT LIKE '%"student"%'
         AND json_extract(payload, '$.classId') IS NOT NULL`).bind(tenantId),
   ])
   return live.length
