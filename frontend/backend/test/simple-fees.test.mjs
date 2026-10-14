@@ -18,6 +18,7 @@ async function setup() {
   const people = {
     owner: ['own', 'owner@a', ['owner'], 'school-a'], hos: ['hos', 'hos@a', ['teacher', 'hos'], 'school-a'], bursar: ['bursar', 'bursar@a', ['accountant'], 'school-a'],
     ada: ['ada', 'ada@a', ['student'], 'school-a'], bola: ['bola', 'bola@a', ['student'], 'school-a'], chi: ['chi', 'chi@a', ['student'], 'school-a'],
+    mum: ['mum', 'mum@a', ['parent'], 'school-a'],
   }
   for (const [id, email, roles, tenant] of Object.values(people)) {
     await db.prepare('INSERT INTO users (id, email, name, role, tenantId, status) VALUES (?, ?, ?, ?, ?, ?)').bind(id, email, id.toUpperCase(), roles[0], tenant, 'active').run()
@@ -409,4 +410,32 @@ test('a receipt records the term figures it was issued against, for the designed
   assert.deepEqual([snap.className, snap.termName, snap.sessionName, snap.totalPayable, snap.paidToDate], ['JSS 1', 'First Term', '2026/2027', 160000, 60000])
   const again = (await call('bursar', 'GET', '/api/school/finance/simple/accounts/ada')).body.receipts.find(receipt => receipt.receiptNo === paid.receipt.receiptNo)
   assert.equal(again.snapshot.paidToDate, 60000) // kept on the receipt as issued
+})
+
+test('parents get each receipt in their Ndovera account, with its check link; the message names it and opens it', async () => {
+  const { call, db } = await setup()
+  db.db.exec(`CREATE TABLE IF NOT EXISTS tenants (id TEXT PRIMARY KEY, requested_subdomain TEXT, website_domain TEXT, school_name TEXT)`)
+  db.db.exec(`INSERT OR REPLACE INTO tenants (id, requested_subdomain, school_name) VALUES ('school-a', 'greenfield', 'Greenfield School')`)
+  db.db.exec(`CREATE TABLE IF NOT EXISTS parent_student_links (tenant_id TEXT, parent_id TEXT, student_id TEXT)`)
+  db.db.exec(`INSERT INTO parent_student_links (tenant_id, parent_id, student_id) VALUES ('school-a', 'mum', 'ada')`)
+  // The school has switched parent notifications on (nothing is sent until it does).
+  db.db.exec(`CREATE TABLE IF NOT EXISTS comm_settings (tenant_id TEXT PRIMARY KEY, payload TEXT NOT NULL, updated_by TEXT, updated_at TEXT)`)
+  db.db.exec(`INSERT OR REPLACE INTO comm_settings (tenant_id, payload) VALUES ('school-a', '{"active":true,"events":{"receipt":true,"fee_bill":true}}')`)
+
+  // Publishing from Fee Setup tells the families their fees are ready.
+  await call('owner', 'PUT', '/api/school/finance/simple/grid', { termId: 't26-1', action: 'publish', ...GRID })
+  // Notifications are recorded after the response (in the background), so wait for them.
+  const eventOf = async type => { for (let i = 0; i < 50; i += 1) { const row = (() => { try { return db.db.prepare(`SELECT facts, link FROM comm_events WHERE type = ?`).get(type) } catch { return null } })(); if (row) return row; await new Promise(resolve => setTimeout(resolve, 20)) } return null }
+  const bill = await eventOf('fee_bill')
+  assert.ok(bill, 'publishing notifies parents of the new fees')
+
+  const paid = (await call('bursar', 'POST', '/api/school/finance/simple/accounts/ada/pay', { amount: 50000, method: 'cash' })).body
+  const event = await eventOf('receipt')
+  assert.equal(JSON.parse(event.facts).receiptNo, paid.receipt.receiptNo)
+  assert.ok(event.link.endsWith(`/roles/parent/fees?receipt=${encodeURIComponent(paid.receipt.receiptNo)}&student=ada`), event.link)
+
+  const mine = (await call('mum', 'GET', '/api/school/finance/my-accounts')).body
+  const receipt = mine.accounts.find(account => account.studentId === 'ada').receipts.find(item => item.receiptNo === paid.receipt.receiptNo)
+  assert.match(receipt.verificationUrl, /^https:\/\/greenfield\.ndovera\.com\/receipt-verification\/RCT-/)
+  assert.equal(receipt.snapshot.paidToDate, 50000)
 })

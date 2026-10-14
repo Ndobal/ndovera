@@ -182,7 +182,8 @@ function RequireAuth({ auth, children }) {
   const location = useLocation();
 
   if (!auth?.token) {
-    return <Navigate to="/login" replace state={{ from: location.pathname }} />;
+    // Keep the query too: a notification link (?receipt=…) should still open its item after sign-in.
+    return <Navigate to="/login" replace state={{ from: `${location.pathname}${location.search}` }} />;
   }
 
   return children;
@@ -194,7 +195,8 @@ function RoleGuard({ expectedRole, auth, children }) {
   const accessibleRoles = getAccessibleRoles(auth);
 
   if (!auth?.token) {
-    return <Navigate to="/login" replace />;
+    // After signing in, return to the page the link was for (a receipt from a notification, say).
+    return <Navigate to="/login" replace state={{ from: `${location.pathname}${location.search}` }} />;
   }
 
   // Being on a role's dashboard means acting as that role. Without this, someone who holds

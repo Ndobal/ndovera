@@ -267,6 +267,8 @@ export type MessageFacts = {
   dueAt?: string
   count?: number
   items?: string[]
+  // A receipt number says nothing about the child, so it is shown even in discreet messages.
+  receiptNo?: string
 }
 
 const naira = (kobo: number) => `NGN ${(kobo / 100).toLocaleString('en-NG', { maximumFractionDigits: 2 })}`
@@ -290,7 +292,7 @@ export function informationLine(type: EventType, facts: MessageFacts, detailed: 
   switch (type) {
     case 'fee_bill': return `New${term} fee information${forWho} is available${amount}.`
     case 'fee_reminder': return `A fee balance${forWho} is outstanding${amount}.`
-    case 'receipt': return `Payment received${forWho}${amount}. Thank you.`
+    case 'receipt': return `Payment received${forWho}${amount}.${facts.receiptNo ? ` Receipt ${facts.receiptNo} is in your Ndovera account.` : ''} Thank you.`
     case 'fee_cleared': return `Fees${forWho}${term ? ` for${term}` : ''} are fully paid. Thank you.`
     case 'results': return `${term ? `${term.trim()} r` : 'R'}esults${forWho} have been published.`
     case 'assignment': return detailed && facts.title ? `New ${facts.subject ? `${facts.subject} ` : ''}work${forWho}: ${facts.title}${facts.dueAt ? `, due ${shortDate(facts.dueAt)}` : ''}.` : `New school work${forWho} has been set.`

@@ -475,9 +475,10 @@ app.use('/api/*', async (c, next) => {
 app.use('/api/*', async (c, next) => {
   const startedAt = new Date(Date.now() - 1000).toISOString()
   await next()
-  if (c.req.method !== 'POST' || c.res.status >= 400) return
+  if (!['POST', 'PUT'].includes(c.req.method) || c.res.status >= 400) return
   const path = new URL(c.req.url).pathname
   for (const hook of COMM_HOOKS) {
+    if (hook.method !== c.req.method) continue
     const match = path.match(hook.pattern)
     if (!match) continue
     const work = hook.run(c, match, startedAt).catch(error => console.error('Notification hook failed', path, error))
@@ -32022,7 +32023,9 @@ app.get('/api/school/finance/my-accounts', authenticate, async (c) => {
     const period = await financePeriod(c.env.APP_DB, ctx.tenantId)
     const accounts = []
     for (const studentId of students) {
-      accounts.push({ studentId, studentName: await financeStudentName(c.env.APP_DB, studentId), ...(await getStudentAccount(c.env.APP_DB, { tenantId: ctx.tenantId, studentId, current: period })) })
+      const account = await getStudentAccount(c.env.APP_DB, { tenantId: ctx.tenantId, studentId, current: period })
+      // The parent's copy carries the same verification link (and QR code) as the school's.
+      accounts.push({ studentId, studentName: await financeStudentName(c.env.APP_DB, studentId), ...account, receipts: await withReceiptLinks(c.env.APP_DB, ctx.tenantId, account.receipts as any[], c.env.TENANT_BASE_DOMAIN) })
     }
     return c.json({ success: true, period, accounts })
   } catch (error) {
@@ -32899,11 +32902,14 @@ function commDeps(env: Bindings): CommDeps {
 }
 
 /** Record a notification for a school event, with the parent-portal link for its kind. Never breaks the caller. */
-async function notifyParents(env: Bindings, input: { tenantId: string, type: EventType, scope: Scope, facts?: Record<string, any>, dedupeKey: string, actor?: string }) {
+async function notifyParents(env: Bindings, input: { tenantId: string, type: EventType, scope: Scope, facts?: Record<string, any>, dedupeKey: string, actor?: string, linkQuery?: Record<string, string> }) {
   try {
     const section = PARENT_LINKS[input.type]
-    const link = `${await commPortalBase(env, input.tenantId)}/roles/parent${section ? `/${section}` : ''}`
-    const id = await recordEvent(env.APP_DB, { ...input, link })
+    // A query opens the exact item (a receipt, say) once the parent is signed in.
+    const query = input.linkQuery && Object.values(input.linkQuery).some(Boolean) ? `?${new URLSearchParams(Object.entries(input.linkQuery).filter(([, value]) => value)).toString()}` : ''
+    const link = `${await commPortalBase(env, input.tenantId)}/roles/parent${section ? `/${section}` : ''}${query}`
+    const { linkQuery, ...event } = input
+    const id = await recordEvent(env.APP_DB, { ...event, link })
     // Sent straight away, inside the request that caused it (free); the minute tick is only a safety net.
     if (id) await commTick(commDeps(env)).catch(error => console.error('Notification send deferred to the tick', error))
     return id
@@ -33337,9 +33343,14 @@ app.post('/api/webhooks/payments/flutterwave', async (c) => {
 // changed, so the fee, results and assignment code stays as it is. Each is recorded once.
 type CommHook = { method: string, pattern: RegExp, run: (c: any, match: RegExpMatchArray, startedAt: string) => Promise<void> }
 
-async function receiptAndClearance(c: any, tenantId: string, studentId: string, amount: number, paymentKey: string) {
+async function receiptAndClearance(c: any, tenantId: string, studentId: string, amount: number, paymentKey: string, receiptNo = '') {
   if (!studentId || !paymentKey) return
-  await notifyParents(c.env, { tenantId, type: 'receipt', scope: { kind: 'students', studentIds: [studentId] }, facts: { amountKobo: Math.round(Math.max(0, amount) * 100) }, dedupeKey: `receipt:${paymentKey}` })
+  // The message names the receipt, and its link opens that receipt in the parent's account.
+  await notifyParents(c.env, {
+    tenantId, type: 'receipt', scope: { kind: 'students', studentIds: [studentId] },
+    facts: { amountKobo: Math.round(Math.max(0, amount) * 100), ...(receiptNo ? { receiptNo } : {}) },
+    dedupeKey: `receipt:${paymentKey}`, linkQuery: { receipt: receiptNo, student: receiptNo ? studentId : '' },
+  })
   const balance = await studentBalanceKobo(c.env, tenantId, studentId).catch(() => null)
   if (balance !== null && balance <= 0) {
     const term = await getActiveTerm(c.env.APP_DB, tenantId).catch(() => null)
@@ -33365,9 +33376,20 @@ const COMM_HOOKS: CommHook[] = [
       const response = await c.res.clone().json().catch(() => ({})) as Record<string, any>
       if (response.duplicate) return
       const body = await c.req.json().catch(() => ({})) as Record<string, any>
-      await receiptAndClearance(c, String(c.var.user?.tenantId || ''), decodeURIComponent(match[1]), Number(body.amount) || 0, String(response.paymentId || response.receipt?.id || ''))
+      await receiptAndClearance(c, String(c.var.user?.tenantId || ''), decodeURIComponent(match[1]), Number(body.amount) || 0, String(response.paymentId || response.receipt?.id || ''), String(response.receipt?.receiptNo || ''))
     },
   })),
+  // Fees published from Fee Setup: the families whose bills this request created.
+  {
+    method: 'PUT', pattern: /^\/api\/school\/finance\/simple\/grid$/, run: async (c: any, _match: RegExpMatchArray, startedAt: string) => {
+      const body = await c.req.json().catch(() => ({})) as Record<string, any>
+      if (body.action !== 'publish') return
+      const tenantId = String(c.var.user?.tenantId || '')
+      const rows = ((await c.env.APP_DB.prepare(`SELECT DISTINCT student_id, term_name FROM fee_obligations WHERE tenant_id = ? AND created_at >= ? AND status <> 'cancelled'`).bind(tenantId, startedAt).all().catch(() => ({ results: [] }))).results || []) as Array<Record<string, string>>
+      const studentIds = Array.from(new Set(rows.map(row => String(row.student_id)).filter(Boolean)))
+      if (studentIds.length) await notifyParents(c.env, { tenantId, type: 'fee_bill', scope: { kind: 'students', studentIds }, facts: { term: rows[0]?.term_name || '' }, dedupeKey: `fee_bill:${startedAt}:${studentIds.length}` })
+    },
+  },
   {
     method: 'POST', pattern: /^\/api\/school\/finance\/claims\/[^/]+\/review$/, run: async (c: any) => {
       const claim = ((await c.res.clone().json().catch(() => ({}))) as Record<string, any>).claim || {}

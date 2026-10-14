@@ -49,10 +49,12 @@ function ClaimForm({ account, onSubmitted }) {
   );
 }
 
-function AccountPanel({ account, claims, onChanged }) {
-  const [panel, setPanel] = useState('');
+function AccountPanel({ account, claims, onChanged, openReceiptNo = '' }) {
+  // Opened from a "payment received" message: go straight to that receipt.
+  const linked = openReceiptNo ? account.receipts.find(item => item.receiptNo === openReceiptNo) || null : null;
+  const [panel, setPanel] = useState(linked ? 'receipts' : '');
   const [payment, setPayment] = useState(null);
-  const [receipt, setReceipt] = useState(null);
+  const [receipt, setReceipt] = useState(linked);
   const [notice, setNotice] = useState('');
   const open = key => setPanel(previous => (previous === key ? '' : key));
   useEffect(() => { if (panel === 'pay' && !payment) getSchoolPaymentDetails().then(data => setPayment(data.paymentDetails || {})).catch(() => setPayment({})); }, [panel, payment]);
@@ -138,10 +140,23 @@ export default function ParentFeesPage({ fallback = null }) {
   const [claims, setClaims] = useState([]);
   const [failed, setFailed] = useState(false);
   const [selected, setSelected] = useState('');
+  // A notification link carries ?receipt=<no>&student=<id>; read once, so a later refresh starts plainly.
+  const [linkedReceipt] = useState(() => {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      return { receiptNo: params.get('receipt') || '', studentId: params.get('student') || '' };
+    } catch { return { receiptNo: '', studentId: '' }; }
+  });
   const load = useCallback(() => {
-    getMyFeeAccounts().then(result => { setData(result); setSelected(previous => previous || result.accounts[0]?.studentId || ''); }).catch(() => setFailed(true));
+    getMyFeeAccounts().then(result => {
+      setData(result);
+      const owner = linkedReceipt.receiptNo
+        ? result.accounts.find(item => item.studentId === linkedReceipt.studentId) || result.accounts.find(item => item.receipts.some(receipt => receipt.receiptNo === linkedReceipt.receiptNo))
+        : null;
+      setSelected(previous => previous || owner?.studentId || result.accounts[0]?.studentId || '');
+    }).catch(() => setFailed(true));
     listFinanceClaims().then(result => setClaims(result.claims)).catch(() => setClaims([]));
-  }, []);
+  }, [linkedReceipt]);
   useEffect(() => { load(); }, [load]);
 
   if (failed) return fallback;
@@ -163,7 +178,7 @@ export default function ParentFeesPage({ fallback = null }) {
         )}
       </section>
       <BillingPeriodBanner period={data.period} />
-      {account ? <AccountPanel key={account.studentId} account={account} claims={claims} onChanged={load} /> : <p className="text-sm">No children are linked to your account yet.</p>}
+      {account ? <AccountPanel key={account.studentId} account={account} claims={claims} onChanged={load} openReceiptNo={linkedReceipt.receiptNo} /> : <p className="text-sm">No children are linked to your account yet.</p>}
     </div>
   );
 }
