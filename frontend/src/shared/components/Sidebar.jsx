@@ -120,7 +120,6 @@ function buildRoleSidebarItems(roleKey) {
       { name: 'Materials', path: '/roles/student/materials' },
       { name: 'Offline Notes', path: '/roles/student/offline-notes' },
       { name: 'Academic History', path: '/roles/student/academic-history' },
-      { name: 'Lesson Plans', path: '/roles/student/lesson-plans' },
       { name: 'Practice', path: '/roles/student/practice' },
       { name: 'Exams', path: '/roles/student/exams' },
       { name: 'Exam Readiness', path: '/roles/student/exam-readiness' },

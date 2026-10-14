@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { bulkEdit, discardFeeDraft, getFeeSource, getTermGrid, naira, previewChanges, rowTotal, saveTermGrid, studentTotal } from './simpleFeesApi';
 
 // A term's fees as one table: classes down the side, fee items across the top,
@@ -6,6 +6,9 @@ import { bulkEdit, discardFeeDraft, getFeeSource, getTermGrid, naira, previewCha
 // from their class. Reuse last term (both tables, exactly), change what changed,
 // decide what happens to earlier debts, save, lock. Changing fees after students
 // are billed asks what should happen first.
+//
+// Work is saved as a draft by itself a few seconds after typing stops (one small
+// database write each time; a draft changes nobody's account).
 
 const CARD = 'rounded-3xl border border-[#c9a96e]/40 bg-[#b5e3f4] p-5 dark:border-white/10 dark:bg-slate-900/40';
 const BTN = 'rounded-2xl px-4 py-2 text-sm font-bold disabled:opacity-50';
@@ -17,6 +20,7 @@ const STICKY_HEAD = 'sticky top-0 bg-[#b5e3f4] p-2 text-xs font-bold uppercase t
 const STICKY_SN = 'sticky left-0 w-12 min-w-[3rem]';
 const STICKY_NAME = 'sticky left-12 min-w-[12rem] max-w-[16rem] shadow-[1px_0_0_rgba(201,169,110,0.5)]';
 const STICKY_BODY = 'bg-[#b5e3f4] dark:bg-slate-900';
+const AUTOSAVE_MS = 3000;
 const CELL ='w-28 rounded-lg border border-[#c9a96e]/45 bg-white px-2 py-1 text-right text-sm text-[#191970] disabled:bg-slate-50';
 
 function ColumnEditor({ column, rows, scope = 'classes', onApply, onRename, onRemove, onClose }) {
@@ -272,6 +276,10 @@ export default function FeeSetup({ initialTermId, initialSource, canEdit, onSave
   const [feeMode, setFeeMode] = useState('class');
   const [copyOpen, setCopyOpen] = useState(false);
   const [draftInfo, setDraftInfo] = useState(null);
+  const [autosave, setAutosave] = useState({ state: '', at: null });
+  // Each edit bumps the revision; an autosave only clears "unsaved" if nothing changed while it ran.
+  const revision = useRef(0);
+  const pendingSave = useRef(null);
   // Published fees stay editable: changes are saved as a draft or published again.
   const published = Boolean(data?.grid?.lock?.locked);
   const editable = Boolean(canEdit);
@@ -412,21 +420,60 @@ export default function FeeSetup({ initialTermId, initialSource, canEdit, onSave
     };
   }
 
+  function draftPayload() {
+    // New students left blank stay listed in the draft, so their fees can be entered later.
+    const draftStudents = students.map(student => ({ ...student, amounts: Object.fromEntries(Object.entries(student.amounts).filter(([, value]) => value !== '' && value !== null && value !== undefined)) }))
+      .filter(student => Object.keys(student.amounts).length || student.isNew);
+    return { ...payload(), students: draftStudents, action: 'draft' };
+  }
+
   /** Keep the page as it is. Nobody's account changes until it is published. */
   async function saveAsDraft() {
     setBusy(true); setNotice({ text: '', tone: 'ok' });
     try {
-      // New students left blank stay listed in the draft, so their fees can be entered later.
-      const draftStudents = students.map(student => ({ ...student, amounts: Object.fromEntries(Object.entries(student.amounts).filter(([, value]) => value !== '' && value !== null && value !== undefined)) }))
-        .filter(student => Object.keys(student.amounts).length || student.isNew);
-      const result = await saveTermGrid({ ...payload(), students: draftStudents, action: 'draft' });
-      setDirty(false);
+      await pendingSave.current;
+      const at = revision.current;
+      const result = await saveTermGrid(draftPayload());
+      if (revision.current === at) setDirty(false);
       setSource(null);
       setDraftInfo(result.draft);
+      setAutosave({ state: 'saved', at: result.draft?.savedAt || new Date().toISOString() });
       setNotice({ text: 'Saved as a draft. Nobody has been billed and no account has changed. Publish when you are ready.', tone: 'ok' });
       onSaved?.();
     } catch (err) { setNotice({ text: err.message, tone: 'error' }); } finally { setBusy(false); }
   }
+
+  // Every change bumps the revision.
+  useEffect(() => { if (dirty) revision.current += 1; }, [dirty, columns, rows, students, feeMode, debtMode]);
+
+  // Autosave: a few seconds after the last change, the page is kept as a draft.
+  useEffect(() => {
+    if (!editable || !dirty || busy || !data) return undefined;
+    const timer = setTimeout(() => {
+      const at = revision.current;
+      const firstDraft = !draftInfo;
+      setAutosave(previous => ({ ...previous, state: 'saving' }));
+      const run = saveTermGrid({ ...draftPayload(), autosave: true })
+        .then(result => {
+          if (revision.current === at) setDirty(false);
+          setDraftInfo(result.draft);
+          setAutosave({ state: 'saved', at: result.draft?.savedAt || new Date().toISOString() });
+          if (firstDraft) onSaved?.();
+        })
+        .catch(err => setAutosave(previous => ({ ...previous, state: 'error', message: err.message })))
+        .finally(() => { if (pendingSave.current === run) pendingSave.current = null; });
+      pendingSave.current = run;
+    }, AUTOSAVE_MS);
+    return () => clearTimeout(timer);
+  }, [editable, dirty, busy, data, columns, rows, students, feeMode, debtMode]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Closing the page with an unsaved change (or a save still running) asks first.
+  useEffect(() => {
+    if (!dirty && autosave.state !== 'saving') return undefined;
+    const warn = event => { event.preventDefault(); event.returnValue = ''; };
+    window.addEventListener('beforeunload', warn);
+    return () => window.removeEventListener('beforeunload', warn);
+  }, [dirty, autosave.state]);
 
   /** Make the fees official: every current student's account is created or brought up to date. */
   async function publish(changeMode) {
@@ -435,6 +482,7 @@ export default function FeeSetup({ initialTermId, initialSource, canEdit, onSave
       && !window.confirm(`Publishing will write off ${naira(debts.total)} owed from earlier terms by ${debts.students} student(s). Each write-off is recorded, but it cannot be undone from here. Continue?`)) return;
     setBusy(true); setNotice({ text: '', tone: 'ok' });
     try {
+      await pendingSave.current;
       const result = await saveTermGrid({ ...payload(), action: 'publish', ...(changeMode ? { changeMode } : {}) });
       setDecision(null);
       setDirty(false);
@@ -442,6 +490,7 @@ export default function FeeSetup({ initialTermId, initialSource, canEdit, onSave
       const done = result.published || {};
       setNotice({
         text: `Published. ${done.students ?? 0} student account(s) are up to date.`
+          + `${done.noFees?.length ? ` ${done.noFees.length} student(s) have no fees entered, so no account yet: ${done.noFees.slice(0, 8).join(', ')}${done.noFees.length > 8 ? '…' : ''}. Put them in a class with fees, or enter their fees, and their accounts are created automatically.` : ''}`
           + `${result.adjusted ? ` ${result.adjusted} existing charge(s) adjusted, each recorded with the reason.` : ''}`
           + `${done.writtenOff?.students ? ` ${naira(done.writtenOff.amount)} of earlier debts written off for ${done.writtenOff.students} student(s).` : ''}`
           + ' You can keep editing these fees at any time.',
@@ -459,6 +508,7 @@ export default function FeeSetup({ initialTermId, initialSource, canEdit, onSave
     if (!window.confirm('Throw away the draft changes? The published fees stay as they are.')) return;
     setBusy(true);
     try {
+      await pendingSave.current;
       await discardFeeDraft(data.grid.term.id);
       setNotice({ text: 'Draft discarded.', tone: 'ok' });
       load(data.grid.term.id, null);
@@ -560,14 +610,22 @@ export default function FeeSetup({ initialTermId, initialSource, canEdit, onSave
 
       <section className={CARD}>
         <div className="flex flex-wrap gap-2">
-          {editable && <button type="button" className={SECONDARY} disabled={busy || !dirty} onClick={saveAsDraft}>{busy ? 'Saving…' : 'Save as draft'}</button>}
+          {editable && <button type="button" className={SECONDARY} disabled={busy || !dirty} onClick={saveAsDraft}>{busy ? 'Saving…' : 'Save draft now'}</button>}
           {editable && (
             <button type="button" className={PRIMARY} disabled={busy || (!dirty && !draftInfo && published)} onClick={() => publish()}>
               {busy ? 'Working…' : published ? `Publish changes to ${term.name} fees` : `Publish ${term.name} fees & create student accounts`}
             </button>
           )}
         </div>
-        <p className="mt-2 text-xs text-[#191970]/80 dark:text-slate-400">A draft keeps your work and changes nobody's account. Publishing makes the fees official and bills every current student (no one is billed twice).</p>
+        {editable && (
+          <p role="status" className={`mt-2 text-xs font-semibold ${autosave.state === 'error' ? 'text-rose-700' : 'text-[#1a5c38] dark:text-emerald-300'}`}>
+            {autosave.state === 'saving' ? 'Saving draft…'
+              : autosave.state === 'error' ? `Not saved: ${autosave.message || 'check your connection'}. Your changes are still on this page.`
+                : dirty ? 'Changes are saved as a draft automatically.'
+                  : autosave.at ? `All changes saved as a draft · ${new Date(autosave.at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}` : ''}
+          </p>
+        )}
+        <p className="mt-2 text-xs text-[#191970]/80 dark:text-slate-400">Your work is saved as a draft as you type; a draft changes nobody's account. Publishing makes the fees official and creates or updates every current student's fee account (no one is billed twice).</p>
         {data.grid.billedStudents > 0 && <p className="mt-2 text-xs text-[#191970] dark:text-slate-300">{data.grid.billedStudents} student account(s) use these fees.{debtMode === 'carry' ? ' Outstanding balances from earlier terms are added to each account automatically.' : ''}</p>}
       </section>
 

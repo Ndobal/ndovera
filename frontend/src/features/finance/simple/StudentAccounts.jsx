@@ -251,6 +251,55 @@ export function StudentAccount({ studentId, onBack, onChanged }) {
   );
 }
 
+/**
+ * The "Record payment" cell on each row: type what was received, pick how, press
+ * Enter or Record. A receipt is issued exactly as from the Record Payment form.
+ */
+export function QuickPayCell({ account, onRecorded, onReceipt }) {
+  const [amount, setAmount] = useState('');
+  const [method, setMethod] = useState('cash');
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState('');
+  const [last, setLast] = useState(null);
+  // One key per payment typed in, so a double press never records it twice.
+  const [key, setKey] = useState(() => `row-${Date.now()}-${Math.random().toString(36).slice(2)}`);
+  const unbilled = account.status === 'not_billed';
+  const valid = Number(amount) > 0;
+
+  async function submit() {
+    if (!valid || busy) return;
+    setBusy(true); setError('');
+    try {
+      const result = await recordSimplePayment(account.studentId, { amount: Number(amount), method, paidOn: new Date().toISOString().slice(0, 10), idempotencyKey: key });
+      setLast({ amount: Number(amount), receipt: result.receipt ? { ...result.receipt, status: 'valid' } : null });
+      setAmount('');
+      setKey(`row-${Date.now()}-${Math.random().toString(36).slice(2)}`);
+      onRecorded?.(result);
+    } catch (err) { setError(err.message); } finally { setBusy(false); }
+  }
+
+  if (unbilled) return <span className="text-xs text-slate-500">No fee account</span>;
+  return (
+    <div className="min-w-[15rem] space-y-1">
+      <div className="flex items-center gap-1">
+        <input type="number" min="0" inputMode="decimal" aria-label={`Amount received from ${account.studentName}`} placeholder="₦ received"
+          className="w-28 rounded-lg border border-[#c9a96e]/45 bg-white px-2 py-1 text-right text-sm text-[#191970]" value={amount}
+          onChange={event => { setAmount(event.target.value); setError(''); }} onKeyDown={event => { if (event.key === 'Enter') submit(); }} />
+        <select aria-label={`Payment method for ${account.studentName}`} className="rounded-lg border border-[#c9a96e]/45 bg-white px-1 py-1 text-xs text-[#191970]" value={method} onChange={event => setMethod(event.target.value)}>
+          {METHODS.map(([value, label]) => <option key={value} value={value}>{label}</option>)}
+        </select>
+        <button type="button" className="rounded-lg bg-[#1a5c38] px-2 py-1 text-xs font-bold text-white disabled:opacity-40" disabled={!valid || busy} onClick={submit}>{busy ? '…' : 'Record'}</button>
+      </div>
+      {error && <p role="alert" className="text-xs font-semibold text-rose-700">{error}</p>}
+      {last && !error && (
+        <p role="status" className="text-xs font-semibold text-[#1a5c38]">
+          ✓ {naira(last.amount)} recorded{last.receipt ? <> · <button type="button" className="underline" onClick={() => onReceipt?.(last.receipt)}>{last.receipt.receiptNo || 'Receipt'}</button></> : null}
+        </p>
+      )}
+    </div>
+  );
+}
+
 // The search and filters stay in view while the list scrolls (below the Finance tab bar).
 const STICKY_BAR = 'sticky top-14 z-30 shadow-md dark:bg-slate-900';
 
@@ -272,6 +321,7 @@ export default function StudentAccounts({ classes, initialStudentId, onChanged }
   const [data, setData] = useState(null);
   const [error, setError] = useState('');
   const [open, setOpen] = useState(initialStudentId || '');
+  const [receipt, setReceipt] = useState(null);
   const load = useCallback(() => listAccounts(filters).then(setData).catch(err => setError(err.message)), [filters]);
   useEffect(() => { const timer = setTimeout(load, 200); return () => clearTimeout(timer); }, [load]);
   useEffect(() => { if (initialStudentId) setOpen(initialStudentId); }, [initialStudentId]);
@@ -300,8 +350,8 @@ export default function StudentAccounts({ classes, initialStudentId, onChanged }
       <section className={CARD}>
         {!data ? <p role="status">Loading…</p> : !data.accounts.length ? <p className="text-sm text-[#191970] dark:text-slate-300">No students match.</p> : (
           <div className="overflow-x-auto">
-            <table className="w-full min-w-[860px] text-sm text-[#191970] dark:text-slate-200">
-              <thead><tr><th className={`${TH} w-10 text-right`}>S/N</th><th className={TH}>Student</th><th className={TH}>Class</th><th className={TH}>Family</th><th className={`${TH} text-right`}>Term Fee</th><th className={`${TH} text-right`}>Outstanding</th><th className={`${TH} text-right`}>Total Payable</th><th className={`${TH} text-right`}>Paid</th><th className={`${TH} text-right`}>Balance</th><th className={TH}>Status</th><th className={TH}><span className="sr-only">Open</span></th></tr></thead>
+            <table className={`w-full ${data.canRecordPayments ? 'min-w-[1120px]' : 'min-w-[860px]'} text-sm text-[#191970] dark:text-slate-200`}>
+              <thead><tr><th className={`${TH} w-10 text-right`}>S/N</th><th className={TH}>Student</th><th className={TH}>Class</th><th className={TH}>Family</th><th className={`${TH} text-right`}>Term Fee</th><th className={`${TH} text-right`}>Outstanding</th><th className={`${TH} text-right`}>Total Payable</th><th className={`${TH} text-right`}>Paid</th><th className={`${TH} text-right`}>Balance</th><th className={TH}>Status</th>{data.canRecordPayments && <th className={TH}>Record payment</th>}<th className={TH}><span className="sr-only">Open</span></th></tr></thead>
               <tbody>
                 {data.accounts.map((account, index) => (
                   <tr key={account.studentId} className="border-t border-[#c9a96e]/30 hover:bg-white/50">
@@ -321,6 +371,7 @@ export default function StudentAccounts({ classes, initialStudentId, onChanged }
                     <td className="p-2 text-right">{naira(account.paid)}</td>
                     <td className="p-2 text-right font-black">{naira(account.balance)}</td>
                     <td className="p-2"><StatusChip status={account.status} /></td>
+                    {data.canRecordPayments && <td className="p-1"><QuickPayCell account={account} onReceipt={setReceipt} onRecorded={() => { load(); onChanged?.(); }} /></td>}
                     <td className="p-2"><button type="button" className="text-xs font-bold text-[#800020] underline" onClick={() => setOpen(account.studentId)}>View</button></td>
                   </tr>
                 ))}
@@ -329,6 +380,7 @@ export default function StudentAccounts({ classes, initialStudentId, onChanged }
           </div>
         )}
       </section>
+      <ReceiptDialog receipt={receipt} onClose={() => setReceipt(null)} />
     </div>
   );
 }

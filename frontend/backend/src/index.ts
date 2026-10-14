@@ -370,7 +370,7 @@ import {
 import { botGate } from './botPolicy.js'
 import {
   Enrollment, TermRef, accountSummaries, addStudentCharge, adjustStudent, billStudents, canEditFees, getFeeSettings, getTermGrid, getTermLock,
-  discardFeeDraft, getFeeDraft, gridFromFeeConfig, listFeeTerms, loadStudentAmounts, lockTerm, saveFeeDraft, resolveClassMove, saveFeeSettings, saveTermGrid, studentStatement, unbilledStudents, unlockTerm,
+  discardFeeDraft, getFeeDraft, gridFromFeeConfig, listFeeTerms, loadStudentAmounts, lockTerm, saveFeeDraft, resolveClassMove, saveFeeSettings, saveTermGrid, studentStatement, studentsWithFees, unbilledStudents, unlockTerm,
 } from './feeEngine'
 import {
   CurriculumError, EXAM_CATALOG, addCurriculumTopics, addSpecTopics, autoMapSpec, curriculaForSchool, curriculumImportPrompt, deleteCurriculum,
@@ -13347,7 +13347,9 @@ app.get('/api/lesson-plans', authenticate, async (c) => {
 
       students = access.students || []
       activeStudentId = String(access.selectedStudent?.id || '')
-      if (!access.canManage) {
+      // Lesson plans are the teacher's working documents: students do not see them.
+      if (access.role === 'student') lessonPlans = []
+      else if (!access.canManage) {
         lessonPlans = lessonPlans.filter(lessonPlan => (
           String(lessonPlan.status || '') === 'approved'
             && isLearningContentReleased(lessonPlan.releaseAt)
@@ -32102,16 +32104,29 @@ app.get('/api/school/finance/simple/overview', authenticate, async (c) => {
     const grid = await getTermGrid(context.db, context.tenantId, term, context.classes)
     const reuse = (await listFeeTerms(context.db, context.tenantId)).filter(option => option.termId !== term.id)
     const enrollments = await termEnrollments(context.db, context.tenantId, term.sessionId, context.actor.id)
+    // Published fees cover everyone: a student who joined since gets their account the
+    // next time someone who manages fees opens Fees (no button to press). Only students
+    // with fees to pay are billed, so this writes nothing once everyone is covered.
+    let unbilledList = grid.lock.locked ? await unbilledStudents(context.db, context.tenantId, term.id, enrollments) : []
+    let autoBilled = 0
+    const toBill = studentsWithFees(grid, unbilledList)
+    if (toBill.length && hasRequiredRole(context.role, FEE_ADMIN_ROLES)) {
+      await billStudents(context.db, { tenantId: context.tenantId, actor: context.actor, term, students: toBill })
+        .catch(error => console.error('Auto-billing new students failed', error))
+      unbilledList = await unbilledStudents(context.db, context.tenantId, term.id, enrollments)
+      autoBilled = toBill.length - studentsWithFees(grid, unbilledList).length
+    }
     const accounts = grid.configured ? await accountSummaries(context.db, context.tenantId, { termId: term.id, termStart: term.startDate }, enrollments) : []
     const expected = money(accounts.reduce((sum, account) => sum + account.totalPayable, 0))
     const collected = money(accounts.reduce((sum, account) => sum + account.paid, 0))
     const outstanding = money(accounts.reduce((sum, account) => sum + Math.max(account.balance, 0), 0))
-    const unbilled = grid.lock.locked ? (await unbilledStudents(context.db, context.tenantId, term.id, enrollments)).length : 0
+    const unbilled = studentsWithFees(grid, unbilledList).length
+    const noFees = unbilledList.length - unbilled
     return c.json({
       success: true, period: context.period, term, configured: grid.configured, locked: grid.lock.locked, lock: grid.lock,
       hasDraft: Boolean(await getFeeDraft(context.db, context.tenantId, term.id)),
       cards: { expected, collected, outstanding, collectionRate: expected > 0 ? Math.round((collected / expected) * 1000) / 10 : 0 },
-      counts: { students: accounts.filter(account => !account.left && account.status !== 'not_billed').length, owing: accounts.filter(account => !account.left && account.balance > 0).length, unbilled, classMoves: accounts.filter(account => account.classMove).length },
+      counts: { students: accounts.filter(account => !account.left && account.status !== 'not_billed').length, owing: accounts.filter(account => !account.left && account.balance > 0).length, unbilled, noFees, autoBilled, classMoves: accounts.filter(account => account.classMove).length },
       reuse: reuse.slice(0, 6), canEditFees: context.canEditFees, canRecordPayments: hasRequiredRole(context.role, FEE_PAYMENT_APPROVER_ROLES),
     })
   } catch (error) {
@@ -32283,7 +32298,7 @@ app.put('/api/school/finance/simple/grid', authenticate, async (c) => {
     const term = requireTerm(context.term)
     // Save as draft: kept exactly as entered; no account changes until it is published.
     if (body.action === 'draft') {
-      return c.json({ success: true, draft: await saveFeeDraft(context.db, { tenantId: context.tenantId, actor: context.actor, term, payload: body }) })
+      return c.json({ success: true, draft: await saveFeeDraft(context.db, { tenantId: context.tenantId, actor: context.actor, term, payload: body, autosave: body.autosave === true }) })
     }
     const publish = body.action === 'publish'
     let students = Array.isArray(body.students) ? body.students : undefined
@@ -32311,6 +32326,9 @@ app.put('/api/school/finance/simple/grid', authenticate, async (c) => {
       const legacy = await context.db.prepare(`SELECT DISTINCT student_id FROM fee_assessments WHERE tenant_id = ? AND term_id = ? AND assessment_kind = 'term'`).bind(context.tenantId, term.id).all().catch(() => ({ results: [] }))
       published = await lockTerm(context.db, { tenantId: context.tenantId, actor: context.actor, term, enrollments, legacyBilledStudentIds: new Set(((legacy.results || []) as Record<string, any>[]).map(row => String(row.student_id))) })
       await discardFeeDraft(context.db, context.tenantId, term.id)
+      // Every current student with fees now has an account; anyone left has no fees entered.
+      const without = await unbilledStudents(context.db, context.tenantId, term.id, enrollments)
+      published = { ...published, noFees: without.map(student => student.studentName || student.studentId) }
     }
     return c.json({ success: true, ...result, published, grid: await getTermGrid(context.db, context.tenantId, term, context.classes) })
   } catch (error) {
@@ -32425,7 +32443,7 @@ app.get('/api/school/finance/simple/accounts', authenticate, async (c) => {
       .map(([id, children]) => ({ id, name: families.names.get(id) || 'Parent', children: [...children].filter(studentId => familyChoices.has(studentId)).length }))
       .filter(family => family.children > 0)
       .sort((a, b) => a.name.localeCompare(b.name))
-    return c.json({ success: true, term, families: familyOptions, accounts: accounts.map(({ outstandingSources, ...rest }) => rest) })
+    return c.json({ success: true, term, families: familyOptions, accounts: accounts.map(({ outstandingSources, ...rest }) => rest), canRecordPayments: hasRequiredRole(context.role, FEE_PAYMENT_APPROVER_ROLES) })
   } catch (error) {
     return financeFailure(c, error, 'Could not load student accounts.')
   }
@@ -32632,7 +32650,13 @@ app.get('/api/school/finance/simple/reports', authenticate, async (c) => {
     }
     const owing = accounts.filter(account => account.balance > 0).sort((a, b) => b.balance - a.balance).map(({ outstandingSources, ...rest }) => rest)
     const metrics = await financeDashboard(context.db, context.tenantId, { sessionId: term.sessionId, termId: term.id, termStart: term.startDate }).catch(() => null)
-    return c.json({ success: true, term, byClass: [...byClass.values()].sort((a, b) => a.className.localeCompare(b.className)), byItem: metrics?.byItem || [], owing })
+    // Class fee summary: what each class is charged per item (the published fee table).
+    const grid = await getTermGrid(context.db, context.tenantId, term, context.classes)
+    const students = accounts.filter(account => !account.left).map(({ outstandingSources, families, ...rest }: any) => rest)
+    return c.json({
+      success: true, term, byClass: [...byClass.values()].sort((a, b) => a.className.localeCompare(b.className)), byItem: metrics?.byItem || [], owing,
+      students, feeTable: { columns: grid.columns.map(column => column.name), rows: grid.rows.map(row => ({ classId: row.classId, className: row.className, amounts: row.amounts })), feeMode: grid.feeMode },
+    })
   } catch (error) {
     return financeFailure(c, error, 'Could not build the reports.')
   }

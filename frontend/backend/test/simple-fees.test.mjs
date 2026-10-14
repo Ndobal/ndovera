@@ -192,10 +192,12 @@ test('a student who joins after locking gets their class fees; a class move asks
   const now = new Date().toISOString()
   // Chi joins JSS 2 after the fees were locked.
   db.db.exec(`DELETE FROM session_enrollments WHERE student_id = 'chi'; INSERT INTO session_enrollments (id, tenant_id, session_id, session_name, student_id, student_name, class_id, class_name, status, created_at, updated_at) VALUES ('e5', 'school-a', 's26', '2026/2027', 'chi', 'CHI', 'jss2', 'JSS 2', 'active', '${now}', '${now}')`)
-  assert.equal((await call('owner', 'GET', '/api/school/finance/simple/overview')).body.counts.unbilled, 1)
   const view = (await call('bursar', 'GET', '/api/school/finance/simple/accounts/chi')).body
   assert.deepEqual([view.unbilled, view.standardFee], [true, 170000])
-  assert.equal((await call('bursar', 'POST', '/api/school/finance/simple/bill-new', { studentIds: ['chi'] })).body.created, 3)
+  // Opening Fees creates the account at the class fees; nobody has to press a button.
+  const counts = (await call('owner', 'GET', '/api/school/finance/simple/overview')).body.counts
+  assert.deepEqual([counts.autoBilled, counts.unbilled], [1, 0])
+  assert.equal((await call('bursar', 'POST', '/api/school/finance/simple/bill-new', { studentIds: ['chi'] })).body.students, 0, 'already billed')
   assert.equal(account((await call('bursar', 'GET', '/api/school/finance/simple/accounts')).body.accounts, 'chi').totalPayable, 170000)
 
   // Bola moves from JSS 1 to JSS 2.
@@ -438,4 +440,44 @@ test('parents get each receipt in their Ndovera account, with its check link; th
   const receipt = mine.accounts.find(account => account.studentId === 'ada').receipts.find(item => item.receiptNo === paid.receipt.receiptNo)
   assert.match(receipt.verificationUrl, /^https:\/\/greenfield\.ndovera\.com\/receipt-verification\/RCT-/)
   assert.equal(receipt.snapshot.paidToDate, 50000)
+})
+
+test('autosaved drafts write no audit entry; publishing bills everyone; late joiners get accounts on their own; HOS records payments; reports by class', async () => {
+  const { call, db } = await setup()
+  const audits = () => db.db.prepare(`SELECT COUNT(*) AS n FROM finance_audit WHERE action = 'term_fees_draft_saved'`).get().n
+  // Autosave keeps the work without an audit row each time; a manual save is audited.
+  assert.equal((await call('owner', 'PUT', '/api/school/finance/simple/grid', { termId: 't26-1', ...GRID, action: 'draft', autosave: true })).status, 200)
+  assert.equal(audits(), 0)
+  assert.equal((await call('owner', 'PUT', '/api/school/finance/simple/grid', { termId: 't26-1', ...GRID, action: 'draft' })).status, 200)
+  assert.equal(audits(), 1)
+
+  // Publishing creates every current student's account; CHI has no class yet, so no fees, and is named.
+  const published = await call('owner', 'PUT', '/api/school/finance/simple/grid', { termId: 't26-1', ...GRID, action: 'publish' })
+  assert.equal(published.status, 200, JSON.stringify(published.body))
+  assert.deepEqual([published.body.published.students, published.body.published.noFees], [2, ['CHI']])
+  assert.equal((await call('owner', 'GET', '/api/school/finance/simple/overview')).body.counts.noFees, 1)
+
+  // CHI is put in JSS 2 after publishing: the next time Fees is opened, CHI's account exists.
+  db.db.exec(`UPDATE session_enrollments SET class_id = 'jss2', class_name = 'JSS 2' WHERE student_id = 'chi' AND session_id = 's26'`)
+  const overview = (await call('owner', 'GET', '/api/school/finance/simple/overview')).body
+  assert.deepEqual([overview.counts.autoBilled, overview.counts.unbilled, overview.counts.students], [1, 0, 3])
+  const list = (await call('hos', 'GET', '/api/school/finance/simple/accounts')).body
+  assert.equal(list.canRecordPayments, true)
+  assert.equal(account(list.accounts, 'chi').termFee, 170000)
+  // Opening Fees again writes nothing more.
+  assert.equal((await call('owner', 'GET', '/api/school/finance/simple/overview')).body.counts.autoBilled, 0)
+
+  // The Head of School records a payment by hand.
+  const paid = await call('hos', 'POST', '/api/school/finance/simple/accounts/chi/pay', { amount: 70000, method: 'cash' })
+  assert.equal(paid.status, 200, JSON.stringify(paid.body))
+  assert.ok(paid.body.receipt.receiptNo)
+
+  // Reports: each student by class, and the class fee table.
+  const reports = (await call('bursar', 'GET', '/api/school/finance/simple/reports')).body
+  assert.deepEqual(reports.feeTable.columns, ['Tuition', 'Books', 'ICT'])
+  assert.equal(reports.feeTable.rows.find(row => row.classId === 'jss2').amounts.Tuition, 140000)
+  const chi = reports.students.find(student => student.studentId === 'chi')
+  assert.deepEqual([chi.className, chi.paid, chi.balance], ['JSS 2', 70000, 100000])
+  assert.equal(reports.byClass.find(row => row.className === 'JSS 2').collected, 70000)
+  db.close?.()
 })

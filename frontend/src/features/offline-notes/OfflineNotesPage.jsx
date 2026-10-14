@@ -1,5 +1,6 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import RichContent from '../../shared/rich/RichContent';
+import ReadAloud from '../../shared/components/ReadAloud';
 import { getApiUrl } from '../../config/apiBase';
 import { buildSelectedRoleHeader } from '../auth/services/authApi';
 import { currentUserKey, entries, getItem, isOnline, requestPersistentStorage, setItem } from '../../shared/offline/offlineStore';
@@ -33,6 +34,7 @@ export default function OfflineNotesPage() {
   const [status, setStatus] = useState('');
   const [busy, setBusy] = useState(false);
   const [offline, setOffline] = useState(!isOnline());
+  const noteBody = useRef(null);
 
   const refreshSaved = useCallback(async () => {
     const kept = await entries(`notes:${currentUserKey()}:note:`);
@@ -96,7 +98,9 @@ export default function OfflineNotesPage() {
         <button type="button" onClick={() => setOpen(null)} className="mb-4 rounded-xl border border-slate-300 px-4 py-2 text-sm font-bold text-slate-700 dark:border-white/20 dark:text-slate-200">← All notes</button>
         <article className="rounded-[2rem] border border-slate-200 bg-white p-5 shadow-sm md:p-8 dark:border-white/10 dark:bg-slate-900/80">
           <p className="mb-3 text-xs font-bold uppercase tracking-widest text-indigo-600 dark:text-cyan-300">{open.subjectName}{open.topic ? ` · ${open.topic}` : ''} · {open.words || 0} words</p>
-          <div className="prose max-w-none dark:prose-invert"><RichContent text={open.markdown} /></div>
+          {/* Read out by the device's own voice: works offline, like the note itself. */}
+          <div className="mb-4"><ReadAloud key={open.materialId} label="Read this note aloud" getText={() => noteBody.current?.innerText || open.markdown || ''} /></div>
+          <div ref={noteBody} className="prose max-w-none dark:prose-invert"><RichContent text={open.markdown} /></div>
           <p className="mt-6 text-xs text-slate-500">Ndovera copy of your teacher&apos;s material{open.savedAt ? ' · saved on this device' : ''}.</p>
         </article>
       </div>

@@ -2,7 +2,7 @@ import React from 'react';
 import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import { bulkEdit, previewChanges, rowTotal } from './simpleFeesApi';
 import FeeSetup from './FeeSetup';
-import { RecordPaymentDialog } from './StudentAccounts';
+import { QuickPayCell, RecordPaymentDialog } from './StudentAccounts';
 import * as api from './simpleFeesApi';
 
 jest.mock('./simpleFeesApi', () => {
@@ -54,7 +54,7 @@ test('reuse last term: both tables arrive exactly as they were, +10% with previe
   fireEvent.click(within(dialog).getByRole('button', { name: 'Apply' }));
   expect(screen.getByLabelText('Primary 1 Tuition').value).toBe('110000');
 
-  fireEvent.click(screen.getByRole('button', { name: 'Save as draft' }));
+  fireEvent.click(screen.getByRole('button', { name: 'Save draft now' }));
   await waitFor(() => expect(api.saveTermGrid).toHaveBeenCalled());
   const payload = api.saveTermGrid.mock.calls[0][0];
   expect(payload.action).toBe('draft');
@@ -118,7 +118,7 @@ test('published fees stay editable: change, save a draft, publish later', async 
   expect(screen.getByText('Published')).toBeTruthy();
   expect(screen.getByRole('button', { name: /Publish changes/ }).disabled).toBe(true); // nothing changed yet
   fireEvent.change(cell, { target: { value: '120000' } });
-  fireEvent.click(screen.getByRole('button', { name: 'Save as draft' }));
+  fireEvent.click(screen.getByRole('button', { name: 'Save draft now' }));
   expect(await screen.findByText(/Saved as a draft\. Nobody has been billed/)).toBeTruthy();
   expect(api.saveTermGrid).toHaveBeenCalledWith(expect.objectContaining({ action: 'draft' }));
   expect(screen.getByRole('button', { name: /Publish changes/ }).disabled).toBe(false);
@@ -161,4 +161,35 @@ test('Fees & Billing receipts open in the school\'s designed receipt, with the t
   expect(within(dialog).getByText('₦160,000')).toBeTruthy(); // expected fees for the term
   expect(within(dialog).getByText('₦90,000')).toBeTruthy(); // paid to date
   expect(within(dialog).getByRole('button', { name: 'Share on WhatsApp' })).toBeTruthy();
+});
+
+test('fee entry saves itself as a draft a few seconds after typing stops', async () => {
+  api.getTermGrid.mockResolvedValue({ ...emptyGrid, grid: { ...lastTerm.grid, term, lock: { locked: true } } });
+  api.saveTermGrid.mockClear().mockResolvedValue({ draft: { savedAt: '2026-10-14T09:00:00.000Z', savedBy: 'OWN' } });
+  render(<FeeSetup initialTermId="t2" canEdit />);
+  fireEvent.change(await screen.findByLabelText('Primary 1 Tuition'), { target: { value: '121000' } });
+  expect(screen.getByText('Changes are saved as a draft automatically.')).toBeTruthy();
+  expect(api.saveTermGrid).not.toHaveBeenCalled();
+  await waitFor(() => expect(api.saveTermGrid).toHaveBeenCalledWith(expect.objectContaining({ action: 'draft', autosave: true })), { timeout: 6000 });
+  expect(api.saveTermGrid.mock.calls[0][0].rows.find(row => row.classId === 'p1').amounts.Tuition).toBe(121000);
+  expect(await screen.findByText(/All changes saved as a draft/)).toBeTruthy();
+  expect(api.saveTermGrid).toHaveBeenCalledTimes(1);
+}, 15000);
+
+test('a payment received can be typed straight into the student\'s row and recorded with Enter', async () => {
+  api.recordSimplePayment.mockClear().mockResolvedValue({ receipt: { receiptNo: 'RCT-9' } });
+  const onRecorded = jest.fn();
+  const row = { studentId: 'ada', studentName: 'Ada Obi', status: 'unpaid' };
+  const { rerender } = render(<QuickPayCell account={row} onRecorded={onRecorded} />);
+  const amount = screen.getByLabelText('Amount received from Ada Obi');
+  fireEvent.change(amount, { target: { value: '45000' } });
+  fireEvent.change(screen.getByLabelText('Payment method for Ada Obi'), { target: { value: 'transfer' } });
+  fireEvent.keyDown(amount, { key: 'Enter' });
+  await waitFor(() => expect(onRecorded).toHaveBeenCalled());
+  expect(api.recordSimplePayment).toHaveBeenCalledWith('ada', expect.objectContaining({ amount: 45000, method: 'transfer' }));
+  expect(screen.getByRole('button', { name: 'RCT-9' })).toBeTruthy();
+  expect(amount.value).toBe('');
+  // A student with no fee account has nothing to pay into yet.
+  rerender(<QuickPayCell account={{ ...row, status: 'not_billed' }} />);
+  expect(screen.getByText('No fee account')).toBeTruthy();
 });

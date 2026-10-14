@@ -60,7 +60,6 @@ import StaffTuckShop from './app/roles/teacher/StaffTuckShop';
 import StudentProfessorAura from './app/roles/student/StudentProfessorAura';
 import StudentMessaging from './app/roles/student/StudentMessaging';
 import StudentSettings from './app/roles/student/StudentSettings';
-import LessonPlanViewerPage from './features/lesson-plans/LessonPlanViewerPage';
 import TimetableViewer from './features/school/components/TimetableViewer';
 import RoleLibrary from './app/RoleLibrary';
 import AmiInbox from './app/roles/ami/AmiInbox';
@@ -299,7 +298,8 @@ function AnimatedRoutes({ auth, onLogin }) {
         <Route path="/roles/teacher/last-session" element={<Navigate to="/roles/teacher/academic-history" replace />} />
         <Route path="/roles/student/materials" element={<RoleGuard auth={auth} expectedRole="student"><RouteTransition><StudentLessonNotes /></RouteTransition></RoleGuard>} />
         <Route path="/roles/student/lesson-notes" element={<Navigate to="/roles/student/materials" replace />} />
-        <Route path="/roles/student/lesson-plans" element={<RoleGuard auth={auth} expectedRole="student"><RouteTransition><LessonPlanViewerPage /></RouteTransition></RoleGuard>} />
+        {/* Lesson plans are for staff; an old student link goes to the dashboard. */}
+        <Route path="/roles/student/lesson-plans" element={<Navigate to="/roles/student" replace />} />
         <Route path="/roles/student/practice" element={<RoleGuard auth={auth} expectedRole="student"><RouteTransition><StudentPractice /></RouteTransition></RoleGuard>} />
         <Route path="/roles/student/exams" element={<RoleGuard auth={auth} expectedRole="student"><RouteTransition><StudentExams /></RouteTransition></RoleGuard>} />
         <Route path="/roles/student/results" element={<RoleGuard auth={auth} expectedRole="student"><RouteTransition><StudentResults /></RouteTransition></RoleGuard>} />

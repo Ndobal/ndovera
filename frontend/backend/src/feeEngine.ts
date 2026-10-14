@@ -71,7 +71,7 @@ export async function getFeeDraft(db: D1Database, tenantId: string, termId: stri
 }
 
 /** Keep the page as entered. Nothing official changes and nobody is billed. */
-export async function saveFeeDraft(db: D1Database, options: { tenantId: string, actor: Actor, term: TermRef, payload: Record<string, any> }) {
+export async function saveFeeDraft(db: D1Database, options: { tenantId: string, actor: Actor, term: TermRef, payload: Record<string, any>, autosave?: boolean }) {
   await ensureFeeEngineTables(db)
   const payload = {
     columns: Array.isArray(options.payload.columns) ? options.payload.columns : [],
@@ -83,11 +83,17 @@ export async function saveFeeDraft(db: D1Database, options: { tenantId: string, 
   const json = JSON.stringify(payload)
   if (json.length > DRAFT_LIMIT) throw new FinanceError('This draft is too large to save. Remove unused items or students and try again.')
   const now = new Date().toISOString()
-  await db.batch([
-    db.prepare(`INSERT INTO fee_term_drafts (tenant_id, term_id, payload_json, saved_by, saved_at) VALUES (?, ?, ?, ?, ?) ON CONFLICT(tenant_id, term_id) DO UPDATE SET payload_json = excluded.payload_json, saved_by = excluded.saved_by, saved_at = excluded.saved_at`)
-      .bind(options.tenantId, options.term.id, json, options.actor.name || null, now),
-    auditStatement(db, options.tenantId, { actor: options.actor, action: 'term_fees_draft_saved', sessionId: options.term.sessionId, termId: options.term.id, newValue: { columns: payload.columns.length, students: payload.students.length, feeMode: payload.feeMode } }),
-  ])
+  const save = db.prepare(`INSERT INTO fee_term_drafts (tenant_id, term_id, payload_json, saved_by, saved_at) VALUES (?, ?, ?, ?, ?) ON CONFLICT(tenant_id, term_id) DO UPDATE SET payload_json = excluded.payload_json, saved_by = excluded.saved_by, saved_at = excluded.saved_at`)
+    .bind(options.tenantId, options.term.id, json, options.actor.name || null, now)
+  // Autosave runs every few seconds while someone types: one row write, no audit entry
+  // each time (a draft changes nobody's account; publishing is audited in full).
+  if (options.autosave) await save.run()
+  else {
+    await db.batch([
+      save,
+      auditStatement(db, options.tenantId, { actor: options.actor, action: 'term_fees_draft_saved', sessionId: options.term.sessionId, termId: options.term.id, newValue: { columns: payload.columns.length, students: payload.students.length, feeMode: payload.feeMode } }),
+    ])
+  }
   return { savedBy: options.actor.name || '', savedAt: now }
 }
 
@@ -125,6 +131,24 @@ function studentBilling(students: StudentAmounts, feeMode = 'class') {
 
 function studentRowsOut(students: StudentAmounts) {
   return [...students].map(([studentId, entry]) => ({ studentId, studentName: entry.studentName, amounts: Object.fromEntries([...entry.amounts.values()].map(item => [item.name, item.amount])) }))
+}
+
+/**
+ * Students who would be billed something this term: their own amounts, or (by class)
+ * their class's. Anyone else has no fees set and gets no account until they do.
+ */
+export function studentsWithFees<T extends { studentId: string, classId: string }>(grid: { feeMode: string, rows: Array<{ classId: string, amounts: Record<string, number> }>, students: Array<{ studentId: string, amounts: Record<string, number> }> }, enrollments: T[]) {
+  const classRows = new Map(grid.rows.map(row => [row.classId, row.amounts || {}]))
+  const own = new Map(grid.students.map(row => [row.studentId, row.amounts || {}]))
+  return enrollments.filter(enrollment => {
+    const mine = own.get(enrollment.studentId) || {}
+    const items = new Set([...Object.keys(mine), ...(grid.feeMode === 'student' ? [] : Object.keys(classRows.get(enrollment.classId) || {}))])
+    for (const item of items) {
+      const amount = item in mine ? Number(mine[item]) : Number((classRows.get(enrollment.classId) || {})[item])
+      if (amount > 0) return true
+    }
+    return false
+  })
 }
 
 // ─── Debts from earlier terms: carry them in, or write them off ──────────────

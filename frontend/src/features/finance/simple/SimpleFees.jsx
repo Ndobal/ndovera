@@ -5,7 +5,7 @@ import { buildReceiptShareMessage } from '../../school/components/FeeReceiptDial
 import FeeSetup from './FeeSetup';
 import StudentAccounts, { RecordPaymentDialog, StatusChip } from './StudentAccounts';
 import {
-  EDIT_MODES, billNewStudents, getFeeReports, getFeeSettings, getFeesOverview, getReceipts, listTermPayments, naira, saveFeeSettings,
+  ACCOUNT_STATUS, EDIT_MODES, billNewStudents, getFeeReports, getFeeSettings, getFeesOverview, getReceipts, listTermPayments, naira, saveFeeSettings,
 } from './simpleFeesApi';
 import { getFinanceContext } from '../financeApi';
 
@@ -67,9 +67,18 @@ function Dashboard({ overview, go, onSetup, onPay, onChanged }) {
           <button type="button" className={`${PRIMARY} mt-2`} onClick={() => onSetup(null)}>Review & publish</button>
         </section>
       )}
+      {overview.counts.autoBilled > 0 && (
+        <p role="status" className="rounded-2xl bg-emerald-50 px-4 py-3 text-sm font-semibold text-[#1a5c38]">{overview.counts.autoBilled} new student{overview.counts.autoBilled === 1 ? '' : 's'} joined since the fees were published; their fee account{overview.counts.autoBilled === 1 ? ' was' : 's were'} created automatically at their fees.</p>
+      )}
+      {overview.locked && overview.counts.noFees > 0 && (
+        <section className="flex flex-wrap items-center gap-3 rounded-3xl border-2 border-amber-300 bg-amber-50 p-4 text-amber-950">
+          <p className="flex-1 font-bold">{overview.counts.noFees} student{overview.counts.noFees === 1 ? ' has' : 's have'} no fees entered (no class, or nothing set for them), so no fee account yet. Once they have fees, their account is created automatically.</p>
+          <button type="button" className={SECONDARY} onClick={() => go('students', { status: 'not_billed' })}>See who</button>
+        </section>
+      )}
       {overview.counts.unbilled > 0 && (
         <section className="flex flex-wrap items-center gap-3 rounded-3xl border-2 border-sky-300 bg-sky-50 p-4 text-sky-950">
-          <p className="flex-1 font-bold">{overview.counts.unbilled} student(s) joined after the fees were published and have no fee account yet.</p>
+          <p className="flex-1 font-bold">{overview.counts.unbilled} student(s) joined after the fees were published and have no fee account yet. Their accounts are created when the Owner, Head of School or Accountant opens Fees.</p>
           <button type="button" className={PRIMARY} onClick={async () => { const result = await billNewStudents([]); onChanged(`${result.students} account(s) created at their class fees.${result.noFees?.length ? ` No fees set for: ${result.noFees.join(', ')}.` : ''}`); }}>Create their accounts</button>
           <button type="button" className={SECONDARY} onClick={() => go('students', { status: 'not_billed' })}>Review first</button>
         </section>
@@ -197,34 +206,175 @@ function downloadCsv(filename, rows) {
   setTimeout(() => URL.revokeObjectURL(url), 2000);
 }
 
+const escapeHtml = value => String(value ?? '').replace(/[&<>"]/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]));
+
+/** Print one report table on its own page (the browser's print, or Save as PDF). */
+function printReport(title, subtitle, header, rows, footer) {
+  const win = window.open('', '_blank', 'width=900,height=900');
+  if (!win) return;
+  const cells = (row, tag) => row.map((cell, index) => `<${tag}${index > 0 && typeof cell === 'number' ? ' style="text-align:right"' : ''}>${escapeHtml(typeof cell === 'number' && index > 0 ? cell.toLocaleString() : cell)}</${tag}>`).join('');
+  win.document.write(`<html><head><title>${escapeHtml(title)}</title><style>body{font-family:Arial,sans-serif;color:#191970;padding:24px}h1{color:#800000;margin:0}table{width:100%;border-collapse:collapse;margin-top:16px;font-size:13px}td,th{border-bottom:1px solid #ddd;padding:6px;text-align:left}th{color:#800020;text-transform:uppercase;font-size:11px}tfoot td{font-weight:bold;border-top:2px solid #191970}</style></head><body>
+    <h1>${escapeHtml(title)}</h1><p>${escapeHtml(subtitle)}</p>
+    <table><thead><tr>${cells(header, 'th')}</tr></thead><tbody>${rows.map(row => `<tr>${cells(row, 'td')}</tr>`).join('')}</tbody>${footer ? `<tfoot><tr>${cells(footer, 'td')}</tr></tfoot>` : ''}</table>
+    <script>window.onload = () => window.print()</script></body></html>`);
+  win.document.close();
+}
+
+const sum = (list, key) => list.reduce((total, row) => total + (Number(row[key]) || 0), 0);
+const rate = (collected, expected) => (expected ? Math.round((collected / expected) * 100) : 0);
+
+/** Download CSV and Print for one report. */
+function ReportActions({ file, title, subtitle, header, rows, footer }) {
+  return (
+    <div className="flex flex-wrap gap-2">
+      <button type="button" className={SECONDARY} onClick={() => downloadCsv(file, [header, ...rows, ...(footer ? [footer] : [])])}>Download CSV</button>
+      <button type="button" className={SECONDARY} onClick={() => printReport(title, subtitle, header, rows, footer)}>Print</button>
+    </div>
+  );
+}
+
+const REPORT_TABS = [
+  ['summary', 'Class summary'],
+  ['fees', 'Class fees'],
+  ['class', 'Class by class'],
+  ['owing', 'Students owing'],
+  ['items', 'By fee item'],
+];
+
+/** Reports, each on its own tab, so any one can be read, printed or downloaded per class. */
 function Reports({ term }) {
   const [data, setData] = useState(null);
-  useEffect(() => { getFeeReports().then(setData).catch(() => setData({ byClass: [], byItem: [], owing: [] })); }, []);
+  const [tab, setTab] = useState(() => { try { return localStorage.getItem('ndovera:feeReportTab') || 'summary'; } catch { return 'summary'; } });
+  const [classPick, setClassPick] = useState('');
+  const [owingClass, setOwingClass] = useState('');
+  useEffect(() => { getFeeReports().then(setData).catch(() => setData({ byClass: [], byItem: [], owing: [], students: [], feeTable: { columns: [], rows: [] } })); }, []);
+  const pick = key => { setTab(key); try { localStorage.setItem('ndovera:feeReportTab', key); } catch {} };
   if (!data) return <p role="status">Loading…</p>;
-  return (
-    <div className="space-y-4">
+  const label = `${term?.sessionName || ''} · ${term?.name || ''}`;
+  const students = data.students || [];
+  const classNames = [...new Set(students.map(student => student.className).filter(Boolean))].sort((a, b) => a.localeCompare(b));
+  const chosenClass = classPick && classNames.includes(classPick) ? classPick : classNames[0] || '';
+  const TABLE = 'w-full min-w-[600px] text-sm text-[#191970] dark:text-slate-200';
+  const FOOT = 'border-t-2 border-[#191970] font-black';
+
+  let body = null;
+  if (tab === 'summary') {
+    const rows = data.byClass;
+    const header = ['Class', 'Students', 'Owing', 'Expected', 'Collected', 'Outstanding', 'Rate %'];
+    const lines = rows.map(row => [row.className, row.students, row.owing, row.expected, row.collected, row.outstanding, rate(row.collected, row.expected)]);
+    const total = ['All classes', sum(rows, 'students'), sum(rows, 'owing'), sum(rows, 'expected'), sum(rows, 'collected'), sum(rows, 'outstanding'), rate(sum(rows, 'collected'), sum(rows, 'expected'))];
+    body = (
       <section className={CARD}>
-        <div className="mb-2 flex flex-wrap items-center gap-2"><h3 className="flex-1 font-black text-[#800000] dark:text-white">By class</h3>
-          <button type="button" className={SECONDARY} onClick={() => downloadCsv(`fees-by-class-${term?.name || ''}.csv`, [['Class', 'Students', 'Expected', 'Collected', 'Outstanding', 'Owing'], ...data.byClass.map(row => [row.className, row.students, row.expected, row.collected, row.outstanding, row.owing])])}>Download CSV</button></div>
-        <div className="overflow-x-auto"><table className="w-full min-w-[600px] text-sm text-[#191970] dark:text-slate-200">
-          <thead><tr><th className={TH}>Class</th><th className={TH}>Students</th><th className={`${TH} text-right`}>Expected</th><th className={`${TH} text-right`}>Collected</th><th className={`${TH} text-right`}>Outstanding</th><th className={TH}>Rate</th></tr></thead>
-          <tbody>{data.byClass.map(row => <tr key={row.className} className="border-t border-[#c9a96e]/30"><td className="p-2 font-semibold">{row.className}</td><td className="p-2">{row.students}</td><td className="p-2 text-right">{naira(row.expected)}</td><td className="p-2 text-right">{naira(row.collected)}</td><td className="p-2 text-right font-bold">{naira(row.outstanding)}</td><td className="p-2">{row.expected ? Math.round((row.collected / row.expected) * 100) : 0}%</td></tr>)}</tbody>
+        <div className="mb-2 flex flex-wrap items-center gap-2"><h3 className="flex-1 font-black text-[#800000] dark:text-white">Fees by class — summary</h3>
+          <ReportActions file={`fees-class-summary-${term?.name || ''}.csv`} title="Fees by class" subtitle={label} header={header} rows={lines} footer={total} /></div>
+        <div className="overflow-x-auto"><table className={TABLE}>
+          <thead><tr><th className={TH}>Class</th><th className={TH}>Students</th><th className={TH}>Owing</th><th className={`${TH} text-right`}>Expected</th><th className={`${TH} text-right`}>Collected</th><th className={`${TH} text-right`}>Outstanding</th><th className={TH}>Rate</th></tr></thead>
+          <tbody>{rows.map(row => (
+            <tr key={row.className} className="border-t border-[#c9a96e]/30">
+              <td className="p-2 font-semibold"><button type="button" className="underline decoration-dotted" title="See this class's students" onClick={() => { setClassPick(row.className); pick('class'); }}>{row.className}</button></td>
+              <td className="p-2">{row.students}</td><td className="p-2">{row.owing}</td><td className="p-2 text-right">{naira(row.expected)}</td><td className="p-2 text-right">{naira(row.collected)}</td><td className="p-2 text-right font-bold">{naira(row.outstanding)}</td><td className="p-2">{rate(row.collected, row.expected)}%</td>
+            </tr>
+          ))}</tbody>
+          {rows.length > 1 && <tfoot><tr className={FOOT}><td className="p-2">All classes</td><td className="p-2">{total[1]}</td><td className="p-2">{total[2]}</td><td className="p-2 text-right">{naira(total[3])}</td><td className="p-2 text-right">{naira(total[4])}</td><td className="p-2 text-right">{naira(total[5])}</td><td className="p-2">{total[6]}%</td></tr></tfoot>}
         </table></div>
       </section>
+    );
+  } else if (tab === 'fees') {
+    const table = data.feeTable || { columns: [], rows: [] };
+    const rows = table.rows.filter(row => Object.keys(row.amounts || {}).length);
+    const header = ['Class', ...table.columns, 'Total'];
+    const lines = rows.map(row => [row.className, ...table.columns.map(column => Number(row.amounts?.[column]) || 0), table.columns.reduce((total, column) => total + (Number(row.amounts?.[column]) || 0), 0)]);
+    body = (
       <section className={CARD}>
-        <div className="mb-2 flex flex-wrap items-center gap-2"><h3 className="flex-1 font-black text-[#800000] dark:text-white">Students owing ({data.owing.length})</h3>
-          <button type="button" className={SECONDARY} onClick={() => downloadCsv(`fees-owing-${term?.name || ''}.csv`, [['S/N', 'Student', 'Class', 'Total Payable', 'Paid', 'Balance'], ...data.owing.map((row, index) => [index + 1, row.studentName, row.className, row.totalPayable, row.paid, row.balance])])}>Download CSV</button></div>
-        <div className="overflow-x-auto"><table className="w-full min-w-[600px] text-sm text-[#191970] dark:text-slate-200">
+        <div className="mb-2 flex flex-wrap items-center gap-2"><h3 className="flex-1 font-black text-[#800000] dark:text-white">What each class pays</h3>
+          {lines.length > 0 && <ReportActions file={`class-fees-${term?.name || ''}.csv`} title="Class fees" subtitle={label} header={header} rows={lines} />}</div>
+        {table.feeMode === 'student' && <p className="mb-2 text-sm font-semibold text-[#191970] dark:text-slate-300">This term's fees are set for each student. The amounts below are the class starting amounts; see Class by class for what each student pays.</p>}
+        {!lines.length ? <p className="text-sm">No class fees are set for this term.</p> : (
+          <div className="overflow-x-auto"><table className={TABLE}>
+            <thead><tr>{header.map((name, index) => <th key={name} className={`${TH} ${index ? 'text-right' : ''}`}>{name}</th>)}</tr></thead>
+            <tbody>{lines.map(line => <tr key={line[0]} className="border-t border-[#c9a96e]/30">{line.map((cell, index) => <td key={index} className={`p-2 ${index ? 'text-right' : 'font-semibold'} ${index === line.length - 1 ? 'font-black' : ''}`}>{index ? (cell ? naira(cell) : '—') : cell}</td>)}</tr>)}</tbody>
+          </table></div>
+        )}
+      </section>
+    );
+  } else if (tab === 'class') {
+    const list = students.filter(student => student.className === chosenClass).sort((a, b) => a.studentName.localeCompare(b.studentName));
+    const header = ['S/N', 'Student', 'Term Fee', 'Outstanding', 'Total Payable', 'Paid', 'Balance', 'Status'];
+    const lines = list.map((row, index) => [index + 1, row.studentName, row.termFee, row.outstanding, row.totalPayable, row.paid, row.balance, ACCOUNT_STATUS[row.status]?.label || row.status]);
+    const total = ['', `${list.length} students`, sum(list, 'termFee'), sum(list, 'outstanding'), sum(list, 'totalPayable'), sum(list, 'paid'), sum(list, 'balance'), ''];
+    body = (
+      <section className={CARD}>
+        <div className="mb-3 flex flex-wrap items-center gap-2">
+          <h3 className="font-black text-[#800000] dark:text-white">Class</h3>
+          <select aria-label="Class" className="rounded-xl border border-[#c9a96e]/45 bg-white p-2 text-sm text-[#191970]" value={chosenClass} onChange={event => setClassPick(event.target.value)}>
+            {classNames.map(name => <option key={name} value={name}>{name}</option>)}
+          </select>
+          <span className="flex-1" />
+          {list.length > 0 && <ReportActions file={`fees-${chosenClass}-${term?.name || ''}.csv`} title={`${chosenClass} fees`} subtitle={label} header={header} rows={lines} footer={total} />}
+        </div>
+        {list.length > 0 && (
+          <div className="mb-3 grid gap-2 sm:grid-cols-4">
+            {[['Expected', naira(total[4])], ['Collected', naira(total[5])], ['Outstanding', naira(list.reduce((t, row) => t + Math.max(Number(row.balance) || 0, 0), 0))], ['Rate', `${rate(total[5], total[4])}%`]].map(([name, value]) => (
+              <div key={name} className="rounded-2xl bg-white p-3"><p className="text-xs font-bold uppercase text-[#800020]">{name}</p><p className="text-xl font-black text-[#191970]">{value}</p></div>
+            ))}
+          </div>
+        )}
+        {!list.length ? <p className="text-sm">No students in this class.</p> : (
+          <div className="overflow-x-auto"><table className={TABLE}>
+            <thead><tr><th className={`${TH} w-10 text-right`}>S/N</th><th className={TH}>Student</th><th className={`${TH} text-right`}>Term Fee</th><th className={`${TH} text-right`}>Outstanding</th><th className={`${TH} text-right`}>Payable</th><th className={`${TH} text-right`}>Paid</th><th className={`${TH} text-right`}>Balance</th><th className={TH}>Status</th></tr></thead>
+            <tbody>{list.map((row, index) => <tr key={row.studentId} className="border-t border-[#c9a96e]/30"><td className="p-2 text-right tabular-nums">{index + 1}</td><td className="p-2 font-semibold">{row.studentName}</td><td className="p-2 text-right">{naira(row.termFee)}</td><td className="p-2 text-right">{row.outstanding ? naira(row.outstanding) : '—'}</td><td className="p-2 text-right">{naira(row.totalPayable)}</td><td className="p-2 text-right">{naira(row.paid)}</td><td className="p-2 text-right font-black">{naira(row.balance)}</td><td className="p-2"><StatusChip status={row.status} /></td></tr>)}</tbody>
+            <tfoot><tr className={FOOT}><td className="p-2" /><td className="p-2">{total[1]}</td><td className="p-2 text-right">{naira(total[2])}</td><td className="p-2 text-right">{naira(total[3])}</td><td className="p-2 text-right">{naira(total[4])}</td><td className="p-2 text-right">{naira(total[5])}</td><td className="p-2 text-right">{naira(total[6])}</td><td /></tr></tfoot>
+          </table></div>
+        )}
+      </section>
+    );
+  } else if (tab === 'owing') {
+    const owingClasses = [...new Set(data.owing.map(row => row.className).filter(Boolean))].sort((a, b) => a.localeCompare(b));
+    const list = data.owing.filter(row => !owingClass || row.className === owingClass);
+    const header = ['S/N', 'Student', 'Class', 'Total Payable', 'Paid', 'Balance'];
+    const lines = list.map((row, index) => [index + 1, row.studentName, row.className, row.totalPayable, row.paid, row.balance]);
+    const total = ['', `${list.length} students`, '', sum(list, 'totalPayable'), sum(list, 'paid'), sum(list, 'balance')];
+    body = (
+      <section className={CARD}>
+        <div className="mb-2 flex flex-wrap items-center gap-2"><h3 className="flex-1 font-black text-[#800000] dark:text-white">Students owing ({list.length})</h3>
+          <select aria-label="Owing in class" className="rounded-xl border border-[#c9a96e]/45 bg-white p-2 text-sm text-[#191970]" value={owingClass} onChange={event => setOwingClass(event.target.value)}>
+            <option value="">All classes</option>{owingClasses.map(name => <option key={name} value={name}>{name}</option>)}
+          </select>
+          <ReportActions file={`fees-owing-${owingClass || 'all'}-${term?.name || ''}.csv`} title={`Students owing${owingClass ? ` — ${owingClass}` : ''}`} subtitle={label} header={header} rows={lines} footer={total} /></div>
+        <div className="overflow-x-auto"><table className={TABLE}>
           <thead><tr><th className={`${TH} w-10 text-right`}>S/N</th><th className={TH}>Student</th><th className={TH}>Class</th><th className={`${TH} text-right`}>Payable</th><th className={`${TH} text-right`}>Paid</th><th className={`${TH} text-right`}>Balance</th><th className={TH}>Status</th></tr></thead>
-          <tbody>{data.owing.map((row, index) => <tr key={row.studentId} className="border-t border-[#c9a96e]/30"><td className="p-2 text-right tabular-nums">{index + 1}</td><td className="p-2 font-semibold">{row.studentName}</td><td className="p-2">{row.className}</td><td className="p-2 text-right">{naira(row.totalPayable)}</td><td className="p-2 text-right">{naira(row.paid)}</td><td className="p-2 text-right font-black">{naira(row.balance)}</td><td className="p-2"><StatusChip status={row.status} /></td></tr>)}</tbody>
+          <tbody>{list.map((row, index) => <tr key={row.studentId} className="border-t border-[#c9a96e]/30"><td className="p-2 text-right tabular-nums">{index + 1}</td><td className="p-2 font-semibold">{row.studentName}</td><td className="p-2">{row.className}</td><td className="p-2 text-right">{naira(row.totalPayable)}</td><td className="p-2 text-right">{naira(row.paid)}</td><td className="p-2 text-right font-black">{naira(row.balance)}</td><td className="p-2"><StatusChip status={row.status} /></td></tr>)}</tbody>
+          {list.length > 1 && <tfoot><tr className={FOOT}><td className="p-2" /><td className="p-2">{total[1]}</td><td /><td className="p-2 text-right">{naira(total[3])}</td><td className="p-2 text-right">{naira(total[4])}</td><td className="p-2 text-right">{naira(total[5])}</td><td /></tr></tfoot>}
         </table></div>
       </section>
-      {data.byItem?.length > 0 && (
-        <section className={CARD}>
-          <h3 className="mb-2 font-black text-[#800000] dark:text-white">By fee item</h3>
-          <table className="w-full text-sm text-[#191970] dark:text-slate-200"><tbody>{data.byItem.map(row => <tr key={row.feeItem} className="border-t border-[#c9a96e]/30"><td className="p-2">{row.feeItem}</td><td className="p-2 text-right">{naira(row.expected)}</td><td className="p-2 text-right">{naira(row.collected)}</td><td className="p-2 text-right font-bold">{naira(row.outstanding)}</td></tr>)}</tbody></table>
-        </section>
-      )}
+    );
+  } else {
+    const rows = data.byItem || [];
+    const header = ['Fee item', 'Expected', 'Collected', 'Outstanding'];
+    const lines = rows.map(row => [row.feeItem, row.expected, row.collected, row.outstanding]);
+    body = (
+      <section className={CARD}>
+        <div className="mb-2 flex flex-wrap items-center gap-2"><h3 className="flex-1 font-black text-[#800000] dark:text-white">By fee item</h3>
+          {lines.length > 0 && <ReportActions file={`fees-by-item-${term?.name || ''}.csv`} title="Fees by item" subtitle={label} header={header} rows={lines} />}</div>
+        {!rows.length ? <p className="text-sm">No fee items billed yet this term.</p> : (
+          <div className="overflow-x-auto"><table className={TABLE}>
+            <thead><tr><th className={TH}>Fee item</th><th className={`${TH} text-right`}>Expected</th><th className={`${TH} text-right`}>Collected</th><th className={`${TH} text-right`}>Outstanding</th></tr></thead>
+            <tbody>{rows.map(row => <tr key={row.feeItem} className="border-t border-[#c9a96e]/30"><td className="p-2 font-semibold">{row.feeItem}</td><td className="p-2 text-right">{naira(row.expected)}</td><td className="p-2 text-right">{naira(row.collected)}</td><td className="p-2 text-right font-bold">{naira(row.outstanding)}</td></tr>)}</tbody>
+          </table></div>
+        )}
+      </section>
+    );
+  }
+
+  return (
+    <div className="space-y-3">
+      <div className="flex flex-wrap gap-1.5 border-b-2 border-[#800020]/30" role="tablist" aria-label="Reports">
+        {REPORT_TABS.map(([key, name]) => (
+          <button key={key} type="button" role="tab" aria-selected={tab === key} onClick={() => pick(key)}
+            className={`-mb-0.5 rounded-t-2xl px-4 py-2 text-sm font-black ${tab === key ? 'border-2 border-b-0 border-[#800020]/30 bg-[#b5e3f4] text-[#800000] dark:bg-slate-900 dark:text-white' : 'text-[#800020] hover:bg-white/60'}`}>{name}</button>
+        ))}
+      </div>
+      {body}
     </div>
   );
 }
