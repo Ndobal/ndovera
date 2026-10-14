@@ -2,6 +2,7 @@ import { backfillMaterialSessions, currentMaterialContext, isCurrentMaterial, MA
 import { materialAudience, materialStatus } from './materialLifecycle'
 import { bumpStamps, userScope } from './changeStamps'
 import { guardStudentClass } from './classPins'
+import { ensureParticipantIndex, participantStatements } from './messaging'
 import type { ClassChange } from './classPins'
 
 export interface Bindings {
@@ -911,7 +912,11 @@ export async function createConversation(db: D1Database, subject: string | null,
   if (!Array.isArray(normalizedParticipants) || normalizedParticipants.length === 0) throw new Error('Missing participants')
   const id = `conv_${Date.now()}_${Math.random().toString(36).slice(2,8)}`
   const now = new Date().toISOString()
-  await db.prepare('INSERT INTO conversations(id, subject, participants, created_at, updated_at) VALUES(?, ?, ?, ?, ?)').bind(id, subject, JSON.stringify(normalizedParticipants), now, now).run()
+  await ensureParticipantIndex(db)
+  await db.batch([
+    db.prepare('INSERT INTO conversations(id, subject, participants, created_at, updated_at) VALUES(?, ?, ?, ?, ?)').bind(id, subject, JSON.stringify(normalizedParticipants), now, now),
+    ...participantStatements(db, id, normalizedParticipants),
+  ])
   return { id, subject, participants: normalizedParticipants }
 }
 

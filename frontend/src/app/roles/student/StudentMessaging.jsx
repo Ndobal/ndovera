@@ -312,7 +312,8 @@ export default function StudentMessaging({
       setLoadingContacts(true);
 
       try {
-        const payload = await requestJson('/api/people?limit=250', token);
+        // Everyone this person may message (no 250 cap; no phone numbers or addresses).
+        const payload = await requestJson('/api/messaging/contacts', token);
         const people = Array.isArray(payload?.people) ? payload.people : [];
         const contacts = people
           .map(normalizeDirectoryContact)

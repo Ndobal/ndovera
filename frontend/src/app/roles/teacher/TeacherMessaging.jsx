@@ -343,7 +343,7 @@ function TeacherMessaging() {
     try {
       const [assignedClassesPayload, peoplePayload] = await Promise.all([
         requestJson('/api/classrooms/assigned', token).catch(() => ({ classes: [] })),
-        requestJson('/api/people', token).catch(() => ({ people: [] })),
+        requestJson('/api/messaging/contacts', token).catch(() => ({ people: [] })),
       ]);
 
       const assignedClasses = Array.isArray(assignedClassesPayload?.classes)

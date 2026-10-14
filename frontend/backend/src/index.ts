@@ -369,6 +369,7 @@ import {
 } from './schoolClosure'
 import { botGate } from './botPolicy.js'
 import { matchClass } from './classMatch'
+import { MAX_MESSAGE_LENGTH, conversationIfMember, conversationsFor, findConversationWith, newestMessages } from './messaging'
 import type { SchoolClass } from './classMatch'
 import { CLASS_CHANGE_ROLES, classHistory, isStudentPayload, monitorClassPins } from './classPins'
 import {
@@ -5535,7 +5536,7 @@ async function buildAuthenticatedHeader(c: any, roleKey: string) {
 
   // Fire conversations, read-states, and all notification builders in one parallel batch.
   const [allConversations, readStates, notificationBatch] = await Promise.all([
-    getConversations(c.env.APP_DB).catch(() => [] as any[]),
+    conversationsFor(c.env.APP_DB, comparableIdentifiers, 20).catch(() => [] as any[]),
     canonicalReaderId ? listConversationReadStates(c.env.APP_DB, canonicalReaderId).catch(() => ({} as Record<string, string>)) : Promise.resolve({} as Record<string, string>),
     tenantId ? Promise.all([
       buildFeeReminderNotificationItems(c.env.APP_DB, currentUser, actorRole).catch(() => [] as any[]),
@@ -5645,25 +5646,14 @@ async function listTenantConversationRecipients(db: D1Database, tenantId: string
   if (!normalizedTenantId || allowedRoles.size === 0) return [] as string[]
 
   const recipientIds = new Set<string>()
-  const settingRows = await db.prepare('SELECT studentId, payload FROM settings').all().catch(() => ({ results: [] }))
-
-  for (const row of ((settingRows.results || []) as Record<string, any>[])) {
-    try {
-      const payload = JSON.parse(String(row.payload || '{}')) as Record<string, any>
-      const rowTenantId = String(payload.tenantId || payload.schoolId || '').trim()
-      const rowRole = String(payload.role || '').trim().toLowerCase()
-      const rowStatus = String(payload.status || 'active').trim().toLowerCase()
-      if (rowTenantId !== normalizedTenantId || !allowedRoles.has(rowRole) || rowStatus === 'inactive') continue
-      const canonicalId = await resolveCanonicalUserIdentifier(db, payload.email || row.studentId || '').catch(() => null)
-      const recipientId = String(canonicalId || payload.email || row.studentId || '').trim()
-      if (recipientId) recipientIds.add(recipientId)
-    } catch {}
-  }
-
-  const userRows = await db.prepare('SELECT id, email, role, tenantId FROM users WHERE tenantId = ?').bind(normalizedTenantId).all().catch(() => ({ results: [] }))
-  for (const row of ((userRows.results || []) as Record<string, any>[])) {
-    const rowRole = String(row.role || '').trim().toLowerCase()
-    if (!allowedRoles.has(rowRole)) continue
+  // This school's people only (the whole settings table was read here on every enquiry before).
+  const userRows = await db.prepare(`SELECT id, email, role, primary_role, status, tenantId FROM users WHERE tenantId = ? AND (status IS NULL OR lower(status) != 'inactive')`).bind(normalizedTenantId).all().catch(() => ({ results: [] }))
+  const tenantUsers = (userRows.results || []) as Record<string, any>[]
+  const settingsMap = await getSettingsMapForUserRows(db, tenantUsers).catch(() => new Map())
+  for (const row of tenantUsers) {
+    const payload = (settingsMap.get(String(row.email || '').trim()) || settingsMap.get(String(row.id || '').trim()) || {}) as Record<string, any>
+    const roles = [row.role, row.primary_role, payload.role, ...(Array.isArray(payload.roles) ? payload.roles : [])].map(value => String(value || '').trim().toLowerCase())
+    if (!roles.some(role => allowedRoles.has(role))) continue
     const canonicalId = await resolveCanonicalUserIdentifier(db, row.id || row.email || '').catch(() => null)
     const recipientId = String(canonicalId || row.email || row.id || '').trim()
     if (recipientId) recipientIds.add(recipientId)
@@ -17428,10 +17418,14 @@ async function buildParticipantNameMap(db: D1Database, identifiers: string[]): P
 
 app.get('/api/conversations', authenticate, async (c) => {
   const { userId } = c.req.query()
+  // Growth partners and Ami's partner inbox (no ?userId): their own conversations (gp_*).
+  if (!userId && ['growthpartner', 'ami'].includes(String(getActiveRole(c.var.user) || normalizeRole(c.var.user?.role) || ''))) {
+    return c.json({ success: true, conversations: await listConversationsForUser(c.env.APP_DB, c.var.user || {}) })
+  }
   try {
-    const actor = await resolveConversationActorContext(c.env.APP_DB, c.var.user || {}, String(userId || ''))
-    const conversations = (await getConversations(c.env.APP_DB))
-      .filter(conversation => conversationMatchesComparableIdentifiers(conversation, actor.comparableIdentifiers))
+    // Always the signed-in person's chats (a userId in the request is not trusted).
+    const actor = await resolveConversationActorContext(c.env.APP_DB, c.var.user || {})
+    const conversations = await conversationsFor(c.env.APP_DB, actor.comparableIdentifiers)
     const allParticipants: string[] = []
     for (const conv of conversations) {
       for (const p of (Array.isArray((conv as any).participants) ? (conv as any).participants : [])) allParticipants.push(String(p || ''))
@@ -17948,10 +17942,18 @@ app.post('/api/conversations', authenticate, async (c) => {
       return c.json({ success: false, error: 'Missing participants' }, 400)
     }
 
-    const comparableParticipants = collectComparableIdentifiers(normalizedParticipants)
-    const existingConversation = (await getConversations(c.env.APP_DB))
-      .find(conversation => conversationMatchesParticipantSet(conversation, comparableParticipants))
-
+    // Only people of the same school (or Ndovera support) can be added to a conversation.
+    const tenantId = String(actor.resolvedUser?.settings?.tenantId || actor.resolvedUser?.userRow?.tenantId || c.var.user?.tenantId || '')
+    for (const participant of normalizedParticipants) {
+      if (actor.comparableIdentifiers.includes(String(participant).toLowerCase())) continue
+      const person = await c.env.APP_DB.prepare(`SELECT tenantId, role FROM users WHERE id = ? OR lower(email) = lower(?) LIMIT 1`).bind(participant, participant).first().catch(() => null) as Record<string, any> | null
+      if (!person || (String(person.tenantId || '') !== tenantId && String(person.role || '').toLowerCase() !== 'ami')) {
+        return c.json({ success: false, error: 'You can only message people in your school.' }, 403)
+      }
+    }
+    // One conversation per group of people: reuse it if it already exists.
+    const existingConversation = await findConversationWith(c.env.APP_DB, actor.comparableIdentifiers,
+      normalizedParticipants.map(participant => actor.comparableIdentifiers.includes(String(participant).toLowerCase()) ? actor.comparableIdentifiers : [participant]))
     const conversation = existingConversation || await createConversation(c.env.APP_DB, subject, normalizedParticipants)
     return c.json({ success: true, conversation })
   } catch (err) {
@@ -17961,8 +17963,13 @@ app.post('/api/conversations', authenticate, async (c) => {
 
 app.get('/api/conversations/:id/messages', authenticate, async (c) => {
   const { id } = c.req.param()
+  if (id.startsWith('gpconv_')) return partnerConversationMessages(c)
   try {
-    const messages = await getMessages(c.env.APP_DB, id)
+    // Only someone in the conversation may read it.
+    const actor = await resolveConversationActorContext(c.env.APP_DB, c.var.user || {})
+    if (!await conversationIfMember(c.env.APP_DB, id, actor.comparableIdentifiers)) return c.json({ success: false, error: 'Conversation not found.' }, 404)
+    // The newest messages, oldest first (a long chat used to stop at its first 200).
+    const messages = await newestMessages(c.env.APP_DB, id)
     const participantNames = await buildParticipantNameMap(
       c.env.APP_DB,
       (messages || []).map((m: any) => String(m.senderId || m.sender_id || '')),
@@ -17975,23 +17982,66 @@ app.get('/api/conversations/:id/messages', authenticate, async (c) => {
 
 app.post('/api/conversations/:id/messages', authenticate, async (c) => {
   const { id } = c.req.param()
-  const { senderId, body, metadata } = await c.req.json()
-  if (!body) return c.json({ success: false, error: 'Missing body' }, 400)
+  if (id.startsWith('gpconv_')) return partnerConversationSend(c)
+  const { body, metadata } = await c.req.json().catch(() => ({})) as Record<string, any>
+  const text = String(body ?? '').trim()
+  if (!text) return c.json({ success: false, error: 'Type a message first.' }, 400)
+  if (text.length > MAX_MESSAGE_LENGTH) return c.json({ success: false, error: `Messages are limited to ${MAX_MESSAGE_LENGTH} characters.` }, 400)
   try {
-    const actor = await resolveConversationActorContext(c.env.APP_DB, c.var.user || {}, String(senderId || ''))
-    const normalizedSenderId = actor.canonicalUserId || String(senderId || '').trim()
-    if (!normalizedSenderId) return c.json({ success: false, error: 'Missing senderId or body' }, 400)
+    // The sender is the signed-in person, and must be in the conversation.
+    const actor = await resolveConversationActorContext(c.env.APP_DB, c.var.user || {})
+    const normalizedSenderId = actor.canonicalUserId
+    if (!normalizedSenderId) return c.json({ success: false, error: 'Sign in again to send messages.' }, 401)
+    if (!await conversationIfMember(c.env.APP_DB, id, actor.comparableIdentifiers)) return c.json({ success: false, error: 'Conversation not found.' }, 404)
 
-    const message = await sendMessage(c.env.APP_DB, id, normalizedSenderId, body, metadata)
+    const message = await sendMessage(c.env.APP_DB, id, normalizedSenderId, text, metadata && typeof metadata === 'object' ? metadata : {})
     return c.json({ success: true, message })
   } catch (err) {
     return c.json({ success: false, error: err.message }, 403)
   }
 })
 
+/**
+ * Who this person can message: everyone in their school (no limit), with only what a chat
+ * needs — name, role, ID, class. Never phone numbers, addresses or other profile details.
+ * Parents see staff only; everyone else sees students and staff, not parents.
+ */
+app.get('/api/messaging/contacts', authenticate, async (c) => {
+  try {
+    const actor = await resolveConversationActorContext(c.env.APP_DB, c.var.user || {})
+    const tenantId = String(actor.resolvedUser?.settings?.tenantId || actor.resolvedUser?.userRow?.tenantId || c.var.user?.tenantId || '')
+    if (!tenantId) return c.json({ success: true, people: [] })
+    const viewerRole = String(getActiveRole(c.var.user) || normalizeRole(c.var.user?.role) || '').toLowerCase()
+    const rows = ((await c.env.APP_DB.prepare(`SELECT id, name, email, role, primary_role, status FROM users WHERE tenantId = ? AND (status IS NULL OR lower(status) NOT IN ('inactive', 'deleted')) ORDER BY name LIMIT 5000`).bind(tenantId).all()).results || []) as Record<string, any>[]
+    const settingsMap = await getSettingsMapForUserRows(c.env.APP_DB, rows)
+    const people = []
+    for (const row of rows) {
+      const settings = (settingsMap.get(String(row.email || '').trim()) || settingsMap.get(String(row.id || '').trim()) || {}) as Record<string, any>
+      const context = buildRoleContext(settings, row.role)
+      const roles = context.rawRoles
+      const isParent = roles.length > 0 && roles.every(role => role === 'parent')
+      const isStaff = roles.some(role => !['student', 'parent'].includes(role))
+      if (viewerRole === 'parent' ? !isStaff : isParent) continue
+      if (actor.comparableIdentifiers.includes(String(row.id).toLowerCase())) continue
+      people.push({
+        id: String(row.id), name: String(row.name || settings.name || ''), email: String(row.email || ''), role: context.primaryRole, roles,
+        displayId: getPublicFacingUserId(settings, context.primaryRole) || String(settings.displayId || '') || null,
+        className: roles.includes('student') ? String(settings.className || '') : '', status: 'active',
+        avatarUrl: String(settings.avatar || settings.profile?.avatar || '') || null,
+      })
+    }
+    return c.json({ success: true, people })
+  } catch (error) {
+    console.error('Messaging contacts failed', error)
+    return c.json({ success: false, error: 'Could not load contacts.' }, 500)
+  }
+})
+
 app.post('/api/conversations/:id/mark-read', authenticate, async (c) => {
   const { id } = c.req.param()
   try {
+    const actor = await resolveConversationActorContext(c.env.APP_DB, c.var.user || {})
+    if (!await conversationIfMember(c.env.APP_DB, id, actor.comparableIdentifiers)) return c.json({ success: false, error: 'Conversation not found.' }, 404)
     const currentUser = c.var.user || {}
     const userIdentifier = currentUser.id || currentUser.email || currentUser.sub || ''
     const resolvedReader = userIdentifier ? await resolveSettingsIdentity(c.env.APP_DB, userIdentifier) : { settingsKey: '', settings: null, userRow: null }
@@ -22437,13 +22487,11 @@ async function listConversationsForUser(db: D1Database, user: Record<string, any
   return result
 }
 
-app.get('/api/conversations', authenticate, async (c) => {
-  return c.json({ success: true, conversations: await listConversationsForUser(c.env.APP_DB, c.var.user || {}) })
-})
-
-app.get('/api/conversations/:conversationId/messages', authenticate, async (c) => {
+// Partner conversations (gp_*) share /api/conversations with school chats; the school routes
+// above hand them over by id (gpconv_…) or role. Registered twice before, these never ran.
+async function partnerConversationMessages(c: any) {
   await ensureGrowthPartnerTables(c.env.APP_DB)
-  const conversationId = String(c.req.param('conversationId') || '').trim()
+  const conversationId = String(c.req.param('conversationId') || c.req.param('id') || '').trim()
   const conversation = await c.env.APP_DB.prepare(`SELECT * FROM gp_conversations WHERE id = ?`).bind(conversationId).first() as any
   if (!conversation) return c.json({ error: 'Conversation not found.' }, 404)
   if (!(await canAccessPartnerConversation(c.env.APP_DB, c.var.user || {}, conversation))) return c.json({ error: 'forbidden' }, 403)
@@ -22470,11 +22518,11 @@ app.get('/api/conversations/:conversationId/messages', authenticate, async (c) =
       mine: String(row.sender_id || '') === String(c.var.user?.id || ''),
     })),
   })
-})
+}
 
-app.post('/api/conversations/:conversationId/messages', authenticate, async (c) => {
+async function partnerConversationSend(c: any) {
   await ensureGrowthPartnerTables(c.env.APP_DB)
-  const conversationId = String(c.req.param('conversationId') || '').trim()
+  const conversationId = String(c.req.param('conversationId') || c.req.param('id') || '').trim()
   const conversation = await c.env.APP_DB.prepare(`SELECT * FROM gp_conversations WHERE id = ?`).bind(conversationId).first() as any
   if (!conversation) return c.json({ error: 'Conversation not found.' }, 404)
   if (!(await canAccessPartnerConversation(c.env.APP_DB, c.var.user || {}, conversation))) return c.json({ error: 'forbidden' }, 403)
@@ -22499,7 +22547,7 @@ app.post('/api/conversations/:conversationId/messages', authenticate, async (c) 
 
   await c.env.APP_DB.prepare(`UPDATE gp_conversations SET updated_at = ? WHERE id = ?`).bind(now, conversationId).run()
   return c.json({ success: true })
-})
+}
 
 app.post('/api/growth-partner/verification', authenticate, async (c) => {
   if (!hasRequiredRole(c.var.user.role, ['growthpartner'])) return c.json({ error: 'forbidden' }, 403)
