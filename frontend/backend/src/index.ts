@@ -370,7 +370,7 @@ import {
 import { botGate } from './botPolicy.js'
 import {
   Enrollment, TermRef, accountSummaries, addStudentCharge, adjustStudent, billStudents, canEditFees, getFeeSettings, getTermGrid, getTermLock,
-  gridFromFeeConfig, listFeeTerms, lockTerm, resolveClassMove, saveFeeSettings, saveTermGrid, studentStatement, unbilledStudents, unlockTerm,
+  discardFeeDraft, getFeeDraft, gridFromFeeConfig, listFeeTerms, loadStudentAmounts, lockTerm, saveFeeDraft, resolveClassMove, saveFeeSettings, saveTermGrid, studentStatement, unbilledStudents, unlockTerm,
 } from './feeEngine'
 import {
   CurriculumError, EXAM_CATALOG, addCurriculumTopics, addSpecTopics, autoMapSpec, curriculaForSchool, curriculumImportPrompt, deleteCurriculum,
@@ -2741,7 +2741,55 @@ function renderPublicFeeReceiptVerificationHtml(options: {
 </html>`
 }
 
-async function resolvePublicFeeReceiptVerification(db: D1Database, receiptNo: string) {
+/**
+ * A Fees & Billing receipt (finance_receipts). Its number is unique within a school,
+ * so the school comes from the web address the link was shared on.
+ */
+async function resolveFinanceReceiptVerification(db: D1Database, receiptNo: string, tenantId: string) {
+  if (!tenantId) return null
+  const row = await db.prepare(`SELECT * FROM finance_receipts WHERE tenant_id = ? AND receipt_no = ? LIMIT 1`).bind(tenantId, receiptNo).first().catch(() => null) as Record<string, any> | null
+  if (!row) return null
+  let snap: Record<string, any> = {}
+  try { snap = JSON.parse(String(row.snapshot_json || '{}')) || {} } catch { snap = {} }
+  const tenant = await getTenantById(db, tenantId).catch(() => null)
+  const reversed = row.status === 'reversed'
+  const remaining = Number(snap.remainingBalance || 0)
+  return {
+    success: true,
+    verified: !reversed,
+    message: reversed ? 'This receipt was reversed by the school and is no longer valid.' : 'Official school receipt verified.',
+    receipt: {
+      receiptNo: String(row.receipt_no || ''), schoolName: String(tenant?.schoolName || tenant?.name || 'NDOVERA School'), tenantId,
+      studentId: String(row.student_id || ''), studentDisplayId: '', studentName: String(snap.studentName || ''), className: String(snap.className || ''),
+      amount: Number(snap.amountPaid || 0), paymentType: String(snap.method || ''), paymentReference: String(snap.reference || ''),
+      feeAmount: Number(snap.previousBalance || 0), amountPaidAfter: Number(snap.amountPaid || 0), balanceAfter: remaining,
+      statusAfter: reversed ? 'Reversed' : remaining <= 0 ? 'Paid in full' : 'Part payment',
+      recordedBy: String(snap.recordedBy || ''), recordedAt: String(snap.issuedAt || row.created_at || ''),
+    },
+  }
+}
+
+/** The student ID printed on receipts (the public one, never the internal account id). */
+async function studentDisplayIdFor(db: D1Database, studentId: string) {
+  const identity = await resolveSettingsIdentity(db, studentId).catch(() => null)
+  const settings = (identity?.settings || {}) as Record<string, any>
+  return String(getPublicFacingUserId(settings, 'student') || settings.publicStudentId || settings.displayId || '').trim()
+}
+
+/** The school's own web address, where its receipt links verify. */
+async function schoolReceiptBase(db: D1Database, tenantId: string, baseDomain = DEFAULT_TENANT_BASE_DOMAIN) {
+  const tenant = await getTenantById(db, tenantId).catch(() => null) as Record<string, any> | null
+  const subdomain = String(tenant?.requestedSubdomain || tenant?.subdomain || '').trim().toLowerCase()
+  return subdomain ? `https://${subdomain}.${normalizeHostname(baseDomain)}` : ''
+}
+
+/** Each receipt with the link a parent can open to check it (shared to WhatsApp and elsewhere). */
+async function withReceiptLinks<T extends { receiptNo?: string }>(db: D1Database, tenantId: string, receipts: T[], baseDomain?: string) {
+  const base = receipts.length ? await schoolReceiptBase(db, tenantId, baseDomain) : ''
+  return receipts.map(receipt => ({ ...receipt, verificationUrl: base && receipt.receiptNo ? `${base}/receipt-verification/${encodeURIComponent(receipt.receiptNo)}` : '' }))
+}
+
+async function resolvePublicFeeReceiptVerification(db: D1Database, receiptNo: string, tenantId = '') {
   const normalizedReceiptNo = String(receiptNo || '').trim()
   if (!normalizedReceiptNo) {
     return { success: false, verified: false, message: 'Receipt number is required.', receipt: null }
@@ -2753,6 +2801,8 @@ async function resolvePublicFeeReceiptVerification(db: D1Database, receiptNo: st
   ).bind(normalizedReceiptNo).first() as Record<string, any> | null
 
   if (!receiptRow) {
+    const financeReceipt = await resolveFinanceReceiptVerification(db, normalizedReceiptNo, tenantId)
+    if (financeReceipt) return financeReceipt
     return { success: false, verified: false, message: 'Receipt not found.', receipt: null }
   }
 
@@ -16979,7 +17029,10 @@ app.post('/api/public/admissions', async (c) => {
 app.get('/receipt-verification/:receiptNo', async (c) => {
   try {
     const receiptNo = String(c.req.param('receiptNo') || '').trim()
-    const payload = await resolvePublicFeeReceiptVerification(c.env.APP_DB, receiptNo)
+    // Opened on a school's web address: that school's Fees & Billing receipts verify here too.
+    const subdomain = extractTenantSubdomainFromHost(normalizeHostname(new URL(c.req.url).hostname), c.env.TENANT_BASE_DOMAIN || DEFAULT_TENANT_BASE_DOMAIN)
+    const school = subdomain ? await getTenantBySubdomain(c.env.APP_DB, subdomain).catch(() => null) as Record<string, any> | null : null
+    const payload = await resolvePublicFeeReceiptVerification(c.env.APP_DB, receiptNo, String(school?.id || ''))
     const statusCode = payload.verified ? 200 : receiptNo ? 404 : 400
     return c.html(
       renderPublicFeeReceiptVerificationHtml({
@@ -32053,6 +32106,7 @@ app.get('/api/school/finance/simple/overview', authenticate, async (c) => {
     const unbilled = grid.lock.locked ? (await unbilledStudents(context.db, context.tenantId, term.id, enrollments)).length : 0
     return c.json({
       success: true, period: context.period, term, configured: grid.configured, locked: grid.lock.locked, lock: grid.lock,
+      hasDraft: Boolean(await getFeeDraft(context.db, context.tenantId, term.id)),
       cards: { expected, collected, outstanding, collectionRate: expected > 0 ? Math.round((collected / expected) * 1000) / 10 : 0 },
       counts: { students: accounts.filter(account => !account.left && account.status !== 'not_billed').length, owing: accounts.filter(account => !account.left && account.balance > 0).length, unbilled, classMoves: accounts.filter(account => account.classMove).length },
       reuse: reuse.slice(0, 6), canEditFees: context.canEditFees, canRecordPayments: hasRequiredRole(context.role, FEE_PAYMENT_APPROVER_ROLES),
@@ -32075,6 +32129,11 @@ app.get('/api/school/finance/simple/grid', authenticate, async (c) => {
     }
     // The register (for adding a student-specific fee) and what students owe from earlier terms.
     const enrollments = await termEnrollments(context.db, context.tenantId, term.sessionId, context.actor.id)
+    // Only current students are listed; anyone who has left keeps their amounts on file (see PUT).
+    const onRegister = new Set(enrollments.map(row => row.studentId))
+    grid.students = grid.students.filter(row => onRegister.has(row.studentId))
+    const draft = await getFeeDraft(context.db, context.tenantId, term.id)
+    if (draft && Array.isArray(draft.payload.students)) draft.payload.students = draft.payload.students.filter((row: any) => onRegister.has(String(row?.studentId || '')))
     let earlierDebts = null
     if (!grid.lock.locked) {
       const accounts = await accountSummaries(context.db, context.tenantId, { termId: term.id, termStart: term.startDate }, enrollments)
@@ -32082,7 +32141,7 @@ app.get('/api/school/finance/simple/grid', authenticate, async (c) => {
       earlierDebts = { students: owing.length, total: money(owing.reduce((sum, account) => sum + account.outstanding, 0)) }
     }
     return c.json({
-      success: true, grid, terms, reuse: (await listFeeTerms(context.db, context.tenantId)).filter(option => option.termId !== term.id),
+      success: true, grid, draft, terms, reuse: (await listFeeTerms(context.db, context.tenantId)).filter(option => option.termId !== term.id),
       students: enrollments.map(row => ({ studentId: row.studentId, studentName: row.studentName, classId: row.classId, className: row.className })),
       earlierDebts, settings: context.settings, canEditFees: context.canEditFees,
     })
@@ -32219,14 +32278,53 @@ app.put('/api/school/finance/simple/grid', authenticate, async (c) => {
     const context = await simpleFeeContext(c, body.termId)
     if (!context.canEditFees) return c.json({ success: false, message: `Only ${context.settings.editors.map(role => ({ owner: 'the Owner', hos: 'the Head of School', accountant: 'the Accountant' } as Record<string, string>)[role]).join(', ')} can change fees.` }, 403)
     const term = requireTerm(context.term)
+    // Save as draft: kept exactly as entered; no account changes until it is published.
+    if (body.action === 'draft') {
+      return c.json({ success: true, draft: await saveFeeDraft(context.db, { tenantId: context.tenantId, actor: context.actor, term, payload: body }) })
+    }
+    const publish = body.action === 'publish'
+    let students = Array.isArray(body.students) ? body.students : undefined
+    const enrollments = publish || students ? await termEnrollments(context.db, context.tenantId, term.sessionId, context.actor.id) : []
+    if (students) {
+      // The page lists current students only. Anyone who has left keeps their saved
+      // amounts, so restoring them brings their fees back as they were.
+      const onRegister = new Set(enrollments.map(row => row.studentId))
+      const sent = new Set(students.map((row: any) => String(row?.studentId || '')))
+      for (const [studentId, entry] of await loadStudentAmounts(context.db, context.tenantId, term.id)) {
+        if (onRegister.has(studentId) || sent.has(studentId)) continue
+        students = [...students, { studentId, studentName: entry.studentName, amounts: Object.fromEntries([...entry.amounts.values()].map(item => [item.name, item.amount])) }]
+      }
+    }
     const result = await saveTermGrid(context.db, {
       tenantId: context.tenantId, actor: context.actor, term, classes: context.classes,
-      input: { columns: body.columns || [], rows: body.rows || [], ...(Array.isArray(body.students) ? { students: body.students } : {}) },
+      input: { columns: body.columns || [], rows: body.rows || [], ...(students ? { students } : {}) },
       changeMode: body.changeMode, ...(body.debtMode ? { debtMode: String(body.debtMode) } : {}), ...(body.feeMode ? { feeMode: String(body.feeMode) } : {}),
+      allowPublished: publish,
     })
-    return c.json({ success: true, ...result, grid: await getTermGrid(context.db, context.tenantId, term, context.classes) })
+    // Publish: the fees become official and every current student's account is created
+    // or brought up to date (students already billed are never billed twice).
+    let published = null
+    if (publish) {
+      const legacy = await context.db.prepare(`SELECT DISTINCT student_id FROM fee_assessments WHERE tenant_id = ? AND term_id = ? AND assessment_kind = 'term'`).bind(context.tenantId, term.id).all().catch(() => ({ results: [] }))
+      published = await lockTerm(context.db, { tenantId: context.tenantId, actor: context.actor, term, enrollments, legacyBilledStudentIds: new Set(((legacy.results || []) as Record<string, any>[]).map(row => String(row.student_id))) })
+      await discardFeeDraft(context.db, context.tenantId, term.id)
+    }
+    return c.json({ success: true, ...result, published, grid: await getTermGrid(context.db, context.tenantId, term, context.classes) })
   } catch (error) {
     return financeFailure(c, error, 'Could not save the fees.')
+  }
+})
+
+/** Throw away a saved draft; the published fees (if any) are unchanged. */
+app.delete('/api/school/finance/simple/draft', authenticate, async (c) => {
+  try {
+    const context = await simpleFeeContext(c, c.req.query('termId'))
+    if (!context.canEditFees) return c.json({ success: false, message: 'You cannot change fees.' }, 403)
+    const term = requireTerm(context.term)
+    await discardFeeDraft(context.db, context.tenantId, term.id)
+    return c.json({ success: true })
+  } catch (error) {
+    return financeFailure(c, error, 'Could not discard the draft.')
   }
 })
 
@@ -32267,18 +32365,49 @@ app.put('/api/school/finance/simple/settings', authenticate, async (c) => {
   }
 })
 
+/**
+ * The school's families: each parent and the children linked to them. A parent
+ * linked by email or by id is one family. Children with two parents appear in both.
+ */
+async function schoolFamilies(db: D1Database, tenantId: string) {
+  const rows = await db.prepare(`SELECT l.parent_id, l.student_id, u.id AS user_id, u.name AS user_name, u.email AS user_email
+    FROM parent_student_links l LEFT JOIN users u ON u.tenantId = l.tenant_id AND (u.id = l.parent_id OR u.email = l.parent_id)
+    WHERE l.tenant_id = ?`).bind(tenantId).all().catch(() => ({ results: [] }))
+  const children = new Map<string, Set<string>>()
+  const names = new Map<string, string>()
+  const byStudent = new Map<string, string[]>()
+  for (const row of (rows.results || []) as Record<string, any>[]) {
+    const id = String(row.user_id || row.parent_id || '').trim()
+    const studentId = String(row.student_id || '').trim()
+    if (!id || !studentId) continue
+    if (!children.has(id)) children.set(id, new Set())
+    children.get(id)!.add(studentId)
+    if (!names.has(id)) names.set(id, String(row.user_name || row.user_email || row.parent_id || 'Parent'))
+    const list = byStudent.get(studentId) || []
+    if (!list.includes(id)) byStudent.set(studentId, [...list, id])
+  }
+  return { children, names, byStudent }
+}
+
 app.get('/api/school/finance/simple/accounts', authenticate, async (c) => {
   try {
     const context = await simpleFeeContext(c)
     if (!hasRequiredRole(context.role, FINANCE_VIEW_ROLES)) return c.json({ success: false, message: 'forbidden' }, 403)
     const term = requireTerm(context.term)
     const enrollments = await termEnrollments(context.db, context.tenantId, term.sessionId, context.actor.id)
-    let accounts = await accountSummaries(context.db, context.tenantId, { termId: term.id, termStart: term.startDate }, enrollments)
+    const families = await schoolFamilies(context.db, context.tenantId)
+    let accounts = (await accountSummaries(context.db, context.tenantId, { termId: term.id, termStart: term.startDate }, enrollments))
+      .map(account => ({ ...account, families: (families.byStudent.get(account.studentId) || []).map(id => ({ id, name: families.names.get(id) || 'Parent' })) }))
     const q = String(c.req.query('q') || '').trim().toLowerCase()
     const classId = String(c.req.query('classId') || '')
     const status = String(c.req.query('status') || '')
-    if (q) accounts = accounts.filter(account => account.studentName.toLowerCase().includes(q) || account.studentId.toLowerCase().includes(q))
+    const familyId = String(c.req.query('familyId') || '')
+    // Search finds a student by their own name or ID, or by their parent's name.
+    if (q) accounts = accounts.filter(account => account.studentName.toLowerCase().includes(q) || account.studentId.toLowerCase().includes(q) || account.families.some(family => family.name.toLowerCase().includes(q)))
     if (classId) accounts = accounts.filter(account => account.classId === classId)
+    // The family choices cover everyone on the list before a family is picked, so switching stays easy.
+    const familyChoices = new Set(accounts.filter(account => !account.left).map(account => account.studentId))
+    if (familyId) accounts = accounts.filter(account => account.families.some(family => family.id === familyId))
     // Students who have left (turned off, withdrawn) stay out of the everyday list;
     // the ones still owing are one filter away, because the debt is still real.
     if (status === 'left') accounts = accounts.filter(account => account.left)
@@ -32288,7 +32417,12 @@ app.get('/api/school/finance/simple/accounts', authenticate, async (c) => {
       else if (status) accounts = accounts.filter(account => account.status === status)
     }
     accounts.sort((a, b) => a.className.localeCompare(b.className) || a.studentName.localeCompare(b.studentName))
-    return c.json({ success: true, term, accounts: accounts.map(({ outstandingSources, ...rest }) => rest) })
+    // The family filter's choices: every parent with at least one current child in this view.
+    const familyOptions = [...families.children]
+      .map(([id, children]) => ({ id, name: families.names.get(id) || 'Parent', children: [...children].filter(studentId => familyChoices.has(studentId)).length }))
+      .filter(family => family.children > 0)
+      .sort((a, b) => a.name.localeCompare(b.name))
+    return c.json({ success: true, term, families: familyOptions, accounts: accounts.map(({ outstandingSources, ...rest }) => rest) })
   } catch (error) {
     return financeFailure(c, error, 'Could not load student accounts.')
   }
@@ -32319,7 +32453,7 @@ app.get('/api/school/finance/simple/accounts/:studentId', authenticate, async (c
     const standardFee = grid ? grid.columns.reduce((sum, column) => sum + Number(ownAmounts[column.name] ?? (grid.feeMode === 'student' ? 0 : (classAmounts as Record<string, number>)[column.name]) ?? 0), 0) : 0
     return c.json({
       success: true, term, student: enrollment, statement, classMove: summary?.classMove || null,
-      receipts: account.receipts, payments: account.payments, unbilled, standardFee,
+      receipts: await withReceiptLinks(context.db, context.tenantId, account.receipts as any[], c.env.TENANT_BASE_DOMAIN), payments: account.payments, unbilled, standardFee,
       canRecordPayments: hasRequiredRole(context.role, FEE_PAYMENT_APPROVER_ROLES), canAdjust: hasRequiredRole(context.role, FEE_ADMIN_ROLES),
     })
   } catch (error) {
@@ -32331,8 +32465,10 @@ app.post('/api/school/finance/simple/accounts/:studentId/pay', authenticate, asy
   try {
     const context = await simpleFeeContext(c)
     if (!hasRequiredRole(context.role, FEE_PAYMENT_APPROVER_ROLES)) return c.json({ success: false, message: 'forbidden' }, 403)
-    const { enrollment } = await simpleStudent(context, c.req.param('studentId'))
+    const { term, enrollment } = await simpleStudent(context, c.req.param('studentId'))
     const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    // The term's figures before this payment, for the receipt's "Expected fees" and "Total paid to date".
+    const before = await studentStatement(context.db, context.tenantId, enrollment.studentId, { termId: term.id, termStart: term.startDate }).catch(() => null)
     if (body.claimId) {
       const claim = await context.db.prepare(`SELECT student_id FROM finance_claims WHERE id = ? AND tenant_id = ?`).bind(String(body.claimId), context.tenantId).first().catch(() => null) as Record<string, any> | null
       if (!claim || claim.student_id !== enrollment.studentId) return c.json({ success: false, message: 'That claim is not for this student.' }, 400)
@@ -32344,7 +32480,19 @@ app.post('/api/school/finance/simple/accounts/:studentId/pay', authenticate, asy
       claimId: body.claimId ? String(body.claimId) : undefined,
     })
     if (!result.duplicate) await mirrorPaymentToLegacyLedger(context.db, { tenantId: context.tenantId, studentId: enrollment.studentId, studentName: enrollment.studentName, amount: Number(body.amount) || 0 }).catch(() => null)
-    return c.json({ success: true, ...result })
+    // Complete the receipt as issued: class, term, the term's expected fees and paid-to-date.
+    const issued = (result as any).receipt
+    if (issued && !result.duplicate) {
+      const extra = {
+        className: enrollment.className || '', termName: term.name, sessionName: term.sessionName,
+        studentDisplayId: await studentDisplayIdFor(context.db, enrollment.studentId).catch(() => ''),
+        ...(before ? { totalPayable: before.totalPayable, paidToDate: money(before.paid + (Number(body.amount) || 0)) } : {}),
+      }
+      issued.snapshot = { ...(issued.snapshot || {}), ...extra }
+      await context.db.prepare(`UPDATE finance_receipts SET snapshot_json = ? WHERE tenant_id = ? AND id = ?`).bind(JSON.stringify(issued.snapshot), context.tenantId, issued.id).run().catch(() => null)
+    }
+    const [receipt] = issued ? await withReceiptLinks(context.db, context.tenantId, [issued], c.env.TENANT_BASE_DOMAIN) : [null]
+    return c.json({ success: true, ...result, ...(receipt ? { receipt } : {}) })
   } catch (error) {
     return financeFailure(c, error, 'Could not record the payment.')
   }
@@ -32427,6 +32575,36 @@ app.get('/api/school/finance/simple/payments', authenticate, async (c) => {
     return c.json({ success: true, term, payments, byMethod, total })
   } catch (error) {
     return financeFailure(c, error, 'Could not load payments.')
+  }
+})
+
+/** Many receipts at once (print them all, or share them), each exactly as issued, with its check link. */
+app.post('/api/school/finance/simple/receipts', authenticate, async (c) => {
+  try {
+    const context = await simpleFeeContext(c)
+    if (!hasRequiredRole(context.role, FINANCE_VIEW_ROLES)) return c.json({ success: false, message: 'forbidden' }, 403)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const ids = [...new Set((Array.isArray(body.paymentIds) ? body.paymentIds : []).map((id: unknown) => String(id || '').trim()).filter(Boolean))].slice(0, 500) as string[]
+    await ensureFinanceTables(context.db)
+    const found: Record<string, any>[] = []
+    // D1 takes 100 bound values per query.
+    for (let index = 0; index < ids.length; index += 80) {
+      const chunk = ids.slice(index, index + 80)
+      const rows = await context.db.prepare(`SELECT id, receipt_no, payment_id, status, created_at, snapshot_json FROM finance_receipts WHERE tenant_id = ? AND payment_id IN (${chunk.map(() => '?').join(',')})`).bind(context.tenantId, ...chunk).all()
+      found.push(...((rows.results || []) as Record<string, any>[]))
+    }
+    const order = new Map(ids.map((id, index) => [id, index]))
+    const receipts = found
+      .map(row => {
+        let snapshot: Record<string, any> = {}
+        try { snapshot = JSON.parse(String(row.snapshot_json || '{}')) || {} } catch { snapshot = {} }
+        return { id: String(row.id), receiptNo: String(row.receipt_no || ''), paymentId: String(row.payment_id || ''), status: String(row.status || 'valid'), createdAt: row.created_at, snapshot }
+      })
+      .sort((a, b) => (order.get(a.paymentId) ?? 0) - (order.get(b.paymentId) ?? 0))
+    const tenant = await getTenantById(context.db, context.tenantId).catch(() => null) as Record<string, any> | null
+    return c.json({ success: true, schoolName: String(tenant?.schoolName || tenant?.name || ''), receipts: await withReceiptLinks(context.db, context.tenantId, receipts, c.env.TENANT_BASE_DOMAIN) })
+  } catch (error) {
+    return financeFailure(c, error, 'Could not load the receipts.')
   }
 })
 

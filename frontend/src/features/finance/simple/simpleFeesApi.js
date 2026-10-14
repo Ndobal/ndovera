@@ -44,6 +44,9 @@ export const settleClassMove = (studentId, decision, note) => request(`/api/scho
 export const billNewStudents = studentIds => request('/api/school/finance/simple/bill-new', { method: 'POST', body: { studentIds } });
 export const listTermPayments = params => request(`/api/school/finance/simple/payments${q(params)}`);
 export const getFeeReports = () => request('/api/school/finance/simple/reports');
+/** Receipts for many payments at once (each as issued, with its check link). */
+export const getReceipts = paymentIds => request('/api/school/finance/simple/receipts', { method: 'POST', body: { paymentIds } });
+export const discardFeeDraft = termId => request(`/api/school/finance/simple/draft${q({ termId })}`, { method: 'DELETE' });
 export const reversePayment = (paymentId, reason) => request(`/api/school/finance/payments/${id(paymentId)}/reverse`, { method: 'POST', body: { reason } });
 
 export const naira = value => `₦${(Number(value) || 0).toLocaleString(undefined, { maximumFractionDigits: 2 })}`;

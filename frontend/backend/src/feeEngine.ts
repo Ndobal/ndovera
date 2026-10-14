@@ -43,6 +43,8 @@ export async function ensureFeeEngineTables(db: D1Database) {
     // Per term: how fees are set (by class, or each student's own) and what happens
     // to debts from earlier terms when this term's accounts are created.
     `CREATE TABLE IF NOT EXISTS fee_term_settings (tenant_id TEXT NOT NULL, term_id TEXT NOT NULL, debt_mode TEXT NOT NULL DEFAULT 'carry', fee_mode TEXT NOT NULL DEFAULT 'class', decided_by TEXT, decided_at TEXT, written_off_at TEXT, written_off_amount REAL, written_off_students INTEGER, PRIMARY KEY (tenant_id, term_id))`,
+    // Changes saved as a draft: kept as entered, applied to nobody until published.
+    `CREATE TABLE IF NOT EXISTS fee_term_drafts (tenant_id TEXT NOT NULL, term_id TEXT NOT NULL, payload_json TEXT NOT NULL, saved_by TEXT, saved_at TEXT NOT NULL, PRIMARY KEY (tenant_id, term_id))`,
   ]) await db.prepare(statement).run()
   await db.prepare(`ALTER TABLE fee_term_settings ADD COLUMN fee_mode TEXT NOT NULL DEFAULT 'class'`).run().catch(() => null)
   _ready = true
@@ -54,6 +56,45 @@ export async function ensureFeeEngineTables(db: D1Database) {
  *   student — every student pays only what is entered for them; class rows are starting amounts.
  */
 export const FEE_MODES = ['class', 'student'] as const
+
+// ─── Drafts: fee changes saved but not yet published ─────────────────────────
+
+const DRAFT_LIMIT = 900_000
+
+export async function getFeeDraft(db: D1Database, tenantId: string, termId: string) {
+  await ensureFeeEngineTables(db)
+  const row = await db.prepare(`SELECT * FROM fee_term_drafts WHERE tenant_id = ? AND term_id = ?`).bind(tenantId, termId).first() as Record<string, any> | null
+  if (!row) return null
+  let payload: Record<string, any> = {}
+  try { payload = JSON.parse(String(row.payload_json || '{}')) || {} } catch { payload = {} }
+  return { payload, savedBy: row.saved_by || '', savedAt: row.saved_at }
+}
+
+/** Keep the page as entered. Nothing official changes and nobody is billed. */
+export async function saveFeeDraft(db: D1Database, options: { tenantId: string, actor: Actor, term: TermRef, payload: Record<string, any> }) {
+  await ensureFeeEngineTables(db)
+  const payload = {
+    columns: Array.isArray(options.payload.columns) ? options.payload.columns : [],
+    rows: Array.isArray(options.payload.rows) ? options.payload.rows : [],
+    students: Array.isArray(options.payload.students) ? options.payload.students : [],
+    feeMode: (FEE_MODES as readonly string[]).includes(String(options.payload.feeMode)) ? String(options.payload.feeMode) : 'class',
+    debtMode: options.payload.debtMode === 'write_off' ? 'write_off' : 'carry',
+  }
+  const json = JSON.stringify(payload)
+  if (json.length > DRAFT_LIMIT) throw new FinanceError('This draft is too large to save. Remove unused items or students and try again.')
+  const now = new Date().toISOString()
+  await db.batch([
+    db.prepare(`INSERT INTO fee_term_drafts (tenant_id, term_id, payload_json, saved_by, saved_at) VALUES (?, ?, ?, ?, ?) ON CONFLICT(tenant_id, term_id) DO UPDATE SET payload_json = excluded.payload_json, saved_by = excluded.saved_by, saved_at = excluded.saved_at`)
+      .bind(options.tenantId, options.term.id, json, options.actor.name || null, now),
+    auditStatement(db, options.tenantId, { actor: options.actor, action: 'term_fees_draft_saved', sessionId: options.term.sessionId, termId: options.term.id, newValue: { columns: payload.columns.length, students: payload.students.length, feeMode: payload.feeMode } }),
+  ])
+  return { savedBy: options.actor.name || '', savedAt: now }
+}
+
+export async function discardFeeDraft(db: D1Database, tenantId: string, termId: string) {
+  await ensureFeeEngineTables(db)
+  await db.prepare(`DELETE FROM fee_term_drafts WHERE tenant_id = ? AND term_id = ?`).bind(tenantId, termId).run()
+}
 
 // ─── Students who pay differently from their class ───────────────────────────
 
@@ -387,10 +428,12 @@ async function billedChanges(db: D1Database, tenantId: string, termId: string, s
  */
 export async function saveTermGrid(db: D1Database, options: {
   tenantId: string, actor: Actor, term: TermRef, classes: ClassRef[], input: GridInput, changeMode?: string, enrollments?: Enrollment[], debtMode?: string, feeMode?: string,
+  // Publishing edits published fees directly; every change to billed students still asks first.
+  allowPublished?: boolean,
 }) {
   await ensureFeeEngineTables(db)
   const lock = await getTermLock(db, options.tenantId, options.term.id)
-  if (lock.locked) throw new FinanceError(`${options.term.name} fees are locked. Unlock them to make changes.`, 423)
+  if (lock.locked && !options.allowPublished) throw new FinanceError(`${options.term.name} fees are locked. Unlock them to make changes.`, 423)
   const columns = (options.input.columns || []).map(column => ({ name: String(column.name || '').replace(/\s+/g, ' ').trim().slice(0, 80), required: column.required !== false, frequency: ['term', 'annual', 'once'].includes(String(column.frequency)) ? String(column.frequency) : 'term' })).filter(column => column.name)
   const names = new Set<string>()
   for (const column of columns) {

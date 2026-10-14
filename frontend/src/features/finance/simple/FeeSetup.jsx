@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { bulkEdit, getFeeSource, getTermGrid, lockTermFees, naira, previewChanges, rowTotal, saveTermGrid, studentTotal } from './simpleFeesApi';
+import { bulkEdit, discardFeeDraft, getFeeSource, getTermGrid, naira, previewChanges, rowTotal, saveTermGrid, studentTotal } from './simpleFeesApi';
 
 // A term's fees as one table: classes down the side, fee items across the top,
 // every amount editable in place, and below it the students who pay differently
@@ -11,9 +11,15 @@ const CARD = 'rounded-3xl border border-[#c9a96e]/40 bg-[#b5e3f4] p-5 dark:borde
 const BTN = 'rounded-2xl px-4 py-2 text-sm font-bold disabled:opacity-50';
 const PRIMARY = `${BTN} bg-[#1a5c38] text-[#b5e3f4] hover:bg-[#154a2e]`;
 const SECONDARY = `${BTN} border border-[#c9a96e]/50 bg-white text-[#800020]`;
-const CELL = 'w-28 rounded-lg border border-[#c9a96e]/45 bg-white px-2 py-1 text-right text-sm text-[#191970] disabled:bg-slate-50';
+// Frozen header row and first two columns of the student fee table (solid backgrounds so
+// scrolled cells pass underneath).
+const STICKY_HEAD = 'sticky top-0 bg-[#b5e3f4] p-2 text-xs font-bold uppercase text-[#800020] shadow-[0_1px_0_rgba(201,169,110,0.5)] dark:bg-slate-900';
+const STICKY_SN = 'sticky left-0 w-12 min-w-[3rem]';
+const STICKY_NAME = 'sticky left-12 min-w-[12rem] max-w-[16rem] shadow-[1px_0_0_rgba(201,169,110,0.5)]';
+const STICKY_BODY = 'bg-[#b5e3f4] dark:bg-slate-900';
+const CELL ='w-28 rounded-lg border border-[#c9a96e]/45 bg-white px-2 py-1 text-right text-sm text-[#191970] disabled:bg-slate-50';
 
-function ColumnEditor({ column, rows, onApply, onRename, onRemove, onClose }) {
+function ColumnEditor({ column, rows, scope = 'classes', onApply, onRename, onRemove, onClose }) {
   const [mode, setMode] = useState('increase');
   const [value, setValue] = useState('');
   const [name, setName] = useState(column.name);
@@ -24,7 +30,7 @@ function ColumnEditor({ column, rows, onApply, onRename, onRemove, onClose }) {
       <div className="max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-3xl bg-white p-5 text-[#191970] shadow-2xl">
         <h2 className="text-lg font-black text-[#800000]">{column.name} — Edit all</h2>
         <div className="mt-3 space-y-2 text-sm">
-          {[['same', 'Enter the same amount for all classes'], ['increase', 'Increase existing amounts by %'], ['reduce', 'Reduce existing amounts by %'], ['individual', 'Edit individually (in the table)']].map(([key, label]) => (
+          {[['same', `Enter the same amount for all ${scope}`], ['increase', 'Increase existing amounts by %'], ['reduce', 'Reduce existing amounts by %'], ['individual', 'Edit individually (in the table)']].map(([key, label]) => (
             <label key={key} className="flex items-center gap-2"><input type="radio" name="bulk-mode" checked={mode === key} onChange={() => setMode(key)} /> {label}</label>
           ))}
         </div>
@@ -82,7 +88,7 @@ function DecisionDialog({ decision, busy, onChoose, onCancel }) {
  * transport only for some). A blank cell means "same as the class", shown as
  * the faint class amount.
  */
-function StudentFees({ mode, students, register, columns, rows, editable, onCell, onFill, onAdd, onRemove }) {
+function StudentFees({ mode, students, register, columns, rows, editable, onCell, onFill, onAdd, onRemove, onEditColumn, onAddColumn }) {
   const [query, setQuery] = useState('');
   const [classFilter, setClassFilter] = useState('');
   const [adding, setAdding] = useState('');
@@ -102,7 +108,8 @@ function StudentFees({ mode, students, register, columns, rows, editable, onCell
   if (!students.length && !editable) return null;
   return (
     <section className={`${CARD} space-y-3`}>
-      <div className="flex flex-wrap items-center gap-2">
+      {/* The title, class filter and search stay in view while the page scrolls. */}
+      <div className="sticky top-14 z-30 -mx-5 flex flex-wrap items-center gap-2 bg-[#b5e3f4] px-5 py-2 dark:bg-slate-900">
         <h3 className="flex-1 text-lg font-black text-[#800000] dark:text-white">{byStudent ? 'Each student\'s fees' : 'Students who pay differently'} <span className="text-sm font-semibold text-[#191970] dark:text-slate-300">({students.length})</span></h3>
         {(classOptions.length > 1 || newCount > 0) && (
           <select aria-label="Show class" className="rounded-xl border border-[#c9a96e]/45 bg-white p-2 text-sm text-[#191970]" value={classFilter} onChange={event => setClassFilter(event.target.value)}>
@@ -111,7 +118,7 @@ function StudentFees({ mode, students, register, columns, rows, editable, onCell
             {classOptions.map(([id, name]) => <option key={id} value={id}>{name}</option>)}
           </select>
         )}
-        {students.length > 8 && <input aria-label="Find a student" className="w-56 rounded-xl border border-[#c9a96e]/45 bg-white p-2 text-sm text-[#191970]" placeholder="Find a student…" value={query} onChange={event => setQuery(event.target.value)} />}
+        {students.length > 1 && <input aria-label="Find a student" className="w-56 rounded-xl border border-[#c9a96e]/45 bg-white p-2 text-sm text-[#191970]" placeholder="Find a student…" value={query} onChange={event => setQuery(event.target.value)} />}
       </div>
       <p className="text-xs text-[#191970]/80 dark:text-slate-400">
         {byStudent
@@ -121,29 +128,43 @@ function StudentFees({ mode, students, register, columns, rows, editable, onCell
       {newCount > 0 && <p className="rounded-xl bg-sky-50 px-3 py-2 text-sm font-semibold text-sky-900">{newCount} student{newCount === 1 ? ' was' : 's were'} not at the school last term and {newCount === 1 ? 'is' : 'are'} marked NEW. Enter their fees{byStudent ? '' : ', or leave them blank to charge their class fees'}.</p>}
       {byStudent && missing > 0 && <p className="rounded-xl bg-amber-50 px-3 py-2 text-sm font-semibold text-amber-900">{missing} student{missing === 1 ? ' has' : 's have'} no fees entered and will not be billed.</p>}
       {byStudent && editable && (
-        <button type="button" className={SECONDARY} onClick={() => onFill(shown.map(student => student.studentId))}>
-          Fill empty cells from class amounts{classFilter || needle ? ' (students shown)' : ''}
-        </button>
+        <div className="flex flex-wrap gap-2">
+          <button type="button" className={SECONDARY} onClick={onAddColumn}>+ Add Fee Item</button>
+          {/* Class amounts copied from an earlier term are a quick start, though the class table is hidden here. */}
+          {rows.some(row => Object.values(row.amounts || {}).some(value => Number(value) > 0)) && (
+            <button type="button" className={SECONDARY} onClick={() => onFill(shown.map(student => student.studentId))}>
+              Fill empty cells from class fees{classFilter || needle ? ' (students shown)' : ''}
+            </button>
+          )}
+        </div>
       )}
       {shown.length > 0 && (
-        <div className="max-h-[32rem] overflow-auto">
-          <table className="w-full min-w-[720px] text-sm text-[#191970] dark:text-slate-200">
-            <thead className="sticky top-0 bg-[#b5e3f4] dark:bg-slate-900">
+        // The fee headings stay on top and each student's name stays on the left while
+        // the table scrolls either way, so every amount is next to whose it is.
+        <div className="max-h-[70vh] overflow-auto rounded-2xl border border-[#c9a96e]/30">
+          <table className="w-full min-w-[720px] border-separate border-spacing-0 text-sm text-[#191970] dark:text-slate-200">
+            <thead>
               <tr>
-                <th className="w-10 p-2 text-right text-xs font-bold uppercase text-[#800020]">S/N</th>
-                <th className="p-2 text-left text-xs font-bold uppercase text-[#800020]">Student</th>
-                {columns.map(item => <th key={item.name} className="p-2 text-right text-xs font-black uppercase text-[#800020]">{item.name}</th>)}
-                <th className="p-2 text-right text-xs font-bold uppercase text-[#800020]">Total</th>
-                {editable && <th className="p-2"><span className="sr-only">Remove</span></th>}
+                <th className={`${STICKY_HEAD} ${STICKY_SN} z-30 text-right`}>S/N</th>
+                <th className={`${STICKY_HEAD} ${STICKY_NAME} z-30 text-left`}>Student</th>
+                {columns.map(item => (
+                  <th key={item.name} className={`${STICKY_HEAD} z-20 whitespace-nowrap text-right font-black`}>
+                    {byStudent && editable
+                      ? <button type="button" onClick={() => onEditColumn(item.name)} className="rounded-lg px-1 font-black uppercase hover:bg-white" title="Rename, remove, or set for every student">{item.name} ✎</button>
+                      : item.name}
+                  </th>
+                ))}
+                <th className={`${STICKY_HEAD} z-20 text-right`}>Total</th>
+                {editable && <th className={`${STICKY_HEAD} z-20`}><span className="sr-only">Remove</span></th>}
               </tr>
             </thead>
             <tbody>
               {shown.map((student, index) => {
                 const classRow = byClass.get(student.classId);
                 return (
-                  <tr key={student.studentId} className="border-t border-[#c9a96e]/30">
-                    <td className="p-2 text-right tabular-nums">{index + 1}</td>
-                    <td className="p-2">
+                  <tr key={student.studentId} className="[&>td]:border-t [&>td]:border-[#c9a96e]/30">
+                    <td className={`${STICKY_SN} ${STICKY_BODY} z-10 p-2 text-right tabular-nums`}>{index + 1}</td>
+                    <td className={`${STICKY_NAME} ${STICKY_BODY} z-10 p-2`}>
                       <span className="font-semibold">{student.studentName || student.studentId}</span>
                       {student.isNew && <span className="ml-1 rounded-full bg-sky-600 px-1.5 py-0.5 text-[10px] font-black text-white">NEW</span>}
                       <span className="block text-xs opacity-70">{student.className || 'No class'}</span>
@@ -180,28 +201,35 @@ function StudentFees({ mode, students, register, columns, rows, editable, onCell
   );
 }
 
-/** How this term's fees are set: one row per class (with exceptions), or each student's own. */
-function FeeModeChoice({ mode, editable, onChange }) {
-  const options = [
-    ['class', 'Class fees', 'Each class pays the same. Add the few students who pay differently.'],
-    ['student', 'Individual student fees', 'Enter each student\'s own fees. Every student pays only what is on their row.'],
-  ];
+/**
+ * How this term's fees are set, as two tabs. The open tab is the term's choice:
+ * Class fees (one row per class, with exceptions) or Individual student fees
+ * (each student's own row; the class table is not used and not shown).
+ */
+const FEE_MODE_TABS = [
+  ['class', 'Class fees', 'Each class pays the same. Add the few students who pay differently.'],
+  ['student', 'Individual student fees', 'Enter each student\'s own fees. Every student pays only what is on their row.'],
+];
+
+function FeeModeTabs({ mode, editable, onChange }) {
+  const help = FEE_MODE_TABS.find(([key]) => key === mode)?.[2];
   return (
-    <section className={`${CARD} space-y-2`}>
-      <h3 className="text-lg font-black text-[#800000] dark:text-white">How are fees set this term?</h3>
-      <div className="grid gap-2 sm:grid-cols-2" role="radiogroup" aria-label="How are fees set this term?">
-        {options.map(([key, label, help]) => (
-          <label key={key} className={`flex gap-3 rounded-2xl bg-white p-3 text-[#191970] ${mode === key ? 'ring-2 ring-[#1a5c38]' : ''} ${editable ? 'cursor-pointer' : 'opacity-80'}`}>
-            <input type="radio" name="fee-mode" className="mt-1" disabled={!editable} checked={mode === key} onChange={() => onChange(key)} />
-            <span><span className="block font-bold">{label}</span><span className="block text-xs">{help}</span></span>
-          </label>
+    <div className="space-y-2">
+      <div className="flex flex-wrap gap-1.5 border-b-2 border-[#800020]/30" role="tablist" aria-label="How are fees set this term?">
+        {FEE_MODE_TABS.map(([key, label]) => (
+          <button key={key} type="button" role="tab" aria-selected={mode === key} disabled={!editable && mode !== key}
+            onClick={() => { if (mode !== key) onChange(key); }}
+            className={`-mb-0.5 rounded-t-2xl px-5 py-2.5 text-sm font-black ${mode === key ? 'border-2 border-b-0 border-[#800020]/30 bg-[#b5e3f4] text-[#800000] dark:bg-slate-900 dark:text-white' : 'text-[#800020] hover:bg-white/60 disabled:opacity-50'}`}>
+            {label}
+          </button>
         ))}
       </div>
-    </section>
+      <p className="px-1 text-xs font-semibold text-[#191970] dark:text-slate-300">{help} {editable ? 'The tab that is open when you publish is how this term is billed.' : ''}</p>
+    </div>
   );
 }
 
-/** Earlier terms' unpaid balances: carried into this term, or written off when the fees are locked. */
+/** Earlier terms' unpaid balances: carried into this term, or written off when the fees are published. */
 function DebtChoice({ debt, earlierDebts, mode, editable, term, onChange }) {
   if (debt?.writtenOffAt) {
     return <section className={CARD}><p className="text-sm font-bold text-[#191970] dark:text-white">Earlier debts were written off for {term.name}: {naira(debt.writtenOffAmount)} for {debt.writtenOffStudents} student(s), on {new Date(debt.writtenOffAt).toLocaleDateString()}. Each write-off is in the audit log.</p></section>;
@@ -211,7 +239,7 @@ function DebtChoice({ debt, earlierDebts, mode, editable, term, onChange }) {
   }
   const options = [
     ['carry', 'Carry outstanding debts to this term', earlierDebts.total > 0 ? `Each student's unpaid balance (${naira(earlierDebts.total)} across ${earlierDebts.students} student${earlierDebts.students === 1 ? '' : 's'}) is added to their ${term.name} account as Outstanding Fee.` : 'Unpaid balances from earlier terms are added to each account as Outstanding Fee.'],
-    ['write_off', 'Write off outstanding debts', earlierDebts.total > 0 ? `${naira(earlierDebts.total)} owed by ${earlierDebts.students} student${earlierDebts.students === 1 ? '' : 's'} is cleared when you lock the fees. Every write-off is recorded with the reason.` : 'Any unpaid balance from earlier terms is cleared when you lock the fees, and recorded.'],
+    ['write_off', 'Write off outstanding debts', earlierDebts.total > 0 ? `${naira(earlierDebts.total)} owed by ${earlierDebts.students} student${earlierDebts.students === 1 ? '' : 's'} is cleared when you publish the fees. Every write-off is recorded with the reason.` : 'Any unpaid balance from earlier terms is cleared when you publish the fees, and recorded.'],
   ];
   return (
     <section className={`${CARD} space-y-2`}>
@@ -243,8 +271,10 @@ export default function FeeSetup({ initialTermId, initialSource, canEdit, onSave
   const [debtMode, setDebtMode] = useState('carry');
   const [feeMode, setFeeMode] = useState('class');
   const [copyOpen, setCopyOpen] = useState(false);
-  const locked = Boolean(data?.grid?.lock?.locked);
-  const editable = canEdit && !locked;
+  const [draftInfo, setDraftInfo] = useState(null);
+  // Published fees stay editable: changes are saved as a draft or published again.
+  const published = Boolean(data?.grid?.lock?.locked);
+  const editable = Boolean(canEdit);
 
   const register = useMemo(() => new Map((data?.students || []).map(student => [student.studentId, student])), [data]);
   const withClass = list => list.map(student => ({ ...student, studentName: register.get(student.studentId)?.studentName || student.studentName, classId: register.get(student.studentId)?.classId || student.classId || '', className: register.get(student.studentId)?.className || student.className || '' }));
@@ -276,7 +306,7 @@ export default function FeeSetup({ initialTermId, initialSource, canEdit, onSave
     setNotice({
       text: `Copied ${result.label || 'last term'} exactly: ${what}, set ${mode === 'student' ? 'for each student' : 'by class'}.`
         + `${joined.length ? ` ${joined.length} student${joined.length === 1 ? ' who was' : 's who were'} not at the school then ${joined.length === 1 ? 'is' : 'are'} marked NEW below — enter their fees${mode === 'class' ? ' (left blank, they pay their class fees)' : ''}.` : ''}`
-        + `${result.leftOut ? ` ${result.leftOut} student(s) who have left were not carried over.` : ''} No balances were copied. Change anything, choose what happens to earlier debts, then Save.`,
+        + `${result.leftOut ? ` ${result.leftOut} student(s) who have left were not carried over.` : ''} No balances were copied. Change anything, choose what happens to earlier debts, then Save as draft or Publish.`,
       tone: 'ok',
     });
     setDirty(true);
@@ -295,6 +325,19 @@ export default function FeeSetup({ initialTermId, initialSource, canEdit, onSave
       setDebtMode(result.grid.debt?.mode || 'carry');
       setFeeMode(result.grid.feeMode === 'student' ? 'student' : 'class');
       setDirty(false);
+      setDraftInfo(null);
+      // Saved draft changes are what the school was last working on: open them.
+      if (result.draft) {
+        const draft = result.draft.payload || {};
+        const byClass = new Map((draft.rows || []).map(row => [row.classId, row.amounts || {}]));
+        if (draft.columns?.length) setColumns(draft.columns);
+        setRows(baseRows.map(row => ({ ...row, amounts: { ...(byClass.get(row.classId) || {}) } })));
+        setStudents((draft.students || []).map(student => ({ studentId: student.studentId, studentName: student.studentName, amounts: { ...(student.amounts || {}) }, ...(student.isNew ? { isNew: true } : {}) })));
+        setFeeMode(draft.feeMode === 'student' ? 'student' : 'class');
+        setDebtMode(draft.debtMode === 'write_off' ? 'write_off' : 'carry');
+        setDraftInfo({ savedAt: result.draft.savedAt, savedBy: result.draft.savedBy });
+        return;
+      }
       // A term with no fees yet starts from the chosen source.
       if (!result.grid.configured && fromSource) {
         if (fromSource.type === 'new') { setColumns([{ name: 'Tuition', required: true, frequency: 'term' }]); setDirty(true); }
@@ -306,7 +349,7 @@ export default function FeeSetup({ initialTermId, initialSource, canEdit, onSave
 
   async function copyFrom(fromSource) {
     setCopyOpen(false);
-    if ((data.grid.configured || dirty) && !window.confirm('Replace the fees on this page with the copied ones? Nothing is saved until you press Save.')) return;
+    if ((data.grid.configured || dirty || draftInfo) && !window.confirm('Replace the fees on this page with the copied ones? Nothing changes until you save a draft or publish.')) return;
     try { await applySource(fromSource, rows.map(row => ({ ...row, amounts: {} })), data.grid.term.id); } catch (err) { setNotice({ text: err.message, tone: 'error' }); }
   }
 
@@ -342,9 +385,8 @@ export default function FeeSetup({ initialTermId, initialSource, canEdit, onSave
   const studentList = useMemo(() => {
     if (feeMode !== 'student') return students;
     const byId = new Map(students.map(student => [student.studentId, student]));
-    const all = (data?.students || []).map(student => byId.get(student.studentId) || { studentId: student.studentId, studentName: student.studentName, amounts: {} });
-    const listed = new Set(all.map(student => student.studentId));
-    return [...all, ...students.filter(student => !listed.has(student.studentId))];
+    // Current students only: the register is the active list (anyone who left is kept on file, not shown).
+    return (data?.students || []).map(student => byId.get(student.studentId) || { studentId: student.studentId, studentName: student.studentName, amounts: {} });
   }, [feeMode, students, data]);
   const grandTotal = rows.reduce((sum, row) => sum + rowTotal(row, columns), 0);
 
@@ -358,23 +400,53 @@ export default function FeeSetup({ initialTermId, initialSource, canEdit, onSave
     setDirty(true);
   }
 
-  async function save(changeMode) {
+  function payload() {
+    return {
+      termId: data.grid.term.id, columns, debtMode, feeMode,
+      rows: rows.map(row => ({ classId: row.classId, amounts: Object.fromEntries(Object.entries(row.amounts).map(([key, value]) => [key, Number(value) || 0])) })),
+      // Only filled cells are sent: blank means "the class amount" by class, and "nothing" by student.
+      students: students.map(student => ({
+        studentId: student.studentId, studentName: student.studentName,
+        amounts: Object.fromEntries(Object.entries(student.amounts).filter(([key, value]) => value !== '' && value !== null && value !== undefined && columns.some(column => column.name === key)).map(([key, value]) => [key, Number(value) || 0])),
+      })).filter(student => Object.keys(student.amounts).length),
+    };
+  }
+
+  /** Keep the page as it is. Nobody's account changes until it is published. */
+  async function saveAsDraft() {
     setBusy(true); setNotice({ text: '', tone: 'ok' });
     try {
-      const payload = {
-        termId: data.grid.term.id, columns, changeMode, debtMode, feeMode,
-        rows: rows.map(row => ({ classId: row.classId, amounts: Object.fromEntries(Object.entries(row.amounts).map(([key, value]) => [key, Number(value) || 0])) })),
-        // Only filled cells are sent: blank means "the class amount" by class, and "nothing" by student.
-        students: students.map(student => ({
-          studentId: student.studentId, studentName: student.studentName,
-          amounts: Object.fromEntries(Object.entries(student.amounts).filter(([key, value]) => value !== '' && value !== null && value !== undefined && columns.some(column => column.name === key)).map(([key, value]) => [key, Number(value) || 0])),
-        })).filter(student => Object.keys(student.amounts).length),
-      };
-      const result = await saveTermGrid(payload);
+      // New students left blank stay listed in the draft, so their fees can be entered later.
+      const draftStudents = students.map(student => ({ ...student, amounts: Object.fromEntries(Object.entries(student.amounts).filter(([, value]) => value !== '' && value !== null && value !== undefined)) }))
+        .filter(student => Object.keys(student.amounts).length || student.isNew);
+      const result = await saveTermGrid({ ...payload(), students: draftStudents, action: 'draft' });
+      setDirty(false);
+      setSource(null);
+      setDraftInfo(result.draft);
+      setNotice({ text: 'Saved as a draft. Nobody has been billed and no account has changed. Publish when you are ready.', tone: 'ok' });
+      onSaved?.();
+    } catch (err) { setNotice({ text: err.message, tone: 'error' }); } finally { setBusy(false); }
+  }
+
+  /** Make the fees official: every current student's account is created or brought up to date. */
+  async function publish(changeMode) {
+    const debts = data.earlierDebts;
+    if (!changeMode && debtMode === 'write_off' && debts?.total > 0 && !data.grid.debt?.writtenOffAt
+      && !window.confirm(`Publishing will write off ${naira(debts.total)} owed from earlier terms by ${debts.students} student(s). Each write-off is recorded, but it cannot be undone from here. Continue?`)) return;
+    setBusy(true); setNotice({ text: '', tone: 'ok' });
+    try {
+      const result = await saveTermGrid({ ...payload(), action: 'publish', ...(changeMode ? { changeMode } : {}) });
       setDecision(null);
       setDirty(false);
       setSource(null);
-      setNotice({ text: `Saved.${result.adjusted ? ` ${result.adjusted} existing charge(s) adjusted, each recorded with the reason.` : ''}${!locked ? ' Review, then lock the fees to create every student\'s account.' : ''}`, tone: 'ok' });
+      const done = result.published || {};
+      setNotice({
+        text: `Published. ${done.students ?? 0} student account(s) are up to date.`
+          + `${result.adjusted ? ` ${result.adjusted} existing charge(s) adjusted, each recorded with the reason.` : ''}`
+          + `${done.writtenOff?.students ? ` ${naira(done.writtenOff.amount)} of earlier debts written off for ${done.writtenOff.students} student(s).` : ''}`
+          + ' You can keep editing these fees at any time.',
+        tone: 'ok',
+      });
       load(data.grid.term.id, null);
       onSaved?.();
     } catch (err) {
@@ -383,14 +455,12 @@ export default function FeeSetup({ initialTermId, initialSource, canEdit, onSave
     } finally { setBusy(false); }
   }
 
-  async function toggleLock() {
-    const debts = data.earlierDebts;
-    if (!locked && debtMode === 'write_off' && debts?.total > 0
-      && !window.confirm(`Locking will write off ${naira(debts.total)} owed from earlier terms by ${debts.students} student(s). Each write-off is recorded, but it cannot be undone from here. Continue?`)) return;
-    setBusy(true); setNotice({ text: '', tone: 'ok' });
+  async function discardDraft() {
+    if (!window.confirm('Throw away the draft changes? The published fees stay as they are.')) return;
+    setBusy(true);
     try {
-      const result = await lockTermFees(data.grid.term.id, locked, locked ? 'Unlocked to edit fees' : '');
-      setNotice({ text: locked ? 'Unlocked. You can change the fees; changes for students already billed will ask what to do.' : `Locked. ${result.students} student account(s) are ready.${result.writtenOff?.students ? ` ${naira(result.writtenOff.amount)} of earlier debts written off for ${result.writtenOff.students} student(s).` : ''}`, tone: 'ok' });
+      await discardFeeDraft(data.grid.term.id);
+      setNotice({ text: 'Draft discarded.', tone: 'ok' });
       load(data.grid.term.id, null);
       onSaved?.();
     } catch (err) { setNotice({ text: err.message, tone: 'error' }); } finally { setBusy(false); }
@@ -405,7 +475,9 @@ export default function FeeSetup({ initialTermId, initialSource, canEdit, onSave
       <section className={`${CARD} space-y-3`}>
         <div className="flex flex-wrap items-center gap-2">
           <h2 className="flex-1 text-xl font-black text-[#800000] dark:text-white">{term.name} Fees <span className="text-sm font-semibold text-[#191970] dark:text-slate-300">· {term.sessionName}</span></h2>
-          {locked ? <span className="rounded-full bg-[#191970] px-3 py-1 text-xs font-black text-white">🔒 Locked</span> : data.grid.configured ? <span className="rounded-full bg-amber-100 px-3 py-1 text-xs font-black text-amber-900">Not locked yet</span> : null}
+          {published && <span className="rounded-full bg-[#1a5c38] px-3 py-1 text-xs font-black text-white">Published</span>}
+          {draftInfo && <span className="rounded-full bg-amber-100 px-3 py-1 text-xs font-black text-amber-900">Draft{published ? ' changes' : ''} — not published</span>}
+          {!published && !draftInfo && data.grid.configured && <span className="rounded-full bg-amber-100 px-3 py-1 text-xs font-black text-amber-900">Not published yet</span>}
           <select aria-label="Term" className="rounded-xl border border-[#c9a96e]/45 bg-white p-2 text-sm text-[#191970]" value={term.id} onChange={event => { setSource(null); setTermId(event.target.value); }}>
             {data.terms.map(item => <option key={item.id} value={item.id}>{item.sessionName} · {item.name}</option>)}
           </select>
@@ -426,19 +498,21 @@ export default function FeeSetup({ initialTermId, initialSource, canEdit, onSave
           </div>
         )}
         {!canEdit && <p className="text-sm text-[#191970] dark:text-slate-300">You can view the fees. Only {data.settings.editors.join(', ')} can change them.</p>}
-        {locked && canEdit && <p className="text-sm text-[#191970] dark:text-slate-300">These fees are official. Unlock them to make a change.</p>}
+        {draftInfo && (
+          <p className="flex flex-wrap items-center gap-2 rounded-xl bg-amber-50 px-3 py-2 text-sm font-semibold text-amber-900">
+            <span className="flex-1">Showing your draft{draftInfo.savedAt ? `, saved ${new Date(draftInfo.savedAt).toLocaleString()}` : ''}{draftInfo.savedBy ? ` by ${draftInfo.savedBy}` : ''}. {published ? 'Students are still billed the published fees until you publish.' : 'Nobody is billed until you publish.'}</span>
+            {canEdit && <button type="button" className="text-xs font-bold text-rose-700 underline" disabled={busy} onClick={discardDraft}>Discard draft</button>}
+          </p>
+        )}
+        {published && !draftInfo && canEdit && <p className="text-sm text-[#191970] dark:text-slate-300">These fees are published. You can still change them: save a draft while you work, then publish. Changes for students already billed ask what to do first.</p>}
         {notice.text && <p role={notice.tone === 'error' ? 'alert' : 'status'} className={`rounded-xl px-3 py-2 text-sm font-semibold ${notice.tone === 'error' ? 'bg-rose-50 text-rose-800' : notice.tone === 'warn' ? 'bg-amber-50 text-amber-900' : 'bg-emerald-50 text-[#1a5c38]'}`}>{notice.text}</p>}
       </section>
 
-      <FeeModeChoice mode={feeMode} editable={editable} onChange={mode => { setFeeMode(mode); setDirty(true); }} />
+      <FeeModeTabs mode={feeMode} editable={editable} onChange={mode => { setFeeMode(mode); setEditingColumn(null); setDirty(true); }} />
 
+      {/* Class fees tab: the class table. Hidden on the Individual tab, where nobody is billed from it. */}
+      {feeMode === 'class' && (
       <section className={CARD}>
-        {feeMode === 'student' && (
-          <div className="mb-3">
-            <h3 className="text-lg font-black text-[#800000] dark:text-white">Starting amounts by class <span className="text-sm font-semibold text-[#191970] dark:text-slate-300">(optional)</span></h3>
-            <p className="text-xs text-[#191970]/80 dark:text-slate-400">Nobody is billed from this table. Use it to fill students' fees quickly with "Fill empty cells from class amounts" below.</p>
-          </div>
-        )}
         <div className="overflow-x-auto">
           <table className="w-full min-w-[640px] text-sm text-[#191970] dark:text-slate-200">
             <thead>
@@ -473,10 +547,11 @@ export default function FeeSetup({ initialTermId, initialSource, canEdit, onSave
         {editable && <button type="button" className={`${SECONDARY} mt-3`} onClick={addColumn}>+ Add Fee Item</button>}
         <p className="mt-2 text-xs text-[#191970]/80 dark:text-slate-400">Leave a cell empty if a class does not pay that item. Click an item name to change it for every class at once.</p>
       </section>
+      )}
 
       <StudentFees
         mode={feeMode} students={withClass(studentList)} register={data.students || []} columns={columns} rows={rows} editable={editable}
-        onCell={setStudentCell} onFill={fillFromClass}
+        onCell={setStudentCell} onFill={fillFromClass} onEditColumn={setEditingColumn} onAddColumn={addColumn}
         onAdd={student => { setStudents(previous => [...previous, { studentId: student.studentId, studentName: student.studentName, amounts: {} }]); setDirty(true); }}
         onRemove={studentId => { setStudents(previous => previous.filter(student => student.studentId !== studentId)); setDirty(true); }}
       />
@@ -485,20 +560,32 @@ export default function FeeSetup({ initialTermId, initialSource, canEdit, onSave
 
       <section className={CARD}>
         <div className="flex flex-wrap gap-2">
-          {editable && <button type="button" className={PRIMARY} disabled={busy || !dirty} onClick={() => save()}>{busy ? 'Saving…' : 'Save Fees'}</button>}
-          {canEdit && data.grid.configured && (
-            <button type="button" className={locked ? SECONDARY : `${BTN} bg-[#191970] text-white`} disabled={busy || dirty} onClick={toggleLock} title={dirty ? 'Save first' : ''}>
-              {locked ? 'Unlock to edit' : `🔒 Lock ${term.name} fees & create student accounts`}
+          {editable && <button type="button" className={SECONDARY} disabled={busy || !dirty} onClick={saveAsDraft}>{busy ? 'Saving…' : 'Save as draft'}</button>}
+          {editable && (
+            <button type="button" className={PRIMARY} disabled={busy || (!dirty && !draftInfo && published)} onClick={() => publish()}>
+              {busy ? 'Working…' : published ? `Publish changes to ${term.name} fees` : `Publish ${term.name} fees & create student accounts`}
             </button>
           )}
         </div>
+        <p className="mt-2 text-xs text-[#191970]/80 dark:text-slate-400">A draft keeps your work and changes nobody's account. Publishing makes the fees official and bills every current student (no one is billed twice).</p>
         {data.grid.billedStudents > 0 && <p className="mt-2 text-xs text-[#191970] dark:text-slate-300">{data.grid.billedStudents} student account(s) use these fees.{debtMode === 'carry' ? ' Outstanding balances from earlier terms are added to each account automatically.' : ''}</p>}
       </section>
 
       {column && (
         <ColumnEditor
-          column={column} rows={rows}
-          onApply={next => { setRows(next); setDirty(true); setEditingColumn(null); }}
+          column={column} scope={feeMode === 'student' ? 'students' : 'classes'}
+          rows={feeMode === 'student' ? withClass(studentList).map(student => ({ ...student, className: student.studentName })) : rows}
+          onApply={next => {
+            if (feeMode === 'student') {
+              // Every student on the register gets the new amount (rows are created as needed).
+              setStudents(previous => {
+                const byId = new Map(previous.map(student => [student.studentId, student]));
+                for (const row of next) byId.set(row.studentId, { ...(byId.get(row.studentId) || { studentId: row.studentId, studentName: row.studentName }), amounts: { ...row.amounts } });
+                return [...byId.values()];
+              });
+            } else setRows(next);
+            setDirty(true); setEditingColumn(null);
+          }}
           onRename={name => {
             if (columns.some(item => item.name.toLowerCase() === name.toLowerCase())) return;
             setColumns(columns.map(item => (item.name === column.name ? { ...item, name } : item)));
@@ -514,7 +601,7 @@ export default function FeeSetup({ initialTermId, initialSource, canEdit, onSave
           onClose={() => setEditingColumn(null)}
         />
       )}
-      {decision && <DecisionDialog decision={decision} busy={busy} onChoose={mode => save(mode)} onCancel={() => setDecision(null)} />}
+      {decision && <DecisionDialog decision={decision} busy={busy} onChoose={mode => publish(mode)} onCancel={() => setDecision(null)} />}
     </div>
   );
 }

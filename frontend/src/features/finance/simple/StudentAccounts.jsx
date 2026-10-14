@@ -251,8 +251,24 @@ export function StudentAccount({ studentId, onBack, onChanged }) {
   );
 }
 
+// The search and filters stay in view while the list scrolls (below the Finance tab bar).
+const STICKY_BAR = 'sticky top-14 z-30 shadow-md dark:bg-slate-900';
+
+/** A family's children together: what they owe and have paid as one household. */
+function FamilyTotals({ family, accounts }) {
+  const sum = key => accounts.reduce((total, account) => total + (Number(account[key]) || 0), 0);
+  return (
+    <section className="grid gap-2 rounded-3xl border-2 border-[#1a5c38]/40 bg-[#e8f5ee] p-4 text-[#191970] sm:grid-cols-4">
+      <div><p className="text-xs font-bold uppercase text-[#800020]">Family</p><p className="font-black">{family.name}</p><p className="text-xs">{accounts.length} child{accounts.length === 1 ? '' : 'ren'}</p></div>
+      <div><p className="text-xs font-bold uppercase text-[#800020]">Total payable</p><p className="text-xl font-black">{naira(sum('totalPayable'))}</p></div>
+      <div><p className="text-xs font-bold uppercase text-[#800020]">Paid</p><p className="text-xl font-black text-[#1a5c38]">{naira(sum('paid'))}</p></div>
+      <div><p className="text-xs font-bold uppercase text-[#800020]">Family balance</p><p className={`text-xl font-black ${sum('balance') > 0 ? 'text-rose-700' : ''}`}>{naira(sum('balance'))}</p></div>
+    </section>
+  );
+}
+
 export default function StudentAccounts({ classes, initialStudentId, onChanged }) {
-  const [filters, setFilters] = useState({ q: '', classId: '', status: '' });
+  const [filters, setFilters] = useState({ q: '', classId: '', status: '', familyId: '' });
   const [data, setData] = useState(null);
   const [error, setError] = useState('');
   const [open, setOpen] = useState(initialStudentId || '');
@@ -263,8 +279,12 @@ export default function StudentAccounts({ classes, initialStudentId, onChanged }
   if (open) return <StudentAccount studentId={open} onBack={() => { setOpen(''); load(); }} onChanged={onChanged} />;
   return (
     <div className="space-y-4">
-      <section className={`${CARD} flex flex-wrap gap-2`}>
-        <input aria-label="Search student" className={`${FIELD} max-w-xs`} placeholder="Search student…" value={filters.q} onChange={event => setFilters(previous => ({ ...previous, q: event.target.value }))} />
+      <section className={`${CARD} ${STICKY_BAR} flex flex-wrap gap-2`}>
+        <input aria-label="Search student" className={`${FIELD} max-w-xs`} placeholder="Search student or parent…" value={filters.q} onChange={event => setFilters(previous => ({ ...previous, q: event.target.value }))} />
+        <select aria-label="Family" className={`${FIELD} max-w-[14rem]`} value={filters.familyId} onChange={event => setFilters(previous => ({ ...previous, familyId: event.target.value }))}>
+          <option value="">All families</option>
+          {(data?.families || []).map(family => <option key={family.id} value={family.id}>{family.name} ({family.children})</option>)}
+        </select>
         <select aria-label="Class" className={`${FIELD} max-w-[12rem]`} value={filters.classId} onChange={event => setFilters(previous => ({ ...previous, classId: event.target.value }))}>
           <option value="">All Classes</option>{classes.map(item => <option key={item.id} value={item.id}>{item.name}</option>)}
         </select>
@@ -274,17 +294,27 @@ export default function StudentAccounts({ classes, initialStudentId, onChanged }
         {data?.accounts?.length > 0 && <p className="self-center text-sm font-bold text-[#191970] dark:text-slate-200">{data.accounts.length} student{data.accounts.length === 1 ? '' : 's'}</p>}
       </section>
       {error && <p role="alert" className="font-semibold text-rose-700">{error}</p>}
+      {filters.familyId && data?.accounts?.length > 0 && (
+        <FamilyTotals family={(data.families || []).find(family => family.id === filters.familyId) || { name: 'Family' }} accounts={data.accounts} />
+      )}
       <section className={CARD}>
         {!data ? <p role="status">Loading…</p> : !data.accounts.length ? <p className="text-sm text-[#191970] dark:text-slate-300">No students match.</p> : (
           <div className="overflow-x-auto">
             <table className="w-full min-w-[860px] text-sm text-[#191970] dark:text-slate-200">
-              <thead><tr><th className={`${TH} w-10 text-right`}>S/N</th><th className={TH}>Student</th><th className={TH}>Class</th><th className={`${TH} text-right`}>Term Fee</th><th className={`${TH} text-right`}>Outstanding</th><th className={`${TH} text-right`}>Total Payable</th><th className={`${TH} text-right`}>Paid</th><th className={`${TH} text-right`}>Balance</th><th className={TH}>Status</th><th className={TH}><span className="sr-only">Open</span></th></tr></thead>
+              <thead><tr><th className={`${TH} w-10 text-right`}>S/N</th><th className={TH}>Student</th><th className={TH}>Class</th><th className={TH}>Family</th><th className={`${TH} text-right`}>Term Fee</th><th className={`${TH} text-right`}>Outstanding</th><th className={`${TH} text-right`}>Total Payable</th><th className={`${TH} text-right`}>Paid</th><th className={`${TH} text-right`}>Balance</th><th className={TH}>Status</th><th className={TH}><span className="sr-only">Open</span></th></tr></thead>
               <tbody>
                 {data.accounts.map((account, index) => (
                   <tr key={account.studentId} className="border-t border-[#c9a96e]/30 hover:bg-white/50">
                     <td className="p-2 text-right tabular-nums text-[#191970]/70 dark:text-slate-400">{index + 1}</td>
                     <td className="p-2 font-semibold">{account.studentName}{account.classMove ? <span className="ml-1 text-xs text-sky-700">(moved class)</span> : null}</td>
                     <td className="p-2">{account.className}</td>
+                    <td className="p-2">
+                      {(account.families || []).length
+                        ? account.families.map(family => (
+                          <button key={family.id} type="button" className="mr-1 text-xs font-semibold text-[#800020] underline" title="Show this family" onClick={() => setFilters(previous => ({ ...previous, familyId: family.id }))}>{family.name}</button>
+                        ))
+                        : <span className="text-xs text-slate-500">—</span>}
+                    </td>
                     <td className="p-2 text-right">{naira(account.termFee)}</td>
                     <td className="p-2 text-right">{account.outstanding ? naira(account.outstanding) : '—'}</td>
                     <td className="p-2 text-right">{naira(account.totalPayable)}</td>

@@ -18,7 +18,7 @@ function digitsOnlyPhone(value) {
   return digits;
 }
 
-function buildReceiptShareMessage(receipt) {
+export function buildReceiptShareMessage(receipt) {
   const lines = [
     `${receipt.schoolName || 'School'} — Fee ${receipt.receiptKind === 'invoice' ? 'Invoice' : 'Receipt'} ${receipt.receiptNo || ''}`.trim(),
     `Student: ${receipt.studentName || receipt.name || ''}${receipt.className ? ` (${receipt.className})` : ''}`,

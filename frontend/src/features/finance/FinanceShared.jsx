@@ -1,5 +1,7 @@
 import React from 'react';
 import { STATUS_LABELS, STATUS_STYLES, naira } from './financeApi';
+import FeeReceiptDialog, { buildReceiptShareMessage } from '../school/components/FeeReceiptDialog';
+import { buildReceiptExportDocument, saveReceiptDocuments } from '../school/components/feeReceiptExport';
 
 export const CARD = 'rounded-3xl border border-[#c9a96e]/40 bg-[#b5e3f4] p-5 dark:border-white/10 dark:bg-slate-900/40';
 export const BTN = 'rounded-2xl px-4 py-2 text-sm font-bold disabled:opacity-50';
@@ -69,46 +71,73 @@ export function ChargeTable({ charges, actions, empty = 'Nothing here.' }) {
   );
 }
 
-/** A receipt, exactly as it was when issued. */
-export function ReceiptDialog({ receipt, schoolName, onClose }) {
+// ─── Receipts: the school's designed receipt, one at a time or many at once ──
+
+/**
+ * A Fees & Billing receipt (stored exactly as issued) in the shape the school's
+ * designed receipt (FeeReceiptPrintCard / buildReceiptExportDocument) reads.
+ */
+export function toDesignedReceipt(receipt, schoolName = '') {
   if (!receipt) return null;
   const snap = receipt.snapshot || {};
-  return (
-    <div className="fixed inset-0 z-[90] flex items-center justify-center bg-[#191970]/60 p-4" role="dialog" aria-modal="true" aria-label={`Receipt ${receipt.receiptNo}`}>
-      <div className="max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-3xl bg-white p-6 text-[#191970] shadow-2xl print:shadow-none">
-        <div className="flex items-start justify-between gap-3">
-          <div>
-            {schoolName && <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#800020]">{schoolName}</p>}
-            <h2 className="text-xl font-black">Receipt {receipt.receiptNo}</h2>
-            <p className="text-xs">Issued {new Date(snap.issuedAt || receipt.createdAt).toLocaleString()}{snap.recordedBy ? ` by ${snap.recordedBy}` : ''}</p>
-          </div>
-          {receipt.status === 'reversed' && <span className="rounded-full bg-rose-100 px-3 py-1 text-xs font-black uppercase text-rose-800">Reversed</span>}
-        </div>
-        <dl className="mt-4 grid grid-cols-2 gap-2 text-sm">
-          <dt className="font-semibold">Student</dt><dd>{snap.studentName || snap.studentId}</dd>
-          {snap.payerName && <><dt className="font-semibold">Paid by</dt><dd>{snap.payerName}</dd></>}
-          <dt className="font-semibold">Date paid</dt><dd>{snap.paidOn}</dd>
-          <dt className="font-semibold">Method</dt><dd>{snap.method}{snap.reference ? ` · ${snap.reference}` : ''}</dd>
-          {snap.period && <><dt className="font-semibold">Billing period</dt><dd>{snap.period.sessionName} · {snap.period.termName}</dd></>}
-        </dl>
-        <table className="mt-4 w-full text-sm">
-          <thead><tr><th className={TH}>Paid for</th><th className={TH}>Amount</th><th className={TH}>Left on it</th></tr></thead>
-          <tbody>{(snap.items || []).map((item, index) => (
-            <tr key={index} className="border-t border-slate-200"><td className={TD}>{item.feeItem}<span className="block text-xs text-slate-500">{item.sessionName} · {item.termName}</span></td><td className={TD}>{naira(item.amount)}</td><td className={TD}>{naira(item.balanceAfter)}</td></tr>
-          ))}</tbody>
-        </table>
-        <dl className="mt-4 grid grid-cols-2 gap-1 border-t border-slate-200 pt-3 text-sm">
-          <dt>Balance before</dt><dd className="text-right">{naira(snap.previousBalance)}</dd>
-          <dt className="font-bold">Amount paid</dt><dd className="text-right font-bold">{naira(snap.amountPaid)}</dd>
-          <dt>Balance remaining</dt><dd className="text-right">{naira(snap.remainingBalance)}</dd>
-        </dl>
-        <div className="mt-5 flex justify-end gap-2 print:hidden">
-          <button type="button" className={SECONDARY} onClick={() => window.print()}>Print</button>
-          <button type="button" className={PRIMARY} onClick={onClose}>Close</button>
-        </div>
-      </div>
-    </div>
-  );
+  const remaining = Number(snap.remainingBalance || 0);
+  return {
+    receiptNo: receipt.receiptNo,
+    ...(schoolName ? { schoolName } : {}),
+    studentName: snap.studentName || '',
+    studentId: snap.studentId || '',
+    studentDisplayId: snap.studentDisplayId || '',
+    className: snap.className || '',
+    termName: snap.termName || snap.period?.termName || '',
+    sessionName: snap.sessionName || snap.period?.sessionName || '',
+    amount: Number(snap.amountPaid || 0),
+    // Receipts issued before these were recorded show what was due before the payment.
+    feeAmount: Number(snap.totalPayable ?? snap.previousBalance ?? 0),
+    amountPaidAfter: Number(snap.paidToDate ?? snap.amountPaid ?? 0),
+    balanceAfter: remaining,
+    paymentType: snap.method || 'cash',
+    paymentReference: snap.reference || '',
+    recordedBy: snap.recordedBy || '',
+    recordedAt: snap.issuedAt || receipt.createdAt,
+    statusAfter: receipt.status === 'reversed' ? 'Reversed' : remaining <= 0 ? 'Paid in full' : 'Part payment',
+    receiptKind: 'issued',
+    verificationUrl: receipt.verificationUrl || '',
+  };
+}
+
+/** Several receipts as one WhatsApp message, each in the receipt viewer's own words. */
+export function receiptsShareText(receipts, schoolName = '') {
+  return receipts.map(receipt => buildReceiptShareMessage(toDesignedReceipt(receipt, schoolName))).join('\n\n');
+}
+
+export function whatsappLink(text) {
+  return `https://wa.me/?text=${encodeURIComponent(text)}`;
+}
+
+/**
+ * Print many designed receipts at once, one per page. Pass a window opened in the
+ * click itself when receipts are fetched first, or pop-up blockers stop it.
+ */
+export async function printDesignedReceipts(receipts, schoolName = '', branding = {}, openedWindow = null) {
+  const win = openedWindow || window.open('', '_blank', 'width=1000,height=960');
+  if (!win) return false;
+  const documents = await Promise.all(receipts.map(receipt => buildReceiptExportDocument(toDesignedReceipt(receipt, schoolName), branding)));
+  const style = (documents[0] || '').match(/<style>[\s\S]*?<\/style>/)?.[0] || '';
+  const bodies = documents.map(html => (html.match(/<body>([\s\S]*)<\/body>/) || [])[1] || '');
+  win.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>Receipts</title>${style}<style>.page{page-break-after:always}.page:last-child{page-break-after:auto}</style></head><body>${bodies.map(body => `<div class="page">${body}</div>`).join('')}<script>window.onload = () => window.print()</script></body></html>`);
+  win.document.close();
+  return true;
+}
+
+/** Save many designed receipts as files (a folder, or a zip). */
+export function downloadDesignedReceipts(receipts, schoolName = '', branding = {}, folderLabel = 'receipts') {
+  return saveReceiptDocuments(receipts.map(receipt => toDesignedReceipt(receipt, schoolName)), branding, folderLabel);
+}
+
+/** A receipt, exactly as it was when issued, in the school's designed receipt viewer (print, WhatsApp). */
+export function ReceiptDialog({ receipt, schoolName, onClose }) {
+  if (!receipt) return null;
+  return <FeeReceiptDialog isOpen receipt={toDesignedReceipt(receipt, schoolName)} onClose={onClose} />;
 }
 
 export function PaymentsTable({ payments, onReverse, onReceipt, receipts = [] }) {

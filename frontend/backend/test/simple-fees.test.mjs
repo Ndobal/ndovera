@@ -331,3 +331,82 @@ test('reusing a term brings its settings and lists students who were not at the 
   assert.equal(source.feeMode, 'student')
   assert.deepEqual(source.newStudents.map(student => student.studentId), ['chi'])
 })
+
+test('save as draft changes nobody; publish bills everyone; published fees stay editable and changes for billed students ask first', async () => {
+  const { call } = await setup()
+  const draft = await call('owner', 'PUT', '/api/school/finance/simple/grid', { termId: 't26-1', action: 'draft', ...GRID, feeMode: 'class', debtMode: 'carry' })
+  assert.equal(draft.status, 200, JSON.stringify(draft.body))
+  const grid = (await call('owner', 'GET', '/api/school/finance/simple/grid?termId=t26-1')).body
+  assert.deepEqual([grid.grid.configured, grid.draft.payload.rows[0].amounts.Tuition], [false, 130000])
+  assert.equal((await call('owner', 'GET', '/api/school/finance/simple/overview')).body.hasDraft, true)
+  assert.equal(account((await call('bursar', 'GET', '/api/school/finance/simple/accounts')).body.accounts, 'ada').status, 'not_billed')
+
+  const published = await call('owner', 'PUT', '/api/school/finance/simple/grid', { termId: 't26-1', action: 'publish', ...GRID })
+  assert.equal(published.status, 200, JSON.stringify(published.body))
+  assert.equal(published.body.published.students, 2) // CHI has no class yet
+  assert.equal((await call('owner', 'GET', '/api/school/finance/simple/grid?termId=t26-1')).body.draft, null)
+  assert.equal(account((await call('bursar', 'GET', '/api/school/finance/simple/accounts')).body.accounts, 'ada').termFee, 160000)
+
+  // Published, and still editable without unlocking: a draft first, then publish with a decision.
+  const raised = { ...GRID, rows: GRID.rows.map(row => ({ ...row, amounts: { ...row.amounts, Tuition: row.amounts.Tuition + 10000 } })) }
+  assert.equal((await call('owner', 'PUT', '/api/school/finance/simple/grid', { termId: 't26-1', action: 'draft', ...raised })).status, 200)
+  assert.equal(account((await call('bursar', 'GET', '/api/school/finance/simple/accounts')).body.accounts, 'ada').termFee, 160000) // a draft bills nobody
+  const asked = await call('owner', 'PUT', '/api/school/finance/simple/grid', { termId: 't26-1', action: 'publish', ...raised })
+  assert.deepEqual([asked.status, asked.body.needsDecision], [409, true])
+  const done = await call('owner', 'PUT', '/api/school/finance/simple/grid', { termId: 't26-1', action: 'publish', ...raised, changeMode: 'adjust_existing' })
+  assert.equal(done.status, 200, JSON.stringify(done.body))
+  assert.equal(account((await call('bursar', 'GET', '/api/school/finance/simple/accounts')).body.accounts, 'ada').totalPayable, 170000)
+})
+
+test('only current students are listed; a student who left keeps their own fees on file for when they are restored', async () => {
+  const { call, db } = await setup()
+  const students = [{ studentId: 'ada', amounts: { Tuition: 90000 } }, { studentId: 'bola', amounts: { Tuition: 70000 } }]
+  await call('owner', 'PUT', '/api/school/finance/simple/grid', { termId: 't26-1', ...GRID, students })
+  db.db.exec(`UPDATE users SET status = 'inactive' WHERE id = 'bola'`)
+  const listed = (await call('owner', 'GET', '/api/school/finance/simple/grid?termId=t26-1')).body
+  assert.deepEqual(listed.grid.students.map(row => row.studentId), ['ada'])
+  assert.ok(!listed.students.some(row => row.studentId === 'bola'))
+  // Saving the page (which shows only ADA) keeps BOLA's amounts.
+  await call('owner', 'PUT', '/api/school/finance/simple/grid', { termId: 't26-1', ...GRID, students: [{ studentId: 'ada', amounts: { Tuition: 95000 } }] })
+  db.db.exec(`UPDATE users SET status = 'active' WHERE id = 'bola'`)
+  const back = (await call('owner', 'GET', '/api/school/finance/simple/grid?termId=t26-1')).body.grid.students
+  assert.deepEqual(Object.fromEntries(back.map(row => [row.studentId, row.amounts.Tuition])), { ada: 95000, bola: 70000 })
+})
+
+test('receipts can be fetched many at once, and each one verifies on the school web address', async () => {
+  const { call, db } = await setup()
+  db.db.exec(`CREATE TABLE IF NOT EXISTS tenants (id TEXT PRIMARY KEY, requested_subdomain TEXT, website_domain TEXT, school_name TEXT)`)
+  db.db.exec(`INSERT OR REPLACE INTO tenants (id, requested_subdomain, school_name) VALUES ('school-a', 'greenfield', 'Greenfield School')`)
+  await call('owner', 'PUT', '/api/school/finance/simple/grid', { termId: 't26-1', action: 'publish', ...GRID })
+  const paid = []
+  for (const student of ['ada', 'bola']) paid.push((await call('bursar', 'POST', `/api/school/finance/simple/accounts/${student}/pay`, { amount: 50000, method: 'cash' })).body)
+  assert.match(paid[0].receipt.verificationUrl || '', /^https:\/\/greenfield\.ndovera\.com\/receipt-verification\/RCT-/)
+  const all = (await call('bursar', 'POST', '/api/school/finance/simple/receipts', { paymentIds: paid.map(result => result.paymentId) })).body
+  assert.equal(all.receipts.length, 2)
+  assert.ok(all.receipts.every(receipt => receipt.verificationUrl && receipt.snapshot.amountPaid === 50000))
+})
+
+test('fees filter per family: a parent\'s children together, findable by the parent\'s name too', async () => {
+  const { call, db } = await setup()
+  await db.prepare('INSERT INTO users (id, email, name, role, tenantId, status) VALUES (?, ?, ?, ?, ?, ?)').bind('mrs-obi', 'obi@a', 'Mrs Obi', 'parent', 'school-a', 'active').run()
+  db.db.exec(`CREATE TABLE IF NOT EXISTS parent_student_links (tenant_id TEXT, parent_id TEXT, student_id TEXT)`)
+  db.db.exec(`INSERT INTO parent_student_links (tenant_id, parent_id, student_id) VALUES ('school-a', 'obi@a', 'ada'), ('school-a', 'mrs-obi', 'bola')`)
+  await call('owner', 'PUT', '/api/school/finance/simple/grid', { termId: 't26-1', action: 'publish', ...GRID })
+  const all = (await call('bursar', 'GET', '/api/school/finance/simple/accounts')).body
+  assert.deepEqual(all.families.map(family => [family.id, family.name, family.children]), [['mrs-obi', 'Mrs Obi', 2]]) // linked by email and by id: one family
+  const family = (await call('bursar', 'GET', '/api/school/finance/simple/accounts?familyId=mrs-obi')).body
+  assert.deepEqual(family.accounts.map(account => account.studentId).sort(), ['ada', 'bola'])
+  assert.equal(family.families.length, 1) // the choices stay complete while one family is shown
+  assert.deepEqual((await call('bursar', 'GET', '/api/school/finance/simple/accounts?q=obi')).body.accounts.map(account => account.studentId).sort(), ['ada', 'bola'])
+})
+
+test('a receipt records the term figures it was issued against, for the designed receipt', async () => {
+  const { call } = await setup()
+  await call('owner', 'PUT', '/api/school/finance/simple/grid', { termId: 't26-1', action: 'publish', ...GRID })
+  await call('bursar', 'POST', '/api/school/finance/simple/accounts/ada/pay', { amount: 40000, method: 'cash' })
+  const paid = (await call('bursar', 'POST', '/api/school/finance/simple/accounts/ada/pay', { amount: 20000, method: 'transfer' })).body
+  const snap = paid.receipt.snapshot
+  assert.deepEqual([snap.className, snap.termName, snap.sessionName, snap.totalPayable, snap.paidToDate], ['JSS 1', 'First Term', '2026/2027', 160000, 60000])
+  const again = (await call('bursar', 'GET', '/api/school/finance/simple/accounts/ada')).body.receipts.find(receipt => receipt.receiptNo === paid.receipt.receiptNo)
+  assert.equal(again.snapshot.paidToDate, 60000) // kept on the receipt as issued
+})
