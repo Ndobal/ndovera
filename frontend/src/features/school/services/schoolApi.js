@@ -169,6 +169,8 @@ export const removeStudentOldCode = (codeId) => req(`/api/students/old-codes/${e
 export const deactivatePerson = (userId) => req(`/api/people/${userId}`, { method: 'DELETE' });
 export const getPastStudents = () => req('/api/people/past-students', { skipOfflineCache: true });
 export const restorePerson = (userId) => req(`/api/people/${encodeURIComponent(userId)}/restore`, { method: 'POST' });
+/** Delete turned-off students for good — only those with nothing on record; the rest are kept and reported. */
+export const deletePastStudents = (ids) => req('/api/people/past-students/delete', { method: 'POST', body: { ids } });
 export const updatePersonRole = (userId, role) => req(`/api/people/${userId}/role`, { method: 'PUT', body: { role } });
 export const getClasses = () => req('/api/school/classes');
 export const addClass = (data) => req('/api/school/classes', { method: 'POST', body: data });

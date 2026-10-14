@@ -18552,6 +18552,48 @@ app.delete('/api/people/:userId', authenticate, async (c) => {
 // Statuses that mean a student is no longer at the school (see academicSessions).
 const PAST_STUDENT_STATUSES = ['inactive', 'alumni', 'graduated', 'withdrawn', 'transferred', 'archived']
 
+/**
+ * Anything a student has done or paid. A turned-off student with none of these was most
+ * likely added by mistake, and may be deleted for good; anyone with a record is kept.
+ */
+const STUDENT_RECORD_TABLES: Array<[string, string, string]> = [
+  ['submissions', 'studentId', 'assignments handed in'],
+  ['assignment_attempts', 'student_id', 'assignment attempts'],
+  ['practice_attempts', 'student_id', 'practice quizzes'],
+  ['result_ca_entries', 'student_id', 'results'],
+  ['cbt_attempts', 'student_id', 'CBT exams'],
+  ['club_submissions', 'student_id', 'club work'],
+  ['fee_payments', 'student_id', 'fee payments'],
+  ['fees_payment_receipts', 'student_id', 'fee receipts'],
+  ['practice_passes', 'student_id', 'practice passes'],
+  // Turned-off students keep Practice and their chats with friends: anyone who has chatted is kept.
+  ['messages', 'sender_id', 'chat messages'],
+]
+
+/** For each student, the kinds of records they have ({ id: ['results', …] }). Missing tables count as none. */
+async function studentRecords(db: D1Database, people: Array<{ id: string, email?: string }>) {
+  const out = new Map<string, Set<string>>()
+  const keyToId = new Map<string, string>()
+  for (const person of people) {
+    keyToId.set(String(person.id), String(person.id))
+    if (person.email) keyToId.set(String(person.email), String(person.id))
+  }
+  const keys = [...keyToId.keys()]
+  for (const [table, column, label] of STUDENT_RECORD_TABLES) {
+    for (let index = 0; index < keys.length; index += 90) {
+      const slice = keys.slice(index, index + 90)
+      const rows = await db.prepare(`SELECT DISTINCT ${column} AS sid FROM ${table} WHERE ${column} IN (${slice.map(() => '?').join(',')})`).bind(...slice).all().catch(() => ({ results: [] }))
+      for (const row of (rows.results || []) as Record<string, any>[]) {
+        const id = keyToId.get(String(row.sid))
+        if (!id) continue
+        if (!out.has(id)) out.set(id, new Set())
+        out.get(id)!.add(label)
+      }
+    }
+  }
+  return out
+}
+
 /** Students who have been turned off or have left, for the Owner/HOS to review and restore. */
 app.get('/api/people/past-students', authenticate, async (c) => {
   if (!hasRequiredRole(c.var.user.role, ['owner', 'hos', 'ict', 'ict_manager'])) return c.json({ error: 'forbidden' }, 403)
@@ -18566,18 +18608,76 @@ app.get('/api/people/past-students', authenticate, async (c) => {
     ).bind(tenantId, ...PAST_STUDENT_STATUSES).all()
     const pageRows = (rows.results || []) as Record<string, any>[]
     const settingsMap = await getSettingsMapForUserRows(c.env.APP_DB, pageRows)
+    const records = await studentRecords(c.env.APP_DB, pageRows.map(row => ({ id: String(row.id), email: String(row.email || '') })))
     const students = pageRows.map(row => {
       const settings = settingsMap.get(String(row.email || '').trim()) || settingsMap.get(String(row.id || '').trim()) || {}
+      const has = [...(records.get(String(row.id)) || [])]
       return {
         id: row.id, name: row.name || settings.name || row.email || row.id, email: row.email || '', status: String(row.status || 'inactive'),
         className: settings.className || '', displayId: settings.publicStudentId || settings.displayId || '',
         leftAt: settings.deactivatedAt || null, leftBy: settings.deactivatedBy || '',
+        records: has, deletable: !has.length,
       }
     })
     return c.json({ success: true, students })
   } catch (err) {
     return c.json({ error: 'Could not load past students.' }, 500)
   }
+})
+
+/**
+ * Delete turned-off students for good — only those with nothing on record (no assignment,
+ * practice, result, exam, club work, payment, receipt or pass). Their account, settings,
+ * register rows, parent links and unpaid bills go; an audit entry keeps who and when.
+ * Accepts one id or a list (`ids`), and reports each one it kept and why.
+ */
+app.post('/api/people/past-students/delete', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos', 'ict', 'ict_manager'])) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  const body = await c.req.json().catch(() => ({})) as Record<string, any>
+  const ids = Array.from(new Set((Array.isArray(body.ids) ? body.ids : [body.id]).map((value: unknown) => String(value || '').trim()).filter(Boolean))).slice(0, 500) as string[]
+  if (!ids.length) return c.json({ error: 'Choose who to delete.' }, 400)
+  const db = c.env.APP_DB
+  const found: Record<string, any>[] = []
+  for (let index = 0; index < ids.length; index += 90) {
+    const slice = ids.slice(index, index + 90)
+    const rows = await db.prepare(`SELECT id, email, name, role, status FROM users WHERE tenantId = ? AND id IN (${slice.map(() => '?').join(',')})`).bind(tenantId, ...slice).all()
+    found.push(...((rows.results || []) as Record<string, any>[]))
+  }
+  const kept: Array<{ id: string, name: string, reason: string }> = []
+  const eligible = found.filter(row => {
+    if (String(row.role || '').toLowerCase() !== 'student') { kept.push({ id: row.id, name: row.name, reason: 'not a student' }); return false }
+    if (!PAST_STUDENT_STATUSES.includes(String(row.status || '').trim().toLowerCase())) { kept.push({ id: row.id, name: row.name, reason: 'still active — turn them off first' }); return false }
+    return true
+  })
+  const records = await studentRecords(db, eligible.map(row => ({ id: String(row.id), email: String(row.email || '') })))
+  const deleted: string[] = []
+  for (const row of eligible) {
+    const has = [...(records.get(String(row.id)) || [])]
+    if (has.length) { kept.push({ id: row.id, name: row.name, reason: `has ${has.join(', ')}` }); continue }
+    const keys = [String(row.id), String(row.email || '')].filter(Boolean)
+    // In a friend's conversation (added by student code or the class stream): kept, so the chat stays whole.
+    const inChat = await db.prepare(`SELECT 1 FROM conversations WHERE ${keys.map(() => 'participants LIKE ?').join(' OR ')} LIMIT 1`).bind(...keys.map(key => `%"${key}"%`)).first().catch(() => null)
+    if (inChat) { kept.push({ id: row.id, name: row.name, reason: 'has chats with friends' }); continue }
+    const marks = keys.map(() => '?').join(',')
+    const statements: D1PreparedStatement[] = [
+      db.prepare(`DELETE FROM users WHERE id = ? AND tenantId = ?`).bind(row.id, tenantId),
+      db.prepare(`DELETE FROM settings WHERE studentId IN (${marks})`).bind(...keys),
+    ]
+    // Tables a school may not have yet are skipped one by one.
+    for (const [table, column] of [['session_enrollments', 'student_id'], ['parent_student_links', 'student_id'], ['class_members', 'studentId'], ['student_class_pins', 'student_id'],
+      ['practice_profiles', 'student_id'], ['practice_question_stats', 'student_id'], ['practice_free_choice', 'student_id'], ['practice_devices', 'student_id'], ['fees_config', 'student_id']] as const) {
+      await db.prepare(`DELETE FROM ${table} WHERE ${column} IN (${marks})`).bind(...keys).run().catch(() => null)
+    }
+    // Bills never paid (there are no payments, or they would have been kept).
+    await db.prepare(`DELETE FROM fee_obligations WHERE tenant_id = ? AND student_id IN (${marks})`).bind(tenantId, ...keys).run().catch(() => null)
+    await db.batch(statements)
+    deleted.push(String(row.name || row.email || row.id))
+    await addAudit(db, tenantId, { action: 'studentDeletedPermanently', data: { by: c.var.user.id, byName: c.var.user?.name || '', userId: row.id, name: row.name, email: row.email } })
+  }
+  for (const id of ids) if (!found.some(row => String(row.id) === id)) kept.push({ id, name: id, reason: 'not found in this school' })
+  return c.json({ success: true, deleted: deleted.length, deletedNames: deleted, kept })
 })
 
 /** Bring a past student back: they can sign in again and rejoin the register, fee lists and classes. */
@@ -30801,11 +30901,16 @@ app.get('/api/school/academic/sessions/:sessionId/enrollments', authenticate, as
     // everywhere else in the app: no class list, no fee run, no result sheet.
     // The register is the only place that can show the school who they are, so
     // it reports them rather than leaving them to be noticed by accident.
-    const unfiltered = c.req.query('classId') || c.req.query('status')
+    const unfilteredAll = c.req.query('classId') || c.req.query('status')
       ? await listSessionEnrollments(c.env.APP_DB, { tenantId, sessionId })
       : enrollments
-    const enrolledIds = new Set(unfiltered.map(row => row.studentId))
+    const enrolledIds = new Set(unfilteredAll.map(row => row.studentId))
     const roster = await listTenantActiveStudents(c.env.APP_DB, tenantId).catch(() => [] as any[])
+    // Students who were turned off (or have left) keep their row for history, but are not on
+    // this session's lists: an active row counts only while the student's account is active.
+    const current = new Set(roster.flatMap((student: any) => [String(student.id || ''), String(student.email || '')]).filter(Boolean))
+    const stillHere = (row: { status: string, studentId: string }) => row.status !== 'active' || current.has(row.studentId)
+    const unfiltered = unfilteredAll.filter(stillHere)
 
     const unplaced = unfiltered
       .filter(row => row.status === 'active' && !row.classId)
@@ -30829,7 +30934,7 @@ app.get('/api/school/academic/sessions/:sessionId/enrollments', authenticate, as
 
     return c.json({
       success: true,
-      enrollments,
+      enrollments: enrollments.filter(stillHere),
       gaps: { unplaced, offRegister, total: unplaced.length + offRegister.length },
       rosterCount: roster.length,
       enrolledCount: unfiltered.length,
