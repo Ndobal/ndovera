@@ -195,3 +195,31 @@ test('a teacher later made Head of School can review as HOS straight away, witho
     assert.notEqual(status, 403, `${path} refused the HOS`)
   }
 })
+
+test('reviewers also find work handed in elsewhere: Lesson Plans page plans, saved-but-unsent drafts, and classes since removed', async () => {
+  const db = await setup()
+  // A plan sent from the older Lesson Plans page, and one still in draft there (not shown).
+  const plan = await call(db, 'teacher', 'POST', '/api/lesson-plans', { classId: 'p5', subjectId: 'math', title: 'Fractions week 3', weekLabel: 'Week 3', status: 'submitted' })
+  assert.ok([200, 201].includes(plan.status), JSON.stringify(plan.body))
+  await call(db, 'teacher', 'POST', '/api/lesson-plans', { classId: 'p5', subjectId: 'math', title: 'Unfinished', status: 'draft' })
+  // Work saved without pressing Submit.
+  const draft = await call(db, 'teacher', 'POST', '/api/teacher-submissions', lessonPlan(5, { submit: false }))
+  assert.equal(draft.body.submission.status, 'draft')
+
+  const overview = (await call(db, 'hos', 'GET', '/api/teacher-submissions/review')).body
+  const p5 = overview.classes.find(item => item.classId === 'p5')
+  assert.deepEqual([p5.fromLessonPlans, p5.drafts, p5.awaitingReview], [1, 1, 1])
+
+  const board = (await call(db, 'hos', 'GET', '/api/teacher-submissions/review?classId=p5')).body
+  assert.deepEqual(board.lessonPlans.map(item => [item.title, item.status, item.source]), [['Fractions week 3', 'submitted', 'lesson_plans_page']])
+  assert.deepEqual(board.drafts.map(item => item.periodLabel), ['Week 5'])
+  assert.ok(board.summary.submittedTeachers.includes('t-math'), 'a Lesson Plans page submission counts as submitted')
+  // The reviewer can read the draft.
+  assert.equal((await call(db, 'hos', 'GET', `/api/teacher-submissions/${draft.body.submission.id}`)).status, 200)
+
+  // The class is removed later: its work is still reachable.
+  db.db.exec(`DELETE FROM classes WHERE id = 'p5'`)
+  const after = await call(db, 'owner', 'GET', '/api/teacher-submissions/review?classId=p5')
+  assert.equal(after.status, 200)
+  assert.equal(after.body.lessonPlans.length, 1)
+})

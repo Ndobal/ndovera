@@ -11262,6 +11262,32 @@ app.post('/api/teacher-submissions/bulk', authenticate, async (c) => {
   }
 })
 
+/**
+ * Work teachers handed in that the main list leaves out, so reviewers find it without
+ * asking anyone to resubmit: plans submitted on the older Lesson Plans page (a separate
+ * store) and work saved but never sent (status draft). Read-only here.
+ */
+async function workFoundElsewhere(db: D1Database, tenantId: string, filters: { classId?: string, from?: string, to?: string, since?: string, sessionId?: string, termId?: string }) {
+  const inRange = (at: string) => {
+    const day = String(at || '').slice(0, 10)
+    if (filters.since && day && day < filters.since) return false
+    if (filters.from && day < filters.from) return false
+    if (filters.to && day > filters.to) return false
+    return true
+  }
+  const plans = (await listLessonPlans(db, tenantId, filters.classId ? { classId: filters.classId } : {}).catch(() => []))
+    .filter(plan => plan.status !== 'draft' && inRange(plan.submittedAt || plan.createdAt))
+    .map(plan => ({
+      id: plan.id, source: 'lesson_plans_page', classId: plan.classId, className: plan.className, subjectId: plan.subjectId, subjectName: plan.subjectName,
+      teacherId: plan.teacherId, teacherName: plan.teacherName, title: plan.title, periodLabel: plan.weekLabel || plan.topic || '',
+      status: plan.status === 'approved' ? 'approved' : ['rejected', 'returned', 'changes_requested'].includes(plan.status) ? 'returned' : 'submitted',
+      submittedAt: plan.submittedAt || plan.createdAt, reviewedByName: plan.reviewedByName,
+    }))
+  const drafts = (await listSubmissions(db, tenantId, { classId: filters.classId, sessionId: filters.sessionId, termId: filters.termId, status: 'draft', from: filters.from, to: filters.to }))
+    .filter(item => inRange(item.createdAt))
+  return { lessonPlans: plans, drafts }
+}
+
 app.get('/api/teacher-submissions/review', authenticate, async (c) => {
   try {
     const { tenantId, actor } = await resolveSubmissionActor(c.env.APP_DB, c.var.user || {})
@@ -11294,12 +11320,26 @@ app.get('/api/teacher-submissions/review', authenticate, async (c) => {
         if (item.status === 'approved') entry.approved += 1
         classes.set(item.classId, entry)
       }
-      return c.json({ success: true, period, scope, classes: [...classes.values()].sort((a, b) => a.className.localeCompare(b.className)) })
+      const since = scope === 'term' ? period.termStart : ''
+      const elsewhere = await workFoundElsewhere(c.env.APP_DB, tenantId, { from: query.from, to: query.to, since, sessionId: filters.sessionId, termId: filters.termId })
+      for (const item of [...elsewhere.lessonPlans, ...elsewhere.drafts]) {
+        const entry = classes.get(item.classId) || { classId: item.classId, className: item.className, total: 0, awaitingReview: 0, returned: 0, approved: 0 }
+        if (item.status === 'draft') entry.drafts = (entry.drafts || 0) + 1
+        else {
+          entry.fromLessonPlans = (entry.fromLessonPlans || 0) + 1
+          if (item.status === 'submitted') entry.awaitingReview += 1
+          if (item.status === 'approved') entry.approved += 1
+        }
+        classes.set(item.classId, entry)
+      }
+      return c.json({ success: true, period, scope, classes: [...classes.values()].sort((a, b) => String(a.className || '').localeCompare(String(b.className || ''))) })
     }
 
-    const classRow = await c.env.APP_DB.prepare(`SELECT id FROM classes WHERE id = ? AND tenantId = ?`).bind(classId, tenantId).first()
-    if (!classRow) return c.json({ success: false, message: 'Class not found.' }, 404)
     const submissions = await listSubmissions(c.env.APP_DB, tenantId, filters)
+    const elsewhere = await workFoundElsewhere(c.env.APP_DB, tenantId, { classId, from: query.from, to: query.to, since: scope === 'term' ? period.termStart : '', sessionId: filters.sessionId, termId: filters.termId })
+    // A class removed or renamed since still shows the work filed under it.
+    const classRow = await c.env.APP_DB.prepare(`SELECT id FROM classes WHERE id = ? AND tenantId = ?`).bind(classId, tenantId).first()
+    if (!classRow && !submissions.length && !elsewhere.lessonPlans.length && !elsewhere.drafts.length) return c.json({ success: false, message: 'Class not found.' }, 404)
     const live = (await loadLiveAssignments(c.env.APP_DB, tenantId)).filter(item => item.role === 'subject' && item.classId === classId)
     const names = await c.env.APP_DB.prepare(`SELECT id, email, name FROM users WHERE tenantId = ?`).bind(tenantId).all().catch(() => ({ results: [] }))
     const nameOf = (id: string) => ((names.results || []) as Record<string, any>[]).find(row => [row.id, row.email].some(value => String(value || '').toLowerCase() === id.toLowerCase()))?.name || id
@@ -11312,10 +11352,10 @@ app.get('/api/teacher-submissions/review', authenticate, async (c) => {
       : { missing: [], late: [] }
     // "Not submitted" and missing/late work are about the current term, whatever is listed.
     const termSubmissions = period.termId ? await listSubmissions(c.env.APP_DB, tenantId, { classId, sessionId: period.sessionId, termId: period.termId, excludeDrafts: true }) : submissions
-    const submittedTeachers = new Set(termSubmissions.map(item => item.teacherId.toLowerCase()))
+    const submittedTeachers = new Set([...termSubmissions, ...elsewhere.lessonPlans.filter(item => !period.termStart || String(item.submittedAt).slice(0, 10) >= period.termStart)].map(item => String(item.teacherId).toLowerCase()))
     return c.json({
       success: true, period, scope, policy: { reviewMode: policy.reviewMode, maxScore: policy.maxScore, requirements: policy.requirements },
-      submissions,
+      submissions, lessonPlans: elsewhere.lessonPlans, drafts: elsewhere.drafts,
       summary: {
         submittedTeachers: [...submittedTeachers],
         notSubmittedTeachers: [...new Set(live.map(item => item.teacherId).filter(id => !submittedTeachers.has(id.toLowerCase())))].map(id => ({ teacherId: id, teacherName: nameOf(id) })),

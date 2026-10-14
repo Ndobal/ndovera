@@ -133,6 +133,12 @@ export default function SubmissionReviewPage({ dashboardLabel = 'Dashboard' }) {
   }, [board]);
 
   const counts = id => overview.find(item => item.classId === id);
+  // The reviewer's classes, plus any class that has work filed under it (one renamed or removed since included).
+  const classList = useMemo(() => {
+    const known = new Set(classes.map(item => item.id));
+    const extra = overview.filter(item => item.classId && !known.has(item.classId)).map(item => ({ id: item.classId, className: item.className || 'Class no longer listed' }));
+    return [...classes, ...extra];
+  }, [classes, overview]);
   const teachers = [...new Map((board?.submissions || []).map(item => [item.teacherId, item.teacherName])).entries()];
   const subjects = [...new Map((board?.submissions || []).map(item => [item.subjectId, item.subjectName])).entries()];
 
@@ -163,14 +169,14 @@ export default function SubmissionReviewPage({ dashboardLabel = 'Dashboard' }) {
 
       <section className={CARD} aria-label="Classes">
         <div className="flex flex-wrap gap-2">
-          {classes.map(item => {
+          {classList.map(item => {
             const summary = counts(item.id);
             const selected = item.id === classId;
             return (
               <button key={item.id} type="button" onClick={() => setSearchParams(selected ? {} : { classId: item.id })}
                 className={`rounded-2xl px-4 py-2 text-left text-sm font-bold ${selected ? 'bg-[#800020] text-[#b5e3f4]' : 'bg-white text-[#191970]'}`}>
                 {item.className || item.name}
-                {summary ? <span className="block text-[11px] font-semibold opacity-80">{summary.awaitingReview} awaiting · {summary.approved} approved</span> : <span className="block text-[11px] font-semibold opacity-60">No submissions</span>}
+                {summary ? <span className="block text-[11px] font-semibold opacity-80">{summary.awaitingReview} awaiting · {summary.approved} approved{summary.drafts ? ` · ${summary.drafts} not sent` : ''}</span> : <span className="block text-[11px] font-semibold opacity-60">No submissions</span>}
               </button>
             );
           })}
@@ -230,6 +236,45 @@ export default function SubmissionReviewPage({ dashboardLabel = 'Dashboard' }) {
               </div>
             ))}
           </section>
+
+          {board.lessonPlans?.length > 0 && (
+            <section className={`${CARD} space-y-2`} aria-label="From the Lesson Plans page">
+              <div className="flex flex-wrap items-center gap-2">
+                <h2 className="flex-1 text-base font-black text-[#800000] dark:text-white">Lesson plans submitted on the Lesson Plans page ({board.lessonPlans.length})</h2>
+                <button type="button" onClick={() => setView('lessonPlans')} className="rounded-xl bg-[#800020] px-3 py-1.5 text-sm font-bold text-[#b5e3f4]">Review them</button>
+              </div>
+              <p className="text-xs text-[#191970] dark:text-slate-300">Teachers sent these from their Lesson Plans page, which keeps its own list. Nothing needs to be resubmitted — review them under "Lesson plans (Lesson Plans page)".</p>
+              <ul className="space-y-1">
+                {board.lessonPlans.map(item => (
+                  <li key={item.id} className="flex flex-wrap items-center gap-2 rounded-xl bg-white px-3 py-2 text-sm text-[#191970] dark:bg-slate-900 dark:text-slate-100">
+                    <span className="font-semibold">{item.title}</span>
+                    <span className="text-xs text-[#800020]">{[item.subjectName, item.teacherName, item.periodLabel].filter(Boolean).join(' · ')}</span>
+                    <StatusBadge status={item.status} />
+                    <span className="text-xs text-slate-500">{item.submittedAt ? new Date(item.submittedAt).toLocaleString() : ''}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {board.drafts?.length > 0 && (
+            <section className={`${CARD} space-y-2`} aria-label="Saved but not submitted">
+              <h2 className="text-base font-black text-[#800000] dark:text-white">Saved but not submitted ({board.drafts.length})</h2>
+              <p className="text-xs text-[#191970] dark:text-slate-300">These teachers saved their work without pressing Submit. You can read it here; to review it formally, remind them to press Submit on it — they do not need to upload it again.</p>
+              <ul className="space-y-1">
+                {board.drafts.map(item => (
+                  <li key={item.id}>
+                    <button type="button" onClick={() => setOpenId(item.id)} className="flex w-full flex-wrap items-center gap-2 rounded-xl bg-white px-3 py-2 text-left text-sm text-[#191970] hover:ring-2 hover:ring-[#2447d8] dark:bg-slate-900 dark:text-slate-100">
+                      <span className="font-semibold">{item.periodLabel || item.title}</span>
+                      <span className="text-xs text-[#800020]">{[item.subjectName, item.teacherName, item.typeLabel].filter(Boolean).join(' · ')}</span>
+                      <StatusBadge status="draft" />
+                      <span className="text-xs text-slate-500">saved {new Date(item.updatedAt || item.createdAt).toLocaleString()}</span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
         </>
       )}
       </>

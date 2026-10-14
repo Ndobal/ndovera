@@ -1058,7 +1058,10 @@ export default function OwnerPeople() {
   const [people, setPeople] = useState([]);
   const [filter, setFilter] = useState('All');
   const [search, setSearch] = useState('');
+  // What is searched: the box, once typing pauses (each key does not send a request).
+  const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
+  const latestRequest = useRef(0);
   const [error, setError] = useState(null);
   const [showAdd, setShowAdd] = useState(false);
   const [showBulk, setShowBulk] = useState(false);
@@ -1080,21 +1083,30 @@ export default function OwnerPeople() {
   const [tab, setTab] = useState('directory');
 
   const load = useCallback((nextPage = 1, nextSearch = '', nextFilter = 'All') => {
+    // Answers can arrive out of order; only the newest request may change the list,
+    // so an older, slower search never replaces the one typed last.
+    const requestId = ++latestRequest.current;
     setLoading(true);
     setError(null);
     const roleParam = FILTER_TO_ROLE[nextFilter] || '';
-    getPeople({ page: nextPage, limit: 24, search: nextSearch, ...(roleParam ? { role: roleParam } : {}) })
+    getPeople({ page: nextPage, limit: 24, search: nextSearch.trim(), ...(roleParam ? { role: roleParam } : {}) })
       .then(data => {
+        if (requestId !== latestRequest.current) return;
         setPeople(data?.people || []);
         setPagination(data?.pagination || { page: nextPage, limit: 24, total: 0, hasMore: false });
       })
-      .catch(err => setError(err?.message || 'Could not load people.'))
-      .finally(() => setLoading(false));
+      .catch(err => { if (requestId === latestRequest.current) setError(err?.message || 'Could not load people.'); })
+      .finally(() => { if (requestId === latestRequest.current) setLoading(false); });
   }, []); // stable — all params passed explicitly
 
   useEffect(() => {
-    load(page, search, filter);
-  }, [load, page, search, filter]);
+    const timer = setTimeout(() => setSearchTerm(search), 300);
+    return () => clearTimeout(timer);
+  }, [search]);
+
+  useEffect(() => {
+    load(page, searchTerm, filter);
+  }, [load, page, searchTerm, filter]);
 
   useEffect(() => {
     getMyTenant()
@@ -1108,19 +1120,19 @@ export default function OwnerPeople() {
   async function handleAdd(form) {
     await addPerson(form);
     setPage(1);
-    load(1, search, filter);
+    load(1, searchTerm, filter);
   }
 
   async function handleResetPassword(person) {
     await resetPassword({ targetId: person.id, newPassword: DEFAULT_PASSWORD });
-    load(page, search, filter);
+    load(page, searchTerm, filter);
   }
 
   async function handleDeactivate(person) {
     const isStudent = String(person.primaryRole || person.role || '').toLowerCase() === 'student';
     if (!window.confirm(`Deactivate ${person.name}?${isStudent ? ' They will move to Past Students, where you can restore them.' : ''}`)) return;
     await deactivatePerson(person.id);
-    load(page, search, filter);
+    load(page, searchTerm, filter);
   }
 
   async function handleRoleChange(person) {
@@ -1129,7 +1141,7 @@ export default function OwnerPeople() {
     await updatePersonRole(person.id, newRole);
     setChangingRole(null);
     setNewRole('');
-    load(page, search, filter);
+    load(page, searchTerm, filter);
   }
 
   // Filtering and search happen server-side; people is already the correct page
@@ -1179,7 +1191,7 @@ export default function OwnerPeople() {
         </div>
       ) : null}
 
-      {tab === 'link' && canLinkPeople ? <LinkStudentsPanel /> : tab === 'past' && canLinkPeople ? <PastStudentsPanel onRestored={() => load(page, search, filter)} /> : (
+      {tab === 'link' && canLinkPeople ? <LinkStudentsPanel /> : tab === 'past' && canLinkPeople ? <PastStudentsPanel onRestored={() => load(page, searchTerm, filter)} /> : (
       <>
       {/* Search + filter row */}
       <div className="flex flex-col sm:flex-row gap-3">
@@ -1198,13 +1210,14 @@ export default function OwnerPeople() {
       </div>
 
       <div className="rounded-3xl p-6 bg-[#b5e3f4] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
-        {loading ? (
+        {/* The current list stays while a new search loads, so the page does not flash. */}
+        {loading && filtered.length === 0 ? (
           <p className="text-[#800020] dark:text-slate-400">Loading...</p>
         ) : error ? (
           <p className="text-[#800000] dark:text-slate-100">{error}</p>
         ) : filtered.length === 0 ? (
           <p className="text-[#800020] dark:text-slate-400">
-            {search.trim() ? `No results for "${search}".` : 'No people found. Click + to add students, parents, or staff.'}
+            {searchTerm.trim() ? `No results for "${searchTerm}".` : 'No people found. Click + to add students, parents, or staff.'}
           </p>
         ) : (
           <>
