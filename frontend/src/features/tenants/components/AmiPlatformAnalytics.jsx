@@ -5,6 +5,7 @@ import {
   requestSchoolAccess,
   openSchoolAccess,
   revokeSchoolAccessGrant,
+  completeSchoolAccess,
 } from '../services/tenantApi';
 import { getStoredAuth, persistAuth } from '../../auth/services/authApi';
 
@@ -49,10 +50,13 @@ export default function AmiPlatformAnalytics() {
   }, [grants]);
 
   async function requestAccess(tenantId) {
-    const reason = window.prompt('Reason for managing this school (the owner will see this):', 'Troubleshooting a reported issue');
-    if (reason == null) return;
+    const reason = window.prompt('What do you need to do in this school? The owner sees this.', 'Set up classes and import students');
+    if (reason == null || !reason.trim()) return;
+    const hoursText = window.prompt('How many hours do you need? (1–168; the owner can change it)', '24');
+    if (hoursText == null) return;
+    const hours = Math.max(1, Math.min(168, Math.round(Number(hoursText) || 24)));
     setBusy(tenantId);
-    try { await requestSchoolAccess(tenantId, reason); await loadGrants(); } catch (e) { setError(e.message || 'Could not request access.'); } finally { setBusy(''); }
+    try { await requestSchoolAccess(tenantId, reason.trim(), hours); await loadGrants(); } catch (e) { setError(e.message || 'Could not request access.'); } finally { setBusy(''); }
   }
 
   async function openSchool(grant) {
@@ -61,12 +65,20 @@ export default function AmiPlatformAnalytics() {
       const res = await openSchoolAccess(grant.id);
       const current = getStoredAuth();
       if (current?.token) window.localStorage.setItem('ami_return_token', current.token);
+      // The support session's grant and end time, for the banner (time left, task done, auto-return).
+      window.localStorage.setItem('ami_support_grant', JSON.stringify({ id: grant.id, until: res.grantExpiresAt || res.expiresAt, school: grant.tenantId }));
       persistAuth({ token: res.token, user: { role: 'owner', name: res.name, tenantId: res.tenantId } }, {});
       window.location.href = '/roles/owner';
     } catch (e) {
       setError(e.message || 'Could not open the school.');
       setBusy('');
     }
+  }
+
+  async function complete(grant) {
+    if (!window.confirm('Mark this task done? Access to the school ends now; a new request is needed to continue.')) return;
+    setBusy(grant.tenantId);
+    try { await completeSchoolAccess(grant.id); await loadGrants(); } catch (e) { setError(e.message || 'Could not finish.'); } finally { setBusy(''); }
   }
 
   async function deactivate(grant) {
@@ -138,12 +150,13 @@ export default function AmiPlatformAnalytics() {
                       if (g && g.active) {
                         return (
                           <div className="flex justify-center gap-1.5">
-                            <button type="button" disabled={busy === s.tenantId} onClick={() => openSchool(g)} className="rounded-lg bg-[#1a5c38] px-2.5 py-1 text-xs font-bold text-white disabled:opacity-50">Open</button>
+                            <button type="button" disabled={busy === s.tenantId} onClick={() => openSchool(g)} className="rounded-lg bg-[#1a5c38] px-2.5 py-1 text-xs font-bold text-white disabled:opacity-50" title={g.expiresAt ? `Until ${new Date(g.expiresAt).toLocaleString()}` : ''}>Open</button>
+                            <button type="button" disabled={busy === s.tenantId} onClick={() => complete(g)} className="rounded-lg border border-emerald-400/40 px-2.5 py-1 text-xs font-semibold text-emerald-300 disabled:opacity-50">Task done</button>
                             <button type="button" disabled={busy === s.tenantId} onClick={() => deactivate(g)} className="rounded-lg border border-white/20 px-2.5 py-1 text-xs font-semibold text-white/70 disabled:opacity-50">Off</button>
                           </div>
                         );
                       }
-                      if (g && g.status === 'pending') return <span className="text-xs text-amber-300">Awaiting owner</span>;
+                      if (g && g.status === 'pending') return <span className="text-xs text-amber-300">Awaiting owner ({g.requestedHours}h asked)</span>;
                       return <button type="button" disabled={busy === s.tenantId} onClick={() => requestAccess(s.tenantId)} className="rounded-lg border border-emerald-400/40 px-2.5 py-1 text-xs font-semibold text-emerald-300 disabled:opacity-50">Request</button>;
                     })()}
                   </td>

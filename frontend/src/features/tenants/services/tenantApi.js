@@ -181,8 +181,12 @@ export function getPlatformAnalytics() {
 export function getSchoolAccessGrants() {
   return requestJson('/api/ami/school-access');
 }
-export function requestSchoolAccess(tenantId, reason) {
-  return requestJson('/api/ami/school-access/request', { method: 'POST', body: { tenantId, reason } });
+export function requestSchoolAccess(tenantId, reason, hours) {
+  return requestJson('/api/ami/school-access/request', { method: 'POST', body: { tenantId, reason, hours } });
+}
+/** The task is done: access to the school ends now. */
+export function completeSchoolAccess(id) {
+  return requestJson(`/api/ami/school-access/${encodeURIComponent(id)}/complete`, { method: 'POST' });
 }
 export function openSchoolAccess(id) {
   return requestJson(`/api/ami/school-access/${encodeURIComponent(id)}/open`, { method: 'POST' });

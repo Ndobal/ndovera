@@ -378,7 +378,7 @@ export const getAlumni = () => req('/api/school/alumni');
 export const addAlumni = (data) => req('/api/school/alumni', { method: 'POST', body: data });
 export const deleteAlumni = (id) => req(`/api/school/alumni/${encodeURIComponent(id)}`, { method: 'DELETE' });
 export const getSchoolAccessRequests = () => req('/api/school/access-requests');
-export const decideSchoolAccessRequest = (id, decision) => req(`/api/school/access-requests/${encodeURIComponent(id)}/decide`, { method: 'POST', body: { decision } });
+export const decideSchoolAccessRequest = (id, decision, hours) => req(`/api/school/access-requests/${encodeURIComponent(id)}/decide`, { method: 'POST', body: { decision, hours } });
 export const revokeSchoolAccessRequest = (id) => req(`/api/school/access-requests/${encodeURIComponent(id)}/revoke`, { method: 'POST' });
 export const getStaffDocuments = () => req('/api/school/staff-documents');
 export const uploadStaffDocument = (file, fields = {}) => uploadFile('/api/school/staff-documents/upload', file, fields);

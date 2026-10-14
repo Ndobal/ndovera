@@ -6516,6 +6516,13 @@ async function authenticate(c: any, next: any) {
       switchableRoles: roleContext.switchableRoles,
       adminRoles: roleContext.adminRoles,
     }
+    // Ndovera support acting in a school: only while the owner's approval lasts.
+    let supportUntil = 0
+    if (payload.impersonatedBy) {
+      const state = payload.grantId ? await supportGrantState(c.env.APP_DB, String(payload.grantId)) : null
+      if (!state?.active) return c.json({ success: false, code: 'SUPPORT_ACCESS_ENDED', error: 'Support access to this school has ended. Request access again to continue.' }, 401)
+      supportUntil = state.expiresAt
+    }
     c.set('user', authenticatedUser)
     // A closed school: nobody in it can use Ndovera until Ndovera reopens it.
     const closedTenantId = String(payload.tenantId || '').trim()
@@ -6535,7 +6542,11 @@ async function authenticate(c: any, next: any) {
       id: authenticatedUser.id,
       tenantId: authenticatedUser.tenantId,
       ...(authenticatedUser.mustChangePassword ? { mustChangePassword: true } : {}),
-      exp: Math.floor(Date.now() / 1000) + authSessionSeconds,
+      // A support session stays one: it keeps its grant and never outlives it.
+      ...(payload.impersonatedBy ? { impersonatedBy: payload.impersonatedBy, grantId: payload.grantId } : {}),
+      exp: payload.impersonatedBy
+        ? Math.floor(Math.min(Date.now() + SUPPORT_SESSION_MAX_MS, supportUntil) / 1000)
+        : Math.floor(Date.now() / 1000) + authSessionSeconds,
     }, c.env.JWT_SECRET)
     c.res.headers.set('X-Refresh-Token', refreshed)
     c.res.headers.append('Set-Cookie', authCookie(refreshed, c.req.url, c.env.TENANT_BASE_DOMAIN || DEFAULT_TENANT_BASE_DOMAIN, authSessionSeconds))
@@ -6898,20 +6909,48 @@ app.get('/api/ami/platform-analytics', authenticate, async (c) => {
   return c.json({ success: true, schools, totals })
 })
 
-// ─── Ami "request to manage a school" (owner-approved, revocable) ─────────────
+// ─── Ami "request to manage a school" (owner-approved, for a set time) ─────────
+//
+// Ami asks for a school with a reason and the hours needed; the school's Owner approves
+// (choosing the hours, up to 7 days) or denies. While approved, Ami opens the school as its
+// Owner — full access. It ends when the time is up, when Ami marks the task done, or when
+// the Owner deactivates it — and the support session stops on its very next request (the
+// session token carries the grant and is checked against it). Continuing needs a new request.
 const SCHOOL_ACCESS_GRANTS_DDL = `CREATE TABLE IF NOT EXISTS school_access_grants (id TEXT PRIMARY KEY, tenant_id TEXT, requested_by TEXT, requester_name TEXT, reason TEXT, status TEXT, created_at TEXT, decided_at TEXT, expires_at TEXT)`
+const SUPPORT_ACCESS_MAX_HOURS = 168
+const SUPPORT_SESSION_MAX_MS = 2 * 60 * 60 * 1000
 let _sagReady = false
 async function ensureSchoolAccessGrantsTable(db: D1Database) {
   if (_sagReady) return
-  _sagReady = true
   await db.prepare(SCHOOL_ACCESS_GRANTS_DDL).run()
+  for (const column of ['requested_hours INTEGER', 'approved_hours INTEGER', 'decided_by TEXT', 'completed_at TEXT']) {
+    await db.prepare(`ALTER TABLE school_access_grants ADD COLUMN ${column}`).run().catch(() => null)
+  }
+  _sagReady = true
 }
+const clampHours = (value: unknown, fallback = 24) => Math.max(1, Math.min(SUPPORT_ACCESS_MAX_HOURS, Math.round(Number(value) || fallback)))
 function mapAccessGrant(row: any) {
   return {
     id: row.id, tenantId: row.tenant_id, requestedBy: row.requested_by, requesterName: row.requester_name || 'Ami',
     reason: row.reason || '', status: row.status, createdAt: row.created_at, decidedAt: row.decided_at, expiresAt: row.expires_at,
-    active: row.status === 'approved' && (!row.expires_at || new Date(row.expires_at).getTime() > Date.now()),
+    requestedHours: Number(row.requested_hours || 24), approvedHours: row.approved_hours ? Number(row.approved_hours) : null,
+    decidedBy: row.decided_by || '', completedAt: row.completed_at || null,
+    // Active only while approved and inside its time (never without an end time).
+    active: row.status === 'approved' && Boolean(row.expires_at) && new Date(row.expires_at).getTime() > Date.now(),
   }
+}
+
+// A support session's grant, checked on its requests (cached briefly per Worker).
+const supportGrantCache = new Map<string, { at: number, active: boolean, expiresAt: number }>()
+async function supportGrantState(db: D1Database, grantId: string) {
+  const cached = supportGrantCache.get(grantId)
+  if (cached && Date.now() - cached.at < 20_000) return cached
+  await ensureSchoolAccessGrantsTable(db)
+  const row = await db.prepare(`SELECT * FROM school_access_grants WHERE id = ?`).bind(grantId).first().catch(() => null) as any
+  const grant = row ? mapAccessGrant(row) : null
+  const state = { at: Date.now(), active: Boolean(grant?.active), expiresAt: grant?.expiresAt ? new Date(grant.expiresAt).getTime() : 0 }
+  supportGrantCache.set(grantId, state)
+  return state
 }
 
 app.post('/api/ami/school-access/request', authenticate, async (c) => {
@@ -6926,9 +6965,12 @@ app.post('/api/ami/school-access/request', authenticate, async (c) => {
   const existing = await c.env.APP_DB.prepare(`SELECT * FROM school_access_grants WHERE tenant_id = ? AND requested_by = ? AND status IN ('pending','approved') ORDER BY created_at DESC LIMIT 1`).bind(tenantId, requestedBy).first() as any
   if (existing && mapAccessGrant(existing).active) return c.json({ success: true, grant: mapAccessGrant(existing) })
   if (existing && existing.status === 'pending') return c.json({ success: true, grant: mapAccessGrant(existing) })
+  const reason = String(body?.reason || '').trim().slice(0, 500)
+  if (!reason) return c.json({ error: 'Say what you need to do in this school — the owner sees it.' }, 400)
   const id = `sag_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`
-  await c.env.APP_DB.prepare(`INSERT INTO school_access_grants (id, tenant_id, requested_by, requester_name, reason, status, created_at) VALUES (?, ?, ?, ?, ?, 'pending', ?)`)
-    .bind(id, tenantId, requestedBy, String(c.var.user?.name || 'Ami'), String(body?.reason || ''), new Date().toISOString()).run()
+  await c.env.APP_DB.prepare(`INSERT INTO school_access_grants (id, tenant_id, requested_by, requester_name, reason, status, created_at, requested_hours) VALUES (?, ?, ?, ?, ?, 'pending', ?, ?)`)
+    .bind(id, tenantId, requestedBy, String(c.var.user?.name || 'Ami'), reason, new Date().toISOString(), clampHours(body?.hours)).run()
+  await addAudit(c.env.APP_DB, tenantId, { action: 'supportAccessRequested', data: { by: requestedBy, grantId: id, hours: clampHours(body?.hours), reason } }).catch(() => {})
   const grant = await c.env.APP_DB.prepare(`SELECT * FROM school_access_grants WHERE id = ?`).bind(id).first()
   return c.json({ success: true, grant: mapAccessGrant(grant) }, 201)
 })
@@ -6956,21 +6998,38 @@ app.post('/api/ami/school-access/:id/open', authenticate, async (c) => {
   const resolved = await resolveSettingsIdentity(c.env.APP_DB, ownerEmail)
   const ownerId = String(resolved.userRow?.id || ownerEmail)
   const ownerName = String(resolved.settings?.name || resolved.userRow?.name || ownerEmail)
-  const grantExpiry = grant.expires_at ? new Date(grant.expires_at).getTime() : Date.now() + 2 * 60 * 60 * 1000
-  const exp = Math.floor(Math.min(Date.now() + 2 * 60 * 60 * 1000, grantExpiry) / 1000)
+  const grantExpiry = new Date(grant.expires_at).getTime()
+  const exp = Math.floor(Math.min(Date.now() + SUPPORT_SESSION_MAX_MS, grantExpiry) / 1000)
+  // The session carries its grant: every request checks the grant is still active.
   const token = await sign({
     role: 'owner', roles: ['owner'], name: ownerName, id: ownerId, tenantId: String(grant.tenant_id),
-    impersonatedBy: requestedBy, exp,
+    impersonatedBy: requestedBy, grantId: String(grant.id), exp,
   }, c.env.JWT_SECRET)
   await addAudit(c.env.APP_DB, String(grant.tenant_id), { action: 'amiOpenedSchool', data: { by: requestedBy, grantId: grant.id } }).catch(() => {})
-  return c.json({ success: true, token, role: 'owner', name: ownerName, tenantId: String(grant.tenant_id) })
+  return c.json({ success: true, token, role: 'owner', name: ownerName, tenantId: String(grant.tenant_id), expiresAt: new Date(exp * 1000).toISOString(), grantExpiresAt: grant.expires_at })
+})
+
+/** Ami: the task is done — access ends now (a new request is needed to continue). */
+app.post('/api/ami/school-access/:id/complete', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  await ensureSchoolAccessGrantsTable(c.env.APP_DB)
+  const requestedBy = String(c.var.user?.email || c.var.user?.id || 'ami')
+  const now = new Date().toISOString()
+  const grant = await c.env.APP_DB.prepare(`SELECT tenant_id FROM school_access_grants WHERE id = ? AND requested_by = ?`).bind(c.req.param('id'), requestedBy).first() as any
+  if (!grant) return c.json({ error: 'Request not found.' }, 404)
+  await c.env.APP_DB.prepare(`UPDATE school_access_grants SET status='completed', completed_at=?, expires_at=? WHERE id=? AND requested_by=? AND status IN ('approved', 'pending')`).bind(now, now, c.req.param('id'), requestedBy).run()
+  supportGrantCache.delete(c.req.param('id'))
+  await addAudit(c.env.APP_DB, String(grant.tenant_id), { action: 'supportAccessCompleted', data: { by: requestedBy, grantId: c.req.param('id') } }).catch(() => {})
+  return c.json({ success: true })
 })
 
 app.post('/api/ami/school-access/:id/revoke', authenticate, async (c) => {
   if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
   await ensureSchoolAccessGrantsTable(c.env.APP_DB)
   const requestedBy = String(c.var.user?.email || c.var.user?.id || 'ami')
-  await c.env.APP_DB.prepare(`UPDATE school_access_grants SET status='revoked', decided_at=? WHERE id=? AND requested_by=?`).bind(new Date().toISOString(), c.req.param('id'), requestedBy).run()
+  const now = new Date().toISOString()
+  await c.env.APP_DB.prepare(`UPDATE school_access_grants SET status='revoked', decided_at=?, expires_at=? WHERE id=? AND requested_by=?`).bind(now, now, c.req.param('id'), requestedBy).run()
+  supportGrantCache.delete(c.req.param('id'))
   return c.json({ success: true })
 })
 
@@ -6991,14 +7050,21 @@ app.post('/api/school/access-requests/:id/decide', authenticate, async (c) => {
   await ensureSchoolAccessGrantsTable(c.env.APP_DB)
   const grant = await c.env.APP_DB.prepare(`SELECT * FROM school_access_grants WHERE id = ? AND tenant_id = ?`).bind(c.req.param('id'), tenantId).first() as any
   if (!grant) return c.json({ error: 'Request not found.' }, 404)
-  const decision = String((await c.req.json().catch(() => ({})))?.decision || '').trim()
+  if (grant.status !== 'pending') return c.json({ error: 'This request has already been decided. A new request is needed.' }, 409)
+  const body = await c.req.json().catch(() => ({})) as Record<string, any>
+  const decision = String(body?.decision || '').trim()
+  const decidedBy = String(c.var.user?.name || c.var.user?.id || '')
   if (decision === 'approve') {
-    const hours = 24
-    await c.env.APP_DB.prepare(`UPDATE school_access_grants SET status='approved', decided_at=?, expires_at=? WHERE id=?`)
-      .bind(new Date().toISOString(), new Date(Date.now() + hours * 60 * 60 * 1000).toISOString(), grant.id).run()
+    // The owner sets how long (up to 7 days); the request's hours are the suggestion.
+    const hours = clampHours(body?.hours, Number(grant.requested_hours) || 24)
+    await c.env.APP_DB.prepare(`UPDATE school_access_grants SET status='approved', decided_at=?, expires_at=?, approved_hours=?, decided_by=? WHERE id=?`)
+      .bind(new Date().toISOString(), new Date(Date.now() + hours * 60 * 60 * 1000).toISOString(), hours, decidedBy, grant.id).run()
+    await addAudit(c.env.APP_DB, tenantId, { action: 'supportAccessApproved', data: { by: c.var.user?.id, grantId: grant.id, hours } }).catch(() => {})
   } else {
-    await c.env.APP_DB.prepare(`UPDATE school_access_grants SET status='denied', decided_at=? WHERE id=?`).bind(new Date().toISOString(), grant.id).run()
+    await c.env.APP_DB.prepare(`UPDATE school_access_grants SET status='denied', decided_at=?, decided_by=? WHERE id=?`).bind(new Date().toISOString(), decidedBy, grant.id).run()
+    await addAudit(c.env.APP_DB, tenantId, { action: 'supportAccessDenied', data: { by: c.var.user?.id, grantId: grant.id } }).catch(() => {})
   }
+  supportGrantCache.delete(String(grant.id))
   return c.json({ success: true })
 })
 
@@ -7007,7 +7073,10 @@ app.post('/api/school/access-requests/:id/revoke', authenticate, async (c) => {
   const tenantId = c.var.user?.tenantId
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
   await ensureSchoolAccessGrantsTable(c.env.APP_DB)
-  await c.env.APP_DB.prepare(`UPDATE school_access_grants SET status='revoked', decided_at=? WHERE id=? AND tenant_id=?`).bind(new Date().toISOString(), c.req.param('id'), tenantId).run()
+  const now = new Date().toISOString()
+  await c.env.APP_DB.prepare(`UPDATE school_access_grants SET status='revoked', decided_at=?, expires_at=? WHERE id=? AND tenant_id=?`).bind(now, now, c.req.param('id'), tenantId).run()
+  supportGrantCache.delete(c.req.param('id'))
+  await addAudit(c.env.APP_DB, tenantId, { action: 'supportAccessRevoked', data: { by: c.var.user?.id, grantId: c.req.param('id') } }).catch(() => {})
   return c.json({ success: true })
 })
 

@@ -466,19 +466,51 @@ function AiAssessmentsRedirect() {
   return <Navigate to={`/roles/teacher/ai-assistant?${params.toString()}`} replace />;
 }
 
-// When NDOVERA support (Ami) opens a school as its owner, show a way back to Ami.
+// When NDOVERA support (Ami) opens a school as its owner: the time left, "Task done", and a way
+// back. When the owner's approval ends (time up, task done, deactivated), Ami returns by herself.
 function ReturnToAmiBanner() {
   const returnToken = typeof window !== 'undefined' ? window.localStorage.getItem('ami_return_token') : '';
-  if (!returnToken) return null;
-  function back() {
+  const grant = (() => { try { return JSON.parse(window.localStorage.getItem('ami_support_grant') || 'null'); } catch { return null; } })();
+  const [now, setNow] = useState(() => Date.now());
+  function back(message) {
     persistAuth({ token: returnToken, user: { role: 'ami', name: 'Ami' } }, {});
     window.localStorage.removeItem('ami_return_token');
+    window.localStorage.removeItem('ami_support_grant');
+    if (message) { try { window.sessionStorage.setItem('ami_support_notice', message); } catch { /* ignore */ } }
     window.location.href = '/roles/ami';
+  }
+  useEffect(() => {
+    if (!returnToken) return undefined;
+    const tick = async () => {
+      setNow(Date.now());
+      if (grant?.until && Date.parse(grant.until) <= Date.now()) { back('Your support access to that school has ended (time is up).'); return; }
+      // Ended early (task done elsewhere, or the owner deactivated it): the server refuses the session.
+      try {
+        const token = window.localStorage.getItem('token');
+        const response = await fetch('/api/users/me', { headers: token ? { Authorization: `Bearer ${token}` } : {}, credentials: 'include' });
+        if (response.status === 401) back('Your support access to that school has ended.');
+      } catch { /* offline: try again next time */ }
+    };
+    const timer = window.setInterval(tick, 60000);
+    return () => window.clearInterval(timer);
+  }, [returnToken]); // eslint-disable-line react-hooks/exhaustive-deps
+  if (!returnToken) return null;
+  const left = grant?.until ? Math.max(0, Date.parse(grant.until) - now) : 0;
+  const leftText = left ? `${Math.floor(left / 3600000)}h ${Math.floor((left % 3600000) / 60000)}m left` : '';
+  async function done() {
+    if (!window.confirm('Mark this task done? Access to the school ends now; a new request is needed to continue.')) return;
+    try {
+      if (grant?.id) await fetch(`/api/ami/school-access/${encodeURIComponent(grant.id)}/complete`, { method: 'POST', headers: { Authorization: `Bearer ${returnToken}` } });
+    } catch { /* the owner can still end it; it also ends when time is up */ }
+    back('Task marked done. Access to that school has ended.');
   }
   return (
     <div className="fixed inset-x-0 bottom-0 z-[200] flex flex-wrap items-center justify-between gap-2 bg-[#800020] px-4 pt-2 pb-[calc(0.5rem+var(--safe-bottom))] text-sm text-white">
-      <span>You are managing this school as its owner (NDOVERA support session).</span>
-      <button type="button" onClick={back} className="rounded-lg bg-white px-3 py-1 text-xs font-bold text-[#800020]">Return to Ami</button>
+      <span>You are managing this school as its owner (NDOVERA support session){leftText ? ` · ${leftText}` : ''}. It ends when the time is up, when you mark the task done, or if the owner deactivates it.</span>
+      <span className="flex gap-2">
+        <button type="button" onClick={done} className="rounded-lg bg-[#1a5c38] px-3 py-1 text-xs font-bold text-white">Task done</button>
+        <button type="button" onClick={() => back('')} className="rounded-lg bg-white px-3 py-1 text-xs font-bold text-[#800020]">Return to Ami</button>
+      </span>
     </div>
   );
 }
