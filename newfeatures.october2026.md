@@ -2197,3 +2197,31 @@ From the `ndovera_birthdays` package (spec, tables and Flutter client).
 - Web: a dashboard line on the day for every role, and Birthdays (today, my memories, my choice; Owner/HoS: review wishes, settings). Flutter: the package, fixed to compile and to show Ndovera's vector cards, plus My birthday choice and Review wishes, reached from the signed-in screen.
 - Not done: the spec's AI-generated background artwork (by choice: Ndovera-drawn designs cost nothing); visual-similarity fingerprints beyond distinct design families.
 
+
+### N22. Fees: autosave, a "record payment" column, report tabs by class, accounts for every student — ⏳ BUILT AND PUSHED (14 Oct 2026), NOT DEPLOYED YET
+From feature22222222.md (items 1–5).
+- Fee Setup saves itself as a draft 3 seconds after typing stops. Cost: one database row write per save (no audit row per autosave) — about 100–150 writes for a 30-minute session, against 100,000 free a day. No extra money.
+- Student Accounts has a Record payment column (amount, method, Enter) for the Owner, Head of School and Accountant; a receipt is issued as from the form.
+- Reports has its own tabs: Class summary, Class fees (what each class pays per item), Class by class (each student, totals, CSV, print), Students owing (filter by class), By fee item.
+- Publishing names anyone left without an account (no fees entered); students who join later get their account automatically when a fee manager opens Fees.
+
+### N23. No lesson plans for students; offline notes read aloud — ⏳ BUILT AND PUSHED (14 Oct 2026), NOT DEPLOYED YET
+- Lesson Plans removed from the student sidebar, page and API.
+- Offline notes have a Listen button using the device's own voices (works offline with installed voices), with speed and voice choice.
+
+### N24. People search (HoS) and missing teacher submissions — ⏳ BUILT AND PUSHED (14 Oct 2026), NOT DEPLOYED YET
+- People search waits for typing to pause and ignores late answers to older searches, so the list no longer jumps or shows the wrong people first.
+- Production had only 1 row in Teacher Submissions (6 Oct). The review board now also lists work handed in elsewhere: plans from the older Lesson Plans page, exams set on the Exams page, and work saved but never submitted, plus classes renamed or removed since. Not covered: C.A. score sheets (they have their own hand-in page).
+
+### N25. Practice from every school's questions, by subject and level; Ndovera AI fills gaps — ⏳ BUILT AND PUSHED (14 Oct 2026), NOT DEPLOYED YET
+- Students practise the subjects their class offers, from approved questions set in every Ndovera school, within their section (Nursery, Primary, JSS, SS) and up to their level; exam questions stay hidden until after the exam.
+- Ndovera AI matches subject names across schools nightly ("Maths", "Mathematics (Core)" → Mathematics; Further Mathematics stays separate).
+- Students choose only the level: Simple, Intermediate, External examination (Common Entrance / BECE / WAEC-NECO by section).
+- Too few questions: Ndovera AI writes them with the assessment engine on the class's topics (or topics already in the bank), stored in Ndovera's bank for everyone. Free to students; limits 4 a day per student, 400 a day in all. No topics: the student is asked to have the teacher add them.
+- Leaderboards per subject, for the class or the school.
+- Open question: Primary is Primary 1–6 / Grade 1–6 on the ladder; a school whose primary ends at Grade 5 would need its Grade 6 named JSS 1.
+
+### N26. Clubs — ⏳ BUILT (14 Oct 2026), NOT DEPLOYED YET
+- Owner / HoS / admin create and run any club; teachers start clubs and become patrons; students join when added (one by one or a whole class); a student can be made club leader.
+- Patrons post notes (class-note formatting, saved on the device for offline reading, read aloud), videos (upload up to 200 MB or a YouTube link), images, documents, links, announcements, assignments (written answer and/or files, marked with feedback) and quizzes (multiple choice, true/false, short answer; marked at once; answers hidden until handed in).
+- Clubs in the sidebar for students, teachers, HoS, Owner and other staff.

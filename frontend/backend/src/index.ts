@@ -387,6 +387,9 @@ import {
 import type { Draft, Grounding, Length, MaterialKind } from './materialGenerator'
 import { ImportError, MAX_PDF_BYTES, createJob, getJob, listJobs, runDueImports, runImportStep, setJobStatus, workersAiPdfToText } from './libraryImports'
 import { PACK_SIZE, GLOBAL_TENANT, MODES as PRACTICE_MODES, PracticeError, buildPack, classifyLegacyQuestions, getProfile, leaderboard, normalizeDifficulty, practiceStudent, practiceSubjects, recentAttempts, recordAttempt } from './practiceArena'
+// Clubs are imported as a namespace: their names (createPost…) must not shadow the class stream's.
+import * as Clubs from './clubs'
+import type { ClubActor } from './clubs'
 import { DIFFICULTIES as PRACTICE_DIFFICULTIES, GENERATION_LIMITS, externalExamFor, generatePracticeQuestions, mapNewSubjects, offeredSubjects, rebuildBankCounts } from './practiceBank'
 import { HarvestError, MAX_DOC_BYTES, ensureHarvestTables, getNote, listDocuments, listNotes, queueDocument, runDocumentStep, runHarvestTick, setDocumentStatus } from './harvester'
 import type { HarvestDeps } from './harvester'
@@ -14435,6 +14438,170 @@ app.get('/api/practice-arena/leaderboard', authenticate, async (c) => {
     const keys = subjectKey ? (await practiceSubjectFor(c, student, subjectKey)).keys : []
     return c.json({ success: true, leaderboard: await leaderboard(c.env.APP_DB, student, c.req.query('scope') === 'school' ? 'school' : 'class', keys) })
   } catch (error) { return practiceFailure(c, error, 'Could not load the leaderboard.') }
+})
+
+// ─── Clubs (clubs.ts): extracurricular clubs with notes, media, assignments and quizzes ───
+
+function clubFailure(c: any, error: unknown, fallback: string) {
+  if (error instanceof Clubs.ClubError) return c.json({ success: false, message: error.message }, error.status as any)
+  console.error(fallback, error)
+  return c.json({ success: false, message: fallback }, 500)
+}
+
+async function resolveClubActor(c: any): Promise<ClubActor> {
+  const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
+  if (!actor.tenantId) throw new Clubs.ClubError('School context not found.', 400)
+  const role = String(actor.role || '')
+  if (hasRequiredRole(role, ['parent']) && !hasRequiredRole(role, ['student', 'teacher', 'owner', 'hos', 'admin'])) throw new Clubs.ClubError('Clubs are for students and staff.', 403)
+  return {
+    tenantId: actor.tenantId, id: actor.actorId, name: actor.actorName || actor.actorId, role,
+    isManager: hasRequiredRole(role, ['owner', 'hos', 'admin']),
+    isStaff: !hasRequiredRole(role, ['student']),
+  }
+}
+
+app.get('/api/clubs', authenticate, async (c) => {
+  try {
+    const actor = await resolveClubActor(c)
+    return c.json({ success: true, clubs: await Clubs.listClubs(c.env.APP_DB, actor), categories: Clubs.CLUB_CATEGORIES, canCreate: actor.isManager || actor.isStaff, isManager: actor.isManager })
+  } catch (error) { return clubFailure(c, error, 'Could not load clubs.') }
+})
+
+app.post('/api/clubs', authenticate, async (c) => {
+  try {
+    const actor = await resolveClubActor(c)
+    return c.json({ success: true, club: await Clubs.createClub(c.env.APP_DB, actor, await c.req.json().catch(() => ({}))) }, 201)
+  } catch (error) { return clubFailure(c, error, 'Could not create the club.') }
+})
+
+app.get('/api/clubs/:id', authenticate, async (c) => {
+  try {
+    const actor = await resolveClubActor(c)
+    return c.json({ success: true, ...(await Clubs.clubPage(c.env.APP_DB, actor, c.req.param('id'))) })
+  } catch (error) { return clubFailure(c, error, 'Could not open the club.') }
+})
+
+app.put('/api/clubs/:id', authenticate, async (c) => {
+  try {
+    const actor = await resolveClubActor(c)
+    return c.json({ success: true, club: await Clubs.updateClub(c.env.APP_DB, actor, c.req.param('id'), await c.req.json().catch(() => ({}))) })
+  } catch (error) { return clubFailure(c, error, 'Could not save the club.') }
+})
+
+/** People who can be added: the school's students and staff, by name (or a whole class's students). */
+app.get('/api/clubs/:id/candidates', authenticate, async (c) => {
+  try {
+    const actor = await resolveClubActor(c)
+    const db = c.env.APP_DB
+    const q = String(c.req.query('q') || '').trim().toLowerCase()
+    const classId = String(c.req.query('classId') || '').trim()
+    let rows: Record<string, any>[] = []
+    if (classId) {
+      const period = await getCurrentAcademicPeriod(db, actor.tenantId)
+      if (period.sessionId) {
+        const enrolled = await listSessionEnrollments(db, { tenantId: actor.tenantId, sessionId: period.sessionId, classId, status: 'active' })
+        rows = enrolled.map(row => ({ id: row.studentId, name: row.studentName, role: 'student', className: [row.className, row.classArm].filter(Boolean).join(' ') }))
+      }
+    } else if (q.length >= 2) {
+      const found = await db.prepare(`SELECT id, email, name, role FROM users WHERE tenantId = ? AND (status IS NULL OR status != 'inactive') AND (lower(coalesce(name, '')) LIKE ? OR lower(coalesce(email, '')) LIKE ?) ORDER BY name LIMIT 25`)
+        .bind(actor.tenantId, `%${q}%`, `%${q}%`).all()
+      const users = (found.results || []) as Record<string, any>[]
+      const settings = await getSettingsMapForUserRows(db, users)
+      rows = users.map(user => {
+        const payload = settings.get(String(user.email || '').trim()) || settings.get(String(user.id || '').trim()) || {}
+        const roles = buildRoleContext(payload || {}, user.role).rawRoles
+        const role = roles.includes('student') ? 'student' : roles.includes('parent') && roles.length === 1 ? 'parent' : 'staff'
+        return { id: String(user.id), name: String(user.name || user.email || user.id), role, className: String(payload?.className || '') }
+      }).filter(person => person.role !== 'parent')
+    }
+    const members = new Set((await Clubs.listMembers(db, c.req.param('id'))).map(member => member.userId.toLowerCase()))
+    return c.json({ success: true, people: rows.map(person => ({ ...person, inClub: members.has(String(person.id).toLowerCase()) })) })
+  } catch (error) { return clubFailure(c, error, 'Could not search the school.') }
+})
+
+app.post('/api/clubs/:id/members', authenticate, async (c) => {
+  try {
+    const actor = await resolveClubActor(c)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const people = (Array.isArray(body.people) ? body.people : []).map((person: any) => ({ id: String(person?.id || ''), name: String(person?.name || ''), role: person?.role === 'student' ? 'student' : 'staff', className: String(person?.className || '') })).filter((person: any) => person.id)
+    // Only people of this school can be added.
+    if (people.length) {
+      const known = await c.env.APP_DB.prepare(`SELECT id FROM users WHERE tenantId = ? AND id IN (${people.map(() => '?').join(',')})`).bind(actor.tenantId, ...people.map((person: any) => person.id)).all()
+      const ids = new Set(((known.results || []) as Record<string, any>[]).map(row => String(row.id)))
+      if (people.some((person: any) => !ids.has(person.id))) return c.json({ success: false, message: 'Some of those people are not in this school.' }, 400)
+    }
+    return c.json({ success: true, members: await Clubs.addMembers(c.env.APP_DB, actor, c.req.param('id'), people, String(body.as || '')) })
+  } catch (error) { return clubFailure(c, error, 'Could not add them.') }
+})
+
+app.delete('/api/clubs/:id/members/:userId', authenticate, async (c) => {
+  try {
+    const actor = await resolveClubActor(c)
+    return c.json({ success: true, members: await Clubs.removeMember(c.env.APP_DB, actor, c.req.param('id'), c.req.param('userId')) })
+  } catch (error) { return clubFailure(c, error, 'Could not remove them.') }
+})
+
+app.post('/api/clubs/:id/members/:userId/leader', authenticate, async (c) => {
+  try {
+    const actor = await resolveClubActor(c)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    return c.json({ success: true, members: await Clubs.setLeader(c.env.APP_DB, actor, c.req.param('id'), c.req.param('userId'), body.leader !== false) })
+  } catch (error) { return clubFailure(c, error, 'Could not change that.') }
+})
+
+/** Videos, images and documents for a club (patrons) and students' handed-in files. */
+app.post('/api/clubs/:id/upload', authenticate, async (c) => {
+  try {
+    const actor = await resolveClubActor(c)
+    await Clubs.ensureClubTables(c.env.APP_DB)
+    await Clubs.clubPage(c.env.APP_DB, actor, c.req.param('id'))
+    const form = await c.req.formData()
+    const file = form.get('file') as File | null
+    if (!file || typeof file === 'string') return c.json({ success: false, message: 'Choose a file.' }, 400)
+    const limit = /^video\//.test(file.type) ? 200 : 50
+    if (file.size > limit * 1024 * 1024) return c.json({ success: false, message: `Files must be ${limit} MB or smaller${limit === 50 ? '' : ' for videos'}. For longer videos, upload to YouTube and paste the link.` }, 413)
+    const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_').slice(-120)
+    const key = `clubs/${c.req.param('id')}/${crypto.randomUUID()}/${safeName}`
+    await c.env.UPLOADS.put(key, file.stream(), { httpMetadata: { contentType: file.type || 'application/octet-stream' } })
+    return c.json({ success: true, file: { name: file.name, url: `https://ndovera.com/files/${key}`, type: file.type || '', size: file.size } }, 201)
+  } catch (error) { return clubFailure(c, error, 'Could not upload that file.') }
+})
+
+app.post('/api/clubs/:id/posts', authenticate, async (c) => {
+  try {
+    const actor = await resolveClubActor(c)
+    return c.json({ success: true, post: await Clubs.createPost(c.env.APP_DB, actor, c.req.param('id'), await c.req.json().catch(() => ({}))) }, 201)
+  } catch (error) { return clubFailure(c, error, 'Could not post that.') }
+})
+
+app.delete('/api/clubs/:id/posts/:postId', authenticate, async (c) => {
+  try {
+    const actor = await resolveClubActor(c)
+    await Clubs.withdrawPost(c.env.APP_DB, actor, c.req.param('id'), c.req.param('postId'))
+    return c.json({ success: true })
+  } catch (error) { return clubFailure(c, error, 'Could not remove that post.') }
+})
+
+app.post('/api/clubs/:id/posts/:postId/submit', authenticate, async (c) => {
+  try {
+    const actor = await resolveClubActor(c)
+    return c.json({ success: true, submission: await Clubs.submitWork(c.env.APP_DB, actor, c.req.param('id'), c.req.param('postId'), await c.req.json().catch(() => ({}))) })
+  } catch (error) { return clubFailure(c, error, 'Could not hand that in.') }
+})
+
+app.get('/api/clubs/:id/posts/:postId/submissions', authenticate, async (c) => {
+  try {
+    const actor = await resolveClubActor(c)
+    return c.json({ success: true, ...(await Clubs.listSubmissionsFor(c.env.APP_DB, actor, c.req.param('id'), c.req.param('postId'))) })
+  } catch (error) { return clubFailure(c, error, 'Could not load the work handed in.') }
+})
+
+app.post('/api/clubs/:id/submissions/:submissionId/mark', authenticate, async (c) => {
+  try {
+    const actor = await resolveClubActor(c)
+    await Clubs.markSubmission(c.env.APP_DB, actor, c.req.param('id'), c.req.param('submissionId'), await c.req.json().catch(() => ({})))
+    return c.json({ success: true })
+  } catch (error) { return clubFailure(c, error, 'Could not save the mark.') }
 })
 
 // ─── Ndovera notes (harvester.ts): a formatted copy of every material, readable offline ───
