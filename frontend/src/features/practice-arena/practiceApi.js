@@ -7,9 +7,22 @@ import { enqueue, listOutbox, registerSender } from '../../shared/offline/outbox
 // practise is kept on the device: the home screen, a pack per subject (questions
 // with their answers), and finished quizzes waiting to sync.
 
+/** This device's id for practice passes (paid practice opens on two devices per student). */
+export function practiceDeviceId() {
+  try {
+    let id = localStorage.getItem('ndovera:practiceDevice');
+    if (!id) {
+      id = `dev_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 12)}`;
+      localStorage.setItem('ndovera:practiceDevice', id);
+    }
+    return id;
+  } catch { return ''; }
+}
+
 function headers() {
   const token = localStorage.getItem('token');
-  return { 'Content-Type': 'application/json', ...(token ? { Authorization: `Bearer ${token}` } : {}), ...buildSelectedRoleHeader() };
+  const device = practiceDeviceId();
+  return { 'Content-Type': 'application/json', ...(token ? { Authorization: `Bearer ${token}` } : {}), ...(device ? { 'X-Practice-Device': device } : {}), ...buildSelectedRoleHeader() };
 }
 
 async function request(path, { method = 'GET', body } = {}) {
@@ -45,30 +58,46 @@ export async function loadHome() {
   return { ...kept, offline: true };
 }
 
-const packKey = (subjectKey, difficulty) => key(`pack:${subjectKey}${difficulty ? `:${difficulty}` : ''}`);
+const packKey = (subjectKey, difficulty, exam = '') => key(`pack:${subjectKey}${difficulty ? `:${difficulty}` : ''}${exam ? `:${exam}` : ''}`);
+
+/** A kept pack plays offline only until its pass ends (or a week after download). */
+const stillValid = pack => !pack?.validUntil || Date.parse(pack.validUntil) > Date.now();
 
 /**
  * A subject's questions at a difficulty (simple, intermediate, external; '' for all):
  * fresh when online (and kept for offline play), else the kept pack. `needsMore` says
  * the subject has too few and Ndovera AI can prepare more.
  */
-export async function loadPack(subjectKey, { refresh = true, difficulty = '' } = {}) {
+export async function loadPack(subjectKey, { refresh = true, difficulty = '', exam = '' } = {}) {
   if (refresh && isOnline()) {
     try {
-      const data = await request(`/api/practice-arena/pack?subject=${encodeURIComponent(subjectKey)}&size=80${difficulty ? `&difficulty=${difficulty}` : ''}`);
-      if (data.pack.questions.length) await setItem(packKey(subjectKey, difficulty), { ...data.pack, savedAt: Date.now() });
+      const data = await request(`/api/practice-arena/pack?subject=${encodeURIComponent(subjectKey)}&size=60${difficulty ? `&difficulty=${difficulty}` : ''}${exam ? `&exam=${exam}` : ''}`);
+      if (data.pack.questions.length) await setItem(packKey(subjectKey, difficulty, exam), { ...data.pack, savedAt: Date.now() });
       return { ...data.pack, needsMore: Boolean(data.needsMore), offline: false };
     } catch (error) {
       if (error.status && error.status < 500) throw error;
     }
   }
-  const kept = await getItem(packKey(subjectKey, difficulty));
+  const kept = await getItem(packKey(subjectKey, difficulty, exam));
+  if (kept && !stillValid(kept)) throw Object.assign(new Error('These saved questions have expired on this device. Connect to the internet to download them again.'), { offline: true });
   if (!kept) throw Object.assign(new Error('These questions are not on this device yet. Connect to the internet to download them.'), { offline: true });
   return { ...kept, offline: true };
 }
 
-/** Ask Ndovera AI to write practice questions for a subject that has too few (no credits). */
-export const generateQuestions = (subjectKey, difficulty) => request('/api/practice-arena/generate', { method: 'POST', body: { subject: subjectKey, difficulty } });
+/** Ask Ndovera AI to write practice questions for a paid subject that has too few. */
+export const generateQuestions = (subjectKey, difficulty, exam = '') => request('/api/practice-arena/generate', { method: 'POST', body: { subject: subjectKey, difficulty, exam } });
+
+/** A timed mock examination (JAMB: Use of English + 3 subjects; others: one subject). Online only. */
+export const loadMock = (exam, subject = '') => request(`/api/practice-arena/mock?exam=${exam}${subject ? `&subject=${encodeURIComponent(subject)}` : ''}`);
+
+export const chooseFreeSubject = subject => request('/api/practice-arena/free-subject', { method: 'POST', body: { subject } });
+export const quotePass = payload => request('/api/practice-arena/passes/quote', { method: 'POST', body: payload });
+export const checkoutPass = payload => request('/api/practice-arena/passes/checkout', { method: 'POST', body: payload });
+export const verifyPass = txRef => request('/api/practice-arena/passes/verify', { method: 'POST', body: { txRef } });
+export const getFamilyPasses = () => request('/api/practice-arena/family');
+export const getSchoolPasses = () => request('/api/practice-arena/school');
+export const clearStudentDevices = studentId => request('/api/practice-arena/devices/clear', { method: 'POST', body: { studentId } });
+export const naira = value => `₦${(Number(value) || 0).toLocaleString()}`;
 
 export async function packSavedAt(subjectKey) {
   const kept = await getItem(packKey(subjectKey, ''));

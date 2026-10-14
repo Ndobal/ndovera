@@ -25,6 +25,8 @@ import { labelOfRank, subjectKeyOf } from './levels'
 import { DIFFICULTY_LEVELS, GLOBAL_TENANT, PracticeError, ensurePracticeTables, normalizeDifficulty, upsertBankQuestions } from './practiceArena'
 import type { Difficulty, PracticeStudent } from './practiceArena'
 import { listTopics } from './topicHub'
+import { EXAMS, normalizeExam } from './practicePasses'
+import type { ExamKey } from './practicePasses'
 
 export type AiRunner = (messages: Array<{ role: string, content: string }>, options: { maxTokens: number, temperature: number }) => Promise<string>
 
@@ -37,12 +39,10 @@ export const DIFFICULTIES = [
   { key: 'external', label: 'External examination', engine: 'external', blooms: ['apply', 'analyse', 'understand', 'apply', 'evaluate'] },
 ] as const
 
-/** The external examination a section prepares for. Nursery has none. */
+/** The external examinations a section prepares for (practicePasses.ts). Nursery has none. */
 export function externalExamFor(section: string) {
-  if (section === 'primary') return { name: 'Common Entrance', standard: 'school' }
-  if (section === 'junior') return { name: 'BECE (Junior WAEC)', standard: 'school' }
-  if (section === 'senior') return { name: 'WAEC / NECO (SSCE)', standard: 'waec' }
-  return null
+  const exams = (Object.keys(EXAMS) as ExamKey[]).filter(key => EXAMS[key].section === section)
+  return exams.length ? { name: exams.map(key => EXAMS[key].label).join(' / '), exams } : null
 }
 
 const now = () => new Date().toISOString()
@@ -219,15 +219,65 @@ async function topicsFor(db: D1Database, student: PracticeStudent, subject: { su
 
 export type GenerationResult = { added: number, topic?: string, needsTopics?: boolean, busy?: boolean, limited?: 'student' | 'platform' }
 
+/**
+ * One batch of questions from Ndovera AI into Ndovera's bank, to the standard asked for:
+ * a school level (simple / intermediate) or an examination (WAEC, NECO, JAMB, BECE,
+ * Common Entrance). `context` grounds it in a material or a syllabus topic. Used when a
+ * student finds a subject short, and by the night builder (practiceBuilder.ts).
+ */
+export async function writeQuestions(db: D1Database, options: {
+  subject: { key: string, keys?: string[], name: string }, section: string, rank: number, difficulty: Difficulty, exam?: ExamKey | '', topic: string,
+  context?: string, runAi: AiRunner, originType: string, originId: string, batch?: number,
+}) {
+  const level = DIFFICULTIES.find(item => item.key === options.difficulty)!
+  const exam = options.difficulty === 'external' && options.exam ? EXAMS[options.exam] : null
+  const batch = options.batch || GENERATION_LIMITS.batch
+  const className = labelOfRank(options.rank)
+  const optionCount = exam?.mcqOptions || 4
+  const config = normalizeConfig({ kind: 'quiz', standard: exam?.standard || 'school', difficulty: level.engine, questionCount: batch, totalMarks: batch, types: ['mcq'], topicNames: [options.topic], mcqOptions: optionCount }, className)
+  // Examinations are objective papers: no true/false items there.
+  const slots: Slot[] = Array.from({ length: batch }, (_, index) => ({
+    index, section: 'A', type: !exam && index % 4 === 3 ? 'truefalse' : 'mcq', bloom: level.blooms[index % level.blooms.length] as Bloom, topic: options.topic, marks: 1,
+  }))
+  const keys = options.subject.keys?.length ? options.subject.keys : [options.subject.key]
+  const sample = await db.prepare(`SELECT prompt FROM question_bank WHERE subject_key IN (${keys.map(() => '?').join(',')}) AND section = ? AND topic = ? LIMIT 20`)
+    .bind(...keys, options.section, options.topic).all().catch(() => ({ results: [] }))
+  const context = [
+    exam
+      ? `Objective questions on "${options.topic}" in ${options.subject.name}, written to the standard of ${exam.style}. Match that examination exactly: its syllabus, wording, ${optionCount} options per question, plausible distractors and level of difficulty. Do not copy real past questions; write new ones of the same standard.`
+      : `Practice questions for ${className} students on the topic "${options.topic}" in ${options.subject.name}.`,
+    options.difficulty === 'simple' ? 'Keep them simple: clear recall and understanding, one step each, everyday language for this class.' : '',
+    options.difficulty === 'intermediate' ? 'Make them intermediate: understanding and application, some two-step questions.' : '',
+    options.context ? `Base the questions on this material:\n${options.context.slice(0, 5000)}` : '',
+    'Every question must have exactly one correct option. Work it out first and give the working or reason in "workingSteps".',
+  ].filter(Boolean).join('\n\n')
+  const prompt = buildGenerationPrompt({ config, slots, subjectName: options.subject.name, className, context, existingPrompts: ((sample.results || []) as Record<string, any>[]).map(row => String(row.prompt)) })
+  const reply = await options.runAi([{ role: 'system', content: prompt.system }, { role: 'user', content: prompt.user }], { maxTokens: 700 + 420 * batch, temperature: 0.6 })
+  const questions = parseQuestionsJson(reply).map((item, index) => normalizeQuestion(item, slots[index] || slots[0], optionCount))
+    .filter(({ question, problems }) => !problems.length && ['mcq', 'truefalse'].includes(question.type) && question.answerIndex >= 0)
+    .map(({ question }) => question)
+  return upsertBankQuestions(db, questions.map(question => ({
+    tenantId: GLOBAL_TENANT, type: question.type, prompt: question.prompt, options: question.options, answer: question.answerIndex,
+    explanation: [...(question.workingSteps || []), ...(question.markingPoints || [])].join('\n').slice(0, 4000),
+    subject: options.subject.name, subjectKey: options.subject.key, section: options.section, rank: options.rank, topic: options.topic,
+    difficulty: options.difficulty, exam: exam ? options.exam : undefined,
+    originType: options.originType, originId: options.originId, answerSource: 'ai', createdBy: 'Ndovera AI', status: 'approved',
+  })))
+}
+
+/**
+ * A student opened a subject with too few questions: Ndovera AI writes a batch at once.
+ * The caller has already checked the student may open it; daily limits apply here.
+ */
 export async function generatePracticeQuestions(db: D1Database, options: {
-  student: PracticeStudent, subject: { key: string, keys: string[], name: string, subjectId: string }, difficulty: string, runAi: AiRunner,
+  student: PracticeStudent, subject: { key: string, keys: string[], name: string, subjectId: string }, difficulty: string, exam?: string, runAi: AiRunner,
 }): Promise<GenerationResult> {
   await ensurePracticeBankTables(db)
   const { student, subject } = options
   const difficulty = normalizeDifficulty(options.difficulty) || 'intermediate'
   if (!student.section || student.rank === null) throw new PracticeError('Ndovera cannot tell which level your class is, so it cannot prepare questions for it. Ask your school to name the class like "JSS 2" or "Primary 4".', 409)
-  const exam = externalExamFor(student.section)
-  if (difficulty === 'external' && !exam) throw new PracticeError('There is no external examination for this section. Choose Simple or Intermediate.')
+  const exam = difficulty === 'external' ? normalizeExam(options.exam) : ''
+  if (difficulty === 'external' && (!exam || EXAMS[exam].section !== student.section)) throw new PracticeError('Choose one of your section\'s examinations.')
   const day = lagosDay()
   const [mine, everyone, running] = await Promise.all([
     db.prepare(`SELECT COUNT(*) AS n FROM practice_generations WHERE day = ? AND student_id = ?`).bind(day, student.studentId).first(),
@@ -251,34 +301,7 @@ export async function generatePracticeQuestions(db: D1Database, options: {
   await db.prepare(`INSERT INTO practice_generations (id, day, tenant_id, student_id, subject_key, section, level_rank, difficulty, topic, added, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, -1, ?)`)
     .bind(id, day, student.tenantId, student.studentId, subject.key, student.section, student.rank, difficulty, topic, now()).run()
   try {
-    const level = DIFFICULTIES.find(item => item.key === difficulty)!
-    const className = labelOfRank(student.rank)
-    const standard = difficulty === 'external' && exam ? exam.standard : 'school'
-    const config = normalizeConfig({ kind: 'quiz', standard, difficulty: level.engine, questionCount: GENERATION_LIMITS.batch, totalMarks: GENERATION_LIMITS.batch, types: ['mcq'], topicNames: [topic] }, className)
-    const slots: Slot[] = Array.from({ length: GENERATION_LIMITS.batch }, (_, index) => ({
-      index, section: 'A', type: index % 4 === 3 ? 'truefalse' : 'mcq', bloom: level.blooms[index % level.blooms.length] as Bloom, topic, marks: 1,
-    }))
-    const sample = await db.prepare(`SELECT prompt FROM question_bank WHERE subject_key IN (${subject.keys.map(() => '?').join(',')}) AND section = ? AND topic = ? LIMIT 20`)
-      .bind(...subject.keys, student.section, topic).all().catch(() => ({ results: [] }))
-    const context = [
-      `Practice questions for ${className} students on the topic "${topic}" in ${subject.name}.`,
-      difficulty === 'simple' ? 'Keep them simple: clear recall and understanding, one step each, everyday language for this class.' : '',
-      difficulty === 'intermediate' ? 'Make them intermediate: understanding and application, some two-step questions.' : '',
-      difficulty === 'external' && exam ? `Write them exactly as they appear in the ${exam.name} examination: the same style, wording, options and level of demand.` : '',
-      'Every question must have one clearly correct option. Give the working or reason in "workingSteps".',
-    ].filter(Boolean).join('\n')
-    const prompt = buildGenerationPrompt({ config, slots, subjectName: subject.name, className, context, existingPrompts: ((sample.results || []) as Record<string, any>[]).map(row => String(row.prompt)) })
-    const reply = await options.runAi([{ role: 'system', content: prompt.system }, { role: 'user', content: prompt.user }], { maxTokens: 700 + 420 * GENERATION_LIMITS.batch, temperature: 0.6 })
-    const raw = parseQuestionsJson(reply)
-    const questions = raw.map((item, index) => normalizeQuestion(item, slots[index] || slots[0], 4))
-      .filter(({ question, problems }) => !problems.length && ['mcq', 'truefalse'].includes(question.type) && question.answerIndex >= 0)
-      .map(({ question }) => question)
-    const result = await upsertBankQuestions(db, questions.map(question => ({
-      tenantId: GLOBAL_TENANT, type: question.type, prompt: question.prompt, options: question.options, answer: question.answerIndex,
-      explanation: [...(question.workingSteps || []), ...(question.markingPoints || [])].join('\n').slice(0, 4000),
-      subject: subject.name, subjectKey: subject.key, section: student.section, rank: student.rank, topic, difficulty,
-      originType: 'ndovera_ai_practice', originId: id, answerSource: 'ai', createdBy: 'Ndovera AI', status: 'approved',
-    })))
+    const result = await writeQuestions(db, { subject, section: student.section, rank: student.rank, difficulty, exam, topic, runAi: options.runAi, originType: 'ndovera_ai_practice', originId: id })
     await db.prepare(`UPDATE practice_generations SET added = ? WHERE id = ?`).bind(result.added, id).run()
     return { added: result.added, topic }
   } catch (error) {

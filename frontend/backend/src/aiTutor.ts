@@ -441,8 +441,8 @@ export async function saveAiPaymentRecord(db: D1Database, txRef: string, payment
 }
 // ─── Free use per role, credit bundles, and spending credits on generation ────
 
-/** Free Ndovera AI requests a day: 10 for students, 3 for everyone else (staff and parents). */
-export const FREE_DAILY_REQUESTS = { student: 10, other: 3 } as const
+/** Free Ndovera AI requests a day: 5 for students, 3 for everyone else (staff and parents). */
+export const FREE_DAILY_REQUESTS = { student: 5, other: 3 } as const
 
 export function freeRequestsForRole(role: string) {
   return String(role || '').trim().toLowerCase() === 'student' ? FREE_DAILY_REQUESTS.student : FREE_DAILY_REQUESTS.other

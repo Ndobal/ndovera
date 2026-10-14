@@ -1,7 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { MODES, TYPE_LABELS, buildQuiz, estimateXp, levelForXp, newAttemptId } from './engine';
-import { generateQuestions, getLeaderboard, loadHome, loadPack, packSavedAt, pendingAttempts, saveAttempt } from './practiceApi';
+import {
+  checkoutPass, chooseFreeSubject, generateQuestions, getLeaderboard, loadHome, loadMock, loadPack, naira, packSavedAt, pendingAttempts, saveAttempt, verifyPass,
+} from './practiceApi';
 import { subscribe } from '../../shared/offline/outbox';
 import { isOnline, requestPersistentStorage } from '../../shared/offline/offlineStore';
 import QuizPlayer from './QuizPlayer';
@@ -72,12 +74,13 @@ function Hero({ profile, student, offline, waiting }) {
   );
 }
 
-const DEFAULT_DIFFICULTIES = [{ key: 'simple', label: 'Simple' }, { key: 'intermediate', label: 'Intermediate' }];
+const DEFAULT_LEVELS = [{ key: 'simple', difficulty: 'simple', exam: '', label: 'Simple' }, { key: 'intermediate', difficulty: 'intermediate', exam: '', label: 'Intermediate' }];
 
-function ModePicker({ subject, difficulties = DEFAULT_DIFFICULTIES, onStart, onClose, busy }) {
+function ModePicker({ subject, levels = DEFAULT_LEVELS, heldExams = {}, onStart, onClose, busy }) {
   const [custom, setCustom] = useState({ types: ['mcq', 'truefalse', 'shortanswer'], count: 15, minutes: 0 });
   const [mode, setMode] = useState('quick');
   const [difficulty, setDifficulty] = useState('intermediate');
+  const level = levels.find(item => item.key === difficulty) || levels[0];
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-50 grid place-items-end bg-black/50 p-0 sm:place-items-center sm:p-4" role="dialog" aria-modal="true" aria-label={`Practise ${subject.name}`}>
       <motion.div initial={{ y: 60 }} animate={{ y: 0 }} exit={{ y: 60 }} className="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-t-[2rem] bg-white p-5 shadow-2xl sm:rounded-[2rem] dark:bg-slate-900">
@@ -91,10 +94,10 @@ function ModePicker({ subject, difficulties = DEFAULT_DIFFICULTIES, onStart, onC
         <fieldset className="mb-4">
           <legend className="mb-2 text-xs font-black uppercase tracking-wide text-slate-500">Level</legend>
           <div className="flex flex-wrap gap-2" role="radiogroup" aria-label="Level">
-            {difficulties.map(level => (
-              <button key={level.key} type="button" role="radio" aria-checked={difficulty === level.key} onClick={() => setDifficulty(level.key)}
-                className={`rounded-full border-2 px-4 py-1.5 text-sm font-black ${difficulty === level.key ? 'border-indigo-500 bg-indigo-600 text-white' : 'border-slate-300 text-slate-700 dark:border-white/20 dark:text-slate-200'}`}>
-                {level.label}
+            {levels.map(item => (
+              <button key={item.key} type="button" role="radio" aria-checked={difficulty === item.key} onClick={() => setDifficulty(item.key)}
+                className={`rounded-full border-2 px-4 py-1.5 text-sm font-black ${difficulty === item.key ? 'border-indigo-500 bg-indigo-600 text-white' : 'border-slate-300 text-slate-700 dark:border-white/20 dark:text-slate-200'}`}>
+                {item.label}{item.exam && !heldExams[item.exam] ? ' 🔒' : ''}
               </button>
             ))}
           </div>
@@ -132,11 +135,121 @@ function ModePicker({ subject, difficulties = DEFAULT_DIFFICULTIES, onStart, onC
             </div>
           </div>
         ) : null}
-        <button type="button" disabled={Boolean(busy)} onClick={() => onStart(mode, custom, difficulty)} className="mt-5 w-full rounded-2xl bg-gradient-to-r from-indigo-600 to-fuchsia-600 py-4 text-lg font-black text-white shadow-lg disabled:opacity-60">
+        {level?.exam && !heldExams[level.exam] ? <p className="mt-3 text-sm font-semibold text-amber-700 dark:text-amber-300">{level.label} practice needs its pass — see Passes.</p> : null}
+        <button type="button" disabled={Boolean(busy)} onClick={() => onStart(mode, custom, level)} className="mt-5 w-full rounded-2xl bg-gradient-to-r from-indigo-600 to-fuchsia-600 py-4 text-lg font-black text-white shadow-lg disabled:opacity-60">
           {busy ? (typeof busy === 'string' ? busy : 'Getting your questions…') : 'Start ▶'}
         </button>
       </motion.div>
     </motion.div>
+  );
+}
+
+/**
+ * Passes & exams: the free subject, what the student holds, what can be bought (with the
+ * stock behind each examination), and timed mocks for held examinations.
+ */
+function PassesPanel({ home, preset, busy, onMock, onNotice, onChanged }) {
+  const passes = home.passes || {};
+  const subjects = home.subjects || [];
+  const [subjectKey, setSubjectKey] = useState(preset?.subjectKey || '');
+  const [jamb, setJamb] = useState([]);
+  const [mockSubject, setMockSubject] = useState({});
+  const [paying, setPaying] = useState('');
+  const covered = key => passes.allSubjects || (passes.subjects || []).includes(key) || passes.freeSubject === key;
+  const buy = async bundle => {
+    setPaying(bundle.key);
+    try {
+      const result = await checkoutPass({ bundle: bundle.key, ...(bundle.key === 'subject' ? { subjectKey } : {}), ...(['jamb', 'super'].includes(bundle.key) ? { jambSubjects: jamb } : {}) });
+      if (result.checkoutUrl) window.location.href = result.checkoutUrl;
+    } catch (err) { onNotice(err.message); } finally { setPaying(''); }
+  };
+  const CARD = 'rounded-3xl border border-slate-200 bg-white p-4 dark:border-white/10 dark:bg-slate-900/70';
+  return (
+    <div className="space-y-4">
+      <section className={CARD} aria-label="Free subject">
+        <h3 className="font-black text-slate-900 dark:text-white">Your free subject this term</h3>
+        <p className="text-sm text-slate-600 dark:text-slate-300">One subject is free at Simple and Intermediate level. {passes.freeSubject ? (passes.freeChangesLeft ? 'You can change it once this term.' : 'It can be changed again next term.') : 'The first subject you play becomes your free one.'}</p>
+        <div className="mt-2 flex flex-wrap items-center gap-2">
+          <select aria-label="Free subject" className="rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm dark:border-white/20 dark:bg-slate-900 dark:text-white" value={passes.freeSubject || ''} disabled={Boolean(passes.freeSubject) && !passes.freeChangesLeft}
+            onChange={async event => {
+              if (!window.confirm(passes.freeSubject ? 'Change your free subject? You can only do this once a term.' : 'Make this your free subject for this term?')) return;
+              try { await chooseFreeSubject(event.target.value); onNotice('Free subject saved.'); onChanged(); } catch (err) { onNotice(err.message); }
+            }}>
+            <option value="" disabled>Choose…</option>
+            {subjects.map(subject => <option key={subject.key} value={subject.key}>{subject.name}</option>)}
+          </select>
+        </div>
+      </section>
+
+      {(passes.list || []).length > 0 && (
+        <section className={CARD} aria-label="Your passes">
+          <h3 className="mb-2 font-black text-slate-900 dark:text-white">Your passes</h3>
+          <ul className="space-y-1 text-sm text-slate-700 dark:text-slate-200">
+            {passes.list.map(pass => <li key={pass.id}>✅ {pass.label}{pass.subjectKey ? ` — ${subjects.find(subject => subject.key === pass.subjectKey)?.name || pass.subjectKey}` : ''}{pass.subjects?.length ? ` — ${pass.subjects.join(', ')}` : ''}{pass.expiresAt ? ` · until ${new Date(pass.expiresAt).toLocaleDateString()}` : ' · this term'}</li>)}
+          </ul>
+        </section>
+      )}
+
+      {Object.keys(passes.exams || {}).length > 0 && (
+        <section className={CARD} aria-label="Mock examinations">
+          <h3 className="mb-2 font-black text-slate-900 dark:text-white">Timed mock examinations</h3>
+          <div className="space-y-2">
+            {Object.keys(passes.exams).map(exam => {
+              const info = home.exams?.[exam] || {};
+              return (
+                <div key={exam} className="flex flex-wrap items-center gap-2 rounded-2xl bg-slate-50 p-3 dark:bg-white/5">
+                  <span className="flex-1 text-sm font-bold text-slate-900 dark:text-white">{info.label || exam}{exam === 'jamb' ? ` — Use of English + ${(passes.jambSubjects || []).length} subjects, ${home.jambMock?.english + 3 * home.jambMock?.perSubject || 180} questions, ${home.jambMock?.minutes || 120} minutes` : ` — ${info.mockQuestions} questions, ${info.mockMinutes} minutes`}</span>
+                  {exam !== 'jamb' && (
+                    <select aria-label={`${info.label} mock subject`} className="rounded-xl border border-slate-300 bg-white px-2 py-1.5 text-sm dark:border-white/20 dark:bg-slate-900 dark:text-white" value={mockSubject[exam] || ''} onChange={event => setMockSubject(current => ({ ...current, [exam]: event.target.value }))}>
+                      <option value="">Subject…</option>{subjects.map(subject => <option key={subject.key} value={subject.key}>{subject.name}</option>)}
+                    </select>
+                  )}
+                  <button type="button" disabled={Boolean(busy) || (exam !== 'jamb' && !mockSubject[exam])} onClick={() => onMock(exam, mockSubject[exam] || '')} className="rounded-xl bg-indigo-600 px-3 py-1.5 text-sm font-black text-white disabled:opacity-50">Start mock ⏱️</button>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+      )}
+
+      <section className="space-y-3" aria-label="Get a pass">
+        <h3 className="font-black text-slate-900 dark:text-white">Get a pass</h3>
+        <div className="grid gap-3 sm:grid-cols-2">
+          {(home.bundles || []).map(bundle => {
+            const owned = bundle.exams.length ? bundle.exams.every(exam => passes.exams?.[exam]) : bundle.key === 'all' && passes.allSubjects;
+            return (
+              <article key={bundle.key} className={`${CARD} ${preset?.exam && bundle.exams.includes(preset.exam) ? 'ring-2 ring-indigo-500' : ''}`}>
+                <div className="flex items-start justify-between gap-2"><h4 className="font-black text-slate-900 dark:text-white">{bundle.label}</h4><span className="text-lg font-black text-indigo-700 dark:text-cyan-300">{naira(bundle.priceNaira)}</span></div>
+                <p className="text-sm text-slate-600 dark:text-slate-300">{bundle.blurb}</p>
+                {bundle.key === 'subject' && (
+                  <select aria-label="Subject to buy" className="mt-2 w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm dark:border-white/20 dark:bg-slate-900 dark:text-white" value={subjectKey} onChange={event => setSubjectKey(event.target.value)}>
+                    <option value="">Choose the subject…</option>
+                    {subjects.filter(subject => !covered(subject.key)).map(subject => <option key={subject.key} value={subject.key}>{subject.name}</option>)}
+                  </select>
+                )}
+                {['jamb', 'super'].includes(bundle.key) && (
+                  <fieldset className="mt-2"><legend className="text-xs font-bold text-slate-500">Your 3 JAMB subjects (Use of English is included)</legend>
+                    <div className="mt-1 flex flex-wrap gap-1">
+                      {subjects.filter(subject => subject.key !== 'english').map(subject => (
+                        <label key={subject.key} className={`cursor-pointer rounded-full border px-2 py-0.5 text-xs font-semibold ${jamb.includes(subject.key) ? 'border-indigo-500 bg-indigo-600 text-white' : 'border-slate-300 text-slate-700 dark:border-white/20 dark:text-slate-200'}`}>
+                          <input type="checkbox" className="sr-only" checked={jamb.includes(subject.key)} onChange={() => setJamb(current => (current.includes(subject.key) ? current.filter(key => key !== subject.key) : current.length < 3 ? [...current, subject.key] : current))} />{subject.name}
+                        </label>
+                      ))}
+                    </div>
+                  </fieldset>
+                )}
+                {!bundle.ready && <p className="mt-2 text-xs font-semibold text-amber-700 dark:text-amber-300">Being prepared — {bundle.stock.map(item => `${item.label}: ${item.ready.toLocaleString()} of ${item.needed} checked questions`).join(' · ')}. On sale as soon as it is ready.</p>}
+                <button type="button" disabled={owned || !bundle.ready || Boolean(paying) || (bundle.key === 'subject' && !subjectKey) || (['jamb', 'super'].includes(bundle.key) && jamb.length !== 3)} onClick={() => buy(bundle)}
+                  className="mt-3 w-full rounded-2xl bg-slate-900 py-2 text-sm font-black text-white disabled:opacity-50 dark:bg-cyan-400 dark:text-black">
+                  {owned ? 'You have this' : paying === bundle.key ? 'Opening payment…' : `Pay ${naira(bundle.priceNaira)}`}
+                </button>
+              </article>
+            );
+          })}
+        </div>
+        <p className="text-xs text-slate-500 dark:text-slate-400">Paid through Flutterwave. A pass belongs to your account and opens on up to 2 devices; saved questions work offline for up to 7 days. Parents can buy from their account, and schools can buy for a whole class at 30% off.</p>
+      </section>
+    </div>
   );
 }
 
@@ -151,6 +264,7 @@ export default function PracticeArena() {
   const [saved, setSaved] = useState({});
   const [waiting, setWaiting] = useState(0);
   const [notice, setNotice] = useState('');
+  const [passPreset, setPassPreset] = useState(null);
   // Leaderboards are per subject (or all), for the class or the whole school.
   const [board, setBoard] = useState({ subject: '', scope: 'class', data: null });
 
@@ -175,6 +289,17 @@ export default function PracticeArena() {
     setWaiting(await pendingAttempts().catch(() => 0));
   }, []);
 
+  // Back from Flutterwave: confirm the payment, then show the new pass.
+  useEffect(() => {
+    let txRef = '';
+    try { txRef = new URLSearchParams(window.location.search).get('practice_tx') || ''; } catch { txRef = ''; }
+    if (!txRef) return;
+    verifyPass(txRef).then(result => setNotice(result.message || 'Payment confirmed.')).catch(err => setNotice(err.message)).finally(() => {
+      try { window.history.replaceState({}, '', window.location.pathname); } catch { /* ignore */ }
+      refresh();
+    });
+  }, [refresh]);
+
   useEffect(() => {
     requestPersistentStorage();
     refresh();
@@ -185,17 +310,19 @@ export default function PracticeArena() {
     return () => { unsubscribe(); window.removeEventListener('online', onOnline); };
   }, [refresh]);
 
-  const start = useCallback(async (modeKey, custom, difficulty) => {
+  const start = useCallback(async (modeKey, custom, level) => {
     if (!picker) return;
+    const difficulty = level?.difficulty || 'intermediate';
+    const exam = level?.exam || '';
     setBusy(true);
     try {
-      let pack = await loadPack(picker.key, { difficulty });
+      let pack = await loadPack(picker.key, { difficulty, exam });
       // Too few questions at this level: Ndovera AI prepares more, then the pack is fetched again.
       if (pack.needsMore && isOnline() && home?.canGenerate) {
         setBusy('Ndovera AI is preparing your questions…');
         try {
-          const made = await generateQuestions(picker.key, difficulty);
-          if (made.added) pack = await loadPack(picker.key, { difficulty });
+          const made = await generateQuestions(picker.key, difficulty, exam);
+          if (made.added) pack = await loadPack(picker.key, { difficulty, exam });
           else if (!pack.questions.length) { setNotice(made.message); return; }
         } catch (makeError) {
           if (!pack.questions.length) { setNotice(makeError.message); return; }
@@ -212,10 +339,23 @@ export default function PracticeArena() {
       setOutcome(null);
     } catch (startError) {
       setNotice(startError.message);
+      // Not covered by a pass: show what would open it.
+      if (startError.status === 402) { setPassPreset({ subjectKey: picker.key, exam }); setPicker(null); setTab('passes'); }
     } finally {
       setBusy(false);
     }
   }, [picker, home]);
+
+  /** A timed mock examination from a held examination pass. */
+  const startMock = useCallback(async (exam, subjectKey) => {
+    setBusy(true);
+    try {
+      const data = await loadMock(exam, subjectKey);
+      const quiz = buildQuiz(data.pack, 'mock', { minutes: data.minutes, label: `${data.label} mock` });
+      setGame({ quiz, subject: { key: data.pack.subjectKey, name: data.pack.subjectName }, attemptId: newAttemptId() });
+      setOutcome(null);
+    } catch (mockError) { setNotice(mockError.message); } finally { setBusy(false); }
+  }, []);
 
   const finish = useCallback(async ({ results, startedAt, finishedAt }) => {
     const current = game;
@@ -279,7 +419,7 @@ export default function PracticeArena() {
 
       {home ? (
         <div className="flex gap-2 rounded-2xl bg-slate-100 p-1 dark:bg-white/5" role="tablist">
-          {[['subjects', '📚 Subjects'], ['badges', '🏅 Badges'], ['leaderboard', '🏆 Leaderboard']].map(([key, label]) => (
+          {[['subjects', '📚 Subjects'], ['passes', '💳 Passes & exams'], ['badges', '🏅 Badges'], ['leaderboard', '🏆 Leaderboard']].map(([key, label]) => (
             <button key={key} type="button" role="tab" aria-selected={tab === key} onClick={() => setTab(key)} className={`flex-1 rounded-xl px-3 py-2 text-sm font-black ${tab === key ? 'bg-white text-indigo-700 shadow dark:bg-slate-800 dark:text-cyan-300' : 'text-slate-600 dark:text-slate-300'}`}>{label}</button>
           ))}
         </div>
@@ -291,7 +431,10 @@ export default function PracticeArena() {
             {subjects.map((subject, index) => (
               <motion.article key={subject.key} whileHover={{ y: -4 }} className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm dark:border-white/10 dark:bg-slate-900/70">
                 <div className={`bg-gradient-to-br ${CARD_GRADIENTS[index % CARD_GRADIENTS.length]} p-4 text-white`}>
-                  <h3 className="text-lg font-black">{subject.name}</h3>
+                  <div className="flex items-start justify-between gap-2">
+                    <h3 className="text-lg font-black">{subject.name}</h3>
+                    {subject.access ? <span className="shrink-0 rounded-full bg-white/20 px-2 py-0.5 text-[11px] font-black">{subject.access === 'free' ? 'Free subject' : subject.access === 'pass' ? 'Pass ✓' : subject.access === 'claim-free' ? 'Free to start' : '🔒 ₦300'}</span> : null}
+                  </div>
                   <p className="text-xs text-white/85">{subject.questions ? `${subject.questions} questions${subject.levels ? ` · ${subject.levels}` : ''}` : home.canGenerate ? 'New — Ndovera AI prepares questions when you start' : 'No questions yet'}</p>
                 </div>
                 <div className="space-y-3 p-4">
@@ -325,6 +468,8 @@ export default function PracticeArena() {
           </div>
         )
       ) : null}
+
+      {home && tab === 'passes' ? <PassesPanel home={home} preset={passPreset} busy={busy} onMock={startMock} onNotice={setNotice} onChanged={refresh} /> : null}
 
       {home && tab === 'badges' ? (
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -363,7 +508,7 @@ export default function PracticeArena() {
         </section>
       ) : null}
 
-      <AnimatePresence>{picker ? <ModePicker subject={picker} difficulties={home?.difficulties} busy={busy} onClose={() => setPicker(null)} onStart={start} /> : null}</AnimatePresence>
+      <AnimatePresence>{picker ? <ModePicker subject={picker} levels={home?.levels} heldExams={home?.passes?.exams || {}} busy={busy} onClose={() => setPicker(null)} onStart={start} /> : null}</AnimatePresence>
     </div>
   );
 }

@@ -390,7 +390,13 @@ import { PACK_SIZE, GLOBAL_TENANT, MODES as PRACTICE_MODES, PracticeError, build
 // Clubs are imported as a namespace: their names (createPost…) must not shadow the class stream's.
 import * as Clubs from './clubs'
 import type { ClubActor } from './clubs'
-import { DIFFICULTIES as PRACTICE_DIFFICULTIES, GENERATION_LIMITS, externalExamFor, generatePracticeQuestions, mapNewSubjects, offeredSubjects, rebuildBankCounts } from './practiceBank'
+import {
+  EXAMS, EXAM_MIN_STOCK, JAMB_ENGLISH_KEY, JAMB_MOCK, PassError, SCHOOL_DISCOUNT, bundleList, canOpen, checkDevice, chooseFreeSubject, clearDevices, countPack,
+  entitlements, examStock, examsForSection, getCheckout, normalizeExam, packValidUntil, priceFor, rebuildExamStock, recordCheckout, settleCheckout,
+} from './practicePasses'
+import type { ExamKey } from './practicePasses'
+import { builderOverview, inBuildWindow, runBuilderTick, saveBuildSettings } from './practiceBuilder'
+import { DIFFICULTIES as PRACTICE_DIFFICULTIES, GENERATION_LIMITS, generatePracticeQuestions, mapNewSubjects, offeredSubjects, rebuildBankCounts } from './practiceBank'
 import { HarvestError, MAX_DOC_BYTES, ensureHarvestTables, getNote, listDocuments, listNotes, queueDocument, runDocumentStep, runHarvestTick, setDocumentStatus } from './harvester'
 import type { HarvestDeps } from './harvester'
 import { levelOf, labelOfRank, normalizeSection } from './levels'
@@ -14325,9 +14331,16 @@ app.get('/api/practice/questions', authenticate, async (c) => {
 // ─── Practice Arena (practiceArena.ts): questions from the bank, no AI calls ───
 
 function practiceFailure(c: any, error: unknown, fallback: string) {
+  if (error instanceof PassError) return c.json({ success: false, message: error.message, ...error.details }, error.status as any)
   if (error instanceof PracticeError || error instanceof HarvestError) return c.json({ success: false, message: error.message }, error.status as any)
   console.error(fallback, error)
   return c.json({ success: false, message: fallback }, 500)
+}
+
+/** The term passes and the free subject belong to: the open term, or (no term set up) the calendar year. */
+async function practiceTermId(db: D1Database, tenantId: string) {
+  const period = await getCurrentAcademicPeriod(db, tenantId).catch(() => null)
+  return String(period?.termId || `year-${new Date(Date.now() + 3600_000).getUTCFullYear()}`)
 }
 
 async function resolvePracticeStudent(c: any) {
@@ -14335,13 +14348,26 @@ async function resolvePracticeStudent(c: any) {
   if (!hasRequiredRole(actor.role, ['student'])) throw new PracticeError('Practice is for students. Teachers\' questions reach it through the question bank.', 403)
   if (!actor.tenantId) throw new PracticeError('School context not found.', 400)
   const classId = String(actor.resolvedUser?.settings?.classId || (c.var.user || {}).classId || '').trim()
-  return practiceStudent(c.env.APP_DB, { tenantId: actor.tenantId, studentId: actor.actorId, studentName: actor.actorName, classId })
+  const student = await practiceStudent(c.env.APP_DB, { tenantId: actor.tenantId, studentId: actor.actorId, studentName: actor.actorName, classId })
+  return { ...student, termId: await practiceTermId(c.env.APP_DB, actor.tenantId), email: String(actor.resolvedUser?.userRow?.email || (c.var.user || {}).email || '') }
 }
 
-/** The difficulties a student can choose: Simple, Intermediate and (except in Nursery) their section's external examination. */
-function practiceDifficulties(section: string) {
-  const exam = externalExamFor(section)
-  return PRACTICE_DIFFICULTIES.filter(level => level.key !== 'external' || exam).map(level => ({ key: level.key, label: level.key === 'external' && exam ? `External examination (${exam.name})` : level.label }))
+/** The levels a student can choose: Simple, Intermediate, and each examination of their section. */
+function practiceLevels(section: string) {
+  return [
+    ...PRACTICE_DIFFICULTIES.filter(level => level.key !== 'external').map(level => ({ key: level.key, difficulty: level.key, exam: '', label: level.label })),
+    ...examsForSection(section).map(exam => ({ key: `external:${exam}`, difficulty: 'external', exam, label: EXAMS[exam].label })),
+  ]
+}
+
+async function practiceSubjectFor(c: any, student: Awaited<ReturnType<typeof resolvePracticeStudent>>, key: string) {
+  const offered = await offeredSubjects(c.env.APP_DB, student)
+  const subject = offered.find(item => item.key === key || item.keys.includes(key))
+  if (subject) return subject
+  // Only subjects the class offers can be practised (and claimed free). A class with no subjects set up
+  // falls back to the bank's subjects for its section; Use of English is always available for JAMB.
+  if (offered.length && key !== JAMB_ENGLISH_KEY) throw new PassError('Your class does not offer that subject.', 404)
+  return { key, keys: [key], name: key === JAMB_ENGLISH_KEY ? 'Use of English' : key.replace(/-/g, ' '), subjectId: '', questions: 0, byDifficulty: {}, levels: '' }
 }
 
 app.get('/api/practice-arena/home', authenticate, async (c) => {
@@ -14350,8 +14376,9 @@ app.get('/api/practice-arena/home', authenticate, async (c) => {
     // Subjects are what the class offers (questions from every school, however they name it).
     // A class with no subjects set up falls back to its own school's question bank.
     const offered = await offeredSubjects(c.env.APP_DB, student)
-    const [profile, recent, board] = await Promise.all([
+    const [profile, recent, board, held, stock] = await Promise.all([
       getProfile(c.env.APP_DB, student.studentId), recentAttempts(c.env.APP_DB, student.studentId, 8), leaderboard(c.env.APP_DB, student, 'class'),
+      entitlements(c.env.APP_DB, student), examStock(c.env.APP_DB),
     ])
     const subjects = offered.length
       ? offered.map(subject => ({ key: subject.key, name: subject.name, questions: subject.questions, byDifficulty: subject.byDifficulty, types: {}, levels: subject.levels, mastery: null, quizzes: 0 }))
@@ -14360,57 +14387,273 @@ app.get('/api/practice-arena/home', authenticate, async (c) => {
         ? ((await c.env.APP_DB.prepare(`SELECT subject_key, SUM(total) AS n FROM practice_bank_counts WHERE section = ? AND level_rank <= ? GROUP BY subject_key ORDER BY n DESC LIMIT 24`).bind(student.section, student.rank).all().catch(() => ({ results: [] }))).results as Record<string, any>[] || [])
           .map(row => ({ key: String(row.subject_key), name: String(row.subject_key).replace(/-/g, ' ').replace(/\b\w/g, ch => ch.toUpperCase()), questions: Number(row.n || 0), byDifficulty: {}, types: {}, levels: '', mastery: null, quizzes: 0 }))
         : await practiceSubjects(c.env.APP_DB, student)
-    // Mastery from the student's own quizzes.
-    if (subjects.length) {
-      const mastery = await c.env.APP_DB.prepare(`SELECT subject_key, SUM(correct) AS correct, SUM(total) AS total, COUNT(*) AS quizzes FROM practice_attempts WHERE student_id = ? GROUP BY subject_key`).bind(student.studentId).all().catch(() => ({ results: [] }))
-      const bySubject = new Map(((mastery.results || []) as Record<string, any>[]).map(row => [String(row.subject_key), row]))
-      for (const subject of subjects as any[]) {
-        const row = bySubject.get(subject.key)
-        if (row && Number(row.total)) { subject.mastery = Math.round((Number(row.correct) / Number(row.total)) * 100); subject.quizzes = Number(row.quizzes) }
-      }
+    // Mastery from the student's own quizzes; access from their passes.
+    const mastery = subjects.length ? await c.env.APP_DB.prepare(`SELECT subject_key, SUM(correct) AS correct, SUM(total) AS total, COUNT(*) AS quizzes FROM practice_attempts WHERE student_id = ? GROUP BY subject_key`).bind(student.studentId).all().catch(() => ({ results: [] })) : { results: [] }
+    const bySubject = new Map(((mastery.results || []) as Record<string, any>[]).map(row => [String(row.subject_key), row]))
+    for (const subject of subjects as any[]) {
+      const row = bySubject.get(subject.key)
+      if (row && Number(row.total)) { subject.mastery = Math.round((Number(row.correct) / Number(row.total)) * 100); subject.quizzes = Number(row.quizzes) }
+      const access = canOpen(held, subject.key, 'intermediate', '')
+      subject.access = access.ok ? access.via : 'locked'
     }
     return c.json({
       success: true, student: { name: student.studentName, className: student.className, level: student.rank !== null ? labelOfRank(student.rank) : '', section: student.section },
-      profile, subjects, recent, leaderboard: board, modes: PRACTICE_MODES, difficulties: practiceDifficulties(student.section),
+      profile, subjects, recent, leaderboard: board, modes: PRACTICE_MODES, levels: practiceLevels(student.section),
+      passes: { freeSubject: held.freeSubject, freeChangesLeft: held.freeChangesLeft, allSubjects: held.allSubjects, subjects: [...held.subjects], exams: Object.fromEntries(held.exams), jambSubjects: held.jambSubjects, list: held.passes },
+      bundles: bundleList(student.section, stock), jambMock: JAMB_MOCK, exams: Object.fromEntries(examsForSection(student.section).map(exam => [exam, { label: EXAMS[exam].label, mockQuestions: EXAMS[exam].mockQuestions, mockMinutes: EXAMS[exam].mockMinutes }])),
       canGenerate: Boolean(student.section && student.rank !== null), enoughQuestions: GENERATION_LIMITS.enoughQuestions,
     })
   } catch (error) { return practiceFailure(c, error, 'Could not load practice.') }
 })
 
-async function practiceSubjectFor(c: any, student: Awaited<ReturnType<typeof resolvePracticeStudent>>, key: string) {
-  const subject = (await offeredSubjects(c.env.APP_DB, student)).find(item => item.key === key || item.keys.includes(key))
-  return subject || { key, keys: [key], name: key.replace(/-/g, ' '), subjectId: '', questions: 0, byDifficulty: {} }
+/**
+ * May this student have this subject at this level now? Paid content checks the device;
+ * a first subject is claimed as the free one. Returns the student's holdings.
+ */
+async function practiceGate(c: any, student: Awaited<ReturnType<typeof resolvePracticeStudent>>, subjectKey: string, difficulty: string, exam: ExamKey | '') {
+  const held = await entitlements(c.env.APP_DB, student)
+  const access = canOpen(held, subjectKey, difficulty, exam)
+  if (!access.ok) throw new PassError(access.reason, 402, { needs: (access as any).needs || '' })
+  if (access.via === 'claim-free') {
+    await chooseFreeSubject(c.env.APP_DB, student, subjectKey)
+    held.freeSubject = subjectKey
+  }
+  if (access.paid) await checkDevice(c.env.APP_DB, student.studentId, String(c.req.header('X-Practice-Device') || ''))
+  return { held, paid: access.paid }
 }
 
-/** Ndovera AI writes practice questions for a subject that has too few (no credits; daily limits). */
+/** Choose (or change, once a term) the free subject. */
+app.post('/api/practice-arena/free-subject', authenticate, async (c) => {
+  try {
+    const student = await resolvePracticeStudent(c)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const subject = await practiceSubjectFor(c, student, String(body.subject || '').trim())
+    return c.json({ success: true, ...(await chooseFreeSubject(c.env.APP_DB, student, subject.key)) })
+  } catch (error) { return practiceFailure(c, error, 'Could not choose the free subject.') }
+})
+
+/** Ndovera AI writes questions at once for a paid subject that is short (free subjects fill up at night). */
 app.post('/api/practice-arena/generate', authenticate, async (c) => {
   try {
     const student = await resolvePracticeStudent(c)
     const body = await c.req.json().catch(() => ({})) as Record<string, any>
     const subject = await practiceSubjectFor(c, student, String(body.subject || '').trim())
-    const result = await generatePracticeQuestions(c.env.APP_DB, { student, subject, difficulty: String(body.difficulty || ''), runAi: assessmentAiRunner(c.env) })
+    const difficulty = normalizeDifficulty(body.difficulty) || 'intermediate'
+    const exam = difficulty === 'external' ? normalizeExam(body.exam) : ''
+    const { paid } = await practiceGate(c, student, subject.key, difficulty, exam)
+    if (!paid) return c.json({ success: true, added: 0, freeTier: true, message: `More ${subject.name} questions are added every night. With a Subject Pass (₦300), Ndovera AI also prepares more the moment you run short.` })
+    const result = await generatePracticeQuestions(c.env.APP_DB, { student, subject, difficulty, exam, runAi: assessmentAiRunner(c.env) })
     const message = result.needsTopics
       ? `${subject.name} has no topics yet, so Ndovera AI cannot prepare questions for it. Ask your ${subject.name} teacher to add this term's topics to your class (Classroom → Topics); questions follow as soon as they do.`
       : result.busy ? 'Ndovera AI is already preparing questions for this subject. Try again in a minute.'
         : result.limited === 'student' ? `You have asked Ndovera AI for new questions ${GENERATION_LIMITS.perStudentPerDay} times today. Practise what is here; more can be prepared tomorrow.`
-          : result.limited === 'platform' ? 'Ndovera AI has prepared as many practice questions as it can today. Try again tomorrow.'
+          : result.limited === 'platform' ? 'Ndovera AI has prepared as many practice questions as it can today. More are added tonight.'
             : result.added ? `Ndovera AI prepared ${result.added} new question${result.added === 1 ? '' : 's'} on ${result.topic}.` : 'Ndovera AI could not prepare usable questions this time. Try again.'
     return c.json({ success: true, ...result, message })
   } catch (error) { return practiceFailure(c, error, 'Could not prepare questions.') }
 })
 
-/** A subject's pack, answers included, so quizzes can be played and marked offline. */
+/** A subject's pack, answers included, so quizzes can be played and marked offline (until `validUntil`). */
 app.get('/api/practice-arena/pack', authenticate, async (c) => {
   try {
     const student = await resolvePracticeStudent(c)
-    const size = Math.max(10, Math.min(120, Number(c.req.query('size')) || PACK_SIZE))
+    const size = Math.max(10, Math.min(PACK_SIZE, Number(c.req.query('size')) || PACK_SIZE))
     const subject = await practiceSubjectFor(c, student, String(c.req.query('subject') || '').trim())
-    const difficulty = normalizeDifficulty(c.req.query('difficulty'))
-    const pack = await buildPack(c.env.APP_DB, student, subject.key, size, { keys: subject.keys, difficulty, subjectName: subject.name })
-    // Too few questions: the app asks Ndovera AI for more, then fetches the pack again.
-    const canGenerate = Boolean(student.section && student.rank !== null)
-    return c.json({ success: true, pack, needsMore: canGenerate && pack.questions.length < GENERATION_LIMITS.enoughQuestions })
+    const difficulty = normalizeDifficulty(c.req.query('difficulty')) || 'intermediate'
+    const exam = difficulty === 'external' ? normalizeExam(c.req.query('exam')) : ''
+    if (difficulty === 'external' && (!exam || EXAMS[exam].section !== student.section)) throw new PassError('Choose one of your section\'s examinations.')
+    const { held, paid } = await practiceGate(c, student, subject.key, difficulty, exam)
+    await countPack(c.env.APP_DB, student.studentId)
+    const pack = await buildPack(c.env.APP_DB, student, subject.key, size, { keys: subject.keys, difficulty, subjectName: subject.name, exam })
+    // Too few questions: a paid subject asks Ndovera AI for more at once; a free one fills up at night.
+    const canGenerate = paid && Boolean(student.section && student.rank !== null)
+    return c.json({ success: true, pack: { ...pack, validUntil: packValidUntil(held, difficulty, exam) }, needsMore: canGenerate && pack.questions.length < GENERATION_LIMITS.enoughQuestions })
   } catch (error) { return practiceFailure(c, error, 'Could not prepare questions.') }
+})
+
+/**
+ * A timed mock examination. JAMB: Use of English (60) and the three chosen subjects (40 each),
+ * 2 hours. Other examinations: one subject, the examination's length and time.
+ */
+app.get('/api/practice-arena/mock', authenticate, async (c) => {
+  try {
+    const student = await resolvePracticeStudent(c)
+    const exam = normalizeExam(c.req.query('exam'))
+    if (!exam || EXAMS[exam].section !== student.section) throw new PassError('Choose one of your section\'s examinations.')
+    const held = await entitlements(c.env.APP_DB, student)
+    if (!held.exams.has(exam)) throw new PassError(`A ${EXAMS[exam].label} mock needs its pass.`, 402, { needs: exam })
+    await checkDevice(c.env.APP_DB, student.studentId, String(c.req.header('X-Practice-Device') || ''))
+    await countPack(c.env.APP_DB, student.studentId)
+    const parts = exam === 'jamb'
+      ? [{ key: JAMB_ENGLISH_KEY, count: JAMB_MOCK.english }, ...held.jambSubjects.map(key => ({ key, count: JAMB_MOCK.perSubject }))]
+      : [{ key: String(c.req.query('subject') || ''), count: EXAMS[exam].mockQuestions }]
+    const sections = []
+    for (const part of parts) {
+      const subject = await practiceSubjectFor(c, student, part.key)
+      const pack = await buildPack(c.env.APP_DB, student, subject.key, part.count, { keys: subject.keys, difficulty: 'external', subjectName: subject.name, exam })
+      sections.push({ subjectKey: subject.key, subjectName: subject.name, wanted: part.count, questions: pack.questions.slice(0, part.count).map(question => ({ ...question, section: subject.name })) })
+    }
+    const questions = sections.flatMap(section => section.questions)
+    if (!questions.length) throw new PassError(`There are no ${EXAMS[exam].label} questions here yet. They are being prepared every night.`, 404)
+    return c.json({
+      success: true, exam, label: EXAMS[exam].label, minutes: exam === 'jamb' ? JAMB_MOCK.minutes : EXAMS[exam].mockMinutes,
+      sections: sections.map(({ questions: list, ...rest }) => ({ ...rest, available: list.length })),
+      pack: { id: `mock_${exam}_${Date.now()}`, subjectKey: exam === 'jamb' ? 'jamb-utme' : sections[0].subjectKey, subjectName: exam === 'jamb' ? 'JAMB UTME mock' : `${sections[0].subjectName} — ${EXAMS[exam].label} mock`, difficulty: 'external', exam, questions, validUntil: packValidUntil(held, 'external', exam) },
+    })
+  } catch (error) { return practiceFailure(c, error, 'Could not prepare the mock examination.') }
+})
+
+// ─── Buying practice passes (practicePasses.ts) ───
+
+const PASS_SCHOOL_BUYERS = ['owner', 'hos', 'accountant']
+
+/** Who a purchase is for: the student themself, a parent's child, or (school) a whole class. */
+async function passBuyer(c: any, body: Record<string, any>) {
+  const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
+  if (!actor.tenantId) throw new PassError('School context not found.', 400)
+  const db = c.env.APP_DB
+  const email = String(actor.resolvedUser?.userRow?.email || (c.var.user || {}).email || '')
+  if (hasRequiredRole(actor.role, ['student'])) {
+    const student = await resolvePracticeStudent(c)
+    return { actor, email, forSchool: false, students: [student], section: student.section, offered: (await offeredSubjects(db, student)).map(item => item.key), held: await entitlements(db, student) }
+  }
+  if (hasRequiredRole(actor.role, ['parent'])) {
+    const children = (await listAccessibleLearningStudents(db, c.var.user || {})).students || []
+    const child = children.find((item: any) => item.id === String(body.studentId || ''))
+    if (!child) throw new PassError('Choose one of your children.', 400)
+    const student = { ...(await practiceStudent(db, { tenantId: actor.tenantId, studentId: child.id, studentName: child.name, classId: child.classId })), termId: await practiceTermId(db, actor.tenantId) }
+    return { actor, email, forSchool: false, students: [student], section: student.section, offered: (await offeredSubjects(db, student)).map(item => item.key), held: await entitlements(db, student) }
+  }
+  if (hasRequiredRole(actor.role, PASS_SCHOOL_BUYERS)) {
+    const classId = String(body.classId || '')
+    const period = await getCurrentAcademicPeriod(db, actor.tenantId)
+    const enrolled = period.sessionId && classId ? await listSessionEnrollments(db, { tenantId: actor.tenantId, sessionId: period.sessionId, classId, status: 'active' }) : []
+    if (!enrolled.length) throw new PassError('That class has no students this session.', 400)
+    const sample = { ...(await practiceStudent(db, { tenantId: actor.tenantId, studentId: enrolled[0].studentId, studentName: enrolled[0].studentName || '', classId })), termId: await practiceTermId(db, actor.tenantId) }
+    return { actor, email, forSchool: true, students: enrolled.map(row => ({ ...sample, studentId: row.studentId, studentName: row.studentName || '' })), section: sample.section, offered: (await offeredSubjects(db, sample)).map(item => item.key), held: undefined }
+  }
+  throw new PassError('Practice passes are bought by students, their parents, or the school.', 403)
+}
+
+/** Price and options for a purchase, worked out here (never from the request's numbers). */
+app.post('/api/practice-arena/passes/quote', authenticate, async (c) => {
+  try {
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const buyer = await passBuyer(c, body)
+    const quote = await priceFor(c.env.APP_DB, body as any, { section: buyer.section, students: buyer.students.length, forSchool: buyer.forSchool, offered: buyer.offered, held: buyer.held })
+    return c.json({ success: true, quote: { ...quote, students: buyer.students.length } })
+  } catch (error) { return practiceFailure(c, error, 'Could not price that pass.') }
+})
+
+app.post('/api/practice-arena/passes/checkout', authenticate, async (c) => {
+  try {
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const buyer = await passBuyer(c, body)
+    const quote = await priceFor(c.env.APP_DB, body as any, { section: buyer.section, students: buyer.students.length, forSchool: buyer.forSchool, offered: buyer.offered, held: buyer.held })
+    const txRef = `prac_${crypto.randomUUID().replace(/-/g, '').slice(0, 24)}`
+    await recordCheckout(c.env.APP_DB, { txRef, tenantId: buyer.actor.tenantId, buyerId: buyer.actor.actorId, buyerRole: buyer.actor.role, bundle: quote.bundle, studentIds: buyer.students.map(student => student.studentId), options: quote.extra, amountNaira: quote.amountNaira })
+    const origin = new URL(c.req.url).origin
+    const role = hasRequiredRole(buyer.actor.role, ['student']) ? 'student' : hasRequiredRole(buyer.actor.role, ['parent']) ? 'parent' : String(buyer.actor.role || 'owner')
+    const provider = await createFlutterwavePayment(c, {
+      tx_ref: txRef, amount: quote.amountNaira, currency: 'NGN',
+      redirect_url: `${origin}/roles/${role}/${role === 'student' ? 'practice' : 'practice-passes'}?practice_tx=${txRef}`,
+      customer: { email: buyer.email || 'billing@ndovera.com', name: buyer.actor.actorName || 'Ndovera user' },
+      customizations: { title: `Ndovera Practice — ${quote.label}`, description: `${quote.label}${buyer.students.length > 1 ? ` for ${buyer.students.length} students` : ''}` },
+      meta: { tenantId: buyer.actor.tenantId, kind: 'practice_pass' },
+    })
+    return c.json({ success: true, txRef, amountNaira: quote.amountNaira, checkoutUrl: String(provider?.data?.link || '') })
+  } catch (error) { return practiceFailure(c, error, 'Could not start the payment.') }
+})
+
+async function settlePracticePayment(c: any, txRef: string) {
+  const payment = await getCheckout(c.env.APP_DB, txRef)
+  if (!payment) throw new PassError('Payment not found.', 404)
+  if (payment.status === 'paid') return { payment, granted: 0, alreadyPaid: true }
+  const data = (await verifyFlutterwavePayment(c, txRef))?.data || {}
+  return settleCheckout(c.env.APP_DB, txRef, { status: String(data.status || ''), amount: Number(data.amount || 0), currency: String(data.currency || ''), txRef: String(data.tx_ref || ''), providerId: String(data.id || '') }, { termId: await practiceTermId(c.env.APP_DB, payment.tenantId) })
+}
+
+app.post('/api/practice-arena/passes/verify', authenticate, async (c) => {
+  try {
+    const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const payment = await getCheckout(c.env.APP_DB, String(body.txRef || ''))
+    if (!payment || (payment.buyerId !== actor.actorId && !hasRequiredRole(actor.role, ['ami']))) throw new PassError('Payment not found.', 404)
+    const result = await settlePracticePayment(c, payment.txRef)
+    const paid = result.payment?.status === 'paid'
+    return c.json({ success: paid, paid, granted: result.granted, message: paid ? 'Payment confirmed. Your practice pass is ready.' : 'Flutterwave has not confirmed this payment yet.' }, paid ? 200 : 402)
+  } catch (error) { return practiceFailure(c, error, 'Could not check the payment.') }
+})
+
+/** Parents: their children's passes and what can be bought for each. */
+app.get('/api/practice-arena/family', authenticate, async (c) => {
+  try {
+    const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
+    if (!hasRequiredRole(actor.role, ['parent'])) throw new PassError('This page is for parents.', 403)
+    const db = c.env.APP_DB
+    const stock = await examStock(db)
+    const termId = await practiceTermId(db, actor.tenantId)
+    const children = []
+    for (const child of ((await listAccessibleLearningStudents(db, c.var.user || {})).students || []) as any[]) {
+      const student = { ...(await practiceStudent(db, { tenantId: actor.tenantId, studentId: child.id, studentName: child.name, classId: child.classId })), termId }
+      const held = await entitlements(db, student)
+      children.push({ studentId: child.id, name: child.name, className: student.className, section: student.section, subjects: (await offeredSubjects(db, student)).map(item => ({ key: item.key, name: item.name })), passes: held.passes, freeSubject: held.freeSubject, bundles: bundleList(student.section, stock) })
+    }
+    return c.json({ success: true, children })
+  } catch (error) { return practiceFailure(c, error, 'Could not load your children\'s practice.') }
+})
+
+/** School: buy passes for a class (30% off), and clear a student's devices. */
+app.get('/api/practice-arena/school', authenticate, async (c) => {
+  try {
+    const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
+    if (!hasRequiredRole(actor.role, PASS_SCHOOL_BUYERS)) throw new PassError('For the Owner, Head of School and Accountant.', 403)
+    const db = c.env.APP_DB
+    const stock = await examStock(db)
+    const classRows = await db.prepare(`SELECT id, name, arm FROM classes WHERE tenantId = ? ORDER BY name, arm`).bind(actor.tenantId).all()
+    const classes = ((classRows.results || []) as Record<string, any>[]).map(row => {
+      const name = [row.name, row.arm].filter(Boolean).join(' ')
+      const section = levelOf(row.name)?.section || ''
+      return { id: String(row.id), name, section, bundles: section ? bundleList(section, stock) : [] }
+    })
+    return c.json({ success: true, classes, discount: SCHOOL_DISCOUNT })
+  } catch (error) { return practiceFailure(c, error, 'Could not load practice passes.') }
+})
+
+app.post('/api/practice-arena/devices/clear', authenticate, async (c) => {
+  try {
+    const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
+    if (!hasRequiredRole(actor.role, ['owner', 'hos'])) throw new PassError('Only the Owner or Head of School can clear a student\'s devices.', 403)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const row = await c.env.APP_DB.prepare(`SELECT id FROM users WHERE id = ? AND tenantId = ?`).bind(String(body.studentId || ''), actor.tenantId).first()
+    if (!row) throw new PassError('Student not found.', 404)
+    await clearDevices(c.env.APP_DB, String(body.studentId))
+    return c.json({ success: true })
+  } catch (error) { return practiceFailure(c, error, 'Could not clear the devices.') }
+})
+
+// ─── Ami: the night builder (practiceBuilder.ts) ───
+
+app.get('/api/ami/practice/builder', authenticate, async (c) => {
+  try {
+    requireAmi(c)
+    return c.json({ success: true, ...(await builderOverview(c.env.APP_DB)), stock: await examStock(c.env.APP_DB), minStock: EXAM_MIN_STOCK })
+  } catch (error) { return practiceFailure(c, error, 'Could not load the builder.') }
+})
+
+app.put('/api/ami/practice/builder', authenticate, async (c) => {
+  try {
+    requireAmi(c)
+    return c.json({ success: true, settings: await saveBuildSettings(c.env.APP_DB, await c.req.json().catch(() => ({}))) })
+  } catch (error) { return practiceFailure(c, error, 'Could not save the builder settings.') }
+})
+
+/** Ami: run one builder step now (outside the night window), e.g. to check it works. */
+app.post('/api/ami/practice/builder/step', authenticate, async (c) => {
+  try {
+    requireAmi(c)
+    return c.json({ success: true, result: await runBuilderTick(c.env.APP_DB, assessmentAiRunner(c.env), { force: true }) })
+  } catch (error) { return practiceFailure(c, error, 'Could not run a builder step.') }
 })
 
 /** One attempt, or a batch synced from the offline outbox. */
@@ -14740,6 +14983,7 @@ app.post('/api/ami/question-bank/imports/:id/:action', authenticate, async (c) =
 app.post('/api/ami/practice/recount', authenticate, async (c) => {
   try {
     requireAmi(c)
+    await rebuildExamStock(c.env.APP_DB)
     return c.json({ success: true, ...(await rebuildBankCounts(c.env.APP_DB)) })
   } catch (error) { return practiceFailure(c, error, 'Could not recount the practice bank.') }
 })
@@ -33642,7 +33886,16 @@ app.post('/api/webhooks/payments/flutterwave', async (c) => {
   if (!expected || c.req.header('verif-hash') !== expected) return c.text('forbidden', 401)
   const body = await c.req.json().catch(() => ({})) as Record<string, any>
   const txRef = String(body?.data?.tx_ref || body?.txRef || '')
-  // Only message-unit purchases are handled here; the payload is a hint — Flutterwave is asked directly.
+  // Message units and practice passes are handled here; the payload is a hint — Flutterwave is asked directly.
+  if (txRef.startsWith('prac_')) {
+    try {
+      const result = await settlePracticePayment(c, txRef)
+      return c.json({ success: true, granted: result.granted })
+    } catch (error) {
+      console.error('Practice payment webhook failed', error)
+      return c.json({ success: false }, 500)
+    }
+  }
   if (!txRef.startsWith('comm_')) return c.json({ success: true, ignored: true })
   try {
     const result = await verifyCommPurchase(c, c.env, txRef)
@@ -33932,7 +34185,12 @@ export default {
     // The shared practice bank: subject counts rebuilt nightly (02:10 Lagos), then new subject
     // names matched by Ndovera AI (02:20). Also rebuilt within the hour if the counts are empty.
     const at = new Date()
-    if (at.getUTCHours() === 1 && at.getUTCMinutes() === 10) ctx.waitUntil(rebuildBankCounts(env.APP_DB).catch(error => console.error('Practice counts failed', error)))
+    if (at.getUTCHours() === 1 && at.getUTCMinutes() === 10) {
+      ctx.waitUntil(rebuildBankCounts(env.APP_DB).catch(error => console.error('Practice counts failed', error)))
+      ctx.waitUntil(rebuildExamStock(env.APP_DB).catch(error => console.error('Exam stock failed', error)))
+    }
+    // The night builder: new questions and quality checks, 00:00–04:00 Lagos, within Ami's nightly budget.
+    if (inBuildWindow(at)) ctx.waitUntil(runBuilderTick(env.APP_DB, assessmentAiRunner(env), { at }).catch(error => console.error('Practice builder failed', error)))
     else if (at.getUTCMinutes() === 40) {
       ctx.waitUntil(env.APP_DB.prepare(`SELECT 1 FROM practice_bank_counts LIMIT 1`).first()
         .then(row => (row ? null : rebuildBankCounts(env.APP_DB))).catch(() => rebuildBankCounts(env.APP_DB).catch(() => null)))

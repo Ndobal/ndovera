@@ -96,3 +96,29 @@ test('offline, a finished quiz waits on the device and says so', async () => {
   expect(await screen.findByText(/Saved on this device/)).toBeTruthy();
   expect(screen.getByText('0 of 2 right')).toBeTruthy();
 });
+
+test('a locked subject sends the student to Passes, where examinations show what is ready and a mock can be started', async () => {
+  const error = Object.assign(new Error('Your free subject this term is another one.'), { status: 402 });
+  api.loadHome.mockResolvedValue({
+    ...HOME, offline: false,
+    subjects: [{ ...HOME.subjects[0], access: 'locked' }],
+    levels: [{ key: 'simple', difficulty: 'simple', exam: '', label: 'Simple' }, { key: 'external:bece', difficulty: 'external', exam: 'bece', label: 'BECE (Junior WAEC)' }],
+    passes: { freeSubject: 'english', freeChangesLeft: 1, allSubjects: false, subjects: [], exams: { bece: '2027-10-01T00:00:00Z' }, jambSubjects: [], list: [{ id: 'p1', bundle: 'bece', label: 'BECE Prep', expiresAt: '2027-10-01T00:00:00Z', subjects: [] }] },
+    bundles: [{ key: 'subject', label: 'Subject Pass', priceNaira: 300, blurb: 'One more subject', exams: [], ready: true, stock: [] }, { key: 'bece', label: 'BECE Prep', priceNaira: 3000, blurb: 'BECE', exams: ['bece'], ready: true, stock: [] }],
+    exams: { bece: { label: 'BECE (Junior WAEC)', mockQuestions: 50, mockMinutes: 60 } },
+  });
+  api.loadPack.mockRejectedValue(error);
+  api.naira.mockImplementation(value => `₦${value}`);
+  api.loadMock.mockResolvedValue({ minutes: 60, label: 'BECE (Junior WAEC)', pack: { subjectKey: 'mathematics', subjectName: 'Mathematics — BECE mock', questions: [PACK.questions[0]] } });
+  render(<PracticeArena />);
+  fireEvent.click(await screen.findByRole('button', { name: /Play/ }));
+  fireEvent.click(screen.getByRole('button', { name: /Start/ }));
+  expect(await screen.findByText(/Your free subject this term is another one/)).toBeTruthy();
+  expect(screen.getByRole('tab', { name: /Passes/ }).getAttribute('aria-selected')).toBe('true');
+  expect(screen.getByText(/BECE Prep · until/)).toBeTruthy();
+  // The held examination offers a timed mock.
+  fireEvent.change(screen.getByLabelText('BECE (Junior WAEC) mock subject'), { target: { value: 'mathematics' } });
+  fireEvent.click(screen.getByRole('button', { name: /Start mock/ }));
+  expect(api.loadMock).toHaveBeenCalledWith('bece', 'mathematics');
+  expect(await screen.findByText('Two plus two is four.')).toBeTruthy();
+});

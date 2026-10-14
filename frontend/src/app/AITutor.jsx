@@ -102,7 +102,7 @@ function AITutor() {
       {
         label: 'Free Requests Remaining',
         value: `${access.usage.remainingFreeRequests}/${access.usage.dailyFreeRequests}`,
-        helper: 'Students get 10 free AI requests a day; staff and parents get 3. After that, AI credits are used.',
+        helper: 'Students get 5 free AI requests a day; staff and parents get 3. After that, AI credits are used.',
       },
       {
         label: 'Current Billing Mode',
@@ -222,7 +222,7 @@ function AITutor() {
         <div className="rounded-[2rem] border border-[#800000]/15 bg-[#b5e3f4] p-6 shadow-[0_22px_48px_rgba(128,0,0,0.10)] dark:border-[#bf00ff]/30 dark:bg-[#800000]/72">
           <h2 className="text-2xl font-semibold text-[#800000] dark:text-[#0000ff]">Billing Rules</h2>
           <p className="mt-2 text-sm leading-6 text-[#191970] dark:text-[#39ff14]">
-            Students receive 10 free AI requests a day and staff and parents 3. After that, AI credits are used — from the user's wallet or the school's, by the active billing model. Credits come in bundles (1 credit = ₦1 of Ndovera AI).
+            Students receive 5 free AI requests a day and staff and parents 3. After that, AI credits are used — from the user's wallet or the school's, by the active billing model. Credits come in bundles (1 credit = ₦1 of Ndovera AI).
           </p>
 
           <div className="mt-5 grid gap-4 md:grid-cols-2">

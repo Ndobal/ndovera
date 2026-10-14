@@ -125,6 +125,11 @@ export function shuffleOptions(question, random = Math.random) {
 
 /** A quiz from a pack, for a mode (or the student's own choice of types, length and timer). */
 export function buildQuiz(pack, modeKey, custom = {}, random = Math.random) {
+  // A mock examination: every question of the pack, in its order (subject by subject), on the examination's clock.
+  if (modeKey === 'mock') {
+    const questions = (pack?.questions || []).filter(question => question.type === 'mcq' || question.type === 'truefalse');
+    return { mode: 'mock', label: custom.label || 'Mock examination', seconds: Math.max(60, Number(custom.minutes || 60) * 60), questions: questions.map(question => shuffleOptions(question, random)) };
+  }
   const mode = MODES.find(item => item.key === modeKey) || MODES[0];
   const types = mode.key === 'custom' ? (custom.types?.length ? custom.types : Object.keys(TYPE_LABELS)) : mode.types;
   const count = mode.key === 'custom' ? Math.max(5, Math.min(50, Number(custom.count) || 15)) : mode.count;

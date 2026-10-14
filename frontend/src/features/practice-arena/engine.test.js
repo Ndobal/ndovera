@@ -58,3 +58,15 @@ test('XP and levels match the server rules', () => {
   expect(levelForXp(299).level).toBe(2);
   expect(levelForXp(300).level).toBe(3);
 });
+
+test('a mock keeps every objective question in order, on the examination clock', () => {
+  const pack = { questions: [
+    { id: 'e1', type: 'mcq', prompt: 'English 1', options: ['a', 'b'], correctIndex: 0 },
+    { id: 'm1', type: 'mcq', prompt: 'Maths 1', options: ['a', 'b'], correctIndex: 1 },
+    { id: 'x', type: 'essay', prompt: 'Essay', modelAnswer: 'x' },
+  ] };
+  const quiz = buildQuiz(pack, 'mock', { minutes: 120, label: 'JAMB UTME mock' }, () => 0.5);
+  expect(quiz.mode).toBe('mock');
+  expect(quiz.seconds).toBe(7200);
+  expect(quiz.questions.map(question => question.id)).toEqual(['e1', 'm1']);
+});

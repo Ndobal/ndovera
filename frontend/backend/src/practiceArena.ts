@@ -38,6 +38,10 @@ const PRACTICE_COLUMNS: Array<[string, string]> = [
   ['answer_source', 'answer_source TEXT'], ['origin_type', 'origin_type TEXT'], ['origin_id', 'origin_id TEXT'], ['playable', 'playable INTEGER'],
   // simple | intermediate | external (blank: not graded, counted as simple or intermediate).
   ['difficulty', 'difficulty TEXT'],
+  // External questions: which examination's standard (waec, neco, jamb, bece, common_entrance).
+  ['exam', 'exam TEXT'],
+  // Ndovera's check (practiceBuilder.ts): ok | upgraded | rejected; blank until checked.
+  ['quality', 'quality TEXT'], ['quality_checked_at', 'quality_checked_at TEXT'],
 ]
 
 export const DIFFICULTY_LEVELS = ['simple', 'intermediate', 'external'] as const
@@ -65,6 +69,8 @@ export async function ensurePracticeTables(db: D1Database) {
     // Rows in rowid order within a subject and section: a pack starts at a random point and
     // reads only as many rows as it needs, however large the shared bank grows.
     `CREATE INDEX IF NOT EXISTS idx_question_bank_sample ON question_bank(subject_key, section, playable)`,
+    // The nightly check finds unchecked questions (exam ones first) without scanning the bank.
+    `CREATE INDEX IF NOT EXISTS idx_question_bank_review ON question_bank(quality, exam, playable)`,
     // How many questions each subject has per section, level and difficulty (see practiceBank.ts).
     `CREATE TABLE IF NOT EXISTS practice_bank_counts (
       subject_key TEXT NOT NULL, section TEXT NOT NULL, level_rank INTEGER NOT NULL, difficulty TEXT NOT NULL, total INTEGER NOT NULL DEFAULT 0, updated_at TEXT,
@@ -138,6 +144,7 @@ export type BankInput = {
   subject?: string, subjectId?: string, classId?: string, classLevel?: string, section?: string, rank?: number | null, topic?: string,
   originType: string, originId: string, releaseAt?: string | null, answerSource?: string, createdBy?: string, status?: string,
   difficulty?: string,
+  exam?: string,
   /** The subject's practice key when already known (Ndovera AI questions use the subject's canonical key). */
   subjectKey?: string,
   /** Exam papers: the release date follows the exam (it can move later), for the copy that came from this paper. */
@@ -203,7 +210,7 @@ export async function upsertBankQuestions(db: D1Database, inputs: BankInput[]) {
     const subjectName = String(input.subject || '').trim()
     rows.push({
       tenantId: input.tenantId || GLOBAL_TENANT, type, prompt: prompt.slice(0, 6000), options, answer, explanation, playable,
-      hash: await hashOf(type, prompt, options), subjectName, subjectKey: input.subjectKey || subjectKeyOf(subjectName), difficulty: normalizeDifficulty(input.difficulty) || null, subjectId: input.subjectId || '', classId: input.classId || '',
+      hash: await hashOf(type, prompt, options), subjectName, subjectKey: input.subjectKey || subjectKeyOf(subjectName), difficulty: normalizeDifficulty(input.difficulty) || null, exam: String(input.exam || '').slice(0, 30) || null, subjectId: input.subjectId || '', classId: input.classId || '',
       classLevel: input.classLevel || (level ? labelOfRank(level.rank) : ''), section, rank: level?.rank ?? null, topic: String(input.topic || '').slice(0, 200),
       releaseAt: input.releaseAt || null, originType: input.originType, originId: input.originId, exactRelease: Boolean(input.exactRelease),
       answerSource: playable ? (input.answerSource || 'teacher') : (type === 'crossmatching' ? 'none' : 'pending'),
@@ -238,12 +245,12 @@ export async function upsertBankQuestions(db: D1Database, inputs: BankInput[]) {
           if (row.playable) nowPlayable.push(row)
           statements.push(db.prepare(`INSERT OR IGNORE INTO question_bank (id, tenant_id, subject, class_level, class_id, subject_id, topic, type, prompt, normalized_prompt, question_hash,
             options_json, answer_json, explanation, image_url, score, status, source, created_by, metadata_json, created_at, updated_at,
-            section, level_rank, subject_key, release_at, answer_source, origin_type, origin_id, playable, difficulty)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`).bind(
+            section, level_rank, subject_key, release_at, answer_source, origin_type, origin_id, playable, difficulty, exam)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`).bind(
             `qb_${crypto.randomUUID().replace(/-/g, '').slice(0, 20)}`, tenantId, row.subjectName, row.classLevel, row.classId, row.subjectId, row.topic, row.type,
             row.prompt, normalizeText(row.prompt), row.hash, JSON.stringify(row.options), JSON.stringify(row.answer), row.explanation, row.imageUrl,
             row.status, `harvest:${row.originType}`, row.createdBy, JSON.stringify(row.metadata), stamp, stamp,
-            row.section || null, row.rank, row.subjectKey || null, row.releaseAt, row.answerSource, row.originType, row.originId, row.playable ? 1 : 0, row.difficulty,
+            row.section || null, row.rank, row.subjectKey || null, row.releaseAt, row.answerSource, row.originType, row.originId, row.playable ? 1 : 0, row.difficulty, row.exam,
           ))
           continue
         }
@@ -305,11 +312,14 @@ export async function practiceStudent(db: D1Database, input: { tenantId: string,
   }
 }
 
-/** Questions of a difficulty: ungraded ones count as simple or intermediate, never as external. */
-function difficultyClause(difficulty: Difficulty | '') {
-  if (difficulty === 'external') return ` AND q.difficulty = 'external'`
-  if (difficulty) return ` AND (q.difficulty IS NULL OR q.difficulty = '' OR q.difficulty = '${difficulty}')`
-  return ''
+/**
+ * Questions of a difficulty: ungraded ones count as simple or intermediate, never as external.
+ * External questions are of the chosen examination's standard and have passed Ndovera's check.
+ */
+function difficultyClause(difficulty: Difficulty | '', exam = '') {
+  if (difficulty === 'external') return { sql: ` AND q.difficulty = 'external' AND q.exam = ? AND q.quality IN ('ok', 'upgraded')`, params: [exam] }
+  if (difficulty) return { sql: ` AND (q.difficulty IS NULL OR q.difficulty = '' OR q.difficulty = ?) AND COALESCE(q.quality, '') != 'rejected'`, params: [difficulty] }
+  return { sql: ` AND COALESCE(q.quality, '') != 'rejected'`, params: [] as string[] }
 }
 
 /**
@@ -317,13 +327,16 @@ function difficultyClause(difficulty: Difficulty | '') {
  * own), released, playable — from every school. A class Ndovera cannot place on the
  * ladder practises its own school's questions for that class.
  */
-function ladder(student: PracticeStudent, difficulty: Difficulty | '' = '') {
+function ladder(student: PracticeStudent, difficulty: Difficulty | '' = '', exam = '') {
   const released = `(q.release_at IS NULL OR q.release_at = '' OR q.release_at <= ?)`
-  const base = `q.playable = 1 AND COALESCE(q.status, 'approved') = 'approved' AND ${released}${difficultyClause(difficulty)}`
+  const level = difficultyClause(difficulty, exam)
+  const base = `q.playable = 1 AND COALESCE(q.status, 'approved') = 'approved' AND ${released}${level.sql}`
+  // Examination practice covers the whole section (a JSS 1 student preparing for BECE sees it all).
+  if (student.section && difficulty === 'external') return { where: `${base} AND q.section = ?`, params: [now(), ...level.params, student.section] }
   if (student.section && student.rank !== null) {
-    return { where: `${base} AND q.section = ? AND (q.level_rank IS NULL OR q.level_rank <= ?)`, params: [now(), student.section, student.rank] }
+    return { where: `${base} AND q.section = ? AND (q.level_rank IS NULL OR q.level_rank <= ?)`, params: [now(), ...level.params, student.section, student.rank] }
   }
-  return { where: `${base} AND q.tenant_id = ? AND q.class_id = ?`, params: [now(), student.tenantId, student.classId] }
+  return { where: `${base} AND q.tenant_id = ? AND q.class_id = ?`, params: [now(), ...level.params, student.tenantId, student.classId] }
 }
 
 /**
@@ -331,8 +344,8 @@ function ladder(student: PracticeStudent, difficulty: Difficulty | '' = '') {
  * bank and wrapping round: reads about as many rows as it returns, not the whole
  * subject. Without a section (a class off the ladder), the school's own questions.
  */
-async function sampleQuestions(db: D1Database, student: PracticeStudent, keys: string[], difficulty: Difficulty | '', limit: number) {
-  const { where, params } = ladder(student, difficulty)
+async function sampleQuestions(db: D1Database, student: PracticeStudent, keys: string[], difficulty: Difficulty | '', limit: number, exam = '') {
+  const { where, params } = ladder(student, difficulty, exam)
   const out: Record<string, any>[] = []
   for (const key of keys) {
     if (out.length >= limit) break
@@ -415,14 +428,15 @@ export function toPlayable(row: Record<string, any>) {
  * A pack of questions for one subject: mostly ones the student has not mastered,
  * mixed across their levels, own level favoured. Answers are included.
  */
-export async function buildPack(db: D1Database, student: PracticeStudent, subjectKey: string, size = PACK_SIZE, options: { keys?: string[], difficulty?: string, subjectName?: string } = {}) {
+export async function buildPack(db: D1Database, student: PracticeStudent, subjectKey: string, size = PACK_SIZE, options: { keys?: string[], difficulty?: string, subjectName?: string, exam?: string } = {}) {
   await ensurePracticeTables(db)
   if (!subjectKey) throw new PracticeError('Choose a subject to practise.')
   const difficulty = normalizeDifficulty(options.difficulty)
+  const exam = difficulty === 'external' ? String(options.exam || '') : ''
   const keys = Array.from(new Set([subjectKey, ...(options.keys || [])]))
-  const candidates = await sampleQuestions(db, student, keys, difficulty, 300)
+  const candidates = await sampleQuestions(db, student, keys, difficulty, 300, exam)
   if (!candidates.length) {
-    return { id: `pack_${subjectKey}_${Date.now()}`, subjectKey, subjectName: options.subjectName || subjectKey, difficulty, generatedAt: now(), level: student.rank !== null ? labelOfRank(student.rank) : '', questions: [] }
+    return { id: `pack_${subjectKey}_${Date.now()}`, subjectKey, subjectName: options.subjectName || subjectKey, difficulty, exam, generatedAt: now(), level: student.rank !== null ? labelOfRank(student.rank) : '', questions: [] }
   }
   const stats = new Map<string, Record<string, any>>()
   const ids = candidates.map(row => String(row.id))
@@ -445,7 +459,7 @@ export async function buildPack(db: D1Database, student: PracticeStudent, subjec
     if (questions.length >= size) break
   }
   return {
-    id: `pack_${subjectKey}_${Date.now()}`, subjectKey, subjectName: options.subjectName || String(candidates[0].subject || subjectKey), difficulty, generatedAt: now(),
+    id: `pack_${subjectKey}_${Date.now()}`, subjectKey, subjectName: options.subjectName || String(candidates[0].subject || subjectKey), difficulty, exam, generatedAt: now(),
     level: student.rank !== null ? labelOfRank(student.rank) : '', questions,
   }
 }
@@ -574,7 +588,7 @@ export type AttemptInput = {
   answers: Array<{ questionId: string, response?: unknown, selfRating?: string, timeMs?: number }>,
 }
 
-export const MODES = ['quick', 'blitz', 'exam', 'mistakes', 'truefalse', 'custom'] as const
+export const MODES = ['quick', 'blitz', 'exam', 'mistakes', 'truefalse', 'custom', 'mock'] as const
 
 /**
  * Record a finished quiz (sent live, or later from the offline outbox). Marked
@@ -589,7 +603,8 @@ export async function recordAttempt(db: D1Database, student: PracticeStudent, in
     if (existing.student_id !== student.studentId) throw new PracticeError('Attempt not found.', 404)
     return { attempt: attemptView(existing), profile: await getProfile(db, student.studentId), newBadges: [], levelUp: null, duplicate: true }
   }
-  const answers = (Array.isArray(input.answers) ? input.answers : []).slice(0, 120)
+  // Up to 200: a full JAMB mock is 180 questions.
+  const answers = (Array.isArray(input.answers) ? input.answers : []).slice(0, 200)
   if (!answers.length) throw new PracticeError('Answer at least one question.')
   const ids = Array.from(new Set(answers.map(answer => String(answer.questionId || '')).filter(Boolean)))
   const rows = new Map<string, Record<string, any>>()

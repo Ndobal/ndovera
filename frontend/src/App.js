@@ -11,6 +11,7 @@ import ParentNotifications from './features/communications/ParentNotifications';
 import TeacherNotifications from './features/communications/TeacherNotifications';
 import BirthdaysPage from './features/birthdays/BirthdaysPage';
 import ClubsPage from './features/clubs/ClubsPage';
+import PracticePassesPage from './features/practice-arena/PracticePassesPage';
 import ExamReadinessPage from './features/material-ai/ExamReadinessPage';
 import OfflineNotesPage from './features/offline-notes/OfflineNotesPage';
 import StaffFilePage from './features/staff-file/StaffFilePage';
@@ -253,6 +254,8 @@ function AnimatedRoutes({ auth, onLogin }) {
         <Route path="/championships/:slug" element={<PublicChampionshipDetailPage />} />
         <Route path="/roles/:role/birthdays" element={<RequireAuth auth={auth}><RouteTransition><BirthdaysPage /></RouteTransition></RequireAuth>} />
         <Route path="/roles/:role/clubs" element={<RequireAuth auth={auth}><RouteTransition><ClubsPage /></RouteTransition></RequireAuth>} />
+        <Route path="/roles/parent/practice-passes" element={<RoleGuard auth={auth} expectedRole="parent"><RouteTransition><PracticePassesPage mode="parent" /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/:role/practice-passes" element={<RequireAuth auth={auth}><RouteTransition><PracticePassesPage mode="school" /></RouteTransition></RequireAuth>} />
         <Route path="/roles/:role/championships" element={<RequireAuth auth={auth}><RouteTransition><ChampionshipCentre /></RouteTransition></RequireAuth>} />
         <Route path="/login" element={auth?.token ? <Navigate to={defaultAppRoute} replace /> : <LoginPage onLogin={onLogin} />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
