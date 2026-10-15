@@ -6455,7 +6455,7 @@ app.post('/api/tenants/register', async (c) => {
       success: true,
       tenant,
       quote,
-      nextStep: 'Log in as the school owner to complete payment and await Ami approval.',
+      nextStep: 'Log in as the school owner to complete payment and await approval from our Sales team.',
     }, 201)
   } catch (error) {
     return c.json({ error: error instanceof Error ? error.message : 'Unable to register school.' }, (error as any)?.status || 500)
@@ -6831,7 +6831,7 @@ app.post('/api/tenants/payments/verify-public', async (c) => {
       quote: verification.quote,
       verified: verification.verified,
       nextStep: verification.verified
-        ? 'Payment verified. The school now awaits Ami approval before activation.'
+        ? 'Payment verified. The school now awaits approval from our Sales team before activation.'
         : 'Payment has not been confirmed yet.',
     })
   } catch (error) {
@@ -19866,25 +19866,25 @@ const PLATFORM_SITE_SECTION_SEEDS = [
   },
   {
     sectionKey: 'pricing',
-    title: 'Simple pricing for schools that want a strong start with NDOVERA.',
-    content: 'Choose a standard rollout or a custom launch. Pay the onboarding fee now, then move to live-user billing from the next term based on active users in your school.',
+    title: 'Clear, per-student pricing for every school.',
+    content: 'One onboarding fee to launch, then a simple charge per active student each term. Staff, teachers and parents are always free.',
     imageUrl: '/site-media/ndovera-partner-network.svg',
     metadata: {
       eyebrow: 'Pricing',
       buttonLabel: 'Register A School',
       buttonUrl: '/register-school',
-      secondaryButtonLabel: 'Talk To Growth Team',
-      secondaryButtonUrl: '/growth-partners',
+      secondaryButtonLabel: 'Contact Sales',
+      secondaryButtonUrl: '/contact',
       spotlightEyebrow: 'Clear Billing',
-      spotlightTitle: 'Only the onboarding fee is paid now. Live-user billing starts later.',
-      spotlightDescription: 'NDOVERA keeps the first payment simple, then moves to term billing based on actual active users instead of rough guesses.',
+      spotlightTitle: 'Pay once to launch, then per student, per term.',
+      spotlightDescription: 'You are billed only for active students. Every invoice comes with a secure pay link and an emailed receipt.',
       mediaEyebrow: 'How Billing Works',
-      mediaTitle: 'Growth gives schools a standard launch. Custom supports schools that need extra rollout planning.',
-      mediaDescription: 'The pricing page helps owners understand what is paid now, what starts next term, and where custom rollout support fits in.',
+      mediaTitle: 'Growth for most schools. Custom for groups and special requirements.',
+      mediaDescription: 'Growth is ready to launch today. Custom rollouts are planned and priced with our Sales team.',
       cards: [
-        { title: 'Pay Onboarding First', description: 'Reserve your school domain, create the owner account, and pay the onboarding fee before launch work begins.' },
-        { title: 'Move To Live-User Billing', description: 'From the next term, NDOVERA bills by active users so schools can scale with clearer cost control.' },
-        { title: 'Choose Growth Or Custom', description: 'Pick a standard NDOVERA launch or a custom rollout that Ami reviews before final approval.' },
+        { title: 'Launch With One Onboarding Fee', description: 'A single onboarding fee sets up your school, reserves your web address and opens your dashboards.' },
+        { title: 'Then Pay Per Student, Per Term', description: 'Each term is billed on the students active in your school. Staff, teachers and parents are free.' },
+        { title: 'Choose Growth Or Talk To Sales', description: 'Register on Growth in minutes, or contact our Sales team for a Custom rollout for groups and larger schools.' },
       ],
       mediaUrls: [
         '/site-media/ndovera-home-hero.svg',

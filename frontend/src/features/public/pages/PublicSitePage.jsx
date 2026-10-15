@@ -1193,19 +1193,19 @@ function PriceBlock({ label, amount, standardAmount, note, manualPricing }) {
   const isDiscounted = typeof standardAmount === 'number' && standardAmount > amount;
 
   return (
-    <div className="rounded-[1.5rem] border border-[#c9a96e]/35 bg-white/70 p-4">
-      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#800020]">{label}</p>
+    <div className="rounded-2xl border border-[#c9a96e]/35 bg-white/70 px-3 py-2.5">
+      <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#800020]">{label}</p>
       {manualPricing ? (
-        <p className="mt-3 text-2xl font-black leading-tight text-[#191970]">Custom</p>
+        <p className="mt-1 text-lg font-black leading-tight text-[#191970]">Custom</p>
       ) : (
-        <div className="mt-3 flex flex-wrap items-baseline gap-2">
-          <p className="text-2xl font-black leading-tight text-[#191970]">{currencyFormatter.format(amount || 0)}</p>
+        <div className="mt-1 flex flex-wrap items-baseline gap-2">
+          <p className="text-xl font-black leading-tight text-[#191970]">{currencyFormatter.format(amount || 0)}</p>
           {isDiscounted ? (
             <p className="text-sm font-semibold text-[#800020] line-through decoration-[#800020]/50">{currencyFormatter.format(standardAmount)}</p>
           ) : null}
         </div>
       )}
-      {note ? <p className="mt-2 text-xs font-semibold text-[#31416f]/75">{note}</p> : null}
+      {note ? <p className="mt-0.5 text-[11px] font-semibold text-[#31416f]/75">{note}</p> : null}
     </div>
   );
 }
@@ -1392,7 +1392,7 @@ function PricingPageBody({ section, pricing, pricingError, isPricingLoading, dis
         </Reveal>
       ) : null}
 
-      <section className="grid gap-4 xl:grid-cols-2">
+      <section className="grid gap-4 lg:grid-cols-2">
         {plans.map((plan, index) => {
           const quote = quoteFor(plan);
           const isRecommended = Boolean(plan.recommended);
@@ -1401,16 +1401,16 @@ function PricingPageBody({ section, pricing, pricingError, isPricingLoading, dis
             <Reveal
               key={plan.key}
               as="article"
-              className={`relative flex flex-col rounded-[2rem] border p-6 shadow-[0_18px_40px_rgba(25,25,112,0.08)] transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_28px_54px_rgba(25,25,112,0.16)] ${
+              className={`relative flex flex-col rounded-3xl border p-5 shadow-[0_12px_28px_rgba(25,25,112,0.08)] transition duration-200 hover:shadow-[0_18px_40px_rgba(25,25,112,0.14)] ${
                 isRecommended ? 'border-[#c9a96e] bg-[#fff8ef] ring-1 ring-[#c9a96e]/40' : 'border-[#1a5c38]/35 bg-[#f1f8f1]'
               }`}
               delay={(index % 4) + 1}
             >
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#800020]">{plan.label}</p>
-                  <h3 className="mt-3 text-2xl font-black tracking-tight text-[#191970]">{plan.tagline || plan.label}</h3>
-                  <p className="mt-3 text-sm leading-7 text-[#31416f]">{plan.description}</p>
+                  <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#800020]">{plan.label}</p>
+                  <h3 className="mt-1 text-xl font-black tracking-tight text-[#191970]">{plan.tagline || plan.label}</h3>
+                  <p className="mt-1 text-sm leading-6 text-[#31416f]">{plan.description}</p>
                 </div>
                 {plan.badge ? (
                   <span className="flex-none rounded-full border border-[#1a5c38]/25 bg-[#1a5c38] px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-[#b5e3f4]">
@@ -1424,13 +1424,18 @@ function PricingPageBody({ section, pricing, pricingError, isPricingLoading, dis
               </div>
 
               {plan.manualPricing ? (
-                <div className="mt-6 rounded-[1.5rem] border border-[#c9a96e]/35 bg-white/70 p-4">
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#800020]">Pricing</p>
-                  <p className="mt-3 text-2xl font-black leading-tight text-[#191970]">Tailored to your school</p>
-                  <p className="mt-2 text-xs font-semibold text-[#31416f]/75">Agreed with our Sales team</p>
+                <div className="mt-4 grid gap-2 sm:grid-cols-2">
+                  <div className="rounded-2xl border border-[#c9a96e]/35 bg-white/70 px-3 py-2.5">
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#800020]">{pricingConfig?.onboardingLabel || 'One-time onboarding'}</p>
+                    <p className="mt-1 text-lg font-black leading-tight text-[#191970]">Set by our Sales team</p>
+                  </div>
+                  <div className="rounded-2xl border border-[#c9a96e]/35 bg-white/70 px-3 py-2.5">
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#800020]">Per student / {billingPeriod}</p>
+                    <p className="mt-1 text-lg font-black leading-tight text-[#191970]">Set by our Sales team</p>
+                  </div>
                 </div>
               ) : (
-              <div className="mt-6 grid gap-3 sm:grid-cols-2">
+              <div className="mt-4 grid gap-2 sm:grid-cols-2">
                 <PriceBlock
                   label={pricingConfig?.onboardingLabel || 'One-time onboarding'}
                   amount={quote.setupFee}
@@ -1447,19 +1452,19 @@ function PricingPageBody({ section, pricing, pricingError, isPricingLoading, dis
               </div>
               )}
 
-              <div className="mt-6 space-y-2">
+              <ul className="mt-4 grid gap-x-4 gap-y-1 text-[13px] leading-5 text-[#31416f] sm:grid-cols-2">
                 {(Array.isArray(plan.features) ? plan.features : []).map(feature => (
-                  <div key={feature} className="flex items-start gap-3 rounded-[1.25rem] border border-[#c9a96e]/25 bg-white/60 px-4 py-3 text-sm leading-6 text-[#31416f]">
-                    <span className="mt-1 flex-none font-black text-[#1a5c38]">✓</span>
+                  <li key={feature} className="flex items-start gap-2">
+                    <span className="flex-none font-black text-[#1a5c38]">✓</span>
                     <span>{feature}</span>
-                  </div>
+                  </li>
                 ))}
-              </div>
+              </ul>
 
-              <div className="mt-6 flex flex-wrap gap-3 pt-2">
+              <div className="mt-auto flex flex-wrap gap-3 pt-4">
                 <ActionLink
                   to={plan.ctaUrl || '/register-school'}
-                  className={`rounded-full px-6 py-3 text-sm font-semibold transition ${
+                  className={`rounded-full px-5 py-2.5 text-sm font-semibold transition ${
                     isRecommended
                       ? 'bg-[#800020] text-[#b5e3f4] hover:bg-[#670019]'
                       : 'border border-[#1a5c38]/40 bg-white/70 text-[#191970] hover:border-[#1a5c38] hover:text-[#1a5c38]'
@@ -1551,32 +1556,20 @@ function PricingPageBody({ section, pricing, pricingError, isPricingLoading, dis
                   <th scope="row" className="py-3 pr-4 font-semibold">Onboarding fee</th>
                   {plans.map(plan => (
                     <td key={plan.key} className="py-3 pr-4 font-bold text-[#191970]">
-                      {plan.manualPricing ? 'Contact Sales' : currencyFormatter.format(quoteFor(plan).setupFee)}
+                      {plan.manualPricing ? 'Set by our Sales team' : currencyFormatter.format(quoteFor(plan).setupFee)}
                     </td>
                   ))}
                 </tr>
                 <tr className="border-b border-[#c9a96e]/20">
                   <th scope="row" className="py-3 pr-4 font-semibold">Per student / {billingPeriod}</th>
                   {plans.map(plan => (
-                    <td key={plan.key} className="py-3 pr-4 font-bold text-[#191970]">{plan.manualPricing ? 'Contact Sales' : currencyFormatter.format(quoteFor(plan).userFeePerTerm)}</td>
+                    <td key={plan.key} className="py-3 pr-4 font-bold text-[#191970]">{plan.manualPricing ? 'Set by our Sales team' : currencyFormatter.format(quoteFor(plan).userFeePerTerm)}</td>
                   ))}
                 </tr>
                 <tr className="border-b border-[#c9a96e]/20">
                   <th scope="row" className="py-3 pr-4 font-semibold">How to start</th>
                   {plans.map(plan => (
                     <td key={plan.key} className="py-3 pr-4">{plan.manualPricing ? 'Contact our Sales team' : 'Register online in minutes'}</td>
-                  ))}
-                </tr>
-                <tr>
-                  <th scope="row" className="py-3 pr-4 align-top font-semibold">What is included</th>
-                  {plans.map(plan => (
-                    <td key={plan.key} className="py-3 pr-4 align-top">
-                      <ul className="space-y-1">
-                        {(Array.isArray(plan.features) ? plan.features : []).map(feature => (
-                          <li key={feature} className="flex gap-2"><span className="font-black text-[#1a5c38]">✓</span><span>{feature}</span></li>
-                        ))}
-                      </ul>
-                    </td>
                   ))}
                 </tr>
               </tbody>
@@ -1711,7 +1704,7 @@ function EventsPageBody({ section }) {
         section={section}
         eyebrow="Event Media"
         title="Event photos, short videos, and YouTube recaps stay inside the website."
-        description="AMI can upload event pictures to R2 and add YouTube clips so visitors can browse public moments without leaving ndovera.com."
+        description="Photos and YouTube clips from NDOVERA events, all on ndovera.com."
       />
     </div>
   );

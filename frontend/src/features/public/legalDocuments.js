@@ -217,7 +217,7 @@ assignments, timetabling, fees, payroll, admissions, messaging, library and medi
 - The school creates accounts for its staff, students and parents.
 - You must keep your password confidential and are responsible for activity under your
   account. Tell us immediately if you think it has been compromised.
-- NDOVERA support (the Ami role) may access a school's workspace to provide support,
+- NDOVERA support and Sales staff may access a school's workspace to provide support,
   investigate a fault, or meet a legal obligation. Support sessions are recorded in the
   school's audit trail.
 
@@ -371,7 +371,7 @@ Transactional email is delivered through **Zoho Mail**. Payments and payouts run
 Every school is a separate tenant. Every API request is checked against the signed-in
 account's school and role before any record is returned. A teacher in one school cannot
 reach another school's records, and a parent sees only the students they are linked to.
-Platform-level roles - NDOVERA support (Ami) and growth partners - do not belong to a
+Platform-level roles - NDOVERA support and Sales staff, and growth partners - do not belong to a
 school and are handled separately.
 
 ## Who can see what
@@ -384,7 +384,7 @@ school and are handled separately.
 - **Operational staff** see only the module they run, such as library, clinic or transport.
 - **Growth partners** see their own referrals, earnings and payouts. They never see
   student, staff or academic records.
-- **NDOVERA support (Ami)** can access a school workspace to provide support or meet a
+- **NDOVERA support and Sales staff** can access a school workspace to provide support or meet a
   legal obligation. Those sessions are recorded in the school's audit trail.
 
 ## How long we keep things

@@ -263,7 +263,7 @@ export default function SchoolRegistrationPage() {
           <p className="text-xs font-semibold uppercase tracking-[0.28em] text-emerald-700">Onboarding Payment Confirmed</p>
           <h1 className="mt-4 text-4xl font-black tracking-tight text-slate-950">Your School Payment Has Been Received</h1>
           <p className="mt-4 text-base leading-7 text-slate-600">
-            {paymentResult?.tenant?.schoolName} has been created successfully. The owner account is ready, the onboarding fee has been paid, and the school is now waiting for Ami approval before the dashboard and website become active.
+            {paymentResult?.tenant?.schoolName} has been created successfully. The owner account is ready, the onboarding fee has been paid, and the school is now waiting for approval from our Sales team before the dashboard and website become active.
           </p>
 
           <div className="mt-8 grid gap-4 md:grid-cols-2">
@@ -281,7 +281,7 @@ export default function SchoolRegistrationPage() {
             </div>
             <div className="rounded-3xl border border-slate-200 bg-slate-50 p-5">
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Status</p>
-              <p className="mt-3 text-lg font-semibold text-emerald-700">Awaiting Ami Approval</p>
+              <p className="mt-3 text-lg font-semibold text-emerald-700">Awaiting Sales Approval</p>
             </div>
           </div>
 
@@ -484,8 +484,8 @@ export default function SchoolRegistrationPage() {
                   <p className="mt-2">Choose Growth or Custom, apply any discount code, and continue to Flutterwave.</p>
                 </div>
                 <div className="rounded-3xl border border-slate-200 bg-slate-50 p-4">
-                  <p className="font-semibold text-slate-900">3. Wait for Ami approval</p>
-                  <p className="mt-2">The dashboard and website unlock after the onboarding fee is paid and Ami approves the tenant.</p>
+                  <p className="font-semibold text-slate-900">3. Wait for approval from our Sales team</p>
+                  <p className="mt-2">The dashboard and website unlock after the onboarding fee is paid and our Sales team approves the school.</p>
                 </div>
               </div>
             </section>
