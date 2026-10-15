@@ -134,3 +134,53 @@ test('Study with Ndovera AI carries the topic and the teacher notes, marked as t
   // A student cannot point the AI at another class's topic.
   assert.equal((await call(db, 'outsider', 'POST', '/api/ai/tutor/ask', { prompt: 'hi', topicContext: { classId: 'jss1a', topicId: topic.id } }, env)).status, 404)
 })
+
+test('a teacher imports the term topics from the Ndovera curriculum as drafts, edits, then publishes them', async () => {
+  const db = await setup()
+  db.db.exec(`
+    CREATE TABLE curricula (id TEXT PRIMARY KEY, tenant_id TEXT NOT NULL DEFAULT '', name TEXT NOT NULL, country TEXT, system TEXT, version TEXT,
+      source TEXT, notes TEXT, status TEXT NOT NULL DEFAULT 'draft', created_by TEXT, created_at TEXT, updated_at TEXT, published_at TEXT);
+    CREATE TABLE curriculum_topics (id TEXT PRIMARY KEY, curriculum_id TEXT NOT NULL, class_key TEXT, class_label TEXT, class_order INTEGER DEFAULT 0, section TEXT,
+      subject_key TEXT, subject TEXT, theme TEXT, topic TEXT NOT NULL, subtopics TEXT, objectives TEXT, competencies TEXT, keywords TEXT,
+      term TEXT, week TEXT, position INTEGER DEFAULT 0, created_at TEXT, updated_at TEXT);
+    INSERT INTO curricula (id, tenant_id, name, status) VALUES ('nerdc', '', 'NERDC CURRICULUM', 'published'), ('draftcur', '', 'Unfinished', 'draft');
+    INSERT INTO curriculum_topics (id, curriculum_id, class_key, class_label, class_order, section, subject_key, subject, topic, subtopics, objectives, term, week, position) VALUES
+      ('t1', 'nerdc', 'JSS1', 'JSS 1', 21, 'junior', 'mathematics', 'Mathematics', 'Whole Numbers', '["Place value","Ordering"]', '[]', '1', '1', 1),
+      ('t2', 'nerdc', 'JSS1', 'JSS 1', 21, 'junior', 'mathematics', 'Mathematics', 'LCM', '[]', '["find the LCM of numbers"]', '1', '2', 2),
+      ('t3', 'nerdc', 'JSS1', 'JSS 1', 21, 'junior', 'mathematics', 'Mathematics', 'Simple Equations', '[]', '[]', '3', '1', 3),
+      ('t4', 'nerdc', 'JSS2', 'JSS 2', 22, 'junior', 'mathematics', 'Mathematics', 'Linear Inequalities', '[]', '[]', '1', '1', 4),
+      ('t5', 'nerdc', 'JSS1', 'JSS 1', 21, 'junior', 'english', 'English Language', 'Nouns', '[]', '[]', '1', '1', 5),
+      ('t6', 'draftcur', 'JSS1', 'JSS 1', 21, 'junior', 'mathematics', 'Mathematics', 'Hidden Draft Topic', '[]', '[]', '1', '1', 6);
+  `)
+  await call(db, 'teacher', 'POST', '/api/classrooms/jss1a/topics', { subjectId: 'math', name: 'LCM' })
+
+  const list = await call(db, 'teacher', 'GET', '/api/classrooms/jss1a/topics/curriculum?subjectId=math')
+  assert.equal(list.status, 200, JSON.stringify(list.body))
+  assert.equal(list.body.level, 'JSS 1')
+  assert.deepEqual(list.body.topics.map(topic => [topic.topic, topic.term, topic.added]), [['Whole Numbers', '1', false], ['LCM', '1', true], ['Simple Equations', '3', false]])
+
+  // Another teacher's subject, a student and another school cannot use it.
+  assert.equal((await call(db, 'other', 'GET', '/api/classrooms/jss1a/topics/curriculum?subjectId=math')).status, 403)
+  assert.equal((await call(db, 'student', 'POST', '/api/classrooms/jss1a/topics/import-curriculum', { subjectId: 'math', curriculumTopicIds: ['t1'] })).status, 403)
+
+  // Rows of another level, subject or an unpublished curriculum are ignored; an existing name is skipped.
+  const imported = await call(db, 'teacher', 'POST', '/api/classrooms/jss1a/topics/import-curriculum', { subjectId: 'math', curriculumTopicIds: ['t1', 't2', 't4', 't5', 't6'] })
+  assert.equal(imported.status, 200, JSON.stringify(imported.body))
+  assert.equal(imported.body.added, 1)
+  assert.deepEqual(imported.body.skipped, ['LCM'])
+
+  const teacherView = (await call(db, 'teacher', 'GET', '/api/classrooms/jss1a/topics?subjectId=math')).body.topics
+  const whole = teacherView.find(topic => topic.name === 'Whole Numbers')
+  assert.deepEqual([whole.status, whole.week, whole.description], ['draft', 'Week 1', 'Place value; Ordering'])
+  assert.deepEqual((await call(db, 'student', 'GET', '/api/classrooms/jss1a/topics?subjectId=math')).body.topics.map(topic => topic.name), ['LCM'])
+
+  // The teacher edits a draft and adds their own, then publishes the lot.
+  assert.equal((await call(db, 'teacher', 'PUT', `/api/classrooms/jss1a/topics/${whole.id}`, { name: 'Whole Numbers and Place Value' })).status, 200)
+  await call(db, 'teacher', 'POST', '/api/classrooms/jss1a/topics', { subjectId: 'math', name: 'Number Puzzles', status: 'draft' })
+  const published = await call(db, 'teacher', 'POST', '/api/classrooms/jss1a/topics/publish-drafts', { subjectId: 'math' })
+  assert.equal(published.body.published, 2)
+  const studentView = (await call(db, 'student', 'GET', '/api/classrooms/jss1a/topics?subjectId=math')).body.topics.map(topic => topic.name).sort()
+  assert.deepEqual(studentView, ['LCM', 'Number Puzzles', 'Whole Numbers and Place Value'])
+  const audit = await db.prepare("SELECT action FROM topic_audit WHERE topic_id = ?").bind(whole.id).all()
+  assert.ok(audit.results.some(row => row.action === 'imported'))
+})

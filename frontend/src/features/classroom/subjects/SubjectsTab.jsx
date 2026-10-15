@@ -1,8 +1,8 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import TopicHub from '../topics/TopicHub';
-import { RemoveTopicDialog, TopicEditorDialog } from '../topics/TopicDialogs';
-import { addTopic, deleteTopic, deleteAssignment, deleteMaterial, getAssignments, getMaterials, getSubjectMembers, getTopics, removeStudentFromSubject, restoreStudentToSubject, reorderTopics } from '../classroomService';
+import { CurriculumImportDialog, RemoveTopicDialog, TopicEditorDialog } from '../topics/TopicDialogs';
+import { addTopic, deleteTopic, deleteAssignment, deleteMaterial, getAssignments, getMaterials, getSubjectMembers, getTopics, publishDraftTopics, removeStudentFromSubject, restoreStudentToSubject, reorderTopics } from '../classroomService';
 import TeacherAssignmentsPanel from '../TeacherAssignmentsPanel';
 
 const SUBJECT_PALETTES = [
@@ -75,6 +75,8 @@ export default function SubjectsTab({ classId = '', subjects = [], canManage: ca
   const [openTopicId, setOpenTopicId] = useState('');
   const [editingTopic, setEditingTopic] = useState(null);
   const [removingTopic, setRemovingTopic] = useState(null);
+  const [importingTopics, setImportingTopics] = useState(false);
+  const [publishingDrafts, setPublishingDrafts] = useState(false);
 
   // Members
   const [members, setMembers] = useState([]);
@@ -156,6 +158,16 @@ export default function SubjectsTab({ classId = '', subjects = [], canManage: ca
     [ids[idx], ids[swap]] = [ids[swap], ids[idx]];
     setTopics(ids.map(id => topics.find(t => t.id === id)).filter(Boolean));
     try { await reorderTopics(classId, ids); } catch { setTopicMsg('Could not save the new order.'); }
+  }
+
+  // Publish every draft topic of this subject at once (e.g. after importing the term's topics).
+  async function handlePublishDrafts() {
+    setPublishingDrafts(true);
+    setTopicMsg('');
+    const res = await publishDraftTopics(classId, activeSubjectId).catch(err => ({ success: false, message: err.message }));
+    setPublishingDrafts(false);
+    setTopicMsg(res?.success ? `Published ${res.published} topic${res.published === 1 ? '' : 's'}. Students can see them now.` : (res?.message || 'Could not publish the topics.'));
+    reloadTopics();
   }
 
   async function reloadTopics() {
@@ -549,6 +561,23 @@ export default function SubjectsTab({ classId = '', subjects = [], canManage: ca
               >
                 + Add Topic
               </button>
+              <button
+                type="button"
+                onClick={() => setImportingTopics(true)}
+                className="px-4 py-2 rounded-2xl text-sm font-bold bg-[#c9a96e] text-[#191970] transition-transform hover:-translate-y-0.5"
+              >
+                Import from Ndovera curriculum
+              </button>
+              {topics.some(t => t.status === 'draft') && (
+                <button
+                  type="button"
+                  onClick={handlePublishDrafts}
+                  disabled={publishingDrafts}
+                  className="px-4 py-2 rounded-2xl text-sm font-bold bg-[#1a5c38] text-[#b5e3f4] transition-transform hover:-translate-y-0.5 disabled:opacity-60"
+                >
+                  {publishingDrafts ? 'Publishing…' : `Publish ${topics.filter(t => t.status === 'draft').length} draft topic${topics.filter(t => t.status === 'draft').length === 1 ? '' : 's'}`}
+                </button>
+              )}
             </div>
           )}
           {topicMsg && <p className="text-xs px-3 py-1.5 rounded-xl bg-emerald-900/30 text-emerald-300 border border-emerald-500/30">{topicMsg}</p>}
@@ -589,6 +618,15 @@ export default function SubjectsTab({ classId = '', subjects = [], canManage: ca
         </section>
       )}
 
+      {importingTopics && (
+        <CurriculumImportDialog classId={classId} subjectId={activeSubjectId} subjectName={selectedSubject?.name || ''}
+          onClose={() => setImportingTopics(false)}
+          onImported={res => {
+            setImportingTopics(false);
+            setTopicMsg(`Imported ${res.added} topic${res.added === 1 ? '' : 's'} as drafts${res.skipped?.length ? ` (${res.skipped.length} already here)` : ''}. Edit or add to them, then press Publish.`);
+            reloadTopics();
+          }} />
+      )}
       {editingTopic && (
         <TopicEditorDialog classId={classId} topic={editingTopic} onClose={() => setEditingTopic(null)}
           onSaved={() => { setEditingTopic(null); setTopicMsg('Topic saved.'); reloadTopics(); loadAssignments(); }} />

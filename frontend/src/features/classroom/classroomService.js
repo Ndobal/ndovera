@@ -166,6 +166,21 @@ export async function reorderTopics(classId, orderedIds) {
   return readJsonResponse(res);
 }
 
+// The curriculum's topics for this class level and subject, to import as drafts.
+export async function getCurriculumTopicsForSubject(classId, subjectId) {
+  return requestJson(`/api/classrooms/${classId}/topics/curriculum?subjectId=${encodeURIComponent(subjectId)}`, { headers: getAuthHeaders() });
+}
+
+export async function importCurriculumTopics(classId, subjectId, curriculumTopicIds) {
+  const res = await apiFetch(`/api/classrooms/${classId}/topics/import-curriculum`, { method: 'POST', headers: getAuthHeaders(), body: JSON.stringify({ subjectId, curriculumTopicIds }) });
+  return readJsonResponse(res);
+}
+
+export async function publishDraftTopics(classId, subjectId) {
+  const res = await apiFetch(`/api/classrooms/${classId}/topics/publish-drafts`, { method: 'POST', headers: getAuthHeaders(), body: JSON.stringify({ subjectId }) });
+  return readJsonResponse(res);
+}
+
 export async function uploadAssignmentAsset(classId, payload) {
   const token = localStorage.getItem('token');
   const formData = new FormData();

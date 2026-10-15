@@ -9466,6 +9466,136 @@ app.put('/api/classrooms/:classroomId/topics/:topicId', authenticate, async (c) 
   }
 })
 
+// ─── Topics from the curriculum ──────────────────────────────────────────────
+// A teacher pulls the term's topics for the class level and subject from the
+// curriculum the school uses (Ndovera's by default), as drafts; edits or adds to
+// them; then publishes. Students see only published topics.
+
+/** The class level, subject key and the school's curriculum rows for one subject of a class. */
+async function curriculumForClassSubject(db: D1Database, tenantId: string, classroomId: string, subjectId: string) {
+  await ensureClassStandardLevel(db).catch(() => null)
+  const [classRow, subjectRow] = await Promise.all([
+    db.prepare(`SELECT name, arm, standard_level FROM classes WHERE id = ?`).bind(classroomId).first().catch(() => null) as Promise<Record<string, any> | null>,
+    db.prepare(`SELECT name FROM subjects WHERE id = ? AND classId = ?`).bind(subjectId, classroomId).first().catch(() => null) as Promise<Record<string, any> | null>,
+  ])
+  const level = normalizeClassLevel(classRow?.standard_level || classRow?.name)
+  const subjectName = String(subjectRow?.name || '')
+  const curricula = await curriculaForSchool(db, tenantId)
+  const rows = level.key && subjectName
+    ? (await Promise.all(curricula.map(item => listCurriculumTopics(db, item.id, { subjectKey: subjectKey(subjectName), classKey: level.key }).then(list => list.map(row => ({ ...row, curriculumName: item.name })))))).flat()
+    : []
+  return { level, subjectName, curricula, rows }
+}
+
+/** 1, 2 or 3 for the school's current term, else ''. */
+async function currentTermNumber(db: D1Database, tenantId: string) {
+  const { termId } = await currentMaterialContext(db, tenantId)
+  if (!termId) return { termId: '', term: '' }
+  const row = await db.prepare(`SELECT sequence FROM academic_terms WHERE id = ? AND tenant_id = ?`).bind(termId, tenantId).first().catch(() => null) as Record<string, any> | null
+  return { termId, term: row?.sequence ? String(row.sequence) : '' }
+}
+
+app.get('/api/classrooms/:classroomId/topics/curriculum', authenticate, async (c) => {
+  const classroomId = c.req.param('classroomId')
+  const subjectId = String(c.req.query('subjectId') || '').trim()
+  if (!subjectId) return c.json({ success: false, message: 'Choose a subject.' }, 400)
+  try {
+    const editor = await resolveTopicEditor(c.env.APP_DB, c.var.user || {}, classroomId, subjectId)
+    if (!editor.ok) return c.json({ success: false, message: editor.message }, editor.status as any)
+    const { level, subjectName, curricula, rows } = await curriculumForClassSubject(c.env.APP_DB, editor.tenantId, classroomId, subjectId)
+    const current = await currentTermNumber(c.env.APP_DB, editor.tenantId)
+    const existing = new Set((await listTopics(c.env.APP_DB, classroomId, subjectId)).map(topic => topic.name.trim().toLowerCase()))
+    const message = !level.key
+      ? 'Ndovera cannot tell which level this class is. Ask the school owner to set it under Settings → Class levels.'
+      : !curricula.length ? 'There is no published curriculum for your school yet.'
+      : !rows.length ? `The curriculum has no ${subjectName} topics for ${level.label}.` : ''
+    return c.json({
+      success: true, message, level: level.label, subject: subjectName, currentTerm: current.term,
+      curricula: curricula.map(item => item.name),
+      topics: rows.sort((a, b) => Number(a.term) - Number(b.term) || Number(a.week) - Number(b.week) || a.position - b.position).map(row => ({
+        id: row.id, term: row.term, week: row.week, topic: row.topic, theme: row.theme, subtopics: row.subtopics, objectives: row.objectives,
+        curriculumName: row.curriculumName, added: existing.has(row.topic.trim().toLowerCase()),
+      })),
+    })
+  } catch (error) {
+    console.error('Curriculum topics failed', error)
+    return c.json({ success: false, message: 'Could not load the curriculum topics.' }, 500)
+  }
+})
+
+app.post('/api/classrooms/:classroomId/topics/import-curriculum', authenticate, async (c) => {
+  const classroomId = c.req.param('classroomId')
+  try {
+    const payload = await c.req.json().catch(() => ({})) as Record<string, any>
+    const subjectId = String(payload.subjectId || '').trim()
+    const ids = Array.isArray(payload.curriculumTopicIds) ? [...new Set(payload.curriculumTopicIds.map((v: unknown) => String(v || '')).filter(Boolean))].slice(0, 80) as string[] : []
+    if (!subjectId || !ids.length) return c.json({ success: false, message: 'Choose at least one topic.' }, 400)
+    const editor = await resolveTopicEditor(c.env.APP_DB, c.var.user || {}, classroomId, subjectId)
+    if (!editor.ok) return c.json({ success: false, message: editor.message }, editor.status as any)
+    // Only rows of this class level and subject in the school's curricula can be imported.
+    const { rows } = await curriculumForClassSubject(c.env.APP_DB, editor.tenantId, classroomId, subjectId)
+    const byId = new Map(rows.map(row => [row.id, row]))
+    const chosen = ids.map(id => byId.get(id)).filter(Boolean) as typeof rows
+    if (!chosen.length) return c.json({ success: false, message: 'Those topics are not in the curriculum for this class and subject.' }, 400)
+    const current = await currentTermNumber(c.env.APP_DB, editor.tenantId)
+    const status = payload.status === 'published' ? 'published' : 'draft'
+    let added = 0
+    const skipped: string[] = []
+    for (const row of chosen) {
+      const name = row.topic.replace(/\s+/g, ' ').trim().slice(0, 200)
+      // eslint-disable-next-line no-await-in-loop
+      const clash = await c.env.APP_DB.prepare(`SELECT id FROM class_topics WHERE class_id = ? AND subject_id = ? AND lower(name) = lower(?)`).bind(classroomId, subjectId, name).first()
+      if (clash) { skipped.push(name); continue }
+      // eslint-disable-next-line no-await-in-loop
+      const created = await ensureClassTopic(c.env.APP_DB, { tenantId: editor.tenantId, classId: classroomId, subjectId, name, createdBy: editor.actorId })
+      const topicId = String(created?.id || '')
+      // eslint-disable-next-line no-await-in-loop
+      const topic = await updateTopic(c.env.APP_DB, {
+        tenantId: editor.tenantId, classId: classroomId, topicId,
+        changes: {
+          description: row.subtopics.join('; ').slice(0, 2000),
+          week: row.week ? `Week ${row.week}` : '',
+          objectives: row.objectives,
+          // The current term only when the topic is from it; another term's topic carries no term.
+          termId: !row.term || row.term === current.term ? current.termId : '',
+          status,
+        },
+        actorId: editor.actorId, actorName: editor.actorName,
+      })
+      // eslint-disable-next-line no-await-in-loop
+      await recordTopicAudit(c.env.APP_DB, { tenantId: editor.tenantId, classId: classroomId, subjectId, topicId, action: 'imported', actorId: editor.actorId, actorName: editor.actorName, after: { ...topic, curriculumTopicId: row.id, curriculum: row.curriculumName } })
+      added += 1
+    }
+    return c.json({ success: true, added, skipped })
+  } catch (error) {
+    if (error instanceof TopicError) return c.json({ success: false, message: error.message }, error.status as any)
+    console.error('Curriculum topic import failed', error)
+    return c.json({ success: false, message: 'Could not import the topics.' }, 500)
+  }
+})
+
+/** Publish every draft topic of one subject, so students see the term's list at once. */
+app.post('/api/classrooms/:classroomId/topics/publish-drafts', authenticate, async (c) => {
+  const classroomId = c.req.param('classroomId')
+  try {
+    const payload = await c.req.json().catch(() => ({})) as Record<string, any>
+    const subjectId = String(payload.subjectId || '').trim()
+    if (!subjectId) return c.json({ success: false, message: 'Choose a subject.' }, 400)
+    const editor = await resolveTopicEditor(c.env.APP_DB, c.var.user || {}, classroomId, subjectId)
+    if (!editor.ok) return c.json({ success: false, message: editor.message }, editor.status as any)
+    const drafts = (await listTopics(c.env.APP_DB, classroomId, subjectId)).filter(topic => topic.status === 'draft')
+    for (const topic of drafts) {
+      // eslint-disable-next-line no-await-in-loop
+      await updateTopic(c.env.APP_DB, { tenantId: editor.tenantId, classId: classroomId, topicId: topic.id, changes: { status: 'published' }, actorId: editor.actorId, actorName: editor.actorName })
+    }
+    return c.json({ success: true, published: drafts.length })
+  } catch (error) {
+    if (error instanceof TopicError) return c.json({ success: false, message: error.message }, error.status as any)
+    console.error('Topic publish failed', error)
+    return c.json({ success: false, message: 'Could not publish the topics.' }, 500)
+  }
+})
+
 app.delete('/api/classrooms/:classroomId/topics/:topicId', authenticate, async (c) => {
   const classroomId = c.req.param('classroomId')
   try {
