@@ -12,7 +12,7 @@
 // MAX_ATTEMPTS the job stops as "failed" and can be resumed. Every job reports
 // its progress, so the uploader can see the status from any page.
 
-import { addCurriculumTopics, addSpecTopics, curriculumImportPrompt, examSpecImportPrompt, extractJsonArray, getExamSpec, importChunk } from './curriculumLibrary'
+import { addCurriculumTopics, addSpecTopics, curriculumImportPrompt, examSpecImportPrompt, extractJsonArray, getExamSpec, importChunk, importContext, withImportDefaults } from './curriculumLibrary'
 import type { AiRunner } from './curriculumLibrary'
 
 export class ImportError extends Error {
@@ -172,8 +172,9 @@ export async function runImportStep(deps: ImportDeps, jobId: string) {
     let rejected = 0
     if (chunk.trim()) {
       if (job.targetType === 'curriculum') {
-        const reply = await deps.runAi(curriculumImportPrompt(chunk, { subject: job.defaults.subject, classLabel: job.defaults.classLabel }), { maxTokens: 3500, temperature: 0.1 })
-        const rows = extractJsonArray(reply).map((row: Record<string, any>) => ({ ...(job.defaults.subject && !row.subject ? { subject: job.defaults.subject } : {}), ...(job.defaults.classLabel && !row.class ? { class: job.defaults.classLabel } : {}), ...row }))
+        const context = importContext(text, job.offset)
+        const reply = await deps.runAi(curriculumImportPrompt(chunk, { subject: job.defaults.subject, classLabel: job.defaults.classLabel, context }), { maxTokens: 3500, temperature: 0.1 })
+        const rows = withImportDefaults(extractJsonArray(reply), { subject: job.defaults.subject || context.subject, classLabel: job.defaults.classLabel || context.classLabel, term: context.term })
         const result = await addCurriculumTopics(db, job.targetId, rows)
         added = result.added
         rejected = result.rejected.length

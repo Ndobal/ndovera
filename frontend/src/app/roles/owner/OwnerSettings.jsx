@@ -11,11 +11,12 @@ import SubjectPicker from '../../../features/school/components/SubjectPicker';
 import SessionRegisterBoard from '../../../features/school/components/SessionRegisterBoard';
 import PromotionBoard from '../../../features/school/components/PromotionBoard';
 import SchoolLocationForm from '../../../features/school/components/SchoolLocationForm';
+import ClassLevelsBoard from '../../../features/school/components/ClassLevelsBoard';
 
 // Settings sections, grouped; every one (Class Register included) can be opened directly with ?tab=.
 const TAB_GROUPS = [
   ['School', ['Profile', 'School Location', 'School Branding', 'Website', 'Events']],
-  ['Academic', ['Classes', 'Class Register', 'Subjects', 'Sessions & Terms', 'Promotion', 'Promotion Flow']],
+  ['Academic', ['Classes', 'Class Levels', 'Class Register', 'Subjects', 'Sessions & Terms', 'Promotion', 'Promotion Flow']],
   ['Staff', ['Attendance Management']],
 ];
 const TABS = TAB_GROUPS.flatMap(([, tabs]) => tabs);
@@ -800,7 +801,7 @@ export default function OwnerSettings({ auth }) {
   const [tab, setTab] = useState(TABS.includes(requestedTab) ? requestedTab : 'Profile');
   // A link (e.g. from the sidebar search) to another section opens it.
   useEffect(() => { if (TABS.includes(requestedTab)) setTab(requestedTab); }, [requestedTab]);
-  const tabContent = { Profile: <ProfileTab />, 'School Location': <SchoolLocationForm />, 'School Branding': <BrandingTab />, Website: <WebsiteTab />, Events: <EventsTab />, Classes: <ClassesTab />, Promotion: <PromotionBoard />, 'Class Register': <SessionRegisterBoard />, 'Promotion Flow': <PromotionPanel />, Subjects: <SubjectsTab />, 'Sessions & Terms': <AcademicSessionsBoard />, 'Attendance Management': <StaffAttendanceManagementPanel /> };
+  const tabContent = { Profile: <ProfileTab />, 'School Location': <SchoolLocationForm />, 'School Branding': <BrandingTab />, Website: <WebsiteTab />, Events: <EventsTab />, Classes: <ClassesTab />, 'Class Levels': <ClassLevelsBoard />, Promotion: <PromotionBoard />, 'Class Register': <SessionRegisterBoard />, 'Promotion Flow': <PromotionPanel />, Subjects: <SubjectsTab />, 'Sessions & Terms': <AcademicSessionsBoard />, 'Attendance Management': <StaffAttendanceManagementPanel /> };
   return (
     <div className="p-8 max-w-7xl mx-auto space-y-6">
       <div className="rounded-3xl p-6 bg-[#b5e3f4] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">

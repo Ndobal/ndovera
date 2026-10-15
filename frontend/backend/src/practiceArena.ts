@@ -15,7 +15,7 @@
 // Packs carry their answers so a quiz can be played and marked with no network;
 // the attempt is sent later and re-marked here from the bank, which decides XP.
 
-import { levelOf, labelOfRank, sectionOfRank, subjectKeyOf, normalizeSection } from './levels'
+import { LEVEL_NAME_SQL, ensureClassStandardLevel, levelOf, labelOfRank, sectionOfRank, subjectKeyOf, normalizeSection } from './levels'
 import type { SectionKey } from './levels'
 
 export class PracticeError extends Error {
@@ -49,8 +49,32 @@ export type Difficulty = typeof DIFFICULTY_LEVELS[number]
 export const normalizeDifficulty = (value: unknown): Difficulty | '' => ((DIFFICULTY_LEVELS as readonly string[]).includes(String(value)) ? String(value) as Difficulty : '')
 
 const readyDbs = new WeakSet<object>()
+const LEGACY_BANK_COLUMNS = ['createdAt', 'classLevel', 'options', 'answer', 'imageUrl', 'createdBy'] as const
+type LegacyColumn = typeof LEGACY_BANK_COLUMNS[number]
+const legacyDbs = new WeakMap<object, LegacyColumn[]>()
+/**
+ * Older databases (production among them) created the bank with camelCase columns,
+ * `createdAt TEXT NOT NULL` among them. An insert that leaves it out fails, and
+ * INSERT OR IGNORE hides the failure — so every insert names the ones that are there.
+ */
+export async function bankHasLegacyColumns(db: D1Database) {
+  if (legacyDbs.has(db as object)) return legacyDbs.get(db as object) as LegacyColumn[]
+  const columns = new Set(((await db.prepare(`PRAGMA table_info(question_bank)`).all()).results || []).map((row: any) => String(row.name)))
+  const legacy = LEGACY_BANK_COLUMNS.filter(name => columns.has(name))
+  legacyDbs.set(db as object, legacy)
+  return legacy
+}
+/** The legacy columns' names and values for an insert (nothing on a new-style table). */
+export function legacyBankInsert(legacy: LegacyColumn[], row: { classLevel?: string, options?: unknown, answer?: unknown, imageUrl?: string, createdBy?: string, createdAt: string }) {
+  const value: Record<LegacyColumn, unknown> = {
+    createdAt: row.createdAt, classLevel: row.classLevel || null, options: JSON.stringify(row.options ?? []), answer: JSON.stringify(row.answer ?? ''), imageUrl: row.imageUrl || null, createdBy: row.createdBy || null,
+  }
+  return { columns: legacy.map(name => `, ${name}`).join(''), marks: legacy.map(() => ', ?').join(''), values: legacy.map(name => value[name]) }
+}
+
 export async function ensurePracticeTables(db: D1Database) {
   if (readyDbs.has(db as object)) return
+  await ensureClassStandardLevel(db)
   // The bank itself is created by questionBank.ts; on a fresh database make sure it exists.
   await db.prepare(`CREATE TABLE IF NOT EXISTS question_bank (
     id TEXT PRIMARY KEY, tenant_id TEXT NOT NULL, subject TEXT, class_level TEXT, class_id TEXT, subject_id TEXT, topic TEXT, type TEXT NOT NULL,
@@ -196,8 +220,16 @@ export function isPlayable(type: string, options: string[], answer: unknown, exp
  */
 export async function upsertBankQuestions(db: D1Database, inputs: BankInput[]) {
   await ensurePracticeTables(db)
+  // A class the school has given a standard level ("GRADE 1" is Primary 2) is placed by that level.
+  const classIds = Array.from(new Set(inputs.filter(input => input.classId && (input.rank === undefined || input.rank === null)).map(input => String(input.classId)))).slice(0, 90)
+  const standard = new Map<string, string>()
+  if (classIds.length) {
+    const found = await db.prepare(`SELECT id, standard_level FROM classes WHERE id IN (${classIds.map(() => '?').join(',')}) AND COALESCE(standard_level, '') <> ''`).bind(...classIds).all().catch(() => ({ results: [] }))
+    for (const row of (found.results || []) as Record<string, any>[]) standard.set(String(row.id), String(row.standard_level))
+  }
   const rows: Array<Record<string, any>> = []
-  for (const input of inputs) {
+  for (const raw of inputs) {
+    const input = raw.classId && standard.has(String(raw.classId)) ? { ...raw, classLevel: standard.get(String(raw.classId)) } : raw
     const prompt = String(input.prompt || '').trim()
     if (prompt.length < 3) continue
     const type = bankType(input.type)
@@ -223,6 +255,7 @@ export async function upsertBankQuestions(db: D1Database, inputs: BankInput[]) {
   let updated = 0
   // Questions practice can use now are counted at once; the nightly rebuild catches the rest.
   const nowPlayable: Array<Record<string, any>> = []
+  const legacy = await bankHasLegacyColumns(db)
   for (let start = 0; start < rows.length; start += 40) {
     const slice = rows.slice(start, start + 40)
     const byTenant = new Map<string, Array<Record<string, any>>>()
@@ -243,14 +276,16 @@ export async function upsertBankQuestions(db: D1Database, inputs: BankInput[]) {
         if (!current) {
           added += 1
           if (row.playable) nowPlayable.push(row)
+          const extra = legacyBankInsert(legacy, { ...row, createdAt: stamp })
           statements.push(db.prepare(`INSERT OR IGNORE INTO question_bank (id, tenant_id, subject, class_level, class_id, subject_id, topic, type, prompt, normalized_prompt, question_hash,
             options_json, answer_json, explanation, image_url, score, status, source, created_by, metadata_json, created_at, updated_at,
-            section, level_rank, subject_key, release_at, answer_source, origin_type, origin_id, playable, difficulty, exam)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`).bind(
+            section, level_rank, subject_key, release_at, answer_source, origin_type, origin_id, playable, difficulty, exam${extra.columns})
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?${extra.marks})`).bind(
             `qb_${crypto.randomUUID().replace(/-/g, '').slice(0, 20)}`, tenantId, row.subjectName, row.classLevel, row.classId, row.subjectId, row.topic, row.type,
             row.prompt, normalizeText(row.prompt), row.hash, JSON.stringify(row.options), JSON.stringify(row.answer), row.explanation, row.imageUrl,
             row.status, `harvest:${row.originType}`, row.createdBy, JSON.stringify(row.metadata), stamp, stamp,
             row.section || null, row.rank, row.subjectKey || null, row.releaseAt, row.answerSource, row.originType, row.originId, row.playable ? 1 : 0, row.difficulty, row.exam,
+            ...extra.values,
           ))
           continue
         }
@@ -278,7 +313,7 @@ export async function upsertBankQuestions(db: D1Database, inputs: BankInput[]) {
 /** Questions written before practice had sections and levels: work them out from what is there. */
 export async function classifyLegacyQuestions(db: D1Database, limit = 150, onlyId = '', sectionHint = '') {
   await ensurePracticeTables(db)
-  const rows = await db.prepare(`SELECT q.id, q.type, q.subject, q.class_level, q.options_json, q.answer_json, q.explanation, q.metadata_json, c.name AS class_name
+  const rows = await db.prepare(`SELECT q.id, q.type, q.subject, q.class_level, q.options_json, q.answer_json, q.explanation, q.metadata_json, ${LEVEL_NAME_SQL('c')} AS class_name
     FROM question_bank q LEFT JOIN classes c ON c.id = q.class_id WHERE ${onlyId ? 'q.id = ?' : 'q.subject_key IS NULL'} LIMIT ?`).bind(...(onlyId ? [onlyId] : []), limit).all().catch(() => ({ results: [] }))
   const statements: D1PreparedStatement[] = []
   for (const row of (rows.results || []) as Record<string, any>[]) {
@@ -303,9 +338,9 @@ export type PracticeStudent = { tenantId: string, studentId: string, studentName
 
 export async function practiceStudent(db: D1Database, input: { tenantId: string, studentId: string, studentName: string, classId: string }): Promise<PracticeStudent> {
   const classRow = input.classId
-    ? await db.prepare(`SELECT name, arm FROM classes WHERE id = ? AND tenantId = ?`).bind(input.classId, input.tenantId).first().catch(() => null) as Record<string, any> | null
+    ? await ensureClassStandardLevel(db).then(() => db.prepare(`SELECT name, arm, standard_level FROM classes WHERE id = ? AND tenantId = ?`).bind(input.classId, input.tenantId).first()).catch(() => null) as Record<string, any> | null
     : null
-  const level = levelOf(classRow?.name)
+  const level = levelOf(classRow?.standard_level || classRow?.name)
   return {
     ...input, className: classRow ? `${classRow.name}${classRow.arm ? ` ${classRow.arm}` : ''}` : '',
     rank: level?.rank ?? null, section: level?.section || '',

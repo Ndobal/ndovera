@@ -2,8 +2,12 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion';
 import RichContent from '../../shared/rich/RichContent';
 import { TYPE_LABELS, estimateXp, keywordOverlap, markAnswer } from './engine';
+import { questionSpeech, readAloud, useReadAloudPlayer } from '../../shared/components/ReadAloud';
 
 const LETTERS = 'ABCDEFGH';
+const AUTO_READ_KEY = 'ndovera:quizAutoRead';
+const canSpeak = () => typeof window !== 'undefined' && Boolean(window.speechSynthesis) && typeof window.SpeechSynthesisUtterance === 'function';
+const loadAutoRead = () => { try { return localStorage.getItem(AUTO_READ_KEY) === '1'; } catch { return false; } };
 
 function formatClock(seconds) {
   const safe = Math.max(0, Math.round(seconds));
@@ -17,13 +21,14 @@ function expectedText(question) {
   return question.modelAnswer || '';
 }
 
-function ChoiceAnswer({ question, chosen, locked, onChoose }) {
+function ChoiceAnswer({ question, chosen, locked, onChoose, reading = -1 }) {
   return (
     <div className="grid gap-3" role="group" aria-label="Options">
       {question.options.map((option, index) => {
         const isChosen = chosen === index;
         const isRight = locked && index === question.correctIndex;
         const isWrong = locked && isChosen && index !== question.correctIndex;
+        const isRead = !locked && reading === index;
         return (
           <motion.button
             key={`${question.id}-${index}`}
@@ -31,7 +36,7 @@ function ChoiceAnswer({ question, chosen, locked, onChoose }) {
             whileTap={{ scale: 0.97 }}
             disabled={locked}
             onClick={() => onChoose(index)}
-            className={`flex items-center gap-3 rounded-2xl border-2 px-4 py-3 text-left text-base font-semibold transition-colors ${
+            className={`flex items-center gap-3 rounded-2xl border-2 px-4 py-3 text-left text-base font-semibold transition-colors ${isRead ? 'ring-4 ring-amber-300 dark:ring-amber-400/60 ' : ''}${
               isRight ? 'border-emerald-500 bg-emerald-50 text-emerald-900 dark:bg-emerald-900/30 dark:text-emerald-100'
                 : isWrong ? 'border-rose-500 bg-rose-50 text-rose-900 dark:bg-rose-900/30 dark:text-rose-100'
                   : 'border-slate-200 bg-white text-slate-800 hover:border-indigo-400 hover:bg-indigo-50 dark:border-white/10 dark:bg-white/5 dark:text-slate-100 dark:hover:border-cyan-400'
@@ -82,8 +87,31 @@ export default function QuizPlayer({ quiz, subjectName, onFinish, onExit }) {
   const questionStarted = useRef(Date.now());
   const finished = useRef(false);
   const inputRef = useRef(null);
+  const [autoRead, setAutoRead] = useState(loadAutoRead);
+  const speaking = useReadAloudPlayer();
 
   const question = quiz.questions[index];
+  const readSource = question ? `quiz:${question.id}` : '';
+  const readingThis = speaking.status !== 'idle' && speaking.source === readSource;
+  const spoken = useMemo(() => questionSpeech(question, { withPassage: true }), [question]);
+  const readingOption = readingThis ? (spoken[speaking.at]?.option ?? -1) : -1;
+  const readQuestion = useCallback(() => {
+    if (!spoken.length || !canSpeak()) return;
+    readAloud.start({ chunks: spoken.map(piece => piece.text), title: 'This question', source: readSource, inPlace: true });
+  }, [readSource, spoken]);
+  const toggleAutoRead = () => {
+    const next = !autoRead;
+    setAutoRead(next);
+    try { localStorage.setItem(AUTO_READ_KEY, next ? '1' : '0'); } catch { /* ignore */ }
+    if (next) readQuestion(); else readAloud.stop();
+  };
+
+  // Each new question is read when the student asked for that; reading ends with the question and the quiz.
+  useEffect(() => {
+    if (autoRead) readQuestion();
+    return () => { readAloud.stop(); };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [index]);
   const combo = useMemo(() => {
     let run = 0;
     for (let i = results.length - 1; i >= 0 && results[i].correct; i -= 1) run += 1;
@@ -142,8 +170,9 @@ export default function QuizPlayer({ quiz, subjectName, onFinish, onExit }) {
   const choose = useCallback(optionIndex => {
     if (feedback) return;
     setChosen(optionIndex);
+    if (readingThis) readAloud.stop();
     record(optionIndex);
-  }, [feedback, record]);
+  }, [feedback, readingThis, record]);
 
   useEffect(() => {
     const onKey = event => {
@@ -200,6 +229,17 @@ export default function QuizPlayer({ quiz, subjectName, onFinish, onExit }) {
             {question.level ? <span className="rounded-full bg-slate-100 px-2.5 py-1 text-slate-600 dark:bg-white/10 dark:text-slate-300">{question.level}</span> : null}
             {question.topic ? <span className="rounded-full bg-emerald-100 px-2.5 py-1 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-200">{question.topic}</span> : null}
             {question.fromNdovera ? <span className="rounded-full bg-fuchsia-100 px-2.5 py-1 text-fuchsia-700 dark:bg-fuchsia-500/20 dark:text-fuchsia-200">Ndovera bank</span> : null}
+            {canSpeak() ? (
+              <span className="ml-auto flex items-center gap-2 normal-case tracking-normal">
+                <button type="button" onClick={() => (readingThis ? readAloud.stop() : readQuestion())} aria-pressed={readingThis}
+                  className="rounded-full bg-amber-100 px-3 py-1 text-amber-800 hover:bg-amber-200 dark:bg-amber-400/20 dark:text-amber-100">
+                  {readingThis ? '■ Stop reading' : '🔊 Read aloud'}
+                </button>
+                <label className="flex cursor-pointer items-center gap-1 text-slate-500 dark:text-slate-300">
+                  <input type="checkbox" checked={autoRead} onChange={toggleAutoRead} className="h-3.5 w-3.5" /> Read every question
+                </label>
+              </span>
+            ) : null}
           </div>
           {question.passage ? (
             <details open className="mb-4 rounded-2xl bg-slate-50 p-4 text-sm leading-relaxed text-slate-700 dark:bg-white/5 dark:text-slate-200">
@@ -211,7 +251,7 @@ export default function QuizPlayer({ quiz, subjectName, onFinish, onExit }) {
           {question.imageUrl ? <img src={question.imageUrl} alt="" className="mb-4 max-h-64 rounded-2xl" /> : null}
 
           {question.type === 'mcq' || question.type === 'truefalse' ? (
-            <ChoiceAnswer question={question} chosen={chosen} locked={Boolean(feedback)} onChoose={choose} />
+            <ChoiceAnswer question={question} chosen={chosen} locked={Boolean(feedback)} onChoose={choose} reading={readingOption} />
           ) : null}
 
           {question.type === 'shortanswer' || question.type === 'fillgaps' ? (

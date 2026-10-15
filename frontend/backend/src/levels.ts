@@ -63,18 +63,18 @@ export function levelOf(name: unknown): Level | null {
   }
 
   if (/\bcreche\b|\bplaygroup\b/.test(text)) return make(-3)
-  if (/\bpre[\s-]?nursery\b/.test(text)) return make(-2)
-  // "Pre-School 1", "Pre-School 2": the two nursery years.
-  const preschool = after(/\bpre[\s-]?school\b/)
-  if (preschool !== null) return make(preschool >= 2 ? 0 : -1)
+  if (/\bpre[\s-]?nursery\b|\bexplorers?\b/.test(text)) return make(-2)
+  // "Reception" is Nursery 1; "Pre-School 1" and "Pre-School 2" are Nursery 2 and 3.
+  if (/\breception\b/.test(text)) return make(-1)
+  if (/\bpre[\s-]?school\b/.test(text)) return make(0)
   const nursery = after(/\bnursery\b/)
   if (nursery !== null) return make(nursery >= 2 ? 0 : -1)
-  if (/\bnursery\b|\breception\b|\bkg\b|\bkindergarten\b/.test(text)) return make(0)
+  if (/\bnursery\b|\bkg\b|\bkindergarten\b/.test(text)) return make(0)
 
   // "SH 1" and "Senior High 1" are how some schools write SS 1.
-  const senior = after(/\b(?:s\.?s\.?s|s\.?s|s\.?h\.?s|s\.?h|senior\s+high|senior\s+secondary(?:\s+school)?|senior)\s*/)
+  const senior = after(/\b(?:s\.?s\.?s|s\.?s|s\.?h\.?s|s\.?h|senior\s+high(?:\s+school)?|senior\s+secondary(?:\s+school)?|senior)\s*/)
   if (senior !== null && senior >= 1 && senior <= 3) return make(9 + senior)
-  const junior = after(/\b(?:j\.?s\.?s|j\.?s|j\.?h\.?s|junior\s+secondary(?:\s+school)?|junior)\s*/)
+  const junior = after(/\b(?:j\.?s\.?s|j\.?s|j\.?h\.?s|junior\s+high(?:\s+school)?|junior\s+secondary(?:\s+school)?|junior)\s*/)
   if (junior !== null && junior >= 1 && junior <= 3) return make(6 + junior)
   const basic = after(/\bbasic\s*/)
   if (basic !== null && basic >= 1 && basic <= 9) return make(basic)
@@ -108,3 +108,19 @@ export function subjectKeyOf(name: unknown) {
   for (const [pattern, key] of SUBJECT_ALIASES) if (pattern.test(text)) return key
   return text.replace(/\s+/g, '-')
 }
+
+// ─── A school's own class names ──────────────────────────────────────────────
+// Schools name classes their own way ("GRADE 1" can be Primary 2; "RECEPTION" Nursery 1).
+// The school can say which standard level each class is (Settings → Class levels); it is
+// kept in classes.standard_level as a standard label ("Primary 2") and used instead of
+// the class's name wherever Ndovera needs the level.
+
+const readyClassDbs = new WeakSet<object>()
+export async function ensureClassStandardLevel(db: D1Database) {
+  if (readyClassDbs.has(db as object)) return
+  try { await db.exec('ALTER TABLE classes ADD COLUMN standard_level TEXT') } catch {}
+  readyClassDbs.add(db as object)
+}
+
+/** SQL for the name a class's level is read from: its standard level when set, else its name. */
+export const LEVEL_NAME_SQL = (alias = 'c') => `COALESCE(NULLIF(${alias}.standard_level, ''), ${alias}.name)`

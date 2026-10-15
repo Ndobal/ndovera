@@ -1,9 +1,9 @@
 // Practice passes: what a student may practise, and what it costs.
 //
-//   Free             1 subject of the student's choice, Simple and Intermediate, this term.
-//                    Changeable once a term. Claimed automatically by the first subject opened.
-//   Subject Pass     ₦300  — 1 more subject, Simple and Intermediate, this term.
-//   All Subjects     ₦1,500 — every subject the class offers, Simple and Intermediate, this term.
+//   Free             Every subject the class offers, at the student's own class level (Simple and
+//                    Intermediate), FREE_QUESTIONS_PER_DAY questions a day across all subjects.
+//   Subject Pass     ₦300  — 1 subject without the daily limit, this term.
+//   All Subjects     ₦1,500 — every subject the class offers without the daily limit, this term.
 //   Common Entrance  ₦2,000 — Primary: every subject at Common Entrance standard, 12 months.
 //   BECE             ₦3,000 — JSS: every subject at BECE standard, 12 months.
 //   WAEC / NECO      ₦3,000 — SS: every subject at WAEC and NECO standard, 12 months.
@@ -18,6 +18,8 @@
 //     Flutterwave (status, amount, currency, reference) and grants its passes exactly once;
 //   - an exam pass is sold only for the student's own section, and only once its exam has
 //     enough checked questions in the bank (EXAM_MIN_STOCK) — nobody pays for an empty bank;
+//   - free questions are counted when they are served (a pack holds no more than are left
+//     today), not when they are answered, so asking again does not refill the day;
 //   - a student downloads at most PACKS_PER_DAY packs a day, and a kept pack stops working
 //     offline when the pass ends (or after 7 days, whichever is sooner);
 //   - term passes end with the term they were bought in; exam passes 12 months after purchase.
@@ -49,8 +51,8 @@ export const JAMB_MOCK = { english: 60, perSubject: 40, minutes: 120 }
 export const JAMB_ENGLISH_KEY = 'english'
 
 export const BUNDLES = {
-  subject: { label: 'Subject Pass', priceNaira: 300, scope: 'term', levels: ['simple', 'intermediate'], exams: [] as ExamKey[], blurb: 'One more subject, all school levels, this term' },
-  all: { label: 'All Subjects Pass', priceNaira: 1500, scope: 'term', levels: ['simple', 'intermediate'], exams: [] as ExamKey[], blurb: 'Every subject your class offers, this term' },
+  subject: { label: 'Subject Pass', priceNaira: 300, scope: 'term', levels: ['simple', 'intermediate'], exams: [] as ExamKey[], blurb: 'One subject, as many questions as you like, this term' },
+  all: { label: 'All Subjects Pass', priceNaira: 1500, scope: 'term', levels: ['simple', 'intermediate'], exams: [] as ExamKey[], blurb: 'Every subject your class offers, as many questions as you like, this term' },
   common_entrance: { label: 'Common Entrance Prep', priceNaira: 2000, scope: 'year', levels: [], exams: ['common_entrance'] as ExamKey[], section: 'primary', blurb: 'All subjects, Common Entrance standard, timed mocks — 12 months' },
   bece: { label: 'BECE Prep', priceNaira: 3000, scope: 'year', levels: [], exams: ['bece'] as ExamKey[], section: 'junior', blurb: 'All subjects, BECE standard, timed mocks — 12 months' },
   ssce: { label: 'WAEC / NECO Prep', priceNaira: 3000, scope: 'year', levels: [], exams: ['waec', 'neco'] as ExamKey[], section: 'senior', blurb: 'All SSCE subjects, WAEC and NECO standard, timed mocks — 12 months' },
@@ -61,6 +63,7 @@ export type BundleKey = keyof typeof BUNDLES
 export const SCHOOL_DISCOUNT = 0.3
 export const EXAM_MIN_STOCK = 300
 export const PACKS_PER_DAY = 30
+export const FREE_QUESTIONS_PER_DAY = 10
 export const MAX_DEVICES = 2
 export const OFFLINE_DAYS = 7
 
@@ -84,6 +87,7 @@ export async function ensurePassTables(db: D1Database) {
       options_json TEXT, amount_naira REAL NOT NULL, status TEXT NOT NULL, provider_id TEXT, created_at TEXT NOT NULL, paid_at TEXT)`,
     `CREATE TABLE IF NOT EXISTS practice_devices (student_id TEXT NOT NULL, device_id TEXT NOT NULL, first_seen TEXT NOT NULL, last_seen TEXT NOT NULL, cleared_at TEXT, PRIMARY KEY (student_id, device_id))`,
     `CREATE TABLE IF NOT EXISTS practice_pack_log (student_id TEXT NOT NULL, day TEXT NOT NULL, packs INTEGER NOT NULL DEFAULT 0, PRIMARY KEY (student_id, day))`,
+    `CREATE TABLE IF NOT EXISTS practice_free_daily (student_id TEXT NOT NULL, day TEXT NOT NULL, questions INTEGER NOT NULL DEFAULT 0, PRIMARY KEY (student_id, day))`,
     `CREATE TABLE IF NOT EXISTS practice_exam_stock (exam TEXT NOT NULL, subject_key TEXT NOT NULL, ready INTEGER NOT NULL DEFAULT 0, updated_at TEXT, PRIMARY KEY (exam, subject_key))`,
   ]) await db.prepare(statement).run()
   readyDbs.add(db as object)
@@ -93,7 +97,6 @@ export async function ensurePassTables(db: D1Database) {
 
 export type PassStudent = { tenantId: string, studentId: string, section: string, termId: string }
 export type Entitlements = {
-  freeSubject: string, freeChangesLeft: number,
   subjects: Set<string>, allSubjects: boolean, exams: Map<ExamKey, string>, jambSubjects: string[],
   passes: Array<{ id: string, bundle: string, label: string, subjectKey: string, subjects: string[], expiresAt: string | null, source: string }>,
   paidUntil: string | null,
@@ -102,11 +105,8 @@ export type Entitlements = {
 export async function entitlements(db: D1Database, student: PassStudent): Promise<Entitlements> {
   await ensurePassTables(db)
   const stamp = now()
-  const [rows, free] = await Promise.all([
-    db.prepare(`SELECT * FROM practice_passes WHERE student_id = ? AND (expires_at IS NULL OR expires_at > ?) ORDER BY created_at`).bind(student.studentId, stamp).all(),
-    student.termId ? db.prepare(`SELECT * FROM practice_free_choice WHERE student_id = ? AND term_id = ?`).bind(student.studentId, student.termId).first() : Promise.resolve(null),
-  ])
-  const out: Entitlements = { freeSubject: String((free as any)?.subject_key || ''), freeChangesLeft: free ? Math.max(0, 1 - Number((free as any).changes || 0)) : 1, subjects: new Set(), allSubjects: false, exams: new Map(), jambSubjects: [], passes: [], paidUntil: null }
+  const rows = await db.prepare(`SELECT * FROM practice_passes WHERE student_id = ? AND (expires_at IS NULL OR expires_at > ?) ORDER BY created_at`).bind(student.studentId, stamp).all()
+  const out: Entitlements = { subjects: new Set(), allSubjects: false, exams: new Map(), jambSubjects: [], passes: [], paidUntil: null }
   for (const row of (rows.results || []) as Record<string, any>[]) {
     const bundle = BUNDLES[row.bundle as BundleKey]
     if (!bundle) continue
@@ -127,6 +127,7 @@ export async function entitlements(db: D1Database, student: PassStudent): Promis
 
 /**
  * May this student open this subject at this level? Returns how (free / pass) or a reason.
+ * School levels are free in every subject (FREE_QUESTIONS_PER_DAY a day); a pass lifts the limit.
  * JAMB packs are only the student's English and their three chosen subjects.
  */
 export function canOpen(held: Entitlements, subjectKey: string, difficulty: string, exam: ExamKey | '') {
@@ -137,23 +138,25 @@ export function canOpen(held: Entitlements, subjectKey: string, difficulty: stri
     return { ok: true as const, via: 'exam', paid: true }
   }
   if (held.allSubjects || held.subjects.has(subjectKey)) return { ok: true as const, via: 'pass', paid: true }
-  if (held.freeSubject === subjectKey) return { ok: true as const, via: 'free', paid: false }
-  if (!held.freeSubject) return { ok: true as const, via: 'claim-free', paid: false }
-  return { ok: false as const, reason: 'Your free subject this term is another one. Get a Subject Pass (₦300) or the All Subjects Pass (₦1,500) to practise this one.', needs: 'subject' }
+  return { ok: true as const, via: 'free', paid: false }
 }
 
-/** Claim (or change, once a term) the free subject. */
-export async function chooseFreeSubject(db: D1Database, student: PassStudent, subjectKey: string) {
+/** Free questions this student has left today (Lagos day). */
+export async function freeQuestionsLeft(db: D1Database, studentId: string) {
   await ensurePassTables(db)
-  if (!student.termId) throw new PassError('Your school has no open term, so a free subject cannot be chosen yet.', 409)
-  if (!subjectKey) throw new PassError('Choose a subject.')
-  const current = await db.prepare(`SELECT * FROM practice_free_choice WHERE student_id = ? AND term_id = ?`).bind(student.studentId, student.termId).first() as Record<string, any> | null
-  if (current?.subject_key === subjectKey) return { subjectKey, changesLeft: Math.max(0, 1 - Number(current.changes || 0)) }
-  if (current && Number(current.changes || 0) >= 1) throw new PassError('You have already changed your free subject this term. It can be changed again next term.', 409)
-  await db.prepare(`INSERT INTO practice_free_choice (student_id, term_id, subject_key, changes, chosen_at) VALUES (?, ?, ?, 0, ?)
-    ON CONFLICT(student_id, term_id) DO UPDATE SET subject_key = excluded.subject_key, changes = practice_free_choice.changes + 1, chosen_at = excluded.chosen_at`).bind(student.studentId, student.termId, subjectKey, now()).run()
-  return { subjectKey, changesLeft: current ? 0 : 1 }
+  const row = await db.prepare(`SELECT questions FROM practice_free_daily WHERE student_id = ? AND day = ?`).bind(studentId, lagosDay()).first() as Record<string, any> | null
+  return Math.max(0, FREE_QUESTIONS_PER_DAY - Number(row?.questions || 0))
 }
+
+/** Count free questions served today. */
+export async function useFreeQuestions(db: D1Database, studentId: string, served: number) {
+  if (served <= 0) return
+  await ensurePassTables(db)
+  await db.prepare(`INSERT INTO practice_free_daily (student_id, day, questions) VALUES (?, ?, ?) ON CONFLICT(student_id, day) DO UPDATE SET questions = questions + excluded.questions`)
+    .bind(studentId, lagosDay(), served).run()
+}
+
+export const FREE_LIMIT_REACHED = `You have practised your ${FREE_QUESTIONS_PER_DAY} free questions for today. Come back tomorrow for ${FREE_QUESTIONS_PER_DAY} more, or get a Subject Pass (₦300) or the All Subjects Pass (₦1,500) to practise as much as you like.`
 
 // ─── Devices and downloads ───────────────────────────────────────────────────
 

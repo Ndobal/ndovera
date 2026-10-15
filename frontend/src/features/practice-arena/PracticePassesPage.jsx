@@ -84,14 +84,14 @@ export default function PracticePassesPage({ mode }) {
       <section className="rounded-[2rem] bg-gradient-to-br from-indigo-700 to-fuchsia-700 p-6 text-white shadow-xl">
         <p className="text-xs font-bold uppercase tracking-[0.2em] text-white/75">Practice Arena</p>
         <h1 className="text-3xl font-black">Practice passes</h1>
-        <p className="mt-1 max-w-2xl text-white/90">{mode === 'parent' ? 'Every child has one subject free. Passes open more subjects for the term, or a full year of WAEC, NECO, JAMB, BECE or Common Entrance practice with timed mocks.' : `Buy passes for a whole class at ${Math.round((data?.discount || 0.3) * 100)}% off. Each student gets their own pass.`}</p>
+        <p className="mt-1 max-w-2xl text-white/90">{mode === 'parent' ? "Every subject is free at your child's class level, 10 new questions a day. Passes remove the daily limit for the term, or give a full year of WAEC, NECO, JAMB, BECE or Common Entrance practice with timed mocks." : `Buy passes for a whole class at ${Math.round((data?.discount || 0.3) * 100)}% off. Each student gets their own pass.`}</p>
       </section>
       {notice && <p role="status" className="rounded-2xl bg-indigo-50 px-4 py-3 text-sm font-semibold text-indigo-900 dark:bg-indigo-500/15 dark:text-indigo-100">{notice}</p>}
       {!data ? <p role="status">Loading…</p> : mode === 'parent' ? (
         data.children.length ? data.children.map(child => (
           <section key={child.studentId} className={`${CARD} space-y-3`}>
             <h2 className="text-lg font-black text-slate-900 dark:text-white">{child.name} <span className="text-sm font-semibold text-slate-500">· {child.className}</span></h2>
-            <p className="text-sm text-slate-600 dark:text-slate-300">Free subject: {child.subjects.find(subject => subject.key === child.freeSubject)?.name || 'not chosen yet'}</p>
+            <p className="text-sm text-slate-600 dark:text-slate-300">Free: every subject, {child.freePerDay || 10} new questions a day</p>
             {child.passes.length ? <ul className="text-sm text-slate-700 dark:text-slate-200">{child.passes.map(pass => <li key={pass.id}>✅ {pass.label}{pass.expiresAt ? ` · until ${new Date(pass.expiresAt).toLocaleDateString()}` : ' · this term'}</li>)}</ul> : null}
             <BundlePicker bundles={child.bundles} subjects={child.subjects} busy={busy} onBuy={payload => pay({ ...payload, studentId: child.studentId })} />
           </section>

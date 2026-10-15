@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { MODES, TYPE_LABELS, buildQuiz, estimateXp, levelForXp, newAttemptId } from './engine';
 import {
-  checkoutPass, chooseFreeSubject, generateQuestions, getLeaderboard, loadHome, loadMock, loadPack, naira, packSavedAt, pendingAttempts, saveAttempt, verifyPass,
+  checkoutPass, generateQuestions, getLeaderboard, loadHome, loadMock, loadPack, naira, packSavedAt, pendingAttempts, saveAttempt, verifyPass,
 } from './practiceApi';
 import { subscribe } from '../../shared/offline/outbox';
 import { isOnline, requestPersistentStorage } from '../../shared/offline/offlineStore';
@@ -155,7 +155,7 @@ function PassesPanel({ home, preset, busy, onMock, onNotice, onChanged }) {
   const [jamb, setJamb] = useState([]);
   const [mockSubject, setMockSubject] = useState({});
   const [paying, setPaying] = useState('');
-  const covered = key => passes.allSubjects || (passes.subjects || []).includes(key) || passes.freeSubject === key;
+  const covered = key => passes.allSubjects || (passes.subjects || []).includes(key);
   const buy = async bundle => {
     setPaying(bundle.key);
     try {
@@ -166,19 +166,10 @@ function PassesPanel({ home, preset, busy, onMock, onNotice, onChanged }) {
   const CARD = 'rounded-3xl border border-slate-200 bg-white p-4 dark:border-white/10 dark:bg-slate-900/70';
   return (
     <div className="space-y-4">
-      <section className={CARD} aria-label="Free subject">
-        <h3 className="font-black text-slate-900 dark:text-white">Your free subject this term</h3>
-        <p className="text-sm text-slate-600 dark:text-slate-300">One subject is free at Simple and Intermediate level. {passes.freeSubject ? (passes.freeChangesLeft ? 'You can change it once this term.' : 'It can be changed again next term.') : 'The first subject you play becomes your free one.'}</p>
-        <div className="mt-2 flex flex-wrap items-center gap-2">
-          <select aria-label="Free subject" className="rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm dark:border-white/20 dark:bg-slate-900 dark:text-white" value={passes.freeSubject || ''} disabled={Boolean(passes.freeSubject) && !passes.freeChangesLeft}
-            onChange={async event => {
-              if (!window.confirm(passes.freeSubject ? 'Change your free subject? You can only do this once a term.' : 'Make this your free subject for this term?')) return;
-              try { await chooseFreeSubject(event.target.value); onNotice('Free subject saved.'); onChanged(); } catch (err) { onNotice(err.message); }
-            }}>
-            <option value="" disabled>Choose…</option>
-            {subjects.map(subject => <option key={subject.key} value={subject.key}>{subject.name}</option>)}
-          </select>
-        </div>
+      <section className={CARD} aria-label="Free practice">
+        <h3 className="font-black text-slate-900 dark:text-white">Free practice</h3>
+        <p className="text-sm text-slate-600 dark:text-slate-300">Every subject is free at your class level (Simple and Intermediate): {passes.freePerDay || 10} new questions a day across all your subjects. Questions you have already downloaded can be replayed. A pass removes the daily limit.</p>
+        {passes.allSubjects ? null : <p className="mt-1 text-sm font-bold text-emerald-700 dark:text-emerald-300">{passes.freeLeftToday ?? passes.freePerDay ?? 10} free question{(passes.freeLeftToday ?? 10) === 1 ? '' : 's'} left today.</p>}
       </section>
 
       {(passes.list || []).length > 0 && (
@@ -333,6 +324,7 @@ export default function PracticeArena() {
         setNotice(modeKey === 'mistakes' ? 'No missed questions yet — try another mode.' : 'No questions of that kind for this subject yet. Try another mode or level.');
         return;
       }
+      if (pack.replay) setNotice(`Today's ${home?.passes?.freePerDay || 10} free questions are used up, so these are questions you already downloaded. New ones tomorrow — or a pass removes the limit.`);
       setSaved(current => ({ ...current, [picker.key]: pack.savedAt || Date.now() }));
       setGame({ quiz, subject: picker, custom, attemptId: newAttemptId() });
       setPicker(null);
@@ -340,11 +332,12 @@ export default function PracticeArena() {
     } catch (startError) {
       setNotice(startError.message);
       // Not covered by a pass: show what would open it.
+      if (startError.data?.freeLimit) refresh();
       if (startError.status === 402) { setPassPreset({ subjectKey: picker.key, exam }); setPicker(null); setTab('passes'); }
     } finally {
       setBusy(false);
     }
-  }, [picker, home]);
+  }, [picker, home, refresh]);
 
   /** A timed mock examination from a held examination pass. */
   const startMock = useCallback(async (exam, subjectKey) => {
@@ -433,7 +426,7 @@ export default function PracticeArena() {
                 <div className={`bg-gradient-to-br ${CARD_GRADIENTS[index % CARD_GRADIENTS.length]} p-4 text-white`}>
                   <div className="flex items-start justify-between gap-2">
                     <h3 className="text-lg font-black">{subject.name}</h3>
-                    {subject.access ? <span className="shrink-0 rounded-full bg-white/20 px-2 py-0.5 text-[11px] font-black">{subject.access === 'free' ? 'Free subject' : subject.access === 'pass' ? 'Pass ✓' : subject.access === 'claim-free' ? 'Free to start' : '🔒 ₦300'}</span> : null}
+                    {subject.access ? <span className="shrink-0 rounded-full bg-white/20 px-2 py-0.5 text-[11px] font-black">{subject.access === 'free' ? 'Free · 10 a day' : subject.access === 'pass' ? 'Pass ✓' : '🔒 ₦300'}</span> : null}
                   </div>
                   <p className="text-xs text-white/85">{subject.questions ? `${subject.questions} questions${subject.levels ? ` · ${subject.levels}` : ''}` : home.canGenerate ? 'New — Ndovera AI prepares questions when you start' : 'No questions yet'}</p>
                 </div>

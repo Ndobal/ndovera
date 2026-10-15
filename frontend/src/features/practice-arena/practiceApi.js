@@ -75,6 +75,12 @@ export async function loadPack(subjectKey, { refresh = true, difficulty = '', ex
       if (data.pack.questions.length) await setItem(packKey(subjectKey, difficulty, exam), { ...data.pack, savedAt: Date.now() });
       return { ...data.pack, needsMore: Boolean(data.needsMore), offline: false };
     } catch (error) {
+      // Today's free questions used up: the questions already on this device can still be replayed.
+      if (error.data?.freeLimit) {
+        const kept = await getItem(packKey(subjectKey, difficulty, exam));
+        if (kept?.questions?.length && stillValid(kept)) return { ...kept, offline: false, replay: true };
+        throw error;
+      }
       if (error.status && error.status < 500) throw error;
     }
   }
@@ -90,7 +96,6 @@ export const generateQuestions = (subjectKey, difficulty, exam = '') => request(
 /** A timed mock examination (JAMB: Use of English + 3 subjects; others: one subject). Online only. */
 export const loadMock = (exam, subject = '') => request(`/api/practice-arena/mock?exam=${exam}${subject ? `&subject=${encodeURIComponent(subject)}` : ''}`);
 
-export const chooseFreeSubject = subject => request('/api/practice-arena/free-subject', { method: 'POST', body: { subject } });
 export const quotePass = payload => request('/api/practice-arena/passes/quote', { method: 'POST', body: payload });
 export const checkoutPass = payload => request('/api/practice-arena/passes/checkout', { method: 'POST', body: payload });
 export const verifyPass = txRef => request('/api/practice-arena/passes/verify', { method: 'POST', body: { txRef } });

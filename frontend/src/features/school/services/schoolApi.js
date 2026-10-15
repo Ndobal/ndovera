@@ -175,6 +175,8 @@ export const updatePersonRole = (userId, role) => req(`/api/people/${userId}/rol
 export const getClasses = () => req('/api/school/classes');
 export const addClass = (data) => req('/api/school/classes', { method: 'POST', body: data });
 export const bulkUpdateClasses = (classes) => req('/api/school/classes', { method: 'PUT', body: { classes } });
+export const getClassLevels = () => req('/api/school/class-levels');
+export const saveClassLevels = (levels) => req('/api/school/class-levels', { method: 'PUT', body: { levels } });
 export const deleteClass = (classId) => req(`/api/school/classes/${classId}`, { method: 'DELETE' });
 export const getSubjects = () => req('/api/school/subjects');
 export const addSubject = (data) => req('/api/school/subjects', { method: 'POST', body: data });

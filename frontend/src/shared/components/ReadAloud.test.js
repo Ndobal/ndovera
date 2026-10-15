@@ -1,4 +1,4 @@
-import { locatePieces, pickDefaultVoice, splitForSpeech, textMap, usableVoices } from './ReadAloud';
+import { locatePieces, pickDefaultVoice, questionSpeech, speakable, splitForSpeech, textMap, usableVoices } from './ReadAloud';
 
 describe('splitForSpeech', () => {
   it('splits at sentence ends and drops extra spaces', () => {
@@ -64,5 +64,18 @@ describe('textMap and locatePieces', () => {
     expect(first[0].nodeValue.slice(first[1])).toMatch(/^They need/);
     expect(last[0].nodeValue[last[1]]).toBe('!');
     root.remove();
+  });
+});
+
+describe('questionSpeech', () => {
+  it('reads the question, then each option by its letter, and says simple maths in words', () => {
+    const pieces = questionSpeech({ type: 'mcq', prompt: 'What is **x** if x^2 = 16?', options: ['4', 'x = 8', '$\\frac{1}{2}$'] });
+    expect(pieces.map(piece => piece.text)).toEqual(['What is x if x squared = 16?', 'Option A: 4', 'Option B: x = 8', 'Option C: 1 over 2']);
+    expect(pieces.map(piece => piece.option)).toEqual([-1, 0, 1, 2]);
+  });
+  it('says blanks and true-or-false questions plainly', () => {
+    expect(questionSpeech({ type: 'truefalse', prompt: 'The sun is a star.', options: ['True', 'False'] }).map(piece => piece.text)).toEqual(['The sun is a star.', 'True or false?']);
+    expect(speakable('Water boils at ____ degrees.')).toBe('Water boils at blank degrees.');
+    expect(questionSpeech(null)).toEqual([]);
   });
 });

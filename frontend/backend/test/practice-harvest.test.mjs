@@ -28,6 +28,8 @@ function fakeModel(calls) {
     run: async (_model, input) => {
       const system = String(input.messages?.[0]?.content || '')
       const user = String(input.messages?.[input.messages.length - 1]?.content || '')
+      // The night builder (00:00–04:00 Lagos) checks questions as "chief examiner": not practice's doing.
+      if (/chief examiner/i.test(system)) { calls.night = (calls.night || 0) + 1; return { response: '[]' } }
       if (/examiner/i.test(system)) {
         calls.keys += 1
         const ids = [...user.matchAll(/^ID: (\S+)/gm)].map(match => match[1])
@@ -223,6 +225,34 @@ test('the harvester fills the bank from teachers\' work; practice follows the cl
   assert.match(typed.body.note.markdown, /## Photosynthesis/)
   assert.equal((await call(db, 'jss3', 'GET', '/api/ndovera-notes/mat-blocks', null, noAi)).status, 404)
   assert.equal(calls.other, 0, 'no tutor or other AI call was made')
+})
+
+test('on a bank made with the old camelCase columns (createdAt NOT NULL), questions still go in, and what was "harvested" into nothing is taken again', async () => {
+  const db = await setup()
+  // Production's table: the first version's columns, with the new ones added later.
+  db.db.exec(`CREATE TABLE question_bank (id TEXT PRIMARY KEY, subject TEXT NOT NULL, classLevel TEXT, type TEXT NOT NULL DEFAULT 'mcq', prompt TEXT NOT NULL, options TEXT, answer TEXT,
+    explanation TEXT, imageUrl TEXT, createdAt TEXT NOT NULL, createdBy TEXT, metadata_json TEXT, created_by TEXT, status TEXT, source TEXT, image_url TEXT, tenant_id TEXT,
+    class_level TEXT, class_id TEXT, subject_id TEXT, topic TEXT, normalized_prompt TEXT, question_hash TEXT, options_json TEXT, answer_json TEXT, score REAL, created_at TEXT, updated_at TEXT)`)
+  // The harvester already ran once, its inserts silently dropped: logs say done, seeds say finished.
+  db.db.exec(`CREATE TABLE harvest_state (key TEXT PRIMARY KEY, value TEXT, updated_at TEXT);
+    INSERT INTO harvest_state VALUES ('qr-seed:v1', '6', 'x'), ('vr-seed:v1', '6000', 'x'), ('sweep:assignment', '~done', 'x'), ('watermark:assignment', '2999-01-01T00:00:00.000Z|zzz', 'x');
+    CREATE TABLE harvest_log (source_type TEXT NOT NULL, source_id TEXT NOT NULL, tenant_id TEXT, signature TEXT, questions INTEGER DEFAULT 0, status TEXT, error TEXT, harvested_at TEXT, PRIMARY KEY (source_type, source_id));`)
+  await seedTeachersWork(db)
+  for (const row of db.db.prepare(`SELECT id FROM assignments`).all()) db.db.prepare(`INSERT INTO harvest_log VALUES ('assignment', ?, 'school-a', 'old', 3, 'done', NULL, 'x')`).run(row.id)
+  const env = { AI: fakeModel({ keys: 0, generate: 0, other: 0 }), UPLOADS: memoryBucket() }
+  for (let i = 0; i < 4; i += 1) await cronTick(db, env)
+
+  const solved = db.db.prepare(`SELECT * FROM question_bank WHERE prompt = 'Solve 2x = 10 for x.'`).get()
+  assert.ok(solved, "the teacher's question reached the bank")
+  assert.ok(solved.createdAt, 'the legacy createdAt column is filled')
+  assert.equal(JSON.parse(solved.options).length, 4)
+  assert.ok(db.db.prepare(`SELECT COUNT(*) AS n FROM question_bank WHERE subject_key = 'quantitative_reasoning' OR subject = 'Quantitative Reasoning'`).get().n > 0, "Ndovera's seeds went in again")
+  assert.equal(db.db.prepare(`SELECT value FROM harvest_state WHERE key = 'reharvest:v2'`).get().value, 'done')
+
+  // Teachers' own bank entries work on the old table too.
+  const saved = await call(db, 'maths', 'POST', '/api/question-bank', { subject: 'Mathematics', classLevel: 'JSS 2', type: 'mcq', prompt: 'What is 3 x 3?', options: ['6', '9', '12', '3'], answer: '9' })
+  assert.ok([200, 201].includes(saved.status), JSON.stringify(saved.body))
+  assert.ok(db.db.prepare(`SELECT createdAt FROM question_bank WHERE prompt = 'What is 3 x 3?'`).get()?.createdAt)
 })
 
 test('a quiz is marked again on the server, counted once, and earns XP, streaks and badges', async () => {

@@ -20,7 +20,7 @@
 // raise it. The queue and every night's work are visible to Ami.
 
 import { ensureCurriculumTables } from './curriculumLibrary'
-import { levelOf, subjectKeyOf } from './levels'
+import { LEVEL_NAME_SQL, levelOf, subjectKeyOf } from './levels'
 import { bankType, ensurePracticeTables, normalizeText } from './practiceArena'
 import { writeQuestions } from './practiceBank'
 import type { AiRunner } from './practiceBank'
@@ -147,7 +147,7 @@ export async function planSources(db: D1Database) {
     return (['simple', 'intermediate'] as const).map(difficulty => ({ id: `curriculum:${row.id}:${difficulty}`, sourceType: 'curriculum_topic', sourceId: String(row.id), subjectKey, subjectName: String(row.subject || row.subject_key), section: level.section, rank: level.rank, difficulty, topic: String(row.topic), contextRef: `curriculum_topic:${row.id}`, target: CURRICULUM_TARGET, priority: 3 }))
   })
   // Every material shared in any school (its Ndovera note).
-  queued += await page('notes', `SELECT n.id, n.material_id, n.subject_name, n.topic, n.title, n.updated_at, c.name AS class_name FROM ndovera_notes n LEFT JOIN classes c ON c.id = n.class_id
+  queued += await page('notes', `SELECT n.id, n.material_id, n.subject_name, n.topic, n.title, n.updated_at, ${LEVEL_NAME_SQL('c')} AS class_name FROM ndovera_notes n LEFT JOIN classes c ON c.id = n.class_id
       WHERE (n.updated_at > ? OR (n.updated_at = ? AND n.id > ?)) ORDER BY n.updated_at, n.id LIMIT ?`, row => {
     const level = levelOf(row.class_name)
     const subjectKey = subjectKeyOf(row.subject_name)

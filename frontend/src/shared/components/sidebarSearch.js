@@ -39,6 +39,7 @@ export const SETTINGS_SECTIONS = [
   ['Website', 'School', 'public site homepage website pages'],
   ['Events', 'School', 'calendar event events holiday'],
   ['Classes', 'Academic', 'add class classes arms class teacher rename delete class'],
+  ['Class Levels', 'Academic', 'class level levels grade reception preschool early explorers primary nursery curriculum match standard'],
   ['Class Register', 'Academic', 'unplaced students without class no class assign class place students move students session register'],
   ['Subjects', 'Academic', 'add subjects subject teacher'],
   ['Sessions & Terms', 'Academic', 'academic session sessions term terms open term new session calendar'],

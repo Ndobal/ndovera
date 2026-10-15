@@ -1,3 +1,4 @@
+import { bankHasLegacyColumns, legacyBankInsert } from './practiceArena'
 function parseJsonField<T>(value: unknown, fallback: T): T {
   if (typeof value !== 'string' || !value) return fallback
 
@@ -756,12 +757,13 @@ export async function saveQuestionToBank(db: D1Database, tenantId: string, input
 
   const targetId = String(existingById?.id || normalizedQuestion.id || createId('qbank')).trim()
   const createdAt = String(existingById?.created_at || now)
+  const extra = legacyBankInsert(await bankHasLegacyColumns(db), { ...normalizedQuestion, createdAt })
 
   await db.prepare(
     `INSERT OR REPLACE INTO question_bank (
       id, tenant_id, subject, class_level, class_id, subject_id, topic, type, prompt, normalized_prompt, question_hash,
-      options_json, answer_json, explanation, image_url, score, status, source, created_by, metadata_json, created_at, updated_at
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+      options_json, answer_json, explanation, image_url, score, status, source, created_by, metadata_json, created_at, updated_at${extra.columns}
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?${extra.marks})`
   ).bind(
     targetId,
     tenantId,
@@ -785,6 +787,7 @@ export async function saveQuestionToBank(db: D1Database, tenantId: string, input
     JSON.stringify(normalizedQuestion.metadata || {}),
     createdAt,
     now,
+    ...extra.values,
   ).run()
 
   return {

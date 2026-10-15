@@ -377,10 +377,10 @@ import {
   discardFeeDraft, getFeeDraft, gridFromFeeConfig, listFeeTerms, loadStudentAmounts, lockTerm, saveFeeDraft, resolveClassMove, saveFeeSettings, saveTermGrid, studentStatement, studentsWithFees, unbilledStudents, unlockTerm,
 } from './feeEngine'
 import {
-  CurriculumError, EXAM_CATALOG, addCurriculumTopics, addSpecTopics, autoMapSpec, curriculaForSchool, curriculumImportPrompt, deleteCurriculum,
+  CurriculumError, EXAM_CATALOG, addCurriculumTopics, addSpecTopics, autoMapSpec, curriculaForSchool, curriculumImportPrompt, deleteCurriculum, importContext, withImportDefaults,
   deleteCurriculumTopic, deleteExamSpec, deleteSpecTopic, examGrounding, examOptionsFor, examSpecImportPrompt, extractJsonArray, getCurriculum,
   getCurriculumTopicsByIds, getExamSpec, getPlatformMaterialAi, getSchoolMaterialAi, importChunk, listCurricula, listCurriculumTopics, listExamSpecs,
-  listSpecTopics, mappingsForSpec, normalizeClassLevel, parseCsv, readinessFor, resolveTopic, saveCurriculum, saveExamSpec, saveMaterialAiConfig,
+  listSpecTopics, mappingsForSpec, normalizeClassLevel, STANDARD_LEVELS, parseCsv, readinessFor, resolveTopic, saveCurriculum, saveExamSpec, saveMaterialAiConfig,
   setCurriculumStatus, setExamSpecStatus, setMapping, subjectKey, updateCurriculumTopic, updateSpecTopic,
 } from './curriculumLibrary'
 import type { Evidence } from './curriculumLibrary'
@@ -395,7 +395,7 @@ import { PACK_SIZE, GLOBAL_TENANT, MODES as PRACTICE_MODES, PracticeError, build
 import * as Clubs from './clubs'
 import type { ClubActor } from './clubs'
 import {
-  EXAMS, EXAM_MIN_STOCK, JAMB_ENGLISH_KEY, JAMB_MOCK, PassError, SCHOOL_DISCOUNT, bundleList, canOpen, checkDevice, chooseFreeSubject, clearDevices, countPack,
+  EXAMS, EXAM_MIN_STOCK, JAMB_ENGLISH_KEY, JAMB_MOCK, PassError, SCHOOL_DISCOUNT, bundleList, canOpen, checkDevice, clearDevices, countPack, freeQuestionsLeft, useFreeQuestions, FREE_LIMIT_REACHED, FREE_QUESTIONS_PER_DAY,
   entitlements, examStock, examsForSection, getCheckout, normalizeExam, packValidUntil, priceFor, rebuildExamStock, recordCheckout, settleCheckout,
 } from './practicePasses'
 import type { ExamKey } from './practicePasses'
@@ -403,7 +403,7 @@ import { builderOverview, inBuildWindow, runBuilderTick, saveBuildSettings } fro
 import { DIFFICULTIES as PRACTICE_DIFFICULTIES, GENERATION_LIMITS, generatePracticeQuestions, mapNewSubjects, offeredSubjects, rebuildBankCounts } from './practiceBank'
 import { HarvestError, MAX_DOC_BYTES, ensureHarvestTables, getNote, listDocuments, listNotes, queueDocument, runDocumentStep, runHarvestTick, setDocumentStatus } from './harvester'
 import type { HarvestDeps } from './harvester'
-import { levelOf, labelOfRank, normalizeSection } from './levels'
+import { ensureClassStandardLevel, levelOf, labelOfRank, normalizeSection } from './levels'
 import { quantReasoningGrade, quantReasoningRunner } from './quantReasoning'
 import { verbalReasoningGrade, verbalReasoningRunner } from './verbalReasoning'
 import { bumpStamps, changesSharedState, readStamps, tenantScope, userScope } from './changeStamps'
@@ -9648,20 +9648,23 @@ async function resolveMaterialAiTarget(c: any, classId: string, subjectId: strin
   const { tenantId, actor } = await resolveAssessmentActor(c)
   const target = await resolveAssessmentClass(c, classId, subjectId)
   if (target.tenantId !== tenantId) throw new MaterialAiError('Class not found.', 404)
-  return { tenantId, actor, target }
+  // The level comes from the standard level the school gave the class ("GRADE 1" → Primary 2), else its name.
+  await ensureClassesTable(c.env.APP_DB)
+  const standard = await c.env.APP_DB.prepare(`SELECT standard_level FROM classes WHERE id = ?`).bind(target.classId).first().catch(() => null) as Record<string, any> | null
+  return { tenantId, actor, target: { ...target, levelName: String(standard?.standard_level || '') || target.className } }
 }
 
 app.get('/api/material-ai/options', authenticate, async (c) => {
   try {
     const { tenantId, target } = await resolveMaterialAiTarget(c, String(c.req.query('classId') || ''), String(c.req.query('subjectId') || ''))
-    const classLevel = normalizeClassLevel(target.className)
+    const classLevel = normalizeClassLevel(target.levelName)
     const [settings, curricula, exams, topics] = await Promise.all([
       getSchoolMaterialAi(c.env.APP_DB, tenantId), curriculaForSchool(c.env.APP_DB, tenantId),
-      examOptionsFor(c.env.APP_DB, target.subjectName, target.className), listTopics(c.env.APP_DB, target.classId, target.subjectId),
+      examOptionsFor(c.env.APP_DB, target.subjectName, target.levelName), listTopics(c.env.APP_DB, target.classId, target.subjectId),
     ])
     return c.json({
       success: true, ...target, classLevel,
-      levels: ['NUR1', 'NUR2', 'NUR3', 'PRY1', 'PRY2', 'PRY3', 'PRY4', 'PRY5', 'PRY6', 'JSS1', 'JSS2', 'JSS3', 'SS1', 'SS2', 'SS3'].map(key => normalizeClassLevel(key.replace('NUR', 'Nursery ').replace('PRY', 'Primary ').replace('JSS', 'JSS ').replace(/^SS/, 'SS '))),
+      levels: STANDARD_LEVELS,
       kinds: MATERIAL_KINDS, lengths: LENGTHS, contentOptions: CONTENT_OPTIONS,
       kindDefaults: Object.fromEntries(MATERIAL_KINDS.map(kind => [kind.key, defaultOptionsFor(kind.key)])),
       settings: { tables: settings.tables, formulae: settings.formulae, graphs: settings.graphs, images: settings.images, maxImages: settings.maxImages },
@@ -9681,9 +9684,9 @@ app.post('/api/material-ai/resolve', authenticate, async (c) => {
     const topic = String(body.topic || '').trim().slice(0, 200)
     if (!topic) throw new MaterialAiError('Enter the topic you want to teach.')
     // The level: what the teacher picked, '' for "let Ndovera find it".
-    const levelLabel = body.classLevel === undefined ? target.className : String(body.classLevel || '')
+    const levelLabel = body.classLevel === undefined ? target.levelName : String(body.classLevel || '')
     const resolution = await resolveTopic(c.env.APP_DB, { tenantId, subject: target.subjectName, topic, classLabel: levelLabel })
-    const examLevel = resolution.match?.classLabel || levelLabel || target.className
+    const examLevel = resolution.match?.classLabel || levelLabel || target.levelName
     const exams = await examOptionsFor(c.env.APP_DB, target.subjectName, examLevel)
     return c.json({ success: true, resolution, exams })
   } catch (error) {
@@ -9722,11 +9725,11 @@ app.post('/api/material-ai/drafts', authenticate, async (c) => {
       .filter(row => allowedCurricula.has(row.curriculumId))
     const curricula = await listCurricula(c.env.APP_DB, { tenantId })
     const names = new Map(curricula.map(item => [item.id, item.name]))
-    const levelLabel = body.classLevel === undefined ? target.className : String(body.classLevel || '')
-    const classLevel = normalizeClassLevel(decision === 'keep' || !curriculumRows.length ? (levelLabel || target.className) : curriculumRows[0].classLabel)
+    const levelLabel = body.classLevel === undefined ? target.levelName : String(body.classLevel || '')
+    const classLevel = normalizeClassLevel(decision === 'keep' || !curriculumRows.length ? (levelLabel || target.levelName) : curriculumRows[0].classLabel)
 
     const examKeys: string[] = (Array.isArray(body.exams) ? body.exams : []).map((key: unknown) => String(key)).filter((key: string) => key && key !== 'normal' && key !== 'school' && key !== 'custom').slice(0, 4)
-    const offered = new Set((await examOptionsFor(c.env.APP_DB, target.subjectName, classLevel.label || target.className)).map(option => option.key))
+    const offered = new Set((await examOptionsFor(c.env.APP_DB, target.subjectName, classLevel.label || target.levelName)).map(option => option.key))
     const refused = examKeys.filter(key => !offered.has(key))
     if (refused.length) throw new MaterialAiError(`${refused.map(key => key.toUpperCase()).join(', ')} does not apply to ${target.subjectName}${classLevel.label ? ` at ${classLevel.label}` : ''}.`)
     const exams = await examGrounding(c.env.APP_DB, { examKeys, subject: target.subjectName, topic, curriculumTopicIds: curriculumRows.map(row => row.id) })
@@ -10104,8 +10107,9 @@ for (const [prefix, scope] of [['/api/ami/curricula', 'ndovera'], ['/api/school/
       const text = String(body.text || '').slice(0, 400_000)
       const { chunk, next } = importChunk(text, Math.max(0, Number(body.offset) || 0))
       if (!chunk.trim()) return c.json({ success: true, added: 0, rejected: [], next, done: true, total: text.length })
-      const reply = await assessmentAiRunner(c.env)(curriculumImportPrompt(chunk, { subject: String(body.subject || ''), classLabel: String(body.classLabel || '') }), { maxTokens: 3500, temperature: 0.1 })
-      const rows = extractJsonArray(reply).map((row: Record<string, any>) => ({ ...(body.subject && !row.subject ? { subject: body.subject } : {}), ...(body.classLabel && !row.class ? { class: body.classLabel } : {}), ...row }))
+      const context = importContext(text, Math.max(0, Number(body.offset) || 0))
+      const reply = await assessmentAiRunner(c.env)(curriculumImportPrompt(chunk, { subject: String(body.subject || ''), classLabel: String(body.classLabel || ''), context }), { maxTokens: 3500, temperature: 0.1 })
+      const rows = withImportDefaults(extractJsonArray(reply), { subject: String(body.subject || '') || context.subject, classLabel: String(body.classLabel || '') || context.classLabel, term: context.term })
       const result = await addCurriculumTopics(c.env.APP_DB, curriculum.id, rows)
       return c.json({ success: true, ...result, next, done: next >= text.length, total: text.length })
     } catch (error) { return materialAiFailure(c, error, 'Ndovera AI could not read this part of the document.') }
@@ -14445,9 +14449,9 @@ app.get('/api/practice-arena/home', authenticate, async (c) => {
     // Subjects are what the class offers (questions from every school, however they name it).
     // A class with no subjects set up falls back to its own school's question bank.
     const offered = await offeredSubjects(c.env.APP_DB, student)
-    const [profile, recent, board, held, stock] = await Promise.all([
+    const [profile, recent, board, held, stock, freeLeft] = await Promise.all([
       getProfile(c.env.APP_DB, student.studentId), recentAttempts(c.env.APP_DB, student.studentId, 8), leaderboard(c.env.APP_DB, student, 'class'),
-      entitlements(c.env.APP_DB, student), examStock(c.env.APP_DB),
+      entitlements(c.env.APP_DB, student), examStock(c.env.APP_DB), freeQuestionsLeft(c.env.APP_DB, student.studentId),
     ])
     const subjects = offered.length
       ? offered.map(subject => ({ key: subject.key, name: subject.name, questions: subject.questions, byDifficulty: subject.byDifficulty, types: {}, levels: subject.levels, mastery: null, quizzes: 0 }))
@@ -14468,7 +14472,7 @@ app.get('/api/practice-arena/home', authenticate, async (c) => {
     return c.json({
       success: true, student: { name: student.studentName, className: student.className, level: student.rank !== null ? labelOfRank(student.rank) : '', section: student.section },
       profile, subjects, recent, leaderboard: board, modes: PRACTICE_MODES, levels: practiceLevels(student.section),
-      passes: { freeSubject: held.freeSubject, freeChangesLeft: held.freeChangesLeft, allSubjects: held.allSubjects, subjects: [...held.subjects], exams: Object.fromEntries(held.exams), jambSubjects: held.jambSubjects, list: held.passes },
+      passes: { freePerDay: FREE_QUESTIONS_PER_DAY, freeLeftToday: freeLeft, allSubjects: held.allSubjects, subjects: [...held.subjects], exams: Object.fromEntries(held.exams), jambSubjects: held.jambSubjects, list: held.passes },
       bundles: bundleList(student.section, stock), jambMock: JAMB_MOCK, exams: Object.fromEntries(examsForSection(student.section).map(exam => [exam, { label: EXAMS[exam].label, mockQuestions: EXAMS[exam].mockQuestions, mockMinutes: EXAMS[exam].mockMinutes }])),
       canGenerate: Boolean(student.section && student.rank !== null), enoughQuestions: GENERATION_LIMITS.enoughQuestions,
     })
@@ -14476,30 +14480,16 @@ app.get('/api/practice-arena/home', authenticate, async (c) => {
 })
 
 /**
- * May this student have this subject at this level now? Paid content checks the device;
- * a first subject is claimed as the free one. Returns the student's holdings.
+ * May this student have this subject at this level now? Paid content checks the device.
+ * Returns the student's holdings.
  */
 async function practiceGate(c: any, student: Awaited<ReturnType<typeof resolvePracticeStudent>>, subjectKey: string, difficulty: string, exam: ExamKey | '') {
   const held = await entitlements(c.env.APP_DB, student)
   const access = canOpen(held, subjectKey, difficulty, exam)
   if (!access.ok) throw new PassError(access.reason, 402, { needs: (access as any).needs || '' })
-  if (access.via === 'claim-free') {
-    await chooseFreeSubject(c.env.APP_DB, student, subjectKey)
-    held.freeSubject = subjectKey
-  }
   if (access.paid) await checkDevice(c.env.APP_DB, student.studentId, String(c.req.header('X-Practice-Device') || ''))
   return { held, paid: access.paid }
 }
-
-/** Choose (or change, once a term) the free subject. */
-app.post('/api/practice-arena/free-subject', authenticate, async (c) => {
-  try {
-    const student = await resolvePracticeStudent(c)
-    const body = await c.req.json().catch(() => ({})) as Record<string, any>
-    const subject = await practiceSubjectFor(c, student, String(body.subject || '').trim())
-    return c.json({ success: true, ...(await chooseFreeSubject(c.env.APP_DB, student, subject.key)) })
-  } catch (error) { return practiceFailure(c, error, 'Could not choose the free subject.') }
-})
 
 /** Ndovera AI writes questions at once for a paid subject that is short (free subjects fill up at night). */
 app.post('/api/practice-arena/generate', authenticate, async (c) => {
@@ -14532,8 +14522,13 @@ app.get('/api/practice-arena/pack', authenticate, async (c) => {
     const exam = difficulty === 'external' ? normalizeExam(c.req.query('exam')) : ''
     if (difficulty === 'external' && (!exam || EXAMS[exam].section !== student.section)) throw new PassError('Choose one of your section\'s examinations.')
     const { held, paid } = await practiceGate(c, student, subject.key, difficulty, exam)
+    // Free: FREE_QUESTIONS_PER_DAY questions a day across every subject, counted as they are served.
+    const freeLeft = paid ? Infinity : await freeQuestionsLeft(c.env.APP_DB, student.studentId)
+    if (!freeLeft) throw new PassError(FREE_LIMIT_REACHED, 429, { freeLimit: true, needs: 'subject' })
     await countPack(c.env.APP_DB, student.studentId)
-    const pack = await buildPack(c.env.APP_DB, student, subject.key, size, { keys: subject.keys, difficulty, subjectName: subject.name, exam })
+    const built = await buildPack(c.env.APP_DB, student, subject.key, Math.min(size, freeLeft), { keys: subject.keys, difficulty, subjectName: subject.name, exam })
+    const pack = paid ? built : { ...built, questions: built.questions.slice(0, freeLeft), free: { perDay: FREE_QUESTIONS_PER_DAY, leftToday: freeLeft - Math.min(freeLeft, built.questions.length) } }
+    if (!paid) await useFreeQuestions(c.env.APP_DB, student.studentId, pack.questions.length)
     // Too few questions: a paid subject asks Ndovera AI for more at once; a free one fills up at night.
     const canGenerate = paid && Boolean(student.section && student.rank !== null)
     return c.json({ success: true, pack: { ...pack, validUntil: packValidUntil(held, difficulty, exam) }, needsMore: canGenerate && pack.questions.length < GENERATION_LIMITS.enoughQuestions })
@@ -14666,7 +14661,7 @@ app.get('/api/practice-arena/family', authenticate, async (c) => {
     for (const child of ((await listAccessibleLearningStudents(db, c.var.user || {})).students || []) as any[]) {
       const student = { ...(await practiceStudent(db, { tenantId: actor.tenantId, studentId: child.id, studentName: child.name, classId: child.classId })), termId }
       const held = await entitlements(db, student)
-      children.push({ studentId: child.id, name: child.name, className: student.className, section: student.section, subjects: (await offeredSubjects(db, student)).map(item => ({ key: item.key, name: item.name })), passes: held.passes, freeSubject: held.freeSubject, bundles: bundleList(student.section, stock) })
+      children.push({ studentId: child.id, name: child.name, className: student.className, section: student.section, subjects: (await offeredSubjects(db, student)).map(item => ({ key: item.key, name: item.name })), passes: held.passes, freePerDay: FREE_QUESTIONS_PER_DAY, bundles: bundleList(student.section, stock) })
     }
     return c.json({ success: true, children })
   } catch (error) { return practiceFailure(c, error, 'Could not load your children\'s practice.') }
@@ -14679,10 +14674,11 @@ app.get('/api/practice-arena/school', authenticate, async (c) => {
     if (!hasRequiredRole(actor.role, PASS_SCHOOL_BUYERS)) throw new PassError('For the Owner, Head of School and Accountant.', 403)
     const db = c.env.APP_DB
     const stock = await examStock(db)
-    const classRows = await db.prepare(`SELECT id, name, arm FROM classes WHERE tenantId = ? ORDER BY name, arm`).bind(actor.tenantId).all()
+    await ensureClassesTable(db)
+    const classRows = await db.prepare(`SELECT id, name, arm, standard_level FROM classes WHERE tenantId = ? ORDER BY name, arm`).bind(actor.tenantId).all()
     const classes = ((classRows.results || []) as Record<string, any>[]).map(row => {
       const name = [row.name, row.arm].filter(Boolean).join(' ')
-      const section = levelOf(row.name)?.section || ''
+      const section = levelOf(row.standard_level || row.name)?.section || ''
       return { id: String(row.id), name, section, bundles: section ? bundleList(section, stock) : [] }
     })
     return c.json({ success: true, classes, discount: SCHOOL_DISCOUNT })
@@ -16249,6 +16245,7 @@ async function ensureClassesTable(db: D1Database) {
   if (_initializedTables.has('classes')) return
   await db.prepare(CLASSES_TABLE_SQL).run()
   try { await db.exec('ALTER TABLE classes ADD COLUMN section TEXT') } catch {}
+  await ensureClassStandardLevel(db)
   await runIndexStatements(db, [
     `CREATE INDEX IF NOT EXISTS idx_classes_tenant_name_arm ON classes(tenantId, name, arm)`,
     `CREATE INDEX IF NOT EXISTS idx_classes_tenant_teacher ON classes(tenantId, classTeacherId)`,
@@ -23131,6 +23128,41 @@ app.post('/api/school/classes', authenticate, async (c) => {
   } catch (err) {
     return c.json({ error: err instanceof Error ? err.message : 'Could not add class.' }, 500)
   }
+})
+
+/**
+ * Class levels: which standard level each of the school's classes is ("GRADE 1" → Primary 2,
+ * "RECEPTION" → Nursery 1). Ndovera uses it for the curriculum, AI materials and practice.
+ */
+app.get('/api/school/class-levels', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos', 'ict'])) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  await ensureClassesTable(c.env.APP_DB)
+  const rows = await c.env.APP_DB.prepare(`SELECT id, name, arm, standard_level FROM classes WHERE tenantId = ? ORDER BY name, arm`).bind(tenantId).all()
+  const classes = ((rows.results || []) as Record<string, any>[]).map(row => {
+    const chosen = normalizeClassLevel(row.standard_level)
+    const guess = normalizeClassLevel(row.name)
+    return { id: String(row.id), name: String(row.name || ''), arm: String(row.arm || ''), level: chosen.key, guess: guess.key, chosen: Boolean(chosen.key) }
+  })
+  return c.json({ success: true, classes, levels: STANDARD_LEVELS.map(level => ({ key: level.key, label: level.label, section: level.section })) })
+})
+
+app.put('/api/school/class-levels', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos', 'ict'])) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  const body = await c.req.json().catch(() => ({})) as Record<string, any>
+  const levels = body.levels && typeof body.levels === 'object' ? body.levels as Record<string, unknown> : {}
+  await ensureClassesTable(c.env.APP_DB)
+  const statements: D1PreparedStatement[] = []
+  for (const [classId, key] of Object.entries(levels).slice(0, 300)) {
+    const level = key ? STANDARD_LEVELS.find(item => item.key === String(key)) : null
+    if (key && !level) return c.json({ success: false, message: `Unknown level "${String(key)}".` }, 400)
+    statements.push(c.env.APP_DB.prepare(`UPDATE classes SET standard_level = ? WHERE id = ? AND tenantId = ?`).bind(level ? level.label : null, classId, tenantId))
+  }
+  for (let i = 0; i < statements.length; i += 50) await c.env.APP_DB.batch(statements.slice(i, i + 50))
+  return c.json({ success: true, saved: statements.length })
 })
 
 app.put('/api/school/classes/:classId', authenticate, async (c) => {

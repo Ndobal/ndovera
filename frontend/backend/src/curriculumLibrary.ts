@@ -61,16 +61,30 @@ const level = (section: ClassLevel['section'], n: number): ClassLevel => {
   return { key: `SS${n}`, label: `SS ${n}`, order: 30 + n, section }
 }
 
+const PRE_NURSERY: ClassLevel = { key: 'PRENUR', label: 'Pre-Nursery', order: 0, section: 'nursery' }
+
+/** Every standard level, youngest first (what a school's own class names are matched to). */
+export const STANDARD_LEVELS: ClassLevel[] = [
+  PRE_NURSERY, level('nursery', 1), level('nursery', 2), level('nursery', 3),
+  ...[1, 2, 3, 4, 5, 6].map(n => level('primary', n)), ...[1, 2, 3].map(n => level('junior', n)), ...[1, 2, 3].map(n => level('senior', n)),
+]
+
 /** "SSS 2", "Senior Secondary Two", "SS2 Science" → SS2; "Basic 7" → JSS1; "Pry 4" → Primary 4. '' when unknown. */
 export function normalizeClassLevel(raw: unknown): ClassLevel {
   const text = String(raw ?? '').toLowerCase().replace(/[^a-z0-9 ]+/g, ' ').replace(/\s+/g, ' ').trim()
   const none: ClassLevel = { key: '', label: '', order: 0, section: '' }
   if (!text) return none
+  const byKey = STANDARD_LEVELS.find(item => item.key.toLowerCase() === text.replace(/ /g, ''))
+  if (byKey) return byKey
   const numberMatch = text.match(/(\d{1,2})/) || text.match(/\b(one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|iii|ii|iv|vi|v|i)\b/)
   const n = numberMatch ? (Number(numberMatch[1]) || NUMBER_WORDS[numberMatch[1]] || 0) : 0
-  if (/\b(kg|kindergarten|creche|pre ?school|reception|nursery|pre ?k)\b/.test(text)) return level('nursery', Math.min(3, Math.max(1, n || 1)))
-  if (/\b(sss|ss|senior secondary|senior school|s s s|shs)\b/.test(text) || /^(s{2,3}|shs)\d/.test(text.replace(/\s/g, ''))) return n >= 1 && n <= 3 ? level('senior', n) : none
-  if (/\b(jss|js|junior secondary|junior school|j s s|jhs)\b/.test(text) || /^(js{1,2}|jhs)\d/.test(text.replace(/\s/g, ''))) return n >= 1 && n <= 3 ? level('junior', n) : none
+  // Early years: Pre-Nursery (Early Explorers), Nursery 1 (Reception), Nursery 2 (Pre-School 1), Nursery 3 (Pre-School 2).
+  if (/\b(pre ?nursery|prenursery|(early )?explorers?|creche|playgroup)\b/.test(text)) return PRE_NURSERY
+  if (/\bpre ?school\b/.test(text)) return level('nursery', n >= 2 ? 3 : 2)
+  if (/\breception\b/.test(text)) return level('nursery', 1)
+  if (/\b(kg|kindergarten|nursery|pre ?k)\b/.test(text)) return level('nursery', Math.min(3, Math.max(1, n || 1)))
+  if (/\b(sss|ss|senior secondary|senior school|senior high( school)?|s s s|shs)\b/.test(text) || /^(s{2,3}|shs)\d/.test(text.replace(/\s/g, ''))) return n >= 1 && n <= 3 ? level('senior', n) : none
+  if (/\b(jss|js|junior secondary|junior school|junior high( school)?|j s s|jhs)\b/.test(text) || /^(js{1,2}|jhs)\d/.test(text.replace(/\s/g, ''))) return n >= 1 && n <= 3 ? level('junior', n) : none
   if (/\b(basic|grade|year|class)\b/.test(text) && n) {
     if (n <= 6) return level('primary', n)
     if (n <= 9) return level('junior', n - 6)
@@ -381,12 +395,58 @@ export function extractJsonArray(reply: string): any[] {
   try { const parsed = JSON.parse(text.slice(start, end + 1)); return Array.isArray(parsed) ? parsed : [] } catch { return [] }
 }
 
-export function curriculumImportPrompt(chunk: string, defaults: { subject?: string, classLabel?: string }) {
+// No word break needed after the class: flattened PDFs glue headings ("PRE-NURSERYHEALTH HABITS").
+const CLASS_HEADING = /\b(PRE-?\s?NURSERY|PRENURSERY|NURSERY\s*[1-3]|PRIMARY\s*[1-6]|BASIC\s*[1-9]|JSS\s*[1-3]|SSS?\s*[1-3])(?![0-9])/g
+
+/**
+ * Where a piece of a long document sits: the class, subject and term of the last heading
+ * before it. A scheme of work names them once, at the top of a section; the pieces after
+ * that (read separately) would otherwise have no class or subject at all.
+ */
+export function importContext(text: string, offset: number) {
+  const before = String(text || '').slice(Math.max(0, offset - 250_000), offset)
+  // Headings are in capitals ("NURSERY 1 HEALTH HABITS SCHEME OF WORK", "NUMERACY SCHEME OF WORK
+  // (NURSERY 3)", or the class on the line above); the table of contents (dotted leaders) is not one.
+  let classLabel = ''
+  let subject = ''
+  for (const match of before.matchAll(/([A-Z0-9][A-Z0-9 &,()'\n-]{2,90}?)SCHEME OF WORK(\s*\([^)\n]{2,30}\))?/g)) {
+    const at = match.index || 0
+    if (/\.{5}|…{3}/.test(before.slice(at, at + match[0].length + 15))) continue
+    const heading = `${match[1].split('CONTENT').pop()} ${match[2] || ''}`
+    const named = [...heading.matchAll(CLASS_HEADING)]
+    if (named.length) classLabel = normalizeClassLevel(named[named.length - 1][1]).label || classLabel
+    const name = heading.replace(CLASS_HEADING, ' ').replace(/[()\n]/g, ' ').replace(/\s+/g, ' ').trim()
+    if (name.length >= 3 && !/\bCOMPLETE\b|\bFOR\b/.test(name)) subject = name.toLowerCase().replace(/\b\w/g, letter => letter.toUpperCase())
+    else if (named.length) subject = ''
+  }
+  const terms = [...before.matchAll(/\b(FIRST|SECOND|THIRD)\s+TERM\b/gi)]
+  const term = terms.length ? `${terms[terms.length - 1][1][0].toUpperCase()}${terms[terms.length - 1][1].slice(1).toLowerCase()} Term` : ''
+  return { classLabel, subject, term }
+}
+
+/** Rows from a piece of a document: what the model left out is filled from the section it is in. */
+export function withImportDefaults(rows: Array<Record<string, any>>, defaults: { subject?: string, classLabel?: string, term?: string }) {
+  return rows.map(row => ({
+    ...(defaults.subject && !row.subject ? { subject: defaults.subject } : {}),
+    ...(defaults.classLabel && !row.class ? { class: defaults.classLabel } : {}),
+    ...(defaults.term && !row.term ? { term: defaults.term } : {}),
+    ...row,
+  }))
+}
+
+export function curriculumImportPrompt(chunk: string, defaults: { subject?: string, classLabel?: string, context?: { classLabel: string, subject: string, term: string } }) {
+  const context = defaults.context
+  const carried = context && (context.classLabel || context.subject || context.term)
+    ? `This text continues a section of ${[context.classLabel && `class ${context.classLabel}`, context.subject && `subject ${context.subject}`, context.term && context.term].filter(Boolean).join(', ')}. Rows before any new heading in this text belong to it.`
+    : ''
   return [
     { role: 'system', content: [
       'You convert an official school curriculum / scheme of work into structured rows. Return ONLY a JSON array.',
-      'Each element: {"class": "e.g. SS 2 or Primary 4", "subject": "", "theme": "theme/strand/unit if stated", "topic": "", "subtopics": [""], "objectives": ["performance objectives as written"], "competencies": [""], "term": "", "week": ""}.',
-      'Copy the document: never add topics, objectives or content that are not in the text. Keep the wording of objectives. Leave a field empty when the text does not say it.',
+      'Each element: {"class": "e.g. Pre-Nursery, Nursery 2, Primary 4 or SS 2", "subject": "", "theme": "theme/strand/unit if stated", "topic": "", "subtopics": [""], "objectives": ["performance objectives as written"], "competencies": [""], "term": "", "week": ""}.',
+      'One row per week\'s topic. Tables are often flattened into lines: the week number, then the topic, then the teacher\'s activities, then the pupils\' activities, then the resources.',
+      'Objectives: copy the objectives when the document has them. When it has no objectives, copy the pupils\' activities (e.g. "Pupils sing body parts songs") as the objectives. Leave out the teacher\'s activities and the resources.',
+      'Copy the document: never add topics, objectives or content that are not in the text. Keep the wording. Leave a field empty when the text does not say it. Skip breaks, revision and examination weeks.',
+      carried,
       defaults.subject ? `If the subject is not stated, it is ${defaults.subject}.` : '',
       defaults.classLabel ? `If the class is not stated, it is ${defaults.classLabel}.` : '',
     ].filter(Boolean).join('\n') },

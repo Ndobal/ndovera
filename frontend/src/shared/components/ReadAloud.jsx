@@ -119,7 +119,7 @@ export function locatePieces(text, pieces) {
 // while it is on screen.
 
 const loadSetting = (key, fallback) => { try { return localStorage.getItem(key) ?? fallback; } catch { return fallback; } };
-const IDLE = { status: 'idle', title: '', source: '', href: '', at: 0, of: 0, current: '' };
+const IDLE = { status: 'idle', title: '', source: '', href: '', at: 0, of: 0, current: '', inPlace: false };
 let player = { ...IDLE };
 let pieces = [];
 let runToken = 0;
@@ -161,9 +161,10 @@ function speakFrom(start) {
 }
 
 export const readAloud = {
-  start({ chunks, title, source, href }) {
+  /** `inPlace`: read where the student is (a quiz question) — allowed in Practice, never carried away. */
+  start({ chunks, title, source, href, inPlace = false }) {
     pieces = chunks;
-    emit({ ...IDLE, status: 'playing', title: title || 'Reading', source: source || '', href: href || '', of: chunks.length });
+    emit({ ...IDLE, status: 'playing', title: title || 'Reading', source: source || '', href: href || '', of: chunks.length, inPlace });
     speakFrom(0);
   },
   jump(at) { if (pieces.length) speakFrom(Math.max(0, Math.min(pieces.length - 1, at))); },
@@ -179,6 +180,49 @@ export const readAloud = {
   },
   get settings() { return settings; },
 };
+
+/**
+ * Text as it should sound: formatting marks dropped, simple maths said in words,
+ * blanks said as "blank".
+ */
+export function speakable(value) {
+  return String(value ?? '')
+    .replace(/!\[[^\]]*\]\([^)]*\)/g, ' ')
+    .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\\frac\{([^{}]+)\}\{([^{}]+)\}/g, ' $1 over $2 ')
+    .replace(/\\sqrt\{([^{}]+)\}/g, ' the square root of $1 ')
+    .replace(/\\(times|cdot)/g, ' times ').replace(/\\div/g, ' divided by ').replace(/\\pm/g, ' plus or minus ')
+    .replace(/\\(leq?|le)\b/g, ' less than or equal to ').replace(/\\(geq?|ge)\b/g, ' greater than or equal to ').replace(/\\neq?\b/g, ' not equal to ')
+    .replace(/\\pi\b/g, ' pi ').replace(/\\theta\b/g, ' theta ').replace(/\\degree|\^\{?\\circ\}?|°/g, ' degrees ')
+    .replace(/\^\{?2\}?(?!\d)/g, ' squared ').replace(/\^\{?3\}?(?!\d)/g, ' cubed ').replace(/\^\{([^{}]+)\}|\^(\w+)/g, ' to the power $1$2 ')
+    .replace(/\\[a-zA-Z]+/g, ' ').replace(/[{}$]/g, ' ')
+    .replace(/_{3,}|\.{4,}|…{2,}/g, ' blank ')
+    .replace(/[*_#>`~|]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+/**
+ * What a quiz question sounds like: the passage when asked for, the question, then each
+ * option as "Option A: …". `option` on each piece says which option it is (-1 for none),
+ * so the option being read can be shown.
+ */
+export function questionSpeech(question, { withPassage = false } = {}) {
+  if (!question) return [];
+  const out = [];
+  const add = (text, option = -1) => splitForSpeech(speakable(text)).forEach(piece => out.push({ text: piece, option }));
+  if (withPassage && question.passage) add(question.passage);
+  add(question.prompt);
+  const options = question.options || [];
+  if (question.type === 'truefalse') add('True or false?');
+  else if (options.length) options.forEach((option, index) => add(`Option ${'ABCDEFGH'[index]}: ${option}`, index));
+  else if (question.type === 'crossmatching' && question.pairs?.length) {
+    add(`Match each of these: ${question.pairs.map(pair => pair.left).join('; ')}.`);
+    add(`With one of these: ${[...question.pairs.map(pair => pair.right)].sort().join('; ')}.`);
+  } else if (question.type === 'fillgaps') add('Fill in the blank.');
+  return out;
+}
 
 /** Where reading stops by itself: practice, assignments and exams need the student's full attention. */
 export function isQuietPlace(pathname = '', search = '') {
@@ -375,7 +419,7 @@ export function ReadAloudPlayer({ pathname = '', search = '', onOpen }) {
   const now = useReadAloudPlayer();
   const [notice, setNotice] = useState('');
   useEffect(() => {
-    if (now.status !== 'idle' && isQuietPlace(pathname, search)) {
+    if (now.status !== 'idle' && !now.inPlace && isQuietPlace(pathname, search)) {
       readAloud.stop();
       setNotice('Reading stopped — Practice, Assignments and Exams need your full attention.');
     }
@@ -389,7 +433,7 @@ export function ReadAloudPlayer({ pathname = '', search = '', onOpen }) {
   if (notice) {
     return <div role="status" className="fixed inset-x-3 bottom-20 z-[150] mx-auto max-w-md rounded-2xl bg-slate-900 px-4 py-3 text-sm font-semibold text-white shadow-2xl">{notice}</div>;
   }
-  if (now.status === 'idle' || onSourcePage) return null;
+  if (now.status === 'idle' || onSourcePage || now.inPlace) return null;
   const BTN = 'rounded-xl px-3 py-1.5 text-xs font-bold';
   return (
     <div role="region" aria-label="Reading aloud" className="fixed inset-x-3 bottom-20 z-[150] mx-auto flex max-w-md items-center gap-2 rounded-2xl bg-indigo-700 px-3 py-2 text-white shadow-2xl">

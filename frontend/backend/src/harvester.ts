@@ -677,6 +677,29 @@ async function incrementalStep(deps: HarvestDeps, pageSize: number) {
 }
 
 /**
+ * Once: everything harvested before inserts named the bank's legacy `createdAt`
+ * column was thrown away by INSERT OR IGNORE, so production's bank stayed empty
+ * while the logs said "done". Forget what was harvested and take it all again —
+ * sources, documents (without remaking their notes), Ndovera's reasoning seeds
+ * and the night builder's queue.
+ */
+export async function reharvestOnce(db: D1Database) {
+  const key = 'reharvest:v2'
+  if ((await getState(db, key)) === 'done') return false
+  const stamp = new Date().toISOString()
+  await db.batch([
+    db.prepare(`DELETE FROM harvest_log`),
+    db.prepare(`DELETE FROM harvest_state WHERE key LIKE 'watermark:%' OR key LIKE 'sweep:%' OR key IN ('qr-seed:v1', 'vr-seed:v1')`),
+    db.prepare(`UPDATE harvest_documents SET status = 'queued', make_note = 0, total = 0, offset = 0, added = 0, attempts = 0, error = NULL, text_inline = NULL, locked_until = NULL, finished_at = NULL, updated_at = ? WHERE status = 'done'`).bind(stamp),
+    // Counted when queued, though the rows never arrived; the bank is counted afresh as they do.
+    db.prepare(`DELETE FROM practice_bank_counts WHERE NOT EXISTS (SELECT 1 FROM question_bank LIMIT 1)`),
+  ])
+  await db.prepare(`UPDATE practice_build_queue SET made = 0, attempts = 0, status = 'pending', updated_at = ? WHERE made > 0 OR status <> 'pending'`).bind(stamp).run().catch(() => null)
+  await setState(db, key, 'done')
+  return true
+}
+
+/**
  * One cron run. Small on purpose: new and changed work first, a page of the
  * nightly sweep, one document step, a few answer keys, and tidying old rows.
  */
@@ -684,6 +707,7 @@ export async function runHarvestTick(deps: HarvestDeps, options: { pageSize?: nu
   await ensureHarvestTables(deps.db)
   const pageSize = options.pageSize ?? 8
   const report = { incremental: 0, sweep: 0, documents: 0, answerKeys: 0, classified: 0, sweepStarted: false, quantReasoning: 0, verbalReasoning: 0 }
+  await reharvestOnce(deps.db)
   // Ndovera's Quantitative Reasoning questions (Primary 1–6), one class a run until all are in.
   report.quantReasoning = await seedQuantReasoningBank(deps.db, key => getState(deps.db, key), (key, value) => setState(deps.db, key, value)).catch(() => 0)
   // And Verbal Reasoning (1,000 per class), a slice a run.
