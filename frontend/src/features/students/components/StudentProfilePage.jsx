@@ -11,6 +11,7 @@ import {
 } from '../../school/services/schoolApi';
 import { uploadComplianceFile } from '../../compliance/complianceApi';
 import ResultRecordViewer from '../../results-engine/components/ResultRecordViewer';
+import { askConfirm } from '../../../shared/components/AppDialog';
 
 // The Digital Student File. One file per learner, opened from their name
 // anywhere in Ndovera. The server says what this viewer may see and add
@@ -140,7 +141,7 @@ function RecordGroup({ group, profile, studentId, onChanged, setError }) {
               )}
               {profile.permissions?.deleteRecords && (
                 <button type="button" onClick={async () => {
-                  if (!window.confirm('Remove this record?')) return;
+                  if (!await askConfirm('Remove this record?')) return;
                   try { await deleteStudentRecord(studentId, record.id); onChanged(); } catch (err) { setError(err?.message || 'Could not remove the record.'); }
                 }} className="text-xs font-bold text-red-600">Remove</button>
               )}

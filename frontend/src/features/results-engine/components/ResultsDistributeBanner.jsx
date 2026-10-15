@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { bulkPublishResults, getResultsBulkJobs, retryResultsBulkJob } from '../../school/services/schoolApi';
+import { askConfirm } from '../../../shared/components/AppDialog';
 
 // "Distribute all results" trigger + persistent background-job status. Publishes
 // every class's results to students in the background (survives leaving the page).
@@ -24,7 +25,7 @@ export default function ResultsDistributeBanner({ session = '', term = '' }) {
   }, []);
 
   async function distributeAll() {
-    if (!window.confirm('Distribute results for ALL classes to students now? This runs in the background.')) return;
+    if (!await askConfirm('Distribute results for ALL classes to students now? This runs in the background.')) return;
     setStarting(true); setError('');
     try { await bulkPublishResults({ session, term }); }
     catch (e) { setError(e.message || 'Could not start distribution.'); }

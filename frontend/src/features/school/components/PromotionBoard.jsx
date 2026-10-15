@@ -4,6 +4,7 @@ import {
   getPromotionBatchDetail, updatePromotionBatch, commitPromotionBatch,
   cancelPromotionBatch, getPromotionAudit,
 } from '../services/schoolApi';
+import { askConfirm } from '../../../shared/components/AppDialog';
 
 const CARD = 'rounded-3xl p-5 sm:p-6 bg-[#b5e3f4] border border-[#c9a96e]/40 dark:border-white/10 dark:bg-slate-900/40';
 const INPUT = 'rounded-xl border border-[#c9a96e]/40 bg-white px-3 py-2 text-sm text-[#191970] outline-none focus:ring-2 focus:ring-[#1a5c38] dark:border-white/10 dark:bg-slate-800 dark:text-slate-100';
@@ -174,7 +175,7 @@ export default function PromotionBoard() {
     const count = ids ? ids.length : pendingCount;
     const target = detail?.batch?.toSessionName || 'the new session';
 
-    if (!window.confirm(`${count} student${count === 1 ? ' will be' : 's will be'} enrolled into ${target}. Their existing records stay exactly as they are. Continue?`)) return;
+    if (!await askConfirm(`${count} student${count === 1 ? ' will be' : 's will be'} enrolled into ${target}. Their existing records stay exactly as they are. Continue?`)) return;
 
     setBusy('commit'); setError(''); setNotice('');
     try {
@@ -265,7 +266,7 @@ export default function PromotionBoard() {
                   <button
                     type="button"
                     onClick={async () => {
-                      if (!window.confirm('Discard this promotion round? Nothing has been enrolled yet.')) return;
+                      if (!await askConfirm('Discard this promotion round? Nothing has been enrolled yet.')) return;
                       await cancelPromotionBatch(activeBatchId).catch(e => setError(e.message));
                       const next = await load();
                       setActiveBatchId(next);

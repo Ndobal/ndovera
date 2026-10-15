@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { askConfirm } from '../../../shared/components/AppDialog';
 
 const RISK_ACCENT = {
   critical: 'accent-rose',
@@ -34,7 +35,7 @@ export default function AmiSecurityPage() {
   useEffect(() => { loadEvents(); }, []);
 
   async function triggerEmergencyLock() {
-    if (!window.confirm('This will lock all tenant access immediately. Proceed?')) return;
+    if (!await askConfirm('This will lock all tenant access immediately. Proceed?')) return;
     setLocking(true);
     try {
       const res = await fetch('/api/ami/emergency-lock', {

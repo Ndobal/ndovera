@@ -3,6 +3,7 @@ import {
   getClasses, getPromotionMap, savePromotionMap, runPromotion,
   getAlumni, addAlumni, deleteAlumni,
 } from '../../../features/school/services/schoolApi';
+import { askConfirm } from '../../../shared/components/AppDialog';
 
 const CARD = 'rounded-3xl p-6 bg-[#b5e3f4] border border-[#c9a96e]/40 dark:border-white/10 dark:bg-slate-900/40';
 const INPUT = 'rounded-xl border border-[#c9a96e]/40 bg-white px-3 py-2 text-sm text-[#191970] outline-none focus:ring-2 focus:ring-[#1a5c38] dark:border-white/10 dark:bg-slate-800 dark:text-slate-100';
@@ -39,7 +40,7 @@ export default function PromotionPanel() {
   }
 
   async function promote() {
-    if (!window.confirm('Run promotion now? Every student is moved to their next class, and the final class graduates into the Alumni Community. Make sure the flow is correct.')) return;
+    if (!await askConfirm('Run promotion now? Every student is moved to their next class, and the final class graduates into the Alumni Community. Make sure the flow is correct.')) return;
     setBusy('run'); setMsg('');
     try {
       await savePromotionMap({ map, criteria });

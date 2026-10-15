@@ -3,6 +3,7 @@ import AiCreditsBar, { needsCredits } from '../ai-credits/AiCredits';
 import { createPortal } from 'react-dom';
 import { AiBlockEditor, AiBlockView, BLOCK_LABELS } from './AiBlocks';
 import * as api from './materialAiApi';
+import { askConfirm } from '../../shared/components/AppDialog';
 
 // "✨ Prepare with Ndovera AI" in Materials. The teacher chooses what to teach;
 // Ndovera checks where it sits in the school's curriculum (and says so when
@@ -320,8 +321,8 @@ function Workspace({ initialDraft, onPublished, onDiscarded }) {
         </ol>
         {(pending > 0 || shortfall) && <div className="mt-3"><AiCreditsBar kind={creditKind} shortfall={shortfall} onRetry={() => { setBusy('writing'); writeAll(); }} /></div>}
         {pending === 0 && draft.status !== 'published' && (
-          <button type="button" className="mt-3 text-sm font-bold text-[#800020] underline" disabled={Boolean(busy)} onClick={() => {
-            if (!window.confirm('Write the whole material again? It uses half the credits of a new one.')) return;
+          <button type="button" className="mt-3 text-sm font-bold text-[#800020] underline" disabled={Boolean(busy)} onClick={async () => {
+            if (!await askConfirm('Write the whole material again? It uses half the credits of a new one.')) return;
             act('regenerate', async () => { const result = await api.regenerateWholeMaterial(draft.id); accept(result.draft); setBusy('writing'); running.current = false; await writeAll(); });
           }}>↻ Regenerate the whole material (half the credits)</button>
         )}

@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import * as api from './communicationsApi';
+import { askConfirm, showAlert } from '../../shared/components/AppDialog';
 
 // Communication → Notifications (Owner, HoS; bursars can buy units and see history).
 // Parents are told automatically when fees are published, payments verified, results
@@ -96,7 +97,7 @@ function Settings({ data, onSaved, run }) {
   const set = patch => setForm(current => ({ ...current, ...patch }));
   const smsPrice = data.prices?.sms?.current?.unitPriceKobo || 800;
   const save = () => run(async () => {
-    const body = { ...form, acknowledgeSmsCost: form.shortagePolicy === 'SMS_FOR_REMAINDER' && data.settings.shortagePolicy !== 'SMS_FOR_REMAINDER' ? window.confirm(`SMS will be used for parents WhatsApp units cannot cover, at ${api.naira(smsPrice)} per SMS segment, from your SMS units. Continue?`) : undefined };
+    const body = { ...form, acknowledgeSmsCost: form.shortagePolicy === 'SMS_FOR_REMAINDER' && data.settings.shortagePolicy !== 'SMS_FOR_REMAINDER' ? await askConfirm(`SMS will be used for parents WhatsApp units cannot cover, at ${api.naira(smsPrice)} per SMS segment, from your SMS units. Continue?`) : undefined };
     if (body.acknowledgeSmsCost === false) throw new Error('Not saved: SMS fallback was not confirmed.');
     await api.saveSettings(body);
     onSaved();
@@ -281,7 +282,7 @@ export default function NotificationsCenter() {
       if (purchase.status === 'paid') return `Payment confirmed: ${purchase.units} ${api.CHANNEL_LABELS[purchase.channel]} units added.`;
       if (purchase.status === 'pending') throw new Error('The payment is not confirmed yet. Check again in a minute.');
       throw new Error(`The payment was not accepted${purchase.failure ? `: ${purchase.failure}` : '.'}`);
-    }).then(message => { if (message) window.alert(message); });
+    }).then(async message => { if (message) await showAlert(message); });
   }, [load, run]);
 
   if (!data) return <p className="p-6 text-sm text-[#191970]">Loading…</p>;

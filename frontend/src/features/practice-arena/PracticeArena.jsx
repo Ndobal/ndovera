@@ -8,6 +8,7 @@ import { subscribe } from '../../shared/offline/outbox';
 import { isOnline, requestPersistentStorage } from '../../shared/offline/offlineStore';
 import QuizPlayer from './QuizPlayer';
 import QuizResults from './QuizResults';
+import { askConfirm } from '../../shared/components/AppDialog';
 
 // Practice Arena: quizzes on the subjects the student's class offers, from questions
 // set in every Ndovera school and Ndovera's bank, at the difficulty they choose.
@@ -389,7 +390,7 @@ export default function PracticeArena() {
   }, []);
 
   if (game) {
-    return <QuizPlayer quiz={game.quiz} subjectName={game.subject.name} onFinish={finish} onExit={() => { if (window.confirm('Leave this quiz? Your answers so far will not be saved.')) setGame(null); }} />;
+    return <QuizPlayer quiz={game.quiz} subjectName={game.subject.name} onFinish={finish} onExit={async () => { if (await askConfirm('Leave this quiz? Your answers so far will not be saved.')) setGame(null); }} />;
   }
   if (outcome) {
     return <QuizResults outcome={outcome} onBack={() => { setOutcome(null); refresh(); }} onPlayAgain={() => { const subject = outcome.subject; setOutcome(null); refresh(); if (subject) setPicker(subject); }} />;

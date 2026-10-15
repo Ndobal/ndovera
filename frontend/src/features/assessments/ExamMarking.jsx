@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import RichContent from '../../shared/rich/RichContent';
 import { PHASE_LABELS, getExamMarking, postExamScores, saveExamMarks } from './assessmentsApi';
+import { askConfirm } from '../../shared/components/AppDialog';
 
 // The teacher's marking sheet for one exam. Objective marks come from the CBT
 // (or are typed in, for a printed paper); the teacher types the theory marks;
@@ -72,7 +73,7 @@ export default function ExamMarking({ sittingId, onBack }) {
       await load();
       setNotice({ text: `Posted ${result.posted} score${result.posted === 1 ? '' : 's'} to the CA score sheet. Students can now review the paper in their Assignments tab.`, tone: 'ok' });
     } catch (err) {
-      if (err.data?.needsConfirmation && window.confirm(err.message)) { setBusy(''); await post(true); return; }
+      if (err.data?.needsConfirmation && await askConfirm(err.message)) { setBusy(''); await post(true); return; }
       setNotice({ text: err.message, tone: 'error' });
     } finally { setBusy(''); }
   }

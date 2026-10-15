@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { bulkEdit, discardFeeDraft, getFeeSource, getTermGrid, naira, previewChanges, rowTotal, saveTermGrid, studentTotal } from './simpleFeesApi';
+import { askConfirm } from '../../../shared/components/AppDialog';
 
 // A term's fees as one table: classes down the side, fee items across the top,
 // every amount editable in place, and below it the students who pay differently
@@ -357,7 +358,7 @@ export default function FeeSetup({ initialTermId, initialSource, canEdit, onSave
 
   async function copyFrom(fromSource) {
     setCopyOpen(false);
-    if ((data.grid.configured || dirty || draftInfo) && !window.confirm('Replace the fees on this page with the copied ones? Nothing changes until you save a draft or publish.')) return;
+    if ((data.grid.configured || dirty || draftInfo) && !await askConfirm('Replace the fees on this page with the copied ones? Nothing changes until you save a draft or publish.')) return;
     try { await applySource(fromSource, rows.map(row => ({ ...row, amounts: {} })), data.grid.term.id); } catch (err) { setNotice({ text: err.message, tone: 'error' }); }
   }
 
@@ -479,7 +480,7 @@ export default function FeeSetup({ initialTermId, initialSource, canEdit, onSave
   async function publish(changeMode) {
     const debts = data.earlierDebts;
     if (!changeMode && debtMode === 'write_off' && debts?.total > 0 && !data.grid.debt?.writtenOffAt
-      && !window.confirm(`Publishing will write off ${naira(debts.total)} owed from earlier terms by ${debts.students} student(s). Each write-off is recorded, but it cannot be undone from here. Continue?`)) return;
+      && !await askConfirm(`Publishing will write off ${naira(debts.total)} owed from earlier terms by ${debts.students} student(s). Each write-off is recorded, but it cannot be undone from here. Continue?`)) return;
     setBusy(true); setNotice({ text: '', tone: 'ok' });
     try {
       await pendingSave.current;
@@ -505,7 +506,7 @@ export default function FeeSetup({ initialTermId, initialSource, canEdit, onSave
   }
 
   async function discardDraft() {
-    if (!window.confirm('Throw away the draft changes? The published fees stay as they are.')) return;
+    if (!await askConfirm('Throw away the draft changes? The published fees stay as they are.')) return;
     setBusy(true);
     try {
       await pendingSave.current;

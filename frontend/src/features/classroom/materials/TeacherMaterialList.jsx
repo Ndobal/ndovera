@@ -4,6 +4,7 @@ import { createPortal } from 'react-dom';
 import MaterialTypeThumbnail, { materialTypeLabel } from '../../../shared/components/MaterialTypeThumbnail';
 import StructuredMaterialEditor from './StructuredMaterialEditor';
 import * as svc from '../classroomService';
+import { askConfirm } from '../../../shared/components/AppDialog';
 
 // A teacher's materials for the current term, with the full lifecycle on each:
 // Edit · Hide/Show · Delete · Reuse · View History.
@@ -229,7 +230,7 @@ export default function TeacherMaterialList({ classId, materials, classes, canMa
   }
 
   async function remove(material) {
-    if (!window.confirm(`Delete “${material.title}”? It will be removed from teacher and student views. A deletion record is kept in the school's audit trail.`)) return;
+    if (!await askConfirm(`Delete “${material.title}”? It will be removed from teacher and student views. A deletion record is kept in the school's audit trail.`)) return;
     setBusyId(material.id);
     const response = await svc.deleteMaterial(classId, material.id).catch(err => ({ success: false, message: err.message }));
     setBusyId('');

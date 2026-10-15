@@ -3,6 +3,7 @@ import RichContent from '../../shared/rich/RichContent';
 import { submitAssignment } from '../classroom/classroomService';
 import { CountdownBar, useTimedAttempt } from '../classroom/assignments/TimedAttempt';
 import { listStudentExams, openStudentExamPaper } from './assessmentsApi';
+import { askConfirm } from '../../shared/components/AppDialog';
 
 // A student's CBT exams. Each one shows only between its opening and closing
 // times; the clock is the server's; time up submits what has been answered.
@@ -51,7 +52,7 @@ function ExamRoom({ paper, onDone }) {
     if (submitted.current) return;
     if (!auto) {
       const unanswered = paper.questions.filter(question => !String(answersRef.current[question.id] ?? '').trim()).length;
-      if (unanswered && !window.confirm(`${unanswered} question${unanswered === 1 ? ' is' : 's are'} not answered. Submit anyway? You cannot change your answers afterwards.`)) return;
+      if (unanswered && !await askConfirm(`${unanswered} question${unanswered === 1 ? ' is' : 's are'} not answered. Submit anyway? You cannot change your answers afterwards.`)) return;
     }
     submitted.current = true;
     setBusy(true); setError('');
@@ -116,7 +117,7 @@ export default function StudentExamRoom() {
             <li key={exam.id} className="flex flex-wrap items-center gap-3 rounded-2xl border border-[#c9a96e]/40 bg-white p-4 text-[#191970]">
               <span className="flex-1"><strong>{exam.title}</strong><span className="block text-xs">{exam.subjectName} · {exam.durationMinutes} minutes · {exam.phase === 'open' ? `closes ${new Date(exam.closesAt).toLocaleString()}` : `opens ${new Date(exam.opensAt).toLocaleString()}`}{exam.theoryOnPaper ? ' · theory on paper' : ''}</span></span>
               {exam.phase === 'open'
-                ? <button type="button" className={`${BTN} bg-[#1a5c38] text-[#b5e3f4]`} onClick={() => { if (window.confirm(`Start ${exam.title}? The ${exam.durationMinutes}-minute timer starts now and cannot be paused.`)) start(exam); }}>Start exam</button>
+                ? <button type="button" className={`${BTN} bg-[#1a5c38] text-[#b5e3f4]`} onClick={async () => { if (await askConfirm(`Start ${exam.title}? The ${exam.durationMinutes}-minute timer starts now and cannot be paused.`)) start(exam); }}>Start exam</button>
                 : <span className="rounded-full bg-[#fff6e0] px-3 py-1 text-xs font-bold">Not open yet</span>}
             </li>
           ))}

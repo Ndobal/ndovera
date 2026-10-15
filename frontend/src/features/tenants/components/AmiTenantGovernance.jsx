@@ -26,6 +26,7 @@ import {
   upsertDiscountCode,
   verifyTenantPayment,
 } from '../services/tenantApi';
+import { askConfirm } from '../../../shared/components/AppDialog';
 
 const currencyFormatter = new Intl.NumberFormat('en-NG', {
   style: 'currency',
@@ -318,7 +319,7 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
 
   const handleGenerateTermBills = async event => {
     event.preventDefault();
-    if (!window.confirm('Raise this term\'s bill for every active school? Schools already billed for the period are skipped.')) return;
+    if (!await askConfirm('Raise this term\'s bill for every active school? Schools already billed for the period are skipped.')) return;
     await runAction('generate-bills', async () => {
       const result = await generateTermBills({
         session: billPeriod.session.trim(),
@@ -365,7 +366,7 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
 
   const handleSendInvoice = async bill => {
     const first = !bill.sentAt;
-    if (!window.confirm(first
+    if (!await askConfirm(first
       ? `Send invoice ${bill.invoiceNo || ''} for ${currencyFormatter.format(bill.amount)} now? The school gets 30 days from today to pay; after that its Owner, HoS and ICT accounts are locked until paid.`
       : 'Send this invoice again as a reminder? The due date does not change.')) return;
     await runAction(`send-${bill.id}`, async () => {
@@ -382,7 +383,7 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
   };
 
   const handleMarkBillPaid = async bill => {
-    if (!window.confirm(`Record ${currencyFormatter.format(bill.amount)} as paid for ${bill.session} ${bill.term}?`)) return;
+    if (!await askConfirm(`Record ${currencyFormatter.format(bill.amount)} as paid for ${bill.session} ${bill.term}?`)) return;
     await runAction(`bill-${bill.id}`, async () => {
       await markTermBillPaid(bill.id);
       setNotice('Term bill recorded as paid.');
@@ -419,7 +420,7 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
     event.preventDefault();
     const studentFeeNaira = Number(rolloutFeeNaira);
     if (!studentFeeNaira) { setError('Enter the new per-user fee to roll out.'); return; }
-    if (!window.confirm(`Roll out ${currencyFormatter.format(studentFeeNaira)} per active user to every school on a lower rate? Each school keeps its current rate until its next term.`)) return;
+    if (!await askConfirm(`Roll out ${currencyFormatter.format(studentFeeNaira)} per active user to every school on a lower rate? Each school keeps its current rate until its next term.`)) return;
 
     await runAction('rate-rollout', async () => {
       const result = await rolloutTenantRate({ studentFeeNaira });

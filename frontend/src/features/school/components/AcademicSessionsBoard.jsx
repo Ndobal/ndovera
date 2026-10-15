@@ -5,6 +5,7 @@ import {
   closeAcademicTerm, saveAcademicBreak, deleteAcademicBreak, autoEnrolSession,
 } from '../services/schoolApi';
 import SessionTeachingAssignments from './SessionTeachingAssignments';
+import { askConfirm } from '../../../shared/components/AppDialog';
 
 const CARD = 'rounded-3xl p-5 sm:p-6 bg-[#b5e3f4] border border-[#c9a96e]/40 dark:border-white/10 dark:bg-slate-900/40';
 const INNER = 'rounded-2xl border border-[#c9a96e]/30 bg-[#ade1f4]/60 p-3 dark:border-white/10 dark:bg-slate-800/40';
@@ -219,7 +220,7 @@ export default function AcademicSessionsBoard() {
     const message = current && current.id !== session.id
       ? `Activate ${session.name}? ${current.name} will be closed, and every student's class will follow their ${session.name} placement. Teacher assignments are recorded under ${current.name} and do not carry over — you will assign teachers for ${session.name}.`
       : `Activate ${session.name}?`;
-    if (!window.confirm(message)) return;
+    if (!await askConfirm(message)) return;
 
     await run(
       `activate-${session.id}`,
@@ -491,8 +492,8 @@ export default function AcademicSessionsBoard() {
                     {term.status === 'active' ? (
                       <button
                         type="button"
-                        onClick={() => {
-                          if (!window.confirm(`This will mark ${term.name} as completed. Continue?`)) return;
+                        onClick={async () => {
+                          if (!await askConfirm(`This will mark ${term.name} as completed. Continue?`)) return;
                           run(`close-${term.id}`, () => closeAcademicTerm(term.id), `${term.name} closed.`)();
                         }}
                         disabled={busy === `close-${term.id}`}

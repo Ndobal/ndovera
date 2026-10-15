@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import * as api from './materialAiApi';
+import { askConfirm } from '../../shared/components/AppDialog';
 
 // The Curriculum & Examination Library behind Ndovera AI materials.
 //   Ami ("ami"): Ndovera's curricula, examination specifications, mapping, AI limits.
@@ -109,7 +110,7 @@ export function ImportJobs({ targetId = '', onProgress, refreshKey = 0, classNam
               <span className={`text-xs font-bold ${JOB_TONE[job.status] || 'text-[#1a5c38]'}`}>{JOB_LABEL[job.status] || job.status}{job.active ? ` · ${job.percent}%` : ''}</span>
               {job.active && <button type="button" className="text-xs font-semibold underline" onClick={() => act(job, 'pause')}>Pause</button>}
               {['paused', 'failed'].includes(job.status) && <button type="button" className="text-xs font-semibold underline" onClick={() => act(job, 'resume')}>Resume</button>}
-              {!['done', 'cancelled'].includes(job.status) && <button type="button" className="text-xs font-semibold text-rose-700 underline" onClick={() => { if (window.confirm('Cancel this import? Rows already added stay.')) act(job, 'cancel'); }}>Cancel</button>}
+              {!['done', 'cancelled'].includes(job.status) && <button type="button" className="text-xs font-semibold text-rose-700 underline" onClick={async () => { if (await askConfirm('Cancel this import? Rows already added stay.')) act(job, 'cancel'); }}>Cancel</button>}
             </div>
             {job.active && <div className="mt-2 h-2 overflow-hidden rounded-full bg-[#c9a96e]/25"><div className="h-full rounded-full bg-[#1a5c38] transition-all dark:bg-[#00ffff]" style={{ width: `${job.percent}%` }} /></div>}
             <p className="mt-1 text-xs">{job.added} row(s) added{job.rejected ? ` · ${job.rejected} skipped (no topic/subject/class)` : ''}{job.error ? ` · ${job.error}` : ''}</p>
@@ -216,7 +217,7 @@ function CurriculumEditor({ scope, curriculum, onBack, onChanged }) {
         {curriculum.status !== 'published' && <button type="button" className={PRIMARY} onClick={() => setStatus('published')}>Publish</button>}
         {curriculum.status === 'published' && <button type="button" className={SECONDARY} onClick={() => setStatus('draft')}>Unpublish</button>}
         {curriculum.status !== 'archived' && <button type="button" className={SECONDARY} onClick={() => setStatus('archived')}>Archive</button>}
-        <button type="button" className="text-sm font-semibold text-rose-700 underline" onClick={() => { if (window.confirm(`Delete "${curriculum.name}" and all ${topics.length} topics?`)) run(async () => { await api.deleteCurriculum(scope, curriculum.id); onBack(); onChanged(); }); }}>Delete</button>
+        <button type="button" className="text-sm font-semibold text-rose-700 underline" onClick={async () => { if (await askConfirm(`Delete "${curriculum.name}" and all ${topics.length} topics?`)) run(async () => { await api.deleteCurriculum(scope, curriculum.id); onBack(); onChanged(); }); }}>Delete</button>
       </div>
       {notice}
       <div className={INNER}>
@@ -352,7 +353,7 @@ function SpecEditor({ spec, catalog, onBack, onChanged }) {
         {spec.status !== 'published' ? <button type="button" className={PRIMARY} onClick={() => setStatus('published')}>Publish</button> : <button type="button" className={SECONDARY} onClick={() => setStatus('draft')}>Unpublish</button>}
         <button type="button" className={SECONDARY} onClick={() => setForm(specForm(spec))}>Edit details</button>
         <button type="button" className={SECONDARY} onClick={() => run(async () => { const result = await api.autoMapExamSpec(spec.id); load(); return result; }, 'Mapped to Ndovera\'s curricula.')}>Map to curricula</button>
-        <button type="button" className="text-sm font-semibold text-rose-700 underline" onClick={() => { if (window.confirm('Delete this specification?')) run(async () => { await api.deleteExamSpec(spec.id); onBack(); onChanged(); }); }}>Delete</button>
+        <button type="button" className="text-sm font-semibold text-rose-700 underline" onClick={async () => { if (await askConfirm('Delete this specification?')) run(async () => { await api.deleteExamSpec(spec.id); onBack(); onChanged(); }); }}>Delete</button>
       </div>
       {notice}
       {form && <div className={INNER}><SpecForm value={form} onChange={setForm} catalog={catalog} onCancel={() => setForm(null)} onSave={payload => run(async () => { await api.updateExamSpec(spec.id, payload); setForm(null); onChanged(); }, 'Saved.')} /></div>}

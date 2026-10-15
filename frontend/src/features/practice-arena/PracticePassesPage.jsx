@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { checkoutPass, clearStudentDevices, getFamilyPasses, getSchoolPasses, naira, quotePass, verifyPass } from './practiceApi';
 import { getPeople } from '../school/services/schoolApi';
+import { askConfirm } from '../../shared/components/AppDialog';
 
 // Practice passes bought by parents (for each child) and by the school (for a whole
 // class, 30% off). Prices are always worked out by Ndovera; payment is by Flutterwave.
@@ -71,7 +72,7 @@ export default function PracticePassesPage({ mode }) {
     try {
       if (mode !== 'parent') {
         const priced = await quotePass(payload);
-        if (!window.confirm(`${priced.quote.label} for ${priced.quote.students} student(s): ${naira(priced.quote.amountNaira)} (${naira(priced.quote.each)} each). Continue to payment?`)) return;
+        if (!await askConfirm(`${priced.quote.label} for ${priced.quote.students} student(s): ${naira(priced.quote.amountNaira)} (${naira(priced.quote.each)} each). Continue to payment?`)) return;
       }
       const result = await checkoutPass(payload);
       if (result.checkoutUrl) window.location.href = result.checkoutUrl;
@@ -115,7 +116,7 @@ export default function PracticePassesPage({ mode }) {
                 <li key={person.id} className="flex items-center gap-2 rounded-xl bg-slate-50 px-3 py-2 text-sm dark:bg-white/5">
                   <span className="flex-1">{person.name}{person.className ? ` · ${person.className}` : ''}</span>
                   <button type="button" className="text-xs font-bold text-rose-700 underline" onClick={async () => {
-                    if (!window.confirm(`Clear ${person.name}'s practice devices?`)) return;
+                    if (!await askConfirm(`Clear ${person.name}'s practice devices?`)) return;
                     try { await clearStudentDevices(person.id); setNotice(`${person.name}'s devices were cleared.`); } catch (err) { setNotice(err.message); }
                   }}>Clear devices</button>
                 </li>

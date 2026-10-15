@@ -1,6 +1,7 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import * as svc from './classroomService';
 import RichContent from '../../shared/rich/RichContent';
+import { askConfirm } from '../../shared/components/AppDialog';
 
 const SURFACE = 'rounded-3xl border border-[#c9a96e]/45 bg-[#b5e3f4] p-5 shadow-[0_18px_42px_rgba(128,0,0,0.08)] dark:border-[#bf00ff]/35 dark:bg-[#800000]/75 dark:shadow-[0_0_28px_rgba(191,0,255,0.18)]';
 const SUB_SURFACE = 'rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] p-4 dark:border-[#bf00ff]/35 dark:bg-black/20';
@@ -894,7 +895,7 @@ export default function TeacherAssignmentsPanel({
       return;
     }
 
-    if (!window.confirm(`Delete ${assignment.title || 'this assignment'}? This will also remove its saved submissions.`)) {
+    if (!await askConfirm(`Delete ${assignment.title || 'this assignment'}? This will also remove its saved submissions.`)) {
       return;
     }
 

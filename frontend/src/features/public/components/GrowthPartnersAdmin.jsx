@@ -10,6 +10,7 @@ import {
 } from '../services/publicSiteApi';
 import { ConversationsPage } from '../../../app/roles/growthpartner/PartnerPages';
 import GrowthPartnerDetail from './GrowthPartnerDetail';
+import { askConfirm } from '../../../shared/components/AppDialog';
 
 const naira = new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN', minimumFractionDigits: 0, maximumFractionDigits: 0 });
 
@@ -68,7 +69,7 @@ export default function GrowthPartnersAdmin() {
   async function accrueTerm() {
     const period = termPeriod.trim();
     if (!period) { setMessage('Enter a term label first, e.g. "2025/2026 Term 1".'); return; }
-    if (!window.confirm(`Accrue the 5% term commission for all referred schools for "${period}"? (Safe to run once per term.)`)) return;
+    if (!await askConfirm(`Accrue the 5% term commission for all referred schools for "${period}"? (Safe to run once per term.)`)) return;
     setBusy('term'); setMessage('');
     try {
       const r = await accrueGrowthPartnerTerm(period);
@@ -94,7 +95,7 @@ export default function GrowthPartnersAdmin() {
 
   async function markPaid(partner) {
     if (!partner.available) { setMessage(`${partner.name} has no unpaid earnings.`); return; }
-    if (!window.confirm(`Mark ${partner.name} as paid ${naira.format(partner.available)}? This records the payout and removes it from their available balance.`)) return;
+    if (!await askConfirm(`Mark ${partner.name} as paid ${naira.format(partner.available)}? This records the payout and removes it from their available balance.`)) return;
     setBusy(`paid-${partner.id}`); setMessage('');
     try {
       const result = await markGrowthPartnerPaid(partner.id);
@@ -108,7 +109,7 @@ export default function GrowthPartnersAdmin() {
   }
 
   async function resetPassword(partner) {
-    if (!window.confirm(`Issue a new sign-in password for ${partner.name}? Their current password stops working immediately, and the new one is shown once.`)) return;
+    if (!await askConfirm(`Issue a new sign-in password for ${partner.name}? Their current password stops working immediately, and the new one is shown once.`)) return;
     setBusy(`password-${partner.id}`); setMessage('');
     try {
       const result = await resetGrowthPartnerPassword(partner.id);

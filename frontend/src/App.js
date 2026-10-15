@@ -88,6 +88,7 @@ import { buildSelectedRoleHeader, clearStoredAuth, consumeTenantReturnUrlFromLoc
 import { useTenantPwaManifest } from './shared/hooks/useTenantPwaManifest';
 import { getApiUrl } from './config/apiBase';
 import './App.css';
+import { AppDialogHost, askConfirm } from './shared/components/AppDialog';
 
 const PUBLIC_ROUTE_PATHS = new Set([
   '/',
@@ -480,6 +481,7 @@ function AppWorkspace({ auth, onLogin, onLogout }) {
       </main>
       <ReturnToAmiBanner />
       <GlobalReadAloud />
+      <AppDialogHost />
     </div>
   );
 }
@@ -531,7 +533,7 @@ function ReturnToAmiBanner() {
   const left = grant?.until ? Math.max(0, Date.parse(grant.until) - now) : 0;
   const leftText = left ? `${Math.floor(left / 3600000)}h ${Math.floor((left % 3600000) / 60000)}m left` : '';
   async function done() {
-    if (!window.confirm('Mark this task done? Access to the school ends now; a new request is needed to continue.')) return;
+    if (!await askConfirm('Mark this task done? Access to the school ends now; a new request is needed to continue.')) return;
     try {
       if (grant?.id) await fetch(`/api/ami/school-access/${encodeURIComponent(grant.id)}/complete`, { method: 'POST', headers: { Authorization: `Bearer ${returnToken}` } });
     } catch { /* the owner can still end it; it also ends when time is up */ }

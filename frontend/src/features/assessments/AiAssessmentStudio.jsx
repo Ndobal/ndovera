@@ -10,6 +10,7 @@ import AssessmentWorkspace from './AssessmentWorkspace';
 import PaperStructureEditor from './PaperStructureEditor';
 import { Letterhead } from './PaperPreview';
 import { describeSection, presetStructure, structureTotals, toBlueprint } from './paperStructure';
+import { askConfirm } from '../../shared/components/AppDialog';
 
 // Ndovera AI assessments for teachers: AI Quiz Builder, AI Assignment Builder
 // and AI Exam Builder, all grounded in the teacher's own topics and notes.
@@ -350,7 +351,7 @@ export default function AiAssessmentStudio() {
         <div className="ndv-no-print flex flex-wrap items-center gap-3 rounded-2xl bg-white/70 px-4 py-3 text-sm text-[#191970] dark:bg-slate-900/60 dark:text-slate-200">
           <span className="flex-1">Not happy with the whole set? Ndovera AI can write it all again for half the credits; this version stays in the history.</span>
           <button type="button" className={SECONDARY} onClick={async () => {
-            if (!window.confirm('Write the whole set again? It uses half the credits of a new set.')) return;
+            if (!await askConfirm('Write the whole set again? It uses half the credits of a new set.')) return;
             try { const result = await regenerateWholeAssessment(current.id); setCurrent(result.assessment); setView('generate'); } catch (err) { setError(err.message); }
           }}>↻ Regenerate whole set</button>
         </div>

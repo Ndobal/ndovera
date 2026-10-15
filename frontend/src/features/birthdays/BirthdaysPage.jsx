@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import * as api from './birthdaysApi';
+import { askConfirm } from '../../shared/components/AppDialog';
 
 // Birthdays: today's celebrations (card, wishes), my memories, my choice to be celebrated,
 // and for the Owner/HoS the settings and the wish review queue.
@@ -38,7 +39,7 @@ function Celebration({ celebrationId, onBack }) {
   const send = async () => {
     const text = message.trim();
     if (!text || text.length > 1000) return;
-    if (!window.confirm(`Send this wish?\n\n${text}`)) return;
+    if (!await askConfirm(`Send this wish?\n\n${text}`)) return;
     const key = requestId || `${Date.now()}-${celebrationId}`;
     setRequestId(key);
     try {

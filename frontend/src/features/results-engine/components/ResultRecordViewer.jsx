@@ -4,6 +4,7 @@ import { getApiBase } from '../../../config/apiBase';
 import MaterialViewer from '../../classroom/materials/MaterialViewer';
 import Flipbook from '../../classroom/materials/Flipbook';
 import ResultPaperBackdrop from './ResultPaperBackdrop';
+import { askConfirm } from '../../../shared/components/AppDialog';
 
 // Result sheets are printed documents: they stay white with dark text in both themes,
 // so these use fixed colours the dark theme does not remap.
@@ -113,7 +114,7 @@ export default function ResultRecordViewer({
 
   async function handleDeleteDocument(document) {
     if (!onDeleteDocument) return;
-    if (typeof window !== 'undefined' && !window.confirm(`Delete "${document.fileName}"? This removes the uploaded result for this term.`)) return;
+    if (typeof window !== 'undefined' && !await askConfirm(`Delete "${document.fileName}"? This removes the uploaded result for this term.`)) return;
     setDeletingId(document.id);
     try {
       await onDeleteDocument(document.id);

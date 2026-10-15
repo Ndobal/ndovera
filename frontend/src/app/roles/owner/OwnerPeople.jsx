@@ -8,6 +8,7 @@ import {
 } from '../../../features/school/services/schoolApi';
 import StudentProfilePage from '../../../features/students/components/StudentProfilePage';
 import LinkStudentsPanel from '../../../features/school/components/LinkStudentsPanel';
+import { askConfirm } from '../../../shared/components/AppDialog';
 
 const FILTER_TO_ROLE = { Teachers: 'teacher', Admin: 'admin', Students: 'student', Parents: 'parent' };
 
@@ -805,7 +806,7 @@ function PersonCard({ person: p, isAdmin, isOwner, subdomain, onViewProfile, onD
   }
 
   async function handleReset() {
-    if (!window.confirm(`Reset password for ${p.name || p.email}?\n\nTheir password will be set to the default and they will be required to change it on next sign in.`)) return;
+    if (!await askConfirm(`Reset password for ${p.name || p.email}?\n\nTheir password will be set to the default and they will be required to change it on next sign in.`)) return;
     setResetting(true); setResetMsg('');
     try {
       await onResetPassword(p);
@@ -946,7 +947,7 @@ function PastStudentsPanel({ onRestored }) {
   useEffect(() => { load(); }, [load]);
 
   async function restore(student) {
-    if (!window.confirm(`Restore ${student.name}? They will be able to sign in again and will reappear on class and fee lists.`)) return;
+    if (!await askConfirm(`Restore ${student.name}? They will be able to sign in again and will reappear on class and fee lists.`)) return;
     setBusy(student.id); setNotice(''); setError('');
     try {
       await restorePerson(student.id);
@@ -959,7 +960,7 @@ function PastStudentsPanel({ onRestored }) {
   /** Delete for good: only students with nothing on record (the server checks again and keeps anyone with records). */
   async function remove(list) {
     const names = list.map(student => student.name);
-    if (!window.confirm(`Delete ${list.length === 1 ? names[0] : `${list.length} students`} for good?\n\nOnly students with no assignments, practice, results, exams, club work, payments or chats are deleted. Their account is removed and cannot be restored.`)) return;
+    if (!await askConfirm(`Delete ${list.length === 1 ? names[0] : `${list.length} students`} for good?\n\nOnly students with no assignments, practice, results, exams, club work, payments or chats are deleted. Their account is removed and cannot be restored.`)) return;
     setBusy(list.length === 1 ? list[0].id : 'all'); setNotice(''); setError('');
     try {
       const result = await deletePastStudents(list.map(student => student.id));
@@ -1161,7 +1162,7 @@ export default function OwnerPeople() {
 
   async function handleDeactivate(person) {
     const isStudent = String(person.primaryRole || person.role || '').toLowerCase() === 'student';
-    if (!window.confirm(`Deactivate ${person.name}?${isStudent ? ' They will move to Past Students, where you can restore them.' : ''}`)) return;
+    if (!await askConfirm(`Deactivate ${person.name}?${isStudent ? ' They will move to Past Students, where you can restore them.' : ''}`)) return;
     await deactivatePerson(person.id);
     load(page, searchTerm, filter);
   }

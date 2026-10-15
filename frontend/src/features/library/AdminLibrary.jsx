@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import libraryService from './libraryService';
+import { askConfirm } from '../../shared/components/AppDialog';
 
 export default function AdminLibrary() {
   const [books, setBooks] = useState([]);
@@ -41,7 +42,7 @@ export default function AdminLibrary() {
   }
 
   async function removeBook(id) {
-    if (!window.confirm('Delete book?')) return;
+    if (!await askConfirm('Delete book?')) return;
     await libraryService.deleteBook(id);
     load();
   }

@@ -30,6 +30,7 @@ import {
   saveFeesPaymentDetails,
   saveSession,
 } from '../services/schoolApi';
+import { askConfirm } from '../../../shared/components/AppDialog';
 
 const DEFAULT_FEE_COLUMNS = [
   'Tuition',
@@ -749,8 +750,8 @@ function FeesManagementBoard({ initialFinanceTab = 'fees' }) {
     setDirty(true);
   }
 
-  function removeFeeColumn(feeName) {
-    if (!window.confirm(`Remove ${feeName} from the active fee template?`)) {
+  async function removeFeeColumn(feeName) {
+    if (!await askConfirm(`Remove ${feeName} from the active fee template?`)) {
       return;
     }
 

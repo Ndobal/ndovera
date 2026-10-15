@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import StudentSectionShell from '../../app/roles/student/StudentSectionShell';
 import { addMaterial, deleteMaterial, getAssignedClasses, getLiveSessions, getMaterials } from '../classroom/classroomService';
 import { getLessonPlans, saveLessonPlan } from '../school/services/schoolApi';
+import { askConfirm } from '../../shared/components/AppDialog';
 
 const EMPTY_DRAFT = {
   id: '',
@@ -302,7 +303,7 @@ export default function TeacherLessonPlansPage() {
       return;
     }
 
-    if (!window.confirm(`Delete ${material.title || 'this material'}?`)) {
+    if (!await askConfirm(`Delete ${material.title || 'this material'}?`)) {
       return;
     }
 

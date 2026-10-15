@@ -2,6 +2,7 @@ import React, { useMemo, useState, useEffect } from 'react';
 import StudentSectionShell from '../student/StudentSectionShell';
 import TuckShopAiServicesPanel from '../../../features/ai/components/TuckShopAiServicesPanel';
 import { buildSelectedRoleHeader, getStoredAuth } from '../../../features/auth/services/authApi';
+import { askConfirm } from '../../../shared/components/AppDialog';
 
 const INVENTORY = [
   { id: 'itm-lunch', name: 'Lunch Combo', price: 1500, desc: 'Rice, stew & protein' },
@@ -135,7 +136,7 @@ export default function StaffTuckShop() {
   };
 
   const cancelOrder = async (orderId) => {
-    if (!window.confirm('Cancel this pending order?')) return;
+    if (!await askConfirm('Cancel this pending order?')) return;
     try {
       const resp = await fetch(`/api/tuck/orders/${orderId}`, { method: 'PUT', headers: buildAuthHeaders(true), body: JSON.stringify({ status: 'cancelled' }) });
       const json = await resp.json();

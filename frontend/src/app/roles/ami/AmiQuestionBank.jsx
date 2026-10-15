@@ -3,6 +3,7 @@ import RichContent from '../../../shared/rich/RichContent';
 import { getStoredAuth } from '../../../features/auth/services/authApi';
 import { getApiBase } from '../../../config/apiBase';
 import AmiQuestionUploads, { SECTIONS } from './AmiQuestionUploads';
+import { askConfirm } from '../../../shared/components/AppDialog';
 
 const apiBase = getApiBase('');
 
@@ -89,7 +90,7 @@ export default function AmiQuestionBank() {
   }
 
   async function handleDelete(id) {
-    if (!window.confirm('Delete this question?')) return;
+    if (!await askConfirm('Delete this question?')) return;
     try { await apiFetch(`/api/question-bank/${id}`, { method: 'DELETE' }); await reload(); }
     catch (err) { alert(err.message); }
   }

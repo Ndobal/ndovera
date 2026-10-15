@@ -4,6 +4,7 @@ import { fetchExamList, fetchExamById, createExam, updateExam, deleteExam, organ
 import QuestionRenderer from '../../../features/exams/QuestionRenderer';
 import ErrorPanel from '../../../shared/components/ErrorPanel';
 import ExamsHub from '../../../features/assessments/ExamsHub';
+import { askConfirm } from '../../../shared/components/AppDialog';
 
 function buildEmptyQuestion(type = 'mcq') {
   const templates = {
@@ -115,7 +116,7 @@ export default function TeacherExams({
   };
 
   const handleDelete = async (examId) => {
-    if (!window.confirm(`Delete this ${mode === 'practice' ? 'practice drill' : 'exam'}?`)) return;
+    if (!await askConfirm(`Delete this ${mode === 'practice' ? 'practice drill' : 'exam'}?`)) return;
     try {
       await deleteExam(examId);
       setMessage(mode === 'practice' ? 'Practice drill deleted' : 'Exam deleted');

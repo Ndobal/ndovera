@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { getLinkOverview, linkParentStudent, unlinkParentStudent } from '../services/schoolApi';
+import { askConfirm } from '../../../shared/components/AppDialog';
 
 const CARD = 'rounded-3xl border border-[#c9a96e]/40 bg-[#b5e3f4] p-5 dark:border-white/10 dark:bg-slate-900/30';
 const CHIP = 'rounded-full px-3 py-1 text-xs font-bold';
@@ -145,7 +146,7 @@ export default function LinkStudentsPanel() {
     const payload = byParent
       ? { parentId: subject.id, studentId: link.id }
       : { parentId: link.id, studentId: subject.id };
-    if (!window.confirm(`Remove the link between ${subject.name} and ${link.name}?`)) return;
+    if (!await askConfirm(`Remove the link between ${subject.name} and ${link.name}?`)) return;
 
     try {
       await unlinkParentStudent(payload);

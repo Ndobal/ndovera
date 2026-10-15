@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { assignRouteStudents, createRoute, getTransportAdmin, removeRoute, unassignRouteStudent, updateRoute } from './transportApi';
+import { askConfirm } from '../../shared/components/AppDialog';
 
 // The school's transport: routes (areas, driver, vehicle), the students on each route with
 // their pick-up point and times, and today's buses.
@@ -80,7 +81,7 @@ function RouteCard({ route, drivers, students, onChanged, setNotice, setError })
           <div className="flex flex-wrap gap-1.5">
             <button type="button" onClick={() => setAdding(adding ? null : { ...BLANK_ADD })} className="rounded-xl bg-[#1a5c38] px-3 py-1.5 text-xs font-bold text-white">{adding ? 'Close' : '+ Add students'}</button>
             <button type="button" onClick={() => setEditing({ name: route.name, areas: route.areas, driverId: route.driverId, vehicle: route.vehicle, directions: route.directions })} className="rounded-xl bg-[#191970] px-3 py-1.5 text-xs font-bold text-[#c9a96e]">Edit</button>
-            <button type="button" onClick={() => window.confirm(`Remove the route ${route.name}? Its students come off the route.`) && run(() => removeRoute(route.id), 'Route removed.')} className="rounded-xl bg-white px-3 py-1.5 text-xs font-bold text-rose-700">Remove</button>
+            <button type="button" onClick={async () => await askConfirm(`Remove the route ${route.name}? Its students come off the route.`) && run(() => removeRoute(route.id), 'Route removed.')} className="rounded-xl bg-white px-3 py-1.5 text-xs font-bold text-rose-700">Remove</button>
           </div>
         </div>
       )}

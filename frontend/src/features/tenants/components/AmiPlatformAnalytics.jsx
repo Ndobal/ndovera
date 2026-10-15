@@ -8,6 +8,7 @@ import {
   completeSchoolAccess,
 } from '../services/tenantApi';
 import { getStoredAuth, persistAuth } from '../../auth/services/authApi';
+import { askConfirm } from '../../../shared/components/AppDialog';
 
 function Stat({ label, value, accent }) {
   return (
@@ -76,7 +77,7 @@ export default function AmiPlatformAnalytics() {
   }
 
   async function complete(grant) {
-    if (!window.confirm('Mark this task done? Access to the school ends now; a new request is needed to continue.')) return;
+    if (!await askConfirm('Mark this task done? Access to the school ends now; a new request is needed to continue.')) return;
     setBusy(grant.tenantId);
     try { await completeSchoolAccess(grant.id); await loadGrants(); } catch (e) { setError(e.message || 'Could not finish.'); } finally { setBusy(''); }
   }

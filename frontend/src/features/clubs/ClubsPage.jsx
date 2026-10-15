@@ -6,6 +6,7 @@ import {
   CATEGORY_STYLES, POST_TYPES, addMembers, createClub, createPost, findPeople, getClub, listClubs, listWork, markWork, removeMember,
   setLeader, submitWork, updateClub, uploadClubFile, withdrawPost,
 } from './clubsApi';
+import { askConfirm } from '../../shared/components/AppDialog';
 
 // Clubs: extracurricular activities for students and staff. Patrons (teachers) run a
 // club — members, notes, videos, images, documents, links, announcements, assignments
@@ -230,7 +231,7 @@ function QuizTaker({ clubId, post, mine, onDone, onNotice }) {
   return (
     <form className="space-y-3" onSubmit={async event => {
       event.preventDefault();
-      if (!window.confirm('Hand in your answers? You can take this quiz once.')) return;
+      if (!await askConfirm('Hand in your answers? You can take this quiz once.')) return;
       setBusy(true);
       try { const result = await submitWork(clubId, post.id, { answers }); onDone(result.submission); } catch (err) { onNotice({ text: err.message, tone: 'error' }); } finally { setBusy(false); }
     }}>
@@ -402,7 +403,7 @@ function Members({ clubId, page, onChanged, onNotice }) {
                 const data = await findPeople(clubId, { classId }).catch(err => { onNotice({ text: err.message, tone: 'error' }); return null; });
                 const people = (data?.people || []).filter(person => !person.inClub);
                 if (!people.length) { onNotice({ text: 'Everyone in that class is already in the club (or the class has no students this session).', tone: 'ok' }); return; }
-                if (window.confirm(`Add ${people.length} student${people.length === 1 ? '' : 's'} to the club?`)) run(() => addMembers(clubId, people), `${people.length} student(s) added.`);
+                if (await askConfirm(`Add ${people.length} student${people.length === 1 ? '' : 's'} to the club?`)) run(() => addMembers(clubId, people), `${people.length} student(s) added.`);
               }}>Add class</button>
             </div>
           )}
@@ -416,7 +417,7 @@ function Members({ clubId, page, onChanged, onNotice }) {
               <span className="flex-1 font-semibold text-slate-900 dark:text-white">{member.name}{member.className ? <span className="text-xs font-normal text-slate-500"> · {member.className}</span> : null}</span>
               <span className={`rounded-full px-2 py-0.5 text-xs font-bold ${member.role === 'patron' ? 'bg-indigo-100 text-indigo-900' : member.role === 'leader' ? 'bg-amber-100 text-amber-900' : 'bg-slate-100 text-slate-700'}`}>{ROLE_LABEL[member.role] || member.role}</span>
               {page.canManage && member.role !== 'patron' && <button type="button" className="text-xs font-bold text-indigo-700 underline dark:text-indigo-300" onClick={() => run(() => setLeader(clubId, member.userId, member.role !== 'leader'))}>{member.role === 'leader' ? 'Make member' : 'Make leader'}</button>}
-              {page.canManage && <button type="button" className={DANGER} onClick={() => { if (window.confirm(`Remove ${member.name} from the club?`)) run(() => removeMember(clubId, member.userId), `${member.name} removed.`); }}>Remove</button>}
+              {page.canManage && <button type="button" className={DANGER} onClick={async () => { if (await askConfirm(`Remove ${member.name} from the club?`)) run(() => removeMember(clubId, member.userId), `${member.name} removed.`); }}>Remove</button>}
             </li>
           ))}
         </ul>
@@ -465,7 +466,7 @@ function ClubView({ clubId, isManager, onBack }) {
               <PostCard key={post.id} clubId={clubId} post={post} page={page} onNotice={onNotice}
                 onWork={(postId, submission) => setPage(current => ({ ...current, work: { ...current.work, [postId]: submission } }))}
                 onWithdraw={async target => {
-                  if (!window.confirm(`Remove "${target.title}" from the club?`)) return;
+                  if (!await askConfirm(`Remove "${target.title}" from the club?`)) return;
                   try { await withdrawPost(clubId, target.id); load(); } catch (err) { setNotice({ text: err.message, tone: 'error' }); }
                 }} />
             ))}

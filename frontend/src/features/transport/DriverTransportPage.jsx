@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { boardChild, getDriverTransport, markArrived, markDeparted, openDriverRun, setDriverTrips } from './transportApi';
 import { clock } from './TransportAdminPage';
+import { askConfirm } from '../../shared/components/AppDialog';
 
 // The driver's school runs: who rides each trip, ticking the children on board from the list,
 // then "Arrived at school" in the morning and "Leaving school" in the afternoon.
@@ -60,7 +61,7 @@ export default function DriverTransportPage() {
   async function finish() {
     const morning = trip.run.direction === 'morning';
     const count = trip.boarded.size;
-    if (!window.confirm(morning
+    if (!await askConfirm(morning
       ? `Record that the bus has arrived at school with ${count} child${count === 1 ? '' : 'ren'}? They are marked present and their parents are told.`
       : `Record that the bus is leaving school with ${count} child${count === 1 ? '' : 'ren'}? Their parents are told.`)) return;
     setBusy(true); setError('');

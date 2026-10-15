@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { getEvents, createEvent, updateEvent, deleteEvent, uploadEventMedia } from '../../../../features/school/services/schoolApi';
+import { askConfirm } from '../../../../shared/components/AppDialog';
 
 function MediaPreview({ urls }) {
   if (!urls?.length) return null;
@@ -117,7 +118,7 @@ export default function EventsTab() {
   }
 
   async function handleDelete(id) {
-    if (!window.confirm('Delete this event?')) return;
+    if (!await askConfirm('Delete this event?')) return;
     try { await deleteEvent(id); load(); } catch (e) { setError(e.message); }
   }
 

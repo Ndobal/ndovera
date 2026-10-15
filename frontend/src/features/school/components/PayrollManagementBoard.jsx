@@ -16,6 +16,7 @@ import {
 import { ArrowsPointingOutIcon, ArrowsPointingInIcon } from '@heroicons/react/24/outline';
 import PayrollAccountDetailsPanel from './PayrollAccountDetailsPanel';
 import PayrollBankNotePanel from './PayrollBankNotePanel';
+import { askConfirm } from '../../../shared/components/AppDialog';
 
 const TABS = ['Payroll Sheet', 'Payslips', 'Account Details', 'Payroll Notes', 'History', 'Settings'];
 const CARD = 'rounded-3xl border border-[#c9a96e]/40 bg-[#b5e3f4] p-6 text-[#191970] shadow-sm dark:border-[#00ffff]/20 dark:bg-[#800000]/25 dark:text-[#39ff14] dark:backdrop-blur-xl';
@@ -812,7 +813,7 @@ function PayrollManagementBoard({ canApprove = false }) {
       ? 'Approve payroll for this period?'
       : 'Submit payroll for owner approval?';
 
-    if (!window.confirm(confirmation)) {
+    if (!await askConfirm(confirmation)) {
       return;
     }
 

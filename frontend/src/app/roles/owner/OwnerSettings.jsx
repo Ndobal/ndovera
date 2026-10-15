@@ -13,6 +13,7 @@ import PromotionBoard from '../../../features/school/components/PromotionBoard';
 import SchoolLocationForm from '../../../features/school/components/SchoolLocationForm';
 import ClassLevelsBoard from '../../../features/school/components/ClassLevelsBoard';
 import SchoolContactEmailForm from '../../../features/school/components/SchoolContactEmailForm';
+import { askConfirm } from '../../../shared/components/AppDialog';
 
 // Settings sections, grouped; every one (Class Register included) can be opened directly with ?tab=.
 const TAB_GROUPS = [
@@ -314,7 +315,7 @@ function ClassesTab() {
   }
 
   async function handleDeleteClass(classId, label) {
-    if (!window.confirm(`Delete ${label}? Students and subjects in this class will be cleared from the class.`)) return;
+    if (!await askConfirm(`Delete ${label}? Students and subjects in this class will be cleared from the class.`)) return;
     setDeletingClassId(classId);
     setStatusMsg('');
     try {
@@ -622,7 +623,7 @@ function SubjectsTab() {
   }
 
   async function handleDelete(id, name) {
-    if (!window.confirm(`Remove subject "${name}"?`)) return;
+    if (!await askConfirm(`Remove subject "${name}"?`)) return;
     setError('');
     try { await deleteSubject(id); await reload(); } catch (err) { setError(err.message); }
   }

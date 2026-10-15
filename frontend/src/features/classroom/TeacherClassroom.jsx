@@ -13,6 +13,7 @@ import MaterialBatchList from './materials/MaterialBatchList';
 import PrepareMaterialPanel from '../material-ai/PrepareMaterial';
 import { getStoredAuth } from '../auth/services/authApi';
 import { getPeople } from '../school/services/schoolApi';
+import { askConfirm } from '../../shared/components/AppDialog';
 
 const TODAY = new Date().toISOString().slice(0, 10);
 const STREAM_EMOJIS = ['😀', '😂', '😍', '🔥', '👏', '🎉', '👍', '🙏', '💡', '📚', '💯', '🚀'];
@@ -426,7 +427,7 @@ export default function TeacherClassroom({
   async function handleRemoveRosterMember(member) {
     if (!classId || !member?.id) return;
     const memberRole = String(member.role || '').trim().toLowerCase();
-    if (!window.confirm(`Remove ${member.name} from this class?`)) return;
+    if (!await askConfirm(`Remove ${member.name} from this class?`)) return;
 
     const response = await svc.removeClassMember(classId, memberRole, member.id);
     if (!response?.success) {
@@ -485,7 +486,7 @@ export default function TeacherClassroom({
 
   async function handleDeletePost(postId) {
     if (!classId || !postId) return;
-    if (!window.confirm('Delete this stream post?')) return;
+    if (!await askConfirm('Delete this stream post?')) return;
 
     const response = await svc.deletePost(classId, postId);
     if (!response?.success) {

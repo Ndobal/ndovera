@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import StudentSectionShell from '../../app/roles/student/StudentSectionShell';
 import { generateClassReportSummary, getMyClassReport, saveMyClassReport, submitMyClassReport, uploadComplianceFile } from './complianceApi';
 import { BODY, CARD, HEADING, INPUT, LABEL, PRIMARY, SECONDARY } from './complianceUi';
+import { askConfirm } from '../../shared/components/AppDialog';
 
 function Answer({ question, value, onChange, students, readOnly }) {
   const common = { id: `q-${question.id}`, disabled: readOnly };
@@ -101,7 +102,7 @@ export default function ClassReportPage() {
     setMessage('Ndovera AI wrote the report from your answers. Read it and correct anything before you submit.');
   });
   const submit = () => run('submit', async () => {
-    if (!window.confirm('Submit this week\'s class report? It cannot be changed afterwards.')) return;
+    if (!await askConfirm('Submit this week\'s class report? It cannot be changed afterwards.')) return;
     const saved = await saveMyClassReport({ classId: data.classId, answers, summary });
     const result = await submitMyClassReport(saved.report.id, summary);
     setData(current => ({ ...current, report: result.report }));

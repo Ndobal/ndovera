@@ -4,6 +4,7 @@ import TopicHub from '../topics/TopicHub';
 import { CurriculumImportDialog, RemoveTopicDialog, TopicEditorDialog } from '../topics/TopicDialogs';
 import { addTopic, deleteTopic, deleteAssignment, deleteMaterial, getAssignments, getMaterials, getSubjectMembers, getTopics, publishDraftTopics, removeStudentFromSubject, restoreStudentToSubject, reorderTopics } from '../classroomService';
 import TeacherAssignmentsPanel from '../TeacherAssignmentsPanel';
+import { askConfirm } from '../../../shared/components/AppDialog';
 
 const SUBJECT_PALETTES = [
   { bg: '#013220', text: '#FFD700', badge: 'rgba(255,215,0,0.18)',    badgeText: '#FFD700' },
@@ -134,13 +135,13 @@ export default function SubjectsTab({ classId = '', subjects = [], canManage: ca
   }
 
   async function handleDeleteAssignment(id) {
-    if (!window.confirm('Delete this assignment? This cannot be undone.')) return;
+    if (!await askConfirm('Delete this assignment? This cannot be undone.')) return;
     try { await deleteAssignment(classId, id); setAllAssignments(prev => prev.filter(a => a.id !== id)); }
     catch { setActionMsg('Could not delete assignment.'); }
   }
 
   async function handleDeleteMaterial(id) {
-    if (!window.confirm('Delete this material?')) return;
+    if (!await askConfirm('Delete this material?')) return;
     try { await deleteMaterial(classId, id); setAllMaterials(prev => prev.filter(m => m.id !== id)); }
     catch { setActionMsg('Could not delete material.'); }
   }
@@ -206,7 +207,7 @@ export default function SubjectsTab({ classId = '', subjects = [], canManage: ca
   }, [showMembers, activeSubjectId, classId]);
 
   async function handleRemove(studentId) {
-    if (!window.confirm('Remove this student from the subject?')) return;
+    if (!await askConfirm('Remove this student from the subject?')) return;
     try {
       await removeStudentFromSubject(classId, activeSubjectId, studentId);
       setActionMsg('Student removed.');

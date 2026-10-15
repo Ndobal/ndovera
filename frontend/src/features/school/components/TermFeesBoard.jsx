@@ -4,6 +4,7 @@ import {
   carryOpeningBalances, getStudentFeeHistory, getStudentFeeOutstanding,
   recordStudentFeePayment,
 } from '../services/schoolApi';
+import { askConfirm } from '../../../shared/components/AppDialog';
 
 const CARD = 'rounded-3xl p-5 sm:p-6 bg-[#b5e3f4] border border-[#c9a96e]/40 dark:border-white/10 dark:bg-slate-900/40';
 const INPUT = 'rounded-xl border border-[#c9a96e]/40 bg-white px-3 py-2 text-sm text-[#191970] outline-none focus:ring-2 focus:ring-[#1a5c38] dark:border-white/10 dark:bg-slate-800 dark:text-slate-100';
@@ -311,7 +312,7 @@ export default function TermFeesBoard() {
   async function handleGenerate() {
     const term = allTerms.find(t => t.id === filters.termId) || overview?.activeTerm;
     if (!term) { setError('Open a term first.'); return; }
-    if (!window.confirm(`Generate ${term.name} fees for every enrolled student? Students are billed for the class they hold this session, and anything already paid is kept.`)) return;
+    if (!await askConfirm(`Generate ${term.name} fees for every enrolled student? Students are billed for the class they hold this session, and anything already paid is kept.`)) return;
 
     setBusy('generate'); setError(''); setNotice('');
     try {

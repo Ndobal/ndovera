@@ -11,6 +11,7 @@ import {
   submitSchoolNewsPost,
   uploadSchoolNewsMedia,
 } from '../services/schoolApi';
+import { askConfirm } from '../../../shared/components/AppDialog';
 
 const REVIEW_ROLES = new Set(['ict', 'hos', 'owner']);
 const PUBLISH_ROLES = new Set(['hos', 'owner']);
@@ -266,7 +267,7 @@ export default function SchoolNewsroomPage({
   }
 
   async function handlePublish(post) {
-    if (!window.confirm(`Publish "${post.title}" to the public school website?`)) return;
+    if (!await askConfirm(`Publish "${post.title}" to the public school website?`)) return;
     setError('');
     setMessage('');
     try {

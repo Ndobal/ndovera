@@ -28,6 +28,7 @@ import {
   getBatchTone,
   getWorkflowTone,
 } from './resultSheetTheme';
+import { askConfirm } from '../../../shared/components/AppDialog';
 
 function readStoredClassId() {
   return window.localStorage.getItem('teacherClassroomId') || window.localStorage.getItem('classroomId') || '';
@@ -329,17 +330,17 @@ export default function TeacherCAScoreSheet({ dashboardLabel = 'Teacher Dashboar
     }, 'Practice results "published". This is what each student would now see — nothing was sent to anyone.', 'Unable to publish the practice results.');
   }
 
-  function resetPractice() {
-    if (typeof window !== 'undefined' && !window.confirm('Clear every practice score and remark for this class and start again?')) return;
+  async function resetPractice() {
+    if (typeof window !== 'undefined' && !await askConfirm('Clear every practice score and remark for this class and start again?')) return;
     runAction(async () => setSheet(await resetPracticeSheet(sheet)), 'Practice sheet cleared.', 'Unable to reset the practice sheet.');
   }
 
-  function updateExamPeriod(action) {
+  async function updateExamPeriod(action) {
     const label = sheet?.currentPeriod ? `${sheet.currentPeriod.termName} ${sheet.currentPeriod.sessionName}`.trim() : 'this term';
     const prompt = action === 'activate'
       ? `Activate exams for ${label}? Practice results close for every class in the school and all practice scores are cleared. Practice comes back after exams end and results are published.`
       : `End the exam period for ${label}? Practice results return once this term's results are published.`;
-    if (typeof window !== 'undefined' && !window.confirm(prompt)) return;
+    if (typeof window !== 'undefined' && !await askConfirm(prompt)) return;
     runAction(async () => {
       await changeExamPeriod(action);
       if (mode === 'practice' && action === 'activate') {
