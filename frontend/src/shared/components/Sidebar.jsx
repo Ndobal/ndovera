@@ -130,6 +130,7 @@ function buildRoleSidebarItems(roleKey) {
       { name: 'Clubs', path: '/roles/student/clubs' },
       { name: 'Timetable', path: '/roles/student/timetable' },
       { name: 'Attendance', path: '/roles/student/attendance' },
+      { name: 'School Bus', path: '/roles/student/transport' },
       { name: 'Tuck Shop', path: '/roles/student/tuck-shop' },
       { name: 'Ndovera AI', path: '/roles/student/professor-vera' },
       { name: 'Messaging', path: '/roles/student/messaging' },
@@ -154,6 +155,7 @@ function buildRoleSidebarItems(roleKey) {
       { name: 'Attendance', path: '/roles/parent/attendance' },
       { name: 'Timetable', path: '/roles/parent/timetable' },
       { name: 'Fees & Receipts', path: '/roles/parent/fees' },
+      { name: 'School Bus', path: '/roles/parent/transport' },
       { name: 'Tuck Shop', path: '/roles/parent/tuck-shop' },
       { name: 'Ndovera AI', path: '/roles/parent/professor-vera' },
       { name: 'PTA Attendance', path: '/roles/parent/pta' },
@@ -208,6 +210,7 @@ function buildRoleSidebarItems(roleKey) {
       { name: 'Academics', path: '/roles/hos/academics' },
       { name: 'Admissions', path: '/roles/hos/admissions' },
       { name: 'Finance', path: '/roles/hos/finance' },
+      { name: 'Transport', path: '/roles/hos/transport' },
       { name: 'Supervision', path: '/roles/hos/classroom' },
       { name: 'Teacher Submissions', path: '/roles/hos/submissions' },
       { name: 'Submissions & Compliance', path: '/roles/hos/compliance' },
@@ -264,6 +267,7 @@ function buildRoleSidebarItems(roleKey) {
       { name: 'Overview', path: '/roles/owner' },
       { name: 'Schools', path: '/roles/owner/schools' },
       { name: 'Finance', path: '/roles/owner/finance' },
+      { name: 'Transport', path: '/roles/owner/transport' },
       { name: 'Payroll', path: '/roles/owner/payroll' },
       { name: 'Admissions', path: '/roles/owner/admissions' },
       { name: 'Classroom', path: '/roles/owner/classroom' },
@@ -346,6 +350,12 @@ function buildRoleSidebarItems(roleKey) {
       { name: 'Settings', path: '/roles/storekeeper/settings' },
       { name: 'Payslip', path: '/roles/storekeeper/payslip' },
       libEntry,
+    ];
+  }
+
+  if (roleKey === 'driver') {
+    return [
+      { name: 'My School Runs', path: '/roles/driver' },
     ];
   }
 

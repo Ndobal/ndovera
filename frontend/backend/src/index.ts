@@ -427,6 +427,10 @@ import { AI_PAY_START, AiPayError, chargeGeneration, kindOfAssessment, kindOfMat
 import type { ChargeInput } from './aiPay'
 import { INVOICE_PAY_DAYS, billLines, documentNumber, invoiceEmail, paymentSettlesBill, receiptEmail } from './platformBills'
 import type { BillLine, BillView } from './platformBills'
+import {
+  TransportError, archiveRoute, assignStudents, board, boardingsFor, driverTrips, expectedForRun, getRun, lagosClock, lagosDate, listAssignments, listRoutes,
+  markRun, normalizeDirection, openRun, passQrText, runsOn, saveRoute, setDriverTrips, unassignStudent,
+} from './transport'
 
 type Bindings = {
   APP_DB: D1Database
@@ -5601,11 +5605,13 @@ async function buildAuthenticatedHeader(c: any, roleKey: string) {
       sortAt: String(announcement.createdAt || ''),
     }))
 
-  const [closureItems, complianceItems] = await Promise.all([
+  const [closureItems, complianceItems, transportItems] = await Promise.all([
     buildClosureNotificationItems(c.env.APP_DB, String(tenantId || ''), actorRole).catch(() => [] as any[]),
     buildComplianceNotificationItems(c.env.APP_DB, String(tenantId || ''), canonicalReaderId, actorRole).catch(() => [] as any[]),
+    buildTransportNotificationItems(c.env.APP_DB, String(tenantId || ''), actorRole, String(resolvedUser.userRow?.id || canonicalReaderId), settings).catch(() => [] as any[]),
   ])
   const notificationItems = [
+    ...transportItems,
     ...closureItems,
     ...complianceItems,
     ...(feeClaimItems || []),
@@ -7724,6 +7730,308 @@ app.put('/api/tenants/contact-email', authenticate, async (c) => {
   const payload = await c.req.json().catch(() => ({})) as Record<string, any>
   return saveSchoolContactEmail(c, tenant, payload.contactEmail, String(actorId || ''))
 })
+
+// ─── School transport ────────────────────────────────────────────────────────
+// See transport.ts. Owner/HoS/transport set up routes and students; the driver runs the trips;
+// parents and students see their bus, driver and pick-up time.
+
+const TRANSPORT_MANAGERS = ['owner', 'hos', 'transport', 'admin']
+
+async function transportActor(c: any) {
+  const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
+  if (!actor.tenantId) throw new TransportError('No school found for this account.', 403)
+  const role = normalizeRole(getActiveRole(c.var.user) || actor.role)
+  return { tenantId: actor.tenantId, actorId: actor.actorId, actorName: actor.actorName, role, settings: actor.resolvedUser?.settings || {} }
+}
+
+function transportFailure(c: any, error: unknown, fallback: string) {
+  if (error instanceof TransportError) return c.json({ success: false, message: error.message }, error.status as any)
+  console.error(fallback, error)
+  return c.json({ success: false, message: fallback }, 500)
+}
+
+/** Names, classes and phones of these users. */
+async function transportPeople(db: D1Database, tenantId: string, ids: string[]) {
+  const unique = [...new Set(ids.filter(Boolean))]
+  if (!unique.length) return new Map<string, { id: string, name: string, classId: string, className: string, phone: string }>()
+  const rows = await db.prepare(`SELECT u.id, u.name, u.email, s.payload FROM users u LEFT JOIN settings s ON s.studentId IN (u.email, u.id)
+    WHERE u.tenantId = ? AND u.id IN (SELECT value FROM json_each(?))`).bind(tenantId, JSON.stringify(unique)).all().catch(() => ({ results: [] }))
+  const people = new Map<string, { id: string, name: string, classId: string, className: string, phone: string }>()
+  for (const row of (rows.results || []) as Record<string, any>[]) {
+    const settings = parseHeaderJsonObject(row.payload) || {}
+    if (people.has(String(row.id)) && !settings.classId) continue
+    people.set(String(row.id), { id: String(row.id), name: String(row.name || settings.name || row.email || ''), classId: String(settings.classId || ''), className: String(settings.className || ''), phone: String(settings.phone || settings.phoneNumber || '') })
+  }
+  return people
+}
+
+/** The children a parent is linked to (or the student themself). */
+async function transportChildIds(db: D1Database, tenantId: string, actorId: string, role: string, settings: Record<string, any>) {
+  if (role === 'student') return [actorId]
+  await ensureParentStudentLinksTable(db)
+  const rows = await db.prepare(`SELECT DISTINCT student_id FROM parent_student_links WHERE tenant_id = ? AND parent_id = ?`).bind(tenantId, actorId).all().catch(() => ({ results: [] }))
+  const fromSettings = [...(Array.isArray(settings.children) ? settings.children : []), ...(Array.isArray(settings.linkedStudents) ? settings.linkedStudents : [])]
+    .map((child: any) => String(child?.id || child?.studentId || '')).filter(Boolean)
+  return [...new Set([...((rows.results || []) as Record<string, any>[]).map(row => String(row.student_id)), ...fromSettings])]
+}
+
+app.get('/api/transport/admin', authenticate, async (c) => {
+  try {
+    const actor = await transportActor(c)
+    if (!TRANSPORT_MANAGERS.includes(actor.role)) throw new TransportError('Only the Owner, Head of School or transport officer can manage routes.', 403)
+    const db = c.env.APP_DB
+    const routes = await listRoutes(db, actor.tenantId)
+    const assignments = await listAssignments(db, actor.tenantId, { routeIds: routes.map(route => route.id) })
+    const [studentRows, driverRows] = await Promise.all([
+      db.prepare(`SELECT u.id, u.name, s.payload FROM users u LEFT JOIN settings s ON s.studentId IN (u.email, u.id)
+        WHERE u.tenantId = ? AND lower(u.role) = 'student' AND (u.status IS NULL OR u.status != 'inactive') ORDER BY u.name`).bind(actor.tenantId).all().catch(() => ({ results: [] })),
+      db.prepare(`SELECT id, name, role FROM users WHERE tenantId = ? AND lower(role) IN ('driver', 'transport') AND (status IS NULL OR status != 'inactive') ORDER BY name`).bind(actor.tenantId).all().catch(() => ({ results: [] })),
+    ])
+    const students = new Map<string, { id: string, name: string, className: string }>()
+    for (const row of (studentRows.results || []) as Record<string, any>[]) {
+      const settings = parseHeaderJsonObject(row.payload) || {}
+      if (!students.has(String(row.id)) || settings.className) students.set(String(row.id), { id: String(row.id), name: String(row.name || ''), className: String(settings.className || '') })
+    }
+    const drivers = ((driverRows.results || []) as Record<string, any>[]).map(row => ({ id: String(row.id), name: String(row.name || ''), role: String(row.role || '') }))
+    const driverName = new Map(drivers.map(driver => [driver.id, driver.name]))
+    const today = await runsOn(db, actor.tenantId, lagosDate())
+    return c.json({
+      success: true,
+      routes: routes.map(route => ({
+        ...route,
+        driverName: driverName.get(route.driverId) || '',
+        students: assignments.filter(item => item.routeId === route.id).map(item => ({ ...item, name: students.get(item.studentId)?.name || 'Student', className: students.get(item.studentId)?.className || '', qrText: passQrText(item.passCode) })),
+      })),
+      drivers,
+      students: [...students.values()],
+      today: today.map(run => ({ ...run, driverName: driverName.get(run.driverId) || '' })),
+    })
+  } catch (error) { return transportFailure(c, error, 'Could not load transport.') }
+})
+
+app.post('/api/transport/routes', authenticate, async (c) => {
+  try {
+    const actor = await transportActor(c)
+    if (!TRANSPORT_MANAGERS.includes(actor.role)) throw new TransportError('Only the Owner, Head of School or transport officer can manage routes.', 403)
+    const id = await saveRoute(c.env.APP_DB, actor.tenantId, await c.req.json().catch(() => ({})), actor.actorId)
+    return c.json({ success: true, id }, 201)
+  } catch (error) { return transportFailure(c, error, 'Could not save the route.') }
+})
+
+app.put('/api/transport/routes/:routeId', authenticate, async (c) => {
+  try {
+    const actor = await transportActor(c)
+    if (!TRANSPORT_MANAGERS.includes(actor.role)) throw new TransportError('Only the Owner, Head of School or transport officer can manage routes.', 403)
+    await saveRoute(c.env.APP_DB, actor.tenantId, await c.req.json().catch(() => ({})), actor.actorId, c.req.param('routeId'))
+    return c.json({ success: true })
+  } catch (error) { return transportFailure(c, error, 'Could not save the route.') }
+})
+
+app.delete('/api/transport/routes/:routeId', authenticate, async (c) => {
+  try {
+    const actor = await transportActor(c)
+    if (!TRANSPORT_MANAGERS.includes(actor.role)) throw new TransportError('Only the Owner, Head of School or transport officer can manage routes.', 403)
+    await archiveRoute(c.env.APP_DB, actor.tenantId, c.req.param('routeId'))
+    return c.json({ success: true })
+  } catch (error) { return transportFailure(c, error, 'Could not remove the route.') }
+})
+
+app.put('/api/transport/routes/:routeId/students', authenticate, async (c) => {
+  try {
+    const actor = await transportActor(c)
+    if (!TRANSPORT_MANAGERS.includes(actor.role)) throw new TransportError('Only the Owner, Head of School or transport officer can manage routes.', 403)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const ids = Array.isArray(body.studentIds) ? body.studentIds : [body.studentId]
+    const saved = await assignStudents(c.env.APP_DB, actor.tenantId, c.req.param('routeId'), ids, body)
+    return c.json({ success: true, saved })
+  } catch (error) { return transportFailure(c, error, 'Could not add the students.') }
+})
+
+app.delete('/api/transport/routes/:routeId/students/:studentId', authenticate, async (c) => {
+  try {
+    const actor = await transportActor(c)
+    if (!TRANSPORT_MANAGERS.includes(actor.role)) throw new TransportError('Only the Owner, Head of School or transport officer can manage routes.', 403)
+    await unassignStudent(c.env.APP_DB, actor.tenantId, c.req.param('routeId'), c.req.param('studentId'))
+    return c.json({ success: true })
+  } catch (error) { return transportFailure(c, error, 'Could not remove the student.') }
+})
+
+/** The driver's routes, everyone they carry (morning, afternoon, by trip) and today's runs. */
+app.get('/api/transport/driver', authenticate, async (c) => {
+  try {
+    const actor = await transportActor(c)
+    const db = c.env.APP_DB
+    const routes = await listRoutes(db, actor.tenantId, { driverId: actor.actorId })
+    const assignments = await listAssignments(db, actor.tenantId, { routeIds: routes.map(route => route.id) })
+    const people = await transportPeople(db, actor.tenantId, assignments.map(item => item.studentId))
+    const runs = await runsOn(db, actor.tenantId, lagosDate(), { driverId: actor.actorId })
+    const boardings = await boardingsFor(db, actor.tenantId, runs.map(run => run.id))
+    return c.json({
+      success: true,
+      trips: await driverTrips(db, actor.tenantId, actor.actorId),
+      routes: routes.map(route => ({
+        ...route,
+        students: assignments.filter(item => item.routeId === route.id).map(item => ({ ...item, name: people.get(item.studentId)?.name || 'Student', className: people.get(item.studentId)?.className || '' })),
+      })),
+      runs: runs.map(run => ({ ...run, boarded: boardings.filter(item => item.runId === run.id).map(item => item.studentId) })),
+    })
+  } catch (error) { return transportFailure(c, error, 'Could not load your routes.') }
+})
+
+app.put('/api/transport/driver/trips', authenticate, async (c) => {
+  try {
+    const actor = await transportActor(c)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    return c.json({ success: true, trips: await setDriverTrips(c.env.APP_DB, actor.tenantId, actor.actorId, body.trips) })
+  } catch (error) { return transportFailure(c, error, 'Could not save.') }
+})
+
+/** Open (or reopen) today's run for a direction and trip, with who rides it and who is on board. */
+app.post('/api/transport/driver/runs', authenticate, async (c) => {
+  try {
+    const actor = await transportActor(c)
+    const db = c.env.APP_DB
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const routes = await listRoutes(db, actor.tenantId, { driverId: actor.actorId })
+    if (!routes.length) throw new TransportError('You have no routes yet. Ask the school to assign you a route.', 404)
+    const run = await openRun(db, actor.tenantId, actor.actorId, normalizeDirection(body.direction), Number(body.tripNo || 1))
+    const expected = await expectedForRun(db, actor.tenantId, run)
+    const people = await transportPeople(db, actor.tenantId, expected.map(item => item.studentId))
+    const boarded = (await boardingsFor(db, actor.tenantId, [run.id])).map(item => item.studentId)
+    return c.json({ success: true, run, boarded, riders: expected.map(item => ({ ...item, name: people.get(item.studentId)?.name || 'Student', className: people.get(item.studentId)?.className || '', routeName: routes.find(route => route.id === item.routeId)?.name || '' })) })
+  } catch (error) { return transportFailure(c, error, 'Could not start the trip.') }
+})
+
+app.post('/api/transport/driver/runs/:runId/board', authenticate, async (c) => {
+  try {
+    const actor = await transportActor(c)
+    const run = await getRun(c.env.APP_DB, actor.tenantId, c.req.param('runId'))
+    if (!run || run.driverId !== actor.actorId) throw new TransportError('Trip not found.', 404)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const result = await board(c.env.APP_DB, actor.tenantId, run, { code: body.code, studentId: body.studentId, onBoard: body.onBoard !== false })
+    const name = (await transportPeople(c.env.APP_DB, actor.tenantId, [result.studentId])).get(result.studentId)?.name || 'Student'
+    return c.json({ success: true, ...result, name })
+  } catch (error) { return transportFailure(c, error, 'Could not mark the child.') }
+})
+
+/**
+ * Morning: the bus is at school. The children on board are marked present in their classes
+ * (unless the class already has a mark for them today) and parents and the school are told.
+ */
+app.post('/api/transport/driver/runs/:runId/arrive', authenticate, async (c) => {
+  try {
+    const actor = await transportActor(c)
+    const db = c.env.APP_DB
+    const run = await getRun(db, actor.tenantId, c.req.param('runId'))
+    if (!run || run.driverId !== actor.actorId) throw new TransportError('Trip not found.', 404)
+    const updated = await markRun(db, actor.tenantId, run, 'arrived')
+    const boarded = (await boardingsFor(db, actor.tenantId, [run.id])).map(item => item.studentId)
+    const people = await transportPeople(db, actor.tenantId, boarded)
+    await ensureSchoolStudentAttendanceTable(db)
+    let markedPresent = 0
+    for (const studentId of boarded) {
+      const classId = people.get(studentId)?.classId || ''
+      if (!classId) continue
+      // eslint-disable-next-line no-await-in-loop
+      const existing = await db.prepare(`SELECT 1 FROM student_attendance_school WHERE tenant_id = ? AND student_id = ? AND date = ?`).bind(actor.tenantId, studentId, run.date).first()
+      if (existing) continue
+      // eslint-disable-next-line no-await-in-loop
+      await upsertSchoolStudentAttendance(db, { tenantId: actor.tenantId, studentId, classId, date: run.date, status: 'present', notes: `Arrived on the school bus at ${lagosClock(updated.arrivedAt)}`, recordedBy: actor.actorId })
+      markedPresent += 1
+    }
+    return c.json({ success: true, run: updated, onBoard: boarded.length, markedPresent })
+  } catch (error) { return transportFailure(c, error, 'Could not record the arrival.') }
+})
+
+/** Afternoon: the bus has just left school; parents and the school are told. */
+app.post('/api/transport/driver/runs/:runId/depart', authenticate, async (c) => {
+  try {
+    const actor = await transportActor(c)
+    const db = c.env.APP_DB
+    const run = await getRun(db, actor.tenantId, c.req.param('runId'))
+    if (!run || run.driverId !== actor.actorId) throw new TransportError('Trip not found.', 404)
+    const updated = await markRun(db, actor.tenantId, run, 'departed')
+    const onBoard = (await boardingsFor(db, actor.tenantId, [run.id])).length
+    return c.json({ success: true, run: updated, onBoard })
+  } catch (error) { return transportFailure(c, error, 'Could not record leaving school.') }
+})
+
+/** A parent's children (or a student's own) bus: route, driver, pick-up time, pass and today's trips. */
+app.get('/api/transport/mine', authenticate, async (c) => {
+  try {
+    const actor = await transportActor(c)
+    const db = c.env.APP_DB
+    const childIds = await transportChildIds(db, actor.tenantId, actor.actorId, actor.role, actor.settings)
+    const assignments = await listAssignments(db, actor.tenantId, { studentIds: childIds })
+    const routes = await listRoutes(db, actor.tenantId)
+    const routeById = new Map(routes.map(route => [route.id, route]))
+    const people = await transportPeople(db, actor.tenantId, [...childIds, ...routes.map(route => route.driverId)])
+    const runs = await runsOn(db, actor.tenantId, lagosDate())
+    const boardings = (await boardingsFor(db, actor.tenantId, runs.map(run => run.id))).filter(item => childIds.includes(item.studentId))
+    const runById = new Map(runs.map(run => [run.id, run]))
+    return c.json({
+      success: true,
+      children: childIds.map(studentId => ({
+        studentId,
+        name: people.get(studentId)?.name || 'Student',
+        routes: assignments.filter(item => item.studentId === studentId).map(item => {
+          const route = routeById.get(item.routeId)
+          const driver = people.get(route?.driverId || '')
+          return { ...item, qrText: passQrText(item.passCode), routeName: route?.name || '', areas: route?.areas || '', vehicle: route?.vehicle || '', driverName: driver?.name || '', driverPhone: driver?.phone || '' }
+        }),
+        today: boardings.filter(item => item.studentId === studentId).map(item => {
+          const run = runById.get(item.runId)
+          return { direction: run?.direction, tripNo: run?.tripNo, boardedAt: item.boardedAt, arrivedAt: run?.arrivedAt || null, departedAt: run?.departedAt || null }
+        }),
+      })).filter(child => child.routes.length || child.today.length),
+    })
+  } catch (error) { return transportFailure(c, error, 'Could not load the school bus.') }
+})
+
+/** In-app notices for today's buses: parents and students about their child, the school about every bus. */
+async function buildTransportNotificationItems(db: D1Database, tenantId: string, role: string, readerId: string, settings: Record<string, any>) {
+  const normalized = normalizeRole(role)
+  const isSchool = ['owner', 'hos', 'transport', 'admin'].includes(normalized)
+  if (!tenantId || (!isSchool && !['parent', 'student'].includes(normalized))) return []
+  const runs = (await runsOn(db, tenantId, lagosDate())).filter(run => run.arrivedAt || run.departedAt)
+  if (!runs.length) return []
+  const boardings = await boardingsFor(db, tenantId, runs.map(run => run.id))
+  const items: any[] = []
+  if (isSchool) {
+    const drivers = await transportPeople(db, tenantId, runs.map(run => run.driverId))
+    for (const run of runs) {
+      const count = boardings.filter(item => item.runId === run.id).length
+      const at = run.arrivedAt || run.departedAt
+      const driver = drivers.get(run.driverId)?.name || 'The driver'
+      items.push({
+        id: `transport:${run.id}:${run.arrivedAt ? 'arrived' : 'departed'}`,
+        title: run.arrivedAt ? `School bus arrived (trip ${run.tripNo})` : `School bus has left school (trip ${run.tripNo})`,
+        detail: run.arrivedAt ? `${driver} arrived at ${lagosClock(at)} with ${count} student${count === 1 ? '' : 's'}.` : `${driver} left at ${lagosClock(at)} with ${count} student${count === 1 ? '' : 's'}.`,
+        sender: 'School transport', time: formatHeaderTime(at), unread: true, category: 'transport',
+        actionUrl: `/roles/${normalized}/transport`, sortAt: String(at || ''),
+      })
+    }
+    return items
+  }
+  const childIds = await transportChildIds(db, tenantId, readerId, normalized, settings)
+  const mine = boardings.filter(item => childIds.includes(item.studentId))
+  if (!mine.length) return []
+  const people = await transportPeople(db, tenantId, mine.map(item => item.studentId))
+  for (const item of mine) {
+    const run = runs.find(entry => entry.id === item.runId)
+    if (!run) continue
+    const at = run.arrivedAt || run.departedAt
+    const name = normalized === 'student' ? 'You' : (people.get(item.studentId)?.name || 'Your child')
+    items.push({
+      id: `transport:${run.id}:${item.studentId}`,
+      title: run.arrivedAt ? `${name} arrived at school` : `${name} ${normalized === 'student' ? 'have' : 'has'} just left school`,
+      detail: run.arrivedAt ? `The school bus arrived at ${lagosClock(at)}.` : `The school bus left school at ${lagosClock(at)}.`,
+      sender: 'School bus', time: formatHeaderTime(at), unread: true, category: 'transport',
+      actionUrl: `/roles/${normalized}/transport`, sortAt: String(at || ''),
+    })
+  }
+  return items
+}
 
 // ─── Paying an invoice (public: the link is the secret) ─────────────────────
 app.get('/api/public/invoices/:token', async (c) => {

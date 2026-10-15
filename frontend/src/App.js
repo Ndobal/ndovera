@@ -71,6 +71,9 @@ import ChangePasswordPage from './features/auth/pages/ChangePasswordPage';
 import ResetPasswordPage from './features/auth/pages/ResetPasswordPage';
 import SchoolRegistrationPage from './features/tenants/pages/SchoolRegistrationPage';
 import InvoicePayPage from './features/tenants/pages/InvoicePayPage';
+import TransportAdminPage from './features/transport/TransportAdminPage';
+import DriverTransportPage from './features/transport/DriverTransportPage';
+import MyBusPage from './features/transport/MyBusPage';
 import PublicHomePage from './features/public/pages/PublicHomePage';
 import PublicSitePage from './features/public/pages/PublicSitePage';
 import PublicLegalPage from './features/public/pages/PublicLegalPage';
@@ -257,6 +260,14 @@ function AnimatedRoutes({ auth, onLogin }) {
         <Route path="/championships/:slug" element={<PublicChampionshipDetailPage />} />
         <Route path="/roles/:role/birthdays" element={<RequireAuth auth={auth}><RouteTransition><BirthdaysPage /></RouteTransition></RequireAuth>} />
         <Route path="/roles/:role/clubs" element={<RequireAuth auth={auth}><RouteTransition><ClubsPage /></RouteTransition></RequireAuth>} />
+        <Route path="/roles/owner/transport" element={<RoleGuard auth={auth} expectedRole="owner"><RouteTransition><TransportAdminPage /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/hos/transport" element={<RoleGuard auth={auth} expectedRole="hos"><RouteTransition><TransportAdminPage /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/transport/routes" element={<RoleGuard auth={auth} expectedRole="transport"><RouteTransition><TransportAdminPage /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/transport/attendance" element={<RoleGuard auth={auth} expectedRole="transport"><RouteTransition><TransportAdminPage /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/driver" element={<RoleGuard auth={auth} expectedRole="driver"><RouteTransition><DriverTransportPage /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/driver/*" element={<RoleGuard auth={auth} expectedRole="driver"><RouteTransition><DriverTransportPage /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/parent/transport" element={<RoleGuard auth={auth} expectedRole="parent"><RouteTransition><MyBusPage /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/student/transport" element={<RoleGuard auth={auth} expectedRole="student"><RouteTransition><MyBusPage /></RouteTransition></RoleGuard>} />
         <Route path="/roles/parent/practice-passes" element={<RoleGuard auth={auth} expectedRole="parent"><RouteTransition><PracticePassesPage mode="parent" /></RouteTransition></RoleGuard>} />
         <Route path="/roles/:role/practice-passes" element={<RequireAuth auth={auth}><RouteTransition><PracticePassesPage mode="school" /></RouteTransition></RequireAuth>} />
         <Route path="/roles/:role/championships" element={<RequireAuth auth={auth}><RouteTransition><ChampionshipCentre /></RouteTransition></RequireAuth>} />
