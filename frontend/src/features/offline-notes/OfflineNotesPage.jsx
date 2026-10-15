@@ -99,7 +99,7 @@ export default function OfflineNotesPage() {
         <article className="rounded-[2rem] border border-slate-200 bg-white p-5 shadow-sm md:p-8 dark:border-white/10 dark:bg-slate-900/80">
           <p className="mb-3 text-xs font-bold uppercase tracking-widest text-indigo-600 dark:text-cyan-300">{open.subjectName}{open.topic ? ` · ${open.topic}` : ''} · {open.words || 0} words</p>
           {/* Read out by the device's own voice: works offline, like the note itself. */}
-          <div className="mb-4"><ReadAloud key={open.materialId} label="Read this note aloud" getText={() => noteBody.current?.innerText || open.markdown || ''} /></div>
+          <div className="mb-4"><ReadAloud key={open.materialId} label="Read this note aloud" targetRef={noteBody} title={open.title || 'Note'} sourceId={`note:${open.materialId}`} /></div>
           <div ref={noteBody} className="prose max-w-none dark:prose-invert"><RichContent text={open.markdown} /></div>
           <p className="mt-6 text-xs text-slate-500">Ndovera copy of your teacher&apos;s material{open.savedAt ? ' · saved on this device' : ''}.</p>
         </article>

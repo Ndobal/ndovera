@@ -175,7 +175,7 @@ function NoteBody({ post }) {
   const ref = React.useRef(null);
   return (
     <div className="space-y-3">
-      <ReadAloud key={post.id} label="Read aloud" getText={() => ref.current?.innerText || post.body} />
+      <ReadAloud key={post.id} label="Read aloud" targetRef={ref} title={post.title} sourceId={`club-post:${post.id}`} />
       <div ref={ref} className="prose max-w-none dark:prose-invert"><RichContent text={post.body} /></div>
     </div>
   );

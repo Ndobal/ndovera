@@ -21,7 +21,8 @@ import { AmiSchoolClosuresPage, ClosureGate, SchoolClosurePage } from './feature
 import { MyStaffEvaluationsPage, StaffEvaluationAdminPage } from './features/evaluations/StaffEvaluationPages';
 import SchoolCalendarBoard from './features/school/components/SchoolCalendarBoard';
 import { PunctualityWinnerBanner, StaffPunctualityPage } from './features/attendance/punctuality/PunctualityPages';
-import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate, Navigate } from 'react-router-dom';
+import { ReadAloudPlayer } from './shared/components/ReadAloud';
 import Loader from './shared/components/Loader';
 import Sidebar from './shared/components/Sidebar';
 import DashboardTopBar from './shared/components/DashboardTopBar';
@@ -454,6 +455,7 @@ function AppWorkspace({ auth, onLogin, onLogout }) {
         ) : null}
       </main>
       <ReturnToAmiBanner />
+      <GlobalReadAloud />
     </div>
   );
 }
@@ -464,6 +466,13 @@ function AiAssessmentsRedirect() {
   const params = new URLSearchParams(location.search);
   params.set('tab', 'assessment');
   return <Navigate to={`/roles/teacher/ai-assistant?${params.toString()}`} replace />;
+}
+
+/** Reading aloud carries on across pages (and stops in Practice, Assignments and Exams). */
+function GlobalReadAloud() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  return <ReadAloudPlayer pathname={location.pathname} search={location.search} onOpen={href => navigate(href)} />;
 }
 
 // When NDOVERA support (Ami) opens a school as its owner: the time left, "Task done", and a way

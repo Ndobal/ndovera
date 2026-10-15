@@ -1,4 +1,4 @@
-import { splitForSpeech, usableVoices } from './ReadAloud';
+import { locatePieces, pickDefaultVoice, splitForSpeech, textMap, usableVoices } from './ReadAloud';
 
 describe('splitForSpeech', () => {
   it('splits at sentence ends and drops extra spaces', () => {
@@ -31,5 +31,38 @@ describe('usableVoices', () => {
   });
   it('offers only device voices when offline', () => {
     expect(usableVoices([...voices], false).map(voice => voice.name)).toEqual(['Zira', 'Hortense']);
+  });
+});
+
+describe('pickDefaultVoice', () => {
+  const v = (name, lang, localService = true) => ({ name, lang, localService });
+  it('chooses a British English female voice when the device has one', () => {
+    expect(pickDefaultVoice([v('Microsoft David', 'en-US'), v('Google UK English Male', 'en-GB'), v('Google UK English Female', 'en-GB')]).name).toBe('Google UK English Female');
+    expect(pickDefaultVoice([v('Daniel', 'en-GB'), v('Kate', 'en-GB'), v('Samantha', 'en-US')]).name).toBe('Kate');
+    expect(pickDefaultVoice([v('Microsoft George - English (United Kingdom)', 'en-GB'), v('Microsoft Libby Online (Natural) - English (United Kingdom)', 'en-GB')]).name).toMatch(/Libby/);
+  });
+  it('falls back to British English, then English', () => {
+    expect(pickDefaultVoice([v('Daniel', 'en-GB'), v('Zira', 'en-US')]).name).toBe('Daniel');
+    expect(pickDefaultVoice([v('Hortense', 'fr-FR'), v('Zira', 'en-US')]).name).toBe('Zira');
+    expect(pickDefaultVoice([])).toBe(null);
+  });
+});
+
+describe('textMap and locatePieces', () => {
+  it('reads blocks as sentences, keeps words whole across formatting, and maps pieces back to the page', () => {
+    const root = document.createElement('div');
+    root.innerHTML = '<h2>Photosynthesis</h2><p>Plants make <strong>fo</strong>od from light. They need <em>water</em> too!</p><span aria-hidden="true">hidden</span>';
+    document.body.appendChild(root);
+    const map = textMap(root);
+    expect(map.text.trim()).toBe('Photosynthesis. Plants make food from light. They need water too!');
+    const pieces = splitForSpeech(map.text);
+    expect(pieces).toEqual(['Photosynthesis.', 'Plants make food from light.', 'They need water too!']);
+    const spans = locatePieces(map.text, pieces);
+    const [start, end] = spans[2];
+    const first = map.at(start);
+    const last = map.at(end - 1);
+    expect(first[0].nodeValue.slice(first[1])).toMatch(/^They need/);
+    expect(last[0].nodeValue[last[1]]).toBe('!');
+    root.remove();
   });
 });
