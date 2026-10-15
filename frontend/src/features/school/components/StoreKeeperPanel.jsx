@@ -4,6 +4,7 @@ import {
   recordStoreMovement, getStoreMovements,
   recordStoreMisplacement, getStoreSurcharges, payStoreSurcharge,
 } from '../services/schoolApi';
+import { askText } from '../../../shared/components/AppDialog';
 
 const naira = new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN', minimumFractionDigits: 0, maximumFractionDigits: 0 });
 const input = 'w-full rounded-xl border border-[#c9a96e]/40 bg-white px-3 py-2 text-sm text-[#191970] outline-none focus:ring-2 focus:ring-[#1a5c38] dark:border-white/10 dark:bg-slate-800 dark:text-slate-100';
@@ -39,12 +40,12 @@ export default function StoreKeeperPanel() {
   }
 
   async function move(item, type) {
-    const qtyStr = window.prompt(`${type === 'in' ? 'Add stock' : type === 'issue' ? 'Issue' : 'Return'} — quantity of "${item.name}":`, '1');
+    const qtyStr = await askText(`${type === 'in' ? 'Add stock' : type === 'issue' ? 'Issue' : 'Return'} — quantity of "${item.name}":`, '1');
     if (qtyStr == null) return;
     const quantity = Number(qtyStr);
     if (!(quantity > 0)) { setMessage('Enter a valid quantity.'); return; }
     let userName = '';
-    if (type === 'issue' || type === 'return') userName = window.prompt('Staff/person name:', '') || '';
+    if (type === 'issue' || type === 'return') userName = await askText('Staff/person name:', '') || '';
     try { await recordStoreMovement({ itemId: item.id, type, quantity, userName }); await loadAll(); }
     catch (err) { setMessage(err.message || 'Could not record movement.'); }
   }
@@ -56,7 +57,7 @@ export default function StoreKeeperPanel() {
   }
 
   async function settle(s) {
-    const amt = window.prompt(`Record payment toward ${s.userName}'s charge for "${s.itemName}". Outstanding: ${naira.format(s.amount - s.amountPaid)}. Amount (blank = settle fully):`, '');
+    const amt = await askText(`Record payment toward ${s.userName}'s charge for "${s.itemName}". Outstanding: ${naira.format(s.amount - s.amountPaid)}. Amount (blank = settle fully):`, '');
     if (amt == null) return;
     try { await payStoreSurcharge(s.id, amt ? Number(amt) : 0); await loadAll(); }
     catch (err) { setMessage(err.message || 'Could not record payment.'); }

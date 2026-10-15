@@ -30,7 +30,7 @@ import {
   saveFeesPaymentDetails,
   saveSession,
 } from '../services/schoolApi';
-import { askConfirm } from '../../../shared/components/AppDialog';
+import { askConfirm, askText } from '../../../shared/components/AppDialog';
 
 const DEFAULT_FEE_COLUMNS = [
   'Tuition',
@@ -690,8 +690,8 @@ function FeesManagementBoard({ initialFinanceTab = 'fees' }) {
     );
   }
 
-  function addNewColumn() {
-    const heading = window.prompt('Enter new fee heading');
+  async function addNewColumn() {
+    const heading = await askText('Enter new fee heading');
     const trimmedHeading = String(heading || '').trim();
 
     if (!trimmedHeading) {
@@ -703,7 +703,7 @@ function FeesManagementBoard({ initialFinanceTab = 'fees' }) {
       return;
     }
 
-    const seed = window.prompt(`Enter a starting amount for ${trimmedHeading}`, '0');
+    const seed = await askText(`Enter a starting amount for ${trimmedHeading}`, '0');
     if (seed === null) {
       return;
     }
@@ -727,8 +727,8 @@ function FeesManagementBoard({ initialFinanceTab = 'fees' }) {
     setDirty(true);
   }
 
-  function renameFeeColumn(feeName) {
-    const nextHeading = window.prompt('Rename fee heading', feeName);
+  async function renameFeeColumn(feeName) {
+    const nextHeading = await askText('Rename fee heading', feeName);
     const trimmedHeading = String(nextHeading || '').trim();
 
     if (!trimmedHeading || trimmedHeading === feeName) {
@@ -764,8 +764,8 @@ function FeesManagementBoard({ initialFinanceTab = 'fees' }) {
     setDirty(true);
   }
 
-  function applyFeesToAll() {
-    const headingResponse = window.prompt(
+  async function applyFeesToAll() {
+    const headingResponse = await askText(
       'Which fee heading should be applied to all students?',
       feeColumns[0] || 'Tuition',
     );
@@ -775,7 +775,7 @@ function FeesManagementBoard({ initialFinanceTab = 'fees' }) {
       return;
     }
 
-    const amountResponse = window.prompt(`Set ${heading} fee for all students`, '0');
+    const amountResponse = await askText(`Set ${heading} fee for all students`, '0');
     if (amountResponse === null) {
       return;
     }
@@ -854,24 +854,24 @@ function FeesManagementBoard({ initialFinanceTab = 'fees' }) {
   }
 
   async function startNewFeePeriod() {
-    const nextSession = window.prompt('Enter the new session', sessionLabel || getDefaultSessionLabel());
+    const nextSession = await askText('Enter the new session', sessionLabel || getDefaultSessionLabel());
     const normalizedSession = String(nextSession || '').trim();
     if (!normalizedSession) {
       return;
     }
 
-    const nextTerm = window.prompt('Enter the new term', currentTerm || 'Term 1');
+    const nextTerm = await askText('Enter the new term', currentTerm || 'Term 1');
     const normalizedTerm = String(nextTerm || '').trim();
     if (!normalizedTerm) {
       return;
     }
 
-    const startDate = window.prompt('Term start date (YYYY-MM-DD, optional)', '');
+    const startDate = await askText('Term start date (YYYY-MM-DD, optional)', '');
     if (startDate === null) {
       return;
     }
 
-    const endDate = window.prompt('Term end date (YYYY-MM-DD, optional)', '');
+    const endDate = await askText('Term end date (YYYY-MM-DD, optional)', '');
     if (endDate === null) {
       return;
     }

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import AmiPlatformAnalytics from './AmiPlatformAnalytics';
+import SchoolAccessPanel from './SchoolAccessPanel';
 import {
   approveTenant,
   endDiscountCode,
@@ -505,6 +506,7 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
     return (
       <div className="p-8 max-w-7xl mx-auto space-y-6">
         {headerSection}
+        <SchoolAccessPanel />
         {statCards}
 
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
@@ -556,6 +558,7 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
   return (
     <div className="p-8 max-w-7xl mx-auto space-y-6">
       {headerSection}
+      <SchoolAccessPanel />
       <AmiPlatformAnalytics />
       {statCards}
 

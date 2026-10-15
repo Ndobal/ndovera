@@ -8,6 +8,7 @@ import {
   rotateStaffAttendanceQr,
   saveStaffAttendanceSettings,
 } from '../../school/services/schoolApi';
+import { askText } from '../../../shared/components/AppDialog';
 
 const DEFAULT_FORM = {
   mode: 'qr',
@@ -162,7 +163,7 @@ export default function StaffAttendanceManagementPanel() {
 
   async function handleReviewRequest(requestId, decision) {
     const defaultNote = decision === 'approved' ? 'Approved for attendance exception.' : 'Rejected. Please follow up with school leadership.';
-    const decisionNote = window.prompt(decision === 'approved' ? 'Approval note' : 'Rejection reason', defaultNote);
+    const decisionNote = await askText(decision === 'approved' ? 'Approval note' : 'Rejection reason', defaultNote);
     if (decisionNote === null) return;
 
     setReviewingId(requestId);

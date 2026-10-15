@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { handInCa, reviewCa } from '../service/resultEngineService';
 import { normalizeCaComponentDefinitions } from '../utils/resultEngineTransforms';
 import { RESULT_BODY, RESULT_BUTTON, RESULT_HEADING, RESULT_INNER_SURFACE, RESULT_LABEL, RESULT_SECONDARY_BUTTON, RESULT_SURFACE } from './resultSheetTheme';
+import { askText } from '../../../shared/components/AppDialog';
 
 // C.A. hand-in on the score sheet. A subject teacher hands in each C.A. (or all
 // of them) by its deadline; the section head approves or returns it; the HoS or
@@ -80,8 +81,8 @@ export default function CaHandInPanel({ sheet, onSheet }) {
                   <button type="button" disabled={Boolean(busy)} className={RESULT_BUTTON} onClick={() => run(submission.id, () => reviewCa(sheet, submission.id, 'approve'), 'Approved — locked into the result.')}>Final approval</button>
                 )}
                 {submission.status !== 'returned' && (submission.status !== 'approved' || permissions.canApproveCa) && (
-                  <button type="button" disabled={Boolean(busy)} className={RESULT_SECONDARY_BUTTON} onClick={() => {
-                    const note = window.prompt('What needs correcting?');
+                  <button type="button" disabled={Boolean(busy)} className={RESULT_SECONDARY_BUTTON} onClick={async () => {
+                    const note = await askText('What needs correcting?');
                     if (note) run(submission.id, () => reviewCa(sheet, submission.id, 'return', note), 'Returned to the teacher.');
                   }}>Return</button>
                 )}

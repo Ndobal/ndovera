@@ -11,7 +11,7 @@ import {
   submitSchoolNewsPost,
   uploadSchoolNewsMedia,
 } from '../services/schoolApi';
-import { askConfirm } from '../../../shared/components/AppDialog';
+import { askConfirm, askText } from '../../../shared/components/AppDialog';
 
 const REVIEW_ROLES = new Set(['ict', 'hos', 'owner']);
 const PUBLISH_ROLES = new Set(['hos', 'owner']);
@@ -253,7 +253,7 @@ export default function SchoolNewsroomPage({
 
   async function handleReview(post, decision) {
     const defaultNote = decision === 'approve' ? 'Ready for HoS/Owner publication.' : post.reviewNotes || '';
-    const reviewNotes = window.prompt(decision === 'approve' ? 'Review notes for publication readiness' : 'Explain what needs to change', defaultNote);
+    const reviewNotes = await askText(decision === 'approve' ? 'Review notes for publication readiness' : 'Explain what needs to change', defaultNote);
     if (reviewNotes === null) return;
     setError('');
     setMessage('');

@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import * as api from './birthdaysApi';
-import { askConfirm } from '../../shared/components/AppDialog';
+import { askConfirm, askText } from '../../shared/components/AppDialog';
 
 // Birthdays: today's celebrations (card, wishes), my memories, my choice to be celebrated,
 // and for the Owner/HoS the settings and the wish review queue.
@@ -79,7 +79,7 @@ function Celebration({ celebrationId, onBack }) {
           <ul className="mt-2 space-y-2">{wishes.map(wish => (
             <li key={wish.id} className="flex items-start justify-between gap-2 rounded-xl bg-[#fff8f0] p-3 text-sm text-[#191970] dark:bg-slate-800 dark:text-slate-200">
               <span><b>{wish.senderName}</b>{wish.state === 'pending' ? ' (waiting for approval)' : ''}<span className="block whitespace-pre-wrap">{wish.message}</span></span>
-              <button type="button" className="text-xs font-semibold text-rose-700 underline" onClick={async () => { const reason = window.prompt('Why are you reporting this wish?'); if (!reason) return; try { await api.reportWish(celebrationId, wish.id, reason); setNotice('Reported. It is hidden until the school reviews it.'); load(); } catch (error) { setNotice(error.message); } }}>Report</button>
+              <button type="button" className="text-xs font-semibold text-rose-700 underline" onClick={async () => { const reason = await askText('Why are you reporting this wish?'); if (!reason) return; try { await api.reportWish(celebrationId, wish.id, reason); setNotice('Reported. It is hidden until the school reviews it.'); load(); } catch (error) { setNotice(error.message); } }}>Report</button>
             </li>
           ))}</ul>
         )}

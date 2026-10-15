@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { streamPostTypes, streamPostsSeed } from '../data/classroomData';
 import { createTextDownload, getRoleAccent } from '../shared/classroomHelpers';
+import { askText } from '../../../shared/components/AppDialog';
 
 const reactionIcons = ['👍', '❤️', '🔥', '📚'];
 
@@ -19,9 +20,9 @@ export default function StreamTab() {
     bottomAnchorRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
   }, [posts]);
 
-  const addAttachment = () => {
+  const addAttachment = async () => {
     if (studentMuted) return;
-    const value = window.prompt('Enter file name or resource link');
+    const value = await askText('Enter file name or resource link');
     if (!value) return;
     const normalized = value.trim();
     if (!normalized) return;

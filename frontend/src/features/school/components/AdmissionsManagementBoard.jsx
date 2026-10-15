@@ -5,6 +5,7 @@ import {
   reviewAdmissionApplication,
   reviewWebsiteEnquiry,
 } from '../services/schoolApi';
+import { askText } from '../../../shared/components/AppDialog';
 
 const SURFACE = 'rounded-3xl border border-[#c9a96e]/45 bg-[#b5e3f4] p-5 shadow-[0_18px_42px_rgba(128,0,0,0.08)] dark:border-[#bf00ff]/35 dark:bg-[#800000]/75 dark:shadow-[0_0_28px_rgba(191,0,255,0.18)]';
 const SUB_SURFACE = 'rounded-2xl border border-[#c9a96e]/45 bg-[#fff8f0] p-4 dark:border-[#bf00ff]/35 dark:bg-black/20';
@@ -133,7 +134,7 @@ export default function AdmissionsManagementBoard({
   }), [enquiries]);
 
   async function handleReview(application, nextStatus) {
-    const reviewNotes = window.prompt('Add review notes for this admission application.', application.reviewNotes || '');
+    const reviewNotes = await askText('Add review notes for this admission application.', application.reviewNotes || '');
     if (reviewNotes === null) return;
 
     setError('');
@@ -161,20 +162,20 @@ export default function AdmissionsManagementBoard({
 
   async function handleEnquiryReview(enquiry, nextStatus) {
     const details = readEnquirySummary(enquiry);
-    const reviewNotes = window.prompt('Add handling notes for this website enquiry.', details.reviewNotes || '');
+    const reviewNotes = await askText('Add handling notes for this website enquiry.', details.reviewNotes || '');
     if (reviewNotes === null) return;
 
     let linkedApplicationId = details.linkedApplicationId;
     let outcomeReason = details.outcomeReason;
 
     if (['application_started', 'enrolled'].includes(nextStatus)) {
-      const linkedValue = window.prompt('Link the admission application ID if it is available.', linkedApplicationId || '');
+      const linkedValue = await askText('Link the admission application ID if it is available.', linkedApplicationId || '');
       if (linkedValue === null) return;
       linkedApplicationId = linkedValue.trim();
     }
 
     if (nextStatus === 'not_enrolled') {
-      const outcomeValue = window.prompt('Why did this enquiry not enrol?', outcomeReason || reviewNotes || '');
+      const outcomeValue = await askText('Why did this enquiry not enrol?', outcomeReason || reviewNotes || '');
       if (outcomeValue === null) return;
       outcomeReason = outcomeValue.trim();
     }

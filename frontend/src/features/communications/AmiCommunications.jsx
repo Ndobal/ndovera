@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import * as api from './communicationsApi';
+import { askText } from '../../shared/components/AppDialog';
 
 // Super Admin → Communications: pricing, providers and WhatsApp templates, school wallets,
 // free allocation (reviewed before it is given), allocation history and reconciliation.
@@ -159,7 +160,7 @@ function GiftHistory({ run, schools }) {
       <ul className="space-y-1 text-sm text-[#191970] dark:text-slate-200">{gifts.map(gift => (
         <li key={gift.id} className="flex flex-wrap items-center justify-between gap-2 border-t border-[#c9a96e]/25 py-1">
           <span>{new Date(gift.createdAt).toLocaleDateString()} · {nameOf(gift.tenantId)} · {gift.initialUnits} {api.CHANNEL_LABELS[gift.channel]} · {gift.remainingUnits - gift.reservedUnits} unspent{gift.reversedUnits ? ` · ${gift.reversedUnits} reversed` : ''} · {gift.reason} · by {gift.actorName}</span>
-          {gift.remainingUnits - gift.reservedUnits > 0 && <button type="button" className="text-xs font-semibold text-rose-700 underline" onClick={() => { const reason = window.prompt('Why reverse the unspent units?'); if (reason) run(async () => { await api.reverseGift(gift.id, reason); load(); }, 'Unspent units reversed.'); }}>Reverse unspent</button>}
+          {gift.remainingUnits - gift.reservedUnits > 0 && <button type="button" className="text-xs font-semibold text-rose-700 underline" onClick={async () => { const reason = await askText('Why reverse the unspent units?'); if (reason) run(async () => { await api.reverseGift(gift.id, reason); load(); }, 'Unspent units reversed.'); }}>Reverse unspent</button>}
         </li>
       ))}</ul>
     </div>

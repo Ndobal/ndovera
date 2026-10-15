@@ -7,6 +7,7 @@ import {
 } from './staffFileApi';
 import { uploadComplianceFile } from '../compliance/complianceApi';
 import { BODY, CARD, HEADING, INNER, INPUT, LABEL, PRIMARY, SECONDARY, StatusChip, naira } from '../compliance/complianceUi';
+import { askText } from '../../shared/components/AppDialog';
 
 // The tabs of the Digital Staff Office File. Each tab loads its own data and
 // shows only the actions the server says this viewer may take.
@@ -220,15 +221,15 @@ function LoanCard({ loan, canManage, isSelf, staffName, onChanged }) {
         <div key={tx.id} className="mt-2 flex flex-wrap items-center gap-2 text-sm">
           <span className={BODY}>{naira(tx.amount)} paid {date(tx.paidOn)} — {tx.createdByName}</span><Files files={tx.proof} />
           <button type="button" disabled={busy} className={SECONDARY} onClick={() => run(() => confirmStaffLoanPayment(loan.id, tx.id, { confirm: true }).then(onChanged), 'Payment confirmed.')}>Confirm</button>
-          <button type="button" disabled={busy} className={SECONDARY} onClick={() => { const note = window.prompt('Why is this payment being rejected?'); if (note) run(() => confirmStaffLoanPayment(loan.id, tx.id, { confirm: false, note }).then(onChanged), 'Payment rejected.'); }}>Reject</button>
+          <button type="button" disabled={busy} className={SECONDARY} onClick={async () => { const note = await askText('Why is this payment being rejected?'); if (note) run(() => confirmStaffLoanPayment(loan.id, tx.id, { confirm: false, note }).then(onChanged), 'Payment rejected.'); }}>Reject</button>
         </div>
       ))}
       {canManage && !isSelf && (
         <div className="mt-2 flex flex-wrap gap-2">
           {['submitted'].includes(loan.status) && <button type="button" disabled={busy} className={SECONDARY} onClick={() => decide('review')}>Mark under review</button>}
           {['submitted', 'under_review'].includes(loan.status) && <button type="button" disabled={busy} className={SECONDARY} onClick={() => decide('approve')}>Approve</button>}
-          {['submitted', 'under_review', 'approved'].includes(loan.status) && <button type="button" disabled={busy} className={SECONDARY} onClick={() => { const note = window.prompt('Reason for declining'); if (note) decide('decline', { note }); }}>Decline</button>}
-          {loan.status === 'approved' && <button type="button" disabled={busy} className={PRIMARY} onClick={() => decide('activate', { nextPaymentOn: window.prompt('First repayment date (YYYY-MM-DD)', '') || undefined })}>Disburse — make active</button>}
+          {['submitted', 'under_review', 'approved'].includes(loan.status) && <button type="button" disabled={busy} className={SECONDARY} onClick={async () => { const note = await askText('Reason for declining'); if (note) decide('decline', { note }); }}>Decline</button>}
+          {loan.status === 'approved' && <button type="button" disabled={busy} className={PRIMARY} onClick={async () => decide('activate', { nextPaymentOn: await askText('First repayment date (YYYY-MM-DD)', '') || undefined })}>Disburse — make active</button>}
         </div>
       )}
       {loan.status === 'active' && (isSelf || canManage) && (
@@ -330,18 +331,18 @@ export function TasksTab({ staffId }) {
           </div>
           {data.canUpdate && task.status !== 'completed' && (
             <div className="mt-2 flex flex-wrap gap-2">
-              <button type="button" disabled={busy} className={SECONDARY} onClick={() => { const note = window.prompt('Progress note'); if (note !== null) run(() => updateStaffTask(task.id, { status: 'in_progress', note }).then(reload), 'Progress saved.'); }}>Update progress</button>
+              <button type="button" disabled={busy} className={SECONDARY} onClick={async () => { const note = await askText('Progress note'); if (note !== null) run(() => updateStaffTask(task.id, { status: 'in_progress', note }).then(reload), 'Progress saved.'); }}>Update progress</button>
               <FilePicker label="Add evidence" onUploaded={file => run(() => updateStaffTask(task.id, { status: task.status === 'assigned' ? 'in_progress' : task.status, evidence: [file] }).then(reload))} />
-              <button type="button" disabled={busy} className={PRIMARY} onClick={() => { const note = window.prompt('What was done?'); if (note !== null) run(() => updateStaffTask(task.id, { status: 'submitted', note }).then(reload), 'Submitted for evaluation.'); }}>Submit as done</button>
+              <button type="button" disabled={busy} className={PRIMARY} onClick={async () => { const note = await askText('What was done?'); if (note !== null) run(() => updateStaffTask(task.id, { status: 'submitted', note }).then(reload), 'Submitted for evaluation.'); }}>Submit as done</button>
             </div>
           )}
           {data.canAssign && task.status !== 'completed' && (
             <div className="mt-2 flex flex-wrap items-center gap-2 text-sm">
               <span className={LABEL}>Mark completed:</span>
               {data.ratings.map(rating => (
-                <button key={rating} type="button" disabled={busy} className={SECONDARY} onClick={() => {
-                  const score = window.prompt('Score out of 100 (optional)', '');
-                  const comments = window.prompt('Comments (optional)', '') || '';
+                <button key={rating} type="button" disabled={busy} className={SECONDARY} onClick={async () => {
+                  const score = await askText('Score out of 100 (optional)', '');
+                  const comments = await askText('Comments (optional)', '') || '';
                   run(() => evaluateStaffTask(task.id, { rating, score: score === null || score === '' ? undefined : Number(score), comments }).then(reload), 'Task completed.');
                 }}>{rating}</button>
               ))}
@@ -441,17 +442,17 @@ export function ReportsTab({ staffId, isSelf }) {
           {report.staffResponse && <p className={`mt-1 text-sm ${BODY}`}><strong>Staff response:</strong> {report.staffResponse}</p>}
           {report.outcome && <p className={`mt-1 text-sm ${BODY}`}><strong>Outcome:</strong> {report.outcome}</p>}
           {data.canRespond && report.status !== 'closed' && (
-            <button type="button" className={`${PRIMARY} mt-2`} disabled={busy} onClick={() => { const response = window.prompt('Your response', report.staffResponse || ''); if (response) run(() => respondToStaffReport(report.id, response).then(reload), 'Response saved.'); }}>
+            <button type="button" className={`${PRIMARY} mt-2`} disabled={busy} onClick={async () => { const response = await askText('Your response', report.staffResponse || ''); if (response) run(() => respondToStaffReport(report.id, response).then(reload), 'Response saved.'); }}>
               {report.staffResponse ? 'Update my response' : 'Respond'}
             </button>
           )}
           {data.canInvestigate && (
             <div className="mt-2 flex flex-wrap items-center gap-2">
-              <select defaultValue="" aria-label="Move report to" className={INPUT} onChange={event => {
+              <select defaultValue="" aria-label="Move report to" className={INPUT} onChange={async event => {
                 const status = event.target.value;
                 if (!status) return;
-                const managementResponse = window.prompt('Note to record with this step (optional)', '') || '';
-                const outcome = ['substantiated', 'unsubstantiated', 'action_taken', 'closed'].includes(status) ? (window.prompt('Outcome (optional)', '') || '') : '';
+                const managementResponse = await askText('Note to record with this step (optional)', '') || '';
+                const outcome = ['substantiated', 'unsubstantiated', 'action_taken', 'closed'].includes(status) ? (await askText('Outcome (optional)', '') || '') : '';
                 run(() => setStaffReportStatus(report.id, { status, managementResponse, outcome }).then(reload), 'Report updated.');
                 event.target.value = '';
               }}>

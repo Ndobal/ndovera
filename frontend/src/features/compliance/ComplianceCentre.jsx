@@ -8,6 +8,7 @@ import {
   uploadComplianceFile, verifyComplianceUnit,
 } from './complianceApi';
 import { BODY, CARD, HEADING, INNER, INPUT, KIND_LABELS, LABEL, PRIMARY, SECONDARY, STATUS, StatusChip, WEEKDAYS, formatDue, naira } from './complianceUi';
+import { askText } from '../../shared/components/AppDialog';
 
 // Management → Submissions & Compliance. Owner and HOS see every teacher;
 // section heads see the teachers of their sections. Totals first, then a
@@ -58,7 +59,7 @@ function UnitActions({ item, unit, teacherId, onChanged, canVerify }) {
     <span className="flex flex-wrap items-center gap-1">
       {!unit.done && item.method !== 'ndovera' && (
         <button type="button" disabled={busy} className="rounded-lg border border-emerald-400 px-2 py-0.5 text-xs font-bold text-emerald-800 dark:text-emerald-200"
-          onClick={() => act({ note: window.prompt('Note (optional) — for example "Physical register seen"') || '' })}>Mark submitted</button>
+          onClick={async () => act({ note: await askText('Note (optional) — for example "Physical register seen"') || '' })}>Mark submitted</button>
       )}
       {!unit.done && ['exam_questions', 'lesson_notes', 'diary', 'custom'].includes(item.kind) && (
         <label className="cursor-pointer rounded-lg border border-[#c9a96e]/60 px-2 py-0.5 text-xs font-bold text-[#191970] dark:text-slate-100">
@@ -71,7 +72,7 @@ function UnitActions({ item, unit, teacherId, onChanged, canVerify }) {
       )}
       {manual && (
         <button type="button" disabled={busy} className="rounded-lg border border-rose-300 px-2 py-0.5 text-xs font-bold text-rose-700"
-          onClick={() => { const note = window.prompt('Why is this being withdrawn?'); if (note !== null) act({ revoke: true, note }); }}>Withdraw</button>
+          onClick={async () => { const note = await askText('Why is this being withdrawn?'); if (note !== null) act({ revoke: true, note }); }}>Withdraw</button>
       )}
       {error && <span role="alert" className="text-xs font-semibold text-rose-700">{error}</span>}
     </span>

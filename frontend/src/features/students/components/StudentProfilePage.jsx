@@ -11,7 +11,7 @@ import {
 } from '../../school/services/schoolApi';
 import { uploadComplianceFile } from '../../compliance/complianceApi';
 import ResultRecordViewer from '../../results-engine/components/ResultRecordViewer';
-import { askConfirm } from '../../../shared/components/AppDialog';
+import { askConfirm, askText } from '../../../shared/components/AppDialog';
 
 // The Digital Student File. One file per learner, opened from their name
 // anywhere in Ndovera. The server says what this viewer may see and add
@@ -134,7 +134,7 @@ function RecordGroup({ group, profile, studentId, onChanged, setError }) {
             <div className="flex shrink-0 flex-col items-end gap-1">
               {record.category === 'disciplinary' && record.metadata?.status !== 'closed' && profile.addableCategories?.includes('disciplinary') && (
                 <button type="button" className={GHOST} onClick={async () => {
-                  const note = window.prompt('How was it resolved?');
+                  const note = await askText('How was it resolved?');
                   if (note === null) return;
                   try { await updateStudentRecord(studentId, record.id, { status: 'closed', note }); onChanged(); } catch (err) { setError(err?.message || 'Could not update the case.'); }
                 }}>Close case</button>

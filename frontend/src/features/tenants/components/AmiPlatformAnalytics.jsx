@@ -8,7 +8,7 @@ import {
   completeSchoolAccess,
 } from '../services/tenantApi';
 import { getStoredAuth, persistAuth } from '../../auth/services/authApi';
-import { askConfirm } from '../../../shared/components/AppDialog';
+import { askConfirm, askText } from '../../../shared/components/AppDialog';
 
 function Stat({ label, value, accent }) {
   return (
@@ -51,9 +51,9 @@ export default function AmiPlatformAnalytics() {
   }, [grants]);
 
   async function requestAccess(tenantId) {
-    const reason = window.prompt('What do you need to do in this school? The owner sees this.', 'Set up classes and import students');
+    const reason = await askText('What do you need to do in this school? The owner sees this.', 'Set up classes and import students');
     if (reason == null || !reason.trim()) return;
-    const hoursText = window.prompt('How many hours do you need? (1–168; the owner can change it)', '24');
+    const hoursText = await askText('How many hours do you need? (1–168; the owner can change it)', '24');
     if (hoursText == null) return;
     const hours = Math.max(1, Math.min(168, Math.round(Number(hoursText) || 24)));
     setBusy(tenantId);
@@ -152,13 +152,13 @@ export default function AmiPlatformAnalytics() {
                         return (
                           <div className="flex justify-center gap-1.5">
                             <button type="button" disabled={busy === s.tenantId} onClick={() => openSchool(g)} className="rounded-lg bg-[#1a5c38] px-2.5 py-1 text-xs font-bold text-white disabled:opacity-50" title={g.expiresAt ? `Until ${new Date(g.expiresAt).toLocaleString()}` : ''}>Open</button>
-                            <button type="button" disabled={busy === s.tenantId} onClick={() => complete(g)} className="rounded-lg border border-emerald-400/40 px-2.5 py-1 text-xs font-semibold text-emerald-300 disabled:opacity-50">Task done</button>
-                            <button type="button" disabled={busy === s.tenantId} onClick={() => deactivate(g)} className="rounded-lg border border-white/20 px-2.5 py-1 text-xs font-semibold text-white/70 disabled:opacity-50">Off</button>
+                            <button type="button" disabled={busy === s.tenantId} onClick={() => complete(g)} className="rounded-lg bg-[#191970] px-2.5 py-1 text-xs font-bold text-[#c9a96e] disabled:opacity-50">Task done</button>
+                            <button type="button" disabled={busy === s.tenantId} onClick={() => deactivate(g)} className="rounded-lg bg-white px-2.5 py-1 text-xs font-bold text-[#800020] disabled:opacity-50">End</button>
                           </div>
                         );
                       }
-                      if (g && g.status === 'pending') return <span className="text-xs text-amber-300">Awaiting owner ({g.requestedHours}h asked)</span>;
-                      return <button type="button" disabled={busy === s.tenantId} onClick={() => requestAccess(s.tenantId)} className="rounded-lg border border-emerald-400/40 px-2.5 py-1 text-xs font-semibold text-emerald-300 disabled:opacity-50">Request</button>;
+                      if (g && g.status === 'pending') return <span className="rounded-lg bg-amber-100 px-2 py-0.5 text-xs font-bold text-amber-900">Awaiting owner ({g.requestedHours}h asked)</span>;
+                      return <button type="button" disabled={busy === s.tenantId} onClick={() => requestAccess(s.tenantId)} className="rounded-lg bg-[#1a5c38] px-2.5 py-1 text-xs font-bold text-white disabled:opacity-50">Request access</button>;
                     })()}
                   </td>
                 </tr>
