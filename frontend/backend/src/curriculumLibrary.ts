@@ -83,8 +83,8 @@ export function normalizeClassLevel(raw: unknown): ClassLevel {
   if (/\bpre ?school\b/.test(text)) return level('nursery', n >= 2 ? 3 : 2)
   if (/\breception\b/.test(text)) return level('nursery', 1)
   if (/\b(kg|kindergarten|nursery|pre ?k)\b/.test(text)) return level('nursery', Math.min(3, Math.max(1, n || 1)))
-  if (/\b(sss|ss|senior secondary|senior school|senior high( school)?|s s s|shs)\b/.test(text) || /^(s{2,3}|shs)\d/.test(text.replace(/\s/g, ''))) return n >= 1 && n <= 3 ? level('senior', n) : none
-  if (/\b(jss|js|junior secondary|junior school|junior high( school)?|j s s|jhs)\b/.test(text) || /^(js{1,2}|jhs)\d/.test(text.replace(/\s/g, ''))) return n >= 1 && n <= 3 ? level('junior', n) : none
+  if (/\b(sss|ss|senior secondary|senior school|senior high( school)?|s s s|shs|sh)\b/.test(text) || /^(s{2,3}|shs?)\d/.test(text.replace(/\s/g, ''))) return n >= 1 && n <= 3 ? level('senior', n) : none
+  if (/\b(jss|js|junior secondary|junior school|junior high( school)?|j s s|jhs|jh)\b/.test(text) || /^(js{1,2}|jhs?)\d/.test(text.replace(/\s/g, ''))) return n >= 1 && n <= 3 ? level('junior', n) : none
   if (/\b(basic|grade|year|class)\b/.test(text) && n) {
     if (n <= 6) return level('primary', n)
     if (n <= 9) return level('junior', n - 6)

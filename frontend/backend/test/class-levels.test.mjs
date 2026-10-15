@@ -15,8 +15,8 @@ let generation = 0
 
 test('early-years and secondary names are read as their standard levels', () => {
   const label = name => normalizeClassLevel(name).label
-  assert.deepEqual(['EARLY EXPLORERS', 'Pre-Nursery', 'RECEPTION', 'PRE-SCHOOL 1', 'PRE-SCHOOL 2', 'Nursery 3', 'Junior High School 1', 'PRY2', 'PRENUR'].map(label),
-    ['Pre-Nursery', 'Pre-Nursery', 'Nursery 1', 'Nursery 2', 'Nursery 3', 'Nursery 3', 'JSS 1', 'Primary 2', 'Pre-Nursery'])
+  assert.deepEqual(['EARLY EXPLORERS', 'Pre-Nursery', 'RECEPTION', 'PRE-SCHOOL 1', 'PRE-SCHOOL 2', 'Nursery 3', 'Junior High School 1', 'PRY2', 'PRENUR', 'JH 1', 'SH 2 SCIENCE', 'SH1'].map(label),
+    ['Pre-Nursery', 'Pre-Nursery', 'Nursery 1', 'Nursery 2', 'Nursery 3', 'Nursery 3', 'JSS 1', 'Primary 2', 'Pre-Nursery', 'JSS 1', 'SS 2', 'SS 1'])
   assert.deepEqual(['EARLY EXPLORERS', 'RECEPTION', 'PRE-SCHOOL 1', 'Junior High School 2', 'Senior High School 3'].map(name => levelOf(name)?.rank), [-2, -1, 0, 8, 12])
 })
 
