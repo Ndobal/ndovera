@@ -2241,3 +2241,20 @@ can a teacher just import topics from the ndovera curriculum, edit or add to the
 - Classroom → Subjects → a subject → Topics → **Import from Ndovera curriculum**: shows the curriculum's topics for the class level (Settings → Class levels, else the class name) and subject, term by term, opening on the current term. Ticked topics come in as **drafts** with their week and subtopics; ones already in the subject are skipped.
 - The teacher edits, adds their own or reorders, then presses **Publish N draft topics**. Students see only published topics.
 - Subject teachers and class managers only; only rows from a published curriculum the school uses; every import is in the topic audit. On for every school, no setting needed.
+
+### N29. Ndovera invoices, school communication email, Subscription on the overview — ✅ DEPLOYED (15 Oct 2026)
+Genesis used the wrong sign-up email; bill them N50,000 onboarding + this term's per-student charge, pay within 30 days or Owner/HoS/ICT are locked; don't send until I press Send. Letterhead invoice, receipts emailed automatically.
+- Every school has a communication email (Ami → Term Billing, or Owner/HoS → Settings → Profile). Genesis: genesisintersch2013@mail.com.
+- Ami → Term Billing → Invoice one school: draft (blocks nobody) → Preview → Send (emails the invoice with a pay link; 30 days start then). Public /invoice/:token pays via Flutterwave; receipt emailed once Flutterwave confirms.
+- Genesis draft prepared: NDV-INV-202610-TBNM, N107,500 (N50,000 + 115 × N500, First Term 2026/2027). Not sent.
+- Subscription moved from Finance to the Owner/HoS overview (balance, Pay now, More → /roles/<role>/subscription).
+- Read aloud no longer scrolls the page; "Show where it's reading" button instead.
+
+### N30. Pricing page — ✅ DEPLOYED (15 Oct 2026)
+Fuller Growth plan; Custom priced by the Sales team (no prices shown); per-student wording; compact cards; "Ami" replaced by "Sales" on public pages and documents.
+
+### N31. School transport — ✅ DEPLOYED (15 Oct 2026)
+Owner/HoS/transport officer set up routes and students (pick-up point and times, trip, rides). Drivers (/roles/driver) set how many school runs (1–3), tick children on board from the list (no QR), "Arrived at school" marks them present and notifies parents and the school; "Leaving school" notifies them in the afternoon. Parents and students see route, driver, phone, vehicle and pick-up time.
+
+### N32. School health register — ✅ DEPLOYED (15 Oct 2026)
+Staff report incidents and first aid (with photos); teachers see only their own reports. The nurse (clinic role) manages rest time, medication, outcome, parent informed, follow-up, notes and health profiles; without a nurse the Owner/HoS do. Owner/HoS/nurse see all histories; parents see their children's.
