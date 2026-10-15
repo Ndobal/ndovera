@@ -2235,3 +2235,9 @@ Your rules, as agreed after review (the original "₦300 when AI is used" could 
 - Night builder, 00:00–04:00 Lagos: picks up every published examination syllabus topic (40 questions each), curriculum topic (16 each, Simple and Intermediate) and teacher's material (8 each), continues each night where it stopped, and checks every objective question (teachers' and AI's): ok, upgraded in place, or withdrawn. Budget set by Ami (default 12 steps ≈ 100 questions a night on the free plan); Ami → Question bank shows stock per examination and progress.
 - Ndovera AI free requests: students 5 a day (was 10); teachers and other staff 3.
 - To reach 1,000s of questions per examination: publish the WAEC/NECO/JAMB/BECE/Common Entrance syllabuses in the Curriculum Library, and move to Cloudflare's paid Workers plan to raise the nightly budget.
+
+### N28. Term topics from the Ndovera curriculum — ✅ DEPLOYED (15 Oct 2026)
+can a teacher just import topics from the ndovera curriculum, edit or add to them then publish as topics for the term? if yes, make it active now even in live schools
+- Classroom → Subjects → a subject → Topics → **Import from Ndovera curriculum**: shows the curriculum's topics for the class level (Settings → Class levels, else the class name) and subject, term by term, opening on the current term. Ticked topics come in as **drafts** with their week and subtopics; ones already in the subject are skipped.
+- The teacher edits, adds their own or reorders, then presses **Publish N draft topics**. Students see only published topics.
+- Subject teachers and class managers only; only rows from a published curriculum the school uses; every import is in the topic audit. On for every school, no setting needed.
