@@ -173,18 +173,18 @@ const OPPORTUNITY_TRACKS = [
 
 const PRICING_TRACKS = [
   {
-    title: 'Pay Onboarding First',
-    description: 'Start with a single onboarding fee that reserves your school domain and opens the launch process.',
+    title: 'Launch With One Onboarding Fee',
+    description: 'A single onboarding fee sets up your school, reserves your web address and opens your dashboards.',
     icon: BuildingOffice2Icon,
   },
   {
-    title: 'Move To Live-User Billing',
-    description: 'From the next term, billing follows active users so growing schools can plan with less guesswork.',
+    title: 'Then Pay Per Student, Per Term',
+    description: 'Each term is billed on the students active in your school. Staff, teachers and parents are free.',
     icon: UserGroupIcon,
   },
   {
-    title: 'Choose Growth Or Custom',
-    description: 'Pick the standard NDOVERA rollout or a custom launch that Ami reviews with you before approval.',
+    title: 'Choose Growth Or Talk To Sales',
+    description: 'Register on Growth in minutes, or contact our Sales team for a Custom rollout for groups and larger schools.',
     icon: RocketLaunchIcon,
   },
 ];
@@ -259,8 +259,8 @@ const PAGE_CONTENT = {
   },
   pricing: {
     eyebrow: 'Pricing',
-    title: 'Simple pricing for schools that want a strong start with NDOVERA.',
-    description: 'Choose a standard rollout or a custom launch. Pay the onboarding fee now, then move to live-user billing from the next term based on active users in your school.',
+    title: 'Clear, per-student pricing for every school.',
+    description: 'One onboarding fee to launch, then a simple charge per active student each term. Staff, teachers and parents are always free.',
   },
   opportunities: {
     eyebrow: 'Opportunities',
@@ -347,15 +347,15 @@ const DEFAULT_SECTION_DATA = {
     metadata: {
       buttonLabel: 'Register A School',
       buttonUrl: '/register-school',
-      secondaryButtonLabel: 'Talk To Growth Team',
-      secondaryButtonUrl: '/growth-partners',
+      secondaryButtonLabel: 'Contact Sales',
+      secondaryButtonUrl: '/contact',
       cards: PRICING_TRACKS,
       spotlightEyebrow: 'Clear Billing',
-      spotlightTitle: 'Only the onboarding fee is paid now. Live-user billing starts later.',
-      spotlightDescription: 'NDOVERA keeps the first payment simple, then moves to term billing based on actual active users instead of rough guesses.',
+      spotlightTitle: 'Pay once to launch, then per student, per term.',
+      spotlightDescription: 'You are billed only for active students. Every invoice comes with a secure pay link and an emailed receipt.',
       mediaEyebrow: 'How Billing Works',
-      mediaTitle: 'Growth gives schools a standard launch. Custom supports schools that need extra rollout planning.',
-      mediaDescription: 'The pricing page helps owners understand what is paid now, what starts next term, and where custom rollout support fits in.',
+      mediaTitle: 'Growth for most schools. Custom for groups and special requirements.',
+      mediaDescription: 'Growth is ready to launch today. Custom rollouts are planned and priced with our Sales team.',
     },
   },
   opportunities: {
@@ -1165,27 +1165,27 @@ function TutorPageBody({ section }) {
 const PRICING_FAQS = [
   {
     question: 'What exactly do I pay today?',
-    answer: 'Only the onboarding fee for the plan you choose. It reserves your school domain, creates your owner account, and starts the launch approval with Ami. Nothing else is charged at registration.',
+    answer: 'Only the Growth onboarding fee. It sets up your school, reserves your web address and creates your owner account. Nothing else is charged at registration.',
   },
   {
-    question: 'When does per-user billing start?',
-    answer: 'From your next term after launch. The first term you pay is the onboarding fee alone, which gives your school time to get set up before usage billing begins.',
+    question: 'When does the per-student charge start?',
+    answer: 'From the term after launch. You receive an invoice by email with a secure pay link and 30 days to pay, and a receipt is emailed as soon as payment is confirmed.',
   },
   {
-    question: 'Who counts as an active user?',
-    answer: 'A user with an active account in your school during the term being billed. Accounts you have not activated, or that you deactivate, are not counted, so you are never billed for names sitting unused in a list.',
+    question: 'Who is counted?',
+    answer: 'Only students with an active account in the term being billed. Staff, teachers and parents are never charged, and students you deactivate are not counted.',
   },
   {
     question: 'What if my school grows mid-term?',
-    answer: 'Each term is billed on its own active-user count, so growth is reflected in the following term rather than through a mid-term change to what you already agreed.',
+    answer: 'Each term is billed on its own student count, so new students are reflected in the next term rather than through a mid-term change.',
   },
   {
     question: 'Where do discount codes come from?',
-    answer: 'Ami issues codes directly, and every growth partner has their own registration code and link. A valid code changes the onboarding fee, the per-user fee, or both, and the discounted figures are what you see on this page and at registration.',
+    answer: 'NDOVERA and its growth partners issue registration codes. A valid code can lower the onboarding fee, the per-student fee, or both, and the prices on this page update to match.',
   },
   {
     question: 'How is the Custom plan priced?',
-    answer: 'Ami sets the onboarding fee for a Custom rollout after reviewing what your school needs. Per-user billing still follows the same active-user model.',
+    answer: 'Custom is for school groups, multi-campus schools and special requirements. Contact our Sales team and we will agree the scope and pricing with you.',
   },
 ];
 
@@ -1214,8 +1214,8 @@ function PriceBlock({ label, amount, standardAmount, note, manualPricing }) {
 // discount-adjusted) by a user count the visitor picks — no rate is written in this file.
 function PricingCalculator({ plans, quoteFor, pricingConfig, activeUsers, onChangeActiveUsers }) {
   const billingPeriod = pricingConfig?.billingPeriod || 'term';
-  const growthPlan = plans.find(plan => !plan.manualPricing) || plans[0];
-  if (!growthPlan) return null;
+  const pricedPlans = plans.filter(plan => !plan.manualPricing);
+  if (!pricedPlans.length) return null;
 
   const step = 25;
   const adjust = delta => onChangeActiveUsers(Math.max(0, Math.min(20000, activeUsers + delta)));
@@ -1225,20 +1225,20 @@ function PricingCalculator({ plans, quoteFor, pricingConfig, activeUsers, onChan
       <SectionHeading
         eyebrow="Estimate Your Term"
         title="See what a term costs at your school's size."
-        description="Move the active-user count to the number of students and staff you expect to have live in the system."
+        description="Enter the number of students you expect to have active. Staff, teachers and parents are free."
         tone="inverse"
       />
 
       <div className="mt-6 grid gap-5 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
         <div className="rounded-[1.5rem] border border-white/10 bg-white/5 p-5">
           <label htmlFor="pricing-active-users" className="text-xs font-semibold uppercase tracking-[0.22em] text-[#b5e3f4]">
-            Active users in your school
+            Students in your school
           </label>
           <div className="mt-4 flex items-center gap-3">
             <button
               type="button"
               onClick={() => adjust(-step)}
-              aria-label={`Reduce active users by ${step}`}
+              aria-label={`Reduce students by ${step}`}
               className="h-11 w-11 flex-none rounded-full border border-white/25 text-xl font-black text-white transition hover:border-[#c9a96e] hover:text-[#c9a96e]"
             >
               −
@@ -1255,7 +1255,7 @@ function PricingCalculator({ plans, quoteFor, pricingConfig, activeUsers, onChan
             <button
               type="button"
               onClick={() => adjust(step)}
-              aria-label={`Increase active users by ${step}`}
+              aria-label={`Increase students by ${step}`}
               className="h-11 w-11 flex-none rounded-full border border-white/25 text-xl font-black text-white transition hover:border-[#c9a96e] hover:text-[#c9a96e]"
             >
               +
@@ -1268,7 +1268,7 @@ function PricingCalculator({ plans, quoteFor, pricingConfig, activeUsers, onChan
             step={step}
             value={Math.min(activeUsers, 3000)}
             onChange={event => onChangeActiveUsers(Number(event.target.value))}
-            aria-label="Active users slider"
+            aria-label="Students slider"
             className="mt-5 w-full accent-[#c9a96e]"
           />
           <div className="mt-2 flex justify-between text-[11px] font-semibold uppercase tracking-[0.18em] text-[#b5e3f4]/70">
@@ -1277,8 +1277,8 @@ function PricingCalculator({ plans, quoteFor, pricingConfig, activeUsers, onChan
           </div>
         </div>
 
-        <div className="grid gap-3 sm:grid-cols-2">
-          {plans.map(plan => {
+        <div className="grid gap-3">
+          {pricedPlans.map(plan => {
             const quote = quoteFor(plan);
             const perUser = quote.userFeePerTerm;
             const termTotal = perUser * activeUsers;
@@ -1290,7 +1290,7 @@ function PricingCalculator({ plans, quoteFor, pricingConfig, activeUsers, onChan
                   <div className="flex items-baseline justify-between gap-3">
                     <dt className="text-[#d9e3ff]">Onboarding</dt>
                     <dd className="font-bold text-white">
-                      {plan.manualPricing ? 'Ami priced' : currencyFormatter.format(quote.setupFee)}
+                      {currencyFormatter.format(quote.setupFee)}
                     </dd>
                   </div>
                   <div className="flex items-baseline justify-between gap-3">
@@ -1309,7 +1309,7 @@ function PricingCalculator({ plans, quoteFor, pricingConfig, activeUsers, onChan
       </div>
 
       <p className="mt-5 text-xs leading-6 text-[#b5e3f4]/80">
-        Estimate based on the current active-user rate. Actual billing is calculated from the active users recorded for the applicable {billingPeriod}, and the onboarding fee is charged once at registration.
+        An estimate at the current per-student rate. Each {billingPeriod} is billed on the students active in that {billingPeriod}, and the onboarding fee is charged once at registration. For school groups and larger rollouts, contact our Sales team.
       </p>
     </Reveal>
   );
@@ -1364,32 +1364,6 @@ function PricingPageBody({ section, pricing, pricingError, isPricingLoading, dis
           headless for screen readers and search engines. */}
       <h1 className="sr-only">NDOVERA pricing</h1>
 
-      <Reveal as="section" className="rounded-[1.8rem] border border-[#c9a96e]/45 bg-[#fff8ef] p-6 shadow-[0_18px_40px_rgba(25,25,112,0.08)]">
-        <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-          <div className="max-w-xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#800020]">Discount Or Partner Code</p>
-            <h2 className="mt-2 text-xl font-black tracking-tight text-[#191970]">Have a code from Ami or a growth partner?</h2>
-            <p className="mt-2 text-sm leading-7 text-[#31416f]">
-              Enter it to see your school&apos;s actual prices. Opening a growth partner&apos;s link applies their code automatically.
-            </p>
-          </div>
-          <form
-            onSubmit={event => { event.preventDefault(); onApplyDiscount(); }}
-            className="flex w-full flex-wrap gap-3 lg:w-auto"
-          >
-            <input
-              value={discountInput}
-              onChange={event => onDiscountInputChange(event.target.value.toUpperCase())}
-              placeholder="Enter code"
-              aria-label="Discount or partner code"
-              className="min-w-[12rem] flex-1 rounded-2xl border border-[#c9a96e]/50 bg-white px-4 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-[#191970] outline-none transition focus:border-[#1a5c38]"
-            />
-            <button type="submit" className="rounded-2xl bg-[#191970] px-6 py-3 text-sm font-semibold text-[#f8f3eb] transition hover:bg-[#101047]">
-              Apply Code
-            </button>
-          </form>
-        </div>
-      </Reveal>
 
       {pricingError ? (
         <Reveal as="section" className="rounded-[1.6rem] border border-rose-200 bg-rose-50 px-5 py-4 text-sm leading-7 text-rose-700">
@@ -1449,6 +1423,13 @@ function PricingPageBody({ section, pricing, pricingError, isPricingLoading, dis
                 ) : null}
               </div>
 
+              {plan.manualPricing ? (
+                <div className="mt-6 rounded-[1.5rem] border border-[#c9a96e]/35 bg-white/70 p-4">
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#800020]">Pricing</p>
+                  <p className="mt-3 text-2xl font-black leading-tight text-[#191970]">Tailored to your school</p>
+                  <p className="mt-2 text-xs font-semibold text-[#31416f]/75">Agreed with our Sales team</p>
+                </div>
+              ) : (
               <div className="mt-6 grid gap-3 sm:grid-cols-2">
                 <PriceBlock
                   label={pricingConfig?.onboardingLabel || 'One-time onboarding'}
@@ -1458,12 +1439,13 @@ function PricingPageBody({ section, pricing, pricingError, isPricingLoading, dis
                   manualPricing={plan.manualPricing}
                 />
                 <PriceBlock
-                  label={pricingConfig?.userFeeLabel || `Per active user / ${billingPeriod}`}
+                  label={`Per student / ${billingPeriod}`}
                   amount={quote.userFeePerTerm}
                   standardAmount={quote.discountApplied ? plan.studentFeePerTerm : null}
                   note={`Starts the ${billingPeriod} after launch`}
                 />
               </div>
+              )}
 
               <div className="mt-6 space-y-2">
                 {(Array.isArray(plan.features) ? plan.features : []).map(feature => (
@@ -1510,6 +1492,33 @@ function PricingPageBody({ section, pricing, pricingError, isPricingLoading, dis
         </Reveal>
       ) : null}
 
+      <Reveal as="section" className="rounded-[1.8rem] border border-[#c9a96e]/45 bg-[#fff8ef] p-6 shadow-[0_18px_40px_rgba(25,25,112,0.08)]">
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+          <div className="max-w-xl">
+            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#800020]">Registration Code</p>
+            <h2 className="mt-2 text-xl font-black tracking-tight text-[#191970]">Have a registration code?</h2>
+            <p className="mt-2 text-sm leading-7 text-[#31416f]">
+              Enter it to see your school&apos;s prices. A growth partner&apos;s link applies their code automatically.
+            </p>
+          </div>
+          <form
+            onSubmit={event => { event.preventDefault(); onApplyDiscount(); }}
+            className="flex w-full flex-wrap gap-3 lg:w-auto"
+          >
+            <input
+              value={discountInput}
+              onChange={event => onDiscountInputChange(event.target.value.toUpperCase())}
+              placeholder="Enter code"
+              aria-label="Discount or partner code"
+              className="min-w-[12rem] flex-1 rounded-2xl border border-[#c9a96e]/50 bg-white px-4 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-[#191970] outline-none transition focus:border-[#1a5c38]"
+            />
+            <button type="submit" className="rounded-2xl bg-[#191970] px-6 py-3 text-sm font-semibold text-[#f8f3eb] transition hover:bg-[#101047]">
+              Apply Code
+            </button>
+          </form>
+        </div>
+      </Reveal>
+
       {plans.length ? (
         <PricingCalculator
           plans={plans}
@@ -1525,7 +1534,7 @@ function PricingPageBody({ section, pricing, pricingError, isPricingLoading, dis
           <SectionHeading
             eyebrow="Plan Comparison"
             title="Growth or Custom, side by side."
-            description="Both plans bill the same way after launch. The difference is how your onboarding is priced and planned."
+            description="Growth is ready to launch today. Custom adds group set-up, migration and dedicated support, priced with our Sales team."
           />
           <div className="mt-6 overflow-x-auto">
             <table className="w-full min-w-[34rem] border-collapse text-left text-sm">
@@ -1542,20 +1551,20 @@ function PricingPageBody({ section, pricing, pricingError, isPricingLoading, dis
                   <th scope="row" className="py-3 pr-4 font-semibold">Onboarding fee</th>
                   {plans.map(plan => (
                     <td key={plan.key} className="py-3 pr-4 font-bold text-[#191970]">
-                      {plan.manualPricing ? 'Set by Ami' : currencyFormatter.format(quoteFor(plan).setupFee)}
+                      {plan.manualPricing ? 'Contact Sales' : currencyFormatter.format(quoteFor(plan).setupFee)}
                     </td>
                   ))}
                 </tr>
                 <tr className="border-b border-[#c9a96e]/20">
-                  <th scope="row" className="py-3 pr-4 font-semibold">Per active user / {billingPeriod}</th>
+                  <th scope="row" className="py-3 pr-4 font-semibold">Per student / {billingPeriod}</th>
                   {plans.map(plan => (
-                    <td key={plan.key} className="py-3 pr-4 font-bold text-[#191970]">{currencyFormatter.format(quoteFor(plan).userFeePerTerm)}</td>
+                    <td key={plan.key} className="py-3 pr-4 font-bold text-[#191970]">{plan.manualPricing ? 'Contact Sales' : currencyFormatter.format(quoteFor(plan).userFeePerTerm)}</td>
                   ))}
                 </tr>
                 <tr className="border-b border-[#c9a96e]/20">
-                  <th scope="row" className="py-3 pr-4 font-semibold">Ami review required</th>
+                  <th scope="row" className="py-3 pr-4 font-semibold">How to start</th>
                   {plans.map(plan => (
-                    <td key={plan.key} className="py-3 pr-4">{plan.requiresManualReview ? 'Yes' : 'Standard approval'}</td>
+                    <td key={plan.key} className="py-3 pr-4">{plan.manualPricing ? 'Contact our Sales team' : 'Register online in minutes'}</td>
                   ))}
                 </tr>
                 <tr>
@@ -1596,23 +1605,23 @@ function PricingPageBody({ section, pricing, pricingError, isPricingLoading, dis
       <Reveal as="section" className="rounded-[2rem] border border-[#c9a96e]/45 bg-[#191970] p-6 text-center text-[#f8f3eb] shadow-[0_24px_60px_rgba(25,25,112,0.18)] sm:p-8" delay={2}>
         <h2 className="text-2xl font-black tracking-tight sm:text-3xl">Ready to bring your school online?</h2>
         <p className="mx-auto mt-3 max-w-2xl text-sm leading-7 text-[#d9e3ff]">
-          Registration takes a few minutes. You pay the onboarding fee, Ami reviews your launch, and your school website goes live.
+          Registration takes a few minutes. Pay the onboarding fee, we confirm your launch, and your school website and dashboards go live.
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-3">
           <ActionLink to="/register-school" className="rounded-full bg-[#c9a96e] px-6 py-3 text-sm font-bold text-[#191970] transition hover:bg-[#b8975a]">
             Register Your School
           </ActionLink>
           <ActionLink to="/contact" className="rounded-full border border-white/30 px-6 py-3 text-sm font-semibold text-[#f8f3eb] transition hover:border-[#c9a96e] hover:text-[#c9a96e]">
-            Talk To Us
+            Contact Sales
           </ActionLink>
         </div>
       </Reveal>
 
       <MediaGallery
         section={section}
-        eyebrow="Pricing Media"
-        title="Use visuals and video to explain onboarding and rollout clearly."
-        description="AMI can keep the pricing page current with rollout screenshots, plan explainers, and short videos hosted directly on the site."
+        eyebrow="See NDOVERA"
+        title="A closer look at onboarding and launch."
+        description="Screenshots and short videos of how schools get started on NDOVERA."
       />
     </div>
   );

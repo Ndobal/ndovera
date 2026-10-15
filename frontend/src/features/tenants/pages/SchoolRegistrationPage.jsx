@@ -505,7 +505,7 @@ export default function SchoolRegistrationPage() {
                           <p className="text-lg font-semibold text-slate-950">{selectedPlan.label}</p>
                           <p className="mt-2 text-sm leading-6 text-slate-600">{selectedPlan.description}</p>
                         </div>
-                        {selectedPlan.manualPricing && <span className="rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-amber-700">Ami Priced</span>}
+                        {selectedPlan.manualPricing && <span className="rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-amber-700">Contact Sales</span>}
                       </div>
                     </div>
 

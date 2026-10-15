@@ -314,7 +314,7 @@ export function PricingPage({ data, reload }) {
             <span className={`mt-1 block ${MUTED}`}>Lowest allowed: {naira.format(offer.minSetupFee || 0)}</span>
           </label>
           <label className="block">
-            <span className={LABEL}>Per active user / term (₦)</span>
+            <span className={LABEL}>Per student / term (₦)</span>
             <input type="number" min={offer.minStudentFeePerTerm || 0} max={offer.standardStudentFeePerTerm || undefined} className={INPUT}
               value={form.studentFeeNaira} onChange={e => setForm(c => ({ ...c, studentFeeNaira: e.target.value }))}
               placeholder={`Standard ${naira.format(offer.standardStudentFeePerTerm || 0)}`} />
