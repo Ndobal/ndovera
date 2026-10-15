@@ -12,6 +12,7 @@ import SessionRegisterBoard from '../../../features/school/components/SessionReg
 import PromotionBoard from '../../../features/school/components/PromotionBoard';
 import SchoolLocationForm from '../../../features/school/components/SchoolLocationForm';
 import ClassLevelsBoard from '../../../features/school/components/ClassLevelsBoard';
+import SchoolContactEmailForm from '../../../features/school/components/SchoolContactEmailForm';
 
 // Settings sections, grouped; every one (Class Register included) can be opened directly with ?tab=.
 const TAB_GROUPS = [
@@ -69,6 +70,7 @@ function ProfileTab() {
           </div>
         ) : <p className="text-[#800020]">No profile info.</p>}
       </div>
+      <SchoolContactEmailForm />
       <div className="rounded-2xl p-5 bg-[#ade1f4] dark:bg-slate-800/40 border border-[#c9a96e]/30 dark:border-white/5">
         <h3 className="text-base font-semibold text-[#800000] dark:text-slate-100 mb-4">Password Reset</h3>
         <AdminPasswordReset />

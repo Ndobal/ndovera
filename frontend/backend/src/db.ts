@@ -93,6 +93,8 @@ function mapTenantRow(row: any) {
     discountCode: row.discount_code,
     discountSnapshot: parseJsonField(row.discount_snapshot, null),
     metadata: parseJsonField(row.metadata, {}),
+    // Where Ndovera writes to the school. The sign-up email stays the owner's login.
+    contactEmail: String(parseJsonField(row.metadata, {})?.contactEmail || ''),
     createdAt: row.created_at,
     updatedAt: row.updated_at,
     approvedAt: row.approved_at,

@@ -70,6 +70,7 @@ import LoginPage from './features/auth/pages/LoginPage';
 import ChangePasswordPage from './features/auth/pages/ChangePasswordPage';
 import ResetPasswordPage from './features/auth/pages/ResetPasswordPage';
 import SchoolRegistrationPage from './features/tenants/pages/SchoolRegistrationPage';
+import InvoicePayPage from './features/tenants/pages/InvoicePayPage';
 import PublicHomePage from './features/public/pages/PublicHomePage';
 import PublicSitePage from './features/public/pages/PublicSitePage';
 import PublicLegalPage from './features/public/pages/PublicLegalPage';
@@ -121,7 +122,7 @@ function normalizePublicPath(pathname) {
 }
 
 // Public sections that have their own child pages, so an exact-path Set is not enough.
-const PUBLIC_ROUTE_PREFIXES = ['/championships/'];
+const PUBLIC_ROUTE_PREFIXES = ['/championships/', '/invoice/'];
 
 function isPublicRoutePath(pathname) {
   const normalized = normalizePublicPath(pathname);
@@ -252,6 +253,7 @@ function AnimatedRoutes({ auth, onLogin }) {
         <Route path="/youtube" element={<Navigate to="/youtube-disclosure" replace />} />
         <Route path="/contact" element={<PublicLegalPage docKey="contact" />} />
         <Route path="/championships" element={<PublicChampionshipsPage />} />
+        <Route path="/invoice/:token" element={<InvoicePayPage />} />
         <Route path="/championships/:slug" element={<PublicChampionshipDetailPage />} />
         <Route path="/roles/:role/birthdays" element={<RequireAuth auth={auth}><RouteTransition><BirthdaysPage /></RouteTransition></RequireAuth>} />
         <Route path="/roles/:role/clubs" element={<RequireAuth auth={auth}><RouteTransition><ClubsPage /></RouteTransition></RequireAuth>} />

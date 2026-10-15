@@ -25,6 +25,8 @@ import StaffAiAssistantPage from '../../features/ai/components/StaffAiAssistantP
 import UpcomingEventsCard from '../../features/school/components/UpcomingEventsCard';
 import { PunctualityWinnerBanner } from '../../features/attendance/punctuality/PunctualityPages';
 import ComplianceCentre from '../../features/compliance/ComplianceCentre';
+import SubscriptionSummaryCard from '../../features/subscription/SubscriptionSummaryCard';
+import SubscriptionPage from '../../features/subscription/SubscriptionPage';
 
 export default function HoSDashboard({ auth = null }) {
   const location = useLocation();
@@ -32,7 +34,8 @@ export default function HoSDashboard({ auth = null }) {
   const sectionKey = pathParts[2] || 'overview';
 
   switch (sectionKey) {
-    case 'overview': return <><div className="mx-auto max-w-7xl space-y-4 px-4 pt-4 sm:px-8"><PunctualityWinnerBanner /><UpcomingEventsCard /></div><HoSOverview auth={auth} /></>;
+    case 'overview': return <><div className="mx-auto max-w-7xl space-y-4 px-4 pt-4 sm:px-8"><SubscriptionSummaryCard role="hos" /><PunctualityWinnerBanner /><UpcomingEventsCard /></div><HoSOverview auth={auth} /></>;
+    case 'subscription': return <SubscriptionPage />;
     case 'academics': return <SchoolClassResults analyticsMode="hos" roleTitle="Head of School Dashboard" />;
     case 'attendance': return <OwnerAttendance auth={auth} />;
     case 'admissions': return <AdmissionsManagementBoard audience="hos" title="Admissions Review" subtitle="Review applicants, coordinate placement, and prepare downstream teams for onboarding." />;

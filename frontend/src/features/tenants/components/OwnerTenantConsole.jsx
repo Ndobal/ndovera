@@ -153,8 +153,14 @@ export default function OwnerTenantConsole({ authUser = null, sectionKey = 'over
               {termBilling.graceEndedAt ? new Date(termBilling.graceEndedAt).toLocaleDateString() : 'earlier this term'}.
             </p>
             <p className="text-sm text-black">
-              Owner, HoS, ICT manager, and ICT accounts stay locked until it is settled. Teachers, students, and parents keep working, and your school website stays online. Contact Ami to settle this bill.
+              Owner, HoS, ICT manager, and ICT accounts stay locked until it is settled. Teachers, students, and parents keep working, and your school website stays online.
+              {termBilling.payUrl ? ' Pay it online now; access returns as soon as Flutterwave confirms the payment.' : ' Contact Ami to settle this bill.'}
             </p>
+            {termBilling.payUrl ? (
+              <a href={termBilling.payUrl} className="inline-block rounded-full bg-[#1a5c38] px-6 py-2.5 text-sm font-black text-white shadow">
+                Open the invoice and pay
+              </a>
+            ) : null}
           </div>
         )}
 

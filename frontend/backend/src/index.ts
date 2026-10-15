@@ -425,6 +425,8 @@ import {
 import { findAnswer, rawAi, rememberAnswer, withKnowledgePool } from './knowledgePool'
 import { AI_PAY_START, AiPayError, chargeGeneration, kindOfAssessment, kindOfMaterial, latestRegeneration, walletSummary } from './aiPay'
 import type { ChargeInput } from './aiPay'
+import { INVOICE_PAY_DAYS, billLines, documentNumber, invoiceEmail, paymentSettlesBill, receiptEmail } from './platformBills'
+import type { BillLine, BillView } from './platformBills'
 
 type Bindings = {
   APP_DB: D1Database
@@ -7535,6 +7537,231 @@ app.post('/api/ami/tenants/term-bills/:billId/mark-paid', authenticate, async (c
   }).catch(() => {})
 
   return c.json({ success: true })
+})
+
+// ─── Ndovera invoices to schools ─────────────────────────────────────────────
+// See platformBills.ts. Ami prepares a bill (a draft the school cannot see), then sends it:
+// the invoice goes to the school's communication email with a pay link and 30 days to pay.
+
+/** Where Ndovera writes to a school: its communication email, else the sign-up email. */
+function schoolContactEmail(tenant: Record<string, any> | null) {
+  return String(tenant?.contactEmail || tenant?.metadata?.contactEmail || tenant?.ownerEmail || '').trim().toLowerCase()
+}
+
+function invoicePayUrl(c: any, token: string) {
+  const base = String(c.env.FLUTTERWAVE_REDIRECT_BASE_URL || 'https://ndovera.com').replace(/\/$/, '')
+  return `${base}/invoice/${encodeURIComponent(token)}`
+}
+
+function billViewOf(bill: ReturnType<typeof mapTermBillRow>, tenant: Record<string, any> | null): BillView {
+  const lines = bill.lines?.length ? bill.lines : billLines({ onboardingCents: bill.onboardingCents, students: bill.billableUsers, rateCents: Math.round(bill.ratePerUser * KOBO_PER_NAIRA), term: bill.term, session: bill.session })
+  return {
+    id: bill.id, invoiceNo: bill.invoiceNo || bill.id, receiptNo: bill.receiptNo || '', schoolName: String(tenant?.schoolName || 'Your school'),
+    schoolAddress: [tenant?.addressLine, tenant?.city, tenant?.state].filter(Boolean).join(', '), sentTo: bill.sentTo || schoolContactEmail(tenant),
+    session: bill.session, term: bill.term, lines, amountCents: bill.amountCents, status: bill.status,
+    createdAt: bill.createdAt, sentAt: bill.sentAt, dueAt: bill.dueAt, paidAt: bill.paidAt, paidReference: bill.paidReference,
+  }
+}
+
+async function getTermBill(db: D1Database, where: 'id' | 'pay_token', value: string) {
+  await ensureTermBillsTable(db)
+  if (!value) return null
+  const row = await db.prepare(`SELECT * FROM tenant_term_bills WHERE ${where} = ?`).bind(value).first()
+  return row ? mapTermBillRow(row) : null
+}
+
+/**
+ * Settle a bill from Flutterwave's own record of the transaction (never the browser's word):
+ * successful, in naira, at least the amount, and a reference made for this bill. Marks it paid
+ * once and emails the receipt.
+ */
+async function settleInvoicePayment(c: any, txRef: string) {
+  const billId = (/^nbill_(.+)_[a-z0-9]+$/.exec(txRef) || [])[1] || ''
+  const bill = await getTermBill(c.env.APP_DB, 'id', billId)
+  if (!bill) return { paid: false, bill: null }
+  if (bill.status === 'paid') return { paid: true, bill, alreadyPaid: true }
+  const verified = await verifyFlutterwavePayment(c, txRef)
+  const data = verified?.data || {}
+  const tx = { status: String(data.status || ''), currency: String(data.currency || ''), amount: Number(data.amount || 0), txRef: String(data.tx_ref || '') }
+  if (!paymentSettlesBill(bill, tx)) return { paid: false, bill }
+  const nowIso = new Date().toISOString()
+  const receiptNo = documentNumber('RCT')
+  const updated = await c.env.APP_DB.prepare(`UPDATE tenant_term_bills SET status = 'paid', paid_at = ?, paid_reference = ?, receipt_no = ?, updated_at = ? WHERE id = ? AND status != 'paid'`)
+    .bind(nowIso, `Flutterwave ${data.id || txRef}`, receiptNo, nowIso, bill.id).run()
+  if (!Number(updated?.meta?.changes || 0)) return { paid: true, bill: await getTermBill(c.env.APP_DB, 'id', bill.id), alreadyPaid: true }
+  const paidBill = await getTermBill(c.env.APP_DB, 'id', bill.id)
+  const tenant = await getTenantById(c.env.APP_DB, bill.tenantId)
+  await addAudit(c.env.APP_DB, `tenant:${bill.tenantId}`, { action: 'invoicePaid', data: { billId: bill.id, txRef, amount: bill.amount } }).catch(() => {})
+  const to = paidBill?.sentTo || schoolContactEmail(tenant)
+  if (paidBill && to && c.env.ZOHO_MAIL_ACCOUNT_ID) {
+    try {
+      const email = receiptEmail(billViewOf(paidBill, tenant))
+      const sent = await sendZohoEmail(c.env, { to: [to], subject: email.subject, html: email.html })
+      if (sent.sent.length) await c.env.APP_DB.prepare(`UPDATE tenant_term_bills SET receipt_sent_at = ? WHERE id = ?`).bind(new Date().toISOString(), bill.id).run()
+    } catch (error) { console.error('Receipt email failed', error) }
+  }
+  return { paid: true, bill: paidBill }
+}
+
+/** Ami prepares a bill for one school: the onboarding fee (optional) plus this term's students × rate. Saved as a draft. */
+app.post('/api/ami/tenants/:tenantId/invoices', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  await ensureTermBillsTable(c.env.APP_DB)
+  const tenant = await getTenantById(c.env.APP_DB, String(c.req.param('tenantId') || ''))
+  if (!tenant) return c.json({ error: 'School not found.' }, 404)
+  const payload = await c.req.json().catch(() => ({})) as Record<string, any>
+  const onboardingCents = Math.max(0, Math.round(Number(payload.onboardingFee || 0) * KOBO_PER_NAIRA))
+  const includeTerm = payload.includeTermCharge !== false
+  const { plans } = await getTenantPricingState(c.env.APP_DB)
+  const quote = await buildTenantQuoteForTenant(c.env.APP_DB, tenant, null, plans)
+  const students = includeTerm ? Number(quote.billableUserCount || 0) : 0
+  const rateCents = includeTerm ? Number(quote.studentFeeCents || 0) : 0
+  const snapshot = await getCurrentSchoolSessionSnapshot(c.env.APP_DB, tenant.id).catch(() => ({ sessionName: '', termName: '' })) as Record<string, any>
+  const session = String(payload.session || snapshot.sessionName || '').trim() || 'Onboarding'
+  const term = String(payload.term || snapshot.termName || '').trim() || new Date().toISOString().slice(0, 10)
+  const lines = billLines({ onboardingCents, students, rateCents, term, session })
+  const amountCents = lines.reduce((sum, line) => sum + line.amountCents, 0)
+  if (amountCents <= 0) return c.json({ error: 'There is nothing to bill: add an onboarding fee or check the school has active students.' }, 400)
+
+  const existing = await c.env.APP_DB.prepare(`SELECT * FROM tenant_term_bills WHERE tenant_id = ? AND session = ? AND term = ?`).bind(tenant.id, session, term).first()
+  const nowIso = new Date().toISOString()
+  if (existing && String((existing as any).status) !== 'draft') {
+    return c.json({ error: `${tenant.schoolName} already has a ${(existing as any).status} bill for ${session} ${term}.`, bill: mapTermBillRow(existing) }, 409)
+  }
+  const id = existing ? String((existing as any).id) : `bill_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`
+  if (existing) {
+    await c.env.APP_DB.prepare(`UPDATE tenant_term_bills SET billable_users = ?, rate_cents = ?, amount_cents = ?, onboarding_cents = ?, lines = ?, updated_at = ? WHERE id = ?`)
+      .bind(students, rateCents, amountCents, onboardingCents, JSON.stringify(lines), nowIso, id).run()
+  } else {
+    // A draft blocks nobody: no due date or grace until it is sent.
+    await c.env.APP_DB.prepare(`INSERT INTO tenant_term_bills (id, tenant_id, session, term, billable_users, rate_cents, amount_cents, status, term_started_at, due_at, grace_until, created_at, updated_at, onboarding_cents, lines, invoice_no, pay_token)
+      VALUES (?, ?, ?, ?, ?, ?, ?, 'draft', ?, NULL, NULL, ?, ?, ?, ?, ?, ?)`)
+      .bind(id, tenant.id, session, term, students, rateCents, amountCents, nowIso, nowIso, nowIso, onboardingCents, JSON.stringify(lines), documentNumber('INV'), crypto.randomUUID().replace(/-/g, '')).run()
+  }
+  await addAudit(c.env.APP_DB, `tenant:${tenant.id}`, { action: 'invoicePrepared', data: { by: c.var.user.id || 'ami', billId: id, amountCents } }).catch(() => {})
+  const bill = await getTermBill(c.env.APP_DB, 'id', id)
+  return c.json({ success: true, bill, invoice: bill ? billViewOf(bill, tenant) : null, sendTo: schoolContactEmail(tenant) })
+})
+
+/** The invoice as the school will see it, before or after sending. */
+app.get('/api/ami/tenants/term-bills/:billId/invoice', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  const bill = await getTermBill(c.env.APP_DB, 'id', String(c.req.param('billId') || ''))
+  if (!bill) return c.json({ error: 'Bill not found.' }, 404)
+  const tenant = await getTenantById(c.env.APP_DB, bill.tenantId)
+  const view = billViewOf(bill, tenant)
+  const html = invoiceEmail({ ...view, dueAt: bill.dueAt || new Date(Date.now() + INVOICE_PAY_DAYS * 86400000).toISOString() }, bill.payToken ? invoicePayUrl(c, bill.payToken) : '#').html
+  return c.json({ success: true, invoice: view, html, sendTo: schoolContactEmail(tenant), payUrl: bill.payToken ? invoicePayUrl(c, bill.payToken) : '' })
+})
+
+/**
+ * Ami presses Send. The first send starts the 30 days; sending again is a reminder and
+ * does not move the date.
+ */
+app.post('/api/ami/tenants/term-bills/:billId/send', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  let bill = await getTermBill(c.env.APP_DB, 'id', String(c.req.param('billId') || ''))
+  if (!bill) return c.json({ error: 'Bill not found.' }, 404)
+  if (bill.status === 'paid') return c.json({ error: 'This bill is already paid.' }, 400)
+  const tenant = await getTenantById(c.env.APP_DB, bill.tenantId)
+  const to = schoolContactEmail(tenant)
+  if (!to) return c.json({ error: 'The school has no email to send to. Add its communication email first.' }, 400)
+  if (!c.env.ZOHO_MAIL_ACCOUNT_ID) return c.json({ error: 'Email is not set up on this server.' }, 503)
+  const nowIso = new Date().toISOString()
+  const first = !bill.sentAt
+  const dueAt = first ? new Date(Date.now() + INVOICE_PAY_DAYS * 86400000).toISOString() : (bill.graceUntil || bill.dueAt)
+  await c.env.APP_DB.prepare(`UPDATE tenant_term_bills SET status = 'unpaid', sent_to = ?, sent_at = COALESCE(sent_at, ?), due_at = ?, grace_until = ?,
+      invoice_no = COALESCE(NULLIF(invoice_no, ''), ?), pay_token = COALESCE(NULLIF(pay_token, ''), ?), updated_at = ? WHERE id = ?`)
+    .bind(to, nowIso, dueAt, dueAt, documentNumber('INV'), crypto.randomUUID().replace(/-/g, ''), nowIso, bill.id).run()
+  bill = await getTermBill(c.env.APP_DB, 'id', bill.id)
+  if (!bill) return c.json({ error: 'Bill not found.' }, 404)
+  const email = invoiceEmail(billViewOf(bill, tenant), invoicePayUrl(c, bill.payToken))
+  const result = await sendZohoEmail(c.env, { to: [to], subject: email.subject, html: email.html })
+  await addAudit(c.env.APP_DB, `tenant:${bill.tenantId}`, { action: first ? 'invoiceSent' : 'invoiceReminderSent', data: { by: c.var.user.id || 'ami', billId: bill.id, to, delivered: result.sent.length > 0 } }).catch(() => {})
+  if (!result.sent.length) return c.json({ success: false, error: `The email to ${to} could not be delivered. The bill is marked as sent; try again.`, bill }, 502)
+  return c.json({ success: true, bill, sentTo: to, payUrl: invoicePayUrl(c, bill.payToken), dueAt })
+})
+
+// ─── A school's communication email ──────────────────────────────────────────
+// Ndovera writes to it (invoices, receipts, notices); the sign-up email stays the owner's login.
+async function saveSchoolContactEmail(c: any, tenant: Record<string, any>, raw: unknown, by: string) {
+  const contactEmail = String(raw || '').trim().toLowerCase()
+  if (contactEmail && !isValidEmail(contactEmail)) return c.json({ error: 'Enter a valid email address.' }, 400)
+  const metadata = { ...(tenant.metadata || {}), contactEmail }
+  await updateTenant(c.env.APP_DB, tenant.id, { metadata, updatedAt: new Date().toISOString() })
+  await addAudit(c.env.APP_DB, `tenant:${tenant.id}`, { action: 'contactEmailChanged', data: { by, from: tenant.metadata?.contactEmail || '', to: contactEmail } }).catch(() => {})
+  return c.json({ success: true, contactEmail, sendsTo: contactEmail || String(tenant.ownerEmail || '') })
+}
+
+app.put('/api/ami/tenants/:tenantId/contact-email', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  const tenant = await getTenantById(c.env.APP_DB, String(c.req.param('tenantId') || ''))
+  if (!tenant) return c.json({ error: 'School not found.' }, 404)
+  const payload = await c.req.json().catch(() => ({})) as Record<string, any>
+  return saveSchoolContactEmail(c, tenant, payload.contactEmail, String(c.var.user.id || 'ami'))
+})
+
+app.get('/api/tenants/contact-email', authenticate, async (c) => {
+  const { tenant, forbidden } = await resolveTenantForActor(c)
+  if (forbidden || !tenant) return c.json({ error: 'No school found for this account.' }, 404)
+  return c.json({ success: true, contactEmail: String(tenant.contactEmail || ''), signUpEmail: String(tenant.ownerEmail || '') })
+})
+
+app.put('/api/tenants/contact-email', authenticate, async (c) => {
+  const { tenant, forbidden, role, actorId } = await resolveTenantForActor(c)
+  if (forbidden || !tenant) return c.json({ error: 'No school found for this account.' }, 404)
+  if (!['owner', 'hos'].includes(String(role || ''))) return c.json({ error: 'Only the Owner or Head of School can change this.' }, 403)
+  const payload = await c.req.json().catch(() => ({})) as Record<string, any>
+  return saveSchoolContactEmail(c, tenant, payload.contactEmail, String(actorId || ''))
+})
+
+// ─── Paying an invoice (public: the link is the secret) ─────────────────────
+app.get('/api/public/invoices/:token', async (c) => {
+  const bill = await getTermBill(c.env.APP_DB, 'pay_token', String(c.req.param('token') || ''))
+  if (!bill || bill.status === 'draft') return c.json({ success: false, message: 'Invoice not found.' }, 404)
+  const tenant = await getTenantById(c.env.APP_DB, bill.tenantId)
+  return c.json({ success: true, invoice: billViewOf(bill, tenant) })
+})
+
+app.post('/api/public/invoices/:token/checkout', async (c) => {
+  const token = String(c.req.param('token') || '')
+  const bill = await getTermBill(c.env.APP_DB, 'pay_token', token)
+  if (!bill || bill.status === 'draft') return c.json({ success: false, message: 'Invoice not found.' }, 404)
+  if (bill.status === 'paid') return c.json({ success: false, message: 'This invoice is already paid.' }, 400)
+  const tenant = await getTenantById(c.env.APP_DB, bill.tenantId)
+  const txRef = `nbill_${bill.id}_${Math.random().toString(36).slice(2, 8)}`
+  try {
+    const provider = await createFlutterwavePayment(c, {
+      tx_ref: txRef, amount: (bill.amountCents / KOBO_PER_NAIRA).toFixed(2), currency: 'NGN',
+      redirect_url: `${invoicePayUrl(c, token)}?payment_ref=${encodeURIComponent(txRef)}`,
+      customer: { email: schoolContactEmail(tenant) || 'support@ndovera.com', name: String(tenant?.schoolName || 'School') },
+      customizations: { title: `Ndovera invoice ${bill.invoiceNo}`, description: `${tenant?.schoolName || 'School'}: ${bill.term} ${bill.session}`, logo: 'https://ndovera.com/apple-touch-icon.png' },
+      meta: { tenantId: bill.tenantId, billId: bill.id, kind: 'ndovera-invoice' },
+    })
+    await c.env.APP_DB.prepare(`UPDATE tenant_term_bills SET pay_tx_ref = ?, updated_at = ? WHERE id = ?`).bind(txRef, new Date().toISOString(), bill.id).run()
+    return c.json({ success: true, link: provider.data.link, txRef })
+  } catch (error) {
+    console.error('Invoice checkout failed', error)
+    return c.json({ success: false, message: 'Online payment could not be started. Please try again shortly.' }, 502)
+  }
+})
+
+/** Back from Flutterwave: ask Flutterwave whether it was paid. */
+app.post('/api/public/invoices/:token/confirm', async (c) => {
+  const token = String(c.req.param('token') || '')
+  const bill = await getTermBill(c.env.APP_DB, 'pay_token', token)
+  if (!bill) return c.json({ success: false, message: 'Invoice not found.' }, 404)
+  const payload = await c.req.json().catch(() => ({})) as Record<string, any>
+  const txRef = String(payload.txRef || '')
+  if (bill.status !== 'paid' && !txRef.startsWith(`nbill_${bill.id}_`)) return c.json({ success: false, message: 'That payment is not for this invoice.' }, 400)
+  try {
+    const result = bill.status === 'paid' ? { paid: true, bill } : await settleInvoicePayment(c, txRef)
+    const tenant = await getTenantById(c.env.APP_DB, bill.tenantId)
+    return c.json({ success: true, paid: result.paid, invoice: result.bill ? billViewOf(result.bill, tenant) : null })
+  } catch (error) {
+    console.error('Invoice confirm failed', error)
+    return c.json({ success: false, message: 'We could not confirm the payment yet. If you were charged, it will be confirmed automatically.' }, 502)
+  }
 })
 
 app.post('/api/ami/tenants/:tenantId/awards', authenticate, async (c) => {
@@ -16192,6 +16419,10 @@ const TERM_GRACE_MONTHS = TERM_MAX_MONTHS / 2
 async function ensureTermBillsTable(db: D1Database) {
   if (_initializedTables.has('tenant_term_bills')) return
   await db.prepare(TERM_BILLS_DDL).run()
+  // Invoices: lines (onboarding + students), a draft until Ami sends it, a secret pay link, and the receipt.
+  for (const column of ['onboarding_cents INTEGER', 'lines TEXT', 'invoice_no TEXT', 'pay_token TEXT', 'sent_at TEXT', 'sent_to TEXT', 'receipt_no TEXT', 'receipt_sent_at TEXT', 'pay_tx_ref TEXT']) {
+    try { await db.exec(`ALTER TABLE tenant_term_bills ADD COLUMN ${column}`) } catch {}
+  }
   await db.prepare(`CREATE UNIQUE INDEX IF NOT EXISTS idx_term_bills_period ON tenant_term_bills (tenant_id, session, term)`).run().catch(() => {})
   _initializedTables.add('tenant_term_bills')
 }
@@ -16214,6 +16445,14 @@ function mapTermBillRow(row: any) {
     paidAt: row.paid_at || null,
     paidReference: row.paid_reference || null,
     createdAt: row.created_at || null,
+    onboardingCents: Number(row.onboarding_cents || 0),
+    lines: (() => { try { const parsed = JSON.parse(String(row.lines || '')); return Array.isArray(parsed) ? parsed as BillLine[] : null } catch { return null } })(),
+    invoiceNo: String(row.invoice_no || ''),
+    payToken: String(row.pay_token || ''),
+    sentAt: row.sent_at || null,
+    sentTo: row.sent_to || null,
+    receiptNo: row.receipt_no || null,
+    receiptSentAt: row.receipt_sent_at || null,
   }
 }
 
@@ -16265,6 +16504,7 @@ async function attachTermBillingContext(db: D1Database, user: Record<string, any
       term: overdueBill.term,
       graceEndedAt: overdueBill.graceUntil,
       billId: overdueBill.id,
+      payUrl: overdueBill.payToken ? `https://ndovera.com/invoice/${encodeURIComponent(overdueBill.payToken)}` : '',
     },
     // Reuse the gate the console already respects for suspended schools.
     ...(blocked ? { dashboardActive: false, termBillingBlocked: true } : {}),
@@ -22455,7 +22695,9 @@ app.get('/api/tenants/term-bills', authenticate, async (c) => {
   if (forbidden) return c.json({ error: 'forbidden' }, 403)
   if (!tenant) return c.json({ error: 'No school found for this account.' }, 404)
 
-  const bills = await listTenantTermBills(c.env.APP_DB, tenant.id)
+  // Drafts are Ami's until sent; the pay token is shown only as the school's pay link.
+  const bills = (await listTenantTermBills(c.env.APP_DB, tenant.id)).filter(bill => bill.status !== 'draft')
+    .map(({ payToken, ...bill }) => ({ ...bill, payUrl: payToken && bill.status !== 'paid' ? invoicePayUrl(c, payToken) : '', viewUrl: payToken ? invoicePayUrl(c, payToken) : '' }))
   const overdue = await getOverdueTermBill(c.env.APP_DB, tenant.id)
 
   return c.json({
@@ -32439,7 +32681,7 @@ async function closureRecipients(db: D1Database, tenantId: string, env: Bindings
   ]
   const tenant = await getTenantById(db, tenantId).catch(() => null) as Record<string, any> | null
   const ownerRows = await db.prepare(`SELECT email FROM users WHERE tenantId = ? AND LOWER(COALESCE(role, '')) = 'owner'`).bind(tenantId).all().catch(() => ({ results: [] }))
-  const owners = [String(tenant?.ownerEmail || ''), ...((ownerRows.results || []) as Record<string, any>[]).map(row => String(row.email || ''))]
+  const owners = [String(tenant?.ownerEmail || ''), String(tenant?.contactEmail || ''), ...((ownerRows.results || []) as Record<string, any>[]).map(row => String(row.email || ''))]
   return { ndovera, owners, schoolName: String(tenant?.schoolName || tenantId) }
 }
 
@@ -33899,7 +34141,8 @@ function commDeps(env: Bindings): CommDeps {
     stillValid: event => commEventStillValid(env, event),
     notifyOwner: async (tenantId, subject, text) => {
       const tenant = await getTenantById(env.APP_DB, tenantId)
-      if (tenant?.ownerEmail && env.ZOHO_MAIL_ACCOUNT_ID) await sendZohoEmail(env, { to: [String(tenant.ownerEmail)], subject, html: `<p>${escapeCommHtml(text)}</p><p><a href="${escapeCommHtml(await commPortalBase(env, tenantId))}/roles/owner/communications">Open Notifications</a></p>` })
+      const to = schoolContactEmail(tenant)
+      if (to && env.ZOHO_MAIL_ACCOUNT_ID) await sendZohoEmail(env, { to: [to], subject, html: `<p>${escapeCommHtml(text)}</p><p><a href="${escapeCommHtml(await commPortalBase(env, tenantId))}/roles/owner/communications">Open Notifications</a></p>` })
     },
   }
 }
@@ -34338,6 +34581,15 @@ app.post('/api/webhooks/payments/flutterwave', async (c) => {
       return c.json({ success: true, granted: result.granted })
     } catch (error) {
       console.error('Practice payment webhook failed', error)
+      return c.json({ success: false }, 500)
+    }
+  }
+  if (txRef.startsWith('nbill_')) {
+    try {
+      const result = await settleInvoicePayment(c, txRef)
+      return c.json({ success: true, paid: result.paid })
+    } catch (error) {
+      console.error('Invoice payment webhook failed', error)
       return c.json({ success: false }, 500)
     }
   }

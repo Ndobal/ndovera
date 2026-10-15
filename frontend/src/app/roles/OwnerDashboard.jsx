@@ -21,6 +21,8 @@ import SchoolNewsroomPage from '../../features/school/components/SchoolNewsroomP
 import UpcomingEventsCard from '../../features/school/components/UpcomingEventsCard';
 import { PunctualityWinnerBanner } from '../../features/attendance/punctuality/PunctualityPages';
 import ComplianceCentre from '../../features/compliance/ComplianceCentre';
+import SubscriptionSummaryCard from '../../features/subscription/SubscriptionSummaryCard';
+import SubscriptionPage from '../../features/subscription/SubscriptionPage';
 
 export default function OwnerDashboard({ auth = null }) {
   const location = useLocation();
@@ -33,7 +35,8 @@ export default function OwnerDashboard({ auth = null }) {
   }
 
   switch (sectionKey) {
-    case 'overview': return <><div className="mx-auto max-w-7xl space-y-4 px-4 pt-4 sm:px-8"><PunctualityWinnerBanner /><UpcomingEventsCard /></div><OwnerOverview auth={auth} /></>;
+    case 'overview': return <><div className="mx-auto max-w-7xl space-y-4 px-4 pt-4 sm:px-8"><SubscriptionSummaryCard role="owner" /><PunctualityWinnerBanner /><UpcomingEventsCard /></div><OwnerOverview auth={auth} /></>;
+    case 'subscription': return <SubscriptionPage />;
     case 'schools': return <OwnerSchools auth={auth} />;
     case 'finance': return <OwnerFinance auth={auth} />;
     case 'academics': return <SchoolClassResults analyticsMode="owner" roleTitle="Owner Dashboard" />;

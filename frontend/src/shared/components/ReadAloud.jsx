@@ -6,8 +6,9 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 // network voices are only offered while online.
 //
 // Given the element that holds the text (`targetRef`), the sentence being read is
-// highlighted and kept in view; scrolling away pauses the following (with a way back),
-// and tapping a sentence while listening reads from there. The default voice is a British
+// highlighted but the page is never scrolled for it: when the sentence is off screen a
+// "Show where it's reading" button brings it into view once, and tapping a sentence
+// while listening reads from there. The default voice is a British
 // English female one where the device has it.
 
 const RATES = [0.75, 1, 1.25, 1.5];
@@ -241,13 +242,13 @@ export default function ReadAloud({ text, getText, targetRef, label = 'Listen', 
   const [voices, setVoices] = useState(settings.voices);
   const [voiceName, setVoiceName] = useState(settings.voiceName);
   const [rate, setRate] = useState(settings.rate);
-  const [following, setFollowing] = useState(true);
+  // The page never scrolls by itself: when the sentence being read leaves the screen, a
+  // button offers to show it, and only the reader moves the page.
+  const [offscreen, setOffscreen] = useState(false);
   const source = sourceId || title || label;
   const mine = now.status !== 'idle' && now.source === source;
   const map = useRef(null);
   const spans = useRef([]);
-  const followRef = useRef(true);
-  const programmaticScroll = useRef(0);
 
   // This note's control is on screen: the floating player steps aside for it.
   useEffect(() => {
@@ -283,28 +284,31 @@ export default function ReadAloud({ text, getText, targetRef, label = 'Listen', 
     document.head.appendChild(style);
   }, []);
 
-  /** Highlight piece `at` (−1 clears) and, while following, bring it to the middle of the screen. */
-  const showPiece = useCallback((at) => {
-    if (at < 0) { if (canHighlight()) window.CSS.highlights.delete(HIGHLIGHT); return; }
+  /** The range of piece `at` on the page, or null. */
+  const rangeOf = useCallback((at) => {
     const span = spans.current[at];
-    if (!span || !map.current) return;
+    if (!span || !map.current) return null;
     const start = map.current.at(span[0]);
     const end = map.current.at(span[1] - 1);
-    if (!start || !end || !start[0].isConnected) return;
+    if (!start || !end || !start[0].isConnected) return null;
     const range = document.createRange();
     try {
       range.setStart(start[0], start[1]);
       range.setEnd(end[0], Math.min((end[0].nodeValue || '').length, end[1] + 1));
-    } catch { return; }
+    } catch { return null; }
+    return range;
+  }, []);
+
+  /** Highlight piece `at` (−1 clears) and note whether it is outside the visible screen. Never scrolls. */
+  const showPiece = useCallback((at) => {
+    if (at < 0) { if (canHighlight()) window.CSS.highlights.delete(HIGHLIGHT); setOffscreen(false); return; }
+    const range = rangeOf(at);
+    if (!range) return;
     if (canHighlight()) window.CSS.highlights.set(HIGHLIGHT, new window.Highlight(range));
-    if (!followRef.current) return;
     const box = range.getBoundingClientRect();
     const viewport = window.innerHeight || 0;
-    if (box.height && (box.top < viewport * 0.25 || box.bottom > viewport * 0.75)) {
-      programmaticScroll.current = Date.now();
-      window.scrollBy({ top: box.top - viewport / 2 + box.height / 2, behavior: 'smooth' });
-    }
-  }, []);
+    setOffscreen(Boolean(box.height && viewport && (box.bottom < 0 || box.top > viewport)));
+  }, [rangeOf]);
 
   /** Map this note's text to the page (for highlighting and tapping). */
   const mapPage = useCallback(() => {
@@ -326,15 +330,16 @@ export default function ReadAloud({ text, getText, targetRef, label = 'Listen', 
     return () => { if (onPiece === showPiece) onPiece = null; if (canHighlight()) window.CSS.highlights.delete(HIGHLIGHT); };
   }, [mine, targetRef, mapPage, showPiece]);
 
-  // While reading: the reader scrolling away stops the following; tapping a sentence reads from there.
+  // While reading: tapping a sentence reads from there; scrolling re-checks whether the sentence is on screen.
   useEffect(() => {
     if (!mine) return undefined;
-    const stopFollowing = () => {
-      if (Date.now() - programmaticScroll.current < 900) return;
-      followRef.current = false;
-      setFollowing(false);
+    const recheck = () => {
+      const range = rangeOf(player.at);
+      if (!range) return;
+      const box = range.getBoundingClientRect();
+      const viewport = window.innerHeight || 0;
+      setOffscreen(Boolean(box.height && viewport && (box.bottom < 0 || box.top > viewport)));
     };
-    const onKey = event => { if (['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', ' '].includes(event.key) && event.target === document.body) stopFollowing(); };
     const target = targetRef?.current;
     const onTap = event => {
       if (!map.current || event.target.closest?.('a,button,input,select,textarea,summary')) return;
@@ -351,21 +356,15 @@ export default function ReadAloud({ text, getText, targetRef, label = 'Listen', 
       if (index < 0) return;
       const piece = spans.current.findIndex(span => span && span[0] <= index && index < span[1]);
       if (piece < 0) return;
-      followRef.current = true;
-      setFollowing(true);
       readAloud.jump(piece);
     };
-    window.addEventListener('wheel', stopFollowing, { passive: true });
-    window.addEventListener('touchmove', stopFollowing, { passive: true });
-    window.addEventListener('keydown', onKey);
+    window.addEventListener('scroll', recheck, { passive: true });
     target?.addEventListener('click', onTap);
     return () => {
-      window.removeEventListener('wheel', stopFollowing);
-      window.removeEventListener('touchmove', stopFollowing);
-      window.removeEventListener('keydown', onKey);
+      window.removeEventListener('scroll', recheck);
       target?.removeEventListener('click', onTap);
     };
-  }, [mine, targetRef]);
+  }, [mine, targetRef, rangeOf]);
 
   if (!synth) return <p className="text-xs text-slate-500">Reading aloud is not available in this browser.</p>;
 
@@ -373,11 +372,17 @@ export default function ReadAloud({ text, getText, targetRef, label = 'Listen', 
     if (mine && now.status === 'paused') { readAloud.resume(); return; }
     const chunks = targetRef?.current ? mapPage() : splitForSpeech(getText ? getText() : text);
     if (!chunks?.length) return;
-    followRef.current = true;
-    setFollowing(true);
     readAloud.start({ chunks, title: title || label, source, href: `${window.location.pathname}${window.location.search}` });
   };
-  const backToReading = () => { followRef.current = true; setFollowing(true); showPiece(player.at); };
+  /** Only when the reader asks: bring the sentence being read into view, once. */
+  const showReading = () => {
+    const range = rangeOf(player.at);
+    const box = range?.getBoundingClientRect();
+    if (!box) return;
+    const viewport = window.innerHeight || 0;
+    window.scrollBy({ top: box.top - viewport / 2 + box.height / 2, behavior: 'smooth' });
+    setOffscreen(false);
+  };
   const BTN = 'rounded-xl px-3 py-1.5 text-sm font-bold';
   const defaultVoice = pickDefaultVoice(voices);
 
@@ -400,7 +405,7 @@ export default function ReadAloud({ text, getText, targetRef, label = 'Listen', 
           </select>
         )}
         {mine && now.of > 0 && <span className="text-xs font-semibold text-slate-600 dark:text-slate-300">{now.at + 1} / {now.of}</span>}
-        {mine && !following && targetRef ? <button type="button" className={`${BTN} border border-amber-300 bg-amber-50 text-amber-900`} onClick={backToReading}>↧ Back to reading</button> : null}
+        {mine && offscreen && targetRef ? <button type="button" className={`${BTN} border border-amber-300 bg-amber-50 text-amber-900`} onClick={showReading}>↧ Show where it&apos;s reading</button> : null}
       </div>
       {/* Where the page cannot be highlighted (older browsers), the sentence being read shows here. */}
       {mine && now.current && (!targetRef || !canHighlight()) ? (

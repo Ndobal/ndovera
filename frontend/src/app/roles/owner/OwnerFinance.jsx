@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import {
-  CreditCardIcon,
   BanknotesIcon,
   BuildingLibraryIcon,
   InboxStackIcon,
@@ -10,14 +9,13 @@ import {
 } from '@heroicons/react/24/outline';
 import FeesManagementBoard from '../../../features/school/components/FeesManagementBoard';
 import SimpleFees from '../../../features/finance/simple/SimpleFees';
-import { getMyTenant, getExpenditure, addExpenditure, runFinanceAI, getFeesLedger } from '../../../features/school/services/schoolApi';
+import { getExpenditure, addExpenditure, runFinanceAI, getFeesLedger } from '../../../features/school/services/schoolApi';
 
 // Fees & Billing is the everyday fee screen (set a term's fees, balances,
 // payments). The older Term Fees board is no longer listed; its bills appear on
 // student accounts as earlier records.
 const TAB_META = [
   { label: 'Fees & Billing', short: 'Fees & Billing', Icon: BanknotesIcon },
-  { label: 'Subscription', short: 'Subscription', Icon: CreditCardIcon },
   { label: 'Fees', short: 'Fee Template', Icon: BanknotesIcon },
   { label: 'Parent Payment Channels', short: 'Channels', Icon: BuildingLibraryIcon },
   { label: 'Payment Claim Queue', short: 'Claims', Icon: InboxStackIcon },
@@ -29,54 +27,9 @@ const CARD = 'rounded-3xl p-6 bg-[#b5e3f4] border border-[#c9a96e]/40';
 const INNER = 'rounded-2xl p-4 bg-[#ade1f4] border border-[#c9a96e]/30';
 const BTN = 'bg-[#1a5c38] hover:bg-[#154a2e] text-[#b5e3f4] font-bold px-5 py-2.5 rounded-2xl text-sm transition-colors';
 
-function InfoRow({ label, value }) {
-  return <div><p className="text-xs text-[#800020] uppercase font-semibold">{label}</p><p className="text-[#191970] mt-1">{value || '—'}</p></div>;
-}
 function StatusPill({ status }) {
   const map = { active: 'bg-emerald-100 text-emerald-700', paid: 'bg-emerald-100 text-emerald-700', Paid: 'bg-emerald-100 text-emerald-700', Partial: 'bg-amber-100 text-amber-700', Unpaid: 'bg-red-100 text-red-700', pending: 'bg-amber-100 text-amber-700', suspended: 'bg-red-100 text-red-700' };
   return <span className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${map[status] || 'bg-slate-100 text-slate-600'}`}>{status || '—'}</span>;
-}
-
-function SubscriptionTab() {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  useEffect(() => { getMyTenant().then(setData).catch(e => setError(e.message)).finally(() => setLoading(false)); }, []);
-  const tenant = data?.tenant; const payments = data?.payments || []; const quote = data?.quote;
-  if (loading) return <div className={CARD}><p className="text-[#800020]">Loading...</p></div>;
-  if (error) return <div className={CARD}><p className="text-[#800000]">{error}</p></div>;
-  return (
-    <div className="space-y-4">
-      <div className={CARD}><h2 className="text-lg font-bold text-[#800000] mb-4">Payment Summary</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <InfoRow label="Plan" value={quote?.planName || tenant?.planKey} />
-          <InfoRow label="Setup Fee" value={quote?.setupFee ? `₦${quote.setupFee.toLocaleString()}` : null} />
-          <div><p className="text-xs text-[#800020] uppercase font-semibold">Status</p><div className="mt-1"><StatusPill status={tenant?.paymentStatus} /></div></div>
-          <InfoRow label="Student Fee/Term" value={(quote?.studentFeePerTerm || quote?.userFeePerTerm) ? `₦${(quote.studentFeePerTerm || quote.userFeePerTerm).toLocaleString()}/student` : null} />
-          <InfoRow label="Billable Students" value={tenant?.studentCount ?? tenant?.billableUserCount} />
-          <InfoRow label="Term Total" value={(() => {
-            // Billing is based on students only — never staff or parents.
-            const fee = Number(quote?.studentFeePerTerm || quote?.userFeePerTerm || 0);
-            const students = Number(tenant?.studentCount ?? tenant?.billableUserCount ?? 0);
-            const studentBasedTotal = fee > 0 && students > 0 ? fee * students : null;
-            const total = studentBasedTotal ?? quote?.termTotal;
-            return total ? `₦${Number(total).toLocaleString()}` : null;
-          })()} />
-        </div>
-      </div>
-      <div className={CARD}><h2 className="text-lg font-bold text-[#800000] mb-4">Payment History</h2>
-        {payments.length === 0 ? <p className="text-[#800020] text-sm">No payment records found.</p> :
-          <div className="space-y-3">{payments.map((p, i) => (
-            <div key={p.id || i} className={`${INNER} flex items-center justify-between gap-4`}>
-              <div><p className="text-[#800020] font-semibold text-sm">{p.txRef || 'Payment'}</p>
-                <p className="text-[#191970] text-sm">₦{(p.amount || p.amountCents / 100 || 0).toLocaleString()}</p>
-                {p.paidAt && <p className="text-xs text-[#800020]/70 mt-0.5">{new Date(p.paidAt).toLocaleDateString()}</p>}
-              </div><StatusPill status={p.status} />
-            </div>))}
-          </div>}
-      </div>
-    </div>
-  );
 }
 
 function FeesTab({ initialFinanceTab = 'fees' }) {
@@ -233,13 +186,12 @@ export default function OwnerFinance({ auth, initialTab = 0 }) {
         </div>
       </div>
       {tab === 0 && <SimpleFees />}
-      {tab === 1 && <SubscriptionTab />}
-      {tab === 2 && <FeesTab initialFinanceTab="fees" />}
-      {tab === 3 && <FeesTab initialFinanceTab="channels" />}
-      {tab === 4 && <FeesTab initialFinanceTab="claims" />}
-      {tab === 5 && <ExpenditureTab />}
-      {tab === 6 && <IncomeExpenditureTab />}
-      {tab === 7 && <AIAnalysisTab />}
+      {tab === 1 && <FeesTab initialFinanceTab="fees" />}
+      {tab === 2 && <FeesTab initialFinanceTab="channels" />}
+      {tab === 3 && <FeesTab initialFinanceTab="claims" />}
+      {tab === 4 && <ExpenditureTab />}
+      {tab === 5 && <IncomeExpenditureTab />}
+      {tab === 6 && <AIAnalysisTab />}
     </div>
   );
 }

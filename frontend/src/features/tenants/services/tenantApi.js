@@ -215,3 +215,42 @@ export function upsertTenantAward(tenantId, payload) {
     body: payload,
   });
 }
+
+// Ndovera's invoices to schools. Ami prepares a draft, previews and sends it.
+export function prepareSchoolInvoice(tenantId, payload) {
+  return requestJson(`/api/ami/tenants/${encodeURIComponent(tenantId)}/invoices`, { method: 'POST', body: payload });
+}
+
+export function previewSchoolInvoice(billId) {
+  return requestJson(`/api/ami/tenants/term-bills/${encodeURIComponent(billId)}/invoice`);
+}
+
+export function sendSchoolInvoice(billId) {
+  return requestJson(`/api/ami/tenants/term-bills/${encodeURIComponent(billId)}/send`, { method: 'POST', body: {} });
+}
+
+// Paying an invoice from its link (no sign-in: the link is the secret).
+export function getPublicInvoice(token) {
+  return requestJson(`/api/public/invoices/${encodeURIComponent(token)}`, { auth: false });
+}
+
+export function startInvoiceCheckout(token) {
+  return requestJson(`/api/public/invoices/${encodeURIComponent(token)}/checkout`, { method: 'POST', body: {}, auth: false });
+}
+
+export function confirmInvoicePayment(token, txRef) {
+  return requestJson(`/api/public/invoices/${encodeURIComponent(token)}/confirm`, { method: 'POST', body: { txRef }, auth: false });
+}
+
+// Where Ndovera writes to a school (its sign-up email stays the owner's login).
+export function setSchoolContactEmailAsAmi(tenantId, contactEmail) {
+  return requestJson(`/api/ami/tenants/${encodeURIComponent(tenantId)}/contact-email`, { method: 'PUT', body: { contactEmail } });
+}
+
+export function getMySchoolContactEmail() {
+  return requestJson('/api/tenants/contact-email');
+}
+
+export function setMySchoolContactEmail(contactEmail) {
+  return requestJson('/api/tenants/contact-email', { method: 'PUT', body: { contactEmail } });
+}

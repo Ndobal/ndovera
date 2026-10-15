@@ -19,6 +19,10 @@ import {
   generateTermBills,
   getAmiTermBills,
   markTermBillPaid,
+  prepareSchoolInvoice,
+  previewSchoolInvoice,
+  sendSchoolInvoice,
+  setSchoolContactEmailAsAmi,
   upsertDiscountCode,
   verifyTenantPayment,
 } from '../services/tenantApi';
@@ -125,6 +129,9 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
   const [rolloutFeeNaira, setRolloutFeeNaira] = useState('');
   const [termBills, setTermBills] = useState([]);
   const [billPeriod, setBillPeriod] = useState({ session: '', term: '', termStartDate: '', tenantId: '' });
+  // Invoicing one school: a draft until Ami presses Send.
+  const [invoiceForm, setInvoiceForm] = useState({ tenantId: '', onboardingFee: '', includeTermCharge: true, contactEmail: '' });
+  const [invoicePreview, setInvoicePreview] = useState(null);
   const [busyAction, setBusyAction] = useState('');
   const [error, setError] = useState('');
   const [notice, setNotice] = useState('');
@@ -324,6 +331,54 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
         : `No bills raised. Skipped ${result.skipped.length}: ${result.skipped.map(s => `${s.schoolName} — ${s.reason}`).join('; ')}`);
       await loadTermBills();
     });
+  };
+
+  const pickInvoiceSchool = tenantId => {
+    const tenant = (governanceData?.tenants || []).find(item => item.id === tenantId);
+    setInvoiceForm(current => ({ ...current, tenantId, contactEmail: tenant?.contactEmail || tenant?.metadata?.contactEmail || '' }));
+  };
+
+  const handleSaveContactEmail = async () => {
+    if (!invoiceForm.tenantId) return;
+    await runAction('contact-email', async () => {
+      const result = await setSchoolContactEmailAsAmi(invoiceForm.tenantId, invoiceForm.contactEmail.trim());
+      setNotice(`Ndovera will now write to ${result.sendsTo} for this school. Its sign-up email is unchanged for signing in.`);
+    });
+  };
+
+  const handlePrepareInvoice = async event => {
+    event.preventDefault();
+    if (!invoiceForm.tenantId) { setError('Choose a school.'); return; }
+    await runAction('prepare-invoice', async () => {
+      const result = await prepareSchoolInvoice(invoiceForm.tenantId, { onboardingFee: Number(invoiceForm.onboardingFee || 0), includeTermCharge: invoiceForm.includeTermCharge });
+      setNotice(`Draft invoice ${result.bill.invoiceNo} prepared: ${currencyFormatter.format(result.bill.amount)}. Nothing has been sent. Preview it, then press Send (it will go to ${result.sendTo || 'the school'}).`);
+      await loadTermBills();
+    });
+  };
+
+  const handlePreviewInvoice = async bill => {
+    await runAction(`preview-${bill.id}`, async () => {
+      const result = await previewSchoolInvoice(bill.id);
+      setInvoicePreview({ bill, html: result.html, sendTo: result.sendTo, payUrl: result.payUrl });
+    });
+  };
+
+  const handleSendInvoice = async bill => {
+    const first = !bill.sentAt;
+    if (!window.confirm(first
+      ? `Send invoice ${bill.invoiceNo || ''} for ${currencyFormatter.format(bill.amount)} now? The school gets 30 days from today to pay; after that its Owner, HoS and ICT accounts are locked until paid.`
+      : 'Send this invoice again as a reminder? The due date does not change.')) return;
+    await runAction(`send-${bill.id}`, async () => {
+      const result = await sendSchoolInvoice(bill.id);
+      setNotice(`Invoice emailed to ${result.sentTo}. Due ${new Date(result.dueAt).toLocaleDateString()}. Pay link: ${result.payUrl}`);
+      setInvoicePreview(null);
+      await loadTermBills();
+    });
+  };
+
+  const handleCopyPayLink = async bill => {
+    const url = `${window.location.origin}/invoice/${bill.payToken}`;
+    try { await navigator.clipboard.writeText(url); setNotice(`Pay link copied: ${url}`); } catch { setNotice(`Pay link: ${url}`); }
   };
 
   const handleMarkBillPaid = async bill => {
@@ -942,6 +997,57 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
               </button>
             </form>
 
+            <form onSubmit={handlePrepareInvoice} className="mt-6 space-y-3 rounded-3xl border-2 border-[#c9a96e]/60 bg-[#fff8ef] p-4 text-[#191970] dark:bg-slate-900/40 dark:text-slate-100">
+              <h3 className="text-lg font-black text-[#800000] dark:text-amber-200">Invoice one school</h3>
+              <p className="text-xs">Prepares a draft on Ndovera&apos;s letterhead: an onboarding fee (optional) plus this term&apos;s active students × the school&apos;s rate. <b>Nothing is sent until you press Send.</b> The school then has 30 days to pay by the link (Flutterwave); the receipt is emailed automatically once Flutterwave confirms.</p>
+              <select value={invoiceForm.tenantId} onChange={e => pickInvoiceSchool(e.target.value)} aria-label="School to invoice"
+                className="w-full rounded-2xl border border-[#c9a96e]/60 bg-white px-4 py-3 text-[#191970] dark:bg-slate-900 dark:text-amber-100">
+                <option value="">Choose a school…</option>
+                {tenants.map(tenant => <option key={tenant.id} value={tenant.id}>{tenant.schoolName}</option>)}
+              </select>
+              {invoiceForm.tenantId ? (
+                <>
+                  <label className="block space-y-1">
+                    <span className="text-xs font-bold">Communication email (invoices, receipts and notices go here; the sign-up email stays for signing in)</span>
+                    <div className="flex gap-2">
+                      <input type="email" value={invoiceForm.contactEmail} onChange={e => setInvoiceForm(c => ({ ...c, contactEmail: e.target.value }))} placeholder="e.g. accounts@school.com"
+                        className="min-w-0 flex-1 rounded-2xl border border-[#c9a96e]/60 bg-white px-4 py-2 text-[#191970] dark:bg-slate-900 dark:text-amber-100" />
+                      <button type="button" onClick={handleSaveContactEmail} disabled={busyAction === 'contact-email'} className="rounded-2xl bg-[#191970] px-4 py-2 text-sm font-bold text-[#c9a96e] disabled:opacity-60">
+                        {busyAction === 'contact-email' ? 'Saving…' : 'Save email'}
+                      </button>
+                    </div>
+                  </label>
+                  <label className="block space-y-1">
+                    <span className="text-xs font-bold">Onboarding fee owed (₦, 0 if none)</span>
+                    <input type="number" min="0" value={invoiceForm.onboardingFee} onChange={e => setInvoiceForm(c => ({ ...c, onboardingFee: e.target.value }))} placeholder="e.g. 50000"
+                      className="w-full rounded-2xl border border-[#c9a96e]/60 bg-white px-4 py-2 text-[#191970] dark:bg-slate-900 dark:text-amber-100" />
+                  </label>
+                  <label className="flex items-center gap-2 text-sm">
+                    <input type="checkbox" checked={invoiceForm.includeTermCharge} onChange={e => setInvoiceForm(c => ({ ...c, includeTermCharge: e.target.checked }))} />
+                    Include this term&apos;s per-student charge (active students × the school&apos;s rate)
+                  </label>
+                  <button type="submit" disabled={busyAction === 'prepare-invoice'} className="w-full rounded-2xl bg-[#800020] px-4 py-3 font-bold text-[#b5e3f4] disabled:opacity-60">
+                    {busyAction === 'prepare-invoice' ? 'Preparing…' : 'Prepare draft invoice'}
+                  </button>
+                </>
+              ) : null}
+            </form>
+
+            {invoicePreview ? (
+              <div className="mt-4 rounded-3xl border-2 border-[#c9a96e] bg-white p-3">
+                <div className="mb-2 flex flex-wrap items-center gap-2 text-sm text-[#191970]">
+                  <p className="flex-1">Preview: will go to <b>{invoicePreview.sendTo || 'no email on file'}</b></p>
+                  {invoicePreview.bill.status !== 'paid' ? (
+                    <button type="button" onClick={() => handleSendInvoice(invoicePreview.bill)} disabled={busyAction === `send-${invoicePreview.bill.id}`} className="rounded-xl bg-[#1a5c38] px-3 py-2 text-xs font-bold text-white disabled:opacity-60">
+                      {busyAction === `send-${invoicePreview.bill.id}` ? 'Sending…' : invoicePreview.bill.sentAt ? 'Send reminder' : 'Send invoice'}
+                    </button>
+                  ) : null}
+                  <button type="button" onClick={() => setInvoicePreview(null)} className="rounded-xl bg-[#800020] px-3 py-2 text-xs font-bold text-[#b5e3f4]">Close</button>
+                </div>
+                <iframe title="Invoice preview" srcDoc={invoicePreview.html} className="h-[640px] w-full rounded-2xl border-0" />
+              </div>
+            ) : null}
+
             <div className="mt-4 space-y-2">
               {termBills.length === 0 ? <p className="text-sm text-slate-500 dark:text-slate-400">No term bills raised yet.</p> : null}
               {termBills.slice(0, 12).map(bill => {
@@ -950,7 +1056,8 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
                   <div key={bill.id} className="rounded-2xl border border-white/10 bg-slate-900/20 p-3 text-sm">
                     <div className="flex flex-wrap items-center justify-between gap-2">
                       <div>
-                        <p className="font-semibold text-slate-800 dark:text-slate-100">{bill.session} {bill.term} • {currencyFormatter.format(bill.amount)}</p>
+                        <p className="font-semibold text-slate-800 dark:text-slate-100">{tenants.find(tenant => tenant.id === bill.tenantId)?.schoolName || 'School'} • {bill.session} {bill.term} • {currencyFormatter.format(bill.amount)}</p>
+                        {bill.invoiceNo ? <p className="text-xs text-slate-500 dark:text-slate-400">{bill.invoiceNo}{bill.onboardingCents ? ` • includes onboarding ${currencyFormatter.format(bill.onboardingCents / 100)}` : ''}{bill.sentAt ? ` • sent ${new Date(bill.sentAt).toLocaleDateString()} to ${bill.sentTo}` : ' • not sent'}{bill.receiptNo ? ` • receipt ${bill.receiptNo}` : ''}</p> : null}
                         <p className="text-xs text-slate-500 dark:text-slate-400">
                           {bill.billableUsers} users × {currencyFormatter.format(bill.ratePerUser)}
                           {bill.graceUntil ? ` • grace to ${new Date(bill.graceUntil).toLocaleDateString()}` : ''}
@@ -958,8 +1065,19 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
                       </div>
                       <div className="flex items-center gap-2">
                         <span className={`micro-label ${bill.status === 'paid' ? 'accent-cyan' : overdue ? 'accent-rose' : 'accent-indigo'}`}>
-                          {bill.status === 'paid' ? 'paid' : overdue ? 'overdue' : 'unpaid'}
+                          {bill.status === 'paid' ? 'paid' : bill.status === 'draft' ? 'draft' : overdue ? 'overdue' : 'unpaid'}
                         </span>
+                        <button type="button" onClick={() => handlePreviewInvoice(bill)} disabled={busyAction === `preview-${bill.id}`}
+                          className="rounded-xl bg-[#191970] px-3 py-2 text-xs font-bold text-[#c9a96e] disabled:opacity-60">Preview</button>
+                        {bill.status !== 'paid' ? (
+                          <button type="button" onClick={() => handleSendInvoice(bill)} disabled={busyAction === `send-${bill.id}`}
+                            className="rounded-xl bg-[#1a5c38] px-3 py-2 text-xs font-bold text-white disabled:opacity-60">
+                            {busyAction === `send-${bill.id}` ? 'Sending…' : bill.sentAt ? 'Remind' : 'Send'}
+                          </button>
+                        ) : null}
+                        {bill.payToken && bill.sentAt && bill.status !== 'paid' ? (
+                          <button type="button" onClick={() => handleCopyPayLink(bill)} className="rounded-xl bg-[#c9a96e] px-3 py-2 text-xs font-bold text-[#191970]">Copy pay link</button>
+                        ) : null}
                         {bill.status !== 'paid' ? (
                           <button type="button" onClick={() => handleMarkBillPaid(bill)} disabled={busyAction === `bill-${bill.id}`}
                             className="rounded-xl bg-emerald-500 px-3 py-2 text-xs font-bold text-slate-950 disabled:opacity-60">
