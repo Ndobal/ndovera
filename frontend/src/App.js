@@ -74,6 +74,9 @@ import InvoicePayPage from './features/tenants/pages/InvoicePayPage';
 import TransportAdminPage from './features/transport/TransportAdminPage';
 import DriverTransportPage from './features/transport/DriverTransportPage';
 import MyBusPage from './features/transport/MyBusPage';
+import HealthRegisterPage from './features/health/HealthRegisterPage';
+import HealthReportPage from './features/health/HealthReportPage';
+import ParentHealthPage from './features/health/ParentHealthPage';
 import PublicHomePage from './features/public/pages/PublicHomePage';
 import PublicSitePage from './features/public/pages/PublicSitePage';
 import PublicLegalPage from './features/public/pages/PublicLegalPage';
@@ -260,6 +263,14 @@ function AnimatedRoutes({ auth, onLogin }) {
         <Route path="/championships/:slug" element={<PublicChampionshipDetailPage />} />
         <Route path="/roles/:role/birthdays" element={<RequireAuth auth={auth}><RouteTransition><BirthdaysPage /></RouteTransition></RequireAuth>} />
         <Route path="/roles/:role/clubs" element={<RequireAuth auth={auth}><RouteTransition><ClubsPage /></RouteTransition></RequireAuth>} />
+        <Route path="/roles/owner/health" element={<RoleGuard auth={auth} expectedRole="owner"><RouteTransition><HealthRegisterPage /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/hos/health" element={<RoleGuard auth={auth} expectedRole="hos"><RouteTransition><HealthRegisterPage /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/clinic" element={<RoleGuard auth={auth} expectedRole="clinic"><RouteTransition><HealthRegisterPage /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/clinic/visits" element={<RoleGuard auth={auth} expectedRole="clinic"><RouteTransition><HealthRegisterPage /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/clinic/patients" element={<RoleGuard auth={auth} expectedRole="clinic"><RouteTransition><HealthRegisterPage /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/clinic/emergencies" element={<RoleGuard auth={auth} expectedRole="clinic"><RouteTransition><HealthRegisterPage /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/parent/health" element={<RoleGuard auth={auth} expectedRole="parent"><RouteTransition><ParentHealthPage /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/:role/health" element={<RequireAuth auth={auth}><RouteTransition><HealthReportPage /></RouteTransition></RequireAuth>} />
         <Route path="/roles/owner/transport" element={<RoleGuard auth={auth} expectedRole="owner"><RouteTransition><TransportAdminPage /></RouteTransition></RoleGuard>} />
         <Route path="/roles/hos/transport" element={<RoleGuard auth={auth} expectedRole="hos"><RouteTransition><TransportAdminPage /></RouteTransition></RoleGuard>} />
         <Route path="/roles/transport/routes" element={<RoleGuard auth={auth} expectedRole="transport"><RouteTransition><TransportAdminPage /></RouteTransition></RoleGuard>} />

@@ -409,7 +409,7 @@ import { verbalReasoningGrade, verbalReasoningRunner } from './verbalReasoning'
 import { bumpStamps, changesSharedState, readStamps, tenantScope, userScope } from './changeStamps'
 import {
   CommError, createQuote, getPlatformConfig, giftUnits, isChannel, ledgerFor, listGifts, listGrants, listPurchases, getPurchase, priceSchedule, reverseGift,
-  schedulePrice, setPlatformConfig, settlePurchase, startCheckout, walletSummary, ensureTermAllowance, CHANNELS,
+  schedulePrice, setPlatformConfig, settlePurchase, startCheckout, walletSummary as commWalletSummary, ensureTermAllowance, CHANNELS,
 } from './commCredits'
 import { EVENT_TYPES, getSettings as getCommSettings, listInbox, listTemplates, markInboxRead, setConsent, setDesignation, setTemplate, updateSettings as updateCommSettings, normalizePhone, type EventType } from './commMessages'
 import {
@@ -431,6 +431,10 @@ import {
   TransportError, archiveRoute, assignStudents, board, boardingsFor, driverTrips, expectedForRun, getRun, lagosClock, lagosDate, listAssignments, listRoutes,
   markRun, normalizeDirection, openRun, passQrText, runsOn, saveRoute, setDriverTrips, unassignStudent,
 } from './transport'
+import {
+  HealthError, addPhoto, createIncident, ensureHealthTables, getIncidentRow, getProfile as getHealthProfile, listIncidents, mapIncident, photosFor, saveProfile as saveHealthProfile, setRest, updateIncident,
+} from './health'
+import type { Reporter } from './health'
 
 type Bindings = {
   APP_DB: D1Database
@@ -5605,12 +5609,14 @@ async function buildAuthenticatedHeader(c: any, roleKey: string) {
       sortAt: String(announcement.createdAt || ''),
     }))
 
-  const [closureItems, complianceItems, transportItems] = await Promise.all([
+  const [closureItems, complianceItems, transportItems, healthItems] = await Promise.all([
     buildClosureNotificationItems(c.env.APP_DB, String(tenantId || ''), actorRole).catch(() => [] as any[]),
     buildComplianceNotificationItems(c.env.APP_DB, String(tenantId || ''), canonicalReaderId, actorRole).catch(() => [] as any[]),
     buildTransportNotificationItems(c.env.APP_DB, String(tenantId || ''), actorRole, String(resolvedUser.userRow?.id || canonicalReaderId), settings).catch(() => [] as any[]),
+    buildHealthNotificationItems(c.env.APP_DB, String(tenantId || ''), actorRole, String(resolvedUser.userRow?.id || canonicalReaderId), settings).catch(() => [] as any[]),
   ])
   const notificationItems = [
+    ...healthItems,
     ...transportItems,
     ...closureItems,
     ...complianceItems,
@@ -7735,13 +7741,17 @@ app.put('/api/tenants/contact-email', authenticate, async (c) => {
 // See transport.ts. Owner/HoS/transport set up routes and students; the driver runs the trips;
 // parents and students see their bus, driver and pick-up time.
 
-const TRANSPORT_MANAGERS = ['owner', 'hos', 'transport', 'admin']
+/** Owner, HoS, or the transport officer (a merged admin role, so read from the stored roles). */
+const canManageTransport = (actor: { role: string, roles: string[] }) => ['owner', 'hos'].includes(actor.role) || actor.roles.includes('transport')
 
 async function transportActor(c: any) {
   const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
   if (!actor.tenantId) throw new TransportError('No school found for this account.', 403)
   const role = normalizeRole(getActiveRole(c.var.user) || actor.role)
-  return { tenantId: actor.tenantId, actorId: actor.actorId, actorName: actor.actorName, role, settings: actor.resolvedUser?.settings || {} }
+  const settings = actor.resolvedUser?.settings || {}
+  // Merged admin roles (transport, clinic…) act as "admin"; the stored roles say which.
+  const roles = parseRoleList(role, settings.role, settings.roles, actor.resolvedUser?.userRow?.role)
+  return { tenantId: actor.tenantId, actorId: actor.actorId, actorName: actor.actorName, role, roles, settings }
 }
 
 function transportFailure(c: any, error: unknown, fallback: string) {
@@ -7778,7 +7788,7 @@ async function transportChildIds(db: D1Database, tenantId: string, actorId: stri
 app.get('/api/transport/admin', authenticate, async (c) => {
   try {
     const actor = await transportActor(c)
-    if (!TRANSPORT_MANAGERS.includes(actor.role)) throw new TransportError('Only the Owner, Head of School or transport officer can manage routes.', 403)
+    if (!canManageTransport(actor)) throw new TransportError('Only the Owner, Head of School or transport officer can manage routes.', 403)
     const db = c.env.APP_DB
     const routes = await listRoutes(db, actor.tenantId)
     const assignments = await listAssignments(db, actor.tenantId, { routeIds: routes.map(route => route.id) })
@@ -7812,7 +7822,7 @@ app.get('/api/transport/admin', authenticate, async (c) => {
 app.post('/api/transport/routes', authenticate, async (c) => {
   try {
     const actor = await transportActor(c)
-    if (!TRANSPORT_MANAGERS.includes(actor.role)) throw new TransportError('Only the Owner, Head of School or transport officer can manage routes.', 403)
+    if (!canManageTransport(actor)) throw new TransportError('Only the Owner, Head of School or transport officer can manage routes.', 403)
     const id = await saveRoute(c.env.APP_DB, actor.tenantId, await c.req.json().catch(() => ({})), actor.actorId)
     return c.json({ success: true, id }, 201)
   } catch (error) { return transportFailure(c, error, 'Could not save the route.') }
@@ -7821,7 +7831,7 @@ app.post('/api/transport/routes', authenticate, async (c) => {
 app.put('/api/transport/routes/:routeId', authenticate, async (c) => {
   try {
     const actor = await transportActor(c)
-    if (!TRANSPORT_MANAGERS.includes(actor.role)) throw new TransportError('Only the Owner, Head of School or transport officer can manage routes.', 403)
+    if (!canManageTransport(actor)) throw new TransportError('Only the Owner, Head of School or transport officer can manage routes.', 403)
     await saveRoute(c.env.APP_DB, actor.tenantId, await c.req.json().catch(() => ({})), actor.actorId, c.req.param('routeId'))
     return c.json({ success: true })
   } catch (error) { return transportFailure(c, error, 'Could not save the route.') }
@@ -7830,7 +7840,7 @@ app.put('/api/transport/routes/:routeId', authenticate, async (c) => {
 app.delete('/api/transport/routes/:routeId', authenticate, async (c) => {
   try {
     const actor = await transportActor(c)
-    if (!TRANSPORT_MANAGERS.includes(actor.role)) throw new TransportError('Only the Owner, Head of School or transport officer can manage routes.', 403)
+    if (!canManageTransport(actor)) throw new TransportError('Only the Owner, Head of School or transport officer can manage routes.', 403)
     await archiveRoute(c.env.APP_DB, actor.tenantId, c.req.param('routeId'))
     return c.json({ success: true })
   } catch (error) { return transportFailure(c, error, 'Could not remove the route.') }
@@ -7839,7 +7849,7 @@ app.delete('/api/transport/routes/:routeId', authenticate, async (c) => {
 app.put('/api/transport/routes/:routeId/students', authenticate, async (c) => {
   try {
     const actor = await transportActor(c)
-    if (!TRANSPORT_MANAGERS.includes(actor.role)) throw new TransportError('Only the Owner, Head of School or transport officer can manage routes.', 403)
+    if (!canManageTransport(actor)) throw new TransportError('Only the Owner, Head of School or transport officer can manage routes.', 403)
     const body = await c.req.json().catch(() => ({})) as Record<string, any>
     const ids = Array.isArray(body.studentIds) ? body.studentIds : [body.studentId]
     const saved = await assignStudents(c.env.APP_DB, actor.tenantId, c.req.param('routeId'), ids, body)
@@ -7850,7 +7860,7 @@ app.put('/api/transport/routes/:routeId/students', authenticate, async (c) => {
 app.delete('/api/transport/routes/:routeId/students/:studentId', authenticate, async (c) => {
   try {
     const actor = await transportActor(c)
-    if (!TRANSPORT_MANAGERS.includes(actor.role)) throw new TransportError('Only the Owner, Head of School or transport officer can manage routes.', 403)
+    if (!canManageTransport(actor)) throw new TransportError('Only the Owner, Head of School or transport officer can manage routes.', 403)
     await unassignStudent(c.env.APP_DB, actor.tenantId, c.req.param('routeId'), c.req.param('studentId'))
     return c.json({ success: true })
   } catch (error) { return transportFailure(c, error, 'Could not remove the student.') }
@@ -7991,7 +8001,8 @@ app.get('/api/transport/mine', authenticate, async (c) => {
 /** In-app notices for today's buses: parents and students about their child, the school about every bus. */
 async function buildTransportNotificationItems(db: D1Database, tenantId: string, role: string, readerId: string, settings: Record<string, any>) {
   const normalized = normalizeRole(role)
-  const isSchool = ['owner', 'hos', 'transport', 'admin'].includes(normalized)
+  const stored = parseRoleList(normalized, settings.role, settings.roles)
+  const isSchool = ['owner', 'hos'].includes(normalized) || stored.includes('transport')
   if (!tenantId || (!isSchool && !['parent', 'student'].includes(normalized))) return []
   const runs = (await runsOn(db, tenantId, lagosDate())).filter(run => run.arrivedAt || run.departedAt)
   if (!runs.length) return []
@@ -8031,6 +8042,242 @@ async function buildTransportNotificationItems(db: D1Database, tenantId: string,
     })
   }
   return items
+}
+
+// ─── School health register ──────────────────────────────────────────────────
+// See health.ts. Staff report; the nurse (or, with no nurse, the Owner/HoS) manages; the Owner,
+// HoS and nurse see every history; parents see their own children's.
+
+const HEALTH_VIEW_ALL = ['owner', 'hos', 'clinic', 'nurse']
+const NOT_STAFF = ['student', 'parent', 'ami', 'growthpartner', '']
+
+async function healthActor(c: any) {
+  const base = await transportActor(c)
+  const db = c.env.APP_DB as D1Database
+  const nurse = await db.prepare(`SELECT 1 FROM users WHERE tenantId = ? AND lower(role) IN ('clinic', 'nurse') AND (status IS NULL OR status != 'inactive') LIMIT 1`).bind(base.tenantId).first().catch(() => null)
+  const hasNurse = Boolean(nurse)
+  const isNurse = base.roles.some(role => ['clinic', 'nurse'].includes(role))
+  return {
+    ...base, hasNurse,
+    isStaff: !NOT_STAFF.includes(base.role),
+    canViewAll: isNurse || ['owner', 'hos'].includes(base.role),
+    canManage: isNurse || (['owner', 'hos'].includes(base.role) && !hasNurse),
+    reporter: { id: base.actorId, name: base.actorName, role: base.role, manager: isNurse || (['owner', 'hos'].includes(base.role) && !hasNurse) } as Reporter,
+  }
+}
+
+function healthFailure(c: any, error: unknown, fallback: string) {
+  if (error instanceof HealthError || error instanceof TransportError) return c.json({ success: false, message: error.message }, error.status as any)
+  console.error(fallback, error)
+  return c.json({ success: false, message: fallback }, 500)
+}
+
+/** Can this person see this incident? Viewers see all; parents their child's; staff their own reports. */
+async function canSeeIncident(c: any, actor: Awaited<ReturnType<typeof healthActor>>, row: Record<string, any>) {
+  if (actor.canViewAll) return true
+  if (actor.role === 'parent') return (await transportChildIds(c.env.APP_DB, actor.tenantId, actor.actorId, actor.role, actor.settings)).includes(String(row.student_id))
+  return actor.isStaff && String(row.reported_by_id) === actor.actorId
+}
+
+async function decorateIncidents(c: any, tenantId: string, rows: Record<string, any>[], forParent = false) {
+  const people = await transportPeople(c.env.APP_DB, tenantId, rows.map(row => String(row.student_id)))
+  const photos = await photosFor(c.env.APP_DB, tenantId, rows.map(row => String(row.id)))
+  return rows.map(row => ({
+    ...mapIncident(row, { forParent }),
+    studentName: people.get(String(row.student_id))?.name || 'Student',
+    className: people.get(String(row.student_id))?.className || '',
+    photos: photos.filter(photo => photo.incidentId === String(row.id)).map(photo => ({ id: photo.id, url: `/api/health/photos/${photo.id}` })),
+  }))
+}
+
+app.get('/api/health/context', authenticate, async (c) => {
+  try {
+    const actor = await healthActor(c)
+    return c.json({ success: true, role: actor.role, hasNurse: actor.hasNurse, canReport: actor.isStaff, canManage: actor.canManage, canViewAll: actor.canViewAll, isParent: actor.role === 'parent' })
+  } catch (error) { return healthFailure(c, error, 'Could not load the health register.') }
+})
+
+/** Staff find the child they are reporting about. */
+app.get('/api/health/students', authenticate, async (c) => {
+  try {
+    const actor = await healthActor(c)
+    if (!actor.isStaff) throw new HealthError('Only school staff can look up students here.', 403)
+    const term = `%${String(c.req.query('q') || '').trim().toLowerCase()}%`
+    const rows = await c.env.APP_DB.prepare(`SELECT u.id, u.name, s.payload FROM users u LEFT JOIN settings s ON s.studentId IN (u.email, u.id)
+      WHERE u.tenantId = ? AND lower(u.role) = 'student' AND (u.status IS NULL OR u.status != 'inactive') AND lower(u.name) LIKE ? ORDER BY u.name LIMIT 40`)
+      .bind(actor.tenantId, term).all().catch(() => ({ results: [] }))
+    const students = new Map<string, { id: string, name: string, className: string }>()
+    for (const row of (rows.results || []) as Record<string, any>[]) {
+      const settings = parseHeaderJsonObject(row.payload) || {}
+      if (!students.has(String(row.id)) || settings.className) students.set(String(row.id), { id: String(row.id), name: String(row.name || ''), className: String(settings.className || '') })
+    }
+    return c.json({ success: true, students: [...students.values()] })
+  } catch (error) { return healthFailure(c, error, 'Could not search students.') }
+})
+
+app.post('/api/health/incidents', authenticate, async (c) => {
+  try {
+    const actor = await healthActor(c)
+    if (!actor.isStaff) throw new HealthError('Only school staff can report a health incident.', 403)
+    const id = await createIncident(c.env.APP_DB, actor.tenantId, await c.req.json().catch(() => ({})), actor.reporter)
+    await addAudit(c.env.APP_DB, `tenant:${actor.tenantId}`, { action: 'healthIncidentReported', data: { id, by: actor.actorId } }).catch(() => {})
+    return c.json({ success: true, id }, 201)
+  } catch (error) { return healthFailure(c, error, 'Could not save the report.') }
+})
+
+app.get('/api/health/incidents', authenticate, async (c) => {
+  try {
+    const actor = await healthActor(c)
+    const filters = { status: String(c.req.query('status') || ''), from: String(c.req.query('from') || ''), to: String(c.req.query('to') || '') }
+    let rows: Record<string, any>[]
+    if (actor.canViewAll) {
+      const studentId = String(c.req.query('studentId') || '')
+      rows = await listIncidents(c.env.APP_DB, actor.tenantId, { ...filters, ...(studentId ? { studentIds: [studentId] } : {}) })
+    } else if (actor.role === 'parent') {
+      rows = await listIncidents(c.env.APP_DB, actor.tenantId, { ...filters, studentIds: await transportChildIds(c.env.APP_DB, actor.tenantId, actor.actorId, actor.role, actor.settings) })
+    } else if (actor.isStaff) {
+      rows = await listIncidents(c.env.APP_DB, actor.tenantId, { ...filters, reportedById: actor.actorId, limit: 50 })
+    } else {
+      throw new HealthError('Not available for this account.', 403)
+    }
+    return c.json({ success: true, incidents: await decorateIncidents(c, actor.tenantId, rows, actor.role === 'parent') })
+  } catch (error) { return healthFailure(c, error, 'Could not load the register.') }
+})
+
+app.get('/api/health/incidents/:incidentId', authenticate, async (c) => {
+  try {
+    const actor = await healthActor(c)
+    const row = await getIncidentRow(c.env.APP_DB, actor.tenantId, c.req.param('incidentId'))
+    if (!row || !(await canSeeIncident(c, actor, row))) throw new HealthError('Record not found.', 404)
+    const [incident] = await decorateIncidents(c, actor.tenantId, [row], actor.role === 'parent')
+    const profile = actor.canViewAll || actor.role === 'parent' ? await getHealthProfile(c.env.APP_DB, actor.tenantId, String(row.student_id)) : null
+    return c.json({ success: true, incident, profile })
+  } catch (error) { return healthFailure(c, error, 'Could not load the record.') }
+})
+
+app.put('/api/health/incidents/:incidentId', authenticate, async (c) => {
+  try {
+    const actor = await healthActor(c)
+    if (!actor.canManage) throw new HealthError(actor.hasNurse ? 'The school nurse manages health records.' : 'Only the Owner or Head of School can update health records.', 403)
+    await updateIncident(c.env.APP_DB, actor.tenantId, c.req.param('incidentId'), await c.req.json().catch(() => ({})), actor.reporter)
+    return c.json({ success: true })
+  } catch (error) { return healthFailure(c, error, 'Could not save the record.') }
+})
+
+app.post('/api/health/incidents/:incidentId/rest', authenticate, async (c) => {
+  try {
+    const actor = await healthActor(c)
+    if (!actor.canManage) throw new HealthError('The school nurse manages rest in the sick bay.', 403)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    await setRest(c.env.APP_DB, actor.tenantId, c.req.param('incidentId'), body.action === 'end' ? 'end' : 'start', actor.reporter)
+    return c.json({ success: true })
+  } catch (error) { return healthFailure(c, error, 'Could not record the rest.') }
+})
+
+/** A photo of an injury: by the person who reported it or the nurse. Private to those who may see the record. */
+app.post('/api/health/incidents/:incidentId/photos', authenticate, async (c) => {
+  try {
+    const actor = await healthActor(c)
+    const row = await getIncidentRow(c.env.APP_DB, actor.tenantId, c.req.param('incidentId'))
+    if (!row || !(actor.canManage || (actor.isStaff && String(row.reported_by_id) === actor.actorId))) throw new HealthError('Record not found.', 404)
+    if (!c.env.UPLOADS) throw new HealthError('Photo storage is not available.', 503)
+    const form = await c.req.formData().catch(() => null)
+    const file = form?.get('file') as File | null
+    if (!file || typeof file === 'string') throw new HealthError('Choose a photo.')
+    if (!/^image\/(jpeg|png|webp|heic|heif)$/i.test(file.type || '')) throw new HealthError('Photos must be JPEG, PNG, WebP or HEIC images.')
+    if (file.size > 6 * 1024 * 1024) throw new HealthError('Photos must be 6 MB or smaller.')
+    const key = `health/${actor.tenantId}/${row.id}/${crypto.randomUUID()}`
+    await c.env.UPLOADS.put(key, file.stream(), { httpMetadata: { contentType: file.type } })
+    const id = await addPhoto(c.env.APP_DB, actor.tenantId, String(row.id), key, file.type, actor.actorId)
+    return c.json({ success: true, photo: { id, url: `/api/health/photos/${id}` } }, 201)
+  } catch (error) { return healthFailure(c, error, 'Could not upload the photo.') }
+})
+
+app.get('/api/health/photos/:photoId', authenticate, async (c) => {
+  try {
+    const actor = await healthActor(c)
+    await ensureHealthTables(c.env.APP_DB)
+    const photo = await c.env.APP_DB.prepare(`SELECT * FROM health_photos WHERE id = ? AND tenant_id = ?`).bind(c.req.param('photoId'), actor.tenantId).first() as Record<string, any> | null
+    const row = photo ? await getIncidentRow(c.env.APP_DB, actor.tenantId, String(photo.incident_id)) : null
+    if (!photo || !row || !(await canSeeIncident(c, actor, row))) throw new HealthError('Photo not found.', 404)
+    const file = await c.env.UPLOADS?.get(String(photo.r2_key))
+    if (!file) throw new HealthError('Photo not found.', 404)
+    return new Response(file.body, { headers: { 'Content-Type': String(photo.content_type || 'image/jpeg'), 'Cache-Control': 'private, no-store' } })
+  } catch (error) { return healthFailure(c, error, 'Could not load the photo.') }
+})
+
+/** A student's health history and profile: the Owner, HoS and nurse, or the child's parent. */
+app.get('/api/health/students/:studentId', authenticate, async (c) => {
+  try {
+    const actor = await healthActor(c)
+    const studentId = c.req.param('studentId')
+    const allowed = actor.canViewAll || (actor.role === 'parent' && (await transportChildIds(c.env.APP_DB, actor.tenantId, actor.actorId, actor.role, actor.settings)).includes(studentId))
+    if (!allowed) throw new HealthError('Only the Owner, Head of School, school nurse or the child\'s parent can see a student\'s health history.', 403)
+    const rows = await listIncidents(c.env.APP_DB, actor.tenantId, { studentIds: [studentId] })
+    const person = (await transportPeople(c.env.APP_DB, actor.tenantId, [studentId])).get(studentId)
+    return c.json({ success: true, student: { id: studentId, name: person?.name || 'Student', className: person?.className || '' }, profile: await getHealthProfile(c.env.APP_DB, actor.tenantId, studentId), incidents: await decorateIncidents(c, actor.tenantId, rows, actor.role === 'parent') })
+  } catch (error) { return healthFailure(c, error, 'Could not load the history.') }
+})
+
+app.put('/api/health/students/:studentId/profile', authenticate, async (c) => {
+  try {
+    const actor = await healthActor(c)
+    if (!actor.canManage) throw new HealthError('The school nurse keeps health profiles.', 403)
+    const profile = await saveHealthProfile(c.env.APP_DB, actor.tenantId, c.req.param('studentId'), await c.req.json().catch(() => ({})), actor.actorId)
+    return c.json({ success: true, profile })
+  } catch (error) { return healthFailure(c, error, 'Could not save the health profile.') }
+})
+
+/** Parents: their children's health history (each child with profile and records). */
+app.get('/api/health/mine', authenticate, async (c) => {
+  try {
+    const actor = await healthActor(c)
+    if (actor.role !== 'parent') throw new HealthError('For parents.', 403)
+    const childIds = await transportChildIds(c.env.APP_DB, actor.tenantId, actor.actorId, actor.role, actor.settings)
+    const people = await transportPeople(c.env.APP_DB, actor.tenantId, childIds)
+    const rows = await listIncidents(c.env.APP_DB, actor.tenantId, { studentIds: childIds })
+    const incidents = await decorateIncidents(c, actor.tenantId, rows, true)
+    const children = []
+    for (const studentId of childIds) {
+      // eslint-disable-next-line no-await-in-loop
+      children.push({ studentId, name: people.get(studentId)?.name || 'Student', className: people.get(studentId)?.className || '', profile: await getHealthProfile(c.env.APP_DB, actor.tenantId, studentId), incidents: incidents.filter(item => item.studentId === studentId) })
+    }
+    return c.json({ success: true, children })
+  } catch (error) { return healthFailure(c, error, 'Could not load health records.') }
+})
+
+/** In-app notices: new reports and due follow-ups for the school; a child seen at school for the parent. */
+async function buildHealthNotificationItems(db: D1Database, tenantId: string, role: string, readerId: string, settings: Record<string, any>) {
+  const normalized = normalizeRole(role)
+  const stored = parseRoleList(normalized, settings.role, settings.roles)
+  if (!tenantId || !(HEALTH_VIEW_ALL.some(item => stored.includes(item)) || normalized === 'parent')) return []
+  const since = new Date(Date.now() - 3 * 86400000).toISOString()
+  if (normalized === 'parent') {
+    const childIds = await transportChildIds(db, tenantId, readerId, normalized, settings)
+    const rows = await listIncidents(db, tenantId, { studentIds: childIds, from: since, limit: 10 })
+    if (!rows.length) return []
+    const people = await transportPeople(db, tenantId, rows.map(row => String(row.student_id)))
+    return rows.map(row => ({
+      id: `health:${row.id}`, title: `${people.get(String(row.student_id))?.name || 'Your child'} was seen for ${String(row.complaint || 'a health matter').toLowerCase()} at school`,
+      detail: clampPreview(String(row.first_aid_given || row.description || 'Open to see what was done.'), 140), sender: 'School health', time: formatHeaderTime(row.occurred_at),
+      unread: true, category: 'health', actionUrl: '/roles/parent/health', sortAt: String(row.occurred_at || ''),
+    }))
+  }
+  const reported = await listIncidents(db, tenantId, { status: 'reported', from: since, limit: 10 })
+  const followUps = (await listIncidents(db, tenantId, { status: 'follow_up', limit: 20 })).filter(row => row.follow_up_date && String(row.follow_up_date) <= lagosDate())
+  const people = await transportPeople(db, tenantId, [...reported, ...followUps].map(row => String(row.student_id)))
+  return [
+    ...reported.map(row => ({
+      id: `health:new:${row.id}`, title: `Health report: ${people.get(String(row.student_id))?.name || 'a student'}`,
+      detail: clampPreview(`${row.complaint} — reported by ${row.reported_by_name || 'staff'}`, 140), sender: 'School health', time: formatHeaderTime(row.occurred_at),
+      unread: true, category: 'health', actionUrl: `/roles/${normalized}/health`, sortAt: String(row.occurred_at || ''),
+    })),
+    ...followUps.map(row => ({
+      id: `health:follow:${row.id}`, title: `Follow-up due: ${people.get(String(row.student_id))?.name || 'a student'}`,
+      detail: clampPreview(String(row.follow_up_notes || row.complaint || ''), 140), sender: 'School health', time: formatHeaderTime(row.updated_at),
+      unread: true, category: 'health', actionUrl: `/roles/${normalized}/health`, sortAt: String(row.updated_at || ''),
+    })),
+  ]
 }
 
 // ─── Paying an invoice (public: the link is the secret) ─────────────────────
@@ -34573,7 +34820,7 @@ app.get('/api/communications/deliveries', authenticate, async (c) => {
 app.get('/api/communications/wallets', authenticate, async (c) => {
   try {
     const { tenantId } = await commSchool(c, COMM_VIEW_ROLES)
-    const [wallet, grants, ledger] = await Promise.all([walletSummary(c.env.APP_DB, tenantId), listGrants(c.env.APP_DB, tenantId), ledgerFor(c.env.APP_DB, tenantId)])
+    const [wallet, grants, ledger] = await Promise.all([commWalletSummary(c.env.APP_DB, tenantId), listGrants(c.env.APP_DB, tenantId), ledgerFor(c.env.APP_DB, tenantId)])
     return c.json({ success: true, wallet, grants, ledger })
   } catch (error) { return commFailure(c, error, 'Could not load the wallets.') }
 })
@@ -34800,7 +35047,7 @@ app.get('/api/super-admin/communications/schools', authenticate, async (c) => {
   try {
     const tenants = ((await c.env.APP_DB.prepare(`SELECT id, school_name AS name, status FROM tenants ORDER BY school_name LIMIT 1000`).all()).results || []) as Record<string, any>[]
     const schools = []
-    for (const tenant of tenants) schools.push({ id: String(tenant.id), name: String(tenant.name || tenant.id), status: tenant.status, wallet: await walletSummary(c.env.APP_DB, String(tenant.id)) })
+    for (const tenant of tenants) schools.push({ id: String(tenant.id), name: String(tenant.name || tenant.id), status: tenant.status, wallet: await commWalletSummary(c.env.APP_DB, String(tenant.id)) })
     return c.json({ success: true, schools })
   } catch (error) { return commFailure(c, error, 'Could not load school wallets.') }
 })
