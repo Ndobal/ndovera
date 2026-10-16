@@ -175,6 +175,12 @@ import {
   frozenCaComponents,
   submitCaComponent,
   reviewCaSubmission,
+  setScheduledHandIn,
+  setHandInNote,
+  listDueScheduledHandIns,
+  listSubjectGroups,
+  saveSubjectGroup,
+  subjectGroupKey,
 } from './results'
 import {
   AcademicError,
@@ -1841,13 +1847,24 @@ async function resolveCurrentResultPeriod(
   }
 }
 
+/**
+ * The role used on result routes. ICT is folded into the merged 'admin' role elsewhere,
+ * but on score sheets ICT keeps its own rights (helping teachers enter scores).
+ */
+function resultRoleOf(resolvedUser: { settings?: Record<string, any> | null, userRow?: Record<string, any> | null }, user: Record<string, any>) {
+  const role = resolveEffectiveRole(resolvedUser, user)
+  if (role !== 'admin') return role
+  const { rawRoles } = buildRoleContext(resolvedUser?.settings || {}, resolvedUser?.userRow?.role || user.role)
+  return rawRoles.includes('ict') ? 'ict' : role
+}
+
 async function resolveResultClassAccess(db: D1Database, user: Record<string, any>, classId: string) {
   const userIdentifier = user.id || user.email || user.sub || ''
   const resolvedUser = await resolveSettingsIdentity(db, userIdentifier)
   const tenantId = resolvedUser.settings?.tenantId || resolvedUser.settings?.schoolId || resolvedUser.userRow?.tenantId || user.tenantId
   const actorId = String(resolvedUser.userRow?.id || resolvedUser.userRow?.email || resolvedUser.settingsKey || userIdentifier || '').trim()
   const actorName = String(resolvedUser.settings?.name || resolvedUser.userRow?.name || user.name || actorId).trim()
-  const normalizedRole = resolveEffectiveRole(resolvedUser, user)
+  const normalizedRole = resultRoleOf(resolvedUser, user)
   const teacherIdentifiers = collectComparableIdentifiers(collectResolvedIdentityIdentifiers(resolvedUser, user))
 
   await ensureClassesTable(db)
@@ -1864,7 +1881,13 @@ async function resolveResultClassAccess(db: D1Database, user: Record<string, any
     : { results: [] }
   const subjectRows = ((subjectRowsResult as any)?.results || []) as Record<string, any>[]
   const isElevatedManager = RESULT_SETTINGS_EDITOR_ROLES.includes(normalizedRole) || RESULT_APPROVER_ROLES.includes(normalizedRole)
-  const isClassTeacher = Boolean(classRow) && matchesComparableIdentifier(classRow?.classTeacherId, teacherIdentifiers)
+  // The assistant (co-) class teacher has the class teacher's rights on the score sheet.
+  let isClassTeacher = Boolean(classRow) && matchesComparableIdentifier(classRow?.classTeacherId, teacherIdentifiers)
+  if (classRow && !isClassTeacher) {
+    await ensureClassMembershipsTable(db)
+    const coTeachers = ((await db.prepare(`SELECT user_id FROM class_memberships WHERE tenant_id = ? AND class_id = ? AND membership_role = 'teacher'`).bind(tenantId, classId).all().catch(() => ({ results: [] }))).results || []) as Record<string, any>[]
+    isClassTeacher = coTeachers.some(row => matchesComparableIdentifier(row.user_id, teacherIdentifiers))
+  }
   let allowedSubjectRows = subjectRows.filter(subjectRow => matchesComparableIdentifier(subjectRow.teacherId, teacherIdentifiers))
   if (isClassTeacher || isElevatedManager) {
     allowedSubjectRows = subjectRows
@@ -1887,27 +1910,65 @@ async function resolveResultClassAccess(db: D1Database, user: Record<string, any
     overrideRank: isElevatedManager ? 2 : isClassTeacher ? 1 : 0,
     canManageEntries: Boolean(classRow) && (isElevatedManager || isClassTeacher || allowedSubjectRows.length > 0),
     canManageProfiles: Boolean(classRow) && (isElevatedManager || isClassTeacher),
+    // One hand-in for the whole class, by the class teacher (the HoS/Owner can act for them).
+    canHandIn: Boolean(classRow) && (isClassTeacher || RESULT_APPROVER_ROLES.includes(normalizedRole)),
   }
 }
 
+/**
+ * Every student × subject still without a score row. A student removed from a
+ * subject (subject_exclusions) does not need one.
+ */
+function findMissingScores(students: Array<Record<string, any>>, subjectRows: Array<Record<string, any>>, entries: Array<Record<string, any>>, exclusions: Record<string, string[]>) {
+  const have = new Set(entries.map(entry => `${entry.studentId}::${entry.subjectId}`))
+  const missing: Array<{ studentId: string, studentName: string, subjectId: string, subjectName: string }> = []
+  for (const subject of subjectRows) {
+    const excluded = new Set(exclusions[String(subject.id)] || [])
+    for (const student of students) {
+      if (excluded.has(String(student.id)) || have.has(`${student.id}::${subject.id}`)) continue
+      missing.push({ studentId: String(student.id), studentName: String(student.name || ''), subjectId: String(subject.id), subjectName: String(subject.name || '') })
+    }
+  }
+  return missing
+}
+
+function describeMissingScores(missing: ReturnType<typeof findMissingScores>) {
+  const byStudent = new Map<string, string[]>()
+  for (const item of missing) byStudent.set(item.studentName, [...(byStudent.get(item.studentName) || []), item.subjectName])
+  const names = [...byStudent.entries()].slice(0, 5).map(([name, subjects]) => `${name} (${subjects.slice(0, 3).join(', ')}${subjects.length > 3 ? '…' : ''})`)
+  return `${missing.length} score${missing.length === 1 ? ' is' : 's are'} still missing: ${names.join('; ')}${byStudent.size > 5 ? ` and ${byStudent.size - 5} more student${byStudent.size - 5 === 1 ? '' : 's'}` : ''}.`
+}
+
 async function listResultClassStudents(db: D1Database, tenantId: string, classRow: Record<string, any>) {
+  return (await listResultStudentsByClass(db, tenantId, [classRow])).get(String(classRow.id || '')) || []
+}
+
+/** The students of each given class, read in one pass (used by combined-subject sheets). */
+async function listResultStudentsByClass(db: D1Database, tenantId: string, classRows: Array<Record<string, any>>) {
   await ensureUsersTable(db)
   const rows = await db.prepare(
     `SELECT id, name, email, role, status, createdAt FROM users WHERE tenantId = ? AND role = 'student' ORDER BY name`
   ).bind(tenantId).all()
   const hydrated = await hydrateUserRecords(db, (rows.results || []) as Record<string, any>[])
-  const className = `${classRow.name}${classRow.arm ? ` ${classRow.arm}` : ''}`
-  return hydrated
-    .filter(student => String(student?.classId || '') === String(classRow.id || ''))
-    .map(student => ({
+  const byClass = new Map<string, Array<Record<string, any>>>()
+  const classById = new Map(classRows.map(row => [String(row.id || ''), row]))
+  for (const student of hydrated) {
+    const classRow = classById.get(String(student?.classId || ''))
+    if (!classRow) continue
+    const classId = String(classRow.id || '')
+    const list = byClass.get(classId) || []
+    list.push({
       id: String(student?.id || ''),
       name: String(student?.name || ''),
       email: String(student?.email || ''),
       displayId: String(student?.displayId || ''),
-      classId: String(classRow.id || ''),
-      className,
+      classId,
+      className: `${classRow.name}${classRow.arm ? ` ${classRow.arm}` : ''}`,
       status: String(student?.status || 'active'),
-    }))
+    })
+    byClass.set(classId, list)
+  }
+  return byClass
 }
 
 // Lightweight roster used only for matching result PDFs to students. It reads users, their settings
@@ -12586,8 +12647,8 @@ async function loadComplianceWorld(db: D1Database, tenantId: string, options: { 
 }
 
 /** The school's C.A. components (CA 1, CA 2…) from its result settings. */
-async function schoolCaComponents(db: D1Database, tenantId: string) {
-  const stored = await getResultSettings(db, tenantId).catch(() => ({ metadata: {} } as Record<string, any>))
+async function schoolCaComponents(db: D1Database, tenantId: string, section = '') {
+  const stored = await getResultSettings(db, tenantId, section).catch(() => ({ metadata: {} } as Record<string, any>))
   const settings = { ...stored, ...normalizeResultSettingsInput(stored) }
   const scoreSettings = normalizeResultScoreSettings(settings.metadata, RESULT_DEFAULT_SCORE_LIMITS)
   return normalizeResultCaComponentList(settings.metadata?.caComponents, RESULT_DEFAULT_CA_COMPONENTS, 8, scoreSettings.caMaxScore)
@@ -24783,6 +24844,8 @@ app.get('/api/results/settings', authenticate, async (c) => {
     suggestedSettings,
     configurationReady: !configurationError,
     configurationError,
+    // A section without its own settings is still using the school-wide ones.
+    inherited: Boolean(section) && Boolean((stored as any).inherited),
     canManageSettings: hasRequiredRole(c.var.user.role, RESULT_SETTINGS_EDITOR_ROLES),
   })
 })
@@ -24946,7 +25009,8 @@ app.get('/api/results/sheet', authenticate, async (c) => {
     listClassSubjectExclusions(c.env.APP_DB, access.tenantId, classId),
     listCaSubmissions(c.env.APP_DB, batch.id),
   ])
-  const canSubmit = access.canManageProfiles || RESULT_APPROVER_ROLES.includes(access.normalizedRole)
+  const canSubmit = access.canHandIn
+  const missingScores = findMissingScores(workspace.students, workspace.subjectRows, entries, exclusions)
 
   return c.json({
     success: true,
@@ -24968,7 +25032,13 @@ app.get('/api/results/sheet', authenticate, async (c) => {
       className: workspace.className,
       isClassTeacher: access.isClassTeacher,
     },
+    missingScores: missingScores.slice(0, 200),
+    missingCount: missingScores.length,
     permissions: {
+      canHandIn: access.canHandIn,
+      // Subject teachers submit their subjects to the class teacher, who can correct them.
+      canSubmitSubjects: !access.canHandIn && access.allowedSubjectRows.length > 0,
+      canReturnSubjects: access.canHandIn,
       canManageEntries: access.canManageEntries,
       canManageProfiles: access.canManageProfiles,
       canSubmit,
@@ -25046,6 +25116,7 @@ app.post('/api/results/entries', authenticate, async (c) => {
         caComponents: componentScores,
         caScore: sumResultEntryCaComponents(componentScores, caComponents, scoreSettings.caMaxScore),
         examScore: clampResultScore(row.examScore, scoreSettings.examMaxScore),
+        entered: Boolean(row.entered),
       }
     })
     .filter(Boolean) as Array<Record<string, any>>
@@ -25066,7 +25137,9 @@ app.post('/api/results/entries', authenticate, async (c) => {
     settingsSnapshot: settings,
     rows: normalizedRows,
     writer: { name: access.actorName, role: access.normalizedRole, rank: access.overrideRank, reason: String(body.reason || '').trim() },
-    frozen: frozenCaComponents(await listCaSubmissions(c.env.APP_DB, (await getResultBatch(c.env.APP_DB, access.tenantId, classId, period.sessionName, period.termName)).id)),
+    // Subjects submitted to the class teacher stay open to the class teacher (and above) to correct.
+    frozen: frozenCaComponents((await listCaSubmissions(c.env.APP_DB, (await getResultBatch(c.env.APP_DB, access.tenantId, classId, period.sessionName, period.termName)).id))
+      .filter(item => access.overrideRank < 1 || item.status !== 'submitted')),
     frozenOverride: RESULT_APPROVER_ROLES.includes(access.normalizedRole),
     })
   } catch (error) {
@@ -25166,8 +25239,8 @@ app.post('/api/results/batch-status', authenticate, async (c) => {
   const access = await resolveResultClassAccess(c.env.APP_DB, c.var.user || {}, classId)
   if (!access.tenantId) return c.json({ error: 'No tenant.' }, 400)
   if (!access.classRow) return c.json({ error: 'Class not found.' }, 404)
-  if (!access.canManageProfiles && !RESULT_APPROVER_ROLES.includes(access.normalizedRole)) {
-    return c.json({ error: 'Only the class teacher, HoS, or owner can submit this batch.' }, 403)
+  if (status === 'draft' ? (!access.canManageProfiles && !RESULT_APPROVER_ROLES.includes(access.normalizedRole)) : !access.canHandIn) {
+    return c.json({ error: status === 'draft' ? 'Only the class teacher, HoS, or owner can reopen this batch.' : 'Only the class teacher hands in the class results.' }, 403)
   }
 
   let workspace
@@ -25184,6 +25257,15 @@ app.post('/api/results/batch-status', authenticate, async (c) => {
     const configurationError = validateResultSettings(settings)
     if (configurationError) return c.json({ error: configurationError }, 400)
   }
+  if (status === 'submitted') {
+    const current = await getResultBatch(c.env.APP_DB, access.tenantId, classId, period.sessionName, period.termName)
+    const [entries, exclusions] = await Promise.all([listResultEntries(c.env.APP_DB, current.id), listClassSubjectExclusions(c.env.APP_DB, access.tenantId, classId)])
+    const missing = findMissingScores(workspace.students, workspace.subjectRows, entries, exclusions)
+    // The HoS or Owner may hand in with scores missing when they choose to.
+    if (missing.length && !(body.force && RESULT_APPROVER_ROLES.includes(access.normalizedRole))) {
+      return c.json({ error: `Enter every student's scores before handing in. ${describeMissingScores(missing)}`, missing: missing.slice(0, 200) }, 400)
+    }
+  }
 
   const batch = await updateResultBatchStatus(c.env.APP_DB, {
     tenantId: access.tenantId,
@@ -25195,9 +25277,83 @@ app.post('/api/results/batch-status', authenticate, async (c) => {
     templateKey: settings.templateKey,
     settingsSnapshot: settings,
   })
+  if (status === 'submitted' && batch.scheduledHandInAt) await setScheduledHandIn(c.env.APP_DB, batch.id, null, { id: '', name: '' })
+  if (status === 'submitted' && !workspace.practice) {
+    await addAudit(c.env.APP_DB, access.tenantId, { action: 'classResultsHandedIn', data: { classId, className: workspace.className, by: access.actorName, session: period.sessionName, term: period.termName } }).catch(() => null)
+  }
 
-  return c.json({ success: true, batch })
+  return c.json({ success: true, batch: await getResultBatch(c.env.APP_DB, access.tenantId, classId, period.sessionName, period.termName) })
 })
+
+/** The class teacher schedules the class hand-in (or clears the schedule with `at: null`). */
+app.post('/api/results/handin-schedule', authenticate, async (c) => {
+  const body = await c.req.json().catch(() => ({})) as Record<string, any>
+  const classId = String(body.classId || '').trim()
+  if (!classId) return c.json({ error: 'classId is required.' }, 400)
+  const access = await resolveResultClassAccess(c.env.APP_DB, c.var.user || {}, classId)
+  if (!access.tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!access.classRow) return c.json({ error: 'Class not found.' }, 404)
+  if (!access.canHandIn) return c.json({ error: 'Only the class teacher hands in the class results.' }, 403)
+  let workspace
+  try {
+    workspace = await resolveResultWorkspace(c.env.APP_DB, access, body)
+  } catch (error) {
+    return resultWorkspaceFailure(c, error)
+  }
+  if (workspace.practice) return c.json({ error: 'Practice sheets are handed in straight away.' }, 400)
+  const { period } = workspace
+  const batch = await getResultBatch(c.env.APP_DB, access.tenantId, classId, period.sessionName, period.termName)
+  if (batch.status !== 'draft') return c.json({ error: 'This class has already been handed in.' }, 409)
+  let at: string | null = null
+  if (body.at) {
+    const when = new Date(String(body.at))
+    if (Number.isNaN(when.getTime())) return c.json({ error: 'Choose a valid date and time.' }, 400)
+    if (when.getTime() < Date.now() + 60_000) return c.json({ error: 'Choose a time at least a minute from now.' }, 400)
+    if (when.getTime() > Date.now() + 120 * 86400_000) return c.json({ error: 'Choose a time within the next 120 days.' }, 400)
+    at = when.toISOString()
+  }
+  // The row may not exist yet when nothing has been saved; create it so the schedule has somewhere to live.
+  if (!batch.createdAt) await updateResultBatchStatus(c.env.APP_DB, { tenantId: access.tenantId, classId, sessionName: period.sessionName, termName: period.termName, actorId: access.actorId, status: 'draft', sessionId: period.sessionId, termId: period.termId } as any)
+  await setScheduledHandIn(c.env.APP_DB, batch.id, at, { id: access.actorId, name: access.actorName })
+  return c.json({ success: true, batch: await getResultBatch(c.env.APP_DB, access.tenantId, classId, period.sessionName, period.termName) })
+})
+
+/**
+ * Scheduled class hand-ins that have fallen due: handed in when every score is in,
+ * otherwise the schedule is cleared and the sheet says what is missing.
+ */
+async function runDueScheduledHandIns(db: D1Database) {
+  const due = await listDueScheduledHandIns(db, new Date().toISOString(), 5)
+  for (const row of due) {
+    const tenantId = String(row.tenant_id)
+    const classId = String(row.class_id)
+    try {
+      if (String(row.status) !== 'draft') { await setHandInNote(db, String(row.id), ''); continue }
+      await ensureClassesTable(db)
+      const classRow = await db.prepare(`SELECT id, tenantId, name, arm, classTeacherId, section FROM classes WHERE id = ? AND tenantId = ?`).bind(classId, tenantId).first() as Record<string, any> | null
+      if (!classRow) { await setHandInNote(db, String(row.id), 'The scheduled hand-in did not go through: the class was not found.'); continue }
+      const subjectRows = ((await db.prepare(`SELECT id, name, teacherId FROM subjects WHERE tenantId = ? AND classId = ? ORDER BY name`).bind(tenantId, classId).all().catch(() => ({ results: [] }))).results || []) as Record<string, any>[]
+      const [students, entries, exclusions] = await Promise.all([
+        listResultClassStudents(db, tenantId, classRow),
+        listResultEntries(db, String(row.id)),
+        listClassSubjectExclusions(db, tenantId, classId),
+      ])
+      const missing = findMissingScores(students, subjectRows, entries, exclusions)
+      if (missing.length) {
+        await setHandInNote(db, String(row.id), `The scheduled hand-in did not go through. ${describeMissingScores(missing)} Enter them, then hand in.`)
+        continue
+      }
+      const storedSettings = await getResultSettings(db, tenantId, classSectionValue(classRow))
+      const settings = { ...storedSettings, ...normalizeResultSettingsInput(storedSettings) }
+      await updateResultBatchStatus(db, { tenantId, classId, sessionName: String(row.session_name), termName: String(row.term_name), actorId: String(row.scheduled_handin_by || 'schedule'), status: 'submitted', templateKey: settings.templateKey, settingsSnapshot: settings })
+      await setHandInNote(db, String(row.id), '')
+      await addAudit(db, tenantId, { action: 'classResultsHandedIn', data: { classId, className: `${classRow.name}${classRow.arm ? ` ${classRow.arm}` : ''}`, by: String(row.scheduled_handin_name || ''), scheduled: true, session: row.session_name, term: row.term_name } }).catch(() => null)
+    } catch (error) {
+      console.error('Scheduled hand-in failed', row.id, error)
+      await setHandInNote(db, String(row.id), 'The scheduled hand-in did not go through. Please hand in from the score sheet.').catch(() => null)
+    }
+  }
+}
 
 /** Whether a section head (principal, headteacher, nursery head by default) oversees this class's section. */
 async function isSectionHeadForClass(db: D1Database, tenantId: string, role: string, classRow: Record<string, any> | null) {
@@ -25220,10 +25376,11 @@ app.post('/api/results/ca-submissions', authenticate, async (c) => {
     return resultWorkspaceFailure(c, error)
   }
   const subject = workspace.subjectRows.find(item => String(item.id) === String(body.subjectId || ''))
-  if (!subject) return c.json({ error: 'Hand in C.A. for a subject you teach in this class.' }, 403)
-  const components = await schoolCaComponents(c.env.APP_DB, access.tenantId)
-  const componentKey = String(body.componentKey || '').trim()
-  const component = componentKey === 'all' ? { key: 'all', label: 'All C.A.' } : components.find(item => item.key === componentKey)
+  if (!subject) return c.json({ error: 'Submit scores for a subject you teach in this class.' }, 403)
+  const components = await schoolCaComponents(c.env.APP_DB, access.tenantId, classSectionValue(access.classRow))
+  // A subject is submitted to the class teacher once, with all its scores.
+  const componentKey = String(body.componentKey || 'all').trim()
+  const component = componentKey === 'all' ? { key: 'all', label: 'All scores' } : components.find(item => item.key === componentKey)
   if (!component) return c.json({ error: 'Choose which C.A. you are handing in.' }, 400)
 
   // Every student who takes the subject needs a score row before it can be handed in.
@@ -25234,8 +25391,8 @@ app.post('/api/results/ca-submissions', authenticate, async (c) => {
   const missing = workspace.students.filter(student => !excluded.has(String(student.id)) && !entries.some(entry => entry.studentId === String(student.id)))
   if (missing.length) return c.json({ error: `Enter scores for every student first. Missing: ${missing.slice(0, 6).map(student => student.name).join(', ')}${missing.length > 6 ? '…' : ''}.` }, 400)
   const keys = component.key === 'all' ? components.map(item => item.key) : [component.key]
-  if (entries.length && entries.every(entry => keys.every(key => Number(entry.caComponents?.[key] || 0) === 0))) {
-    return c.json({ error: `Every score for ${component.label} is zero. Enter the scores before handing them in.` }, 400)
+  if (entries.length && entries.every(entry => keys.every(key => Number(entry.caComponents?.[key] || 0) === 0) && (component.key !== 'all' || Number(entry.examScore || 0) === 0))) {
+    return c.json({ error: `Every score for ${subject.name} is zero. Enter the scores before submitting them.` }, 400)
   }
   try {
     const submission = await submitCaComponent(c.env.APP_DB, {
@@ -25257,8 +25414,10 @@ app.post('/api/results/ca-submissions/:id/review', authenticate, async (c) => {
   if (!access.classRow) return c.json({ error: 'Class not found.' }, 404)
   const finalApprover = RESULT_APPROVER_ROLES.includes(access.normalizedRole)
   const sectionHead = await isSectionHeadForClass(c.env.APP_DB, access.tenantId, access.normalizedRole, access.classRow)
-  if (!finalApprover && !sectionHead) return c.json({ error: 'Only the section head, HoS or Owner can review C.A. scores.' }, 403)
   const body = await c.req.json().catch(() => ({})) as Record<string, any>
+  // The class teacher sends a submitted subject back to its teacher for correction.
+  const classTeacherReturn = access.isClassTeacher && String(body.action || '') === 'return' && submission.status === 'submitted'
+  if (!finalApprover && !sectionHead && !classTeacherReturn) return c.json({ error: 'Only the class teacher, section head, HoS or Owner can review these scores.' }, 403)
   try {
     const reviewed = await reviewCaSubmission(c.env.APP_DB, { tenantId, id: submission.id, action: String(body.action || ''), note: body.note, actor: { name: access.actorName }, finalApprover })
     await addAudit(c.env.APP_DB, tenantId, { action: 'caSubmissionReviewed', data: { submissionId: submission.id, subject: submission.subjectName, component: submission.componentLabel, action: body.action, note: body.note || '', by: access.actorName } }).catch(() => null)
@@ -25266,6 +25425,247 @@ app.post('/api/results/ca-submissions/:id/review', authenticate, async (c) => {
   } catch (error) {
     return c.json({ error: error instanceof Error ? error.message : 'Could not review these scores.' }, 409)
   }
+})
+
+// ─── Combined subjects ───────────────────────────────────────────────────────
+//
+// One subject taught to students of several classes (Fashion and Design across
+// SS1A, SS1B…). Its teacher scores everyone on one sheet; each score is written to
+// the student's own class batch, so class sheets, hand-in and results are unchanged.
+
+async function resolveResultActor(db: D1Database, user: Record<string, any>) {
+  const userIdentifier = user.id || user.email || user.sub || ''
+  const resolvedUser = await resolveSettingsIdentity(db, userIdentifier)
+  const tenantId = String(resolvedUser.settings?.tenantId || resolvedUser.settings?.schoolId || resolvedUser.userRow?.tenantId || user.tenantId || '')
+  return {
+    tenantId,
+    actorId: String(resolvedUser.userRow?.id || resolvedUser.userRow?.email || resolvedUser.settingsKey || userIdentifier || '').trim(),
+    actorName: String(resolvedUser.settings?.name || resolvedUser.userRow?.name || user.name || '').trim(),
+    normalizedRole: resultRoleOf(resolvedUser, user),
+    teacherIdentifiers: collectComparableIdentifiers(collectResolvedIdentityIdentifiers(resolvedUser, user)),
+  }
+}
+
+async function loadSchoolSubjectGroups(db: D1Database, tenantId: string) {
+  await ensureClassesTable(db)
+  const classes = ((await db.prepare(`SELECT id, name, arm, classTeacherId, section FROM classes WHERE tenantId = ?`).bind(tenantId).all().catch(() => ({ results: [] }))).results || []) as Record<string, any>[]
+  const subjects = ((await db.prepare(`SELECT id, name, classId, teacherId FROM subjects WHERE tenantId = ?`).bind(tenantId).all().catch(() => ({ results: [] }))).results || []) as Record<string, any>[]
+  const groups = await listSubjectGroups(db, tenantId,
+    classes.map(row => ({ id: String(row.id), section: classSectionValue(row) })),
+    subjects.map(row => ({ id: String(row.id), name: String(row.name || ''), classId: String(row.classId || '') })))
+  return { classes, subjects, groups }
+}
+
+function subjectGroupMembers(group: { classIds: string[], subjectKey: string }, classes: Record<string, any>[], subjects: Record<string, any>[]) {
+  return group.classIds.map(classId => {
+    const classRow = classes.find(row => String(row.id) === classId)
+    const subject = subjects.find(row => String(row.classId) === classId && subjectGroupKey(row.name) === group.subjectKey)
+    return classRow && subject ? { classRow, subject, className: `${classRow.name}${classRow.arm ? ` ${classRow.arm}` : ''}` } : null
+  }).filter(Boolean) as Array<{ classRow: Record<string, any>, subject: Record<string, any>, className: string }>
+}
+
+const resultGroupManager = (role: string) => RESULT_SETTINGS_EDITOR_ROLES.includes(role) || RESULT_APPROVER_ROLES.includes(role)
+
+/** Combined subjects: every possible group for the HoS/Owner/ICT; for a teacher, the groups they teach. */
+app.get('/api/results/subject-groups', authenticate, async (c) => {
+  const actor = await resolveResultActor(c.env.APP_DB, c.var.user || {})
+  if (!actor.tenantId) return c.json({ error: 'No tenant.' }, 400)
+  const { classes, subjects, groups } = await loadSchoolSubjectGroups(c.env.APP_DB, actor.tenantId)
+  const canManage = resultGroupManager(actor.normalizedRole)
+  const nameOf = (id: string) => { const row = classes.find(item => String(item.id) === id); return row ? `${row.name}${row.arm ? ` ${row.arm}` : ''}` : id }
+  const visible = canManage ? groups : groups.filter(group => group.enabled
+    && subjectGroupMembers(group, classes, subjects).some(member => matchesComparableIdentifier(member.subject.teacherId, actor.teacherIdentifiers)))
+  return c.json({
+    success: true,
+    canManage,
+    groups: visible.map(group => ({ ...group, classes: group.availableClassIds.map(id => ({ id, name: nameOf(id) })).sort((a, b) => a.name.localeCompare(b.name)) })),
+  })
+})
+
+/** The school turns a combined subject on or off, or chooses which classes it joins. */
+app.post('/api/results/subject-groups', authenticate, async (c) => {
+  const actor = await resolveResultActor(c.env.APP_DB, c.var.user || {})
+  if (!actor.tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!resultGroupManager(actor.normalizedRole)) return c.json({ error: 'Only the HoS, Owner or ICT can set up combined subjects.' }, 403)
+  const body = await c.req.json().catch(() => ({})) as Record<string, any>
+  const { groups } = await loadSchoolSubjectGroups(c.env.APP_DB, actor.tenantId)
+  const group = groups.find(item => item.section === String(body.section || '') && item.subjectKey === String(body.subjectKey || ''))
+  if (!group) return c.json({ error: 'That subject is not taught in two or more classes of this section.' }, 404)
+  const classIds = Array.isArray(body.classIds) ? [...new Set(body.classIds.map(String))].filter(id => group.availableClassIds.includes(id)) : group.classIds
+  const enabled = body.enabled !== false
+  if (enabled && classIds.length < 2) return c.json({ error: 'Choose at least two classes to combine.' }, 400)
+  await saveSubjectGroup(c.env.APP_DB, { tenantId: actor.tenantId, section: group.section, subjectKey: group.subjectKey, name: group.name, classIds, enabled, actorId: actor.actorId })
+  return c.json({ success: true })
+})
+
+class SubjectGroupAccessError extends Error {
+  constructor(message: string, readonly status: 400 | 403 | 404) { super(message) }
+}
+
+async function resolveSubjectGroupAccess(db: D1Database, user: Record<string, any>, groupId: string) {
+  const actor = await resolveResultActor(db, user)
+  if (!actor.tenantId) throw new SubjectGroupAccessError('No tenant.', 400)
+  const { classes, subjects, groups } = await loadSchoolSubjectGroups(db, actor.tenantId)
+  const group = groups.find(item => item.id === groupId && item.enabled)
+  if (!group) throw new SubjectGroupAccessError('This combined subject was not found, or the school has switched it off.', 404)
+  const members = subjectGroupMembers(group, classes, subjects)
+  const elevated = resultGroupManager(actor.normalizedRole)
+  if (!elevated && !members.some(member => matchesComparableIdentifier(member.subject.teacherId, actor.teacherIdentifiers))) {
+    throw new SubjectGroupAccessError('You do not teach this combined subject.', 403)
+  }
+  let period: ResultPeriod
+  try {
+    period = await resolveCurrentResultPeriod(db, actor.tenantId)
+  } catch (error) {
+    if (error instanceof ResultPeriodError) throw new SubjectGroupAccessError(error.message, 400)
+    throw error
+  }
+  const storedSettings = await getResultSettings(db, actor.tenantId, group.section)
+  const settings = { ...storedSettings, ...normalizeResultSettingsInput(storedSettings) }
+  return { actor, group, members, elevated, period, settings }
+}
+
+function subjectGroupFailure(c: any, error: unknown) {
+  if (error instanceof SubjectGroupAccessError) return c.json({ error: error.message }, error.status)
+  throw error
+}
+
+/** One sheet for a combined subject: every student of every member class who takes it. */
+app.get('/api/results/group-sheet', authenticate, async (c) => {
+  let ctx
+  try { ctx = await resolveSubjectGroupAccess(c.env.APP_DB, c.var.user || {}, String(c.req.query('groupId') || '')) } catch (error) { return subjectGroupFailure(c, error) }
+  const { actor, group, members, period, settings, elevated } = ctx
+  const db = c.env.APP_DB
+  const studentsByClass = await listResultStudentsByClass(db, actor.tenantId, members.map(member => member.classRow))
+  const classes = []
+  const students = []
+  const entries = []
+  for (const member of members) {
+    const classId = String(member.classRow.id)
+    const subjectId = String(member.subject.id)
+    const batch = await getResultBatch(db, actor.tenantId, classId, period.sessionName, period.termName)
+    const [classEntries, exclusions, submissions] = await Promise.all([
+      listResultEntries(db, batch.id),
+      listClassSubjectExclusions(db, actor.tenantId, classId),
+      listCaSubmissions(db, batch.id),
+    ])
+    const excluded = new Set(exclusions[subjectId] || [])
+    const submission = submissions.find(item => item.subjectId === subjectId && item.componentKey === 'all') || null
+    classes.push({
+      classId, className: member.className, subjectId, subjectName: String(member.subject.name || ''), batchStatus: batch.status, submittedAt: batch.submittedAt,
+      submission: submission ? { status: submission.status, returnNote: submission.returnNote, submittedAt: submission.submittedAt } : null,
+      frozen: submissions.some(item => item.subjectId === subjectId && item.status !== 'returned'),
+    })
+    for (const student of studentsByClass.get(classId) || []) if (!excluded.has(String(student.id))) students.push(student)
+    for (const entry of classEntries) if (entry.subjectId === subjectId) entries.push({ ...entry, classId })
+  }
+  const configurationError = validateResultSettings(settings)
+  return c.json({
+    success: true,
+    group: { id: group.id, name: group.name, section: group.section },
+    period,
+    settings,
+    configurationReady: !configurationError,
+    configurationError,
+    permissions: { canSubmit: !elevated || members.some(member => matchesComparableIdentifier(member.subject.teacherId, actor.teacherIdentifiers)), overrideRank: elevated ? 2 : 0 },
+    classes,
+    students: students.sort((a, b) => String(a.name).localeCompare(String(b.name))),
+    entries,
+  })
+})
+
+/** Saves combined-subject scores, each into the student's own class batch. */
+app.post('/api/results/group-entries', authenticate, async (c) => {
+  const body = await c.req.json().catch(() => ({})) as Record<string, any>
+  let ctx
+  try { ctx = await resolveSubjectGroupAccess(c.env.APP_DB, c.var.user || {}, String(body.groupId || '')) } catch (error) { return subjectGroupFailure(c, error) }
+  const { actor, members, period, settings, elevated } = ctx
+  const db = c.env.APP_DB
+  const configurationError = validateResultSettings(settings)
+  if (configurationError) return c.json({ error: configurationError }, 400)
+  await ensureSessionTermExists(db, actor.tenantId, period.sessionName, period.termName)
+  const scoreSettings = normalizeResultScoreSettings(settings.metadata, RESULT_DEFAULT_SCORE_LIMITS)
+  const caComponents = normalizeResultCaComponentList(settings.metadata?.caComponents, RESULT_DEFAULT_CA_COMPONENTS, 8, scoreSettings.caMaxScore)
+  const rows = Array.isArray(body.rows) ? body.rows : []
+  const studentsByClass = await listResultStudentsByClass(db, actor.tenantId, members.map(member => member.classRow))
+  let saved = 0
+  const locked: any[] = []
+  const errors: string[] = []
+  for (const member of members) {
+    const classId = String(member.classRow.id)
+    const classRows = rows.filter((row: any) => String(row.classId || '') === classId)
+    if (!classRows.length) continue
+    const subjectId = String(member.subject.id)
+    const allowed = new Set((studentsByClass.get(classId) || []).map(student => String(student.id)))
+    const excluded = new Set((await listClassSubjectExclusions(db, actor.tenantId, classId))[subjectId] || [])
+    const subjectTeacherId = String(member.subject.teacherId || '').trim()
+    const ownSubject = !subjectTeacherId || matchesComparableIdentifier(subjectTeacherId, actor.teacherIdentifiers) || !elevated
+    const normalizedRows = classRows
+      .filter((row: any) => allowed.has(String(row.studentId || '')) && !excluded.has(String(row.studentId || '')))
+      .map((row: any) => {
+        const componentScores = normalizeResultEntryCaComponents(row.caComponents, caComponents, row.caScore, scoreSettings.caMaxScore)
+        return {
+          studentId: String(row.studentId), subjectId, subjectName: String(member.subject.name || ''), teacherId: subjectTeacherId || actor.actorId, ownSubject,
+          caComponents: componentScores, caScore: sumResultEntryCaComponents(componentScores, caComponents, scoreSettings.caMaxScore),
+          examScore: clampResultScore(row.examScore, scoreSettings.examMaxScore), entered: Boolean(row.entered),
+        }
+      })
+    if (!normalizedRows.length) continue
+    try {
+      const batch = await getResultBatch(db, actor.tenantId, classId, period.sessionName, period.termName)
+      const written = await writeResultEntries(db, {
+        sessionId: period.sessionId, termId: period.termId, tenantId: actor.tenantId, classId, sessionName: period.sessionName, termName: period.termName,
+        actorId: actor.actorId, templateKey: settings.templateKey, settingsSnapshot: settings, rows: normalizedRows,
+        writer: { name: actor.actorName, role: actor.normalizedRole, rank: elevated ? 2 : 0, reason: String(body.reason || '').trim() },
+        frozen: frozenCaComponents(await listCaSubmissions(db, batch.id)),
+        frozenOverride: RESULT_APPROVER_ROLES.includes(actor.normalizedRole),
+      })
+      saved += written.saved
+      locked.push(...written.locked.map(item => ({ ...item, className: member.className })))
+    } catch (error) {
+      errors.push(`${member.className}: ${error instanceof Error ? error.message : 'could not save'}`)
+    }
+  }
+  return c.json({ success: errors.length === 0, savedRows: saved, locked, errors })
+})
+
+/** Submits the combined subject to each member class's class teacher. */
+app.post('/api/results/group-submit', authenticate, async (c) => {
+  const body = await c.req.json().catch(() => ({})) as Record<string, any>
+  let ctx
+  try { ctx = await resolveSubjectGroupAccess(c.env.APP_DB, c.var.user || {}, String(body.groupId || '')) } catch (error) { return subjectGroupFailure(c, error) }
+  const { actor, members, period } = ctx
+  const db = c.env.APP_DB
+  const studentsByClass = await listResultStudentsByClass(db, actor.tenantId, members.map(member => member.classRow))
+  // Every student first: nothing is submitted while any class still has a missing score.
+  const report: Array<{ className: string, status: string, message: string }> = []
+  const ready: Array<{ member: typeof members[number], batchId: string }> = []
+  for (const member of members) {
+    const classId = String(member.classRow.id)
+    const subjectId = String(member.subject.id)
+    const batch = await getResultBatch(db, actor.tenantId, classId, period.sessionName, period.termName)
+    if (batch.status !== 'draft') { report.push({ className: member.className, status: 'skipped', message: 'The class has already been handed in.' }); continue }
+    const submissions = await listCaSubmissions(db, batch.id)
+    if (submissions.some(item => item.subjectId === subjectId && item.componentKey === 'all' && item.status !== 'returned')) {
+      report.push({ className: member.className, status: 'skipped', message: 'Already submitted to the class teacher.' }); continue
+    }
+    const [entries, exclusions] = await Promise.all([listResultEntries(db, batch.id), listClassSubjectExclusions(db, actor.tenantId, classId)])
+    const missing = findMissingScores(studentsByClass.get(classId) || [], [member.subject], entries, exclusions)
+    if (missing.length) { report.push({ className: member.className, status: 'missing', message: `Missing: ${missing.slice(0, 6).map(item => item.studentName).join(', ')}${missing.length > 6 ? '…' : ''}` }); continue }
+    ready.push({ member, batchId: batch.id })
+  }
+  if (report.some(item => item.status === 'missing')) {
+    return c.json({ error: 'Enter every student\'s scores before submitting.', report }, 400)
+  }
+  for (const { member, batchId } of ready) {
+    await submitCaComponent(db, {
+      tenantId: actor.tenantId, batchId, classId: String(member.classRow.id), sessionName: period.sessionName, termName: period.termName,
+      subjectId: String(member.subject.id), subjectName: String(member.subject.name || ''), componentKey: 'all', componentLabel: 'All scores',
+      teacher: { id: actor.actorId, name: actor.actorName },
+    })
+    report.push({ className: member.className, status: 'submitted', message: 'Submitted to the class teacher.' })
+  }
+  return c.json({ success: true, report })
 })
 
 // What each student will see once this class is published, computed by the same
@@ -35433,6 +35833,8 @@ export default {
     // The harvester: new questions into the bank within a minute, a full sweep after midnight, Ndovera notes, answer keys.
     ctx.waitUntil(runHarvestTick(harvestDeps(env as any)).catch(error => console.error('Harvester failed', error)))
     ctx.waitUntil(runDueBulkResultsJobs(env).catch(() => {}))
+    // Scheduled class hand-ins (an indexed read that finds nothing when none are due).
+    ctx.waitUntil(runDueScheduledHandIns(env.APP_DB).catch(error => console.error('Scheduled hand-ins failed', error)))
     // Curriculum / syllabus PDFs, read a piece at a time whether or not the uploader is online.
     ctx.waitUntil(runDueImports(libraryImportDeps(env as any)).catch(error => console.error('Library imports failed', error)))
     // School closures fall due by the minute (72 hours after the request); a cheap indexed check.

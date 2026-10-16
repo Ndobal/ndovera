@@ -188,7 +188,7 @@ function buildSubjectRows(entries = [], gradingScale = [], settings = {}, contex
   editableSubjects.forEach(subject => {
     const subjectId = String(subject?.id || '');
     if (byId.has(subjectId) || (context.excludedSubjectIds || new Set()).has(subjectId)) return;
-    byId.set(subjectId, { subjectId, subjectName: String(subject?.name || ''), caComponents: {}, caScore: 0, examScore: 0 });
+    byId.set(subjectId, { subjectId, subjectName: String(subject?.name || ''), caComponents: {}, caScore: 0, examScore: 0, placeholder: true });
   });
 
   return [...byId.values()]
@@ -212,6 +212,8 @@ function buildSubjectRows(entries = [], gradingScale = [], settings = {}, contex
         remark: computeRemark(total, gradingScale),
         editable: editableIds.has(subjectId) && !heldAbove,
         heldAbove,
+        // No saved score yet: still to be entered (and never frozen by a hand-in).
+        missing: Boolean(entry?.placeholder),
         override: overrideRank > 0 ? {
           rank: overrideRank,
           name: String(entry?.overrideName || ''),
@@ -236,10 +238,12 @@ export function normalizeTeacherSheetResponse(data = {}) {
 
   const editableSubjects = Array.isArray(data?.subjects) ? data.subjects : [];
   const caSubmissions = Array.isArray(data?.caSubmissions) ? data.caSubmissions : [];
-  // C.A. handed in (and not returned) is frozen for teachers; the HoS/Owner may still correct it, with a reason.
+  // Scores handed in (and not returned) are frozen for their teacher. The class teacher can
+  // still correct subjects submitted to them; the HoS/Owner may correct anything, with a reason.
   const frozenBySubject = new Map();
+  const viewerRank = Number(data?.permissions?.overrideRank || 0);
   if (!data?.permissions?.canEditApprovedCa) {
-    caSubmissions.filter(item => item.status !== 'returned').forEach(item => {
+    caSubmissions.filter(item => item.status !== 'returned' && !(viewerRank >= 1 && item.status === 'submitted')).forEach(item => {
       const keys = frozenBySubject.get(item.subjectId) || new Set();
       keys.add(item.componentKey);
       frozenBySubject.set(item.subjectId, keys);
@@ -247,6 +251,12 @@ export function normalizeTeacherSheetResponse(data = {}) {
   }
   const exclusions = data?.exclusions && typeof data.exclusions === 'object' ? data.exclusions : {};
   const overrideRank = Number(data?.permissions?.overrideRank || 0);
+  // After the class hand-in only students first scored since then (new to the class) stay open.
+  const handedIn = String(data?.batch?.status || '') === 'submitted';
+  const handInAt = String(data?.batch?.submittedAt || '');
+  const scoredBeforeHandIn = new Set((Array.isArray(data?.entries) ? data.entries : [])
+    .filter(entry => !handInAt || String(entry?.updatedAt || '') <= handInAt)
+    .map(entry => String(entry?.studentId || '')));
 
   const students = (Array.isArray(data?.students) ? data.students : []).map(student => {
     const studentId = String(student?.id || '');
@@ -254,7 +264,8 @@ export function normalizeTeacherSheetResponse(data = {}) {
       .filter(([, studentIds]) => Array.isArray(studentIds) && studentIds.map(String).includes(studentId))
       .map(([subjectId]) => subjectId));
     const rows = buildSubjectRows(entryMap.get(studentId) || [], gradingScale, data?.settings || {}, { editableSubjects, excludedSubjectIds, overrideRank })
-      .map(row => ({ ...row, frozenKeys: [...(frozenBySubject.get(row.subjectId) || [])] }));
+      .map(row => ({ ...row, frozenKeys: row.missing ? [] : [...(frozenBySubject.get(row.subjectId) || [])] }));
+    const late = handedIn && !scoredBeforeHandIn.has(studentId);
     const average = rows.length ? Math.round(rows.reduce((sum, row) => sum + row.total, 0) / rows.length) : 0;
     const profile = profileMap.get(studentId) || {};
     return {
@@ -267,7 +278,8 @@ export function normalizeTeacherSheetResponse(data = {}) {
       status: String(student?.status || 'active'),
       average,
       grade: computeGrade(average, gradingScale),
-      rows,
+      late,
+      rows: handedIn && !late ? rows.map(row => ({ ...row, editable: false, lockedByHandIn: true })) : rows,
       profile: normalizeStudentProfile(profile),
     };
   });
@@ -296,22 +308,31 @@ export function normalizeTeacherSheetResponse(data = {}) {
     hosApprovedAt: data?.batch?.approvedAt || data?.batch?.publishedAt || '',
     hosApprovedBy: String(data?.batch?.approvedBy || ''),
     submitted: batchStatus === 'submitted',
+    submittedAt: data?.batch?.submittedAt || '',
+    scheduledHandInAt: data?.batch?.scheduledHandInAt || '',
+    scheduledHandInName: String(data?.batch?.scheduledHandInName || ''),
+    handInNote: String(data?.batch?.handInNote || ''),
+    missingScores: Array.isArray(data?.missingScores) ? data.missingScores : [],
+    missingCount: Number(data?.missingCount || 0),
     students,
     broadsheet: [],
   });
 }
 
-export function buildEntryPayload(sheet = {}) {
+export function buildEntryPayload(sheet = {}, { studentIds = null, touched = null } = {}) {
   const scoreModel = resolveResultScoreModel(sheet?.settings);
-  return (Array.isArray(sheet?.students) ? sheet.students : []).flatMap(student =>
-    (Array.isArray(student?.rows) ? student.rows : []).filter(row => row.editable !== false).map(row => ({
-      studentId: student.id,
-      subjectId: row.subjectId,
-      caComponents: row.caComponents || {},
-      caScore: clampNumber(row.ca, 0, scoreModel.caMaxScore),
-      examScore: clampNumber(row.exam, 0, scoreModel.examMaxScore),
-    }))
-  );
+  return (Array.isArray(sheet?.students) ? sheet.students : [])
+    .filter(student => !studentIds || studentIds.includes(student.id))
+    .flatMap(student =>
+      (Array.isArray(student?.rows) ? student.rows : []).filter(row => row.editable !== false).map(row => ({
+        studentId: student.id,
+        subjectId: row.subjectId,
+        caComponents: row.caComponents || {},
+        caScore: clampNumber(row.ca, 0, scoreModel.caMaxScore),
+        examScore: clampNumber(row.exam, 0, scoreModel.examMaxScore),
+        entered: Boolean(touched && touched.has(`${student.id}::${row.subjectId}`)) || undefined,
+      }))
+    );
 }
 
 export function buildProfilePayload(sheet = {}) {

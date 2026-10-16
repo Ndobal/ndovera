@@ -4,7 +4,7 @@ import operationalRoleConfigs from './config/operationalRoleConfigs';
 import WebsiteTab from './owner/tabs/WebsiteTab';
 import SchoolLocationForm from '../../features/school/components/SchoolLocationForm';
 import TeacherClassroom from '../../features/classroom/TeacherClassroom';
-import { ResultAdminConsole, TeacherCAScoreSheet } from '../../features/results-engine';
+import { SchoolClassResults, TeacherCAScoreSheet } from '../../features/results-engine';
 import OwnerPeople from './owner/OwnerPeople';
 import OwnerAttendance from './owner/OwnerAttendance';
 import SchoolAnnouncementsPanel from '../../shared/components/SchoolAnnouncementsPanel';
@@ -169,8 +169,9 @@ export default function OperationalRoleDashboard({ roleKey }) {
     );
   }
 
+  // ICT opens any class's score sheet to help teachers enter scores, plus the results console.
   if (isIctSurface && sectionKey === 'results') {
-    return <ResultAdminConsole analyticsMode="hos" roleTitle={roleTitle} />;
+    return <SchoolClassResults analyticsMode="hos" roleTitle={roleTitle} />;
   }
 
   if (isIctSurface && ['support', 'systems', 'access', 'assets', 'reports'].includes(sectionKey)) {

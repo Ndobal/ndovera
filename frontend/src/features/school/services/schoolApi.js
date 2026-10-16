@@ -465,6 +465,12 @@ export const updateResultBatchStatus = (data) => req('/api/results/batch-status'
 export const publishResultBatch = (data) => req('/api/results/publish', { method: 'POST', body: data });
 export const handInCaScores = (data) => req('/api/results/ca-submissions', { method: 'POST', body: data });
 export const reviewCaScores = (id, data) => req(`/api/results/ca-submissions/${encodeURIComponent(id)}/review`, { method: 'POST', body: data });
+export const scheduleResultHandIn = (data) => req('/api/results/handin-schedule', { method: 'POST', body: data });
+export const getSubjectGroups = () => req('/api/results/subject-groups');
+export const saveSubjectGroupChoice = (data) => req('/api/results/subject-groups', { method: 'POST', body: data });
+export const getGroupScoreSheet = (groupId) => req(`/api/results/group-sheet?groupId=${encodeURIComponent(groupId)}`);
+export const saveGroupScores = (data) => req('/api/results/group-entries', { method: 'POST', body: data });
+export const submitGroupScores = (groupId) => req('/api/results/group-submit', { method: 'POST', body: { groupId } });
 export const getResultPreview = (params = {}) => req(`/api/results/preview${buildQuery(params)}`, { skipOfflineCache: true });
 export const getResultAudit = (params = {}) => req(`/api/results/audit${buildQuery(params)}`, { skipOfflineCache: true });
 export const getResultExamPeriod = () => req('/api/results/exam-period', { skipOfflineCache: true });

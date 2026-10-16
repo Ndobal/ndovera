@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { getAssignedClasses } from '../../classroom/classroomService';
+import { getSubjectGroups } from '../../school/services/schoolApi';
 import {
   changeExamPeriod,
   getTeacherScoreSheet,
@@ -8,14 +9,15 @@ import {
   resetPracticeSheet,
   saveTeacherProfiles,
   saveTeacherScoreSheet,
-  submitTeacherResults,
 } from '../service/resultEngineService';
-import { normalizeCaComponentDefinitions, recomputeTeacherSheet, resolveResultScoreModel } from '../utils/resultEngineTransforms';
+import { recomputeTeacherSheet } from '../utils/resultEngineTransforms';
 import BroadsheetTable from './BroadsheetTable';
 import TeacherResultStudentCard from './TeacherResultStudentCard';
 import ResultPreviewPanel from './ResultPreviewPanel';
 import ResultOverrideLog from './ResultOverrideLog';
-import CaHandInPanel from './CaHandInPanel';
+import ClassHandInPanel from './ClassHandInPanel';
+import CombinedSubjectSheet from './CombinedSubjectSheet';
+import ScoreSheetTips, { tipsSeen } from './ScoreSheetTips';
 import {
   RESULT_BODY,
   RESULT_BUTTON,
@@ -26,7 +28,6 @@ import {
   RESULT_SURFACE,
   RESULT_INPUT,
   getBatchTone,
-  getWorkflowTone,
 } from './resultSheetTheme';
 import { askConfirm } from '../../../shared/components/AppDialog';
 
@@ -41,7 +42,7 @@ const EXAM_STATUS_LABELS = {
 };
 
 function describeSaveReport(report) {
-  if (!report) return 'CA score rows saved.';
+  if (!report) return 'Saved.';
   const parts = [report.savedRows ? `${report.savedRows} score row${report.savedRows === 1 ? '' : 's'} saved` : 'No scores changed'];
   if (report.overrides) parts.push(`${report.overrides} override${report.overrides === 1 ? '' : 's'} logged`);
   return `${parts.join(', ')}.`;
@@ -51,47 +52,26 @@ function describeLockedRows(report) {
   const locked = report?.locked || [];
   if (!locked.length) return '';
   const subjects = Array.from(new Set(locked.map(row => row.subjectName).filter(Boolean)));
-  const caLocked = locked.filter(row => ['submitted', 'section_approved', 'approved'].includes(row.reason)).length;
-  const why = caLocked === locked.length
-    ? 'that C.A. has been handed in. Ask your section head or the HoS to return it if it needs correcting'
-    : caLocked ? 'some C.A. has been handed in and some rows are held by a higher override. Ask the section head or HoS'
-      : `a higher override holds ${locked.length === 1 ? 'it' : 'them'}. Ask the class teacher or HoS`;
+  const reasons = new Set(locked.map(row => row.reason));
+  const why = reasons.has('handed_in') ? 'the class has been handed in. Ask the HoS to reopen it if it needs correcting'
+    : [...reasons].every(reason => ['submitted', 'section_approved', 'approved'].includes(reason))
+      ? 'those scores have been submitted. Ask the class teacher to return them, or the HoS if they were approved'
+      : 'a higher override holds them. Ask the class teacher or HoS';
   return `${locked.length} row${locked.length === 1 ? ' was' : 's were'} not changed${subjects.length ? ` (${subjects.join(', ')})` : ''}: ${why}.`;
 }
 
-function buildWorkflowSteps(sheet) {
-  const isSubmitted = Boolean(sheet?.submitted);
-  const isPublished = Boolean(sheet?.published);
-
-  return [
-    {
-      id: 'entry',
-      label: 'Teacher Entry',
-      helper: 'Enter CA components and exam scores per subject.',
-      state: isSubmitted || isPublished ? 'done' : 'active',
-    },
-    {
-      id: 'review',
-      label: 'Internal Review',
-      helper: 'Class review, profile fields, and remarks are completed here.',
-      state: isPublished ? 'done' : isSubmitted ? 'active' : 'pending',
-    },
-    {
-      id: 'approval',
-      label: 'HoS Approval',
-      helper: 'Published batches are the approved release state.',
-      state: isPublished ? 'done' : 'pending',
-    },
-  ];
-}
+// A student is done when every subject they take has a saved score.
+const studentDone = student => student.rows.length > 0 && student.rows.every(row => !row.missing);
 
 /**
- * `fixedClassId` opens one class's sheet (HOS / Owner from Academics → a class): no class
- * picker, and the teacher's own remembered class is left alone. Without it, a teacher
- * picks from the classes assigned to them, as before.
+ * `fixedClassId` opens one class's sheet (HOS / Owner / ICT from Academics → a class):
+ * no class picker, and the teacher's own remembered class is left alone. Without it,
+ * a teacher picks from the classes assigned to them, or a combined subject they teach.
  */
 export default function TeacherCAScoreSheet({ dashboardLabel = 'Teacher Dashboard', fixedClassId = '', fixedClassName = '' }) {
   const [assignedClasses, setAssignedClasses] = useState(fixedClassId ? [{ id: fixedClassId, name: fixedClassName || 'This class' }] : []);
+  const [groups, setGroups] = useState([]);
+  const [groupId, setGroupId] = useState('');
   const storedClassIdRef = useRef(fixedClassId || readStoredClassId());
   const [classId, setClassId] = useState(storedClassIdRef.current);
   const [sheet, setSheet] = useState(null);
@@ -100,12 +80,18 @@ export default function TeacherCAScoreSheet({ dashboardLabel = 'Teacher Dashboar
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
   const [activeTab, setActiveTab] = useState('sheet');
-  const [workflowOpen, setWorkflowOpen] = useState(false);
   // 'live' is the real term; 'practice' is the class's training sheet on the same engine.
   const [mode, setMode] = useState('live');
   const [practiceNotice, setPracticeNotice] = useState('');
   const [overrideReason, setOverrideReason] = useState('');
   const [refreshKey, setRefreshKey] = useState(0);
+  // The student on screen; one past the last student is the hand-in step.
+  const [studentIndex, setStudentIndex] = useState(0);
+  const [previewStudentId, setPreviewStudentId] = useState('');
+  const [showTips, setShowTips] = useState(() => !tipsSeen());
+  // Students with unsaved changes, and the rows typed into (so a typed zero is kept).
+  const dirtyRef = useRef(new Set());
+  const touchedRef = useRef(new Set());
 
   useEffect(() => {
     let cancelled = false;
@@ -113,10 +99,11 @@ export default function TeacherCAScoreSheet({ dashboardLabel = 'Teacher Dashboar
     async function loadAssigned() {
       if (fixedClassId) return;
       try {
-        const data = await getAssignedClasses();
+        const [data, groupData] = await Promise.all([getAssignedClasses(), getSubjectGroups().catch(() => ({ groups: [] }))]);
         if (cancelled) return;
         const classes = data?.classes || [];
         setAssignedClasses(classes);
+        setGroups((groupData?.groups || []).filter(group => group.enabled));
         const preferredClassId = storedClassIdRef.current;
         const initialClassId = classes.some(item => item.id === preferredClassId) ? preferredClassId : (classes[0]?.id || '');
         setClassId(initialClassId);
@@ -138,9 +125,12 @@ export default function TeacherCAScoreSheet({ dashboardLabel = 'Teacher Dashboar
   useEffect(() => {
     let cancelled = false;
     async function loadSheet() {
-      if (!classId) return;
+      if (!classId || groupId) return;
       setLoading(true);
       setError('');
+      dirtyRef.current = new Set();
+      touchedRef.current = new Set();
+      setStudentIndex(0);
       try {
         const nextSheet = await getTeacherScoreSheet({ classId, mode: mode === 'practice' ? 'practice' : undefined });
         if (cancelled) return;
@@ -167,7 +157,7 @@ export default function TeacherCAScoreSheet({ dashboardLabel = 'Teacher Dashboar
     return () => {
       cancelled = true;
     };
-  }, [classId, fixedClassId, mode]);
+  }, [classId, fixedClassId, mode, groupId]);
 
   function switchMode(nextMode) {
     if (nextMode === mode) return;
@@ -178,118 +168,81 @@ export default function TeacherCAScoreSheet({ dashboardLabel = 'Teacher Dashboar
     setMode(nextMode);
   }
 
+  function pickSheet(value) {
+    setMessage('');
+    setError('');
+    if (value.startsWith('group:')) { setGroupId(value.slice(6)); return; }
+    setGroupId('');
+    setClassId(value);
+  }
+
+  function updateStudent(studentId, change) {
+    dirtyRef.current.add(studentId);
+    setSheet(current => current ? recomputeTeacherSheet({
+      ...current,
+      students: current.students.map(student => student.id !== studentId ? student : change(student)),
+    }) : current);
+  }
+
   function handleScoreChange(studentId, subjectId, field, value) {
-    setSheet(current => {
-      if (!current) return current;
-      return recomputeTeacherSheet({
-        ...current,
-        students: current.students.map(student => student.id !== studentId ? student : ({
-          ...student,
-          rows: student.rows.map(row => row.subjectId !== subjectId ? row : ({
-            ...row,
-            [field]: Number(value || 0),
-          })),
-        })),
-      });
-    });
+    touchedRef.current.add(`${studentId}::${subjectId}`);
+    updateStudent(studentId, student => ({ ...student, rows: student.rows.map(row => row.subjectId !== subjectId ? row : ({ ...row, [field]: Number(value || 0) })) }));
   }
 
   function handleCaComponentChange(studentId, subjectId, componentKey, value) {
-    setSheet(current => {
-      if (!current) return current;
-      return recomputeTeacherSheet({
-        ...current,
-        students: current.students.map(student => student.id !== studentId ? student : ({
-          ...student,
-          rows: student.rows.map(row => row.subjectId !== subjectId ? row : ({
-            ...row,
-            caComponents: {
-              ...(row.caComponents || {}),
-              [componentKey]: Number(value || 0),
-            },
-          })),
-        })),
-      });
-    });
+    touchedRef.current.add(`${studentId}::${subjectId}`);
+    updateStudent(studentId, student => ({
+      ...student,
+      rows: student.rows.map(row => row.subjectId !== subjectId ? row : ({ ...row, caComponents: { ...(row.caComponents || {}), [componentKey]: Number(value || 0) } })),
+    }));
   }
 
   function handleProfileFieldChange(studentId, field, value) {
-    setSheet(current => {
-      if (!current) return current;
-      return recomputeTeacherSheet({
-        ...current,
-        students: current.students.map(student => student.id !== studentId ? student : ({
-          ...student,
-          profile: { ...student.profile, [field]: value },
-        })),
-      });
-    });
+    updateStudent(studentId, student => ({ ...student, profile: { ...student.profile, [field]: value } }));
   }
 
   function handleProfileMapChange(studentId, group, key, value) {
-    setSheet(current => {
-      if (!current) return current;
-      return recomputeTeacherSheet({
-        ...current,
-        students: current.students.map(student => student.id !== studentId ? student : ({
-          ...student,
-          profile: {
-            ...student.profile,
-            [group]: { ...(student.profile?.[group] || {}), [key]: Number(value || 0) },
-          },
-        })),
-      });
-    });
+    updateStudent(studentId, student => ({ ...student, profile: { ...student.profile, [group]: { ...(student.profile?.[group] || {}), [key]: Number(value || 0) } } }));
   }
 
-  async function persistScores() {
-    if (!sheet) return;
+  /** Saves every student with unsaved changes. Returns false when the save failed. */
+  async function saveDirty({ announce = false } = {}) {
+    if (!sheet) return false;
+    const pending = [...dirtyRef.current];
+    if (!pending.length) {
+      if (announce) setMessage('Nothing new to save.');
+      return true;
+    }
     setSaving(true);
     setError('');
     setMessage('');
     try {
-      const next = await saveTeacherScoreSheet(sheet, { reason: overrideReason });
+      const studentById = new Map(sheet.students.map(student => [student.id, student]));
+      const profileIds = pending.filter(id => !sheet.published && (!sheet.submitted || studentById.get(id)?.late));
+      if (sheet.permissions?.canManageProfiles && profileIds.length && !sheet.submitted) {
+        await saveTeacherProfiles(sheet, { studentIds: profileIds, reload: false });
+      }
+      const next = await saveTeacherScoreSheet(sheet, { reason: overrideReason, studentIds: pending, touched: touchedRef.current });
+      pending.forEach(id => dirtyRef.current.delete(id));
+      touchedRef.current = new Set([...touchedRef.current].filter(key => !pending.includes(key.split('::')[0])));
       setSheet(next);
-      setMessage(describeSaveReport(next.lastSave));
+      if (announce || next.lastSave?.overrides) setMessage(describeSaveReport(next.lastSave));
       const lockedMessage = describeLockedRows(next.lastSave);
       if (lockedMessage) setError(lockedMessage);
       if (next.lastSave?.overrides) setOverrideReason('');
       setRefreshKey(key => key + 1);
+      return true;
     } catch (saveError) {
-      setError(saveError.message || 'Unable to save CA scores.');
+      setError(saveError.message || 'Unable to save these scores.');
+      return false;
     } finally {
       setSaving(false);
     }
   }
 
-  async function persistProfiles() {
-    if (!sheet) return;
-    setSaving(true);
-    setError('');
-    setMessage('');
-    try {
-      setSheet(await saveTeacherProfiles(sheet));
-      setMessage('Attendance, affective areas, and remarks saved.');
-    } catch (saveError) {
-      setError(saveError.message || 'Unable to save result profile fields.');
-    } finally {
-      setSaving(false);
-    }
-  }
-
-  async function submitBatch() {
-    if (!sheet) return;
-    setSaving(true);
-    setError('');
-    setMessage('');
-    try {
-      setSheet(await submitTeacherResults(sheet));
-      setMessage('Result batch submitted for HoS review.');
-    } catch (submitError) {
-      setError(submitError.message || 'Unable to submit this result batch.');
-    } finally {
-      setSaving(false);
-    }
+  async function goTo(index) {
+    if (saving) return;
+    if (await saveDirty()) setStudentIndex(index);
   }
 
   async function reopenBatch() {
@@ -299,7 +252,7 @@ export default function TeacherCAScoreSheet({ dashboardLabel = 'Teacher Dashboar
     setMessage('');
     try {
       setSheet(await reopenTeacherResults(sheet));
-      setMessage('Result batch reopened as draft.');
+      setMessage('Reopened as a draft.');
     } catch (reopenError) {
       setError(reopenError.message || 'Unable to reopen this result batch.');
     } finally {
@@ -351,19 +304,57 @@ export default function TeacherCAScoreSheet({ dashboardLabel = 'Teacher Dashboar
     }, action === 'activate' ? 'Exams activated. Practice results are now closed school-wide.' : 'Exam period ended.', 'Unable to change the exam period.');
   }
 
+  async function previewStudent(studentId) {
+    if (!await saveDirty()) return;
+    setPreviewStudentId(studentId);
+    setActiveTab('preview');
+  }
+
   const isPractice = sheet?.mode === 'practice';
   const practicePublished = isPractice && sheet?.published;
   const examStatus = sheet?.examPeriod?.status || 'none';
   const practiceAvailable = sheet?.practice?.available !== false;
   const canOverride = Number(sheet?.permissions?.overrideRank || 0) > 0;
   const visibleStudents = sheet?.students?.filter(student => sheet.permissions?.canManageProfiles || student.rows.length > 0) || [];
-  const workflowSteps = buildWorkflowSteps(sheet);
-  const totalRows = visibleStudents.reduce((sum, student) => sum + student.rows.length, 0);
-  const caComponentDefinitions = normalizeCaComponentDefinitions(sheet?.settings);
-  const scoreModel = resolveResultScoreModel(sheet?.settings);
+  const finishIndex = visibleStudents.length;
+  const currentIndex = Math.min(studentIndex, finishIndex);
+  const currentStudent = visibleStudents[currentIndex] || null;
+  const doneCount = visibleStudents.filter(studentDone).length;
+  const statusLabel = sheet?.published ? 'Published' : sheet?.submitted ? 'Handed in' : 'Draft';
+
+  const picker = (
+    <select value={groupId ? `group:${groupId}` : classId} onChange={event => pickSheet(event.target.value)} className={`${RESULT_INPUT} min-w-[220px]`} aria-label="Class or combined subject">
+      {assignedClasses.map(item => (
+        <option key={item.id} value={item.id}>{item.className || item.name || item.id}</option>
+      ))}
+      {groups.length > 0 && (
+        <optgroup label="Combined subjects">
+          {groups.map(group => <option key={group.id} value={`group:${group.id}`}>{group.name} — {group.classes.filter(item => group.classIds.includes(item.id)).map(item => item.name).join(', ')}</option>)}
+        </optgroup>
+      )}
+    </select>
+  );
+
+  if (groupId) {
+    return (
+      <div className="p-4 sm:p-8 max-w-7xl mx-auto space-y-6">
+        <section className={`${RESULT_SURFACE} flex flex-wrap items-center justify-between gap-3 px-5 py-3`}>
+          <div className="flex min-w-0 items-center gap-3">
+            <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#2447d8] text-white">📊</span>
+            <div className="min-w-0">
+              <h1 className={`text-lg font-black leading-tight ${RESULT_HEADING}`}>CA Score Sheet</h1>
+              <p className={`truncate text-xs ${RESULT_BODY}`}>{dashboardLabel} · combined subject</p>
+            </div>
+          </div>
+          {picker}
+        </section>
+        <CombinedSubjectSheet key={groupId} groupId={groupId} />
+      </div>
+    );
+  }
 
   return (
-    <div className="p-8 max-w-7xl mx-auto space-y-6">
+    <div className="p-4 sm:p-8 max-w-7xl mx-auto space-y-6">
       <section className={`${RESULT_SURFACE} flex flex-wrap items-center justify-between gap-3 px-5 py-3`}>
         <div className="flex min-w-0 items-center gap-3">
           <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#2447d8] text-white">📊</span>
@@ -373,6 +364,11 @@ export default function TeacherCAScoreSheet({ dashboardLabel = 'Teacher Dashboar
               {dashboardLabel}{sheet?.period ? ` • ${sheet.period.termName || ''}${sheet.period.sessionName && !isPractice ? ` ${sheet.period.sessionName}` : ''}` : ''}
             </p>
           </div>
+          {sheet && (
+            <span className={`hidden items-center rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] sm:inline-flex ${getBatchTone(sheet.published ? 'published' : sheet.submitted ? 'submitted' : 'draft')}`}>
+              {statusLabel}
+            </span>
+          )}
         </div>
         <div className="flex flex-wrap items-center gap-2">
           <div className="inline-flex rounded-2xl border border-[#7cc4e8]/60 bg-white/70 p-1 dark:border-white/10 dark:bg-slate-900/40" role="group" aria-label="Score sheet mode">
@@ -393,33 +389,19 @@ export default function TeacherCAScoreSheet({ dashboardLabel = 'Teacher Dashboar
               Practice
             </button>
           </div>
-          <select value={classId} onChange={event => setClassId(event.target.value)} className={`${RESULT_INPUT} min-w-[220px]`}>
-            {assignedClasses.map(item => (
-              <option key={item.id} value={item.id}>{item.className || item.name || item.id}</option>
-            ))}
-          </select>
-          <button
-            type="button"
-            onClick={persistScores}
-            disabled={saving || !sheet?.configurationReady}
-            className={RESULT_BUTTON}
-          >
-            {saving ? 'Saving...' : 'Save Scores'}
-          </button>
-          {sheet?.permissions?.canManageProfiles && (
-            <button
-              type="button"
-              onClick={persistProfiles}
-              disabled={saving || !sheet?.configurationReady}
-              className={RESULT_BUTTON}
-            >
-              Save Profiles
+          {picker}
+          {sheet && !sheet.published && (
+            <button type="button" onClick={() => saveDirty({ announce: true })} disabled={saving || !sheet?.configurationReady} className={RESULT_SECONDARY_BUTTON}>
+              {saving ? 'Saving…' : 'Save as draft'}
             </button>
           )}
-          {sheet?.submitted || practicePublished ? (
-            <button type="button" onClick={reopenBatch} disabled={saving} className={RESULT_SECONDARY_BUTTON}>Reopen Draft</button>
-          ) : (
-            sheet?.permissions?.canSubmit && <button type="button" onClick={submitBatch} disabled={saving || !sheet?.configurationReady} className={RESULT_BUTTON}>Submit to HoS</button>
+          {sheet && !sheet.submitted && !sheet.published && (
+            <button type="button" onClick={() => { setActiveTab('sheet'); goTo(finishIndex); }} disabled={saving} className={RESULT_BUTTON}>
+              {sheet.permissions?.canHandIn ? 'Hand in' : 'Submit'}
+            </button>
+          )}
+          {(sheet?.submitted || practicePublished) && (sheet.permissions?.canHandIn || sheet.permissions?.canManageProfiles) && (
+            <button type="button" onClick={reopenBatch} disabled={saving} className={RESULT_SECONDARY_BUTTON}>Reopen draft</button>
           )}
           {isPractice && sheet?.submitted && sheet?.permissions?.canPublish && (
             <button type="button" onClick={publishPractice} disabled={saving} className={RESULT_BUTTON}>Publish (practice)</button>
@@ -486,8 +468,8 @@ export default function TeacherCAScoreSheet({ dashboardLabel = 'Teacher Dashboar
         </section>
       )}
 
-      {error && <section className={`${RESULT_SURFACE} p-6 text-sm text-[#800020] dark:text-[#ffffff] border-rose-300/30 bg-rose-200/65 dark:bg-[#800000]/70`}>{error}</section>}
-      {message && <section className={`${RESULT_SURFACE} p-6 text-sm text-[#1a5c38] dark:text-[#00ffff] border-emerald-300/30 bg-emerald-100/70 dark:bg-[#800000]/70`}>{message}</section>}
+      {error && <section role="alert" className={`${RESULT_SURFACE} p-5 text-sm text-[#800020] dark:text-[#ffffff] border-rose-300/30 bg-rose-200/65 dark:bg-[#800000]/70`}>{error}</section>}
+      {message && <section role="status" className={`${RESULT_SURFACE} p-5 text-sm text-[#1a5c38] dark:text-[#00ffff] border-emerald-300/30 bg-emerald-100/70 dark:bg-[#800000]/70`}>{message}</section>}
 
       {sheet && !sheet.configurationReady && (
         <section className={`${RESULT_SURFACE} p-6 text-sm text-[#800020] dark:text-[#39ff14] border-amber-300/30 bg-[#ade1f4] dark:bg-[#800000]/70`}>
@@ -505,17 +487,20 @@ export default function TeacherCAScoreSheet({ dashboardLabel = 'Teacher Dashboar
       )}
 
       {sheet && (
-        <div className={`${RESULT_SURFACE} flex flex-wrap gap-2 p-1.5`}>
+        <div className={`${RESULT_SURFACE} flex flex-wrap gap-2 p-1.5`} role="tablist">
           {[
             { key: 'sheet', label: 'Score Sheet', icon: '📝' },
             { key: 'broadsheet', label: 'Broadsheet Ranking', icon: '🏆' },
             { key: 'preview', label: 'Student View', icon: '👁️' },
             { key: 'log', label: 'Override Log', icon: '🧾' },
+            { key: 'tips', label: 'Tips', icon: '💡' },
           ].map(t => (
             <button
               key={t.key}
               type="button"
-              onClick={() => setActiveTab(t.key)}
+              role="tab"
+              aria-selected={activeTab === t.key}
+              onClick={async () => { if (activeTab === 'sheet' && t.key !== 'sheet' && !await saveDirty()) return; setActiveTab(t.key); }}
               className={`flex flex-1 items-center justify-center gap-2 rounded-2xl px-4 py-2.5 text-sm font-bold transition ${activeTab === t.key ? 'bg-[#2447d8] text-white shadow-lg shadow-[#2447d8]/25' : 'text-[#2447d8] hover:bg-white/60 dark:text-slate-200 dark:hover:bg-white/10'}`}
             >
               <span>{t.icon}</span><span className="whitespace-nowrap">{t.label}</span>
@@ -526,111 +511,80 @@ export default function TeacherCAScoreSheet({ dashboardLabel = 'Teacher Dashboar
 
       {sheet && activeTab === 'sheet' && (
         <>
-        <section className={`${RESULT_SURFACE} p-6 space-y-6`}>
-          {/* Live Sheet Summary — compact card with animated icons */}
-          <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-[#7cc4e8]/40 bg-white px-4 py-2.5 dark:border-white/10 dark:bg-slate-800/50">
-            <div className="flex min-w-0 items-center gap-3">
-              <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#2447d8]/10 text-base text-[#2447d8] motion-safe:animate-pulse">📡</span>
-              <div className="min-w-0">
-                <p className={`micro-label ${RESULT_LABEL}`}>Live Sheet Summary</p>
-                <p className={`truncate text-sm font-semibold ${RESULT_HEADING}`}>
-                  {sheet.classroom?.className || 'Assigned class'} · {sheet.period?.termName || 'Term'}{sheet.period?.sessionName ? ` ${sheet.period.sessionName}` : ''}
-                </p>
+          {showTips && <ScoreSheetTips sheet={sheet} onClose={() => setShowTips(false)} />}
+
+          {visibleStudents.length === 0 ? (
+            <section className={`${RESULT_SURFACE} p-5`}>
+              <div className={`${RESULT_INNER_SURFACE} border-dashed p-5 text-center`}>
+                <p className={`micro-label ${RESULT_LABEL}`}>No live result sheet</p>
+                <p className={`mt-2 text-sm ${RESULT_BODY}`}>Student score rows will appear here after a real class roster and assessments are synced.</p>
               </div>
-            </div>
-            <div className="flex flex-wrap items-center gap-2">
-              <span className={`inline-flex items-center gap-1 rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] ${getBatchTone(sheet.published ? 'published' : sheet.submitted ? 'submitted' : 'draft')}`}>
-                <span className="motion-safe:animate-bounce">{sheet.published ? '✅' : sheet.submitted ? '📤' : '✏️'}</span>
-                {sheet.published ? 'Published' : sheet.submitted ? 'Submitted' : 'Draft'}
-              </span>
-              <span className={`inline-flex items-center gap-1 rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] ${getBatchTone(sheet.configurationReady ? 'published' : 'draft')}`}>
-                <span className="inline-block motion-safe:animate-spin" style={{ animationDuration: '4s' }}>{sheet.configurationReady ? '⚙️' : '⚠️'}</span>
-                {sheet.configurationReady ? 'Configured' : 'Setup'}
-              </span>
-            </div>
-          </div>
+            </section>
+          ) : (
+            <section className={`${RESULT_SURFACE} space-y-4 p-4 sm:p-5`}>
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <p className={`micro-label ${RESULT_LABEL}`}>Students · {doneCount} of {visibleStudents.length} complete</p>
+                {sheet.scheduledHandInAt && !sheet.submitted && <p className={`text-xs ${RESULT_BODY}`}>Hand-in scheduled for {new Date(sheet.scheduledHandInAt).toLocaleString()}</p>}
+              </div>
+              <div className="flex gap-2 overflow-x-auto pb-1" role="tablist" aria-label="Students">
+                {visibleStudents.map((student, index) => {
+                  const done = studentDone(student);
+                  return (
+                    <button
+                      key={student.id}
+                      type="button"
+                      role="tab"
+                      aria-selected={index === currentIndex}
+                      onClick={() => goTo(index)}
+                      className={`shrink-0 rounded-xl border px-3 py-1.5 text-xs font-bold transition ${index === currentIndex ? 'border-[#2447d8] bg-[#2447d8] text-white' : done ? 'border-emerald-300 bg-emerald-50 text-emerald-900 dark:bg-emerald-500/10 dark:text-emerald-200' : 'border-[#7cc4e8]/60 bg-white text-[#191970] dark:bg-slate-900 dark:text-slate-200'}`}
+                    >
+                      {done ? '✓ ' : ''}{student.name}{student.late ? ' · new' : ''}
+                    </button>
+                  );
+                })}
+                <button
+                  type="button"
+                  role="tab"
+                  aria-selected={currentIndex === finishIndex}
+                  onClick={() => goTo(finishIndex)}
+                  className={`shrink-0 rounded-xl border px-3 py-1.5 text-xs font-bold ${currentIndex === finishIndex ? 'border-[#2447d8] bg-[#2447d8] text-white' : 'border-[#2447d8]/40 bg-white text-[#2447d8] dark:bg-slate-900'}`}
+                >
+                  🏁 {sheet.permissions?.canHandIn ? 'Hand in' : 'Submit'}
+                </button>
+              </div>
 
-          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-            <article className={`${RESULT_INNER_SURFACE} p-4`}>
-              <p className={`micro-label ${RESULT_LABEL}`}>Learners</p>
-              <p className={`mt-2 text-3xl font-black ${RESULT_HEADING}`}>{visibleStudents.length}</p>
-              <p className={`mt-2 text-xs ${RESULT_BODY}`}>Students with active score rows on this batch.</p>
-            </article>
-            <article className={`${RESULT_INNER_SURFACE} p-4`}>
-              <p className={`micro-label ${RESULT_LABEL}`}>Subject Rows</p>
-              <p className={`mt-2 text-3xl font-black ${RESULT_HEADING}`}>{totalRows}</p>
-              <p className={`mt-2 text-xs ${RESULT_BODY}`}>Every row is clamped to CA {scoreModel.caMaxScore}, exam {scoreModel.examMaxScore}, total {scoreModel.totalMaxScore}.</p>
-            </article>
-            <article className={`${RESULT_INNER_SURFACE} p-4`}>
-              <p className={`micro-label ${RESULT_LABEL}`}>CA Grid</p>
-              <p className={`mt-2 text-2xl font-black ${RESULT_HEADING}`}>{caComponentDefinitions.length || 0} Columns</p>
-              <p className={`mt-2 text-xs ${RESULT_BODY}`}>Configured CA components roll up into the live CA total shown here.</p>
-            </article>
-            <article className={`${RESULT_INNER_SURFACE} p-4`}>
-              <p className={`micro-label ${RESULT_LABEL}`}>Release Rule</p>
-              <p className={`mt-2 text-2xl font-black ${RESULT_HEADING}`}>HoS Publish</p>
-              <p className={`mt-2 text-xs ${RESULT_BODY}`}>Only published batches flow to student and parent result views.</p>
-            </article>
-          </div>
-
-          <div className="grid gap-4 xl:grid-cols-[1.2fr,0.8fr]">
-            <div className={`${RESULT_INNER_SURFACE} p-4`}>
-              <p className={`micro-label ${RESULT_LABEL}`}>Sheet Layout</p>
-              <p className={`mt-2 text-sm ${RESULT_BODY}`}>
-                NDOVERA expects a CA spreadsheet flow with subject rows, CA components rolled into a CA total, exam score, total, review, and release state. This live sheet presents the final CA total per subject while preserving the result-engine approval workflow.
-              </p>
-              {caComponentDefinitions.length > 0 && (
-                <div className="mt-3 flex flex-wrap gap-2">
-                  {caComponentDefinitions.map(component => (
-                    <span key={component.key} className={`rounded-full border border-[#c9a96e]/45 bg-[#ade1f4] px-3 py-1 text-xs font-semibold ${RESULT_LABEL} dark:border-[#bf00ff]/35 dark:bg-black/20`}>
-                      {component.label} ({component.maxScore})
-                    </span>
-                  ))}
-                </div>
-              )}
-            </div>
-            <div className={`${RESULT_INNER_SURFACE} p-4`}>
-              <button type="button" onClick={() => setWorkflowOpen(open => !open)} className="flex w-full items-center justify-between gap-2" aria-expanded={workflowOpen}>
-                <p className={`micro-label ${RESULT_LABEL}`}>Workflow</p>
-                <span className={`text-lg leading-none text-[#2447d8] transition-transform duration-200 ${workflowOpen ? 'rotate-180' : ''}`}>▾</span>
-              </button>
-              {workflowOpen && (
-                <div className="mt-3 grid gap-2">
-                  {workflowSteps.map(step => (
-                    <div key={step.id} className={`rounded-2xl border px-3 py-3 ${getWorkflowTone(step.state)}`}>
-                      <p className="text-sm font-semibold">{step.label}</p>
-                      <p className="mt-1 text-xs opacity-90">{step.helper}</p>
+              {currentStudent ? (
+                <>
+                  {currentStudent.late && <p className="rounded-xl bg-sky-100 px-3 py-2 text-sm font-semibold text-sky-900">New to the class since the hand-in: enter their scores, then hand them in from the last step.</p>}
+                  <TeacherResultStudentCard
+                    key={currentStudent.id}
+                    index={currentIndex}
+                    student={currentStudent}
+                    settings={sheet.settings}
+                    permissions={sheet.permissions}
+                    profileLocked={sheet.published || sheet.submitted}
+                    onCaComponentChange={handleCaComponentChange}
+                    onScoreChange={handleScoreChange}
+                    onProfileFieldChange={handleProfileFieldChange}
+                    onProfileMapChange={handleProfileMapChange}
+                  />
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <button type="button" className={RESULT_SECONDARY_BUTTON} disabled={saving || currentIndex === 0} onClick={() => goTo(currentIndex - 1)}>← Previous</button>
+                    <span className={`text-xs ${RESULT_BODY}`}>Student {currentIndex + 1} of {visibleStudents.length}</span>
+                    <div className="flex flex-wrap gap-2">
+                      <button type="button" className={RESULT_SECONDARY_BUTTON} disabled={saving} onClick={() => previewStudent(currentStudent.id)}>Preview result</button>
+                      {!sheet.published && <button type="button" className={RESULT_SECONDARY_BUTTON} disabled={saving} onClick={() => saveDirty({ announce: true })}>{saving ? 'Saving…' : 'Save as draft'}</button>}
+                      <button type="button" className={RESULT_BUTTON} disabled={saving} onClick={() => goTo(currentIndex + 1)}>
+                        {saving ? 'Saving…' : currentIndex === finishIndex - 1 ? 'Next: hand in →' : 'Next →'}
+                      </button>
                     </div>
-                  ))}
-                </div>
+                  </div>
+                </>
+              ) : (
+                <ClassHandInPanel sheet={sheet} onSheet={next => { setSheet(next); setRefreshKey(key => key + 1); }} onSaveDraft={() => saveDirty({ announce: true })} saving={saving} />
               )}
-            </div>
-          </div>
-
-          <CaHandInPanel sheet={sheet} onSheet={setSheet} />
-
-          <div className="space-y-4">
-          {visibleStudents.map((student, index) => (
-            <TeacherResultStudentCard
-              key={student.id}
-              index={index}
-              student={student}
-              settings={sheet.settings}
-              permissions={sheet.permissions}
-              onCaComponentChange={handleCaComponentChange}
-              onScoreChange={handleScoreChange}
-              onProfileFieldChange={handleProfileFieldChange}
-              onProfileMapChange={handleProfileMapChange}
-            />
-          ))}
-          {visibleStudents.length === 0 && (
-            <div className={`${RESULT_INNER_SURFACE} border-dashed p-5 text-center`}>
-              <p className={`micro-label ${RESULT_LABEL}`}>No live result sheet</p>
-              <p className={`mt-2 text-sm ${RESULT_BODY}`}>Student score rows will appear here after a real class roster and assessments are synced.</p>
-            </div>
+            </section>
           )}
-          </div>
-        </section>
         </>
       )}
 
@@ -638,9 +592,11 @@ export default function TeacherCAScoreSheet({ dashboardLabel = 'Teacher Dashboar
         <BroadsheetTable rows={sheet.broadsheet} title="Broadsheet Ranking (Live Preview)" />
       )}
 
-      {sheet && activeTab === 'preview' && <ResultPreviewPanel sheet={sheet} refreshKey={refreshKey} />}
+      {sheet && activeTab === 'preview' && <ResultPreviewPanel sheet={sheet} refreshKey={refreshKey} initialStudentId={previewStudentId} />}
 
       {sheet && activeTab === 'log' && <ResultOverrideLog sheet={sheet} refreshKey={refreshKey} />}
+
+      {sheet && activeTab === 'tips' && <ScoreSheetTips sheet={sheet} all />}
     </div>
   );
 }

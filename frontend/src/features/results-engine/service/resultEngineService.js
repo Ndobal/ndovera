@@ -11,6 +11,7 @@ import {
   getResultSettings as fetchResultSettings,
   getResultSheet as fetchResultSheet,
   publishResultBatch,
+  scheduleResultHandIn,
   saveResultEntries,
   saveResultProfiles,
   saveResultSettings,
@@ -54,9 +55,12 @@ export async function getTeacherScoreSheet(params = {}) {
   return normalizeTeacherSheetResponse(data);
 }
 
-export async function saveTeacherScoreSheet(sheet = {}, { reason = '' } = {}) {
+// `studentIds` saves just those students (the one on screen); `touched` marks rows the
+// teacher typed into, so a deliberate zero (an absent student) is kept.
+export async function saveTeacherScoreSheet(sheet = {}, { reason = '', studentIds = null, touched = null } = {}) {
   const payload = sheetRequest(sheet);
-  const report = await saveResultEntries({ ...payload, reason, rows: buildEntryPayload(sheet) });
+  const rows = buildEntryPayload(sheet, { studentIds, touched });
+  const report = rows.length ? await saveResultEntries({ ...payload, reason, rows }) : null;
   const next = await getTeacherScoreSheet(payload);
   return {
     ...next,
@@ -68,15 +72,23 @@ export async function saveTeacherScoreSheet(sheet = {}, { reason = '' } = {}) {
   };
 }
 
-export async function saveTeacherProfiles(sheet = {}) {
+export async function saveTeacherProfiles(sheet = {}, { studentIds = null, reload = true } = {}) {
   const payload = sheetRequest(sheet);
-  await saveResultProfiles({ ...payload, rows: buildProfilePayload(sheet) });
+  const rows = buildProfilePayload(sheet).filter(row => !studentIds || studentIds.includes(row.studentId));
+  if (rows.length) await saveResultProfiles({ ...payload, rows });
+  return reload ? getTeacherScoreSheet(payload) : null;
+}
+
+// The class hand-in: one for the whole class, by the class teacher.
+export async function submitTeacherResults(sheet = {}, { force = false } = {}) {
+  const payload = sheetRequest(sheet);
+  await updateResultBatchStatus({ ...payload, status: 'submitted', force: force || undefined });
   return getTeacherScoreSheet(payload);
 }
 
-export async function submitTeacherResults(sheet = {}) {
+export async function scheduleClassHandIn(sheet = {}, at = null) {
   const payload = sheetRequest(sheet);
-  await updateResultBatchStatus({ ...payload, status: 'submitted' });
+  await scheduleResultHandIn({ ...payload, at });
   return getTeacherScoreSheet(payload);
 }
 
@@ -119,9 +131,9 @@ export async function getTeacherResultAudit(sheet = {}) {
   return Array.isArray(data?.logs) ? data.logs : [];
 }
 
-// C.A. hand-in: the teacher hands in one C.A. for a subject; heads approve or return it.
-export async function handInCa(sheet = {}, subjectId, componentKey) {
-  await handInCaScores(sheetRequest(sheet, { subjectId, componentKey }));
+// A subject teacher submits all of a subject's scores to the class teacher.
+export async function submitSubjectToClassTeacher(sheet = {}, subjectId) {
+  await handInCaScores(sheetRequest(sheet, { subjectId, componentKey: 'all' }));
   return getTeacherScoreSheet(sheetRequest(sheet));
 }
 

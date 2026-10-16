@@ -16,6 +16,7 @@ export default function TeacherResultStudentCard({
   student,
   settings,
   permissions,
+  profileLocked = false,
   onCaComponentChange,
   onScoreChange,
   onProfileFieldChange,
@@ -93,7 +94,13 @@ export default function TeacherResultStudentCard({
                       {row.override.rank >= 2 ? 'HoS override' : 'Class teacher override'}
                     </span>
                   )}
-                  {row.editable === false && !row.heldAbove && (
+                  {row.missing && row.editable !== false && (
+                    <span className="block text-[10px] font-semibold text-amber-700">Not entered yet</span>
+                  )}
+                  {row.lockedByHandIn && (
+                    <span className={`block text-[10px] font-normal ${RESULT_BODY}`}>Handed in</span>
+                  )}
+                  {row.editable === false && !row.heldAbove && !row.lockedByHandIn && (
                     <span className={`block text-[10px] font-normal ${RESULT_BODY}`}>View only</span>
                   )}
                   {row.heldAbove && (
@@ -136,7 +143,7 @@ export default function TeacherResultStudentCard({
       </div>
 
       {permissions?.canManageProfiles && (
-        <div className={`${RESULT_INNER_SURFACE} p-4 space-y-4`}>
+        <fieldset disabled={profileLocked} className={`${RESULT_INNER_SURFACE} p-4 space-y-4 disabled:opacity-70`}>
           <div>
             <p className={`micro-label ${RESULT_LABEL}`}>Review Fields</p>
             <p className={`mt-2 text-sm ${RESULT_BODY}`}>Attendance, affective areas, ratings, and remarks support the approval flow that sits on top of the CA sheet.</p>
@@ -226,7 +233,7 @@ export default function TeacherResultStudentCard({
               />
             </label>
           </div>
-        </div>
+        </fieldset>
       )}
     </div>
   );

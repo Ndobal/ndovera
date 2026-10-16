@@ -251,6 +251,12 @@ export async function ensureResultsTables(db: D1Database) {
   // Older batches keep only their names and are left exactly where they are.
   try { await db.exec('ALTER TABLE result_batches ADD COLUMN session_id TEXT') } catch {}
   try { await db.exec('ALTER TABLE result_batches ADD COLUMN term_id TEXT') } catch {}
+  // The class teacher can schedule the class hand-in; the minute cron hands it in when it falls due.
+  try { await db.exec('ALTER TABLE result_batches ADD COLUMN scheduled_handin_at TEXT') } catch {}
+  try { await db.exec('ALTER TABLE result_batches ADD COLUMN scheduled_handin_by TEXT') } catch {}
+  try { await db.exec('ALTER TABLE result_batches ADD COLUMN scheduled_handin_name TEXT') } catch {}
+  try { await db.exec('ALTER TABLE result_batches ADD COLUMN handin_note TEXT') } catch {}
+  await db.prepare('CREATE INDEX IF NOT EXISTS idx_result_batches_scheduled ON result_batches(scheduled_handin_at) WHERE scheduled_handin_at IS NOT NULL').run()
   await db.prepare(RESULT_ENTRIES_DDL).run()
   try { await db.exec('ALTER TABLE result_ca_entries ADD COLUMN ca_components_json TEXT') } catch {}
   // 0 = the subject teacher's own entry, 1 = class teacher override, 2 = HoS/owner override.
@@ -299,10 +305,10 @@ export async function getResultSettings(db: D1Database, tenantId: string, sectio
   const sec = String(section || '').trim().toLowerCase()
   if (sec) {
     const sectionRow = await db.prepare('SELECT * FROM result_settings_sections WHERE tenant_id = ? AND section = ?').bind(tenantId, sec).first() as Record<string, any> | null
-    if (sectionRow) return { ...mapResultSettingsRow(sectionRow, tenantId), section: sec }
+    if (sectionRow) return { ...mapResultSettingsRow(sectionRow, tenantId), section: sec, inherited: false }
   }
   const row = await db.prepare('SELECT * FROM result_settings WHERE tenant_id = ?').bind(tenantId).first() as Record<string, any> | null
-  return { ...mapResultSettingsRow(row, tenantId), section: sec }
+  return { ...mapResultSettingsRow(row, tenantId), section: sec, inherited: Boolean(sec) }
 }
 
 export async function saveResultSettings(db: D1Database, tenantId: string, settings: Record<string, any>, actorId: string, section = '') {
@@ -360,6 +366,9 @@ export async function getResultBatch(db: D1Database, tenantId: string, classId: 
     approvedBy: row.approved_by,
     approvedAt: row.approved_at,
     publishedAt: row.published_at,
+    scheduledHandInAt: row.scheduled_handin_at || null,
+    scheduledHandInName: String(row.scheduled_handin_name || ''),
+    handInNote: String(row.handin_note || ''),
   } : {
     id: buildBatchId(tenantId, classId, sessionName, termName),
     tenantId,
@@ -380,6 +389,9 @@ export async function getResultBatch(db: D1Database, tenantId: string, classId: 
     approvedBy: null,
     approvedAt: null,
     publishedAt: null,
+    scheduledHandInAt: null,
+    scheduledHandInName: '',
+    handInNote: '',
   }
 }
 
@@ -471,12 +483,19 @@ export async function writeResultEntries(db: D1Database, params: {
   await ensureResultsTables(db)
   const batchId = await ensureBatchRow(db, params.tenantId, params.classId, params.sessionName, params.termName, params.actorId, params.templateKey, params.settingsSnapshot, { sessionId: params.sessionId, termId: params.termId })
   const existing = await getResultBatch(db, params.tenantId, params.classId, params.sessionName, params.termName)
-  if (['submitted', 'published'].includes(String(existing.status || ''))) throw new Error('This result batch is locked. Ask HoS or owner to reopen it.')
+  if (String(existing.status || '') === 'published') throw new Error('This result batch is locked. Ask HoS or owner to reopen it.')
+  // After the class hand-in only students with no scores at all (added to the class
+  // since) can still be scored; the batch stays handed in.
+  const handedIn = String(existing.status || '') === 'submitted'
+  if (handedIn && !params.writer) throw new Error('This result batch is locked. Ask HoS or owner to reopen it.')
 
   const writer = params.writer
   const current = writer
     ? new Map((await listResultEntries(db, batchId)).map(entry => [`${entry.studentId}::${entry.subjectId}`, entry]))
     : new Map<string, Record<string, any>>()
+  // Students scored before the hand-in are locked with it; anyone first scored after it is a late student.
+  const handInAt = String(existing.submittedAt || '')
+  const scoredStudents = new Set([...current.values()].filter(entry => !handInAt || String(entry.updatedAt || '') <= handInAt).map(entry => String(entry.studentId)))
   const now = new Date().toISOString()
   const locked: Array<{ studentId: string, subjectId: string, subjectName: string, overrideName: string, overrideRole: string, reason?: string }> = []
   let saved = 0
@@ -488,15 +507,21 @@ export async function writeResultEntries(db: D1Database, params: {
     const before = current.get(`${studentId}::${subjectId}`)
     let override: { rank: number, by: string, name: string, role: string } | null = null
 
+    if (handedIn && scoredStudents.has(studentId)) {
+      if (!before || !sameEntryScores(before, row)) locked.push({ studentId, subjectId, subjectName: String(row.subjectName || before?.subjectName || ''), overrideName: '', overrideRole: '', reason: 'handed_in' })
+      continue
+    }
     if (writer) {
-      if (before ? sameEntryScores(before, row) : isBlankEntry(row)) continue
+      // A row the teacher typed into is kept even when every score is zero (an absent student).
+      if (before ? sameEntryScores(before, row) : (isBlankEntry(row) && !row.entered)) continue
       const heldRank = Number(before?.overrideRank || 0)
       if (heldRank > writer.rank) {
         locked.push({ studentId, subjectId, subjectName: String(row.subjectName || before?.subjectName || ''), overrideName: String(before?.overrideName || ''), overrideRole: String(before?.overrideRole || ''), reason: 'override' })
         continue
       }
       if (!row.ownSubject && writer.rank > 0) override = { rank: writer.rank, by: params.actorId, name: writer.name, role: writer.role }
-      const frozen = params.frozen?.get(subjectId)
+      // Frozen C.A. covers the scores that were handed in; a student with no row yet (new to the class) can still be scored.
+      const frozen = before ? params.frozen?.get(subjectId) : undefined
       if (frozen) {
         const changed = changedCaKeys(before, row)
         if (changed.length && (frozen.keys.has('all') || changed.some(key => frozen.keys.has(key)))) {
@@ -564,7 +589,7 @@ export async function writeResultEntries(db: D1Database, params: {
 
   const countRow = await db.prepare('SELECT COUNT(*) as count FROM result_ca_entries WHERE batch_id = ?').bind(batchId).first() as any
   await db.prepare('UPDATE result_batches SET status = ?, template_key = ?, settings_snapshot_json = ?, entry_count = ?, updated_by = ?, updated_at = ? WHERE id = ?')
-    .bind('draft', String(params.templateKey || existing.templateKey || ''), JSON.stringify(params.settingsSnapshot || existing.settingsSnapshot || {}), Number(countRow?.count || 0), params.actorId, now, batchId).run()
+    .bind(handedIn ? 'submitted' : 'draft', String(params.templateKey || existing.templateKey || ''), JSON.stringify(params.settingsSnapshot || existing.settingsSnapshot || {}), Number(countRow?.count || 0), params.actorId, now, batchId).run()
 
   return { batch: await getResultBatch(db, params.tenantId, params.classId, params.sessionName, params.termName), saved, overrides, locked }
 }
@@ -960,4 +985,119 @@ export async function reviewCaSubmission(db: D1Database, params: { tenantId: str
     throw new Error('Choose approve or return.')
   }
   return (await getCaSubmission(db, params.tenantId, submission.id))!
+}
+
+// ─── Class hand-in schedule ──────────────────────────────────────────────────
+
+export async function setScheduledHandIn(db: D1Database, batchId: string, at: string | null, by: { id: string, name: string }) {
+  await ensureResultsTables(db)
+  await db.prepare('UPDATE result_batches SET scheduled_handin_at = ?, scheduled_handin_by = ?, scheduled_handin_name = ?, handin_note = NULL, updated_at = ? WHERE id = ?')
+    .bind(at, at ? by.id : null, at ? by.name : null, new Date().toISOString(), batchId).run()
+}
+
+/** Clears a schedule that could not be carried out and says why on the sheet. */
+export async function setHandInNote(db: D1Database, batchId: string, note: string) {
+  await db.prepare('UPDATE result_batches SET handin_note = ?, scheduled_handin_at = NULL WHERE id = ?').bind(note.slice(0, 1000) || null, batchId).run()
+}
+
+/** Batches whose scheduled hand-in has come (an indexed read; nothing when none are scheduled). */
+export async function listDueScheduledHandIns(db: D1Database, nowIso: string, limit = 10) {
+  await ensureResultsTables(db)
+  const rows = await db.prepare(`SELECT id, tenant_id, class_id, session_name, term_name, status, scheduled_handin_by, scheduled_handin_name
+    FROM result_batches WHERE scheduled_handin_at IS NOT NULL AND scheduled_handin_at <= ? ORDER BY scheduled_handin_at LIMIT ?`).bind(nowIso, limit).all()
+  return (rows.results || []) as Array<Record<string, any>>
+}
+
+// ─── Combined subjects ───────────────────────────────────────────────────────
+//
+// A special subject (Fashion and Design, Catering…) is often taught to students
+// from several classes at once. A group joins the same subject across classes of
+// one section so its teacher enters every student's score on one sheet; each
+// score still lands in the student's own class result. Trade subjects are grouped
+// automatically unless the school switches the group off; any other subject taught
+// in two or more classes can be grouped by the school.
+
+const SUBJECT_GROUPS_DDL = `CREATE TABLE IF NOT EXISTS subject_groups (
+  id TEXT PRIMARY KEY,
+  tenant_id TEXT NOT NULL,
+  section TEXT NOT NULL,
+  subject_key TEXT NOT NULL,
+  name TEXT NOT NULL,
+  class_ids_json TEXT,
+  enabled INTEGER NOT NULL DEFAULT 1,
+  updated_by TEXT,
+  updated_at TEXT NOT NULL,
+  UNIQUE(tenant_id, section, subject_key)
+)`
+
+const groupTablesReady = new WeakSet<object>()
+async function ensureSubjectGroupTables(db: D1Database) {
+  if (groupTablesReady.has(db as object)) return
+  await db.prepare(SUBJECT_GROUPS_DDL).run()
+  groupTablesReady.add(db as object)
+}
+
+export function subjectGroupKey(name: unknown) {
+  return String(name || '').toLowerCase().replace(/&/g, ' and ').replace(/[^a-z0-9]+/g, ' ').trim()
+}
+
+// Trade and vocational subjects, usually taught across classes.
+const SPECIAL_SUBJECT_PATTERN = /(fashion|garment|clothing|tailor|dyeing|bleaching|catering|cosmetology|hair ?dress|photograph|tourism|leather|upholster|printing|salesmanship|store ?keeping|book ?keeping|animal husbandry|fishery|gsm|computer hardware|auto ?mechanic|electrical installation|plumbing|carpentry|joinery|welding|block ?laying|marketing|insurance|data processing)/
+
+export function isSpecialSubject(name: unknown) {
+  return SPECIAL_SUBJECT_PATTERN.test(subjectGroupKey(name))
+}
+
+export type SubjectGroup = {
+  id: string, section: string, subjectKey: string, name: string, classIds: string[], enabled: boolean,
+  automatic: boolean, special: boolean, availableClassIds: string[],
+}
+
+export function subjectGroupId(tenantId: string, section: string, subjectKey: string) {
+  return `sgrp_${normalizeKeyPart(tenantId)}_${normalizeKeyPart(section)}_${normalizeKeyPart(subjectKey)}`
+}
+
+/**
+ * Every subject taught in two or more classes of a section, with its grouping:
+ * the school's saved choice, otherwise on for trade subjects and off for the rest.
+ */
+export async function listSubjectGroups(db: D1Database, tenantId: string, classes: Array<{ id: string, section: string }>, subjects: Array<{ id: string, name: string, classId: string }>) {
+  await ensureSubjectGroupTables(db)
+  const saved = new Map<string, Record<string, any>>()
+  const rows = await db.prepare('SELECT * FROM subject_groups WHERE tenant_id = ?').bind(tenantId).all().catch(() => ({ results: [] }))
+  for (const row of (rows.results || []) as Record<string, any>[]) saved.set(`${row.section}::${row.subject_key}`, row)
+  const sectionOf = new Map(classes.map(item => [String(item.id), String(item.section)]))
+  const found = new Map<string, { section: string, subjectKey: string, name: string, classIds: Set<string> }>()
+  for (const subject of subjects) {
+    const section = sectionOf.get(String(subject.classId))
+    const subjectKey = subjectGroupKey(subject.name)
+    if (!section || !subjectKey) continue
+    const key = `${section}::${subjectKey}`
+    const entry = found.get(key) || { section, subjectKey, name: String(subject.name || ''), classIds: new Set<string>() }
+    entry.classIds.add(String(subject.classId))
+    found.set(key, entry)
+  }
+  const groups: SubjectGroup[] = []
+  for (const [key, entry] of found) {
+    if (entry.classIds.size < 2) continue
+    const row = saved.get(key)
+    const special = isSpecialSubject(entry.name)
+    const available = [...entry.classIds]
+    const chosen = row ? parseJsonField(row.class_ids_json, [] as string[]).map(String).filter(id => entry.classIds.has(id)) : []
+    groups.push({
+      id: subjectGroupId(tenantId, entry.section, entry.subjectKey), section: entry.section, subjectKey: entry.subjectKey, name: entry.name,
+      classIds: chosen.length >= 2 ? chosen : available, enabled: row ? Number(row.enabled) === 1 : special,
+      automatic: !row, special, availableClassIds: available,
+    })
+  }
+  return groups.sort((a, b) => Number(b.enabled) - Number(a.enabled) || a.section.localeCompare(b.section) || a.name.localeCompare(b.name))
+}
+
+export async function saveSubjectGroup(db: D1Database, params: { tenantId: string, section: string, subjectKey: string, name: string, classIds: string[], enabled: boolean, actorId: string }) {
+  await ensureSubjectGroupTables(db)
+  const id = subjectGroupId(params.tenantId, params.section, params.subjectKey)
+  await db.prepare(`INSERT INTO subject_groups (id, tenant_id, section, subject_key, name, class_ids_json, enabled, updated_by, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+    ON CONFLICT(id) DO UPDATE SET name = excluded.name, class_ids_json = excluded.class_ids_json, enabled = excluded.enabled, updated_by = excluded.updated_by, updated_at = excluded.updated_at`)
+    .bind(id, params.tenantId, params.section, params.subjectKey, params.name.slice(0, 120), JSON.stringify(params.classIds), params.enabled ? 1 : 0, params.actorId, new Date().toISOString()).run()
+  return id
 }

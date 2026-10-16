@@ -11,6 +11,7 @@ import {
 import BroadsheetTable from './BroadsheetTable';
 import OldStudentCodesUpload from './OldStudentCodesUpload';
 import ResultSettingsPanel from './ResultSettingsPanel';
+import SubjectGroupsPanel from './SubjectGroupsPanel';
 import ResultsDistributeBanner from './ResultsDistributeBanner';
 import {
   RESULT_BODY,
@@ -186,13 +187,23 @@ export default function ResultAdminConsole({ analyticsMode = 'hos', roleTitle = 
     }
   }, [loader]);
 
-  // Load result settings for the selected section (Nursery/Primary/Secondary),
-  // falling back to school-wide (section '') if the section has no overrides.
+  // Scores are set per section (Nursery / Primary / Secondary). The first load asks
+  // which sections the school has, then opens the first; a section without its own
+  // settings shows the school-wide ones until it is saved.
   useEffect(() => {
     let cancelled = false;
-    getResultSettings(activeSection).then(d => { if (!cancelled) setSectionData(d); }).catch(() => {});
+    getResultSettings(activeSection).then(d => {
+      if (cancelled) return;
+      if (!activeSection) {
+        const sections = d?.availableSections?.length ? d.availableSections : ['nursery', 'primary', 'secondary'];
+        setActiveSection(sections[0]);
+        return;
+      }
+      setSectionData(d);
+    }).catch(() => {});
     return () => { cancelled = true; };
   }, [activeSection]);
+  const sectionTabs = sectionData?.availableSections?.length ? sectionData.availableSections : ['nursery', 'primary', 'secondary'];
 
   useEffect(() => {
     let cancelled = false;
@@ -439,6 +450,13 @@ export default function ResultAdminConsole({ analyticsMode = 'hos', roleTitle = 
             </button>
             <button
               type="button"
+              onClick={() => setActiveTab('groups')}
+              className={activeTab === 'groups' ? RESULT_BUTTON : RESULT_SECONDARY_BUTTON}
+            >
+              Combined Subjects
+            </button>
+            <button
+              type="button"
               onClick={() => setActiveTab('broadsheet')}
               className={activeTab === 'broadsheet' ? RESULT_BUTTON : RESULT_SECONDARY_BUTTON}
             >
@@ -468,31 +486,38 @@ export default function ResultAdminConsole({ analyticsMode = 'hos', roleTitle = 
 
       {activeTab === 'oldCodes' && <OldStudentCodesUpload />}
 
+      {activeTab === 'groups' && <SubjectGroupsPanel />}
+
       {activeTab === 'console' && (
         <>
-          {(sectionData?.availableSections?.length > 1) && (
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="text-xs font-bold uppercase tracking-widest text-[#800020] dark:text-slate-400">Result settings for:</span>
-              {['', ...sectionData.availableSections].map(sec => (
-                <button
-                  key={sec || 'all'}
-                  type="button"
-                  onClick={() => setActiveSection(sec)}
-                  className={`rounded-2xl border px-4 py-1.5 text-sm font-bold capitalize transition ${activeSection === sec ? 'bg-[#191970] text-white border-[#191970]' : 'border-[#c9a96e]/40 bg-white/70 text-[#191970] dark:bg-slate-900/40 dark:text-slate-200'}`}
-                >
-                  {sec || 'School-wide'}
-                </button>
-              ))}
-            </div>
+          <div className="flex flex-wrap items-center gap-2" role="tablist" aria-label="Section">
+            <span className="text-xs font-bold uppercase tracking-widest text-[#800020] dark:text-slate-400">Scores and result settings for:</span>
+            {sectionTabs.map(sec => (
+              <button
+                key={sec}
+                type="button"
+                role="tab"
+                aria-selected={activeSection === sec}
+                onClick={() => setActiveSection(sec)}
+                className={`rounded-2xl border px-4 py-1.5 text-sm font-bold capitalize transition ${activeSection === sec ? 'bg-[#191970] text-white border-[#191970]' : 'border-[#c9a96e]/40 bg-white/70 text-[#191970] dark:bg-slate-900/40 dark:text-slate-200'}`}
+              >
+                {sec}
+              </button>
+            ))}
+          </div>
+          {sectionData?.inherited && (
+            <p className="rounded-2xl border border-amber-300/50 bg-amber-50 px-4 py-2 text-sm font-semibold capitalize text-amber-900">
+              {activeSection} is still using the school-wide settings. Check its maximum scores and C.A. columns, then save to give {activeSection} its own.
+            </p>
           )}
 
-          {(sectionData || data) && (
+          {sectionData && activeSection && (
             <ResultSettingsPanel
               key={activeSection}
-              settings={(sectionData || data).settings}
-              templates={(sectionData || data).templates}
-              suggestedSettings={(sectionData || data).suggestedSettings}
-              canManageSettings={(sectionData || data).canManageSettings}
+              settings={sectionData.settings}
+              templates={sectionData.templates}
+              suggestedSettings={sectionData.suggestedSettings}
+              canManageSettings={sectionData.canManageSettings}
               saving={saving}
               onSave={(payload) => handleSaveSettings({ ...payload, section: activeSection })}
             />
