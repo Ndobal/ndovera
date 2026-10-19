@@ -1,7 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { ReceiptDialog } from '../FinanceShared';
+import { askConfirm, askText } from '../../../shared/components/AppDialog';
 import {
-  ACCOUNT_STATUS, addCharge, adjustAccount, billNewStudents, getAccount, listAccounts, naira, recordSimplePayment, reversePayment, settleClassMove,
+  ACCOUNT_STATUS, addCharge, adjustAccount, applyFamilyDiscount, billNewStudents, getAccount, getFeeReminder, listAccounts, naira, recordSimplePayment, reversePayment, sendFeeReminders, settleClassMove,
 } from './simpleFeesApi';
 
 // The accountant's everyday screen: every student's balance, and each
@@ -97,10 +98,16 @@ function AdjustDialog({ kind, studentId, onClose, onDone }) {
   const [reason, setReason] = useState('');
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
+  // A discount or scholarship can be a fixed amount or a percentage of this term's fee.
+  const [byPercent, setByPercent] = useState(false);
+  const canPercent = !isCharge && ['discount', 'scholarship'].includes(type);
+  const percentMode = canPercent && byPercent;
+  const percentValid = !percentMode || Number(amount) <= 100;
   async function submit() {
     setBusy(true); setError('');
     try {
       if (isCharge) await addCharge(studentId, { description, amount: Number(amount), reason: reason || description });
+      else if (percentMode) await adjustAccount(studentId, { kind: type, percent: Number(amount), reason });
       else await adjustAccount(studentId, { kind: type, amount: Number(amount), reason });
       onDone();
     } catch (err) { setError(err.message); } finally { setBusy(false); }
@@ -115,11 +122,85 @@ function AdjustDialog({ kind, studentId, onClose, onDone }) {
             {[['discount', 'Discount'], ['scholarship', 'Scholarship'], ['waiver', 'Waive this term']].map(([value, label]) => <button key={value} type="button" className={type === value ? PRIMARY : SECONDARY} onClick={() => setType(value)}>{label}</button>)}
           </div>
         )}
-        {type !== 'waiver' && <label className="block text-xs font-bold uppercase text-[#800020]">Amount (₦)<input type="number" min="0" className={FIELD} value={amount} onChange={event => setAmount(event.target.value)} /></label>}
+        {canPercent && (
+          <div className="flex gap-2" role="radiogroup" aria-label="Discount type">
+            <button type="button" role="radio" aria-checked={!byPercent} className={!byPercent ? PRIMARY : SECONDARY} onClick={() => setByPercent(false)}>Fixed amount (₦)</button>
+            <button type="button" role="radio" aria-checked={byPercent} className={byPercent ? PRIMARY : SECONDARY} onClick={() => setByPercent(true)}>Percentage (%)</button>
+          </div>
+        )}
+        {type !== 'waiver' && <label className="block text-xs font-bold uppercase text-[#800020]">{percentMode ? "Percentage of this term's fee (%)" : 'Amount (₦)'}<input type="number" min="0" max={percentMode ? 100 : undefined} className={FIELD} value={amount} onChange={event => setAmount(event.target.value)} /></label>}
+        {percentMode && !percentValid && <p role="alert" className="text-sm font-semibold text-rose-700">A percentage cannot be more than 100.</p>}
         <label className="block text-xs font-bold uppercase text-[#800020]">Reason (required — kept in the audit trail)<input className={FIELD} value={reason} onChange={event => setReason(event.target.value)} placeholder={kind === 'credit' ? 'e.g. Previous overpayment' : isCharge ? 'Optional if the description says it' : 'e.g. Merit scholarship'} /></label>
         {error && <p role="alert" className="text-sm font-semibold text-rose-700">{error}</p>}
-        <button type="button" className={`${PRIMARY} w-full`} disabled={busy || (isCharge ? !description.trim() || !(Number(amount) > 0) : !reason.trim() || (type !== 'waiver' && !(Number(amount) > 0)))} onClick={submit}>{busy ? 'Saving…' : 'Save'}</button>
+        <button type="button" className={`${PRIMARY} w-full`} disabled={busy || !percentValid || (isCharge ? !description.trim() || !(Number(amount) > 0) : !reason.trim() || (type !== 'waiver' && !(Number(amount) > 0)))} onClick={submit}>{busy ? 'Saving…' : 'Save'}</button>
       </div>
+    </Modal>
+  );
+}
+
+/**
+ * Remind a family: the polite message (with the school's bank details) to each parent,
+ * sent by email from here, or opened in WhatsApp on this phone or computer, ready to send.
+ */
+export function ReminderDialog({ studentId, onClose, onDone }) {
+  const [data, setData] = useState(null);
+  const [text, setText] = useState('');
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState('');
+  useEffect(() => {
+    getFeeReminder(studentId).then(next => { setData(next); setText(next.student?.parents?.[0]?.text || ''); }).catch(err => setError(err.message));
+  }, [studentId]);
+  const student = data?.student;
+  const parents = student?.parents || [];
+  const emails = parents.filter(parent => parent.email);
+  const phones = parents.filter(parent => parent.phone);
+  // An edited message is used for every parent; otherwise each parent is greeted by name.
+  const firstText = parents[0]?.text || '';
+  const edited = text.trim() !== firstText.trim();
+  const whatsappUrl = parent => edited ? `https://wa.me/${String(parent.phone).replace(/[^\d]/g, '')}?text=${encodeURIComponent(text)}` : parent.whatsappUrl;
+
+  async function email() {
+    setBusy(true); setError('');
+    try {
+      const result = await sendFeeReminders({ studentIds: [studentId], channel: 'email', ...(edited ? { text } : {}) });
+      if (result.sent) onDone(`Reminder emailed to ${emails.map(parent => parent.name || parent.email).join(', ')}.`);
+      else setError(`Not sent: ${(result.skipped || []).map(item => item.reason).join('; ') || 'no email address'}.`);
+    } catch (err) { setError(err.message); } finally { setBusy(false); }
+  }
+
+  return (
+    <Modal title="Send fee reminder" onClose={onClose}>
+      {!data && !error && <p role="status">Preparing the reminder…</p>}
+      {error && <p role="alert" className="mb-2 text-sm font-semibold text-rose-700">{error}</p>}
+      {student && (
+        <div className="space-y-3">
+          <p className="text-sm"><strong>{student.studentName}</strong> · {student.className} · balance <strong>{naira(student.balance)}</strong></p>
+          {!(student.balance > 0) && <p className="rounded-xl bg-emerald-50 px-3 py-2 text-sm font-semibold text-[#1a5c38]">Nothing is owed, so there is nothing to remind about.</p>}
+          {data.bankMissing && <p className="rounded-xl bg-amber-50 px-3 py-2 text-sm font-semibold text-amber-900">The school's bank account is not set yet, so the message has no account details. Add it under Finance → Parent Payment Channels (bank name and account number).</p>}
+          {!parents.length && <p className="rounded-xl bg-amber-50 px-3 py-2 text-sm font-semibold text-amber-900">No parent is linked to {student.studentName}. Link a parent in People first.</p>}
+          {parents.length > 0 && (
+            <>
+              <label className="block text-xs font-bold uppercase text-[#800020]">Message (you can change it)
+                <textarea rows={12} className={`${FIELD} font-normal normal-case`} value={text} onChange={event => setText(event.target.value)} />
+              </label>
+              {data.lastReminder && <p className="text-xs">Last reminder: {String(data.lastReminder.channel)} on {new Date(data.lastReminder.sent_at).toLocaleString()} by {data.lastReminder.sent_by || 'staff'}.</p>}
+              <button type="button" className={`${PRIMARY} w-full`} disabled={busy || !emails.length || !(student.balance > 0) || !text.trim()} onClick={email}>
+                {busy ? 'Sending…' : emails.length ? `Send by email to ${emails.length} parent${emails.length === 1 ? '' : 's'}` : 'No parent email on record'}
+              </button>
+              <div className="space-y-1">
+                {phones.length ? phones.map(parent => (
+                  <a key={parent.guardianId} href={whatsappUrl(parent)} target="_blank" rel="noopener noreferrer"
+                    onClick={() => { sendFeeReminders({ studentIds: [studentId], channel: 'whatsapp', sentTo: parent.phone }).catch(() => {}); }}
+                    className={`${SECONDARY} block text-center`}>
+                    WhatsApp {parent.name || 'parent'} ({parent.phone})
+                  </a>
+                )) : <p className="text-xs">No parent phone number on record for WhatsApp.</p>}
+              </div>
+              <p className="text-xs">Email is sent in the school's name. WhatsApp opens with the message typed in; press send there. A family is emailed at most once a day.</p>
+            </>
+          )}
+        </div>
+      )}
     </Modal>
   );
 }
@@ -138,23 +219,32 @@ function printStatement(data) {
   win.document.close();
 }
 
-export function StudentAccount({ studentId, onBack, onChanged }) {
+export function StudentAccount({ studentId, onBack, onChanged, onPrevious, onNext, position }) {
   const [data, setData] = useState(null);
   const [error, setError] = useState('');
   const [dialog, setDialog] = useState('');
   const [receipt, setReceipt] = useState(null);
   const [showHistory, setShowHistory] = useState(false);
   const [notice, setNotice] = useState('');
-  const load = useCallback(() => getAccount(studentId).then(setData).catch(err => setError(err.message)), [studentId]);
-  useEffect(() => { load(); }, [load]);
+  const load = useCallback(() => getAccount(studentId).then(next => { setError(''); setData(next); }).catch(err => setError(err.message)), [studentId]);
+  useEffect(() => { setData(null); setNotice(''); setDialog(''); setShowHistory(false); load(); }, [load]);
   const changed = message => { setDialog(''); setNotice(message); load(); onChanged?.(); };
 
-  if (error) return <p role="alert" className="font-semibold text-rose-700">{error}</p>;
+  if (error && !data) return <div className="space-y-2"><button type="button" className={SECONDARY} onClick={onBack}>← All students</button><p role="alert" className="font-semibold text-rose-700">{error}</p></div>;
   if (!data) return <p role="status">Loading account…</p>;
   const s = data.statement;
   return (
     <div className="space-y-4">
-      <button type="button" className={SECONDARY} onClick={onBack}>← All students</button>
+      <div className="flex flex-wrap items-center gap-2">
+        <button type="button" className={SECONDARY} onClick={onBack}>← All students</button>
+        {(onPrevious || onNext) && (
+          <div className="ml-auto flex items-center gap-2">
+            <button type="button" className={SECONDARY} disabled={!onPrevious} onClick={onPrevious}>‹ Previous</button>
+            {position && <span className="text-sm font-bold text-[#191970] dark:text-slate-200">{position.index + 1} of {position.total}</span>}
+            <button type="button" className={SECONDARY} disabled={!onNext} onClick={onNext}>Next ›</button>
+          </div>
+        )}
+      </div>
       <section className={`${CARD} space-y-3`}>
         <h2 className="text-2xl font-black text-[#800000] dark:text-white">{data.student.studentName} <span className="text-base font-semibold text-[#191970] dark:text-slate-300">— {data.student.className}</span></h2>
         <div className="grid gap-2 sm:grid-cols-3">
@@ -168,6 +258,7 @@ export function StudentAccount({ studentId, onBack, onChanged }) {
           {data.canAdjust && <button type="button" className={SECONDARY} disabled={data.unbilled} onClick={() => setDialog('discount')}>Give Discount</button>}
           {data.canAdjust && <button type="button" className={SECONDARY} disabled={data.unbilled} onClick={() => setDialog('credit')}>Credit</button>}
           <button type="button" className={SECONDARY} onClick={() => printStatement(data)}>Print Statement</button>
+          {data.canRecordPayments && s.balance > 0 && <button type="button" className={SECONDARY} onClick={() => setDialog('remind')}>Send Reminder</button>}
         </div>
         {notice && <p role="status" className="rounded-xl bg-emerald-50 px-3 py-2 text-sm font-semibold text-[#1a5c38]">{notice}</p>}
       </section>
@@ -233,7 +324,7 @@ export function StudentAccount({ studentId, onBack, onChanged }) {
                   <span className="font-bold">{naira(payment.amount)}</span>
                   {paymentReceipt && <button type="button" className="text-xs font-bold text-[#800020] underline" onClick={() => setReceipt(paymentReceipt)}>Receipt</button>}
                   {data.canRecordPayments && payment.status === 'confirmed' && <button type="button" className="text-xs font-bold text-rose-700 underline" onClick={async () => {
-                    const reason = window.prompt?.('Why is this payment being reversed?');
+                    const reason = await askText('Why is this payment being reversed?');
                     if (!reason) return;
                     try { await reversePayment(payment.id, reason); changed('Payment reversed. It stays on record beside the reversal.'); } catch (err) { setError(err.message); }
                   }}>Reverse</button>}
@@ -245,6 +336,7 @@ export function StudentAccount({ studentId, onBack, onChanged }) {
       )}
 
       {dialog === 'pay' && <RecordPaymentDialog student={{ studentId, studentName: data.student.studentName, className: data.student.className, balance: s.balance }} onClose={() => setDialog('')} onDone={result => { changed(`Payment recorded. Receipt ${result.receipt?.receiptNo || ''}.`); setReceipt(result.receipt ? { ...result.receipt, status: 'valid' } : null); }} />}
+      {dialog === 'remind' && <ReminderDialog studentId={studentId} onClose={() => setDialog('')} onDone={message => { setDialog(''); setNotice(message); }} />}
       {['charge', 'discount', 'credit'].includes(dialog) && <AdjustDialog kind={dialog} studentId={studentId} onClose={() => setDialog('')} onDone={() => changed('Saved and recorded in the audit trail.')} />}
       <ReceiptDialog receipt={receipt} onClose={() => setReceipt(null)} />
     </div>
@@ -304,14 +396,74 @@ export function QuickPayCell({ account, onRecorded, onReceipt }) {
 const STICKY_BAR = 'sticky top-14 z-30 shadow-md dark:bg-slate-900';
 
 /** A family's children together: what they owe and have paid as one household. */
-function FamilyTotals({ family, accounts }) {
+/**
+ * Family discount: a percentage of each chosen child's term fee, or the same amount for
+ * each. Every child after the first (the one with the highest term fee) is ticked to start.
+ */
+function FamilyDiscountDialog({ family, accounts, onClose, onDone }) {
+  const billed = [...accounts].filter(account => account.status !== 'not_billed').sort((a, b) => (b.termFee || 0) - (a.termFee || 0));
+  const [chosen, setChosen] = useState(() => new Set(billed.slice(1).map(account => account.studentId)));
+  const [mode, setMode] = useState('percent');
+  const [value, setValue] = useState('');
+  const [note, setNote] = useState('');
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState('');
+  const number = Number(value);
+  const valid = number > 0 && (mode === 'amount' || number <= 100) && chosen.size > 0;
+  const each = account => mode === 'percent' ? Math.round((account.termFee || 0) * number) / 100 : number;
+  const toggle = id => setChosen(previous => { const next = new Set(previous); if (next.has(id)) next.delete(id); else next.add(id); return next; });
+  async function submit() {
+    setBusy(true); setError('');
+    try {
+      const result = await applyFamilyDiscount({ familyId: family.id, studentIds: [...chosen], mode, value: number, note });
+      const skipped = (result.results || []).filter(item => item.skipped).map(item => `${accounts.find(account => account.studentId === item.studentId)?.studentName || item.studentId}: ${item.skipped}`);
+      onDone(`Family discount given to ${result.applied} child${result.applied === 1 ? '' : 'ren'}.${skipped.length ? ` Not given — ${skipped.join('; ')}.` : ''}`);
+    } catch (err) { setError(err.message); } finally { setBusy(false); }
+  }
+  return (
+    <Modal title={`Family discount — ${family.name}`} onClose={onClose}>
+      <div className="space-y-3">
+        <div className="flex gap-2" role="radiogroup" aria-label="Discount type">
+          <button type="button" role="radio" aria-checked={mode === 'percent'} className={mode === 'percent' ? PRIMARY : SECONDARY} onClick={() => setMode('percent')}>Percentage (%)</button>
+          <button type="button" role="radio" aria-checked={mode === 'amount'} className={mode === 'amount' ? PRIMARY : SECONDARY} onClick={() => setMode('amount')}>Fixed amount (₦)</button>
+        </div>
+        <label className="block text-xs font-bold uppercase text-[#800020]">{mode === 'percent' ? "Percentage of each child's term fee" : 'Amount off for each child (₦)'}
+          <input type="number" min="0" max={mode === 'percent' ? 100 : undefined} className={`${FIELD} text-lg font-bold`} value={value} onChange={event => setValue(event.target.value)} />
+        </label>
+        <fieldset className="space-y-1">
+          <legend className="text-xs font-bold uppercase text-[#800020]">Children who get it</legend>
+          {billed.map(account => (
+            <label key={account.studentId} className="flex items-center gap-2 rounded-xl bg-slate-50 px-3 py-2 text-sm">
+              <input type="checkbox" checked={chosen.has(account.studentId)} onChange={() => toggle(account.studentId)} />
+              <span className="flex-1">{account.studentName} · {account.className} · term fee {naira(account.termFee)}</span>
+              {chosen.has(account.studentId) && number > 0 && <span className="font-bold text-[#1a5c38]">− {naira(each(account))}</span>}
+            </label>
+          ))}
+          {billed.length < accounts.length && <p className="text-xs">Children without a fee account this term are not listed.</p>}
+        </fieldset>
+        <label className="block text-xs font-bold uppercase text-[#800020]">Note (optional)<input className={FIELD} value={note} onChange={event => setNote(event.target.value)} placeholder="e.g. Three children in school" /></label>
+        {error && <p role="alert" className="text-sm font-semibold text-rose-700">{error}</p>}
+        <button type="button" className={`${PRIMARY} w-full`} disabled={busy || !valid} onClick={submit}>{busy ? 'Saving…' : 'Give family discount'}</button>
+        <p className="text-xs">Recorded in each child's account and the audit trail. A child who already has a family discount this term is not given a second.</p>
+      </div>
+    </Modal>
+  );
+}
+
+function FamilyTotals({ family, accounts, canAdjust, onChanged }) {
   const sum = key => accounts.reduce((total, account) => total + (Number(account[key]) || 0), 0);
+  const [open, setOpen] = useState(false);
+  const [notice, setNotice] = useState('');
   return (
     <section className="grid gap-2 rounded-3xl border-2 border-[#1a5c38]/40 bg-[#e8f5ee] p-4 text-[#191970] sm:grid-cols-4">
-      <div><p className="text-xs font-bold uppercase text-[#800020]">Family</p><p className="font-black">{family.name}</p><p className="text-xs">{accounts.length} child{accounts.length === 1 ? '' : 'ren'}</p></div>
+      <div><p className="text-xs font-bold uppercase text-[#800020]">Family</p><p className="font-black">{family.name}</p><p className="text-xs">{accounts.length} child{accounts.length === 1 ? '' : 'ren'}</p>
+        {canAdjust && family.id && <button type="button" className={`${SECONDARY} mt-2`} onClick={() => setOpen(true)}>Family discount</button>}
+      </div>
       <div><p className="text-xs font-bold uppercase text-[#800020]">Total payable</p><p className="text-xl font-black">{naira(sum('totalPayable'))}</p></div>
       <div><p className="text-xs font-bold uppercase text-[#800020]">Paid</p><p className="text-xl font-black text-[#1a5c38]">{naira(sum('paid'))}</p></div>
       <div><p className="text-xs font-bold uppercase text-[#800020]">Family balance</p><p className={`text-xl font-black ${sum('balance') > 0 ? 'text-rose-700' : ''}`}>{naira(sum('balance'))}</p></div>
+      {notice && <p role="status" className="rounded-xl bg-white px-3 py-2 text-sm font-semibold text-[#1a5c38] sm:col-span-4">{notice}</p>}
+      {open && <FamilyDiscountDialog family={family} accounts={accounts} onClose={() => setOpen(false)} onDone={message => { setOpen(false); setNotice(message); onChanged?.(); }} />}
     </section>
   );
 }
@@ -322,11 +474,38 @@ export default function StudentAccounts({ classes, initialStudentId, onChanged }
   const [error, setError] = useState('');
   const [open, setOpen] = useState(initialStudentId || '');
   const [receipt, setReceipt] = useState(null);
+  const [remindId, setRemindId] = useState('');
+  const [bulk, setBulk] = useState({ busy: false, message: '' });
+
+  // Email every student on the list who still owes (as filtered), at most 100 at a time.
+  async function remindAllOwing() {
+    const owing = (data?.accounts || []).filter(account => account.balance > 0).slice(0, 100);
+    if (!owing.length) return;
+    if (!(await askConfirm(`Email a polite fee reminder, with the school's bank details, to the parents of ${owing.length} student${owing.length === 1 ? '' : 's'} who still owe? Families already reminded today are skipped.`))) return;
+    setBulk({ busy: true, message: '' });
+    try {
+      const result = await sendFeeReminders({ studentIds: owing.map(account => account.studentId), channel: 'email' });
+      const reasons = {};
+      for (const item of result.skipped || []) reasons[item.reason] = (reasons[item.reason] || 0) + 1;
+      const skipped = Object.entries(reasons).map(([reason, count]) => `${count} ${reason}`).join(', ');
+      setBulk({ busy: false, message: `Reminders emailed for ${result.sent} student${result.sent === 1 ? '' : 's'}.${skipped ? ` Not sent: ${skipped}.` : ''}${result.bankMissing ? ' Add the school bank account under Finance → Parent Payment Channels so it appears in reminders.' : ''}` });
+    } catch (err) { setBulk({ busy: false, message: err.message }); }
+  }
   const load = useCallback(() => listAccounts(filters).then(setData).catch(err => setError(err.message)), [filters]);
   useEffect(() => { const timer = setTimeout(load, 200); return () => clearTimeout(timer); }, [load]);
   useEffect(() => { if (initialStudentId) setOpen(initialStudentId); }, [initialStudentId]);
 
-  if (open) return <StudentAccount studentId={open} onBack={() => { setOpen(''); load(); }} onChanged={onChanged} />;
+  if (open) {
+    // Previous / Next walk the list as it was filtered when the account was opened.
+    const ids = (data?.accounts || []).map(account => account.studentId);
+    const index = ids.indexOf(open);
+    return (
+      <StudentAccount studentId={open} onBack={() => { setOpen(''); load(); }} onChanged={onChanged}
+        position={index >= 0 ? { index, total: ids.length } : null}
+        onPrevious={index > 0 ? () => setOpen(ids[index - 1]) : null}
+        onNext={index >= 0 && index < ids.length - 1 ? () => setOpen(ids[index + 1]) : null} />
+    );
+  }
   return (
     <div className="space-y-4">
       <section className={`${CARD} ${STICKY_BAR} flex flex-wrap gap-2`}>
@@ -342,10 +521,14 @@ export default function StudentAccounts({ classes, initialStudentId, onChanged }
           <option value="">Everyone</option><option value="owing">Owing</option><option value="unpaid">Unpaid</option><option value="part_payment">Part Payment</option><option value="paid">Paid</option><option value="overpaid">Overpaid</option><option value="not_billed">No account yet</option><option value="left">Past students still owing</option>
         </select>
         {data?.accounts?.length > 0 && <p className="self-center text-sm font-bold text-[#191970] dark:text-slate-200">{data.accounts.length} student{data.accounts.length === 1 ? '' : 's'}</p>}
+        {data?.canRecordPayments && data.accounts?.some(account => account.balance > 0) && (
+          <button type="button" className={`${SECONDARY} ml-auto`} disabled={bulk.busy} onClick={remindAllOwing}>{bulk.busy ? 'Sending reminders…' : 'Email reminders to all owing'}</button>
+        )}
       </section>
+      {bulk.message && <p role="status" className="rounded-xl bg-white px-3 py-2 text-sm font-semibold text-[#191970]">{bulk.message}</p>}
       {error && <p role="alert" className="font-semibold text-rose-700">{error}</p>}
       {filters.familyId && data?.accounts?.length > 0 && (
-        <FamilyTotals family={(data.families || []).find(family => family.id === filters.familyId) || { name: 'Family' }} accounts={data.accounts} />
+        <FamilyTotals family={(data.families || []).find(family => family.id === filters.familyId) || { id: filters.familyId, name: 'Family' }} accounts={data.accounts} canAdjust={data.canAdjust} onChanged={() => { load(); onChanged?.(); }} />
       )}
       <section className={CARD}>
         {!data ? <p role="status">Loading…</p> : !data.accounts.length ? <p className="text-sm text-[#191970] dark:text-slate-300">No students match.</p> : (
@@ -372,7 +555,10 @@ export default function StudentAccounts({ classes, initialStudentId, onChanged }
                     <td className="p-2 text-right font-black">{naira(account.balance)}</td>
                     <td className="p-2"><StatusChip status={account.status} /></td>
                     {data.canRecordPayments && <td className="p-1"><QuickPayCell account={account} onReceipt={setReceipt} onRecorded={() => { load(); onChanged?.(); }} /></td>}
-                    <td className="p-2"><button type="button" className="text-xs font-bold text-[#800020] underline" onClick={() => setOpen(account.studentId)}>View</button></td>
+                    <td className="whitespace-nowrap p-2">
+                      <button type="button" className="text-xs font-bold text-[#800020] underline" onClick={() => setOpen(account.studentId)}>View</button>
+                      {data.canRecordPayments && account.balance > 0 && <button type="button" className="ml-2 text-xs font-bold text-[#1a5c38] underline" onClick={() => setRemindId(account.studentId)}>Remind</button>}
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -381,6 +567,7 @@ export default function StudentAccounts({ classes, initialStudentId, onChanged }
         )}
       </section>
       <ReceiptDialog receipt={receipt} onClose={() => setReceipt(null)} />
+      {remindId && <ReminderDialog studentId={remindId} onClose={() => setRemindId('')} onDone={message => { setRemindId(''); setBulk({ busy: false, message }); }} />}
     </div>
   );
 }

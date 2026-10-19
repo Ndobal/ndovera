@@ -302,16 +302,20 @@ export const getExpenditure = () => req('/api/school/expenditure');
 export const addExpenditure = (data) => req('/api/school/expenditure', { method: 'POST', body: data });
 
 // Payroll
-export const getPayroll = () => req('/api/school/payroll');
+export const getPayroll = (period) => req(`/api/school/payroll${buildQuery(period ? { period } : {})}`);
 export const updatePayrollStaff = (staffId, data) => req(`/api/school/payroll/staff/${staffId}`, { method: 'PUT', body: data });
-export const approvePayroll = () => req('/api/school/payroll/approve', { method: 'POST' });
-export const submitPayroll = () => req('/api/school/payroll/submit', { method: 'POST' });
+export const approvePayroll = (period) => req('/api/school/payroll/approve', { method: 'POST', body: { period } });
+export const submitPayroll = (period) => req('/api/school/payroll/submit', { method: 'POST', body: { period } });
+/** Copy one month's payroll into another as a draft: { from, to, overwrite? }. */
+export const copyPayroll = (data) => req('/api/school/payroll/copy', { method: 'POST', body: data });
+/** Release payslips to staff: { period, staffIds? } — no staffIds releases every pending one. */
+export const releasePayslips = (data) => req('/api/school/payroll/release', { method: 'POST', body: data });
 export const getPayrollHistory = () => req('/api/school/payroll/history');
 export const getPayrollSettings = () => req('/api/school/payroll/settings');
 export const savePayrollSettings = (data) => req('/api/school/payroll/settings', { method: 'POST', body: data });
 export const getPayrollNote = (period) => req(`/api/school/payroll/note${buildQuery(period ? { period } : {})}`);
 export const savePayrollNote = (data) => req('/api/school/payroll/note', { method: 'POST', body: data });
-export const getMyPayslip = () => req('/api/school/payroll/my-payslip');
+export const getMyPayslip = (period) => req(`/api/school/payroll/my-payslip${buildQuery(period ? { period } : {})}`);
 
 // Attendance
 export const getStaffAttendance = (date) => req(`/api/school/staff-attendance?date=${date}`);

@@ -10,6 +10,7 @@ import AmiCommunications from './features/communications/AmiCommunications';
 import ParentNotifications from './features/communications/ParentNotifications';
 import TeacherNotifications from './features/communications/TeacherNotifications';
 import BirthdaysPage from './features/birthdays/BirthdaysPage';
+import TeacherPayslip from './app/roles/teacher/TeacherPayslip';
 import ClubsPage from './features/clubs/ClubsPage';
 import PracticePassesPage from './features/practice-arena/PracticePassesPage';
 import ExamReadinessPage from './features/material-ai/ExamReadinessPage';
@@ -262,6 +263,8 @@ function AnimatedRoutes({ auth, onLogin }) {
         <Route path="/championships" element={<PublicChampionshipsPage />} />
         <Route path="/invoice/:token" element={<InvoicePayPage />} />
         <Route path="/championships/:slug" element={<PublicChampionshipDetailPage />} />
+        {/* One payslip page for every staff role (teachers, HoS, accountant, ICT, librarian, clinic, …). */}
+        <Route path="/roles/:role/payslip" element={<RequireAuth auth={auth}><RouteTransition><TeacherPayslip auth={auth} /></RouteTransition></RequireAuth>} />
         <Route path="/roles/:role/birthdays" element={<RequireAuth auth={auth}><RouteTransition><BirthdaysPage /></RouteTransition></RequireAuth>} />
         <Route path="/roles/:role/clubs" element={<RequireAuth auth={auth}><RouteTransition><ClubsPage /></RouteTransition></RequireAuth>} />
         <Route path="/roles/owner/health" element={<RoleGuard auth={auth} expectedRole="owner"><RouteTransition><HealthRegisterPage /></RouteTransition></RoleGuard>} />

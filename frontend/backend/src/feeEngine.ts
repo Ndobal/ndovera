@@ -824,12 +824,33 @@ export async function addStudentCharge(db: D1Database, options: { tenantId: stri
  * this term's charges (largest balance first), then earlier balances. A credit
  * may exceed what is owed; the rest stays on the account.
  */
-export async function adjustStudent(db: D1Database, options: { tenantId: string, actor: Actor, studentId: string, termId: string, kind: string, amount: unknown, reason: unknown }) {
+/** This term's fee (the structured charges, before any discount) from a loaded ledger. */
+function termFeeOf(charges: Array<Charge & { structured: boolean }>, termId: string) {
+  const own = charges.filter(charge => charge.termId === termId && charge.status !== 'cancelled')
+  const structured = own.filter(charge => charge.structured)
+  return money((structured.length ? structured : own).reduce((sum, charge) => sum + charge.amount, 0))
+}
+
+/**
+ * A discount or scholarship is a fixed amount, or (with `percent`) a share of this
+ * term's fee — "10%" of a ₦150,000 term fee is ₦15,000, worked out here, never by the page.
+ */
+export async function adjustStudent(db: D1Database, options: { tenantId: string, actor: Actor, studentId: string, termId: string, kind: string, amount: unknown, reason: unknown, percent?: unknown }) {
   await ensureFeeEngineTables(db)
   if (!['discount', 'scholarship', 'waiver', 'credit'].includes(options.kind)) throw new FinanceError('Choose discount, scholarship, waiver or credit.')
-  const reason = String(options.reason || '').trim().slice(0, 500)
+  let reason = String(options.reason || '').trim().slice(0, 500)
   if (!reason) throw new FinanceError('Give the reason for this adjustment.')
   const ledger = await loadLedger(db, options.tenantId, [options.studentId])
+  const percentGiven = options.percent !== undefined && options.percent !== null && options.percent !== ''
+  if (percentGiven) {
+    if (!['discount', 'scholarship'].includes(options.kind)) throw new FinanceError('Only a discount or scholarship can be a percentage.')
+    const percent = Number(options.percent)
+    if (!(percent > 0 && percent <= 100)) throw new FinanceError('Enter a percentage between 0 and 100.')
+    const termFee = termFeeOf(ledger.charges, options.termId)
+    if (!(termFee > 0)) throw new FinanceError('This student has no term fee to take a percentage of.')
+    options = { ...options, amount: money(termFee * percent / 100) }
+    reason = `${reason} (${percent}% of the ₦${termFee.toLocaleString('en-NG')} term fee)`.slice(0, 500)
+  }
   const open = ledger.charges.filter(charge => charge.source === 'obligation' && !['cancelled', 'waived'].includes(charge.status))
   const ordered = [
     ...open.filter(charge => charge.termId === options.termId).sort((a, b) => b.balance - a.balance),
@@ -862,6 +883,44 @@ export async function adjustStudent(db: D1Database, options: { tenantId: string,
     await addAdjustment(db, { tenantId: options.tenantId, obligationId: ordered[0].id, kind: 'credit', amount: left, reason, actor: options.actor })
   }
   return { applied: money(options.amount) }
+}
+
+// ─── Family discounts ────────────────────────────────────────────────────────
+
+export const FAMILY_DISCOUNT_REASON = 'Family discount'
+
+/**
+ * A family discount on the children chosen (usually every child after the first), as a
+ * percentage of each child's term fee or the same fixed amount for each. A child who
+ * already has a family discount this term is skipped, so pressing twice never doubles it.
+ */
+export async function applyFamilyDiscount(db: D1Database, options: { tenantId: string, actor: Actor, termId: string, studentIds: string[], mode: string, value: unknown, note?: unknown }) {
+  await ensureFeeEngineTables(db)
+  const mode = options.mode === 'percent' ? 'percent' : 'amount'
+  const value = Number(options.value)
+  if (!(value > 0) || (mode === 'percent' && value > 100)) throw new FinanceError(mode === 'percent' ? 'Enter a percentage between 0 and 100.' : 'Enter an amount greater than zero.')
+  const ids = [...new Set(options.studentIds.map(String).filter(Boolean))].slice(0, 30)
+  if (!ids.length) throw new FinanceError('Choose the children who get the discount.')
+  const note = String(options.note || '').trim().slice(0, 200)
+  const reason = `${FAMILY_DISCOUNT_REASON}${note ? ` — ${note}` : ''}`
+  const ledger = await loadLedger(db, options.tenantId, ids)
+  const results: Array<{ studentId: string, applied?: number, skipped?: string }> = []
+  for (const studentId of ids) {
+    const termCharges = ledger.charges.filter(charge => charge.studentId === studentId && charge.termId === options.termId && charge.status !== 'cancelled')
+    const already = termCharges.some(charge => (ledger.adjustmentsByCharge.get(charge.id) || []).some(row => String(row.reason || '').startsWith(FAMILY_DISCOUNT_REASON)))
+    if (already) { results.push({ studentId, skipped: 'already has a family discount this term' }); continue }
+    if (!termCharges.length) { results.push({ studentId, skipped: 'no fee account this term' }); continue }
+    try {
+      const done = await adjustStudent(db, {
+        tenantId: options.tenantId, actor: options.actor, studentId, termId: options.termId, kind: 'discount', reason,
+        amount: mode === 'amount' ? value : undefined, percent: mode === 'percent' ? value : undefined,
+      })
+      results.push({ studentId, applied: done.applied })
+    } catch (error) {
+      results.push({ studentId, skipped: error instanceof Error ? error.message : 'could not apply' })
+    }
+  }
+  return { results, applied: results.filter(item => item.applied).length }
 }
 
 // ─── Students who moved class mid-term ───────────────────────────────────────

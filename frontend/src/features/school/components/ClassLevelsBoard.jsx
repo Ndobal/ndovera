@@ -30,7 +30,7 @@ export default function ClassLevelsBoard() {
     setBusy(true); setNotice(''); setError('');
     try {
       await saveClassLevels(Object.fromEntries(changed.map(item => [item.id, choice[item.id] || ''])));
-      setNotice('Class levels saved. Curriculum, AI materials and practice now use them.');
+      setNotice('Class levels saved. Score sheet sections, curriculum, AI materials and practice now use them.');
       await load();
     } catch (e) {
       setError(e.message || 'Could not save the class levels.');

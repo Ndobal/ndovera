@@ -379,7 +379,7 @@ import { MAX_MESSAGE_LENGTH, conversationIfMember, conversationsFor, findConvers
 import type { SchoolClass } from './classMatch'
 import { CLASS_CHANGE_ROLES, classHistory, isStudentPayload, monitorClassPins } from './classPins'
 import {
-  Enrollment, TermRef, accountSummaries, addStudentCharge, adjustStudent, billStudents, canEditFees, getFeeSettings, getTermGrid, getTermLock,
+  Enrollment, TermRef, accountSummaries, addStudentCharge, adjustStudent, applyFamilyDiscount, billStudents, canEditFees, getFeeSettings, getTermGrid, getTermLock,
   discardFeeDraft, getFeeDraft, gridFromFeeConfig, listFeeTerms, loadStudentAmounts, lockTerm, saveFeeDraft, resolveClassMove, saveFeeSettings, saveTermGrid, studentStatement, studentsWithFees, unbilledStudents, unlockTerm,
 } from './feeEngine'
 import {
@@ -417,11 +417,12 @@ import {
   CommError, createQuote, getPlatformConfig, giftUnits, isChannel, ledgerFor, listGifts, listGrants, listPurchases, getPurchase, priceSchedule, reverseGift,
   schedulePrice, setPlatformConfig, settlePurchase, startCheckout, walletSummary as commWalletSummary, ensureTermAllowance, CHANNELS,
 } from './commCredits'
-import { EVENT_TYPES, getSettings as getCommSettings, listInbox, listTemplates, markInboxRead, setConsent, setDesignation, setTemplate, updateSettings as updateCommSettings, normalizePhone, type EventType } from './commMessages'
+import { DEFAULT_SETTINGS as DEFAULT_COMM_SETTINGS, EVENT_TYPES, getSettings as getCommSettings, listInbox, listTemplates, markInboxRead, setConsent, setDesignation, setTemplate, updateSettings as updateCommSettings, normalizePhone, type EventType } from './commMessages'
 import {
   admitBatch, applyWhatsAppStatuses, commTick, deliveryHistory, overview as commOverview, previewEvent, readmitWaiting, recordEvent, resolveUnknown,
-  scheduleAssignmentDigest, scheduleDeadlineReminders, scheduleFeeReminders, ensureEngineTables, type CommDeps, type CommEvent, type Scope,
+  scheduleAssignmentDigest, scheduleDeadlineReminders, scheduleFeeReminders, ensureEngineTables, resolveRecipients, type CommDeps, type CommEvent, type Scope,
 } from './commEngine'
+import { feeReminderSubject, feeReminderText, schoolEmailHtml, whatsappLinkFor } from './feeReminders'
 import { parseMetaStatuses, verifyMetaSignature } from './commAdapters'
 import {
   BirthdayError, cardSvg, celebrationDetail, consentStatus as birthdayConsentStatus, decideWish, getSettings as getBirthdaySettings, listWishes, memories as birthdayMemories,
@@ -1874,7 +1875,7 @@ async function resolveResultClassAccess(db: D1Database, user: Record<string, any
   try { await db.exec('ALTER TABLE subjects ADD COLUMN teacherId TEXT') } catch {}
 
   const classRow = tenantId
-    ? await db.prepare(`SELECT id, tenantId, name, arm, classTeacherId, section FROM classes WHERE id = ? AND tenantId = ?`).bind(classId, tenantId).first() as Record<string, any> | null
+    ? await db.prepare(`SELECT * FROM classes WHERE id = ? AND tenantId = ?`).bind(classId, tenantId).first() as Record<string, any> | null
     : null
   const subjectRowsResult = classRow
     ? await db.prepare(`SELECT id, name, teacherId FROM subjects WHERE tenantId = ? AND classId = ? ORDER BY name`).bind(tenantId, classId).all().catch(() => ({ results: [] }))
@@ -2879,10 +2880,23 @@ async function schoolReceiptBase(db: D1Database, tenantId: string, baseDomain = 
   return subdomain ? `https://${subdomain}.${normalizeHostname(baseDomain)}` : ''
 }
 
-/** Each receipt with the link a parent can open to check it (shared to WhatsApp and elsewhere). */
+/**
+ * Each receipt with the link a parent can open to check it (shared to WhatsApp and elsewhere),
+ * and the school's own name and logo, so a receipt never falls back to "Ndovera".
+ */
 async function withReceiptLinks<T extends { receiptNo?: string }>(db: D1Database, tenantId: string, receipts: T[], baseDomain?: string) {
-  const base = receipts.length ? await schoolReceiptBase(db, tenantId, baseDomain) : ''
-  return receipts.map(receipt => ({ ...receipt, verificationUrl: base && receipt.receiptNo ? `${base}/receipt-verification/${encodeURIComponent(receipt.receiptNo)}` : '' }))
+  if (!receipts.length) return receipts.map(receipt => ({ ...receipt, verificationUrl: '' }))
+  const base = await schoolReceiptBase(db, tenantId, baseDomain)
+  const tenant = await getTenantById(db, tenantId).catch(() => null) as Record<string, any> | null
+  const branding = await getTenantSchoolBranding(db, tenant).catch(() => null)
+  const schoolName = String(branding?.schoolName || tenant?.schoolName || '').trim()
+  const schoolLogoUrl = String(branding?.logoUrl || '').trim()
+  return receipts.map(receipt => ({
+    ...receipt,
+    ...(schoolName ? { schoolName } : {}),
+    ...(schoolLogoUrl ? { schoolLogoUrl } : {}),
+    verificationUrl: base && receipt.receiptNo ? `${base}/receipt-verification/${encodeURIComponent(receipt.receiptNo)}` : '',
+  }))
 }
 
 async function resolvePublicFeeReceiptVerification(db: D1Database, receiptNo: string, tenantId = '') {
@@ -3534,7 +3548,8 @@ async function listVisibleFeeLedgerEntries(db: D1Database, currentUser: Record<s
   let students: Array<Record<string, any>> = []
   if (['owner', 'hos', 'accountant', 'admin'].includes(role)) {
     students = await listTenantActiveStudents(db, tenantId)
-  } else if (['parent', 'student'].includes(role)) {
+  } else if (role === 'parent') {
+    // Fees, receipts and fee notices are for parents; students do not see them.
     const access = await listAccessibleLearningStudents(db, currentUser)
     students = access.students || []
   } else {
@@ -3771,7 +3786,8 @@ async function listVisibleFeePaymentClaims(
 }
 
 async function buildFeePaymentReceiptNotificationItems(db: D1Database, currentUser: Record<string, any>, actorRole: string) {
-  if (!['parent', 'student'].includes(actorRole)) {
+  // Receipts go to parents only, never to the student.
+  if (actorRole !== 'parent') {
     return [] as Array<Record<string, any>>
   }
 
@@ -24798,16 +24814,26 @@ function deriveClassSection(className: string): string {
   return 'primary'
 }
 
-// Prefer the explicit class.section set at class creation; fall back to the name heuristic.
+// A class's section, in this order: the level the school gave it (Settings → Class levels);
+// a name that is plainly secondary ("Grade 7", "Basic 8", "Year 9", "JSS 1", "SS 2") even when
+// the class was stored as primary at creation — classes made before Basic/Grade 7–12 were
+// recognised were all filed as primary, which hid the Secondary section; then the section
+// stored at creation; then the name heuristic.
 function classSectionValue(row: any): string {
+  const ladder = (level: ReturnType<typeof levelOf>) => level ? (level.section === 'junior' || level.section === 'senior' ? 'secondary' : level.section) : ''
+  const fromLevel = ladder(levelOf(String(row?.standard_level || '').trim()))
+  if (fromLevel) return fromLevel
+  const fromName = ladder(levelOf(String(row?.name || '')))
+  if (fromName === 'secondary') return 'secondary'
   const explicit = String(row?.section || '').trim().toLowerCase()
   if (['nursery', 'primary', 'secondary'].includes(explicit)) return explicit
-  return deriveClassSection(String(row?.name || ''))
+  return fromName || deriveClassSection(String(row?.name || ''))
 }
 
 async function getTenantAvailableSections(db: D1Database, tenantId: string): Promise<string[]> {
   try {
-    const rows = ((await db.prepare(`SELECT DISTINCT name, section FROM classes WHERE tenantId = ?`).bind(tenantId).all()).results || []) as any[]
+    await ensureClassStandardLevel(db)
+    const rows = ((await db.prepare(`SELECT DISTINCT name, section, standard_level FROM classes WHERE tenantId = ?`).bind(tenantId).all()).results || []) as any[]
     const set = new Set<string>()
     for (const r of rows) set.add(classSectionValue(r))
     return ['nursery', 'primary', 'secondary'].filter(s => set.has(s))
@@ -25330,7 +25356,7 @@ async function runDueScheduledHandIns(db: D1Database) {
     try {
       if (String(row.status) !== 'draft') { await setHandInNote(db, String(row.id), ''); continue }
       await ensureClassesTable(db)
-      const classRow = await db.prepare(`SELECT id, tenantId, name, arm, classTeacherId, section FROM classes WHERE id = ? AND tenantId = ?`).bind(classId, tenantId).first() as Record<string, any> | null
+      const classRow = await db.prepare(`SELECT * FROM classes WHERE id = ? AND tenantId = ?`).bind(classId, tenantId).first() as Record<string, any> | null
       if (!classRow) { await setHandInNote(db, String(row.id), 'The scheduled hand-in did not go through: the class was not found.'); continue }
       const subjectRows = ((await db.prepare(`SELECT id, name, teacherId FROM subjects WHERE tenantId = ? AND classId = ? ORDER BY name`).bind(tenantId, classId).all().catch(() => ({ results: [] }))).results || []) as Record<string, any>[]
       const [students, entries, exclusions] = await Promise.all([
@@ -25448,7 +25474,7 @@ async function resolveResultActor(db: D1Database, user: Record<string, any>) {
 
 async function loadSchoolSubjectGroups(db: D1Database, tenantId: string) {
   await ensureClassesTable(db)
-  const classes = ((await db.prepare(`SELECT id, name, arm, classTeacherId, section FROM classes WHERE tenantId = ?`).bind(tenantId).all().catch(() => ({ results: [] }))).results || []) as Record<string, any>[]
+  const classes = ((await db.prepare(`SELECT * FROM classes WHERE tenantId = ?`).bind(tenantId).all().catch(() => ({ results: [] }))).results || []) as Record<string, any>[]
   const subjects = ((await db.prepare(`SELECT id, name, classId, teacherId FROM subjects WHERE tenantId = ?`).bind(tenantId).all().catch(() => ({ results: [] }))).results || []) as Record<string, any>[]
   const groups = await listSubjectGroups(db, tenantId,
     classes.map(row => ({ id: String(row.id), section: classSectionValue(row) })),
@@ -25874,7 +25900,7 @@ async function ensureBulkResultsJobsTable(db: D1Database) {
 
 // Publish one class's results without a request context (used by the cron job).
 async function publishClassResultsBackground(env: Bindings, tenantId: string, classId: string, sessionInput: string, termInput: string, actorName: string): Promise<number> {
-  const classRow = await env.APP_DB.prepare(`SELECT id, name, arm, section FROM classes WHERE id = ? AND tenantId = ?`).bind(classId, tenantId).first() as any
+  const classRow = await env.APP_DB.prepare(`SELECT * FROM classes WHERE id = ? AND tenantId = ?`).bind(classId, tenantId).first() as any
   if (!classRow) throw new Error('Class not found')
   const period = await resolveCurrentResultPeriod(env.APP_DB, tenantId, sessionInput, termInput)
   await ensureSessionTermExists(env.APP_DB, tenantId, period.sessionName, period.termName)
@@ -26999,7 +27025,7 @@ app.get('/api/school/fees/payment-details', authenticate, async (c) => {
   const tenantId = String(resolvedUser.settings?.tenantId || resolvedUser.settings?.schoolId || resolvedUser.userRow?.tenantId || currentUser.tenantId || '').trim()
 
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
-  if (![...FEE_PAYMENT_APPROVER_ROLES, 'admin', 'parent', 'student'].includes(role)) return c.json({ error: 'forbidden' }, 403)
+  if (![...FEE_PAYMENT_APPROVER_ROLES, 'admin', 'parent'].includes(role)) return c.json({ error: 'forbidden' }, 403)
 
   const paymentDetails = await getFeesPaymentDetails(c.env.APP_DB, tenantId)
   return c.json({ success: true, paymentDetails, canEdit: [...FEE_PAYMENT_APPROVER_ROLES, 'admin'].includes(role) })
@@ -27386,6 +27412,11 @@ async function ensurePayrollEntriesTable(db: D1Database) {
   try { await db.exec('ALTER TABLE payroll_entries ADD COLUMN bank_name TEXT') } catch {}
   try { await db.exec('ALTER TABLE payroll_entries ADD COLUMN account_name TEXT') } catch {}
   try { await db.exec('ALTER TABLE payroll_entries ADD COLUMN account_number TEXT') } catch {}
+  // Payslips reach staff only when released. NULL is a row approved before releasing
+  // existed: it stays visible, as it was. Approving now sets 0; releasing sets 1.
+  try { await db.exec('ALTER TABLE payroll_entries ADD COLUMN released INTEGER') } catch {}
+  try { await db.exec('ALTER TABLE payroll_entries ADD COLUMN released_at TEXT') } catch {}
+  try { await db.exec('ALTER TABLE payroll_entries ADD COLUMN released_by TEXT') } catch {}
   await runIndexStatements(db, [
     `CREATE INDEX IF NOT EXISTS idx_payroll_entries_tenant_period_staff ON payroll_entries(tenant_id, period, staff_id)`,
     `CREATE INDEX IF NOT EXISTS idx_payroll_entries_tenant_period_payment_status ON payroll_entries(tenant_id, period, payment_status)`,
@@ -27426,34 +27457,25 @@ function normalizePayrollColumnList(values: unknown, defaults: Array<Record<stri
       })
       .filter(Boolean) as Array<readonly [string, Record<string, any>]>,
   )
+  // The school's order is kept (headings can be rearranged); a standard heading missing
+  // from the saved list is put back at the front, in its usual order.
+  const defaultByKey = new Map(defaults.map(entry => [String(entry.key || '').trim(), entry]))
   const seen = new Set<string>()
-
-  const defaultColumns = defaults.map(defaultEntry => {
-    const key = String(defaultEntry.key || '').trim()
+  const ordered: Array<{ key: string, label: string, fixed: boolean }> = []
+  rawEntries.forEach((entry, index) => {
+    const source = entry && typeof entry === 'object' ? entry as Record<string, any> : { key: entry, label: entry }
+    const key = normalizePayrollColumnKey(source.key || source.label, `${prefix}_${index + 1}`)
+    if (!key || seen.has(key)) return
     seen.add(key)
-    const customEntry = rawMap.get(key) || {}
-    return {
-      key,
-      label: normalizePayrollColumnLabel(customEntry.label, String(defaultEntry.label || key)),
-      fixed: true,
-    }
+    const standard = defaultByKey.get(key)
+    ordered.push(standard
+      ? { key, label: normalizePayrollColumnLabel(source.label, String(standard.label || key)), fixed: true }
+      : { key, label: normalizePayrollColumnLabel(source.label || key, key), fixed: false })
   })
-
-  const customColumns = rawEntries
-    .map((entry, index) => {
-      const source = entry && typeof entry === 'object' ? entry as Record<string, any> : { key: entry, label: entry }
-      const key = normalizePayrollColumnKey(source.key || source.label, `${prefix}_${index + 1}`)
-      if (!key || seen.has(key)) return null
-      seen.add(key)
-      return {
-        key,
-        label: normalizePayrollColumnLabel(source.label || key, key),
-        fixed: false,
-      }
-    })
-    .filter(Boolean)
-
-  return [...defaultColumns, ...customColumns]
+  const missing = defaults
+    .filter(entry => !seen.has(String(entry.key || '').trim()))
+    .map(entry => ({ key: String(entry.key || '').trim(), label: normalizePayrollColumnLabel(rawMap.get(String(entry.key || '').trim())?.label, String(entry.label || entry.key)), fixed: true }))
+  return [...missing, ...ordered]
 }
 
 function normalizePayrollNumericMap(value: unknown, excludedKeys: string[] = []) {
@@ -27471,7 +27493,9 @@ function sumPayrollNumericMapValues(values: Record<string, any> = {}) {
   return Object.values(values || {}).reduce((sum, value) => sum + (Number(value || 0) || 0), 0)
 }
 
-function normalizePayrollSettingsInput(payload: Record<string, any> = {}) {
+function normalizePayrollSettingsInput(input: Record<string, any> | null = {}) {
+  // A school that never saved payroll headings has no settings row (null): use the defaults.
+  const payload = input && typeof input === 'object' ? input : {}
   return {
     housingAllowance: Number(payload.housingAllowance || 0),
     transportAllowance: Number(payload.transportAllowance || 0),
@@ -27485,6 +27509,23 @@ function normalizePayrollSettingsInput(payload: Record<string, any> = {}) {
 function normalizePayrollPeriod(value: unknown) {
   const normalized = String(value || '').trim()
   return /^\d{4}-\d{2}$/.test(normalized) ? normalized : new Date().toISOString().slice(0, 7)
+}
+
+/** Payroll can be prepared for any month of the last three years, up to next month. */
+function payrollPeriodAllowed(period: string) {
+  const [year, month] = period.split('-').map(Number)
+  if (!(month >= 1 && month <= 12)) return false
+  const now = new Date()
+  const index = year * 12 + month - 1
+  const current = now.getUTCFullYear() * 12 + now.getUTCMonth()
+  return index <= current + 1 && index >= current - 36
+}
+
+/** Released (1), or approved before releasing existed (NULL + approved). */
+function payslipReleased(row: Record<string, any> | null | undefined) {
+  if (!row) return false
+  if (row.released === null || row.released === undefined) return Number(row.approved) === 1
+  return Number(row.released) === 1
 }
 
 function getPayrollNoteSettingsKey(tenantId: string, period: string) {
@@ -28028,6 +28069,9 @@ app.get('/api/school/payroll', authenticate, async (c) => {
         paymentStatus,
         approved: Boolean(row?.approved),
         submitted: Boolean(row?.submitted),
+        hasEntry: Boolean(row),
+        released: payslipReleased(row),
+        releasedAt: row?.released_at || null,
         bankName: String(row?.bank_name || staffMember?.bankName || staffMember?.profile?.payrollBankDetails?.bankName || ''),
         accountName: String(row?.account_name || staffMember?.accountName || staffMember?.profile?.payrollBankDetails?.accountName || ''),
         accountNumber: String(row?.account_number || staffMember?.accountNumber || staffMember?.profile?.payrollBankDetails?.accountNumber || ''),
@@ -28036,7 +28080,7 @@ app.get('/api/school/payroll', authenticate, async (c) => {
     const approved = payroll.some(p => p.approved)
     const submitted = payroll.some(p => p.submitted)
     return c.json({ success: true, payroll, lateChargeSummaries, attendanceDeductionSummaries, approved, submitted, period, settings: payrollSettings })
-  } catch { return c.json({ success: true, payroll: [], approved: false, submitted: false }) }
+  } catch (error) { console.error('Payroll sheet failed', error); return c.json({ success: true, payroll: [], approved: false, submitted: false }) }
 })
 
 app.put('/api/school/payroll/staff/:staffId', authenticate, async (c) => {
@@ -28062,12 +28106,16 @@ app.put('/api/school/payroll/staff/:staffId', authenticate, async (c) => {
     bankName,
     accountName,
     accountNumber,
+    period: requestedPeriod,
   } = await c.req.json()
-  const period = new Date().toISOString().slice(0, 7)
+  // The month being prepared (this month or an earlier one), not always today's month.
+  const period = normalizePayrollPeriod(requestedPeriod)
+  if (!payrollPeriodAllowed(period)) return c.json({ error: 'Choose a month from the last three years, up to next month.' }, 400)
   const id = `pay_${tenantId}_${staffId}_${period}`
   try {
     await ensurePayrollEntriesTable(c.env.APP_DB)
     const existing = await c.env.APP_DB.prepare(`SELECT * FROM payroll_entries WHERE id = ?`).bind(id).first() as any
+    if (existing && payslipReleased(existing)) return c.json({ error: 'This payslip has been released to the staff member. It can no longer be changed.' }, 409)
     const staffUser = await c.env.APP_DB.prepare(
       `SELECT id, name, email, role, primary_role, employment_category, status, createdAt, tenantId FROM users WHERE id = ? AND tenantId = ?`
     ).bind(staffId, tenantId).first() as Record<string, any> | null
@@ -28120,7 +28168,7 @@ app.put('/api/school/payroll/staff/:staffId', authenticate, async (c) => {
       .find(summary => summary.staffId === String(staffId || '').trim())
       || { amount: 0 }
     const newNet = nextGross - (nextManualDed + Number(lateChargeSummary.amount || 0) + Number(attendanceDeductionSummary.amount || 0))
-    await c.env.APP_DB.prepare(`INSERT OR REPLACE INTO payroll_entries (id, tenant_id, staff_id, period, basic_salary, allowances_json, deductions_json, gross, deductions, manual_deductions, net, status, payment_status, employment_category, bank_name, account_name, account_number, approved, submitted, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
+    await c.env.APP_DB.prepare(`INSERT OR REPLACE INTO payroll_entries (id, tenant_id, staff_id, period, basic_salary, allowances_json, deductions_json, gross, deductions, manual_deductions, net, status, payment_status, employment_category, bank_name, account_name, account_number, approved, submitted, created_at, updated_at, released) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
       .bind(
         id,
         tenantId,
@@ -28143,6 +28191,7 @@ app.put('/api/school/payroll/staff/:staffId', authenticate, async (c) => {
         existing?.submitted || 0,
         existing?.created_at || new Date().toISOString(),
         new Date().toISOString(),
+        existing ? (existing.released ?? null) : 0,
       ).run()
 
     const resolvedIdentity = await resolveSettingsIdentity(c.env.APP_DB, hydratedStaffUser?.email || staffId).catch(() => null)
@@ -28161,9 +28210,12 @@ app.post('/api/school/payroll/approve', authenticate, async (c) => {
   if (!hasRequiredRole(c.var.user.role, ['owner', 'hos'])) return c.json({ error: 'forbidden' }, 403)
   const tenantId = c.var.user?.tenantId
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
-  const period = new Date().toISOString().slice(0, 7)
+  const body = await c.req.json().catch(() => ({})) as Record<string, any>
+  const period = normalizePayrollPeriod(body.period)
   try {
-    await c.env.APP_DB.prepare(`UPDATE payroll_entries SET approved = 1, updated_at = ? WHERE tenant_id = ? AND period = ?`).bind(new Date().toISOString(), tenantId, period).run()
+    await ensurePayrollEntriesTable(c.env.APP_DB)
+    // Approving no longer shows payslips to staff by itself: they are released after.
+    await c.env.APP_DB.prepare(`UPDATE payroll_entries SET approved = 1, released = COALESCE(released, 0), updated_at = ? WHERE tenant_id = ? AND period = ?`).bind(new Date().toISOString(), tenantId, period).run()
     await addAudit(c.env.APP_DB, tenantId, { action: 'payrollApproved', data: { period, by: c.var.user.id } })
     return c.json({ success: true })
   } catch (err) { return c.json({ error: 'Could not approve payroll.' }, 500) }
@@ -28173,7 +28225,8 @@ app.post('/api/school/payroll/submit', authenticate, async (c) => {
   if (!hasRequiredRole(c.var.user.role, ['accountant', 'hos', 'owner'])) return c.json({ error: 'forbidden' }, 403)
   const tenantId = c.var.user?.tenantId
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
-  const period = new Date().toISOString().slice(0, 7)
+  const body = await c.req.json().catch(() => ({})) as Record<string, any>
+  const period = normalizePayrollPeriod(body.period)
   try {
     await ensurePayrollEntriesTable(c.env.APP_DB)
     await c.env.APP_DB.prepare(`UPDATE payroll_entries SET submitted = 1, updated_at = ? WHERE tenant_id = ? AND period = ?`).bind(new Date().toISOString(), tenantId, period).run()
@@ -28182,18 +28235,89 @@ app.post('/api/school/payroll/submit', authenticate, async (c) => {
   } catch (err) { return c.json({ error: 'Could not submit payroll.' }, 500) }
 })
 
+/**
+ * Reuse a month: every staff member's figures from one month copied into another
+ * (amounts, headings, bank details), as a draft to edit before approval and release.
+ * Staff who already have figures in the new month keep them unless `overwrite`.
+ */
+app.post('/api/school/payroll/copy', authenticate, async (c) => {
+  if (!hasRequiredCapability(c.var.user.role, 'manage_payroll', c.var.user.roles)) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  const body = await c.req.json().catch(() => ({})) as Record<string, any>
+  const from = String(body.from || '').trim()
+  const to = String(body.to || '').trim()
+  if (!/^\d{4}-\d{2}$/.test(from) || !/^\d{4}-\d{2}$/.test(to) || from === to) return c.json({ error: 'Choose the month to copy from and a different month to copy into.' }, 400)
+  if (!payrollPeriodAllowed(to)) return c.json({ error: 'Choose a month from the last three years, up to next month.' }, 400)
+  try {
+    const db = c.env.APP_DB
+    await ensurePayrollEntriesTable(db)
+    const source = ((await db.prepare(`SELECT * FROM payroll_entries WHERE tenant_id = ? AND period = ?`).bind(tenantId, from).all()).results || []) as Record<string, any>[]
+    if (!source.length) return c.json({ error: `There is no payroll for ${from} to copy.` }, 404)
+    const target = ((await db.prepare(`SELECT staff_id, approved, released FROM payroll_entries WHERE tenant_id = ? AND period = ?`).bind(tenantId, to).all()).results || []) as Record<string, any>[]
+    if (target.some(row => Number(row.approved) === 1)) return c.json({ error: `Payroll for ${to} is already approved. It cannot be replaced.` }, 409)
+    const existing = new Set(target.map(row => String(row.staff_id)))
+    const now = new Date().toISOString()
+    const statements: D1PreparedStatement[] = []
+    let copied = 0
+    let kept = 0
+    for (const row of source) {
+      const staffId = String(row.staff_id || '')
+      if (!staffId) continue
+      if (existing.has(staffId) && !body.overwrite) { kept += 1; continue }
+      const manual = Number(row.manual_deductions ?? 0) || 0
+      const gross = Number(row.gross || 0) || 0
+      statements.push(db.prepare(`INSERT OR REPLACE INTO payroll_entries (id, tenant_id, staff_id, period, basic_salary, allowances_json, deductions_json, gross, deductions, manual_deductions, net, status, payment_status, employment_category, bank_name, account_name, account_number, approved, submitted, created_at, updated_at, released) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'Ready', 'pending', ?, ?, ?, ?, 0, 0, ?, ?, 0)`)
+        .bind(`pay_${tenantId}_${staffId}_${to}`, tenantId, staffId, to, Number(row.basic_salary || 0), row.allowances_json || '{}', row.deductions_json || '{}', gross, manual, manual, gross - manual, row.employment_category || null, row.bank_name || '', row.account_name || '', row.account_number || '', now, now))
+      copied += 1
+    }
+    for (let index = 0; index < statements.length; index += 50) await db.batch(statements.slice(index, index + 50))
+    await addAudit(db, tenantId, { action: 'payrollCopied', data: { from, to, copied, kept, by: c.var.user.id } }).catch(() => null)
+    return c.json({ success: true, copied, kept, period: to })
+  } catch (err) { return c.json({ error: 'Could not copy payroll.' }, 500) }
+})
+
+/**
+ * Release payslips to staff: every pending payslip of the month, or the ones chosen.
+ * Releasing approves those rows too; a released payslip is final and shows in the
+ * staff member's own Payslip page.
+ */
+app.post('/api/school/payroll/release', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos'])) return c.json({ error: 'Only the Owner or Head of School can release payslips.' }, 403)
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  const body = await c.req.json().catch(() => ({})) as Record<string, any>
+  const period = normalizePayrollPeriod(body.period)
+  const staffIds = (Array.isArray(body.staffIds) ? body.staffIds : []).map((value: unknown) => String(value || '').trim()).filter(Boolean).slice(0, 500) as string[]
+  try {
+    const db = c.env.APP_DB
+    await ensurePayrollEntriesTable(db)
+    const rows = ((await db.prepare(`SELECT id, staff_id, released, net FROM payroll_entries WHERE tenant_id = ? AND period = ?`).bind(tenantId, period).all()).results || []) as Record<string, any>[]
+    const pending = rows.filter(row => Number(row.released) !== 1 && (!staffIds.length || staffIds.includes(String(row.staff_id))))
+    if (!pending.length) return c.json({ success: true, released: 0, message: staffIds.length ? 'Those payslips are already released, or have no figures yet.' : 'Every payslip with figures this month is already released.' })
+    const now = new Date().toISOString()
+    const by = String(c.var.user?.name || c.var.user?.id || '')
+    const statements = pending.map(row => db.prepare(`UPDATE payroll_entries SET released = 1, released_at = ?, released_by = ?, approved = 1, updated_at = ? WHERE id = ? AND tenant_id = ?`).bind(now, by, now, row.id, tenantId))
+    for (let index = 0; index < statements.length; index += 50) await db.batch(statements.slice(index, index + 50))
+    await addAudit(db, tenantId, { action: 'payslipsReleased', data: { period, count: pending.length, staffIds: pending.map(row => row.staff_id).slice(0, 100), by: c.var.user.id } }).catch(() => null)
+    return c.json({ success: true, released: pending.length })
+  } catch (err) { return c.json({ error: 'Could not release payslips.' }, 500) }
+})
+
 app.get('/api/school/payroll/history', authenticate, async (c) => {
   const tenantId = c.var.user?.tenantId
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
   try {
     await ensurePayrollEntriesTable(c.env.APP_DB)
-    const rows = await c.env.APP_DB.prepare(`SELECT period, SUM(net) as total_net, MAX(approved) as approved, MAX(submitted) as submitted FROM payroll_entries WHERE tenant_id = ? GROUP BY period ORDER BY period DESC LIMIT 12`).bind(tenantId).all()
+    const rows = await c.env.APP_DB.prepare(`SELECT period, SUM(net) as total_net, MAX(approved) as approved, MAX(submitted) as submitted, COUNT(*) AS entries, SUM(CASE WHEN released = 1 OR (released IS NULL AND approved = 1) THEN 1 ELSE 0 END) AS released_count FROM payroll_entries WHERE tenant_id = ? GROUP BY period ORDER BY period DESC LIMIT 36`).bind(tenantId).all()
     const history = await Promise.all(((rows.results || []) as Record<string, any>[]).map(async (r: any) => {
       const note = normalizePayrollNoteRecord(await getSettings(c.env.APP_DB, getPayrollNoteSettingsKey(tenantId, String(r.period || ''))).catch(() => null), String(r.period || ''))
       return {
         period: r.period,
         totalNet: r.total_net || 0,
         status: r.approved ? 'approved' : r.submitted ? 'submitted' : 'draft',
+        entries: Number(r.entries || 0),
+        releasedCount: Number(r.released_count || 0),
         hasPayrollNote: Boolean(note?.savedAt),
         payrollNoteSavedAt: note?.savedAt || null,
         payrollNotePreparedBy: note?.preparedByName || '',
@@ -28294,19 +28418,29 @@ app.get('/api/school/payroll/my-payslip', authenticate, async (c) => {
   const userId = c.var.user?.id || c.var.user?.email
   const tenantId = c.var.user?.tenantId
   if (!userId || !tenantId) return c.json({ error: 'No user/tenant.' }, 400)
-  const period = new Date().toISOString().slice(0, 7)
   try {
     await ensurePayrollEntriesTable(c.env.APP_DB)
     await ensureBrandingTable(c.env.APP_DB)
     const resolvedIdentity = await resolveSettingsIdentity(c.env.APP_DB, userId)
-    const settings = await getSettings(c.env.APP_DB, userId)
+    const settings = resolvedIdentity?.settings || await getSettings(c.env.APP_DB, userId)
+    // A payslip may have been saved under the staff member's id or their email (in any
+    // case); matching only one of them is why a recorded payslip could go missing.
+    const identifiers = Array.from(new Set([
+      ...collectResolvedIdentityIdentifiers(resolvedIdentity, c.var.user || {}),
+      String(userId), String(settings?.email || ''), String(resolvedIdentity?.userRow?.id || ''), String(resolvedIdentity?.userRow?.email || ''),
+    ].map(value => String(value || '').trim()).filter(Boolean).flatMap(value => [value, value.toLowerCase()]))).slice(0, 40)
+    const marks = identifiers.map(() => '?').join(', ')
+    const released = ((await c.env.APP_DB.prepare(`SELECT period, net FROM payroll_entries WHERE tenant_id = ? AND staff_id IN (${marks}) AND (released = 1 OR (released IS NULL AND approved = 1)) ORDER BY period DESC LIMIT 36`).bind(tenantId, ...identifiers).all()).results || []) as Record<string, any>[]
+    const available = released.map(row => ({ period: String(row.period), net: Number(row.net || 0) }))
+    const requested = String(c.req.query('period') || '').trim()
+    const period = /^\d{4}-\d{2}$/.test(requested) ? requested : (available[0]?.period || new Date().toISOString().slice(0, 7))
     const payrollSettings = normalizePayrollSettingsInput(await getSettings(c.env.APP_DB, `payroll_settings_${tenantId}`))
     const tenant = tenantId ? await getTenantById(c.env.APP_DB, tenantId) : null
     const brandingRow = await c.env.APP_DB.prepare(`SELECT * FROM tenant_branding WHERE tenant_id = ?`).bind(tenantId).first() as any
-    const rows = await c.env.APP_DB.prepare(`SELECT * FROM payroll_entries WHERE (staff_id = ? OR staff_id = ?) AND tenant_id = ? AND period = ? LIMIT 1`).bind(userId, settings?.email || userId, tenantId, period).first() as any
-    // Staff can only see a payslip once the owner/HoS has approved the payroll for the period.
-    if (rows && Number(rows.approved) !== 1) {
-      return c.json({ success: true, payslip: null, status: 'pending', message: 'Your payslip will be available once payroll is approved by the school leadership.' })
+    const rows = await c.env.APP_DB.prepare(`SELECT * FROM payroll_entries WHERE tenant_id = ? AND period = ? AND staff_id IN (${marks}) ORDER BY updated_at DESC LIMIT 1`).bind(tenantId, period, ...identifiers).first() as any
+    // Staff see a payslip only once the school has released it.
+    if (!rows || !payslipReleased(rows)) {
+      return c.json({ success: true, payslip: null, period, available, status: rows ? 'pending' : 'none', message: rows ? 'Your payslip for this month has not been released yet.' : 'There is no payslip for this month.' })
     }
     const allowances = normalizePayrollNumericMap(rows?.allowances_json)
     const deductionsMap = normalizePayrollNumericMap(rows?.deductions_json)
@@ -28342,7 +28476,7 @@ app.get('/api/school/payroll/my-payslip', authenticate, async (c) => {
       }))
       .filter((entry: Record<string, any>) => entry.amount > 0)
 
-    return c.json({ success: true, payslip: {
+    return c.json({ success: true, period, available, payslip: {
       staffId: userId, name: settings?.name || c.var.user.name || userId, displayId: getPublicFacingUserId(settings || {}, getPrimaryRole(settings || {}, getActiveRole(c.var.user))),
       role: settings?.role || getActiveRole(c.var.user), period, schoolName: branding.schoolName,
       logoUrl: branding.logoUrl,
@@ -28362,7 +28496,10 @@ app.get('/api/school/payroll/my-payslip', authenticate, async (c) => {
         ...(payrollSettings || {}),
       },
     }})
-  } catch { return c.json({ success: true, payslip: { gross: 0, deductions: 0, net: 0, period } }) }
+  } catch (error) {
+    console.error('my-payslip failed', error)
+    return c.json({ success: false, error: 'Could not load your payslip.' }, 500)
+  }
 })
 
 // ─── Staff Attendance ─────────────────────────────────────────────────────────
@@ -33832,8 +33969,8 @@ async function financePeriod(db: D1Database, tenantId: string) {
 }
 
 /** Students the caller may see the account of: their children (parent) or themselves (student). Null for everyone else. */
+/** The children whose fees this person may see: parents only (students never see fees or receipts). */
 async function financeStudentsFor(db: D1Database, ctx: FinanceCtx) {
-  if (ctx.role === 'student') return [ctx.actor.id]
   if (ctx.role === 'parent' || ctx.role === 'student_parent') {
     const rows = await db.prepare(`SELECT DISTINCT student_id FROM parent_student_links WHERE tenant_id = ? AND (parent_id = ? OR parent_id = ?)`)
       .bind(ctx.tenantId, ctx.actor.id, ctx.email || ctx.actor.id).all().catch(() => ({ results: [] }))
@@ -34207,7 +34344,7 @@ app.get('/api/school/finance/my-accounts', authenticate, async (c) => {
     const ctx = await resolveFinanceActor(c)
     if (!ctx.tenantId) return c.json({ success: true, accounts: [] })
     const students = await financeStudentsFor(c.env.APP_DB, ctx)
-    if (!students) return c.json({ success: false, message: 'This page is for parents and students.' }, 403)
+    if (!students) return c.json({ success: false, message: 'Fees and receipts are for parents.' }, 403)
     const period = await financePeriod(c.env.APP_DB, ctx.tenantId)
     const accounts = []
     for (const studentId of students) {
@@ -34629,7 +34766,7 @@ app.get('/api/school/finance/simple/accounts', authenticate, async (c) => {
       .map(([id, children]) => ({ id, name: families.names.get(id) || 'Parent', children: [...children].filter(studentId => familyChoices.has(studentId)).length }))
       .filter(family => family.children > 0)
       .sort((a, b) => a.name.localeCompare(b.name))
-    return c.json({ success: true, term, families: familyOptions, accounts: accounts.map(({ outstandingSources, ...rest }) => rest), canRecordPayments: hasRequiredRole(context.role, FEE_PAYMENT_APPROVER_ROLES) })
+    return c.json({ success: true, term, families: familyOptions, accounts: accounts.map(({ outstandingSources, ...rest }) => rest), canRecordPayments: hasRequiredRole(context.role, FEE_PAYMENT_APPROVER_ROLES), canAdjust: hasRequiredRole(context.role, FEE_ADMIN_ROLES) })
   } catch (error) {
     return financeFailure(c, error, 'Could not load student accounts.')
   }
@@ -34723,9 +34860,133 @@ app.post('/api/school/finance/simple/accounts/:studentId/adjust', authenticate, 
     if (!hasRequiredRole(context.role, FEE_ADMIN_ROLES)) return c.json({ success: false, message: 'forbidden' }, 403)
     const { term, enrollment } = await simpleStudent(context, c.req.param('studentId'))
     const body = await c.req.json().catch(() => ({})) as Record<string, any>
-    return c.json({ success: true, ...(await adjustStudent(context.db, { tenantId: context.tenantId, actor: context.actor, studentId: enrollment.studentId, termId: term.id, kind: String(body.kind || ''), amount: body.amount, reason: body.reason })) })
+    return c.json({ success: true, ...(await adjustStudent(context.db, { tenantId: context.tenantId, actor: context.actor, studentId: enrollment.studentId, termId: term.id, kind: String(body.kind || ''), amount: body.amount, percent: body.percent, reason: body.reason })) })
   } catch (error) {
     return financeFailure(c, error, 'Could not record the adjustment.')
+  }
+})
+
+// ─── Fee reminders sent by hand ──────────────────────────────────────────────
+
+/** Every linked parent of these students, with what each reminder says. */
+async function buildFeeReminders(context: Awaited<ReturnType<typeof simpleFeeContext>>, studentIds: string[]) {
+  const term = requireTerm(context.term)
+  const enrollments = (await termEnrollments(context.db, context.tenantId, term.sessionId)).filter(item => studentIds.includes(item.studentId))
+  const summaries = await accountSummaries(context.db, context.tenantId, { termId: term.id, termStart: term.startDate }, enrollments)
+  const tenant = await getTenantById(context.db, context.tenantId).catch(() => null) as Record<string, any> | null
+  const branding = await getTenantSchoolBranding(context.db, tenant).catch(() => null)
+  const schoolName = String(branding?.schoolName || tenant?.schoolName || 'the school').trim()
+  const bank = await getFeesPaymentDetails(context.db, context.tenantId)
+  const { recipients } = await resolveRecipients(context.db, context.tenantId, { kind: 'students', studentIds: enrollments.map(item => item.studentId) }, { ...DEFAULT_COMM_SETTINGS, tenantId: context.tenantId, guardianMode: 'all' } as any)
+  const termLabel = [term.name, term.sessionName].filter(Boolean).join(', ')
+  const senderTitle = context.role === 'accountant' ? 'The Accounts Office' : context.role === 'owner' ? 'The Proprietor' : 'The Head of School'
+  return {
+    schoolName, logoUrl: String(branding?.logoUrl || ''), bank, termLabel,
+    bankMissing: !bank.bankName || !bank.accountNumber,
+    students: summaries.filter(summary => enrollments.some(item => item.studentId === summary.studentId)).map(summary => {
+      const enrollment = enrollments.find(item => item.studentId === summary.studentId)!
+      const parents = recipients.filter(recipient => recipient.studentIds.includes(summary.studentId)).map(recipient => {
+        const facts = { schoolName, parentName: recipient.name, studentName: enrollment.studentName, className: enrollment.className, termLabel, totalPayable: summary.totalPayable, paid: summary.paid, balance: summary.balance, bank, senderTitle }
+        const text = feeReminderText(facts)
+        return { guardianId: recipient.guardianId, name: recipient.name, email: recipient.email, phone: recipient.phone, text, subject: feeReminderSubject(facts), whatsappUrl: recipient.phone ? whatsappLinkFor(recipient.phone, text) : '' }
+      })
+      return { studentId: summary.studentId, studentName: enrollment.studentName, className: enrollment.className, balance: summary.balance, parents }
+    }),
+  }
+}
+
+async function ensureFeeReminderLog(db: D1Database) {
+  await db.prepare(`CREATE TABLE IF NOT EXISTS fee_reminder_log (id TEXT PRIMARY KEY, tenant_id TEXT NOT NULL, student_id TEXT NOT NULL, channel TEXT NOT NULL, sent_to TEXT, sent_by TEXT, sent_at TEXT NOT NULL)`).run()
+  await db.prepare(`CREATE INDEX IF NOT EXISTS idx_fee_reminder_log ON fee_reminder_log (tenant_id, student_id, sent_at)`).run()
+}
+
+/** One student's reminder, ready to send: the message to each parent, their email and a WhatsApp link. */
+app.get('/api/school/finance/simple/accounts/:studentId/reminder', authenticate, async (c) => {
+  try {
+    const context = await simpleFeeContext(c)
+    if (!hasRequiredRole(context.role, FEE_PAYMENT_APPROVER_ROLES)) return c.json({ success: false, message: 'forbidden' }, 403)
+    const { enrollment } = await simpleStudent(context, c.req.param('studentId'))
+    const built = await buildFeeReminders(context, [enrollment.studentId])
+    await ensureFeeReminderLog(context.db)
+    const last = await context.db.prepare(`SELECT channel, sent_at, sent_by FROM fee_reminder_log WHERE tenant_id = ? AND student_id = ? ORDER BY sent_at DESC LIMIT 1`).bind(context.tenantId, enrollment.studentId).first().catch(() => null)
+    return c.json({ success: true, bankMissing: built.bankMissing, student: built.students[0] || null, lastReminder: last })
+  } catch (error) {
+    return financeFailure(c, error, 'Could not prepare the reminder.')
+  }
+})
+
+/**
+ * Send fee reminders by email to the parents of the students chosen (only those still
+ * owing). A student's parents are emailed at most once in 20 hours, so a double press or a
+ * second person pressing the same button never floods a parent.
+ * `channel: 'whatsapp'` only records that WhatsApp was opened for them.
+ */
+app.post('/api/school/finance/simple/reminders', authenticate, async (c) => {
+  try {
+    const context = await simpleFeeContext(c)
+    if (!hasRequiredRole(context.role, FEE_PAYMENT_APPROVER_ROLES)) return c.json({ success: false, message: 'forbidden' }, 403)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const channel = body.channel === 'whatsapp' ? 'whatsapp' : 'email'
+    const studentIds = [...new Set((Array.isArray(body.studentIds) ? body.studentIds : []).map(String).filter(Boolean))].slice(0, 100) as string[]
+    if (!studentIds.length) return c.json({ success: false, message: 'Choose the students to remind.' }, 400)
+    await ensureFeeReminderLog(context.db)
+    const now = new Date().toISOString()
+    const by = String(context.actor.name || context.actor.id || '')
+    if (channel === 'whatsapp') {
+      for (const studentId of studentIds) {
+        await context.db.prepare(`INSERT INTO fee_reminder_log (id, tenant_id, student_id, channel, sent_to, sent_by, sent_at) VALUES (?, ?, ?, 'whatsapp', ?, ?, ?)`)
+          .bind(`frem_${crypto.randomUUID()}`, context.tenantId, studentId, String(body.sentTo || '').slice(0, 200), by, now).run()
+      }
+      return c.json({ success: true, recorded: studentIds.length })
+    }
+    const built = await buildFeeReminders(context, studentIds)
+    const since = new Date(Date.now() - 20 * 3600_000).toISOString()
+    const recentRows = ((await context.db.prepare(`SELECT student_id FROM fee_reminder_log WHERE tenant_id = ? AND channel = 'email' AND sent_at >= ?`).bind(context.tenantId, since).all().catch(() => ({ results: [] }))).results || []) as Record<string, any>[]
+    const recent = new Set(recentRows.map(row => String(row.student_id)))
+    // A single student's message may be edited before sending; bulk sends use the standard words.
+    const customText = studentIds.length === 1 ? String(body.text || '').trim().slice(0, 4000) : ''
+    const sent: string[] = []
+    const skipped: Array<{ studentName: string, reason: string }> = []
+    for (const student of built.students) {
+      if (!(student.balance > 0)) { skipped.push({ studentName: student.studentName, reason: 'nothing owed' }); continue }
+      if (recent.has(student.studentId)) { skipped.push({ studentName: student.studentName, reason: 'already emailed today' }); continue }
+      const withEmail = student.parents.filter(parent => parent.email)
+      if (!withEmail.length) { skipped.push({ studentName: student.studentName, reason: student.parents.length ? 'no parent email' : 'no parent linked' }); continue }
+      let delivered = 0
+      for (const parent of withEmail) {
+        const text = customText || parent.text
+        const result = await sendZohoEmail(c.env, { to: [parent.email], subject: parent.subject, html: schoolEmailHtml(built.schoolName, text, built.logoUrl) })
+          .catch(error => { console.error('Fee reminder email failed', error); return { sent: [] as string[], failed: [parent.email] } })
+        delivered += result.sent.length
+      }
+      if (!delivered) { skipped.push({ studentName: student.studentName, reason: 'email could not be sent' }); continue }
+      await context.db.prepare(`INSERT INTO fee_reminder_log (id, tenant_id, student_id, channel, sent_to, sent_by, sent_at) VALUES (?, ?, ?, 'email', ?, ?, ?)`)
+        .bind(`frem_${crypto.randomUUID()}`, context.tenantId, student.studentId, withEmail.map(parent => parent.email).join(', ').slice(0, 500), by, now).run()
+      sent.push(student.studentName)
+    }
+    await addAudit(context.db, context.tenantId, { action: 'feeRemindersSent', data: { by: context.actor.id, channel, sent: sent.length, skipped: skipped.length } }).catch(() => null)
+    return c.json({ success: true, sent: sent.length, sentNames: sent, skipped, bankMissing: built.bankMissing })
+  } catch (error) {
+    return financeFailure(c, error, 'Could not send the reminders.')
+  }
+})
+
+/** A family discount: a percentage of each chosen child's term fee, or a fixed amount each. */
+app.post('/api/school/finance/simple/family-discount', authenticate, async (c) => {
+  try {
+    const context = await simpleFeeContext(c)
+    if (!hasRequiredRole(context.role, FEE_ADMIN_ROLES)) return c.json({ success: false, message: 'forbidden' }, 403)
+    const term = requireTerm(context.term)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    // Only children of the chosen family, so a discount cannot be pointed at anyone else.
+    const families = await schoolFamilies(context.db, context.tenantId)
+    const children = families.children.get(String(body.familyId || ''))
+    if (!children) return c.json({ success: false, message: 'Family not found.' }, 404)
+    const studentIds = (Array.isArray(body.studentIds) ? body.studentIds : []).map(String).filter((id: string) => children.has(id))
+    const result = await applyFamilyDiscount(context.db, { tenantId: context.tenantId, actor: context.actor, termId: term.id, studentIds, mode: String(body.mode || ''), value: body.value, note: body.note })
+    return c.json({ success: true, ...result })
+  } catch (error) {
+    return financeFailure(c, error, 'Could not apply the family discount.')
   }
 })
 
@@ -34935,9 +35196,9 @@ app.get('/api/school/fees/students/:studentId/history', authenticate, async (c) 
   const studentId = c.req.param('studentId')
   const isStaff = hasRequiredRole(role, [...FEE_ADMIN_ROLES, 'admin', 'ict'])
 
-  // A parent or the student themselves may read their own position, nobody else's.
+  // A parent may read their own child's position, nobody else's. Students do not see fees.
   if (!isStaff) {
-    if (role === 'student' && actorId !== studentId) return c.json({ error: 'forbidden' }, 403)
+    if (role === 'student') return c.json({ error: 'Fees and receipts are for parents.' }, 403)
     if (role === 'parent') {
       const link = await c.env.APP_DB.prepare(
         `SELECT id FROM parent_student_links WHERE tenant_id = ? AND parent_id = ? AND student_id = ?`

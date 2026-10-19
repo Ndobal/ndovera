@@ -55,7 +55,7 @@ export function sanitizeReceiptFilePart(value) {
 }
 
 export async function buildReceiptExportDocument(receipt, fallbackBranding = {}) {
-  const schoolName = receipt.schoolName || fallbackBranding.schoolName || 'NDOVERA School';
+  const schoolName = receipt.schoolName || fallbackBranding.schoolName || 'School';
   const schoolLogoUrl = receipt.schoolLogoUrl || fallbackBranding.logoUrl || '';
   const studentIdLabel = getReadableStudentId(receipt.studentDisplayId, receipt.studentId);
   const qrDataUrl = receipt.verificationUrl

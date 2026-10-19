@@ -40,6 +40,12 @@ export const getAccount = studentId => request(`/api/school/finance/simple/accou
 export const recordSimplePayment = (studentId, payload) => request(`/api/school/finance/simple/accounts/${id(studentId)}/pay`, { method: 'POST', body: payload });
 export const addCharge = (studentId, payload) => request(`/api/school/finance/simple/accounts/${id(studentId)}/charge`, { method: 'POST', body: payload });
 export const adjustAccount = (studentId, payload) => request(`/api/school/finance/simple/accounts/${id(studentId)}/adjust`, { method: 'POST', body: payload });
+/** Family discount: { familyId, studentIds, mode: 'percent' | 'amount', value, note }. */
+export const applyFamilyDiscount = payload => request('/api/school/finance/simple/family-discount', { method: 'POST', body: payload });
+/** One student's fee reminder: the polite message to each parent, their email and a WhatsApp link. */
+export const getFeeReminder = studentId => request(`/api/school/finance/simple/accounts/${id(studentId)}/reminder`);
+/** Email reminders to the parents of these students ({ studentIds, text? }), or record that WhatsApp was opened. */
+export const sendFeeReminders = payload => request('/api/school/finance/simple/reminders', { method: 'POST', body: payload });
 export const settleClassMove = (studentId, decision, note) => request(`/api/school/finance/simple/accounts/${id(studentId)}/class-move`, { method: 'POST', body: { decision, note } });
 export const billNewStudents = studentIds => request('/api/school/finance/simple/bill-new', { method: 'POST', body: { studentIds } });
 export const listTermPayments = params => request(`/api/school/finance/simple/payments${q(params)}`);

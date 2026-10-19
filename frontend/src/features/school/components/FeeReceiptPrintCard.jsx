@@ -66,7 +66,7 @@ export default function FeeReceiptPrintCard({ receipt, printId = 'fee-receipt-pr
 
   if (!receipt) return null;
 
-  const schoolName = receipt.schoolName || tenantBranding?.schoolName || 'NDOVERA School';
+  const schoolName = receipt.schoolName || tenantBranding?.schoolName || 'School';
   const schoolLogoUrl = receipt.schoolLogoUrl || tenantBranding?.logoUrl || '';
   const studentIdLabel = receipt.studentDisplayId || receipt.studentId || 'Not assigned';
   const amountPaid = receipt.amount || receipt.amountPaid || 0;

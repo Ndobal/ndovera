@@ -83,7 +83,9 @@ export function toDesignedReceipt(receipt, schoolName = '') {
   const remaining = Number(snap.remainingBalance || 0);
   return {
     receiptNo: receipt.receiptNo,
-    ...(schoolName ? { schoolName } : {}),
+    // The school's name from the page, else the one the server sent with the receipt.
+    ...(schoolName || receipt.schoolName ? { schoolName: schoolName || receipt.schoolName } : {}),
+    ...(receipt.schoolLogoUrl ? { schoolLogoUrl: receipt.schoolLogoUrl } : {}),
     studentName: snap.studentName || '',
     studentId: snap.studentId || '',
     studentDisplayId: snap.studentDisplayId || '',

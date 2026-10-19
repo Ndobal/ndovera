@@ -203,7 +203,9 @@ export default function ResultAdminConsole({ analyticsMode = 'hos', roleTitle = 
     }).catch(() => {});
     return () => { cancelled = true; };
   }, [activeSection]);
-  const sectionTabs = sectionData?.availableSections?.length ? sectionData.availableSections : ['nursery', 'primary', 'secondary'];
+  // Every section is always offered, so Secondary can be set up even before a class is filed under it.
+  const sectionTabs = ['nursery', 'primary', 'secondary'];
+  const sectionHasClasses = sec => !sectionData?.availableSections?.length || sectionData.availableSections.includes(sec);
 
   useEffect(() => {
     let cancelled = false;
@@ -501,10 +503,15 @@ export default function ResultAdminConsole({ analyticsMode = 'hos', roleTitle = 
                 onClick={() => setActiveSection(sec)}
                 className={`rounded-2xl border px-4 py-1.5 text-sm font-bold capitalize transition ${activeSection === sec ? 'bg-[#191970] text-white border-[#191970]' : 'border-[#c9a96e]/40 bg-white/70 text-[#191970] dark:bg-slate-900/40 dark:text-slate-200'}`}
               >
-                {sec}
+                {sec}{sectionHasClasses(sec) ? '' : ' (no classes yet)'}
               </button>
             ))}
           </div>
+          {activeSection && !sectionHasClasses(activeSection) && (
+            <p className="rounded-2xl border border-amber-300/50 bg-amber-50 px-4 py-2 text-sm font-semibold text-amber-900">
+              No class is filed under <span className="capitalize">{activeSection}</span> yet. If your classes have their own names (for example "Grade 6" for JSS 1), give each its level in Settings → Class levels and it will move here.
+            </p>
+          )}
           {sectionData?.inherited && (
             <p className="rounded-2xl border border-amber-300/50 bg-amber-50 px-4 py-2 text-sm font-semibold capitalize text-amber-900">
               {activeSection} is still using the school-wide settings. Check its maximum scores and C.A. columns, then save to give {activeSection} its own.

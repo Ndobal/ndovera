@@ -75,3 +75,22 @@ test('the school sets each class\'s standard level; practice and the curriculum 
   await call(db, owner, 'PUT', '/api/school/class-levels', { levels: { g1: '' } })
   assert.equal((await call(db, ['s-1', 'student'], 'GET', '/api/practice-arena/home')).body.student.level, 'Primary 1')
 })
+
+test('secondary classes named Grade/Basic 7 and up, or given a JSS/SS level, show under Secondary even when stored as primary', async () => {
+  const db = await setup()
+  db.db.exec(`CREATE TABLE IF NOT EXISTS tenants (id TEXT PRIMARY KEY, school_name TEXT, owner_email TEXT, status TEXT, requested_subdomain TEXT, website_domain TEXT)`)
+  db.db.exec(`INSERT OR IGNORE INTO tenants (id, school_name, owner_email, status) VALUES ('school-a', 'School A', 'owner@a.test', 'active')`)
+  await db.prepare('INSERT INTO settings (studentId, payload) VALUES (?, ?)').bind('o-1', JSON.stringify({ name: 'o-1', email: 'owner@a.test', role: 'owner', roles: ['owner'], tenantId: 'school-a', status: 'active' })).run()
+  try { db.db.exec(`ALTER TABLE classes ADD COLUMN section TEXT`) } catch {}
+  db.db.exec(`INSERT INTO classes (id, tenantId, name, arm, section) VALUES ('g6', 'school-a', 'GRADE 6', '', 'primary')`)
+  const owner = ['o-1', 'owner']
+  const sections = async () => { const r = await call(db, owner, 'GET', '/api/results/settings?section=primary'); assert.equal(r.status, 200, JSON.stringify(r.body)); return r.body.availableSections }
+  assert.deepEqual(await sections(), ['nursery', 'primary'])
+  // This school's GRADE 6 is JSS 1: once the school says so, Secondary appears.
+  assert.equal((await call(db, owner, 'PUT', '/api/school/class-levels', { levels: { g6: 'JSS1' } })).status, 200)
+  assert.deepEqual(await sections(), ['nursery', 'primary', 'secondary'])
+  // A class plainly named as secondary is secondary even though it was filed as primary.
+  await call(db, owner, 'PUT', '/api/school/class-levels', { levels: { g6: '' } })
+  db.db.exec(`INSERT INTO classes (id, tenantId, name, arm, section) VALUES ('b8', 'school-a', 'Basic 8', 'Gold', 'primary')`)
+  assert.deepEqual(await sections(), ['nursery', 'primary', 'secondary'])
+})

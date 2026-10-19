@@ -2,12 +2,14 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { getStoredAuth } from '../../auth/services/authApi';
 import {
   approvePayroll,
+  copyPayroll,
   getBranding,
   getPayroll,
   getPayrollHistory,
   getPayrollNote,
   getPayrollSettings,
   getWebsiteSections,
+  releasePayslips,
   savePayrollNote,
   savePayrollSettings,
   submitPayroll,
@@ -86,35 +88,24 @@ function normalizeColumnLabel(value, fallback) {
   return String(value || fallback || '').trim().slice(0, 80) || fallback;
 }
 
+// Headings keep the order the school gave them (they can be moved left and right);
+// a standard heading missing from the saved list goes back at the front.
 function normalizeColumnList(values, defaults, prefix) {
   const defaultMap = new Map(defaults.map(column => [column.key, column]));
   const rawValues = Array.isArray(values) ? values : [];
   const usedKeys = new Set();
-
-  const normalizedDefaults = defaults.map(defaultColumn => {
-    const match = rawValues.find(column => normalizeColumnKey(column?.key || column?.label, defaultColumn.key) === defaultColumn.key) || {};
-    usedKeys.add(defaultColumn.key);
-    return {
-      key: defaultColumn.key,
-      label: normalizeColumnLabel(match.label, defaultColumn.label),
-      fixed: true,
-    };
+  const ordered = [];
+  rawValues.forEach((column, index) => {
+    const key = normalizeColumnKey(column?.key || column?.label, `${prefix}_${index + 1}`);
+    if (!key || usedKeys.has(key)) return;
+    usedKeys.add(key);
+    const standard = defaultMap.get(key);
+    ordered.push(standard
+      ? { key, label: normalizeColumnLabel(column?.label, standard.label), fixed: true }
+      : { key, label: normalizeColumnLabel(column?.label, key), fixed: false });
   });
-
-  const customColumns = rawValues
-    .map((column, index) => {
-      const key = normalizeColumnKey(column?.key || column?.label, `${prefix}_${index + 1}`);
-      if (!key || usedKeys.has(key) || defaultMap.has(key)) return null;
-      usedKeys.add(key);
-      return {
-        key,
-        label: normalizeColumnLabel(column?.label, key),
-        fixed: false,
-      };
-    })
-    .filter(Boolean);
-
-  return [...normalizedDefaults, ...customColumns];
+  const missing = defaults.filter(column => !usedKeys.has(column.key)).map(column => ({ key: column.key, label: column.label, fixed: true }));
+  return [...missing, ...ordered];
 }
 
 function normalizePayrollSettings(settings = {}) {
@@ -240,8 +231,23 @@ function buildPayrollRows(payrollEntries = []) {
         bankName: String(entry?.bankName || ''),
         accountName: String(entry?.accountName || ''),
         accountNumber: String(entry?.accountNumber || ''),
+        hasEntry: Boolean(entry?.hasEntry),
+        released: Boolean(entry?.released),
+        releasedAt: entry?.releasedAt || null,
       };
     });
+}
+
+const THIS_MONTH = new Date().toISOString().slice(0, 7);
+
+/** The months payroll can be prepared for: the last three years, up to next month. */
+function monthBounds() {
+  const now = new Date();
+  const shift = months => {
+    const date = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() + months, 1));
+    return date.toISOString().slice(0, 7);
+  };
+  return { min: shift(-36), max: shift(1) };
 }
 
 function buildPayslipEarnings(staffRow, settings) {
@@ -587,7 +593,11 @@ function PayrollManagementBoard({ canApprove = false }) {
   const [contactInfo, setContactInfo] = useState({ address: '', phone: '', email: '' });
   const [approved, setApproved] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [period, setPeriod] = useState(new Date().toISOString().slice(0, 7));
+  const [period, setPeriod] = useState(THIS_MONTH);
+  // The month on screen: this month, an earlier one, or next month.
+  const [viewPeriod, setViewPeriod] = useState(THIS_MONTH);
+  const [reloadKey, setReloadKey] = useState(0);
+  const [copyFrom, setCopyFrom] = useState('');
   const [loading, setLoading] = useState(true);
   const [savingRowId, setSavingRowId] = useState('');
   const [savingSettings, setSavingSettings] = useState(false);
@@ -626,12 +636,12 @@ function PayrollManagementBoard({ canApprove = false }) {
 
       try {
         const [payrollResult, historyResult, settingsResult, brandingResult, websiteSectionsResult, noteResult] = await Promise.all([
-          getPayroll(),
+          getPayroll(viewPeriod),
           getPayrollHistory(),
           getPayrollSettings(),
           getBranding(),
           getWebsiteSections(),
-          getPayrollNote(),
+          getPayrollNote(viewPeriod),
         ]);
 
         if (ignore) {
@@ -639,7 +649,7 @@ function PayrollManagementBoard({ canApprove = false }) {
         }
 
         const nextSettings = normalizePayrollSettings(payrollResult?.settings || settingsResult?.settings || DEFAULT_PAYROLL_SETTINGS);
-        const nextPeriod = payrollResult?.period || new Date().toISOString().slice(0, 7);
+        const nextPeriod = payrollResult?.period || viewPeriod;
         const savedCurrentNote = noteResult?.note || null;
 
         setSettingsForm(nextSettings);
@@ -669,7 +679,7 @@ function PayrollManagementBoard({ canApprove = false }) {
     return () => {
       ignore = true;
     };
-  }, [canApprove, showToast]);
+  }, [canApprove, showToast, viewPeriod, reloadKey]);
 
   useEffect(() => {
     if (selectedNotePeriod !== period) {
@@ -799,7 +809,8 @@ function PayrollManagementBoard({ canApprove = false }) {
     setSavingRowId(staffId);
 
     try {
-      await updatePayrollStaff(staffId, buildPayrollRowPayload(targetRow));
+      await updatePayrollStaff(staffId, { ...buildPayrollRowPayload(targetRow), period });
+      setRows(current => current.map(row => (row.id === staffId ? { ...row, hasEntry: true } : row)));
       showToast(`Saved ${targetRow.name}.`);
     } catch (error) {
       showToast(error.message || 'Could not save payroll row.');
@@ -808,10 +819,55 @@ function PayrollManagementBoard({ canApprove = false }) {
     }
   }
 
+  function moveColumn(kind, key, direction) {
+    setSettingsForm((current) => {
+      const list = [...current[kind]];
+      const from = list.findIndex(column => column.key === key);
+      const to = from + direction;
+      if (from < 0 || to < 0 || to >= list.length) return current;
+      [list[from], list[to]] = [list[to], list[from]];
+      return { ...current, [kind]: list };
+    });
+  }
+
+  async function handleCopyMonth() {
+    if (!copyFrom) return;
+    if (!await askConfirm(`Copy every staff member's figures from ${formatPeriod(copyFrom)} into ${formatPeriod(period)}? Staff who already have figures in ${formatPeriod(period)} keep them. You can edit everything before approving and releasing.`)) return;
+    setActionBusy('copy');
+    try {
+      const result = await copyPayroll({ from: copyFrom, to: period });
+      showToast(`Copied ${result.copied} staff from ${formatPeriod(copyFrom)}${result.kept ? `; ${result.kept} kept their own figures` : ''}.`);
+      setReloadKey(value => value + 1);
+    } catch (error) {
+      showToast(error.message || 'Could not copy payroll.');
+    } finally {
+      setActionBusy('');
+    }
+  }
+
+  async function handleRelease(staffIds) {
+    const single = staffIds?.length === 1 ? rows.find(row => row.id === staffIds[0]) : null;
+    const pendingCount = rows.filter(row => row.hasEntry && !row.released).length;
+    const question = single
+      ? `Release ${single.name}'s payslip for ${formatPeriod(period)}? They will see it straight away and it can no longer be changed.`
+      : `Release all ${pendingCount} pending payslip${pendingCount === 1 ? '' : 's'} for ${formatPeriod(period)}? Each staff member will see theirs straight away and they can no longer be changed.`;
+    if (!await askConfirm(question)) return;
+    setActionBusy(single ? `release-${single.id}` : 'release');
+    try {
+      const result = await releasePayslips({ period, ...(staffIds?.length ? { staffIds } : {}) });
+      showToast(result.released ? `Released ${result.released} payslip${result.released === 1 ? '' : 's'}.` : (result.message || 'Nothing to release.'));
+      setReloadKey(value => value + 1);
+    } catch (error) {
+      showToast(error.message || 'Could not release payslips.');
+    } finally {
+      setActionBusy('');
+    }
+  }
+
   async function handleApprovalAction() {
     const confirmation = canApprove
-      ? 'Approve payroll for this period?'
-      : 'Submit payroll for owner approval?';
+      ? `Approve payroll for ${formatPeriod(period)}? Payslips are released to staff separately.`
+      : `Submit payroll for ${formatPeriod(period)} for owner approval?`;
 
     if (!await askConfirm(confirmation)) {
       return;
@@ -821,11 +877,11 @@ function PayrollManagementBoard({ canApprove = false }) {
 
     try {
       if (canApprove) {
-        await approvePayroll();
+        await approvePayroll(period);
         setApproved(true);
         showToast('Payroll approved.');
       } else {
-        await submitPayroll();
+        await submitPayroll(period);
         setSubmitted(true);
         showToast('Payroll submitted for owner approval.');
       }
@@ -1070,6 +1126,52 @@ function PayrollManagementBoard({ canApprove = false }) {
         </div>
       ) : null}
 
+      <div className={`${CARD} flex flex-wrap items-end gap-3`}>
+        <label className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">
+          Payroll month
+          <input
+            type="month"
+            value={viewPeriod}
+            min={monthBounds().min}
+            max={monthBounds().max}
+            onChange={(event) => { if (/^\d{4}-\d{2}$/.test(event.target.value)) setViewPeriod(event.target.value); }}
+            className={`${INPUT} mt-1 w-44`}
+          />
+        </label>
+        {viewPeriod !== THIS_MONTH ? (
+          <button type="button" onClick={() => setViewPeriod(THIS_MONTH)} className={OUTLINE_BTN}>Back to this month</button>
+        ) : null}
+        {!approved && history.some(entry => entry.period !== period) ? (
+          <div className="flex flex-wrap items-end gap-2">
+            <label className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">
+              Reuse an earlier month
+              <select value={copyFrom} onChange={(event) => setCopyFrom(event.target.value)} className={`${INPUT} mt-1 w-48`}>
+                <option value="">Choose a month…</option>
+                {history.filter(entry => entry.period !== period).map(entry => (
+                  <option key={entry.period} value={entry.period}>{formatPeriod(entry.period)}</option>
+                ))}
+              </select>
+            </label>
+            <button type="button" disabled={!copyFrom || actionBusy !== ''} onClick={handleCopyMonth} className={OUTLINE_BTN}>
+              {actionBusy === 'copy' ? 'Copying…' : `Copy into ${formatPeriod(period)}`}
+            </button>
+          </div>
+        ) : null}
+        {canApprove ? (
+          <div className="ml-auto flex flex-wrap items-center gap-2">
+            <span className={BADGE}>{rows.filter(row => row.released).length} of {rows.filter(row => row.hasEntry).length} released</span>
+            <button
+              type="button"
+              disabled={actionBusy !== '' || !rows.some(row => row.hasEntry && !row.released)}
+              onClick={() => handleRelease()}
+              className={BTN}
+            >
+              {actionBusy === 'release' ? 'Releasing…' : 'Release All Pending Payslips'}
+            </button>
+          </div>
+        ) : null}
+      </div>
+
       <div className="flex flex-wrap gap-2">
         {TABS.map((label, index) => (
           <button
@@ -1147,6 +1249,12 @@ function PayrollManagementBoard({ canApprove = false }) {
                                   {index === 0 ? (
                                     <button type="button" onClick={() => addCustomColumn('earningColumns')} className={ICON_BTN} title="Add earning heading" aria-label="Add earning heading">+</button>
                                   ) : null}
+                                  {index > 0 ? (
+                                    <button type="button" onClick={() => moveColumn('earningColumns', column.key, -1)} className={ICON_BTN} title="Move left" aria-label={`Move ${column.label} left`}>‹</button>
+                                  ) : null}
+                                  {index < settingsForm.earningColumns.length - 1 ? (
+                                    <button type="button" onClick={() => moveColumn('earningColumns', column.key, 1)} className={ICON_BTN} title="Move right" aria-label={`Move ${column.label} right`}>›</button>
+                                  ) : null}
                                   {!column.fixed ? (
                                     <button type="button" onClick={() => removeCustomColumn('earningColumns', column.key)} className={ICON_BTN} title="Remove earning heading" aria-label="Remove earning heading">−</button>
                                   ) : null}
@@ -1175,6 +1283,12 @@ function PayrollManagementBoard({ canApprove = false }) {
                                 <div className="flex items-center gap-1">
                                   {index === 0 ? (
                                     <button type="button" onClick={() => addCustomColumn('deductionColumns')} className={ICON_BTN} title="Add deduction heading" aria-label="Add deduction heading">+</button>
+                                  ) : null}
+                                  {index > 0 ? (
+                                    <button type="button" onClick={() => moveColumn('deductionColumns', column.key, -1)} className={ICON_BTN} title="Move left" aria-label={`Move ${column.label} left`}>‹</button>
+                                  ) : null}
+                                  {index < settingsForm.deductionColumns.length - 1 ? (
+                                    <button type="button" onClick={() => moveColumn('deductionColumns', column.key, 1)} className={ICON_BTN} title="Move right" aria-label={`Move ${column.label} right`}>›</button>
                                   ) : null}
                                   {!column.fixed ? (
                                     <button type="button" onClick={() => removeCustomColumn('deductionColumns', column.key)} className={ICON_BTN} title="Remove deduction heading" aria-label="Remove deduction heading">−</button>
@@ -1213,7 +1327,7 @@ function PayrollManagementBoard({ canApprove = false }) {
                         <td className={TD}>
                           <select
                             value={row.employmentCategory}
-                            disabled={inputsLocked}
+                            disabled={inputsLocked || row.released}
                             onChange={(event) => updateRowField(row.id, 'employmentCategory', event.target.value)}
                             onBlur={() => persistRow(row.id)}
                             className={INPUT}
@@ -1229,7 +1343,7 @@ function PayrollManagementBoard({ canApprove = false }) {
                             <input
                               type="number"
                               value={getRowEarningValue(row, column.key)}
-                              disabled={inputsLocked}
+                              disabled={inputsLocked || row.released}
                               onChange={(event) => updateRowAmount(row.id, 'earning', column.key, event.target.value)}
                               onBlur={() => persistRow(row.id)}
                               className={INPUT}
@@ -1242,7 +1356,7 @@ function PayrollManagementBoard({ canApprove = false }) {
                             <input
                               type="number"
                               value={getRowDeductionValue(row, column.key)}
-                              disabled={inputsLocked}
+                              disabled={inputsLocked || row.released}
                               onChange={(event) => updateRowAmount(row.id, 'deduction', column.key, event.target.value)}
                               onBlur={() => persistRow(row.id)}
                               className={INPUT}
@@ -1262,7 +1376,7 @@ function PayrollManagementBoard({ canApprove = false }) {
                         <td className={TD}>
                           <select
                             value={row.paymentStatus}
-                            disabled={inputsLocked}
+                            disabled={inputsLocked || row.released}
                             onChange={(event) => updateRowField(row.id, 'paymentStatus', event.target.value)}
                             onBlur={() => persistRow(row.id)}
                             className={INPUT}
@@ -1278,6 +1392,15 @@ function PayrollManagementBoard({ canApprove = false }) {
                         </td>
                         <td className={TD}>
                           <button onClick={() => setSelectedPayslip(row)} className={BTN}>Payslip</button>
+                          {row.released ? (
+                            <p className="mt-1 text-xs font-bold text-[#1a5c38] dark:text-[#00ffff]">✓ Released</p>
+                          ) : canApprove && row.hasEntry ? (
+                            <button type="button" disabled={actionBusy !== ''} onClick={() => handleRelease([row.id])} className={`${OUTLINE_BTN} mt-1 px-3 py-1 text-xs`}>
+                              {actionBusy === `release-${row.id}` ? 'Releasing…' : 'Release'}
+                            </button>
+                          ) : (
+                            <p className="mt-1 text-xs text-[#800020] dark:text-[#bf00ff]">{row.hasEntry ? 'Not released' : 'No figures yet'}</p>
+                          )}
                         </td>
                       </tr>
                     ))}
@@ -1376,7 +1499,14 @@ function PayrollManagementBoard({ canApprove = false }) {
                   {row.autoLateDeduction > 0 ? <p className="mt-1 text-xs text-[#800020] dark:text-[#bf00ff]">Includes {formatNaira(row.autoLateDeduction)} lateness charge{row.lateChargeCount === 1 ? '' : 's'}.</p> : null}
                   {row.autoAbsenceDeduction > 0 ? <p className="mt-1 text-xs text-[#800020] dark:text-[#bf00ff]">Includes {formatNaira(row.autoAbsenceDeduction)} absenteeism charge across {row.absenceChargeCount} unauthorized absence day{row.absenceChargeCount === 1 ? '' : 's'}.</p> : null}
                 </div>
-                <button onClick={() => setSelectedPayslip(row)} className={BTN}>View Payslip</button>
+                <div className="flex flex-wrap items-center gap-2">
+                  {row.released ? <span className={BADGE}>Released</span> : canApprove && row.hasEntry ? (
+                    <button type="button" disabled={actionBusy !== ''} onClick={() => handleRelease([row.id])} className={OUTLINE_BTN}>
+                      {actionBusy === `release-${row.id}` ? 'Releasing…' : 'Release to staff'}
+                    </button>
+                  ) : <span className={BADGE}>{row.hasEntry ? 'Not released' : 'No figures yet'}</span>}
+                  <button onClick={() => setSelectedPayslip(row)} className={BTN}>View Payslip</button>
+                </div>
               </div>
             ))}
           </div>
@@ -1436,6 +1566,17 @@ function PayrollManagementBoard({ canApprove = false }) {
                   </div>
                   <div className="flex flex-wrap items-center gap-2">
                     <span className={BADGE}>{entry.status || 'draft'}</span>
+                    {entry.entries ? <span className={BADGE}>{entry.releasedCount || 0} of {entry.entries} released</span> : null}
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setViewPeriod(entry.period);
+                        setTab(0);
+                      }}
+                      className={OUTLINE_BTN}
+                    >
+                      Open this month
+                    </button>
                     {entry.hasPayrollNote ? (
                       <button
                         type="button"

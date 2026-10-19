@@ -92,8 +92,16 @@ const SUBMISSION_ROLES = new Set([
   'classteacher', 'hod', 'hodassistant', 'principal', 'viceprincipal', 'headteacher', 'nurseryhead', 'examofficer', 'sportsmaster',
 ]);
 
+// Every salaried role sees its own payslips (released by the Owner / Head of School).
+const PAYSLIP_ROLES = new Set([...staffAiEligibleRoles, 'driver']);
+
 export function getRoleSidebarItems(roleKey) {
-  const items = buildRoleSidebarItems(roleKey);
+  let items = buildRoleSidebarItems(roleKey);
+  if (PAYSLIP_ROLES.has(roleKey) && !items.some(item => String(item.path || '').endsWith('/payslip'))) {
+    const settingsIndex = items.findIndex(item => String(item.path || '').endsWith('/settings'));
+    const insertAt = settingsIndex >= 0 ? settingsIndex : items.length;
+    items = [...items.slice(0, insertAt), { name: 'My Payslip', path: `/roles/${roleKey}/payslip` }, ...items.slice(insertAt)];
+  }
   if (SUBMISSION_ROLES.has(roleKey) && !items.some(item => item.path === '#submit-work')) {
     const settingsIndex = items.findIndex(item => String(item.path || '').endsWith('/settings'));
     const insertAt = settingsIndex >= 0 ? settingsIndex : items.length;

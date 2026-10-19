@@ -481,3 +481,70 @@ test('autosaved drafts write no audit entry; publishing bills everyone; late joi
   assert.equal(reports.byClass.find(row => row.className === 'JSS 2').collected, 70000)
   db.close?.()
 })
+
+test('discounts as a percentage of the term fee; a family discount once per child; students never see fees or receipts', async () => {
+  const { call, db } = await setup()
+  db.db.exec(`CREATE TABLE IF NOT EXISTS parent_student_links (tenant_id TEXT, parent_id TEXT, student_id TEXT)`)
+  db.db.exec(`INSERT INTO parent_student_links (tenant_id, parent_id, student_id) VALUES ('school-a', 'mum', 'ada'), ('school-a', 'mum', 'bola')`)
+  await call('owner', 'PUT', '/api/school/finance/simple/grid', { termId: 't26-1', action: 'publish', ...GRID })
+
+  // 10% of ADA's ₦160,000 term fee is ₦16,000, worked out by the server.
+  const percent = await call('bursar', 'POST', '/api/school/finance/simple/accounts/ada/adjust', { kind: 'discount', percent: 10, reason: 'Staff child' })
+  assert.equal(percent.status, 200, JSON.stringify(percent.body))
+  assert.equal(percent.body.applied, 16000)
+  assert.equal((await call('bursar', 'POST', '/api/school/finance/simple/accounts/ada/adjust', { kind: 'discount', percent: 120, reason: 'x' })).status, 400)
+  assert.equal((await call('bursar', 'POST', '/api/school/finance/simple/accounts/ada/adjust', { kind: 'credit', percent: 5, reason: 'x' })).status, 400)
+
+  // Family discount: 5% for BOLA; a second press does not double it; a child outside the family is ignored.
+  const family = await call('bursar', 'POST', '/api/school/finance/simple/family-discount', { familyId: 'mum', studentIds: ['bola', 'chi'], mode: 'percent', value: 5 })
+  assert.equal(family.status, 200, JSON.stringify(family.body))
+  assert.deepEqual(family.body.results, [{ studentId: 'bola', applied: 8000 }])
+  const again = await call('bursar', 'POST', '/api/school/finance/simple/family-discount', { familyId: 'mum', studentIds: ['bola'], mode: 'amount', value: 2000 })
+  assert.equal(again.body.applied, 0)
+  assert.match(again.body.results[0].skipped, /already has a family discount/)
+  const list = (await call('bursar', 'GET', '/api/school/finance/simple/accounts')).body
+  assert.equal(list.canAdjust, true)
+  assert.deepEqual([account(list.accounts, 'ada').totalPayable, account(list.accounts, 'bola').totalPayable], [144000, 152000])
+  assert.equal((await call('mum', 'POST', '/api/school/finance/simple/family-discount', { familyId: 'mum', studentIds: ['bola'], mode: 'amount', value: 1 })).status, 403)
+
+  // Receipts carry the school's own name; parents see them, students do not.
+  db.db.exec(`CREATE TABLE IF NOT EXISTS tenants (id TEXT PRIMARY KEY, requested_subdomain TEXT, website_domain TEXT, school_name TEXT)`)
+  db.db.exec(`INSERT OR REPLACE INTO tenants (id, requested_subdomain, school_name) VALUES ('school-a', 'greenfield', 'Greenfield School')`)
+  await call('bursar', 'POST', '/api/school/finance/simple/accounts/ada/pay', { amount: 10000, method: 'cash' })
+  const mine = (await call('mum', 'GET', '/api/school/finance/my-accounts')).body
+  assert.equal(mine.accounts.find(item => item.studentId === 'ada').receipts[0].schoolName, 'Greenfield School')
+  assert.equal((await call('ada', 'GET', '/api/school/finance/my-accounts')).status, 403)
+  assert.equal((await call('ada', 'GET', '/api/school/fees/students/ada/history')).status, 403)
+  assert.equal((await call('ada', 'GET', '/api/school/fees-receipts')).status, 403)
+})
+
+test('fee reminders: polite words, the school bank account and name, to each linked parent; email at most once a day', async () => {
+  const { call, db } = await setup()
+  db.db.exec(`CREATE TABLE IF NOT EXISTS tenants (id TEXT PRIMARY KEY, requested_subdomain TEXT, website_domain TEXT, school_name TEXT)`)
+  db.db.exec(`INSERT OR REPLACE INTO tenants (id, requested_subdomain, school_name) VALUES ('school-a', 'greenfield', 'Greenfield School')`)
+  db.db.exec(`CREATE TABLE IF NOT EXISTS parent_student_links (tenant_id TEXT, parent_id TEXT, student_id TEXT, created_at TEXT)`)
+  await db.prepare('INSERT INTO users (id, email, name, role, tenantId, status) VALUES (?, ?, ?, ?, ?, ?)').bind('dad', 'dad@example.com', 'Mr Bello', 'parent', 'school-a', 'active').run()
+  await db.prepare('INSERT INTO settings (studentId, payload) VALUES (?, ?)').bind('dad@example.com', JSON.stringify({ name: 'Mr Bello', email: 'dad@example.com', role: 'parent', tenantId: 'school-a', phone: '08031234567' })).run()
+  db.db.exec(`INSERT INTO parent_student_links (tenant_id, parent_id, student_id, created_at) VALUES ('school-a', 'dad', 'ada', '2026-01-01')`)
+  await call('owner', 'POST', '/api/school/fees/payment-details', { bankName: 'First Bank', accountName: 'Greenfield School', accountNumber: '3012345678' })
+  await call('owner', 'PUT', '/api/school/finance/simple/grid', { termId: 't26-1', action: 'publish', ...GRID })
+  await call('bursar', 'POST', '/api/school/finance/simple/accounts/ada/pay', { amount: 60000, method: 'cash' })
+
+  const reminder = await call('bursar', 'GET', '/api/school/finance/simple/accounts/ada/reminder')
+  assert.equal(reminder.status, 200, JSON.stringify(reminder.body))
+  const [parent] = reminder.body.student.parents
+  assert.equal(parent.email, 'dad@example.com')
+  assert.match(parent.text, /^Dear Mr Bello,/)
+  assert.match(parent.text, /gentle reminder/)
+  assert.match(parent.text, /First Bank[\s\S]*3012345678/)
+  assert.match(parent.text, /₦100,000/)
+  assert.match(parent.text, /Greenfield School$/)
+  assert.ok(!/ndovera/i.test(parent.text))
+  assert.match(parent.whatsappUrl, /^https:\/\/wa\.me\/2348031234567\?text=/)
+  // Students cannot send or read reminders.
+  assert.equal((await call('ada', 'GET', '/api/school/finance/simple/accounts/ada/reminder')).status, 403)
+  // WhatsApp opened from the page is recorded; email needs the mail service (not set in tests), so it reports why.
+  assert.equal((await call('bursar', 'POST', '/api/school/finance/simple/reminders', { studentIds: ['ada'], channel: 'whatsapp', sentTo: parent.phone })).body.recorded, 1)
+  const emailed = (await call('bursar', 'POST', '/api/school/finance/simple/reminders', { studentIds: ['ada', 'bola'] })).body
+  assert.deepEqual(emailed.skipped.map(item => item.reason).sort(), ['email could not be sent', 'no parent linked'])
+})

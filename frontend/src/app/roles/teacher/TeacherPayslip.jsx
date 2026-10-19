@@ -47,23 +47,36 @@ function Row({ label, value, strong, accent }) {
   );
 }
 
+function periodLabel(period) {
+  const [year, month] = String(period || '').split('-').map(Number);
+  if (!year || !month) return period || '';
+  return new Date(Date.UTC(year, month - 1, 1)).toLocaleString('default', { month: 'long', year: 'numeric', timeZone: 'UTC' });
+}
+
 export default function TeacherPayslip({ auth }) {
   const [payslip, setPayslip] = useState(null);
   const [pendingMessage, setPendingMessage] = useState('');
   const [contactInfo, setContactInfo] = useState({ address: '', phone: '', email: '' });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const month = new Date().toLocaleString('default', { month: 'long', year: 'numeric' });
+  // Every month whose payslip has been released, newest first; the newest opens first.
+  const [available, setAvailable] = useState([]);
+  const [period, setPeriod] = useState('');
+  const month = periodLabel(period) || new Date().toLocaleString('default', { month: 'long', year: 'numeric' });
 
   useEffect(() => {
     let active = true;
-    Promise.all([getMyPayslip(), getWebsiteSections().catch(() => ({ sections: [] }))])
+    setLoading(true);
+    Promise.all([getMyPayslip(period), getWebsiteSections().catch(() => ({ sections: [] }))])
       .then(([data, sectionsResult]) => {
         if (!active) return;
+        setAvailable(Array.isArray(data?.available) ? data.available : []);
+        if (data?.period && !period) setPeriod(data.period);
         if (data && data.success && data.payslip === null) {
-          setPendingMessage(data.message || 'Your payslip will be available once payroll is approved by the school leadership.');
+          setPendingMessage(data.message || 'Your payslip has not been released yet.');
           setPayslip(null);
         } else {
+          setPendingMessage('');
           setPayslip(data?.payslip || (data && data.gross !== undefined ? data : null));
         }
         setContactInfo(extractContactInfo(sectionsResult?.sections || []));
@@ -71,15 +84,29 @@ export default function TeacherPayslip({ auth }) {
       .catch(err => { if (active) setError(err.message || 'Could not load your payslip.'); })
       .finally(() => { if (active) setLoading(false); });
     return () => { active = false; };
-  }, []);
+  }, [period]);
 
   const shell = 'p-4 sm:p-8 max-w-3xl mx-auto';
+  const picker = available.length > 0 && (
+    <label className="flex items-center gap-2 text-sm font-bold text-[#191970] print:hidden">
+      Month
+      <select className="rounded-xl border border-[#7cc4e8] bg-white px-3 py-2 text-sm" value={period} onChange={event => setPeriod(event.target.value)}>
+        {!available.some(item => item.period === period) && period ? <option value={period}>{periodLabel(period)}</option> : null}
+        {available.map(item => <option key={item.period} value={item.period}>{periodLabel(item.period)}</option>)}
+      </select>
+    </label>
+  );
   if (loading) return <div className={shell}><div className="rounded-2xl bg-white p-6 shadow"><p className="text-[#191970]">Loading payslip…</p></div></div>;
   if (error) return <div className={shell}><div className="rounded-2xl bg-white p-6 shadow"><p className="text-rose-700 text-sm">{error}</p></div></div>;
   if (pendingMessage) return (
     <div className={`${shell} space-y-4`}>
-      <h1 className="text-2xl font-extrabold text-[#191970]">My Payslip <span className="text-base font-medium text-slate-500">· {month}</span></h1>
-      <div className="rounded-2xl bg-white p-6 shadow"><p className="text-sm font-semibold text-[#191970]">{pendingMessage}</p></div>
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <h1 className="text-2xl font-extrabold text-[#191970]">My Payslip <span className="text-base font-medium text-slate-500">· {month}</span></h1>
+        {picker}
+      </div>
+      <div className="rounded-2xl bg-white p-6 shadow"><p className="text-sm font-semibold text-[#191970]">{pendingMessage}</p>
+        {available.length > 0 && <p className="mt-2 text-sm text-slate-600">Released payslips are in the Month list above.</p>}
+      </div>
     </div>
   );
 
@@ -101,8 +128,9 @@ export default function TeacherPayslip({ auth }) {
 
   return (
     <div className={`${shell} space-y-4`}>
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap items-center justify-between gap-2">
         <h1 className="text-2xl font-extrabold text-[#191970]">My Payslip <span className="text-base font-medium text-slate-500">· {month}</span></h1>
+        {picker}
         <button onClick={() => window.print()} className="rounded-xl bg-[#2447d8] px-4 py-2 text-sm font-bold text-white shadow transition hover:bg-[#1b34a8]">🖨️ Print</button>
       </div>
 
@@ -127,7 +155,7 @@ export default function TeacherPayslip({ auth }) {
           </div>
           <div className="shrink-0 text-right">
             <p className="text-xs uppercase tracking-[0.25em] text-blue-100">Payslip</p>
-            <p className="text-sm font-bold">{p.period || month}</p>
+            <p className="text-sm font-bold">{periodLabel(p.period) || month}</p>
           </div>
         </div>
 
@@ -138,7 +166,7 @@ export default function TeacherPayslip({ auth }) {
               ['Employee', staffName],
               ['Staff ID', p.displayId || p.staffId || '—'],
               ['Designation', p.role || auth?.user?.role || 'Teacher'],
-              ['Pay Period', p.period || month],
+              ['Pay Period', periodLabel(p.period) || month],
             ].map(([k, v], i) => (
               <div key={k} className={`p-3 ${i % 2 === 0 ? 'bg-[#cfecf7]/40' : 'bg-white'} border-b border-[#7cc4e8]/40`}>
                 <p className="text-[10px] font-bold uppercase tracking-wide text-[#2447d8]">{k}</p>
