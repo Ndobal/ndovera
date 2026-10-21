@@ -16,7 +16,8 @@
 /** Crawlers welcome on public pages. Each entry: label → User-Agent pattern. */
 export const ALLOWED_CRAWLERS = [
   // Google Search, Gemini (Google-Extended, Google-CloudVertexBot), Search Console checks.
-  ['Google', /google/i],
+  // Named crawlers only: a phone whose browser or app says "Google" is a person, not a crawler.
+  ['Google', /googlebot|google-extended|google-cloudvertexbot|google-inspectiontool|googleother|storebot-google|apis-google|adsbot-google|mediapartners-google|feedfetcher-google|google-read-aloud|google-site-verification|google web preview|google favicon/i],
   // Bing Search; Microsoft Copilot answers from Bing's crawl.
   ['Bing / Copilot', /bingbot|bingpreview|msnbot|adidxbot|microsoftpreview|copilot/i],
   ['ChatGPT', /gptbot|oai-searchbot|chatgpt/i],
@@ -25,8 +26,9 @@ export const ALLOWED_CRAWLERS = [
   ['Link previews', /facebookexternalhit|facebookcatalog|whatsapp|twitterbot|linkedinbot|telegrambot|slackbot|discordbot/i],
 ]
 
-// Anything that announces itself as automated. Lookbehind keeps "Cubot" phones out.
-const AUTOMATED = /(?<!cu)bot|crawl|spider|slurp|scrap|archiv|fetcher|curl\/|wget|python|httpx|aiohttp|go-http-client|libwww|perl\/|ruby|php\/|node-fetch|axios|undici|headless|phantomjs|selenium|puppeteer|playwright|httpclient|postman|insomnia|semrush|ahrefs|mj12|petalbot|yandex|baidu|bytespider|ccbot|perplexity|zgrab|masscan|nmap|nikto|sqlmap|censys|scanner/i
+// Anything that announces itself as automated: "bot" as a word or product name (AhrefsBot/7.0).
+// A real browser's device part (phone model, build) is not searched, so "Cubot" phones pass.
+const AUTOMATED = /\bbot\b|bot\/|[a-z]bot\b|crawl|spider|slurp|scrap|archiv|fetcher|curl\/|wget|python|httpx|aiohttp|go-http-client|libwww|perl\/|ruby|php\/|node-fetch|axios|undici|headless|phantomjs|selenium|puppeteer|playwright|httpclient|postman|insomnia|semrush|ahrefs|mj12|petalbot|yandex|baidu|bytespider|ccbot|perplexity|zgrab|masscan|nmap|nikto|sqlmap|censys|scanner/i
 
 // Machine callers that must always get through, whatever they call themselves.
 const ALWAYS_ALLOWED_PREFIXES = ['/api/webhooks/', '/api/integrations/youtube/callback']
@@ -42,13 +44,20 @@ const APP_PREFIXES = [
   '/ai-tutor', '/attendance', '/rewards', '/news', '/receipt-verification', '/result-verification',
 ]
 
+// A real browser on a phone, tablet or computer: "Mozilla/5.0 (Linux; Android 5.1; …) AppleWebKit…".
+// Phone model and build names can contain almost anything, so the "automated" words are only
+// looked for in what follows the device part, never in the model name.
+const BROWSER_SHAPE = /^Mozilla\/5\.0 \((?:Linux|Android|iPhone|iPad|iPod|Windows|Macintosh|X11|CrOS|Mobile|Tablet)[^)]*\)/i
+
 /** 'person' | 'crawler' | 'bot', and for crawlers which one. */
 export function classifyUserAgent(userAgent) {
   const ua = String(userAgent || '').trim()
   if (!ua) return { kind: 'bot', name: 'no user agent' }
   const crawler = ALLOWED_CRAWLERS.find(([, pattern]) => pattern.test(ua))
   if (crawler) return { kind: 'crawler', name: crawler[0] }
-  if (AUTOMATED.test(ua)) return { kind: 'bot', name: ua.slice(0, 80) }
+  const browser = BROWSER_SHAPE.exec(ua)
+  const rest = browser ? ua.slice(browser[0].length) : ua
+  if (AUTOMATED.test(rest)) return { kind: 'bot', name: ua.slice(0, 80) }
   return { kind: 'person' }
 }
 

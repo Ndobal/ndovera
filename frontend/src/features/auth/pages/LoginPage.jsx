@@ -2,6 +2,18 @@ import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import LoginForm from '../components/LoginForm';
 
+// Old or low-memory phones (Android 7 and below) and data saver get the still background:
+// the looping video can make signing in slow or freeze an older phone.
+function shouldPlayVideo() {
+  try {
+    const android = /Android\s(\d+)/i.exec(navigator.userAgent || '');
+    if (android && Number(android[1]) <= 7) return false;
+    if (navigator.connection && navigator.connection.saveData) return false;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false;
+  } catch { /* keep the video */ }
+  return true;
+}
+
 export default function LoginPage({ onLogin }) {
   const navigate = useNavigate();
   const location = useLocation();
@@ -18,14 +30,16 @@ export default function LoginPage({ onLogin }) {
     <div className="min-h-screen bg-[linear-gradient(180deg,#b5e3f4_0%,#fff4df_48%,#b5e3f4_100%)] px-4 pt-[calc(1rem+var(--safe-top))] pb-[calc(1rem+var(--safe-bottom))] text-[#191970] sm:px-6 sm:pt-[calc(1.5rem+var(--safe-top))] sm:pb-[calc(1.5rem+var(--safe-bottom))] lg:px-8 dark:bg-[linear-gradient(180deg,#140014_0%,#1f0020_100%)] dark:text-[#39ff14]">
       <div className="mx-auto grid w-full max-w-6xl overflow-hidden rounded-[32px] border border-[#c9a96e]/45 bg-[#fff4df] shadow-[0_28px_100px_rgba(128,0,0,0.18)] lg:min-h-[calc(100vh-3rem)] lg:grid-cols-[0.96fr_1.04fr] dark:border-[#bf00ff]/35 dark:bg-[#800000]/40 dark:backdrop-blur-xl">
         <section className="relative min-h-[280px] overflow-hidden lg:min-h-full">
-          <video
-            className="absolute inset-0 h-full w-full object-cover"
-            src={process.env.PUBLIC_URL + '/login-vid.mp4'}
-            autoPlay
-            muted
-            loop
-            playsInline
-          />
+          {shouldPlayVideo() ? (
+            <video
+              className="absolute inset-0 h-full w-full object-cover"
+              src={process.env.PUBLIC_URL + '/login-vid.mp4'}
+              autoPlay
+              muted
+              loop
+              playsInline
+            />
+          ) : null}
           <div className="absolute inset-0 bg-[linear-gradient(160deg,rgba(128,0,0,0.78),rgba(25,25,112,0.52),rgba(26,92,56,0.5))] dark:bg-[linear-gradient(160deg,rgba(0,0,0,0.4),rgba(128,0,0,0.65),rgba(0,0,255,0.4))]" />
           <div className="relative flex h-full flex-col justify-between p-6 sm:p-8 lg:p-10 text-white">
             <div className="inline-flex w-fit rounded-full border border-[#b5e3f4]/35 bg-[#800000]/45 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.32em] text-[#b5e3f4] backdrop-blur-sm dark:border-[#00ffff]/30 dark:bg-[#000000]/40 dark:text-[#00ffff]">

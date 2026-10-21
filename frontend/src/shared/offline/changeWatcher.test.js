@@ -39,13 +39,24 @@ test('a busy or unreachable server is treated like being offline, and recovery i
   subscribeConnection(status => statuses.push(status));
   global.fetch.mockReturnValueOnce(reply(503, { success: false }));
   await checkNow();
-  expect(getConnectionStatus()).toBe('unavailable');
+  // One failure on a patchy connection says nothing yet; a second in a row shows the notice.
+  expect(getConnectionStatus()).toBe('ok');
   global.fetch.mockReturnValueOnce(Promise.reject(new TypeError('Failed to fetch')));
   await checkNow();
   expect(getConnectionStatus()).toBe('unavailable');
   global.fetch.mockReturnValueOnce(reply(200, { tenant: 1, user: 0 }));
   await checkNow();
   expect(statuses).toEqual(['unavailable', 'ok']);
+});
+
+test('one slow or failed check does not show the busy notice; a good answer clears the count', async () => {
+  global.fetch.mockReturnValueOnce(Promise.reject(new TypeError('Failed to fetch')));
+  await checkNow();
+  global.fetch.mockReturnValueOnce(reply(200, { tenant: 1, user: 0 }));
+  await checkNow();
+  global.fetch.mockReturnValueOnce(Promise.reject(new TypeError('Failed to fetch')));
+  await checkNow();
+  expect(getConnectionStatus()).toBe('ok');
 });
 
 test('an expired session is not mistaken for an outage', async () => {

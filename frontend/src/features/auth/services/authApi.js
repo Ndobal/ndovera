@@ -436,14 +436,25 @@ export function clearStoredAuth() {
 }
 
 export async function login(credentials) {
-	const response = await fetch(getApiUrl('/api/auth/login'), {
-		method: 'POST',
-		credentials: 'include',
-		headers: {
-			'Content-Type': 'application/json',
-		},
-		body: JSON.stringify(credentials),
-	});
+	let response;
+	try {
+		response = await fetch(getApiUrl('/api/auth/login'), {
+			method: 'POST',
+			credentials: 'include',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(credentials),
+		});
+	} catch {
+		// No answer at all: no connection, or a browser too old for a secure connection.
+		throw new Error('Could not reach Ndovera. Check the internet connection and try again. If it keeps failing on this phone, update Chrome from the Play Store or sign in with another browser.');
+	}
+
+	// Refused by the security check before reaching the server (it answers in plain text).
+	if (response.status === 403 && response.headers.get('X-Ndovera-Blocked')) {
+		throw new Error("This browser was not recognised by Ndovera's security check. Please update Chrome from the Play Store, or sign in with Chrome or another up-to-date browser.");
+	}
 
 	const data = await response.json().catch(() => ({ error: 'Unable to complete login.' }));
 	syncRefreshedToken(response);

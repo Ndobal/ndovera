@@ -10217,7 +10217,8 @@ app.get('/api/classrooms/:classroomId/assignments', authenticate, async (c) => {
     const actorIdentifiers: string[] = (moderation?.ok && moderation.actorIdentifiers) || []
     // Anyone who cannot manage this class (a parent, a teacher from another class)
     // reads it as a learner would: no answer keys, nothing before it opens.
-    const visible = moderation?.ok ? assignments : learnerView(assignments)
+    const scope = await teacherSubjectScope(c.env.APP_DB, moderation, classroomId).catch(() => null)
+    const visible = (moderation?.ok ? assignments : learnerView(assignments)).filter(assignment => inTeacherScope(scope, assignment as any))
     const flaggedAssignments = visible.map(assignment => ({
       ...assignment,
       canManage: canManageClasswide || matchesComparableIdentifier((assignment as any).createdBy, actorIdentifiers),
@@ -12152,6 +12153,34 @@ async function resolveClassroomModerationContext(db: D1Database, user: Record<st
     supervisoryRole: hasSupervisoryRole && !isClassTeacher ? normalizedRole : '',
     canManageClasswide: isSupervisor || isClassTeacher,
   }
+}
+
+/**
+ * What a teacher may see of a class's subject content. The class teacher, the assistant
+ * class teacher and school leaders (HoS, Owner, supervisors) see everything: returns null.
+ * A subject teacher sees the subjects they teach in this class, anything they posted
+ * themselves, and class-wide items with no subject.
+ */
+async function teacherSubjectScope(db: D1Database, moderation: any, classroomId: string) {
+  if (!moderation?.ok || moderation.isClassTeacher || moderation.supervisoryRole || moderation.isSupervisor) return null
+  if (['owner', 'hos', 'admin', 'ami', 'ict'].includes(String(moderation.normalizedRole || ''))) return null
+  const rows = ((await db.prepare(`SELECT id, name, teacherId FROM subjects WHERE classId = ? AND (tenantId = ? OR tenantId IS NULL OR tenantId = '')`)
+    .bind(classroomId, moderation.tenantId).all().catch(() => ({ results: [] }))).results || []) as Record<string, any>[]
+  const mine = rows.filter(row => matchesComparableIdentifier(row.teacherId, moderation.actorIdentifiers))
+  return {
+    ids: new Set(mine.map(row => String(row.id))),
+    names: new Set(mine.map(row => String(row.name || '').trim().toLowerCase()).filter(Boolean)),
+    actorIdentifiers: moderation.actorIdentifiers as string[],
+  }
+}
+
+function inTeacherScope(scope: Awaited<ReturnType<typeof teacherSubjectScope>>, item: { subjectId?: string, subjectName?: string, createdBy?: string, uploadedById?: string, uploadedBy?: string }) {
+  if (!scope) return true
+  if ([item.createdBy, item.uploadedById, item.uploadedBy].some(value => value && matchesComparableIdentifier(value, scope.actorIdentifiers))) return true
+  const id = String(item.subjectId || '').trim()
+  const name = String(item.subjectName || '').trim().toLowerCase()
+  if (!id && (!name || name === 'general material' || name === 'general')) return true
+  return (id && scope.ids.has(id)) || (name && scope.names.has(name))
 }
 
 app.get('/api/learning/students', authenticate, async (c) => {
@@ -14385,6 +14414,11 @@ app.get('/api/classrooms/:classroomId/materials', authenticate, async (c) => {
     let materials = await getMaterialsForClass(c.env.APP_DB, classroomId)
     if (!access.canManage) {
       materials = materials.filter(material => canAudienceSeeMaterial(material, access.role))
+    } else {
+      // A subject teacher sees their own subjects' materials; the class teacher sees all.
+      const moderation = await resolveClassroomModerationContext(c.env.APP_DB, c.var.user || {}, classroomId).catch(() => null)
+      const scope = await teacherSubjectScope(c.env.APP_DB, moderation, classroomId).catch(() => null)
+      materials = materials.filter(material => inTeacherScope(scope, material as any))
     }
     const academicContext = await describeMaterialContext(c.env.APP_DB, String(access.classRow.tenantId || access.tenantId))
 

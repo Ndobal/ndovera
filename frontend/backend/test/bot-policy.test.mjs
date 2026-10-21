@@ -77,3 +77,23 @@ test('both workers apply it: the API Worker (when BOT_GATE is on) and the ndover
   assert.equal((await page('/', UA.ahrefs)).status, 403)
   assert.equal((await page('/roles/owner', UA.gptbot)).status, 403)
 })
+
+test('phone browsers are people even when their name mentions Google or their model ends in "bot"', () => {
+  const phones = [
+    // Old Android browsers and in-app browsers that say "Google".
+    'Mozilla/5.0 (Linux; Android 5.1.1; SM-J320F Build/LMY47V) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.74 Mobile Safari/537.36',
+    'Mozilla/5.0 (Linux; Android 5.0; itel it1508 Build/LRX21M; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/37.0.0.0 Mobile Safari/537.36',
+    'Mozilla/5.0 (Linux; Android 10; TECNO KF6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0 Mobile Safari/537.36 GoogleApp/13.1',
+    'Mozilla/5.0 (Linux; Android 9; Google Pixel 3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0 Mobile Safari/537.36',
+    'Mozilla/5.0 (Linux; Android 8.1; ROBOT ONE Build/OPM1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0 Mobile Safari/537.36',
+  ]
+  for (const ua of phones) {
+    assert.equal(classifyUserAgent(ua).kind, 'person', ua)
+    assert.ok(allowed('/api/auth/login', ua, 'POST'), ua)
+  }
+  // Real crawlers and scripts are still recognised.
+  assert.equal(classifyUserAgent('Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)').kind, 'crawler')
+  assert.equal(classifyUserAgent('Mozilla/5.0 (compatible; AhrefsBot/7.0; +http://ahrefs.com/robot/)').kind, 'bot')
+  assert.equal(classifyUserAgent('python-requests/2.31').kind, 'bot')
+  assert.equal(classifyUserAgent('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/120.0 Safari/537.36').kind, 'bot')
+})

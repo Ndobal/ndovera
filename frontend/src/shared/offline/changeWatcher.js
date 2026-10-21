@@ -16,7 +16,12 @@ import { getApiUrl } from '../../config/apiBase';
 import { buildSelectedRoleHeader, getStoredAuth } from '../../features/auth/services/authApi';
 
 const CHECK_MS = 30000;
-const TIMEOUT_MS = 10000;
+// Mobile data is often slow: give a check time before calling it a failure.
+const TIMEOUT_MS = 20000;
+// One failed request on a slow or patchy connection is not "Ndovera is unavailable":
+// the notice shows only after this many failures in a row, confirmed by a quick re-check.
+const FAILURES_BEFORE_NOTICE = 2;
+const RECHECK_MS = 5000;
 
 const changeListeners = new Set();
 const statusListeners = new Set();
@@ -25,15 +30,38 @@ let status = typeof navigator !== 'undefined' && navigator.onLine === false ? 'o
 let timer = null;
 let inFlight = null;
 let started = false;
+let failures = 0;
+let recheck = null;
 
 export function getConnectionStatus() {
   return status;
 }
 
-export function setConnectionStatus(next) {
+function publish(next) {
   if (!next || next === status) return;
   status = next;
   statusListeners.forEach(listener => { try { listener(status); } catch {} });
+}
+
+/**
+ * 'ok' and 'offline' (the device itself says it has no network) apply at once. 'unavailable'
+ * applies only after FAILURES_BEFORE_NOTICE failures in a row; the first one asks again shortly.
+ */
+export function setConnectionStatus(next) {
+  if (next === 'ok') {
+    failures = 0;
+    if (recheck) { clearTimeout(recheck); recheck = null; }
+    publish('ok');
+    return;
+  }
+  if (next === 'unavailable') {
+    failures += 1;
+    if (failures < FAILURES_BEFORE_NOTICE) {
+      if (!recheck && typeof window !== 'undefined') recheck = setTimeout(() => { recheck = null; checkNow(); }, RECHECK_MS);
+      return;
+    }
+  }
+  publish(next);
 }
 
 /** listener(status): 'ok' | 'offline' | 'unavailable'. Returns an unsubscribe function. */
@@ -117,6 +145,9 @@ export function resetChangeWatcher() {
   started = false;
   last = null;
   status = 'ok';
+  failures = 0;
+  if (recheck) clearTimeout(recheck);
+  recheck = null;
   changeListeners.clear();
   statusListeners.clear();
 }

@@ -45,7 +45,7 @@ test('teachers see earlier assignments and reuse a material as a draft referenci
   fireEvent.click(screen.getAllByText('Reuse in current session')[0]);
   fireEvent.change(screen.getByLabelText('Class'), { target: { value: 'new-class' } });
   fireEvent.change(screen.getByLabelText('Subject'), { target: { value: 'math' } });
-  fireEvent.click(screen.getByText('Reuse as draft'));
+  fireEvent.click(screen.getByText('Add as draft'));
   await waitFor(() => expect(reuseArchivedMaterial).toHaveBeenCalledWith('old', { classId: 'new-class', subjectId: 'math', status: 'draft' }));
   await screen.findByText(/The original is unchanged/);
 });

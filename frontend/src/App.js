@@ -421,6 +421,12 @@ function AppWorkspace({ auth, onLogin, onLogout }) {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const handleCloseSidebar = useCallback(() => setIsSidebarOpen(false), []);
+  // A new page opens at its top. The scrolling area is <main>, which keeps its position across
+  // route changes, so opening an assignment from far down a list left it above the screen.
+  const mainRef = useRef(null);
+  useEffect(() => {
+    try { mainRef.current?.scrollTo?.(0, 0); window.scrollTo?.(0, 0); } catch { /* old browsers */ }
+  }, [location.pathname]);
 
   useEffect(() => {
     const onResize = () => setIsMobile(window.innerWidth < 768);
@@ -459,7 +465,7 @@ function AppWorkspace({ auth, onLogin, onLogout }) {
   return (
     <div className="flex h-screen overflow-hidden text-slate-900 dark:text-slate-100 transition-colors duration-500 dashboard-bg dark:bg-slate-950">
       {!mobileClassroomMode && !partnerWorkspace && <Sidebar mobileOpen={isSidebarOpen} onClose={handleCloseSidebar} />}
-      <main className={`flex-1 min-h-0 relative ${inStudentClassroom ? 'overflow-hidden' : 'overflow-y-auto overflow-x-hidden'} ${inDashboardMode && !inStudentClassroom ? 'pb-[calc(8rem+var(--safe-bottom))] scroll-pb-[calc(8rem+var(--safe-bottom))] md:pb-0 md:scroll-pb-0' : ''}`}>
+      <main ref={mainRef} className={`flex-1 min-h-0 relative ${inStudentClassroom ? 'overflow-hidden' : 'overflow-y-auto overflow-x-hidden'} ${inDashboardMode && !inStudentClassroom ? 'pb-[calc(8rem+var(--safe-bottom))] scroll-pb-[calc(8rem+var(--safe-bottom))] md:pb-0 md:scroll-pb-0' : ''}`}>
         {inDashboardMode && !mobileClassroomMode && (
           <DashboardTopBar
             authUser={auth?.user}

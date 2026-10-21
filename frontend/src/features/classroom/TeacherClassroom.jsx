@@ -123,6 +123,8 @@ export default function TeacherClassroom({
   const currentRoleKey = String(storedUser?.role || 'teacher').trim().toLowerCase() || 'teacher';
   const isSupervisorRole = ['owner', 'hos', 'admin', 'ict', 'ami'].includes(currentRoleKey);
   const [classId, setClassId] = useState(() => readRememberedTeacherClassId());
+  // Set when the person presses Exit Class: no class is opened for them again until they choose one.
+  const [leftClass, setLeftClass] = useState(false);
   const [assignedClasses, setAssignedClasses] = useState([]);
   // Owner/HOS: supervisory access, kept apart from teacher assignment.
   const [supervision, setSupervision] = useState(null);
@@ -258,6 +260,8 @@ export default function TeacherClassroom({
     if (assignedClasses.some(classroom => classroom.id === classId)) {
       return;
     }
+    // They just left a class: show the class list, do not reopen one.
+    if (leftClass) return;
 
     const rememberedClassId = readRememberedTeacherClassId();
     const openable = supervision ? assignedClasses.filter(classroom => classroom.supervisionJoined) : assignedClasses;
@@ -270,7 +274,7 @@ export default function TeacherClassroom({
     setClassId(fallbackClassId);
     window.localStorage.setItem('teacherClassroomId', fallbackClassId);
     window.localStorage.setItem('classroomId', fallbackClassId);
-  }, [assignedClasses, classId, classroomLoading, isSupervisorRole, lockedTab, supervision]);
+  }, [assignedClasses, classId, classroomLoading, isSupervisorRole, leftClass, lockedTab, supervision]);
 
   useEffect(() => {
     if (!classId) {
@@ -915,6 +919,7 @@ export default function TeacherClassroom({
   }
 
   function handleSelectClass(nextClassId) {
+    setLeftClass(false);
     setActiveTab(lockedTab || initialTab);
     setClassId(nextClassId);
     window.localStorage.setItem('teacherClassroomId', nextClassId);
@@ -922,6 +927,7 @@ export default function TeacherClassroom({
   }
 
   function handleExitClass() {
+    setLeftClass(true);
     setClassId('');
     setActiveTab(lockedTab || initialTab);
     setAttendanceMessage('');

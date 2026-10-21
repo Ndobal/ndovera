@@ -83,8 +83,11 @@ code {
   to { opacity: 1; transform: none; }
 }
 
+/* `backwards`, not `both`: once it has played, the page keeps no transform. A transform held
+   on the page makes it the frame for every "fixed" dialog inside it, so on phones a dialog
+   opened lower down the page was drawn at the top, off screen. */
 .route-enter {
-  animation: route-enter 240ms ease-out both;
+  animation: route-enter 240ms ease-out backwards;
 }
 
 @media (prefers-reduced-motion: reduce) {

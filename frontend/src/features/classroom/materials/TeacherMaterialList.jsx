@@ -168,47 +168,83 @@ function HistoryDialog({ classId, material, onClose }) {
   );
 }
 
+/**
+ * Use a material in other classes. Classes (and arms) with a subject of the same name are
+ * offered as one tick each, with that class's subject chosen for you; any other class and
+ * subject can still be picked by hand. Reuse links to the original: files are shared, not copied.
+ */
 export function ReuseDialog({ material, classes, onClose, onReused }) {
+  const same = (a, b) => String(a || '').trim().toLowerCase() === String(b || '').trim().toLowerCase();
+  const matches = classes
+    .filter(item => String(item.id) !== String(material.classId))
+    .map(item => ({ classroom: item, subject: (item.subjects || []).find(subject => same(subject.name, material.subjectName)) }))
+    .filter(item => item.subject);
+  const [chosen, setChosen] = useState(() => new Set());
   const [classId, setClassId] = useState('');
   const [subjectId, setSubjectId] = useState('');
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
   const subjects = classes.find(item => String(item.id) === classId)?.subjects || [];
+  const label = item => item.className || item.name;
+  const targets = [
+    ...matches.filter(item => chosen.has(String(item.classroom.id))).map(item => ({ classId: item.classroom.id, subjectId: item.subject.id, name: label(item.classroom) })),
+    ...(classId && subjectId && !chosen.has(classId) ? [{ classId, subjectId, name: label(classes.find(item => String(item.id) === classId) || {}) }] : []),
+  ];
+  const toggle = id => setChosen(previous => { const next = new Set(previous); if (next.has(id)) next.delete(id); else next.add(id); return next; });
 
   async function reuse(status) {
     setBusy(true); setError('');
-    const response = await svc.reuseArchivedMaterial(material.id, { classId, subjectId, status })
-      .catch(err => ({ success: false, message: err.message }));
+    const done = [];
+    const failed = [];
+    for (const target of targets) {
+      const response = await svc.reuseArchivedMaterial(material.id, { classId: target.classId, subjectId: target.subjectId, status }).catch(err => ({ success: false, message: err.message }));
+      if (response?.success) done.push(target.name); else failed.push(`${target.name} (${response?.message || 'not allowed'})`);
+    }
     setBusy(false);
-    if (!response?.success) { setError(response?.message || 'Could not reuse this material.'); return; }
-    onReused(status === 'draft'
-      ? `“${material.title}” is now a draft in the chosen class. Edit it, then publish when ready. The original is unchanged.`
-      : `“${material.title}” is published in the chosen class. The original is unchanged.`);
+    if (!done.length) { setError(failed.join('; ') || 'Could not reuse this material.'); return; }
+    onReused(`“${material.title}” is ${status === 'draft' ? 'a draft' : 'published'} in ${done.join(', ')}. The original is unchanged.${failed.length ? ` Not added to ${failed.join('; ')}.` : ''}`);
   }
 
   return (
-    <Dialog title={`Reuse “${material.title}”`} onClose={onClose}>
-      <p className="mb-3 text-sm text-[#191970]">
-        Reuse links to the original rather than copying it — any attached file is shared, not duplicated. Your edits to the reused version start its own history and never change the original.
-      </p>
-      <div className="grid gap-3 md:grid-cols-2">
-        <label className="flex flex-col gap-1 text-xs font-semibold text-[#800020]">Class
-          <select value={classId} disabled={busy} onChange={event => { setClassId(event.target.value); setSubjectId(''); }} className={FIELD}>
-            <option value="">Choose a class</option>
-            {classes.map(item => <option key={item.id} value={item.id}>{item.className || item.name}</option>)}
-          </select>
-        </label>
-        <label className="flex flex-col gap-1 text-xs font-semibold text-[#800020]">Subject
-          <select value={subjectId} disabled={busy || !classId} onChange={event => setSubjectId(event.target.value)} className={FIELD}>
-            <option value="">Choose a subject</option>
-            {subjects.map(item => <option key={item.id} value={item.id}>{item.name}</option>)}
-          </select>
-        </label>
-      </div>
+    <Dialog title={`Use “${material.title}” in other classes`} onClose={onClose}>
+      <p className="mb-3 text-sm text-[#191970]">The file or note is shared, not copied. Changes you make in another class start their own history and never change this one.</p>
+      {matches.length ? (
+        <div className="mb-4">
+          <p className="mb-1.5 text-xs font-bold uppercase text-[#800020]">Classes that also take {material.subjectName}</p>
+          <div className="flex flex-wrap gap-2">
+            {matches.map(item => {
+              const on = chosen.has(String(item.classroom.id));
+              return (
+                <button key={item.classroom.id} type="button" aria-pressed={on} onClick={() => toggle(String(item.classroom.id))}
+                  className={`rounded-full border px-3 py-1.5 text-sm font-bold ${on ? 'border-[#191970] bg-[#191970] text-white' : 'border-[#c9a96e]/60 bg-white text-[#191970]'}`}>
+                  {on ? '✓ ' : '+ '}{label(item.classroom)}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      ) : null}
+      <details className="mb-2" open={!matches.length}>
+        <summary className="cursor-pointer text-xs font-bold uppercase text-[#800020]">{matches.length ? 'Another class or subject' : 'Choose the class and subject'}</summary>
+        <div className="mt-2 grid gap-3 md:grid-cols-2">
+          <label className="flex flex-col gap-1 text-xs font-semibold text-[#800020]">Class
+            <select value={classId} disabled={busy} onChange={event => { setClassId(event.target.value); setSubjectId(''); }} className={FIELD}>
+              <option value="">Choose a class</option>
+              {classes.map(item => <option key={item.id} value={item.id}>{label(item)}</option>)}
+            </select>
+          </label>
+          <label className="flex flex-col gap-1 text-xs font-semibold text-[#800020]">Subject
+            <select value={subjectId} disabled={busy || !classId} onChange={event => setSubjectId(event.target.value)} className={FIELD}>
+              <option value="">Choose a subject</option>
+              {subjects.map(item => <option key={item.id} value={item.id}>{item.name}</option>)}
+            </select>
+          </label>
+        </div>
+      </details>
       {error && <p role="alert" className="mt-3 text-sm font-semibold text-[#800000]">{error}</p>}
       <div className="mt-4 flex flex-wrap gap-2">
-        <button type="button" disabled={busy || !subjectId} onClick={() => reuse('draft')} className={ACTION}>Reuse as draft</button>
-        <button type="button" disabled={busy || !subjectId} onClick={() => reuse('published')} className={PRIMARY}>{busy ? 'Working…' : 'Reuse and publish'}</button>
+        <button type="button" disabled={busy || !targets.length} onClick={() => reuse('draft')} className={ACTION}>Add as draft{targets.length > 1 ? ` (${targets.length})` : ''}</button>
+        <button type="button" disabled={busy || !targets.length} onClick={() => reuse('published')} className={PRIMARY}>{busy ? 'Working…' : `Publish${targets.length > 1 ? ` in ${targets.length} classes` : ''}`}</button>
       </div>
     </Dialog>
   );
@@ -282,7 +318,7 @@ export default function TeacherMaterialList({ classId, materials, classes, canMa
                     {manageable && material.status === 'draft' && <button type="button" disabled={busy} onClick={() => changeStatus(material, 'published', `Published ${material.title}.`)} className={ACTION}>Publish</button>}
                     {manageable && material.status === 'published' && <button type="button" disabled={busy} onClick={() => changeStatus(material, 'hidden', `${material.title} is hidden from students. Correct it, then show it again.`)} className={ACTION}>Hide</button>}
                     {manageable && material.status === 'hidden' && <button type="button" disabled={busy} onClick={() => changeStatus(material, 'published', `${material.title} is visible to students again.`)} className={ACTION}>Show</button>}
-                    <button type="button" disabled={busy} onClick={() => setReusing(material)} className={ACTION}>Reuse</button>
+                    <button type="button" disabled={busy} onClick={() => setReusing(material)} className={ACTION}>Use in other classes</button>
                     {manageable && <button type="button" disabled={busy} onClick={() => setHistory(material)} className={ACTION}>History</button>}
                     {manageable && <button type="button" disabled={busy} onClick={() => remove(material)} className="rounded-2xl border border-[#800000]/25 bg-white/70 px-3 py-2 text-sm font-semibold text-[#800000] hover:bg-[#ffe8db] disabled:opacity-50 dark:border-[#ff5f8d]/35 dark:bg-black/20 dark:text-[#ffffff]">Delete</button>}
                   </div>
