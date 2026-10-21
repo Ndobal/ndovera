@@ -370,16 +370,21 @@ function Members({ clubId, page, onChanged, onNotice }) {
   const [found, setFound] = useState([]);
   const [classes, setClasses] = useState([]);
   const [classId, setClassId] = useState('');
-  useEffect(() => { if (page.canManage) getAssignedClasses().then(data => setClasses(data?.classes || [])).catch(() => setClasses([])); }, [page.canManage]);
+  // Only the Owner, HoS and ICT add or remove members.
+  const membersEditable = Boolean(page.canManageMembers);
+  useEffect(() => { if (membersEditable) getAssignedClasses().then(data => setClasses(data?.classes || [])).catch(() => setClasses([])); }, [membersEditable]);
   useEffect(() => {
-    if (!page.canManage || q.trim().length < 2) { setFound([]); return undefined; }
+    if (!membersEditable || q.trim().length < 2) { setFound([]); return undefined; }
     const timer = setTimeout(() => findPeople(clubId, { q }).then(data => setFound(data.people || [])).catch(() => setFound([])), 300);
     return () => clearTimeout(timer);
-  }, [clubId, q, page.canManage]);
+  }, [clubId, q, membersEditable]);
   const run = async (action, message) => { try { const result = await action(); onChanged(result.members); if (message) onNotice({ text: message, tone: 'ok' }); } catch (err) { onNotice({ text: err.message, tone: 'error' }); } };
   return (
     <div className="space-y-4">
-      {page.canManage && (
+      {!membersEditable && page.canManage ? (
+        <p className={`${CARD} text-sm text-slate-600 dark:text-slate-300`}>Members are added and removed by the Owner, Head of School or ICT. Ask them to add anyone missing.</p>
+      ) : null}
+      {membersEditable && (
         <section className={`${CARD} space-y-3`} aria-label="Add members">
           <p className="font-black text-slate-900 dark:text-white">Add members</p>
           <input aria-label="Find a student or staff member" className={FIELD} placeholder="Type a name — students join as members, staff as patrons" value={q} onChange={event => setQ(event.target.value)} />
@@ -417,7 +422,7 @@ function Members({ clubId, page, onChanged, onNotice }) {
               <span className="flex-1 font-semibold text-slate-900 dark:text-white">{member.name}{member.className ? <span className="text-xs font-normal text-slate-500"> · {member.className}</span> : null}</span>
               <span className={`rounded-full px-2 py-0.5 text-xs font-bold ${member.role === 'patron' ? 'bg-indigo-100 text-indigo-900' : member.role === 'leader' ? 'bg-amber-100 text-amber-900' : 'bg-slate-100 text-slate-700'}`}>{ROLE_LABEL[member.role] || member.role}</span>
               {page.canManage && member.role !== 'patron' && <button type="button" className="text-xs font-bold text-indigo-700 underline dark:text-indigo-300" onClick={() => run(() => setLeader(clubId, member.userId, member.role !== 'leader'))}>{member.role === 'leader' ? 'Make member' : 'Make leader'}</button>}
-              {page.canManage && <button type="button" className={DANGER} onClick={async () => { if (await askConfirm(`Remove ${member.name} from the club?`)) run(() => removeMember(clubId, member.userId), `${member.name} removed.`); }}>Remove</button>}
+              {membersEditable && <button type="button" className={DANGER} onClick={async () => { if (await askConfirm(`Remove ${member.name} from the club?`)) run(() => removeMember(clubId, member.userId), `${member.name} removed.`); }}>Remove</button>}
             </li>
           ))}
         </ul>

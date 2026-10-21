@@ -11,6 +11,7 @@ let generation = 0
 
 const PEOPLE = {
   owner: ['o-1', 'owner@a.test', ['owner'], 'school-a'],
+  ict: ['i-1', 'ict@a.test', ['ict'], 'school-a'],
   patron: ['t-art', 'art@a.test', ['teacher'], 'school-a'],
   teacher2: ['t-sci', 'sci@a.test', ['teacher'], 'school-a'],
   ada: ['s-ada', 'ada@a.test', ['student'], 'school-a'],
@@ -49,15 +50,19 @@ test('a teacher starts a club and runs it; students see only their clubs; posts,
   const clubId = created.body.club.id
   assert.equal((await call(db, 'teacher2', 'POST', '/api/clubs', { name: 'press club' })).status, 409, 'one club per name')
 
-  // The patron finds people and adds them: staff as patrons, students as members.
-  const found = await call(db, 'patron', 'GET', `/api/clubs/${clubId}/candidates?q=name s-`)
+  // Only the Owner, HoS and ICT add members: the patron cannot, not even searching the school.
+  assert.equal((await call(db, 'patron', 'GET', `/api/clubs/${clubId}/candidates?q=name s-`)).status, 403)
+  assert.equal((await call(db, 'patron', 'POST', `/api/clubs/${clubId}/members`, { people: [{ id: 's-ada', name: 'Ada', role: 'student' }] })).status, 403)
+  // ICT sees every club, finds people and adds them: staff as patrons, students as members.
+  assert.ok((await call(db, 'ict', 'GET', '/api/clubs')).body.clubs.some(club => club.id === clubId && club.canManageMembers))
+  const found = await call(db, 'ict', 'GET', `/api/clubs/${clubId}/candidates?q=name s-`)
   assert.deepEqual(found.body.people.map(person => person.role).sort(), ['student', 'student', 'student'])
-  const added = await call(db, 'patron', 'POST', `/api/clubs/${clubId}/members`, { people: [
+  const added = await call(db, 'ict', 'POST', `/api/clubs/${clubId}/members`, { people: [
     { id: 's-ada', name: 'Ada', role: 'student', className: 'JSS 2' }, { id: 's-bola', name: 'Bola', role: 'student' }, { id: 't-sci', name: 'Science Teacher', role: 'staff' },
   ] })
   assert.equal(added.status, 200, JSON.stringify(added.body))
   assert.deepEqual(added.body.members.map(member => member.role), ['patron', 'patron', 'member', 'member'])
-  assert.equal((await call(db, 'patron', 'POST', `/api/clubs/${clubId}/members`, { people: [{ id: 'o-b', name: 'X', role: 'staff' }] })).status, 400, 'not from another school')
+  assert.equal((await call(db, 'owner', 'POST', `/api/clubs/${clubId}/members`, { people: [{ id: 'o-b', name: 'X', role: 'staff' }] })).status, 400, 'not from another school')
   assert.equal((await call(db, 'ada', 'POST', `/api/clubs/${clubId}/members`, { people: [{ id: 's-out', name: 'Out', role: 'student' }] })).status, 403)
   // Ada becomes club president.
   const leader = await call(db, 'patron', 'POST', `/api/clubs/${clubId}/members/s-ada/leader`, { leader: true })
@@ -117,8 +122,9 @@ test('a teacher starts a club and runs it; students see only their clubs; posts,
   // Withdrawing a post hides it; removing the last patron needs the Owner.
   assert.equal((await call(db, 'patron', 'DELETE', `/api/clubs/${clubId}/posts/${note.body.post.id}`)).status, 200)
   assert.ok(!(await call(db, 'ada', 'GET', `/api/clubs/${clubId}`)).body.posts.some(post => post.id === note.body.post.id))
-  await call(db, 'patron', 'DELETE', `/api/clubs/${clubId}/members/t-sci`)
-  assert.equal((await call(db, 'patron', 'DELETE', `/api/clubs/${clubId}/members/t-art`)).status, 409)
+  // Removing members is for the Owner, HoS and ICT too.
+  assert.equal((await call(db, 'patron', 'DELETE', `/api/clubs/${clubId}/members/t-sci`)).status, 403)
+  assert.equal((await call(db, 'ict', 'DELETE', `/api/clubs/${clubId}/members/t-sci`)).status, 200)
   // The Owner can close a club; a patron cannot.
   assert.equal((await call(db, 'patron', 'PUT', `/api/clubs/${clubId}`, { status: 'closed' })).status, 403)
   assert.equal((await call(db, 'owner', 'PUT', `/api/clubs/${clubId}`, { status: 'closed' })).status, 200)

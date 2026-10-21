@@ -20,7 +20,9 @@ export class ClubError extends Error {
   }
 }
 
-export type ClubActor = { tenantId: string, id: string, name: string, role: string, isManager: boolean, isStaff: boolean }
+export type ClubActor = { tenantId: string, id: string, name: string, role: string, isManager: boolean, isStaff: boolean,
+  /** Owner, HoS and ICT: the only people who add or remove club members. */
+  canManageMembers?: boolean }
 
 export const POST_KINDS = ['note', 'video', 'image', 'document', 'link', 'announcement', 'assignment', 'quiz'] as const
 export type PostKind = typeof POST_KINDS[number]
@@ -78,17 +80,21 @@ async function membership(db: D1Database, clubId: string, userId: string) {
 export async function clubAccess(db: D1Database, actor: ClubActor, clubId: string) {
   await ensureClubTables(db)
   const row = await db.prepare(`SELECT * FROM clubs WHERE id = ? AND tenant_id = ?`).bind(clubId, actor.tenantId).first() as Record<string, any> | null
-  if (!row || row.status === 'closed' && !actor.isManager) throw new ClubError('Club not found.', 404)
+  const overseer = actor.isManager || Boolean(actor.canManageMembers)
+  if (!row || row.status === 'closed' && !overseer) throw new ClubError('Club not found.', 404)
   const member = await membership(db, clubId, actor.id)
-  if (!member && !actor.isManager) throw new ClubError('Club not found.', 404)
+  if (!member && !overseer) throw new ClubError('Club not found.', 404)
   const isPatron = member?.member_role === 'patron'
-  return { club: mapClub(row), member, canManage: actor.isManager || isPatron, isStudent: member?.member_role === 'member' || member?.member_role === 'leader' }
+  return {
+    club: mapClub(row), member, canManage: actor.isManager || isPatron, canManageMembers: Boolean(actor.canManageMembers),
+    isStudent: member?.member_role === 'member' || member?.member_role === 'leader',
+  }
 }
 
 export async function listClubs(db: D1Database, actor: ClubActor) {
   await ensureClubTables(db)
   // Leaders see every club in the school; everyone else, the clubs they belong to.
-  const rows = actor.isManager
+  const rows = actor.isManager || actor.canManageMembers
     ? await db.prepare(`SELECT * FROM clubs WHERE tenant_id = ? ORDER BY status, name`).bind(actor.tenantId).all()
     : await db.prepare(`SELECT c.* FROM clubs c JOIN club_members m ON m.club_id = c.id WHERE c.tenant_id = ? AND lower(m.user_id) = lower(?) AND m.left_at IS NULL AND c.status = 'active' ORDER BY c.name`).bind(actor.tenantId, actor.id).all()
   const clubs = ((rows.results || []) as Record<string, any>[]).map(mapClub)
@@ -112,6 +118,7 @@ export async function listClubs(db: D1Database, actor: ClubActor) {
     ...club, ...(memberCounts.get(club.id) || { patrons: 0, members: 0 }), myRole: myRole.get(club.id) || '',
     posts: activity.get(club.id)?.posts || 0, lastPostAt: activity.get(club.id)?.at || null,
     canManage: actor.isManager || myRole.get(club.id) === 'patron',
+    canManageMembers: Boolean(actor.canManageMembers),
   }))
 }
 
@@ -158,7 +165,7 @@ export async function listMembers(db: D1Database, clubId: string) {
 /** People to add: `people` are { id, name, role (school role), className }. Staff join as patrons, students as members. */
 export async function addMembers(db: D1Database, actor: ClubActor, clubId: string, people: Array<{ id: string, name: string, role: string, className?: string }>, asRole = '') {
   const access = await clubAccess(db, actor, clubId)
-  if (!access.canManage) throw new ClubError('Only the club\'s patrons can add members.', 403)
+  if (!access.canManageMembers) throw new ClubError('Only the Owner, Head of School or ICT can add club members.', 403)
   if (!people.length) throw new ClubError('Choose who to add.')
   const stamp = now()
   const statements = people.slice(0, 200).map(person => {
@@ -173,9 +180,9 @@ export async function addMembers(db: D1Database, actor: ClubActor, clubId: strin
 
 export async function removeMember(db: D1Database, actor: ClubActor, clubId: string, userId: string) {
   const access = await clubAccess(db, actor, clubId)
-  if (!access.canManage) throw new ClubError('Only the club\'s patrons can remove members.', 403)
+  if (!access.canManageMembers) throw new ClubError('Only the Owner, Head of School or ICT can remove club members.', 403)
   const patrons = (await listMembers(db, clubId)).filter(member => member.role === 'patron')
-  if (patrons.length === 1 && patrons[0].userId.toLowerCase() === userId.toLowerCase() && !actor.isManager) throw new ClubError('A club needs at least one patron. Add another patron first.', 409)
+  if (patrons.length === 1 && patrons[0].userId.toLowerCase() === userId.toLowerCase() && !actor.isManager && !actor.canManageMembers) throw new ClubError('A club needs at least one patron. Add another patron first.', 409)
   await db.prepare(`UPDATE club_members SET left_at = ? WHERE club_id = ? AND lower(user_id) = lower(?)`).bind(now(), clubId, userId).run()
   return listMembers(db, clubId)
 }
@@ -299,7 +306,7 @@ export async function clubPage(db: D1Database, actor: ClubActor, clubId: string)
       ? { handedIn: Number(row.n), unmarked: Number(row.unmarked) }
       : mySubmission(row, posts.find(post => post.id === row.post_id), await quizFor(db, String(row.post_id)))
   }
-  return { club: access.club, canManage: access.canManage, myRole: access.member?.member_role || (actor.isManager ? 'manager' : ''), members, posts, work }
+  return { club: access.club, canManage: access.canManage, canManageMembers: access.canManageMembers, myRole: access.member?.member_role || (actor.isManager ? 'manager' : ''), members, posts, work }
 }
 
 async function quizFor(db: D1Database, postId: string) {

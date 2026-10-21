@@ -16120,6 +16120,7 @@ async function resolveClubActor(c: any): Promise<ClubActor> {
     tenantId: actor.tenantId, id: actor.actorId, name: actor.actorName || actor.actorId, role,
     isManager: hasRequiredRole(role, ['owner', 'hos', 'admin']),
     isStaff: !hasRequiredRole(role, ['student']),
+    canManageMembers: hasRequiredRole(role, ['owner', 'hos', 'admin', 'ict']),
   }
 }
 
@@ -16155,6 +16156,8 @@ app.put('/api/clubs/:id', authenticate, async (c) => {
 app.get('/api/clubs/:id/candidates', authenticate, async (c) => {
   try {
     const actor = await resolveClubActor(c)
+    // Searching the school to add people is for those who add members.
+    if (!(await Clubs.clubAccess(c.env.APP_DB, actor, c.req.param('id'))).canManageMembers) return c.json({ success: false, message: 'Only the Owner, Head of School or ICT can add club members.' }, 403)
     const db = c.env.APP_DB
     const q = String(c.req.query('q') || '').trim().toLowerCase()
     const classId = String(c.req.query('classId') || '').trim()
