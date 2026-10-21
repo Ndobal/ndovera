@@ -299,3 +299,27 @@ test('rankings from the score sheet: subjects for their teachers, class position
   assert.ok(quiet.subjects.every(row => row.position === undefined))
   assert.equal((await call(db, 'classTeacher', 'GET', '/api/results/rankings?classId=jss1')).body.overall[0].position, 1)
 })
+
+test('report-card details fill themselves from the class register, the date of birth and Sessions & Terms; a typed value wins', async () => {
+  const db = await setup()
+  assert.equal((await call(db, 'owner', 'POST', '/api/results/settings', RESULT_SETTINGS)).status, 200)
+  await call(db, 'maths', 'POST', '/api/results/entries', scores('m1', [['s-1', 15, 10, 50], ['s-2', 20, 20, 55]]))
+  db.db.exec(`UPDATE settings SET payload = json_set(payload, '$.dateOfBirth', '2014-01-15') WHERE studentId = 'ada@a.test'`)
+  const term = db.db.prepare(`SELECT start_date, resumption_date FROM academic_terms WHERE name = 'First Term'`).get()
+  const day = n => new Date(Date.parse(`${term.start_date}T00:00:00Z`) + n * 86400000).toISOString().slice(0, 10)
+  db.db.exec(`CREATE TABLE IF NOT EXISTS student_attendance_school (id TEXT PRIMARY KEY, tenant_id TEXT, student_id TEXT, class_id TEXT, date TEXT, status TEXT, notes TEXT, recorded_by TEXT, created_at TEXT, updated_at TEXT)`)
+  db.db.exec(`INSERT INTO student_attendance_school (id, tenant_id, student_id, class_id, date, status) VALUES
+    ('a1', 'school-a', 's-1', 'jss1', '${day(0)}', 'present'), ('a2', 'school-a', 's-1', 'jss1', '${day(1)}', 'absent'), ('a3', 'school-a', 's-1', 'jss1', '${day(2)}', 'late'),
+    ('a4', 'school-a', 's-2', 'jss1', '${day(0)}', 'present'), ('a5', 'school-a', 's-2', 'jss1', '${day(1)}', 'present'), ('a6', 'school-a', 's-2', 'jss1', '${day(2)}', 'present')`)
+
+  const sheet = (await call(db, 'classTeacher', 'GET', '/api/results/sheet?classId=jss1')).body
+  assert.deepEqual([sheet.reportDetails['s-1'].timesOpened, sheet.reportDetails['s-1'].daysPresent, sheet.reportDetails['s-1'].daysAbsent], ['3', '2', '1'])
+  assert.ok(Number(sheet.reportDetails['s-1'].age) >= 12)
+  assert.match(sheet.reportDetails['s-1'].resumptionDate, /, \d+(st|nd|rd|th) \w+, \d{4}$/)
+  assert.equal(sheet.reportDetails['s-2'].age, undefined, 'no date of birth, no age')
+
+  // A value typed on the sheet replaces the worked-out one; the rest stay automatic.
+  await call(db, 'classTeacher', 'POST', '/api/results/profiles', { classId: 'jss1', rows: [{ studentId: 's-1', extra: { daysAbsent: '0' } }] })
+  const extra = (await call(db, 'hos', 'GET', '/api/results/preview?classId=jss1&studentId=s-1')).body.publications[0].payload.extra
+  assert.deepEqual([extra.timesOpened, extra.daysPresent, extra.daysAbsent], ['3', '2', '0'])
+})

@@ -29,6 +29,7 @@ export default function TeacherResultStudentCard({
   onProfileFieldChange,
   onProfileMapChange,
   reportCard = null,
+  autoDetails = {},
   onProfileExtraChange = () => {},
 }) {
   const [behaviourOpen, setBehaviourOpen] = useState(behaviourOpenSaved);
@@ -235,7 +236,8 @@ export default function TeacherResultStudentCard({
           {reportCard?.layout ? (
             // The report card's extra details: attendance figures, age, resumption date and physical development.
             <div>
-              <p className={`micro-label mb-3 ${RESULT_LABEL}`}>Report card details</p>
+              <p className={`micro-label mb-1 ${RESULT_LABEL}`}>Report card details</p>
+              <p className={`mb-3 text-xs ${RESULT_BODY}`}>Filled in for you from the class register, the student's date of birth and Sessions &amp; Terms (shown in grey). Type in a box only to change it.</p>
               <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
                 {[
                   ['timesOpened', 'Times school opened', 'numeric'], ['daysPresent', 'Attendance (days)', 'numeric'], ['daysAbsent', 'Days absent', 'numeric'], ['age', 'Age', 'text'],
@@ -245,7 +247,7 @@ export default function TeacherResultStudentCard({
                   <label key={key} className={key === 'resumptionDate' ? 'col-span-2 block' : 'block'}>
                     <span className={`text-xs ${RESULT_BODY}`}>{label}</span>
                     <input type="text" inputMode={mode} maxLength={key === 'resumptionDate' ? 40 : 16} value={student.profile?.extra?.[key] ?? ''}
-                      placeholder={key === 'resumptionDate' ? 'e.g. Monday, 27th April, 2026' : ''}
+                      placeholder={autoDetails[key] ? `${autoDetails[key]} (auto)` : key === 'resumptionDate' ? 'e.g. Monday, 27th April, 2026' : ''}
                       onChange={event => onProfileExtraChange(student.id, key, event.target.value)} className={`mt-1 ${RESULT_INPUT}`} />
                   </label>
                 ))}

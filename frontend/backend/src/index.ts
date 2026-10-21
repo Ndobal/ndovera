@@ -2000,6 +2000,8 @@ async function listResultStudentsByClass(db: D1Database, tenantId: string, class
       classId,
       className: `${classRow.name}${classRow.arm ? ` ${classRow.arm}` : ''}`,
       status: String(student?.status || 'active'),
+      dateOfBirth: String(student?.dateOfBirth || student?.profile?.dateOfBirth || ''),
+      photoUrl: String(student?.avatarUrl || student?.avatar || ''),
     })
     byClass.set(classId, list)
   }
@@ -2059,13 +2061,79 @@ function resolveGradeBand(score: number, gradingScale: Record<string, any>[] = R
   return ordered.find(entry => score >= entry.minScore) || ordered[ordered.length - 1] || { grade: '', remark: '' }
 }
 
-/** The result payloads, with the 1st- and 2nd-term totals loaded when the term's template needs them. */
+/** "Monday, 27th April, 2026". */
+function longDate(iso: string) {
+  const date = new Date(`${String(iso).slice(0, 10)}T12:00:00Z`)
+  if (Number.isNaN(date.getTime())) return ''
+  const day = date.getUTCDate()
+  const suffix = day % 100 >= 11 && day % 100 <= 13 ? 'th' : ({ 1: 'st', 2: 'nd', 3: 'rd' } as Record<number, string>)[day % 10] || 'th'
+  return `${date.toLocaleDateString('en-GB', { weekday: 'long', timeZone: 'UTC' })}, ${day}${suffix} ${date.toLocaleDateString('en-GB', { month: 'long', timeZone: 'UTC' })}, ${date.getUTCFullYear()}`
+}
+
+/**
+ * Report-card details worked out from the school's records, per student: times school opened
+ * (days the class register was taken this term), attendance and days absent (the register),
+ * age (date of birth on the profile, at the end of term) and next term's date (Sessions & Terms:
+ * the term's resumption date, else the next term's start). A value typed on the score sheet wins.
+ */
+async function autoReportDetails(db: D1Database, tenantId: string, classId: string, sessionName: string, termName: string, students: Array<Record<string, any>>) {
+  const out = new Map<string, Record<string, string>>()
+  const term = await db.prepare(`SELECT t.* FROM academic_terms t JOIN academic_sessions s ON s.id = t.session_id AND s.tenant_id = t.tenant_id WHERE t.tenant_id = ? AND s.name = ? AND t.name = ? LIMIT 1`)
+    .bind(tenantId, sessionName, termName).first().catch(() => null) as Record<string, any> | null
+  const today = new Date().toISOString().slice(0, 10)
+  const from = String(term?.start_date || '').slice(0, 10)
+  const end = String(term?.end_date || '').slice(0, 10)
+  const to = end && end < today ? end : today
+  let nextTerm = String(term?.resumption_date || '').slice(0, 10)
+  if (term && !nextTerm) {
+    const next = await db.prepare(`SELECT start_date FROM academic_terms WHERE tenant_id = ? AND session_id = ? AND sequence > ? ORDER BY sequence LIMIT 1`).bind(tenantId, term.session_id, Number(term.sequence || 0)).first().catch(() => null) as Record<string, any> | null
+      || await db.prepare(`SELECT t.start_date FROM academic_terms t JOIN academic_sessions s ON s.id = t.session_id WHERE t.tenant_id = ? AND s.start_date > (SELECT start_date FROM academic_sessions WHERE id = ?) ORDER BY s.start_date, t.sequence LIMIT 1`).bind(tenantId, term.session_id).first().catch(() => null) as Record<string, any> | null
+    nextTerm = String(next?.start_date || '').slice(0, 10)
+  }
+  const ageAt = end || today
+  let opened = 0
+  const marks = new Map<string, { present: number, absent: number }>()
+  if (from) {
+    opened = Number((await db.prepare(`SELECT COUNT(DISTINCT date) AS n FROM student_attendance_school WHERE tenant_id = ? AND class_id = ? AND date >= ? AND date <= ?`).bind(tenantId, classId, from, to).first().catch(() => null) as Record<string, any> | null)?.n || 0)
+    const ids = students.map(student => String(student.id || '')).filter(Boolean)
+    for (let i = 0; i < ids.length; i += 80) {
+      const chunk = ids.slice(i, i + 80)
+      const rows = ((await db.prepare(`SELECT student_id, lower(trim(coalesce(status, 'present'))) AS st, COUNT(DISTINCT date) AS n FROM student_attendance_school
+        WHERE tenant_id = ? AND date >= ? AND date <= ? AND student_id IN (${chunk.map(() => '?').join(',')}) GROUP BY student_id, st`).bind(tenantId, from, to, ...chunk).all().catch(() => ({ results: [] }))).results || []) as Record<string, any>[]
+      for (const row of rows) {
+        const entry = marks.get(String(row.student_id)) || { present: 0, absent: 0 }
+        if (String(row.st).includes('absent') || String(row.st).includes('excus')) entry.absent += Number(row.n || 0)
+        else entry.present += Number(row.n || 0)
+        marks.set(String(row.student_id), entry)
+      }
+    }
+  }
+  for (const student of students) {
+    const details: Record<string, string> = {}
+    if (opened) details.timesOpened = String(opened)
+    const mark = marks.get(String(student.id || ''))
+    if (mark) { details.daysPresent = String(mark.present); details.daysAbsent = String(mark.absent) }
+    const dob = String(student.dateOfBirth || '').slice(0, 10)
+    if (/^\d{4}-\d{2}-\d{2}$/.test(dob) && dob < ageAt) {
+      let age = Number(ageAt.slice(0, 4)) - Number(dob.slice(0, 4))
+      if (ageAt.slice(5) < dob.slice(5)) age -= 1
+      if (age >= 1 && age < 30) details.age = String(age)
+    }
+    if (nextTerm) details.resumptionDate = longDate(nextTerm)
+    out.set(String(student.id || ''), details)
+  }
+  return out
+}
+
+/** The result payloads, with the 1st- and 2nd-term totals and the report-card details loaded when the term's template needs them. */
 async function buildResultPayloadsWithHistory(db: D1Database, tenantId: string, params: Parameters<typeof buildPublishedResultPayloads>[0]) {
   const template = progressTemplate(templateForTerm(params.settings, params.batch?.termName))
-  const earlierTotals = template?.layout.cumulative
-    ? await loadEarlierTermTotals(db, tenantId, String(params.batch?.sessionName || ''), String(params.batch?.termName || ''), params.students.map(student => String(student.id || '')))
-    : undefined
-  return buildPublishedResultPayloads({ ...params, earlierTotals })
+  const studentIds = params.students.map(student => String(student.id || ''))
+  const [earlierTotals, autoDetails] = await Promise.all([
+    template?.layout.cumulative ? loadEarlierTermTotals(db, tenantId, String(params.batch?.sessionName || ''), String(params.batch?.termName || ''), studentIds) : Promise.resolve(undefined),
+    template ? autoReportDetails(db, tenantId, String(params.batch?.classId || ''), String(params.batch?.sessionName || ''), String(params.batch?.termName || ''), params.students).catch(() => undefined) : Promise.resolve(undefined),
+  ])
+  return buildPublishedResultPayloads({ ...params, earlierTotals, autoDetails })
 }
 
 function buildPublishedResultPayloads(params: {
@@ -2081,6 +2149,8 @@ function buildPublishedResultPayloads(params: {
   earlierTotals?: Map<string, Map<string, Record<string, number>>>,
   /** Rankings view: keep positions even when the school prints none. */
   forAnalysis?: boolean,
+  /** Details from the school's records (attendance, age, next term); typed values win. */
+  autoDetails?: Map<string, Record<string, string>>,
 }) {
   const gradeScale = normalizeResultScale(params.settings?.gradingScale, RESULT_DEFAULT_GRADING_SCALE)
   // The template this term uses, and (for the progress reports) its layout and page 2.
@@ -2159,6 +2229,7 @@ function buildPublishedResultPayloads(params: {
           email: String(student.email || ''),
           displayId: String(student.displayId || ''),
           className: params.className,
+          photoUrl: /^https?:\/\/|^\//.test(String(student.photoUrl || '')) ? String(student.photoUrl) : '',
         },
         sessionName: params.batch.sessionName,
         termName: params.batch.termName,
@@ -2166,7 +2237,7 @@ function buildPublishedResultPayloads(params: {
         templateLayout: progress ? { level: progress.layout.level, cumulative: progress.layout.cumulative, title: progress.layout.title } : null,
         // Page 2 with this student's answers, and the extras (physical development, attendance).
         page2: page2 ? { ...page2, answers: (profile as any)?.extra?.page2 || {} } : null,
-        extra: Object.fromEntries(Object.entries((profile as any)?.extra || {}).filter(([key]) => key !== 'page2')),
+        extra: { ...(params.autoDetails?.get(studentId) || {}), ...Object.fromEntries(Object.entries((profile as any)?.extra || {}).filter(([key, value]) => key !== 'page2' && String(value ?? '').trim() !== '')) },
         branding,
         scoreModel: scoreSettings,
         settingsSnapshot: params.settings,
@@ -25670,6 +25741,11 @@ app.get('/api/results/sheet', authenticate, async (c) => {
   ])
   const canSubmit = access.canHandIn
   const missingScores = findMissingScores(workspace.students, workspace.subjectRows, entries, exclusions)
+  // Report-card details from the school's records, shown on the sheet (a typed value replaces them).
+  const sheetTemplate = progressTemplate(templateForTerm(settings, workspace.displayPeriod?.termName))
+  const reportDetails = sheetTemplate && !practice
+    ? Object.fromEntries(await autoReportDetails(c.env.APP_DB, access.tenantId, classId, period.sessionName, period.termName, workspace.students).catch(() => new Map()))
+    : {}
 
   return c.json({
     success: true,
@@ -25684,6 +25760,7 @@ app.get('/api/results/sheet', authenticate, async (c) => {
     },
     settings,
     // The report card this term uses and its page 2 (what the sheet asks teachers to fill in).
+    reportDetails,
     reportCard: (() => { const key = templateForTerm(settings, workspace.displayPeriod?.termName); const template = progressTemplate(key); return { templateKey: key, layout: template ? template.layout.level : '', cumulative: Boolean(template?.layout.cumulative), page2: template ? page2For(settings, key) : null } })(),
     configurationReady: !configurationError,
     configurationError,

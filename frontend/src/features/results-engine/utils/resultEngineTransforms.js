@@ -298,6 +298,8 @@ export function normalizeTeacherSheetResponse(data = {}) {
     settings: data?.settings || {},
     // The report card this term uses: its layout and the page 2 the teacher fills in.
     reportCard: data?.reportCard || null,
+    // Per student: times opened, attendance, days absent, age, next term (from the school's records).
+    reportDetails: data?.reportDetails && typeof data.reportDetails === 'object' ? data.reportDetails : {},
     templates: Array.isArray(data?.templates) ? data.templates : [],
     configurationReady: Boolean(data?.configurationReady),
     configurationError: String(data?.configurationError || ''),

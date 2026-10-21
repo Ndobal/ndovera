@@ -602,6 +602,7 @@ export default function TeacherCAScoreSheet({ dashboardLabel = 'Teacher Dashboar
                     onProfileFieldChange={handleProfileFieldChange}
                     onProfileMapChange={handleProfileMapChange}
                     reportCard={sheet.reportCard}
+                    autoDetails={sheet.reportDetails?.[currentStudent.id] || {}}
                     onProfileExtraChange={handleProfileExtraChange}
                   />
                   <div className="flex flex-wrap items-center justify-between gap-2">
