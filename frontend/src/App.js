@@ -60,6 +60,8 @@ import StudentLessonNotes from './app/roles/student/StudentLessonNotes';
 import StudentPractice from './app/roles/student/StudentPractice';
 import StudentExams from './app/roles/student/StudentExams';
 import StudentResults from './app/roles/student/StudentResults';
+import StudentMedals from './app/roles/student/StudentMedals';
+import FinancialStandingsReport from './features/finance/simple/FinancialStandingsReport';
 import StudentAttendance from './app/roles/student/StudentAttendance';
 import StudentTuckShop from './app/roles/student/StudentTuckShop';
 import StaffTuckShop from './app/roles/teacher/StaffTuckShop';
@@ -267,6 +269,8 @@ function AnimatedRoutes({ auth, onLogin }) {
         <Route path="/championships/:slug" element={<PublicChampionshipDetailPage />} />
         {/* One payslip page for every staff role (teachers, HoS, accountant, ICT, librarian, clinic, …). */}
         <Route path="/roles/:role/payslip" element={<RequireAuth auth={auth}><RouteTransition><TeacherPayslip auth={auth} /></RouteTransition></RequireAuth>} />
+        <Route path="/roles/:role/finance-report" element={<RequireAuth auth={auth}><RouteTransition><FinancialStandingsReport /></RouteTransition></RequireAuth>} />
+        <Route path="/finance-report" element={<RequireAuth auth={auth}><RouteTransition><FinancialStandingsReport /></RouteTransition></RequireAuth>} />
         <Route path="/roles/:role/birthdays" element={<RequireAuth auth={auth}><RouteTransition><BirthdaysPage /></RouteTransition></RequireAuth>} />
         <Route path="/roles/:role/clubs" element={<RequireAuth auth={auth}><RouteTransition><ClubsPage /></RouteTransition></RequireAuth>} />
         <Route path="/roles/owner/health" element={<RoleGuard auth={auth} expectedRole="owner"><RouteTransition><HealthRegisterPage /></RouteTransition></RoleGuard>} />
@@ -339,6 +343,7 @@ function AnimatedRoutes({ auth, onLogin }) {
         <Route path="/roles/student/practice" element={<RoleGuard auth={auth} expectedRole="student"><RouteTransition><StudentPractice /></RouteTransition></RoleGuard>} />
         <Route path="/roles/student/exams" element={<RoleGuard auth={auth} expectedRole="student"><RouteTransition><StudentExams /></RouteTransition></RoleGuard>} />
         <Route path="/roles/student/results" element={<RoleGuard auth={auth} expectedRole="student"><RouteTransition><StudentResults /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/student/medals" element={<RoleGuard auth={auth} expectedRole="student"><RouteTransition><StudentMedals /></RouteTransition></RoleGuard>} />
         <Route path="/roles/student/attendance" element={<RoleGuard auth={auth} expectedRole="student"><RouteTransition><StudentAttendance /></RouteTransition></RoleGuard>} />
         <Route path="/roles/student/timetable" element={<RoleGuard auth={auth} expectedRole="student"><RouteTransition><TimetableViewer viewerRole="student" title="My Timetable" subtitle="Your weekly class schedule." /></RouteTransition></RoleGuard>} />
         {/* role-specific library view */}

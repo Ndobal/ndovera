@@ -94,6 +94,8 @@ function normalizeStudentProfile(profile = {}) {
     teacherRemark: String(profile?.teacherRemark || ''),
     principalRemark: String(profile?.principalRemark || ''),
     promotionStatus: String(profile?.promotionStatus || ''),
+    // Report-card extras: physical development, attendance figures, page-2 answers.
+    extra: profile?.extra && typeof profile.extra === 'object' ? profile.extra : {},
   };
 }
 
@@ -294,6 +296,8 @@ export function normalizeTeacherSheetResponse(data = {}) {
     classroom: data?.classroom || {},
     period: data?.period || {},
     settings: data?.settings || {},
+    // The report card this term uses: its layout and the page 2 the teacher fills in.
+    reportCard: data?.reportCard || null,
     templates: Array.isArray(data?.templates) ? data.templates : [],
     configurationReady: Boolean(data?.configurationReady),
     configurationError: String(data?.configurationError || ''),
@@ -344,6 +348,7 @@ export function buildProfilePayload(sheet = {}) {
     teacherRemark: String(student?.profile?.teacherRemark || ''),
     principalRemark: String(student?.profile?.principalRemark || ''),
     promotionStatus: String(student?.profile?.promotionStatus || ''),
+    extra: student?.profile?.extra || {},
   }));
 }
 

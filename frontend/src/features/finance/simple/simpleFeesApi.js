@@ -108,3 +108,10 @@ export function previewChanges(before, after, column) {
   return before.map((row, index) => ({ className: row.className, from: Number(row.amounts?.[column]) || 0, to: Number(after[index]?.amounts?.[column]) || 0 }))
     .filter(line => line.from !== line.to);
 }
+
+// Financial standings report (Owner, HoS, Accountant).
+export const getStandings = (params = {}) => request(`/api/school/finance/standings${q(params)}`);
+export const postStandings = (body = {}) => request('/api/school/finance/standings/post', { method: 'POST', body });
+export const listStandingsReports = () => request('/api/school/finance/standings/reports');
+export const getStandingsReport = reportId => request(`/api/school/finance/standings/reports/${id(reportId)}`);
+export const saveStandingsSettings = body => request('/api/school/finance/standings/settings', { method: 'PUT', body });

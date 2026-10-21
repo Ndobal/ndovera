@@ -548,3 +548,34 @@ test('fee reminders: polite words, the school bank account and name, to each lin
   const emailed = (await call('bursar', 'POST', '/api/school/finance/simple/reminders', { studentIds: ['ada', 'bola'] })).body
   assert.deepEqual(emailed.skipped.map(item => item.reason).sort(), ['email could not be sent', 'no parent linked'])
 })
+
+test('financial standings: expected, received, still owed, each family owing and how much, reminders sent; posted to the Owner and HoS and kept', async () => {
+  const { call, db } = await setup()
+  await db.prepare('INSERT INTO users (id, email, name, role, tenantId, status) VALUES (?, ?, ?, ?, ?, ?)').bind('mrs-obi', 'obi@a', 'Mrs Obi', 'parent', 'school-a', 'active').run()
+  db.db.exec(`CREATE TABLE IF NOT EXISTS parent_student_links (tenant_id TEXT, parent_id TEXT, student_id TEXT)`)
+  db.db.exec(`INSERT INTO parent_student_links (tenant_id, parent_id, student_id) VALUES ('school-a', 'mrs-obi', 'ada'), ('school-a', 'mrs-obi', 'bola')`)
+  await call('owner', 'PUT', '/api/school/finance/simple/grid', { termId: 't26-1', action: 'publish', ...GRID })
+  await call('bursar', 'POST', '/api/school/finance/simple/accounts/ada/pay', { amount: 100000, method: 'transfer' })
+  await call('bursar', 'POST', '/api/school/finance/simple/reminders', { channel: 'whatsapp', studentIds: ['bola'] })
+
+  const live = await call('hos', 'GET', '/api/school/finance/standings')
+  assert.equal(live.status, 200, JSON.stringify(live.body))
+  const { totals, familiesOwing, reminders } = live.body.report
+  assert.deepEqual([totals.expected, totals.received, totals.outstanding, totals.familiesOwing, totals.studentsOwing], [320000, 100000, 220000, 1, 2])
+  assert.deepEqual([familiesOwing[0].familyName, familiesOwing[0].owes, familiesOwing[0].children.map(child => child.balance).sort((a, b) => a - b)], ['Mrs Obi', 220000, [60000, 160000]])
+  assert.equal(reminders.whatsapp, 1)
+  assert.match(reminders.statement, /1 WhatsApp reminder/)
+  assert.equal((await call('ada', 'GET', '/api/school/finance/standings')).status, 403)
+
+  // Fortnightly reminders are the Owner's or HoS's choice, and the report says so.
+  assert.equal((await call('bursar', 'PUT', '/api/school/finance/standings/settings', { autoReminders: true })).status, 403)
+  assert.equal((await call('owner', 'PUT', '/api/school/finance/standings/settings', { autoReminders: true })).status, 200)
+  assert.match((await call('hos', 'GET', '/api/school/finance/standings')).body.report.reminders.statement, /every two weeks/)
+
+  const posted = await call('bursar', 'POST', '/api/school/finance/standings/post', {})
+  assert.equal(posted.status, 200, JSON.stringify(posted.body))
+  const list = (await call('owner', 'GET', '/api/school/finance/standings/reports')).body
+  assert.deepEqual([list.reports.length, list.autoReminders], [1, true])
+  const kept = (await call('owner', 'GET', `/api/school/finance/standings/reports/${list.reports[0].id}`)).body
+  assert.equal(kept.report.totals.outstanding, 220000)
+})

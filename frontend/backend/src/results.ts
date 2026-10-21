@@ -266,6 +266,8 @@ export async function ensureResultsTables(db: D1Database) {
   try { await db.exec('ALTER TABLE result_ca_entries ADD COLUMN override_role TEXT') } catch {}
   try { await db.exec('ALTER TABLE result_ca_entries ADD COLUMN override_at TEXT') } catch {}
   await db.prepare(RESULT_STUDENT_PROFILES_DDL).run()
+  // Report-card extras: physical development, attendance figures and page-2 answers.
+  try { await db.exec('ALTER TABLE result_student_profiles ADD COLUMN extra_json TEXT') } catch {}
   await db.prepare(RESULT_PUBLICATIONS_DDL).run()
   await db.prepare(RESULT_DOCUMENTS_DDL).run()
   await db.prepare(RESULT_ENTRY_AUDIT_DDL).run()
@@ -700,8 +702,8 @@ export async function upsertResultStudentProfiles(db: D1Database, params: { tena
   for (const row of params.rows || []) {
     await db.prepare(
       `INSERT OR REPLACE INTO result_student_profiles
-       (id, batch_id, tenant_id, class_id, session_name, term_name, student_id, attendance_rate, affective_json, ratings_json, teacher_remark, principal_remark, promotion_status, updated_by, updated_at)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+       (id, batch_id, tenant_id, class_id, session_name, term_name, student_id, attendance_rate, affective_json, ratings_json, teacher_remark, principal_remark, promotion_status, updated_by, updated_at, extra_json)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
     ).bind(
       buildProfileId(batchId, String(row.studentId || '')),
       batchId,
@@ -718,6 +720,7 @@ export async function upsertResultStudentProfiles(db: D1Database, params: { tena
       String(row.promotionStatus || ''),
       params.actorId,
       now,
+      JSON.stringify(row.extra && typeof row.extra === 'object' ? row.extra : {}),
     ).run()
   }
 
@@ -740,6 +743,7 @@ export async function listResultStudentProfiles(db: D1Database, batchId: string)
     teacherRemark: String(row.teacher_remark || ''),
     principalRemark: String(row.principal_remark || ''),
     promotionStatus: String(row.promotion_status || ''),
+    extra: parseJsonField(row.extra_json, {} as Record<string, any>),
     updatedBy: row.updated_by,
     updatedAt: row.updated_at,
   }))

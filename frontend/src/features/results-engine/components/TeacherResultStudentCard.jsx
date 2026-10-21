@@ -28,6 +28,8 @@ export default function TeacherResultStudentCard({
   onScoreChange,
   onProfileFieldChange,
   onProfileMapChange,
+  reportCard = null,
+  onProfileExtraChange = () => {},
 }) {
   const [behaviourOpen, setBehaviourOpen] = useState(behaviourOpenSaved);
   const toggleBehaviour = () => setBehaviourOpen(current => {
@@ -229,6 +231,60 @@ export default function TeacherResultStudentCard({
               </div>
             </div>
           )}
+
+          {reportCard?.layout ? (
+            // The report card's extra details: attendance figures, age, resumption date and physical development.
+            <div>
+              <p className={`micro-label mb-3 ${RESULT_LABEL}`}>Report card details</p>
+              <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+                {[
+                  ['timesOpened', 'Times school opened', 'numeric'], ['daysPresent', 'Attendance (days)', 'numeric'], ['daysAbsent', 'Days absent', 'numeric'], ['age', 'Age', 'text'],
+                  ...(reportCard.layout !== 'secondary' ? [['heightStart', 'Height at start (cm)', 'decimal'], ['heightEnd', 'Height at end (cm)', 'decimal'], ['weightStart', 'Weight at start (kg)', 'decimal'], ['weightEnd', 'Weight at end (kg)', 'decimal']] : []),
+                  ['resumptionDate', 'Next term begins', 'text'],
+                ].map(([key, label, mode]) => (
+                  <label key={key} className={key === 'resumptionDate' ? 'col-span-2 block' : 'block'}>
+                    <span className={`text-xs ${RESULT_BODY}`}>{label}</span>
+                    <input type="text" inputMode={mode} maxLength={key === 'resumptionDate' ? 40 : 16} value={student.profile?.extra?.[key] ?? ''}
+                      placeholder={key === 'resumptionDate' ? 'e.g. Monday, 27th April, 2026' : ''}
+                      onChange={event => onProfileExtraChange(student.id, key, event.target.value)} className={`mt-1 ${RESULT_INPUT}`} />
+                  </label>
+                ))}
+              </div>
+            </div>
+          ) : null}
+
+          {reportCard?.page2?.sections?.length ? (
+            <div>
+              <p className={`micro-label mb-1 ${RESULT_LABEL}`}>Page 2 · {reportCard.page2.title}</p>
+              <p className={`mb-3 text-xs ${RESULT_BODY}`}>{reportCard.page2.mode === 'rating' ? 'Rate each skill 5 (excellent) to 1 (poor).' : 'Tick where the child is for each skill.'}</p>
+              <div className="space-y-3">
+                {reportCard.page2.sections.map(section => (
+                  <div key={section.key} className="overflow-hidden rounded-xl border border-[#c9a96e]/35 dark:border-white/10">
+                    <p className="bg-[#191970]/5 px-3 py-1.5 text-xs font-black uppercase tracking-wide text-[#191970] dark:bg-white/5 dark:text-slate-100">{section.title}</p>
+                    <ul className="divide-y divide-[#c9a96e]/20 dark:divide-white/10">
+                      {section.items.map(item => {
+                        const answer = String(student.profile?.extra?.page2?.[item.key] ?? '');
+                        return (
+                          <li key={item.key} className="flex flex-wrap items-center gap-2 px-3 py-1.5">
+                            <span className={`min-w-[12rem] flex-1 text-sm ${RESULT_BODY}`}>{item.label}</span>
+                            <div className="flex gap-1" role="radiogroup" aria-label={item.label}>
+                              {reportCard.page2.scale.map(option => (
+                                <button key={option.value} type="button" role="radio" aria-checked={answer === option.value} title={option.label}
+                                  onClick={() => onProfileExtraChange(student.id, item.key, answer === option.value ? '' : option.value, true)}
+                                  className={`rounded-lg border px-2 py-1 text-xs font-bold ${answer === option.value ? 'border-[#2447d8] bg-[#2447d8] text-white' : 'border-slate-300 bg-white text-slate-700 dark:border-white/15 dark:bg-slate-900 dark:text-slate-200'}`}>
+                                  {reportCard.page2.mode === 'rating' ? option.value : option.label}
+                                </button>
+                              ))}
+                            </div>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : null}
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <label className="block">

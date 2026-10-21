@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import QRCode from 'qrcode';
 import ResultReportCard from './ResultReportCard';
+import ProgressReportCard from './ProgressReportCard';
 import {
   RESULT_BODY,
   RESULT_BUTTON,
@@ -78,6 +79,67 @@ function buildSampleRecord({ form, gradeRows, caMax, examMax }) {
     subjects,
     affective: parseDomains(form.affectiveDomainsText).map((item, index) => ({ ...item, score: rate[index % rate.length] })),
     ratings: parseDomains(form.ratingDomainsText).map((item, index) => ({ ...item, score: rate[(index + 3) % rate.length] })),
+  };
+}
+
+// Ndovera's default report card per section and term (same as the server's); a school's own
+// per-term choice replaces it.
+const DEFAULT_TERM_TEMPLATES = {
+  nursery: { first: 'nursery-progress-term', second: 'nursery-progress-term', third: 'nursery-progress-session' },
+  primary: { first: 'primary-result-term', second: 'primary-result-term', third: 'primary-result-session' },
+  secondary: { first: 'secondary-report-term', second: 'secondary-report-term', third: 'secondary-report-session' },
+};
+const TERM_LABELS = [['first', '1st term'], ['second', '2nd term'], ['third', '3rd term']];
+
+/** Page 2 as editable text: "## Section" lines start a section; every other line is an item. */
+function page2ToText(page2) {
+  return (page2?.sections || []).map(section => [`## ${section.title}`, ...section.items.map(item => item.label)].join('\n')).join('\n\n');
+}
+function textToSections(text = '') {
+  const sections = [];
+  String(text || '').split('\n').map(line => line.trim()).filter(Boolean).forEach(line => {
+    if (line.startsWith('#')) sections.push({ title: line.replace(/^#+\s*/, ''), items: [] });
+    else {
+      if (!sections.length) sections.push({ title: 'Skills', items: [] });
+      sections[sections.length - 1].items.push({ label: line });
+    }
+  });
+  return sections.filter(section => section.items.length);
+}
+const SCALES = {
+  checklist: [{ value: 'not_yet', label: 'Not yet' }, { value: 'progressing', label: 'Progressing' }, { value: 'yes', label: 'Yes' }],
+  rating: [{ value: '5', label: 'Excellent' }, { value: '4', label: 'Good' }, { value: '3', label: 'Acceptable level' }, { value: '2', label: 'Below acceptable level' }, { value: '1', label: 'Poor' }],
+};
+
+/** The sample student on a progress template: C.A. columns, earlier terms, extras and page 2. */
+function buildProgressSample(record, template, form) {
+  const layout = template.layout;
+  const components = parseCaComponentLines(form.caComponentsText);
+  const own = form.page2Own && textToSections(form.page2Text).length
+    ? { title: form.page2Title, mode: form.page2Mode === 'rating' ? 'rating' : 'checklist', sections: textToSections(form.page2Text).map((section, s) => ({ key: `s${s}`, title: section.title, items: section.items.map((item, i) => ({ key: `s${s}_${i}`, label: item.label })) })) }
+    : layout.page2;
+  const page2 = own ? { ...own, scale: own.scale || SCALES[own.mode], answers: Object.fromEntries(own.sections.flatMap(section => section.items).map((item, index) => [item.key, own.mode === 'rating' ? String([4, 5, 4, 3, 5][index % 5]) : (index % 7 === 3 ? 'progressing' : 'yes')])) } : null;
+  const subjects = record.subjects.map((row, index) => {
+    const caComponents = components.map((component, c) => ({ key: component.key, label: component.label, maxScore: component.maxScore, score: Math.round(Number(component.maxScore) * (0.7 + ((index + c) % 3) * 0.1)) }));
+    const caScore = caComponents.length ? caComponents.reduce((sum, item) => sum + item.score, 0) : row.caScore;
+    const total = caScore + row.examScore;
+    const firstTerm = Math.min(100, total + 3);
+    const secondTerm = Math.max(0, total - 4);
+    const cumulative = Math.round(((firstTerm + secondTerm + total) / 3) * 100) / 100;
+    return { ...row, caComponents, caScore, total, firstTerm, secondTerm, cumulative, position: (index % 4) + 1 };
+  });
+  const scoreOf = row => (layout.cumulative ? row.cumulative : row.total);
+  const average = Math.round((subjects.reduce((sum, row) => sum + scoreOf(row), 0) / subjects.length) * 100) / 100;
+  return {
+    ...record,
+    termName: layout.cumulative ? 'Third Term' : 'Second Term',
+    subjects,
+    summary: { ...record.summary, average, totalScore: subjects.reduce((sum, row) => sum + row.total, 0), cumulativeTotal: Math.round(subjects.reduce((sum, row) => sum + row.cumulative, 0) * 100) / 100 },
+    payload: {
+      ...record.payload, templateLayout: { level: layout.level, cumulative: layout.cumulative, title: layout.title }, page2,
+      extra: { timesOpened: '108', daysPresent: '106', daysAbsent: '2', age: layout.level === 'nursery' ? '4' : layout.level === 'primary' ? '8' : '12', resumptionDate: 'Monday, 27th April, 2026', heightStart: '117', heightEnd: '118', weightStart: '24', weightEnd: '26' },
+      settingsSnapshot: { gradingScale: parseLines(form.gradingScaleText, 'grading') },
+    },
   };
 }
 
@@ -217,6 +279,12 @@ function buildFormState(settings = {}, suggestedSettings = {}) {
     brandingLogoUrl: branding.logoUrl || '',
     brandingPrimaryColor: branding.primaryColor || '#800000',
     brandingAccentColor: branding.accentColor || '#1a5c38',
+    termTemplates: { ...(source?.metadata?.termTemplates || {}) },
+    positionsOnResult: source?.metadata?.positionsOnResult !== false,
+    page2Own: Boolean(source?.metadata?.page2?.sections?.length),
+    page2Title: source?.metadata?.page2?.title || '',
+    page2Mode: source?.metadata?.page2?.mode || '',
+    page2Text: page2ToText(source?.metadata?.page2),
     brandingMotto: branding.motto || '',
     brandingAddress: branding.address || '',
     brandingSealUrl: branding.sealUrl || '',
@@ -278,6 +346,7 @@ function RowEditor({ title, help, rows, columns, addLabel, emptyRow, disabled, o
 }
 
 export default function ResultSettingsPanel({
+  section = '',
   settings = {},
   templates = [],
   suggestedSettings = {},
@@ -386,6 +455,11 @@ export default function ResultSettingsPanel({
           examScoreDecimals: Number(form.examScoreDecimals),
           caComponents: parseCaComponentLines(form.caComponentsText),
           feeLockUnpaidResults: form.feeLockUnpaidResults === true,
+          termTemplates: Object.fromEntries(Object.entries(form.termTemplates || {}).filter(([, key]) => key)),
+          positionsOnResult: form.positionsOnResult !== false,
+          page2: form.page2Own && textToSections(form.page2Text).length
+            ? { enabled: true, title: form.page2Title || 'Progress Report Sheet', mode: form.page2Mode === 'rating' ? 'rating' : 'checklist', scale: SCALES[form.page2Mode === 'rating' ? 'rating' : 'checklist'], sections: textToSections(form.page2Text) }
+            : null,
           branding: {
             ...existingBranding,
             reportTitle: form.brandingReportTitle,
@@ -433,6 +507,66 @@ export default function ResultSettingsPanel({
           </select>
         </label>
 
+        {/* A report card per term: Ndovera's default for the section unless the school picks another. */}
+        <section className={`${RESULT_INNER_SURFACE} space-y-3 p-4`} aria-label="Report card per term">
+          <div>
+            <p className={`micro-label ${RESULT_LABEL}`}>Report card per term</p>
+            <p className={`mt-1 text-xs ${RESULT_BODY}`}>The 3rd-term cards add up the whole session: 1st, 2nd and 3rd term totals from the C.A. score sheet, averaged per subject.</p>
+          </div>
+          <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
+            {TERM_LABELS.map(([slot, label]) => {
+              const fallbackKey = DEFAULT_TERM_TEMPLATES[section]?.[slot] || form.templateKey;
+              const fallbackName = templates.find(template => template.key === fallbackKey)?.name || 'the template above';
+              return (
+                <label key={slot} className="block">
+                  <span className={`text-xs font-bold ${RESULT_HEADING}`}>{label}</span>
+                  <select value={form.termTemplates?.[slot] || ''} disabled={!canManageSettings || saving}
+                    onChange={event => { const key = event.target.value; setForm(current => ({ ...current, termTemplates: { ...current.termTemplates, [slot]: key } })); if (key) setPreviewTemplateKey(key); }}
+                    className={`mt-1 ${RESULT_INPUT}`}>
+                    <option value="">Default: {fallbackName}</option>
+                    {templates.map(template => <option key={template.key} value={template.key}>{template.name}</option>)}
+                  </select>
+                  <button type="button" className="mt-1 text-xs font-bold text-[#2447d8] underline" onClick={() => setPreviewTemplateKey(form.termTemplates?.[slot] || fallbackKey)}>Preview</button>
+                </label>
+              );
+            })}
+          </div>
+          <label className="flex items-start gap-2 border-t border-[#c9a96e]/30 pt-3 text-sm font-semibold dark:border-white/10">
+            <input type="checkbox" className="mt-1" checked={form.positionsOnResult !== false} disabled={!canManageSettings || saving}
+              onChange={event => setForm(current => ({ ...current, positionsOnResult: event.target.checked }))} />
+            <span>Print positions on results<span className={`block text-xs font-normal ${RESULT_BODY}`}>Off: positions are worked out for the class teacher and HoS/Owner (Rankings tab) but not shown to students and parents. Subject badges for the top three always show.</span></span>
+          </label>
+          {section !== 'secondary' ? (
+            <div className="space-y-2 border-t border-[#c9a96e]/30 pt-3 dark:border-white/10">
+              <label className="flex items-center gap-2 text-sm font-semibold">
+                <input type="checkbox" checked={form.page2Own} disabled={!canManageSettings || saving}
+                  onChange={event => {
+                    const own = event.target.checked;
+                    setForm(current => {
+                      if (!own || current.page2Text) return { ...current, page2Own: own };
+                      const key = current.termTemplates?.first || DEFAULT_TERM_TEMPLATES[section]?.first || current.templateKey;
+                      const starter = templates.find(template => template.key === key)?.layout?.page2;
+                      return { ...current, page2Own: own, page2Title: starter?.title || 'Progress Report Sheet', page2Mode: starter?.mode || 'checklist', page2Text: page2ToText(starter) };
+                    });
+                  }} />
+                Use our own page 2 (otherwise the template's page 2 is used)
+              </label>
+              {form.page2Own ? (
+                <div className="grid grid-cols-1 gap-2 md:grid-cols-[1fr_12rem]">
+                  <input className={RESULT_INPUT} aria-label="Page 2 title" value={form.page2Title} disabled={!canManageSettings || saving} onChange={event => setForm(current => ({ ...current, page2Title: event.target.value }))} placeholder="Page 2 title" />
+                  <select className={RESULT_INPUT} aria-label="Page 2 marking" value={form.page2Mode || 'checklist'} disabled={!canManageSettings || saving} onChange={event => setForm(current => ({ ...current, page2Mode: event.target.value }))}>
+                    <option value="checklist">Not yet / Progressing / Yes</option>
+                    <option value="rating">Rating 5 to 1</option>
+                  </select>
+                  <textarea rows={10} className={`${RESULT_INPUT} font-mono text-xs md:col-span-2`} aria-label="Page 2 sections and items" value={form.page2Text} disabled={!canManageSettings || saving}
+                    onChange={event => setForm(current => ({ ...current, page2Text: event.target.value }))} placeholder={'## Language Skills\nSpeaks clearly\nListens to stories\n\n## Gross Motor Skills\nHops on either foot'} />
+                  <p className={`text-xs ${RESULT_BODY} md:col-span-2`}>Start each section with ## and its title; put one item per line under it. Teachers fill these in on the C.A. score sheet.</p>
+                </div>
+              ) : null}
+            </div>
+          ) : null}
+        </section>
+
         {templates.length > 0 && (
           <section className={`${RESULT_INNER_SURFACE} p-4 space-y-4`}>
             <div className="flex flex-wrap items-center justify-between gap-3">
@@ -461,7 +595,19 @@ export default function ResultSettingsPanel({
                 <p className={`micro-label ${RESULT_LABEL}`}>Live Sample — {previewTemplate.name}</p>
                 <p className={`mt-1 text-xs ${RESULT_BODY}`}>{previewTemplate.description} This is the report card exactly as students and parents will see it, with a sample student.</p>
                 <div className="mt-4">
-                  <ResultReportCard
+                  {previewTemplate.layout ? (
+                    <ProgressReportCard
+                      record={buildProgressSample(sampleRecord, previewTemplate, form)}
+                      branding={{
+                        schoolName: form.brandingSchoolName, reportTitle: form.brandingReportTitle || previewTemplate.name,
+                        logoUrl: form.brandingLogoUrl, primaryColor: form.brandingPrimaryColor || '#800000', accentColor: form.brandingAccentColor || '#1a5c38',
+                        motto: form.brandingMotto || '', address: form.brandingAddress || '', website: '', sealUrl: form.brandingSealUrl || '',
+                      }}
+                      scoreModel={{ caMaxScore: sampleCaMax, examMaxScore: sampleExamMax, totalMaxScore: sampleCaMax + sampleExamMax }}
+                      qrDataUrl={sampleQr}
+                      isPreview
+                    />
+                  ) : <ResultReportCard
                     record={sampleRecord}
                     branding={{
                       schoolName: form.brandingSchoolName, reportTitle: form.brandingReportTitle || previewTemplate.name || 'Official Result Record',
@@ -471,7 +617,7 @@ export default function ResultSettingsPanel({
                     scoreModel={{ caMaxScore: sampleCaMax, examMaxScore: sampleExamMax, totalMaxScore: sampleCaMax + sampleExamMax }}
                     qrDataUrl={sampleQr}
                     isPreview
-                  />
+                  />}
                 </div>
                 <div className="mt-4 grid grid-cols-1 lg:grid-cols-[1.1fr,0.9fr] gap-4">
                   <div className={`${RESULT_INNER_SURFACE} p-4`}>

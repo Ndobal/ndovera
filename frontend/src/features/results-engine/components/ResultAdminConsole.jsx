@@ -530,6 +530,7 @@ export default function ResultAdminConsole({ analyticsMode = 'hos', roleTitle = 
           {sectionData && activeSection && (
             <ResultSettingsPanel
               key={activeSection}
+              section={activeSection}
               settings={sectionData.settings}
               templates={sectionData.templates}
               suggestedSettings={sectionData.suggestedSettings}

@@ -480,6 +480,7 @@ export const getGroupScoreSheet = (groupId) => req(`/api/results/group-sheet?gro
 export const saveGroupScores = (data) => req('/api/results/group-entries', { method: 'POST', body: data });
 export const submitGroupScores = (groupId) => req('/api/results/group-submit', { method: 'POST', body: { groupId } });
 export const getResultPreview = (params = {}) => req(`/api/results/preview${buildQuery(params)}`, { skipOfflineCache: true });
+export const getResultRankings = (params = {}) => req(`/api/results/rankings${buildQuery(params)}`, { skipOfflineCache: true });
 export const getResultAudit = (params = {}) => req(`/api/results/audit${buildQuery(params)}`, { skipOfflineCache: true });
 export const getResultExamPeriod = () => req('/api/results/exam-period', { skipOfflineCache: true });
 export const setResultExamPeriod = (action) => req('/api/results/exam-period', { method: 'POST', body: { action } });

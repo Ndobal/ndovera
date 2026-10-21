@@ -403,6 +403,8 @@ import { PACK_SIZE, GLOBAL_TENANT, MODES as PRACTICE_MODES, PracticeError, build
 // Clubs are imported as a namespace: their names (createPost…) must not shadow the class stream's.
 import * as Clubs from './clubs'
 import { buildNewsEdition, readNews, lagosDate as newsLagosDate } from './news'
+import { FORTNIGHT_DAYS, buildStandings, ensureFinanceReportTables, standingsEmailHtml } from './financeReport'
+import { PROGRESS_TEMPLATES, defaultTemplateFor, loadEarlierTermTotals, normalizePage2, normalizeProfileExtra, normalizeTermTemplates, page2For, progressTemplate, templateForTerm } from './resultTemplates'
 import type { ClubActor } from './clubs'
 import {
   EXAMS, EXAM_MIN_STOCK, JAMB_ENGLISH_KEY, JAMB_MOCK, PassError, SCHOOL_DISCOUNT, bundleList, canOpen, checkDevice, clearDevices, countPack, freeQuestionsLeft, useFreeQuestions, FREE_LIMIT_REACHED, FREE_QUESTIONS_PER_DAY,
@@ -1473,6 +1475,8 @@ const RESULT_TEMPLATE_CATALOG = [
       strengths: ['Narrative-friendly', 'Affective emphasis', 'Clean print spacing'],
     },
   },
+  // Nursery and Primary progress reports (resultTemplates.ts): chosen per section and per term.
+  ...PROGRESS_TEMPLATES,
 ]
 
 const RESULT_DEFAULT_GRADING_SCALE = [
@@ -1726,8 +1730,14 @@ function normalizeResultSettingsInput(payload: Record<string, any> = {}) {
   const fallbackMetadata = fallback.metadata && typeof fallback.metadata === 'object' ? fallback.metadata as Record<string, any> : {}
   const scoreSettings = normalizeResultScoreSettings(metadata, fallbackMetadata)
 
+  // A template per term (1st, 2nd, 3rd); the section's template is the default for any term not set.
+  const termTemplates = normalizeTermTemplates(metadata.termTemplates, knownTemplateKeys)
+  const page2 = normalizePage2(metadata.page2, null)
+  // A section with no template yet starts on Ndovera's default for it, so scores are accepted.
+  const sectionTemplate = knownTemplateKeys.has(templateKey) ? templateKey : String(termTemplates.first || termTemplates.second || termTemplates.third || defaultTemplateFor(payload.section) || '')
+
   return {
-    templateKey: knownTemplateKeys.has(templateKey) ? templateKey : '',
+    templateKey: sectionTemplate,
     gradingScale: normalizeResultScale(payload.gradingScale, fallback.gradingScale)
       .map(entry => ({ minScore: Number(entry.minScore || 0), grade: entry.grade, remark: entry.remark }))
       .sort((left, right) => right.minScore - left.minScore),
@@ -1754,6 +1764,10 @@ function normalizeResultSettingsInput(payload: Record<string, any> = {}) {
       examScoreEntry: metadata.examScoreEntry === 'raw' ? 'raw' : 'convert',
       examScoreDecimals: [0, 1, 2].includes(Number(metadata.examScoreDecimals)) && metadata.examScoreDecimals !== '' && metadata.examScoreDecimals !== null && metadata.examScoreDecimals !== undefined ? Number(metadata.examScoreDecimals) : 1,
       branding: normalizeResultBranding(metadata.branding, fallback.metadata.branding),
+      termTemplates,
+      page2: page2 && page2.sections.length ? page2 : null,
+      // Positions printed on the result (default) or kept for analysis (rankings) only.
+      positionsOnResult: metadata.positionsOnResult !== false,
     },
   }
 }
@@ -2045,6 +2059,15 @@ function resolveGradeBand(score: number, gradingScale: Record<string, any>[] = R
   return ordered.find(entry => score >= entry.minScore) || ordered[ordered.length - 1] || { grade: '', remark: '' }
 }
 
+/** The result payloads, with the 1st- and 2nd-term totals loaded when the term's template needs them. */
+async function buildResultPayloadsWithHistory(db: D1Database, tenantId: string, params: Parameters<typeof buildPublishedResultPayloads>[0]) {
+  const template = progressTemplate(templateForTerm(params.settings, params.batch?.termName))
+  const earlierTotals = template?.layout.cumulative
+    ? await loadEarlierTermTotals(db, tenantId, String(params.batch?.sessionName || ''), String(params.batch?.termName || ''), params.students.map(student => String(student.id || '')))
+    : undefined
+  return buildPublishedResultPayloads({ ...params, earlierTotals })
+}
+
 function buildPublishedResultPayloads(params: {
   students: Array<Record<string, any>>,
   entries: Array<Record<string, any>>,
@@ -2054,8 +2077,17 @@ function buildPublishedResultPayloads(params: {
   className: string,
   actorName: string,
   tenantBranding?: Record<string, any>,
+  /** 1st- and 2nd-term totals per student and subject (whole-session layouts). */
+  earlierTotals?: Map<string, Map<string, Record<string, number>>>,
+  /** Rankings view: keep positions even when the school prints none. */
+  forAnalysis?: boolean,
 }) {
   const gradeScale = normalizeResultScale(params.settings?.gradingScale, RESULT_DEFAULT_GRADING_SCALE)
+  // The template this term uses, and (for the progress reports) its layout and page 2.
+  const termTemplateKey = templateForTerm(params.settings, params.batch?.termName)
+  const progress = progressTemplate(termTemplateKey)
+  const page2 = progress ? page2For(params.settings, termTemplateKey) : null
+  const round2 = (value: number) => Math.round(value * 100) / 100
   const affectiveDomains = normalizeResultDomainList(params.settings?.affectiveDomains, RESULT_DEFAULT_AFFECTIVE_DOMAINS, 8)
   const ratingDomains = normalizeResultDomainList(params.settings?.metadata?.ratingDomains, RESULT_DEFAULT_RATING_DOMAINS, 8)
   const scoreSettings = normalizeResultScoreSettings(params.settings?.metadata, RESULT_DEFAULT_SCORE_LIMITS)
@@ -2089,9 +2121,19 @@ function buildPublishedResultPayloads(params: {
           remark: band.remark,
         }
       })
+      .map(row => {
+        if (!progress?.layout.cumulative) return row
+        // Whole session: this term with the 1st and 2nd term totals; grade on the session average.
+        const earlier = params.earlierTotals?.get(studentId)?.get(String(row.subjectName || '').trim().toLowerCase()) || {}
+        const terms = [earlier.first, earlier.second, row.total].filter(value => Number.isFinite(value as number)) as number[]
+        const cumulative = round2(terms.reduce((sum, value) => sum + value, 0) / terms.length)
+        const band = resolveGradeBand(cumulative, gradeScale)
+        return { ...row, firstTerm: earlier.first ?? null, secondTerm: earlier.second ?? null, cumulative, grade: band.grade, remark: band.remark }
+      })
 
+    const scoreOf = (row: Record<string, any>) => Number(progress?.layout.cumulative ? row.cumulative : row.total) || 0
     const average = subjectRows.length
-      ? Math.round(subjectRows.reduce((sum, row) => sum + Number(row.total || 0), 0) / subjectRows.length)
+      ? (progress ? round2(subjectRows.reduce((sum, row) => sum + scoreOf(row), 0) / subjectRows.length) : Math.round(subjectRows.reduce((sum, row) => sum + Number(row.total || 0), 0) / subjectRows.length))
       : 0
     const summaryBand = resolveGradeBand(average, gradeScale)
     const affectiveScores = affectiveDomains.map(domain => ({
@@ -2120,7 +2162,11 @@ function buildPublishedResultPayloads(params: {
         },
         sessionName: params.batch.sessionName,
         termName: params.batch.termName,
-        templateKey: String(params.settings?.templateKey || ''),
+        templateKey: termTemplateKey,
+        templateLayout: progress ? { level: progress.layout.level, cumulative: progress.layout.cumulative, title: progress.layout.title } : null,
+        // Page 2 with this student's answers, and the extras (physical development, attendance).
+        page2: page2 ? { ...page2, answers: (profile as any)?.extra?.page2 || {} } : null,
+        extra: Object.fromEntries(Object.entries((profile as any)?.extra || {}).filter(([key]) => key !== 'page2')),
         branding,
         scoreModel: scoreSettings,
         settingsSnapshot: params.settings,
@@ -2158,7 +2204,7 @@ function buildPublishedResultPayloads(params: {
     for (const row of item.payload.subjects as Array<Record<string, any>>) {
       const key = String(row.subjectId || row.subjectName || '')
       const totals = (subjectStats.get(key) as any)?._all || []
-      totals.push(Number(row.total || 0))
+      totals.push(Number(progress?.layout.cumulative ? row.cumulative : row.total) || 0)
       subjectStats.set(key, { _all: totals, highest: Math.max(...totals), lowest: Math.min(...totals), average: round1(totals.reduce((sum: number, value: number) => sum + value, 0) / totals.length) } as any)
     }
   }
@@ -2170,12 +2216,17 @@ function buildPublishedResultPayloads(params: {
         ...item.payload,
         subjects: (item.payload.subjects as Array<Record<string, any>>).map(row => {
           const stats = subjectStats.get(String(row.subjectId || row.subjectName || ''))
-          return stats ? { ...row, classHighest: stats.highest, classLowest: stats.lowest, classAverage: stats.average } : row
+          if (!stats) return row
+          // Position in the subject (ties share a place), on the score the card shows.
+          const mine = Number(progress?.layout.cumulative ? row.cumulative : row.total) || 0
+          const position = ((stats as any)._all as number[]).filter(value => value > mine).length + 1
+          return { ...row, classHighest: stats.highest, classLowest: stats.lowest, classAverage: stats.average, position }
         }),
         summary: {
           ...item.payload.summary,
           ...classStats,
           totalScore: (item.payload.subjects as Array<Record<string, any>>).reduce((sum, row) => sum + Number(row.total || 0), 0),
+          ...(progress?.layout.cumulative ? { cumulativeTotal: round2((item.payload.subjects as Array<Record<string, any>>).reduce((sum, row) => sum + Number(row.cumulative || 0), 0)) } : {}),
           totalObtainable: (item.payload.subjects as Array<Record<string, any>>).length * Number(item.payload.scoreModel?.totalMaxScore || 100),
           subjectsTaken: (item.payload.subjects as Array<Record<string, any>>).length,
           position: index + 1,
@@ -2183,7 +2234,20 @@ function buildPublishedResultPayloads(params: {
       },
     }))
 
-  return ranked.map(item => ({ studentId: item.studentId, payload: item.payload }))
+  // Top three in each subject get a badge (on the 3rd-term cumulative score where it applies).
+  const showPositions = params.forAnalysis || params.settings?.metadata?.positionsOnResult !== false
+  return ranked.map(item => {
+    const subjects = item.payload.subjects as Array<Record<string, any>>
+    const subjectBadges = subjects.filter(row => Number(row.position) >= 1 && Number(row.position) <= 3 && Number(progress?.layout.cumulative ? row.cumulative : row.total) > 0)
+      .map(row => ({ subjectName: String(row.subjectName || ''), place: Number(row.position) }))
+      .sort((a, b) => a.place - b.place || a.subjectName.localeCompare(b.subjectName))
+    const payload = { ...item.payload, summary: { ...item.payload.summary, subjectBadges } }
+    if (!showPositions) {
+      delete (payload.summary as any).position
+      payload.subjects = subjects.map(row => { const { position: _position, ...rest } = row; return rest })
+    }
+    return { studentId: item.studentId, payload }
+  })
 }
 
 async function getStudentFeeStatus(db: D1Database, tenantId: string, studentId: string) {
@@ -5577,6 +5641,16 @@ async function ensureHeaderAuditTable(db: D1Database) {
   _initializedTables.add('header_audit')
 }
 
+/** Owner/HoS: the latest financial standings report posted to them (last 14 days). */
+async function buildFinanceReportNotificationItems(db: D1Database, tenantId: string, actorRole: string) {
+  const role = normalizeRole(actorRole)
+  if (!['owner', 'hos'].includes(role)) return [] as Array<Record<string, any>>
+  const since = new Date(Date.now() - 14 * 86400000).toISOString()
+  const row = await db.prepare(`SELECT id, title, created_at, created_by_name FROM finance_reports WHERE tenant_id = ? AND created_at >= ? ORDER BY created_at DESC LIMIT 1`).bind(tenantId, since).first().catch(() => null) as Record<string, any> | null
+  if (!row) return []
+  return [{ id: `finance-report:${row.id}`, title: 'Financial standings report', detail: clampPreview(String(row.title || ''), 120), sender: String(row.created_by_name || 'Accounts'), time: formatHeaderTime(row.created_at), unread: true, category: 'finance_report', actionUrl: `/roles/${role}/finance-report?id=${encodeURIComponent(String(row.id))}`, sortAt: String(row.created_at || '') }]
+}
+
 async function buildWebsiteEnquiryNotificationItems(db: D1Database, tenantId: string, actorRole: string) {
   if (!['owner', 'hos'].includes(normalizeRole(actorRole))) return [] as Array<Record<string, any>>
 
@@ -5730,13 +5804,15 @@ async function buildAuthenticatedHeader(c: any, roleKey: string) {
       sortAt: String(announcement.createdAt || ''),
     }))
 
-  const [closureItems, complianceItems, transportItems, healthItems] = await Promise.all([
+  const [closureItems, complianceItems, transportItems, healthItems, financeReportItems] = await Promise.all([
     buildClosureNotificationItems(c.env.APP_DB, String(tenantId || ''), actorRole).catch(() => [] as any[]),
     buildComplianceNotificationItems(c.env.APP_DB, String(tenantId || ''), canonicalReaderId, actorRole).catch(() => [] as any[]),
     buildTransportNotificationItems(c.env.APP_DB, String(tenantId || ''), actorRole, String(resolvedUser.userRow?.id || canonicalReaderId), settings).catch(() => [] as any[]),
     buildHealthNotificationItems(c.env.APP_DB, String(tenantId || ''), actorRole, String(resolvedUser.userRow?.id || canonicalReaderId), settings).catch(() => [] as any[]),
+    tenantId ? buildFinanceReportNotificationItems(c.env.APP_DB, String(tenantId), actorRole).catch(() => [] as any[]) : Promise.resolve([] as any[]),
   ])
   const notificationItems = [
+    ...financeReportItems,
     ...healthItems,
     ...transportItems,
     ...closureItems,
@@ -25607,6 +25683,8 @@ app.get('/api/results/sheet', authenticate, async (c) => {
       sampleRoster: workspace.sampleRoster,
     },
     settings,
+    // The report card this term uses and its page 2 (what the sheet asks teachers to fill in).
+    reportCard: (() => { const key = templateForTerm(settings, workspace.displayPeriod?.termName); const template = progressTemplate(key); return { templateKey: key, layout: template ? template.layout.level : '', cumulative: Boolean(template?.layout.cumulative), page2: template ? page2For(settings, key) : null } })(),
     configurationReady: !configurationError,
     configurationError,
     templates: RESULT_TEMPLATE_CATALOG,
@@ -25788,6 +25866,7 @@ app.post('/api/results/profiles', authenticate, async (c) => {
         teacherRemark: String(row.teacherRemark || '').trim(),
         principalRemark: String(row.principalRemark || '').trim(),
         promotionStatus: String(row.promotionStatus || '').trim(),
+        extra: normalizeProfileExtra(row.extra),
       }
     })
     .filter(Boolean) as Array<Record<string, any>>
@@ -26293,6 +26372,59 @@ app.post('/api/results/group-submit', authenticate, async (c) => {
   return c.json({ success: true, report })
 })
 
+/**
+ * Rankings from the C.A. score sheet as it stands (from the first score entered): per subject
+ * for the subjects this teacher may see, with the top three badged, and the class positions for
+ * the class teacher and school leaders. In the 3rd term (whole-session templates) everything is
+ * on the cumulative score. Works whether or not the school prints positions on results.
+ */
+app.get('/api/results/rankings', authenticate, async (c) => {
+  const query = c.req.query()
+  const classId = String(query.classId || '').trim()
+  if (!classId) return c.json({ error: 'classId is required.' }, 400)
+  const access = await resolveResultClassAccess(c.env.APP_DB, c.var.user || {}, classId)
+  if (!access.tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (!access.classRow) return c.json({ error: 'Class not found.' }, 404)
+  if (!access.canManageEntries && !access.isElevatedManager) return c.json({ error: 'forbidden' }, 403)
+  let workspace
+  try {
+    workspace = await resolveResultWorkspace(c.env.APP_DB, access, query)
+  } catch (error) {
+    return resultWorkspaceFailure(c, error)
+  }
+  const { period, displayPeriod } = workspace
+  const storedSettings = await getResultSettings(c.env.APP_DB, access.tenantId, classSectionValue(access.classRow))
+  const settings = { ...storedSettings, ...normalizeResultSettingsInput(storedSettings) }
+  const batch = await getResultBatch(c.env.APP_DB, access.tenantId, classId, period.sessionName, period.termName)
+  const [entries, profiles] = await Promise.all([listResultEntries(c.env.APP_DB, batch.id), listResultStudentProfiles(c.env.APP_DB, batch.id)])
+  const publications = await buildResultPayloadsWithHistory(c.env.APP_DB, access.tenantId, {
+    students: workspace.students, entries, profiles, settings,
+    batch: { ...batch, sessionName: displayPeriod.sessionName, termName: displayPeriod.termName },
+    className: workspace.className, actorName: '', forAnalysis: true,
+  })
+  const cumulative = Boolean(progressTemplate(templateForTerm(settings, displayPeriod.termName))?.layout.cumulative)
+  const allowed = new Set(access.allowedSubjectRows.map(row => String(row.id || row.subjectId || '')))
+  const allowedNames = new Set(access.allowedSubjectRows.map(row => String(row.name || row.subjectName || '').trim().toLowerCase()))
+  const bySubject = new Map<string, { subjectId: string, subjectName: string, rows: Array<Record<string, any>> }>()
+  for (const item of publications) {
+    for (const row of item.payload.subjects as Array<Record<string, any>>) {
+      const subjectId = String(row.subjectId || '')
+      if (!allowed.has(subjectId) && !allowedNames.has(String(row.subjectName || '').trim().toLowerCase())) continue
+      const entry = bySubject.get(subjectId) || { subjectId, subjectName: String(row.subjectName || ''), rows: [] }
+      entry.rows.push({ studentId: item.studentId, name: String(item.payload.student?.name || ''), score: Number(cumulative ? row.cumulative : row.total) || 0, position: Number(row.position) || 0, grade: row.grade, firstTerm: row.firstTerm ?? null, secondTerm: row.secondTerm ?? null, thisTerm: row.total })
+      bySubject.set(subjectId, entry)
+    }
+  }
+  const subjects = [...bySubject.values()]
+    .map(entry => ({ ...entry, rows: entry.rows.sort((a, b) => a.position - b.position || a.name.localeCompare(b.name)).map(row => ({ ...row, badge: row.position >= 1 && row.position <= 3 && row.score > 0 ? (['gold', 'silver', 'bronze'][row.position - 1]) : '' })) }))
+    .sort((a, b) => a.subjectName.localeCompare(b.subjectName))
+  const overall = access.canManageProfiles
+    ? publications.map(item => ({ studentId: item.studentId, name: String(item.payload.student?.name || ''), average: Number(item.payload.summary?.average || 0), position: Number(item.payload.summary?.position || 0), subjects: (item.payload.subjects as unknown[]).length, badges: item.payload.summary?.subjectBadges || [] }))
+      .sort((a, b) => a.position - b.position || a.name.localeCompare(b.name))
+    : null
+  return c.json({ success: true, period: displayPeriod, cumulative, positionsOnResult: settings.metadata?.positionsOnResult !== false, subjects, overall })
+})
+
 // What each student will see once this class is published, computed by the same
 // engine from the current CA score sheet. Nothing is saved or sent to students.
 app.get('/api/results/preview', authenticate, async (c) => {
@@ -26324,7 +26456,7 @@ app.get('/api/results/preview', authenticate, async (c) => {
     listResultEntries(c.env.APP_DB, batch.id),
     listResultStudentProfiles(c.env.APP_DB, batch.id),
   ])
-  const publications = buildPublishedResultPayloads({
+  const publications = await buildResultPayloadsWithHistory(c.env.APP_DB, access.tenantId, {
     students: workspace.students,
     entries,
     profiles,
@@ -26463,7 +26595,7 @@ app.post('/api/results/publish', authenticate, async (c) => {
 
   if (entries.length === 0) return c.json({ error: 'No CA score rows were found for this batch.' }, 400)
 
-  const publications = buildPublishedResultPayloads({
+  const publications = await buildResultPayloadsWithHistory(c.env.APP_DB, access.tenantId, {
     students,
     entries,
     profiles,
@@ -26516,7 +26648,7 @@ async function publishClassResultsBackground(env: Bindings, tenantId: string, cl
     listResultClassStudents(env.APP_DB, tenantId, classRow),
   ])
   if (!entries.length) throw new Error('No CA score rows for this class')
-  const publications = buildPublishedResultPayloads({
+  const publications = await buildResultPayloadsWithHistory(env.APP_DB, tenantId, {
     students, entries, profiles, settings,
     batch: { ...batch, sessionName: period.sessionName, termName: period.termName },
     className: `${classRow.name}${classRow.arm ? ` ${classRow.arm}` : ''}`, actorName,
@@ -35000,7 +35132,11 @@ app.post('/api/school/finance/my-claims', authenticate, async (c) => {
 async function simpleFeeContext(c: any, termId?: string) {
   const ctx = await resolveFinanceActor(c)
   if (!ctx.tenantId) throw new FinanceError('No school.', 400)
-  const db = c.env.APP_DB
+  return feeContextFor(c.env.APP_DB, ctx, termId)
+}
+
+/** The fee context for a school, outside a request too (the fortnightly reminders). */
+async function feeContextFor(db: D1Database, ctx: FinanceCtx, termId?: string) {
   const period = await financePeriod(db, ctx.tenantId)
   const wanted = String(termId || period.termId || '')
   const termRow = wanted ? await getTermById(db, ctx.tenantId, wanted) : null
@@ -35553,12 +35689,27 @@ app.post('/api/school/finance/simple/reminders', authenticate, async (c) => {
       }
       return c.json({ success: true, recorded: studentIds.length })
     }
+    const customText = studentIds.length === 1 ? String(body.text || '').trim().slice(0, 4000) : ''
+    const result = await sendFeeReminderEmails(c.env, context, studentIds, by, customText)
+    await addAudit(context.db, context.tenantId, { action: 'feeRemindersSent', data: { by: context.actor.id, channel, sent: result.sent, skipped: result.skipped.length } }).catch(() => null)
+    return c.json({ success: true, ...result })
+  } catch (error) {
+    return financeFailure(c, error, 'Could not send the reminders.')
+  }
+})
+
+/**
+ * Emails the fee reminder to the parents of these students who still owe; a student's parents
+ * are emailed at most once in 20 hours. Logged in fee_reminder_log (the report counts them).
+ */
+async function sendFeeReminderEmails(env: Bindings, context: Awaited<ReturnType<typeof simpleFeeContext>>, studentIds: string[], by: string, customText = '') {
+    await ensureFeeReminderLog(context.db)
+    const now = new Date().toISOString()
     const built = await buildFeeReminders(context, studentIds)
     const since = new Date(Date.now() - 20 * 3600_000).toISOString()
     const recentRows = ((await context.db.prepare(`SELECT student_id FROM fee_reminder_log WHERE tenant_id = ? AND channel = 'email' AND sent_at >= ?`).bind(context.tenantId, since).all().catch(() => ({ results: [] }))).results || []) as Record<string, any>[]
     const recent = new Set(recentRows.map(row => String(row.student_id)))
     // A single student's message may be edited before sending; bulk sends use the standard words.
-    const customText = studentIds.length === 1 ? String(body.text || '').trim().slice(0, 4000) : ''
     const sent: string[] = []
     const skipped: Array<{ studentName: string, reason: string }> = []
     for (const student of built.students) {
@@ -35569,7 +35720,7 @@ app.post('/api/school/finance/simple/reminders', authenticate, async (c) => {
       let delivered = 0
       for (const parent of withEmail) {
         const text = customText || parent.text
-        const result = await sendZohoEmail(c.env, { to: [parent.email], subject: parent.subject, html: schoolEmailHtml(built.schoolName, text, built.logoUrl) })
+        const result = await sendZohoEmail(env, { to: [parent.email], subject: parent.subject, html: schoolEmailHtml(built.schoolName, text, built.logoUrl) })
           .catch(error => { console.error('Fee reminder email failed', error); return { sent: [] as string[], failed: [parent.email] } })
         delivered += result.sent.length
       }
@@ -35578,12 +35729,140 @@ app.post('/api/school/finance/simple/reminders', authenticate, async (c) => {
         .bind(`frem_${crypto.randomUUID()}`, context.tenantId, student.studentId, withEmail.map(parent => parent.email).join(', ').slice(0, 500), by, now).run()
       sent.push(student.studentName)
     }
-    await addAudit(context.db, context.tenantId, { action: 'feeRemindersSent', data: { by: context.actor.id, channel, sent: sent.length, skipped: skipped.length } }).catch(() => null)
-    return c.json({ success: true, sent: sent.length, sentNames: sent, skipped, bankMissing: built.bankMissing })
+    return { sent: sent.length, sentNames: sent, skipped, bankMissing: built.bankMissing }
+}
+
+// ─── Financial standings report (financeReport.ts) ───────────────────────────
+
+const STANDINGS_VIEW_ROLES = ['owner', 'hos', 'accountant']
+
+async function financialStandings(context: Awaited<ReturnType<typeof simpleFeeContext>>, options: { from?: string, to?: string } = {}) {
+  const term = requireTerm(context.term)
+  await ensureFinanceReportTables(context.db)
+  await ensureFeeReminderLog(context.db)
+  const enrollments = await termEnrollments(context.db, context.tenantId, term.sessionId)
+  const [accounts, families, tenant, settingsRow] = await Promise.all([
+    accountSummaries(context.db, context.tenantId, { termId: term.id, termStart: term.startDate }, enrollments),
+    schoolFamilies(context.db, context.tenantId),
+    getTenantById(context.db, context.tenantId).catch(() => null) as Promise<Record<string, any> | null>,
+    context.db.prepare(`SELECT * FROM fee_report_settings WHERE tenant_id = ?`).bind(context.tenantId).first().catch(() => null) as Promise<Record<string, any> | null>,
+  ])
+  const from = /^\d{4}-\d{2}-\d{2}$/.test(String(options.from || '')) ? String(options.from) : String(term.startDate || '').slice(0, 10)
+  const to = /^\d{4}-\d{2}-\d{2}$/.test(String(options.to || '')) ? String(options.to) : new Date().toISOString().slice(0, 10)
+  const reminders = ((await context.db.prepare(`SELECT student_id, channel, sent_at FROM fee_reminder_log WHERE tenant_id = ? AND sent_at >= ? ORDER BY sent_at`).bind(context.tenantId, from || '0000').all().catch(() => ({ results: [] }))).results || []) as Array<{ student_id: string, channel: string, sent_at: string }>
+  const branding = await getTenantSchoolBranding(context.db, tenant).catch(() => null)
+  return buildStandings({
+    schoolName: String(branding?.schoolName || tenant?.schoolName || 'School'), termLabel: [term.name, term.sessionName].filter(Boolean).join(', '),
+    from, to, generatedAt: new Date().toISOString(),
+    accounts: accounts.map(account => ({ studentId: account.studentId, studentName: String((account as any).studentName || ''), className: String((account as any).className || ''), totalPayable: Number(account.totalPayable || 0), paid: Number(account.paid || 0), balance: Number(account.balance || 0) })),
+    families, reminders, autoReminders: Number(settingsRow?.auto_reminders || 0) === 1, lastAutoRunAt: String(settingsRow?.last_auto_run_at || ''),
+  })
+}
+
+/** Keeps the report as it stands and posts it to the Owner and Head of School (email and Ndovera). */
+async function postFinancialStandings(env: Bindings, context: Awaited<ReturnType<typeof simpleFeeContext>>, report: ReturnType<typeof buildStandings>, automatic: boolean) {
+  await ensureFinanceReportTables(context.db)
+  const id = `frep_${crypto.randomUUID()}`
+  const title = `Financial standings — ${report.termLabel} (${report.to})`
+  await context.db.prepare(`INSERT INTO finance_reports (id, tenant_id, term_id, title, period_from, period_to, data_json, automatic, created_by, created_by_name, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
+    .bind(id, context.tenantId, context.term?.id || null, title, report.from, report.to, JSON.stringify(report), automatic ? 1 : 0, context.actor.id, context.actor.name, new Date().toISOString()).run()
+  const leaders = ((await context.db.prepare(`SELECT email FROM users WHERE tenantId = ? AND lower(COALESCE(role, '')) IN ('owner', 'hos') AND email LIKE '%@%' AND lower(COALESCE(status, 'active')) NOT IN ('inactive', 'deleted')`).bind(context.tenantId).all().catch(() => ({ results: [] }))).results || []) as Record<string, any>[]
+  const to = [...new Set(leaders.map(row => String(row.email).trim().toLowerCase()))].slice(0, 10)
+  let emailed = 0
+  if (to.length) {
+    const result = await sendZohoEmail(env, { to, subject: `${report.schoolName}: ${title}`, html: standingsEmailHtml(report, 'https://ndovera.com/finance-report?id=' + encodeURIComponent(id)) })
+      .catch(error => { console.error('Standings email failed', error); return { sent: [] as string[] } })
+    emailed = result.sent.length
+  }
+  return { id, title, emailed }
+}
+
+app.get('/api/school/finance/standings', authenticate, async (c) => {
+  try {
+    const context = await simpleFeeContext(c, String(c.req.query('termId') || '') || undefined)
+    if (!hasRequiredRole(context.role, STANDINGS_VIEW_ROLES)) return c.json({ success: false, message: 'forbidden' }, 403)
+    return c.json({ success: true, report: await financialStandings(context, { from: c.req.query('from'), to: c.req.query('to') }) })
   } catch (error) {
-    return financeFailure(c, error, 'Could not send the reminders.')
+    return financeFailure(c, error, 'Could not prepare the financial report.')
   }
 })
+
+app.post('/api/school/finance/standings/post', authenticate, async (c) => {
+  try {
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const context = await simpleFeeContext(c, String(body.termId || '') || undefined)
+    if (!hasRequiredRole(context.role, STANDINGS_VIEW_ROLES)) return c.json({ success: false, message: 'forbidden' }, 403)
+    const report = await financialStandings(context, { from: body.from, to: body.to })
+    return c.json({ success: true, report, posted: await postFinancialStandings(c.env, context, report, false) })
+  } catch (error) {
+    return financeFailure(c, error, 'Could not post the financial report.')
+  }
+})
+
+app.get('/api/school/finance/standings/reports', authenticate, async (c) => {
+  try {
+    const context = await simpleFeeContext(c)
+    if (!hasRequiredRole(context.role, STANDINGS_VIEW_ROLES)) return c.json({ success: false, message: 'forbidden' }, 403)
+    await ensureFinanceReportTables(context.db)
+    const rows = ((await context.db.prepare(`SELECT id, title, period_from, period_to, automatic, created_by_name, created_at FROM finance_reports WHERE tenant_id = ? ORDER BY created_at DESC LIMIT 60`).bind(context.tenantId).all()).results || []) as Record<string, any>[]
+    const settings = await context.db.prepare(`SELECT * FROM fee_report_settings WHERE tenant_id = ?`).bind(context.tenantId).first().catch(() => null) as Record<string, any> | null
+    return c.json({ success: true, reports: rows.map(row => ({ id: row.id, title: row.title, from: row.period_from, to: row.period_to, automatic: Number(row.automatic) === 1, by: row.created_by_name, at: row.created_at })), autoReminders: Number(settings?.auto_reminders || 0) === 1, lastAutoRunAt: settings?.last_auto_run_at || '' })
+  } catch (error) {
+    return financeFailure(c, error, 'Could not load the reports.')
+  }
+})
+
+app.get('/api/school/finance/standings/reports/:id', authenticate, async (c) => {
+  try {
+    const context = await simpleFeeContext(c)
+    if (!hasRequiredRole(context.role, STANDINGS_VIEW_ROLES)) return c.json({ success: false, message: 'forbidden' }, 403)
+    await ensureFinanceReportTables(context.db)
+    const row = await context.db.prepare(`SELECT * FROM finance_reports WHERE id = ? AND tenant_id = ?`).bind(c.req.param('id'), context.tenantId).first() as Record<string, any> | null
+    if (!row) return c.json({ success: false, message: 'Report not found.' }, 404)
+    return c.json({ success: true, id: row.id, title: row.title, at: row.created_at, by: row.created_by_name, report: JSON.parse(String(row.data_json || '{}')) })
+  } catch (error) {
+    return financeFailure(c, error, 'Could not open the report.')
+  }
+})
+
+/** Owner/HoS: fortnightly email reminders to every family still owing (a report is posted after each round). */
+app.put('/api/school/finance/standings/settings', authenticate, async (c) => {
+  try {
+    const context = await simpleFeeContext(c)
+    if (!hasRequiredRole(context.role, ['owner', 'hos'])) return c.json({ success: false, message: 'Only the Owner or Head of School can change this.' }, 403)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    await ensureFinanceReportTables(context.db)
+    await context.db.prepare(`INSERT INTO fee_report_settings (tenant_id, auto_reminders, updated_by, updated_at) VALUES (?, ?, ?, ?)
+      ON CONFLICT(tenant_id) DO UPDATE SET auto_reminders = excluded.auto_reminders, updated_by = excluded.updated_by, updated_at = excluded.updated_at`)
+      .bind(context.tenantId, body.autoReminders ? 1 : 0, context.actor.name, new Date().toISOString()).run()
+    return c.json({ success: true, autoReminders: Boolean(body.autoReminders) })
+  } catch (error) {
+    return financeFailure(c, error, 'Could not save.')
+  }
+})
+
+/**
+ * Daily (09:00 Lagos): schools with fortnightly reminders on, last run 14+ days ago, email every
+ * family still owing, then the report is posted to the Owner and HoS. One school per run.
+ */
+async function runFortnightlyFeeReminders(env: Bindings) {
+  const db = env.APP_DB
+  await ensureFinanceReportTables(db)
+  const cutoff = new Date(Date.now() - FORTNIGHT_DAYS * 86400000 + 3600000).toISOString()
+  const due = await db.prepare(`SELECT tenant_id FROM fee_report_settings WHERE auto_reminders = 1 AND (last_auto_run_at IS NULL OR last_auto_run_at < ?) ORDER BY last_auto_run_at LIMIT 1`).bind(cutoff).first().catch(() => null) as Record<string, any> | null
+  if (!due) return null
+  const tenantId = String(due.tenant_id)
+  await db.prepare(`UPDATE fee_report_settings SET last_auto_run_at = ? WHERE tenant_id = ?`).bind(new Date().toISOString(), tenantId).run()
+  const context = await feeContextFor(db, { tenantId, role: 'owner', actor: { id: 'ndovera', name: 'Ndovera (fortnightly)' }, email: '' })
+  if (!context.term) return { tenantId, skipped: 'no current term' }
+  const before = await financialStandings(context)
+  const owing = before.familiesOwing.length ? (await termEnrollments(db, tenantId, context.term.sessionId)).map(item => item.studentId) : []
+  let sent = 0
+  for (let i = 0; i < owing.length; i += 100) sent += (await sendFeeReminderEmails(env, context, owing.slice(i, i + 100), 'Ndovera (fortnightly)')).sent
+  const report = await financialStandings(context)
+  const posted = await postFinancialStandings(env, context, report, true)
+  return { tenantId, sent, report: posted.id }
+}
 
 /** A family discount: a percentage of each chosen child's term fee, or a fixed amount each. */
 app.post('/api/school/finance/simple/family-discount', authenticate, async (c) => {
@@ -36735,6 +37014,8 @@ export default {
         .then(found => (found && at.getUTCMinutes() === 20 ? null : buildNewsEdition(env.APP_DB, { edition })))
         .then(result => { if (result) console.log('News edition', result) }).catch(error => console.error('News failed', error)))
     }
+    // Fortnightly fee reminders and the report to the Owner/HoS, for schools that switched it on (09:00–09:30 Lagos, one school a run).
+    if (at.getUTCHours() === 8 && at.getUTCMinutes() % 5 === 0 && at.getUTCMinutes() <= 30) ctx.waitUntil(runFortnightlyFeeReminders(env).then(result => { if (result) console.log('Fortnightly fee reminders', result) }).catch(error => console.error('Fortnightly fee reminders failed', error)))
     // Parents with no child still at the school are turned off (02:45 Lagos).
     if (at.getUTCHours() === 1 && at.getUTCMinutes() === 45) ctx.waitUntil(sweepParentAccounts(env.APP_DB).catch(error => console.error('Parent sweep failed', error)))
     // Class pins: every student keeps their class unless it was changed on record (02:30 Lagos).

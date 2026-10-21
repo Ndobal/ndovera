@@ -269,3 +269,33 @@ test('combined subjects: JSS and SS are separate groups, a choice saved as "seco
   assert.ok(after.subjects.some(subject => subject.subjectKey === 'gsm repairs'))
   assert.equal((await call(db, 'ict', 'POST', '/api/results/subject-groups', { delete: true, id: made.body.id })).body.success, true)
 })
+
+test('rankings from the score sheet: subjects for their teachers, class positions for the class teacher; top three badged; positions can stay off the result', async () => {
+  const db = await setup()
+  assert.equal((await call(db, 'owner', 'POST', '/api/results/settings', RESULT_SETTINGS)).status, 200)
+  await call(db, 'maths', 'POST', '/api/results/entries', scores('m1', [['s-1', 15, 10, 50], ['s-2', 20, 20, 55]]))
+  await call(db, 'english', 'POST', '/api/results/entries', scores('e1', [['s-1', 20, 20, 50], ['s-2', 10, 10, 30]]))
+
+  const mine = await call(db, 'maths', 'GET', '/api/results/rankings?classId=jss1')
+  assert.equal(mine.status, 200, JSON.stringify(mine.body))
+  assert.deepEqual(mine.body.subjects.map(subject => subject.subjectName), ['Mathematics'])
+  assert.deepEqual(mine.body.subjects[0].rows.map(row => [row.name, row.score, row.position, row.badge]), [['Bola', 95, 1, 'gold'], ['Ada', 75, 2, 'silver']])
+  assert.equal(mine.body.overall, null, 'class positions are for the class teacher and leaders')
+
+  const all = await call(db, 'classTeacher', 'GET', '/api/results/rankings?classId=jss1')
+  assert.deepEqual(all.body.subjects.map(subject => subject.subjectName), ['English', 'Mathematics'])
+  assert.deepEqual(all.body.overall.map(row => [row.name, row.position]), [['Ada', 1], ['Bola', 2]])
+
+  // The default report card for a secondary class is the Secondary Academic Report; badges ride on the result.
+  const preview = await call(db, 'hos', 'GET', '/api/results/preview?classId=jss1&studentId=s-2')
+  const payload = preview.body.publications[0].payload
+  assert.deepEqual([payload.templateKey, payload.templateLayout.level, payload.summary.position], ['secondary-report-term', 'secondary', 2])
+  assert.deepEqual(payload.summary.subjectBadges, [{ subjectName: 'Mathematics', place: 1 }, { subjectName: 'English', place: 2 }])
+
+  // Positions for analysis only: off the result, still in the rankings.
+  assert.equal((await call(db, 'owner', 'POST', '/api/results/settings', { ...RESULT_SETTINGS, metadata: { ...RESULT_SETTINGS.metadata, positionsOnResult: false } })).status, 200)
+  const quiet = (await call(db, 'hos', 'GET', '/api/results/preview?classId=jss1&studentId=s-2')).body.publications[0].payload
+  assert.equal(quiet.summary.position, undefined)
+  assert.ok(quiet.subjects.every(row => row.position === undefined))
+  assert.equal((await call(db, 'classTeacher', 'GET', '/api/results/rankings?classId=jss1')).body.overall[0].position, 1)
+})

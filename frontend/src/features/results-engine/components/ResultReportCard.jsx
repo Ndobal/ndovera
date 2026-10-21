@@ -189,6 +189,15 @@ export default function ResultReportCard({ record, branding, scoreModel, qrDataU
           </table>
         </div>
 
+        {summary.subjectBadges?.length ? (
+          <section className="flex flex-wrap items-center gap-1.5 rounded-2xl border border-amber-200 bg-[#fffbeb] px-4 py-2" aria-label="Subject awards">
+            <span className="text-xs font-black uppercase text-[#92400e]">Subject awards</span>
+            {summary.subjectBadges.map(badge => (
+              <span key={badge.subjectName} className="rounded-full border border-amber-300 bg-white px-2 py-0.5 text-xs font-bold text-[#0f172a]">{['🥇', '🥈', '🥉'][badge.place - 1]} {badge.place === 1 ? 'Best' : badge.place === 2 ? '2nd' : '3rd'} in {badge.subjectName}</span>
+            ))}
+          </section>
+        ) : null}
+
         {/* Behaviour */}
         {(record.affective.length > 0 || record.ratings.length > 0) && (
           <section aria-label="Behaviour">

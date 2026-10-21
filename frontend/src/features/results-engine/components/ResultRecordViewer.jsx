@@ -4,6 +4,7 @@ import { getApiBase } from '../../../config/apiBase';
 import MaterialViewer from '../../classroom/materials/MaterialViewer';
 import Flipbook from '../../classroom/materials/Flipbook';
 import ResultReportCard from './ResultReportCard';
+import ProgressReportCard from './ProgressReportCard';
 import { askConfirm } from '../../../shared/components/AppDialog';
 
 // Result sheets are printed documents: they stay white with dark text in both themes,
@@ -273,7 +274,9 @@ export default function ResultRecordViewer({
             </button>
           </div>
 
-          <ResultReportCard
+          {selectedRecord.payload?.templateLayout ? (
+            <ProgressReportCard record={selectedRecord} branding={branding} scoreModel={scoreModel} qrDataUrl={qrDataUrl} isPreview={isPreview} isPractice={isPractice} />
+          ) : <ResultReportCard
             record={selectedRecord}
             branding={branding}
             scoreModel={scoreModel}
@@ -281,7 +284,7 @@ export default function ResultRecordViewer({
             verificationLabel={buildVerificationLabel(verificationUrl)}
             isPreview={isPreview}
             isPractice={isPractice}
-          />
+          />}
         </>
       )}
 

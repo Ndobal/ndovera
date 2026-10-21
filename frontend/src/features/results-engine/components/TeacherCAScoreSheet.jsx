@@ -14,6 +14,7 @@ import {
 } from '../service/resultEngineService';
 import { recomputeTeacherSheet } from '../utils/resultEngineTransforms';
 import BroadsheetTable from './BroadsheetTable';
+import SubjectRankings from './SubjectRankings';
 import TeacherResultStudentCard from './TeacherResultStudentCard';
 import ResultPreviewPanel from './ResultPreviewPanel';
 import ResultOverrideLog from './ResultOverrideLog';
@@ -205,6 +206,15 @@ export default function TeacherCAScoreSheet({ dashboardLabel = 'Teacher Dashboar
 
   function handleProfileFieldChange(studentId, field, value) {
     updateStudent(studentId, student => ({ ...student, profile: { ...student.profile, [field]: value } }));
+  }
+
+  /** Report-card extras (height, weight, attendance…) and page-2 answers. */
+  function handleProfileExtraChange(studentId, key, value, page2 = false) {
+    updateStudent(studentId, student => {
+      const extra = student.profile?.extra || {};
+      const next = page2 ? { ...extra, page2: { ...(extra.page2 || {}), [key]: value } } : { ...extra, [key]: value };
+      return { ...student, profile: { ...student.profile, extra: next } };
+    });
   }
 
   function handleProfileMapChange(studentId, group, key, value) {
@@ -513,6 +523,7 @@ export default function TeacherCAScoreSheet({ dashboardLabel = 'Teacher Dashboar
         <div className={`${RESULT_SURFACE} flex flex-wrap gap-2 p-1.5`} role="tablist">
           {[
             { key: 'sheet', label: 'Score Sheet', icon: '📝' },
+            { key: 'rankings', label: 'Rankings', icon: '🥇' },
             { key: 'broadsheet', label: 'Broadsheet Ranking', icon: '🏆' },
             { key: 'preview', label: 'Student View', icon: '👁️' },
             { key: 'log', label: 'Override Log', icon: '🧾' },
@@ -590,6 +601,8 @@ export default function TeacherCAScoreSheet({ dashboardLabel = 'Teacher Dashboar
                     onScoreChange={handleScoreChange}
                     onProfileFieldChange={handleProfileFieldChange}
                     onProfileMapChange={handleProfileMapChange}
+                    reportCard={sheet.reportCard}
+                    onProfileExtraChange={handleProfileExtraChange}
                   />
                   <div className="flex flex-wrap items-center justify-between gap-2">
                     <button type="button" className={RESULT_SECONDARY_BUTTON} disabled={saving || currentIndex === 0} onClick={() => goTo(currentIndex - 1)}>← Previous</button>
@@ -610,6 +623,8 @@ export default function TeacherCAScoreSheet({ dashboardLabel = 'Teacher Dashboar
           )}
         </>
       )}
+
+      {sheet && activeTab === 'rankings' && <SubjectRankings classId={sheet.classId || classId} refreshKey={refreshKey} />}
 
       {sheet && activeTab === 'broadsheet' && (
         <BroadsheetTable rows={sheet.broadsheet} title="Broadsheet Ranking (Live Preview)" />
