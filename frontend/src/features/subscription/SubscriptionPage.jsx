@@ -19,6 +19,21 @@ export function outstandingOf(bills = []) {
   return { open, total, dueAt, overdue, payUrl: open.find(bill => bill.payUrl)?.payUrl || '' };
 }
 
+/**
+ * This term's Ndovera fee in words. It is paid only when this term's own bill is paid
+ * (Flutterwave or Ndovera recorded it); onboarding and earlier terms never count.
+ */
+export function termFeeView(currentTerm) {
+  if (!currentTerm || currentTerm.status === 'unknown') return null;
+  const period = [currentTerm.term, currentTerm.session].filter(Boolean).join(', ');
+  const amount = Number(currentTerm.amount || currentTerm.estimate?.amount || 0);
+  if (currentTerm.status === 'paid') return { paid: true, period, amount, text: `${period}: paid${currentTerm.paidAt ? ` on ${shortDate(currentTerm.paidAt)}` : ''}.` };
+  if (currentTerm.status === 'not_invoiced') {
+    return { paid: false, period, amount, estimated: !currentTerm.amount, text: `${period}: not paid yet. Ndovera will send this term's invoice${amount ? ` (about ${nairaAmount(amount)})` : ''}; you can pay online once it arrives.` };
+  }
+  return { paid: false, period, amount, overdue: currentTerm.status === 'overdue', text: `${period}: not paid${currentTerm.dueAt ? `, due by ${shortDate(currentTerm.dueAt)}` : ''}.` };
+}
+
 function StatusPill({ status, overdue }) {
   const label = status === 'paid' ? 'Paid' : overdue ? 'Overdue' : 'Due';
   const tone = status === 'paid' ? 'bg-emerald-100 text-emerald-800' : overdue ? 'bg-rose-100 text-rose-800' : 'bg-amber-100 text-amber-900';
@@ -29,18 +44,21 @@ export default function SubscriptionPage() {
   const location = useLocation();
   const role = location.pathname.split('/')[2] || 'owner';
   const [bills, setBills] = useState([]);
+  const [currentTerm, setCurrentTerm] = useState(null);
   const [tenantData, setTenantData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
   useEffect(() => {
     Promise.all([
-      getMyTermBills().then(result => setBills(result.bills || [])),
+      getMyTermBills().then(result => { setBills(result.bills || []); setCurrentTerm(result.currentTerm || null); }),
       getMyTenant().then(setTenantData).catch(() => null),
     ]).catch(err => setError(err.message || 'Could not load your subscription.')).finally(() => setLoading(false));
   }, []);
 
   const { open, total, dueAt, overdue, payUrl } = outstandingOf(bills);
+  const termFee = termFeeView(currentTerm);
+  const unpaidTerm = termFee && !termFee.paid;
   const tenant = tenantData?.tenant;
   const quote = tenantData?.quote;
   const payments = tenantData?.payments || [];
@@ -71,7 +89,7 @@ export default function SubscriptionPage() {
       {error ? <p role="alert" className="rounded-2xl bg-rose-100 p-4 font-semibold text-rose-900">{error}</p> : null}
 
       {!loading && (
-        <section className={`${CARD} ${open.length ? (overdue ? 'border-rose-400 bg-rose-50' : 'border-amber-300 bg-amber-50') : ''}`}>
+        <section className={`${CARD} ${open.length || unpaidTerm ? (overdue ? 'border-rose-400 bg-rose-50' : 'border-amber-300 bg-amber-50') : ''}`}>
           <div className="flex flex-wrap items-center gap-4">
             <div className="flex-1">
               <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#800020]">Balance due to Ndovera</p>
@@ -79,8 +97,9 @@ export default function SubscriptionPage() {
               <p className="text-sm text-[#191970]">
                 {open.length
                   ? (overdue ? `Overdue since ${shortDate(dueAt)}. The Owner, HoS and ICT accounts are locked until it is paid.` : `Due by ${shortDate(dueAt)}.`)
-                  : 'Nothing is due. Thank you.'}
+                  : unpaidTerm ? 'No invoice has been sent for this term yet.' : 'Nothing is due. Thank you.'}
               </p>
+              {termFee ? <p className={`mt-1 text-sm font-bold ${termFee.paid ? 'text-[#1a5c38]' : 'text-[#800000]'}`}>This term — {termFee.text}</p> : null}
             </div>
             {payUrl ? <a href={payUrl} className="rounded-full bg-[#1a5c38] px-6 py-3 text-base font-black text-white shadow">Pay now</a> : null}
           </div>

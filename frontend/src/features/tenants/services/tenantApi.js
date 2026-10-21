@@ -156,6 +156,11 @@ export function suspendTenant(tenantId) {
   });
 }
 
+/** Ami records that a school paid this term's fee (bank transfer, cash…), with or without a bill raised. */
+export function markCurrentTermPaid(tenantId, payload = {}) {
+  return requestJson(`/api/ami/tenants/${encodeURIComponent(tenantId)}/current-term/mark-paid`, { method: 'POST', body: payload });
+}
+
 export function markTenantAsPaid(tenantId) {
   return requestJson(`/api/ami/tenants/${encodeURIComponent(tenantId)}/mark-paid`, {
     method: 'POST',

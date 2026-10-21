@@ -139,3 +139,39 @@ test('an underpayment does not settle the bill, and an unpaid bill past 30 days 
   assert.ok(bills.body.overdue)
   assert.deepEqual(bills.body.blockedRoles.sort(), ['hos', 'ict', 'ict_manager', 'owner'])
 })
+
+test('a new term reads as not paid until its own bill is paid: onboarding never counts; Ami can mark the term paid', async () => {
+  const { call, db } = await setup()
+  // The Ami school list reads payments, discount codes and awards too: load the full schema.
+  for (const statement of readFileSync(new URL('../d1/schema.sql', import.meta.url), 'utf8').split(';')) {
+    if (/CREATE TABLE IF NOT EXISTS/i.test(statement)) { try { db.db.exec(statement) } catch {} }
+  }
+  db.db.exec(`CREATE TABLE IF NOT EXISTS school_sessions (id TEXT PRIMARY KEY, tenantId TEXT, session TEXT, term TEXT, startDate TEXT, endDate TEXT, createdAt TEXT)`)
+  db.db.exec(`INSERT INTO school_sessions (id, tenantId, session, term, createdAt) VALUES ('ss1', 'school-a', '2026/2027', 'First Term', '2026-09-01')`)
+  // Only the one-time onboarding fee was paid (and an earlier term).
+  await call('ami', 'PUT', '/api/ami/tenants/school-a/contact-email', { contactEmail: 'genesisintersch2013@mail.com' })
+  const onboarding = await call('ami', 'POST', '/api/ami/tenants/school-a/invoices', { onboardingFee: 50000, includeTermCharge: false, session: 'Onboarding', term: '2026-08-01' })
+  await call('ami', 'POST', `/api/ami/tenants/term-bills/${onboarding.body.bill.id}/send`)
+  await call('ami', 'POST', `/api/ami/tenants/term-bills/${onboarding.body.bill.id}/mark-paid`)
+
+  const mine = (await call('owner', 'GET', '/api/tenants/term-bills')).body
+  assert.equal(mine.outstanding.length, 0)
+  assert.deepEqual([mine.currentTerm.term, mine.currentTerm.session, mine.currentTerm.status], ['First Term', '2026/2027', 'not_invoiced'])
+  assert.equal(mine.currentTerm.estimate.amount, 3 * 500) // 3 active students × ₦500
+  const school = (await call('ami', 'GET', '/api/ami/tenants')).body
+  assert.equal(school.tenants.find(item => item.id === 'school-a').currentTermFee.status, 'not_invoiced')
+  assert.equal(school.summary.termFeesUnpaid, 1)
+
+  // A generated term bill can be paid online, and is unpaid until then.
+  const generated = (await call('ami', 'POST', '/api/ami/tenants/term-bills/generate', {})).body
+  assert.equal(generated.created.length, 1)
+  const after = (await call('owner', 'GET', '/api/tenants/term-bills')).body
+  assert.equal(after.currentTerm.status, 'unpaid')
+  assert.ok(after.currentTerm.payUrl, 'the school can pay this term online')
+
+  // Only Ami can record the payment; then the term reads paid everywhere.
+  assert.equal((await call('owner', 'POST', '/api/ami/tenants/school-a/current-term/mark-paid', {})).status, 403)
+  const marked = await call('ami', 'POST', '/api/ami/tenants/school-a/current-term/mark-paid', { reference: 'Transfer 123' })
+  assert.equal(marked.body.currentTermFee.status, 'paid')
+  assert.equal((await call('owner', 'GET', '/api/tenants/term-bills')).body.currentTerm.status, 'paid')
+})

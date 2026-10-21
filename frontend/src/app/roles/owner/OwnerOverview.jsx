@@ -98,7 +98,7 @@ export default function OwnerOverview({ auth }) {
         </div>
         {tenant && (
           <div className="mt-3 flex flex-wrap gap-2">
-            <StatusBadge label="Payment" value={tenant.paymentStatus} />
+            <StatusBadge label="Onboarding fee" value={tenant.paymentStatus} />
             <StatusBadge label="Approval" value={tenant.approvalStatus} />
             <StatusBadge label="Website" value={tenant.websiteStatus} />
           </div>

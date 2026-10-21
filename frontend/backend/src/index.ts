@@ -6945,14 +6945,24 @@ app.get('/api/ami/tenants', authenticate, async (c) => {
     activeTenants: tenants.filter(tenant => tenant.status === 'active').length,
     pendingApproval: tenants.filter(tenant => tenant.approvalStatus !== 'approved').length,
     pendingPayments: tenants.filter(tenant => tenant.paymentStatus !== 'paid').length,
+    // Filled in below, once each school's current term is known.
+    termFeesUnpaid: 0,
     activeDiscountCodes: discountCodes.filter(discountCode => discountCode.active).length,
   }
 
   // Surface any queued rate change so the console can show what a school moves to and when.
+  // This term's fee per school (bills read once; no per-school user counts).
+  const allTermBills = await listTenantTermBills(c.env.APP_DB).catch(() => [] as Array<ReturnType<typeof mapTermBillRow>>)
+  const termOf = new Map<string, { sessionName: string, termName: string }>()
+  for (const tenant of tenants as any[]) {
+    termOf.set(tenant.id, await getCurrentSchoolSessionSnapshot(c.env.APP_DB, tenant.id).catch(() => ({ sessionName: '', termName: '' })))
+  }
   const tenantsWithRates = tenants.map((tenant: any) => {
     const pending = getTenantPendingRate(tenant)
+    const period = termOf.get(tenant.id) || { sessionName: '', termName: '' }
     return {
       ...tenant,
+      currentTermFee: currentTermFeeOf(allTermBills.filter(bill => bill.tenantId === tenant.id), period.sessionName, period.termName),
       pendingRate: pending ? {
         studentFeePerTerm: pending.studentFeeCents / KOBO_PER_NAIRA,
         effectiveFrom: pending.effectiveFrom,
@@ -6961,6 +6971,7 @@ app.get('/api/ami/tenants', authenticate, async (c) => {
     }
   })
 
+  summary.termFeesUnpaid = tenantsWithRates.filter((tenant: any) => tenant.status === 'active' && !['paid', 'unknown'].includes(tenant.currentTermFee.status)).length
   return c.json({
     success: true,
     summary,
@@ -7584,13 +7595,15 @@ app.post('/api/ami/tenants/term-bills/generate', authenticate, async (c) => {
     // sentinel date, which would make the bill overdue the moment it is raised.
     const termStartedAt = requestedTermStart || (await getTenantCurrentTermStart(c.env.APP_DB, tenant.id)) || nowIso
     await c.env.APP_DB.prepare(
-      `INSERT INTO tenant_term_bills (id, tenant_id, session, term, billable_users, rate_cents, amount_cents, status, term_started_at, due_at, grace_until, created_at, updated_at)
-       VALUES (?, ?, ?, ?, ?, ?, ?, 'unpaid', ?, ?, ?, ?, ?)`
+      `INSERT INTO tenant_term_bills (id, tenant_id, session, term, billable_users, rate_cents, amount_cents, status, term_started_at, due_at, grace_until, created_at, updated_at, invoice_no, pay_token)
+       VALUES (?, ?, ?, ?, ?, ?, ?, 'unpaid', ?, ?, ?, ?, ?, ?, ?)`
     ).bind(
       `bill_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
       tenant.id, session, term, billableUsers, rateCents, amountCents,
       termStartedAt, termStartedAt, addMonths(termStartedAt, TERM_GRACE_MONTHS) || termStartedAt,
       nowIso, nowIso,
+      // A pay link, so the school can pay this bill online (Flutterwave marks it paid).
+      documentNumber('INV'), crypto.randomUUID().replace(/-/g, ''),
     ).run()
 
     created.push({
@@ -7610,6 +7623,41 @@ app.post('/api/ami/tenants/term-bills/generate', authenticate, async (c) => {
   }).catch(() => {})
 
   return c.json({ success: true, created, skipped })
+})
+
+/**
+ * Ami records that a school has paid this term's fee (bank transfer, cash, …). Marks the
+ * term's bill paid, or — when no bill was raised — records a paid bill for the term at the
+ * school's current students × rate, so the term reads as paid everywhere.
+ */
+app.post('/api/ami/tenants/:tenantId/current-term/mark-paid', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  await ensureTermBillsTable(c.env.APP_DB)
+  const tenant = await getTenantById(c.env.APP_DB, String(c.req.param('tenantId') || ''))
+  if (!tenant) return c.json({ error: 'School not found.' }, 404)
+  const payload = await c.req.json().catch(() => ({})) as Record<string, any>
+  const snapshot = await getCurrentSchoolSessionSnapshot(c.env.APP_DB, tenant.id).catch(() => ({ sessionName: '', termName: '' }))
+  const session = String(payload.session || snapshot.sessionName || '').trim()
+  const term = String(payload.term || snapshot.termName || '').trim()
+  if (!session || !term) return c.json({ error: 'This school has no current session and term recorded.' }, 400)
+  const reference = String(payload.reference || 'ami-recorded').trim().slice(0, 200)
+  const nowIso = new Date().toISOString()
+  const current = currentTermFeeOf(await listTenantTermBills(c.env.APP_DB, tenant.id), session, term)
+  if (current.status === 'paid') return c.json({ success: true, alreadyPaid: true, currentTermFee: current })
+  if (current.billId) {
+    await c.env.APP_DB.prepare(`UPDATE tenant_term_bills SET status = 'paid', paid_at = ?, paid_reference = ?, updated_at = ? WHERE id = ?`).bind(nowIso, reference, nowIso, current.billId).run()
+  } else {
+    const { plans } = await getTenantPricingState(c.env.APP_DB)
+    const quote = await buildTenantQuoteForTenant(c.env.APP_DB, tenant, null, plans)
+    const students = Number(quote.billableUserCount || 0)
+    const rateCents = Number(quote.studentFeeCents || 0)
+    const amountCents = Math.max(0, Math.round(Number(payload.amount || 0) * KOBO_PER_NAIRA)) || students * rateCents
+    await c.env.APP_DB.prepare(`INSERT INTO tenant_term_bills (id, tenant_id, session, term, billable_users, rate_cents, amount_cents, status, term_started_at, due_at, grace_until, paid_at, paid_reference, created_at, updated_at, invoice_no)
+      VALUES (?, ?, ?, ?, ?, ?, ?, 'paid', ?, NULL, NULL, ?, ?, ?, ?, ?)`)
+      .bind(`bill_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`, tenant.id, session, term, students, rateCents, amountCents, nowIso, nowIso, reference, nowIso, nowIso, documentNumber('INV')).run()
+  }
+  await addAudit(c.env.APP_DB, `tenant:${tenant.id}`, { action: 'termFeeMarkedPaid', data: { by: c.var.user.id || 'ami', session, term, reference } }).catch(() => {})
+  return c.json({ success: true, currentTermFee: currentTermFeeOf(await listTenantTermBills(c.env.APP_DB, tenant.id), session, term) })
 })
 
 app.get('/api/ami/tenants/term-bills', authenticate, async (c) => {
@@ -17056,6 +17104,12 @@ const TERM_BILL_BLOCKED_ROLES = ['owner', 'hos', 'ict_manager', 'ict']
 
 // Grace runs from the start of the term to its midpoint. A term is at most four months,
 // so the midpoint is two months in.
+// A term runs at most four months and is followed by at least a month of holiday, so a new
+// term must have begun within five months. That bound is the backstop for a school that
+// stops recording its sessions — it cannot hold an old rate by neglecting its calendar.
+const TERM_MAX_MONTHS = 4
+const TERM_MIN_HOLIDAY_MONTHS = 1
+// Defined before this line: bundled, a later const reads as undefined here and grace became NaN.
 const TERM_GRACE_MONTHS = TERM_MAX_MONTHS / 2
 
 async function ensureTermBillsTable(db: D1Database) {
@@ -17120,6 +17174,23 @@ async function getOverdueTermBill(db: D1Database, tenantId: string) {
   } catch {
     return null
   }
+}
+
+/**
+ * This term's Ndovera fee for a school, as a fact: paid only when a bill for this exact
+ * session and term is paid (Flutterwave confirmed it, or Ami marked it). The one-time
+ * onboarding payment and earlier terms never count. A term with no bill, or only a draft,
+ * is "not_invoiced" — still unpaid, but nothing is due or locked until Ami sends the bill.
+ */
+function currentTermFeeOf(bills: Array<ReturnType<typeof mapTermBillRow>>, session: string, term: string) {
+  if (!session || !term) return { session, term, status: 'unknown' as const, amount: 0, billId: '' }
+  const same = (a: string, b: string) => a.trim().toLowerCase() === b.trim().toLowerCase()
+  const bill = bills.find(item => same(item.session, session) && same(item.term, term))
+  if (!bill) return { session, term, status: 'not_invoiced' as const, amount: 0, billId: '' }
+  if (bill.status === 'paid') return { session, term, status: 'paid' as const, amount: bill.amount, billId: bill.id, paidAt: bill.paidAt, paidReference: bill.paidReference }
+  if (bill.status === 'draft') return { session, term, status: 'not_invoiced' as const, amount: bill.amount, billId: bill.id }
+  const overdue = Boolean(bill.graceUntil && bill.graceUntil <= new Date().toISOString())
+  return { session, term, status: overdue ? 'overdue' as const : 'unpaid' as const, amount: bill.amount, billId: bill.id, dueAt: bill.graceUntil || bill.dueAt }
 }
 
 function isTermBillBlockedRole(role: string) {
@@ -17189,11 +17260,6 @@ function getTenantPendingRate(tenant: any) {
   return pending
 }
 
-// A term runs at most four months and is followed by at least a month of holiday, so a new
-// term must have begun within five months. That bound is the backstop for a school that
-// stops recording its sessions — it cannot hold an old rate by neglecting its calendar.
-const TERM_MAX_MONTHS = 4
-const TERM_MIN_HOLIDAY_MONTHS = 1
 
 function addMonths(iso: string, months: number) {
   const date = new Date(iso)
@@ -23338,15 +23404,29 @@ app.get('/api/tenants/term-bills', authenticate, async (c) => {
   if (!tenant) return c.json({ error: 'No school found for this account.' }, 404)
 
   // Drafts are Ami's until sent; the pay token is shown only as the school's pay link.
-  const bills = (await listTenantTermBills(c.env.APP_DB, tenant.id)).filter(bill => bill.status !== 'draft')
+  const allBills = await listTenantTermBills(c.env.APP_DB, tenant.id)
+  const bills = allBills.filter(bill => bill.status !== 'draft')
     .map(({ payToken, ...bill }) => ({ ...bill, payUrl: payToken && bill.status !== 'paid' ? invoicePayUrl(c, payToken) : '', viewUrl: payToken ? invoicePayUrl(c, payToken) : '' }))
   const overdue = await getOverdueTermBill(c.env.APP_DB, tenant.id)
+  // This term's fee: unpaid until a bill for this term is paid, even before Ami raises it.
+  const snapshot = await getCurrentSchoolSessionSnapshot(c.env.APP_DB, tenant.id).catch(() => ({ sessionName: '', termName: '' }))
+  const currentTerm: Record<string, any> = currentTermFeeOf(allBills, snapshot.sessionName, snapshot.termName)
+  if (currentTerm.status === 'not_invoiced' && !currentTerm.amount) {
+    const { plans } = await getTenantPricingState(c.env.APP_DB)
+    const quote = await buildTenantQuoteForTenant(c.env.APP_DB, tenant, null, plans).catch(() => null)
+    currentTerm.estimate = quote ? { students: Number(quote.billableUserCount || 0), ratePerStudent: Number(quote.studentFeeCents || 0) / KOBO_PER_NAIRA, amount: Number(quote.billableUserCount || 0) * Number(quote.studentFeeCents || 0) / KOBO_PER_NAIRA } : null
+  }
+  if (currentTerm.billId) {
+    const open = bills.find(bill => bill.id === currentTerm.billId)
+    if (open?.payUrl) currentTerm.payUrl = open.payUrl
+  }
 
   return c.json({
     success: true,
     bills,
     overdue,
     outstanding: bills.filter(bill => bill.status !== 'paid'),
+    currentTerm,
     blockedRoles: TERM_BILL_BLOCKED_ROLES,
   })
 })

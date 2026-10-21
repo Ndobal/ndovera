@@ -128,7 +128,7 @@ export default function OwnerTenantConsole({ authUser = null, sectionKey = 'over
           </div>
           <div className="flex flex-wrap gap-2">
             <span className={`micro-label ${statusClass(tenant?.status)}`}>Tenant: {tenant?.status || 'unknown'}</span>
-            <span className={`micro-label ${statusClass(tenant?.paymentStatus)}`}>Payment: {tenant?.paymentStatus || 'unknown'}</span>
+            <span className={`micro-label ${statusClass(tenant?.paymentStatus)}`}>Onboarding fee: {tenant?.paymentStatus || 'unknown'}</span>
             <span className={`micro-label ${statusClass(tenant?.approvalStatus)}`}>Approval: {tenant?.approvalStatus || 'unknown'}</span>
             <span className={`micro-label ${statusClass(tenant?.websiteStatus)}`}>Website: {tenant?.websiteStatus || 'inactive'}</span>
           </div>

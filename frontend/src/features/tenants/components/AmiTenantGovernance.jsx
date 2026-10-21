@@ -7,6 +7,7 @@ import {
   endDiscountCode,
   getAmiTenants,
   initiateTenantPayment,
+  markCurrentTermPaid,
   markTenantAsPaid,
   resetTenantOwnerPassword,
   getTenantAwardCandidates,
@@ -27,7 +28,7 @@ import {
   upsertDiscountCode,
   verifyTenantPayment,
 } from '../services/tenantApi';
-import { askConfirm } from '../../../shared/components/AppDialog';
+import { askConfirm, askText } from '../../../shared/components/AppDialog';
 
 const currencyFormatter = new Intl.NumberFormat('en-NG', {
   style: 'currency',
@@ -496,7 +497,8 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
       <div className="glass-surface rounded-2xl min-h-[48px] p-3"><p className="micro-label neon-subtle">Tenants</p><p className="mt-1 text-base command-title text-rose-500 dark:text-red-400">{summary?.totalTenants ?? 0}</p></div>
       <div className="glass-surface rounded-2xl min-h-[48px] p-3"><p className="micro-label neon-subtle">Active</p><p className="mt-1 text-base command-title text-emerald-600 dark:text-green-300">{summary?.activeTenants ?? 0}</p></div>
       <div className="glass-surface rounded-2xl min-h-[48px] p-3"><p className="micro-label neon-subtle">Pending Approval</p><p className="mt-1 text-base command-title text-blue-600 dark:text-blue-400">{summary?.pendingApproval ?? 0}</p></div>
-      <div className="glass-surface rounded-2xl min-h-[48px] p-3"><p className="micro-label neon-subtle">Pending Payments</p><p className="mt-1 text-base command-title text-rose-500 dark:text-red-400">{summary?.pendingPayments ?? 0}</p></div>
+      <div className="glass-surface rounded-2xl min-h-[48px] p-3"><p className="micro-label neon-subtle">Pending Onboarding</p><p className="mt-1 text-base command-title text-rose-500 dark:text-red-400">{summary?.pendingPayments ?? 0}</p></div>
+      <div className="glass-surface rounded-2xl min-h-[48px] p-3"><p className="micro-label neon-subtle">This Term Unpaid</p><p className="mt-1 text-base command-title text-rose-500 dark:text-red-400">{summary?.termFeesUnpaid ?? 0}</p></div>
       <div className="glass-surface rounded-2xl min-h-[48px] p-3"><p className="micro-label neon-subtle">Active Codes</p><p className="mt-1 text-base command-title text-emerald-600 dark:text-green-300">{summary?.activeDiscountCodes ?? 0}</p></div>
     </section>
   );
@@ -588,7 +590,12 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
                     </div>
                     <div className="flex flex-wrap gap-2">
                       <span className={`micro-label ${statusClass(tenant.status)}`}>{tenant.status}</span>
-                      <span className={`micro-label ${statusClass(tenant.paymentStatus)}`}>Payment: {tenant.paymentStatus}</span>
+                      <span className={`micro-label ${statusClass(tenant.paymentStatus)}`}>Onboarding: {tenant.paymentStatus}</span>
+                      {tenant.currentTermFee && tenant.currentTermFee.status !== 'unknown' ? (
+                        <span className={`micro-label ${tenant.currentTermFee.status === 'paid' ? 'accent-cyan' : 'accent-rose'}`}>
+                          {tenant.currentTermFee.term} {tenant.currentTermFee.session}: {tenant.currentTermFee.status === 'paid' ? 'paid' : tenant.currentTermFee.status === 'not_invoiced' ? 'not paid (no invoice sent)' : tenant.currentTermFee.status === 'overdue' ? 'overdue' : 'not paid'}
+                        </span>
+                      ) : null}
                       <span className={`micro-label ${statusClass(tenant.approvalStatus)}`}>Approval: {tenant.approvalStatus}</span>
                     </div>
                   </div>
@@ -721,8 +728,24 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
                       disabled={busyAction === `mark-paid-${tenant.id}` || tenant.paymentStatus === 'paid'}
                       className="rounded-2xl border border-amber-400/40 px-4 py-3 font-semibold text-amber-700 dark:text-amber-200 disabled:opacity-40"
                     >
-                      {busyAction === `mark-paid-${tenant.id}` ? 'Marking...' : 'Mark as Paid'}
+                      {busyAction === `mark-paid-${tenant.id}` ? 'Marking...' : 'Mark Onboarding Paid'}
                     </button>
+                    {tenant.currentTermFee && !['paid', 'unknown'].includes(tenant.currentTermFee.status) ? (
+                      <button
+                        type="button"
+                        onClick={() => runAction(`term-paid-${tenant.id}`, async () => {
+                          const period = `${tenant.currentTermFee.term} ${tenant.currentTermFee.session}`;
+                          const reference = await askText(`How did ${tenant.schoolName} pay for ${period}? (e.g. bank transfer reference)`, '');
+                          if (reference === null) return;
+                          await markCurrentTermPaid(tenant.id, { reference: reference || 'ami-recorded' });
+                          setNotice(`${tenant.schoolName}: ${period} marked as paid.`);
+                        })}
+                        disabled={busyAction === `term-paid-${tenant.id}`}
+                        className="rounded-2xl border border-cyan-400/40 px-4 py-3 font-semibold text-cyan-700 dark:text-cyan-200 disabled:opacity-40"
+                      >
+                        {busyAction === `term-paid-${tenant.id}` ? 'Marking...' : `Mark ${tenant.currentTermFee.term} Paid`}
+                      </button>
+                    ) : null}
                     <button
                       type="button"
                       onClick={() => runAction(`approve-${tenant.id}`, async () => {
