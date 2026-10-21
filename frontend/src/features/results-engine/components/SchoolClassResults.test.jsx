@@ -20,7 +20,8 @@ test('leadership sees every class with where its results stand, and opens a clas
   expect(screen.getByText('JSS 1')).toBeTruthy();
   expect(screen.getByText(/Submitted — awaiting approval/)).toBeTruthy();
   expect(screen.getByText(/No scores yet/)).toBeTruthy();
-  expect(screen.getByTestId('analytics')).toBeTruthy();
+  // The rest of Academics sits in its own tabs.
+  expect(screen.queryByTestId('analytics')).toBeNull();
 
   fireEvent.click(screen.getByText('SS 2 A'));
   expect(screen.getByTestId('sheet').textContent).toBe('sheet for ss2a (SS 2 A)');
@@ -29,6 +30,10 @@ test('leadership sees every class with where its results stand, and opens a clas
   fireEvent.click(screen.getByText('← All classes'));
   expect(await screen.findByText('JSS 1')).toBeTruthy();
   expect(window.location.search).toBe('');
+
+  fireEvent.click(screen.getByRole('tab', { name: 'Result Analysis' }));
+  expect(screen.getByTestId('analytics')).toBeTruthy();
+  expect(window.location.search).toBe('?tab=analysis');
 });
 
 test('a link straight to a class opens its sheet', async () => {

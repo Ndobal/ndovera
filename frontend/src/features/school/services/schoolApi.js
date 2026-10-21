@@ -511,4 +511,5 @@ export const getFeatureFlags = () => req('/api/feature-flags');
 // Daily "Did you know?" + news digest
 export const getDailyFeed = (date = '') => req(`/api/feed/daily${buildQuery(date ? { date } : {})}`);
 export const getFeedHistory = () => req('/api/feed/history');
+export const getNewsHeadlines = (edition = '') => req(`/api/news${buildQuery(edition ? { edition } : {})}`);
 

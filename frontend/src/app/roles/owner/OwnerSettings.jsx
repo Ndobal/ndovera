@@ -11,6 +11,7 @@ import SubjectPicker from '../../../features/school/components/SubjectPicker';
 import SessionRegisterBoard from '../../../features/school/components/SessionRegisterBoard';
 import PromotionBoard from '../../../features/school/components/PromotionBoard';
 import SchoolLocationForm from '../../../features/school/components/SchoolLocationForm';
+import SubjectGroupsPanel from '../../../features/results-engine/components/SubjectGroupsPanel';
 import ClassLevelsBoard from '../../../features/school/components/ClassLevelsBoard';
 import SchoolContactEmailForm from '../../../features/school/components/SchoolContactEmailForm';
 import { askConfirm } from '../../../shared/components/AppDialog';
@@ -584,7 +585,11 @@ function SubjectsTab() {
 
   function reload() {
     return Promise.all([getSubjects(), getClasses(), getPeople({ role: 'teacher', limit: 200 })]).then(([sd, cd, pd]) => {
-      setSubjects(sd?.subjects || []); setClasses(cd?.classes || []); setTeachers(pd?.people || []);
+      // A to Z everywhere: subjects, teachers, and classes in natural order (JSS 1, JSS 2 … JSS 10).
+      const byName = (a, b) => String(a.name || '').localeCompare(String(b.name || ''), undefined, { sensitivity: 'base', numeric: true });
+      setSubjects([...(sd?.subjects || [])].sort(byName));
+      setClasses([...(cd?.classes || [])].sort((a, b) => `${a.name} ${a.arm || ''}`.localeCompare(`${b.name} ${b.arm || ''}`, undefined, { sensitivity: 'base', numeric: true })));
+      setTeachers([...(pd?.people || [])].sort(byName));
     });
   }
 
@@ -793,6 +798,10 @@ function SubjectsTab() {
             {sectionMsg && <p className={`text-sm font-semibold ${sectionMsg.includes('Added') ? 'text-[#1a5c38]' : 'text-red-600'}`}>{sectionMsg}</p>}
           </div>
         )}
+      </div>
+
+      <div className="rounded-2xl border border-[#c9a96e]/40 bg-white/70 p-4 dark:border-white/10 dark:bg-slate-900/30">
+        <SubjectGroupsPanel />
       </div>
     </div>
   );

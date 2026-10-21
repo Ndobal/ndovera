@@ -20,11 +20,22 @@ const STATUS = {
 const readClassId = () => {
   try { return new URLSearchParams(window.location.search).get('classId') || ''; } catch { return ''; }
 };
+const TABS = [
+  ['sheets', 'C.A. Score Sheet'],
+  ['control', 'Result Control'],
+  ['administration', 'Administration'],
+  ['upload', 'Result Upload'],
+  ['analysis', 'Result Analysis'],
+];
+const readTab = () => {
+  try { const tab = new URLSearchParams(window.location.search).get('tab') || 'sheets'; return TABS.some(([key]) => key === tab) ? tab : 'sheets'; } catch { return 'sheets'; }
+};
 
 export default function SchoolClassResults({ analyticsMode = 'hos', roleTitle = 'Head of School Dashboard' }) {
   const [classes, setClasses] = useState(null);
   const [batches, setBatches] = useState([]);
   const [classId, setClassId] = useState(readClassId);
+  const [tab, setTab] = useState(readTab);
   const [error, setError] = useState('');
 
   useEffect(() => {
@@ -41,8 +52,19 @@ export default function SchoolClassResults({ analyticsMode = 'hos', roleTitle = 
       window.history.pushState({}, '', url.toString());
     } catch { /* address bar update is optional */ }
   }, []);
+  // The open tab is kept in the address too (…/academics?tab=analysis).
+  const openTab = useCallback(next => {
+    setTab(next);
+    setClassId('');
+    try {
+      const url = new URL(window.location.href);
+      url.searchParams.delete('classId');
+      if (next && next !== 'sheets') url.searchParams.set('tab', next); else url.searchParams.delete('tab');
+      window.history.pushState({}, '', url.toString());
+    } catch { /* address bar update is optional */ }
+  }, []);
   useEffect(() => {
-    const onPop = () => setClassId(readClassId());
+    const onPop = () => { setClassId(readClassId()); setTab(readTab()); };
     window.addEventListener('popstate', onPop);
     return () => window.removeEventListener('popstate', onPop);
   }, []);
@@ -52,11 +74,34 @@ export default function SchoolClassResults({ analyticsMode = 'hos', roleTitle = 
   const latest = new Map();
   for (const batch of batches) if (batch?.classId && !latest.has(batch.classId)) latest.set(batch.classId, batch);
 
+  const tabBar = (
+    <div className="mx-auto max-w-7xl px-4 pt-4 sm:px-8">
+      <div className="flex gap-1 overflow-x-auto rounded-2xl border border-[#c9a96e]/40 bg-white/80 p-1 dark:border-white/10 dark:bg-slate-900/60" role="tablist" aria-label="Academics">
+        {TABS.map(([key, label]) => (
+          <button key={key} type="button" role="tab" aria-selected={tab === key} onClick={() => openTab(key)}
+            className={`whitespace-nowrap rounded-xl px-4 py-2 text-sm font-bold transition ${tab === key ? 'bg-[#191970] text-white shadow' : 'text-[#191970] hover:bg-[#191970]/5 dark:text-slate-200'}`}>{label}</button>
+        ))}
+      </div>
+    </div>
+  );
+
+  if (tab !== 'sheets') {
+    return (
+      <div className="space-y-4 pb-8">
+        {tabBar}
+        <div className="mx-auto max-w-7xl px-4 sm:px-8">
+          <ResultAdminConsole key={tab} view={tab} analyticsMode={analyticsMode} roleTitle={roleTitle} />
+        </div>
+      </div>
+    );
+  }
+
   if (classId) {
     const current = (classes || []).find(item => String(item.id) === String(classId));
     return (
       <div className="space-y-3">
-        <div className="mx-auto max-w-7xl px-4 pt-4 sm:px-8">
+        {tabBar}
+        <div className="mx-auto max-w-7xl px-4 sm:px-8">
           <button type="button" onClick={() => open('')} className="rounded-xl border border-[#c9a96e]/50 bg-white px-4 py-2 text-sm font-bold text-[#800020]">← All classes</button>
         </div>
         <TeacherCAScoreSheet key={classId} dashboardLabel={`${roleTitle} · ${current ? nameOf(current) : 'Class'}`} fixedClassId={classId} fixedClassName={current ? nameOf(current) : ''} />
@@ -66,7 +111,8 @@ export default function SchoolClassResults({ analyticsMode = 'hos', roleTitle = 
 
   return (
     <div className="space-y-6">
-      <div className="mx-auto max-w-7xl space-y-4 px-4 pt-4 sm:px-8">
+      {tabBar}
+      <div className="mx-auto max-w-7xl space-y-4 px-4 sm:px-8">
         <section className={CARD} aria-label="Classes">
           <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#800020]">Academics</p>
           <h1 className="text-2xl font-black text-[#800000] dark:text-white">Class score sheets</h1>
@@ -90,7 +136,6 @@ export default function SchoolClassResults({ analyticsMode = 'hos', roleTitle = 
           )}
         </section>
       </div>
-      <ResultAdminConsole analyticsMode={analyticsMode} roleTitle={roleTitle} />
     </div>
   );
 }

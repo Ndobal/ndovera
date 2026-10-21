@@ -142,3 +142,25 @@ test('a class set on the People page reaches this session\'s register (fees, cla
   assert.equal(result.body.registered, 1)
   assert.equal(registerClass('s-ben'), 'g1')
 })
+
+test('a student with two settings records is promoted in both, shows only in the new class, and a stray record is put right overnight', async () => {
+  const db = await setup()
+  const [first, second] = CLASSES
+  // Placed by the Owner; a second record under the student's id still says nothing.
+  const [studentId, studentEmail] = ['s-two', 'two@a.test']
+  await db.prepare('INSERT INTO users (id, email, name, role, tenantId, status) VALUES (?, ?, ?, ?, ?, ?)').bind(studentId, studentEmail, 'Two Records', 'student', 'school-a', 'active').run()
+  await db.prepare('INSERT INTO settings (studentId, payload) VALUES (?, ?)').bind(studentEmail, JSON.stringify({ name: 'Two Records', email: studentEmail, role: 'student', roles: ['student'], tenantId: 'school-a', status: 'active' })).run()
+  await db.prepare('INSERT INTO settings (studentId, payload) VALUES (?, ?)').bind(studentId, JSON.stringify({ name: 'Two Records', role: 'student', roles: ['student'], tenantId: 'school-a', status: 'active' })).run()
+  await guardStudentClass(db, studentEmail, { ...JSON.parse(db.db.prepare('SELECT payload FROM settings WHERE studentId = ?').get(studentEmail).payload), classId: first[0], className: first[1], classArm: first[2] }, { by: 'own', role: 'owner', reason: 'manual' })
+  db.db.prepare('UPDATE settings SET payload = json_set(payload, \'$.classId\', ?) WHERE studentId = ?').run(first[0], studentEmail)
+  assert.equal(classOf(db, studentId), first[0], 'the id record follows the placement')
+  // Promoted (an authorised change) through the email record: the id record follows.
+  const promoted = await guardStudentClass(db, studentEmail, { ...JSON.parse(db.db.prepare('SELECT payload FROM settings WHERE studentId = ?').get(studentEmail).payload), classId: second[0], className: second[1], classArm: second[2] }, { by: 'system', role: 'system', reason: 'promotion' })
+  db.db.prepare('UPDATE settings SET payload = ? WHERE studentId = ?').run(JSON.stringify(promoted), studentEmail)
+  assert.equal(classOf(db, studentId), second[0])
+  // A stray old class on the id record (from before this fix) is aligned with the pin by the nightly check.
+  db.db.prepare('UPDATE settings SET payload = json_set(payload, \'$.classId\', ?) WHERE studentId = ?').run(first[0], studentId)
+  const report = await monitorClassPins(db, { tenantId: 'school-a' })
+  assert.equal(report.aligned, 1)
+  assert.equal(classOf(db, studentId), second[0])
+})

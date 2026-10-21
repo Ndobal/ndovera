@@ -28,7 +28,7 @@ const STAFF_ROLES = ['teacher', 'hos', 'owner', 'admin'];
 const preferredPathsByRole = {
   ami: ['/roles/ami/tenants', '/roles/ami/messaging', '/roles/ami/security', '/roles/ami/reports'],
   student: ['/roles/student/classroom', '/roles/student/assignments', '/roles/student/materials', '/roles/student/messaging'],
-  teacher: ['/roles/teacher/classroom', '/roles/teacher/materials', '/roles/teacher/assignments', '/roles/teacher/lesson-plan', '/roles/teacher/messaging'],
+  teacher: ['/roles/teacher/classroom', '/roles/teacher/materials', '/roles/teacher/assignments', '/roles/teacher/scores', '/roles/teacher/messaging'],
   owner: ['/roles/owner/schools', '/roles/owner/finance', '/roles/owner/people', '/roles/owner/messaging', '/roles/owner/approvals'],
   hos: ['/roles/hos/people', '/roles/hos/academics', '/roles/hos/admissions', '/roles/hos/messaging', '/roles/hos/approvals'],
   parent: ['/roles/parent/children', '/roles/parent/materials', '/roles/parent/fees', '/roles/parent/messaging'],

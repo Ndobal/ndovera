@@ -1,109 +1,117 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getDailyFeed, getFeedHistory } from '../../features/school/services/schoolApi';
+import { getNewsHeadlines } from '../../features/school/services/schoolApi';
 
-const CATEGORY_TONE = {
-  Education: 'bg-indigo-500/15 text-indigo-700 dark:text-indigo-300 border-indigo-400/30',
-  Healthcare: 'bg-rose-500/15 text-rose-700 dark:text-rose-300 border-rose-400/30',
-  Technology: 'bg-cyan-500/15 text-cyan-700 dark:text-cyan-300 border-cyan-400/30',
-  Career: 'bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-400/30',
-  General: 'bg-slate-500/15 text-slate-700 dark:text-slate-300 border-slate-400/30',
-};
+// News: headlines only, from Nigerian outlets. A new edition arrives at midnight (Lagos);
+// earlier days stay in the history. A headline opens the story on the outlet's own site.
 
-const CARD = 'rounded-2xl border border-[#c9a96e]/40 bg-[#fff8f0] p-5 shadow-sm dark:border-white/10 dark:bg-slate-900/40';
+const CARD = 'rounded-2xl border border-[#c9a96e]/40 bg-white p-4 shadow-sm dark:border-white/10 dark:bg-slate-900/60';
+const OUTLET_TONE = ['#800020', '#191970', '#1a5c38', '#8a4b00', '#4b3fb5', '#0e6b7a'];
 
-function formatDate(value) {
+function formatEdition(value) {
   if (!value) return '';
-  const date = new Date(`${value}T00:00:00`);
+  const date = new Date(`${value}T12:00:00`);
   return Number.isNaN(date.getTime()) ? value : date.toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+}
+
+function timeOf(value) {
+  if (!value) return '';
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? '' : date.toLocaleString(undefined, { day: 'numeric', month: 'short', hour: 'numeric', minute: '2-digit' });
 }
 
 export default function NewsFeedPage() {
   const navigate = useNavigate();
-  const [feed, setFeed] = useState(null);
-  const [history, setHistory] = useState([]);
-  const [activeDate, setActiveDate] = useState('');
+  const [data, setData] = useState(null);
+  const [edition, setEdition] = useState('');
+  const [outlet, setOutlet] = useState('all');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
   useEffect(() => {
     let cancelled = false;
     setLoading(true);
-    getDailyFeed(activeDate)
-      .then(data => { if (!cancelled) { setFeed(data); setError(''); if (!activeDate) setActiveDate(data?.date || ''); } })
-      .catch(loadError => { if (!cancelled) setError(loadError?.message || 'Could not load the feed.'); })
+    getNewsHeadlines(edition)
+      .then(result => { if (!cancelled) { setData(result); setError(''); } })
+      .catch(loadError => { if (!cancelled) setError(loadError?.message || 'Could not load the news.'); })
       .finally(() => { if (!cancelled) setLoading(false); });
     return () => { cancelled = true; };
-  }, [activeDate]);
+  }, [edition]);
 
-  useEffect(() => {
-    let cancelled = false;
-    getFeedHistory().then(data => { if (!cancelled) setHistory(Array.isArray(data?.items) ? data.items : []); }).catch(() => {});
-    return () => { cancelled = true; };
-  }, []);
-
-  const headlines = useMemo(() => (Array.isArray(feed?.headlines) ? feed.headlines : []), [feed]);
+  const outlets = useMemo(() => data?.outlets || [], [data]);
+  const shown = outlet === 'all' ? outlets : outlets.filter(item => item.key === outlet);
+  const editions = data?.editions || [];
+  const index = editions.findIndex(item => item.edition === data?.edition);
 
   return (
     <div className="min-h-screen bg-[#fdf7ec] p-4 dark:bg-slate-950 md:p-8">
-      <div className="mx-auto max-w-5xl space-y-5">
-        <div className="flex flex-wrap items-center justify-between gap-3">
+      <div className="mx-auto max-w-6xl space-y-5">
+        <header className="flex flex-wrap items-end justify-between gap-3">
           <div>
-            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#800020] dark:text-[#bf00ff]">Daily Digest</p>
-            <h1 className="mt-1 text-2xl font-black text-[#800000] dark:text-white md:text-3xl">News &amp; Did You Know</h1>
-            <p className="mt-1 text-sm text-[#6b5836] dark:text-slate-300">Education • Healthcare • Technology • Career — refreshed every day.</p>
+            <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#800020] dark:text-[#e9b8c4]">Headlines · Nigeria</p>
+            <h1 className="mt-1 text-2xl font-black text-[#800000] dark:text-white md:text-3xl">News</h1>
+            <p className="mt-1 text-sm text-[#6b5836] dark:text-slate-300">
+              {data?.edition ? formatEdition(data.edition) : 'Today'} · updated every night at midnight. Tap a headline to read it on the outlet's site.
+            </p>
           </div>
-          <div className="flex items-center gap-2">
-            {history.length > 0 ? (
-              <select
-                value={activeDate}
-                onChange={event => setActiveDate(event.target.value)}
-                className="rounded-xl border border-[#c9a96e]/45 bg-white/85 px-3 py-2 text-sm text-[#191970] dark:border-white/15 dark:bg-black/20 dark:text-slate-100"
-              >
-                {history.map(item => (
-                  <option key={item.date} value={item.date}>{formatDate(item.date)}</option>
-                ))}
-              </select>
+          <div className="flex flex-wrap items-center gap-2">
+            <button type="button" onClick={() => navigate(-1)} className="rounded-xl border border-[#c9a96e]/50 bg-white px-3 py-2 text-sm font-bold text-[#191970] dark:bg-slate-900 dark:text-slate-100">← Back</button>
+            {editions.length > 0 ? (
+              <>
+                <button type="button" disabled={index < 0 || index >= editions.length - 1} onClick={() => setEdition(editions[index + 1].edition)} className="rounded-xl border border-[#c9a96e]/50 bg-white px-3 py-2 text-sm font-bold text-[#191970] disabled:opacity-40 dark:bg-slate-900 dark:text-slate-100" aria-label="Previous day">‹ Earlier</button>
+                <select aria-label="Choose a day" value={data?.edition || ''} onChange={event => setEdition(event.target.value)} className="rounded-xl border border-[#c9a96e]/50 bg-white px-3 py-2 text-sm font-semibold text-[#191970] dark:bg-slate-900 dark:text-slate-100">
+                  {editions.map(item => <option key={item.edition} value={item.edition}>{formatEdition(item.edition)}</option>)}
+                </select>
+                <button type="button" disabled={index <= 0} onClick={() => setEdition(editions[index - 1].edition)} className="rounded-xl border border-[#c9a96e]/50 bg-white px-3 py-2 text-sm font-bold text-[#191970] disabled:opacity-40 dark:bg-slate-900 dark:text-slate-100" aria-label="Next day">Later ›</button>
+              </>
             ) : null}
-            <button type="button" onClick={() => navigate(-1)} className="rounded-xl border border-[#800020]/30 bg-white/70 px-4 py-2 text-sm font-bold text-[#800020] dark:border-white/15 dark:bg-slate-900/40 dark:text-slate-100">
-              Back
-            </button>
           </div>
-        </div>
+        </header>
 
-        {error ? <div className={`${CARD} text-sm text-rose-600 dark:text-rose-300`}>{error}</div> : null}
-        {loading ? <div className={`${CARD} text-sm text-[#191970] dark:text-slate-200`}>Loading today’s digest…</div> : null}
-
-        {!loading && feed?.didYouKnow ? (
-          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#1a5c38] via-[#0e7a6b] to-[#191970] p-6 shadow-lg">
-            <span className="pointer-events-none absolute -right-10 -top-12 h-40 w-40 rounded-full bg-white/15 blur-3xl" />
-            <p className="text-[11px] font-bold uppercase tracking-[0.24em] text-white/80">💡 Did You Know? • {formatDate(feed?.date)}</p>
-            <p className="mt-3 text-lg font-semibold leading-8 text-white">{feed.didYouKnow}</p>
-          </div>
-        ) : null}
-
-        {!loading && headlines.length > 0 ? (
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            {headlines.map((item, index) => (
-              <article key={`${item.title}-${index}`} className={CARD}>
-                <span className={`inline-flex rounded-full border px-3 py-1 text-[11px] font-bold uppercase tracking-[0.14em] ${CATEGORY_TONE[item.category] || CATEGORY_TONE.General}`}>
-                  {item.category || 'General'}
-                </span>
-                <h2 className="mt-3 text-lg font-bold text-[#191970] dark:text-white">{item.title}</h2>
-                {item.summary ? <p className="mt-2 text-sm leading-7 text-[#3a3a52] dark:text-slate-300">{item.summary}</p> : null}
-                {item.tip ? (
-                  <p className="mt-3 rounded-xl border border-[#1a5c38]/20 bg-[#1a5c38]/8 px-3 py-2 text-sm text-[#1a5c38] dark:border-[#00ffff]/20 dark:bg-[#00ffff]/10 dark:text-[#7df9ff]">
-                    <span className="font-bold">Tip:</span> {item.tip}
-                  </p>
-                ) : null}
-              </article>
+        {outlets.length > 1 ? (
+          <nav className="flex gap-2 overflow-x-auto pb-1" aria-label="Outlets">
+            {[{ key: 'all', name: 'All outlets' }, ...outlets].map(item => (
+              <button key={item.key} type="button" aria-pressed={outlet === item.key} onClick={() => setOutlet(item.key)}
+                className={`shrink-0 rounded-full border px-3 py-1.5 text-sm font-bold ${outlet === item.key ? 'border-[#800020] bg-[#800020] text-white' : 'border-[#c9a96e]/50 bg-white text-[#191970] dark:bg-slate-900 dark:text-slate-100'}`}>
+                {item.name}{item.headlines ? ` · ${item.headlines.length}` : ''}
+              </button>
             ))}
-          </div>
+          </nav>
         ) : null}
 
-        {!loading && !feed?.didYouKnow && headlines.length === 0 ? (
-          <div className={`${CARD} text-sm text-[#6b5836] dark:text-slate-300`}>Today’s digest is being prepared. Please check back shortly.</div>
+        {error ? <p role="alert" className="rounded-2xl bg-rose-50 px-4 py-3 text-sm font-semibold text-rose-800">{error}</p> : null}
+        {loading && !data ? <p role="status" className="text-sm text-[#6b5836] dark:text-slate-300">Loading headlines…</p> : null}
+        {!loading && !error && !outlets.length ? (
+          <section className={CARD}>
+            <p className="font-bold text-[#191970] dark:text-white">No headlines yet.</p>
+            <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">The first edition arrives tonight at midnight.</p>
+          </section>
         ) : null}
+
+        <div className="grid gap-4 md:grid-cols-2">
+          {shown.map((item, position) => {
+            const tone = OUTLET_TONE[outlets.indexOf(item) % OUTLET_TONE.length] || OUTLET_TONE[position % OUTLET_TONE.length];
+            return (
+              <section key={item.key} className={`${CARD} overflow-hidden p-0`} aria-label={item.name}>
+                <div className="flex items-center justify-between gap-2 px-4 py-2.5 text-white" style={{ background: tone }}>
+                  <h2 className="text-base font-black">{item.name}</h2>
+                  <a href={item.site} target="_blank" rel="noopener noreferrer" className="text-xs font-bold underline-offset-2 hover:underline">Visit site ↗</a>
+                </div>
+                <ol className="divide-y divide-[#c9a96e]/25 dark:divide-white/10">
+                  {item.headlines.map(headline => (
+                    <li key={headline.link}>
+                      <a href={headline.link} target="_blank" rel="noopener noreferrer" className="block px-4 py-2.5 hover:bg-[#fdf2e4] dark:hover:bg-white/5">
+                        <span className="block text-[15px] font-semibold leading-snug text-[#191970] dark:text-slate-100">{headline.title}</span>
+                        {headline.publishedAt ? <span className="mt-0.5 block text-xs text-slate-500">{timeOf(headline.publishedAt)}</span> : null}
+                      </a>
+                    </li>
+                  ))}
+                </ol>
+              </section>
+            );
+          })}
+        </div>
+        <p className="text-xs text-slate-500">Headlines and links belong to their outlets. Ndovera only lists them; the stories open on the outlets' own sites.</p>
       </div>
     </div>
   );

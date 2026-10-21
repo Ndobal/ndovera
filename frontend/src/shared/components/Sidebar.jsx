@@ -198,8 +198,6 @@ function buildRoleSidebarItems(roleKey) {
       { name: 'Report Health Incident', path: '/roles/teacher/health' },
       { name: 'Subject Scores', path: '/roles/teacher/scores' },
       { name: 'Offline CA', path: '/roles/teacher/offline-ca' },
-      { name: 'Lesson Notes', path: '/roles/teacher/lesson-notes' },
-      { name: 'Lesson Plan', path: '/roles/teacher/lesson-plan' },
       { name: 'Resource Library', path: '/roles/teacher/resources' },
       { name: 'Exams', path: '/roles/teacher/exams' },
       { name: 'Championships', path: '/roles/teacher/championships' },

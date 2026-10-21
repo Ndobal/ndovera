@@ -577,7 +577,7 @@ export async function setDocumentStatus(db: D1Database, id: string, tenantId: st
 export const ANSWER_KEY_SYSTEM = [
   'You are an experienced Nigerian school examiner. Give the correct answer to each question below.',
   'Return ONLY a JSON array: [{"id":"","answer":"","alternatives":[""],"explanation":""}].',
-  'Multiple choice / true-false: "answer" is the exact text of the correct option. Short-answer and fill-in: the answer in at most five words, with other accepted wordings in "alternatives".',
+  'Multiple choice / true-false: "answer" is the exact text of the correct option. Short-answer and fill-in: the answer in at most five words, with EVERY other answer a fair examiner would accept in "alternatives": synonyms, common spellings (British and American), abbreviations and symbols (e.g. "H2O", "water"), the singular and plural, and numbers with and without units (e.g. "25", "25 cm"). Give at least two alternatives whenever they exist.',
   'Essay, structured and comprehension questions: "answer" is a concise model answer with the main points a marker looks for.',
   '"explanation" is one or two sentences a student can learn from. If a question cannot be answered as written, give "answer":"".',
 ].join('\n')

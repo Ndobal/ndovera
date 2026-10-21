@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
+import QRCode from 'qrcode';
+import ResultReportCard from './ResultReportCard';
 import {
   RESULT_BODY,
   RESULT_BUTTON,
@@ -48,6 +50,35 @@ function parseDomains(text = '') {
     .filter(Boolean)
     .slice(0, 8)
     .map((label, index) => ({ key: normalizeDomainKey(label, index), label }));
+}
+
+// A sample student for the template preview: the school's own grading, behaviour areas and
+// branding, on the real report card that students and parents see.
+const SAMPLE_SUBJECTS = [['English Language', 28, 52], ['Mathematics', 34, 55], ['Basic Science', 25, 41], ['Civic Education', 31, 47], ['Computer Studies', 22, 36], ['Agricultural Science', 19, 33]];
+function buildSampleRecord({ form, gradeRows, caMax, examMax }) {
+  const scale = [...gradeRows].filter(row => row.grade).sort((a, b) => Number(b.minScore) - Number(a.minScore));
+  const total = caMax + examMax;
+  const gradeOf = score => scale.find(row => (score / total) * 100 >= Number(row.minScore || 0)) || {};
+  const subjects = SAMPLE_SUBJECTS.map(([subjectName, ca, exam], index) => {
+    const caScore = Math.round((ca / 40) * caMax);
+    const examScore = Math.round((exam / 60) * examMax);
+    const sum = caScore + examScore;
+    const band = gradeOf(sum);
+    return { subjectId: `sample-${index}`, subjectName, caScore, examScore, total: sum, grade: band.grade || '', remark: band.remark || '', classAverage: Math.round(sum * 0.86), classHighest: Math.min(total, sum + 9), classLowest: Math.max(0, sum - 31) };
+  });
+  const average = Math.round(subjects.reduce((acc, row) => acc + (row.total / total) * 100, 0) / subjects.length);
+  const rate = [5, 4, 4, 3, 5, 4, 3, 4];
+  return {
+    id: 'template-sample', termName: 'First Term', sessionName: '2026/2027', publishedAt: '',
+    payload: { preview: true, approvals: {} },
+    student: { name: 'Adaeze Chukwuma Okafor', displayId: 'NDV/2026/014', className: 'JSS 2 A' },
+    summary: { average, grade: gradeOf((average / 100) * total).grade || '', position: 4, classSize: 32, classAverage: 61.4, highestAverage: 88, lowestAverage: 34, attendanceRate: 96,
+      totalScore: subjects.reduce((acc, row) => acc + row.total, 0), totalObtainable: subjects.length * total, subjectsTaken: subjects.length, promotionStatus: 'Promoted',
+      teacherRemark: 'A hardworking and respectful pupil. Keep it up.', principalRemark: 'Good result. Aim higher in Agricultural Science.' },
+    subjects,
+    affective: parseDomains(form.affectiveDomainsText).map((item, index) => ({ ...item, score: rate[index % rate.length] })),
+    ratings: parseDomains(form.ratingDomainsText).map((item, index) => ({ ...item, score: rate[(index + 3) % rate.length] })),
+  };
 }
 
 function parseCaComponentLines(text = '') {
@@ -186,6 +217,9 @@ function buildFormState(settings = {}, suggestedSettings = {}) {
     brandingLogoUrl: branding.logoUrl || '',
     brandingPrimaryColor: branding.primaryColor || '#800000',
     brandingAccentColor: branding.accentColor || '#1a5c38',
+    brandingMotto: branding.motto || '',
+    brandingAddress: branding.address || '',
+    brandingSealUrl: branding.sealUrl || '',
   };
 }
 
@@ -299,6 +333,16 @@ export default function ResultSettingsPanel({
   const caComponentEntries = parseCaComponentLines(form.caComponentsText);
   const caComponentTotal = caComponentEntries.reduce((sum, entry) => sum + Number(entry.maxScore || 0), 0);
   const scoreTotal = toNumber(form.caMaxScore, 0) + toNumber(form.examMaxScore, 0);
+  const sampleCaMax = Math.max(1, Number(form.caMaxScore) || 40);
+  const sampleExamMax = Math.max(1, Number(form.examMaxScore) || 60);
+  const sampleRecord = useMemo(() => buildSampleRecord({ form, gradeRows, caMax: sampleCaMax, examMax: sampleExamMax }), [form, gradeRows, sampleCaMax, sampleExamMax]);
+  const [sampleQr, setSampleQr] = useState('');
+  useEffect(() => {
+    let cancelled = false;
+    QRCode.toDataURL(`${typeof window !== 'undefined' ? window.location.origin : 'https://ndovera.com'}/result-verification/sample`, { margin: 1, width: 220, color: { dark: '#800000', light: '#ffffff' } })
+      .then(url => { if (!cancelled) setSampleQr(url); }).catch(() => {});
+    return () => { cancelled = true; };
+  }, []);
   const previewTemplate = templates.find(template => template.key === previewTemplateKey)
     || templates.find(template => template.key === form.templateKey)
     || templates[0]
@@ -347,6 +391,9 @@ export default function ResultSettingsPanel({
             reportTitle: form.brandingReportTitle,
             primaryColor: form.brandingPrimaryColor,
             accentColor: form.brandingAccentColor,
+            motto: form.brandingMotto,
+            address: form.brandingAddress,
+            sealUrl: form.brandingSealUrl,
           },
         },
       });
@@ -412,15 +459,19 @@ export default function ResultSettingsPanel({
             {previewTemplate && (
               <div className="rounded-3xl border border-[#c9a96e]/45 bg-[#fff8f0] p-5 dark:border-white/10 dark:bg-slate-800/40">
                 <p className={`micro-label ${RESULT_LABEL}`}>Live Sample — {previewTemplate.name}</p>
-                <div
-                  className="mt-4 rounded-3xl border border-white/10 p-5"
-                  style={{
-                    background: `linear-gradient(135deg, ${form.brandingPrimaryColor} 0%, ${form.brandingAccentColor} 100%)`,
-                  }}
-                >
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/80">{form.brandingSchoolName || 'School Branding'}</p>
-                  <h3 className="mt-3 text-2xl font-black text-white">{form.brandingReportTitle || previewTemplate.name}</h3>
-                  <p className="mt-2 max-w-2xl text-sm text-white/85">{previewTemplate.description}</p>
+                <p className={`mt-1 text-xs ${RESULT_BODY}`}>{previewTemplate.description} This is the report card exactly as students and parents will see it, with a sample student.</p>
+                <div className="mt-4">
+                  <ResultReportCard
+                    record={sampleRecord}
+                    branding={{
+                      schoolName: form.brandingSchoolName, reportTitle: form.brandingReportTitle || previewTemplate.name || 'Official Result Record',
+                      logoUrl: form.brandingLogoUrl, primaryColor: form.brandingPrimaryColor || '#800000', accentColor: form.brandingAccentColor || '#1a5c38',
+                      motto: form.brandingMotto || '', address: form.brandingAddress || '', website: '', sealUrl: form.brandingSealUrl || '',
+                    }}
+                    scoreModel={{ caMaxScore: sampleCaMax, examMaxScore: sampleExamMax, totalMaxScore: sampleCaMax + sampleExamMax }}
+                    qrDataUrl={sampleQr}
+                    isPreview
+                  />
                 </div>
                 <div className="mt-4 grid grid-cols-1 lg:grid-cols-[1.1fr,0.9fr] gap-4">
                   <div className={`${RESULT_INNER_SURFACE} p-4`}>
@@ -697,6 +748,17 @@ export default function ResultSettingsPanel({
                 className={`mt-2 ${RESULT_INPUT}`}
               />
             </label>
+            {[
+              ['brandingMotto', 'School motto (letterhead)', 'e.g. Knowledge and Character'],
+              ['brandingAddress', 'Address and phone (letterhead)', 'e.g. 12 School Road, Owerri · 0803 000 0000'],
+              ['brandingSealUrl', 'Seal or stamp image link (optional)', 'Leave empty to use the drawn seal with your school name'],
+            ].map(([key, label, placeholder]) => (
+              <label key={key} className="block">
+                <span className={`micro-label ${RESULT_LABEL}`}>{label}</span>
+                <input type="text" disabled={!canManageSettings || saving} value={form[key]} placeholder={placeholder}
+                  onChange={event => setForm(current => ({ ...current, [key]: event.target.value }))} className={`mt-2 ${RESULT_INPUT}`} />
+              </label>
+            ))}
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">

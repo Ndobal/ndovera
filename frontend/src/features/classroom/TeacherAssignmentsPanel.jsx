@@ -6,6 +6,7 @@ import RichContent from '../../shared/rich/RichContent';
 import RichField, { FIELD } from './assignments/RichField';
 import { AssignmentViewer, DialogHeader, DANGER, PRIMARY, SECONDARY, SubmissionsPanel } from './assignments/AssignmentDialogs';
 import { importQuestions } from './assignments/questionImport';
+import AiDraftDialog from './assignments/AiDraftDialog';
 import {
   QUESTION_TYPES, createId, createQuestion, inferFormat, isQuestionBlank, normalizeQuestionForSave, optionLetter,
   questionForEditing, questionProblem, totalScore, typeLabel,
@@ -115,6 +116,14 @@ function QuestionEditor({ question, index, count, onChange, onRemove, onMove, on
                 );
               })}
               {(question.options || []).length < 8 ? <button type="button" className={SECONDARY} onClick={() => set({ options: [...(question.options || []), ''] })}>+ Add option</button> : null}
+              <label className={`flex flex-wrap items-center gap-2 rounded-xl px-3 py-2 ${question.answer ? 'bg-emerald-50 dark:bg-emerald-400/10' : 'bg-amber-50 dark:bg-amber-400/10'}`}>
+                <span className="text-sm font-black text-[#0b1f3a] dark:text-white">Correct answer</span>
+                <select aria-label={`Question ${index + 1} correct answer`} value={question.answer || ''} onChange={event => set({ answer: event.target.value })}
+                  className="min-w-[10rem] flex-1 rounded-lg border border-slate-300 bg-white px-2 py-1.5 text-sm dark:border-white/15 dark:bg-slate-800 dark:text-white">
+                  <option value="">Choose the correct option…</option>
+                  {(question.options || []).map((option, optionIndex) => (option ? <option key={optionIndex} value={option}>{optionLetter(optionIndex)}. {option.length > 60 ? `${option.slice(0, 60)}…` : option}</option> : null))}
+                </select>
+              </label>
               <RichField label="Explanation (shown after marking, optional)" value={question.explanation} onChange={explanation => set({ explanation })} rows={2} />
             </div>
           ) : null}
@@ -208,6 +217,7 @@ export default function TeacherAssignmentsPanel({
   const [allClasses, setAllClasses] = useState(assignedClasses);
   const [query, setQuery] = useState('');
   const [filter, setFilter] = useState('all');
+  const [aiOpen, setAiOpen] = useState(false);
 
   // Every class this teacher teaches (with its subjects), for "also give to" other classes and arms.
   useEffect(() => { setAllClasses(previous => (assignedClasses.length > previous.length ? assignedClasses : previous)); }, [assignedClasses]);
@@ -460,9 +470,26 @@ export default function TeacherAssignmentsPanel({
               <RichField label="Instructions (optional)" value={draft.description} onChange={description => set({ description })} rows={2} placeholder="e.g. Answer all questions. Show your working." />
             </section>
 
+            {!filled.length && mode === 'build' ? (
+              <section className="grid gap-3 sm:grid-cols-3" aria-label="How to add questions">
+                {[
+                  ['✍️', 'Write questions', 'One by one, with formulas, pictures and the correct answer.', () => setMode('build'), false],
+                  ['📋', 'Paste many at once', 'Copy from Word, WhatsApp or a past paper. Ndovera numbers them and finds the options and answers.', () => setMode('paste'), false],
+                  ['✨', 'Create with Ndovera AI', 'Say how many of each type and the marks. Uses 100 AI credits.', () => { if (!draft.subjectId) { setError('Choose the subject first.'); return; } setAiOpen(true); }, true],
+                ].map(([icon, label, hint, action, ai]) => (
+                  <button key={label} type="button" onClick={action} className={`rounded-2xl border p-4 text-left transition hover:shadow-md ${ai ? 'border-[#191970]/40 bg-gradient-to-br from-[#eef0ff] to-white dark:from-indigo-500/15 dark:to-slate-900' : 'border-slate-200 bg-white dark:border-white/10 dark:bg-slate-900'}`}>
+                    <span className="text-2xl" aria-hidden="true">{icon}</span>
+                    <span className="mt-1 block font-black text-[#0b1f3a] dark:text-white">{label}</span>
+                    <span className="mt-0.5 block text-xs text-slate-600 dark:text-slate-300">{hint}</span>
+                  </button>
+                ))}
+              </section>
+            ) : null}
+
             <section className="space-y-3">
               <div className="flex flex-wrap items-center gap-2">
                 <p className="flex-1 text-sm font-black text-[#0b1f3a] dark:text-white">Questions</p>
+                <button type="button" onClick={() => { if (!draft.subjectId) { setError('Choose the subject first.'); return; } setAiOpen(true); }} className="rounded-xl bg-gradient-to-r from-[#191970] to-[#4b3fb5] px-3 py-1.5 text-sm font-bold text-white shadow">✨ Create with AI</button>
                 <div className="inline-flex rounded-xl bg-slate-200/70 p-1 dark:bg-white/10" role="tablist">
                   {[['build', 'Write questions'], ['paste', 'Paste many at once']].map(([key, label]) => (
                     <button key={key} type="button" role="tab" aria-selected={mode === key} onClick={() => setMode(key)} className={`rounded-lg px-3 py-1.5 text-sm font-bold ${mode === key ? 'bg-white text-[#191970] shadow dark:bg-slate-800 dark:text-white' : 'text-slate-600 dark:text-slate-300'}`}>{label}</button>
@@ -501,6 +528,15 @@ export default function TeacherAssignmentsPanel({
         </Overlay>
       ) : null}
 
+      {aiOpen ? (
+        <AiDraftDialog classId={draft.classId} subjectId={draft.subjectId} subjectName={draftSubject?.name || ''} className={classLabel(draftClass)} title={draft.title}
+          onClose={() => setAiOpen(false)}
+          onDone={(questions, flags) => {
+            setAiOpen(false);
+            addImported(questions);
+            setNotice(`Ndovera AI wrote ${questions.length} question${questions.length === 1 ? '' : 's'}.${flags ? ` ${flags} flagged for a second look.` : ''} Check every question and answer below, then publish.`);
+          }} />
+      ) : null}
       {viewing ? <AssignmentViewer assignment={viewing} onClose={() => setViewing(null)} /> : null}
       {marking ? <SubmissionsPanel assignment={marking} onClose={() => setMarking(null)} /> : null}
     </div>

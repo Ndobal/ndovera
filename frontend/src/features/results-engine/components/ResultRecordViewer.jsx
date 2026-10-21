@@ -3,15 +3,11 @@ import QRCode from 'qrcode';
 import { getApiBase } from '../../../config/apiBase';
 import MaterialViewer from '../../classroom/materials/MaterialViewer';
 import Flipbook from '../../classroom/materials/Flipbook';
-import ResultPaperBackdrop from './ResultPaperBackdrop';
+import ResultReportCard from './ResultReportCard';
 import { askConfirm } from '../../../shared/components/AppDialog';
 
 // Result sheets are printed documents: they stay white with dark text in both themes,
 // so these use fixed colours the dark theme does not remap.
-const PAPER_SECTION = 'result-record-print-surface rounded-2xl border border-[#cbd5e1] p-5';
-const PAPER_LABEL = 'text-[10px] font-semibold uppercase tracking-widest text-[#475569]';
-const PAPER_VALUE = 'font-semibold text-[#0f172a]';
-const PAPER_MUTED = 'text-[#475569]';
 
 function normalizeBrandColor(value, fallback) {
   const color = String(value || '').trim();
@@ -31,6 +27,10 @@ function resolveRecordBranding(record = null) {
     logoUrl: String(source.logoUrl || '').trim(),
     primaryColor: normalizeBrandColor(source.primaryColor, '#800000'),
     accentColor: normalizeBrandColor(source.accentColor, '#1a5c38'),
+    motto: String(source.motto || '').trim(),
+    address: String(source.address || '').trim(),
+    website: String(source.website || '').trim(),
+    sealUrl: String(source.sealUrl || '').trim(),
   };
 }
 
@@ -95,7 +95,6 @@ export default function ResultRecordViewer({
   onDeleteDocument = null,
 }) {
   const selectedRecord = records.find(record => record.id === selectedRecordId) || records[0] || null;
-  const summary = selectedRecord?.summary || {};
   const documentGroups = useMemo(() => groupDocumentsByPeriod(documents), [documents]);
   const branding = resolveRecordBranding(selectedRecord);
   const scoreModel = resolveRecordScoreModel(selectedRecord);
@@ -126,8 +125,9 @@ export default function ResultRecordViewer({
   const verificationUrl = useMemo(() => {
     const existingUrl = String(selectedRecord?.verificationUrl || '').trim();
     if (existingUrl) return existingUrl;
-    // A preview has no verification page yet, so it gets no QR code.
-    if (typeof window === 'undefined' || !selectedRecord?.id || selectedRecord?.payload?.preview) return '';
+    if (typeof window === 'undefined' || !selectedRecord?.id) return '';
+    // A preview has no verification page yet: it shows a sample code, marked as such.
+    if (selectedRecord?.payload?.preview) return `${resolvePublicVerificationOrigin()}/result-verification/sample`;
     return `${resolvePublicVerificationOrigin()}/result-verification/${encodeURIComponent(String(selectedRecord.id || ''))}`;
   }, [selectedRecord?.id, selectedRecord?.verificationUrl, selectedRecord?.payload?.preview]);
 
@@ -273,157 +273,15 @@ export default function ResultRecordViewer({
             </button>
           </div>
 
-          {/* The result sheet: the school's name fills the page, its logo is a faint watermark, and the result sits on top. */}
-          <article className="result-paper result-record-print-gradient relative overflow-hidden rounded-3xl border border-[#d4d4d8] bg-[#ffffff] p-4 text-[#1e293b] shadow-sm md:p-6">
-            <ResultPaperBackdrop schoolName={branding.schoolName} logoUrl={branding.logoUrl} />
-
-            <div className="result-record-print-page relative z-10 grid grid-cols-1 gap-4">
-              {(isPractice || isPreview) && (
-                <div className={`rounded-2xl border px-4 py-3 text-sm font-semibold ${isPractice ? 'border-[#f59e0b] bg-[#fffbeb] text-[#92400e]' : 'border-[#60a5fa] bg-[#eff6ff] text-[#1e3a8a]'}`}>
-                  {isPractice
-                    ? 'PRACTICE RESULT — for training only. This is not an official result and is never sent to students or parents.'
-                    : 'PREVIEW — this is exactly what the student will see once the HoS publishes these results.'}
-                </div>
-              )}
-
-              <section
-                className="result-record-print-gradient rounded-2xl p-6 overflow-hidden"
-                style={{
-                  background: `linear-gradient(135deg, ${branding.primaryColor} 0%, ${branding.accentColor} 100%)`,
-                }}
-              >
-                <div className="flex flex-wrap items-center justify-between gap-4">
-                  <div className="flex items-center gap-4">
-                    {branding.logoUrl && (
-                      <img
-                        src={branding.logoUrl}
-                        alt={branding.schoolName || 'School logo'}
-                        className="h-16 w-16 rounded-2xl object-contain border border-white/20 bg-white/10 p-2"
-                      />
-                    )}
-                    <div>
-                      <p className="text-xs uppercase tracking-[0.24em] text-white/75">{branding.schoolName || 'Official School Result'}</p>
-                      <h2 className="text-2xl font-black tracking-tighter text-[#ffffff] mt-2">{branding.reportTitle}</h2>
-                      <p className="text-sm text-white/80 mt-2">{selectedRecord.termName || 'Term'} • {selectedRecord.sessionName || 'Session'}</p>
-                    </div>
-                  </div>
-
-                  <div className="rounded-2xl border border-white/15 bg-white/10 px-4 py-3 min-w-[180px]">
-                    <p className="text-xs uppercase tracking-[0.24em] text-white/70">Template</p>
-                    <p className="text-sm font-semibold text-white mt-1">{selectedRecord.payload?.templateKey || 'Configured template'}</p>
-                  </div>
-                </div>
-              </section>
-
-              <section className={`${PAPER_SECTION} grid grid-cols-1 md:grid-cols-4 gap-4`}>
-                <div><p className={PAPER_LABEL}>Student</p><p className={`${PAPER_VALUE} mt-1`}>{selectedRecord.student?.name || 'Unavailable'}</p></div>
-                <div><p className={PAPER_LABEL}>Average</p><p className={`${PAPER_VALUE} mt-1`}>{summary.average || 0}%</p></div>
-                <div><p className={PAPER_LABEL}>Grade</p><p className={`${PAPER_VALUE} mt-1`}>{summary.grade || '—'}</p></div>
-                <div><p className={PAPER_LABEL}>Attendance</p><p className={`${PAPER_VALUE} mt-1`}>{summary.attendanceRate || 0}%</p></div>
-              </section>
-
-              <section className={`${PAPER_SECTION} grid grid-cols-1 md:grid-cols-2 gap-4`}>
-                <div>
-                  <p className={PAPER_LABEL}>Promotion Status</p>
-                  <p className={`${PAPER_VALUE} mt-1`}>{summary.promotionStatus || 'Pending'}</p>
-                  <p className={`${PAPER_MUTED} mt-3 text-xs`}>Position: {summary.position || '—'} of {summary.classSize || '—'}</p>
-                </div>
-                <div>
-                  <p className={PAPER_LABEL}>Approval Trail</p>
-                  <p className="mt-1 text-sm text-[#0f172a]">Published: {selectedRecord.publishedAt ? new Date(selectedRecord.publishedAt).toLocaleString() : (isPreview ? 'Not yet published' : '—')}</p>
-                  <p className={`${PAPER_MUTED} mt-2 text-sm`}>Approved by: {selectedRecord.payload?.approvals?.approvedBy || 'HoS / Owner'}</p>
-                </div>
-              </section>
-
-              {isPreview ? (
-                <section className={`${PAPER_SECTION} text-center`}>
-                  <p className={PAPER_LABEL}>Result Verification QR</p>
-                  <p className={`${PAPER_MUTED} mt-2 text-sm`}>The verification QR code is added to each result when it is published.</p>
-                </section>
-              ) : qrDataUrl ? (
-                <section className={`${PAPER_SECTION} text-center`}>
-                  <p className={PAPER_LABEL}>Result Verification QR</p>
-                  <h3 className="mt-2 text-2xl font-black text-[#0f172a]">Scan To Verify This Published Result</h3>
-                  <p className={`${PAPER_MUTED} mt-2 text-sm`}>The QR code is centered for printing so the full code remains clear on paper and PDF exports.</p>
-                  <div className="result-record-print-qr-wrap mx-auto mt-6 flex h-[300px] w-[300px] items-center justify-center rounded-[32px] border border-[#cbd5e1] bg-[#ffffff] p-4">
-                    <img src={qrDataUrl} alt="Result verification QR code" className="h-full w-full rounded-3xl object-contain" />
-                  </div>
-                  <p className="mt-3 text-sm font-bold text-[#0f172a]">Public verification page</p>
-                  <p className="mt-2 break-all text-[11px] font-semibold text-[#475569]">{buildVerificationLabel(verificationUrl)}</p>
-                </section>
-              ) : null}
-
-              <div className={`${PAPER_SECTION} overflow-x-auto`}>
-                <table className="w-full text-sm min-w-[620px]">
-                  <thead>
-                    <tr className="text-left">
-                      <th className={`${PAPER_LABEL} py-2 pr-4`}>Subject</th>
-                      <th className={`${PAPER_LABEL} py-2 pr-4`}>CA ({scoreModel.caMaxScore})</th>
-                      <th className={`${PAPER_LABEL} py-2 pr-4`}>Exam ({scoreModel.examMaxScore})</th>
-                      <th className={`${PAPER_LABEL} py-2 pr-4`}>Total ({scoreModel.totalMaxScore})</th>
-                      <th className={`${PAPER_LABEL} py-2 pr-4`}>Grade</th>
-                      <th className={`${PAPER_LABEL} py-2`}>Remark</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {selectedRecord.subjects.map(row => (
-                      <tr key={`${selectedRecord.id}-${row.subjectId || row.subjectName}`} className="border-t border-[#cbd5e1]">
-                        <td className="py-3 pr-4 text-[#0f172a]">{row.subjectName}</td>
-                        <td className="py-3 pr-4 font-mono tracking-tight text-[#0f172a]">{row.caScore}</td>
-                        <td className="py-3 pr-4 font-mono tracking-tight text-[#0f172a]">{row.examScore}</td>
-                        <td className="py-3 pr-4 font-mono tracking-tight font-bold text-[#0f172a]">{row.total}</td>
-                        <td className="py-3 pr-4 font-black text-[#047857]">{row.grade}</td>
-                        <td className={`py-3 ${PAPER_MUTED}`}>{row.remark || '—'}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-
-              {(selectedRecord.affective.length > 0 || selectedRecord.ratings.length > 0) && (
-                <section className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                  {selectedRecord.affective.length > 0 && (
-                    <div className={PAPER_SECTION}>
-                      <h2 className="mb-4 text-lg font-black tracking-tighter text-[#0f172a]">Affective Areas</h2>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        {selectedRecord.affective.map(item => (
-                          <div key={`${selectedRecord.id}-${item.key}`} className="rounded-xl border border-[#cbd5e1] p-4">
-                            <p className={PAPER_LABEL}>{item.label}</p>
-                            <p className={`${PAPER_VALUE} mt-1`}>{item.score || '—'}</p>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {selectedRecord.ratings.length > 0 && (
-                    <div className={PAPER_SECTION}>
-                      <h2 className="mb-4 text-lg font-black tracking-tighter text-[#0f172a]">Ratings</h2>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        {selectedRecord.ratings.map(item => (
-                          <div key={`${selectedRecord.id}-${item.key}`} className="rounded-xl border border-[#cbd5e1] p-4">
-                            <p className={PAPER_LABEL}>{item.label}</p>
-                            <p className={`${PAPER_VALUE} mt-1`}>{item.score || '—'}</p>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </section>
-              )}
-
-              <section className={`${PAPER_SECTION} grid grid-cols-1 md:grid-cols-2 gap-4`}>
-                <div>
-                  <p className={PAPER_LABEL}>Teacher Remark</p>
-                  <p className="mt-2 text-[#0f172a]">{summary.teacherRemark || 'No teacher remark yet.'}</p>
-                </div>
-                <div>
-                  <p className={PAPER_LABEL}>Principal Remark</p>
-                  <p className="mt-2 text-[#0f172a]">{summary.principalRemark || 'No principal remark yet.'}</p>
-                </div>
-              </section>
-            </div>
-          </article>
+          <ResultReportCard
+            record={selectedRecord}
+            branding={branding}
+            scoreModel={scoreModel}
+            qrDataUrl={qrDataUrl}
+            verificationLabel={buildVerificationLabel(verificationUrl)}
+            isPreview={isPreview}
+            isPractice={isPractice}
+          />
         </>
       )}
 

@@ -19,8 +19,11 @@ export function normalizeText(value) {
   return String(value ?? '').trim().toLowerCase().replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim();
 }
 
-function editDistance(a, b) {
-  if (Math.abs(a.length - b.length) > 2) return 3;
+/** Spaces aside: "h2 o" is "h2o". */
+function compact(text) { return text.replace(/\s+/g, ''); }
+
+/** Levenshtein distance, in full. */
+function distance(a, b) {
   const previous = Array.from({ length: b.length + 1 }, (_, index) => index);
   for (let i = 1; i <= a.length; i += 1) {
     let diagonal = previous[0];
@@ -32,6 +35,23 @@ function editDistance(a, b) {
     }
   }
   return previous[b.length];
+}
+
+export const CLOSE_MATCH = 0.7;
+
+/**
+ * A close answer counts: at least 70% alike once case and spaces are set aside. Very short
+ * answers (under 4 letters) must be exact, and the first letter must agree, so "decrease"
+ * is not taken for "increase".
+ */
+export function closeEnough(given, expected) {
+  const a = compact(given);
+  const b = compact(expected);
+  if (a === b) return true;
+  // The answer said inside a short sentence ("it is photosynthesis") counts too.
+  if (` ${given} `.includes(` ${expected} `) && given.split(' ').length <= expected.split(' ').length + 3) return true;
+  if (b.length < 4 || a[0] !== b[0]) return false;
+  return 1 - distance(a, b) / Math.max(a.length, b.length) >= CLOSE_MATCH;
 }
 
 export function textMatches(response, accepted = []) {
@@ -46,7 +66,9 @@ export function textMatches(response, accepted = []) {
     const a = asNumber(response);
     const b = asNumber(answer);
     if (Number.isFinite(a) && Number.isFinite(b) && Math.abs(a - b) < 1e-9) return true;
-    return expected.length >= 6 && editDistance(given, expected) <= 1;
+    // Numbers must be exactly right; words may be close: 70% alike (spaces and case aside, same first letter).
+    if (Number.isFinite(b) || /\d/.test(expected)) return compact(given) === compact(expected);
+    return closeEnough(given, expected);
   });
 }
 

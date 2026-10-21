@@ -33,6 +33,37 @@ function formatDueDate(value) {
   return Number.isNaN(parsed.getTime()) ? value : parsed.toLocaleString();
 }
 
+/** Where the work stands for the student: todo, overdue, submitted or marked. */
+function statusOf(item, now = Date.now()) {
+  if (item.mySubmission && hasTeacherReview(item.mySubmission) && item.mySubmission.grade != null) return 'marked';
+  if (item.mySubmission) return 'submitted';
+  const due = item.dueAt ? new Date(item.dueAt).getTime() : NaN;
+  return Number.isFinite(due) && due < now ? 'overdue' : 'todo';
+}
+
+function dueHint(value, now = Date.now()) {
+  const due = value ? new Date(value).getTime() : NaN;
+  if (!Number.isFinite(due)) return { text: 'No due date', tone: 'text-slate-300' };
+  const hours = (due - now) / 3600000;
+  if (hours < 0) return { text: `Was due ${new Date(due).toLocaleDateString()}`, tone: 'text-rose-300' };
+  if (hours < 24) return { text: `Due in ${Math.max(1, Math.round(hours))} h`, tone: 'text-amber-300' };
+  if (hours < 72) return { text: `Due in ${Math.round(hours / 24)} day${Math.round(hours / 24) === 1 ? '' : 's'}`, tone: 'text-amber-200' };
+  return { text: `Due ${new Date(due).toLocaleDateString()}`, tone: 'text-slate-300' };
+}
+
+const STATUS_CHIP = {
+  todo: ['To do', 'bg-amber-400/25 text-amber-100 border-amber-300/40'],
+  overdue: ['Overdue', 'bg-rose-500/25 text-rose-100 border-rose-300/40'],
+  submitted: ['Submitted', 'bg-emerald-500/25 text-emerald-100 border-emerald-300/40'],
+  marked: ['Marked', 'bg-indigo-500/30 text-indigo-100 border-indigo-300/40'],
+};
+
+function isAnswered(value) {
+  if (value === undefined || value === null) return false;
+  if (typeof value === 'object') return Object.keys(value).length > 0;
+  return String(value).trim() !== '';
+}
+
 function summarizeQuestionTypes(questions) {
   const labels = Array.from(new Set((questions || []).map(question => typeLabel(question.type)).filter(Boolean)));
   return labels.length ? labels.join(', ') : 'General assignment';
@@ -252,7 +283,7 @@ function CrossMatchingQuestion({ question, value, onChange }) {
 
 function AssignmentQuestion({ question, value, onChange, index }) {
   return (
-    <article className="rounded-2xl border border-white/10 p-4 bg-slate-900/30 space-y-3">
+    <article id={`q-${index + 1}`} className={`scroll-mt-24 rounded-2xl border p-4 space-y-3 ${isAnswered(value) ? 'border-emerald-300/25 bg-slate-900/40' : 'border-white/10 bg-slate-900/30'}`}>
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <p className="micro-label accent-amber">Question {index + 1}</p>
@@ -276,18 +307,17 @@ function AssignmentQuestion({ question, value, onChange, index }) {
       )}
 
       {question.type === 'mcq' && (
-        <div className="space-y-2">
-          {(question.options || []).map((option, index) => (
-            <label key={`${question.id}-${index}`} className="flex gap-2 items-start text-slate-200 text-sm">
-              <input
-                type="radio"
-                name={question.id}
-                checked={value === option}
-                onChange={() => onChange(question.id, option)}
-              />
-              <span>{String.fromCharCode(65 + index)}. <RichContent inline text={option} /></span>
-            </label>
-          ))}
+        <div className="grid gap-2" role="radiogroup" aria-label={`Question ${index + 1} options`}>
+          {(question.options || []).map((option, optionIndex) => {
+            const chosen = value === option;
+            return (
+              <button key={`${question.id}-${optionIndex}`} type="button" role="radio" aria-checked={chosen} onClick={() => onChange(question.id, option)}
+                className={`flex w-full items-start gap-3 rounded-2xl border px-4 py-3 text-left text-[15px] transition ${chosen ? 'border-emerald-300/70 bg-emerald-500/20 text-white' : 'border-white/10 bg-slate-900/40 text-slate-100 hover:border-indigo-300/50 hover:bg-indigo-500/10'}`}>
+                <span className={`grid h-7 w-7 shrink-0 place-items-center rounded-lg text-sm font-black ${chosen ? 'bg-emerald-400 text-slate-950' : 'bg-white/10 text-slate-200'}`}>{String.fromCharCode(65 + optionIndex)}</span>
+                <span className="min-w-0 flex-1 pt-0.5"><RichContent inline text={option} /></span>
+              </button>
+            );
+          })}
         </div>
       )}
 
@@ -333,6 +363,7 @@ function AssignmentDetail({ assignment, onSubmissionSaved }) {
   const [notice, setNotice] = useState('');
   const [error, setError] = useState('');
   const reviewed = hasTeacherReview(assignment?.mySubmission);
+  const answeredCount = (assignment?.questions || []).filter(question => isAnswered(answers[question.id])).length;
   const displayGrade = normalizeDisplayGrade(assignment?.mySubmission?.grade);
 
   useEffect(() => {
@@ -432,6 +463,14 @@ function AssignmentDetail({ assignment, onSubmissionSaved }) {
       {error && <section className="rounded-3xl border border-rose-400/30 p-4 bg-rose-500/10 text-rose-100">{error}</section>}
       {notice && <section className="rounded-3xl border border-emerald-300/30 p-4 bg-emerald-500/10 text-emerald-100">{notice}</section>}
 
+      {!locked && (assignment.questions || []).length > 1 && (
+        <nav className="flex flex-wrap gap-1.5" aria-label="Questions">
+          {(assignment.questions || []).map((question, index) => (
+            <a key={question.id} href={`#q-${index + 1}`} className={`grid h-8 w-8 place-items-center rounded-lg text-xs font-black ${isAnswered(answers[question.id]) ? 'bg-emerald-400/80 text-slate-950' : 'bg-white/10 text-slate-200'}`} aria-label={`Question ${index + 1}${isAnswered(answers[question.id]) ? ', answered' : ''}`}>{index + 1}</a>
+          ))}
+        </nav>
+      )}
+
       {!locked && <section className="space-y-4">
         {(assignment.questions || []).map((question, index) => (
           <AssignmentQuestion
@@ -444,8 +483,13 @@ function AssignmentDetail({ assignment, onSubmissionSaved }) {
         ))}
       </section>}
 
-      <section className="glass-surface rounded-3xl p-6 flex flex-wrap items-center justify-between gap-3">
-        <p className="text-slate-200">Save your answers by submitting this assignment when you are done.</p>
+      <section className="glass-surface sticky bottom-2 z-10 flex flex-wrap items-center justify-between gap-3 rounded-3xl p-4 shadow-2xl sm:p-5">
+        <div className="min-w-[10rem] flex-1">
+          <p className="text-sm font-bold text-slate-100">{answeredCount} of {(assignment.questions || []).length} answered</p>
+          <div className="mt-1.5 h-2 overflow-hidden rounded-full bg-white/10" role="progressbar" aria-valuemin={0} aria-valuemax={(assignment.questions || []).length} aria-valuenow={answeredCount} aria-label="Answered">
+            <div className="h-full rounded-full bg-gradient-to-r from-emerald-400 to-cyan-400 transition-all" style={{ width: `${(assignment.questions || []).length ? (answeredCount / assignment.questions.length) * 100 : 0}%` }} />
+          </div>
+        </div>
         {timedWork && assignment.mySubmission && !retake ? (
           <button onClick={() => setRetake(true)} className="px-5 py-2 rounded-2xl bg-emerald-500/30 border border-emerald-300/40 text-white font-semibold">Start another attempt</button>
         ) : <button
@@ -524,19 +568,19 @@ export default function StudentAssignments() {
     };
   }, []);
 
-  const groupedAssignments = useMemo(() => {
-    const groups = assignments.reduce((accumulator, assignment) => {
-      const subjectName = assignment.subjectName || 'General Subject';
-      if (!accumulator[subjectName]) accumulator[subjectName] = [];
-      accumulator[subjectName].push(assignment);
-      return accumulator;
-    }, {});
-
-    return Object.entries(groups).map(([subjectName, items]) => ({
-      subjectName,
-      items,
-    }));
-  }, [assignments]);
+  const [filter, setFilter] = useState('todo');
+  const [subject, setSubject] = useState('');
+  const subjects = useMemo(() => [...new Set(assignments.map(item => item.subjectName || 'General Subject'))].sort((a, b) => a.localeCompare(b)), [assignments]);
+  const counts = useMemo(() => assignments.reduce((acc, item) => { acc[statusOf(item)] += 1; return acc; }, { todo: 0, overdue: 0, submitted: 0, marked: 0 }), [assignments]);
+  // To do first, soonest due first; then the rest, newest first.
+  const shown = useMemo(() => assignments
+    .filter(item => !subject || (item.subjectName || 'General Subject') === subject)
+    .filter(item => { const status = statusOf(item); return filter === 'all' || (filter === 'todo' ? status === 'todo' || status === 'overdue' : status === filter); })
+    .sort((a, b) => {
+      const open = item => (['todo', 'overdue'].includes(statusOf(item)) ? 0 : 1);
+      const dueOf = item => (item.dueAt ? new Date(item.dueAt).getTime() : Infinity);
+      return open(a) - open(b) || (open(a) === 0 ? dueOf(a) - dueOf(b) : String(b.createdAt || '').localeCompare(String(a.createdAt || '')));
+    }), [assignments, filter, subject]);
 
   const selectedAssignment = useMemo(
     () => assignments.find(item => item.id === assignmentId),
@@ -556,7 +600,7 @@ export default function StudentAssignments() {
   }
 
   return (
-    <StudentSectionShell title="Assignments" subtitle="See every teacher-created assignment by subject and work on them live.">
+    <StudentSectionShell title="Assignments" subtitle="What to do next, what you sent, and what your teachers marked.">
       {loading && (
         <section className="glass-surface rounded-3xl p-6">
           <p className="neon-subtle">Loading assignments…</p>
@@ -574,46 +618,61 @@ export default function StudentAssignments() {
       )}
 
       {!loading && !error && !assignmentId && (
-        <div className="space-y-6">
-          {groupedAssignments.length === 0 && (
+        <div className="space-y-5">
+          <section className="grid grid-cols-2 gap-3 sm:grid-cols-4" aria-label="Summary">
+            {[['todo', 'To do', counts.todo + counts.overdue, 'from-amber-500/30'], ['overdue', 'Overdue', counts.overdue, 'from-rose-500/30'], ['submitted', 'Submitted', counts.submitted, 'from-emerald-500/30'], ['marked', 'Marked', counts.marked, 'from-indigo-500/30']].map(([key, label, value, tone]) => (
+              <button key={key} type="button" onClick={() => setFilter(key === 'overdue' ? 'todo' : key)} className={`rounded-2xl border border-white/10 bg-gradient-to-br ${tone} to-transparent p-4 text-left`}>
+                <p className="text-[11px] font-bold uppercase tracking-widest text-white/70">{label}</p>
+                <p className="mt-1 text-3xl font-black text-white">{value}</p>
+              </button>
+            ))}
+          </section>
+
+          <div className="flex flex-wrap items-center gap-2">
+            <div className="flex gap-1 rounded-2xl border border-white/10 bg-slate-900/40 p-1" role="tablist" aria-label="Show">
+              {[['todo', 'To do'], ['submitted', 'Submitted'], ['marked', 'Marked'], ['all', 'All']].map(([key, label]) => (
+                <button key={key} type="button" role="tab" aria-selected={filter === key} onClick={() => setFilter(key)} className={`rounded-xl px-3 py-1.5 text-sm font-bold ${filter === key ? 'bg-white text-slate-900' : 'text-slate-200'}`}>{label}</button>
+              ))}
+            </div>
+            {subjects.length > 1 ? (
+              <select aria-label="Subject" value={subject} onChange={event => setSubject(event.target.value)} className="rounded-2xl border border-white/10 bg-slate-900/60 px-3 py-2 text-sm font-semibold text-slate-100">
+                <option value="">All subjects</option>
+                {subjects.map(name => <option key={name} value={name}>{name}</option>)}
+              </select>
+            ) : null}
+          </div>
+
+          {shown.length === 0 && (
             <section className="glass-surface rounded-3xl p-6 text-center">
-              <p className="micro-label accent-amber">No live assignments</p>
-              <p className="mt-2 text-sm text-slate-300">Assignments will appear here once your teacher publishes them to your class subjects.</p>
+              <p className="micro-label accent-amber">{assignments.length ? 'Nothing here' : 'No live assignments'}</p>
+              <p className="mt-2 text-sm text-slate-300">{assignments.length ? (filter === 'todo' ? 'You are all caught up. 🎉' : 'Nothing matches this view yet.') : 'Assignments will appear here once your teacher publishes them to your class subjects.'}</p>
             </section>
           )}
 
-          {groupedAssignments.map(group => (
-            <section key={group.subjectName} className="glass-surface rounded-3xl p-5">
-              <div className="flex items-center justify-between gap-3 mb-4">
-                <h2 className="text-lg command-title neon-title">{group.subjectName}</h2>
-                <span className="glass-chip px-3 py-1 rounded-full micro-label accent-indigo">{group.items.length} assignment{group.items.length === 1 ? '' : 's'}</span>
-              </div>
-              <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
-                {group.items.map(item => {
-                  const total = assignmentTotalScore(item.questions);
-                  const reviewed = hasTeacherReview(item.mySubmission) && item.mySubmission?.grade != null;
-                  return (
-                    <Link
-                      key={item.id}
-                      to={`/roles/student/assignments/${item.id}`}
-                      className={`flex min-h-[118px] flex-col justify-between gap-2 rounded-2xl border bg-gradient-to-br p-3 transition-transform hover:scale-[1.03] ${cardColor(`${group.subjectName}-${item.id}`)}`}
-                    >
-                      <div>
-                        <p className="line-clamp-2 text-sm font-bold leading-snug text-white">{item.title}</p>
-                        <p className="mt-1 text-[10px] font-semibold uppercase tracking-wide text-white/65">Due {formatDueDate(item.dueAt)}</p>
-                      </div>
-                      <div className="flex items-center justify-between gap-1">
-                        <span className="text-[10px] font-bold text-white/70">Total {total}</span>
-                        <span className={`rounded-full px-2 py-0.5 text-[9px] font-black uppercase ${reviewed ? 'bg-indigo-400/40 text-white' : item.mySubmission ? 'bg-emerald-400/40 text-white' : 'bg-amber-400/45 text-white'}`}>
-                          {reviewed ? `${normalizeDisplayGrade(item.mySubmission.grade)}/${total}` : item.mySubmission ? 'Submitted' : 'Start'}
-                        </span>
-                      </div>
-                    </Link>
-                  );
-                })}
-              </div>
-            </section>
-          ))}
+          <ul className="grid gap-3 md:grid-cols-2">
+            {shown.map(item => {
+              const total = assignmentTotalScore(item.questions);
+              const status = statusOf(item);
+              const [chipLabel, chipTone] = STATUS_CHIP[status];
+              const due = dueHint(item.dueAt);
+              return (
+                <li key={item.id}>
+                  <Link to={`/roles/student/assignments/${item.id}`} className={`flex h-full flex-col gap-2 rounded-2xl border bg-gradient-to-br p-4 transition hover:-translate-y-0.5 hover:shadow-xl ${cardColor(`${item.subjectName}-${item.id}`)}`}>
+                    <div className="flex items-start justify-between gap-2">
+                      <p className="text-[11px] font-bold uppercase tracking-widest text-white/70">{item.subjectName || 'General Subject'}</p>
+                      <span className={`shrink-0 rounded-full border px-2 py-0.5 text-[10px] font-black uppercase ${chipTone}`}>{status === 'marked' ? `${normalizeDisplayGrade(item.mySubmission.grade)}/${total}` : chipLabel}</span>
+                    </div>
+                    <p className="line-clamp-2 text-base font-black leading-snug text-white">{item.title}</p>
+                    <div className="mt-auto flex flex-wrap items-center justify-between gap-2 text-xs">
+                      <span className={`font-semibold ${due.tone}`}>{item.mySubmission ? `Sent ${formatDueDate(item.mySubmission.submittedAt)}` : due.text}</span>
+                      <span className="font-semibold text-white/70">{(item.questions || []).length} question{(item.questions || []).length === 1 ? '' : 's'} · {total} marks</span>
+                    </div>
+                    {status === 'todo' || status === 'overdue' ? <span className="self-start rounded-xl bg-white/90 px-3 py-1 text-xs font-black text-slate-900">Start →</span> : null}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
         </div>
       )}
     </StudentSectionShell>

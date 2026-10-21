@@ -125,17 +125,34 @@ export async function guardStudentClass(db: D1Database, settingsKey: string, nex
     // Placed where they had no class: always allowed, pinned, and put on the register.
     await db.batch(classEventStatements(db, { tenantId, studentId, settingsKey, from, to, outcome: 'placed', change }))
     await syncRegister(db, { tenantId, studentId, classId: after, className: next.className, classArm: next.classArm })
+    await mirrorClassToSiblings(db, settingsKey, next)
     return next
   }
   if (isAuthorisedChange(change)) {
     await db.batch(classEventStatements(db, { tenantId, studentId, settingsKey, from, to, outcome: after ? 'changed' : 'cleared', change }))
     if (after) await syncRegister(db, { tenantId, studentId, classId: after, className: next.className, classArm: next.classArm })
+    await mirrorClassToSiblings(db, settingsKey, next)
     return next
   }
   // Not authorised: the class stays as it was; everything else in the write goes through.
   await db.batch(classEventStatements(db, { tenantId, studentId, settingsKey, from, to, outcome: 'blocked', change }))
   console.warn('Blocked an unrecorded class change', { tenantId, studentId, from: before, to: after })
   return { ...next, classId: existing.classId, className: existing.className ?? null, classArm: existing.classArm ?? null }
+}
+
+/**
+ * A student can have more than one settings record (one under their email, one under their
+ * id). Class lists read all of them, so every record must carry the same class: otherwise a
+ * promoted student also shows in the old class, or a placed one shows in none.
+ */
+export async function mirrorClassToSiblings(db: D1Database, settingsKey: string, klass: { classId: unknown, className?: unknown, classArm?: unknown }) {
+  const user = await db.prepare(`SELECT id, email FROM users WHERE email = ? OR id = ? OR lower(email) = lower(?) LIMIT 1`).bind(settingsKey, settingsKey, settingsKey).first().catch(() => null) as Record<string, any> | null
+  const keys = [...new Set([String(user?.id || ''), String(user?.email || ''), String(user?.email || '').toLowerCase(), settingsKey].filter(Boolean))].filter(key => key !== settingsKey)
+  if (!keys.length) return 0
+  const result = await db.prepare(`UPDATE settings SET payload = json_set(payload, '$.classId', ?, '$.className', ?, '$.classArm', ?)
+    WHERE studentId IN (${keys.map(() => '?').join(', ')}) AND json_valid(payload) AND COALESCE(json_extract(payload, '$.classId'), '') != ?`)
+    .bind(String(klass.classId || ''), klass.className ?? null, klass.classArm ?? null, ...keys, String(klass.classId || '')).run().catch(() => null)
+  return Number(result?.meta?.changes || 0)
 }
 
 /**
@@ -179,6 +196,23 @@ export async function monitorClassPins(db: D1Database, options: { tenantId?: str
     statements.push(...classEventStatements(db, { tenantId: String(row.tenant_id), studentId: String(row.student_id), settingsKey: String(row.settings_key), from: { id: current, name: payload.className, arm: payload.classArm }, to: { id: pin, name: row.pin_name, arm: row.pin_arm }, outcome: 'restored', change: { by: 'system', byName: 'Ndovera class monitor', role: 'system', reason: 'session' } }))
     restored += 1
   }
+  // Every settings record of a pinned student carries the pinned class (a second record under
+  // the student's id or email used to keep an old class, so promoted students showed in both).
+  const strays = ((await db.prepare(`SELECT st.studentId AS settings_key, p.student_id AS student_id, p.tenant_id AS tenant_id, p.class_id AS pin_class, p.class_name AS pin_name, p.class_arm AS pin_arm,
+      json_extract(st.payload, '$.classId') AS current_class
+    FROM student_class_pins p JOIN users u ON u.id = p.student_id
+    JOIN settings st ON st.studentId IN (u.email, lower(u.email), u.id)
+    WHERE json_valid(st.payload) AND COALESCE(json_extract(st.payload, '$.classId'), '') != p.class_id
+      AND lower(COALESCE(NULLIF(trim(u.status), ''), 'active')) NOT IN ('alumni', 'graduated', 'withdrawn', 'transferred', 'inactive', 'deleted', 'left')
+      AND EXISTS (SELECT 1 FROM classes c WHERE c.id = p.class_id AND c.tenantId = u.tenantId)
+      ${options.tenantId ? 'AND p.tenant_id = ?' : ''}`).bind(...(options.tenantId ? [options.tenantId] : [])).all().catch(() => ({ results: [] }))).results || []) as Record<string, any>[]
+  let aligned = 0
+  for (const stray of strays) {
+    statements.push(db.prepare(`UPDATE settings SET payload = json_set(payload, '$.classId', ?, '$.className', ?, '$.classArm', ?) WHERE studentId = ? AND json_valid(payload)`)
+      .bind(String(stray.pin_class), stray.pin_name ?? null, stray.pin_arm ?? null, String(stray.settings_key)))
+    aligned += 1
+  }
+
   // The register catches up with classes set elsewhere (e.g. on the People page before this fix):
   // only rows with no class are filled; a class on the register is never overwritten here.
   let registered = 0
@@ -195,7 +229,7 @@ export async function monitorClassPins(db: D1Database, options: { tenantId?: str
     registered += 1
   }
   for (let index = 0; index < statements.length; index += 90) await db.batch(statements.slice(index, index + 90))
-  return { checked: rows.length, pinned, restored, unplaced, registered }
+  return { checked: rows.length, pinned, restored, unplaced, registered, aligned }
 }
 
 /** A student's class history, newest first (for the Owner, Head of School and ICT). */

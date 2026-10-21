@@ -26,6 +26,8 @@ import {
   normalizeResultRecordsResponse,
   normalizeTeacherSheetResponse,
 } from '../utils/resultEngineTransforms';
+import { enqueue, isRetryable, registerSender } from '../../../shared/offline/outbox';
+import { currentUserKey, getItem, setItem } from '../../../shared/offline/offlineStore';
 
 function resolveSelectedBatch(batches = [], filters = {}) {
   if (!Array.isArray(batches) || batches.length === 0) return null;
@@ -54,6 +56,49 @@ export async function getTeacherScoreSheet(params = {}) {
   const data = await fetchResultSheet(params);
   return normalizeTeacherSheetResponse(data);
 }
+
+// ─── Working offline ─────────────────────────────────────────────────────────
+// The sheet last opened for each class is kept on the device, so a teacher can open it and
+// keep entering C.A. and exam scores with no connection. Scores saved offline wait in the
+// outbox and are sent by themselves when the device is back online.
+
+const sheetCacheKey = params => `ca-sheet:${currentUserKey() || 'me'}:${params.classId || ''}:${params.mode || 'live'}`;
+
+/** The sheet from Ndovera, or (offline) the copy kept on this device: { sheet, offline, savedAt }. */
+export async function getTeacherScoreSheetWithCache(params = {}) {
+  try {
+    const sheet = await getTeacherScoreSheet(params);
+    setItem(sheetCacheKey(params), { sheet, savedAt: new Date().toISOString() }).catch(() => null);
+    return { sheet, offline: false };
+  } catch (error) {
+    if (!isRetryable(error)) throw error;
+    const kept = await getItem(sheetCacheKey(params)).catch(() => null);
+    if (!kept?.sheet) throw Object.assign(new Error('You are offline and this sheet has not been opened on this device before. Open it once while online to use it offline.'), { status: error.status });
+    return { sheet: kept.sheet, offline: true, savedAt: kept.savedAt };
+  }
+}
+
+/** Keeps the sheet as now typed on the device (offline edits survive closing the app). */
+export function keepSheetOnDevice(sheet) {
+  if (!sheet?.classId) return Promise.resolve(null);
+  return setItem(sheetCacheKey({ classId: sheet.classId, mode: sheet.mode === 'practice' ? 'practice' : undefined }), { sheet, savedAt: new Date().toISOString() }).catch(() => null);
+}
+
+/** Queues the students' scores (and behaviour records) to be sent when the device is back online. */
+export async function queueTeacherSave(sheet = {}, { reason = '', studentIds = null, touched = null, profiles = false } = {}) {
+  const payload = sheetRequest(sheet);
+  const rows = buildEntryPayload(sheet, { studentIds, touched });
+  const profileRows = profiles ? buildProfilePayload(sheet).filter(row => !studentIds || studentIds.includes(row.studentId)) : [];
+  await enqueue('ca-scores', { entries: rows.length ? { ...payload, reason, rows } : null, profiles: profileRows.length ? { ...payload, rows: profileRows } : null }, { label: `C.A. scores: ${sheet.className || 'class'}` });
+  await keepSheetOnDevice(sheet);
+  return rows.length + profileRows.length;
+}
+
+registerSender('ca-scores', async ({ entries, profiles }) => {
+  if (profiles?.rows?.length) await saveResultProfiles(profiles);
+  if (entries?.rows?.length) await saveResultEntries(entries);
+  return { success: true };
+});
 
 // `studentIds` saves just those students (the one on screen); `touched` marks rows the
 // teacher typed into, so a deliberate zero (an absent student) is kept.

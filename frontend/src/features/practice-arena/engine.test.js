@@ -70,3 +70,15 @@ test('a mock keeps every objective question in order, on the examination clock',
   expect(quiz.seconds).toBe(7200);
   expect(quiz.questions.map(question => question.id)).toEqual(['e1', 'm1']);
 });
+
+test('close answers count: 70% alike, any case or spacing; numbers stay exact', () => {
+  expect(textMatches('MITOCHONDRION', ['mitochondria'])).toBe(true);
+  expect(textMatches('photo synthesis', ['Photosynthesis'])).toBe(true);
+  expect(textMatches('it is photosynthesis', ['photosynthesis'])).toBe(true);
+  expect(textMatches('Photosinthesis', ['photosynthesis'])).toBe(true);
+  expect(textMatches('decrease', ['increase'])).toBe(false);
+  expect(textMatches('car', ['cat'])).toBe(false);
+  expect(textMatches('H2 O', ['H2O'])).toBe(true);
+  expect(textMatches('13', ['12'])).toBe(false);
+  expect(textMatches('Abuja', ['Lagos', 'Abuja'])).toBe(true);
+});

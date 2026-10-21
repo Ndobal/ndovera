@@ -192,7 +192,9 @@ test('a special subject taught across classes is combined on one sheet, unless t
   assert.equal(all.body.canManage, true)
   const group = all.body.groups.find(item => item.subjectKey === 'fashion and design')
   assert.ok(group, JSON.stringify(all.body))
-  assert.deepEqual([group.enabled, group.automatic, group.section, group.classIds.sort()], [true, true, 'secondary', ['ss1a', 'ss1b']])
+  assert.deepEqual([group.enabled, group.automatic, group.section, group.classIds.sort()], [true, true, 'senior', ['ss1a', 'ss1b']])
+  assert.equal(group.label, 'SS 1–3')
+  assert.equal(group.settingsSection, 'secondary')
 
   const mine = await call(db, 'fashion', 'GET', '/api/results/subject-groups')
   assert.deepEqual(mine.body.groups.map(item => item.id), [group.id])
@@ -214,8 +216,8 @@ test('a special subject taught across classes is combined on one sheet, unless t
   const submit = await call(db, 'fashion', 'POST', '/api/results/group-submit', { groupId: group.id })
   assert.deepEqual(submit.body.report.map(item => item.status), ['submitted', 'submitted'])
 
-  assert.equal((await call(db, 'fashion', 'POST', '/api/results/subject-groups', { section: 'secondary', subjectKey: 'fashion and design', enabled: false })).status, 403)
-  const off = await call(db, 'ict', 'POST', '/api/results/subject-groups', { section: 'secondary', subjectKey: 'fashion and design', enabled: false }); assert.equal(off.status, 200, JSON.stringify(off.body))
+  assert.equal((await call(db, 'fashion', 'POST', '/api/results/subject-groups', { section: 'senior', subjectKey: 'fashion and design', enabled: false })).status, 403)
+  const off = await call(db, 'ict', 'POST', '/api/results/subject-groups', { section: 'senior', subjectKey: 'fashion and design', enabled: false }); assert.equal(off.status, 200, JSON.stringify(off.body))
   assert.equal((await call(db, 'fashion', 'GET', `/api/results/group-sheet?groupId=${group.id}`)).status, 404)
   assert.deepEqual((await call(db, 'fashion', 'GET', '/api/results/subject-groups')).body.groups, [])
 })
@@ -246,4 +248,24 @@ test('a student who leaves is taken off the score sheet (scores kept), so the cl
   assert.ok(!after.includes('s-2'), JSON.stringify(after))
   const submitted = await call(db, 'maths', 'POST', '/api/results/ca-submissions', { classId: 'jss1', subjectId: 'm1' })
   assert.equal(submitted.status, 201, JSON.stringify(submitted.body))
+})
+
+test('combined subjects: JSS and SS are separate groups, a choice saved as "secondary" still applies, and a school can make its own group', async () => {
+  const db = await setup()
+  db.db.exec(`INSERT INTO classes (id, tenantId, name, arm, classTeacherId) VALUES ('jss1x', 'school-a', 'JSS 1', 'X', ''), ('jss2x', 'school-a', 'JSS 2', 'X', ''), ('ss2a', 'school-a', 'SS 2', 'A', '')`)
+  db.db.exec(`INSERT INTO subjects (id, tenantId, name, classId, teacherId) VALUES ('g1', 'school-a', 'GSM Repairs', 'jss1x', 't-gsm'), ('g2', 'school-a', 'GSM Repairs', 'jss2x', 't-gsm'), ('g3', 'school-a', 'GSM Repairs', 'ss1a', 't-gsm2'), ('g4', 'school-a', 'GSM Repairs', 'ss1b', 't-gsm2'), ('g5', 'school-a', 'GSM Repairs', 'ss2a', 't-gsm2')`)
+  const groups = (await call(db, 'ict', 'GET', '/api/results/subject-groups')).body.groups.filter(group => group.subjectKey === 'gsm repairs')
+  assert.deepEqual(groups.map(group => [group.label, group.classIds.sort()]), [['JSS 1–3', ['jss1x', 'jss2x']], ['SS 1–3', ['ss1a', 'ss1b', 'ss2a']]])
+  // An old school-wide "secondary" choice keeps applying to both bands.
+  db.db.exec(`INSERT INTO subject_groups (id, tenant_id, section, subject_key, name, class_ids_json, enabled, updated_by, updated_at) VALUES ('old', 'school-a', 'secondary', 'gsm repairs', 'GSM Repairs', '[]', 0, 'x', 'x')`)
+  assert.ok((await call(db, 'ict', 'GET', '/api/results/subject-groups')).body.groups.filter(group => group.subjectKey === 'gsm repairs').every(group => !group.enabled))
+  // The school's own group: SS 1 A and B only; SS 2 A leaves the automatic SS group.
+  const made = await call(db, 'ict', 'POST', '/api/results/subject-groups', { custom: true, subjectKey: 'gsm repairs', name: 'GSM Repairs (SS 1)', classIds: ['ss1a', 'ss1b'] })
+  assert.equal(made.status, 200, JSON.stringify(made.body))
+  const after = (await call(db, 'ict', 'GET', '/api/results/subject-groups')).body
+  const custom = after.groups.find(group => group.id === made.body.id)
+  assert.deepEqual([custom.custom, custom.enabled, custom.classIds.sort(), custom.settingsSection], [true, true, ['ss1a', 'ss1b'], 'secondary'])
+  assert.ok(!after.groups.some(group => !group.custom && group.subjectKey === 'gsm repairs' && group.classIds.includes('ss1a')))
+  assert.ok(after.subjects.some(subject => subject.subjectKey === 'gsm repairs'))
+  assert.equal((await call(db, 'ict', 'POST', '/api/results/subject-groups', { delete: true, id: made.body.id })).body.success, true)
 })

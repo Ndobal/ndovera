@@ -2293,7 +2293,7 @@ Schools that only paid onboarding showed "All paid" in the new term (no bill exi
 - Shareholders (Ami → Shareholders): read-only sign-ins that see Finance only; temporary password shown once; access on/off.
 - Command centre: dark grouped sidebar; Dashboard (stats, money chart, unpaid this term, latest payments, new schools, approvals waiting); Schools as a searchable table (logo, copyable ID, students, plan, status, this term) with each school's controls in a side drawer; Billing & Pricing page; every Ami page on one canvas with a breadcrumb.
 
-### N37. Phone sign-in, connection notice, Exit Class, subject-only content, assignments rebuilt — ⏳ BUILT (21 Oct 2026), deploy pending
+### N37. Phone sign-in, connection notice, Exit Class, subject-only content, assignments rebuilt — ✅ DEPLOYED (21 Oct 2026)
 - Android sign-in (Mr Chibuike, Genesis): the bot gate treated any browser mentioning "Google" as Google's crawler (and crawlers may not sign in) and matched "bot" anywhere; now only named crawlers, and a real phone or computer browser is never refused. Clear sign-in messages when refused or unreachable; the login video is skipped on Android 7 and below and with data saver.
 - "Ndovera is very busy" shows only after two failed checks in a row (one slow request on mobile data used to trigger it); checks wait 20 s.
 - Exit Class works for teachers with one class and for HoS/supervisors (the class was being reopened at once).
@@ -2302,3 +2302,18 @@ Schools that only paid onboarding showed "All paid" in the new term (no bill exi
 - Assignments rebuilt: one builder with class and subject always choosable (and a clear reason when a teacher has no subject there); "Also give it to" other classes/arms with the same subject; formulas, symbols, tables, graphs and shapes (same tools as lesson notes) in questions, options, explanations and marking guides; tap the letter to mark the right option; pictures; reorder/duplicate; what each question still needs; sticky question count and marks; cleaner list (search, open/past due) and marking window.
 - Paste many questions at once: questions split at every number (no blank lines needed); options as A. a) (A) A: or several on one line; answers from "Answer/Ans: B", a * or (correct), or an answer key at the end; sections (Objectives/Theory) set the type; preview with warnings before adding.
 - Materials: "Use in other classes" ticks every class/arm with the same subject at once (shared, not copied).
+
+### N38. Past students, Academics tabs, offline score sheet, AI assignments, submissions review, news, strict practice exams, report card — ✅ DEPLOYED (21 Oct 2026)
+From feature22222222.md.
+- Past students leave classes, fees and score sheets; Remove hides them; parents with no child left are turned off nightly.
+- Classes stay put: a student with two settings records (email and id) now carries one class in both; promotion finds students by id as well as email; the nightly class monitor aligns stray records to the class on record. Only a manual move or promotion changes a class.
+- Academics as tabs: C.A. Score Sheet, Result Control, Administration, Result Upload (bulk upload + batches), Result Analysis (subject performance + broadsheet).
+- Combined subjects moved to Settings → Subjects, by band (JSS 1–3 and SS 1–3 apart, teachers per group); schools create, rename and delete their own groups. Subjects, classes and people lists in A–Z order. Materials by week label, then upload order.
+- Teachers no longer see Lesson Plan / Lesson Notes (materials replace them).
+- C.A. score sheet offline: the sheet last opened is kept on the device; scores entered offline are saved there and sent by themselves when back online. Behaviour & remarks fold away (remembered). Tips close.
+- Assignments: explicit "Correct answer" picker under options; start cards (write, paste many, create with AI); "Create with AI": topics, how many of each type, marks each, difficulty → questions land in the builder to review and publish (100 AI credits).
+- Teacher Submissions: a class opens as its own review page with ← All classes and a class switcher. A combined subject needs one submission for all its classes: work sent under one class counts and shows for the others.
+- Settings → Class levels & sections: classes grouped by section; Secondary has Junior Secondary and Senior Secondary sections.
+- News: headlines only, from Nigerian outlets (Punch, Vanguard, Daily Times, Sahara Reporters, TVC, Arise, Channels, Premium Times, Guardian, ThisDay, Daily Trust, The Nation), fetched at midnight Lagos; earlier days kept 120 days; a headline opens on the outlet's site.
+- Practice: Exam Simulation is strict (answers and marks only after hand-in, question map, one clock, leaving the screen counted); typed theory with a maths symbol bar; close answers count (70% alike, case and spaces ignored, same first letter; numbers exact); AI lists every accepted wording for short answers.
+- Report card (preview = what students and parents see): letterhead (logo, motto, address), student details, statistics (total, average, position, class average/highest/lowest), coloured subjects table with class figures, behaviour rated 5–1 with ticks and key, remarks with signature lines, school seal (drawn, or the school's image), QR (sample in previews). Settings → Results shows it with a sample student.

@@ -9,7 +9,7 @@ const AUTO_READ_KEY = 'ndovera:quizAutoRead';
 const canSpeak = () => typeof window !== 'undefined' && Boolean(window.speechSynthesis) && typeof window.SpeechSynthesisUtterance === 'function';
 const loadAutoRead = () => { try { return localStorage.getItem(AUTO_READ_KEY) === '1'; } catch { return false; } };
 
-function formatClock(seconds) {
+export function formatClock(seconds) {
   const safe = Math.max(0, Math.round(seconds));
   return `${Math.floor(safe / 60)}:${String(safe % 60).padStart(2, '0')}`;
 }
@@ -21,7 +21,7 @@ function expectedText(question) {
   return question.modelAnswer || '';
 }
 
-function ChoiceAnswer({ question, chosen, locked, onChoose, reading = -1 }) {
+export function ChoiceAnswer({ question, chosen, locked, onChoose, reading = -1 }) {
   return (
     <div className="grid gap-3" role="group" aria-label="Options">
       {question.options.map((option, index) => {
@@ -51,7 +51,7 @@ function ChoiceAnswer({ question, chosen, locked, onChoose, reading = -1 }) {
   );
 }
 
-function MatchingAnswer({ question, value, locked, onChange }) {
+export function MatchingAnswer({ question, value, locked, onChange }) {
   const rights = useMemo(() => [...question.pairs.map(pair => pair.right)].sort(), [question]);
   return (
     <div className="grid gap-2">
@@ -69,6 +69,26 @@ function MatchingAnswer({ question, value, locked, onChange }) {
             {rights.map(right => <option key={right} value={right}>{right}</option>)}
           </select>
         </label>
+      ))}
+    </div>
+  );
+}
+
+// Theory and working: symbols a phone keyboard does not have, typed at the cursor.
+const MATH_KEYS = ['²', '³', '√', 'π', '×', '÷', '±', '≤', '≥', '≠', '°', '½', '¼', '∠', '△', '→', 'θ', 'Δ'];
+
+export function MathKeys({ inputRef, value, onChange }) {
+  const insert = symbol => {
+    const field = inputRef.current;
+    const start = field?.selectionStart ?? value.length;
+    const end = field?.selectionEnd ?? value.length;
+    onChange(`${value.slice(0, start)}${symbol}${value.slice(end)}`);
+    setTimeout(() => { field?.focus?.(); field?.setSelectionRange?.(start + symbol.length, start + symbol.length); }, 0);
+  };
+  return (
+    <div className="flex flex-wrap gap-1" role="group" aria-label="Maths symbols">
+      {MATH_KEYS.map(symbol => (
+        <button key={symbol} type="button" onClick={() => insert(symbol)} className="min-w-[2.25rem] rounded-lg border border-slate-200 bg-white px-2 py-1 text-sm font-bold text-slate-700 hover:border-indigo-400 dark:border-white/10 dark:bg-white/5 dark:text-slate-100">{symbol}</button>
       ))}
     </div>
   );
@@ -271,8 +291,9 @@ export default function QuizPlayer({ quiz, subjectName, onFinish, onExit }) {
 
           {openEnded ? (
             <div className="grid gap-3">
-              <textarea ref={inputRef} rows={6} value={text} disabled={revealed} onChange={event => setText(event.target.value)} placeholder="Write your answer, then compare it with the model answer." aria-label="Your answer"
+              <textarea ref={inputRef} rows={6} value={text} disabled={revealed} onChange={event => setText(event.target.value)} placeholder="Write your answer and working (numbers, units, steps), then compare it with the model answer." aria-label="Your answer"
                 className="rounded-2xl border-2 border-slate-200 bg-white px-4 py-3 text-base outline-none focus:border-indigo-500 dark:border-white/10 dark:bg-white/5 dark:text-white" />
+              {!revealed ? <MathKeys inputRef={inputRef} value={text} onChange={setText} /> : null}
               {!revealed ? (
                 <button type="button" onClick={() => setRevealed(true)} className="justify-self-end rounded-2xl bg-indigo-600 px-6 py-3 font-black text-white dark:bg-cyan-400 dark:text-black">Show the model answer</button>
               ) : (

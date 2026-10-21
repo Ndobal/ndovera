@@ -180,6 +180,9 @@ import {
   listDueScheduledHandIns,
   listSubjectGroups,
   saveSubjectGroup,
+  saveCustomSubjectGroup,
+  deleteCustomSubjectGroup,
+  subjectGroupKey as subjectGroupKeyOf,
   subjectGroupKey,
 } from './results'
 import {
@@ -399,6 +402,7 @@ import { ImportError, MAX_PDF_BYTES, createJob, getJob, listJobs, runDueImports,
 import { PACK_SIZE, GLOBAL_TENANT, MODES as PRACTICE_MODES, PracticeError, buildPack, classifyLegacyQuestions, getProfile, leaderboard, normalizeDifficulty, practiceStudent, practiceSubjects, recentAttempts, recordAttempt } from './practiceArena'
 // Clubs are imported as a namespace: their names (createPost…) must not shadow the class stream's.
 import * as Clubs from './clubs'
+import { buildNewsEdition, readNews, lagosDate as newsLagosDate } from './news'
 import type { ClubActor } from './clubs'
 import {
   EXAMS, EXAM_MIN_STOCK, JAMB_ENGLISH_KEY, JAMB_MOCK, PassError, SCHOOL_DISCOUNT, bundleList, canOpen, checkDevice, clearDevices, countPack, freeQuestionsLeft, useFreeQuestions, FREE_LIMIT_REACHED, FREE_QUESTIONS_PER_DAY,
@@ -1604,6 +1608,11 @@ function normalizeResultBranding(value: unknown, fallback: Record<string, any> =
     logoUrl: String(source.logoUrl || fallback.logoUrl || '').trim(),
     primaryColor: normalizeResultColor(source.primaryColor, String(fallback.primaryColor || RESULT_DEFAULT_BRANDING.primaryColor)),
     accentColor: normalizeResultColor(source.accentColor, String(fallback.accentColor || RESULT_DEFAULT_BRANDING.accentColor)),
+    // The letterhead on the report card.
+    motto: String(source.motto || fallback.motto || '').trim().slice(0, 160),
+    address: String(source.address || fallback.address || '').trim().slice(0, 240),
+    website: String(source.website || fallback.website || '').trim().slice(0, 160),
+    sealUrl: ((url: string) => (/^https?:\/\//i.test(url) || url.startsWith('/') ? url : ''))(String(source.sealUrl || fallback.sealUrl || '').trim().slice(0, 600)),
   }
 }
 
@@ -1629,15 +1638,22 @@ function mergeResultBrandingWithTenant(value: unknown, tenantBranding: Record<st
   const source = value && typeof value === 'object' ? value as Record<string, any> : {}
   const schoolName = String(tenantBranding.schoolName || source.schoolName || '').trim()
   const logoUrl = String(tenantBranding.logoUrl || source.logoUrl || '').trim()
+  const letterhead = {
+    motto: String(source.motto || tenantBranding.tagline || '').trim(),
+    address: String(source.address || tenantBranding.address || '').trim(),
+    website: String(source.website || tenantBranding.websiteUrl || tenantBranding.website || '').trim(),
+  }
 
   return normalizeResultBranding(
     {
       ...source,
+      ...letterhead,
       schoolName,
       logoUrl,
     },
     {
       ...RESULT_DEFAULT_BRANDING,
+      ...letterhead,
       schoolName,
       logoUrl,
     },
@@ -1880,7 +1896,7 @@ async function resolveResultClassAccess(db: D1Database, user: Record<string, any
     ? await db.prepare(`SELECT * FROM classes WHERE id = ? AND tenantId = ?`).bind(classId, tenantId).first() as Record<string, any> | null
     : null
   const subjectRowsResult = classRow
-    ? await db.prepare(`SELECT id, name, teacherId FROM subjects WHERE tenantId = ? AND classId = ? ORDER BY name`).bind(tenantId, classId).all().catch(() => ({ results: [] }))
+    ? await db.prepare(`SELECT id, name, teacherId FROM subjects WHERE tenantId = ? AND classId = ? ORDER BY name COLLATE NOCASE`).bind(tenantId, classId).all().catch(() => ({ results: [] }))
     : { results: [] }
   const subjectRows = ((subjectRowsResult as any)?.results || []) as Record<string, any>[]
   const isElevatedManager = RESULT_SETTINGS_EDITOR_ROLES.includes(normalizedRole) || RESULT_APPROVER_ROLES.includes(normalizedRole)
@@ -1952,7 +1968,7 @@ async function listResultStudentsByClass(db: D1Database, tenantId: string, class
   // Turned-off and past students keep their saved scores but leave the sheet.
   const rows = await db.prepare(
     `SELECT id, name, email, role, status, createdAt FROM users WHERE tenantId = ? AND role = 'student'
-       AND (status IS NULL OR lower(trim(status)) NOT IN (${PAST_STUDENT_STATUSES.map(() => '?').join(', ')})) ORDER BY name`
+       AND (status IS NULL OR lower(trim(status)) NOT IN (${PAST_STUDENT_STATUSES.map(() => '?').join(', ')})) ORDER BY name COLLATE NOCASE`
   ).bind(tenantId, ...PAST_STUDENT_STATUSES).all()
   const hydrated = await hydrateUserRecords(db, (rows.results || []) as Record<string, any>[])
   const byClass = new Map<string, Array<Record<string, any>>>()
@@ -1983,7 +1999,7 @@ async function listStudentsForResultMatching(db: D1Database, tenantId: string) {
   await ensureUsersTable(db)
   await ensureClassesTable(db)
   const userResult = await db.prepare(
-    `SELECT id, name, email, role, status FROM users WHERE tenantId = ? AND role = 'student' ORDER BY name`
+    `SELECT id, name, email, role, status FROM users WHERE tenantId = ? AND role = 'student' ORDER BY name COLLATE NOCASE`
   ).bind(tenantId).all()
   const rows = (userResult.results || []) as Record<string, any>[]
   if (!rows.length) return [] as Array<Record<string, any>>
@@ -2130,14 +2146,38 @@ function buildPublishedResultPayloads(params: {
     }
   }).filter(item => Array.isArray(item.payload.subjects) && item.payload.subjects.length > 0)
 
+  // Class statistics for the report card: the class's average, highest and lowest, and the
+  // same per subject.
+  const averages = studentSummaries.map(item => Number(item.average || 0))
+  const round1 = (value: number) => Math.round(value * 10) / 10
+  const classStats = averages.length
+    ? { classAverage: round1(averages.reduce((sum, value) => sum + value, 0) / averages.length), highestAverage: Math.max(...averages), lowestAverage: Math.min(...averages) }
+    : {}
+  const subjectStats = new Map<string, { highest: number, lowest: number, average: number }>()
+  for (const item of studentSummaries) {
+    for (const row of item.payload.subjects as Array<Record<string, any>>) {
+      const key = String(row.subjectId || row.subjectName || '')
+      const totals = (subjectStats.get(key) as any)?._all || []
+      totals.push(Number(row.total || 0))
+      subjectStats.set(key, { _all: totals, highest: Math.max(...totals), lowest: Math.min(...totals), average: round1(totals.reduce((sum: number, value: number) => sum + value, 0) / totals.length) } as any)
+    }
+  }
   const ranked = [...studentSummaries]
     .sort((left, right) => right.average - left.average || left.studentName.localeCompare(right.studentName))
     .map((item, index) => ({
       ...item,
       payload: {
         ...item.payload,
+        subjects: (item.payload.subjects as Array<Record<string, any>>).map(row => {
+          const stats = subjectStats.get(String(row.subjectId || row.subjectName || ''))
+          return stats ? { ...row, classHighest: stats.highest, classLowest: stats.lowest, classAverage: stats.average } : row
+        }),
         summary: {
           ...item.payload.summary,
+          ...classStats,
+          totalScore: (item.payload.subjects as Array<Record<string, any>>).reduce((sum, row) => sum + Number(row.total || 0), 0),
+          totalObtainable: (item.payload.subjects as Array<Record<string, any>>).length * Number(item.payload.scoreModel?.totalMaxScore || 100),
+          subjectsTaken: (item.payload.subjects as Array<Record<string, any>>).length,
           position: index + 1,
         },
       },
@@ -3464,7 +3504,7 @@ async function listTenantActiveStudents(db: D1Database, tenantId: string) {
      WHERE tenantId = ?
        AND lower(trim(coalesce(role, ''))) = 'student'
        AND ${currentStudentSql()}
-     ORDER BY name`
+     ORDER BY name COLLATE NOCASE`
   ).bind(tenantId).all()
 
   const hydrated = await hydrateUserRecords(db, (rows.results || []) as Record<string, any>[])
@@ -7814,7 +7854,7 @@ app.post('/api/ami/finance/reminders', authenticate, async (c) => {
 app.get('/api/ami/shareholders', authenticate, async (c) => {
   if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
   await ensureUsersTable(c.env.APP_DB)
-  const rows = ((await c.env.APP_DB.prepare(`SELECT id, email, name, status, createdAt FROM users WHERE lower(role) = 'shareholder' ORDER BY name`).all()).results || []) as Record<string, any>[]
+  const rows = ((await c.env.APP_DB.prepare(`SELECT id, email, name, status, createdAt FROM users WHERE lower(role) = 'shareholder' ORDER BY name COLLATE NOCASE`).all()).results || []) as Record<string, any>[]
   return c.json({ success: true, shareholders: rows.map(row => ({ id: row.id, email: row.email, name: row.name, status: row.status || 'active', createdAt: row.createdAt })) })
 })
 
@@ -8119,8 +8159,8 @@ app.get('/api/transport/admin', authenticate, async (c) => {
     const assignments = await listAssignments(db, actor.tenantId, { routeIds: routes.map(route => route.id) })
     const [studentRows, driverRows] = await Promise.all([
       db.prepare(`SELECT u.id, u.name, s.payload FROM users u LEFT JOIN settings s ON s.studentId IN (u.email, u.id)
-        WHERE u.tenantId = ? AND lower(u.role) = 'student' AND ${currentStudentSql('u')} ORDER BY u.name`).bind(actor.tenantId).all().catch(() => ({ results: [] })),
-      db.prepare(`SELECT id, name, role FROM users WHERE tenantId = ? AND lower(role) IN ('driver', 'transport') AND (status IS NULL OR status != 'inactive') ORDER BY name`).bind(actor.tenantId).all().catch(() => ({ results: [] })),
+        WHERE u.tenantId = ? AND lower(u.role) = 'student' AND ${currentStudentSql('u')} ORDER BY u.name COLLATE NOCASE`).bind(actor.tenantId).all().catch(() => ({ results: [] })),
+      db.prepare(`SELECT id, name, role FROM users WHERE tenantId = ? AND lower(role) IN ('driver', 'transport') AND (status IS NULL OR status != 'inactive') ORDER BY name COLLATE NOCASE`).bind(actor.tenantId).all().catch(() => ({ results: [] })),
     ])
     const students = new Map<string, { id: string, name: string, className: string }>()
     for (const row of (studentRows.results || []) as Record<string, any>[]) {
@@ -8429,7 +8469,7 @@ app.get('/api/health/students', authenticate, async (c) => {
     if (!actor.isStaff) throw new HealthError('Only school staff can look up students here.', 403)
     const term = `%${String(c.req.query('q') || '').trim().toLowerCase()}%`
     const rows = await c.env.APP_DB.prepare(`SELECT u.id, u.name, s.payload FROM users u LEFT JOIN settings s ON s.studentId IN (u.email, u.id)
-      WHERE u.tenantId = ? AND lower(u.role) = 'student' AND ${currentStudentSql('u')} AND lower(u.name) LIKE ? ORDER BY u.name LIMIT 40`)
+      WHERE u.tenantId = ? AND lower(u.role) = 'student' AND ${currentStudentSql('u')} AND lower(u.name) LIKE ? ORDER BY u.name COLLATE NOCASE LIMIT 40`)
       .bind(actor.tenantId, term).all().catch(() => ({ results: [] }))
     const students = new Map<string, { id: string, name: string, className: string }>()
     for (const row of (rows.results || []) as Record<string, any>[]) {
@@ -9053,7 +9093,7 @@ app.get('/api/dashboards/:roleKey', authenticate, async (c) => {
         try { await c.env.APP_DB.exec('ALTER TABLE subjects ADD COLUMN classId TEXT') } catch {}
         try { await c.env.APP_DB.exec('ALTER TABLE subjects ADD COLUMN teacherId TEXT') } catch {}
         const subjectRows = await c.env.APP_DB.prepare(
-          `SELECT id, name, teacherId FROM subjects WHERE tenantId = ? AND classId = ? ORDER BY name`
+          `SELECT id, name, teacherId FROM subjects WHERE tenantId = ? AND classId = ? ORDER BY name COLLATE NOCASE`
         ).bind(tenantId, settings.classId).all()
         subjects = (subjectRows.results || []) as Record<string, any>[]
       } catch {}
@@ -9150,7 +9190,7 @@ app.get('/api/dashboards/:roleKey', authenticate, async (c) => {
                SELECT id FROM classes WHERE tenantId = ? AND lower(trim(coalesce(classTeacherId, ''))) IN (${identifierPlaceholders})
                UNION SELECT classId FROM subjects WHERE tenantId = ? AND lower(trim(coalesce(teacherId, ''))) IN (${identifierPlaceholders})
              )
-             ORDER BY name, arm`
+             ORDER BY name COLLATE NOCASE, arm`
           ).bind(tenantId, tenantId, ...teacherIdentifiers, tenantId, ...teacherIdentifiers).all()
           classRows = (assignedClassRows.results || []) as Record<string, any>[]
         }
@@ -9161,7 +9201,7 @@ app.get('/api/dashboards/:roleKey', authenticate, async (c) => {
             `SELECT DISTINCT id, name, arm, classTeacherId
              FROM classes
              WHERE tenantId = ? AND id IN (${classPlaceholders})
-             ORDER BY name, arm`
+             ORDER BY name COLLATE NOCASE, arm`
           ).bind(tenantId, ...fallbackClassIds).all()
 
           const rowMap = new Map<string, Record<string, any>>()
@@ -9197,7 +9237,7 @@ app.get('/api/dashboards/:roleKey', authenticate, async (c) => {
             ).bind(classId).first().catch(() => ({ count: 0 })),
             Promise.resolve({ count: materialCountByClass.get(classId) || 0 }),
             c.env.APP_DB.prepare(
-              `SELECT id, name, teacherId FROM subjects WHERE tenantId = ? AND classId = ? ORDER BY name`
+              `SELECT id, name, teacherId FROM subjects WHERE tenantId = ? AND classId = ? ORDER BY name COLLATE NOCASE`
             ).bind(tenantId, classId).all().catch(() => ({ results: [] })),
             c.env.APP_DB.prepare(
               `SELECT COUNT(*) as count
@@ -9691,7 +9731,7 @@ app.get('/api/classrooms/assigned', authenticate, async (c) => {
         `SELECT DISTINCT id, name, arm, classTeacherId
          FROM classes
          WHERE tenantId = ?
-         ORDER BY name, arm`
+         ORDER BY name COLLATE NOCASE, arm`
       ).bind(tenantId).all()
       classRows = (allClassRows.results || []) as Record<string, any>[]
     } else if (teacherIdentifiers.length) {
@@ -9704,7 +9744,7 @@ app.get('/api/classrooms/assigned', authenticate, async (c) => {
            UNION SELECT classId FROM subjects WHERE tenantId = ? AND lower(trim(coalesce(teacherId, ''))) IN (${identifierPlaceholders})
            UNION SELECT class_id FROM class_memberships WHERE tenant_id = ? AND membership_role = 'teacher' AND lower(trim(coalesce(user_id, ''))) IN (${identifierPlaceholders})
          )
-         ORDER BY name, arm`
+         ORDER BY name COLLATE NOCASE, arm`
       ).bind(tenantId, tenantId, ...teacherIdentifiers, tenantId, ...teacherIdentifiers, tenantId, ...teacherIdentifiers).all()
       classRows = (assignedClassRows.results || []) as Record<string, any>[]
     }
@@ -9715,7 +9755,7 @@ app.get('/api/classrooms/assigned', authenticate, async (c) => {
         `SELECT DISTINCT id, name, arm, classTeacherId
          FROM classes
          WHERE tenantId = ? AND id IN (${classPlaceholders})
-         ORDER BY name, arm`
+         ORDER BY name COLLATE NOCASE, arm`
       ).bind(tenantId, ...fallbackClassIds).all()
 
       const rowMap = new Map<string, Record<string, any>>()
@@ -9741,7 +9781,7 @@ app.get('/api/classrooms/assigned', authenticate, async (c) => {
       streamCountRows,
     ] = classIds.length ? await Promise.all([
       c.env.APP_DB.prepare(
-        `SELECT id, name, teacherId, classId FROM subjects WHERE tenantId = ? AND classId IN (${classIdPlaceholders}) ORDER BY classId, name`
+        `SELECT id, name, teacherId, classId FROM subjects WHERE tenantId = ? AND classId IN (${classIdPlaceholders}) ORDER BY classId, name COLLATE NOCASE`
       ).bind(tenantId, ...classIds).all().catch(() => ({ results: [] })),
       c.env.APP_DB.prepare(
         `SELECT class_id, user_id FROM class_memberships WHERE class_id IN (${classIdPlaceholders}) AND tenant_id = ? AND membership_role = 'teacher'`
@@ -10134,7 +10174,7 @@ app.get('/api/classrooms/:classroomId/subjects', authenticate, async (c) => {
     try { await c.env.APP_DB.exec('ALTER TABLE subjects ADD COLUMN classId TEXT') } catch {}
     try { await c.env.APP_DB.exec('ALTER TABLE subjects ADD COLUMN teacherId TEXT') } catch {}
     const rows = await c.env.APP_DB.prepare(
-      'SELECT * FROM subjects WHERE tenantId = ? AND classId = ? ORDER BY name'
+      'SELECT * FROM subjects WHERE tenantId = ? AND classId = ? ORDER BY name COLLATE NOCASE'
     ).bind(tenantId, classroomId).all()
     return c.json({ success: true, subjects: rows.results || [] })
   } catch (error) {
@@ -11548,7 +11588,7 @@ app.get('/api/exam-readiness', authenticate, async (c) => {
     const student = access.selectedStudent
     if (!student) return c.json({ success: false, message: 'Choose a student.' }, 400)
     const className = `${access.classRow.name || ''}${access.classRow.arm ? ` ${access.classRow.arm}` : ''}`.trim()
-    const subjects = ((await c.env.APP_DB.prepare(`SELECT id, name FROM subjects WHERE classId = ? ORDER BY name`).bind(classId).all().catch(() => ({ results: [] }))).results || []) as Record<string, any>[]
+    const subjects = ((await c.env.APP_DB.prepare(`SELECT id, name FROM subjects WHERE classId = ? ORDER BY name COLLATE NOCASE`).bind(classId).all().catch(() => ({ results: [] }))).results || []) as Record<string, any>[]
     // Only examinations Ndovera holds a specification for: readiness is measured, never guessed.
     const options: Array<{ subjectId: string, subjectName: string, exams: Array<{ key: string, label: string, specId: string, version: string }> }> = []
     for (const subject of subjects) {
@@ -12650,6 +12690,34 @@ async function workFoundElsewhere(db: D1Database, tenantId: string, filters: { c
   return { lessonPlans: plans, drafts, exams }
 }
 
+/**
+ * Adds to a class's submissions the ones filed under the other classes of each combined subject
+ * it belongs to (same subject), as if filed here, marked `sharedFrom`: a combined subject needs
+ * one submission for all its classes. The filters on `list` (session, term, status, ...) are
+ * applied again to the sibling work by fetching it with the same filters.
+ */
+async function withCombinedSubmissions(db: D1Database, tenantId: string, classId: string, list: Record<string, any>[], filters: Record<string, any> = {}) {
+  const { groups, subjects } = await loadSchoolSubjectGroups(db, tenantId).catch(() => ({ groups: [] as any[], subjects: [] as Record<string, any>[] }))
+  const mine = (groups as Array<Record<string, any>>).filter(group => group.enabled && group.classIds.includes(classId) && group.classIds.length > 1)
+  if (!mine.length) return list
+  const seen = new Set(list.map(item => String(item.id)))
+  const extra: Record<string, any>[] = []
+  const siblingIds = [...new Set(mine.flatMap(group => group.classIds).filter((id: string) => id !== classId))]
+  for (const siblingId of siblingIds) {
+    const theirs = await listSubmissions(db, tenantId, { ...filters, classId: siblingId }).catch(() => [])
+    for (const item of theirs) {
+      if (seen.has(String(item.id))) continue
+      const key = subjectGroupKey(String(item.subjectName || ''))
+      if (!mine.some(group => group.subjectKey === key && group.classIds.includes(siblingId))) continue
+      seen.add(String(item.id))
+      // Filed against this class's own copy of the subject, so it meets this class's requirement.
+      const here = subjects.find(row => String(row.classId) === classId && subjectGroupKey(String(row.name || '')) === key)
+      extra.push({ ...item, classId, subjectId: here ? String(here.id) : item.subjectId, sharedFrom: item.className || siblingId, combinedSubject: true })
+    }
+  }
+  return [...list, ...extra]
+}
+
 app.get('/api/teacher-submissions/review', authenticate, async (c) => {
   try {
     const { tenantId, actor } = await resolveSubmissionActor(c.env.APP_DB, c.var.user || {})
@@ -12698,7 +12766,10 @@ app.get('/api/teacher-submissions/review', authenticate, async (c) => {
       return c.json({ success: true, period, scope, classes: [...classes.values()].sort((a, b) => String(a.className || '').localeCompare(String(b.className || ''))) })
     }
 
-    const submissions = await listSubmissions(c.env.APP_DB, tenantId, filters)
+    // Combined subjects: one submission covers every class taking the subject together, so work
+    // filed under a sibling class counts (and shows) here too.
+    const shared = (list: Record<string, any>[], used: Record<string, any>) => withCombinedSubmissions(c.env.APP_DB, tenantId, classId, list, used)
+    const submissions = await shared(await listSubmissions(c.env.APP_DB, tenantId, filters), filters)
     const elsewhere = await workFoundElsewhere(c.env.APP_DB, tenantId, { classId, from: query.from, to: query.to, since: scope === 'term' ? period.termStart : '', sessionId: filters.sessionId, termId: filters.termId })
     // A class removed or renamed since still shows the work filed under it.
     const classRow = await c.env.APP_DB.prepare(`SELECT id FROM classes WHERE id = ? AND tenantId = ?`).bind(classId, tenantId).first()
@@ -12710,11 +12781,11 @@ app.get('/api/teacher-submissions/review', authenticate, async (c) => {
       ? computeExpectations({
         policy, termStart: period.termStart, termEnd: period.termEnd, today: lagosToday(),
         assignments: live.map(item => ({ classId: item.classId, className: item.className, subjectId: item.subjectId, subjectName: item.subjectName, teacherId: item.teacherId, teacherName: String(nameOf(item.teacherId)) })),
-        submissions: await listSubmissions(c.env.APP_DB, tenantId, { classId, sessionId: filters.sessionId, termId: filters.termId }),
+        submissions: await shared(await listSubmissions(c.env.APP_DB, tenantId, { classId, sessionId: filters.sessionId, termId: filters.termId }), { sessionId: filters.sessionId, termId: filters.termId }),
       })
       : { missing: [], late: [] }
     // "Not submitted" and missing/late work are about the current term, whatever is listed.
-    const termSubmissions = period.termId ? await listSubmissions(c.env.APP_DB, tenantId, { classId, sessionId: period.sessionId, termId: period.termId, excludeDrafts: true }) : submissions
+    const termSubmissions = period.termId ? await shared(await listSubmissions(c.env.APP_DB, tenantId, { classId, sessionId: period.sessionId, termId: period.termId, excludeDrafts: true }), { sessionId: period.sessionId, termId: period.termId, excludeDrafts: true }) : submissions
     const submittedTeachers = new Set([...termSubmissions, ...elsewhere.lessonPlans.filter(item => !period.termStart || String(item.submittedAt).slice(0, 10) >= period.termStart)].map(item => String(item.teacherId).toLowerCase()))
     return c.json({
       success: true, period, scope, policy: { reviewMode: policy.reviewMode, maxScore: policy.maxScore, requirements: policy.requirements },
@@ -14978,10 +15049,13 @@ async function listStudentsForClass(db: D1Database, tenantId: string, classroomI
        AND lower(u.role) = 'student'
        AND ${currentStudentSql('u')}
        AND json_extract(s.payload, '$.classId') = ?
-     ORDER BY u.name, u.email`
+     ORDER BY u.name COLLATE NOCASE, u.email`
   ).bind(tenantId, classroomId).all().catch(() => ({ results: [] }))
 
-  return ((rows.results || []) as Record<string, any>[]).map(row => {
+  // A student with two settings records appears once.
+  const seen = new Set<string>()
+  const unique = ((rows.results || []) as Record<string, any>[]).filter(row => { const id = String(row.id || ''); if (seen.has(id)) return false; seen.add(id); return true })
+  return unique.map(row => {
     const settings = parseHeaderJsonObject(row.payload)
     const profile = buildAdmissionProfileRecord(settings || {}, row)
     return {
@@ -15956,7 +16030,7 @@ app.get('/api/practice-arena/school', authenticate, async (c) => {
     const db = c.env.APP_DB
     const stock = await examStock(db)
     await ensureClassesTable(db)
-    const classRows = await db.prepare(`SELECT id, name, arm, standard_level FROM classes WHERE tenantId = ? ORDER BY name, arm`).bind(actor.tenantId).all()
+    const classRows = await db.prepare(`SELECT id, name, arm, standard_level FROM classes WHERE tenantId = ? ORDER BY name COLLATE NOCASE, arm`).bind(actor.tenantId).all()
     const classes = ((classRows.results || []) as Record<string, any>[]).map(row => {
       const name = [row.name, row.arm].filter(Boolean).join(' ')
       const section = levelOf(row.standard_level || row.name)?.section || ''
@@ -16092,7 +16166,7 @@ app.get('/api/clubs/:id/candidates', authenticate, async (c) => {
         rows = enrolled.map(row => ({ id: row.studentId, name: row.studentName, role: 'student', className: [row.className, row.classArm].filter(Boolean).join(' ') }))
       }
     } else if (q.length >= 2) {
-      const found = await db.prepare(`SELECT id, email, name, role FROM users WHERE tenantId = ? AND (status IS NULL OR status != 'inactive') AND (lower(coalesce(name, '')) LIKE ? OR lower(coalesce(email, '')) LIKE ?) ORDER BY name LIMIT 25`)
+      const found = await db.prepare(`SELECT id, email, name, role FROM users WHERE tenantId = ? AND (status IS NULL OR status != 'inactive') AND (lower(coalesce(name, '')) LIKE ? OR lower(coalesce(email, '')) LIKE ?) ORDER BY name COLLATE NOCASE LIMIT 25`)
         .bind(actor.tenantId, `%${q}%`, `%${q}%`).all()
       const users = (found.results || []) as Record<string, any>[]
       const settings = await getSettingsMapForUserRows(db, users)
@@ -16252,6 +16326,18 @@ app.get('/api/ndovera-notes/:materialId', authenticate, async (c) => {
 })
 
 // ─── Ndovera's question bank: Ami uploads question documents with a section ───
+
+/** News headlines (everyone signed in): one day's edition, and the list of past editions. */
+app.get('/api/news', authenticate, async (c) => {
+  const edition = /^\d{4}-\d{2}-\d{2}$/.test(String(c.req.query('edition') || '')) ? String(c.req.query('edition')) : undefined
+  return c.json({ success: true, ...(await readNews(c.env.APP_DB, edition)) })
+})
+
+/** Ami: fetch today's headlines now (normally done at midnight). */
+app.post('/api/ami/news/refresh', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ success: false, message: 'forbidden' }, 403)
+  return c.json({ success: true, ...(await buildNewsEdition(c.env.APP_DB)) })
+})
 
 function requireAmi(c: any) {
   if (!hasRequiredRole(c.var.user.role, ['ami'])) throw new HarvestError('Only Ndovera can manage Ndovera\'s question bank.', 403)
@@ -17859,7 +17945,7 @@ async function listActiveTenantPeopleWithProfiles(db: D1Database, tenantId: stri
 
   await ensureUsersTable(db)
   const rows = await db.prepare(
-    `SELECT id, name, email, role, status, createdAt FROM users WHERE tenantId = ? AND (status IS NULL OR status != 'inactive') ORDER BY role, name`
+    `SELECT id, name, email, role, status, createdAt FROM users WHERE tenantId = ? AND (status IS NULL OR status != 'inactive') ORDER BY role, name COLLATE NOCASE`
   ).bind(tenantId).all()
   const people = await hydrateUserRecords(db, (rows.results || []) as Record<string, any>[])
   return people.filter(Boolean) as Record<string, any>[]
@@ -18528,7 +18614,7 @@ app.get('/api/people', authenticate, async (c) => {
       c.env.APP_DB.prepare(
         `SELECT id, name, email, role, primary_role, employment_category, status, createdAt, tenantId
          FROM users ${whereClause}
-         ORDER BY COALESCE(primary_role, role), name, email
+         ORDER BY name COLLATE NOCASE, email COLLATE NOCASE
          LIMIT ? OFFSET ?`
       ).bind(...whereParams, limit, offset).all().catch(() => ({ results: [] })),
     ])
@@ -19391,7 +19477,7 @@ app.get('/api/messaging/contacts', authenticate, async (c) => {
     const tenantId = String(actor.resolvedUser?.settings?.tenantId || actor.resolvedUser?.userRow?.tenantId || c.var.user?.tenantId || '')
     if (!tenantId) return c.json({ success: true, people: [] })
     const viewerRole = String(getActiveRole(c.var.user) || normalizeRole(c.var.user?.role) || '').toLowerCase()
-    const rows = ((await c.env.APP_DB.prepare(`SELECT id, name, email, role, primary_role, status FROM users WHERE tenantId = ? AND (status IS NULL OR lower(status) NOT IN ('inactive', 'deleted')) ORDER BY name LIMIT 5000`).bind(tenantId).all()).results || []) as Record<string, any>[]
+    const rows = ((await c.env.APP_DB.prepare(`SELECT id, name, email, role, primary_role, status FROM users WHERE tenantId = ? AND (status IS NULL OR lower(status) NOT IN ('inactive', 'deleted')) ORDER BY name COLLATE NOCASE LIMIT 5000`).bind(tenantId).all()).results || []) as Record<string, any>[]
     const settingsMap = await getSettingsMapForUserRows(c.env.APP_DB, rows)
     const people = []
     for (const row of rows) {
@@ -20041,7 +20127,7 @@ app.get('/api/people/past-students', authenticate, async (c) => {
     const rows = await c.env.APP_DB.prepare(
       `SELECT id, name, email, role, status, createdAt FROM users
        WHERE tenantId = ? AND lower(COALESCE(role, '')) = 'student' AND lower(trim(COALESCE(status, ''))) IN (${PAST_STUDENT_STATUSES.map(() => '?').join(', ')})
-       ORDER BY name LIMIT 2000`
+       ORDER BY name COLLATE NOCASE LIMIT 2000`
     ).bind(tenantId, ...PAST_STUDENT_STATUSES).all()
     const allRows = (rows.results || []) as Record<string, any>[]
     const settingsMap = await getSettingsMapForUserRows(c.env.APP_DB, allRows)
@@ -20164,7 +20250,7 @@ app.get('/api/people/past-parents', authenticate, async (c) => {
   const tenantId = c.var.user?.tenantId
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
   await ensureUsersTable(c.env.APP_DB)
-  const rows = ((await c.env.APP_DB.prepare(`SELECT id, name, email, role, status FROM users WHERE tenantId = ? AND lower(COALESCE(role, '')) = 'parent' AND lower(COALESCE(status, '')) = 'inactive' ORDER BY name LIMIT 2000`).bind(tenantId).all()).results || []) as Record<string, any>[]
+  const rows = ((await c.env.APP_DB.prepare(`SELECT id, name, email, role, status FROM users WHERE tenantId = ? AND lower(COALESCE(role, '')) = 'parent' AND lower(COALESCE(status, '')) = 'inactive' ORDER BY name COLLATE NOCASE LIMIT 2000`).bind(tenantId).all()).results || []) as Record<string, any>[]
   const settingsMap = await getSettingsMapForUserRows(c.env.APP_DB, rows)
   return c.json({
     success: true,
@@ -24512,7 +24598,7 @@ app.get('/api/school/parents', authenticate, async (c) => {
       `SELECT id, name, email, role, primary_role, employment_category, status, createdAt, tenantId
        FROM users
        WHERE tenantId = ? AND (status IS NULL OR status != 'inactive')
-       ORDER BY name`
+       ORDER BY name COLLATE NOCASE`
     ).bind(tenantId).all()
     const parents = (await hydrateUserRecords(c.env.APP_DB, (rows.results || []) as Record<string, any>[]))
       .filter(parent => parseRoleList(parent?.primaryRole, parent?.role, parent?.roles).includes('parent'))
@@ -24530,7 +24616,7 @@ app.get('/api/school/classes', authenticate, async (c) => {
   try {
     await ensureClassesTable(c.env.APP_DB)
     await ensureClassMembershipsTable(c.env.APP_DB)
-    const rows = await c.env.APP_DB.prepare(`SELECT * FROM classes WHERE tenantId = ? ORDER BY name, arm`).bind(tenantId).all()
+    const rows = await c.env.APP_DB.prepare(`SELECT * FROM classes WHERE tenantId = ? ORDER BY name COLLATE NOCASE, arm`).bind(tenantId).all()
     const classRows = (rows.results || []) as Record<string, any>[]
     const membershipRows = await c.env.APP_DB.prepare(
       `SELECT class_id, user_id, membership_role
@@ -24621,7 +24707,7 @@ app.get('/api/school/class-levels', authenticate, async (c) => {
   const tenantId = c.var.user?.tenantId
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
   await ensureClassesTable(c.env.APP_DB)
-  const rows = await c.env.APP_DB.prepare(`SELECT id, name, arm, standard_level FROM classes WHERE tenantId = ? ORDER BY name, arm`).bind(tenantId).all()
+  const rows = await c.env.APP_DB.prepare(`SELECT id, name, arm, standard_level FROM classes WHERE tenantId = ? ORDER BY name COLLATE NOCASE, arm`).bind(tenantId).all()
   const classes = ((rows.results || []) as Record<string, any>[]).map(row => {
     const chosen = normalizeClassLevel(row.standard_level)
     const guess = normalizeClassLevel(row.name)
@@ -24856,7 +24942,7 @@ app.get('/api/school/subjects', authenticate, async (c) => {
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
   try {
     await ensureSubjectsTable(c.env.APP_DB)
-    const rows = await c.env.APP_DB.prepare(`SELECT * FROM subjects WHERE tenantId = ? ORDER BY name`).bind(tenantId).all()
+    const rows = await c.env.APP_DB.prepare(`SELECT * FROM subjects WHERE tenantId = ? ORDER BY name COLLATE NOCASE`).bind(tenantId).all()
     return c.json({ success: true, subjects: rows.results || [] })
   } catch {
     return c.json({ success: true, subjects: [] })
@@ -25215,7 +25301,7 @@ app.get('/api/classrooms/:classroomId/subjects/:subjectId/members', authenticate
        JOIN settings s ON (s.studentId = u.email OR s.studentId = u.id)
        WHERE u.tenantId = ? AND u.role = 'student' AND ${currentStudentSql('u')}
          AND json_extract(s.payload, '$.classId') = ?
-       ORDER BY u.name`
+       ORDER BY u.name COLLATE NOCASE`
     ).bind(tenantId, classroomId).all().catch(() => ({ results: [] }))
     const members = ((studentRows.results || []) as Record<string, any>[]).map((r: any) => ({
       id: r.id, name: r.name, email: r.email, role: r.role, status: r.status,
@@ -25826,7 +25912,7 @@ async function runDueScheduledHandIns(db: D1Database) {
       await ensureClassesTable(db)
       const classRow = await db.prepare(`SELECT * FROM classes WHERE id = ? AND tenantId = ?`).bind(classId, tenantId).first() as Record<string, any> | null
       if (!classRow) { await setHandInNote(db, String(row.id), 'The scheduled hand-in did not go through: the class was not found.'); continue }
-      const subjectRows = ((await db.prepare(`SELECT id, name, teacherId FROM subjects WHERE tenantId = ? AND classId = ? ORDER BY name`).bind(tenantId, classId).all().catch(() => ({ results: [] }))).results || []) as Record<string, any>[]
+      const subjectRows = ((await db.prepare(`SELECT id, name, teacherId FROM subjects WHERE tenantId = ? AND classId = ? ORDER BY name COLLATE NOCASE`).bind(tenantId, classId).all().catch(() => ({ results: [] }))).results || []) as Record<string, any>[]
       const [students, entries, exclusions] = await Promise.all([
         listResultClassStudents(db, tenantId, classRow),
         listResultEntries(db, String(row.id)),
@@ -25940,12 +26026,20 @@ async function resolveResultActor(db: D1Database, user: Record<string, any>) {
   }
 }
 
+/** For combining subjects: nursery, primary, junior (JSS 1–3) or senior (SS 1–3). */
+function classBandValue(row: any) {
+  const level = levelOf(String(row?.standard_level || '').trim()) || levelOf(String(row?.name || ''))
+  if (level) return level.section
+  const section = classSectionValue(row)
+  return section === 'secondary' ? 'secondary' : section
+}
+
 async function loadSchoolSubjectGroups(db: D1Database, tenantId: string) {
   await ensureClassesTable(db)
   const classes = ((await db.prepare(`SELECT * FROM classes WHERE tenantId = ?`).bind(tenantId).all().catch(() => ({ results: [] }))).results || []) as Record<string, any>[]
   const subjects = ((await db.prepare(`SELECT id, name, classId, teacherId FROM subjects WHERE tenantId = ?`).bind(tenantId).all().catch(() => ({ results: [] }))).results || []) as Record<string, any>[]
   const groups = await listSubjectGroups(db, tenantId,
-    classes.map(row => ({ id: String(row.id), section: classSectionValue(row) })),
+    classes.map(row => ({ id: String(row.id), section: classSectionValue(row), band: classBandValue(row) })),
     subjects.map(row => ({ id: String(row.id), name: String(row.name || ''), classId: String(row.classId || '') })))
   return { classes, subjects, groups }
 }
@@ -25969,10 +26063,31 @@ app.get('/api/results/subject-groups', authenticate, async (c) => {
   const nameOf = (id: string) => { const row = classes.find(item => String(item.id) === id); return row ? `${row.name}${row.arm ? ` ${row.arm}` : ''}` : id }
   const visible = canManage ? groups : groups.filter(group => group.enabled
     && subjectGroupMembers(group, classes, subjects).some(member => matchesComparableIdentifier(member.subject.teacherId, actor.teacherIdentifiers)))
+  const teacherName = new Map<string, string>()
+  const teacherIds = [...new Set(subjects.map(row => String(row.teacherId || '').trim()).filter(Boolean))]
+  for (let index = 0; index < teacherIds.length; index += 90) {
+    const slice = teacherIds.slice(index, index + 90)
+    const rows = ((await c.env.APP_DB.prepare(`SELECT id, email, name FROM users WHERE tenantId = ? AND (id IN (${slice.map(() => '?').join(',')}) OR email IN (${slice.map(() => '?').join(',')}))`).bind(actor.tenantId, ...slice, ...slice).all().catch(() => ({ results: [] }))).results || []) as Record<string, any>[]
+    for (const row of rows) { teacherName.set(String(row.id), String(row.name || row.email)); if (row.email) teacherName.set(String(row.email), String(row.name || row.email)) }
+  }
+  // Every subject the school could combine (taught in two or more classes), for "New group".
+  const combinable = new Map<string, { subjectKey: string, name: string, classes: Array<{ id: string, name: string }> }>()
+  for (const subject of subjects) {
+    const key = subjectGroupKeyOf(subject.name)
+    if (!key) continue
+    const entry = combinable.get(key) || { subjectKey: key, name: String(subject.name || ''), classes: [] }
+    if (!entry.classes.some(item => item.id === String(subject.classId))) entry.classes.push({ id: String(subject.classId), name: nameOf(String(subject.classId)) })
+    combinable.set(key, entry)
+  }
   return c.json({
     success: true,
     canManage,
-    groups: visible.map(group => ({ ...group, classes: group.availableClassIds.map(id => ({ id, name: nameOf(id) })).sort((a, b) => a.name.localeCompare(b.name)) })),
+    groups: visible.map(group => ({
+      ...group,
+      classes: group.availableClassIds.map(id => ({ id, name: nameOf(id) })).sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true })),
+      teachers: [...new Set(subjectGroupMembers(group, classes, subjects).map(member => teacherName.get(String(member.subject.teacherId || '')) || '').filter(Boolean))],
+    })),
+    subjects: canManage ? [...combinable.values()].filter(entry => entry.classes.length >= 2).map(entry => ({ ...entry, classes: entry.classes.sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true })) })).sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: 'base' })) : [],
   })
 })
 
@@ -25982,7 +26097,20 @@ app.post('/api/results/subject-groups', authenticate, async (c) => {
   if (!actor.tenantId) return c.json({ error: 'No tenant.' }, 400)
   if (!resultGroupManager(actor.normalizedRole)) return c.json({ error: 'Only the HoS, Owner or ICT can set up combined subjects.' }, 403)
   const body = await c.req.json().catch(() => ({})) as Record<string, any>
-  const { groups } = await loadSchoolSubjectGroups(c.env.APP_DB, actor.tenantId)
+  const { groups, subjects } = await loadSchoolSubjectGroups(c.env.APP_DB, actor.tenantId)
+  // A school's own group: any classes that take the subject.
+  if (body.custom) {
+    const subjectKey = String(body.subjectKey || '')
+    const available = new Set(subjects.filter(row => subjectGroupKeyOf(row.name) === subjectKey).map(row => String(row.classId)))
+    const classIds = [...new Set((Array.isArray(body.classIds) ? body.classIds : []).map(String))].filter(id => available.has(id))
+    if (classIds.length < 2) return c.json({ error: 'Choose at least two classes that take this subject.' }, 400)
+    const name = String(body.name || '').trim() || String(subjects.find(row => subjectGroupKeyOf(row.name) === subjectKey)?.name || 'Combined subject')
+    const id = await saveCustomSubjectGroup(c.env.APP_DB, { tenantId: actor.tenantId, id: String(body.id || ''), subjectKey, name, classIds, enabled: body.enabled !== false, actorId: actor.actorId })
+    return c.json({ success: true, id })
+  }
+  if (body.delete && String(body.id || '').startsWith('sgrp_custom_')) {
+    return c.json({ success: await deleteCustomSubjectGroup(c.env.APP_DB, actor.tenantId, String(body.id)) })
+  }
   const group = groups.find(item => item.section === String(body.section || '') && item.subjectKey === String(body.subjectKey || ''))
   if (!group) return c.json({ error: 'That subject is not taught in two or more classes of this section.' }, 404)
   const classIds = Array.isArray(body.classIds) ? [...new Set(body.classIds.map(String))].filter(id => group.availableClassIds.includes(id)) : group.classIds
@@ -26014,7 +26142,7 @@ async function resolveSubjectGroupAccess(db: D1Database, user: Record<string, an
     if (error instanceof ResultPeriodError) throw new SubjectGroupAccessError(error.message, 400)
     throw error
   }
-  const storedSettings = await getResultSettings(db, actor.tenantId, group.section)
+  const storedSettings = await getResultSettings(db, actor.tenantId, group.settingsSection || group.section)
   const settings = { ...storedSettings, ...normalizeResultSettingsInput(storedSettings) }
   return { actor, group, members, elevated, period, settings }
 }
@@ -27000,7 +27128,7 @@ app.get('/api/students/old-codes', authenticate, async (c) => {
     if (forbidden || !hasRequiredRole(role, ['owner', 'hos', 'ict', 'ict_manager'])) return c.json({ success: false, error: 'forbidden' }, 403)
     if (!tenant?.id) return c.json({ success: false, error: 'No tenant.' }, 400)
     await ensureUsersTable(c.env.APP_DB)
-    const studentRows = await c.env.APP_DB.prepare(`SELECT id, name, email, role, status, createdAt FROM users WHERE tenantId = ? AND role = 'student' ORDER BY name`).bind(tenant.id).all()
+    const studentRows = await c.env.APP_DB.prepare(`SELECT id, name, email, role, status, createdAt FROM users WHERE tenantId = ? AND role = 'student' ORDER BY name COLLATE NOCASE`).bind(tenant.id).all()
     const hydrated = await hydrateUserRecords(c.env.APP_DB, (studentRows.results || []) as Record<string, any>[])
     const codeMap = await getOldCodeRecordsByStudent(c.env.APP_DB, tenant.id)
     const students = hydrated.map(student => ({
@@ -28250,7 +28378,7 @@ async function listTenantStaffRoster(db: D1Database, tenantId: string) {
     `SELECT id, name, email, role, primary_role, employment_category, status, createdAt, tenantId
      FROM users
      WHERE tenantId = ? AND (status IS NULL OR status != 'inactive')
-     ORDER BY COALESCE(primary_role, role), name, email`
+     ORDER BY name COLLATE NOCASE, email COLLATE NOCASE`
     ).bind(tenantId).all().catch(() => ({ results: [] })),
     db.prepare(
       `SELECT studentId, payload
@@ -29739,7 +29867,7 @@ app.get('/api/school/staff-attendance/colleagues', authenticate, async (c) => {
   try {
     await ensureUsersTable(c.env.APP_DB)
     const rows = await c.env.APP_DB.prepare(
-      `SELECT id, name, email, role FROM users WHERE tenantId = ? AND (status IS NULL OR status != 'inactive') AND lower(coalesce(role,'')) NOT IN ('student','parent') ORDER BY name`
+      `SELECT id, name, email, role FROM users WHERE tenantId = ? AND (status IS NULL OR status != 'inactive') AND lower(coalesce(role,'')) NOT IN ('student','parent') ORDER BY name COLLATE NOCASE`
     ).bind(actor.tenantId).all()
     const colleagues = ((rows.results || []) as Record<string, any>[])
       .map(row => ({ id: String(row.id || ''), name: String(row.name || row.email || 'Staff'), role: String(row.role || '') }))
@@ -30415,19 +30543,23 @@ app.post('/api/school/run-promotion', authenticate, async (c) => {
   for (const student of students) {
     const target = map[student.classId]
     if (!target) continue
-    const settingsRow = await getSettings(c.env.APP_DB, student.email).catch(() => null)
+    // Settings by the student's id as well as email: students with no email were "promoted"
+    // in the users table but kept their old class.
+    const identity = await resolveSettingsIdentity(c.env.APP_DB, String(student.id || student.email)).catch(() => null)
+    const settingsKey = String(identity?.settingsKey || student.email || student.id)
+    const settingsRow = identity?.settings || await getSettings(c.env.APP_DB, settingsKey).catch(() => null)
     if (target === 'alumni') {
       await c.env.APP_DB.prepare(`INSERT INTO alumni (id, tenant_id, name, email, phone, graduation_year, last_class, source, status, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, 'promotion', 'active', ?)`)
         .bind(`alum_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`, tenantId, student.name, student.email, String(settingsRow?.phone || ''), String(session.sessionName || ''), student.className, new Date().toISOString()).run()
       await c.env.APP_DB.prepare(`UPDATE users SET status='alumni' WHERE id=? AND tenantId=?`).bind(student.id, tenantId).run().catch(() => {})
-      if (settingsRow) await upsertSettings(c.env.APP_DB, student.email, { ...settingsRow, status: 'alumni', classId: '', className: '' }, { by: String(c.var.user?.id || ''), byName: String(c.var.user?.name || ''), role: String(c.var.user?.role || ''), reason: 'graduation' })
+      if (settingsRow) await upsertSettings(c.env.APP_DB, settingsKey, { ...settingsRow, status: 'alumni', classId: '', className: '' }, { by: String(c.var.user?.id || ''), byName: String(c.var.user?.name || ''), role: String(c.var.user?.role || ''), reason: 'graduation' })
       graduated += 1
     } else {
       const targetClass = classById.get(target)
       if (!targetClass) continue
       const className = String(targetClass.name || '')
       const fullLabel = `${className}${targetClass.arm ? ` ${targetClass.arm}` : ''}`.trim()
-      if (settingsRow) await upsertSettings(c.env.APP_DB, student.email, { ...settingsRow, classId: target, className, classArm: targetClass.arm || null }, { by: String(c.var.user?.id || ''), byName: String(c.var.user?.name || ''), role: String(c.var.user?.role || ''), reason: 'promotion' })
+      if (settingsRow) await upsertSettings(c.env.APP_DB, settingsKey, { ...settingsRow, classId: target, className, classArm: targetClass.arm || null }, { by: String(c.var.user?.id || ''), byName: String(c.var.user?.name || ''), role: String(c.var.user?.role || ''), reason: 'promotion' })
       await c.env.APP_DB.prepare(`UPDATE users SET className=? WHERE id=? AND tenantId=?`).bind(fullLabel, student.id, tenantId).run().catch(() => {})
       promoted += 1
     }
@@ -30510,7 +30642,7 @@ app.get('/api/school/store/items', authenticate, async (c) => {
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
   if (!hasRequiredRole(c.var.user.role, STORE_ROLES)) return c.json({ error: 'forbidden' }, 403)
   await ensureStoreTables(c.env.APP_DB)
-  const items = ((await c.env.APP_DB.prepare(`SELECT * FROM store_items WHERE tenant_id = ? ORDER BY name`).bind(tenantId).all()).results || []) as any[]
+  const items = ((await c.env.APP_DB.prepare(`SELECT * FROM store_items WHERE tenant_id = ? ORDER BY name COLLATE NOCASE`).bind(tenantId).all()).results || []) as any[]
   return c.json({ success: true, items: items.map(r => ({ id: r.id, name: r.name, category: r.category || '', quantity: Number(r.quantity || 0), unit: r.unit || '', location: r.location || '', reorderLevel: Number(r.reorder_level || 0), notes: r.notes || '', updatedAt: r.updated_at })) })
 })
 
@@ -33447,6 +33579,17 @@ app.get('/api/ai-assessments/:id', authenticate, async (c) => {
   }
 })
 
+/** The questions of a generated set in the classroom assignment format, for the assignment builder to review and publish. */
+app.get('/api/ai-assessments/:id/classroom-questions', authenticate, async (c) => {
+  try {
+    const { tenantId, actor } = await resolveAssessmentActor(c)
+    const assessment = await getOwnAssessment(c.env.APP_DB, tenantId, c.req.param('id'), actor)
+    return c.json({ success: true, questions: toClassroomQuestions(assessment.questions), review: (assessment as any).review || null })
+  } catch (error) {
+    return assessmentFailure(c, error, 'Could not load the questions.')
+  }
+})
+
 app.put('/api/ai-assessments/:id/blueprint', authenticate, async (c) => {
   try {
     const { tenantId, actor } = await resolveAssessmentActor(c)
@@ -34480,7 +34623,7 @@ app.get('/api/school/finance/context', authenticate, async (c) => {
       const terms = await listTerms(db, ctx.tenantId, session.id).catch(() => [] as any[])
       withTerms.push({ id: session.id, name: session.name, status: session.status, terms: terms.map((term: any) => ({ id: term.id, name: term.name, status: term.status, startDate: term.startDate, endDate: term.endDate })) })
     }
-    const classes = await db.prepare(`SELECT id, name, arm FROM classes WHERE tenantId = ? ORDER BY name, arm`).bind(ctx.tenantId).all().catch(() => ({ results: [] }))
+    const classes = await db.prepare(`SELECT id, name, arm FROM classes WHERE tenantId = ? ORDER BY name COLLATE NOCASE, arm`).bind(ctx.tenantId).all().catch(() => ({ results: [] }))
     return c.json({
       success: true,
       period: await financePeriod(db, ctx.tenantId),
@@ -34867,7 +35010,7 @@ async function simpleFeeContext(c: any, termId?: string) {
     startDate = String(firstBill?.at || '')
   }
   const term = termRow && session ? { id: termRow.id, name: termRow.name, sessionId: session.id, sessionName: session.name, startDate } : null
-  const classRows = await db.prepare(`SELECT id, name, arm FROM classes WHERE tenantId = ? ORDER BY name, arm`).bind(ctx.tenantId).all().catch(() => ({ results: [] }))
+  const classRows = await db.prepare(`SELECT id, name, arm FROM classes WHERE tenantId = ? ORDER BY name COLLATE NOCASE, arm`).bind(ctx.tenantId).all().catch(() => ({ results: [] }))
   const classes = ((classRows.results || []) as Record<string, any>[]).map(row => ({ id: String(row.id), name: [row.name, row.arm].filter(Boolean).join(' ') }))
   const settings = await getFeeSettings(db, ctx.tenantId)
   return { ...ctx, db, period, term, classes, settings, canEditFees: canEditFees(settings, ctx.role) }
@@ -35961,7 +36104,7 @@ app.get('/api/communications/contacts', authenticate, async (c) => {
     const rows = ((await c.env.APP_DB.prepare(`SELECT u.id, u.name, u.email, s.payload,
         (SELECT COUNT(*) FROM parent_student_links l WHERE l.parent_id = u.id AND l.tenant_id = ?) AS children
       FROM users u LEFT JOIN settings s ON s.studentId IN (u.email, lower(u.email))
-      WHERE u.tenantId = ? AND lower(u.role) = 'parent' AND (u.status IS NULL OR u.status != 'inactive') ORDER BY u.name LIMIT 2000`).bind(tenantId, tenantId).all()).results || []) as Record<string, any>[]
+      WHERE u.tenantId = ? AND lower(u.role) = 'parent' AND (u.status IS NULL OR u.status != 'inactive') ORDER BY u.name COLLATE NOCASE LIMIT 2000`).bind(tenantId, tenantId).all()).results || []) as Record<string, any>[]
     const consents = ((await c.env.APP_DB.prepare(`SELECT guardian_id, channel, status FROM comm_consents WHERE tenant_id = ?`).bind(tenantId).all()).results || []) as Record<string, string>[]
     const contacts = rows.map(row => {
       let payload: Record<string, any> = {}
@@ -36581,6 +36724,13 @@ export default {
     if (at.getUTCHours() === 1 && at.getUTCMinutes() === 10) {
       ctx.waitUntil(rebuildBankCounts(env.APP_DB).catch(error => console.error('Practice counts failed', error)))
       ctx.waitUntil(rebuildExamStock(env.APP_DB).catch(error => console.error('Exam stock failed', error)))
+    }
+    // News: the day's headlines from Nigerian outlets, once at midnight Lagos (with one retry at 00:20).
+    if (at.getUTCHours() === 23 && (at.getUTCMinutes() === 0 || at.getUTCMinutes() === 20)) {
+      const edition = newsLagosDate(new Date(at.getTime() + 5 * 60 * 1000))
+      ctx.waitUntil(env.APP_DB.prepare(`SELECT 1 FROM news_headlines WHERE edition = ? LIMIT 1`).bind(edition).first().catch(() => null)
+        .then(found => (found && at.getUTCMinutes() === 20 ? null : buildNewsEdition(env.APP_DB, { edition })))
+        .then(result => { if (result) console.log('News edition', result) }).catch(error => console.error('News failed', error)))
     }
     // Parents with no child still at the school are turned off (02:45 Lagos).
     if (at.getUTCHours() === 1 && at.getUTCMinutes() === 45) ctx.waitUntil(sweepParentAccounts(env.APP_DB).catch(error => console.error('Parent sweep failed', error)))

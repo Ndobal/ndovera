@@ -7,6 +7,7 @@ import {
 import { subscribe } from '../../shared/offline/outbox';
 import { isOnline, requestPersistentStorage } from '../../shared/offline/offlineStore';
 import QuizPlayer from './QuizPlayer';
+import ExamPlayer from './ExamPlayer';
 import QuizResults from './QuizResults';
 import { askConfirm } from '../../shared/components/AppDialog';
 
@@ -390,6 +391,9 @@ export default function PracticeArena() {
   }, []);
 
   if (game) {
+    if (game.quiz.mode === 'exam') {
+      return <ExamPlayer quiz={game.quiz} subjectName={game.subject.name} onFinish={finish} onExit={async () => { if (await askConfirm('Leave the exam? The paper is not handed in and nothing is saved.')) setGame(null); }} />;
+    }
     return <QuizPlayer quiz={game.quiz} subjectName={game.subject.name} onFinish={finish} onExit={async () => { if (await askConfirm('Leave this quiz? Your answers so far will not be saved.')) setGame(null); }} />;
   }
   if (outcome) {

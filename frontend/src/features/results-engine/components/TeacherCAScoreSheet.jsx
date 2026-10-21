@@ -4,6 +4,8 @@ import { getSubjectGroups } from '../../school/services/schoolApi';
 import {
   changeExamPeriod,
   getTeacherScoreSheet,
+  getTeacherScoreSheetWithCache,
+  queueTeacherSave,
   publishPracticeResults,
   reopenTeacherResults,
   resetPracticeSheet,
@@ -30,6 +32,7 @@ import {
   getBatchTone,
 } from './resultSheetTheme';
 import { askConfirm } from '../../../shared/components/AppDialog';
+import { isRetryable } from '../../../shared/offline/outbox';
 
 function readStoredClassId() {
   return window.localStorage.getItem('teacherClassroomId') || window.localStorage.getItem('classroomId') || '';
@@ -89,6 +92,8 @@ export default function TeacherCAScoreSheet({ dashboardLabel = 'Teacher Dashboar
   const [studentIndex, setStudentIndex] = useState(0);
   const [previewStudentId, setPreviewStudentId] = useState('');
   const [showTips, setShowTips] = useState(() => !tipsSeen());
+  // Offline: the sheet is the copy kept on this device; saves wait in the outbox.
+  const [offline, setOffline] = useState(null);
   // Students with unsaved changes, and the rows typed into (so a typed zero is kept).
   const dirtyRef = useRef(new Set());
   const touchedRef = useRef(new Set());
@@ -132,9 +137,10 @@ export default function TeacherCAScoreSheet({ dashboardLabel = 'Teacher Dashboar
       touchedRef.current = new Set();
       setStudentIndex(0);
       try {
-        const nextSheet = await getTeacherScoreSheet({ classId, mode: mode === 'practice' ? 'practice' : undefined });
+        const loaded = await getTeacherScoreSheetWithCache({ classId, mode: mode === 'practice' ? 'practice' : undefined });
         if (cancelled) return;
-        setSheet(nextSheet);
+        setSheet(loaded.sheet);
+        setOffline(loaded.offline ? { savedAt: loaded.savedAt } : null);
         if (!fixedClassId) {
           window.localStorage.setItem('teacherClassroomId', classId);
           window.localStorage.setItem('classroomId', classId);
@@ -231,8 +237,19 @@ export default function TeacherCAScoreSheet({ dashboardLabel = 'Teacher Dashboar
       if (lockedMessage) setError(lockedMessage);
       if (next.lastSave?.overrides) setOverrideReason('');
       setRefreshKey(key => key + 1);
+      setOffline(null);
       return true;
     } catch (saveError) {
+      // No connection: keep the scores on this device and send them when it is back.
+      if (isRetryable(saveError)) {
+        try {
+          await queueTeacherSave(sheet, { reason: overrideReason, studentIds: pending, touched: touchedRef.current, profiles: Boolean(sheet.permissions?.canManageProfiles && !sheet.submitted) });
+          pending.forEach(id => dirtyRef.current.delete(id));
+          setOffline(current => current || { savedAt: new Date().toISOString() });
+          setMessage('Saved on this device. The scores are sent to Ndovera by themselves when you are back online.');
+          return true;
+        } catch { /* fall through to the error */ }
+      }
       setError(saveError.message || 'Unable to save these scores.');
       return false;
     } finally {
@@ -468,6 +485,12 @@ export default function TeacherCAScoreSheet({ dashboardLabel = 'Teacher Dashboar
         </section>
       )}
 
+      {offline && (
+        <section role="status" className={`${RESULT_SURFACE} flex flex-wrap items-center gap-2 border-amber-300/60 bg-amber-50 px-5 py-3 text-sm text-amber-950`}>
+          <span className="font-black">📴 Working offline.</span>
+          <span>This is the copy kept on this device{offline.savedAt ? ` (from ${new Date(offline.savedAt).toLocaleString()})` : ''}. Keep entering scores: they are saved here and sent to Ndovera by themselves when you are back online.</span>
+        </section>
+      )}
       {error && <section role="alert" className={`${RESULT_SURFACE} p-5 text-sm text-[#800020] dark:text-[#ffffff] border-rose-300/30 bg-rose-200/65 dark:bg-[#800000]/70`}>{error}</section>}
       {message && <section role="status" className={`${RESULT_SURFACE} p-5 text-sm text-[#1a5c38] dark:text-[#00ffff] border-emerald-300/30 bg-emerald-100/70 dark:bg-[#800000]/70`}>{message}</section>}
 

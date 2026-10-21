@@ -1,4 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
+
+// The behaviour section (attendance, affective areas, ratings, remarks) folds away; the choice
+// is remembered on the device so it stays folded from student to student.
+const BEHAVIOUR_OPEN_KEY = 'ndovera:ca-behaviour-open';
+function behaviourOpenSaved() {
+  try { return localStorage.getItem(BEHAVIOUR_OPEN_KEY) !== '0'; } catch { return true; }
+}
 import {
   RESULT_BODY,
   RESULT_HEADING,
@@ -22,6 +29,11 @@ export default function TeacherResultStudentCard({
   onProfileFieldChange,
   onProfileMapChange,
 }) {
+  const [behaviourOpen, setBehaviourOpen] = useState(behaviourOpenSaved);
+  const toggleBehaviour = () => setBehaviourOpen(current => {
+    try { localStorage.setItem(BEHAVIOUR_OPEN_KEY, current ? '0' : '1'); } catch { /* private mode */ }
+    return !current;
+  });
   const affectiveDomains = Array.isArray(settings?.affectiveDomains) ? settings.affectiveDomains : [];
   const ratingDomains = Array.isArray(settings?.metadata?.ratingDomains) ? settings.metadata.ratingDomains : [];
   const scoreModel = resolveResultScoreModel(settings);
@@ -143,11 +155,16 @@ export default function TeacherResultStudentCard({
       </div>
 
       {permissions?.canManageProfiles && (
-        <fieldset disabled={profileLocked} className={`${RESULT_INNER_SURFACE} p-4 space-y-4 disabled:opacity-70`}>
-          <div>
-            <p className={`micro-label ${RESULT_LABEL}`}>Review Fields</p>
-            <p className={`mt-2 text-sm ${RESULT_BODY}`}>Attendance, affective areas, ratings, and remarks support the approval flow that sits on top of the CA sheet.</p>
-          </div>
+        <section className={`${RESULT_INNER_SURFACE} p-4`}>
+          <button type="button" onClick={toggleBehaviour} aria-expanded={behaviourOpen} className="flex w-full items-center justify-between gap-3 text-left">
+            <span>
+              <span className={`micro-label block ${RESULT_LABEL}`}>Behaviour &amp; remarks</span>
+              <span className={`mt-1 block text-sm ${RESULT_BODY}`}>Attendance, affective areas, ratings and remarks for the report card.</span>
+            </span>
+            <span className={`shrink-0 rounded-full border border-[#2447d8]/40 px-3 py-1 text-xs font-bold text-[#2447d8]`}>{behaviourOpen ? 'Hide ▲' : 'Show ▼'}</span>
+          </button>
+        {behaviourOpen && (
+        <fieldset disabled={profileLocked} className="mt-4 space-y-4 disabled:opacity-70">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <label className="block">
               <span className={`micro-label ${RESULT_LABEL}`}>Attendance %</span>
@@ -234,6 +251,8 @@ export default function TeacherResultStudentCard({
             </label>
           </div>
         </fieldset>
+        )}
+        </section>
       )}
     </div>
   );

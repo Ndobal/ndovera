@@ -11,7 +11,6 @@ import {
 import BroadsheetTable from './BroadsheetTable';
 import OldStudentCodesUpload from './OldStudentCodesUpload';
 import ResultSettingsPanel from './ResultSettingsPanel';
-import SubjectGroupsPanel from './SubjectGroupsPanel';
 import ResultsDistributeBanner from './ResultsDistributeBanner';
 import {
   RESULT_BODY,
@@ -137,12 +136,21 @@ function buildSelectableBatches(serverBatches = [], classMap = {}, sessionPayloa
   return Array.from(byKey.values()).sort((left, right) => String(left.label || '').localeCompare(String(right.label || '')));
 }
 
-export default function ResultAdminConsole({ analyticsMode = 'hos', roleTitle = 'Academic Result Console' }) {
+// Academics shows the console a part at a time (its own tabs); without a view, everything.
+const VIEW_TABS = {
+  control: ['console'],
+  administration: ['oldCodes'],
+  upload: ['upload', 'batches'],
+  analysis: ['subjects', 'broadsheet'],
+};
+
+export default function ResultAdminConsole({ analyticsMode = 'hos', roleTitle = 'Academic Result Console', view = '' }) {
   const [classMap, setClassMap] = useState({});
   const [selectedBatchKey, setSelectedBatchKey] = useState('');
   const [data, setData] = useState(null);
   const [sessionPayload, setSessionPayload] = useState({ session: null, history: [] });
-  const [activeTab, setActiveTab] = useState('console');
+  const [activeTab, setActiveTab] = useState(() => (VIEW_TABS[view] || ['console'])[0]);
+  const allowed = tab => !view || (VIEW_TABS[view] || []).includes(tab);
   const [activeSection, setActiveSection] = useState('');
   const [sectionData, setSectionData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -409,8 +417,8 @@ export default function ResultAdminConsole({ analyticsMode = 'hos', roleTitle = 
   }
 
   return (
-    <div className="p-8 max-w-7xl mx-auto space-y-6">
-      <section className={`${RESULT_SURFACE} p-6`}>
+    <div className={view ? 'space-y-6' : 'p-8 max-w-7xl mx-auto space-y-6'}>
+      {(!view || view === 'administration') && <section className={`${RESULT_SURFACE} p-6`}>
         <p className={`micro-label ${RESULT_LABEL}`}>{roleTitle}</p>
         <h1 className={`text-3xl command-title mt-2 ${RESULT_HEADING}`}>Result Administration</h1>
         <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -419,52 +427,55 @@ export default function ResultAdminConsole({ analyticsMode = 'hos', roleTitle = 
           <div className={`${RESULT_INNER_SURFACE} p-4`}><p className={`micro-label ${RESULT_LABEL}`}>Attendance Avg</p><p className={`text-2xl command-title mt-2 ${RESULT_HEADING}`}>{Number(data?.attendanceAverage || 0)}%</p></div>
           <div className={`${RESULT_INNER_SURFACE} p-4`}><p className={`micro-label ${RESULT_LABEL}`}>At Risk</p><p className={`text-2xl command-title mt-2 ${RESULT_HEADING}`}>{Number(data?.atRiskCount || 0)}</p></div>
         </div>
-      </section>
+      </section>}
 
-      <ResultsDistributeBanner session={selectedBatch?.sessionName || ''} term={selectedBatch?.termName || ''} />
+      {(!view || view === 'administration') && <ResultsDistributeBanner session={selectedBatch?.sessionName || ''} term={selectedBatch?.termName || ''} />}
+
+      {view === 'analysis' && data && (
+        <section className={`${RESULT_SURFACE} flex flex-wrap items-center gap-3 p-4`}>
+          <p className={`micro-label ${RESULT_LABEL}`}>Class and term</p>
+          <select value={selectedBatchKey} onChange={event => setSelectedBatchKey(event.target.value)} className={`${RESULT_INPUT} min-w-[280px]`} aria-label="Class and term to analyse">
+            {!selectableBatches.length && <option value="">No class/session batch available yet</option>}
+            {selectableBatches.map(batch => <option key={buildBatchKey(batch)} value={buildBatchKey(batch)}>{batch.label}</option>)}
+          </select>
+        </section>
+      )}
 
       {error && <section className={`${RESULT_SURFACE} p-6 text-sm text-[#800020] dark:text-[#ffffff] border-rose-300/30 bg-rose-200/65 dark:bg-[#800000]/70`}>{error}</section>}
       {message && <section className={`${RESULT_SURFACE} p-6 text-sm text-[#1a5c38] dark:text-[#00ffff] border-emerald-300/30 bg-emerald-100/70 dark:bg-[#800000]/70`}>{message}</section>}
 
-      {data && (
+      {data && (!view || (VIEW_TABS[view] || []).length > 1) && (
         <section className={`${RESULT_SURFACE} p-3`}>
           <div className="flex flex-wrap gap-2">
-            <button
+            {allowed('console') && <button
               type="button"
               onClick={() => setActiveTab('console')}
               className={activeTab === 'console' ? RESULT_BUTTON : RESULT_SECONDARY_BUTTON}
             >
               Result Control
-            </button>
-            <button
+            </button>}
+            {allowed('batches') && <button
               type="button"
               onClick={() => setActiveTab('batches')}
               className={activeTab === 'batches' ? RESULT_BUTTON : RESULT_SECONDARY_BUTTON}
             >
               Result Batches
-            </button>
-            <button
+            </button>}
+            {allowed('subjects') && <button
               type="button"
               onClick={() => setActiveTab('subjects')}
               className={activeTab === 'subjects' ? RESULT_BUTTON : RESULT_SECONDARY_BUTTON}
             >
               Subject Performance
-            </button>
-            <button
-              type="button"
-              onClick={() => setActiveTab('groups')}
-              className={activeTab === 'groups' ? RESULT_BUTTON : RESULT_SECONDARY_BUTTON}
-            >
-              Combined Subjects
-            </button>
-            <button
+            </button>}
+            {allowed('broadsheet') && <button
               type="button"
               onClick={() => setActiveTab('broadsheet')}
               className={activeTab === 'broadsheet' ? RESULT_BUTTON : RESULT_SECONDARY_BUTTON}
             >
               Broadsheet Ranking
-            </button>
-            {data.canUploadDocuments && (
+            </button>}
+            {data.canUploadDocuments && allowed('upload') && (
               <button
                 type="button"
                 onClick={() => setActiveTab('upload')}
@@ -473,7 +484,7 @@ export default function ResultAdminConsole({ analyticsMode = 'hos', roleTitle = 
                 Bulk Result Upload
               </button>
             )}
-            {data.canUploadDocuments && (
+            {data.canUploadDocuments && allowed('oldCodes') && (
               <button
                 type="button"
                 onClick={() => setActiveTab('oldCodes')}
@@ -487,8 +498,6 @@ export default function ResultAdminConsole({ analyticsMode = 'hos', roleTitle = 
       )}
 
       {activeTab === 'oldCodes' && <OldStudentCodesUpload />}
-
-      {activeTab === 'groups' && <SubjectGroupsPanel />}
 
       {activeTab === 'console' && (
         <>

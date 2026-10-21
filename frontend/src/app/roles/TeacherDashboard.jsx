@@ -8,7 +8,6 @@ import TeacherExams from './teacher/TeacherExams';
 import TeacherPayslip from './teacher/TeacherPayslip';
 import TeacherClassroom from '../../features/classroom/TeacherClassroom';
 import TeacherOverview from './teacher/TeacherOverview';
-import TeacherLessonPlansPage from '../../features/lesson-plans/TeacherLessonPlansPage';
 import TeacherReports from './teacher/TeacherReports';
 import TeacherAttendancePage from './teacher/TeacherAttendancePage';
 import StaffSettingsPage from './shared/StaffSettingsPage';
@@ -151,8 +150,9 @@ export default function TeacherDashboard({ auth }) {
     return <TeacherClassroom initialTab="materials" lockedTab="materials" />;
   }
 
+  // Lesson plans and notes are written in Materials now; old links land there.
   if (sectionKey === 'lesson-plan') {
-    return <TeacherLessonPlansPage />;
+    return <Navigate to="/roles/teacher/materials" replace />;
   }
 
   if (sectionKey === 'messaging') {

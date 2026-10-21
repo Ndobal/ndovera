@@ -1051,6 +1051,17 @@ export function isSpecialSubject(name: unknown) {
 export type SubjectGroup = {
   id: string, section: string, subjectKey: string, name: string, classIds: string[], enabled: boolean,
   automatic: boolean, special: boolean, availableClassIds: string[],
+  /** The section whose score settings the combined sheet uses (nursery / primary / secondary). */
+  settingsSection: string, custom: boolean, label: string,
+}
+
+/** Where a class sits for combining: nursery, primary, junior (JSS 1–3) or senior (SS 1–3). */
+export const GROUP_BANDS: Record<string, { label: string, settingsSection: string }> = {
+  nursery: { label: 'Nursery', settingsSection: 'nursery' },
+  primary: { label: 'Primary', settingsSection: 'primary' },
+  junior: { label: 'JSS 1–3', settingsSection: 'secondary' },
+  senior: { label: 'SS 1–3', settingsSection: 'secondary' },
+  secondary: { label: 'Secondary', settingsSection: 'secondary' },
 }
 
 export function subjectGroupId(tenantId: string, section: string, subjectKey: string) {
@@ -1061,36 +1072,98 @@ export function subjectGroupId(tenantId: string, section: string, subjectKey: st
  * Every subject taught in two or more classes of a section, with its grouping:
  * the school's saved choice, otherwise on for trade subjects and off for the rest.
  */
-export async function listSubjectGroups(db: D1Database, tenantId: string, classes: Array<{ id: string, section: string }>, subjects: Array<{ id: string, name: string, classId: string }>) {
+/**
+ * Combined subjects. Automatically: every subject taught in two or more classes of a band
+ * (Nursery, Primary, JSS 1–3, SS 1–3), on for trade subjects and off for the rest unless the
+ * school chose. The school can also make its own groups (custom, any classes taking the
+ * subject — e.g. "SS 1–2 only"); classes in a custom group leave the band's automatic group.
+ * A choice saved before bands (section "secondary") still applies to the JSS and SS groups.
+ */
+export async function listSubjectGroups(db: D1Database, tenantId: string, classes: Array<{ id: string, section: string, band?: string }>, subjects: Array<{ id: string, name: string, classId: string }>) {
   await ensureSubjectGroupTables(db)
   const saved = new Map<string, Record<string, any>>()
+  const customRows: Record<string, any>[] = []
   const rows = await db.prepare('SELECT * FROM subject_groups WHERE tenant_id = ?').bind(tenantId).all().catch(() => ({ results: [] }))
-  for (const row of (rows.results || []) as Record<string, any>[]) saved.set(`${row.section}::${row.subject_key}`, row)
+  for (const row of (rows.results || []) as Record<string, any>[]) {
+    if (String(row.section).startsWith('custom:')) customRows.push(row)
+    else saved.set(`${row.section}::${row.subject_key}`, row)
+  }
+  const bandOf = new Map(classes.map(item => [String(item.id), String(item.band || item.section)]))
   const sectionOf = new Map(classes.map(item => [String(item.id), String(item.section)]))
-  const found = new Map<string, { section: string, subjectKey: string, name: string, classIds: Set<string> }>()
+  const teaching = new Map<string, Set<string>>() // subjectKey → classes taking it
+  const nameOfKey = new Map<string, string>()
   for (const subject of subjects) {
-    const section = sectionOf.get(String(subject.classId))
     const subjectKey = subjectGroupKey(subject.name)
-    if (!section || !subjectKey) continue
-    const key = `${section}::${subjectKey}`
-    const entry = found.get(key) || { section, subjectKey, name: String(subject.name || ''), classIds: new Set<string>() }
+    if (!subjectKey) continue
+    if (!teaching.has(subjectKey)) teaching.set(subjectKey, new Set())
+    teaching.get(subjectKey)!.add(String(subject.classId))
+    if (!nameOfKey.has(subjectKey)) nameOfKey.set(subjectKey, String(subject.name || ''))
+  }
+
+  const groups: SubjectGroup[] = []
+  const inCustom = new Map<string, Set<string>>() // subjectKey → classes already in an enabled custom group
+  for (const row of customRows) {
+    const subjectKey = String(row.subject_key)
+    const available = [...(teaching.get(subjectKey) || [])]
+    const classIds = parseJsonField(row.class_ids_json, [] as string[]).map(String).filter(id => available.includes(id))
+    if (!classIds.length) continue
+    const enabled = Number(row.enabled) === 1
+    if (enabled) {
+      if (!inCustom.has(subjectKey)) inCustom.set(subjectKey, new Set())
+      classIds.forEach(id => inCustom.get(subjectKey)!.add(id))
+    }
+    groups.push({
+      id: String(row.id), section: String(row.section), subjectKey, name: String(row.name || nameOfKey.get(subjectKey) || ''), classIds, enabled,
+      automatic: false, special: isSpecialSubject(row.name), availableClassIds: available, custom: true,
+      settingsSection: sectionOf.get(classIds[0]) || 'secondary', label: String(row.name || ''),
+    })
+  }
+
+  const found = new Map<string, { band: string, subjectKey: string, name: string, classIds: Set<string> }>()
+  for (const subject of subjects) {
+    const band = bandOf.get(String(subject.classId))
+    const subjectKey = subjectGroupKey(subject.name)
+    if (!band || !subjectKey) continue
+    if (inCustom.get(subjectKey)?.has(String(subject.classId))) continue
+    const key = `${band}::${subjectKey}`
+    const entry = found.get(key) || { band, subjectKey, name: String(subject.name || ''), classIds: new Set<string>() }
     entry.classIds.add(String(subject.classId))
     found.set(key, entry)
   }
-  const groups: SubjectGroup[] = []
   for (const [key, entry] of found) {
     if (entry.classIds.size < 2) continue
-    const row = saved.get(key)
+    const legacy = (entry.band === 'junior' || entry.band === 'senior') ? saved.get(`secondary::${entry.subjectKey}`) : null
+    const row = saved.get(key) || legacy
     const special = isSpecialSubject(entry.name)
     const available = [...entry.classIds]
     const chosen = row ? parseJsonField(row.class_ids_json, [] as string[]).map(String).filter(id => entry.classIds.has(id)) : []
+    const band = GROUP_BANDS[entry.band] || { label: entry.band, settingsSection: entry.band }
     groups.push({
-      id: subjectGroupId(tenantId, entry.section, entry.subjectKey), section: entry.section, subjectKey: entry.subjectKey, name: entry.name,
+      id: subjectGroupId(tenantId, entry.band, entry.subjectKey), section: entry.band, subjectKey: entry.subjectKey, name: entry.name,
       classIds: chosen.length >= 2 ? chosen : available, enabled: row ? Number(row.enabled) === 1 : special,
-      automatic: !row, special, availableClassIds: available,
+      automatic: !saved.has(key), special, availableClassIds: available, custom: false,
+      settingsSection: band.settingsSection, label: band.label,
     })
   }
-  return groups.sort((a, b) => Number(b.enabled) - Number(a.enabled) || a.section.localeCompare(b.section) || a.name.localeCompare(b.name))
+  return groups.sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: 'base' }) || a.label.localeCompare(b.label) || Number(b.enabled) - Number(a.enabled))
+}
+
+/** A school's own group of classes for one subject ("SS 1–2"), or an update to it. */
+export async function saveCustomSubjectGroup(db: D1Database, params: { tenantId: string, id?: string, subjectKey: string, name: string, classIds: string[], enabled: boolean, actorId: string }) {
+  await ensureSubjectGroupTables(db)
+  const token = params.id && params.id.startsWith('sgrp_custom_') ? params.id.slice('sgrp_custom_'.length) : crypto.randomUUID().replace(/-/g, '').slice(0, 16)
+  const id = `sgrp_custom_${token}`
+  await db.prepare(`INSERT INTO subject_groups (id, tenant_id, section, subject_key, name, class_ids_json, enabled, updated_by, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+    ON CONFLICT(id) DO UPDATE SET name = excluded.name, class_ids_json = excluded.class_ids_json, enabled = excluded.enabled, updated_by = excluded.updated_by, updated_at = excluded.updated_at`)
+    .bind(id, params.tenantId, `custom:${token}`, params.subjectKey, params.name.slice(0, 120), JSON.stringify(params.classIds), params.enabled ? 1 : 0, params.actorId, new Date().toISOString()).run()
+  return id
+}
+
+export async function deleteCustomSubjectGroup(db: D1Database, tenantId: string, id: string) {
+  await ensureSubjectGroupTables(db)
+  if (!id.startsWith('sgrp_custom_')) return false
+  const result = await db.prepare('DELETE FROM subject_groups WHERE tenant_id = ? AND id = ?').bind(tenantId, id).run()
+  return Number(result?.meta?.changes || 0) > 0
 }
 
 export async function saveSubjectGroup(db: D1Database, params: { tenantId: string, section: string, subjectKey: string, name: string, classIds: string[], enabled: boolean, actorId: string }) {

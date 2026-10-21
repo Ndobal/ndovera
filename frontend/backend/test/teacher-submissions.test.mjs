@@ -230,3 +230,25 @@ test('reviewers also find work handed in elsewhere: Lesson Plans page plans, sav
   assert.equal(after.status, 200)
   assert.equal(after.body.lessonPlans.length, 1)
 })
+
+test('a combined subject needs one submission for all its classes', async () => {
+  const db = await setup()
+  db.db.exec(`
+    INSERT INTO classes (id, tenantId, name, arm) VALUES ('jss1', 'school-a', 'JSS 1', ''), ('jss2', 'school-a', 'JSS 2', '');
+    INSERT INTO subjects VALUES ('gsm1', 'school-a', 'GSM Repairs', 'jss1', 't-math', 'x'), ('gsm2', 'school-a', 'GSM Repairs', 'jss2', 't-math', 'x');
+  `)
+  const groups = (await call(db, 'hos', 'GET', '/api/results/subject-groups')).body.groups
+  const gsm = groups.find(group => group.subjectKey === 'gsm repairs')
+  if (!gsm.enabled) await call(db, 'hos', 'POST', '/api/results/subject-groups', { section: gsm.section, subjectKey: 'gsm repairs', enabled: true, classIds: ['jss1', 'jss2'] })
+  const sent = await call(db, 'teacher', 'POST', '/api/teacher-submissions', { classId: 'jss1', subjectId: 'gsm1', type: 'lesson_plan', weekNumber: 1, content: 'Week 1: parts of a phone.' })
+  assert.equal(sent.status, 201, JSON.stringify(sent.body))
+  const other = await call(db, 'hos', 'GET', '/api/teacher-submissions/review?classId=jss2')
+  assert.equal(other.status, 200, JSON.stringify(other.body))
+  const shared = other.body.submissions.find(item => item.id === sent.body.submission.id)
+  assert.ok(shared, 'the JSS 1 submission shows for JSS 2')
+  assert.deepEqual([shared.subjectId, shared.sharedFrom], ['gsm2', 'JSS 1'])
+  assert.ok(other.body.summary.submittedTeachers.includes('t-math'))
+  // Mathematics in Primary 5 is not combined: nothing borrowed.
+  const p5 = await call(db, 'hos', 'GET', '/api/teacher-submissions/review?classId=p5')
+  assert.ok(!p5.body.submissions.some(item => item.sharedFrom))
+})

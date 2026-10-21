@@ -3,6 +3,8 @@ import { getClassLevels, saveClassLevels } from '../services/schoolApi';
 
 const SELECT = 'w-full rounded-2xl border border-[#c9a96e]/40 bg-white px-3 py-2 text-sm text-[#191970] outline-none focus:ring-2 focus:ring-[#1a5c38]/40 dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-100';
 const SECTION_NAMES = { nursery: 'Nursery / Early Years', primary: 'Primary', junior: 'Junior Secondary', senior: 'Senior Secondary' };
+// Junior and Senior Secondary are sections of their own inside Secondary.
+const SECTION_PARENT = { junior: 'Secondary', senior: 'Secondary' };
 
 /**
  * Which standard level each class is. Schools name classes their own way ("GRADE 1" can be
@@ -24,6 +26,18 @@ export default function ClassLevelsBoard() {
 
   const levels = useMemo(() => data?.levels || [], [data]);
   const labelOf = key => levels.find(level => level.key === key)?.label || 'Not recognised';
+  const sectionOf = key => levels.find(level => level.key === key)?.section || '';
+  // Classes grouped by the section their (chosen or read) level puts them in.
+  const bySection = useMemo(() => {
+    const groups = Object.keys(SECTION_NAMES).map(key => ({ key, classes: [] }));
+    const unplaced = { key: '', classes: [] };
+    for (const item of data?.classes || []) {
+      const section = sectionOf(choice[item.id] || item.guess);
+      (groups.find(group => group.key === section) || unplaced).classes.push(item);
+    }
+    return [...groups.filter(group => group.classes.length), ...(unplaced.classes.length ? [unplaced] : [])];
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data, choice, levels]);
   const changed = (data?.classes || []).filter(item => (choice[item.id] || '') !== (item.level || ''));
 
   async function save() {
@@ -43,16 +57,32 @@ export default function ClassLevelsBoard() {
   return (
     <div className="space-y-4">
       <div>
-        <h3 className="text-lg font-bold text-[#800020] dark:text-slate-100">Class levels</h3>
+        <h3 className="text-lg font-bold text-[#800020] dark:text-slate-100">Class levels &amp; sections</h3>
         <p className="text-sm text-slate-700 dark:text-slate-300">
           Tell Ndovera which standard level each of your classes is, for example GRADE 1 = Primary 2 or RECEPTION = Nursery 1.
           The curriculum, Ndovera AI materials and practice questions follow the level you choose. A class not set here is read from its name.
         </p>
+        <p className="mt-1 text-sm text-slate-700 dark:text-slate-300">
+          The level also puts the class in its section. Secondary has two sections: <b>Junior Secondary</b> (JSS 1–3) and <b>Senior Secondary</b> (SS 1–3), each with its own combined subjects and teachers.
+          To move a class to another section, choose a level from that section.
+        </p>
+        <div className="mt-2 flex flex-wrap gap-2">
+          {bySection.map(group => (
+            <span key={group.key || 'none'} className="rounded-full border border-[#c9a96e]/40 bg-white px-3 py-1 text-xs font-bold text-[#191970] dark:bg-slate-900 dark:text-slate-100">
+              {group.key ? `${SECTION_PARENT[group.key] ? `${SECTION_PARENT[group.key]} › ` : ''}${SECTION_NAMES[group.key]}` : 'No section yet'} · {group.classes.length}
+            </span>
+          ))}
+        </div>
       </div>
       {error ? <p role="alert" className="rounded-2xl bg-rose-50 px-4 py-2 text-sm font-semibold text-rose-800 dark:bg-rose-500/15 dark:text-rose-100">{error}</p> : null}
       {notice ? <p role="status" className="rounded-2xl bg-emerald-50 px-4 py-2 text-sm font-semibold text-emerald-800 dark:bg-emerald-500/15 dark:text-emerald-100">{notice}</p> : null}
+      {bySection.map(group => (
+      <section key={group.key || 'none'} aria-label={group.key ? SECTION_NAMES[group.key] : 'No section yet'}>
+        <h4 className="mb-1.5 text-sm font-black uppercase tracking-wide text-[#800020] dark:text-slate-200">
+          {group.key ? <>{SECTION_PARENT[group.key] ? <span className="font-semibold text-slate-500">{SECTION_PARENT[group.key]} › </span> : null}{SECTION_NAMES[group.key]}</> : 'No section yet: choose a level'}
+        </h4>
       <div className="divide-y divide-[#c9a96e]/30 overflow-hidden rounded-2xl border border-[#c9a96e]/40 bg-white/70 dark:divide-white/10 dark:border-white/10 dark:bg-slate-900/40">
-        {(data?.classes || []).map(item => (
+        {group.classes.map(item => (
           <div key={item.id} className="grid items-center gap-2 px-4 py-3 sm:grid-cols-[1fr_16rem]">
             <div>
               <p className="font-semibold text-[#191970] dark:text-slate-100">{[item.name, item.arm].filter(Boolean).join(' ')}</p>
@@ -68,8 +98,10 @@ export default function ClassLevelsBoard() {
             </select>
           </div>
         ))}
-        {!(data?.classes || []).length ? <p className="px-4 py-3 text-sm text-slate-600 dark:text-slate-300">No classes yet. Add them under Classes first.</p> : null}
       </div>
+      </section>
+      ))}
+      {!(data?.classes || []).length ? <p className="rounded-2xl border border-[#c9a96e]/40 px-4 py-3 text-sm text-slate-600 dark:text-slate-300">No classes yet. Add them under Classes first.</p> : null}
       <button type="button" disabled={busy || !changed.length} onClick={save}
         className="rounded-2xl bg-[#800020] px-5 py-2.5 text-sm font-bold text-[#b5e3f4] disabled:opacity-50">
         {busy ? 'Saving…' : changed.length ? `Save ${changed.length} change${changed.length === 1 ? '' : 's'}` : 'Saved'}

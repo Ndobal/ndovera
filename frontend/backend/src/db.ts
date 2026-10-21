@@ -666,7 +666,7 @@ export async function getMaterialsForClass(db: D1Database, classId: string, opti
   if (!classroom?.tenantId) return []
   await backfillMaterialSessions(db, classroom.tenantId)
   const result = await db.prepare('SELECT id, classId, title, url, metadata, uploadedAt, uploadedBy FROM materials WHERE classId = ? ORDER BY uploadedAt DESC').bind(classId).all()
-  const materials = result.results.map(mapMaterialRow).filter(material => material.status !== 'deleted')
+  const materials = sortMaterialsByWeek(result.results.map(mapMaterialRow).filter(material => material.status !== 'deleted'))
   if (options.includeArchive) return materials
   const context = await currentMaterialContext(db, classroom.tenantId)
   return materials.filter(material => isCurrentMaterial(material, context))
@@ -719,6 +719,32 @@ export async function addMaterial(db: D1Database, mat: any) {
     metadata,
     uploadedAt,
     uploadedBy: mat.uploadedBy,
+  })
+}
+
+/** "Week 3", "WK3", "Wk 3: Fractions", "Term 2 week 10", "3" → the week number; anything else → null. */
+export function weekNumberOf(label: unknown) {
+  const text = String(label || '').trim()
+  const week = /\b(?:week|wk)\s*\.?\s*(\d{1,2})\b/i.exec(text)
+  if (week) return Number(week[1])
+  const leading = /^(\d{1,2})\b/.exec(text)
+  return leading ? Number(leading[1]) : null
+}
+
+/**
+ * Materials in teaching order: by week (Week 1, Week 2…), and within a week, or with no week,
+ * in the order they were uploaded. Teachers' and students' lists alike.
+ */
+export function sortMaterialsByWeek<T extends { weekLabel?: string, uploadedAt?: string }>(materials: T[]) {
+  return [...materials].sort((a, b) => {
+    const weekA = weekNumberOf(a.weekLabel)
+    const weekB = weekNumberOf(b.weekLabel)
+    if (weekA !== weekB) {
+      if (weekA === null) return 1
+      if (weekB === null) return -1
+      return weekA - weekB
+    }
+    return String(a.uploadedAt || '').localeCompare(String(b.uploadedAt || ''))
   })
 }
 

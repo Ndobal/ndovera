@@ -139,6 +139,7 @@ export default function SubmissionReviewPage({ dashboardLabel = 'Dashboard' }) {
     const extra = overview.filter(item => item.classId && !known.has(item.classId)).map(item => ({ id: item.classId, className: item.className || 'Class no longer listed' }));
     return [...classes, ...extra];
   }, [classes, overview]);
+  const selectedClass = classList.find(item => item.id === classId);
   const teachers = [...new Map((board?.submissions || []).map(item => [item.teacherId, item.teacherName])).entries()];
   const subjects = [...new Map((board?.submissions || []).map(item => [item.subjectId, item.subjectName])).entries()];
 
@@ -167,14 +168,28 @@ export default function SubmissionReviewPage({ dashboardLabel = 'Dashboard' }) {
       {error && <p role="alert" className="font-semibold text-red-700">{error}</p>}
       {showRules && config && <PolicyEditor config={config} onSaved={result => setConfig(current => ({ ...current, policy: result.policy, types: result.types }))} />}
 
+      {classId ? (
+        // One class open as its own page: back to every class, or switch class from here.
+        <section className={`${CARD} flex flex-wrap items-center gap-3`} aria-label="Class under review">
+          <button type="button" onClick={() => setSearchParams({})} className="rounded-xl border border-[#c9a96e]/45 bg-white px-3 py-1.5 text-sm font-bold text-[#191970]">← All classes</button>
+          <div className="min-w-0 flex-1">
+            <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-[#800020]">Reviewing</p>
+            <h2 className="truncate text-xl font-black text-[#800000] dark:text-white">{selectedClass?.className || selectedClass?.name || 'Class'}</h2>
+          </div>
+          <label className="text-xs font-bold text-[#800020]">Switch class{' '}
+            <select aria-label="Switch class" value={classId} onChange={event => { setBoard(null); setSearchParams({ classId: event.target.value }); }} className={SELECT}>
+              {classList.map(item => <option key={item.id} value={item.id}>{item.className || item.name}{counts(item.id)?.awaitingReview ? ` (${counts(item.id).awaitingReview} awaiting)` : ''}</option>)}
+            </select>
+          </label>
+        </section>
+      ) : (
       <section className={CARD} aria-label="Classes">
-        <div className="flex flex-wrap gap-2">
+        <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
           {classList.map(item => {
             const summary = counts(item.id);
-            const selected = item.id === classId;
             return (
-              <button key={item.id} type="button" onClick={() => setSearchParams(selected ? {} : { classId: item.id })}
-                className={`rounded-2xl px-4 py-2 text-left text-sm font-bold ${selected ? 'bg-[#800020] text-[#b5e3f4]' : 'bg-white text-[#191970]'}`}>
+              <button key={item.id} type="button" onClick={() => setSearchParams({ classId: item.id })}
+                className="rounded-2xl bg-white px-4 py-3 text-left text-sm font-bold text-[#191970] transition hover:ring-2 hover:ring-[#2447d8] dark:bg-slate-900 dark:text-slate-100">
                 {item.className || item.name}
                 {summary ? <span className="block text-[11px] font-semibold opacity-80">{summary.awaitingReview} awaiting · {summary.approved} approved{summary.drafts ? ` · ${summary.drafts} not sent` : ''}{summary.exams ? ` · ${summary.exams} exam${summary.exams === 1 ? '' : 's'}` : ''}</span> : <span className="block text-[11px] font-semibold opacity-60">No submissions</span>}
               </button>
@@ -182,7 +197,9 @@ export default function SubmissionReviewPage({ dashboardLabel = 'Dashboard' }) {
           })}
         </div>
       </section>
+      )}
 
+      {classId && !board && !error && <p role="status" className="text-sm text-[#191970] dark:text-slate-300">Loading this class's work…</p>}
       {classId && board && (
         <>
           <section className="grid grid-cols-2 gap-3 md:grid-cols-6" aria-label="Summary">
@@ -228,6 +245,7 @@ export default function SubmissionReviewPage({ dashboardLabel = 'Dashboard' }) {
                         <span className="font-semibold">{item.periodLabel || item.title}</span>
                         {filters.scope !== 'term' && (item.termName || item.sessionName) ? <span className="text-xs text-[#800020]">{[item.sessionName, item.termName].filter(Boolean).join(' · ')}</span> : null}
                         <StatusBadge status={item.status} />
+                        {item.sharedFrom ? <span className="rounded-full bg-indigo-50 px-2 py-0.5 text-xs font-bold text-[#191970]">Combined subject · sent under {item.sharedFrom}</span> : null}
                         <span className="text-xs text-slate-500">{item.submittedAt ? new Date(item.submittedAt).toLocaleString() : ''}{item.version > 1 ? ` · v${item.version}` : ''}{item.reviewedByName ? ` · ${item.reviewedByName}` : ''}</span>
                       </button>
                     </li>
