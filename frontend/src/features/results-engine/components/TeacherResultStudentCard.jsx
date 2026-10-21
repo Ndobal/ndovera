@@ -1,11 +1,4 @@
 import React, { useState } from 'react';
-
-// The behaviour section (attendance, affective areas, ratings, remarks) folds away; the choice
-// is remembered on the device so it stays folded from student to student.
-const BEHAVIOUR_OPEN_KEY = 'ndovera:ca-behaviour-open';
-function behaviourOpenSaved() {
-  try { return localStorage.getItem(BEHAVIOUR_OPEN_KEY) !== '0'; } catch { return true; }
-}
 import {
   RESULT_BODY,
   RESULT_HEADING,
@@ -17,6 +10,13 @@ import {
   getBatchTone,
 } from './resultSheetTheme';
 import { normalizeCaComponentDefinitions, resolveResultScoreModel } from '../utils/resultEngineTransforms';
+
+// The behaviour section (attendance, affective areas, ratings, remarks) folds away; the choice
+// is remembered on the device so it stays folded from student to student.
+const BEHAVIOUR_OPEN_KEY = 'ndovera:ca-behaviour-open';
+function behaviourOpenSaved() {
+  try { return localStorage.getItem(BEHAVIOUR_OPEN_KEY) !== '0'; } catch { return true; }
+}
 
 export default function TeacherResultStudentCard({
   index,
