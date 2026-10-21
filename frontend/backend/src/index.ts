@@ -1949,9 +1949,11 @@ async function listResultClassStudents(db: D1Database, tenantId: string, classRo
 /** The students of each given class, read in one pass (used by combined-subject sheets). */
 async function listResultStudentsByClass(db: D1Database, tenantId: string, classRows: Array<Record<string, any>>) {
   await ensureUsersTable(db)
+  // Turned-off and past students keep their saved scores but leave the sheet.
   const rows = await db.prepare(
-    `SELECT id, name, email, role, status, createdAt FROM users WHERE tenantId = ? AND role = 'student' ORDER BY name`
-  ).bind(tenantId).all()
+    `SELECT id, name, email, role, status, createdAt FROM users WHERE tenantId = ? AND role = 'student'
+       AND (status IS NULL OR lower(trim(status)) NOT IN (${PAST_STUDENT_STATUSES.map(() => '?').join(', ')})) ORDER BY name`
+  ).bind(tenantId, ...PAST_STUDENT_STATUSES).all()
   const hydrated = await hydrateUserRecords(db, (rows.results || []) as Record<string, any>[])
   const byClass = new Map<string, Array<Record<string, any>>>()
   const classById = new Map(classRows.map(row => [String(row.id || ''), row]))
@@ -3461,7 +3463,7 @@ async function listTenantActiveStudents(db: D1Database, tenantId: string) {
      FROM users
      WHERE tenantId = ?
        AND lower(trim(coalesce(role, ''))) = 'student'
-       AND lower(trim(coalesce(status, 'active'))) != 'inactive'
+       AND ${currentStudentSql()}
      ORDER BY name`
   ).bind(tenantId).all()
 
@@ -8117,7 +8119,7 @@ app.get('/api/transport/admin', authenticate, async (c) => {
     const assignments = await listAssignments(db, actor.tenantId, { routeIds: routes.map(route => route.id) })
     const [studentRows, driverRows] = await Promise.all([
       db.prepare(`SELECT u.id, u.name, s.payload FROM users u LEFT JOIN settings s ON s.studentId IN (u.email, u.id)
-        WHERE u.tenantId = ? AND lower(u.role) = 'student' AND (u.status IS NULL OR u.status != 'inactive') ORDER BY u.name`).bind(actor.tenantId).all().catch(() => ({ results: [] })),
+        WHERE u.tenantId = ? AND lower(u.role) = 'student' AND ${currentStudentSql('u')} ORDER BY u.name`).bind(actor.tenantId).all().catch(() => ({ results: [] })),
       db.prepare(`SELECT id, name, role FROM users WHERE tenantId = ? AND lower(role) IN ('driver', 'transport') AND (status IS NULL OR status != 'inactive') ORDER BY name`).bind(actor.tenantId).all().catch(() => ({ results: [] })),
     ])
     const students = new Map<string, { id: string, name: string, className: string }>()
@@ -8427,7 +8429,7 @@ app.get('/api/health/students', authenticate, async (c) => {
     if (!actor.isStaff) throw new HealthError('Only school staff can look up students here.', 403)
     const term = `%${String(c.req.query('q') || '').trim().toLowerCase()}%`
     const rows = await c.env.APP_DB.prepare(`SELECT u.id, u.name, s.payload FROM users u LEFT JOIN settings s ON s.studentId IN (u.email, u.id)
-      WHERE u.tenantId = ? AND lower(u.role) = 'student' AND (u.status IS NULL OR u.status != 'inactive') AND lower(u.name) LIKE ? ORDER BY u.name LIMIT 40`)
+      WHERE u.tenantId = ? AND lower(u.role) = 'student' AND ${currentStudentSql('u')} AND lower(u.name) LIKE ? ORDER BY u.name LIMIT 40`)
       .bind(actor.tenantId, term).all().catch(() => ({ results: [] }))
     const students = new Map<string, { id: string, name: string, className: string }>()
     for (const row of (rows.results || []) as Record<string, any>[]) {
@@ -9750,7 +9752,7 @@ app.get('/api/classrooms/assigned', authenticate, async (c) => {
          WHERE json_extract(payload, '$.tenantId') = ?
            AND json_extract(payload, '$.role') = 'student'
            AND json_extract(payload, '$.classId') IN (${classIdPlaceholders})
-           AND COALESCE(json_extract(payload, '$.status'), 'active') != 'inactive'
+           AND lower(trim(COALESCE(json_extract(payload, '$.status'), 'active'))) NOT IN (${PAST_STUDENT_STATUSES.map(status => `'${status}'`).join(', ')})
          GROUP BY json_extract(payload, '$.classId')`
       ).bind(tenantId, ...classIds).all().catch(() => ({ results: [] })),
       c.env.APP_DB.prepare(
@@ -14974,7 +14976,7 @@ async function listStudentsForClass(db: D1Database, tenantId: string, classroomI
      LEFT JOIN settings s ON s.studentId IN (u.email, u.id)
      WHERE u.tenantId = ?
        AND lower(u.role) = 'student'
-       AND (u.status IS NULL OR u.status != 'inactive')
+       AND ${currentStudentSql('u')}
        AND json_extract(s.payload, '$.classId') = ?
      ORDER BY u.name, u.email`
   ).bind(tenantId, classroomId).all().catch(() => ({ results: [] }))
@@ -19970,7 +19972,9 @@ app.delete('/api/people/:userId', authenticate, async (c) => {
       }
     }
     await addAudit(c.env.APP_DB, tenantId, { action: 'personDeactivated', data: { by: c.var.user.id, userId } })
-    return c.json({ success: true })
+    // Parents left with no child at the school are turned off with them.
+    const parents = await syncParentAccounts(c.env.APP_DB, tenantId, { studentKeys: [userId, String(existingUser?.email || '')] }).catch(() => null)
+    return c.json({ success: true, parentsTurnedOff: parents?.turnedOff || [] })
   } catch (err) {
     return c.json({ error: 'Could not deactivate person.' }, 500)
   }
@@ -19978,6 +19982,12 @@ app.delete('/api/people/:userId', authenticate, async (c) => {
 
 // Statuses that mean a student is no longer at the school (see academicSessions).
 const PAST_STUDENT_STATUSES = ['inactive', 'alumni', 'graduated', 'withdrawn', 'transferred', 'archived']
+
+/** SQL: the user (by table alias) is a current student, not turned off or past (any case). */
+function currentStudentSql(alias = '') {
+  const column = `${alias ? `${alias}.` : ''}status`
+  return `(${column} IS NULL OR lower(trim(${column})) NOT IN (${PAST_STUDENT_STATUSES.map(status => `'${status}'`).join(', ')}))`
+}
 
 /**
  * Anything a student has done or paid. A turned-off student with none of these was most
@@ -20033,13 +20043,18 @@ app.get('/api/people/past-students', authenticate, async (c) => {
        WHERE tenantId = ? AND lower(COALESCE(role, '')) = 'student' AND lower(trim(COALESCE(status, ''))) IN (${PAST_STUDENT_STATUSES.map(() => '?').join(', ')})
        ORDER BY name LIMIT 2000`
     ).bind(tenantId, ...PAST_STUDENT_STATUSES).all()
-    const pageRows = (rows.results || []) as Record<string, any>[]
-    const settingsMap = await getSettingsMapForUserRows(c.env.APP_DB, pageRows)
+    const allRows = (rows.results || []) as Record<string, any>[]
+    const settingsMap = await getSettingsMapForUserRows(c.env.APP_DB, allRows)
+    const settingsOf = (row: Record<string, any>) => settingsMap.get(String(row.email || '').trim()) || settingsMap.get(String(row.id || '').trim()) || {}
+    // Removed students are hidden everywhere, here too, unless the Removed list is asked for.
+    const wantRemoved = c.req.query('view') === 'removed'
+    const pageRows = allRows.filter(row => Boolean(settingsOf(row).removedAt) === wantRemoved)
     const records = await studentRecords(c.env.APP_DB, pageRows.map(row => ({ id: String(row.id), email: String(row.email || '') })))
     const students = pageRows.map(row => {
-      const settings = settingsMap.get(String(row.email || '').trim()) || settingsMap.get(String(row.id || '').trim()) || {}
+      const settings = settingsOf(row)
       const has = [...(records.get(String(row.id)) || [])]
       return {
+        removedAt: settings.removedAt || null, removedBy: settings.removedBy || '',
         id: row.id, name: row.name || settings.name || row.email || row.id, email: row.email || '', status: String(row.status || 'inactive'),
         className: settings.className || '', displayId: settings.publicStudentId || settings.displayId || '',
         leftAt: settings.deactivatedAt || null, leftBy: settings.deactivatedBy || '',
@@ -20107,6 +20122,141 @@ app.post('/api/people/past-students/delete', authenticate, async (c) => {
   return c.json({ success: true, deleted: deleted.length, deletedNames: deleted, kept })
 })
 
+/**
+ * Remove turned-off students who have records: nothing is deleted, but they leave
+ * every list, Past Students included (a Removed list brings them back). Their
+ * results, payments and work stay for history.
+ */
+app.post('/api/people/past-students/remove', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos', 'ict', 'ict_manager'])) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  const body = await c.req.json().catch(() => ({})) as Record<string, any>
+  const ids = Array.from(new Set((Array.isArray(body.ids) ? body.ids : [body.id]).map((value: unknown) => String(value || '').trim()).filter(Boolean))).slice(0, 500) as string[]
+  if (!ids.length) return c.json({ error: 'Choose who to remove.' }, 400)
+  const db = c.env.APP_DB
+  const found: Record<string, any>[] = []
+  for (let index = 0; index < ids.length; index += 90) {
+    const slice = ids.slice(index, index + 90)
+    const rows = await db.prepare(`SELECT id, email, name, role, status FROM users WHERE tenantId = ? AND id IN (${slice.map(() => '?').join(',')})`).bind(tenantId, ...slice).all()
+    found.push(...((rows.results || []) as Record<string, any>[]))
+  }
+  const removed: string[] = []
+  const kept: Array<{ id: string, name: string, reason: string }> = []
+  const now = new Date().toISOString()
+  const by = String(c.var.user?.name || c.var.user?.id || '')
+  for (const row of found) {
+    if (String(row.role || '').toLowerCase() !== 'student') { kept.push({ id: row.id, name: row.name, reason: 'not a student' }); continue }
+    if (!PAST_STUDENT_STATUSES.includes(String(row.status || '').trim().toLowerCase())) { kept.push({ id: row.id, name: row.name, reason: 'still active — turn them off first' }); continue }
+    const key = String(row.email || row.id)
+    const settings = await getSettings(db, key).catch(() => null) || {}
+    await upsertSettings(db, key, { ...settings, removedAt: now, removedBy: by })
+    removed.push(String(row.name || row.email || row.id))
+    await addAudit(db, tenantId, { action: 'studentRemoved', data: { by: c.var.user.id, byName: by, userId: row.id, name: row.name } }).catch(() => null)
+  }
+  const parents = await syncParentAccounts(db, tenantId, { studentKeys: found.flatMap(row => [String(row.id), String(row.email || '')]) }).catch(() => null)
+  return c.json({ success: true, removed: removed.length, removedNames: removed, kept, parentsTurnedOff: parents?.turnedOff || [] })
+})
+
+/** Parents who are turned off (most because none of their children is still at the school). */
+app.get('/api/people/past-parents', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos', 'ict', 'ict_manager'])) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  await ensureUsersTable(c.env.APP_DB)
+  const rows = ((await c.env.APP_DB.prepare(`SELECT id, name, email, role, status FROM users WHERE tenantId = ? AND lower(COALESCE(role, '')) = 'parent' AND lower(COALESCE(status, '')) = 'inactive' ORDER BY name LIMIT 2000`).bind(tenantId).all()).results || []) as Record<string, any>[]
+  const settingsMap = await getSettingsMapForUserRows(c.env.APP_DB, rows)
+  return c.json({
+    success: true,
+    parents: rows.map(row => {
+      const settings = settingsMap.get(String(row.email || '').trim()) || settingsMap.get(String(row.id || '').trim()) || {}
+      return { id: row.id, name: row.name || settings.name || row.email || row.id, email: row.email || '', phone: settings.phone || '', automatic: Boolean(settings.autoDeactivated), leftAt: settings.deactivatedAt || null, leftBy: settings.deactivatedBy || '' }
+    }),
+  })
+})
+
+const NO_CHILD_REASON = 'Ndovera — no child at the school'
+
+/**
+ * Parents follow their children. A parent (whose own role is parent — never a member of
+ * staff) linked to children of whom none is still at the school is turned off, so the
+ * school counts only families it serves; marked automatic, they come back when a child
+ * is restored. A parent the school turned back on by hand (keepActive) is left alone, and
+ * so is a parent with no links at all (they may be waiting to be linked).
+ * `studentKeys` limits the check to those students' parents; without it, the whole school.
+ * Reads the school's links and its parent and student rows once (no joins on ids or emails).
+ */
+async function syncParentAccounts(db: D1Database, tenantId: string, options: { studentKeys?: string[] } = {}) {
+  await ensureParentStudentLinksTable(db)
+  await ensureUsersTable(db)
+  const links = ((await db.prepare(`SELECT parent_id, student_id FROM parent_student_links WHERE tenant_id = ?`).bind(tenantId).all().catch(() => ({ results: [] }))).results || []) as Record<string, any>[]
+  const wanted = options.studentKeys ? new Set(options.studentKeys.map(String).filter(Boolean)) : null
+  const candidateKeys = new Set(links.filter(link => !wanted || wanted.has(String(link.student_id))).map(link => String(link.parent_id)))
+  const result = { turnedOff: [] as string[], restored: [] as string[] }
+  if (!candidateKeys.size) return result
+  const people = ((await db.prepare(`SELECT id, email, name, role, primary_role, status FROM users WHERE tenantId = ? AND lower(COALESCE(role, '')) IN ('parent', 'student')`).bind(tenantId).all()).results || []) as Record<string, any>[]
+  const byKey = new Map<string, Record<string, any>>()
+  for (const person of people) {
+    byKey.set(String(person.id), person)
+    if (person.email) byKey.set(String(person.email), person)
+  }
+  const childrenOf = new Map<string, Set<string>>()
+  for (const link of links) {
+    const parent = byKey.get(String(link.parent_id))
+    if (!parent) continue
+    const set = childrenOf.get(String(parent.id)) || new Set<string>()
+    set.add(String(link.student_id))
+    childrenOf.set(String(parent.id), set)
+  }
+  const seen = new Set<string>()
+  const now = new Date().toISOString()
+  for (const key of candidateKeys) {
+    const parent = byKey.get(key)
+    if (!parent || seen.has(String(parent.id))) continue
+    seen.add(String(parent.id))
+    const isParentOnly = String(parent.role || '').toLowerCase() === 'parent' && ['', 'parent'].includes(String(parent.primary_role || '').toLowerCase())
+    if (!isParentOnly) continue
+    const hasActiveChild = [...(childrenOf.get(String(parent.id)) || [])].some(childKey => {
+      const child = byKey.get(childKey)
+      return Boolean(child) && String(child!.role || '').toLowerCase() === 'student' && !PAST_STUDENT_STATUSES.includes(String(child!.status || '').trim().toLowerCase())
+    })
+    const inactive = String(parent.status || '').trim().toLowerCase() === 'inactive'
+    if (hasActiveChild === !inactive) continue
+    const settingsKey = String(parent.email || parent.id)
+    const settings = await getSettings(db, settingsKey).catch(() => null) as Record<string, any> | null
+    if (!hasActiveChild) {
+      if (settings?.keepActive) continue
+      await db.prepare(`UPDATE users SET status = 'inactive' WHERE id = ? AND tenantId = ?`).bind(parent.id, tenantId).run()
+      if (settings) await upsertSettings(db, settingsKey, { ...settings, status: 'inactive', deactivatedAt: now, deactivatedBy: NO_CHILD_REASON, autoDeactivated: true })
+      result.turnedOff.push(String(parent.name || parent.email || parent.id))
+      await addAudit(db, tenantId, { action: 'parentTurnedOffNoChild', data: { userId: parent.id, name: parent.name } }).catch(() => null)
+    } else if (settings?.autoDeactivated) {
+      // Only parents Ndovera turned off come back on their own; anyone the school turned off stays off.
+      const { deactivatedAt, deactivatedBy, autoDeactivated, ...rest } = settings
+      await db.prepare(`UPDATE users SET status = 'active' WHERE id = ? AND tenantId = ?`).bind(parent.id, tenantId).run()
+      await upsertSettings(db, settingsKey, { ...rest, status: 'active', restoredAt: now })
+      result.restored.push(String(parent.name || parent.email || parent.id))
+      await addAudit(db, tenantId, { action: 'parentRestoredChildBack', data: { userId: parent.id, name: parent.name } }).catch(() => null)
+    }
+  }
+  return result
+}
+
+/** Nightly: every school with parent links. */
+async function sweepParentAccounts(db: D1Database) {
+  await ensureParentStudentLinksTable(db)
+  const tenants = ((await db.prepare(`SELECT DISTINCT tenant_id FROM parent_student_links WHERE tenant_id IS NOT NULL`).all().catch(() => ({ results: [] }))).results || []) as Record<string, any>[]
+  for (const row of tenants) {
+    try {
+      const result = await syncParentAccounts(db, String(row.tenant_id))
+      if (result.turnedOff.length || result.restored.length) console.log('Parent sweep', row.tenant_id, result.turnedOff.length, 'off', result.restored.length, 'back')
+    } catch (error) {
+      console.error('Parent sweep failed for', row.tenant_id, error)
+    }
+  }
+}
+
+
 /** Bring a past student back: they can sign in again and rejoin the register, fee lists and classes. */
 app.post('/api/people/:userId/restore', authenticate, async (c) => {
   if (!hasRequiredRole(c.var.user.role, ['owner', 'hos', 'ict', 'ict_manager'])) return c.json({ error: 'forbidden' }, 403)
@@ -20114,17 +20264,22 @@ app.post('/api/people/:userId/restore', authenticate, async (c) => {
   const userId = c.req.param('userId')
   try {
     await ensureUsersTable(c.env.APP_DB)
-    const existingUser = await c.env.APP_DB.prepare(`SELECT id, email, status FROM users WHERE id = ? AND tenantId = ?`).bind(userId, tenantId).first() as any
+    const existingUser = await c.env.APP_DB.prepare(`SELECT id, email, status, role FROM users WHERE id = ? AND tenantId = ?`).bind(userId, tenantId).first() as any
     if (!existingUser) return c.json({ error: 'Person not found.' }, 404)
     await c.env.APP_DB.prepare(`UPDATE users SET status = 'active' WHERE id = ? AND tenantId = ?`).bind(userId, tenantId).run()
     const settingsKey = existingUser.email || existingUser.id
     const settings = await getSettings(c.env.APP_DB, settingsKey).catch(() => null)
     if (settings) {
-      const { deactivatedAt, deactivatedBy, ...rest } = settings as Record<string, any>
-      await upsertSettings(c.env.APP_DB, settingsKey, { ...rest, status: 'active', restoredAt: new Date().toISOString() })
+      const { deactivatedAt, deactivatedBy, removedAt, removedBy, autoDeactivated, ...rest } = settings as Record<string, any>
+      // A parent turned back on by hand stays on, even with no child at the school.
+      const keepActive = String(existingUser.role || '').toLowerCase() === 'parent' ? { keepActive: true } : {}
+      await upsertSettings(c.env.APP_DB, settingsKey, { ...rest, ...keepActive, status: 'active', restoredAt: new Date().toISOString() })
     }
     await addAudit(c.env.APP_DB, tenantId, { action: 'personRestored', data: { by: c.var.user.id, userId, previousStatus: existingUser.status || '' } })
-    return c.json({ success: true })
+    const parents = String(existingUser.role || '').toLowerCase() === 'student'
+      ? await syncParentAccounts(c.env.APP_DB, tenantId, { studentKeys: [userId, String(existingUser.email || '')] }).catch(() => null)
+      : null
+    return c.json({ success: true, parentsRestored: parents?.restored || [] })
   } catch (err) {
     return c.json({ error: 'Could not restore this person.' }, 500)
   }
@@ -25058,7 +25213,7 @@ app.get('/api/classrooms/:classroomId/subjects/:subjectId/members', authenticate
       `SELECT u.id, u.name, u.email, u.role, u.status
        FROM users u
        JOIN settings s ON (s.studentId = u.email OR s.studentId = u.id)
-       WHERE u.tenantId = ? AND u.role = 'student' AND (u.status IS NULL OR u.status != 'inactive')
+       WHERE u.tenantId = ? AND u.role = 'student' AND ${currentStudentSql('u')}
          AND json_extract(s.payload, '$.classId') = ?
        ORDER BY u.name`
     ).bind(tenantId, classroomId).all().catch(() => ({ results: [] }))
@@ -36278,7 +36433,7 @@ async function runCommunications(env: Bindings) {
         const due = ((await env.APP_DB.prepare(`SELECT a.id, a.classId, a.title, a.dueAt FROM assignments a JOIN classes c ON c.id = a.classId WHERE c.tenantId = ? AND a.dueAt > ? AND a.dueAt <= ?`).bind(tenantId, nowIso, untilIso).all().catch(() => ({ results: [] }))).results || []) as Array<Record<string, any>>
         const out = []
         if (!due.length) return out
-        const students = ((await env.APP_DB.prepare(`SELECT u.id, s.payload FROM users u LEFT JOIN settings s ON s.studentId IN (u.email, lower(u.email)) WHERE u.tenantId = ? AND lower(u.role) = 'student'`).bind(tenantId).all()).results || []) as Array<Record<string, any>>
+        const students = ((await env.APP_DB.prepare(`SELECT u.id, s.payload FROM users u LEFT JOIN settings s ON s.studentId IN (u.email, lower(u.email)) WHERE u.tenantId = ? AND lower(u.role) = 'student' AND ${currentStudentSql('u')}`).bind(tenantId).all()).results || []) as Array<Record<string, any>>
         for (const item of due) {
           const inClass = students.filter(row => { try { return JSON.parse(String(row.payload || '{}')).classId === item.classId } catch { return false } }).map(row => String(row.id))
           const submitted = new Set((((await env.APP_DB.prepare(`SELECT DISTINCT studentId FROM submissions WHERE assignmentId = ?`).bind(item.id).all().catch(() => ({ results: [] }))).results || []) as Array<{ studentId: string }>).map(row => String(row.studentId)))
@@ -36427,6 +36582,8 @@ export default {
       ctx.waitUntil(rebuildBankCounts(env.APP_DB).catch(error => console.error('Practice counts failed', error)))
       ctx.waitUntil(rebuildExamStock(env.APP_DB).catch(error => console.error('Exam stock failed', error)))
     }
+    // Parents with no child still at the school are turned off (02:45 Lagos).
+    if (at.getUTCHours() === 1 && at.getUTCMinutes() === 45) ctx.waitUntil(sweepParentAccounts(env.APP_DB).catch(error => console.error('Parent sweep failed', error)))
     // Class pins: every student keeps their class unless it was changed on record (02:30 Lagos).
     if (at.getUTCHours() === 1 && at.getUTCMinutes() === 30) ctx.waitUntil(monitorClassPins(env.APP_DB).then(result => { if (result.restored) console.warn('Class monitor restored placements', result) }).catch(error => console.error('Class monitor failed', error)))
     // The night builder: new questions and quality checks, 00:00–04:00 Lagos, within Ami's nightly budget.

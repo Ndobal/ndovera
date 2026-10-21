@@ -167,7 +167,11 @@ export const getStudentOldCodes = () => req('/api/students/old-codes', { skipOff
 export const addStudentOldCode = (studentId, code) => req('/api/students/old-codes', { method: 'POST', body: { studentId, code } });
 export const removeStudentOldCode = (codeId) => req(`/api/students/old-codes/${encodeURIComponent(codeId)}`, { method: 'DELETE' });
 export const deactivatePerson = (userId) => req(`/api/people/${userId}`, { method: 'DELETE' });
-export const getPastStudents = () => req('/api/people/past-students', { skipOfflineCache: true });
+export const getPastStudents = (view = '') => req(`/api/people/past-students${view ? `?view=${encodeURIComponent(view)}` : ''}`, { skipOfflineCache: true });
+/** Remove turned-off students who have records: they leave every list (classes, fees, score sheets), records kept. */
+export const removePastStudents = (ids) => req('/api/people/past-students/remove', { method: 'POST', body: { ids } });
+/** Parents turned off, most because none of their children is still at the school. */
+export const getPastParents = () => req('/api/people/past-parents', { skipOfflineCache: true });
 export const restorePerson = (userId) => req(`/api/people/${encodeURIComponent(userId)}/restore`, { method: 'POST' });
 /** Delete turned-off students for good — only those with nothing on record; the rest are kept and reported. */
 export const deletePastStudents = (ids) => req('/api/people/past-students/delete', { method: 'POST', body: { ids } });

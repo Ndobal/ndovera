@@ -233,3 +233,17 @@ test('each section has its own score settings; a section not yet set says it is 
   assert.equal(sheet.body.settings.metadata.examMaxScore, 70)
   assert.equal((await call(db, 'owner', 'GET', '/api/results/settings?section=primary')).body.inherited, true)
 })
+
+test('a student who leaves is taken off the score sheet (scores kept), so the class can still be handed in', async () => {
+  const db = await setup()
+  assert.equal((await call(db, 'owner', 'POST', '/api/results/settings', RESULT_SETTINGS)).status, 200)
+  await call(db, 'maths', 'POST', '/api/results/entries', scores('m1', [['s-1', 15, 10, 50]]))
+  const before = (await call(db, 'classTeacher', 'GET', '/api/results/sheet?classId=jss1')).body.students.map(student => student.id)
+  assert.ok(before.includes('s-2'))
+  // Bola leaves the school (status written as the school typed it).
+  db.db.prepare(`UPDATE users SET status = 'Transferred' WHERE id = 's-2'`).run()
+  const after = (await call(db, 'classTeacher', 'GET', '/api/results/sheet?classId=jss1')).body.students.map(student => student.id)
+  assert.ok(!after.includes('s-2'), JSON.stringify(after))
+  const submitted = await call(db, 'maths', 'POST', '/api/results/ca-submissions', { classId: 'jss1', subjectId: 'm1' })
+  assert.equal(submitted.status, 201, JSON.stringify(submitted.body))
+})

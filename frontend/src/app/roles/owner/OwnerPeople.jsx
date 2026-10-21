@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import {
   getPeople, addPerson, deactivatePerson, updatePersonRole, getPastStudents, restorePerson,
   getClasses, getParents, getUserProfile, updateUserProfile, linkParentStudent, getMyTenant,
-  resetPassword, uploadBulkPeople, getBulkPeopleJobs, retryBulkPeopleJob, deletePastStudents,
+  resetPassword, uploadBulkPeople, getBulkPeopleJobs, retryBulkPeopleJob, deletePastStudents, removePastStudents, getPastParents,
   getQuestionBankAccess, setQuestionBankAccess,
 } from '../../../features/school/services/schoolApi';
 import StudentProfilePage from '../../../features/students/components/StudentProfilePage';
@@ -940,14 +940,35 @@ function PastStudentsPanel({ onRestored }) {
   const [error, setError] = useState('');
   const [notice, setNotice] = useState('');
   const [busy, setBusy] = useState('');
+  // past: turned off; removed: hidden from every list, records kept; parents: turned off with no child left.
+  const [view, setView] = useState('past');
   const load = useCallback(() => {
     setError('');
-    getPastStudents().then(data => setStudents(data?.students || [])).catch(err => setError(err?.message || 'Could not load past students.'));
-  }, []);
+    setStudents(null);
+    const request = view === 'parents'
+      ? getPastParents().then(data => (data?.parents || []).map(parent => ({ ...parent, status: parent.automatic ? 'no child left' : 'turned off', records: [] })))
+      : getPastStudents(view === 'removed' ? 'removed' : '').then(data => data?.students || []);
+    request.then(setStudents).catch(err => setError(err?.message || 'Could not load this list.'));
+  }, [view]);
   useEffect(() => { load(); }, [load]);
 
+  /** Remove: off every list (classes, fees, score sheets, Past Students); results, payments and work kept. */
+  async function hide(list) {
+    if (!await askConfirm(`Remove ${list.length === 1 ? list[0].name : `${list.length} students`}?\n\nThey leave every list: classes, fees, score sheets and Past Students. Their results, payments and work are kept, and you can restore them from Removed.`)) return;
+    setBusy(list.length === 1 ? list[0].id : 'all'); setNotice(''); setError('');
+    try {
+      const result = await removePastStudents(list.map(student => student.id));
+      const kept = new Set((result.kept || []).map(item => item.id));
+      setStudents(current => (current || []).filter(item => kept.has(item.id) || !list.some(student => student.id === item.id)));
+      const parents = (result.parentsTurnedOff || []).length;
+      setNotice(`${result.removed} student${result.removed === 1 ? '' : 's'} removed.${parents ? ` ${parents} parent${parents === 1 ? '' : 's'} with no child left at the school turned off.` : ''}${(result.kept || []).length ? ` Not removed: ${result.kept.map(item => `${item.name} (${item.reason})`).join('; ')}.` : ''}`);
+    } catch (err) { setError(err?.message || 'Could not remove.'); } finally { setBusy(''); }
+  }
+
   async function restore(student) {
-    if (!await askConfirm(`Restore ${student.name}? They will be able to sign in again and will reappear on class and fee lists.`)) return;
+    if (!await askConfirm(view === 'parents'
+      ? `Turn ${student.name} back on? They can sign in again, and stay on even with no child at the school.`
+      : `Restore ${student.name}? They will be able to sign in again and will reappear on class and fee lists.`)) return;
     setBusy(student.id); setNotice(''); setError('');
     try {
       await restorePerson(student.id);
@@ -972,13 +993,30 @@ function PastStudentsPanel({ onRestored }) {
 
   const needle = query.trim().toLowerCase();
   const shown = (students || []).filter(student => !needle || [student.name, student.email, student.displayId, student.className].some(value => String(value || '').toLowerCase().includes(needle)));
-  const deletable = shown.filter(student => student.deletable);
+  const deletable = view === 'past' ? shown.filter(student => student.deletable) : [];
+  const removable = view === 'past' ? shown.filter(student => !student.deletable) : [];
   return (
     <div className="space-y-4">
+      <div className="flex flex-wrap gap-2" role="tablist" aria-label="Which list">
+        {[['past', 'Past students'], ['removed', 'Removed'], ['parents', 'Parents turned off']].map(([key, label]) => (
+          <button key={key} type="button" role="tab" aria-selected={view === key} onClick={() => { setView(key); setNotice(''); }}
+            className={`rounded-full px-4 py-1.5 text-sm font-bold ${view === key ? 'bg-[#191970] text-white' : 'border border-[#c9a96e]/50 bg-white text-[#191970] dark:bg-slate-800 dark:text-slate-200'}`}>{label}</button>
+        ))}
+      </div>
+      <p className="text-xs text-[#800020] dark:text-slate-400">
+        {view === 'past' ? 'Turned-off students are not on class lists, fees or score sheets. Remove them to clear this list too; their records stay.'
+          : view === 'removed' ? 'Removed students appear nowhere. Their results, payments and work are kept. Restore brings a student back.'
+            : 'Parents are turned off when none of their children is still at the school, and come back on their own if a child is restored. A parent you turn back on stays on.'}
+      </p>
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
         <input type="text" value={query} onChange={event => setQuery(event.target.value)} placeholder="Search past students…" aria-label="Search past students"
           className="flex-1 rounded-2xl border border-[#c9a96e]/40 bg-[#b5e3f4] px-4 py-2.5 text-sm text-[#191970] outline-none placeholder:text-[#800020]/50 focus:ring-2 focus:ring-[#1a5c38] dark:bg-slate-900/30 dark:text-slate-100" />
-        {students && <p className="text-sm font-semibold text-[#800020] dark:text-slate-300">{students.length} past student{students.length === 1 ? '' : 's'}</p>}
+        {students && <p className="text-sm font-semibold text-[#800020] dark:text-slate-300">{students.length} {view === 'parents' ? `parent${students.length === 1 ? '' : 's'}` : `student${students.length === 1 ? '' : 's'}`}</p>}
+        {removable.length > 0 && (
+          <button type="button" disabled={Boolean(busy)} onClick={() => hide(removable)} className="rounded-xl border border-[#191970]/30 bg-white px-3 py-2 text-xs font-bold text-[#191970] hover:bg-slate-50 disabled:opacity-50">
+            {busy === 'all' ? 'Removing…' : `Remove all ${removable.length} shown`}
+          </button>
+        )}
         {deletable.length > 0 && (
           <button type="button" disabled={Boolean(busy)} onClick={() => remove(deletable)} className="rounded-xl border border-rose-300 bg-white px-3 py-2 text-xs font-bold text-rose-700 hover:bg-rose-50 disabled:opacity-50">
             {busy === 'all' ? 'Deleting…' : `Delete all ${deletable.length} with no records`}
@@ -989,7 +1027,7 @@ function PastStudentsPanel({ onRestored }) {
       {error && <p role="alert" className="rounded-xl bg-rose-50 px-3 py-2 text-sm font-semibold text-rose-800">{error}</p>}
       <div className="rounded-3xl border border-[#c9a96e]/40 bg-[#b5e3f4] p-6 dark:border-white/10 dark:bg-slate-900/30">
         {!students ? <p className="text-[#800020] dark:text-slate-400">Loading…</p> : !shown.length ? (
-          <p className="text-[#800020] dark:text-slate-400">{needle ? `No past students match "${query}".` : 'No past students. Students you turn off appear here.'}</p>
+          <p className="text-[#800020] dark:text-slate-400">{needle ? `Nothing matches "${query}".` : view === 'removed' ? 'No removed students.' : view === 'parents' ? 'No parents are turned off.' : 'No past students. Students you turn off appear here.'}</p>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full min-w-[640px] text-sm text-[#191970] dark:text-slate-200">
@@ -1000,12 +1038,13 @@ function PastStudentsPanel({ onRestored }) {
                     <td className="p-2 text-right tabular-nums">{index + 1}</td>
                     <td className="p-2"><span className="font-semibold">{student.name}</span>{student.displayId ? <span className="block text-xs opacity-70">{student.displayId}</span> : null}</td>
                     <td className="p-2">{student.className || '—'}</td>
-                    <td className="p-2"><span className="rounded-full bg-slate-200 px-2 py-0.5 text-xs font-bold text-slate-700">{PAST_STATUS_LABEL[student.status] || student.status}</span></td>
+                    <td className="p-2"><span className="rounded-full bg-slate-200 px-2 py-0.5 text-xs font-bold text-slate-700">{view === 'removed' ? 'Removed' : PAST_STATUS_LABEL[student.status] || student.status}</span></td>
                     <td className="p-2">{student.leftAt ? new Date(student.leftAt).toLocaleDateString() : '—'}{student.leftBy ? <span className="block text-xs opacity-70">by {student.leftBy}</span> : null}</td>
                     <td className="p-2 text-xs">{student.records?.length ? student.records.join(', ') : <span className="opacity-70">Nothing — probably added by mistake</span>}</td>
                     <td className="p-2 text-right whitespace-nowrap">
                       <button type="button" disabled={Boolean(busy)} onClick={() => restore(student)} className="rounded-xl bg-[#1a5c38] px-3 py-1.5 text-xs font-bold text-[#b5e3f4] hover:bg-[#154a2e] disabled:opacity-50">{busy === student.id ? 'Working…' : 'Restore'}</button>
-                      {student.deletable ? <button type="button" disabled={Boolean(busy)} onClick={() => remove([student])} className="ml-2 rounded-xl border border-rose-300 px-3 py-1.5 text-xs font-bold text-rose-700 hover:bg-rose-50 disabled:opacity-50">Delete</button> : null}
+                      {view === 'past' && student.deletable ? <button type="button" disabled={Boolean(busy)} onClick={() => remove([student])} className="ml-2 rounded-xl border border-rose-300 px-3 py-1.5 text-xs font-bold text-rose-700 hover:bg-rose-50 disabled:opacity-50">Delete</button> : null}
+                      {view === 'past' && !student.deletable ? <button type="button" disabled={Boolean(busy)} onClick={() => hide([student])} className="ml-2 rounded-xl border border-[#191970]/30 px-3 py-1.5 text-xs font-bold text-[#191970] hover:bg-slate-50 disabled:opacity-50 dark:text-slate-200">Remove</button> : null}
                     </td>
                   </tr>
                 ))}

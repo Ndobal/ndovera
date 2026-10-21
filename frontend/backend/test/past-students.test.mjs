@@ -71,3 +71,33 @@ test('a turned-off student who chats with friends is kept, so their friends\' co
   const result = await call(db, 'owner', 'POST', '/api/people/past-students/delete', { ids: ['s-mistake'] })
   assert.deepEqual([result.body.deleted, result.body.kept[0].reason], [0, 'has chats with friends'])
 })
+
+test('past students (any past status, any case) leave class lists; Remove hides them everywhere; parents follow', async () => {
+  const db = await setup()
+  // A withdrawn student written with a capital letter, and a parent whose only child has left.
+  await db.prepare('INSERT INTO users (id, email, name, role, tenantId, status) VALUES (?, ?, ?, ?, ?, ?)').bind('s-gone', 'gone@a.test', 's-gone', 'student', 'school-a', 'Withdrawn').run()
+  await db.prepare('INSERT INTO settings (studentId, payload) VALUES (?, ?)').bind('gone@a.test', JSON.stringify({ name: 's-gone', email: 'gone@a.test', role: 'student', tenantId: 'school-a', status: 'Withdrawn', classId: 'c1' })).run()
+  await db.prepare('INSERT INTO users (id, email, name, role, primary_role, tenantId, status) VALUES (?, ?, ?, ?, ?, ?, ?)').bind('p-1', 'parent@a.test', 'Parent One', 'parent', 'parent', 'school-a', 'active').run()
+  await db.prepare('INSERT INTO settings (studentId, payload) VALUES (?, ?)').bind('parent@a.test', JSON.stringify({ name: 'Parent One', email: 'parent@a.test', role: 'parent', tenantId: 'school-a', status: 'active' })).run()
+  db.db.exec(`CREATE TABLE IF NOT EXISTS parent_student_links (id TEXT, tenant_id TEXT, parent_id TEXT, student_id TEXT, created_at TEXT)`)
+  db.db.exec(`INSERT INTO parent_student_links (id, tenant_id, parent_id, student_id, created_at) VALUES ('l1', 'school-a', 'p-1', 's-worked', 'x')`)
+
+  const classList = (await call(db, 'owner', 'GET', '/api/classrooms/c1/students')).body.students.map(student => student.id)
+  assert.deepEqual(classList, ['s-here'])
+
+  // Remove: s-worked has records, so it is hidden, not deleted; its parent has no child left.
+  const removed = await call(db, 'owner', 'POST', '/api/people/past-students/remove', { ids: ['s-worked', 's-here'] })
+  assert.equal(removed.status, 200, JSON.stringify(removed.body))
+  assert.equal(removed.body.removed, 1)
+  assert.match(removed.body.kept[0].reason, /still active/)
+  assert.deepEqual(removed.body.parentsTurnedOff, ['Parent One'])
+  const past = (await call(db, 'owner', 'GET', '/api/people/past-students')).body.students.map(student => student.id)
+  assert.ok(!past.includes('s-worked'))
+  assert.deepEqual((await call(db, 'owner', 'GET', '/api/people/past-students?view=removed')).body.students.map(student => student.id), ['s-worked'])
+  assert.deepEqual((await call(db, 'owner', 'GET', '/api/people/past-parents')).body.parents.map(parent => [parent.id, parent.automatic]), [['p-1', true]])
+
+  // Restoring the child brings the parent back on their own.
+  const back = await call(db, 'owner', 'POST', '/api/people/s-worked/restore')
+  assert.deepEqual(back.body.parentsRestored, ['Parent One'])
+  assert.equal(db.db.prepare(`SELECT status FROM users WHERE id = 'p-1'`).get().status, 'active')
+})
