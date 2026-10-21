@@ -403,6 +403,8 @@ import { PACK_SIZE, GLOBAL_TENANT, MODES as PRACTICE_MODES, PracticeError, build
 // Clubs are imported as a namespace: their names (createPost…) must not shadow the class stream's.
 import * as Clubs from './clubs'
 import { buildNewsEdition, readNews, lagosDate as newsLagosDate } from './news'
+import { nationalDaysBetween } from './nationalCalendar'
+import { CALENDAR_PROMPT, IMPORT_TYPES, TIMETABLE_PROMPT, calendarEventsFrom, ensureImportTable, mapImport, parseJsonArray, timetableEntriesFrom } from './schoolImports'
 import { FORTNIGHT_DAYS, buildStandings, ensureFinanceReportTables, standingsEmailHtml } from './financeReport'
 import { PROGRESS_TEMPLATES, defaultTemplateFor, loadEarlierTermTotals, normalizePage2, normalizeProfileExtra, normalizeTermTemplates, page2For, progressTemplate, templateForTerm } from './resultTemplates'
 import type { ClubActor } from './clubs'
@@ -30264,17 +30266,7 @@ app.post('/api/school/staff-attendance/activity', authenticate, async (c) => {
 // ─── School Calendar & Public Holidays ───────────────────────────────────────
 
 const SCHOOL_CALENDAR_TYPES = new Set(['holiday', 'break', 'event', 'term_start', 'term_end'])
-// Fixed-date Nigerian public holidays (month-day). Variable holidays (Eid, Easter,
-// Good Friday) shift each year, so schools add those to their own calendar.
-const NIGERIA_FIXED_PUBLIC_HOLIDAYS: Array<{ monthDay: string; title: string }> = [
-  { monthDay: '01-01', title: "New Year's Day" },
-  { monthDay: '05-01', title: "Workers' Day" },
-  { monthDay: '05-27', title: "Children's Day" },
-  { monthDay: '06-12', title: 'Democracy Day' },
-  { monthDay: '10-01', title: 'Independence Day' },
-  { monthDay: '12-25', title: 'Christmas Day' },
-  { monthDay: '12-26', title: 'Boxing Day' },
-]
+// Public holidays and special days come from nationalCalendar.ts.
 
 async function ensureSchoolCalendarTable(db: D1Database) {
   if (_initializedTables.has('school_calendar_events')) return
@@ -30378,15 +30370,9 @@ async function listTenantHolidayMap(db: D1Database, tenantId: string, fromDate: 
   const startYear = Number(from.slice(0, 4))
   const endYear = Number(to.slice(0, 4))
 
-  if (Number.isFinite(startYear) && Number.isFinite(endYear)) {
-    for (let year = startYear; year <= endYear; year += 1) {
-      for (const holiday of NIGERIA_FIXED_PUBLIC_HOLIDAYS) {
-        const dateKey = `${year}-${holiday.monthDay}`
-        if (dateKey >= from && dateKey <= to) {
-          map.set(dateKey, { title: holiday.title, type: 'holiday', source: 'national' })
-        }
-      }
-    }
+  // Every national public holiday, Easter and the Islamic holidays included (nationalCalendar.ts).
+  for (const day of nationalDaysBetween(from, to)) {
+    if (day.kind === 'holiday' && !map.has(day.date)) map.set(day.date, { title: day.title, type: 'holiday', source: 'national' })
   }
 
   await ensureSchoolCalendarTable(db)
@@ -30421,6 +30407,125 @@ async function listTenantHolidayMap(db: D1Database, tenantId: string, fromDate: 
   return map
 }
 
+// ─── Uploads read by Ndovera AI at midnight (schoolImports.ts) ───────────────
+
+/** Upload a term calendar (Owner/HoS) or a class timetable; Ndovera AI reads it at midnight. */
+app.post('/api/school/imports', authenticate, async (c) => {
+  try {
+    const form = await c.req.formData()
+    const kind = String(form.get('kind') || '') === 'timetable' ? 'timetable' : 'calendar'
+    const actor = kind === 'timetable' ? await resolveTimetableActor(c.env.APP_DB, c.var.user || {}) : await resolveCalendarManager(c.env.APP_DB, c.var.user || {})
+    if (!actor.tenantId) return c.json({ success: false, message: 'No school.' }, 400)
+    if (!actor.canManage) return c.json({ success: false, message: 'forbidden' }, 403)
+    const file = form.get('file') as File | null
+    if (!file || typeof (file as any).arrayBuffer !== 'function') return c.json({ success: false, message: 'Choose the file to upload.' }, 400)
+    const type = String(file.type || '').toLowerCase()
+    if (!IMPORT_TYPES.includes(type)) return c.json({ success: false, message: 'Upload a PDF, Word file, Excel file or a photo (PNG/JPG).' }, 400)
+    if (file.size > 10 * 1024 * 1024) return c.json({ success: false, message: 'The file is larger than 10 MB.' }, 400)
+    let classId = ''
+    let className = ''
+    if (kind === 'timetable') {
+      classId = String(form.get('classId') || '').trim()
+      const classRow = classId ? await c.env.APP_DB.prepare(`SELECT id, name, arm FROM classes WHERE id = ? AND tenantId = ?`).bind(classId, actor.tenantId).first() as Record<string, any> | null : null
+      if (!classRow) return c.json({ success: false, message: 'Choose the class this timetable is for.' }, 400)
+      className = `${classRow.name}${classRow.arm ? ` ${classRow.arm}` : ''}`
+    }
+    if (!c.env.UPLOADS) return c.json({ success: false, message: 'File storage is not available.' }, 503)
+    await ensureImportTable(c.env.APP_DB)
+    const id = `simp_${crypto.randomUUID()}`
+    const safeName = String(file.name || 'upload').replace(/[^\w.\- ]+/g, '_').slice(0, 120)
+    const key = `school-imports/${actor.tenantId}/${id}/${safeName}`
+    await c.env.UPLOADS.put(key, await file.arrayBuffer(), { httpMetadata: { contentType: type } })
+    await c.env.APP_DB.prepare(`INSERT INTO school_ai_imports (id, tenant_id, kind, class_id, class_name, file_key, file_name, content_type, status, created_by, created_by_name, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'pending', ?, ?, ?)`)
+      .bind(id, actor.tenantId, kind, classId || null, className || null, key, safeName, type, actor.actorId, actor.actorName || actor.actorId, new Date().toISOString()).run()
+    const row = await c.env.APP_DB.prepare(`SELECT * FROM school_ai_imports WHERE id = ?`).bind(id).first() as Record<string, any>
+    return c.json({ success: true, upload: mapImport(row) })
+  } catch (error) {
+    console.error('School import upload failed', error)
+    return c.json({ success: false, message: 'Could not upload the file.' }, 500)
+  }
+})
+
+app.get('/api/school/imports', authenticate, async (c) => {
+  const kind = c.req.query('kind') === 'timetable' ? 'timetable' : 'calendar'
+  const actor = kind === 'timetable' ? await resolveTimetableActor(c.env.APP_DB, c.var.user || {}) : await resolveCalendarManager(c.env.APP_DB, c.var.user || {})
+  if (!actor.tenantId || !actor.canManage) return c.json({ success: false, message: 'forbidden' }, 403)
+  await ensureImportTable(c.env.APP_DB)
+  const classId = String(c.req.query('classId') || '')
+  const rows = ((await c.env.APP_DB.prepare(`SELECT * FROM school_ai_imports WHERE tenant_id = ? AND kind = ? ${classId ? 'AND class_id = ?' : ''} ORDER BY created_at DESC LIMIT 30`)
+    .bind(actor.tenantId, kind, ...(classId ? [classId] : [])).all()).results || []) as Record<string, any>[]
+  return c.json({ success: true, uploads: rows.map(mapImport) })
+})
+
+/** Withdraw an upload that has not been read yet. */
+app.delete('/api/school/imports/:id', authenticate, async (c) => {
+  const actor = await resolveCalendarManager(c.env.APP_DB, c.var.user || {})
+  const timetable = await resolveTimetableActor(c.env.APP_DB, c.var.user || {})
+  if (!actor.tenantId || (!actor.canManage && !timetable.canManage)) return c.json({ success: false, message: 'forbidden' }, 403)
+  await ensureImportTable(c.env.APP_DB)
+  const result = await c.env.APP_DB.prepare(`UPDATE school_ai_imports SET status = 'withdrawn', processed_at = ? WHERE id = ? AND tenant_id = ? AND status = 'pending'`).bind(new Date().toISOString(), c.req.param('id'), actor.tenantId).run()
+  return c.json({ success: Number(result.meta?.changes || 0) > 0 })
+})
+
+/** Reads one waiting upload: the file to text, the text to rows (AI), the rows to calendar events or a timetable. */
+async function processSchoolImport(env: Bindings, row: Record<string, any>) {
+  const db = env.APP_DB
+  const finish = (status: string, message: string, result: unknown = null) => db.prepare(`UPDATE school_ai_imports SET status = ?, message = ?, result_json = ?, processed_at = ? WHERE id = ?`)
+    .bind(status, message.slice(0, 500), result ? JSON.stringify(result) : null, new Date().toISOString(), row.id).run()
+  try {
+    const object = await env.UPLOADS?.get(String(row.file_key))
+    if (!object) return finish('failed', 'The uploaded file could not be found. Upload it again.')
+    const bytes = await object.arrayBuffer()
+    let text = ''
+    if (String(row.content_type).startsWith('text/')) text = new TextDecoder().decode(bytes)
+    else {
+      if (!(env as any).AI || typeof (env as any).AI.toMarkdown !== 'function') return finish('failed', 'Ndovera AI could not read files tonight; it will not be retried. Upload it again tomorrow.')
+      const converted = await (env as any).AI.toMarkdown([{ name: String(row.file_name || 'upload'), blob: new Blob([bytes], { type: String(row.content_type) }) }])
+      text = String((Array.isArray(converted) ? converted[0] : converted)?.data || '')
+    }
+    if (text.replace(/\s+/g, '').length < 20) return finish('failed', 'Ndovera could not find any writing in this file. Upload a clearer copy, or a PDF/Word file instead of a photo.')
+    const ask = assessmentAiRunner(env as any)
+    const reply = await ask([{ role: 'system', content: row.kind === 'timetable' ? TIMETABLE_PROMPT : CALENDAR_PROMPT }, { role: 'user', content: text.slice(0, 14000) }], { maxTokens: 3000, temperature: 0.1 })
+    const rows = parseJsonArray(reply)
+    const now = new Date().toISOString()
+    if (row.kind === 'calendar') {
+      const { events, skipped } = calendarEventsFrom(rows, Number(String(row.created_at).slice(0, 4)))
+      if (!events.length) return finish('failed', 'No dated activities were found in this calendar.', { skipped })
+      await ensureSchoolCalendarTable(db)
+      let added = 0
+      for (const event of events) {
+        const exists = await db.prepare(`SELECT 1 FROM school_calendar_events WHERE tenant_id = ? AND lower(title) = lower(?) AND start_date = ? AND COALESCE(status, 'published') != 'cancelled' LIMIT 1`).bind(row.tenant_id, event.title, event.startDate).first()
+        if (exists) continue
+        await db.prepare(`INSERT INTO school_calendar_events (id, tenant_id, title, type, start_date, end_date, description, audience_json, status, recurring_annual, source, created_by, created_at, updated_at)
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'published', 0, 'import', ?, ?, ?)`)
+          .bind(`cal_${row.tenant_id}_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`, row.tenant_id, event.title, event.type, event.startDate, event.endDate, event.description, JSON.stringify({ everyone: true, roles: [], classIds: [] }), `Ndovera AI (${row.created_by_name || 'upload'})`, now, now).run()
+        added += 1
+      }
+      return finish('done', `${added} activit${added === 1 ? 'y' : 'ies'} added to the school calendar${events.length > added ? ` (${events.length - added} already there)` : ''}.${skipped.length ? ` ${skipped.length} line(s) had no date Ndovera could read.` : ''}`, { added, events, skipped })
+    }
+    await ensureTimetableTable(db)
+    const subjects = ((await db.prepare(`SELECT s.id, s.name, s.teacherId, u.name AS teacher_name FROM subjects s LEFT JOIN users u ON u.id = s.teacherId WHERE s.tenantId = ? AND s.classId = ?`).bind(row.tenant_id, row.class_id).all().catch(() => ({ results: [] }))).results || []) as Record<string, any>[]
+    const { entries, unmatched } = timetableEntriesFrom(rows, subjects.map(subject => ({ id: String(subject.id), name: String(subject.name || ''), teacherId: String(subject.teacherId || ''), teacherName: String(subject.teacher_name || '') })))
+    if (!entries.length) return finish('failed', 'No lessons with a day and time were found in this timetable.')
+    const version = await publishTimetable(db, { tenantId: String(row.tenant_id), classId: String(row.class_id), entries: entries as any, actorName: `Ndovera AI (${row.created_by_name || 'upload'})`, note: `Read from ${row.file_name}` })
+    return finish('done', `${entries.length} periods put on ${row.class_name || 'the class'}'s timetable.${unmatched.length ? ` Not one of the class's subjects, kept as written: ${unmatched.join(', ')}.` : ''} The previous timetable can be restored from Versions.`, { periods: entries.length, unmatched, version })
+  } catch (error) {
+    console.error('School import failed', row.id, error)
+    return finish('failed', 'Ndovera AI could not read this file. Try a clearer copy or a PDF.')
+  }
+}
+
+/** Midnight (00:05–00:55 Lagos): two waiting uploads a minute. */
+async function runSchoolImports(env: Bindings) {
+  await ensureImportTable(env.APP_DB)
+  const rows = ((await env.APP_DB.prepare(`SELECT * FROM school_ai_imports WHERE status = 'pending' ORDER BY created_at LIMIT 2`).all().catch(() => ({ results: [] }))).results || []) as Record<string, any>[]
+  for (const row of rows) {
+    const claimed = await env.APP_DB.prepare(`UPDATE school_ai_imports SET status = 'reading' WHERE id = ? AND status = 'pending'`).bind(row.id).run()
+    if (Number(claimed.meta?.changes || 0)) await processSchoolImport(env, row)
+  }
+  return rows.length
+}
+
 app.get('/api/school/calendar', authenticate, async (c) => {
   const actor = await resolveCalendarManager(c.env.APP_DB, c.var.user || {})
   if (!actor.tenantId) return c.json({ error: 'No tenant.' }, 400)
@@ -30442,9 +30547,12 @@ app.get('/api/school/calendar', authenticate, async (c) => {
     const holidays = Array.from(holidayMap.entries())
       .map(([date, info]) => ({ date, ...info }))
       .sort((a, b) => a.date.localeCompare(b.date))
-    return c.json({ success: true, events, holidays, canManage: actor.canManage })
+    // Special days observed in school (Day of the Girl Child, Men's Day, Teachers' Day …).
+    const observances = nationalDaysBetween(from, to).filter(day => day.kind === 'observance')
+    const notes = Object.fromEntries(nationalDaysBetween(from, to).filter(day => day.note).map(day => [day.date, day.note]))
+    return c.json({ success: true, events, holidays: holidays.map(day => (notes[day.date] && day.source === 'national' ? { ...day, note: notes[day.date] } : day)), observances, canManage: actor.canManage })
   } catch {
-    return c.json({ success: true, events: [], holidays: [], canManage: false })
+    return c.json({ success: true, events: [], holidays: [], observances: [], canManage: false })
   }
 })
 
@@ -37093,6 +37201,8 @@ export default {
     }
     // Fortnightly fee reminders and the report to the Owner/HoS, for schools that switched it on (09:00–09:30 Lagos, one school a run).
     if (at.getUTCHours() === 8 && at.getUTCMinutes() % 5 === 0 && at.getUTCMinutes() <= 30) ctx.waitUntil(runFortnightlyFeeReminders(env).then(result => { if (result) console.log('Fortnightly fee reminders', result) }).catch(error => console.error('Fortnightly fee reminders failed', error)))
+    // Calendars and timetables uploaded today are read by Ndovera AI just after midnight (00:05–00:55 Lagos).
+    if (at.getUTCHours() === 23 && at.getUTCMinutes() >= 5 && at.getUTCMinutes() <= 55) ctx.waitUntil(runSchoolImports(env).catch(error => console.error('School imports failed', error)))
     // Parents with no child still at the school are turned off (02:45 Lagos).
     if (at.getUTCHours() === 1 && at.getUTCMinutes() === 45) ctx.waitUntil(sweepParentAccounts(env.APP_DB).catch(error => console.error('Parent sweep failed', error)))
     // Class pins: every student keeps their class unless it was changed on record (02:30 Lagos).

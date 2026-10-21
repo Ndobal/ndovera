@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { getClasses, getSubjects, getPeople, getTimetable, getTimetableDraft, saveTimetableDraft, publishTimetable, getTimetableVersions, restoreTimetableVersion } from '../services/schoolApi';
+import AiImportCard from './AiImportCard';
 import {
   SECTION_DEFAULTS,
   SECTION_ORDER,
@@ -520,6 +521,8 @@ export default function TimetableBoard() {
               </ul>
             </div>
           ) : null}
+
+          {canManage && selectedClass ? <AiImportCard kind="timetable" classId={selectedClassId} className={classLabel(selectedClass)} /> : null}
 
           {/* Flipped grid: time across the top, days down the left */}
           <div className={CARD}>

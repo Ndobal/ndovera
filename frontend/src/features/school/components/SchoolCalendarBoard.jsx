@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import AiImportCard from './AiImportCard';
 import { getSchoolCalendar, addCalendarEvent, deleteCalendarEvent, updateCalendarEvent, getClasses } from '../services/schoolApi';
 
 // The school calendar. Owner and HOS create, edit and cancel events with times,
@@ -62,6 +63,8 @@ export default function SchoolCalendarBoard() {
   const [year, setYear] = useState(CURRENT_YEAR);
   const [events, setEvents] = useState([]);
   const [holidays, setHolidays] = useState([]);
+  // Special days observed in school (Day of the Girl Child, Men's Day …), from Ndovera's national calendar.
+  const [observances, setObservances] = useState([]);
   const [classes, setClasses] = useState([]);
   const [canManage, setCanManage] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -80,6 +83,7 @@ export default function SchoolCalendarBoard() {
       .then(data => {
         setEvents(data?.events || []);
         setHolidays(data?.holidays || []);
+        setObservances(data?.observances || []);
         setCanManage(Boolean(data?.canManage));
       })
       .catch(() => {})
@@ -193,6 +197,8 @@ export default function SchoolCalendarBoard() {
         </div>
       ) : null}
 
+      {canManage ? <AiImportCard kind="calendar" onChanged={load} /> : null}
+
       <div className={CARD}>
         <h3 className="text-base font-bold text-[#800000] mb-1">Non-School Days in {year}</h3>
         <p className="text-xs text-[#191970] mb-3">Includes national public holidays plus this school&apos;s holidays and breaks.</p>
@@ -203,6 +209,7 @@ export default function SchoolCalendarBoard() {
                 <div>
                   <p className="text-[#191970] font-semibold">{h.title}</p>
                   <p className="text-xs text-[#800020]">{formatDate(h.date)}</p>
+                  {h.note ? <p className="text-[11px] italic text-slate-500">{h.note}</p> : null}
                 </div>
                 <div className="flex items-center gap-2">
                   <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase ${typeBadge(h.type)}`}>{h.type === 'break' ? 'Break' : 'Holiday'}</span>
@@ -213,6 +220,21 @@ export default function SchoolCalendarBoard() {
           </div>
         )}
       </div>
+
+      {observances.length ? (
+        <div className={CARD}>
+          <h3 className="text-base font-bold text-[#800000] mb-1">Special Days in {year}</h3>
+          <p className="text-xs text-[#191970] mb-3">Days the nation and the world mark: school stays open. Added for every school by Ndovera.</p>
+          <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
+            {observances.map(day => (
+              <div key={`${day.date}-${day.title}`} className={`${INNER} flex items-center gap-3`}>
+                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-[#191970] text-center text-[10px] font-black leading-tight text-white">{new Date(`${day.date}T00:00:00`).toLocaleDateString(undefined, { day: 'numeric', month: 'short' })}</span>
+                <p className="text-sm font-semibold text-[#191970]">{day.title}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : null}
 
       <div className={CARD}>
         <h3 className="text-base font-bold text-[#800000] mb-3">School Calendar Entries</h3>
