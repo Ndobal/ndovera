@@ -18,6 +18,9 @@ const noop = () => {};
 function getSidebarIcon(name, path) {
   const t = `${String(name || '')} ${String(path || '')}`.toLowerCase();
   if (t.includes('overview') || t.includes('dashboard')) return HomeIcon;
+  if (t.includes('shareholder')) return UserGroupIcon;
+  if (t.includes('billing') || t.includes('finance')) return BanknotesIcon;
+  if (t.includes('/ami/tenants') || t.includes('closures')) return BuildingOffice2Icon;
   if (t.includes('library admin') || t.includes('library-admin')) return BookmarkSquareIcon;
   if (t.includes('submit work')) return ArrowUpTrayIcon;
   if (t.includes('classroom') || t.includes('class') || t.includes('academics')) return AcademicCapIcon;
@@ -594,24 +597,35 @@ function buildRoleSidebarItems(roleKey) {
     ];
   }
 
+  // Ndovera's command centre, in groups (drawn as a dark, grouped sidebar).
   if (roleKey === 'ami') {
     return [
-      { name: 'Overview', path: '/roles/ami' },
-      { name: 'Tenants', path: '/roles/ami/tenants' },
-      { name: 'School Closures', path: '/roles/ami/school-closures' },
-      { name: 'Website', path: '/roles/ami/website' },
-      { name: 'Growth Partners', path: '/roles/ami/growth-partners' },
-      { name: 'Championships', path: '/roles/ami/championships' },
-      { name: 'Question Bank', path: '/roles/ami/question-bank' },
-      { name: 'Curriculum Library', path: '/roles/ami/curriculum' },
-      { name: 'Communications', path: '/roles/ami/communications' },
-      { name: 'Security', path: '/roles/ami/security' },
-      { name: 'Policies', path: '/roles/ami/policies' },
-      { name: 'Audits', path: '/roles/ami/audits' },
-      { name: 'Reports', path: '/roles/ami/reports' },
-      { name: 'Inbox', path: '/roles/ami/messaging' },
-      { name: 'Settings', path: '/roles/ami/settings' },
-      libEntry,
+      { name: 'Dashboard', path: '/roles/ami', group: 'Main' },
+      { name: 'Schools', path: '/roles/ami/tenants', group: 'Schools' },
+      { name: 'Billing & Pricing', path: '/roles/ami/billing', group: 'Schools' },
+      { name: 'School Closures', path: '/roles/ami/school-closures', group: 'Schools' },
+      { name: 'Finance', path: '/roles/ami/finance', group: 'Money' },
+      { name: 'Shareholders', path: '/roles/ami/shareholders', group: 'Money' },
+      { name: 'Growth Partners', path: '/roles/ami/growth-partners', group: 'Money' },
+      { name: 'Championships', path: '/roles/ami/championships', group: 'Content' },
+      { name: 'Question Bank', path: '/roles/ami/question-bank', group: 'Content' },
+      { name: 'Curriculum Library', path: '/roles/ami/curriculum', group: 'Content' },
+      { name: 'Website', path: '/roles/ami/website', group: 'Content' },
+      { name: 'Communications', path: '/roles/ami/communications', group: 'Content' },
+      { name: 'Inbox', path: '/roles/ami/messaging', group: 'Platform' },
+      { name: 'Security', path: '/roles/ami/security', group: 'Platform' },
+      { name: 'Policies', path: '/roles/ami/policies', group: 'Platform' },
+      { name: 'Audits', path: '/roles/ami/audits', group: 'Platform' },
+      { name: 'Reports', path: '/roles/ami/reports', group: 'Platform' },
+      { name: 'Settings', path: '/roles/ami/settings', group: 'Platform' },
+      { ...libEntry, group: 'Platform' },
+    ];
+  }
+
+  // Shareholders read Ndovera's finances; nothing else.
+  if (roleKey === 'shareholder') {
+    return [
+      { name: 'Finance', path: '/roles/shareholder', group: 'Ndovera' },
     ];
   }
 
@@ -684,6 +698,8 @@ export default function Sidebar({ auth = null, mobileOpen = false, onClose = noo
       if (!featureFlags.farmingModeEnabled && (normalizedPath.includes('/farming') || normalizedPath.includes('/cashout'))) return false;
       return true;
     });
+  // Ndovera's own staff and shareholders get the command-centre look: a dark, grouped sidebar.
+  const commandTheme = roleKey === 'ami' || roleKey === 'shareholder';
   const schoolName = tenantBranding?.schoolName || auth?.user?.schoolName || auth?.user?.tenantName || 'NDOVERA';
   const schoolLogoUrl = tenantBranding?.logoUrl || auth?.user?.logoUrl || '';
   const tenantSubdomain = tenantBranding?.subdomain || auth?.user?.subdomain || '';
@@ -764,7 +780,7 @@ export default function Sidebar({ auth = null, mobileOpen = false, onClose = noo
       ) : null}
 
       <aside
-        className={`fixed inset-y-0 left-0 z-50 w-72 max-w-[84vw] overflow-y-auto border-r border-slate-200/60 dark:border-indigo-500/20 frost-panel dashboard-bg dark:bg-transparent transform transition-all duration-300 md:static md:z-auto md:max-w-none md:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 z-50 w-72 max-w-[84vw] overflow-y-auto border-r transform transition-all duration-300 md:static md:z-auto md:max-w-none md:translate-x-0 ${commandTheme ? 'border-[#0a1a33] bg-[#0b1f3a] text-slate-200' : 'border-slate-200/60 dark:border-indigo-500/20 frost-panel dashboard-bg dark:bg-transparent'} ${
           collapsed ? 'md:w-0 md:min-w-0 md:overflow-hidden md:border-0 md:opacity-0 md:pointer-events-none' : 'md:w-64'
         } ${
           mobileOpen ? 'translate-x-0' : '-translate-x-full'
@@ -773,7 +789,15 @@ export default function Sidebar({ auth = null, mobileOpen = false, onClose = noo
       >
         <div className="px-6 pt-[calc(1.5rem+var(--safe-top))] pb-[calc(1.5rem+var(--safe-bottom))]">
           <div className="mb-4 flex items-start justify-between gap-3">
-            {(() => {
+            {commandTheme ? (
+              <div className="flex items-center gap-3">
+                <img src={`${process.env.PUBLIC_URL || ''}/apple-touch-icon.png`} alt="" className="h-11 w-11 rounded-xl bg-white p-1" />
+                <div>
+                  <p className="text-lg font-black tracking-tight text-white">NDOVERA</p>
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#c9a96e]">{roleKey === 'shareholder' ? 'Shareholders' : 'Command Centre'}</p>
+                </div>
+              </div>
+            ) : (() => {
               const brandInner = (
                 <>
                   <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-slate-200/60 bg-white/80 p-1.5 dark:border-indigo-500/25 dark:bg-slate-950/40">
@@ -814,7 +838,7 @@ export default function Sidebar({ auth = null, mobileOpen = false, onClose = noo
           </div>
         </div>
         <div className="px-4 pb-3">
-          <label className="flex items-center gap-2 rounded-2xl border border-slate-200/70 bg-white/80 px-3 py-2 focus-within:ring-2 focus-within:ring-indigo-400 dark:border-indigo-500/25 dark:bg-slate-950/40">
+          <label className={`flex items-center gap-2 rounded-2xl border px-3 py-2 focus-within:ring-2 focus-within:ring-indigo-400 ${commandTheme ? 'border-white/15 bg-white/10 [&_input]:text-white' : 'border-slate-200/70 bg-white/80 dark:border-indigo-500/25 dark:bg-slate-950/40'}`}>
             <MagnifyingGlassIcon className="h-4 w-4 shrink-0 text-slate-500 dark:text-slate-300" aria-hidden="true" />
             <input
               ref={searchRef}
@@ -846,6 +870,28 @@ export default function Sidebar({ auth = null, mobileOpen = false, onClose = noo
               </ul>
             ) : <p className="px-3 text-sm text-slate-500 dark:text-slate-300">Nothing found for “{query}”. Try another word — e.g. fees, receipt, class, results.</p>}
           </div>
+        ) : (
+        commandTheme ? (
+          <nav className="pb-6" aria-label="Command centre">
+            {sidebarItems.map((item, index) => {
+              const Icon = getSidebarIcon(item.name, item.path);
+              const heading = item.group && item.group !== sidebarItems[index - 1]?.group ? item.group : '';
+              return (
+                <React.Fragment key={item.path}>
+                  {heading ? <p className="px-6 pb-1 pt-4 text-[10px] font-bold uppercase tracking-[0.22em] text-slate-400">{heading}</p> : null}
+                  <NavLink
+                    to={item.path}
+                    onClick={onClose}
+                    end
+                    className={({ isActive }) => `mx-3 flex items-center gap-3 rounded-lg border-l-4 px-3 py-2 text-sm font-semibold transition-colors ${isActive ? 'border-[#c9a96e] bg-white/10 text-white' : 'border-transparent text-slate-300 hover:bg-white/5 hover:text-white'}`}
+                  >
+                    <Icon className="h-5 w-5 shrink-0" />
+                    <span>{item.name}</span>
+                  </NavLink>
+                </React.Fragment>
+              );
+            })}
+          </nav>
         ) : (
         <ul className="pb-4">
           {sidebarItems.map((item, index) => {
@@ -891,7 +937,7 @@ export default function Sidebar({ auth = null, mobileOpen = false, onClose = noo
             );
           })}
         </ul>
-        )}
+        ))}
       </aside>
 
       {submitOpen ? (

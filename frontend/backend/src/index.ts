@@ -423,6 +423,7 @@ import {
   scheduleAssignmentDigest, scheduleDeadlineReminders, scheduleFeeReminders, ensureEngineTables, resolveRecipients, type CommDeps, type CommEvent, type Scope,
 } from './commEngine'
 import { feeReminderSubject, feeReminderText, schoolEmailHtml, whatsappLinkFor } from './feeReminders'
+import { LEDGER_CATEGORIES, buildFinanceReport, ensurePlatformFinanceTables, platformReminderText } from './platformFinance'
 import { parseMetaStatuses, verifyMetaSignature } from './commAdapters'
 import {
   BirthdayError, cardSvg, celebrationDetail, consentStatus as birthdayConsentStatus, decideWish, getSettings as getBirthdaySettings, listWishes, memories as birthdayMemories,
@@ -528,7 +529,7 @@ const PASSWORD_RESET_TOKEN_TTL_MS = 30 * 60 * 1000
 const SCHOOL_ANNOUNCEMENT_CREATOR_ROLES = ['owner', 'hos', 'ict']
 // Accounts that exist at platform level rather than inside a school, so they legitimately
 // carry no tenant id.
-const PLATFORM_LEVEL_ROLES = ['ami', 'growthpartner']
+const PLATFORM_LEVEL_ROLES = ['ami', 'growthpartner', 'shareholder']
 const PASSWORD_RESET_TOKENS_DDL = `CREATE TABLE IF NOT EXISTS password_reset_tokens (
   id TEXT PRIMARY KEY,
   email TEXT NOT NULL,
@@ -610,6 +611,7 @@ function isEligibleSelfServeReset(role: unknown, accountType: unknown) {
   return normalizedRole === 'owner'
     || normalizedRole === 'ami'
     || normalizedRole === 'growthpartner'
+    || normalizedRole === 'shareholder'
     || normalizedAccountType === 'superadmin'
 }
 
@@ -6957,11 +6959,18 @@ app.get('/api/ami/tenants', authenticate, async (c) => {
   for (const tenant of tenants as any[]) {
     termOf.set(tenant.id, await getCurrentSchoolSessionSnapshot(c.env.APP_DB, tenant.id).catch(() => ({ sessionName: '', termName: '' })))
   }
+  // Each school's logo, for the schools table (one read for all).
+  const logoOf = new Map<string, string>()
+  try {
+    await ensureBrandingTable(c.env.APP_DB)
+    for (const row of ((await c.env.APP_DB.prepare(`SELECT tenant_id, logo_url FROM tenant_branding`).all()).results || []) as Record<string, any>[]) logoOf.set(String(row.tenant_id), String(row.logo_url || ''))
+  } catch {}
   const tenantsWithRates = tenants.map((tenant: any) => {
     const pending = getTenantPendingRate(tenant)
     const period = termOf.get(tenant.id) || { sessionName: '', termName: '' }
     return {
       ...tenant,
+      logoUrl: logoOf.get(tenant.id) || '',
       currentTermFee: currentTermFeeOf(allTermBills.filter(bill => bill.tenantId === tenant.id), period.sessionName, period.termName),
       pendingRate: pending ? {
         studentFeePerTerm: pending.studentFeeCents / KOBO_PER_NAIRA,
@@ -7645,19 +7654,206 @@ app.post('/api/ami/tenants/:tenantId/current-term/mark-paid', authenticate, asyn
   const current = currentTermFeeOf(await listTenantTermBills(c.env.APP_DB, tenant.id), session, term)
   if (current.status === 'paid') return c.json({ success: true, alreadyPaid: true, currentTermFee: current })
   if (current.billId) {
-    await c.env.APP_DB.prepare(`UPDATE tenant_term_bills SET status = 'paid', paid_at = ?, paid_reference = ?, updated_at = ? WHERE id = ?`).bind(nowIso, reference, nowIso, current.billId).run()
+    await c.env.APP_DB.prepare(`UPDATE tenant_term_bills SET status = 'paid', paid_at = ?, paid_reference = ?, paid_by = ?, updated_at = ? WHERE id = ?`).bind(nowIso, reference, amiActorName(c), nowIso, current.billId).run()
   } else {
     const { plans } = await getTenantPricingState(c.env.APP_DB)
     const quote = await buildTenantQuoteForTenant(c.env.APP_DB, tenant, null, plans)
     const students = Number(quote.billableUserCount || 0)
     const rateCents = Number(quote.studentFeeCents || 0)
     const amountCents = Math.max(0, Math.round(Number(payload.amount || 0) * KOBO_PER_NAIRA)) || students * rateCents
-    await c.env.APP_DB.prepare(`INSERT INTO tenant_term_bills (id, tenant_id, session, term, billable_users, rate_cents, amount_cents, status, term_started_at, due_at, grace_until, paid_at, paid_reference, created_at, updated_at, invoice_no)
-      VALUES (?, ?, ?, ?, ?, ?, ?, 'paid', ?, NULL, NULL, ?, ?, ?, ?, ?)`)
-      .bind(`bill_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`, tenant.id, session, term, students, rateCents, amountCents, nowIso, nowIso, reference, nowIso, nowIso, documentNumber('INV')).run()
+    await c.env.APP_DB.prepare(`INSERT INTO tenant_term_bills (id, tenant_id, session, term, billable_users, rate_cents, amount_cents, status, term_started_at, due_at, grace_until, paid_at, paid_reference, created_at, updated_at, invoice_no, paid_by)
+      VALUES (?, ?, ?, ?, ?, ?, ?, 'paid', ?, NULL, NULL, ?, ?, ?, ?, ?, ?)`)
+      .bind(`bill_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`, tenant.id, session, term, students, rateCents, amountCents, nowIso, nowIso, reference, nowIso, nowIso, documentNumber('INV'), amiActorName(c)).run()
   }
   await addAudit(c.env.APP_DB, `tenant:${tenant.id}`, { action: 'termFeeMarkedPaid', data: { by: c.var.user.id || 'ami', session, term, reference } }).catch(() => {})
   return c.json({ success: true, currentTermFee: currentTermFeeOf(await listTenantTermBills(c.env.APP_DB, tenant.id), session, term) })
+})
+
+// ─── Ndovera finance (platformFinance.ts) ─────────────────────────────────────
+// Ami runs Ndovera's money; shareholders read it. Shareholders never change anything.
+
+const FINANCE_READ_ROLES = ['ami', 'shareholder']
+
+function amiActorName(c: any) {
+  return String(c.var.user?.name || c.var.user?.email || c.var.user?.id || 'Ndovera').slice(0, 120)
+}
+
+async function loadPlatformFinance(db: D1Database) {
+  await ensurePlatformFinanceTables(db)
+  await ensureTermBillsTable(db)
+  const tenants = await listTenants(db)
+  const bills = await listTenantTermBills(db, undefined, 5000)
+  const onboarding = (await listTenantPayments(db).catch(() => [])) as any[]
+  await ensureGrowthPartnerTables(db).catch(() => null)
+  const payouts = ((await db.prepare(`SELECT w.id, w.amount, w.status, w.reference, w.created_at, p.name AS partner_name FROM gp_withdrawals w LEFT JOIN growth_partners p ON p.id = w.partner_id ORDER BY w.created_at DESC LIMIT 2000`).all().catch(() => ({ results: [] }))).results || []) as Record<string, any>[]
+  const ledger = ((await db.prepare(`SELECT * FROM platform_ledger WHERE voided_at IS NULL ORDER BY occurred_on DESC, created_at DESC LIMIT 2000`).all()).results || []) as Record<string, any>[]
+  const reminders = ((await db.prepare(`SELECT tenant_id, channel, sent_at, sent_by FROM platform_fee_reminders ORDER BY sent_at DESC LIMIT 500`).all()).results || []) as Record<string, any>[]
+  const logos = new Map<string, string>()
+  try {
+    await ensureBrandingTable(db)
+    for (const row of ((await db.prepare(`SELECT tenant_id, logo_url FROM tenant_branding`).all()).results || []) as Record<string, any>[]) logos.set(String(row.tenant_id), String(row.logo_url || ''))
+  } catch {}
+  const schools = []
+  for (const tenant of tenants as any[]) {
+    const period = await getCurrentSchoolSessionSnapshot(db, tenant.id).catch(() => ({ sessionName: '', termName: '' }))
+    schools.push({
+      id: tenant.id, schoolName: tenant.schoolName, ownerName: tenant.ownerName, ownerEmail: tenant.ownerEmail, ownerPhone: tenant.ownerPhone || '',
+      contactEmail: schoolContactEmail(tenant), status: tenant.status, logoUrl: logos.get(tenant.id) || '',
+      currentTermFee: currentTermFeeOf(bills.filter(bill => bill.tenantId === tenant.id), period.sessionName, period.termName),
+    })
+  }
+  return buildFinanceReport({
+    now: new Date(), schools,
+    bills: bills.map(bill => ({ ...bill, paidBy: (bill as any).paidBy || null })) as any,
+    onboarding: onboarding.map(payment => ({ id: payment.id, tenantId: payment.tenantId, txRef: payment.txRef, amountCents: payment.amountCents, status: payment.status, paidAt: payment.paidAt, createdAt: payment.createdAt, initiatedBy: payment.initiatedBy })),
+    payouts: payouts.map(row => ({ id: String(row.id), partnerName: String(row.partner_name || 'Growth partner'), amount: Number(row.amount || 0), status: String(row.status || ''), reference: String(row.reference || ''), createdAt: String(row.created_at || '') })),
+    ledger: ledger.map(row => ({ id: String(row.id), kind: String(row.kind), category: String(row.category || ''), description: String(row.description || ''), amountCents: Number(row.amount_cents || 0), occurredOn: String(row.occurred_on || ''), recordedBy: String(row.recorded_by || ''), createdAt: String(row.created_at || '') })),
+    reminders: reminders.map(row => ({ tenantId: String(row.tenant_id), channel: String(row.channel), sentAt: String(row.sent_at), sentBy: String(row.sent_by || '') })),
+  })
+}
+
+/** Everything Ndovera earned, is owed and spent: Ami and shareholders. */
+app.get('/api/platform/finance', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, FINANCE_READ_ROLES)) return c.json({ error: 'forbidden' }, 403)
+  try {
+    const report = await loadPlatformFinance(c.env.APP_DB)
+    const canManage = hasRequiredRole(c.var.user.role, ['ami'])
+    return c.json({ success: true, canManage, categories: LEDGER_CATEGORIES, ...report })
+  } catch (error) {
+    console.error('Platform finance failed', error)
+    return c.json({ error: 'Could not load the finance report.' }, 500)
+  }
+})
+
+/** Ami records money Ndovera spent or earned outside school bills (hosting, salaries, training…). */
+app.post('/api/ami/finance/ledger', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  await ensurePlatformFinanceTables(c.env.APP_DB)
+  const body = await c.req.json().catch(() => ({})) as Record<string, any>
+  const kind = body.kind === 'income' ? 'income' : body.kind === 'expense' ? 'expense' : ''
+  if (!kind) return c.json({ error: 'Choose expense or income.' }, 400)
+  const amountCents = Math.round(Number(body.amount || 0) * 100)
+  if (!(amountCents > 0)) return c.json({ error: 'Enter an amount greater than zero.' }, 400)
+  const description = String(body.description || '').trim().slice(0, 300)
+  if (!description) return c.json({ error: 'Say what it was for.' }, 400)
+  const category = (LEDGER_CATEGORIES[kind] as readonly string[]).includes(String(body.category)) ? String(body.category) : (kind === 'expense' ? 'Other expense' : 'Other income')
+  const occurredOn = /^\d{4}-\d{2}-\d{2}$/.test(String(body.occurredOn || '')) ? String(body.occurredOn) : new Date().toISOString().slice(0, 10)
+  const id = `pled_${crypto.randomUUID()}`
+  await c.env.APP_DB.prepare(`INSERT INTO platform_ledger (id, kind, category, description, amount_cents, occurred_on, recorded_by, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`)
+    .bind(id, kind, category, description, amountCents, occurredOn, amiActorName(c), new Date().toISOString()).run()
+  await addAudit(c.env.APP_DB, TENANT_PRICING_SETTINGS_KEY, { action: 'platformLedgerRecorded', data: { by: c.var.user.id, id, kind, amountCents } }).catch(() => {})
+  return c.json({ success: true, id })
+})
+
+/** A ledger line recorded by mistake is voided, never deleted, so the history stays. */
+app.post('/api/ami/finance/ledger/:id/void', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  await ensurePlatformFinanceTables(c.env.APP_DB)
+  const result = await c.env.APP_DB.prepare(`UPDATE platform_ledger SET voided_at = ?, voided_by = ? WHERE id = ? AND voided_at IS NULL`).bind(new Date().toISOString(), amiActorName(c), c.req.param('id')).run()
+  if (!Number(result?.meta?.changes || 0)) return c.json({ error: 'Entry not found.' }, 404)
+  await addAudit(c.env.APP_DB, TENANT_PRICING_SETTINGS_KEY, { action: 'platformLedgerVoided', data: { by: c.var.user.id, id: c.req.param('id') } }).catch(() => {})
+  return c.json({ success: true })
+})
+
+/**
+ * Remind school owners about their unpaid Ndovera bills: by email (to the school's
+ * communication email, with the pay link), or a WhatsApp link to the owner's phone with
+ * the message typed. A school is emailed at most once in 20 hours. Every reminder is logged.
+ */
+app.post('/api/ami/finance/reminders', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  const db = c.env.APP_DB
+  await ensurePlatformFinanceTables(db)
+  await ensureTermBillsTable(db)
+  const body = await c.req.json().catch(() => ({})) as Record<string, any>
+  const channel = body.channel === 'whatsapp' ? 'whatsapp' : 'email'
+  const tenantIds = [...new Set((Array.isArray(body.tenantIds) ? body.tenantIds : []).map(String).filter(Boolean))].slice(0, 200) as string[]
+  if (!tenantIds.length) return c.json({ error: 'Choose the schools to remind.' }, 400)
+  if (channel === 'email' && !c.env.ZOHO_MAIL_ACCOUNT_ID) return c.json({ error: 'Email is not set up on this server.' }, 503)
+  const nowIso = new Date().toISOString()
+  const since = new Date(Date.now() - 20 * 3600_000).toISOString()
+  const by = amiActorName(c)
+  const results: Array<Record<string, any>> = []
+  for (const tenantId of tenantIds) {
+    const tenant = await getTenantById(db, tenantId)
+    if (!tenant) { results.push({ tenantId, skipped: 'school not found' }); continue }
+    const open = (await listTenantTermBills(db, tenantId)).filter(bill => !['paid', 'draft', 'cancelled'].includes(bill.status))
+    if (!open.length) { results.push({ tenantId, schoolName: tenant.schoolName, skipped: 'no unpaid bill has been sent — raise or send this term\'s bill first' }); continue }
+    const amount = open.reduce((sum, bill) => sum + bill.amount, 0)
+    const dueAt = open.map(bill => bill.graceUntil || bill.dueAt || '').filter(Boolean).sort()[0] || null
+    const withLink = open.find(bill => bill.payToken)
+    const payUrl = withLink ? invoicePayUrl(c, withLink.payToken) : ''
+    const text = platformReminderText({ ownerName: tenant.ownerName || '', schoolName: tenant.schoolName, amount, period: open.map(bill => [bill.term, bill.session].filter(Boolean).join(' ')).join(' and '), dueAt, payUrl, overdue: Boolean(dueAt && dueAt <= nowIso) })
+    if (channel === 'whatsapp') {
+      const phone = normalizePhone(tenant.ownerPhone || '')
+      if (!phone) { results.push({ tenantId, schoolName: tenant.schoolName, skipped: 'no owner phone number on file' }); continue }
+      await db.prepare(`INSERT INTO platform_fee_reminders (id, tenant_id, channel, sent_to, amount_cents, bill_id, sent_by, sent_at) VALUES (?, ?, 'whatsapp', ?, ?, ?, ?, ?)`)
+        .bind(`prem_${crypto.randomUUID()}`, tenantId, phone, Math.round(amount * 100), open[0].id, by, nowIso).run()
+      results.push({ tenantId, schoolName: tenant.schoolName, whatsappUrl: whatsappLinkFor(phone, text), text })
+      continue
+    }
+    const recent = await db.prepare(`SELECT 1 FROM platform_fee_reminders WHERE tenant_id = ? AND channel = 'email' AND sent_at >= ? LIMIT 1`).bind(tenantId, since).first()
+    if (recent) { results.push({ tenantId, schoolName: tenant.schoolName, skipped: 'already emailed today' }); continue }
+    const to = schoolContactEmail(tenant)
+    if (!to) { results.push({ tenantId, schoolName: tenant.schoolName, skipped: 'no email on file' }); continue }
+    const subject = `${tenant.schoolName}: friendly reminder about your Ndovera subscription`
+    const sent = await sendZohoEmail(c.env, { to: [to], subject, html: ndoveraEmailHtml('A friendly reminder', text.split('\n\n')) }).catch(error => { console.error('Platform reminder failed', error); return { sent: [] as string[], failed: [to] } })
+    if (!sent.sent.length) { results.push({ tenantId, schoolName: tenant.schoolName, skipped: 'email could not be sent' }); continue }
+    await db.prepare(`INSERT INTO platform_fee_reminders (id, tenant_id, channel, sent_to, amount_cents, bill_id, sent_by, sent_at) VALUES (?, ?, 'email', ?, ?, ?, ?, ?)`)
+      .bind(`prem_${crypto.randomUUID()}`, tenantId, to, Math.round(amount * 100), open[0].id, by, nowIso).run()
+    results.push({ tenantId, schoolName: tenant.schoolName, sentTo: to })
+  }
+  await addAudit(db, TENANT_PRICING_SETTINGS_KEY, { action: 'platformRemindersSent', data: { by: c.var.user.id, channel, count: results.filter(item => !item.skipped).length } }).catch(() => {})
+  return c.json({ success: true, results, sent: results.filter(item => !item.skipped).length })
+})
+
+// ─── Shareholders: read-only access to Ndovera's finances ────────────────────
+
+app.get('/api/ami/shareholders', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  await ensureUsersTable(c.env.APP_DB)
+  const rows = ((await c.env.APP_DB.prepare(`SELECT id, email, name, status, createdAt FROM users WHERE lower(role) = 'shareholder' ORDER BY name`).all()).results || []) as Record<string, any>[]
+  return c.json({ success: true, shareholders: rows.map(row => ({ id: row.id, email: row.email, name: row.name, status: row.status || 'active', createdAt: row.createdAt })) })
+})
+
+/** Ami adds a shareholder: a sign-in with a temporary password they change on first sign-in. */
+app.post('/api/ami/shareholders', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  const body = await c.req.json().catch(() => ({})) as Record<string, any>
+  const email = String(body.email || '').trim().toLowerCase()
+  const name = String(body.name || '').trim().slice(0, 120)
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || !name) return c.json({ error: 'Enter the shareholder\'s name and email.' }, 400)
+  await ensureUsersTable(c.env.APP_DB)
+  const existingUser = await c.env.APP_DB.prepare(`SELECT id, role, tenantId FROM users WHERE lower(email) = ?`).bind(email).first() as Record<string, any> | null
+  if (existingUser && String(existingUser.role || '').toLowerCase() !== 'shareholder') {
+    return c.json({ error: 'That email already signs in to Ndovera with another role. Use a different email for the shareholder account.' }, 409)
+  }
+  const existingSettings = await getSettings(c.env.APP_DB, email).catch(() => null)
+  const awaitingFirstLogin = !existingSettings?.passwordHash || existingSettings?.mustChangePassword === true
+  const temporaryPassword = awaitingFirstLogin ? gpTempPassword() : ''
+  const baseSettings = { ...(existingSettings || {}), email, name, role: 'shareholder', primaryRole: 'shareholder', roles: ['shareholder'], status: 'active' }
+  const userSettings = temporaryPassword ? await withHashedPassword({ ...baseSettings, mustChangePassword: true, initialPassword: undefined }, temporaryPassword) : baseSettings
+  await c.env.APP_DB.prepare(
+    `INSERT INTO users (id, email, name, role, primary_role, employment_category, tenantId, status, createdAt) VALUES (?, ?, ?, 'shareholder', 'shareholder', 'shareholder', '', 'active', ?)
+     ON CONFLICT(email) DO UPDATE SET name=excluded.name, role='shareholder', primary_role='shareholder', status='active'`,
+  ).bind(createUserId(), email, name, new Date().toISOString()).run()
+  await upsertSettings(c.env.APP_DB, email, userSettings)
+  await addAudit(c.env.APP_DB, TENANT_PRICING_SETTINGS_KEY, { action: 'shareholderAdded', data: { by: c.var.user.id, email } }).catch(() => {})
+  return c.json({ success: true, email, temporaryPassword, passwordIssued: Boolean(temporaryPassword) })
+})
+
+/** Turn a shareholder's access off (or back on). */
+app.post('/api/ami/shareholders/:email/status', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  const email = decodeURIComponent(c.req.param('email')).trim().toLowerCase()
+  const body = await c.req.json().catch(() => ({})) as Record<string, any>
+  const status = body.active === false ? 'inactive' : 'active'
+  const result = await c.env.APP_DB.prepare(`UPDATE users SET status = ? WHERE lower(email) = ? AND lower(role) = 'shareholder'`).bind(status, email).run()
+  if (!Number(result?.meta?.changes || 0)) return c.json({ error: 'Shareholder not found.' }, 404)
+  const settings = await getSettings(c.env.APP_DB, email).catch(() => null)
+  if (settings) await upsertSettings(c.env.APP_DB, email, { ...settings, status })
+  await addAudit(c.env.APP_DB, TENANT_PRICING_SETTINGS_KEY, { action: status === 'active' ? 'shareholderRestored' : 'shareholderRemoved', data: { by: c.var.user.id, email } }).catch(() => {})
+  return c.json({ success: true, status })
 })
 
 app.get('/api/ami/tenants/term-bills', authenticate, async (c) => {
@@ -7676,8 +7872,8 @@ app.post('/api/ami/tenants/term-bills/:billId/mark-paid', authenticate, async (c
   if (!bill) return c.json({ error: 'Term bill not found.' }, 404)
 
   await c.env.APP_DB.prepare(
-    `UPDATE tenant_term_bills SET status = 'paid', paid_at = ?, paid_reference = ?, updated_at = ? WHERE id = ?`
-  ).bind(nowIso, String(payload.reference || 'ami-recorded'), nowIso, billId).run()
+    `UPDATE tenant_term_bills SET status = 'paid', paid_at = ?, paid_reference = ?, paid_by = ?, updated_at = ? WHERE id = ?`
+  ).bind(nowIso, String(payload.reference || 'ami-recorded'), amiActorName(c), nowIso, billId).run()
 
   await addAudit(c.env.APP_DB, `tenant:${(bill as any).tenant_id}`, {
     action: 'termBillMarkedPaid', data: { by: c.var.user.id || 'ami', billId },
@@ -7733,8 +7929,10 @@ async function settleInvoicePayment(c: any, txRef: string) {
   if (!paymentSettlesBill(bill, tx)) return { paid: false, bill }
   const nowIso = new Date().toISOString()
   const receiptNo = documentNumber('RCT')
-  const updated = await c.env.APP_DB.prepare(`UPDATE tenant_term_bills SET status = 'paid', paid_at = ?, paid_reference = ?, receipt_no = ?, updated_at = ? WHERE id = ? AND status != 'paid'`)
-    .bind(nowIso, `Flutterwave ${data.id || txRef}`, receiptNo, nowIso, bill.id).run()
+  // Who paid, as Flutterwave recorded the customer.
+  const payer = [data.customer?.name, data.customer?.email].filter(Boolean).join(' · ')
+  const updated = await c.env.APP_DB.prepare(`UPDATE tenant_term_bills SET status = 'paid', paid_at = ?, paid_reference = ?, receipt_no = ?, paid_by = ?, updated_at = ? WHERE id = ? AND status != 'paid'`)
+    .bind(nowIso, `Flutterwave ${data.id || txRef}`, receiptNo, payer ? `Flutterwave — ${payer}` : 'Flutterwave', nowIso, bill.id).run()
   if (!Number(updated?.meta?.changes || 0)) return { paid: true, bill: await getTermBill(c.env.APP_DB, 'id', bill.id), alreadyPaid: true }
   const paidBill = await getTermBill(c.env.APP_DB, 'id', bill.id)
   const tenant = await getTenantById(c.env.APP_DB, bill.tenantId)
@@ -8174,7 +8372,7 @@ async function buildTransportNotificationItems(db: D1Database, tenantId: string,
 // HoS and nurse see every history; parents see their own children's.
 
 const HEALTH_VIEW_ALL = ['owner', 'hos', 'clinic', 'nurse']
-const NOT_STAFF = ['student', 'parent', 'ami', 'growthpartner', '']
+const NOT_STAFF = ['student', 'parent', 'ami', 'growthpartner', 'shareholder', '']
 
 async function healthActor(c: any) {
   const base = await transportActor(c)
@@ -17116,7 +17314,7 @@ async function ensureTermBillsTable(db: D1Database) {
   if (_initializedTables.has('tenant_term_bills')) return
   await db.prepare(TERM_BILLS_DDL).run()
   // Invoices: lines (onboarding + students), a draft until Ami sends it, a secret pay link, and the receipt.
-  for (const column of ['onboarding_cents INTEGER', 'lines TEXT', 'invoice_no TEXT', 'pay_token TEXT', 'sent_at TEXT', 'sent_to TEXT', 'receipt_no TEXT', 'receipt_sent_at TEXT', 'pay_tx_ref TEXT']) {
+  for (const column of ['onboarding_cents INTEGER', 'lines TEXT', 'invoice_no TEXT', 'pay_token TEXT', 'sent_at TEXT', 'sent_to TEXT', 'receipt_no TEXT', 'receipt_sent_at TEXT', 'pay_tx_ref TEXT', 'paid_by TEXT']) {
     try { await db.exec(`ALTER TABLE tenant_term_bills ADD COLUMN ${column}`) } catch {}
   }
   await db.prepare(`CREATE UNIQUE INDEX IF NOT EXISTS idx_term_bills_period ON tenant_term_bills (tenant_id, session, term)`).run().catch(() => {})
@@ -17149,14 +17347,15 @@ function mapTermBillRow(row: any) {
     sentTo: row.sent_to || null,
     receiptNo: row.receipt_no || null,
     receiptSentAt: row.receipt_sent_at || null,
+    paidBy: row.paid_by || null,
   }
 }
 
-async function listTenantTermBills(db: D1Database, tenantId?: string) {
+async function listTenantTermBills(db: D1Database, tenantId?: string, limit = 500) {
   await ensureTermBillsTable(db)
   const result = tenantId
     ? await db.prepare(`SELECT * FROM tenant_term_bills WHERE tenant_id = ? ORDER BY created_at DESC`).bind(tenantId).all()
-    : await db.prepare(`SELECT * FROM tenant_term_bills ORDER BY created_at DESC LIMIT 500`).all()
+    : await db.prepare(`SELECT * FROM tenant_term_bills ORDER BY created_at DESC LIMIT ?`).bind(limit).all()
   return ((result.results || []) as any[]).map(mapTermBillRow)
 }
 

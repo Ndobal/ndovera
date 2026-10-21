@@ -259,3 +259,33 @@ export function getMySchoolContactEmail() {
 export function setMySchoolContactEmail(contactEmail) {
   return requestJson('/api/tenants/contact-email', { method: 'PUT', body: { contactEmail } });
 }
+
+// ─── Ndovera finance (Ami runs it; shareholders read it) ─────────────────────
+export function getPlatformFinance() {
+  return requestJson('/api/platform/finance');
+}
+
+export function recordPlatformLedger(payload) {
+  return requestJson('/api/ami/finance/ledger', { method: 'POST', body: payload });
+}
+
+export function voidPlatformLedger(id) {
+  return requestJson(`/api/ami/finance/ledger/${encodeURIComponent(id)}/void`, { method: 'POST', body: {} });
+}
+
+/** Remind school owners: { tenantIds, channel: 'email' | 'whatsapp' }. WhatsApp returns links to open. */
+export function sendPlatformReminders(payload) {
+  return requestJson('/api/ami/finance/reminders', { method: 'POST', body: payload });
+}
+
+export function listShareholders() {
+  return requestJson('/api/ami/shareholders');
+}
+
+export function addShareholder(payload) {
+  return requestJson('/api/ami/shareholders', { method: 'POST', body: payload });
+}
+
+export function setShareholderActive(email, active) {
+  return requestJson(`/api/ami/shareholders/${encodeURIComponent(email)}/status`, { method: 'POST', body: { active } });
+}

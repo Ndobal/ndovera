@@ -29,6 +29,8 @@ import {
   verifyTenantPayment,
 } from '../services/tenantApi';
 import { askConfirm, askText } from '../../../shared/components/AppDialog';
+import { BuildingOffice2Icon, ClockIcon, DocumentDuplicateIcon, ExclamationTriangleIcon, MagnifyingGlassIcon, PlusIcon, UserGroupIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { AmiPage, FIELD, Panel, Pill, PRIMARY, SchoolMark, SECONDARY, StatCard, TD, TermFeePill, TH } from '../../ami/AmiUi';
 
 const currencyFormatter = new Intl.NumberFormat('en-NG', {
   style: 'currency',
@@ -136,6 +138,9 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
   const [invoiceForm, setInvoiceForm] = useState({ tenantId: '', onboardingFee: '', includeTermCharge: true, contactEmail: '' });
   const [invoicePreview, setInvoicePreview] = useState(null);
   const [busyAction, setBusyAction] = useState('');
+  const [schoolQuery, setSchoolQuery] = useState('');
+  const [schoolFilter, setSchoolFilter] = useState('all');
+  const [openTenantId, setOpenTenantId] = useState('');
   const [error, setError] = useState('');
   const [notice, setNotice] = useState('');
 
@@ -459,120 +464,13 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
   };
 
   const tenants = governanceData?.tenants || [];
-  const payments = governanceData?.payments || [];
   const discountCodes = governanceData?.discountCodes || [];
   const tenantAwards = governanceData?.tenantAwards || [];
   const awardCandidatesByTenantId = { ...(governanceData?.awardCandidatesByTenantId || {}), ...lazyAwardCandidates };
   const summary = governanceData?.summary;
 
-  const headerSection = (
-    <section className="glass-surface rounded-3xl p-6 border border-white/10">
-      <div className="flex flex-wrap items-start justify-between gap-4">
-        <div>
-          <p className="micro-label neon-subtle">Ami Tenant Governance</p>
-          <h1 className="text-3xl command-title neon-title mt-2">
-            {sectionKey === 'overview' ? 'Platform Overview' : 'Manage Tenants'}
-          </h1>
-          <p className="mt-2 text-slate-600 dark:text-slate-300">
-            {sectionKey === 'overview'
-              ? 'Live platform stats — active schools, pending approvals, payments and discount codes.'
-              : 'Review school registrations, create discount codes, launch Flutterwave checkout links, and approve or suspend tenants.'}
-          </p>
-        </div>
-        <div className="flex flex-wrap gap-2">
-          {busyAction && <span className="micro-label accent-amber">Working...</span>}
-        </div>
-      </div>
-      {(error || notice) && (
-        <div className="mt-5 space-y-3">
-          {error && <div className="rounded-2xl border border-rose-300/30 bg-rose-500/10 px-4 py-3 text-sm text-rose-600 dark:text-rose-200">{error}</div>}
-          {notice && <div className="rounded-2xl border border-emerald-400/30 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-700 dark:text-emerald-100">{notice}</div>}
-        </div>
-      )}
-    </section>
-  );
-
-  const statCards = (
-    <section className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-2.5">
-      <div className="glass-surface rounded-2xl min-h-[48px] p-3"><p className="micro-label neon-subtle">Tenants</p><p className="mt-1 text-base command-title text-rose-500 dark:text-red-400">{summary?.totalTenants ?? 0}</p></div>
-      <div className="glass-surface rounded-2xl min-h-[48px] p-3"><p className="micro-label neon-subtle">Active</p><p className="mt-1 text-base command-title text-emerald-600 dark:text-green-300">{summary?.activeTenants ?? 0}</p></div>
-      <div className="glass-surface rounded-2xl min-h-[48px] p-3"><p className="micro-label neon-subtle">Pending Approval</p><p className="mt-1 text-base command-title text-blue-600 dark:text-blue-400">{summary?.pendingApproval ?? 0}</p></div>
-      <div className="glass-surface rounded-2xl min-h-[48px] p-3"><p className="micro-label neon-subtle">Pending Onboarding</p><p className="mt-1 text-base command-title text-rose-500 dark:text-red-400">{summary?.pendingPayments ?? 0}</p></div>
-      <div className="glass-surface rounded-2xl min-h-[48px] p-3"><p className="micro-label neon-subtle">This Term Unpaid</p><p className="mt-1 text-base command-title text-rose-500 dark:text-red-400">{summary?.termFeesUnpaid ?? 0}</p></div>
-      <div className="glass-surface rounded-2xl min-h-[48px] p-3"><p className="micro-label neon-subtle">Active Codes</p><p className="mt-1 text-base command-title text-emerald-600 dark:text-green-300">{summary?.activeDiscountCodes ?? 0}</p></div>
-    </section>
-  );
-
-  // ── OVERVIEW ────────────────────────────────────────────────────────────────
-  if (sectionKey === 'overview') {
-    return (
-      <div className="p-8 max-w-7xl mx-auto space-y-6">
-        {headerSection}
-        <SchoolAccessPanel />
-        {statCards}
-
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
-          {/* Recent Tenants snapshot */}
-          <section className="glass-surface rounded-3xl p-6 border border-white/10">
-            <h2 className="text-xl command-title neon-title mb-4">Recent Registrations</h2>
-            <div className="space-y-3 max-h-[360px] overflow-y-auto pr-1">
-              {tenants.length ? tenants.slice(0, 8).map(tenant => (
-                <div key={tenant.id} className="rounded-2xl border border-white/10 bg-slate-900/20 dark:bg-slate-900/30 p-4 flex items-center justify-between gap-3">
-                  <div className="min-w-0">
-                    <p className="font-semibold text-slate-800 dark:text-slate-100 truncate">{tenant.schoolName}</p>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 truncate">{tenant.ownerEmail} • {tenant.planKey}</p>
-                  </div>
-                  <div className="flex flex-col items-end gap-1 shrink-0">
-                    <span className={`micro-label ${statusClass(tenant.status)}`}>{tenant.status}</span>
-                    <span className={`micro-label ${statusClass(tenant.approvalStatus)}`}>{tenant.approvalStatus}</span>
-                  </div>
-                </div>
-              )) : (
-                <p className="text-slate-500 dark:text-slate-400 text-sm">No tenant registrations yet.</p>
-              )}
-            </div>
-          </section>
-
-          {/* Payment Feed */}
-          <section className="glass-surface rounded-3xl p-6 border border-white/10">
-            <h2 className="text-xl command-title neon-title mb-4">Payment Feed</h2>
-            <div className="space-y-3 text-sm max-h-[360px] overflow-y-auto pr-1">
-              {payments.length ? payments.map(payment => (
-                <div key={payment.txRef} className="rounded-2xl bg-slate-900/20 dark:bg-slate-900/30 p-4">
-                  <div className="flex items-center justify-between gap-3">
-                    <p className="text-slate-800 dark:text-slate-100 font-semibold truncate">{payment.txRef}</p>
-                    <span className={`micro-label ${statusClass(payment.status)}`}>{payment.status}</span>
-                  </div>
-                  <p className="mt-1 text-slate-600 dark:text-slate-300">{currencyFormatter.format(payment.amount)} • {payment.planKey}</p>
-                  <p className="mt-0.5 text-slate-500 dark:text-slate-400">{payment.studentCount} students</p>
-                </div>
-              )) : <p className="text-slate-500 dark:text-slate-400">No onboarding payments yet.</p>}
-            </div>
-          </section>
-        </div>
-
-        {null}
-      </div>
-    );
-  }
-
-  // ── TENANTS ──────────────────────────────────────────────────────────────────
-  return (
-    <div className="p-8 max-w-7xl mx-auto space-y-6">
-      {headerSection}
-      <SchoolAccessPanel />
-      <AmiPlatformAnalytics />
-      {statCards}
-
-      <div className="grid grid-cols-1 xl:grid-cols-[1.2fr_0.8fr] gap-6">
-        {/* Tenant Queue */}
-        <section className="glass-surface rounded-3xl p-6 border border-white/10 space-y-4">
-          <div className="flex items-center justify-between gap-3">
-            <h2 className="text-xl command-title neon-title">Tenant Queue</h2>
-            <p className="text-sm text-purple-600 dark:text-purple-300">Approve after payment, or approve early and wait for payment to activate.</p>
-          </div>
-          <div className="space-y-4">
-            {tenants.length ? tenants.map(tenant => {
+  // ── One school's controls (opened from the Schools table) ────────────────────
+  const renderTenantManager = tenant => {
               const awardCandidates = awardCandidatesByTenantId[tenant.id] || [];
               const awardForm = awardForms[tenant.id] || buildDefaultAwardForm();
               const domainForm = domainForms[tenant.id] || buildDefaultDomainForm(tenant);
@@ -899,12 +797,10 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
                   </div>
                 </div>
               );
-            }) : <p className="text-slate-500 dark:text-slate-400">No tenant registrations yet.</p>}
-          </div>
-        </section>
+  };
 
-        {/* Right column: Pricing + Discount Codes */}
-        <div className="space-y-6">
+  const billingPanels = (
+    <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
           <section className="glass-surface rounded-3xl p-6 border border-white/10">
             <h2 className="text-xl command-title neon-title mb-4">Plan Pricing</h2>
             <form onSubmit={handleSavePricing} className="space-y-3">
@@ -1168,8 +1064,117 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
               ))}
             </div>
           </section>
-        </div>
-      </div>
     </div>
   );
+
+  const shell = (title, subtitle, crumbs, children, actions = null) => (
+    <AmiPage title={title} subtitle={subtitle} crumbs={crumbs} actions={actions}>
+      {error ? <p role="alert" className="rounded-lg bg-rose-100 px-4 py-3 text-sm font-semibold text-rose-800">{error}</p> : null}
+      {notice ? <p role="status" className="rounded-lg bg-emerald-50 px-4 py-3 text-sm font-semibold text-emerald-800">{notice}</p> : null}
+      {busyAction ? <p role="status" className="text-xs font-bold text-amber-700">Working…</p> : null}
+      {children}
+    </AmiPage>
+  );
+
+  // ── BILLING & PRICING ────────────────────────────────────────────────────────
+  if (sectionKey === 'billing') {
+    return shell('Billing & Pricing', 'Plan prices, rate changes, term bills, invoices and discount codes.', ['Schools', 'Billing & Pricing'], <div className="ami-legacy space-y-6">{billingPanels}</div>);
+  }
+
+  // ── SCHOOLS ──────────────────────────────────────────────────────────────────
+  const studentTotal = tenants.reduce((sum, tenant) => sum + Number(tenant.studentCount || 0), 0);
+  const searchText = schoolQuery.trim().toLowerCase();
+  const visibleSchools = tenants.filter(tenant => {
+    if (searchText && !`${tenant.schoolName} ${tenant.ownerName} ${tenant.ownerEmail} ${tenant.requestedSubdomain} ${tenant.id}`.toLowerCase().includes(searchText)) return false;
+    if (schoolFilter === 'active') return tenant.status === 'active';
+    if (schoolFilter === 'pending') return tenant.approvalStatus !== 'approved' || tenant.paymentStatus !== 'paid';
+    if (schoolFilter === 'unpaid') return tenant.currentTermFee && !['paid', 'unknown'].includes(tenant.currentTermFee.status);
+    if (schoolFilter === 'suspended') return tenant.status === 'suspended';
+    return true;
+  });
+  const openTenant = tenants.find(tenant => tenant.id === openTenantId) || null;
+  const copyId = async id => { try { await navigator.clipboard.writeText(id); setNotice(`School ID ${id} copied.`); } catch { setNotice(`School ID: ${id}`); } };
+
+  return shell('Schools', 'Every school on Ndovera: status, students, this term\'s fee, and its controls.', ['Schools'], (
+    <>
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        <StatCard icon={BuildingOffice2Icon} tone="navy" label="Schools" value={summary?.totalTenants ?? 0} hint={`${summary?.activeTenants ?? 0} active`} />
+        <StatCard icon={UserGroupIcon} tone="green" label="Students" value={studentTotal.toLocaleString()} hint="across all schools" />
+        <StatCard icon={ClockIcon} tone="gold" label="Awaiting approval or onboarding" value={(summary?.pendingApproval ?? 0) + (summary?.pendingPayments ?? 0)} hint={`${summary?.pendingApproval ?? 0} approval · ${summary?.pendingPayments ?? 0} onboarding`} />
+        <StatCard icon={ExclamationTriangleIcon} tone="maroon" label="Unpaid this term" value={summary?.termFeesUnpaid ?? 0} hint="schools" />
+      </div>
+
+      <Panel bodyClassName="p-0">
+        <div className="flex flex-wrap items-center gap-2 border-b border-slate-200 px-4 py-3 dark:border-white/10">
+          <label className="relative min-w-[16rem] flex-1 sm:max-w-sm">
+            <MagnifyingGlassIcon className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" aria-hidden="true" />
+            <input type="search" aria-label="Search schools" placeholder="Search school, owner, ID…" value={schoolQuery} onChange={event => setSchoolQuery(event.target.value)} className={`${FIELD} pl-9`} />
+          </label>
+          {[['all', 'All'], ['active', 'Active'], ['pending', 'Pending'], ['unpaid', 'Unpaid this term'], ['suspended', 'Suspended']].map(([key, label]) => (
+            <button key={key} type="button" onClick={() => setSchoolFilter(key)} className={`rounded-full px-3 py-1 text-xs font-bold ${schoolFilter === key ? 'bg-[#191970] text-white' : 'bg-slate-100 text-slate-600 dark:bg-white/10 dark:text-slate-300'}`}>{label}</button>
+          ))}
+          <a href="/register-school" target="_blank" rel="noopener noreferrer" className={`${PRIMARY} ml-auto`}><PlusIcon className="h-4 w-4" aria-hidden="true" />Register a school</a>
+        </div>
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[960px] text-sm">
+            <thead className="bg-slate-50 dark:bg-white/5"><tr>
+              <th className={TH}>School</th><th className={TH}>School ID</th><th className={TH}>Students</th><th className={TH}>Plan &amp; rate</th><th className={TH}>Status</th><th className={TH}>This term</th><th className={TH}><span className="sr-only">Manage</span></th>
+            </tr></thead>
+            <tbody>
+              {visibleSchools.map(tenant => (
+                <tr key={tenant.id} className="border-t border-slate-100 hover:bg-slate-50/70 dark:border-white/5 dark:hover:bg-white/5">
+                  <td className={TD}>
+                    <button type="button" onClick={() => setOpenTenantId(tenant.id)} className="flex items-center gap-3 text-left">
+                      <SchoolMark name={tenant.schoolName} logoUrl={tenant.logoUrl} />
+                      <span className="min-w-0">
+                        <span className="block truncate font-bold text-[#191970] hover:underline dark:text-indigo-200">{tenant.schoolName}</span>
+                        <span className="block truncate text-xs text-slate-500">{tenant.ownerName} · {tenant.ownerEmail}</span>
+                      </span>
+                    </button>
+                  </td>
+                  <td className={TD}>
+                    <span className="inline-flex items-center gap-1.5 font-mono text-xs text-slate-700 dark:text-slate-300">
+                      {tenant.requestedSubdomain || tenant.id}
+                      <button type="button" onClick={() => copyId(tenant.id)} aria-label={`Copy ${tenant.schoolName} ID`} title="Copy school ID" className="text-slate-400 hover:text-[#191970]"><DocumentDuplicateIcon className="h-4 w-4" /></button>
+                    </span>
+                  </td>
+                  <td className={`${TD} tabular-nums`}><span className="inline-flex items-center gap-1.5"><UserGroupIcon className="h-4 w-4 text-slate-400" aria-hidden="true" />{Number(tenant.studentCount || 0).toLocaleString()}</span></td>
+                  <td className={TD}><span className="capitalize">{tenant.planKey}</span><span className="block text-xs text-slate-500">{currencyFormatter.format(tenant.studentFeePerTerm || 0)} / student / term</span></td>
+                  <td className={TD}>
+                    <div className="flex flex-col items-start gap-1">
+                      {tenant.status === 'active' ? <Pill tone="good">Active</Pill> : tenant.status === 'suspended' ? <Pill tone="bad">Suspended</Pill> : <Pill tone="warn">{String(tenant.status || 'pending').replace(/_/g, ' ')}</Pill>}
+                      {tenant.paymentStatus !== 'paid' ? <Pill tone="warn">Onboarding unpaid</Pill> : null}
+                      {tenant.approvalStatus !== 'approved' ? <Pill tone="warn">Needs approval</Pill> : null}
+                    </div>
+                  </td>
+                  <td className={TD}><TermFeePill fee={tenant.currentTermFee} /><span className="mt-0.5 block text-xs text-slate-500">{[tenant.currentTermFee?.term, tenant.currentTermFee?.session].filter(Boolean).join(', ')}</span></td>
+                  <td className={`${TD} text-right`}><button type="button" onClick={() => setOpenTenantId(tenant.id)} className={SECONDARY}>Manage</button></td>
+                </tr>
+              ))}
+              {!visibleSchools.length ? <tr><td colSpan={7} className="px-4 py-10 text-center text-sm text-slate-500">{tenants.length ? 'No schools match.' : 'No schools registered yet.'}</td></tr> : null}
+            </tbody>
+          </table>
+        </div>
+        <p className="border-t border-slate-200 px-4 py-2 text-xs text-slate-500 dark:border-white/10">{visibleSchools.length} of {tenants.length} schools</p>
+      </Panel>
+
+      <Panel title="Open a school's dashboard"><SchoolAccessPanel /></Panel>
+      <AmiPlatformAnalytics />
+
+      {openTenant ? (
+        <div className="fixed inset-0 z-[90] flex justify-end bg-slate-950/50" role="dialog" aria-modal="true" aria-label={`Manage ${openTenant.schoolName}`} onClick={() => setOpenTenantId('')}>
+          <div className="h-full w-full max-w-3xl overflow-y-auto bg-[#eef1f6] shadow-2xl dark:bg-slate-950" onClick={event => event.stopPropagation()}>
+            <div className="sticky top-0 z-10 flex items-center gap-3 border-b border-slate-200 bg-white px-5 py-3 dark:border-white/10 dark:bg-slate-900">
+              <SchoolMark name={openTenant.schoolName} logoUrl={openTenant.logoUrl} />
+              <div className="min-w-0 flex-1"><p className="truncate font-black text-[#0b1f3a] dark:text-white">{openTenant.schoolName}</p><p className="truncate text-xs text-slate-500">{openTenant.websiteDomain}</p></div>
+              <button type="button" onClick={() => setOpenTenantId('')} aria-label="Close" className="rounded-lg p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-white/10"><XMarkIcon className="h-5 w-5" /></button>
+            </div>
+            {error ? <p role="alert" className="mx-5 mt-4 rounded-lg bg-rose-100 px-4 py-3 text-sm font-semibold text-rose-800">{error}</p> : null}
+            {notice ? <p role="status" className="mx-5 mt-4 rounded-lg bg-emerald-50 px-4 py-3 text-sm font-semibold text-emerald-800">{notice}</p> : null}
+            <div className="ami-legacy p-5">{renderTenantManager(openTenant)}</div>
+          </div>
+        </div>
+      ) : null}
+    </>
+  ));
 }

@@ -51,6 +51,8 @@ import GrowthPartnerDashboard from './app/roles/growthpartner/GrowthPartnerDashb
 import StaffDocumentLibrary from './features/school/components/StaffDocumentLibrary';
 import StoreKeeperPanel from './features/school/components/StoreKeeperPanel';
 import AmiDashboard from './app/roles/AmiDashboard';
+import AmiFinancePage from './features/ami/AmiFinancePage';
+import { AmiPage } from './features/ami/AmiUi';
 import OperationalRoleDashboard from './app/roles/OperationalRoleDashboard';
 import StudentClassroom from './app/roles/student/StudentClassroom';
 import StudentAssignments from './app/roles/student/StudentAssignments';
@@ -391,12 +393,14 @@ function AnimatedRoutes({ auth, onLogin }) {
         <Route path="/roles/nurseryhead/*" element={<RoleGuard auth={auth} expectedRole="nurseryhead"><RouteTransition><OperationalRoleDashboard roleKey="nurseryhead" /></RouteTransition></RoleGuard>} />
         <Route path="/roles/examofficer/*" element={<RoleGuard auth={auth} expectedRole="examofficer"><RouteTransition><OperationalRoleDashboard roleKey="examofficer" /></RouteTransition></RoleGuard>} />
         <Route path="/roles/sportsmaster/*" element={<RoleGuard auth={auth} expectedRole="sportsmaster"><RouteTransition><OperationalRoleDashboard roleKey="sportsmaster" /></RouteTransition></RoleGuard>} />
-        <Route path="/roles/ami/messaging" element={<RoleGuard auth={auth} expectedRole="ami"><RouteTransition><AmiInbox /></RouteTransition></RoleGuard>} />
-        <Route path="/roles/ami/communications" element={<RoleGuard auth={auth} expectedRole="ami"><RouteTransition><AmiCommunications /></RouteTransition></RoleGuard>} />
-        <Route path="/roles/ami/curriculum" element={<RoleGuard auth={auth} expectedRole="ami"><RouteTransition><CurriculumLibraryPage scope="ami" /></RouteTransition></RoleGuard>} />
-        <Route path="/roles/ami/school-closures" element={<RoleGuard auth={auth} expectedRole="ami"><RouteTransition><AmiSchoolClosuresPage /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/ami/messaging" element={<RoleGuard auth={auth} expectedRole="ami"><RouteTransition><AmiPage crumbs={['Inbox']}><AmiInbox /></AmiPage></RouteTransition></RoleGuard>} />
+        <Route path="/roles/ami/communications" element={<RoleGuard auth={auth} expectedRole="ami"><RouteTransition><AmiPage crumbs={['Communications']}><AmiCommunications /></AmiPage></RouteTransition></RoleGuard>} />
+        <Route path="/roles/ami/curriculum" element={<RoleGuard auth={auth} expectedRole="ami"><RouteTransition><AmiPage crumbs={['Curriculum Library']}><CurriculumLibraryPage scope="ami" /></AmiPage></RouteTransition></RoleGuard>} />
+        <Route path="/roles/ami/school-closures" element={<RoleGuard auth={auth} expectedRole="ami"><RouteTransition><AmiPage crumbs={['School Closures']}><AmiSchoolClosuresPage /></AmiPage></RouteTransition></RoleGuard>} />
         <Route path="/roles/owner/school-closure" element={<RoleGuard auth={auth} expectedRole="owner"><RouteTransition><SchoolClosurePage dashboardLabel="Owner Dashboard" /></RouteTransition></RoleGuard>} />
         <Route path="/roles/hos/school-closure" element={<RoleGuard auth={auth} expectedRole="hos"><RouteTransition><SchoolClosurePage dashboardLabel="Head of School" /></RouteTransition></RoleGuard>} />
+        {/* Shareholders: Ndovera's finances, read-only. */}
+        <Route path="/roles/shareholder/*" element={<RoleGuard auth={auth} expectedRole="shareholder"><RouteTransition><AmiFinancePage readOnly /></RouteTransition></RoleGuard>} />
         <Route path="/roles/ami/*" element={<RoleGuard auth={auth} expectedRole="ami"><RouteTransition><AmiDashboard /></RouteTransition></RoleGuard>} />
         <Route
           path="*"

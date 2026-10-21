@@ -11,6 +11,10 @@ import AmiWebsitePage from './ami/AmiWebsitePage';
 import AmiQuestionBank from './ami/AmiQuestionBank';
 import AmiGrowthPartnersPage from './ami/AmiGrowthPartnersPage';
 import AmiChampionshipsPage from './ami/AmiChampionshipsPage';
+import AmiOverview from '../../features/ami/AmiOverview';
+import AmiFinancePage from '../../features/ami/AmiFinancePage';
+import AmiShareholdersPage from '../../features/ami/AmiShareholdersPage';
+import { AmiPage } from '../../features/ami/AmiUi';
 
 export default function AmiDashboard() {
   const location = useLocation();
@@ -23,16 +27,21 @@ export default function AmiDashboard() {
     return <Navigate to="/roles/ami" replace />;
   }
 
-  if (sectionKey === 'security')      return <AmiSecurityPage />;
-  if (sectionKey === 'policies')      return <AmiPoliciesPage />;
-  if (sectionKey === 'audits')        return <AmiAuditsPage />;
-  if (sectionKey === 'reports')       return <AmiReportsPage />;
-  if (sectionKey === 'website')       return <AmiWebsitePage />;
-  if (sectionKey === 'growth-partners') return <AmiGrowthPartnersPage />;
-  if (sectionKey === 'championships') return <AmiChampionshipsPage />;
-  if (sectionKey === 'settings')      return <AmiSettingsPage />;
-  if (sectionKey === 'question-bank') return <AmiQuestionBank />;
+  // Pages with their own headings sit on the command-centre canvas with a breadcrumb.
+  const framed = page => <AmiPage crumbs={[section.title]}>{page}</AmiPage>;
+  if (sectionKey === 'overview')      return <AmiOverview />;
+  if (sectionKey === 'finance')       return <AmiFinancePage />;
+  if (sectionKey === 'shareholders')  return <AmiShareholdersPage />;
+  if (sectionKey === 'security')      return framed(<AmiSecurityPage />);
+  if (sectionKey === 'policies')      return framed(<AmiPoliciesPage />);
+  if (sectionKey === 'audits')        return framed(<AmiAuditsPage />);
+  if (sectionKey === 'reports')       return framed(<AmiReportsPage />);
+  if (sectionKey === 'website')       return framed(<AmiWebsitePage />);
+  if (sectionKey === 'growth-partners') return framed(<AmiGrowthPartnersPage />);
+  if (sectionKey === 'championships') return framed(<AmiChampionshipsPage />);
+  if (sectionKey === 'settings')      return framed(<AmiSettingsPage />);
+  if (sectionKey === 'question-bank') return framed(<AmiQuestionBank />);
 
-  // overview, tenants
+  // tenants (Schools), billing (Billing & Pricing)
   return <AmiTenantGovernance sectionKey={sectionKey} />;
 }

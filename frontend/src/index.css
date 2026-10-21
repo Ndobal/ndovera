@@ -90,3 +90,28 @@ code {
 @media (prefers-reduced-motion: reduce) {
   .route-enter { animation: none; }
 }
+
+/* Command centre: the older Ami controls (school drawer, Billing & Pricing) drawn as
+   white cards with plain fields, in light mode. */
+:root:not(.dark) .ami-legacy .glass-surface,
+:root:not(.dark) .ami-legacy .rounded-3xl.bg-slate-900\/20,
+:root:not(.dark) .ami-legacy .rounded-3xl.border-white\/10 {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
+}
+:root:not(.dark) .ami-legacy .rounded-2xl.bg-slate-900\/20 {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+}
+:root:not(.dark) .ami-legacy input.bg-slate-900\/20,
+:root:not(.dark) .ami-legacy select.bg-slate-900\/20,
+:root:not(.dark) .ami-legacy textarea.bg-slate-900\/20 {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.5rem;
+}
+.ami-legacy .neon-title { color: #0b1f3a; text-shadow: none; }
+.dark .ami-legacy .neon-title { color: #ffffff; }
+.ami-legacy .micro-label.neon-subtle { color: #64748b; }
