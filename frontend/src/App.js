@@ -51,7 +51,7 @@ import GrowthPartnerDashboard from './app/roles/growthpartner/GrowthPartnerDashb
 import StaffDocumentLibrary from './features/school/components/StaffDocumentLibrary';
 import StoreKeeperPanel from './features/school/components/StoreKeeperPanel';
 import AmiDashboard from './app/roles/AmiDashboard';
-import AmiFinancePage from './features/ami/AmiFinancePage';
+import ShareholderHome from './features/ami/ShareholderHome';
 import { AmiPage } from './features/ami/AmiUi';
 import OperationalRoleDashboard from './app/roles/OperationalRoleDashboard';
 import StudentClassroom from './app/roles/student/StudentClassroom';
@@ -405,7 +405,7 @@ function AnimatedRoutes({ auth, onLogin }) {
         <Route path="/roles/owner/school-closure" element={<RoleGuard auth={auth} expectedRole="owner"><RouteTransition><SchoolClosurePage dashboardLabel="Owner Dashboard" /></RouteTransition></RoleGuard>} />
         <Route path="/roles/hos/school-closure" element={<RoleGuard auth={auth} expectedRole="hos"><RouteTransition><SchoolClosurePage dashboardLabel="Head of School" /></RouteTransition></RoleGuard>} />
         {/* Shareholders: Ndovera's finances, read-only. */}
-        <Route path="/roles/shareholder/*" element={<RoleGuard auth={auth} expectedRole="shareholder"><RouteTransition><AmiFinancePage readOnly /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/shareholder/*" element={<RoleGuard auth={auth} expectedRole="shareholder"><RouteTransition><ShareholderHome /></RouteTransition></RoleGuard>} />
         <Route path="/roles/ami/*" element={<RoleGuard auth={auth} expectedRole="ami"><RouteTransition><AmiDashboard /></RouteTransition></RoleGuard>} />
         <Route
           path="*"

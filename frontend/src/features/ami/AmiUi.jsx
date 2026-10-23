@@ -26,7 +26,7 @@ export function AmiPage({ title, subtitle, crumbs = [], actions = null, children
       <div className="mx-auto max-w-7xl space-y-5">
         <div className="flex flex-wrap items-end justify-between gap-3">
           <div>
-            <nav aria-label="Breadcrumb" className="text-xs font-semibold text-slate-500 dark:text-slate-400">
+            <nav aria-label="Breadcrumb" className="text-xs font-semibold text-slate-600 dark:text-slate-400">
               <Link to={home} className="hover:text-[#191970] dark:hover:text-white">Home</Link>
               {crumbs.map(crumb => <span key={crumb}> <span aria-hidden="true">›</span> {crumb}</span>)}
             </nav>
@@ -55,9 +55,9 @@ export function StatCard({ icon: Icon, label, value, hint, tone = 'navy' }) {
         {Icon ? <Icon className="h-7 w-7" aria-hidden="true" /> : null}
       </div>
       <div className="min-w-0 flex-1 border-l border-slate-200 pl-4 dark:border-white/10">
-        <p className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">{label}</p>
+        <p className="text-xs font-semibold uppercase tracking-wide text-slate-600 dark:text-slate-400">{label}</p>
         <p className="truncate text-2xl font-black tabular-nums text-[#0b1f3a] dark:text-white">{value}</p>
-        {hint ? <p className="truncate text-xs text-slate-500 dark:text-slate-400">{hint}</p> : null}
+        {hint ? <p className="truncate text-xs text-slate-600 dark:text-slate-400">{hint}</p> : null}
       </div>
     </div>
   );
@@ -107,7 +107,7 @@ export const BUTTON = 'inline-flex items-center gap-2 rounded-lg px-4 py-2 text-
 export const PRIMARY = `${BUTTON} bg-[#191970] text-white hover:bg-[#12124f]`;
 export const SECONDARY = `${BUTTON} border border-slate-300 bg-white text-[#191970] hover:bg-slate-50 dark:border-white/15 dark:bg-slate-800 dark:text-white`;
 export const FIELD = 'w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 outline-none focus:border-[#191970] focus:ring-2 focus:ring-[#191970]/15 dark:border-white/15 dark:bg-slate-800 dark:text-white';
-export const TH = 'px-4 py-3 text-left text-xs font-bold uppercase tracking-wide text-slate-500 dark:text-slate-400';
+export const TH = 'px-4 py-3 text-left text-xs font-bold uppercase tracking-wide text-slate-600 dark:text-slate-400';
 export const TD = 'px-4 py-3 align-middle';
 
 /** A school's logo, or its initials on a tinted square. */
@@ -192,7 +192,7 @@ export function MoneyChart({ monthly = [] }) {
             })}
             <line x1={pad.left} x2={width - pad.right} y1={pad.top + plotH} y2={pad.top + plotH} className="stroke-slate-300 dark:stroke-white/20" strokeWidth="1" />
           </svg>
-          {empty ? <p className="absolute inset-0 flex items-center justify-center text-sm text-slate-500">No money recorded in the last 12 months yet.</p> : null}
+          {empty ? <p className="absolute inset-0 flex items-center justify-center text-sm text-slate-600 dark:text-slate-300">No money recorded in the last 12 months yet.</p> : null}
           {hover !== null && monthly[hover] ? (
             <div className="pointer-events-none absolute top-2 rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs shadow-lg dark:border-white/10 dark:bg-slate-800"
               style={{ left: `${Math.min(80, Math.max(0, ((pad.left + hover * slot) / width) * 100))}%` }}>

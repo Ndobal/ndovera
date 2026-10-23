@@ -130,3 +130,8 @@ export async function pendingAttempts() {
 }
 
 export const getLeaderboard = (scope = 'class', subject = '') => request(`/api/practice-arena/leaderboard?scope=${scope}${subject ? `&subject=${encodeURIComponent(subject)}` : ''}`);
+
+/** "Not this subject": the question is checked again by Ndovera AI (two reports hold it at once). */
+export function reportWrongSubject(questionId) {
+  return request(`/api/practice-arena/questions/${encodeURIComponent(questionId)}/report-subject`, { method: 'POST', body: {} });
+}

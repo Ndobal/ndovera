@@ -483,8 +483,8 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
                   <div className="flex flex-wrap items-start justify-between gap-3">
                     <div>
                       <p className="text-lg font-semibold text-slate-800 dark:text-slate-100">{tenant.schoolName}</p>
-                      <p className="text-sm text-slate-500 dark:text-slate-400">{tenant.ownerName} • {tenant.ownerEmail}</p>
-                      <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">{tenant.websiteDomain} • {tenant.studentCount} students • {tenant.planKey}</p>
+                      <p className="text-sm text-slate-600 dark:text-slate-400">{tenant.ownerName} • {tenant.ownerEmail}</p>
+                      <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">{tenant.websiteDomain} • {tenant.studentCount} students • {tenant.planKey}</p>
                     </div>
                     <div className="flex flex-wrap gap-2">
                       <span className={`micro-label ${statusClass(tenant.status)}`}>{tenant.status}</span>
@@ -530,13 +530,13 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
                         type="number" min="0" placeholder={`Per user / term (now ${currencyFormatter.format(tenant.studentFeePerTerm || 0)})`}
                         value={(rateForms[tenant.id] || {}).studentFeeNaira || ''}
                         onChange={event => updateRateForm(tenant.id, 'studentFeeNaira', event.target.value)}
-                        className="w-full rounded-2xl border border-white/10 bg-slate-900/20 px-4 py-3 text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-500"
+                        className="w-full rounded-2xl border border-white/10 bg-slate-900/20 px-4 py-3 text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-600 dark:text-slate-300"
                       />
                       <input
                         type="number" min="0" placeholder="Onboarding fee (optional)"
                         value={(rateForms[tenant.id] || {}).setupFeeNaira || ''}
                         onChange={event => updateRateForm(tenant.id, 'setupFeeNaira', event.target.value)}
-                        className="w-full rounded-2xl border border-white/10 bg-slate-900/20 px-4 py-3 text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-500"
+                        className="w-full rounded-2xl border border-white/10 bg-slate-900/20 px-4 py-3 text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-600 dark:text-slate-300"
                       />
                       <button type="button" onClick={() => saveTenantRate(tenant)} disabled={busyAction === `rate-${tenant.id}`}
                         className="rounded-2xl bg-emerald-500 px-4 py-3 font-semibold text-slate-950 disabled:opacity-60">
@@ -559,7 +559,7 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
               value={domainForm.websiteDomain}
               onChange={event => handleDomainFormChange(tenant, event)}
               placeholder={defaultDomain}
-              className="w-full rounded-2xl border border-white/10 bg-slate-900/20 px-4 py-3 text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-500"
+              className="w-full rounded-2xl border border-white/10 bg-slate-900/20 px-4 py-3 text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-600 dark:text-slate-300"
             />
             <input
               name="customDomainFeeNaira"
@@ -568,7 +568,7 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
               value={domainForm.customDomainFeeNaira}
               onChange={event => handleDomainFormChange(tenant, event)}
               placeholder="Custom domain fee"
-              className="w-full rounded-2xl border border-white/10 bg-slate-900/20 px-4 py-3 text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-500"
+              className="w-full rounded-2xl border border-white/10 bg-slate-900/20 px-4 py-3 text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-600 dark:text-slate-300"
             />
           </div>
           <textarea
@@ -576,7 +576,7 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
             value={domainForm.customDomainNotes}
             onChange={event => handleDomainFormChange(tenant, event)}
             placeholder="DNS notes, registrar details, or the fee rationale for this tenant"
-            className="w-full min-h-[84px] rounded-2xl border border-white/10 bg-slate-900/20 px-4 py-3 text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-500"
+            className="w-full min-h-[84px] rounded-2xl border border-white/10 bg-slate-900/20 px-4 py-3 text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-600 dark:text-slate-300"
           />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
             <div className="rounded-2xl bg-slate-900/20 p-3">
@@ -589,7 +589,7 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
             </div>
           </div>
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <p className="text-xs text-slate-500 dark:text-slate-400">Custom domains still need DNS pointing and Cloudflare custom-domain routing outside this form. Leave the domain blank to restore the default subdomain.</p>
+            <p className="text-xs text-slate-600 dark:text-slate-400">Custom domains still need DNS pointing and Cloudflare custom-domain routing outside this form. Leave the domain blank to restore the default subdomain.</p>
             <button
               type="button"
               onClick={() => runAction(`domain-${tenant.id}`, async () => {
@@ -696,7 +696,7 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
                         Password reset link for {ownerReset.name || ownerReset.email}
                       </p>
                       <p className="mt-1 break-all text-xs text-slate-600 dark:text-slate-300">{ownerReset.resetUrl}</p>
-                      <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
+                      <p className="mt-1 text-xs text-slate-600 dark:text-slate-400">
                         {ownerReset.emailed ? 'Emailed to the owner. ' : 'Email not sent — share manually. '}
                         Link is valid for 30 minutes; the owner sets a new password and signs in.
                       </p>
@@ -719,7 +719,7 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
                         <button
                           type="button"
                           onClick={() => setOwnerReset(null)}
-                          className="rounded-2xl border border-slate-400/30 px-4 py-2 font-semibold text-slate-500"
+                          className="rounded-2xl border border-slate-400/30 px-4 py-2 font-semibold text-slate-600 dark:text-slate-300"
                         >
                           Dismiss
                         </button>
@@ -746,8 +746,8 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
                         <option value="">{awardCandidates.length ? 'Select award recipient' : 'Loading recipients…'}</option>
                         {awardCandidates.map(candidate => <option key={candidate.userId} value={candidate.userId}>{candidate.name} • {candidate.role || 'user'}</option>)}
                       </select>
-                      <input name="awardTitle" value={awardForm.awardTitle} onChange={event => handleAwardFormChange(tenant.id, event)} placeholder="Award title" className="w-full rounded-2xl border border-white/10 bg-slate-900/20 px-4 py-3 text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-500" />
-                      <textarea name="description" value={awardForm.description} onChange={event => handleAwardFormChange(tenant.id, event)} placeholder="Why this award matters for the school this month" className="w-full min-h-[84px] rounded-2xl border border-white/10 bg-slate-900/20 px-4 py-3 text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-500" />
+                      <input name="awardTitle" value={awardForm.awardTitle} onChange={event => handleAwardFormChange(tenant.id, event)} placeholder="Award title" className="w-full rounded-2xl border border-white/10 bg-slate-900/20 px-4 py-3 text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-600 dark:text-slate-300" />
+                      <textarea name="description" value={awardForm.description} onChange={event => handleAwardFormChange(tenant.id, event)} placeholder="Why this award matters for the school this month" className="w-full min-h-[84px] rounded-2xl border border-white/10 bg-slate-900/20 px-4 py-3 text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-600 dark:text-slate-300" />
                       <button
                         type="button"
                         onClick={() => runAction(`award-${tenant.id}`, async () => {
@@ -788,10 +788,10 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
                                 <span className="micro-label accent-indigo">{award.periodMonth}</span>
                               </div>
                               <p className="mt-1 text-sm text-slate-700 dark:text-amber-100">{award.recipient?.name} • {award.recipient?.role || 'user'}</p>
-                              {award.description ? <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">{award.description}</p> : null}
+                              {award.description ? <p className="mt-1 text-xs text-slate-600 dark:text-slate-400">{award.description}</p> : null}
                             </div>
                           </div>
-                        )) : <p className="text-sm text-slate-500 dark:text-slate-400">No awards attached for this school yet.</p>}
+                        )) : <p className="text-sm text-slate-600 dark:text-slate-400">No awards attached for this school yet.</p>}
                       </div>
                     </div>
                   </div>
@@ -812,54 +812,54 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
                 )}
               </div>
 
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">Growth Plan (Standard)</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-600 dark:text-slate-400">Growth Plan (Standard)</p>
               <div className="grid grid-cols-2 gap-3">
                 <label className="block space-y-1">
-                  <span className="text-xs text-slate-500 dark:text-slate-400">Onboarding fee (NGN)</span>
+                  <span className="text-xs text-slate-600 dark:text-slate-400">Onboarding fee (NGN)</span>
                   <input name="growthSetupFeeNaira" type="number" min="1" value={pricingForm.growthSetupFeeNaira} onChange={handlePricingChange}
                     className="w-full rounded-2xl border border-white/10 bg-slate-900/20 dark:bg-slate-900/30 px-4 py-3 text-slate-900 dark:text-amber-100" />
                 </label>
                 <label className="block space-y-1">
-                  <span className="text-xs text-slate-500 dark:text-slate-400">Per active user / term (NGN)</span>
+                  <span className="text-xs text-slate-600 dark:text-slate-400">Per active user / term (NGN)</span>
                   <input name="growthStudentFeeNaira" type="number" min="1" value={pricingForm.growthStudentFeeNaira} onChange={handlePricingChange}
                     className="w-full rounded-2xl border border-white/10 bg-slate-900/20 dark:bg-slate-900/30 px-4 py-3 text-slate-900 dark:text-amber-100" />
                 </label>
               </div>
               <label className="block space-y-1">
-                <span className="text-xs text-slate-500 dark:text-slate-400">Growth features (one per line)</span>
+                <span className="text-xs text-slate-600 dark:text-slate-400">Growth features (one per line)</span>
                 <textarea name="growthFeatures" value={pricingForm.growthFeatures} onChange={handlePricingChange}
                   className="w-full min-h-[110px] rounded-2xl border border-white/10 bg-slate-900/20 dark:bg-slate-900/30 px-4 py-3 text-slate-900 dark:text-amber-100" />
               </label>
 
-              <p className="pt-1 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">Custom Plan (Ami Priced)</p>
+              <p className="pt-1 text-xs font-semibold uppercase tracking-[0.18em] text-slate-600 dark:text-slate-400">Custom Plan (Ami Priced)</p>
               <label className="block space-y-1">
-                <span className="text-xs text-slate-500 dark:text-slate-400">Custom onboarding fee (NGN)</span>
+                <span className="text-xs text-slate-600 dark:text-slate-400">Custom onboarding fee (NGN)</span>
                 <input name="customPlanSetupFeeNaira" type="number" min="1" value={pricingForm.customPlanSetupFeeNaira} onChange={handlePricingChange}
                   className="w-full rounded-2xl border border-white/10 bg-slate-900/20 dark:bg-slate-900/30 px-4 py-3 text-slate-900 dark:text-amber-100" />
               </label>
               <label className="block space-y-1">
-                <span className="text-xs text-slate-500 dark:text-slate-400">Custom features (one per line)</span>
+                <span className="text-xs text-slate-600 dark:text-slate-400">Custom features (one per line)</span>
                 <textarea name="customFeatures" value={pricingForm.customFeatures} onChange={handlePricingChange}
                   className="w-full min-h-[110px] rounded-2xl border border-white/10 bg-slate-900/20 dark:bg-slate-900/30 px-4 py-3 text-slate-900 dark:text-amber-100" />
               </label>
 
-              <p className="pt-1 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">Growth Partner Discount Floors</p>
-              <p className="text-xs text-slate-500 dark:text-slate-400">The lowest a partner may price their own registration code.</p>
+              <p className="pt-1 text-xs font-semibold uppercase tracking-[0.18em] text-slate-600 dark:text-slate-400">Growth Partner Discount Floors</p>
+              <p className="text-xs text-slate-600 dark:text-slate-400">The lowest a partner may price their own registration code.</p>
               <div className="grid grid-cols-2 gap-3">
                 <label className="block space-y-1">
-                  <span className="text-xs text-slate-500 dark:text-slate-400">Min onboarding fee (NGN)</span>
+                  <span className="text-xs text-slate-600 dark:text-slate-400">Min onboarding fee (NGN)</span>
                   <input name="partnerMinSetupFeeNaira" type="number" min="1" value={pricingForm.partnerMinSetupFeeNaira} onChange={handlePricingChange}
                     className="w-full rounded-2xl border border-white/10 bg-slate-900/20 dark:bg-slate-900/30 px-4 py-3 text-slate-900 dark:text-amber-100" />
                 </label>
                 <label className="block space-y-1">
-                  <span className="text-xs text-slate-500 dark:text-slate-400">Min per-user fee (NGN)</span>
+                  <span className="text-xs text-slate-600 dark:text-slate-400">Min per-user fee (NGN)</span>
                   <input name="partnerMinStudentFeeNaira" type="number" min="1" value={pricingForm.partnerMinStudentFeeNaira} onChange={handlePricingChange}
                     className="w-full rounded-2xl border border-white/10 bg-slate-900/20 dark:bg-slate-900/30 px-4 py-3 text-slate-900 dark:text-amber-100" />
                 </label>
               </div>
 
               <label className="block space-y-1">
-                <span className="text-xs text-slate-500 dark:text-slate-400">Calculator starting user count</span>
+                <span className="text-xs text-slate-600 dark:text-slate-400">Calculator starting user count</span>
                 <input name="calculatorDefaultUsers" type="number" min="1" value={pricingForm.calculatorDefaultUsers} onChange={handlePricingChange}
                   className="w-full rounded-2xl border border-white/10 bg-slate-900/20 dark:bg-slate-900/30 px-4 py-3 text-slate-900 dark:text-amber-100" />
               </label>
@@ -867,7 +867,7 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
               <button type="submit" disabled={busyAction === 'save-pricing'} className="w-full rounded-2xl bg-emerald-500 px-4 py-3 font-semibold text-slate-950 disabled:opacity-60">
                 {busyAction === 'save-pricing' ? 'Saving...' : 'Update Pricing'}
               </button>
-              <p className="text-xs text-slate-500 dark:text-slate-400">
+              <p className="text-xs text-slate-600 dark:text-slate-400">
                 Saving here changes what <strong>new</strong> schools pay. Existing schools keep their agreed rate — use the rollout below to move them.
               </p>
             </form>
@@ -882,7 +882,7 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
               <input
                 type="number" min="1" value={rolloutFeeNaira} onChange={event => setRolloutFeeNaira(event.target.value)}
                 placeholder="New per active user fee (NGN)"
-                className="w-full rounded-2xl border border-white/10 bg-slate-900/20 dark:bg-slate-900/30 px-4 py-3 text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-500"
+                className="w-full rounded-2xl border border-white/10 bg-slate-900/20 dark:bg-slate-900/30 px-4 py-3 text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-600 dark:text-slate-300"
               />
               <button type="submit" disabled={busyAction === 'rate-rollout'} className="w-full rounded-2xl bg-amber-500 px-4 py-3 font-semibold text-slate-950 disabled:opacity-60">
                 {busyAction === 'rate-rollout' ? 'Queueing...' : 'Queue rate for existing schools'}
@@ -898,17 +898,17 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <input value={billPeriod.session} onChange={e => setBillPeriod(c => ({ ...c, session: e.target.value }))} placeholder="Session (blank = each school's own)"
-                  className="w-full rounded-2xl border border-white/10 bg-slate-900/20 dark:bg-slate-900/30 px-4 py-3 text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-500" />
+                  className="w-full rounded-2xl border border-white/10 bg-slate-900/20 dark:bg-slate-900/30 px-4 py-3 text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-600 dark:text-slate-300" />
                 <input value={billPeriod.term} onChange={e => setBillPeriod(c => ({ ...c, term: e.target.value }))} placeholder="Term (blank = each school's own)"
-                  className="w-full rounded-2xl border border-white/10 bg-slate-900/20 dark:bg-slate-900/30 px-4 py-3 text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-500" />
+                  className="w-full rounded-2xl border border-white/10 bg-slate-900/20 dark:bg-slate-900/30 px-4 py-3 text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-600 dark:text-slate-300" />
               </div>
               <label className="block space-y-1">
-                <span className="text-xs text-slate-500 dark:text-slate-400">Term start date — grace runs two months from here (blank = the school&apos;s recorded start)</span>
+                <span className="text-xs text-slate-600 dark:text-slate-400">Term start date — grace runs two months from here (blank = the school&apos;s recorded start)</span>
                 <input type="date" value={billPeriod.termStartDate} onChange={e => setBillPeriod(c => ({ ...c, termStartDate: e.target.value }))}
                   className="w-full rounded-2xl border border-white/10 bg-slate-900/20 dark:bg-slate-900/30 px-4 py-3 text-slate-900 dark:text-amber-100" />
               </label>
               <label className="block space-y-1">
-                <span className="text-xs text-slate-500 dark:text-slate-400">Bill one school only (leave as All for every active school)</span>
+                <span className="text-xs text-slate-600 dark:text-slate-400">Bill one school only (leave as All for every active school)</span>
                 <select value={billPeriod.tenantId} onChange={e => setBillPeriod(c => ({ ...c, tenantId: e.target.value }))}
                   className="w-full rounded-2xl border border-white/10 bg-slate-900/20 dark:bg-slate-900/30 px-4 py-3 text-slate-900 dark:text-amber-100">
                   <option value="">All active schools</option>
@@ -972,7 +972,7 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
             ) : null}
 
             <div className="mt-4 space-y-2">
-              {termBills.length === 0 ? <p className="text-sm text-slate-500 dark:text-slate-400">No term bills raised yet.</p> : null}
+              {termBills.length === 0 ? <p className="text-sm text-slate-600 dark:text-slate-400">No term bills raised yet.</p> : null}
               {termBills.slice(0, 12).map(bill => {
                 const overdue = bill.status !== 'paid' && bill.graceUntil && new Date(bill.graceUntil) <= new Date();
                 return (
@@ -980,8 +980,8 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
                     <div className="flex flex-wrap items-center justify-between gap-2">
                       <div>
                         <p className="font-semibold text-slate-800 dark:text-slate-100">{tenants.find(tenant => tenant.id === bill.tenantId)?.schoolName || 'School'} • {bill.session} {bill.term} • {currencyFormatter.format(bill.amount)}</p>
-                        {bill.invoiceNo ? <p className="text-xs text-slate-500 dark:text-slate-400">{bill.invoiceNo}{bill.onboardingCents ? ` • includes onboarding ${currencyFormatter.format(bill.onboardingCents / 100)}` : ''}{bill.sentAt ? ` • sent ${new Date(bill.sentAt).toLocaleDateString()} to ${bill.sentTo}` : ' • not sent'}{bill.receiptNo ? ` • receipt ${bill.receiptNo}` : ''}</p> : null}
-                        <p className="text-xs text-slate-500 dark:text-slate-400">
+                        {bill.invoiceNo ? <p className="text-xs text-slate-600 dark:text-slate-400">{bill.invoiceNo}{bill.onboardingCents ? ` • includes onboarding ${currencyFormatter.format(bill.onboardingCents / 100)}` : ''}{bill.sentAt ? ` • sent ${new Date(bill.sentAt).toLocaleDateString()} to ${bill.sentTo}` : ' • not sent'}{bill.receiptNo ? ` • receipt ${bill.receiptNo}` : ''}</p> : null}
+                        <p className="text-xs text-slate-600 dark:text-slate-400">
                           {bill.billableUsers} users × {currencyFormatter.format(bill.ratePerUser)}
                           {bill.graceUntil ? ` • grace to ${new Date(bill.graceUntil).toLocaleDateString()}` : ''}
                         </p>
@@ -1019,19 +1019,19 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
             <h2 className="text-xl command-title neon-title mb-4">Discount Codes</h2>
             <form onSubmit={handleSaveDiscount} className="space-y-3">
               <input name="code" value={discountForm.code} onChange={handleDiscountChange} required placeholder="CODE"
-                className="w-full rounded-2xl border border-white/10 bg-slate-900/20 dark:bg-slate-900/30 px-4 py-3 text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-500" />
+                className="w-full rounded-2xl border border-white/10 bg-slate-900/20 dark:bg-slate-900/30 px-4 py-3 text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-600 dark:text-slate-300" />
               <input name="name" value={discountForm.name} onChange={handleDiscountChange} placeholder="Display name"
-                className="w-full rounded-2xl border border-white/10 bg-slate-900/20 dark:bg-slate-900/30 px-4 py-3 text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-500" />
+                className="w-full rounded-2xl border border-white/10 bg-slate-900/20 dark:bg-slate-900/30 px-4 py-3 text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-600 dark:text-slate-300" />
               <textarea name="description" value={discountForm.description} onChange={handleDiscountChange} placeholder="Discount description"
-                className="w-full rounded-2xl border border-white/10 bg-slate-900/20 dark:bg-slate-900/30 px-4 py-3 min-h-[80px] text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-500" />
+                className="w-full rounded-2xl border border-white/10 bg-slate-900/20 dark:bg-slate-900/30 px-4 py-3 min-h-[80px] text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-600 dark:text-slate-300" />
               <div className="grid grid-cols-2 gap-3">
                 <input name="setupFeeNaira" type="number" value={discountForm.setupFeeNaira} onChange={handleDiscountChange} placeholder="Setup fee (NGN)"
-                  className="w-full rounded-2xl border border-white/10 bg-slate-900/20 dark:bg-slate-900/30 px-4 py-3 text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-500" />
+                  className="w-full rounded-2xl border border-white/10 bg-slate-900/20 dark:bg-slate-900/30 px-4 py-3 text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-600 dark:text-slate-300" />
                 <input name="studentFeeNaira" type="number" value={discountForm.studentFeeNaira} onChange={handleDiscountChange} placeholder="Student fee / term"
-                  className="w-full rounded-2xl border border-white/10 bg-slate-900/20 dark:bg-slate-900/30 px-4 py-3 text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-500" />
+                  className="w-full rounded-2xl border border-white/10 bg-slate-900/20 dark:bg-slate-900/30 px-4 py-3 text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-600 dark:text-slate-300" />
               </div>
               <input name="planScope" value={discountForm.planScope} onChange={handleDiscountChange} placeholder="growth,custom"
-                className="w-full rounded-2xl border border-white/10 bg-slate-900/20 dark:bg-slate-900/30 px-4 py-3 text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-500" />
+                className="w-full rounded-2xl border border-white/10 bg-slate-900/20 dark:bg-slate-900/30 px-4 py-3 text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-600 dark:text-slate-300" />
               <input name="endsAt" type="datetime-local" value={discountForm.endsAt} onChange={handleDiscountChange}
                 className="w-full rounded-2xl border border-white/10 bg-slate-900/20 dark:bg-slate-900/30 px-4 py-3 text-slate-900 dark:text-amber-100" />
               <label className="flex items-center gap-2 text-sm text-slate-900 dark:text-amber-100">
@@ -1128,7 +1128,7 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
                       <SchoolMark name={tenant.schoolName} logoUrl={tenant.logoUrl} />
                       <span className="min-w-0">
                         <span className="block truncate font-bold text-[#191970] hover:underline dark:text-indigo-200">{tenant.schoolName}</span>
-                        <span className="block truncate text-xs text-slate-500">{tenant.ownerName} · {tenant.ownerEmail}</span>
+                        <span className="block truncate text-xs text-slate-600 dark:text-slate-300">{tenant.ownerName} · {tenant.ownerEmail}</span>
                       </span>
                     </button>
                   </td>
@@ -1139,7 +1139,7 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
                     </span>
                   </td>
                   <td className={`${TD} tabular-nums`}><span className="inline-flex items-center gap-1.5"><UserGroupIcon className="h-4 w-4 text-slate-400" aria-hidden="true" />{Number(tenant.studentCount || 0).toLocaleString()}</span></td>
-                  <td className={TD}><span className="capitalize">{tenant.planKey}</span><span className="block text-xs text-slate-500">{currencyFormatter.format(tenant.studentFeePerTerm || 0)} / student / term</span></td>
+                  <td className={TD}><span className="capitalize">{tenant.planKey}</span><span className="block text-xs text-slate-600 dark:text-slate-300">{currencyFormatter.format(tenant.studentFeePerTerm || 0)} / student / term</span></td>
                   <td className={TD}>
                     <div className="flex flex-col items-start gap-1">
                       {tenant.status === 'active' ? <Pill tone="good">Active</Pill> : tenant.status === 'suspended' ? <Pill tone="bad">Suspended</Pill> : <Pill tone="warn">{String(tenant.status || 'pending').replace(/_/g, ' ')}</Pill>}
@@ -1147,15 +1147,15 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
                       {tenant.approvalStatus !== 'approved' ? <Pill tone="warn">Needs approval</Pill> : null}
                     </div>
                   </td>
-                  <td className={TD}><TermFeePill fee={tenant.currentTermFee} /><span className="mt-0.5 block text-xs text-slate-500">{[tenant.currentTermFee?.term, tenant.currentTermFee?.session].filter(Boolean).join(', ')}</span></td>
+                  <td className={TD}><TermFeePill fee={tenant.currentTermFee} /><span className="mt-0.5 block text-xs text-slate-600 dark:text-slate-300">{[tenant.currentTermFee?.term, tenant.currentTermFee?.session].filter(Boolean).join(', ')}</span></td>
                   <td className={`${TD} text-right`}><button type="button" onClick={() => setOpenTenantId(tenant.id)} className={SECONDARY}>Manage</button></td>
                 </tr>
               ))}
-              {!visibleSchools.length ? <tr><td colSpan={7} className="px-4 py-10 text-center text-sm text-slate-500">{tenants.length ? 'No schools match.' : 'No schools registered yet.'}</td></tr> : null}
+              {!visibleSchools.length ? <tr><td colSpan={7} className="px-4 py-10 text-center text-sm text-slate-600 dark:text-slate-300">{tenants.length ? 'No schools match.' : 'No schools registered yet.'}</td></tr> : null}
             </tbody>
           </table>
         </div>
-        <p className="border-t border-slate-200 px-4 py-2 text-xs text-slate-500 dark:border-white/10">{visibleSchools.length} of {tenants.length} schools</p>
+        <p className="border-t border-slate-200 px-4 py-2 text-xs text-slate-600 dark:text-slate-300 dark:border-white/10">{visibleSchools.length} of {tenants.length} schools</p>
       </Panel>
 
       <Panel title="Open a school's dashboard"><SchoolAccessPanel /></Panel>
@@ -1166,8 +1166,8 @@ export default function AmiTenantGovernance({ sectionKey = 'overview' }) {
           <div className="h-full w-full max-w-3xl overflow-y-auto bg-[#eef1f6] shadow-2xl dark:bg-slate-950" onClick={event => event.stopPropagation()}>
             <div className="sticky top-0 z-10 flex items-center gap-3 border-b border-slate-200 bg-white px-5 py-3 dark:border-white/10 dark:bg-slate-900">
               <SchoolMark name={openTenant.schoolName} logoUrl={openTenant.logoUrl} />
-              <div className="min-w-0 flex-1"><p className="truncate font-black text-[#0b1f3a] dark:text-white">{openTenant.schoolName}</p><p className="truncate text-xs text-slate-500">{openTenant.websiteDomain}</p></div>
-              <button type="button" onClick={() => setOpenTenantId('')} aria-label="Close" className="rounded-lg p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-white/10"><XMarkIcon className="h-5 w-5" /></button>
+              <div className="min-w-0 flex-1"><p className="truncate font-black text-[#0b1f3a] dark:text-white">{openTenant.schoolName}</p><p className="truncate text-xs text-slate-600 dark:text-slate-300">{openTenant.websiteDomain}</p></div>
+              <button type="button" onClick={() => setOpenTenantId('')} aria-label="Close" className="rounded-lg p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/10"><XMarkIcon className="h-5 w-5" /></button>
             </div>
             {error ? <p role="alert" className="mx-5 mt-4 rounded-lg bg-rose-100 px-4 py-3 text-sm font-semibold text-rose-800">{error}</p> : null}
             {notice ? <p role="status" className="mx-5 mt-4 rounded-lg bg-emerald-50 px-4 py-3 text-sm font-semibold text-emerald-800">{notice}</p> : null}

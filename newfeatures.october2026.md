@@ -2333,3 +2333,30 @@ From feature22222222.md.
 - National calendar for every school: all public holidays, Good Friday and Easter Monday calculated each year, Eid-el-Fitr, Eid-el-Kabir and Eid-el-Maulud on their expected dates (marked: the Federal Government confirms them), so nobody is marked absent on them. Special days shown (school open): International Day of the Girl Child, Children's Day, International Men's Day, International Women's Day, World Teachers' Day, Day of the African Child, Mother's and Father's Day, World Book Day and more.
 - Attendance → School Calendar: upload the term calendar (PDF, Word or photo, e.g. Week | Date | Activity); just after midnight Ndovera AI adds every activity (resumption, C.A. tests, mid-term break, exams, closing, holidays) to the calendar. Duplicates are skipped; each upload shows what was added.
 - Attendance → Timetable: upload a class timetable; at midnight Ndovera AI reads it, matches lessons to the class's subjects and teachers, and publishes it on the class (the previous timetable stays in Versions).
+
+
+### N41. Ami: readable colours, what schools owe and what Ndovera collected, share register and profit sharing, profit and loss, audit trail and reports from records — ⏳ BUILT 23 Oct 2026, NOT DEPLOYED YET
+> THE SIDE BAR OF THE AMI DASHBOARD IS CONFLICTING WITH THE TEXT AND BACKGROUND COLOURS
+> WHAT SCHOOLS OWE IS SUPPOSED TO BE STATED CLEARLY AND NOT JUST WRITE ZEROS
+> WHAT NDOVERA HAS COLLECTED ALSO IS SUPPOSED TO BE STATED AS WELL
+> THE SHAREHOLDERS SHOULD HAVE THEIR SHARE CAPITAL, PROFIT SHARING FORMULA, AND PROPER SHARE MANAGEMENT AND AMOUNT DUE TO EACH SHAREHOLDER FOR PAYOUT
+> PROFIT AND LOSS, WHERE WE WILL ADD THE MONTHLY EXPENDITURE SO THAT THE SYSTEM CAN DO PROPER FINANCIAL ANALYSIS
+> THE PLATFORM OVERVIEW (SCHOOLS AT A GLANCE) PAGE COLOURS IS CONFLICTING WITH BACKGROUND COLOUR
+> MAKE A RULE THAT CONFLICTING TEXT AND BACKGROUND COLOURS WILL NEVER BE PASSED AS GOOD CODE
+> AUDIT TRAIL IN AMI IS NOT SHOWING ANYTHING
+> REPORTS PAGE IN AMI HAS NO TRUE RECORD
+
+- Sidebar search results were dark text on the navy sidebar; fixed. "Schools at a glance" was white text on a white card; redrawn. Light-only CSS rules also fired in dark mode (`:not(.dark)` matched `<body>`); all 56 now scoped to `:root:not(.dark)`.
+- Colour rule: `CLAUDE.md` + `frontend/src/shared/testing/contrast.test.jsx` checks every Ami page and the sidebar in light and dark mode (WCAG AA).
+- Finance: "Schools owe Ndovera" = invoices sent + drafts + an estimate (students × rate) where no invoice is raised, each school's basis stated; "Ndovera has collected" all time, this year, this term.
+- Profit & Loss page: monthly running costs (rent, salaries, hosting…) entered once and counted every month; statement by month, spending by category, margin, best/weakest month, break-even students per term.
+- Shareholders: share register (issue / transfer / redeem, capital paid, history), profit-sharing formula (retention %), share-outs from finished months, what is due to each shareholder, payouts with references. Shareholders see their own position read-only.
+- Audit Trail and Reports read the real records.
+
+### N42. Practice: tighten questions and subject matching — ⏳ BUILT 23 Oct 2026, NOT DEPLOYED YET
+> LETS TIGHTEN THE QUESTIONS AND SUBJECT MATCHING
+> IN PRACTICE, STUDENTS COMPLAIN OF SEEING ICT QUESTIONS IN AGRICULTURAL SCIENCE
+
+- Cause: a question takes the subject its source was filed under; a paper filed under the wrong subject brought its questions into that subject, and Ndovera AI then wrote more questions on those topics.
+- Ndovera AI now checks every question's subject (12 batches a night); wrong ones move to their real subject or are held back. Students can press "Not this subject?" (2 students or 1 staff hold it until rechecked).
+- AI question writing takes topics from the class, then the published curriculum, never from unchecked bank questions. Subject names are only joined when the names agree (Agric and ICT can never be merged).

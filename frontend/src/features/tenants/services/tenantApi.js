@@ -289,3 +289,57 @@ export function addShareholder(payload) {
 export function setShareholderActive(email, active) {
   return requestJson(`/api/ami/shareholders/${encodeURIComponent(email)}/status`, { method: 'POST', body: { active } });
 }
+
+// Profit and loss, and the monthly running costs it counts.
+export function getProfitAndLoss(params = {}) {
+  const query = new URLSearchParams(Object.entries(params).filter(([, value]) => value));
+  return requestJson(`/api/platform/pnl${query.toString() ? `?${query}` : ''}`);
+}
+
+export function addRunningCost(payload) {
+  return requestJson('/api/ami/finance/recurring', { method: 'POST', body: payload });
+}
+
+export function stopRunningCost(id, endMonth) {
+  return requestJson(`/api/ami/finance/recurring/${encodeURIComponent(id)}/stop`, { method: 'POST', body: { endMonth } });
+}
+
+// Share register, profit sharing and shareholder payouts.
+export function getPlatformShares() {
+  return requestJson('/api/platform/shares');
+}
+
+/** { kind: 'issue' | 'transfer' | 'redeem', email, name, toEmail, toName, shares, capital, occurredOn, note } */
+export function recordShareEvent(payload) {
+  return requestJson('/api/ami/shares/events', { method: 'POST', body: payload });
+}
+
+export function voidShareEvent(id) {
+  return requestJson(`/api/ami/shares/events/${encodeURIComponent(id)}/void`, { method: 'POST', body: {} });
+}
+
+export function saveSharePolicy(payload) {
+  return requestJson('/api/ami/shares/policy', { method: 'POST', body: payload });
+}
+
+export function declareProfitShare(payload) {
+  return requestJson('/api/ami/shares/dividends', { method: 'POST', body: payload });
+}
+
+export function voidProfitShare(id) {
+  return requestJson(`/api/ami/shares/dividends/${encodeURIComponent(id)}/void`, { method: 'POST', body: {} });
+}
+
+export function payShareholderLine(id, payload) {
+  return requestJson(`/api/ami/shares/dividend-lines/${encodeURIComponent(id)}/pay`, { method: 'POST', body: payload });
+}
+
+// Audit trail and executive report.
+export function getAmiAuditLogs(params = {}) {
+  const query = new URLSearchParams(Object.entries(params).filter(([, value]) => value));
+  return requestJson(`/api/ami/audit-logs${query.toString() ? `?${query}` : ''}`);
+}
+
+export function getAmiReportSummary() {
+  return requestJson('/api/ami/reports/summary');
+}

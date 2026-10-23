@@ -17,6 +17,7 @@
 
 import { LEVEL_NAME_SQL, ensureClassStandardLevel, levelOf, labelOfRank, sectionOfRank, subjectKeyOf, normalizeSection } from './levels'
 import type { SectionKey } from './levels'
+import { SUBJECT_SERVABLE_SQL } from './subjectCheck'
 
 export class PracticeError extends Error {
   status: number
@@ -42,6 +43,8 @@ const PRACTICE_COLUMNS: Array<[string, string]> = [
   ['exam', 'exam TEXT'],
   // Ndovera's check (practiceBuilder.ts): ok | upgraded | rejected; blank until checked.
   ['quality', 'quality TEXT'], ['quality_checked_at', 'quality_checked_at TEXT'],
+  // The subject check (subjectCheck.ts): ok | moved | wrong | reported; blank until checked.
+  ['subject_check', 'subject_check TEXT'], ['subject_checked_at', 'subject_checked_at TEXT'], ['subject_from', 'subject_from TEXT'],
 ]
 
 export const DIFFICULTY_LEVELS = ['simple', 'intermediate', 'external'] as const
@@ -365,7 +368,8 @@ function difficultyClause(difficulty: Difficulty | '', exam = '') {
 function ladder(student: PracticeStudent, difficulty: Difficulty | '' = '', exam = '') {
   const released = `(q.release_at IS NULL OR q.release_at = '' OR q.release_at <= ?)`
   const level = difficultyClause(difficulty, exam)
-  const base = `q.playable = 1 AND COALESCE(q.status, 'approved') = 'approved' AND ${released}${level.sql}`
+  // Never a question held as another subject's, or reported and waiting for the subject check.
+  const base = `q.playable = 1 AND COALESCE(q.status, 'approved') = 'approved' AND ${SUBJECT_SERVABLE_SQL('q')} AND ${released}${level.sql}`
   // Examination practice covers the whole section (a JSS 1 student preparing for BECE sees it all).
   if (student.section && difficulty === 'external') return { where: `${base} AND q.section = ?`, params: [now(), ...level.params, student.section] }
   if (student.section && student.rank !== null) {

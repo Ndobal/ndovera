@@ -30,24 +30,24 @@ export default function AmiOverview() {
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <StatCard icon={BuildingOffice2Icon} tone="navy" label="Schools" value={summary?.totalTenants ?? '—'} hint={`${summary?.activeTenants ?? 0} active`} />
         <StatCard icon={UserGroupIcon} tone="green" label="Students" value={tenants ? students.toLocaleString() : '—'} hint="on Ndovera" />
-        <StatCard icon={BanknotesIcon} tone="gold" label="Collected this year" value={finance ? naira(kpis.collectedThisYear) : '—'} hint={finance ? `${naira(kpis.collectedThisMonth)} this month` : ''} />
-        <StatCard icon={ExclamationTriangleIcon} tone="maroon" label="Outstanding" value={finance ? naira(kpis.outstanding) : '—'} hint={`${unpaid.length} school${unpaid.length === 1 ? '' : 's'} unpaid this term`} />
+        <StatCard icon={BanknotesIcon} tone="gold" label="Ndovera has collected" value={finance ? naira(kpis.collectedAllTime) : '—'} hint={finance ? `${naira(kpis.collectedThisYear)} this year · ${naira(kpis.collectedThisMonth)} this month` : ''} />
+        <StatCard icon={ExclamationTriangleIcon} tone="maroon" label="Schools owe Ndovera" value={finance ? naira(kpis.owedTotal ?? kpis.outstanding) : '—'} hint={finance ? `${naira(kpis.outstanding)} invoiced · ${unpaid.length} school${unpaid.length === 1 ? '' : 's'} unpaid this term` : ''} />
       </div>
 
       <div className="grid gap-4 lg:grid-cols-3">
         <Panel title="Money in and out · last 12 months" className="lg:col-span-2" actions={<Link to="/roles/ami/finance" className="text-xs font-bold text-[#191970] underline dark:text-indigo-200">Open Finance</Link>}>
-          {finance ? <MoneyChart monthly={finance.monthly} /> : <p className="text-sm text-slate-500">Loading…</p>}
+          {finance ? <MoneyChart monthly={finance.monthly} /> : <p className="text-sm text-slate-600 dark:text-slate-300">Loading…</p>}
         </Panel>
         <Panel title="Unpaid this term" actions={<Link to="/roles/ami/finance" className="text-xs font-bold text-[#191970] underline dark:text-indigo-200">Remind</Link>} bodyClassName="p-0">
           <ul className="max-h-[300px] divide-y divide-slate-100 overflow-y-auto dark:divide-white/5">
             {unpaid.map(tenant => (
               <li key={tenant.id} className="flex items-center gap-3 px-4 py-2.5">
                 <SchoolMark name={tenant.schoolName} logoUrl={tenant.logoUrl} />
-                <div className="min-w-0 flex-1"><p className="truncate text-sm font-bold">{tenant.schoolName}</p><p className="truncate text-xs text-slate-500">{tenant.currentTermFee.term} {tenant.currentTermFee.session}</p></div>
+                <div className="min-w-0 flex-1"><p className="truncate text-sm font-bold">{tenant.schoolName}</p><p className="truncate text-xs text-slate-600 dark:text-slate-300">{tenant.currentTermFee.term} {tenant.currentTermFee.session}</p></div>
                 <TermFeePill fee={tenant.currentTermFee} />
               </li>
             ))}
-            {tenants && !unpaid.length ? <li className="px-4 py-6 text-center text-sm text-slate-500">Every active school has paid this term.</li> : null}
+            {tenants && !unpaid.length ? <li className="px-4 py-6 text-center text-sm text-slate-600 dark:text-slate-300">Every active school has paid this term.</li> : null}
           </ul>
         </Panel>
       </div>
@@ -57,11 +57,11 @@ export default function AmiOverview() {
           <ul className="divide-y divide-slate-100 dark:divide-white/5">
             {(finance?.payments || []).slice(0, 6).map(payment => (
               <li key={`${payment.id}-${payment.at}`} className="flex items-center justify-between gap-3 px-4 py-2.5 text-sm">
-                <div className="min-w-0"><p className="truncate font-semibold">{payment.schoolName}</p><p className="text-xs text-slate-500">{shortDate(payment.at)} · {payment.method}</p></div>
+                <div className="min-w-0"><p className="truncate font-semibold">{payment.schoolName}</p><p className="text-xs text-slate-600 dark:text-slate-300">{shortDate(payment.at)} · {payment.method}</p></div>
                 <p className="font-black tabular-nums text-emerald-700 dark:text-emerald-300">{naira(payment.amount)}</p>
               </li>
             ))}
-            {finance && !finance.payments.length ? <li className="px-4 py-6 text-center text-sm text-slate-500">No payments yet.</li> : null}
+            {finance && !finance.payments.length ? <li className="px-4 py-6 text-center text-sm text-slate-600 dark:text-slate-300">No payments yet.</li> : null}
           </ul>
         </Panel>
         <Panel title="New schools" actions={<Link to="/roles/ami/tenants" className="text-xs font-bold text-[#191970] underline dark:text-indigo-200">All schools</Link>} bodyClassName="p-0">
@@ -69,7 +69,7 @@ export default function AmiOverview() {
             {recent.map(tenant => (
               <li key={tenant.id} className="flex items-center gap-3 px-4 py-2.5">
                 <SchoolMark name={tenant.schoolName} logoUrl={tenant.logoUrl} />
-                <div className="min-w-0 flex-1"><p className="truncate text-sm font-bold">{tenant.schoolName}</p><p className="truncate text-xs text-slate-500">{shortDate(tenant.createdAt)} · {Number(tenant.studentCount || 0)} students</p></div>
+                <div className="min-w-0 flex-1"><p className="truncate text-sm font-bold">{tenant.schoolName}</p><p className="truncate text-xs text-slate-600 dark:text-slate-300">{shortDate(tenant.createdAt)} · {Number(tenant.studentCount || 0)} students</p></div>
               </li>
             ))}
           </ul>
@@ -82,7 +82,7 @@ export default function AmiOverview() {
                 <span className="flex shrink-0 gap-1">{tenant.approvalStatus !== 'approved' ? <Pill tone="warn">Approval</Pill> : null}{tenant.paymentStatus !== 'paid' ? <Pill tone="warn">Onboarding</Pill> : null}</span>
               </li>
             ))}
-            {tenants && !waiting.length ? <li className="px-4 py-6 text-center text-sm text-slate-500">Nothing waiting.</li> : null}
+            {tenants && !waiting.length ? <li className="px-4 py-6 text-center text-sm text-slate-600 dark:text-slate-300">Nothing waiting.</li> : null}
           </ul>
           {waiting.length ? <div className="border-t border-slate-100 p-3 dark:border-white/5"><Link to="/roles/ami/tenants" className={SECONDARY}>Review in Schools</Link></div> : null}
         </Panel>

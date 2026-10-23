@@ -25,6 +25,8 @@ import { labelOfRank, subjectKeyOf } from './levels'
 import { DIFFICULTY_LEVELS, GLOBAL_TENANT, PracticeError, ensurePracticeTables, normalizeDifficulty, upsertBankQuestions } from './practiceArena'
 import type { Difficulty, PracticeStudent } from './practiceArena'
 import { listTopics } from './topicHub'
+import { namesCanMatch, SUBJECT_SERVABLE_SQL } from './subjectCheck'
+import { subjectKey as curriculumSubjectKey } from './curriculumLibrary'
 import { EXAMS, normalizeExam } from './practicePasses'
 import type { ExamKey } from './practicePasses'
 
@@ -72,10 +74,19 @@ export function resetSubjectAliasCache() { aliasCache = null }
 async function aliasMap(db: D1Database) {
   if (aliasCache && Date.now() - aliasCache.at < 10 * 60_000) return aliasCache.map
   await ensurePracticeBankTables(db)
-  const rows = await db.prepare(`SELECT raw_key, canonical_key FROM subject_aliases`).all()
-  const map = new Map(((rows.results || []) as Record<string, any>[]).map(row => [String(row.raw_key), String(row.canonical_key)]))
+  const rows = await db.prepare(`SELECT raw_key, canonical_key, decided_by FROM subject_aliases`).all()
+  // A join the model made that the names do not support is ignored (it once let one subject's questions into another).
+  const map = new Map(((rows.results || []) as Record<string, any>[])
+    .filter(row => row.decided_by !== 'ai' || namesCanMatch(String(row.raw_key), String(row.canonical_key)))
+    .map(row => [String(row.raw_key), String(row.canonical_key)]))
   aliasCache = { at: Date.now(), map }
   return map
+}
+
+/** Turns any subject key into its one key (for the subject check). */
+export async function subjectCanonicalizer(db: D1Database) {
+  const map = await aliasMap(db)
+  return (key: string) => map.get(key) || key
 }
 
 /** The subject's one key, and every key that means the same subject. */
@@ -137,7 +148,7 @@ export async function offeredSubjects(db: D1Database, student: PracticeStudent) 
 export async function rebuildBankCounts(db: D1Database) {
   await ensurePracticeBankTables(db)
   const rows = await db.prepare(`SELECT subject_key, section, COALESCE(level_rank, ${UNKNOWN_RANK}) AS level_rank, COALESCE(difficulty, '') AS difficulty, COUNT(*) AS total
-    FROM question_bank WHERE playable = 1 AND COALESCE(status, 'approved') = 'approved' AND (release_at IS NULL OR release_at = '' OR release_at <= ?) AND subject_key IS NOT NULL AND subject_key != '' AND section IS NOT NULL AND section != ''
+    FROM question_bank q WHERE playable = 1 AND COALESCE(status, 'approved') = 'approved' AND ${SUBJECT_SERVABLE_SQL('q')} AND (release_at IS NULL OR release_at = '' OR release_at <= ?) AND subject_key IS NOT NULL AND subject_key != '' AND section IS NOT NULL AND section != ''
     GROUP BY subject_key, section, COALESCE(level_rank, ${UNKNOWN_RANK}), COALESCE(difficulty, '')`).bind(now()).all()
   const stamp = now()
   const statements: D1PreparedStatement[] = [db.prepare(`DELETE FROM practice_bank_counts`)]
@@ -195,7 +206,9 @@ export async function mapNewSubjects(db: D1Database, runAi: AiRunner, limit = 60
   // A new key mapped to another new key: that other one is the subject itself.
   const stamp = now()
   const statements = [...mapping].map(([raw, target]) => {
-    const canonical = mapping.get(target) && mapping.get(target) !== target ? mapping.get(target)! : target
+    const proposed = mapping.get(target) && mapping.get(target) !== target ? mapping.get(target)! : target
+    // Joined only when the names agree too; otherwise the subject stands on its own.
+    const canonical = namesCanMatch(raw, proposed) ? proposed : raw
     return db.prepare(`INSERT OR IGNORE INTO subject_aliases (raw_key, canonical_key, name, decided_by, decided_at) VALUES (?, ?, ?, 'ai', ?)`).bind(raw, canonical, names.get(raw) || raw, stamp)
   })
   await db.batch(statements)
@@ -212,7 +225,17 @@ async function topicsFor(db: D1Database, student: PracticeStudent, subject: { su
     : []
   if (own.length) return own
   if (!student.section || !subject.keys.length) return []
-  const rows = await db.prepare(`SELECT DISTINCT topic FROM question_bank WHERE subject_key IN (${subject.keys.map(() => '?').join(',')}) AND section = ? AND playable = 1 AND topic IS NOT NULL AND topic != '' LIMIT 40`)
+  // Then the published curriculum's topics for the subject and section.
+  const curriculumKeys = Array.from(new Set(subject.keys.map(key => curriculumSubjectKey(key.replace(/-/g, ' '))).filter(Boolean)))
+  await db.prepare(`CREATE INDEX IF NOT EXISTS idx_curriculum_topics_subject ON curriculum_topics (subject_key, section)`).run().catch(() => null)
+  const syllabus = curriculumKeys.length
+    ? await db.prepare(`SELECT DISTINCT ct.topic FROM curriculum_topics ct JOIN curricula c ON c.id = ct.curriculum_id WHERE ct.subject_key IN (${curriculumKeys.map(() => '?').join(',')}) AND ct.section = ? AND c.status = 'published' LIMIT 60`)
+      .bind(...curriculumKeys, student.section).all().catch(() => ({ results: [] }))
+    : { results: [] }
+  const fromSyllabus = ((syllabus.results || []) as Record<string, any>[]).map(row => String(row.topic)).filter(Boolean)
+  if (fromSyllabus.length) return fromSyllabus
+  // Last, topics of questions in the bank — only ones whose subject has been checked, so a mislabelled paper cannot seed more of itself.
+  const rows = await db.prepare(`SELECT DISTINCT topic FROM question_bank WHERE subject_key IN (${subject.keys.map(() => '?').join(',')}) AND section = ? AND playable = 1 AND subject_check IN ('ok', 'moved') AND topic IS NOT NULL AND topic != '' LIMIT 40`)
     .bind(...subject.keys, student.section).all().catch(() => ({ results: [] }))
   return ((rows.results || []) as Record<string, any>[]).map(row => String(row.topic)).filter(Boolean)
 }

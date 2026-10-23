@@ -101,6 +101,9 @@ const SUBJECT_ALIASES: Array<[RegExp, string]> = [
   [/^(verbal\s+reasoning|verbal\s+aptitude)$/, 'verbal-reasoning'],
 ]
 
+/** Ndovera's own subject keys: two of these are never the same subject. */
+export const BUILT_IN_SUBJECT_KEYS: string[] = Array.from(new Set(SUBJECT_ALIASES.map(([, key]) => key)))
+
 /** One key for a subject however a school spells it ("Maths" and "General Mathematics" practise together). */
 export function subjectKeyOf(name: unknown) {
   const text = String(name || '').toLowerCase().replace(/&/g, ' and ').replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim()

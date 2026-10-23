@@ -14,6 +14,7 @@ import AmiChampionshipsPage from './ami/AmiChampionshipsPage';
 import AmiOverview from '../../features/ami/AmiOverview';
 import AmiFinancePage from '../../features/ami/AmiFinancePage';
 import AmiShareholdersPage from '../../features/ami/AmiShareholdersPage';
+import AmiProfitLossPage from '../../features/ami/AmiProfitLossPage';
 import { AmiPage } from '../../features/ami/AmiUi';
 
 export default function AmiDashboard() {
@@ -32,10 +33,11 @@ export default function AmiDashboard() {
   if (sectionKey === 'overview')      return <AmiOverview />;
   if (sectionKey === 'finance')       return <AmiFinancePage />;
   if (sectionKey === 'shareholders')  return <AmiShareholdersPage />;
+  if (sectionKey === 'profit-loss')   return <AmiProfitLossPage />;
   if (sectionKey === 'security')      return framed(<AmiSecurityPage />);
   if (sectionKey === 'policies')      return framed(<AmiPoliciesPage />);
-  if (sectionKey === 'audits')        return framed(<AmiAuditsPage />);
-  if (sectionKey === 'reports')       return framed(<AmiReportsPage />);
+  if (sectionKey === 'audits')        return <AmiAuditsPage />;
+  if (sectionKey === 'reports')       return <AmiReportsPage />;
   if (sectionKey === 'website')       return framed(<AmiWebsitePage />);
   if (sectionKey === 'growth-partners') return framed(<AmiGrowthPartnersPage />);
   if (sectionKey === 'championships') return framed(<AmiChampionshipsPage />);

@@ -3,11 +3,29 @@ import { AnimatePresence, motion } from 'framer-motion';
 import RichContent from '../../shared/rich/RichContent';
 import { TYPE_LABELS, estimateXp, keywordOverlap, markAnswer } from './engine';
 import { questionSpeech, readAloud, useReadAloudPlayer } from '../../shared/components/ReadAloud';
+import { reportWrongSubject } from './practiceApi';
 
 const LETTERS = 'ABCDEFGH';
 const AUTO_READ_KEY = 'ndovera:quizAutoRead';
 const canSpeak = () => typeof window !== 'undefined' && Boolean(window.speechSynthesis) && typeof window.SpeechSynthesisUtterance === 'function';
 const loadAutoRead = () => { try { return localStorage.getItem(AUTO_READ_KEY) === '1'; } catch { return false; } };
+
+/** "Not this subject?": the student says a question does not belong here; Ndovera checks it again. */
+function WrongSubjectReport({ questionId }) {
+  const [state, setState] = useState('');
+  if (!questionId || String(questionId).startsWith('local')) return null;
+  async function report() {
+    setState('sending');
+    try { await reportWrongSubject(questionId); setState('sent'); } catch { setState('failed'); }
+  }
+  if (state === 'sent') return <p role="status" className="-mt-3 mb-4 text-xs font-semibold text-emerald-700 dark:text-emerald-300">Thank you — Ndovera will check which subject this question belongs to.</p>;
+  return (
+    <p className="-mt-3 mb-4 text-xs text-slate-600 dark:text-slate-300">
+      <button type="button" onClick={report} disabled={state === 'sending'} className="font-semibold underline hover:text-slate-900 dark:hover:text-white">Not this subject?</button>
+      {state === 'failed' ? <span className="ml-2 text-rose-700 dark:text-rose-300">Could not send — try again when online.</span> : null}
+    </p>
+  );
+}
 
 export function formatClock(seconds) {
   const safe = Math.max(0, Math.round(seconds));
@@ -268,6 +286,7 @@ export default function QuizPlayer({ quiz, subjectName, onFinish, onExit }) {
             </details>
           ) : null}
           <div className="mb-5 text-lg font-semibold leading-relaxed text-slate-900 dark:text-white"><RichContent text={question.prompt} /></div>
+          <WrongSubjectReport key={`report-${question.id}`} questionId={question.id} />
           {question.imageUrl ? <img src={question.imageUrl} alt="" className="mb-4 max-h-64 rounded-2xl" /> : null}
 
           {question.type === 'mcq' || question.type === 'truefalse' ? (

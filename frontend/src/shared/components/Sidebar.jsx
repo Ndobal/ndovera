@@ -18,7 +18,8 @@ const noop = () => {};
 function getSidebarIcon(name, path) {
   const t = `${String(name || '')} ${String(path || '')}`.toLowerCase();
   if (t.includes('overview') || t.includes('dashboard')) return HomeIcon;
-  if (t.includes('shareholder')) return UserGroupIcon;
+  if (t.includes('shareholder') || t.includes('shares')) return UserGroupIcon;
+  if (t.includes('profit')) return ScaleIcon;
   if (t.includes('billing') || t.includes('finance')) return BanknotesIcon;
   if (t.includes('/ami/tenants') || t.includes('closures')) return BuildingOffice2Icon;
   if (t.includes('library admin') || t.includes('library-admin')) return BookmarkSquareIcon;
@@ -607,6 +608,7 @@ function buildRoleSidebarItems(roleKey) {
       { name: 'Billing & Pricing', path: '/roles/ami/billing', group: 'Schools' },
       { name: 'School Closures', path: '/roles/ami/school-closures', group: 'Schools' },
       { name: 'Finance', path: '/roles/ami/finance', group: 'Money' },
+      { name: 'Profit & Loss', path: '/roles/ami/profit-loss', group: 'Money' },
       { name: 'Shareholders', path: '/roles/ami/shareholders', group: 'Money' },
       { name: 'Growth Partners', path: '/roles/ami/growth-partners', group: 'Money' },
       { name: 'Championships', path: '/roles/ami/championships', group: 'Content' },
@@ -628,6 +630,8 @@ function buildRoleSidebarItems(roleKey) {
   if (roleKey === 'shareholder') {
     return [
       { name: 'Finance', path: '/roles/shareholder', group: 'Ndovera' },
+      { name: 'Profit & Loss', path: '/roles/shareholder/profit-loss', group: 'Ndovera' },
+      { name: 'Shares & payouts', path: '/roles/shareholder/shares', group: 'Ndovera' },
     ];
   }
 
@@ -841,7 +845,7 @@ export default function Sidebar({ auth = null, mobileOpen = false, onClose = noo
         </div>
         <div className="px-4 pb-3">
           <label className={`flex items-center gap-2 rounded-2xl border px-3 py-2 focus-within:ring-2 focus-within:ring-indigo-400 ${commandTheme ? 'border-white/15 bg-white/10 [&_input]:text-white' : 'border-slate-200/70 bg-white/80 dark:border-indigo-500/25 dark:bg-slate-950/40'}`}>
-            <MagnifyingGlassIcon className="h-4 w-4 shrink-0 text-slate-500 dark:text-slate-300" aria-hidden="true" />
+            <MagnifyingGlassIcon className={`h-4 w-4 shrink-0 ${commandTheme ? 'text-slate-300' : 'text-slate-500 dark:text-slate-300'}`} aria-hidden="true" />
             <input
               ref={searchRef}
               type="search"
@@ -853,7 +857,7 @@ export default function Sidebar({ auth = null, mobileOpen = false, onClose = noo
               }}
               placeholder="Search… (press /)"
               aria-label="Search the app"
-              className="w-full bg-transparent text-sm text-slate-800 outline-none placeholder:text-slate-400 dark:text-white"
+              className={`w-full bg-transparent text-sm outline-none ${commandTheme ? 'text-white placeholder:text-slate-400' : 'text-slate-800 placeholder:text-slate-400 dark:text-white'}`}
             />
           </label>
         </div>
@@ -863,14 +867,14 @@ export default function Sidebar({ auth = null, mobileOpen = false, onClose = noo
               <ul className="space-y-1">
                 {results.map(entry => (
                   <li key={entry.path}>
-                    <button type="button" onClick={() => openResult(entry)} className="w-full rounded-2xl px-3 py-2 text-left transition hover:bg-emerald-50 dark:hover:bg-indigo-500/20">
-                      <span className="block text-sm font-semibold text-slate-800 dark:text-white">{entry.name}</span>
-                      <span className="block text-[11px] text-slate-500 dark:text-slate-400">{entry.section}</span>
+                    <button type="button" onClick={() => openResult(entry)} className={`w-full rounded-2xl px-3 py-2 text-left transition ${commandTheme ? 'hover:bg-white/10' : 'hover:bg-emerald-50 dark:hover:bg-indigo-500/20'}`}>
+                      <span className={`block text-sm font-semibold ${commandTheme ? 'text-white' : 'text-slate-800 dark:text-white'}`}>{entry.name}</span>
+                      <span className={`block text-[11px] ${commandTheme ? 'text-slate-300' : 'text-slate-600 dark:text-slate-400'}`}>{entry.section}</span>
                     </button>
                   </li>
                 ))}
               </ul>
-            ) : <p className="px-3 text-sm text-slate-500 dark:text-slate-300">Nothing found for “{query}”. Try another word — e.g. fees, receipt, class, results.</p>}
+            ) : <p className={`px-3 text-sm ${commandTheme ? 'text-slate-300' : 'text-slate-600 dark:text-slate-300'}`}>Nothing found for “{query}”. Try another word — e.g. fees, receipt, class, results.</p>}
           </div>
         ) : (
         commandTheme ? (
@@ -880,7 +884,7 @@ export default function Sidebar({ auth = null, mobileOpen = false, onClose = noo
               const heading = item.group && item.group !== sidebarItems[index - 1]?.group ? item.group : '';
               return (
                 <React.Fragment key={item.path}>
-                  {heading ? <p className="px-6 pb-1 pt-4 text-[10px] font-bold uppercase tracking-[0.22em] text-slate-400">{heading}</p> : null}
+                  {heading ? <p className="px-6 pb-1 pt-4 text-[10px] font-bold uppercase tracking-[0.22em] text-[#c9a96e]">{heading}</p> : null}
                   <NavLink
                     to={item.path}
                     onClick={onClose}

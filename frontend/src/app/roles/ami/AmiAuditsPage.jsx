@@ -1,167 +1,82 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import { getAmiAuditLogs } from '../../../features/tenants/services/tenantApi';
+import { AmiPage, FIELD, Panel, PRIMARY, SECONDARY, TD, TH } from '../../../features/ami/AmiUi';
+
+// Every recorded action on Ndovera, newest first: when, who, what, and to which school or
+// person. Searchable by words and dates; exportable as CSV.
+const PAGE_SIZE = 25;
 
 export default function AmiAuditsPage() {
-  const [logs, setLogs]         = useState([]);
-  const [loading, setLoading]   = useState(true);
-  const [error, setError]       = useState('');
-  const [search, setSearch]     = useState('');
-  const [dateFrom, setDateFrom] = useState('');
-  const [dateTo, setDateTo]     = useState('');
-  const [page, setPage]         = useState(1);
-  const PAGE_SIZE = 25;
+  const [logs, setLogs] = useState(null);
+  const [error, setError] = useState('');
+  const [filters, setFilters] = useState({ search: '', from: '', to: '' });
+  const [page, setPage] = useState(1);
+  const [truncated, setTruncated] = useState(false);
 
-  const token = localStorage.getItem('token');
+  const load = useCallback((next = filters) => {
+    setError('');
+    return getAmiAuditLogs({ ...next, limit: '500' })
+      .then(result => { setLogs(result.logs || []); setTruncated(Boolean(result.truncated)); setPage(1); })
+      .catch(err => { setLogs([]); setError(err.message || 'Could not load the audit trail.'); });
+  }, [filters]);
+  useEffect(() => { load(); }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  function loadLogs() {
-    setLoading(true);
-    const params = new URLSearchParams();
-    if (search)   params.set('search', search);
-    if (dateFrom) params.set('from', dateFrom);
-    if (dateTo)   params.set('to', dateTo);
-    params.set('limit', '500');
-
-    fetch(`/api/ami/audit-logs?${params.toString()}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    })
-      .then(r => r.json())
-      .then(d => { setLogs(d.logs || d.entries || []); setError(''); setPage(1); })
-      .catch(() => setLogs([]))
-      .finally(() => setLoading(false));
+  function exportCsv() {
+    const rows = [['When', 'Who', 'Action', 'School / record', 'Details'], ...(logs || []).map(entry => [entry.timestamp, entry.actor, entry.action, entry.target, entry.detail])];
+    const csv = rows.map(row => row.map(value => `"${String(value ?? '').replace(/"/g, '""')}"`).join(',')).join('\n');
+    const url = URL.createObjectURL(new Blob([csv], { type: 'text/csv' }));
+    Object.assign(document.createElement('a'), { href: url, download: `ndovera-audit-${new Date().toISOString().slice(0, 10)}.csv` }).click();
+    URL.revokeObjectURL(url);
   }
 
-  useEffect(() => { loadLogs(); }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
-  function exportCSV() {
-    const rows = [['Timestamp','Actor','Action','Target','Result','IP']];
-    logs.forEach(e => rows.push([e.timestamp, e.actor, e.action, e.target, e.result, e.ip]));
-    const csv = rows.map(r => r.map(v => `"${String(v || '').replace(/"/g, '""')}"`).join(',')).join('\n');
-    const blob = new Blob([csv], { type: 'text/csv' });
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = `audit-log-${new Date().toISOString().slice(0,10)}.csv`;
-    a.click();
-  }
-
-  const paginated = logs.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
-  const totalPages = Math.ceil(logs.length / PAGE_SIZE);
+  const shown = (logs || []).slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+  const pages = Math.max(1, Math.ceil((logs || []).length / PAGE_SIZE));
+  const set = key => event => setFilters(current => ({ ...current, [key]: event.target.value }));
 
   return (
-    <div className="p-8 max-w-7xl mx-auto space-y-6">
+    <AmiPage title="Audit Trail" subtitle="Every recorded action on Ndovera: who did what, when, and to which school or record." crumbs={['Platform', 'Audit Trail']}>
+      {error ? <p role="alert" className="rounded-lg bg-rose-100 px-4 py-3 text-sm font-semibold text-rose-800">{error}</p> : null}
+      <Panel>
+        <form className="grid gap-3 md:grid-cols-[2fr_1fr_1fr_auto_auto]" onSubmit={event => { event.preventDefault(); load(); }}>
+          <input aria-label="Search" className={FIELD} placeholder="Search action, school, person…" value={filters.search} onChange={set('search')} />
+          <input aria-label="From date" type="date" className={FIELD} value={filters.from} onChange={set('from')} />
+          <input aria-label="To date" type="date" className={FIELD} value={filters.to} onChange={set('to')} />
+          <button type="submit" className={PRIMARY}>Search</button>
+          <button type="button" className={SECONDARY} onClick={() => { const cleared = { search: '', from: '', to: '' }; setFilters(cleared); load(cleared); }}>Clear</button>
+        </form>
+      </Panel>
 
-      {/* Header */}
-      <section className="glass-surface rounded-3xl p-6 border border-white/10">
-        <p className="micro-label neon-subtle mb-2">AMI System Authority</p>
-        <h1 className="text-3xl command-title neon-title mb-2">Audit Trail</h1>
-        <p className="text-slate-700 dark:text-slate-300 neon-subtle">
-          Immutable log of all critical actions taken on the platform. Search by actor, action, or date range.
-        </p>
-        {error && <div className="mt-4 rounded-2xl border border-rose-300/30 bg-rose-500/10 px-4 py-3 text-sm text-rose-200">{error}</div>}
-      </section>
-
-      {/* Filters */}
-      <section className="glass-surface rounded-3xl p-6 border border-white/10">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-          <input
-            value={search}
-            onChange={e => setSearch(e.target.value)}
-            onKeyDown={e => e.key === 'Enter' && loadLogs()}
-            placeholder="Search actor, action, target…"
-            className="rounded-2xl border border-white/10 bg-slate-900/30 px-4 py-3 text-sm text-slate-900 dark:text-amber-100 placeholder:text-slate-400 dark:placeholder:text-slate-500"
-          />
-          <input
-            type="date"
-            value={dateFrom}
-            onChange={e => setDateFrom(e.target.value)}
-            className="rounded-2xl border border-white/10 bg-slate-900/30 px-4 py-3 text-sm text-slate-900 dark:text-amber-100"
-          />
-          <input
-            type="date"
-            value={dateTo}
-            onChange={e => setDateTo(e.target.value)}
-            className="rounded-2xl border border-white/10 bg-slate-900/30 px-4 py-3 text-sm text-slate-900 dark:text-amber-100"
-          />
+      <Panel
+        title={logs ? `${logs.length.toLocaleString()} entr${logs.length === 1 ? 'y' : 'ies'}${truncated ? ' (latest 500 — narrow the dates to see older ones)' : ''}` : 'Entries'}
+        actions={<button type="button" className={SECONDARY} disabled={!logs?.length} onClick={exportCsv}>Export CSV</button>}
+        bodyClassName="p-0"
+      >
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[900px] text-sm">
+            <thead className="bg-slate-50 dark:bg-white/5"><tr><th className={TH}>When</th><th className={TH}>Who</th><th className={TH}>Action</th><th className={TH}>School / record</th><th className={TH}>Details</th></tr></thead>
+            <tbody>
+              {shown.map(entry => (
+                <tr key={entry.id} className="border-t border-slate-100 align-top dark:border-white/5">
+                  <td className={`${TD} whitespace-nowrap tabular-nums`}>{entry.timestamp ? new Date(entry.timestamp).toLocaleString('en-GB') : '—'}</td>
+                  <td className={`${TD} font-semibold`}>{entry.actor}</td>
+                  <td className={`${TD} font-bold text-[#191970] dark:text-indigo-200`}>{entry.action}</td>
+                  <td className={TD}>{entry.target || '—'}</td>
+                  <td className={`${TD} max-w-md break-words text-xs text-slate-600 dark:text-slate-300`}>{entry.detail}</td>
+                </tr>
+              ))}
+              {logs && !logs.length ? <tr><td colSpan={5} className="px-4 py-10 text-center text-sm text-slate-600 dark:text-slate-300">No recorded actions match.</td></tr> : null}
+              {!logs ? <tr><td colSpan={5} className="px-4 py-10 text-center text-sm text-slate-600 dark:text-slate-300">Loading the audit trail…</td></tr> : null}
+            </tbody>
+          </table>
         </div>
-        <div className="flex flex-wrap gap-3 mt-3">
-          <button
-            onClick={loadLogs}
-            className="rounded-2xl bg-emerald-500 px-5 py-2 text-sm font-semibold text-slate-950"
-          >
-            Search
-          </button>
-          <button
-            onClick={() => { setSearch(''); setDateFrom(''); setDateTo(''); }}
-            className="rounded-2xl border border-white/10 px-5 py-2 text-sm font-semibold text-slate-300 hover:text-white transition-colors"
-          >
-            Clear
-          </button>
-          <button
-            onClick={exportCSV}
-            disabled={logs.length === 0}
-            className="rounded-2xl border border-indigo-400/40 px-5 py-2 text-sm font-semibold text-indigo-200 hover:bg-indigo-500/10 disabled:opacity-40 transition-colors"
-          >
-            ↓ Export CSV
-          </button>
-          <span className="self-center text-xs neon-subtle">{logs.length} entries</span>
-        </div>
-      </section>
-
-      {/* Log table */}
-      <section className="glass-surface rounded-3xl p-6 border border-white/10">
-        <h2 className="text-xl command-title neon-title mb-4">Log Entries</h2>
-
-        {loading && <p className="text-sm neon-subtle">Loading audit logs…</p>}
-
-        {!loading && logs.length === 0 && (
-          <div className="rounded-2xl border border-white/10 bg-slate-900/30 p-5 text-center">
-            <p className="micro-label accent-amber mb-1">No audit logs found</p>
-            <p className="text-xs text-slate-400">
-              Audit entries will appear here once the backend serves them via <code>/api/ami/audit-logs</code>.
-            </p>
+        {pages > 1 ? (
+          <div className="flex items-center justify-between border-t border-slate-200 px-4 py-3 dark:border-white/10">
+            <button type="button" className={SECONDARY} disabled={page === 1} onClick={() => setPage(current => Math.max(1, current - 1))}>Previous</button>
+            <span className="text-xs font-semibold text-slate-600 dark:text-slate-300">Page {page} of {pages}</span>
+            <button type="button" className={SECONDARY} disabled={page === pages} onClick={() => setPage(current => Math.min(pages, current + 1))}>Next</button>
           </div>
-        )}
-
-        <div className="space-y-2">
-          {paginated.map((entry, i) => (
-            <div key={entry.id || i} className="rounded-2xl bg-slate-900/20 border border-white/5 px-4 py-3">
-              <div className="flex flex-wrap items-start justify-between gap-2">
-                <div className="flex flex-wrap items-center gap-2">
-                  <span className="text-sm font-semibold text-slate-100">{entry.action}</span>
-                  {entry.result === 'success' && <span className="micro-label accent-emerald">success</span>}
-                  {entry.result === 'failed'  && <span className="micro-label accent-rose">failed</span>}
-                </div>
-                <span className="text-xs neon-subtle">{entry.timestamp ? new Date(entry.timestamp).toLocaleString() : '—'}</span>
-              </div>
-              <div className="flex flex-wrap items-center gap-3 mt-1 text-xs text-slate-400">
-                {entry.actor  && <span>Actor: <span className="text-indigo-300">{entry.actor}</span></span>}
-                {entry.target && <span>Target: <span className="text-amber-200">{entry.target}</span></span>}
-                {entry.ip     && <span>IP: {entry.ip}</span>}
-              </div>
-              {entry.detail && <p className="text-xs text-slate-500 mt-1">{entry.detail}</p>}
-            </div>
-          ))}
-        </div>
-
-        {/* Pagination */}
-        {totalPages > 1 && (
-          <div className="flex items-center justify-between mt-4 pt-4 border-t border-white/10">
-            <button
-              onClick={() => setPage(p => Math.max(1, p - 1))}
-              disabled={page === 1}
-              className="rounded-2xl border border-white/10 px-4 py-2 text-sm text-slate-300 disabled:opacity-40"
-            >
-              ← Prev
-            </button>
-            <span className="text-xs neon-subtle">Page {page} of {totalPages}</span>
-            <button
-              onClick={() => setPage(p => Math.min(totalPages, p + 1))}
-              disabled={page === totalPages}
-              className="rounded-2xl border border-white/10 px-4 py-2 text-sm text-slate-300 disabled:opacity-40"
-            >
-              Next →
-            </button>
-          </div>
-        )}
-      </section>
-    </div>
+        ) : null}
+      </Panel>
+    </AmiPage>
   );
 }

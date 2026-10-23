@@ -17,7 +17,7 @@ function downloadCsv(filename, rows) {
   URL.revokeObjectURL(url);
 }
 
-function LedgerForm({ categories, onSaved }) {
+export function LedgerForm({ categories, onSaved }) {
   const [form, setForm] = useState({ kind: 'expense', category: '', amount: '', description: '', occurredOn: new Date().toISOString().slice(0, 10) });
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
@@ -67,7 +67,7 @@ export default function AmiFinancePage({ readOnly = false }) {
     const text = query.trim().toLowerCase();
     return (data?.schools || []).filter(school => {
       if (text && !`${school.schoolName} ${school.ownerName} ${school.ownerEmail}`.toLowerCase().includes(text)) return false;
-      if (filter === 'owing') return school.outstanding > 0;
+      if (filter === 'owing') return school.totalOwed > 0;
       if (filter === 'term') return school.currentTermFee && !['paid', 'unknown'].includes(school.currentTermFee.status);
       if (filter === 'overdue') return school.overdue > 0;
       return true;
@@ -110,14 +110,14 @@ export default function AmiFinancePage({ readOnly = false }) {
     >
       {error ? <p role="alert" className="rounded-lg bg-rose-100 px-4 py-3 text-sm font-semibold text-rose-800">{error}</p> : null}
       {notice ? <p role="status" className="rounded-lg bg-emerald-50 px-4 py-3 text-sm font-semibold text-emerald-800">{notice}</p> : null}
-      {!data && !error ? <p role="status" className="text-sm text-slate-500">Loading the figures…</p> : null}
+      {!data && !error ? <p role="status" className="text-sm text-slate-600 dark:text-slate-300">Loading the figures…</p> : null}
 
       {data ? (
         <>
           <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-            <StatCard icon={BanknotesIcon} tone="green" label="Collected this year" value={naira(kpis.collectedThisYear)} hint={`${naira(kpis.collectedThisMonth)} this month`} />
-            <StatCard icon={ArrowTrendingUpIcon} tone="navy" label="Collected, all time" value={naira(kpis.collectedAllTime)} hint={`${kpis.paymentsCount || 0} payments`} />
-            <StatCard icon={ExclamationTriangleIcon} tone="maroon" label="Outstanding" value={naira(kpis.outstanding)} hint={`${naira(kpis.overdue)} overdue · ${kpis.schoolsOwing || 0} schools`} />
+            <StatCard icon={ArrowTrendingUpIcon} tone="green" label="Ndovera has collected" value={naira(kpis.collectedAllTime)} hint={kpis.paymentsCount ? `${kpis.paymentsCount} payment${kpis.paymentsCount === 1 ? '' : 's'} from ${kpis.schoolsPaid || 0} school${kpis.schoolsPaid === 1 ? '' : 's'}` : 'No payment recorded yet'} />
+            <StatCard icon={BanknotesIcon} tone="navy" label="Collected this year" value={naira(kpis.collectedThisYear)} hint={`${naira(kpis.collectedThisMonth)} this month · ${naira(kpis.collectedThisTerm)} this term`} />
+            <StatCard icon={ExclamationTriangleIcon} tone="maroon" label="Schools owe Ndovera" value={naira(kpis.owedTotal)} hint={`${naira(kpis.outstanding)} invoiced · ${naira((kpis.owedDraft || 0) + (kpis.owedNotInvoiced || 0))} not yet invoiced`} />
             <StatCard icon={ScaleIcon} tone="gold" label="Net, all time" value={naira(kpis.netAllTime)} hint={`after ${naira((kpis.expenses || 0) + (kpis.partnerPayouts || 0))} out`} />
           </div>
 
@@ -126,9 +126,11 @@ export default function AmiFinancePage({ readOnly = false }) {
             <Panel title="At a glance">
               <dl className="space-y-3 text-sm">
                 {[
+                  ['Owed on invoices sent', naira(kpis.outstanding)],
+                  ['Of which overdue', naira(kpis.overdue)],
+                  ['Owed on draft invoices (not sent)', naira(kpis.owedDraft)],
+                  ['Owed, no invoice raised (estimate)', naira(kpis.owedNotInvoiced)],
                   ['Schools unpaid this term', kpis.schoolsUnpaidThisTerm || 0],
-                  ['Schools with a balance', kpis.schoolsOwing || 0],
-                  ['Overdue', naira(kpis.overdue)],
                   ['Other income', naira(kpis.otherIncome)],
                   ['Expenses', naira(kpis.expenses)],
                   ['Partner payouts', naira(kpis.partnerPayouts)],
@@ -138,7 +140,7 @@ export default function AmiFinancePage({ readOnly = false }) {
                   </div>
                 ))}
               </dl>
-              <p className="mt-3 text-xs text-slate-500">Figures as of {new Date(data.generatedAt).toLocaleString()}.</p>
+              <p className="mt-3 text-xs text-slate-600 dark:text-slate-300">Figures as of {new Date(data.generatedAt).toLocaleString()}.</p>
             </Panel>
           </div>
 
@@ -175,7 +177,7 @@ export default function AmiFinancePage({ readOnly = false }) {
                   <table className="w-full min-w-[1000px] text-sm">
                     <thead className="bg-slate-50 dark:bg-white/5"><tr>
                       {canManage ? <th className={`${TH} w-10`}><span className="sr-only">Choose</span></th> : null}
-                      <th className={TH}>School</th><th className={TH}>This term</th><th className={`${TH} text-right`}>Paid</th><th className={`${TH} text-right`}>Outstanding</th><th className={TH}>Last payment</th>{canManage ? <th className={TH}>Last reminder</th> : null}{canManage ? <th className={TH}>Remind</th> : null}
+                      <th className={TH}>School</th><th className={TH}>This term</th><th className={`${TH} text-right`}>Paid to Ndovera</th><th className={`${TH} text-right`}>Owes now</th><th className={TH}>Last payment</th>{canManage ? <th className={TH}>Last reminder</th> : null}{canManage ? <th className={TH}>Remind</th> : null}
                     </tr></thead>
                     <tbody>
                       {schools.map(school => (
@@ -184,21 +186,26 @@ export default function AmiFinancePage({ readOnly = false }) {
                           <td className={TD}>
                             <div className="flex items-center gap-3">
                               <SchoolMark name={school.schoolName} logoUrl={school.logoUrl} />
-                              <div className="min-w-0"><p className="truncate font-bold text-[#191970] dark:text-indigo-200">{school.schoolName}</p><p className="truncate text-xs text-slate-500">{school.ownerName} · {school.contactEmail}</p></div>
+                              <div className="min-w-0"><p className="truncate font-bold text-[#191970] dark:text-indigo-200">{school.schoolName}</p><p className="truncate text-xs text-slate-600 dark:text-slate-300">{school.ownerName} · {school.contactEmail}</p></div>
                             </div>
                           </td>
-                          <td className={TD}><TermFeePill fee={school.currentTermFee} /><p className="mt-0.5 text-xs text-slate-500">{[school.currentTermFee?.term, school.currentTermFee?.session].filter(Boolean).join(', ')}</p></td>
-                          <td className={`${TD} text-right tabular-nums`}>{naira(school.paid)}</td>
+                          <td className={TD}>
+                            <TermFeePill fee={school.currentTermFee} />
+                            <p className="mt-0.5 text-xs text-slate-600 dark:text-slate-300">{[school.currentTermFee?.term, school.currentTermFee?.session].filter(Boolean).join(', ')}{school.thisTerm ? <> · <b className="tabular-nums text-slate-700 dark:text-slate-200">{naira(school.thisTerm.amount)}</b></> : null}</p>
+                            {school.thisTerm?.note ? <p className="text-xs text-slate-600 dark:text-slate-300">{school.thisTerm.note}</p> : null}
+                          </td>
+                          <td className={`${TD} text-right tabular-nums`}>{naira(school.paid)}{!school.paid ? <span className="block text-xs text-slate-600 dark:text-slate-300">nothing paid yet</span> : null}</td>
                           <td className={`${TD} text-right`}>
-                            <p className={`font-black tabular-nums ${school.outstanding > 0 ? 'text-[#800000] dark:text-rose-300' : ''}`}>{naira(school.outstanding)}</p>
+                            <p className={`font-black tabular-nums ${school.totalOwed > 0 ? 'text-[#800000] dark:text-rose-300' : ''}`}>{naira(school.totalOwed ?? school.outstanding)}</p>
+                            {school.totalOwed > school.outstanding ? <p className="text-xs text-slate-600 dark:text-slate-300">{school.outstanding > 0 ? `${naira(school.outstanding)} invoiced · ` : ''}{naira(school.totalOwed - school.outstanding)} {school.thisTerm?.basis === 'draft' ? 'on a draft' : 'not invoiced'}</p> : null}
                             {school.daysOverdue > 0 ? <p className="text-xs font-semibold text-rose-700 dark:text-rose-300">{school.daysOverdue} days overdue</p> : null}
                           </td>
                           <td className={TD}>
                             {school.lastPayment ? (
-                              <><p className="tabular-nums">{shortDate(school.lastPayment.at)} · <b>{naira(school.lastPayment.amount)}</b></p><p className="text-xs text-slate-500">{school.lastPayment.method} · {school.lastPayment.recordedBy}</p></>
-                            ) : <span className="text-xs text-slate-500">No payment yet</span>}
+                              <><p className="tabular-nums">{shortDate(school.lastPayment.at)} · <b>{naira(school.lastPayment.amount)}</b></p><p className="text-xs text-slate-600 dark:text-slate-300">{school.lastPayment.method} · {school.lastPayment.recordedBy}</p></>
+                            ) : <span className="text-xs text-slate-600 dark:text-slate-300">No payment yet</span>}
                           </td>
-                          {canManage ? <td className={TD}>{school.lastReminder ? <p className="text-xs">{shortDate(school.lastReminder.sentAt)} · {school.lastReminder.channel}<br /><span className="text-slate-500">by {school.lastReminder.sentBy}</span></p> : <span className="text-xs text-slate-500">—</span>}</td> : null}
+                          {canManage ? <td className={TD}>{school.lastReminder ? <p className="text-xs">{shortDate(school.lastReminder.sentAt)} · {school.lastReminder.channel}<br /><span className="text-slate-600 dark:text-slate-300">by {school.lastReminder.sentBy}</span></p> : <span className="text-xs text-slate-600 dark:text-slate-300">—</span>}</td> : null}
                           {canManage ? (
                             <td className={TD}>
                               {school.outstanding > 0 ? (
@@ -206,16 +213,16 @@ export default function AmiFinancePage({ readOnly = false }) {
                                   <button type="button" className="rounded-md bg-[#191970] px-2 py-1 text-xs font-bold text-white disabled:opacity-50" disabled={Boolean(busy)} onClick={() => remind([school.tenantId], 'email')}>Email</button>
                                   <button type="button" className="rounded-md bg-emerald-700 px-2 py-1 text-xs font-bold text-white disabled:opacity-50" disabled={Boolean(busy) || !school.ownerPhone} title={school.ownerPhone ? `WhatsApp ${school.ownerPhone}` : 'No owner phone on file'} onClick={() => remind([school.tenantId], 'whatsapp')}>WhatsApp</button>
                                 </div>
-                              ) : <span className="text-xs text-slate-500">Nothing due</span>}
+                              ) : school.totalOwed > 0 ? <span className="text-xs text-slate-600 dark:text-slate-300">Send the invoice first</span> : <span className="text-xs text-slate-600 dark:text-slate-300">Nothing due</span>}
                             </td>
                           ) : null}
                         </tr>
                       ))}
-                      {!schools.length ? <tr><td colSpan={8} className="px-4 py-8 text-center text-sm text-slate-500">No schools match.</td></tr> : null}
+                      {!schools.length ? <tr><td colSpan={8} className="px-4 py-8 text-center text-sm text-slate-600 dark:text-slate-300">No schools match.</td></tr> : null}
                     </tbody>
                   </table>
                 </div>
-                {canManage ? <p className="px-4 py-3 text-xs text-slate-500">Reminders go only for bills already raised or sent. A school with no invoice this term shows "Unpaid · no invoice": raise its bill under Billing &amp; Pricing first.</p> : null}
+                {canManage ? <p className="px-4 py-3 text-xs text-slate-600 dark:text-slate-300">Reminders go only for bills already raised or sent. A school with no invoice this term shows "Unpaid · no invoice": raise its bill under Billing &amp; Pricing first.</p> : null}
               </div>
             ) : null}
 
@@ -232,14 +239,14 @@ export default function AmiFinancePage({ readOnly = false }) {
                         <tr key={`${payment.id}-${payment.at}`} className="border-t border-slate-100 dark:border-white/5">
                           <td className={`${TD} whitespace-nowrap tabular-nums`}>{shortDate(payment.at)}</td>
                           <td className={`${TD} font-semibold`}>{payment.schoolName}</td>
-                          <td className={TD}>{payment.kind}{payment.period ? <span className="block text-xs text-slate-500">{payment.period}</span> : null}</td>
+                          <td className={TD}>{payment.kind}{payment.period ? <span className="block text-xs text-slate-600 dark:text-slate-300">{payment.period}</span> : null}</td>
                           <td className={`${TD} text-right font-black tabular-nums`}>{naira(payment.amount)}</td>
                           <td className={TD}>{payment.method}</td>
                           <td className={TD}>{payment.recordedBy}</td>
-                          <td className={`${TD} text-xs text-slate-500`}>{payment.reference}{payment.receiptNo ? <span className="block">Receipt {payment.receiptNo}</span> : null}</td>
+                          <td className={`${TD} text-xs text-slate-600 dark:text-slate-300`}>{payment.reference}{payment.receiptNo ? <span className="block">Receipt {payment.receiptNo}</span> : null}</td>
                         </tr>
                       ))}
-                      {!payments.length ? <tr><td colSpan={7} className="px-4 py-8 text-center text-sm text-slate-500">No payments recorded yet.</td></tr> : null}
+                      {!payments.length ? <tr><td colSpan={7} className="px-4 py-8 text-center text-sm text-slate-600 dark:text-slate-300">No payments recorded yet.</td></tr> : null}
                     </tbody>
                   </table>
                 </div>
@@ -272,7 +279,7 @@ export default function AmiFinancePage({ readOnly = false }) {
                           {canManage ? <td className={TD}>{row.voidable ? <button type="button" className="text-xs font-bold text-rose-700 underline" onClick={async () => { if (await askConfirm('Void this entry? It stays in the history, marked void.')) { await voidPlatformLedger(row.id).catch(err => setError(err.message)); load(); } }}>Void</button> : null}</td> : null}
                         </tr>
                       ))}
-                      {!data.ledger.length && !data.payouts.length ? <tr><td colSpan={7} className="px-4 py-8 text-center text-sm text-slate-500">Nothing recorded yet.</td></tr> : null}
+                      {!data.ledger.length && !data.payouts.length ? <tr><td colSpan={7} className="px-4 py-8 text-center text-sm text-slate-600 dark:text-slate-300">Nothing recorded yet.</td></tr> : null}
                     </tbody>
                   </table>
                 </div>
@@ -289,7 +296,7 @@ export default function AmiFinancePage({ readOnly = false }) {
                         <td className={`${TD} tabular-nums`}>{new Date(reminder.sentAt).toLocaleString()}</td><td className={TD}>{reminder.schoolName}</td><td className={`${TD} capitalize`}>{reminder.channel}</td><td className={TD}>{reminder.sentBy}</td>
                       </tr>
                     ))}
-                    {!data.reminders.length ? <tr><td colSpan={4} className="px-4 py-8 text-center text-sm text-slate-500">No reminders sent yet.</td></tr> : null}
+                    {!data.reminders.length ? <tr><td colSpan={4} className="px-4 py-8 text-center text-sm text-slate-600 dark:text-slate-300">No reminders sent yet.</td></tr> : null}
                   </tbody>
                 </table>
               </div>

@@ -414,7 +414,8 @@ import {
 } from './practicePasses'
 import type { ExamKey } from './practicePasses'
 import { builderOverview, inBuildWindow, runBuilderTick, saveBuildSettings } from './practiceBuilder'
-import { DIFFICULTIES as PRACTICE_DIFFICULTIES, GENERATION_LIMITS, generatePracticeQuestions, mapNewSubjects, offeredSubjects, rebuildBankCounts } from './practiceBank'
+import { DIFFICULTIES as PRACTICE_DIFFICULTIES, GENERATION_LIMITS, generatePracticeQuestions, mapNewSubjects, offeredSubjects, rebuildBankCounts, subjectCanonicalizer } from './practiceBank'
+import { checkQuestionSubjects, reportQuestionSubject, takeNightBatch } from './subjectCheck'
 import { HarvestError, MAX_DOC_BYTES, ensureHarvestTables, getNote, listDocuments, listNotes, queueDocument, runDocumentStep, runHarvestTick, setDocumentStatus } from './harvester'
 import type { HarvestDeps } from './harvester'
 import { ensureClassStandardLevel, levelOf, labelOfRank, normalizeSection } from './levels'
@@ -431,7 +432,8 @@ import {
   scheduleAssignmentDigest, scheduleDeadlineReminders, scheduleFeeReminders, ensureEngineTables, resolveRecipients, type CommDeps, type CommEvent, type Scope,
 } from './commEngine'
 import { feeReminderSubject, feeReminderText, schoolEmailHtml, whatsappLinkFor } from './feeReminders'
-import { LEDGER_CATEGORIES, buildFinanceReport, ensurePlatformFinanceTables, platformReminderText } from './platformFinance'
+import { LEDGER_CATEGORIES, buildFinanceReport, buildProfitAndLoss, ensurePlatformFinanceTables, monthsBetween, platformReminderText } from './platformFinance'
+import { DEFAULT_RETENTION_PCT, PAYOUT_FREQUENCIES, buildShareRegister, ensureShareTables, planDistribution, shareholderDues } from './platformShares'
 import { parseMetaStatuses, verifyMetaSignature } from './commAdapters'
 import {
   BirthdayError, cardSvg, celebrationDetail, consentStatus as birthdayConsentStatus, decideWish, getSettings as getBirthdaySettings, listWishes, memories as birthdayMemories,
@@ -7879,18 +7881,29 @@ async function loadPlatformFinance(db: D1Database) {
   const payouts = ((await db.prepare(`SELECT w.id, w.amount, w.status, w.reference, w.created_at, p.name AS partner_name FROM gp_withdrawals w LEFT JOIN growth_partners p ON p.id = w.partner_id ORDER BY w.created_at DESC LIMIT 2000`).all().catch(() => ({ results: [] }))).results || []) as Record<string, any>[]
   const ledger = ((await db.prepare(`SELECT * FROM platform_ledger WHERE voided_at IS NULL ORDER BY occurred_on DESC, created_at DESC LIMIT 2000`).all()).results || []) as Record<string, any>[]
   const reminders = ((await db.prepare(`SELECT tenant_id, channel, sent_at, sent_by FROM platform_fee_reminders ORDER BY sent_at DESC LIMIT 500`).all()).results || []) as Record<string, any>[]
+  const recurring = ((await db.prepare(`SELECT * FROM platform_recurring_expenses ORDER BY start_month DESC LIMIT 500`).all()).results || []) as Record<string, any>[]
   const logos = new Map<string, string>()
   try {
     await ensureBrandingTable(db)
     for (const row of ((await db.prepare(`SELECT tenant_id, logo_url FROM tenant_branding`).all()).results || []) as Record<string, any>[]) logos.set(String(row.tenant_id), String(row.logo_url || ''))
   } catch {}
+  // Billable students per school in one grouped read (billing counts students only).
+  const studentsByTenant = new Map<string, number>()
+  for (const row of ((await db.prepare(`SELECT tenantId, COUNT(*) AS n FROM users WHERE lower(role) = 'student' AND (status IS NULL OR status != 'inactive') AND tenantId IS NOT NULL AND tenantId != '' GROUP BY tenantId`).all().catch(() => ({ results: [] }))).results || []) as Record<string, any>[]) {
+    studentsByTenant.set(String(row.tenantId), Number(row.n || 0))
+  }
+  const { plans } = await getTenantPricingState(db).catch(() => ({ plans: TENANT_PLANS }))
   const schools = []
   for (const tenant of tenants as any[]) {
     const period = await getCurrentSchoolSessionSnapshot(db, tenant.id).catch(() => ({ sessionName: '', termName: '' }))
+    const billableStudents = studentsByTenant.get(String(tenant.id)) || 0
+    let rateCents = 0
+    try { rateCents = Number(buildTenantQuote(tenant.planKey, billableStudents, buildPinnedRateOverride(tenant), plans, { students: billableStudents }).studentFeeCents || 0) } catch {}
     schools.push({
       id: tenant.id, schoolName: tenant.schoolName, ownerName: tenant.ownerName, ownerEmail: tenant.ownerEmail, ownerPhone: tenant.ownerPhone || '',
       contactEmail: schoolContactEmail(tenant), status: tenant.status, logoUrl: logos.get(tenant.id) || '',
       currentTermFee: currentTermFeeOf(bills.filter(bill => bill.tenantId === tenant.id), period.sessionName, period.termName),
+      billableStudents, rateCents,
     })
   }
   return buildFinanceReport({
@@ -7900,6 +7913,19 @@ async function loadPlatformFinance(db: D1Database) {
     payouts: payouts.map(row => ({ id: String(row.id), partnerName: String(row.partner_name || 'Growth partner'), amount: Number(row.amount || 0), status: String(row.status || ''), reference: String(row.reference || ''), createdAt: String(row.created_at || '') })),
     ledger: ledger.map(row => ({ id: String(row.id), kind: String(row.kind), category: String(row.category || ''), description: String(row.description || ''), amountCents: Number(row.amount_cents || 0), occurredOn: String(row.occurred_on || ''), recordedBy: String(row.recorded_by || ''), createdAt: String(row.created_at || '') })),
     reminders: reminders.map(row => ({ tenantId: String(row.tenant_id), channel: String(row.channel), sentAt: String(row.sent_at), sentBy: String(row.sent_by || '') })),
+    recurring: recurring.map(row => ({ id: String(row.id), category: String(row.category || ''), description: String(row.description || ''), amountCents: Number(row.amount_cents || 0), startMonth: String(row.start_month || ''), endMonth: row.end_month ? String(row.end_month) : null })),
+  })
+}
+
+/** Profit and loss over the given months, from the same records as the finance report. */
+function profitAndLossOf(report: Awaited<ReturnType<typeof loadPlatformFinance>>, months: string[]) {
+  const rated = report.schools.filter(school => school.thisTerm.students > 0 && school.thisTerm.rate > 0)
+  const students = rated.reduce((sum, school) => sum + school.thisTerm.students, 0)
+  const averageRatePerStudent = students ? Math.round(rated.reduce((sum, school) => sum + school.thisTerm.students * school.thisTerm.rate, 0) / students * 100) / 100 : 0
+  return buildProfitAndLoss({
+    months, now: new Date(), payments: report.payments, ledger: report.ledger as any, payouts: report.payouts as any,
+    recurring: report.recurring.map(cost => ({ id: cost.id, category: cost.category, description: cost.description, amountCents: cost.amountCents, startMonth: cost.startMonth, endMonth: cost.endMonth })),
+    averageRatePerStudent,
   })
 }
 
@@ -8045,6 +8071,369 @@ app.post('/api/ami/shareholders/:email/status', authenticate, async (c) => {
   if (settings) await upsertSettings(c.env.APP_DB, email, { ...settings, status })
   await addAudit(c.env.APP_DB, TENANT_PRICING_SETTINGS_KEY, { action: status === 'active' ? 'shareholderRestored' : 'shareholderRemoved', data: { by: c.var.user.id, email } }).catch(() => {})
   return c.json({ success: true, status })
+})
+
+// ─── Profit and loss, monthly running costs ──────────────────────────────────
+
+const MONTH_PATTERN = /^\d{4}-(0[1-9]|1[0-2])$/
+
+/** Profit and loss for a year (or any range of months), with the analysis. Ami and shareholders. */
+app.get('/api/platform/pnl', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, FINANCE_READ_ROLES)) return c.json({ error: 'forbidden' }, 403)
+  const year = /^\d{4}$/.test(String(c.req.query('year') || '')) ? String(c.req.query('year')) : new Date().toISOString().slice(0, 4)
+  const from = MONTH_PATTERN.test(String(c.req.query('from') || '')) ? String(c.req.query('from')) : `${year}-01`
+  const to = MONTH_PATTERN.test(String(c.req.query('to') || '')) ? String(c.req.query('to')) : `${year}-12`
+  if (from > to) return c.json({ error: 'The start month is after the end month.' }, 400)
+  try {
+    const report = await loadPlatformFinance(c.env.APP_DB)
+    const months = monthsBetween(from, to).slice(0, 60)
+    const previous = monthsBetween(`${Number(year) - 1}-01`, `${Number(year) - 1}-12`)
+    return c.json({
+      success: true, from, to, year, canManage: hasRequiredRole(c.var.user.role, ['ami']),
+      ...profitAndLossOf(report, months),
+      previousYear: profitAndLossOf(report, previous).totals,
+      recurring: report.recurring, ledgerCategories: LEDGER_CATEGORIES,
+    })
+  } catch (error) {
+    console.error('Profit and loss failed', error)
+    return c.json({ error: 'Could not build the profit and loss.' }, 500)
+  }
+})
+
+/** Ami adds a monthly running cost; it counts in every month from its start until stopped. */
+app.post('/api/ami/finance/recurring', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  await ensurePlatformFinanceTables(c.env.APP_DB)
+  const body = await c.req.json().catch(() => ({})) as Record<string, any>
+  const amountCents = Math.round(Number(body.amount || 0) * 100)
+  if (!(amountCents > 0)) return c.json({ error: 'Enter the monthly amount.' }, 400)
+  const description = String(body.description || '').trim().slice(0, 300)
+  if (!description) return c.json({ error: 'Say what the monthly cost is for.' }, 400)
+  const category = (LEDGER_CATEGORIES.expense as readonly string[]).includes(String(body.category)) ? String(body.category) : 'Other expense'
+  const startMonth = MONTH_PATTERN.test(String(body.startMonth || '')) ? String(body.startMonth) : new Date().toISOString().slice(0, 7)
+  const endMonth = MONTH_PATTERN.test(String(body.endMonth || '')) ? String(body.endMonth) : null
+  if (endMonth && endMonth < startMonth) return c.json({ error: 'The last month is before the first month.' }, 400)
+  const id = `prec_${crypto.randomUUID()}`
+  await c.env.APP_DB.prepare(`INSERT INTO platform_recurring_expenses (id, category, description, amount_cents, start_month, end_month, recorded_by, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`)
+    .bind(id, category, description, amountCents, startMonth, endMonth, amiActorName(c), new Date().toISOString()).run()
+  await addAudit(c.env.APP_DB, TENANT_PRICING_SETTINGS_KEY, { action: 'platformRunningCostAdded', data: { by: c.var.user.id, id, category, amountCents, startMonth } }).catch(() => {})
+  return c.json({ success: true, id })
+})
+
+/** Stop a monthly running cost after a month (it stays counted in the months up to then). */
+app.post('/api/ami/finance/recurring/:id/stop', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  await ensurePlatformFinanceTables(c.env.APP_DB)
+  const body = await c.req.json().catch(() => ({})) as Record<string, any>
+  const endMonth = MONTH_PATTERN.test(String(body.endMonth || '')) ? String(body.endMonth) : new Date().toISOString().slice(0, 7)
+  const result = await c.env.APP_DB.prepare(`UPDATE platform_recurring_expenses SET end_month = ?, stopped_by = ? WHERE id = ? AND start_month <= ?`).bind(endMonth, amiActorName(c), c.req.param('id'), endMonth).run()
+  if (!Number(result?.meta?.changes || 0)) return c.json({ error: 'Running cost not found, or it starts after that month.' }, 404)
+  await addAudit(c.env.APP_DB, TENANT_PRICING_SETTINGS_KEY, { action: 'platformRunningCostStopped', data: { by: c.var.user.id, id: c.req.param('id'), endMonth } }).catch(() => {})
+  return c.json({ success: true })
+})
+
+// ─── Share register, profit sharing and shareholder payouts (platformShares.ts) ─
+
+const SHARE_ACTIONS: Record<string, string> = { issue: 'sharesIssued', transfer: 'sharesTransferred', redeem: 'sharesRedeemed' }
+
+async function loadShares(db: D1Database) {
+  await ensureShareTables(db)
+  const events = ((await db.prepare(`SELECT * FROM platform_share_events WHERE voided_at IS NULL ORDER BY occurred_on, created_at LIMIT 2000`).all()).results || []) as Record<string, any>[]
+  const policyRow = await db.prepare(`SELECT * FROM platform_share_policy WHERE id = 'default'`).first() as Record<string, any> | null
+  const dividends = ((await db.prepare(`SELECT * FROM platform_dividends WHERE voided_at IS NULL ORDER BY to_month DESC LIMIT 200`).all()).results || []) as Record<string, any>[]
+  const lines = dividends.length
+    ? ((await db.prepare(`SELECT l.* FROM platform_dividend_lines l JOIN platform_dividends d ON d.id = l.dividend_id WHERE d.voided_at IS NULL LIMIT 5000`).all()).results || []) as Record<string, any>[]
+    : []
+  const mapped = events.map(row => ({
+    id: String(row.id), kind: String(row.kind) as 'issue' | 'transfer' | 'redeem', email: String(row.email), name: String(row.name || ''), counterpartyEmail: String(row.counterparty_email || ''),
+    counterpartyName: String(row.counterparty_name || ''), shares: Number(row.shares || 0), capitalCents: Number(row.capital_cents || 0), note: String(row.note || ''),
+    occurredOn: String(row.occurred_on), recordedBy: String(row.recorded_by || ''),
+  }))
+  const policy = { retentionPct: policyRow ? Number(policyRow.retention_pct) : DEFAULT_RETENTION_PCT, frequency: String(policyRow?.frequency || 'quarterly'), updatedAt: policyRow?.updated_at || null, updatedBy: String(policyRow?.updated_by || ''), isDefault: !policyRow }
+  return {
+    register: buildShareRegister(mapped), events: mapped.map(event => ({ ...event, capital: event.capitalCents / 100 })).reverse(), policy,
+    dividends: dividends.map(row => ({
+      id: String(row.id), fromMonth: String(row.from_month), toMonth: String(row.to_month), netProfit: Number(row.net_profit_cents) / 100, retentionPct: Number(row.retention_pct),
+      retained: Number(row.retained_cents) / 100, distributable: Number(row.distributable_cents) / 100, totalShares: Number(row.total_shares), note: String(row.note || ''),
+      declaredOn: String(row.declared_on), declaredBy: String(row.declared_by || ''),
+      lines: lines.filter(line => line.dividend_id === row.id).map(line => ({
+        id: String(line.id), email: String(line.email), name: String(line.name || line.email), shares: Number(line.shares), pct: Number(line.pct),
+        amount: Number(line.amount_cents) / 100, amountCents: Number(line.amount_cents), paid: Number(line.paid_cents || 0) / 100, paidCents: Number(line.paid_cents || 0),
+        paidAt: line.paid_at || null, paidReference: String(line.paid_reference || ''), paidBy: String(line.paid_by || ''),
+      })),
+    })),
+  }
+}
+
+/** The register, policy, distributions and what is due to each shareholder. Ami and shareholders. */
+app.get('/api/platform/shares', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, FINANCE_READ_ROLES)) return c.json({ error: 'forbidden' }, 403)
+  try {
+    const shares = await loadShares(c.env.APP_DB)
+    const report = await loadPlatformFinance(c.env.APP_DB)
+    // Profit since the last declared period up to the end of last month (this month is still running).
+    const current = new Date().toISOString().slice(0, 7)
+    const lastMonth = monthsBetween(`${Number(current.slice(0, 4)) - 1}-01`, current).slice(-2)[0]
+    const lastDeclared = shares.dividends.map(row => row.toMonth).sort().pop()
+    const firstRecord = [...report.payments.map(row => String(row.at).slice(0, 7)), ...report.ledger.map((row: any) => String(row.occurredOn).slice(0, 7)), ...report.recurring.map(row => row.startMonth)].filter(Boolean).sort()[0]
+    const projectionFrom = lastDeclared ? monthsBetween(lastDeclared, current)[1] : firstRecord
+    const projectionMonths = projectionFrom && lastMonth && projectionFrom <= lastMonth ? monthsBetween(projectionFrom, lastMonth) : []
+    const projectionNet = projectionMonths.length ? profitAndLossOf(report, projectionMonths).totals.net : 0
+    const plan = planDistribution({ netProfitCents: Math.round(projectionNet * 100), retentionPct: shares.policy.retentionPct, holders: shares.register.holders })
+    const dues = shareholderDues({
+      holders: shares.register.holders,
+      lines: shares.dividends.flatMap(row => row.lines),
+      projection: projectionMonths.length ? { netProfitCents: Math.round(projectionNet * 100), retentionPct: shares.policy.retentionPct } : null,
+    })
+    const viewer = String(c.var.user.email || '').toLowerCase()
+    return c.json({
+      success: true, canManage: hasRequiredRole(c.var.user.role, ['ami']), frequencies: PAYOUT_FREQUENCIES,
+      ...shares, dues, mine: dues.find(row => row.email === viewer) || null,
+      projection: {
+        fromMonth: projectionMonths[0] || null, toMonth: projectionMonths.at(-1) || null, netProfit: projectionNet,
+        retentionPct: plan.retentionPct, retained: plan.retainedCents / 100, distributable: plan.distributableCents / 100,
+        lines: plan.lines.map(line => ({ ...line, amount: line.amountCents / 100 })),
+      },
+    })
+  } catch (error) {
+    console.error('Shares failed', error)
+    return c.json({ error: 'Could not load the share register.' }, 500)
+  }
+})
+
+/** Issue, transfer or redeem shares. Every change is an entry in the register's history. */
+app.post('/api/ami/shares/events', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  const db = c.env.APP_DB
+  const body = await c.req.json().catch(() => ({})) as Record<string, any>
+  const kind = SHARE_ACTIONS[String(body.kind)] ? String(body.kind) : ''
+  if (!kind) return c.json({ error: 'Choose issue, transfer or redeem.' }, 400)
+  const email = String(body.email || '').trim().toLowerCase()
+  const name = String(body.name || '').trim().slice(0, 120)
+  const shares = Math.round(Number(body.shares || 0))
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return c.json({ error: 'Enter the shareholder\'s email.' }, 400)
+  if (!(shares > 0)) return c.json({ error: 'Enter a whole number of shares.' }, 400)
+  const toEmail = String(body.toEmail || '').trim().toLowerCase()
+  if (kind === 'transfer' && (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(toEmail) || toEmail === email)) return c.json({ error: 'Enter the email of the person receiving the shares.' }, 400)
+  const capitalCents = kind === 'issue' ? Math.max(0, Math.round(Number(body.capital || 0) * 100)) : 0
+  const occurredOn = /^\d{4}-\d{2}-\d{2}$/.test(String(body.occurredOn || '')) ? String(body.occurredOn) : new Date().toISOString().slice(0, 10)
+  const current = await loadShares(db)
+  const holder = current.register.holders.find(row => row.email === email)
+  if (kind === 'issue' && !name && !holder) return c.json({ error: 'Enter the new shareholder\'s name.' }, 400)
+  if (kind !== 'issue' && (!holder || holder.shares < shares)) return c.json({ error: `${holder?.name || email} holds ${holder?.shares || 0} shares, so ${shares} cannot be ${kind === 'transfer' ? 'transferred' : 'redeemed'}.` }, 400)
+  const receiver = current.register.holders.find(row => row.email === toEmail)
+  const toName = String(body.toName || '').trim().slice(0, 120) || receiver?.name || ''
+  if (kind === 'transfer' && !toName) return c.json({ error: 'Enter the name of the person receiving the shares.' }, 400)
+  const id = `pshr_${crypto.randomUUID()}`
+  await db.prepare(`INSERT INTO platform_share_events (id, kind, email, name, counterparty_email, counterparty_name, shares, capital_cents, note, occurred_on, recorded_by, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
+    .bind(id, kind, email, name || holder?.name || email, kind === 'transfer' ? toEmail : null, kind === 'transfer' ? toName : null,
+      shares, capitalCents, String(body.note || '').trim().slice(0, 300), occurredOn, amiActorName(c), new Date().toISOString()).run()
+  await addAudit(db, TENANT_PRICING_SETTINGS_KEY, { action: SHARE_ACTIONS[kind], data: { by: c.var.user.id, id, email, toEmail: toEmail || undefined, shares, capitalCents } }).catch(() => {})
+  return c.json({ success: true, id })
+})
+
+/** An entry made by mistake is voided (kept in history, marked void), never deleted. */
+app.post('/api/ami/shares/events/:id/void', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  await ensureShareTables(c.env.APP_DB)
+  const result = await c.env.APP_DB.prepare(`UPDATE platform_share_events SET voided_at = ?, voided_by = ? WHERE id = ? AND voided_at IS NULL`).bind(new Date().toISOString(), amiActorName(c), c.req.param('id')).run()
+  if (!Number(result?.meta?.changes || 0)) return c.json({ error: 'Entry not found.' }, 404)
+  await addAudit(c.env.APP_DB, TENANT_PRICING_SETTINGS_KEY, { action: 'shareEntryVoided', data: { by: c.var.user.id, id: c.req.param('id') } }).catch(() => {})
+  return c.json({ success: true })
+})
+
+/** The profit-sharing policy: the share of profit kept in the business, and how often profit is shared. */
+app.post('/api/ami/shares/policy', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  await ensureShareTables(c.env.APP_DB)
+  const body = await c.req.json().catch(() => ({})) as Record<string, any>
+  const retentionPct = Number(body.retentionPct)
+  if (body.retentionPct === '' || !Number.isFinite(retentionPct) || retentionPct < 0 || retentionPct > 100) return c.json({ error: 'Retention must be between 0 and 100 per cent.' }, 400)
+  const frequency = (PAYOUT_FREQUENCIES as readonly string[]).includes(String(body.frequency)) ? String(body.frequency) : 'quarterly'
+  await c.env.APP_DB.prepare(`INSERT INTO platform_share_policy (id, retention_pct, frequency, updated_at, updated_by) VALUES ('default', ?, ?, ?, ?)
+    ON CONFLICT(id) DO UPDATE SET retention_pct = excluded.retention_pct, frequency = excluded.frequency, updated_at = excluded.updated_at, updated_by = excluded.updated_by`)
+    .bind(retentionPct, frequency, new Date().toISOString(), amiActorName(c)).run()
+  await addAudit(c.env.APP_DB, TENANT_PRICING_SETTINGS_KEY, { action: 'profitSharingPolicyUpdated', data: { by: c.var.user.id, retentionPct, frequency } }).catch(() => {})
+  return c.json({ success: true })
+})
+
+/**
+ * Declare a profit distribution for a run of finished months: the net profit from the profit
+ * and loss, less the retained share, split by the register as it stands. Periods never overlap.
+ */
+app.post('/api/ami/shares/dividends', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  const db = c.env.APP_DB
+  const body = await c.req.json().catch(() => ({})) as Record<string, any>
+  const fromMonth = String(body.fromMonth || '')
+  const toMonth = String(body.toMonth || '')
+  const current = new Date().toISOString().slice(0, 7)
+  if (!MONTH_PATTERN.test(fromMonth) || !MONTH_PATTERN.test(toMonth) || fromMonth > toMonth) return c.json({ error: 'Choose the first and last month of the period.' }, 400)
+  if (toMonth >= current) return c.json({ error: 'Only finished months can be shared; the current month is still running.' }, 400)
+  const shares = await loadShares(db)
+  if (shares.dividends.some(row => row.fromMonth <= toMonth && row.toMonth >= fromMonth)) return c.json({ error: 'Part of that period has already been shared.' }, 409)
+  if (!shares.register.totalShares) return c.json({ error: 'Record the shareholders and their shares first.' }, 400)
+  const report = await loadPlatformFinance(db)
+  const net = profitAndLossOf(report, monthsBetween(fromMonth, toMonth)).totals.net
+  if (!(net > 0)) return c.json({ error: `That period made ${net < 0 ? 'a loss' : 'no profit'} (₦${net.toLocaleString('en-NG')}), so there is nothing to share.` }, 400)
+  const plan = planDistribution({ netProfitCents: Math.round(net * 100), retentionPct: shares.policy.retentionPct, holders: shares.register.holders })
+  const id = `pdiv_${crypto.randomUUID()}`
+  await db.batch([
+    db.prepare(`INSERT INTO platform_dividends (id, from_month, to_month, net_profit_cents, retention_pct, retained_cents, distributable_cents, total_shares, note, declared_on, declared_by) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
+      .bind(id, fromMonth, toMonth, plan.netProfitCents, plan.retentionPct, plan.retainedCents, plan.distributableCents, plan.totalShares, String(body.note || '').trim().slice(0, 300), new Date().toISOString(), amiActorName(c)),
+    ...plan.lines.map(line => db.prepare(`INSERT INTO platform_dividend_lines (id, dividend_id, email, name, shares, pct, amount_cents, paid_cents) VALUES (?, ?, ?, ?, ?, ?, ?, 0)`)
+      .bind(`pdl_${crypto.randomUUID()}`, id, line.email, line.name, line.shares, line.pct, line.amountCents)),
+  ])
+  await addAudit(db, TENANT_PRICING_SETTINGS_KEY, { action: 'profitDistributionDeclared', data: { by: c.var.user.id, id, fromMonth, toMonth, distributableCents: plan.distributableCents } }).catch(() => {})
+  return c.json({ success: true, id, ...plan })
+})
+
+/** Undo a distribution declared by mistake, while nothing of it has been paid. */
+app.post('/api/ami/shares/dividends/:id/void', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  await ensureShareTables(c.env.APP_DB)
+  const paid = await c.env.APP_DB.prepare(`SELECT 1 FROM platform_dividend_lines WHERE dividend_id = ? AND paid_cents > 0 LIMIT 1`).bind(c.req.param('id')).first()
+  if (paid) return c.json({ error: 'Part of this distribution has been paid out, so it cannot be undone.' }, 409)
+  const result = await c.env.APP_DB.prepare(`UPDATE platform_dividends SET voided_at = ?, voided_by = ? WHERE id = ? AND voided_at IS NULL`).bind(new Date().toISOString(), amiActorName(c), c.req.param('id')).run()
+  if (!Number(result?.meta?.changes || 0)) return c.json({ error: 'Distribution not found.' }, 404)
+  await addAudit(c.env.APP_DB, TENANT_PRICING_SETTINGS_KEY, { action: 'profitDistributionVoided', data: { by: c.var.user.id, id: c.req.param('id') } }).catch(() => {})
+  return c.json({ success: true })
+})
+
+/** Record money paid to a shareholder against their line of a distribution. */
+app.post('/api/ami/shares/dividend-lines/:id/pay', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  const db = c.env.APP_DB
+  await ensureShareTables(db)
+  const line = await db.prepare(`SELECT l.* FROM platform_dividend_lines l JOIN platform_dividends d ON d.id = l.dividend_id WHERE l.id = ? AND d.voided_at IS NULL`).bind(c.req.param('id')).first() as Record<string, any> | null
+  if (!line) return c.json({ error: 'Payout line not found.' }, 404)
+  const body = await c.req.json().catch(() => ({})) as Record<string, any>
+  const left = Number(line.amount_cents) - Number(line.paid_cents || 0)
+  const amountCents = body.amount === undefined || body.amount === '' ? left : Math.round(Number(body.amount) * 100)
+  if (!(amountCents > 0) || amountCents > left) return c.json({ error: `Enter an amount up to ₦${(left / 100).toLocaleString('en-NG')}.` }, 400)
+  const reference = String(body.reference || '').trim().slice(0, 120)
+  if (!reference) return c.json({ error: 'Enter the transfer reference.' }, 400)
+  const paidAt = /^\d{4}-\d{2}-\d{2}$/.test(String(body.paidOn || '')) ? `${body.paidOn}T12:00:00.000Z` : new Date().toISOString()
+  const references = [String(line.paid_reference || ''), reference].filter(Boolean).join('; ').slice(0, 500)
+  await db.prepare(`UPDATE platform_dividend_lines SET paid_cents = paid_cents + ?, paid_at = ?, paid_reference = ?, paid_by = ? WHERE id = ?`).bind(amountCents, paidAt, references, amiActorName(c), line.id).run()
+  await addAudit(db, TENANT_PRICING_SETTINGS_KEY, { action: 'shareholderPaid', data: { by: c.var.user.id, lineId: line.id, email: line.email, amountCents, reference } }).catch(() => {})
+  return c.json({ success: true })
+})
+
+// ─── Audit trail and reports, from the records ───────────────────────────────
+
+const AUDIT_SCAN_ROWS = 5000
+
+/** "termFeeMarkedPaid" → "Term fee marked paid". */
+function humanizeAction(action: string) {
+  const words = String(action || 'unknown').replace(/[_-]+/g, ' ').replace(/([a-z0-9])([A-Z])/g, '$1 $2').toLowerCase().trim()
+  return words.charAt(0).toUpperCase() + words.slice(1)
+}
+
+/**
+ * Every recorded action on Ndovera, newest first: who did it, what, to which school or person.
+ * Reads are bounded: at most the latest 5,000 entries in the date range are scanned per search.
+ */
+app.get('/api/ami/audit-logs', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  const db = c.env.APP_DB
+  await db.prepare(HEADER_AUDIT_DDL).run()
+  await db.prepare(`CREATE INDEX IF NOT EXISTS idx_audit_ts ON audit (ts)`).run().catch(() => {})
+  const from = /^\d{4}-\d{2}-\d{2}$/.test(String(c.req.query('from') || '')) ? `${c.req.query('from')}T00:00:00.000Z` : '0000'
+  const to = /^\d{4}-\d{2}-\d{2}$/.test(String(c.req.query('to') || '')) ? `${c.req.query('to')}T23:59:59.999Z` : '9999'
+  const limit = Math.max(1, Math.min(500, Number(c.req.query('limit') || 200)))
+  const search = String(c.req.query('search') || '').trim().toLowerCase().slice(0, 80)
+  const rows = ((await db.prepare(
+    `SELECT id, studentId, ts, action, data FROM (SELECT * FROM audit WHERE ts >= ? AND ts <= ? ORDER BY ts DESC LIMIT ${AUDIT_SCAN_ROWS})
+     WHERE ? = '' OR lower(action) LIKE ? OR lower(studentId) LIKE ? OR lower(data) LIKE ? ORDER BY ts DESC LIMIT ?`,
+  ).bind(from, to, search, `%${search}%`, `%${search}%`, `%${search}%`, limit).all()).results || []) as Record<string, any>[]
+  // Names for the schools and people the entries mention, in two bounded reads.
+  const tenants = new Map((await listTenants(db)).map((tenant: any) => [String(tenant.id), String(tenant.schoolName)]))
+  const parsed = rows.map(row => { let data: Record<string, any> = {}; try { data = JSON.parse(String(row.data || '{}')) || {} } catch {} return { row, data } })
+  const actorIds = [...new Set(parsed.map(({ data }) => String(data.by || data.actor || data.actorId || '')).filter(Boolean))].slice(0, 100)
+  const people = new Map<string, string>()
+  if (actorIds.length) {
+    const marks = actorIds.map(() => '?').join(',')
+    for (const user of ((await db.prepare(`SELECT id, email, name, role FROM users WHERE id IN (${marks}) OR lower(email) IN (${marks})`).bind(...actorIds, ...actorIds.map(id => id.toLowerCase())).all().catch(() => ({ results: [] }))).results || []) as Record<string, any>[]) {
+      const label = `${user.name || user.email}${user.role ? ` (${user.role})` : ''}`
+      people.set(String(user.id), label)
+      people.set(String(user.email || '').toLowerCase(), label)
+    }
+  }
+  const targetOf = (key: string, data: Record<string, any>) => {
+    const raw = String(key || '')
+    const tenantId = raw.startsWith('tenant:') ? raw.slice(7) : raw
+    if (tenants.has(tenantId)) return tenants.get(tenantId) as string
+    if (raw === TENANT_PRICING_SETTINGS_KEY) return 'Ndovera finance & pricing'
+    if (data.tenantId && tenants.has(String(data.tenantId))) return `${raw} · ${tenants.get(String(data.tenantId))}`
+    return raw
+  }
+  const logs = parsed.map(({ row, data }) => {
+    const actorKey = String(data.by || data.actor || data.actorId || '')
+    const { by, actor, actorId, ...rest } = data
+    const detail = Object.entries(rest).filter(([, value]) => value !== undefined && value !== null && value !== '').map(([key, value]) => `${key}: ${typeof value === 'object' ? JSON.stringify(value) : String(value)}`).join(' · ').slice(0, 400)
+    return {
+      id: String(row.id), timestamp: String(row.ts || ''), action: humanizeAction(String(row.action)), actionKey: String(row.action || ''),
+      actor: actorKey ? (people.get(actorKey) || people.get(actorKey.toLowerCase()) || actorKey) : 'System',
+      target: targetOf(String(row.studentId || ''), data), detail, result: 'success',
+    }
+  })
+  return c.json({ success: true, logs, scanned: AUDIT_SCAN_ROWS, truncated: rows.length >= limit })
+})
+
+/**
+ * Executive report, every figure counted from the records: schools by state, people on
+ * Ndovera, money in, owed and spent, profit this year, and the last 30 days of recorded actions.
+ */
+app.get('/api/ami/reports/summary', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  const db = c.env.APP_DB
+  try {
+    await ensureUsersTable(db)
+    const tenants = await listTenants(db) as any[]
+    const people = ((await db.prepare(`SELECT lower(COALESCE(primary_role, role)) AS role, CASE WHEN status IS NULL OR lower(status) = 'active' THEN 1 ELSE 0 END AS active, COUNT(*) AS n FROM users WHERE tenantId IS NOT NULL AND tenantId != '' GROUP BY 1, 2`).all()).results || []) as Record<string, any>[]
+    const count = (filter: (row: Record<string, any>) => boolean) => people.filter(filter).reduce((sum, row) => sum + Number(row.n || 0), 0)
+    const report = await loadPlatformFinance(db)
+    const year = new Date().toISOString().slice(0, 4)
+    const pnl = profitAndLossOf(report, monthsBetween(`${year}-01`, new Date().toISOString().slice(0, 7)))
+    const since = new Date(Date.now() - 30 * 86400000).toISOString()
+    await db.prepare(HEADER_AUDIT_DDL).run()
+    await db.prepare(`CREATE INDEX IF NOT EXISTS idx_audit_ts ON audit (ts)`).run().catch(() => {})
+    const activity = ((await db.prepare(`SELECT action, COUNT(*) AS n FROM (SELECT action FROM audit WHERE ts >= ? ORDER BY ts DESC LIMIT ${AUDIT_SCAN_ROWS}) GROUP BY action ORDER BY n DESC`).bind(since).all().catch(() => ({ results: [] }))).results || []) as Record<string, any>[]
+    const SECURITY_ACTIONS = /password|support|access|closure|deactivat|removed|deleted|reset|lock/i
+    const kpis = report.kpis
+    return c.json({
+      success: true, generatedAt: new Date().toISOString(),
+      schools: {
+        total: tenants.length,
+        active: tenants.filter(t => t.status === 'active').length,
+        suspended: tenants.filter(t => t.status === 'suspended').length,
+        pendingApproval: tenants.filter(t => t.approvalStatus !== 'approved').length,
+        onboardingUnpaid: tenants.filter(t => t.paymentStatus !== 'paid').length,
+        list: report.schools.map(school => ({ tenantId: school.tenantId, schoolName: school.schoolName, status: school.status, students: school.thisTerm.students, paid: school.paid, owed: school.totalOwed, thisTerm: school.thisTerm.note })),
+      },
+      people: {
+        studentsActive: count(row => row.role === 'student' && Number(row.active) === 1),
+        studentsInactive: count(row => row.role === 'student' && Number(row.active) !== 1),
+        staffActive: count(row => !['student', 'parent'].includes(String(row.role)) && Number(row.active) === 1),
+        staffInactive: count(row => !['student', 'parent'].includes(String(row.role)) && Number(row.active) !== 1),
+        parents: count(row => row.role === 'parent'),
+      },
+      finance: {
+        collectedAllTime: kpis.collectedAllTime, collectedThisYear: kpis.collectedThisYear, paymentsCount: kpis.paymentsCount, schoolsPaid: kpis.schoolsPaid,
+        owedTotal: kpis.owedTotal, owedInvoiced: kpis.outstanding, owedDraft: kpis.owedDraft, owedNotInvoiced: kpis.owedNotInvoiced, overdue: kpis.overdue,
+        revenueThisYear: pnl.totals.revenue, expensesThisYear: pnl.totals.expenses, netThisYear: pnl.totals.net, marginThisYear: pnl.totals.margin,
+      },
+      activity: {
+        since, total: activity.reduce((sum, row) => sum + Number(row.n || 0), 0),
+        top: activity.slice(0, 10).map(row => ({ action: humanizeAction(String(row.action)), count: Number(row.n || 0) })),
+        security: activity.filter(row => SECURITY_ACTIONS.test(String(row.action))).map(row => ({ action: humanizeAction(String(row.action)), count: Number(row.n || 0) })),
+      },
+    })
+  } catch (error) {
+    console.error('Ami report failed', error)
+    return c.json({ error: 'Could not build the report.' }, 500)
+  }
 })
 
 app.get('/api/ami/tenants/term-bills', authenticate, async (c) => {
@@ -16243,6 +16632,16 @@ app.post('/api/practice-arena/attempts', authenticate, async (c) => {
   } catch (error) { return practiceFailure(c, error, 'Could not save the quiz.') }
 })
 
+/** "Not this subject": two students, or one member of staff, hold the question until Ndovera AI checks it again. */
+app.post('/api/practice-arena/questions/:id/report-subject', authenticate, async (c) => {
+  const user = c.var.user || {}
+  const role = String(normalizeRole(user.role) || user.role || '').toLowerCase()
+  if (!user.id || role === 'parent') return c.json({ error: 'forbidden' }, 403)
+  const result = await reportQuestionSubject(c.env.APP_DB, { questionId: String(c.req.param('id') || ''), reporterId: String(user.id), role: role === 'student' ? 'student' : role, tenantId: String(user.tenantId || '') })
+  if (!result.found) return c.json({ error: 'Question not found.' }, 404)
+  return c.json({ success: true, held: result.held })
+})
+
 app.get('/api/practice-arena/leaderboard', authenticate, async (c) => {
   try {
     const student = await resolvePracticeStudent(c)
@@ -16570,6 +16969,15 @@ app.post('/api/ami/practice/recount', authenticate, async (c) => {
     await rebuildExamStock(c.env.APP_DB)
     return c.json({ success: true, ...(await rebuildBankCounts(c.env.APP_DB)) })
   } catch (error) { return practiceFailure(c, error, 'Could not recount the practice bank.') }
+})
+
+/** Ami: run one batch of the subject check now (it also runs nightly), and see what is held. */
+app.post('/api/ami/practice/subject-check', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  const db = c.env.APP_DB
+  const result = await checkQuestionSubjects(db, assessmentAiRunner(c.env), { canonicalOf: await subjectCanonicalizer(db) })
+  const held = ((await db.prepare(`SELECT subject_check, COUNT(*) AS n FROM question_bank WHERE subject_check IN ('wrong', 'reported', 'moved') GROUP BY subject_check`).all()).results || []) as Record<string, any>[]
+  return c.json({ success: true, ...result, totals: Object.fromEntries(held.map(row => [String(row.subject_check), Number(row.n || 0)])) })
 })
 
 /** Ami: match new subject names now (it also runs nightly). */
@@ -37214,6 +37622,16 @@ export default {
         .then(row => (row ? null : rebuildBankCounts(env.APP_DB))).catch(() => rebuildBankCounts(env.APP_DB).catch(() => null)))
     }
     if (at.getUTCHours() === 1 && at.getUTCMinutes() === 20) ctx.waitUntil(mapNewSubjects(env.APP_DB, assessmentAiRunner(env)).catch(error => console.error('Subject matching failed', error)))
+    // The subject check: in the night window a batch every ten minutes within its nightly allowance;
+    // by day, reported questions once an hour (no AI call when none are reported).
+    const nightCheck = inBuildWindow(at) && at.getUTCMinutes() % 10 === 5
+    if (nightCheck || at.getUTCMinutes() === 50) {
+      ctx.waitUntil((nightCheck ? takeNightBatch(env.APP_DB, new Date(at.getTime() + 3600_000).toISOString().slice(0, 10)) : Promise.resolve(true))
+        .then(allowed => (allowed ? subjectCanonicalizer(env.APP_DB) : null))
+        .then(canonicalOf => (canonicalOf ? checkQuestionSubjects(env.APP_DB, assessmentAiRunner(env), { canonicalOf, reportedOnly: !nightCheck }) : { checked: 0, ok: 0, moved: 0, held: 0 }))
+        .then(result => { if (result.moved || result.held) console.log('Subject check', result) })
+        .catch(error => console.error('Subject check failed', error)))
+    }
     // Staff emails (submission reminders, weekly summary, punctuality tips): one school every other minute, mornings only.
     if (new Date().getUTCMinutes() % 2 === 0) {
       ctx.waitUntil(runDueStaffEmails(env).catch(error => console.error('Staff emails failed', error)))
