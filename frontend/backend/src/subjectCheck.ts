@@ -20,8 +20,8 @@ export type AiRunner = (messages: Array<{ role: string, content: string }>, opti
 export const HELD_SUBJECT_CHECKS = ['wrong', 'reported']
 export const SUBJECT_SERVABLE_SQL = (alias = 'q') => `COALESCE(${alias}.subject_check, '') NOT IN ('wrong', 'reported')`
 export const SUBJECT_CHECK_BATCH = 25
-// Batches a night: the Worker's AI budget is shared with the night builder (free plan).
-export const SUBJECT_CHECKS_PER_NIGHT = 12
+// Batches a night (paid Worker plan): one every other minute of the 00:00–04:00 window, about 3,000 questions.
+export const SUBJECT_CHECKS_PER_NIGHT = 120
 export const REPORTS_TO_HOLD = 2
 
 const now = () => new Date().toISOString()

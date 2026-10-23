@@ -37622,9 +37622,9 @@ export default {
         .then(row => (row ? null : rebuildBankCounts(env.APP_DB))).catch(() => rebuildBankCounts(env.APP_DB).catch(() => null)))
     }
     if (at.getUTCHours() === 1 && at.getUTCMinutes() === 20) ctx.waitUntil(mapNewSubjects(env.APP_DB, assessmentAiRunner(env)).catch(error => console.error('Subject matching failed', error)))
-    // The subject check: in the night window a batch every ten minutes within its nightly allowance;
+    // The subject check: in the night window a batch every other minute within its nightly allowance;
     // by day, reported questions once an hour (no AI call when none are reported).
-    const nightCheck = inBuildWindow(at) && at.getUTCMinutes() % 10 === 5
+    const nightCheck = inBuildWindow(at) && at.getUTCMinutes() % 2 === 1
     if (nightCheck || at.getUTCMinutes() === 50) {
       ctx.waitUntil((nightCheck ? takeNightBatch(env.APP_DB, new Date(at.getTime() + 3600_000).toISOString().slice(0, 10)) : Promise.resolve(true))
         .then(allowed => (allowed ? subjectCanonicalizer(env.APP_DB) : null))

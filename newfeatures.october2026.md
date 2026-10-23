@@ -2358,5 +2358,5 @@ From feature22222222.md.
 > IN PRACTICE, STUDENTS COMPLAIN OF SEEING ICT QUESTIONS IN AGRICULTURAL SCIENCE
 
 - Cause: a question takes the subject its source was filed under; a paper filed under the wrong subject brought its questions into that subject, and Ndovera AI then wrote more questions on those topics.
-- Ndovera AI now checks every question's subject (12 batches a night); wrong ones move to their real subject or are held back. Students can press "Not this subject?" (2 students or 1 staff hold it until rechecked).
+- Ndovera AI now checks every question's subject (up to 120 batches a night, about 3,000 questions); wrong ones move to their real subject or are held back. Students can press "Not this subject?" (2 students or 1 staff hold it until rechecked).
 - AI question writing takes topics from the class, then the published curriculum, never from unchecked bank questions. Subject names are only joined when the names agree (Agric and ICT can never be merged).
