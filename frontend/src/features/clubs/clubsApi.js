@@ -1,6 +1,7 @@
 import { getApiUrl } from '../../config/apiBase';
 import { buildSelectedRoleHeader } from '../auth/services/authApi';
 import { currentUserKey, getItem, isOnline, setItem } from '../../shared/offline/offlineStore';
+import { enqueue, isRetryable, registerSender } from '../../shared/offline/outbox';
 
 // Clubs (Worker: clubs.ts). A club's page — its notes, links and work — is kept on
 // the device each time it is opened, so notes can be read with no internet.
@@ -51,7 +52,20 @@ export const removeMember = (clubId, userId) => request(`/api/clubs/${id(clubId)
 export const setLeader = (clubId, userId, leader) => request(`/api/clubs/${id(clubId)}/members/${id(userId)}/leader`, { method: 'POST', body: { leader } });
 export const createPost = (clubId, payload) => request(`/api/clubs/${id(clubId)}/posts`, { method: 'POST', body: payload });
 export const withdrawPost = (clubId, postId) => request(`/api/clubs/${id(clubId)}/posts/${id(postId)}`, { method: 'DELETE' });
-export const submitWork = (clubId, postId, payload) => request(`/api/clubs/${id(clubId)}/posts/${id(postId)}/submit`, { method: 'POST', body: payload });
+const sendWork = (clubId, postId, payload) => request(`/api/clubs/${id(clubId)}/posts/${id(postId)}/submit`, { method: 'POST', body: payload });
+registerSender('club-submit', ({ clubId, postId, payload }) => sendWork(clubId, postId, payload));
+
+/** Hand in club work. With no connection it waits on the device and goes by itself when Ndovera is back. */
+export async function submitWork(clubId, postId, payload) {
+  try {
+    return await sendWork(clubId, postId, payload);
+  } catch (error) {
+    if (!isRetryable(error)) throw error;
+    const submittedAt = new Date().toISOString();
+    await enqueue('club-submit', { clubId, postId, payload }, { label: 'Club hand-in' });
+    return { success: true, queued: true, submission: { ...payload, queued: true, submittedAt } };
+  }
+}
 export const listWork = (clubId, postId) => request(`/api/clubs/${id(clubId)}/posts/${id(postId)}/submissions`);
 export const markWork = (clubId, submissionId, payload) => request(`/api/clubs/${id(clubId)}/submissions/${id(submissionId)}/mark`, { method: 'POST', body: payload });
 

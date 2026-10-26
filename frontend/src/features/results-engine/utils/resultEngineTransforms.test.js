@@ -1,4 +1,4 @@
-import { buildEntryPayload, normalizeTeacherSheetResponse } from './resultEngineTransforms';
+import { buildEntryPayload, findScoreEntryProblems, normalizeTeacherSheetResponse, scoreEntryProblem } from './resultEngineTransforms';
 
 const settings = {
   gradingScale: [{ minScore: 70, grade: 'A' }, { minScore: 0, grade: 'F' }],
@@ -59,4 +59,23 @@ test('after the class hand-in only students first scored since then can be edite
   // A typed zero is sent as entered.
   const rows = buildEntryPayload(draft, { studentIds: ['s-3'], touched: new Set(['s-3::m1']) });
   expect(rows).toEqual([expect.objectContaining({ studentId: 's-3', subjectId: 'm1', entered: true })]);
+});
+
+describe('a score typed above the maximum is kept as typed and flagged, never cut down', () => {
+  const settings = { metadata: { caMaxScore: 40, examMaxScore: 60, caComponents: [{ key: 'ca1', label: 'CA 1', maxScore: 20 }, { key: 'ca2', label: 'CA 2', maxScore: 20 }] } };
+
+  test('scoreEntryProblem names what is wrong', () => {
+    expect(scoreEntryProblem('8', 20)).toBe('');
+    expect(scoreEntryProblem('', 20)).toBe('');
+    expect(scoreEntryProblem('20', 20)).toBe('');
+    expect(scoreEntryProblem('28', 20)).toBe('The most is 20');
+    expect(scoreEntryProblem('-1', 20)).toBe('Cannot be below 0');
+  });
+
+  test('the sheet lists every out-of-range score, and a corrected one drops off', () => {
+    const sheet = { settings, students: [{ id: 's1', name: 'Ada', rows: [{ subjectId: 'm', subjectName: 'Mathematics', typed: { ca1: '28', ca2: '8', exam: '61' } }] }] };
+    expect(findScoreEntryProblems(sheet).map(problem => `${problem.label}:${problem.value}`)).toEqual(['CA 1:28', 'Exam:61']);
+    sheet.students[0].rows[0].typed = { ca1: '8', ca2: '8', exam: '60' };
+    expect(findScoreEntryProblems(sheet)).toEqual([]);
+  });
 });

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import StudentSectionShell from './StudentSectionShell';
 import { getStudentDashboard } from '../../../services/roleDashboardService';
 import { getStoredAuth } from '../../../features/auth/services/authApi';
+import { prefetchStudentTasks } from '../../../features/classroom/studentTasks';
 
 export default function StudentOverview() {
   const storedAuth = getStoredAuth();
@@ -36,12 +37,17 @@ export default function StudentOverview() {
       const resolvedName = (result.studentName && result.studentName !== 'Student')
         ? result.studentName
         : storedName;
-      const nextClassId = result.classId || null;
+      // With no connection the dashboard is a stand-in without a class: keep the class this
+      // device knows, or the student's saved assignments would disappear with it.
+      const fromNdovera = result._meta?.source !== 'fallback';
+      const nextClassId = fromNdovera ? result.classId || null : storedUser.classId || null;
       const nextClassName = result.className || storedUser.className || null;
 
       if (nextClassId) {
         window.localStorage.setItem('classroomId', nextClassId);
-      } else {
+        // Download the class's work now, so it is on this phone when the network is not.
+        prefetchStudentTasks();
+      } else if (fromNdovera) {
         window.localStorage.removeItem('classroomId');
       }
 

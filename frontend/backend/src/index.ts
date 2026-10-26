@@ -12282,7 +12282,18 @@ app.post('/api/assignments/:assignmentId/submit', authenticate, async (c) => {
     let overtime = false
     let attemptId = ''
     if (timedMinutes(assignment as any) > 0) {
-      const attempt = await openAttempt(c.env.APP_DB, assignmentId, String(studentId))
+      let attempt = await openAttempt(c.env.APP_DB, assignmentId, String(studentId))
+      // Started on the device with no connection: the attempt is recorded from that start
+      // (at most 72 hours back, never after the hand-in), with the same time limit.
+      const offlineStartMs = Date.parse(String(payload?.startedOfflineAt || ''))
+      if (!attempt && offlineAt && Number.isFinite(offlineStartMs) && offlineStartMs <= Date.parse(effectiveNow) && Date.now() - offlineStartMs <= 72 * 3600_000) {
+        const startedAt = new Date(offlineStartMs).toISOString()
+        let deadline = new Date(offlineStartMs + timedMinutes(assignment as any) * 60 * 1000).toISOString()
+        if (meta.closesAt && String(meta.closesAt) < deadline && meta.latePolicy === 'reject') deadline = String(meta.closesAt)
+        await c.env.APP_DB.prepare(`INSERT INTO assignment_attempts (id, assignment_id, student_id, started_at, deadline) VALUES (?, ?, ?, ?, ?)`)
+          .bind(`att-${crypto.randomUUID()}`, assignmentId, String(studentId), startedAt, deadline).run()
+        attempt = await openAttempt(c.env.APP_DB, assignmentId, String(studentId))
+      }
       if (!attempt) return c.json({ success: false, message: 'Start the assessment before submitting it.' }, 409)
       attemptId = String(attempt.id)
       if (Date.parse(effectiveNow) > Date.parse(attempt.deadline) + TIMED_GRACE_MS) {

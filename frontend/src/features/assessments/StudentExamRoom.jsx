@@ -60,7 +60,8 @@ function ExamRoom({ paper, onDone }) {
       const result = await submitAssignment(paper.assignment.id, { answers: answersRef.current });
       if (result && result.success === false) throw new Error(result.message || 'Could not submit.');
       try { localStorage.removeItem(draftKey(paper)); } catch { /* storage unavailable */ }
-      onDone(auto ? 'Time is up — your answers were submitted.' : 'Submitted. Your teacher will post your score.');
+      if (result?.queued) onDone(`${auto ? 'Time is up. ' : ''}No connection: your answers are saved on this device and will be sent by themselves when the internet is back. They count from now.`);
+      else onDone(auto ? 'Time is up — your answers were submitted.' : 'Submitted. Your teacher will post your score.');
     } catch (err) {
       submitted.current = false;
       setError(err.message || 'Could not submit. Check your connection and try again.');

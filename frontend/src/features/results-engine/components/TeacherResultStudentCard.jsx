@@ -9,7 +9,11 @@ import {
   RESULT_TABLE_ROW,
   getBatchTone,
 } from './resultSheetTheme';
-import { normalizeCaComponentDefinitions, resolveResultScoreModel } from '../utils/resultEngineTransforms';
+import { normalizeCaComponentDefinitions, resolveResultScoreModel, scoreEntryProblem } from '../utils/resultEngineTransforms';
+
+// A score above the maximum stays as typed, outlined in red with the reason under it.
+const INVALID_INPUT = '!border-rose-500 ring-2 ring-rose-400/60';
+const INVALID_NOTE = 'mt-1 block text-[11px] font-semibold text-rose-700 dark:text-rose-300';
 
 // The behaviour section (attendance, affective areas, ratings, remarks) folds away; the choice
 // is remembered on the device so it stays folded from student to student.
@@ -122,31 +126,40 @@ export default function TeacherResultStudentCard({
                     <span className={`block text-[10px] font-normal ${RESULT_BODY}`}>Locked by a higher override</span>
                   )}
                 </td>
-                {caComponentDefinitions.map(component => (
+                {caComponentDefinitions.map(component => {
+                  const problem = scoreEntryProblem(row.typed?.[component.key], component.maxScore);
+                  return (
                   <td key={`${row.subjectId}-${component.key}`} className="py-3 px-3">
                     <input
                       type="number"
                       min={0}
                       max={component.maxScore}
-                      value={row.caComponents?.[component.key] ?? ''}
+                      aria-label={`${row.subjectName} ${component.label}`}
+                      aria-invalid={problem ? true : undefined}
+                      value={row.typed?.[component.key] ?? row.caComponents?.[component.key] ?? ''}
                       onChange={event => onCaComponentChange(student.id, row.subjectId, component.key, event.target.value)}
                       disabled={row.editable === false || (row.frozenKeys || []).includes(component.key) || (row.frozenKeys || []).includes('all')}
                       title={(row.frozenKeys || []).includes(component.key) || (row.frozenKeys || []).includes('all') ? 'Handed in — locked until it is returned' : undefined}
-                      className={`${RESULT_INPUT} disabled:cursor-not-allowed disabled:opacity-60`}
+                      className={`${RESULT_INPUT} disabled:cursor-not-allowed disabled:opacity-60 ${problem ? INVALID_INPUT : ''}`}
                     />
+                    {problem && <span className={INVALID_NOTE}>{problem}</span>}
                   </td>
-                ))}
+                  );
+                })}
                 <td className={`py-3 px-3 font-semibold ${RESULT_BODY}`}>{row.ca}</td>
                 <td className="py-3 px-3">
                   <input
                     type="number"
                     min={0}
                     max={scoreModel.examMaxScore}
-                    value={row.exam}
+                    aria-label={`${row.subjectName} exam`}
+                    aria-invalid={scoreEntryProblem(row.typed?.exam, scoreModel.examMaxScore) ? true : undefined}
+                    value={row.typed?.exam ?? row.exam}
                     onChange={event => onScoreChange(student.id, row.subjectId, 'exam', event.target.value)}
                     disabled={row.editable === false}
-                    className={`${RESULT_INPUT} disabled:cursor-not-allowed disabled:opacity-60`}
+                    className={`${RESULT_INPUT} disabled:cursor-not-allowed disabled:opacity-60 ${scoreEntryProblem(row.typed?.exam, scoreModel.examMaxScore) ? INVALID_INPUT : ''}`}
                   />
+                  {scoreEntryProblem(row.typed?.exam, scoreModel.examMaxScore) && <span className={INVALID_NOTE}>{scoreEntryProblem(row.typed?.exam, scoreModel.examMaxScore)}</span>}
                 </td>
                 <td className={`py-3 px-3 font-semibold ${RESULT_BODY}`}>{row.total}</td>
                 <td className={`py-3 px-3 font-black ${RESULT_HEADING}`}>{row.grade || '—'}</td>

@@ -7,19 +7,22 @@
 //              assignment, a person, a fee record, an announcement…);
 //   'user'   — the person's messages (a new message, or one read elsewhere).
 //
-// It also tracks whether Ndovera can be reached. 'offline' (no network) and
-// 'unavailable' (the server or database is down or refusing: 502/503/504, or a
-// time-out) are treated the same way by the app: keep the role and data already
-// loaded, show saved copies, and queue work in the outbox until 'ok' returns.
+// It also tracks whether Ndovera can be reached: 'offline' (the device has no network),
+// 'poor' (the device is connected but requests get no answer or time out — the person's
+// own network: weak signal, slow data, no data bundle) and 'unavailable' (Ndovera answered
+// that it is down or refusing: 502/503/504). The app treats them the same way — keep the
+// role and data already loaded, show saved copies, queue work in the outbox until 'ok' —
+// but tells the person which one it is, so a weak signal is not blamed on Ndovera.
 
 import { getApiUrl } from '../../config/apiBase';
 import { buildSelectedRoleHeader, getStoredAuth } from '../../features/auth/services/authApi';
+import { deviceOffline } from './networkErrors';
 
 const CHECK_MS = 30000;
 // Mobile data is often slow: give a check time before calling it a failure.
 const TIMEOUT_MS = 20000;
-// One failed request on a slow or patchy connection is not "Ndovera is unavailable":
-// the notice shows only after this many failures in a row, confirmed by a quick re-check.
+// One failed request on a slow or patchy connection is not worth a notice: it shows only
+// after this many failures in a row, confirmed by a quick re-check.
 const FAILURES_BEFORE_NOTICE = 2;
 const RECHECK_MS = 5000;
 
@@ -44,8 +47,8 @@ function publish(next) {
 }
 
 /**
- * 'ok' and 'offline' (the device itself says it has no network) apply at once. 'unavailable'
- * applies only after FAILURES_BEFORE_NOTICE failures in a row; the first one asks again shortly.
+ * 'ok' and 'offline' (the device itself says it has no network) apply at once. 'poor' and
+ * 'unavailable' apply only after FAILURES_BEFORE_NOTICE failures in a row; the first one asks again shortly.
  */
 export function setConnectionStatus(next) {
   if (next === 'ok') {
@@ -54,7 +57,7 @@ export function setConnectionStatus(next) {
     publish('ok');
     return;
   }
-  if (next === 'unavailable') {
+  if (next === 'unavailable' || next === 'poor') {
     failures += 1;
     if (failures < FAILURES_BEFORE_NOTICE) {
       if (!recheck && typeof window !== 'undefined') recheck = setTimeout(() => { recheck = null; checkNow(); }, RECHECK_MS);
@@ -64,7 +67,7 @@ export function setConnectionStatus(next) {
   publish(next);
 }
 
-/** listener(status): 'ok' | 'offline' | 'unavailable'. Returns an unsubscribe function. */
+/** listener(status): 'ok' | 'offline' | 'poor' | 'unavailable'. Returns an unsubscribe function. */
 export function subscribeConnection(listener) {
   statusListeners.add(listener);
   return () => statusListeners.delete(listener);
@@ -90,7 +93,7 @@ export function checkNow() {
   inFlight = (async () => {
     const auth = getStoredAuth();
     if (!auth?.token) return;
-    if (typeof navigator !== 'undefined' && navigator.onLine === false) { setConnectionStatus('offline'); return; }
+    if (deviceOffline()) { setConnectionStatus('offline'); return; }
     const controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
     const abort = setTimeout(() => controller?.abort(), TIMEOUT_MS);
     try {
@@ -100,7 +103,10 @@ export function checkNow() {
         signal: controller?.signal,
         headers: { Authorization: `Bearer ${auth.token}`, 'X-No-Offline-Cache': '1', ...buildSelectedRoleHeader() },
       });
-      if (response.headers.get('X-Ndovera-Offline') || isServerUnavailable(response.status)) { setConnectionStatus('unavailable'); return; }
+      // A saved copy from the app's worker says why: Ndovera refused ('server'), or the network gave no answer.
+      const savedCopy = response.headers.get('X-Ndovera-Offline');
+      if (isServerUnavailable(response.status) && savedCopy !== 'network') { setConnectionStatus('unavailable'); return; }
+      if (savedCopy) { setConnectionStatus(savedCopy === 'server' ? 'unavailable' : deviceOffline() ? 'offline' : 'poor'); return; }
       if (!response.ok) return; // 401 and friends are the session's business, not connectivity
       const data = await response.json().catch(() => null);
       if (!data) return;
@@ -110,7 +116,8 @@ export function checkNow() {
       last = next;
       if (moved.length) changeListeners.forEach(listener => { try { listener(moved); } catch {} });
     } catch {
-      setConnectionStatus(typeof navigator !== 'undefined' && navigator.onLine === false ? 'offline' : 'unavailable');
+      // No answer at all, or none in 20 s: the network between this device and Ndovera.
+      setConnectionStatus(deviceOffline() ? 'offline' : 'poor');
     } finally {
       clearTimeout(abort);
     }

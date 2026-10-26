@@ -430,6 +430,10 @@ export function clearStoredAuth() {
 	window.localStorage.removeItem('selectedRole');
 	window.localStorage.removeItem('tenantSubdomain');
 	window.localStorage.removeItem(TENANT_SITE_URL_KEY);
+	// The class belongs to the person signing out: left behind, the next person on this
+	// phone would be shown that class's assignments instead of their own.
+	window.localStorage.removeItem('classroomId');
+	window.localStorage.removeItem('teacherClassroomId');
 	clearLocalCachePrefix(API_RESPONSE_CACHE_PREFIX);
 	clearLocalCachePrefix(JSON_RESPONSE_CACHE_PREFIX);
 	clearAuthCookie();

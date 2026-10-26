@@ -333,9 +333,11 @@ export async function submitWork(db: D1Database, actor: ClubActor, clubId: strin
   const existing = await db.prepare(`SELECT * FROM club_submissions WHERE post_id = ? AND lower(student_id) = lower(?)`).bind(postId, actor.id).first() as Record<string, any> | null
   const stamp = now()
   if (row.kind === 'quiz') {
-    if (existing) throw new ClubError('You have already taken this quiz.', 409)
     const questions = parse<QuizQuestion[]>(row.questions_json, [])
     const answers = input.answers && typeof input.answers === 'object' ? input.answers as Record<string, unknown> : {}
+    // The same answers again is a hand-in sent twice (a phone retrying after a dropped connection), not a second try.
+    if (existing && String(existing.answers_json || '') === JSON.stringify(answers)) return mySubmission(existing, mapPost(row, access), questions)
+    if (existing) throw new ClubError('You have already taken this quiz.', 409)
     const marked = markQuiz(questions, answers)
     await db.prepare(`INSERT INTO club_submissions (id, post_id, club_id, tenant_id, student_id, student_name, answers_json, score, total, submitted_at, marked_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
       .bind(newId('csub'), postId, clubId, actor.tenantId, actor.id, actor.name, JSON.stringify(answers), marked.score, marked.total, stamp, stamp).run()

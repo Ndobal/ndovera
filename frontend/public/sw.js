@@ -48,7 +48,7 @@ var OFFLINE_PAGE = [
   '.card{background:rgba(15,23,42,.6);border-color:rgba(255,255,255,.1)}h1{color:#f1f5f9}}',
   '</style></head><body><div class="card">',
   '<h1>You are offline</h1>',
-  '<p>NDOVERA needs a connection to open. Reconnect and try again — nothing you saved is lost.</p>',
+  '<p>Your phone or computer is not getting internet: mobile data or Wi-Fi is off, the signal is too weak, or the data bundle has run out. NDOVERA itself is fine. Reconnect and try again — nothing you saved is lost.</p>',
   '<button onclick="location.reload()">Try again</button>',
   '</div></body></html>'
 ].join('');
@@ -377,9 +377,11 @@ function apiCacheKey(request) {
   return new Request(url.toString(), { method: 'GET' });
 }
 
-function withOfflineHeader(response) {
+// Why a saved copy was used: 'server' (Ndovera answered 502/503/504), 'slow' (no answer within
+// 9 s) or 'network' (no answer at all). The page tells the person whose connection it was.
+function withOfflineHeader(response, reason) {
   var headers = new Headers(response.headers);
-  headers.set('X-Ndovera-Offline', '1');
+  headers.set('X-Ndovera-Offline', reason || 'network');
   return response.blob().then(function (body) {
     return new Response(body, { status: response.status, statusText: response.statusText, headers: headers });
   });
@@ -408,7 +410,7 @@ function apiNetworkFirst(event) {
     if (response.status === 502 || response.status === 503 || response.status === 504) {
       reportServerStatus('unavailable');
       return caches.open(API_CACHE).then(function (cache) { return cache.match(key); }).then(function (kept) {
-        return kept ? withOfflineHeader(kept) : response;
+        return kept ? withOfflineHeader(kept, 'server') : response;
       });
     }
     if (response.status < 500) reportServerStatus('ok');
@@ -421,14 +423,14 @@ function apiNetworkFirst(event) {
   var slow = new Promise(function (resolve) { setTimeout(resolve, 9000); }).then(function () {
     return caches.open(API_CACHE).then(function (cache) { return cache.match(key); }).then(function (kept) {
       if (!kept) return network;
-      return withOfflineHeader(kept);
+      return withOfflineHeader(kept, 'slow');
     });
   });
   return Promise.race([network, slow]).catch(function () {
     return caches.open(API_CACHE).then(function (cache) { return cache.match(key); }).then(function (kept) {
-      if (kept) return withOfflineHeader(kept);
-      return new Response(JSON.stringify({ success: false, offline: true, message: 'You are offline and this has not been opened on this device before.' }), {
-        status: 503, headers: { 'Content-Type': 'application/json', 'X-Ndovera-Offline': '1' }
+      if (kept) return withOfflineHeader(kept, 'network');
+      return new Response(JSON.stringify({ success: false, offline: true, message: 'Your internet connection is not reaching Ndovera (no network, a weak signal or no data), and this page has not been opened on this device before.' }), {
+        status: 503, headers: { 'Content-Type': 'application/json', 'X-Ndovera-Offline': 'network' }
       });
     });
   });

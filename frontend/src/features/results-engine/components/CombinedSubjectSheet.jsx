@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { getGroupScoreSheet, saveGroupScores, submitGroupScores } from '../../school/services/schoolApi';
-import { computeGrade, normalizeCaComponentDefinitions, resolveResultScoreModel } from '../utils/resultEngineTransforms';
+import { computeGrade, normalizeCaComponentDefinitions, resolveResultScoreModel, scoreEntryProblem } from '../utils/resultEngineTransforms';
 import { RESULT_BODY, RESULT_BUTTON, RESULT_HEADING, RESULT_INNER_SURFACE, RESULT_INPUT, RESULT_LABEL, RESULT_SECONDARY_BUTTON, RESULT_SURFACE, RESULT_TABLE_HEAD } from './resultSheetTheme';
 
 // A combined subject (one subject taught to students of several classes): every
@@ -9,6 +9,9 @@ import { RESULT_BODY, RESULT_BUTTON, RESULT_HEADING, RESULT_INNER_SURFACE, RESUL
 
 const keyOf = (classId, studentId) => `${classId}::${studentId}`;
 const clamp = (value, max) => Math.max(0, Math.min(Number(max) || 0, Number(value) || 0));
+// A score above the maximum stays as typed, outlined in red with the reason under it.
+const INVALID_INPUT = '!border-rose-500 ring-2 ring-rose-400/60';
+const INVALID_NOTE = 'mt-1 block text-[11px] font-semibold text-rose-700 dark:text-rose-300';
 
 export default function CombinedSubjectSheet({ groupId }) {
   const [data, setData] = useState(null);
@@ -20,6 +23,9 @@ export default function CombinedSubjectSheet({ groupId }) {
   const [message, setMessage] = useState('');
   const [report, setReport] = useState(null);
   const dirtyRef = useRef(new Set());
+  const [editTick, setEditTick] = useState(0);
+  const scoresRef = useRef(scores);
+  scoresRef.current = scores;
 
   const load = useCallback(async () => {
     const next = await getGroupScoreSheet(groupId);
@@ -55,29 +61,62 @@ export default function CombinedSubjectSheet({ groupId }) {
   function change(student, field, value, componentKey) {
     const key = keyOf(student.classId, student.id);
     dirtyRef.current.add(key);
+    setEditTick(tick => tick + 1);
     setScores(currentScores => {
       const before = currentScores[key] || { caComponents: {}, examScore: 0 };
+      const typed = { ...(before.typed || {}), [field === 'ca' ? componentKey : 'exam']: value };
       const next = field === 'ca'
-        ? { ...before, caComponents: { ...before.caComponents, [componentKey]: Number(value || 0) } }
-        : { ...before, examScore: Number(value || 0) };
+        ? { ...before, typed, caComponents: { ...before.caComponents, [componentKey]: Number(value || 0) } }
+        : { ...before, typed, examScore: Number(value || 0) };
       return { ...currentScores, [key]: next };
     });
   }
 
-  async function saveDirty({ announce = false } = {}) {
-    const pending = [...dirtyRef.current];
-    if (!pending.length) { if (announce) setMessage('Nothing new to save.'); return true; }
-    setSaving(true); setError(''); setMessage('');
+  /** Scores typed out of range, by student key: not saved, and the subject cannot be submitted, until corrected. */
+  function entryProblems() {
+    const components = normalizeCaComponentDefinitions(data?.settings);
+    const examMax = resolveResultScoreModel(data?.settings).examMaxScore;
+    const found = [];
+    Object.entries(scores).forEach(([key, value]) => {
+      Object.entries(value?.typed || {}).forEach(([field, text]) => {
+        const component = components.find(item => item.key === field);
+        const problem = scoreEntryProblem(text, field === 'exam' ? examMax : component?.maxScore ?? Infinity);
+        if (problem) found.push({ key, label: field === 'exam' ? 'Exam' : component?.label || field, value: text, problem });
+      });
+    });
+    return found;
+  }
+
+  async function saveDirty({ announce = false, auto = false } = {}) {
+    if (saving) return false;
+    const blocked = new Set(entryProblems().map(problem => problem.key));
+    const pending = [...dirtyRef.current].filter(key => !blocked.has(key));
+    const blockedNote = blocked.size ? 'Scores shown in red are above the maximum (or not valid), so they were not saved. Correct them and they save by themselves.' : '';
+    if (!pending.length) {
+      if (blockedNote && !auto) setError(blockedNote);
+      else if (announce) setMessage('Nothing new to save.');
+      return true;
+    }
+    setSaving(true);
+    if (!auto) { setError(''); setMessage(''); }
     try {
       const rows = pending.map(key => {
         const [classId, studentId] = key.split('::');
         const value = scores[key] || {};
         return { classId, studentId, caComponents: value.caComponents || {}, examScore: value.examScore || 0, entered: true };
       });
+      const sentValues = new Map(pending.map(key => [key, scores[key]]));
       const result = await saveGroupScores({ groupId, rows });
+      // Scores held back (in red) or changed while the save was on its way stay as they are on screen.
+      const keep = Object.fromEntries(Object.entries(scoresRef.current).filter(([key, entry]) => dirtyRef.current.has(key) && (!sentValues.has(key) || sentValues.get(key) !== entry)));
       await load();
+      if (Object.keys(keep).length) {
+        setScores(currentScores => ({ ...currentScores, ...keep }));
+        Object.keys(keep).forEach(key => dirtyRef.current.add(key));
+      }
       const problems = [...(result.errors || []), ...(result.locked || []).map(item => `${item.className}: a submitted score was not changed`)];
       if (problems.length) setError(problems.join(' · '));
+      else if (blockedNote && !auto) setError(blockedNote);
       if (announce) setMessage(`${result.savedRows || 0} score${result.savedRows === 1 ? '' : 's'} saved.`);
       return true;
     } catch (err) {
@@ -85,8 +124,17 @@ export default function CombinedSubjectSheet({ groupId }) {
       return false;
     } finally {
       setSaving(false);
+      // Typing during the save: save that too, a moment from now.
+      if (dirtyRef.current.size) setEditTick(tick => tick + 1);
     }
   }
+
+  // Scores save themselves as a draft a moment after typing stops; submitting is still a separate step.
+  useEffect(() => {
+    if (!editTick) return undefined;
+    const timer = setTimeout(() => { saveDirty({ auto: true }); }, 2500);
+    return () => clearTimeout(timer);
+  }, [editTick]); // eslint-disable-line react-hooks/exhaustive-deps
 
   async function goTo(next) {
     if (saving) return;
@@ -115,6 +163,8 @@ export default function CombinedSubjectSheet({ groupId }) {
   const caTotal = value ? Math.min(scoreModel.caMaxScore, components.reduce((sum, component) => sum + clamp(value.caComponents?.[component.key], component.maxScore), 0)) : 0;
   const total = value ? Math.min(scoreModel.totalMaxScore, caTotal + clamp(value.examScore, scoreModel.examMaxScore)) : 0;
   const isLocked = current ? locked(current) : false;
+  const problems = entryProblems();
+  const fieldProblem = field => scoreEntryProblem(value?.typed?.[field], field === 'exam' ? scoreModel.examMaxScore : components.find(item => item.key === field)?.maxScore ?? Infinity);
 
   return (
     <div className="space-y-4">
@@ -164,15 +214,17 @@ export default function CombinedSubjectSheet({ groupId }) {
                     <tr>
                       {components.map(component => (
                         <td key={component.key} className="px-3 py-2">
-                          <input type="number" min={0} max={component.maxScore} disabled={isLocked} aria-label={component.label}
-                            value={value.caComponents?.[component.key] ?? ''} onChange={event => change(current, 'ca', event.target.value, component.key)}
-                            className={`${RESULT_INPUT} disabled:opacity-60`} />
+                          <input type="number" min={0} max={component.maxScore} disabled={isLocked} aria-label={component.label} aria-invalid={fieldProblem(component.key) ? true : undefined}
+                            value={value.typed?.[component.key] ?? value.caComponents?.[component.key] ?? ''} onChange={event => change(current, 'ca', event.target.value, component.key)}
+                            className={`${RESULT_INPUT} disabled:opacity-60 ${fieldProblem(component.key) ? INVALID_INPUT : ''}`} />
+                          {fieldProblem(component.key) && <span className={INVALID_NOTE}>{fieldProblem(component.key)}</span>}
                         </td>
                       ))}
                       <td className={`px-3 py-2 font-semibold ${RESULT_BODY}`}>{caTotal}</td>
                       <td className="px-3 py-2">
-                        <input type="number" min={0} max={scoreModel.examMaxScore} disabled={isLocked} aria-label="Exam"
-                          value={value.examScore ?? ''} onChange={event => change(current, 'exam', event.target.value)} className={`${RESULT_INPUT} disabled:opacity-60`} />
+                        <input type="number" min={0} max={scoreModel.examMaxScore} disabled={isLocked} aria-label="Exam" aria-invalid={fieldProblem('exam') ? true : undefined}
+                          value={value.typed?.exam ?? value.examScore ?? ''} onChange={event => change(current, 'exam', event.target.value)} className={`${RESULT_INPUT} disabled:opacity-60 ${fieldProblem('exam') ? INVALID_INPUT : ''}`} />
+                        {fieldProblem('exam') && <span className={INVALID_NOTE}>{fieldProblem('exam')}</span>}
                       </td>
                       <td className={`px-3 py-2 font-semibold ${RESULT_BODY}`}>{total}</td>
                       <td className={`px-3 py-2 font-black ${RESULT_HEADING}`}>{computeGrade(total, gradingScale) || '—'}</td>
@@ -202,6 +254,18 @@ export default function CombinedSubjectSheet({ groupId }) {
                 </div>
               ))}
             </div>
+            {problems.length > 0 && (
+              <div role="alert" className="rounded-2xl border border-rose-300 bg-rose-50 p-3 text-sm text-rose-900 dark:border-rose-400/40 dark:bg-rose-500/10 dark:text-rose-100">
+                <p className="font-bold">These scores are not allowed, so the subject cannot be submitted yet. Correct them first:</p>
+                <ul className="mt-1 space-y-1">
+                  {problems.map(problem => {
+                    const position = students.findIndex(student => keyOf(student.classId, student.id) === problem.key);
+                    const student = students[position];
+                    return <li key={`${problem.key}-${problem.label}`}><button type="button" className="font-semibold underline" onClick={() => setIndex(Math.max(0, position))}>{student ? `${student.name} (${student.className})` : 'A student'} · {problem.label}: {problem.value}</button> — {problem.problem}</li>;
+                  })}
+                </ul>
+              </div>
+            )}
             {missing.length > 0 && <p className="text-sm font-semibold text-amber-800">Still without a score: {missing.map(student => `${student.name} (${student.className})`).join(', ')}.</p>}
             {report && (
               <ul className={`list-disc pl-5 text-sm ${RESULT_BODY}`}>
@@ -209,7 +273,7 @@ export default function CombinedSubjectSheet({ groupId }) {
               </ul>
             )}
             <div className="flex flex-wrap gap-2">
-              {data.permissions?.canSubmit && <button type="button" className={RESULT_BUTTON} disabled={saving || missing.length > 0} onClick={submit}>{saving ? 'Submitting…' : 'Submit to class teachers'}</button>}
+              {data.permissions?.canSubmit && <button type="button" className={RESULT_BUTTON} disabled={saving || missing.length > 0 || problems.length > 0} onClick={submit}>{saving ? 'Submitting…' : 'Submit to class teachers'}</button>}
               <button type="button" className={RESULT_SECONDARY_BUTTON} disabled={saving} onClick={() => saveDirty({ announce: true })}>Save as draft</button>
             </div>
           </div>

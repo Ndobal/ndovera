@@ -12,7 +12,7 @@ import {
   saveTeacherProfiles,
   saveTeacherScoreSheet,
 } from '../service/resultEngineService';
-import { recomputeTeacherSheet } from '../utils/resultEngineTransforms';
+import { findScoreEntryProblems, recomputeTeacherSheet } from '../utils/resultEngineTransforms';
 import BroadsheetTable from './BroadsheetTable';
 import SubjectRankings from './SubjectRankings';
 import TeacherResultStudentCard from './TeacherResultStudentCard';
@@ -98,6 +98,10 @@ export default function TeacherCAScoreSheet({ dashboardLabel = 'Teacher Dashboar
   // Students with unsaved changes, and the rows typed into (so a typed zero is kept).
   const dirtyRef = useRef(new Set());
   const touchedRef = useRef(new Set());
+  const editsRef = useRef(new Map());
+  const savingRef = useRef(false);
+  const [editTick, setEditTick] = useState(0);
+  const [draftSavedAt, setDraftSavedAt] = useState(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -185,6 +189,8 @@ export default function TeacherCAScoreSheet({ dashboardLabel = 'Teacher Dashboar
 
   function updateStudent(studentId, change) {
     dirtyRef.current.add(studentId);
+    editsRef.current.set(studentId, (editsRef.current.get(studentId) || 0) + 1);
+    setEditTick(tick => tick + 1);
     setSheet(current => current ? recomputeTeacherSheet({
       ...current,
       students: current.students.map(student => student.id !== studentId ? student : change(student)),
@@ -193,14 +199,15 @@ export default function TeacherCAScoreSheet({ dashboardLabel = 'Teacher Dashboar
 
   function handleScoreChange(studentId, subjectId, field, value) {
     touchedRef.current.add(`${studentId}::${subjectId}`);
-    updateStudent(studentId, student => ({ ...student, rows: student.rows.map(row => row.subjectId !== subjectId ? row : ({ ...row, [field]: Number(value || 0) })) }));
+    // The box keeps exactly what was typed (a score above the maximum is shown in red, not cut down).
+    updateStudent(studentId, student => ({ ...student, rows: student.rows.map(row => row.subjectId !== subjectId ? row : ({ ...row, typed: { ...(row.typed || {}), [field]: value }, [field]: Number(value || 0) })) }));
   }
 
   function handleCaComponentChange(studentId, subjectId, componentKey, value) {
     touchedRef.current.add(`${studentId}::${subjectId}`);
     updateStudent(studentId, student => ({
       ...student,
-      rows: student.rows.map(row => row.subjectId !== subjectId ? row : ({ ...row, caComponents: { ...(row.caComponents || {}), [componentKey]: Number(value || 0) } })),
+      rows: student.rows.map(row => row.subjectId !== subjectId ? row : ({ ...row, typed: { ...(row.typed || {}), [componentKey]: value }, caComponents: { ...(row.caComponents || {}), [componentKey]: Number(value || 0) } })),
     }));
   }
 
@@ -221,17 +228,30 @@ export default function TeacherCAScoreSheet({ dashboardLabel = 'Teacher Dashboar
     updateStudent(studentId, student => ({ ...student, profile: { ...student.profile, [group]: { ...(student.profile?.[group] || {}), [key]: Number(value || 0) } } }));
   }
 
-  /** Saves every student with unsaved changes. Returns false when the save failed. */
-  async function saveDirty({ announce = false } = {}) {
-    if (!sheet) return false;
-    const pending = [...dirtyRef.current];
+  /**
+   * Saves every student with unsaved changes. Returns false when the save failed. A student
+   * with a score out of range is not saved (their boxes keep what was typed) until it is fixed.
+   * `auto` is the quiet save a few seconds after typing stops.
+   */
+  async function saveDirty({ announce = false, auto = false } = {}) {
+    if (!sheet || savingRef.current) return !savingRef.current;
+    const blocked = new Set(findScoreEntryProblems(sheet).map(problem => problem.studentId));
+    const pending = [...dirtyRef.current].filter(id => !blocked.has(id));
+    const blockedNote = blocked.size ? 'Scores shown in red are above the maximum (or not valid), so they were not saved. Correct them and they save by themselves.' : '';
     if (!pending.length) {
-      if (announce) setMessage('Nothing new to save.');
+      if (blockedNote && !auto) setError(blockedNote);
+      else if (announce) setMessage('Nothing new to save.');
       return true;
     }
+    // Typing that goes on while this save is on its way is kept, and saved next.
+    const versions = new Map(pending.map(id => [id, editsRef.current.get(id) || 0]));
+    const settled = () => pending.filter(id => (editsRef.current.get(id) || 0) === versions.get(id));
+    savingRef.current = true;
     setSaving(true);
-    setError('');
-    setMessage('');
+    if (!auto) {
+      setError('');
+      setMessage('');
+    }
     try {
       const studentById = new Map(sheet.students.map(student => [student.id, student]));
       const profileIds = pending.filter(id => !sheet.published && (!sheet.submitted || studentById.get(id)?.late));
@@ -239,12 +259,19 @@ export default function TeacherCAScoreSheet({ dashboardLabel = 'Teacher Dashboar
         await saveTeacherProfiles(sheet, { studentIds: profileIds, reload: false });
       }
       const next = await saveTeacherScoreSheet(sheet, { reason: overrideReason, studentIds: pending, touched: touchedRef.current });
-      pending.forEach(id => dirtyRef.current.delete(id));
-      touchedRef.current = new Set([...touchedRef.current].filter(key => !pending.includes(key.split('::')[0])));
-      setSheet(next);
+      const done = settled();
+      done.forEach(id => dirtyRef.current.delete(id));
+      touchedRef.current = new Set([...touchedRef.current].filter(key => !done.includes(key.split('::')[0])));
+      // Students still being edited (or held back for a score in red) keep what is on screen.
+      setSheet(current => {
+        const keep = new Map((current?.students || []).filter(student => dirtyRef.current.has(student.id)).map(student => [student.id, student]));
+        return keep.size ? recomputeTeacherSheet({ ...next, students: next.students.map(student => keep.get(student.id) || student) }) : next;
+      });
+      setDraftSavedAt(new Date());
       if (announce || next.lastSave?.overrides) setMessage(describeSaveReport(next.lastSave));
       const lockedMessage = describeLockedRows(next.lastSave);
       if (lockedMessage) setError(lockedMessage);
+      else if (blockedNote && !auto) setError(blockedNote);
       if (next.lastSave?.overrides) setOverrideReason('');
       setRefreshKey(key => key + 1);
       setOffline(null);
@@ -254,7 +281,7 @@ export default function TeacherCAScoreSheet({ dashboardLabel = 'Teacher Dashboar
       if (isRetryable(saveError)) {
         try {
           await queueTeacherSave(sheet, { reason: overrideReason, studentIds: pending, touched: touchedRef.current, profiles: Boolean(sheet.permissions?.canManageProfiles && !sheet.submitted) });
-          pending.forEach(id => dirtyRef.current.delete(id));
+          settled().forEach(id => dirtyRef.current.delete(id));
           setOffline(current => current || { savedAt: new Date().toISOString() });
           setMessage('Saved on this device. The scores are sent to Ndovera by themselves when you are back online.');
           return true;
@@ -263,9 +290,19 @@ export default function TeacherCAScoreSheet({ dashboardLabel = 'Teacher Dashboar
       setError(saveError.message || 'Unable to save these scores.');
       return false;
     } finally {
+      savingRef.current = false;
       setSaving(false);
+      // Typing during the save: save that too, a moment from now.
+      if (dirtyRef.current.size) setEditTick(tick => tick + 1);
     }
   }
+
+  // Scores save themselves as a draft a moment after typing stops; handing in is still a separate step.
+  useEffect(() => {
+    if (!editTick || !sheet || sheet.published) return undefined;
+    const timer = setTimeout(() => { saveDirty({ auto: true }); }, 2500);
+    return () => clearTimeout(timer);
+  }, [editTick]); // eslint-disable-line react-hooks/exhaustive-deps
 
   async function goTo(index) {
     if (saving) return;
@@ -337,6 +374,7 @@ export default function TeacherCAScoreSheet({ dashboardLabel = 'Teacher Dashboar
     setActiveTab('preview');
   }
 
+  const entryProblems = sheet ? findScoreEntryProblems(sheet) : [];
   const isPractice = sheet?.mode === 'practice';
   const practicePublished = isPractice && sheet?.published;
   const examStatus = sheet?.examPeriod?.status || 'none';
@@ -421,6 +459,9 @@ export default function TeacherCAScoreSheet({ dashboardLabel = 'Teacher Dashboar
             <button type="button" onClick={() => saveDirty({ announce: true })} disabled={saving || !sheet?.configurationReady} className={RESULT_SECONDARY_BUTTON}>
               {saving ? 'Saving…' : 'Save as draft'}
             </button>
+          )}
+          {sheet && !sheet.published && draftSavedAt && (
+            <span role="status" className={`text-xs font-semibold ${RESULT_BODY}`}>Draft saved {draftSavedAt.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
           )}
           {sheet && !sheet.submitted && !sheet.published && (
             <button type="button" onClick={() => { setActiveTab('sheet'); goTo(finishIndex); }} disabled={saving} className={RESULT_BUTTON}>
@@ -617,6 +658,19 @@ export default function TeacherCAScoreSheet({ dashboardLabel = 'Teacher Dashboar
                     </div>
                   </div>
                 </>
+              ) : entryProblems.length ? (
+                <div role="alert" className="space-y-2 rounded-2xl border border-rose-300 bg-rose-50 p-4 text-sm text-rose-900 dark:border-rose-400/40 dark:bg-rose-500/10 dark:text-rose-100">
+                  <p className="font-bold">These scores are not allowed, so the sheet cannot be {sheet.permissions?.canHandIn ? 'handed in' : 'submitted'} yet. Correct them first:</p>
+                  <ul className="space-y-1">
+                    {entryProblems.map(problem => (
+                      <li key={`${problem.studentId}-${problem.subjectName}-${problem.label}`}>
+                        <button type="button" className="text-left font-semibold underline" onClick={() => setStudentIndex(Math.max(0, visibleStudents.findIndex(student => student.id === problem.studentId)))}>
+                          {problem.studentName} · {problem.subjectName} · {problem.label}: {problem.value}
+                        </button> — {problem.problem}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               ) : (
                 <ClassHandInPanel sheet={sheet} onSheet={next => { setSheet(next); setRefreshKey(key => key + 1); }} onSaveDraft={() => saveDirty({ announce: true })} saving={saving} />
               )}

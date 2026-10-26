@@ -1,17 +1,12 @@
 import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import StudentSectionShell from './StudentSectionShell';
-import { getStoredAuth } from '../../../features/auth/services/authApi';
-import { getAssignments, submitAssignment } from '../../../features/classroom/classroomService';
+import { submitAssignment } from '../../../features/classroom/classroomService';
+import { clearAnswerDraft, loadStudentAssignments, readAnswerDraft, saveAnswerDraft } from '../../../features/classroom/studentTasks';
 import RichContent from '../../../shared/rich/RichContent';
 import { CountdownBar, useTimedAttempt } from '../../../features/classroom/assignments/TimedAttempt';
 import { subscribeChanges } from '../../../shared/offline/changeWatcher';
-
-
-function getCurrentClassId() {
-  const storedAuth = getStoredAuth();
-  return localStorage.getItem('classroomId') || storedAuth?.user?.classId || '';
-}
+import { subscribe as subscribeOutbox } from '../../../shared/offline/outbox';
 
 function typeLabel(type) {
   switch (String(type || '').toLowerCase()) {
@@ -55,6 +50,7 @@ const STATUS_CHIP = {
   todo: ['To do', 'bg-amber-400/25 text-amber-100 border-amber-300/40'],
   overdue: ['Overdue', 'bg-rose-500/25 text-rose-100 border-rose-300/40'],
   submitted: ['Submitted', 'bg-emerald-500/25 text-emerald-100 border-emerald-300/40'],
+  queued: ['Waiting to send', 'bg-sky-100 text-sky-900 border-sky-300 dark:bg-sky-500/25 dark:text-sky-100 dark:border-sky-300/40'],
   marked: ['Marked', 'bg-indigo-500/30 text-indigo-100 border-indigo-300/40'],
 };
 
@@ -358,6 +354,7 @@ function AssignmentQuestion({ question, value, onChange, index }) {
 function AssignmentDetail({ assignment, onSubmissionSaved }) {
   const submissionAnswers = useMemo(() => assignment?.mySubmission?.content?.answers || {}, [assignment?.mySubmission?.content?.answers]);
   const [answers, setAnswers] = useState(submissionAnswers);
+  const touched = useRef(false);
   const [submitting, setSubmitting] = useState(false);
   const submittingRef = useRef(false);
   const [notice, setNotice] = useState('');
@@ -366,13 +363,32 @@ function AssignmentDetail({ assignment, onSubmissionSaved }) {
   const answeredCount = (assignment?.questions || []).filter(question => isAnswered(answers[question.id])).length;
   const displayGrade = normalizeDisplayGrade(assignment?.mySubmission?.grade);
 
+  // Answers typed on this device come back after a reload or a dropped connection. Only a new
+  // assignment or a new hand-in resets them, never a background refresh of the list.
   useEffect(() => {
+    let active = true;
+    touched.current = false;
     setAnswers(submissionAnswers);
     setNotice('');
     setError('');
-  }, [assignment?.id, assignment?.mySubmission?.submittedAt, submissionAnswers]);
+    readAnswerDraft(assignment.id).then(draft => {
+      if (!active || touched.current || !draft) return;
+      const sentAt = assignment?.mySubmission?.submittedAt || '';
+      if (sentAt && sentAt >= draft.savedAt) return;
+      setAnswers(draft.answers);
+      setNotice('Your answers saved on this device are back. Carry on where you stopped.');
+    }).catch(() => null);
+    return () => { active = false; };
+  }, [assignment?.id, assignment?.mySubmission?.submittedAt]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    if (!touched.current) return undefined;
+    const timer = setTimeout(() => { saveAnswerDraft(assignment.id, answers).catch(() => null); }, 400);
+    return () => clearTimeout(timer);
+  }, [assignment.id, answers]);
 
   const handleAnswer = (questionId, value) => {
+    touched.current = true;
     setAnswers(prev => ({ ...prev, [questionId]: value }));
   };
 
@@ -387,8 +403,10 @@ function AssignmentDetail({ assignment, onSubmissionSaved }) {
       if (!response?.success) {
         throw new Error(response?.message || response?.error || 'Could not submit assignment.');
       }
+      touched.current = false;
+      await clearAnswerDraft(assignment.id).catch(() => null);
       onSubmissionSaved(assignment.id, response.submission);
-      setNotice('Assignment submitted successfully.');
+      setNotice(response.queued ? response.message : 'Assignment submitted successfully.');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Could not submit assignment.');
     } finally {
@@ -418,7 +436,7 @@ function AssignmentDetail({ assignment, onSubmissionSaved }) {
             <p className="neon-subtle mt-2">{assignment.subjectName || 'Subject'} • Due {formatDueDate(assignment.dueAt)}</p>
           </div>
           <span className={`glass-chip px-3 py-1 rounded-full micro-label ${assignment.mySubmission ? 'accent-emerald' : 'accent-amber'}`}>
-            {assignment.mySubmission ? 'Submitted' : 'Pending'}
+            {assignment.mySubmission?.queued ? 'Waiting to send' : assignment.mySubmission ? 'Submitted' : 'Pending'}
           </span>
         </div>
         <p className="text-slate-300 mt-4">{assignment.description || 'No additional teacher instructions were added.'}</p>
@@ -453,7 +471,16 @@ function AssignmentDetail({ assignment, onSubmissionSaved }) {
         </section>
       )}
 
-      {assignment.mySubmission && !reviewed && (
+      {assignment.mySubmission?.queued && (
+        <section className="glass-surface rounded-3xl p-6">
+          <p className="micro-label accent-amber">{assignment.mySubmission.status === 'needs_review' ? 'Not accepted' : 'Waiting to send'}</p>
+          <p className="mt-2 text-slate-200">{assignment.mySubmission.status === 'needs_review'
+            ? `Ndovera did not accept this hand-in: ${assignment.mySubmission.error || 'please tell your teacher.'}`
+            : 'Your answers are saved on this device and will be sent by themselves when the internet is back. They count from when you pressed submit.'}</p>
+        </section>
+      )}
+
+      {assignment.mySubmission && !assignment.mySubmission.queued && !reviewed && (
         <section className="glass-surface rounded-3xl p-6">
           <p className="micro-label accent-amber">Awaiting Review</p>
           <p className="mt-2 text-slate-200">Your work has been submitted. Your teacher's score and remark will appear here once the review is complete.</p>
@@ -509,34 +536,21 @@ export default function StudentAssignments() {
   const [assignments, setAssignments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [savedCopy, setSavedCopy] = useState('');
 
   useEffect(() => {
     let isActive = true;
 
     async function refreshAssignments(showSpinner = false) {
-      const classId = getCurrentClassId();
-      if (!classId) {
-        if (isActive) {
-          setAssignments([]);
-          setLoading(false);
-        }
-        return;
-      }
-
       if (showSpinner) {
         setLoading(true);
+        setError('');
       }
-
       try {
-        if (showSpinner) {
-          setError('');
-        }
-        const response = await getAssignments(classId);
-        if (!response?.success) {
-          throw new Error(response?.message || 'Could not load assignments.');
-        }
+        const result = await loadStudentAssignments();
         if (isActive) {
-          setAssignments(response.assignments || []);
+          setAssignments(result.assignments);
+          setSavedCopy(result.offline ? result.savedAt || 'unknown' : '');
           setError('');
         }
       } catch (err) {
@@ -559,12 +573,17 @@ export default function StudentAssignments() {
     };
 
     // Re-read when something changed in the school (changeWatcher also checks when the page
-    // comes back into view), instead of every 15 s and on every focus.
+    // comes back into view), instead of every 15 s and on every focus; and when a hand-in
+    // waiting on this device has gone (or been refused), or the connection is back.
     const unsubscribe = subscribeChanges(kinds => { if (kinds.includes('tenant')) handleRefresh(); });
+    const unsubscribeOutbox = subscribeOutbox(() => handleRefresh());
+    window.addEventListener('online', handleRefresh);
 
     return () => {
       isActive = false;
       unsubscribe();
+      unsubscribeOutbox();
+      window.removeEventListener('online', handleRefresh);
     };
   }, []);
 
@@ -604,6 +623,12 @@ export default function StudentAssignments() {
       {loading && (
         <section className="glass-surface rounded-3xl p-6">
           <p className="neon-subtle">Loading assignments…</p>
+        </section>
+      )}
+
+      {!loading && savedCopy && (
+        <section role="status" className="mb-4 rounded-3xl border border-sky-300 bg-sky-50 p-4 text-sm font-semibold text-sky-900 dark:border-sky-300/40 dark:bg-sky-500/15 dark:text-sky-100">
+          No connection — showing the copy saved on this device{savedCopy !== 'unknown' ? ` (${new Date(savedCopy).toLocaleString()})` : ''}. You can still answer; what you submit is sent by itself when the internet is back.
         </section>
       )}
 
@@ -660,7 +685,7 @@ export default function StudentAssignments() {
                   <Link to={`/roles/student/assignments/${item.id}`} className={`flex h-full flex-col gap-2 rounded-2xl border bg-gradient-to-br p-4 transition hover:-translate-y-0.5 hover:shadow-xl ${cardColor(`${item.subjectName}-${item.id}`)}`}>
                     <div className="flex items-start justify-between gap-2">
                       <p className="text-[11px] font-bold uppercase tracking-widest text-white/70">{item.subjectName || 'General Subject'}</p>
-                      <span className={`shrink-0 rounded-full border px-2 py-0.5 text-[10px] font-black uppercase ${chipTone}`}>{status === 'marked' ? `${normalizeDisplayGrade(item.mySubmission.grade)}/${total}` : chipLabel}</span>
+                      <span className={`shrink-0 rounded-full border px-2 py-0.5 text-[10px] font-black uppercase ${item.mySubmission?.queued ? STATUS_CHIP.queued[1] : chipTone}`}>{status === 'marked' ? `${normalizeDisplayGrade(item.mySubmission.grade)}/${total}` : item.mySubmission?.queued ? STATUS_CHIP.queued[0] : chipLabel}</span>
                     </div>
                     <p className="line-clamp-2 text-base font-black leading-snug text-white">{item.title}</p>
                     <div className="mt-auto flex flex-wrap items-center justify-between gap-2 text-xs">

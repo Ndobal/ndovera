@@ -1,7 +1,9 @@
 import { getApiUrl } from '../../config/apiBase';
 import { buildSelectedRoleHeader } from '../auth/services/authApi';
 import { enqueue, isRetryable, registerSender } from '../../shared/offline/outbox';
+import { currentUserKey, getItem, removeItem, setItem } from '../../shared/offline/offlineStore';
 import { isServerUnavailable, setConnectionStatus } from '../../shared/offline/changeWatcher';
+import { statusForFailure } from '../../shared/offline/networkErrors';
 
 function apiFetch(path, options) {
   return fetch(getApiUrl(path), options);
@@ -217,30 +219,48 @@ registerSender('assignment-submit', async ({ assignmentId, body }) => {
  * it counts from now. Refusals (closed, attempts used) are returned as usual.
  */
 export async function submitAssignment(assignmentId, payload) {
+  // A timed attempt started with no connection carries its start, so Ndovera can hold it to its time.
+  const timer = await keptTimer(assignmentId).catch(() => null);
   const body = {
     ...payload,
     clientSubmissionId: payload?.clientSubmissionId || `sub_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 10)}`,
     capturedAt: payload?.capturedAt || new Date().toISOString(),
+    ...(timer?.startedOfflineAt ? { startedOfflineAt: timer.startedOfflineAt } : {}),
   };
   try {
-    return await postSubmission(assignmentId, body);
+    const result = await postSubmission(assignmentId, body);
+    if (result?.success) await dropTimer(assignmentId).catch(() => null);
+    return result;
   } catch (error) {
     if (!isRetryable(error)) throw error;
     await enqueue('assignment-submit', { assignmentId, body }, { label: 'Assignment submission' });
-    setConnectionStatus(typeof navigator !== 'undefined' && navigator.onLine === false ? 'offline' : 'unavailable');
+    await dropTimer(assignmentId).catch(() => null);
+    const status = statusForFailure(error);
+    setConnectionStatus(status);
     return {
       success: true,
       queued: true,
-      message: 'Saved on this device. It will be sent automatically when Ndovera is back, and counts from now.',
+      message: status === 'unavailable'
+        ? 'Ndovera is very busy right now, so your work is saved on this device. It will be sent automatically when Ndovera is back, and counts from now.'
+        : 'Your network (mobile data or Wi-Fi) is not reaching Ndovera, so your work is saved on this device. It will be sent automatically when your connection is back, and counts from now.',
       submission: { assignmentId, status: 'queued', queued: true, submittedAt: body.capturedAt, content: { answers: body.answers || {} } },
     };
   }
 }
 
-/** Timed assessments: start (or resume) the attempt; the server returns the deadline. */
+/** Timed assessments: start (or resume) the attempt; the server returns the deadline. Throws when Ndovera cannot be reached. */
 export async function startAssignment(assignmentId) {
-  return requestJson(`/api/assignments/${assignmentId}/start`, { method: 'POST', headers: getAuthHeaders(), body: '{}' });
+  const res = await apiFetch(`/api/assignments/${assignmentId}/start`, { method: 'POST', headers: getAuthHeaders(), body: '{}' });
+  if (isServerUnavailable(res.status)) throw Object.assign(new Error('Ndovera is very busy right now.'), { status: res.status });
+  return readJsonResponse(res);
 }
+
+// A timed attempt's clock, kept on the device so a reload with no network carries on
+// where it was: { deadline (ms, server time), offset, startedOfflineAt? }.
+const timerKey = assignmentId => `task-timer:${currentUserKey()}:${assignmentId}`;
+export const keptTimer = assignmentId => getItem(timerKey(assignmentId));
+export const keepTimer = (assignmentId, timer) => setItem(timerKey(assignmentId), timer);
+const dropTimer = assignmentId => removeItem(timerKey(assignmentId));
 
 export async function getMySubmission(assignmentId) {
   const res = await apiFetch(`/api/assignments/${assignmentId}/my-submission`, { headers: getAuthHeaders() });

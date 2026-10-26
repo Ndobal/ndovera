@@ -170,3 +170,23 @@ describe('exam-question tables in every shape the AI writes them', () => {
     expect(renderRichText('Use a | b | | c | d for OR.')).not.toContain('<table>');
   });
 });
+
+describe('maths written with plain keyboard symbols is shown whole', () => {
+
+  test('"a<b and b>c" is not swallowed as an HTML tag', () => {
+    expect(renderRichText('If a<b and b>c, which is true?')).toContain('a&lt;b and b&gt;c');
+  });
+
+  test('multiplication with * keeps its signs instead of turning into italics', () => {
+    expect(text(renderRichText('Simplify 3*4*5')).trim()).toBe('Simplify 3*4*5');
+    expect(text(renderRichText('Evaluate 2*x*y when x = 2', { inline: true }))).toBe('Evaluate 2*x*y when x = 2');
+    expect(renderRichText('This is **bold** and *italic*')).toContain('<strong>bold</strong>');
+    expect(renderRichText('This is **bold** and *italic*')).toContain('<em>italic</em>');
+  });
+
+  test('a < at the end of a line, real tags and code are left as they should be', () => {
+    expect(renderRichText('Which is true: 5 <\n6 > 4')).toContain('5 &lt;');
+    expect(renderRichText('<div align="center">\n\nTitle\n\n</div>')).toContain('<div align="center">');
+    expect(renderRichText('Use `a<b*c*d` here')).toContain('<code>a&lt;b*c*d</code>');
+  });
+});

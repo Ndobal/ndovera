@@ -26,7 +26,7 @@ function matColor(seed) {
 }
 
 function resolveCurrentClassroom(authUser) {
-  return localStorage.getItem('classroomId') || authUser?.classId || '';
+  return authUser?.classId || localStorage.getItem('classroomId') || '';
 }
 
 export default function StudentLessonNotes() {

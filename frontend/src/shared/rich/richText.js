@@ -61,6 +61,27 @@ function extractMath(text, store) {
   return result;
 }
 
+// A real tag: a known name, and attributes that all carry a value (`<div align="center">`).
+// "a<b and b>c" is maths, not a <b> tag, and must not be swallowed by the sanitiser.
+const REAL_TAG = /^<\/?(a|b|i|u|s|em|strong|sup|sub|br|hr|p|div|span|img|table|thead|tbody|tr|th|td|ul|ol|li|blockquote|pre|code|h[1-6]|mark|small|del|ins|figure|figcaption|center|font|script|style|iframe|object|embed|form|input|button|svg)(\s+[a-zA-Z_:][\w:.-]*\s*=\s*("[^"]*"|'[^']*'|[^\s"'<>=`]+))*\s*\/?>/i;
+
+/**
+ * Keep maths symbols that Markdown and the sanitiser would otherwise treat as markup:
+ * `<` that does not open a real tag, and `*` between numbers or letters ("3*4*5",
+ * "2*x*y" — multiplication, not italics). Code is left as written.
+ */
+function protectMathSymbols(text) {
+  return text.split(/(```[\s\S]*?```|`[^`\n]*`)/).map((part, index) => {
+    if (index % 2) return part;
+    return part
+      .replace(/</g, (lt, offset, all) => {
+        const ahead = all.slice(offset, offset + 500);
+        return REAL_TAG.test(ahead) || /^<(https?:|mailto:|!--)/i.test(ahead) ? lt : '&lt;';
+      })
+      .replace(/([A-Za-z0-9)\]])\*(?=[A-Za-z0-9([])/g, '$1\\*');
+  }).join('');
+}
+
 function typeset(tex, display) {
   try {
     return katex.renderToString(tex, { displayMode: display, throwOnError: false, output: 'html', strict: 'ignore' });
@@ -276,7 +297,7 @@ export function renderRichText(source, { inline: requestedInline = false, linear
   // An option or marking point that carries a table is laid out as a block, so the table draws.
   const inline = requestedInline && !/(^|\n)\s*\|.*\|\s*\n\s*\|/.test(normalizeTables(text));
   const math = [];
-  const prepared = extractMath(inline ? text : tabsToTables(normalizeTables(text)), math);
+  const prepared = protectMathSymbols(extractMath(inline ? text : tabsToTables(normalizeTables(text)), math));
   const html = inline
     ? marked.parseInline(prepared, { gfm: true, breaks: true })
     : marked.parse(prepared, { gfm: true, breaks: true });

@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { startAssignment } from '../classroomService';
+import { keepTimer, keptTimer, startAssignment } from '../classroomService';
+import { isRetryable } from '../../../shared/offline/outbox';
 
 // Timed assessments: the server starts the clock and owns the deadline; this
 // shows the countdown and submits automatically when it reaches zero.
@@ -24,14 +25,31 @@ export function useTimedAttempt(assignment, { enabled = true, onTimeUp } = {}) {
     if (!timed) { setState({ ready: true, deadline: null, offset: 0, error: '' }); return undefined; }
     let cancelled = false;
     setState({ ready: false, deadline: null, offset: 0, error: '' });
+    // No connection: carry on with the clock kept on this device, or start it here. The
+    // hand-in carries that start and Ndovera holds the work to the same time limit.
+    const carryOnOffline = async () => {
+      let timer = await keptTimer(assignment.id).catch(() => null);
+      if (!timer?.deadline) {
+        timer = { deadline: Date.now() + minutesOf(assignment) * 60000, offset: 0, startedOfflineAt: new Date().toISOString() };
+        await keepTimer(assignment.id, timer).catch(() => null);
+      }
+      if (!cancelled) setState({ ready: true, deadline: timer.deadline, offset: timer.offset || 0, error: '', offline: true });
+    };
     startAssignment(assignment.id).then(result => {
       if (cancelled) return;
+      if (result?.offline) { carryOnOffline(); return; }
       if (!result?.success) { setState({ ready: false, deadline: null, offset: 0, error: result?.message || 'Could not start this assessment.' }); return; }
       if (!result.timed) { setState({ ready: true, deadline: null, offset: 0, error: '' }); return; }
       // Count against the server's clock, whatever the device's clock says.
       const offset = Date.parse(result.serverNow) - Date.now();
-      setState({ ready: true, deadline: Date.parse(result.deadline), offset, error: '' });
-    }).catch(err => !cancelled && setState({ ready: false, deadline: null, offset: 0, error: err.message || 'Could not start this assessment.' }));
+      const deadline = Date.parse(result.deadline);
+      keepTimer(assignment.id, { deadline, offset }).catch(() => null);
+      setState({ ready: true, deadline, offset, error: '' });
+    }).catch(err => {
+      if (cancelled) return;
+      if (isRetryable(err)) { carryOnOffline(); return; }
+      setState({ ready: false, deadline: null, offset: 0, error: err.message || 'Could not start this assessment.' });
+    });
     return () => { cancelled = true; };
   }, [assignment?.id, timed]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -64,6 +82,7 @@ export function CountdownBar({ attempt, onDark = false }) {
         <span className="font-mono text-2xl font-black tabular-nums">{clock}</span>
       </div>
       <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-black/10"><div className={`h-full ${low ? 'bg-rose-600' : 'bg-[#1a5c38]'}`} style={{ width: `${percent}%` }} /></div>
+      {attempt.offline && <p className="mt-2 text-xs font-semibold">No connection — keep answering. The timer runs on this device and your answers are sent when you are back online.</p>}
     </div>
   );
 }

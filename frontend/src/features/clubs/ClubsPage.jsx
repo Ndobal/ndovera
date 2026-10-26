@@ -204,9 +204,20 @@ function Media({ post }) {
   );
 }
 
+// Quiz answers are kept on this device until handed in, so a reload or a dropped connection loses nothing.
+const quizDraftKey = post => `ndv-club-quiz-${post.id}`;
+function readQuizDraft(post) { try { return JSON.parse(localStorage.getItem(quizDraftKey(post)) || '{}') || {}; } catch { return {}; } }
+
 function QuizTaker({ clubId, post, mine, onDone, onNotice }) {
-  const [answers, setAnswers] = useState({});
+  const [answers, setAnswers] = useState(() => readQuizDraft(post));
   const [busy, setBusy] = useState(false);
+  useEffect(() => {
+    if (mine) return;
+    try { localStorage.setItem(quizDraftKey(post), JSON.stringify(answers)); } catch { /* storage unavailable */ }
+  }, [post, answers, mine]);
+  if (mine?.queued) {
+    return <p className="rounded-2xl bg-sky-50 px-4 py-3 text-sm font-bold text-sky-900 dark:bg-sky-500/15 dark:text-sky-100">No connection: your answers are saved on this device and will be handed in by themselves when the internet is back. Your score shows then.</p>;
+  }
   if (mine) {
     const byId = new Map((mine.review || []).map(item => [item.questionId, item]));
     return (
@@ -233,7 +244,7 @@ function QuizTaker({ clubId, post, mine, onDone, onNotice }) {
       event.preventDefault();
       if (!await askConfirm('Hand in your answers? You can take this quiz once.')) return;
       setBusy(true);
-      try { const result = await submitWork(clubId, post.id, { answers }); onDone(result.submission); } catch (err) { onNotice({ text: err.message, tone: 'error' }); } finally { setBusy(false); }
+      try { const result = await submitWork(clubId, post.id, { answers }); try { localStorage.removeItem(quizDraftKey(post)); } catch { /* storage unavailable */ } onDone(result.submission); } catch (err) { onNotice({ text: err.message, tone: 'error' }); } finally { setBusy(false); }
     }}>
       <ol className="space-y-3">
         {post.questions.map((question, index) => (
@@ -272,7 +283,7 @@ function AssignmentHandIn({ clubId, post, mine, onDone, onNotice }) {
   }
   return (
     <div className="space-y-2">
-      {mine && <p className="text-xs font-bold text-emerald-700 dark:text-emerald-300">Handed in {when(mine.submittedAt)} — you can change it until it is marked.</p>}
+      {mine && <p className="text-xs font-bold text-emerald-700 dark:text-emerald-300">{mine.queued ? 'Saved on this device — it will be handed in by itself when the internet is back.' : `Handed in ${when(mine.submittedAt)} — you can change it until it is marked.`}</p>}
       <textarea aria-label="Your answer" rows={6} className={FIELD} placeholder="Write your answer here…" value={text} onChange={event => setText(event.target.value)} />
       <FilePicker clubId={clubId} label="Attach your work" onAdd={file => setFiles(current => [...current, file])} onError={message => onNotice({ text: message, tone: 'error' })} />
       <FileList files={files} onRemove={index => setFiles(current => current.filter((_, i) => i !== index))} />

@@ -12,6 +12,8 @@ import AmiPlatformAnalytics from '../../features/tenants/components/AmiPlatformA
 import AmiTenantGovernance from '../../features/tenants/components/AmiTenantGovernance';
 import AmiAuditsPage from '../../app/roles/ami/AmiAuditsPage';
 import AmiReportsPage from '../../app/roles/ami/AmiReportsPage';
+import StudentAssignments from '../../app/roles/student/StudentAssignments';
+import { loadStudentAssignments } from '../../features/classroom/studentTasks';
 import { getPlatformFinance, getProfitAndLoss, getPlatformShares, listShareholders, getAmiTenants, getPlatformAnalytics, getSchoolAccessGrants, getAmiAuditLogs, getAmiReportSummary, getAmiTermBills } from '../../features/tenants/services/tenantApi';
 
 // The colour rule, enforced: no text may clash with its background, in light or dark mode.
@@ -23,7 +25,12 @@ jest.mock('react-router-dom', () => ({
   NavLink: ({ to, children, className }) => <a href={to} className={typeof className === 'function' ? className({ isActive: to === mockPath }) : className}>{children}</a>,
   useLocation: () => ({ pathname: mockPath, search: '' }),
   useNavigate: () => jest.fn(),
+  useParams: () => ({}),
+  Navigate: () => null,
 }), { virtual: true });
+jest.mock('../../features/classroom/studentTasks', () => ({
+  loadStudentAssignments: jest.fn(), readAnswerDraft: jest.fn(() => Promise.resolve(null)), saveAnswerDraft: jest.fn(), clearAnswerDraft: jest.fn(),
+}));
 jest.mock('../hooks/useFeatureFlags', () => () => ({ featureFlags: { aurasEnabled: true, farmingModeEnabled: true } }));
 jest.mock('../hooks/useTenantPwaManifest', () => ({ getTenantPwaInfo: () => null }));
 jest.mock('../../features/submissions/StaffSubmissionPanel', () => () => null);
@@ -146,4 +153,16 @@ test.each([
   const { container } = render(renderPage());
   await waitFor(() => expect(screen.getAllByText(ready).length).toBeGreaterThan(0));
   expectReadable(container, label);
+});
+
+test('a student offline, with a hand-in waiting to send, can read the notice and the status', async () => {
+  loadStudentAssignments.mockResolvedValue({
+    classId: 'jss1', offline: true, savedAt: new Date().toISOString(),
+    assignments: [{ id: 'a2', title: 'Angles', subjectName: 'Mathematics', questions: [], mySubmission: { queued: true, status: 'queued', submittedAt: new Date().toISOString(), content: { answers: {} } } }],
+  });
+  render(<StudentAssignments />);
+  const banner = await screen.findByText(/No connection — showing the copy saved on this device/);
+  expectReadable(banner, 'Offline assignments notice');
+  fireEvent.click(screen.getByRole('tab', { name: 'Submitted' }));
+  expectReadable(screen.getByText('Waiting to send'), 'Waiting-to-send status');
 });

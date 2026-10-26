@@ -5,11 +5,13 @@ import App from './App';
 import './index.css';
 import './shared/styles/theme.css';
 import { startOutbox } from './shared/offline/outbox';
+import { installFriendlyNetworkErrors } from './shared/offline/networkErrors';
 // Senders for work done offline (they register themselves with the outbox).
 import './features/attendance/staffAttendanceQueue';
 import './features/practice-arena/practiceApi';
 import './features/classroom/classroomService'; // registers the offline assignment-submission sender
 import './features/results-engine/service/resultEngineService'; // registers the offline C.A. score sender
+import './features/clubs/clubsApi'; // registers the offline club hand-in sender
 
 function getAndroidMajorVersion() {
   const match = navigator.userAgent.match(/Android\s([0-9]+)/i);
@@ -75,6 +77,8 @@ if ('serviceWorker' in navigator && shouldEnablePwa()) {
   });
 }
 
+// A request that gets no answer is described as the person's network, not as Ndovera failing.
+installFriendlyNetworkErrors();
 // Offline-first: whatever was done without a connection syncs on its own, from any page.
 startOutbox();
 

@@ -412,3 +412,36 @@ export function normalizeOverviewResponse(data = {}, classMap = {}) {
     canUploadDocuments: Boolean(data?.canUploadDocuments),
   };
 }
+/** Why a typed score cannot be kept ('' when it can): above the most allowed, below 0, or not a number. */
+export function scoreEntryProblem(text, max) {
+  const value = String(text ?? '').trim();
+  if (value === '') return '';
+  const numeric = Number(value);
+  if (!Number.isFinite(numeric)) return 'Not a number';
+  if (numeric < 0) return 'Cannot be below 0';
+  if (numeric > Number(max)) return `The most is ${max}`;
+  return '';
+}
+
+/**
+ * Every score typed on the sheet that is out of range. The box keeps what the teacher typed
+ * (it is never cut down to the maximum behind their back); such a score is not saved and the
+ * sheet cannot be handed in until it is corrected.
+ */
+export function findScoreEntryProblems(sheet = {}) {
+  const scoreModel = resolveResultScoreModel(sheet?.settings);
+  const components = normalizeCaComponentDefinitions(sheet?.settings);
+  const problems = [];
+  (Array.isArray(sheet?.students) ? sheet.students : []).forEach(student => {
+    (student?.rows || []).forEach(row => {
+      Object.entries(row?.typed || {}).forEach(([key, text]) => {
+        const component = components.find(item => item.key === key);
+        const max = key === 'exam' ? scoreModel.examMaxScore : component?.maxScore;
+        if (max === undefined) return;
+        const problem = scoreEntryProblem(text, max);
+        if (problem) problems.push({ studentId: student.id, studentName: student.name, subjectName: row.subjectName, label: key === 'exam' ? 'Exam' : component.label, value: String(text), max, problem });
+      });
+    });
+  });
+  return problems;
+}
