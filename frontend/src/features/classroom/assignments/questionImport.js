@@ -13,9 +13,11 @@ import { createId, createQuestion, optionLetter } from './assignmentModel';
 // "[ESSAY]", "[COMPREHENSION]", "[CROSS MATCHING]" tags set the type of what follows.
 // Formulas written as \( … \) or $$ … $$ are kept as they are.
 
-// The delimiter must be followed by a space or the line's end, so "2.5 kg" or "3-4" is not a new question.
-const QUESTION_START = /^\s*(?:q(?:uestion)?\s*\.?\s*)?(?:no\.?\s*)?\(?(\d{1,3})\s*[.):\-–](?:\s+|$)(.*)$/i;
-const OPTION_LINE = /^\s*\(?([A-Ha-h])\s*[).:\-–]\s+(.*)$|^\s*\(([A-Ha-h])\)\s*(.*)$/;
+// The delimiter is followed by a space or the line's end — or, for "." and ")", straight by a letter,
+// bracket or formula ("20.Simplify", "7)Find", "3.(a)") as teachers often type. "2.5 kg" and "3-4" are not new questions.
+const QUESTION_START = /^\s*(?:q(?:uestion)?\s*\.?\s*)?(?:no\.?\s*)?\(?(\d{1,3})\s*(?:[.):\-–](?:\s+|$)|[.)](?=[A-Za-z(\\$"'“]))(.*)$/i;
+// "D. 5", "(d) 5", and — capital letters only — "D.5" / "D)5" with no space, as teachers often type.
+const OPTION_LINE = /^\s*\(?([A-Ha-h])\s*[).:\-–]\s+(.*)$|^\s*\(([A-Ha-h])\)\s*(.*)$|^\s*([A-H])[.)](?=[^\s.])(.*)$/;
 const ANSWER_LINE = /^\s*(?:correct\s+answer|correct\s+option|answer|ans|key)\s*[:.\-–=]?\s*(.*)$/i;
 const EXPLANATION_LINE = /^\s*(?:explanation|solution|working|reason)\s*[:.\-–]\s*(.*)$/i;
 const ANSWER_KEY_HEADER = /^\s*(?:answer\s*key|answers|marking\s*scheme|key)\s*[:.\-–]?\s*(.*)$/i;
@@ -34,15 +36,26 @@ function typeFromHeading(text) {
   return '';
 }
 
-/** "A. 2   B. 4  C. 6" on one line → ['2', '4', '6'] (letters must run A, B, C… in order). */
-function splitInlineOptions(line) {
-  const marker = /(^|\s)\(?([A-Ha-h])\s*[).:]\s+/g;
+/**
+ * Several options on one line → { before, options }. "A. 2   B. 4  C. 6" → ['2', '4', '6'];
+ * with `first` = 2, the second line of a two-column layout, "C. 6   D. 8" → ['6', '8'].
+ * Letters must run in order from optionLetter(first); a capital letter may be followed
+ * straight by its text ("D.8"). `before` is any text ahead of the first option.
+ */
+function splitInlineOptions(line, first = 0) {
+  const marker = /(^|\s)\(?([A-Ha-h])\s*[).:](\s+|(?=[^\s.:)]))/g;
   const hits = [];
   let match;
-  while ((match = marker.exec(line))) hits.push({ letter: match[2].toUpperCase(), start: match.index + match[1].length, contentStart: marker.lastIndex });
+  while ((match = marker.exec(line))) {
+    if (!match[3] && match[2] !== match[2].toUpperCase()) continue;
+    hits.push({ letter: match[2].toUpperCase(), start: match.index + match[1].length, contentStart: marker.lastIndex });
+  }
   if (hits.length < 2) return null;
-  for (let index = 0; index < hits.length; index += 1) if (hits[index].letter !== optionLetter(index)) return null;
-  return hits.map((hit, index) => line.slice(hit.contentStart, index + 1 < hits.length ? hits[index + 1].start : undefined).trim());
+  for (let index = 0; index < hits.length; index += 1) if (hits[index].letter !== optionLetter(first + index)) return null;
+  return {
+    before: line.slice(0, hits[0].start).trim(),
+    options: hits.map((hit, index) => line.slice(hit.contentStart, index + 1 < hits.length ? hits[index + 1].start : undefined).trim()),
+  };
 }
 
 /** An option's text, and whether it was marked as the correct one. */
@@ -185,19 +198,22 @@ export function importQuestions(rawText) {
     const explanation = EXPLANATION_LINE.exec(trimmed);
     if (explanation && current) { current.explanation = explanation[1].trim(); lastField = 'explanation'; continue; }
 
-    const inline = current ? splitInlineOptions(trimmed) : null;
-    if (inline && (current.options.length === 0 || /^\(?[Aa]\s*[).:]/.test(trimmed))) {
-      current.options.push(...inline.map(readOption));
+    // Options several to a line, carrying on from the last letter (A–B on one line, C–D on the next),
+    // or a fresh A, B… row; text ahead of the first option belongs to the question.
+    const inline = current ? splitInlineOptions(trimmed, current.options.length) : null;
+    if (inline && (current.options.length === 0 || !inline.before)) {
+      if (inline.before) current.prompt += current.prompt ? `\n${inline.before}` : inline.before;
+      current.options.push(...inline.options.map(readOption));
       lastField = 'options';
       continue;
     }
 
     const option = OPTION_LINE.exec(trimmed);
     if (option && current) {
-      const letter = (option[1] || option[3]).toUpperCase();
+      const letter = (option[1] || option[3] || option[5]).toUpperCase();
       // Options run A, B, C… in order; anything else is ordinary text (e.g. "I. …" in a passage).
       if (letter === optionLetter(current.options.length)) {
-        current.options.push(readOption(option[2] ?? option[4] ?? ''));
+        current.options.push(readOption(option[2] ?? option[4] ?? option[6] ?? ''));
         lastField = 'options';
         continue;
       }
@@ -206,8 +222,10 @@ export function importQuestions(rawText) {
     const start = QUESTION_START.exec(trimmed);
     if (start) {
       flush();
-      current = { number: Number(start[1]), prompt: start[2] || '', options: [], answer: '', explanation: '', type: defaultType };
-      lastField = 'prompt';
+      // Options may follow on the question's own line: "1. What is 2 + 2? A. 3 B. 4 C. 5 D. 6".
+      const own = splitInlineOptions(start[2] || '', 0);
+      current = { number: Number(start[1]), prompt: own ? own.before : start[2] || '', options: own ? own.options.map(readOption) : [], answer: '', explanation: '', type: defaultType };
+      lastField = own ? 'options' : 'prompt';
       continue;
     }
 
@@ -229,6 +247,15 @@ export function importQuestions(rawText) {
   questions.forEach((question, index) => {
     const letter = answerKey[question.sourceNumber] || answerKey[index + 1];
     if (question.type === 'mcq' && !question.answer && letter) question.answer = question.options[letter.charCodeAt(0) - 65] || '';
+  });
+
+  // Numbers that jump or repeat usually mean a question was joined to the one before or left out.
+  questions.forEach((question, index) => {
+    const before = questions[index - 1]?.sourceNumber;
+    const number = question.sourceNumber;
+    if (index === 0 || !number || !before || number === 1) return;
+    if (number === before) warnings.push(`Two questions are numbered ${number}. Check that both are here as you meant.`);
+    else if (number > before + 1) warnings.push(`The numbers jump from ${before} to ${number}: question${number - before > 2 ? `s ${before + 1}–${number - 1} were` : ` ${before + 1} was`} not found. Check question ${before} — a missing question is often joined to the one before it.`);
   });
 
   questions.forEach((question, index) => {

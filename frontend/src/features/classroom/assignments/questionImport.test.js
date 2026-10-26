@@ -123,3 +123,50 @@ test('text pasted from Word with tabs and non-breaking spaces', () => {
   const { questions } = importQuestions('1.\tWhat colour is the sky?\nA. Blue\nB. Green\nAnswer:\tA');
   expect(summary(questions)).toEqual([{ type: 'mcq', prompt: 'What colour is the sky?', options: ['Blue', 'Green'], answer: 'Blue' }]);
 });
+
+describe('a maths paper of 20 questions keeps all 20', () => {
+  const paper = (last) => Array.from({ length: 19 }, (_, index) => `${index + 1}. Simplify ${index + 2}x + ${index}x\nA. ${index}x\nB. ${index + 1}x\nC. ${index + 2}x\nD. ${2 * index + 2}x`).join('\n') + `\n${last}\nA. 2\nB. 3\nC. 4\nD. 5`;
+
+  test('"20.Simplify" with no space after the number is still question 20', () => {
+    const { questions, warnings } = importQuestions(paper('20.Find x if 2x = 6'));
+    expect(questions).toHaveLength(20);
+    expect(questions[19].prompt).toBe('Find x if 2x = 6');
+    expect(questions[18].options[3]).toBe('38x');
+    expect(warnings.filter(warning => /jump|numbered/.test(warning))).toEqual([]);
+  });
+
+  test('"20)Find" works the same, and "2.5 kg" in a question is not a new question', () => {
+    expect(importQuestions(paper('20)Find x if 2x = 6')).questions).toHaveLength(20);
+    const { questions } = importQuestions('1. A bag weighs\n2.5 kg. Find its weight in grams.\nA. 25\nB. 2500');
+    expect(questions).toHaveLength(1);
+  });
+
+  test('numbers that jump or repeat are pointed out to the teacher', () => {
+    const jumped = importQuestions('1. One? A. a B. b\n2. Two? A. a B. b\n4. Four? A. a B. b').warnings;
+    expect(jumped.some(warning => /jump from 2 to 4/.test(warning))).toBe(true);
+    const repeated = importQuestions('1. One? A. a B. b\n2. Two? A. a B. b\n2. Again? A. a B. b').warnings;
+    expect(repeated.some(warning => /Two questions are numbered 2/.test(warning))).toBe(true);
+  });
+});
+
+describe('every option is kept, however the options are laid out', () => {
+  test('two options to a line: D is its own option, not joined to C', () => {
+    const { questions } = importQuestions('1. Solve 2x = 8\nA. 2      B. 3\nC. 4      D. 5\nAnswer: C');
+    expect(summary(questions)).toEqual([{ type: 'mcq', prompt: 'Solve 2x = 8', options: ['2', '3', '4', '5'], answer: '4' }]);
+  });
+
+  test('no space after the letter ("D.5", "C)4")', () => {
+    const { questions } = importQuestions('1. Solve 2x = 8\nA. 2\nB. 3\nC)4\nD.5');
+    expect(questions[0].options).toEqual(['2', '3', '4', '5']);
+    expect(importQuestions('1. Solve 2x = 8\nA. 2 B. 3 C. 4 D.5').questions[0].options).toEqual(['2', '3', '4', '5']);
+  });
+
+  test('options on the question line itself', () => {
+    const { questions } = importQuestions('1. What is 2 + 2? A. 3 B. 4 C. 5 D. 6\nAnswer: B');
+    expect(summary(questions)).toEqual([{ type: 'mcq', prompt: 'What is 2 + 2?', options: ['3', '4', '5', '6'], answer: '4' }]);
+  });
+
+  test('three to a line, then one', () => {
+    expect(importQuestions('1. Pick\n(a) x (b) y (c) z\n(d) w').questions[0].options).toEqual(['x', 'y', 'z', 'w']);
+  });
+});

@@ -76,6 +76,25 @@ test('what cannot be read safely is reported, never guessed', () => {
   assert.equal(paperImport.needsAiHelp(paperImport.parsePaperText('The quick brown fox '.repeat(60)), 'The quick brown fox '.repeat(60)), true)
 })
 
+test('options two to a line, or with no space after the letter, are all kept: D is never joined to C', () => {
+  const result = paperImport.parsePaperText('SECTION A: OBJECTIVES\n1. Solve 2x = 8\nA. 2      B. 3\nC. 4      D. 5\n2. Simplify 3x + x\nA. 4x\nB. 3x\nC)2x\nD.x')
+  assert.deepEqual(result.questions.map(question => question.options), [['2', '3', '4', '5'], ['4x', '3x', '2x', 'x']])
+})
+
+test('a question numbered wrongly after a finished question is kept, and the teacher is told', () => {
+  const lines = []
+  for (let n = 1; n <= 19; n += 1) lines.push(`${n}. Simplify ${n}x + x`, `A. ${n}x B. ${n + 1}x C. ${n + 2}x D. ${n + 3}x`)
+  // The 20th question typed as "19." again, a common slip.
+  lines.push('19. Find x if 2x = 6', 'A. 2 B. 3 C. 4 D. 5')
+  const result = paperImport.parsePaperText(`SECTION A: OBJECTIVES\n${lines.join('\n')}`)
+  assert.equal(result.questions.length, 20)
+  assert.equal(result.questions[19].prompt, 'Find x if 2x = 6')
+  assert.ok(result.warnings.some(warning => /two questions numbered 19/.test(warning)))
+  // A worked line in a theory answer is still not mistaken for a question.
+  const theory = paperImport.parsePaperText('SECTION B: THEORY\n1. Solve the equation. [4 marks]\n2. 5x = 10 so x = 2 is wrong; explain.')
+  assert.equal(theory.questions.length, 2)
+})
+
 test('Ndovera AI replies are read into the same shape, keeping only what the paper says', () => {
   const reply = '```json\n[{"section":"A","type":"mcq","prompt":"What is 2+2?","options":["A. 3","B. 4","C. 5","D. 6"],"answer":"B"},{"section":"B","type":"structured","prompt":"Answer these.","parts":[{"prompt":"Define speed.","marks":2},{"prompt":"Give its unit.","marks":1}],"marks":3}]\n```'
   const result = paperImport.importFromAiReply(reply)

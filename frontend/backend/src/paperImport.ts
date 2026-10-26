@@ -31,7 +31,8 @@ const ROMAN: Record<string, number> = { i: 1, ii: 2, iii: 3, iv: 4, v: 5, vi: 6,
 const SECTION_LINE = /^\s*(?:SECTION|PART)\s*[-:]?\s*([A-H]|[IVX]{1,4}|\d{1,2})\b[\s.:\-–—)]*(.*)$/i
 const KEY_HEADING = /^\s*(?:answer\s*key|answers?|objective\s*answers?|marking\s*key|key\s*to\s*objectives?|key)\s*[:\-–]?\s*(.*)$/i
 const QUESTION_LINE = /^\s*(?:Q(?:uestion)?\.?\s*)?(\d{1,3})\s*[.):]\s*(.*)$/i
-const LETTERED_LINE = /^\s*\(?([A-Ea-e])\s*[.)]\s+(.*)$/
+// "D. 5", "(d) 5", and — capital letters only — "D.5" / "D)5" with no space (groups 3 and 4).
+const LETTERED_LINE = /^\s*\(?([A-Ea-e])\s*[.)]\s+(.*)$|^\s*\(?([A-E])[.)](?=[^\s.)])(.*)$/
 const ANSWER_LINE = /^\s*(?:ans(?:wer)?|correct\s*(?:answer|option)|key)\s*[:\-–]\s*\(?([A-Ea-e])\)?\b/i
 const MARKS = /[[(]\s*(\d{1,3})\s*(?:marks?|mks?|pts?|points?)\s*[\])]|\[\s*(\d{1,2})\s*\]\s*$/i
 const CORRECT_MARK = /\s*(?:\*+|\(\s*correct\s*\)|✓|✔)\s*$/i
@@ -82,11 +83,15 @@ function takeMarks(text: string) {
   return { text: text.replace(MARKS, '').replace(/\s{2,}/g, ' ').trim(), marks: Number(match[1] || match[2]) }
 }
 
-/** "What is X? A. foo B. bar C. baz D. qux" → prompt + options, when at least three letters follow in order. */
-function splitInline(line: string) {
-  const marks = [...line.matchAll(/(?:^|\s)\(?([A-E])[.)]\s+/g)]
-  const ordered = marks.filter((match, index) => match[1] === 'ABCDE'[index])
-  if (ordered.length < 3 || ordered.length !== marks.length) return null
+/**
+ * "What is X? A. foo B. bar C. baz D. qux" → prompt + options, when at least `least` letters follow
+ * in order from 'ABCDE'[first] — so the second row of a two-column layout ("C. 6   D. 8", first = 2)
+ * splits too. A letter may be followed straight by its text ("D.8").
+ */
+function splitInline(line: string, first = 0, least = 3) {
+  const marks = [...line.matchAll(/(?:^|\s)\(?([A-E])[.)](?:\s+|(?=[^\s.)]))/g)]
+  const ordered = marks.filter((match, index) => match[1] === 'ABCDE'[first + index])
+  if (ordered.length < least || ordered.length !== marks.length) return null
   const starts = ordered.map(match => (match.index ?? 0) + (match[0].startsWith(' ') ? 1 : 0))
   return {
     before: line.slice(0, starts[0]).trim(),
@@ -96,15 +101,19 @@ function splitInline(line: string) {
 
 type Draft = { number: number, section: string, lines: string[], items: Array<{ label: string, text: string }>, answer: string }
 
+/** Lettered items that read as a question's options (A, B, C… in order), not as theory parts. */
+function hasOptions(items: Draft['items'], section: ImportedSection | undefined) {
+  return items.length >= 2
+    && section?.kind !== 'theory'
+    && items.every((item, index) => item.label.toLowerCase() === 'abcde'[index])
+    && (items.some(item => /[A-E]/.test(item.label)) || section?.kind === 'objective' || items.every(item => item.text.length <= 160 && !MARKS.test(item.text)))
+}
+
 function finish(draft: Draft, section: ImportedSection | undefined, warnings: string[]): ImportedQuestion {
   const promptRaw = draft.lines.join('\n').trim()
   const { text: prompt, marks } = takeMarks(promptRaw)
   const items = draft.items.map(item => ({ ...item, text: item.text.trim() }))
-  const uppercase = items.some(item => /[A-E]/.test(item.label))
-  const looksLikeOptions = items.length >= 2
-    && section?.kind !== 'theory'
-    && items.every((item, index) => item.label.toLowerCase() === 'abcde'[index])
-    && (uppercase || section?.kind === 'objective' || items.every(item => item.text.length <= 160 && !MARKS.test(item.text)))
+  const looksLikeOptions = hasOptions(items, section)
   if (IMAGE.test(promptRaw) || items.some(item => IMAGE.test(item.text))) warnings.push(`Question ${draft.number} (Section ${draft.section}) had a picture. Add it again with the Graph / Diagram tool or as an image.`)
 
   if (looksLikeOptions) {
@@ -172,7 +181,14 @@ export function parsePaperText(source: string): ImportResult {
     const question = QUESTION_LINE.exec(line)
     const previous = draft as Draft | null
     const nextNumber = question ? Number(question[1]) : 0
-    const startsQuestion = question && (!previous || nextNumber === previous.number + 1 || nextNumber === 1) && !/^\d+\.\d/.test(line.trim())
+    // Normally the next number in order (so "2. 5x = 10" in a working is not a question). A question
+    // that already has its options is finished, though: a numbered sentence after it is the next
+    // question even when the paper numbers it wrongly (two 7s, or 12 then 14).
+    const afterOptions = Boolean(question && previous && hasOptions(previous.items, section) && /^[A-Za-z(\\$"'“]/.test(question[2].trim()))
+    const startsQuestion = question && (!previous || nextNumber === previous.number + 1 || nextNumber === 1 || afterOptions) && !/^\d+\.\d/.test(line.trim())
+    if (question && previous && !startsQuestion && section?.kind !== 'theory' && /^[A-Za-z]/.test(question[2].trim())) {
+      warnings.push(`A line starting "${nextNumber}." was read as part of question ${previous.number} (Section ${previous.section}). If it is a question of its own, check its number and import again.`)
+    }
     if (startsQuestion) {
       close()
       // A question before any heading starts an implied first section.
@@ -201,11 +217,14 @@ export function parsePaperText(source: string): ImportResult {
     const current: Draft = draft
     const answer = ANSWER_LINE.exec(line)
     if (answer) { current.answer = answer[1]; continue }
-    const inline = current.items.length === 0 ? splitInline(line) : null
-    if (inline && !inline.before) { inline.options.forEach((text, index) => current.items.push({ label: 'ABCDE'[index], text })); continue }
+    // Options several to a line, carrying on from the last letter: "A. 2   B. 3" then "C. 4   D. 5".
+    const first = current.items.length
+    const inline = first < 5 && current.items.every(item => /[A-E]/.test(item.label)) ? splitInline(line, first, 2) : null
+    if (inline && !inline.before) { inline.options.forEach((text, index) => current.items.push({ label: 'ABCDE'[first + index], text })); continue }
     const lettered = LETTERED_LINE.exec(line)
+    const letter = lettered ? lettered[1] || lettered[3] : ''
     const expected = current.items.length ? String.fromCharCode(current.items[current.items.length - 1].label.charCodeAt(0) + 1) : 'a'
-    if (lettered && lettered[1].toLowerCase() === expected.toLowerCase()) { current.items.push({ label: lettered[1], text: lettered[2] }); continue }
+    if (lettered && letter.toLowerCase() === expected.toLowerCase()) { current.items.push({ label: letter, text: lettered[2] ?? lettered[4] }); continue }
     if (current.items.length) current.items[current.items.length - 1].text += `\n${line.trim()}`
     else current.lines.push(line)
   }
@@ -232,6 +251,17 @@ export function parsePaperText(source: string): ImportResult {
       const index = letter.charCodeAt(0) - 65
       if (target && index < target.options.length) target.answerIndex = index
     }
+  }
+
+  // Numbers that repeat or jump within a section: a question may have been joined to another or left out.
+  for (const owner of sections) {
+    const numbers = drafts.filter(item => item.draft.section === owner.name).map(item => item.draft.number)
+    numbers.forEach((number, index) => {
+      const before = numbers[index - 1]
+      if (!index || number === 1) return
+      if (number === before) warnings.push(`Section ${owner.name} has two questions numbered ${number}. Check that both are here as you meant.`)
+      else if (number > before + 1) warnings.push(`Section ${owner.name} jumps from question ${before} to ${number}. Check that nothing was left out.`)
+    })
   }
 
   const unanswered = questions.filter(question => question.options.length && question.answerIndex < 0)
