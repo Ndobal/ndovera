@@ -256,6 +256,7 @@ const operationalRoleConfigs = {
       assets: { title: 'ICT Assets', subtitle: 'Track devices and technical assets.', panels: [{ title: 'Assets', items: [{ text: 'Register and assign devices.' }, { text: 'Track maintenance history.' }, { text: 'Flag missing or damaged assets.' }] }] },
       reports: { title: 'Reports', subtitle: 'Generate ICT operations and incident reports.', panels: [{ title: 'Reports', items: [{ text: 'Ticket resolution metrics.' }, { text: 'System downtime summary.' }, { text: 'Security event report.' }] }] },
       people: { title: 'People', subtitle: 'Add and manage school users.', panels: [] },
+      classes: { title: 'Classes & Subjects', subtitle: 'Assign class teachers, assistants and subject teachers.', panels: [] },
       settings: { title: 'Settings', subtitle: 'Manage profile and security settings.', panels: [{ title: 'Security', items: [{ text: 'Enable 2FA and strong password.' }, { text: 'Review active sessions.' }, { text: 'Set alert preferences.' }] }] },
     },
   },

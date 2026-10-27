@@ -182,7 +182,9 @@ function BrandingTab() {
   );
 }
 
-function ClassesTab() {
+// assignOnly (ICT): assign teachers and caregivers to classes; adding, renaming and
+// deleting classes stays with the Owner and Head of School.
+export function ClassesTab({ assignOnly = false }) {
   const [classes, setClasses] = useState([]);
   const [teachers, setTeachers] = useState([]);
   const [caregivers, setCaregivers] = useState([]);
@@ -365,6 +367,14 @@ function ClassesTab() {
 
   return (
     <div className="space-y-4">
+      {assignOnly ? (
+        <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-[#c9a96e]/40 bg-[#ade1f4] dark:bg-slate-800/40 p-4">
+          <p className="text-sm font-semibold text-[#191970] dark:text-slate-200">Choose each class's teacher, assistant and caregiver, then save. Classes are added or renamed by the Owner or Head of School.</p>
+          <button type="button" onClick={handleSaveAll} disabled={savingAll || dirtyClassIds.length === 0} className="rounded-2xl bg-[#1a5c38] px-4 py-2 text-xs font-bold text-[#b5e3f4] disabled:opacity-60">
+            {savingAll ? 'Saving...' : `Save All Changes${dirtyClassIds.length ? ` (${dirtyClassIds.length})` : ''}`}
+          </button>
+        </div>
+      ) : (<>
       <div className="rounded-2xl border border-[#c9a96e]/40 bg-[#ade1f4] dark:bg-slate-800/40 p-4 space-y-3">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
@@ -449,6 +459,7 @@ function ClassesTab() {
           </button>
         </div>
       </form>
+      </>)}
 
       {(error || statusMsg) && <p className={`text-sm ${error ? 'text-red-600' : 'text-[#1a5c38]'}`}>{error || statusMsg}</p>}
 
@@ -467,18 +478,18 @@ function ClassesTab() {
                 <div className="grid flex-1 grid-cols-1 gap-3 md:grid-cols-2">
                   <div>
                     <label className={LABEL}>Class Name</label>
-                    <input value={draft.name} onChange={e => updateDraft(cls.id, current => ({ ...current, name: e.target.value }))} className={FIELD} />
+                    <input value={draft.name} readOnly={assignOnly} onChange={e => updateDraft(cls.id, current => ({ ...current, name: e.target.value }))} className={FIELD} />
                   </div>
                   <div>
                     <label className={LABEL}>Arm</label>
-                    <input value={draft.arm} onChange={e => updateDraft(cls.id, current => ({ ...current, arm: e.target.value }))} className={FIELD} />
+                    <input value={draft.arm} readOnly={assignOnly} onChange={e => updateDraft(cls.id, current => ({ ...current, arm: e.target.value }))} className={FIELD} />
                   </div>
                 </div>
                 <div className="flex shrink-0 items-center gap-2">
                   {isDirty && <span className="rounded-full bg-[#1a5c38] px-3 py-1 text-[11px] font-bold uppercase text-[#b5e3f4]">Unsaved</span>}
-                  <button type="button" onClick={() => handleDeleteClass(cls.id, `${cls.name}${cls.arm ? ` ${cls.arm}` : ''}`)} disabled={deletingClassId === cls.id} className="rounded-xl border border-red-300 px-3 py-2 text-xs font-semibold text-red-600 disabled:opacity-60">
+                  {!assignOnly && <button type="button" onClick={() => handleDeleteClass(cls.id, `${cls.name}${cls.arm ? ` ${cls.arm}` : ''}`)} disabled={deletingClassId === cls.id} className="rounded-xl border border-red-300 px-3 py-2 text-xs font-semibold text-red-600 disabled:opacity-60">
                     {deletingClassId === cls.id ? 'Deleting...' : 'Delete'}
-                  </button>
+                  </button>}
                 </div>
               </div>
 
@@ -567,7 +578,7 @@ function SubjectName({ subject, onRenamed }) {
   );
 }
 
-function SubjectsTab() {
+export function SubjectsTab() {
   const [subjects, setSubjects] = useState([]);
   const [classes, setClasses] = useState([]);
   const [teachers, setTeachers] = useState([]);

@@ -25304,13 +25304,20 @@ app.put('/api/school/class-levels', authenticate, async (c) => {
   return c.json({ success: true, saved: statements.length })
 })
 
+// ICT assigns teachers to classes (as it does subjects); naming, adding and removing
+// classes stays with the Owner and Head of School.
+const CLASS_TEACHER_ASSIGNER_ROLES = ['owner', 'hos', 'ict', 'ict_manager']
+
 app.put('/api/school/classes/:classId', authenticate, async (c) => {
-  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos'])) return c.json({ error: 'forbidden' }, 403)
+  if (!hasRequiredRole(c.var.user.role, CLASS_TEACHER_ASSIGNER_ROLES)) return c.json({ error: 'forbidden' }, 403)
   const tenantId = c.var.user?.tenantId
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
   const classId = c.req.param('classId')
   const body = await c.req.json()
-  const { name, arm, classTeacherId, teacherIds, caregiverIds } = body
+  const assignOnly = !hasRequiredRole(c.var.user.role, ['owner', 'hos'])
+  const { classTeacherId, teacherIds, caregiverIds } = body
+  const name = assignOnly ? undefined : body.name
+  const arm = assignOnly ? undefined : body.arm
   try {
     const existingClass = await c.env.APP_DB.prepare(`SELECT * FROM classes WHERE id = ? AND tenantId = ?`).bind(classId, tenantId).first() as Record<string, any> | null
     if (!existingClass) return c.json({ error: 'Class not found.' }, 404)
@@ -25366,12 +25373,18 @@ app.put('/api/school/classes/:classId', authenticate, async (c) => {
 })
 
 app.put('/api/school/classes', authenticate, async (c) => {
-  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos'])) return c.json({ error: 'forbidden' }, 403)
+  if (!hasRequiredRole(c.var.user.role, CLASS_TEACHER_ASSIGNER_ROLES)) return c.json({ error: 'forbidden' }, 403)
   const tenantId = c.var.user?.tenantId
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
 
   const body = await c.req.json().catch(() => ({})) as Record<string, any>
-  const rows = Array.isArray(body.classes) ? body.classes : []
+  // ICT changes teachers only: any name or arm it sends is ignored.
+  const assignOnly = !hasRequiredRole(c.var.user.role, ['owner', 'hos'])
+  const rows = (Array.isArray(body.classes) ? body.classes : []).map((row: Record<string, any>) => {
+    if (!assignOnly || !row || typeof row !== 'object') return row
+    const { name, arm, ...rest } = row
+    return rest
+  })
   if (!rows.length) return c.json({ error: 'classes array required.' }, 400)
 
   const results: Array<{ id: string, status: 'ok' | 'error', error?: string }> = []

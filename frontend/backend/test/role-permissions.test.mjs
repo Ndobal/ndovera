@@ -109,6 +109,23 @@ test('only the owner can appoint or replace a head of school', async () => {
   assert.equal(await send(db, 'hos', 'POST', '/api/people', { name: 'T', email: 't2@a.test', role: 'teacher', password: 'Passw0rd!x' }), 201)
 })
 
+test('ICT assigns teachers to classes and subjects, but cannot rename, add or delete classes', async () => {
+  const db = await setupStaff()
+  await db.prepare("INSERT INTO subjects (id, tenantId, name, classId, teacherId, createdAt) VALUES ('maths-2a', 'school-a', 'Mathematics', 'jss2a', NULL, '')").run()
+  assert.equal(await send(db, 'ict', 'PUT', '/api/school/classes/jss2a', { name: 'Renamed', classTeacherId: 'teach', teacherIds: ['teach'] }), 200)
+  const row = db.db.prepare("SELECT name, classTeacherId FROM classes WHERE id = 'jss2a'").get()
+  assert.deepEqual([row.name, row.classTeacherId], ['JSS 2', 'teach'], 'the teacher is assigned; the name is unchanged')
+  assert.equal(await send(db, 'ict', 'PUT', '/api/school/classes', { classes: [{ id: 'jss2a', arm: 'Z', classTeacherId: '' }] }), 200)
+  assert.equal(db.db.prepare("SELECT arm FROM classes WHERE id = 'jss2a'").get().arm, 'A')
+  assert.equal(await send(db, 'ict', 'PUT', '/api/school/subjects/maths-2a', { teacherId: 'teach' }), 200)
+  assert.equal(db.db.prepare("SELECT teacherId FROM subjects WHERE id = 'maths-2a'").get().teacherId, 'teach')
+  assert.equal(await send(db, 'ict', 'POST', '/api/school/classes', { name: 'JSS 3' }), 403)
+  assert.equal(await send(db, 'ict', 'DELETE', '/api/school/classes/jss2a'), 403)
+  // The Owner still renames.
+  assert.equal(await send(db, 'owner', 'PUT', '/api/school/classes/jss2a', { name: 'JSS 2 Gold' }), 200)
+  assert.equal(db.db.prepare("SELECT name FROM classes WHERE id = 'jss2a'").get().name, 'JSS 2 Gold')
+})
+
 test('results accept stable session and term ids, only from the same school', async () => {
   const db = await setup()
   const { academic } = await import('./build/materialSessionTest.mjs')

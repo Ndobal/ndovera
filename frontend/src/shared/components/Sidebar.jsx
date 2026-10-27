@@ -444,6 +444,7 @@ function buildRoleSidebarItems(roleKey) {
       { name: 'Birthdays', path: `/roles/${roleKey}/birthdays` },
       { name: 'Clubs', path: `/roles/${roleKey}/clubs` },
       { name: 'People', path: `/roles/${roleKey}/people` },
+      { name: 'Classes & Subjects', path: `/roles/${roleKey}/classes` },
       { name: 'Support', path: `/roles/${roleKey}/support` },
       { name: 'Systems', path: `/roles/${roleKey}/systems` },
       { name: 'Access', path: `/roles/${roleKey}/access` },

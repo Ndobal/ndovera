@@ -6,6 +6,7 @@ import SchoolLocationForm from '../../features/school/components/SchoolLocationF
 import TeacherClassroom from '../../features/classroom/TeacherClassroom';
 import { SchoolClassResults, TeacherCAScoreSheet } from '../../features/results-engine';
 import OwnerPeople from './owner/OwnerPeople';
+import { ClassesTab, SubjectsTab } from './owner/OwnerSettings';
 import OwnerAttendance from './owner/OwnerAttendance';
 import SchoolAnnouncementsPanel from '../../shared/components/SchoolAnnouncementsPanel';
 import LessonPlanReviewPage from '../../features/lesson-plans/LessonPlanReviewPage';
@@ -123,6 +124,26 @@ export default function OperationalRoleDashboard({ roleKey }) {
 
   if (isIctSurface && sectionKey === 'people') {
     return <OwnerPeople />;
+  }
+
+  // ICT assigns teachers to classes and subjects (the Owner's own Classes and Subjects screens).
+  if (isIctSurface && sectionKey === 'classes') {
+    return (
+      <div className="p-8 max-w-7xl mx-auto space-y-6">
+        <div className="rounded-3xl p-6 bg-[#b5e3f4] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10">
+          <h1 className="text-2xl font-bold text-[#800000] dark:text-slate-100">{section.title}</h1>
+          <p className="text-[#191970] dark:text-slate-300 mt-1 text-sm">{section.subtitle}</p>
+        </div>
+        <div className="rounded-3xl p-6 bg-[#b5e3f4] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10 space-y-3">
+          <h2 className="text-lg font-bold text-[#800000] dark:text-slate-100">Class teachers</h2>
+          <ClassesTab assignOnly />
+        </div>
+        <div className="rounded-3xl p-6 bg-[#b5e3f4] dark:bg-slate-900/30 border border-[#c9a96e]/40 dark:border-white/10 space-y-3">
+          <h2 className="text-lg font-bold text-[#800000] dark:text-slate-100">Subject teachers</h2>
+          <SubjectsTab />
+        </div>
+      </div>
+    );
   }
 
   if (isIctSurface && sectionKey === 'overview') {

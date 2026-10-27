@@ -17,7 +17,8 @@ import { loadStudentAssignments } from '../../features/classroom/studentTasks';
 import { getPlatformFinance, getProfitAndLoss, getPlatformShares, listShareholders, getAmiTenants, getPlatformAnalytics, getSchoolAccessGrants, getAmiAuditLogs, getAmiReportSummary, getAmiTermBills } from '../../features/tenants/services/tenantApi';
 import { FinanceReport, IncomeExpenditure, TermFeeTemplate } from '../../features/finance/TermFinance';
 import { NextTermCard } from '../../features/finance/simple/SimpleFees';
-import { getTermFinanceReport, runFinanceAI } from '../../features/school/services/schoolApi';
+import { getClasses, getPeople, getTermFinanceReport, runFinanceAI } from '../../features/school/services/schoolApi';
+import { ClassesTab } from '../../app/roles/owner/OwnerSettings';
 import { getFeeReports, getFeesOverview } from '../../features/finance/simple/simpleFeesApi';
 
 // The colour rule, enforced: no text may clash with its background, in light or dark mode.
@@ -41,7 +42,7 @@ jest.mock('../../features/submissions/StaffSubmissionPanel', () => () => null);
 jest.mock('../../features/tenants/components/SchoolAccessPanel', () => () => <div>School access</div>);
 jest.mock('../components/AppDialog', () => ({ askConfirm: jest.fn(() => Promise.resolve(true)), askText: jest.fn(() => Promise.resolve('')) }));
 jest.mock('../../features/tenants/services/tenantApi', () => new Proxy({}, { get: (target, key) => { if (!target[key]) target[key] = jest.fn(() => Promise.resolve({})); return target[key]; } }));
-jest.mock('../../features/school/services/schoolApi', () => ({ ...jest.requireActual('../../features/school/services/schoolApi'), getTermFinanceReport: jest.fn(), runFinanceAI: jest.fn() }));
+jest.mock('../../features/school/services/schoolApi', () => ({ ...jest.requireActual('../../features/school/services/schoolApi'), getTermFinanceReport: jest.fn(), runFinanceAI: jest.fn(), getClasses: jest.fn(), getPeople: jest.fn() }));
 jest.mock('../../features/finance/simple/simpleFeesApi', () => ({ ...jest.requireActual('../../features/finance/simple/simpleFeesApi'), getFeesOverview: jest.fn(), getFeeReports: jest.fn() }));
 
 const month = new Date().toISOString().slice(0, 7);
@@ -118,6 +119,8 @@ const FEE_REPORTS = {
 
 beforeEach(() => {
   getTermFinanceReport.mockResolvedValue({ report: TERM_REPORT });
+  getClasses.mockResolvedValue({ classes: [{ id: 'jss2a', name: 'JSS 2', arm: 'A', classTeacherId: 't1', teacherIds: ['t1'], caregiverIds: [] }] });
+  getPeople.mockResolvedValue({ people: [{ id: 't1', name: 'Mrs Ade' }] });
   runFinanceAI.mockResolvedValue({ analysis: REPORT_DOC });
   getFeesOverview.mockResolvedValue(FEE_OVERVIEW);
   getFeeReports.mockResolvedValue(FEE_REPORTS);
@@ -194,6 +197,7 @@ test.each([
   ['Income & Expenditure', () => <IncomeExpenditure />, 'Where the expected fees come from'],
   ['Finance report', () => <FinanceReport />, 'How the figures are worked out'],
   ['Fee Template for the current term', () => <TermFeeTemplate legacy={<div>Earlier board</div>} />, 'Class fees'],
+  ['ICT class teachers', () => <ClassesTab assignOnly />, 'Save This Class'],
   ['Next term card', () => <NextTermCard nextTerm={FEE_OVERVIEW.nextTerm} canEdit onSetup={() => {}} />, 'Set Second Term fees in advance'],
 ])('the school Finance %s is readable in light and dark mode', async (label, renderPage, ready) => {
   const { container } = render(renderPage());
