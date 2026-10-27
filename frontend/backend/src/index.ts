@@ -383,7 +383,7 @@ import type { SchoolClass } from './classMatch'
 import { CLASS_CHANGE_ROLES, classHistory, isStudentPayload, monitorClassPins } from './classPins'
 import {
   Enrollment, TermRef, accountSummaries, addStudentCharge, adjustStudent, applyFamilyDiscount, billStudents, canEditFees, getFeeSettings, getTermGrid, getTermLock,
-  discardFeeDraft, getFeeDraft, gridFromFeeConfig, listFeeTerms, loadStudentAmounts, lockTerm, saveFeeDraft, resolveClassMove, saveFeeSettings, saveTermGrid, studentStatement, studentsWithFees, unbilledStudents, unlockTerm,
+  discardFeeDraft, getFeeDraft, gridFromFeeConfig, listFeeTerms, loadStudentAmounts, lockTerm, saveFeeDraft, resolveClassMove, saveFeeSettings, saveTermGrid, scheduleTerm, studentStatement, studentsWithFees, unbilledStudents, unlockTerm,
 } from './feeEngine'
 import {
   CurriculumError, EXAM_CATALOG, addCurriculumTopics, addSpecTopics, autoMapSpec, curriculaForSchool, curriculumImportPrompt, deleteCurriculum, importContext, withImportDefaults,
@@ -25889,7 +25889,13 @@ app.get('/api/school/session', authenticate, async (c) => {
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
   try {
     const sessionState = await listSchoolSessionHistory(c.env.APP_DB, tenantId)
-    return c.json({ success: true, session: sessionState.current, history: sessionState.history })
+    // Once Academic Sessions runs the school's calendar, the current term is its active
+    // term, so the Fee Template (and every other reader) agrees with Fees & Billing.
+    const period = await getCurrentAcademicPeriod(c.env.APP_DB, tenantId).catch(() => null)
+    const current = period?.configured && period.sessionName && period.termName
+      ? { id: period.termId, session: period.sessionName, term: period.termName, startDate: period.term?.startDate || '', endDate: period.term?.endDate || '', createdAt: '', managedBy: 'academic' }
+      : sessionState.current
+    return c.json({ success: true, session: current, history: sessionState.history })
   } catch {
     return c.json({ success: true, session: null, history: [] })
   }
@@ -28609,7 +28615,9 @@ app.get('/api/school/expenditure', authenticate, async (c) => {
     await c.env.APP_DB.prepare(`CREATE TABLE IF NOT EXISTS expenditures (id TEXT PRIMARY KEY, tenant_id TEXT, description TEXT, category TEXT, amount REAL, date TEXT, recorded_by TEXT, created_at TEXT)`).run()
     const rows = await c.env.APP_DB.prepare(`SELECT * FROM expenditures WHERE tenant_id = ? ORDER BY date DESC, created_at DESC`).bind(tenantId).all()
     const expenditures = (rows.results || []).map((r: any) => ({ id: r.id, description: r.description, category: r.category, amount: r.amount || 0, date: r.date, recordedBy: r.recorded_by, createdAt: r.created_at }))
-    return c.json({ success: true, expenditures })
+    // The running term, so the page can show this term's spending (the same dates the term report uses).
+    const period = await financePeriod(c.env.APP_DB, tenantId).catch(() => null)
+    return c.json({ success: true, expenditures, period })
   } catch { return c.json({ success: true, expenditures: [] }) }
 })
 
@@ -31878,150 +31886,385 @@ app.post('/api/school/attendance/ai-analysis', authenticate, async (c) => {
   }
 })
 
-const FINANCE_AI_VIEW_ROLES = ['owner', 'hos', 'accountant', 'admin']
+// ─── One term's money: Income & Expenditure and the finance report ───────────
+// Both follow the term the school is in (Academic Sessions). Fee figures are the
+// ones Fees & Billing shows (student accounts); spending is every expense dated
+// inside the term; payroll is the payroll prepared for the term's months.
 
-// Pulls a real, tenant-scoped finance snapshot (fees ledger debtors, expenditure,
-// payroll, current session) so the AI analysis runs on live data instead of mock copy.
-async function buildSchoolFinanceSnapshot(db: D1Database, currentUser: Record<string, any>) {
-  const feeView = await listVisibleFeeLedgerEntries(db, currentUser)
-  if (!feeView.tenantId) {
-    return { allowed: false, reason: 'no-tenant', tenantId: '', role: feeView.role } as const
+type TermFinanceCtx = Awaited<ReturnType<typeof feeContextFor>>
+
+const isCalendarDay = (value: string) => /^\d{4}-\d{2}-\d{2}$/.test(value) && value >= '2001-01-01'
+
+/** Every term, oldest first, each with its session. */
+async function termsInOrder(db: D1Database, tenantId: string) {
+  const rows = await db.prepare(`SELECT t.id, t.name, t.status, t.start_date, t.end_date, s.id AS session_id, s.name AS session_name FROM academic_terms t JOIN academic_sessions s ON s.id = t.session_id
+    WHERE t.tenant_id = ? ORDER BY s.start_date ASC, t.sequence ASC`).bind(tenantId).all().catch(() => ({ results: [] }))
+  return ((rows.results || []) as Record<string, any>[]).map(row => ({
+    id: String(row.id), name: String(row.name || ''), status: String(row.status || 'upcoming'), sessionId: String(row.session_id), sessionName: String(row.session_name || ''),
+    startDate: String(row.start_date || '').slice(0, 10), endDate: String(row.end_date || '').slice(0, 10),
+  }))
+}
+
+// Not platformFinance's monthsBetween (imported above): this one takes calendar days.
+function termMonths(from: string, to: string) {
+  const out: string[] = []
+  if (!isCalendarDay(from) || !isCalendarDay(to) || from > to) return out
+  let [year, month] = from.slice(0, 7).split('-').map(Number)
+  const last = to.slice(0, 7)
+  while (out.length < 24) {
+    const key = `${year}-${String(month).padStart(2, '0')}`
+    out.push(key)
+    if (key >= last) break
+    month += 1
+    if (month > 12) { month = 1; year += 1 }
   }
-  if (!feeView.allowed || !FINANCE_AI_VIEW_ROLES.includes(feeView.role)) {
-    return { allowed: false, reason: 'forbidden', tenantId: feeView.tenantId, role: feeView.role } as const
+  return out
+}
+
+/**
+ * A term's fees. From student accounts when the term was billed in Fees & Billing
+ * (the same totals as its dashboard); from the earlier Fee Template when the
+ * current term is still run there; otherwise nothing has been set.
+ */
+async function termFeeFigures(context: TermFinanceCtx, term: TermRef, user: Record<string, any>) {
+  const db = context.db
+  const enrollments = await termEnrollments(db, context.tenantId, term.sessionId, context.actor.id)
+  const accounts = await accountSummaries(db, context.tenantId, { termId: term.id, termStart: term.startDate }, enrollments)
+  const billed = accounts.filter(account => account.status !== 'not_billed')
+  const sum = (list: any[], pick: (row: any) => number) => money(list.reduce((total, row) => total + pick(row), 0))
+  if (billed.length) {
+    const onRegister = billed.filter(account => !account.left)
+    const byClass = new Map<string, { className: string, students: number, expected: number, collected: number, outstanding: number, owing: number }>()
+    for (const account of billed) {
+      const row = byClass.get(account.className) || { className: account.className, students: 0, expected: 0, collected: 0, outstanding: 0, owing: 0 }
+      row.students += 1
+      row.expected = money(row.expected + account.totalPayable)
+      row.collected = money(row.collected + account.paid)
+      row.outstanding = money(row.outstanding + Math.max(account.balance, 0))
+      if (account.balance > 0) row.owing += 1
+      byClass.set(account.className, row)
+    }
+    const expected = sum(accounts, account => account.totalPayable)
+    const collected = sum(accounts, account => account.paid)
+    return {
+      source: 'fees' as const,
+      students: onRegister.length,
+      termFees: sum(accounts, account => account.termFee),
+      broughtForward: sum(accounts, account => account.outstanding),
+      otherCharges: sum(accounts, account => account.otherCharges),
+      discounts: sum(accounts, account => account.discounts),
+      expected, collected,
+      outstanding: sum(accounts, account => Math.max(account.balance, 0)),
+      overpaid: sum(accounts, account => Math.max(-account.balance, 0)),
+      collectionRate: expected > 0 ? Math.round((collected / expected) * 1000) / 10 : 0,
+      paidInFull: onRegister.filter(account => account.status === 'paid' || account.status === 'overpaid').length,
+      partPaid: onRegister.filter(account => account.status === 'part_payment').length,
+      unpaid: onRegister.filter(account => account.status === 'unpaid').length,
+      leftOwing: billed.filter(account => account.left && account.balance > 0).length,
+      byClass: [...byClass.values()].sort((a, b) => a.className.localeCompare(b.className)),
+      debtors: billed.filter(account => account.balance > 0).sort((a, b) => b.balance - a.balance).slice(0, 50).map(account => ({
+        studentId: account.studentId, name: account.studentName, className: account.className,
+        expected: account.totalPayable, paid: account.paid, balance: account.balance, status: account.paid > 0 ? 'Part paid' : 'Unpaid',
+      })),
+    }
   }
-
-  const tenantId = feeView.tenantId
-  const ledger = feeView.ledger || []
-
-  const totalExpected = ledger.reduce((sum, entry) => sum + Number(entry.feeAmount || 0), 0)
-  const totalCollected = ledger.reduce((sum, entry) => sum + Number(entry.amountPaid || 0), 0)
-  const totalOutstanding = ledger.reduce((sum, entry) => sum + Number(entry.balance || 0), 0)
-  const collectionRate = totalExpected > 0 ? Math.round((totalCollected / totalExpected) * 100) : 0
-  const paidCount = ledger.filter(entry => String(entry.status) === 'Paid').length
-  const partialCount = ledger.filter(entry => String(entry.status) === 'Partial').length
-  const unpaidCount = ledger.filter(entry => String(entry.status) === 'Unpaid').length
-
-  const debtors = ledger
-    .filter(entry => Number(entry.balance || 0) > 0)
-    .sort((a, b) => Number(b.balance || 0) - Number(a.balance || 0))
-    .map(entry => ({
-      studentId: String(entry.studentId || ''),
-      name: String(entry.name || 'Student'),
-      className: String(entry.className || ''),
-      feeAmount: Number(entry.feeAmount || 0),
-      amountPaid: Number(entry.amountPaid || 0),
-      balance: Number(entry.balance || 0),
-      status: String(entry.status || ''),
-    }))
-
-  const now = new Date()
-  const thisMonthKey = now.toISOString().slice(0, 7)
-  const prevMonthKey = new Date(now.getFullYear(), now.getMonth() - 1, 1).toISOString().slice(0, 7)
-
-  let totalExpenditure = 0
-  let monthExpenditure = 0
-  let prevMonthExpenditure = 0
-  const categoryTotals: Record<string, number> = {}
-  try {
-    await db.prepare(`CREATE TABLE IF NOT EXISTS expenditures (id TEXT PRIMARY KEY, tenant_id TEXT, description TEXT, category TEXT, amount REAL, date TEXT, recorded_by TEXT, created_at TEXT)`).run()
-    const expRows = await db.prepare(`SELECT amount, category, date, created_at FROM expenditures WHERE tenant_id = ?`).bind(tenantId).all()
-    for (const row of ((expRows.results || []) as Record<string, any>[])) {
-      const amount = Number(row.amount || 0)
-      totalExpenditure += amount
-      const periodKey = String(row.date || row.created_at || '').slice(0, 7)
-      if (periodKey === thisMonthKey) monthExpenditure += amount
-      if (periodKey === prevMonthKey) prevMonthExpenditure += amount
-      const category = String(row.category || 'Other').trim() || 'Other'
-      categoryTotals[category] = (categoryTotals[category] || 0) + amount
+  const template = term.id === context.period.termId
+    ? await db.prepare(`SELECT COUNT(*) AS n FROM fees_config WHERE tenant_id = ? AND lower(trim(session)) = lower(trim(?)) AND lower(trim(term)) = lower(trim(?))`).bind(context.tenantId, term.sessionName, term.name).first().catch(() => null) as Record<string, any> | null
+    : null
+  if (Number(template?.n || 0) > 0) {
+    const ledger = ((await listVisibleFeeLedgerEntries(db, user)).ledger || []).filter(entry => Number(entry.feeAmount || 0) > 0)
+    const byClass = new Map<string, { className: string, students: number, expected: number, collected: number, outstanding: number, owing: number }>()
+    for (const entry of ledger) {
+      const className = String(entry.className || 'No class')
+      const row = byClass.get(className) || { className, students: 0, expected: 0, collected: 0, outstanding: 0, owing: 0 }
+      row.students += 1
+      row.expected = money(row.expected + Number(entry.feeAmount || 0))
+      row.collected = money(row.collected + Number(entry.amountPaid || 0))
+      row.outstanding = money(row.outstanding + Number(entry.balance || 0))
+      if (Number(entry.balance || 0) > 0) row.owing += 1
+      byClass.set(className, row)
     }
-  } catch {}
-
-  let monthlyPayrollGross = 0
-  try {
-    await ensurePayrollEntriesTable(db)
-    const payRows = await db.prepare(`SELECT gross, basic_salary FROM payroll_entries WHERE tenant_id = ? AND period = ?`).bind(tenantId, thisMonthKey).all()
-    for (const row of ((payRows.results || []) as Record<string, any>[])) {
-      monthlyPayrollGross += Number(row.gross || row.basic_salary || 0)
+    const expected = sum(ledger, entry => Number(entry.feeAmount || 0))
+    const collected = sum(ledger, entry => Number(entry.amountPaid || 0))
+    return {
+      source: 'template' as const,
+      students: ledger.length, termFees: expected, broughtForward: 0, otherCharges: 0, discounts: 0, expected, collected,
+      outstanding: sum(ledger, entry => Number(entry.balance || 0)), overpaid: 0,
+      collectionRate: expected > 0 ? Math.round((collected / expected) * 1000) / 10 : 0,
+      paidInFull: ledger.filter(entry => entry.status === 'Paid').length,
+      partPaid: ledger.filter(entry => entry.status === 'Partial').length,
+      unpaid: ledger.filter(entry => entry.status === 'Unpaid').length,
+      leftOwing: 0,
+      byClass: [...byClass.values()].sort((a, b) => a.className.localeCompare(b.className)),
+      debtors: ledger.filter(entry => Number(entry.balance || 0) > 0).sort((a, b) => Number(b.balance) - Number(a.balance)).slice(0, 50).map(entry => ({
+        studentId: String(entry.studentId), name: String(entry.name || ''), className: String(entry.className || ''),
+        expected: Number(entry.feeAmount || 0), paid: Number(entry.amountPaid || 0), balance: Number(entry.balance || 0), status: Number(entry.amountPaid || 0) > 0 ? 'Part paid' : 'Unpaid',
+      })),
     }
-  } catch {}
-
-  const session = await getCurrentSchoolSessionSnapshot(db, tenantId)
-
+  }
   return {
-    allowed: true as const,
-    tenantId,
-    role: feeView.role,
-    session,
-    debtors,
-    categoryTotals,
-    metrics: {
-      studentCount: ledger.length,
-      totalExpected,
-      totalCollected,
-      totalOutstanding,
-      collectionRate,
-      paidCount,
-      partialCount,
-      unpaidCount,
-      totalExpenditure,
-      monthExpenditure,
-      prevMonthExpenditure,
-      monthlyPayrollGross,
-      netPosition: totalCollected - totalExpenditure,
-    },
+    source: 'none' as const, students: 0, termFees: 0, broughtForward: 0, otherCharges: 0, discounts: 0, expected: 0, collected: 0, outstanding: 0, overpaid: 0,
+    collectionRate: 0, paidInFull: 0, partPaid: 0, unpaid: 0, leftOwing: 0, byClass: [], debtors: [],
   }
 }
 
-type FinanceSnapshot = Extract<Awaited<ReturnType<typeof buildSchoolFinanceSnapshot>>, { allowed: true }>
-
-// Deterministic analysis that always names debtors + amounts, used as the AI fallback.
-function buildDeterministicFinanceAnalysis(snapshot: FinanceSnapshot) {
-  const m = snapshot.metrics
-  const periodLabel = [snapshot.session.termName, snapshot.session.sessionName].filter(Boolean).join(' • ') || 'the current term'
-  const owingCount = m.partialCount + m.unpaidCount
-  const topDebtors = snapshot.debtors.slice(0, 5)
-
-  const summaryParts = [
-    `For ${periodLabel}, the school has collected ${formatNairaAmount(m.totalCollected)} of ${formatNairaAmount(m.totalExpected)} in expected fees (${m.collectionRate}% collected) across ${m.studentCount} student${m.studentCount === 1 ? '' : 's'}.`,
-    owingCount > 0
-      ? `${formatNairaAmount(m.totalOutstanding)} is still outstanding from ${owingCount} student${owingCount === 1 ? '' : 's'} (${m.unpaidCount} unpaid, ${m.partialCount} part-paid).`
-      : 'All recorded fees have been fully collected.',
-  ]
-  if (topDebtors.length) {
-    summaryParts.push(`The largest balances are owed by ${topDebtors.map(d => `${d.name}${d.className ? ` (${d.className})` : ''} — ${formatNairaAmount(d.balance)}`).join('; ')}.`)
+/** Expenses dated inside the term, by category and by month. */
+async function termSpending(db: D1Database, tenantId: string, from: string, to: string) {
+  await db.prepare(`CREATE TABLE IF NOT EXISTS expenditures (id TEXT PRIMARY KEY, tenant_id TEXT, description TEXT, category TEXT, amount REAL, date TEXT, recorded_by TEXT, created_at TEXT)`).run()
+  const rows = await db.prepare(`SELECT description, category, amount, COALESCE(NULLIF(date, ''), substr(created_at, 1, 10)) AS day FROM expenditures
+    WHERE tenant_id = ? AND COALESCE(NULLIF(date, ''), substr(created_at, 1, 10)) BETWEEN ? AND ? ORDER BY day`).bind(tenantId, from, to).all().catch(() => ({ results: [] }))
+  const list = (rows.results || []) as Record<string, any>[]
+  const total = money(list.reduce((sum, row) => sum + Number(row.amount || 0), 0))
+  const categories = new Map<string, number>()
+  const months = new Map<string, number>()
+  for (const row of list) {
+    const category = String(row.category || 'Other').trim() || 'Other'
+    categories.set(category, money((categories.get(category) || 0) + Number(row.amount || 0)))
+    const month = String(row.day || '').slice(0, 7)
+    months.set(month, money((months.get(month) || 0) + Number(row.amount || 0)))
   }
-  summaryParts.push(`Recorded expenditure stands at ${formatNairaAmount(m.totalExpenditure)}, leaving a net cash position of ${formatNairaAmount(m.netPosition)}.`)
+  return {
+    total, count: list.length,
+    byCategory: [...categories.entries()].sort((a, b) => b[1] - a[1]).map(([category, amount]) => ({ category, amount, share: total > 0 ? Math.round((amount / total) * 1000) / 10 : 0 })),
+    byMonth: [...months.entries()].sort((a, b) => a[0].localeCompare(b[0])).map(([month, amount]) => ({ month, amount })),
+    largest: [...list].sort((a, b) => Number(b.amount || 0) - Number(a.amount || 0)).slice(0, 5).map(row => ({ description: String(row.description || ''), category: String(row.category || 'Other'), amount: money(row.amount), date: String(row.day || '') })),
+  }
+}
 
-  let comparison: string
-  if (m.prevMonthExpenditure > 0) {
-    const change = Math.round(((m.monthExpenditure - m.prevMonthExpenditure) / m.prevMonthExpenditure) * 100)
-    const direction = change >= 0 ? 'higher' : 'lower'
-    comparison = `This month's expenditure (${formatNairaAmount(m.monthExpenditure)}) is ${Math.abs(change)}% ${direction} than last month (${formatNairaAmount(m.prevMonthExpenditure)}).`
-  } else {
-    comparison = `This month's recorded expenditure is ${formatNairaAmount(m.monthExpenditure)}. No expenditure was recorded last month for comparison.`
+/** One term in full: fees, spending between its dates, payroll for its months, and what is left. */
+async function buildTermFinance(context: TermFinanceCtx, term: TermRef, user: Record<string, any>) {
+  const today = new Date().toISOString().slice(0, 10)
+  const start = String(term.startDate || '').slice(0, 10)
+  const end = String(term.endDate || '').slice(0, 10)
+  const from = isCalendarDay(start) ? start : `${today.slice(0, 7)}-01`
+  const ongoing = !(isCalendarDay(end) && end < today)
+  const to = ongoing ? today : end
+  const [fees, spending] = await Promise.all([
+    termFeeFigures(context, term, user),
+    termSpending(context.db, context.tenantId, from, to),
+  ])
+  const months = termMonths(from, to)
+  let payroll = { gross: 0, net: 0, months, entries: 0 }
+  if (months.length) {
+    await ensurePayrollEntriesTable(context.db)
+    const row = await context.db.prepare(`SELECT COALESCE(SUM(COALESCE(gross, basic_salary, 0)), 0) AS gross, COALESCE(SUM(COALESCE(net, 0)), 0) AS net, COUNT(*) AS n FROM payroll_entries WHERE tenant_id = ? AND period IN (${months.map(() => '?').join(',')})`)
+      .bind(context.tenantId, ...months).first().catch(() => null) as Record<string, any> | null
+    payroll = { gross: money(row?.gross), net: money(row?.net), months, entries: Number(row?.n || 0) }
+  }
+  return {
+    term: { id: term.id, name: term.name, sessionName: term.sessionName, startDate: isCalendarDay(start) ? start : '', endDate: isCalendarDay(end) ? end : '' },
+    window: { from, to, ongoing, datedStart: isCalendarDay(start) },
+    fees, spending, payroll,
+    net: money(fees.collected - spending.total),
+  }
+}
+
+/** The chosen term (or the current one), the term before it, and the terms that can be picked. */
+async function termFinanceReport(context: TermFinanceCtx, user: Record<string, any>) {
+  const term = requireTerm(context.term)
+  const ordered = await termsInOrder(context.db, context.tenantId)
+  const index = ordered.findIndex(item => item.id === term.id)
+  const before = index > 0 ? ordered[index - 1] : null
+  const current = await buildTermFinance(context, term, user)
+  const previous = before
+    ? await buildTermFinance(context, { id: before.id, name: before.name, sessionId: before.sessionId, sessionName: before.sessionName, startDate: before.startDate, endDate: before.endDate }, user).catch(() => null)
+    : null
+  return {
+    ...current,
+    previous: previous ? { term: previous.term, window: previous.window, fees: { source: previous.fees.source, expected: previous.fees.expected, collected: previous.fees.collected, outstanding: previous.fees.outstanding, collectionRate: previous.fees.collectionRate }, spending: { total: previous.spending.total, count: previous.spending.count }, net: previous.net } : null,
+    // Terms that have started, newest first (an upcoming term has no money in or out yet).
+    terms: ordered.filter(item => item.status !== 'upcoming').reverse().map(item => ({ id: item.id, name: item.name, sessionName: item.sessionName, current: item.id === context.period.termId })),
+    currentTermId: context.period.termId,
+  }
+}
+
+type TermFinance = Awaited<ReturnType<typeof termFinanceReport>>
+
+app.get('/api/school/finance/term-report', authenticate, async (c) => {
+  try {
+    const context = await simpleFeeContext(c, c.req.query('termId') || undefined)
+    if (!hasRequiredRole(context.role, FINANCE_VIEW_ROLES)) return c.json({ success: false, message: 'forbidden' }, 403)
+    return c.json({ success: true, report: await termFinanceReport(context, c.var.user || {}) })
+  } catch (error) {
+    return financeFailure(c, error, 'Could not build the term report.')
+  }
+})
+
+function formatReportDay(value: string) {
+  if (!isCalendarDay(value)) return ''
+  return new Date(`${value}T12:00:00Z`).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' })
+}
+
+function formatReportMonth(value: string) {
+  return /^\d{4}-\d{2}$/.test(value) ? new Date(`${value}-15T12:00:00Z`).toLocaleDateString('en-GB', { month: 'long', year: 'numeric', timeZone: 'UTC' }) : value
+}
+
+const plural = (count: number, one: string, many = `${one}s`) => `${count} ${count === 1 ? one : many}`
+
+type ReportSection = { heading: string, paragraphs: string[], table?: { columns: string[], rows: string[][] }, bullets?: string[] }
+
+/**
+ * The finance report as a written document: what each figure is, where it comes
+ * from, and what it means, in sections a proprietor or board can read and file.
+ * The numbers are always worked out here; the AI only writes the overview and
+ * the recommendations, from these same numbers.
+ */
+function buildFinanceReportDocument(report: TermFinance, schoolName: string, narrative: { summary: string, suggestions: string[] } | null) {
+  const naira = formatNairaAmount
+  const { fees, spending, payroll, window } = report
+  const termLabel = `${report.term.name}, ${report.term.sessionName}`
+  const period = `${formatReportDay(window.from)} to ${formatReportDay(window.to)}`
+  const owing = fees.partPaid + fees.unpaid
+  const sections: ReportSection[] = []
+
+  sections.push({
+    heading: 'About this report',
+    paragraphs: [
+      `This report explains ${schoolName ? `${schoolName}'s` : 'the school\'s'} finances for ${termLabel}. It covers ${period}${window.ongoing ? ', and the term is still running, so every figure is to date' : ''}.`
+        + `${window.datedStart ? '' : ' This term has no start date in Academic Sessions, so spending is counted from the first day of this month. Add the term\'s dates to make the period exact.'}`,
+      fees.source === 'fees'
+        ? 'School fee figures are the same as Fees & Billing: they come from each student\'s fee account. Spending is every expense recorded with a date inside the term.'
+        : fees.source === 'template'
+          ? 'This term\'s fees are kept in the Fee Template, so school fee figures come from it. Spending is every expense recorded with a date inside the term.'
+          : 'No fees have been published for this term yet, so this report covers spending only. Publish the term\'s fees in Fees & Billing to include them.',
+    ],
+  })
+
+  const deterministicSummary = [
+    fees.expected > 0
+      ? `The school expects ${naira(fees.expected)} in fees this term and has collected ${naira(fees.collected)}, which is ${fees.collectionRate}% of it. ${naira(fees.outstanding)} is still owed${owing ? ` by ${plural(owing, 'student')}` : ''}.`
+      : 'No fees are expected for this term yet.',
+    `Spending recorded for the term is ${naira(spending.total)}${spending.count ? ` across ${plural(spending.count, 'expense')}` : ''}. Fees collected minus spending leaves ${report.net >= 0 ? 'a surplus' : 'a shortfall'} of ${naira(Math.abs(report.net))}.`,
+  ].join(' ')
+  sections.push({ heading: 'Summary', paragraphs: [narrative?.summary || deterministicSummary] })
+
+  if (fees.source !== 'none') {
+    const parts = [`Students were billed ${naira(fees.termFees)} in ${report.term.name} fees`]
+    if (fees.broughtForward) parts.push(`${naira(fees.broughtForward)} was still owed from earlier terms and was brought forward`)
+    if (fees.otherCharges) parts.push(`other charges came to ${naira(fees.otherCharges)}`)
+    const composition = `${parts.join('; ')}${fees.discounts ? `. Discounts and scholarships took off ${naira(fees.discounts)}` : ''}. Together, the school expects ${naira(fees.expected)} this term.`
+    const table = { columns: ['Item', 'Amount'], rows: [['Term fees billed', naira(fees.termFees)]] }
+    if (fees.broughtForward) table.rows.push(['Owed from earlier terms', naira(fees.broughtForward)])
+    if (fees.otherCharges) table.rows.push(['Other charges', naira(fees.otherCharges)])
+    if (fees.discounts) table.rows.push(['Less discounts and scholarships', `−${naira(fees.discounts)}`])
+    table.rows.push(['Expected this term', naira(fees.expected)], ['Collected', naira(fees.collected)], ['Still owed', naira(fees.outstanding)])
+    sections.push({
+      heading: '1. School fees for the term',
+      paragraphs: [
+        composition,
+        `${naira(fees.collected)} has been collected, ${fees.collectionRate}% of what is expected. Of ${plural(fees.students, 'student')} with a fee account, ${fees.paidInFull} ${fees.paidInFull === 1 ? 'has' : 'have'} paid in full, ${fees.partPaid} ${fees.partPaid === 1 ? 'has' : 'have'} paid part, and ${fees.unpaid} ${fees.unpaid === 1 ? 'has' : 'have'} paid nothing yet.`
+          + `${fees.leftOwing ? ` ${plural(fees.leftOwing, 'student')} who left the school still ${fees.leftOwing === 1 ? 'owes' : 'owe'}, and ${fees.leftOwing === 1 ? 'is' : 'are'} included.` : ''}`
+          + `${fees.overpaid ? ` Some parents paid more than was due: ${naira(fees.overpaid)} is held as credit.` : ''}`,
+      ],
+      table,
+    })
+
+    if (fees.byClass.length) {
+      const rated = fees.byClass.filter(row => row.expected > 0).map(row => ({ ...row, rate: Math.round((row.collected / row.expected) * 1000) / 10 }))
+      const best = [...rated].sort((a, b) => b.rate - a.rate)[0]
+      const weakest = [...rated].sort((a, b) => a.rate - b.rate)[0]
+      sections.push({
+        heading: '2. Collection by class',
+        paragraphs: [best && weakest && best.className !== weakest.className
+          ? `${best.className} has paid the highest share of its fees (${best.rate}%). ${weakest.className} has paid the lowest (${weakest.rate}%), with ${naira(weakest.outstanding)} still owed by ${plural(weakest.owing, 'student')}.`
+          : 'Each class\'s fees, what has come in, and what is still owed.'],
+        table: { columns: ['Class', 'Students', 'Expected', 'Collected', 'Still owed', 'Collected %'], rows: fees.byClass.map(row => [row.className, String(row.students), naira(row.expected), naira(row.collected), naira(row.outstanding), row.expected > 0 ? `${Math.round((row.collected / row.expected) * 1000) / 10}%` : '—']) },
+      })
+    }
+
+    const top = fees.debtors.slice(0, 10)
+    sections.push({
+      heading: '3. Students who owe the most',
+      paragraphs: [top.length
+        ? `${plural(owing + fees.leftOwing, 'student')} still owe fees. The ${top.length === 1 ? 'largest balance is' : `${top.length} largest balances are`} below; together they come to ${naira(top.reduce((sum, row) => sum + row.balance, 0))}, ${fees.outstanding > 0 ? Math.round((top.reduce((sum, row) => sum + row.balance, 0) / fees.outstanding) * 100) : 0}% of everything still owed.`
+        : 'Every student has paid in full.'],
+      ...(top.length ? { table: { columns: ['Student', 'Class', 'Expected', 'Paid', 'Still owes'], rows: top.map(row => [row.name, row.className || '—', naira(row.expected), naira(row.paid), naira(row.balance)]) } } : {}),
+    })
+  }
+
+  const spendingParagraphs = spending.count
+    ? [
+        `${plural(spending.count, 'expense')} totalling ${naira(spending.total)} ${spending.count === 1 ? 'was' : 'were'} recorded between ${period}.`
+          + `${spending.byCategory[0] ? ` The biggest share went on ${spending.byCategory[0].category} (${naira(spending.byCategory[0].amount)}, ${spending.byCategory[0].share}% of all spending).` : ''}`,
+        spending.byMonth.length > 1 ? `By month: ${spending.byMonth.map(row => `${formatReportMonth(row.month)} ${naira(row.amount)}`).join('; ')}.` : '',
+        spending.largest.length ? `The largest single expenses were ${spending.largest.slice(0, 3).map(row => `${row.description || row.category} (${naira(row.amount)}${row.date ? `, ${formatReportDay(row.date)}` : ''})`).join(', ')}.` : '',
+      ].filter(Boolean)
+    : [`No expenses were recorded between ${period}. If the school spent money in this period, record it under Expenditure so this report is complete.`]
+  sections.push({
+    heading: `${fees.source === 'none' ? '1' : '4'}. Spending during the term`,
+    paragraphs: spendingParagraphs,
+    ...(spending.byCategory.length ? { table: { columns: ['Category', 'Amount', 'Share'], rows: spending.byCategory.map(row => [row.category, naira(row.amount), `${row.share}%`]) } } : {}),
+  })
+
+  const incomeParagraphs = [
+    report.net >= 0
+      ? `Fees collected (${naira(fees.collected)}) are more than the spending recorded (${naira(spending.total)}), leaving a surplus of ${naira(report.net)} for the term so far.`
+      : `Spending recorded (${naira(spending.total)}) is more than the fees collected (${naira(fees.collected)}), a shortfall of ${naira(Math.abs(report.net))}.${fees.outstanding > 0 ? ` Collecting the ${naira(fees.outstanding)} still owed would ${fees.outstanding >= Math.abs(report.net) ? 'cover it' : 'reduce it'}.` : ''}`,
+  ]
+  if (payroll.entries) {
+    incomeParagraphs.push(`Payroll prepared for ${payroll.months.map(formatReportMonth).join(', ')} comes to ${naira(payroll.gross)} before deductions (${naira(payroll.net)} paid to staff). It is shown for reference and is not added to spending, unless salaries were also recorded as an expense.`
+      + `${payroll.gross > 0 ? ` Fees collected cover ${Math.round((fees.collected / payroll.gross) * 100)}% of it.` : ''}`)
+  }
+  sections.push({
+    heading: `${fees.source === 'none' ? '2' : '5'}. Income against spending`,
+    paragraphs: incomeParagraphs,
+    table: { columns: ['', 'Amount'], rows: [['Fees collected', naira(fees.collected)], ['Spending recorded', naira(spending.total)], [report.net >= 0 ? 'Surplus' : 'Shortfall', naira(Math.abs(report.net))]] },
+  })
+
+  const previous = report.previous
+  if (previous) {
+    const change = (now: number, then: number) => (then > 0 ? `${now >= then ? '+' : '−'}${Math.abs(Math.round(((now - then) / then) * 100))}%` : '—')
+    const prevLabel = `${previous.term.name}, ${previous.term.sessionName}`
+    const paragraphs = [
+      previous.spending.total > 0
+        ? `Spending is ${naira(spending.total)} against ${naira(previous.spending.total)} in ${prevLabel} (${change(spending.total, previous.spending.total)}).${window.ongoing ? ' This term is not over, so its spending may still rise.' : ''}`
+        : `No spending was recorded in ${prevLabel}.`,
+      previous.fees.source === 'fees'
+        ? `Fees collected are ${naira(fees.collected)} against ${naira(previous.fees.collected)} last term, and the collection rate is ${fees.collectionRate}% against ${previous.fees.collectionRate}%.`
+        : `${prevLabel}'s fees were kept in the earlier Fee Template, so only spending can be compared.`,
+    ]
+    sections.push({
+      heading: `${fees.source === 'none' ? '3' : '6'}. Compared with ${prevLabel}`,
+      paragraphs,
+      table: {
+        columns: ['', report.term.name, previous.term.name, 'Change'],
+        rows: [
+          ...(previous.fees.source === 'fees' ? [['Fees expected', naira(fees.expected), naira(previous.fees.expected), change(fees.expected, previous.fees.expected)], ['Fees collected', naira(fees.collected), naira(previous.fees.collected), change(fees.collected, previous.fees.collected)]] : []),
+          ['Spending', naira(spending.total), naira(previous.spending.total), change(spending.total, previous.spending.total)],
+          ...(previous.fees.source === 'fees' ? [['Surplus / shortfall', naira(report.net), naira(previous.net), '']] : []),
+        ],
+      },
+    })
   }
 
   const suggestions: string[] = []
-  if (topDebtors.length) {
-    suggestions.push(`Follow up on outstanding fees, starting with ${topDebtors.slice(0, 3).map(d => `${d.name} (${formatNairaAmount(d.balance)})`).join(', ')}.`)
-  }
-  if (m.collectionRate < 80 && m.totalExpected > 0) {
-    suggestions.push(`Collection is at ${m.collectionRate}% — send fee reminders to the ${owingCount} student${owingCount === 1 ? '' : 's'} with balances to lift it above 80%.`)
-  }
-  const topCategory = Object.entries(snapshot.categoryTotals).sort((a, b) => b[1] - a[1])[0]
-  if (topCategory && topCategory[1] > 0) {
-    suggestions.push(`${topCategory[0]} is the biggest expenditure line at ${formatNairaAmount(topCategory[1])} — review it for savings.`)
-  }
-  if (m.monthlyPayrollGross > 0) {
-    const cover = m.monthlyPayrollGross > 0 ? Math.round((m.totalCollected / m.monthlyPayrollGross) * 100) : 0
-    suggestions.push(`Collected fees cover roughly ${cover}% of this month's ${formatNairaAmount(m.monthlyPayrollGross)} payroll obligation.`)
-  }
-  if (!suggestions.length) {
-    suggestions.push('Finances are healthy — keep recording expenditure and issuing receipts promptly to maintain a clean audit trail.')
-  }
+  if (fees.debtors.length) suggestions.push(`Follow up the largest balances first: ${fees.debtors.slice(0, 3).map(row => `${row.name} (${naira(row.balance)})`).join(', ')}. Fees & Billing → Students can send each parent a reminder.`)
+  if (fees.expected > 0 && fees.collectionRate < 80) suggestions.push(`Collection is at ${fees.collectionRate}%. Reminding the ${plural(owing, 'family', 'families')} who still owe would lift it towards 80% and above.`)
+  if (spending.byCategory[0]?.share >= 40) suggestions.push(`${spending.byCategory[0].category} is ${spending.byCategory[0].share}% of all spending. Check it for savings.`)
+  if (report.net < 0) suggestions.push('Spending is ahead of fees collected. Hold back on spending that can wait until more fees come in.')
+  if (!spending.count) suggestions.push('Record every expense under Expenditure with its date, so the next report shows the true position.')
+  if (fees.source === 'none') suggestions.push(`Publish ${report.term.name} fees in Fees & Billing so collections can be tracked.`)
+  if (!suggestions.length) suggestions.push('The finances are in order. Keep recording payments and expenses as they happen.')
+  sections.push({ heading: 'Recommendations', paragraphs: [], bullets: narrative?.suggestions?.length ? narrative.suggestions : suggestions })
 
-  return { summary: summaryParts.join(' '), comparison, suggestions }
+  sections.push({
+    heading: 'How the figures are worked out',
+    paragraphs: [],
+    bullets: [
+      'Expected = term fees billed + money still owed from earlier terms + other charges − discounts and scholarships.',
+      'Collected = payments recorded against student fee accounts for this term, including payments towards earlier debts made since the term began.',
+      'Still owed = expected − collected, for each student who has not paid in full.',
+      `Spending = every expense recorded under Expenditure with a date from ${formatReportDay(window.from)} to ${formatReportDay(window.to)}.`,
+      'Surplus or shortfall = fees collected − spending.',
+    ],
+  })
+
+  return {
+    title: `Finance report: ${termLabel}`,
+    schoolName,
+    period,
+    sections,
+  }
 }
 
 function parseFinanceAiJson(raw: string) {
@@ -32030,108 +32273,92 @@ function parseFinanceAiJson(raw: string) {
   if (fenced) text = fenced[1].trim()
   const start = text.indexOf('{')
   const end = text.lastIndexOf('}')
-  if (start === -1 || end === -1 || end <= start) {
-    return { summary: text.slice(0, 1400), comparison: '', suggestions: [] as string[] }
-  }
+  if (start === -1 || end === -1 || end <= start) return null
   try {
     const obj = JSON.parse(text.slice(start, end + 1)) as Record<string, any>
     const suggestions = Array.isArray(obj.suggestions)
-      ? obj.suggestions.map((s: unknown) => String(s || '').trim()).filter(Boolean).slice(0, 8)
+      ? obj.suggestions.map((s: unknown) => String(s || '').trim()).filter(Boolean).slice(0, 6)
       : []
-    return {
-      summary: String(obj.summary || '').trim(),
-      comparison: String(obj.comparison || '').trim(),
-      suggestions,
-    }
+    const summary = String(obj.summary || '').trim()
+    return summary ? { summary, suggestions } : null
   } catch {
-    return { summary: text.slice(0, 1400), comparison: '', suggestions: [] as string[] }
+    return null
   }
 }
 
-// Generates the narrative with the same AI model that powers the teacher/staff assistant
-// (the Workers AI binding), with an optional NVIDIA key fallback. Returns null if no model
-// is configured so the deterministic analysis can take over.
-async function runFinanceAiNarrative(env: Bindings, snapshot: FinanceSnapshot) {
-  const m = snapshot.metrics
-  const topDebtors = snapshot.debtors.slice(0, 12)
-  const debtorLines = topDebtors.length
-    ? topDebtors.map((d, i) => `${i + 1}. ${d.name}${d.className ? ` (${d.className})` : ''} owes ${formatNairaAmount(d.balance)} of ${formatNairaAmount(d.feeAmount)} (${d.status})`).join('\n')
-    : 'None — all fees collected.'
-
+// The overview and recommendations, written by the same AI model that powers the
+// staff assistant (Workers AI, with an optional NVIDIA key fallback), from the
+// report's own numbers. Null when no model is configured: the written-out
+// overview and recommendations stand on their own.
+async function runFinanceAiNarrative(env: Bindings, report: TermFinance) {
+  const { fees, spending, payroll } = report
   const dataBlock = [
-    `Period: ${[snapshot.session.termName, snapshot.session.sessionName].filter(Boolean).join(' / ') || 'current term'}`,
-    `Students on the fee register: ${m.studentCount}`,
-    `Expected fees: ${formatNairaAmount(m.totalExpected)}`,
-    `Collected fees: ${formatNairaAmount(m.totalCollected)} (${m.collectionRate}%)`,
-    `Outstanding fees: ${formatNairaAmount(m.totalOutstanding)} from ${m.partialCount + m.unpaidCount} student(s) (${m.unpaidCount} unpaid, ${m.partialCount} part-paid)`,
-    `Total recorded expenditure: ${formatNairaAmount(m.totalExpenditure)}`,
-    `Expenditure this month: ${formatNairaAmount(m.monthExpenditure)}; last month: ${formatNairaAmount(m.prevMonthExpenditure)}`,
-    `Estimated payroll this month (gross): ${formatNairaAmount(m.monthlyPayrollGross)}`,
-    `Net cash position (collected minus expenditure): ${formatNairaAmount(m.netPosition)}`,
+    `Term: ${report.term.name}, ${report.term.sessionName} (${report.window.from} to ${report.window.to}${report.window.ongoing ? ', still running' : ''})`,
+    `Fees expected: ${formatNairaAmount(fees.expected)} (term fees ${formatNairaAmount(fees.termFees)}, owed from earlier terms ${formatNairaAmount(fees.broughtForward)}, other charges ${formatNairaAmount(fees.otherCharges)}, discounts ${formatNairaAmount(fees.discounts)})`,
+    `Fees collected: ${formatNairaAmount(fees.collected)} (${fees.collectionRate}%)`,
+    `Still owed: ${formatNairaAmount(fees.outstanding)}; ${fees.paidInFull} paid in full, ${fees.partPaid} part paid, ${fees.unpaid} not paid`,
+    `Spending recorded in the term: ${formatNairaAmount(spending.total)}; by category: ${spending.byCategory.map(row => `${row.category} ${formatNairaAmount(row.amount)}`).join(', ') || 'none'}`,
+    `Payroll for the term's months (reference only): ${formatNairaAmount(payroll.gross)} gross`,
+    `Fees collected minus spending: ${formatNairaAmount(report.net)}`,
+    report.previous ? `Previous term ${report.previous.term.name} ${report.previous.term.sessionName}: spending ${formatNairaAmount(report.previous.spending.total)}${report.previous.fees.source === 'fees' ? `, collected ${formatNairaAmount(report.previous.fees.collected)} (${report.previous.fees.collectionRate}%)` : ''}` : 'No previous term to compare.',
+    `Largest balances: ${fees.debtors.slice(0, 8).map(row => `${row.name}${row.className ? ` (${row.className})` : ''} owes ${formatNairaAmount(row.balance)}`).join('; ') || 'none'}`,
   ].join('\n')
 
-  const systemPrompt = [
-    'You are Ndovera Finance AI, a precise school finance analyst.',
-    'Respond with ONLY valid minified JSON in this exact shape: {"summary": string, "comparison": string, "suggestions": string[]}.',
-    'Use only the real figures provided. All amounts are Nigerian Naira (₦).',
-    'In "summary", explicitly name the students with the largest outstanding balances and state how much each one owes.',
-    'In "comparison", compare this month and last month spending and comment on collection health.',
-    'In "suggestions", give 3-5 short, concrete finance actions. Be professional and specific. Do not invent numbers.',
-  ].join(' ')
-
-  const userPrompt = `School finance data:\n${dataBlock}\n\nStudents with outstanding balances (largest first):\n${debtorLines}`
-
   const messages: AiConversationMessage[] = [
-    { role: 'system', content: systemPrompt },
-    { role: 'user', content: userPrompt },
+    {
+      role: 'system',
+      content: [
+        'You are Ndovera Finance AI, writing for a Nigerian school proprietor who is not an accountant.',
+        'Respond with ONLY valid minified JSON: {"summary": string, "suggestions": string[]}.',
+        '"summary" is one paragraph of 4-6 plain sentences explaining where the school stands this term: what was expected, what came in, what is still owed (name the largest debtors and amounts), what was spent and on what, and whether the term is in surplus or shortfall.',
+        '"suggestions" is 3-5 short, specific actions. Use only the figures given, in Naira (₦). Never invent numbers. No accounting jargon.',
+      ].join(' '),
+    },
+    { role: 'user', content: `School finance data:\n${dataBlock}` },
   ]
 
   let raw = ''
   if (env.AI && typeof env.AI.run === 'function') {
-    const result = await env.AI.run(WORKERS_AI_MODEL, { messages, max_tokens: 900, temperature: 0.4 })
+    const result = await env.AI.run(WORKERS_AI_MODEL, { messages, max_tokens: 900, temperature: 0.3 })
     raw = extractWorkersAiText(result)
   } else if (String(env.NVIDIA_API_KEY || '').trim()) {
     raw = await runNvidiaStudentChat(env, messages)
   } else {
     return null
   }
-
-  if (!raw) return null
-  const parsed = parseFinanceAiJson(raw)
-  return parsed.summary ? parsed : null
+  return raw ? parseFinanceAiJson(raw) : null
 }
 
 app.post('/api/school/finance/ai-analysis', authenticate, async (c) => {
   try {
-    const snapshot = await buildSchoolFinanceSnapshot(c.env.APP_DB, c.var.user || {})
-    if (!snapshot.allowed) {
-      return c.json({ error: snapshot.reason === 'no-tenant' ? 'No tenant.' : 'forbidden' }, snapshot.reason === 'no-tenant' ? 400 : 403)
-    }
-
-    const fallback = buildDeterministicFinanceAnalysis(snapshot)
-    let aiAnalysis: { summary: string; comparison: string; suggestions: string[] } | null = null
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const context = await simpleFeeContext(c, String(body.termId || '') || undefined)
+    if (!hasRequiredRole(context.role, FINANCE_VIEW_ROLES)) return c.json({ success: false, message: 'forbidden' }, 403)
+    const report = await termFinanceReport(context, c.var.user || {})
+    const tenant = await getTenantById(context.db, context.tenantId).catch(() => null) as Record<string, any> | null
+    let narrative: { summary: string, suggestions: string[] } | null = null
     try {
-      aiAnalysis = await runFinanceAiNarrative(c.env, snapshot)
+      narrative = await runFinanceAiNarrative(c.env, report)
     } catch (error) {
       console.error('finance AI narrative failed', error)
     }
-
+    const document = buildFinanceReportDocument(report, String(tenant?.schoolName || tenant?.name || ''), narrative)
     return c.json({
       success: true,
       analysis: {
-        summary: aiAnalysis?.summary || fallback.summary,
-        comparison: aiAnalysis?.comparison || fallback.comparison,
-        suggestions: aiAnalysis?.suggestions?.length ? aiAnalysis.suggestions : fallback.suggestions,
-        debtors: snapshot.debtors.slice(0, 50),
-        metrics: snapshot.metrics,
-        generatedBy: aiAnalysis ? 'ai' : 'computed',
+        ...document,
+        generatedAt: new Date().toISOString(),
+        generatedBy: narrative ? 'ai' : 'computed',
+        term: report.term,
+        terms: report.terms,
+        metrics: { expected: report.fees.expected, collected: report.fees.collected, outstanding: report.fees.outstanding, collectionRate: report.fees.collectionRate, spending: report.spending.total, net: report.net },
       },
     })
   } catch (error) {
-    console.error('finance ai-analysis failed', error)
-    return c.json({ error: 'Could not analyse finances.' }, 500)
+    return financeFailure(c, error, 'Could not analyse finances.')
   }
 })
+
 
 // ─── Public tenant data endpoint ─────────────────────────────────────────────
 app.get('/api/public/tenant/:subdomain', async (c) => {
@@ -35752,7 +35979,10 @@ async function feeContextFor(db: D1Database, ctx: FinanceCtx, termId?: string) {
     const firstBill = await db.prepare(`SELECT MIN(created_at) AS at FROM fee_obligations WHERE tenant_id = ? AND term_id = ? AND structure_id IS NOT NULL`).bind(ctx.tenantId, termRow.id).first().catch(() => null) as Record<string, any> | null
     startDate = String(firstBill?.at || '')
   }
-  const term = termRow && session ? { id: termRow.id, name: termRow.name, sessionId: session.id, sessionName: session.name, startDate } : null
+  const endDate = /^\d{4}-\d{2}-\d{2}/.test(String(termRow?.endDate || '')) ? String(termRow?.endDate).slice(0, 10) : ''
+  // Not the running term and not started: its fees can be published ahead, billing nobody yet.
+  const upcoming = Boolean(termRow && termRow.id !== period.termId && termRow.status === 'upcoming')
+  const term = termRow && session ? { id: termRow.id, name: termRow.name, sessionId: session.id, sessionName: session.name, startDate, endDate, upcoming } : null
   const classRows = await db.prepare(`SELECT id, name, arm FROM classes WHERE tenantId = ? ORDER BY name COLLATE NOCASE, arm`).bind(ctx.tenantId).all().catch(() => ({ results: [] }))
   const classes = ((classRows.results || []) as Record<string, any>[]).map(row => ({ id: String(row.id), name: [row.name, row.arm].filter(Boolean).join(' ') }))
   const settings = await getFeeSettings(db, ctx.tenantId)
@@ -35766,6 +35996,26 @@ async function termEnrollments(db: D1Database, tenantId: string, sessionId: stri
   return rows.map(row => ({ studentId: row.studentId, studentName: row.studentName || '', classId: row.classId || '', className: [row.className, row.classArm].filter(Boolean).join(' ') }))
 }
 
+/**
+ * The next term that has not started (Academic Sessions → created, still upcoming),
+ * with where its fees stand, so they can be set before it opens. Null when none is created.
+ */
+async function nextUpcomingTerm(db: D1Database, tenantId: string, currentTermId: string) {
+  const row = await db.prepare(`SELECT t.id, t.name, t.start_date, s.id AS session_id, s.name AS session_name FROM academic_terms t JOIN academic_sessions s ON s.id = t.session_id
+    WHERE t.tenant_id = ? AND t.status = 'upcoming' AND t.id != ? AND s.status IN ('active', 'upcoming')
+    ORDER BY s.start_date ASC, t.sequence ASC LIMIT 1`).bind(tenantId, currentTermId || '').first().catch(() => null) as Record<string, any> | null
+  if (!row) return null
+  const [structures, lock, draft] = await Promise.all([
+    db.prepare(`SELECT COUNT(*) AS n FROM fee_structures WHERE tenant_id = ? AND term_id = ?`).bind(tenantId, row.id).first().catch(() => null) as Promise<Record<string, any> | null>,
+    getTermLock(db, tenantId, String(row.id)),
+    getFeeDraft(db, tenantId, String(row.id)),
+  ])
+  return {
+    id: String(row.id), name: String(row.name || ''), sessionId: String(row.session_id), sessionName: String(row.session_name || ''),
+    startDate: String(row.start_date || '').slice(0, 10), configured: Number(structures?.n || 0) > 0, published: lock.locked, hasDraft: Boolean(draft),
+  }
+}
+
 function requireTerm(term: TermRef | null): TermRef {
   if (!term) throw new FinanceError('Open a term in Academic Sessions first — fees are set per term.', 400)
   return term
@@ -35777,7 +36027,8 @@ app.get('/api/school/finance/simple/overview', authenticate, async (c) => {
     const context = await simpleFeeContext(c)
     if (!hasRequiredRole(context.role, FINANCE_VIEW_ROLES)) return c.json({ success: false, message: 'forbidden' }, 403)
     const term = context.term
-    if (!term) return c.json({ success: true, period: context.period, configured: false, noTerm: true, canEditFees: context.canEditFees })
+    const nextTerm = await nextUpcomingTerm(context.db, context.tenantId, term?.id || '')
+    if (!term) return c.json({ success: true, period: context.period, configured: false, noTerm: true, nextTerm, canEditFees: context.canEditFees })
     const grid = await getTermGrid(context.db, context.tenantId, term, context.classes)
     const reuse = (await listFeeTerms(context.db, context.tenantId)).filter(option => option.termId !== term.id)
     const enrollments = await termEnrollments(context.db, context.tenantId, term.sessionId, context.actor.id)
@@ -35804,7 +36055,7 @@ app.get('/api/school/finance/simple/overview', authenticate, async (c) => {
       hasDraft: Boolean(await getFeeDraft(context.db, context.tenantId, term.id)),
       cards: { expected, collected, outstanding, collectionRate: expected > 0 ? Math.round((collected / expected) * 1000) / 10 : 0 },
       counts: { students: accounts.filter(account => !account.left && account.status !== 'not_billed').length, owing: accounts.filter(account => !account.left && account.balance > 0).length, unbilled, noFees, autoBilled, classMoves: accounts.filter(account => account.classMove).length },
-      reuse: reuse.slice(0, 6), canEditFees: context.canEditFees, canRecordPayments: hasRequiredRole(context.role, FEE_PAYMENT_APPROVER_ROLES),
+      reuse: reuse.slice(0, 6), nextTerm, canEditFees: context.canEditFees, canRecordPayments: hasRequiredRole(context.role, FEE_PAYMENT_APPROVER_ROLES),
     })
   } catch (error) {
     return financeFailure(c, error, 'Could not load the fees dashboard.')
@@ -35999,7 +36250,11 @@ app.put('/api/school/finance/simple/grid', authenticate, async (c) => {
     // Publish: the fees become official and every current student's account is created
     // or brought up to date (students already billed are never billed twice).
     let published = null
-    if (publish) {
+    if (publish && term.upcoming) {
+      // Next term, set in advance: official now, billed when the term opens.
+      published = { ...await scheduleTerm(context.db, { tenantId: context.tenantId, actor: context.actor, term }), noFees: [] as string[] }
+      await discardFeeDraft(context.db, context.tenantId, term.id)
+    } else if (publish) {
       const legacy = await context.db.prepare(`SELECT DISTINCT student_id FROM fee_assessments WHERE tenant_id = ? AND term_id = ? AND assessment_kind = 'term'`).bind(context.tenantId, term.id).all().catch(() => ({ results: [] }))
       published = await lockTerm(context.db, { tenantId: context.tenantId, actor: context.actor, term, enrollments, legacyBilledStudentIds: new Set(((legacy.results || []) as Record<string, any>[]).map(row => String(row.student_id))) })
       await discardFeeDraft(context.db, context.tenantId, term.id)
@@ -36033,6 +36288,7 @@ app.post('/api/school/finance/simple/lock', authenticate, async (c) => {
     if (!context.canEditFees) return c.json({ success: false, message: 'You cannot lock or unlock fees.' }, 403)
     const term = requireTerm(context.term)
     if (body.unlock) return c.json({ success: true, lock: await unlockTerm(context.db, { tenantId: context.tenantId, actor: context.actor, term, reason: body.reason }) })
+    if (term.upcoming) return c.json({ success: true, ...await scheduleTerm(context.db, { tenantId: context.tenantId, actor: context.actor, term }), lock: await getTermLock(context.db, context.tenantId, term.id) })
     const enrollments = await termEnrollments(context.db, context.tenantId, term.sessionId, context.actor.id)
     const legacy = await context.db.prepare(`SELECT DISTINCT student_id FROM fee_assessments WHERE tenant_id = ? AND term_id = ? AND assessment_kind = 'term'`).bind(context.tenantId, term.id).all().catch(() => ({ results: [] }))
     const result = await lockTerm(context.db, { tenantId: context.tenantId, actor: context.actor, term, enrollments, legacyBilledStudentIds: new Set(((legacy.results || []) as Record<string, any>[]).map(row => String(row.student_id))) })

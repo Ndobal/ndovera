@@ -455,7 +455,10 @@ export const saveTimetableDraft = (data) => req('/api/school/timetable/draft', {
 export const publishTimetable = (data) => req('/api/school/timetable/publish', { method: 'POST', body: data });
 export const getTimetableVersions = (classId) => req(`/api/school/timetable/versions?classId=${enc(classId)}`, { skipOfflineCache: true });
 export const restoreTimetableVersion = (versionId) => req(`/api/school/timetable/versions/${enc(versionId)}/restore`, { method: 'POST' });
-export const runFinanceAI = () => req('/api/school/finance/ai-analysis', { method: 'POST' });
+/** The written finance report for a term (the current one when termId is left out). */
+export const runFinanceAI = (termId) => req('/api/school/finance/ai-analysis', { method: 'POST', body: termId ? { termId } : {} });
+/** One term's fees, spending and payroll: the figures behind Income & Expenditure. */
+export const getTermFinanceReport = (termId) => req(`/api/school/finance/term-report${termId ? `?termId=${encodeURIComponent(termId)}` : ''}`);
 
 // Tuck shop finance
 export const getTuckOrders = (placedBy) => req(`/api/tuck/orders${buildQuery(placedBy ? { placedBy } : {})}`);

@@ -407,12 +407,32 @@ function FeeSettings() {
 const NAV = [['dashboard', 'Dashboard'], ['students', 'Students'], ['setup', 'Fee Setup'], ['payments', 'Payments'], ['reports', 'Reports']];
 const MORE = [['claims', 'Claims'], ['archives', 'Archives'], ['audit', 'Audit Log'], ['settings', 'Settings']];
 
-export default function SimpleFees() {
+/** The next term, once it is created in Academic Sessions: its fees can be set and published before it opens. */
+export function NextTermCard({ nextTerm, canEdit, onSetup }) {
+  if (!nextTerm) return null;
+  const state = nextTerm.published
+    ? 'Fees published. Every student\'s account is created at these fees when the term opens.'
+    : nextTerm.hasDraft || nextTerm.configured ? 'Fees saved but not published yet.' : 'No fees set yet. You can set them now, before the term opens.';
+  return (
+    <section className="flex flex-wrap items-center gap-3 rounded-3xl border-2 border-[#191970]/30 bg-white p-4 text-[#191970] dark:border-white/20 dark:bg-slate-900 dark:text-slate-200">
+      <div className="flex-1">
+        <p className="text-xs font-bold uppercase tracking-wide text-[#800020] dark:text-[#c9a96e]">Next term</p>
+        <p className="font-black text-[#191970] dark:text-white">{nextTerm.sessionName} · {nextTerm.name}{nextTerm.startDate ? ` — starts ${new Date(`${nextTerm.startDate}T12:00:00Z`).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' })}` : ''}</p>
+        <p className="text-sm">{state}</p>
+      </div>
+      {canEdit && <button type="button" className={PRIMARY} onClick={() => onSetup(nextTerm.id)}>{nextTerm.published ? `Edit ${nextTerm.name} fees` : `Set ${nextTerm.name} fees in advance`}</button>}
+    </section>
+  );
+}
+
+export default function SimpleFees({ initialSetupTermId = '' }) {
   const [overview, setOverview] = useState(null);
   const [context, setContext] = useState(null);
-  const [view, setView] = useState('dashboard');
+  const [view, setView] = useState(initialSetupTermId ? 'setup' : 'dashboard');
   const [moreOpen, setMoreOpen] = useState(false);
   const [setupSource, setSetupSource] = useState(null);
+  // Fee Setup opens on the current term unless another one (next term) was chosen.
+  const [setupTermId, setSetupTermId] = useState(initialSetupTermId);
   // "Record payment" from a student's file arrives as ?pay=<studentId>&name=<name> and opens the payment for them.
   const [paying, setPaying] = useState(() => {
     try {
@@ -439,7 +459,7 @@ export default function SimpleFees() {
         <h1 className="text-2xl font-black">{term ? `${term.sessionName} · ${term.name}` : 'No term open'}</h1>
       </header>
       <nav className="flex flex-wrap items-center gap-1.5" aria-label="Fees and billing">
-        {NAV.map(([key, label]) => <button key={key} type="button" onClick={() => { if (key === 'setup') setSetupSource(null); go(key); }} className={`rounded-xl px-3 py-1.5 text-sm font-semibold ${view === key ? 'bg-[#800020] text-[#b5e3f4]' : 'bg-white/70 text-[#800020]'}`}>{label}</button>)}
+        {NAV.map(([key, label]) => <button key={key} type="button" onClick={() => { if (key === 'setup') { setSetupSource(null); setSetupTermId(''); } go(key); }} className={`rounded-xl px-3 py-1.5 text-sm font-semibold ${view === key ? 'bg-[#800020] text-[#b5e3f4]' : 'bg-white/70 text-[#800020]'}`}>{label}</button>)}
         <div className="relative">
           <button type="button" aria-expanded={moreOpen} onClick={() => setMoreOpen(open => !open)} className={`rounded-xl px-3 py-1.5 text-sm font-semibold ${MORE.some(([key]) => key === view) ? 'bg-[#800020] text-[#b5e3f4]' : 'bg-white/70 text-[#800020]'}`}>More ▾</button>
           {moreOpen && (
@@ -451,8 +471,9 @@ export default function SimpleFees() {
       </nav>
       {notice && <p role="status" className="rounded-xl bg-emerald-50 px-3 py-2 text-sm font-semibold text-[#1a5c38]">{notice}</p>}
 
-      {view === 'dashboard' && <Dashboard overview={overview} go={go} onSetup={source => { setSetupSource(source); setView('setup'); }} onPay={() => setPaying({})} onChanged={message => { setNotice(message); refresh(); }} />}
-      {view === 'setup' && <FeeSetup key={`${term?.id}-${setupSource?.type || ''}-${setupSource?.termId || ''}`} initialTermId={term?.id} initialSource={setupSource} canEdit={overview.canEditFees} onSaved={refresh} />}
+      {view === 'dashboard' && <Dashboard overview={overview} go={go} onSetup={source => { setSetupSource(source); setSetupTermId(''); setView('setup'); }} onPay={() => setPaying({})} onChanged={message => { setNotice(message); refresh(); }} />}
+      {view === 'dashboard' && <NextTermCard nextTerm={overview.nextTerm} canEdit={overview.canEditFees} onSetup={termId => { setSetupSource(null); setSetupTermId(termId); setView('setup'); }} />}
+      {view === 'setup' && <FeeSetup key={`${setupTermId || term?.id}-${setupSource?.type || ''}-${setupSource?.termId || ''}`} initialTermId={setupTermId || term?.id} initialSource={setupSource} canEdit={overview.canEditFees} onSaved={refresh} />}
       {view === 'students' && <StudentAccounts classes={context.classes || []} onChanged={refresh} />}
       {view === 'payments' && <Payments />}
       {view === 'reports' && <Reports term={term} />}

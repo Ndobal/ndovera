@@ -16,7 +16,9 @@ import {
 } from './finance'
 
 export type ClassRef = { id: string, name: string }
-export type TermRef = { id: string, name: string, sessionId: string, sessionName: string, startDate?: string }
+// `upcoming`: a term that has not started yet. Its fees can be published in
+// advance; nobody is billed until it opens (see scheduleTerm).
+export type TermRef = { id: string, name: string, sessionId: string, sessionName: string, startDate?: string, endDate?: string, upcoming?: boolean }
 export type Enrollment = { studentId: string, studentName: string, classId: string, className: string }
 
 // ─── Who may change official fees ────────────────────────────────────────────
@@ -614,6 +616,27 @@ export async function lockTerm(db: D1Database, options: { tenantId: string, acto
     auditStatement(db, options.tenantId, { actor: options.actor, action: 'term_fees_locked', sessionId: options.term.sessionId, termId: options.term.id, newValue: { students: students.size, charges: issued, debtMode: debt.mode, writtenOff } }),
   ])
   return { students: students.size, charges: issued, writtenOff }
+}
+
+/**
+ * Publish a term that has not started: its fees become official now, and no
+ * account is touched. When the term opens, the fee dashboard bills every
+ * student on the register at these fees (published terms auto-bill whoever
+ * has no account yet), and the term's choice about earlier debts applies then.
+ */
+export async function scheduleTerm(db: D1Database, options: { tenantId: string, actor: Actor, term: TermRef }) {
+  await ensureFeeEngineTables(db)
+  const structures = (await listStructures(db, options.tenantId, { termId: options.term.id })).filter(Boolean) as NonNullable<Awaited<ReturnType<typeof getStructure>>>[]
+  if (!structures.length) throw new FinanceError(`Set up ${options.term.name} fees before publishing them.`)
+  for (const structure of structures) {
+    if (structure.items.length && structure.status === 'draft') await setStructureStatus(db, { tenantId: options.tenantId, id: structure.id, status: 'published', actor: options.actor })
+  }
+  const now = new Date().toISOString()
+  await db.batch([
+    db.prepare(`INSERT INTO fee_term_locks (tenant_id, term_id, locked, locked_by, locked_at) VALUES (?, ?, 1, ?, ?) ON CONFLICT(tenant_id, term_id) DO UPDATE SET locked = 1, locked_by = excluded.locked_by, locked_at = excluded.locked_at`).bind(options.tenantId, options.term.id, options.actor.name, now),
+    auditStatement(db, options.tenantId, { actor: options.actor, action: 'term_fees_scheduled', sessionId: options.term.sessionId, termId: options.term.id, newValue: { startDate: options.term.startDate || '' } }),
+  ])
+  return { students: 0, charges: 0, writtenOff: null, scheduled: true }
 }
 
 export async function unlockTerm(db: D1Database, options: { tenantId: string, actor: Actor, term: TermRef, reason?: unknown }) {

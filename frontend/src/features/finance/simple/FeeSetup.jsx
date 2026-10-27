@@ -479,7 +479,8 @@ export default function FeeSetup({ initialTermId, initialSource, canEdit, onSave
   /** Make the fees official: every current student's account is created or brought up to date. */
   async function publish(changeMode) {
     const debts = data.earlierDebts;
-    if (!changeMode && debtMode === 'write_off' && debts?.total > 0 && !data.grid.debt?.writtenOffAt
+    // A term that has not started writes nothing off yet: that happens when it opens.
+    if (!changeMode && !data.grid.term.upcoming && debtMode === 'write_off' && debts?.total > 0 && !data.grid.debt?.writtenOffAt
       && !await askConfirm(`Publishing will write off ${naira(debts.total)} owed from earlier terms by ${debts.students} student(s). Each write-off is recorded, but it cannot be undone from here. Continue?`)) return;
     setBusy(true); setNotice({ text: '', tone: 'ok' });
     try {
@@ -489,6 +490,15 @@ export default function FeeSetup({ initialTermId, initialSource, canEdit, onSave
       setDirty(false);
       setSource(null);
       const done = result.published || {};
+      if (done.scheduled) {
+        setNotice({
+          text: `Published in advance. Nobody has been billed yet: when ${data.grid.term.name} opens, every student on the register gets their account at these fees${debtMode === 'write_off' ? ', and earlier debts are written off then' : ''}. You can keep editing them until then, and after.`,
+          tone: 'ok',
+        });
+        load(data.grid.term.id, null);
+        onSaved?.();
+        return;
+      }
       setNotice({
         text: `Published. ${done.students ?? 0} student account(s) are up to date.`
           + `${done.noFees?.length ? ` ${done.noFees.length} student(s) have no fees entered, so no account yet: ${done.noFees.slice(0, 8).join(', ')}${done.noFees.length > 8 ? '…' : ''}. Put them in a class with fees, or enter their fees, and their accounts are created automatically.` : ''}`
@@ -530,9 +540,14 @@ export default function FeeSetup({ initialTermId, initialSource, canEdit, onSave
           {draftInfo && <span className="rounded-full bg-amber-100 px-3 py-1 text-xs font-black text-amber-900">Draft{published ? ' changes' : ''} — not published</span>}
           {!published && !draftInfo && data.grid.configured && <span className="rounded-full bg-amber-100 px-3 py-1 text-xs font-black text-amber-900">Not published yet</span>}
           <select aria-label="Term" className="rounded-xl border border-[#c9a96e]/45 bg-white p-2 text-sm text-[#191970]" value={term.id} onChange={event => { setSource(null); setTermId(event.target.value); }}>
-            {data.terms.map(item => <option key={item.id} value={item.id}>{item.sessionName} · {item.name}</option>)}
+            {data.terms.map(item => <option key={item.id} value={item.id}>{item.sessionName} · {item.name}{item.status === 'active' ? ' (current)' : item.status === 'upcoming' ? ' (not started)' : ''}</option>)}
           </select>
         </div>
+        {term.upcoming && (
+          <p className="rounded-xl bg-sky-50 px-3 py-2 text-sm font-semibold text-sky-950">
+            {term.name} has not started{term.startDate ? ` (it starts ${new Date(`${term.startDate.slice(0, 10)}T12:00:00Z`).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' })})` : ''}. You can set and publish its fees now: they become official, but nobody is billed until the term opens. Then every student on the register gets their account automatically.
+          </p>
+        )}
         {editable && (
           <div className="relative">
             <button type="button" className={SECONDARY} aria-expanded={copyOpen} onClick={() => setCopyOpen(open => !open)}>⧉ Copy fees from another term ▾</button>
@@ -614,7 +629,7 @@ export default function FeeSetup({ initialTermId, initialSource, canEdit, onSave
           {editable && <button type="button" className={SECONDARY} disabled={busy || !dirty} onClick={saveAsDraft}>{busy ? 'Saving…' : 'Save draft now'}</button>}
           {editable && (
             <button type="button" className={PRIMARY} disabled={busy || (!dirty && !draftInfo && published)} onClick={() => publish()}>
-              {busy ? 'Working…' : published ? `Publish changes to ${term.name} fees` : `Publish ${term.name} fees & create student accounts`}
+              {busy ? 'Working…' : published ? `Publish changes to ${term.name} fees` : term.upcoming ? `Publish ${term.name} fees in advance` : `Publish ${term.name} fees & create student accounts`}
             </button>
           )}
         </div>
@@ -626,7 +641,7 @@ export default function FeeSetup({ initialTermId, initialSource, canEdit, onSave
                   : autosave.at ? `All changes saved as a draft · ${new Date(autosave.at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}` : ''}
           </p>
         )}
-        <p className="mt-2 text-xs text-[#191970]/80 dark:text-slate-400">Your work is saved as a draft as you type; a draft changes nobody's account. Publishing makes the fees official and creates or updates every current student's fee account (no one is billed twice).</p>
+        <p className="mt-2 text-xs text-[#191970]/80 dark:text-slate-400">Your work is saved as a draft as you type; a draft changes nobody's account. {term.upcoming ? `Publishing makes the fees official now; student accounts are created when ${term.name} opens.` : 'Publishing makes the fees official and creates or updates every current student\'s fee account (no one is billed twice).'}</p>
         {data.grid.billedStudents > 0 && <p className="mt-2 text-xs text-[#191970] dark:text-slate-300">{data.grid.billedStudents} student account(s) use these fees.{debtMode === 'carry' ? ' Outstanding balances from earlier terms are added to each account automatically.' : ''}</p>}
       </section>
 

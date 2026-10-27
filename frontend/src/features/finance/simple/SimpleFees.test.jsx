@@ -193,3 +193,18 @@ test('a payment received can be typed straight into the student\'s row and recor
   rerender(<QuickPayCell account={{ ...row, status: 'not_billed' }} />);
   expect(screen.getByText('No fee account')).toBeTruthy();
 });
+
+test('next term, set before it opens: the page says nobody is billed yet, and publishing says so too', async () => {
+  const upcoming = { ...term, upcoming: true, startDate: '2027-01-05' };
+  api.getTermGrid.mockResolvedValue({ ...emptyGrid, grid: { ...lastTerm.grid, term: upcoming, lock: { locked: false }, billedStudents: 0 }, terms: [{ id: 't1', name: 'First Term', sessionName: '2026/2027', status: 'active' }, { id: 't2', name: 'Second Term', sessionName: '2026/2027', status: 'upcoming' }], earlierDebts: { students: 2, total: 50000 } });
+  api.saveTermGrid.mockClear().mockResolvedValue({ saved: 2, adjusted: 0, published: { scheduled: true, students: 0, charges: 0, noFees: [] } });
+  render(<FeeSetup initialTermId="t2" canEdit />);
+  expect(await screen.findByText(/Second Term has not started \(it starts 5 January 2027\)/)).toBeTruthy();
+  expect(screen.getByRole('option', { name: '2026/2027 · First Term (current)' })).toBeTruthy();
+  expect(screen.getByRole('option', { name: '2026/2027 · Second Term (not started)' })).toBeTruthy();
+  fireEvent.click(screen.getByLabelText(/Write off outstanding debts/));
+  // Writing off happens when the term opens, so publishing now asks nothing.
+  fireEvent.click(screen.getByRole('button', { name: 'Publish Second Term fees in advance' }));
+  await waitFor(() => expect(api.saveTermGrid).toHaveBeenCalledWith(expect.objectContaining({ action: 'publish', termId: 't2', debtMode: 'write_off' })));
+  expect(await screen.findByText(/Published in advance\. Nobody has been billed yet: when Second Term opens/)).toBeTruthy();
+});

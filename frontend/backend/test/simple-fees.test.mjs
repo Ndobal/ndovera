@@ -579,3 +579,68 @@ test('financial standings: expected, received, still owed, each family owing and
   const kept = (await call('owner', 'GET', `/api/school/finance/standings/reports/${list.reports[0].id}`)).body
   assert.equal(kept.report.totals.outstanding, 220000)
 })
+
+test('next term: its fees are published in advance, nobody is billed until it opens, then every student is', async () => {
+  const { call, db } = await setup()
+  const now = new Date().toISOString()
+  db.db.exec(`INSERT INTO academic_terms (id, tenant_id, session_id, name, sequence, start_date, end_date, status, created_at, updated_at) VALUES
+    ('t26-2', 'school-a', 's26', 'Second Term', 2, '2027-01-05', '2027-04-02', 'upcoming', '${now}', '${now}')`)
+  await call('owner', 'PUT', '/api/school/finance/simple/grid', { termId: 't26-1', action: 'publish', ...GRID })
+  const before = (await call('owner', 'GET', '/api/school/finance/simple/overview')).body
+  assert.deepEqual([before.nextTerm.id, before.nextTerm.configured, before.nextTerm.published], ['t26-2', false, false])
+
+  const ahead = await call('owner', 'PUT', '/api/school/finance/simple/grid', { termId: 't26-2', action: 'publish', ...GRID })
+  assert.equal(ahead.status, 200, JSON.stringify(ahead.body))
+  assert.deepEqual([ahead.body.published.scheduled, ahead.body.published.students, ahead.body.grid.lock.locked, ahead.body.grid.term.upcoming], [true, 0, true, true])
+  assert.equal(db.db.prepare(`SELECT COUNT(*) AS n FROM fee_obligations WHERE term_id = 't26-2'`).get().n, 0, 'nobody billed before the term opens')
+
+  // This term is unchanged: next term's fees are not counted as debt.
+  const during = (await call('owner', 'GET', '/api/school/finance/simple/overview')).body
+  assert.deepEqual([during.cards.expected, during.nextTerm.published], [before.cards.expected, true])
+  assert.equal(account((await call('bursar', 'GET', '/api/school/finance/simple/accounts')).body.accounts, 'ada').outstanding, 0)
+
+  // The term opens: the next visit to Fees bills everyone at the published fees.
+  db.db.exec(`UPDATE academic_terms SET status = 'completed' WHERE id = 't26-1'; UPDATE academic_terms SET status = 'active' WHERE id = 't26-2'`)
+  const opened = (await call('owner', 'GET', '/api/school/finance/simple/overview')).body
+  assert.deepEqual([opened.term.name, opened.counts.autoBilled, opened.nextTerm], ['Second Term', 2, null])
+  const ada = account((await call('bursar', 'GET', '/api/school/finance/simple/accounts')).body.accounts, 'ada')
+  assert.deepEqual([ada.termFee, ada.outstanding], [160000, 160000])
+
+  // Every reader of "the current term" agrees, the Fee Template included.
+  const session = (await call('owner', 'GET', '/api/school/session')).body.session
+  assert.deepEqual([session.session, session.term, session.managedBy], ['2026/2027', 'Second Term', 'academic'])
+})
+
+test('income & expenditure and the finance report follow the current term, with the same fee figures as Fees & Billing', async () => {
+  const { call, db } = await setup()
+  await call('owner', 'PUT', '/api/school/finance/simple/grid', { termId: 't26-1', action: 'publish', ...GRID })
+  await call('bursar', 'POST', '/api/school/finance/simple/accounts/ada/pay', { amount: 100000, method: 'transfer' })
+  await call('bursar', 'POST', '/api/school/expenditure', { description: 'Diesel', category: 'Utilities', amount: 30000, date: '2026-10-01' })
+  await call('bursar', 'POST', '/api/school/expenditure', { description: 'Holiday repairs', category: 'Maintenance', amount: 90000, date: '2026-08-01' })
+
+  const cards = (await call('owner', 'GET', '/api/school/finance/simple/overview')).body.cards
+  const res = await call('bursar', 'GET', '/api/school/finance/term-report')
+  assert.equal(res.status, 200, JSON.stringify(res.body))
+  const { report } = res.body
+  assert.deepEqual([report.term.name, report.fees.source, report.fees.expected, report.fees.collected, report.fees.outstanding], ['First Term', 'fees', cards.expected, cards.collected, cards.outstanding])
+  // Only spending dated inside First Term counts; the August repairs belong to the holiday before it.
+  assert.deepEqual([report.spending.total, report.spending.byCategory[0].category, report.net], [30000, 'Utilities', 70000])
+  assert.equal(report.previous.term.name, 'Third Term')
+  assert.equal(report.previous.spending.total, 0, 'August is after Third Term ended')
+  assert.deepEqual(report.terms.map(item => item.name), ['First Term', 'Third Term'])
+
+  const expenditure = (await call('bursar', 'GET', '/api/school/expenditure')).body
+  assert.deepEqual([expenditure.expenditures.length, expenditure.period.termName, expenditure.period.termStart], [2, 'First Term', '2026-09-07'])
+
+  const analysed = await call('owner', 'POST', '/api/school/finance/ai-analysis', {})
+  assert.equal(analysed.status, 200, JSON.stringify(analysed.body))
+  const doc = analysed.body.analysis
+  assert.equal(doc.title, 'Finance report: First Term, 2026/2027')
+  assert.equal(doc.generatedBy, 'computed')
+  assert.deepEqual(doc.sections.map(section => section.heading), [
+    'About this report', 'Summary', '1. School fees for the term', '2. Collection by class', '3. Students who owe the most',
+    '4. Spending during the term', '5. Income against spending', '6. Compared with Third Term, 2025/2026', 'Recommendations', 'How the figures are worked out',
+  ])
+  assert.match(doc.sections[1].paragraphs[0], /collected ₦100,000/)
+  assert.equal((await call('ada', 'POST', '/api/school/finance/ai-analysis', {})).status, 403)
+})

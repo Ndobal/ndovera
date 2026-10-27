@@ -15,6 +15,10 @@ import AmiReportsPage from '../../app/roles/ami/AmiReportsPage';
 import StudentAssignments from '../../app/roles/student/StudentAssignments';
 import { loadStudentAssignments } from '../../features/classroom/studentTasks';
 import { getPlatformFinance, getProfitAndLoss, getPlatformShares, listShareholders, getAmiTenants, getPlatformAnalytics, getSchoolAccessGrants, getAmiAuditLogs, getAmiReportSummary, getAmiTermBills } from '../../features/tenants/services/tenantApi';
+import { FinanceReport, IncomeExpenditure, TermFeeTemplate } from '../../features/finance/TermFinance';
+import { NextTermCard } from '../../features/finance/simple/SimpleFees';
+import { getTermFinanceReport, runFinanceAI } from '../../features/school/services/schoolApi';
+import { getFeeReports, getFeesOverview } from '../../features/finance/simple/simpleFeesApi';
 
 // The colour rule, enforced: no text may clash with its background, in light or dark mode.
 // Any new page in the command centre should be added to the list below.
@@ -37,6 +41,8 @@ jest.mock('../../features/submissions/StaffSubmissionPanel', () => () => null);
 jest.mock('../../features/tenants/components/SchoolAccessPanel', () => () => <div>School access</div>);
 jest.mock('../components/AppDialog', () => ({ askConfirm: jest.fn(() => Promise.resolve(true)), askText: jest.fn(() => Promise.resolve('')) }));
 jest.mock('../../features/tenants/services/tenantApi', () => new Proxy({}, { get: (target, key) => { if (!target[key]) target[key] = jest.fn(() => Promise.resolve({})); return target[key]; } }));
+jest.mock('../../features/school/services/schoolApi', () => ({ ...jest.requireActual('../../features/school/services/schoolApi'), getTermFinanceReport: jest.fn(), runFinanceAI: jest.fn() }));
+jest.mock('../../features/finance/simple/simpleFeesApi', () => ({ ...jest.requireActual('../../features/finance/simple/simpleFeesApi'), getFeesOverview: jest.fn(), getFeeReports: jest.fn() }));
 
 const month = new Date().toISOString().slice(0, 7);
 const school = (id, name, extra = {}) => ({
@@ -85,7 +91,36 @@ const REPORT = {
   activity: { total: 12, top: [{ action: 'Term fee marked paid', count: 3 }], security: [{ action: 'Password reset requested', count: 1 }] },
 };
 
+// A school's Finance tabs (Owner, HoS, Accountant).
+const TERM = { id: 't1', name: 'First Term', sessionName: '2026/2027', startDate: '2026-09-07', endDate: '2026-12-18' };
+const TERM_REPORT = {
+  term: TERM, window: { from: '2026-09-07', to: '2026-10-27', ongoing: true, datedStart: true },
+  fees: { source: 'fees', students: 2, termFees: 320000, broughtForward: 35000, otherCharges: 5000, discounts: 20000, expected: 340000, collected: 100000, outstanding: 240000, overpaid: 0, collectionRate: 29.4, paidInFull: 0, partPaid: 1, unpaid: 1, leftOwing: 0,
+    byClass: [{ className: 'JSS 1', students: 2, expected: 340000, collected: 100000, outstanding: 240000, owing: 2 }], debtors: [{ studentId: 'ada', name: 'Ada Obi', className: 'JSS 1', expected: 180000, paid: 0, balance: 180000, status: 'Unpaid' }] },
+  spending: { total: 30000, count: 1, byCategory: [{ category: 'Utilities', amount: 30000, share: 100 }], byMonth: [{ month: '2026-10', amount: 30000 }], largest: [] },
+  payroll: { gross: 250000, net: 230000, months: ['2026-09', '2026-10'], entries: 4 }, net: 70000,
+  previous: { term: { id: 't0', name: 'Third Term', sessionName: '2025/2026' }, fees: { source: 'template', expected: 0, collected: 0, outstanding: 0, collectionRate: 0 }, spending: { total: 90000, count: 3 }, net: -90000 },
+  terms: [{ id: 't1', name: 'First Term', sessionName: '2026/2027', current: true }, { id: 't0', name: 'Third Term', sessionName: '2025/2026', current: false }],
+};
+const REPORT_DOC = {
+  title: 'Finance report: First Term, 2026/2027', schoolName: 'Genesis International School', period: '7 September 2026 to 27 October 2026', generatedBy: 'computed', term: TERM, terms: TERM_REPORT.terms,
+  sections: [
+    { heading: 'Summary', paragraphs: ['The school expects ₦340,000 in fees this term and has collected ₦100,000.'] },
+    { heading: '1. School fees for the term', paragraphs: ['Students were billed ₦320,000.'], table: { columns: ['Item', 'Amount'], rows: [['Expected this term', '₦340,000']] } },
+    { heading: 'How the figures are worked out', paragraphs: [], bullets: ['Surplus or shortfall = fees collected − spending.'] },
+  ],
+};
+const FEE_OVERVIEW = { configured: true, locked: true, canEditFees: true, term: TERM, nextTerm: { id: 't2', name: 'Second Term', sessionName: '2026/2027', startDate: '2027-01-05', configured: false, published: false, hasDraft: false } };
+const FEE_REPORTS = {
+  term: TERM, feeTable: { columns: ['Tuition', 'Books'], rows: [{ classId: 'jss1', className: 'JSS 1', amounts: { Tuition: 130000, Books: 20000 } }], feeMode: 'class' },
+  students: [{ studentId: 'ada', studentName: 'Ada Obi', className: 'JSS 1', termFee: 150000, outstanding: 35000, totalPayable: 185000, paid: 0, balance: 185000, status: 'unpaid' }],
+};
+
 beforeEach(() => {
+  getTermFinanceReport.mockResolvedValue({ report: TERM_REPORT });
+  runFinanceAI.mockResolvedValue({ analysis: REPORT_DOC });
+  getFeesOverview.mockResolvedValue(FEE_OVERVIEW);
+  getFeeReports.mockResolvedValue(FEE_REPORTS);
   getPlatformFinance.mockResolvedValue(FINANCE);
   getProfitAndLoss.mockResolvedValue(PNL);
   getPlatformShares.mockResolvedValue(SHARES);
@@ -150,6 +185,17 @@ test.each([
   ['Reports', () => <AmiReportsPage />, 'Schools: what each has paid and owes'],
 ])('the %s page is readable in light and dark mode', async (label, renderPage, ready) => {
   mockPath = '/roles/ami';
+  const { container } = render(renderPage());
+  await waitFor(() => expect(screen.getAllByText(ready).length).toBeGreaterThan(0));
+  expectReadable(container, label);
+});
+
+test.each([
+  ['Income & Expenditure', () => <IncomeExpenditure />, 'Where the expected fees come from'],
+  ['Finance report', () => <FinanceReport />, 'How the figures are worked out'],
+  ['Fee Template for the current term', () => <TermFeeTemplate legacy={<div>Earlier board</div>} />, 'Class fees'],
+  ['Next term card', () => <NextTermCard nextTerm={FEE_OVERVIEW.nextTerm} canEdit onSetup={() => {}} />, 'Set Second Term fees in advance'],
+])('the school Finance %s is readable in light and dark mode', async (label, renderPage, ready) => {
   const { container } = render(renderPage());
   await waitFor(() => expect(screen.getAllByText(ready).length).toBeGreaterThan(0));
   expectReadable(container, label);

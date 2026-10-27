@@ -156,7 +156,29 @@ function filterConfigsForPeriod(configs = [], sessionName = '', termName = '') {
   }
 
   const legacy = configs.filter((config) => !String(config?.session || '').trim() && !String(config?.term || '').trim());
-  return legacy.length ? legacy : configs;
+  if (legacy.length) {
+    return legacy;
+  }
+
+  // No template saved for this term yet: start from the most recently saved term's
+  // template (one term, never several mixed), which saving copies into this term.
+  const latest = configs.reduce((best, config) => (String(config?.updatedAt || '') > String(best?.updatedAt || '') ? config : best), null);
+  if (!latest) {
+    return [];
+  }
+  const key = (config) => `${String(config?.session || '').trim().toLowerCase()}::${String(config?.term || '').trim().toLowerCase()}`;
+  return configs.filter((config) => key(config) === key(latest));
+}
+
+/** Which saved term the rows came from, when it is not the current one (shown so nobody mistakes it). */
+function templateSourceLabel(configs = [], sessionName = '', termName = '') {
+  const first = configs.find((config) => String(config?.session || '').trim());
+  if (!first) {
+    return '';
+  }
+  const same = String(first.session).trim().toLowerCase() === String(sessionName || '').trim().toLowerCase()
+    && (!String(first.term || '').trim() || String(first.term).trim().toLowerCase() === String(termName || '').trim().toLowerCase());
+  return same ? '' : `${first.session} ${first.term || ''}`.trim();
 }
 
 function createFeeColumns(configs) {
@@ -391,6 +413,9 @@ function FeesManagementBoard({ initialFinanceTab = 'fees' }) {
   const [sessionLabel, setSessionLabel] = useState(getDefaultSessionLabel());
   const [currentTerm, setCurrentTerm] = useState('');
   const [sessionHistory, setSessionHistory] = useState([]);
+  // Academic Sessions runs the calendar: the term here is its current term, and new terms are opened there.
+  const [periodManaged, setPeriodManaged] = useState(false);
+  const [templateSource, setTemplateSource] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
   const [loading, setLoading] = useState(true);
   const [savingTemplate, setSavingTemplate] = useState(false);
@@ -461,6 +486,7 @@ function FeesManagementBoard({ initialFinanceTab = 'fees' }) {
       });
 
       const persistedSession = activeConfigs.find((config) => String(config?.session || '').trim())?.session;
+      setTemplateSource(templateSourceLabel(activeConfigs, currentSession?.session, currentSession?.term));
 
       setFeeColumns(columns);
       setStudents(nextStudents);
@@ -468,6 +494,7 @@ function FeesManagementBoard({ initialFinanceTab = 'fees' }) {
       setSessionLabel(String(currentSession?.session || persistedSession || getDefaultSessionLabel()));
       setCurrentTerm(String(currentSession?.term || ''));
       setSessionHistory(sessionResult?.history || []);
+      setPeriodManaged(sessionResult?.session?.managedBy === 'academic');
       setReceipts(receiptResult?.receipts || []);
       setBranding(brandingResult?.branding || null);
       setPaymentDetailsForm(paymentDetailsResult?.paymentDetails || createEmptyPaymentDetails());
@@ -1481,6 +1508,7 @@ function FeesManagementBoard({ initialFinanceTab = 'fees' }) {
                   <span className={BADGE}>Showing {filteredStudents.length} of {students.length} students</span>
                   <span className={BADGE}>Session {sessionLabel || 'Not set'}</span>
                   <span className={BADGE}>Term {currentTerm || 'Not set'}</span>
+                  {templateSource ? <span className={BADGE}>Amounts copied from {templateSource}: save to keep them for {currentTerm}</span> : null}
                   <span className={BADGE}>{dirty ? 'Unsaved fee changes' : lastTemplateSavedAt ? `Saved ${formatAutoSaveTime(lastTemplateSavedAt)}` : 'No saved fee snapshot yet'}</span>
                 </div>
               </div>
@@ -1516,9 +1544,13 @@ function FeesManagementBoard({ initialFinanceTab = 'fees' }) {
               <button onClick={saveTemplate} disabled={savingTemplate} className={BTN}>
                 {savingTemplate ? 'Saving...' : dirty ? 'Save Template *' : 'Save Template'}
               </button>
-              <button onClick={startNewFeePeriod} disabled={periodSaving} className={OUTLINE_BTN}>
-                {periodSaving ? 'Creating Period...' : 'Start New Session/Term'}
-              </button>
+              {periodManaged ? (
+                <span className={BADGE}>New terms open in Academic Sessions; set next term's fees in Fees &amp; Billing</span>
+              ) : (
+                <button onClick={startNewFeePeriod} disabled={periodSaving} className={OUTLINE_BTN}>
+                  {periodSaving ? 'Creating Period...' : 'Start New Session/Term'}
+                </button>
+              )}
               <button onClick={handleDownloadFeeTemplate} className={OUTLINE_BTN}>Download Template</button>
               <button onClick={() => templateInputRef.current?.click()} disabled={uploadingTemplate} className={OUTLINE_BTN}>
                 {uploadingTemplate ? 'Importing...' : 'Upload Filled Template'}
@@ -1546,7 +1578,7 @@ function FeesManagementBoard({ initialFinanceTab = 'fees' }) {
               <div>
                 <h3 className="text-2xl font-bold text-[#800000] dark:text-[#0000ff]">Fee Overview</h3>
                 <p className="mt-2 text-sm text-[#191970] dark:text-[#39ff14]">
-                  The finance board follows the current school session and term from settings. Open this panel when you need the period summary, then close it to focus on the table.
+                  The finance board follows the current session and term in Academic Sessions. Open this panel when you need the period summary, then close it to focus on the table.
                 </p>
               </div>
               <div className="flex flex-wrap gap-2">
