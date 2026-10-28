@@ -164,3 +164,17 @@ test('a student with two settings records is promoted in both, shows only in the
   assert.equal(report.aligned, 1)
   assert.equal(classOf(db, studentId), second[0])
 })
+
+test('an Owner or Head of School who also teaches can move a student: the guard reads roles the way the endpoints do', async () => {
+  const db = await setup()
+  await call(db, 'owner', 'POST', '/api/people/bulk', { rows: [{ name: 'Bisi', email: 'bisi@a.test', role: 'student', className: 'JHS 1' }] })
+  assert.equal(classOf(db, 'bisi@a.test'), 'jhs1')
+  const settings = JSON.parse(db.db.prepare(`SELECT payload FROM settings WHERE studentId = 'bisi@a.test'`).get().payload)
+  for (const [role, to] of [['owner,teacher', 'g1'], ['teacher, hos', 'sh1a'], [' ICT_Manager ', 'sh1s']]) {
+    const next = await guardStudentClass(db, 'bisi@a.test', { ...settings, classId: to }, { by: 'o-1', role, reason: 'manual' })
+    assert.equal(next.classId, to, `${role} may move a student`)
+    db.db.prepare(`UPDATE settings SET payload = ? WHERE studentId = 'bisi@a.test'`).run(JSON.stringify(next))
+  }
+  const refused = await guardStudentClass(db, 'bisi@a.test', { ...settings, classId: 'g1' }, { by: 't-1', role: 'teacher,accountant', reason: 'manual' })
+  assert.equal(refused.classId, 'sh1s', 'other staff still cannot')
+})

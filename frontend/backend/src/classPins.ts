@@ -13,6 +13,8 @@
 //     placed without a pin gets one. Students with no class are left for the school to place.
 //   - `student_class_history` is append-only: changed, placed, blocked, restored, pinned.
 
+import { hasRequiredRole } from './passwords'
+
 export type ClassChange = {
   /** Who made it (user id), their name and role; 'system' for promotion and session rollover. */
   by: string, byName?: string, role: string,
@@ -26,7 +28,10 @@ const SYSTEM_REASONS = new Set(['promotion', 'graduation', 'left', 'session', 'a
 export function isAuthorisedChange(change?: ClassChange | null) {
   if (!change) return false
   if (SYSTEM_REASONS.has(change.reason)) return true
-  return CLASS_CHANGE_ROLES.includes(String(change.role || '').toLowerCase())
+  // The same role check the endpoints make. A plain `includes` on the raw role refused an
+  // Owner or Head of School who also holds another role ("owner,teacher"): the endpoint let
+  // the move through, the guard kept the old class, and the office was told it had worked.
+  return hasRequiredRole(change.role, CLASS_CHANGE_ROLES)
 }
 
 const now = () => new Date().toISOString()
