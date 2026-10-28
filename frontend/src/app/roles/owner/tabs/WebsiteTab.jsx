@@ -247,12 +247,33 @@ function SectionCard({ section, data, onSaved }) {
     setUploading(true);
     setMsg('');
     try {
+      // Accumulate upload results before updating React state. A failed file must
+      // not erase earlier successful uploads, and each URL is recorded only once.
+      const uploaded = [];
+      const failures = [];
       for (const file of filesToUpload) {
-        await uploadOne(file, section.multiple);
+        try {
+          const result = await uploadSectionImage(file, section.key);
+          if (!result?.url) throw new Error('Upload returned no media URL.');
+          uploaded.push(result.url);
+        } catch (error) {
+          failures.push(`${file.name}: ${error.message || 'Upload failed'}`);
+        }
       }
-      setMsg(filesToUpload.length < files.length ? `Upload complete. Only the first ${section.maxFiles} media files were kept.` : 'Upload complete.');
-    } catch (err) {
-      setMsg(err.message);
+      if (uploaded.length) {
+        setForm(previous => {
+          if (!section.multiple) return { ...previous, imageUrl: uploaded[uploaded.length - 1] };
+          const urls = uniqueLines([...getCombinedMediaUrls(previous.imageUrl, previous.mediaUrls), ...uploaded]);
+          const capped = section.maxFiles ? urls.slice(0, section.maxFiles) : urls;
+          return {
+            ...previous,
+            imageUrl: previous.imageUrl || capped[0] || '',
+            mediaUrls: capped.join('\\n'),
+          };
+        });
+      }
+      const limitNote = filesToUpload.length < files.length ? ` Only ${section.maxFiles} files were allowed.` : '';
+      setMsg(`${uploaded.length} uploaded; ${failures.length} failed.${limitNote}${failures.length ? ' ' + failures.join('; ') : ''} Save Section to publish changes.`);
     } finally {
       setUploading(false);
       if (fileRef.current) fileRef.current.value = '';
@@ -311,7 +332,7 @@ function SectionCard({ section, data, onSaved }) {
         <div>
           <label className={labelClass}>{section.mediaLabel}</label>
           <div className="flex flex-wrap gap-2 items-center mt-1">
-            <button type="button" onClick={() => fileRef.current?.click()} disabled={uploading} className="bg-[#1a5c38] hover:bg-[#154a2e] text-[#b5e3f4] font-bold px-4 py-1.5 rounded-xl text-xs transition-colors disabled:opacity-60">
+            <button type="button" onClick={() => fileRef.current?.click()} disabled={uploading} className="bg-[#1a5c38] hover:bg-[#154a2e] text-white font-bold px-4 py-1.5 rounded-xl text-xs transition-colors disabled:opacity-60">
               {uploading ? 'Uploading...' : section.multiple ? 'Upload Media' : 'Upload File'}
             </button>
             <input ref={fileRef} type="file" accept={section.accept || 'image/*,video/*'} multiple={!!section.multiple} className="hidden" onChange={handleMediaUpload} />
@@ -374,10 +395,32 @@ function SectionCard({ section, data, onSaved }) {
             <label className={labelClass}>{section.key === 'hero' ? 'Hero Media URLs' : 'Gallery Media URLs'}</label>
             <textarea rows={5} value={form.mediaUrls} onChange={e => setForm(f => ({ ...f, mediaUrls: e.target.value }))} className={`${inputClass} resize-none`} placeholder="Upload files above, or paste one URL per line." />
             {galleryUrls.length > 0 && (
-              <div className={section.key === 'hero' ? 'mt-3 flex gap-3 overflow-x-auto pb-2' : 'mt-2 grid grid-cols-3 gap-2'}>
-                {galleryUrls.map(url => (
-                  <div key={url} className={section.key === 'hero' ? 'min-w-[220px] max-w-[220px] shrink-0' : ''}>
-                    <MediaPreview url={url} label={section.key === 'hero' ? 'Hero media' : 'Gallery media'} />
+              <div className={section.key === 'hero' ? 'mt-3 flex gap-3 overflow-x-auto pb-2' : 'mt-3 grid grid-cols-2 sm:grid-cols-3 gap-3'}>
+                {galleryUrls.map((url, index) => (
+                  <div key={url} className={section.key === 'hero' ? 'min-w-[220px] max-w-[220px] shrink-0' : 'min-w-0 rounded-xl border border-[#c9a96e]/50 bg-[#fff8ee] dark:bg-slate-900 p-2'}>
+                    <MediaPreview url={url} label={section.key === 'hero' ? 'Hero media' : `Gallery media ${index + 1}`} />
+                    {section.key === 'gallery' && (
+                      <div className="mt-2 flex flex-wrap gap-1">
+                        <button type="button" disabled={index === 0} onClick={() => setForm(f => {
+                          const urls = getCombinedMediaUrls(f.imageUrl, f.mediaUrls);
+                          const i = urls.indexOf(url);
+                          if (i < 1) return f;
+                          [urls[i - 1], urls[i]] = [urls[i], urls[i - 1]];
+                          return { ...f, imageUrl: urls[0], mediaUrls: urls.join('\\n') };
+                        })} className="rounded-lg bg-[#191970] px-2 py-1 text-xs font-semibold text-white disabled:opacity-40" aria-label={`Move gallery item ${index + 1} earlier`}>Earlier</button>
+                        <button type="button" disabled={index === galleryUrls.length - 1} onClick={() => setForm(f => {
+                          const urls = getCombinedMediaUrls(f.imageUrl, f.mediaUrls);
+                          const i = urls.indexOf(url);
+                          if (i < 0 || i >= urls.length - 1) return f;
+                          [urls[i], urls[i + 1]] = [urls[i + 1], urls[i]];
+                          return { ...f, imageUrl: urls[0], mediaUrls: urls.join('\\n') };
+                        })} className="rounded-lg bg-[#191970] px-2 py-1 text-xs font-semibold text-white disabled:opacity-40" aria-label={`Move gallery item ${index + 1} later`}>Later</button>
+                        <button type="button" onClick={() => setForm(f => {
+                          const urls = getCombinedMediaUrls(f.imageUrl, f.mediaUrls).filter(item => item !== url);
+                          return { ...f, imageUrl: urls[0] || '', mediaUrls: urls.join('\\n') };
+                        })} className="rounded-lg bg-[#800020] px-2 py-1 text-xs font-semibold text-white" aria-label={`Remove gallery item ${index + 1} from website`}>Remove</button>
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
@@ -403,7 +446,7 @@ function SectionCard({ section, data, onSaved }) {
         )}
 
         {msg && <p className={`text-xs ${msg === 'Saved.' || msg === 'Upload complete.' ? 'text-[#1a5c38]' : 'text-red-600'}`}>{msg}</p>}
-        <button type="submit" disabled={saving} className="bg-[#1a5c38] hover:bg-[#154a2e] text-[#b5e3f4] font-bold px-5 py-2 rounded-xl text-sm transition-colors disabled:opacity-60">
+        <button type="submit" disabled={saving} className="bg-[#1a5c38] hover:bg-[#154a2e] text-white font-bold px-5 py-2 rounded-xl text-sm transition-colors disabled:opacity-60">
           {saving ? 'Saving...' : 'Save Section'}
         </button>
       </form>
@@ -417,7 +460,7 @@ function DocRow({ doc, idx, uploading, onTitle, onUpload, onRemove }) {
   return (
     <div className="rounded-xl border border-[#c9a96e]/40 dark:border-white/10 bg-[#fff8ee] dark:bg-slate-900/40 p-3 flex flex-wrap items-center gap-2">
       <input value={doc.title} onChange={e => onTitle(e.target.value)} placeholder={`Document ${idx + 1} title (e.g. Prospectus)`} className="flex-1 min-w-[150px] rounded-lg border border-[#c9a96e]/40 dark:border-white/10 bg-white dark:bg-slate-800 px-2 py-1.5 text-sm text-[#191970] dark:text-slate-100" />
-      <button type="button" onClick={() => ref.current?.click()} disabled={uploading} className="bg-[#1a5c38] text-[#b5e3f4] font-bold px-3 py-1.5 rounded-lg text-xs disabled:opacity-60">{uploading ? 'Uploading...' : doc.url ? 'Replace' : 'Upload'}</button>
+      <button type="button" onClick={() => ref.current?.click()} disabled={uploading} className="bg-[#1a5c38] text-white font-bold px-3 py-1.5 rounded-lg text-xs disabled:opacity-60">{uploading ? 'Uploading...' : doc.url ? 'Replace' : 'Upload'}</button>
       <input ref={ref} type="file" accept="application/pdf,image/*,.doc,.docx" className="hidden" onChange={e => { onUpload(e.target.files?.[0]); e.target.value = ''; }} />
       {doc.url ? <a href={doc.url} target="_blank" rel="noreferrer" className="text-xs text-[#1a5c38] dark:text-[#00ffff] underline truncate max-w-[150px]">{fileName}</a> : <span className="text-xs text-[#800020] dark:text-slate-400">No file yet</span>}
       <button type="button" onClick={onRemove} className="text-xs text-red-600 font-semibold ml-auto">Remove</button>
@@ -509,7 +552,7 @@ function DocumentsCard({ data, onSaved }) {
         )}
       </div>
       {msg && <p className={`text-xs ${msg === 'Saved.' ? 'text-[#1a5c38]' : 'text-red-600'}`}>{msg}</p>}
-      <button type="button" onClick={handleSave} disabled={saving} className="bg-[#1a5c38] hover:bg-[#154a2e] text-[#b5e3f4] font-bold px-5 py-2 rounded-xl text-sm transition-colors disabled:opacity-60">
+      <button type="button" onClick={handleSave} disabled={saving} className="bg-[#1a5c38] hover:bg-[#154a2e] text-white font-bold px-5 py-2 rounded-xl text-sm transition-colors disabled:opacity-60">
         {saving ? 'Saving...' : 'Save Documents'}
       </button>
     </div>
