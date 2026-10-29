@@ -1,7 +1,8 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { findHelpArticles, getContextualHelpQuery, HELP_ARTICLE_VERSION } from './helpArticles';
 import { buildHelpSupportSummary } from './supportDraft';
+import { loadPublishedHelpArticles } from './publishedHelpApi';
 
 export default function HelpCentre({ role = 'student' }) {
   const navigate = useNavigate();
@@ -13,6 +14,14 @@ export default function HelpCentre({ role = 'student' }) {
   const [showTroubleshooting, setShowTroubleshooting] = useState(false);
   const [supportDraft, setSupportDraft] = useState('');
   const [copyStatus, setCopyStatus] = useState('');
+  const [published, setPublished] = useState([]);
+  const [publishedError, setPublishedError] = useState('');
+  useEffect(() => {
+    let cancelled = false;
+    loadPublishedHelpArticles().then(items => { if (!cancelled) { setPublished(items); setPublishedError(''); } })
+      .catch(() => { if (!cancelled) setPublishedError('School-published articles are temporarily unavailable; showing built-in guides.'); });
+    return () => { cancelled = true; };
+  }, [role]);
   const origin = location.state?.from;
   const safeOrigin = typeof origin === 'string' && (origin === `/roles/${role}` || origin.startsWith(`/roles/${role}/`)) && !origin.includes('\\') && !origin.includes('?') && !origin.includes('#')
     ? origin : `/roles/${role}`;
@@ -29,7 +38,15 @@ export default function HelpCentre({ role = 'student' }) {
       setCopyStatus('Copy is unavailable. Select and copy the text manually.');
     }
   };
-  const articles = useMemo(() => findHelpArticles(query, role, safeOrigin), [query, role, safeOrigin]);
+  const articles = useMemo(() => {
+    const builtIn = findHelpArticles(query, role, safeOrigin);
+    const terms = query.toLowerCase().trim().split(/\\s+/).filter(Boolean);
+    const schoolArticles = published.filter(article => article.roles.includes(role)
+      && (!terms.length || terms.every(term => [article.title, article.category, article.keywords || '', ...article.steps]
+        .join(' ').toLowerCase().includes(term))));
+    const publishedIds = new Set(schoolArticles.map(article => article.id));
+    return [...schoolArticles, ...builtIn.filter(article => !publishedIds.has(article.id))];
+  }, [query, role, safeOrigin, published]);
   const categories = ['All', ...new Set(articles.map(article => article.category))];
   const visible = articles.filter(article => category === 'All' || article.category === category);
   const active = visible.find(article => article.id === selected) || visible[0];
@@ -45,6 +62,7 @@ export default function HelpCentre({ role = 'student' }) {
         <label htmlFor="help-search" className="mt-5 block text-sm font-semibold">What would you like help with?</label>
         <input id="help-search" type="search" value={query} onChange={event => { setQuery(event.target.value); setSelected(''); setCategory('All'); }} placeholder="Try: upload photos, fees, results, messages…" className="mt-2 w-full rounded-xl border border-slate-300 bg-white p-3 text-slate-900 focus-visible:outline focus-visible:outline-4 focus-visible:outline-cyan-500" />
       </div>
+      {publishedError && <p role="status" className="text-sm text-slate-600 dark:text-slate-300">{publishedError}</p>}
       <div className="flex flex-wrap gap-2" aria-label="Help categories">
         {categories.map(item => <button key={item} type="button" onClick={() => { setCategory(item); setSelected(''); }} aria-pressed={category === item} className={`rounded-full border px-4 py-2 text-sm font-semibold ${category === item ? 'bg-[#191970] text-white' : 'border-slate-300 bg-white text-slate-800 dark:bg-slate-800 dark:text-white'}`}>{item}</button>)}
       </div>
