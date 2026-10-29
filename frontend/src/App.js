@@ -29,6 +29,7 @@ import Sidebar from './shared/components/Sidebar';
 import DashboardTopBar from './shared/components/DashboardTopBar';
 import HelpCentre from './features/help/HelpCentre';
 import HelpArticleAdmin from './features/help/HelpArticleAdmin';
+import PremisesSecurityDashboard from './features/security/PremisesSecurityDashboard';
 import MobileRoleOverviewNav from './shared/components/MobileRoleOverviewNav';
 import RoleWithoutDashboard from './shared/components/RoleWithoutDashboard';
 import AppErrorBoundary from './shared/components/AppErrorBoundary';
@@ -286,6 +287,10 @@ function AnimatedRoutes({ auth, onLogin }) {
         <Route path="/championships" element={<PublicChampionshipsPage />} />
         <Route path="/invoice/:token" element={<InvoicePayPage />} />
         <Route path="/championships/:slug" element={<PublicChampionshipDetailPage />} />
+        <Route path="/roles/chiefsecurityofficer/*" element={<RoleGuard auth={auth} expectedRole="chiefsecurityofficer"><RouteTransition><PremisesSecurityDashboard role="chiefsecurityofficer" /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/securityofficer/*" element={<RoleGuard auth={auth} expectedRole="securityofficer"><RouteTransition><PremisesSecurityDashboard role="securityofficer" /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/owner/premises-security" element={<RoleGuard auth={auth} expectedRole="owner"><RouteTransition><PremisesSecurityDashboard role="owner" /></RouteTransition></RoleGuard>} />
+        <Route path="/roles/hos/premises-security" element={<RoleGuard auth={auth} expectedRole="hos"><RouteTransition><PremisesSecurityDashboard role="hos" /></RouteTransition></RoleGuard>} />
         <Route path="/roles/:role/help" element={<RequireAuth auth={auth}><HelpRoleRoute auth={auth} /></RequireAuth>} />
         <Route path="/roles/:role/help/articles" element={<RequireAuth auth={auth}><HelpArticleAdminRoute auth={auth} /></RequireAuth>} />
         {/* One payslip page for every staff role (teachers, HoS, accountant, ICT, librarian, clinic, …). */}
