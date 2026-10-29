@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { normalizeGalleryItems, saveGalleryItems } from '../../../../features/school/website/galleryMetadata';
 import { getWebsiteSections, saveWebsiteSection, uploadSectionImage } from '../../../../features/school/services/schoolApi';
 
 const SECTION_KEYS = [
@@ -172,6 +173,7 @@ function SectionCard({ section, data, onSaved }) {
     videoUrl: '',
     programs: '',
     mediaUrls: '',
+    galleryItems: [],
     address: '',
     phone: '',
     email: '',
@@ -195,6 +197,7 @@ function SectionCard({ section, data, onSaved }) {
       videoUrl: meta.videoUrl || '',
       programs: asLines(meta.programs),
       mediaUrls: asLines(meta.mediaUrls),
+      galleryItems: normalizeGalleryItems(meta, data?.image_url),
       address: meta.address || '',
       phone: meta.phone || '',
       email: meta.email || '',
@@ -211,7 +214,9 @@ function SectionCard({ section, data, onSaved }) {
     secondaryButtonUrl: form.secondaryButtonUrl,
     videoUrl: form.videoUrl,
     programs: toLines(form.programs),
-    mediaUrls: getCombinedMediaUrls(form.imageUrl, form.mediaUrls, section.maxFiles || 0),
+    ...((section.key === 'gallery')
+      ? saveGalleryItems({}, getCombinedMediaUrls(form.imageUrl, form.mediaUrls).map(url => form.galleryItems.find(item => item.url === url) || { url, caption: '', album: '' }))
+      : { mediaUrls: getCombinedMediaUrls(form.imageUrl, form.mediaUrls, section.maxFiles || 0) }),
     address: form.address,
     phone: form.phone,
     email: form.email,
@@ -403,7 +408,14 @@ function SectionCard({ section, data, onSaved }) {
                   <div key={url} className={section.key === 'hero' ? 'min-w-[220px] max-w-[220px] shrink-0' : 'min-w-0 rounded-xl border border-[#c9a96e]/50 bg-[#fff8ee] dark:bg-slate-900 p-2'}>
                     <MediaPreview url={url} label={section.key === 'hero' ? 'Hero media' : `Gallery media ${index + 1}`} />
                     {section.key === 'gallery' && (
-                      <div className="mt-2 flex flex-wrap gap-1">
+                      <div className="mt-2 space-y-2">
+                        <label className="block text-xs font-semibold text-[#191970]">Caption
+                          <input className={inputClass} value={form.galleryItems.find(item => item.url === url)?.caption || ''} onChange={e => setForm(f => ({ ...f, galleryItems: [...f.galleryItems.filter(item => item.url !== url), { ...(f.galleryItems.find(item => item.url === url) || { url }), caption: e.target.value }] }))} placeholder="Describe this photo or video" />
+                        </label>
+                        <label className="block text-xs font-semibold text-[#191970]">Album
+                          <input className={inputClass} value={form.galleryItems.find(item => item.url === url)?.album || ''} onChange={e => setForm(f => ({ ...f, galleryItems: [...f.galleryItems.filter(item => item.url !== url), { ...(f.galleryItems.find(item => item.url === url) || { url }), album: e.target.value }] }))} placeholder="e.g. Sports Day" />
+                        </label>
+                        <div className="flex flex-wrap gap-1">
                         <button type="button" disabled={index === 0} onClick={() => setForm(f => {
                           const urls = getCombinedMediaUrls(f.imageUrl, f.mediaUrls);
                           const i = urls.indexOf(url);
@@ -422,6 +434,7 @@ function SectionCard({ section, data, onSaved }) {
                           const urls = getCombinedMediaUrls(f.imageUrl, f.mediaUrls).filter(item => item !== url);
                           return { ...f, imageUrl: urls[0] || '', mediaUrls: urls.join('\\n') };
                         })} className="rounded-lg bg-[#800020] px-2 py-1 text-xs font-semibold text-white" aria-label={`Remove gallery item ${index + 1} from website`}>Remove</button>
+                        </div>
                       </div>
                     )}
                   </div>
