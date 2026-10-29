@@ -18,6 +18,21 @@ export const HELP_ARTICLES = Object.freeze([
   { id: 'privacy', title: 'Protect student information', roles: ['student', 'parent', 'teacher', 'hos', 'accountant', 'owner'], category: 'Safety', keywords: 'privacy security student data', steps: ['Use only your own account.', 'Do not share passwords, student records or private messages in a help request.', 'Report suspected unauthorised access to your school administrator.'] },
 ]);
 
+export function getContextualHelpQuery(path = '') {
+  const normalized = String(path || '').toLowerCase();
+  const routes = [
+    [/website|gallery/, 'gallery'],
+    [/payslip|payroll/, 'payslip'],
+    [/attendance/, 'attendance'],
+    [/assignment|material|classroom/, 'assignments'],
+    [/result|report-card/, 'results'],
+    [/finance|fee|receipt|payment/, 'fees'],
+    [/message|chat|conversation/, 'messages'],
+    [/session|term|calendar/, 'session'],
+  ];
+  return routes.find(([pattern]) => pattern.test(normalized))?.[1] || '';
+}
+
 export function findHelpArticles(query, role, currentPath = '') {
   const normalizedRole = String(role || '').toLowerCase();
   const terms = String(query || '').toLowerCase().trim().split(/\s+/).filter(Boolean);
