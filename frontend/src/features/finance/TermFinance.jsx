@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { getTermFinanceReport, runFinanceAI } from '../school/services/schoolApi';
+import { emailFinanceReport, getTermFinanceReport, runFinanceAI, saveFinanceReport } from '../school/services/schoolApi';
+import { askConfirm, askText } from '../../shared/components/AppDialog';
 import { getFeeReports, getFeesOverview, naira } from './simple/simpleFeesApi';
 
 // The Finance tabs that read a term's money: Income & Expenditure, the written
@@ -175,19 +176,66 @@ export function reportToHtml(report) {
 }
 
 /** The finance report, written out as a document: what each figure is, where it comes from and what it means. */
+/** The report as plain text, for WhatsApp: headings, paragraphs, tables as lines, bullets. */
+export function reportToText(report) {
+  const lines = [`*${report.title}*`, [report.schoolName, report.period].filter(Boolean).join(' · ')];
+  for (const section of report.sections || []) {
+    lines.push('', `*${section.heading}*`, ...(section.paragraphs || []));
+    if (section.table) for (const row of section.table.rows) lines.push(row.join(': '));
+    for (const bullet of section.bullets || []) lines.push(`• ${bullet}`);
+  }
+  return lines.filter(line => line !== undefined).join('\n');
+}
+
+const EDIT_FIELD = 'w-full rounded-xl border border-[#c9a96e]/50 bg-white px-3 py-2 font-serif text-slate-900 dark:border-white/20 dark:bg-slate-800 dark:text-slate-100';
+
 export function FinanceReport() {
   const [termId, setTermId] = useState('');
   const [report, setReport] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  async function write(nextTermId = termId) {
-    setLoading(true); setError('');
+  const [notice, setNotice] = useState('');
+  const [editing, setEditing] = useState(false);
+  const [draft, setDraft] = useState(null);
+  async function write(nextTermId = termId, fresh = false) {
+    setLoading(true); setError(''); setNotice(''); setEditing(false);
     try {
-      const result = await runFinanceAI(nextTermId);
+      const result = await runFinanceAI(nextTermId, fresh);
       setReport(result.analysis || null);
     } catch (err) { setError(err.message || 'Could not write the report.'); } finally { setLoading(false); }
   }
   useEffect(() => { write(''); }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const startEditing = () => { setDraft(JSON.parse(JSON.stringify(report))); setEditing(true); setNotice(''); };
+  const change = (sectionIndex, update) => setDraft(current => ({ ...current, sections: current.sections.map((section, index) => (index === sectionIndex ? update(section) : section)) }));
+  async function saveEdits() {
+    setLoading(true); setError('');
+    try {
+      const result = await saveFinanceReport(report.term?.id, draft);
+      setReport({ ...draft, edited: result.edited });
+      setEditing(false);
+      setNotice('Report saved. It opens like this until you write it again.');
+    } catch (err) { setError(err.message); } finally { setLoading(false); }
+  }
+  async function rewrite() {
+    if (report?.edited && !await askConfirm('Write the report again from the latest figures? Your edits will be replaced.')) return;
+    if (report?.edited) await saveFinanceReport(report.term?.id, null, true).catch(() => null);
+    write(termId, true);
+  }
+  async function email() {
+    const to = await askText('Email the report to (leave empty to send it to the school owner):', '');
+    if (to === null || to === undefined) return;
+    setError(''); setNotice('');
+    try {
+      const result = await emailFinanceReport(report.term?.id, report, String(to).trim() || undefined);
+      setNotice(`Report emailed to ${result.sent.join(', ')}.`);
+    } catch (err) { setError(err.message); }
+  }
+  function whatsapp() {
+    const text = reportToText(report);
+    const url = `https://wa.me/?text=${encodeURIComponent(text.length > 3500 ? `${text.slice(0, 3400)}\n\n(Shortened — print or email the report for the full version.)` : text)}`;
+    window.open(url, '_blank', 'noopener');
+  }
 
   function print() {
     const popup = window.open('', '_blank', 'width=900,height=960');
@@ -206,18 +254,60 @@ export function FinanceReport() {
           <p className="text-sm">A written explanation of the term's finances: fees, who owes, spending, and what to do next.</p>
         </div>
         {report && <TermPicker terms={report.terms} value={report.term?.id} onChange={value => { setTermId(value); write(value); }} />}
-        <button type="button" className={OUTLINE} disabled={loading} onClick={() => write()}>{loading ? 'Writing…' : 'Write again'}</button>
-        <button type="button" className={BTN} disabled={!report || loading} onClick={print}>Print / Save as PDF</button>
+        <button type="button" className={OUTLINE} disabled={loading || editing} onClick={rewrite}>{loading ? 'Writing…' : 'Write again'}</button>
+        {editing ? (
+          <>
+            <button type="button" className={BTN} disabled={loading} onClick={saveEdits}>Save report</button>
+            <button type="button" className={OUTLINE} disabled={loading} onClick={() => setEditing(false)}>Cancel</button>
+          </>
+        ) : (
+          <>
+            <button type="button" className={OUTLINE} disabled={!report || loading} onClick={startEditing}>Edit</button>
+            <button type="button" className={OUTLINE} disabled={!report || loading} onClick={email}>Email</button>
+            <button type="button" className={OUTLINE} disabled={!report || loading} onClick={whatsapp}>WhatsApp</button>
+            <button type="button" className={BTN} disabled={!report || loading} onClick={print}>Print / Save as PDF</button>
+          </>
+        )}
       </section>
       {error && <p role="alert" className="rounded-2xl bg-rose-50 px-4 py-3 text-sm font-semibold text-rose-800">{error}</p>}
+      {notice && <p role="status" className="rounded-2xl bg-emerald-50 px-4 py-3 text-sm font-semibold text-[#1a5c38]">{notice}</p>}
+      {editing && draft && (
+        <article aria-label="Edit the report" className="space-y-5 rounded-3xl border border-[#c9a96e]/40 bg-white p-6 text-slate-900 shadow-sm dark:border-white/10 dark:bg-slate-900 dark:text-slate-100 md:p-10">
+          <input aria-label="Report title" className={`${EDIT_FIELD} text-xl font-black`} value={draft.title} onChange={event => setDraft(current => ({ ...current, title: event.target.value }))} />
+          {draft.sections.map((section, sectionIndex) => (
+            <section key={sectionIndex} className="space-y-2">
+              <input aria-label={`Heading ${sectionIndex + 1}`} className={`${EDIT_FIELD} font-black text-[#800000] dark:text-[#e3c98b]`} value={section.heading} onChange={event => change(sectionIndex, current => ({ ...current, heading: event.target.value }))} />
+              {(section.paragraphs || []).map((text, index) => (
+                <textarea key={index} aria-label={`${section.heading}: paragraph ${index + 1}`} rows={Math.min(10, Math.max(3, Math.ceil(text.length / 90)))} className={EDIT_FIELD} value={text} onChange={event => change(sectionIndex, current => ({ ...current, paragraphs: current.paragraphs.map((value, at) => (at === index ? event.target.value : value)) }))} />
+              ))}
+              {section.table && (
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm"><tbody>
+                    {section.table.rows.map((row, rowIndex) => (
+                      <tr key={rowIndex}>{row.map((cell, cellIndex) => (
+                        <td key={cellIndex} className="p-1"><input aria-label={`${section.heading}: row ${rowIndex + 1}, column ${cellIndex + 1}`} className={EDIT_FIELD} value={cell} onChange={event => change(sectionIndex, current => ({ ...current, table: { ...current.table, rows: current.table.rows.map((values, at) => (at === rowIndex ? values.map((value, col) => (col === cellIndex ? event.target.value : value)) : values)) } }))} /></td>
+                      ))}</tr>
+                    ))}
+                  </tbody></table>
+                </div>
+              )}
+              {(section.bullets || []).map((text, index) => (
+                <textarea key={`b${index}`} aria-label={`${section.heading}: point ${index + 1}`} rows={2} className={EDIT_FIELD} value={text} onChange={event => change(sectionIndex, current => ({ ...current, bullets: current.bullets.map((value, at) => (at === index ? event.target.value : value)) }))} />
+              ))}
+              <button type="button" className="text-xs font-bold text-[#800020] underline dark:text-[#e3c98b]" onClick={() => change(sectionIndex, current => ({ ...current, paragraphs: [...(current.paragraphs || []), ''] }))}>+ Add a paragraph</button>
+            </section>
+          ))}
+        </article>
+      )}
       {loading && !report && <section className={CARD}><p role="status">Writing the report…</p></section>}
-      {report && (
+      {report && !editing && (
         <article aria-label={report.title} className={`rounded-3xl border border-[#c9a96e]/40 bg-white p-6 text-slate-900 shadow-sm dark:border-white/10 dark:bg-slate-900 dark:text-slate-100 md:p-10 ${loading ? 'opacity-60' : ''}`}>
           <header className="border-b-2 border-[#c9a96e] pb-4">
             <h1 className="font-serif text-2xl font-black text-[#800000] dark:text-[#e3c98b]">{report.title}</h1>
             <p className="mt-1 text-sm text-slate-700 dark:text-slate-300">
               {[report.schoolName, report.period, `Prepared ${new Date(report.generatedAt || Date.now()).toLocaleString('en-GB')}`].filter(Boolean).join(' · ')}
               {report.generatedBy === 'ai' ? ' · Overview and recommendations written by Ndovera AI from these figures' : ''}
+              {report.edited ? ` · Edited by ${report.edited.by} on ${new Date(report.edited.at).toLocaleDateString('en-GB')}` : ''}
             </p>
           </header>
           {(report.sections || []).map(section => (

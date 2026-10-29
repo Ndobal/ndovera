@@ -279,6 +279,9 @@ export const getUserProfile = (userId) => req(`/api/people/${userId}`);
 export const updateUserProfile = (userId, data) => req(`/api/people/${userId}`, { method: 'PUT', body: data });
 export const linkParentStudent = (data) => req('/api/school/parent-student-link', { method: 'POST', body: data });
 export const unlinkParentStudent = (data) => req('/api/school/parent-student-unlink', { method: 'POST', body: data });
+export const turnOffParents = (data) => req('/api/school/parents/turn-off', { method: 'POST', body: data });
+export const getFamilies = () => req('/api/school/families');
+export const saveFamilies = (data) => req('/api/school/families/save', { method: 'POST', body: data });
 export const getLinkOverview = () => req('/api/school/link-overview');
 export const getSchoolLocation = () => req('/api/school/location');
 export const saveSchoolLocation = (data) => req('/api/school/location', { method: 'POST', body: data });
@@ -456,7 +459,9 @@ export const publishTimetable = (data) => req('/api/school/timetable/publish', {
 export const getTimetableVersions = (classId) => req(`/api/school/timetable/versions?classId=${enc(classId)}`, { skipOfflineCache: true });
 export const restoreTimetableVersion = (versionId) => req(`/api/school/timetable/versions/${enc(versionId)}/restore`, { method: 'POST' });
 /** The written finance report for a term (the current one when termId is left out). */
-export const runFinanceAI = (termId) => req('/api/school/finance/ai-analysis', { method: 'POST', body: termId ? { termId } : {} });
+export const runFinanceAI = (termId, fresh = false) => req('/api/school/finance/ai-analysis', { method: 'POST', body: { ...(termId ? { termId } : {}), ...(fresh ? { fresh: true } : {}) } });
+export const saveFinanceReport = (termId, document, discard = false) => req('/api/school/finance/report/save', { method: 'POST', body: { termId, document, discard } });
+export const emailFinanceReport = (termId, document, to) => req('/api/school/finance/report/email', { method: 'POST', body: { termId, document, to } });
 /** One term's fees, spending and payroll: the figures behind Income & Expenditure. */
 export const getTermFinanceReport = (termId) => req(`/api/school/finance/term-report${termId ? `?termId=${encodeURIComponent(termId)}` : ''}`);
 

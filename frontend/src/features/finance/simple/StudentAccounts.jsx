@@ -534,12 +534,12 @@ export default function StudentAccounts({ classes, initialStudentId, onChanged }
         {!data ? <p role="status">Loading…</p> : !data.accounts.length ? <p className="text-sm text-[#191970] dark:text-slate-300">No students match.</p> : (
           <div className="overflow-x-auto">
             <table className={`w-full ${data.canRecordPayments ? 'min-w-[1120px]' : 'min-w-[860px]'} text-sm text-[#191970] dark:text-slate-200`}>
-              <thead><tr><th className={`${TH} w-10 text-right`}>S/N</th><th className={TH}>Student</th><th className={TH}>Class</th><th className={TH}>Family</th><th className={`${TH} text-right`}>Term Fee</th><th className={`${TH} text-right`}>Outstanding</th><th className={`${TH} text-right`}>Total Payable</th><th className={`${TH} text-right`}>Paid</th><th className={`${TH} text-right`}>Balance</th><th className={TH}>Status</th>{data.canRecordPayments && <th className={TH}>Record payment</th>}<th className={TH}><span className="sr-only">Open</span></th></tr></thead>
+              <thead><tr><th className={`${TH} w-10 text-right`}>S/N</th><th className={TH}>Student</th><th className={TH}>Class</th><th className={TH}>Family</th><th className={`${TH} text-right`}>Term Fee</th><th className={`${TH} text-right`}>Discount</th><th className={`${TH} text-right`}>Outstanding</th><th className={`${TH} text-right`}>Total Payable</th><th className={`${TH} text-right`}>Paid</th><th className={`${TH} text-right`}>Balance</th><th className={TH}>Status</th>{data.canRecordPayments && <th className={TH}>Record payment</th>}<th className={TH}><span className="sr-only">Open</span></th></tr></thead>
               <tbody>
                 {data.accounts.map((account, index) => (
                   <tr key={account.studentId} className="border-t border-[#c9a96e]/30 hover:bg-white/50">
                     <td className="p-2 text-right tabular-nums text-[#191970]/70 dark:text-slate-400">{index + 1}</td>
-                    <td className="p-2 font-semibold">{account.studentName}{account.classMove ? <span className="ml-1 text-xs text-sky-700">(moved class)</span> : null}</td>
+                    <td className="p-2 font-semibold">{account.studentName}{account.feeGroup ? <span className="ml-1 rounded-full bg-[#191970] px-2 py-0.5 text-[10px] font-bold text-[#b5e3f4]">{account.feeGroup}</span> : null}{account.classMove ? <span className="ml-1 text-xs text-sky-700">(moved class)</span> : null}</td>
                     <td className="p-2">{account.className}</td>
                     <td className="p-2">
                       {(account.families || []).length
@@ -548,7 +548,12 @@ export default function StudentAccounts({ classes, initialStudentId, onChanged }
                         ))
                         : <span className="text-xs text-slate-500">—</span>}
                     </td>
-                    <td className="p-2 text-right">{naira(account.termFee)}</td>
+                    <td className="p-2 text-right">
+                      {naira(account.termFee)}
+                      {/* An individual fee, read against what the class pays. */}
+                      {account.classFee > 0 && Math.abs(account.classFee - account.termFee) > 0.5 && !account.discounts ? <span className="block text-[10px] font-semibold text-[#191970]/80 dark:text-slate-300">class fee {naira(account.classFee)}</span> : null}
+                    </td>
+                    <td className="p-2 text-right">{account.discounts ? `−${naira(account.discounts)}` : '—'}</td>
                     <td className="p-2 text-right">{account.outstanding ? naira(account.outstanding) : '—'}</td>
                     <td className="p-2 text-right">{naira(account.totalPayable)}</td>
                     <td className="p-2 text-right">{naira(account.paid)}</td>

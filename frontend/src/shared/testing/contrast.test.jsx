@@ -17,9 +17,12 @@ import { loadStudentAssignments } from '../../features/classroom/studentTasks';
 import { getPlatformFinance, getProfitAndLoss, getPlatformShares, listShareholders, getAmiTenants, getPlatformAnalytics, getSchoolAccessGrants, getAmiAuditLogs, getAmiReportSummary, getAmiTermBills } from '../../features/tenants/services/tenantApi';
 import { FinanceReport, IncomeExpenditure, TermFeeTemplate } from '../../features/finance/TermFinance';
 import { NextTermCard } from '../../features/finance/simple/SimpleFees';
-import { getClasses, getPeople, getTermFinanceReport, runFinanceAI } from '../../features/school/services/schoolApi';
+import { getClasses, getFamilies, getLinkOverview, getPeople, getTermFinanceReport, runFinanceAI } from '../../features/school/services/schoolApi';
+import FamilyTablePanel from '../../features/school/components/FamilyTablePanel';
+import LinkStudentsPanel from '../../features/school/components/LinkStudentsPanel';
 import { ClassesTab } from '../../app/roles/owner/OwnerSettings';
-import { getFeeReports, getFeesOverview } from '../../features/finance/simple/simpleFeesApi';
+import { getExcursions, getFeeGroups, getFeeReports, getFeesOverview, getNewStudentFees } from '../../features/finance/simple/simpleFeesApi';
+import { ExcursionsCard, FeeGroupsCard, NewStudentsCard } from '../../features/finance/simple/ExtraFees';
 
 // The colour rule, enforced: no text may clash with its background, in light or dark mode.
 // Any new page in the command centre should be added to the list below.
@@ -42,8 +45,8 @@ jest.mock('../../features/submissions/StaffSubmissionPanel', () => () => null);
 jest.mock('../../features/tenants/components/SchoolAccessPanel', () => () => <div>School access</div>);
 jest.mock('../components/AppDialog', () => ({ askConfirm: jest.fn(() => Promise.resolve(true)), askText: jest.fn(() => Promise.resolve('')) }));
 jest.mock('../../features/tenants/services/tenantApi', () => new Proxy({}, { get: (target, key) => { if (!target[key]) target[key] = jest.fn(() => Promise.resolve({})); return target[key]; } }));
-jest.mock('../../features/school/services/schoolApi', () => ({ ...jest.requireActual('../../features/school/services/schoolApi'), getTermFinanceReport: jest.fn(), runFinanceAI: jest.fn(), getClasses: jest.fn(), getPeople: jest.fn() }));
-jest.mock('../../features/finance/simple/simpleFeesApi', () => ({ ...jest.requireActual('../../features/finance/simple/simpleFeesApi'), getFeesOverview: jest.fn(), getFeeReports: jest.fn() }));
+jest.mock('../../features/school/services/schoolApi', () => ({ ...jest.requireActual('../../features/school/services/schoolApi'), getTermFinanceReport: jest.fn(), runFinanceAI: jest.fn(), getClasses: jest.fn(), getPeople: jest.fn(), getLinkOverview: jest.fn(), getFamilies: jest.fn() }));
+jest.mock('../../features/finance/simple/simpleFeesApi', () => ({ ...jest.requireActual('../../features/finance/simple/simpleFeesApi'), getFeesOverview: jest.fn(), getFeeReports: jest.fn(), getNewStudentFees: jest.fn(), getExcursions: jest.fn(), getFeeGroups: jest.fn() }));
 
 const month = new Date().toISOString().slice(0, 7);
 const school = (id, name, extra = {}) => ({
@@ -215,4 +218,82 @@ test('a student offline, with a hand-in waiting to send, can read the notice and
   expectReadable(banner, 'Offline assignments notice');
   fireEvent.click(screen.getByRole('tab', { name: 'Submitted' }));
   expectReadable(screen.getByText('Waiting to send'), 'Waiting-to-send status');
+});
+
+test('the parent-linking panel is readable, with a parent to turn off and a link to a turned-off parent', async () => {
+  getLinkOverview.mockResolvedValue({
+    success: true, maxParentsPerStudent: 2,
+    counts: { students: 2, unlinkedStudents: 1, parents: 1, parentsWithoutChildren: 1 },
+    parents: [{ id: 'p1', name: 'Mr Lone', email: 'lone@a.test', children: [] }, { id: 'p3', name: 'Mr Eze', email: 'eze@a.test', children: [{ id: 's3', name: 'Chidi Eze' }] }],
+    students: [
+      { id: 's1', name: 'Ada Obi', displayId: 'GIS/001', className: 'JSS 1', parents: [{ id: 'p2', name: 'Mrs Obi', email: 'obi@a.test', off: true }] },
+      { id: 's2', name: 'Bisi Ola', displayId: 'GIS/002', className: 'JSS 2', parents: [] },
+      { id: 's3', name: 'Chidi Eze', displayId: 'GIS/003', className: 'JSS 3', parents: [{ id: 'p3', name: 'Mr Eze', email: 'eze@a.test' }] },
+    ],
+  });
+  const { container } = render(<LinkStudentsPanel />);
+  await screen.findByRole('button', { name: /Turn off marked/ });
+  fireEvent.click(screen.getByRole('checkbox', { name: 'Mark Mr Lone' }));
+  expect(screen.getByRole('button', { name: 'Turn off marked (1)' })).toBeEnabled();
+  expectReadable(container, 'Link by parent, a parent marked to turn off');
+  fireEvent.click(screen.getByRole('button', { name: 'Link by child' }));
+  fireEvent.click(screen.getByRole('button', { name: '1 parent' }));
+  expect(screen.queryByRole('button', { name: /Bisi Ola/ })).toBeNull();
+  fireEvent.click(screen.getByRole('button', { name: /Ada Obi/ }));
+  await screen.findByText('Mrs Obi (off)');
+  expectReadable(container, 'Link by child, linked to a turned-off parent');
+  fireEvent.click(screen.getByRole('button', { name: /Chidi Eze/ }));
+  expect(screen.getByText('Parent: Mr Eze')).toBeInTheDocument();
+  fireEvent.click(await screen.findByRole('button', { name: 'Link another child to Mr Eze' }));
+  await screen.findByRole('heading', { name: 'Mr Eze' });
+  expectReadable(container, 'Link another child to the same parent');
+});
+
+test('the family table is readable: parents typed in, a turned-off parent, and a new student row', async () => {
+  getFamilies.mockResolvedValue({
+    success: true, maxParentsPerStudent: 2,
+    classes: [{ id: 'c1', label: 'JSS 1 A' }],
+    students: [
+      { id: 's1', name: 'Ada Obi', displayId: 'GIS/001', classId: 'c1', className: 'JSS 1 A', parents: [{ id: 'p1', name: 'Mrs Obi', phone: '2348031234567', email: '' }, { id: 'p2', name: 'Mr Obi', phone: '', email: 'obi@mail.test', off: true }] },
+      { id: 's2', name: 'Bisi Ola', displayId: 'GIS/002', classId: 'c1', className: 'JSS 1 A', parents: [] },
+    ],
+  });
+  const { container } = render(<FamilyTablePanel />);
+  await screen.findByText('Ada Obi');
+  expect(screen.getByDisplayValue('0803 123 4567')).toBeInTheDocument();
+  fireEvent.change(screen.getByRole('textbox', { name: 'Bisi Ola: parent 1 name' }), { target: { value: 'Mr Ola' } });
+  expect(screen.getByRole('button', { name: 'Save changes (1)' })).toBeEnabled();
+  fireEvent.click(screen.getByRole('button', { name: '+ New student' }));
+  expectReadable(container, 'Family table');
+});
+
+test('the new-students and excursions fee cards are readable in light and dark mode', async () => {
+  getNewStudentFees.mockResolvedValue({ success: true, canEdit: true, term: { id: 't1', name: 'First Term', startDate: '2026-09-07' }, columns: ['Tuition', 'Books'],
+    students: [{ studentId: 'chi', name: 'Chi Eze', classId: 'jss1', className: 'JSS 1', classAmounts: { Tuition: 130000, Books: 20000 }, ownAmounts: { Tuition: 100000 } }] });
+  getExcursions.mockResolvedValue({ success: true, canEdit: true, classes: [{ id: 'jss1', name: 'JSS 1' }, { id: 'jss2', name: 'JSS 2' }],
+    terms: [{ key: 'current', name: 'First Term (this term)' }, { key: 'next', name: 'Second Term, 2026/2027 (next term)' }],
+    excursions: [{ id: 'e1', title: 'Zoo', amount: 5000, termName: 'First Term', upcoming: false, students: 40, classIds: ['jss1'], classes: ['JSS 1'] }] });
+  const { container } = render(<div><NewStudentsCard /><ExcursionsCard /></div>);
+  await screen.findByText('1 student joined this term');
+  await screen.findByText('Zoo');
+  fireEvent.click(screen.getByRole('button', { name: '+ New excursion' }));
+  expectReadable(container, 'New students and excursions cards');
+});
+
+test('the fee groups card and the finance report\'s edit view are readable in light and dark mode', async () => {
+  getFeeGroups.mockResolvedValue({ success: true, canEdit: true, sections: ['nursery', 'primary', 'secondary'], fromTerm: 'Second Term, 2026/2027',
+    groups: [{ id: 'g1', name: 'Staff child', rates: { primary: 30000, secondary: 40000 }, members: 1 }, { id: 'g2', name: 'Scholarship', rates: {}, members: 0 }],
+    students: [{ studentId: 'ada', name: 'Ada Obi', classId: 'jss1', className: 'JSS 1', section: 'secondary', groupId: 'g1' }, { studentId: 'bisi', name: 'Bisi Ola', classId: 'jss1', className: 'JSS 1', section: 'secondary', groupId: '' }] });
+  const groups = render(<FeeGroupsCard />);
+  await screen.findByText('Staff children, scholarship students and other groups');
+  fireEvent.click(screen.getAllByRole('button', { name: 'Add students' })[0]);
+  fireEvent.change(screen.getByRole('textbox', { name: 'Find a student for Staff child' }), { target: { value: 'bisi' } });
+  expectReadable(groups.container, 'Fee groups card');
+  groups.unmount();
+
+  const report = render(<FinanceReport />);
+  await screen.findAllByText('How the figures are worked out');
+  fireEvent.click(screen.getByRole('button', { name: 'Edit' }));
+  await screen.findByRole('textbox', { name: 'Report title' });
+  expectReadable(report.container, 'Finance report edit view');
 });

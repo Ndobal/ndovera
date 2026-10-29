@@ -1,4 +1,5 @@
 import { ensureAcademicTables, getActiveSession, lagosToday } from './academicSessions'
+import { claimMaintenanceRun } from './maintenance'
 
 // Where a material sits in the school's academic history.
 //
@@ -60,6 +61,12 @@ const COVERING_SESSION = `(SELECT s.id FROM academic_sessions s
 export async function backfillMaterialSessions(db: D1Database, tenantId: string, { force = false } = {}) {
   const last = _lastBackfill.get(tenantId) || 0
   if (!force && Date.now() - last < BACKFILL_INTERVAL_MS) return
+  // Instances are short-lived, so the timer above rarely holds: the last run is also kept in
+  // the database (one keyed read), which is what actually limits this to every 6 hours.
+  if (!force && !(await claimMaintenanceRun(db, `material_backfill:${tenantId}`, BACKFILL_INTERVAL_MS).catch(() => true))) {
+    _lastBackfill.set(tenantId, Date.now())
+    return
+  }
   await ensureAcademicTables(db)
 
   // 1. Unstamped rows: the covering session, or a provisional year, or legacy.

@@ -4,7 +4,7 @@ import ReadAloud from '../../shared/components/ReadAloud';
 import { getAssignedClasses } from '../classroom/classroomService';
 import {
   CATEGORY_STYLES, POST_TYPES, addMembers, createClub, createPost, findPeople, getClub, listClubs, listWork, markWork, removeMember,
-  setLeader, submitWork, updateClub, uploadClubFile, withdrawPost,
+  saveClubSettings, setClubFee, setFeeShare, setLeader, submitWork, updateClub, uploadClubFile, withdrawPost,
 } from './clubsApi';
 import { askConfirm } from '../../shared/components/AppDialog';
 
@@ -376,7 +376,35 @@ function PostCard({ clubId, post, page, onWithdraw, onWork, onNotice }) {
 
 // ─── Members ─────────────────────────────────────────────────────────────────
 
-function Members({ clubId, page, onChanged, onNotice }) {
+const naira = value => `₦${Number(value || 0).toLocaleString('en-NG')}`;
+
+/** Owner and Head of School: the club's fee per term, billed from next term's fees. */
+function ClubFee({ clubId, club, feeTerm, onSaved, onNotice }) {
+  const [fee, setFee] = useState(club.fee ? String(club.fee) : '');
+  const [busy, setBusy] = useState(false);
+  const save = async () => {
+    setBusy(true);
+    try {
+      const result = await setClubFee(clubId, Number(fee) || 0);
+      onSaved(result.club);
+      onNotice({ text: result.club.fee ? `Club fee set to ${naira(result.club.fee)}.${result.feeTerm ? ` It is in ${result.feeTerm.name} fees for every member.` : ' It will go into next term\'s fees once next term is created.'}` : 'This club is now free.', tone: 'ok' });
+    } catch (err) { onNotice({ text: err.message, tone: 'error' }); } finally { setBusy(false); }
+  };
+  return (
+    <section className={`${CARD} space-y-2`} aria-label="Club fee">
+      <p className="font-black text-slate-900 dark:text-white">Club fee per term</p>
+      <p className="text-sm text-slate-600 dark:text-slate-300">
+        Every student member pays this as "Club fee" from {feeTerm ? `${feeTerm.name} (${feeTerm.sessionName})` : 'next term'}; this term's fees are not changed. Mark staff children below to pay half.
+      </p>
+      <div className="flex flex-wrap items-center gap-2">
+        <input aria-label="Club fee per term" className={`${FIELD} w-40`} inputMode="decimal" placeholder="0 = free" value={fee} onChange={event => setFee(event.target.value.replace(/[^\d.]/g, ''))} />
+        <button type="button" className={PRIMARY} disabled={busy || Number(fee || 0) === Number(club.fee || 0)} onClick={save}>{busy ? 'Saving…' : 'Save fee'}</button>
+      </div>
+    </section>
+  );
+}
+
+function Members({ clubId, page, isHead, feeTerm, onClubSaved, onChanged, onNotice }) {
   const [q, setQ] = useState('');
   const [found, setFound] = useState([]);
   const [classes, setClasses] = useState([]);
@@ -395,6 +423,7 @@ function Members({ clubId, page, onChanged, onNotice }) {
       {!membersEditable && page.canManage ? (
         <p className={`${CARD} text-sm text-slate-600 dark:text-slate-300`}>Members are added and removed by the Owner, Head of School or ICT. Ask them to add anyone missing.</p>
       ) : null}
+      {isHead && <ClubFee clubId={clubId} club={page.club} feeTerm={feeTerm} onSaved={onClubSaved} onNotice={onNotice} />}
       {membersEditable && (
         <section className={`${CARD} space-y-3`} aria-label="Add members">
           <p className="font-black text-slate-900 dark:text-white">Add members</p>
@@ -432,6 +461,8 @@ function Members({ clubId, page, onChanged, onNotice }) {
             <li key={member.userId} className="flex flex-wrap items-center gap-2 py-2 text-sm">
               <span className="flex-1 font-semibold text-slate-900 dark:text-white">{member.name}{member.className ? <span className="text-xs font-normal text-slate-500"> · {member.className}</span> : null}</span>
               <span className={`rounded-full px-2 py-0.5 text-xs font-bold ${member.role === 'patron' ? 'bg-indigo-100 text-indigo-900' : member.role === 'leader' ? 'bg-amber-100 text-amber-900' : 'bg-slate-100 text-slate-700'}`}>{ROLE_LABEL[member.role] || member.role}</span>
+              {page.club.fee > 0 && member.role !== 'patron' && <span className={`rounded-full px-2 py-0.5 text-xs font-bold ${member.feeShare === 'half' ? 'bg-emerald-100 text-emerald-900' : 'bg-slate-100 text-slate-700'}`}>{member.feeShare === 'half' ? `Half fee · ${naira(page.club.fee / 2)}` : naira(page.club.fee)}</span>}
+              {membersEditable && page.club.fee > 0 && member.role !== 'patron' && <button type="button" className="text-xs font-bold text-indigo-700 underline dark:text-indigo-300" onClick={() => run(() => setFeeShare(clubId, member.userId, member.feeShare === 'half' ? 'full' : 'half'), member.feeShare === 'half' ? `${member.name} pays the full fee.` : `${member.name} pays half.`)}>{member.feeShare === 'half' ? 'Pays full' : 'Pays half'}</button>}
               {page.canManage && member.role !== 'patron' && <button type="button" className="text-xs font-bold text-indigo-700 underline dark:text-indigo-300" onClick={() => run(() => setLeader(clubId, member.userId, member.role !== 'leader'))}>{member.role === 'leader' ? 'Make member' : 'Make leader'}</button>}
               {membersEditable && <button type="button" className={DANGER} onClick={async () => { if (await askConfirm(`Remove ${member.name} from the club?`)) run(() => removeMember(clubId, member.userId), `${member.name} removed.`); }}>Remove</button>}
             </li>
@@ -444,7 +475,7 @@ function Members({ clubId, page, onChanged, onNotice }) {
 
 // ─── One club ────────────────────────────────────────────────────────────────
 
-function ClubView({ clubId, isManager, onBack }) {
+function ClubView({ clubId, isManager, isHead, feeTerm, onBack }) {
   const [page, setPage] = useState(null);
   const [tab, setTab] = useState('feed');
   const [notice, setNotice] = useState(null);
@@ -474,7 +505,7 @@ function ClubView({ clubId, isManager, onBack }) {
           <button key={key} type="button" role="tab" aria-selected={tab === key} onClick={() => setTab(key)} className={`flex-1 rounded-xl px-3 py-2 text-sm font-black ${tab === key ? 'bg-white text-indigo-700 shadow dark:bg-slate-800 dark:text-cyan-300' : 'text-slate-600 dark:text-slate-300'}`}>{label}</button>
         ))}
       </div>
-      {tab === 'members' ? <Members clubId={clubId} page={page} onChanged={members => setPage(current => ({ ...current, members }))} onNotice={onNotice} /> : (
+      {tab === 'members' ? <Members clubId={clubId} page={page} isHead={isHead} feeTerm={feeTerm} onClubSaved={club => setPage(current => ({ ...current, club }))} onChanged={members => setPage(current => ({ ...current, members }))} onNotice={onNotice} /> : (
         <div className="space-y-4">
           {page.canManage && !page.offline && tab === 'feed' && <Composer clubId={clubId} onNotice={onNotice} onPosted={() => { setNotice({ text: 'Posted to the club.', tone: 'ok' }); load(); }} />}
           {!feed.length ? <p className={`${CARD} text-sm text-slate-600 dark:text-slate-300`}>{tab === 'work' ? 'No assignments or quizzes yet.' : page.canManage ? 'Nothing here yet — share a note, a video or a quiz above.' : 'Nothing here yet. Your patrons will share notes, videos and activities here.'}</p>
@@ -531,7 +562,7 @@ export default function ClubsPage() {
   const load = useCallback(() => listClubs().then(result => { setData(result); setError(''); }).catch(err => setError(err.message)), []);
   useEffect(() => { load(); }, [load]);
 
-  if (open) return <div className="mx-auto max-w-5xl p-4 md:p-8"><ClubView clubId={open} isManager={Boolean(data?.isManager)} onBack={() => { setOpen(''); load(); }} /></div>;
+  if (open) return <div className="mx-auto max-w-5xl p-4 md:p-8"><ClubView clubId={open} isManager={Boolean(data?.isManager)} isHead={Boolean(data?.isHead)} feeTerm={data?.feeTerm || null} onBack={() => { setOpen(''); load(); }} /></div>;
   return (
     <div className="mx-auto max-w-6xl space-y-5 p-4 md:p-8">
       <section className="rounded-[2rem] bg-gradient-to-br from-indigo-700 via-violet-700 to-fuchsia-700 p-6 text-white shadow-xl">
@@ -542,6 +573,15 @@ export default function ClubsPage() {
         {data?.offline ? <p className="mt-3 inline-block rounded-full bg-amber-300 px-3 py-1 text-sm font-bold text-amber-950">📴 Offline — showing saved clubs</p> : null}
       </section>
       {error && <p role="alert" className="rounded-2xl bg-rose-50 px-4 py-3 text-sm font-semibold text-rose-800">{error}</p>}
+      {data?.isHead ? (
+        <label className={`${CARD} flex items-start gap-3 text-sm text-slate-700 dark:text-slate-200`}>
+          <input type="checkbox" className="mt-1" checked={Boolean(data.settings?.multipleClubs)} onChange={async event => {
+            const multipleClubs = event.target.checked;
+            try { const result = await saveClubSettings({ multipleClubs }); setData(current => ({ ...current, settings: result.settings })); } catch (err) { setError(err.message); }
+          }} />
+          <span><strong className="text-slate-900 dark:text-white">Allow a student to join more than one club.</strong> Off: each student belongs to one club. Club fees add up for a student in more than one club.</span>
+        </label>
+      ) : null}
       {creating && <ClubForm categories={data?.categories} isManager={Boolean(data?.isManager)} onCancel={() => setCreating(false)} onSaved={club => { setCreating(false); setOpen(club.id); }} />}
       {!data && !error ? <p role="status">Loading clubs…</p> : null}
       {data && !data.clubs.length ? (

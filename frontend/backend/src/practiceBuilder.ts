@@ -53,7 +53,10 @@ export async function ensureBuilderTables(db: D1Database) {
       id TEXT PRIMARY KEY, source_type TEXT NOT NULL, source_id TEXT NOT NULL, subject_key TEXT NOT NULL, subject_name TEXT, section TEXT NOT NULL,
       level_rank INTEGER NOT NULL, difficulty TEXT NOT NULL, exam TEXT, topic TEXT NOT NULL, context_ref TEXT, target INTEGER NOT NULL, made INTEGER NOT NULL DEFAULT 0,
       attempts INTEGER NOT NULL DEFAULT 0, priority INTEGER NOT NULL DEFAULT 5, status TEXT NOT NULL DEFAULT 'pending', created_at TEXT NOT NULL, updated_at TEXT NOT NULL)`,
-    `CREATE INDEX IF NOT EXISTS idx_practice_build_next ON practice_build_queue(status, priority, made)`,
+    // The whole ORDER BY of the next-item pick, so it reads one row instead of sorting every
+    // pending item (~25,000 rows a pick before; the top D1 read cost in Oct 2026).
+    `CREATE INDEX IF NOT EXISTS idx_practice_build_pick ON practice_build_queue(status, priority, made, updated_at)`,
+    `DROP INDEX IF EXISTS idx_practice_build_next`,
     `CREATE TABLE IF NOT EXISTS practice_build_state (key TEXT PRIMARY KEY, value TEXT, updated_at TEXT)`,
     `CREATE TABLE IF NOT EXISTS practice_build_nights (day TEXT PRIMARY KEY, steps INTEGER NOT NULL DEFAULT 0, added INTEGER NOT NULL DEFAULT 0, reviewed INTEGER NOT NULL DEFAULT 0,
       upgraded INTEGER NOT NULL DEFAULT 0, rejected INTEGER NOT NULL DEFAULT 0, failures INTEGER NOT NULL DEFAULT 0, updated_at TEXT)`,

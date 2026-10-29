@@ -782,13 +782,67 @@ export async function leaderboard(db: D1Database, student: PracticeStudent, scop
   await ensurePracticeTables(db)
   const week = weekKey(new Date())
   const subject = subjectKeys.length ? ` AND subject_key IN (${subjectKeys.map(() => '?').join(',')})` : ''
+  // After an XP reset, this week's board counts only quizzes taken since.
+  const since = await lastXpReset(db, student.tenantId)
   const rows = scope === 'class' && student.classId
-    ? await db.prepare(`SELECT student_id, MAX(student_name) AS name, SUM(xp) AS xp, COUNT(*) AS quizzes FROM practice_attempts WHERE tenant_id = ? AND class_id = ? AND week_key = ?${subject} GROUP BY student_id ORDER BY xp DESC LIMIT 20`).bind(student.tenantId, student.classId, week, ...subjectKeys).all()
-    : await db.prepare(`SELECT student_id, MAX(student_name) AS name, SUM(xp) AS xp, COUNT(*) AS quizzes FROM practice_attempts WHERE tenant_id = ? AND week_key = ?${subject} GROUP BY student_id ORDER BY xp DESC LIMIT 20`).bind(student.tenantId, week, ...subjectKeys).all()
+    ? await db.prepare(`SELECT student_id, MAX(student_name) AS name, SUM(xp) AS xp, COUNT(*) AS quizzes FROM practice_attempts WHERE tenant_id = ? AND class_id = ? AND week_key = ? AND created_at >= ?${subject} GROUP BY student_id ORDER BY xp DESC LIMIT 20`).bind(student.tenantId, student.classId, week, since, ...subjectKeys).all()
+    : await db.prepare(`SELECT student_id, MAX(student_name) AS name, SUM(xp) AS xp, COUNT(*) AS quizzes FROM practice_attempts WHERE tenant_id = ? AND week_key = ? AND created_at >= ?${subject} GROUP BY student_id ORDER BY xp DESC LIMIT 20`).bind(student.tenantId, week, since, ...subjectKeys).all()
   return {
     week, scope, subjectKey: subjectKeys[0] || '',
     entries: ((rows.results || []) as Record<string, any>[]).map((row, index) => ({
       rank: index + 1, name: String(row.name || 'Student'), xp: Number(row.xp || 0), quizzes: Number(row.quizzes || 0), you: row.student_id === student.studentId,
     })),
   }
+}
+
+// ─── Resetting everyone's XP (Ami) ───────────────────────────────────────────
+// Every student's XP (and so their level) goes back to 0, in every school or one school.
+// Each student's XP is copied to practice_xp_backup first, so a reset can be undone.
+// Quiz history, streaks and badges are kept; this week's leaderboard restarts.
+
+async function ensureXpResetTables(db: D1Database) {
+  await db.prepare(`CREATE TABLE IF NOT EXISTS practice_xp_resets (id TEXT PRIMARY KEY, tenant_id TEXT, reset_at TEXT NOT NULL, reset_by TEXT, students INTEGER NOT NULL DEFAULT 0, restored_at TEXT)`).run()
+  await db.prepare(`CREATE TABLE IF NOT EXISTS practice_xp_backup (reset_id TEXT NOT NULL, student_id TEXT NOT NULL, tenant_id TEXT, xp INTEGER NOT NULL, today_xp INTEGER NOT NULL, PRIMARY KEY (reset_id, student_id))`).run()
+}
+
+/** When this school's XP was last reset (for every school or for it), or '' if never. */
+async function lastXpReset(db: D1Database, tenantId: string) {
+  const row = await db.prepare(`SELECT MAX(reset_at) AS at FROM practice_xp_resets WHERE restored_at IS NULL AND (tenant_id IS NULL OR tenant_id = ?)`).bind(tenantId).first().catch(() => null) as Record<string, any> | null
+  return String(row?.at || '')
+}
+
+export async function resetAllXp(db: D1Database, options: { by: string, tenantId?: string }) {
+  await ensurePracticeTables(db)
+  await ensureXpResetTables(db)
+  const id = `xpr_${crypto.randomUUID().replace(/-/g, '').slice(0, 20)}`
+  const tenant = String(options.tenantId || '').trim() || null
+  const where = tenant ? 'WHERE tenant_id = ?' : ''
+  const bind = tenant ? [tenant] : []
+  await db.batch([
+    db.prepare(`INSERT INTO practice_xp_backup (reset_id, student_id, tenant_id, xp, today_xp) SELECT ?, student_id, tenant_id, xp, today_xp FROM practice_profiles ${where}`).bind(id, ...bind),
+    db.prepare(`UPDATE practice_profiles SET xp = 0, today_xp = 0, updated_at = ? ${where}`).bind(now(), ...bind),
+    db.prepare(`INSERT INTO practice_xp_resets (id, tenant_id, reset_at, reset_by, students) VALUES (?, ?, ?, ?, (SELECT COUNT(*) FROM practice_xp_backup WHERE reset_id = ?))`).bind(id, tenant, now(), options.by, id),
+  ])
+  const row = await db.prepare(`SELECT students FROM practice_xp_resets WHERE id = ?`).bind(id).first() as Record<string, any> | null
+  return { id, students: Number(row?.students || 0), tenantId: tenant }
+}
+
+/** Undo a reset: each student gets back the XP they had, plus anything earned since. */
+export async function restoreXp(db: D1Database, resetId: string) {
+  await ensureXpResetTables(db)
+  const reset = await db.prepare(`SELECT * FROM practice_xp_resets WHERE id = ?`).bind(resetId).first() as Record<string, any> | null
+  if (!reset) throw new PracticeError('That reset was not found.', 404)
+  if (reset.restored_at) throw new PracticeError('That reset has already been undone.', 409)
+  await db.batch([
+    db.prepare(`UPDATE practice_profiles SET xp = xp + COALESCE((SELECT b.xp FROM practice_xp_backup b WHERE b.reset_id = ? AND b.student_id = practice_profiles.student_id), 0), updated_at = ?
+      WHERE student_id IN (SELECT student_id FROM practice_xp_backup WHERE reset_id = ?)`).bind(resetId, now(), resetId),
+    db.prepare(`UPDATE practice_xp_resets SET restored_at = ? WHERE id = ?`).bind(now(), resetId),
+  ])
+  return { id: resetId, students: Number(reset.students || 0) }
+}
+
+export async function listXpResets(db: D1Database) {
+  await ensureXpResetTables(db)
+  return (((await db.prepare(`SELECT * FROM practice_xp_resets ORDER BY reset_at DESC LIMIT 20`).all()).results || []) as Record<string, any>[])
+    .map(row => ({ id: row.id, tenantId: row.tenant_id || null, resetAt: row.reset_at, resetBy: row.reset_by, students: Number(row.students || 0), restoredAt: row.restored_at || null }))
 }

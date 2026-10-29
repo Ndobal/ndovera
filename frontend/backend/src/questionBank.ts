@@ -1,4 +1,6 @@
 import { bankHasLegacyColumns, legacyBankInsert } from './practiceArena'
+import { claimMaintenanceRun } from './maintenance'
+
 function parseJsonField<T>(value: unknown, fallback: T): T {
   if (typeof value !== 'string' || !value) return fallback
 
@@ -488,7 +490,10 @@ function scoreQuestion(question: Record<string, any>, response: unknown) {
   return { correct, awarded: correct ? score : 0, pendingManualReview: false, expected: question.answer }
 }
 
+const questionBankReady = new WeakSet<object>()
+
 export async function ensureQuestionBankTables(db: D1Database) {
+  if (questionBankReady.has(db as object)) return
   await db.prepare(QUESTION_BANK_DDL).run()
   await db.prepare(QUESTION_USAGE_DDL).run()
   await db.prepare(QUESTION_BANK_ACCESS_DDL).run()
@@ -533,7 +538,12 @@ export async function ensureQuestionBankTables(db: D1Database) {
   legacyBackfills.push(`metadata_json = COALESCE(NULLIF(metadata_json, ''), '{}')`)
   legacyBackfills.push(`created_at = COALESCE(NULLIF(created_at, ''), strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`)
   legacyBackfills.push(`updated_at = COALESCE(NULLIF(updated_at, ''), created_at)`)
-  await db.exec(`UPDATE question_bank SET ${legacyBackfills.join(', ')} WHERE 1=1`).catch(() => null)
+  // Fills columns older rows were saved without. It reads every question, so it runs at most
+  // once a day (it ran on every new Worker instance: ~10M rows read a week, Oct 2026), and
+  // only touches rows that still have a gap.
+  if (await claimMaintenanceRun(db, 'question_bank_backfill', 24 * 60 * 60 * 1000).catch(() => false)) {
+    await db.exec(`UPDATE question_bank SET ${legacyBackfills.join(', ')} WHERE normalized_prompt IS NULL OR normalized_prompt = '' OR question_hash IS NULL OR question_hash = '' OR score IS NULL OR status IS NULL OR status = '' OR source IS NULL OR source = '' OR metadata_json IS NULL OR metadata_json = '' OR created_at IS NULL OR created_at = '' OR updated_at IS NULL OR updated_at = ''${questionBankColumns.has('classlevel') ? " OR ((class_level IS NULL OR class_level = '') AND classLevel IS NOT NULL AND classLevel != '')" : ''}${questionBankColumns.has('options') ? " OR ((options_json IS NULL OR options_json = '') AND options IS NOT NULL AND options != '')" : ''}${questionBankColumns.has('answer') ? " OR ((answer_json IS NULL OR answer_json = '') AND answer IS NOT NULL AND answer != '')" : ''}`).catch(() => null)
+  }
 
   try { await db.exec('ALTER TABLE cbt_exams ADD COLUMN release_at TEXT') } catch {}
   try { await db.exec('ALTER TABLE cbt_exams ADD COLUMN settings_json TEXT') } catch {}
@@ -541,6 +551,7 @@ export async function ensureQuestionBankTables(db: D1Database) {
   try { await db.exec('ALTER TABLE cbt_attempts ADD COLUMN responses_json TEXT') } catch {}
   try { await db.exec('ALTER TABLE cbt_attempts ADD COLUMN feedback_json TEXT') } catch {}
   await db.prepare(`CREATE UNIQUE INDEX IF NOT EXISTS question_usage_unique_idx ON question_usage(question_id, engine_type, engine_id)`).run()
+  questionBankReady.add(db as object)
 }
 
 export async function getTeacherQuestionBankAccess(db: D1Database, tenantId: string, teacherId: string) {

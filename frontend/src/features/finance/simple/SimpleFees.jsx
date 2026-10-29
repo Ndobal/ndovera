@@ -3,6 +3,7 @@ import { ArchivesTab, AuditTab, ClaimsTab } from '../FinanceCenter';
 import { ReceiptDialog, downloadDesignedReceipts, printDesignedReceipts, receiptsShareText, toDesignedReceipt, whatsappLink } from '../FinanceShared';
 import { buildReceiptShareMessage } from '../../school/components/FeeReceiptDialog';
 import FeeSetup from './FeeSetup';
+import { ExcursionsCard, FeeGroupsCard, NewStudentsCard } from './ExtraFees';
 import StudentAccounts, { RecordPaymentDialog, StatusChip } from './StudentAccounts';
 import {
   ACCOUNT_STATUS, EDIT_MODES, billNewStudents, getFeeReports, getFeeSettings, getFeesOverview, getReceipts, listTermPayments, naira, saveFeeSettings,
@@ -473,6 +474,9 @@ export default function SimpleFees({ initialSetupTermId = '' }) {
 
       {view === 'dashboard' && <Dashboard overview={overview} go={go} onSetup={source => { setSetupSource(source); setSetupTermId(''); setView('setup'); }} onPay={() => setPaying({})} onChanged={message => { setNotice(message); refresh(); }} />}
       {view === 'dashboard' && <NextTermCard nextTerm={overview.nextTerm} canEdit={overview.canEditFees} onSetup={termId => { setSetupSource(null); setSetupTermId(termId); setView('setup'); }} />}
+      {view === 'dashboard' && term && <NewStudentsCard onChanged={refresh} />}
+      {view === 'dashboard' && term && <ExcursionsCard onChanged={refresh} />}
+      {view === 'dashboard' && term && <FeeGroupsCard onChanged={refresh} />}
       {view === 'setup' && <FeeSetup key={`${setupTermId || term?.id}-${setupSource?.type || ''}-${setupSource?.termId || ''}`} initialTermId={setupTermId || term?.id} initialSource={setupSource} canEdit={overview.canEditFees} onSaved={refresh} />}
       {view === 'students' && <StudentAccounts classes={context.classes || []} onChanged={refresh} />}
       {view === 'payments' && <Payments />}

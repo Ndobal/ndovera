@@ -11,6 +11,11 @@
 // Assignments take a written answer and/or files and are marked by a patron; quizzes
 // are marked by Ndovera at once, on the server, from answers students never receive
 // before they hand in. Nothing is ever hard-deleted: posts are withdrawn, members leave.
+//
+// Club fees: the Owner or Head of School sets a club's fee per term. Each student member
+// pays it in full or half (staff children), and it is written into the NEXT term's fee
+// table as one "Club fee" item (syncClubFees) — the term already running is never touched.
+// A student belongs to one club unless the Owner or Head of School allows more.
 
 export class ClubError extends Error {
   status: number
@@ -22,7 +27,9 @@ export class ClubError extends Error {
 
 export type ClubActor = { tenantId: string, id: string, name: string, role: string, isManager: boolean, isStaff: boolean,
   /** Owner, HoS and ICT: the only people who add or remove club members. */
-  canManageMembers?: boolean }
+  canManageMembers?: boolean,
+  /** Owner and Head of School only: club fees, and whether a student may join more than one club. */
+  isHead?: boolean }
 
 export const POST_KINDS = ['note', 'video', 'image', 'document', 'link', 'announcement', 'assignment', 'quiz'] as const
 export type PostKind = typeof POST_KINDS[number]
@@ -54,7 +61,11 @@ export async function ensureClubTables(db: D1Database) {
       answer_text TEXT, files_json TEXT, answers_json TEXT, score REAL, total REAL, feedback TEXT, submitted_at TEXT NOT NULL,
       marked_by TEXT, marked_at TEXT, UNIQUE (post_id, student_id))`,
     `CREATE INDEX IF NOT EXISTS idx_club_submissions_post ON club_submissions(post_id)`,
+    `CREATE TABLE IF NOT EXISTS club_settings (tenant_id TEXT PRIMARY KEY, multiple_clubs INTEGER NOT NULL DEFAULT 0, updated_by TEXT, updated_at TEXT)`,
   ]) await db.prepare(statement).run()
+  // Added with club fees: a club's fee per term, and whether a member pays all of it or half.
+  await db.prepare(`ALTER TABLE clubs ADD COLUMN fee REAL`).run().catch(() => null)
+  await db.prepare(`ALTER TABLE club_members ADD COLUMN fee_share TEXT`).run().catch(() => null)
   readyDbs.add(db as object)
 }
 
@@ -64,12 +75,12 @@ function mapClub(row: Record<string, any>) {
   return {
     id: String(row.id), name: String(row.name), description: String(row.description || ''), category: String(row.category || 'Other'),
     meeting: String(row.meeting || ''), color: String(row.color || ''), status: String(row.status || 'active'),
-    createdByName: String(row.created_by_name || ''), createdAt: row.created_at,
+    createdByName: String(row.created_by_name || ''), createdAt: row.created_at, fee: Number(row.fee) > 0 ? Number(row.fee) : 0,
   }
 }
 
 function mapMember(row: Record<string, any>) {
-  return { userId: String(row.user_id), name: String(row.name || row.user_id), role: String(row.member_role), className: String(row.class_name || ''), joinedAt: row.joined_at }
+  return { userId: String(row.user_id), name: String(row.name || row.user_id), role: String(row.member_role), className: String(row.class_name || ''), joinedAt: row.joined_at, feeShare: row.fee_share === 'half' ? 'half' : 'full' }
 }
 
 async function membership(db: D1Database, clubId: string, userId: string) {
@@ -167,6 +178,18 @@ export async function addMembers(db: D1Database, actor: ClubActor, clubId: strin
   const access = await clubAccess(db, actor, clubId)
   if (!access.canManageMembers) throw new ClubError('Only the Owner, Head of School or ICT can add club members.', 403)
   if (!people.length) throw new ClubError('Choose who to add.')
+  // One club per student, unless the Owner or Head of School allows more.
+  const students = people.filter(person => person.role === 'student')
+  if (students.length && !(await getClubSettings(db, actor.tenantId)).multipleClubs) {
+    const ids = students.map(person => person.id.toLowerCase())
+    const elsewhere = ((await db.prepare(`SELECT m.user_id, m.name, c.name AS club_name FROM club_members m JOIN clubs c ON c.id = m.club_id
+      WHERE m.tenant_id = ? AND m.club_id != ? AND m.left_at IS NULL AND m.member_role IN ('member', 'leader') AND c.status = 'active'
+        AND lower(m.user_id) IN (${ids.map(() => '?').join(',')})`).bind(actor.tenantId, clubId, ...ids).all()).results || []) as Record<string, any>[]
+    if (elsewhere.length) {
+      const names = elsewhere.slice(0, 5).map(row => `${row.name || row.user_id} (${row.club_name})`).join(', ')
+      throw new ClubError(`A student can be in one club only: ${names}${elsewhere.length > 5 ? ` and ${elsewhere.length - 5} more` : ''} ${elsewhere.length === 1 ? 'is' : 'are'} already in another club. Remove them there first, or ask the Owner or Head of School to allow more than one club.`, 409)
+    }
+  }
   const stamp = now()
   const statements = people.slice(0, 200).map(person => {
     const role = person.role === 'student' ? (asRole === 'leader' ? 'leader' : 'member') : 'patron'
@@ -380,4 +403,75 @@ export async function markSubmission(db: D1Database, actor: ClubActor, clubId: s
   const score = Number(input.score)
   if (!Number.isFinite(score) || score < 0 || score > max) throw new ClubError(`Give a score from 0 to ${max}.`)
   await db.prepare(`UPDATE club_submissions SET score = ?, total = ?, feedback = ?, marked_by = ?, marked_at = ? WHERE id = ?`).bind(score, max, clean(input.feedback, 4000), actor.name, now(), submissionId).run()
+}
+
+// ─── Club fees ───────────────────────────────────────────────────────────────
+
+export const CLUB_FEE_ITEM = 'Club fee'
+
+export async function getClubSettings(db: D1Database, tenantId: string) {
+  await ensureClubTables(db)
+  const row = await db.prepare(`SELECT multiple_clubs FROM club_settings WHERE tenant_id = ?`).bind(tenantId).first() as Record<string, any> | null
+  return { multipleClubs: Number(row?.multiple_clubs || 0) === 1 }
+}
+
+/** Owner and Head of School: allow a student to belong to more than one club. */
+export async function saveClubSettings(db: D1Database, actor: ClubActor, input: Record<string, any>) {
+  if (!actor.isHead) throw new ClubError('Only the Owner or Head of School can change this.', 403)
+  await ensureClubTables(db)
+  await db.prepare(`INSERT INTO club_settings (tenant_id, multiple_clubs, updated_by, updated_at) VALUES (?, ?, ?, ?)
+    ON CONFLICT(tenant_id) DO UPDATE SET multiple_clubs = excluded.multiple_clubs, updated_by = excluded.updated_by, updated_at = excluded.updated_at`)
+    .bind(actor.tenantId, input.multipleClubs ? 1 : 0, actor.name, now()).run()
+  return getClubSettings(db, actor.tenantId)
+}
+
+/** Owner and Head of School: the club's fee per term (0 or empty: free). */
+export async function setClubFee(db: D1Database, actor: ClubActor, clubId: string, fee: unknown) {
+  if (!actor.isHead) throw new ClubError('Only the Owner or Head of School can set a club\'s fee.', 403)
+  await clubAccess(db, actor, clubId)
+  const amount = Math.round(Number(fee || 0) * 100) / 100
+  if (!Number.isFinite(amount) || amount < 0) throw new ClubError('Enter the fee as an amount, or 0 for a free club.')
+  await db.prepare(`UPDATE clubs SET fee = ?, updated_at = ? WHERE id = ? AND tenant_id = ?`).bind(amount || null, now(), clubId, actor.tenantId).run()
+  return (await clubAccess(db, actor, clubId)).club
+}
+
+/** Whether a student member pays the full club fee or half (e.g. a staff member's child). */
+export async function setFeeShare(db: D1Database, actor: ClubActor, clubId: string, userId: string, share: unknown) {
+  const access = await clubAccess(db, actor, clubId)
+  if (!actor.isManager && !access.canManageMembers) throw new ClubError('Only the Owner, Head of School or ICT can change what a member pays.', 403)
+  await db.prepare(`UPDATE club_members SET fee_share = ? WHERE club_id = ? AND lower(user_id) = lower(?) AND member_role IN ('member', 'leader')`)
+    .bind(share === 'half' ? 'half' : null, clubId, userId).run()
+  return listMembers(db, clubId)
+}
+
+/**
+ * Write each student's club fee into a term's fee table (fee_student_amounts, item
+ * "Club fee"): the sum over their active clubs, half where they pay half. Students no longer
+ * in a paid club lose the item. Only ever called for a term that has not started.
+ */
+export async function syncClubFees(db: D1Database, tenantId: string, term: { id: string }) {
+  await ensureClubTables(db)
+  const rows = ((await db.prepare(`SELECT m.user_id, m.name, m.fee_share, c.fee FROM club_members m JOIN clubs c ON c.id = m.club_id
+    WHERE m.tenant_id = ? AND m.left_at IS NULL AND m.member_role IN ('member', 'leader') AND c.status = 'active' AND c.fee > 0`).bind(tenantId).all()).results || []) as Record<string, any>[]
+  const owed = new Map<string, { name: string, amount: number }>()
+  for (const row of rows) {
+    const entry = owed.get(String(row.user_id)) || { name: String(row.name || ''), amount: 0 }
+    entry.amount = Math.round((entry.amount + Number(row.fee) * (row.fee_share === 'half' ? 0.5 : 1)) * 100) / 100
+    owed.set(String(row.user_id), entry)
+  }
+  const current = ((await db.prepare(`SELECT student_id, amount FROM fee_student_amounts WHERE tenant_id = ? AND term_id = ? AND item = ?`).bind(tenantId, term.id, CLUB_FEE_ITEM).all()).results || []) as Record<string, any>[]
+  const had = new Map(current.map(row => [String(row.student_id), Number(row.amount)]))
+  const stamp = now()
+  const statements: D1PreparedStatement[] = []
+  for (const [studentId, entry] of owed) {
+    if (had.get(studentId) === entry.amount) continue
+    statements.push(db.prepare(`INSERT INTO fee_student_amounts (tenant_id, term_id, student_id, student_name, item, amount, updated_by, updated_at) VALUES (?, ?, ?, ?, ?, ?, 'Clubs', ?)
+      ON CONFLICT(tenant_id, term_id, student_id, item) DO UPDATE SET amount = excluded.amount, student_name = excluded.student_name, updated_by = excluded.updated_by, updated_at = excluded.updated_at`)
+      .bind(tenantId, term.id, studentId, entry.name, CLUB_FEE_ITEM, entry.amount, stamp))
+  }
+  for (const studentId of had.keys()) {
+    if (!owed.has(studentId)) statements.push(db.prepare(`DELETE FROM fee_student_amounts WHERE tenant_id = ? AND term_id = ? AND student_id = ? AND item = ?`).bind(tenantId, term.id, studentId, CLUB_FEE_ITEM))
+  }
+  for (let index = 0; index < statements.length; index += 90) await db.batch(statements.slice(index, index + 90))
+  return { students: owed.size, changed: statements.length }
 }

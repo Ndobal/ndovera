@@ -299,7 +299,7 @@ const rowsOf = async (statement: D1PreparedStatement) => ((await statement.all()
 const assignmentsSource: Source = {
   type: 'assignment',
   changed: (db, stamp, id, limit) => rowsOf(db.prepare(`SELECT a.*, COALESCE(a.updatedAt, a.createdAt, '') AS stamp, c.tenantId AS tenant_id, c.name AS class_name, c.arm AS class_arm
-    FROM assignments a INNER JOIN classes c ON c.id = a.classId WHERE (COALESCE(a.updatedAt, a.createdAt, '') > ? OR (COALESCE(a.updatedAt, a.createdAt, '') = ? AND a.id > ?))
+    FROM assignments a INNER JOIN classes c ON c.id = a.classId WHERE COALESCE(a.updatedAt, a.createdAt, '') >= ? AND (COALESCE(a.updatedAt, a.createdAt, '') > ? OR a.id > ?)
     ORDER BY COALESCE(a.updatedAt, a.createdAt, ''), a.id LIMIT ?`).bind(stamp, stamp, id, limit)),
   all: (db, id, limit) => rowsOf(db.prepare(`SELECT a.*, COALESCE(a.updatedAt, a.createdAt, '') AS stamp, c.tenantId AS tenant_id, c.name AS class_name, c.arm AS class_arm
     FROM assignments a INNER JOIN classes c ON c.id = a.classId WHERE a.id > ? ORDER BY a.id LIMIT ?`).bind(id, limit)),
@@ -342,7 +342,7 @@ const assessmentsSource: Source = {
 const materialsSource: Source = {
   type: 'material',
   changed: (db, stamp, id, limit) => rowsOf(db.prepare(`SELECT m.*, COALESCE(m.uploadedAt, '') AS stamp, c.tenantId AS tenant_id, c.name AS class_name, c.arm AS class_arm
-    FROM materials m INNER JOIN classes c ON c.id = m.classId WHERE (COALESCE(m.uploadedAt, '') > ? OR (COALESCE(m.uploadedAt, '') = ? AND m.id > ?))
+    FROM materials m INNER JOIN classes c ON c.id = m.classId WHERE COALESCE(m.uploadedAt, '') >= ? AND (COALESCE(m.uploadedAt, '') > ? OR m.id > ?)
     ORDER BY COALESCE(m.uploadedAt, ''), m.id LIMIT ?`).bind(stamp, stamp, id, limit)),
   all: (db, id, limit) => rowsOf(db.prepare(`SELECT m.*, COALESCE(m.uploadedAt, '') AS stamp, c.tenantId AS tenant_id, c.name AS class_name, c.arm AS class_arm
     FROM materials m INNER JOIN classes c ON c.id = m.classId WHERE m.id > ? ORDER BY m.id LIMIT ?`).bind(id, limit)),

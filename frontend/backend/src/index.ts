@@ -356,7 +356,7 @@ import {
 import {
   FinanceError, addAdjustment, cancelObligation, ensureFinanceTables, financeDashboard, money, getObligationHistory, getStructure, getStudentAccount,
   issueBills, listFinanceAudit, listStructures, mapClaim, previewCopy, recordPayment, reversePayment, reviewClaim,
-  saveStructure, searchArchives, setOptIns, setStructureStatus, submitClaim,
+  saveStructure, searchArchives, setOptIns, setStructureStatus, submitClaim, type Actor,
 } from './finance'
 import {
   ASSESSMENT_PROFILES, AssessmentError, BLOOM_LEVELS, DIFFICULTIES, TYPE_LABELS, autoBloom, autoMark, clampInt, markingSchemeMarkdown, paperMarkdown,
@@ -381,9 +381,11 @@ import { matchClass } from './classMatch'
 import { MAX_MESSAGE_LENGTH, conversationIfMember, conversationsFor, findConversationWith, newestMessages } from './messaging'
 import type { SchoolClass } from './classMatch'
 import { CLASS_CHANGE_ROLES, classHistory, isStudentPayload, monitorClassPins } from './classPins'
+import { PhoneTakenError, ensureLoginPhonesTable, looksLikePhone, normalizePhone as normalizeLoginPhone, registerLoginPhone, settingsKeyForPhone } from './phoneLogin'
 import {
   Enrollment, TermRef, accountSummaries, addStudentCharge, adjustStudent, applyFamilyDiscount, billStudents, canEditFees, getFeeSettings, getTermGrid, getTermLock,
   discardFeeDraft, getFeeDraft, gridFromFeeConfig, listFeeTerms, loadStudentAmounts, lockTerm, saveFeeDraft, resolveClassMove, saveFeeSettings, saveTermGrid, scheduleTerm, studentStatement, studentsWithFees, unbilledStudents, unlockTerm,
+  ensureFeeEngineTables, feeGroupBadges, feeSectionOf, listFeeGroups, loadGroupRates, saveFeeGroup, setFeeGroupMembers,
 } from './feeEngine'
 import {
   CurriculumError, EXAM_CATALOG, addCurriculumTopics, addSpecTopics, autoMapSpec, curriculaForSchool, curriculumImportPrompt, deleteCurriculum, importContext, withImportDefaults,
@@ -399,7 +401,7 @@ import {
 } from './materialGenerator'
 import type { Draft, Grounding, Length, MaterialKind } from './materialGenerator'
 import { ImportError, MAX_PDF_BYTES, createJob, getJob, listJobs, runDueImports, runImportStep, setJobStatus, workersAiPdfToText } from './libraryImports'
-import { PACK_SIZE, GLOBAL_TENANT, MODES as PRACTICE_MODES, PracticeError, buildPack, classifyLegacyQuestions, getProfile, leaderboard, normalizeDifficulty, practiceStudent, practiceSubjects, recentAttempts, recordAttempt } from './practiceArena'
+import { PACK_SIZE, GLOBAL_TENANT, MODES as PRACTICE_MODES, PracticeError, buildPack, classifyLegacyQuestions, getProfile, leaderboard, listXpResets, normalizeDifficulty, practiceStudent, practiceSubjects, recentAttempts, recordAttempt, resetAllXp, restoreXp } from './practiceArena'
 // Clubs are imported as a namespace: their names (createPost…) must not shadow the class stream's.
 import * as Clubs from './clubs'
 import { buildNewsEdition, readNews, lagosDate as newsLagosDate } from './news'
@@ -6507,6 +6509,12 @@ async function finishLogin(c: any, payload: Record<string, any>) {
     return c.json({ error: 'id and password required' }, 400)
   }
 
+  // A phone number registered as someone's sign-in number signs in as them.
+  if (looksLikePhone(id)) {
+    const phoneKey = await settingsKeyForPhone(c.env.APP_DB, id)
+    if (phoneKey) id = phoneKey
+  }
+
   const resolvedLogin = await resolveSettingsIdentity(c.env.APP_DB, id)
   let settings = resolvedLogin.settings
   id = resolvedLogin.settingsKey || id
@@ -9398,6 +9406,9 @@ const READ_INDEXES = [
   `CREATE INDEX IF NOT EXISTS idx_conversation_reads_user ON conversation_reads(user_id)`,
   `CREATE INDEX IF NOT EXISTS idx_school_sessions_tenant_created ON school_sessions(tenantId, createdAt)`,
   `CREATE INDEX IF NOT EXISTS idx_settings_lower_key ON settings(lower(studentId))`,
+  // The harvester's every-minute "what changed" scans, by the exact expressions they order by.
+  `CREATE INDEX IF NOT EXISTS idx_materials_harvest_stamp ON materials(COALESCE(uploadedAt, ''), id)`,
+  `CREATE INDEX IF NOT EXISTS idx_assignments_harvest_stamp ON assignments(COALESCE(updatedAt, createdAt, ''), id)`,
 ]
 let readIndexesReady = false
 async function ensureReadIndexes(db: D1Database) {
@@ -16653,6 +16664,34 @@ app.post('/api/practice-arena/questions/:id/report-subject', authenticate, async
   return c.json({ success: true, held: result.held })
 })
 
+// Ami: reset every student's XP (all schools, or one), with a backup that can be restored.
+app.get('/api/ami/practice/xp-resets', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  return c.json({ success: true, resets: await listXpResets(c.env.APP_DB) })
+})
+
+app.post('/api/ami/practice/reset-xp', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  const body = await c.req.json().catch(() => ({})) as Record<string, any>
+  // Typed on purpose: this resets every student's XP.
+  if (String(body.confirm || '').trim() !== 'RESET XP') return c.json({ error: 'Type RESET XP to confirm.' }, 400)
+  const result = await resetAllXp(c.env.APP_DB, { by: String(c.var.user?.name || c.var.user?.id || 'Ami'), tenantId: body.tenantId ? String(body.tenantId) : undefined })
+  await addAudit(c.env.APP_DB, 'platform', { action: 'practiceXpReset', data: { by: c.var.user?.id, ...result } }).catch(() => null)
+  return c.json({ success: true, ...result })
+})
+
+app.post('/api/ami/practice/xp-resets/:id/restore', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  try {
+    const result = await restoreXp(c.env.APP_DB, c.req.param('id'))
+    await addAudit(c.env.APP_DB, 'platform', { action: 'practiceXpRestored', data: { by: c.var.user?.id, ...result } }).catch(() => null)
+    return c.json({ success: true, ...result })
+  } catch (error) {
+    if (error instanceof PracticeError) return c.json({ error: error.message }, (error as any).status || 400)
+    throw error
+  }
+})
+
 app.get('/api/practice-arena/leaderboard', authenticate, async (c) => {
   try {
     const student = await resolvePracticeStudent(c)
@@ -16680,14 +16719,65 @@ async function resolveClubActor(c: any): Promise<ClubActor> {
     isManager: hasRequiredRole(role, ['owner', 'hos', 'admin']),
     isStaff: !hasRequiredRole(role, ['student']),
     canManageMembers: hasRequiredRole(role, ['owner', 'hos', 'admin', 'ict']),
+    isHead: hasRequiredRole(role, ['owner', 'hos']),
+  }
+}
+
+/**
+ * Club fees go into the next term's fee table (never the running term). Runs after any
+ * change to a club's fee or members, and nightly so a term created later is filled in.
+ * Returns the term written to, or null when the school has no next term yet.
+ */
+async function syncClubFeesForTenant(db: D1Database, tenantId: string) {
+  await ensureFeeEngineTables(db)
+  const term = await nextUpcomingTerm(db, tenantId, '')
+  if (!term) return null
+  await Clubs.syncClubFees(db, tenantId, term)
+  return { id: term.id, name: term.name, sessionName: term.sessionName }
+}
+
+async function sweepClubFees(db: D1Database) {
+  await Clubs.ensureClubTables(db)
+  const tenants = ((await db.prepare(`SELECT DISTINCT tenant_id FROM clubs WHERE fee > 0 AND status = 'active'`).all().catch(() => ({ results: [] }))).results || []) as Record<string, any>[]
+  for (const row of tenants) {
+    await syncClubFeesForTenant(db, String(row.tenant_id)).catch(error => console.error('Club fee sweep failed for', row.tenant_id, error))
   }
 }
 
 app.get('/api/clubs', authenticate, async (c) => {
   try {
     const actor = await resolveClubActor(c)
-    return c.json({ success: true, clubs: await Clubs.listClubs(c.env.APP_DB, actor), categories: Clubs.CLUB_CATEGORIES, canCreate: actor.isManager || actor.isStaff, isManager: actor.isManager })
+    const settings = await Clubs.getClubSettings(c.env.APP_DB, actor.tenantId)
+    const feeTerm = actor.isHead ? await nextUpcomingTerm(c.env.APP_DB, actor.tenantId, '').catch(() => null) : null
+    return c.json({ success: true, clubs: await Clubs.listClubs(c.env.APP_DB, actor), categories: Clubs.CLUB_CATEGORIES, canCreate: actor.isManager || actor.isStaff, isManager: actor.isManager, isHead: Boolean(actor.isHead), settings, feeTerm: feeTerm ? { id: feeTerm.id, name: feeTerm.name, sessionName: feeTerm.sessionName } : null })
   } catch (error) { return clubFailure(c, error, 'Could not load clubs.') }
+})
+
+app.put('/api/clubs/settings', authenticate, async (c) => {
+  try {
+    const actor = await resolveClubActor(c)
+    return c.json({ success: true, settings: await Clubs.saveClubSettings(c.env.APP_DB, actor, await c.req.json().catch(() => ({}))) })
+  } catch (error) { return clubFailure(c, error, 'Could not save that.') }
+})
+
+app.put('/api/clubs/:id/fee', authenticate, async (c) => {
+  try {
+    const actor = await resolveClubActor(c)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const club = await Clubs.setClubFee(c.env.APP_DB, actor, c.req.param('id'), body.fee)
+    const term = await syncClubFeesForTenant(c.env.APP_DB, actor.tenantId)
+    return c.json({ success: true, club, feeTerm: term })
+  } catch (error) { return clubFailure(c, error, 'Could not set the fee.') }
+})
+
+app.put('/api/clubs/:id/members/:userId/fee-share', authenticate, async (c) => {
+  try {
+    const actor = await resolveClubActor(c)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const members = await Clubs.setFeeShare(c.env.APP_DB, actor, c.req.param('id'), c.req.param('userId'), body.share)
+    await syncClubFeesForTenant(c.env.APP_DB, actor.tenantId)
+    return c.json({ success: true, members })
+  } catch (error) { return clubFailure(c, error, 'Could not change that.') }
 })
 
 app.post('/api/clubs', authenticate, async (c) => {
@@ -16707,7 +16797,9 @@ app.get('/api/clubs/:id', authenticate, async (c) => {
 app.put('/api/clubs/:id', authenticate, async (c) => {
   try {
     const actor = await resolveClubActor(c)
-    return c.json({ success: true, club: await Clubs.updateClub(c.env.APP_DB, actor, c.req.param('id'), await c.req.json().catch(() => ({}))) })
+    const club = await Clubs.updateClub(c.env.APP_DB, actor, c.req.param('id'), await c.req.json().catch(() => ({})))
+    await syncClubFeesForTenant(c.env.APP_DB, actor.tenantId).catch(error => console.error('Club fee sync failed', error))
+    return c.json({ success: true, club })
   } catch (error) { return clubFailure(c, error, 'Could not save the club.') }
 })
 
@@ -16755,14 +16847,18 @@ app.post('/api/clubs/:id/members', authenticate, async (c) => {
       const ids = new Set(((known.results || []) as Record<string, any>[]).map(row => String(row.id)))
       if (people.some((person: any) => !ids.has(person.id))) return c.json({ success: false, message: 'Some of those people are not in this school.' }, 400)
     }
-    return c.json({ success: true, members: await Clubs.addMembers(c.env.APP_DB, actor, c.req.param('id'), people, String(body.as || '')) })
+    const members = await Clubs.addMembers(c.env.APP_DB, actor, c.req.param('id'), people, String(body.as || ''))
+    await syncClubFeesForTenant(c.env.APP_DB, actor.tenantId).catch(error => console.error('Club fee sync failed', error))
+    return c.json({ success: true, members })
   } catch (error) { return clubFailure(c, error, 'Could not add them.') }
 })
 
 app.delete('/api/clubs/:id/members/:userId', authenticate, async (c) => {
   try {
     const actor = await resolveClubActor(c)
-    return c.json({ success: true, members: await Clubs.removeMember(c.env.APP_DB, actor, c.req.param('id'), c.req.param('userId')) })
+    const members = await Clubs.removeMember(c.env.APP_DB, actor, c.req.param('id'), c.req.param('userId'))
+    await syncClubFeesForTenant(c.env.APP_DB, actor.tenantId).catch(error => console.error('Club fee sync failed', error))
+    return c.json({ success: true, members })
   } catch (error) { return clubFailure(c, error, 'Could not remove them.') }
 })
 
@@ -21196,10 +21292,11 @@ app.get('/api/school/link-overview', authenticate, async (c) => {
   await ensureUsersTable(c.env.APP_DB)
   await ensureParentStudentLinksTable(c.env.APP_DB)
 
+  // Turned-off people are read too: a child whose parent the school switched off is still
+  // linked (shown as off), not "not linked". They stay out of the lists below.
   const peopleRows = ((await c.env.APP_DB.prepare(
     `SELECT id, name, email, role, primary_role, status FROM users
      WHERE tenantId = ? AND lower(COALESCE(primary_role, role)) IN ('student', 'parent')
-       AND (status IS NULL OR status != 'inactive')
      ORDER BY name COLLATE NOCASE`
   ).bind(tenantId).all()).results || []) as any[]
 
@@ -21210,31 +21307,49 @@ app.get('/api/school/link-overview', authenticate, async (c) => {
   const hydrated = await hydrateUserRecords(c.env.APP_DB, peopleRows)
   const isStudent = (person: any) => String(person.primaryRole || person.role || '').toLowerCase() === 'student'
 
+  const isOff = (person: any) => PAST_STUDENT_STATUSES.includes(String(person.status || '').trim().toLowerCase())
+
+  // Links are stored under a person's id or, from older linking paths, their email (the
+  // nightly parent sweep reads both). Matching by id alone dropped those links here, so
+  // linked children and parents showed as "Not linked".
   const byId = new Map<string, any>()
+  const byKey = new Map<string, any>()
   for (const person of hydrated) {
-    byId.set(String(person.id), {
+    const entry = {
       id: String(person.id),
       name: person.name || person.email || '',
       email: person.email || '',
       displayId: person.displayId || '',
       className: person.className || '',
+      off: isOff(person),
       links: [] as any[],
-    })
+    }
+    byId.set(entry.id, entry)
+    byKey.set(entry.id, entry)
+    if (entry.email) {
+      byKey.set(entry.email, entry)
+      byKey.set(entry.email.toLowerCase(), entry)
+    }
   }
 
+  const seenLinks = new Set<string>()
   for (const link of linkRows) {
-    const parent = byId.get(String(link.parent_id))
-    const student = byId.get(String(link.student_id))
+    const parent = byKey.get(String(link.parent_id || '').trim()) || byKey.get(String(link.parent_id || '').trim().toLowerCase())
+    const student = byKey.get(String(link.student_id || '').trim()) || byKey.get(String(link.student_id || '').trim().toLowerCase())
     if (!parent || !student) continue
-    parent.links.push({ id: student.id, name: student.name, displayId: student.displayId, className: student.className })
-    student.links.push({ id: parent.id, name: parent.name, email: parent.email })
+    // The same pair saved once under an id and once under an email is one link.
+    const pair = `${parent.id}|${student.id}`
+    if (seenLinks.has(pair)) continue
+    seenLinks.add(pair)
+    parent.links.push({ id: student.id, name: student.name, displayId: student.displayId, className: student.className, off: student.off })
+    student.links.push({ id: parent.id, name: parent.name, email: parent.email, off: parent.off })
   }
 
   const students: any[] = []
   const parents: any[] = []
   for (const person of hydrated) {
     const entry = byId.get(String(person.id))
-    if (!entry) continue
+    if (!entry || entry.off) continue
     if (isStudent(person)) students.push({ ...entry, parents: entry.links, links: undefined })
     else parents.push({ ...entry, children: entry.links, links: undefined })
   }
@@ -21253,6 +21368,285 @@ app.get('/api/school/link-overview', authenticate, async (c) => {
   })
 })
 
+// ─── Family table ────────────────────────────────────────────────────────────
+// One row per current student with their parents (up to two) beside them: names, phone
+// numbers and emails typed straight in. A parent with no email gets a placeholder address
+// (…@ndovera.local) and signs in with their phone number; a real email can be added later
+// and then works too. New students can be added from the same table.
+
+const isPlaceholderEmail = (email: unknown) => /@ndovera\.local$/i.test(String(email || '').trim())
+const placeholderEmail = (role: string) => `${role}_${crypto.randomUUID().replace(/-/g, '').slice(0, 16)}@ndovera.local`
+const looksLikeEmail = (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
+
+class FamilyRowError extends Error {}
+
+async function familyAccountName(db: D1Database, userId: string) {
+  const row = await db.prepare(`SELECT name, email FROM users WHERE id = ?`).bind(userId).first() as Record<string, any> | null
+  return String(row?.name || (isPlaceholderEmail(row?.email) ? '' : row?.email) || '')
+}
+
+/** A new student or parent account, set up the way the People page sets one up. */
+async function createFamilyAccount(db: D1Database, options: { tenantId: string, name: string, email: string, role: 'student' | 'parent', klass?: Record<string, any> | null, phone?: string }) {
+  const userId = createUserId()
+  const displayId = await generateDisplayId(db, getDisplayIdConfig(options.role))
+  const settings = await withHashedPassword({
+    email: options.email, name: options.name, role: options.role, primaryRole: options.role, roles: [options.role],
+    tenantId: options.tenantId, schoolId: options.tenantId, status: 'active', mustChangePassword: true, initialPassword: 'abcABC@123', displayId,
+    employmentCategory: deriveEmploymentCategory(options.role),
+    ...(options.phone ? { phone: options.phone } : {}),
+    ...(options.klass ? { classId: options.klass.id, className: options.klass.name, classArm: options.klass.arm || null } : {}),
+  }, 'abcABC@123')
+  await db.prepare(`INSERT INTO users (id, email, name, role, primary_role, employment_category, tenantId, status, createdAt) VALUES (?, ?, ?, ?, ?, ?, ?, 'active', ?)`)
+    .bind(userId, options.email, options.name, options.role, options.role, deriveEmploymentCategory(options.role), options.tenantId, new Date().toISOString()).run()
+  const next = await ensureStudentPublicId(db, { tenantId: options.tenantId, userId, settingsKey: options.email, settings }) || settings
+  await upsertSettings(db, options.email, next)
+  await syncUserRoleRecords(db, { tenantId: options.tenantId, userId, primaryRole: options.role, roles: [options.role] })
+  return { id: userId, settingsKey: options.email }
+}
+
+/** Give an account with a placeholder address its real email: the account, its settings and its links move with it. */
+async function moveAccountToEmail(db: D1Database, userId: string, oldKey: string, newEmail: string) {
+  const settings = await getSettings(db, oldKey).catch(() => null) as Record<string, any> | null
+  const statements: D1PreparedStatement[] = [db.prepare(`UPDATE users SET email = ? WHERE id = ?`).bind(newEmail, userId)]
+  if (settings) {
+    statements.push(db.prepare(`INSERT INTO settings (studentId, payload) VALUES (?, ?) ON CONFLICT(studentId) DO UPDATE SET payload = excluded.payload`).bind(newEmail, JSON.stringify({ ...settings, email: newEmail })))
+    statements.push(db.prepare(`DELETE FROM settings WHERE studentId = ?`).bind(oldKey))
+  }
+  statements.push(db.prepare(`UPDATE parent_student_links SET parent_id = ? WHERE parent_id = ?`).bind(userId, oldKey))
+  statements.push(db.prepare(`UPDATE login_phones SET settings_key = ? WHERE user_id = ?`).bind(newEmail, userId))
+  await db.batch(statements)
+}
+
+app.get('/api/school/families', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, PARENT_LINK_ADMIN_ROLES)) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  await ensureUsersTable(c.env.APP_DB)
+  await ensureParentStudentLinksTable(c.env.APP_DB)
+  await ensureClassesTable(c.env.APP_DB)
+
+  const people = ((await c.env.APP_DB.prepare(`SELECT u.id, u.email, u.name, u.role, u.status, COALESCE(s.payload, s2.payload) AS payload
+    FROM users u LEFT JOIN settings s ON s.studentId = u.email LEFT JOIN settings s2 ON s2.studentId = u.id
+    WHERE u.tenantId = ? AND lower(COALESCE(u.role, '')) IN ('student', 'parent')`).bind(tenantId).all()).results || []) as Record<string, any>[]
+  const links = ((await c.env.APP_DB.prepare(`SELECT parent_id, student_id FROM parent_student_links WHERE tenant_id = ?`).bind(tenantId).all()).results || []) as Record<string, any>[]
+  const classes = ((await c.env.APP_DB.prepare(`SELECT id, name, arm FROM classes WHERE tenantId = ? ORDER BY name COLLATE NOCASE, arm COLLATE NOCASE`).bind(tenantId).all()).results || []) as Record<string, any>[]
+
+  const byKey = new Map<string, any>()
+  const parse = (payload: unknown) => { try { return JSON.parse(String(payload || '{}')) || {} } catch { return {} } }
+  const entries = people.map(person => {
+    const settings = parse(person.payload)
+    const email = String(person.email || '')
+    const entry = {
+      id: String(person.id), role: String(person.role || '').toLowerCase(), name: String(person.name || settings.name || ''),
+      email: isPlaceholderEmail(email) ? '' : email, phone: String(settings.phone || ''),
+      displayId: String(settings.publicStudentId || settings.displayId || ''),
+      classId: String(settings.classId || ''), className: [settings.className, settings.classArm].filter(Boolean).join(' '),
+      off: PAST_STUDENT_STATUSES.includes(String(person.status || '').trim().toLowerCase()), parents: [] as any[],
+    }
+    byKey.set(entry.id, entry)
+    if (email) { byKey.set(email, entry); byKey.set(email.toLowerCase(), entry) }
+    return entry
+  })
+  const seen = new Set<string>()
+  for (const link of links) {
+    const parent = byKey.get(String(link.parent_id || '')) || byKey.get(String(link.parent_id || '').toLowerCase())
+    const student = byKey.get(String(link.student_id || '')) || byKey.get(String(link.student_id || '').toLowerCase())
+    if (!parent || !student || parent.role !== 'parent' || seen.has(`${parent.id}|${student.id}`)) continue
+    seen.add(`${parent.id}|${student.id}`)
+    student.parents.push({ id: parent.id, name: parent.name, phone: parent.phone, email: parent.email, off: parent.off })
+  }
+  const students = entries.filter(entry => entry.role === 'student' && !entry.off)
+    .sort((a, b) => a.className.localeCompare(b.className, undefined, { numeric: true }) || a.name.localeCompare(b.name))
+    .map(({ role, off, ...rest }) => rest)
+  return c.json({
+    success: true, maxParentsPerStudent: 2, students,
+    classes: classes.map(row => ({ id: String(row.id), label: [row.name, row.arm].filter(Boolean).join(' ') })),
+  })
+})
+
+app.post('/api/school/families/save', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, PARENT_LINK_ADMIN_ROLES)) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  const body = await c.req.json().catch(() => ({})) as Record<string, any>
+  const rows = (Array.isArray(body.rows) ? body.rows : []).slice(0, 100) as Record<string, any>[]
+  if (!rows.length) return c.json({ error: 'Nothing to save.' }, 400)
+  const db = c.env.APP_DB
+  await ensureUsersTable(db)
+  await ensureParentStudentLinksTable(db)
+  await ensureClassesTable(db)
+  await ensureLoginPhonesTable(db)
+  const activeSession = await getActiveSession(db, tenantId).catch(() => null)
+  const actorId = String(c.var.user?.id || '')
+  const actorName = String(c.var.user?.name || '')
+
+  const results: Array<{ key: string, ok: boolean, error?: string, studentId?: string, created?: string[] }> = []
+  for (const row of rows) {
+    const key = String(row.key || row.studentId || '')
+    const created: string[] = []
+    try {
+      // The student: one already here, or a new one with a name and a class.
+      let studentId = String(row.studentId || '').trim()
+      if (studentId) {
+        const student = await db.prepare(`SELECT id FROM users WHERE id = ? AND tenantId = ? AND lower(role) = 'student'`).bind(studentId, tenantId).first()
+        if (!student) throw new FamilyRowError('That student is not in this school.')
+      } else {
+        const name = String(row.student?.name || '').trim().slice(0, 200)
+        const classId = String(row.student?.classId || '').trim()
+        if (!name) throw new FamilyRowError('Type the new student\'s name.')
+        if (!classId) throw new FamilyRowError(`Choose a class for ${name}.`)
+        const klass = await db.prepare(`SELECT id, name, arm FROM classes WHERE id = ? AND tenantId = ?`).bind(classId, tenantId).first() as Record<string, any> | null
+        if (!klass) throw new FamilyRowError('That class was not found in this school.')
+        const account = await createFamilyAccount(db, { tenantId, name, email: placeholderEmail('student'), role: 'student', klass })
+        studentId = account.id
+        created.push(name)
+        if (activeSession) {
+          await upsertEnrollment(db, { tenantId, sessionId: activeSession.id, studentId, studentName: name, studentEmail: account.settingsKey, classId, source: 'manual', actorId, actorName }).catch(error => console.error('Family table enrolment failed', error))
+        }
+        await addAudit(db, tenantId, { action: 'personCreated', data: { by: actorId, name, role: 'student', classId, from: 'family table' } }).catch(() => null)
+      }
+
+      const linkedNow = ((await db.prepare(`SELECT parent_id FROM parent_student_links WHERE tenant_id = ? AND student_id IN (?, (SELECT email FROM users WHERE id = ?))`).bind(tenantId, studentId, studentId).all()).results || []) as Record<string, any>[]
+      const linkedIds = new Set<string>()
+      for (const link of linkedNow) {
+        const user = await db.prepare(`SELECT id FROM users WHERE id = ? OR email = ? LIMIT 1`).bind(String(link.parent_id), String(link.parent_id)).first() as Record<string, any> | null
+        if (user?.id) linkedIds.add(String(user.id))
+      }
+
+      for (const entry of (Array.isArray(row.parents) ? row.parents : []).slice(0, 2) as Record<string, any>[]) {
+        const name = String(entry?.name || '').trim().slice(0, 200)
+        const emailIn = String(entry?.email || '').trim().toLowerCase()
+        const phoneIn = String(entry?.phone || '').trim()
+        if (!name && !emailIn && !phoneIn) continue
+        if (emailIn && !looksLikeEmail(emailIn)) throw new FamilyRowError(`${emailIn} is not an email address.`)
+        const phone = phoneIn ? normalizeLoginPhone(phoneIn) : ''
+        if (phoneIn && !phone) throw new FamilyRowError(`${phoneIn} is not a phone number.`)
+
+        // Which parent: the one already in this row, or someone already at the school with
+        // this email or phone (a brother's or sister's parent), or a new account.
+        let parentId = String(entry?.id || '').trim()
+        let parent = parentId ? await db.prepare(`SELECT id, email, name, role FROM users WHERE id = ? AND tenantId = ?`).bind(parentId, tenantId).first() as Record<string, any> | null : null
+        if (parentId && !parent) throw new FamilyRowError('That parent is not in this school.')
+        if (!parent && emailIn) {
+          parent = await db.prepare(`SELECT id, email, name, role, tenantId FROM users WHERE lower(email) = ?`).bind(emailIn).first() as Record<string, any> | null
+          if (parent && String(parent.tenantId || '') !== tenantId) {
+            await assertEmailNotOwnedByAnotherTenant(db, emailIn, tenantId).catch(error => { throw new FamilyRowError(error instanceof Error ? error.message : 'That email belongs to another school.') })
+          }
+        }
+        if (!parent && phone) {
+          const holder = await db.prepare(`SELECT u.id, u.email, u.name, u.role FROM login_phones p JOIN users u ON u.id = p.user_id WHERE p.phone = ? AND u.tenantId = ?`).bind(phone, tenantId).first() as Record<string, any> | null
+          if (holder) parent = holder
+        }
+        if (parent && !['parent'].includes(String(parent.role || '').toLowerCase())) {
+          throw new FamilyRowError(`${emailIn || phoneIn} belongs to ${parent.name || 'someone'} who is not a parent account. Use another email or number.`)
+        }
+
+        if (!parent) {
+          if (!name) throw new FamilyRowError('Type the parent\'s name.')
+          const account = await createFamilyAccount(db, { tenantId, name, email: emailIn || placeholderEmail('parent'), role: 'parent', phone: phone || undefined })
+          parentId = account.id
+          created.push(name)
+          if (phone) await registerLoginPhone(db, { phone, userId: parentId, settingsKey: account.settingsKey, tenantId, takenBy: id => familyAccountName(db, id) })
+          await addAudit(db, tenantId, { action: 'personCreated', data: { by: actorId, name, role: 'parent', from: 'family table' } }).catch(() => null)
+        } else {
+          parentId = String(parent.id)
+          let settingsKey = String(parent.email || parent.id)
+          // A real email for a parent who had none; a different real email is changed on the People page.
+          if (emailIn && emailIn !== String(parent.email || '').toLowerCase()) {
+            if (!isPlaceholderEmail(parent.email)) throw new FamilyRowError(`${parent.name || 'This parent'} already signs in with ${parent.email}. Change their email on the People page.`)
+            const taken = await db.prepare(`SELECT id FROM users WHERE lower(email) = ?`).bind(emailIn).first()
+            if (taken) throw new FamilyRowError(`${emailIn} is already used by another account.`)
+            await moveAccountToEmail(db, parentId, settingsKey, emailIn)
+            settingsKey = emailIn
+          }
+          const settings = await getSettings(db, settingsKey).catch(() => null) as Record<string, any> | null
+          const nextName = name || String(parent.name || '')
+          if (name && name !== String(parent.name || '')) await db.prepare(`UPDATE users SET name = ? WHERE id = ?`).bind(name, parentId).run()
+          if (settings && (phone !== normalizeLoginPhone(settings.phone) && phone || nextName !== settings.name)) {
+            await upsertSettings(db, settingsKey, { ...settings, name: nextName, ...(phone ? { phone } : {}) })
+          }
+          if (phone) await registerLoginPhone(db, { phone, userId: parentId, settingsKey, tenantId, takenBy: id => familyAccountName(db, id) })
+        }
+
+        if (!linkedIds.has(parentId)) {
+          if (linkedIds.size >= 2) throw new FamilyRowError('A student can have at most 2 linked parents.')
+          await db.prepare(`INSERT OR IGNORE INTO parent_student_links (id, parent_id, student_id, tenant_id, created_at) VALUES (?, ?, ?, ?, ?)`)
+            .bind(`link_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`, parentId, studentId, tenantId, new Date().toISOString()).run()
+          linkedIds.add(parentId)
+        }
+      }
+      results.push({ key, ok: true, studentId, created })
+    } catch (error) {
+      if (!(error instanceof FamilyRowError) && !(error instanceof PhoneTakenError)) console.error('Family table row failed', error)
+      results.push({ key, ok: false, error: error instanceof FamilyRowError || error instanceof PhoneTakenError ? error.message : 'Could not save this row.', created })
+    }
+  }
+  // Parents who now have a child again come back on if Ndovera had turned them off.
+  await syncParentAccounts(db, tenantId).catch(() => null)
+  return c.json({ success: true, saved: results.filter(item => item.ok).length, failed: results.filter(item => !item.ok).length, results })
+})
+
+// Turn off parents marked on the linking screen. A parent with no child at the school just
+// goes; one who still has a child linked is turned off only with a reason, which is kept on
+// their record and in the audit. Turned off by hand, they stay off (the nightly sweep only
+// brings back parents it turned off itself).
+app.post('/api/school/parents/turn-off', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, PARENT_LINK_ADMIN_ROLES)) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  const body = await c.req.json().catch(() => ({})) as Record<string, any>
+  const parentIds = [...new Set((Array.isArray(body.parentIds) ? body.parentIds : []).map((id: unknown) => String(id || '').trim()).filter(Boolean))].slice(0, 500) as string[]
+  const reason = String(body.reason || '').trim().slice(0, 500)
+  if (!parentIds.length) return c.json({ error: 'Mark at least one parent.' }, 400)
+  await ensureUsersTable(c.env.APP_DB)
+  await ensureParentStudentLinksTable(c.env.APP_DB)
+
+  const people = ((await c.env.APP_DB.prepare(`SELECT id, email, name, role, primary_role, status FROM users WHERE tenantId = ? AND lower(COALESCE(role, '')) IN ('parent', 'student')`).bind(tenantId).all()).results || []) as Record<string, any>[]
+  const byKey = new Map<string, Record<string, any>>()
+  for (const person of people) {
+    byKey.set(String(person.id), person)
+    if (person.email) { byKey.set(String(person.email), person); byKey.set(String(person.email).toLowerCase(), person) }
+  }
+  const links = ((await c.env.APP_DB.prepare(`SELECT parent_id, student_id FROM parent_student_links WHERE tenant_id = ?`).bind(tenantId).all()).results || []) as Record<string, any>[]
+  const childrenOf = new Map<string, Set<string>>()
+  for (const link of links) {
+    const parent = byKey.get(String(link.parent_id || '')) || byKey.get(String(link.parent_id || '').toLowerCase())
+    const child = byKey.get(String(link.student_id || '')) || byKey.get(String(link.student_id || '').toLowerCase())
+    if (!parent || !child || String(child.role || '').toLowerCase() !== 'student') continue
+    if (PAST_STUDENT_STATUSES.includes(String(child.status || '').trim().toLowerCase())) continue
+    const set = childrenOf.get(String(parent.id)) || new Set<string>()
+    set.add(String(child.name || child.email || child.id))
+    childrenOf.set(String(parent.id), set)
+  }
+
+  const targets = parentIds.map(id => byKey.get(id)).filter((person): person is Record<string, any> => Boolean(person) && String(person!.role || '').toLowerCase() === 'parent')
+  const withChild = targets.filter(person => childrenOf.has(String(person.id)))
+  if (withChild.length && !reason) {
+    return c.json({
+      error: 'Give a reason: some of these parents still have a child at the school.',
+      needReason: withChild.map(person => ({ id: person.id, name: person.name || person.email, children: [...childrenOf.get(String(person.id))!] })),
+    }, 400)
+  }
+
+  const now = new Date().toISOString()
+  const by = String(c.var.user?.name || c.var.user?.id || '')
+  const turnedOff: string[] = []
+  for (const person of targets) {
+    if (String(person.status || '').trim().toLowerCase() === 'inactive') continue
+    const hasChild = childrenOf.has(String(person.id))
+    await c.env.APP_DB.prepare(`UPDATE users SET status = 'inactive' WHERE id = ? AND tenantId = ?`).bind(person.id, tenantId).run()
+    const settingsKey = String(person.email || person.id)
+    const settings = await getSettings(c.env.APP_DB, settingsKey).catch(() => null) as Record<string, any> | null
+    if (settings) {
+      const { autoDeactivated, keepActive, ...rest } = settings
+      await upsertSettings(c.env.APP_DB, settingsKey, { ...rest, status: 'inactive', deactivatedAt: now, deactivatedBy: by, deactivatedReason: hasChild ? reason : (reason || 'No child linked') })
+    }
+    await addAudit(c.env.APP_DB, tenantId, { action: 'parentTurnedOff', data: { by: c.var.user.id, byName: by, userId: person.id, name: person.name, reason: reason || 'No child linked', children: hasChild ? [...childrenOf.get(String(person.id))!] : [] } }).catch(() => null)
+    turnedOff.push(String(person.name || person.email || person.id))
+  }
+  return c.json({ success: true, turnedOff })
+})
+
 app.post('/api/school/parent-student-unlink', authenticate, async (c) => {
   if (!hasRequiredRole(c.var.user.role, PARENT_LINK_ADMIN_ROLES)) return c.json({ error: 'forbidden' }, 403)
   const tenantId = c.var.user?.tenantId
@@ -21261,9 +21655,16 @@ app.post('/api/school/parent-student-unlink', authenticate, async (c) => {
   if (!parentId || !studentId) return c.json({ error: 'parentId and studentId are required.' }, 400)
 
   await ensureParentStudentLinksTable(c.env.APP_DB)
+  // A link may be stored under either person's id or email; remove it whichever way it was saved.
+  const keysOf = async (id: string) => {
+    const row = await c.env.APP_DB.prepare(`SELECT id, email FROM users WHERE id = ? AND tenantId = ?`).bind(id, tenantId).first() as Record<string, any> | null
+    return [...new Set([id, String(row?.email || ''), String(row?.email || '').toLowerCase()].filter(Boolean))]
+  }
+  const parentKeys = await keysOf(String(parentId))
+  const studentKeys = await keysOf(String(studentId))
   await c.env.APP_DB.prepare(
-    `DELETE FROM parent_student_links WHERE tenant_id = ? AND parent_id = ? AND student_id = ?`
-  ).bind(tenantId, parentId, studentId).run()
+    `DELETE FROM parent_student_links WHERE tenant_id = ? AND parent_id IN (${parentKeys.map(() => '?').join(', ')}) AND student_id IN (${studentKeys.map(() => '?').join(', ')})`
+  ).bind(tenantId, ...parentKeys, ...studentKeys).run()
 
   await addAudit(c.env.APP_DB, `tenant:${tenantId}`, {
     action: 'parentStudentUnlinked',
@@ -31324,6 +31725,7 @@ app.post('/api/school/run-promotion', authenticate, async (c) => {
       promoted += 1
     }
   }
+  if (graduated) await syncParentAccounts(c.env.APP_DB, tenantId).catch(() => null)
   await addAudit(c.env.APP_DB, tenantId, { action: 'runPromotion', data: { by: c.var.user?.name || 'owner', promoted, graduated } }).catch(() => {})
   return c.json({ success: true, promoted, graduated })
 })
@@ -32122,7 +32524,7 @@ type ReportSection = { heading: string, paragraphs: string[], table?: { columns:
  * The numbers are always worked out here; the AI only writes the overview and
  * the recommendations, from these same numbers.
  */
-function buildFinanceReportDocument(report: TermFinance, schoolName: string, narrative: { summary: string, suggestions: string[] } | null) {
+function buildFinanceReportDocument(report: TermFinance, schoolName: string, narrative: { summary: string, suggestions: string[] } | null, outlook: FinanceOutlook | null = null) {
   const naira = formatNairaAmount
   const { fees, spending, payroll, window } = report
   const termLabel = `${report.term.name}, ${report.term.sessionName}`
@@ -32258,6 +32660,26 @@ function buildFinanceReportDocument(report: TermFinance, schoolName: string, nar
   if (!spending.count) suggestions.push('Record every expense under Expenditure with its date, so the next report shows the true position.')
   if (fees.source === 'none') suggestions.push(`Publish ${report.term.name} fees in Fees & Billing so collections can be tracked.`)
   if (!suggestions.length) suggestions.push('The finances are in order. Keep recording payments and expenses as they happen.')
+  if (outlook) {
+    const likely = Math.round(outlook.projected * fees.collectionRate / 100)
+    sections.push({
+      heading: `Next term outlook: ${outlook.term}`,
+      paragraphs: [
+        `Next term's fees are ${outlook.status}. Counting the ${outlook.students} students on the register in the classes they are in now, the school would bill ${naira(outlook.projected)}.`
+          + (fees.collectionRate ? ` If this term's collection rate of ${fees.collectionRate}% holds, about ${naira(likely)} would come in${spending.total ? `, against ${naira(spending.total)} spent this term` : ''}.` : ''),
+      ],
+      table: {
+        columns: ['Next term', 'Amount'],
+        rows: [
+          ['Class fees', naira(outlook.classFees)],
+          ...outlook.groups.map(group => [`Less: ${group.name} discount (${group.members} student${group.members === 1 ? '' : 's'})`, `−${naira(group.discount)}`]),
+          ['Club fees', naira(outlook.clubFees)],
+          ['Excursions', naira(outlook.excursions)],
+          ['Projected billing', naira(outlook.projected)],
+        ],
+      },
+    })
+  }
   sections.push({ heading: 'Recommendations', paragraphs: [], bullets: narrative?.suggestions?.length ? narrative.suggestions : suggestions })
 
   sections.push({
@@ -32303,7 +32725,63 @@ function parseFinanceAiJson(raw: string) {
 // staff assistant (Workers AI, with an optional NVIDIA key fallback), from the
 // report's own numbers. Null when no model is configured: the written-out
 // overview and recommendations stand on their own.
-async function runFinanceAiNarrative(env: Bindings, report: TermFinance) {
+/**
+ * Next term in numbers, from what is already set: each current student's class fee on next
+ * term's fee table, less fee-group discounts, plus club fees and next-term excursions. Students
+ * are counted in the class they are in now (a new session's promotions are not foreseen).
+ */
+async function financeOutlook(context: Awaited<ReturnType<typeof simpleFeeContext>>) {
+  const db = context.db
+  const current = context.term
+  const next = await nextUpcomingTerm(db, context.tenantId, current?.id || '')
+  if (!next || !current) return null
+  const term: TermRef = { id: next.id, name: next.name, sessionId: next.sessionId, sessionName: next.sessionName, startDate: next.startDate, upcoming: true }
+  const [grid, enrollments, own, rates] = await Promise.all([
+    getTermGrid(db, context.tenantId, term, context.classes),
+    termEnrollments(db, context.tenantId, current.sessionId, context.actor.id),
+    loadStudentAmounts(db, context.tenantId, term.id),
+    loadGroupRates(db, context.tenantId, term),
+  ])
+  const classTotal = new Map(grid.rows.map(row => [row.classId, money(Object.values(row.amounts || {}).reduce((sum: number, value) => sum + (Number(value) || 0), 0))]))
+  let classFees = 0
+  let groupDiscounts = 0
+  const groups = new Map<string, { name: string, members: number, discount: number }>()
+  for (const student of enrollments) {
+    const fee = classTotal.get(student.classId) || 0
+    classFees += fee
+    const rate = rates.get(student.studentId)
+    if (!rate) continue
+    const name = rate.item.replace(/ fee$/, '')
+    const entry = groups.get(name) || { name, members: 0, discount: 0 }
+    entry.members += 1
+    entry.discount = money(entry.discount + Math.max(0, fee - rate.amount))
+    groupDiscounts = money(groupDiscounts + Math.max(0, fee - rate.amount))
+    groups.set(name, entry)
+  }
+  let clubFees = 0
+  let excursions = 0
+  for (const entry of own.values()) {
+    for (const item of entry.amounts.values()) {
+      if (item.name === 'Club fee') clubFees = money(clubFees + item.amount)
+      else if (item.name.startsWith('Excursion: ')) excursions = money(excursions + item.amount)
+    }
+  }
+  const schedule = await db.prepare(`SELECT publish_on FROM fee_term_publish_at WHERE tenant_id = ? AND term_id = ? AND done_at IS NULL`).bind(context.tenantId, term.id).first().catch(() => null) as Record<string, any> | null
+  const billed = await db.prepare(`SELECT COUNT(DISTINCT student_id) AS n FROM fee_obligations WHERE tenant_id = ? AND term_id = ? AND status != 'cancelled'`).bind(context.tenantId, term.id).first().catch(() => null) as Record<string, any> | null
+  const status = Number(billed?.n || 0) > 0 ? `published, ${Number(billed?.n)} accounts created`
+    : schedule?.publish_on ? `scheduled: accounts created on ${formatReportDay(String(schedule.publish_on))}`
+      : next.published ? 'published: accounts created when the term opens'
+        : next.configured || next.hasDraft ? 'saved as a draft, not published' : 'no fees set yet'
+  return {
+    term: `${next.name}, ${next.sessionName}`, startDate: next.startDate, status, configured: next.configured, students: enrollments.length,
+    classFees: money(classFees), groupDiscounts, clubFees, excursions, projected: money(classFees - groupDiscounts + clubFees + excursions),
+    groups: [...groups.values()],
+  }
+}
+
+type FinanceOutlook = NonNullable<Awaited<ReturnType<typeof financeOutlook>>>
+
+async function runFinanceAiNarrative(env: Bindings, report: TermFinance, outlook: FinanceOutlook | null = null) {
   const { fees, spending, payroll } = report
   const dataBlock = [
     `Term: ${report.term.name}, ${report.term.sessionName} (${report.window.from} to ${report.window.to}${report.window.ongoing ? ', still running' : ''})`,
@@ -32315,6 +32793,7 @@ async function runFinanceAiNarrative(env: Bindings, report: TermFinance) {
     `Fees collected minus spending: ${formatNairaAmount(report.net)}`,
     report.previous ? `Previous term ${report.previous.term.name} ${report.previous.term.sessionName}: spending ${formatNairaAmount(report.previous.spending.total)}${report.previous.fees.source === 'fees' ? `, collected ${formatNairaAmount(report.previous.fees.collected)} (${report.previous.fees.collectionRate}%)` : ''}` : 'No previous term to compare.',
     `Largest balances: ${fees.debtors.slice(0, 8).map(row => `${row.name}${row.className ? ` (${row.className})` : ''} owes ${formatNairaAmount(row.balance)}`).join('; ') || 'none'}`,
+    outlook ? `Next term ${outlook.term} (fees ${outlook.status}): ${outlook.students} students; class fees ${formatNairaAmount(outlook.classFees)}, fee-group discounts ${formatNairaAmount(outlook.groupDiscounts)}${outlook.groups.length ? ` (${outlook.groups.map(group => `${group.name}: ${group.members} students, ${formatNairaAmount(group.discount)}`).join('; ')})` : ''}, club fees ${formatNairaAmount(outlook.clubFees)}, excursions ${formatNairaAmount(outlook.excursions)}; projected billing ${formatNairaAmount(outlook.projected)}. If this term's collection rate (${fees.collectionRate}%) holds, about ${formatNairaAmount(Math.round(outlook.projected * fees.collectionRate / 100))} would be collected.` : 'Next term: not created yet.',
   ].join('\n')
 
   const messages: AiConversationMessage[] = [
@@ -32324,7 +32803,8 @@ async function runFinanceAiNarrative(env: Bindings, report: TermFinance) {
         'You are Ndovera Finance AI, writing for a Nigerian school proprietor who is not an accountant.',
         'Respond with ONLY valid minified JSON: {"summary": string, "suggestions": string[]}.',
         '"summary" is one paragraph of 4-6 plain sentences explaining where the school stands this term: what was expected, what came in, what is still owed (name the largest debtors and amounts), what was spent and on what, and whether the term is in surplus or shortfall.',
-        '"suggestions" is 3-5 short, specific actions. Use only the figures given, in Naira (₦). Never invent numbers. No accounting jargon.',
+        '"suggestions" is 3-5 short, specific actions. When next term figures are given, one suggestion projects next term: what will be billed, what is likely to come in at this term\'s collection rate, what staff-child and scholarship discounts cost, and whether that covers this term\'s level of spending.',
+        'Use only the figures given, in Naira (₦). Never invent numbers. No accounting jargon.',
       ].join(' '),
     },
     { role: 'user', content: `School finance data:\n${dataBlock}` },
@@ -32342,6 +32822,89 @@ async function runFinanceAiNarrative(env: Bindings, report: TermFinance) {
   return raw ? parseFinanceAiJson(raw) : null
 }
 
+// ─── The finance report: edited, saved, emailed ──────────────────────────────
+
+async function ensureFinanceReportEditsTable(db: D1Database) {
+  await db.prepare(`CREATE TABLE IF NOT EXISTS finance_report_edits (tenant_id TEXT NOT NULL, term_id TEXT NOT NULL, document_json TEXT NOT NULL, edited_by TEXT, edited_at TEXT NOT NULL, PRIMARY KEY (tenant_id, term_id))`).run()
+}
+
+async function loadSavedFinanceReport(db: D1Database, tenantId: string, termId: string) {
+  await ensureFinanceReportEditsTable(db)
+  const row = await db.prepare(`SELECT document_json, edited_by, edited_at FROM finance_report_edits WHERE tenant_id = ? AND term_id = ?`).bind(tenantId, termId).first() as Record<string, any> | null
+  if (!row) return null
+  try { return { ...JSON.parse(String(row.document_json)), edited: { by: row.edited_by, at: row.edited_at } } } catch { return null }
+}
+
+/** The document as written by the school: headings, paragraphs, tables and bullets only. */
+function cleanReportDocument(input: any) {
+  const text = (value: unknown, max: number) => String(value ?? '').slice(0, max)
+  const sections = (Array.isArray(input?.sections) ? input.sections : []).slice(0, 40).map((section: any) => ({
+    heading: text(section?.heading, 200),
+    paragraphs: (Array.isArray(section?.paragraphs) ? section.paragraphs : []).slice(0, 30).map((value: unknown) => text(value, 5000)),
+    ...(section?.table ? { table: { columns: (section.table.columns || []).slice(0, 12).map((value: unknown) => text(value, 120)), rows: (section.table.rows || []).slice(0, 200).map((row: unknown[]) => (Array.isArray(row) ? row : []).slice(0, 12).map(value => text(value, 300))) } } : {}),
+    ...(Array.isArray(section?.bullets) ? { bullets: section.bullets.slice(0, 40).map((value: unknown) => text(value, 2000)) } : {}),
+  }))
+  return { title: text(input?.title, 200), schoolName: text(input?.schoolName, 200), period: text(input?.period, 200), generatedAt: text(input?.generatedAt, 40), generatedBy: text(input?.generatedBy, 20), metrics: input?.metrics && typeof input.metrics === 'object' ? input.metrics : undefined, sections }
+}
+
+function reportDocumentHtml(document: ReturnType<typeof cleanReportDocument>) {
+  const esc = (value: unknown) => String(value ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+  const body = document.sections.map(section => [
+    `<h2 style="font-family:Georgia,serif;color:#800000;border-bottom:1px solid #c9a96e;padding-bottom:4px;margin:24px 0 8px">${esc(section.heading)}</h2>`,
+    ...section.paragraphs.map(text => `<p style="font-family:Georgia,serif;line-height:1.6;margin:8px 0">${esc(text)}</p>`),
+    section.table ? `<table style="width:100%;border-collapse:collapse;font-size:14px;margin:8px 0"><thead><tr>${section.table.columns.map((column, index) => `<th style="text-align:${index ? 'right' : 'left'};border-bottom:1px solid #999;padding:6px">${esc(column)}</th>`).join('')}</tr></thead><tbody>${section.table.rows.map(row => `<tr>${row.map((cell, index) => `<td style="text-align:${index ? 'right' : 'left'};border-bottom:1px solid #eee;padding:6px">${esc(cell)}</td>`).join('')}</tr>`).join('')}</tbody></table>` : '',
+    section.bullets?.length ? `<ul style="font-family:Georgia,serif;line-height:1.6">${section.bullets.map(text => `<li>${esc(text)}</li>`).join('')}</ul>` : '',
+  ].join('')).join('')
+  return `<div style="max-width:760px;margin:0 auto;color:#1e293b"><h1 style="font-family:Georgia,serif;color:#800000;margin:0">${esc(document.title)}</h1><p style="color:#475569;margin:4px 0 0">${esc([document.schoolName, document.period].filter(Boolean).join(' · '))}</p>${body}<p style="color:#64748b;font-size:12px;margin-top:24px">Sent from Ndovera Fees &amp; Billing.</p></div>`
+}
+
+app.post('/api/school/finance/report/save', authenticate, async (c) => {
+  try {
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const context = await simpleFeeContext(c, String(body.termId || '') || undefined)
+    if (!hasRequiredRole(context.role, FINANCE_VIEW_ROLES)) return c.json({ success: false, message: 'forbidden' }, 403)
+    const term = requireTerm(context.term)
+    await ensureFinanceReportEditsTable(context.db)
+    if (body.discard) {
+      await context.db.prepare(`DELETE FROM finance_report_edits WHERE tenant_id = ? AND term_id = ?`).bind(context.tenantId, term.id).run()
+      return c.json({ success: true })
+    }
+    const document = cleanReportDocument(body.document)
+    if (!document.sections.length) throw new FinanceError('The report is empty.')
+    const json = JSON.stringify(document)
+    if (json.length > 400_000) throw new FinanceError('The report is too long to save.')
+    const now = new Date().toISOString()
+    await context.db.prepare(`INSERT INTO finance_report_edits (tenant_id, term_id, document_json, edited_by, edited_at) VALUES (?, ?, ?, ?, ?)
+      ON CONFLICT(tenant_id, term_id) DO UPDATE SET document_json = excluded.document_json, edited_by = excluded.edited_by, edited_at = excluded.edited_at`)
+      .bind(context.tenantId, term.id, json, context.actor.name, now).run()
+    return c.json({ success: true, edited: { by: context.actor.name, at: now } })
+  } catch (error) {
+    return financeFailure(c, error, 'Could not save the report.')
+  }
+})
+
+/** Email the report (as shown, edits included) to the owner, or to the addresses given. */
+app.post('/api/school/finance/report/email', authenticate, async (c) => {
+  try {
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const context = await simpleFeeContext(c, String(body.termId || '') || undefined)
+    if (!hasRequiredRole(context.role, FINANCE_VIEW_ROLES)) return c.json({ success: false, message: 'forbidden' }, 403)
+    const document = cleanReportDocument(body.document)
+    if (!document.sections.length) throw new FinanceError('Write the report first.')
+    const tenant = await getTenantById(context.db, context.tenantId).catch(() => null) as Record<string, any> | null
+    const given = (Array.isArray(body.to) ? body.to : String(body.to || '').split(/[,;\s]+/)).map((value: unknown) => String(value || '').trim()).filter(Boolean).slice(0, 10)
+    const to = given.length ? given : [String(tenant?.ownerEmail || tenant?.owner_email || tenant?.contactEmail || '')].filter(Boolean)
+    if (!to.length) throw new FinanceError('No email address for the owner. Type the address to send to.')
+    const result = await sendZohoEmail(c.env, { to, subject: document.title || 'Finance report', html: reportDocumentHtml(document) })
+    if (!result.sent.length) throw new FinanceError(result.failed.length ? 'The email could not be sent. Try again shortly.' : 'Those are not email addresses.')
+    await addAudit(context.db, context.tenantId, { action: 'financeReportEmailed', data: { by: context.actor.name, to: result.sent, title: document.title } }).catch(() => null)
+    return c.json({ success: true, sent: result.sent, failed: result.failed })
+  } catch (error) {
+    if (error instanceof Error && /ZOHO_MAIL/.test(error.message)) return c.json({ success: false, message: 'Email is not set up on this server yet.' }, 503)
+    return financeFailure(c, error, 'Could not email the report.')
+  }
+})
+
 app.post('/api/school/finance/ai-analysis', authenticate, async (c) => {
   try {
     const body = await c.req.json().catch(() => ({})) as Record<string, any>
@@ -32349,13 +32912,19 @@ app.post('/api/school/finance/ai-analysis', authenticate, async (c) => {
     if (!hasRequiredRole(context.role, FINANCE_VIEW_ROLES)) return c.json({ success: false, message: 'forbidden' }, 403)
     const report = await termFinanceReport(context, c.var.user || {})
     const tenant = await getTenantById(context.db, context.tenantId).catch(() => null) as Record<string, any> | null
+    // An edited copy is shown as saved, unless a fresh one is asked for ("Write again").
+    if (!body.fresh) {
+      const saved = await loadSavedFinanceReport(context.db, context.tenantId, report.term.id)
+      if (saved) return c.json({ success: true, analysis: { ...saved, term: report.term, terms: report.terms } })
+    }
+    const outlook = await financeOutlook(context).catch(error => { console.error('finance outlook failed', error); return null })
     let narrative: { summary: string, suggestions: string[] } | null = null
     try {
-      narrative = await runFinanceAiNarrative(c.env, report)
+      narrative = await runFinanceAiNarrative(c.env, report, outlook)
     } catch (error) {
       console.error('finance AI narrative failed', error)
     }
-    const document = buildFinanceReportDocument(report, String(tenant?.schoolName || tenant?.name || ''), narrative)
+    const document = buildFinanceReportDocument(report, String(tenant?.schoolName || tenant?.name || ''), narrative, outlook)
     return c.json({
       success: true,
       analysis: {
@@ -34172,6 +34741,8 @@ app.post('/api/school/academic/sessions/:sessionId/enrollments', authenticate, a
       actorId,
       actorName,
     })
+    // A student who left (withdrawn, transferred, graduated) takes a parent with no other child with them.
+    await syncParentAccounts(c.env.APP_DB, tenantId, { studentKeys: [studentId, emailById.get(studentId) || String(studentRow?.email || '')] }).catch(() => null)
 
     return c.json({ success: true, enrollment })
   } catch (error) {
@@ -34250,6 +34821,10 @@ app.post('/api/school/academic/sessions/:sessionId/enrollments/move', authentica
       actorName,
       studentEmailById: emailById,
     })
+    if (result.moved > 0) {
+      const ids = (Array.isArray(body.studentIds) ? body.studentIds : []).map((id: unknown) => String(id || ''))
+      await syncParentAccounts(c.env.APP_DB, tenantId, { studentKeys: [...ids, ...ids.map((id: string) => emailById.get(id) || '')] }).catch(() => null)
+    }
 
     if (result.moved > 0) {
       await addAudit(c.env.APP_DB, tenantId, {
@@ -34379,6 +34954,9 @@ app.post('/api/school/promotion/batches/:batchId/commit', authenticate, async (c
       actorName,
       studentEmailById: emailById,
     })
+
+    // Graduates and leavers take parents with no other child at the school with them.
+    await syncParentAccounts(c.env.APP_DB, tenantId).catch(() => null)
 
     await addAudit(c.env.APP_DB, tenantId, {
       action: 'promotionCommitted',
@@ -36264,8 +36842,10 @@ app.put('/api/school/finance/simple/grid', authenticate, async (c) => {
     // or brought up to date (students already billed are never billed twice).
     let published = null
     if (publish && term.upcoming) {
-      // Next term, set in advance: official now, billed when the term opens.
-      published = { ...await scheduleTerm(context.db, { tenantId: context.tenantId, actor: context.actor, term }), noFees: [] as string[] }
+      // Next term, set in advance. When: 'open' (accounts created when the term opens), a date
+      // (created that day), or 'now' (created at once, so parents can pay ahead). Either way the
+      // fees are official from now; next term's bills never count in this term's figures.
+      published = { ...await publishUpcomingTerm(context, term, body.when), noFees: [] as string[] }
       await discardFeeDraft(context.db, context.tenantId, term.id)
     } else if (publish) {
       const legacy = await context.db.prepare(`SELECT DISTINCT student_id FROM fee_assessments WHERE tenant_id = ? AND term_id = ? AND assessment_kind = 'term'`).bind(context.tenantId, term.id).all().catch(() => ({ results: [] }))
@@ -36294,6 +36874,60 @@ app.delete('/api/school/finance/simple/draft', authenticate, async (c) => {
   }
 })
 
+// ─── Publishing next term's fees: when its accounts are created ──────────────
+
+async function ensureTermPublishTable(db: D1Database) {
+  await db.prepare(`CREATE TABLE IF NOT EXISTS fee_term_publish_at (tenant_id TEXT NOT NULL, term_id TEXT NOT NULL, publish_on TEXT NOT NULL, set_by TEXT, set_at TEXT NOT NULL, done_at TEXT, PRIMARY KEY (tenant_id, term_id))`).run()
+}
+
+/** Create a term's accounts for everyone on its register now (used for next term published early). */
+async function billTermNow(db: D1Database, tenantId: string, actor: Actor, term: TermRef) {
+  const enrollments = await termEnrollments(db, tenantId, term.sessionId, actor.id)
+  return lockTerm(db, { tenantId, actor, term, enrollments, legacyBilledStudentIds: new Set() })
+}
+
+async function publishUpcomingTerm(context: Awaited<ReturnType<typeof simpleFeeContext>>, term: TermRef, when: unknown) {
+  const choice = String(when || 'open').trim()
+  await ensureTermPublishTable(context.db)
+  const scheduled = await scheduleTerm(context.db, { tenantId: context.tenantId, actor: context.actor, term })
+  if (choice === 'now') {
+    await context.db.prepare(`DELETE FROM fee_term_publish_at WHERE tenant_id = ? AND term_id = ?`).bind(context.tenantId, term.id).run()
+    const billed = await billTermNow(context.db, context.tenantId, context.actor, term)
+    return { ...billed, scheduled: false, billedNow: true }
+  }
+  if (/^\d{4}-\d{2}-\d{2}$/.test(choice)) {
+    const today = new Date().toISOString().slice(0, 10)
+    if (choice < today) throw new FinanceError('Choose today or a later date.')
+    if (term.startDate && choice > String(term.startDate).slice(0, 10)) throw new FinanceError(`Choose a date on or before ${term.name} starts.`)
+    await context.db.prepare(`INSERT INTO fee_term_publish_at (tenant_id, term_id, publish_on, set_by, set_at) VALUES (?, ?, ?, ?, ?)
+      ON CONFLICT(tenant_id, term_id) DO UPDATE SET publish_on = excluded.publish_on, set_by = excluded.set_by, set_at = excluded.set_at, done_at = NULL`)
+      .bind(context.tenantId, term.id, choice, context.actor.name, new Date().toISOString()).run()
+    return { ...scheduled, publishOn: choice }
+  }
+  await context.db.prepare(`DELETE FROM fee_term_publish_at WHERE tenant_id = ? AND term_id = ?`).bind(context.tenantId, term.id).run()
+  return scheduled
+}
+
+/** Hourly: next terms whose chosen date has come get their accounts created. */
+async function billScheduledTerms(db: D1Database) {
+  await ensureTermPublishTable(db)
+  const today = new Date().toISOString().slice(0, 10)
+  const due = ((await db.prepare(`SELECT tenant_id, term_id FROM fee_term_publish_at WHERE done_at IS NULL AND publish_on <= ?`).bind(today).all()).results || []) as Record<string, any>[]
+  for (const row of due) {
+    try {
+      const termRow = await getTermById(db, String(row.tenant_id), String(row.term_id))
+      const session = termRow ? await getSessionById(db, String(row.tenant_id), termRow.sessionId) : null
+      if (termRow && session) {
+        const term: TermRef = { id: termRow.id, name: termRow.name, sessionId: session.id, sessionName: session.name, startDate: termRow.startDate, upcoming: termRow.status === 'upcoming' }
+        await billTermNow(db, String(row.tenant_id), { id: 'system', name: 'Ndovera (scheduled)' }, term)
+      }
+      await db.prepare(`UPDATE fee_term_publish_at SET done_at = ? WHERE tenant_id = ? AND term_id = ?`).bind(new Date().toISOString(), row.tenant_id, row.term_id).run()
+    } catch (error) {
+      console.error('Scheduled fee publishing failed', row.tenant_id, row.term_id, error)
+    }
+  }
+}
+
 app.post('/api/school/finance/simple/lock', authenticate, async (c) => {
   try {
     const body = await c.req.json().catch(() => ({})) as Record<string, any>
@@ -36301,7 +36935,7 @@ app.post('/api/school/finance/simple/lock', authenticate, async (c) => {
     if (!context.canEditFees) return c.json({ success: false, message: 'You cannot lock or unlock fees.' }, 403)
     const term = requireTerm(context.term)
     if (body.unlock) return c.json({ success: true, lock: await unlockTerm(context.db, { tenantId: context.tenantId, actor: context.actor, term, reason: body.reason }) })
-    if (term.upcoming) return c.json({ success: true, ...await scheduleTerm(context.db, { tenantId: context.tenantId, actor: context.actor, term }), lock: await getTermLock(context.db, context.tenantId, term.id) })
+    if (term.upcoming) return c.json({ success: true, ...await publishUpcomingTerm(context, term, body.when), lock: await getTermLock(context.db, context.tenantId, term.id) })
     const enrollments = await termEnrollments(context.db, context.tenantId, term.sessionId, context.actor.id)
     const legacy = await context.db.prepare(`SELECT DISTINCT student_id FROM fee_assessments WHERE tenant_id = ? AND term_id = ? AND assessment_kind = 'term'`).bind(context.tenantId, term.id).all().catch(() => ({ results: [] }))
     const result = await lockTerm(context.db, { tenantId: context.tenantId, actor: context.actor, term, enrollments, legacyBilledStudentIds: new Set(((legacy.results || []) as Record<string, any>[]).map(row => String(row.student_id))) })
@@ -36363,8 +36997,9 @@ app.get('/api/school/finance/simple/accounts', authenticate, async (c) => {
     const term = requireTerm(context.term)
     const enrollments = await termEnrollments(context.db, context.tenantId, term.sessionId, context.actor.id)
     const families = await schoolFamilies(context.db, context.tenantId)
+    const badges = await feeGroupBadges(context.db, context.tenantId)
     let accounts = (await accountSummaries(context.db, context.tenantId, { termId: term.id, termStart: term.startDate }, enrollments))
-      .map(account => ({ ...account, families: (families.byStudent.get(account.studentId) || []).map(id => ({ id, name: families.names.get(id) || 'Parent' })) }))
+      .map(account => ({ ...account, feeGroup: badges.get(account.studentId) || '', families: (families.byStudent.get(account.studentId) || []).map(id => ({ id, name: families.names.get(id) || 'Parent' })) }))
     const q = String(c.req.query('q') || '').trim().toLowerCase()
     const classId = String(c.req.query('classId') || '')
     const status = String(c.req.query('status') || '')
@@ -36399,7 +37034,10 @@ async function simpleStudent(context: Awaited<ReturnType<typeof simpleFeeContext
   const term = requireTerm(context.term)
   const enrollments = await termEnrollments(context.db, context.tenantId, term.sessionId)
   const enrollment = enrollments.find(item => item.studentId === studentId)
-  const owned = enrollment || await context.db.prepare(`SELECT 1 FROM fee_obligations WHERE tenant_id = ? AND student_id = ? LIMIT 1`).bind(context.tenantId, studentId).first()
+  // A student who has left is found by their bills: in Fees & Billing, or in the earlier fee system.
+  const owned = enrollment
+    || await context.db.prepare(`SELECT 1 FROM fee_obligations WHERE tenant_id = ? AND student_id = ? LIMIT 1`).bind(context.tenantId, studentId).first()
+    || await context.db.prepare(`SELECT 1 FROM fee_assessments WHERE tenant_id = ? AND student_id = ? LIMIT 1`).bind(context.tenantId, studentId).first().catch(() => null)
   if (!owned) throw new FinanceError('Student not found in this school.', 404)
   return { term, enrollment: enrollment || { studentId, studentName: await financeStudentName(context.db, studentId), classId: '', className: '' } }
 }
@@ -36462,6 +37100,235 @@ app.post('/api/school/finance/simple/accounts/:studentId/pay', authenticate, asy
     return c.json({ success: true, ...result, ...(receipt ? { receipt } : {}) })
   } catch (error) {
     return financeFailure(c, error, 'Could not record the payment.')
+  }
+})
+
+// ─── Excursions: one fee for every student in the chosen classes ─────────────
+// For the running term, each student gets the excursion as a charge on their account (once:
+// adding more classes later never charges anyone twice). For next term, it goes into that
+// term's fee table and is billed with everything else when the term opens.
+
+async function ensureExcursionTables(db: D1Database) {
+  await db.prepare(`CREATE TABLE IF NOT EXISTS fee_excursions (id TEXT PRIMARY KEY, tenant_id TEXT NOT NULL, term_id TEXT NOT NULL, term_name TEXT, upcoming INTEGER NOT NULL DEFAULT 0, title TEXT NOT NULL, amount REAL NOT NULL, class_ids_json TEXT, created_by TEXT, created_at TEXT NOT NULL)`).run()
+  await db.prepare(`CREATE TABLE IF NOT EXISTS fee_excursion_students (excursion_id TEXT NOT NULL, student_id TEXT NOT NULL, obligation_id TEXT, added_at TEXT NOT NULL, PRIMARY KEY (excursion_id, student_id))`).run()
+}
+
+const excursionItem = (title: string) => `Excursion: ${title}`.slice(0, 80)
+
+async function applyExcursion(context: Awaited<ReturnType<typeof simpleFeeContext>>, excursion: Record<string, any>, classIds: string[]) {
+  const db = context.db
+  // Students are taken from this session's register: the classes they are in now.
+  const current = requireTerm(context.term)
+  const enrollments = (await termEnrollments(db, context.tenantId, current.sessionId, context.actor.id)).filter(row => classIds.includes(row.classId))
+  const done = new Set((((await db.prepare(`SELECT student_id FROM fee_excursion_students WHERE excursion_id = ?`).bind(excursion.id).all()).results || []) as Record<string, any>[]).map(row => String(row.student_id)))
+  const item = excursionItem(String(excursion.title))
+  const stamp = new Date().toISOString()
+  let added = 0
+  for (const student of enrollments) {
+    if (done.has(student.studentId)) continue
+    let obligationId: string | null = null
+    if (Number(excursion.upcoming) === 1) {
+      await db.prepare(`INSERT INTO fee_student_amounts (tenant_id, term_id, student_id, student_name, item, amount, updated_by, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        ON CONFLICT(tenant_id, term_id, student_id, item) DO UPDATE SET amount = excluded.amount, updated_by = excluded.updated_by, updated_at = excluded.updated_at`)
+        .bind(context.tenantId, excursion.term_id, student.studentId, student.studentName || null, item, Number(excursion.amount), context.actor.name, stamp).run()
+    } else {
+      obligationId = (await addStudentCharge(db, { tenantId: context.tenantId, actor: context.actor, term: current, student, description: item, amount: excursion.amount, reason: `Excursion for ${student.className || 'their class'}` })).id
+    }
+    await db.prepare(`INSERT OR IGNORE INTO fee_excursion_students (excursion_id, student_id, obligation_id, added_at) VALUES (?, ?, ?, ?)`).bind(excursion.id, student.studentId, obligationId, stamp).run()
+    added += 1
+  }
+  return added
+}
+
+app.get('/api/school/finance/simple/excursions', authenticate, async (c) => {
+  try {
+    const context = await simpleFeeContext(c)
+    if (!hasRequiredRole(context.role, FINANCE_VIEW_ROLES)) return c.json({ success: false, message: 'forbidden' }, 403)
+    await ensureExcursionTables(context.db)
+    const rows = ((await context.db.prepare(`SELECT e.*, (SELECT COUNT(*) FROM fee_excursion_students s WHERE s.excursion_id = e.id) AS students FROM fee_excursions e WHERE e.tenant_id = ? ORDER BY e.created_at DESC LIMIT 100`).bind(context.tenantId).all()).results || []) as Record<string, any>[]
+    const className = new Map(context.classes.map(klass => [klass.id, klass.name]))
+    const next = await nextUpcomingTerm(context.db, context.tenantId, context.term?.id || '')
+    return c.json({
+      success: true, canEdit: hasRequiredRole(context.role, FEE_ADMIN_ROLES), classes: context.classes,
+      terms: [...(context.term ? [{ key: 'current', name: `${context.term.name} (this term)` }] : []), ...(next ? [{ key: 'next', name: `${next.name}, ${next.sessionName} (next term)` }] : [])],
+      excursions: rows.map(row => {
+        let classIds: string[] = []
+        try { classIds = JSON.parse(String(row.class_ids_json || '[]')) } catch { classIds = [] }
+        return { id: row.id, title: row.title, amount: Number(row.amount), termName: row.term_name, upcoming: Number(row.upcoming) === 1, students: Number(row.students || 0), classIds, classes: classIds.map(id => className.get(id) || id), createdBy: row.created_by, createdAt: row.created_at }
+      }),
+    })
+  } catch (error) {
+    return financeFailure(c, error, 'Could not load excursions.')
+  }
+})
+
+app.post('/api/school/finance/simple/excursions', authenticate, async (c) => {
+  try {
+    const context = await simpleFeeContext(c)
+    if (!hasRequiredRole(context.role, FEE_ADMIN_ROLES)) return c.json({ success: false, message: 'forbidden' }, 403)
+    await ensureExcursionTables(context.db)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const title = String(body.title || '').replace(/\s+/g, ' ').trim().slice(0, 60)
+    const amount = Math.round(Number(body.amount) * 100) / 100
+    const known = new Set(context.classes.map(klass => klass.id))
+    const classIds = [...new Set((Array.isArray(body.classIds) ? body.classIds : []).map(String))].filter(id => known.has(id))
+    if (!title) throw new FinanceError('Name the excursion (for example "Lagos museum trip").')
+    if (!(amount > 0)) throw new FinanceError('Enter the excursion fee.')
+    if (!classIds.length) throw new FinanceError('Choose the classes going on the excursion.')
+    let term: { id: string, name: string, upcoming: boolean }
+    if (body.term === 'next') {
+      const next = await nextUpcomingTerm(context.db, context.tenantId, context.term?.id || '')
+      if (!next) throw new FinanceError('Next term has not been created yet. Create it in Academic Sessions first.')
+      term = { id: next.id, name: `${next.name}, ${next.sessionName}`, upcoming: true }
+    } else {
+      const current = requireTerm(context.term)
+      term = { id: current.id, name: current.name, upcoming: Boolean(current.upcoming) }
+    }
+    const excursion = { id: `exc_${crypto.randomUUID().replace(/-/g, '').slice(0, 20)}`, term_id: term.id, upcoming: term.upcoming ? 1 : 0, title, amount }
+    await context.db.prepare(`INSERT INTO fee_excursions (id, tenant_id, term_id, term_name, upcoming, title, amount, class_ids_json, created_by, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
+      .bind(excursion.id, context.tenantId, term.id, term.name, excursion.upcoming, title, amount, JSON.stringify(classIds), context.actor.name, new Date().toISOString()).run()
+    const students = await applyExcursion(context, excursion, classIds)
+    return c.json({ success: true, id: excursion.id, students, termName: term.name })
+  } catch (error) {
+    return financeFailure(c, error, 'Could not add the excursion.')
+  }
+})
+
+/** Add more classes to an excursion; students already charged are never charged again. */
+app.post('/api/school/finance/simple/excursions/:id/classes', authenticate, async (c) => {
+  try {
+    const context = await simpleFeeContext(c)
+    if (!hasRequiredRole(context.role, FEE_ADMIN_ROLES)) return c.json({ success: false, message: 'forbidden' }, 403)
+    await ensureExcursionTables(context.db)
+    const excursion = await context.db.prepare(`SELECT * FROM fee_excursions WHERE id = ? AND tenant_id = ?`).bind(c.req.param('id'), context.tenantId).first() as Record<string, any> | null
+    if (!excursion) throw new FinanceError('Excursion not found.', 404)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const known = new Set(context.classes.map(klass => klass.id))
+    let existing: string[] = []
+    try { existing = JSON.parse(String(excursion.class_ids_json || '[]')) } catch { existing = [] }
+    const classIds = [...new Set([...existing, ...(Array.isArray(body.classIds) ? body.classIds : []).map(String)])].filter(id => known.has(id))
+    await context.db.prepare(`UPDATE fee_excursions SET class_ids_json = ? WHERE id = ?`).bind(JSON.stringify(classIds), excursion.id).run()
+    return c.json({ success: true, students: await applyExcursion(context, excursion, classIds) })
+  } catch (error) {
+    return financeFailure(c, error, 'Could not add those classes.')
+  }
+})
+
+// ─── Fee groups: staff children, scholarship students… (feeEngine.ts) ────────
+// Each group has a rate per section; members pay it instead of their class fees from next term.
+
+app.get('/api/school/finance/simple/fee-groups', authenticate, async (c) => {
+  try {
+    const context = await simpleFeeContext(c)
+    if (!hasRequiredRole(context.role, FINANCE_VIEW_ROLES)) return c.json({ success: false, message: 'forbidden' }, 403)
+    const groups = await listFeeGroups(context.db, context.tenantId, context.actor.name)
+    const badges = await feeGroupBadges(context.db, context.tenantId)
+    const groupIdByName = new Map(groups.map(group => [group.name, group.id]))
+    const term = context.term
+    const enrollments = term ? await termEnrollments(context.db, context.tenantId, term.sessionId, context.actor.id) : []
+    const classRows = ((await context.db.prepare(`SELECT * FROM classes WHERE tenantId = ?`).bind(context.tenantId).all()).results || []) as Record<string, any>[]
+    const sectionOf = new Map(classRows.map(row => [String(row.id), feeSectionOf(row)]))
+    const next = await nextUpcomingTerm(context.db, context.tenantId, term?.id || '')
+    return c.json({
+      success: true, canEdit: context.canEditFees, groups, sections: ['nursery', 'primary', 'secondary'],
+      fromTerm: next ? `${next.name}, ${next.sessionName}` : 'next term',
+      students: enrollments.map(row => ({ studentId: row.studentId, name: row.studentName, classId: row.classId, className: row.className, section: sectionOf.get(row.classId) || '', groupId: groupIdByName.get(badges.get(row.studentId) || '') || '' })),
+    })
+  } catch (error) {
+    return financeFailure(c, error, 'Could not load fee groups.')
+  }
+})
+
+app.post('/api/school/finance/simple/fee-groups', authenticate, async (c) => {
+  try {
+    const context = await simpleFeeContext(c)
+    if (!context.canEditFees) return c.json({ success: false, message: 'Only those who may change fees can set fee groups.' }, 403)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const id = await saveFeeGroup(context.db, { tenantId: context.tenantId, actor: context.actor, id: body.id ? String(body.id) : undefined, name: body.name, rates: body.rates, currentTermStart: String(context.term?.startDate || '').slice(0, 10) })
+    return c.json({ success: true, id })
+  } catch (error) {
+    return financeFailure(c, error, 'Could not save the group.')
+  }
+})
+
+/** Put students in a group (groupId '' takes them out of every group). */
+app.post('/api/school/finance/simple/fee-groups/members', authenticate, async (c) => {
+  try {
+    const context = await simpleFeeContext(c)
+    if (!context.canEditFees) return c.json({ success: false, message: 'Only those who may change fees can set fee groups.' }, 403)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const studentIds = (Array.isArray(body.studentIds) ? body.studentIds : []).map(String)
+    const known = await context.db.prepare(`SELECT COUNT(*) AS n FROM users WHERE tenantId = ? AND id IN (${studentIds.map(() => '?').join(',') || "''"})`).bind(context.tenantId, ...studentIds).first() as Record<string, any> | null
+    if (Number(known?.n || 0) !== new Set(studentIds).size) throw new FinanceError('Some of those students are not in this school.')
+    const changed = await setFeeGroupMembers(context.db, { tenantId: context.tenantId, actor: context.actor, groupId: String(body.groupId || ''), studentIds })
+    return c.json({ success: true, changed })
+  } catch (error) {
+    return financeFailure(c, error, 'Could not change the group.')
+  }
+})
+
+// ─── New students: their own fee for the term they joined ────────────────────
+// A student admitted on or after this term began, with no fees from any earlier term. Their
+// amounts here replace their class's for this term only (fee_student_amounts); a blank keeps
+// the class's amount. A student already billed has their charges brought to the new amounts.
+
+app.get('/api/school/finance/simple/new-students', authenticate, async (c) => {
+  try {
+    const context = await simpleFeeContext(c)
+    if (!hasRequiredRole(context.role, FINANCE_VIEW_ROLES)) return c.json({ success: false, message: 'forbidden' }, 403)
+    const term = requireTerm(context.term)
+    const since = String(term.startDate || '').slice(0, 10)
+    const grid = await getTermGrid(context.db, context.tenantId, term, context.classes)
+    const enrollments = await termEnrollments(context.db, context.tenantId, term.sessionId, context.actor.id)
+    const fresh = since ? ((await context.db.prepare(`SELECT u.id FROM users u WHERE u.tenantId = ? AND lower(u.role) = 'student' AND substr(COALESCE(u.createdAt, ''), 1, 10) >= ?
+        AND NOT EXISTS (SELECT 1 FROM fee_obligations o WHERE o.tenant_id = u.tenantId AND o.student_id = u.id AND o.term_id != ? AND o.status != 'cancelled')
+        AND NOT EXISTS (SELECT 1 FROM session_enrollments e WHERE e.tenant_id = u.tenantId AND e.student_id = u.id AND e.session_id != ?)`)
+      .bind(context.tenantId, since, term.id, term.sessionId).all()).results || []) as Record<string, any>[] : []
+    const freshIds = new Set(fresh.map(row => String(row.id)))
+    const classAmounts = new Map(grid.rows.map(row => [row.classId, row.amounts]))
+    const own = new Map(grid.students.map(row => [row.studentId, row.amounts]))
+    return c.json({
+      success: true, term: { id: term.id, name: term.name, startDate: since }, canEdit: context.canEditFees,
+      columns: grid.columns.map(column => column.name),
+      students: enrollments.filter(row => freshIds.has(row.studentId)).map(row => ({
+        studentId: row.studentId, name: row.studentName, classId: row.classId, className: row.className,
+        classAmounts: classAmounts.get(row.classId) || {}, ownAmounts: own.get(row.studentId) || {},
+      })),
+    })
+  } catch (error) {
+    return financeFailure(c, error, 'Could not load new students.')
+  }
+})
+
+app.post('/api/school/finance/simple/new-students', authenticate, async (c) => {
+  try {
+    const context = await simpleFeeContext(c)
+    if (!context.canEditFees) return c.json({ success: false, message: 'Only those who may change fees can set new students\' fees.' }, 403)
+    const term = requireTerm(context.term)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const updates = new Map<string, Record<string, unknown>>()
+    for (const row of (Array.isArray(body.students) ? body.students : []).slice(0, 500)) {
+      const studentId = String(row?.studentId || '').trim()
+      if (studentId) updates.set(studentId, row?.amounts && typeof row.amounts === 'object' ? row.amounts : {})
+    }
+    if (!updates.size) throw new FinanceError('Nothing to save.')
+    const grid = await getTermGrid(context.db, context.tenantId, term, context.classes)
+    const names = new Map((await termEnrollments(context.db, context.tenantId, term.sessionId, context.actor.id)).map(row => [row.studentId, row.studentName]))
+    // Everyone else's own amounts stay exactly as they are; these students' are replaced.
+    const students = grid.students.filter(row => !updates.has(row.studentId)).map(row => ({ studentId: row.studentId, studentName: row.studentName, amounts: row.amounts as Record<string, unknown> }))
+    for (const [studentId, amounts] of updates) {
+      // Items not on the card (a club fee, an excursion) are kept; a blank sent means "as the class".
+      const kept = Object.fromEntries(Object.entries(grid.students.find(row => row.studentId === studentId)?.amounts || {}).filter(([item]) => !(item in amounts)))
+      students.push({ studentId, studentName: names.get(studentId) || '', amounts: { ...kept, ...amounts } })
+    }
+    const result = await saveTermGrid(context.db, {
+      tenantId: context.tenantId, actor: context.actor, term, classes: context.classes,
+      input: { columns: grid.columns, rows: grid.rows, students: students as any },
+      changeMode: 'adjust_existing', allowPublished: true,
+    })
+    return c.json({ success: true, ...result })
+  } catch (error) {
+    return financeFailure(c, error, 'Could not save new students\' fees.')
   }
 })
 
@@ -37893,6 +38760,9 @@ export default {
     if (at.getUTCHours() === 23 && at.getUTCMinutes() >= 5 && at.getUTCMinutes() <= 55) ctx.waitUntil(runSchoolImports(env).catch(error => console.error('School imports failed', error)))
     // Parents with no child still at the school are turned off (02:45 Lagos).
     if (at.getUTCHours() === 1 && at.getUTCMinutes() === 45) ctx.waitUntil(sweepParentAccounts(env.APP_DB).catch(error => console.error('Parent sweep failed', error)))
+    if (at.getUTCHours() === 1 && at.getUTCMinutes() === 50) ctx.waitUntil(sweepClubFees(env.APP_DB).catch(error => console.error('Club fee sweep failed', error)))
+    // Next term's fees published "on a date": accounts created early on that date (Lagos ~06:05).
+    if (at.getUTCMinutes() === 5) ctx.waitUntil(billScheduledTerms(env.APP_DB).catch(error => console.error('Scheduled fee publishing failed', error)))
     // Class pins: every student keeps their class unless it was changed on record (02:30 Lagos).
     if (at.getUTCHours() === 1 && at.getUTCMinutes() === 30) ctx.waitUntil(monitorClassPins(env.APP_DB).then(result => { if (result.restored) console.warn('Class monitor restored placements', result) }).catch(error => console.error('Class monitor failed', error)))
     // The night builder: new questions and quality checks, 00:00–04:00 Lagos, within Ami's nightly budget.

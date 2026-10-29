@@ -50,6 +50,9 @@ export const findPeople = (clubId, params) => request(`/api/clubs/${id(clubId)}/
 export const addMembers = (clubId, people, as = '') => request(`/api/clubs/${id(clubId)}/members`, { method: 'POST', body: { people, as } });
 export const removeMember = (clubId, userId) => request(`/api/clubs/${id(clubId)}/members/${id(userId)}`, { method: 'DELETE' });
 export const setLeader = (clubId, userId, leader) => request(`/api/clubs/${id(clubId)}/members/${id(userId)}/leader`, { method: 'POST', body: { leader } });
+export const setClubFee = (clubId, fee) => request(`/api/clubs/${id(clubId)}/fee`, { method: 'PUT', body: { fee } });
+export const setFeeShare = (clubId, userId, share) => request(`/api/clubs/${id(clubId)}/members/${id(userId)}/fee-share`, { method: 'PUT', body: { share } });
+export const saveClubSettings = settings => request('/api/clubs/settings', { method: 'PUT', body: settings });
 export const createPost = (clubId, payload) => request(`/api/clubs/${id(clubId)}/posts`, { method: 'POST', body: payload });
 export const withdrawPost = (clubId, postId) => request(`/api/clubs/${id(clubId)}/posts/${id(postId)}`, { method: 'DELETE' });
 const sendWork = (clubId, postId, payload) => request(`/api/clubs/${id(clubId)}/posts/${id(postId)}/submit`, { method: 'POST', body: payload });

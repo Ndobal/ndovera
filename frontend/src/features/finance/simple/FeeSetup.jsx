@@ -278,6 +278,9 @@ export default function FeeSetup({ initialTermId, initialSource, canEdit, onSave
   const [copyOpen, setCopyOpen] = useState(false);
   const [draftInfo, setDraftInfo] = useState(null);
   const [autosave, setAutosave] = useState({ state: '', at: null });
+  // Next term only: when its accounts are created — when it opens, on a date, or now.
+  const [when, setWhen] = useState('open');
+  const [whenDate, setWhenDate] = useState('');
   // Each edit bumps the revision; an autosave only clears "unsaved" if nothing changed while it ran.
   const revision = useRef(0);
   const pendingSave = useRef(null);
@@ -485,11 +488,25 @@ export default function FeeSetup({ initialTermId, initialSource, canEdit, onSave
     setBusy(true); setNotice({ text: '', tone: 'ok' });
     try {
       await pendingSave.current;
-      const result = await saveTermGrid({ ...payload(), action: 'publish', ...(changeMode ? { changeMode } : {}) });
+      const upcomingWhen = data.grid.term.upcoming ? { when: when === 'date' ? whenDate : when } : {};
+      if (data.grid.term.upcoming && when === 'now' && !await askConfirm(`Create every student's ${data.grid.term.name} account now? Parents will see next term's fees and can pay ahead. This term's figures do not change.`)) { setBusy(false); return; }
+      const result = await saveTermGrid({ ...payload(), action: 'publish', ...upcomingWhen, ...(changeMode ? { changeMode } : {}) });
       setDecision(null);
       setDirty(false);
       setSource(null);
       const done = result.published || {};
+      if (done.billedNow) {
+        setNotice({ text: `Published, and ${done.students} student account(s) for ${data.grid.term.name} created now. Parents can see next term's fees and pay ahead; this term's figures are unchanged.`, tone: 'ok' });
+        load(data.grid.term.id, null);
+        onSaved?.();
+        return;
+      }
+      if (done.publishOn) {
+        setNotice({ text: `Published and scheduled: every student's ${data.grid.term.name} account is created on ${new Date(`${done.publishOn}T12:00:00Z`).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' })}. You can keep editing the fees until then.`, tone: 'ok' });
+        load(data.grid.term.id, null);
+        onSaved?.();
+        return;
+      }
       if (done.scheduled) {
         setNotice({
           text: `Published in advance. Nobody has been billed yet: when ${data.grid.term.name} opens, every student on the register gets their account at these fees${debtMode === 'write_off' ? ', and earlier debts are written off then' : ''}. You can keep editing them until then, and after.`,
@@ -625,10 +642,20 @@ export default function FeeSetup({ initialTermId, initialSource, canEdit, onSave
       <DebtChoice debt={data.grid.debt} earlierDebts={data.earlierDebts} mode={debtMode} editable={editable} term={term} onChange={mode => { setDebtMode(mode); setDirty(true); }} />
 
       <section className={CARD}>
+        {editable && term.upcoming && (
+          <fieldset className="mb-3 space-y-1.5 text-sm text-[#191970] dark:text-slate-200">
+            <legend className="mb-1 text-xs font-bold uppercase tracking-wide text-[#800020] dark:text-[#c9a96e]">When publishing, create student accounts</legend>
+            <label className="flex items-center gap-2"><input type="radio" name="fee-when" checked={when === 'open'} onChange={() => setWhen('open')} /> When {term.name} opens</label>
+            <label className="flex flex-wrap items-center gap-2"><input type="radio" name="fee-when" checked={when === 'date'} onChange={() => setWhen('date')} /> On a date:
+              <input type="date" aria-label="Date to create accounts" className="rounded-xl border border-[#c9a96e]/50 bg-white px-2 py-1 text-[#191970] dark:border-white/20 dark:bg-slate-800 dark:text-slate-100" value={whenDate} min={new Date().toISOString().slice(0, 10)} max={term.startDate ? term.startDate.slice(0, 10) : undefined} onChange={event => { setWhenDate(event.target.value); setWhen('date'); }} />
+            </label>
+            <label className="flex items-center gap-2"><input type="radio" name="fee-when" checked={when === 'now'} onChange={() => setWhen('now')} /> Now (parents can see and pay next term's fees ahead)</label>
+          </fieldset>
+        )}
         <div className="flex flex-wrap gap-2">
           {editable && <button type="button" className={SECONDARY} disabled={busy || !dirty} onClick={saveAsDraft}>{busy ? 'Saving…' : 'Save draft now'}</button>}
           {editable && (
-            <button type="button" className={PRIMARY} disabled={busy || (!dirty && !draftInfo && published)} onClick={() => publish()}>
+            <button type="button" className={PRIMARY} disabled={busy || (!dirty && !draftInfo && published && !(term.upcoming && when !== 'open')) || (term.upcoming && when === 'date' && !whenDate)} onClick={() => publish()}>
               {busy ? 'Working…' : published ? `Publish changes to ${term.name} fees` : term.upcoming ? `Publish ${term.name} fees in advance` : `Publish ${term.name} fees & create student accounts`}
             </button>
           )}
@@ -641,7 +668,7 @@ export default function FeeSetup({ initialTermId, initialSource, canEdit, onSave
                   : autosave.at ? `All changes saved as a draft · ${new Date(autosave.at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}` : ''}
           </p>
         )}
-        <p className="mt-2 text-xs text-[#191970]/80 dark:text-slate-400">Your work is saved as a draft as you type; a draft changes nobody's account. {term.upcoming ? `Publishing makes the fees official now; student accounts are created when ${term.name} opens.` : 'Publishing makes the fees official and creates or updates every current student\'s fee account (no one is billed twice).'}</p>
+        <p className="mt-2 text-xs text-[#191970]/80 dark:text-slate-400">Your work is saved as a draft as you type; a draft changes nobody's account. {term.upcoming ? `Publishing makes the fees official now; student accounts are created ${when === 'now' ? 'at once' : when === 'date' && whenDate ? `on ${whenDate}` : `when ${term.name} opens`}.` : 'Publishing makes the fees official and creates or updates every current student\'s fee account (no one is billed twice).'}</p>
         {data.grid.billedStudents > 0 && <p className="mt-2 text-xs text-[#191970] dark:text-slate-300">{data.grid.billedStudents} student account(s) use these fees.{debtMode === 'carry' ? ' Outstanding balances from earlier terms are added to each account automatically.' : ''}</p>}
       </section>
 

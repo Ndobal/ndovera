@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { getLinkOverview, linkParentStudent, unlinkParentStudent } from '../services/schoolApi';
-import { askConfirm } from '../../../shared/components/AppDialog';
+import { getLinkOverview, linkParentStudent, turnOffParents, unlinkParentStudent } from '../services/schoolApi';
+import { askConfirm, askText } from '../../../shared/components/AppDialog';
 
 const CARD = 'rounded-3xl border border-[#c9a96e]/40 bg-[#b5e3f4] p-5 dark:border-white/10 dark:bg-slate-900/30';
 const CHIP = 'rounded-full px-3 py-1 text-xs font-bold';
@@ -11,6 +11,12 @@ const MODES = [
   { key: 'parent', label: 'Link by parent', subjectLabel: 'parent', targetLabel: 'children' },
   { key: 'child', label: 'Link by child', subjectLabel: 'child', targetLabel: 'parents' },
 ];
+
+// Which subjects the list shows, by how many links they already have.
+const FILTERS = {
+  parent: [{ key: 'none', label: 'No child', count: 0 }, { key: 'all', label: 'Everyone' }],
+  child: [{ key: 'none', label: 'No parent', count: 0 }, { key: 'one', label: '1 parent', count: 1 }, { key: 'all', label: 'Everyone' }],
+};
 
 function matches(person, term) {
   if (!term) return true;
@@ -29,7 +35,8 @@ export default function LinkStudentsPanel() {
   const [search, setSearch] = useState('');
   const [targetSearch, setTargetSearch] = useState('');
   const [saving, setSaving] = useState(false);
-  const [onlyOutstanding, setOnlyOutstanding] = useState(true);
+  const [filter, setFilter] = useState('none');
+  const [marked, setMarked] = useState([]);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -56,14 +63,12 @@ export default function LinkStudentsPanel() {
   const subjects = byParent ? parents : students;
   const targets = byParent ? students : parents;
 
-  const outstanding = useMemo(() => subjects.filter(subject => (
-    byParent ? (subject.children || []).length === 0 : (subject.parents || []).length === 0
-  )), [subjects, byParent]);
+  const filters = FILTERS[mode];
+  const activeFilter = filters.find(item => item.key === filter) || filters[0];
 
-  const queue = useMemo(() => {
-    const base = onlyOutstanding ? outstanding : subjects;
-    return base.filter(subject => matches(subject, search));
-  }, [onlyOutstanding, outstanding, subjects, search]);
+  const queue = useMemo(() => subjects
+    .filter(subject => activeFilter.count === undefined || (byParent ? (subject.children || []) : (subject.parents || [])).length === activeFilter.count)
+    .filter(subject => matches(subject, search)), [subjects, activeFilter, byParent, search]);
 
   const subject = useMemo(
     () => subjects.find(item => item.id === subjectId) || null,
@@ -157,11 +162,59 @@ export default function LinkStudentsPanel() {
     }
   }
 
+  // Parents are marked in the list, then turned off together. Turning off a parent who still
+  // has a child linked needs a reason, which is kept on their record.
+  function toggleMark(parentId) {
+    setMarked(current => (current.includes(parentId) ? current.filter(id => id !== parentId) : [...current, parentId]));
+  }
+
+  async function turnOffMarked() {
+    const chosen = parents.filter(parent => marked.includes(parent.id));
+    if (!chosen.length) return;
+    const withChild = chosen.filter(parent => (parent.children || []).length > 0);
+    let reason = '';
+    if (withChild.length) {
+      const names = withChild.map(parent => `${parent.name} (${parent.children.map(child => child.name).join(', ')})`).join('; ');
+      const lead = withChild.length === 1 ? 'This parent has a child at the school' : 'These parents have a child at the school';
+      reason = String(await askText(`${lead}: ${names}. Why are you turning them off?`, '') || '').trim();
+      if (!reason) {
+        setError('Not turned off: a reason is needed for parents who still have a child linked.');
+        return;
+      }
+    } else if (!await askConfirm(`Turn off ${chosen.length} parent${chosen.length === 1 ? '' : 's'} with no child linked? They will no longer be able to sign in. You can turn them back on from People.`)) {
+      return;
+    }
+    setSaving(true);
+    setError('');
+    setNotice('');
+    try {
+      const result = await turnOffParents({ parentIds: chosen.map(parent => parent.id), reason });
+      const count = (result?.turnedOff || []).length;
+      setNotice(`Turned off ${count} parent${count === 1 ? '' : 's'}.`);
+      setMarked([]);
+      setSubjectId('');
+      await load();
+    } catch (offError) {
+      setError(offError?.message || 'Could not turn off those parents.');
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  // From a child who already has a parent, go straight to that parent to link a brother or sister.
+  function linkAnotherChild(parent) {
+    setMode('parent');
+    setFilter('all');
+    setSearch('');
+    setSubjectId(parent.id);
+  }
+
   if (loading && !overview) return <div className={CARD}><p className="text-[#800020] dark:text-slate-400">Loading linking data...</p></div>;
 
   const counts = overview?.counts || {};
   const queuePosition = queue.findIndex(item => item.id === subjectId) + 1;
   const studentIsFull = !byParent && currentLinks.length >= maxParents;
+  const allShownMarked = queue.length > 0 && queue.every(item => marked.includes(item.id));
 
   return (
     <div className="space-y-4">
@@ -184,7 +237,7 @@ export default function LinkStudentsPanel() {
             <button
               key={item.key}
               type="button"
-              onClick={() => { setMode(item.key); setSubjectId(''); }}
+              onClick={() => { setMode(item.key); setFilter('none'); setSubjectId(''); setMarked([]); }}
               className={`rounded-2xl border px-4 py-2 text-sm font-semibold transition-colors ${
                 mode === item.key
                   ? 'border-[#800020] bg-[#800020] text-[#b5e3f4]'
@@ -194,10 +247,24 @@ export default function LinkStudentsPanel() {
               {item.label}
             </button>
           ))}
-          <label className="ml-auto flex items-center gap-2 text-sm font-semibold text-[#191970] dark:text-slate-300">
-            <input type="checkbox" checked={onlyOutstanding} onChange={event => { setOnlyOutstanding(event.target.checked); setSubjectId(''); }} />
-            Only those still needing a link
-          </label>
+          <div className="ml-auto flex flex-wrap items-center gap-2" role="group" aria-label="Show">
+            <span className="text-sm font-semibold text-[#191970] dark:text-slate-300">Show:</span>
+            {filters.map(item => (
+              <button
+                key={item.key}
+                type="button"
+                aria-pressed={activeFilter.key === item.key}
+                onClick={() => { setFilter(item.key); setSubjectId(''); }}
+                className={`rounded-full border px-3 py-1 text-xs font-bold transition-colors ${
+                  activeFilter.key === item.key
+                    ? 'border-[#191970] bg-[#191970] text-[#b5e3f4] dark:border-slate-100 dark:bg-slate-100 dark:text-slate-900'
+                    : 'border-[#c9a96e]/50 bg-white/70 text-[#191970] dark:border-white/20 dark:bg-slate-900/40 dark:text-slate-200'
+                }`}
+              >
+                {item.label}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
@@ -209,6 +276,28 @@ export default function LinkStudentsPanel() {
           <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#800020] dark:text-slate-400">
             {byParent ? 'Parents' : 'Children'} ({queue.length})
           </p>
+          {byParent ? (
+            <div className="mt-3 flex flex-wrap items-center gap-2">
+              <button
+                type="button"
+                onClick={() => setMarked(current => (allShownMarked
+                  ? current.filter(id => !queue.some(item => item.id === id))
+                  : [...new Set([...current, ...queue.map(item => item.id)])]))}
+                disabled={!queue.length}
+                className="rounded-2xl border border-[#c9a96e]/50 px-3 py-1.5 text-xs font-semibold text-[#191970] disabled:opacity-50 dark:border-white/20 dark:text-slate-100"
+              >
+                {allShownMarked ? 'Unmark all shown' : 'Mark all shown'}
+              </button>
+              <button
+                type="button"
+                onClick={turnOffMarked}
+                disabled={saving || marked.length === 0}
+                className="rounded-2xl bg-[#800020] px-3 py-1.5 text-xs font-bold text-[#b5e3f4] disabled:opacity-50"
+              >
+                Turn off marked{marked.length ? ` (${marked.length})` : ''}
+              </button>
+            </div>
+          ) : null}
           <input
             value={search}
             onChange={event => setSearch(event.target.value)}
@@ -218,14 +307,23 @@ export default function LinkStudentsPanel() {
           <div className="mt-3 max-h-[26rem] space-y-2 overflow-y-auto pr-1">
             {queue.length === 0 ? (
               <p className="text-sm text-[#800020] dark:text-slate-400">
-                {onlyOutstanding ? 'Nothing left to link. Untick the filter to review existing links.' : 'No matches.'}
+                {activeFilter.key === 'all' ? 'No matches.' : `Nobody here. Choose Everyone to review existing links.`}
               </p>
             ) : null}
             {queue.map(item => {
               const links = byParent ? (item.children || []) : (item.parents || []);
               return (
+                <div key={item.id} className="flex items-start gap-2">
+                {byParent ? (
+                  <input
+                    type="checkbox"
+                    className="mt-4 h-4 w-4 shrink-0"
+                    checked={marked.includes(item.id)}
+                    onChange={() => toggleMark(item.id)}
+                    aria-label={`Mark ${item.name}`}
+                  />
+                ) : null}
                 <button
-                  key={item.id}
                   type="button"
                   onClick={() => setSubjectId(item.id)}
                   className={`w-full rounded-2xl border px-4 py-3 text-left transition-colors ${
@@ -239,9 +337,12 @@ export default function LinkStudentsPanel() {
                     {item.displayId ? `${item.displayId} • ` : ''}{item.className || item.email}
                   </p>
                   <p className={`mt-1 text-xs font-bold ${links.length ? 'text-[#1a5c38] dark:text-emerald-300' : 'text-[#800020] dark:text-amber-300'}`}>
-                    {links.length ? `${links.length} linked` : 'Not linked'}
+                    {links.length
+                      ? `${byParent ? 'Children' : 'Parent'}: ${links.map(link => `${link.name}${link.off ? ' (off)' : ''}`).join(', ')}`
+                      : 'Not linked'}
                   </p>
                 </button>
+                </div>
               );
             })}
           </div>
@@ -260,13 +361,15 @@ export default function LinkStudentsPanel() {
                   <h3 className="mt-1 text-lg font-bold text-[#191970] dark:text-slate-100">{subject.name}</h3>
                   <p className="text-xs text-[#4a5578] dark:text-slate-400">{subject.displayId || subject.email || ''}</p>
                 </div>
-                <button
-                  type="button"
-                  onClick={goToNext}
-                  className="rounded-2xl border border-[#c9a96e]/50 px-4 py-2 text-sm font-semibold text-[#191970] dark:border-white/20 dark:text-slate-100"
-                >
-                  Skip
-                </button>
+                <div className="flex flex-wrap gap-2">
+                  <button
+                    type="button"
+                    onClick={goToNext}
+                    className="rounded-2xl border border-[#c9a96e]/50 px-4 py-2 text-sm font-semibold text-[#191970] dark:border-white/20 dark:text-slate-100"
+                  >
+                    Skip
+                  </button>
+                </div>
               </div>
 
               {currentLinks.length ? (
@@ -275,11 +378,25 @@ export default function LinkStudentsPanel() {
                   <div className="mt-2 flex flex-wrap gap-2">
                     {currentLinks.map(link => (
                       <span key={link.id} className="flex items-center gap-2 rounded-full border border-[#1a5c38]/40 bg-white/70 px-3 py-1 text-xs font-semibold text-[#1a5c38] dark:bg-slate-900/50 dark:text-emerald-200">
-                        {link.name}
+                        {link.name}{link.off ? ' (off)' : ''}
                         <button type="button" onClick={() => removeLink(link)} className="font-black text-[#800020] dark:text-rose-300" aria-label={`Unlink ${link.name}`}>×</button>
                       </span>
                     ))}
                   </div>
+                  {!byParent ? (
+                    <div className="mt-2 flex flex-wrap gap-2">
+                      {currentLinks.filter(link => !link.off).map(link => (
+                        <button
+                          key={link.id}
+                          type="button"
+                          onClick={() => linkAnotherChild(link)}
+                          className="rounded-2xl border border-[#1a5c38]/50 px-3 py-1.5 text-xs font-semibold text-[#1a5c38] dark:border-emerald-300/40 dark:text-emerald-200"
+                        >
+                          Link another child to {link.name}
+                        </button>
+                      ))}
+                    </div>
+                  ) : null}
                 </div>
               ) : null}
 
@@ -312,7 +429,7 @@ export default function LinkStudentsPanel() {
                           <span className="block truncate font-semibold text-[#191970] dark:text-slate-100">{target.name}</span>
                           <span className="block truncate text-xs text-[#4a5578] dark:text-slate-400">
                             {target.displayId ? `${target.displayId} • ` : ''}{target.className || target.email}
-                            {byParent && (target.parents || []).length ? ` • ${target.parents.length} parent(s) already` : ''}
+                            {byParent && (target.parents || []).length ? ` • Parent: ${target.parents.map(link => link.name).join(', ')}` : ''}
                           </span>
                         </span>
                       </label>

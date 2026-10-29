@@ -48,6 +48,14 @@ export const getFeeReminder = studentId => request(`/api/school/finance/simple/a
 export const sendFeeReminders = payload => request('/api/school/finance/simple/reminders', { method: 'POST', body: payload });
 export const settleClassMove = (studentId, decision, note) => request(`/api/school/finance/simple/accounts/${id(studentId)}/class-move`, { method: 'POST', body: { decision, note } });
 export const billNewStudents = studentIds => request('/api/school/finance/simple/bill-new', { method: 'POST', body: { studentIds } });
+export const getNewStudentFees = () => request('/api/school/finance/simple/new-students');
+export const saveNewStudentFees = payload => request('/api/school/finance/simple/new-students', { method: 'POST', body: payload });
+export const getExcursions = () => request('/api/school/finance/simple/excursions');
+export const getFeeGroups = () => request('/api/school/finance/simple/fee-groups');
+export const saveFeeGroup = payload => request('/api/school/finance/simple/fee-groups', { method: 'POST', body: payload });
+export const setFeeGroupMembers = (groupId, studentIds) => request('/api/school/finance/simple/fee-groups/members', { method: 'POST', body: { groupId, studentIds } });
+export const addExcursion = payload => request('/api/school/finance/simple/excursions', { method: 'POST', body: payload });
+export const addExcursionClasses = (excursionId, classIds) => request(`/api/school/finance/simple/excursions/${id(excursionId)}/classes`, { method: 'POST', body: { classIds } });
 export const listTermPayments = params => request(`/api/school/finance/simple/payments${q(params)}`);
 export const getFeeReports = () => request('/api/school/finance/simple/reports');
 /** Receipts for many payments at once (each as issued, with its check link). */

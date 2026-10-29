@@ -9,3 +9,6 @@ CREATE INDEX IF NOT EXISTS idx_fees_receipts_tenant_student ON fees_payment_rece
 CREATE INDEX IF NOT EXISTS idx_conversation_reads_user ON conversation_reads(user_id);
 CREATE INDEX IF NOT EXISTS idx_school_sessions_tenant_created ON school_sessions(tenantId, createdAt);
 CREATE INDEX IF NOT EXISTS idx_settings_lower_key ON settings(lower(studentId));
+-- The harvester's every-minute "what changed" scans (Oct 2026).
+CREATE INDEX IF NOT EXISTS idx_materials_harvest_stamp ON materials(COALESCE(uploadedAt, ''), id);
+CREATE INDEX IF NOT EXISTS idx_assignments_harvest_stamp ON assignments(COALESCE(updatedAt, createdAt, ''), id);

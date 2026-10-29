@@ -644,3 +644,209 @@ test('income & expenditure and the finance report follow the current term, with 
   assert.match(doc.sections[1].paragraphs[0], /collected ₦100,000/)
   assert.equal((await call('ada', 'POST', '/api/school/finance/ai-analysis', {})).status, 403)
 })
+
+test('club fees go into next term\'s fees only, half for those who pay half; a student is in one club unless allowed more', async () => {
+  const { call, db } = await setup()
+  const now = new Date().toISOString()
+  db.db.exec(`INSERT INTO academic_terms (id, tenant_id, session_id, name, sequence, start_date, end_date, status, created_at, updated_at) VALUES
+    ('t26-2', 'school-a', 's26', 'Second Term', 2, '2027-01-05', '2027-04-02', 'upcoming', '${now}', '${now}')`)
+  await call('owner', 'PUT', '/api/school/finance/simple/grid', { termId: 't26-1', action: 'publish', ...GRID })
+  const chess = (await call('owner', 'POST', '/api/clubs', { name: 'Chess' })).body.club
+  assert.equal((await call('owner', 'POST', `/api/clubs/${chess.id}/members`, { people: [{ id: 'ada', name: 'ADA', role: 'student' }, { id: 'bola', name: 'BOLA', role: 'student' }] })).status, 200)
+  assert.equal((await call('bursar', 'PUT', `/api/clubs/${chess.id}/fee`, { fee: 10000 })).status, 403, 'the Owner or Head of School sets club fees')
+  const priced = await call('owner', 'PUT', `/api/clubs/${chess.id}/fee`, { fee: 10000 })
+  assert.equal(priced.status, 200, JSON.stringify(priced.body))
+  assert.equal(priced.body.feeTerm.name, 'Second Term')
+  assert.equal((await call('owner', 'PUT', `/api/clubs/${chess.id}/members/bola/fee-share`, { share: 'half' })).status, 200)
+  const owed = () => Object.fromEntries(db.db.prepare(`SELECT student_id, amount FROM fee_student_amounts WHERE term_id = 't26-2' AND item = 'Club fee'`).all().map(row => [row.student_id, row.amount]))
+  assert.deepEqual(owed(), { ada: 10000, bola: 5000 })
+  assert.equal(db.db.prepare(`SELECT COUNT(*) AS n FROM fee_student_amounts WHERE term_id = 't26-1'`).get().n, 0, 'the running term is never touched')
+  assert.equal(account((await call('bursar', 'GET', '/api/school/finance/simple/accounts')).body.accounts, 'ada').termFee, 160000)
+
+  // One club per student, until the Owner or Head of School allows more.
+  const drama = (await call('owner', 'POST', '/api/clubs', { name: 'Drama' })).body.club
+  const refused = await call('owner', 'POST', `/api/clubs/${drama.id}/members`, { people: [{ id: 'ada', name: 'ADA', role: 'student' }] })
+  assert.equal(refused.status, 409)
+  assert.match(refused.body.message, /one club only: ADA \(Chess\)/)
+  assert.equal((await call('owner', 'PUT', '/api/clubs/settings', { multipleClubs: true })).status, 200)
+  assert.equal((await call('owner', 'POST', `/api/clubs/${drama.id}/members`, { people: [{ id: 'ada', name: 'ADA', role: 'student' }] })).status, 200)
+  await call('owner', 'PUT', `/api/clubs/${drama.id}/fee`, { fee: 4000 })
+  assert.deepEqual(owed(), { ada: 14000, bola: 5000 }, 'two clubs: one Club fee line, the total')
+  // Leaving a club takes its fee off next term.
+  await call('owner', 'DELETE', `/api/clubs/${chess.id}/members/bola`)
+  assert.deepEqual(owed(), { ada: 14000 })
+
+  // Next term opens: the club fee is billed with everything else.
+  await call('owner', 'PUT', '/api/school/finance/simple/grid', { termId: 't26-2', action: 'publish', ...GRID })
+  db.db.exec(`UPDATE academic_terms SET status = 'completed' WHERE id = 't26-1'; UPDATE academic_terms SET status = 'active' WHERE id = 't26-2'`)
+  await call('owner', 'GET', '/api/school/finance/simple/overview')
+  const accounts = (await call('bursar', 'GET', '/api/school/finance/simple/accounts')).body.accounts
+  assert.deepEqual([account(accounts, 'ada').termFee, account(accounts, 'bola').termFee], [174000, 160000])
+})
+
+test('an excursion charges every student in the chosen classes once, this term or in next term\'s fees', async () => {
+  const { call, db } = await setup()
+  const now = new Date().toISOString()
+  db.db.exec(`INSERT INTO academic_terms (id, tenant_id, session_id, name, sequence, start_date, end_date, status, created_at, updated_at) VALUES
+    ('t26-2', 'school-a', 's26', 'Second Term', 2, '2027-01-05', '2027-04-02', 'upcoming', '${now}', '${now}')`)
+  await call('owner', 'PUT', '/api/school/finance/simple/grid', { termId: 't26-1', action: 'publish', ...GRID })
+  assert.equal((await call('owner', 'POST', '/api/school/finance/simple/excursions', { title: 'Zoo', amount: 5000, term: 'current', classIds: [] })).status, 400)
+  const zoo = await call('owner', 'POST', '/api/school/finance/simple/excursions', { title: 'Zoo', amount: 5000, term: 'current', classIds: ['jss1'] })
+  assert.equal(zoo.status, 200, JSON.stringify(zoo.body))
+  assert.equal(zoo.body.students, 2)
+  const ada = account((await call('bursar', 'GET', '/api/school/finance/simple/accounts')).body.accounts, 'ada')
+  assert.deepEqual([ada.termFee, ada.otherCharges, ada.totalPayable], [160000, 5000, 165000])
+  // Adding a class later charges only those not charged yet.
+  assert.equal((await call('owner', 'POST', `/api/school/finance/simple/excursions/${zoo.body.id}/classes`, { classIds: ['jss1', 'jss2'] })).body.students, 0)
+  assert.equal(db.db.prepare(`SELECT COUNT(*) AS n FROM fee_obligations WHERE fee_item = 'Excursion: Zoo'`).get().n, 2)
+
+  const trip = await call('owner', 'POST', '/api/school/finance/simple/excursions', { title: 'Lagos trip', amount: 12000, term: 'next', classIds: ['jss1'] })
+  assert.equal(trip.status, 200, JSON.stringify(trip.body))
+  assert.deepEqual(db.db.prepare(`SELECT student_id, amount FROM fee_student_amounts WHERE term_id = 't26-2' AND item = 'Excursion: Lagos trip' ORDER BY student_id`).all().map(row => [row.student_id, row.amount]), [['ada', 12000], ['bola', 12000]])
+  const list = (await call('bursar', 'GET', '/api/school/finance/simple/excursions')).body
+  assert.deepEqual(list.excursions.map(item => [item.title, item.students, item.upcoming]).sort(), [['Lagos trip', 2, true], ['Zoo', 2, false]])
+  assert.equal((await call('mum', 'POST', '/api/school/finance/simple/excursions', { title: 'X', amount: 1, classIds: ['jss1'] })).status, 403)
+})
+
+test('a student who joined this term has their own fee in place of the class fee, even after billing', async () => {
+  const { call, db } = await setup()
+  const now = new Date().toISOString()
+  db.db.exec(`UPDATE users SET createdAt = '2026-09-20T09:00:00.000Z' WHERE id = 'chi';
+    INSERT INTO session_enrollments (id, tenant_id, session_id, session_name, student_id, student_name, class_id, class_name, status, created_at, updated_at) VALUES ('e5', 'school-a', 's26', '2026/2027', 'chi', 'CHI', 'jss1', 'JSS 1', 'active', '${now}', '${now}')`)
+  await call('owner', 'PUT', '/api/school/finance/simple/grid', { termId: 't26-1', action: 'publish', ...GRID })
+  const card = await call('bursar', 'GET', '/api/school/finance/simple/new-students')
+  assert.equal(card.status, 200, JSON.stringify(card.body))
+  assert.deepEqual(card.body.students.map(student => [student.studentId, student.classAmounts.Tuition]), [['chi', 130000]])
+  assert.deepEqual(card.body.columns, ['Tuition', 'Books', 'ICT'])
+  const saved = await call('owner', 'POST', '/api/school/finance/simple/new-students', { students: [{ studentId: 'chi', amounts: { Tuition: 100000, Books: '' } }] })
+  assert.equal(saved.status, 200, JSON.stringify(saved.body))
+  const accounts = (await call('bursar', 'GET', '/api/school/finance/simple/accounts')).body.accounts
+  // Chi was billed already: the charge is brought to the new amount (₦100,000 tuition + ₦20,000 books + ₦10,000 ICT).
+  assert.deepEqual([account(accounts, 'chi').totalPayable, account(accounts, 'ada').totalPayable], [130000, 160000])
+  const again = (await call('bursar', 'GET', '/api/school/finance/simple/new-students')).body
+  assert.equal(again.students[0].ownAmounts.Tuition, 100000)
+})
+
+test('fee groups: staff children pay their section\'s rate instead of class fees, from next term; club fees still apply', async () => {
+  const { call, db } = await setup()
+  const now = new Date().toISOString()
+  db.db.exec(`INSERT INTO academic_terms (id, tenant_id, session_id, name, sequence, start_date, end_date, status, created_at, updated_at) VALUES
+    ('t26-2', 'school-a', 's26', 'Second Term', 2, '2027-01-05', '2027-04-02', 'upcoming', '${now}', '${now}')`)
+  await call('owner', 'PUT', '/api/school/finance/simple/grid', { termId: 't26-1', action: 'publish', ...GRID })
+  const loaded = await call('bursar', 'GET', '/api/school/finance/simple/fee-groups')
+  assert.equal(loaded.status, 200, JSON.stringify(loaded.body))
+  assert.deepEqual(loaded.body.groups.map(group => group.name), ['Staff child', 'Scholarship'])
+  assert.equal(loaded.body.students.find(student => student.studentId === 'ada').section, 'secondary')
+  const staff = loaded.body.groups[0]
+  assert.equal((await call('owner', 'POST', '/api/school/finance/simple/fee-groups', { id: staff.id, name: 'Staff child', rates: { nursery: 20000, primary: 30000, secondary: 40000 } })).status, 200)
+  assert.equal((await call('owner', 'POST', '/api/school/finance/simple/fee-groups/members', { groupId: staff.id, studentIds: ['ada'] })).status, 200)
+  assert.equal((await call('mum', 'POST', '/api/school/finance/simple/fee-groups/members', { groupId: staff.id, studentIds: ['bola'] })).status, 403)
+
+  // This term is not re-priced; the badge shows.
+  let ada = account((await call('bursar', 'GET', '/api/school/finance/simple/accounts')).body.accounts, 'ada')
+  assert.deepEqual([ada.termFee, ada.feeGroup], [160000, 'Staff child'])
+
+  // Next term opens: Ada pays the staff-child secondary rate (and her club fee); Bola her class fees.
+  const chess = (await call('owner', 'POST', '/api/clubs', { name: 'Chess' })).body.club
+  await call('owner', 'POST', `/api/clubs/${chess.id}/members`, { people: [{ id: 'ada', name: 'ADA', role: 'student' }] })
+  await call('owner', 'PUT', `/api/clubs/${chess.id}/fee`, { fee: 6000 })
+  await call('owner', 'PUT', '/api/school/finance/simple/grid', { termId: 't26-2', action: 'publish', ...GRID })
+  db.db.exec(`UPDATE academic_terms SET status = 'completed' WHERE id = 't26-1'; UPDATE academic_terms SET status = 'active' WHERE id = 't26-2'`)
+  await call('owner', 'GET', '/api/school/finance/simple/overview')
+  const accounts = (await call('bursar', 'GET', '/api/school/finance/simple/accounts')).body.accounts
+  ada = account(accounts, 'ada')
+  const bola = account(accounts, 'bola')
+  // Ada sees the class fee (and her club fee), the staff-child discount, and what is due.
+  // (Her total also carries last term's unpaid ₦160,000.)
+  assert.deepEqual([ada.classFee, ada.termFee, ada.discounts, ada.termFee - ada.discounts, ada.outstanding], [160000, 166000, 120000, 46000, 160000])
+  assert.deepEqual([bola.termFee, bola.discounts, bola.termFee - bola.discounts], [160000, 0, 160000])
+  const reasons = db.db.prepare(`SELECT DISTINCT a.reason FROM fee_adjustments a JOIN fee_obligations o ON o.id = a.obligation_id WHERE o.student_id = 'ada' AND o.term_id = 't26-2'`).all().map(row => row.reason)
+  assert.deepEqual(reasons, ['Staff child rate (secondary)'])
+  // Billing again never gives the discount twice.
+  await call('owner', 'GET', '/api/school/finance/simple/overview')
+  assert.equal(account((await call('bursar', 'GET', '/api/school/finance/simple/accounts')).body.accounts, 'ada').discounts, 120000)
+})
+
+test('next term\'s fees: draft, scheduled for a date, or published now (billed at once, never counted in this term)', async () => {
+  const { call, db } = await setup()
+  const now = new Date().toISOString()
+  // Dates relative to today, so the test does not expire.
+  const day = offset => new Date(Date.now() + offset * 86400000).toISOString().slice(0, 10)
+  db.db.exec(`INSERT INTO academic_terms (id, tenant_id, session_id, name, sequence, start_date, end_date, status, created_at, updated_at) VALUES
+    ('t26-2', 'school-a', 's26', 'Second Term', 2, '${day(60)}', '${day(150)}', 'upcoming', '${now}', '${now}')`)
+  await call('owner', 'PUT', '/api/school/finance/simple/grid', { termId: 't26-1', action: 'publish', ...GRID })
+  const before = account((await call('bursar', 'GET', '/api/school/finance/simple/accounts')).body.accounts, 'ada')
+
+  // Draft: kept, nobody billed.
+  assert.equal((await call('owner', 'PUT', '/api/school/finance/simple/grid', { termId: 't26-2', action: 'draft', ...GRID })).status, 200)
+  assert.equal(db.db.prepare(`SELECT COUNT(*) AS n FROM fee_obligations WHERE term_id = 't26-2'`).get().n, 0)
+
+  // Scheduled: a date in the past or after the term starts is refused; a good one is kept.
+  assert.equal((await call('owner', 'PUT', '/api/school/finance/simple/grid', { termId: 't26-2', action: 'publish', when: '2020-01-01', ...GRID })).status, 400)
+  assert.equal((await call('owner', 'PUT', '/api/school/finance/simple/grid', { termId: 't26-2', action: 'publish', when: day(61), ...GRID })).status, 400)
+  const later = await call('owner', 'PUT', '/api/school/finance/simple/grid', { termId: 't26-2', action: 'publish', when: day(30), ...GRID })
+  assert.equal(later.status, 200, JSON.stringify(later.body))
+  assert.equal(later.body.published.publishOn, day(30))
+  assert.equal(db.db.prepare(`SELECT publish_on FROM fee_term_publish_at WHERE term_id = 't26-2'`).get().publish_on, day(30))
+  assert.equal(db.db.prepare(`SELECT COUNT(*) AS n FROM fee_obligations WHERE term_id = 't26-2'`).get().n, 0)
+
+  // Published now: next term's accounts exist at once, and this term's figures do not change.
+  const nowPublished = await call('owner', 'POST', '/api/school/finance/simple/lock', { termId: 't26-2', when: 'now' })
+  assert.equal(nowPublished.status, 200, JSON.stringify(nowPublished.body))
+  assert.equal(nowPublished.body.billedNow, true)
+  assert.ok(db.db.prepare(`SELECT COUNT(*) AS n FROM fee_obligations WHERE term_id = 't26-2'`).get().n > 0)
+  assert.equal(db.db.prepare(`SELECT COUNT(*) AS n FROM fee_term_publish_at WHERE term_id = 't26-2'`).get().n, 0, 'the scheduled date is replaced')
+  const after = account((await call('bursar', 'GET', '/api/school/finance/simple/accounts')).body.accounts, 'ada')
+  assert.deepEqual([after.termFee, after.outstanding, after.totalPayable], [before.termFee, before.outstanding, before.totalPayable])
+})
+
+test('the finance report: next term outlook (with fee-group discounts and club fees), edits saved, emailing needs email set up', async () => {
+  const { call, db } = await setup()
+  const now = new Date().toISOString()
+  db.db.exec(`INSERT INTO academic_terms (id, tenant_id, session_id, name, sequence, start_date, end_date, status, created_at, updated_at) VALUES
+    ('t26-2', 'school-a', 's26', 'Second Term', 2, '2099-01-05', '2099-04-02', 'upcoming', '${now}', '${now}')`)
+  await call('owner', 'PUT', '/api/school/finance/simple/grid', { termId: 't26-1', action: 'publish', ...GRID })
+  await call('owner', 'PUT', '/api/school/finance/simple/grid', { termId: 't26-2', action: 'draft', ...GRID })
+  await call('owner', 'PUT', '/api/school/finance/simple/grid', { termId: 't26-2', action: 'publish', ...GRID })
+  const staff = (await call('owner', 'GET', '/api/school/finance/simple/fee-groups')).body.groups[0]
+  await call('owner', 'POST', '/api/school/finance/simple/fee-groups', { id: staff.id, name: 'Staff child', rates: { secondary: 40000 } })
+  await call('owner', 'POST', '/api/school/finance/simple/fee-groups/members', { groupId: staff.id, studentIds: ['ada'] })
+  const written = await call('owner', 'POST', '/api/school/finance/ai-analysis', {})
+  assert.equal(written.status, 200, JSON.stringify(written.body))
+  const outlook = written.body.analysis.sections.find(section => section.heading.startsWith('Next term outlook'))
+  assert.ok(outlook, 'the report has a next term outlook')
+  assert.deepEqual(outlook.table.rows.map(row => row[0]), ['Class fees', 'Less: Staff child discount (1 student)', 'Club fees', 'Excursions', 'Projected billing'])
+  assert.deepEqual(outlook.table.rows.map(row => row[1]), ['₦320,000', '−₦120,000', '₦0', '₦0', '₦200,000'])
+
+  // Edited and saved: it opens as edited, until written again.
+  const edited = { ...written.body.analysis, sections: [{ heading: 'Summary', paragraphs: ['The owner’s own words.'] }, ...written.body.analysis.sections.slice(1)] }
+  assert.equal((await call('owner', 'POST', '/api/school/finance/report/save', { document: edited })).status, 200)
+  const reopened = (await call('owner', 'POST', '/api/school/finance/ai-analysis', {})).body.analysis
+  assert.deepEqual([reopened.sections[0].paragraphs[0], Boolean(reopened.edited)], ['The owner’s own words.', true])
+  const fresh = (await call('owner', 'POST', '/api/school/finance/ai-analysis', { fresh: true })).body.analysis
+  assert.equal(Boolean(fresh.edited), false)
+
+  // Email: no mail account on this test server.
+  assert.equal((await call('owner', 'POST', '/api/school/finance/report/email', { document: edited })).status, 400, 'no owner email on record: asks for an address')
+  const emailed = await call('owner', 'POST', '/api/school/finance/report/email', { document: edited, to: 'owner@a.test' })
+  assert.equal(emailed.status, 503)
+  assert.match(emailed.body.message, /Email is not set up/)
+  assert.equal((await call('mum', 'POST', '/api/school/finance/report/email', { document: edited })).status, 403)
+})
+
+test('a student who left owing last term (billed in the earlier fee system) is listed and can pay it off', async () => {
+  const { call, db } = await setup()
+  const now = new Date().toISOString()
+  await call('owner', 'PUT', '/api/school/finance/simple/grid', { termId: 't26-1', action: 'publish', ...GRID })
+  // Chi was in JSS 1 last term, billed by the earlier fee system, and did not come back (turned off).
+  db.db.exec(`UPDATE users SET status = 'inactive' WHERE id = 'chi'`)
+  db.db.exec(`INSERT INTO fee_assessments (id, tenant_id, session_id, session_name, term_id, term_name, student_id, student_name, class_id, class_name, assessment_kind, gross_amount, net_amount, amount_paid, outstanding, status, created_at, updated_at)
+    VALUES ('fa-chi', 'school-a', 's25', '2025/2026', 't25-3', 'Third Term', 'chi', 'CHI', 'jss1', 'JSS 1', 'term', 150000, 150000, 0, 150000, 'unpaid', '2026-05-01T00:00:00.000Z', '${now}')`)
+  const leavers = (await call('bursar', 'GET', '/api/school/finance/simple/accounts?status=left')).body.accounts
+  const chi = account(leavers, 'chi')
+  assert.ok(chi, 'listed under past students still owing')
+  assert.equal(chi.balance, 150000)
+  const paid = await call('bursar', 'POST', '/api/school/finance/simple/accounts/chi/pay', { amount: 50000, method: 'cash' })
+  assert.equal(paid.status, 200, JSON.stringify(paid.body))
+  assert.equal(account((await call('bursar', 'GET', '/api/school/finance/simple/accounts?status=left')).body.accounts, 'chi').balance, 100000)
+})

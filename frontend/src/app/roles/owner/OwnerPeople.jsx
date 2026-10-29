@@ -8,6 +8,7 @@ import {
 } from '../../../features/school/services/schoolApi';
 import StudentProfilePage from '../../../features/students/components/StudentProfilePage';
 import LinkStudentsPanel from '../../../features/school/components/LinkStudentsPanel';
+import FamilyTablePanel from '../../../features/school/components/FamilyTablePanel';
 import { askConfirm } from '../../../shared/components/AppDialog';
 
 const FILTER_TO_ROLE = { Teachers: 'teacher', Admin: 'admin', Students: 'student', Parents: 'parent' };
@@ -1246,7 +1247,7 @@ export default function OwnerPeople() {
 
       {canLinkPeople ? (
         <div className="flex flex-wrap gap-2">
-          {[{ key: 'directory', label: 'Directory' }, { key: 'link', label: 'Link Students' }, { key: 'past', label: 'Past Students' }].map(item => (
+          {[{ key: 'directory', label: 'Directory' }, { key: 'families', label: 'Family Table' }, { key: 'link', label: 'Link Students' }, { key: 'past', label: 'Past Students' }].map(item => (
             <button
               key={item.key}
               onClick={() => setTab(item.key)}
@@ -1262,7 +1263,7 @@ export default function OwnerPeople() {
         </div>
       ) : null}
 
-      {tab === 'link' && canLinkPeople ? <LinkStudentsPanel /> : tab === 'past' && canLinkPeople ? <PastStudentsPanel onRestored={() => load(page, searchTerm, filter)} /> : (
+      {tab === 'families' && canLinkPeople ? <FamilyTablePanel /> : tab === 'link' && canLinkPeople ? <LinkStudentsPanel /> : tab === 'past' && canLinkPeople ? <PastStudentsPanel onRestored={() => load(page, searchTerm, filter)} /> : (
       <>
       {/* Search + filter row */}
       <div className="flex flex-col sm:flex-row gap-3">

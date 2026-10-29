@@ -89,19 +89,19 @@ export default function LoginForm({ onSuccess }) {
 
         <div className="mt-5 space-y-4">
           <label className="block space-y-2">
-            <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[#800020] dark:text-[#bf00ff]">Email</span>
+            <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[#800020] dark:text-[#bf00ff]">Email or phone number</span>
+            {/* Plain text, not type="email": parents without an email sign in with their phone number. */}
             <input
               name="id"
-              type="email"
+              type="text"
               autoComplete="username"
-              inputMode="email"
               autoCapitalize="none"
               autoCorrect="off"
               spellCheck={false}
               value={formState.id}
               onChange={handleChange}
               className="w-full rounded-2xl border border-[#c9a96e]/45 bg-[#fffdf8] px-4 py-3 text-[#191970] outline-none transition focus:border-[#800000] focus:ring-4 focus:ring-[#b5e3f4] dark:border-[#bf00ff]/40 dark:bg-[#2a001f]/70 dark:text-white dark:focus:border-[#00ffff] dark:focus:ring-[#00ffff]/20"
-              placeholder="you@ndovera.com"
+              placeholder="you@ndovera.com or 0803 123 4567"
               required
             />
           </label>

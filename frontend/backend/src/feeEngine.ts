@@ -14,6 +14,7 @@ import {
   Actor, FinanceError, addAdjustment, auditStatement, cancelObligation, deriveObligation, ensureFinanceTables, getStructure,
   issueBills, listStructures, mapLegacyAssessment, mapObligation, money, saveStructure, setStructureStatus,
 } from './finance'
+import { levelOf } from './levels'
 
 export type ClassRef = { id: string, name: string }
 // `upcoming`: a term that has not started yet. Its fees can be published in
@@ -123,12 +124,190 @@ export async function loadStudentAmounts(db: D1Database, tenantId: string, termI
   return out
 }
 
-/** The issueBills hooks that apply each student's own amounts (and, by student, nothing else). */
-function studentBilling(students: StudentAmounts, feeMode = 'class') {
+/**
+ * The issueBills hooks that apply each student's own amounts (and, by student, nothing else).
+ * A student in a fee group (staff child, scholarship…) pays the group's rate for their section
+ * in place of every class item; their own extras (club fee, excursions) are still billed.
+ */
+function studentBilling(students: StudentAmounts, feeMode = 'class', groupRates: GroupRates = new Map()) {
+  // A group member with no individual amounts is billed the class fee in full; the group rate
+  // is then given as a discount (applyGroupDiscounts), so everyone sees the class fee, the
+  // discount and what is due. Individual amounts are billed as entered and win over a group.
   return {
-    amountFor: (studentId: string, item: string) => students.get(studentId)?.amounts.get(item.toLowerCase())?.amount ?? (feeMode === 'student' ? 0 : undefined),
+    amountFor: (studentId: string, item: string) => students.get(studentId)?.amounts.get(item.toLowerCase())?.amount ?? (feeMode === 'student' && !groupRates.has(studentId) ? 0 : undefined),
     extraItems: (studentId: string) => [...(students.get(studentId)?.amounts.values() || [])].map(entry => ({ name: entry.name, amount: entry.amount, frequency: 'term' })),
   }
+}
+
+/**
+ * Each billed group member's discount for `term`: their class fee for the term minus their
+ * group's rate, given once (reason "Staff child rate (secondary)"). A student with individual
+ * amounts for any class item pays those instead and gets no group discount. A rate above the
+ * class fee is billed as an extra charge.
+ */
+export async function applyGroupDiscounts(db: D1Database, options: { tenantId: string, actor: Actor, term: TermRef, studentIds: string[] }) {
+  if (!options.studentIds.length) return 0
+  const rates = await loadGroupRates(db, options.tenantId, options.term)
+  const ids = options.studentIds.filter(id => rates.has(id))
+  if (!ids.length) return 0
+  const own = await loadStudentAmounts(db, options.tenantId, options.term.id)
+  const ledger = await loadLedger(db, options.tenantId, ids)
+  let applied = 0
+  for (const studentId of ids) {
+    const rate = rates.get(studentId)!
+    const termCharges = ledger.charges.filter(charge => charge.termId === options.term.id && charge.status !== 'cancelled' && String(charge.studentId) === studentId)
+    // The class's own items (an extra such as a club fee has no item of the class's fee set).
+    const classCharges = termCharges.filter(charge => charge.structured && 'itemId' in charge && charge.itemId)
+    if (!classCharges.length) continue
+    const mine = own.get(studentId)
+    if (mine && classCharges.some(charge => mine.amounts.has(String(charge.feeItem).toLowerCase()))) continue
+    const already = termCharges.some(charge => (ledger.adjustmentsByCharge.get(charge.id) || []).some(adjustment => String(adjustment.reason || '').startsWith(rate.reason)))
+      || termCharges.some(charge => String(charge.feeItem) === `${rate.reason} (above class fee)`)
+    if (already) continue
+    const classFee = money(classCharges.reduce((sum, charge) => sum + charge.amount, 0))
+    const difference = money(classFee - rate.amount)
+    if (difference > 0) {
+      await adjustStudent(db, { tenantId: options.tenantId, actor: options.actor, studentId, termId: options.term.id, kind: 'discount', amount: difference, reason: rate.reason })
+      applied += 1
+    } else if (difference < 0) {
+      const first = classCharges[0]
+      await addStudentCharge(db, { tenantId: options.tenantId, actor: options.actor, term: options.term, student: { studentId, studentName: String(first.studentName || ''), classId: String(first.classId || ''), className: String(first.className || '') }, description: `${rate.reason} (above class fee)`, amount: -difference })
+      applied += 1
+    }
+  }
+  return applied
+}
+
+// ─── Fee groups: staff children, scholarship students… ───────────────────────
+// A group has one rate per section (nursery, primary, secondary). Each member pays their
+// section's rate as one item ("Staff child fee") instead of their class's fees, from the
+// first term that starts after the group was set up or its rates last changed. A student is
+// in one group at most. Club fees and excursions are charged on top as usual.
+
+export const FEE_GROUP_SECTIONS = ['nursery', 'primary', 'secondary'] as const
+export const DEFAULT_FEE_GROUPS = ['Staff child', 'Scholarship']
+type GroupRates = Map<string, { groupId: string, item: string, amount: number, reason: string }>
+
+export async function ensureFeeGroupTables(db: D1Database) {
+  await db.prepare(`CREATE TABLE IF NOT EXISTS fee_groups (id TEXT PRIMARY KEY, tenant_id TEXT NOT NULL, name TEXT NOT NULL, rates_json TEXT NOT NULL DEFAULT '{}', applies_after TEXT NOT NULL DEFAULT '', status TEXT NOT NULL DEFAULT 'active', updated_by TEXT, created_at TEXT NOT NULL, updated_at TEXT NOT NULL)`).run()
+  await db.prepare(`CREATE TABLE IF NOT EXISTS fee_group_students (tenant_id TEXT NOT NULL, student_id TEXT NOT NULL, group_id TEXT NOT NULL, added_by TEXT, added_at TEXT NOT NULL, PRIMARY KEY (tenant_id, student_id))`).run()
+}
+
+/** A class's fee-group section from its level: junior and senior secondary are both "secondary". */
+export function feeSectionOf(klass: { name?: unknown, standard_level?: unknown }) {
+  const level = levelOf(String(klass.standard_level || '') || String(klass.name || ''))
+  if (!level) return ''
+  return level.section === 'junior' || level.section === 'senior' ? 'secondary' : level.section
+}
+
+function cleanRates(input: unknown) {
+  const rates: Record<string, number> = {}
+  for (const section of FEE_GROUP_SECTIONS) {
+    const raw = (input as Record<string, unknown> | null)?.[section]
+    if (raw === undefined || raw === null || String(raw).trim() === '') continue
+    const amount = money(raw)
+    if (!(amount >= 0)) throw new FinanceError(`The ${section} rate must be an amount.`)
+    rates[section] = amount
+  }
+  return rates
+}
+
+/** The school's groups (the two defaults are created the first time). */
+export async function listFeeGroups(db: D1Database, tenantId: string, actorName = '') {
+  await ensureFeeGroupTables(db)
+  let rows = ((await db.prepare(`SELECT g.*, (SELECT COUNT(*) FROM fee_group_students m WHERE m.group_id = g.id) AS members FROM fee_groups g WHERE g.tenant_id = ? AND g.status = 'active' ORDER BY g.created_at`).bind(tenantId).all()).results || []) as Record<string, any>[]
+  if (!rows.length) {
+    const now = new Date().toISOString()
+    await db.batch(DEFAULT_FEE_GROUPS.map((name, index) => db.prepare(`INSERT INTO fee_groups (id, tenant_id, name, rates_json, applies_after, updated_by, created_at, updated_at) VALUES (?, ?, ?, '{}', '', ?, ?, ?)`)
+      .bind(`fg_${crypto.randomUUID().replace(/-/g, '').slice(0, 16)}`, tenantId, name, actorName || null, new Date(Date.parse(now) + index).toISOString(), now)))
+    rows = ((await db.prepare(`SELECT g.*, 0 AS members FROM fee_groups g WHERE g.tenant_id = ? AND g.status = 'active' ORDER BY g.created_at`).bind(tenantId).all()).results || []) as Record<string, any>[]
+  }
+  return rows.map(row => {
+    let rates: Record<string, number> = {}
+    try { rates = JSON.parse(String(row.rates_json || '{}')) || {} } catch { rates = {} }
+    return { id: String(row.id), name: String(row.name), rates, appliesAfter: String(row.applies_after || ''), members: Number(row.members || 0), updatedBy: String(row.updated_by || ''), updatedAt: row.updated_at }
+  })
+}
+
+/**
+ * Create or change a group. New rates apply from the next term: `appliesAfter` is the
+ * running term's start, so a term already billed is never re-priced.
+ */
+export async function saveFeeGroup(db: D1Database, options: { tenantId: string, actor: Actor, id?: string, name: unknown, rates: unknown, currentTermStart: string }) {
+  await ensureFeeGroupTables(db)
+  const name = String(options.name || '').replace(/\s+/g, ' ').trim().slice(0, 40)
+  if (!name) throw new FinanceError('Name the group (for example "Staff child").')
+  const rates = cleanRates(options.rates)
+  const now = new Date().toISOString()
+  const after = options.currentTermStart || now.slice(0, 10)
+  const clash = await db.prepare(`SELECT id FROM fee_groups WHERE tenant_id = ? AND status = 'active' AND lower(name) = lower(?) AND id != ?`).bind(options.tenantId, name, options.id || '').first()
+  if (clash) throw new FinanceError(`There is already a group called ${name}.`, 409)
+  if (options.id) {
+    const existing = await db.prepare(`SELECT rates_json FROM fee_groups WHERE id = ? AND tenant_id = ?`).bind(options.id, options.tenantId).first() as Record<string, any> | null
+    if (!existing) throw new FinanceError('Group not found.', 404)
+    const ratesChanged = String(existing.rates_json || '{}') !== JSON.stringify(rates)
+    await db.prepare(`UPDATE fee_groups SET name = ?, rates_json = ?, ${ratesChanged ? 'applies_after = ?,' : ''} updated_by = ?, updated_at = ? WHERE id = ? AND tenant_id = ?`)
+      .bind(...[name, JSON.stringify(rates), ...(ratesChanged ? [after] : []), options.actor.name || null, now, options.id, options.tenantId]).run()
+    return options.id
+  }
+  const id = `fg_${crypto.randomUUID().replace(/-/g, '').slice(0, 16)}`
+  await db.prepare(`INSERT INTO fee_groups (id, tenant_id, name, rates_json, applies_after, updated_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`)
+    .bind(id, options.tenantId, name, JSON.stringify(rates), after, options.actor.name || null, now, now).run()
+  return id
+}
+
+/** Put students in a group (taking them out of any other), or out of every group (groupId ''). */
+export async function setFeeGroupMembers(db: D1Database, options: { tenantId: string, actor: Actor, groupId: string, studentIds: string[] }) {
+  await ensureFeeGroupTables(db)
+  const ids = [...new Set(options.studentIds.map(String).filter(Boolean))].slice(0, 500)
+  if (!ids.length) throw new FinanceError('Choose the students.')
+  if (options.groupId) {
+    const group = await db.prepare(`SELECT id FROM fee_groups WHERE id = ? AND tenant_id = ? AND status = 'active'`).bind(options.groupId, options.tenantId).first()
+    if (!group) throw new FinanceError('Group not found.', 404)
+  }
+  const now = new Date().toISOString()
+  await db.batch(ids.map(studentId => options.groupId
+    ? db.prepare(`INSERT INTO fee_group_students (tenant_id, student_id, group_id, added_by, added_at) VALUES (?, ?, ?, ?, ?) ON CONFLICT(tenant_id, student_id) DO UPDATE SET group_id = excluded.group_id, added_by = excluded.added_by, added_at = excluded.added_at`)
+      .bind(options.tenantId, studentId, options.groupId, options.actor.name || null, now)
+    : db.prepare(`DELETE FROM fee_group_students WHERE tenant_id = ? AND student_id = ?`).bind(options.tenantId, studentId)))
+  return ids.length
+}
+
+/** Each student's group (for badges): studentId → group name. */
+export async function feeGroupBadges(db: D1Database, tenantId: string) {
+  await ensureFeeGroupTables(db)
+  const rows = ((await db.prepare(`SELECT m.student_id, g.name FROM fee_group_students m JOIN fee_groups g ON g.id = m.group_id WHERE m.tenant_id = ? AND g.status = 'active'`).bind(tenantId).all()).results || []) as Record<string, any>[]
+  return new Map(rows.map(row => [String(row.student_id), String(row.name)]))
+}
+
+/**
+ * What each group member pays for `term`: their section's rate, when the group's rates apply
+ * to this term (it starts after `applies_after`) and their class's section has a rate.
+ */
+export async function loadGroupRates(db: D1Database, tenantId: string, term: { id: string, sessionId?: string, startDate?: string }): Promise<GroupRates> {
+  await ensureFeeGroupTables(db)
+  const out: GroupRates = new Map()
+  const termRow = await db.prepare(`SELECT start_date, session_id FROM academic_terms WHERE id = ? AND tenant_id = ?`).bind(term.id, tenantId).first().catch(() => null) as Record<string, any> | null
+  const start = String(term.startDate || termRow?.start_date || '').slice(0, 10)
+  const sessionId = String(term.sessionId || termRow?.session_id || '')
+  if (!start) return out
+  const members = ((await db.prepare(`SELECT m.student_id, g.id AS group_id, g.name, g.rates_json, g.applies_after FROM fee_group_students m JOIN fee_groups g ON g.id = m.group_id
+    WHERE m.tenant_id = ? AND g.status = 'active' AND g.applies_after < ?`).bind(tenantId, start).all()).results || []) as Record<string, any>[]
+  if (!members.length) return out
+  const [classRows, register] = await Promise.all([
+    db.prepare(`SELECT * FROM classes WHERE tenantId = ?`).bind(tenantId).all(),
+    sessionId ? db.prepare(`SELECT student_id, class_id FROM session_enrollments WHERE tenant_id = ? AND session_id = ? AND COALESCE(status, 'active') = 'active'`).bind(tenantId, sessionId).all().catch(() => ({ results: [] })) : Promise.resolve({ results: [] }),
+  ])
+  const sectionOfClass = new Map(((classRows.results || []) as Record<string, any>[]).map(row => [String(row.id), feeSectionOf(row)]))
+  const classOf = new Map(((register.results || []) as Record<string, any>[]).map(row => [String(row.student_id), String(row.class_id || '')]))
+  for (const member of members) {
+    const section = sectionOfClass.get(classOf.get(String(member.student_id)) || '') || ''
+    let rates: Record<string, number> = {}
+    try { rates = JSON.parse(String(member.rates_json || '{}')) || {} } catch { rates = {} }
+    if (!section || rates[section] === undefined) continue
+    out.set(String(member.student_id), { groupId: String(member.group_id), item: `${String(member.name)} fee`.slice(0, 80), amount: money(rates[section]), reason: `${String(member.name)} rate (${section})`.slice(0, 120) })
+  }
+  return out
 }
 
 function studentRowsOut(students: StudentAmounts) {
@@ -574,7 +753,7 @@ export async function saveTermGrid(db: D1Database, options: {
     for (const [structureId, students] of additions) {
       const structure = await getStructure(db, options.tenantId, structureId)
       if (structure?.status !== 'published') continue
-      const result = await issueBills(db, { tenantId: options.tenantId, structureId, actor: options.actor, students, legacyBilledStudentIds: new Set(), ...studentBilling(newStudents, newMode) })
+      const result = await issueBills(db, { tenantId: options.tenantId, structureId, actor: options.actor, students, legacyBilledStudentIds: new Set(), ...studentBilling(newStudents, newMode, await loadGroupRates(db, options.tenantId, options.term)) })
       adjusted += result.issued
     }
   }
@@ -594,7 +773,7 @@ export async function lockTerm(db: D1Database, options: { tenantId: string, acto
   const structures = (await listStructures(db, options.tenantId, { termId: options.term.id })).filter(Boolean) as NonNullable<Awaited<ReturnType<typeof getStructure>>>[]
   if (!structures.length) throw new FinanceError(`Set up ${options.term.name} fees before locking them.`)
   const debt = await getDebtSettings(db, options.tenantId, options.term.id)
-  const own = studentBilling(await loadStudentAmounts(db, options.tenantId, options.term.id), debt.feeMode)
+  const own = studentBilling(await loadStudentAmounts(db, options.tenantId, options.term.id), debt.feeMode, await loadGroupRates(db, options.tenantId, options.term))
   let issued = 0
   const students = new Set<string>()
   for (const structure of structures) {
@@ -606,6 +785,7 @@ export async function lockTerm(db: D1Database, options: { tenantId: string, acto
     issued += result.issued
     inClass.forEach(enrollment => { if (!options.legacyBilledStudentIds.has(enrollment.studentId)) students.add(enrollment.studentId) })
   }
+  await applyGroupDiscounts(db, { tenantId: options.tenantId, actor: options.actor, term: options.term, studentIds: [...students] })
   // The school chose to start this term clean: earlier debts are written off, each one recorded.
   const writtenOff = debt.mode === 'write_off'
     ? await writeOffEarlierDebts(db, { tenantId: options.tenantId, actor: options.actor, term: options.term, studentIds: options.enrollments.map(enrollment => enrollment.studentId) })
@@ -665,7 +845,7 @@ export async function billStudents(db: D1Database, options: { tenantId: string, 
   const structures = (await listStructures(db, options.tenantId, { termId: options.term.id })).filter(Boolean) as NonNullable<Awaited<ReturnType<typeof getStructure>>>[]
   const byClass = new Map(structures.map(structure => [structure.classId, structure]))
   const debt = await getDebtSettings(db, options.tenantId, options.term.id)
-  const own = studentBilling(await loadStudentAmounts(db, options.tenantId, options.term.id), debt.feeMode)
+  const own = studentBilling(await loadStudentAmounts(db, options.tenantId, options.term.id), debt.feeMode, await loadGroupRates(db, options.tenantId, options.term))
   let created = 0
   const noFees: string[] = []
   const billed: string[] = []
@@ -677,6 +857,7 @@ export async function billStudents(db: D1Database, options: { tenantId: string, 
     created += result.issued
     billed.push(student.studentId)
   }
+  await applyGroupDiscounts(db, { tenantId: options.tenantId, actor: options.actor, term: options.term, studentIds: billed })
   // Late joiners follow the term's choice about earlier debts, like everyone else.
   if (debt.mode === 'write_off' && billed.length) await writeOffEarlierDebts(db, { tenantId: options.tenantId, actor: options.actor, term: options.term, studentIds: billed })
   return { created, noFees }
@@ -725,7 +906,18 @@ async function loadLedger(db: D1Database, tenantId: string, studentIds?: string[
   return { charges, paidByCharge, adjustmentsByCharge }
 }
 
-function summarise(charges: Array<Charge & { structured: boolean }>, ledger: Awaited<ReturnType<typeof loadLedger>>, termId: string, termStart: string) {
+/**
+ * Terms that start after `termStart`. Their bills (next term's fees published early) are not
+ * this term's debt: they are left out of this term's figures until that term begins.
+ */
+async function laterTermIds(db: D1Database, tenantId: string, termStart: string) {
+  const day = String(termStart || '').slice(0, 10)
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(day)) return new Set<string>()
+  const rows = await db.prepare(`SELECT id FROM academic_terms WHERE tenant_id = ? AND substr(start_date, 1, 10) > ?`).bind(tenantId, day).all().catch(() => ({ results: [] }))
+  return new Set(((rows.results || []) as Record<string, any>[]).map(row => String(row.id)))
+}
+
+function summarise(charges: Array<Charge & { structured: boolean }>, ledger: Awaited<ReturnType<typeof loadLedger>>, termId: string, termStart: string, later: Set<string> = new Set()) {
   let termFee = 0
   let otherCharges = 0
   let discounts = 0
@@ -733,7 +925,7 @@ function summarise(charges: Array<Charge & { structured: boolean }>, ledger: Awa
   let paid = 0
   const sources: Array<{ sessionName: string, termName: string, feeItem: string, original: number, carriedForward: number }> = []
   for (const charge of charges) {
-    if (charge.status === 'cancelled') continue
+    if (charge.status === 'cancelled' || later.has(String(charge.termId))) continue
     const payments = ledger.paidByCharge.get(charge.id) || []
     if (charge.termId === termId) {
       const adjustments = ledger.adjustmentsByCharge.get(charge.id) || []
@@ -774,18 +966,23 @@ export async function accountSummaries(db: D1Database, tenantId: string, period:
   const moves = await db.prepare(`SELECT student_id, to_class_id FROM fee_class_moves WHERE tenant_id = ? AND term_id = ?`).bind(tenantId, period.termId).all()
   const decided = new Set(((moves.results || []) as Record<string, any>[]).map(row => `${row.student_id}|${row.to_class_id}`))
   const termStart = String(period.termStart || '')
+  const later = await laterTermIds(db, tenantId, termStart)
+  // The class fee (its required items) for each class this term: shown beside a student's own
+  // fee, so an individual fee or a group discount is read against what the class pays.
+  const structures = (await listStructures(db, tenantId, { termId: period.termId })).filter(Boolean) as NonNullable<Awaited<ReturnType<typeof getStructure>>>[]
+  const classFee = new Map(structures.map(structure => [structure.classId, money(structure.items.filter(item => item.required).reduce((sum, item) => sum + item.amount, 0))]))
   const seen = new Set<string>()
   const out = enrollments.map(enrollment => {
     seen.add(enrollment.studentId)
     const charges = byStudent.get(enrollment.studentId) || []
     const billedClass = charges.find(charge => charge.termId === period.termId && charge.structured && charge.status !== 'cancelled')?.classId || ''
     const moved = Boolean(billedClass && enrollment.classId && billedClass !== enrollment.classId && !decided.has(`${enrollment.studentId}|${enrollment.classId}`))
-    return { ...enrollment, ...summarise(charges, ledger, period.termId, termStart), classMove: moved ? { fromClassId: billedClass, toClassId: enrollment.classId } : null, left: false }
+    return { ...enrollment, ...summarise(charges, ledger, period.termId, termStart, later), classFee: classFee.get(enrollment.classId) ?? 0, classMove: moved ? { fromClassId: billedClass, toClassId: enrollment.classId } : null, left: false }
   })
   // Students no longer on this term's register but still owing.
   for (const [studentId, charges] of byStudent) {
     if (seen.has(studentId)) continue
-    const summary = summarise(charges, ledger, period.termId, termStart)
+    const summary = summarise(charges, ledger, period.termId, termStart, later)
     if (summary.balance === 0) continue
     const last = charges[charges.length - 1]
     out.push({ studentId, studentName: last?.studentName || studentId, classId: last?.classId || '', className: last?.className ? `${last.className} (left)` : 'Left the register', ...summary, classMove: null, left: true })
@@ -796,7 +993,7 @@ export async function accountSummaries(db: D1Database, tenantId: string, period:
 /** One student's account as a parent would read it. */
 export async function studentStatement(db: D1Database, tenantId: string, studentId: string, period: { termId: string, termStart?: string, termName?: string }) {
   const ledger = await loadLedger(db, tenantId, [studentId])
-  const summary = summarise(ledger.charges, ledger, period.termId, String(period.termStart || ''))
+  const summary = summarise(ledger.charges, ledger, period.termId, String(period.termStart || ''), await laterTermIds(db, tenantId, String(period.termStart || '')))
   const current = ledger.charges.filter(charge => charge.termId === period.termId && charge.status !== 'cancelled')
   const lines: Array<{ kind: string, description: string, charge: number, credit: number, date: string, id?: string }> = []
   if (summary.outstanding) lines.push({ kind: 'outstanding', description: 'Outstanding Fee', charge: summary.outstanding, credit: 0, date: '' })
