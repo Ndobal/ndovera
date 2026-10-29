@@ -1,12 +1,12 @@
 import React, { useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { findHelpArticles, HELP_ARTICLE_VERSION } from './helpArticles';
+import { findHelpArticles, getContextualHelpQuery, HELP_ARTICLE_VERSION } from './helpArticles';
 import { buildHelpSupportSummary } from './supportDraft';
 
 export default function HelpCentre({ role = 'student' }) {
   const navigate = useNavigate();
   const location = useLocation();
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState(() => getContextualHelpQuery(location.state?.from));
   const [selected, setSelected] = useState('');
   const [category, setCategory] = useState('All');
   const [feedback, setFeedback] = useState('');
@@ -40,6 +40,7 @@ export default function HelpCentre({ role = 'student' }) {
         <button type="button" onClick={() => navigate(safeOrigin)} className="rounded-lg border border-[#191970]/30 px-3 py-2 text-sm font-semibold dark:border-white/30">← Return to your dashboard</button>
         <h1 className="mt-5 text-3xl font-bold">Ndovera Help Centre</h1>
         <p className="mt-2 text-sm">Search built-in guidance for your current role. Help articles do not access private school records.</p>
+        {getContextualHelpQuery(safeOrigin) && <button type="button" onClick={() => { setQuery(getContextualHelpQuery(safeOrigin)); setCategory('All'); setSelected(''); }} className="mt-4 rounded-full border border-[#191970]/40 px-3 py-1.5 text-xs font-semibold">Show help for this page</button>}
         <label htmlFor="help-search" className="mt-5 block text-sm font-semibold">What would you like help with?</label>
         <input id="help-search" type="search" value={query} onChange={event => { setQuery(event.target.value); setSelected(''); setCategory('All'); }} placeholder="Try: upload photos, fees, results, messages…" className="mt-2 w-full rounded-xl border border-slate-300 bg-white p-3 text-slate-900 focus-visible:outline focus-visible:outline-4 focus-visible:outline-cyan-500" />
       </div>
