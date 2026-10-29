@@ -3,6 +3,7 @@ import { getAmiWebsiteSections, saveAmiWebsiteSection, uploadAmiWebsiteAsset } f
 import OpportunitiesManager from '../../../features/public/components/OpportunitiesManager';
 import AmiMediaSettings from './AmiMediaSettings';
 import AmiLegalPage from './AmiLegalPage';
+import { publishCorporateDesignMetadata } from '../../../features/public/pages/corporateDesign';
 
 const SECTION_DEFINITIONS = [
   {
@@ -526,7 +527,7 @@ export default function AmiWebsitePage() {
         title: home.title,
         content: home.content,
         imageUrl: home.image_url,
-        metadata: { ...parseMeta(home.metadata), corporateDesign: design },
+        metadata: publishCorporateDesignMetadata(parseMeta(home.metadata), design),
       });
       await loadSections();
       setDesignMessage(`Published ${design === 'executive' ? 'Ndovera Executive' : 'Ndovera Future'}.`);
