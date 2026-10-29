@@ -565,12 +565,13 @@ function DocumentsCard({ data, onSaved }) {
 export default function WebsiteTab() {
   const [sections, setSections] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState('');
 
   function load() {
     setLoading(true);
     getWebsiteSections()
-      .then(d => setSections(d?.sections || []))
-      .catch(() => {})
+      .then(d => { setSections(d?.sections || []); setLoadError(''); })
+      .catch(error => { setLoadError(error.message || 'Could not load website sections. Please retry.'); })
       .finally(() => setLoading(false));
   }
 
@@ -580,7 +581,8 @@ export default function WebsiteTab() {
     return sections.find(s => s.section_key === key) || null;
   }
 
-  if (loading) return <p className="text-[#800020]">Loading...</p>;
+  if (loading) return <p role="status" className="text-[#800020]">Loading website sections...</p>;
+  if (loadError) return <div role="alert" className="rounded-xl border border-red-300 bg-red-50 p-4 text-red-700"><p>{loadError}</p><button type="button" onClick={load} className="mt-3 rounded-lg bg-[#191970] px-4 py-2 font-bold text-white">Retry</button></div>;
 
   return (
     <div className="space-y-5">
