@@ -61,7 +61,7 @@ export async function handlePremisesSecurityRoute(request: Request, db: D1Databa
         WHERE tenant_id = ? AND id = ? AND kind = 'visitor' AND checked_out_at IS NULL`)
         .bind(actor.tenantId, checkout[1]),
       db.prepare(`INSERT INTO premises_security_events (id, tenant_id, record_id, actor_id, action, details)
-        SELECT ?, ?, ?, ?, 'visitor_checked_out', '' WHERE EXISTS (
+        SELECT ?, ?, ?, ?, 'visitor_checked_out', '' WHERE changes() = 1 AND EXISTS (
           SELECT 1 FROM premises_security_records WHERE tenant_id = ? AND id = ?
           AND kind = 'visitor' AND checked_out_at IS NOT NULL
         )`)
@@ -87,7 +87,7 @@ export async function handlePremisesSecurityRoute(request: Request, db: D1Databa
       db.prepare(`UPDATE premises_security_records SET status = ?, updated_at = CURRENT_TIMESTAMP WHERE tenant_id = ? AND id = ? AND status = ?`)
         .bind(status, actor.tenantId, match[1], record.status),
       db.prepare(`INSERT INTO premises_security_events (id, tenant_id, record_id, actor_id, action, details)
-        SELECT ?, ?, ?, ?, 'status_changed', ? WHERE EXISTS
+        SELECT ?, ?, ?, ?, 'status_changed', ? WHERE changes() = 1 AND EXISTS
         (SELECT 1 FROM premises_security_records WHERE tenant_id = ? AND id = ? AND status = ?)`)
         .bind(crypto.randomUUID(), actor.tenantId, match[1], actor.userId, status, actor.tenantId, match[1], status),
     ]);
