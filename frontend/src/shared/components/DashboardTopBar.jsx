@@ -6,6 +6,7 @@ import {
   BellAlertIcon,
   Bars3Icon,
   ChatBubbleLeftRightIcon,
+  QuestionMarkCircleIcon,
   XMarkIcon,
   ArrowDownTrayIcon,
   ArrowLeftIcon,
@@ -505,6 +506,16 @@ export default function DashboardTopBar({ authUser = null, onLogout = () => {}, 
                 {chatsCount}
               </span>
             )}
+          </button>
+
+          <button
+            type="button"
+            onClick={() => navigate(`/roles/${roleKey}/help`, { state: { from: location.pathname } })}
+            className="glass-chip relative rounded-xl p-2 text-slate-700 transition-colors hover:bg-white/70 focus-visible:outline focus-visible:outline-4 focus-visible:outline-cyan-500 dark:text-slate-100 dark:hover:bg-slate-700/60"
+            aria-label="Open Help Centre"
+            title="Help Centre"
+          >
+            <QuestionMarkCircleIcon className="h-5 w-5" />
           </button>
 
           <button
