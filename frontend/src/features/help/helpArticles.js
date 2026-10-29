@@ -39,7 +39,8 @@ export function findHelpArticles(query, role, currentPath = '') {
   return HELP_ARTICLES.filter(article => article.roles.includes(normalizedRole))
     .map(article => {
       const haystack = [article.title, article.category, article.keywords, ...article.steps].join(' ').toLowerCase();
-      const score = terms.length ? terms.reduce((n, term) => n + (haystack.includes(term) ? 1 : 0), 0) : 1;
+      const title = article.title.toLowerCase();
+      const score = terms.length ? terms.reduce((n, term) => n + (title.includes(term) ? 3 : haystack.includes(term) ? 1 : 0), 0) : 1;
       return { article, score: score + (article.route && currentPath.startsWith(article.route) ? 0.1 : 0) };
     })
     .filter(result => result.score > 0)
