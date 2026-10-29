@@ -565,8 +565,21 @@ function MediaFrame({ url, title, className = 'h-full w-full object-cover rounde
 function MediaGallery({ section, eyebrow, title, description, tone = 'light' }) {
   const media = getSectionMedia(section);
   const [activeIndex, setActiveIndex] = useState(null);
+  const viewerCloseRef = React.useRef(null);
+  const previousFocusRef = React.useRef(null);
   const isDark = tone === 'dark';
   const close = () => setActiveIndex(null);
+  const open = index => { previousFocusRef.current = document.activeElement; setActiveIndex(index); };
+  useEffect(() => {
+    if (activeIndex === null) return undefined;
+    viewerCloseRef.current?.focus();
+    const priorOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = priorOverflow;
+      previousFocusRef.current?.focus?.();
+    };
+  }, [activeIndex === null]);
   const move = delta => setActiveIndex(index => index === null ? null : (index + delta + media.length) % media.length);
 
   useEffect(() => {
@@ -586,11 +599,11 @@ function MediaGallery({ section, eyebrow, title, description, tone = 'light' }) 
       <SectionHeading eyebrow={eyebrow} title={title} description={description} tone={isDark ? 'inverse' : 'default'} />
       <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
         {media.map((url, index) => (
-          <button key={`${url}-${index}`} type="button" onClick={() => setActiveIndex(index)}
-            aria-label={`View ${section.title} media ${index + 1} of ${media.length}`}
+          <div key={`${url}-${index}`} role="group" aria-label={`View ${section.title} media ${index + 1} of ${media.length}`}
             className={`overflow-hidden rounded-[1.5rem] border border-[#c9a96e]/35 p-2 text-left focus-visible:outline focus-visible:outline-4 focus-visible:outline-cyan-500 sm:p-3 ${isDark ? 'bg-white/5' : 'bg-[#b5e3f4]/45'}`}>
             <MediaFrame url={url} title={`${section.title} media ${index + 1}`} className="h-52 w-full rounded-[1.1rem] object-cover sm:h-56" />
-          </button>
+            <button type="button" onClick={() => open(index)} className="mt-2 w-full rounded-xl bg-[#191970] px-3 py-2 text-sm font-semibold text-white focus-visible:outline focus-visible:outline-4 focus-visible:outline-cyan-500">Open media {index + 1}</button>
+          </div>
         ))}
       </div>
       {activeIndex !== null && (
@@ -604,7 +617,7 @@ function MediaGallery({ section, eyebrow, title, description, tone = 'light' }) 
           }}>
           <div className="flex items-center justify-between gap-3 pb-3">
             <span className="text-sm font-semibold text-white">{section.title} · {activeIndex + 1} of {media.length}</span>
-            <button type="button" onClick={close} aria-label="Close viewer" className="rounded-full border border-white/40 px-4 py-2 text-sm font-bold text-white hover:bg-white/20">Close ×</button>
+            <button ref={viewerCloseRef} type="button" onClick={close} aria-label="Close viewer" className="rounded-full border border-white/40 px-4 py-2 text-sm font-bold text-white hover:bg-white/20">Close ×</button>
           </div>
           <div className="flex min-h-0 flex-1 items-center justify-center gap-2 sm:gap-5">
             <button type="button" onClick={() => move(-1)} aria-label="Previous media" className="rounded-full border border-white/40 p-3 text-2xl text-white hover:bg-white/20">‹</button>
