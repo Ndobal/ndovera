@@ -123,6 +123,23 @@ export default function PremisesSecurityDashboard({ role }) {
           </article>)}</div>}
       </section>
     </div>
+    <section className="rounded-xl border bg-white p-5 shadow-sm">
+      <h2 className="text-xl font-semibold">Patrol checkpoints</h2>
+      <p className="mt-1 text-sm text-slate-600">Manual guard check-ins; not GPS-verified.</p>
+      {supervisor && <form onSubmit={addCheckpoint} className="mt-3 flex flex-wrap gap-2">
+        <input className="rounded border p-2" aria-label="Checkpoint name" required placeholder="Checkpoint name" value={checkpointName} onChange={e => setCheckpointName(e.target.value)}/>
+        <input className="rounded border p-2" aria-label="Checkpoint location" required placeholder="Location" value={checkpointLocation} onChange={e => setCheckpointLocation(e.target.value)}/>
+        <button className="rounded bg-[#191970] px-3 py-2 text-white">Add checkpoint</button>
+      </form>}
+      <div className="mt-4 grid gap-2 sm:grid-cols-2">
+        {patrolData.checkpoints.filter(item => item.active).map(item => <div key={item.id} className="rounded border p-3">
+          <strong>{item.name}</strong><p className="text-sm">{item.location}</p>
+          <button className="mt-2 rounded border px-3 py-2" onClick={() => recordPatrol(item.id)}>Record patrol visit</button>
+        </div>)}
+      </div>
+      <h3 className="mt-5 font-semibold">Recent patrol visits</h3>
+      <ul className="mt-2 space-y-2">{patrolData.rounds.slice(0,20).map(item => <li key={item.id} className="text-sm">{item.checkpoint_name} · {item.checked_at} · {item.officer_id}</li>)}</ul>
+    </section>
     {historyLoading && <p role="status">Loading record history…</p>}
     {selected && <section className="rounded-xl border bg-white p-5 shadow-sm">
       <div className="flex items-center justify-between"><h2 className="text-xl font-semibold">Security record & audit trail</h2><button className="rounded border px-3 py-1" onClick={() => setSelected(null)}>Close</button></div>
