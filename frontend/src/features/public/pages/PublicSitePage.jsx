@@ -774,23 +774,23 @@ export function PublicShell({ section, notice, children, flier, hideHero = false
 
       {/* Full-bleed hero with sliding background carousel */}
       {hideHero ? null : (
-      <section className="relative isolate overflow-hidden bg-[#04190d]">
+      <section className={`relative isolate overflow-hidden ${design === 'future' ? 'bg-[#102a43]' : 'bg-[#191970]'}`}>
         <HeroSlides media={heroMedia} />
-        <div className="absolute inset-0 -z-10 bg-gradient-to-br from-[#010804]/72 via-[#04190d]/60 to-[#072214]/50" />
-        <div className="absolute inset-x-0 bottom-0 -z-10 h-2/5 bg-gradient-to-t from-[#010804]/72 to-transparent" />
-        <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-28 lg:px-8 lg:py-36">
+        <div className={`absolute inset-0 -z-10 ${design === 'future' ? 'bg-gradient-to-br from-[#061a31]/90 via-[#087f8c]/65 to-[#102a43]/85' : 'bg-gradient-to-br from-[#10133a]/85 via-[#191970]/65 to-[#681d36]/80'}`} />
+        <div className="absolute inset-x-0 bottom-0 -z-10 h-2/5 bg-gradient-to-t from-black/70 to-transparent" />
+        <div className={`mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 ${design === 'future' ? 'py-24 sm:py-32 lg:py-44' : 'py-20 sm:py-28 lg:py-36'}`}>
           <div className="max-w-3xl motion-safe:animate-[heroIn_.7s_ease-out]">
-            <p className="inline-flex rounded-full border border-[#ffd84a]/55 bg-black/30 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.3em] text-[#ffd84a]">
+            <p className={`inline-flex rounded-full border px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.3em] ${design === 'future' ? 'border-[#9ee6ed] bg-[#102a43]/80 text-[#d7faff]' : 'border-[#e3c98b] bg-black/40 text-[#ffe8aa]'}`}>
               {section.eyebrow}
             </p>
             <h1 className="mt-5 font-serif text-4xl font-black leading-[1.05] tracking-tight !text-white [text-shadow:0_2px_18px_rgba(0,0,0,0.75)] sm:text-5xl lg:text-[4rem]">
               {section.title}
             </h1>
-            <p className="mt-5 max-w-2xl text-lg leading-8 text-[#ffeca6] [text-shadow:0_1px_12px_rgba(0,0,0,0.7)]">
+            <p className={`mt-5 max-w-2xl text-lg leading-8 [text-shadow:0_1px_12px_rgba(0,0,0,0.7)] ${design === 'future' ? 'text-[#e0fbff]' : 'text-[#fff0c8]'}`}>
               {section.description}
             </p>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-              <ActionLink to="/register-school" className="rounded-full bg-[#e3c98b] px-7 py-3.5 text-center text-sm font-bold uppercase tracking-wide text-[#191970] transition hover:bg-white">
+              <ActionLink to="/register-school" className={`rounded-full px-7 py-3.5 text-center text-sm font-bold uppercase tracking-wide transition hover:bg-white ${design === 'future' ? 'bg-[#b9f0f5] text-[#102a43]' : 'bg-[#e3c98b] text-[#191970]'}`}>
                 Register School
               </ActionLink>
               <ActionLink to="/login" className="rounded-full border border-white/40 px-7 py-3.5 text-center text-sm font-bold uppercase tracking-wide text-white transition hover:bg-white/10">
