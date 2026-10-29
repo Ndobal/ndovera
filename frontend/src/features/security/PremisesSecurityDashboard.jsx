@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { getApiUrl, getStoredAuth, buildSelectedRoleHeader } from '../../shared/utils/api';
+import { getApiUrl } from '../../config/apiBase';
+import { getStoredAuth, buildSelectedRoleHeader } from '../auth/services/authApi';
 const KINDS = ['incident','visitor','patrol','handover','gate','hazard'];
 const SEVERITIES = ['low','medium','high','critical'];
 const SUPERVISORS = new Set(['chiefsecurityofficer','owner','hos']);
