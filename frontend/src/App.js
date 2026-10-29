@@ -268,7 +268,7 @@ function AnimatedRoutes({ auth, onLogin }) {
         <Route path="/championships" element={<PublicChampionshipsPage />} />
         <Route path="/invoice/:token" element={<InvoicePayPage />} />
         <Route path="/championships/:slug" element={<PublicChampionshipDetailPage />} />
-        <Route path="/roles/:role/help" element={<RequireAuth auth={auth}><RouteTransition><HelpCentre role={authRole} /></RouteTransition></RequireAuth>} />
+        <Route path="/roles/:role/help" element={<RequireAuth auth={auth}><HelpCentre role={authRole} /></RequireAuth>} />
         {/* One payslip page for every staff role (teachers, HoS, accountant, ICT, librarian, clinic, …). */}
         <Route path="/roles/:role/payslip" element={<RequireAuth auth={auth}><RouteTransition><TeacherPayslip auth={auth} /></RouteTransition></RequireAuth>} />
         <Route path="/roles/:role/finance-report" element={<RequireAuth auth={auth}><RouteTransition><FinancialStandingsReport /></RouteTransition></RequireAuth>} />
