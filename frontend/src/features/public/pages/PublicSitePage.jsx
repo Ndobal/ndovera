@@ -563,25 +563,58 @@ function MediaFrame({ url, title, className = 'h-full w-full object-cover rounde
 
 function MediaGallery({ section, eyebrow, title, description, tone = 'light' }) {
   const media = getSectionMedia(section);
-  if (!media.length) return null;
-
+  const [activeIndex, setActiveIndex] = useState(null);
   const isDark = tone === 'dark';
+  const close = () => setActiveIndex(null);
+  const move = delta => setActiveIndex(index => index === null ? null : (index + delta + media.length) % media.length);
 
+  useEffect(() => {
+    if (activeIndex === null) return undefined;
+    const onKeyDown = event => {
+      if (event.key === 'Escape') { event.preventDefault(); close(); }
+      if (event.key === 'ArrowLeft') { event.preventDefault(); move(-1); }
+      if (event.key === 'ArrowRight') { event.preventDefault(); move(1); }
+    };
+    document.addEventListener('keydown', onKeyDown);
+    return () => document.removeEventListener('keydown', onKeyDown);
+  }, [activeIndex, media.length]);
+
+  if (!media.length) return null;
   return (
     <Reveal as="section" className={`rounded-[2rem] border border-[#c9a96e]/45 p-5 shadow-[0_18px_40px_rgba(25,25,112,0.08)] sm:p-6 ${isDark ? 'bg-[#191970]' : 'bg-[#fff8ef]'}`}>
       <SectionHeading eyebrow={eyebrow} title={title} description={description} tone={isDark ? 'inverse' : 'default'} />
       <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
         {media.map((url, index) => (
-          <article
-            key={`${url}-${index}`}
-            data-reveal
-            data-reveal-delay={(index % 4) + 1}
-            className={`public-reveal overflow-hidden rounded-[1.5rem] border border-[#c9a96e]/35 p-2 sm:p-3 ${isDark ? 'bg-white/5' : 'bg-[#b5e3f4]/45'}`}
-          >
+          <button key={`${url}-${index}`} type="button" onClick={() => setActiveIndex(index)}
+            aria-label={`View ${section.title} media ${index + 1} of ${media.length}`}
+            className={`overflow-hidden rounded-[1.5rem] border border-[#c9a96e]/35 p-2 text-left focus-visible:outline focus-visible:outline-4 focus-visible:outline-cyan-500 sm:p-3 ${isDark ? 'bg-white/5' : 'bg-[#b5e3f4]/45'}`}>
             <MediaFrame url={url} title={`${section.title} media ${index + 1}`} className="h-52 w-full rounded-[1.1rem] object-cover sm:h-56" />
-          </article>
+          </button>
         ))}
       </div>
+      {activeIndex !== null && (
+        <div role="dialog" aria-modal="true" aria-label={`${section.title} media viewer`}
+          className="fixed inset-0 z-[110] flex flex-col bg-[#070d1b]/95 p-3 text-white sm:p-6"
+          onTouchStart={event => { event.currentTarget.dataset.touchX = String(event.touches[0]?.clientX ?? ''); }}
+          onTouchEnd={event => {
+            const startX = Number(event.currentTarget.dataset.touchX);
+            const endX = event.changedTouches[0]?.clientX;
+            if (Number.isFinite(startX) && Number.isFinite(endX) && Math.abs(endX - startX) > 65) move(endX < startX ? 1 : -1);
+          }}>
+          <div className="flex items-center justify-between gap-3 pb-3">
+            <span className="text-sm font-semibold text-white">{section.title} · {activeIndex + 1} of {media.length}</span>
+            <button type="button" onClick={close} aria-label="Close viewer" className="rounded-full border border-white/40 px-4 py-2 text-sm font-bold text-white hover:bg-white/20">Close ×</button>
+          </div>
+          <div className="flex min-h-0 flex-1 items-center justify-center gap-2 sm:gap-5">
+            <button type="button" onClick={() => move(-1)} aria-label="Previous media" className="rounded-full border border-white/40 p-3 text-2xl text-white hover:bg-white/20">‹</button>
+            <div className="flex min-h-0 min-w-0 flex-1 items-center justify-center overflow-hidden">
+              <MediaFrame key={media[activeIndex]} url={media[activeIndex]} title={`${section.title} media ${activeIndex + 1}`} className="max-h-[75vh] max-w-full rounded-xl object-contain" />
+            </div>
+            <button type="button" onClick={() => move(1)} aria-label="Next media" className="rounded-full border border-white/40 p-3 text-2xl text-white hover:bg-white/20">›</button>
+          </div>
+          <p className="pt-3 text-center text-xs text-white/80">Use ← and → to browse, Esc to close, or swipe on mobile.</p>
+        </div>
+      )}
     </Reveal>
   );
 }
