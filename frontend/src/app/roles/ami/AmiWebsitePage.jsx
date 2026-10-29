@@ -281,6 +281,7 @@ function SectionEditor({ section, data, onSaved }) {
         content: form.content,
         imageUrl: form.imageUrl,
         metadata: {
+          ...parseMeta(data?.metadata),
           eyebrow: form.eyebrow,
           spotlightEyebrow: form.spotlightEyebrow,
           spotlightTitle: form.spotlightTitle,
@@ -510,6 +511,29 @@ export default function AmiWebsitePage() {
   const [activeTab, setActiveTab] = useState(SECTION_DEFINITIONS[0].key);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [publishingDesign, setPublishingDesign] = useState('');
+  const [designMessage, setDesignMessage] = useState('');
+
+  async function publishDesign(design) {
+    if (!['executive', 'future'].includes(design)) return;
+    const home = sections.find(item => item.section_key === 'home');
+    if (!home) { setDesignMessage('Create and save the Homepage section before publishing a design.'); return; }
+    setPublishingDesign(design);
+    setDesignMessage('');
+    try {
+      await saveAmiWebsiteSection({
+        sectionKey: 'home',
+        title: home.title,
+        content: home.content,
+        imageUrl: home.image_url,
+        metadata: { ...parseMeta(home.metadata), corporateDesign: design },
+      });
+      await loadSections();
+      setDesignMessage(`Published ${design === 'executive' ? 'Ndovera Executive' : 'Ndovera Future'}.`);
+    } catch (error) {
+      setDesignMessage(error.message || 'Could not publish the selected design.');
+    } finally { setPublishingDesign(''); }
+  }
 
   async function loadSections() {
     setLoading(true);
@@ -555,11 +579,15 @@ export default function AmiWebsitePage() {
               </div>
               <h3 className="mt-3 text-lg font-bold text-[#191970] dark:text-white">{theme.title}</h3>
               <p className="mt-1 text-sm text-[#31416f] dark:text-slate-200">{theme.description}</p>
-              <a href={`/?design=${theme.id}`} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex rounded-full bg-[#191970] px-5 py-2.5 text-sm font-bold text-white hover:bg-[#303080]">Preview {theme.title} ↗</a>
+              <div className="mt-4 flex flex-wrap gap-2">
+                <a href={`/?design=${theme.id}`} target="_blank" rel="noopener noreferrer" className="inline-flex rounded-full border border-[#191970] px-4 py-2.5 text-sm font-bold text-[#191970] dark:border-white dark:text-white">Preview ↗</a>
+                <button type="button" disabled={Boolean(publishingDesign) || loading || !sectionsByKey.home} onClick={() => publishDesign(theme.id)} className="rounded-full bg-[#191970] px-4 py-2.5 text-sm font-bold text-white disabled:opacity-50">{publishingDesign === theme.id ? 'Publishing...' : parseMeta(sectionsByKey.home?.metadata).corporateDesign === theme.id || (theme.id === 'executive' && !parseMeta(sectionsByKey.home?.metadata).corporateDesign) ? 'Published' : 'Publish design'}</button>
+              </div>
             </article>
           ))}
         </div>
-        <p className="mt-4 text-xs font-medium text-[#800020] dark:text-amber-200">Publishing a different default design requires an authenticated, server-persisted setting; previews are not a publish action.</p>
+        <p className="mt-4 text-xs font-medium text-[#800020] dark:text-amber-200">Publishing updates the existing Homepage record. The previous design can be restored at any time.</p>
+        {designMessage ? <p role="status" className="mt-3 text-sm font-semibold text-[#191970] dark:text-white">{designMessage}</p> : null}
       </section>
 
       {loading ? <p className="text-sm text-[#800020] dark:text-slate-400">Loading website sections...</p> : null}
