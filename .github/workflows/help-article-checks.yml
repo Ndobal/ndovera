@@ -1,0 +1,39 @@
+name: Help article workflow checks
+on:
+  push:
+    branches:
+      - feature/ndovera-premium-upgrade-2026
+    paths:
+      - 'frontend/backend/src/helpArticleWorkflow.ts'
+      - 'frontend/backend/src/helpArticleRoutes.ts'
+      - 'frontend/backend/test/help-article-workflow.test.mjs'
+      - 'frontend/backend/test/help-article-routes.test.mjs'
+      - '.github/workflows/help-article-checks.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  article-workflow:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend/backend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: frontend/backend/package-lock.json
+      - run: npm ci
+      - name: Build article modules for Node tests
+        run: |
+          mkdir -p test/build
+          npx --yes esbuild src/helpArticleWorkflow.ts --bundle --format=esm --platform=node --outfile=test/build/helpArticleWorkflow.mjs
+          npx --yes esbuild src/helpArticleRoutes.ts --bundle --format=esm --platform=node --outfile=test/build/helpArticleRoutes.mjs
+      - name: Run help article tests
+        run: node --test test/help-article-workflow.test.mjs test/help-article-routes.test.mjs
+      - name: Check Worker compilation
+        run: npm run build
