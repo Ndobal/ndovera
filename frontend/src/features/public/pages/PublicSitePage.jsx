@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import './publicThemes.css';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import {
   AcademicCapIcon,
@@ -671,7 +672,7 @@ function HeroSlides({ media }) {
   );
 }
 
-export function PublicShell({ section, notice, children, flier, hideHero = false, hideCta = false }) {
+export function PublicShell({ section, notice, children, flier, hideHero = false, hideCta = false, design = 'executive' }) {
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const heroStats = Array.isArray(section.metadata.stats) ? section.metadata.stats : [];
@@ -684,7 +685,7 @@ export function PublicShell({ section, notice, children, flier, hideHero = false
   }, [location.pathname]);
 
   return (
-    <div className="min-h-screen overflow-x-hidden bg-white text-[#191970]">
+    <div data-ndovera-design={design} className="ndovera-corporate-site min-h-screen overflow-x-hidden bg-white text-[#191970]">
       <FlierPopup flier={flier} />
       {/* Utility bar */}
       <div className="hidden bg-[#10133a] text-white lg:block">
@@ -1744,6 +1745,10 @@ function GalleryPageBody({ section }) {
 
 export default function PublicSitePage({ pageKey = 'home' }) {
   const pageLocation = useLocation();
+  // URL previews never change the saved content or payment/registration flows.
+  // The executive design is the safe default when no preview is requested.
+  const requestedDesign = new URLSearchParams(pageLocation.search).get('design');
+  const design = requestedDesign === 'future' ? 'future' : 'executive';
   const [sections, setSections] = useState([]);
   const [error, setError] = useState('');
   const [pricing, setPricing] = useState({ plans: [], pricingConfig: null, quotes: {}, discount: null });
@@ -1902,6 +1907,7 @@ export default function PublicSitePage({ pageKey = 'home' }) {
       notice={error}
       flier={normalizeSection('flier', sectionsByKey.flier)}
       hideHero={pageKey === 'pricing'}
+      design={design}
     >
       {body}
     </PublicShell>
