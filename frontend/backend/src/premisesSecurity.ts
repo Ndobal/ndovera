@@ -16,6 +16,51 @@ export async function handlePremisesSecurityRoute(request: Request, db: D1Databa
   if (!actor?.tenantId || !actor.userId) return error('Authentication required.', 401);
   if (!permitted.has(actor.role)) return error('Security role required.', 403);
   const isSupervisor = supervisors.has(actor.role);
+  if (path === '/api/premises-security/checkpoints' && request.method === 'GET') {
+    const [checkpoints, rounds] = await db.batch([
+      db.prepare(`SELECT id, name, location, active, created_at FROM premises_security_checkpoints WHERE tenant_id = ? ORDER BY active DESC, name LIMIT 200`).bind(actor.tenantId),
+      db.prepare(`SELECT p.id, p.checkpoint_id, p.officer_id, p.notes, p.checked_at, c.name AS checkpoint_name
+        FROM premises_security_patrol_checks p JOIN premises_security_checkpoints c ON c.id = p.checkpoint_id AND c.tenant_id = p.tenant_id
+        WHERE p.tenant_id = ? ORDER BY p.checked_at DESC LIMIT 100`).bind(actor.tenantId),
+    ]);
+    return json({ checkpoints: checkpoints.results || [], rounds: rounds.results || [] });
+  }
+  if (path === '/api/premises-security/checkpoints' && request.method === 'POST') {
+    if (!isSupervisor) return error('Supervisor permission required.', 403);
+    const raw = await request.text();
+    if (raw.length > 2000) return error('Request too large.', 413);
+    let input: any;
+    try { input = JSON.parse(raw); } catch { return error('Invalid JSON.', 400); }
+    const name = short(input?.name, 100), location = short(input?.location, 150);
+    if (!name || !location) return error('Checkpoint name and location are required.', 400);
+    const id = crypto.randomUUID();
+    await db.prepare(`INSERT INTO premises_security_checkpoints (id, tenant_id, name, location, created_by) VALUES (?, ?, ?, ?, ?)`)
+      .bind(id, actor.tenantId, name, location, actor.userId).run();
+    return json({ id, name, location, active: 1 }, 201);
+  }
+  const checkpoint = /^\/api\/premises-security\/checkpoints\/([0-9a-f-]{36})\/([a-z-]+)$/.exec(path);
+  if (checkpoint && request.method === 'PATCH' && checkpoint[2] === 'deactivate') {
+    if (!isSupervisor) return error('Supervisor permission required.', 403);
+    const result = await db.prepare(`UPDATE premises_security_checkpoints SET active = 0 WHERE tenant_id = ? AND id = ? AND active = 1`)
+      .bind(actor.tenantId, checkpoint[1]).run();
+    if (Number(result.meta?.changes || 0) !== 1) return error('Checkpoint not found or already inactive.', 404);
+    return json({ id: checkpoint[1], active: 0 });
+  }
+  if (path === '/api/premises-security/patrol-checks' && request.method === 'POST') {
+    const raw = await request.text();
+    if (raw.length > 4000) return error('Request too large.', 413);
+    let input: any;
+    try { input = JSON.parse(raw); } catch { return error('Invalid JSON.', 400); }
+    const checkpointId = short(input?.checkpointId, 36);
+    const notes = short(input?.notes, 1000);
+    if (!/^[0-9a-f-]{36}$/.test(checkpointId)) return error('Valid checkpoint required.', 400);
+    const id = crypto.randomUUID();
+    const result = await db.prepare(`INSERT INTO premises_security_patrol_checks (id, tenant_id, checkpoint_id, officer_id, notes)
+      SELECT ?, ?, id, ?, ? FROM premises_security_checkpoints WHERE tenant_id = ? AND id = ? AND active = 1`)
+      .bind(id, actor.tenantId, actor.userId, notes, actor.tenantId, checkpointId).run();
+    if (Number(result.meta?.changes || 0) !== 1) return error('Checkpoint not found or inactive.', 404);
+    return json({ id, checkpointId, officerId: actor.userId }, 201);
+  }
   if (path === '/api/premises-security/overview' && request.method === 'GET') {
     const [summary, latest, visitors, escalations] = await db.batch([
       db.prepare(`SELECT kind, status, COUNT(*) AS total FROM premises_security_records WHERE tenant_id = ? GROUP BY kind, status`).bind(actor.tenantId),
