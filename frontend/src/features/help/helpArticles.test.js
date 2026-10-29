@@ -38,6 +38,31 @@ describe('Help Centre approved knowledge catalogue', () => {
     expect(parentArticles.length).toBeGreaterThan(0);
     expect(parentArticles.every(article => article.roles.includes('parent'))).toBe(true);
   });
+  test('expanded operational catalogue covers core school functions', () => {
+    for (const id of ['admissions', 'student-record', 'class-assignments', 'curriculum-topics', 'lesson-notes', 'assessment-create', 'marking', 'fees-setup', 'payment-reconciliation', 'payroll-dispute', 'school-messages', 'upload-troubleshooting']) {
+      expect(HELP_ARTICLES.some(article => article.id === id)).toBe(true);
+    }
+    expect(HELP_ARTICLES.length).toBeGreaterThanOrEqual(30);
+  });
+  test('students do not receive financial administration or staff records guides', () => {
+    const ids = findHelpArticles('', 'student').map(article => article.id);
+    for (const restricted of ['fees-setup', 'payment-reconciliation', 'staff-loans', 'student-record', 'marking']) {
+      expect(ids).not.toContain(restricted);
+    }
+    expect(ids).toContain('assessment-student');
+  });
+  test('parents see child-specific guidance but not management tools', () => {
+    const ids = findHelpArticles('', 'parent').map(article => article.id);
+    expect(ids).toContain('parent-multiple');
+    expect(ids).toContain('receipt-parent');
+    expect(ids).not.toContain('class-assignments');
+  });
+  test('operational articles have distinct ids and meaningful instructions', () => {
+    for (const article of HELP_ARTICLES) {
+      expect(article.title.trim().length).toBeGreaterThan(5);
+      expect(article.steps.every(step => typeof step === 'string' && step.trim().length > 12)).toBe(true);
+    }
+  });
   test('articles do not contain tenant-specific record identifiers', () => {
     for (const article of HELP_ARTICLES) {
       expect(article.roles.length).toBeGreaterThan(0);
