@@ -541,6 +541,27 @@ export default function AmiWebsitePage() {
         </p>
       </section>
 
+      <section aria-label="Corporate website designs" className="rounded-3xl border border-[#c9a96e]/50 bg-[#fff8ee] p-5 shadow-sm dark:border-slate-600 dark:bg-slate-900">
+        <h2 className="text-xl font-black text-[#191970] dark:text-white">Premium website designs</h2>
+        <p className="mt-2 text-sm text-[#31416f] dark:text-slate-200">Preview both designs with your real published website content. These links do not change the live site or school registration.</p>
+        <div className="mt-4 grid gap-4 md:grid-cols-2">
+          {[
+            { id: 'executive', title: 'Ndovera Executive', description: 'Navy, burgundy and gold — polished institutional design.', palette: ['#191970','#800020','#c9a96e','#fff8ee'] },
+            { id: 'future', title: 'Ndovera Future', description: 'Deep blue, teal and cyan — modern technology-forward design.', palette: ['#102a43','#087f8c','#b9f0f5','#eaf8fa'] },
+          ].map(theme => (
+            <article key={theme.id} className="rounded-2xl border border-[#c9a96e]/50 bg-white p-4 dark:border-slate-600 dark:bg-slate-800">
+              <div className="flex h-14 overflow-hidden rounded-xl border border-slate-200" aria-hidden="true">
+                {theme.palette.map(color => <span key={color} style={{ backgroundColor: color }} className="flex-1" />)}
+              </div>
+              <h3 className="mt-3 text-lg font-bold text-[#191970] dark:text-white">{theme.title}</h3>
+              <p className="mt-1 text-sm text-[#31416f] dark:text-slate-200">{theme.description}</p>
+              <a href={`/?design=${theme.id}`} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex rounded-full bg-[#191970] px-5 py-2.5 text-sm font-bold text-white hover:bg-[#303080]">Preview {theme.title} ↗</a>
+            </article>
+          ))}
+        </div>
+        <p className="mt-4 text-xs font-medium text-[#800020] dark:text-amber-200">Publishing a different default design requires an authenticated, server-persisted setting; previews are not a publish action.</p>
+      </section>
+
       {loading ? <p className="text-sm text-[#800020] dark:text-slate-400">Loading website sections...</p> : null}
       {error ? <p className="rounded-2xl border border-red-300/30 bg-red-50 px-4 py-3 text-sm text-red-600 dark:bg-red-950/30 dark:text-red-200">{error}</p> : null}
 
