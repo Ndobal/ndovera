@@ -29,6 +29,8 @@ const roleOptions = [
   { label: 'Nursery Head', path: '/roles/nurseryhead' },
   { label: 'Exam Officer', path: '/roles/examofficer' },
   { label: 'Sports Master', path: '/roles/sportsmaster' },
+  { label: 'Chief Security Officer', path: '/roles/chiefsecurityofficer' },
+  { label: 'Security Officer', path: '/roles/securityofficer' },
   { label: 'Ami', path: '/roles/ami' },
 ];
 
