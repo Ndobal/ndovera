@@ -26,6 +26,9 @@ export default function PremisesSecurityDashboard({ role }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [notice, setNotice] = useState('');
+  const [patrolData, setPatrolData] = useState({ checkpoints: [], rounds: [] });
+  const [checkpointName, setCheckpointName] = useState('');
+  const [checkpointLocation, setCheckpointLocation] = useState('');
   const [filter, setFilter] = useState('all');
   const [selected, setSelected] = useState(null);
   const [historyLoading, setHistoryLoading] = useState(false);
@@ -35,6 +38,8 @@ export default function PremisesSecurityDashboard({ role }) {
     catch (err) { setError(err.message); }
     finally { setLoading(false); }
   }, []);
+  const loadPatrols = useCallback(async () => { try { setPatrolData(await api('/checkpoints')); } catch (err) { setError(err.message); } }, []);
+  useEffect(() => { loadPatrols(); }, [loadPatrols]);
   useEffect(() => { load(); }, [load]);
   const records = useMemo(() => (data.records || []).filter(r => filter === 'all' || r.kind === filter), [data, filter]);
   const count = (status) => (data.summary || []).filter(r => r.status === status).reduce((sum, r) => sum + Number(r.total || 0), 0);
@@ -57,6 +62,8 @@ export default function PremisesSecurityDashboard({ role }) {
       await load();
     } catch (err) { setError(err.message); }
   };
+  const addCheckpoint = async (event) => { event.preventDefault(); try { await api('/checkpoints', { method: 'POST', body: JSON.stringify({ name: checkpointName, location: checkpointLocation }) }); setCheckpointName(''); setCheckpointLocation(''); await loadPatrols(); } catch (err) { setError(err.message); } };
+  const recordPatrol = async (id) => { try { await api('/patrol-checks', { method: 'POST', body: JSON.stringify({ checkpointId: id }) }); setNotice('Patrol visit recorded.'); await loadPatrols(); } catch (err) { setError(err.message); } };
   const checkout = async (id) => {
     try {
       await api('/records/' + id + '/checkout', { method: 'PATCH' });
