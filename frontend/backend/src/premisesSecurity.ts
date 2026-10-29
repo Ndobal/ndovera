@@ -17,11 +17,13 @@ export async function handlePremisesSecurityRoute(request: Request, db: D1Databa
   if (!permitted.has(actor.role)) return error('Security role required.', 403);
   const isSupervisor = supervisors.has(actor.role);
   if (path === '/api/premises-security/overview' && request.method === 'GET') {
-    const [summary, latest] = await db.batch([
+    const [summary, latest, visitors, escalations] = await db.batch([
       db.prepare(`SELECT kind, status, COUNT(*) AS total FROM premises_security_records WHERE tenant_id = ? GROUP BY kind, status`).bind(actor.tenantId),
-      db.prepare(`SELECT id, kind, title, location, notes, severity, status, created_at, created_by, checked_out_at FROM premises_security_records WHERE tenant_id = ? ORDER BY created_at DESC LIMIT 60`).bind(actor.tenantId),
+      db.prepare(`SELECT id, kind, title, location, notes, severity, status, created_at, created_by, checked_out_at, escalated_at, acknowledged_at FROM premises_security_records WHERE tenant_id = ? ORDER BY created_at DESC LIMIT 60`).bind(actor.tenantId),
+      db.prepare(`SELECT COUNT(*) AS total FROM premises_security_records WHERE tenant_id = ? AND kind = 'visitor' AND checked_out_at IS NULL`).bind(actor.tenantId),
+      db.prepare(`SELECT COUNT(*) AS total FROM premises_security_records WHERE tenant_id = ? AND escalated_at IS NOT NULL AND acknowledged_at IS NULL AND status != 'resolved'`).bind(actor.tenantId),
     ]);
-    return json({ summary: summary.results, records: latest.results, supervisor: isSupervisor, activeVisitors: (latest.results || []).filter((row: any) => row.kind === 'visitor' && !row.checked_out_at).length });
+    return json({ summary: summary.results, records: latest.results, supervisor: isSupervisor, activeVisitors: Number((visitors.results?.[0] as any)?.total || 0), pendingEscalations: Number((escalations.results?.[0] as any)?.total || 0) });
   }
   if (path === '/api/premises-security/records' && request.method === 'POST') {
     const raw = await request.text();
@@ -42,9 +44,27 @@ export async function handlePremisesSecurityRoute(request: Request, db: D1Databa
     ]);
     return json({ id, status: 'open' }, 201);
   }
+  const escalation = /^\/api\/premises-security\/records\/([0-9a-f-]{36})\/(escalate|acknowledge)$/.exec(path);
+  if (escalation && request.method === 'PATCH') {
+    const [, id, action] = escalation;
+    if (action === 'acknowledge' && !isSupervisor) return error('Supervisor permission required.', 403);
+    const condition = action === 'escalate'
+      ? "escalated_at IS NULL AND status != 'resolved' AND kind IN ('incident','hazard','gate')"
+      : "escalated_at IS NOT NULL AND acknowledged_at IS NULL AND status != 'resolved'";
+    const field = action === 'escalate' ? 'escalated_at' : 'acknowledged_at';
+    const [changed] = await db.batch([
+      db.prepare(`UPDATE premises_security_records SET ${field} = CURRENT_TIMESTAMP, updated_at = CURRENT_TIMESTAMP
+        WHERE tenant_id = ? AND id = ? AND ${condition}`).bind(actor.tenantId, id),
+      db.prepare(`INSERT INTO premises_security_events (id, tenant_id, record_id, actor_id, action, details)
+        SELECT ?, ?, ?, ?, ?, '' WHERE changes() = 1`)
+        .bind(crypto.randomUUID(), actor.tenantId, id, actor.userId, action === 'escalate' ? 'escalated' : 'acknowledged'),
+    ]);
+    if (Number(changed.meta?.changes || 0) !== 1) return error('Record not eligible for this action.', 409);
+    return json({ id, action });
+  }
   const history = /^\/api\/premises-security\/records\/([0-9a-f-]{36})\/events$/.exec(path);
   if (history && request.method === 'GET') {
-    const record = await db.prepare(`SELECT id, kind, title, location, notes, status, severity, checked_out_at, created_at
+    const record = await db.prepare(`SELECT id, kind, title, location, notes, status, severity, checked_out_at, escalated_at, acknowledged_at, created_at
       FROM premises_security_records WHERE tenant_id = ? AND id = ?`)
       .bind(actor.tenantId, history[1]).first();
     if (!record) return error('Record not found.', 404);
