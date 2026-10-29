@@ -126,3 +126,59 @@ export async function getOwnHelpRequest(db: D1Database, actor: HelpRequestActor,
     FROM help_requests WHERE tenant_id = ? AND requester_id = ? AND id = ? LIMIT 1`)
     .bind(identity.tenantId, identity.userId, id).first();
 }
+
+const HELP_STAFF_ROLES = new Set(['owner', 'hos', 'ami']);
+
+export function assertHelpStaffRole(actor: HelpRequestActor) {
+  const identity = validateHelpActor(actor);
+  if (!HELP_STAFF_ROLES.has(identity.role.toLowerCase())) {
+    throw new Error('Not authorised to manage support requests.');
+  }
+  return identity;
+}
+
+export async function listTenantHelpRequests(db: D1Database, actor: HelpRequestActor) {
+  const identity = assertHelpStaffRole(actor);
+  return db.prepare(`SELECT id, requester_id, requester_role, subject, category, status, assigned_to, created_at, updated_at
+    FROM help_requests WHERE tenant_id = ?
+    ORDER BY created_at DESC LIMIT 100`)
+    .bind(identity.tenantId).all();
+}
+
+export async function updateHelpRequestStatus(
+  db: D1Database,
+  actor: HelpRequestActor,
+  requestId: string,
+  status: HelpRequestStatus,
+  note = '',
+) {
+  const identity = assertHelpStaffRole(actor);
+  if (!HELP_REQUEST_STATUSES.includes(status)) throw new Error('Invalid support status.');
+  if (typeof requestId !== 'string' || !requestId.trim()) throw new Error('Request id required.');
+  if (typeof note !== 'string' || note.length > 2000) throw new Error('Invalid support note.');
+  const existing = await db.prepare(`SELECT id, status FROM help_requests WHERE id = ? AND tenant_id = ?`)
+    .bind(requestId, identity.tenantId).first<{ id: string; status: string }>();
+  if (!existing) return null;
+  if (existing.status === status) return { id: requestId, status };
+  await db.batch([
+    db.prepare(`UPDATE help_requests SET status = ?, updated_at = CURRENT_TIMESTAMP
+      WHERE id = ? AND tenant_id = ?`).bind(status, requestId, identity.tenantId),
+    db.prepare(`INSERT INTO help_request_events
+      (id, request_id, tenant_id, actor_id, action, note)
+      VALUES (?, ?, ?, ?, ?, ?)`)
+      .bind(crypto.randomUUID(), requestId, identity.tenantId, identity.userId, `status:${status}`, note.trim()),
+  ]);
+  return { id: requestId, status };
+}
+
+export async function listHelpRequestEvents(db: D1Database, actor: HelpRequestActor, requestId: string) {
+  const identity = validateHelpActor(actor);
+  const request = await db.prepare(`SELECT requester_id FROM help_requests
+    WHERE id = ? AND tenant_id = ?`).bind(requestId, identity.tenantId).first<{ requester_id: string }>();
+  if (!request || (request.requester_id !== identity.userId && !HELP_STAFF_ROLES.has(identity.role.toLowerCase()))) {
+    throw new Error('Support request not found.');
+  }
+  return db.prepare(`SELECT action, note, created_at FROM help_request_events
+    WHERE tenant_id = ? AND request_id = ? ORDER BY created_at ASC LIMIT 200`)
+    .bind(identity.tenantId, requestId).all();
+}
