@@ -1,4 +1,5 @@
 import { Hono } from 'hono'
+import { handleHelpArticleRoute } from './helpArticleRoutes'
 import { backfillMaterialSessions, currentMaterialContext, isCurrentMaterial, materialArchivePlacements, provisionalSessionId, provisionalSessionName, studentCanAccessArchivedMaterial } from './materialSessions'
 import { ensureMaterialsTable, mapMaterialRow, getCurrentMaterialCounts } from './db'
 import {
@@ -6850,6 +6851,28 @@ async function authenticate(c: any, next: any) {
     return c.json({ error: 'invalid token' }, 401)
   }
 }
+
+// Help Centre editorial API: use the same verified session middleware as school routes.
+// Membership is re-read from the database; the browser cannot select a tenant.
+app.all('/api/help/articles/*', authenticate, async (c) => {
+  const response = await handleHelpArticleRoute(c.req.raw, {
+    db: c.env.APP_DB,
+    resolveActor: async () => {
+      const user = c.var.user || {}
+      const userId = String(user.id || user.sub || user.email || '').trim()
+      if (!userId || user.impersonatedBy) return null
+      const resolved = await resolveSettingsIdentity(c.env.APP_DB, userId)
+      const settings = resolved?.settings || {}
+      const tenantId = String(settings.tenantId || settings.schoolId || '').trim()
+      const tokenTenantId = String(user.tenantId || '').trim()
+      if (!tenantId || !tokenTenantId || tenantId !== tokenTenantId) return null
+      const role = resolveEffectiveRole(resolved, user)
+      if (!role) return null
+      return { userId, tenantId, role }
+    },
+  })
+  return response || c.json({ error: 'Unknown help article endpoint.' }, 404)
+})
 
 // Login
 app.post('/api/login', async (c) => {
