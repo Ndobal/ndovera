@@ -185,3 +185,42 @@ export async function listHelpRequestEvents(db: D1Database, actor: HelpRequestAc
     WHERE tenant_id = ? AND request_id = ? ORDER BY created_at ASC LIMIT 200`)
     .bind(identity.tenantId, requestId).all();
 }
+
+/**
+ * Staff notes are appended to the audit history. The requester-facing API
+ * should expose only notes explicitly designated as public responses.
+ */
+export async function addHelpRequestInternalNote(
+  db: D1Database,
+  actor: HelpRequestActor,
+  requestId: string,
+  note: string,
+) {
+  const identity = assertHelpStaffRole(actor);
+  if (typeof requestId !== 'string' || !requestId.trim()) throw new Error('Request id required.');
+  if (typeof note !== 'string' || !note.trim() || note.length > 2000) {
+    throw new Error('Support note must be between 1 and 2000 characters.');
+  }
+  const exists = await db.prepare(`SELECT id FROM help_requests WHERE tenant_id = ? AND id = ?`)
+    .bind(identity.tenantId, requestId).first();
+  if (!exists) return null;
+  await db.prepare(`INSERT INTO help_request_events
+    (id, request_id, tenant_id, actor_id, action, note)
+    VALUES (?, ?, ?, ?, 'internal_note', ?)`)
+    .bind(crypto.randomUUID(), requestId, identity.tenantId, identity.userId, note.trim()).run();
+  return { id: requestId, saved: true };
+}
+
+export async function getRequesterHelpRequestTimeline(
+  db: D1Database,
+  actor: HelpRequestActor,
+  requestId: string,
+) {
+  const identity = validateHelpActor(actor);
+  const exists = await getOwnHelpRequest(db, identity, requestId);
+  if (!exists) return null;
+  return db.prepare(`SELECT action, created_at FROM help_request_events
+    WHERE tenant_id = ? AND request_id = ? AND action <> 'internal_note'
+    ORDER BY created_at ASC LIMIT 200`)
+    .bind(identity.tenantId, requestId).all();
+}
