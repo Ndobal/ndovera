@@ -4,6 +4,7 @@ on:
     branches:
       - feature/ndovera-premium-upgrade-2026
     paths:
+      - 'frontend/backend/src/index.ts'
       - 'frontend/backend/src/helpArticleWorkflow.ts'
       - 'frontend/backend/src/helpArticleRoutes.ts'
       - 'frontend/backend/test/help-article-workflow.test.mjs'
