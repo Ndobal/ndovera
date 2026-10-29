@@ -131,6 +131,16 @@ export async function transitionHelpArticle(
     .first<{ id: string; article_id: string; state: ArticleState; created_by: string }>();
   if (!current) return null;
   assertArticleTransition(current.state, to, current.created_by, editor);
+  // Never let an older approved revision supersede a newer published one.
+  if (to === 'published') {
+    const newer = await db.prepare(`SELECT id FROM help_article_revisions
+      WHERE tenant_id = ? AND article_id = ? AND revision > (
+        SELECT revision FROM help_article_revisions WHERE tenant_id = ? AND id = ?
+      ) AND state = 'published' LIMIT 1`)
+      .bind(editor.tenantId, current.article_id, editor.tenantId, revisionId)
+      .first<{ id: string }>();
+    if (newer) throw new Error('A newer revision is already published.');
+  }
   // D1 transactional batch keeps the state change and audit event together.
   const [result] = await db.batch([
     db.prepare(`UPDATE help_article_revisions SET state = ?,
