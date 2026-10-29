@@ -22,7 +22,7 @@ export default function HelpCentre({ role = 'student' }) {
       <div className="rounded-3xl border border-[#c9a96e]/40 bg-[#fff8ee] p-6 text-[#191970] dark:bg-slate-900 dark:text-white">
         <button type="button" onClick={() => navigate(safeOrigin)} className="rounded-lg border border-[#191970]/30 px-3 py-2 text-sm font-semibold dark:border-white/30">← Return to your dashboard</button>
         <h1 className="mt-5 text-3xl font-bold">Ndovera Help Centre</h1>
-        <p className="mt-2 text-sm">Search approved guidance for your current role. Help articles do not access private school records.</p>
+        <p className="mt-2 text-sm">Search built-in guidance for your current role. Help articles do not access private school records.</p>
         <label htmlFor="help-search" className="mt-5 block text-sm font-semibold">What would you like help with?</label>
         <input id="help-search" type="search" value={query} onChange={event => { setQuery(event.target.value); setSelected(''); setCategory('All'); }} placeholder="Try: upload photos, fees, results, messages…" className="mt-2 w-full rounded-xl border border-slate-300 bg-white p-3 text-slate-900 focus-visible:outline focus-visible:outline-4 focus-visible:outline-cyan-500" />
       </div>
@@ -42,14 +42,14 @@ export default function HelpCentre({ role = 'student' }) {
             <div className="mt-6 border-t border-slate-200 pt-4 dark:border-slate-700">
               <p className="text-sm font-semibold">Was this article helpful?</p>
               <div className="mt-2 flex gap-2">
-                <button type="button" onClick={() => setFeedback('Thanks for your feedback.')} className="rounded-lg border border-slate-300 px-3 py-2 text-sm">Yes</button>
-                <button type="button" onClick={() => setFeedback('Please contact your school administrator for additional assistance. Do not include student details or passwords.')} className="rounded-lg border border-slate-300 px-3 py-2 text-sm">Not yet</button>
+                <button type="button" onClick={() => setFeedback('This article was helpful. Your selection has not been submitted to support.')} className="rounded-lg border border-slate-300 px-3 py-2 text-sm">Yes</button>
+                <button type="button" onClick={() => setFeedback('This feedback has not been sent to support. Please contact your school administrator for additional assistance. Do not include student details or passwords.')} className="rounded-lg border border-slate-300 px-3 py-2 text-sm">Not yet</button>
               </div>
               {feedback && <p role="status" className="mt-2 text-sm">{feedback}</p>}
             </div>
           </article>
         </div>
-      ) : <p role="status" className="rounded-xl border border-slate-300 p-5">No approved article matches your search. Try different words or contact your school administrator.</p>}
+      ) : <p role="status" className="rounded-xl border border-slate-300 p-5">No help article matches your search. Try different words or contact your school administrator.</p>}
       <p className="text-xs text-slate-500 dark:text-slate-400">Help catalogue version {HELP_ARTICLE_VERSION}. Guidance is role-specific; actions remain subject to your account permissions.</p>
     </main>
   );
