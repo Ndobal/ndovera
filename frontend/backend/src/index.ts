@@ -1,5 +1,6 @@
 import { Hono } from 'hono'
 import { handleHelpArticleRoute } from './helpArticleRoutes'
+import { handlePremisesSecurityRoute } from './premisesSecurity'
 import { backfillMaterialSessions, currentMaterialContext, isCurrentMaterial, materialArchivePlacements, provisionalSessionId, provisionalSessionName, studentCanAccessArchivedMaterial } from './materialSessions'
 import { ensureMaterialsTable, mapMaterialRow, getCurrentMaterialCounts } from './db'
 import {
@@ -6872,6 +6873,21 @@ app.all('/api/help/articles/*', authenticate, async (c) => {
     },
   })
   return response || c.json({ error: 'Unknown help article endpoint.' }, 404)
+})
+
+// Physical premises security: reuse the verified JWT and persisted tenant/role checks.
+app.all('/api/premises-security/*', authenticate, async (c) => {
+  const user = c.var.user || {}
+  const userId = String(user.id || user.sub || user.email || '').trim()
+  if (!userId || user.impersonatedBy) return c.json({ error: 'Verified school access required.' }, 403)
+  const resolved = await resolveSettingsIdentity(c.env.APP_DB, userId)
+  const settings = resolved?.settings || {}
+  const tenantId = String(settings.tenantId || settings.schoolId || '').trim()
+  if (!tenantId || tenantId !== String(user.tenantId || '').trim()) {
+    return c.json({ error: 'School membership required.' }, 403)
+  }
+  const role = resolveEffectiveRole(resolved, user)
+  return await handlePremisesSecurityRoute(c.req.raw, c.env.APP_DB, { userId, tenantId, role })
 })
 
 // Login
