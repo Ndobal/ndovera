@@ -77,22 +77,24 @@ export async function createHelpArticleDraft(
   const article = validateArticleContent(raw);
   if (!/^[a-zA-Z0-9-]{1,100}$/.test(articleId)) throw new Error('Invalid article id.');
   const revisionId = crypto.randomUUID();
-  // A new revision is always a separate row: approved and published content is immutable.
-  const latest = await db.prepare(`SELECT MAX(revision) AS revision FROM help_article_revisions
-    WHERE tenant_id = ? AND article_id = ?`).bind(editor.tenantId, articleId)
-    .first<{ revision: number | null }>();
-  const revision = Number(latest?.revision || 0) + 1;
-  await db.batch([
-    db.prepare(`INSERT INTO help_article_revisions
-      (id, tenant_id, article_id, revision, title, category, keywords, roles_json,
-       steps_json, state, created_by) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'draft', ?)`)
-      .bind(revisionId, editor.tenantId, articleId, revision, article.title, article.category,
-        article.keywords, JSON.stringify(article.roles), JSON.stringify(article.steps), editor.userId),
-    db.prepare(`INSERT INTO help_article_events (id, tenant_id, revision_id, actor_id, action)
-      VALUES (?, ?, ?, ?, 'draft_created')`)
-      .bind(crypto.randomUUID(), editor.tenantId, revisionId, editor.userId),
-  ]);
-  return { articleId, revisionId, revision, state: 'draft' as const };
+  // Allocate the revision inside the INSERT statement so concurrent writers
+  // cannot both commit the same revision number. The unique constraint is a
+  // final guard and callers must retry on a write conflict.
+  const inserted = await db.prepare(`INSERT INTO help_article_revisions
+    (id, tenant_id, article_id, revision, title, category, keywords, roles_json,
+     steps_json, state, created_by)
+    SELECT ?, ?, ?, COALESCE(MAX(revision), 0) + 1, ?, ?, ?, ?, ?, 'draft', ?
+    FROM help_article_revisions WHERE tenant_id = ? AND article_id = ?
+    RETURNING revision`)
+    .bind(revisionId, editor.tenantId, articleId, article.title, article.category,
+      article.keywords, JSON.stringify(article.roles), JSON.stringify(article.steps), editor.userId,
+      editor.tenantId, articleId)
+    .first<{ revision: number }>();
+  if (!inserted) throw new Error('Could not allocate article revision.');
+  await db.prepare(`INSERT INTO help_article_events (id, tenant_id, revision_id, actor_id, action)
+    VALUES (?, ?, ?, ?, 'draft_created')`)
+    .bind(crypto.randomUUID(), editor.tenantId, revisionId, editor.userId).run();
+  return { articleId, revisionId, revision: inserted.revision, state: 'draft' as const };
 }
 
 const TRANSITIONS: Record<ArticleState, ArticleState[]> = {
