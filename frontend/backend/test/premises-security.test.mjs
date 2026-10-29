@@ -48,3 +48,16 @@ test('unauthenticated users cannot escalate incidents', async () => {
   const response = await handlePremisesSecurityRoute(request(path, 'PATCH'), db, null);
   assert.equal(response.status, 401);
 });
+
+test('officers cannot create patrol checkpoints', async () => {
+  const result = await handlePremisesSecurityRoute(request('/api/premises-security/checkpoints', 'POST', { name: 'Gate', location: 'Entrance' }), db, actor);
+  assert.equal(result.status, 403);
+});
+test('students cannot log patrol visits', async () => {
+  const result = await handlePremisesSecurityRoute(request('/api/premises-security/patrol-checks', 'POST', { checkpointId: '00000000-0000-0000-0000-000000000001' }), db, { ...actor, role: 'student' });
+  assert.equal(result.status, 403);
+});
+test('invalid checkpoint identifiers are rejected', async () => {
+  const result = await handlePremisesSecurityRoute(request('/api/premises-security/patrol-checks', 'POST', { checkpointId: 'not-a-checkpoint' }), db, actor);
+  assert.equal(result.status, 400);
+});
