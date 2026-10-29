@@ -12,16 +12,16 @@ const short = (value: unknown, max: number) => typeof value === 'string' ? value
 const valid = (value: unknown) => value && typeof value === 'object' && !Array.isArray(value);
 export async function handlePremisesSecurityRoute(request: Request, db: D1Database, actor: PremisesActor | null): Promise<Response | null> {
   const path = new URL(request.url).pathname;
-  if (!path.startsWith('/api/premises-security')) return null;
+  if (path !== '/api/premises-security' && !path.startsWith('/api/premises-security/')) return null;
   if (!actor?.tenantId || !actor.userId) return error('Authentication required.', 401);
   if (!permitted.has(actor.role)) return error('Security role required.', 403);
   const isSupervisor = supervisors.has(actor.role);
   if (path === '/api/premises-security/overview' && request.method === 'GET') {
     const [summary, latest] = await db.batch([
       db.prepare(`SELECT kind, status, COUNT(*) AS total FROM premises_security_records WHERE tenant_id = ? GROUP BY kind, status`).bind(actor.tenantId),
-      db.prepare(`SELECT id, kind, title, location, severity, status, created_at, created_by FROM premises_security_records WHERE tenant_id = ? ORDER BY created_at DESC LIMIT 60`).bind(actor.tenantId),
+      db.prepare(`SELECT id, kind, title, location, notes, severity, status, created_at, created_by, checked_out_at FROM premises_security_records WHERE tenant_id = ? ORDER BY created_at DESC LIMIT 60`).bind(actor.tenantId),
     ]);
-    return json({ summary: summary.results, records: latest.results, supervisor: isSupervisor });
+    return json({ summary: summary.results, records: latest.results, supervisor: isSupervisor, activeVisitors: (latest.results || []).filter((row: any) => row.kind === 'visitor' && !row.checked_out_at).length });
   }
   if (path === '/api/premises-security/records' && request.method === 'POST') {
     const raw = await request.text();
@@ -41,6 +41,34 @@ export async function handlePremisesSecurityRoute(request: Request, db: D1Databa
         .bind(eventId, actor.tenantId, id, actor.userId, kind),
     ]);
     return json({ id, status: 'open' }, 201);
+  }
+  const history = /^\/api\/premises-security\/records\/([0-9a-f-]{36})\/events$/.exec(path);
+  if (history && request.method === 'GET') {
+    const record = await db.prepare(`SELECT id, kind, title, location, notes, status, severity, checked_out_at, created_at
+      FROM premises_security_records WHERE tenant_id = ? AND id = ?`)
+      .bind(actor.tenantId, history[1]).first();
+    if (!record) return error('Record not found.', 404);
+    const events = await db.prepare(`SELECT id, actor_id, action, details, created_at
+      FROM premises_security_events WHERE tenant_id = ? AND record_id = ? ORDER BY created_at DESC LIMIT 100`)
+      .bind(actor.tenantId, history[1]).all();
+    return json({ record, events: events.results || [] });
+  }
+  const checkout = /^\/api\/premises-security\/records\/([0-9a-f-]{36})\/checkout$/.exec(path);
+  if (checkout && request.method === 'PATCH') {
+    // Only visitor records can be checked out; the conditional update prevents double checkout.
+    const [updated] = await db.batch([
+      db.prepare(`UPDATE premises_security_records SET checked_out_at = CURRENT_TIMESTAMP, updated_at = CURRENT_TIMESTAMP
+        WHERE tenant_id = ? AND id = ? AND kind = 'visitor' AND checked_out_at IS NULL`)
+        .bind(actor.tenantId, checkout[1]),
+      db.prepare(`INSERT INTO premises_security_events (id, tenant_id, record_id, actor_id, action, details)
+        SELECT ?, ?, ?, ?, 'visitor_checked_out', '' WHERE EXISTS (
+          SELECT 1 FROM premises_security_records WHERE tenant_id = ? AND id = ?
+          AND kind = 'visitor' AND checked_out_at IS NOT NULL
+        )`)
+        .bind(crypto.randomUUID(), actor.tenantId, checkout[1], actor.userId, actor.tenantId, checkout[1]),
+    ]);
+    if (Number(updated.meta?.changes || 0) !== 1) return error('Visitor not found or already checked out.', 409);
+    return json({ id: checkout[1], checkedOut: true });
   }
   const match = /^\/api\/premises-security\/records\/([0-9a-f-]{36})\/status$/.exec(path);
   if (match && request.method === 'PATCH') {
