@@ -25,3 +25,10 @@ These are **manual activity logs**. They are not CCTV, GPS tracking, biometric v
 7. Review privacy and retention policy for visitor logs; define emergency notification procedures before operational use.
 
 No D1 migration or production deployment was performed as part of these commits. GitHub Actions security check run 40866020006 reported failure, with root cause not yet verified.
+
+## Additional development: patrol checkpoint management
+The Chief Security Officer, Owner and Head of School can create named patrol checkpoints with school-specific locations. Officers can record a checkpoint visit. Every visit stores the verified officer ID and a server timestamp; recent visits are shown on the dashboard.
+
+The test migration now creates `premises_security_checkpoints` and `premises_security_patrol_checks`. It also includes visitor departure and escalation fields. Apply the **complete** migration to a new test database; it is not an incremental ALTER script for an already-created schema.
+
+Current limits: manual check-ins do not prove physical presence; no GPS, QR verification, geofencing, scheduled patrol assignment, or alert delivery is implemented. The checkpoint deactivation API is present but not yet exposed in the dashboard. Verify authorization and tenant isolation with integration tests before release.
