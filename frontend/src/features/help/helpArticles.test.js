@@ -18,6 +18,20 @@ describe('Help Centre approved knowledge catalogue', () => {
   test('unrecognised roles see no protected articles', () => {
     expect(findHelpArticles('', 'unknown')).toEqual([]);
   });
+  test('role-scoped finance articles are hidden from students', () => {
+    expect(findHelpArticles('payslip', 'student')).toEqual([]);
+    expect(findHelpArticles('payslip', 'teacher').some(article => article.id === 'staff-pay')).toBe(true);
+  });
+  test('permission help is available to all common school roles', () => {
+    for (const role of ['student', 'parent', 'teacher', 'hos', 'accountant', 'owner']) {
+      expect(findHelpArticles('403', role).some(article => article.id === 'access')).toBe(true);
+    }
+  });
+  test('no query returns all and only role-visible articles', () => {
+    const parentArticles = findHelpArticles('', 'parent');
+    expect(parentArticles.length).toBeGreaterThan(0);
+    expect(parentArticles.every(article => article.roles.includes('parent'))).toBe(true);
+  });
   test('articles do not contain tenant-specific record identifiers', () => {
     for (const article of HELP_ARTICLES) {
       expect(article.roles.length).toBeGreaterThan(0);
