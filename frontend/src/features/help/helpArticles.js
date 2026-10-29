@@ -1,8 +1,10 @@
+import { OPERATIONAL_HELP_ARTICLES } from './operationalHelpArticles';
+
 /**
  * Versioned, reviewed UI instructions only. No tenant data, private records or
  * unverified destinations are stored in this catalogue.
  */
-export const HELP_ARTICLE_VERSION = '2026-10-29.2';
+export const HELP_ARTICLE_VERSION = '2026-10-29.3';
 export const HELP_ARTICLES = Object.freeze([
   { id: 'website', title: 'Edit your school website', roles: ['owner'], category: 'Website', keywords: 'photos gallery upload school homepage', steps: ['Open your Owner dashboard and select the school website editor.', 'Choose the section to update, then edit the text or upload media.', 'Select Save Section to publish your changes.'], route: '/roles/owner' },
   { id: 'gallery', title: 'Organise gallery photos and videos', roles: ['owner'], category: 'Website', keywords: 'album caption remove reorder media', steps: ['Open the Gallery section in your school website editor.', 'Upload photos or videos, enter captions and optional album names.', 'Use Earlier or Later to reorder; use Remove to unpublish an item.', 'Select Save Section to publish. Removing an item from the gallery does not delete its uploaded file.'], route: '/roles/owner' },
@@ -15,6 +17,7 @@ export const HELP_ARTICLES = Object.freeze([
   { id: 'school-session', title: 'Understand sessions and terms', roles: ['owner', 'hos', 'teacher', 'accountant'], category: 'School setup', keywords: 'new term session previous year archive class assignments', steps: ['Check the academic session and term shown in your dashboard.', 'Review records against the correct period before editing.', 'Do not recreate existing class or teacher assignments solely because a new session begins.', 'If historical records are missing, ask an authorised administrator to investigate rather than entering duplicates.'] },
   { id: 'staff-pay', title: 'Review your payslip', roles: ['teacher', 'hos', 'accountant', 'owner'], category: 'Finance', keywords: 'salary payroll earnings deduction dispute payslip', steps: ['Open the payslip area available to your staff account.', 'Review the selected month and year before comparing earnings and deductions.', 'Use your school’s authorised payroll enquiry process for discrepancies. Avoid sending bank details in a general help message.'] },
   { id: 'access', title: 'Why can’t I open a feature?', roles: ['student', 'parent', 'teacher', 'hos', 'accountant', 'owner'], category: 'Account', keywords: 'forbidden permission access denied 403 role', steps: ['Check that you signed in to the correct school account.', 'If your account supports more than one role, select the role appropriate for the task.', 'If access is still denied, contact the school administrator to review permissions.', 'Do not use another person’s credentials to bypass restrictions.'] },
+  ...OPERATIONAL_HELP_ARTICLES,
   { id: 'privacy', title: 'Protect student information', roles: ['student', 'parent', 'teacher', 'hos', 'accountant', 'owner'], category: 'Safety', keywords: 'privacy security student data', steps: ['Use only your own account.', 'Do not share passwords, student records or private messages in a help request.', 'Report suspected unauthorised access to your school administrator.'] },
 ]);
 
@@ -22,7 +25,10 @@ export function getContextualHelpQuery(path = '') {
   const normalized = String(path || '').toLowerCase();
   const routes = [
     [/website|gallery/, 'gallery'],
-    [/payslip|payroll/, 'payslip'],
+    [/admission|enquir/, 'admissions'],
+    [/payroll|payslip/, 'payslip'],
+    [/assessment|quiz|exam/, 'assessment'],
+    [/lesson|curriculum|topic/, 'lesson'],
     [/attendance/, 'attendance'],
     [/assignment|material|classroom/, 'assignments'],
     [/result|report-card/, 'results'],
