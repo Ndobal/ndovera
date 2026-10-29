@@ -219,6 +219,39 @@ export async function addHelpRequestInternalNote(
   return { id: requestId, saved: true };
 }
 
+/**
+ * Assign a ticket only to a user whose tenant membership and support permission
+ * have already been verified by the caller against authoritative server records.
+ * The callback must fail closed; client-submitted role labels are insufficient.
+ */
+export async function assignHelpRequest(
+  db: D1Database,
+  actor: HelpRequestActor,
+  requestId: string,
+  assigneeId: string,
+  isVerifiedTenantSupportStaff: (tenantId: string, userId: string) => Promise<boolean>,
+) {
+  const identity = assertHelpStaffRole(actor);
+  if (typeof requestId !== 'string' || !requestId.trim()) throw new Error('Request id required.');
+  if (typeof assigneeId !== 'string' || !assigneeId.trim() || assigneeId.length > 128) {
+    throw new Error('Invalid assignee.');
+  }
+  if (typeof isVerifiedTenantSupportStaff !== 'function'
+    || !await isVerifiedTenantSupportStaff(identity.tenantId, assigneeId)) {
+    throw new Error('Assignee is not an authorised member of this school support team.');
+  }
+  const result = await db.prepare(`UPDATE help_requests
+    SET assigned_to = ?, updated_at = CURRENT_TIMESTAMP
+    WHERE id = ? AND tenant_id = ?`)
+    .bind(assigneeId, requestId, identity.tenantId).run();
+  if (Number(result.meta?.changes || 0) !== 1) return null;
+  await db.prepare(`INSERT INTO help_request_events
+    (id, request_id, tenant_id, actor_id, action, note)
+    VALUES (?, ?, ?, ?, 'assigned', '')`)
+    .bind(crypto.randomUUID(), requestId, identity.tenantId, identity.userId).run();
+  return { id: requestId, assignedTo: assigneeId };
+}
+
 export async function getRequesterHelpRequestTimeline(
   db: D1Database,
   actor: HelpRequestActor,
