@@ -26,3 +26,14 @@ test('invalid incident payload is rejected', async () => {
   const result = await handlePremisesSecurityRoute(request('/api/premises-security/records', 'POST', { kind: 'incident', title: '' }), db, actor);
   assert.equal(result.status, 400);
 });
+
+test('checkout requires authenticated school security role', async () => {
+  const path = '/api/premises-security/records/00000000-0000-0000-0000-000000000001/checkout';
+  assert.equal((await handlePremisesSecurityRoute(request(path, 'PATCH'), db, null)).status, 401);
+  assert.equal((await handlePremisesSecurityRoute(request(path, 'PATCH'), db, { ...actor, role: 'parent' })).status, 403);
+});
+test('audit history requires authenticated school security role', async () => {
+  const path = '/api/premises-security/records/00000000-0000-0000-0000-000000000001/events';
+  assert.equal((await handlePremisesSecurityRoute(request(path), db, null)).status, 401);
+  assert.equal((await handlePremisesSecurityRoute(request(path), db, { ...actor, role: 'student' })).status, 403);
+});
