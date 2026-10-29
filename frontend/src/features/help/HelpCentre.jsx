@@ -39,6 +39,7 @@ export default function HelpCentre({ role = 'student' }) {
       <div className="rounded-3xl border border-[#c9a96e]/40 bg-[#fff8ee] p-6 text-[#191970] dark:bg-slate-900 dark:text-white">
         <button type="button" onClick={() => navigate(safeOrigin)} className="rounded-lg border border-[#191970]/30 px-3 py-2 text-sm font-semibold dark:border-white/30">← Return to your dashboard</button>
         <h1 className="mt-5 text-3xl font-bold">Ndovera Help Centre</h1>
+        {(role === 'owner' || role === 'hos') && <button type="button" onClick={() => navigate(`/roles/${role}/help/articles`)} className="mt-3 ml-2 rounded-lg border border-[#191970]/30 px-3 py-2 text-sm font-semibold dark:border-white/30">Manage help articles</button>}
         <p className="mt-2 text-sm">Search built-in guidance for your current role. Help articles do not access private school records.</p>
         {getContextualHelpQuery(safeOrigin) && <button type="button" onClick={() => { setQuery(getContextualHelpQuery(safeOrigin)); setCategory('All'); setSelected(''); }} className="mt-4 rounded-full border border-[#191970]/40 px-3 py-1.5 text-xs font-semibold">Show help for this page</button>}
         <label htmlFor="help-search" className="mt-5 block text-sm font-semibold">What would you like help with?</label>
