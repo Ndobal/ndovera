@@ -22,7 +22,7 @@ import { AmiSchoolClosuresPage, ClosureGate, SchoolClosurePage } from './feature
 import { MyStaffEvaluationsPage, StaffEvaluationAdminPage } from './features/evaluations/StaffEvaluationPages';
 import SchoolCalendarBoard from './features/school/components/SchoolCalendarBoard';
 import { PunctualityWinnerBanner, StaffPunctualityPage } from './features/attendance/punctuality/PunctualityPages';
-import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate, useParams, Navigate } from 'react-router-dom';
 import { ReadAloudPlayer } from './shared/components/ReadAloud';
 import Loader from './shared/components/Loader';
 import Sidebar from './shared/components/Sidebar';
@@ -237,6 +237,15 @@ function RoleGuard({ expectedRole, auth, children }) {
   return children;
 }
 
+function HelpRoleRoute({ auth }) {
+  const { role } = useParams();
+  const activeRole = getAuthenticatedRole(auth);
+  if (role !== activeRole) {
+    return <Navigate to={`/roles/${activeRole}/help`} replace />;
+  }
+  return <HelpCentre role={activeRole} />;
+}
+
 function AnimatedRoutes({ auth, onLogin }) {
   const location = useLocation();
   const authRole = getAuthenticatedRole(auth);
@@ -268,7 +277,7 @@ function AnimatedRoutes({ auth, onLogin }) {
         <Route path="/championships" element={<PublicChampionshipsPage />} />
         <Route path="/invoice/:token" element={<InvoicePayPage />} />
         <Route path="/championships/:slug" element={<PublicChampionshipDetailPage />} />
-        <Route path="/roles/:role/help" element={<RequireAuth auth={auth}><HelpCentre role={authRole} /></RequireAuth>} />
+        <Route path="/roles/:role/help" element={<RequireAuth auth={auth}><HelpRoleRoute auth={auth} /></RequireAuth>} />
         {/* One payslip page for every staff role (teachers, HoS, accountant, ICT, librarian, clinic, …). */}
         <Route path="/roles/:role/payslip" element={<RequireAuth auth={auth}><RouteTransition><TeacherPayslip auth={auth} /></RouteTransition></RequireAuth>} />
         <Route path="/roles/:role/finance-report" element={<RequireAuth auth={auth}><RouteTransition><FinancialStandingsReport /></RouteTransition></RequireAuth>} />
