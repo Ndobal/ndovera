@@ -88,6 +88,8 @@ const staffAiEligibleRoles = new Set([
   'nurseryhead',
   'examofficer',
   'sportsmaster',
+  'chiefsecurityofficer',
+  'securityofficer',
 ]);
 
 // Staff roles that can submit work (documents, PDFs, audios, exam questions).
@@ -117,6 +119,14 @@ export function getRoleSidebarItems(roleKey) {
 function buildRoleSidebarItems(roleKey) {
   // library entry lives inside each role context
   const libEntry = { name: 'Library', path: `/roles/${roleKey}/library` };
+
+  if (roleKey === 'chiefsecurityofficer' || roleKey === 'securityofficer') {
+    return [
+      { name: 'Security Overview', path: `/roles/${roleKey}` },
+      { name: 'Security Help', path: `/roles/${roleKey}/help` },
+      { name: 'Settings', path: `/roles/${roleKey}/settings` },
+    ];
+  }
 
   if (roleKey === 'admin') {
     return [
