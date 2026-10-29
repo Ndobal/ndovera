@@ -80,20 +80,25 @@ export async function createHelpArticleDraft(
   // Allocate the revision inside the INSERT statement so concurrent writers
   // cannot both commit the same revision number. The unique constraint is a
   // final guard and callers must retry on a write conflict.
-  const inserted = await db.prepare(`INSERT INTO help_article_revisions
-    (id, tenant_id, article_id, revision, title, category, keywords, roles_json,
-     steps_json, state, created_by)
-    SELECT ?, ?, ?, COALESCE(MAX(revision), 0) + 1, ?, ?, ?, ?, ?, 'draft', ?
-    FROM help_article_revisions WHERE tenant_id = ? AND article_id = ?
-    RETURNING revision`)
-    .bind(revisionId, editor.tenantId, articleId, article.title, article.category,
-      article.keywords, JSON.stringify(article.roles), JSON.stringify(article.steps), editor.userId,
-      editor.tenantId, articleId)
+  // D1 batch executes as one transaction: failure to record the audit event
+  // rolls back the draft insertion.
+  await db.batch([
+    db.prepare(`INSERT INTO help_article_revisions
+      (id, tenant_id, article_id, revision, title, category, keywords, roles_json,
+       steps_json, state, created_by)
+      SELECT ?, ?, ?, COALESCE(MAX(revision), 0) + 1, ?, ?, ?, ?, ?, 'draft', ?
+      FROM help_article_revisions WHERE tenant_id = ? AND article_id = ?`)
+      .bind(revisionId, editor.tenantId, articleId, article.title, article.category,
+        article.keywords, JSON.stringify(article.roles), JSON.stringify(article.steps), editor.userId,
+        editor.tenantId, articleId),
+    db.prepare(`INSERT INTO help_article_events (id, tenant_id, revision_id, actor_id, action)
+      VALUES (?, ?, ?, ?, 'draft_created')`)
+      .bind(crypto.randomUUID(), editor.tenantId, revisionId, editor.userId),
+  ]);
+  const inserted = await db.prepare(`SELECT revision FROM help_article_revisions
+    WHERE tenant_id = ? AND id = ?`).bind(editor.tenantId, revisionId)
     .first<{ revision: number }>();
-  if (!inserted) throw new Error('Could not allocate article revision.');
-  await db.prepare(`INSERT INTO help_article_events (id, tenant_id, revision_id, actor_id, action)
-    VALUES (?, ?, ?, ?, 'draft_created')`)
-    .bind(crypto.randomUUID(), editor.tenantId, revisionId, editor.userId).run();
+  if (!inserted) throw new Error('Could not read created article revision.');
   return { articleId, revisionId, revision: inserted.revision, state: 'draft' as const };
 }
 
@@ -126,15 +131,21 @@ export async function transitionHelpArticle(
     .first<{ id: string; article_id: string; state: ArticleState; created_by: string }>();
   if (!current) return null;
   assertArticleTransition(current.state, to, current.created_by, editor);
-  const result = await db.prepare(`UPDATE help_article_revisions SET state = ?,
-    reviewed_by = CASE WHEN ? = 'approved' THEN ? ELSE reviewed_by END,
-    reviewed_at = CASE WHEN ? = 'approved' THEN CURRENT_TIMESTAMP ELSE reviewed_at END,
-    published_at = CASE WHEN ? = 'published' THEN CURRENT_TIMESTAMP ELSE published_at END
-    WHERE tenant_id = ? AND id = ? AND state = ?`)
-    .bind(to, to, editor.userId, to, to, editor.tenantId, revisionId, current.state).run();
+  // D1 transactional batch keeps the state change and audit event together.
+  const [result] = await db.batch([
+    db.prepare(`UPDATE help_article_revisions SET state = ?,
+      reviewed_by = CASE WHEN ? = 'approved' THEN ? ELSE reviewed_by END,
+      reviewed_at = CASE WHEN ? = 'approved' THEN CURRENT_TIMESTAMP ELSE reviewed_at END,
+      published_at = CASE WHEN ? = 'published' THEN CURRENT_TIMESTAMP ELSE published_at END
+      WHERE tenant_id = ? AND id = ? AND state = ?`)
+      .bind(to, to, editor.userId, to, to, editor.tenantId, revisionId, current.state),
+    db.prepare(`INSERT INTO help_article_events (id, tenant_id, revision_id, actor_id, action)
+      SELECT ?, ?, ?, ?, ? WHERE EXISTS (
+        SELECT 1 FROM help_article_revisions WHERE tenant_id = ? AND id = ? AND state = ?
+      )`).bind(crypto.randomUUID(), editor.tenantId, revisionId, editor.userId, to,
+        editor.tenantId, revisionId, to),
+  ]);
   if (Number(result.meta?.changes || 0) !== 1) throw new Error('Article changed. Refresh and retry.');
-  await db.prepare(`INSERT INTO help_article_events (id, tenant_id, revision_id, actor_id, action)
-    VALUES (?, ?, ?, ?, ?)`).bind(crypto.randomUUID(), editor.tenantId, revisionId, editor.userId, to).run();
   return { revisionId, state: to };
 }
 
