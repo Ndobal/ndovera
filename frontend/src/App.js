@@ -27,6 +27,7 @@ import { ReadAloudPlayer } from './shared/components/ReadAloud';
 import Loader from './shared/components/Loader';
 import Sidebar from './shared/components/Sidebar';
 import DashboardTopBar from './shared/components/DashboardTopBar';
+import HelpCentre from './features/help/HelpCentre';
 import MobileRoleOverviewNav from './shared/components/MobileRoleOverviewNav';
 import RoleWithoutDashboard from './shared/components/RoleWithoutDashboard';
 import AppErrorBoundary from './shared/components/AppErrorBoundary';
@@ -267,6 +268,7 @@ function AnimatedRoutes({ auth, onLogin }) {
         <Route path="/championships" element={<PublicChampionshipsPage />} />
         <Route path="/invoice/:token" element={<InvoicePayPage />} />
         <Route path="/championships/:slug" element={<PublicChampionshipDetailPage />} />
+        <Route path="/roles/:role/help" element={<RequireAuth auth={auth}><RouteTransition><HelpCentre role={authRole} /></RouteTransition></RequireAuth>} />
         {/* One payslip page for every staff role (teachers, HoS, accountant, ICT, librarian, clinic, …). */}
         <Route path="/roles/:role/payslip" element={<RequireAuth auth={auth}><RouteTransition><TeacherPayslip auth={auth} /></RouteTransition></RequireAuth>} />
         <Route path="/roles/:role/finance-report" element={<RequireAuth auth={auth}><RouteTransition><FinancialStandingsReport /></RouteTransition></RequireAuth>} />
