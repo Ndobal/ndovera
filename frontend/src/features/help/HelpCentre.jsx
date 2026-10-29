@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { findHelpArticles, HELP_ARTICLE_VERSION } from './helpArticles';
+import { buildHelpSupportSummary } from './supportDraft';
 
 export default function HelpCentre({ role = 'student' }) {
   const navigate = useNavigate();
@@ -10,9 +11,24 @@ export default function HelpCentre({ role = 'student' }) {
   const [category, setCategory] = useState('All');
   const [feedback, setFeedback] = useState('');
   const [showTroubleshooting, setShowTroubleshooting] = useState(false);
+  const [supportDraft, setSupportDraft] = useState('');
+  const [copyStatus, setCopyStatus] = useState('');
   const origin = location.state?.from;
   const safeOrigin = typeof origin === 'string' && (origin === `/roles/${role}` || origin.startsWith(`/roles/${role}/`)) && !origin.includes('\\') && !origin.includes('?') && !origin.includes('#')
     ? origin : `/roles/${role}`;
+  const prepareSupportDraft = title => {
+    setSupportDraft(buildHelpSupportSummary({ articleTitle: title, query, page: safeOrigin }));
+    setCopyStatus('');
+  };
+  const copySupportDraft = async () => {
+    try {
+      if (!navigator.clipboard?.writeText) throw new Error('Clipboard unavailable');
+      await navigator.clipboard.writeText(supportDraft);
+      setCopyStatus('Copied. Review the text before sharing with authorised support staff.');
+    } catch {
+      setCopyStatus('Copy is unavailable. Select and copy the text manually.');
+    }
+  };
   const articles = useMemo(() => findHelpArticles(query, role, safeOrigin), [query, role, safeOrigin]);
   const categories = ['All', ...new Set(articles.map(article => article.category))];
   const visible = articles.filter(article => category === 'All' || article.category === category);
@@ -54,7 +70,13 @@ export default function HelpCentre({ role = 'student' }) {
             </div>
           </article>
         </div>
-      ) : <p role="status" className="rounded-xl border border-slate-300 p-5">No help article matches your search. Try different words or contact your school administrator.</p>}
+      ) : <div role="status" className="rounded-xl border border-slate-300 p-5"><p>No help article matches your search. Try different words or contact your school administrator.</p><button type="button" onClick={() => prepareSupportDraft('Knowledge gap: no matching help article')} className="mt-3 rounded-xl bg-[#191970] px-4 py-2 text-sm font-semibold text-white">Prepare support request</button></div>}
+      <section className="rounded-2xl border border-slate-200 bg-white p-5 text-slate-900 dark:border-slate-700 dark:bg-slate-900 dark:text-white" aria-label="Support assistance">
+        <h2 className="text-lg font-bold">Need more assistance?</h2>
+        <p className="mt-1 text-sm">Create a support request draft to review and share with your school's authorised support staff. This does not submit a ticket.</p>
+        <button type="button" onClick={() => prepareSupportDraft(active?.title || 'Unresolved question')} className="mt-3 rounded-xl bg-[#191970] px-4 py-2 text-sm font-semibold text-white">Prepare support request</button>
+        {supportDraft && <div className="mt-4 space-y-3"><label htmlFor="help-support-draft" className="block text-sm font-semibold">Review and edit before sharing</label><textarea id="help-support-draft" rows={10} value={supportDraft} onChange={event => setSupportDraft(event.target.value)} className="w-full rounded-xl border border-slate-300 bg-white p-3 text-sm text-slate-900 dark:bg-slate-800 dark:text-white" /><button type="button" onClick={copySupportDraft} className="rounded-xl border border-[#191970] px-4 py-2 text-sm font-semibold">Copy support request</button>{copyStatus && <p role="status" className="text-sm">{copyStatus}</p>}</div>}
+      </section>
       <p className="text-xs text-slate-500 dark:text-slate-400">Help catalogue version {HELP_ARTICLE_VERSION}. Guidance is role-specific; actions remain subject to your account permissions.</p>
     </main>
   );
