@@ -180,6 +180,7 @@ function SectionCard({ section, data, onSaved }) {
   });
   const [uploading, setUploading] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [galleryAlbumFilter, setGalleryAlbumFilter] = useState('');
   const [msg, setMsg] = useState('');
   const fileRef = useRef();
 
@@ -311,6 +312,10 @@ function SectionCard({ section, data, onSaved }) {
 
   const show = name => section.fields?.includes(name);
   const galleryUrls = getCombinedMediaUrls(form.imageUrl, form.mediaUrls, section.maxFiles || 0);
+  const galleryAlbums = [...new Set(galleryUrls.map(url => form.galleryItems.find(item => item.url === url)?.album).filter(Boolean))];
+  const visibleGalleryUrls = section.key === 'gallery' && galleryAlbumFilter
+    ? galleryUrls.filter(url => form.galleryItems.find(item => item.url === url)?.album === galleryAlbumFilter)
+    : galleryUrls;
 
   return (
     <div className="rounded-2xl p-5 bg-[#b5e3f4] dark:bg-slate-800/40 border border-[#c9a96e]/40 dark:border-white/10 space-y-4">
@@ -402,9 +407,17 @@ function SectionCard({ section, data, onSaved }) {
           <div>
             <label className={labelClass}>{section.key === 'hero' ? 'Hero Media URLs' : 'Gallery Media URLs'}</label>
             <textarea rows={5} value={form.mediaUrls} onChange={e => setForm(f => ({ ...f, mediaUrls: e.target.value }))} className={`${inputClass} resize-none`} placeholder="Upload files above, or paste one URL per line." />
+            {section.key === 'gallery' && galleryAlbums.length > 0 ? (
+              <label className="mt-3 block text-xs font-semibold text-[#191970]">Preview album
+                <select className={inputClass} value={galleryAlbumFilter} onChange={event => setGalleryAlbumFilter(event.target.value)}>
+                  <option value="">All albums</option>
+                  {galleryAlbums.map(album => <option key={album} value={album}>{album}</option>)}
+                </select>
+              </label>
+            ) : null}
             {galleryUrls.length > 0 && (
               <div className={section.key === 'hero' ? 'mt-3 flex gap-3 overflow-x-auto pb-2' : 'mt-3 grid grid-cols-2 sm:grid-cols-3 gap-3'}>
-                {galleryUrls.map((url, index) => (
+                {visibleGalleryUrls.map((url, index) => (
                   <div key={url} className={section.key === 'hero' ? 'min-w-[220px] max-w-[220px] shrink-0' : 'min-w-0 rounded-xl border border-[#c9a96e]/50 bg-[#fff8ee] dark:bg-slate-900 p-2'}>
                     <MediaPreview url={url} label={section.key === 'hero' ? 'Hero media' : `Gallery media ${index + 1}`} />
                     {section.key === 'gallery' && (
@@ -416,14 +429,14 @@ function SectionCard({ section, data, onSaved }) {
                           <input className={inputClass} value={form.galleryItems.find(item => item.url === url)?.album || ''} onChange={e => setForm(f => ({ ...f, galleryItems: [...f.galleryItems.filter(item => item.url !== url), { ...(f.galleryItems.find(item => item.url === url) || { url }), album: e.target.value }] }))} placeholder="e.g. Sports Day" />
                         </label>
                         <div className="flex flex-wrap gap-1">
-                        <button type="button" disabled={index === 0} onClick={() => setForm(f => {
+                        <button type="button" disabled={galleryUrls.indexOf(url) === 0} onClick={() => setForm(f => {
                           const urls = getCombinedMediaUrls(f.imageUrl, f.mediaUrls);
                           const i = urls.indexOf(url);
                           if (i < 1) return f;
                           [urls[i - 1], urls[i]] = [urls[i], urls[i - 1]];
                           return { ...f, imageUrl: urls[0], mediaUrls: urls.join('\\n') };
                         })} className="rounded-lg bg-[#191970] px-2 py-1 text-xs font-semibold text-white disabled:opacity-40" aria-label={`Move gallery item ${index + 1} earlier`}>Earlier</button>
-                        <button type="button" disabled={index === galleryUrls.length - 1} onClick={() => setForm(f => {
+                        <button type="button" disabled={galleryUrls.indexOf(url) === galleryUrls.length - 1} onClick={() => setForm(f => {
                           const urls = getCombinedMediaUrls(f.imageUrl, f.mediaUrls);
                           const i = urls.indexOf(url);
                           if (i < 0 || i >= urls.length - 1) return f;
