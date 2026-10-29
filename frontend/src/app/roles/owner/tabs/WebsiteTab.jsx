@@ -274,6 +274,8 @@ function SectionCard({ section, data, onSaved }) {
       }
       const limitNote = filesToUpload.length < files.length ? ` Only ${section.maxFiles} files were allowed.` : '';
       setMsg(`${uploaded.length} uploaded; ${failures.length} failed.${limitNote}${failures.length ? ' ' + failures.join('; ') : ''} Save Section to publish changes.`);
+    } catch (error) {
+      setMsg(error.message || 'Media upload could not be completed.');
     } finally {
       setUploading(false);
       if (fileRef.current) fileRef.current.value = '';
@@ -445,7 +447,7 @@ function SectionCard({ section, data, onSaved }) {
           </div>
         )}
 
-        {msg && <p className={`text-xs ${msg === 'Saved.' || msg === 'Upload complete.' ? 'text-[#1a5c38]' : 'text-red-600'}`}>{msg}</p>}
+        {msg && <p className={`text-xs ${msg === 'Saved.' || (msg.includes('uploaded; 0 failed.') && !msg.startsWith('0 uploaded')) ? 'text-[#1a5c38]' : 'text-red-600'}`}>{msg}</p>}
         <button type="submit" disabled={saving} className="bg-[#1a5c38] hover:bg-[#154a2e] text-white font-bold px-5 py-2 rounded-xl text-sm transition-colors disabled:opacity-60">
           {saving ? 'Saving...' : 'Save Section'}
         </button>
