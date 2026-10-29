@@ -12,10 +12,16 @@ The Help Centre frontend is available under authenticated `/roles/:role/help`. T
 
 ## Release gates
 1. Locate the actual Worker router and its authentication/tenant resolution middleware before adding endpoints. Do not trust the browser's `role`, `tenantId` or `userId`.
-2. Apply explicit staff permissions (owner/HOS/AMI are placeholders pending verification of the actual platform support-role policy). Avoid cross-school visibility for platform staff.
+2. Apply explicit staff permissions (owner/HOS are currently allowed by the data-access layer; platform AMI support must use a separate verified permission and tenant-scope policy). Avoid cross-school visibility for platform staff.
 3. Use the existing migration system or idempotent `ensureHelpRequestTables` at startup. Confirm the D1 binding.
 4. Add rate limits, content privacy warnings, idempotent ticket creation and error status mapping.
 5. Build staff assignment, responses and escalation with a fully tenant-scoped audit trail.
 6. Connect frontend submission and feedback only after routes exist. Never label draft generation as a submitted ticket.
 7. Run build, typecheck and integration tests for tenant isolation, requester visibility, staff permissions, audit records and failure paths.
 8. No merge or deployment without owner approval.
+
+## Router discovery blocker (verified on this branch)
+The configured Worker entrypoint is `frontend/backend/src/index.ts` (per `frontend/backend/wrangler.toml`), but the fetched GitHub contents of that file are empty. Do **not** replace it with a new router without investigating the repository's actual build/deployment pipeline and live entrypoint. Until resolved, no new support route is considered integrated or deployable.
+
+## Internal note confidentiality
+`addHelpRequestInternalNote` is staff-only. The requester-facing `getRequesterHelpRequestTimeline` excludes internal notes and all event note bodies. The generic `listHelpRequestEvents` must not expose internal notes to requesters. Keep this separation when implementing HTTP response handlers.
