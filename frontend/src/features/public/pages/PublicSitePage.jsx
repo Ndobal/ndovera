@@ -1781,7 +1781,10 @@ export default function PublicSitePage({ pageKey = 'home' }) {
   // URL previews never change the saved content or payment/registration flows.
   // The executive design is the safe default when no preview is requested.
   const requestedDesign = new URLSearchParams(pageLocation.search).get('design');
-  const design = requestedDesign === 'future' ? 'future' : 'executive';
+  const publishedDesign = parseMeta(sections.find(item => item.section_key === 'home')?.metadata).corporateDesign;
+  const design = requestedDesign === 'future' || requestedDesign === 'executive'
+    ? requestedDesign
+    : publishedDesign === 'future' ? 'future' : 'executive';
   const [sections, setSections] = useState([]);
   const [error, setError] = useState('');
   const [pricing, setPricing] = useState({ plans: [], pricingConfig: null, quotes: {}, discount: null });
