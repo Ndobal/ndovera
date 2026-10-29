@@ -181,6 +181,7 @@ function SectionCard({ section, data, onSaved }) {
   const [uploading, setUploading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [galleryAlbumFilter, setGalleryAlbumFilter] = useState('');
+  const [selectedGalleryUrls, setSelectedGalleryUrls] = useState([]);
   const [msg, setMsg] = useState('');
   const fileRef = useRef();
 
@@ -415,6 +416,21 @@ function SectionCard({ section, data, onSaved }) {
                 </select>
               </label>
             ) : null}
+            {section.key === 'gallery' && galleryUrls.length > 0 ? (
+              <div className="mt-3 flex flex-wrap items-center gap-2">
+                <button type="button" onClick={() => setSelectedGalleryUrls(visibleGalleryUrls)} className="rounded-lg border border-[#191970] px-3 py-1.5 text-xs font-bold text-[#191970]">Select visible</button>
+                <button type="button" onClick={() => setSelectedGalleryUrls([])} className="rounded-lg border border-[#191970] px-3 py-1.5 text-xs font-bold text-[#191970]">Clear selection</button>
+                <button type="button" disabled={!selectedGalleryUrls.some(url => galleryUrls.includes(url))} onClick={() => {
+                  const count = selectedGalleryUrls.filter(url => galleryUrls.includes(url)).length;
+                  if (!window.confirm(`Remove ${count} selected items from this website gallery? Save Section to publish.`)) return;
+                  setForm(previous => {
+                    const urls = getCombinedMediaUrls(previous.imageUrl, previous.mediaUrls).filter(url => !selectedGalleryUrls.includes(url));
+                    return { ...previous, imageUrl: urls[0] || '', mediaUrls: urls.join('\\n'), galleryItems: previous.galleryItems.filter(item => !selectedGalleryUrls.includes(item.url)) };
+                  });
+                  setSelectedGalleryUrls([]);
+                }} className="rounded-lg bg-[#800020] px-3 py-1.5 text-xs font-bold text-white disabled:opacity-40">Remove selected ({selectedGalleryUrls.filter(url => galleryUrls.includes(url)).length})</button>
+              </div>
+            ) : null}
             {galleryUrls.length > 0 && (
               <div className={section.key === 'hero' ? 'mt-3 flex gap-3 overflow-x-auto pb-2' : 'mt-3 grid grid-cols-2 sm:grid-cols-3 gap-3'}>
                 {visibleGalleryUrls.map((url, index) => (
@@ -422,6 +438,7 @@ function SectionCard({ section, data, onSaved }) {
                     <MediaPreview url={url} label={section.key === 'hero' ? 'Hero media' : `Gallery media ${index + 1}`} />
                     {section.key === 'gallery' && (
                       <div className="mt-2 space-y-2">
+                        <label className="flex items-center gap-2 text-xs font-semibold text-[#191970]"><input type="checkbox" checked={selectedGalleryUrls.includes(url)} onChange={event => setSelectedGalleryUrls(current => event.target.checked ? [...new Set([...current, url])] : current.filter(item => item !== url))} />Select media</label>
                         <label className="block text-xs font-semibold text-[#191970]">Caption
                           <input className={inputClass} value={form.galleryItems.find(item => item.url === url)?.caption || ''} onChange={e => setForm(f => ({ ...f, galleryItems: [...f.galleryItems.filter(item => item.url !== url), { ...(f.galleryItems.find(item => item.url === url) || { url }), caption: e.target.value }] }))} placeholder="Describe this photo or video" />
                         </label>
