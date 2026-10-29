@@ -23,6 +23,12 @@ import LinkStudentsPanel from '../../features/school/components/LinkStudentsPane
 import { ClassesTab } from '../../app/roles/owner/OwnerSettings';
 import { getExcursions, getFeeGroups, getFeeReports, getFeesOverview, getNewStudentFees } from '../../features/finance/simple/simpleFeesApi';
 import { ExcursionsCard, FeeGroupsCard, NewStudentsCard } from '../../features/finance/simple/ExtraFees';
+import PayrollManagementBoard from '../../features/school/components/PayrollManagementBoard';
+import TeacherPayslip from '../../app/roles/teacher/TeacherPayslip';
+import { RolesEditor } from '../../app/roles/owner/OwnerPeople';
+import ParentNotifications from '../../features/communications/ParentNotifications';
+import * as commApi from '../../features/communications/communicationsApi';
+import { getBranding, getMyBankDetails, getMyPayslip, getPayroll, getPayrollHistory, getPayrollNote, getPayrollSettings, getWebsiteSections } from '../../features/school/services/schoolApi';
 
 // The colour rule, enforced: no text may clash with its background, in light or dark mode.
 // Any new page in the command centre should be added to the list below.
@@ -40,12 +46,15 @@ jest.mock('../../features/classroom/studentTasks', () => ({
   loadStudentAssignments: jest.fn(), readAnswerDraft: jest.fn(() => Promise.resolve(null)), saveAnswerDraft: jest.fn(), clearAnswerDraft: jest.fn(),
 }));
 jest.mock('../hooks/useFeatureFlags', () => () => ({ featureFlags: { aurasEnabled: true, farmingModeEnabled: true } }));
+jest.mock('../../features/communications/communicationsApi', () => ({ ...jest.requireActual('../../features/communications/communicationsApi'), getInbox: jest.fn(() => Promise.resolve({ items: [] })), getMyChoices: jest.fn(), saveMyChoices: jest.fn(() => Promise.resolve({})), markInboxRead: jest.fn(() => Promise.resolve({})) }));
+jest.mock('jspdf', () => ({ jsPDF: jest.fn() }));
+jest.mock('html2canvas', () => jest.fn());
 jest.mock('../hooks/useTenantPwaManifest', () => ({ getTenantPwaInfo: () => null }));
 jest.mock('../../features/submissions/StaffSubmissionPanel', () => () => null);
 jest.mock('../../features/tenants/components/SchoolAccessPanel', () => () => <div>School access</div>);
 jest.mock('../components/AppDialog', () => ({ askConfirm: jest.fn(() => Promise.resolve(true)), askText: jest.fn(() => Promise.resolve('')) }));
 jest.mock('../../features/tenants/services/tenantApi', () => new Proxy({}, { get: (target, key) => { if (!target[key]) target[key] = jest.fn(() => Promise.resolve({})); return target[key]; } }));
-jest.mock('../../features/school/services/schoolApi', () => ({ ...jest.requireActual('../../features/school/services/schoolApi'), getTermFinanceReport: jest.fn(), runFinanceAI: jest.fn(), getClasses: jest.fn(), getPeople: jest.fn(), getLinkOverview: jest.fn(), getFamilies: jest.fn() }));
+jest.mock('../../features/school/services/schoolApi', () => ({ ...jest.requireActual('../../features/school/services/schoolApi'), getTermFinanceReport: jest.fn(), runFinanceAI: jest.fn(), getClasses: jest.fn(), getPeople: jest.fn(), getLinkOverview: jest.fn(), getFamilies: jest.fn(), getPayroll: jest.fn(), getPayrollHistory: jest.fn(), getPayrollSettings: jest.fn(), getBranding: jest.fn(), getWebsiteSections: jest.fn(), getPayrollNote: jest.fn(), getMyPayslip: jest.fn(), getMyBankDetails: jest.fn() }));
 jest.mock('../../features/finance/simple/simpleFeesApi', () => ({ ...jest.requireActual('../../features/finance/simple/simpleFeesApi'), getFeesOverview: jest.fn(), getFeeReports: jest.fn(), getNewStudentFees: jest.fn(), getExcursions: jest.fn(), getFeeGroups: jest.fn() }));
 
 const month = new Date().toISOString().slice(0, 7);
@@ -296,4 +305,69 @@ test('the fee groups card and the finance report\'s edit view are readable in li
   fireEvent.click(screen.getByRole('button', { name: 'Edit' }));
   await screen.findByRole('textbox', { name: 'Report title' });
   expectReadable(report.container, 'Finance report edit view');
+});
+
+const PAYROLL_SETTINGS = {
+  attendanceCharges: false,
+  earningColumns: [{ key: 'basicSalary', label: 'Basic Salary' }, { key: 'housingAllowance', label: 'Housing Allowance' }, { key: 'transportAllowance', label: 'Transport Allowance' }, { key: 'bonus', label: 'Bonus' }],
+  deductionColumns: [{ key: 'tax', label: 'Income Tax' }, { key: 'pension', label: 'Pension' }, { key: 'otherDeduction', label: 'Other Deductions' }, { key: 'deduction_1', label: 'Staff Loan', kind: 'school' }, { key: 'deduction_2', label: 'Cooperative' }],
+};
+
+test('the payroll sheet is readable: green income headings, red deductions, empty amount boxes, what is kept and paid on', async () => {
+  getPayroll.mockResolvedValue({ success: true, period: '2026-10', approved: false, submitted: false, settings: PAYROLL_SETTINGS,
+    payroll: [
+      { staffId: 'tola', name: 'Tola Ade', displayId: 'GIS/ST/001', role: 'teacher', basicSalary: 120000, allowancesMap: {}, deductionsMap: { deduction_1: 10000, deduction_2: 5000 }, hasEntry: true },
+      { staffId: 'bayo', name: 'Bayo Eze', displayId: 'GIS/ST/002', role: 'clinic', basicSalary: 0, allowancesMap: {}, deductionsMap: {}, hasEntry: false },
+    ] });
+  getPayrollHistory.mockResolvedValue({ history: [] });
+  getPayrollSettings.mockResolvedValue({ settings: PAYROLL_SETTINGS });
+  getBranding.mockResolvedValue({ branding: { schoolName: 'Greenfield School' } });
+  getWebsiteSections.mockResolvedValue({ sections: [] });
+  getPayrollNote.mockResolvedValue({ note: null });
+  const { container } = render(<PayrollManagementBoard />);
+  await screen.findByText('Tola Ade');
+  expect(screen.getByRole('spinbutton', { name: 'Bayo Eze: Basic Salary' })).toHaveValue(null);
+  expect(screen.queryByText('Late Charges')).toBeNull();
+  expect(screen.getByText('Cooperative: ₦5,000')).toBeInTheDocument();
+  expectReadable(container, 'Payroll sheet');
+  fireEvent.click(screen.getByRole('button', { name: 'Settings' }));
+  expect(screen.getByRole('combobox', { name: 'Staff Loan: where it goes' })).toHaveValue('school');
+  expectReadable(container, 'Payroll settings');
+});
+
+test('my payslip and my salary account are readable in light and dark mode', async () => {
+  getMyPayslip.mockResolvedValue({ success: true, period: '2026-09', available: [{ period: '2026-09', net: 110000 }],
+    payslip: { name: 'Tola Ade', period: '2026-09', gross: 120000, deductions: 10000, net: 110000, earnings: [{ key: 'basicSalary', label: 'Basic Salary', amount: 120000 }], deductionBreakdown: [{ key: 'deduction_1', label: 'Staff Loan', amount: 10000 }], branding: { schoolName: 'Greenfield School' } } });
+  getMyBankDetails.mockResolvedValue({ details: { bankName: '', accountName: '', accountNumber: '' } });
+  getWebsiteSections.mockResolvedValue({ sections: [] });
+  const { container } = render(<TeacherPayslip auth={{ user: { name: 'Tola Ade', role: 'teacher' } }} />);
+  await screen.findByText('Staff Loan');
+  await screen.findByRole('textbox', { name: 'Account number' });
+  expectReadable(container, 'My payslip with the salary account form');
+});
+
+test('the roles editor is readable, and with every role removed it asks for one', () => {
+  const { container } = render(<RolesEditor person={{ id: 'tola', name: 'Tola Ade' }} roles={['teacher', 'accountant']} onSave={jest.fn()} onCancel={() => {}} />);
+  expectReadable(container, 'Roles editor');
+  fireEvent.click(screen.getByRole('button', { name: 'Remove accountant role' }));
+  fireEvent.click(screen.getByRole('button', { name: 'Remove teacher role' }));
+  expect(screen.getByRole('alert')).toHaveTextContent('Choose a role to assign');
+  expect(screen.getByRole('button', { name: 'Save roles' })).toBeDisabled();
+  expectReadable(container, 'Roles editor with no role left');
+  fireEvent.change(screen.getByRole('combobox', { name: 'Choose a role to assign' }), { target: { value: 'librarian' } });
+  expect(screen.getByRole('button', { name: 'Save roles' })).toBeEnabled();
+});
+
+test('a parent can choose WhatsApp only, and the page stays readable', async () => {
+  commApi.getMyChoices.mockResolvedValue({ choices: {}, schoolConfirmedConsent: true });
+  commApi.getInbox.mockResolvedValue({ items: [] });
+  commApi.markInboxRead.mockResolvedValue({});
+  commApi.saveMyChoices.mockResolvedValue({});
+  const { container } = render(<ParentNotifications />);
+  const button = await screen.findByRole('button', { name: 'Use WhatsApp only — no emails or SMS' });
+  expectReadable(container, 'Parent notifications');
+  fireEvent.click(button);
+  await screen.findByText('You get WhatsApp only (and notifications here).');
+  expect(commApi.saveMyChoices).toHaveBeenCalledWith({ whatsapp: 'granted', sms: 'withdrawn', email: 'withdrawn' });
+  expectReadable(container, 'Parent notifications, WhatsApp only');
 });

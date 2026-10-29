@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import {
-  getPeople, addPerson, deactivatePerson, updatePersonRole, getPastStudents, restorePerson,
+  getPeople, addPerson, deactivatePerson, setPersonRoles, getPastStudents, restorePerson,
   getClasses, getParents, getUserProfile, updateUserProfile, linkParentStudent, getMyTenant,
   resetPassword, uploadBulkPeople, getBulkPeopleJobs, retryBulkPeopleJob, deletePastStudents, removePastStudents, getPastParents,
   getQuestionBankAccess, setQuestionBankAccess,
@@ -770,7 +770,77 @@ function ShareModal({ person, subdomain, onClose }) {
   );
 }
 
-function PersonCard({ person: p, isAdmin, isOwner, subdomain, onViewProfile, onDeactivate, onResetPassword, changingRole, newRole, setNewRole, onSaveRole, onCancelRole, onStartRoleChange }) {
+/**
+ * A person's roles: remove one, swap it for another, or keep the rest when they hold
+ * several. Saving with no role left is not possible: the editor asks for a role first.
+ * Owner is shown but cannot be removed here (only an ownership transfer changes it).
+ */
+export function RolesEditor({ person, roles: startRoles, onSave, onCancel }) {
+  const [roles, setRoles] = useState(startRoles);
+  const [adding, setAdding] = useState('');
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState('');
+  const available = ROLES.filter(role => !roles.includes(role));
+  const changed = roles.length !== startRoles.length || roles.some(role => !startRoles.includes(role));
+
+  function addRole(role) {
+    if (!role || roles.includes(role)) return;
+    setRoles(current => [...current, role]);
+    setAdding('');
+    setError('');
+  }
+
+  async function save() {
+    if (!roles.length) { setError('Choose a role to assign before saving.'); return; }
+    setSaving(true);
+    setError('');
+    try {
+      await onSave(roles);
+    } catch (err) {
+      setError(err.message || 'Could not save the roles.');
+      setSaving(false);
+    }
+  }
+
+  return (
+    <div className="space-y-2 rounded-xl border border-[#c9a96e]/50 bg-white p-3 text-xs text-[#191970]">
+      <p className="font-bold uppercase text-[#800020]">Roles for {person.name || person.email}</p>
+      {roles.length ? (
+        <div className="flex flex-wrap gap-1">
+          {roles.map((role, index) => (
+            <span key={role} className="inline-flex items-center gap-1 rounded-full bg-[#ade1f4] px-2 py-0.5 font-semibold capitalize text-[#191970]">
+              {role}{index === 0 ? <span className="font-normal text-[#800020]">(main)</span> : null}
+              {role !== 'owner' ? (
+                <button type="button" onClick={() => setRoles(current => current.filter(item => item !== role))} aria-label={`Remove ${role} role`} className="ml-0.5 font-bold text-[#800020]">✕</button>
+              ) : null}
+            </span>
+          ))}
+        </div>
+      ) : (
+        <p role="alert" className="rounded-lg border border-amber-400 bg-amber-50 px-2 py-1.5 font-semibold text-amber-900">
+          No role is left. Choose a role to assign to {person.name || 'this person'}.
+        </p>
+      )}
+      <select
+        aria-label={roles.length ? 'Add another role' : 'Choose a role to assign'}
+        value={adding}
+        onChange={event => addRole(event.target.value)}
+        className={`w-full rounded-lg border bg-[#ade1f4] px-2 py-1 text-xs text-[#191970] ${roles.length ? 'border-[#c9a96e]/40' : 'border-amber-500'}`}
+      >
+        <option value="">{roles.length ? 'Add another role…' : 'Choose a role to assign…'}</option>
+        {available.map(role => <option key={role} value={role}>{role}</option>)}
+      </select>
+      {error ? <p role="alert" className="font-semibold text-red-700">{error}</p> : null}
+      <div className="flex gap-2">
+        <button type="button" onClick={save} disabled={saving || !changed || !roles.length} className="rounded-lg bg-[#1a5c38] px-3 py-1 font-bold text-white disabled:opacity-60">{saving ? 'Saving…' : 'Save roles'}</button>
+        <button type="button" onClick={onCancel} className="rounded-lg border border-[#800020]/40 px-3 py-1 font-semibold text-[#800020]">Cancel</button>
+      </div>
+    </div>
+  );
+}
+
+function PersonCard({ person: p, isAdmin, isOwner, subdomain, onViewProfile, onDeactivate, onResetPassword, onSaveRoles }) {
+  const [editingRoles, setEditingRoles] = useState(false);
   const [showShare, setShowShare] = useState(false);
   const [copiedPw, setCopiedPw] = useState(false);
   const [resetting, setResetting] = useState(false);
@@ -835,10 +905,14 @@ function PersonCard({ person: p, isAdmin, isOwner, subdomain, onViewProfile, onD
               {p.name || '—'}
             </button>
           </div>
-          <span className="shrink-0 text-xs font-bold px-2 py-0.5 rounded-full capitalize"
-            style={{ backgroundColor: roleBadge.bg, color: roleBadge.text }}>
-            {p.role || '—'}
-          </span>
+          {personRoles.length ? (
+            <span className="shrink-0 text-xs font-bold px-2 py-0.5 rounded-full capitalize"
+              style={{ backgroundColor: roleBadge.bg, color: roleBadge.text }}>
+              {p.role || personRoles[0]}
+            </span>
+          ) : (
+            <span className="shrink-0 rounded-full border border-amber-500 bg-amber-50 px-2 py-0.5 text-xs font-bold text-amber-900">No role</span>
+          )}
         </div>
         {personRoles.length > 1 && (
           <div className="flex flex-wrap gap-1">
@@ -882,16 +956,19 @@ function PersonCard({ person: p, isAdmin, isOwner, subdomain, onViewProfile, onD
           {resetMsg && <p className={`font-semibold ${resetMsg.startsWith('✓') ? 'text-[#1a5c38]' : 'text-red-600'}`}>{resetMsg}</p>}
         </div>
 
-        {/* Role change */}
-        {isAdmin && changingRole && (
-          <div className="flex gap-1 items-center">
-            <select value={newRole} onChange={e => setNewRole(e.target.value)} className="flex-1 rounded-lg border border-[#c9a96e]/40 bg-[#ade1f4] text-[#191970] px-2 py-1 text-xs">
-              <option value="">Select additional role</option>
-              {ROLES.map(r => <option key={r} value={r}>{r}</option>)}
-            </select>
-            <button onClick={onSaveRole} className="bg-[#1a5c38] text-[#b5e3f4] text-xs px-2 py-1 rounded-lg font-bold">Save</button>
-            <button onClick={onCancelRole} className="text-[#800020] text-xs px-1">✕</button>
-          </div>
+        {/* Roles: no role at all asks for one */}
+        {isAdmin && !personRoles.length && !editingRoles && (
+          <button type="button" onClick={() => setEditingRoles(true)} className="rounded-xl border border-amber-500 bg-amber-50 px-3 py-2 text-left text-xs font-semibold text-amber-900">
+            ⚠ {p.name || 'This person'} has no role. Assign a role so they can use Ndovera.
+          </button>
+        )}
+        {isAdmin && editingRoles && (
+          <RolesEditor
+            person={p}
+            roles={personRoles}
+            onCancel={() => setEditingRoles(false)}
+            onSave={async roles => { await onSaveRoles(p, roles); setEditingRoles(false); }}
+          />
         )}
 
         {/* Actions */}
@@ -909,8 +986,8 @@ function PersonCard({ person: p, isAdmin, isOwner, subdomain, onViewProfile, onD
               {resetting ? '…' : '🔑 Reset'}
             </button>
           )}
-          {isAdmin && !changingRole && (
-            <button onClick={onStartRoleChange} className="bg-[#1a5c38] hover:bg-[#154a2e] text-[#b5e3f4] text-xs px-3 py-1.5 rounded-xl font-bold transition-colors">Add Role</button>
+          {isAdmin && !editingRoles && (
+            <button onClick={() => setEditingRoles(true)} className="bg-[#1a5c38] hover:bg-[#154a2e] text-[#b5e3f4] text-xs px-3 py-1.5 rounded-xl font-bold transition-colors">Roles</button>
           )}
           {isOwner && isTeacher && (
             <button
@@ -1137,8 +1214,6 @@ export default function OwnerPeople() {
   const [error, setError] = useState(null);
   const [showAdd, setShowAdd] = useState(false);
   const [showBulk, setShowBulk] = useState(false);
-  const [changingRole, setChangingRole] = useState(null);
-  const [newRole, setNewRole] = useState('');
   const [profileUserId, setProfileUserId] = useState(null);
   const [subdomain, setSubdomain] = useState('');
   const [page, setPage] = useState(1);
@@ -1207,12 +1282,11 @@ export default function OwnerPeople() {
     load(page, searchTerm, filter);
   }
 
-  async function handleRoleChange(person) {
-    const personRoles = Array.isArray(person.roles) && person.roles.length > 0 ? person.roles : [person.role].filter(Boolean);
-    if (!newRole || personRoles.includes(newRole)) { setChangingRole(null); return; }
-    await updatePersonRole(person.id, newRole);
-    setChangingRole(null);
-    setNewRole('');
+  async function handleSaveRoles(person, roles) {
+    const before = Array.isArray(person.roles) && person.roles.length > 0 ? person.roles : [person.role].filter(Boolean);
+    const removed = before.filter(role => !roles.includes(role));
+    if (removed.length && !await askConfirm(`Remove ${removed.join(', ')} from ${person.name || person.email}? They lose what ${removed.length === 1 ? 'that role gives' : 'those roles give'} straight away${roles.length ? ` and keep ${roles.join(', ')}` : ''}.`)) return;
+    await setPersonRoles(person.id, roles);
     load(page, searchTerm, filter);
   }
 
@@ -1305,13 +1379,7 @@ export default function OwnerPeople() {
                   onViewProfile={() => setProfileUserId(p.id)}
                   onDeactivate={() => handleDeactivate(p)}
                   onResetPassword={handleResetPassword}
-                  onRoleChange={(role) => { setChangingRole(p.id); setNewRole(role); handleRoleChange(p); }}
-                  changingRole={changingRole === p.id}
-                  newRole={newRole}
-                  setNewRole={setNewRole}
-                  onSaveRole={() => handleRoleChange(p)}
-                  onCancelRole={() => setChangingRole(null)}
-                  onStartRoleChange={() => { setChangingRole(p.id); setNewRole(''); }}
+                  onSaveRoles={handleSaveRoles}
                 />
               ))}
             </div>

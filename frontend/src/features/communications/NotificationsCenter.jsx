@@ -225,18 +225,27 @@ function Contacts({ run }) {
   const load = useCallback(() => api.getContacts().then(setData).catch(() => {}), []);
   useEffect(() => { load(); }, [load]);
   const toggle = (person, channel) => run(async () => { await api.setContactConsent(person.id, { channel, status: person.consent?.[channel] === 'withdrawn' ? 'granted' : 'withdrawn' }); load(); });
+  // For a parent who asked not to be emailed: WhatsApp on, email and SMS off.
+  const whatsappOnly = person => run(async () => {
+    for (const [channel, status] of [['whatsapp', 'granted'], ['email', 'withdrawn'], ['sms', 'withdrawn']]) await api.setContactConsent(person.id, { channel, status });
+    load();
+  });
+  const isWhatsappOnly = person => person.consent?.whatsapp === 'granted' && person.consent?.email === 'withdrawn' && person.consent?.sms === 'withdrawn';
   return (
     <div className={INNER}>
-      <p className="text-sm text-[#191970] dark:text-slate-200">{data.summary.total || 0} parents · <b>{data.summary.invalidPhones || 0}</b> without a valid phone number (they still get email and in-app) · {data.summary.noChildren || 0} not linked to a child.</p>
+      <p className="text-sm text-[#191970] dark:text-slate-200">{data.summary.total || 0} parents · <b>{data.summary.invalidPhones || 0}</b> without a valid phone number (they still get email and in-app). A parent who doesn't want emails: press "Set WhatsApp only". · {data.summary.noChildren || 0} not linked to a child.</p>
       <div className="mt-2 overflow-x-auto">
         <table className="min-w-full text-sm text-[#191970] dark:text-slate-200">
-          <thead><tr className="text-left text-xs uppercase text-[#800020]"><th className="p-2">Parent</th><th className="p-2">Phone</th><th className="p-2">Children</th><th className="p-2">WhatsApp</th><th className="p-2">SMS</th><th className="p-2">Email</th></tr></thead>
+          <thead><tr className="text-left text-xs uppercase text-[#800020]"><th className="p-2">Parent</th><th className="p-2">Phone</th><th className="p-2">Children</th><th className="p-2">WhatsApp</th><th className="p-2">SMS</th><th className="p-2">Email</th><th className="p-2">WhatsApp only</th></tr></thead>
           <tbody>{data.contacts.map(person => (
             <tr key={person.id} className="border-t border-[#c9a96e]/25">
               <td className="p-2">{person.name}<span className="block text-xs text-slate-500">{person.email}</span></td>
               <td className={`p-2 ${person.phoneValid ? '' : 'text-rose-700'}`}>{person.phone || 'none'}{!person.phoneValid && person.phone ? ' (check)' : ''}</td>
               <td className="p-2">{person.children}</td>
               {['whatsapp', 'sms', 'email'].map(channel => <td key={channel} className="p-2"><button type="button" className="text-xs font-semibold underline" onClick={() => toggle(person, channel)}>{person.consent?.[channel] === 'withdrawn' ? 'Opted out' : person.consent?.[channel] === 'granted' ? 'Agreed' : 'Default'}</button></td>)}
+              <td className="p-2">{isWhatsappOnly(person)
+                ? <span className="text-xs font-bold text-[#14532d] dark:text-emerald-300">✓ WhatsApp only</span>
+                : <button type="button" disabled={!person.phoneValid} title={person.phoneValid ? 'Stop emails and SMS; send by WhatsApp' : 'Add a valid phone number first'} className="rounded-lg border border-[#1a5c38] px-2 py-0.5 text-xs font-semibold text-[#1a5c38] disabled:opacity-50 dark:border-emerald-300 dark:text-emerald-200" onClick={() => whatsappOnly(person)}>Set WhatsApp only</button>}</td>
             </tr>
           ))}</tbody>
         </table>

@@ -33,6 +33,15 @@ export default function ParentNotifications() {
       setMessage('Saved.');
     } catch (error) { setMessage(error.message); }
   };
+  const whatsappOnly = async () => {
+    setMessage('');
+    const next = { whatsapp: 'granted', sms: 'withdrawn', email: 'withdrawn' };
+    try {
+      await api.saveMyChoices(next);
+      setChoices(current => ({ ...current, choices: { ...(current?.choices || {}), ...next } }));
+      setMessage('Saved. The school will reach you by WhatsApp (and here in the app), not by email or SMS.');
+    } catch (error) { setMessage(error.message); }
+  };
   const state = channel => {
     const choice = choices?.choices?.[channel];
     if (choice) return choice;
@@ -68,7 +77,12 @@ export default function ParentNotifications() {
             </span>
           </li>
         ))}</ul>
-        {message && <p role="status" className="mt-2 text-sm">{message}</p>}
+        {state('whatsapp') === 'granted' && state('email') === 'withdrawn' && state('sms') === 'withdrawn' ? (
+          <p className="mt-3 rounded-xl bg-[#e8f5ee] px-3 py-2 text-sm font-semibold text-[#14532d]">You get WhatsApp only (and notifications here).</p>
+        ) : (
+          <button type="button" onClick={whatsappOnly} className="mt-3 w-full rounded-xl bg-[#1a5c38] px-4 py-2 text-sm font-bold text-white">Use WhatsApp only — no emails or SMS</button>
+        )}
+        {message && <p role="status" className="mt-2 text-sm text-[#191970] dark:text-slate-200">{message}</p>}
       </div>
     </div>
   );

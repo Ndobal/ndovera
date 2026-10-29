@@ -19,23 +19,43 @@ import { ArrowsPointingOutIcon, ArrowsPointingInIcon } from '@heroicons/react/24
 import PayrollAccountDetailsPanel from './PayrollAccountDetailsPanel';
 import PayrollBankNotePanel from './PayrollBankNotePanel';
 import { askConfirm } from '../../../shared/components/AppDialog';
+import { currentUserKey, getItem, isOnline, setItem } from '../../../shared/offline/offlineStore';
+import { enqueue, isRetryable } from '../../../shared/offline/outbox';
 
 const TABS = ['Payroll Sheet', 'Payslips', 'Account Details', 'Payroll Notes', 'History', 'Settings'];
 const CARD = 'rounded-3xl border border-[#c9a96e]/40 bg-[#b5e3f4] p-6 text-[#191970] shadow-sm dark:border-[#00ffff]/20 dark:bg-[#800000]/25 dark:text-[#39ff14] dark:backdrop-blur-xl';
 const INNER = 'rounded-2xl border border-[#c9a96e]/30 bg-[#ade1f4] p-4 dark:border-[#00ffff]/20 dark:bg-[#330014]/70';
 const BTN = 'rounded-2xl bg-[#1a5c38] px-5 py-2.5 text-sm font-bold text-[#b5e3f4] transition-colors hover:bg-[#154a2e] disabled:cursor-not-allowed disabled:opacity-70 dark:bg-[#00ffff] dark:text-black dark:hover:bg-[#7df9ff]';
-const OUTLINE_BTN = 'rounded-2xl border border-[#800020]/30 bg-white/60 px-5 py-2.5 text-sm font-semibold text-[#800020] transition-colors hover:bg-white dark:border-[#bf00ff]/40 dark:bg-[#120014]/80 dark:text-[#bf00ff] dark:hover:bg-[#1f0022]';
+const OUTLINE_BTN = 'rounded-2xl border border-[#800020]/30 bg-white/60 px-5 py-2.5 text-sm font-semibold text-[#800020] transition-colors hover:bg-white dark:border-[#bf00ff]/40 dark:bg-[#120014]/80 dark:text-[#ecb8ff] dark:hover:bg-[#1f0022]';
 const ICON_BTN = 'inline-flex h-8 w-8 items-center justify-center rounded-full border border-[#800020]/30 bg-white/80 text-lg font-bold text-[#800020] transition-colors hover:bg-white dark:border-[#00ffff]/30 dark:bg-[#120014]/85 dark:text-[#00ffff] dark:hover:bg-[#1f0022]';
 const INPUT = 'w-full rounded-xl border border-[#c9a96e]/40 bg-white/80 px-3 py-2 text-sm text-[#191970] outline-none transition focus:border-[#800020] focus:ring-2 focus:ring-[#800020]/15 dark:border-[#00ffff]/20 dark:bg-[#120014]/80 dark:text-white dark:focus:border-[#00ffff] dark:focus:ring-[#00ffff]/20';
-const BADGE = 'inline-flex items-center rounded-full border border-[#800020]/15 bg-white/70 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-[#800020] dark:border-[#bf00ff]/25 dark:bg-[#1a001d]/80 dark:text-[#bf00ff]';
+const BADGE = 'inline-flex items-center rounded-full border border-[#800020]/15 bg-white/70 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-[#800020] dark:border-[#bf00ff]/25 dark:bg-[#1a001d]/80 dark:text-[#ecb8ff]';
 const TH = 'border border-[#c9a96e]/30 bg-[#800020] p-3 text-left text-xs font-semibold uppercase tracking-[0.14em] text-[#b5e3f4] dark:border-[#00ffff]/20 dark:bg-[#0000ff]/25 dark:text-white';
 const TD = 'border border-[#c9a96e]/30 p-2 align-top dark:border-[#00ffff]/15';
+// Income headings sit on green, deductions on red.
+const EARNING_TH = 'border border-[#c9a96e]/30 bg-[#1a5c38] p-3 text-left text-xs font-semibold uppercase tracking-[0.14em] text-white dark:border-emerald-400/30 dark:bg-emerald-900 dark:text-white';
+const DEDUCTION_TH = 'border border-[#c9a96e]/30 bg-[#9f1239] p-3 text-left text-xs font-semibold uppercase tracking-[0.14em] text-white dark:border-rose-400/30 dark:bg-rose-900 dark:text-white';
+// Amount boxes are plain: empty instead of 0, no spinner arrows.
+const AMOUNT_INPUT = `${INPUT} [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none`;
+
+// Deductions the school keeps (lateness, loans, salary advance, school fees) count in the
+// payroll summary; the rest (cooperative, contributions, tax, vendors) are paid on for the staff.
+const DEDUCTION_KINDS = [
+  { value: 'school', label: 'Kept by the school' },
+  { value: 'remit', label: 'Paid on for the staff' },
+];
+
+function deductionKind(column) {
+  if (column?.kind === 'school' || column?.kind === 'remit') return column.kind;
+  return /late|loan|advance|fee/i.test(String(column?.label || '')) ? 'school' : 'remit';
+}
 
 const DEFAULT_PAYROLL_SETTINGS = {
   housingAllowance: 0,
   transportAllowance: 0,
   taxRate: 7.5,
   pensionRate: 8,
+  attendanceCharges: false,
   earningColumns: [
     { key: 'basicSalary', label: 'Basic Salary', fixed: true },
     { key: 'housingAllowance', label: 'Housing Allowance', fixed: true },
@@ -113,7 +133,12 @@ function normalizePayrollSettings(settings = {}) {
     ...DEFAULT_PAYROLL_SETTINGS,
     ...settings,
     earningColumns: normalizeColumnList(settings?.earningColumns, DEFAULT_PAYROLL_SETTINGS.earningColumns, 'earning'),
-    deductionColumns: normalizeColumnList(settings?.deductionColumns, DEFAULT_PAYROLL_SETTINGS.deductionColumns, 'deduction'),
+    attendanceCharges: settings?.attendanceCharges === true,
+    deductionColumns: normalizeColumnList(settings?.deductionColumns, DEFAULT_PAYROLL_SETTINGS.deductionColumns, 'deduction')
+      .map(column => {
+        const saved = (settings?.deductionColumns || []).find(entry => entry?.key === column.key);
+        return { ...column, kind: deductionKind({ ...column, kind: saved?.kind }) };
+      }),
   };
 }
 
@@ -518,10 +543,10 @@ function PayslipModal({ branding, monthLabel, staffRow, settings, contactInfo, o
               <img src={branding.logoUrl} alt={`${branding?.schoolName || 'School'} logo`} className="h-20 w-20 rounded-3xl border border-[#c9a96e]/40 bg-white/70 object-cover p-2" />
             ) : null}
             <div>
-              <h3 className="text-2xl font-bold text-[#800000] dark:text-[#0000ff]">{branding?.schoolName || 'School Payroll'}</h3>
+              <h3 className="text-2xl font-bold text-[#800000] dark:text-[#93c5fd]">{branding?.schoolName || 'School Payroll'}</h3>
               <p className="mt-2 text-sm text-[#191970] dark:text-[#39ff14]">Payslip for {monthLabel}</p>
               {contactInfo?.address ? <p className="mt-2 text-sm text-[#191970] dark:text-[#39ff14]">{contactInfo.address}</p> : null}
-              <div className="mt-1 flex flex-wrap gap-x-4 gap-y-1 text-xs text-[#800020] dark:text-[#bf00ff]">
+              <div className="mt-1 flex flex-wrap gap-x-4 gap-y-1 text-xs text-[#800020] dark:text-[#ecb8ff]">
                 {contactInfo?.phone ? <span>{contactInfo.phone}</span> : null}
                 {contactInfo?.email ? <span>{contactInfo.email}</span> : null}
                 {branding?.website ? <span>{branding.website}</span> : null}
@@ -533,18 +558,18 @@ function PayslipModal({ branding, monthLabel, staffRow, settings, contactInfo, o
 
         <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2">
           <div className={INNER}>
-            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#800020] dark:text-[#bf00ff]">Staff Name</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#800020] dark:text-[#ecb8ff]">Staff Name</p>
             <p className="mt-2 text-lg font-bold text-[#191970] dark:text-white">{staffRow.name}</p>
-            <p className="mt-4 text-xs font-semibold uppercase tracking-[0.14em] text-[#800020] dark:text-[#bf00ff]">Staff ID</p>
+            <p className="mt-4 text-xs font-semibold uppercase tracking-[0.14em] text-[#800020] dark:text-[#ecb8ff]">Staff ID</p>
             <p className="mt-2 font-semibold text-[#191970] dark:text-white">{staffRow.displayId}</p>
-            <p className="mt-4 text-xs font-semibold uppercase tracking-[0.14em] text-[#800020] dark:text-[#bf00ff]">Role</p>
+            <p className="mt-4 text-xs font-semibold uppercase tracking-[0.14em] text-[#800020] dark:text-[#ecb8ff]">Role</p>
             <p className="mt-2 font-semibold capitalize text-[#191970] dark:text-white">{staffRow.role}</p>
-            <p className="mt-4 text-xs font-semibold uppercase tracking-[0.14em] text-[#800020] dark:text-[#bf00ff]">Employment Category</p>
+            <p className="mt-4 text-xs font-semibold uppercase tracking-[0.14em] text-[#800020] dark:text-[#ecb8ff]">Employment Category</p>
             <p className="mt-2 font-semibold capitalize text-[#191970] dark:text-white">{staffRow.employmentCategory}</p>
           </div>
 
           <div className={INNER}>
-            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#800020] dark:text-[#bf00ff]">Net Pay</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#800020] dark:text-[#ecb8ff]">Net Pay</p>
             <p className="mt-3 text-3xl font-bold text-[#1a5c38] dark:text-[#00ffff]">{formatNaira(rowNet(staffRow))}</p>
             <p className="mt-4 text-sm text-[#191970] dark:text-[#39ff14]">Gross {formatNaira(rowGross(staffRow))}</p>
             <p className="mt-1 text-sm text-[#191970] dark:text-[#39ff14]">Deductions {formatNaira(rowTotalDeductions(staffRow))}</p>
@@ -553,23 +578,23 @@ function PayslipModal({ branding, monthLabel, staffRow, settings, contactInfo, o
 
         <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2">
           <div className={INNER}>
-            <p className="text-sm font-bold text-[#800000] dark:text-[#0000ff]">Earnings</p>
+            <p className="-mx-4 -mt-4 rounded-t-2xl bg-[#1a5c38] px-4 py-2 text-sm font-bold uppercase tracking-wide text-white dark:bg-emerald-900">Earnings</p>
             <div className="mt-4 space-y-3 text-sm text-[#191970] dark:text-white">
               {earnings.map(entry => (
                 <div key={entry.key} className="flex items-center justify-between"><span>{entry.label}</span><span>{formatNaira(entry.amount)}</span></div>
               ))}
-              <div className="border-t border-[#c9a96e]/30 pt-3 font-bold text-[#800000] dark:text-[#0000ff]"><div className="flex items-center justify-between"><span>Gross Pay</span><span>{formatNaira(rowGross(staffRow))}</span></div></div>
+              <div className="border-t border-[#c9a96e]/30 pt-3 font-bold text-[#800000] dark:text-[#93c5fd]"><div className="flex items-center justify-between"><span>Gross Pay</span><span>{formatNaira(rowGross(staffRow))}</span></div></div>
             </div>
           </div>
 
           <div className={INNER}>
-            <p className="text-sm font-bold text-[#800000] dark:text-[#0000ff]">Deductions</p>
+            <p className="-mx-4 -mt-4 rounded-t-2xl bg-[#9f1239] px-4 py-2 text-sm font-bold uppercase tracking-wide text-white dark:bg-rose-900">Deductions</p>
             <div className="mt-4 space-y-3 text-sm text-[#191970] dark:text-white">
               {deductions.map(entry => (
                 <div key={entry.key} className="flex items-center justify-between"><span>{entry.label}</span><span>{formatNaira(entry.amount)}</span></div>
               ))}
-              {staffRow.lateChargeCount > 0 ? <p className="text-xs text-[#800020] dark:text-[#bf00ff]">Applied from {staffRow.lateChargeCount} late sign-in record{staffRow.lateChargeCount === 1 ? '' : 's'}.</p> : null}
-              <div className="border-t border-[#c9a96e]/30 pt-3 font-bold text-[#800000] dark:text-[#0000ff]"><div className="flex items-center justify-between"><span>Total Deductions</span><span>{formatNaira(rowTotalDeductions(staffRow))}</span></div></div>
+              {staffRow.lateChargeCount > 0 ? <p className="text-xs text-[#800020] dark:text-[#ecb8ff]">Applied from {staffRow.lateChargeCount} late sign-in record{staffRow.lateChargeCount === 1 ? '' : 's'}.</p> : null}
+              <div className="border-t border-[#c9a96e]/30 pt-3 font-bold text-[#800000] dark:text-[#93c5fd]"><div className="flex items-center justify-between"><span>Total Deductions</span><span>{formatNaira(rowTotalDeductions(staffRow))}</span></div></div>
             </div>
           </div>
         </div>
@@ -610,11 +635,16 @@ function PayrollManagementBoard({ canApprove = false }) {
   const [loadingPayrollNote, setLoadingPayrollNote] = useState(false);
   const [savingPayrollNote, setSavingPayrollNote] = useState(false);
   const [toast, setToast] = useState('');
+  // When the sheet on screen is the copy kept on this device (no connection).
+  const [offlineSavedAt, setOfflineSavedAt] = useState('');
   const toastTimeoutRef = useRef(null);
   const importInputRef = useRef(null);
   const currentUser = useMemo(() => getStoredAuth()?.user || null, []);
   const currentUserRole = String(currentUser?.role || currentUser?.primaryRole || '').trim().toLowerCase();
   const canEditPayrollSettings = ['owner', 'hos', 'accountant'].includes(currentUserRole);
+  // The accountant publishes payslips to staff once the month's figures are posted.
+  const canRelease = canApprove || currentUserRole === 'accountant';
+  const cacheKey = `payroll:${currentUserKey()}:${viewPeriod}`;
 
   const showToast = useCallback((message) => {
     setToast(message);
@@ -635,25 +665,39 @@ function PayrollManagementBoard({ canApprove = false }) {
       setLoading(true);
 
       try {
-        const [payrollResult, historyResult, settingsResult, brandingResult, websiteSectionsResult, noteResult] = await Promise.all([
-          getPayroll(viewPeriod),
-          getPayrollHistory(),
-          getPayrollSettings(),
-          getBranding(),
-          getWebsiteSections(),
-          getPayrollNote(viewPeriod),
-        ]);
+        let data;
+        try {
+          const [payrollResult, historyResult, settingsResult, brandingResult, websiteSectionsResult, noteResult] = await Promise.all([
+            getPayroll(viewPeriod),
+            getPayrollHistory(),
+            getPayrollSettings(),
+            getBranding(),
+            getWebsiteSections().catch(() => ({ sections: [] })),
+            getPayrollNote(viewPeriod).catch(() => ({ note: null })),
+          ]);
+          data = { payrollResult, historyResult, settingsResult, brandingResult, websiteSectionsResult, noteResult };
+          setItem(cacheKey, { ...data, savedAt: new Date().toISOString() }).catch(() => null);
+          if (!ignore) setOfflineSavedAt('');
+        } catch (error) {
+          // No connection: work from the copy kept on this device.
+          const cached = isRetryable(error) ? await getItem(cacheKey) : null;
+          if (!cached) throw error;
+          data = cached;
+          if (!ignore) setOfflineSavedAt(cached.savedAt || new Date().toISOString());
+        }
 
         if (ignore) {
           return;
         }
+
+        const { payrollResult, historyResult, settingsResult, brandingResult, websiteSectionsResult, noteResult } = data;
 
         const nextSettings = normalizePayrollSettings(payrollResult?.settings || settingsResult?.settings || DEFAULT_PAYROLL_SETTINGS);
         const nextPeriod = payrollResult?.period || viewPeriod;
         const savedCurrentNote = noteResult?.note || null;
 
         setSettingsForm(nextSettings);
-        setRows(buildPayrollRows(payrollResult?.payroll || []));
+        setRows(Array.isArray(data.rows) ? data.rows : buildPayrollRows(payrollResult?.payroll || []));
         setHistory(historyResult?.history || []);
         setBranding(brandingResult?.branding || null);
         setContactInfo(extractContactInfo(websiteSectionsResult?.sections || []));
@@ -679,7 +723,7 @@ function PayrollManagementBoard({ canApprove = false }) {
     return () => {
       ignore = true;
     };
-  }, [canApprove, showToast, viewPeriod, reloadKey]);
+  }, [cacheKey, canApprove, showToast, viewPeriod, reloadKey]);
 
   useEffect(() => {
     if (selectedNotePeriod !== period) {
@@ -771,6 +815,13 @@ function PayrollManagementBoard({ canApprove = false }) {
     );
   }
 
+  function updateDeductionKind(key, value) {
+    setSettingsForm((current) => ({
+      ...current,
+      deductionColumns: current.deductionColumns.map(column => (column.key === key ? { ...column, kind: value } : column)),
+    }));
+  }
+
   function updateColumnLabel(kind, key, label) {
     setSettingsForm((current) => ({
       ...current,
@@ -784,7 +835,7 @@ function PayrollManagementBoard({ canApprove = false }) {
     const key = `${prefix}_${Date.now()}`;
     setSettingsForm((current) => ({
       ...current,
-      [kind]: [...current[kind], { key, label, fixed: false }],
+      [kind]: [...current[kind], kind === 'deductionColumns' ? { key, label, fixed: false, kind: 'remit' } : { key, label, fixed: false }],
     }));
   }
 
@@ -807,13 +858,25 @@ function PayrollManagementBoard({ canApprove = false }) {
     }
 
     setSavingRowId(staffId);
+    const payload = { ...buildPayrollRowPayload(targetRow), period };
+    const nextRows = rows.map(row => (row.id === staffId ? { ...row, hasEntry: true } : row));
 
     try {
-      await updatePayrollStaff(staffId, { ...buildPayrollRowPayload(targetRow), period });
-      setRows(current => current.map(row => (row.id === staffId ? { ...row, hasEntry: true } : row)));
+      if (!isOnline()) throw Object.assign(new Error('offline'), { status: 0 });
+      await updatePayrollStaff(staffId, payload);
+      setRows(nextRows);
       showToast(`Saved ${targetRow.name}.`);
     } catch (error) {
-      showToast(error.message || 'Could not save payroll row.');
+      if (isRetryable(error)) {
+        // Kept on this device and sent when the connection returns.
+        await enqueue('payroll-row', { staffId, payload }, { label: `Payroll: ${targetRow.name} (${formatPeriod(period)})` });
+        setRows(nextRows);
+        const cached = await getItem(cacheKey);
+        if (cached) setItem(cacheKey, { ...cached, rows: nextRows }).catch(() => null);
+        showToast(`No connection — ${targetRow.name} is saved on this device and will be sent when you are back online.`);
+      } else {
+        showToast(error.message || 'Could not save payroll row.');
+      }
     } finally {
       setSavingRowId('');
     }
@@ -850,12 +913,12 @@ function PayrollManagementBoard({ canApprove = false }) {
     const pendingCount = rows.filter(row => row.hasEntry && !row.released).length;
     const question = single
       ? `Release ${single.name}'s payslip for ${formatPeriod(period)}? They will see it straight away and it can no longer be changed.`
-      : `Release all ${pendingCount} pending payslip${pendingCount === 1 ? '' : 's'} for ${formatPeriod(period)}? Each staff member will see theirs straight away and they can no longer be changed.`;
+      : `Publish all ${pendingCount} pending payslip${pendingCount === 1 ? '' : 's'} for ${formatPeriod(period)} to staff? Each staff member will see theirs straight away and they can no longer be changed.`;
     if (!await askConfirm(question)) return;
     setActionBusy(single ? `release-${single.id}` : 'release');
     try {
       const result = await releasePayslips({ period, ...(staffIds?.length ? { staffIds } : {}) });
-      showToast(result.released ? `Released ${result.released} payslip${result.released === 1 ? '' : 's'}.` : (result.message || 'Nothing to release.'));
+      showToast(result.released ? `Published ${result.released} payslip${result.released === 1 ? '' : 's'} to staff.` : (result.message || 'Nothing to publish.'));
       setReloadKey(value => value + 1);
     } catch (error) {
       showToast(error.message || 'Could not release payslips.');
@@ -903,6 +966,8 @@ function PayrollManagementBoard({ canApprove = false }) {
     try {
       await savePayrollSettings(settingsForm);
       showToast('Payroll settings saved.');
+      // Turning sign-in charges on or off changes every row's deductions.
+      setReloadKey(value => value + 1);
     } catch (error) {
       showToast(error.message || 'Could not save payroll settings.');
     } finally {
@@ -1110,11 +1175,15 @@ function PayrollManagementBoard({ canApprove = false }) {
           totals.earnings[column.key] = (totals.earnings[column.key] || 0) + getRowEarningValue(row, column.key);
         });
         settingsForm.deductionColumns.forEach(column => {
-          totals.deductionsByKey[column.key] = (totals.deductionsByKey[column.key] || 0) + getRowDeductionValue(row, column.key);
+          const amount = getRowDeductionValue(row, column.key);
+          totals.deductionsByKey[column.key] = (totals.deductionsByKey[column.key] || 0) + amount;
+          if (deductionKind(column) === 'school') totals.schoolDeductions += amount;
+          else totals.paidOn += amount;
         });
+        totals.schoolDeductions += Number(row.autoLateDeduction || 0) + Number(row.autoAbsenceDeduction || 0);
         return totals;
       },
-      { gross: 0, manualDeductions: 0, autoLateDeductions: 0, autoAbsenceDeductions: 0, deductions: 0, net: 0, count: 0, earnings: {}, deductionsByKey: {} },
+      { gross: 0, manualDeductions: 0, autoLateDeductions: 0, autoAbsenceDeductions: 0, deductions: 0, schoolDeductions: 0, paidOn: 0, net: 0, count: 0, earnings: {}, deductionsByKey: {} },
     );
   }, [rows, settingsForm]);
 
@@ -1126,8 +1195,14 @@ function PayrollManagementBoard({ canApprove = false }) {
         </div>
       ) : null}
 
+      {offlineSavedAt ? (
+        <div role="status" className="rounded-2xl border border-amber-300 bg-amber-50 px-4 py-3 text-sm font-semibold text-amber-900 dark:border-amber-500/40 dark:bg-amber-950 dark:text-amber-100">
+          No connection — showing the payroll saved on this device ({new Date(offlineSavedAt).toLocaleString()}). Figures you enter are kept here and sent when you are back online.
+        </div>
+      ) : null}
+
       <div className={`${CARD} flex flex-wrap items-end gap-3`}>
-        <label className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">
+        <label className="text-sm font-semibold text-[#800020] dark:text-[#ecb8ff]">
           Payroll month
           <input
             type="month"
@@ -1143,7 +1218,7 @@ function PayrollManagementBoard({ canApprove = false }) {
         ) : null}
         {!approved && history.some(entry => entry.period !== period) ? (
           <div className="flex flex-wrap items-end gap-2">
-            <label className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">
+            <label className="text-sm font-semibold text-[#800020] dark:text-[#ecb8ff]">
               Reuse an earlier month
               <select value={copyFrom} onChange={(event) => setCopyFrom(event.target.value)} className={`${INPUT} mt-1 w-48`}>
                 <option value="">Choose a month…</option>
@@ -1157,7 +1232,7 @@ function PayrollManagementBoard({ canApprove = false }) {
             </button>
           </div>
         ) : null}
-        {canApprove ? (
+        {canRelease ? (
           <div className="ml-auto flex flex-wrap items-center gap-2">
             <span className={BADGE}>{rows.filter(row => row.released).length} of {rows.filter(row => row.hasEntry).length} released</span>
             <button
@@ -1166,7 +1241,7 @@ function PayrollManagementBoard({ canApprove = false }) {
               onClick={() => handleRelease()}
               className={BTN}
             >
-              {actionBusy === 'release' ? 'Releasing…' : 'Release All Pending Payslips'}
+              {actionBusy === 'release' ? 'Publishing…' : 'Publish All Pending Payslips'}
             </button>
           </div>
         ) : null}
@@ -1186,35 +1261,45 @@ function PayrollManagementBoard({ canApprove = false }) {
 
       {tab === 0 ? (
         <div className="space-y-6">
-          <div className="grid grid-cols-1 gap-5 md:grid-cols-4">
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-5">
             <div className={CARD}>
-              <p className="text-sm font-semibold uppercase tracking-[0.14em] text-[#800020] dark:text-[#bf00ff]">Total Gross</p>
-              <h3 className="mt-3 text-3xl font-bold text-[#800000] dark:text-[#0000ff]">{formatNaira(payrollTotals.gross)}</h3>
+              <p className="text-sm font-semibold uppercase tracking-[0.14em] text-[#800020] dark:text-[#ecb8ff]">Total Gross</p>
+              <h3 className="mt-3 text-3xl font-bold text-[#800000] dark:text-white">{formatNaira(payrollTotals.gross)}</h3>
             </div>
             <div className={CARD}>
-              <p className="text-sm font-semibold uppercase tracking-[0.14em] text-[#800020] dark:text-[#bf00ff]">Total Deductions</p>
-              <h3 className="mt-3 text-3xl font-bold text-[#800000] dark:text-[#ff6bff]">{formatNaira(payrollTotals.deductions)}</h3>
+              <p className="text-sm font-semibold uppercase tracking-[0.14em] text-[#800020] dark:text-[#ecb8ff]">Deductions kept by the school</p>
+              <h3 className="mt-3 text-3xl font-bold text-[#800000] dark:text-[#ff6bff]">{formatNaira(payrollTotals.schoolDeductions)}</h3>
+              <p className="mt-2 text-xs text-[#191970] dark:text-white">Lateness, loans, salary advance, school fees.</p>
             </div>
             <div className={CARD}>
-              <p className="text-sm font-semibold uppercase tracking-[0.14em] text-[#800020] dark:text-[#bf00ff]">Total Net Pay</p>
+              <p className="text-sm font-semibold uppercase tracking-[0.14em] text-[#800020] dark:text-[#ecb8ff]">Paid on for the staff</p>
+              <h3 className="mt-3 text-3xl font-bold text-[#800000] dark:text-[#ff6bff]">{formatNaira(payrollTotals.paidOn)}</h3>
+              <ul className="mt-2 space-y-0.5 text-xs text-[#191970] dark:text-white">
+                {settingsForm.deductionColumns.filter(column => deductionKind(column) === 'remit' && payrollTotals.deductionsByKey[column.key]).map(column => (
+                  <li key={`paid-on-${column.key}`}>{column.label}: {formatNaira(payrollTotals.deductionsByKey[column.key])}</li>
+                ))}
+              </ul>
+            </div>
+            <div className={CARD}>
+              <p className="text-sm font-semibold uppercase tracking-[0.14em] text-[#800020] dark:text-[#ecb8ff]">Total Net Pay</p>
               <h3 className="mt-3 text-3xl font-bold text-[#1a5c38] dark:text-[#00ffff]">{formatNaira(payrollTotals.net)}</h3>
             </div>
             <div className={CARD}>
-              <p className="text-sm font-semibold uppercase tracking-[0.14em] text-[#800020] dark:text-[#bf00ff]">Staff Count</p>
-              <h3 className="mt-3 text-3xl font-bold text-[#800000] dark:text-[#0000ff]">{payrollTotals.count}</h3>
+              <p className="text-sm font-semibold uppercase tracking-[0.14em] text-[#800020] dark:text-[#ecb8ff]">Staff Count</p>
+              <h3 className="mt-3 text-3xl font-bold text-[#800000] dark:text-white">{payrollTotals.count}</h3>
             </div>
           </div>
 
           <div className={CARD}>
             {loading ? (
-              <p className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">Loading payroll sheet...</p>
+              <p className="text-sm font-semibold text-[#800020] dark:text-[#ecb8ff]">Loading payroll sheet...</p>
             ) : rows.length === 0 ? (
-              <p className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">No staff payroll rows found.</p>
+              <p className="text-sm font-semibold text-[#800020] dark:text-[#ecb8ff]">No staff payroll rows found.</p>
             ) : (
               <>
               <style>{'.ndv-fit-table{min-width:0!important;width:100%!important;table-layout:fixed;} .ndv-fit-table th,.ndv-fit-table td{padding:2px 4px!important;font-size:10px!important;} .ndv-fit-table input,.ndv-fit-table select,.ndv-fit-table button{font-size:10px!important;padding:1px 3px!important;}'}</style>
               <div className="hidden lg:flex justify-end mb-2">
-                <button type="button" onClick={() => setTableFullscreen(true)} className="inline-flex items-center gap-1.5 rounded-xl border border-[#800020]/30 bg-white/60 px-3 py-1.5 text-xs font-semibold text-[#800020] hover:bg-white dark:border-[#bf00ff]/40 dark:bg-[#120014]/80 dark:text-[#bf00ff]">
+                <button type="button" onClick={() => setTableFullscreen(true)} className="inline-flex items-center gap-1.5 rounded-xl border border-[#800020]/30 bg-white/60 px-3 py-1.5 text-xs font-semibold text-[#800020] hover:bg-white dark:border-[#bf00ff]/40 dark:bg-[#120014]/80 dark:text-[#ecb8ff]">
                   <ArrowsPointingOutIcon className="h-4 w-4" /> Fit to Screen
                 </button>
               </div>
@@ -1237,13 +1322,13 @@ function PayrollManagementBoard({ canApprove = false }) {
                       <th className={`${TH} sticky top-0 z-20`}>Role</th>
                       <th className={`${TH} sticky top-0 z-20`}>Employment Category</th>
                       {settingsForm.earningColumns.map((column, index) => (
-                        <th key={`earning-head-${column.key}`} className={`${TH} sticky top-0 z-20`}>
+                        <th key={`earning-head-${column.key}`} className={`${EARNING_TH} sticky top-0 z-20`}>
                           {canEditPayrollSettings ? (
                             <div className="min-w-[140px] space-y-2">
                               <div className="flex items-start justify-between gap-2">
                                 <div>
-                                  {index === 0 ? <span className="block text-[10px] uppercase tracking-[0.16em] text-[#b5e3f4]">Earnings</span> : null}
-                                  <span className="block text-[10px] uppercase tracking-[0.16em] text-[#b5e3f4]/80">{column.fixed ? 'Standard' : 'Custom'} earning</span>
+                                  {index === 0 ? <span className="block text-[10px] uppercase tracking-[0.16em] text-white">Earnings</span> : null}
+                                  <span className="block text-[10px] uppercase tracking-[0.16em] text-white">{column.fixed ? 'Standard' : 'Custom'} earning</span>
                                 </div>
                                 <div className="flex items-center gap-1">
                                   {index === 0 ? (
@@ -1270,15 +1355,15 @@ function PayrollManagementBoard({ canApprove = false }) {
                           ) : column.label}
                         </th>
                       ))}
-                      <th className={`${TH} sticky top-0 z-20`}>Gross</th>
+                      <th className={`${EARNING_TH} sticky top-0 z-20`}>Gross</th>
                       {settingsForm.deductionColumns.map((column, index) => (
-                        <th key={`deduction-head-${column.key}`} className={`${TH} sticky top-0 z-20`}>
+                        <th key={`deduction-head-${column.key}`} className={`${DEDUCTION_TH} sticky top-0 z-20`}>
                           {canEditPayrollSettings ? (
                             <div className="min-w-[140px] space-y-2">
                               <div className="flex items-start justify-between gap-2">
                                 <div>
-                                  {index === 0 ? <span className="block text-[10px] uppercase tracking-[0.16em] text-[#b5e3f4]">Deductions</span> : null}
-                                  <span className="block text-[10px] uppercase tracking-[0.16em] text-[#b5e3f4]/80">{column.fixed ? 'Standard' : 'Custom'} deduction</span>
+                                  {index === 0 ? <span className="block text-[10px] uppercase tracking-[0.16em] text-white">Deductions</span> : null}
+                                  <span className="block text-[10px] uppercase tracking-[0.16em] text-white">{deductionKind(column) === 'school' ? 'Kept by the school' : 'Paid on'}</span>
                                 </div>
                                 <div className="flex items-center gap-1">
                                   {index === 0 ? (
@@ -1305,9 +1390,13 @@ function PayrollManagementBoard({ canApprove = false }) {
                           ) : column.label}
                         </th>
                       ))}
-                      <th className={`${TH} sticky top-0 z-20`}>Late Charges</th>
-                      <th className={`${TH} sticky top-0 z-20`}>Absence Charges</th>
-                      <th className={`${TH} sticky top-0 z-20`}>Total Deductions</th>
+                      {settingsForm.attendanceCharges ? (
+                        <>
+                          <th className={`${DEDUCTION_TH} sticky top-0 z-20`}>Late Charges</th>
+                          <th className={`${DEDUCTION_TH} sticky top-0 z-20`}>Absence Charges</th>
+                        </>
+                      ) : null}
+                      <th className={`${DEDUCTION_TH} sticky top-0 z-20`}>Total Deductions</th>
                       <th className={`${TH} sticky top-0 z-20`}>Net Pay</th>
                       <th className={`${TH} sticky top-0 z-20`}>Status</th>
                       <th className={`${TH} sticky top-0 z-20`}>Payslip</th>
@@ -1342,35 +1431,41 @@ function PayrollManagementBoard({ canApprove = false }) {
                           <td key={`${row.id}-${column.key}`} className={TD}>
                             <input
                               type="number"
-                              value={getRowEarningValue(row, column.key)}
+                              inputMode="decimal"
+                              aria-label={`${row.name}: ${column.label}`}
+                              value={getRowEarningValue(row, column.key) || ''}
                               disabled={inputsLocked || row.released}
                               onChange={(event) => updateRowAmount(row.id, 'earning', column.key, event.target.value)}
                               onBlur={() => persistRow(row.id)}
-                              className={INPUT}
+                              className={AMOUNT_INPUT}
                             />
                           </td>
                         ))}
-                        <td className={`${TD} font-bold text-[#800000] dark:text-[#0000ff]`}>{formatNaira(rowGross(row))}</td>
+                        <td className={`${TD} font-bold text-[#800000] dark:text-[#93c5fd]`}>{formatNaira(rowGross(row))}</td>
                         {settingsForm.deductionColumns.map((column) => (
                           <td key={`${row.id}-${column.key}`} className={TD}>
                             <input
                               type="number"
-                              value={getRowDeductionValue(row, column.key)}
+                              inputMode="decimal"
+                              aria-label={`${row.name}: ${column.label}`}
+                              value={getRowDeductionValue(row, column.key) || ''}
                               disabled={inputsLocked || row.released}
                               onChange={(event) => updateRowAmount(row.id, 'deduction', column.key, event.target.value)}
                               onBlur={() => persistRow(row.id)}
-                              className={INPUT}
+                              className={AMOUNT_INPUT}
                             />
                           </td>
                         ))}
+                        {settingsForm.attendanceCharges ? (<>
                         <td className={TD}>
                           <p className="font-bold text-[#800000] dark:text-[#ff6bff]">{formatNaira(row.autoLateDeduction)}</p>
-                          {row.lateChargeCount > 0 ? <p className="mt-1 text-xs text-[#800020] dark:text-[#bf00ff]">{row.lateChargeCount} late mark{row.lateChargeCount === 1 ? '' : 's'}</p> : <p className="mt-1 text-xs text-[#800020] dark:text-[#bf00ff]">Auto</p>}
+                          {row.lateChargeCount > 0 ? <p className="mt-1 text-xs text-[#800020] dark:text-[#ecb8ff]">{row.lateChargeCount} late mark{row.lateChargeCount === 1 ? '' : 's'}</p> : <p className="mt-1 text-xs text-[#800020] dark:text-[#ecb8ff]">Auto</p>}
                         </td>
                         <td className={TD}>
                           <p className="font-bold text-[#800000] dark:text-[#ff6bff]">{formatNaira(row.autoAbsenceDeduction)}</p>
-                          {row.absenceChargeCount > 0 ? <p className="mt-1 text-xs text-[#800020] dark:text-[#bf00ff]">{row.absenceChargeCount} unauthorized absence day{row.absenceChargeCount === 1 ? '' : 's'}</p> : <p className="mt-1 text-xs text-[#800020] dark:text-[#bf00ff]">Auto</p>}
+                          {row.absenceChargeCount > 0 ? <p className="mt-1 text-xs text-[#800020] dark:text-[#ecb8ff]">{row.absenceChargeCount} unauthorized absence day{row.absenceChargeCount === 1 ? '' : 's'}</p> : <p className="mt-1 text-xs text-[#800020] dark:text-[#ecb8ff]">Auto</p>}
                         </td>
+                        </>) : null}
                         <td className={`${TD} font-bold text-[#800000] dark:text-[#ff6bff]`}>{formatNaira(rowTotalDeductions(row))}</td>
                         <td className={`${TD} font-bold text-[#1a5c38] dark:text-[#00ffff]`}>{formatNaira(rowNet(row))}</td>
                         <td className={TD}>
@@ -1386,7 +1481,7 @@ function PayrollManagementBoard({ canApprove = false }) {
                             <option value="paid">Paid</option>
                             <option value="failed">Failed</option>
                           </select>
-                          <p className="mt-1 text-xs text-[#800020] dark:text-[#bf00ff]">
+                          <p className="mt-1 text-xs text-[#800020] dark:text-[#ecb8ff]">
                             {savingRowId === row.id ? 'Saving...' : 'Blur to save'}
                           </p>
                         </td>
@@ -1394,12 +1489,12 @@ function PayrollManagementBoard({ canApprove = false }) {
                           <button onClick={() => setSelectedPayslip(row)} className={BTN}>Payslip</button>
                           {row.released ? (
                             <p className="mt-1 text-xs font-bold text-[#1a5c38] dark:text-[#00ffff]">✓ Released</p>
-                          ) : canApprove && row.hasEntry ? (
+                          ) : canRelease && row.hasEntry ? (
                             <button type="button" disabled={actionBusy !== ''} onClick={() => handleRelease([row.id])} className={`${OUTLINE_BTN} mt-1 px-3 py-1 text-xs`}>
                               {actionBusy === `release-${row.id}` ? 'Releasing…' : 'Release'}
                             </button>
                           ) : (
-                            <p className="mt-1 text-xs text-[#800020] dark:text-[#bf00ff]">{row.hasEntry ? 'Not released' : 'No figures yet'}</p>
+                            <p className="mt-1 text-xs text-[#800020] dark:text-[#ecb8ff]">{row.hasEntry ? 'Not released' : 'No figures yet'}</p>
                           )}
                         </td>
                       </tr>
@@ -1414,8 +1509,10 @@ function PayrollManagementBoard({ canApprove = false }) {
                       {settingsForm.deductionColumns.map(column => (
                         <td key={`deduction-total-${column.key}`} className={TD}>{formatNaira(payrollTotals.deductionsByKey[column.key] || 0)}</td>
                       ))}
-                      <td className={TD}>{formatNaira(payrollTotals.autoLateDeductions)}</td>
-                      <td className={TD}>{formatNaira(payrollTotals.autoAbsenceDeductions)}</td>
+                      {settingsForm.attendanceCharges ? (<>
+                        <td className={TD}>{formatNaira(payrollTotals.autoLateDeductions)}</td>
+                        <td className={TD}>{formatNaira(payrollTotals.autoAbsenceDeductions)}</td>
+                      </>) : null}
                       <td className={TD}>{formatNaira(payrollTotals.deductions)}</td>
                       <td className={TD}>{formatNaira(payrollTotals.net)}</td>
                       <td className={TD}>-</td>
@@ -1429,7 +1526,7 @@ function PayrollManagementBoard({ canApprove = false }) {
 
             <div className="mt-4 border-t border-[#c9a96e]/30 pt-4 dark:border-[#00ffff]/15">
               <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
-                <p className="text-xs font-semibold text-[#800020] dark:text-[#bf00ff]">
+                <p className="text-xs font-semibold text-[#800020] dark:text-[#ecb8ff]">
                   Download the Excel template, update your own payroll offline, then upload it back here. Gross pay, late charges, total deductions, and net pay are recalculated automatically after import.
                 </p>
                 <div className="flex flex-wrap gap-3">
@@ -1488,19 +1585,19 @@ function PayrollManagementBoard({ canApprove = false }) {
 
       {tab === 1 ? (
         <div className={CARD}>
-          <h3 className="text-xl font-bold text-[#800000] dark:text-[#0000ff]">Payslips - {monthLabel}</h3>
+          <h3 className="text-xl font-bold text-[#800000] dark:text-[#93c5fd]">Payslips - {monthLabel}</h3>
           <div className="mt-4 space-y-3">
             {rows.map((row) => (
               <div key={`payslip-${row.id}`} className={`${INNER} flex flex-col gap-4 md:flex-row md:items-center md:justify-between`}>
                 <div>
                   <p className="text-lg font-bold text-[#191970] dark:text-white">{row.name}</p>
-                  <p className="mt-1 text-sm capitalize text-[#800020] dark:text-[#bf00ff]">{row.role} · {row.employmentCategory} · {row.displayId}</p>
+                  <p className="mt-1 text-sm capitalize text-[#800020] dark:text-[#ecb8ff]">{row.role} · {row.employmentCategory} · {row.displayId}</p>
                   <p className="mt-2 text-sm text-[#191970] dark:text-[#39ff14]">Net pay {formatNaira(rowNet(row))}</p>
-                  {row.autoLateDeduction > 0 ? <p className="mt-1 text-xs text-[#800020] dark:text-[#bf00ff]">Includes {formatNaira(row.autoLateDeduction)} lateness charge{row.lateChargeCount === 1 ? '' : 's'}.</p> : null}
-                  {row.autoAbsenceDeduction > 0 ? <p className="mt-1 text-xs text-[#800020] dark:text-[#bf00ff]">Includes {formatNaira(row.autoAbsenceDeduction)} absenteeism charge across {row.absenceChargeCount} unauthorized absence day{row.absenceChargeCount === 1 ? '' : 's'}.</p> : null}
+                  {row.autoLateDeduction > 0 ? <p className="mt-1 text-xs text-[#800020] dark:text-[#ecb8ff]">Includes {formatNaira(row.autoLateDeduction)} lateness charge{row.lateChargeCount === 1 ? '' : 's'}.</p> : null}
+                  {row.autoAbsenceDeduction > 0 ? <p className="mt-1 text-xs text-[#800020] dark:text-[#ecb8ff]">Includes {formatNaira(row.autoAbsenceDeduction)} absenteeism charge across {row.absenceChargeCount} unauthorized absence day{row.absenceChargeCount === 1 ? '' : 's'}.</p> : null}
                 </div>
                 <div className="flex flex-wrap items-center gap-2">
-                  {row.released ? <span className={BADGE}>Released</span> : canApprove && row.hasEntry ? (
+                  {row.released ? <span className={BADGE}>Released</span> : canRelease && row.hasEntry ? (
                     <button type="button" disabled={actionBusy !== ''} onClick={() => handleRelease([row.id])} className={OUTLINE_BTN}>
                       {actionBusy === `release-${row.id}` ? 'Releasing…' : 'Release to staff'}
                     </button>
@@ -1552,9 +1649,9 @@ function PayrollManagementBoard({ canApprove = false }) {
 
       {tab === 4 ? (
         <div className={CARD}>
-          <h3 className="text-xl font-bold text-[#800000] dark:text-[#0000ff]">Payroll History</h3>
+          <h3 className="text-xl font-bold text-[#800000] dark:text-[#93c5fd]">Payroll History</h3>
           {history.length === 0 ? (
-            <p className="mt-4 text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">No payroll history yet.</p>
+            <p className="mt-4 text-sm font-semibold text-[#800020] dark:text-[#ecb8ff]">No payroll history yet.</p>
           ) : (
             <div className="mt-4 space-y-3">
               {history.map((entry, index) => (
@@ -1562,7 +1659,7 @@ function PayrollManagementBoard({ canApprove = false }) {
                   <div>
                     <p className="text-lg font-bold text-[#191970] dark:text-white">{formatPeriod(entry.period || entry.month)}</p>
                     <p className="mt-1 text-sm text-[#191970] dark:text-[#39ff14]">Total net {formatNaira(entry.totalNet)}</p>
-                    {entry.payrollNoteSavedAt ? <p className="mt-1 text-xs text-[#800020] dark:text-[#bf00ff]">Payroll notes saved by {entry.payrollNotePreparedBy || 'Authorized Officer'} on {new Date(entry.payrollNoteSavedAt).toLocaleString()}</p> : null}
+                    {entry.payrollNoteSavedAt ? <p className="mt-1 text-xs text-[#800020] dark:text-[#ecb8ff]">Payroll notes saved by {entry.payrollNotePreparedBy || 'Authorized Officer'} on {new Date(entry.payrollNoteSavedAt).toLocaleString()}</p> : null}
                   </div>
                   <div className="flex flex-wrap items-center gap-2">
                     <span className={BADGE}>{entry.status || 'draft'}</span>
@@ -1599,7 +1696,7 @@ function PayrollManagementBoard({ canApprove = false }) {
 
       {tab === 5 ? (
         <div className={CARD}>
-          <h3 className="text-xl font-bold text-[#800000] dark:text-[#0000ff]">Payroll Settings</h3>
+          <h3 className="text-xl font-bold text-[#800000] dark:text-[#93c5fd]">Payroll Settings</h3>
           <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
             {[
               ['Housing Allowance (₦)', 'housingAllowance'],
@@ -1607,27 +1704,40 @@ function PayrollManagementBoard({ canApprove = false }) {
               ['Tax Rate (%)', 'taxRate'],
               ['Pension Rate (%)', 'pensionRate'],
             ].map(([label, key]) => (
-              <label key={key} className="text-sm font-semibold text-[#800020] dark:text-[#bf00ff]">
+              <label key={key} className="text-sm font-semibold text-[#800020] dark:text-[#ecb8ff]">
                 {label}
                 <input
                   type="number"
-                  value={settingsForm[key]}
+                  inputMode="decimal"
+                  value={settingsForm[key] || ''}
                   onChange={(event) =>
                     setSettingsForm((current) => ({
                       ...current,
                       [key]: Number(event.target.value || 0),
                     }))
                   }
-                  className={`${INPUT} mt-2`}
+                  className={`${AMOUNT_INPUT} mt-2`}
                 />
               </label>
             ))}
           </div>
+          <label className={`${INNER} mt-4 flex items-start gap-3 text-sm text-[#191970] dark:text-white`}>
+            <input
+              type="checkbox"
+              className="mt-1 h-4 w-4"
+              checked={settingsForm.attendanceCharges}
+              onChange={(event) => setSettingsForm(current => ({ ...current, attendanceCharges: event.target.checked }))}
+            />
+            <span>
+              <span className="block font-bold">Deduct lateness and absence from staff sign-in</span>
+              <span className="mt-1 block text-xs">Leave this off if your school does not charge for lateness or absence through Ndovera's staff sign-in, even when penalties are switched on in staff attendance. Lateness charges you work out yourself can go in a deduction heading.</span>
+            </span>
+          </label>
           <div className="mt-6 grid gap-6 lg:grid-cols-2">
             <div className={INNER}>
               <div className="flex items-center justify-between gap-3">
                 <div>
-                  <p className="text-sm font-bold text-[#800000] dark:text-[#0000ff]">Earning Headings</p>
+                  <p className="text-sm font-bold text-[#800000] dark:text-[#93c5fd]">Earning Headings</p>
                   <p className="mt-1 text-xs text-[#191970] dark:text-[#39ff14]">Rename the standard columns and add more earning columns for this school.</p>
                 </div>
                 <button type="button" onClick={() => addCustomColumn('earningColumns')} className={OUTLINE_BTN}>Add Earning</button>
@@ -1635,7 +1745,7 @@ function PayrollManagementBoard({ canApprove = false }) {
               <div className="mt-4 space-y-3">
                 {settingsForm.earningColumns.map(column => (
                   <div key={`earning-setting-${column.key}`}>
-                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#800020] dark:text-[#bf00ff]">{column.fixed ? 'Standard Heading' : 'Custom Heading'}</p>
+                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#800020] dark:text-[#ecb8ff]">{column.fixed ? 'Standard Heading' : 'Custom Heading'}</p>
                     <div className="mt-2 flex items-center gap-2">
                       <input
                         type="text"
@@ -1655,15 +1765,15 @@ function PayrollManagementBoard({ canApprove = false }) {
             <div className={INNER}>
               <div className="flex items-center justify-between gap-3">
                 <div>
-                  <p className="text-sm font-bold text-[#800000] dark:text-[#0000ff]">Deduction Headings</p>
-                  <p className="mt-1 text-xs text-[#191970] dark:text-[#39ff14]">Rename deduction headings and add extra deduction columns for custom school policy.</p>
+                  <p className="text-sm font-bold text-[#800000] dark:text-[#93c5fd]">Deduction Headings</p>
+                  <p className="mt-1 text-xs text-[#191970] dark:text-[#39ff14]">Rename deduction headings and add more. Say where each goes: kept by the school (lateness, loans, salary advance, school fees) counts in the payroll summary; paid on for the staff (cooperative, contributions, tax, vendors) is listed apart.</p>
                 </div>
                 <button type="button" onClick={() => addCustomColumn('deductionColumns')} className={OUTLINE_BTN}>Add Deduction</button>
               </div>
               <div className="mt-4 space-y-3">
                 {settingsForm.deductionColumns.map(column => (
                   <div key={`deduction-setting-${column.key}`}>
-                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#800020] dark:text-[#bf00ff]">{column.fixed ? 'Standard Heading' : 'Custom Heading'}</p>
+                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#800020] dark:text-[#ecb8ff]">{column.fixed ? 'Standard Heading' : 'Custom Heading'}</p>
                     <div className="mt-2 flex items-center gap-2">
                       <input
                         type="text"
@@ -1671,6 +1781,14 @@ function PayrollManagementBoard({ canApprove = false }) {
                         onChange={(event) => updateColumnLabel('deductionColumns', column.key, event.target.value)}
                         className={INPUT}
                       />
+                      <select
+                        aria-label={`${column.label}: where it goes`}
+                        value={deductionKind(column)}
+                        onChange={(event) => updateDeductionKind(column.key, event.target.value)}
+                        className={`${INPUT} w-auto`}
+                      >
+                        {DEDUCTION_KINDS.map(option => <option key={option.value} value={option.value}>{option.label}</option>)}
+                      </select>
                       {!column.fixed ? (
                         <button type="button" onClick={() => removeCustomColumn('deductionColumns', column.key)} className={ICON_BTN} title="Remove deduction heading" aria-label="Remove deduction heading">−</button>
                       ) : null}

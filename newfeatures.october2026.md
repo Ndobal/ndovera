@@ -2259,7 +2259,7 @@ Owner/HoS/transport officer set up routes and students (pick-up point and times,
 ### N32. School health register — ✅ DEPLOYED (15 Oct 2026)
 Staff report incidents and first aid (with photos); teachers see only their own reports. The nurse (clinic role) manages rest time, medication, outcome, parent informed, follow-up, notes and health profiles; without a nurse the Owner/HoS do. Owner/HoS/nurse see all histories; parents see their children's.
 
-### N33. Score sheets: one student at a time, one class hand-in, combined subjects, section scores — ⏳ BUILT (16 Oct 2026), deploy pending
+### N33. Score sheets: one student at a time, one class hand-in, combined subjects, section scores — ✅ BUILT (16 Oct 2026), deployed with later releases
 Let each student be tabbed; teachers see one student's work and click Next; each entry saved on Next or Save as draft; after the last student: Hand in, Save as draft or Schedule hand-in; new students after hand-in can still be scored and handed in; no hand-in while a student has no score. Live sheet summary, layout and workflow shown once as tips (closable, then in a Tips tab). HoS/Owner see each student's scores the same way and preview each result as parents see it; ICT can help teachers enter scores. Scores set per section (Nursery, Primary, Secondary), enforced for schools already set up. Special subjects (e.g. Fashion and Design) combined across classes unless the school decides not to. Only one hand-in for all subjects: subject teachers submit to the class teacher, who sees and can overwrite their scores and alone hands the class in. Assistant class teacher can enter scores for the class too. Existing scores kept.
 - Score sheet: student tabs (✓ when every subject is scored) with Previous / Save as draft / Preview result / Next; the last step is the hand-in. Only changed students are saved. A typed zero (absent student) counts as entered.
 - Subject teachers: "Submit to class teacher" per subject, only when every student has a score; locked for them until the class teacher returns it (with a note).
@@ -2335,7 +2335,7 @@ From feature22222222.md.
 - Attendance → Timetable: upload a class timetable; at midnight Ndovera AI reads it, matches lessons to the class's subjects and teachers, and publishes it on the class (the previous timetable stays in Versions).
 
 
-### N41. Ami: readable colours, what schools owe and what Ndovera collected, share register and profit sharing, profit and loss, audit trail and reports from records — ⏳ BUILT 23 Oct 2026, NOT DEPLOYED YET
+### N41. Ami: readable colours, what schools owe and what Ndovera collected, share register and profit sharing, profit and loss, audit trail and reports from records — ✅ BUILT 23 Oct 2026, deployed with the 28 Oct 2026 release
 > THE SIDE BAR OF THE AMI DASHBOARD IS CONFLICTING WITH THE TEXT AND BACKGROUND COLOURS
 > WHAT SCHOOLS OWE IS SUPPOSED TO BE STATED CLEARLY AND NOT JUST WRITE ZEROS
 > WHAT NDOVERA HAS COLLECTED ALSO IS SUPPOSED TO BE STATED AS WELL
@@ -2353,10 +2353,57 @@ From feature22222222.md.
 - Shareholders: share register (issue / transfer / redeem, capital paid, history), profit-sharing formula (retention %), share-outs from finished months, what is due to each shareholder, payouts with references. Shareholders see their own position read-only.
 - Audit Trail and Reports read the real records.
 
-### N42. Practice: tighten questions and subject matching — ⏳ BUILT 23 Oct 2026, NOT DEPLOYED YET
+### N42. Practice: tighten questions and subject matching — ✅ BUILT 23 Oct 2026, deployed with the 28 Oct 2026 release
 > LETS TIGHTEN THE QUESTIONS AND SUBJECT MATCHING
 > IN PRACTICE, STUDENTS COMPLAIN OF SEEING ICT QUESTIONS IN AGRICULTURAL SCIENCE
 
 - Cause: a question takes the subject its source was filed under; a paper filed under the wrong subject brought its questions into that subject, and Ndovera AI then wrote more questions on those topics.
 - Ndovera AI now checks every question's subject (up to 120 batches a night, about 3,000 questions); wrong ones move to their real subject or are held back. Students can press "Not this subject?" (2 students or 1 staff hold it until rechecked).
 - AI question writing takes topics from the class, then the published curriculum, never from unchecked bank questions. Subject names are only joined when the names agree (Agric and ICT can never be merged).
+
+### N43. Parents sign in by phone, Family Table, club and excursion fees, fee groups, Ami XP reset — ✅ DEPLOYED (28 Oct 2026), committed 29 Oct 2026
+- Parents sign in with their phone number (one number, one account). People → Family Table adds or links parents without email.
+- Club fees go into next term's bill (half for staff children); excursions charge chosen classes; a fee card for students who joined this term; fee groups (staff child, scholarship…) with rates per section.
+- Ami can reset every student's practice XP with a backup and undo.
+
+### N44. Payroll: plain amount boxes, staff account details, Word notes, accountant publishes, payslip download, green/red headings, sign-in charges only when used, kept vs paid-on deductions, offline — ✅ BUILT 29 Oct 2026
+From feature22222222.md ("Payroll" list).
+> 1. Remove the zeros let the user have a plain field to enter the figures
+> 2. let the staff be able to enter their account details
+> 3. let the payroll notes be downloadable as Microsoft word document and docx
+> 4. after accountant finishes posting the figures for the month, let him click publish to post the individual's pay slips to the staff
+> Let users be able to view or download their payslips
+> let income headings be green background while deductions be [red]
+> don't use system built lateness, absenteeism where it is not used even though the settings are active
+> only deductions for lateness, loans, salary advance, school fees should go to the summaries as other deductions are used to pay vendors/cooperative/contributions/etc
+> let payroll be available even when offline
+
+- Amount boxes are empty instead of 0, with no spinner arrows.
+- My Payslip → "My salary account": every staff member enters bank, account name and 10-digit account number. It goes on all their payslips not yet released and on the payroll notes. Released payslips keep the details they were paid with.
+- Payroll Notes: "Download Word (.docx)" and "Download Word (.doc)" next to PDF.
+- The Accountant has "Publish All Pending Payslips" and "Release" per staff member (as Owner/HoS do). Submitting for owner approval is still there but no longer needed before publishing.
+- My Payslip: "Download PDF" next to Print; payslips already opened stay readable offline.
+- Earnings headings green, deductions red (sheet, payslip window, staff payslip).
+- Payroll → Settings: "Deduct lateness and absence from staff sign-in" is OFF by default. Late/Absence columns and charges appear only when it is on, whatever the attendance penalty settings say. (Schools that relied on automatic sign-in charges must tick it once.)
+- Each deduction heading is "Kept by the school" or "Paid on for the staff". Headings whose name has late/loan/advance/fee start as kept; others as paid on; the school can change it. Summary cards: Gross · Deductions kept by the school · Paid on for the staff (listed per heading, e.g. Cooperative ₦…) · Net · Staff.
+- Offline: the payroll month last opened on the device stays available without a connection; figures typed offline are kept on the device and sent when the connection returns.
+- Tests: `payroll-release.test.mjs` (accountant publishes; charges off by default; deduction kinds; staff account details), `contrast.test.jsx` (payroll sheet, settings, My Payslip with the account form).
+
+
+### N45. Roles: revoke a role, swap it for another, keep the rest; never left without a role — ✅ BUILT 29 Oct 2026
+> lets add that a role can be revoked and another role assigned to the user or remove a role and retain another role if assigned multiple roles and if no role is assigned, prompt for a role to be assigned
+
+- People → each person → "Roles" (was "Add Role"): every role shows with ✕ to remove it; "Add another role…" adds one. The first role is the main role. Removing roles asks for confirmation and names what is kept.
+- Removing the last role turns the box amber: "No role is left. Choose a role to assign…" and Save stays off until a role is chosen. The server refuses an empty list too.
+- A person with no role at all shows a "No role" badge and a prompt on their card to assign one.
+- Rules (Owner, HoS, ICT can edit): Owner can't be given or removed here (ownership transfer only); only the School Owner appoints or removes a Head of School; nobody edits their own roles. Every change is in the audit trail (added/removed).
+- Endpoint `PUT /api/people/:userId/roles` `{ roles, primaryRole? }`. Tests: `person-roles.test.mjs`, `contrast.test.jsx` (roles editor, with and without a role).
+
+### N46. A parent who doesn't want emails gets WhatsApp only — ✅ BUILT 29 Oct 2026
+> lets find a way to turn off email messaging for a parent who doesnt want emails and use only whatsapp messaging
+
+- Already there: each parent's WhatsApp / SMS / email choice (parent: Notifications → "How the school may contact you"; school: Communications → Contacts & consent). Opting out always wins.
+- New one-tap "WhatsApp only" (WhatsApp on, email and SMS off): parents press "Use WhatsApp only — no emails or SMS"; the school presses "Set WhatsApp only" on the parent's row (needs a valid phone). The row then shows "✓ WhatsApp only".
+- Gap closed: fee reminder emails (Fees → student → Remind) went straight to parents and ignored the opt-out. Now a WhatsApp-only parent is never emailed; the reminder window says "turned email off and gets WhatsApp only — use the WhatsApp button", and bulk sends report "parent turned email off — send by WhatsApp".
+- Automatic WhatsApp messages still need the Meta WhatsApp set-up (N20); until then the school sends the reminder with the WhatsApp button, and the parent still sees every notification in the app.
+- Tests: `simple-fees.test.mjs` (WhatsApp-only parent not emailed), `contrast.test.jsx` (parent Notifications page).

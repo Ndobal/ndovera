@@ -428,7 +428,7 @@ import {
   CommError, createQuote, getPlatformConfig, giftUnits, isChannel, ledgerFor, listGifts, listGrants, listPurchases, getPurchase, priceSchedule, reverseGift,
   schedulePrice, setPlatformConfig, settlePurchase, startCheckout, walletSummary as commWalletSummary, ensureTermAllowance, CHANNELS,
 } from './commCredits'
-import { DEFAULT_SETTINGS as DEFAULT_COMM_SETTINGS, EVENT_TYPES, getSettings as getCommSettings, listInbox, listTemplates, markInboxRead, setConsent, setDesignation, setTemplate, updateSettings as updateCommSettings, normalizePhone, type EventType } from './commMessages'
+import { DEFAULT_SETTINGS as DEFAULT_COMM_SETTINGS, EVENT_TYPES, consentsFor as commConsentsFor, getSettings as getCommSettings, listInbox, listTemplates, markInboxRead, setConsent, setDesignation, setTemplate, updateSettings as updateCommSettings, normalizePhone, type EventType } from './commMessages'
 import {
   admitBatch, applyWhatsAppStatuses, commTick, deliveryHistory, overview as commOverview, previewEvent, readmitWaiting, recordEvent, resolveUnknown,
   scheduleAssignmentDigest, scheduleDeadlineReminders, scheduleFeeReminders, ensureEngineTables, resolveRecipients, type CommDeps, type CommEvent, type Scope,
@@ -21072,6 +21072,56 @@ app.put('/api/people/:userId/role', authenticate, async (c) => {
   }
 })
 
+/**
+ * Set a person's full list of roles: revoke a role, swap it for another, or keep the
+ * rest when they hold several. Nobody is left with no role: an empty list is refused so
+ * the screen can ask for a role to be assigned. Owner can never be given or taken here,
+ * a Head of School is appointed or removed only by the School Owner, and nobody changes
+ * their own roles (so they cannot lock themselves out).
+ */
+app.put('/api/people/:userId/roles', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos', 'ict', 'ict_manager'])) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = c.var.user?.tenantId
+  const userId = c.req.param('userId')
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  const body = await c.req.json().catch(() => ({})) as Record<string, any>
+  const requested = parseRoleList(Array.isArray(body.roles) ? body.roles : [])
+  if (!requested.length) return c.json({ error: 'Assign at least one role. A person cannot be left without a role.', code: 'role_required' }, 400)
+  try {
+    const existingUser = await c.env.APP_DB.prepare(`SELECT id, email, role, primary_role, employment_category FROM users WHERE id = ? AND tenantId = ?`).bind(userId, tenantId).first() as any
+    if (!existingUser) return c.json({ error: 'Person not found.' }, 404)
+    if ([String(c.var.user?.id || ''), String(c.var.user?.email || '').toLowerCase()].includes(String(existingUser.id)) || String(existingUser.email || '').toLowerCase() === String(c.var.user?.email || '').toLowerCase()) {
+      return c.json({ error: 'You cannot change your own roles. Ask the School Owner or another administrator.' }, 403)
+    }
+    const resolved = await resolveSettingsIdentity(c.env.APP_DB, existingUser.email || existingUser.id).catch(() => null)
+    const settingsKey = String(resolved?.settingsKey || existingUser.email || '').trim()
+    const settings = resolved?.settings || (existingUser.email ? await getSettings(c.env.APP_DB, existingUser.email).catch(() => null) : null)
+    const currentRoles = parseRoleList(settings?.primaryRole, settings?.role, settings?.roles, existingUser.role, existingUser.primary_role)
+    const hadOwner = currentRoles.includes('owner')
+    if (requested.includes('owner') && !hadOwner) return c.json({ error: 'Owner role can only be assigned during school setup or ownership transfer.' }, 400)
+    if (hadOwner && !requested.includes('owner')) return c.json({ error: 'The Owner role can only be changed by an ownership transfer.' }, 400)
+    const nextRoles = requested.filter(role => !PLATFORM_ONLY_ROLES.has(role))
+    if (!nextRoles.length) return c.json({ error: 'Assign at least one school role.', code: 'role_required' }, 400)
+    await assertHosAppointmentAllowed(c.env.APP_DB, c.var.user || {}, [nextRoles], [currentRoles])
+    // The main role stays when it is kept; otherwise the requested main role or the first one.
+    const wantedPrimary = normalizeRole(body.primaryRole)
+    const currentPrimary = getPrimaryRole(settings || existingUser || {}, existingUser.primary_role || existingUser.role)
+    const primaryRole = nextRoles.includes(wantedPrimary) ? wantedPrimary : nextRoles.includes(currentPrimary) ? currentPrimary : nextRoles[0]
+    const roles = [primaryRole, ...nextRoles.filter(role => role !== primaryRole)]
+    const employmentCategory = deriveEmploymentCategory(primaryRole, settings?.employmentCategory || existingUser.employment_category, roles)
+    await c.env.APP_DB.prepare(`UPDATE users SET role=?, primary_role=?, employment_category=? WHERE id=? AND tenantId=?`).bind(primaryRole, primaryRole, employmentCategory, userId, tenantId).run()
+    if (settings && settingsKey) await upsertSettings(c.env.APP_DB, settingsKey, { ...settings, role: primaryRole, primaryRole, roles, employmentCategory })
+    await syncUserRoleRecords(c.env.APP_DB, { tenantId, userId, primaryRole, roles })
+    const removed = currentRoles.filter(role => !roles.includes(role))
+    const added = roles.filter(role => !currentRoles.includes(role))
+    await addAudit(c.env.APP_DB, tenantId, { action: 'personRolesSet', data: { by: c.var.user.id, userId, roles, primaryRole, added, removed } })
+    return c.json({ success: true, roles, primaryRole, added, removed })
+  } catch (err) {
+    if (err instanceof HosAppointmentError) return c.json({ error: err.message }, 403)
+    return c.json({ error: 'Could not update roles.' }, 500)
+  }
+})
+
 app.put('/api/people/:userId', authenticate, async (c) => {
   const tenantId = c.var.user?.tenantId
   const userId = c.req.param('userId')
@@ -29144,16 +29194,36 @@ function sumPayrollNumericMapValues(values: Record<string, any> = {}) {
   return Object.values(values || {}).reduce((sum, value) => sum + (Number(value || 0) || 0), 0)
 }
 
+/**
+ * A deduction is either kept by the school (lateness, loans, salary advance, school
+ * fees) and counted in the payroll summary, or paid on for the staff member
+ * (cooperative, contributions, tax, pension, vendors) and shown apart. A heading the
+ * school has not classed is guessed from its name.
+ */
+const SCHOOL_DEDUCTION_PATTERN = /late|loan|advance|fee/i
+
+function payrollDeductionKind(kind: unknown, label: unknown) {
+  if (kind === 'school' || kind === 'remit') return kind
+  return SCHOOL_DEDUCTION_PATTERN.test(String(label || '')) ? 'school' : 'remit'
+}
+
 function normalizePayrollSettingsInput(input: Record<string, any> | null = {}) {
   // A school that never saved payroll headings has no settings row (null): use the defaults.
   const payload = input && typeof input === 'object' ? input : {}
+  const rawDeductions = new Map((Array.isArray(payload.deductionColumns) ? payload.deductionColumns : [])
+    .filter((entry: any) => entry && typeof entry === 'object')
+    .map((entry: any) => [normalizePayrollColumnKey(entry.key || entry.label), entry]))
   return {
     housingAllowance: Number(payload.housingAllowance || 0),
     transportAllowance: Number(payload.transportAllowance || 0),
     taxRate: Number(payload.taxRate || 7.5),
     pensionRate: Number(payload.pensionRate || 8),
+    // Lateness and absence charges from staff sign-in reach payroll only when the school
+    // turns this on here, even if penalties are switched on in staff attendance.
+    attendanceCharges: payload.attendanceCharges === true,
     earningColumns: normalizePayrollColumnList(payload.earningColumns, DEFAULT_PAYROLL_EARNING_COLUMNS, 'earning'),
-    deductionColumns: normalizePayrollColumnList(payload.deductionColumns, DEFAULT_PAYROLL_DEDUCTION_COLUMNS, 'deduction'),
+    deductionColumns: normalizePayrollColumnList(payload.deductionColumns, DEFAULT_PAYROLL_DEDUCTION_COLUMNS, 'deduction')
+      .map(column => ({ ...column, kind: payrollDeductionKind(rawDeductions.get(column.key)?.kind, column.label) })),
   }
 }
 
@@ -29670,8 +29740,8 @@ app.get('/api/school/payroll', authenticate, async (c) => {
         || { amount: 0, count: 0, approvedCount: 0, expectedCount: 0, workedCount: 0, autoDeduct: false }
       const gross = Number(row?.gross || (basicSalary + sumPayrollNumericMapValues(allowances)))
       const manualDeductions = Number(row?.manual_deductions || sumPayrollNumericMapValues(deductionsMap))
-      const autoLateDeductions = Number(lateChargeSummary.amount || 0)
-      const autoAbsenceDeductions = Number(attendanceDeductionSummary.amount || 0)
+      const autoLateDeductions = payrollSettings.attendanceCharges ? Number(lateChargeSummary.amount || 0) : 0
+      const autoAbsenceDeductions = payrollSettings.attendanceCharges ? Number(attendanceDeductionSummary.amount || 0) : 0
       const autoAttendanceDeductions = autoLateDeductions + autoAbsenceDeductions
       const storeSurchargeSummary = storeSurchargeSummaries.find(s => s.staffId === String(staffMember.id || '').trim())
         || storeSurchargeSummaries.find(s => s.staffId === String(staffMember.email || '').trim())
@@ -29709,8 +29779,8 @@ app.get('/api/school/payroll', authenticate, async (c) => {
         autoAttendanceDeductions,
         autoStoreSurcharge,
         storeSurchargeCount: Number(storeSurchargeSummary.count || 0),
-        lateChargeCount: Number(lateChargeSummary.count || 0),
-        absenceChargeCount: Number(attendanceDeductionSummary.count || 0),
+        lateChargeCount: payrollSettings.attendanceCharges ? Number(lateChargeSummary.count || 0) : 0,
+        absenceChargeCount: payrollSettings.attendanceCharges ? Number(attendanceDeductionSummary.count || 0) : 0,
         approvedAbsenceDays: Number(attendanceDeductionSummary.approvedCount || 0),
         expectedAttendanceDays: Number(attendanceDeductionSummary.expectedCount || 0),
         recordedAttendanceDays: Number(attendanceDeductionSummary.workedCount || 0),
@@ -29818,7 +29888,9 @@ app.put('/api/school/payroll/staff/:staffId', authenticate, async (c) => {
     const attendanceDeductionSummary = (await listPayrollAttendanceDeductionSummaries(c.env.APP_DB, tenantId, period, staffRoster))
       .find(summary => summary.staffId === String(staffId || '').trim())
       || { amount: 0 }
-    const newNet = nextGross - (nextManualDed + Number(lateChargeSummary.amount || 0) + Number(attendanceDeductionSummary.amount || 0))
+    const attendanceCharges = normalizePayrollSettingsInput(await getSettings(c.env.APP_DB, `payroll_settings_${tenantId}`).catch(() => ({}))).attendanceCharges
+    const autoCharges = attendanceCharges ? Number(lateChargeSummary.amount || 0) + Number(attendanceDeductionSummary.amount || 0) : 0
+    const newNet = nextGross - (nextManualDed + autoCharges)
     await c.env.APP_DB.prepare(`INSERT OR REPLACE INTO payroll_entries (id, tenant_id, staff_id, period, basic_salary, allowances_json, deductions_json, gross, deductions, manual_deductions, net, status, payment_status, employment_category, bank_name, account_name, account_number, approved, submitted, created_at, updated_at, released) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`)
       .bind(
         id,
@@ -29829,7 +29901,7 @@ app.put('/api/school/payroll/staff/:staffId', authenticate, async (c) => {
         JSON.stringify(nextAllowances),
         JSON.stringify(nextDeductionsMap),
         nextGross,
-        nextManualDed + Number(lateChargeSummary.amount || 0) + Number(attendanceDeductionSummary.amount || 0),
+        nextManualDed + autoCharges,
         nextManualDed,
         newNet,
         nextStatus,
@@ -29934,7 +30006,8 @@ app.post('/api/school/payroll/copy', authenticate, async (c) => {
  * staff member's own Payslip page.
  */
 app.post('/api/school/payroll/release', authenticate, async (c) => {
-  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos'])) return c.json({ error: 'Only the Owner or Head of School can release payslips.' }, 403)
+  // The accountant publishes payslips once the month's figures are posted.
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos', 'accountant'])) return c.json({ error: 'Only the Owner, Head of School or Accountant can publish payslips.' }, 403)
   const tenantId = c.var.user?.tenantId
   if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
   const body = await c.req.json().catch(() => ({})) as Record<string, any>
@@ -30104,7 +30177,8 @@ app.get('/api/school/payroll/my-payslip', authenticate, async (c) => {
       period,
       collectResolvedIdentityIdentifiers(resolvedIdentity, c.var.user || {}),
     )
-    const deductions = manualDeductions + lateChargeSummary.amount
+    const lateCharges = payrollSettings.attendanceCharges ? Number(lateChargeSummary.amount || 0) : 0
+    const deductions = manualDeductions + lateCharges
     const net = Number(gross - deductions)
     const branding = {
       schoolName: tenant?.schoolName || 'School',
@@ -30140,9 +30214,9 @@ app.get('/api/school/payroll/my-payslip', authenticate, async (c) => {
       earnings,
       deductionBreakdown: [
         ...deductionBreakdown,
-        { label: 'Lateness Charges', amount: Number(lateChargeSummary.amount.toFixed(2)) },
+        { label: 'Lateness Charges', amount: Number(lateCharges.toFixed(2)) },
       ].filter(entry => entry.amount > 0),
-      lateChargeCount: lateChargeSummary.count,
+      lateChargeCount: lateCharges ? lateChargeSummary.count : 0,
       settings: {
         ...(payrollSettings || {}),
       },
@@ -30151,6 +30225,49 @@ app.get('/api/school/payroll/my-payslip', authenticate, async (c) => {
     console.error('my-payslip failed', error)
     return c.json({ success: false, error: 'Could not load your payslip.' }, 500)
   }
+})
+
+/**
+ * Staff enter their own bank details for salary. They go on the staff member's
+ * record and onto every payslip of theirs not yet released; released payslips keep
+ * the details they were paid with.
+ */
+async function myPayrollIdentity(db: D1Database, user: Record<string, any>) {
+  const userId = String(user?.id || user?.email || '')
+  const resolved = await resolveSettingsIdentity(db, userId).catch(() => null)
+  const settings = resolved?.settings || await getSettings(db, userId).catch(() => null) || {}
+  const identifiers = Array.from(new Set([
+    ...collectResolvedIdentityIdentifiers(resolved, user || {}),
+    userId, String(settings?.email || ''), String(resolved?.userRow?.id || ''), String(resolved?.userRow?.email || ''),
+  ].map(value => String(value || '').trim()).filter(Boolean).flatMap(value => [value, value.toLowerCase()]))).slice(0, 40)
+  return { settingsKey: resolved?.settingsKey || userId, settings, identifiers }
+}
+
+app.get('/api/school/payroll/my-bank-details', authenticate, async (c) => {
+  if (!c.var.user?.tenantId) return c.json({ error: 'No tenant.' }, 400)
+  const { settings } = await myPayrollIdentity(c.env.APP_DB, c.var.user)
+  return c.json({ success: true, details: buildPayrollBankDetailsRecord(settings?.payrollBankDetails) })
+})
+
+app.put('/api/school/payroll/my-bank-details', authenticate, async (c) => {
+  const tenantId = c.var.user?.tenantId
+  if (!tenantId) return c.json({ error: 'No tenant.' }, 400)
+  if (hasRequiredRole(c.var.user.role, ['student', 'parent'])) return c.json({ error: 'Only staff keep salary account details.' }, 403)
+  const details = buildPayrollBankDetailsRecord(await c.req.json().catch(() => ({})))
+  details.accountNumber = details.accountNumber.replace(/\s+/g, '')
+  if (!details.bankName || !details.accountName || !details.accountNumber) return c.json({ error: 'Enter the bank name, account name and account number.' }, 400)
+  if (!/^\d{10}$/.test(details.accountNumber)) return c.json({ error: 'The account number should be the 10 digits of your NUBAN account number.' }, 400)
+  try {
+    const db = c.env.APP_DB
+    await ensurePayrollEntriesTable(db)
+    const { settingsKey, settings, identifiers } = await myPayrollIdentity(db, c.var.user)
+    await upsertSettings(db, settingsKey, { ...(settings && typeof settings === 'object' ? settings : {}), payrollBankDetails: details })
+    const marks = identifiers.map(() => '?').join(', ')
+    const updated = await db.prepare(`UPDATE payroll_entries SET bank_name = ?, account_name = ?, account_number = ?, updated_at = ? WHERE tenant_id = ? AND staff_id IN (${marks}) AND NOT (released = 1 OR (released IS NULL AND approved = 1))`)
+      .bind(details.bankName, details.accountName, details.accountNumber, new Date().toISOString(), tenantId, ...identifiers).run()
+    await addAudit(db, tenantId, { action: 'payrollBankDetailsUpdated', data: { by: c.var.user.id, bankName: details.bankName, accountEnding: details.accountNumber.slice(-4) } }).catch(() => null)
+    return c.json({ success: true, details, payslipsUpdated: Number(updated?.meta?.changes || 0) })
+  } catch (err) { return c.json({ error: 'Could not save your account details.' }, 500) }
 })
 
 // ─── Staff Attendance ─────────────────────────────────────────────────────────
@@ -37370,6 +37487,8 @@ async function buildFeeReminders(context: Awaited<ReturnType<typeof simpleFeeCon
   const { recipients } = await resolveRecipients(context.db, context.tenantId, { kind: 'students', studentIds: enrollments.map(item => item.studentId) }, { ...DEFAULT_COMM_SETTINGS, tenantId: context.tenantId, guardianMode: 'all' } as any)
   const termLabel = [term.name, term.sessionName].filter(Boolean).join(', ')
   const senderTitle = context.role === 'accountant' ? 'The Accounts Office' : context.role === 'owner' ? 'The Proprietor' : 'The Head of School'
+  // A parent who turned email off (WhatsApp only) is never emailed a reminder.
+  const consents = await commConsentsFor(context.db, context.tenantId, recipients.map(recipient => recipient.guardianId)).catch(() => new Map<string, Record<string, string>>())
   return {
     schoolName, logoUrl: String(branding?.logoUrl || ''), bank, termLabel,
     bankMissing: !bank.bankName || !bank.accountNumber,
@@ -37378,7 +37497,8 @@ async function buildFeeReminders(context: Awaited<ReturnType<typeof simpleFeeCon
       const parents = recipients.filter(recipient => recipient.studentIds.includes(summary.studentId)).map(recipient => {
         const facts = { schoolName, parentName: recipient.name, studentName: enrollment.studentName, className: enrollment.className, termLabel, totalPayable: summary.totalPayable, paid: summary.paid, balance: summary.balance, bank, senderTitle }
         const text = feeReminderText(facts)
-        return { guardianId: recipient.guardianId, name: recipient.name, email: recipient.email, phone: recipient.phone, text, subject: feeReminderSubject(facts), whatsappUrl: recipient.phone ? whatsappLinkFor(recipient.phone, text) : '' }
+        const emailOff = consents.get(recipient.guardianId)?.email === 'withdrawn'
+        return { guardianId: recipient.guardianId, name: recipient.name, email: emailOff ? '' : recipient.email, emailOff, phone: recipient.phone, text, subject: feeReminderSubject(facts), whatsappUrl: recipient.phone ? whatsappLinkFor(recipient.phone, text) : '' }
       })
       return { studentId: summary.studentId, studentName: enrollment.studentName, className: enrollment.className, balance: summary.balance, parents }
     }),
@@ -37456,7 +37576,7 @@ async function sendFeeReminderEmails(env: Bindings, context: Awaited<ReturnType<
       if (!(student.balance > 0)) { skipped.push({ studentName: student.studentName, reason: 'nothing owed' }); continue }
       if (recent.has(student.studentId)) { skipped.push({ studentName: student.studentName, reason: 'already emailed today' }); continue }
       const withEmail = student.parents.filter(parent => parent.email)
-      if (!withEmail.length) { skipped.push({ studentName: student.studentName, reason: student.parents.length ? 'no parent email' : 'no parent linked' }); continue }
+      if (!withEmail.length) { skipped.push({ studentName: student.studentName, reason: !student.parents.length ? 'no parent linked' : student.parents.some(parent => parent.emailOff) ? 'parent turned email off — send by WhatsApp' : 'no parent email' }); continue }
       let delivered = 0
       for (const parent of withEmail) {
         const text = customText || parent.text

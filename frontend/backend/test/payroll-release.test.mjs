@@ -58,8 +58,8 @@ test('a past month is prepared, reused for the next, and payslips reach staff on
   const notYet = (await call('tola', 'GET', `/api/school/payroll/my-payslip?period=${earlier}`)).body
   assert.deepEqual([notYet.payslip, notYet.status], [null, 'pending'])
 
-  // The accountant cannot release; the Head of School releases one payslip, then all the rest.
-  assert.equal((await call('bursar', 'POST', '/api/school/payroll/release', { period: earlier })).status, 403)
+  // A teacher cannot publish payslips; the Head of School releases one, then all the rest.
+  assert.equal((await call('tola', 'POST', '/api/school/payroll/release', { period: earlier })).status, 403)
   assert.equal((await call('hos', 'POST', '/api/school/payroll/release', { period: earlier, staffIds: ['tola'] })).body.released, 1)
   const tola = (await call('tola', 'GET', '/api/school/payroll/my-payslip')).body
   assert.equal(tola.period, earlier) // the newest released month opens first
@@ -100,4 +100,39 @@ test('payslip headings keep the order the school sets', async () => {
   assert.deepEqual(settings.earningColumns.map(column => column.key), ['transportAllowance', 'bonus', 'basicSalary', 'earning_1', 'housingAllowance'])
   assert.deepEqual(settings.earningColumns.map(column => column.label).slice(1, 3), ['Bonus', 'Basic Pay'])
   assert.deepEqual(settings.deductionColumns.map(column => column.key), ['otherDeduction', 'pension', 'tax'])
+})
+
+test('the accountant publishes payslips once the month is posted', async () => {
+  const { call } = await setup()
+  const month = monthsAgo(1)
+  await call('bursar', 'PUT', '/api/school/payroll/staff/tola', { period: month, basicSalary: 120000 })
+  const published = await call('bursar', 'POST', '/api/school/payroll/release', { period: month })
+  assert.deepEqual([published.status, published.body.released], [200, 1])
+  assert.equal((await call('tola', 'GET', `/api/school/payroll/my-payslip?period=${month}`)).body.payslip.net, 120000)
+})
+
+test('sign-in charges stay out of payroll until the school turns them on; deductions are kept or paid on', async () => {
+  const { call } = await setup()
+  const settings = (await call('owner', 'GET', '/api/school/payroll/settings')).body.settings
+  assert.equal(settings.attendanceCharges, false)
+  assert.deepEqual(settings.deductionColumns.map(column => column.kind), ['remit', 'remit', 'remit'])
+  await call('bursar', 'POST', '/api/school/payroll/settings', {
+    attendanceCharges: true,
+    deductionColumns: [...settings.deductionColumns, { key: 'deduction_1', label: 'Staff Loan' }, { key: 'deduction_2', label: 'Cooperative' }, { key: 'deduction_3', label: 'Bus levy', kind: 'school' }],
+  })
+  const saved = (await call('owner', 'GET', '/api/school/payroll/settings')).body.settings
+  assert.equal(saved.attendanceCharges, true)
+  assert.deepEqual(Object.fromEntries(saved.deductionColumns.map(column => [column.key, column.kind])), { tax: 'remit', pension: 'remit', otherDeduction: 'remit', deduction_1: 'school', deduction_2: 'remit', deduction_3: 'school' })
+})
+
+test('staff enter their own salary account; it reaches payslips not yet released', async () => {
+  const { call } = await setup()
+  const month = monthsAgo(1)
+  await call('bursar', 'PUT', '/api/school/payroll/staff/nurse', { period: month, basicSalary: 90000 })
+  assert.equal((await call('nurse', 'PUT', '/api/school/payroll/my-bank-details', { bankName: 'Access Bank', accountName: 'Nurse Ade', accountNumber: '01234' })).status, 400)
+  const saved = await call('nurse', 'PUT', '/api/school/payroll/my-bank-details', { bankName: 'Access Bank', accountName: 'Nurse Ade', accountNumber: '0123 456 789' })
+  assert.deepEqual([saved.status, saved.body.details.accountNumber, saved.body.payslipsUpdated], [200, '0123456789', 1])
+  assert.equal((await call('nurse', 'GET', '/api/school/payroll/my-bank-details')).body.details.bankName, 'Access Bank')
+  const row = (await call('bursar', 'GET', `/api/school/payroll?period=${month}`)).body.payroll.find(entry => entry.staffId === 'nurse')
+  assert.deepEqual([row.bankName, row.accountName, row.accountNumber], ['Access Bank', 'Nurse Ade', '0123456789'])
 })

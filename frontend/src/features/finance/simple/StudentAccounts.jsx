@@ -196,6 +196,9 @@ export function ReminderDialog({ studentId, onClose, onDone }) {
                   </a>
                 )) : <p className="text-xs">No parent phone number on record for WhatsApp.</p>}
               </div>
+              {parents.filter(parent => parent.emailOff).map(parent => (
+                <p key={`email-off-${parent.guardianId}`} className="rounded-xl bg-amber-50 px-3 py-2 text-xs font-semibold text-amber-900">{parent.name || 'A parent'} turned email off and gets WhatsApp only. Use the WhatsApp button.</p>
+              ))}
               <p className="text-xs">Email is sent in the school's name. WhatsApp opens with the message typed in; press send there. A family is emailed at most once a day.</p>
             </>
           )}

@@ -547,6 +547,14 @@ test('fee reminders: polite words, the school bank account and name, to each lin
   assert.equal((await call('bursar', 'POST', '/api/school/finance/simple/reminders', { studentIds: ['ada'], channel: 'whatsapp', sentTo: parent.phone })).body.recorded, 1)
   const emailed = (await call('bursar', 'POST', '/api/school/finance/simple/reminders', { studentIds: ['ada', 'bola'] })).body
   assert.deepEqual(emailed.skipped.map(item => item.reason).sort(), ['email could not be sent', 'no parent linked'])
+
+  // A parent who wants WhatsApp only is never emailed; the reminder says to use WhatsApp.
+  const optOut = await call('owner', 'POST', '/api/communications/contacts/dad/consent', { channel: 'email', status: 'withdrawn' })
+  assert.equal(optOut.status, 200, JSON.stringify(optOut.body))
+  const whatsappOnly = (await call('bursar', 'GET', '/api/school/finance/simple/accounts/ada/reminder')).body.student.parents[0]
+  assert.deepEqual([whatsappOnly.email, whatsappOnly.emailOff, Boolean(whatsappOnly.whatsappUrl)], ['', true, true])
+  const notEmailed = (await call('bursar', 'POST', '/api/school/finance/simple/reminders', { studentIds: ['ada'] })).body
+  assert.deepEqual(notEmailed.skipped.map(item => item.reason), ['parent turned email off — send by WhatsApp'])
 })
 
 test('financial standings: expected, received, still owed, each family owing and how much, reminders sent; posted to the Owner and HoS and kept', async () => {

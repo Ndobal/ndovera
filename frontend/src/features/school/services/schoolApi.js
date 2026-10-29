@@ -1,6 +1,7 @@
 import { getApiUrl } from '../../../config/apiBase';
 import { getStoredAuth, clearStoredAuth, getSignedOutRedirectPath, rememberTenantSiteUrl, syncRefreshedToken, buildSelectedRoleHeader } from '../../auth/services/authApi';
 import { storeTenantPwaInfo } from '../../../shared/hooks/useTenantPwaManifest';
+import { registerSender } from '../../../shared/offline/outbox';
 
 const API_RESPONSE_CACHE_PREFIX = 'ndovera:api-cache:';
 const API_RESPONSE_CACHE_MAX_AGE_MS = 12 * 60 * 60 * 1000;
@@ -176,6 +177,8 @@ export const restorePerson = (userId) => req(`/api/people/${encodeURIComponent(u
 /** Delete turned-off students for good — only those with nothing on record; the rest are kept and reported. */
 export const deletePastStudents = (ids) => req('/api/people/past-students/delete', { method: 'POST', body: { ids } });
 export const updatePersonRole = (userId, role) => req(`/api/people/${userId}/role`, { method: 'PUT', body: { role } });
+/** Set a person's whole list of roles (revoke, swap, keep the rest); at least one role. */
+export const setPersonRoles = (userId, roles, primaryRole) => req(`/api/people/${userId}/roles`, { method: 'PUT', body: { roles, primaryRole } });
 export const getClasses = () => req('/api/school/classes');
 export const addClass = (data) => req('/api/school/classes', { method: 'POST', body: data });
 export const bulkUpdateClasses = (classes) => req('/api/school/classes', { method: 'PUT', body: { classes } });
@@ -323,6 +326,12 @@ export const savePayrollSettings = (data) => req('/api/school/payroll/settings',
 export const getPayrollNote = (period) => req(`/api/school/payroll/note${buildQuery(period ? { period } : {})}`);
 export const savePayrollNote = (data) => req('/api/school/payroll/note', { method: 'POST', body: data });
 export const getMyPayslip = (period) => req(`/api/school/payroll/my-payslip${buildQuery(period ? { period } : {})}`);
+/** The signed-in staff member's own salary account: { bankName, accountName, accountNumber }. */
+export const getMyBankDetails = () => req('/api/school/payroll/my-bank-details');
+export const saveMyBankDetails = (data) => req('/api/school/payroll/my-bank-details', { method: 'PUT', body: data });
+
+// A payroll row typed in while offline waits in the outbox and is sent when the connection returns.
+registerSender('payroll-row', ({ staffId, payload }) => updatePayrollStaff(staffId, payload));
 
 // Attendance
 export const getStaffAttendance = (date) => req(`/api/school/staff-attendance?date=${date}`);

@@ -1,6 +1,7 @@
 import React, { useMemo, useRef, useState } from 'react';
 import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
+import { payrollNoteDocBlob, payrollNoteDocxBlob } from './payrollNoteWord';
 
 const CARD = 'rounded-3xl border border-[#c9a96e]/40 bg-[#b5e3f4] p-6 text-[#191970] shadow-sm dark:border-[#00ffff]/20 dark:bg-[#800000]/25 dark:text-[#39ff14] dark:backdrop-blur-xl';
 const INNER = 'rounded-2xl border border-[#c9a96e]/30 bg-[#ade1f4] p-4 dark:border-[#00ffff]/20 dark:bg-[#330014]/70';
@@ -172,6 +173,24 @@ export default function PayrollBankNotePanel({
     }
   }
 
+  async function handleWord(kind) {
+    if (!canExport) {
+      showToast('Submit payroll before exporting payroll notes for this month.');
+      return;
+    }
+    setExportBusy(kind);
+    try {
+      const input = { rows, monthLabel, branding, contactInfo, noteText, signerName, signerRole, signatureDate };
+      const blob = kind === 'docx' ? await payrollNoteDocxBlob(input) : payrollNoteDocBlob(input);
+      downloadBlob(blob, fileName.replace(/\.pdf$/, `.${kind}`));
+      showToast(`Payroll notes downloaded as a Word document (.${kind}).`);
+    } catch (error) {
+      showToast(error.message || 'Could not prepare the Word document.');
+    } finally {
+      setExportBusy('');
+    }
+  }
+
   function handlePrint() {
     if (!previewRef.current) {
       showToast('Payroll note preview is not ready yet.');
@@ -237,6 +256,12 @@ export default function PayrollBankNotePanel({
                 <button onClick={handlePrint} type="button" disabled={!canExport} className={BTN}>Print</button>
                 <button onClick={() => handlePdfAction('download')} type="button" disabled={exportBusy !== '' || !canExport} className={BTN}>
                   {exportBusy === 'download' ? 'Preparing PDF...' : 'Download PDF'}
+                </button>
+                <button onClick={() => handleWord('docx')} type="button" disabled={exportBusy !== '' || !canExport} className={BTN}>
+                  {exportBusy === 'docx' ? 'Preparing Word...' : 'Download Word (.docx)'}
+                </button>
+                <button onClick={() => handleWord('doc')} type="button" disabled={exportBusy !== '' || !canExport} className={BTN}>
+                  {exportBusy === 'doc' ? 'Preparing Word...' : 'Download Word (.doc)'}
                 </button>
                 <button onClick={() => handlePdfAction('share')} type="button" disabled={exportBusy !== '' || !canExport} className={OUTLINE_BTN}>
                   {exportBusy === 'share' ? 'Preparing Share...' : 'Share PDF'}
