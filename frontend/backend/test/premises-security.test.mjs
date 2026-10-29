@@ -37,3 +37,14 @@ test('audit history requires authenticated school security role', async () => {
   assert.equal((await handlePremisesSecurityRoute(request(path), db, null)).status, 401);
   assert.equal((await handlePremisesSecurityRoute(request(path), db, { ...actor, role: 'student' })).status, 403);
 });
+
+test('only supervisors can acknowledge escalated incidents', async () => {
+  const path = '/api/premises-security/records/00000000-0000-0000-0000-000000000001/acknowledge';
+  const response = await handlePremisesSecurityRoute(request(path, 'PATCH'), db, actor);
+  assert.equal(response.status, 403);
+});
+test('unauthenticated users cannot escalate incidents', async () => {
+  const path = '/api/premises-security/records/00000000-0000-0000-0000-000000000001/escalate';
+  const response = await handlePremisesSecurityRoute(request(path, 'PATCH'), db, null);
+  assert.equal(response.status, 401);
+});
