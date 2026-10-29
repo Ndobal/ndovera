@@ -298,7 +298,7 @@ function SectionCard({ section, data, onSaved }) {
       setMsg('Saved.');
       onSaved?.();
     } catch (err) {
-      setMsg(err.message);
+      setMsg(err.message || 'Could not save website section.');
     } finally {
       setSaving(false);
     }
