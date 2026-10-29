@@ -9,8 +9,9 @@ export default function HelpCentre({ role = 'student' }) {
   const [selected, setSelected] = useState('');
   const [category, setCategory] = useState('All');
   const [feedback, setFeedback] = useState('');
+  const [showTroubleshooting, setShowTroubleshooting] = useState(false);
   const origin = location.state?.from;
-  const safeOrigin = typeof origin === 'string' && origin.startsWith('/roles/') && !origin.startsWith('//') && !origin.includes('\\') && !origin.includes('?')
+  const safeOrigin = typeof origin === 'string' && (origin === `/roles/${role}` || origin.startsWith(`/roles/${role}/`)) && !origin.includes('\\') && !origin.includes('?') && !origin.includes('#')
     ? origin : `/roles/${role}`;
   const articles = useMemo(() => findHelpArticles(query, role, safeOrigin), [query, role, safeOrigin]);
   const categories = ['All', ...new Set(articles.map(article => article.category))];
@@ -40,6 +41,10 @@ export default function HelpCentre({ role = 'student' }) {
             <ol className="mt-4 list-decimal space-y-3 pl-5 text-sm leading-6">{active.steps.map((step, index) => <li key={index}>{step}</li>)}</ol>
             {active.route && active.roles.includes(role) ? <button type="button" onClick={() => navigate(active.route)} className="mt-5 rounded-xl bg-[#191970] px-4 py-2 font-semibold text-white">Go to dashboard</button> : null}
             <div className="mt-6 border-t border-slate-200 pt-4 dark:border-slate-700">
+              <button type="button" aria-expanded={showTroubleshooting} onClick={() => setShowTroubleshooting(value => !value)} className="rounded-lg border border-slate-300 px-3 py-2 text-sm font-semibold">{showTroubleshooting ? 'Hide troubleshooting' : 'Troubleshooting and next steps'}</button>
+              {showTroubleshooting && <div className="mt-3 rounded-xl bg-slate-50 p-4 text-sm text-slate-900 dark:bg-slate-800 dark:text-white"><h3 className="font-bold">Still having trouble?</h3><p className="mt-2">Check that you are using the correct school account and role. If the issue involves missing access, an unpublished result or an incorrect payment, ask your school administrator to verify it. Never send passwords or student records in a general help request.</p><p className="mt-2">If a page reports an error, note the feature name, approximate time and non-sensitive error message when contacting support.</p></div>}
+            </div>
+            <div className="mt-4 border-t border-slate-200 pt-4 dark:border-slate-700">
               <p className="text-sm font-semibold">Was this article helpful?</p>
               <div className="mt-2 flex gap-2">
                 <button type="button" onClick={() => setFeedback('This article was helpful. Your selection has not been submitted to support.')} className="rounded-lg border border-slate-300 px-3 py-2 text-sm">Yes</button>
