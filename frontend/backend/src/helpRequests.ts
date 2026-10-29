@@ -127,7 +127,9 @@ export async function getOwnHelpRequest(db: D1Database, actor: HelpRequestActor,
     .bind(identity.tenantId, identity.userId, id).first();
 }
 
-const HELP_STAFF_ROLES = new Set(['owner', 'hos', 'ami']);
+// Platform support staff must use a separately verified platform permission path.
+// Tenant help desks are limited to tenant-local school management roles.
+const HELP_STAFF_ROLES = new Set(['owner', 'hos']);
 
 export function assertHelpStaffRole(actor: HelpRequestActor) {
   const identity = validateHelpActor(actor);
@@ -160,6 +162,7 @@ export async function updateHelpRequestStatus(
     .bind(requestId, identity.tenantId).first<{ id: string; status: string }>();
   if (!existing) return null;
   if (existing.status === status) return { id: requestId, status };
+  if (existing.status === 'closed' && status !== 'open') throw new Error('Closed requests must be reopened before another status change.');
   await db.batch([
     db.prepare(`UPDATE help_requests SET status = ?, updated_at = CURRENT_TIMESTAMP
       WHERE id = ? AND tenant_id = ?`).bind(status, requestId, identity.tenantId),
