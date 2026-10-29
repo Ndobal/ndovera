@@ -11,6 +11,8 @@ CREATE TABLE IF NOT EXISTS premises_security_records (
  created_by TEXT NOT NULL,
  created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
  checked_out_at TEXT,
+ escalated_at TEXT,
+ acknowledged_at TEXT,
  updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 CREATE INDEX IF NOT EXISTS idx_premises_security_tenant_date ON premises_security_records(tenant_id, created_at DESC);
