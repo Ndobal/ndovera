@@ -27,6 +27,8 @@ export default function PremisesSecurityDashboard({ role }) {
   const [error, setError] = useState('');
   const [notice, setNotice] = useState('');
   const [filter, setFilter] = useState('all');
+  const [selected, setSelected] = useState(null);
+  const [historyLoading, setHistoryLoading] = useState(false);
   const [form, setForm] = useState({ kind: 'incident', title: '', location: '', notes: '', severity: 'low' });
   const load = useCallback(async () => {
     try { setData(await api('/overview')); setError(''); }
@@ -48,6 +50,19 @@ export default function PremisesSecurityDashboard({ role }) {
     try { await api('/records/' + id + '/status', { method: 'PATCH', body: JSON.stringify({ status }) }); await load(); }
     catch (err) { setError(err.message); }
   };
+  const checkout = async (id) => {
+    try {
+      await api('/records/' + id + '/checkout', { method: 'PATCH' });
+      setNotice('Visitor departure recorded.'); await load();
+      if (selected?.record?.id === id) setSelected(null);
+    } catch (err) { setError(err.message); }
+  };
+  const viewHistory = async (id) => {
+    setHistoryLoading(true);
+    try { setSelected(await api('/records/' + id + '/events')); setError(''); }
+    catch (err) { setError(err.message); }
+    finally { setHistoryLoading(false); }
+  };
   const input = 'w-full rounded-lg border border-slate-300 p-3 text-slate-900';
   return <div className="mx-auto max-w-7xl space-y-6 p-4 md:p-8">
     <header className="rounded-2xl bg-[#191970] p-6 text-white">
@@ -57,8 +72,8 @@ export default function PremisesSecurityDashboard({ role }) {
     </header>
     {error && <p role="alert" className="rounded-lg border border-red-300 p-3 text-red-800">{error}</p>}
     {notice && <p role="status" className="rounded-lg border border-green-300 p-3 text-green-800">{notice}</p>}
-    <div className="grid gap-3 sm:grid-cols-3">
-      {[['Open', count('open')], ['Investigating', count('investigating')], ['Resolved', count('resolved')]].map(([label, value]) =>
+    <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      {[['Open', count('open')], ['Investigating', count('investigating')], ['Resolved', count('resolved')], ['Visitors on site (recent)', data.activeVisitors || 0]].map(([label, value]) =>
         <div key={label} className="rounded-xl border bg-white p-5 shadow-sm"><p className="text-sm text-slate-600">{label} reports</p><strong className="text-3xl text-[#191970]">{value}</strong></div>)}
     </div>
     <div className="grid gap-6 lg:grid-cols-2">
@@ -81,10 +96,24 @@ export default function PremisesSecurityDashboard({ role }) {
             <div className="flex items-start justify-between gap-2"><strong>{r.title}</strong><span className="rounded bg-slate-100 px-2 py-1 text-xs">{r.severity}</span></div>
             <p className="text-sm text-slate-600">{r.kind} · {r.location} · {r.created_at}</p>
             <p className="mt-2 text-sm">Status: <strong>{r.status}</strong></p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              <button className="rounded border px-2 py-1 text-xs" onClick={() => viewHistory(r.id)}>View details & audit</button>
+              {r.kind === 'visitor' && !r.checked_out_at && <button className="rounded border border-amber-600 px-2 py-1 text-xs" onClick={() => checkout(r.id)}>Check visitor out</button>}
+              {r.kind === 'visitor' && r.checked_out_at && <span className="text-xs text-green-700">Departed: {r.checked_out_at}</span>}
+            </div>
             {supervisor && <div className="mt-2 flex gap-2"><button className="rounded border px-2 py-1 text-xs" onClick={() => changeStatus(r.id, 'investigating')}>Investigate</button><button className="rounded border px-2 py-1 text-xs" onClick={() => changeStatus(r.id, 'resolved')}>Resolve</button></div>}
           </article>)}</div>}
       </section>
     </div>
+    {historyLoading && <p role="status">Loading record history…</p>}
+    {selected && <section className="rounded-xl border bg-white p-5 shadow-sm">
+      <div className="flex items-center justify-between"><h2 className="text-xl font-semibold">Security record & audit trail</h2><button className="rounded border px-3 py-1" onClick={() => setSelected(null)}>Close</button></div>
+      <h3 className="mt-3 font-semibold">{selected.record.title}</h3>
+      <p className="mt-2 whitespace-pre-wrap text-sm">{selected.record.notes || 'No additional notes recorded.'}</p>
+      <p className="mt-2 text-sm text-slate-600">{selected.record.location} · {selected.record.status}</p>
+      <h3 className="mt-4 font-semibold">Recorded actions</h3>
+      <ul className="mt-2 space-y-2">{(selected.events || []).map(event => <li key={event.id} className="rounded border p-2 text-sm">{event.action} · {event.details} · {event.created_at} · by {event.actor_id}</li>)}</ul>
+    </section>}
     <p className="text-sm text-slate-600">For an immediate threat, follow the school's emergency response procedure and contact the appropriate emergency services. Logging a report does not automatically send an alert.</p>
   </div>;
 }
