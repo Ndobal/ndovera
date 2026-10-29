@@ -54,7 +54,9 @@ export function validateHelpRequestInput(value: unknown): HelpRequestInput {
 }
 
 export function validateHelpActor(actor: HelpRequestActor): HelpRequestActor {
-  if (!actor || !actor.userId?.trim() || !actor.tenantId?.trim() || !actor.role?.trim()) {
+  if (!actor || typeof actor.userId !== 'string' || typeof actor.tenantId !== 'string'
+    || typeof actor.role !== 'string' || !actor.userId.trim() || !actor.tenantId.trim()
+    || !actor.role.trim()) {
     throw new Error('Authenticated user and tenant are required.');
   }
   return actor;
@@ -163,14 +165,17 @@ export async function updateHelpRequestStatus(
   if (!existing) return null;
   if (existing.status === status) return { id: requestId, status };
   if (existing.status === 'closed' && status !== 'open') throw new Error('Closed requests must be reopened before another status change.');
-  await db.batch([
-    db.prepare(`UPDATE help_requests SET status = ?, updated_at = CURRENT_TIMESTAMP
-      WHERE id = ? AND tenant_id = ?`).bind(status, requestId, identity.tenantId),
-    db.prepare(`INSERT INTO help_request_events
-      (id, request_id, tenant_id, actor_id, action, note)
-      VALUES (?, ?, ?, ?, ?, ?)`)
-      .bind(crypto.randomUUID(), requestId, identity.tenantId, identity.userId, `status:${status}`, note.trim()),
-  ]);
+  // Compare-and-swap avoids silently overwriting another staff member's update.
+  const result = await db.prepare(`UPDATE help_requests SET status = ?, updated_at = CURRENT_TIMESTAMP
+    WHERE id = ? AND tenant_id = ? AND status = ?`)
+    .bind(status, requestId, identity.tenantId, existing.status).run();
+  if (Number(result.meta?.changes || 0) !== 1) {
+    throw new Error('This request changed while you were editing. Refresh and try again.');
+  }
+  await db.prepare(`INSERT INTO help_request_events
+    (id, request_id, tenant_id, actor_id, action, note)
+    VALUES (?, ?, ?, ?, ?, ?)`)
+    .bind(crypto.randomUUID(), requestId, identity.tenantId, identity.userId, `status:${status}`, note.trim()).run();
   return { id: requestId, status };
 }
 
