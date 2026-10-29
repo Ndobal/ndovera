@@ -181,6 +181,9 @@ export async function listHelpRequestEvents(db: D1Database, actor: HelpRequestAc
   if (!request || (request.requester_id !== identity.userId && !HELP_STAFF_ROLES.has(identity.role.toLowerCase()))) {
     throw new Error('Support request not found.');
   }
+  if (!HELP_STAFF_ROLES.has(identity.role.toLowerCase())) {
+    return getRequesterHelpRequestTimeline(db, identity, requestId);
+  }
   return db.prepare(`SELECT action, note, created_at FROM help_request_events
     WHERE tenant_id = ? AND request_id = ? ORDER BY created_at ASC LIMIT 200`)
     .bind(identity.tenantId, requestId).all();
