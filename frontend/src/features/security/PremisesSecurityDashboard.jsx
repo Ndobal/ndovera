@@ -50,6 +50,13 @@ export default function PremisesSecurityDashboard({ role }) {
     try { await api('/records/' + id + '/status', { method: 'PATCH', body: JSON.stringify({ status }) }); await load(); }
     catch (err) { setError(err.message); }
   };
+  const escalate = async (id, action) => {
+    try {
+      await api('/records/' + id + '/' + action, { method: 'PATCH' });
+      setNotice(action === 'escalate' ? 'Escalation recorded for supervisor review.' : 'Escalation acknowledged.');
+      await load();
+    } catch (err) { setError(err.message); }
+  };
   const checkout = async (id) => {
     try {
       await api('/records/' + id + '/checkout', { method: 'PATCH' });
@@ -72,8 +79,8 @@ export default function PremisesSecurityDashboard({ role }) {
     </header>
     {error && <p role="alert" className="rounded-lg border border-red-300 p-3 text-red-800">{error}</p>}
     {notice && <p role="status" className="rounded-lg border border-green-300 p-3 text-green-800">{notice}</p>}
-    <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-      {[['Open', count('open')], ['Investigating', count('investigating')], ['Resolved', count('resolved')], ['Visitors on site (recent)', data.activeVisitors || 0]].map(([label, value]) =>
+    <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+      {[['Open', count('open')], ['Investigating', count('investigating')], ['Resolved', count('resolved')], ['Visitors on site', data.activeVisitors || 0], ['Escalations awaiting review', data.pendingEscalations || 0]].map(([label, value]) =>
         <div key={label} className="rounded-xl border bg-white p-5 shadow-sm"><p className="text-sm text-slate-600">{label} reports</p><strong className="text-3xl text-[#191970]">{value}</strong></div>)}
     </div>
     <div className="grid gap-6 lg:grid-cols-2">
@@ -98,6 +105,10 @@ export default function PremisesSecurityDashboard({ role }) {
             <p className="mt-2 text-sm">Status: <strong>{r.status}</strong></p>
             <div className="mt-3 flex flex-wrap gap-2">
               <button className="rounded border px-2 py-1 text-xs" onClick={() => viewHistory(r.id)}>View details & audit</button>
+              {['incident','hazard','gate'].includes(r.kind) && r.status !== 'resolved' && !r.escalated_at && <button className="rounded border border-red-600 px-2 py-1 text-xs" onClick={() => escalate(r.id, 'escalate')}>Escalate</button>}
+              {r.escalated_at && !r.acknowledged_at && <span className="text-xs font-semibold text-red-700">Escalated — awaiting review</span>}
+              {supervisor && r.escalated_at && !r.acknowledged_at && r.status !== 'resolved' && <button className="rounded border border-blue-600 px-2 py-1 text-xs" onClick={() => escalate(r.id, 'acknowledge')}>Acknowledge</button>}
+              {r.acknowledged_at && <span className="text-xs text-green-700">Acknowledged</span>}
               {r.kind === 'visitor' && !r.checked_out_at && <button className="rounded border border-amber-600 px-2 py-1 text-xs" onClick={() => checkout(r.id)}>Check visitor out</button>}
               {r.kind === 'visitor' && r.checked_out_at && <span className="text-xs text-green-700">Departed: {r.checked_out_at}</span>}
             </div>
