@@ -203,6 +203,7 @@ function SectionCard({ section, data, onSaved }) {
   }, [data, section.key]);
 
   const metadata = useMemo(() => ({
+    ...parseMeta(data?.metadata),
     eyebrow: form.eyebrow,
     buttonLabel: form.buttonLabel,
     buttonUrl: form.buttonUrl,
@@ -216,7 +217,7 @@ function SectionCard({ section, data, onSaved }) {
     email: form.email,
     flyerUrl: section.key === 'admission_flyer' ? form.imageUrl : undefined,
     popup: section.key === 'admission_flyer' ? !!form.popup : undefined,
-  }), [form, section.key, section.maxFiles]);
+  }), [form, data?.metadata, section.key, section.maxFiles]);
 
   async function uploadOne(file, appendToGallery = false) {
     const result = await uploadSectionImage(file, section.key);
