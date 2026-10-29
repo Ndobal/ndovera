@@ -1,5 +1,5 @@
 import {
-  assertArticleEditor, createHelpArticleDraft, ensureHelpArticleTables,
+  assertArticleEditor, createHelpArticleDraft,
   listEditorialHelpArticles, listPublishedHelpArticles, transitionHelpArticle,
   type ArticleActor, type ArticleState,
 } from './helpArticleWorkflow';
@@ -42,6 +42,7 @@ export async function handleHelpArticleRoute(
     if (raw.length > 40000) return fail(413, 'Article request is too large.');
     let input: Record<string, unknown>;
     try { input = JSON.parse(raw); } catch { return fail(400, 'Invalid JSON.'); }
+    if (!input || typeof input !== 'object' || Array.isArray(input)) return fail(400, 'Invalid article.');
     const id = typeof input.articleId === 'string' ? input.articleId : undefined;
     try { return json(await createHelpArticleDraft(context.db, actor, input, id), 201); }
     catch (error) { return fail(400, error instanceof Error ? error.message : 'Invalid article.'); }
@@ -52,6 +53,7 @@ export async function handleHelpArticleRoute(
     if (raw.length > 1024) return fail(413, 'Request too large.');
     let input: { state?: ArticleState };
     try { input = JSON.parse(raw); } catch { return fail(400, 'Invalid JSON.'); }
+    if (!input || typeof input !== 'object' || Array.isArray(input)) return fail(400, 'Invalid transition.');
     try {
       const result = await transitionHelpArticle(context.db, actor, match[1], input.state as ArticleState);
       return result ? json(result) : fail(404, 'Article revision not found.');
