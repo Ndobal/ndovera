@@ -28,6 +28,7 @@ import Loader from './shared/components/Loader';
 import Sidebar from './shared/components/Sidebar';
 import DashboardTopBar from './shared/components/DashboardTopBar';
 import HelpCentre from './features/help/HelpCentre';
+import HelpArticleAdmin from './features/help/HelpArticleAdmin';
 import MobileRoleOverviewNav from './shared/components/MobileRoleOverviewNav';
 import RoleWithoutDashboard from './shared/components/RoleWithoutDashboard';
 import AppErrorBoundary from './shared/components/AppErrorBoundary';
@@ -237,6 +238,14 @@ function RoleGuard({ expectedRole, auth, children }) {
   return children;
 }
 
+function HelpArticleAdminRoute({ auth }) {
+  const { role } = useParams();
+  const activeRole = getAuthenticatedRole(auth);
+  if (role !== activeRole) return <Navigate to={`/roles/${activeRole}/help`} replace />;
+  if (!['owner', 'hos'].includes(activeRole)) return <Navigate to={`/roles/${activeRole}/help`} replace />;
+  return <HelpArticleAdmin role={activeRole} />;
+}
+
 function HelpRoleRoute({ auth }) {
   const { role } = useParams();
   const activeRole = getAuthenticatedRole(auth);
@@ -278,6 +287,7 @@ function AnimatedRoutes({ auth, onLogin }) {
         <Route path="/invoice/:token" element={<InvoicePayPage />} />
         <Route path="/championships/:slug" element={<PublicChampionshipDetailPage />} />
         <Route path="/roles/:role/help" element={<RequireAuth auth={auth}><HelpRoleRoute auth={auth} /></RequireAuth>} />
+        <Route path="/roles/:role/help/articles" element={<RequireAuth auth={auth}><HelpArticleAdminRoute auth={auth} /></RequireAuth>} />
         {/* One payslip page for every staff role (teachers, HoS, accountant, ICT, librarian, clinic, …). */}
         <Route path="/roles/:role/payslip" element={<RequireAuth auth={auth}><RouteTransition><TeacherPayslip auth={auth} /></RouteTransition></RequireAuth>} />
         <Route path="/roles/:role/finance-report" element={<RequireAuth auth={auth}><RouteTransition><FinancialStandingsReport /></RouteTransition></RequireAuth>} />
