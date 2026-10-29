@@ -1,6 +1,12 @@
-import { HELP_ARTICLES, HELP_ARTICLE_VERSION, findHelpArticles } from './helpArticles';
+import { HELP_ARTICLES, HELP_ARTICLE_VERSION, findHelpArticles, getContextualHelpQuery } from './helpArticles';
 
 describe('Help Centre approved knowledge catalogue', () => {
+  test('recognises common dashboard contexts without exposing records', () => {
+    expect(getContextualHelpQuery('/roles/owner/website/gallery')).toBe('gallery');
+    expect(getContextualHelpQuery('/roles/teacher/attendance')).toBe('attendance');
+    expect(getContextualHelpQuery('/roles/parent/fees')).toBe('fees');
+    expect(getContextualHelpQuery('/roles/student')).toBe('');
+  });
   test('catalogue is versioned and article ids are unique', () => {
     expect(HELP_ARTICLE_VERSION).toBeTruthy();
     expect(new Set(HELP_ARTICLES.map(article => article.id)).size).toBe(HELP_ARTICLES.length);
