@@ -103,12 +103,12 @@ function getYouTubeEmbedUrl(url) {
 
   try {
     const parsed = new URL(raw);
-    if (parsed.hostname.includes('youtu.be')) {
+    if (parsed.protocol === 'https:' && parsed.hostname === 'youtu.be') {
       const videoId = parsed.pathname.replace(/^\//, '').trim();
       return videoId ? `https://www.youtube.com/embed/${videoId}` : '';
     }
 
-    if (parsed.hostname.includes('youtube.com')) {
+    if (parsed.protocol === 'https:' && ['youtube.com', 'www.youtube.com', 'm.youtube.com'].includes(parsed.hostname)) {
       if (parsed.pathname === '/watch') {
         const videoId = parsed.searchParams.get('v') || '';
         return videoId ? `https://www.youtube.com/embed/${videoId}` : '';
