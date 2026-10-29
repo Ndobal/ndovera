@@ -140,7 +140,11 @@ export async function listPublishedHelpArticles(db: D1Database, tenantId: string
   if (typeof tenantId !== 'string' || !tenantId.trim() || typeof role !== 'string') throw new Error('Invalid scope.');
   const rows = await db.prepare(`SELECT article_id, title, category, keywords, roles_json, steps_json, revision
     FROM help_article_revisions
-    WHERE tenant_id = ? AND state = 'published' ORDER BY published_at DESC LIMIT 500`)
+    WHERE tenant_id = ? AND state = 'published'
+      AND revision = (SELECT MAX(r2.revision) FROM help_article_revisions r2
+        WHERE r2.tenant_id = help_article_revisions.tenant_id
+          AND r2.article_id = help_article_revisions.article_id AND r2.state = 'published')
+    ORDER BY published_at DESC LIMIT 500`)
     .bind(tenantId).all<Record<string, unknown>>();
   return (rows.results || []).filter(row => {
     try { return (JSON.parse(String(row.roles_json)) as string[]).includes(role); } catch { return false; }
