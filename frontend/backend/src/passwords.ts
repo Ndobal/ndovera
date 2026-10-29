@@ -167,6 +167,8 @@ const ROLE_CAPABILITIES: Record<string, string[]> = {
   ict: ['teach_subjects', 'manage_users', 'assign_classes', 'approve_results'],
   examofficer: ['approve_results'],
   librarian: ['assign_classes'],
+  chiefsecurityofficer: ['manage_premises_security'],
+  securityofficer: ['record_premises_security'],
 }
 
 // ICT was split across two roles that did nearly the same job. They are now one role, and
@@ -176,6 +178,10 @@ const ROLE_ALIASES: Record<string, string> = {
   ict_manager: 'ict',
   ictmanager: 'ict',
   'ict manager': 'ict',
+  'chief security officer': 'chiefsecurityofficer',
+  'security officer': 'securityofficer',
+  'chief_security_officer': 'chiefsecurityofficer',
+  'security_officer': 'securityofficer',
 }
 
 export function canonicalRole(value: unknown) {

@@ -1,4 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import './publicThemes.css';
+import { resolveCorporateDesign } from './corporateDesign';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import {
   AcademicCapIcon,
@@ -562,25 +564,71 @@ function MediaFrame({ url, title, className = 'h-full w-full object-cover rounde
 
 function MediaGallery({ section, eyebrow, title, description, tone = 'light' }) {
   const media = getSectionMedia(section);
-  if (!media.length) return null;
-
+  const [activeIndex, setActiveIndex] = useState(null);
+  const viewerCloseRef = React.useRef(null);
+  const previousFocusRef = React.useRef(null);
   const isDark = tone === 'dark';
+  const close = () => setActiveIndex(null);
+  const open = index => { previousFocusRef.current = document.activeElement; setActiveIndex(index); };
+  useEffect(() => {
+    if (activeIndex === null) return undefined;
+    viewerCloseRef.current?.focus();
+    const priorOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = priorOverflow;
+      previousFocusRef.current?.focus?.();
+    };
+  }, [activeIndex === null]);
+  const move = delta => setActiveIndex(index => index === null ? null : (index + delta + media.length) % media.length);
 
+  useEffect(() => {
+    if (activeIndex === null) return undefined;
+    const onKeyDown = event => {
+      if (event.key === 'Escape') { event.preventDefault(); close(); }
+      if (event.key === 'ArrowLeft') { event.preventDefault(); move(-1); }
+      if (event.key === 'ArrowRight') { event.preventDefault(); move(1); }
+    };
+    document.addEventListener('keydown', onKeyDown);
+    return () => document.removeEventListener('keydown', onKeyDown);
+  }, [activeIndex, media.length]);
+
+  if (!media.length) return null;
   return (
     <Reveal as="section" className={`rounded-[2rem] border border-[#c9a96e]/45 p-5 shadow-[0_18px_40px_rgba(25,25,112,0.08)] sm:p-6 ${isDark ? 'bg-[#191970]' : 'bg-[#fff8ef]'}`}>
       <SectionHeading eyebrow={eyebrow} title={title} description={description} tone={isDark ? 'inverse' : 'default'} />
       <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
         {media.map((url, index) => (
-          <article
-            key={`${url}-${index}`}
-            data-reveal
-            data-reveal-delay={(index % 4) + 1}
-            className={`public-reveal overflow-hidden rounded-[1.5rem] border border-[#c9a96e]/35 p-2 sm:p-3 ${isDark ? 'bg-white/5' : 'bg-[#b5e3f4]/45'}`}
-          >
+          <div key={`${url}-${index}`} role="group" aria-label={`View ${section.title} media ${index + 1} of ${media.length}`}
+            className={`overflow-hidden rounded-[1.5rem] border border-[#c9a96e]/35 p-2 text-left focus-visible:outline focus-visible:outline-4 focus-visible:outline-cyan-500 sm:p-3 ${isDark ? 'bg-white/5' : 'bg-[#b5e3f4]/45'}`}>
             <MediaFrame url={url} title={`${section.title} media ${index + 1}`} className="h-52 w-full rounded-[1.1rem] object-cover sm:h-56" />
-          </article>
+            <button type="button" onClick={() => open(index)} className="mt-2 w-full rounded-xl bg-[#191970] px-3 py-2 text-sm font-semibold text-white focus-visible:outline focus-visible:outline-4 focus-visible:outline-cyan-500">Open media {index + 1}</button>
+          </div>
         ))}
       </div>
+      {activeIndex !== null && (
+        <div role="dialog" aria-modal="true" aria-label={`${section.title} media viewer`}
+          className="fixed inset-0 z-[110] flex flex-col bg-[#070d1b]/95 p-3 text-white sm:p-6"
+          onTouchStart={event => { event.currentTarget.dataset.touchX = String(event.touches[0]?.clientX ?? ''); }}
+          onTouchEnd={event => {
+            const startX = Number(event.currentTarget.dataset.touchX);
+            const endX = event.changedTouches[0]?.clientX;
+            if (Number.isFinite(startX) && Number.isFinite(endX) && Math.abs(endX - startX) > 65) move(endX < startX ? 1 : -1);
+          }}>
+          <div className="flex items-center justify-between gap-3 pb-3">
+            <span className="text-sm font-semibold text-white">{section.title} · {activeIndex + 1} of {media.length}</span>
+            <button ref={viewerCloseRef} type="button" onClick={close} aria-label="Close viewer" className="rounded-full border border-white/40 px-4 py-2 text-sm font-bold text-white hover:bg-white/20">Close ×</button>
+          </div>
+          <div className="flex min-h-0 flex-1 items-center justify-center gap-2 sm:gap-5">
+            <button type="button" onClick={() => move(-1)} aria-label="Previous media" className="rounded-full border border-white/40 p-3 text-2xl text-white hover:bg-white/20">‹</button>
+            <div className="flex min-h-0 min-w-0 flex-1 items-center justify-center overflow-hidden">
+              <MediaFrame key={media[activeIndex]} url={media[activeIndex]} title={`${section.title} media ${activeIndex + 1}`} className="max-h-[75vh] max-w-full rounded-xl object-contain" />
+            </div>
+            <button type="button" onClick={() => move(1)} aria-label="Next media" className="rounded-full border border-white/40 p-3 text-2xl text-white hover:bg-white/20">›</button>
+          </div>
+          <p className="pt-3 text-center text-xs text-white/80">Use ← and → to browse, Esc to close, or swipe on mobile.</p>
+        </div>
+      )}
     </Reveal>
   );
 }
@@ -671,7 +719,7 @@ function HeroSlides({ media }) {
   );
 }
 
-export function PublicShell({ section, notice, children, flier, hideHero = false, hideCta = false }) {
+export function PublicShell({ section, notice, children, flier, hideHero = false, hideCta = false, design = 'executive' }) {
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const heroStats = Array.isArray(section.metadata.stats) ? section.metadata.stats : [];
@@ -684,7 +732,7 @@ export function PublicShell({ section, notice, children, flier, hideHero = false
   }, [location.pathname]);
 
   return (
-    <div className="min-h-screen overflow-x-hidden bg-white text-[#191970]">
+    <div data-ndovera-design={design} className="ndovera-corporate-site min-h-screen overflow-x-hidden bg-white text-[#191970]">
       <FlierPopup flier={flier} />
       {/* Utility bar */}
       <div className="hidden bg-[#10133a] text-white lg:block">
@@ -773,23 +821,23 @@ export function PublicShell({ section, notice, children, flier, hideHero = false
 
       {/* Full-bleed hero with sliding background carousel */}
       {hideHero ? null : (
-      <section className="relative isolate overflow-hidden bg-[#04190d]">
+      <section className={`relative isolate overflow-hidden ${design === 'future' ? 'bg-[#102a43]' : 'bg-[#191970]'}`}>
         <HeroSlides media={heroMedia} />
-        <div className="absolute inset-0 -z-10 bg-gradient-to-br from-[#010804]/72 via-[#04190d]/60 to-[#072214]/50" />
-        <div className="absolute inset-x-0 bottom-0 -z-10 h-2/5 bg-gradient-to-t from-[#010804]/72 to-transparent" />
-        <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-28 lg:px-8 lg:py-36">
+        <div className={`absolute inset-0 -z-10 ${design === 'future' ? 'bg-gradient-to-br from-[#061a31]/90 via-[#087f8c]/65 to-[#102a43]/85' : 'bg-gradient-to-br from-[#10133a]/85 via-[#191970]/65 to-[#681d36]/80'}`} />
+        <div className="absolute inset-x-0 bottom-0 -z-10 h-2/5 bg-gradient-to-t from-black/70 to-transparent" />
+        <div className={`mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 ${design === 'future' ? 'py-24 sm:py-32 lg:py-44' : 'py-20 sm:py-28 lg:py-36'}`}>
           <div className="max-w-3xl motion-safe:animate-[heroIn_.7s_ease-out]">
-            <p className="inline-flex rounded-full border border-[#ffd84a]/55 bg-black/30 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.3em] text-[#ffd84a]">
+            <p className={`inline-flex rounded-full border px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.3em] ${design === 'future' ? 'border-[#9ee6ed] bg-[#102a43]/80 text-[#d7faff]' : 'border-[#e3c98b] bg-black/40 text-[#ffe8aa]'}`}>
               {section.eyebrow}
             </p>
             <h1 className="mt-5 font-serif text-4xl font-black leading-[1.05] tracking-tight !text-white [text-shadow:0_2px_18px_rgba(0,0,0,0.75)] sm:text-5xl lg:text-[4rem]">
               {section.title}
             </h1>
-            <p className="mt-5 max-w-2xl text-lg leading-8 text-[#ffeca6] [text-shadow:0_1px_12px_rgba(0,0,0,0.7)]">
+            <p className={`mt-5 max-w-2xl text-lg leading-8 [text-shadow:0_1px_12px_rgba(0,0,0,0.7)] ${design === 'future' ? 'text-[#e0fbff]' : 'text-[#fff0c8]'}`}>
               {section.description}
             </p>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-              <ActionLink to="/register-school" className="rounded-full bg-[#e3c98b] px-7 py-3.5 text-center text-sm font-bold uppercase tracking-wide text-[#191970] transition hover:bg-white">
+              <ActionLink to="/register-school" className={`rounded-full px-7 py-3.5 text-center text-sm font-bold uppercase tracking-wide transition hover:bg-white ${design === 'future' ? 'bg-[#b9f0f5] text-[#102a43]' : 'bg-[#e3c98b] text-[#191970]'}`}>
                 Register School
               </ActionLink>
               <ActionLink to="/login" className="rounded-full border border-white/40 px-7 py-3.5 text-center text-sm font-bold uppercase tracking-wide text-white transition hover:bg-white/10">
@@ -1744,7 +1792,12 @@ function GalleryPageBody({ section }) {
 
 export default function PublicSitePage({ pageKey = 'home' }) {
   const pageLocation = useLocation();
+  // URL previews never change the saved content or payment/registration flows.
+  // The executive design is the safe default when no preview is requested.
+  const requestedDesign = new URLSearchParams(pageLocation.search).get('design');
+  const design = resolveCorporateDesign(publishedDesign, requestedDesign);
   const [sections, setSections] = useState([]);
+  const publishedDesign = parseMeta(sections.find(item => item.section_key === 'home')?.metadata).corporateDesign;
   const [error, setError] = useState('');
   const [pricing, setPricing] = useState({ plans: [], pricingConfig: null, quotes: {}, discount: null });
   const [pricingError, setPricingError] = useState('');
@@ -1902,6 +1955,7 @@ export default function PublicSitePage({ pageKey = 'home' }) {
       notice={error}
       flier={normalizeSection('flier', sectionsByKey.flier)}
       hideHero={pageKey === 'pricing'}
+      design={design}
     >
       {body}
     </PublicShell>

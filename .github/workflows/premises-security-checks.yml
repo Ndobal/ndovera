@@ -1,0 +1,37 @@
+name: Premises security checks
+on:
+  push:
+    branches:
+      - feature/ndovera-premium-upgrade-2026
+    paths:
+      - 'frontend/backend/src/premisesSecurity.ts'
+      - 'frontend/backend/src/index.ts'
+      - 'frontend/backend/test/premises-security.test.mjs'
+      - 'frontend/src/features/security/**'
+      - 'frontend/src/App.js'
+      - '.github/workflows/premises-security-checks.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  security:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend/backend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: frontend/backend/package-lock.json
+      - run: npm ci
+      - name: Compile security module
+        run: |
+          mkdir -p test/build
+          npx esbuild src/premisesSecurity.ts --bundle --format=esm --platform=node --outfile=test/build/premisesSecurity.mjs
+      - name: Test permissions and payloads
+        run: node --test test/premises-security.test.mjs
+      - name: Worker dry-run build
+        run: npm run build

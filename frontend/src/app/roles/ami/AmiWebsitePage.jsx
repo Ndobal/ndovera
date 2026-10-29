@@ -3,6 +3,7 @@ import { getAmiWebsiteSections, saveAmiWebsiteSection, uploadAmiWebsiteAsset } f
 import OpportunitiesManager from '../../../features/public/components/OpportunitiesManager';
 import AmiMediaSettings from './AmiMediaSettings';
 import AmiLegalPage from './AmiLegalPage';
+import { publishCorporateDesignMetadata } from '../../../features/public/pages/corporateDesign';
 
 const SECTION_DEFINITIONS = [
   {
@@ -281,6 +282,7 @@ function SectionEditor({ section, data, onSaved }) {
         content: form.content,
         imageUrl: form.imageUrl,
         metadata: {
+          ...parseMeta(data?.metadata),
           eyebrow: form.eyebrow,
           spotlightEyebrow: form.spotlightEyebrow,
           spotlightTitle: form.spotlightTitle,
@@ -510,6 +512,29 @@ export default function AmiWebsitePage() {
   const [activeTab, setActiveTab] = useState(SECTION_DEFINITIONS[0].key);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [publishingDesign, setPublishingDesign] = useState('');
+  const [designMessage, setDesignMessage] = useState('');
+
+  async function publishDesign(design) {
+    if (!['executive', 'future'].includes(design)) return;
+    const home = sections.find(item => item.section_key === 'home');
+    if (!home) { setDesignMessage('Create and save the Homepage section before publishing a design.'); return; }
+    setPublishingDesign(design);
+    setDesignMessage('');
+    try {
+      await saveAmiWebsiteSection({
+        sectionKey: 'home',
+        title: home.title,
+        content: home.content,
+        imageUrl: home.image_url,
+        metadata: publishCorporateDesignMetadata(parseMeta(home.metadata), design),
+      });
+      await loadSections();
+      setDesignMessage(`Published ${design === 'executive' ? 'Ndovera Executive' : 'Ndovera Future'}.`);
+    } catch (error) {
+      setDesignMessage(error.message || 'Could not publish the selected design.');
+    } finally { setPublishingDesign(''); }
+  }
 
   async function loadSections() {
     setLoading(true);
@@ -539,6 +564,31 @@ export default function AmiWebsitePage() {
         <p className="mt-3 max-w-4xl text-sm leading-7 text-[#191970] dark:text-slate-300">
           This editor controls the AMI-managed NDOVERA website at ndovera.com. Tenant school websites remain separate and continue to be managed by each tenant owner inside their own website settings.
         </p>
+      </section>
+
+      <section aria-label="Corporate website designs" className="rounded-3xl border border-[#c9a96e]/50 bg-[#fff8ee] p-5 shadow-sm dark:border-slate-600 dark:bg-slate-900">
+        <h2 className="text-xl font-black text-[#191970] dark:text-white">Premium website designs</h2>
+        <p className="mt-2 text-sm text-[#31416f] dark:text-slate-200">Preview both designs with your real published website content. These links do not change the live site or school registration.</p>
+        <div className="mt-4 grid gap-4 md:grid-cols-2">
+          {[
+            { id: 'executive', title: 'Ndovera Executive', description: 'Navy, burgundy and gold — polished institutional design.', palette: ['#191970','#800020','#c9a96e','#fff8ee'] },
+            { id: 'future', title: 'Ndovera Future', description: 'Deep blue, teal and cyan — modern technology-forward design.', palette: ['#102a43','#087f8c','#b9f0f5','#eaf8fa'] },
+          ].map(theme => (
+            <article key={theme.id} className="rounded-2xl border border-[#c9a96e]/50 bg-white p-4 dark:border-slate-600 dark:bg-slate-800">
+              <div className="flex h-14 overflow-hidden rounded-xl border border-slate-200" aria-hidden="true">
+                {theme.palette.map(color => <span key={color} style={{ backgroundColor: color }} className="flex-1" />)}
+              </div>
+              <h3 className="mt-3 text-lg font-bold text-[#191970] dark:text-white">{theme.title}</h3>
+              <p className="mt-1 text-sm text-[#31416f] dark:text-slate-200">{theme.description}</p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                <a href={`/?design=${theme.id}`} target="_blank" rel="noopener noreferrer" className="inline-flex rounded-full border border-[#191970] px-4 py-2.5 text-sm font-bold text-[#191970] dark:border-white dark:text-white">Preview ↗</a>
+                <button type="button" disabled={Boolean(publishingDesign) || loading || !sectionsByKey.home} onClick={() => publishDesign(theme.id)} className="rounded-full bg-[#191970] px-4 py-2.5 text-sm font-bold text-white disabled:opacity-50">{publishingDesign === theme.id ? 'Publishing...' : parseMeta(sectionsByKey.home?.metadata).corporateDesign === theme.id || (theme.id === 'executive' && !parseMeta(sectionsByKey.home?.metadata).corporateDesign) ? 'Published' : 'Publish design'}</button>
+              </div>
+            </article>
+          ))}
+        </div>
+        <p className="mt-4 text-xs font-medium text-[#800020] dark:text-amber-200">Publishing updates the existing Homepage record. The previous design can be restored at any time.</p>
+        {designMessage ? <p role="status" className="mt-3 text-sm font-semibold text-[#191970] dark:text-white">{designMessage}</p> : null}
       </section>
 
       {loading ? <p className="text-sm text-[#800020] dark:text-slate-400">Loading website sections...</p> : null}

@@ -11,6 +11,8 @@ const ROLE_LABELS = {
   storekeeper: 'Store Keeper',
   examofficer: 'Exam Officer',
   sportsmaster: 'Sports Master',
+  chiefsecurityofficer: 'Chief Security Officer',
+  securityofficer: 'Security Officer',
   growthpartner: 'Growth Partner',
 };
 

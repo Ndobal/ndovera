@@ -13,7 +13,7 @@ import { askConfirm } from '../../../shared/components/AppDialog';
 
 const FILTER_TO_ROLE = { Teachers: 'teacher', Admin: 'admin', Students: 'student', Parents: 'parent' };
 
-const ROLES = ['admin', 'teacher', 'hos', 'accountant', 'student', 'parent', 'caregiver', 'librarian', 'classteacher', 'hod', 'hodassistant', 'principal', 'viceprincipal', 'headteacher', 'nurseryhead', 'storekeeper', 'tuckshopmanager', 'transport', 'hostel', 'cafeteria', 'clinic', 'ict', 'examofficer', 'sportsmaster', 'sanitation', 'growthpartner'];
+const ROLES = ['admin', 'teacher', 'hos', 'accountant', 'student', 'parent', 'caregiver', 'librarian', 'classteacher', 'hod', 'hodassistant', 'principal', 'viceprincipal', 'headteacher', 'nurseryhead', 'storekeeper', 'tuckshopmanager', 'transport', 'hostel', 'cafeteria', 'clinic', 'ict', 'examofficer', 'sportsmaster', 'chiefsecurityofficer', 'securityofficer', 'sanitation', 'growthpartner'];
 const FILTERS = ['All', 'Teachers', 'Admin', 'Students', 'Parents'];
 
 // Colour-coded role badges — each role gets a distinct colour

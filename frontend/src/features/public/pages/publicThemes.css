@@ -1,0 +1,64 @@
+/*
+ * Ndovera corporate website presentations.
+ * Both designs reuse the existing page sections, real pricing and existing CTAs.
+ * Scope all overrides to the corporate public shell; never affect tenant sites.
+ */
+.ndovera-corporate-site {
+  --brand-ink: #191970;
+  --brand-accent: #800020;
+  --brand-gold: #c9a96e;
+  --brand-paper: #fff8ee;
+  color: var(--brand-ink);
+}
+.ndovera-corporate-site [data-reveal] { scroll-margin-top: 6rem; }
+.ndovera-corporate-site :is(a,button,input,select,textarea):focus-visible {
+  outline: 3px solid #087f8c;
+  outline-offset: 3px;
+}
+.ndovera-corporate-site[data-ndovera-design="executive"] {
+  background: linear-gradient(180deg, #fffaf2 0%, #ffffff 34%, #f7f7fb 100%);
+}
+.ndovera-corporate-site[data-ndovera-design="executive"] header {
+  border-bottom: 2px solid rgba(201,169,110,.5);
+  box-shadow: 0 12px 35px rgba(25,25,112,.07);
+}
+.ndovera-corporate-site[data-ndovera-design="executive"] article {
+  transition: box-shadow .2s ease, transform .2s ease;
+}
+@media (hover:hover) and (prefers-reduced-motion:no-preference) {
+  .ndovera-corporate-site[data-ndovera-design="executive"] article:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 20px 45px rgba(25,25,112,.12);
+  }
+}
+.ndovera-corporate-site[data-ndovera-design="future"] {
+  --brand-ink: #102a43;
+  --brand-accent: #087f8c;
+  --brand-gold: #d1a85c;
+  --brand-paper: #eaf8fa;
+  background: linear-gradient(150deg,#eaf8fa 0%,#fff 36%,#f3f5ff 100%);
+  color: #102a43;
+}
+.ndovera-corporate-site[data-ndovera-design="future"] header {
+  border-bottom-color: #80c8d2;
+  box-shadow: 0 12px 35px rgba(16,42,67,.09);
+}
+.ndovera-corporate-site[data-ndovera-design="future"] article {
+  border-radius: 1.5rem;
+  box-shadow: 0 15px 35px rgba(8,127,140,.08);
+}
+.ndovera-corporate-site[data-ndovera-design="future"] :is(article,section) img {
+  transition: transform .4s ease;
+}
+@media (hover:hover) and (prefers-reduced-motion:no-preference) {
+  .ndovera-corporate-site[data-ndovera-design="future"] article:hover img {
+    transform: scale(1.015);
+  }
+}
+@media (prefers-reduced-motion:reduce) {
+  .ndovera-corporate-site *, .ndovera-corporate-site *::before, .ndovera-corporate-site *::after {
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+    animation-duration: .01ms !important;
+  }
+}
