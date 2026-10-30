@@ -2437,3 +2437,31 @@ From feature22222222.md ("Payroll" list).
 - People with the link see the fliers (tap to enlarge), details and the form. Closed: details still show, entries stop. Checks: required answers, valid choices/numbers/email, no second entry with the same phone or email, 10 entries an hour per device, a hidden robot trap, the entry limit.
 - The school sees entries in a table and downloads a CSV. Each school sees only its own; Ndovera's are apart.
 - Tests: `link-competitions.test.mjs`, `contrast.test.jsx` (management page, editor, entries, link page).
+
+### N50. Smart Setup Centre — ✅ BUILT 30 Oct 2026
+> lets finish all these and be legally binding. do you understand what smart setup centre is? do it diligently not missing any step
+
+- Owner/HoS/ICT → Setup Centre. 15 steps checked on the server from the school's own records (nothing ticked by hand): branding, session and current term, terms calendar, sections and classes, subjects, people, parent links, roles, class and subject teachers, fees, grading, website, parent notifications, attendance, timetable.
+- Statuses: complete · incomplete · waiting on an earlier step · not started · not needed · could not check (a failed check never counts as done). Each with the reason, real counts and names (e.g. "No class teacher: JSS 1 A, Blue Room").
+- Progress (how much is done) and readiness (every essential step complete) are shown apart.
+- "Fix now" opens the exact page for that step, only for roles allowed there (otherwise "Ask the Owner or Head of School"); the centre checks again when you come back.
+- New-session readiness (from 75 days before the session ends): next session and its terms, promotion decisions, teachers carried over, records kept.
+- A new session now keeps every teacher where they were (the plan's rule), unless the school chooses "start with open slots". Who taught what is recorded either way; no result, fee or attendance record is deleted.
+- Owner ⇄ HoS parity: the Owner now also has Teacher Review, Timetable, Exams, Discipline and the staff AI assistant.
+
+### N51. Terms Calendar — ✅ BUILT 30 Oct 2026
+- Owner/HoS → Terms Calendar, one per session: mid-term breaks, school holidays, C.A. tests, exams, events, open days/PTA, results day, fee deadlines, laid over the term dates, Sessions & Terms breaks, the school calendar and Nigeria's public holidays.
+- Conflicts found as you type: tests/exams in a break or on a public holiday, outside a term or the session, results before exams end, overlapping exams, weekend tests. Errors block submission.
+- Draft → submitted → approved and published by another head (the Owner or HoS; a school with only one head approves its own) or returned with a note. Every version is kept with who drafted and approved it.
+- Publishing puts that session's entries on the school calendar (holidays/breaks stop attendance being marked) and public entries on the school website; entries dropped in a new version are cancelled (kept on file), not deleted. Other sessions' calendars and hand-typed events are never touched; a finished session's calendar cannot change.
+- Reminders: in-app, to the audience chosen, 1–14 days before, once each, only for published entries (07:00 Lagos). Nothing sent the reminders that already existed on calendar events before; now they are.
+
+### N52. Growth Centre: virtual consultants for Ndovera and for each school's admissions — ✅ BUILT 30 Oct 2026
+- Two strictly separate scopes: Ami → Growth Centre (schools asking about Ndovera); Owner/HoS → Admissions Chat (parents asking the school). Every record carries its scope; one never sees the other.
+- Visitors chat at ndovera.com (button on every public page) or /chat on the school's website (button on every page). Rex, Zico, Vera and Nora always say they are virtual consultants (automated), not people.
+- Contact first: the question is kept, then name, email and phone with agreement to the privacy notice (time and notice version recorded). Marketing consent is separate, optional and unticked.
+- Answers come only from the scope's approved answers, word for word; nothing is invented. A question with no approved answer is not guessed: it goes to "Unanswered questions" and to a person. Answers are versioned and go live only when someone else approves them (or the only manager); a safe cache only ever points at approved answers and is cleared on every approval.
+- Staff take over and reply in the chat (the consultant goes quiet); close; conversation history; figures (conversations, details left, answered, handed over, marketing consents, by consultant).
+- Visitors can delete their chat (messages and details erased). Chats are erased after two years. Registration and admission open the existing forms and hosted payment — the chat never asks for card or bank details.
+- Ndovera's chat links to outreach: starting a chat stops cold emails; ticking marketing consent signs them up for follow-ups (opt-outs always respected).
+- Tests: `setup-centre.test.mjs`, `terms-calendar.test.mjs`, `growth-centre.test.mjs`, `material-sessions.test.mjs` (teachers kept), `contrast.test.jsx`.

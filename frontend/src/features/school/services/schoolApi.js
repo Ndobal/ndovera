@@ -552,3 +552,11 @@ export const saveTermsCalendarDraft = (sessionId, entries) => req(`/api/school/t
 export const submitTermsCalendar = (sessionId) => req(`/api/school/terms-calendar/${encodeURIComponent(sessionId)}/submit`, { method: 'POST', body: {} });
 export const approveTermsCalendar = (sessionId, note) => req(`/api/school/terms-calendar/${encodeURIComponent(sessionId)}/approve`, { method: 'POST', body: { note } });
 export const returnTermsCalendar = (sessionId, note) => req(`/api/school/terms-calendar/${encodeURIComponent(sessionId)}/return`, { method: 'POST', body: { note } });
+
+// Growth Centre (Ami for Ndovera; Owner/HoS for the school's admissions chat).
+export const getGrowthCentre = (status = '') => req(`/api/growth-centre${status ? `?status=${encodeURIComponent(status)}` : ''}`, { skipOfflineCache: true });
+export const getGrowthConversation = (id) => req(`/api/growth-centre/conversations/${encodeURIComponent(id)}`, { skipOfflineCache: true });
+export const growthConversationAction = (id, action, body = {}) => req(`/api/growth-centre/conversations/${encodeURIComponent(id)}/${action}`, { method: 'POST', body });
+export const draftGrowthAnswer = (data) => req('/api/growth-centre/knowledge', { method: 'POST', body: data });
+export const growthAnswerAction = (id, action) => req(`/api/growth-centre/knowledge/${encodeURIComponent(id)}/${action}`, { method: 'POST', body: {} });
+export const dismissGrowthGap = (id) => req(`/api/growth-centre/gaps/${encodeURIComponent(id)}/dismiss`, { method: 'POST', body: {} });

@@ -1790,7 +1790,7 @@ function GalleryPageBody({ section }) {
   );
 }
 
-export default function PublicSitePage({ pageKey = 'home' }) {
+function PublicSitePageContent({ pageKey = 'home' }) {
   const pageLocation = useLocation();
   // URL previews never change the saved content or payment/registration flows.
   // The executive design is the safe default when no preview is requested.
@@ -1959,5 +1959,15 @@ export default function PublicSitePage({ pageKey = 'home' }) {
     >
       {body}
     </PublicShell>
+  );
+}
+
+// Every public Ndovera page carries the chat with the virtual consultants (who say they are virtual).
+export default function PublicSitePage(props) {
+  return (
+    <>
+      <PublicSitePageContent {...props} />
+      <a href="https://ndovera.com/api/growth/ndovera/chat" target="_blank" rel="noopener noreferrer" className="fixed bottom-4 right-4 z-50 rounded-full bg-[#191970] px-5 py-3 text-sm font-bold text-white shadow-lg hover:bg-[#12124f]">💬 Chat with us</a>
+    </>
   );
 }

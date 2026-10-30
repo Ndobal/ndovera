@@ -2,6 +2,8 @@ import { Hono } from 'hono'
 import { handleHelpArticleRoute } from './helpArticleRoutes'
 import { handlePremisesSecurityRoute } from './premisesSecurity'
 import { checkSchoolSetup } from './setupCentre'
+import { GrowthError, analytics as growthAnalytics, approveKnowledge, closeConversation as closeGrowthConversation, dismissGap, draftKnowledge, getConversation as getGrowthConversation, listConversations as listGrowthConversations, listGaps as listGrowthGaps, listKnowledge, purgeOldConversations, retireKnowledge, staffReply as growthStaffReply, startConversation as startGrowthConversation, takeOver as growthTakeOver, visitorContact, visitorDelete, visitorMessage, visitorView } from './growthCentre'
+import { CHAT_BUTTON_HTML, renderGrowthChatPage, type ChatPageHost } from './growthChatPage'
 import { CalendarError, approveAndPublish as approveTermsCalendar, getCalendar as getTermsCalendar, getVersion as getTermsCalendarVersion, returnDraft as returnTermsCalendar, saveDraft as saveTermsCalendarDraft, sendDueReminders as sendTermsCalendarReminders, submitDraft as submitTermsCalendar } from './termsCalendar'
 import { CompetitionError, entriesCsv, listCompetitions as listLinkCompetitions, listEntries as listLinkCompetitionEntries, makeLink as makeCompetitionLink, publicCompetition, saveCompetition as saveLinkCompetition, setCompetitionStatus as setLinkCompetitionStatus, submitEntry as submitCompetitionEntry, turnOffLink as turnOffCompetitionLink } from './competitionLinks'
 import { AFRICAN_COUNTRIES, DEFAULT_SETTINGS as DEFAULT_OUTREACH_SETTINGS, ensureProspectTables, gatherTick, inGatherWindow, inSendWindow, normalizeEmail as normalizeProspectEmail, normalizeSettings as normalizeOutreachSettings, sendTick as sendOutreachTick, stopProspect, unsubscribeToken, weekKey as outreachWeekKey } from './prospects'
@@ -7232,6 +7234,170 @@ async function deliverCalendarReminder(db: D1Database, userIds: string[], tenant
   for (let index = 0; index < statements.length; index += 50) await db.batch(statements.slice(index, index + 50))
   return statements.length
 }
+
+
+// ─── Growth Centre: virtual consultants for Ndovera (Ami) and each school's admissions ───
+// Two strict scopes ('ndovera' and a school's id); see growthCentre.ts.
+async function growthHost(c: any, ref: string): Promise<ChatPageHost & { scope: string }> {
+  if (ref === 'ndovera') {
+    return { ref, scope: 'ndovera', name: 'Ndovera', kind: 'ndovera', privacyUrl: 'https://ndovera.com/privacy', actionUrl: 'https://ndovera.com/register-school', actionLabel: 'Register your school', controller: 'Ndovera' }
+  }
+  const tenant = await getTenantBySubdomain(c.env.APP_DB, ref).catch(() => null) as Record<string, any> | null
+  if (!tenant?.id || ['closed', 'suspended'].includes(String(tenant.status || '').toLowerCase())) throw new GrowthError('This school chat is not available.', 404)
+  const branding = await c.env.APP_DB.prepare(`SELECT logo_url FROM tenant_branding WHERE tenant_id = ?`).bind(tenant.id).first().catch(() => null) as any
+  const name = String(tenant.schoolName || tenant.school_name || 'Our school')
+  return { ref, scope: String(tenant.id), name, kind: 'school', logoUrl: String(branding?.logo_url || ''), privacyUrl: 'https://ndovera.com/privacy', actionUrl: '/admissions', actionLabel: 'Apply for admission', controller: name }
+}
+
+function growthFailure(c: any, error: unknown, fallback: string) {
+  if (error instanceof GrowthError) return c.json({ error: error.message }, error.status)
+  console.error(fallback, error)
+  return c.json({ error: fallback }, 500)
+}
+
+async function growthClientKey(c: any, ref: string) {
+  const ip = String(c.req.header('cf-connecting-ip') || c.req.header('x-forwarded-for') || 'unknown')
+  const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(`growth:${ip}:${ref}`))
+  return [...new Uint8Array(digest)].slice(0, 12).map(byte => byte.toString(16).padStart(2, '0')).join('')
+}
+
+/** Ndovera's chat links to outreach: starting a chat stops cold emails; marketing consent signs them up. */
+async function growthContactHook(c: any, host: { scope: string }) {
+  if (host.scope !== 'ndovera') return undefined
+  return async ({ email, marketingConsent }: { email: string, marketingConsent: boolean }) => {
+    const db = c.env.APP_DB
+    await ensureProspectTables(db)
+    const at = new Date().toISOString()
+    if (marketingConsent) {
+      const next = new Date(Date.now() + 14 * 86_400_000).toISOString()
+      await db.prepare(`INSERT INTO prospect_schools (id, email, domain, country, source_url, found_at, status, step, next_due_at, stopped_reason, updated_at) VALUES (?, ?, ?, 'NG', 'chat (consented)', ?, 'active', 1, ?, NULL, ?)
+        ON CONFLICT(email) DO UPDATE SET status = CASE WHEN prospect_schools.status = 'opted_out' THEN 'opted_out' ELSE 'active' END, next_due_at = CASE WHEN prospect_schools.status = 'opted_out' THEN NULL ELSE excluded.next_due_at END, stopped_reason = CASE WHEN prospect_schools.status = 'opted_out' THEN prospect_schools.stopped_reason ELSE 'consented in chat' END, updated_at = excluded.updated_at`)
+        .bind(crypto.randomUUID(), email, email.split('@')[1] || '', at, next, at).run()
+    } else {
+      await stopProspect(db, email, 'replied', 'started a chat')
+    }
+  }
+}
+
+// Ndovera's chat page (the school chat page is /chat on the school's own website).
+app.get('/api/growth/ndovera/chat', async (c) => c.html(renderGrowthChatPage(await growthHost(c, 'ndovera'))))
+
+app.post('/api/growth/:ref/start', async (c) => {
+  try {
+    const host = await growthHost(c, c.req.param('ref'))
+    return c.json({ success: true, ...(await startGrowthConversation(c.env.APP_DB, { ...host, registerUrl: host.actionUrl }, await growthClientKey(c, host.ref))) })
+  } catch (error) { return growthFailure(c, error, 'Could not start the chat.') }
+})
+
+app.get('/api/growth/:ref/conversation', async (c) => {
+  try {
+    const host = await growthHost(c, c.req.param('ref'))
+    return c.json({ success: true, ...(await visitorView(c.env.APP_DB, host.scope, String(c.req.header('x-chat-token') || ''))) }, 200, { 'cache-control': 'no-store' })
+  } catch (error) { return growthFailure(c, error, 'Could not load the chat.') }
+})
+
+app.post('/api/growth/:ref/message', async (c) => {
+  try {
+    const host = await growthHost(c, c.req.param('ref'))
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    return c.json({ success: true, ...(await visitorMessage(c.env.APP_DB, { ...host, registerUrl: host.actionUrl }, String(c.req.header('x-chat-token') || ''), body.text)) })
+  } catch (error) { return growthFailure(c, error, 'Could not send your message.') }
+})
+
+app.post('/api/growth/:ref/contact', async (c) => {
+  try {
+    const host = await growthHost(c, c.req.param('ref'))
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const onContact = await growthContactHook(c, host)
+    return c.json({ success: true, ...(await visitorContact(c.env.APP_DB, { ...host, registerUrl: host.actionUrl }, String(c.req.header('x-chat-token') || ''), body, { onContact })) })
+  } catch (error) { return growthFailure(c, error, 'Could not save your details.') }
+})
+
+app.delete('/api/growth/:ref/conversation', async (c) => {
+  try {
+    const host = await growthHost(c, c.req.param('ref'))
+    await visitorDelete(c.env.APP_DB, host.scope, String(c.req.header('x-chat-token') || ''))
+    return c.json({ success: true })
+  } catch (error) { return growthFailure(c, error, 'Could not delete the chat.') }
+})
+
+// Staff side: Ami manages Ndovera's; the Owner and Head of School manage their school's.
+function growthStaff(c: any) {
+  const role = c.var.user?.role
+  const actor = { id: String(c.var.user?.id || c.var.user?.email || ''), name: String(c.var.user?.name || c.var.user?.email || 'Staff') }
+  if (hasRequiredRole(role, ['ami'])) return { scope: 'ndovera', actor, approverRoles: ['ami'] }
+  if (hasRequiredRole(role, ['owner', 'hos'])) {
+    const tenantId = String(c.var.user?.tenantId || '').trim()
+    if (!tenantId) throw new GrowthError('No school.', 400)
+    return { scope: tenantId, actor, approverRoles: ['owner', 'hos'] }
+  }
+  throw new GrowthError('Only the Owner or Head of School (or Ami for Ndovera) can manage the chat.', 403)
+}
+
+app.get('/api/growth-centre', authenticate, async (c) => {
+  try {
+    const { scope } = growthStaff(c)
+    const db = c.env.APP_DB
+    // One after another: each starts by making sure its tables exist.
+    const stats = await growthAnalytics(db, scope)
+    const conversations = await listGrowthConversations(db, scope, String(c.req.query('status') || ''))
+    const gaps = await listGrowthGaps(db, scope)
+    const knowledge = await listKnowledge(db, scope)
+    return c.json({ success: true, scope: scope === 'ndovera' ? 'ndovera' : 'school', stats, conversations, gaps, knowledge }, 200, { 'cache-control': 'no-store' })
+  } catch (error) { return growthFailure(c, error, 'Could not load the Growth Centre.') }
+})
+
+app.get('/api/growth-centre/conversations/:id', authenticate, async (c) => {
+  try { const { scope } = growthStaff(c); return c.json({ success: true, ...(await getGrowthConversation(c.env.APP_DB, scope, c.req.param('id'))) }) }
+  catch (error) { return growthFailure(c, error, 'Could not load the conversation.') }
+})
+
+app.post('/api/growth-centre/conversations/:id/:action', authenticate, async (c) => {
+  try {
+    const { scope, actor } = growthStaff(c)
+    const action = c.req.param('action')
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    if (action === 'take-over') await growthTakeOver(c.env.APP_DB, scope, c.req.param('id'), actor)
+    else if (action === 'reply') await growthStaffReply(c.env.APP_DB, scope, c.req.param('id'), actor, body.text)
+    else if (action === 'close') await closeGrowthConversation(c.env.APP_DB, scope, c.req.param('id'))
+    else return c.json({ error: 'Unknown action.' }, 404)
+    return c.json({ success: true })
+  } catch (error) { return growthFailure(c, error, 'Could not update the conversation.') }
+})
+
+app.post('/api/growth-centre/knowledge', authenticate, async (c) => {
+  try {
+    const { scope, actor } = growthStaff(c)
+    return c.json({ success: true, ...(await draftKnowledge(c.env.APP_DB, scope, actor, await c.req.json().catch(() => ({})))) })
+  } catch (error) { return growthFailure(c, error, 'Could not save the answer.') }
+})
+
+/** An answer goes live only when approved; another approver must do it when the school has one. */
+app.post('/api/growth-centre/knowledge/:id/:action', authenticate, async (c) => {
+  try {
+    const { scope, actor, approverRoles } = growthStaff(c)
+    const db = c.env.APP_DB
+    const id = c.req.param('id')
+    if (c.req.param('action') === 'retire') { await retireKnowledge(db, scope, id); return c.json({ success: true }) }
+    if (c.req.param('action') !== 'approve') return c.json({ error: 'Unknown action.' }, 404)
+    const row = await db.prepare(`SELECT created_by FROM gc_knowledge WHERE id = ? AND scope = ?`).bind(id, scope).first().catch(() => null) as any
+    if (row && String(row.created_by) === actor.id) {
+      const marks = approverRoles.map(() => '?').join(', ')
+      const others = scope === 'ndovera'
+        ? await db.prepare(`SELECT COUNT(*) AS n FROM users WHERE id != ? AND lower(COALESCE(role, '')) IN (${marks}) AND COALESCE(status, 'active') != 'inactive'`).bind(actor.id, ...approverRoles).first() as any
+        : await db.prepare(`SELECT COUNT(*) AS n FROM users WHERE tenantId = ? AND id != ? AND lower(COALESCE(role, '')) IN (${marks}) AND COALESCE(status, 'active') != 'inactive'`).bind(scope, actor.id, ...approverRoles).first() as any
+      if (Number(others?.n || 0) > 0) return c.json({ error: 'Someone else must approve an answer you wrote.' }, 403)
+    }
+    await approveKnowledge(db, scope, actor, id)
+    await addAudit(db, scope === 'ndovera' ? 'platform' : scope, { action: 'growthAnswerApproved', data: { by: actor.id, id } }).catch(() => null)
+    return c.json({ success: true })
+  } catch (error) { return growthFailure(c, error, 'Could not update the answer.') }
+})
+
+app.post('/api/growth-centre/gaps/:id/dismiss', authenticate, async (c) => {
+  try { const { scope } = growthStaff(c); await dismissGap(c.env.APP_DB, scope, c.req.param('id')); return c.json({ success: true }) }
+  catch (error) { return growthFailure(c, error, 'Could not update the question.') }
+})
 
 // ─── Smart Setup Centre: is the school fully set up, and ready for the new session? ───
 // Worked out on request from the school's own records (setupCentre.ts); nothing is ticked by hand.
@@ -34491,11 +34657,18 @@ async function renderTenantWebsiteResponse(
     else if (path === '/about') html = renderContentPage(tenant, branding, sections, 'about', 'About Us', 'Learn about our mission, values, leadership, and the culture that shapes our learners.')
     else if (path === '/academics') html = renderContentPage(tenant, branding, sections, 'academics', 'Academics', 'Explore our academic programmes, learning pathways, and student support structure.')
     else if (path === '/admissions') html = renderAdmissionsPage(tenant, branding, sections, options)
+    else if (path === '/chat') {
+      const subdomain = String(tenant.requestedSubdomain || tenant.requested_subdomain || tenant.subdomain || '')
+      const name = String(tenant.schoolName || tenant.school_name || branding?.schoolName || 'Our school')
+      return new Response(renderGrowthChatPage({ ref: subdomain, name, kind: 'school', logoUrl: String((branding as any)?.logoUrl || ''), privacyUrl: 'https://ndovera.com/privacy', actionUrl: '/admissions', actionLabel: 'Apply for admission', controller: name }), { headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' } })
+    }
     else if (path === '/gallery') html = renderGalleryPage(tenant, branding, sections)
     else if (path === '/events') html = renderEventsPage(tenant, branding, publicNewsItems)
     else if (path === '/contact') html = renderContactPage(tenant, branding, sections, options)
     else if (path === '/opportunities') html = renderSchoolOpportunities(tenant, branding, vacancies)
     else html = renderSchoolHome(tenant, branding, sections, publicNewsItems, options)
+    // The "Chat with us" button on every public page except sign-in.
+    if (path !== '/login') html = html.replace('</body>', `${CHAT_BUTTON_HTML}</body>`)
 
     return new Response(html, { headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'public, max-age=60, stale-while-revalidate=300' } })
   } catch (err) {
@@ -39310,6 +39483,8 @@ export default {
         .then(settings => (settings.sending ? sendOutreachTick({ db: env.APP_DB, send: outreachSend(env), secret: String(env.JWT_SECRET || ''), baseUrl: 'https://ndovera.com', at }, settings) : null))
         .then(result => { if (result?.sent) console.log('Outreach emails', result) }).catch(error => console.error('Outreach sending failed', error)))
     }
+    // Growth Centre chats older than two years are erased, on the first of each month (02:40 Lagos).
+    if (at.getUTCDate() === 1 && at.getUTCHours() === 1 && at.getUTCMinutes() === 40) ctx.waitUntil(purgeOldConversations(env.APP_DB, at).catch(error => console.error('Chat purge failed', error)))
     // Terms calendar reminders, once a day (07:00 Lagos): published entries only, each once.
     if (at.getUTCHours() === 6 && at.getUTCMinutes() === 0) {
       ctx.waitUntil(sendTermsCalendarReminders(env.APP_DB, (userIds, tenantId, title, body, key) => deliverCalendarReminder(env.APP_DB, userIds, tenantId, title, body, key), at)

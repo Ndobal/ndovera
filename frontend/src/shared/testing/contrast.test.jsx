@@ -36,6 +36,8 @@ import CompetitionLinksPage from '../../features/competitions/CompetitionLinksPa
 import CompetitionByLinkPage from '../../features/competitions/CompetitionByLinkPage';
 import SetupCentrePage from '../../features/setup/SetupCentrePage';
 import TermsCalendarPage from '../../features/calendar/TermsCalendarPage';
+import GrowthCentrePage from '../../features/growth/GrowthCentrePage';
+import { getGrowthCentre, getGrowthConversation } from '../../features/school/services/schoolApi';
 import { getTermsCalendar } from '../../features/school/services/schoolApi';
 import { getSchoolSetup } from '../../features/school/services/schoolApi';
 import { listLinkCompetitions, getLinkCompetitionEntries } from '../../features/school/services/schoolApi';
@@ -66,7 +68,7 @@ jest.mock('../../features/submissions/StaffSubmissionPanel', () => () => null);
 jest.mock('../../features/tenants/components/SchoolAccessPanel', () => () => <div>School access</div>);
 jest.mock('../components/AppDialog', () => ({ askConfirm: jest.fn(() => Promise.resolve(true)), askText: jest.fn(() => Promise.resolve('')) }));
 jest.mock('../../features/tenants/services/tenantApi', () => new Proxy({}, { get: (target, key) => { if (!target[key]) target[key] = jest.fn(() => Promise.resolve({})); return target[key]; } }));
-jest.mock('../../features/school/services/schoolApi', () => ({ ...jest.requireActual('../../features/school/services/schoolApi'), getTermFinanceReport: jest.fn(), runFinanceAI: jest.fn(), getClasses: jest.fn(), getPeople: jest.fn(), getLinkOverview: jest.fn(), getFamilies: jest.fn(), getPayroll: jest.fn(), getPayrollHistory: jest.fn(), getPayrollSettings: jest.fn(), getBranding: jest.fn(), getWebsiteSections: jest.fn(), getPayrollNote: jest.fn(), getMyPayslip: jest.fn(), getMyBankDetails: jest.fn(), listLinkCompetitions: jest.fn(), getLinkCompetitionEntries: jest.fn(), getSchoolSetup: jest.fn(), getTermsCalendar: jest.fn() }));
+jest.mock('../../features/school/services/schoolApi', () => ({ ...jest.requireActual('../../features/school/services/schoolApi'), getTermFinanceReport: jest.fn(), runFinanceAI: jest.fn(), getClasses: jest.fn(), getPeople: jest.fn(), getLinkOverview: jest.fn(), getFamilies: jest.fn(), getPayroll: jest.fn(), getPayrollHistory: jest.fn(), getPayrollSettings: jest.fn(), getBranding: jest.fn(), getWebsiteSections: jest.fn(), getPayrollNote: jest.fn(), getMyPayslip: jest.fn(), getMyBankDetails: jest.fn(), listLinkCompetitions: jest.fn(), getLinkCompetitionEntries: jest.fn(), getSchoolSetup: jest.fn(), getTermsCalendar: jest.fn(), getGrowthCentre: jest.fn(), getGrowthConversation: jest.fn() }));
 jest.mock('../../features/finance/simple/simpleFeesApi', () => ({ ...jest.requireActual('../../features/finance/simple/simpleFeesApi'), getFeesOverview: jest.fn(), getFeeReports: jest.fn(), getNewStudentFees: jest.fn(), getExcursions: jest.fn(), getFeeGroups: jest.fn() }));
 
 const month = new Date().toISOString().slice(0, 7);
@@ -517,4 +519,30 @@ test('the Terms Calendar is readable: a version waiting for approval, problems, 
   const { container } = render(<TermsCalendarPage />);
   await screen.findByRole('button', { name: 'Approve and publish' });
   expectReadable(container, 'Terms Calendar');
+});
+
+test('the Growth Centre is readable: conversations, a chat with staff, approved answers, gaps and figures', async () => {
+  getGrowthCentre.mockResolvedValue({
+    success: true, scope: 'school',
+    stats: { conversations: 4, contacts: 3, marketingConsents: 1, answeredFromKnowledge: 2, handovers: 1, withStaff: 1, openGaps: 1, approvedAnswers: 2, byConsultant: [{ consultant: 'Vera', conversations: 4 }] },
+    conversations: [{ id: 'c1', consultant: 'Vera', status: 'handover', first_question: 'Do you run a bus?', visitor_name: 'Mrs Obi', last_message_at: '2026-10-30T09:00:00Z' }, { id: 'c2', consultant: 'Rex', status: 'human', first_question: 'Fees?', visitor_name: 'Mr Ade', last_message_at: '2026-10-30T08:00:00Z' }],
+    gaps: [{ id: 'g1', question: 'Do you run a bus?', asked: 2 }],
+    knowledge: [{ id: 'k2', article_key: 'a1', version: 2, question: 'What are the fees?', answer: '₦150,000 a term.', keywords: 'fees', status: 'draft', created_by_name: 'HOS' }, { id: 'k1', article_key: 'a1', version: 1, question: 'What are the fees?', answer: '₦140,000 a term.', keywords: 'fees', status: 'approved', approved_by_name: 'OWN', approved_at: '2026-10-01T00:00:00Z' }],
+  });
+  getGrowthConversation.mockResolvedValue({ success: true, conversation: { id: 'c1', consultant: 'Vera', status: 'handover', visitor_name: 'Mrs Obi', email: 'obi@mail.ng', phone: '08031234567', privacy_consent_at: '2026-10-30T09:00:00Z', marketing_consent: 0 }, messages: [
+    { sender: 'consultant', sender_name: 'Vera', body: "Hello, I'm Vera, a virtual consultant.", source: 'system', created_at: '2026-10-30T09:00:00Z' },
+    { sender: 'visitor', sender_name: 'Mrs Obi', body: 'Do you run a bus?', source: 'visitor', created_at: '2026-10-30T09:01:00Z' },
+    { sender: 'staff', sender_name: 'HOS', body: 'Yes, from Lekki.', source: 'staff', created_at: '2026-10-30T09:05:00Z' },
+  ] });
+  const { container } = render(<GrowthCentrePage />);
+  await screen.findByText('Mrs Obi');
+  fireEvent.click(screen.getByText('Mrs Obi').closest('button'));
+  await screen.findByText('Yes, from Lekki.');
+  expectReadable(container, 'Growth Centre conversations');
+  fireEvent.click(screen.getByRole('tab', { name: 'Approved answers' }));
+  expectReadable(container, 'Growth Centre answers');
+  fireEvent.click(screen.getByRole('tab', { name: /Unanswered questions/ }));
+  expectReadable(container, 'Growth Centre gaps');
+  fireEvent.click(screen.getByRole('tab', { name: 'How it is going' }));
+  expectReadable(container, 'Growth Centre figures');
 });
