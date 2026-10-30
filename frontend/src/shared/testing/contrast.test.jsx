@@ -28,6 +28,9 @@ import TeacherPayslip from '../../app/roles/teacher/TeacherPayslip';
 import { RolesEditor } from '../../app/roles/owner/OwnerPeople';
 import ParentNotifications from '../../features/communications/ParentNotifications';
 import * as commApi from '../../features/communications/communicationsApi';
+import HelpCentre from '../../features/help/HelpCentre';
+import HelpArticleAdmin from '../../features/help/HelpArticleAdmin';
+import PremisesSecurityDashboard from '../../features/security/PremisesSecurityDashboard';
 import { getBranding, getMyBankDetails, getMyPayslip, getPayroll, getPayrollHistory, getPayrollNote, getPayrollSettings, getWebsiteSections } from '../../features/school/services/schoolApi';
 
 // The colour rule, enforced: no text may clash with its background, in light or dark mode.
@@ -370,4 +373,49 @@ test('a parent can choose WhatsApp only, and the page stays readable', async () 
   await screen.findByText('You get WhatsApp only (and notifications here).');
   expect(commApi.saveMyChoices).toHaveBeenCalledWith({ whatsapp: 'granted', sms: 'withdrawn', email: 'withdrawn' });
   expectReadable(container, 'Parent notifications, WhatsApp only');
+});
+
+// The premium upgrade's screens: Help Centre, the article editor and premises security.
+function mockFetchJson(routes) {
+  if (!global.fetch) global.fetch = () => Promise.reject(new Error('no network in tests'));
+  return jest.spyOn(global, 'fetch').mockImplementation(async url => {
+    const key = Object.keys(routes).find(path => String(url).includes(path));
+    return { ok: true, status: 200, json: async () => (key ? routes[key] : {}), text: async () => JSON.stringify(key ? routes[key] : {}) };
+  });
+}
+
+test('the Help Centre and the article editor are readable in light and dark mode', async () => {
+  const spy = mockFetchJson({
+    '/api/help/articles/published': { articles: [] },
+    '/api/help/articles/editor': { articles: [{ id: 'r1', article_id: 'a1', revision: 1, title: 'How to pay school fees', category: 'Fees', state: 'in_review', created_by: 'own' }] },
+  });
+  // The help screens only call the server for a signed-in person.
+  const payload = btoa(JSON.stringify({ id: 'own', role: 'owner', tenantId: 'school-a', exp: Math.floor(Date.now() / 1000) + 600 }));
+  window.localStorage.setItem('token', `x.${payload}.y`);
+  window.localStorage.setItem('authUser', JSON.stringify({ id: 'own', role: 'owner', tenantId: 'school-a' }));
+  try {
+    const help = render(<HelpCentre role="owner" />);
+    await screen.findAllByRole('heading');
+    expectReadable(help.container, 'Help Centre');
+    help.unmount();
+    const admin = render(<HelpArticleAdmin role="owner" />);
+    await screen.findByText('How to pay school fees');
+    expectReadable(admin.container, 'Help article editor');
+  } finally {
+    spy.mockRestore();
+    window.localStorage.removeItem('token');
+    window.localStorage.removeItem('authUser');
+  }
+});
+
+test('the premises security dashboard is readable in light and dark mode', async () => {
+  const spy = mockFetchJson({
+    '/overview': { summary: [{ kind: 'incident', status: 'open', total: 1 }], records: [{ id: 'r1', kind: 'incident', title: 'Broken fence', location: 'Back field', notes: 'Near the hostel', severity: 'high', status: 'open', created_at: '2026-10-29T08:00:00Z', created_by: 'guard', escalated_at: '2026-10-29T09:00:00Z' }] },
+    '/checkpoints': { checkpoints: [{ id: 'c1', name: 'Main gate', location: 'North entrance', active: 1 }], rounds: [{ id: 'p1', checkpoint_name: 'Main gate', officer_id: 'guard', checked_at: '2026-10-29T10:00:00Z', notes: '' }] },
+  });
+  try {
+    const { container } = render(<PremisesSecurityDashboard role="chiefsecurityofficer" />);
+    await screen.findAllByText('Broken fence');
+    expectReadable(container, 'Premises security dashboard');
+  } finally { spy.mockRestore(); }
 });

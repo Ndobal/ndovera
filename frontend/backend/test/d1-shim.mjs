@@ -77,7 +77,9 @@ export class D1Shim {
     try {
       const results = []
       for (const statement of statements) {
-        results.push(await statement.run())
+        // D1 returns the rows of a read inside a batch, like .all().
+        const reads = /^\s*(SELECT|WITH)\s/i.test(statement.sql || '')
+        results.push(await (reads ? statement.all() : statement.run()))
       }
       this.db.exec('COMMIT')
       return results

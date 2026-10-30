@@ -1,5 +1,5 @@
 import {
-  assertArticleEditor, createHelpArticleDraft,
+  assertArticleEditor, createHelpArticleDraft, ensureHelpArticleTables,
   listEditorialHelpArticles, listPublishedHelpArticles, transitionHelpArticle,
   type ArticleActor, type ArticleState,
 } from './helpArticleWorkflow';
@@ -26,6 +26,7 @@ export async function handleHelpArticleRoute(
   const actor = await context.resolveActor(request);
   if (!actor) return fail(401, 'Authentication required.');
   if (!actor.userId || !actor.tenantId || !actor.role) return fail(403, 'Verified school access required.');
+  try { await ensureHelpArticleTables(context.db); } catch { return fail(500, 'Help articles are unavailable right now.'); }
   if (path === '/api/help/articles/published' && request.method === 'GET') {
     try {
       const articles = await listPublishedHelpArticles(context.db, actor.tenantId, actor.role);

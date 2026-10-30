@@ -6,6 +6,8 @@ const actor = { userId: 'owner1', tenantId: 'school1', role: 'owner' };
 const db = {
   prepare(sql) {
     return {
+      // Table creation on first use runs unbound statements.
+      run: async () => ({ meta: { changes: 0 } }),
       bind(...values) {
         return {
           all: async () => ({ results: [] }),

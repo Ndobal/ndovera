@@ -42,7 +42,10 @@ export function validateArticleContent(raw: unknown) {
   };
 }
 
+// Created on first use, once per Worker instance (no manual migration needed).
+let helpTablesReady = false;
 export async function ensureHelpArticleTables(db: D1Database) {
+  if (helpTablesReady) return;
   await db.prepare(`CREATE TABLE IF NOT EXISTS help_article_revisions (
     id TEXT PRIMARY KEY,
     tenant_id TEXT NOT NULL,
@@ -68,6 +71,9 @@ export async function ensureHelpArticleTables(db: D1Database) {
     actor_id TEXT NOT NULL, action TEXT NOT NULL,
     created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
   )`).run();
+  await db.prepare(`CREATE INDEX IF NOT EXISTS idx_help_article_events_scope
+    ON help_article_events (tenant_id, revision_id, created_at DESC)`).run();
+  helpTablesReady = true;
 }
 
 export async function createHelpArticleDraft(

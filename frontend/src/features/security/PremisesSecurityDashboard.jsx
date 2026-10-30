@@ -77,21 +77,24 @@ export default function PremisesSecurityDashboard({ role }) {
     catch (err) { setError(err.message); }
     finally { setHistoryLoading(false); }
   };
-  const input = 'w-full rounded-lg border border-slate-300 p-3 text-slate-900';
+  const input = 'w-full rounded-lg border border-slate-300 bg-white p-3 text-slate-900 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-100';
+  // Panels carry their own text colour, so dark mode never puts light text on white.
+  const panel = 'rounded-xl border border-slate-200 bg-white p-5 text-slate-900 shadow-sm dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100';
+  const muted = 'text-slate-600 dark:text-slate-300';
   return <div className="mx-auto max-w-7xl space-y-6 p-4 md:p-8">
     <header className="rounded-2xl bg-[#191970] p-6 text-white">
       <p className="text-sm uppercase tracking-widest text-amber-200">School Premises Protection</p>
       <h1 className="mt-2 text-3xl font-bold">{role === 'chiefsecurityofficer' ? 'Chief Security Officer' : role === 'securityofficer' ? 'Security Officer' : 'School Security'} Dashboard</h1>
       <p className="mt-2 text-sm text-slate-200">Incident reporting, gate records, visitor logs, patrols, hazards and shift handovers.</p>
     </header>
-    {error && <p role="alert" className="rounded-lg border border-red-300 p-3 text-red-800">{error}</p>}
-    {notice && <p role="status" className="rounded-lg border border-green-300 p-3 text-green-800">{notice}</p>}
+    {error && <p role="alert" className="rounded-lg border border-red-300 bg-red-50 p-3 text-red-800 dark:border-red-700 dark:bg-red-950 dark:text-red-200">{error}</p>}
+    {notice && <p role="status" className="rounded-lg border border-green-300 bg-green-50 p-3 text-green-800 dark:border-green-700 dark:bg-green-950 dark:text-green-200">{notice}</p>}
     <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
       {[['Open', count('open')], ['Investigating', count('investigating')], ['Resolved', count('resolved')], ['Visitors on site', data.activeVisitors || 0], ['Escalations awaiting review', data.pendingEscalations || 0]].map(([label, value]) =>
-        <div key={label} className="rounded-xl border bg-white p-5 shadow-sm"><p className="text-sm text-slate-600">{label} reports</p><strong className="text-3xl text-[#191970]">{value}</strong></div>)}
+        <div key={label} className={panel}><p className={`text-sm ${muted}`}>{label} reports</p><strong className="text-3xl text-[#191970] dark:text-blue-200">{value}</strong></div>)}
     </div>
     <div className="grid gap-6 lg:grid-cols-2">
-      <section className="rounded-xl border bg-white p-5 shadow-sm">
+      <section className={panel}>
         <h2 className="mb-4 text-xl font-semibold">Log a security activity</h2>
         <form className="space-y-3" onSubmit={submit}>
           <label className="block text-sm">Activity type<select className={input} value={form.kind} onChange={e => setForm({ ...form, kind: e.target.value })}>{KINDS.map(k => <option key={k} value={k}>{k[0].toUpperCase() + k.slice(1)}</option>)}</select></label>
@@ -102,33 +105,33 @@ export default function PremisesSecurityDashboard({ role }) {
           <button className="rounded-lg bg-[#191970] px-5 py-3 font-semibold text-white">Save security record</button>
         </form>
       </section>
-      <section className="rounded-xl border bg-white p-5 shadow-sm">
+      <section className={panel}>
         <div className="mb-4 flex items-center justify-between gap-3"><h2 className="text-xl font-semibold">Recent security log</h2><button onClick={load} className="rounded border px-3 py-2">Refresh</button></div>
         <label className="block text-sm">Filter by type<select className={input} value={filter} onChange={e => setFilter(e.target.value)}><option value="all">All activities</option>{KINDS.map(k => <option key={k}>{k}</option>)}</select></label>
-        {loading ? <p className="py-5">Loading live records…</p> : records.length === 0 ? <p className="py-5 text-slate-600">No records available for this filter.</p> :
+        {loading ? <p className="py-5">Loading live records…</p> : records.length === 0 ? <p className="py-5 text-slate-600 dark:text-slate-300">No records available for this filter.</p> :
           <div className="mt-4 max-h-[650px] space-y-3 overflow-y-auto">{records.map(r => <article key={r.id} className="rounded-lg border p-3">
-            <div className="flex items-start justify-between gap-2"><strong>{r.title}</strong><span className="rounded bg-slate-100 px-2 py-1 text-xs">{r.severity}</span></div>
-            <p className="text-sm text-slate-600">{r.kind} · {r.location} · {r.created_at}</p>
+            <div className="flex items-start justify-between gap-2"><strong>{r.title}</strong><span className="rounded bg-slate-100 px-2 py-1 text-xs text-slate-800 dark:bg-slate-700 dark:text-slate-100">{r.severity}</span></div>
+            <p className="text-sm text-slate-600 dark:text-slate-300">{r.kind} · {r.location} · {r.created_at}</p>
             <p className="mt-2 text-sm">Status: <strong>{r.status}</strong></p>
             <div className="mt-3 flex flex-wrap gap-2">
               <button className="rounded border px-2 py-1 text-xs" onClick={() => viewHistory(r.id)}>View details & audit</button>
               {['incident','hazard','gate'].includes(r.kind) && r.status !== 'resolved' && !r.escalated_at && <button className="rounded border border-red-600 px-2 py-1 text-xs" onClick={() => escalate(r.id, 'escalate')}>Escalate</button>}
-              {r.escalated_at && !r.acknowledged_at && <span className="text-xs font-semibold text-red-700">Escalated — awaiting review</span>}
+              {r.escalated_at && !r.acknowledged_at && <span className="text-xs font-semibold text-red-700 dark:text-red-300">Escalated — awaiting review</span>}
               {supervisor && r.escalated_at && !r.acknowledged_at && r.status !== 'resolved' && <button className="rounded border border-blue-600 px-2 py-1 text-xs" onClick={() => escalate(r.id, 'acknowledge')}>Acknowledge</button>}
-              {r.acknowledged_at && <span className="text-xs text-green-700">Acknowledged</span>}
+              {r.acknowledged_at && <span className="text-xs text-green-700 dark:text-green-300">Acknowledged</span>}
               {r.kind === 'visitor' && !r.checked_out_at && <button className="rounded border border-amber-600 px-2 py-1 text-xs" onClick={() => checkout(r.id)}>Check visitor out</button>}
-              {r.kind === 'visitor' && r.checked_out_at && <span className="text-xs text-green-700">Departed: {r.checked_out_at}</span>}
+              {r.kind === 'visitor' && r.checked_out_at && <span className="text-xs text-green-700 dark:text-green-300">Departed: {r.checked_out_at}</span>}
             </div>
             {supervisor && <div className="mt-2 flex gap-2"><button className="rounded border px-2 py-1 text-xs" onClick={() => changeStatus(r.id, 'investigating')}>Investigate</button><button className="rounded border px-2 py-1 text-xs" onClick={() => changeStatus(r.id, 'resolved')}>Resolve</button></div>}
           </article>)}</div>}
       </section>
     </div>
-    <section className="rounded-xl border bg-white p-5 shadow-sm">
+    <section className={panel}>
       <h2 className="text-xl font-semibold">Patrol checkpoints</h2>
-      <p className="mt-1 text-sm text-slate-600">Manual guard check-ins; not GPS-verified.</p>
+      <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">Manual guard check-ins; not GPS-verified.</p>
       {supervisor && <form onSubmit={addCheckpoint} className="mt-3 flex flex-wrap gap-2">
-        <input className="rounded border p-2" aria-label="Checkpoint name" required placeholder="Checkpoint name" value={checkpointName} onChange={e => setCheckpointName(e.target.value)}/>
-        <input className="rounded border p-2" aria-label="Checkpoint location" required placeholder="Location" value={checkpointLocation} onChange={e => setCheckpointLocation(e.target.value)}/>
+        <input className="rounded border border-slate-300 bg-white p-2 text-slate-900 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-100" aria-label="Checkpoint name" required placeholder="Checkpoint name" value={checkpointName} onChange={e => setCheckpointName(e.target.value)}/>
+        <input className="rounded border border-slate-300 bg-white p-2 text-slate-900 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-100" aria-label="Checkpoint location" required placeholder="Location" value={checkpointLocation} onChange={e => setCheckpointLocation(e.target.value)}/>
         <button className="rounded bg-[#191970] px-3 py-2 text-white">Add checkpoint</button>
       </form>}
       <div className="mt-4 grid gap-2 sm:grid-cols-2">
@@ -140,15 +143,15 @@ export default function PremisesSecurityDashboard({ role }) {
       <h3 className="mt-5 font-semibold">Recent patrol visits</h3>
       <ul className="mt-2 space-y-2">{patrolData.rounds.slice(0,20).map(item => <li key={item.id} className="text-sm">{item.checkpoint_name} · {item.checked_at} · {item.officer_id}</li>)}</ul>
     </section>
-    {historyLoading && <p role="status">Loading record history…</p>}
-    {selected && <section className="rounded-xl border bg-white p-5 shadow-sm">
+    {historyLoading && <p role="status" className="text-slate-800 dark:text-slate-200">Loading record history…</p>}
+    {selected && <section className={panel}>
       <div className="flex items-center justify-between"><h2 className="text-xl font-semibold">Security record & audit trail</h2><button className="rounded border px-3 py-1" onClick={() => setSelected(null)}>Close</button></div>
       <h3 className="mt-3 font-semibold">{selected.record.title}</h3>
       <p className="mt-2 whitespace-pre-wrap text-sm">{selected.record.notes || 'No additional notes recorded.'}</p>
-      <p className="mt-2 text-sm text-slate-600">{selected.record.location} · {selected.record.status}</p>
+      <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">{selected.record.location} · {selected.record.status}</p>
       <h3 className="mt-4 font-semibold">Recorded actions</h3>
       <ul className="mt-2 space-y-2">{(selected.events || []).map(event => <li key={event.id} className="rounded border p-2 text-sm">{event.action} · {event.details} · {event.created_at} · by {event.actor_id}</li>)}</ul>
     </section>}
-    <p className="text-sm text-slate-600">For an immediate threat, follow the school's emergency response procedure and contact the appropriate emergency services. Logging a report does not automatically send an alert.</p>
+    <p className="text-sm text-slate-700 dark:text-slate-300">For an immediate threat, follow the school's emergency response procedure and contact the appropriate emergency services. Logging a report does not automatically send an alert.</p>
   </div>;
 }

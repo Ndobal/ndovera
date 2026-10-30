@@ -6,7 +6,8 @@ const actor = { userId: 'officer1', tenantId: 'schoolA', role: 'securityofficer'
 const request = (path, method = 'GET', data) => new Request('https://school.test' + path, {
   method, ...(data !== undefined ? { body: JSON.stringify(data) } : {}),
 });
-const db = { prepare: () => ({ bind: () => ({ first: async () => null }) }) };
+// batch() covers the tables being created on first use.
+const db = { prepare: () => ({ bind: () => ({ first: async () => null }) }), batch: async () => [] };
 test('unrelated API route is ignored', async () => {
   assert.equal(await handlePremisesSecurityRoute(request('/api/finance'), db, actor), null);
 });

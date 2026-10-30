@@ -10,11 +10,31 @@ const allowedSeverities = new Set(['low','medium','high','critical']);
 const allowedStatuses = new Set(['open','investigating','resolved']);
 const short = (value: unknown, max: number) => typeof value === 'string' ? value.trim().slice(0, max) : '';
 const valid = (value: unknown) => value && typeof value === 'object' && !Array.isArray(value);
+// The tables create themselves on first use (as everywhere else in Ndovera), so no
+// manual migration has to be run before release. Same statements as
+// d1/premises_security_migration.sql.
+let tablesReady = false;
+export async function ensurePremisesSecurityTables(db: D1Database) {
+  if (tablesReady) return;
+  await db.batch([
+    db.prepare(`CREATE TABLE IF NOT EXISTS premises_security_records (id TEXT PRIMARY KEY, tenant_id TEXT NOT NULL, kind TEXT NOT NULL CHECK(kind IN ('incident','visitor','patrol','handover','gate','hazard')), title TEXT NOT NULL, location TEXT NOT NULL, notes TEXT NOT NULL DEFAULT '', severity TEXT NOT NULL CHECK(severity IN ('low','medium','high','critical')), status TEXT NOT NULL DEFAULT 'open' CHECK(status IN ('open','investigating','resolved')), created_by TEXT NOT NULL, created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP, checked_out_at TEXT, escalated_at TEXT, acknowledged_at TEXT, updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP)`),
+    db.prepare(`CREATE INDEX IF NOT EXISTS idx_premises_security_tenant_date ON premises_security_records(tenant_id, created_at DESC)`),
+    db.prepare(`CREATE TABLE IF NOT EXISTS premises_security_events (id TEXT PRIMARY KEY, tenant_id TEXT NOT NULL, record_id TEXT NOT NULL, actor_id TEXT NOT NULL, action TEXT NOT NULL, details TEXT NOT NULL DEFAULT '', created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(record_id) REFERENCES premises_security_records(id))`),
+    db.prepare(`CREATE INDEX IF NOT EXISTS idx_premises_security_events_tenant ON premises_security_events(tenant_id, record_id, created_at DESC)`),
+    db.prepare(`CREATE TABLE IF NOT EXISTS premises_security_checkpoints (id TEXT PRIMARY KEY, tenant_id TEXT NOT NULL, name TEXT NOT NULL, location TEXT NOT NULL, active INTEGER NOT NULL DEFAULT 1 CHECK(active IN (0,1)), created_by TEXT NOT NULL, created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP)`),
+    db.prepare(`CREATE INDEX IF NOT EXISTS idx_security_checkpoints_tenant ON premises_security_checkpoints(tenant_id, active)`),
+    db.prepare(`CREATE TABLE IF NOT EXISTS premises_security_patrol_checks (id TEXT PRIMARY KEY, tenant_id TEXT NOT NULL, checkpoint_id TEXT NOT NULL, officer_id TEXT NOT NULL, notes TEXT NOT NULL DEFAULT '', checked_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(checkpoint_id) REFERENCES premises_security_checkpoints(id))`),
+    db.prepare(`CREATE INDEX IF NOT EXISTS idx_security_patrol_checks_tenant ON premises_security_patrol_checks(tenant_id, checked_at DESC)`),
+  ]);
+  tablesReady = true;
+}
+
 export async function handlePremisesSecurityRoute(request: Request, db: D1Database, actor: PremisesActor | null): Promise<Response | null> {
   const path = new URL(request.url).pathname;
   if (path !== '/api/premises-security' && !path.startsWith('/api/premises-security/')) return null;
   if (!actor?.tenantId || !actor.userId) return error('Authentication required.', 401);
   if (!permitted.has(actor.role)) return error('Security role required.', 403);
+  await ensurePremisesSecurityTables(db);
   const isSupervisor = supervisors.has(actor.role);
   if (path === '/api/premises-security/checkpoints' && request.method === 'GET') {
     const [checkpoints, rounds] = await db.batch([
