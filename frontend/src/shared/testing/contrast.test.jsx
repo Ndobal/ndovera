@@ -31,6 +31,8 @@ import * as commApi from '../../features/communications/communicationsApi';
 import HelpCentre from '../../features/help/HelpCentre';
 import HelpArticleAdmin from '../../features/help/HelpArticleAdmin';
 import PremisesSecurityDashboard from '../../features/security/PremisesSecurityDashboard';
+import AmiOutreachPage from '../../features/ami/AmiOutreachPage';
+import * as tenantApiForOutreach from '../../features/tenants/services/tenantApi';
 import { getBranding, getMyBankDetails, getMyPayslip, getPayroll, getPayrollHistory, getPayrollNote, getPayrollSettings, getWebsiteSections } from '../../features/school/services/schoolApi';
 
 // The colour rule, enforced: no text may clash with its background, in light or dark mode.
@@ -418,4 +420,24 @@ test('the premises security dashboard is readable in light and dark mode', async
     await screen.findAllByText('Broken fence');
     expectReadable(container, 'Premises security dashboard');
   } finally { spy.mockRestore(); }
+});
+
+test('the School Outreach page is readable in light and dark mode', async () => {
+  mockPath = '/roles/ami/outreach';
+  tenantApiForOutreach.getOutreach.mockResolvedValue({
+    success: true, emailReady: false, searchReady: false, sentToday: 3,
+    countries: { NG: 'Nigeria', GH: 'Ghana', ZA: 'South Africa' },
+    settings: { sending: false, dailyCap: 40, noAutoSend: ['ZA'], templates: { first: { subject: 'Hello {schoolName}', body: 'Dear {schoolName} team' }, second: { subject: 'Follow-up', body: 'Body' }, later: { subject: 'News', body: 'Body' } } },
+    byStatus: [{ status: 'new', n: 4 }, { status: 'active', n: 2 }, { status: 'opted_out', n: 1 }], byCountry: [{ country: 'NG', n: 6 }, { country: 'GH', n: 1 }],
+    thisWeek: { found_new: 5 },
+    sources: [{ id: 's1', url: 'https://kingsacademy.edu.ng/', country: 'NG', last_crawled_at: '2026-11-01T02:00:00Z', last_found: 3 }, { id: 's2', url: 'https://blocked.sch.gh/', country: 'GH', last_error: 'robots.txt does not allow this page' }],
+    prospects: [
+      { id: 'p1', email: 'info@kingsacademy.edu.ng', domain: 'kingsacademy.edu.ng', school_name: 'Kings Academy', country: 'NG', status: 'active', step: 1, next_due_at: '2026-11-16T08:00:00Z' },
+      { id: 'p2', email: 'head@hill.sch.gh', domain: 'hill.sch.gh', school_name: null, country: 'GH', status: 'opted_out', step: 2 },
+      { id: 'p3', email: 'info@new.edu.ng', domain: 'new.edu.ng', school_name: 'New School', country: 'NG', status: 'bounced', step: 0 },
+    ],
+  });
+  const { container } = render(<AmiOutreachPage />);
+  await screen.findByText('Kings Academy');
+  expectReadable(container, 'School Outreach');
 });

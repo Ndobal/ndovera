@@ -343,3 +343,14 @@ export function getAmiAuditLogs(params = {}) {
 export function getAmiReportSummary() {
   return requestJson('/api/ami/reports/summary');
 }
+
+// School outreach (Ami): weekly gathering of school emails, sending switch, sources, prospects.
+export function getOutreach(params = {}) {
+  const query = new URLSearchParams(Object.entries(params).filter(([, value]) => value)).toString();
+  return requestJson(`/api/ami/outreach${query ? `?${query}` : ''}`);
+}
+export const saveOutreachSettings = settings => requestJson('/api/ami/outreach/settings', { method: 'PUT', body: settings });
+export const addOutreachSources = body => requestJson('/api/ami/outreach/sources', { method: 'POST', body });
+export const removeOutreachSource = id => requestJson(`/api/ami/outreach/sources/${encodeURIComponent(id)}`, { method: 'DELETE' });
+export const setProspectStatus = (id, status) => requestJson(`/api/ami/outreach/prospects/${encodeURIComponent(id)}/status`, { method: 'POST', body: { status } });
+export const gatherOutreachNow = () => requestJson('/api/ami/outreach/gather-now', { method: 'POST', body: {} });

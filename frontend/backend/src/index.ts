@@ -1,6 +1,7 @@
 import { Hono } from 'hono'
 import { handleHelpArticleRoute } from './helpArticleRoutes'
 import { handlePremisesSecurityRoute } from './premisesSecurity'
+import { AFRICAN_COUNTRIES, DEFAULT_SETTINGS as DEFAULT_OUTREACH_SETTINGS, ensureProspectTables, gatherTick, inGatherWindow, inSendWindow, normalizeEmail as normalizeProspectEmail, normalizeSettings as normalizeOutreachSettings, sendTick as sendOutreachTick, stopProspect, unsubscribeToken, weekKey as outreachWeekKey } from './prospects'
 import { backfillMaterialSessions, currentMaterialContext, isCurrentMaterial, materialArchivePlacements, provisionalSessionId, provisionalSessionName, studentCanAccessArchivedMaterial } from './materialSessions'
 import { ensureMaterialsTable, mapMaterialRow, getCurrentMaterialCounts } from './db'
 import {
@@ -6896,6 +6897,147 @@ app.all('/api/premises-security/*', authenticate, async (c) => {
   }
   const role = resolveEffectiveRole(resolved, user)
   return await handlePremisesSecurityRoute(c.req.raw, c.env.APP_DB, { userId, tenantId, role })
+})
+
+
+// ─── School outreach (Growth Centre): weekly gathering of school emails, Ami only ───
+const OUTREACH_SETTINGS_KEY = 'ndovera_outreach_settings'
+
+async function outreachSettings(db: D1Database) {
+  return normalizeOutreachSettings(await getSettings(db, OUTREACH_SETTINGS_KEY).catch(() => null) || DEFAULT_OUTREACH_SETTINGS)
+}
+
+function outreachSend(env: Bindings) {
+  if (!env.ZOHO_MAIL_ACCOUNT_ID || !env.ZOHO_MAIL_FROM_ADDRESS) return null
+  return async (to: string, subject: string, html: string) => (await sendZohoEmail(env, { to: [to], subject, html })).sent.length > 0
+}
+
+app.get('/api/ami/outreach', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  const db = c.env.APP_DB
+  await ensureProspectTables(db)
+  const status = String(c.req.query('status') || '').trim()
+  const country = String(c.req.query('country') || '').trim().toUpperCase()
+  const q = String(c.req.query('q') || '').trim().toLowerCase().slice(0, 80)
+  const where: string[] = []
+  const binds: unknown[] = []
+  if (status) { where.push('status = ?'); binds.push(status) }
+  if (country) { where.push('country = ?'); binds.push(country) }
+  if (q) { where.push('(email LIKE ? OR lower(COALESCE(school_name, \'\')) LIKE ?)'); binds.push(`%${q}%`, `%${q}%`) }
+  const filter = where.length ? `WHERE ${where.join(' AND ')}` : ''
+  const week = outreachWeekKey()
+  const [byStatus, byCountry, prospects, sources, run, today] = await db.batch([
+    db.prepare(`SELECT status, COUNT(*) AS n FROM prospect_schools GROUP BY status`),
+    db.prepare(`SELECT country, COUNT(*) AS n FROM prospect_schools GROUP BY country ORDER BY n DESC LIMIT 60`),
+    db.prepare(`SELECT id, email, domain, school_name, country, source_url, found_at, status, step, last_sent_at, next_due_at, stopped_reason FROM prospect_schools ${filter} ORDER BY found_at DESC LIMIT 200`).bind(...binds),
+    db.prepare(`SELECT id, url, country, label, added_by, added_at, last_crawled_at, last_found, last_error, active FROM prospect_sources WHERE active = 1 ORDER BY added_at DESC LIMIT 300`),
+    db.prepare(`SELECT * FROM prospect_runs WHERE week = ?`).bind(week),
+    db.prepare(`SELECT COUNT(*) AS n FROM prospect_messages WHERE sent_at >= ? AND result = 'sent'`).bind(new Date().toISOString().slice(0, 10) + 'T00:00:00.000Z'),
+  ])
+  return c.json({
+    success: true,
+    settings: await outreachSettings(db),
+    countries: AFRICAN_COUNTRIES,
+    emailReady: Boolean(c.env.ZOHO_MAIL_ACCOUNT_ID && c.env.ZOHO_MAIL_FROM_ADDRESS),
+    searchReady: Boolean((c.env as any).BRAVE_SEARCH_API_KEY),
+    byStatus: byStatus.results || [], byCountry: byCountry.results || [],
+    prospects: prospects.results || [], sources: sources.results || [],
+    thisWeek: (run.results || [])[0] || null, sentToday: Number((today.results as any[])?.[0]?.n || 0),
+  })
+})
+
+app.put('/api/ami/outreach/settings', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  const settings = normalizeOutreachSettings({ ...(await outreachSettings(c.env.APP_DB)), ...(await c.req.json().catch(() => ({}))) })
+  await upsertSettings(c.env.APP_DB, OUTREACH_SETTINGS_KEY, settings)
+  await addAudit(c.env.APP_DB, 'platform', { action: 'outreachSettingsSaved', data: { by: c.var.user.id, sending: settings.sending, dailyCap: settings.dailyCap, noAutoSend: settings.noAutoSend } }).catch(() => null)
+  return c.json({ success: true, settings })
+})
+
+/** Add sources: { urls: string[] | string, country } — school websites or school directories. */
+app.post('/api/ami/outreach/sources', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  const db = c.env.APP_DB
+  await ensureProspectTables(db)
+  const body = await c.req.json().catch(() => ({})) as Record<string, any>
+  const country = String(body.country || '').toUpperCase()
+  if (!(country in AFRICAN_COUNTRIES)) return c.json({ error: 'Choose the country these schools are in.' }, 400)
+  const raw = Array.isArray(body.urls) ? body.urls : String(body.urls || '').split(/[\s,]+/)
+  const urls = [...new Set(raw.map((value: unknown) => String(value || '').trim()).filter(Boolean))].slice(0, 200) as string[]
+  const valid = urls.filter(url => { try { const parsed = new URL(/^https?:\/\//i.test(url) ? url : `https://${url}`); return /^https?:$/.test(parsed.protocol) && parsed.hostname.includes('.') } catch { return false } })
+    .map(url => new URL(/^https?:\/\//i.test(url) ? url : `https://${url}`).toString())
+  if (!valid.length) return c.json({ error: 'Paste at least one web address (one per line).' }, 400)
+  const at = new Date().toISOString()
+  const results = await db.batch(valid.map(url => db.prepare(`INSERT INTO prospect_sources (id, url, country, label, added_by, added_at) VALUES (?, ?, ?, ?, ?, ?) ON CONFLICT(url) DO UPDATE SET active = 1, country = excluded.country`)
+    .bind(crypto.randomUUID(), url.slice(0, 500), country, String(body.label || '').slice(0, 160) || null, String(c.var.user.id || ''), at)))
+  return c.json({ success: true, added: results.length, skipped: urls.length - valid.length })
+})
+
+app.delete('/api/ami/outreach/sources/:id', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  await ensureProspectTables(c.env.APP_DB)
+  await c.env.APP_DB.prepare(`UPDATE prospect_sources SET active = 0 WHERE id = ?`).bind(c.req.param('id')).run()
+  return c.json({ success: true })
+})
+
+/** Mark a school replied / demo booked / opted out / paused, or resume it. */
+app.post('/api/ami/outreach/prospects/:id/status', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  const db = c.env.APP_DB
+  await ensureProspectTables(db)
+  const body = await c.req.json().catch(() => ({})) as Record<string, any>
+  const status = String(body.status || '')
+  const row = await db.prepare(`SELECT email, status FROM prospect_schools WHERE id = ?`).bind(c.req.param('id')).first() as any
+  if (!row) return c.json({ error: 'Not found.' }, 404)
+  if (status === 'resume') {
+    if (row.status === 'opted_out') return c.json({ error: 'This school asked not to be emailed. It cannot be resumed.' }, 409)
+    await db.prepare(`UPDATE prospect_schools SET status = 'active', stopped_reason = NULL, next_due_at = ?, updated_at = ? WHERE id = ?`).bind(new Date().toISOString(), new Date().toISOString(), c.req.param('id')).run()
+    return c.json({ success: true })
+  }
+  if (!['replied', 'demo', 'opted_out', 'converted', 'paused'].includes(status)) return c.json({ error: 'Choose replied, demo, opted out, joined or paused.' }, 400)
+  await stopProspect(db, row.email, status as any, `marked by ${c.var.user.name || 'Ami'}`)
+  return c.json({ success: true })
+})
+
+/** Run a few sources now, outside the Sunday window (for newly added sources). */
+app.post('/api/ami/outreach/gather-now', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  const result = await gatherTick(c.env.APP_DB, fetch, { batch: 5 })
+  return c.json({ success: true, ...result })
+})
+
+app.get('/api/ami/outreach/export', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['ami'])) return c.json({ error: 'forbidden' }, 403)
+  await ensureProspectTables(c.env.APP_DB)
+  const rows = ((await c.env.APP_DB.prepare(`SELECT email, school_name, country, status, step, found_at, last_sent_at, source_url FROM prospect_schools ORDER BY found_at DESC LIMIT 20000`).all()).results || []) as any[]
+  const cell = (value: unknown) => `"${String(value ?? '').replace(/"/g, '""')}"`
+  const csv = ['email,school,country,status,emails_sent,found,last_sent,source', ...rows.map(row => [row.email, row.school_name, row.country, row.status, row.step, row.found_at, row.last_sent_at, row.source_url].map(cell).join(','))].join('\n')
+  return new Response(csv, { headers: { 'content-type': 'text/csv; charset=utf-8', 'content-disposition': 'attachment; filename="ndovera-school-outreach.csv"' } })
+})
+
+// The unsubscribe link in every outreach email. GET only shows a button (mail scanners open
+// links); pressing it stops all emails to that address for good.
+function outreachPage(title: string, body: string) {
+  return `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${title}</title></head><body style="font-family:Segoe UI,Arial,sans-serif;background:#f8fafc;color:#0f172a;margin:0;padding:40px 16px;"><main style="max-width:520px;margin:0 auto;background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:28px;"><p style="margin:0 0 8px;font-size:12px;letter-spacing:.2em;color:#475569;">NDOVERA</p>${body}</main></body></html>`
+}
+
+app.get('/api/outreach/unsubscribe', async (c) => {
+  const email = normalizeProspectEmail(String(c.req.query('e') || '')) || String(c.req.query('e') || '').trim().toLowerCase()
+  const token = String(c.req.query('t') || '')
+  const valid = email.includes('@') && token === await unsubscribeToken(String(c.env.JWT_SECRET || ''), email)
+  const safe = email.replace(/[<>"&']/g, '')
+  return c.html(valid
+    ? outreachPage('Stop emails from Ndovera', `<h1 style="font-size:22px;margin:0 0 12px;">Stop emails to ${safe}?</h1><p>Ndovera will not email this address again.</p><form method="post"><input type="hidden" name="e" value="${safe}"><input type="hidden" name="t" value="${token.replace(/[^a-f0-9]/g, '')}"><button style="background:#191970;color:#fff;border:0;border-radius:10px;padding:12px 20px;font-size:15px;font-weight:700;cursor:pointer;">Stop these emails</button></form>`)
+    : outreachPage('Link not valid', `<h1 style="font-size:22px;margin:0 0 12px;">This link is not valid</h1><p>Reply to the email with the word STOP and we will remove your address.</p>`), valid ? 200 : 400)
+})
+
+app.post('/api/outreach/unsubscribe', async (c) => {
+  const form = await c.req.parseBody().catch(() => ({} as Record<string, any>))
+  const email = normalizeProspectEmail(String(form.e || '')) || String(form.e || '').trim().toLowerCase()
+  const token = String(form.t || '')
+  if (!email.includes('@') || token !== await unsubscribeToken(String(c.env.JWT_SECRET || ''), email)) return c.html(outreachPage('Link not valid', '<h1>This link is not valid</h1>'), 400)
+  await stopProspect(c.env.APP_DB, email, 'opted_out', 'unsubscribe link')
+  return c.html(outreachPage('Done', `<h1 style="font-size:22px;margin:0 0 12px;">Done</h1><p>Ndovera will not email ${email.replace(/[<>"&']/g, '')} again. Sorry for the interruption.</p>`))
 })
 
 // Login
@@ -38940,6 +39082,16 @@ export default {
         .then(canonicalOf => (canonicalOf ? checkQuestionSubjects(env.APP_DB, assessmentAiRunner(env), { canonicalOf, reportedOnly: !nightCheck }) : { checked: 0, ok: 0, moved: 0, held: 0 }))
         .then(result => { if (result.moved || result.held) console.log('Subject check', result) })
         .catch(error => console.error('Subject check failed', error)))
+    }
+    // School outreach: the weekly gathering (Sunday 02:00–05:59 Lagos, a few sources every 5 minutes),
+    // and due emails on weekday mornings within Ami's daily cap — only when Ami has switched sending on.
+    if (inGatherWindow(at) && at.getUTCMinutes() % 5 === 0) {
+      ctx.waitUntil(gatherTick(env.APP_DB, fetch, { at, searchKey: (env as any).BRAVE_SEARCH_API_KEY }).then(result => { if (result.added) console.log('Outreach gathering', result) }).catch(error => console.error('Outreach gathering failed', error)))
+    }
+    if (inSendWindow(at) && at.getUTCMinutes() % 5 === 0) {
+      ctx.waitUntil(outreachSettings(env.APP_DB)
+        .then(settings => (settings.sending ? sendOutreachTick({ db: env.APP_DB, send: outreachSend(env), secret: String(env.JWT_SECRET || ''), baseUrl: 'https://ndovera.com', at }, settings) : null))
+        .then(result => { if (result?.sent) console.log('Outreach emails', result) }).catch(error => console.error('Outreach sending failed', error)))
     }
     // Staff emails (submission reminders, weekly summary, punctuality tips): one school every other minute, mornings only.
     if (new Date().getUTCMinutes() % 2 === 0) {

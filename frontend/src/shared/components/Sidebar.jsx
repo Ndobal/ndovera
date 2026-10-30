@@ -622,6 +622,7 @@ function buildRoleSidebarItems(roleKey) {
       { name: 'Profit & Loss', path: '/roles/ami/profit-loss', group: 'Money' },
       { name: 'Shareholders', path: '/roles/ami/shareholders', group: 'Money' },
       { name: 'Growth Partners', path: '/roles/ami/growth-partners', group: 'Money' },
+      { name: 'School Outreach', path: '/roles/ami/outreach', group: 'Schools' },
       { name: 'Championships', path: '/roles/ami/championships', group: 'Content' },
       { name: 'Question Bank', path: '/roles/ami/question-bank', group: 'Content' },
       { name: 'Curriculum Library', path: '/roles/ami/curriculum', group: 'Content' },

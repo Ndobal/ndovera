@@ -547,6 +547,7 @@ const operationalRoleConfigs = {
       },
       finance: { title: 'Finance', subtitle: 'What schools paid, what they owe, money out, reminders.', panels: [] },
       billing: { title: 'Billing & Pricing', subtitle: 'Plan prices, school rates, term bills, invoices and discount codes.', panels: [] },
+      outreach: { title: 'School Outreach', subtitle: 'School emails gathered weekly across Nigeria and Africa, and the introduction emails sent to them.', panels: [] },
       'profit-loss': { title: 'Profit & Loss', subtitle: 'Income against spending month by month, monthly running costs, analysis.', panels: [] },
       shareholders: { title: 'Shareholders', subtitle: 'Share register, profit sharing and payouts, sign-in access.', panels: [] },
       tenants: { title: 'Tenant Governance', subtitle: 'Manage tenant-level controls and states.', panels: [{ title: 'Tenant Controls', items: [{ text: 'View tenant health and usage.' }, { text: 'Suspend or restore tenant access.' }, { text: 'Apply global policy overrides.' }] }] },

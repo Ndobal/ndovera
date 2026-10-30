@@ -2407,3 +2407,23 @@ From feature22222222.md ("Payroll" list).
 - Gap closed: fee reminder emails (Fees → student → Remind) went straight to parents and ignored the opt-out. Now a WhatsApp-only parent is never emailed; the reminder window says "turned email off and gets WhatsApp only — use the WhatsApp button", and bulk sends report "parent turned email off — send by WhatsApp".
 - Automatic WhatsApp messages still need the Meta WhatsApp set-up (N20); until then the school sends the reminder with the WhatsApp button, and the parent still sees every notification in the app.
 - Tests: `simple-fees.test.mjs` (WhatsApp-only parent not emailed), `contrast.test.jsx` (parent Notifications page).
+
+### N47. Premium upgrade from GitHub (feature/ndovera-premium-upgrade-2026) fitted into the main app — ✅ DEPLOYED (30 Oct 2026)
+> check github for more features that have been built, lets see how to fit them in, test and deploy
+> check all and how they can be fitted into our main app lets make it fit work, test run migrations and deploy in an order that is clean and will not break
+
+- What the branch brought (108 commits): school website premium themes, gallery albums/captions/ordering, full-screen viewer, bulk unpublish, Ami corporate designs; Help Centre (help icon beside Messages, 23 role-aware articles, Owner/HoS article editor with independent review); premises security (Chief Security Officer and Security Officer roles: incidents, visitors in/out, gate, patrols, escalations, checkpoints).
+- Fitted in: merged cleanly with main. Its database tables now create themselves on first use (no manual migration that could be forgotten — the SQL files stay as reference). The security dashboard was unreadable in dark mode (light text on white panels); fixed. Help Centre, article editor and security dashboard added to the colour test.
+- Tested: new integration test through the real server and database (records never cross schools; an author cannot approve their own article); the branch's own 25 tests now run with ours. Backend 341/341, frontend 56/56.
+- Released in order: backend first (Worker b52d8ee4), then web app (main.8d59c2a5.js).
+- Not in the branch yet (plan items 4–6): Smart Setup Centre, Terms Calendar, Growth Centre chat. Help Centre support requests are written but not connected.
+
+### N48. School outreach: weekly gathering of school emails across Nigeria and Africa, emails sent automatically — ✅ BUILT 30 Oct 2026
+> add a way for the app to once in a week gather emails of schools across african countries and Nigeria. no repetition so that the emails are sent automatically as described in the code
+
+- Ami → School Outreach. Every Sunday night (02:00–06:00 Lagos) Ndovera visits the school websites and school directory pages listed as sources (plus each one's contact page) and keeps the email addresses printed there, with the page and country. Each address is stored once, ever. Pages whose robots.txt says no are skipped. No address is guessed or made up.
+- Finding new school pages automatically needs a search key (BRAVE_SEARCH_API_KEY secret, Brave Search API); with it, two countries are searched each week in rotation. Without it, Ami adds school websites/directories by pasting addresses.
+- Emails follow the plan (docs/premium-upgrade-implementation-plan.md §6): day 1, day 15, then every two months; they stop when the school replies, books a demo, joins Ndovera (detected automatically when an owner/HoS email on that domain exists), or opts out. Ami marks replies and demos.
+- Every email has a one-click unsubscribe (a confirm button, so mail scanners can't trigger it); opted-out addresses are never emailed again, even if found again.
+- Sending is OFF until Ami turns it on; weekday mornings 09:00–11:00 Lagos; daily cap (default 40, max 300). South Africa is gathered but not emailed automatically (POPIA needs consent first); Ami can change the country list. Three editable templates. CSV download.
+- Tests: `outreach.test.mjs` (extraction, no repeats, robots.txt, cadence, cap, country exclusion, joined schools, opt-out forever, Ami-only, unsubscribe token), `contrast.test.jsx`.
