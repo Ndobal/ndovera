@@ -15,6 +15,12 @@ import OwnerPayroll from './owner/OwnerPayroll';
 import OwnerAttendance from './owner/OwnerAttendance';
 import TeacherClassroom from '../../features/classroom/TeacherClassroom';
 import HoSMessaging from './hos/HoSMessaging';
+// Everything the Head of School can do, the Owner can do too: the same pages.
+import HoSTeacherReview from './hos/HoSTeacherReview';
+import HoSDiscipline from './hos/HoSDiscipline';
+import HoSExams from './hos/HoSExams';
+import TimetableBoard from '../../features/school/components/TimetableBoard';
+import StaffAiAssistantPage from '../../features/ai/components/StaffAiAssistantPage';
 import AdmissionsManagementBoard from '../../features/school/components/AdmissionsManagementBoard';
 import SchoolAuditTrailPage from '../../features/school/components/SchoolAuditTrailPage';
 import SchoolNewsroomPage from '../../features/school/components/SchoolNewsroomPage';
@@ -52,6 +58,11 @@ export default function OwnerDashboard({ auth = null }) {
     case 'classroom': return <TeacherClassroom initialTab="stream" dashboardLabel="Owner Dashboard" watermarkText="Owner Dashboard" />;
     case 'newsroom': return <SchoolNewsroomPage viewerRole="owner" dashboardLabel="Owner Dashboard" />;
     case 'messaging': return <HoSMessaging auth={auth} />;
+    case 'teacher-review': return <HoSTeacherReview auth={auth} />;
+    case 'timetable': return <TimetableBoard />;
+    case 'discipline': return <HoSDiscipline auth={auth} />;
+    case 'exams': return <HoSExams auth={auth} />;
+    case 'ai-assistant': return <StaffAiAssistantPage roleKey="owner" roleTitle="Owner Dashboard" />;
     case 'library': return <RoleLibrary />;
     case 'library-admin': return <AdminLibrary />;
     default: return <Navigate to="/roles/owner" replace />;

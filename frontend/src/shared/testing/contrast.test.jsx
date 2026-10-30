@@ -34,6 +34,10 @@ import PremisesSecurityDashboard from '../../features/security/PremisesSecurityD
 import AmiOutreachPage from '../../features/ami/AmiOutreachPage';
 import CompetitionLinksPage from '../../features/competitions/CompetitionLinksPage';
 import CompetitionByLinkPage from '../../features/competitions/CompetitionByLinkPage';
+import SetupCentrePage from '../../features/setup/SetupCentrePage';
+import TermsCalendarPage from '../../features/calendar/TermsCalendarPage';
+import { getTermsCalendar } from '../../features/school/services/schoolApi';
+import { getSchoolSetup } from '../../features/school/services/schoolApi';
 import { listLinkCompetitions, getLinkCompetitionEntries } from '../../features/school/services/schoolApi';
 import * as tenantApiForOutreach from '../../features/tenants/services/tenantApi';
 import { getBranding, getMyBankDetails, getMyPayslip, getPayroll, getPayrollHistory, getPayrollNote, getPayrollSettings, getWebsiteSections } from '../../features/school/services/schoolApi';
@@ -62,7 +66,7 @@ jest.mock('../../features/submissions/StaffSubmissionPanel', () => () => null);
 jest.mock('../../features/tenants/components/SchoolAccessPanel', () => () => <div>School access</div>);
 jest.mock('../components/AppDialog', () => ({ askConfirm: jest.fn(() => Promise.resolve(true)), askText: jest.fn(() => Promise.resolve('')) }));
 jest.mock('../../features/tenants/services/tenantApi', () => new Proxy({}, { get: (target, key) => { if (!target[key]) target[key] = jest.fn(() => Promise.resolve({})); return target[key]; } }));
-jest.mock('../../features/school/services/schoolApi', () => ({ ...jest.requireActual('../../features/school/services/schoolApi'), getTermFinanceReport: jest.fn(), runFinanceAI: jest.fn(), getClasses: jest.fn(), getPeople: jest.fn(), getLinkOverview: jest.fn(), getFamilies: jest.fn(), getPayroll: jest.fn(), getPayrollHistory: jest.fn(), getPayrollSettings: jest.fn(), getBranding: jest.fn(), getWebsiteSections: jest.fn(), getPayrollNote: jest.fn(), getMyPayslip: jest.fn(), getMyBankDetails: jest.fn(), listLinkCompetitions: jest.fn(), getLinkCompetitionEntries: jest.fn() }));
+jest.mock('../../features/school/services/schoolApi', () => ({ ...jest.requireActual('../../features/school/services/schoolApi'), getTermFinanceReport: jest.fn(), runFinanceAI: jest.fn(), getClasses: jest.fn(), getPeople: jest.fn(), getLinkOverview: jest.fn(), getFamilies: jest.fn(), getPayroll: jest.fn(), getPayrollHistory: jest.fn(), getPayrollSettings: jest.fn(), getBranding: jest.fn(), getWebsiteSections: jest.fn(), getPayrollNote: jest.fn(), getMyPayslip: jest.fn(), getMyBankDetails: jest.fn(), listLinkCompetitions: jest.fn(), getLinkCompetitionEntries: jest.fn(), getSchoolSetup: jest.fn(), getTermsCalendar: jest.fn() }));
 jest.mock('../../features/finance/simple/simpleFeesApi', () => ({ ...jest.requireActual('../../features/finance/simple/simpleFeesApi'), getFeesOverview: jest.fn(), getFeeReports: jest.fn(), getNewStudentFees: jest.fn(), getExcursions: jest.fn(), getFeeGroups: jest.fn() }));
 
 const month = new Date().toISOString().slice(0, 7);
@@ -474,4 +478,43 @@ test('the page opened from a competition link is readable, with fliers and the e
     expect(document.head.querySelector('meta[name="robots"]').content).toBe('noindex, nofollow');
     expectReadable(container, 'Competition by link');
   } finally { spy.mockRestore(); }
+});
+
+test('the Setup Centre is readable in every status, with new-session readiness', async () => {
+  mockPath = '/roles/owner/setup';
+  const area = (key, title, status, critical = false, problems = []) => ({ key, title, status, critical, summary: `${title}: ${status}`, problems, fix: key });
+  getSchoolSetup.mockResolvedValue({
+    success: true, checkedAt: '2026-10-30T09:00:00Z', keepTeachers: true,
+    progress: { done: 2, applicable: 6, percent: 33 },
+    readiness: { ready: false, missing: ['School fees'], unverified: ['Timetable'] },
+    areas: [
+      area('session', 'Session and current term', 'complete', true), area('classes', 'Sections and classes', 'incomplete', true, ['Blue Room has no section.']),
+      area('fees', 'School fees', 'not_started', true), area('subjects', 'Subjects', 'blocked', true), area('timetable', 'Timetable', 'unable_to_verify'), area('website', 'School website', 'not_applicable'),
+    ],
+    newSession: { session: '2026/2027', endsOn: '2027-07-20', daysLeft: 40, nextSession: null, steps: [area('nextSession', 'Next session created', 'not_started', true), area('carryOver', 'Teachers carried into the new session', 'complete')] },
+  });
+  const { container } = render(<SetupCentrePage />);
+  await screen.findByText('New session readiness');
+  expect(screen.getAllByRole('link', { name: 'Fix now' }).length).toBeGreaterThan(0);
+  expectReadable(container, 'Setup Centre');
+});
+
+test('the Terms Calendar is readable: a version waiting for approval, problems, the session at a glance and history', async () => {
+  const types = { break: { label: 'Mid-term break', closesSchool: true }, exam: { label: 'Examinations', closesSchool: false }, open_day: { label: 'Open day / PTA', closesSchool: false } };
+  getTermsCalendar.mockResolvedValue({
+    success: true, me: { id: 'own', role: 'owner' }, sessions: [{ id: 's26', name: '2026/2027', status: 'active' }],
+    calendar: {
+      session: { id: 's26', name: '2026/2027', startDate: '2026-09-07', endDate: '2027-07-23', status: 'active' }, terms: [], types,
+      reference: [{ kind: 'term_start', title: 'First Term begins', startDate: '2026-09-07', endDate: '2026-09-07', source: 'Sessions & Terms' }, { kind: 'public_holiday', title: 'Independence Day', startDate: '2026-10-01', endDate: '2026-10-01', source: 'Public holiday' }],
+      published: { version: 1, status: 'published', decidedBy: 'OWN', decidedAt: '2026-09-01T10:00:00Z', entries: [] },
+      working: { version: 2, status: 'submitted', draftedBy: 'HOS', draftedById: 'hos', submittedAt: '2026-10-29T10:00:00Z', entries: [
+        { id: 'e1', type: 'break', title: 'Mid-term break', startDate: '2026-10-26', endDate: '2026-10-30', audience: 'everyone', reminderDays: null, note: '' },
+        { id: 'e2', type: 'exam', title: 'First Term examinations', startDate: '2026-11-30', endDate: '2026-12-04', audience: 'everyone', reminderDays: 7, note: '' },
+      ], conflicts: [{ severity: 'warning', entryId: 'e2', message: '"First Term examinations" overlaps another exam.' }, { severity: 'error', entryId: null, message: 'Something must be fixed.' }] },
+      history: [{ version: 2, status: 'submitted', draftedBy: 'HOS', entries: 2 }, { version: 1, status: 'published', draftedBy: 'HOS', decidedBy: 'OWN', decidedAt: '2026-09-01T10:00:00Z', entries: 3 }],
+    },
+  });
+  const { container } = render(<TermsCalendarPage />);
+  await screen.findByRole('button', { name: 'Approve and publish' });
+  expectReadable(container, 'Terms Calendar');
 });

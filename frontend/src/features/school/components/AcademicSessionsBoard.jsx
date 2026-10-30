@@ -225,7 +225,7 @@ export default function AcademicSessionsBoard() {
     await run(
       `activate-${session.id}`,
       () => activateAcademicSession(session.id),
-      (result) => `${result.session.name} is now the active session${result.placementsApplied ? `, and ${result.placementsApplied} placements were applied.` : '.'}${result.teacherAssignmentsReleased ? ` ${result.teacherAssignmentsReleased} teacher assignments from ${result.deactivated?.name || 'last session'} are kept in its history; assign this session's teachers below.` : ''}`,
+      (result) => `${result.session.name} is now the active session${result.placementsApplied ? `, and ${result.placementsApplied} placements were applied.` : '.'}${result.teacherAssignmentsReleased ? ` ${result.teacherAssignmentsReleased} teacher assignments from ${result.deactivated?.name || 'last session'} are kept in its history; assign this session's teachers below.` : result.deactivated ? ' Teachers stay where they were; change any in Classes and Subjects.' : ''}`,
     )();
   }
 

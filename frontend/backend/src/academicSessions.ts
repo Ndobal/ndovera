@@ -1077,11 +1077,12 @@ export async function activateSession(db: D1Database, options: {
 
   await db.batch(statements)
 
-  // Teacher assignments do not carry over: the new session starts with open
-  // slots for the school's administrators to fill. A school's first session
-  // keeps the assignments it was set up with — there is no earlier session for
-  // them to belong to.
-  const teacherAssignmentsReleased = outgoingAssignmentsRecorded
+  // Teacher assignments carry into the new session (the premium plan: a new session must
+  // preserve them), unless the school chose to start each session with open slots for its
+  // administrators to fill. Either way who taught what last session is already on record.
+  // A school's first session keeps the assignments it was set up with.
+  const keepTeachers = await keepsTeachersAcrossSessions(db, options.tenantId)
+  const teacherAssignmentsReleased = outgoingAssignmentsRecorded && !keepTeachers
     ? await clearLiveAssignments(db, options.tenantId).catch(error => {
         console.error('Releasing teacher assignments failed', error)
         return 0
@@ -1095,6 +1096,16 @@ export async function activateSession(db: D1Database, options: {
     enrolment,
     teacherAssignmentsReleased,
   }
+}
+
+/** The school's choice for a new session: keep teachers where they are (default) or start with open slots. */
+export const SESSION_TRANSITION_KEY = (tenantId: string) => `session_transition:${tenantId}`
+export async function keepsTeachersAcrossSessions(db: D1Database, tenantId: string) {
+  try {
+    const row = await db.prepare(`SELECT payload FROM settings WHERE studentId = ?`).bind(SESSION_TRANSITION_KEY(tenantId)).first() as { payload?: string } | null
+    const payload = row?.payload ? JSON.parse(row.payload) : {}
+    return payload.keepTeachers !== false
+  } catch { return true }
 }
 
 // ─── Term writes ─────────────────────────────────────────────────────────────

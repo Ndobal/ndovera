@@ -13,6 +13,8 @@ import BirthdaysPage from './features/birthdays/BirthdaysPage';
 import TeacherPayslip from './app/roles/teacher/TeacherPayslip';
 import CompetitionLinksPage from './features/competitions/CompetitionLinksPage';
 import CompetitionByLinkPage from './features/competitions/CompetitionByLinkPage';
+import SetupCentrePage from './features/setup/SetupCentrePage';
+import TermsCalendarPage from './features/calendar/TermsCalendarPage';
 import ClubsPage from './features/clubs/ClubsPage';
 import PracticePassesPage from './features/practice-arena/PracticePassesPage';
 import ExamReadinessPage from './features/material-ai/ExamReadinessPage';
@@ -298,6 +300,8 @@ function AnimatedRoutes({ auth, onLogin }) {
         <Route path="/roles/:role/help" element={<RequireAuth auth={auth}><HelpRoleRoute auth={auth} /></RequireAuth>} />
         <Route path="/roles/:role/help/articles" element={<RequireAuth auth={auth}><HelpArticleAdminRoute auth={auth} /></RequireAuth>} />
         {/* One payslip page for every staff role (teachers, HoS, accountant, ICT, librarian, clinic, …). */}
+        <Route path="/roles/:role/terms-calendar" element={<RequireAuth auth={auth}><RouteTransition><TermsCalendarPage /></RouteTransition></RequireAuth>} />
+        <Route path="/roles/:role/setup" element={<RequireAuth auth={auth}><RouteTransition><SetupCentrePage /></RouteTransition></RequireAuth>} />
         <Route path="/roles/:role/competitions" element={<RequireAuth auth={auth}><RouteTransition><CompetitionLinksPage /></RouteTransition></RequireAuth>} />
         <Route path="/roles/:role/payslip" element={<RequireAuth auth={auth}><RouteTransition><TeacherPayslip auth={auth} /></RouteTransition></RequireAuth>} />
         <Route path="/roles/:role/finance-report" element={<RequireAuth auth={auth}><RouteTransition><FinancialStandingsReport /></RouteTransition></RequireAuth>} />

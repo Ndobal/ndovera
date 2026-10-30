@@ -540,3 +540,15 @@ export const makeLinkCompetitionLink = (id) => req(`/api/link-competitions/${enc
 export const turnOffLinkCompetitionLink = (id) => req(`/api/link-competitions/${encodeURIComponent(id)}/link`, { method: 'DELETE' });
 export const getLinkCompetitionEntries = (id) => req(`/api/link-competitions/${encodeURIComponent(id)}/entries`);
 export const uploadCompetitionFlier = (file) => uploadFile('/api/link-competitions/flier', file);
+
+// Smart Setup Centre: every step checked on the server from the school's own records.
+export const getSchoolSetup = () => req('/api/school/setup', { skipOfflineCache: true });
+export const saveSessionTransition = (keepTeachers) => req('/api/school/setup/session-transition', { method: 'PUT', body: { keepTeachers } });
+
+// Terms Calendar: one per session, drafted, approved by a head, versioned.
+export const getTermsCalendar = (sessionId) => req(`/api/school/terms-calendar${sessionId ? `?sessionId=${encodeURIComponent(sessionId)}` : ''}`, { skipOfflineCache: true });
+export const getTermsCalendarVersion = (sessionId, version) => req(`/api/school/terms-calendar/${encodeURIComponent(sessionId)}/versions/${version}`);
+export const saveTermsCalendarDraft = (sessionId, entries) => req(`/api/school/terms-calendar/${encodeURIComponent(sessionId)}/draft`, { method: 'PUT', body: { entries } });
+export const submitTermsCalendar = (sessionId) => req(`/api/school/terms-calendar/${encodeURIComponent(sessionId)}/submit`, { method: 'POST', body: {} });
+export const approveTermsCalendar = (sessionId, note) => req(`/api/school/terms-calendar/${encodeURIComponent(sessionId)}/approve`, { method: 'POST', body: { note } });
+export const returnTermsCalendar = (sessionId, note) => req(`/api/school/terms-calendar/${encodeURIComponent(sessionId)}/return`, { method: 'POST', body: { note } });

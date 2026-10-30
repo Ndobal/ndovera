@@ -1,6 +1,8 @@
 import { Hono } from 'hono'
 import { handleHelpArticleRoute } from './helpArticleRoutes'
 import { handlePremisesSecurityRoute } from './premisesSecurity'
+import { checkSchoolSetup } from './setupCentre'
+import { CalendarError, approveAndPublish as approveTermsCalendar, getCalendar as getTermsCalendar, getVersion as getTermsCalendarVersion, returnDraft as returnTermsCalendar, saveDraft as saveTermsCalendarDraft, sendDueReminders as sendTermsCalendarReminders, submitDraft as submitTermsCalendar } from './termsCalendar'
 import { CompetitionError, entriesCsv, listCompetitions as listLinkCompetitions, listEntries as listLinkCompetitionEntries, makeLink as makeCompetitionLink, publicCompetition, saveCompetition as saveLinkCompetition, setCompetitionStatus as setLinkCompetitionStatus, submitEntry as submitCompetitionEntry, turnOffLink as turnOffCompetitionLink } from './competitionLinks'
 import { AFRICAN_COUNTRIES, DEFAULT_SETTINGS as DEFAULT_OUTREACH_SETTINGS, ensureProspectTables, gatherTick, inGatherWindow, inSendWindow, normalizeEmail as normalizeProspectEmail, normalizeSettings as normalizeOutreachSettings, sendTick as sendOutreachTick, stopProspect, unsubscribeToken, weekKey as outreachWeekKey } from './prospects'
 import { backfillMaterialSessions, currentMaterialContext, isCurrentMaterial, materialArchivePlacements, provisionalSessionId, provisionalSessionName, studentCanAccessArchivedMaterial } from './materialSessions'
@@ -237,6 +239,8 @@ import {
   updatePromotionDecisions,
   updateSession,
   upsertEnrollment,
+  keepsTeachersAcrossSessions,
+  SESSION_TRANSITION_KEY,
 } from './academicSessions'
 import {
   ensureLessonPlanTables,
@@ -7144,6 +7148,113 @@ app.post('/api/public/link-competition/:token/entries', async (c) => {
     const result = await submitCompetitionEntry(c.env.APP_DB, c.req.param('token'), await c.req.json().catch(() => ({})), clientKey)
     return c.json({ success: true, ...result })
   } catch (error) { return competitionFailure(c, error, 'Could not send your entry.') }
+})
+
+
+// ─── Terms Calendar: per session, drafted, approved by a head, versioned (termsCalendar.ts) ───
+const TERMS_CALENDAR_VIEW_ROLES = ['owner', 'hos', 'ict', 'ict_manager']
+
+function termsCalendarActor(c: any) {
+  const role = ['owner', 'hos', 'ict', 'ict_manager'].find(item => hasRequiredRole(c.var.user?.role, [item])) || 'other'
+  return { id: String(c.var.user?.id || c.var.user?.email || ''), name: String(c.var.user?.name || c.var.user?.email || 'Staff'), role }
+}
+
+function termsCalendarFailure(c: any, error: unknown, fallback: string) {
+  if (error instanceof CalendarError) return c.json({ error: error.message }, error.status)
+  console.error(fallback, error)
+  return c.json({ error: fallback }, 500)
+}
+
+app.get('/api/school/terms-calendar', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, TERMS_CALENDAR_VIEW_ROLES)) return c.json({ error: 'forbidden' }, 403)
+  const tenantId = String(c.var.user?.tenantId || '').trim()
+  if (!tenantId) return c.json({ error: 'No school.' }, 400)
+  try {
+    const sessions = ((await c.env.APP_DB.prepare(`SELECT id, name, status, start_date, end_date FROM academic_sessions WHERE tenant_id = ? ORDER BY start_date DESC LIMIT 20`).bind(tenantId).all().catch(() => ({ results: [] }))).results || []) as any[]
+    const requested = String(c.req.query('sessionId') || '')
+    const chosen = sessions.find(row => row.id === requested) || sessions.find(row => row.status === 'active') || sessions.find(row => row.status === 'upcoming') || sessions[0]
+    if (!chosen) return c.json({ success: true, sessions: [], calendar: null })
+    return c.json({ success: true, sessions: sessions.map(row => ({ id: row.id, name: row.name, status: row.status })), calendar: await getTermsCalendar(c.env.APP_DB, tenantId, chosen.id), me: termsCalendarActor(c) })
+  } catch (error) { return termsCalendarFailure(c, error, 'Could not load the terms calendar.') }
+})
+
+app.get('/api/school/terms-calendar/:sessionId/versions/:version', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, TERMS_CALENDAR_VIEW_ROLES)) return c.json({ error: 'forbidden' }, 403)
+  try { return c.json({ success: true, version: await getTermsCalendarVersion(c.env.APP_DB, String(c.var.user?.tenantId || ''), c.req.param('sessionId'), Number(c.req.param('version'))) }) }
+  catch (error) { return termsCalendarFailure(c, error, 'Could not load that version.') }
+})
+
+app.put('/api/school/terms-calendar/:sessionId/draft', authenticate, async (c) => {
+  try {
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const result = await saveTermsCalendarDraft(c.env.APP_DB, String(c.var.user?.tenantId || ''), c.req.param('sessionId'), termsCalendarActor(c), body.entries)
+    return c.json({ success: true, ...result })
+  } catch (error) { return termsCalendarFailure(c, error, 'Could not save the draft.') }
+})
+
+app.post('/api/school/terms-calendar/:sessionId/submit', authenticate, async (c) => {
+  try {
+    const tenantId = String(c.var.user?.tenantId || '')
+    const result = await submitTermsCalendar(c.env.APP_DB, tenantId, c.req.param('sessionId'), termsCalendarActor(c))
+    await addAudit(c.env.APP_DB, tenantId, { action: 'termsCalendarSubmitted', data: { by: c.var.user?.id, sessionId: c.req.param('sessionId'), version: result.version } }).catch(() => null)
+    return c.json({ success: true, ...result })
+  } catch (error) { return termsCalendarFailure(c, error, 'Could not submit the calendar.') }
+})
+
+app.post('/api/school/terms-calendar/:sessionId/return', authenticate, async (c) => {
+  try {
+    const tenantId = String(c.var.user?.tenantId || '')
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    const result = await returnTermsCalendar(c.env.APP_DB, tenantId, c.req.param('sessionId'), termsCalendarActor(c), body.note)
+    await addAudit(c.env.APP_DB, tenantId, { action: 'termsCalendarReturned', data: { by: c.var.user?.id, sessionId: c.req.param('sessionId'), version: result.version, note: String(body.note || '').slice(0, 300) } }).catch(() => null)
+    return c.json({ success: true, ...result })
+  } catch (error) { return termsCalendarFailure(c, error, 'Could not return the calendar.') }
+})
+
+app.post('/api/school/terms-calendar/:sessionId/approve', authenticate, async (c) => {
+  try {
+    const tenantId = String(c.var.user?.tenantId || '')
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    await ensureSchoolCalendarTable(c.env.APP_DB)
+    await c.env.APP_DB.prepare(INIT_SCHOOL_EVENTS).run()
+    const result = await approveTermsCalendar(c.env.APP_DB, tenantId, c.req.param('sessionId'), termsCalendarActor(c), body.note)
+    await addAudit(c.env.APP_DB, tenantId, { action: 'termsCalendarPublished', data: { by: c.var.user?.id, sessionId: c.req.param('sessionId'), ...result } }).catch(() => null)
+    return c.json({ success: true, ...result })
+  } catch (error) { return termsCalendarFailure(c, error, 'Could not publish the calendar.') }
+})
+
+/** Calendar reminders go to each person's in-app notifications (free; nothing is emailed). */
+async function deliverCalendarReminder(db: D1Database, userIds: string[], tenantId: string, title: string, body: string, key: string) {
+  await ensureEngineTables(db)
+  const at = new Date().toISOString()
+  const statements = userIds.map(userId => db.prepare(`INSERT INTO comm_inbox (id, tenant_id, user_id, event_id, title, body, link, created_at) VALUES (?, ?, ?, ?, ?, ?, '', ?)`)
+    .bind(`cib_${crypto.randomUUID()}`, tenantId, userId, key, title.slice(0, 200), body.slice(0, 2000), at))
+  for (let index = 0; index < statements.length; index += 50) await db.batch(statements.slice(index, index + 50))
+  return statements.length
+}
+
+// ─── Smart Setup Centre: is the school fully set up, and ready for the new session? ───
+// Worked out on request from the school's own records (setupCentre.ts); nothing is ticked by hand.
+const SETUP_VIEW_ROLES = ['owner', 'hos', 'ict', 'ict_manager']
+
+app.get('/api/school/setup', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, SETUP_VIEW_ROLES)) return c.json({ error: 'Only the Owner, Head of School or ICT can see the Setup Centre.' }, 403)
+  const tenantId = String(c.var.user?.tenantId || '').trim()
+  if (!tenantId) return c.json({ error: 'No school.' }, 400)
+  const result = await checkSchoolSetup(c.env.APP_DB, tenantId)
+  return c.json({ success: true, ...result, keepTeachers: await keepsTeachersAcrossSessions(c.env.APP_DB, tenantId) }, 200, { 'cache-control': 'no-store' })
+})
+
+/** The school's choice for new sessions: keep teachers where they are (default) or start with open slots. */
+app.put('/api/school/setup/session-transition', authenticate, async (c) => {
+  if (!hasRequiredRole(c.var.user.role, ['owner', 'hos'])) return c.json({ error: 'Only the Owner or Head of School can change this.' }, 403)
+  const tenantId = String(c.var.user?.tenantId || '').trim()
+  if (!tenantId) return c.json({ error: 'No school.' }, 400)
+  const body = await c.req.json().catch(() => ({})) as Record<string, any>
+  const keepTeachers = body.keepTeachers !== false
+  await upsertSettings(c.env.APP_DB, SESSION_TRANSITION_KEY(tenantId), { keepTeachers, updatedBy: c.var.user?.id, updatedAt: new Date().toISOString() })
+  await addAudit(c.env.APP_DB, tenantId, { action: 'sessionTransitionChoice', data: { by: c.var.user?.id, keepTeachers } }).catch(() => null)
+  return c.json({ success: true, keepTeachers })
 })
 
 // Login
@@ -39198,6 +39309,11 @@ export default {
       ctx.waitUntil(outreachSettings(env.APP_DB)
         .then(settings => (settings.sending ? sendOutreachTick({ db: env.APP_DB, send: outreachSend(env), secret: String(env.JWT_SECRET || ''), baseUrl: 'https://ndovera.com', at }, settings) : null))
         .then(result => { if (result?.sent) console.log('Outreach emails', result) }).catch(error => console.error('Outreach sending failed', error)))
+    }
+    // Terms calendar reminders, once a day (07:00 Lagos): published entries only, each once.
+    if (at.getUTCHours() === 6 && at.getUTCMinutes() === 0) {
+      ctx.waitUntil(sendTermsCalendarReminders(env.APP_DB, (userIds, tenantId, title, body, key) => deliverCalendarReminder(env.APP_DB, userIds, tenantId, title, body, key), at)
+        .then(result => { if (result.sent) console.log('Calendar reminders', result) }).catch(error => console.error('Calendar reminders failed', error)))
     }
     // Staff emails (submission reminders, weekly summary, punctuality tips): one school every other minute, mornings only.
     if (new Date().getUTCMinutes() % 2 === 0) {

@@ -206,8 +206,9 @@ test("structured blocks keep the teacher's words and drop anything malformed", (
   assert.equal(lifecycle.blocksToPlainText(blocks), 'Photosynthesis\n\nphotosynthesis is the process...\n\nFactors affecting photosynthesis\n1. sunlight\n2. water')
 })
 
-test('a new session records who taught what, then leaves teacher assignment to the school', async () => {
+test('a school that chose open slots: a new session records who taught what, then leaves teacher assignment to the school', async () => {
   const db = await setup()
+  await db.prepare('INSERT INTO settings (studentId, payload) VALUES (?, ?)').bind('session_transition:school', JSON.stringify({ keepTeachers: false })).run()
   await db.prepare("UPDATE academic_sessions SET status = 'upcoming' WHERE id = 'current'").run()
   await db.prepare("UPDATE academic_sessions SET status = 'active' WHERE id = 'past'").run()
   await db.prepare("UPDATE classes SET name = 'JSS 1', arm = 'A', classTeacherId = 'mrs-a' WHERE id = 'old-class'").run()
@@ -244,6 +245,20 @@ test('a new session records who taught what, then leaves teacher assignment to t
   assert.equal((await db.prepare("SELECT teacherId FROM subjects WHERE id = 'eng'").first()).teacherId, 'mrs-d')
   await teaching.recordLiveAssignments(db, { tenantId: 'school', sessionId: 'current' })
   assert.equal((await teaching.listTeachingHistory(db, 'school', ['MRS-A'])).length, 4)
+})
+
+test('by default a new session keeps every teacher where they were, and still records who taught what', async () => {
+  const db = await setup()
+  await db.prepare("UPDATE academic_sessions SET status = 'upcoming' WHERE id = 'current'").run()
+  await db.prepare("UPDATE academic_sessions SET status = 'active' WHERE id = 'past'").run()
+  await db.prepare("UPDATE classes SET name = 'JSS 1', arm = 'A', classTeacherId = 'mrs-a' WHERE id = 'old-class'").run()
+  await db.prepare("INSERT INTO subjects (id, tenantId, name, classId, teacherId) VALUES ('math', 'school', 'Mathematics', 'old-class', 'mrs-a')").run()
+  const result = await academic.activateSession(db, { tenantId: 'school', sessionId: 'current' })
+  assert.equal(result.teacherAssignmentsReleased, 0)
+  assert.equal((await db.prepare("SELECT teacherId FROM subjects WHERE id = 'math'").first()).teacherId, 'mrs-a')
+  assert.equal((await db.prepare("SELECT classTeacherId FROM classes WHERE id = 'old-class'").first()).classTeacherId, 'mrs-a')
+  const history = await teaching.listSessionAssignments(db, 'school', 'past')
+  assert.deepEqual(history.map(row => [row.role, row.teacher_id]).sort(), [['class_teacher', 'mrs-a'], ['subject', 'mrs-a']])
 })
 
 test("a school's first session keeps the assignments it was set up with", async () => {

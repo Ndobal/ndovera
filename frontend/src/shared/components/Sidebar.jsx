@@ -229,6 +229,7 @@ function buildRoleSidebarItems(roleKey) {
   if (roleKey === 'hos') {
     return [
       { name: 'Overview', path: '/roles/hos' },
+      { name: 'Setup Centre', path: '/roles/hos/setup' },
       { name: 'People', path: '/roles/hos/people' },
       { name: 'Academics', path: '/roles/hos/academics' },
       { name: 'Admissions', path: '/roles/hos/admissions' },
@@ -241,6 +242,7 @@ function buildRoleSidebarItems(roleKey) {
       { name: 'Submissions & Compliance', path: '/roles/hos/compliance' },
       { name: 'Staff Evaluation', path: '/roles/hos/staff-evaluation' },
       { name: 'School Calendar', path: '/roles/hos/calendar' },
+      { name: 'Terms Calendar', path: '/roles/hos/terms-calendar' },
       { name: 'Staff Punctuality', path: '/roles/hos/punctuality' },
       { name: 'Exam Letterhead', path: '/roles/hos/exam-letterhead' },
       { name: 'Curriculum & Ndovera AI', path: '/roles/hos/curriculum' },
@@ -292,6 +294,7 @@ function buildRoleSidebarItems(roleKey) {
   if (roleKey === 'owner') {
     return [
       { name: 'Overview', path: '/roles/owner' },
+      { name: 'Setup Centre', path: '/roles/owner/setup' },
       { name: 'Schools', path: '/roles/owner/schools' },
       { name: 'Finance', path: '/roles/owner/finance' },
       { name: 'Financial Report', path: '/roles/owner/finance-report' },
@@ -301,8 +304,13 @@ function buildRoleSidebarItems(roleKey) {
       { name: 'Admissions', path: '/roles/owner/admissions' },
       { name: 'Classroom', path: '/roles/owner/classroom' },
       { name: 'Teacher Submissions', path: '/roles/owner/submissions' },
+      { name: 'Teacher Review', path: '/roles/owner/teacher-review' },
+      { name: 'Timetable', path: '/roles/owner/timetable' },
+      { name: 'Exams', path: '/roles/owner/exams' },
+      { name: 'Discipline', path: '/roles/owner/discipline' },
       { name: 'Staff Evaluation', path: '/roles/owner/staff-evaluation' },
       { name: 'School Calendar', path: '/roles/owner/calendar' },
+      { name: 'Terms Calendar', path: '/roles/owner/terms-calendar' },
       { name: 'Staff Punctuality', path: '/roles/owner/punctuality' },
       { name: 'Exam Letterhead', path: '/roles/owner/exam-letterhead' },
       { name: 'Curriculum & Ndovera AI', path: '/roles/owner/curriculum' },
@@ -457,6 +465,7 @@ function buildRoleSidebarItems(roleKey) {
       { name: 'Clubs', path: `/roles/${roleKey}/clubs` },
       { name: 'People', path: `/roles/${roleKey}/people` },
       { name: 'Classes & Subjects', path: `/roles/${roleKey}/classes` },
+      { name: 'Setup Centre', path: `/roles/${roleKey}/setup` },
       { name: 'Support', path: `/roles/${roleKey}/support` },
       { name: 'Systems', path: `/roles/${roleKey}/systems` },
       { name: 'Access', path: `/roles/${roleKey}/access` },
