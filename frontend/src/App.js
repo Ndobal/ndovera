@@ -11,6 +11,8 @@ import ParentNotifications from './features/communications/ParentNotifications';
 import TeacherNotifications from './features/communications/TeacherNotifications';
 import BirthdaysPage from './features/birthdays/BirthdaysPage';
 import TeacherPayslip from './app/roles/teacher/TeacherPayslip';
+import CompetitionLinksPage from './features/competitions/CompetitionLinksPage';
+import CompetitionByLinkPage from './features/competitions/CompetitionByLinkPage';
 import ClubsPage from './features/clubs/ClubsPage';
 import PracticePassesPage from './features/practice-arena/PracticePassesPage';
 import ExamReadinessPage from './features/material-ai/ExamReadinessPage';
@@ -285,6 +287,8 @@ function AnimatedRoutes({ auth, onLogin }) {
         <Route path="/youtube" element={<Navigate to="/youtube-disclosure" replace />} />
         <Route path="/contact" element={<PublicLegalPage docKey="contact" />} />
         <Route path="/championships" element={<PublicChampionshipsPage />} />
+        {/* A competition shared by link: only people holding the link reach it (not listed, not indexed). */}
+        <Route path="/c/:token" element={<CompetitionByLinkPage />} />
         <Route path="/invoice/:token" element={<InvoicePayPage />} />
         <Route path="/championships/:slug" element={<PublicChampionshipDetailPage />} />
         <Route path="/roles/chiefsecurityofficer/*" element={<RoleGuard auth={auth} expectedRole="chiefsecurityofficer"><RouteTransition><PremisesSecurityDashboard role="chiefsecurityofficer" /></RouteTransition></RoleGuard>} />
@@ -294,6 +298,7 @@ function AnimatedRoutes({ auth, onLogin }) {
         <Route path="/roles/:role/help" element={<RequireAuth auth={auth}><HelpRoleRoute auth={auth} /></RequireAuth>} />
         <Route path="/roles/:role/help/articles" element={<RequireAuth auth={auth}><HelpArticleAdminRoute auth={auth} /></RequireAuth>} />
         {/* One payslip page for every staff role (teachers, HoS, accountant, ICT, librarian, clinic, …). */}
+        <Route path="/roles/:role/competitions" element={<RequireAuth auth={auth}><RouteTransition><CompetitionLinksPage /></RouteTransition></RequireAuth>} />
         <Route path="/roles/:role/payslip" element={<RequireAuth auth={auth}><RouteTransition><TeacherPayslip auth={auth} /></RouteTransition></RequireAuth>} />
         <Route path="/roles/:role/finance-report" element={<RequireAuth auth={auth}><RouteTransition><FinancialStandingsReport /></RouteTransition></RequireAuth>} />
         <Route path="/finance-report" element={<RequireAuth auth={auth}><RouteTransition><FinancialStandingsReport /></RouteTransition></RequireAuth>} />

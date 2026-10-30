@@ -32,6 +32,9 @@ import HelpCentre from '../../features/help/HelpCentre';
 import HelpArticleAdmin from '../../features/help/HelpArticleAdmin';
 import PremisesSecurityDashboard from '../../features/security/PremisesSecurityDashboard';
 import AmiOutreachPage from '../../features/ami/AmiOutreachPage';
+import CompetitionLinksPage from '../../features/competitions/CompetitionLinksPage';
+import CompetitionByLinkPage from '../../features/competitions/CompetitionByLinkPage';
+import { listLinkCompetitions, getLinkCompetitionEntries } from '../../features/school/services/schoolApi';
 import * as tenantApiForOutreach from '../../features/tenants/services/tenantApi';
 import { getBranding, getMyBankDetails, getMyPayslip, getPayroll, getPayrollHistory, getPayrollNote, getPayrollSettings, getWebsiteSections } from '../../features/school/services/schoolApi';
 
@@ -59,7 +62,7 @@ jest.mock('../../features/submissions/StaffSubmissionPanel', () => () => null);
 jest.mock('../../features/tenants/components/SchoolAccessPanel', () => () => <div>School access</div>);
 jest.mock('../components/AppDialog', () => ({ askConfirm: jest.fn(() => Promise.resolve(true)), askText: jest.fn(() => Promise.resolve('')) }));
 jest.mock('../../features/tenants/services/tenantApi', () => new Proxy({}, { get: (target, key) => { if (!target[key]) target[key] = jest.fn(() => Promise.resolve({})); return target[key]; } }));
-jest.mock('../../features/school/services/schoolApi', () => ({ ...jest.requireActual('../../features/school/services/schoolApi'), getTermFinanceReport: jest.fn(), runFinanceAI: jest.fn(), getClasses: jest.fn(), getPeople: jest.fn(), getLinkOverview: jest.fn(), getFamilies: jest.fn(), getPayroll: jest.fn(), getPayrollHistory: jest.fn(), getPayrollSettings: jest.fn(), getBranding: jest.fn(), getWebsiteSections: jest.fn(), getPayrollNote: jest.fn(), getMyPayslip: jest.fn(), getMyBankDetails: jest.fn() }));
+jest.mock('../../features/school/services/schoolApi', () => ({ ...jest.requireActual('../../features/school/services/schoolApi'), getTermFinanceReport: jest.fn(), runFinanceAI: jest.fn(), getClasses: jest.fn(), getPeople: jest.fn(), getLinkOverview: jest.fn(), getFamilies: jest.fn(), getPayroll: jest.fn(), getPayrollHistory: jest.fn(), getPayrollSettings: jest.fn(), getBranding: jest.fn(), getWebsiteSections: jest.fn(), getPayrollNote: jest.fn(), getMyPayslip: jest.fn(), getMyBankDetails: jest.fn(), listLinkCompetitions: jest.fn(), getLinkCompetitionEntries: jest.fn() }));
 jest.mock('../../features/finance/simple/simpleFeesApi', () => ({ ...jest.requireActual('../../features/finance/simple/simpleFeesApi'), getFeesOverview: jest.fn(), getFeeReports: jest.fn(), getNewStudentFees: jest.fn(), getExcursions: jest.fn(), getFeeGroups: jest.fn() }));
 
 const month = new Date().toISOString().slice(0, 7);
@@ -440,4 +443,35 @@ test('the School Outreach page is readable in light and dark mode', async () => 
   const { container } = render(<AmiOutreachPage />);
   await screen.findByText('Kings Academy');
   expectReadable(container, 'School Outreach');
+});
+
+const LINK_COMPETITION = {
+  id: 'c1', title: 'Inter-house Spelling Bee', hostName: 'Greenfield School', summary: 'Open to JSS students.', details: 'Three rounds.', rules: 'No phones.', prizes: 'A laptop', venue: 'School hall',
+  startsAt: '2026-11-20T09:00:00Z', endsAt: '2026-11-20T14:00:00Z', entriesCloseAt: '2026-11-18T17:00:00Z', fliers: ['https://ndovera.com/files/competitions/a.jpg'],
+  fields: [{ key: 'fullName', label: 'Full name', type: 'text', required: true }, { key: 'phone', label: 'Phone number', type: 'text', required: true }, { key: 'q1', label: 'Which house?', type: 'choice', required: true, options: ['Red', 'Blue'] }],
+  status: 'active', linkToken: 'abcdefghijklmnopqrstuvwx', entries: 1, maxEntries: null,
+};
+
+test('the competitions-by-link page is readable: a shared competition, the editor and the entries', async () => {
+  listLinkCompetitions.mockResolvedValue({ success: true, hostName: 'Greenfield School', competitions: [LINK_COMPETITION, { ...LINK_COMPETITION, id: 'c2', title: 'Art contest', status: 'draft', linkToken: null, entries: 0 }] });
+  getLinkCompetitionEntries.mockResolvedValue({ success: true, competition: LINK_COMPETITION, entries: [{ id: 'e1', fullName: 'Ada Obi', answers: { fullName: 'Ada Obi', phone: '0803', q1: 'Red' }, createdAt: '2026-11-01T10:00:00Z' }] });
+  const { container } = render(<CompetitionLinksPage />);
+  await screen.findByText('Inter-house Spelling Bee');
+  expectReadable(container, 'Competitions by link');
+  fireEvent.click(screen.getByRole('button', { name: 'Entries (1)' }));
+  await screen.findByText('Ada Obi');
+  fireEvent.click(screen.getAllByRole('button', { name: 'Edit' })[0]);
+  await screen.findByRole('heading', { name: 'Edit competition' });
+  expectReadable(container, 'Competition editor and entries');
+});
+
+test('the page opened from a competition link is readable, with fliers and the entry form', async () => {
+  if (!global.fetch) global.fetch = () => Promise.reject(new Error('no network in tests'));
+  const spy = jest.spyOn(global, 'fetch').mockResolvedValue({ ok: true, status: 200, json: async () => ({ success: true, competition: LINK_COMPETITION, entriesOpen: true, closedReason: '' }) });
+  try {
+    const { container } = render(<CompetitionByLinkPage />);
+    await screen.findByRole('heading', { name: 'Inter-house Spelling Bee' });
+    expect(document.head.querySelector('meta[name="robots"]').content).toBe('noindex, nofollow');
+    expectReadable(container, 'Competition by link');
+  } finally { spy.mockRestore(); }
 });

@@ -2427,3 +2427,13 @@ From feature22222222.md ("Payroll" list).
 - Every email has a one-click unsubscribe (a confirm button, so mail scanners can't trigger it); opted-out addresses are never emailed again, even if found again.
 - Sending is OFF until Ami turns it on; weekday mornings 09:00–11:00 Lagos; daily cap (default 40, max 300). South Africa is gathered but not emailed automatically (POPIA needs consent first); Ami can change the country list. Three editable templates. CSV download.
 - Tests: `outreach.test.mjs` (extraction, no repeats, robots.txt, cadence, cap, country exclusion, joined schools, opt-out forever, Ami-only, unsubscribe token), `contrast.test.jsx`.
+
+### N49. Competitions shared by link (schools and Ndovera) — ✅ BUILT 30 Oct 2026
+> can we add a competition page and form in tenant schools and ndovera so that when a competition is active, the school can generate a link and send to people. the page will not be public only people with the link will be able to see the competition details, fliers
+
+- Owner/HoS → Competitions (the school's); Ami → Competitions (Ndovera's). Separate from Championships (Ndovera's public, staged engine).
+- Write up: title, summary, details, rules, prizes, venue, start/end, entries-close date, most entries, up to 6 fliers (JPG/PNG/WebP ≤ 5 MB), entry form (full name always; phone, email, school, class/age optional or required; up to 15 own questions: short/long text, number, choose-one).
+- Draft → Active → Closed. A link can only be made while active: `https://ndovera.com/c/<unguessable code>`, with Copy and Send by WhatsApp. "New link" kills the old one; "Turn link off" hides it. The page is not listed anywhere and tells search engines not to index it; a draft or dead link shows "not valid".
+- People with the link see the fliers (tap to enlarge), details and the form. Closed: details still show, entries stop. Checks: required answers, valid choices/numbers/email, no second entry with the same phone or email, 10 entries an hour per device, a hidden robot trap, the entry limit.
+- The school sees entries in a table and downloads a CSV. Each school sees only its own; Ndovera's are apart.
+- Tests: `link-competitions.test.mjs`, `contrast.test.jsx` (management page, editor, entries, link page).

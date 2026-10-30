@@ -531,3 +531,12 @@ export const getDailyFeed = (date = '') => req(`/api/feed/daily${buildQuery(date
 export const getFeedHistory = () => req('/api/feed/history');
 export const getNewsHeadlines = (edition = '') => req(`/api/news${buildQuery(edition ? { edition } : {})}`);
 
+
+// Competitions shared by link (Owner/HoS for the school; Ami for Ndovera).
+export const listLinkCompetitions = () => req('/api/link-competitions');
+export const saveLinkCompetition = (data) => req('/api/link-competitions', { method: 'POST', body: data });
+export const setLinkCompetitionStatus = (id, status) => req(`/api/link-competitions/${encodeURIComponent(id)}/status`, { method: 'POST', body: { status } });
+export const makeLinkCompetitionLink = (id) => req(`/api/link-competitions/${encodeURIComponent(id)}/link`, { method: 'POST', body: {} });
+export const turnOffLinkCompetitionLink = (id) => req(`/api/link-competitions/${encodeURIComponent(id)}/link`, { method: 'DELETE' });
+export const getLinkCompetitionEntries = (id) => req(`/api/link-competitions/${encodeURIComponent(id)}/entries`);
+export const uploadCompetitionFlier = (file) => uploadFile('/api/link-competitions/flier', file);

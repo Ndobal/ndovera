@@ -1,6 +1,7 @@
 import { Hono } from 'hono'
 import { handleHelpArticleRoute } from './helpArticleRoutes'
 import { handlePremisesSecurityRoute } from './premisesSecurity'
+import { CompetitionError, entriesCsv, listCompetitions as listLinkCompetitions, listEntries as listLinkCompetitionEntries, makeLink as makeCompetitionLink, publicCompetition, saveCompetition as saveLinkCompetition, setCompetitionStatus as setLinkCompetitionStatus, submitEntry as submitCompetitionEntry, turnOffLink as turnOffCompetitionLink } from './competitionLinks'
 import { AFRICAN_COUNTRIES, DEFAULT_SETTINGS as DEFAULT_OUTREACH_SETTINGS, ensureProspectTables, gatherTick, inGatherWindow, inSendWindow, normalizeEmail as normalizeProspectEmail, normalizeSettings as normalizeOutreachSettings, sendTick as sendOutreachTick, stopProspect, unsubscribeToken, weekKey as outreachWeekKey } from './prospects'
 import { backfillMaterialSessions, currentMaterialContext, isCurrentMaterial, materialArchivePlacements, provisionalSessionId, provisionalSessionName, studentCanAccessArchivedMaterial } from './materialSessions'
 import { ensureMaterialsTable, mapMaterialRow, getCurrentMaterialCounts } from './db'
@@ -7038,6 +7039,111 @@ app.post('/api/outreach/unsubscribe', async (c) => {
   if (!email.includes('@') || token !== await unsubscribeToken(String(c.env.JWT_SECRET || ''), email)) return c.html(outreachPage('Link not valid', '<h1>This link is not valid</h1>'), 400)
   await stopProspect(c.env.APP_DB, email, 'opted_out', 'unsubscribe link')
   return c.html(outreachPage('Done', `<h1 style="font-size:22px;margin:0 0 12px;">Done</h1><p>Ndovera will not email ${email.replace(/[<>"&']/g, '')} again. Sorry for the interruption.</p>`))
+})
+
+
+// ─── Competitions shared by link (schools: Owner/HoS; Ndovera: Ami) ───────────
+// The page is not listed: only someone holding the link sees it (competitionLinks.ts).
+async function competitionScope(c: any) {
+  const role = c.var.user?.role
+  if (hasRequiredRole(role, ['ami'])) return { scope: 'ndovera', hostName: 'Ndovera' }
+  if (!hasRequiredRole(role, ['owner', 'hos'])) throw new CompetitionError('Only the Owner or Head of School can manage competitions.', 403)
+  const tenantId = String(c.var.user?.tenantId || '').trim()
+  if (!tenantId) throw new CompetitionError('No school.', 400)
+  const tenant = await getTenantById(c.env.APP_DB, tenantId).catch(() => null) as any
+  return { scope: tenantId, hostName: String(tenant?.schoolName || 'Our school') }
+}
+
+function competitionFailure(c: any, error: unknown, fallback: string) {
+  if (error instanceof CompetitionError) return c.json({ error: error.message }, error.status)
+  console.error(fallback, error)
+  return c.json({ error: fallback }, 500)
+}
+
+app.get('/api/link-competitions', authenticate, async (c) => {
+  try {
+    const { scope, hostName } = await competitionScope(c)
+    return c.json({ success: true, hostName, competitions: await listLinkCompetitions(c.env.APP_DB, scope) })
+  } catch (error) { return competitionFailure(c, error, 'Could not load competitions.') }
+})
+
+app.post('/api/link-competitions', authenticate, async (c) => {
+  try {
+    const { scope, hostName } = await competitionScope(c)
+    const id = await saveLinkCompetition(c.env.APP_DB, scope, hostName, String(c.var.user?.id || ''), await c.req.json().catch(() => ({})))
+    return c.json({ success: true, id })
+  } catch (error) { return competitionFailure(c, error, 'Could not save the competition.') }
+})
+
+app.post('/api/link-competitions/:id/status', authenticate, async (c) => {
+  try {
+    const { scope } = await competitionScope(c)
+    const body = await c.req.json().catch(() => ({})) as Record<string, any>
+    await setLinkCompetitionStatus(c.env.APP_DB, scope, c.req.param('id'), String(body.status || ''))
+    return c.json({ success: true })
+  } catch (error) { return competitionFailure(c, error, 'Could not change the competition.') }
+})
+
+app.post('/api/link-competitions/:id/link', authenticate, async (c) => {
+  try {
+    const { scope } = await competitionScope(c)
+    const token = await makeCompetitionLink(c.env.APP_DB, scope, c.req.param('id'))
+    await addAudit(c.env.APP_DB, scope === 'ndovera' ? 'platform' : scope, { action: 'competitionLinkMade', data: { by: c.var.user?.id, competitionId: c.req.param('id') } }).catch(() => null)
+    return c.json({ success: true, token })
+  } catch (error) { return competitionFailure(c, error, 'Could not make the link.') }
+})
+
+app.delete('/api/link-competitions/:id/link', authenticate, async (c) => {
+  try {
+    const { scope } = await competitionScope(c)
+    await turnOffCompetitionLink(c.env.APP_DB, scope, c.req.param('id'))
+    return c.json({ success: true })
+  } catch (error) { return competitionFailure(c, error, 'Could not turn the link off.') }
+})
+
+app.get('/api/link-competitions/:id/entries', authenticate, async (c) => {
+  try {
+    const { scope } = await competitionScope(c)
+    const result = await listLinkCompetitionEntries(c.env.APP_DB, scope, c.req.param('id'))
+    if (c.req.query('format') === 'csv') {
+      return new Response(entriesCsv(result.competition?.fields || [], result.entries), { headers: { 'content-type': 'text/csv; charset=utf-8', 'content-disposition': 'attachment; filename="competition-entries.csv"' } })
+    }
+    return c.json({ success: true, ...result })
+  } catch (error) { return competitionFailure(c, error, 'Could not load the entries.') }
+})
+
+/** A flier image (JPG, PNG or WebP up to 5 MB), stored under an unguessable name. */
+app.post('/api/link-competitions/flier', authenticate, async (c) => {
+  try {
+    await competitionScope(c)
+    const form = await c.req.formData()
+    const file = form.get('file') as File | null
+    if (!file || typeof file === 'string') throw new CompetitionError('Choose an image.')
+    if (!/^image\/(jpeg|png|webp)$/.test(file.type)) throw new CompetitionError('Use a JPG, PNG or WebP image.')
+    if (file.size > 5 * 1024 * 1024) throw new CompetitionError('The image is larger than 5 MB.')
+    const ext = file.type === 'image/png' ? 'png' : file.type === 'image/webp' ? 'webp' : 'jpg'
+    const key = `competitions/${crypto.randomUUID()}.${ext}`
+    await c.env.UPLOADS.put(key, file.stream(), { httpMetadata: { contentType: file.type } })
+    return c.json({ success: true, url: `https://ndovera.com/files/${key}` })
+  } catch (error) { return competitionFailure(c, error, 'Could not upload the flier.') }
+})
+
+// Public, by link only.
+app.get('/api/public/link-competition/:token', async (c) => {
+  try {
+    const result = await publicCompetition(c.env.APP_DB, c.req.param('token'))
+    return c.json({ success: true, ...result }, 200, { 'cache-control': 'no-store', 'x-robots-tag': 'noindex, nofollow' })
+  } catch (error) { return competitionFailure(c, error, 'Could not load the competition.') }
+})
+
+app.post('/api/public/link-competition/:token/entries', async (c) => {
+  try {
+    const ip = String(c.req.header('cf-connecting-ip') || c.req.header('x-forwarded-for') || 'unknown')
+    const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(`${ip}:${c.req.param('token')}`))
+    const clientKey = [...new Uint8Array(digest)].slice(0, 12).map(byte => byte.toString(16).padStart(2, '0')).join('')
+    const result = await submitCompetitionEntry(c.env.APP_DB, c.req.param('token'), await c.req.json().catch(() => ({})), clientKey)
+    return c.json({ success: true, ...result })
+  } catch (error) { return competitionFailure(c, error, 'Could not send your entry.') }
 })
 
 // Login
