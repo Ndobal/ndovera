@@ -355,6 +355,7 @@ import {
   freeRequestsForRole,
   consumeAiAccess,
   getAiPaymentRecord,
+  getAiPaymentSettingsKey,
   getResolvedAiBillingPolicy,
   getTenantAiBillingSettingsKey,
   grantAiCredits,
@@ -5459,19 +5460,32 @@ async function verifyTenantPaymentForState(c: any, txRef: string, verifiedByRole
     throw error
   }
 
-  const providerResponse = await verifyFlutterwavePayment(c, txRef)
+  // The webhook and the customer's return both land here: once paid, Flutterwave isn't asked
+  // again, and the one-time effects below belong to whichever arrives first.
+  const alreadyPaid = payment.status === 'paid'
+  const providerResponse = alreadyPaid ? null : await verifyFlutterwavePayment(c, txRef)
   const transactionStatus = String(providerResponse?.data?.status || '').toLowerCase()
-  const paymentSucceeded = providerResponse?.status === 'success' && transactionStatus === 'successful'
-  const nextPaymentStatus = paymentSucceeded ? 'paid' : transactionStatus || 'pending'
+  const paidInFull = Math.round(Number(providerResponse?.data?.amount || 0) * KOBO_PER_NAIRA) >= Number(payment.amountCents || 0)
+    && String(providerResponse?.data?.currency || '').toUpperCase() === String(payment.currency || 'NGN').toUpperCase()
+  const paymentSucceeded = alreadyPaid || (providerResponse?.status === 'success' && transactionStatus === 'successful' && paidInFull)
+  const nextPaymentStatus = paymentSucceeded ? 'paid' : transactionStatus === 'successful' ? 'amount_mismatch' : transactionStatus || 'pending'
   const nextLifecycle = deriveTenantLifecycleState(tenant.approvalStatus, paymentSucceeded ? 'paid' : tenant.paymentStatus, tenant.suspendedAt)
   const now = new Date().toISOString()
 
-  const updatedPayment = await updateTenantPayment(c.env.APP_DB, txRef, {
-    status: nextPaymentStatus,
-    flutterwaveTxId: providerResponse?.data?.id ? String(providerResponse.data.id) : payment.flutterwaveTxId,
-    providerResponse,
-    paidAt: paymentSucceeded ? now : payment.paidAt,
-  })
+  let firstConfirmation = false
+  if (paymentSucceeded && !alreadyPaid) {
+    const claim = await c.env.APP_DB.prepare(`UPDATE tenant_payments SET status = 'paid', updated_at = ? WHERE tx_ref = ? AND status <> 'paid'`).bind(now, txRef).run()
+    firstConfirmation = Number(claim?.meta?.changes || 0) > 0
+  }
+
+  const updatedPayment = paymentSucceeded && !firstConfirmation
+    ? await getTenantPaymentByTxRef(c.env.APP_DB, txRef)
+    : await updateTenantPayment(c.env.APP_DB, txRef, {
+      status: nextPaymentStatus,
+      flutterwaveTxId: providerResponse?.data?.id ? String(providerResponse.data.id) : payment.flutterwaveTxId,
+      providerResponse,
+      paidAt: paymentSucceeded ? now : payment.paidAt,
+    })
 
   const updatedTenant = await updateTenant(c.env.APP_DB, tenant.id, {
     paymentStatus: paymentSucceeded ? 'paid' : tenant.paymentStatus,
@@ -5481,20 +5495,22 @@ async function verifyTenantPaymentForState(c: any, txRef: string, verifiedByRole
     suspendedAt: nextLifecycle.status === 'suspended' ? tenant.suspendedAt : null,
   })
 
-  if (paymentSucceeded && payment.discountCode && payment.status !== 'paid') {
+  if (firstConfirmation && payment.discountCode) {
     await incrementTenantDiscountCodeRedemption(c.env.APP_DB, payment.discountCode).catch(() => {})
   }
 
-  await addAudit(c.env.APP_DB, tenant.id, {
-    action: 'tenantPaymentVerified',
-    data: { txRef, paymentStatus: nextPaymentStatus, verifiedByRole },
-  })
+  if (!alreadyPaid) {
+    await addAudit(c.env.APP_DB, tenant.id, {
+      action: 'tenantPaymentVerified',
+      data: { txRef, paymentStatus: nextPaymentStatus, verifiedByRole },
+    })
+  }
 
   const { plans } = await getTenantPricingState(c.env.APP_DB)
   const discountCode = updatedTenant.discountCode ? await resolveDiscountCode(c.env.APP_DB, updatedTenant.discountCode, updatedTenant.planKey) : null
   const quote = await buildTenantQuoteForTenant(c.env.APP_DB, updatedTenant, discountCode, plans)
 
-  if (paymentSucceeded) {
+  if (firstConfirmation) {
     await accrueGrowthPartnerSignupCommission(c.env, String(tenant.id), Number(updatedTenant.setupFee || tenant.setupFee || quote.setupFee || 0))
   }
 
@@ -17902,6 +17918,57 @@ app.post('/api/ai/access/top-up/initiate', authenticate, async (c) => {
   }
 })
 
+/**
+ * Credits an AI top-up once Flutterwave confirms it, from the customer's return or the webhook,
+ * whichever comes first. Marking the record paid is the claim, so the loser grants nothing.
+ */
+async function settleAiCreditPayment(c: any, txRef: string, payment: Record<string, any>) {
+  if (payment.status === 'paid') return { verified: true, payment }
+
+  const providerResponse = await verifyFlutterwavePayment(c, txRef)
+  const providerStatus = String(providerResponse?.data?.status || '').trim().toLowerCase()
+  const providerAmount = Number(providerResponse?.data?.amount || 0)
+  const isVerified = ['successful', 'completed'].includes(providerStatus)
+    && Math.abs(providerAmount - Number(payment.amountNaira || 0)) < 0.01
+    && String(providerResponse?.data?.currency || '').toUpperCase() === String(payment.currency || 'NGN').toUpperCase()
+
+  if (!isVerified) {
+    const updatedPayment = await saveAiPaymentRecord(c.env.APP_DB, txRef, {
+      ...payment,
+      status: providerStatus || 'failed',
+      providerResponse,
+    })
+    return { verified: false, payment: updatedPayment }
+  }
+
+  const paidAt = new Date().toISOString()
+  const claim = await c.env.APP_DB.prepare(`UPDATE settings SET payload = json_set(payload, '$.status', 'paid', '$.paidAt', ?) WHERE studentId = ? AND COALESCE(json_extract(payload, '$.status'), '') <> 'paid'`)
+    .bind(paidAt, getAiPaymentSettingsKey(txRef)).run()
+  if (!Number(claim?.meta?.changes || 0)) return { verified: true, payment: await getAiPaymentRecord(c.env.APP_DB, txRef) }
+
+  try {
+    await grantAiCredits(c.env.APP_DB, {
+      tenantId: payment.tenantId,
+      settingsKey: payment.settingsKey,
+      quantity: payment.quantity,
+      target: payment.target,
+    })
+  } catch (error) {
+    // Nothing was granted: release the claim so Flutterwave's retry or the customer can settle it.
+    await saveAiPaymentRecord(c.env.APP_DB, txRef, payment).catch(() => {})
+    throw error
+  }
+
+  const updatedPayment = await saveAiPaymentRecord(c.env.APP_DB, txRef, {
+    ...payment,
+    status: 'paid',
+    paidAt,
+    flutterwaveTxId: String(providerResponse?.data?.id || payment.flutterwaveTxId || '').trim(),
+    providerResponse,
+  })
+  return { verified: true, payment: updatedPayment }
+}
+
 app.post('/api/ai/access/top-up/verify', authenticate, async (c) => {
   try {
     const actor = await resolveAiActor(c.env.APP_DB, c.var.user || {})
@@ -17924,43 +17991,22 @@ app.post('/api/ai/access/top-up/verify', authenticate, async (c) => {
       return c.json({ success: true, verified: true, payment, access })
     }
 
-    const providerResponse = await verifyFlutterwavePayment(c, txRef)
-    const providerStatus = String(providerResponse?.data?.status || '').trim().toLowerCase()
-    const providerAmount = Number(providerResponse?.data?.amount || 0)
-    const isVerified = ['successful', 'completed'].includes(providerStatus)
-      && Math.abs(providerAmount - Number(payment.amountNaira || 0)) < 0.01
-
-    if (!isVerified) {
-      const updatedPayment = await saveAiPaymentRecord(c.env.APP_DB, txRef, {
-        ...payment,
-        status: providerStatus || 'failed',
-        providerResponse,
-      })
+    const settled = await settleAiCreditPayment(c, txRef, payment)
+    if (!settled.verified) {
       return c.json({
         success: false,
         verified: false,
-        payment: updatedPayment,
+        payment: settled.payment,
         message: 'Flutterwave has not confirmed this AI credit payment yet.',
       }, 400)
     }
 
-    const access = await grantAiCredits(c.env.APP_DB, {
+    const access = await summarizeAiAccess(c.env.APP_DB, {
       tenantId: payment.tenantId,
       settingsKey: payment.settingsKey,
-      quantity: payment.quantity,
-      target: payment.target,
       policyOverrides: getAiPolicyOverrides(actor),
     })
-
-    const updatedPayment = await saveAiPaymentRecord(c.env.APP_DB, txRef, {
-      ...payment,
-      status: 'paid',
-      paidAt: new Date().toISOString(),
-      flutterwaveTxId: String(providerResponse?.data?.id || payment.flutterwaveTxId || '').trim(),
-      providerResponse,
-    })
-
-    return c.json({ success: true, verified: true, payment: updatedPayment, access })
+    return c.json({ success: true, verified: true, payment: settled.payment, access })
   } catch (error) {
     return c.json({ success: false, message: error instanceof Error ? error.message : 'Could not verify AI credit payment.' }, 500)
   }
@@ -39124,7 +39170,28 @@ app.post('/api/webhooks/payments/flutterwave', async (c) => {
   if (!expected || c.req.header('verif-hash') !== expected) return c.text('forbidden', 401)
   const body = await c.req.json().catch(() => ({})) as Record<string, any>
   const txRef = String(body?.data?.tx_ref || body?.txRef || '')
-  // Message units and practice passes are handled here; the payload is a hint — Flutterwave is asked directly.
+  // Every checkout Ndovera opens is settled here; the payload is a hint — Flutterwave is asked directly.
+  if (txRef.startsWith('tenant_')) {
+    try {
+      if (!(await getTenantPaymentByTxRef(c.env.APP_DB, txRef))) return c.json({ success: true, ignored: true })
+      const result = await verifyTenantPaymentForState(c, txRef, 'flutterwave-webhook')
+      return c.json({ success: true, verified: result.verified })
+    } catch (error) {
+      console.error('Onboarding payment webhook failed', error)
+      return c.json({ success: false }, 500)
+    }
+  }
+  if (txRef.startsWith('ai_')) {
+    try {
+      const payment = await getAiPaymentRecord(c.env.APP_DB, txRef)
+      if (!payment) return c.json({ success: true, ignored: true })
+      const result = await settleAiCreditPayment(c, txRef, payment)
+      return c.json({ success: true, verified: result.verified })
+    } catch (error) {
+      console.error('AI credit webhook failed', error)
+      return c.json({ success: false }, 500)
+    }
+  }
   if (txRef.startsWith('prac_')) {
     try {
       const result = await settlePracticePayment(c, txRef)

@@ -15,6 +15,10 @@ const FLUTTERWAVE_SECRETS = [
     name: 'FLUTTERWAVE_ENCRYPTION_KEY',
     label: 'Flutterwave encryption key',
   },
+  {
+    name: 'FLUTTERWAVE_WEBHOOK_HASH',
+    label: 'Flutterwave webhook secret hash',
+  },
 ];
 
 const __filename = fileURLToPath(import.meta.url);
