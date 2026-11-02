@@ -229,6 +229,95 @@ test('a school can price a class pass before the session register has been opene
   assert.deepEqual([empty.status, empty.body.message], [400, 'That class has no students this session.'])
 })
 
+test('a school buys a Subject or JAMB pass for a whole senior class; each student gets it, at 30% off', async () => {
+  const db = await setup()
+  await withFlutterwave(async () => {
+    assert.equal((await call(db, 'owner', 'GET', '/api/school/finance/context')).status, 200) // creates the tables
+    db.db.exec(`INSERT INTO academic_sessions (id, tenant_id, name, start_date, end_date, status, created_at, updated_at) VALUES ('s1', 'school-a', '2026/2027', '2020-09-01', '2099-07-31', 'active', 'x', 'x');
+      INSERT INTO academic_terms (id, tenant_id, session_id, name, sequence, start_date, end_date, status, created_at, updated_at) VALUES ('t1', 'school-a', 's1', 'First Term', 1, '2020-09-01', '2099-07-31', 'active', 'x', 'x');
+      INSERT INTO session_enrollments (id, tenant_id, session_id, session_name, student_id, student_name, class_id, class_name, status, created_at, updated_at) VALUES
+        ('e1', 'school-a', 's1', '2026/2027', 's-ss2', 'One', 'ss2a', 'SS 2', 'active', 'x', 'x'), ('e2', 'school-a', 's1', '2026/2027', 's-ss2b', 'Two', 'ss2a', 'SS 2', 'active', 'x', 'x')`)
+
+    // The class's own subjects are offered; a class outside SS gets none, and students can't ask.
+    const offered = await call(db, 'owner', 'GET', '/api/practice-arena/school/subjects?classId=ss2a')
+    assert.equal(offered.status, 200, JSON.stringify(offered.body))
+    assert.deepEqual(offered.body.subjects.map(subject => subject.key).sort(), SUBJECTS.map(([, key]) => key).sort())
+    assert.deepEqual((await call(db, 'owner', 'GET', '/api/practice-arena/school/subjects?classId=jss1a')).body.subjects, [])
+    assert.equal((await call(db, 'ss2', 'GET', '/api/practice-arena/school/subjects?classId=ss2a')).status, 403)
+
+    const subject = await call(db, 'owner', 'POST', '/api/practice-arena/passes/checkout', { bundle: 'subject', subjectKey: 'physics', classId: 'ss2a', amountNaira: 1 })
+    assert.equal(subject.status, 200, JSON.stringify(subject.body))
+    assert.equal(subject.body.amountNaira, 2 * 210, '₦300 less 30%, for two students')
+    flutterwave.verify[subject.body.txRef] = { status: 'successful', amount: 420 }
+    assert.equal((await call(db, 'owner', 'POST', '/api/practice-arena/passes/verify', { txRef: subject.body.txRef })).body.granted, 2)
+    const held = db.db.prepare(`SELECT student_id, subject_key FROM practice_passes WHERE payment_ref = ? ORDER BY student_id`).all(subject.body.txRef)
+    assert.deepEqual(held.map(row => [row.student_id, row.subject_key]), [['s-ss2', 'physics'], ['s-ss2b', 'physics']])
+
+    assert.equal((await call(db, 'owner', 'POST', '/api/practice-arena/passes/quote', { bundle: 'subject', subjectKey: 'geography', classId: 'ss2a' })).status, 400, 'not a subject this class offers')
+    assert.equal((await call(db, 'owner', 'POST', '/api/practice-arena/passes/quote', { bundle: 'jamb', jambSubjects: ['physics'], classId: 'ss2a' })).status, 400, 'three subjects')
+
+    // JAMB, once the bank holds enough checked questions.
+    const chosen = ['mathematics', 'physics', 'chemistry']
+    assert.equal((await call(db, 'owner', 'POST', '/api/practice-arena/passes/quote', { bundle: 'jamb', jambSubjects: chosen, classId: 'ss2a' })).status, 409, 'not ready yet')
+    stockExam(db, 'jamb', 'mathematics', 300)
+    assert.equal((await call(db, 'ami', 'POST', '/api/ami/practice/recount', {})).status, 200)
+    const jamb = await call(db, 'owner', 'POST', '/api/practice-arena/passes/checkout', { bundle: 'jamb', jambSubjects: chosen, classId: 'ss2a' })
+    assert.equal(jamb.status, 200, JSON.stringify(jamb.body))
+    assert.equal(jamb.body.amountNaira, 2 * 2100, '₦3,000 less 30%, for two students')
+    flutterwave.verify[jamb.body.txRef] = { status: 'successful', amount: 4200 }
+    assert.equal((await call(db, 'owner', 'POST', '/api/practice-arena/passes/verify', { txRef: jamb.body.txRef })).body.granted, 2)
+    const jambPasses = db.db.prepare(`SELECT subjects_json FROM practice_passes WHERE payment_ref = ?`).all(jamb.body.txRef)
+    assert.deepEqual(jambPasses.map(row => JSON.parse(row.subjects_json)), [chosen, chosen])
+  })
+})
+
+test('published SS curriculum topics also feed WAEC and NECO, and a curriculum named after an examination feeds that examination', async () => {
+  const db = await setup()
+  const calls = { generate: 0, review: 0 }
+  const env = { AI: model(calls) }
+  await call(db, 'ami', 'GET', '/api/ami/practice/builder', null, env)
+  const stamp = new Date().toISOString()
+  db.db.exec(`
+    INSERT INTO curricula (id, name, status, created_at, updated_at) VALUES ('c1', 'NERDC CURRICULUM', 'published', '${stamp}', '${stamp}'), ('c2', 'JAMB Syllabus', 'published', '${stamp}', '${stamp}'), ('c3', 'Draft SS scheme', 'draft', '${stamp}', '${stamp}');
+    INSERT INTO curriculum_topics (id, curriculum_id, class_label, subject, topic, created_at, updated_at) VALUES
+      ('ss', 'c1', 'SS 2', 'Biology', 'Cell structure', '${stamp}', '${stamp}'),
+      ('jss', 'c1', 'JSS 1', 'Biology', 'Living things', '${stamp}', '${stamp}'),
+      ('jamb', 'c2', '', 'Physics', 'Motion', '${stamp}', '${stamp}'),
+      ('draft', 'c3', 'SS 1', 'Biology', 'Not published', '${stamp}', '${stamp}');
+  `)
+  const step = () => call(db, 'ami', 'POST', '/api/ami/practice/builder/step', {}, env)
+  const first = await step()
+  assert.equal(first.status, 200, JSON.stringify(first.body))
+  const queue = db.db.prepare(`SELECT source_id, exam, difficulty, target, priority FROM practice_build_queue WHERE source_type = 'curriculum_exam' ORDER BY exam`).all().map(row => ({ ...row }))
+  assert.deepEqual(queue, [
+    { source_id: 'jamb', exam: 'jamb', difficulty: 'external', target: 40, priority: 1 },
+    { source_id: 'ss', exam: 'neco', difficulty: 'external', target: 8, priority: 1 },
+    { source_id: 'ss', exam: 'waec', difficulty: 'external', target: 8, priority: 1 },
+  ], 'junior and draft topics add no examination questions')
+  // SS topics still get their ordinary class practice too.
+  assert.equal(db.db.prepare(`SELECT COUNT(*) AS n FROM practice_build_queue WHERE source_type = 'curriculum_topic' AND source_id = 'ss'`).get().n, 2)
+  // The examinations fill together: JAMB's larger target doesn't keep WAEC and NECO waiting.
+  await step()
+  await step() // every third step is a quality check
+  await step()
+  const written = db.db.prepare(`SELECT exam, topic, COUNT(*) AS n FROM question_bank WHERE origin_type = 'ndovera_builder:curriculum_exam' GROUP BY exam, topic ORDER BY exam`).all().map(row => [row.exam, row.topic, row.n])
+  assert.deepEqual(written, [['jamb', 'Motion', 8], ['neco', 'Cell structure', 8], ['waec', 'Cell structure', 8]])
+})
+
+test('topics the planner passed before examination questions came from curricula are still picked up', async () => {
+  const db = await setup()
+  const env = { AI: model({ generate: 0, review: 0 }) }
+  await call(db, 'ami', 'GET', '/api/ami/practice/builder', null, env)
+  const stamp = new Date().toISOString()
+  db.db.exec(`
+    INSERT INTO curricula (id, name, status, created_at, updated_at) VALUES ('c1', 'NERDC CURRICULUM', 'published', '${stamp}', '${stamp}');
+    INSERT INTO curriculum_topics (id, curriculum_id, class_label, subject, topic, created_at, updated_at) VALUES ('ss', 'c1', 'SS 2', 'Biology', 'Cell structure', '${stamp}', '${stamp}');
+    INSERT INTO practice_build_state (key, value, updated_at) VALUES ('cursor:curriculum', '9999|z', '${stamp}');
+  `)
+  await call(db, 'ami', 'POST', '/api/ami/practice/builder/step', {}, env)
+  assert.equal(db.db.prepare(`SELECT COUNT(*) AS n FROM practice_build_queue WHERE source_type = 'curriculum_exam' AND source_id = 'ss'`).get().n, 2)
+})
+
 test('the night builder writes questions from syllabus topics and materials, continues each night, and checks and upgrades questions to their standard', async () => {
   const db = await setup()
   const calls = { generate: 0, review: 0 }

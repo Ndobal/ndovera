@@ -6,6 +6,8 @@
 //     Common Entrance) → questions of that examination's standard, EXAM_TOPIC_TARGET each;
 //   - published curriculum topics (Ndovera's and schools') → Simple and Intermediate
 //     questions for that class level, CURRICULUM_TARGET each;
+//   - the same topics for examinations: SS topics → WAEC and NECO questions, and a curriculum
+//     named after an examination (e.g. a JAMB syllabus) → that examination's questions;
 //   - every material a teacher shares (its Ndovera note) → questions grounded in it, NOTE_TARGET each.
 // Each night continues where the last one stopped: the queue keeps how many each source
 // still needs, and the least-served sources go first (examinations first of all).
@@ -29,6 +31,7 @@ import type { ExamKey } from './practicePasses'
 
 export const EXAM_TOPIC_TARGET = 40
 export const CURRICULUM_TARGET = 16
+export const CURRICULUM_EXAM_TARGET = 8
 export const NOTE_TARGET = 8
 export const DEFAULT_BUILD_SETTINGS = { batchesPerNight: 12, reviewEvery: 3 }
 const PAGE = 100
@@ -148,6 +151,15 @@ export async function planSources(db: D1Database) {
     const subjectKey = subjectKeyOf(row.subject || row.subject_key)
     if (!level || !subjectKey || !row.topic) return []
     return (['simple', 'intermediate'] as const).map(difficulty => ({ id: `curriculum:${row.id}:${difficulty}`, sourceType: 'curriculum_topic', sourceId: String(row.id), subjectKey, subjectName: String(row.subject || row.subject_key), section: level.section, rank: level.rank, difficulty, topic: String(row.topic), contextRef: `curriculum_topic:${row.id}`, target: CURRICULUM_TARGET, priority: 3 }))
+  })
+  // The same topics for examinations, on their own cursor so topics already planned are picked up too.
+  queued += await page('curriculum_exam', `SELECT ct.id, ct.topic, ct.subject, ct.subject_key, ct.class_label, ct.updated_at, c.name AS curriculum_name FROM curriculum_topics ct JOIN curricula c ON c.id = ct.curriculum_id
+      WHERE c.status = 'published' AND (ct.updated_at > ? OR (ct.updated_at = ? AND ct.id > ?)) ORDER BY ct.updated_at, ct.id LIMIT ?`, row => {
+    const subjectKey = subjectKeyOf(row.subject || row.subject_key)
+    if (!subjectKey || !row.topic) return []
+    const named = examKeyOf(row.curriculum_name)
+    const exams: ExamKey[] = named ? [named] : levelOf(row.class_label)?.section === 'senior' ? ['waec', 'neco'] : []
+    return exams.map(exam => ({ id: `curriculum_exam:${row.id}:${exam}`, sourceType: 'curriculum_exam', sourceId: String(row.id), subjectKey, subjectName: String(row.subject || row.subject_key), section: EXAMS[exam].section, rank: EXAM_RANK[EXAMS[exam].section], difficulty: 'external', exam, topic: String(row.topic), contextRef: `curriculum_topic:${row.id}`, target: named ? EXAM_TOPIC_TARGET : CURRICULUM_EXAM_TARGET, priority: 1 }))
   })
   // Every material shared in any school (its Ndovera note).
   queued += await page('notes', `SELECT n.id, n.material_id, n.subject_name, n.topic, n.title, n.updated_at, ${LEVEL_NAME_SQL('c')} AS class_name FROM ndovera_notes n LEFT JOIN classes c ON c.id = n.class_id

@@ -17186,6 +17186,18 @@ app.get('/api/practice-arena/school', authenticate, async (c) => {
   } catch (error) { return practiceFailure(c, error, 'Could not load practice passes.') }
 })
 
+/** A senior class's subjects, for its Subject and JAMB passes. Asked for when the class is chosen, to keep the page's reads small. */
+app.get('/api/practice-arena/school/subjects', authenticate, async (c) => {
+  try {
+    const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})
+    if (!hasRequiredRole(actor.role, PASS_SCHOOL_BUYERS)) throw new PassError('For the Owner, Head of School and Accountant.', 403)
+    const db = c.env.APP_DB
+    const student = await practiceStudent(db, { tenantId: actor.tenantId, studentId: '', studentName: '', classId: String(c.req.query('classId') || '') })
+    if (student.section !== 'senior') return c.json({ success: true, subjects: [] })
+    return c.json({ success: true, subjects: (await offeredSubjects(db, student)).map(item => ({ key: item.key, name: item.name })) })
+  } catch (error) { return practiceFailure(c, error, 'Could not load the class subjects.') }
+})
+
 app.post('/api/practice-arena/devices/clear', authenticate, async (c) => {
   try {
     const actor = await resolveSchoolAttendanceActor(c.env.APP_DB, c.var.user || {})

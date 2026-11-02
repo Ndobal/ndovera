@@ -37,6 +37,8 @@ import CompetitionByLinkPage from '../../features/competitions/CompetitionByLink
 import SetupCentrePage from '../../features/setup/SetupCentrePage';
 import TermsCalendarPage from '../../features/calendar/TermsCalendarPage';
 import GrowthCentrePage from '../../features/growth/GrowthCentrePage';
+import PracticePassesPage from '../../features/practice-arena/PracticePassesPage';
+import { getSchoolPassSubjects, getSchoolPasses } from '../../features/practice-arena/practiceApi';
 import { getGrowthCentre, getGrowthConversation } from '../../features/school/services/schoolApi';
 import { getTermsCalendar } from '../../features/school/services/schoolApi';
 import { getSchoolSetup } from '../../features/school/services/schoolApi';
@@ -61,6 +63,7 @@ jest.mock('../../features/classroom/studentTasks', () => ({
 }));
 jest.mock('../hooks/useFeatureFlags', () => () => ({ featureFlags: { aurasEnabled: true, farmingModeEnabled: true } }));
 jest.mock('../../features/communications/communicationsApi', () => ({ ...jest.requireActual('../../features/communications/communicationsApi'), getInbox: jest.fn(() => Promise.resolve({ items: [] })), getMyChoices: jest.fn(), saveMyChoices: jest.fn(() => Promise.resolve({})), markInboxRead: jest.fn(() => Promise.resolve({})) }));
+jest.mock('../../features/practice-arena/practiceApi', () => ({ ...jest.requireActual('../../features/practice-arena/practiceApi'), getSchoolPasses: jest.fn(), getSchoolPassSubjects: jest.fn() }));
 jest.mock('jspdf', () => ({ jsPDF: jest.fn() }));
 jest.mock('html2canvas', () => jest.fn());
 jest.mock('../hooks/useTenantPwaManifest', () => ({ getTenantPwaInfo: () => null }));
@@ -499,6 +502,17 @@ test('the Setup Centre is readable in every status, with new-session readiness',
   await screen.findByText('New session readiness');
   expect(screen.getAllByRole('link', { name: 'Fix now' }).length).toBeGreaterThan(0);
   expectReadable(container, 'Setup Centre');
+});
+
+test('practice passes are readable: a senior class buying JAMB, its subjects and the note to the school', async () => {
+  const bundle = (key, label) => ({ key, label, priceNaira: 3000, schoolPriceNaira: 2100, blurb: `${label} blurb`, ready: true });
+  getSchoolPasses.mockResolvedValue({ success: true, discount: 0.3, classes: [{ id: 'ss2a', name: 'SS 2 A', section: 'senior', bundles: [bundle('subject', 'Subject Pass'), bundle('jamb', 'JAMB UTME Prep')] }] });
+  getSchoolPassSubjects.mockResolvedValue({ success: true, subjects: [{ key: 'physics', name: 'Physics' }, { key: 'chemistry', name: 'Chemistry' }] });
+  const { container } = render(<PracticePassesPage mode="school" />);
+  fireEvent.change(await screen.findByLabelText('Class'), { target: { value: 'ss2a' } });
+  fireEvent.change(screen.getByLabelText('Pass'), { target: { value: 'jamb' } });
+  fireEvent.click(await screen.findByLabelText('Physics'));
+  expectReadable(container, 'Practice passes');
 });
 
 test('the Terms Calendar is readable: a version waiting for approval, problems, the session at a glance and history', async () => {

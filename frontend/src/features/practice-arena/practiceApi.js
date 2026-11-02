@@ -101,7 +101,8 @@ export const checkoutPass = payload => request('/api/practice-arena/passes/check
 export const verifyPass = txRef => request('/api/practice-arena/passes/verify', { method: 'POST', body: { txRef } });
 export const getFamilyPasses = () => request('/api/practice-arena/family');
 export const getSchoolPasses = () => request('/api/practice-arena/school');
-export const clearStudentDevices = studentId => request('/api/practice-arena/devices/clear', { method: 'POST', body: { studentId } });
+export const getSchoolPassSubjects = classId => request(`/api/practice-arena/school/subjects?classId=${encodeURIComponent(classId)}`);
+export const clearStudentDevices =studentId => request('/api/practice-arena/devices/clear', { method: 'POST', body: { studentId } });
 export const naira = value => `₦${(Number(value) || 0).toLocaleString()}`;
 
 export async function packSavedAt(subjectKey) {

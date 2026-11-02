@@ -25,7 +25,7 @@ async function call(path, options = {}) {
 }
 
 const EXAM_LABELS = { waec: 'WAEC', neco: 'NECO', jamb: 'JAMB', bece: 'BECE', common_entrance: 'Common Entrance' };
-const SOURCE_LABELS = { exam_topic: 'Examination syllabus topics', curriculum_topic: 'Curriculum topics', material: 'Teachers\' materials' };
+const SOURCE_LABELS = { exam_topic: 'Examination syllabus topics', curriculum_topic: 'Curriculum topics', curriculum_exam: 'Examination questions from curricula', material: 'Teachers\' materials' };
 
 /**
  * The night builder (00:00–04:00 Lagos): questions written from every syllabus, curriculum

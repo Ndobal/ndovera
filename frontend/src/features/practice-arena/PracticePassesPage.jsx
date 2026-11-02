@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { checkoutPass, clearStudentDevices, getFamilyPasses, getSchoolPasses, naira, quotePass, verifyPass } from './practiceApi';
+import { checkoutPass, clearStudentDevices, getFamilyPasses, getSchoolPassSubjects, getSchoolPasses, naira, quotePass, verifyPass } from './practiceApi';
 import { getPeople } from '../school/services/schoolApi';
 import { askConfirm } from '../../shared/components/AppDialog';
 
@@ -10,7 +10,7 @@ const CARD = 'rounded-3xl border border-slate-200 bg-white p-5 shadow-sm dark:bo
 const FIELD = 'rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 dark:border-white/20 dark:bg-slate-900 dark:text-white';
 const PRIMARY = 'rounded-2xl bg-indigo-600 px-4 py-2 text-sm font-black text-white disabled:opacity-50';
 
-function BundlePicker({ bundles, subjects, onBuy, busy, school = false }) {
+function BundlePicker({ bundles, subjects, onBuy, busy, school = false, subjectsNote = '' }) {
   const [bundle, setBundle] = useState('');
   const [subjectKey, setSubjectKey] = useState('');
   const [jamb, setJamb] = useState([]);
@@ -24,14 +24,16 @@ function BundlePicker({ bundles, subjects, onBuy, busy, school = false }) {
           <option value="">Choose a pass…</option>
           {bundles.map(item => <option key={item.key} value={item.key} disabled={!item.ready}>{item.label} — {naira(school ? item.schoolPriceNaira : item.priceNaira)}{school ? ' per student' : ''}{item.ready ? '' : ' (being prepared)'}</option>)}
         </select>
-        {needsSubject && (
+        {needsSubject && !subjectsNote && (
           <select aria-label="Subject" className={FIELD} value={subjectKey} onChange={event => setSubjectKey(event.target.value)}>
             <option value="">Subject…</option>{subjects.map(subject => <option key={subject.key} value={subject.key}>{subject.name}</option>)}
           </select>
         )}
       </div>
       {chosen && <p className="text-xs text-slate-600 dark:text-slate-300">{chosen.blurb}</p>}
-      {needsJamb && (
+      {(needsSubject || needsJamb) && subjectsNote && <p className="text-sm font-semibold text-slate-700 dark:text-slate-200">{subjectsNote}</p>}
+      {school && needsJamb && !subjectsNote && <p className="text-xs text-slate-600 dark:text-slate-300">Every student in the class gets the same three subjects, plus Use of English.</p>}
+      {needsJamb && !subjectsNote && (
         <div className="flex flex-wrap gap-1" role="group" aria-label="Three JAMB subjects">
           {subjects.filter(subject => subject.key !== 'english').map(subject => (
             <label key={subject.key} className={`cursor-pointer rounded-full border px-2 py-0.5 text-xs font-semibold ${jamb.includes(subject.key) ? 'border-indigo-500 bg-indigo-600 text-white' : 'border-slate-300 text-slate-700 dark:text-slate-200'}`}>
@@ -51,6 +53,7 @@ export default function PracticePassesPage({ mode }) {
   const [notice, setNotice] = useState('');
   const [busy, setBusy] = useState(false);
   const [classId, setClassId] = useState('');
+  const [classSubjects, setClassSubjects] = useState({ classId: '', subjects: [] });
   const [search, setSearch] = useState('');
   const [found, setFound] = useState([]);
   const load = useCallback(() => (mode === 'parent' ? getFamilyPasses() : getSchoolPasses()).then(setData).catch(err => setNotice(err.message)), [mode]);
@@ -61,6 +64,14 @@ export default function PracticePassesPage({ mode }) {
     if (!txRef) return;
     verifyPass(txRef).then(result => setNotice(result.message)).catch(err => setNotice(err.message)).finally(() => { try { window.history.replaceState({}, '', window.location.pathname); } catch { /* ignore */ } load(); });
   }, [load]);
+  useEffect(() => {
+    if (mode === 'parent' || !classId) return undefined;
+    let current = true;
+    getSchoolPassSubjects(classId)
+      .then(result => { if (current) setClassSubjects({ classId, subjects: result?.subjects || [] }); })
+      .catch(err => { if (current) setNotice(err.message); });
+    return () => { current = false; };
+  }, [mode, classId]);
   useEffect(() => {
     if (mode === 'parent' || search.trim().length < 2) { setFound([]); return undefined; }
     const timer = setTimeout(() => getPeople({ search, role: 'student', limit: 8 }).then(result => setFound(result?.people || [])).catch(() => setFound([])), 300);
@@ -80,10 +91,16 @@ export default function PracticePassesPage({ mode }) {
   }
 
   const klass = data?.classes?.find(item => item.id === classId);
+  const subjectsLoaded = classSubjects.classId === classId;
+  const subjects = subjectsLoaded ? classSubjects.subjects : [];
+  let subjectsNote = '';
+  if (klass?.section !== 'senior') subjectsNote = 'Whole-class Subject Passes are for SS 1 to SS 3.';
+  else if (!subjectsLoaded) subjectsNote = "Loading this class's subjects…";
+  else if (!subjects.length) subjectsNote = 'This class has no subjects set up yet. Add its subjects first.';
   return (
     <div className="mx-auto max-w-5xl space-y-5 p-4 md:p-8">
-      <section className="rounded-[2rem] bg-gradient-to-br from-indigo-700 to-fuchsia-700 p-6 text-white shadow-xl">
-        <p className="text-xs font-bold uppercase tracking-[0.2em] text-white/75">Practice Arena</p>
+      <section className="rounded-[2rem] bg-indigo-700 bg-gradient-to-br from-indigo-700 to-fuchsia-700 p-6 text-white shadow-xl">
+        <p className="text-xs font-bold uppercase tracking-[0.2em] text-white/90">Practice Arena</p>
         <h1 className="text-3xl font-black">Practice passes</h1>
         <p className="mt-1 max-w-2xl text-white/90">{mode === 'parent' ? "Every subject is free at your child's class level, 10 new questions a day. Passes remove the daily limit for the term, or give a full year of WAEC, NECO, JAMB, BECE or Common Entrance practice with timed mocks." : `Buy passes for a whole class at ${Math.round((data?.discount || 0.3) * 100)}% off. Each student gets their own pass.`}</p>
       </section>
@@ -100,12 +117,12 @@ export default function PracticePassesPage({ mode }) {
       ) : (
         <>
           <section className={`${CARD} space-y-3`}>
-            <label className="block text-xs font-black uppercase text-slate-500">Class
+            <label className="block text-xs font-black uppercase text-slate-600 dark:text-slate-300">Class
               <select className={`${FIELD} mt-1 block`} value={classId} onChange={event => setClassId(event.target.value)}>
                 <option value="">Choose a class…</option>{data.classes.filter(item => item.section).map(item => <option key={item.id} value={item.id}>{item.name}</option>)}
               </select>
             </label>
-            {klass && <BundlePicker school bundles={klass.bundles} subjects={[]} busy={busy} onBuy={payload => pay({ ...payload, classId })} />}
+            {klass && <BundlePicker key={classId} school bundles={klass.bundles} subjects={subjects} subjectsNote={subjectsNote} busy={busy} onBuy={payload => pay({ ...payload, classId })} />}
           </section>
           <section className={`${CARD} space-y-2`}>
             <h2 className="font-black text-slate-900 dark:text-white">A student changed phone?</h2>
