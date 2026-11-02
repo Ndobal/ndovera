@@ -17086,7 +17086,13 @@ async function passBuyer(c: any, body: Record<string, any>) {
   if (hasRequiredRole(actor.role, PASS_SCHOOL_BUYERS)) {
     const classId = String(body.classId || '')
     const period = await getCurrentAcademicPeriod(db, actor.tenantId)
-    const enrolled = period.sessionId && classId ? await listSessionEnrollments(db, { tenantId: actor.tenantId, sessionId: period.sessionId, classId, status: 'active' }) : []
+    const readRegister = () => period.sessionId && classId ? listSessionEnrollments(db, { tenantId: actor.tenantId, sessionId: period.sessionId, classId, status: 'active' }) : Promise.resolve([])
+    let enrolled = await readRegister()
+    // The register fills on first use, as it does for fees: a class isn't empty just because nobody has opened it yet.
+    if (!enrolled.length && period.sessionId && classId) {
+      await autoEnrolSession(db, { tenantId: actor.tenantId, sessionId: period.sessionId, actorId: actor.actorId }).catch(() => null)
+      enrolled = await readRegister()
+    }
     if (!enrolled.length) throw new PassError('That class has no students this session.', 400)
     const sample = { ...(await practiceStudent(db, { tenantId: actor.tenantId, studentId: enrolled[0].studentId, studentName: enrolled[0].studentName || '', classId })), termId: await practiceTermId(db, actor.tenantId) }
     return { actor, email, forSchool: true, students: enrolled.map(row => ({ ...sample, studentId: row.studentId, studentName: row.studentName || '' })), section: sample.section, offered: (await offeredSubjects(db, sample)).map(item => item.key), held: undefined }

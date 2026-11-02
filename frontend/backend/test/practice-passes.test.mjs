@@ -214,6 +214,21 @@ test('every subject free at school level, 10 questions a day across subjects; pa
   })
 })
 
+test('a school can price a class pass before the session register has been opened; an empty class still says so', async () => {
+  const db = await setup()
+  assert.equal((await call(db, 'owner', 'GET', '/api/school/finance/context')).status, 200) // creates the tables
+  db.db.exec(`INSERT INTO academic_sessions (id, tenant_id, name, start_date, end_date, status, created_at, updated_at) VALUES ('s1', 'school-a', '2026/2027', '2020-09-01', '2099-07-31', 'active', 'x', 'x');
+    INSERT INTO academic_terms (id, tenant_id, session_id, name, sequence, start_date, end_date, status, created_at, updated_at) VALUES ('t1', 'school-a', 's1', 'First Term', 1, '2020-09-01', '2099-07-31', 'active', 'x', 'x');
+    INSERT INTO classes (id, tenantId, name, arm) VALUES ('ss3empty', 'school-a', 'SS 3', 'Z');`)
+  assert.equal(db.db.prepare(`SELECT COUNT(*) AS n FROM session_enrollments WHERE tenant_id = 'school-a'`).get().n, 0, 'nobody on the register yet')
+  const quote = await call(db, 'owner', 'POST', '/api/practice-arena/passes/quote', { bundle: 'all', classId: 'ss2a' })
+  assert.equal(quote.status, 200, JSON.stringify(quote.body))
+  assert.equal(quote.body.quote.students, 1)
+  assert.equal(db.db.prepare(`SELECT COUNT(*) AS n FROM session_enrollments WHERE tenant_id = 'school-a' AND class_id = 'ss2a' AND status = 'active'`).get().n, 1)
+  const empty = await call(db, 'owner', 'POST', '/api/practice-arena/passes/quote', { bundle: 'all', classId: 'ss3empty' })
+  assert.deepEqual([empty.status, empty.body.message], [400, 'That class has no students this session.'])
+})
+
 test('the night builder writes questions from syllabus topics and materials, continues each night, and checks and upgrades questions to their standard', async () => {
   const db = await setup()
   const calls = { generate: 0, review: 0 }
